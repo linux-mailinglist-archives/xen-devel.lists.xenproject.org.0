@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56DDDB3E29E
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 14:24:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1104646.1455692 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FF4FB3E2EB
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 14:31:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1104668.1455702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut3Zo-0005B9-LK; Mon, 01 Sep 2025 12:24:00 +0000
+	id 1ut3h3-0006wy-HQ; Mon, 01 Sep 2025 12:31:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1104646.1455692; Mon, 01 Sep 2025 12:24:00 +0000
+Received: by outflank-mailman (output) from mailman id 1104668.1455702; Mon, 01 Sep 2025 12:31:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut3Zo-00058O-I3; Mon, 01 Sep 2025 12:24:00 +0000
-Received: by outflank-mailman (input) for mailman id 1104646;
- Mon, 01 Sep 2025 12:23:58 +0000
+	id 1ut3h3-0006uY-Dr; Mon, 01 Sep 2025 12:31:29 +0000
+Received: by outflank-mailman (input) for mailman id 1104668;
+ Mon, 01 Sep 2025 12:31:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ut3Zm-00058I-CD
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 12:23:58 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jJuX=3M=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1ut3h1-0006uS-Mk
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 12:31:27 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2009::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8776f9f6-872e-11f0-8dd7-1b34d833f44b;
- Mon, 01 Sep 2025 14:23:56 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-afede1b3d05so719600766b.2
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 05:23:56 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aff104fcdd5sm700706966b.55.2025.09.01.05.23.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 05:23:55 -0700 (PDT)
+ id 929f6354-872f-11f0-8dd7-1b34d833f44b;
+ Mon, 01 Sep 2025 14:31:25 +0200 (CEST)
+Received: from MW4PR04CA0139.namprd04.prod.outlook.com (2603:10b6:303:84::24)
+ by DS0PR12MB7557.namprd12.prod.outlook.com (2603:10b6:8:130::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.24; Mon, 1 Sep
+ 2025 12:31:20 +0000
+Received: from SJ5PEPF000001F4.namprd05.prod.outlook.com
+ (2603:10b6:303:84:cafe::d4) by MW4PR04CA0139.outlook.office365.com
+ (2603:10b6:303:84::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.27 via Frontend Transport; Mon,
+ 1 Sep 2025 12:31:19 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001F4.mail.protection.outlook.com (10.167.242.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9094.14 via Frontend Transport; Mon, 1 Sep 2025 12:31:19 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 1 Sep
+ 2025 07:31:18 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Mon, 1 Sep
+ 2025 05:31:18 -0700
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
+ Frontend Transport; Mon, 1 Sep 2025 07:31:17 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,194 +63,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8776f9f6-872e-11f0-8dd7-1b34d833f44b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756729435; x=1757334235; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9ICf4Z1OI9cz3RcvcYspDyjxfK1HZRvacT3ENaDNmmE=;
-        b=PRIlMvCWv1w2PxSKgTka+7cWxwuQVGWiKokJzucjqDJhITgSR06e4w5o/d3UTOvmoI
-         Xe8cAX3CifuXS6zk8MY8XUBguxFA6Hu5dfJb0Xulp80LQ6DV0Wds2RTuRXWmk5miwDPj
-         cv5VnF4xco9V350z3AHqHqJbpn1Y9GbddB1RXKgXRRoYRDDsObCyPsjQll66uOXA+baf
-         7EOmlt321NZKWb1NwWONmbE4lrM5HCBShKMlIS8J2Vc8ovWcGaAxZ/ZARtG09EWJuS9f
-         kA/XQJbRRYsKRQiE53Pbzl7kHkIA8KzK5IQQXKxMuCOl2i3LQN08eINg5irwSZ+5OrTB
-         8YIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756729435; x=1757334235;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9ICf4Z1OI9cz3RcvcYspDyjxfK1HZRvacT3ENaDNmmE=;
-        b=WM2kDJhFcbg3A/nAZo7j9Rpr4LRyQeaQQ3hcjI70ndAwpKKjGcTpGA24R+EqKdSGhm
-         GfJVQnu6n1pueGXegig52JOIMR6kskVd4dCPCXIAa1lulBZWoMF11tTz/fAKfkvoNBM5
-         hG0eJHAuoPSvemf70Urwf1mrE8kgcZM8i662CO7Xd9I5RnBD3qn2cj3o557gNhjsh9OP
-         Mc3ggwgpGuIgI6EPUwHXrXwK/4kJ7yTte0lGYnHccLkrpmFBOW7oxPgEvvv6oHG/4gnC
-         osQcvHQUNvAdi8y6EJLuf2SwSmwE81/3KFl0QuoFJALOuk6okSo5MQuLeTP2pBkr+F4M
-         4M8A==
-X-Forwarded-Encrypted: i=1; AJvYcCUHpPtZbgn6i/63Xh+2AW5K9TL5+w+Vjcw1F6rxd12/CGrw/dC2FOsNsrTvvl+0hqvVyj54Xq5ZaWk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyniuwKUeJq3j95942U2xNQnZQvkOhlL1fbY2tpU8efE65IPg6p
-	d1yy2M7DJ4pCZcy9Vnhr7jeLNfd6z37J232SGdmsWJNNDI3fMhZkWT6viiZmTt7q/ZyXm7LXX8N
-	RbHw=
-X-Gm-Gg: ASbGncvXHDl4u5d/vaQCKKjLRzOWUQAZZN/W2uEYVj62EX1psHRThCAPD5IC/9oW3Po
-	IuuiCF/JjAyPi8ehW5j9UApwQJdsfKn4qO5I4C6leEk7eEaiifAAXzNYAyx/I3ttoqW6HKGFHDF
-	bGd62hWA1mohmcPf4/uqR+xFG1cGVaQC7WQUY9C08yA6du3uLFyCxK86+Ilc3uOlP/GGryqeanv
-	KPTQa1lUo9F57oeypZPQUyNBhZ4oJ7LYZPd16TVH7shlM9aVerlBiN1SLnZEzUSkaqrdNYfIHgA
-	lI8Go2pJClPSGIwdMlsjUxNh2pTd+j4iawq5lv8DKHaNkOa7LgvcGA9zteLejwH/QlO+xqyrpVX
-	stPlZE6O50czqkes8jmdxSxur36FZ/rcW9MfzYIioCQfT9+nn0t37c0sF0b8H7Dd6k2EZ/8h8dC
-	/MIK+ZJ30=
-X-Google-Smtp-Source: AGHT+IFNOY2tOo4qDEdbgY+RWjV4ljJE/6u98kg+2/jQo2uGXNX9X61XahggRZK9mRfoLWnPJrOvHg==
-X-Received: by 2002:a17:906:6a20:b0:afe:dbfb:b123 with SMTP id a640c23a62f3a-b01f20c7034mr749593766b.64.1756729435440;
-        Mon, 01 Sep 2025 05:23:55 -0700 (PDT)
-Message-ID: <107e57a0-6f13-4827-8548-ef17d10136e5@suse.com>
-Date: Mon, 1 Sep 2025 14:23:54 +0200
+X-Inumbo-ID: 929f6354-872f-11f0-8dd7-1b34d833f44b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PFKkVpVgr2XTVtSAAqL573ZNe7lSimJRG3taNV0kWoY4DHzl/rRKaYMgfY3xUnIuF0lR1m2LBStNE4e5A218G1jc8xXBcpw9rQRyCvNzDjHtMj8o9xIwB0G6xJpnitCpcNYDwI+I1GNopxTxnqF26Y1D65tc+6BH0SbFJhn0x0hPUc0WzWv/LIwNo12h61iuyt0qZPYd8z3n7LcNewL6uLGc3c/G0SdqsrfewlQu2YFe8Ldm0q8z0OWql5Lcc6SWm4kL2BtZqyOj4aFkaW/AZPa4QP9GqppJvc4125zhuRKMSRbvYZ0W0Jd871+r0Ga8VE+1oUg8btmyqY/VeZRrSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZINCsSVfi528h5fUVouY6U4yEbjaaOkc6p5bmzSrQsY=;
+ b=RYIPpE83wJ1WPYUexb3iXSjemkAmIcOWaKhapE3sxX6AbDaq813+dZANU/f0SpsoJiEIEHCZ7F8IE8yzVgMakt77byygR/gLg+4SsGXueoejSfWqgQO/iUxI0r18MQ5E9fC9LV3ZXBuA39XcRkQ3FlPpdZPqwtS+Y06kXyAQhWGSJLQNES5B5Cb5TX6c0Z5UaOZK2FMabQfdXXbjV1JLYghrzTm0yJvWs2kCtR79j3KBEDqADasK76Z/G3cvqNN58s91WfIEfMmCogcLyF9TsuScNFijhapMlmFUAvPbkNopB24Y264tBBxs9Vyd4W4rWUvzQnkiLQvdkAwaDaglvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZINCsSVfi528h5fUVouY6U4yEbjaaOkc6p5bmzSrQsY=;
+ b=SE5Ml0EpY7d3S+3u04jORFIq8uXTWNVyPL1YdF2I8otoTzeVC3iaFbMeHnDepK5Tkd6jb20ixhW9jtEFMwd3Xn/xhvsEGASWhG3eJaZMlv7Gpa3Q60leQEe4aO05efE+9YBW2zvac/dhI33LCv20eoQC5ob6/BB06Enf0BGF56Q=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <bertrand.marquis@arm.com>,
+	<michal.orzel@amd.com>, <volodymyr_babchuk@epam.com>,
+	<mark.brown@parrylabs.com>, <matthew.l.weber3@boeing.com>,
+	<sookyung.ahn@boeing.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Subject: [RFC PATCH v1] imagebuilder: Add a script to check the sanity of device tree
+Date: Mon, 1 Sep 2025 13:31:03 +0100
+Message-ID: <20250901123103.11418-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 20/23] x86/pv: Exception handling in FRED mode
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250828150409.901315-1-andrew.cooper3@citrix.com>
- <20250828150409.901315-21-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250828150409.901315-21-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F4:EE_|DS0PR12MB7557:EE_
+X-MS-Office365-Filtering-Correlation-Id: 93d8869b-bedb-4074-d30c-08dde95373dd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?QWJua0QwSVl0UDJ3K0NRWVhQYWFSRXFRdENWZVpPMzRWRXJxb3RSVGFWNHc1?=
+ =?utf-8?B?KzZsZngzNnJOU2F4QTdiQXp6all0cFZMZFVUenZjTnFtMmJVMkE4WUhaRmts?=
+ =?utf-8?B?UklINVREOG9lL1dOcm4vYStKbEpPbnByUHhyVGtZNXNVTVY5d0tZUVI2L2xN?=
+ =?utf-8?B?WEljZG8rZUNmbXVYa3JRSlpvM09VQkREVzJCVkd3THF0NUFRRHNPMkp6YlFl?=
+ =?utf-8?B?Z0lIeURpYWdHNHcxemNmb0Jxc0t4YWNBNVYvMmRJL05HOEdWV2dOQ1NnY2dk?=
+ =?utf-8?B?TGVnWE5RYm9ZS3prM2lnS2FldlJFR1JJN01YMXo1eEc1Q1NpSURFZTZ1N3F2?=
+ =?utf-8?B?NlpwNUJmQTM1R1pBUGlxc2JBRGNGam1hYU42VjhXWEV3a005YVF6Z0c0ekdJ?=
+ =?utf-8?B?QTNVMzJxOGFqMnhiY0VhazQvMFhHRDRIMnBDMHdxdHBEM3haTHdvMzE2Y3lm?=
+ =?utf-8?B?dUdvUXNIUlJmOXlmNWN0VmZtUXpCR3RVb1JoNE44aWNVUERNUndpZG5yeGpV?=
+ =?utf-8?B?WGxPcmhaZ3dYUEtUVUNMS05HNSsxNEVBVlZrSFhiZy91Y0NmZU9DL1dNT0Mr?=
+ =?utf-8?B?R1Vqb2QwZGMyUm5oaWVUQ2Jvd3FEdjdBdGFmcXlmWnB2b2lMWjBhWmZ6NXlu?=
+ =?utf-8?B?ZVloZmVlUUx6U2FRemtIV2lOM3d6MnJqZW1DcmExSVhPK0YrU2l0SkkxSHFN?=
+ =?utf-8?B?VnhWY3VBckFjdmh5OGEwSk1YMWhVVTFQaS83VktoVjJMUEJIZjFiQzQ1VkRN?=
+ =?utf-8?B?cUdRQVFFeVk5TnhUcXN6b1pjanJLTUFMT0RmM1h1VzNJcGRHdWQ4Q1ZHbXhE?=
+ =?utf-8?B?UHk2R2VxRDNPOFZwSWJGNmt5N1A5SUx2M3BaYW5OOFJTRytHZmxrL3lFZzNH?=
+ =?utf-8?B?czVtREVNMzhvUW5WbmRzbzdVZjA4ajhUMTJjNXhHMnkwZnhRT25GOElKYWNs?=
+ =?utf-8?B?NDRpWnRWQ0JnK2FiNnVobFlnZ2J3b2djYjZteXY1aWR6NkFCNDBFbnBwMHRL?=
+ =?utf-8?B?Nmx6NFZIekpyRUIyVnVZakZ2aGdUYkYzSkU2WDNIOXRrdW80YmdoZkFaWUdZ?=
+ =?utf-8?B?MWp0QUVxamNhWjE4WlJHUDV3UWxxTzlqZktQbDVkRXByT3B4WnhvKzBKa3Ux?=
+ =?utf-8?B?akEzS1pYc2Y5UTg4MTR5c3ZZNEZYdWNGYzVUVmhvaGxibC8vbk1oSWdJVTZk?=
+ =?utf-8?B?WFkzbWxjOHY1UkVlbzIxU0hKdlJIUGhoeXNnNGRTOFk5RnA4a2wxV1grQWpQ?=
+ =?utf-8?B?Y3RTZWNSdlM4UHRxd3hIRW0rZVFrUHp1dUI5OU84eXZqeVc4YktuYUxJQkdG?=
+ =?utf-8?B?YjcxbDRnRk91RE9UU1ZTS1llMmZmUVF6VEN0MDFqY3dTVE5mb0VnaE85SC82?=
+ =?utf-8?B?YnlZcDY0Q0l6alJBVnY5Q090blR1V1pqbC9LbE9qVmRUZjRrUk9LS3laeFo5?=
+ =?utf-8?B?UFdiT1daWlVNd3ppZ3p6U21uSU5qeitMV2Y0WkdzZUlPWUZUdFV1MnZyajhP?=
+ =?utf-8?B?U2FKUWFycUZMS3dpMkZ2LzBIazgzRDFuaUdIN3liR1oxd0U1cXFJVnY0STJD?=
+ =?utf-8?B?anNXQm9qYUtFclNsSzB2RnhuUmcwN0d0ZC9QN2lmQVhwOVdoeVVHck40MUQz?=
+ =?utf-8?B?dHh5ZjFiMFgvMCtYTVRFU3ZMMkNKMzd6dGpreFdvYUNTK2NpZlBtK252UVBz?=
+ =?utf-8?B?QnA1Rm1TamlaM2QrM240bHByNlFiY1VpTU5uVkNTZXhMR09aTDNvVWFoT3Ar?=
+ =?utf-8?B?Q20ybDY3N2F6cktFdURXNEtPYWNnWlQvb0R4OEFWNHA2NzdwWDEyWHVrUGg5?=
+ =?utf-8?B?SjJkbDJkOWpxRlpCM3dLalpYcktEQXl5OTNsaUNNKzgxRDArdTdZN3M2R1Z1?=
+ =?utf-8?B?TThjVHhzTTlSSFVScytmZUt2UlF3ZkRvYjFOeEl1WjUwb290WCtzZm9oeWpV?=
+ =?utf-8?B?TUZTVzY1UWRqTmpHeHJhZTFXUzNEQWNNa0N4NXBsK2FRUmsvRnQzaGx3b3g2?=
+ =?utf-8?B?enhZbTRGdlpBZi9xMVZFY21GZ3NiYkRKSWJIYWpPalM3L2w2ZUN1ampvVHND?=
+ =?utf-8?Q?mj6NDm?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2025 12:31:19.0611
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93d8869b-bedb-4074-d30c-08dde95373dd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001F4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7557
 
-On 28.08.2025 17:04, Andrew Cooper wrote:
-> --- a/xen/arch/x86/traps.c
-> +++ b/xen/arch/x86/traps.c
-> @@ -2265,9 +2265,83 @@ void asmlinkage check_ist_exit(const struct cpu_user_regs *regs, bool ist_exit)
->  
->  void asmlinkage entry_from_pv(struct cpu_user_regs *regs)
->  {
-> +    struct fred_info *fi = cpu_regs_fred_info(regs);
-> +    uint8_t type = regs->fred_ss.type;
-> +    uint8_t vec = regs->fred_ss.vector;
-> +
->      /* Copy fred_ss.vector into entry_vector as IDT delivery would have done. */
-> -    regs->entry_vector = regs->fred_ss.vector;
-> +    regs->entry_vector = vec;
-> +
-> +    if ( !IS_ENABLED(CONFIG_PV) )
-> +        goto fatal;
-> +
-> +    /*
-> +     * First, handle the asynchronous or fatal events.  These are either
-> +     * unrelated to the interrupted context, or may not have valid context
-> +     * recorded, and all have special rules on how/whether to re-enable IRQs.
-> +     */
-> +    switch ( type )
-> +    {
-> +    case X86_ET_EXT_INTR:
-> +        return do_IRQ(regs);
->  
-> +    case X86_ET_NMI:
-> +        return do_nmi(regs);
-> +
-> +    case X86_ET_HW_EXC:
-> +        switch ( vec )
-> +        {
-> +        case X86_EXC_DF: return do_double_fault(regs);
-> +        case X86_EXC_MC: return do_machine_check(regs);
-> +        }
-> +        break;
-> +    }
+Xen gives a panic if certain nodes are not present in the device tree. In order
+to prevent this panic, scripts/dt_sanity.py is written so that it checks if the
+node/s are present. If the node/s are not present, the script gives an error.
 
-This switch() is identical to entry_from_xen()'s. Fold into a helper?
+User is expected to run the script against the device tree before booting Xen
+with dtb.
 
-> +    /*
-> +     * With the asynchronous events handled, what remains are the synchronous
-> +     * ones.  Guest context always had interrupts enabled.
-> +     */
-> +    local_irq_enable();
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+---
 
-In the comment, maybe s/Guest/PV guest/?
+Hi,
+ 
+In some of the discussions with the safety experts and upstream folks, one issue
+that kept coming up is there are lots of ‘faulty system configuration’ and
+‘impossible conditions’ checks in Xen.  While these conditions can rarely occur,
+Xen would panic if any of such condition does occur.
+ 
+For example, during bootup, Xen parses the device tree .
+It checks if the device tree nodes are present for timer, interrupt-controller,
+memory, cpu, etc. If these nodes are not present, Xen panics.
+ 
+As part of safety certification, we have 3 aims :-
+1. We want to reduce the instances where Xen can panic. This is to improve the
+robustness.
 
-> +    switch ( type )
-> +    {
-> +    case X86_ET_HW_EXC:
-> +    case X86_ET_PRIV_SW_EXC:
-> +    case X86_ET_SW_EXC:
-> +        switch ( vec )
-> +        {
-> +        case X86_EXC_PF:  handle_PF(regs, fi->edata); break;
-> +        case X86_EXC_GP:  do_general_protection(regs); break;
-> +        case X86_EXC_UD:  do_invalid_op(regs); break;
-> +        case X86_EXC_NM:  do_device_not_available(regs); break;
-> +        case X86_EXC_BP:  do_int3(regs); break;
-> +        case X86_EXC_DB:  handle_DB(regs, fi->edata); break;
-> +
-> +        case X86_EXC_DE:
-> +        case X86_EXC_OF:
-> +        case X86_EXC_BR:
-> +        case X86_EXC_NP:
-> +        case X86_EXC_SS:
-> +        case X86_EXC_MF:
-> +        case X86_EXC_AC:
-> +        case X86_EXC_XM:
-> +            do_trap(regs);
-> +            break;
-> +
-> +        case X86_EXC_CP:  do_entry_CP(regs); break;
-> +
-> +        default:
-> +            goto fatal;
-> +        }
-> +        break;
+2. We need to define a safe state when a fault is triggered in Xen. As faults
+(like the one mentioned here) are triggered during boot time and it is due to
+incorrect system configuration in device tree, it is hard to define a safe state.
 
-This again looks identical to when entry_from_xen() has. Maybe, instead of
-a helper for each switch(), we could have a common always-inline function
-(with all necessary parametrization) that both invoke?
+3. Avoid validating all the instances of system configuration errors. By having
+an external tool, we push the responsibility to the system integrator. The system
+integrator needs to run the tool to validate all the properties that Xen checks
+for. This can be a justification for the coverage gap for those checks in Xen.
+ 
+Thus, I have come up with the attached python script. In the script, we parse the
+device tree to check if the nodes with the compatible properties (as specified in
+config file) are present. If not, the script will throw an error.
+ 
+ README.md            | 13 +++++++++++++
+ scripts/dt_sanity.py | 33 +++++++++++++++++++++++++++++++++
+ 2 files changed, 46 insertions(+)
+ create mode 100644 scripts/dt_sanity.py
 
-> --- a/xen/arch/x86/x86_64/entry.S
-> +++ b/xen/arch/x86/x86_64/entry.S
-> @@ -63,7 +63,7 @@ UNLIKELY_END(syscall_no_callback)
->          /* Conditionally clear DF */
->          and   %esi, UREGS_eflags(%rsp)
->  /* %rbx: struct vcpu */
-> -test_all_events:
-> +LABEL(test_all_events, 0)
->          ASSERT_NOT_IN_ATOMIC
->          cli                             # tests must not race interrupts
->  /*test_softirqs:*/
-> @@ -152,6 +152,8 @@ END(switch_to_kernel)
->  FUNC_LOCAL(restore_all_guest)
->          ASSERT_INTERRUPTS_DISABLED
->  
-> +        ALTERNATIVE "", "jmp eretu_exit_to_guest", X86_FEATURE_XEN_FRED
-> +
->          /* Stash guest SPEC_CTRL value while we can read struct vcpu. */
->          mov VCPU_arch_msrs(%rbx), %rdx
+diff --git a/README.md b/README.md
+index 7b68cf5..413de3f 100644
+--- a/README.md
++++ b/README.md
+@@ -456,3 +456,16 @@ This section defines config file debug options
+ 
+ - DBG_FDT_PRINT_CHOSEN specifies that U-Boot script command to print DT "chosen"
+   node will be added to the boot script.
++
++## dt_sanity.py
++
++This script parses xen device tree source and checks if the required nodes are
++present. If not, the script gives an error.
++
++To use it, first write a config file like `config` where you can keep the
++compatible strings to be checked:
++
++```
++arm,gic-v3
++arm,armv8-timer
++```
+diff --git a/scripts/dt_sanity.py b/scripts/dt_sanity.py
+new file mode 100644
+index 0000000..171947f
+--- /dev/null
++++ b/scripts/dt_sanity.py
+@@ -0,0 +1,33 @@
++import argparse
++from pydevicetree import Devicetree
++import sys
++
++def load_compatible_strings(config_path):
++    with open(config_path, 'r') as file:
++        return [line.strip() for line in file if line.strip()]
++
++def check_compatible_nodes(dts_path):
++    # Parse the DTS file
++    tree = Devicetree.parseFile(dts_path)
++
++    # Search nodes for compatible properties in the global array
++    for compatible in compatible_strings:
++        nodes = tree.match(compatible)
++        if len(nodes) == 0:
++            print(f"Error: Node with compatible '{compatible}' not found.")
++            sys.exit(1)
++
++if __name__ == "__main__":
++    # Set up argument parser
++    parser = argparse.ArgumentParser(description="Check for Xen specific nodes in a DTS file.")
++    parser.add_argument("dts_file", help="Path to the DTS file")
++    parser.add_argument("config_file", help="Path to the configuration file with compatible strings")
++
++    # Parse arguments
++    args = parser.parse_args()
++
++    # Load compatible strings from the config file
++    compatible_strings = load_compatible_strings(args.config_file)
++
++    # Use the provided DTS file path
++    check_compatible_nodes(args.dts_file)
+-- 
+2.25.1
 
-I assume it's deliberate that you don't "consume" this insn into the
-alternative, but without the description saying anything it's not quite
-clear why.
-
-Jan
 
