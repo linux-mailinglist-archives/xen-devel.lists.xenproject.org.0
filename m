@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E5FEB40E8C
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 22:25:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1107422.1457859 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6431B40E91
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 22:32:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1107447.1457870 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utXYt-0004rg-7D; Tue, 02 Sep 2025 20:25:03 +0000
+	id 1utXfh-0006vb-T3; Tue, 02 Sep 2025 20:32:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1107422.1457859; Tue, 02 Sep 2025 20:25:03 +0000
+Received: by outflank-mailman (output) from mailman id 1107447.1457870; Tue, 02 Sep 2025 20:32:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utXYt-0004pS-47; Tue, 02 Sep 2025 20:25:03 +0000
-Received: by outflank-mailman (input) for mailman id 1107422;
- Tue, 02 Sep 2025 20:25:01 +0000
+	id 1utXfh-0006tn-QK; Tue, 02 Sep 2025 20:32:05 +0000
+Received: by outflank-mailman (input) for mailman id 1107447;
+ Tue, 02 Sep 2025 20:32:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mdbA=3N=epam.com=Volodymyr_Babchuk@srs-se1.protection.inumbo.net>)
- id 1utXYr-0004ol-J0
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 20:25:01 +0000
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c207::3])
+ id 1utXff-0006th-UZ
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 20:32:04 +0000
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c202::7])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e5bbe793-883a-11f0-8dd7-1b34d833f44b;
- Tue, 02 Sep 2025 22:24:59 +0200 (CEST)
+ id e14c969d-883b-11f0-8dd7-1b34d833f44b;
+ Tue, 02 Sep 2025 22:32:01 +0200 (CEST)
 Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- (2603:10a6:150:16a::21) by AM0PR03MB6308.eurprd03.prod.outlook.com
- (2603:10a6:20b:152::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.21; Tue, 2 Sep
- 2025 20:24:56 +0000
+ (2603:10a6:150:16a::21) by GV1PR03MB10208.eurprd03.prod.outlook.com
+ (2603:10a6:150:16e::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Tue, 2 Sep
+ 2025 20:31:57 +0000
 Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
  ([fe80::a41e:5aa8:e298:757e]) by GV1PR03MB10456.eurprd03.prod.outlook.com
  ([fe80::a41e:5aa8:e298:757e%5]) with mapi id 15.20.9073.026; Tue, 2 Sep 2025
- 20:24:56 +0000
+ 20:31:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,41 +47,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5bbe793-883a-11f0-8dd7-1b34d833f44b
+X-Inumbo-ID: e14c969d-883b-11f0-8dd7-1b34d833f44b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eYg20URorB5RWrCo5d1MCqPJwHGfDfzYm9DnUqjUc++QsLCmc512N8fqITCT5z8VOg+szVJilvo7S8eAWXlPCVVV7w+G9fqR5vIXh+mK3XbLyi07EYMYFN1WxJSo2qmU7aHQVhxp8+eLfAL0BRk3FG38XCM8LAwETky5JkK4C3oTVvTSLXq4lcDMhAIZs00GEMrtXCF3oPmey8PUmgck89GGOEzF4ylFdl2zZtpt23moav3xaL7SC8hrfs3th6L6Y6T3y29MSyyyMKMH+JXM+QgydPou1INiqfbXAXH94+hakFt9jHW9E/sj3bgJGFDSyx2mNU3BQJ5McsEdtLpEpg==
+ b=t8hGgysEbR8wGy1Go2WJoRI01GgHkF4rt3wgAh32tS1ebNUc8OjUDuarzPkJ34NePyWA2HmUFIaKktBC0Y/xT+/VI+ADvN6xiV7n8tAKZyr15BIXC83aprDWw/+dT7CqhOL4rGPYrGAnsx9xd9vKhjiqgWZkrghFkPPSTO8JJEs42sNDiim5mZajk3NnKQzRqwvKKQSw1n1/aExsL2q/IoDYe+GajLGs01WDFIhdvDbbL0DFB+Vzr0AY/IfMYDLYLymasNTcIU2s5OIMYyhjQnBBVSc/FGAWHYz/K+ce4JR6idL+Ee5IsS7ohId9tLKFBtPe6b/+FRdZQH/WNDJqYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BiaST0ehVkbNnNRoWfpImv+RIARwbEGB6zRzp/50Fy8=;
- b=dEuKXk9XMM8SZ+gaxcSR8foENeZuHpd5LdR1MAavH2Rj7qGrqU763aUUXOcCsDIkfP17HqH1xk2B3dtJn/ltO5U34uiFLC5fL2K56IfC0qNgNEwINfzDVE3GTHSHqLVdG16eEc0esXuu11ftOsRbh2//mLroO0SwJCqOUgyUtgQo+kJEZ2KzfS9TfBm15E6tL78fQuaIQikjxulDTnpRe8G2yD0ZE+Lz/h9TFOYWUmRGLKtNAGmf2TdPFNx+1oxmHrxReRMnNzhKLUn9UIPiXUkR1hnkLp5fPLjPrqUMTkHAxjRjS6uYfjVFjfsakVIVF+hOd3j5NumSbYcJaAaNbA==
+ bh=obyXw49Y6GCbPfYlK437SY6qiLtFejO9rSyOMNUoTVA=;
+ b=XZilVSJ+3aVbNv7EMBl6T4a40GAIYScvD+DZGpx8TaR1bEy4iR6a7siIBwxFSy55zyuGFdCYP3WXZdrEi+/MwufRqkNQyRQqSk8iXb10DBkuoYS4y8EJ2yLfhcGwS56bPjol4JOcem1licyG3ysY6VEFj11UBYHk+NU2JhL9lLF/5CHNARJaf19p9cgQG0zvcimxhy1bGbkGfRlWyCOPRFsk40EKpUBleGYn8mhhI9s0AQsLDyg24hOYraEG+Wy+rPYIO0Sn5FvlWQ45S1XxBmglHZY1P5XBfmG6han8yEI6r6eoRgJ+mn+d2jadv0q31bem4sIqcdjc1v3Dj5TFAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BiaST0ehVkbNnNRoWfpImv+RIARwbEGB6zRzp/50Fy8=;
- b=Rp8IQsVNOqQzAvUyPuVeglC++gQfxi8GABu/47ybjXBGm2DYYkUtsfnS08cFHH8bTZLaBVerbB4cmut9L250kx+rls9N2JNAFIziffx0I9XzSvYPmmhwyRecN7BYLqMNakGVxjVf60u1YkRoJDkMmiMYW3v7PiwPxsPRfMAPyAVuRBz7gSMU4mLGaI+B8QPa565Zh/O1/Ra1Uu/yJBgF0rMCeKtCU60ORblKf48N1+zUboC/jcZX7/kEq8HdXbwugv3x8qOfZs83eVHut704YIoAU8vJkTZYgYE1xJtXBBGzk0gLeKbHKC7dJ07UfdyatqcFzg74qwqO2iOIbnw6Zg==
+ bh=obyXw49Y6GCbPfYlK437SY6qiLtFejO9rSyOMNUoTVA=;
+ b=LYMNCKQtmU/eCn8kTyoTZNCl/fB8hgG/uIvaZHer/+ZsMRIx62ZD9H3J0bls+C+X7rpybCj9AV2NquvIUOn7DHtUW3+YMcthypCg3T9/LQGhSDWhzWFo7u3lpVjp4544T6D+dMSMlf2USKfSmiUNqM2TPz8Uje66eCcvGCz2BZQpBXu0e3M907ZOJFdMvUKVfL1fVzbfeMMjbQ9TeTsD9zxoCOFZFYcnLKCescQ4Uke94vN04r3gmYZ0+W0NfQ9GWsYFXpMl24xd/pa3rDxLmUR883OXfSrdTdhOq2HdfNok3XtaYUBrX9NMV4ZHnLUY54Zeekk4A2hkCjL18l+57g==
 From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 To: Mykola Kvach <xakep.amatop@gmail.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mirela
- Simonovic <mirela.simonovic@aggios.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Saeed
- Nowshadi <saeed.nowshadi@xilinx.com>, Mykyta Poturai
-	<Mykyta_Poturai@epam.com>, Mykola Kvach <Mykola_Kvach@epam.com>
-Subject: Re: [PATCH v6 02/13] xen/arm: gic-v2: Implement GIC suspend/resume
- functions
-Thread-Topic: [PATCH v6 02/13] xen/arm: gic-v2: Implement GIC suspend/resume
- functions
-Thread-Index: AQHcG4064D97SFCG3kWQLRIi5MFCzA==
-Date: Tue, 2 Sep 2025 20:24:55 +0000
-Message-ID: <87bjnswqjs.fsf@epam.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola
+ Kvach <Mykola_Kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>
+Subject: Re: [PATCH v6 04/13] xen/arm: Don't release IRQs on suspend
+Thread-Topic: [PATCH v6 04/13] xen/arm: Don't release IRQs on suspend
+Thread-Index: AQHcG4070V6Pun9gkU+MtbSzx0yRtQ==
+Date: Tue, 2 Sep 2025 20:31:57 +0000
+Message-ID: <875xe0wq83.fsf@epam.com>
 References: <cover.1756763487.git.mykola_kvach@epam.com>
-	<c1744d379d7f04fa832b3283cb95bb3cbf5a9e79.1756763487.git.mykola_kvach@epam.com>
+	<293acbb653b5f4d5bf71dc459f9de3e729bff3e1.1756763487.git.mykola_kvach@epam.com>
 In-Reply-To:
- <c1744d379d7f04fa832b3283cb95bb3cbf5a9e79.1756763487.git.mykola_kvach@epam.com>
-	(Mykola Kvach's message of "Tue, 2 Sep 2025 01:10:06 +0300")
+ <293acbb653b5f4d5bf71dc459f9de3e729bff3e1.1756763487.git.mykola_kvach@epam.com>
+	(Mykola Kvach's message of "Tue, 2 Sep 2025 01:10:08 +0300")
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -89,71 +85,71 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|AM0PR03MB6308:EE_
-x-ms-office365-filtering-correlation-id: 84213983-04bf-4477-23f0-08ddea5ec801
+x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|GV1PR03MB10208:EE_
+x-ms-office365-filtering-correlation-id: 24a7b23c-1001-4709-3702-08ddea5fc309
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|1800799024|366016|42112799006|38070700018;
+ BCL:0;ARA:13230040|376014|42112799006|366016|1800799024|38070700018;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?KO/vzXUEEcqhbNs14weiPoVJAGjL+2tbXEpA3og0vfrbt09oVgAbX1p44l?=
- =?iso-8859-1?Q?JtudJtqcRf24xBiFzWaPlXk+8AIlK6z08SQ7lfZvaRtMnj70jpqA33OvAo?=
- =?iso-8859-1?Q?vKyfv9Q4qzfU3yJmSjfP1Fodur/L86Gn2xNCXOmtCc/WYlY94cBu77pRwv?=
- =?iso-8859-1?Q?LGkpug0PzOkQXcaQAxUKHwaT7Ceo9Ye8l8ICUd6Kq9QbrXAU++V2j4B+HQ?=
- =?iso-8859-1?Q?/Dz6DjA2hEb3//jxEUaIPRCuUI77htJzIWwjEfc8+Sv3q+v7CS/Sd9qCyd?=
- =?iso-8859-1?Q?FX+Rr1QAv7yVrRXszm7sBJyTTHNWd/fJ8OXOb0v3oWwWhOd8jX3rfTbKpJ?=
- =?iso-8859-1?Q?QKy8zKQn3auxgMhQxgXAAHmc3ViHQeNwWD1PAImbiwZHybptj+ydogi8TO?=
- =?iso-8859-1?Q?8y9aiHdjTlRMabUOAo9hZuYUgt5mfzvjeW2kq9UkSEpKrESwwf9/iHEe7I?=
- =?iso-8859-1?Q?RJafPYtWoXYS1s89AV/qUUquy5MZtfMcTkCR7Kddh9u+OsxyIuMf4BhvfP?=
- =?iso-8859-1?Q?vji1kxFrxNoxWsyxC/xpWhiTfwS+RCXB9agRCRU0XOMd77pGIyUumVE2uC?=
- =?iso-8859-1?Q?y9eKszbNJAAjW8j6vUpS5j0OVXdkXiES2Vn+CMIMUW8qqg0dKdlg83Mmuw?=
- =?iso-8859-1?Q?IHHx4Spw6lBhpPfFFkTcxrP+hWYUoavLAmQ7c4ES83dWGYmGoeyva2iXyi?=
- =?iso-8859-1?Q?5QxE66JbY1NMcQ+CKnMO/SEFoh/nYwNrMitaobjFsS3yy4zaXQSivAq/1A?=
- =?iso-8859-1?Q?/jTTfczSQtra869eh8AzdIUSa3nOZKOe07Y9XyRraSPbGYTs/xlnLy65Jt?=
- =?iso-8859-1?Q?C0A8uAlFMHbNR6nRK+4ubuR/UQt4FMiT3WxR91BgBSiin1XERHdjO4ZvlU?=
- =?iso-8859-1?Q?krX7NzzBIYg0oqEa9MdH54mF3Zs/bxcqKKtOe15tDiiRPTRQIQRkkOeru3?=
- =?iso-8859-1?Q?uS5xse0Ju24r7n2augZPbfqiFggPkW5daYRSNwenyhttOucYq6dEXAwK+d?=
- =?iso-8859-1?Q?VVYa0rcQlpQiW8bYlmzeOCw6GpDeQrdOJ1yNfOSi8yQSzLpopJFVYafGUZ?=
- =?iso-8859-1?Q?C1kPvGkDJqHyr4b8aAjKa9OhCM9qkdNU+ZlilpUGquDPFs+c3hCbM90EM1?=
- =?iso-8859-1?Q?M4V1A8U5TqeoL5TF3Q3Frgo4B0Y5QSYsuJlEyuksqqj5G1ZrfWsXI2c4Cw?=
- =?iso-8859-1?Q?Aqic7th0kBaWPLeiObns73fEXFZOaxCBx+2Lo5HsuLYBENTsNOfev3etjR?=
- =?iso-8859-1?Q?FmPrZ+hUFeXM/KXjli0IquxXoB54ZZCUQn/mSYLdgbkShlC1eMYrn/zGfp?=
- =?iso-8859-1?Q?WNNJxMHgAwbjmb1JXdViMQwUaNa+I7rZ48XLlYmm2er93tOrDDSdTWgTvu?=
- =?iso-8859-1?Q?jgCH0LQcqqE6cCMyVBQL6pTQMOj1D2puef5loFp3+11lVXE0RdmCLbwg5s?=
- =?iso-8859-1?Q?AgMTGpR2YdSk7CICQUJVm+PPY0LSkTXYXSKKHxcS+9Z5r54tsPxPyM6RPx?=
- =?iso-8859-1?Q?fb6tA3k1jkq56gjICNQFJ5u4R9zfhxL1Fcoy1qjHclaw=3D=3D?=
+ =?iso-8859-1?Q?Ix57hZpw2SnZ0EywFxXqR7x1zSUZNiEhzM7iCEVdn3zUBoVpmCuGbCc62K?=
+ =?iso-8859-1?Q?c7eAZbDvBcK7EkjLPPhbmev2e41h5mQ+WnjZcudH5fgEWO1brP8frGuOeX?=
+ =?iso-8859-1?Q?v7CWIX3J5blvKnQbHMZ9NgWcWTTcsKc5hxCLC5yAyS7qCXwMbcM6yDGXFx?=
+ =?iso-8859-1?Q?eEeT7aioilvgAkEqb/Ai9qc+fOKpuSjxp3R/DySxLr4dqQvvd/YXf+oAdt?=
+ =?iso-8859-1?Q?r/Fqz/OO+q/f02jpFHdFDQaLb2nRTt6tY5gWAGGW4ib5NRIj19Y83bwYW0?=
+ =?iso-8859-1?Q?ajoQRPiljkTbNH/Q6RXJG+xTHN6o0+BHYBe3qHR5JPU3K6WkmYTpVUq7Q8?=
+ =?iso-8859-1?Q?F5J3Pau/sfQwVXImqjGXui7ugWH9IWd/qULh3kXWv2slx6hwRCjLwtQO6i?=
+ =?iso-8859-1?Q?Gpc+peIOrXN6rHt+Q4DhQg4muq4+hIdRzyEkXUFzwr20rm3nksTEhcwjIr?=
+ =?iso-8859-1?Q?WMYOvNMuj3jwFwXpP/zyYKeExOiX/JvkQR/PPy6WqYy7Ndpt3afM4U3X2+?=
+ =?iso-8859-1?Q?GDnRzHOICIL0v8qipyj1EeW84+undw1E5d0LqXFd3m6XfCQ3QMKohP9QwJ?=
+ =?iso-8859-1?Q?H5de0+S6+bhGLtCY3yvVBiAk2XODDGIhyqBAUECbrkw0B0dlyLqx+v0qKf?=
+ =?iso-8859-1?Q?sZxQD6CgTJ1ZQqgPVP6LJDqJzka17+Vg09ghP4lMFTLYKVBPukNOKNITpt?=
+ =?iso-8859-1?Q?P80e9I+jTQuMZguGrVQja1CLthc7NRC1tm5U8vPglJE7oMzDKNN/MQZi3C?=
+ =?iso-8859-1?Q?L5KIbWrzuDzamdjUnoaPwbqkZiltN3IkpQwHmEnEwq+/7jGcz+Xc/PxJsx?=
+ =?iso-8859-1?Q?H18FCqY3f1LNd3yjhtZCcDW1MyyEg+piII41qnxSU2dJuReJfpEF/+J0f+?=
+ =?iso-8859-1?Q?NQgWRmTJebFAERc7pipNIq3lSnD5d3P95vGP2dLxXjE9E4jCe71RF+ijCt?=
+ =?iso-8859-1?Q?qOyy4Uzcbs5UwO8NdgxVPgVeFyBFEPbF6dUGd/29JD6D6HAz9f+iuukCL5?=
+ =?iso-8859-1?Q?DRkEvdJwqhfgMTgJf+MbLr5Ie0llCnWc7NvIJwtTng45xcCD5nyzmMzyA3?=
+ =?iso-8859-1?Q?WLZ5y6swnDsStoy98N7dx8vAM1Zs9+cbPaGHBbQ5RxuF6LzRrtqyNEYl5M?=
+ =?iso-8859-1?Q?ay7sdro4tfOANzw6O6TkF+DfIl65mcA0fQXZ7NdOFJf3OAnZZEtektoQ/J?=
+ =?iso-8859-1?Q?akw7iEL6kBGbmompg7/7oLbNkskeXdpgwYwyVaqKb2GhPy0qt23MfXpxY7?=
+ =?iso-8859-1?Q?edg3rKKVS2wlee54pARPai1aCrmA8NcWOZwRFqb/8hDVdWTNNTXrwv8yOR?=
+ =?iso-8859-1?Q?xpTqWgeMPMPW5QSKOA9yZ+f+pgDH0kzya1NWCTC29UmWXjkkuO0syUuW8k?=
+ =?iso-8859-1?Q?ab21sW1611O0daPw5+uuubk2EqJ1IclMK7EDB+Nwocxd+KfOCorrKy0+Pb?=
+ =?iso-8859-1?Q?EAShQC0IKM9CqHkh3j9lUj9aluoro+u1dZXrl/G55jKVcLr2WwnUkXPuwi?=
+ =?iso-8859-1?Q?0YulerfjGVXi6KgEdAiQQrTFte8lormVhE/OljyzWmSA=3D=3D?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(42112799006)(38070700018);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(42112799006)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?oSWU/7K+OriiLJYjtSmh3gEE5Bv/52finQ1Ckgx8mFfKHGRMpeqd85aeEX?=
- =?iso-8859-1?Q?ezykyJtwymT/RzRJPxh1TOmGKq7fXbAp5M949xsFJNeJSrfmuP/yk9zF6p?=
- =?iso-8859-1?Q?xOaX2Tfwz5587A2lhAH5JQ2enEGVc+v9SPxEjhW0Tei3QUz2ZZmYvPY0Rc?=
- =?iso-8859-1?Q?U2ZgV9T7nHuw4ULEpeGzUscn95ddBT2KjBHHZA1fXGIx7YP1fOpfvFzsal?=
- =?iso-8859-1?Q?PHTDv+kpNPIk/jFnFeJVUxZ7msGcYkyVUBfBwf7+vRuiM1kfKcFXL4uYKw?=
- =?iso-8859-1?Q?WhV1ICFdNBiIm35aSqyje6Tek1O7yr4k8VToVXx9IRFAXt3oi/838HMpgm?=
- =?iso-8859-1?Q?w2u6cjPcauvd4Yz5QdjTrVQy+5YjR14eTD1jAAGXaI0xeviEkvpZxYIloX?=
- =?iso-8859-1?Q?XlFiVEfPtWoaQBS3m1iIpsdt/LxWC/NPgEHnl8jU4X3SfWA3jxRCrYT8Ci?=
- =?iso-8859-1?Q?FAOKw/cqkHTg3IfAxZqjGbwieAHBxN4emfutt0QG1C+we7VcUtE0J5P9Cc?=
- =?iso-8859-1?Q?N7MutWPNsB+qyqueURgLYiZ1xT+Uocwq9sRymvFG6WmcGL+E5cEMsiQoKs?=
- =?iso-8859-1?Q?O28489zd4E03rJNQIjcVWo8SxmFExytEmPlWgh5Kr62+rm+naGAmtumAPr?=
- =?iso-8859-1?Q?dmplqZF7GPYAjJBPPTb7YykkoTYuQ9QTWtlQB+uaTs4ZDMrewMNhPJIc2F?=
- =?iso-8859-1?Q?DC+QyP/S91iYXKOGpxDHTjTCddNfg5l5QdOebSQjj1Jt6fA5JSaWgaZxu+?=
- =?iso-8859-1?Q?U9axtkIZLfrfaRJgBwJBobXm8mDvUJqrzT0SBNAidPqBGl1vqcn6EkGSBo?=
- =?iso-8859-1?Q?5ubqwldusw3U3KdYayBbMhlC12aFDqWKTxAADrImokmjCTZBLdc5DTruQJ?=
- =?iso-8859-1?Q?ilfBxjyWegltGbq8QOGW/eQvFBk32nFXEdIFcMC1rT5vROGDFT9uFMLOYB?=
- =?iso-8859-1?Q?Mak+fd5L7Q0XTlV1LLbT0cXGLKUvZNXmDmqhamFpkgo9Mx929HW/PGsi6B?=
- =?iso-8859-1?Q?cuc3+qT3uiXgRQj/ufnhbxhBMH0g7Zvw5rUeHAKVNS1z6EQWEKZmKQhwea?=
- =?iso-8859-1?Q?N+L1qdPG+ERJUM6vKIBBbpB+hjJdKNJDNw17vBxpmlXbBtCiBRKepAAMHr?=
- =?iso-8859-1?Q?uZ1A/rze69RY4mddYYGFImg3slRewXRkoBmyB5KWDkUH5ClgnyLdWHMO0V?=
- =?iso-8859-1?Q?D1aFozTRFFWvYbWs0C5WRT9squN528plDfH2Ikimk8iLZ3O8czaG3snUOC?=
- =?iso-8859-1?Q?t+MCYbN5Wf1jt1A4jpcyPtlEjfNql4xr4OpB4y6UDTveeuUyC90dI8bxAK?=
- =?iso-8859-1?Q?CuY3x7riNg8j4/zdNIbIP9EAppAqAZnfmv9ZKPxqDCQK3aTgmUOX4QSiGo?=
- =?iso-8859-1?Q?LPX9H2WLBmkLT14884qDVlaI4S8hh857cZn+yOxwsj2Tqvz9rQ9XMLLvIo?=
- =?iso-8859-1?Q?SU9yxBYvaKGLI0HjyRqMYPgCam9Xj2ikEauDjRiy79UQgE7OA79Wz/3n0D?=
- =?iso-8859-1?Q?kcRNdBwZpXaTHoQk3QK+Kyf9dFP6cd8d5DB56+zkvHrHgq14NjC/ASlYx3?=
- =?iso-8859-1?Q?GWGGFEG3lpXRPgZAM8a1kdDXeCNZaXzW1eagTmh/N7Z3BWMVo7rDexVPUI?=
- =?iso-8859-1?Q?rmciHX2D4uYY6Q2dnvtgJbkh6U7MXwz38VsMJe73AduFx4VJq678Ajww?=
+ =?iso-8859-1?Q?l8tYZjZKdBmlKBRX6gEd2aHWUL3cKKReWhdZlq02SRMyu73MsERe7sKa+A?=
+ =?iso-8859-1?Q?5NcSXEnz453ZmUnXxO13FVLTdUBcXf9avsm8SSUkzCPFkgsi0sZIJ2GfEX?=
+ =?iso-8859-1?Q?f03WAyPQT9Lqa7GDxxyhNahfrqATLd7tSDh2EkLZnEgMeXoqBIEV6pqUUz?=
+ =?iso-8859-1?Q?uq+8Sa6exipMn9u0JyASTSewq3GZagO372r8TyvJsKmKNaX6BjBMjoYC3Q?=
+ =?iso-8859-1?Q?txQENefd03V8ab6yotsWwEAjIQRnRsQrMfCTqSgZKrA+MgR8vSR8aOWrcl?=
+ =?iso-8859-1?Q?MaPHtcyD+3wCgR+OIpsMy7VExezYpUH/sbCyGYgJI1W5uJZH5buECOVo/e?=
+ =?iso-8859-1?Q?s6T+IXFU4T8RvSlnANcg8HyEsK8Ky5w8Tqyjbv6F4Zq5Z2KHydVj8GHF0M?=
+ =?iso-8859-1?Q?BVVk/p87eZ2MGYtNSf81Gyw96M0oFoUyXsFhem8VD6+NRTL43GpHmBL1C/?=
+ =?iso-8859-1?Q?2TDbsvIub/GswFjFOgM+kjvIFACTq7il091/otMgQ02gJGJg9mLx9EMaq8?=
+ =?iso-8859-1?Q?v1XKtMsbCzpCuBh5/Xu7YiyVNmwnm6DTstClHmFl9p0C7hR30KUMohhxHw?=
+ =?iso-8859-1?Q?QjJ5TLg8oWS0GqJ4dVLvjyHMwrwU+XfhJmm+MoNB4n6wrgaXhDXIES1/rA?=
+ =?iso-8859-1?Q?Am8Gth5tB+6Sq5t5SIpDvsombPitTdSplSHbpJk2uBziAsUJA0qw3QIl9j?=
+ =?iso-8859-1?Q?btwjQR+eZNki7cayE1C6fJKKFNhXHOD933CKn/KokDOy+s+Ge92/tLxCDK?=
+ =?iso-8859-1?Q?kLCXbWlikLaDyR94rV44+DIpzGo4wP1pRSXSqM+Atg9yxYSpHA/7EEfE0n?=
+ =?iso-8859-1?Q?JNSEV6rQ9FtDyeCH1I6R6oZ+MZxBKJWnBOvXV8uGyYH/Rez+oe/JPB8hM/?=
+ =?iso-8859-1?Q?2/wtxuvrmixI/O0yA0cCPupwF1MCdPzBpUcpQHW65mof4VdsNqhqYqyUmO?=
+ =?iso-8859-1?Q?Gptsv82n+K/jQn3jC9Zg40Lyu66QTDFB7mKVr/EcU7ZfNhljx5oqSZg8gA?=
+ =?iso-8859-1?Q?zldXBJxaDk+f9vD0TXcO6LwLDfF0ZoRIaSRdjVa+rMIzRdMKmHNjpL0yjg?=
+ =?iso-8859-1?Q?qUvVamb/SsqmsVl2lcIRWBYcB6N//OLihQj1h+Uqxl2Im3E6oe+k1kRb7J?=
+ =?iso-8859-1?Q?efb0NyRJ8gsBVxl3RXv0pQm3M0RtIo6TwsJGC0IYt6TMG2h75yWa+5hIsy?=
+ =?iso-8859-1?Q?kwsf+P7klYahjUkhM4kAoKxMHdymWt4UxaIcqA0IE1J5GKH44ZM0zhBxPB?=
+ =?iso-8859-1?Q?D8YJXFd3EOnEGaIkFdJlqNwWwFqCrWR2c+cRD1i+oT4+VkH9G7eo9PKJ5X?=
+ =?iso-8859-1?Q?pHzmudiLRUvJrxBC3kw04XX74BbaIm8Rk/vh7S/wNEqLg2h/viHfEbWnD+?=
+ =?iso-8859-1?Q?xbUi9yp383490Ll00dJ+IQMp1IWSMY5fJyu65j4VftAppLsl9ed0GTZJx+?=
+ =?iso-8859-1?Q?kkLU2hzhLHi0gGNl4LTn3DIOMhJwT3XGbNlaH18mICJ2e9ZSg3OZBaoB5a?=
+ =?iso-8859-1?Q?aSA6SldNKjsYm9xfPo5H9UNXV+TMg6CaDF5UfYqtoFAv9CdN/9i+uHR+Ob?=
+ =?iso-8859-1?Q?kaEik3cChDDP95mrq10gSALsTXKVvsMlLuqiJylYYbKQtvtQb5ALxcsfsu?=
+ =?iso-8859-1?Q?E+Aj9mXBvVXZtIdCWbIbbOv+1/MkILnKnioxqWrK0lRykbgDP0YHDtnQ?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -161,310 +157,157 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: GV1PR03MB10456.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84213983-04bf-4477-23f0-08ddea5ec801
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2025 20:24:55.9512
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24a7b23c-1001-4709-3702-08ddea5fc309
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2025 20:31:57.0815
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0kGzLQNZVVJtUovtLsXGuSoUaz3IWJAUlc7YpHO6EG9S+rjiIFRci6+kljcBxSOspoIlA3p9qxr3ZTvgqmnXZxDPDuVqDsJwYOW//kRGSTw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB6308
+X-MS-Exchange-CrossTenant-userprincipalname: ETpEsE0ffbHZkvCi41wjvfOu6x7P2LPiqOOjjUd4ifhoUkMALVvptzz9CwhdsCgtV0dJ6euOIzQ39XBP69FY9cRRz87JQy/1iqzLGCY/Zag=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR03MB10208
 
+Hi Mykola,
 
 Mykola Kvach <xakep.amatop@gmail.com> writes:
 
-> From: Mirela Simonovic <mirela.simonovic@aggios.com>
+> From: Mykola Kvach <mykola_kvach@epam.com>
 >
-> System suspend may lead to a state where GIC would be powered down.
-> Therefore, Xen should save/restore the context of GIC on suspend/resume.
+> If we call disable_nonboot_cpus on ARM64 with system_state set
+> to SYS_STATE_suspend, the following assertion will be triggered:
 >
-> Note that the context consists of states of registers which are
-> controlled by the hypervisor. Other GIC registers which are accessible
-> by guests are saved/restored on context switch.
+> ```
+> (XEN) [   25.582712] Disabling non-boot CPUs ...
+> (XEN) [   25.587032] Assertion '!in_irq() && (local_irq_is_enabled() || n=
+um_online_cpus() <=3D 1)' failed at common/xmalloc_tlsf.c:714
+> [...]
+> (XEN) [   25.975069] Xen call trace:
+> (XEN) [   25.978353]    [<00000a000022e098>] xfree+0x130/0x1a4 (PC)
+> (XEN) [   25.984314]    [<00000a000022e08c>] xfree+0x124/0x1a4 (LR)
+> (XEN) [   25.990276]    [<00000a00002747d4>] release_irq+0xe4/0xe8
+> (XEN) [   25.996152]    [<00000a0000278588>] time.c#cpu_time_callback+0x4=
+4/0x60
+> (XEN) [   26.003150]    [<00000a000021d678>] notifier_call_chain+0x7c/0xa=
+0
+> (XEN) [   26.009717]    [<00000a00002018e0>] cpu.c#cpu_notifier_call_chai=
+n+0x24/0x48
+> (XEN) [   26.017148]    [<00000a000020192c>] cpu.c#_take_cpu_down+0x28/0x=
+34
+> (XEN) [   26.023801]    [<00000a0000201944>] cpu.c#take_cpu_down+0xc/0x18
+> (XEN) [   26.030281]    [<00000a0000225c5c>] stop_machine.c#stopmachine_a=
+ction+0xbc/0xe4
+> (XEN) [   26.038057]    [<00000a00002264bc>] tasklet.c#do_tasklet_work+0x=
+b8/0x100
+> (XEN) [   26.045229]    [<00000a00002268a4>] do_tasklet+0x68/0xb0
+> (XEN) [   26.051018]    [<00000a000026e120>] domain.c#idle_loop+0x7c/0x19=
+4
+> (XEN) [   26.057585]    [<00000a0000277e30>] start_secondary+0x21c/0x220
+> (XEN) [   26.063978]    [<00000a0000361258>] 00000a0000361258
+> ```
 >
-> Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
-> Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> This happens because before invoking take_cpu_down via the stop_machine_r=
+un
+> function on the target CPU, stop_machine_run requests
+> the STOPMACHINE_DISABLE_IRQ state on that CPU. Releasing memory in
+> the release_irq function then triggers the assertion:
+>
+> /*
+>  * Heap allocations may need TLB flushes which may require IRQs to be
+>  * enabled (except when only 1 PCPU is online).
+>  */
+>
+> This patch adds system state checks to guard calls to request_irq
+> and release_irq. These calls are now skipped when system_state is
+> SYS_STATE_{resume,suspend}, preventing unsafe operations during
+> suspend/resume handling.
+>
 > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 
 Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
 > ---
-> Changes in v6:
-> - drop extra func/line printing from dprintk
-> - drop checking context allocation from resume handler
-> - merge some loops where it is possible
->
-> Changes in v4:
->   - Add error logging for allocation failures
->
-> Changes in v3:
->   - Drop asserts and return error codes instead.
->   - Wrap code with CONFIG_SYSTEM_SUSPEND.
->
-> Changes in v2:
->   - Minor fixes after review.
+> Changes in V6:
+> - skipping of IRQ release during system suspend is now handled
+>   inside release_irq().
+> Changes in V4:
+>   - removed the prior tasklet-based workaround in favor of a more
+>     straightforward and safer solution
+>   - reworked the approach by adding explicit system state checks around
+>     request_irq and release_irq calls, skips these calls during suspend
+>     and resume states to avoid unsafe memory operations when IRQs are
+>     disabled
 > ---
->  xen/arch/arm/gic-v2.c          | 143 +++++++++++++++++++++++++++++++++
->  xen/arch/arm/gic.c             |  29 +++++++
->  xen/arch/arm/include/asm/gic.h |  12 +++
->  3 files changed, 184 insertions(+)
+>  xen/arch/arm/gic.c           |  3 +++
+>  xen/arch/arm/irq.c           |  3 +++
+>  xen/arch/arm/tee/ffa_notif.c |  2 +-
+>  xen/arch/arm/time.c          | 11 +++++++----
+>  4 files changed, 14 insertions(+), 5 deletions(-)
 >
-> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
-> index b23e72a3d0..6373599e69 100644
-> --- a/xen/arch/arm/gic-v2.c
-> +++ b/xen/arch/arm/gic-v2.c
-> @@ -1098,6 +1098,140 @@ static int gicv2_iomem_deny_access(struct domain =
-*d)
->      return iomem_deny_access(d, mfn, mfn + nr);
->  }
-> =20
-> +#ifdef CONFIG_SYSTEM_SUSPEND
-> +
-> +/* GICv2 registers to be saved/restored on system suspend/resume */
-> +struct gicv2_context {
-> +    /* GICC context */
-> +    uint32_t gicc_ctlr;
-> +    uint32_t gicc_pmr;
-> +    uint32_t gicc_bpr;
-> +    /* GICD context */
-> +    uint32_t gicd_ctlr;
-> +    uint32_t *gicd_isenabler;
-> +    uint32_t *gicd_isactiver;
-> +    uint32_t *gicd_ipriorityr;
-> +    uint32_t *gicd_itargetsr;
-> +    uint32_t *gicd_icfgr;
-> +};
-> +
-> +static struct gicv2_context gicv2_context;
-> +
-> +static int gicv2_suspend(void)
-> +{
-> +    unsigned int i;
-> +
-> +    if ( !gicv2_context.gicd_isenabler )
-> +    {
-> +        dprintk(XENLOG_WARNING, "GICv2 suspend context not allocated!\n"=
-);
-> +        return -ENOMEM;
-> +    }
-> +
-> +    /* Save GICC configuration */
-> +    gicv2_context.gicc_ctlr =3D readl_gicc(GICC_CTLR);
-> +    gicv2_context.gicc_pmr =3D readl_gicc(GICC_PMR);
-> +    gicv2_context.gicc_bpr =3D readl_gicc(GICC_BPR);
-> +
-> +    /* Save GICD configuration */
-> +    gicv2_context.gicd_ctlr =3D readl_gicd(GICD_CTLR);
-> +
-> +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 32); i++ )
-> +    {
-> +        gicv2_context.gicd_isenabler[i] =3D readl_gicd(GICD_ISENABLER + =
-i * 4);
-> +        gicv2_context.gicd_isactiver[i] =3D readl_gicd(GICD_ISACTIVER + =
-i * 4);
-> +    }
-> +
-> +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 4); i++ )
-> +    {
-> +        gicv2_context.gicd_ipriorityr[i] =3D readl_gicd(GICD_IPRIORITYR =
-+ i * 4);
-> +        gicv2_context.gicd_itargetsr[i] =3D readl_gicd(GICD_ITARGETSR + =
-i * 4);
-> +    }
-> +
-> +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 16); i++ )
-> +        gicv2_context.gicd_icfgr[i] =3D readl_gicd(GICD_ICFGR + i * 4);
-> +
-> +    return 0;
-> +}
-> +
-> +static void gicv2_resume(void)
-> +{
-> +    unsigned int i;
-> +
-> +    gicv2_cpu_disable();
-> +    /* Disable distributor */
-> +    writel_gicd(0, GICD_CTLR);
-> +
-> +    /* Restore GICD configuration */
-> +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 32); i++ )
-> +    {
-> +        writel_gicd(0xffffffff, GICD_ICENABLER + i * 4);
-> +        writel_gicd(gicv2_context.gicd_isenabler[i], GICD_ISENABLER + i =
-* 4);
-> +
-> +        writel_gicd(0xffffffff, GICD_ICACTIVER + i * 4);
-> +        writel_gicd(gicv2_context.gicd_isactiver[i], GICD_ISACTIVER + i =
-* 4);
-> +    }
-> +
-> +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 4); i++ )
-> +    {
-> +        writel_gicd(gicv2_context.gicd_ipriorityr[i], GICD_IPRIORITYR + =
-i * 4);
-> +        writel_gicd(gicv2_context.gicd_itargetsr[i], GICD_ITARGETSR + i =
-* 4);
-> +    }
-> +
-> +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 16); i++ )
-> +        writel_gicd(gicv2_context.gicd_icfgr[i], GICD_ICFGR + i * 4);
-> +
-> +    /* Make sure all registers are restored and enable distributor */
-> +    writel_gicd(gicv2_context.gicd_ctlr | GICD_CTL_ENABLE, GICD_CTLR);
-> +
-> +    /* Restore GIC CPU interface configuration */
-> +    writel_gicc(gicv2_context.gicc_pmr, GICC_PMR);
-> +    writel_gicc(gicv2_context.gicc_bpr, GICC_BPR);
-> +
-> +    /* Enable GIC CPU interface */
-> +    writel_gicc(gicv2_context.gicc_ctlr | GICC_CTL_ENABLE | GICC_CTL_EOI=
-,
-> +                GICC_CTLR);
-> +}
-> +
-> +static void gicv2_alloc_context(struct gicv2_context *gc)
-> +{
-> +    uint32_t n =3D gicv2_info.nr_lines;
-> +
-> +    gc->gicd_isenabler =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 32));
-> +    if ( !gc->gicd_isenabler )
-> +        goto err_free;
-> +
-> +    gc->gicd_isactiver =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 32));
-> +    if ( !gc->gicd_isactiver )
-> +        goto err_free;
-> +
-> +    gc->gicd_itargetsr =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 4));
-> +    if ( !gc->gicd_itargetsr )
-> +        goto err_free;
-> +
-> +    gc->gicd_ipriorityr =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 4));
-> +    if ( !gc->gicd_ipriorityr )
-> +        goto err_free;
-> +
-> +    gc->gicd_icfgr =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 16));
-> +    if ( !gc->gicd_icfgr )
-> +        goto err_free;
-> +
-> +    return;
-> +
-> + err_free:
-> +    printk(XENLOG_ERR "Failed to allocate memory for GICv2 suspend conte=
-xt\n");
-> +
-> +    xfree(gc->gicd_icfgr);
-> +    xfree(gc->gicd_ipriorityr);
-> +    xfree(gc->gicd_itargetsr);
-> +    xfree(gc->gicd_isactiver);
-> +    xfree(gc->gicd_isenabler);
-> +
-> +    memset(gc, 0, sizeof(*gc));
-> +}
-> +
-> +#endif /* CONFIG_SYSTEM_SUSPEND */
-> +
->  #ifdef CONFIG_ACPI
->  static unsigned long gicv2_get_hwdom_extra_madt_size(const struct domain=
- *d)
->  {
-> @@ -1302,6 +1436,11 @@ static int __init gicv2_init(void)
-> =20
->      spin_unlock(&gicv2.lock);
-> =20
-> +#ifdef CONFIG_SYSTEM_SUSPEND
-> +    /* Allocate memory to be used for saving GIC context during the susp=
-end */
-> +    gicv2_alloc_context(&gicv2_context);
-> +#endif /* CONFIG_SYSTEM_SUSPEND */
-> +
->      return 0;
->  }
-> =20
-> @@ -1345,6 +1484,10 @@ static const struct gic_hw_operations gicv2_ops =
-=3D {
->      .map_hwdom_extra_mappings =3D gicv2_map_hwdom_extra_mappings,
->      .iomem_deny_access   =3D gicv2_iomem_deny_access,
->      .do_LPI              =3D gicv2_do_LPI,
-> +#ifdef CONFIG_SYSTEM_SUSPEND
-> +    .suspend             =3D gicv2_suspend,
-> +    .resume              =3D gicv2_resume,
-> +#endif /* CONFIG_SYSTEM_SUSPEND */
->  };
-> =20
->  /* Set up the GIC */
 > diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-> index e80fe0ca24..a018bd7715 100644
+> index a018bd7715..c64481faa7 100644
 > --- a/xen/arch/arm/gic.c
 > +++ b/xen/arch/arm/gic.c
-> @@ -425,6 +425,35 @@ int gic_iomem_deny_access(struct domain *d)
->      return gic_hw_ops->iomem_deny_access(d);
+> @@ -388,6 +388,9 @@ void gic_dump_info(struct vcpu *v)
+> =20
+>  void init_maintenance_interrupt(void)
+>  {
+> +    if ( system_state =3D=3D SYS_STATE_resume )
+> +        return;
+> +
+>      request_irq(gic_hw_ops->info->maintenance_irq, 0, maintenance_interr=
+upt,
+>                  "irq-maintenance", NULL);
 >  }
+> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+> index 02ca82c089..361496a6d0 100644
+> --- a/xen/arch/arm/irq.c
+> +++ b/xen/arch/arm/irq.c
+> @@ -300,6 +300,9 @@ void release_irq(unsigned int irq, const void *dev_id=
+)
+>      unsigned long flags;
+>      struct irqaction *action, **action_ptr;
 > =20
-> +#ifdef CONFIG_SYSTEM_SUSPEND
+> +    if ( system_state =3D=3D SYS_STATE_suspend )
+> +        return;
 > +
-> +int gic_suspend(void)
-> +{
-> +    /* Must be called by boot CPU#0 with interrupts disabled */
-> +    ASSERT(!local_irq_is_enabled());
-> +    ASSERT(!smp_processor_id());
-> +
-> +    if ( !gic_hw_ops->suspend || !gic_hw_ops->resume )
-> +        return -ENOSYS;
-> +
-> +    return gic_hw_ops->suspend();
-> +}
-> +
-> +void gic_resume(void)
-> +{
-> +    /*
-> +     * Must be called by boot CPU#0 with interrupts disabled after gic_s=
-uspend
-> +     * has returned successfully.
-> +     */
-> +    ASSERT(!local_irq_is_enabled());
-> +    ASSERT(!smp_processor_id());
-> +    ASSERT(gic_hw_ops->resume);
-> +
-> +    gic_hw_ops->resume();
-> +}
-> +
-> +#endif /* CONFIG_SYSTEM_SUSPEND */
-> +
->  static int cpu_gic_callback(struct notifier_block *nfb,
->                              unsigned long action,
->                              void *hcpu)
-> diff --git a/xen/arch/arm/include/asm/gic.h b/xen/arch/arm/include/asm/gi=
-c.h
-> index 541f0eeb80..a706303008 100644
-> --- a/xen/arch/arm/include/asm/gic.h
-> +++ b/xen/arch/arm/include/asm/gic.h
-> @@ -280,6 +280,12 @@ extern int gicv_setup(struct domain *d);
->  extern void gic_save_state(struct vcpu *v);
->  extern void gic_restore_state(struct vcpu *v);
+>      desc =3D irq_to_desc(irq);
 > =20
-> +#ifdef CONFIG_SYSTEM_SUSPEND
-> +/* Suspend/resume */
-> +extern int gic_suspend(void);
-> +extern void gic_resume(void);
-> +#endif /* CONFIG_SYSTEM_SUSPEND */
-> +
->  /* SGI (AKA IPIs) */
->  enum gic_sgi {
->      GIC_SGI_EVENT_CHECK,
-> @@ -395,6 +401,12 @@ struct gic_hw_operations {
->      int (*iomem_deny_access)(struct domain *d);
->      /* Handle LPIs, which require special handling */
->      void (*do_LPI)(unsigned int lpi);
-> +#ifdef CONFIG_SYSTEM_SUSPEND
-> +    /* Save GIC configuration due to the system suspend */
-> +    int (*suspend)(void);
-> +    /* Restore GIC configuration due to the system resume */
-> +    void (*resume)(void);
-> +#endif /* CONFIG_SYSTEM_SUSPEND */
->  };
+>      spin_lock_irqsave(&desc->lock,flags);
+> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
+> index 86bef6b3b2..4835e25619 100644
+> --- a/xen/arch/arm/tee/ffa_notif.c
+> +++ b/xen/arch/arm/tee/ffa_notif.c
+> @@ -363,7 +363,7 @@ void ffa_notif_init_interrupt(void)
+>  {
+>      int ret;
 > =20
->  extern const struct gic_hw_operations *gic_hw_ops;
+> -    if ( fw_notif_enabled && notif_sri_irq < NR_GIC_SGI )
+> +    if ( fw_notif_enabled && notif_sri_irq < NR_GIC_SGI && system_state =
+!=3D SYS_STATE_resume )
+>      {
+>          /*
+>           * An error here is unlikely since the primary CPU has already
+> diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
+> index ad984fdfdd..8267fa5191 100644
+> --- a/xen/arch/arm/time.c
+> +++ b/xen/arch/arm/time.c
+> @@ -320,10 +320,13 @@ void init_timer_interrupt(void)
+>      WRITE_SYSREG(CNTHCTL_EL2_EL1PCTEN, CNTHCTL_EL2);
+>      disable_physical_timers();
+> =20
+> -    request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
+> -                "hyptimer", NULL);
+> -    request_irq(timer_irq[TIMER_VIRT_PPI], 0, vtimer_interrupt,
+> -                   "virtimer", NULL);
+> +    if ( system_state !=3D SYS_STATE_resume )
+> +    {
+> +        request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
+> +                    "hyptimer", NULL);
+> +        request_irq(timer_irq[TIMER_VIRT_PPI], 0, vtimer_interrupt,
+> +                    "virtimer", NULL);
+> +    }
+> =20
+>      check_timer_irq_cfg(timer_irq[TIMER_HYP_PPI], "hypervisor");
+>      check_timer_irq_cfg(timer_irq[TIMER_VIRT_PPI], "virtual");
 
 --=20
 WBR, Volodymyr=
