@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04928B3FA78
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 11:32:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1105944.1456752 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF41AB3FAB1
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 11:36:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1105954.1456762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utNNT-0008CE-OI; Tue, 02 Sep 2025 09:32:35 +0000
+	id 1utNR9-0000Im-5o; Tue, 02 Sep 2025 09:36:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1105944.1456752; Tue, 02 Sep 2025 09:32:35 +0000
+Received: by outflank-mailman (output) from mailman id 1105954.1456762; Tue, 02 Sep 2025 09:36:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utNNT-00089M-KN; Tue, 02 Sep 2025 09:32:35 +0000
-Received: by outflank-mailman (input) for mailman id 1105944;
- Tue, 02 Sep 2025 09:32:34 +0000
+	id 1utNR9-0000Ff-2s; Tue, 02 Sep 2025 09:36:23 +0000
+Received: by outflank-mailman (input) for mailman id 1105954;
+ Tue, 02 Sep 2025 09:36:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P0Jg=3N=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1utNNS-000898-39
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 09:32:34 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1utNR8-0000FX-0y
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 09:36:22 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c127214e-87df-11f0-8adc-4578a1afcccb;
- Tue, 02 Sep 2025 11:32:33 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-b04271cfc3eso243435366b.3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Sep 2025 02:32:33 -0700 (PDT)
+ id 48c43707-87e0-11f0-8adc-4578a1afcccb;
+ Tue, 02 Sep 2025 11:36:21 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-61cb4370e7bso7709502a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Sep 2025 02:36:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b041f6fb232sm582322566b.87.2025.09.02.02.32.32
+ 4fb4d7f45d1cf-61cfc1c7a8fsm9150713a12.3.2025.09.02.02.36.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Sep 2025 02:32:32 -0700 (PDT)
+ Tue, 02 Sep 2025 02:36:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c127214e-87df-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: 48c43707-87e0-11f0-8adc-4578a1afcccb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756805553; x=1757410353; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756805780; x=1757410580; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NXdi+eL+bu6vyU0ShyxyymOxzjSvE9FE8HyeCBj8ZSg=;
-        b=M1ajwX4U1h0TkXs43nf+c4wKEfpvUI8eZqqITRUs2qym6upsX76tdSf86vp8J5cCv4
-         xCG4oiZEgqqt9ixUMr9Z682DiSgVuqV5ER6HYrhwVI/I2tJCbC8xnfkE+1UBRz+n9DWp
-         FXX/XakNvRO8P1cvktxfLb557MgE6Uk/z5q8gbua4jCxLMjTnkKcELCM1wOE3dWaSkJU
-         /72V4Jz/u6lgZKZoMgr2J9gdeBrlIv1yWr/DkKgZ59zFlWwgcScdRyQ3A8lt/HP7AMfQ
-         Fd/AloAGNV4+s8ZhxVa2HU5rGsnvAtBxUvAruvnG2VVsDYUfmFJkSf3uHfifDra43dBX
-         +6Qg==
+        bh=7+/5Vl//tzLfXwVhASc1rt+01VD2kpJA+zviG5NglgU=;
+        b=QeK50tTpRBApS/CRtHZx4izKbcTkyoahjXlEkl3hGC/uM0EmpnPSC8Yz5RoO37qTSl
+         hLi2S6I+mfND87CM7h1dxP03ZXfa8oS4aeVY96uxmmZHyP56v0aWW4TRvEAXj+/lVRMx
+         9TXTFYonVdjvsybGqXSUGahMJgM15sbdmlZoCXqhlXV8H+RcVMlMwgQt6HCbJT8rozcy
+         PtXGB8rMFNWw0GYgG/5LeVR3P1TBwYCd1CQRR1iJgCJddd7zjKBXHIVnHvA22/OrJ2Py
+         UFCTDABourOgc0xqM2tCGNX/Az+IF9oJd5yVdRI9PKGmjM9usflTJBdVZ6+lBQbk16BS
+         OJDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756805553; x=1757410353;
+        d=1e100.net; s=20230601; t=1756805780; x=1757410580;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NXdi+eL+bu6vyU0ShyxyymOxzjSvE9FE8HyeCBj8ZSg=;
-        b=wpUReW8+TBzDXDM37PJyjp7vRG8q3YnmVICYy6IDZ/2J2YZTCdW9/wI7QGwYj3VBux
-         yM709G/EsZuw2bRdQyyGfxNrasubjauc5beQ0qwB5d1yiBkKBlpkP+ryq4yTJGgUrH8S
-         iKRJvjQaUQI2EyoRnij3Wsk0IepcUNShzpKk/5RdR1Vggab2G4KymGHljh+u/Qx2Jgpr
-         Mug7M3bsqCKXGtqC5LSH6dtYS3fdjj7yKpysEfnNsZ/k7JjB0XBPxahCEOClvc29AGu8
-         QvDvYUrw1tYWVJoqNXZUOyriQkyDdxrm6pRx5uFacn0It/OKgjq9U7FCJhrncSGd2tTl
-         1CdQ==
-X-Gm-Message-State: AOJu0YwyYsJ899SsRx9mosc1liNpFPoDYs+HYOiwfjKSptetHHJbRqcv
-	eO8VzuVCQskWqDjBnsRo7sgVyBqwqqetcXBM9YHynvLRFLj0H98R0dUIOr1ub7T7Ew==
-X-Gm-Gg: ASbGncvTqazyiTgbw3hIEToYrxPqSy0qL9Vu0TAelvjSu0OLL6nQ6GwqQu0FXEfCOJp
-	DAdWoWfYVSTq4UjyEMovslE3Okb4nfKk2ESsflzWBM3z5ZKH8wF0Ms3KVoD4G7q9EJCqZq04h7q
-	JsN9vo+ct+o/dTj4D4hjXQblUZQFSVDFA7exmVM7l3mGbPgShGvjRk0SZ29vcjBj0/loMOUP/Wf
-	IrSfDbMtS/VP5i7hll5gexMAAAPQcxcRvitMbTPyckuH2GvharuGVhZ6UxQmJD9S86mPfLz31LC
-	Wrg2+1j1H3DGcojXuhboAtAtUBtugeY6syCeCeh9gT9j72CmRW0LHB4/hWVcr03yCXGS6QlciLm
-	fZdRUMQyXETgtUPi5AzSFrbX2UVnD842tkgJMm1WZsWCCZ68Pr8Ewjab0nDopF0RGpTfZzk3i9m
-	hGPocVHNQ4O0YqinBRKnbQ7ax/hZR7
-X-Google-Smtp-Source: AGHT+IEJkS/x53nwwWhIB5BtWQD9NKzIVr8j7nv4xL6dzyyUwyvyQKYORYQq0jVZ6L3wdexVfn4ZGA==
-X-Received: by 2002:a17:906:dc90:b0:b04:4ba7:4e0d with SMTP id a640c23a62f3a-b044ba75282mr199267666b.26.1756805553080;
-        Tue, 02 Sep 2025 02:32:33 -0700 (PDT)
-Message-ID: <7a9210e1-d579-48e1-99ca-1685d7561529@suse.com>
-Date: Tue, 2 Sep 2025 11:32:31 +0200
+        bh=7+/5Vl//tzLfXwVhASc1rt+01VD2kpJA+zviG5NglgU=;
+        b=rxPTkB8yxlxHg3bcrzLQ8T25uiZsrTMgmusPB3OY0wXxn1Uxk7sFD95EVghph4Tl8W
+         2IWORmHBgi4CkWzrhb42KNRXWVMs2TWB0qKf+5olnJG6l2TDsy53wZxNszvDE7hnMVjv
+         0K6Kgn/oVgJayaJ1MnbzRi5Sdv5JwVMTlRkaUNedcnRLn9WBEgI9yKOrGXuqe9dCM4pn
+         P7I3r3Fp4wDRbwOV4OByC9fsauKZ1n0yU6X2Q+7BHG9hUT0O96d7RlxljCS8PccNP+p9
+         8HAojLMFlKQ6WCJIjC68enQ3qCFLPM8dQjEkFZflFgdupl2LKUV1H6V13AL1IUkOxtlT
+         qoBA==
+X-Gm-Message-State: AOJu0Yw0VlpQZFN3S4ZZQ3uA4F///mMRBJ24ag2Pav6OV9K/tPrbZYxh
+	8PQoU07yDpU6IKiiINKvgkRtp9oQsV8BIyn/us89lb7iJBm+rHEOPibQfvJhhUfNYg==
+X-Gm-Gg: ASbGncvZjnH6FoN6qJKQtb8OUim4smfxB/5sEyKdx/a+pZvKMMcWr7CiNac292ibJRB
+	nwMzIq13m53cBZsIR0PMYrqPQcL6t6JUtvdHytDg+wqMbV18BQlZ4aYC1dbqkl22bPMrBzfGJzB
+	Xk3OJ6N1IOxflTij2ceMHHP+tw1B/MCIM/otkI6+N9POyxoR/969dUZMnoZTl946sDgDppnbNfs
+	0nVtsu8BU8uoyGj+EskQkzwzTw1CNr/OsVWcyJx/HItsDdm9Xy8LWLlpzLC/IqnlGqXOQYCfaKm
+	Uoj6xcnTBvsv7G8VrtIrYOFl9l0siNd4UgokMBWps0U0alEWincK6n5WE3CzeGuU1eNSTEdWF5y
+	09qUZvMGZJKJXLBA4mRtqJxU8wLo0eFKgILgekylTczMHzm5sKsses0CZSIYC6fm3teU5VVvW7h
+	zrsV8BO0cUzn4o36ip3A==
+X-Google-Smtp-Source: AGHT+IEaHYJi0kFjAjlOkJ83/qBIQtlUsO7pJCsb0cQRnU9fsgY95z+j0TBUqWQPaHBm5bNcBQHa7A==
+X-Received: by 2002:a05:6402:5212:b0:61c:7f48:c476 with SMTP id 4fb4d7f45d1cf-61d26988edamr9275667a12.3.1756805780626;
+        Tue, 02 Sep 2025 02:36:20 -0700 (PDT)
+Message-ID: <d2f16c51-9557-4185-a603-cb161ce1cf7d@suse.com>
+Date: Tue, 2 Sep 2025 11:36:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v5 03/15] emul/ns16x50: implement emulator stub
-To: dmukhin@xen.org, Stefano Stabellini <sstabellini@kernel.org>
+To: Stefano Stabellini <sstabellini@kernel.org>, dmukhin@xen.org
 Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
  anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
  roger.pau@citrix.com, dmukhin@ford.com
 References: <20250828235409.2835815-1-dmukhin@ford.com>
  <20250828235409.2835815-4-dmukhin@ford.com>
  <alpine.DEB.2.22.394.2508291237100.341243@ubuntu-linux-20-04-desktop>
- <aLYoF3PV/ApgosUb@kraken>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,29 +120,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aLYoF3PV/ApgosUb@kraken>
+In-Reply-To: <alpine.DEB.2.22.394.2508291237100.341243@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.09.2025 01:11, dmukhin@xen.org wrote:
-> On Fri, Aug 29, 2025 at 12:57:43PM -0700, Stefano Stabellini wrote:
->> On Thu, 28 Aug 2025, dmukhin@xen.org wrote:
->>> --- a/xen/common/emul/vuart/Kconfig
->>> +++ b/xen/common/emul/vuart/Kconfig
->>> @@ -3,4 +3,22 @@ config VUART_FRAMEWORK
->>>  
->>>  menu "UART Emulation"
->>>  
->>> +config VUART_NS16X50
->>> +	bool "NS16550-compatible UART Emulator" if EXPERT
->>> +	depends on X86 && HVM
->>> +	select VUART_FRAMEWORK
->>
->> default n
+On 29.08.2025 21:57, Stefano Stabellini wrote:
+> On Thu, 28 Aug 2025, dmukhin@xen.org wrote:
+>> +static void cf_check ns16x50_free(void *arg)
+>> +{
+>> +    struct vuart_ns16x50 *vdev = arg;
+>> +
+>> +    if ( vdev )
+>> +        ns16x50_deinit(vdev);
+>> +
+>> +    XVFREE(vdev);
 > 
-> Ack
+> XVFREE should only be called if ( vdev )
 
-No "default n" should ever be put anywhere; it's simply redundant.
+Why would this be? Like free(), both xfree() and xvfree() are fine to be
+called with a NULL pointer. What's odd here is that the uppercase form (the
+wrapper macro) is used - clearing the local variable is pointless when it
+is about to go out of scope anyway.
 
 Jan
 
