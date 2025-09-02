@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D7B6B3FD23
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 12:56:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1106065.1456854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50A63B3FD24
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 12:57:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1106067.1456863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utOgl-0006Mw-HU; Tue, 02 Sep 2025 10:56:35 +0000
+	id 1utOh4-0006if-PG; Tue, 02 Sep 2025 10:56:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1106065.1456854; Tue, 02 Sep 2025 10:56:35 +0000
+Received: by outflank-mailman (output) from mailman id 1106067.1456863; Tue, 02 Sep 2025 10:56:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utOgl-0006KD-EF; Tue, 02 Sep 2025 10:56:35 +0000
-Received: by outflank-mailman (input) for mailman id 1106065;
- Tue, 02 Sep 2025 10:56:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1utOh4-0006fN-LP; Tue, 02 Sep 2025 10:56:54 +0000
+Received: by outflank-mailman (input) for mailman id 1106067;
+ Tue, 02 Sep 2025 10:56:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/Rvg=3N=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1utOgk-0006K7-Ck
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 10:56:34 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7cd13767-87eb-11f0-8adc-4578a1afcccb;
- Tue, 02 Sep 2025 12:56:33 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-45b84367affso27552735e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Sep 2025 03:56:33 -0700 (PDT)
-Received: from localhost.localdomain ([87.114.69.104])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b7e74b72esm197226915e9.0.2025.09.02.03.56.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Sep 2025 03:56:31 -0700 (PDT)
+ <SRS0=Jdug=3N=antioche.eu.org=bouyer@srs-se1.protection.inumbo.net>)
+ id 1utOh3-0006bW-9T
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 10:56:53 +0000
+Received: from isis.lip6.fr (isis.lip6.fr [2001:660:3302:283c::2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 879e7b78-87eb-11f0-8dd7-1b34d833f44b;
+ Tue, 02 Sep 2025 12:56:51 +0200 (CEST)
+Received: from asim.lip6.fr (asim.lip6.fr [132.227.86.2])
+ by isis.lip6.fr (8.18.1/8.16.1) with ESMTPS id 582AulKl029857
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Tue, 2 Sep 2025 12:56:48 +0200 (CEST)
+Received: from armandeche.soc.lip6.fr (armandeche [132.227.63.133])
+ by asim.lip6.fr (8.15.2/8.15.2) with ESMTP id 582AulRb015774;
+ Tue, 2 Sep 2025 12:56:47 +0200 (MEST)
+Received: by armandeche.soc.lip6.fr (Postfix, from userid 20331)
+ id 69D64107F7; Tue,  2 Sep 2025 12:56:46 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,169 +45,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7cd13767-87eb-11f0-8adc-4578a1afcccb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1756810592; x=1757415392; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=uZi8Sj1r6fD/XAgHc/5d4qkPiGFTtkfD49OTXdflNVI=;
-        b=WSZ5i9hG791qn9o3kz/znb4ZJ+Z0jpdpei/Qy/w/xT26U58jjZ3IVzlUP/MQLEYJCC
-         5CdiQrZXSiWMhrvrC5AfYogAxsJUPjGK0RWeMVDPqGbM9ggEMizIRwpWkeOtFWwOpx15
-         Pfr3NwH1f/tgU1BcvFoQB2+jS0sNdgHGXLyFQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756810592; x=1757415392;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=uZi8Sj1r6fD/XAgHc/5d4qkPiGFTtkfD49OTXdflNVI=;
-        b=qyH7BxBWLYMmlZUAOJoQfk/Q/Hb7n2tWKOLCahvyyz75R7NcZo1OzZQCacQk92wn8Z
-         5jf/8kw2B0iXKmV1R8/DsRYbio6S0Uf/FTgLYMoVbCDvHWQ6yQ/GyePLpgYJ4XhODvsA
-         n/RnXuMxxvGfwT2mbcAosVCdcztB6dRVb7YFH8WFgX2RS6oPVlsmWL4GGcrn7SwlTe2C
-         IKNrXQ79q3tZ0b/JUscdH37X5KLD+EV2bXzhPqq20n6fLHLi80gboBfAYb2w6BpYTlvb
-         2uttUKgIX45TSzs90I4FzoadLCXm96HMP14M7/41n6hkXhePeRpLfrl4cEoLMKyCXuaD
-         Dcuw==
-X-Gm-Message-State: AOJu0Yz5bA8/pMtGJ0YqZ7m3/lv96v0hBdQUiFkr1VLi6AvT4EprpS6Y
-	PMjBh2u5e+CGaU2YDZ4uqzaLAhidyPepj7to6yhYjZ845j0ptl0KJmFppYqBivs5QZkikV6C4SB
-	1IRFDl4Q=
-X-Gm-Gg: ASbGncsIWOZ792vJr9YIaG5lX+U1jwtoJPiwpG11GeRNL9je2GLpKpJXkE6fzIHXkek
-	hXwkLvWJlwKGY9cJkqA+Wz+wcAOut6XU+zKX8sceGSY7N8iAcyT7AVKJC/KCXVOlhT/9+pMzc7I
-	rWchQ1Xp/uVjZyBqsXKPdcjOJfPjrpHnfRofagc/HMqQhR9VAJSSM/hh8w5LmeOgZB0xgqFpXuP
-	eNGn7T6hsbGGR0GDPph2jQKcethw2yRMLTFSOOL5pWKjTAq/+u1cGwCwnQErmF5i+xsbnoVxy1u
-	RitUaU7Fh5Cs7MqKiH70I8cKioZvEn+Jv7On4q36FwJ7uTA2tCjzGxgNkdjf17RXQYqILYml9J8
-	BsjLxjxJ/RkzLcQZs2OSAvV2o0pTae2iDu+uxVkq6BA==
-X-Google-Smtp-Source: AGHT+IGBRNsdWIEVq2lvABTbUUECIfsmVa+EHXBbyet6RJA7rgFMhqYNN2EUThPsqZySlFDKzug8IQ==
-X-Received: by 2002:a05:600c:1f85:b0:45b:5f99:191c with SMTP id 5b1f17b1804b1-45b8555ca8dmr86401375e9.12.1756810592060;
-        Tue, 02 Sep 2025 03:56:32 -0700 (PDT)
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2] tools/libs: Use superpages where possible on migrate/resume
-Date: Tue,  2 Sep 2025 11:56:25 +0100
-Message-ID: <20250902105625.28552-1-frediano.ziglio@cloud.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: 879e7b78-87eb-11f0-8dd7-1b34d833f44b
+Date: Tue, 2 Sep 2025 12:56:46 +0200
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: issue with dom0_pvh on Xen 4.20
+Message-ID: <aLbNbiHLntX13E46@mail.soc.lip6.fr>
+References: <aLbEQ7Bav8seazP1@mail.soc.lip6.fr>
+ <68988b80-f642-4fcf-a624-49ad9fdd685c@citrix.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <68988b80-f642-4fcf-a624-49ad9fdd685c@citrix.com>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.4 (isis.lip6.fr [132.227.60.2]); Tue, 02 Sep 2025 12:56:48 +0200 (CEST)
+X-Scanned-By: MIMEDefang 3.4.1 on 132.227.60.2
 
-Try to allocate larger order pages.
-With some test memory program stressing TLB (many small random
-memory accesses) you can get 15% performance improves.
-On the first memory iteration the sender is currently sending
-memory in 4mb aligned chunks which allows the receiver to
-allocate most pages as 2mb superpages instead of single 4kb pages.
-This works even for HVM where the first 2mb contains some holes.
-This change does not handle 1gb superpages as this will require
-change in the protocol to preallocate space.
+On Tue, Sep 02, 2025 at 11:44:36AM +0100, Andrew Cooper wrote:
+> On 02/09/2025 11:17 am, Manuel Bouyer wrote:
+> > Hello,
+> > I'm trying to boot a NetBSD PVH dom0 on Xen 4.20.
+> > The same NetBSD kernel works fine with Xen 4.18
+> >
+> > The boot options are:
+> > menu=Boot netbsd-current PVH Xen420:dev hd0f:;load /netbsd-PVH console=com0 root=wd0f; multiboot /xen420-debug.gz dom0_mem=1024M console=com1 com1=38400,8n1 loglvl=all guest_loglvl=all gnttab_max_nr_frames=64 sync_console=1 dom0=pvh
+> >
+> > and the full log from serial console is attached.
+> >
+> > With 4.20 the boot fails with:
+> >
+> > (XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+> > (XEN) Freed 664kB init memory
+> > (XEN) d0v0 Triple fault - invoking HVM shutdown action 1
+> > (XEN) *** Dumping Dom0 vcpu#0 state: ***
+> > (XEN) ----[ Xen-4.20.2-pre_20250821nb0  x86_64  debug=y  Tainted:   C    ]----
+> > (XEN) CPU:    7
+> > (XEN) RIP:    0008:[<000000000020e268>]
+> > (XEN) RFLAGS: 0000000000010006   CONTEXT: hvm guest (d0v0)
+> > (XEN) rax: 000000002024c003   rbx: 000000000020e260   rcx: 00000000000dfeb7
+> > (XEN) rdx: 0000000000100000   rsi: 0000000000103000   rdi: 000000000013e000
+> > (XEN) rbp: 0000000080000000   rsp: 00000000014002e4   r8:  0000000000000000
+> > (XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000000
+> > (XEN) r12: 0000000000000000   r13: 0000000000000000   r14: 0000000000000000
+> > (XEN) r15: 0000000000000000   cr0: 0000000000000011   cr4: 0000000000000000
+> > (XEN) cr3: 0000000000000000   cr2: 0000000000000000
+> > (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
+> > (XEN) ds: 0010   es: 0010   fs: 0000   gs: 0000   ss: 0010   cs: 0008
+> >
+> > because of the triple fault the RIP above doens't point to the code.
+> >
+> > I tracked it down to this code:
+> >         cmpl    $0,%ecx                 ;       /* zero-sized? */       \
+> >         je      2f                      ; \
+> >         pushl   %ebp                    ; \
+> >         movl    RELOC(nox_flag),%ebp    ; \
+> > 1:      movl    %ebp,(PDE_SIZE-4)(%ebx) ;       /* upper 32 bits: NX */ \
+> >         movl    %eax,(%ebx)             ;       /* store phys addr */   \
+> >         addl    $PDE_SIZE,%ebx          ;       /* next PTE/PDE */      \
+> >         addl    $PAGE_SIZE,%eax         ;       /* next phys page */    \
+> >         loop    1b                      ; \
+> >         popl    %ebp                    ; \
+> > 2:                                      ;
+> >
+> > there are others pushl/popl before so I don't think that's the problem
+> > (in fact the exact same fragment is called just before with different
+> > inputs and it doesn't fault). So the culprit it probably the write to (%ebx),
+> > which would be 0x20e260
+> > This is in the range:
+> > (XEN)  [0000000000100000, 0000000040068e77] (usable)
+> > so I can't see why this would be a problem.
+> >
+> > Any idea, including how to debug this further, welcome
+> 
+> Even though triple fault's are aborts, they're generally accurate under
+> virt, so 0x20e268 is most likely where things die.
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
----
-Changes since v1:
-- updated commit message and subject;
-- change the implementation detecting possible 2mb pages inside
-  the packet sent allowing more 2mb superpages.
----
- tools/libs/guest/xg_sr_restore.c | 77 ++++++++++++++++++++++++++++++++
- 1 file changed, 77 insertions(+)
+but that's the RIP of the last fault, not the first one, right ?
+0x20e268 isn't in the text segment of the kernel, my guess is that the
+first fault triggers an exception, but the exeption handler isn't set up yet
+so we end up jumping to some random value.
 
-diff --git a/tools/libs/guest/xg_sr_restore.c b/tools/libs/guest/xg_sr_restore.c
-index 06231ca826..f2018299a7 100644
---- a/tools/libs/guest/xg_sr_restore.c
-+++ b/tools/libs/guest/xg_sr_restore.c
-@@ -129,6 +129,80 @@ static int pfn_set_populated(struct xc_sr_context *ctx, xen_pfn_t pfn)
-     return 0;
- }
- 
-+#if defined(__i386__) || defined(__x86_64__)
-+/* Order of the smallest superpage */
-+#define SMALL_SUPERPAGE_ORDER 9
-+#else
-+#error Define SMALL_SUPERPAGE_ORDER for this platform
-+#endif
-+
-+static unsigned int populate_order(struct xc_sr_context *ctx,
-+                                   unsigned int original_count,
-+                                   xen_pfn_t *pfns, xen_pfn_t *mfns,
-+                                   int order)
-+{
-+    size_t i = original_count, num_superpages;
-+    xen_pfn_t prev = 0, order_mask = ~((~(xen_pfn_t)0) << order);
-+    xen_pfn_t *const indexes_end = mfns + original_count;
-+    xen_pfn_t *indexes = indexes_end;
-+    unsigned int count = 0;
-+
-+    while ( i > 0 )
-+    {
-+        --i;
-+        ++count;
-+        if ( pfns[i] != prev - 1 )
-+            count = 1;
-+
-+        /*
-+         * Is this the start of a contiguous and aligned number
-+         * of pages ?
-+         */
-+        if ( (pfns[i] & order_mask) == 0 && count > order_mask )
-+            *--indexes = i;
-+
-+        prev = pfns[i];
-+    }
-+
-+    count = original_count;
-+
-+    /* No superpages found */
-+    if ( indexes == indexes_end )
-+        return count;
-+    num_superpages = indexes_end - indexes;
-+
-+    /* Build list of PFNs that will be updated with MFNs */
-+    mfns = indexes - num_superpages;
-+    for ( i = 0; i < num_superpages; ++i )
-+        mfns[i] = pfns[indexes[i]];
-+
-+    /* Try to allocate, fallback to single pages */
-+    if ( xc_domain_populate_physmap_exact(
-+         ctx->xch, ctx->domid, num_superpages, order, 0, mfns) )
-+        return count;
-+
-+    /* Scan all MFNs allocated */
-+    for ( i = 0; i < num_superpages; ++i )
-+    {
-+        const xen_pfn_t mfn = mfns[i];
-+        const xen_pfn_t pfn = pfns[indexes[i]];
-+
-+        /* Check valid */
-+        if ( mfn == INVALID_MFN )
-+            continue;
-+
-+        /* Update PFNs using callback */
-+        for ( size_t j = 0; j <= order_mask; ++j )
-+            ctx->restore.ops.set_gfn(ctx, pfn + j, mfn + j);
-+
-+        /* remove from 4kb pages list */
-+        count -= order_mask + 1;
-+        memmove(pfns + indexes[i], pfns + indexes[i] + order_mask + 1,
-+                sizeof(*pfns) * (count - indexes[i]));
-+    }
-+    return count;
-+}
-+
- /*
-  * Given a set of pfns, obtain memory from Xen to fill the physmap for the
-  * unpopulated subset.  If types is NULL, no page type checking is performed
-@@ -163,6 +237,9 @@ int populate_pfns(struct xc_sr_context *ctx, unsigned int count,
-         }
-     }
- 
-+    /* try optimizing using larger order */
-+    nr_pfns = populate_order(ctx, nr_pfns, pfns, mfns, SMALL_SUPERPAGE_ORDER);
-+
-     if ( nr_pfns )
-     {
-         rc = xc_domain_populate_physmap_exact(
 -- 
-2.43.0
-
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
