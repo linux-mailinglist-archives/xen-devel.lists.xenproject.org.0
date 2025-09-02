@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAB1AB3F653
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 09:14:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1105727.1456582 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07DD7B3F6B4
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 09:27:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1105746.1456592 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utLD0-0006j5-08; Tue, 02 Sep 2025 07:13:38 +0000
+	id 1utLQS-0000Cn-4O; Tue, 02 Sep 2025 07:27:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1105727.1456582; Tue, 02 Sep 2025 07:13:37 +0000
+Received: by outflank-mailman (output) from mailman id 1105746.1456592; Tue, 02 Sep 2025 07:27:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utLCz-0006hd-Rv; Tue, 02 Sep 2025 07:13:37 +0000
-Received: by outflank-mailman (input) for mailman id 1105727;
- Tue, 02 Sep 2025 07:13:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=P0Jg=3N=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1utLCy-0006KU-Cv
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 07:13:36 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 568b9299-87cc-11f0-8dd7-1b34d833f44b;
- Tue, 02 Sep 2025 09:13:34 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-61d7b2ec241so2523792a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 02 Sep 2025 00:13:34 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cfc5306e6sm8894821a12.47.2025.09.02.00.13.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Sep 2025 00:13:33 -0700 (PDT)
+	id 1utLQS-00009V-1R; Tue, 02 Sep 2025 07:27:32 +0000
+Received: by outflank-mailman (input) for mailman id 1105746;
+ Tue, 02 Sep 2025 07:27:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mvP2=3N=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1utLQQ-00009P-QC
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 07:27:30 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20618.outbound.protection.outlook.com
+ [2a01:111:f403:2417::618])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 47e5dea0-87ce-11f0-8adc-4578a1afcccb;
+ Tue, 02 Sep 2025 09:27:29 +0200 (CEST)
+Received: from CH2PR16CA0001.namprd16.prod.outlook.com (2603:10b6:610:50::11)
+ by MN2PR12MB4224.namprd12.prod.outlook.com (2603:10b6:208:1dd::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Tue, 2 Sep
+ 2025 07:27:26 +0000
+Received: from CH2PEPF00000142.namprd02.prod.outlook.com
+ (2603:10b6:610:50:cafe::cb) by CH2PR16CA0001.outlook.office365.com
+ (2603:10b6:610:50::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.27 via Frontend Transport; Tue,
+ 2 Sep 2025 07:27:26 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH2PEPF00000142.mail.protection.outlook.com (10.167.244.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9094.14 via Frontend Transport; Tue, 2 Sep 2025 07:27:25 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 2 Sep
+ 2025 02:27:25 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Tue, 2 Sep
+ 2025 00:27:57 -0700
+Received: from [10.252.147.171] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 2 Sep 2025 02:27:24 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,189 +63,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 568b9299-87cc-11f0-8dd7-1b34d833f44b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756797214; x=1757402014; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yEuKdVC8jVOAIRi0jKxVRzwiN9984gTQsblzjeJPkQU=;
-        b=aHhavqgYhcMv5J8MwH3n98d5+xvh/QeqdLR6KkCyngPOJ/bJ8yjlPa0fogR6KfNjpN
-         eKreNXYlDtM/UFnQHJnoOj0JPuPldqeruKayJTJcMcGJeZxZT/qxGfkaFpPImNQriYB8
-         Ubv9MFYsuyORyYdW7luqNdwuqgFnMZNeUjZdxNK+cl0yRsrC+bRO6cVhyb8Vi4DgWQ4f
-         Zq82WhBaK+KWasPCoa/MhbQ1vGpKcqbXuc+ajhnpiiBRNuN/Z++DJMdSRKFzKJv1gcup
-         kZIlAayhDZ9FRnQMRLCveQkECL+uiuabiNxqFxd6aLQcLcxp9IDPyL0KEE7U1XQHrHgN
-         XY/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756797214; x=1757402014;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yEuKdVC8jVOAIRi0jKxVRzwiN9984gTQsblzjeJPkQU=;
-        b=cJj29XzhQdlBVYNVAHkbPRRWmbOq/WXMSK1GCfT3YHnuf+/wtn7i+lDNRJdCY66Vu7
-         TZw7XzAtO2qcI3BGCc+liuQ6Hh/EED6+bRyQIIGNbSwlwlmxONAX2WeQgO7mUxPB39H4
-         M3b4CSXmoVZELGWfvjpNVODTh/04zNu27M9zlKKfohLZ05kZBK0G6Wiq2xbIdlbvXkBo
-         8urX6snwoNk9Jnr8p7mQVxKhsAABHQusDE29cv/gws4gVxwiSZ1yKtAe+AfZGL9Z8Y5Z
-         xETCQLN8vWEFol0Zs/gldGHtXQQzfAjyh0jsLrvMJp4mb8J8+vCk5U3sZrJefyAlWXw7
-         Qc7A==
-X-Forwarded-Encrypted: i=1; AJvYcCXdST2YcWeiHo272Mv8q8jHr97oY3jeFF8/86p3xld9plmsDO0STO3alh5nFZuExy3f3aKpK0IVvaQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxne9uk6tPSIqLyzUoOvbJXrfRbPrcrow5Fpyf88hJ0E7VZV28o
-	yomH5O1fIGrF3sVppfVF5SsR3EqAz32Oeyz9ZP9TarcC9tBWl2SbhRRSf9kAnXToLg==
-X-Gm-Gg: ASbGnctvulWG38C07s9xmNbpKA+LxKalU3tDOt/WMJnxp1qBKk4a+6mvXTvOr8Cymtx
-	gxZWlwUCMRnEocPo2mBOryWuzrkngd6hrsWn6JMobxKZLHH86wDw7Q4giRb/v8Yhyc/SuK69DyC
-	zy/lXIvzR34+zf2NDRvea8VKBrRgxhXY/epkojsKChCZ5i2bFAaMoVUh8AxRQJ6DlkZms5s+GJ3
-	tFfaezfCYQelogmgeRlW2DRXOeA1JHcG8CUARnpaMmGJJLXmgh/z7v4YOAfcpb6S3t8nzS9LOpy
-	KazzcWeJVQkx9XoYp2uiWgP1zV8oFVg62jsttQSLPQKoDUGHBVjlr07OaItavCG7Tz2ziHgZR8E
-	aHGCEVTHqEG4JKBlYZfCtfhku/Ox2md/rcNB43iZaAgXhBOmBwU8NfHrWM4Y/neDlCRX2Whngpp
-	Y+TcZ0fZVCysAfPjbL+g==
-X-Google-Smtp-Source: AGHT+IHBGrUyZF9el+LCNh1T4c5/X5bP60TbK0gGpxs6Toe4Gl1k6NESVRsWMrLnraCvny0au9HEGg==
-X-Received: by 2002:a05:6402:40ce:b0:61c:7b6e:b242 with SMTP id 4fb4d7f45d1cf-61d260cc398mr8608628a12.0.1756797214112;
-        Tue, 02 Sep 2025 00:13:34 -0700 (PDT)
-Message-ID: <b1f195a0-6471-43e1-8973-ceabcb6ce9bf@suse.com>
-Date: Tue, 2 Sep 2025 09:13:32 +0200
+X-Inumbo-ID: 47e5dea0-87ce-11f0-8adc-4578a1afcccb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Bs4QUvXR/hMjPbJGs7OjAKnY4LCyBzrbtZHO1ir4hNPBGr860gHQBHMhKmTXo8nty6b3bMrx4+iLihdQxqV2ib29C/6I3YsGL5n1omiQnJ4wKJhwkuRL2ydjU6/VhlD7V+Sx/g1+IpkpO1/i8ZqdRC9yzYPDRgXcxpOQtXpZNX9F0LTrIHbCZ7AMJJgxxAyx+sio8Flqfpe1/A0QNutdeVZuPIeExHzMvpDCh/BPYZt49r+x3k+CqnRVZitu/i3n7dbVemzZPdaI4lGqjpz/IGevLaJJ1gUEJk1D7j9q+8ZSfF0R4HxbDQPmZFkKv+Qv1GQTD27FmZY/wUElAXgBTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EI/oTIsEH+yF+vdp5hZ8znu5avii+Lx+745u0RHTIhI=;
+ b=zHpC1WboxZzy3HCPylSie6wH9Wer7la2UbDO9M18ncTglS1k/VyCDSAfLymGQ9meX8FQ7kI09X/RBCKGl5Y1ad/7gFZt0hf1uPRWtyuwmEJwDy9KQv+zmzSt9ZBYTbj5v641h1TWQEQJNUjrLmiFHFh8tpdwIOQa4X/emMK8Ksk7nlIzJlBrk4YFeHLt4d2ISKVmWNbWaB0N5Vznm6hWXAv+w+Hkn+b7k2KQfaXC6NKIzu8G9fKLRiM1Vv/szkxUYiyHz5nQ9CHh6cM+DPEJcXVqHMhQatOH77yulEB2RHUe5x38W+C5RZSCiCe0C1umwG1dER7+bXv9v5wWD5RwKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EI/oTIsEH+yF+vdp5hZ8znu5avii+Lx+745u0RHTIhI=;
+ b=vkBhaWlg3KfkVkqalTv8zm+qDDqdwGwD6dsRsCN72+XdU2EWRGJ/q3gAOKsdnvGbNkekjVo5g9fx9LwOJpCh5b/EqhVeNO9hY6xi3zvh0mq6q9sQ9lgMQdHgOSFpGPe2KO1n3ZhtWRyh08/N6IWZ01Pzgft51cYgkiawWLG7w10=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <5d670f97-5e04-45b8-b9ad-81e42706bc47@amd.com>
+Date: Tue, 2 Sep 2025 09:27:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for
- guests
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1756586648.git.mykola_kvach@epam.com>
- <244e5c2bcebad9563595ac7564ffa105d5f568d3.1756586648.git.mykola_kvach@epam.com>
- <80c8dbfe-5240-441d-84fc-603e9c5f9812@suse.com>
- <CAGeoDV8Jjri+EhJDvxuZED9gm_b5JGcCouSeHqdBF=xR6VZw+w@mail.gmail.com>
- <CAGeoDV_5856nbOA6_H00yxGvBD=+YG3XOAObw6dCMesb00ZiTg@mail.gmail.com>
+Subject: Re: [PATCH] xen/public: arch-arm: Drop XEN_DMOP_get_ioreq_server_info
+ from supported
+To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>
+References: <20250901125837.1271101-1-oleksandr_tyshchenko@epam.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAGeoDV_5856nbOA6_H00yxGvBD=+YG3XOAObw6dCMesb00ZiTg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250901125837.1271101-1-oleksandr_tyshchenko@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000142:EE_|MN2PR12MB4224:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8df24562-4c49-4526-a31c-08dde9f22a76
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?blhNUy9WWWJqTVJUSGhtZVRSeFJxajFyb1lJZHJwdmJOa05JVWFmUEs4WEoz?=
+ =?utf-8?B?TDc1Sy9aa1hnZXRzbmNtbnYvQnVEcVZLY0JUOUNRUno3NVBvT1pWSERjazl4?=
+ =?utf-8?B?N3l3aXlGYy9pYW5wVm1nVnJoY3cvWWRybVNpUXZIVlV3RlF0c284YTZiUE9z?=
+ =?utf-8?B?cHROeXBLZmU3ak9NSXJ3ZElSN0NZSGJTRFJXM3hNV3dNL0dFa1FiTGx0Z3VF?=
+ =?utf-8?B?Wld6R25Mb09wbk9wekg4S3BwaisxZkJGYkQ2bGFqSlo3M1VwRXhrckMvU1c0?=
+ =?utf-8?B?ZEkya2M1OGlObWdKY3ovRDV4dUVkWWt4MUFRZGtXd1QwWll4eTUvK2dibitM?=
+ =?utf-8?B?QTBaaGl6L1dyRS9vNFJlUFA4VEU0NFJneWJtT0dvUnNKSDQxVHRkdWV0VVlX?=
+ =?utf-8?B?U1ZHRFlzRkdBWWQwcmErVjR0NVFHSlkxOWMwSkk0TWd5MEpWZVZlemdkdGUv?=
+ =?utf-8?B?RFVUNlNnK2g2cGxWNktRbE5aVlliSVV3Y3BldVBLbGRIdGp5QUZSSlgwcERN?=
+ =?utf-8?B?dnk1T3lSQXNLTmdabHFLcW9YOWZ5S2cxVFhlOGF5KzFqQnpLbE43M0ZCSmUv?=
+ =?utf-8?B?UGNhamVqUkVnT2M0akZZSlVNKzBLb00rTXM5MkQ3R0tnVnNic0Nxd2JROUd6?=
+ =?utf-8?B?bFVUWS8xUEhHTzVWZytWZlROUU95OXFVaXZhbkZya1pROFdHN1MvUUFZbTR1?=
+ =?utf-8?B?UUQvMzBjbkRUbFdUbDJ2VzNWU1ZURThTZkFzVFU4VnNCcVNwdURiWWRCZzJk?=
+ =?utf-8?B?MldGUlFobmZqS09Eb2MrcjBsZGNrU0N0TWJtM3J4RHV6OExuUm1rd1M2M3dD?=
+ =?utf-8?B?K2pJWEljNk5MUmF3Q1FPNlFTNjByZURQaVRvWCtuZlFoWE1LekZBdWt3Wk83?=
+ =?utf-8?B?SHZtWXZZcks5UlVabmpxUm1iRnUwYSt6WWtXN1NITU80K1BjMkpNOHJEZ0hP?=
+ =?utf-8?B?L21WUGhPSU9kNzdBeFFVKzZZUXZOMFZJZGx4SVJlanpaWVJ4cW9EOXRQc21h?=
+ =?utf-8?B?NXdkZXJDMlltTTUya01hZmV2YW1mQUdhWGVFZW1UV1pyemhOMjdaaUxPTjht?=
+ =?utf-8?B?RGlWL0U3YW5wcDEzbDZZWmNhMVRGTHkxd1JmZnVQT3lMWU5FZTd2T3hucEJ1?=
+ =?utf-8?B?Mmxxb3A3bndsMkFqVHBwdkZ6WmkreHBrY2ZYUTh1azVxRWs1K3ExejhheUpG?=
+ =?utf-8?B?OFp6MDMvSjlWdGsxR1dpR3VDYWpuaithVjZFL3MyejNqNG84cmZEWVJjQzgw?=
+ =?utf-8?B?WTByaExkZG9WZnViOGkwOXZESTIzTU53TUpwQkxJZlpGTVhmRUV0enVHK1FO?=
+ =?utf-8?B?OXpxMkJqRk5SbWtvV0t2dXN1dmFocVJkTVhSbWRQT3JVUGRNK0owYk1EdWQ3?=
+ =?utf-8?B?WDBUc0pyeERDOTNVWkVZc3NYdkwwb09EbmRQKzlPL1N5OUJxd3dCUm5VcUpy?=
+ =?utf-8?B?NmE3Yjc1V1ZBa3o2SlRidy9qYjdjUUtzeStZejZGeHFrZzVvS0R3Ym9PV3dx?=
+ =?utf-8?B?Sitha0tYRE8xR0lKQTFRUCs4L2ppTzdOZjNLcDZDUmZydDR3aUIzbzFCdlNZ?=
+ =?utf-8?B?RWhQMWR4V0RiYlFWTkdKbnJ4YjExaHhMb2hRcFhDK0pKeXNYeWRHeWhjdHNn?=
+ =?utf-8?B?S3hONGd0VzBjZG9iYTlVV3ZFa245a3NsZm5yVXd3VFJIVTZMYmk5OTlSNk4x?=
+ =?utf-8?B?T2ZMbXEwNlhoMjl6Wlg3WlNOa3VKcG1pSWJvcXRRNXRhZy83czg5NktZUldO?=
+ =?utf-8?B?clc4YldrTDNmKzNZL1dIbU9PWWlTMHMzVDRxK1JYVW5FMGhIQWJiWSt3R1JQ?=
+ =?utf-8?B?ZzVJY1o2cUM3MlYvNHJCTkxrTjdtV01SZW9tMzd4cXluc2daUTZOdENKMno2?=
+ =?utf-8?B?VUduNXZlS0h5N1c2Z3p3RmRwTXQrNmJjY1JPeVU5NjZSM3A5eEJGbXhuR3ZE?=
+ =?utf-8?B?M1U4bkZoV1B3SkowZkMyeG5NaHRVSit3NExpNFc5Unc0anVmaVlIOG1HZzF5?=
+ =?utf-8?B?eHJzekdnZmNKaHdkRXZ1OVI2Y2wzMnFXTnpyOHc4RDNDczdXZ0dLVEp4Ti9i?=
+ =?utf-8?Q?zaQP3c?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2025 07:27:25.9710
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8df24562-4c49-4526-a31c-08dde9f22a76
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000142.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4224
 
-On 01.09.2025 19:17, Mykola Kvach wrote:
-> On Mon, Sep 1, 2025 at 8:02 PM Mykola Kvach <xakep.amatop@gmail.com> wrote:
->> On Mon, Sep 1, 2025 at 5:29 PM Jan Beulich <jbeulich@suse.com> wrote:
->>> On 31.08.2025 00:10, Mykola Kvach wrote:
->>>> --- a/xen/arch/ppc/stubs.c
->>>> +++ b/xen/arch/ppc/stubs.c
->>>> @@ -224,6 +224,11 @@ void arch_domain_creation_finished(struct domain *d)
->>>>      BUG_ON("unimplemented");
->>>>  }
->>>>
->>>> +int arch_domain_resume(struct domain *d)
->>>> +{
->>>> +    return 0;
->>>> +}
->>>> +
->>>>  int arch_set_info_guest(struct vcpu *v, vcpu_guest_context_u c)
->>>>  {
->>>>      BUG_ON("unimplemented");
->>>> diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
->>>> index 1a8c86cd8d..52532ae14d 100644
->>>> --- a/xen/arch/riscv/stubs.c
->>>> +++ b/xen/arch/riscv/stubs.c
->>>> @@ -198,6 +198,11 @@ void arch_domain_creation_finished(struct domain *d)
->>>>      BUG_ON("unimplemented");
->>>>  }
->>>>
->>>> +int arch_domain_resume(struct domain *d)
->>>> +{
->>>> +    return 0;
->>>> +}
->>>> +
->>>>  int arch_set_info_guest(struct vcpu *v, vcpu_guest_context_u c)
->>>>  {
->>>>      BUG_ON("unimplemented");
->>>> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
->>>> index 19fd86ce88..94a06bc697 100644
->>>> --- a/xen/arch/x86/domain.c
->>>> +++ b/xen/arch/x86/domain.c
->>>> @@ -1138,6 +1138,11 @@ void arch_domain_creation_finished(struct domain *d)
->>>>          hvm_domain_creation_finished(d);
->>>>  }
->>>>
->>>> +int arch_domain_resume(struct domain *d)
->>>> +{
->>>> +    return 0;
->>>> +}
->>>> +
->>>>  #ifdef CONFIG_COMPAT
->>>>  #define xen_vcpu_guest_context vcpu_guest_context
->>>>  #define fpu_ctxt fpu_ctxt.x
->>>
->>> I definitely don't like this redundancy, and even less so that you introduce out-
->>> of-line calls.
->>
->> Thank you for your feedback.
->> I followed the existing pattern used in other architecture stubs.
+
+
+On 01/09/2025 14:58, Oleksandr Tyshchenko wrote:
+> The said sub-op is not supported on Arm64, since it:
+>  - does not support the buffered emulation (so bufioreq_port/bufioreq_gfn
+>    cannot be returned), please refer to ioreq_server_create()
+>  - does not support "legacy" mechanism of mapping IOREQ Server
+>    magic pages (so ioreq_gfn/bufioreq_gfn cannot be returned), please
+>    refer to arch_ioreq_server_map_pages(). On Arm64, only the Acquire
+>    Resource infrastructure is used to query and map the IOREQ Server pages.
+These points are valid. However, I don't understand why you mention Arm64 only.
+What about Arm32? It's the same here.>
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+>  xen/include/public/arch-arm.h | 1 -
+>  1 file changed, 1 deletion(-)
 > 
-> ... while I understand your concern about redundancy and out-of-line
-> calls, I would appreciate more specific technical reasoning for why
-> this approach is undesirable.
+> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
+> index e2412a1747..023cc2f468 100644
+> --- a/xen/include/public/arch-arm.h
+> +++ b/xen/include/public/arch-arm.h
+> @@ -130,7 +130,6 @@
+>   *  HYPERVISOR_dm_op
+>   *   Exactly these sub-operations are supported:
+>   *    * XEN_DMOP_create_ioreq_server
+> - *    * XEN_DMOP_get_ioreq_server_info
+>   *    * XEN_DMOP_map_io_range_to_ioreq_server
+>   *    * XEN_DMOP_unmap_io_range_from_ioreq_server
+>   *    * XEN_DMOP_set_ioreq_server_state
+This list is kept in sync with the op_size array in xen/arch/arm/dm.c.
+I think we should drop this op from there, not only from the comment listing
+supported ops.
 
-Out of line functions, even if as simple as the example above, have a
-code size and performance effect; effectively empty inline functions
-can typically be eliminated altogether by the compiler, including the
-checking of their "return" values. While the impact may be low, any
-such instance can later be used as motivation / justification to
-introduce further instances (much like you did in to your earlier
-reply, still in context above). And the sum of them then may not be
-"low impact" anymore.
+~Michal
 
-Furthermore we're already moving towards wider use of has_include().
 
-> Code review is most effective when it is based on objective criteria
-> and project guidelines, rather than personal preferences.
-
-And what did you derive from that my comment was purely based on a
-personal preference? Plus even if it were (often I would indicate so),
-that's imo still okay, as in many case maintainer preferences also
-matter (e.g. if only for a more consistent overall code base).
-
-> This helps contributors understand the rationale and make improvements
-> that benefit the whole project.
-
-While content-wise I agree, considering the amount of work I put into
-doing reviews, I still view this sort of "education" as pretty close
-to an offense. Plus did you consider how well it would scale if in
-every review all sorts of extra justification would need giving? I
-don't really like to put things this way, but I would really recommend
-you first start doing perhaps dozens of reviews a week before judging
-on whether any particular review gave you enough background info.
-
-Jan
 
