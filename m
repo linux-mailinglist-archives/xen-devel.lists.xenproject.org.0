@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A15F9B3F51F
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 08:15:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1105661.1456522 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 860A5B3F530
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 08:17:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1105673.1456531 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utKIF-00055i-E1; Tue, 02 Sep 2025 06:14:59 +0000
+	id 1utKKj-0005eH-QD; Tue, 02 Sep 2025 06:17:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1105661.1456522; Tue, 02 Sep 2025 06:14:59 +0000
+Received: by outflank-mailman (output) from mailman id 1105673.1456531; Tue, 02 Sep 2025 06:17:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utKIF-00053z-9e; Tue, 02 Sep 2025 06:14:59 +0000
-Received: by outflank-mailman (input) for mailman id 1105661;
- Tue, 02 Sep 2025 06:14:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1utKKj-0005co-MM; Tue, 02 Sep 2025 06:17:33 +0000
+Received: by outflank-mailman (input) for mailman id 1105673;
+ Tue, 02 Sep 2025 06:17:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P0Jg=3N=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1utKID-00053t-4n
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 06:14:57 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 254bbaed-87c4-11f0-8adc-4578a1afcccb;
- Tue, 02 Sep 2025 08:14:55 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-afcb7ace3baso276479066b.3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 23:14:55 -0700 (PDT)
+ id 1utKKi-0005ci-De
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 06:17:32 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 816d019a-87c4-11f0-8dd7-1b34d833f44b;
+ Tue, 02 Sep 2025 08:17:30 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-aff0775410eso494033566b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 23:17:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b0432937e0esm372708166b.3.2025.09.01.23.14.54
+ a640c23a62f3a-aff0971379esm932767866b.102.2025.09.01.23.17.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 23:14:55 -0700 (PDT)
+ Mon, 01 Sep 2025 23:17:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 254bbaed-87c4-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: 816d019a-87c4-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756793695; x=1757398495; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756793850; x=1757398650; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2zalHF03nmx5/7oED+m4rQP8/WRq7ErqVBE0DD+p6KA=;
-        b=UdWT7+N0pJW+n7V4kLHnhBIOlmm5y9EJyL8pKbrhRp81VwMRncdN9rqS2W33dhtW3d
-         0Zf5GDY/AUjwRiSBflmOyhD40qeuU3/o6vShxi/jQgfkNz3O9xe46xP5fW4JbzCmN3uv
-         nmHM20akF+59Q1pdaOL2+Psz9i4ffvHsEfmaSQN9mr5HQYcrSMJHh54owqaXdE8YyQvD
-         +TUdYkr1c2TQCu/IezZT7f1Q4BXOzGpVyhM9vXMhQoaHkjjVj6Ern7iSDewT4wAVzTf3
-         j2GDhAYEiWe8zc4y8ILzmxobeyGUoZQnZTNJIXrzR4WofeVLC8DV0b8s8SI3WPlSs+K/
-         n7pg==
+        bh=gZt3bFPJkMMncWlUEi9JchKzNhlanR/N4cao59y1WR4=;
+        b=c/BGpDpm5sU8QtduBcFIeu0mc2uCQPHTfsIlXfnnGFQdoZxl4QTSg4cXJ3FgaxKgJx
+         Kji/e8RuGrKWVoC1DZec94lK5D4rh6lKiW/7JA8dmNp6WUW9XlPYCmucTEEQ4Eo+GjUi
+         95lTmpz/2afFSdSEapBROsDDFvX68U5sTX7JuPfG7KBbJjGF5Ylc1yHbkvsA5Pokgt3F
+         IOu2+APWrt+BylMPFG6SGxZlmfkFF1egj/ZnX7p1S/qSg5n6Ghp1DAOc8gVVO8tE20iS
+         GUHeWcleLGRU4jkue1Shc0VxtEyYTPGZ0YtBICayLi+nHldSVzVzF612MaVQpmsCNyDl
+         Qfqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756793695; x=1757398495;
+        d=1e100.net; s=20230601; t=1756793850; x=1757398650;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2zalHF03nmx5/7oED+m4rQP8/WRq7ErqVBE0DD+p6KA=;
-        b=AUOzl7oTKApdV5FqSygqQFZfzX/fvmcq5Z8kLMDUtfQExVztZjXqyI1e38HGvOP1Ra
-         H8z6T3808m2bCdIEgNx/V3whZnIB5+uRtUFg/XD+w+eKE6H9wQhxJxGR15lfJdmMVYVf
-         m4Yk4A0UEF54wnNtsr3parJz0c88WMiHe3NLVFSjzNYGJykRrmlGACPF50Ki6LorfNzM
-         9LVFhNLFV4YZfKb3O2IC1vhLPwyzUeDOwkqSYSk0s4JdUKE0qtjk2/8VSea4dAjhUR4E
-         ZR17jNRfVMkpVEkw4DvvhHiLETPmfz358LQQJYMYGtkrBCl4pDitYvvsHEoT15eHpCG3
-         +zyA==
-X-Forwarded-Encrypted: i=1; AJvYcCUzgpjhNBSDcdDzkzzljV0uaDgxu2eCMTqV1hTSLs3A5ov5v6HSd1jU9QRqaHep+IVowm2wrTyT/2U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxQlZaIMug9XvCogOr10WQ2J+6UHv6WPueXOmKnr6o8nYVZZYds
-	FquIEMZZwVVcx0smT+yrjTmkcz431j42wYiX04+xW5CrVtWnKpmnMU51//pluYO2mg==
-X-Gm-Gg: ASbGncsgtR7fhJ1lqEH3EDcRulYkhkuuLEWTNJnvIwSXhmO0b+qln/yiWKkdaFpxqJp
-	oL+Pf255HRNJE7hy/yJsTezvj/w8hIgGfXIVwdu3+EzDlFHftzEBBmFfNWXtHwLxP4laNCjuoBu
-	svlt2X4SdOsIcsGjn1yuEsE9kWSv71uNn1XWLzCPTyfuBk5eSoaiInThf4zDD2ccbiaGWOzgLiS
-	Z53ac/wgEuQApSNn0auWmvieXuqc1qHCw8X7JCXhRxioBanCW25c9Bmyr3cZG/IghpH5Lq3UjZ9
-	LKi9viZvixYG3MsPfWDtcowA5r1b0Hz1Y8ykxQexS6pGjmKA+wMPDR+xyQQMQ+LEYzK7ClH8u/L
-	qRmnrhR0lZiucxGbX+HrIXhWGwoWhwHkvhLKJuINofaW6N6sjahV70mNYyCIr9GmN2PcgyheuxK
-	ovdkIJUutvO23esglCJw==
-X-Google-Smtp-Source: AGHT+IFPzwzaX36F2yqdOVys+Jf5sqidojXsvgPveWj5uyEUNwk1f2MK0sIs6JYz0HJGOjU4LfqYEQ==
-X-Received: by 2002:a17:906:c445:b0:b04:198c:54a9 with SMTP id a640c23a62f3a-b04198c5b14mr618301366b.61.1756793695293;
-        Mon, 01 Sep 2025 23:14:55 -0700 (PDT)
-Message-ID: <8b93405c-60d7-4289-b775-ffbd953d8e10@suse.com>
-Date: Tue, 2 Sep 2025 08:14:54 +0200
+        bh=gZt3bFPJkMMncWlUEi9JchKzNhlanR/N4cao59y1WR4=;
+        b=KrY8JiKuAD8qpyA5yeLzic+EZJHUWIE1tXrxS9WL08b6r+pFFVnlHKZyfSdMEDVO/I
+         oS6JDqsey1Id1lozW9JiWW7J0+m6b1FGZCG4X82JyABErtTM3F9/VB5R3sLTzhdDrZn3
+         /jXqTG4cVUjOal2z1fA7T42Unl7/5e8kWmbPHmzf+yfHUTVsY5NOOI2NsTJ6xR6IxfMp
+         rN7ULnrfvk8Elv73zeKJO0Ywt9OfratviC461bK1duGntuwoGUTPksu+eoJMed3JnEWS
+         t6jWL52AMpCNbwD+Q4/byJEtzUJfCxNWNVowRp9UOfgn7IKMC3HJmKlIcKqEdWRLs5wz
+         nGEw==
+X-Forwarded-Encrypted: i=1; AJvYcCU6Dvn+7WiCY6clDqEL28UX5wkOjhRjHXQmzX60YerQkx1zpSjyHu/JSwMc7vgS31mxyhLOBJwp3mY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz3jxCgZWf5RbzS3r8dohSsU36yhwjDH9ujfUqCeqEzhiA7zUVw
+	VmCdHmIVfTxZDwdGcvi/+6+lHApHP1XqD3VhOdvRQkkAkT/JG+OHPJWmPwGhIWp6Mw==
+X-Gm-Gg: ASbGncumc/jy/kVuCZhTV65YBt4T+FkjR6bWp9TOFGssrEmJI/bw15wFBAY5HJ2H63h
+	r8tYgWZKvETCdlW+d/p+CuswnupPdiaE9F1Ng3TzJb/qR2G8B1IwJfTQKbMf4IhGOLI4yA61qJi
+	StPs4MvTy5u6a/WPHTAHVTCODDE7Z2Ilz+b1Vw0PoR8CM+L+VM+gttN7EX5UlyOllt853pwasPJ
+	qrzYFhxmcuVEN2FG3U9sQA+fzgdQ2b8Vpg7J/EbXCnD0Lo6i8sAfYypgPlowk2+9NvnN9iy3z06
+	53qXAwqbvYwDqVgQuv271iriYJz71Q7R1/MZ+gWsg52iHa5ielXzzZR51Y2mlYUAubeNwN/5n4t
+	X/WDOvXRIwyLyFe++U9Do0rmVm0R6Ig5y4pYyx9yVWrM7xfPdOaYPD8gZ5i46Ro6K8YZMpRjaAr
+	oPz8SKpOsvS7HBg4Ycng==
+X-Google-Smtp-Source: AGHT+IEFz7ntxND1P1n8C8vW/y1FvLVfItkGR4898+qm3QNOantCM8J87NocSkbqeSg8UhVwt+y9uQ==
+X-Received: by 2002:a17:907:980c:b0:afd:eb4f:d5d2 with SMTP id a640c23a62f3a-b01f20c8180mr1092497166b.31.1756793849863;
+        Mon, 01 Sep 2025 23:17:29 -0700 (PDT)
+Message-ID: <70b835e4-2b38-48c7-a7de-9720939502cb@suse.com>
+Date: Tue, 2 Sep 2025 08:17:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/15] emul/vuart: introduce framework for UART
- emulators
-To: dmukhin@xen.org
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
- anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
- roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-References: <20250828235409.2835815-1-dmukhin@ford.com>
- <20250828235409.2835815-2-dmukhin@ford.com>
- <alpine.DEB.2.22.394.2508291217110.341243@ubuntu-linux-20-04-desktop>
- <37f4c1af-29e3-44eb-a238-a3e2e4641f10@suse.com> <aLYdwtB+DqV4gXle@kraken>
+Subject: Re: [PATCH v2 07/23] x86/boot: Use RSTORSSP to establish SSP
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250828150409.901315-1-andrew.cooper3@citrix.com>
+ <20250828150409.901315-8-andrew.cooper3@citrix.com>
+ <9322056d-9f09-4f5b-801b-6f0fdad5ead9@suse.com>
+ <18e139ce-36a5-4a0c-8a9c-440ef1c1e29f@citrix.com>
+ <595a24ff-9eb8-40f3-9108-dca02e5a7a2c@suse.com>
+ <935c5307-86c4-48ae-80da-a4454f28398d@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,67 +123,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aLYdwtB+DqV4gXle@kraken>
+In-Reply-To: <935c5307-86c4-48ae-80da-a4454f28398d@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02.09.2025 00:27, dmukhin@xen.org wrote:
-> On Mon, Sep 01, 2025 at 10:14:04AM +0200, Jan Beulich wrote:
->> On 29.08.2025 21:27, Stefano Stabellini wrote:
->>> On Thu, 28 Aug 2025, dmukhin@xen.org wrote:
->>>> --- /dev/null
->>>> +++ b/xen/common/emul/vuart/vuart.c
->>>> @@ -0,0 +1,156 @@
->>>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>>> +/*
->>>> + * UART emulator framework.
->>>> + *
->>>> + * Copyright 2025 Ford Motor Company
->>>> + */
->>>> +
->>>> +#include <xen/err.h>
->>>> +#include <xen/sched.h>
->>>> +#include <xen/vuart.h>
->>>> +#include <xen/xvmalloc.h>
->>>> +
->>>> +#define for_each_emulator(e) \
->>>> +    for ( e = vuart_array_start; e < vuart_array_end; e++ )
->>>> +
->>>> +extern const struct vuart_emulator vuart_array_start[];
->>>> +extern const struct vuart_emulator vuart_array_end[];
->>>> +
->>>> +static const struct vuart_emulator *
->>>> +vuart_match_by_compatible(struct domain *d, const char *compat)
->>>> +{
->>>> +    const struct vuart_emulator *emulator;
->>>> +
->>>> +    if ( d->console.vuart )
->>>> +        return NULL;
->>>> +
->>>> +    for_each_emulator(emulator)
->>>> +        if ( emulator->compatible &&
->>>> +             !strncmp(emulator->compatible, compat,
->>>> +                      strlen(emulator->compatible)) )
+On 01.09.2025 20:53, Andrew Cooper wrote:
+> On 01/09/2025 4:41 pm, Jan Beulich wrote:
+>> On 01.09.2025 17:33, Andrew Cooper wrote:
+>>> On 01/09/2025 10:28 am, Jan Beulich wrote:
+>>>> On 28.08.2025 17:03, Andrew Cooper wrote:
+>>>>> @@ -908,7 +909,29 @@ static void __init noreturn reinit_bsp_stack(void)
+>>>>>      if ( cpu_has_xen_shstk )
+>>>>>      {
+>>>>>          wrmsrl(MSR_S_CET, xen_msr_s_cet_value());
+>>>>> -        asm volatile ("setssbsy" ::: "memory");
+>>>>> +
+>>>>> +        /*
+>>>>> +         * IDT and FRED differ by a Supervisor Token on the shadow stack, and
+>>>>> +         * therefore by the value in MSR_PL0_SSP.
+>>>> Beside not being overly relevant here afaict, is this last part of the sentence
+>>>> actually correct? Patch 06 doesn't write different values into the MSR.
+>>> It is correct, but also well hidden.
 >>>
->>> strncmp will continue until the given count even if compat is shorter
->>
->> Not really, one string having a nul char and the other not having one is a
->> difference, at which point comparison will stop. There would be a problem
->> if "compat" didn't point to a nul-terminated string, though (and I didn't
->> check that aspect, not the least because then "shorter" doesn't really
->> make much sense without a length passed in).
+>>> #define MSR_FRED_SSP_SL0                    MSR_PL0_SSP
+>>>
+>>> I suppose I should should write MSR_PL0_SSP/MSR_FRED_SSP_SL0 here to
+>>> highlight the logically different names for the two modes.
+>> But the code following the comment doesn't access any MSR. That's what
+>> first tripped me up. It was only then that I wasn't able to spot the two
+>> different writes. Now that you point out the aliasing it becomes clear
+>> that until patch 14 it is simply impossible to find that other write.
 > 
-> re: NUL-termination: current assumption is that both compat and
-> emulator->compatible are NUL-terminated.
+> I suppose the MSR value isn't relevant now that neither paths write the
+> value.  The first iteration had both writes here.
 > 
-> Current `compat` comes from the hardcoded NUL-terminated string (vuart_info).
-> 
-> In case of `compat` is not NUL-terminated (I plan to populate the field from
-> xl in the future), strncmp() will stop after strlen(emulator->compatible)
-> bytes.
+> I guess I can drop that paragraph, and just have the second?
 
-Which might be too late; if not nul-terminated, "compat" may extend past a
-page boundary, with the latter page not mapped.
+I'd keep everything up to the comma (plus the other paragraph of course).
 
 Jan
 
