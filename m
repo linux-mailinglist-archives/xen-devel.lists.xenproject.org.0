@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B046CB40FF9
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 00:22:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1107594.1457969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC85DB410C3
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 01:26:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1107640.1457979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utZO1-00014X-Qw; Tue, 02 Sep 2025 22:21:57 +0000
+	id 1utaNA-0000Qv-1z; Tue, 02 Sep 2025 23:25:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1107594.1457969; Tue, 02 Sep 2025 22:21:57 +0000
+Received: by outflank-mailman (output) from mailman id 1107640.1457979; Tue, 02 Sep 2025 23:25:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utZO1-00012B-Nr; Tue, 02 Sep 2025 22:21:57 +0000
-Received: by outflank-mailman (input) for mailman id 1107594;
- Tue, 02 Sep 2025 22:21:56 +0000
+	id 1utaN9-0000OR-VM; Tue, 02 Sep 2025 23:25:07 +0000
+Received: by outflank-mailman (input) for mailman id 1107640;
+ Tue, 02 Sep 2025 23:25:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X/no=3N=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1utZO0-000125-JW
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 22:21:56 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wtd+=3N=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
+ id 1utaN7-0000OL-MD
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 23:25:05 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061a.outbound.protection.outlook.com
+ [2a01:111:f403:2009::61a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a7b7e66-884b-11f0-9809-7dc792cee155;
- Wed, 03 Sep 2025 00:21:54 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-55f7a34fb35so2248660e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 02 Sep 2025 15:21:53 -0700 (PDT)
+ id 0c3c61af-8854-11f0-9809-7dc792cee155;
+ Wed, 03 Sep 2025 01:25:02 +0200 (CEST)
+Received: from CH3PR12MB8659.namprd12.prod.outlook.com (2603:10b6:610:17c::13)
+ by CH1PR12MB9574.namprd12.prod.outlook.com (2603:10b6:610:2ae::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Tue, 2 Sep
+ 2025 23:24:58 +0000
+Received: from CH3PR12MB8659.namprd12.prod.outlook.com
+ ([fe80::6eb6:7d37:7b4b:1732]) by CH3PR12MB8659.namprd12.prod.outlook.com
+ ([fe80::6eb6:7d37:7b4b:1732%4]) with mapi id 15.20.9073.026; Tue, 2 Sep 2025
+ 23:24:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,180 +47,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a7b7e66-884b-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756851713; x=1757456513; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FQypM20kVsD54oX5v8mDhtQA8PZenADmQOEGUfI9XJY=;
-        b=IqobnaYNpfA0ylhHhWP3+Tj9vc8YC02EqHfmEcKdoq4W+ID4cUzw/fgPhoZs69zQdb
-         tZSbDiYvWkLI4OCx56uZjp7rtEmkIjTR2le8nXLvrsg9OsR4B+EdMSC68wFg2CaxqZgY
-         AOOMv8fQmzgcuxoqCbg+lsH/Pb6O1+zKzBb3Lv+T9+qxDGnvzI6cCmIVKVFvQ8gTbsez
-         l//05KnFf6SsmpgAGetRwel2Owljj2peivjwluG4VmX8E0Pmez9fOprPJHnIpc1a6Nnu
-         VJdJMq/65NaxoY6vwcpWr/fo5uYBPSVgJ/JCBiJ7CxUjRYJmESlVDR4Bo+TYfsULQpBL
-         0B9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756851713; x=1757456513;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FQypM20kVsD54oX5v8mDhtQA8PZenADmQOEGUfI9XJY=;
-        b=gixGuas7NNWktFd6mZExtbegUNK3WGBZQ/hLqqeb0HXtfU8fklKa5mjMnoueqqxwiF
-         BoiKpQRopOoMdi4KtxMX0BfpQWwDMZQIdTc9yx6EgG8c2kXSBOH/tO1o1sRE0iQdz5rN
-         rT4q0c04htn+ZNl/+KABdk6zQeIclTsqOFN/8odfkVDHX3bU8VdcREjCdS1zZWYQ78QY
-         S70T8KPkEvuYuLKfiwKELEtmfhILjNT0nzzDKIprCMq5nrTccWXGs4rXuuAYz7iPOdw7
-         swW4gFmymT6l1bLQPy9QnL8+4orakQqoP5OGKVA4cFKqxo8ykO1twRfnxgykOEscS75E
-         pfWw==
-X-Gm-Message-State: AOJu0Yzh6/Euj7zd5092EpxKprPVthTDJt9QGNl5LiYY1n5wbiYq8IEL
-	OYYwNF0hyOWygJMKDYuT+1QHbuqd4fSZk94Y8dhQuPlWVa5JywR/MiwQbuK/Bf/Z4Evsyoa9lv3
-	yFemaPKEUYmkzBHUCwtrULcGXVrGsrYw=
-X-Gm-Gg: ASbGncsUlrJUh3tfyjZNkSaPkuelY+P31XTpwls6hhOOPnAOFRU2JK/2V9gRsaxjNf/
-	71SCodComjE55eoPwWAVspAUJSX2NAd21r7SndYi3YWuBP7jOAi3BI+H3uJ3AW+9cwv1bdHGPpl
-	TewXUvWxvRNoloQVcMwZeZ1A1hy79jjfsMz4TnSLYqYZPoQdGOeiflqHTF62AUrDxq/0kKZivtK
-	PdBJYg0gwwxFXBa
-X-Google-Smtp-Source: AGHT+IFGxJuRvg1FGeBW+e9xp2Y9kYy5F5Z9M1amwEp2ec0axbGRItnmvplg7sQ4Hk02Zn6vn5/Wjm+GmEVIqLG3d1o=
-X-Received: by 2002:a05:6512:32cb:b0:55f:4fac:3f0c with SMTP id
- 2adb3069b0e04-55f708db36cmr3713181e87.30.1756851712506; Tue, 02 Sep 2025
- 15:21:52 -0700 (PDT)
+X-Inumbo-ID: 0c3c61af-8854-11f0-9809-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EPPUGTpBQtvDStMLISia+THnTG3E+xG7M30x/PlBo2tAa/Nr/FmSG//W8J1ytvmYfhHAim/W9vQgGujfcSuDILGI3MLD6pI6zS/OBY6OjTRcOngtk4jHhyGUh7jyRRB7szMQuPkC0FVnIUpnLJxS17iQdNA6AwS8d3tSA1dKuSftvGm2YCpQt3teeyNM/4nDnpsnuHxKCtSsm4ZxJ7lDZKrevojcXGC2x64W2xWlegQeMIK2rdxpSOR3mUEg+68waaoLnziZs6CRUl9OORYmCDYjZdsiUhla3kDKGqETPLX9l+jUVxkpUfFVQZaaMQUTmy9sd4idVJ3XjDo1oc5Fqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5WhB/bSCKzhLBnuuHt7TF4nSB4uzH/8ebtNNvqKnLZo=;
+ b=Bp8uobg7Bc/BzSSDdn/btXqGPCvh/sMoJV2WrMiwae2gLXXMNa74iBFMOK8/Kd3nIe9DK65EPLAHjJyQmW8DOXDs0DsFGRmQLve8gYV8a6tY17tfpTo8zCgFv5+3GgNHnagEytgV8j4HLlBahFH4W76yI1oHiycXqbmiQtuJxjyhuu6icEqsWPa7LoOyNl2pEd2PzvwHOQbnGhYo3Fzzd9EA/sudkNK/l5w4yDPSkDAmsiZvXW6QfcWhCsAF2m1x/v5zC7XkqaqZe82trwitDyL1DcbG/w15m/gyz76Y438tMp0oBXpcw+HMFmc6FRhQx7LSn25C6eW1Cargibj6zQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5WhB/bSCKzhLBnuuHt7TF4nSB4uzH/8ebtNNvqKnLZo=;
+ b=FrwZLjypAbDrjjqAKk256crdzVZq5Sew5KLCSVqXFIm6JyrV7WWqseMrpiu6vHBAy6Xlq7hJUsVrsT/FkYId14wsn536VKml4D6dVf0nX1pDWvZdYx95NPTtj+TUehlsqj5w0TNjWea9EzqyGH1Szex82Slu5m16O469Jqf4vo8LVpYziiKli7KTd/FS6+moUTxeys5qqRTu4BHPio4D6BiG9luxRnn5KUs1cBGj9i9sQBFRtT+dthQPMa8u8xyA4r41LbqjNUFXR0e1kW0r+ZfYYrCZlj/fR+WLDmZd8zFTpgKVynLwnmDbpnxukVNhCQvtdttg4v7iM17l9idL/Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Date: Tue, 2 Sep 2025 20:24:57 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Keith Busch <kbusch@kernel.org>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Leon Romanovsky <leonro@nvidia.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
+	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
+	kasan-dev@googlegroups.com, linux-block@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linux-nvme@lists.infradead.org,
+	linuxppc-dev@lists.ozlabs.org, linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 14/16] block-dma: migrate to dma_map_phys instead of
+ map_page
+Message-ID: <20250902232457.GC470103@nvidia.com>
+References: <cover.1755624249.git.leon@kernel.org>
+ <CGME20250819173845eucas1p221cd6842839f5e7130f131cd341df566@eucas1p2.samsung.com>
+ <22b824931bc8ba090979ab902e4c1c2ec8327b65.1755624249.git.leon@kernel.org>
+ <2d8e67b2-4ab2-4c1f-9ef3-470810f99d07@samsung.com>
+ <aLdoyWevrQMQUGyz@kbusch-mbp>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aLdoyWevrQMQUGyz@kbusch-mbp>
+X-ClientProxiedBy: YT4PR01CA0469.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d6::7) To CH3PR12MB8659.namprd12.prod.outlook.com
+ (2603:10b6:610:17c::13)
 MIME-Version: 1.0
-References: <cover.1756763487.git.mykola_kvach@epam.com> <18c51957660441c945d51b02be965fbcc19c7c2b.1756763487.git.mykola_kvach@epam.com>
- <0fb4d962-a92a-4b8b-805d-60a03fe1b734@gmail.com>
-In-Reply-To: <0fb4d962-a92a-4b8b-805d-60a03fe1b734@gmail.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Wed, 3 Sep 2025 01:21:41 +0300
-X-Gm-Features: Ac12FXwHNeXtdZtMB8tYdSk0_2dyXMbhvFVUdfekan3M5pmBuC0R90gdygSz5uI
-Message-ID: <CAGeoDV-EgX1pW-T8JXEBiQqYTGZ7TzFtyNHbbxGSZBs3VKhXpQ@mail.gmail.com>
-Subject: Re: [PATCH v6 06/13] xen/arm: irq: Restore state of local IRQs during
- system resume
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB8659:EE_|CH1PR12MB9574:EE_
+X-MS-Office365-Filtering-Correlation-Id: 63dbd94d-8dd9-4729-0d10-08ddea77eed5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?Higtp3/WM5oOHXkSSI5Z6pkQhOJorSSmJ1rnzoaJINMSn5inopVW+5S1K/Ek?=
+ =?us-ascii?Q?7UrVD4MqKyLijH5h/vlsnHGvvpnFBsM7bvA+EFOiGdGldsWfaZYD8zUnE+Ia?=
+ =?us-ascii?Q?ecNJ/0eJumt+b4s+tCBkkWx3wAlbR3L7ZwRembGJ0qEAW5a8nMcl2O4pKBo3?=
+ =?us-ascii?Q?PdQLHRgzmpB+Zi9Fyvs7ObYDwqrX3SvjiyXTY7dfz6xgl2cNvZLi0VYii1/b?=
+ =?us-ascii?Q?MkmMnZxsMlCME5PY63Vbs+iSk/IsvqtWZHysYL4ru2GKkqHySeU/UxTsKS9H?=
+ =?us-ascii?Q?NCQuJHY9AoYkjqmoR9wiyV8tPiNXWxpRtpTZLV+P9wxTPx+sIP6lmWoS5/S8?=
+ =?us-ascii?Q?tScHp8k0n3YfKg3GgKbdM3XqOzkoumuJYdU2wWmSvEiefzhn121027ScVc0M?=
+ =?us-ascii?Q?mgzvNL4BID9woA1Jopw2qWMOUr6I42j9dddH10a2Hv1fG7SqI425nv/pOe0t?=
+ =?us-ascii?Q?XJLZrlOU3bEWKkS5qf5qLZ4koodOuW/or2bHHG01Kw+qVJViR5uQMQErX1Rn?=
+ =?us-ascii?Q?dtqR9Vv9ju+N686ia1iq1DS9dkK7YGKHd5W0b0ulhNTSQMFxZH3cWGGjfWTk?=
+ =?us-ascii?Q?pjUR3HiLnhZ/Gd+XDqBYF4iqr14XCZkC491u0cxXUHDii+HrI0WlyWJ2BKs0?=
+ =?us-ascii?Q?dBy7a/RbGYkwaioywaADLcf4CQNWk5/2GrFCGWhBSwYB4ZjprP1MGHvYdI3R?=
+ =?us-ascii?Q?DMzz2x8pNRL7Mivdz1EtHsC/rhFLc7JonZiWPL/pvdgvSnbboCWHS7c6QOpl?=
+ =?us-ascii?Q?0swby8pOQj4N0n49XZtvW/idwcbe4eNzXJ0jm7wrkcFtMMUxVvl8m7yvIDtZ?=
+ =?us-ascii?Q?lkBLoshQkBjqhFQ/rMBX0tNenSjQGAw3q6U+TAYT6ONJyKzPzXMD6ONMEEr2?=
+ =?us-ascii?Q?lM7nczTb/5U62gC4bHgrqTQZG0/IV/K146tgoh4kVZhRNS4+1TDwn85Ef00w?=
+ =?us-ascii?Q?b25m6ZgpKhrAxPuKScb48bdqsiYSeRjlub9AcOjtrsTjupvo5g4b1uCSu360?=
+ =?us-ascii?Q?ihn81VgyyrErWwvwyxXUY+zUoPHstPTvUXgO4hhJQGEphLgRHf5IZJ8FNF9E?=
+ =?us-ascii?Q?y8aOe+19T3uf4BgYrljrHnyl7H7Ivmy/M3TWnpkf0Ne3P/rxpcFURQqPyxrA?=
+ =?us-ascii?Q?nmax8Lk0p77thdRstB+Hc504ESJo3wkqm2nGrwePMZqg9Ex+ZwuwPzIh+yFc?=
+ =?us-ascii?Q?NW4E84kHyQmH9bigD2OQ2nj80E+nsEUiEfPtQu9DDNkHPhsc3DWmsQp5F5ID?=
+ =?us-ascii?Q?v2iXvkdUv4q4fUxzbDu8lvbKB34fT2OkWHmduiMObfU44H+8USLbzFbYGHvp?=
+ =?us-ascii?Q?W+zopG0awjW8HwejpiP/r5KxoNSrY51NLps/3h1ryMebgbOTFkdvuQ/1Jubh?=
+ =?us-ascii?Q?wHoM62r1+0y7npOtu7w7ng34SwuefUBlBMTA1ghgxypuzWM4sbecLls4XAyK?=
+ =?us-ascii?Q?d1RHM5UhoGk=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB8659.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?p5eHAhSaNlykrbWpG/UPoqPb+iB4di9SrzYYl3qOPeAc97/mV6PDVi69YGjb?=
+ =?us-ascii?Q?/G5ZcFGR6SHgsNA89667543XYP54vL2aGbWD7mO+dDPSxdYPwrSwbR4OZKGj?=
+ =?us-ascii?Q?0uZ/4QYa3QBppOpU7LU6Ruc7Eb3ZaXR3MCTcpATP7+YKn3PKMq/qRJBInuh0?=
+ =?us-ascii?Q?mndkVYAZ72At+hxcF5ZZ1QA16/AxGYtIV/Rwnv1vRZM5FjoG/84e4j5oYx0S?=
+ =?us-ascii?Q?ocyFVke+zLfEuBT2oM5/3BmRbPrJY0izl9cUqeCfBv+jquc7o7TVk014BH20?=
+ =?us-ascii?Q?TrICRhQ3NARiEsVmZK87iG72oNredufI/8XNg3bhNZYwsHRYRQcEPg6aDbLL?=
+ =?us-ascii?Q?mT/NPGXf52sa56OYUv6OkB7bxN24Uich0CeXNjMtCeNXO2pASJCwHnwEB1gZ?=
+ =?us-ascii?Q?PV0X5lZBA2ewO+tX4LQUKqqT3mB8MTEJYbqCa94pF3vxk5cbJMuob9np/A/L?=
+ =?us-ascii?Q?o6CfmeH6x+Z7S8Pfqgb/Q12IwsSGyQFRPyo7W8hR2V/qW5e7ER223wB7eCyx?=
+ =?us-ascii?Q?ZIg3y+y0vcamWCdg2D0pXVK9J4+85ZPfxV7N1YX2oez3G9epg/ohsdHic9fu?=
+ =?us-ascii?Q?JxCIJgemIxztEXy4YoOTaMsgz4GYwTVodoS1cZ0NYpMROKPBCTm7xT4XBjq6?=
+ =?us-ascii?Q?2+DE2mLQ/UCL5jhiTp6poXSCR0qBOgWzUJKyaLwjQ1GZAyzxbNrcljo82ame?=
+ =?us-ascii?Q?TKeXuuv6aBzpD/6RZMBMAZzh2sr9hg0LORN8vJe5fFvmR5JRmNzsO7Q9ris6?=
+ =?us-ascii?Q?HfrkG070I/eqfwuSBDJ4nzLvACcAJoQhez6FytC0UcpRlbOPD+r1rMwKdl+w?=
+ =?us-ascii?Q?8lx/vYLaNoXVZSsWZEpftqg+gPlzE2ccC3sAfFDqYq3osSe3yhfuGgjIngrI?=
+ =?us-ascii?Q?N763ZBm1UZHKcOoUIJkq1IlWBPaat+KVqpOv53f9E59PqJtGu2/h6H95WyRJ?=
+ =?us-ascii?Q?bW7CcTqQM9bEWsW9kzofp/5dvkCxlaWHY3Nh4Nxjy0jS2fGPWAPM3qZAc0jS?=
+ =?us-ascii?Q?V9kmZydsir6/Cx30g7K33l3dwibq6q46+W03IF+gjL9XnaWlmCieooWek8lW?=
+ =?us-ascii?Q?h/uGyVI8CqH12zNfrFojddv8yK/hTDrQN9jYSkA1ahEv6ZL1DLwqBlMya4Ap?=
+ =?us-ascii?Q?/r5/qlXRyAHu5A0QAwyPDGs5ml3qsMX2ajkBGSk9X0ntPihhkWkUqk8sd2hO?=
+ =?us-ascii?Q?rlkadpZpHqJepYOKHZrUdi3WSU0xKSSJeQ+u71wDEK9qghkKVjSYjER13IuG?=
+ =?us-ascii?Q?i4NUzxZ2pIKqaql+Ty58blZQRf1++v8itAdRiREY4lAVu2ikKLoPkfJFvxNJ?=
+ =?us-ascii?Q?Q1hdIWrcRdvBX+JaZtvjSYcRpyrhBZdKBE0l39mN8fcvqiw5hQ3glHMoqD8j?=
+ =?us-ascii?Q?ccHD1YCwdTzvyjY8bMoZJ/h7M+UAHuTS16dOswEl+UJKX5koND+Ql9PGkxhP?=
+ =?us-ascii?Q?9fgidwA9mzNyZdN9S2gZjRAls3FnVg2GPr6TkGVDXf8WJ8ZImtMPr+uZU7Kx?=
+ =?us-ascii?Q?C3uqBfEEQfmHvbJAVwFTC6HZU+GYssMua51pl763bOE6Zw39qHuaSaSowPOq?=
+ =?us-ascii?Q?x1wOdD6P+giXyxbN/Ko=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63dbd94d-8dd9-4729-0d10-08ddea77eed5
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8659.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2025 23:24:58.6964
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zp9UTtFHtRHHEdUZ3DhGe9qQeSrMw2x+t/nR0QIEskMOvB26XU5zEDnMfQkF+y5a
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9574
 
-On Tue, Sep 2, 2025 at 7:49=E2=80=AFPM Oleksandr Tyshchenko <olekstysh@gmai=
-l.com> wrote:
->
->
->
-> On 02.09.25 01:10, Mykola Kvach wrote:
->
-> Hello Mykola
->
-> > From: Mykola Kvach <mykola_kvach@epam.com>
-> >
-> > On ARM, the first 32 interrupts (SGIs and PPIs) are banked per-CPU
-> > and not restored by gic_resume (for secondary cpus).
-> >
-> > This patch introduces restore_local_irqs_on_resume, a function that
-> > restores the state of local interrupts on the target CPU during
-> > system resume.
-> >
-> > It iterates over all local IRQs and re-enables those that were not
-> > disabled, reprogramming their routing and affinity accordingly.
-> >
-> > The function is invoked from start_secondary, ensuring that local IRQ
-> > state is restored early during CPU bring-up after suspend.
-> >
-> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> > ---
-> > Changes in V6:
-> > - Call handler->disable() instead of just setting the _IRQ_DISABLED fla=
-g
-> > - Move the system state check outside of restore_local_irqs_on_resume()
-> > ---
-> >   xen/arch/arm/irq.c | 39 +++++++++++++++++++++++++++++++++++++++
-> >   1 file changed, 39 insertions(+)
-> >
-> > diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-> > index 6c899347ca..ddd2940554 100644
-> > --- a/xen/arch/arm/irq.c
-> > +++ b/xen/arch/arm/irq.c
-> > @@ -116,6 +116,41 @@ static int init_local_irq_data(unsigned int cpu)
-> >       return 0;
-> >   }
-> >
-> > +/*
-> > + * The first 32 interrupts (PPIs and SGIs) are per-CPU,
-> > + * so call this function on the target CPU to restore them.
-> > + *
-> > + * SPIs are restored via gic_resume.
-> > + */
-> > +static void restore_local_irqs_on_resume(void)
-> > +{
-> > +    int irq;
->
-> NIT: Please, use "unsigned int" if irq cannot be negative
->
-> > +
-> > +    spin_lock(&local_irqs_type_lock);
-> > +
-> > +    for ( irq =3D 0; irq < NR_LOCAL_IRQS; irq++ )
-> > +    {
-> > +        struct irq_desc *desc =3D irq_to_desc(irq);
-> > +
-> > +        spin_lock(&desc->lock);
-> > +
-> > +        if ( test_bit(_IRQ_DISABLED, &desc->status) )
-> > +        {
-> > +            spin_unlock(&desc->lock);
-> > +            continue;
-> > +        }
-> > +
-> > +        /* Disable the IRQ to avoid assertions in the following calls =
-*/
-> > +        desc->handler->disable(desc);
-> > +        gic_route_irq_to_xen(desc, GIC_PRI_IRQ);
->
-> Shouldn't we use GIC_PRI_IPI for SGIs?
+On Tue, Sep 02, 2025 at 03:59:37PM -0600, Keith Busch wrote:
+> On Tue, Sep 02, 2025 at 10:49:48PM +0200, Marek Szyprowski wrote:
+> > On 19.08.2025 19:36, Leon Romanovsky wrote:
+> > > @@ -87,8 +87,8 @@ static bool blk_dma_map_bus(struct blk_dma_iter *iter, struct phys_vec *vec)
+> > >   static bool blk_dma_map_direct(struct request *req, struct device *dma_dev,
+> > >   		struct blk_dma_iter *iter, struct phys_vec *vec)
+> > >   {
+> > > -	iter->addr = dma_map_page(dma_dev, phys_to_page(vec->paddr),
+> > > -			offset_in_page(vec->paddr), vec->len, rq_dma_dir(req));
+> > > +	iter->addr = dma_map_phys(dma_dev, vec->paddr, vec->len,
+> > > +			rq_dma_dir(req), 0);
+> > >   	if (dma_mapping_error(dma_dev, iter->addr)) {
+> > >   		iter->status = BLK_STS_RESOURCE;
+> > >   		return false;
+> > 
+> > I wonder where is the corresponding dma_unmap_page() call and its change 
+> > to dma_unmap_phys()...
+> 
+> You can't do that in the generic layer, so it's up to the caller. The
+> dma addrs that blk_dma_iter yield are used in a caller specific
+> structure. For example, for NVMe, it goes into an NVMe PRP. The generic
+> layer doesn't know what that is, so the driver has to provide the
+> unmapping.
 
-I'll update the priority value in the next version.
+To be specific I think it is this hunk in another patch that matches
+the above:
 
-Initially, I assumed gic_route_irq_to_xen() was used for all
-interrupts with the same priority. But looking more closely, it
-doesn't appear to be called for SGIs at all.
+@@ -682,11 +682,15 @@ static void nvme_free_prps(struct request *req)
+ {
+        struct nvme_iod *iod = blk_mq_rq_to_pdu(req);
+        struct nvme_queue *nvmeq = req->mq_hctx->driver_data;
++       unsigned int attrs = 0;
+        unsigned int i;
+ 
++       if (req->cmd_flags & REQ_MMIO)
++               attrs = DMA_ATTR_MMIO;
++
+        for (i = 0; i < iod->nr_dma_vecs; i++)
+-               dma_unmap_page(nvmeq->dev->dev, iod->dma_vecs[i].addr,
+-                               iod->dma_vecs[i].len, rq_dma_dir(req));
++               dma_unmap_phys(nvmeq->dev->dev, iod->dma_vecs[i].addr,
++                               iod->dma_vecs[i].len, rq_dma_dir(req), attrs);
 
-In fact, SGI configuration, including priority, is handled during CPU
-initialization in gic_init_secondary_cpu(), which is called before
-the CPU_STARTING notifier.
 
-Given that, it's probably better to avoid updating SGI priorities here
-entirely and rely on their boot-time configuration instead.
+And it is functionally fine to split the series like this because
+unmap_page is a nop around unmap_phys:
 
->
->
-> > +        desc->handler->startup(desc);
-> > +
-> > +        spin_unlock(&desc->lock);
-> > +    }
-> > +
-> > +    spin_unlock(&local_irqs_type_lock);
-> > +}
-> > +
-> >   static int cpu_callback(struct notifier_block *nfb, unsigned long act=
-ion,
-> >                           void *hcpu)
-> >   {
-> > @@ -134,6 +169,10 @@ static int cpu_callback(struct notifier_block *nfb=
-, unsigned long action,
-> >               printk(XENLOG_ERR "Unable to allocate local IRQ for CPU%u=
-\n",
-> >                      cpu);
-> >           break;
-> > +    case CPU_STARTING:
-> > +        if ( system_state =3D=3D SYS_STATE_resume )
-> > +            restore_local_irqs_on_resume();
-> > +        break;
->
-> May I please ask, why all this new code (i.e.
-> restore_local_irqs_on_resume()) is not covered by #ifdef
-> CONFIG_SYSTEM_SUSPEND?
->
-> >       }
-> >
-> >       return notifier_from_errno(rc);
->
+void dma_unmap_page_attrs(struct device *dev, dma_addr_t addr, size_t size,
+                 enum dma_data_direction dir, unsigned long attrs)
+{
+        if (unlikely(attrs & DMA_ATTR_MMIO))
+                return;
+
+        dma_unmap_phys(dev, addr, size, dir, attrs);
+}
+EXPORT_SYMBOL(dma_unmap_page_attrs);
+
+Jason
 
