@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0C91B3F6CD
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 09:41:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1105761.1456602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BE71B3F714
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 09:53:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1105771.1456612 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utLdl-00035X-C6; Tue, 02 Sep 2025 07:41:17 +0000
+	id 1utLpC-0004oK-Cu; Tue, 02 Sep 2025 07:53:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1105761.1456602; Tue, 02 Sep 2025 07:41:17 +0000
+Received: by outflank-mailman (output) from mailman id 1105771.1456612; Tue, 02 Sep 2025 07:53:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utLdl-000341-8d; Tue, 02 Sep 2025 07:41:17 +0000
-Received: by outflank-mailman (input) for mailman id 1105761;
- Tue, 02 Sep 2025 07:41:15 +0000
+	id 1utLpC-0004mW-9S; Tue, 02 Sep 2025 07:53:06 +0000
+Received: by outflank-mailman (input) for mailman id 1105771;
+ Tue, 02 Sep 2025 07:53:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mvP2=3N=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1utLdj-00033u-SP
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 07:41:15 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20603.outbound.protection.outlook.com
- [2a01:111:f403:2417::603])
+ id 1utLpA-0004mQ-MB
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 07:53:04 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20605.outbound.protection.outlook.com
+ [2a01:111:f403:2413::605])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3313329a-87d0-11f0-8dd7-1b34d833f44b;
- Tue, 02 Sep 2025 09:41:13 +0200 (CEST)
-Received: from BN8PR15CA0004.namprd15.prod.outlook.com (2603:10b6:408:c0::17)
- by CYYPR12MB8655.namprd12.prod.outlook.com (2603:10b6:930:c4::19)
- with Microsoft SMTP Server (version=TLS1_2,
+ id d9a5c65f-87d1-11f0-8dd7-1b34d833f44b;
+ Tue, 02 Sep 2025 09:53:01 +0200 (CEST)
+Received: from CH2PR16CA0006.namprd16.prod.outlook.com (2603:10b6:610:50::16)
+ by DS0PR12MB8219.namprd12.prod.outlook.com (2603:10b6:8:de::10) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Tue, 2 Sep
- 2025 07:41:08 +0000
-Received: from BL02EPF00021F68.namprd02.prod.outlook.com
- (2603:10b6:408:c0:cafe::8b) by BN8PR15CA0004.outlook.office365.com
- (2603:10b6:408:c0::17) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 07:52:57 +0000
+Received: from CH1PEPF0000A34B.namprd04.prod.outlook.com
+ (2603:10b6:610:50:cafe::eb) by CH2PR16CA0006.outlook.office365.com
+ (2603:10b6:610:50::16) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9094.16 via Frontend Transport; Tue,
- 2 Sep 2025 07:41:08 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF00021F68.mail.protection.outlook.com (10.167.249.4) with Microsoft
+ 2 Sep 2025 07:52:57 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH1PEPF0000A34B.mail.protection.outlook.com (10.167.244.10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9094.14 via Frontend Transport; Tue, 2 Sep 2025 07:41:08 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9094.14 via Frontend Transport; Tue, 2 Sep 2025 07:52:57 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 2 Sep
- 2025 02:41:07 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 2 Sep
- 2025 02:41:06 -0500
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Tue, 2 Sep 2025 02:41:05 -0500
+ 2025 02:52:56 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Tue, 2 Sep
+ 2025 00:52:56 -0700
+Received: from [10.252.147.171] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 2 Sep 2025 02:52:55 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,134 +63,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3313329a-87d0-11f0-8dd7-1b34d833f44b
+X-Inumbo-ID: d9a5c65f-87d1-11f0-8dd7-1b34d833f44b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SGMIEeRLYO/GHDqLPMVvbJuD1RB+7Ytxh7d9kstaQSU0bzyenNy2vf7HnzrvebJYpVUS9Wp1SFijvYzO+cdGb/7Hj2kYYpzsKq0a2ZyRiptoEN/3Iu1SXw9h/1jz1n345fMBg53iXz2Jzfi+y4lPqS4aUVBHcjJTDLH4en1IYIpaepcc37FPpNnfP5UecVy14qn8TaQzE5xssK2PubX87bYJ18sxhuqaF9xXZyagliVAJWpJAscfJ3VCOJczGTiSnisveaPSOugcagspX7oUns4heCjy5/Ug0bP/NouQ+YSGElHNGeBjpd8frLDU+wL/YozbH2/a1X9yuvR22Efyxg==
+ b=CYuq3wZC+7Gh+Rbfe+Q+3nmkF1ijA3LvjA6buSig1yXm3A1KudYHFnHMKWqPp/YE8Plu4YS/4Ck1fWNQKVCxjfL94RXGuOZnrofnCbydBq9BSxxGZKSWo8rH8HS0QTDrwGd1ODrWZy6VkRM9jcMJ9LDc9OKls31dB9L291loKVW1LsLj7bD6YMfyHicM+rc9I0XipUUXlYEWmBPwpTkj8PXf2+w3bB4A2Z7NCtJblVTzvJJII1se1ma2Bj96ynvtKgr7l9UsHW5WIU8xMG8q81XZuLAK9WOTEimilbOPzxJedkGxF1QO0pUR1HnB34Mda9TKhDJDB+ZbJeqXdGFPSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PypRkw6gaVGzZSLokYgt0zMAdxYAKVqWEWSnmDuouAI=;
- b=elRvcw5GtNQZRkOKSV0JUgFGG1hpN3AkJ9zT2f+3MOuBLNP/xOfNfRJy3Xd7A29TNprNSX7nI9qe6tIAh1vAf2R569aIJtjemL68HIcZtNWPFabsL0CuiCQ6Ex/d8VAm/ENdZCYeJviwm6qk0Eft0jAtjMuCOirQCioQO9xQ3AMLKbqlV0VC8g7AWpm8vFplnlReIj2pYHmOL9gyYYDwj+hjkoOjlP+g1Tqdvs7Zxc76nnXvYt6Cq0GPvPQgS1AL4esTHogGZFoyiFSjlRnO7C2XLzvuT18EmOzkC8Xv9RKEOgevay61/OBcftFMOBTmrboGT+cdJE8qJ9u10gQVCg==
+ bh=OJkkMhGXzvEg6x4kLTMWfsdi7Qal39hBqTeP/nXE5rI=;
+ b=p0QcZ0IBrHbPvaUjKiy0WEIOpeMPVEjTPeXUZwVuh0QjqCOQOnU07sN4XRpj4T0XjbzcNZe9zIFfm+rlK6at6mnXX2zVB3NdQIzve6G77ifOp4P7wUIGfM6iZng/SnolDHILtgEeX8gT0a6NIb+XMtCOALaEzWEsuxMMvy5PsgXeQJdHdo1hTBIB/ZI+Fn97mFrdHfTKHVVPBrCnWKi46qRn9zJ6qz96bZc9d/p5YTwESUxCilJCFFLbokkGv8FV3blDGH1vG/poFX+GU8zxHJSrglaobVCn1otrooUaXnmlyEz/I22M4fqca3+f18+15QRTxY0VNoM9B2TlD0qimA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PypRkw6gaVGzZSLokYgt0zMAdxYAKVqWEWSnmDuouAI=;
- b=WdbjlZElnKY9BvAw6Ni09JlfowTZOlmbkOxWOqHFpd31hkcXEusQIo33AjJprfhDn+TGhHoh2+0MSWJj1HfyxEKCCn2tiffzw9yXmGKcdLoFamvxNFURRMt9HMt93eIfuJJFko3zF7ur4HQI/j1t1l85YXgJxnj6FGKMMoI4PIM=
+ bh=OJkkMhGXzvEg6x4kLTMWfsdi7Qal39hBqTeP/nXE5rI=;
+ b=ldu2cFXN6hNGwmduiAelCNMK1GQs2X56wnw9q5mXFzblOiUno4vuG+zAS7dut99c/bsKijf7EsTxO9R/5W+jCBhJUz9C7m6toUYP8feQEtLqmWB+5PQhlOgho87+uMHqJJulpY55OkaCFD0+SBnHr8iUYgndFPOwlqwnmZx91iI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2] x86: Fix AMD_SVM and INTEL_VMX dependency
-Date: Tue, 2 Sep 2025 09:40:48 +0200
-Message-ID: <20250902074048.12094-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.43.0
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <e7c99116-f6a9-43e1-80ae-b3a4d44857b7@amd.com>
+Date: Tue, 2 Sep 2025 09:52:49 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs/sending-patches: document "Amends:" tag
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
+	<anthony.perard@vates.tech>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>
+References: <92b2d76e-2434-4606-94b6-93774a74fc87@suse.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <92b2d76e-2434-4606-94b6-93774a74fc87@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F68:EE_|CYYPR12MB8655:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a5c893c-84f4-4df4-9c91-08dde9f41475
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34B:EE_|DS0PR12MB8219:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8731cc21-a4e7-44ab-17d5-08dde9f5bb10
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700013|1800799024;
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700013|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?40O+Evd8WffvRm8r7nIP+4hOmqpI8gVWyWPpVeHCKrdSjeTFXBKNgYPKaaan?=
- =?us-ascii?Q?zSHQz83VN71zgnXEj5AjM4jPERxWzzpD1DeJP9I8c9RYuoa39cK7AD6PSs2v?=
- =?us-ascii?Q?S68cNT+oPiwnAQR3A3JEQTgKM8HtEo+IWLsdEkYldcLgc84DYUGBJqV7RWcx?=
- =?us-ascii?Q?PnYK0VaUXPl/YMueVYKJUxsloPzp2kip+gSB+LA+OYskgrbkVkkHVTQwc84n?=
- =?us-ascii?Q?Qky/JduyCLy70NvVb2rW345BNY/xP74Rv/Y6mu/aGyM3SUVU9bHbXRc9WWLc?=
- =?us-ascii?Q?jFla5MO1kAR69RZdZPMpE8dD0M1RbK5JGpoOKIWEYX4QXsQ66hAu2oMSbcZ4?=
- =?us-ascii?Q?/B4eVIOO8HRPvFFaXDBbIe+k1tgTF+Yf1oe53oBAGXV1/PBlDUwKhFannGc3?=
- =?us-ascii?Q?I72Vf8XgnhghKHz6adESqL2t7TFGknwI+SsUypU99UA5p8JJ/EoHE/h8WFax?=
- =?us-ascii?Q?HwiXCmDgeUxdt5v5l3L+9Y/UyWRgzYNcGNBI6S3O9xpid0SL1SrbFQgW8wqT?=
- =?us-ascii?Q?Ayl71T2tYxN/CX33ZBTT+SdTYjsppYSAjlLIffwUsc2IKpIXXYkfWdEuZ0ek?=
- =?us-ascii?Q?r8n7fGybHH+8C5dxfxeOaWfF59q4fQe6MxI5p3lFrQDh8k14rtUzopYftGAv?=
- =?us-ascii?Q?n76qrmpwukTkYStylEPu0CEh/yAysyxPwlWg/3wNifvG9iI7sRWIjdQReM7S?=
- =?us-ascii?Q?DtYE9zblxAPtnGhuwlBV+M4Me6wjgN/l6Yawtt3uu2WAURaWz54ahvMVndbu?=
- =?us-ascii?Q?l5ZQpgqRIGSsuok9nUEeaD91OzD7Rr+zbUeohymT6L18vJg2qcz4ADW4PplK?=
- =?us-ascii?Q?qDy+gVkiIhwQePzB1joU7zaxHXLTZNPLcSw785XqilxH/pI2DvojCGuuJ8gh?=
- =?us-ascii?Q?IvYHG2oU4Rhtnl3dA2zBu5pHbXQ0gNXE3ziUc7i/E5oLhHW1DkHPkHTNU02g?=
- =?us-ascii?Q?3WUMd2pe9ghnBuY/20KTC4zPYSZqUtlsZpnhTQ869e5oWA5K7lLasKO6dfba?=
- =?us-ascii?Q?zFiGGjKIX2i/bB82ecahCTHYlPSQFZfRhXJ2JR9w4Kygotdo1uBMBrJyo2aJ?=
- =?us-ascii?Q?Ar/0BRRTrdln0RaGH4fHWfjXQ4l2HwQ53WMNlst7fNjz3ZMJYnPIjgVtqqub?=
- =?us-ascii?Q?lz4RRrdCsE4eWk4LQ5UHkvkwayNjMSc8WYnN++gH8ijqaQYVxKGOT9Rd73+M?=
- =?us-ascii?Q?pAK71n0EoIJYXSGboNBLHnTApvN/ZWhk2fv3zvWaedUsEvZkZIjyEVXqCU+g?=
- =?us-ascii?Q?P1i1pXanFAC0g+AoiQRJCJubM3puDzrdIE9IjNnpl8Gbu/KhUVOGzr5dXEBk?=
- =?us-ascii?Q?GFCQn8qStMtpfm3lYWfynW+xCxw+vQodNwAeSCH33qMlIoiLyjLbXy/gacud?=
- =?us-ascii?Q?wFP1czs6L4Hi0lHgrafpsL6XhmbAmKJDMIXAM6PEneihDmZ+L9iIwQS8JRFG?=
- =?us-ascii?Q?omb9h70neV+etVSFXEXqVigl/dvZfsXZSV0tGALdEthFvEKO0nyWyN6JPfWc?=
- =?us-ascii?Q?R3WJD6dEuwanNPkHz/U4y6q50H2suZnms4J/?=
+	=?utf-8?B?Z3RSYXFSWjNNZzJDZmFZRzE1Zmt2dk1KbHlTeTgvRFdNYThXOGp1YUpVY084?=
+ =?utf-8?B?OHFzNDBseUY5ZHRFTDdnTUFoRWNmOE54MWkrdVRHdlo1MzBBaml0SzlKaVcv?=
+ =?utf-8?B?Vk5xY2N0c1ZqWWI0dTZ4aEV2TEh5anNxd01PNSsvVVIrald2NWxoRW1PQnl0?=
+ =?utf-8?B?SVFPdy9odjRmdllHdi9HS2JLY1pEbFdSaXduRjVYVWQxUWxQakV5TzIzVnB0?=
+ =?utf-8?B?bzBEZ2FROVErRmJtaHU4Qk5XQVJOZzVja09LamJVeiszOVoxTW9QRmZIY01Q?=
+ =?utf-8?B?bUZXNnc5ZHkyUlQ1dndpbCtMcHh5RG9Pb0VYenlhNnZyRTdCeG5Jb3JweFgw?=
+ =?utf-8?B?dTFlazRXVXdPYS9yTVdnOWhOSFp6Y1JHWllmTXdQTDJhMjVyWTNjMERNWWhO?=
+ =?utf-8?B?VnFuWWZ2emtLQVRNUzhIRnY4ZUorQzdsQ1hGSzcwelRCczg4K0s5OXZEblVP?=
+ =?utf-8?B?dTJyQm9GbUUzalh1QXYxZHJNanFoQWxkYStycUJEdHI5ZlBoWWV4RXpjME5X?=
+ =?utf-8?B?QUFraTJRemhNZ3lUbGlPSFdnWEV6Q3RNUEFaOEliL3dxaDVvZHNTOUQ4cER0?=
+ =?utf-8?B?Rkk2QVVFYlpJZzd1SlkvbzBJdkx2Z0lZWHNEUndnM3hIck5oOVBNbXEyc0s5?=
+ =?utf-8?B?eXp5VXpBckFFL2pjTUZRZnhnNnFXRnJKdmhpajVnYXpIdXVSOWF0ZUYvaGgv?=
+ =?utf-8?B?TTJPUzNoMmlYT0FaT3RPcllHcS9qV3FqeDlWd2xsUjVuQWZyWURFVUNvVS8v?=
+ =?utf-8?B?SGxWMXBXRWdZYkRhcytIQnhPSlN6d1RqVWVUMnlpWGtNcjMrV1Fta1dDLzJJ?=
+ =?utf-8?B?NTZjTUxQRHBkTUVXbG1uOUZsaEU2K2lINVIzdFBTVmFNTlpqKzZIb2FLa3Fw?=
+ =?utf-8?B?YVJTNDJUUXBGZzFQNlRsUzdUOWR1Q1VvZlFRNW1nYUk0TVdUZk1sZnp2TnFm?=
+ =?utf-8?B?R1FOQy9pWnh2WDBFaWZjSkVWYlAyeEl1VUhnY3VvcCswdVI0K2hCdytXcFpH?=
+ =?utf-8?B?WllNMXFKcENsclN6akl2Y2JyUlJ4V1pCQWVXQWpmQmQzSzFSa0tnSG5GQUVz?=
+ =?utf-8?B?bThqR2R3OVFUK3phdWJpMUx1M1puTjVyU244NDV0dDVaeUJvdmdRbjJTSFMz?=
+ =?utf-8?B?V2FORXAvQnNZdi9rSmtuQlE1bERnTjRpMklyWDVDcFJpMmpvZktBajk3dHlE?=
+ =?utf-8?B?R0gzU0dRbk93bDNYMFpxY015c0JwY2daWVpTTDBUQ0YvWlpMUU9sNW1XOXNB?=
+ =?utf-8?B?TmR6S1hXTXhaSGxrNThwanZzRTBWaklvZTRRSlRLWHg3bGhpa2VyT2s0WXBs?=
+ =?utf-8?B?dmUxcnF0STNkeUIrOHVpYVpZcUc3WE81eG56NWRhekVvdVBiUnU1bVFHSlFh?=
+ =?utf-8?B?MlVhRDRYcnFyRUNxbi9SUi9CNEdaNXp6ODZZZXduNUF6bFZyaCtOVTg3NkxW?=
+ =?utf-8?B?dlBvaGY3SUVsd1ZNaUZyQ200YWVmMTVDU1d2bDRxc1RZSzVxbnJ2RVlRZHZq?=
+ =?utf-8?B?VEt0OHA1YnF1Rm1venhUaDFGYU5VVlFGQ0VTMzBmL000cEtSQ2FhMHkrenZr?=
+ =?utf-8?B?MU5ROXFrbWRKWHNJV1lrZzBOOStKUTlQWUlzVXhsNlVqM0ZXNERxWFFMZlM3?=
+ =?utf-8?B?aXBFSHpVYW9wdXdENkFuNkM0N3gzNjB5TUFINzJBL0Rob0YwaGlxUERRM2R3?=
+ =?utf-8?B?UWdGU2xxK21jVnBudS8vcnJ5cmhLNkk2a2VyYjZwK0R5VTBLTm50QVYrSWJ1?=
+ =?utf-8?B?Q0Z5aUtqK0R6K003OEY5ak1SNnB6dEN3YWdubTFheklKZEsyZXZsTWtpbWdp?=
+ =?utf-8?B?VVJHWVM4ZHJSYTNQM1dMTDV3c0xGN2FtRFphWEpxOHhPV0ZtcUFaMDg1WjJQ?=
+ =?utf-8?B?ODZESDduV3N6WllFdGFoenpBc25sb2M2Mm4rc3p6ZkY2R0NPWENDandXNnhC?=
+ =?utf-8?B?b2dyTzZJL21CbHB5VStXL3o4T3FWaTBUeDVZa29rVklqU240eU5PYjR4bVZ1?=
+ =?utf-8?B?U3ZHRFBPTXhQZStyY0lzVC81R0xOZko2NXgxTU5OdzRRWFhlZmtsem1Gdisv?=
+ =?utf-8?Q?M02sks?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013)(7053199007);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2025 07:41:08.0581
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2025 07:52:57.0580
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a5c893c-84f4-4df4-9c91-08dde9f41475
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8731cc21-a4e7-44ab-17d5-08dde9f5bb10
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00021F68.namprd02.prod.outlook.com
+	CH1PEPF0000A34B.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8655
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8219
 
-Commit e3ed540f2e9f was meant to make AMD_SVM dependent on AMD and
-INTEL_VMX on INTEL. This dependency was reflected using 'if' next to a
-prompt which is incorrect as it that deals only with the visibility of the
-given Kconfig option. This makes it impossible to e.g. disable INTEL_VMX
-when INTEL is disabled (option is hidden). Fix it while keeping the
-possibility of e.g. enabling INTEL_VMX when INTEL is disabled.
 
-Fixes: e3ed540f2e9f ("x86/hvm: add HVM-specific Kconfig")
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
-Changes in v2:
- - change default instead (Jan)
----
- xen/arch/x86/hvm/Kconfig | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
-index b903764bda0d..5cb9f2904255 100644
---- a/xen/arch/x86/hvm/Kconfig
-+++ b/xen/arch/x86/hvm/Kconfig
-@@ -16,8 +16,8 @@ menuconfig HVM
- if HVM
- 
- config AMD_SVM
--	bool "AMD-V" if AMD && EXPERT
--	default y
-+	bool "AMD-V" if EXPERT
-+	default AMD
- 	help
- 	  Enables virtual machine extensions on platforms that implement the
- 	  AMD Virtualization Technology (AMD-V).
-@@ -25,8 +25,8 @@ config AMD_SVM
- 	  If in doubt, say Y.
- 
- config INTEL_VMX
--	bool "Intel VT-x" if INTEL && EXPERT
--	default y
-+	bool "Intel VT-x" if EXPERT
-+	default INTEL
- 	select ARCH_VCPU_IOREQ_COMPLETION
- 	help
- 	  Enables virtual machine extensions on platforms that implement the
--- 
-2.43.0
+On 01/09/2025 11:00, Jan Beulich wrote:
+> On rare occasions Fixes: isn't quite appropriate to use, yet another
+> commit still wants making a connection to in a formalized way. Such could
+> e.g. happen if a pretty obvious optimization was left out (which isn't a
+> bug, but still a shortcoming). Formalize Amends: as a tage to use in such
+> a situation.
+> 
+> Requested-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+LGTM.
+
+Acked-by: Michal Orzel <michal.orzel@amd.com>
+
+~Michal
 
 
