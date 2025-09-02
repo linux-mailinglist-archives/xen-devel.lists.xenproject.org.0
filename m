@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4BD8B4064E
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 16:14:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1106612.1457260 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE4E4B4069C
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 16:24:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1106625.1457270 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utRlq-0002xD-Q3; Tue, 02 Sep 2025 14:14:02 +0000
+	id 1utRv5-0004zq-M4; Tue, 02 Sep 2025 14:23:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1106612.1457260; Tue, 02 Sep 2025 14:14:02 +0000
+Received: by outflank-mailman (output) from mailman id 1106625.1457270; Tue, 02 Sep 2025 14:23:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utRlq-0002uk-NH; Tue, 02 Sep 2025 14:14:02 +0000
-Received: by outflank-mailman (input) for mailman id 1106612;
- Tue, 02 Sep 2025 14:14:02 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1utRv5-0004xX-Io; Tue, 02 Sep 2025 14:23:35 +0000
+Received: by outflank-mailman (input) for mailman id 1106625;
+ Tue, 02 Sep 2025 14:23:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1utRlp-0002uc-WE
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 14:14:02 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1utRlp-002v4P-0f;
- Tue, 02 Sep 2025 14:14:01 +0000
-Received: from [15.248.2.30] (helo=[10.24.67.22])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1utRlp-00DA8y-09;
- Tue, 02 Sep 2025 14:14:01 +0000
+ (envelope-from <SRS0=P0Jg=3N=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1utRv4-0004xR-OU
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 14:23:34 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 670ed193-8808-11f0-8adc-4578a1afcccb;
+ Tue, 02 Sep 2025 16:23:33 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-b0431c12df3so313417866b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Sep 2025 07:23:32 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b0420a16c32sm596088066b.94.2025.09.02.07.23.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Sep 2025 07:23:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,461 +45,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=5tu1LSOY3Kbt+gnMyCgXBKFFcZLyu+GvOiHMhJ+s2yE=; b=Q7SK1AceDogFOgSVo6yHyGcD2x
-	/hAa/CO+hkLUCPWRFXOSIaZAn5WyT4iodRWW9rQdQuoyP/u6Y2gLor1lckdCalCLlWxCeb1HDVhkV
-	vcOxFcvryLX4trk0e/MDIQYGjheaW7eHnoa4MrDzEDc4F2FWWV5iVfhNssvzcO8QZSB4=;
-Message-ID: <49e321c0-d23f-48f0-a979-add2a6bccb50@xen.org>
-Date: Tue, 2 Sep 2025 15:13:58 +0100
+X-Inumbo-ID: 670ed193-8808-11f0-8adc-4578a1afcccb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1756823011; x=1757427811; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ysU0qV/SJMt5Mw8eex5NgT9TFhTQ5X+hg0T4pDSCLw4=;
+        b=AGb3eI8So53hPaA6xJbBCgMq+kfpR1Vx0zkkfaCJhfUa/ODy4wp8RBn0HJuIsMg6VX
+         RP29NIzIdSM+C6fxOBfmnPDiYJ00MdTQuQ32gJNdyEruyBXbQzqN2B9sBXs8jDgoOCiy
+         FkuZTgFmrc4WsiouBhcLCTESiuw1cdw1vQoD8Tk+GhuSOJMi8TwwZZWP2iPba4m92R87
+         G8wTT2FQ4dDoQx0JUS7DFlH9cOsfXWb2A+FzPo/gJO/53lAQhG/qAMgP0/I8rwF3cubc
+         Y6URfthJQH8yAUzwPwryu3SUOgqAWCAnpAnD92FufqSHMoP37/4Q2FXDuPFuh5mFHGEn
+         +q3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756823011; x=1757427811;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ysU0qV/SJMt5Mw8eex5NgT9TFhTQ5X+hg0T4pDSCLw4=;
+        b=aM4Nlne940K7dxbZ+czgl64WZr79ea8wxNB5M3vbHeQBeRcuqXTeKnFQpRG4LnxlEm
+         In5L691rakP1f4CDBFVG+tJeqn19TXKfhDQWYkZuD/YtP0tEAoo1kJeqDBjXt/hA93qs
+         ynA+k70x3nZvh/uXIIsKIqCWn5VE3U9cqFMhJmEypSu7saPDi6FDNsGkiwYzHWS35PjE
+         vXI8cNL22P/u7TJxaSvHzZ5rJJYc7i9KVOnbn7lF9H7LHJRp/x3eR5nyW8AySCHTixrV
+         zQ4Gng7uWFsdCS6j5LWvrIGZocddjlQ3wdYdta1roJWwrL1IB6LTk9QCiV4j6vIma6Og
+         thUQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUAV5EyxHo2rJtsI6AMw1o3/Onl/h4EnK7Q29aGm6r/YfTSXpaanIhcuIDjf/xniP2/jSyf5L1SUXg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy/zIbb5uyYipaDOz8YNR35sGbcQuu5x5qVA+dHO1M/rSvGgN/4
+	PODHnYcLi7RxPj4VejgLY5dAB4gUrdIgwv0qtOyahRTrFdLO/FgXIgtJV2B2mhc4DQ==
+X-Gm-Gg: ASbGnctTAv8j2vIelSGoNMaZh/XMDX9zZlWt5jsTTaqdjyeNTnTtJ6nWLlvHpTix+h6
+	MMvLmFUqSJOE2fvcizxCeBzueEsFv+hoBMnIF1SRMwoLgXaC+n8KS4JGQgDsbb5akW7tPtga3LV
+	DitUGNIvosAiWFkAZGaz2SZQZi4AhmLTpIyESNIFxdBB9TcU6dJKV/AhLUrJyw0DuOtsPh4Z6py
+	G2FDvj1j2KECxld+9kEE9f8GJaN/djZOgiISoRvbhmXCqw3Ds1FBJmqrLw3jfnwXREWa8q6JsOV
+	oZjiCYkWZyeEN6c2GGqrgoQrHz/JiROJsDUA6PpEVdWbrzlep6QZcSTnXbE2Kt8mN2J7/KFj1zy
+	vHYyavdkYuyR65df7/SiuwM6B0RuwtCzOQSkqNvO+UcduW2UYhVlB+6pcjIyn7VSc8pel+qYULn
+	KQIA7TMgk=
+X-Google-Smtp-Source: AGHT+IH/++WGN670wvJiEuTzNp+g5Ph1N3D5WILlno8cbOAJ6o5/Sm3iHE1b2fFpTO7Tf1/TvEVdzw==
+X-Received: by 2002:a17:907:1c19:b0:b04:522c:e113 with SMTP id a640c23a62f3a-b04522d1ce2mr233087666b.53.1756823009898;
+        Tue, 02 Sep 2025 07:23:29 -0700 (PDT)
+Message-ID: <49551fca-5059-4ca4-b551-d282d6099e36@suse.com>
+Date: Tue, 2 Sep 2025 16:23:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 08/12] xen/arm: vgic: add resource management for
- extended SPIs
-Content-Language: en-GB
-To: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "olekstysh@gmail.com" <olekstysh@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1756481577.git.leonid_komarianskyi@epam.com>
- <4b13dea924eabf1370d3f31030f3eef48371de06.1756481577.git.leonid_komarianskyi@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <4b13dea924eabf1370d3f31030f3eef48371de06.1756481577.git.leonid_komarianskyi@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: issue with dom0_pvh on Xen 4.20
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
+References: <aLbEQ7Bav8seazP1@mail.soc.lip6.fr>
+ <68988b80-f642-4fcf-a624-49ad9fdd685c@citrix.com>
+ <aLbNbiHLntX13E46@mail.soc.lip6.fr>
+ <957429d8-ec8c-4327-b8fc-71fe9ddb2d33@suse.com>
+ <2ad255ea-6c5e-4e9a-a821-db7449432399@suse.com>
+ <aLb0I01WASpFremM@mail.soc.lip6.fr>
+ <5953e9aa-4b56-4112-b952-7b4ff0ca2a62@suse.com>
+ <aLb6AcjEer83IrFC@mail.soc.lip6.fr>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aLb6AcjEer83IrFC@mail.soc.lip6.fr>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Leonid,
-
-On 29/08/2025 17:06, Leonid Komarianskyi wrote:
-> This change introduces resource management in the VGIC to handle
-> extended SPIs introduced in GICv3.1. The pending_irqs and
-> allocated_irqs arrays are resized to support the required
-> number of eSPIs, based on what is supported by the hardware and
-> requested by the guest. A new field, ext_shared_irqs, is added
-> to the VGIC structure to store information about eSPIs, similar
-> to how shared_irqs is used for regular SPIs.
+On 02.09.2025 16:06, Manuel Bouyer wrote:
+> On Tue, Sep 02, 2025 at 03:55:14PM +0200, Jan Beulich wrote:
+>> On 02.09.2025 15:41, Manuel Bouyer wrote:
+>>> On Tue, Sep 02, 2025 at 02:28:27PM +0200, Juergen Gross wrote:
+>>>>> What puzzles me is that:
+>>>>>
+>>>>> - %cr2 is 0, so probably the first fault wasn't a page fault
+>>>>> - RIP is %ebx + 8, so maybe the code was just clobbered by the loop?
+>>>>>
+>>>>> Could it be the code has been moved to this location, or is about to
+>>>>> be moved away afterwards?
+>>>>
+>>>> And indeed: from the full boot log I can see:
+>>>>
+>>>> (XEN)     virt_base        = 0x0
+>>>> (XEN)     elf_paddr_offset = 0x0
+>>>> (XEN)     virt_offset      = 0x0
+>>>> (XEN)     virt_kstart      = 0x200000
+>>>> (XEN)     virt_kend        = 0x17bab90
+>>>> (XEN)     virt_entry       = 0x20e4d0
+>>>>
+>>>> So virt_kentry is very near to the RIP.
+>>>
+>>> thanks to this, I think I found the issue:
+>>> with Xen 4.18, the kernel is started with ebx=17bb018; with 4.20 it's
+>>> 100018.
+>>>
+>>> The bootstrap code assumes that the kernel is after the kernel, and the
+>>
+>> DYM "start info is after the kernel" or some such, seeing that that's what
+>> %ebx is about?
 > 
-> Since the eSPI range starts at INTID 4096 and INTIDs between 1025
-> and 4095 are reserved, helper macros are introduced to simplify the
-> transformation of indices and to enable easier access to eSPI-specific
-> resources. These changes prepare the VGIC for processing eSPIs as
-> required by future functionality.
+> yes, sorry
 > 
-> The initialization and deinitialization paths for vgic have been updated
-> to allocate and free these resources appropriately. Additionally,
-> updated handling of INTIDs greater than 1024, passed from the toolstack
-> during domain creation, and verification logic ensures only valid SPI or
-> eSPI INTIDs are used.
+>>> kernel symbol table. That seems to be no longer true with Xen 4.20 and a
+>>> PVH dom0 (but probably still true in all other cases).
+>>>
+>>> I can deal with that, but with the new layout how do I get the end of the
+>>> symbol table ?
+>>
+>> You'll need to handle that internally, I expect, perhaps from properties of
+>> your (ELF) binary.
 > 
-> The existing SPI behavior remains unaffected when guests do not request
-> eSPIs, GIC hardware does not support them, or the CONFIG_GICV3_ESPI
-> option is disabled.
+> But I don't have access to the ELF headers from the kernel binary (nor do I
+> know which kernel was booted).
 > 
-> Signed-off-by: Leonid Komarianskyi <leonid_komarianskyi@epam.com>
-> 
-> ---
-> Changes in V5:
-> - removed the has_espi field because it can be determined by checking
->    whether domain->arch.vgic.nr_espis is zero or not
-> - since vgic_ext_rank_offset is not used in this patch, it has been
->    moved to the appropriate patch in the patch series, which implements
->    vgic eSPI registers emulation and requires this function
-> - removed ifdefs for eSPI-specific macros to reduce the number of ifdefs
->    and code duplication in further changes
-> - fixed minor nit: used %pd for printing domain with its ID
-> 
-> Changes in V4:
-> - added has_espi field to simplify determining whether a domain is able
->    to operate with eSPI
-> - fixed formatting issues and misspellings
-> 
-> Changes in V3:
-> - fixed formatting for lines with more than 80 symbols
-> - introduced helper functions to be able to use stubs in case of
->    CONFIG_GICV3_ESPI disabled, and as a result, reduce the number of
->    #ifdefs
-> - fixed checks for nr_spis in domain_vgic_init
-> - updated comment about nr_spis adjustments with dom0less mention
-> - moved comment with additional explanations before checks
-> - used unsigned int for indexes since they cannot be negative
-> - removed unnecessary parentheses
-> - move vgic_ext_rank_offset to the below ifdef guard, to reduce the
->    number of ifdefs
-> 
-> Changes in V2:
-> - change is_espi_rank to is_valid_espi_rank to verify whether the array
->    element ext_shared_irqs exists. The previous version, is_espi_rank,
->    only checked if the rank index was less than the maximum possible eSPI
->    rank index, but this could potentially result in accessing a
->    non-existing array element. To address this, is_valid_espi_rank was
->    introduced, which ensures that the required eSPI rank exists
-> - move gic_number_espis to
->    xen/arm: gicv3: implement handling of GICv3.1 eSPI
-> - update vgic_is_valid_irq checks to allow operating with eSPIs
-> - remove redundant newline in vgic_allocate_virq
-> ---
->   xen/arch/arm/include/asm/vgic.h |  12 ++
->   xen/arch/arm/vgic.c             | 199 +++++++++++++++++++++++++++++++-
->   2 files changed, 208 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/vgic.h b/xen/arch/arm/include/asm/vgic.h
-> index 3e7cbbb196..912d5b7694 100644
-> --- a/xen/arch/arm/include/asm/vgic.h
-> +++ b/xen/arch/arm/include/asm/vgic.h
-> @@ -146,6 +146,10 @@ struct vgic_dist {
->       int nr_spis; /* Number of SPIs */
->       unsigned long *allocated_irqs; /* bitmap of IRQs allocated */
->       struct vgic_irq_rank *shared_irqs;
-> +#ifdef CONFIG_GICV3_ESPI
-> +    struct vgic_irq_rank *ext_shared_irqs;
-> +    int nr_espis; /* Number of extended SPIs */
+> Hum, maybe a I can hardcode this info in some const of the binary with a
+> ld trick ?
 
-For new code, we prefer using "unsigned int" when the value is meant to 
-be >= 0.
+For the symbol table to be loaded, it needs to live in some loadable section.
+You should be able to mark that section's end (or the end of the symbol
+table in the section, in case there's more stuff there) with a symbol in the
+linker script (which I assume you use). If you used the GNU toolchain, you
+could also consider using the assembler's .startof. / .sizeof. operators
+(producing symbols that the linker then recognizes and resolves accordingly).
 
-> +#endif
->       /*
->        * SPIs are domain global, SGIs and PPIs are per-VCPU and stored in
->        * struct arch_vcpu.
-> @@ -243,6 +247,14 @@ struct vgic_ops {
->   /* Number of ranks of interrupt registers for a domain */
->   #define DOMAIN_NR_RANKS(d) (((d)->arch.vgic.nr_spis+31)/32)
->   
-> +#ifdef CONFIG_GICV3_ESPI
-> +#define DOMAIN_NR_EXT_RANKS(d) (((d)->arch.vgic.nr_espis+31)/32)
-> +#endif
-> +#define EXT_RANK_MIN (ESPI_BASE_INTID/32)
-> +#define EXT_RANK_MAX ((ESPI_MAX_INTID+31)/32)
-> +#define EXT_RANK_NUM2IDX(num) ((num)-EXT_RANK_MIN)
-> +#define EXT_RANK_IDX2NUM(idx) ((idx)+EXT_RANK_MIN)
+Or wait - are you perhaps using the thing we call "bsd_symtab" in our libelf?
+Then, as per the scheme in elf_load_bsdsyms(), can't you find the start of
+the ELF header from the end of your kernel? At least that's how I understand
+it's supposed to work.
 
-For the 6 lines above, please add space before and after the operators.
-
-> +
->   #define vgic_lock(v)   spin_lock_irq(&(v)->domain->arch.vgic.lock)
->   #define vgic_unlock(v) spin_unlock_irq(&(v)->domain->arch.vgic.lock)
->   
-> diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
-> index 2bbf4d99aa..c9b9528c66 100644
-> --- a/xen/arch/arm/vgic.c
-> +++ b/xen/arch/arm/vgic.c
-> @@ -27,9 +27,82 @@
->   
->   bool vgic_is_valid_line(struct domain *d, unsigned int virq)
->   {
-> +#ifdef CONFIG_GICV3_ESPI
-> +    if ( virq >= ESPI_BASE_INTID &&
-> +         virq < ESPI_IDX2INTID(d->arch.vgic.nr_espis) )
-> +        return true;
-> +#endif
-> +
->       return virq < vgic_num_irqs(d);
->   }
->   
-> +#ifdef CONFIG_GICV3_ESPI
-> +/*
-> + * Since eSPI indexes start from 4096 and numbers from 1024 to
-> + * 4095 are forbidden, we need to check both lower and upper
-> + * limits for ranks.
-> + */
-> +static inline bool is_valid_espi_rank(struct domain *d, unsigned int rank)
-> +{
-> +    return rank >= EXT_RANK_MIN &&
-> +           EXT_RANK_NUM2IDX(rank) < DOMAIN_NR_EXT_RANKS(d);
-> +}
-> +
-> +static inline struct vgic_irq_rank *vgic_get_espi_rank(struct vcpu *v,
-> +                                                       unsigned int rank)
-> +{
-> +    return &v->domain->arch.vgic.ext_shared_irqs[EXT_RANK_NUM2IDX(rank)];
-> +}
-> +
-> +static inline bool vgic_reserve_espi_virq(struct domain *d, unsigned int virq)
-> +{
-> +    return !test_and_set_bit(ESPI_INTID2IDX(virq) + vgic_num_irqs(d),
-> +                             d->arch.vgic.allocated_irqs);
-> +}
-> +
-> +static void arch_move_espis(struct vcpu *v)
-> +{
-> +    const cpumask_t *cpu_mask = cpumask_of(v->processor);
-> +    struct domain *d = v->domain;
-> +    struct pending_irq *p;
-> +    struct vcpu *v_target;
-
-cpu_mask, p and v_target only seems to be used within the loop. If 
-that's correct, then please move the definition within the loop.
-
-> +    unsigned int i;
-> +
-> +    for ( i = ESPI_BASE_INTID;
-> +          i < EXT_RANK_IDX2NUM(d->arch.vgic.nr_espis); i++ )
-> +    {
-> +        v_target = vgic_get_target_vcpu(v, i);
-> +        p = irq_to_pending(v_target, i);
-> +
-> +        if ( v_target == v && !test_bit(GIC_IRQ_GUEST_MIGRATING, &p->status) )
-> +            irq_set_affinity(p->desc, cpu_mask);
-> +    }
-> +}
-> +#else
-> +static inline bool is_valid_espi_rank(struct domain *d, unsigned int rank)
-> +{
-> +    return false;
-> +}
-> +
-> +/*
-> + * This function is stub and will not be called if CONFIG_GICV3_ESPI=n,
-> + * because in this case, is_valid_espi_rank will always return false.
-> + */
-> +static inline struct vgic_irq_rank *vgic_get_espi_rank(struct vcpu *v,
-> +                                                       unsigned int rank)
-> +{
-> +    ASSERT_UNREACHABLE();
-> +    return NULL;
-> +}
-> +
-> +static inline bool vgic_reserve_espi_virq(struct domain *d, unsigned int virq)
-> +{
-> +    return false;
-> +}
-> +
-> +static void arch_move_espis(struct vcpu *v) { }
-> +#endif
-> +
->   static inline struct vgic_irq_rank *vgic_get_rank(struct vcpu *v,
->                                                     unsigned int rank)
->   {
-> @@ -37,6 +110,8 @@ static inline struct vgic_irq_rank *vgic_get_rank(struct vcpu *v,
->           return v->arch.vgic.private_irqs;
->       else if ( rank <= DOMAIN_NR_RANKS(v->domain) )
->           return &v->domain->arch.vgic.shared_irqs[rank - 1];
-> +    else if ( is_valid_espi_rank(v->domain, rank) )
-> +        return vgic_get_espi_rank(v, rank);
->       else
->           return NULL;
->   }
-> @@ -117,6 +192,62 @@ int domain_vgic_register(struct domain *d, unsigned int *mmio_count)
->       return 0;
->   }
->   
-> +#ifdef CONFIG_GICV3_ESPI
-> +static unsigned int vgic_num_spi_lines(struct domain *d)
-> +{
-> +    return d->arch.vgic.nr_spis + d->arch.vgic.nr_espis;
-> +}
-> +
-> +static int init_vgic_espi(struct domain *d)
-> +{
-> +    unsigned int i, idx;
-> +
-> +    if ( d->arch.vgic.nr_espis == 0 )
-> +        return 0;
-> +
-> +    d->arch.vgic.ext_shared_irqs =
-> +        xzalloc_array(struct vgic_irq_rank, DOMAIN_NR_EXT_RANKS(d));
-> +    if ( d->arch.vgic.ext_shared_irqs == NULL )
-> +        return -ENOMEM;
-> +
-> +    for ( i = d->arch.vgic.nr_spis, idx = 0;
-> +          i < vgic_num_spi_lines(d); i++, idx++ )
-> +        vgic_init_pending_irq(&d->arch.vgic.pending_irqs[i],
-> +                              ESPI_IDX2INTID(idx));
-> +
-> +    for ( i = 0; i < DOMAIN_NR_EXT_RANKS(d); i++ )
-> +        vgic_rank_init(&d->arch.vgic.ext_shared_irqs[i], i, 0);
-> +
-> +    return 0;
-> +}
-> +
-> +struct pending_irq *espi_to_pending(struct domain *d, unsigned int irq)
-> +{
-> +    irq = ESPI_INTID2IDX(irq) + d->arch.vgic.nr_spis;
-> +    return &d->arch.vgic.pending_irqs[irq];
-> +}
-> +#else
-> +static unsigned int init_vgic_espi(struct domain *d)
-> +{
-> +    return 0;
-> +}
-> +
-> +static unsigned int vgic_num_spi_lines(struct domain *d)
-> +{
-> +    return d->arch.vgic.nr_spis;
-> +}
-> +
-> +struct pending_irq *espi_to_pending(struct domain *d, unsigned int irq)
-> +{
-> +    return NULL;
-> +}
-> +#endif
-> +
-> +static unsigned int vgic_num_alloc_irqs(struct domain *d)
-> +{
-> +    return vgic_num_spi_lines(d) + NR_LOCAL_IRQS;
-> +}
-> +
->   int domain_vgic_init(struct domain *d, unsigned int nr_spis)
->   {
->       int i;
-> @@ -131,6 +262,36 @@ int domain_vgic_init(struct domain *d, unsigned int nr_spis)
->        */
->       nr_spis = ROUNDUP(nr_spis, 32);
->   
-> +#ifdef CONFIG_GICV3_ESPI
-> +    /*
-> +     * During domain creation, the dom0less DomUs code or toolstack specifies
-> +     * the maximum INTID, which is defined in the domain config subtracted by
-> +     * 32 to cover the local IRQs (please see the comment to VGIC_DEF_NR_SPIS).
-> +     * To compute the actual number of eSPI that will be usable for,
-> +     * add back 32.
-> +     */
-> +    if ( nr_spis + 32 > ESPI_IDX2INTID(NR_ESPI_IRQS) )
-> +        return -EINVAL;
-> +
-> +    if ( nr_spis + 32 >= ESPI_BASE_INTID )
-> +    {
-> +        d->arch.vgic.nr_espis = min(nr_spis - ESPI_BASE_INTID + 32, 1024U);
-
-We should return an error rather than silently capping the value.
-
-> +        /* Verify if GIC HW can handle provided INTID */
-> +        if ( d->arch.vgic.nr_espis > gic_number_espis() )
-> +            return -EINVAL;
-> +        /*
-> +         * Set the maximum available number for regular
-> +         * SPI to pass the next check
-> +         */
-
-I think it would be better to rework the code so the check is not called.
-
-> +        nr_spis = VGIC_DEF_NR_SPIS;
-> +    }
-> +    else
-> +    {
-> +        /* Domain will use the regular SPI range */
-> +        d->arch.vgic.nr_espis = 0;
-> +    }
-> +#endif
-> +
->       /* Limit the number of virtual SPIs supported to (1020 - 32) = 988  */
->       if ( nr_spis > (1020 - NR_LOCAL_IRQS) )
->           return -EINVAL;
-> @@ -145,7 +306,7 @@ int domain_vgic_init(struct domain *d, unsigned int nr_spis)
->           return -ENOMEM;
->   
->       d->arch.vgic.pending_irqs =
-> -        xzalloc_array(struct pending_irq, d->arch.vgic.nr_spis);
-> +        xzalloc_array(struct pending_irq, vgic_num_spi_lines(d));
->       if ( d->arch.vgic.pending_irqs == NULL )
->           return -ENOMEM;
->   
-> @@ -156,12 +317,16 @@ int domain_vgic_init(struct domain *d, unsigned int nr_spis)
->       for ( i = 0; i < DOMAIN_NR_RANKS(d); i++ )
->           vgic_rank_init(&d->arch.vgic.shared_irqs[i], i + 1, 0);
->   
-> +    ret = init_vgic_espi(d);
-> +    if ( ret )
-> +        return ret;
-> +
->       ret = d->arch.vgic.handler->domain_init(d);
->       if ( ret )
->           return ret;
->   
->       d->arch.vgic.allocated_irqs =
-> -        xzalloc_array(unsigned long, BITS_TO_LONGS(vgic_num_irqs(d)));
-> +        xzalloc_array(unsigned long, BITS_TO_LONGS(vgic_num_alloc_irqs(d)));
->       if ( !d->arch.vgic.allocated_irqs )
->           return -ENOMEM;
->   
-> @@ -195,9 +360,27 @@ void domain_vgic_free(struct domain *d)
->           }
->       }
->   
-> +#ifdef CONFIG_GICV3_ESPI
-> +    for ( i = 0; i < d->arch.vgic.nr_espis; i++ )
-
-Now we are potentially doubling up the number of IRQs we have to 
-release. I am not entirely sure this is still ok to do it without any 
-preemption. Do you have any data?
-
-> +    {
-> +        struct pending_irq *p = spi_to_pending(d, ESPI_IDX2INTID(i));
-> +
-> +        if ( p->desc )
-> +        {
-> +            ret = release_guest_irq(d, p->irq);
-> +            if ( ret )
-> +                dprintk(XENLOG_G_WARNING, "%pd: Failed to release virq %u ret = %d\n",
-> +                        d, p->irq, ret);
-> +        }
-> +    }
-> +#endif
-> +
->       if ( d->arch.vgic.handler )
->           d->arch.vgic.handler->domain_free(d);
->       xfree(d->arch.vgic.shared_irqs);
-> +#ifdef CONFIG_GICV3_ESPI
-> +    xfree(d->arch.vgic.ext_shared_irqs);
-> +#endif
->       xfree(d->arch.vgic.pending_irqs);
->       xfree(d->arch.vgic.allocated_irqs);
->   }
-> @@ -331,6 +514,8 @@ void arch_move_irqs(struct vcpu *v)
->           if ( v_target == v && !test_bit(GIC_IRQ_GUEST_MIGRATING, &p->status) )
->               irq_set_affinity(p->desc, cpu_mask);
->       }
-> +
-> +    arch_move_espis(v);
->   }
->   
->   void vgic_disable_irqs(struct vcpu *v, uint32_t r, unsigned int n)
-> @@ -538,6 +723,8 @@ struct pending_irq *irq_to_pending(struct vcpu *v, unsigned int irq)
->           n = &v->arch.vgic.pending_irqs[irq];
->       else if ( is_lpi(irq) )
->           n = v->domain->arch.vgic.handler->lpi_to_pending(v->domain, irq);
-> +    else if ( is_espi(irq) )
-> +        n = espi_to_pending(v->domain, irq);
->       else
->           n = &v->domain->arch.vgic.pending_irqs[irq - 32];
->       return n;
-> @@ -547,6 +734,9 @@ struct pending_irq *spi_to_pending(struct domain *d, unsigned int irq)
->   {
->       ASSERT(irq >= NR_LOCAL_IRQS);
->   
-> +    if ( is_espi(irq) )
-> +        return espi_to_pending(d, irq);
-> +
->       return &d->arch.vgic.pending_irqs[irq - 32];
->   }
->   
-> @@ -668,6 +858,9 @@ bool vgic_reserve_virq(struct domain *d, unsigned int virq)
->       if ( !vgic_is_valid_line(d, virq) )
->           return false;
->   
-> +    if ( is_espi(virq) )
-> +        return vgic_reserve_espi_virq(d, virq);
-> +
->       return !test_and_set_bit(virq, d->arch.vgic.allocated_irqs);
->   }
->   
-> @@ -685,7 +878,7 @@ int vgic_allocate_virq(struct domain *d, bool spi)
->       else
->       {
->           first = 32;
-> -        end = vgic_num_irqs(d);
-> +        end = vgic_num_alloc_irqs(d);
->       }
->   
->       /*
-
-Cheers,
-
--- 
-Julien Grall
-
+Jan
 
