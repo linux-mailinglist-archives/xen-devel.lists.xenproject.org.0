@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6938B3FA54
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 11:28:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1105916.1456733 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DCAFB3FA5C
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 11:29:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1105932.1456741 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utNJd-0005tj-QG; Tue, 02 Sep 2025 09:28:37 +0000
+	id 1utNKW-0006UD-7M; Tue, 02 Sep 2025 09:29:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1105916.1456733; Tue, 02 Sep 2025 09:28:37 +0000
+Received: by outflank-mailman (output) from mailman id 1105932.1456741; Tue, 02 Sep 2025 09:29:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utNJd-0005qO-Im; Tue, 02 Sep 2025 09:28:37 +0000
-Received: by outflank-mailman (input) for mailman id 1105916;
- Tue, 02 Sep 2025 09:28:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ymLx=3N=bounce.vates.tech=bounce-md_30504962.68b6b8c2.v1-5a36f42ca8a1486e95ff20a990a02aa7@srs-se1.protection.inumbo.net>)
- id 1utNJc-0005f4-AK
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 09:28:36 +0000
-Received: from mail180-6.suw31.mandrillapp.com
- (mail180-6.suw31.mandrillapp.com [198.2.180.6])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32c7d3ab-87df-11f0-8adc-4578a1afcccb;
- Tue, 02 Sep 2025 11:28:35 +0200 (CEST)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-6.suw31.mandrillapp.com (Mailchimp) with ESMTP id 4cGL5Z0m2xz2K2671
- for <xen-devel@lists.xenproject.org>; Tue,  2 Sep 2025 09:28:34 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 5a36f42ca8a1486e95ff20a990a02aa7; Tue, 02 Sep 2025 09:28:34 +0000
+	id 1utNKW-0006RA-43; Tue, 02 Sep 2025 09:29:32 +0000
+Received: by outflank-mailman (input) for mailman id 1105932;
+ Tue, 02 Sep 2025 09:29:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=uTXE=3N=kernel.org=leon@srs-se1.protection.inumbo.net>)
+ id 1utNKV-0006KE-4T
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 09:29:31 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 52a4557a-87df-11f0-8dd7-1b34d833f44b;
+ Tue, 02 Sep 2025 11:29:29 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6678F43E7E;
+ Tue,  2 Sep 2025 09:29:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 793FEC4CEED;
+ Tue,  2 Sep 2025 09:29:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,195 +41,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32c7d3ab-87df-11f0-8adc-4578a1afcccb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1756805314; x=1757075314;
-	bh=mVE2bxoiaJc/omf+Xbgpgc0UASpoGRaDW87GrKaH4u4=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=j++PI+0++pbjylfCeY3fQ8zK7noV+3ix9tvCMfLs35RsyaYSl7FXBbv32p5T2E+mE
-	 s994SlUyEug3Z+9MsB3EkGMJbUIcBVTX/nxvg4hysRQfpAQf1JnTMvCMTrSaYYhNg5
-	 nc2pEunUbMVta/9hj0n9IsU4VlXH9V+ra4wguTuPOd9fpzubkBQeXdig29XWeKqUmi
-	 aBy0PpKDR/YOKIJcuJrpzn6TXV/l2B3qdXtlfrlQLEDA2MzeSTh6S3sf5E2fSKOrPF
-	 Gdi2B8zcFtt7/8SB1BDwpxSfjmMKqtWDfM8Amkwcog/KqypGJfA1Z4RsHu6CwUo7CJ
-	 ec5IsIAuyUulQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1756805314; x=1757065814; i=teddy.astie@vates.tech;
-	bh=mVE2bxoiaJc/omf+Xbgpgc0UASpoGRaDW87GrKaH4u4=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=P5jNEKVKz+utMDl8M2yH9csSGHgrN+yiv7VTbmU8+WkqLjHDqKQ06bldcG0RrqNfA
-	 mA+OhCDbKlVemaDZ7SGAEzeGRyCpdrM7w0Ado5Kao1/jD7DRYaIcM+pwH/nYGJ6Sym
-	 lz7p+XLrcY4tinD+Z9uG+F1c7Ip3Dj+zEbrd/i2Q9mKtwhK1gIFuyEMLWWT6ZSRheg
-	 IV7zmDAQ201pyYbkxsOOKd/E3f32ErgSLJg6+1AWV8GR/dX/T9yjO5PkjL9jxKdzVN
-	 zcpa00vEw6L/ZdkgTlXLBe5Qvjic/SvOiAXEb1N7TQ6njV+LSiRA+azRt+rpJ2/6YB
-	 ebuY34HSD9qKQ==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[PATCH=20v5.10.y]=20xen:=20replace=20xen=5Fremap()=20with=20memremap()?=
-X-Mailer: git-send-email 2.51.0
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1756805309861
-To: xen-devel@lists.xenproject.org, stable@vger.kernel.org
-Cc: "Juergen Gross" <jgross@suse.com>, "kernel test robot" <lkp@intel.com>, "Boris Ostrovsky" <boris.ostrovsky@oracle.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Teddy Astie" <teddy.astie@vates.tech>, "Anthoine Bourgeois" <anthoine.bourgeois@vates.tech>, "Thomas Gleixner" <tglx@linutronix.de>, "Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>, "Dave Hansen" <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Jiri Slaby" <jirislaby@kernel.org>
-Message-Id: <4cc9c1f583fb4bfca02ff7050b9b01cb9abb7e7f.1756803599.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.5a36f42ca8a1486e95ff20a990a02aa7?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250902:md
-Date: Tue, 02 Sep 2025 09:28:34 +0000
+X-Inumbo-ID: 52a4557a-87df-11f0-8dd7-1b34d833f44b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1756805367;
+	bh=DnDVES5Jg8WrIGoMPMfvxV9Wox20mcRcpnotwmcTmTg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=u+YP0LKc7Ca9KSEGyhHI9LWKXOpYxDkmlx+xi/d94i28PXwnbkADYdG/kMj0eiK5B
+	 zd/GooYAccyXKqdo2LtN0swNMmhiizGQIgjHrkSZ2IAXK/1jBPSRk3StbcZycbdrVP
+	 g5quZtmGQMVEWVOV9clnOLPmMIcFNqak1dVeFhnzWaY1VIAyIlM9TCnw1bUSOb10fT
+	 eYPBFQEGyOkOZzS7K5YPtS3dmkawe2LLvJU33SWPAwVjDdMQDDLsS8LD6Qfe4rZdHI
+	 wki/IP/V+av0oWZTHcazqMPHDSPlXAIhw9qhWxKa10uhggFEbKZZEF+GYaHO+zcGYb
+	 634HFrNZvr1dg==
+Date: Tue, 2 Sep 2025 12:29:20 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
+	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
+	kasan-dev@googlegroups.com, Keith Busch <kbusch@kernel.org>,
+	linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+	linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 00/16] dma-mapping: migrate to physical address-based
+ API
+Message-ID: <20250902092920.GE10073@unreal>
+References: <cover.1755624249.git.leon@kernel.org>
+ <CGME20250828115738eucas1p24f3c17326b318c95a5569a2c9651ff92@eucas1p2.samsung.com>
+ <20250828115729.GA10073@unreal>
+ <26bd901a-0812-492d-9736-4a7bb2e6d6b4@samsung.com>
+ <20250901222302.GA186519@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250901222302.GA186519@nvidia.com>
 
-From: Juergen Gross <jgross@suse.com>
+On Mon, Sep 01, 2025 at 07:23:02PM -0300, Jason Gunthorpe wrote:
+> On Mon, Sep 01, 2025 at 11:47:59PM +0200, Marek Szyprowski wrote:
+> > I would like to give those patches a try in linux-next, but in meantime 
+> > I tested it on my test farm and found a regression in dma_map_resource() 
+> > handling. Namely the dma_map_resource() is no longer possible with size 
+> > not aligned to kmalloc()'ed buffer, as dma_direct_map_phys() calls 
+> > dma_kmalloc_needs_bounce(),
+> 
+> Hmm, it's this bit:
+> 
+> 	capable = dma_capable(dev, dma_addr, size, !(attrs & DMA_ATTR_MMIO));
+> 	if (unlikely(!capable) || dma_kmalloc_needs_bounce(dev, size, dir)) {
+> 		if (is_swiotlb_active(dev) && !(attrs & DMA_ATTR_MMIO))
+> 			return swiotlb_map(dev, phys, size, dir, attrs);
+> 
+> 		goto err_overflow;
+> 	}
+> 
+> We shouldn't be checking dma_kmalloc_needs_bounce() on mmio as there
+> is no cache flushing so the "dma safe alignment" for non-coherent DMA
+> does not apply.
+> 
+> Like you say looks good to me, and more of the surrouding code can be
+> pulled in too, no sense in repeating the boolean logic:
+> 
+> 	if (attrs & DMA_ATTR_MMIO) {
+> 		dma_addr = phys;
+> 		if (unlikely(!dma_capable(dev, dma_addr, size, false)))
+> 			goto err_overflow;
+> 	} else {
+> 		dma_addr = phys_to_dma(dev, phys);
+> 		if (unlikely(!dma_capable(dev, dma_addr, size, true)) ||
 
-From: Juergen Gross <jgross@suse.com>
+I tried to reuse same code as much as possible :(
 
-[ upstream commit 41925b105e345ebc84cedb64f59d20cb14a62613 ]
+> 		    dma_kmalloc_needs_bounce(dev, size, dir)) {
+> 			if (is_swiotlb_active(dev))
+> 				return swiotlb_map(dev, phys, size, dir, attrs);
+> 
+> 			goto err_overflow;
+> 		}
+> 		if (!dev_is_dma_coherent(dev) &&
+> 		    !(attrs & DMA_ATTR_SKIP_CPU_SYNC))
+> 			arch_sync_dma_for_device(phys, size, dir);
+> 	}
 
-xen_remap() is used to establish mappings for frames not under direct
-control of the kernel: for Xenstore and console ring pages, and for
-grant pages of non-PV guests.
+Like Jason wrote, but in diff format:
 
-Today xen_remap() is defined to use ioremap() on x86 (doing uncached
-mappings), and ioremap_cache() on Arm (doing cached mappings).
+diff --git a/kernel/dma/direct.h b/kernel/dma/direct.h
+index 92dbadcd3b2f..3f4792910604 100644
+--- a/kernel/dma/direct.h
++++ b/kernel/dma/direct.h
+@@ -85,7 +85,6 @@ static inline dma_addr_t dma_direct_map_phys(struct device *dev,
+                unsigned long attrs)
+ {
+        dma_addr_t dma_addr;
+-       bool capable;
 
-Uncached mappings for those use cases are bad for performance, so they
-should be avoided if possible. As all use cases of xen_remap() don't
-require uncached mappings (the mapped area is always physical RAM),
-a mapping using the standard WB cache mode is fine.
+        if (is_swiotlb_force_bounce(dev)) {
+                if (attrs & DMA_ATTR_MMIO)
+@@ -94,17 +93,19 @@ static inline dma_addr_t dma_direct_map_phys(struct device *dev,
+                return swiotlb_map(dev, phys, size, dir, attrs);
+        }
 
-As sparse is flagging some of the xen_remap() use cases to be not
-appropriate for iomem(), as the result is not annotated with the
-__iomem modifier, eliminate xen_remap() completely and replace all
-use cases with memremap() specifying the MEMREMAP_WB caching mode.
+-       if (attrs & DMA_ATTR_MMIO)
++       if (attrs & DMA_ATTR_MMIO) {
+                dma_addr = phys;
+-       else
++               if (unlikely(dma_capable(dev, dma_addr, size, false)))
++                       goto err_overflow;
++       } else {
+                dma_addr = phys_to_dma(dev, phys);
++               if (unlikely(!dma_capable(dev, dma_addr, size, true)) ||
++                   dma_kmalloc_needs_bounce(dev, size, dir)) {
++                       if (is_swiotlb_active(dev))
++                               return swiotlb_map(dev, phys, size, dir, attrs);
 
-xen_unmap() can be replaced with memunmap().
-
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-Link: https://lore.kernel.org/r/20220530082634.6339-1-jgross@suse.com
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech> [backport to 5.10.y]
----
-Cc: Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
-Cc: Juergen Gross <jgross@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>
-
- arch/x86/include/asm/xen/page.h   | 3 ---
- drivers/tty/hvc/hvc_xen.c         | 2 +-
- drivers/xen/grant-table.c         | 6 +++---
- drivers/xen/xenbus/xenbus_probe.c | 3 +--
- include/xen/arm/page.h            | 3 ---
- 5 files changed, 5 insertions(+), 12 deletions(-)
-
-diff --git a/arch/x86/include/asm/xen/page.h b/arch/x86/include/asm/xen/page.h
-index 5941e18edd5a..c183b7f9efef 100644
---- a/arch/x86/include/asm/xen/page.h
-+++ b/arch/x86/include/asm/xen/page.h
-@@ -355,9 +355,6 @@ unsigned long arbitrary_virt_to_mfn(void *vaddr);
- void make_lowmem_page_readonly(void *vaddr);
- void make_lowmem_page_readwrite(void *vaddr);
- 
--#define xen_remap(cookie, size) ioremap((cookie), (size));
--#define xen_unmap(cookie) iounmap((cookie))
+-       capable = dma_capable(dev, dma_addr, size, !(attrs & DMA_ATTR_MMIO));
+-       if (unlikely(!capable) || dma_kmalloc_needs_bounce(dev, size, dir)) {
+-               if (is_swiotlb_active(dev) && !(attrs & DMA_ATTR_MMIO))
+-                       return swiotlb_map(dev, phys, size, dir, attrs);
 -
- static inline bool xen_arch_need_swiotlb(struct device *dev,
- 					 phys_addr_t phys,
- 					 dma_addr_t dev_addr)
-diff --git a/drivers/tty/hvc/hvc_xen.c b/drivers/tty/hvc/hvc_xen.c
-index 4886cad0fde6..7b472ab2f34f 100644
---- a/drivers/tty/hvc/hvc_xen.c
-+++ b/drivers/tty/hvc/hvc_xen.c
-@@ -270,7 +270,7 @@ static int xen_hvm_console_init(void)
- 	if (r < 0 || v == 0)
- 		goto err;
- 	gfn = v;
--	info->intf = xen_remap(gfn << XEN_PAGE_SHIFT, XEN_PAGE_SIZE);
-+	info->intf = memremap(gfn << XEN_PAGE_SHIFT, XEN_PAGE_SIZE, MEMREMAP_WB);
- 	if (info->intf == NULL)
- 		goto err;
- 	info->vtermno = HVC_COOKIE;
-diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
-index 0a2d24d6ac6f..a10e0741bec5 100644
---- a/drivers/xen/grant-table.c
-+++ b/drivers/xen/grant-table.c
-@@ -743,7 +743,7 @@ int gnttab_setup_auto_xlat_frames(phys_addr_t addr)
- 	if (xen_auto_xlat_grant_frames.count)
- 		return -EINVAL;
- 
--	vaddr = xen_remap(addr, XEN_PAGE_SIZE * max_nr_gframes);
-+	vaddr = memremap(addr, XEN_PAGE_SIZE * max_nr_gframes, MEMREMAP_WB);
- 	if (vaddr == NULL) {
- 		pr_warn("Failed to ioremap gnttab share frames (addr=%pa)!\n",
- 			&addr);
-@@ -751,7 +751,7 @@ int gnttab_setup_auto_xlat_frames(phys_addr_t addr)
- 	}
- 	pfn = kcalloc(max_nr_gframes, sizeof(pfn[0]), GFP_KERNEL);
- 	if (!pfn) {
--		xen_unmap(vaddr);
-+		memunmap(vaddr);
- 		return -ENOMEM;
- 	}
- 	for (i = 0; i < max_nr_gframes; i++)
-@@ -770,7 +770,7 @@ void gnttab_free_auto_xlat_frames(void)
- 	if (!xen_auto_xlat_grant_frames.count)
- 		return;
- 	kfree(xen_auto_xlat_grant_frames.pfn);
--	xen_unmap(xen_auto_xlat_grant_frames.vaddr);
-+	memunmap(xen_auto_xlat_grant_frames.vaddr);
- 
- 	xen_auto_xlat_grant_frames.pfn = NULL;
- 	xen_auto_xlat_grant_frames.count = 0;
-diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
-index fb5358a73820..23595fdd053d 100644
---- a/drivers/xen/xenbus/xenbus_probe.c
-+++ b/drivers/xen/xenbus/xenbus_probe.c
-@@ -919,8 +919,7 @@ static int __init xenbus_init(void)
- #endif
- 		xen_store_gfn = (unsigned long)v;
- 		xen_store_interface =
--			xen_remap(xen_store_gfn << XEN_PAGE_SHIFT,
--				  XEN_PAGE_SIZE);
-+			memremap(xen_store_gfn << XEN_PAGE_SHIFT, XEN_PAGE_SIZE, MEMREMAP_WB);
- 		break;
- 	default:
- 		pr_warn("Xenstore state unknown\n");
-diff --git a/include/xen/arm/page.h b/include/xen/arm/page.h
-index ac1b65470563..f831cfeca000 100644
---- a/include/xen/arm/page.h
-+++ b/include/xen/arm/page.h
-@@ -109,9 +109,6 @@ static inline bool set_phys_to_machine(unsigned long pfn, unsigned long mfn)
- 	return __set_phys_to_machine(pfn, mfn);
- }
- 
--#define xen_remap(cookie, size) ioremap_cache((cookie), (size))
--#define xen_unmap(cookie) iounmap((cookie))
--
- bool xen_arch_need_swiotlb(struct device *dev,
- 			   phys_addr_t phys,
- 			   dma_addr_t dev_addr);
--- 
-2.51.0
+-               goto err_overflow;
++                       goto err_overflow;
++               }
+        }
+
+        if (!dev_is_dma_coherent(dev) &&
 
 
+I created new tag with fixed code.
+https://git.kernel.org/pub/scm/linux/kernel/git/leon/linux-rdma.git/tag/?h=dma-phys-Sep-2
 
---
-Teddy Astie | Vates XCP-ng Developer
+Thanks
 
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+> 
+> Jason
 
