@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C7E7B40754
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 16:45:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1106690.1457319 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FBE3B40794
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 16:49:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1106701.1457330 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utSFn-0001bX-FU; Tue, 02 Sep 2025 14:44:59 +0000
+	id 1utSJr-00029y-WD; Tue, 02 Sep 2025 14:49:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1106690.1457319; Tue, 02 Sep 2025 14:44:59 +0000
+Received: by outflank-mailman (output) from mailman id 1106701.1457330; Tue, 02 Sep 2025 14:49:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utSFn-0001Za-CX; Tue, 02 Sep 2025 14:44:59 +0000
-Received: by outflank-mailman (input) for mailman id 1106690;
- Tue, 02 Sep 2025 14:44:57 +0000
+	id 1utSJr-00028U-Rl; Tue, 02 Sep 2025 14:49:11 +0000
+Received: by outflank-mailman (input) for mailman id 1106701;
+ Tue, 02 Sep 2025 14:49:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q6uY=3N=cloud.com=gerald.elder-vass@srs-se1.protection.inumbo.net>)
- id 1utSFl-0001ZU-Ed
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 14:44:57 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=uTXE=3N=kernel.org=leon@srs-se1.protection.inumbo.net>)
+ id 1utSJq-00028O-0q
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 14:49:10 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 63dbd3a6-880b-11f0-8dd7-1b34d833f44b;
- Tue, 02 Sep 2025 16:44:55 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-afcb7ae31caso1054524266b.3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Sep 2025 07:44:55 -0700 (PDT)
-Received: from eddie5.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aff15fccad1sm942353066b.108.2025.09.02.07.44.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Sep 2025 07:44:53 -0700 (PDT)
+ id f9ddbebd-880b-11f0-8dd7-1b34d833f44b;
+ Tue, 02 Sep 2025 16:49:07 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id DE20A43910;
+ Tue,  2 Sep 2025 14:49:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACFA9C4CEED;
+ Tue,  2 Sep 2025 14:49:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,157 +41,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63dbd3a6-880b-11f0-8dd7-1b34d833f44b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1756824294; x=1757429094; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=f48bQFr2pwLrvr7pu6JK/rPhwtQpUL/wKoNYgBPv14Q=;
-        b=c4kVIBZAJgFZpi2uHth1IJGrkbAR1aXZc0Sn05Eb5kYTqUMT3hoK8nm2rSxmAQPtl8
-         dH6XR8VwGY1yoo30UsdxacfMO8S3Aai+iT0OGc+Qsa8/cEPgG30cAkuMNzukZixuegCP
-         5p/fsZ2X4h9+U9sjte2Ln15OQ+MfqRxq9R6nQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756824294; x=1757429094;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=f48bQFr2pwLrvr7pu6JK/rPhwtQpUL/wKoNYgBPv14Q=;
-        b=U04JwGEMcyMpRbTkMz7Etc3m+Ta1QwxtmXyC6oLvzF7T+eSU2YkZrhrvkCd56JM0/j
-         nJ2PxQukw0eAP6yuuIvnpA+WxDaJjWnhu2YjqFVwBN2YcflFnrmvaiSP/puvA7YHvb8L
-         pjjDBJ+WqdugIrnC3IqjQls368E9ntIVEy3pzGIjWHWH2yn94DGg7sfrrPrYenH6BeBT
-         hTgTayjQ4wxgtoIkRx9obvMrRFWf0keVMOOMOF90RnlFqIqNvn8TDtE+46OaGlCD8vY3
-         tdLZd+7hX7H8Txjza8UPpeXXca4k8cwERSyroqtTlAQCeqn6OXypxPOOxWoixnpKaoe+
-         oZ+A==
-X-Gm-Message-State: AOJu0Yy0G2W1CPVCCAu23zUbnjmgZynTzdDjzN8RFbRxRx+M7G+2eCTB
-	6EP+RFB27g3EF9LY9l+NLXNcdI0tjLI2JNtOD8B5ru5Yc1wMJoo2LTyEQRr0v+QeETLb6cnv4iQ
-	AFgJW6U4=
-X-Gm-Gg: ASbGncseKSHihhY3jf9uzNGSafv3ifmPiCNkGjq9k/nKJcQDHSpn4AfinYu6NuVzlRo
-	GJxWYVcaMX89Eqn4rvkf37R54Z2jNM/N+xo36g3bARHKvaL2kCJvDzcEKIM8aLGn7WkwWmm8rCD
-	pq7pIG6WzvzGmgS0r2OZ5YJClcnrpUtDzPsOpwhRWsW2wfBhlRSzvyX2r2CQ/n1b3WMETeHrjzt
-	EYX8Wbjx+J0WZ0Ikb56+aQtqgIi+p2CjA0Q8OBRCTHwUYUa51vm5KuL6LHCZXs7q9euPjgE9lWp
-	JkJIhpihTwjqUdbxlnhuNj6E83IsKBQXA9uP+rZmfMpnIPKFgX0d1qB/Py5DD4N3ZQmaYH/c25/
-	xChM6oJG86lFvdCuZqn393AB+8yIIr32KBSfhY4fW6IYnuXwjeIVFrXsF
-X-Google-Smtp-Source: AGHT+IHjbWXHk9e+wapZHxoKH2FCnMDaeWlQIBl/ucIqvv5oPZW/Wr8d4x3VmEbuZcPcZuSyJq4uRQ==
-X-Received: by 2002:a17:906:6a02:b0:af9:2e26:4636 with SMTP id a640c23a62f3a-b01d971924bmr1109674166b.32.1756824294174;
-        Tue, 02 Sep 2025 07:44:54 -0700 (PDT)
-From: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+X-Inumbo-ID: f9ddbebd-880b-11f0-8dd7-1b34d833f44b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1756824545;
+	bh=3SAFSguWc3mEh+7tLjgls851bpgvCDXeoOLUKYRDCQw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=T4z/viMpK/6nZf/nQZOIsRAAm3EHCx98H3vJy/7M+HoAOU06u4ge/kUryG+aCfwUr
+	 EPLJmc0enqvgMLu/ql+aqcT5Fj2w9kmxR9H/m3pCJndhGClrY92+csP8H8rqa+M2F0
+	 +/tg51ze5lLUyJvb9GuRMyJ6Mnz6YmTZuEbkE8BZXJxNc0WBeGGkH6nfvvoKcKyT7D
+	 72RQkLhAK72Yfulrr+BomhHq1M5YBXZDuDEbusIH/tJezD3AHPAbYmPt0An2e0azvi
+	 DpDSFe11OrTeaTIEkB3Rx5xhIiAEjLUzU+nXQYo+9uCB+p85bgbRHkcFyUX4QjIfNW
+	 +sNnsW+E+uHqg==
+From: Leon Romanovsky <leon@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Danilo Krummrich <dakr@kernel.org>,
+	David Hildenbrand <david@redhat.com>,
+	iommu@lists.linux.dev,
+	Jason Wang <jasowang@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Juergen Gross <jgross@suse.com>,
+	kasan-dev@googlegroups.com,
+	Keith Busch <kbusch@kernel.org>,
+	linux-block@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-nvme@lists.infradead.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
-	Kevin Lampis <kevin.lampis@cloud.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [XEN PATCH v2] efi: Use Shim's LoadImage to verify the Dom0 kernel
-Date: Tue,  2 Sep 2025 14:44:45 +0000
-Message-ID: <7f2f88f0d857ed3f8d7e3fabe349a3b5d5815981.1756822290.git.gerald.elder-vass@cloud.com>
-X-Mailer: git-send-email 2.47.3
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev,
+	Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v5 00/16] dma-mapping: migrate to physical address-based API
+Date: Tue,  2 Sep 2025 17:48:37 +0300
+Message-ID: <cover.1756822782.git.leon@kernel.org>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The existing Verify functionality of the Shim lock protocol is
-deprecated and will be removed, instead we must use the LoadImage
-interface to perform the verification.
+Marek,
 
-When the loading is successful we won't be using the newly loaded image
-(as of yet) so we must then immediately unload the image to clean up.
+Please pay attention that I'm resending all patches which includes
+nvme/blk conversion too. The code is based on clean -rc3, but NVMe
+tree got patch in this cycle which removes one of their REQ_* bits,
+on which I'm relying.
 
-Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
----
-Changes since v1:
-- Re-instated SHIM_LOCK_PROTOCOL as a fallback option if IMAGE_LOADER is
-  not found
-- Fixed indentation and error messages
----
- xen/common/efi/boot.c | 43 +++++++++++++++++++++++++++++++++++++------
- 1 file changed, 37 insertions(+), 6 deletions(-)
+This is the patch:
+https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux-block.git/commit/?h=for-6.18/block&id=7092639031a1bd5320ab827e8f665350f332b7ce
+and this is Keith's attempt to restore it:
+https://lore.kernel.org/linux-block/20250829142307.3769873-3-kbusch@meta.com/
 
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 453b1ba099cd..273da3d9e3e3 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -38,6 +38,8 @@
-   { 0xf2fd1544U, 0x9794, 0x4a2c, {0x99, 0x2e, 0xe5, 0xbb, 0xcf, 0x20, 0xe3, 0x94} }
- #define SHIM_LOCK_PROTOCOL_GUID \
-   { 0x605dab50U, 0xe046, 0x4300, {0xab, 0xb6, 0x3d, 0xd8, 0x10, 0xdd, 0x8b, 0x23} }
-+#define SHIM_IMAGE_LOADER_GUID \
-+  { 0x1f492041U, 0xfadb, 0x4e59, {0x9e, 0x57, 0x7c, 0xaf, 0xe7, 0x3a, 0x55, 0xab} }
- #define APPLE_PROPERTIES_PROTOCOL_GUID \
-   { 0x91bd12feU, 0xf6c3, 0x44fb, {0xa5, 0xb7, 0x51, 0x22, 0xab, 0x30, 0x3a, 0xe0} }
- #define EFI_SYSTEM_RESOURCE_TABLE_GUID    \
-@@ -70,6 +72,13 @@ typedef struct {
-     EFI_SHIM_LOCK_VERIFY Verify;
- } EFI_SHIM_LOCK_PROTOCOL;
- 
-+typedef struct _SHIM_IMAGE_LOADER {
-+    EFI_IMAGE_LOAD LoadImage;
-+    EFI_IMAGE_START StartImage;
-+    EFI_EXIT Exit;
-+    EFI_IMAGE_UNLOAD UnloadImage;
-+} SHIM_IMAGE_LOADER;
-+
- struct _EFI_APPLE_PROPERTIES;
- 
- typedef EFI_STATUS
-@@ -1336,10 +1345,12 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
-     static EFI_GUID __initdata shim_lock_guid = SHIM_LOCK_PROTOCOL_GUID;
-     EFI_LOADED_IMAGE *loaded_image;
-     EFI_STATUS status;
-+    EFI_HANDLE loaded_kernel;
-     unsigned int i;
-     CHAR16 *file_name, *cfg_file_name = NULL, *options = NULL;
-     UINTN gop_mode = ~0;
-     EFI_SHIM_LOCK_PROTOCOL *shim_lock;
-+    SHIM_IMAGE_LOADER *shim_loader;
-     EFI_GRAPHICS_OUTPUT_PROTOCOL *gop = NULL;
-     union string section = { NULL }, name;
-     bool base_video = false;
-@@ -1590,12 +1601,32 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
-      * device tree through the efi_check_dt_boot function, in this stage
-      * verify it.
-      */
--    if ( kernel.ptr &&
--         !kernel_verified &&
--         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
--                                           (void **)&shim_lock)) &&
--         (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
--        PrintErrMesg(L"Dom0 kernel image could not be verified", status);
-+    if ( kernel.ptr && !kernel_verified )
-+    {
-+
-+        if ( !EFI_ERROR(efi_bs->LocateProtocol(&((EFI_GUID) SHIM_IMAGE_LOADER_GUID),
-+                                               NULL, (void **)&shim_loader)) )
-+        {
-+            status = shim_loader->LoadImage(false, ImageHandle, NULL, (void *)kernel.ptr, kernel.size, &loaded_kernel);
-+            if ( EFI_ERROR(status) )
-+                PrintErrMesg(L"LoadImage failed", status);
-+
-+            // LoadImage performs verification, now unload it to clean up
-+            status = shim_loader->UnloadImage(loaded_kernel);
-+            if ( EFI_ERROR(status) )
-+                PrintErrMesg(L"UnloadImage failed", status);
-+        }
-+        else
-+        {
-+            status = efi_bs->LocateProtocol(&shim_lock_guid, NULL, (void **)&shim_lock);
-+            if ( EFI_ERROR(status) )
-+                PrintErrMesg(L"Failed to locate SHIM_LOCK protocol", status);
-+
-+            status = shim_lock->Verify(kernel.ptr, kernel.size);
-+            if ( EFI_ERROR(status) )
-+                PrintErrMesg(L"Dom0 kernel image could not be verified", status);
-+        }
-+    }
- 
-     efi_arch_edd();
- 
+So there are two possible options:
+1. Apply only first 13 patches and I'll resend nvme/blk patches in next
+cycle with the hope that REQ_* bits issue is sorted.
+2. Apply whole series and deal with merge conflicts by sending PR to
+Jens and ask him to merge this DMA series.
+
+Thanks
+
+------------------------------------------------------------------------
+Changelog:
+v5:
+ * Added Jason's and Keith's Reviewed-by tags
+ * Fixed DMA_ATTR_MMIO check in dma_direct_map_phys
+ * Jason's cleanup suggestions
+v4: https://lore.kernel.org/all/cover.1755624249.git.leon@kernel.org/
+ * Fixed kbuild error with mismatch in kmsan function declaration due to
+   rebase error.
+v3: https://lore.kernel.org/all/cover.1755193625.git.leon@kernel.org
+ * Fixed typo in "cacheable" word
+ * Simplified kmsan patch a lot to be simple argument refactoring
+v2: https://lore.kernel.org/all/cover.1755153054.git.leon@kernel.org
+ * Used commit messages and cover letter from Jason
+ * Moved setting IOMMU_MMIO flag to dma_info_to_prot function
+ * Micro-optimized the code
+ * Rebased code on v6.17-rc1
+v1: https://lore.kernel.org/all/cover.1754292567.git.leon@kernel.org
+ * Added new DMA_ATTR_MMIO attribute to indicate
+   PCI_P2PDMA_MAP_THRU_HOST_BRIDGE path.
+ * Rewrote dma_map_* functions to use thus new attribute
+v0: https://lore.kernel.org/all/cover.1750854543.git.leon@kernel.org/
+------------------------------------------------------------------------
+
+This series refactors the DMA mapping to use physical addresses
+as the primary interface instead of page+offset parameters. This
+change aligns the DMA API with the underlying hardware reality where
+DMA operations work with physical addresses, not page structures.
+
+The series maintains export symbol backward compatibility by keeping
+the old page-based API as wrapper functions around the new physical
+address-based implementations.
+
+This series refactors the DMA mapping API to provide a phys_addr_t
+based, and struct-page free, external API that can handle all the
+mapping cases we want in modern systems:
+
+ - struct page based cacheable DRAM
+ - struct page MEMORY_DEVICE_PCI_P2PDMA PCI peer to peer non-cacheable
+   MMIO
+ - struct page-less PCI peer to peer non-cacheable MMIO
+ - struct page-less "resource" MMIO
+
+Overall this gets much closer to Matthew's long term wish for
+struct-pageless IO to cacheable DRAM. The remaining primary work would
+be in the mm side to allow kmap_local_pfn()/phys_to_virt() to work on
+phys_addr_t without a struct page.
+
+The general design is to remove struct page usage entirely from the
+DMA API inner layers. For flows that need to have a KVA for the
+physical address they can use kmap_local_pfn() or phys_to_virt(). This
+isolates the struct page requirements to MM code only. Long term all
+removals of struct page usage are supporting Matthew's memdesc
+project which seeks to substantially transform how struct page works.
+
+Instead make the DMA API internals work on phys_addr_t. Internally
+there are still dedicated 'page' and 'resource' flows, except they are
+now distinguished by a new DMA_ATTR_MMIO instead of by callchain. Both
+flows use the same phys_addr_t.
+
+When DMA_ATTR_MMIO is specified things work similar to the existing
+'resource' flow. kmap_local_pfn(), phys_to_virt(), phys_to_page(),
+pfn_valid(), etc are never called on the phys_addr_t. This requires
+rejecting any configuration that would need swiotlb. CPU cache
+flushing is not required, and avoided, as ATTR_MMIO also indicates the
+address have no cacheable mappings. This effectively removes any
+DMA API side requirement to have struct page when DMA_ATTR_MMIO is
+used.
+
+In the !DMA_ATTR_MMIO mode things work similarly to the 'page' flow,
+except on the common path of no cache flush, no swiotlb it never
+touches a struct page. When cache flushing or swiotlb copying
+kmap_local_pfn()/phys_to_virt() are used to get a KVA for CPU
+usage. This was already the case on the unmap side, now the map side
+is symmetric.
+
+Callers are adjusted to set DMA_ATTR_MMIO. Existing 'resource' users
+must set it. The existing struct page based MEMORY_DEVICE_PCI_P2PDMA
+path must also set it. This corrects some existing bugs where iommu
+mappings for P2P MMIO were improperly marked IOMMU_CACHE.
+
+Since ATTR_MMIO is made to work with all the existing DMA map entry
+points, particularly dma_iova_link(), this finally allows a way to use
+the new DMA API to map PCI P2P MMIO without creating struct page. The
+VFIO DMABUF series demonstrates how this works. This is intended to
+replace the incorrect driver use of dma_map_resource() on PCI BAR
+addresses.
+
+This series does the core code and modern flows. A followup series
+will give the same treatment to the legacy dma_ops implementation.
+
+Thanks
+
+Leon Romanovsky (16):
+  dma-mapping: introduce new DMA attribute to indicate MMIO memory
+  iommu/dma: implement DMA_ATTR_MMIO for dma_iova_link().
+  dma-debug: refactor to use physical addresses for page mapping
+  dma-mapping: rename trace_dma_*map_page to trace_dma_*map_phys
+  iommu/dma: rename iommu_dma_*map_page to iommu_dma_*map_phys
+  iommu/dma: implement DMA_ATTR_MMIO for iommu_dma_(un)map_phys()
+  dma-mapping: convert dma_direct_*map_page to be phys_addr_t based
+  kmsan: convert kmsan_handle_dma to use physical addresses
+  dma-mapping: implement DMA_ATTR_MMIO for dma_(un)map_page_attrs()
+  xen: swiotlb: Open code map_resource callback
+  dma-mapping: export new dma_*map_phys() interface
+  mm/hmm: migrate to physical address-based DMA mapping API
+  mm/hmm: properly take MMIO path
+  block-dma: migrate to dma_map_phys instead of map_page
+  block-dma: properly take MMIO path
+  nvme-pci: unmap MMIO pages with appropriate interface
+
+ Documentation/core-api/dma-api.rst        |   4 +-
+ Documentation/core-api/dma-attributes.rst |  18 ++++
+ arch/powerpc/kernel/dma-iommu.c           |   4 +-
+ block/blk-mq-dma.c                        |  15 ++-
+ drivers/iommu/dma-iommu.c                 |  61 +++++------
+ drivers/nvme/host/pci.c                   |  18 +++-
+ drivers/virtio/virtio_ring.c              |   4 +-
+ drivers/xen/swiotlb-xen.c                 |  21 +++-
+ include/linux/blk-mq-dma.h                |   6 +-
+ include/linux/blk_types.h                 |   2 +
+ include/linux/dma-direct.h                |   2 -
+ include/linux/dma-map-ops.h               |   8 +-
+ include/linux/dma-mapping.h               |  33 ++++++
+ include/linux/iommu-dma.h                 |  11 +-
+ include/linux/kmsan.h                     |   9 +-
+ include/linux/page-flags.h                |   1 +
+ include/trace/events/dma.h                |   9 +-
+ kernel/dma/debug.c                        |  81 ++++-----------
+ kernel/dma/debug.h                        |  37 ++-----
+ kernel/dma/direct.c                       |  22 +---
+ kernel/dma/direct.h                       |  57 +++++++----
+ kernel/dma/mapping.c                      | 117 +++++++++++++---------
+ kernel/dma/ops_helpers.c                  |   6 +-
+ mm/hmm.c                                  |  19 ++--
+ mm/kmsan/hooks.c                          |   8 +-
+ rust/kernel/dma.rs                        |   3 +
+ tools/virtio/linux/kmsan.h                |   2 +-
+ 27 files changed, 315 insertions(+), 263 deletions(-)
+
 -- 
-2.47.3
+2.50.1
 
 
