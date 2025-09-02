@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D965B402DC
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 15:25:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1106471.1457140 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4E27B402DE
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 15:25:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1106473.1457150 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utR0E-0006i6-B1; Tue, 02 Sep 2025 13:24:50 +0000
+	id 1utR0V-00072i-Im; Tue, 02 Sep 2025 13:25:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1106471.1457140; Tue, 02 Sep 2025 13:24:50 +0000
+Received: by outflank-mailman (output) from mailman id 1106473.1457150; Tue, 02 Sep 2025 13:25:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utR0E-0006gB-8C; Tue, 02 Sep 2025 13:24:50 +0000
-Received: by outflank-mailman (input) for mailman id 1106471;
- Tue, 02 Sep 2025 13:24:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kxFV=3N=bounce.vates.tech=bounce-md_30504962.68b6f01b.v1-e0f5105993db47728ede90ddeee5c5f4@srs-se1.protection.inumbo.net>)
- id 1utR0C-0006g5-QM
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 13:24:48 +0000
-Received: from mail187-26.suw11.mandrillapp.com
- (mail187-26.suw11.mandrillapp.com [198.2.187.26])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3054f18c-8800-11f0-8dd7-1b34d833f44b;
- Tue, 02 Sep 2025 15:24:44 +0200 (CEST)
-Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail187-26.suw11.mandrillapp.com (Mailchimp) with ESMTP id
- 4cGRL32qfzzKsbb7P
- for <xen-devel@lists.xenproject.org>; Tue,  2 Sep 2025 13:24:43 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- e0f5105993db47728ede90ddeee5c5f4; Tue, 02 Sep 2025 13:24:43 +0000
+	id 1utR0V-0006zq-En; Tue, 02 Sep 2025 13:25:07 +0000
+Received: by outflank-mailman (input) for mailman id 1106473;
+ Tue, 02 Sep 2025 13:25:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=j4rs=3N=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1utR0T-0006vk-OU
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 13:25:05 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3ca030e7-8800-11f0-8adc-4578a1afcccb;
+ Tue, 02 Sep 2025 15:25:04 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3d19699240dso2213481f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Sep 2025 06:25:04 -0700 (PDT)
+Received: from [192.168.69.207] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3cf270fbd01sm20127940f8f.13.2025.09.02.06.25.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Sep 2025 06:25:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,215 +45,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3054f18c-8800-11f0-8dd7-1b34d833f44b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1756819483; x=1757089483;
-	bh=vJ/ShCaCXOV2bm+IUK0oG8GhcrkHPN6D2lP+VDOly90=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=PYdqb8FBrbW+5CF0q3dOviPb9fAm7Odfx13FaZ9r9bRxeBhsf7Yxt6O196zbqVxk6
-	 feNlpVQxH/teIl/o7QqTA4F0x584M6a+5vBFMr+A5Op50e4utMmhORT8AtIsDPI4T6
-	 Ztpg7U2GZ7wvParAY+Abv0KsaF8sDFnRXU6kPGBj4yYxM5nPTwquYl1kNfP5LV2Txa
-	 ShwgTNBtyQimrU62lWT97Y5ZYAimeGk5OssNRLwDI3XYj0M1imWZJS0oBnGD0gqjKT
-	 HmSBRdCU6I/R9jx6gLVOiU+rUi+oQwXaGc4NhZZYMUy4u7V6ZZlldNLPLKboTsk2cC
-	 C7WEn0YSiY2oQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1756819483; x=1757079983; i=teddy.astie@vates.tech;
-	bh=vJ/ShCaCXOV2bm+IUK0oG8GhcrkHPN6D2lP+VDOly90=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=bLQl+39lpOxl06ZKOTJRO9Gu+vzqQMEmRrpHaf6I+lfX2Y1LU0f1IB2fBtFh41jKm
-	 tHCQnJz5WPvNwtqdBeFvDDhkD3JpOqNA4+wJkXkr/0v94OPOmUt5ULArZXiamNvoZL
-	 OIRANyB+gpjRu4KG2AtQ9wZIYpf+/rCW3NDZjdkkmcxf4rvoJtw8yc+gT75E1Ziw+R
-	 6pVTY7VF1BFXPzNLQDqF394YtSPSWLgtdjBe5a8ULVEVTUm19At/Q1k9BwOEqzDGLa
-	 HLYj7Z9MNvKbaSKOLH8pOIa1Z/WxrIkHgxvEsikQpW/IlwAubP+o49Tn0XziJS7k42
-	 Zsdz50oMQ9A5g==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RESEND=20PATCH=20v2=202/3]=20hvmloader:=20Update=20to=20SMBIOS=202.6?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1756819482291
-Message-Id: <fdb2b2d2-a9d8-42ad-b9fc-e99905f5dbba@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <cover.1756460430.git.teddy.astie@vates.tech> <57c674cc364d3b8f4c6d03533b9e2b45728d2c19.1756460430.git.teddy.astie@vates.tech> <d422e3d6-48c5-478a-bf76-6aa39492d767@suse.com>
-In-Reply-To: <d422e3d6-48c5-478a-bf76-6aa39492d767@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.e0f5105993db47728ede90ddeee5c5f4?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250902:md
-Date: Tue, 02 Sep 2025 13:24:43 +0000
+X-Inumbo-ID: 3ca030e7-8800-11f0-8adc-4578a1afcccb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1756819504; x=1757424304; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=rz/p6M0rklQHwfyQ6YvhjhFju5Y1e2Dz66wkkh69jUI=;
+        b=m9d1JxIOb5EQzHvsteqdTQwT+fTMczljx8ym1B4Gyx1uFdSxaJIAiKfxiP1eyUhqMz
+         JBqhse1dIb4ZkAYjgB5GJWUs3wYcHSjJeQXhu9Qw2yfNJ8J0uwMs0s0GttLbIlgnnWr2
+         mEYkiSVeZhOCYjExPyJsA47Yv06ANuGETHR2cF+7XMBI/WLiiTcfc9xQ/g6/eG9xPrM6
+         L1mdsbikFdiKrqs133xo+l5sm1ELZ7WfL6wxRegpYSXoknOkHNSeWgI+jcvm0mVYPm0x
+         x/J0IvPSUyYELdHbvySCAAY3VPL1J5icB5WlZWeNgmvdI9X4HRX4YDxhBJdpG6Ox4oeU
+         urow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756819504; x=1757424304;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=rz/p6M0rklQHwfyQ6YvhjhFju5Y1e2Dz66wkkh69jUI=;
+        b=v9n5GRHilZ4OIim6UOtbN1WCp1np8pKaldQyTuVrkqrpI9aArchfsvi+BaYfyTQQjx
+         HxTsF5kvUaLIFaQNUSvl8b7UqhTSZuRh22snnn26zSz6nABshpfrVNr4+ZqhFJsktmcv
+         4mJCXoVt2JD6XvdKHR2gmsQ0Cu/e6cESIhmeBaGfnf+ho2474LbodeHXS1hE1HHHoHE6
+         pCaHcb1yoUrZ6XGZOWRPmT7FbmP07snghYcSCUU5zrCRTwzomUV87eb75FMbLV5AeI3N
+         dMcdABZ12BnrUT4ougeIMOWSyXgG3ECkU6d+qHMtOrJ1smP+HIhEUPal4qmMd/P84Mz/
+         0jXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXY+UfLT8e9zH+MpUaMzFddi6a+YWSI0B7LtxzYZ9c0Z9EZvgzkBnnVSqrnNomV8UQHNRUXvJWmUNE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxQgU3RuCy4gClYa7HqpBN45R4JvAgenyvC8u+sp8xsgt5uIvZt
+	jrY3vROjadS3cPEH2vNI6jrsWPTnaV1R7FNK0TA9ZHlC9pwE9jCs2WqPZ+klirBoQtc=
+X-Gm-Gg: ASbGnctq6XH4XwyuJBAdNm8Xw0EnLhFljvx0wiI+8wmo8AmA0GErEEXMmJYptx7/d36
+	2K+PSCx9BTRgbENldWJIFV7LMXCqYU/krsJFhS22b1ON4PVA7/8nk05kdeYL5prN/HrY+3pOJAn
+	lzU2j4H9mcxft4vER9gI0OZF74WRLtDEidhg6VrrKu3z7O9NCvNXB5YgpZteugadC6SP7pSCNvw
+	iwWEnQzDlR8kZ3bfEFQESr5ypK9LNT48HcnK0KStOW7zGsdp2BdsMQrxYz5zHFpRlAUILWrj9QK
+	H6tzZiXCuLS7jXIaorqmT+309KWn6vABUsVFQZ64RrfCyiwk+4MPazQj0Vyo+JZfkUURMh/3OCW
+	7XCQhtoPp+7t+efaigeEfnPwg/I8/oBXXRo+b1T9mHiv+X7QJGNUD5kWsqhkd3vpFMeyYOWAkfE
+	LV
+X-Google-Smtp-Source: AGHT+IEYmruxNHSN7LVlQ+61cQOiuO9GUpOJdI4vg0itRWRn52yE5aUCbQ+D5IlmMUWkcOPQ5loTdw==
+X-Received: by 2002:a5d:5712:0:b0:3dc:db:89f3 with SMTP id ffacd0b85a97d-3dc00db8a77mr46469f8f.16.1756819504134;
+        Tue, 02 Sep 2025 06:25:04 -0700 (PDT)
+Message-ID: <baa2f292-c29c-4045-8470-a9c7387cf98a@linaro.org>
+Date: Tue, 2 Sep 2025 15:25:01 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/7] accel: Add per-accelerator vCPUs queue
+To: qemu-devel@nongnu.org, Pierrick Bouvier <pierrick.bouvier@linaro.org>
+Cc: Daniel Henrique Barboza <dbarboza@ventanamicro.com>,
+ =?UTF-8?B?RnLDqWTDqXJpYyBCYXJyYXQ=?= <fbarrat@linux.ibm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Ilya Leoshkevich <iii@linux.ibm.com>, Cameron Esfahani <dirty@apple.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ Alexander Graf <agraf@csgraf.de>, Paul Durrant <paul@xen.org>,
+ David Hildenbrand <david@redhat.com>, Halil Pasic <pasic@linux.ibm.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ xen-devel@lists.xenproject.org, qemu-arm@nongnu.org,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>,
+ Yanan Wang <wangyanan55@huawei.com>, Reinoud Zandijk <reinoud@netbsd.org>,
+ Peter Maydell <peter.maydell@linaro.org>, qemu-s390x@nongnu.org,
+ Riku Voipio <riku.voipio@iki.fi>, Anthony PERARD <anthony@xenproject.org>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Sunil Muthuswamy <sunilmut@microsoft.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Marcelo Tosatti <mtosatti@redhat.com>, Thomas Huth <thuth@redhat.com>,
+ Roman Bolshakov <rbolshakov@ddn.com>,
+ "Edgar E . Iglesias" <edgar.iglesias@amd.com>, Zhao Liu
+ <zhao1.liu@intel.com>, Phil Dennis-Jordan <phil@philjordan.eu>,
+ David Woodhouse <dwmw2@infradead.org>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Eduardo Habkost <eduardo@habkost.net>, qemu-ppc@nongnu.org,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Anton Johansson <anjo@rev.ng>,
+ Salil Mehta <salil.mehta@huawei.com>
+References: <20250106200258.37008-1-philmd@linaro.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20250106200258.37008-1-philmd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Le 02/09/2025 =C3=A0 14:38, Jan Beulich a =C3=A9crit=C2=A0:
-> On 29.08.2025 11:58, Teddy Astie wrote:
->> @@ -505,7 +505,22 @@ smbios_type_1_init(void *start, const char *xen_ver=
-sion,
->>       p->version_str =3D 3;
->>       p->serial_number_str =3D 4;
->>   
->> -    memcpy(p->uuid, uuid, 16);
->> +    /*
->> +     * Xen toolstack uses big endian UUIDs, however GUIDs (which requir=
-ement
->> +     * is clarified by SMBIOS >=3D 2.6) has the first 3 components appe=
-aring as
->> +     * being little endian and the rest as still being big endian.
->> +     */
+Cc'ing Pierrick & Salil.
+
+On 6/1/25 21:02, Philippe Mathieu-Daudé wrote:
+> Hi,
 > 
-> The SMBIOS spec I'm looking at (2.7.1) doesn't mention the term GUID at a=
-ll
-> (except of course when discussing the EFI System Table entry). It's all U=
-UID
-> there. Here and in the description I think this needs expressing better, =
-to
-> not raise extra questions.
+> Currently we register all vCPUs to the global 'cpus_queue' queue,
+> however we can not discriminate per accelerator or per target
+> architecture (which might happen in a soon future).
 > 
-
-Yes (this is also true for SMBIOS 3.9.0 spec). Not sure how to express 
-that aside saying that UUID encoding differs between SMBIOS 
-specification and Xen representation.
-
-> As to endian-ness: Since everything from byte 8 onwards are merely bytes,=
- I
-> don't think it makes much sense to talk of endian-ness for that latter ha=
-lf.
+> This series tries to add an accelerator discriminator, so
+> accelerator specific code can iterate on its own vCPUs. This
+> is required to run a pair of HW + SW accelerators like the
+> (HVF, TCG) or (KVM, TCG) combinations. Otherwise, i.e. the
+> HVF core code could iterate on TCG vCPUs...
+> To keep it simple and not refactor heavily the code base,
+> we introduce the CPU_FOREACH_TCG/HVF/KVM() macros, only
+> defined for each accelerator.
 > 
-
-It's more to insist that the byte ordering differs with the first parts.
-
->> @@ -716,7 +731,7 @@ smbios_type_4_init(
->>   
->>       p->socket_designation_str =3D 1;
->>       p->processor_type =3D 0x03; /* CPU */
->> -    p->processor_family =3D 0x01; /* other */
->> +    p->processor_family =3D p->processor_family_2 =3D 0x01; /* other */
+> This is just a RFC to get some thoughts whether this is
+> heading in the correct direction or not ;)
 > 
-> In the hypervisor we need to avoid such double assignments for Misra's
-> sake. I think we're better off avoiding them in hvmloader as well.
+> Regards,
 > 
-
-yes
-
->> @@ -736,6 +751,22 @@ smbios_type_4_init(
->>       p->l2_cache_handle =3D 0xffff; /* No cache information structure p=
-rovided. */
->>       p->l3_cache_handle =3D 0xffff; /* No cache information structure p=
-rovided. */
->>   
->> +    /*
->> +     * We have a smbios type 4 table per vCPU (which is per socket),
->> +     * which means here that we have 1 socket per vCPU.
->> +     */
->> +    p->core_count =3D p->core_enabled =3D p->thread_count =3D 1;
+> Phil.
 > 
-> Might we be better off keeping them all at 0 (unknown)?
+> Philippe Mathieu-Daudé (7):
+>    cpus: Restrict CPU_FOREACH_SAFE() to user emulation
+>    cpus: Introduce AccelOpsClass::get_cpus_queue()
+>    accel/tcg: Implement tcg_get_cpus_queue()
+>    accel/tcg: Use CPU_FOREACH_TCG()
+>    accel/hw: Implement hw_accel_get_cpus_queue()
+>    accel/hvf: Use CPU_FOREACH_HVF()
+>    accel/kvm: Use CPU_FOREACH_KVM()
 > 
-
-Making it Unknown would feel a bit weird, unless we only keep only one 
-(instead of the number of vCPUs) of these table with core_count, 
-core_enabled, thread_count as 0 (unknown) ?
-
->> +    /*
->> +     * We set 64-bits, execute protection and enhanced virtualization.
->> +     * We don't set Multi-Core (bit 3) because this individual processo=
-r
->> +     * (as being a single vCPU) is only having one core.
->> +     *
->> +     * SMBIOS specification says that these bits don't state anything
->> +     * regarding the actual availability of such features.
->> +     */
->> +    p->processor_characteristics =3D 0x64;
+>   accel/tcg/tcg-accel-ops.h         | 10 ++++++++++
+>   include/hw/core/cpu.h             | 11 +++++++++++
+>   include/system/accel-ops.h        |  6 ++++++
+>   include/system/hvf_int.h          |  4 ++++
+>   include/system/hw_accel.h         |  9 +++++++++
+>   include/system/kvm_int.h          |  3 +++
+>   accel/accel-system.c              |  8 ++++++++
+>   accel/hvf/hvf-accel-ops.c         |  9 +++++----
+>   accel/kvm/kvm-accel-ops.c         |  1 +
+>   accel/kvm/kvm-all.c               | 14 +++++++-------
+>   accel/tcg/cputlb.c                |  7 ++++---
+>   accel/tcg/monitor.c               |  3 ++-
+>   accel/tcg/tb-maint.c              |  7 ++++---
+>   accel/tcg/tcg-accel-ops-rr.c      | 10 +++++-----
+>   accel/tcg/tcg-accel-ops.c         | 16 ++++++++++++----
+>   accel/tcg/user-exec-stub.c        |  5 +++++
+>   accel/xen/xen-all.c               |  1 +
+>   cpu-common.c                      | 10 ++++++++++
+>   hw/i386/kvm/clock.c               |  3 ++-
+>   hw/intc/spapr_xive_kvm.c          |  5 +++--
+>   hw/intc/xics_kvm.c                |  5 +++--
+>   system/cpus.c                     |  5 +++++
+>   target/arm/hvf/hvf.c              |  4 ++--
+>   target/i386/kvm/kvm.c             |  4 ++--
+>   target/i386/kvm/xen-emu.c         |  2 +-
+>   target/i386/nvmm/nvmm-accel-ops.c |  1 +
+>   target/i386/whpx/whpx-accel-ops.c |  1 +
+>   target/s390x/kvm/kvm.c            |  2 +-
+>   target/s390x/kvm/stsi-topology.c  |  3 ++-
+>   29 files changed, 130 insertions(+), 39 deletions(-)
 > 
-> Unless nested virt is enabled for the guest, I think we'd better avoid
-> setting the Enhanced Virtualization bit.
-> 
-
-I am not sure how to interpret the SMBIOS spec on this
-
- > Enhanced Virtualization indicates that the processor can execute
- > enhanced virtualization instructions. This bit does not indicate the
- > present state of this feature
-
-I see it as: Virtualization is available or can be enabled (with nested 
-virtualization).
-Or as : We have virtualization related instructions.
-
->> @@ -870,8 +901,8 @@ smbios_type_17_init(void *start, uint32_t memory_siz=
-e_mb, int instance)
->>       char buf[16];
->>       struct smbios_type_17 *p =3D start;
->>   
->> -    /* Specification says Type 17 table has length of 1Bh for v2.3-2.6.=
- */
->> -    BUILD_BUG_ON(sizeof(*p) !=3D 27);
->> +    /* Specification says Type 17 table has length of 1Ch for v2.6. */
->> +    BUILD_BUG_ON(sizeof(*p) !=3D 28);
->>   
->>       memset(p, 0, sizeof(*p));
-> 
-> With this, ...
-> 
->> @@ -890,6 +921,7 @@ smbios_type_17_init(void *start, uint32_t memory_siz=
-e_mb, int instance)
->>       p->bank_locator_str =3D 0;
->>       p->memory_type =3D 0x07; /* RAM */
->>       p->type_detail =3D 0;
->> +    p->attributes =3D 0;
-> 
-> ... I don't think we really need this. In fact I was considering to make
-> a patch to strip all the unnecessary assignments of zero.
-> 
->> --- a/tools/firmware/hvmloader/smbios_types.h
->> +++ b/tools/firmware/hvmloader/smbios_types.h
->> @@ -147,6 +147,11 @@ struct smbios_type_4 {
->>       uint8_t serial_number_str;
->>       uint8_t asset_tag_str;
->>       uint8_t part_number_str;
->> +    uint8_t core_count;
->> +    uint8_t core_enabled;
->> +    uint8_t thread_count;
->> +    uint16_t processor_characteristics;
->> +    uint16_t processor_family_2;
->>   } __attribute__ ((packed));
->>   
->>   /* SMBIOS type 7 - Cache Information */
->> @@ -185,6 +190,9 @@ struct smbios_type_9 {
->>       uint16_t slot_id;
->>       uint8_t slot_characteristics_1;
->>       uint8_t slot_characteristics_2;
->> +    uint16_t sgn_base;
->> +    uint8_t bus_number_base;
->> +    uint8_t devfn_base;
-> 
-> Where do the _base suffixes come from? Nothing like that is said in the
-> spec I'm looking at. Also "sgn" is imo too much of an abbreviation.
-> 
-
-My version of the specification (3.9.0) says
-
-0Dh 2.6+ Segment Group Number (Base)
-0Fh 2.6+ Bus Number (Base)
-10h 2.6+ Device/Function Number (Base)
-
-Regarding sgn, maybe we can use `segment` instead ?
-
-> Jan
-> 
-
-Teddy
-
-
---
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
 
 
