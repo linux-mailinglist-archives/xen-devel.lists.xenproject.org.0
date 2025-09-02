@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 976ADB40E42
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 22:00:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1107357.1457799 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89B0EB40E5C
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 22:08:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1107368.1457810 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utXAX-0006xr-Um; Tue, 02 Sep 2025 19:59:53 +0000
+	id 1utXJ0-0000Ef-Oq; Tue, 02 Sep 2025 20:08:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1107357.1457799; Tue, 02 Sep 2025 19:59:53 +0000
+Received: by outflank-mailman (output) from mailman id 1107368.1457810; Tue, 02 Sep 2025 20:08:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utXAX-0006w9-S7; Tue, 02 Sep 2025 19:59:53 +0000
-Received: by outflank-mailman (input) for mailman id 1107357;
- Tue, 02 Sep 2025 19:59:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1utXAW-0006w3-Ma
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 19:59:52 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1utXAU-0032mY-2p;
- Tue, 02 Sep 2025 19:59:51 +0000
-Received: from [2a02:8012:3a1:0:2cb0:b4e5:ef93:763c]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1utXAU-00DYSJ-2m;
- Tue, 02 Sep 2025 19:59:50 +0000
+	id 1utXJ0-0000By-Lg; Tue, 02 Sep 2025 20:08:38 +0000
+Received: by outflank-mailman (input) for mailman id 1107368;
+ Tue, 02 Sep 2025 20:08:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=X/no=3N=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1utXIz-0000Bs-JE
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 20:08:37 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9a2c0866-8838-11f0-8dd7-1b34d833f44b;
+ Tue, 02 Sep 2025 22:08:33 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-55f69cf4b77so4133884e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Sep 2025 13:08:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,150 +40,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=mIMUPR2G2aJu9rSZjV7j9Wzw64WSIS00NQbD+BrzNeM=; b=2z0oK+vho8nYxtk0FxZQHVl7hJ
-	hI4UAy5w4ezPLsCF+FouDn/Fi3Jm0sT8g+v9EbPNOSezspU/tcywIuJqinR8NqAsLGVJlAeWZMIXk
-	2RS4c8lE/bliuXTSQG7ZRcj76AfGgJrd+R5CxG29M6UiuU7T75EmfWinZHUGVCHeWykw=;
-Message-ID: <6a6c5bf8-4c2f-4b9d-8d2c-654fd6ae08aa@xen.org>
-Date: Tue, 2 Sep 2025 20:59:47 +0100
+X-Inumbo-ID: 9a2c0866-8838-11f0-8dd7-1b34d833f44b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756843713; x=1757448513; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LvCR52lESdjN68+p3ZTk4n3ifImJi43k8YhAjRFMIVA=;
+        b=X6zE6oggw0jhRSNTWjoMn3KGsxhfg6SNEf8IqVw/rHbXLq1dwUdwx1ItZzdLEVv2nw
+         /j5OPcj9nyIiFN6TYrwkehaepehi1+G5JXsGQMDIPW1IEbiK/vmTvZj+AlRqOdZmiILg
+         AqM3PWFTe30m4MCsyarIKqbmwK0Bg1s9PMol5CGn1cHXPkdUAOF8sGbg/yP0oA3lbH9K
+         nd16J87nebLYemSLFastfKQCxqzOJi0QDNlHfCB7GH+mikdkcd31d4IXcJINyCDihKuC
+         kiyBwPiJrGqtD7MZHUNF+7pHgWHq9cWFSAZF3daY+wT0q0naJt6z1nnm/M3nmsu1zcv1
+         bKrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756843713; x=1757448513;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=LvCR52lESdjN68+p3ZTk4n3ifImJi43k8YhAjRFMIVA=;
+        b=r8pt3oqiOOaEAR++b/Wt+NeIw7DnuCeNBjsO+amAgy6/2rHOiRd9auNgAIlK6P1UW/
+         ZwWA3ayF9nog1mJWCja3bI7m6feTgQXcz+5wAU66Gz49kv3ynXXh3qxe0+FMB87FXTrj
+         IB9xvrFzjix7VxygsUcOst7bbXvCqSeI/2Vk+WBQdIVYFUeb7/7kHr28XxIei9egsz53
+         03QBacmHJJm3EoKcardHYCFyPPCbEhBrOQfercQm46LdPznbGlklmlVyvNGhEaFLGODP
+         ykskrijkE15ZH79XAzS5X78oLpJyFfWkozLw6laTuyvE+Raralp8WzjwEN1VgO8jlGyo
+         Tobw==
+X-Gm-Message-State: AOJu0YyTENzkwI4ohw158gZTbrpEt7UUFUNxa2Kyg6GBbrTsKb4EW/Jk
+	ARburrCAyfkDWGrjiSaO0oBhry6Ok16SYNcsy9aGqUA/6pZ+Ov/A/T+EowiEBtIUCkmWZcJ5MqF
+	zzbKBGJqkjNKltQ/ecfVZpEmogbAlkpM=
+X-Gm-Gg: ASbGncuXqZDhSXFuOZOnDWPN1z9yM55rFLtz0sQg+h2GRZgfKsTwSchQQ5KC5KgMqs/
+	1iwaTcd0CaJu8f9YsyKv3iERbCdkav69p7SKynr68hxwrIcUUYMjEi8cPVNm8Mjghz/94NoaraS
+	CFFedCiT1Le+mmSZWfukaFK9r/0khr9fbzu0H76vjtlq1oYqSUaC3R92aTLjZ9fNQojzCcDR6gM
+	z9kNGCK52zuoro+
+X-Google-Smtp-Source: AGHT+IEFaS7sG9infLLYcClQpHGtnw+ylh7nh2Tq67ReNfd/h2dM90wwmuwWKCI2V9NaIEvy9ZKaSONcNasbLeEIivk=
+X-Received: by 2002:a05:6512:1357:b0:55f:3ce4:585e with SMTP id
+ 2adb3069b0e04-55f708f118cmr3696830e87.31.1756843712620; Tue, 02 Sep 2025
+ 13:08:32 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/12] xen/arm: domain_build/dom0less-build: adjust
- domains config to support eSPIs
-Content-Language: en-GB
-To: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "olekstysh@gmail.com" <olekstysh@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-References: <cover.1756481577.git.leonid_komarianskyi@epam.com>
- <bd60d55fa8ffe081cee50bf8f53343e770863c3e.1756481577.git.leonid_komarianskyi@epam.com>
- <5ab75c0a-0bf6-418a-8c8f-7411a46d4189@xen.org>
- <30a25153-1f1f-41cf-afad-195d73ba405e@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <30a25153-1f1f-41cf-afad-195d73ba405e@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <cover.1756763487.git.mykola_kvach@epam.com> <18c51957660441c945d51b02be965fbcc19c7c2b.1756763487.git.mykola_kvach@epam.com>
+ <0fb4d962-a92a-4b8b-805d-60a03fe1b734@gmail.com> <CAGeoDV_XPjkpniPkaPXd82B80Q0qutfmXyRKedvRkWCkbL8bmQ@mail.gmail.com>
+ <f7554cc0-893b-44a6-8987-7508dfeaba97@gmail.com>
+In-Reply-To: <f7554cc0-893b-44a6-8987-7508dfeaba97@gmail.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Tue, 2 Sep 2025 23:08:21 +0300
+X-Gm-Features: Ac12FXyW3XnFwspk-_0J4Bx7LoF27XV3Uh-CUd1XECJ_yAfhrNnRCawLXiK6jY0
+Message-ID: <CAGeoDV9ZyEw69a=-fT+MSjt4E+w3kZj-eUwRLrMvChNMMSU53Q@mail.gmail.com>
+Subject: Re: [PATCH v6 06/13] xen/arm: irq: Restore state of local IRQs during
+ system resume
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 02/09/2025 18:15, Leonid Komarianskyi wrote:
-> Hi Julien,
+On Tue, Sep 2, 2025 at 9:16=E2=80=AFPM Oleksandr Tyshchenko <olekstysh@gmai=
+l.com> wrote:
+>
+>
+>
+> On 02.09.25 20:43, Mykola Kvach wrote:
+> > Hi Oleksandr,
+>
+> Hello Mykola
+>
+> >
+> > On Tue, Sep 2, 2025 at 7:49=E2=80=AFPM Oleksandr Tyshchenko <olekstysh@=
+gmail.com> wrote:
+> >>
+> >>
+> >>
+> >> On 02.09.25 01:10, Mykola Kvach wrote:
+> >>
+> >> Hello Mykola
+> >>
+> >>> From: Mykola Kvach <mykola_kvach@epam.com>
+> >>>
+> >>> On ARM, the first 32 interrupts (SGIs and PPIs) are banked per-CPU
+> >>> and not restored by gic_resume (for secondary cpus).
+> >>>
+> >>> This patch introduces restore_local_irqs_on_resume, a function that
+> >>> restores the state of local interrupts on the target CPU during
+> >>> system resume.
+> >>>
+> >>> It iterates over all local IRQs and re-enables those that were not
+> >>> disabled, reprogramming their routing and affinity accordingly.
+> >>>
+> >>> The function is invoked from start_secondary, ensuring that local IRQ
+> >>> state is restored early during CPU bring-up after suspend.
+> >>>
+> >>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> >>> ---
+> >>> Changes in V6:
+> >>> - Call handler->disable() instead of just setting the _IRQ_DISABLED f=
+lag
+> >>> - Move the system state check outside of restore_local_irqs_on_resume=
+()
+> >>> ---
+> >>>    xen/arch/arm/irq.c | 39 +++++++++++++++++++++++++++++++++++++++
+> >>>    1 file changed, 39 insertions(+)
+> >>>
+> >>> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+> >>> index 6c899347ca..ddd2940554 100644
+> >>> --- a/xen/arch/arm/irq.c
+> >>> +++ b/xen/arch/arm/irq.c
+> >>> @@ -116,6 +116,41 @@ static int init_local_irq_data(unsigned int cpu)
+> >>>        return 0;
+> >>>    }
+> >>>
+> >>> +/*
+> >>> + * The first 32 interrupts (PPIs and SGIs) are per-CPU,
+> >>> + * so call this function on the target CPU to restore them.
+> >>> + *
+> >>> + * SPIs are restored via gic_resume.
+> >>> + */
+> >>> +static void restore_local_irqs_on_resume(void)
+> >>> +{
+> >>> +    int irq;
+> >>
+> >> NIT: Please, use "unsigned int" if irq cannot be negative
+> >
+> > ok
+> >
+> >>
+> >>> +
+> >>> +    spin_lock(&local_irqs_type_lock);
+> >>> +
+> >>> +    for ( irq =3D 0; irq < NR_LOCAL_IRQS; irq++ )
+> >>> +    {
+> >>> +        struct irq_desc *desc =3D irq_to_desc(irq);
+> >>> +
+> >>> +        spin_lock(&desc->lock);
+> >>> +
+> >>> +        if ( test_bit(_IRQ_DISABLED, &desc->status) )
+> >>> +        {
+> >>> +            spin_unlock(&desc->lock);
+> >>> +            continue;
+> >>> +        }
+> >>> +
+> >>> +        /* Disable the IRQ to avoid assertions in the following call=
+s */
+> >>> +        desc->handler->disable(desc);
+> >>> +        gic_route_irq_to_xen(desc, GIC_PRI_IRQ);
+> >>
+> >> Shouldn't we use GIC_PRI_IPI for SGIs?
+> >
+> > Yes, we should. But currently I am restoring the same value
+> > as it was before suspend...
+> >
+> > I definitely agree that this needs to be fixed at the original
+> > place where the issue was introduced, but I was planning to
+> > address it in a future patch.
+> >
+> >>
+> >>
+> >>> +        desc->handler->startup(desc);
+> >>> +
+> >>> +        spin_unlock(&desc->lock);
+> >>> +    }
+> >>> +
+> >>> +    spin_unlock(&local_irqs_type_lock);
+> >>> +}
+> >>> +
+> >>>    static int cpu_callback(struct notifier_block *nfb, unsigned long =
+action,
+> >>>                            void *hcpu)
+> >>>    {
+> >>> @@ -134,6 +169,10 @@ static int cpu_callback(struct notifier_block *n=
+fb, unsigned long action,
+> >>>                printk(XENLOG_ERR "Unable to allocate local IRQ for CP=
+U%u\n",
+> >>>                       cpu);
+> >>>            break;
+> >>> +    case CPU_STARTING:
+> >>> +        if ( system_state =3D=3D SYS_STATE_resume )
+> >>> +            restore_local_irqs_on_resume();
+> >>> +        break;
+> >>
+> >> May I please ask, why all this new code (i.e.
+> >> restore_local_irqs_on_resume()) is not covered by #ifdef
+> >> CONFIG_SYSTEM_SUSPEND?
+> >
+> > I don=E2=80=99t see a reason to introduce such "macaron-style" code. On=
+ ARM, the
+> > system suspend state is only set when CONFIG_SYSTEM_SUSPEND is defined
+> > anyway.
+>
+> right
+>
+> >
+> > If you would prefer me to wrap all relevant code with this define, plea=
+se
+> > let me know and I=E2=80=99ll make the change. In this case, I think the=
+ current
+> > approach is cleaner, but I=E2=80=99m open to your opinion.
+>
+> In other patches, you seem to wrap functions/code that only get called
+> during suspend/resume with #ifdef CONFIG_SYSTEM_SUSPEND, so I wondered
+> why restore_local_irqs_on_resume() could not be compiled out
+> if the feature is not enabled. But if you still think it would be
+> cleaner this way (w/o #ifdef), I would be ok.
 
-Hi Leonid,
+It=E2=80=99s not entirely true -- I only wrapped code that has a direct dep=
+endency
+on host_system_suspend(), either being called from it or required for its
+correct operation.
 
-> On 02.09.25 19:42, Julien Grall wrote:
->> Hi Leonid,
->>
->> On 29/08/2025 17:06, Leonid Komarianskyi wrote:
->>> The Dom0 and DomUs logic for the dom0less configuration in
->>> create_dom0() and
->>> arch_create_domUs() has been updated to account for extended SPIs when
->>> supported by the hardware and enabled with CONFIG_GICV3_ESPI.
->>
->> Style: We don't commonly use past tense to describe the new behavior.
-> 
-> I will update it in V6.
-> 
->>>    xen/arch/arm/dom0less-build.c   |  2 +-
->>>    xen/arch/arm/domain_build.c     |  2 +-
->>>    xen/arch/arm/include/asm/vgic.h | 19 +++++++++++++++++++
->>>    3 files changed, 21 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-
->>> build.c
->>> index 69b9ea22ce..02d5559102 100644
->>> --- a/xen/arch/arm/dom0less-build.c
->>> +++ b/xen/arch/arm/dom0less-build.c
->>> @@ -285,7 +285,7 @@ void __init arch_create_domUs(struct
->>> dt_device_node *node,
->>>        {
->>>            int vpl011_virq = GUEST_VPL011_SPI;
->>> -        d_cfg->arch.nr_spis = VGIC_DEF_NR_SPIS;
->>> +        d_cfg->arch.nr_spis = vgic_def_nr_spis();
->>>            /*
->>>             * The VPL011 virq is GUEST_VPL011_SPI, unless direct-map is
->>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->>> index d91a71acfd..39eea0be00 100644
->>> --- a/xen/arch/arm/domain_build.c
->>> +++ b/xen/arch/arm/domain_build.c
->>> @@ -2054,7 +2054,7 @@ void __init create_dom0(void)
->>>        /* The vGIC for DOM0 is exactly emulating the hardware GIC */
->>>        dom0_cfg.arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE;
->>> -    dom0_cfg.arch.nr_spis = VGIC_DEF_NR_SPIS;
->>> +    dom0_cfg.arch.nr_spis = vgic_def_nr_spis();
->>>        dom0_cfg.arch.tee_type = tee_get_type();
->>>        dom0_cfg.max_vcpus = dom0_max_vcpus();
->>> diff --git a/xen/arch/arm/include/asm/vgic.h b/xen/arch/arm/include/
->>> asm/vgic.h
->>> index 912d5b7694..3aa22114ba 100644
->>> --- a/xen/arch/arm/include/asm/vgic.h
->>> +++ b/xen/arch/arm/include/asm/vgic.h
->>> @@ -347,6 +347,25 @@ extern void
->>> vgic_check_inflight_irqs_pending(struct vcpu *v,
->>>    /* Default number of vGIC SPIs. 32 are substracted to cover local
->>> IRQs. */
->>>    #define VGIC_DEF_NR_SPIS (min(gic_number_lines(), VGIC_MAX_IRQS) - 32)>
->>> +static inline unsigned int vgic_def_nr_spis(void)
->>> +{
->>> +#ifdef CONFIG_GICV3_ESPI
->>> +    /*
->>> +     * Check if the hardware supports extended SPIs (even if the
->>> appropriate
->>> +     * config is set). If not, the common SPI range will be used.
->>> Otherwise
->>> +     * return the maximum eSPI INTID, supported by HW GIC, subtracted
->>> by 32.
->>> +     * For Dom0 and started at boot time DomUs we will add back this
->>> value
->>> +     * during VGIC initialization. This ensures consistent handling
->>> for Dom0
->>> +     * and other domains. For the regular SPI range interrupts in
->>> this case,
->>> +     * the maximum value of VGIC_DEF_NR_SPIS will be used.
->>> +     */
->>> +    if ( gic_number_espis() > 0 )
->>> +        return ESPI_BASE_INTID + min(gic_number_espis(), 1024U) - 32;
->>> +#endif
->>> +
->>> +    return VGIC_DEF_NR_SPIS;
->>
->> This is the only user of VGIC_DEF_NR_SPIS. Therefore, I would prefer if
->> we remove the define. This will avoid any confusion between the helper
->> and the define.
->>
->> Cheers,
->>
-> 
-> Actually, we need this macro in the previous patch in the series:
-> [08/12] xen/arm: vgic: add resource management for extended SPIs
-> (domain_vgic_init):
-> 
->       if ( nr_spis + 32 >= ESPI_BASE_INTID )
->       {
->           d->arch.vgic.nr_espis = min(nr_spis - ESPI_BASE_INTID + 32, 1024U);
->           /* Verify if GIC HW can handle provided INTID */
->           if ( d->arch.vgic.nr_espis > gic_number_espis() )
->               return -EINVAL;
->           /*
->            * Set the maximum available number for regular
->            * SPI to pass the next check
->            */
->           nr_spis = VGIC_DEF_NR_SPIS;
->       }
-> 
-> I have seen your comment regarding reworking the checks, but in any
-> case, I still need this macro to assign the value to nr_spis, so I would
-> prefer to leave it.
+If you look through this patch series for the pattern:
+SYS_STATE_(suspend|resume)
 
-Ah! I didn't spot the other use. Then let's keep it for now.
+you=E2=80=99ll see that not all suspend/resume-related code is wrapped in
+#ifdef CONFIG_SYSTEM_SUSPEND. This is intentional -- the same applies to
+some code already merged into the common parts of Xen.
 
-Cheers,
+So restore_local_irqs_on_resume is consistent with the existing approach
+in all cpu notifier blocks.
 
--- 
-Julien Grall
-
+>
+> >
+> >>
+> >>>        }
+> >>>
+> >>>        return notifier_from_errno(rc);
+> >>
+> >
+> > Best regards,
+> > Mykola
+>
 
