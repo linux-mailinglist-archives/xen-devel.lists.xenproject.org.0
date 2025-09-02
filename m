@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FF6DB40E6A
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 22:15:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1107385.1457821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A69C2B40E77
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 22:19:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1107400.1457830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utXP0-0001or-Du; Tue, 02 Sep 2025 20:14:50 +0000
+	id 1utXTc-0002RC-2T; Tue, 02 Sep 2025 20:19:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1107385.1457821; Tue, 02 Sep 2025 20:14:50 +0000
+Received: by outflank-mailman (output) from mailman id 1107400.1457830; Tue, 02 Sep 2025 20:19:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utXP0-0001li-Aq; Tue, 02 Sep 2025 20:14:50 +0000
-Received: by outflank-mailman (input) for mailman id 1107385;
- Tue, 02 Sep 2025 20:14:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1utXTb-0002Ph-W1; Tue, 02 Sep 2025 20:19:35 +0000
+Received: by outflank-mailman (input) for mailman id 1107400;
+ Tue, 02 Sep 2025 20:19:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mdbA=3N=epam.com=Volodymyr_Babchuk@srs-se1.protection.inumbo.net>)
- id 1utXOy-0001lc-7F
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 20:14:48 +0000
-Received: from DB3PR0202CU003.outbound.protection.outlook.com
- (mail-northeuropeazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c200::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 74882329-8839-11f0-8adc-4578a1afcccb;
- Tue, 02 Sep 2025 22:14:40 +0200 (CEST)
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- (2603:10a6:150:16a::21) by VI0PR03MB10568.eurprd03.prod.outlook.com
- (2603:10a6:800:20a::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Tue, 2 Sep
- 2025 20:14:33 +0000
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e]) by GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e%5]) with mapi id 15.20.9073.026; Tue, 2 Sep 2025
- 20:14:32 +0000
+ <SRS0=X/no=3N=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1utXTb-0002Pb-B8
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 20:19:35 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 23258f48-883a-11f0-8dd7-1b34d833f44b;
+ Tue, 02 Sep 2025 22:19:32 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-55f72452a8eso3822679e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Sep 2025 13:19:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,258 +40,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74882329-8839-11f0-8adc-4578a1afcccb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qVLAPWMkxaGZ5+NaDmQHclp7q6zELB4/hOflFY0b1hPN3ZJ8IyaQo2jwmkv/A3PiI6pTT7+b4XlVOq1ILXrSsyXudkgH/NjKxd6ZCvZh/ySOQCIlfDse97w4rYJWfr3d601zjSx738nRpNNnGh2iTgp1NOCV6KgBQ/XgQ7frAgGpZYr2fUDLMF6X09XJEg4wdHGMigzF5l4rBK2T+LS+cVJBe+g7/lFDQetcso8JbZTF1jrd+YGFbuKsxI/bJvWa3Y43ZXo0dDZNrsSijKIk+I7xBSuaWZY5lxv9jDOU0pDbLNRXnWlIxUZHpKqUxUr94AVpYzY4kfj21mYZbSZLKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JfBzhqG3dKrQs+WAJJZl0fXxiYFWJkxq7Hsbg0uPEzw=;
- b=eAwAeQlgFq/hPW1GlMyBi0qaic0NmJA6oDx83STeY+VO3gkTiHci5I9LtjSGTntgMwLLBBFjA6zo9pwEFUXW98OAe6/RXoXpixXX2JCr41iB4hHuZdevIxCF8DP8EoAeSYHTEQaK8EyTYCgleUgXDzOBX5HESK1kwep7sig0B12CIqu8azHWiC8cfcr3znApd4lrQvhuV1GCQ9Q4J37GTTgqn9c4HZCfd/DmBrqXTV/4iecAjVbwIl7PikEOmLcixbTwevcwBljgI7VzAaqgHEfs64OVvprRctpJF59OFg7j2PzzQEww/TOi7kQAHg/ZX00AIxTBzvDxdFfmok8voA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JfBzhqG3dKrQs+WAJJZl0fXxiYFWJkxq7Hsbg0uPEzw=;
- b=nIj0J3x5TedsdDflk8XQVHWF7OxCwupx1ZKck4PR+L6y+NG0gIhgFAAb7vnCmIO46r8xRm4eRw2qp1e8zviFN717Y8tQ09qzbieuf3pn8Q4DHU4CD548j28MQuqNkJROGD0t8rluzXtfMJ1GSwli5MExw4Jw873z4wxyNXFEBYZAoOpJ8pmgD6rpSkLyCrjtnjcrHeZSdzNQ1RRCQR7byEuddAaMXRN0UjTyLx7O6GG/7Ham0Tbi98Q6l3VopAZvu8KFdxVz/Jx6c350CmZeCq3czMKL7JGRRfwSO+U4NHg8XA28/jYRCE88cVkRd1wcCEUaULgFjJd+LtLGaicOOA==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Mykola Kvach <xakep.amatop@gmail.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mirela
- Simonovic <mirela.simonovic@aggios.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Saeed
- Nowshadi <saeed.nowshadi@xilinx.com>, Mykola Kvach <Mykola_Kvach@epam.com>
-Subject: Re: [PATCH v6 01/13] xen/arm: Add suspend and resume timer helpers
-Thread-Topic: [PATCH v6 01/13] xen/arm: Add suspend and resume timer helpers
-Thread-Index: AQHcG404ScLtR2ZKGku1UaXKdUHwsg==
-Date: Tue, 2 Sep 2025 20:14:32 +0000
-Message-ID: <87h5xkwr14.fsf@epam.com>
-References: <cover.1756763487.git.mykola_kvach@epam.com>
-	<781c8e1b3a4d9b269bfde125072a84baae3f9bb3.1756763487.git.mykola_kvach@epam.com>
-In-Reply-To:
- <781c8e1b3a4d9b269bfde125072a84baae3f9bb3.1756763487.git.mykola_kvach@epam.com>
-	(Mykola Kvach's message of "Tue, 2 Sep 2025 01:10:05 +0300")
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|VI0PR03MB10568:EE_
-x-ms-office365-filtering-correlation-id: f254f2fe-31f3-42da-2bd3-08ddea5d5471
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|42112799006|1800799024|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?fqgMcROvA6ZDXsKbxZRUPChzSVrQGdQtOSJNly1L8MPgvkHsezfO0tVdJk?=
- =?iso-8859-1?Q?e0uO+7R0FV13FQ93Z/ozYitdBQyZux8ey/VJxP1LvzHr9fTx9d5pYu+XTb?=
- =?iso-8859-1?Q?UbRz754xoZKoCNxQ4YnVfWY7QM+bfNXz2kMSkUZo/0JX3xIUgHdO5HtmHY?=
- =?iso-8859-1?Q?eMlCHMo3Go2IlbAaECcSDGXcz7N3ba7Liy+bcLxnCUj7ioMvPBeT6L0U42?=
- =?iso-8859-1?Q?ay69ReiOw3Gn/zcqzcF+faCEHLsU2wJYtsa7Ki6GZ2YEZ92klAZHAY2R+K?=
- =?iso-8859-1?Q?a+sMfq0fXUlhcUdw1LYjHPxdowZkWmu1aajc+6z/3hz7kPIfR0FjLC1eNq?=
- =?iso-8859-1?Q?JpsG7zmffDmJ4dRAwBUEsLjy96NHBxP1My+rcpGjGMe/J75FWkkhxypJ+0?=
- =?iso-8859-1?Q?PUXmfB+uXmeAQ8CiY6SA5doLdXRMW+VaE6U/zC4RRSN6BpFbnStWFao3fY?=
- =?iso-8859-1?Q?thBxngcvP5WhxE6nruvRcBFF9GdHszgvKuvoMey/2odh1rBDFeimU2tpTU?=
- =?iso-8859-1?Q?FsJ/zK6U2exxn5vk2eFJGWFcN54EnqpW9aev0AbhEX4+HmqhDCSx+X5h5e?=
- =?iso-8859-1?Q?xjOfTq3sRECEXwPc7HLeoKDiZyK8CzRcZh7VywrKI2rH27dSXlGy254WED?=
- =?iso-8859-1?Q?a2VNEyCgXGYZSJnzBE9fuc3T+zOSX20baYs5YjINSS2uxWGtUEdIyPTLrT?=
- =?iso-8859-1?Q?66IVft9UJhBOdoCBQdoom8A6e4Z2//+jh+J0cH6BeSbz4nL68bC58FVmtR?=
- =?iso-8859-1?Q?qLiiM9Mw3asOkRT9KbqiwLybua28RkNZI8NsKLEBmBCoNtQCOWhlbRCaSn?=
- =?iso-8859-1?Q?nWKVoGTuB1HdSa2E1bl7uKlq+9nnb0Htgl+tdqf/MfBLA0V+S6NwazppAh?=
- =?iso-8859-1?Q?i9VTVgdDgIdpCXj9apUQCdvKNsk7M9lJXe2VkEhz9knjPwkqM2oghgCLov?=
- =?iso-8859-1?Q?OnAcz2J/HK3CLnhcaWCITC/8eWduFv13WA8JP47cZkWrGaNqypqcUKNTZL?=
- =?iso-8859-1?Q?rlnoJq0p29HbUbqnDeANVCy7NQ/n6y1CHj+Y6dWELtV9pWRQsgdHWLkC0o?=
- =?iso-8859-1?Q?vHwzDiWw2RA4k188uOKLPSLPD3jUDPpx1TW4GmWWnDET3EAq5ZAtFzE3KD?=
- =?iso-8859-1?Q?8GbZAdUU/jkN9ffv5wjx7kxWKqBrQ+nvilibQNDxsYeYPcXEP5Kitx6N8P?=
- =?iso-8859-1?Q?QZNCLyyeAmgn6gyHs7/vuxakiQ2CCSYBTS6tdgLjRdz4ThQrqjbTIkfrxc?=
- =?iso-8859-1?Q?cpytHwnYtlxJdiUoCU/WD0hvspWCvaGvw8MYJ6VjgI9MVQuwPUIT911JxF?=
- =?iso-8859-1?Q?fn2UoXMFecV6mVFeQmHkxTWa13S/J1fIJQafDTem2fPTFVFknlIN1ddFUe?=
- =?iso-8859-1?Q?75A2qyjpwN7tOgxGS6IebMhKZhaiVvxLA0zBr2tNRv8SGPH6ozQ2ZCI4Tv?=
- =?iso-8859-1?Q?436ggu3r0Pi7mOzV4JL9t9ek2tpQ/TmNigDO5idyltpfe0DaX1YDzSvlMK?=
- =?iso-8859-1?Q?fk1+i3/092FGxysgHeLl1Tbozc3UDyCCKMVmqojxFH7A=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(42112799006)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?gIyJveTQ5riHfpMS0Jg4KmTAGZW+fthxVWNxW9tB73pnbM+EdrYL/t5itP?=
- =?iso-8859-1?Q?MSeGst7qblu0phxV2zbBA66ISUxRoyeBhQcbZj4H56v8rC+vMBhbEHzzQs?=
- =?iso-8859-1?Q?VO/gEuhGvwy0aIZ99Ez5abRbJohI8ZFWCYIehojO59PylwSqVWy8M9uR5w?=
- =?iso-8859-1?Q?ZVADj19bEcdleWZpkh6+H5BW2MBmBvNiB8AwOdNy/gRKU0QsEq4n85x5Zw?=
- =?iso-8859-1?Q?1EVYsv8TDpVOSBJzFsL3UkyFmS1s9gA6Sp44fxDPr+GaE5vEJ+QrzncHtQ?=
- =?iso-8859-1?Q?tEHxkQjqymDBqvDpB+NT0umDqpuGjMVEsNqvkgbpiNHTEONYDhlruOT7Oc?=
- =?iso-8859-1?Q?e3OGc8XKjrdgoXHkwmS/ciJbAW1CyBIHfmCfCSqjwZTrb2DvhFfqA/VKFD?=
- =?iso-8859-1?Q?NcewWVSm3kMmizEJDY1UycaaM7L7Kbz8p6zXFxvZ3PlCHVtOQmECZuv7ZF?=
- =?iso-8859-1?Q?zYUBfccgXJyNSRo6MwrdMywF/v/D8vBy3Vqlcrrnnig5TOzY0wD6OrQqTu?=
- =?iso-8859-1?Q?4dcEfWcg9Y3rwNUPSvHklChQZoZzLfsTcv7d3JqzFYmXn5VVeE5YZT5Raq?=
- =?iso-8859-1?Q?Mc0sYciDYHw2ik/KwdD7D6V5PF3aKNCVPw6yf9UnTUkl60vGivzQsXshMw?=
- =?iso-8859-1?Q?wif7zYly0x3FJ1lqrb7QCmOy553Nuvk+cW9pL3E1ci9Itcp/u1z3hY47bL?=
- =?iso-8859-1?Q?avH7gI72nD1Qer/+e+H7LFxvx8AYIt+wf8GE3Dx5OpYcj4RQnoQQ/D32Lh?=
- =?iso-8859-1?Q?f1bzeTALKSdzkXl/jHKpbcF23PhP/3pncoB+n159L1pdiW4q9nikFe9E/e?=
- =?iso-8859-1?Q?u71TNj+v6Oet/m/V7a0Y6XNmNOcMAmSBCwboVaGIMdvuVTPVpskCBZYZkT?=
- =?iso-8859-1?Q?9lGxK+k3CvmpOlCLu6DZwciqRLUzQQNr9SHp3OTsv7Ja/cuHQ/8+42oR06?=
- =?iso-8859-1?Q?ULI7sGVOqm6hs+1ABtpyXzeHGkJMuhgN3lbCdmiMlUQxQJgPCwuGbICQGT?=
- =?iso-8859-1?Q?z4VbTV0+Jn+07IzAXHI6sgLNLbMO0iwWh1ZS1wIvbtnJ8Bgd9PtwoOIwCi?=
- =?iso-8859-1?Q?RDhIVgK6wz9AX109AgyoHHy3Dq/VCROoq8Jsjs6TqfCJMTad5DJQnbN0AP?=
- =?iso-8859-1?Q?R7ivZ1Jgr8TYI1aI7vWrwL+3CrAB0AryHibVFdiMVrz9s0tm4Iemt9xLcl?=
- =?iso-8859-1?Q?In9TA2LQhJJsOF6dRcLiFXxVvFY7yEu71+43z+cYOJcNUjKS+QDP9EJFXL?=
- =?iso-8859-1?Q?C2d5Q7vLm5UhokxDhmHKyqrVn+B5hxSFz9citzuIkcvjY5riyTFjXdjMDz?=
- =?iso-8859-1?Q?ut9fLVOuqa9UxZZ1SoC0L+HVM1vAGcvXBDTC50BbebVXL8mCyk3gVdNjnQ?=
- =?iso-8859-1?Q?K5XJgxUi8YNhKjWgu+wW3nCsNeO73h6Juy+MbZLV8NPeAYfzBpPAPgLCBd?=
- =?iso-8859-1?Q?FLpGv8pCCeuHEMny4vkHH9WEK0SS1M7lN1hfvxXw89wGF5L6hGcprNqkRC?=
- =?iso-8859-1?Q?J5JhXz7MyWQUmPShW4vKv4uQoxbNorZKruayP8XPohXNCyvP+jWyJKnwR8?=
- =?iso-8859-1?Q?XWA26YI2QGduWrRvUqFZU1G7vd2wP5j0+GsYh+x4ZNY/AwLasSrScRtN1Q?=
- =?iso-8859-1?Q?QTWwy0CEbMLCm9OHzIWI8/x9IO6kdN1HE3DGFuanwGzt5LrLYrAu7c7w?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 23258f48-883a-11f0-8dd7-1b34d833f44b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756844372; x=1757449172; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Cg5CC8giSLI9lHr4w/CbFA6ZTg9IkPNj6lNJrLtIztM=;
+        b=HbChGueF8SJ5mDAZaXtBTPmkcPYVx6lSNqyFuF63FCLz8SBnZITzeNDzZcbbxqLcfP
+         RRpKnVW1L5WJ+0ANEoQn3KvZHcB73DlCHoJmKU1N8CXy0fphjGmVDG7RAfofSauotgob
+         rIjJ4rY3CHGIdg6EiDvkx6WnocAQ/oSEFDZRu+MgvjD4UgfEBw6trawijDKKpd7QsjQQ
+         I/ccYSI4e1loUYqr5W6ywQyLZ4VNe5TGPCu3MArhmVhUVZatyUe1TDG5LPz019ZEWr0E
+         Quv6pay0C92r2ztrBZMTaMVseF4B1A+WAiHDKMhWdEfgMaj8S4ukRbuPpQQ/avnCOljN
+         XYhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756844372; x=1757449172;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Cg5CC8giSLI9lHr4w/CbFA6ZTg9IkPNj6lNJrLtIztM=;
+        b=fYAukayRODHLsm3eY8ZlT/1y4/0mqQ5ldxDlAaUAZ3eks+Kdha/Eg+YNOUXAK1pX+1
+         RNrjBNSIF6QVVzr5Bf+hkDaQskRgx9bhGPiwrkKRdCXdXoqzJ5JJuCyAOJdoqqz4uf1B
+         diDDU9h5USlDzNuvQl8U2Kcf7RsyX20iXEMLvVgDvu1uCwIdxxtQDzD3ogWkLH6ssneu
+         B+CBeML8QzH7YeC7/xsgpW40dUqUJYRzVNVKAsQWgoCpjO56HAHS1R88qSbiOn68KpbW
+         EIdEXu6MT5OOgU0AYVzjehuY2gdlCzAOD11u7J9anN+r6jmTuyPDhOzJ8ymM44vOs+af
+         b85A==
+X-Gm-Message-State: AOJu0YzK+L6MrPdF1/8hNxFH5W/Ttw4f2BkGDOZHpQLGzhG9XiiS56Jy
+	oOR3HlRczDlznCF52JEotW0ik0nK7+0JF5H16fNj9k76zFKyZlU9WpGtdaDg22+gMnEHgvRaS+q
+	QwC9xXNRdIjYoHu4JF2r4PASalhkS7XI=
+X-Gm-Gg: ASbGncvMiD+y94iNplOAHGi63bViTVCoq1HX3E81cv1Ub7+vkRBEsDjtjCQW28s4ri4
+	xTNYLIFf42shnVhZtF3Cw8YTdyM0CVf7e+5nQwGR3TlshlJZsUvaqHjdMmQcovtmZNNK0osldMX
+	jiXzxIm+mgdo31v94534XlwO8tWFEhb4OZScKSLwQEYuhlDyLbHAcPCwLW4wswftZw9+O7Tn7yX
+	Et6QHRDxm+/A07h
+X-Google-Smtp-Source: AGHT+IEAINxbtFlFQyPaFDgwf4yU9NLGLtstkjlQM0k5sBtufP5f2W0dEhtr0zEjUeNzjNdCw0eT9Q238VjMBlKi1eg=
+X-Received: by 2002:a05:6512:4017:b0:55f:63ef:b2b3 with SMTP id
+ 2adb3069b0e04-55f708b7024mr3258255e87.22.1756844371809; Tue, 02 Sep 2025
+ 13:19:31 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR03MB10456.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f254f2fe-31f3-42da-2bd3-08ddea5d5471
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2025 20:14:32.5163
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XcLnUAQqbeLjODvysTiPlD95eP5PGdU/ObD9GOmHIeFlAhdkBEoJhLCGmqclxESLK7NXskYMKlDFywvUtSW/7d8iDis9bNozr3nitxARClE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR03MB10568
+References: <cover.1756763487.git.mykola_kvach@epam.com> <18c51957660441c945d51b02be965fbcc19c7c2b.1756763487.git.mykola_kvach@epam.com>
+ <0fb4d962-a92a-4b8b-805d-60a03fe1b734@gmail.com> <CAGeoDV_XPjkpniPkaPXd82B80Q0qutfmXyRKedvRkWCkbL8bmQ@mail.gmail.com>
+ <f7554cc0-893b-44a6-8987-7508dfeaba97@gmail.com> <CAGeoDV9ZyEw69a=-fT+MSjt4E+w3kZj-eUwRLrMvChNMMSU53Q@mail.gmail.com>
+In-Reply-To: <CAGeoDV9ZyEw69a=-fT+MSjt4E+w3kZj-eUwRLrMvChNMMSU53Q@mail.gmail.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Tue, 2 Sep 2025 23:19:20 +0300
+X-Gm-Features: Ac12FXwwKHNF0p6YG3oQafV25qOuzWb1DLqsCKI-22JhNXOziPuxpU8271CuIAA
+Message-ID: <CAGeoDV8=rw5ziF+QctcuA2qurqCVXZKZfdNX+tagXc1axw3vow@mail.gmail.com>
+Subject: Re: [PATCH v6 06/13] xen/arm: irq: Restore state of local IRQs during
+ system resume
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-Mykola Kvach <xakep.amatop@gmail.com> writes:
-
-> From: Mirela Simonovic <mirela.simonovic@aggios.com>
+On Tue, Sep 2, 2025 at 11:08=E2=80=AFPM Mykola Kvach <xakep.amatop@gmail.co=
+m> wrote:
 >
-> Timer interrupts must be disabled while the system is suspended to preven=
-t
-> spurious wake-ups. Suspending the timers involves disabling both the EL1
-> physical timer and the EL2 hypervisor timer. Resuming consists of raising
-> the TIMER_SOFTIRQ, which prompts the generic timer code to reprogram the
-> EL2 timer as needed. Re-enabling of the EL1 timer is left to the entity
-> that uses it.
+> On Tue, Sep 2, 2025 at 9:16=E2=80=AFPM Oleksandr Tyshchenko <olekstysh@gm=
+ail.com> wrote:
+> >
+> >
+> >
+> > On 02.09.25 20:43, Mykola Kvach wrote:
+> > > Hi Oleksandr,
+> >
+> > Hello Mykola
+> >
+> > >
+> > > On Tue, Sep 2, 2025 at 7:49=E2=80=AFPM Oleksandr Tyshchenko <olekstys=
+h@gmail.com> wrote:
+> > >>
+> > >>
+> > >>
+> > >> On 02.09.25 01:10, Mykola Kvach wrote:
+> > >>
+> > >> Hello Mykola
+> > >>
+> > >>> From: Mykola Kvach <mykola_kvach@epam.com>
+> > >>>
+> > >>> On ARM, the first 32 interrupts (SGIs and PPIs) are banked per-CPU
+> > >>> and not restored by gic_resume (for secondary cpus).
+> > >>>
+> > >>> This patch introduces restore_local_irqs_on_resume, a function that
+> > >>> restores the state of local interrupts on the target CPU during
+> > >>> system resume.
+> > >>>
+> > >>> It iterates over all local IRQs and re-enables those that were not
+> > >>> disabled, reprogramming their routing and affinity accordingly.
+> > >>>
+> > >>> The function is invoked from start_secondary, ensuring that local I=
+RQ
+> > >>> state is restored early during CPU bring-up after suspend.
+> > >>>
+> > >>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > >>> ---
+> > >>> Changes in V6:
+> > >>> - Call handler->disable() instead of just setting the _IRQ_DISABLED=
+ flag
+> > >>> - Move the system state check outside of restore_local_irqs_on_resu=
+me()
+> > >>> ---
+> > >>>    xen/arch/arm/irq.c | 39 +++++++++++++++++++++++++++++++++++++++
+> > >>>    1 file changed, 39 insertions(+)
+> > >>>
+> > >>> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+> > >>> index 6c899347ca..ddd2940554 100644
+> > >>> --- a/xen/arch/arm/irq.c
+> > >>> +++ b/xen/arch/arm/irq.c
+> > >>> @@ -116,6 +116,41 @@ static int init_local_irq_data(unsigned int cp=
+u)
+> > >>>        return 0;
+> > >>>    }
+> > >>>
+> > >>> +/*
+> > >>> + * The first 32 interrupts (PPIs and SGIs) are per-CPU,
+> > >>> + * so call this function on the target CPU to restore them.
+> > >>> + *
+> > >>> + * SPIs are restored via gic_resume.
+> > >>> + */
+> > >>> +static void restore_local_irqs_on_resume(void)
+> > >>> +{
+> > >>> +    int irq;
+> > >>
+> > >> NIT: Please, use "unsigned int" if irq cannot be negative
+> > >
+> > > ok
+> > >
+> > >>
+> > >>> +
+> > >>> +    spin_lock(&local_irqs_type_lock);
+> > >>> +
+> > >>> +    for ( irq =3D 0; irq < NR_LOCAL_IRQS; irq++ )
+> > >>> +    {
+> > >>> +        struct irq_desc *desc =3D irq_to_desc(irq);
+> > >>> +
+> > >>> +        spin_lock(&desc->lock);
+> > >>> +
+> > >>> +        if ( test_bit(_IRQ_DISABLED, &desc->status) )
+> > >>> +        {
+> > >>> +            spin_unlock(&desc->lock);
+> > >>> +            continue;
+> > >>> +        }
+> > >>> +
+> > >>> +        /* Disable the IRQ to avoid assertions in the following ca=
+lls */
+> > >>> +        desc->handler->disable(desc);
+> > >>> +        gic_route_irq_to_xen(desc, GIC_PRI_IRQ);
+> > >>
+> > >> Shouldn't we use GIC_PRI_IPI for SGIs?
+> > >
+> > > Yes, we should. But currently I am restoring the same value
+> > > as it was before suspend...
+> > >
+> > > I definitely agree that this needs to be fixed at the original
+> > > place where the issue was introduced, but I was planning to
+> > > address it in a future patch.
+> > >
+> > >>
+> > >>
+> > >>> +        desc->handler->startup(desc);
+> > >>> +
+> > >>> +        spin_unlock(&desc->lock);
+> > >>> +    }
+> > >>> +
+> > >>> +    spin_unlock(&local_irqs_type_lock);
+> > >>> +}
+> > >>> +
+> > >>>    static int cpu_callback(struct notifier_block *nfb, unsigned lon=
+g action,
+> > >>>                            void *hcpu)
+> > >>>    {
+> > >>> @@ -134,6 +169,10 @@ static int cpu_callback(struct notifier_block =
+*nfb, unsigned long action,
+> > >>>                printk(XENLOG_ERR "Unable to allocate local IRQ for =
+CPU%u\n",
+> > >>>                       cpu);
+> > >>>            break;
+> > >>> +    case CPU_STARTING:
+> > >>> +        if ( system_state =3D=3D SYS_STATE_resume )
+> > >>> +            restore_local_irqs_on_resume();
+> > >>> +        break;
+> > >>
+> > >> May I please ask, why all this new code (i.e.
+> > >> restore_local_irqs_on_resume()) is not covered by #ifdef
+> > >> CONFIG_SYSTEM_SUSPEND?
+> > >
+> > > I don=E2=80=99t see a reason to introduce such "macaron-style" code. =
+On ARM, the
+> > > system suspend state is only set when CONFIG_SYSTEM_SUSPEND is define=
+d
+> > > anyway.
+> >
+> > right
+> >
+> > >
+> > > If you would prefer me to wrap all relevant code with this define, pl=
+ease
+> > > let me know and I=E2=80=99ll make the change. In this case, I think t=
+he current
+> > > approach is cleaner, but I=E2=80=99m open to your opinion.
+> >
+> > In other patches, you seem to wrap functions/code that only get called
+> > during suspend/resume with #ifdef CONFIG_SYSTEM_SUSPEND, so I wondered
+> > why restore_local_irqs_on_resume() could not be compiled out
+> > if the feature is not enabled. But if you still think it would be
+> > cleaner this way (w/o #ifdef), I would be ok.
 >
-> Introduce a new helper, disable_physical_timers, to encapsulate disabling
-> of the physical timers.
+> It=E2=80=99s not entirely true -- I only wrapped code that has a direct d=
+ependency
+> on host_system_suspend(), either being called from it or required for its
+> correct operation.
 >
-> Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
-> Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> If you look through this patch series for the pattern:
+> SYS_STATE_(suspend|resume)
+>
+> you=E2=80=99ll see that not all suspend/resume-related code is wrapped in
+> #ifdef CONFIG_SYSTEM_SUSPEND. This is intentional -- the same applies to
+> some code already merged into the common parts of Xen.
+>
+> So restore_local_irqs_on_resume is consistent with the existing approach
+> in all cpu notifier blocks.
 
-Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+Of course, I can wrap all code in this patch series if needed. For me, the
+current approach looks clearer and aligns with existing code. On the other
+hand, I introduced this config option not so long ago, so that may be why
+some parts in common code and even in some architectures like x86 are still
+uncovered.
 
-> ---
-> Changes in V4:
->   - Rephrased comment and commit message for better clarity
->   - Created separate function for disabling physical timers
->
-> Changes in V3:
->   - time_suspend and time_resume are now conditionally compiled
->     under CONFIG_SYSTEM_SUSPEND
-> ---
->  xen/arch/arm/include/asm/time.h |  5 +++++
->  xen/arch/arm/time.c             | 38 +++++++++++++++++++++++++++------
->  2 files changed, 37 insertions(+), 6 deletions(-)
->
-> diff --git a/xen/arch/arm/include/asm/time.h b/xen/arch/arm/include/asm/t=
-ime.h
-> index 49ad8c1a6d..f4fd0c6af5 100644
-> --- a/xen/arch/arm/include/asm/time.h
-> +++ b/xen/arch/arm/include/asm/time.h
-> @@ -108,6 +108,11 @@ void preinit_xen_time(void);
-> =20
->  void force_update_vcpu_system_time(struct vcpu *v);
-> =20
-> +#ifdef CONFIG_SYSTEM_SUSPEND
-> +void time_suspend(void);
-> +void time_resume(void);
-> +#endif /* CONFIG_SYSTEM_SUSPEND */
-> +
->  #endif /* __ARM_TIME_H__ */
->  /*
->   * Local variables:
-> diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-> index e74d30d258..ad984fdfdd 100644
-> --- a/xen/arch/arm/time.c
-> +++ b/xen/arch/arm/time.c
-> @@ -303,6 +303,14 @@ static void check_timer_irq_cfg(unsigned int irq, co=
-nst char *which)
->             "WARNING: %s-timer IRQ%u is not level triggered.\n", which, i=
-rq);
->  }
-> =20
-> +/* Disable physical timers for EL1 and EL2 on the current CPU */
-> +static inline void disable_physical_timers(void)
-> +{
-> +    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Physical timer disabled */
-> +    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled */
-> +    isb();
-> +}
-> +
->  /* Set up the timer interrupt on this CPU */
->  void init_timer_interrupt(void)
->  {
-> @@ -310,9 +318,7 @@ void init_timer_interrupt(void)
->      WRITE_SYSREG64(0, CNTVOFF_EL2);     /* No VM-specific offset */
->      /* Do not let the VMs program the physical timer, only read the phys=
-ical counter */
->      WRITE_SYSREG(CNTHCTL_EL2_EL1PCTEN, CNTHCTL_EL2);
-> -    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Physical timer disabled */
-> -    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled */
-> -    isb();
-> +    disable_physical_timers();
-> =20
->      request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
->                  "hyptimer", NULL);
-> @@ -330,9 +336,7 @@ void init_timer_interrupt(void)
->   */
->  static void deinit_timer_interrupt(void)
->  {
-> -    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Disable physical timer */
-> -    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Disable hypervisor's timer */
-> -    isb();
-> +    disable_physical_timers();
-> =20
->      release_irq(timer_irq[TIMER_HYP_PPI], NULL);
->      release_irq(timer_irq[TIMER_VIRT_PPI], NULL);
-> @@ -372,6 +376,28 @@ void domain_set_time_offset(struct domain *d, int64_=
-t time_offset_seconds)
->      /* XXX update guest visible wallclock time */
->  }
-> =20
-> +#ifdef CONFIG_SYSTEM_SUSPEND
-> +
-> +void time_suspend(void)
-> +{
-> +    disable_physical_timers();
-> +}
-> +
-> +void time_resume(void)
-> +{
-> +    /*
-> +     * Raising the timer softirq triggers generic code to call reprogram=
-_timer
-> +     * with the correct timeout (not known here).
-> +     *
-> +     * No further action is needed to restore timekeeping after power do=
-wn,
-> +     * since the system counter is unaffected. See ARM DDI 0487 L.a, D12=
-.1.2
-> +     * "The system counter must be implemented in an always-on power dom=
-ain."
-> +     */
-> +    raise_softirq(TIMER_SOFTIRQ);
-> +}
-> +
-> +#endif /* CONFIG_SYSTEM_SUSPEND */
-> +
->  static int cpu_time_callback(struct notifier_block *nfb,
->                               unsigned long action,
->                               void *hcpu)
+In any case, I don't mind covering all the code if you think it would be be=
+tter.
+Right now, this implementation is mainly my preference and aligns with the
+existing code. There isn't any other reasoning behind this decision.
 
---=20
-WBR, Volodymyr=
+
+>
+> >
+> > >
+> > >>
+> > >>>        }
+> > >>>
+> > >>>        return notifier_from_errno(rc);
+> > >>
+> > >
+> > > Best regards,
+> > > Mykola
+> >
 
