@@ -2,38 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87457B40CF8
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 20:17:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1107267.1457759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46DF5B40D60
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 20:53:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1107292.1457770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utVYI-0001Nc-S1; Tue, 02 Sep 2025 18:16:18 +0000
+	id 1utW7z-0006un-Me; Tue, 02 Sep 2025 18:53:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1107267.1457759; Tue, 02 Sep 2025 18:16:18 +0000
+Received: by outflank-mailman (output) from mailman id 1107292.1457770; Tue, 02 Sep 2025 18:53:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utVYI-0001MH-Of; Tue, 02 Sep 2025 18:16:18 +0000
-Received: by outflank-mailman (input) for mailman id 1107267;
- Tue, 02 Sep 2025 18:16:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1utW7z-0006ss-JE; Tue, 02 Sep 2025 18:53:11 +0000
+Received: by outflank-mailman (input) for mailman id 1107292;
+ Tue, 02 Sep 2025 18:53:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Cv9L=3N=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1utVYH-0001MB-NB
- for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 18:16:17 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea00ec09-8828-11f0-8dd7-1b34d833f44b;
- Tue, 02 Sep 2025 20:16:15 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-45b8b25296fso18564045e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 02 Sep 2025 11:16:15 -0700 (PDT)
-Received: from [10.17.76.214] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3dcc19a386dsm118818f8f.4.2025.09.02.11.16.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Sep 2025 11:16:14 -0700 (PDT)
+ <SRS0=NrvT=3N=amd.com=VictorM.Lira@srs-se1.protection.inumbo.net>)
+ id 1utW7x-0006sm-M1
+ for xen-devel@lists.xenproject.org; Tue, 02 Sep 2025 18:53:09 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2062a.outbound.protection.outlook.com
+ [2a01:111:f403:2414::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0f6e1e1a-882e-11f0-8adc-4578a1afcccb;
+ Tue, 02 Sep 2025 20:53:06 +0200 (CEST)
+Received: from CYXPR03CA0019.namprd03.prod.outlook.com (2603:10b6:930:d0::16)
+ by SJ2PR12MB9114.namprd12.prod.outlook.com (2603:10b6:a03:567::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Tue, 2 Sep
+ 2025 18:53:03 +0000
+Received: from CY4PEPF0000E9D2.namprd03.prod.outlook.com
+ (2603:10b6:930:d0:cafe::af) by CYXPR03CA0019.outlook.office365.com
+ (2603:10b6:930:d0::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9094.17 via Frontend Transport; Tue,
+ 2 Sep 2025 18:53:03 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D2.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9094.14 via Frontend Transport; Tue, 2 Sep 2025 18:53:02 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 2 Sep
+ 2025 13:53:01 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 2 Sep
+ 2025 13:53:01 -0500
+Received: from xsjvictlira50.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39 via Frontend
+ Transport; Tue, 2 Sep 2025 13:53:00 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,206 +64,277 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea00ec09-8828-11f0-8dd7-1b34d833f44b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756836975; x=1757441775; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=SqMHAPMH4OTCuEp6LUw0NE0Zc7xhyAwnJYqEI+MXBxc=;
-        b=EJ2JCwfcWItLUt/UmG3StAzcicecDRT8ET1FVeoZG8dRbxzCaDJ+frx//QM2oyIbO0
-         CmUJQ8wRqAD9+i3NzKIE2QXMAD3MYIuzVmo75NWWaJzyN8t1OOIHg2WB2Rigf6tsWx7r
-         F7GS+ZupLi9jiIBUgiafCwUOyAXjll5XMRTInECwJinHCIVE5sxuNRqwwViUkCvOwhrJ
-         Xp1QV7z2a+dQ4ip/dSKUtvI1fWei4GFj09hMVfJT6BdJgeRzhg2DeRC1z3iWfkkkCk+/
-         D/GuC+fMO9pd/e9hXB51DcYbEbUsoutHisdRK40N86eDqHv3A0XAj0rBUZ77maGU9EHd
-         3+7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756836975; x=1757441775;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=SqMHAPMH4OTCuEp6LUw0NE0Zc7xhyAwnJYqEI+MXBxc=;
-        b=iUyPW65Kva6cP7TyrlnfAEa3VBkoVz8xyxnEH+dT1wV+mXc03MuSo8XMZbMQJ6Axy9
-         1As3NzYh+YXYRG1/A2WXpEvyTYW1wt7h1vZHEc6bhGwR7ANN7fzHzDSjsypi+OQbs8ty
-         8Jz5K7Un+v95QioSMDQpuYrBiGgorDN8frHVEkEXkOvFCa9TX7YqK9KfpV6n7W2eD3b5
-         JYeF/d1YHQkeWAVuyRBdhQETq7jjV+5X8LvYNTNyaRCTUwPcI25GKPwgA/dNUERXV8ne
-         MWxmHh7OFoU6Vl7YjyyRQEN7WSDczRablUw0nwW5fKm0jQOPrk1D5bCBNhWpqlej/Hov
-         U2bw==
-X-Gm-Message-State: AOJu0Yy1p6Iyi2TSPUfKMv2NI4lda/7lHwY2eYWOmUJAoQp86N1X/2/x
-	mQ3HRDh6toobR4bAegRPKf1ZHeuRQuJFgx0DXP8IF6KZ1Dwtp6i2STNE
-X-Gm-Gg: ASbGncuw/dgpU0Kd18IwsIbYKq+1Lwnka+dsHH6xA2UdVZdimjpGbgsJ6twGw3J810K
-	sYiCFQkwPsV8yQGMDh06TUWVV61naG2TR+t+uDQdNBwHEwAoAzKRl5b01OQDJZf0YoRMHfqGf8E
-	iwk5POmVcSdzdkbVUjeZ18TNycdxfgFwVxDvGvJfF3B7znviBn2C/XxORMI7VhozQCW05KysH42
-	lgBiOOKJXq98DmmLmlCitsFUpiuQhKuMSCAggvoB+Y+UsSvLPkElqNjhbkkDPi3n15FQlJtOcA9
-	IByiXK3g/0hRTGt2ClHO8N+3hXGvTpkR++bICatJIJebQTe8kr5MrOfYlfSh9/zr6IVRsYfEPDi
-	/3oueJjI15yhogzKShdK92H/my5P7UWeDWUkxUxNT1Y3kjMAtR6lPPPY=
-X-Google-Smtp-Source: AGHT+IHN/azAid88EWGaKIY1h1/du7XllgDOPyRwqW5NXSxwfALXCk4Zpr321+MfGwM1Mu2Wl53bDA==
-X-Received: by 2002:a05:6000:2207:b0:3cd:e63a:cfd5 with SMTP id ffacd0b85a97d-3d1e07a4cc1mr9205899f8f.56.1756836974674;
-        Tue, 02 Sep 2025 11:16:14 -0700 (PDT)
-Message-ID: <f7554cc0-893b-44a6-8987-7508dfeaba97@gmail.com>
-Date: Tue, 2 Sep 2025 21:16:13 +0300
+X-Inumbo-ID: 0f6e1e1a-882e-11f0-8adc-4578a1afcccb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=b2jN34h1tyZfN1GJ5wzrSi29ix+e+CY9Rr1oJxZde58sSR9WgmpEmzi1maSuJnpNcXROoKg83wKkR5Xnhv/xmyixfPwd54Pe05WhH6ojxYqussVuaBBZP9rBc5C0pN+dF1zKhRxwv/EQufDzKs91TjL7uT8C68r8FfxiG6Zm7w3XwJMYESmmXO1+jwtkq510ZMrCG0YAH5qMHTZIdEaM3ocdTUSp/qiU5l+aEPNLB088gdXfxUjzjI4xGWegpt2Iw6Nxi5oUDwEdhj5T+t/hUj2pKQFkW9PIcTM/ZO1xhg0zDEOlp2CVJz9cEHsOGrrDJMzPPyhGMwC0WoBhMpsfBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZIy6GuThc4GKjoVg7TEXuAnD5k/i4XiSHVvQgeN4b9I=;
+ b=aVcW/YkXdwT4iwAgCWNqNE45fkPh83xoIQ53AjMAhJAyYUKUG63HlyH5rvNbwTUVldLFgv/ncF38V4qMURDq1wZfbBpprhKig5ieKzki/x4/sFCx6YAS/byXlMBf4sbLY7adEg3HsgTONsk0WyEOoW8Z6+Em7NRxJ0nYvccGHAzADS9kMEQ9Alno2DPrySSK7kqWsgNtRRX7yVynZSRLgWI6gZXTWflEQdSov13QW4Sxut4DgwKjo+vb0Lh8be+YmYTyXnvkWBfEk+nAzKpiIUTqT2bxs94RDbJcFCAEoYuUDgOFoM1Vy5MB30qIjX24WipT8R2TZjk+++WTRFlHWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZIy6GuThc4GKjoVg7TEXuAnD5k/i4XiSHVvQgeN4b9I=;
+ b=UvMQHTOi9bOJQm6xskf/asmr46pj9u7J7vyejeVZR5n+yT3iQ71v9yomEe+3Z1qZzaEOEtdxOulb6KQn0zBuLONSgHjjEhn4wgnCqleIEfO1u8jZf608k6BeklQPuDlLk4l4vpJrPdF+GHga5kGtvPGR/yFBm5qIw/SuDeUZ6gQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: <victorm.lira@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Victor Lira <victorm.lira@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
+ Grall" <julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, "Doug
+ Goldstein" <cardoe@cardoe.com>
+Subject: [PATCH v1 1/2] automation: call expect script with redirected standard error
+Date: Tue, 2 Sep 2025 11:52:34 -0700
+Message-ID: <729708b7e6c1815e7ba9b712f6c847e0a0374fd9.1756834803.git.victorm.lira@amd.com>
+X-Mailer: git-send-email 2.50.GIT
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 06/13] xen/arm: irq: Restore state of local IRQs during
- system resume
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1756763487.git.mykola_kvach@epam.com>
- <18c51957660441c945d51b02be965fbcc19c7c2b.1756763487.git.mykola_kvach@epam.com>
- <0fb4d962-a92a-4b8b-805d-60a03fe1b734@gmail.com>
- <CAGeoDV_XPjkpniPkaPXd82B80Q0qutfmXyRKedvRkWCkbL8bmQ@mail.gmail.com>
-Content-Language: en-US
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-In-Reply-To: <CAGeoDV_XPjkpniPkaPXd82B80Q0qutfmXyRKedvRkWCkbL8bmQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D2:EE_|SJ2PR12MB9114:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc929388-3bca-4544-3fee-08ddea51f1e2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?LytvMlJTaWMyYnF0KytYZVNtdGhmY2xvMndhUURLUk8zSDFhL2JnazlFSk9N?=
+ =?utf-8?B?ZWlSZmNLTU9JMisxNFlwenFSeUJ4VVNEejNqYXUyWGRObkU2bjQwZkx0SHU2?=
+ =?utf-8?B?Nm5PaGpLQUUwUnFaMk16R0oyY010NUlvSDliV0Vwei9VTkRwZjNBRzJaWDlV?=
+ =?utf-8?B?b0pabU95S0czNjFOcE1CY3IrbGJESFRrc1dzOVpCQmtXQjl5TzJlSTlRbHQr?=
+ =?utf-8?B?RGlCR0Eya05LeU9jenp6Mm9VRzZTZVI0VzV5STZIbmRmSHh6ZGhPUFlKQjYy?=
+ =?utf-8?B?RVhrbWt3WEtOY1VrRTM2eWM5UUN0bnpXZDdwTHpGUXdDc2ZLcWpLZjdMUXdP?=
+ =?utf-8?B?V1dUdjFkbUViRG9mRlU1QTZhUjVIcU1vUVZUL0hIc3Q1LzZyUEVwdk1LOXgy?=
+ =?utf-8?B?MUVsTjdPUHpCVDdCSFRka2Q1MjZRMzIyZ3EyUUdZcHZjRVA1TlFXMzNPZFpB?=
+ =?utf-8?B?c0lqaEE5K2dGRjhSRzBuRG12Q3V6eE9vTllzVWRFUUY5QzZPL2daYjRLNVRw?=
+ =?utf-8?B?NHE1STBiYUpvVzJvQm1CeEdxYmZGSGlwMVBpM2kyeXpVU09PRHF1bDJRbnY0?=
+ =?utf-8?B?MkhqRlQ4WE14WmNiT1prRHpnNk16a2xGVGRSdlQ2dU1jU0p0N1A3TWVlTjlX?=
+ =?utf-8?B?Z3VRZUJ2L09WTDY5eXE2QUQrSCtWM05ZcjBvSGxyeVgxSUUvWkh1STJCTTli?=
+ =?utf-8?B?am9QNmNZcjM1dE5penlpNGs1ZVBmQTBON21yWUR6aW92UVJxVGJRR21hTitq?=
+ =?utf-8?B?bVZOdGtWNytUT0JMeWdVN1A2WkFjN2RyQnJ3SStCT1NmNGRDUng5K0lpTGlv?=
+ =?utf-8?B?K2hobFZMdEI4NzVoUXdQVWVCUXcxMC8wVjRjQkk1K3R4c3VySjRsYnNwaWFv?=
+ =?utf-8?B?d2pDSXcyM0R1VkNlQjk2cytOSUhyZTZCK2lUeXFtdUk2SUdZRkR2QW5FNUxy?=
+ =?utf-8?B?eVZyaUZsU1BZMzFRQjJDVmkxWHpyWkpxRFpBS3ZBUXNWS1Bma0xhN3BFWjVT?=
+ =?utf-8?B?RVVvRHFqMTB3UzdNNkVScmZGeGtCNnN6V0l1WU5sTnNSdmlHR3B6b3dFdlJP?=
+ =?utf-8?B?NGZSUmk2STVVSE1YSEsxQnJlYXFVUmxBVmwxa3lHZGl2T0xRVHA3ZDJ1NHZJ?=
+ =?utf-8?B?UTkvb1p4WG1qZlcxZ0JmY2RiM1k4YzN2UXdxVHJzU3d1aCt5OVVQMlViMCtL?=
+ =?utf-8?B?OVA1b0NaRjRoREJGVWtSZUJ0eEV6Y1l6d3FTb3UyQzhueGo0T2FOOUNFeXA2?=
+ =?utf-8?B?RVAySmdSQ2NlaXh3VWRZREU3YXNjWjlKbmlFSGtsRHIxU2ZxYnQwdmh0eDRD?=
+ =?utf-8?B?R3NxTGxaeFRSU2gvWGNPL0JRcWV5MVdhRGtmZzlqUUFuVlFTcHlkL0t6czdr?=
+ =?utf-8?B?VXpvVWpORExTVFY1MWdvejZmZ1pKb1hXZUNNWm9qWHo0SFFkbU1BUVZvU3Ev?=
+ =?utf-8?B?R0RUeGw5NHVkUDBvbE1GOGFPK0ZGU0VrMXg3KzUyQSswMERIMjByRjJ0YXdq?=
+ =?utf-8?B?eVpJWmhCM05iVzlod2VtZDd5MTR5bUxLNFlWQUtONFB3bmhqRytlRDExOGp0?=
+ =?utf-8?B?bEJ2SWVsSmJqRVpvZFdGazVUNzFpRDN3OVIwVXU2RTZsYkhtaWdjemxrQnVu?=
+ =?utf-8?B?QVhoMXR6anB2b1BwMU84VVdZSWFsYjFZelM1eDhlOTZOVmtFOWFqRkZ2bGJz?=
+ =?utf-8?B?elBNK3R0Wnp3L2lGYTAwN05mMlNhU0VPTVc5Z29TajdiaSs5czYxc3FIVnJ3?=
+ =?utf-8?B?WGFxclRyQXBNemd2MDd4blpOK0g3R2d1SW5sSmFxcHBrb1lPblBJVGFCa3pu?=
+ =?utf-8?B?RjFPblo3bHVZZURKWlBQV0ROM2tzTW53L3k4ZzZTenJ4R2NyVlk3VjI5NjZh?=
+ =?utf-8?B?aFkrMWxTZ1NCMjk1Z3JScU1rTTdyYzR5QjNoSjVWYnJVdE1yTlBXc2pEUG8z?=
+ =?utf-8?B?YSt2amd3NktPM3RzeVdHTnpFdTF2RHNKSWNpdlhFVTdMT1dNRzJvbWFQMEkr?=
+ =?utf-8?B?WHBudmpQbFZRPT0=?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2025 18:53:02.6988
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc929388-3bca-4544-3fee-08ddea51f1e2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D2.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9114
 
+From: Victor Lira <victorm.lira@amd.com>
 
+In the console expect script, "send_error" will send a message to standard
+error. Current use of this script redirects only standard output into a
+pipeline. This causes the error messages to sometimes appear hidden in the
+middle of the test logs.
 
-On 02.09.25 20:43, Mykola Kvach wrote:
-> Hi Oleksandr,
+Redirect also standard error to clearly show when a test has timed out or hit
+EOF.
 
-Hello Mykola
+Signed-off-by: Victor Lira <victorm.lira@amd.com>
+---
+example of the problem:
+ - https://gitlab.com/xen-project/people/luca.miccio/xen/-/jobs/11136585863#L615
+ - timeout message on line 615 shown before end of log
+note:
+ - I couldn't check the change on cirrus-ci as I don't have access
+---
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>
+Cc: Michal Orzel <michal.orzel@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>
+Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Doug Goldstein <cardoe@cardoe.com>
+Cc: xen-devel@lists.xenproject.org
+---
+ .cirrus.yml                                       | 2 +-
+ automation/scripts/include/xtf-runner             | 2 +-
+ automation/scripts/qemu-alpine-x86_64.sh          | 2 +-
+ automation/scripts/qemu-smoke-dom0-arm32.sh       | 2 +-
+ automation/scripts/qemu-smoke-dom0-arm64.sh       | 2 +-
+ automation/scripts/qemu-smoke-dom0less-arm32.sh   | 2 +-
+ automation/scripts/qemu-smoke-dom0less-arm64.sh   | 2 +-
+ automation/scripts/qemu-smoke-ppc64le.sh          | 2 +-
+ automation/scripts/qemu-smoke-riscv64.sh          | 2 +-
+ automation/scripts/qubes-x86-64.sh                | 2 +-
+ automation/scripts/xilinx-smoke-dom0-x86_64.sh    | 2 +-
+ automation/scripts/xilinx-smoke-dom0less-arm64.sh | 2 +-
+ 12 files changed, 12 insertions(+), 12 deletions(-)
 
-> 
-> On Tue, Sep 2, 2025 at 7:49 PM Oleksandr Tyshchenko <olekstysh@gmail.com> wrote:
->>
->>
->>
->> On 02.09.25 01:10, Mykola Kvach wrote:
->>
->> Hello Mykola
->>
->>> From: Mykola Kvach <mykola_kvach@epam.com>
->>>
->>> On ARM, the first 32 interrupts (SGIs and PPIs) are banked per-CPU
->>> and not restored by gic_resume (for secondary cpus).
->>>
->>> This patch introduces restore_local_irqs_on_resume, a function that
->>> restores the state of local interrupts on the target CPU during
->>> system resume.
->>>
->>> It iterates over all local IRQs and re-enables those that were not
->>> disabled, reprogramming their routing and affinity accordingly.
->>>
->>> The function is invoked from start_secondary, ensuring that local IRQ
->>> state is restored early during CPU bring-up after suspend.
->>>
->>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
->>> ---
->>> Changes in V6:
->>> - Call handler->disable() instead of just setting the _IRQ_DISABLED flag
->>> - Move the system state check outside of restore_local_irqs_on_resume()
->>> ---
->>>    xen/arch/arm/irq.c | 39 +++++++++++++++++++++++++++++++++++++++
->>>    1 file changed, 39 insertions(+)
->>>
->>> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
->>> index 6c899347ca..ddd2940554 100644
->>> --- a/xen/arch/arm/irq.c
->>> +++ b/xen/arch/arm/irq.c
->>> @@ -116,6 +116,41 @@ static int init_local_irq_data(unsigned int cpu)
->>>        return 0;
->>>    }
->>>
->>> +/*
->>> + * The first 32 interrupts (PPIs and SGIs) are per-CPU,
->>> + * so call this function on the target CPU to restore them.
->>> + *
->>> + * SPIs are restored via gic_resume.
->>> + */
->>> +static void restore_local_irqs_on_resume(void)
->>> +{
->>> +    int irq;
->>
->> NIT: Please, use "unsigned int" if irq cannot be negative
-> 
-> ok
-> 
->>
->>> +
->>> +    spin_lock(&local_irqs_type_lock);
->>> +
->>> +    for ( irq = 0; irq < NR_LOCAL_IRQS; irq++ )
->>> +    {
->>> +        struct irq_desc *desc = irq_to_desc(irq);
->>> +
->>> +        spin_lock(&desc->lock);
->>> +
->>> +        if ( test_bit(_IRQ_DISABLED, &desc->status) )
->>> +        {
->>> +            spin_unlock(&desc->lock);
->>> +            continue;
->>> +        }
->>> +
->>> +        /* Disable the IRQ to avoid assertions in the following calls */
->>> +        desc->handler->disable(desc);
->>> +        gic_route_irq_to_xen(desc, GIC_PRI_IRQ);
->>
->> Shouldn't we use GIC_PRI_IPI for SGIs?
-> 
-> Yes, we should. But currently I am restoring the same value
-> as it was before suspend...
-> 
-> I definitely agree that this needs to be fixed at the original
-> place where the issue was introduced, but I was planning to
-> address it in a future patch.
-> 
->>
->>
->>> +        desc->handler->startup(desc);
->>> +
->>> +        spin_unlock(&desc->lock);
->>> +    }
->>> +
->>> +    spin_unlock(&local_irqs_type_lock);
->>> +}
->>> +
->>>    static int cpu_callback(struct notifier_block *nfb, unsigned long action,
->>>                            void *hcpu)
->>>    {
->>> @@ -134,6 +169,10 @@ static int cpu_callback(struct notifier_block *nfb, unsigned long action,
->>>                printk(XENLOG_ERR "Unable to allocate local IRQ for CPU%u\n",
->>>                       cpu);
->>>            break;
->>> +    case CPU_STARTING:
->>> +        if ( system_state == SYS_STATE_resume )
->>> +            restore_local_irqs_on_resume();
->>> +        break;
->>
->> May I please ask, why all this new code (i.e.
->> restore_local_irqs_on_resume()) is not covered by #ifdef
->> CONFIG_SYSTEM_SUSPEND?
-> 
-> I don’t see a reason to introduce such "macaron-style" code. On ARM, the
-> system suspend state is only set when CONFIG_SYSTEM_SUSPEND is defined
-> anyway.
+diff --git a/.cirrus.yml b/.cirrus.yml
+index 3163ab8f11..f295c8cb0a 100644
+--- a/.cirrus.yml
++++ b/.cirrus.yml
+@@ -166,7 +166,7 @@ task:
+     export TEST_LOG="serial-${FREEBSD_BUILD}-${XTF_ARCH}.txt"
+     export PASSED="Test result: SUCCESS"
+     export TEST_TIMEOUT=120
+-    ./automation/scripts/console.exp | sed 's/\r\+$//'
++    ./automation/scripts/console.exp |& sed 's/\r\+$//'
 
-right
+   always:
+     serial_artifacts:
+diff --git a/automation/scripts/include/xtf-runner b/automation/scripts/include/xtf-runner
+index b7fea52dad..43ff2d4d88 100644
+--- a/automation/scripts/include/xtf-runner
++++ b/automation/scripts/include/xtf-runner
+@@ -114,7 +114,7 @@ function xtf_run_test()
+ {
+     rm -f ${TEST_LOG}
+     export BOOT_MSG PASSED TEST_CMD TEST_LOG UBOOT_CMD
+-    ./console.exp | sed 's/\r\+$//'
++    ./console.exp |& sed 's/\r\+$//'
+ }
 
-> 
-> If you would prefer me to wrap all relevant code with this define, please
-> let me know and I’ll make the change. In this case, I think the current
-> approach is cleaner, but I’m open to your opinion.
+ # Setup environment and run an XTF test.
+diff --git a/automation/scripts/qemu-alpine-x86_64.sh b/automation/scripts/qemu-alpine-x86_64.sh
+index 746e70483d..c4666b9507 100755
+--- a/automation/scripts/qemu-alpine-x86_64.sh
++++ b/automation/scripts/qemu-alpine-x86_64.sh
+@@ -84,4 +84,4 @@ export BOOT_MSG="Latest ChangeSet: "
+ export LOG_MSG="Domain-0"
+ export PASSED="BusyBox"
 
-In other patches, you seem to wrap functions/code that only get called 
-during suspend/resume with #ifdef CONFIG_SYSTEM_SUSPEND, so I wondered 
-why restore_local_irqs_on_resume() could not be compiled out
-if the feature is not enabled. But if you still think it would be 
-cleaner this way (w/o #ifdef), I would be ok.
+-./automation/scripts/console.exp | sed 's/\r\+$//'
++./automation/scripts/console.exp |& sed 's/\r\+$//'
+diff --git a/automation/scripts/qemu-smoke-dom0-arm32.sh b/automation/scripts/qemu-smoke-dom0-arm32.sh
+index 4f50eabdef..36c47daa42 100755
+--- a/automation/scripts/qemu-smoke-dom0-arm32.sh
++++ b/automation/scripts/qemu-smoke-dom0-arm32.sh
+@@ -96,4 +96,4 @@ export BOOT_MSG="Latest ChangeSet: "
+ export LOG_MSG="Domain-0"
+ export PASSED="/ #"
 
-> 
->>
->>>        }
->>>
->>>        return notifier_from_errno(rc);
->>
-> 
-> Best regards,
-> Mykola
+-../automation/scripts/console.exp | sed 's/\r\+$//'
++../automation/scripts/console.exp |& sed 's/\r\+$//'
+diff --git a/automation/scripts/qemu-smoke-dom0-arm64.sh b/automation/scripts/qemu-smoke-dom0-arm64.sh
+index d6f6b74880..ee682015a0 100755
+--- a/automation/scripts/qemu-smoke-dom0-arm64.sh
++++ b/automation/scripts/qemu-smoke-dom0-arm64.sh
+@@ -106,4 +106,4 @@ export TEST_LOG="smoke.serial"
+ export LOG_MSG="Domain-0"
+ export PASSED="BusyBox"
 
+-./automation/scripts/console.exp | sed 's/\r\+$//'
++./automation/scripts/console.exp |& sed 's/\r\+$//'
+diff --git a/automation/scripts/qemu-smoke-dom0less-arm32.sh b/automation/scripts/qemu-smoke-dom0less-arm32.sh
+index 0e2c5496db..e27636dc9e 100755
+--- a/automation/scripts/qemu-smoke-dom0less-arm32.sh
++++ b/automation/scripts/qemu-smoke-dom0less-arm32.sh
+@@ -149,4 +149,4 @@ export TEST_LOG="${serial_log}"
+ export LOG_MSG="${dom0_prompt}"
+ export PASSED="${passed}"
+
+-../automation/scripts/console.exp | sed 's/\r\+$//'
++../automation/scripts/console.exp |& sed 's/\r\+$//'
+diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh b/automation/scripts/qemu-smoke-dom0less-arm64.sh
+index e7a3e670d0..e660485f3a 100755
+--- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
++++ b/automation/scripts/qemu-smoke-dom0less-arm64.sh
+@@ -218,4 +218,4 @@ export TEST_LOG="smoke.serial"
+ export LOG_MSG="Welcome to Alpine Linux"
+ export PASSED="${passed}"
+
+-./automation/scripts/console.exp | sed 's/\r\+$//'
++./automation/scripts/console.exp |& sed 's/\r\+$//'
+diff --git a/automation/scripts/qemu-smoke-ppc64le.sh b/automation/scripts/qemu-smoke-ppc64le.sh
+index 617096ad1f..119c3ed4d5 100755
+--- a/automation/scripts/qemu-smoke-ppc64le.sh
++++ b/automation/scripts/qemu-smoke-ppc64le.sh
+@@ -24,4 +24,4 @@ export TEST_CMD="qemu-system-ppc64 \
+ export TEST_LOG="${serial_log}"
+ export PASSED="Hello, ppc64le!"
+
+-./automation/scripts/console.exp | sed 's/\r\+$//'
++./automation/scripts/console.exp |& sed 's/\r\+$//'
+diff --git a/automation/scripts/qemu-smoke-riscv64.sh b/automation/scripts/qemu-smoke-riscv64.sh
+index 25f9e4190e..c0b1082a08 100755
+--- a/automation/scripts/qemu-smoke-riscv64.sh
++++ b/automation/scripts/qemu-smoke-riscv64.sh
+@@ -16,4 +16,4 @@ export TEST_CMD="qemu-system-riscv64 \
+ export TEST_LOG="smoke.serial"
+ export PASSED="All set up"
+
+-./automation/scripts/console.exp | sed 's/\r\+$//'
++./automation/scripts/console.exp |& sed 's/\r\+$//'
+diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
+index b49a44c5b1..bd939dc948 100755
+--- a/automation/scripts/qubes-x86-64.sh
++++ b/automation/scripts/qubes-x86-64.sh
+@@ -292,7 +292,7 @@ export LOG_MSG="\nWelcome to Alpine Linux"
+ export TEST_CMD="ssh $CONTROLLER console"
+ export TEST_LOG="smoke.serial"
+ export TEST_TIMEOUT="$timeout"
+-./automation/scripts/console.exp | sed 's/\r\+$//'
++./automation/scripts/console.exp |& sed 's/\r\+$//'
+ TEST_RESULT=$?
+
+ if [ -n "$retrieve_xml" ]; then
+diff --git a/automation/scripts/xilinx-smoke-dom0-x86_64.sh b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+index 0ad8f658e3..96f534f3aa 100755
+--- a/automation/scripts/xilinx-smoke-dom0-x86_64.sh
++++ b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+@@ -173,7 +173,7 @@ export BOOT_MSG="Latest ChangeSet: "
+ export TEST_CMD="cat ${SERIAL_DEV}"
+ export TEST_LOG="smoke.serial"
+
+-./automation/scripts/console.exp | sed 's/\r\+$//'
++./automation/scripts/console.exp |& sed 's/\r\+$//'
+ TEST_RESULT=$?
+ sh "/scratch/gitlab-runner/${TEST_BOARD}.sh" 2
+ exit ${TEST_RESULT}
+diff --git a/automation/scripts/xilinx-smoke-dom0less-arm64.sh b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
+index 1d7162f1b3..a6da7a830c 100755
+--- a/automation/scripts/xilinx-smoke-dom0less-arm64.sh
++++ b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
+@@ -137,7 +137,7 @@ export LOG_MSG="Welcome to Alpine Linux"
+ export TEST_CMD="cat ${SERIAL_DEV}"
+ export TEST_LOG="smoke.serial"
+
+-./automation/scripts/console.exp | sed 's/\r\+$//'
++./automation/scripts/console.exp |& sed 's/\r\+$//'
+ TEST_RESULT=$?
+ sh "/scratch/gitlab-runner/zcu102.sh" 2
+ exit ${TEST_RESULT}
+--
+2.50.GIT
 
