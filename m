@@ -2,56 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3360FB42890
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 20:18:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1108880.1458854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C2E1B428DF
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 20:41:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1108915.1458864 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uts3J-0000qO-UF; Wed, 03 Sep 2025 18:17:49 +0000
+	id 1utsOt-0004be-BU; Wed, 03 Sep 2025 18:40:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1108880.1458854; Wed, 03 Sep 2025 18:17:49 +0000
+Received: by outflank-mailman (output) from mailman id 1108915.1458864; Wed, 03 Sep 2025 18:40:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uts3J-0000oL-R7; Wed, 03 Sep 2025 18:17:49 +0000
-Received: by outflank-mailman (input) for mailman id 1108880;
- Wed, 03 Sep 2025 18:17:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1utsOt-0004ZJ-8C; Wed, 03 Sep 2025 18:40:07 +0000
+Received: by outflank-mailman (input) for mailman id 1108915;
+ Wed, 03 Sep 2025 18:40:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=U3qU=3O=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1uts3I-0000oF-MG
- for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 18:17:48 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20620.outbound.protection.outlook.com
- [2a01:111:f403:2417::620])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 49cb575e-88f2-11f0-9d12-b5c5bf9af7f9;
- Wed, 03 Sep 2025 20:17:46 +0200 (CEST)
-Received: from BY3PR05CA0046.namprd05.prod.outlook.com (2603:10b6:a03:39b::21)
- by SA1PR12MB8163.namprd12.prod.outlook.com (2603:10b6:806:332::17)
+ <SRS0=aHaU=3O=epam.com=Dmytro_Firsov@srs-se1.protection.inumbo.net>)
+ id 1utsOs-0004Xv-F9
+ for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 18:40:06 +0000
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c200::5])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 679836f3-88f5-11f0-9809-7dc792cee155;
+ Wed, 03 Sep 2025 20:40:03 +0200 (CEST)
+Received: from AS4PR03MB8338.eurprd03.prod.outlook.com (2603:10a6:20b:506::15)
+ by VI0PR03MB10904.eurprd03.prod.outlook.com (2603:10a6:800:269::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.29; Wed, 3 Sep
- 2025 18:17:42 +0000
-Received: from MWH0EPF000989E9.namprd02.prod.outlook.com
- (2603:10b6:a03:39b:cafe::b9) by BY3PR05CA0046.outlook.office365.com
- (2603:10b6:a03:39b::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.6 via Frontend Transport; Wed, 3
- Sep 2025 18:17:41 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989E9.mail.protection.outlook.com (10.167.241.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9094.14 via Frontend Transport; Wed, 3 Sep 2025 18:17:41 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 3 Sep
- 2025 13:17:40 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 3 Sep
- 2025 13:17:40 -0500
-Received: from [172.31.134.167] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 3 Sep 2025 13:17:39 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Wed, 3 Sep
+ 2025 18:40:01 +0000
+Received: from AS4PR03MB8338.eurprd03.prod.outlook.com
+ ([fe80::ac40:2d43:5ea:11fe]) by AS4PR03MB8338.eurprd03.prod.outlook.com
+ ([fe80::ac40:2d43:5ea:11fe%5]) with mapi id 15.20.9073.026; Wed, 3 Sep 2025
+ 18:40:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,171 +47,269 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49cb575e-88f2-11f0-9d12-b5c5bf9af7f9
+X-Inumbo-ID: 679836f3-88f5-11f0-9809-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s6Nhg/ZPY0ZXFZosz4rJzzM7bquv3KbfbTzpuzJK93tVw1PAUKbKGSQettrTsk/oMi2jPn9ocDjvpCGOoVMs8MXCpM5pG+SLB1m9ABMDO2vqvcwq08Pw5aLO3/dz3bEOWRygOByZd/Q+mq1OTIjdXIqesZ8Q7GYy1w2CFCAWM7C60XTOyWjAUjT+j1gJncGGIjWcffJhHMocw/FKhBl5uZjGSl63LNNZuXhCvxxVRT8gzu+K0waah8TiCz8pPa/aGkHFbVvFNiPy3UU2z5K8oy3s1CoweZRZeNQLQ6cenp36K5X1L5ZsjhUrJfxnK7RdXXMGLyQRkZm1zPwi1PqYcw==
+ b=X6knr5LLfF3PvWqPjIeOJ3tkKFTSl6PPJEuUxHolzarE/mKHyo2jlFnbwRZDYvqHlN36sd4C9S4nRdpo+6jCdSKw3k3Uw7Vi8kRzwUZERA3AzN1kK61P+LsRjBvEw5RR0PADNf5IWKRHA7P91iqtoVhGgEKvJ2n6SK6ivK26PtNyJkSZwtvpPUXGTLMtME4/KEMqaJJCXTPATsAg4pViMcoCXsyNREUu3Vz3KMwBTSsayjIQkK4oWk31B/jd6V1eXF6GFkdNVCAh/xqdm7Zl6eCKC9zvYLSzX7RTNhfmgx2H+4eGhHQm3LRPsunvB6CpapiIObRWuVs61ee/NVwIfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LVR4KN/qTSmiKDA1hftFzD4YihUfYSCWsMeEvYvgLRQ=;
- b=xf5vzeVpEblkdZtRf5jMG0j8xBOQLvJNlWVkWe7e0pStK9b02B5vRqGSnyz475E1ujU2O7BhNq4hWTgJ0g6fNT4EnFOpjmBVZplLBpXRvRAP4IU4LsofaDKGdnZBipTiIsdAx+IUfo7aXm8zWJtje1dHsjF6MPMTWyl+q+f3WJkD5UNzKF8zhDwr0ckqL40X1cHmgaAKd7XYx7CBJ2shsgL3dOjM7Gg51ahmuuiTaHjUegaP0kfq8JmldES6B7AIs644nJqjBT+t/gzzHHLt6GfKLMChtpNTt8r4WqugBhq07PdOxYIZdrCY6oTxEXOw90HTLZLPZ04jLcSTghdMjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=kG/N3T5kiz281dvzKrsKM6UpDLoSc5gNyQOn0fcgKLs=;
+ b=h7lr3rfzG0XwSfW32VUqj0ZtxzLCmz/SRCALY+qvbZaQ8XYcWBHW7HwTOBt2jfuHn+zj8d3tHrSy3kJry6K0hk+09p35/lZV8c6E2fI9P+GIq2720o/0MeDdz7tuWx0w+lrxuEH149k/Db7IKMSE3oyf3bkxLuw2fxSGfZ4zQddSjcwcK+6qN5ySwCX9VH/Lx/ggkCCrTAgUqiZU6bcahSpOZSdrajomNfceC+tWzy2mAdRAvHbJdFVPURTntRHWRJW0+zzxaTwpXBXMOtgEk18+vn7smXLCmNVpvonPMFC1v3ORwplsuOs4a1q9COdYQLCpBn/qOEQKhBAq1mkmiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LVR4KN/qTSmiKDA1hftFzD4YihUfYSCWsMeEvYvgLRQ=;
- b=WNsvp8IFfMuXo3dYG4QotasYm71501A0mlhCVhfl+AHa9tCYGf/zhFSz2/tS02iu2N4NsZNbggWKRKX4mk9cKRAzgwO1keUAzb1Bq4KsJDwDDQdUotRyMRkHiYhoR0n7abLdF9IXnKs07Y8KxmPadBmoosbdyXwDcfoL1Gi8iUA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <8ab89125-4693-4d9a-b9a3-b8ab38b1908f@amd.com>
-Date: Wed, 3 Sep 2025 14:17:39 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 8/8] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
- xen_sysctl_pm_op for amd-cppc driver
-To: "Penny, Zheng" <penny.zheng@amd.com>, Jan Beulich <jbeulich@suse.com>
-CC: "Huang, Ray" <Ray.Huang@amd.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250828100601.1777197-1-Penny.Zheng@amd.com>
- <a855a0b4-21dc-4f63-9849-6e5c7ec2e6b3@suse.com>
- <DM4PR12MB8451C7146814C9C359B078B5E101A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ bh=kG/N3T5kiz281dvzKrsKM6UpDLoSc5gNyQOn0fcgKLs=;
+ b=k39HvhpiuJIEZ8jN/9/npyUjSLRIRCv5IsvQEx+to5QE6h41dAXRspYpdPm9+nuJKqKk2svNz4AVLvxg6ncHEq6X4gDP3uqXxdm1P8SKeqZz7UFgw58AVpuyXC5/SGKi1gwCjLdEqzuQyUCTJi9Ny94wa7QdoYHL9vkcB9GWjptKxq2POJQj23CXBaEcLKexBHz49vIXxr9gZbnYV5Ua68lncmhAJ/DhlynyjqpaEzRUePW4kJ/uOt/dqOnhiSqQtt93EXROoLoG/YbHIXuaCd/pljqgs3r2kK/ooedWrdClPaMCZczJCWRIw9m9x/CDoOKoBOVN3RgelVn4/4Mh8A==
+From: Dmytro Firsov <Dmytro_Firsov@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Dmytro Firsov <Dmytro_Firsov@epam.com>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Rahul Singh <rahul.singh@arm.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal
+ Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Julien Grall <jgrall@amazon.com>, Mykola Kvach <Mykola_Kvach@epam.com>
+Subject: [PATCH v2] xen/arm: smmuv3: Add cache maintenance for non-coherent
+ SMMU queues
+Thread-Topic: [PATCH v2] xen/arm: smmuv3: Add cache maintenance for
+ non-coherent SMMU queues
+Thread-Index: AQHcHQIn+C0aN53q3kCiWfPloZq/2A==
+Date: Wed, 3 Sep 2025 18:40:00 +0000
+Message-ID:
+ <6f4552aab3748ea3ad96d45affb8ce9146b557a4.1756922110.git.dmytro_firsov@epam.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <DM4PR12MB8451C7146814C9C359B078B5E101A@DM4PR12MB8451.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E9:EE_|SA1PR12MB8163:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5fb2cd8-1298-4887-91e5-08ddeb162c07
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?VTNzcG50TEJCcHFFNTdpMlVlZGxUUzdWUEx0NEMwY3M0eS9oMzRJeS83QjUw?=
- =?utf-8?B?RkI0M2F3clNMS0J3d3IxN205NlBQb1BRaEg0VFZPaGp4Slp5NU5hNHppQUJu?=
- =?utf-8?B?c0N1TjRoTU54Vyt5Yk5XaGNTUDJiNVZWckZOZy8rTVBiQU9HMlJmMDB4b0VJ?=
- =?utf-8?B?N2U1am82bDlUUVcvOU5salhSS0l4WWErYnBLZ0MwS2RGZTU4Ni9vQnR4VW1r?=
- =?utf-8?B?K2NMdUNqL0FBZkw0QzYrd3ZPa0JPdG9QbDAzWGRocVdSRENwQnVmWGVNZzRX?=
- =?utf-8?B?ZGFjT1JSWHEwaUZiWElwR1hGdFE4RkV4OGtXOUM5a3dIVDNRU0d5Vi8xeHd5?=
- =?utf-8?B?cW5pY3V0MzI1aGpxTUtSMStEcUhjbk1hTGdDRDVwV1FXcnN1SEJMdElGNi9B?=
- =?utf-8?B?SlZtRjBRQUJYdE5EMlhubDlGVE16UzNzaXk5ajlFakU4bFViSDQrVHFCOFdi?=
- =?utf-8?B?c1NnUG1ETmFDck9WUSt4MHdReEgvc0Fab1JtQ2tCRTRDWHltUkFvSllvdjJC?=
- =?utf-8?B?TG9iYVo5RU5HUHEreGpGNkRKc0VRa2UxL0NsenIyd3dOWnpkcFpHN3hmYktG?=
- =?utf-8?B?cmFuWUVoVlI4dDlySHU5b1pLZkxCTGQxcDNGNWpqUmZPOUR2NFI2VDlXSU9C?=
- =?utf-8?B?RFNBZnJwTlBJcU4rbjRzZ0w2L1BIellNczVHeldwTzAwTW5GOEdudUl5anFF?=
- =?utf-8?B?VDd2aGFKNkhSUU11MituN09FOWM1TC9DbGlzejAzbm1aRDVpUjdIdUx0UDVX?=
- =?utf-8?B?VWRRdUtnem5KVnBLWDkzNTJ3UzNKeDllcDBQVmRGQXdkZTFUODF4MW81dDBj?=
- =?utf-8?B?cjNxRHozNWh2cExNWEtYVUtZRHd2a0VEVUJXYnpQenFRVDdlL3JLL2FzU1JB?=
- =?utf-8?B?NTNrUy91M2w3VEIrdVRIWkY4eU1GNjBOaDBPM01QdXJ6bFpSMGJtQmhYemFY?=
- =?utf-8?B?N29mQWw5eDN0MHBNUnpObklWbFFTTDNWekFNU0N4ekxpNzFNb3c2TERaUEFK?=
- =?utf-8?B?SFZMeGl1SHpiaERCcXFVdEk1STQrdDdTTjF2c0JHMnhOdm5LL1pKTWR2TEJC?=
- =?utf-8?B?OWZ6aVAzZVdPYWZLSlFTWERYU0JsUTJaZjB6aXBPd1pwaVNONUFvaVVzYURm?=
- =?utf-8?B?MzVsd1BNRzlLb0tKOGtLcUdNNWFWSFZydFlIMEc3RzkzWFdvczdwa1dPdkNt?=
- =?utf-8?B?a2Z5OHN5L2tCc3RPSEdYbFhyUVZud0tDcGluMzgxSDdZS3ZMU0FWVldwZkNL?=
- =?utf-8?B?bDd6c2VkZ1IrbjdxUkpKSmdUS2xCZytucWp2ZmpXQW1QeWR0Z1duOGxWYW9n?=
- =?utf-8?B?V3hBS1VzaUd6QTJlVEJFQSt2aGpsMWhEV2ZrWmgzdmhJYUY2WVdmUzUxNEYr?=
- =?utf-8?B?c0pheU0wbjZINGswd2d1YkxuRjFlMEFUM2QyRDVCeGVNSEVrUnVzb3BCd2JD?=
- =?utf-8?B?cVNBSDVBbWVzRkxOUk5FM1JuS0ZjU21ubUtzdVRlaUdmZmNDdWxBaW05UElJ?=
- =?utf-8?B?Q1FBRk1mQlRnaXVzZ0FLV1c0VjVTWmxWSWJnZTJSVTYzaG1HWHlqM3BSSlNo?=
- =?utf-8?B?YitpL3FrU3R0V3ZoT3B2TXRPcGhEaHgzUzByWkZQZEl4d1RueXJVZyt5cVcy?=
- =?utf-8?B?NURiblpOTUhQUGdJVEtlRkdpVWtKcjBiZ0NldjdoVnNzVDZ6b1pHT1NRd29S?=
- =?utf-8?B?U25aUjEvbmtVUVJybmNkQTN6cUJxL2xrRURPaGExWGhtdnEyTUh1QS9IaEJ6?=
- =?utf-8?B?Q0ZhaWtiUUNwdk04UEpOQjNvcU1iMEdxS0grTHY5VnAzaDcwVitDZEVUUi9L?=
- =?utf-8?B?TFVPWTNJUUFWV0pyT05lSEVTQXlyTHBBcHFGZGF6RWdjMzE0UVhvT1piWGhr?=
- =?utf-8?B?SzIwalQyOHkyajRodGFFMWVES2VyUjRGWVgzOU13ckxtUGJDWTd0Y21HWEJw?=
- =?utf-8?B?dFBxVlpXUEV5Zmw0TktXY2g1cVBRZG1LRDF1a1VwaE1GVVdzQXpLU3l3V0FJ?=
- =?utf-8?B?TWNHaFgxcE5GR3FZSEhqaHJjdHhVK3FiclUvaFhESXZOLzRva0tjSUtYN3NW?=
- =?utf-8?Q?b7RDBN?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2025 18:17:41.5638
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS4PR03MB8338:EE_|VI0PR03MB10904:EE_
+x-ms-office365-filtering-correlation-id: c1817b27-ca9d-48a2-76b5-08ddeb194a40
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?bclBucPbHYFsNElZ7pPEU31f29q6j6Z4JLN6fw57roSVkatEhpS6U+V2dV?=
+ =?iso-8859-1?Q?aKKtlEfesioz2cYXKBfVCyHQEdnRmZ2+huHGXpwAubdbxhPivrXLiFlIZr?=
+ =?iso-8859-1?Q?+XhiXXbyg0NVQ3teCoENoCfgloXjRa+XtpW4V6N5KQ+epkiOV3AxrFdFt1?=
+ =?iso-8859-1?Q?HAByYKHqy2HxrMMaQYanZJDUKszM2KTzAOQIa0sfFpTsIQcX9zRztIodgX?=
+ =?iso-8859-1?Q?lg/laLDqgjYK3ppAxLNrE9wZQkMoLDMCn6Mg0rv6Cm72Bl8WLrWDy2bh0R?=
+ =?iso-8859-1?Q?KA/Xl5I6lBlj2Ztn+ltDotXXUeooiAE2Qf/Vpd/Bdxexsf1o0hmVCsgWpO?=
+ =?iso-8859-1?Q?C1uM2PtTCxUpWmFUQDjFwZrIDsREBZVvS/4TTysC4/HlbYoawLUGDvBCO5?=
+ =?iso-8859-1?Q?LXnpJAPSCy/hgNHI4yfj0cumskq+DSQABxekE1NDzgtMvcdQFhIgAXr+2X?=
+ =?iso-8859-1?Q?tu0pk/2g388FLdpsefKg5k3LyPxbnFCqIqfAth08me2mAUxOix8YgmuH13?=
+ =?iso-8859-1?Q?ODdihi4+PAtNij5PfaU9uCkGrvU0uwQvQWMouvQFe9hg/zrNMbEVRg9aty?=
+ =?iso-8859-1?Q?oFZP/FEIVIfmO29MEu1a8jkDzDo0UOnSBrGNa9WmFQMijkZl0ilxVOcx8h?=
+ =?iso-8859-1?Q?aYSnSFQg084wZIb1wRBhE7clIHrTry+C9YRJseoLtyVKr0gaEdOjZuSTwl?=
+ =?iso-8859-1?Q?yGZkSS0O3N+oyRMm/8SYCEgmZNfYvyx1qv7/Ax60qR0XanVEeIHuWyDHHl?=
+ =?iso-8859-1?Q?O1gDHVHIvNP6qhQaZ7ch0hEbQyFOENgUBoxPnK996FG4LdL3dHDr3HDWjZ?=
+ =?iso-8859-1?Q?g2so+fYuY66RLOdeDfNym5FVYMG9uwosZOq7axtWOGS759BXw+Xhy6ebsm?=
+ =?iso-8859-1?Q?+MDm5HXSQOsJjpZ3hT00QhOUVGzMwqJ2bUvh1YetedGO2duJnJzoTwzPAH?=
+ =?iso-8859-1?Q?WA49atCPNYLmVlTjTmwpGMAPQNGwvPDmBPGPQszLn9axWS/66MBfH/7uVm?=
+ =?iso-8859-1?Q?e6AZKDULXcvT9YlU+POOzWjuD7Ouf3NxCvIt2dngamI6Z8ybRSRiySq0TA?=
+ =?iso-8859-1?Q?tr+rBeBVSXZ5R839s9GO5HhMCRrJq9ClraiHDikxiS7AkZssfRODbHla0Z?=
+ =?iso-8859-1?Q?sfJJ166iqp9NEmbP/1Pa1Fp0+Zlp6PPZl0uW8pCZSs2zFf1bnb2l2acbcQ?=
+ =?iso-8859-1?Q?hfmnsJXTtCtHpKJ64nSiSZZYB1qU3r8upXrEtUQPK9nF6ww/XaiQihjQUV?=
+ =?iso-8859-1?Q?F1zda5qhgEKLOzzE3zzL2wjWQTJkLqlNmF/bpW1oeMyizrD8cd6KhuOIlo?=
+ =?iso-8859-1?Q?ltAbcBgpVS4y20dHoTKWhLvf4cYVYx/tsnJxc1UjJgOJDm0TcSpZXmAqpB?=
+ =?iso-8859-1?Q?tGknYRffkvj234sxW70tVMOTnr69RhEKvYlJzO0uXfLkaGXe4fJHyMTzd7?=
+ =?iso-8859-1?Q?f6MzrBpMddlCIsG5E+M7SPYDJsjYgixkPJbYwCsLg9onpq4Cq16laU8BBT?=
+ =?iso-8859-1?Q?CPB6W4lL3HRSfUgtuHAS5lZNHQ8KIha4x7Ew6JBX5xOA=3D=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR03MB8338.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?jfo7G0DIsumDyk4yJ5sva9Kp1bziJdZXhViqVEANR3dq6z5sERDm8kgRRZ?=
+ =?iso-8859-1?Q?og+eOC2njhGOtLMN4HKHk0CMyknVKmbi0+wuxb74wkVPGOSHD47I44QOHn?=
+ =?iso-8859-1?Q?HfUA0kp0b7NR8AbMB3V5hZ5fPCnWLkh+HwIfU4LLChiQC9TkhztkA77uWC?=
+ =?iso-8859-1?Q?bZHNuJLv1j3OxzZVys+kZiznhdf3gdmn0dRCB2VWHG0AWjdF/46iQezsK3?=
+ =?iso-8859-1?Q?6TF7Rv6R0vw+Zb+Jqklgn3j3q96hLJ4FYdzCLweHbawpZE41NNFJImQPZS?=
+ =?iso-8859-1?Q?4Le8XjI/Wn97d607/zzG5hg3p2yjtR8GS4hlkqyImeHW0YjMovjE5Spo08?=
+ =?iso-8859-1?Q?mjuQtAgOADT6gvW11VF3BVDyqqS7IYzzrDgHhFPaVsKfF3AqAaVgMUPXlg?=
+ =?iso-8859-1?Q?vf5KFQaUaFccRyDr+Hw1dxf6sva3yuGpz/ekFrBA9vh3Jljq+1G+Oym+mm?=
+ =?iso-8859-1?Q?f0jRIPvSVL9v6hVzlpHJUhUFsYjgxF6W9Ucm3tISgnt5icuBGVDD5Yik80?=
+ =?iso-8859-1?Q?IyqBMSMzzcdFqfaBaT3IvU1hRWZya4v0Xeu8yC4otIfiaro9uJOdUnzFlY?=
+ =?iso-8859-1?Q?5/Oof6X3OGv8OkHrYAffEXhsXhWJmlh9oyllVttZTnYdKwhqLRuZqpYr+5?=
+ =?iso-8859-1?Q?GQbs1XXrhcMnaRCCi+ZHzrUyQLcsChujKio2dwY6dI5ZlxuiZxmmrhbBzt?=
+ =?iso-8859-1?Q?zflwIqaf/56jmMzZL3FScWy3HVhJLHTRE5gLlut3jfIkmL2VEuXM8Qo9Yr?=
+ =?iso-8859-1?Q?z0ICpyJ/IaS97OxX42kHxXpz9I79Givzs+VynTXSOdo57lHf+UFN0v8Zbf?=
+ =?iso-8859-1?Q?RYE6xitpPdG+NYhuNX52ZWmMbeBDNl23LbHTEPTwtcQo5/OKwZ7yKxoGCq?=
+ =?iso-8859-1?Q?QjcaPeM9IcKb3j3KXBuigg6Je1g0QEphB7AUpqM5afbLKFJ8hHBYSJ7NHT?=
+ =?iso-8859-1?Q?FraISyJDKKAiVVJc5nXeJlKqsqCUvZ2aVuxJ71gX9SH6MUBLnnLnX42G9o?=
+ =?iso-8859-1?Q?puNjmPEIgYWBrFGqoORMwbD0VAllG8JB7hPjjR4wuPs9CPydbhLzXsU6dP?=
+ =?iso-8859-1?Q?Mbu5O5dXSLAtI7+bYt36ZAxnZkV4Ic7Wa23b6copduXi4mfcoxgf9484Kp?=
+ =?iso-8859-1?Q?VzuN5z1YiJCf+VzEByIYQO3oK6G+PkztlyLQ4/yuyaFXzJypUnNpwqGOmR?=
+ =?iso-8859-1?Q?t2KlDXaEIqLXxSsZ60jGkzQVZcDbVz94UYNOBTYme6A7F7revwnXosJGzd?=
+ =?iso-8859-1?Q?Axtv67X8LanAipsVyJNqCzgd2nMtRPTtngaD+M/YT+ZRLJeutY7l3u46sw?=
+ =?iso-8859-1?Q?UmfNrhL8xZ/ilE3vIhzZeQxBu9RQ8DKZ1K+oVl/iMdbFSiKUctnGKBT/ET?=
+ =?iso-8859-1?Q?7WlwEdN3FHa+rvmbDkItQFRIcPArxBhCVOUmHOUBPrItM7NUpLxE9KBgSk?=
+ =?iso-8859-1?Q?3/ftVwgKYh3N6CtMhbAu3TnRoqUr1E8MhN0e0sduL68hYphCvfS53ZtV4R?=
+ =?iso-8859-1?Q?hqofSwftcys6QSNJVv93NBM7ygBk1EhC0enGGTru0+CC52fXMWxOALC5Il?=
+ =?iso-8859-1?Q?d6X4Eo8LPxcIotZCcvvNEqbHlg+l6tGfDQ1lRka0LirpE12MHm2rxfGH0I?=
+ =?iso-8859-1?Q?3X/mP4Z28N4qfoJQL2jQG1nEIgX19qB+Q/QVUqN2JYwmDLeEzAVo0vJQ?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR03MB8338.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1817b27-ca9d-48a2-76b5-08ddeb194a40
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2025 18:40:00.8630
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5fb2cd8-1298-4887-91e5-08ddeb162c07
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000989E9.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8163
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: uWQS/VXQ4ZT2MgGQK5p9UXwIEU0vHDdfc+PA4hcsZNe6h+iDbglmfPx57WkO/Q9wkOlRXAeLF8eWK8sWcTFDMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR03MB10904
 
-On 2025-09-02 23:14, Penny, Zheng wrote:
-> [Public]
-> 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Thursday, August 28, 2025 7:07 PM
->> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; Anthony PERARD
->> <anthony.perard@vates.tech>; Andrew Cooper <andrew.cooper3@citrix.com>;
->> Roger Pau Monné <roger.pau@citrix.com>; xen-devel@lists.xenproject.org
->> Subject: Re: [PATCH v8 8/8] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
->> xen_sysctl_pm_op for amd-cppc driver
->>
->> On 28.08.2025 12:06, Penny Zheng wrote:
->>> @@ -154,6 +156,17 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op
->> *op)
->>>       else
->>>           strlcpy(op->u.get_para.scaling_driver, "Unknown",
->>> CPUFREQ_NAME_LEN);
->>>
->>> +    /*
->>> +     * In CPPC active mode, we are borrowing governor field to indicate
->>> +     * policy info.
->>> +     */
->>> +    if ( policy->governor->name[0] )
->>> +        strlcpy(op->u.get_para.u.s.scaling_governor,
->>> +                policy->governor->name, CPUFREQ_NAME_LEN);
->>> +    else
->>> +        strlcpy(op->u.get_para.u.s.scaling_governor, "Unknown",
->>> +                CPUFREQ_NAME_LEN);
->>
->> Isn't pulling this ...
->>
->>>       if ( !cpufreq_is_governorless(op->cpuid) )
->>>       {
->>>           if ( !(scaling_available_governors =
->>
->> ... out of this if()'s body going to affect HWP? It's not clear to me whether that would
->> be entirely benign.
->>
-> 
-> HWP has its own unique "hwp" governor. So, imo, it may not affect.
+According to the Arm SMMUv3 spec (ARM IHI 0070), a system may have
+SMMU(s) that is/are non-coherent to the PE (processing element). In such
+cases, memory accesses from the PE should be either non-cached or be
+augmented with manual cache maintenance. SMMU cache coherency is reported
+by bit 4 (COHACC) of the SMMU_IDR0 register and is already present in the
+Xen driver. However, the current implementation is not aware of cache
+maintenance for memory that is shared between the PE and non-coherent
+SMMUs. It contains dmam_alloc_coherent() function, that is added during
+Linux driver porting. But it is actually a wrapper for _xzalloc(), that
+returns normal writeback memory (which is OK for coherent SMMUs).
 
-get_hwp_para() writes into the same union:
-op->u.get_para.u.cppc_para
-op->u.get_para.u.s.scaling_governor
+During Xen bring-up on a system with non-coherent SMMUs, the driver did
+not work properly - the SMMU was not functional and halted initialization
+at the very beginning due to a timeout while waiting for CMD_SYNC
+completion:
 
-Which is why I avoided it for hwp.
+  (XEN) SMMUv3: /soc/iommu@fa000000: CMD_SYNC timeout
+  (XEN) SMMUv3: /soc/iommu@fa000000: CMD_SYNC timeout
 
-I guess writing scaling_governor first and then overwriting it still 
-ends up with the same data in cppc_para.  Seems a little messy though.
+To properly handle such scenarios, add the non_coherent flag to the
+arm_smmu_queue struct. It is initialized using features reported by the
+SMMU HW and will be used for triggering cache clean/invalidate operations.
+This flag is not queue-specific (it is applicable to the whole SMMU), but
+adding it to arm_smmu_queue allows us to not change function signatures
+and simplify the patch (smmu->features, which contains the required flag,
+are not available in code parts that require cache maintenance).
 
-Penny, I'm confused by this comment:
-+    /*
-+     * In CPPC active mode, we are borrowing governor field to indicate
-+     * policy info.
-+     */
+Signed-off-by: Dmytro Firsov <dmytro_firsov@epam.com>
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+Tested-by: Mykola Kvach <mykola_kvach@epam.com>
+---
+v2:
+ - changed comment for non_coherent struct member
+ - added Julien's RB
+ - added Mykola's TB
+---
+ xen/drivers/passthrough/arm/smmu-v3.c | 27 +++++++++++++++++++++++----
+ xen/drivers/passthrough/arm/smmu-v3.h |  3 +++
+ 2 files changed, 26 insertions(+), 4 deletions(-)
 
-You have CPPC active and passive modes - which uses a governor and which 
-uses get_cppc?
-
-It seems like only writing the scaling governor inside
-if ( !cpufreq_is_governorless )
-
-should be correct since it's using the union.  Am I missing something?
-
-Thanks,
-Jason
+diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthroug=
+h/arm/smmu-v3.c
+index bca5866b35..c65c47c038 100644
+--- a/xen/drivers/passthrough/arm/smmu-v3.c
++++ b/xen/drivers/passthrough/arm/smmu-v3.c
+@@ -341,10 +341,14 @@ static void queue_write(__le64 *dst, u64 *src, size_t=
+ n_dwords)
+=20
+ static int queue_insert_raw(struct arm_smmu_queue *q, u64 *ent)
+ {
++	__le64 *q_addr =3D Q_ENT(q, q->llq.prod);
++
+ 	if (queue_full(&q->llq))
+ 		return -ENOSPC;
+=20
+-	queue_write(Q_ENT(q, q->llq.prod), ent, q->ent_dwords);
++	queue_write(q_addr, ent, q->ent_dwords);
++	if (q->non_coherent)
++		clean_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_addr));
+ 	queue_inc_prod(&q->llq);
+ 	queue_sync_prod_out(q);
+ 	return 0;
+@@ -360,10 +364,15 @@ static void queue_read(u64 *dst, __le64 *src, size_t =
+n_dwords)
+=20
+ static int queue_remove_raw(struct arm_smmu_queue *q, u64 *ent)
+ {
++	__le64 *q_addr =3D Q_ENT(q, q->llq.cons);
++
+ 	if (queue_empty(&q->llq))
+ 		return -EAGAIN;
+=20
+-	queue_read(ent, Q_ENT(q, q->llq.cons), q->ent_dwords);
++	if (q->non_coherent)
++		invalidate_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_addr));
++
++	queue_read(ent, q_addr, q->ent_dwords);
+ 	queue_inc_cons(&q->llq);
+ 	queue_sync_cons_out(q);
+ 	return 0;
+@@ -458,6 +467,7 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_devi=
+ce *smmu)
+ 	struct arm_smmu_queue *q =3D &smmu->cmdq.q;
+ 	u32 cons =3D readl_relaxed(q->cons_reg);
+ 	u32 idx =3D FIELD_GET(CMDQ_CONS_ERR, cons);
++	__le64 *q_addr =3D Q_ENT(q, cons);
+ 	struct arm_smmu_cmdq_ent cmd_sync =3D {
+ 		.opcode =3D CMDQ_OP_CMD_SYNC,
+ 	};
+@@ -484,11 +494,14 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_de=
+vice *smmu)
+ 		break;
+ 	}
+=20
++	if (q->non_coherent)
++		invalidate_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_addr));
++
+ 	/*
+ 	 * We may have concurrent producers, so we need to be careful
+ 	 * not to touch any of the shadow cmdq state.
+ 	 */
+-	queue_read(cmd, Q_ENT(q, cons), q->ent_dwords);
++	queue_read(cmd, q_addr, q->ent_dwords);
+ 	dev_err(smmu->dev, "skipping command in error state:\n");
+ 	for (i =3D 0; i < ARRAY_SIZE(cmd); ++i)
+ 		dev_err(smmu->dev, "\t0x%016llx\n", (unsigned long long)cmd[i]);
+@@ -499,7 +512,10 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_dev=
+ice *smmu)
+ 		return;
+ 	}
+=20
+-	queue_write(Q_ENT(q, cons), cmd, q->ent_dwords);
++	queue_write(q_addr, cmd, q->ent_dwords);
++
++	if (q->non_coherent)
++		clean_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_addr));
+ }
+=20
+ static void arm_smmu_cmdq_insert_cmd(struct arm_smmu_device *smmu, u64 *cm=
+d)
+@@ -1587,6 +1603,9 @@ static int arm_smmu_init_one_queue(struct arm_smmu_de=
+vice *smmu,
+ 	q->q_base |=3D FIELD_PREP(Q_BASE_LOG2SIZE, q->llq.max_n_shift);
+=20
+ 	q->llq.prod =3D q->llq.cons =3D 0;
++
++	q->non_coherent =3D !(smmu->features & ARM_SMMU_FEAT_COHERENCY);
++
+ 	return 0;
+ }
+=20
+diff --git a/xen/drivers/passthrough/arm/smmu-v3.h b/xen/drivers/passthroug=
+h/arm/smmu-v3.h
+index f09048812c..ab07366294 100644
+--- a/xen/drivers/passthrough/arm/smmu-v3.h
++++ b/xen/drivers/passthrough/arm/smmu-v3.h
+@@ -522,6 +522,9 @@ struct arm_smmu_queue {
+=20
+ 	u32 __iomem			*prod_reg;
+ 	u32 __iomem			*cons_reg;
++
++	/* Is the memory access coherent? */
++	bool				non_coherent;
+ };
+=20
+ struct arm_smmu_cmdq {
+--=20
+2.50.1
 
