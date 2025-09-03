@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E682B415AB
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 08:56:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1107885.1458079 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 023C0B41702
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 09:41:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1107917.1458101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uthPL-0006Ju-9f; Wed, 03 Sep 2025 06:55:51 +0000
+	id 1uti7N-0004BE-NI; Wed, 03 Sep 2025 07:41:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1107885.1458079; Wed, 03 Sep 2025 06:55:51 +0000
+Received: by outflank-mailman (output) from mailman id 1107917.1458101; Wed, 03 Sep 2025 07:41:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uthPL-0006HS-70; Wed, 03 Sep 2025 06:55:51 +0000
-Received: by outflank-mailman (input) for mailman id 1107885;
- Wed, 03 Sep 2025 06:55:50 +0000
+	id 1uti7N-00048s-KU; Wed, 03 Sep 2025 07:41:21 +0000
+Received: by outflank-mailman (input) for mailman id 1107917;
+ Wed, 03 Sep 2025 07:41:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=b4jG=3O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uthPK-0006HM-5j
- for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 06:55:50 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1uti7L-00048m-Vh
+ for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 07:41:19 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05eddf29-8893-11f0-9d12-b5c5bf9af7f9;
- Wed, 03 Sep 2025 08:55:49 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-61cf0901a72so9458793a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 02 Sep 2025 23:55:49 -0700 (PDT)
+ id 60c9ad76-8899-11f0-9d12-b5c5bf9af7f9;
+ Wed, 03 Sep 2025 09:41:18 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-b0428b537e5so503317566b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Sep 2025 00:41:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cfc1c77f9sm11314824a12.8.2025.09.02.23.55.47
+ a640c23a62f3a-b0427c0d4cbsm714577166b.45.2025.09.03.00.41.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Sep 2025 23:55:48 -0700 (PDT)
+ Wed, 03 Sep 2025 00:41:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05eddf29-8893-11f0-9d12-b5c5bf9af7f9
+X-Inumbo-ID: 60c9ad76-8899-11f0-9d12-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756882548; x=1757487348; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756885278; x=1757490078; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+D0dgYdAzqhdFgfDa05EDsaAPryxTBJIiIfAW4Tgdds=;
-        b=Rbl+SM3UVV84yAUErKQnNhZE2qjvF2xyOIPGIAOtzBE9M4Bk3EDsCBMQbWOhRsz+vH
-         JUBFxWS6ZuSxDEEMzcmvmcHTaEF6UaxLuuAkMDZIde+WmNIVc6L70CYvRfeyp9mHZv5p
-         UP804th21BbXVMeM07oPYuhmwpd5uFnoDArLyfzs48C/67oQVkCBrOyKYvZhsu0QZo0M
-         nmmltFqbHU6/6KcuJhxL5lf0cRiwF1Geip/43w93RdNiDlQq0fbs2RfybUwulNO2C76e
-         QtjrMQrqqJKgu1jFO7+vNxXR90bBovHIJeSeSgYDoNGT0tbfLsItt2MDj5/o4hjEzPJg
-         JmAg==
+        bh=KAvnL5SRF5Lo+M2iHOGAS/PugArumXQv5xsmK4GAAu8=;
+        b=PsBbYdZOT84y7M1VH5OMrkOyfpB58CQLzJZnD5Z+CtOJ+nOdVIt5A3BK4wSPbmTBJB
+         OyE02Xbijxfb8yfYD1LWzBj8PFS50Xthv/nRvdTiUbAxd9ySh9dNAZP4dU75er5xE8Dk
+         anA/UQGevV45yVYFQhpkdq8pDwb8YDanXYcVRKJYCbx5nqjqxnrNLgg3jD0wU4Hu8NUq
+         3v77ufBUB/zvrnodCy6SnvaYKiNQYHEImLi8UDdHhrXu2YMLtrkBSTqwphelu0lmTv5P
+         UGw9Rj1aMVcgy+Y42aLUpwD75RHMmIu0y3DpdiUFIZ28UTmH1vB3D1vStkSkQ5ekPN+H
+         gf/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756882548; x=1757487348;
+        d=1e100.net; s=20230601; t=1756885278; x=1757490078;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+D0dgYdAzqhdFgfDa05EDsaAPryxTBJIiIfAW4Tgdds=;
-        b=t2k6vrs4CwmP9dwbL9iO5RlkYYJiGCkrPOJ7I2t0WaEJEtf3X6zm06Ta+bX51fjx2J
-         paRjdovXZzT4+Wvua1WqwMXY4KTIch/h1APfBGHwBKWTnLKFw6TMP8Ek5oHrFT219EUv
-         OzO4FEcT2Rwz3sigm77keggYiH92F8ZR7Ya4R0njylVeRGEb/WtIrdutfi6ThH/H+VZO
-         Ae5tvOhNNJTItp9vINpyKlALJfVpvjtfapzQ7YWphJyk2dWzMMEXH3rph2FlFqHCugG0
-         vRk8feN2qpwDLhVyVQYnvMgi5kvK40mqx8kkXi21WFwstsYQOuoB5BdLGtsu0nrzeY8R
-         8QPg==
-X-Forwarded-Encrypted: i=1; AJvYcCU6K/aiHpMXOXJ/ppyPvJ4Fad8Ddp5/tm1rE03tW52f8wQsPEtTLzwSDSA+QJj25m+IPDwDEwdhrks=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywz9dW0fpePA68GsbuMRbLOYVivndQIvpBypZmx26LTV8XM0Gni
-	QmCcg6KBn2gMjc0P4ozaNXE28k24sbSvP0FWadZUEssRQveW0IwR5TIioz1VfMrHRg==
-X-Gm-Gg: ASbGncuxIu/G+5g1jvAQlyNFasT811AV2EZ0k8fqbYE7IdmLrD1jBacv1yFT/dWM4jg
-	DnKyNmRQlL4E/xaIrwydMfHtdrlc8LVrjc5rhbKDji51561+1ZypVxe6H1+G/D+a7mWzqNkNJ/8
-	0dZ023nvue7vqwjZ0KaE3pZZK4htTlTzfO3c/nkrmT7urGwdDdvGL5GrMKVfKkOQRdEFFMSOM0e
-	G0OlplejwxtlZmNoDSG5h0Qq/Tm22aM7zi4LYGYmvAnKxziPPQfEa+gJ9YcVWvoKxknK3RPWnpl
-	uHeZImnpUV1yjUFGixLG/EU86A1DLNliJduDyDwP8Zg6S9loEstLO8LsUQccYGoUsuHmdLUCe9G
-	JQXwdaFrNltroMcq+AuO1K5CIyMDCZgfaPeiQDmKqOMIk7qVNdUCnWubaO9CK/3cLfzJGMZLzn4
-	tNktkrZ9hfsvk9FiGM2A==
-X-Google-Smtp-Source: AGHT+IHK2NDAsCPqbNh7WJuIkTl1J7oIOgPZeqybWiy8KfApeyqh8zN7PazMPrt0sbnEHq8JmTjk0A==
-X-Received: by 2002:a05:6402:5211:b0:61d:1d16:19b1 with SMTP id 4fb4d7f45d1cf-61d2699c0bamr12506353a12.14.1756882548418;
-        Tue, 02 Sep 2025 23:55:48 -0700 (PDT)
-Message-ID: <4f6c48af-a3aa-4609-a805-51867f01d99e@suse.com>
-Date: Wed, 3 Sep 2025 08:55:47 +0200
+        bh=KAvnL5SRF5Lo+M2iHOGAS/PugArumXQv5xsmK4GAAu8=;
+        b=AsoHbTrz3b0UGvysscQZpZhFdSyirwP8jYG94qR9u2BnKIU7nCV16LWn9E6EbJY7g6
+         JaXbf/4Cg/3XfzjTQP7jXBbCsaD2HsgxX61mN2YYZCIaYrkHc+QwO9YH7fpA2idSGmDK
+         drfIhnLaOsads7yHXY0q6L+K7VyHEg/7PQEM6kXDcDBT3R4RnYi+aHIUNYpk38//lou3
+         YvrSBPeXQfcj1M4pdQx8VKkA8lPlCOzKcN+Y5YFsf4ivMFQ+YekeKGlVrtgX2iHqjcrN
+         7Y2qiZl1WPCl5jF76RXNtzNgBnQMCd4MKnPS4GC+45vrpcI3PoXX9cvtpRDpcBYm7Pf0
+         WwgA==
+X-Forwarded-Encrypted: i=1; AJvYcCVnrxjzya+UDVDsdHIzvsaGzpGFD2dVsnzr9q+fLfjrD/UahB85FcQqqlgyO0pmjMGO0WkjYx/7mT0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJ0muf6/K52RT7Yy6l5wPTcW3h0W7jk40O8kl65js9wxL1RSf+
+	r+/zUm4VScF9nlyCp7l//LesqegjlpuCUTMTtIS0vAh5QGVu1gI37Bd2nzE/RD1iBg==
+X-Gm-Gg: ASbGncuBAxPVd4DKBRoVQDeohgyWui00uH1Nw/RR+8OIkA+HhoT3Hg8vtkAQuz7n7Vk
+	aX1ehcVslGfPAsHEh5q0TfWdml4nSWSGGTgTZDKsbWC93GHbRcScO1zziyOg7FN0cl4hnY8Ny3J
+	VwPXz2bbgCgp4UvrpJE5+HKuflNccfRE8Ok9EAGeaXjUu/qNAsxTw706NrLvxAIq3KUggk6Jr/k
+	m57/tsjghS1D4EwHBqJPeDIEh0Rm8RPw/2DROWH7REt1eAeeV36QF9gYHOx2HBH+prclA8XLGe/
+	yx592gc8iGLRDhI7rSZQWs2t2d9OE963DDhcXrciS/qmBICapzcltKWFk+dhkdeHjUf54lACnYM
+	fECyamO+xhN7yTMv/Dbh4/57+k5jI4Mgn9RwAEcR9J5vnD1p+ItHJz+YzVWG6VUHVVUomn+Tl76
+	ilR/DNTDs=
+X-Google-Smtp-Source: AGHT+IFkMihsqnaS9GprkQ0zfoziB9ZtGqnlNRhuR3tny2FbLUOJkaBnkDARShsHiFRLzr12kMqKCQ==
+X-Received: by 2002:a17:907:928a:b0:b04:5b3d:c31f with SMTP id a640c23a62f3a-b045b3dc692mr377292066b.49.1756885277887;
+        Wed, 03 Sep 2025 00:41:17 -0700 (PDT)
+Message-ID: <5934de0f-2bdd-49a3-8159-f1af4ce5b4e3@suse.com>
+Date: Wed, 3 Sep 2025 09:41:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] releases: use newer compression methods for tarballs
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <b07e8b46-06b1-4f41-958a-d8739778c50e@suse.com>
- <f0ac2189-c117-4ce5-9a1f-174df898eefb@citrix.com>
+Subject: Re: [PATCH v8 8/8] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
+ xen_sysctl_pm_op for amd-cppc driver
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Andryuk, Jason" <Jason.Andryuk@amd.com>
+References: <20250828100601.1777197-1-Penny.Zheng@amd.com>
+ <a855a0b4-21dc-4f63-9849-6e5c7ec2e6b3@suse.com>
+ <DM4PR12MB8451C7146814C9C359B078B5E101A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <7ec5e23e-2415-41b7-ab3e-7b0a7007bd1f@suse.com>
+ <DM4PR12MB845194FD2BDFA3930CA066E5E101A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,107 +127,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f0ac2189-c117-4ce5-9a1f-174df898eefb@citrix.com>
+In-Reply-To: <DM4PR12MB845194FD2BDFA3930CA066E5E101A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 02.09.2025 18:15, Andrew Cooper wrote:
-> On 25/08/2025 2:54 pm, Jan Beulich wrote:
->> --- a/tools/misc/mktarball
->> +++ b/tools/misc/mktarball
->> @@ -5,14 +5,6 @@
->>  # Takes 2 arguments, the path to the dist directory and the version
->>  set -ex
->>  
->> -function git_archive_into {
->> -    mkdir -p "$2"
->> -
->> -    git --git-dir="$1"/.git \
->> -	archive --format=tar HEAD | \
->> -	tar Cxf "$2" -
->> -}
->> -
->>  if [[ -z "$1" || -z "$2" ]] ; then
->>    echo "usage: $0 path-to-XEN_ROOT xen-version"
->>    exit 1
->> @@ -21,14 +13,20 @@ fi
->>  xen_root="$1"
->>  desc="$2"
->>  
->> -tdir="$xen_root/dist/tmp.src-tarball"
->> +tdir="$xen_root/dist"
->>  
->> -rm -rf $tdir
->> +rm -f $tdir/xen-$desc.tar.[glx]z
+On 03.09.2025 08:46, Penny, Zheng wrote:
+> [Public]
 > 
-> This is asymmetric with the rm at the end.  I'd remove
-> $tdir/xen-$desc.tar* here and remove the final rm.
-
-Can do, but ...
-
-> Looking at the uncompressed tarball is part of my process, and it was
-> preserved previously.
-
-... afaics none was ever generated previously. git_archive_into() piped git's
-output into an "untar", and then the resulting tree was all that was ever
-acted upon, with tar directly piping into gzip.
-
-If we were retaining the uncompressed tarball, it wasn't quite clear to me
-whether that might get in the way of the uploading process: We surely want to
-upload only the compressed ones.
-
-> With something along these lines, Reviewed-by: Andrew Cooper
-> <andrew.cooper3@citrix.com>
-
-Thanks, but the above first need clarifying (at the very least because I would
-want to somehow mention the behavioral change in the description, yet then
-there may be none if my observation was wrong).
-
->>  mkdir -p $tdir
->>  
->> -git_archive_into $xen_root $tdir/xen-$desc
->> +git --git-dir="$xen_root/.git" archive --format=tar HEAD --prefix=xen-$desc/ \
->> +    >"$tdir/xen-$desc.tar"
->> +
->> +gzip -9k "$tdir/xen-$desc.tar" &
->> +xz -9k "$tdir/xen-$desc.tar" &
->> +lzip -9k "$tdir/xen-$desc.tar" &
->> +wait
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Wednesday, September 3, 2025 2:22 PM
+>> To: Penny, Zheng <penny.zheng@amd.com>
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; Anthony PERARD
+>> <anthony.perard@vates.tech>; Andrew Cooper <andrew.cooper3@citrix.com>;
+>> Roger Pau Monné <roger.pau@citrix.com>; xen-devel@lists.xenproject.org;
+>> Andryuk, Jason <Jason.Andryuk@amd.com>
+>> Subject: Re: [PATCH v8 8/8] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
+>> xen_sysctl_pm_op for amd-cppc driver
+>>
+>> On 03.09.2025 05:14, Penny, Zheng wrote:
+>>> [Public]
+>>>
+>>>> -----Original Message-----
+>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>> Sent: Thursday, August 28, 2025 7:07 PM
+>>>> To: Penny, Zheng <penny.zheng@amd.com>
+>>>> Cc: Huang, Ray <Ray.Huang@amd.com>; Anthony PERARD
+>>>> <anthony.perard@vates.tech>; Andrew Cooper
+>>>> <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>;
+>>>> xen-devel@lists.xenproject.org
+>>>> Subject: Re: [PATCH v8 8/8] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
+>>>> xen_sysctl_pm_op for amd-cppc driver
+>>>>
+>>>> On 28.08.2025 12:06, Penny Zheng wrote:
+>>>>> @@ -154,6 +156,17 @@ static int get_cpufreq_para(struct
+>>>>> xen_sysctl_pm_op
+>>>> *op)
+>>>>>      else
+>>>>>          strlcpy(op->u.get_para.scaling_driver, "Unknown",
+>>>>> CPUFREQ_NAME_LEN);
+>>>>>
+>>>>> +    /*
+>>>>> +     * In CPPC active mode, we are borrowing governor field to indicate
+>>>>> +     * policy info.
+>>>>> +     */
+>>>>> +    if ( policy->governor->name[0] )
+>>>>> +        strlcpy(op->u.get_para.u.s.scaling_governor,
+>>>>> +                policy->governor->name, CPUFREQ_NAME_LEN);
+>>>>> +    else
+>>>>> +        strlcpy(op->u.get_para.u.s.scaling_governor, "Unknown",
+>>>>> +                CPUFREQ_NAME_LEN);
+>>>>
+>>>> Isn't pulling this ...
+>>>>
+>>>>>      if ( !cpufreq_is_governorless(op->cpuid) )
+>>>>>      {
+>>>>>          if ( !(scaling_available_governors =
+>>>>
+>>>> ... out of this if()'s body going to affect HWP? It's not clear to me
+>>>> whether that would be entirely benign.
+>>>
+>>> HWP has its own unique "hwp" governor. So, imo, it may not affect.
+>>
+>> How does it matter what (unique or not) governor it uses? The relevant aspect (to
+>> me) is the !cpufreq_is_governorless() check that previously guarded the copying
+>> of the name. (It would be another thing if this was benign to HWP, but such would
+>> need clarifying in the description. Cc-ing Jason just in case.)
 > 
-> Interestingly, this wasn't fatal for not having lzip, but the error was
-> clear on the console given the reduced verbosity, and doing 3 at the
-> same time worked very nicely.
+> Sorry, What I mean is that HWP do have a governor, so such copying of the name shall be benign to the HWP. I'll clarify it in the description
 
-Well, obviously, because the exit status is effectively lost for async lists.
-
->> -GZIP=-9v tar cz -f $xen_root/dist/xen-$desc.tar.gz -C $tdir xen-$desc
->> +rm -f $tdir/xen-$desc.tar
->>  
->> -echo "Source tarball in $xen_root/dist/xen-$desc.tar.gz"
->> +echo "Source tarball in" $tdir/xen-$desc.tar.[glx]z
-> 
-> This was grammatically awkward to begin with, but is now pretty useless,
-> especially combined with the set -x so it gets printed twice.
-> 
-> Something like this:
-> 
-> echo "Source tarballs:"
-> ls -lah $tdir/xen-$desc.tar*
-> 
-> generates:
-> 
-> -rw-rw-r-- 1 andrew andrew  32M Sep  2 17:13 /home/andrew/xen.git/dist/xen-4.21-unstable.tar
-> -rw-rw-r-- 1 andrew andrew 6.8M Sep  2 17:13 /home/andrew/xen.git/dist/xen-4.21-unstable.tar.gz
-> -rw-rw-r-- 1 andrew andrew 4.7M Sep  2 17:13 /home/andrew/xen.git/dist/xen-4.21-unstable.tar.lz
-> -rw-rw-r-- 1 andrew andrew 4.7M Sep  2 17:13 /home/andrew/xen.git/dist/xen-4.21-unstable.tar.xz
-> 
-> 
-> on my system and is rather more useful IMO.
-
-I was indeed wondering whether to do something like this, but didn't because
-it again would have extended the scope of the patch. Now that you're asking
-for it, I will. I won't pass 'a' to ls though, as the glob doesn't allow for
-file names starting with '.'.
+FTAOD - "shall" isn't enough, it needs to be (provably) "is".
 
 Jan
 
