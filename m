@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE4C3B42654
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 18:13:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1108735.1458790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E7D2B42653
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 18:12:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1108736.1458799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utq6F-0000YJ-0i; Wed, 03 Sep 2025 16:12:43 +0000
+	id 1utq6H-0000mT-BX; Wed, 03 Sep 2025 16:12:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1108735.1458790; Wed, 03 Sep 2025 16:12:42 +0000
+Received: by outflank-mailman (output) from mailman id 1108736.1458799; Wed, 03 Sep 2025 16:12:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utq6E-0000WK-Tm; Wed, 03 Sep 2025 16:12:42 +0000
-Received: by outflank-mailman (input) for mailman id 1108735;
- Wed, 03 Sep 2025 16:12:41 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1utq6H-0000kW-8t; Wed, 03 Sep 2025 16:12:45 +0000
+Received: by outflank-mailman (input) for mailman id 1108736;
+ Wed, 03 Sep 2025 16:12:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1utq6D-0000WE-7k
- for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 16:12:41 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1utq6C-004fHW-2r
- for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 16:12:41 +0000
-Received: from mail-vk1-f181.google.com ([209.85.221.181])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1utq6D-00EXUO-08
- for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 16:12:41 +0000
-Received: by mail-vk1-f181.google.com with SMTP id
- 71dfb90a1353d-54494c3f7e3so32897e0c.3
+ (envelope-from <SRS0=b4jG=3O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1utq6F-0000ey-Le
+ for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 16:12:43 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d12eae53-88e0-11f0-9809-7dc792cee155;
+ Wed, 03 Sep 2025 18:12:41 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-61cc281171cso19006a12.0
  for <xen-devel@lists.xenproject.org>; Wed, 03 Sep 2025 09:12:41 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b046f2dda22sm134420466b.40.2025.09.03.09.12.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 03 Sep 2025 09:12:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,103 +45,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Content-Type:To:Subject:Message-ID:Date:
-	From:MIME-Version; bh=3T7ONl120rt7DynkOWZgU7o776H43FGtrof5fUbU7LA=; b=qzByZ+l
-	2GDdpm0b+cdsyy7RumekVpg0XDA+vNFkDgnax2g537ZgK9EDBB+xfN58KYY7ykqTTVj2dYzmm+2hU
-	fsTJTDBPkAWp0I6/2tn0qmZqT6jmATk/cgxRqATF88MOAkjMetbXGvgebBZgHv2K6XSsaX4gMvwal
-	JPhFYFkMvQ=;
-X-Gm-Message-State: AOJu0YwSV54FGYL+PHbj1mvdTqausRsKqIv6esuFtgwZpSegyv4+EtR/
-	6TcK7sP6OWF/gGQuEP9Ve6nJ6jaPzmfQWJQdQWAIfVD8IjQ9mcBHmjxZQH9tZXrqueiEtdiVlW0
-	wGIQP6i/jAFlbODYgzMXLIELqHJVY1aI=
-X-Google-Smtp-Source: AGHT+IHCodRux8M1NXNWf8JeRJcZlYsRRpueRkIgXc/lGyzE7MXMY2YOr8QwwIlTEJ91gmPYTXc7RJpQHF++Y/Xfysc=
-X-Received: by 2002:a05:6122:1350:b0:531:4041:c4c5 with SMTP id
- 71dfb90a1353d-544a01cf405mr4619082e0c.7.1756915960513; Wed, 03 Sep 2025
- 09:12:40 -0700 (PDT)
+X-Inumbo-ID: d12eae53-88e0-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1756915961; x=1757520761; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QUf9Bi1fhQo7vi2u6LKUPiphXi834CMqGISW0FVoQo0=;
+        b=dskfjaZ4Urm2fjKqwyPnmNUg+qDDXeGHoZFZXMZu5e+CZbmlEF0VCp1g8fMDpYt8gL
+         XV4urUD/8aO+AvE1xRW3GPQEQCqlxDOvqevvrifJk2Lb+CQ37zDbn2tgJFsuz2gbQWxB
+         qp8bdfuLO3o9vjC9uKwlR6/MAfpoTuYUgh2+OIdfPrdDrSj7ZDuBiPTExgPc0ANntcoP
+         8GeLCblQ8cCdBxTBaCb1LOiME2w/zDOp7D7wOEZ+C8IJVHNuDMXT4BgSF9HcdSrlQ4We
+         ccvBJq49A5iEVujmS/gpreQvZAtcl39XsKnH89UygbSP3TBu5EB+QMMjybIBvDfENQpE
+         eKjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756915961; x=1757520761;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QUf9Bi1fhQo7vi2u6LKUPiphXi834CMqGISW0FVoQo0=;
+        b=fLNres6kLQkaeY2UyPY7+n/GbI+sZKtXNLXHyesF/5fV1GozCe2Qp1RZuuB+OMQHYS
+         fkMxym5/COShxAC3kO8N+Cp0YhBsGnRn6O5n7vKdZ7kW2VrKf64iewKWQuC98G72jPaV
+         vPq0yz0TQlnjmuFIGc6bw9LZ+J5CnqXx9uiQFmZiAWfIq9AQxiuiWE9PybfNutpjlgLy
+         U0d+uvVUfAukp5qcIBmOY4XtQ44UHjUhQ+Zs1HBWzt0If2abQdXbFwRMAiQaAjIR60Lk
+         K8ZrhUI7KGaRmYG+SQzhgti1G1I69OlFv/VcHHzLsEw6M1fR+Z9Wtj78nLcjCV8LJ6o2
+         OBdA==
+X-Forwarded-Encrypted: i=1; AJvYcCUdx+wXV8KAxDgPugbybpNPR+PgA9iwIYn8gHlTDaqQeE8jPhH81TClJ1e3Ek9Pqn+pyNdcPAU7KSE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz6+Z+YtB8Ykh3wYgXoK7PJEX+lTmmLz7kEg6e0rQTdcGkWpLR4
+	ZNB+kjvHWxX4qSrN83Q7gSxY+0CHTr/2JggF3SGbcNOJC5a4+73wUkYP9RqAElRrqQ==
+X-Gm-Gg: ASbGncutXo5rm1CvYa16RWSGgyVrjP3xYsQ6nj0aJiBxhDCBtD9rx6h+GQUStz7HwMK
+	GV2+7VPi+4LRt7dWDhFXDebiVMNswWL0KrX3GF05L0TJ2B+0BVyFgOijkpSrqQDNG2ktP5azuqs
+	xcwf5xUfPhOSSEXbidzS7x+mx2fBnfAVrceqGd2nRzv1MTIflbXxDtfDNvp51PkKUGsY2uAqlY7
+	JFiFklaIxtN8od97XJWGewp9QmqXJO3pbUSWBv+/RUeN0zurwpXpgvqiAD+GZYgt0aKgGmf1QYE
+	krUdZbqqChIdCUgWbQ7DVVvan9zWOYwyZ6t3qaZ/hCbpNjdIXCVQzbipbG5qr9PTUbQPS8m1tXL
+	Fb6xbuAbiLjxSP3U9jpM2nyHQcpHFkFU7pbPmilpA8RweiR5Hm8wp3a+PA0VPgDMTQpvfdpT6sB
+	EuI12JlvxSeQCpEr0GaA==
+X-Google-Smtp-Source: AGHT+IGvs8DYxc7WiMoCGafuAjEIsWW1mTSYnu8O6CEKhKgeSQkG2VRc1k94PTcbw0s7SC0TgvkW2A==
+X-Received: by 2002:a17:907:a0c8:b0:b04:3513:5138 with SMTP id a640c23a62f3a-b0435137355mr1042257066b.41.1756915960751;
+        Wed, 03 Sep 2025 09:12:40 -0700 (PDT)
+Message-ID: <6f310470-60f3-4c8e-a1fd-1216fd44e4ea@suse.com>
+Date: Wed, 3 Sep 2025 18:12:39 +0200
 MIME-Version: 1.0
-From: Cody Zuschlag <cody.zuschlag@xenproject.org>
-Date: Wed, 3 Sep 2025 18:12:29 +0200
-X-Gmail-Original-Message-ID: <CAJbE=Kw75D_qHMUsYOhtBAkXmtRaGAuGu0CoU4JK__sskFJ1dQ@mail.gmail.com>
-X-Gm-Features: Ac12FXxrBDs_tIPltVir-IgbDTf1hDntl1d40dzIpp9ePjRfu9kXuuXUqqW2bVQ
-Message-ID: <CAJbE=Kw75D_qHMUsYOhtBAkXmtRaGAuGu0CoU4JK__sskFJ1dQ@mail.gmail.com>
-Subject: Xen Summit Updates
-To: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000ba0ca7063de7df41"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] build: avoid absolute paths in executables
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <1071997f-efe6-4088-b753-b74d3a045a09@suse.com>
+ <795b069f-12ea-4d05-bdc4-877a6a93fe7c@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <795b069f-12ea-4d05-bdc4-877a6a93fe7c@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---000000000000ba0ca7063de7df41
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 03.09.2025 17:26, Andrew Cooper wrote:
+> On 03/09/2025 4:13 pm, Jan Beulich wrote:
+>> For in-tree builds relative paths are used, whereas for out-of-tree builds
+>> in various situations absolute ones come into play. The extra paths can be
+>> long, wasting space and e.g. serial line bandwidth. They would also get in
+>> the way of location-independent reproducible builds. Leverage newer gcc's
+>> (and Clang's) ability to "remap" file names. For older gcc fall back to
+>> using the option affecting debug info only.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Of course we may want to consider putting this in the top-level Config.mk,
+>> to also affect other sub-trees (presently mainly/only affecting debug
+>> info, for which even gcc5 already supports -fdebug-prefix-remap=).
+>>
+>> As to a Fixes: tag, I wasn't quite sure whether to "blame" the
+>> introduction of out-of-tree builds.
+>>
+>> --- a/xen/Makefile
+>> +++ b/xen/Makefile
+>> @@ -448,6 +448,8 @@ LDFLAGS-$(CONFIG_CC_IS_CLANG) += -plugin
+>>  endif
+>>  
+>>  ifdef building_out_of_srctree
+>> +    CFLAGS += $(call cc-option,$(CC),-ffile-prefix-map=$(srctree)/=, \
+>> +                                     -fdebug-prefix-map=$(srctree)/=)
+>>      CFLAGS += -I$(objtree)/include
+>>      CFLAGS += -I$(objtree)/arch/$(SRCARCH)/include
+>>  endif
+> 
+> We do want to be taking a change like this, but it's also definitely not
+> limited to out-of-tree builds.  I have full paths embedded even for
+> in-tree builds.
 
-Hi everyone,
+In xen-syms I see only two full paths - in debug info, supplying the base
+path to the tree. That's okay to stay imo.
 
-Xen Summit in Silicon Valley is starting in less than 2 weeks (September
-15-17). I hope you're ready for the big event!
+In xen.efi I see a few hundred, but they're all the same as above. As I
+learned earlier today, SHF_MERGE processing isn't invoked when linking
+ELF objects into a PE binary.
 
-Here are a few quick updates:
+> To be useful, it wants to apply to everything, not just the hypervisor,
+> so does want to be in the top level Config.mk.
 
-   - *Schedule:* The schedule is live <https://xensummit2025.sched.com/>!
-   We may make last-minute adjustments, so check back regularly.
-   - *Registration:* If you are attending, please register as soon as
-   possible. This helps us plan badges and meals. Attendees receive a daily
-   hot breakfast and lunch, plus an invitation to the Tuesday evening dinne=
-r
-   at Loma Brewing Co. <https://lomabrew.com/>.
-   - *Speakers:* You=E2=80=99ll receive a registration code and link.
-   - *Sponsors:* If your employer is a sponsor, ask for the sponsor
-   registration codes.
-   - *All others:* Please register here
-   <https://register.linuxfoundation.org/xen-summit-2025>.
-   - *International travelers*: Let me know if you need a visa letter or
-   formal invitation.
-   - *Diversity scholarship:* There=E2=80=99s still time to apply
-   <https://forms.gle/FepJ6sZ9tbxXRQo98>!
-   - *Design sessions:* Once you=E2=80=99re registered, watch for an email =
-with
-   details on how to suggest and vote for design sessions (or ask me). Thes=
-e
-   sessions are a great way to shape the future of Xen. Don=E2=80=99t miss =
-out!
+As per my first remark then. But no, I meanwhile realized that this can't
+go in Config.mk: For the hypervisor we want to use $(srctree), i.e.
+including the leaf /xen referencing the xen/ subtree. I expect that for
+e.g. tools/libs/ we'd want something similar - eliminate the entire path
+up to the base of the component's source dir. So it will need to be
+piecemeal.
 
-As always, don't hesitate to reach out if you have any questions. I'm here
-to help!
+> https://reproducible-builds.org/docs/build-path/ has a full list of
+> compiler versions. It looks like we need to use both options here until
+> we can increase the minimum GCC version to 8.
 
-Have a great day,
+Not quite, -ffile-prefix-map= is documented to imply all other
+-f*-prefix-map=, matching my observations.
 
+Bottom line - at least for now I think the patch wants to remain as is,
+and further patches for other parts of the tree will need making.
 
-Cody Zuschlag
-Xen Project - Community Manager
-
---000000000000ba0ca7063de7df41
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi everyone,<br clear=3D"all"></div><div><br></div><d=
-iv>Xen Summit in Silicon Valley is starting in less than 2 weeks (September=
- 15-17).=C2=A0I hope you&#39;re ready for the big event!</div><div><br></di=
-v><div>Here are a few quick updates:</div><div><ul><li><b>Schedule:</b> The=
- <a href=3D"https://xensummit2025.sched.com/">schedule is live</a>! We may =
-make last-minute adjustments, so check back regularly.</li><li><b>Registrat=
-ion:</b> If you are attending, please register as soon as possible. This he=
-lps us plan badges and meals. Attendees receive a daily hot breakfast and l=
-unch, plus an invitation to the Tuesday evening dinner at <a href=3D"https:=
-//lomabrew.com/">Loma Brewing Co.</a>.</li><li><b>Speakers:</b> You=E2=80=
-=99ll receive a registration code and link.</li><li><b>Sponsors:</b> If you=
-r employer is a sponsor, ask for the sponsor registration codes.</li><li><b=
->All others:</b> Please register <a href=3D"https://register.linuxfoundatio=
-n.org/xen-summit-2025">here</a>.</li><li><b>International travelers</b>: Le=
-t me know if you need a visa letter or formal invitation.</li><li><b>Divers=
-ity scholarship:</b> There=E2=80=99s still time to <a href=3D"https://forms=
-.gle/FepJ6sZ9tbxXRQo98">apply</a>!</li><li><b>Design sessions:</b> Once you=
-=E2=80=99re registered, watch for an email with details on how to suggest a=
-nd vote for design sessions (or ask me). These sessions are a great way to =
-shape the future of Xen. Don=E2=80=99t miss out!</li></ul></div><div><div>A=
-s always, don&#39;t hesitate to reach out if you have any questions. I&#39;=
-m here to help!</div></div><div><br></div><div>Have a great day,</div><div>=
-<br></div><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D=
-"gmail_signature"><div dir=3D"ltr"><img src=3D"https://ci3.googleuserconten=
-t.com/mail-sig/AIorK4x5nkRDCOFJDJAv9aMXdZ0mghItsp3D36JrwBCQtitBSW_0NeDS6mBm=
-J2F4vZVE2oBOqnY6IaJUrl12"><br><div>Cody Zuschlag</div><div>Xen Project - Co=
-mmunity Manager</div></div></div></div></div>
-
---000000000000ba0ca7063de7df41--
+Jan
 
