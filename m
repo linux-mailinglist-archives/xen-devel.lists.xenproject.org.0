@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B213B4245F
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 17:05:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1108596.1458667 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9AD1B424A0
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 17:13:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1108609.1458678 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utp2p-0002Tk-Mh; Wed, 03 Sep 2025 15:05:07 +0000
+	id 1utpAU-0004AR-F1; Wed, 03 Sep 2025 15:13:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1108596.1458667; Wed, 03 Sep 2025 15:05:07 +0000
+Received: by outflank-mailman (output) from mailman id 1108609.1458678; Wed, 03 Sep 2025 15:13:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utp2p-0002RD-Je; Wed, 03 Sep 2025 15:05:07 +0000
-Received: by outflank-mailman (input) for mailman id 1108596;
- Wed, 03 Sep 2025 15:05:05 +0000
+	id 1utpAU-00047I-Bn; Wed, 03 Sep 2025 15:13:02 +0000
+Received: by outflank-mailman (input) for mailman id 1108609;
+ Wed, 03 Sep 2025 15:13:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=b4jG=3O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1utp2n-0002R7-RW
- for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 15:05:05 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JIR0=3O=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1utpAS-00047C-8H
+ for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 15:13:00 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e836e0e-88d7-11f0-9809-7dc792cee155;
- Wed, 03 Sep 2025 17:05:03 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-61c26f3cf0dso10264724a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Sep 2025 08:05:03 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cfc4e4d77sm12213284a12.37.2025.09.03.08.05.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Sep 2025 08:05:02 -0700 (PDT)
+ id 7913455e-88d8-11f0-9809-7dc792cee155;
+ Wed, 03 Sep 2025 17:12:57 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-337cc414358so24929631fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Sep 2025 08:12:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,112 +40,492 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e836e0e-88d7-11f0-9809-7dc792cee155
+X-Inumbo-ID: 7913455e-88d8-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756911903; x=1757516703; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=r2BF/xXcKol29erf7Ae6jp/+Miz9iZhWqtqkfFCme/U=;
-        b=DEK55NdrdlmTAgb7XlYInBu8d+vO67kHh4b66A8Hrfp72y/CK7BHkUdHsBGHY/byK/
-         7WjC8HmE7O75tBGW0soBm2XXmPN8LEcfyyYoiraoVsVx7CMw/VU3M6v1Gmz0XRQkQqo8
-         z0mH77vnTc3m7aSZ0imx1Qr7PZF1+ENdBg1mdRo4y4MziIsD/IgfSNeawCcSuTbfOfSZ
-         oidimjBkbcVEWmRQzMm/KAU+oOSQsruAEhmHRTc3JzlpJG1BoLKoCTsxVxgfU45t55zG
-         WfQLkXFQP2UCQlgsUeIJ12YDOhF1emz3Hm6qvD3ExqPHYQkVhOy+8pkooioy78auPEor
-         ZYgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756911903; x=1757516703;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1756912377; x=1757517177; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=r2BF/xXcKol29erf7Ae6jp/+Miz9iZhWqtqkfFCme/U=;
-        b=gMwpxH8YKe/fnwyR1nLk8RpSZgfIGAAfLcCbtPmiZW0VwLM0rP9nLq2rRf+rc8bLLJ
-         cJfNzpYhrO7dbv8jH0rSrQOssV1xg+sCdLiZdD7W8xRJv/xlEj7YexDTj3z1XkAzyNk0
-         3R1/5Fsyza9H7/MdyB69zTGwzoR5TMGcAJbLmlY9w/hIFurmw1664sC09oyoChjoEj9f
-         CpaVQ1zzrvl6srf8I5byRl9aTc56KCZ8Mvei5pzccS9FPwApI4Ng5qF/m5g0ntmuPDZE
-         IsD1hY+RmYWm4wbunv8Uwauknw4cl7hwJ628Mm0GcEjWuvAw5lJBKq/LGAR8HKYorxZr
-         ZroQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVG6B+dXkpWwUavxjqupOUi0C5mH3/ksN3SLasGkiu39N2OjsjGoS7f0Gsfy+IqKZq/NBri+3/mhPk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxrcPNEC4oFd6ABWkRaMPHuHui4M9vj5EaYng9HX3meCorP9ZdB
-	8/+cIR9oKwF9SAuHZ1DH8LhXD+hcGSmFh9GupzEnolikW4uvseJcNsEGreX8PgX/fA==
-X-Gm-Gg: ASbGncvq/db1yqBy2ZIsztOYJHZaebPSD7lMY3UGD68DhyICYDmQOQPoGxFz5glUQB4
-	60tgR1KRURSQXzNlzfvknPg8BZjy2HlZGcwcZT0qXG7UUgLUFZJzOxy5Fh1ATZCYKecIU9YunnD
-	8xhj4dpJCln+U4XFqCTObjU+WxbVVvRmvEPl++XgfectNNNPE6VA5w9r2nZv/9hX2rSQX+rqgdD
-	6fylTLUBQNbC8qJ724j5Bh4C+84czqUkByqV42MX7u5QnC+tM3N0L1Or2wsI/5HTXe+fPIchqty
-	6EBrWtIp6WFkdtkphtx0U4IIkgouDVKx+83g24TJX4P8VzScXGxiCBZNtpgnYVk2AvXz28Ok8kn
-	NEeFcoXB8iMne8dFep2vjUuvO2sJh3uoxrWGgktr9I2qP5keCksVS3xxu+sQDbe+DutLzRkgKyW
-	Uy3KxLfvN3x+qRARzADA==
-X-Google-Smtp-Source: AGHT+IFT0vNMM7xVCDB94bcjRtJRR0h/b2zHPsluKJ3+gcFdv4w4+nRJu2qc36AdKqcWoCkVrcxeIQ==
-X-Received: by 2002:a05:6402:2115:b0:61e:ca25:3502 with SMTP id 4fb4d7f45d1cf-61eca25373emr4266730a12.17.1756911902849;
-        Wed, 03 Sep 2025 08:05:02 -0700 (PDT)
-Message-ID: <b7096361-f47d-4241-baf0-180a01a3d057@suse.com>
-Date: Wed, 3 Sep 2025 17:05:01 +0200
+        bh=dap0rzn1CXYPNl7tCjbofW12YcUy+X+dfljiWUGZF3c=;
+        b=OLwbeBBzrgWT9KBjra4WrT44JPJKTASozFh4NVVV5I1ZTLmEX6N0fdrRyyJ8BZPJCn
+         IbNeLt7CXGX3oXyAYzHuvS7vFytmr/lY9RKSmArXHYQMxXB1q715APQQ+hwdaBZcD25x
+         KI5IDc66MacvxMZLpYH8mKyG5I8SIDF0NXzuAUkADBG+IrnhOPDSfdoCurNxY6oNEjIR
+         bGcIkNDmPOxqFEE1VM1XIHW1w8D+oM1sz8EK3aExW1V9ZAZyXCTHMHUcBEQ4fAydlCYF
+         RRMO2LFqSN2uqG5XbuCTIXdimU3aQeUj1UAm7aKPybx0SFYH8qanqkFRjgn9fGCsJkhk
+         0iUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756912377; x=1757517177;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=dap0rzn1CXYPNl7tCjbofW12YcUy+X+dfljiWUGZF3c=;
+        b=dp9X6cBwJ2XNbZDDV9/1h8jO+vYdT5WT2Nsy5GktUk5KmknfnYl7pAfuhJpaNSXVcb
+         C5Jfr68SKsutoNGbyBIe2tkTvPEDLvzPUQa6/jT/qXtYKKZz9+NWkXrhDfPlGcwJ1m1R
+         BmbiH2bSaRh/5N/dcuVSd2o9FdSVGLVvgdhiXPXBRRhdlroIZpnLr4YcedTFfg1onfLR
+         ukg06UDNWrwyKDmUWeezeKxbjnWdt44/9ZvRcyixLXcjnvEeR4IOBdhJDYg+uP4JJsWT
+         88jRLuMPsMC939LJP6j7nBG0Niv8Fb9xk6itctkkNcRzf/0/JnXEEXA7jGUALGJSyrL6
+         HQxQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUnjeu1hMhvP0XoqMYlhgLvN92Xpp5OXg4bx9rEZy+979Vng5rIMiwWdPyzWOY5c4r6nxzVrSaDQH8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzFF8YMpsJtRfingonioLdVH8awKm8tvcqvuyipaHRV7BeH3XmB
+	zObpSY8Mkj6UFzdfU50oQGtSLr/wXKlOom6/IrutYr+DTqeSOvA/L4S7CiN4ikY4HLAVWg6QqOl
+	xLirCDDSvzfQKWi8YZ3w6kPfUz3ptUdA=
+X-Gm-Gg: ASbGncs+PcqeuE+81bf+sXwc27/+n2UUjUDM4zbdDD74iRU9uZ2jZv3rgDB4yqDiZqr
+	LwAmfwE5Fd7j02BBF0kn+96r/HPAnylFDZaH4FaBQyiqa8Gn8DCNSr89nqwDfxByRs0KB7RtiDI
+	sjnBoJfK2klJY6RadKqnwiX3HFBASUU+6YU0GtcEfx//NPB6u7+ZB4AkR3yStgv+u6Ci/cCzy7E
+	CTyBg==
+X-Google-Smtp-Source: AGHT+IFRQJ4dbE9S/GLPZ2bOUzTs7T5YfDEWIR/O2CTgrDgLHZmkO2qIsPSB5J/uSyu0svNFugS4HLKEwZTz+cc2wUs=
+X-Received: by 2002:a05:651c:e17:b0:336:5e1f:b1ec with SMTP id
+ 38308e7fff4ca-336cad33ce6mr38899791fa.31.1756912376372; Wed, 03 Sep 2025
+ 08:12:56 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH v2 2/3] hvmloader: Update to SMBIOS 2.6
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <cover.1756460430.git.teddy.astie@vates.tech>
- <57c674cc364d3b8f4c6d03533b9e2b45728d2c19.1756460430.git.teddy.astie@vates.tech>
- <d422e3d6-48c5-478a-bf76-6aa39492d767@suse.com>
- <fdb2b2d2-a9d8-42ad-b9fc-e99905f5dbba@vates.tech>
- <0190dbe1-4583-49c1-86c1-9bcb57844315@suse.com>
- <f2180c69-49f8-429d-9ec2-ca3233287ef3@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f2180c69-49f8-429d-9ec2-ca3233287ef3@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1756763487.git.mykola_kvach@epam.com> <3a05d0f188943173703690981a7590fd12fabd4c.1756763487.git.mykola_kvach@epam.com>
+ <41cddeee-6cc2-4426-9020-2f1000983845@epam.com> <CAGeoDV_qgq6HWma_QDoxGdk+3=J1QYfUE6tCRAr7361mNqjpGQ@mail.gmail.com>
+ <98444477-bf97-440e-a5a4-844d51e92a54@gmail.com>
+In-Reply-To: <98444477-bf97-440e-a5a4-844d51e92a54@gmail.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Wed, 3 Sep 2025 18:12:44 +0300
+X-Gm-Features: Ac12FXxpi6tQLOkOcCnx_lYf_yz6EMfF5L2ZqK5JM7JzJI0Mw0_y4_5B4hyBXAM
+Message-ID: <CAGeoDV8fkFRrGTJTFH3pHCztLCbq_fLNbW_B5nS_yVDDQV_Mgg@mail.gmail.com>
+Subject: Re: [PATCH v6 07/13] iommu/ipmmu-vmsa: Implement suspend/resume callbacks
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Mykola Kvach <Mykola_Kvach@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 03.09.2025 16:02, Teddy Astie wrote:
-> Le 02/09/2025 à 16:10, Jan Beulich a écrit :
->> On 02.09.2025 15:24, Teddy Astie wrote:
->>> Regarding sgn, maybe we can use `segment` instead ?
->>
->> Why not segment_group or seg_group (seeing how devfn also is an abbreviation)?
->> And if we omit _number there and on devfn, it's hard to see why it shouldn't
->> be just "bus" then as well.
-> 
-> So overall
-> 
->   uint16_t segment_group;
->   uint8_t bus;
->   uint8_t devfn;
-> 
-> ?
-> 
-> segment_group looks a bit off compared with the rest.
-> We could use `seg` like we do in Xen PCI code, as it is about PCI 
-> segment here.
+On Wed, Sep 3, 2025 at 2:49=E2=80=AFPM Oleksandr Tyshchenko <olekstysh@gmai=
+l.com> wrote:
+>
+>
+>
+> On 03.09.25 13:25, Mykola Kvach wrote:
+> > Hi Oleksandr,
+>
+> Hello Mykola
+>
+> >
+> > On Wed, Sep 3, 2025 at 1:01=E2=80=AFPM Oleksandr Tyshchenko
+> > <Oleksandr_Tyshchenko@epam.com> wrote:
+> >>
+> >>
+> >>
+> >> On 02.09.25 01:10, Mykola Kvach wrote:
+> >>
+> >> Hello Mykola
+> >>
+> >>
+> >>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> >>>
+> >>> Store and restore active context and micro-TLB registers.
+> >>>
+> >>> Tested on R-Car H3 Starter Kit.
+> >>>
+> >>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> >>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> >>> ---
+> >>> Changes in V6:
+> >>> - refactor code related to hw_register struct, from now it's called
+> >>>     ipmmu_reg_ctx
+> >>
+> >> The updated version looks good, thanks. However, I have one
+> >> concern/request ...
+> >>
+> >>> ---
+> >>>    xen/drivers/passthrough/arm/ipmmu-vmsa.c | 257 +++++++++++++++++++=
+++++
+> >>>    1 file changed, 257 insertions(+)
+> >>>
+> >>> diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/p=
+assthrough/arm/ipmmu-vmsa.c
+> >>> index ea9fa9ddf3..0973559861 100644
+> >>> --- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
+> >>> +++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
+> >>> @@ -71,6 +71,8 @@
+> >>>    })
+> >>>    #endif
+> >>>
+> >>> +#define dev_dbg(dev, fmt, ...)    \
+> >>> +    dev_print(dev, XENLOG_DEBUG, fmt, ## __VA_ARGS__)
+> >>>    #define dev_info(dev, fmt, ...)    \
+> >>>        dev_print(dev, XENLOG_INFO, fmt, ## __VA_ARGS__)
+> >>>    #define dev_warn(dev, fmt, ...)    \
+> >>> @@ -130,6 +132,24 @@ struct ipmmu_features {
+> >>>        unsigned int imuctr_ttsel_mask;
+> >>>    };
+> >>>
+> >>> +#ifdef CONFIG_SYSTEM_SUSPEND
+> >>> +
+> >>> +struct ipmmu_reg_ctx {
+> >>> +    unsigned int imttlbr0;
+> >>> +    unsigned int imttubr0;
+> >>> +    unsigned int imttbcr;
+> >>> +    unsigned int imctr;
+> >>> +};
+> >>> +
+> >>> +struct ipmmu_vmsa_backup {
+> >>> +    struct device *dev;
+> >>> +    unsigned int *utlbs_val;
+> >>> +    unsigned int *asids_val;
+> >>> +    struct list_head list;
+> >>> +};
+> >>> +
+> >>> +#endif
+> >>> +
+> >>>    /* Root/Cache IPMMU device's information */
+> >>>    struct ipmmu_vmsa_device {
+> >>>        struct device *dev;
+> >>> @@ -142,6 +162,9 @@ struct ipmmu_vmsa_device {
+> >>>        struct ipmmu_vmsa_domain *domains[IPMMU_CTX_MAX];
+> >>>        unsigned int utlb_refcount[IPMMU_UTLB_MAX];
+> >>>        const struct ipmmu_features *features;
+> >>> +#ifdef CONFIG_SYSTEM_SUSPEND
+> >>> +    struct ipmmu_reg_ctx *reg_backup[IPMMU_CTX_MAX];
+> >>> +#endif
+> >>>    };
+> >>>
+> >>>    /*
+> >>> @@ -547,6 +570,222 @@ static void ipmmu_domain_free_context(struct ip=
+mmu_vmsa_device *mmu,
+> >>>        spin_unlock_irqrestore(&mmu->lock, flags);
+> >>>    }
+> >>>
+> >>> +#ifdef CONFIG_SYSTEM_SUSPEND
+> >>> +
+> >>> +static DEFINE_SPINLOCK(ipmmu_devices_backup_lock);
+> >>> +static LIST_HEAD(ipmmu_devices_backup);
+> >>> +
+> >>> +static struct ipmmu_reg_ctx root_pgtable[IPMMU_CTX_MAX];
+> >>> +
+> >>> +static uint32_t ipmmu_imuasid_read(struct ipmmu_vmsa_device *mmu,
+> >>> +                                   unsigned int utlb)
+> >>> +{
+> >>> +    return ipmmu_read(mmu, ipmmu_utlb_reg(mmu, IMUASID(utlb)));
+> >>> +}
+> >>> +
+> >>> +static void ipmmu_utlbs_backup(struct ipmmu_vmsa_device *mmu)
+> >>> +{
+> >>> +    struct ipmmu_vmsa_backup *backup_data;
+> >>> +
+> >>> +    dev_dbg(mmu->dev, "Handle micro-TLBs backup\n");
+> >>> +
+> >>> +    spin_lock(&ipmmu_devices_backup_lock);
+> >>> +
+> >>> +    list_for_each_entry( backup_data, &ipmmu_devices_backup, list )
+> >>> +    {
+> >>> +        struct iommu_fwspec *fwspec =3D dev_iommu_fwspec_get(backup_=
+data->dev);
+> >>> +        unsigned int i;
+> >>> +
+> >>> +        if ( to_ipmmu(backup_data->dev) !=3D mmu )
+> >>> +            continue;
+> >>> +
+> >>> +        for ( i =3D 0; i < fwspec->num_ids; i++ )
+> >>> +        {
+> >>> +            unsigned int utlb =3D fwspec->ids[i];
+> >>> +
+> >>> +            backup_data->asids_val[i] =3D ipmmu_imuasid_read(mmu, ut=
+lb);
+> >>> +            backup_data->utlbs_val[i] =3D ipmmu_imuctr_read(mmu, utl=
+b);
+> >>> +        }
+> >>> +    }
+> >>> +
+> >>> +    spin_unlock(&ipmmu_devices_backup_lock);
+> >>> +}
+> >>> +
+> >>> +static void ipmmu_utlbs_restore(struct ipmmu_vmsa_device *mmu)
+> >>> +{
+> >>> +    struct ipmmu_vmsa_backup *backup_data;
+> >>> +
+> >>> +    dev_dbg(mmu->dev, "Handle micro-TLBs restore\n");
+> >>> +
+> >>> +    spin_lock(&ipmmu_devices_backup_lock);
+> >>> +
+> >>> +    list_for_each_entry( backup_data, &ipmmu_devices_backup, list )
+> >>> +    {
+> >>> +        struct iommu_fwspec *fwspec =3D dev_iommu_fwspec_get(backup_=
+data->dev);
+> >>> +        unsigned int i;
+> >>> +
+> >>> +        if ( to_ipmmu(backup_data->dev) !=3D mmu )
+> >>> +            continue;
+> >>> +
+> >>> +        for ( i =3D 0; i < fwspec->num_ids; i++ )
+> >>> +        {
+> >>> +            unsigned int utlb =3D fwspec->ids[i];
+> >>> +
+> >>> +            ipmmu_imuasid_write(mmu, utlb, backup_data->asids_val[i]=
+);
+> >>> +            ipmmu_imuctr_write(mmu, utlb, backup_data->utlbs_val[i])=
+;
+> >>> +        }
+> >>> +    }
+> >>> +
+> >>> +    spin_unlock(&ipmmu_devices_backup_lock);
+> >>> +}
+> >>> +
+> >>> +static void ipmmu_domain_backup_context(struct ipmmu_vmsa_domain *do=
+main)
+> >>> +{
+> >>> +    struct ipmmu_vmsa_device *mmu =3D domain->mmu->root;
+> >>> +    struct ipmmu_reg_ctx *regs =3D mmu->reg_backup[domain->context_i=
+d];
+> >>> +
+> >>> +    dev_dbg(mmu->dev, "Handle domain context %u backup\n", domain->c=
+ontext_id);
+> >>> +
+> >>> +    regs->imttlbr0 =3D ipmmu_ctx_read_root(domain, IMTTLBR0);
+> >>> +    regs->imttubr0 =3D ipmmu_ctx_read_root(domain, IMTTUBR0);
+> >>> +    regs->imttbcr  =3D ipmmu_ctx_read_root(domain, IMTTBCR);
+> >>> +    regs->imctr    =3D ipmmu_ctx_read_root(domain, IMCTR);
+> >>> +}
+> >>> +
+> >>> +static void ipmmu_domain_restore_context(struct ipmmu_vmsa_domain *d=
+omain)
+> >>> +{
+> >>> +    struct ipmmu_vmsa_device *mmu =3D domain->mmu->root;
+> >>> +    struct ipmmu_reg_ctx *regs  =3D mmu->reg_backup[domain->context_=
+id];
+> >>> +
+> >>> +    dev_dbg(mmu->dev, "Handle domain context %u restore\n", domain->=
+context_id);
+> >>> +
+> >>> +    ipmmu_ctx_write_root(domain, IMTTLBR0, regs->imttlbr0);
+> >>> +    ipmmu_ctx_write_root(domain, IMTTUBR0, regs->imttubr0);
+> >>> +    ipmmu_ctx_write_root(domain, IMTTBCR,  regs->imttbcr);
+> >>> +    ipmmu_ctx_write_all(domain,  IMCTR,    regs->imctr | IMCTR_FLUSH=
+);
+> >>> +}
+> >>> +
+> >>> +/*
+> >>> + * Xen: Unlike Linux implementation, Xen uses a single driver instan=
+ce
+> >>> + * for handling all IPMMUs. There is no framework for ipmmu_suspend/=
+resume
+> >>> + * callbacks to be invoked for each IPMMU device. So, we need to ite=
+rate
+> >>> + * through all registered IPMMUs performing required actions.
+> >>> + *
+> >>> + * Also take care of restoring special settings, such as translation
+> >>> + * table format, etc.
+> >>> + */
+> >>> +static int __must_check ipmmu_suspend(void)
+> >>> +{
+> >>> +    struct ipmmu_vmsa_device *mmu;
+> >>> +
+> >>> +    if ( !iommu_enabled )
+> >>> +        return 0;
+> >>> +
+> >>> +    printk(XENLOG_DEBUG "ipmmu: Suspending ...\n");
+> >>> +
+> >>> +    spin_lock(&ipmmu_devices_lock);
+> >>> +
+> >>> +    list_for_each_entry( mmu, &ipmmu_devices, list )
+> >>> +    {
+> >>> +        if ( ipmmu_is_root(mmu) )
+> >>> +        {
+> >>> +            unsigned int i;
+> >>> +
+> >>> +            for ( i =3D 0; i < mmu->num_ctx; i++ )
+> >>> +            {
+> >>> +                if ( !mmu->domains[i] )
+> >>> +                    continue;
+> >>> +                ipmmu_domain_backup_context(mmu->domains[i]);
+> >>> +            }
+> >>> +        }
+> >>> +        else
+> >>> +            ipmmu_utlbs_backup(mmu);
+> >>> +    }
+> >>> +
+> >>> +    spin_unlock(&ipmmu_devices_lock);
+> >>> +
+> >>> +    return 0;
+> >>> +}
+> >>> +
+> >>> +static void ipmmu_resume(void)
+> >>> +{
+> >>> +    struct ipmmu_vmsa_device *mmu;
+> >>> +
+> >>> +    if ( !iommu_enabled )
+> >>> +        return;
+> >>> +
+> >>> +    printk(XENLOG_DEBUG "ipmmu: Resuming ...\n");
+> >>> +
+> >>> +    spin_lock(&ipmmu_devices_lock);
+> >>> +
+> >>> +    list_for_each_entry( mmu, &ipmmu_devices, list )
+> >>> +    {
+> >>> +        uint32_t reg;
+> >>> +
+> >>> +        /* Do not use security group function */
+> >>> +        reg =3D IMSCTLR + mmu->features->control_offset_base;
+> >>> +        ipmmu_write(mmu, reg, ipmmu_read(mmu, reg) & ~IMSCTLR_USE_SE=
+CGRP);
+> >>> +
+> >>> +        if ( ipmmu_is_root(mmu) )
+> >>> +        {
+> >>> +            unsigned int i;
+> >>> +
+> >>> +            /* Use stage 2 translation table format */
+> >>> +            reg =3D IMSAUXCTLR + mmu->features->control_offset_base;
+> >>> +            ipmmu_write(mmu, reg, ipmmu_read(mmu, reg) | IMSAUXCTLR_=
+S2PTE);
+> >>> +
+> >>> +            for ( i =3D 0; i < mmu->num_ctx; i++ )
+> >>> +            {
+> >>> +                if ( !mmu->domains[i] )
+> >>> +                    continue;
+> >>> +                ipmmu_domain_restore_context(mmu->domains[i]);
+> >>> +            }
+> >>> +        }
+> >>> +        else
+> >>> +            ipmmu_utlbs_restore(mmu);
+> >>> +    }
+> >>> +
+> >>> +    spin_unlock(&ipmmu_devices_lock);
+> >>> +}
+> >>> +
+> >>> +static int ipmmu_alloc_ctx_suspend(struct device *dev)
+> >>> +{
+> >>> +    struct ipmmu_vmsa_backup *backup_data;
+> >>> +    unsigned int *utlbs_val, *asids_val;
+> >>> +    struct iommu_fwspec *fwspec =3D dev_iommu_fwspec_get(dev);
+> >>> +
+> >>> +    utlbs_val =3D xzalloc_array(unsigned int, fwspec->num_ids);
+> >>> +    if ( !utlbs_val )
+> >>> +        return -ENOMEM;
+> >>> +
+> >>> +    asids_val =3D xzalloc_array(unsigned int, fwspec->num_ids);
+> >>> +    if ( !asids_val )
+> >>> +    {
+> >>> +        xfree(utlbs_val);
+> >>> +        return -ENOMEM;
+> >>> +    }
+> >>> +
+> >>> +    backup_data =3D xzalloc(struct ipmmu_vmsa_backup);
+> >>> +    if ( !backup_data )
+> >>> +    {
+> >>> +        xfree(utlbs_val);
+> >>> +        xfree(asids_val);
+> >>> +        return -ENOMEM;
+> >>> +    }
+> >>> +
+> >>> +    backup_data->dev =3D dev;
+> >>> +    backup_data->utlbs_val =3D utlbs_val;
+> >>> +    backup_data->asids_val =3D asids_val;
+> >>> +
+> >>> +    spin_lock(&ipmmu_devices_backup_lock);
+> >>> +    list_add(&backup_data->list, &ipmmu_devices_backup);
+> >>> +    spin_unlock(&ipmmu_devices_backup_lock);
+> >>> +
+> >>> +    return 0;
+> >>> +}
+> >>> +
+> >>> +#endif /* CONFIG_SYSTEM_SUSPEND */
+> >>> +
+> >>>    static int ipmmu_domain_init_context(struct ipmmu_vmsa_domain *dom=
+ain)
+> >>>    {
+> >>>        uint64_t ttbr;
+> >>> @@ -559,6 +798,9 @@ static int ipmmu_domain_init_context(struct ipmmu=
+_vmsa_domain *domain)
+> >>>            return ret;
+> >>>
+> >>>        domain->context_id =3D ret;
+> >>> +#ifdef CONFIG_SYSTEM_SUSPEND
+> >>> +    domain->mmu->root->reg_backup[ret] =3D &root_pgtable[ret];
+> >>> +#endif
+> >>>
+> >>>        /*
+> >>>         * TTBR0
+> >>> @@ -615,6 +857,9 @@ static void ipmmu_domain_destroy_context(struct i=
+pmmu_vmsa_domain *domain)
+> >>>        ipmmu_ctx_write_root(domain, IMCTR, IMCTR_FLUSH);
+> >>>        ipmmu_tlb_sync(domain);
+> >>>
+> >>> +#ifdef CONFIG_SYSTEM_SUSPEND
+> >>> +    domain->mmu->root->reg_backup[domain->context_id] =3D NULL;
+> >>> +#endif
+> >>>        ipmmu_domain_free_context(domain->mmu->root, domain->context_i=
+d);
+> >>>    }
+> >>>
+> >>> @@ -1427,6 +1672,14 @@ static int ipmmu_add_device(u8 devfn, struct d=
+evice *dev)
+> >>>        }
+> >>>    #endif
+> >>>
+> >>> +#ifdef CONFIG_SYSTEM_SUSPEND
+> >>> +    if ( ipmmu_alloc_ctx_suspend(dev) )
+> >>> +    {
+> >>> +        dev_err(dev, "Failed to allocate context for suspend\n");
+> >>> +        return -ENOMEM;
+> >>> +    }
+> >>> +#endif
+> >>
+> >> ... The initial version was based on the driver code without PCI
+> >> support, but it is now present. There is PCI-specific code above in th=
+is
+> >> function (not visible in the context) that performs some initializatio=
+n,
+> >> allocation and device assignment. What I mean is that in case of the
+> >> suspend context allocation error here, we will need to undo these
+> >> actions (i.e. deassign device). I would move this context allocation
+> >> (whose probability to fail is much lower than what is done for PCI dev=
+)
+> >> above the PCI-specific stuff, and perform the context freeing on the
+> >> error path.
+> >
+> > Maybe it would be better just to add some checks to the suspend handler=
+.
+> > We could skip suspend in case the context is not available, and avoid
+> > deallocating previously allocated stuff. This is similar to what is
+> > done for GICs.
+> >
+> > What do you think? Or do you prefer to destroy everything related to th=
+e
+> > IOMMU here on error?
+>
+> I would prefer if we fail early here in ipmmu_add_device (and rollback
+> changes) rather than continue and fail later, other people might think
+> differently. I think, if we cannot simply allocate a memory for the
+> sctructures that situation is bad.
 
-I wouldn't mind that, yet I wonder why the spec says "group". If there's a
-(good) reason, carrying this through into our naming may be advisable.
+Got it, I=E2=80=99ll fix this in the next version of the patch series.
+Thank you for pointing that out.
 
-Jan
+>
+>
+>
+> >
+> >>
+> >>> +
+> >>>        dev_info(dev, "Added master device (IPMMU %s micro-TLBs %u)\n"=
+,
+> >>>                 dev_name(fwspec->iommu_dev), fwspec->num_ids);
+> >>>
+> >>> @@ -1492,6 +1745,10 @@ static const struct iommu_ops ipmmu_iommu_ops =
+=3D
+> >>>        .unmap_page      =3D arm_iommu_unmap_page,
+> >>>        .dt_xlate        =3D ipmmu_dt_xlate,
+> >>>        .add_device      =3D ipmmu_add_device,
+> >>> +#ifdef CONFIG_SYSTEM_SUSPEND
+> >>> +    .suspend         =3D ipmmu_suspend,
+> >>> +    .resume          =3D ipmmu_resume,
+> >>> +#endif
+> >>>    };
+> >>>
+> >>>    static __init int ipmmu_init(struct dt_device_node *node, const vo=
+id *data)
+> >
+> > Best regards,
+> > Mykola
+> >
+>
+
+Best regards,
+Mykola
 
