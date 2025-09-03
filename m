@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C790B41756
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 09:56:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1107944.1458122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27C27B4175D
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 09:56:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1107956.1458132 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utiLW-0006LN-3Z; Wed, 03 Sep 2025 07:55:58 +0000
+	id 1utiMC-0006tX-FL; Wed, 03 Sep 2025 07:56:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1107944.1458122; Wed, 03 Sep 2025 07:55:58 +0000
+Received: by outflank-mailman (output) from mailman id 1107956.1458132; Wed, 03 Sep 2025 07:56:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utiLV-0006Jf-Vn; Wed, 03 Sep 2025 07:55:57 +0000
-Received: by outflank-mailman (input) for mailman id 1107944;
- Wed, 03 Sep 2025 07:55:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1utiMC-0006rC-C2; Wed, 03 Sep 2025 07:56:40 +0000
+Received: by outflank-mailman (input) for mailman id 1107956;
+ Wed, 03 Sep 2025 07:56:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=b4jG=3O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1utiLU-0006JU-7i
- for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 07:55:56 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6b5dfc16-889b-11f0-9d12-b5c5bf9af7f9;
- Wed, 03 Sep 2025 09:55:55 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-61cbfa1d820so12380343a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Sep 2025 00:55:55 -0700 (PDT)
+ id 1utiMB-0006fP-9E
+ for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 07:56:39 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8451b886-889b-11f0-9809-7dc792cee155;
+ Wed, 03 Sep 2025 09:56:37 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b5ad4f0so8428520a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Sep 2025 00:56:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afefcbd874bsm1312198966b.57.2025.09.03.00.55.54
+ 4fb4d7f45d1cf-61cfc1c7caesm11215967a12.9.2025.09.03.00.56.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Sep 2025 00:55:54 -0700 (PDT)
+ Wed, 03 Sep 2025 00:56:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b5dfc16-889b-11f0-9d12-b5c5bf9af7f9
+X-Inumbo-ID: 8451b886-889b-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756886155; x=1757490955; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756886196; x=1757490996; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LG18tho9TDeej44L4XAv91aRvSPRwD20YKPihFcGYo0=;
-        b=IL3aoGoxCmS0E5np3fLw852xY64qZqOhakDdixCvgeqDa/VjGPn9zQBgWt3shEOBun
-         E28SK+2KNzQfCw3dY53fgmL8bDjSjiOuYFfKc0L6amb+GzNR23dOTbD9iBUjMG0Squvs
-         y9UtUdxabg6k6rGGeOUnKUupeekGd9U9mIbUZyVokyM7ex8PueZkHlS6zqSkSEcC0quO
-         XXOPgcZBRuC6d0ofm1cBal9qMwT0zU0eXAjmskc5eC4Faqbhh2JTxCv/khEKspZgWvxv
-         s5ZiI8qA9ZQFnuHPEsH/GdfyXH8m6cAVqdmEb6lAC0AGatJql7SwQRE0mjAYgEMES+wf
-         iqnw==
+        bh=an+6YpWz4Gh3Vcy0oc++hJHbZ3MoC5BmOYat5FVoGmE=;
+        b=NkkEWTVoqDXNfe1iU0lyBw9og3kVvC7wQ2m+OLlrY+AVlyUbKOk/LaCexx4FdNgPVL
+         cXj6kurHRa8HiTIe9vephW2cQkxxQlCrDcuNb5yBdaXye6MafYIL4VYeYNEHgDu9XYse
+         0LjebpaSx8uRTJsBtEIVJr3+k6IdTl/ffeJiRGPE5BLIxK1Bsv8CoRj9E2EG3eQo6J8f
+         p0SAArq9xwf6dLKfYQvY/wl33fQvkJk16XigZq4xmeua+JWwut+jvfZKGtZk4NjkoIpY
+         WyoOtk1KK5s74JwxwmWwg+WdDpgJmnZrb2yi8F14d0pGl2otfq0AydOdb+UzPDEjOsS+
+         YXCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756886155; x=1757490955;
+        d=1e100.net; s=20230601; t=1756886196; x=1757490996;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=LG18tho9TDeej44L4XAv91aRvSPRwD20YKPihFcGYo0=;
-        b=UKZiRz1xRQGOkIJgYaCMwDMH6AXqnBpvYe0jDeBN/grxdmOEvRJg3bAc0LL6aETEHn
-         RTNqsCiMAUC2A4AnGJVw4Et1HczDdn4UdfXGaiH3kCF7aq2n2Dh8ay7HjbBT4Xo0AqMr
-         8BN3Xxi+81HGrExtNOQYhGdbazSI0uoCdUwpyKvRFcfq0o7mLKN3EE1qs94mwKgnZiJu
-         HMIw+En6pavmqhJomnOqifBUtYanPSLnkOOXx4389ALPzEefQ1yk7930lkL7thjRQerH
-         628yELXODMUqk1TINkttkKAyvc/2Nd7bmicRo3+fuQoIR1pjk7vIOBbVfm8ihwgJ5TW4
-         AXuw==
-X-Gm-Message-State: AOJu0Yxry782m1bW2eOFAkY4dafPAN2AKwdBxsY+bH71WCb0yVsoYDdF
-	M2Lp4uH1CzyBOSJ6OFfJMwslqdwaCUc68KJxaTAQKnjEDRnK5g+wJeysxfBwicYJXJcU9J/Z3/a
-	uCZo=
-X-Gm-Gg: ASbGncvC/XgJVe8Ucn4hnfGy2Puosy7e0pwYAzeKOrsllq5ehS3km+zvy/fKMEs2rJc
-	BEAiCCg9gbsH367dwRgyKobhfSQ3c/4Ao5xnZFG0xixz/3NbqC09roEPqgPQYl0CVB9I33WpxO7
-	j5jTMqwbhpJ4EBtHqXX5Ltj8eyWkTv7uhOlQ3Gaf8qe649AHVsoHsfnrRcLu9C9Uy5p51m9AZKZ
-	mh0+fm785sClqMq8ZZdr26E7abbqO3DV/whHH2YX5bcoN1jEIpddfBujY3vhtOThnvB88iRcOXe
-	ouQdze2cB+dtbXFgY+gQLsWKMysoSb1Rus2JP1zGEe2jrZhHuCcDSr5/daaX1Bt7x8I2edHVHzl
-	JNIg0VWl+sinRcdbmDjX8vxDV7OByK/wEN8PIqb6M9i5OKIZQGIwe6UnnL9nOjRga+NaXQGOhJL
-	oVW6p0dx6AcbfRngK0Nyb3clnUgjW2
-X-Google-Smtp-Source: AGHT+IHuLZVTLOWVnTFZ3HRpxYvwAECX2by0fldLjh2nrwdQdGd8D9LhUBxNtYRk8OClqASrob597A==
-X-Received: by 2002:a17:907:1ca0:b0:b04:286a:2fb8 with SMTP id a640c23a62f3a-b04286a4b87mr1062345166b.56.1756886154577;
-        Wed, 03 Sep 2025 00:55:54 -0700 (PDT)
-Message-ID: <034dd6dd-4e3f-4353-9a11-7a0ebda9a664@suse.com>
-Date: Wed, 3 Sep 2025 09:55:53 +0200
+        bh=an+6YpWz4Gh3Vcy0oc++hJHbZ3MoC5BmOYat5FVoGmE=;
+        b=P414FaOpHrYnwxZBr5UDAwc8y3YwBIg3KdFIsNDwESDi928mHbFoOGU/veJdEIAIXp
+         LHICVE7qdkszkUelJ9YXWKQS6LLmZL53rg3YvpOIBrve7eojbPiR4k4KgplyDmgz1Hnq
+         hG0Ul1aNiEjSZ17WMVvzYNFEmIm0iN83V+wpmAAccc6zMOfuS143zOeeJ/lmfX5Ekb+t
+         XasNOKau2udpa/fAKnHVENDeH+zXq4qzS7SnOWsHkfgachLPxLbmPEnG/QbG8Q3z3IBd
+         3uw7YRr9nkA4UglpUxaBHMqMaXqJjuvhbYQHHqABXa52bpiqelbfdFvL/qEvm2U9P5mj
+         tYHg==
+X-Gm-Message-State: AOJu0YyGGnOL+fNM8LJ7kIu2rS90/AX4F0ZaEJwAriDtJ8fVextumBCC
+	6Zbt9ZLLYLPi02ScneRuAOn42Dz34nblRNJJgjQGyjVlofmjo4LWYmjjE83PwYa3SzE6dUbJy1t
+	DFS4=
+X-Gm-Gg: ASbGncuAVN3Fj6ippDhyGr6KmMRKMUiATJEMrVmGBrVHnCYg8WYNq3QBPVvFzs02Pec
+	ZR5U9XoA7PjNdBJQtZd2bmzA4yGRm5cY0xJD3F+e4C97dpdUxPU5IlRYqND+gbh8+dBMeBIE0Kn
+	goow3rx+mRlHI+8T9WbEU0SpBGaJR0/AyBfZrMWC5I0uI7UItDpKdY15rdyhzab/s+X4ThzBZ+P
+	+t5SI+gRueOiOLJC3KdDLYSX/2+jFOoMkGn3zF8d6eTSgxSH/b7vImvq2NW2ud4vMd2jkhwLa4n
+	ahMaII2qj3lfsMsNa8TSKDoF45BGl3X3mdsfrCm68T3UlgnfpNmEE/+kHAsMD+hygqci9bQBzuG
+	51LZT3zQWHcLlKmTWpX2CRQ2Of+CmpbMy6ykwB0FtZg/9vfvFuZrHd9xIOjCzLIrTdVKEiCzv2U
+	3/ha9gEGc=
+X-Google-Smtp-Source: AGHT+IFzXwY8gVHyYYT5gxbKyGgJQ7lRfPYNTvMFDy2WSksEMD2guSfs5I7ylKG+MTufiPvdOR41yg==
+X-Received: by 2002:a05:6402:27ca:b0:61c:5a8c:9a4e with SMTP id 4fb4d7f45d1cf-61d2699752fmr13261626a12.4.1756886196475;
+        Wed, 03 Sep 2025 00:56:36 -0700 (PDT)
+Message-ID: <80c035e0-54f6-4632-a5c2-a10d2c1c8422@suse.com>
+Date: Wed, 3 Sep 2025 09:56:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 1/2] x86/IO-APIC: drop setup_ioapic_ids_from_mpc()
+Subject: [PATCH 2/2] x86/IO-APIC: drop io_apic_get_unique_id()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -137,142 +137,146 @@ violation of rule 2.1 (unreachable), which we did accept:
 
 Otoh it's "only" __init code.
 
+As this removes the last user of APIC_XAPIC(), remove the macro as well.
+
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
+--- a/xen/arch/x86/include/asm/apicdef.h
++++ b/xen/arch/x86/include/asm/apicdef.h
+@@ -19,7 +19,6 @@
+ #define			APIC_LVR_DIRECTED_EOI	(1 << 24)
+ #define			GET_APIC_VERSION(x)	((x)&0xFF)
+ #define			GET_APIC_MAXLVT(x)	(((x)>>16)&0xFF)
+-#define			APIC_XAPIC(x)		((x) >= 0x14)
+ #define		APIC_TASKPRI	0x80
+ #define			APIC_TPRI_MASK		0xFF
+ #define		APIC_ARBPRI	0x90
+--- a/xen/arch/x86/include/asm/io_apic.h
++++ b/xen/arch/x86/include/asm/io_apic.h
+@@ -184,7 +184,6 @@ extern bool skip_ioapic_setup;
+ extern bool ioapic_ack_new;
+ extern bool ioapic_ack_forced;
+ 
+-extern int io_apic_get_unique_id (int ioapic, int apic_id);
+ extern int io_apic_get_version (int ioapic);
+ extern int io_apic_get_redir_entries (int ioapic);
+ extern int io_apic_set_pci_routing (int ioapic, int pin, int irq, int edge_level, int active_high_low);
 --- a/xen/arch/x86/io_apic.c
 +++ b/xen/arch/x86/io_apic.c
-@@ -1459,119 +1459,6 @@ void disable_IO_APIC(void)
+@@ -2092,86 +2092,6 @@ void ioapic_resume(void)
+     spin_unlock_irqrestore(&ioapic_lock, flags);
  }
  
- /*
-- * function to set the IO-APIC physical IDs based on the
-- * values stored in the MPC table.
-- *
-- * by Matt Domsch <Matt_Domsch@dell.com>  Tue Dec 21 12:25:05 CST 1999
-- */
+-/* --------------------------------------------------------------------------
+-                          ACPI-based IOAPIC Configuration
+-   -------------------------------------------------------------------------- */
 -
--static void __init setup_ioapic_ids_from_mpc(void)
+-
+-int __init io_apic_get_unique_id (int ioapic, int apic_id)
 -{
 -    union IO_APIC_reg_00 reg_00;
--    static physid_mask_t __initdata phys_id_present_map;
--    int apic;
--    int i;
--    unsigned char old_id;
+-    static physid_mask_t __initdata apic_id_map = PHYSID_MASK_NONE;
 -    unsigned long flags;
+-    int i = 0;
 -    const uint32_t broadcast_id = 0xf;
 -
 -    /*
--     * Don't check I/O APIC IDs for xAPIC systems. They have
--     * no meaning without the serial APIC bus.
+-     * The P4 platform supports up to 256 APIC IDs on two separate APIC 
+-     * buses (one for LAPICs, one for IOAPICs), where predecessors only 
+-     * supports up to 16 on one shared APIC bus.
+-     * 
+-     * TBD: Expand LAPIC/IOAPIC support on P4-class systems to take full
+-     *      advantage of new APIC bus architecture.
 -     */
--    if (!(boot_cpu_data.x86_vendor == X86_VENDOR_INTEL)
--        || APIC_XAPIC(apic_version[boot_cpu_physical_apicid]))
--        return;
 -
--    /*
--     * This is broken; anything with a real cpu count has to
--     * circumvent this idiocy regardless.
--     */
--    phys_id_present_map = phys_cpu_present_map;
+-    if (physids_empty(apic_id_map))
+-        apic_id_map = phys_cpu_present_map;
 -
--    /*
--     * Set the IOAPIC ID to the value stored in the MPC table.
--     */
--    for (apic = 0; apic < nr_ioapics; apic++) {
--        if (!nr_ioapic_entries[apic])
--            continue;
+-    spin_lock_irqsave(&ioapic_lock, flags);
+-    reg_00.raw = io_apic_read(ioapic, 0);
+-    spin_unlock_irqrestore(&ioapic_lock, flags);
 -
--        /* Read the register 0 value */
--        spin_lock_irqsave(&ioapic_lock, flags);
--        reg_00.raw = io_apic_read(apic, 0);
--        spin_unlock_irqrestore(&ioapic_lock, flags);
--		
--        old_id = mp_ioapics[apic].mpc_apicid;
--
--        if (mp_ioapics[apic].mpc_apicid >= broadcast_id) {
--            printk(KERN_ERR "BIOS bug, IO-APIC#%d ID is %d in the MPC table!...\n",
--                   apic, mp_ioapics[apic].mpc_apicid);
--            printk(KERN_ERR "... fixing up to %d. (tell your hw vendor)\n",
--                   reg_00.bits.ID);
--            mp_ioapics[apic].mpc_apicid = reg_00.bits.ID;
--        }
--
--        /*
--         * Sanity check, is the ID really free? Every APIC in a
--         * system must have a unique ID or we get lots of nice
--         * 'stuck on smp_invalidate_needed IPI wait' messages.
--         */
--        if ( physid_isset(mp_ioapics[apic].mpc_apicid, phys_id_present_map) )
--        {
--            printk(KERN_ERR "BIOS bug, IO-APIC#%d ID %d is already used!...\n",
--                   apic, mp_ioapics[apic].mpc_apicid);
--            for (i = 0; i < broadcast_id; i++)
--                if (!physid_isset(i, phys_id_present_map))
--                    break;
--            if (i >= broadcast_id)
--                panic("Max APIC ID exceeded\n");
--            printk(KERN_ERR "... fixing up to %d. (tell your hw vendor)\n",
--                   i);
--            mp_ioapics[apic].mpc_apicid = i;
--        } else {
--            apic_printk(APIC_VERBOSE, "Setting %d in the "
--                        "phys_id_present_map\n",
--                        mp_ioapics[apic].mpc_apicid);
--        }
--        physid_set(mp_ioapics[apic].mpc_apicid, phys_id_present_map);
--
--        /*
--         * We need to adjust the IRQ routing table
--         * if the ID changed.
--         */
--        if (old_id != mp_ioapics[apic].mpc_apicid)
--            for (i = 0; i < mp_irq_entries; i++)
--                if (mp_irqs[i].mpc_dstapic == old_id)
--                    mp_irqs[i].mpc_dstapic
--                        = mp_ioapics[apic].mpc_apicid;
--
--        /*
--         * Read the right value from the MPC table and
--         * write it into the ID register.
--         */
--        apic_printk(APIC_VERBOSE, KERN_INFO
--                    "...changing IO-APIC physical APIC ID to %d ...",
--                    mp_ioapics[apic].mpc_apicid);
--
--        reg_00.bits.ID = mp_ioapics[apic].mpc_apicid;
--        spin_lock_irqsave(&ioapic_lock, flags);
--        io_apic_write(apic, 0, reg_00.raw);
--        spin_unlock_irqrestore(&ioapic_lock, flags);
--
--        /*
--         * Sanity check
--         */
--        spin_lock_irqsave(&ioapic_lock, flags);
--        reg_00.raw = io_apic_read(apic, 0);
--        spin_unlock_irqrestore(&ioapic_lock, flags);
--        if (reg_00.bits.ID != mp_ioapics[apic].mpc_apicid)
--            printk("could not set ID!\n");
--        else
--            apic_printk(APIC_VERBOSE, " ok.\n");
+-    if (apic_id >= broadcast_id) {
+-        printk(KERN_WARNING "IOAPIC[%d]: Invalid apic_id %d, trying "
+-               "%d\n", ioapic, apic_id, reg_00.bits.ID);
+-        apic_id = reg_00.bits.ID;
 -    }
+-
+-    /*
+-     * Every APIC in a system must have a unique ID or we get lots of nice 
+-     * 'stuck on smp_invalidate_needed IPI wait' messages.
+-     */
+-    if ( physid_isset(apic_id, apic_id_map) )
+-    {
+-
+-        for (i = 0; i < broadcast_id; i++) {
+-            if ( !physid_isset(i, apic_id_map) )
+-                break;
+-        }
+-
+-        if (i == broadcast_id)
+-            panic("Max apic_id exceeded\n");
+-
+-        printk(KERN_WARNING "IOAPIC[%d]: apic_id %d already used, "
+-               "trying %d\n", ioapic, apic_id, i);
+-
+-        apic_id = i;
+-    } 
+-
+-    physid_set(apic_id, apic_id_map);
+-
+-    if (reg_00.bits.ID != apic_id) {
+-        reg_00.bits.ID = apic_id;
+-
+-        spin_lock_irqsave(&ioapic_lock, flags);
+-        io_apic_write(ioapic, 0, reg_00.raw);
+-        reg_00.raw = io_apic_read(ioapic, 0);
+-        spin_unlock_irqrestore(&ioapic_lock, flags);
+-
+-        /* Sanity check */
+-        if (reg_00.bits.ID != apic_id) {
+-            printk("IOAPIC[%d]: Unable to change apic_id!\n", ioapic);
+-            return -1;
+-        }
+-    }
+-
+-    apic_printk(APIC_VERBOSE, KERN_INFO
+-                "IOAPIC[%d]: Assigned apic_id %d\n", ioapic, apic_id);
+-
+-    return apic_id;
 -}
 -
--/*
-  * There is a nasty bug in some older SMP boards, their mptable lies
-  * about the timer IRQ. We do the following to work around the situation:
-  *
-@@ -2158,12 +2045,6 @@ void __init setup_IO_APIC(void)
-         ioapic_level_type.end = end_level_ioapic_irq_new;
-     }
- 
--    /*
--     * Set up IO-APIC IRQ routing.
--     */
--    if (!acpi_ioapic)
--        setup_ioapic_ids_from_mpc();
 -
-     setup_IO_APIC_irqs();
-     init_IO_APIC_traps();
-     check_timer();
+ int __init io_apic_get_version (int ioapic)
+ {
+     union IO_APIC_reg_01	reg_01;
+--- a/xen/arch/x86/mpparse.c
++++ b/xen/arch/x86/mpparse.c
+@@ -871,7 +871,6 @@ void __init mp_register_ioapic (
+ 	u32			gsi_base)
+ {
+ 	int			idx = 0;
+-	int			tmpid;
+ 
+ 	if (nr_ioapics >= MAX_IO_APICS) {
+ 		printk(KERN_ERR "ERROR: Max # of I/O APICs (%d) exceeded "
+@@ -891,16 +890,7 @@ void __init mp_register_ioapic (
+ 	mp_ioapics[idx].mpc_apicaddr = address;
+ 
+ 	set_fixmap_nocache(FIX_IO_APIC_BASE_0 + idx, address);
+-	if ((boot_cpu_data.x86_vendor == X86_VENDOR_INTEL)
+-		&& !APIC_XAPIC(apic_version[boot_cpu_physical_apicid]))
+-		tmpid = io_apic_get_unique_id(idx, id);
+-	else
+-		tmpid = id;
+-	if (tmpid == -1) {
+-		nr_ioapics--;
+-		return;
+-	}
+-	mp_ioapics[idx].mpc_apicid = tmpid;
++	mp_ioapics[idx].mpc_apicid = id;
+ 	mp_ioapics[idx].mpc_apicver = io_apic_get_version(idx);
+ 	
+ 	/* 
 
 
