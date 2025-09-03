@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C2E1B428DF
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 20:41:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1108915.1458864 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 108B4B429D5
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 21:28:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1108939.1458874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utsOt-0004be-BU; Wed, 03 Sep 2025 18:40:07 +0000
+	id 1utt8T-0001Xo-Ko; Wed, 03 Sep 2025 19:27:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1108915.1458864; Wed, 03 Sep 2025 18:40:07 +0000
+Received: by outflank-mailman (output) from mailman id 1108939.1458874; Wed, 03 Sep 2025 19:27:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utsOt-0004ZJ-8C; Wed, 03 Sep 2025 18:40:07 +0000
-Received: by outflank-mailman (input) for mailman id 1108915;
- Wed, 03 Sep 2025 18:40:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1utt8T-0001VH-HU; Wed, 03 Sep 2025 19:27:13 +0000
+Received: by outflank-mailman (input) for mailman id 1108939;
+ Wed, 03 Sep 2025 19:27:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aHaU=3O=epam.com=Dmytro_Firsov@srs-se1.protection.inumbo.net>)
- id 1utsOs-0004Xv-F9
- for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 18:40:06 +0000
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazlp170120005.outbound.protection.outlook.com
- [2a01:111:f403:c200::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 679836f3-88f5-11f0-9809-7dc792cee155;
- Wed, 03 Sep 2025 20:40:03 +0200 (CEST)
-Received: from AS4PR03MB8338.eurprd03.prod.outlook.com (2603:10a6:20b:506::15)
- by VI0PR03MB10904.eurprd03.prod.outlook.com (2603:10a6:800:269::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Wed, 3 Sep
- 2025 18:40:01 +0000
-Received: from AS4PR03MB8338.eurprd03.prod.outlook.com
- ([fe80::ac40:2d43:5ea:11fe]) by AS4PR03MB8338.eurprd03.prod.outlook.com
- ([fe80::ac40:2d43:5ea:11fe%5]) with mapi id 15.20.9073.026; Wed, 3 Sep 2025
- 18:40:01 +0000
+ <SRS0=p+jY=3O=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1utt8R-0001VB-QS
+ for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 19:27:11 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fc369ff3-88fb-11f0-9d12-b5c5bf9af7f9;
+ Wed, 03 Sep 2025 21:27:10 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-55f78e3cdf9so226366e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Sep 2025 12:27:09 -0700 (PDT)
+Received: from [192.168.0.110] ([91.123.151.69])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5608ad2c3adsm681780e87.131.2025.09.03.12.27.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 03 Sep 2025 12:27:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,269 +45,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 679836f3-88f5-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X6knr5LLfF3PvWqPjIeOJ3tkKFTSl6PPJEuUxHolzarE/mKHyo2jlFnbwRZDYvqHlN36sd4C9S4nRdpo+6jCdSKw3k3Uw7Vi8kRzwUZERA3AzN1kK61P+LsRjBvEw5RR0PADNf5IWKRHA7P91iqtoVhGgEKvJ2n6SK6ivK26PtNyJkSZwtvpPUXGTLMtME4/KEMqaJJCXTPATsAg4pViMcoCXsyNREUu3Vz3KMwBTSsayjIQkK4oWk31B/jd6V1eXF6GFkdNVCAh/xqdm7Zl6eCKC9zvYLSzX7RTNhfmgx2H+4eGhHQm3LRPsunvB6CpapiIObRWuVs61ee/NVwIfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kG/N3T5kiz281dvzKrsKM6UpDLoSc5gNyQOn0fcgKLs=;
- b=h7lr3rfzG0XwSfW32VUqj0ZtxzLCmz/SRCALY+qvbZaQ8XYcWBHW7HwTOBt2jfuHn+zj8d3tHrSy3kJry6K0hk+09p35/lZV8c6E2fI9P+GIq2720o/0MeDdz7tuWx0w+lrxuEH149k/Db7IKMSE3oyf3bkxLuw2fxSGfZ4zQddSjcwcK+6qN5ySwCX9VH/Lx/ggkCCrTAgUqiZU6bcahSpOZSdrajomNfceC+tWzy2mAdRAvHbJdFVPURTntRHWRJW0+zzxaTwpXBXMOtgEk18+vn7smXLCmNVpvonPMFC1v3ORwplsuOs4a1q9COdYQLCpBn/qOEQKhBAq1mkmiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kG/N3T5kiz281dvzKrsKM6UpDLoSc5gNyQOn0fcgKLs=;
- b=k39HvhpiuJIEZ8jN/9/npyUjSLRIRCv5IsvQEx+to5QE6h41dAXRspYpdPm9+nuJKqKk2svNz4AVLvxg6ncHEq6X4gDP3uqXxdm1P8SKeqZz7UFgw58AVpuyXC5/SGKi1gwCjLdEqzuQyUCTJi9Ny94wa7QdoYHL9vkcB9GWjptKxq2POJQj23CXBaEcLKexBHz49vIXxr9gZbnYV5Ua68lncmhAJ/DhlynyjqpaEzRUePW4kJ/uOt/dqOnhiSqQtt93EXROoLoG/YbHIXuaCd/pljqgs3r2kK/ooedWrdClPaMCZczJCWRIw9m9x/CDoOKoBOVN3RgelVn4/4Mh8A==
-From: Dmytro Firsov <Dmytro_Firsov@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Dmytro Firsov <Dmytro_Firsov@epam.com>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Rahul Singh <rahul.singh@arm.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal
- Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Julien Grall <jgrall@amazon.com>, Mykola Kvach <Mykola_Kvach@epam.com>
-Subject: [PATCH v2] xen/arm: smmuv3: Add cache maintenance for non-coherent
- SMMU queues
-Thread-Topic: [PATCH v2] xen/arm: smmuv3: Add cache maintenance for
- non-coherent SMMU queues
-Thread-Index: AQHcHQIn+C0aN53q3kCiWfPloZq/2A==
-Date: Wed, 3 Sep 2025 18:40:00 +0000
-Message-ID:
- <6f4552aab3748ea3ad96d45affb8ce9146b557a4.1756922110.git.dmytro_firsov@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS4PR03MB8338:EE_|VI0PR03MB10904:EE_
-x-ms-office365-filtering-correlation-id: c1817b27-ca9d-48a2-76b5-08ddeb194a40
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?bclBucPbHYFsNElZ7pPEU31f29q6j6Z4JLN6fw57roSVkatEhpS6U+V2dV?=
- =?iso-8859-1?Q?aKKtlEfesioz2cYXKBfVCyHQEdnRmZ2+huHGXpwAubdbxhPivrXLiFlIZr?=
- =?iso-8859-1?Q?+XhiXXbyg0NVQ3teCoENoCfgloXjRa+XtpW4V6N5KQ+epkiOV3AxrFdFt1?=
- =?iso-8859-1?Q?HAByYKHqy2HxrMMaQYanZJDUKszM2KTzAOQIa0sfFpTsIQcX9zRztIodgX?=
- =?iso-8859-1?Q?lg/laLDqgjYK3ppAxLNrE9wZQkMoLDMCn6Mg0rv6Cm72Bl8WLrWDy2bh0R?=
- =?iso-8859-1?Q?KA/Xl5I6lBlj2Ztn+ltDotXXUeooiAE2Qf/Vpd/Bdxexsf1o0hmVCsgWpO?=
- =?iso-8859-1?Q?C1uM2PtTCxUpWmFUQDjFwZrIDsREBZVvS/4TTysC4/HlbYoawLUGDvBCO5?=
- =?iso-8859-1?Q?LXnpJAPSCy/hgNHI4yfj0cumskq+DSQABxekE1NDzgtMvcdQFhIgAXr+2X?=
- =?iso-8859-1?Q?tu0pk/2g388FLdpsefKg5k3LyPxbnFCqIqfAth08me2mAUxOix8YgmuH13?=
- =?iso-8859-1?Q?ODdihi4+PAtNij5PfaU9uCkGrvU0uwQvQWMouvQFe9hg/zrNMbEVRg9aty?=
- =?iso-8859-1?Q?oFZP/FEIVIfmO29MEu1a8jkDzDo0UOnSBrGNa9WmFQMijkZl0ilxVOcx8h?=
- =?iso-8859-1?Q?aYSnSFQg084wZIb1wRBhE7clIHrTry+C9YRJseoLtyVKr0gaEdOjZuSTwl?=
- =?iso-8859-1?Q?yGZkSS0O3N+oyRMm/8SYCEgmZNfYvyx1qv7/Ax60qR0XanVEeIHuWyDHHl?=
- =?iso-8859-1?Q?O1gDHVHIvNP6qhQaZ7ch0hEbQyFOENgUBoxPnK996FG4LdL3dHDr3HDWjZ?=
- =?iso-8859-1?Q?g2so+fYuY66RLOdeDfNym5FVYMG9uwosZOq7axtWOGS759BXw+Xhy6ebsm?=
- =?iso-8859-1?Q?+MDm5HXSQOsJjpZ3hT00QhOUVGzMwqJ2bUvh1YetedGO2duJnJzoTwzPAH?=
- =?iso-8859-1?Q?WA49atCPNYLmVlTjTmwpGMAPQNGwvPDmBPGPQszLn9axWS/66MBfH/7uVm?=
- =?iso-8859-1?Q?e6AZKDULXcvT9YlU+POOzWjuD7Ouf3NxCvIt2dngamI6Z8ybRSRiySq0TA?=
- =?iso-8859-1?Q?tr+rBeBVSXZ5R839s9GO5HhMCRrJq9ClraiHDikxiS7AkZssfRODbHla0Z?=
- =?iso-8859-1?Q?sfJJ166iqp9NEmbP/1Pa1Fp0+Zlp6PPZl0uW8pCZSs2zFf1bnb2l2acbcQ?=
- =?iso-8859-1?Q?hfmnsJXTtCtHpKJ64nSiSZZYB1qU3r8upXrEtUQPK9nF6ww/XaiQihjQUV?=
- =?iso-8859-1?Q?F1zda5qhgEKLOzzE3zzL2wjWQTJkLqlNmF/bpW1oeMyizrD8cd6KhuOIlo?=
- =?iso-8859-1?Q?ltAbcBgpVS4y20dHoTKWhLvf4cYVYx/tsnJxc1UjJgOJDm0TcSpZXmAqpB?=
- =?iso-8859-1?Q?tGknYRffkvj234sxW70tVMOTnr69RhEKvYlJzO0uXfLkaGXe4fJHyMTzd7?=
- =?iso-8859-1?Q?f6MzrBpMddlCIsG5E+M7SPYDJsjYgixkPJbYwCsLg9onpq4Cq16laU8BBT?=
- =?iso-8859-1?Q?CPB6W4lL3HRSfUgtuHAS5lZNHQ8KIha4x7Ew6JBX5xOA=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR03MB8338.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?jfo7G0DIsumDyk4yJ5sva9Kp1bziJdZXhViqVEANR3dq6z5sERDm8kgRRZ?=
- =?iso-8859-1?Q?og+eOC2njhGOtLMN4HKHk0CMyknVKmbi0+wuxb74wkVPGOSHD47I44QOHn?=
- =?iso-8859-1?Q?HfUA0kp0b7NR8AbMB3V5hZ5fPCnWLkh+HwIfU4LLChiQC9TkhztkA77uWC?=
- =?iso-8859-1?Q?bZHNuJLv1j3OxzZVys+kZiznhdf3gdmn0dRCB2VWHG0AWjdF/46iQezsK3?=
- =?iso-8859-1?Q?6TF7Rv6R0vw+Zb+Jqklgn3j3q96hLJ4FYdzCLweHbawpZE41NNFJImQPZS?=
- =?iso-8859-1?Q?4Le8XjI/Wn97d607/zzG5hg3p2yjtR8GS4hlkqyImeHW0YjMovjE5Spo08?=
- =?iso-8859-1?Q?mjuQtAgOADT6gvW11VF3BVDyqqS7IYzzrDgHhFPaVsKfF3AqAaVgMUPXlg?=
- =?iso-8859-1?Q?vf5KFQaUaFccRyDr+Hw1dxf6sva3yuGpz/ekFrBA9vh3Jljq+1G+Oym+mm?=
- =?iso-8859-1?Q?f0jRIPvSVL9v6hVzlpHJUhUFsYjgxF6W9Ucm3tISgnt5icuBGVDD5Yik80?=
- =?iso-8859-1?Q?IyqBMSMzzcdFqfaBaT3IvU1hRWZya4v0Xeu8yC4otIfiaro9uJOdUnzFlY?=
- =?iso-8859-1?Q?5/Oof6X3OGv8OkHrYAffEXhsXhWJmlh9oyllVttZTnYdKwhqLRuZqpYr+5?=
- =?iso-8859-1?Q?GQbs1XXrhcMnaRCCi+ZHzrUyQLcsChujKio2dwY6dI5ZlxuiZxmmrhbBzt?=
- =?iso-8859-1?Q?zflwIqaf/56jmMzZL3FScWy3HVhJLHTRE5gLlut3jfIkmL2VEuXM8Qo9Yr?=
- =?iso-8859-1?Q?z0ICpyJ/IaS97OxX42kHxXpz9I79Givzs+VynTXSOdo57lHf+UFN0v8Zbf?=
- =?iso-8859-1?Q?RYE6xitpPdG+NYhuNX52ZWmMbeBDNl23LbHTEPTwtcQo5/OKwZ7yKxoGCq?=
- =?iso-8859-1?Q?QjcaPeM9IcKb3j3KXBuigg6Je1g0QEphB7AUpqM5afbLKFJ8hHBYSJ7NHT?=
- =?iso-8859-1?Q?FraISyJDKKAiVVJc5nXeJlKqsqCUvZ2aVuxJ71gX9SH6MUBLnnLnX42G9o?=
- =?iso-8859-1?Q?puNjmPEIgYWBrFGqoORMwbD0VAllG8JB7hPjjR4wuPs9CPydbhLzXsU6dP?=
- =?iso-8859-1?Q?Mbu5O5dXSLAtI7+bYt36ZAxnZkV4Ic7Wa23b6copduXi4mfcoxgf9484Kp?=
- =?iso-8859-1?Q?VzuN5z1YiJCf+VzEByIYQO3oK6G+PkztlyLQ4/yuyaFXzJypUnNpwqGOmR?=
- =?iso-8859-1?Q?t2KlDXaEIqLXxSsZ60jGkzQVZcDbVz94UYNOBTYme6A7F7revwnXosJGzd?=
- =?iso-8859-1?Q?Axtv67X8LanAipsVyJNqCzgd2nMtRPTtngaD+M/YT+ZRLJeutY7l3u46sw?=
- =?iso-8859-1?Q?UmfNrhL8xZ/ilE3vIhzZeQxBu9RQ8DKZ1K+oVl/iMdbFSiKUctnGKBT/ET?=
- =?iso-8859-1?Q?7WlwEdN3FHa+rvmbDkItQFRIcPArxBhCVOUmHOUBPrItM7NUpLxE9KBgSk?=
- =?iso-8859-1?Q?3/ftVwgKYh3N6CtMhbAu3TnRoqUr1E8MhN0e0sduL68hYphCvfS53ZtV4R?=
- =?iso-8859-1?Q?hqofSwftcys6QSNJVv93NBM7ygBk1EhC0enGGTru0+CC52fXMWxOALC5Il?=
- =?iso-8859-1?Q?d6X4Eo8LPxcIotZCcvvNEqbHlg+l6tGfDQ1lRka0LirpE12MHm2rxfGH0I?=
- =?iso-8859-1?Q?3X/mP4Z28N4qfoJQL2jQG1nEIgX19qB+Q/QVUqN2JYwmDLeEzAVo0vJQ?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: fc369ff3-88fb-11f0-9d12-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756927629; x=1757532429; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=pYl2fq/xKQo6MRXjhA6xisl1n5IPmDm1Ug6zNjVIlT8=;
+        b=m98qtnIBwHDAILljcflvEs2aAfOr94yUJMAKf0LRP3Sw0EA6HbEKY7ENYlrkmVFdi9
+         sGDX+c8p/kF5OY+8Ncp9YagwPI6w3GO1boBkRZZqMBr7r6iFjP+ngYH9Ms+VN+xkGIWI
+         kUPIcBG1adS7x3yOfFEp6IyCjZCn7EIC9kYalFpl+Rv+7PKJGGfsO87XMxv/oKe5oSY3
+         ZL/pK6mTXbtt/Oji9uklqWXQbTuMyl9oTEpLgmo2VHGzBA3poH86PLvwjPtlG4MUy0BK
+         qFraSVrQ3NwYoauCvhATPhyCb6ga3cLKr9DbHFSMPk5t1NEO+BrWDT6BSvNF3nGvRvX+
+         YJSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756927629; x=1757532429;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=pYl2fq/xKQo6MRXjhA6xisl1n5IPmDm1Ug6zNjVIlT8=;
+        b=RVJyoGS7IVT3B4Js+Nt5qVtf87BXUwWyu5JHHePmrP9R3oXdQ9b5BP6wzWPqDJbJMD
+         8zMQydXVACNDuwoNcDRIK2KdJkL0+VpPX/gtjT0U+5LNm+YNuEokop0o6HHDWGM9eK97
+         8QwsOosRcK/Yn1pYKV24wyI3flb0sTAwOrnblIibuLf5GJVEGYjPCIyGv0eCd1Zoc5Q4
+         xQnqKgpYXXhzF12fvR0odVtz9jEauN+lkb4BF2AZkBiEVlkY+iJWChIYpEFENLv2IkSu
+         KSxZfsEfDvGSa/1JILxSqg+Gladp4ctEj3EruwzeizlXkBzRav8yxfc2w4g35LWm3Sx2
+         pUcg==
+X-Forwarded-Encrypted: i=1; AJvYcCWGIONJivqpb7/s2FzyxjKlrt3xToGc+cteIGbXFg8Bk9ESxSj3kI1ctjcJ4jFv43oyOmQjNRN4DmI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw/97J1edUAaVkNfcGzHmGJK3KL1pzd+ieNTY1A5hPPZqXFwnwk
+	TiGYzK3h+jt0AI+5T/gaS7nTrvnRSNqnEKfLIbULGbrnOIdnPtJuLRps
+X-Gm-Gg: ASbGncs7dZ9awNxM5v3blxyHMyARUXVrSdsi/gYipvVtQaY7nKvigUNCVzpH+3pmTkk
+	aOEmocZtKmSgpzg2TFo00XzzkIAQv15EapqtpeAIdi1xDmDW4JtcAYw2BDTgKKZbddDw2sOLnoP
+	ZlG74yyDMNgD89/tv0t/8A36++e4Ee/R+5w520/RQvuijkEKqrIgmCMuOLm7deFTtm4QEEkBK5+
+	VBMKEATbIAjtxL25AfuKybqAeyMm4tRje+mGPp7PkM1cl+2AcoApOaba74dLaD3PXYMKfp42hkL
+	HnKj+4TXw1X3xVy+cUR+mWpXbWt8C02GTXzY962r+gjqkYw/6ywdkW99WEKS9iVwUl7BLnztOGt
+	9RDdM84xm/2wdND5k9mVN82eiHpPMlQFWHZeM
+X-Google-Smtp-Source: AGHT+IF4iciau66j/+aZXTYHO8UW0frcJixHK4Xt5y+gIGkGG6g1mputXC3M5SkSqPU4hPcGLhQ9Wg==
+X-Received: by 2002:a05:6512:3ca4:b0:55f:6b76:e7f7 with SMTP id 2adb3069b0e04-55f709bdd91mr4829403e87.56.1756927628844;
+        Wed, 03 Sep 2025 12:27:08 -0700 (PDT)
+Message-ID: <cb34378c-95c7-4618-8aeb-a7b7c5c97f2d@gmail.com>
+Date: Wed, 3 Sep 2025 22:27:07 +0300
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS4PR03MB8338.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1817b27-ca9d-48a2-76b5-08ddeb194a40
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2025 18:40:00.8630
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uWQS/VXQ4ZT2MgGQK5p9UXwIEU0vHDdfc+PA4hcsZNe6h+iDbglmfPx57WkO/Q9wkOlRXAeLF8eWK8sWcTFDMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR03MB10904
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 10/12] xen/arm: vgic-v3: add emulation of GICv3.1 eSPI
+ registers
+To: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1756908472.git.leonid_komarianskyi@epam.com>
+ <345da260fcb3bb400834f8a59dacfda8b37440a1.1756908472.git.leonid_komarianskyi@epam.com>
+Content-Language: en-US
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+In-Reply-To: <345da260fcb3bb400834f8a59dacfda8b37440a1.1756908472.git.leonid_komarianskyi@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-According to the Arm SMMUv3 spec (ARM IHI 0070), a system may have
-SMMU(s) that is/are non-coherent to the PE (processing element). In such
-cases, memory accesses from the PE should be either non-cached or be
-augmented with manual cache maintenance. SMMU cache coherency is reported
-by bit 4 (COHACC) of the SMMU_IDR0 register and is already present in the
-Xen driver. However, the current implementation is not aware of cache
-maintenance for memory that is shared between the PE and non-coherent
-SMMUs. It contains dmam_alloc_coherent() function, that is added during
-Linux driver porting. But it is actually a wrapper for _xzalloc(), that
-returns normal writeback memory (which is OK for coherent SMMUs).
 
-During Xen bring-up on a system with non-coherent SMMUs, the driver did
-not work properly - the SMMU was not functional and halted initialization
-at the very beginning due to a timeout while waiting for CMD_SYNC
-completion:
 
-  (XEN) SMMUv3: /soc/iommu@fa000000: CMD_SYNC timeout
-  (XEN) SMMUv3: /soc/iommu@fa000000: CMD_SYNC timeout
+On 03.09.25 17:30, Leonid Komarianskyi wrote:
 
-To properly handle such scenarios, add the non_coherent flag to the
-arm_smmu_queue struct. It is initialized using features reported by the
-SMMU HW and will be used for triggering cache clean/invalidate operations.
-This flag is not queue-specific (it is applicable to the whole SMMU), but
-adding it to arm_smmu_queue allows us to not change function signatures
-and simplify the patch (smmu->features, which contains the required flag,
-are not available in code parts that require cache maintenance).
+Hello Leonid
 
-Signed-off-by: Dmytro Firsov <dmytro_firsov@epam.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
-Tested-by: Mykola Kvach <mykola_kvach@epam.com>
----
-v2:
- - changed comment for non_coherent struct member
- - added Julien's RB
- - added Mykola's TB
----
- xen/drivers/passthrough/arm/smmu-v3.c | 27 +++++++++++++++++++++++----
- xen/drivers/passthrough/arm/smmu-v3.h |  3 +++
- 2 files changed, 26 insertions(+), 4 deletions(-)
+> Implemented support for GICv3.1 extended SPI registers for vGICv3,
+> allowing the emulation of eSPI-specific behavior for guest domains.
+> The implementation includes read and write emulation for eSPI-related
+> registers (e.g., GICD_ISENABLERnE, GICD_IROUTERnE, and others),
+> following a similar approach to the handling of regular SPIs.
+> 
+> The eSPI registers, previously located in reserved address ranges,
+> are now adjusted to support MMIO read and write operations correctly
+> when CONFIG_GICV3_ESPI is enabled.
+> 
+> The availability of eSPIs and the number of emulated extended SPIs
+> for guest domains is reported by setting the appropriate bits in the
+> GICD_TYPER register, based on the number of eSPIs requested by the
+> domain and supported by the hardware. In cases where the configuration
+> option is disabled, the hardware does not support eSPIs, or the domain
+> does not request such interrupts, the functionality remains unchanged.
+> 
+> Signed-off-by: Leonid Komarianskyi <leonid_komarianskyi@epam.com>
+> 
+> ---
+> Changes in V6:
+> - introduced helper functions: vgic_get_rank and vgic_get_reg_offset to
+>    avoid boilerplate code and simplify changes
+> - fixed index initialization in the previous patch ([08/12] xen/arm:
+>    vgic: add resource management for extended SPIs) and removed index
+>    conversion for vgic_enable_irqs(), vgic_disable_irqs(),
+>    vgic_set_irqs_pending(), and vgic_check_inflight_irqs_pending()
+> - grouped SPI and eSPI registers
+> - updated the comment for vgic_store_irouter to reflect parameter
+>    changes
+> - minor change: changed the macros ESPI_INTID2IDX and ESPI_IDX2INTID
+>    into appropriate inline functions introduced in the previous patch
 
-diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthroug=
-h/arm/smmu-v3.c
-index bca5866b35..c65c47c038 100644
---- a/xen/drivers/passthrough/arm/smmu-v3.c
-+++ b/xen/drivers/passthrough/arm/smmu-v3.c
-@@ -341,10 +341,14 @@ static void queue_write(__le64 *dst, u64 *src, size_t=
- n_dwords)
-=20
- static int queue_insert_raw(struct arm_smmu_queue *q, u64 *ent)
- {
-+	__le64 *q_addr =3D Q_ENT(q, q->llq.prod);
-+
- 	if (queue_full(&q->llq))
- 		return -ENOSPC;
-=20
--	queue_write(Q_ENT(q, q->llq.prod), ent, q->ent_dwords);
-+	queue_write(q_addr, ent, q->ent_dwords);
-+	if (q->non_coherent)
-+		clean_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_addr));
- 	queue_inc_prod(&q->llq);
- 	queue_sync_prod_out(q);
- 	return 0;
-@@ -360,10 +364,15 @@ static void queue_read(u64 *dst, __le64 *src, size_t =
-n_dwords)
-=20
- static int queue_remove_raw(struct arm_smmu_queue *q, u64 *ent)
- {
-+	__le64 *q_addr =3D Q_ENT(q, q->llq.cons);
-+
- 	if (queue_empty(&q->llq))
- 		return -EAGAIN;
-=20
--	queue_read(ent, Q_ENT(q, q->llq.cons), q->ent_dwords);
-+	if (q->non_coherent)
-+		invalidate_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_addr));
-+
-+	queue_read(ent, q_addr, q->ent_dwords);
- 	queue_inc_cons(&q->llq);
- 	queue_sync_cons_out(q);
- 	return 0;
-@@ -458,6 +467,7 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_devi=
-ce *smmu)
- 	struct arm_smmu_queue *q =3D &smmu->cmdq.q;
- 	u32 cons =3D readl_relaxed(q->cons_reg);
- 	u32 idx =3D FIELD_GET(CMDQ_CONS_ERR, cons);
-+	__le64 *q_addr =3D Q_ENT(q, cons);
- 	struct arm_smmu_cmdq_ent cmd_sync =3D {
- 		.opcode =3D CMDQ_OP_CMD_SYNC,
- 	};
-@@ -484,11 +494,14 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_de=
-vice *smmu)
- 		break;
- 	}
-=20
-+	if (q->non_coherent)
-+		invalidate_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_addr));
-+
- 	/*
- 	 * We may have concurrent producers, so we need to be careful
- 	 * not to touch any of the shadow cmdq state.
- 	 */
--	queue_read(cmd, Q_ENT(q, cons), q->ent_dwords);
-+	queue_read(cmd, q_addr, q->ent_dwords);
- 	dev_err(smmu->dev, "skipping command in error state:\n");
- 	for (i =3D 0; i < ARRAY_SIZE(cmd); ++i)
- 		dev_err(smmu->dev, "\t0x%016llx\n", (unsigned long long)cmd[i]);
-@@ -499,7 +512,10 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_dev=
-ice *smmu)
- 		return;
- 	}
-=20
--	queue_write(Q_ENT(q, cons), cmd, q->ent_dwords);
-+	queue_write(q_addr, cmd, q->ent_dwords);
-+
-+	if (q->non_coherent)
-+		clean_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_addr));
- }
-=20
- static void arm_smmu_cmdq_insert_cmd(struct arm_smmu_device *smmu, u64 *cm=
-d)
-@@ -1587,6 +1603,9 @@ static int arm_smmu_init_one_queue(struct arm_smmu_de=
-vice *smmu,
- 	q->q_base |=3D FIELD_PREP(Q_BASE_LOG2SIZE, q->llq.max_n_shift);
-=20
- 	q->llq.prod =3D q->llq.cons =3D 0;
-+
-+	q->non_coherent =3D !(smmu->features & ARM_SMMU_FEAT_COHERENCY);
-+
- 	return 0;
- }
-=20
-diff --git a/xen/drivers/passthrough/arm/smmu-v3.h b/xen/drivers/passthroug=
-h/arm/smmu-v3.h
-index f09048812c..ab07366294 100644
---- a/xen/drivers/passthrough/arm/smmu-v3.h
-+++ b/xen/drivers/passthrough/arm/smmu-v3.h
-@@ -522,6 +522,9 @@ struct arm_smmu_queue {
-=20
- 	u32 __iomem			*prod_reg;
- 	u32 __iomem			*cons_reg;
-+
-+	/* Is the memory access coherent? */
-+	bool				non_coherent;
- };
-=20
- struct arm_smmu_cmdq {
---=20
-2.50.1
+Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+
+preferably with the comments below
+
+> 
+> Changes in V5:
+> - since eSPI-specific defines and macros are now available even when the
+>    appropriate config is disabled, this allows us to remove many
+>    #ifdef guards and reuse the existing code for regular SPIs for eSPIs as
+>    well, as eSPIs are processed similarly. This improves code readability
+>    and consolidates the register ranges for SPIs and eSPIs in a single
+>    place, simplifying future changes or fixes for SPIs and their
+>    counterparts from the extended range
+> - moved vgic_ext_rank_offset() from
+>    [08/12] xen/arm: vgic: add resource management for extended SPIs
+>    as the function was unused before this patch
+> - added stub implementation of vgic_ext_rank_offset() when CONFIG_GICV3_ESPI=n
+> - removed unnecessary defines for reserved ranges, which were introduced in
+>    V4 to reduce the number of #ifdefs. The issue is now resolved by
+>    allowing the use of SPI-specific offsets and reworking the logic
+> 
+> Changes in V4:
+> - added missing RAZ and write ignore eSPI-specific registers ranges:
+>    GICD_NSACRnE and GICD_IGRPMODRnE
+> - changed previously reserved range to cover GICD_NSACRnE and
+>    GICD_IGRPMODRnE
+> - introduced GICD_RESERVED_RANGE<n>_START/END defines to remove
+>    hardcoded values and reduce the number of ifdefs
+> - fixed reserved ranges with eSPI option enabled: added missing range
+>    0x0F30-0x0F7C
+> - updated the logic for domains that do not support eSPI, but Xen is
+>    compiled with the eSPI option. Now, prior to other MMIO checks, we
+>    verify whether eSPI is available for the domain or not. If not, it
+>    behaves as it does currently - RAZ and WI
+> - fixed print for GICD_ICACTIVERnE
+> - fixed new lines formatting for switch-case
+> 
+> Changes in V3:
+> - changed vgic_store_irouter parameters - instead of offset virq is
+>    used, to remove the additional bool espi parameter and simplify
+>    checks. Also, adjusted parameters for regular SPI. Since the offset
+>    parameter was used only for calculating virq number and then reused for
+>    finding rank offset, it will not affect functionality.
+> - fixed formatting for goto lables - added newlines after condition
+> - fixed logs for GICD_ISACTIVERnE and GICD_ICACTIVERnE handlers
+> - removed #ifdefs in 2 places where they were adjacent and could be merged
+> 
+> Changes in V2:
+> - add missing rank index conversion for pending and inflight irqs
+> ---
+>   xen/arch/arm/include/asm/vgic.h |   4 +
+>   xen/arch/arm/vgic-v3.c          | 198 +++++++++++++++++++++++++-------
+>   xen/arch/arm/vgic.c             |  22 ++++
+>   3 files changed, 180 insertions(+), 44 deletions(-)
+> 
+> diff --git a/xen/arch/arm/include/asm/vgic.h b/xen/arch/arm/include/asm/vgic.h
+> index c52bbcb115..dec08a75a4 100644
+> --- a/xen/arch/arm/include/asm/vgic.h
+> +++ b/xen/arch/arm/include/asm/vgic.h
+> @@ -314,6 +314,10 @@ extern struct vgic_irq_rank *vgic_rank_offset(struct vcpu *v,
+>                                                 unsigned int b,
+>                                                 unsigned int n,
+>                                                 unsigned int s);
+> +extern struct vgic_irq_rank *vgic_ext_rank_offset(struct vcpu *v,
+> +                                                  unsigned int b,
+> +                                                  unsigned int n,
+> +                                                  unsigned int s);
+>   extern struct vgic_irq_rank *vgic_rank_irq(struct vcpu *v, unsigned int irq);
+>   extern void vgic_disable_irqs(struct vcpu *v, uint32_t r, unsigned int n);
+>   extern void vgic_enable_irqs(struct vcpu *v, uint32_t r, unsigned int n);
+> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+> index 4369c55177..27af247d30 100644
+> --- a/xen/arch/arm/vgic-v3.c
+> +++ b/xen/arch/arm/vgic-v3.c
+> @@ -107,17 +107,12 @@ static uint64_t vgic_fetch_irouter(struct vgic_irq_rank *rank,
+>   /*
+>    * Store an IROUTER register in a convenient way and migrate the vIRQ
+>    * if necessary. This function only deals with IROUTER32 and onwards.
+> - *
+> - * Note the offset will be aligned to the appropriate boundary.
+>    */
+>   static void vgic_store_irouter(struct domain *d, struct vgic_irq_rank *rank,
+> -                               unsigned int offset, uint64_t irouter)
+> +                               unsigned int virq, uint64_t irouter)
+>   {
+>       struct vcpu *new_vcpu, *old_vcpu;
+> -    unsigned int virq;
+> -
+> -    /* There is 1 vIRQ per IROUTER */
+
+You seem to have dropped a comment, but not just moved it to virq 
+calculation outside of the vgic_store_irouter() in "case 
+VRANGE64(GICD_IROUTERnE, GICD_IROUTERnEN):". If the comment is valid (I 
+assume so), it would be better to retain it.
+
+> -    virq = offset / NR_BYTES_PER_IROUTER;
+> +    unsigned int offset;
+>   
+>       /*
+>        * The IROUTER0-31, used for SGIs/PPIs, are reserved and should
+> @@ -673,6 +668,34 @@ write_reserved:
+>       return 1;
+>   }
+>   
+> +/*
+> + * Since all eSPI counterparts of SPI registers belong to lower offsets,
+> + * we can check whether the register offset is less than espi_base and,
+> + * if so, return the rank for regular SPI. Otherwise, return the rank
+> + * for eSPI.
+> + */
+
+NIT: I would just write the following:
+
+The assumption is that offsets below espi_base are for regular SPI, 
+while those at or above are for eSPI.
+
+> +static inline struct vgic_irq_rank *vgic_get_rank(struct vcpu *v,
+> +                                                  unsigned int b,
+> +                                                  uint32_t reg,
+> +                                                  unsigned int s,
+> +                                                  uint32_t spi_base,
+> +                                                  uint32_t espi_base)
+
+I find the name "vgic_get_rank" a bit confusing since the vgic.c already 
+contains the helper with the same name:
+
+static inline struct vgic_irq_rank *vgic_get_rank(struct vcpu *v,
+                                                   unsigned int rank)
+
+So what we have for regular SPIs is:
+vgic_get_rank()->vgic_rank_offset()->vgic_get_rank()
+and for eSPIs is:
+vgic_get_rank()->vgic_ext_rank_offset()->vgic_get_rank()
+
+I would rename it, e.g. vgic_common_rank_offset (not ideal though)
+
+
+> +{
+> +    if ( reg < espi_base )
+> +        return vgic_rank_offset(v, b, reg - spi_base, s);
+> +    else
+> +        return vgic_ext_rank_offset(v, b, reg - espi_base, s);
+> +}
+> +
+> +static inline uint32_t vgic_get_reg_offset(uint32_t reg, uint32_t spi_base,
+> +                                           uint32_t espi_base)
+> +{
+> +    if ( reg < espi_base )
+> +        return reg - spi_base;
+> +    else
+> +        return reg - espi_base;
+> +}
+
+I am wondering (I do not request a change) whether vgic_get_reg_offset() 
+is really helpfull,
+e.g. is
+  offset = vgic_get_reg_offset(reg, GICD_IPRIORITYR, GICD_IPRIORITYRnE);
+much better than:
+  offset = reg < GICD_IPRIORITYRnE ? reg - GICD_IPRIORITYR : reg - 
+GICD_IPRIORITYRnE;
+
+?
+
+[snip]
 
