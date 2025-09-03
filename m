@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6233FB424A1
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 17:13:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1108610.1458689 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C2CDB424F7
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Sep 2025 17:21:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1108641.1458697 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utpAh-0004TW-TV; Wed, 03 Sep 2025 15:13:15 +0000
+	id 1utpI8-0006P8-K5; Wed, 03 Sep 2025 15:20:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1108610.1458689; Wed, 03 Sep 2025 15:13:15 +0000
+Received: by outflank-mailman (output) from mailman id 1108641.1458697; Wed, 03 Sep 2025 15:20:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utpAh-0004Pw-Qc; Wed, 03 Sep 2025 15:13:15 +0000
-Received: by outflank-mailman (input) for mailman id 1108610;
- Wed, 03 Sep 2025 15:13:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1utpI8-0006Mn-HJ; Wed, 03 Sep 2025 15:20:56 +0000
+Received: by outflank-mailman (input) for mailman id 1108641;
+ Wed, 03 Sep 2025 15:20:55 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=b4jG=3O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1utpAg-00047C-Nh
- for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 15:13:14 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8250c5d4-88d8-11f0-9809-7dc792cee155;
- Wed, 03 Sep 2025 17:13:13 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-61cb4370e7bso10088679a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Sep 2025 08:13:13 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b042dcb9105sm771389366b.2.2025.09.03.08.13.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Sep 2025 08:13:12 -0700 (PDT)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1utpI7-0006Md-CN
+ for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 15:20:55 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1utpI6-004dkF-2l
+ for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 15:20:55 +0000
+Received: from mail-vk1-f178.google.com ([209.85.221.178])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1utpI7-00EUr2-02
+ for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 15:20:55 +0000
+Received: by mail-vk1-f178.google.com with SMTP id
+ 71dfb90a1353d-545dccac2f9so29356e0c.0
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Sep 2025 08:20:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +42,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8250c5d4-88d8-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756912392; x=1757517192; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=eU9yPIjk+hMAyig/Ct0852tYZLmHe6qE5yP90ZCdm3A=;
-        b=gG2vS24wAWy3TcIfLtiyNNtA9k6o67C3HtDJp5iDP1iLlU8yIw5O+hJ4+r+iR8+22T
-         CjOxG3wnAtOyoblgWqCVojKykpwV03L2TW4tgSb820tZXM7ugYXxAOTHV+ucCnObbHqG
-         72ngeX1baeIBTRQEuskkglPQOerJAnJRloZetwYCtKxznHuqurTNsOICWB8kYKw/uC2B
-         1Q8exkFLD2VItNNaEJ0jDTRoN00MhSOtICvrmEcehiufyEK+Bpf4OPEM7iyIPEZypEsq
-         suibDqsXOKipfAw3eGjGRVaSWZSxdtklylQq+LNkZ23Ltle9YJcbLabI9044kaNHfkYZ
-         obuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756912392; x=1757517192;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=eU9yPIjk+hMAyig/Ct0852tYZLmHe6qE5yP90ZCdm3A=;
-        b=WgxyMk0dtPui3GxWPwM0+XjJZJaRim3/f21ln8O684ZTYbGrpfxTVGzs7ECIw/t0iX
-         WeXQxAJ5JfCAKMvAOJBj/IUVig2Vb+J3l5W58j8iWxDwAs0HwVriRhOELb65q64zovKM
-         5pL/CnvgTIm9FPWIBGzbmvS/g+FCVyxXGUaGhxcvANJafPwmN0LVsLoCBmuMVhd7he3M
-         pxnCBKbuwazGldg8YKcckVPbLxBYzdpn4FvpgZDA127CEZObWk1VZYLTUZ1hI2N134eS
-         3K2Z+P7K1lE5akjJvpX3JIXhKZ5200R5U7SqrXcHF/3sMGBePj0TjznyNh+KCOWEWefF
-         kYcw==
-X-Gm-Message-State: AOJu0Yxc4vgOT3DEYaC4m26a4hTYMgkGP9UeYkA4AK6Oadgz4tmhezGc
-	pD4KI9nCuOH8YedsrYvo0DqqKtPvvkAuv6IoDbMrXCYPpcyA22zcBZBq9ZqD5TvtFvOWlybF+KQ
-	0q14=
-X-Gm-Gg: ASbGncte9Me7vWxRN2X2A0QDd+QjwUgmQrecZdxpeWaS4W4XzP0vKp88g5DEoO5cT0m
-	7gvmzJWFcX0dJM7XLKevXybiZlXOrrQEVKX92P7b6Cv3FOmetn+7F92FlxAAfhSXBxh+RD7pbUv
-	C5OhRqNYPrYbBhlu5L2Vx+2jDLua2p60LzqRnGn6IvnsSYWJiNom30sC/5oVSMRb6QqzKnir1Bd
-	JanKJehtP1ko/SqBy6/i3GZ59ty7BKfHaUIEFneFQrAUfT+YbSDhvHH5mpu++92/pDksjtz66de
-	+lb67HX0drwP+jIRrftp+Rqh3m69L6xbQLNHCRUAVqOHVOMfgQeIptDGFAOemafwnwgkcW5crTY
-	HMv7cv84rHic/blfqSZvBMueMLvu+oe1w5dhAk2UFlurt1vbZbO5dtEwWDT2wOJVDpecu0FK6sx
-	VvrJjeQP8qNsQIJ2KZuQ==
-X-Google-Smtp-Source: AGHT+IHMC07VAfa4DaT2Xm8NfFfTUewmCpyOhnTBxMcnx9r7nQ2vuTzTL5r7n29y62fteALKa4ELoQ==
-X-Received: by 2002:a17:907:971a:b0:ae3:6cc8:e431 with SMTP id a640c23a62f3a-b01f20ca668mr1723529666b.57.1756912392383;
-        Wed, 03 Sep 2025 08:13:12 -0700 (PDT)
-Message-ID: <1071997f-efe6-4088-b753-b74d3a045a09@suse.com>
-Date: Wed, 3 Sep 2025 17:13:10 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Content-Type:To:Subject:Message-ID:Date:
+	From:MIME-Version; bh=5wLpxyT35MYjQy1lDG7ITcvMpGAAj6EgEsv9ErVZivQ=; b=X03kZDu
+	4wKvX3YjDWXw4VJ7FigVrx+0NE/xBQrR0WuYmmbng8Wh2r0u4f5Mu8MckKmPQ4RcsT0QAliMUYJDI
+	m6GjwdnOSg0TlDgXMg/xqSW2CmqzTtziMqvKISicg1lLTz7FYV46127qIXichr6EmtsdBprf3VnDf
+	aPf0yQkvII=;
+X-Gm-Message-State: AOJu0Yz9KwvwwkZc0BHWnmgY+3Amt7cl2JJnYFVlaG1LD6QU7bmeqh63
+	on9jbzQg7+jj2vIV+bPwmPYvTEjHB2yOPeg36BeEYZJIR2b+bfuz5pfTibWElHdeKU1Py2NsWD5
+	1Z7diKclBf2pWDCqVHmylLM+AuawHmqs=
+X-Google-Smtp-Source: AGHT+IFFPDuqHwfTugBWMdaTzomUjTdWBYvoyU0mDOPAZuVA4osSDjSTRvWzDz/TIQDwqnHSY7yb0+ceipcjsIelrK0=
+X-Received: by 2002:a05:6122:a27:b0:544:6eb7:d7b5 with SMTP id
+ 71dfb90a1353d-544a0295260mr5397251e0c.9.1756912854515; Wed, 03 Sep 2025
+ 08:20:54 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] build: avoid absolute paths in executables
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Cody Zuschlag <cody.zuschlag@xenproject.org>
+Date: Wed, 3 Sep 2025 17:20:43 +0200
+X-Gmail-Original-Message-ID: <CAJbE=Kye7kfrGsPccJDtHqAF1TfuH7THe8JjdGXsSBw3vgoeqQ@mail.gmail.com>
+X-Gm-Features: Ac12FXz__cgvA71FYzfmoDYTuuMzYWcL4nlx3mXaWmoX2DhKPgMGHgRR8tvJ3Bk
+Message-ID: <CAJbE=Kye7kfrGsPccJDtHqAF1TfuH7THe8JjdGXsSBw3vgoeqQ@mail.gmail.com>
+Subject: [ANNOUNCE] Call for agenda items for September 4, 2025 Community Call
+ @ 15:00 UTC
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000984cd2063de72663"
 
-For in-tree builds relative paths are used, whereas for out-of-tree builds
-in various situations absolute ones come into play. The extra paths can be
-long, wasting space and e.g. serial line bandwidth. They would also get in
-the way of location-independent reproducible builds. Leverage newer gcc's
-(and Clang's) ability to "remap" file names. For older gcc fall back to
-using the option affecting debug info only.
+--000000000000984cd2063de72663
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Of course we may want to consider putting this in the top-level Config.mk,
-to also affect other sub-trees (presently mainly/only affecting debug
-info, for which even gcc5 already supports -fdebug-prefix-remap=).
+Hi everyone,
 
-As to a Fixes: tag, I wasn't quite sure whether to "blame" the
-introduction of out-of-tree builds.
+We=E2=80=99re getting ready for August's Xen Project Community Call on Thur=
+sday, 4
+September 2025 at 15:00 UTC (4 pm UK time). We=E2=80=99d love for you to jo=
+in. Feel
+free to participate or just observe. This call is a great opportunity to
+see what the community is working on, align our various efforts, and share
+updates. Everyone is welcome!
 
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -448,6 +448,8 @@ LDFLAGS-$(CONFIG_CC_IS_CLANG) += -plugin
- endif
- 
- ifdef building_out_of_srctree
-+    CFLAGS += $(call cc-option,$(CC),-ffile-prefix-map=$(srctree)/=, \
-+                                     -fdebug-prefix-map=$(srctree)/=)
-     CFLAGS += -I$(objtree)/include
-     CFLAGS += -I$(objtree)/arch/$(SRCARCH)/include
- endif
+*Preparation:*
+
+   - Add any proposed agenda items or missing action items:
+   https://cryptpad.fr/pad/#/2/pad/edit/EEoPk+k6ZwCj4kl7j+c0F9S3/
+   - If any action items have been resolved or are no longer relevant, feel
+   free to remove them from the doc.
+
+
+
+*Call Details:*
+
+   - *Date:* Thursday, 4 September 2025
+   - *Time:* 15:00 UTC (agenda begins at 15:05 UTC)
+      - Find your local timezone here
+      <https://www.worldtimebuddy.com/?qm=3D1&lid=3D5368361,5128581,100,265=
+3941,2988507,1850147&h=3D2988507&date=3D2025-9-4&sln=3D17-17.5&hf=3Dundefin=
+ed&c=3D1632>
+   - *Link to Join the Call:* https://meet.jit.si/XenProjectCommunityCall
+
+We plan to open the meeting room at 15:00 UTC, but to allow time for
+switching between meetings and handling any technical issues, we=E2=80=99ll
+officially start discussing the agenda at 15:05 UTC.
+
+Want to be CC=E2=80=99d on future calls?
+
+Add or remove yourself from our Sign-up Sheet.
+
+See you on thursday!
+
+Cody Zuschlag
+Xen Project - Community Manager
+
+--000000000000984cd2063de72663
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi everyone,<br><br>We=E2=80=99re getting ready for A=
+ugust&#39;s Xen Project Community Call on Thursday, 4 September 2025 at 15:=
+00 UTC (4 pm UK time). We=E2=80=99d love for you to join. Feel free to part=
+icipate or just observe. This call is a great opportunity to see what the c=
+ommunity is working on, align our various efforts, and share updates. Every=
+one is welcome!<br><br></div><div><b>Preparation:</b><br><ul><li>Add any pr=
+oposed agenda items or missing action items:=C2=A0<a href=3D"https://cryptp=
+ad.fr/pad/#/2/pad/edit/EEoPk+k6ZwCj4kl7j+c0F9S3/">https://cryptpad.fr/pad/#=
+/2/pad/edit/EEoPk+k6ZwCj4kl7j+c0F9S3/</a></li><li>If any action items have =
+been resolved or are no longer relevant, feel free to remove them from the =
+doc. </li></ul><br></div><div><b>Call Details:<br></b><ul><li><b>Date:</b> =
+Thursday, 4 September 2025</li><li><b>Time:</b> 15:00 UTC (agenda begins at=
+ 15:05 UTC)</li><ul><li><a href=3D"https://www.worldtimebuddy.com/?qm=3D1&a=
+mp;lid=3D5368361,5128581,100,2653941,2988507,1850147&amp;h=3D2988507&amp;da=
+te=3D2025-9-4&amp;sln=3D17-17.5&amp;hf=3Dundefined&amp;c=3D1632">Find your =
+local timezone here</a></li></ul><li><b>Link to Join the Call:</b> <a href=
+=3D"https://meet.jit.si/XenProjectCommunityCall">https://meet.jit.si/XenPro=
+jectCommunityCall</a></li></ul>We plan to open the meeting room at 15:00 UT=
+C, but to allow time for switching between meetings and handling any techni=
+cal issues, we=E2=80=99ll officially start discussing the agenda at 15:05 U=
+TC.<br><br>Want to be CC=E2=80=99d on future calls?<br><br>Add or remove yo=
+urself from our Sign-up Sheet.<br><br>See you on thursday!</div><div><div d=
+ir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><di=
+v dir=3D"ltr"><img src=3D"https://ci3.googleusercontent.com/mail-sig/AIorK4=
+x5nkRDCOFJDJAv9aMXdZ0mghItsp3D36JrwBCQtitBSW_0NeDS6mBmJ2F4vZVE2oBOqnY6IaJUr=
+l12"><br><div>Cody Zuschlag</div><div>Xen Project - Community Manager</div>=
+</div></div></div></div>
+
+--000000000000984cd2063de72663--
 
