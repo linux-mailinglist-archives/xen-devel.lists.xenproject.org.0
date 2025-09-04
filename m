@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6FE5B43B8B
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 14:27:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1109975.1459334 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 133A3B43BA2
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 14:30:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1109986.1459344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uu942-0006sS-3F; Thu, 04 Sep 2025 12:27:42 +0000
+	id 1uu96a-0008O3-GX; Thu, 04 Sep 2025 12:30:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1109975.1459334; Thu, 04 Sep 2025 12:27:42 +0000
+Received: by outflank-mailman (output) from mailman id 1109986.1459344; Thu, 04 Sep 2025 12:30:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uu942-0006pw-0a; Thu, 04 Sep 2025 12:27:42 +0000
-Received: by outflank-mailman (input) for mailman id 1109975;
- Thu, 04 Sep 2025 12:27:40 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1uu96a-0008MB-D7; Thu, 04 Sep 2025 12:30:20 +0000
+Received: by outflank-mailman (input) for mailman id 1109986;
+ Thu, 04 Sep 2025 12:30:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uu940-0006pq-So
- for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 12:27:40 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uu93z-006Fkm-36;
- Thu, 04 Sep 2025 12:27:40 +0000
-Received: from [15.248.2.239] (helo=[10.24.66.11])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uu93z-00FciN-35;
- Thu, 04 Sep 2025 12:27:40 +0000
+ (envelope-from <SRS0=iTa/=3P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uu96Y-0008M5-Fg
+ for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 12:30:18 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e974adba-898a-11f0-9809-7dc792cee155;
+ Thu, 04 Sep 2025 14:30:16 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-61cb4374d2fso1431967a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 05:30:16 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-61ded4749aesm10028832a12.32.2025.09.04.05.30.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Sep 2025 05:30:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,147 +45,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=T+Zq41eU3r7K9a6K3BFpgPe5HFtMwk8xVNxx3+KkcMY=; b=C1IycG5X+0oBrlqfVB3U4cJRc5
-	6NJbwRMCIQqd7EJGy/bDD85VJU48gorUOP8hsbU/c81CGoXquDKTGbhQg92t0qxTlKDcAcU1onCZl
-	2zesY0o+pZk/sT/4WNJbBKhFhVUW8RaOgWMjUjAdj1Wpx/ESmRNHXuC5rFmGwixN/vNc=;
-Message-ID: <aa9456c8-f997-4aad-96ba-db8fb7659b5d@xen.org>
-Date: Thu, 4 Sep 2025 13:27:37 +0100
+X-Inumbo-ID: e974adba-898a-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1756989016; x=1757593816; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Zx/hmlFxLP2KrveGa5u82+pZv7SJoB//hblsQ8YInIM=;
+        b=SQnjVtHtB2DOMlZ8zib5eCOIcmQ6RoyUWfUYa/MZUJxFLba0bBzhbL36Ey2LKmWUQX
+         hyBJX3RZUS3LGhnMHY0xf+Xz3elANd+DW9FBk32QIA9E1DBBLEOJVvk+iHcOLZisvFr0
+         IE/C/QPtwzJcQYhttwoBiCIxZtwxF0qqwQVBDDUp4mPHyqMgsUeXEhJ0Vz2M2/DyZS8E
+         qj7x0ngftThQpW9/D/vfgJLL2vBXNg2VcO6LikQeoSqSdbPk57fxDDmKKrSOBKF/HZ0R
+         ihKINY0qT5iuhStzeF6Z6Ih38cccNaRIRVVyBE6DfBlDx/XtTFlQBErNKcMq88CSWWjV
+         5gMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756989016; x=1757593816;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Zx/hmlFxLP2KrveGa5u82+pZv7SJoB//hblsQ8YInIM=;
+        b=LAiaDBzS6GQb8YGZRJsMhnUNfCE5aiux7yNnITCsDJ0l9m45aaKjMpOjVsaHraQ6/s
+         NsYhk51tlO0p69r9JwN+3NX5mO5NP2G3NLv56wnzvPfDIy8a+AqsnKlNrWkz7mHMqT9D
+         MO/3Y0wNck41RT6+/YqYuH0UOIb3otyZNAk8QtHDo4Y01snKHgeivvO9AoQ7khoUNixG
+         nrD+6wSYsRup4hi+DAzIVaXY43FmVQ43j23vdkcB2hzACRLsIeHB5yTRrxG3vJD7NHeC
+         gW75oLKUIFgZnRCZ992QdTpaURv5mHV1T7rBqbXVSrYznC88gWvUVF6jfEMOKf4JE6Z+
+         5XNg==
+X-Forwarded-Encrypted: i=1; AJvYcCUAGJ+on5WHYb4mLerCdRjJLD3HPeBCN6VoNidsxIjQJx0icgGBUy070FmQhtVaFyk4xnPHo1B5164=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy2haczN/48YxcYCN0NoQbtOli/Kgk/MFUTwjBNMI9Whhc1mhq3
+	iUdeci6sN10yQwmJWIkFtj6QiZYb7/uXvk/+Gdj9nwuDDLqW1A5aD4UJm5TnONVo7A==
+X-Gm-Gg: ASbGncvLxlu6aRtZnfs1N6ezEYD/ryJXEaK5SFEvtI1MSdyjDheXF0kv9lkc8Cr1Vbr
+	t7tz688rFzjX0/+UVyIbXjddYoCxDKWm9Yddc6D4LS8uqhML3UypYcDvg1GFmSifUn8ODWq2NfF
+	YdNu3jVFa5XShI2PfSXfWbe7++QH8WQI/7/2U3oqtRwMba8wTsnBGKFzaG60ce0tVzSncmJoEQQ
+	xWgVLpSstm7i2kYpd07OuxmECxt2hcmF1fteGv1DQo5/jkO+OiYzkTsn3vjGt7XQfTx1yrxl48i
+	MBCY7AOlf+hk81pW8W3IDx9Zpj/cMh2lvRrgV8aGVMu+SdVKC0xZOHKYmTvTN7lgcb/4/YOYntC
+	2mqbgfsqBJmiE/oynNGiJ6kOjCb17wm8NtrjCqkFGogAu/zb4WeILYSRbRrPnA9qh7yWuF97yYj
+	eeW7ryFqI=
+X-Google-Smtp-Source: AGHT+IEb6iIc0jRozbcXayisHqVHi2Y2Bp3vhP3PmwZp3Y4+epRa1lTFD8YBzS2ObwMvoArfRT7RTg==
+X-Received: by 2002:a05:6402:3594:b0:61e:49dc:171f with SMTP id 4fb4d7f45d1cf-61e49dc176fmr13140088a12.1.1756989015811;
+        Thu, 04 Sep 2025 05:30:15 -0700 (PDT)
+Message-ID: <d9913c35-b1bc-4a64-876f-0378f6bd36f5@suse.com>
+Date: Thu, 4 Sep 2025 14:30:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 04/12] xen/arm/irq: add handling for IRQs in the eSPI
- range
-Content-Language: en-GB
-To: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>,
+Subject: Re: [PATCH v8 8/8] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
+ xen_sysctl_pm_op for amd-cppc driver
+To: Jason Andryuk <jason.andryuk@amd.com>, "Penny, Zheng"
+ <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "olekstysh@gmail.com" <olekstysh@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1756908472.git.leonid_komarianskyi@epam.com>
- <bdaec9b9704a6f21325b507365a165cce89cca16.1756908472.git.leonid_komarianskyi@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <bdaec9b9704a6f21325b507365a165cce89cca16.1756908472.git.leonid_komarianskyi@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20250828100601.1777197-1-Penny.Zheng@amd.com>
+ <a855a0b4-21dc-4f63-9849-6e5c7ec2e6b3@suse.com>
+ <DM4PR12MB8451C7146814C9C359B078B5E101A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <8ab89125-4693-4d9a-b9a3-b8ab38b1908f@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <8ab89125-4693-4d9a-b9a3-b8ab38b1908f@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Leonid,
-
-On 03/09/2025 15:29, Leonid Komarianskyi wrote:
-> ---
->   xen/arch/arm/Kconfig           |  8 +++++
->   xen/arch/arm/include/asm/irq.h | 37 ++++++++++++++++++++++++
->   xen/arch/arm/irq.c             | 53 ++++++++++++++++++++++++++++++++--
->   3 files changed, 96 insertions(+), 2 deletions(-)
+On 03.09.2025 20:17, Jason Andryuk wrote:
+> On 2025-09-02 23:14, Penny, Zheng wrote:
+>> [Public]
+>>
+>>> -----Original Message-----
+>>> From: Jan Beulich <jbeulich@suse.com>
+>>> Sent: Thursday, August 28, 2025 7:07 PM
+>>> To: Penny, Zheng <penny.zheng@amd.com>
+>>> Cc: Huang, Ray <Ray.Huang@amd.com>; Anthony PERARD
+>>> <anthony.perard@vates.tech>; Andrew Cooper <andrew.cooper3@citrix.com>;
+>>> Roger Pau Monné <roger.pau@citrix.com>; xen-devel@lists.xenproject.org
+>>> Subject: Re: [PATCH v8 8/8] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
+>>> xen_sysctl_pm_op for amd-cppc driver
+>>>
+>>> On 28.08.2025 12:06, Penny Zheng wrote:
+>>>> @@ -154,6 +156,17 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op
+>>> *op)
+>>>>       else
+>>>>           strlcpy(op->u.get_para.scaling_driver, "Unknown",
+>>>> CPUFREQ_NAME_LEN);
+>>>>
+>>>> +    /*
+>>>> +     * In CPPC active mode, we are borrowing governor field to indicate
+>>>> +     * policy info.
+>>>> +     */
+>>>> +    if ( policy->governor->name[0] )
+>>>> +        strlcpy(op->u.get_para.u.s.scaling_governor,
+>>>> +                policy->governor->name, CPUFREQ_NAME_LEN);
+>>>> +    else
+>>>> +        strlcpy(op->u.get_para.u.s.scaling_governor, "Unknown",
+>>>> +                CPUFREQ_NAME_LEN);
+>>>
+>>> Isn't pulling this ...
+>>>
+>>>>       if ( !cpufreq_is_governorless(op->cpuid) )
+>>>>       {
+>>>>           if ( !(scaling_available_governors =
+>>>
+>>> ... out of this if()'s body going to affect HWP? It's not clear to me whether that would
+>>> be entirely benign.
+>>>
+>>
+>> HWP has its own unique "hwp" governor. So, imo, it may not affect.
 > 
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index 17df147b25..43b05533b1 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -135,6 +135,14 @@ config GICV3
->   	  Driver for the ARM Generic Interrupt Controller v3.
->   	  If unsure, use the default setting.
->   
-> +config GICV3_ESPI
-> +	bool "Extended SPI range support"
-> +	depends on GICV3 && !NEW_VGIC
-> +	help
-> +	  Allow Xen and domains to use interrupt numbers from the extended SPI
-> +	  range, from 4096 to 5119. This feature is introduced in GICv3.1
-> +	  architecture.
-> +
->   config HAS_ITS
->           bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORTED
->           depends on GICV3 && !NEW_VGIC && !ARM_32
-> diff --git a/xen/arch/arm/include/asm/irq.h b/xen/arch/arm/include/asm/irq.h
-> index 5bc6475eb4..f4d0997651 100644
-> --- a/xen/arch/arm/include/asm/irq.h
-> +++ b/xen/arch/arm/include/asm/irq.h
-> @@ -32,6 +32,10 @@ struct arch_irq_desc {
->   #define SPI_MAX_INTID   1019
->   #define LPI_OFFSET      8192
->   
-> +#define ESPI_BASE_INTID 4096
-> +#define ESPI_MAX_INTID  5119
-> +#define NR_ESPI_IRQS    1024
-> +
->   /* LPIs are always numbered starting at 8192, so 0 is a good invalid case. */
->   #define INVALID_LPI     0
->   
-> @@ -39,7 +43,12 @@ struct arch_irq_desc {
->   #define INVALID_IRQ     1023
->   
->   extern const unsigned int nr_irqs;
-> +#ifdef CONFIG_GICV3_ESPI
-> +/* This will cover the eSPI range, to allow asignmant of eSPIs to domains. */
-> +#define nr_static_irqs (ESPI_MAX_INTID + 1)
-> +#else
->   #define nr_static_irqs NR_IRQS
-> +#endif
->   
->   struct irq_desc;
->   struct irqaction;
-> @@ -55,6 +64,34 @@ static inline bool is_lpi(unsigned int irq)
->       return irq >= LPI_OFFSET;
->   }
->   
-> +static inline unsigned int espi_intid_to_idx(unsigned int intid)
-> +{
-> +    ASSERT(intid >= ESPI_BASE_INTID && intid <= ESPI_MAX_INTID);
+> get_hwp_para() writes into the same union:
+> op->u.get_para.u.cppc_para
+> op->u.get_para.u.s.scaling_governor
 
-Can we use is_espi()?
+Not anymore as of "tools/cpufreq: extract CPPC para from cpufreq para".
 
-> +    return intid - ESPI_BASE_INTID;
-> +}
-> +
-> +static inline unsigned int espi_idx_to_intid(unsigned int idx)
-> +{
-> +    ASSERT(idx <= NR_ESPI_IRQS);
-> +    return idx + ESPI_BASE_INTID;
-> +}
-> +
-> +static inline bool is_espi(unsigned int irq)
-> +{
-> +#ifdef CONFIG_GICV3_ESPI
-> +    return irq >= ESPI_BASE_INTID && irq <= ESPI_MAX_INTID;
-> +#else
+> Which is why I avoided it for hwp.
+> 
+> I guess writing scaling_governor first and then overwriting it still 
+> ends up with the same data in cppc_para.  Seems a little messy though.
+> 
+> Penny, I'm confused by this comment:
 > +    /*
-> +     * The function should not be called for eSPIs when CONFIG_GICV3_ESPI is
-> +     * disabled. Returning false allows the compiler to optimize the code
-> +     * when the config is disabled, while the assert ensures that out-of-range
-> +     * array resources are not accessed, e.g., in __irq_to_desc().
+> +     * In CPPC active mode, we are borrowing governor field to indicate
+> +     * policy info.
 > +     */
-> +    ASSERT(irq >= ESPI_BASE_INTID);
+> 
+> You have CPPC active and passive modes - which uses a governor and which 
+> uses get_cppc?
+> 
+> It seems like only writing the scaling governor inside
+> if ( !cpufreq_is_governorless )
+> 
+> should be correct since it's using the union.  Am I missing something?
 
-Regardless what Volodymyr mentioned about the assert!(), I am a bit 
-unsure where we guarantee is_espi() will not be called with an irq <= 
-ESPI_BASE_INTID. In fact, we could have the following code in Xen:
+The union is now fake; it has just a single member, and hence would better
+be dropped. I've commented correspondingly on v9.
 
-if (is_espi(irq))
-{
-}
-else if (is_lpi(irq))
-{
-}
-else
-{
-}
-
-We could replace the check with "!(irq >= ESPI_BASE_INTID && irq <= 
-ESPI_MAX_INTID)". But I would actually prefer if there is no check 
-because I don't see the value.
-
-> +    return false;
-> +#endif
-> +}
-> +
-
-Cheers,
-
--- 
-Julien Grall
-
+Jan
 
