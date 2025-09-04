@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D017AB43ABD
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 13:51:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1109905.1459284 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD209B43AF9
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 14:04:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1109919.1459294 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uu8UJ-0000es-9K; Thu, 04 Sep 2025 11:50:47 +0000
+	id 1uu8hV-0002WO-J4; Thu, 04 Sep 2025 12:04:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1109905.1459284; Thu, 04 Sep 2025 11:50:47 +0000
+Received: by outflank-mailman (output) from mailman id 1109919.1459294; Thu, 04 Sep 2025 12:04:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uu8UJ-0000ck-5t; Thu, 04 Sep 2025 11:50:47 +0000
-Received: by outflank-mailman (input) for mailman id 1109905;
- Thu, 04 Sep 2025 11:50:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uu8hV-0002TW-Fk; Thu, 04 Sep 2025 12:04:25 +0000
+Received: by outflank-mailman (input) for mailman id 1109919;
+ Thu, 04 Sep 2025 12:04:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iTa/=3P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uu8UH-0000ce-Dl
- for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 11:50:45 +0000
+ id 1uu8hT-0002TQ-Jm
+ for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 12:04:23 +0000
 Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
  [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 63384771-8985-11f0-9d12-b5c5bf9af7f9;
- Thu, 04 Sep 2025 13:50:44 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4a5fa8eb-8987-11f0-9809-7dc792cee155;
+ Thu, 04 Sep 2025 14:04:21 +0200 (CEST)
 Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-afcb7ae31caso156525066b.3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 04:50:43 -0700 (PDT)
+ a640c23a62f3a-b043a33b060so148467466b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 05:04:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aff138a8d76sm1394444766b.104.2025.09.04.04.50.42
+ a640c23a62f3a-b046d420e02sm352793066b.39.2025.09.04.05.04.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Sep 2025 04:50:42 -0700 (PDT)
+ Thu, 04 Sep 2025 05:04:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63384771-8985-11f0-9d12-b5c5bf9af7f9
+X-Inumbo-ID: 4a5fa8eb-8987-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756986643; x=1757591443; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756987461; x=1757592261; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Kq9GCpFaYT48FOq3UM86Tduy9jRrqzASQbYY7MHd40c=;
-        b=GDU3OVuhZbei3hQUhD69KuP59v5+Oh+XUbRjfhmvJUf/AmV1wq2KTWIZQAz+UwUqCi
-         TuWYOc634HFJkSOE7MDlqZT/OwXzu4lnwewzUVXV2CVN+Ha/KuGRV5xcd40pqe9r7G5I
-         HH9klriAZrwzYpsPvxAQ51AVKarLZkZ7YAA+HU20MZpgEmDDteyeLCjvwSyuyOAG1NLU
-         rJ6NEdvj2tgsRsUfR8e6HnNdFcBtrPDFaX/eiW7LADLfAUiUb2K3WNFU/VMT+8YDJ3ZK
-         uwZs+Tig3pazJmxWP6VOKIYZTkDm2Cv/RwNdUfRyiRWwVzkzFRf/a+lVu5EkZbs+nl5H
-         vdaw==
+        bh=QXF2UONQ4ZIDiDV0wjlL23WDx+zGfbFqE9iBllcFLg4=;
+        b=UEn5pxi8+eP8ifrFlRDeEBs1LU1oCt3zHobwj6fh/9YuwTDzE1K+QP1L9Q2TqRNmsf
+         dHL5kmHAmN++A+yDMsYHTc/KcWBjfkW/qHbir2ffs0e0LTDL9hCGawZy0r3l3qDZ0jyD
+         gvLYVYdl0jc9tkFfiWeV6uFgt+smfTrSDP83O4q9HdWak6Cxqi/XUblSmzSJ3INIR8i3
+         YQZj2PbNp/ocrV1jlkECa06ectNupzNdXnZgaHgO0xPik0L1qSGQ5JBr3BwH4OxPZ5Nk
+         Y5KBPcjZBCMCyGmRHp7VXsoAAlrX7kRJAk+/x+xBp+pc3NpFCXyNckRfBxDo12GfJXaZ
+         vL5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756986643; x=1757591443;
+        d=1e100.net; s=20230601; t=1756987461; x=1757592261;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Kq9GCpFaYT48FOq3UM86Tduy9jRrqzASQbYY7MHd40c=;
-        b=pIs+e3eltJ4PdBNhdUCD+XLPbkXsKUrQYliB8T6a1Zkuwucd4hqvllh0judTnEc8K4
-         Sr3g+yT4gGIYAU1FSJGJSUjF26ciXPJLMW2VdJXZw5GG3OEHb1a/PWwQHypgP50tj0fM
-         HqgCoWMdh29/xjPcofIo0MWGu/P7lGUQo1Uqxs/+czubkZnQjhsxXgF6iyf9rRwbmTqg
-         APIvUMUbvqBx2/EcB8Ab6VKZMNzlEtF1IEFW2v88aBtTEJG61wY4xLqaMMyIZ9+Qwq+q
-         hUE0LQ1o0hUWIDdXXTTJn/JpKnEa21Ga3+ov9Z7f/XGXftCkP5BNubWInLDfmuuFlg0a
-         aTSw==
-X-Forwarded-Encrypted: i=1; AJvYcCVwdQOiaQUJ3CohW/zYEmLR6RBx7NiHAUQSvzk0wTIU1AaBAmg3ufc9n/rt628ZTOg6yuuzV6neG+E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwZ+lFU7/QJXszDxhXPA0thp3CcQv6gg9Zl2tsFn7xwp1gcQLQC
-	S2wQjTC+HEDMggX/N2tPtBb5OAiVl5hSelUVCiZt/3BSoqmItK2JNk9QTkKvpShuNw==
-X-Gm-Gg: ASbGncvtUqIMuYhQ7PZOlf+AefzkT0Z5wW9/6qVMBdn6o9lkCTEObho7j0izAIWa5r7
-	kbzSyPJjz0zrLEBMmTgScnhlyAQjJhKV7o0kSzIF9eFjKYFF0YaSOMBP6XkpzwcNByiscQEm4KM
-	zOPwiszq+QD5mp/lKTIBig+9Nd/7yCNwatfT3Kgf6PQgKbUPgft95XmgrfQMGpdkuv7FyidOP+V
-	3oj1JgNZTUucM1Uphy3k6T1fIK27yXk1XO9CfMPX6sIhMe3XN3b7Fwazj8DKYTlHW0Z5N0dOYXr
-	3vorftEKHWrPk9ZRk2cnjTUfsTnwHJGThXABTllYMXphxRbB3IhyFKh7moKpx9rYp5JfwFGRXAg
-	xgHJ7at5HxVPFtxn5mszrk2XMjtbc8gXQduW8yBuhTZ0RLMJ76+GsGzpAtlPRuZrn0B65uCxaU3
-	r+hXYUDXY=
-X-Google-Smtp-Source: AGHT+IH5QzA0/Fz7AeS0tWtcY9JhCIx75XQWcWbi3GhxNuU03zhPs1jemvU1g/ztBqcjEPXFr9AIHw==
-X-Received: by 2002:a17:906:f59f:b0:b04:72bd:2080 with SMTP id a640c23a62f3a-b0472bd2168mr403464666b.60.1756986643143;
-        Thu, 04 Sep 2025 04:50:43 -0700 (PDT)
-Message-ID: <849f73f1-4004-4d17-a7a9-d755fb0f889b@suse.com>
-Date: Thu, 4 Sep 2025 13:50:41 +0200
+        bh=QXF2UONQ4ZIDiDV0wjlL23WDx+zGfbFqE9iBllcFLg4=;
+        b=kMTvZ6wUuLtK42eDabna5ggV77SoBtPXa5ByFEtfaTSMLEJu+AIj9NaRa28lDdt/oX
+         aeshWZ2jVmsKbvCpNQQhkbjHIA/EGqMe4b55Mmfv727ili7DC5qK7mjAWWDAJarkAgAw
+         iFrAnRZ48P56xed767/XNmLxIF96Ju31K0EVXUBbWrTUYxY4QenDezq2ZGG7Au4zeCvC
+         9MnT98Q39zv03OFK3nZIhCc32azBHPnF+Ki6fQkUwekykwkN4lMxJZx/eP0uwBAqIN94
+         C6h6EUFXfDAnENURCEFR1gE5huvwj1dUDo4SzsS6m+avduRIEBtxNy0mXnloqE01LMLG
+         H4EQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXGyA5TsgxmP2FTrYqlUYPRWUCVsHdCOAqB9mehG/yG3n2fD2z1zRIS+ZWM2qqGduHZYNUVCMnyaOA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyA07NGNyvxEpAR7fU+RPk0oC5qcUH6xSOnzNb5jSrO3r6a+JuC
+	YShCObMCNDykWWcCl7vybLZr/I/l00jQ6opfzipa9lf3QO4ybRi2I1FlU+HDNbJ5uA==
+X-Gm-Gg: ASbGncu2EAL4GL1mYKdkWmHZCFjEJcGNCu4s1wgE0b5bzxEyzTUQ9gU+B1MEAMAtS3T
+	hR4aIjbsCFkLu7hrFvx8G6n7DLXUkJSfhtuxDxucZnO13r0FV2Qnsfh7XKoaZ+tJzGXJvwWO6Aj
+	4TSHKnyouHyG9CUlz+WNw3O9ChXNJhHAVSwqX9YesuO5UtrO8jMEG2QpQgTn+6LGcyRn3dHL7h9
+	UihjYBwZTsqpxb3e7VzNqThvQonPOyDJCbdbrYPc7fl8E/YTPvK2MiI9IfNoMsRxLls5FbglinP
+	8YyZVwmfvPsOWvLZEBGhECtXo5t39axWgBZhwmfEQZnAIeBfYAL+FHffJQ2DAzAJqzWn4GwKDtD
+	v2xjmtN5RtxvytTmiUtZCQ/1tkb55bzJbYsL6KCPH4oAebNBIsrf2VUUAmwAJAvZtMb/nkrHHqg
+	ojt2MHzYG4HGhS3gL/Y1UHIgtM1pGG
+X-Google-Smtp-Source: AGHT+IE9vR2mOufoW5dEWF5p7stxol9hpASE4+Ky+04nHLfeIPOginWYpLh05m7KeVuBDJpaiAFZpg==
+X-Received: by 2002:a17:907:3e11:b0:b04:65b4:711 with SMTP id a640c23a62f3a-b0465b40a87mr715730166b.57.1756987460553;
+        Thu, 04 Sep 2025 05:04:20 -0700 (PDT)
+Message-ID: <7e769952-a906-4a3e-af27-26faa76f6dd4@suse.com>
+Date: Thu, 4 Sep 2025 14:04:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/8] xen/cpufreq: embed hwp into struct
- cpufreq_policy{}
-To: Penny Zheng <Penny.Zheng@amd.com>, Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH v9 2/8] xen/cpufreq: implement amd-cppc driver for CPPC in
+ passive mode
+To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250904063518.2097629-1-Penny.Zheng@amd.com>
- <20250904063518.2097629-2-Penny.Zheng@amd.com>
+ <20250904063518.2097629-3-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,136 +123,232 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250904063518.2097629-2-Penny.Zheng@amd.com>
+In-Reply-To: <20250904063518.2097629-3-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 04.09.2025 08:35, Penny Zheng wrote:
-> For cpus sharing one cpufreq domain, cpufreq_driver.init() is
-> only invoked on the firstcpu, so current per-CPU hwp driver data
-> struct hwp_drv_data{} actually fails to be allocated for cpus other than the
-> first one. There is no need to make it per-CPU.
-> We embed struct hwp_drv_data{} into struct cpufreq_policy{}, then cpus could
-> share the hwp driver data allocated for the firstcpu, like the way they share
-> struct cpufreq_policy{}. We also make it a union, with "hwp", and later
-> "amd-cppc" as a sub-struct.
+> amd-cppc is the AMD CPU performance scaling driver that introduces a
+> new CPU frequency control mechanism. The new mechanism is based on
+> Collaborative Processor Performance Control (CPPC) which is a finer grain
+> frequency management than legacy ACPI hardware P-States.
+> Current AMD CPU platforms are using the ACPI P-states driver to
+> manage CPU frequency and clocks with switching only in 3 P-states, while the
+> new amd-cppc allows a more flexible, low-latency interface for Xen
+> to directly communicate the performance hints to hardware.
+> 
+> "amd-cppc" driver is responsible for implementing CPPC in passive mode, which
+> still leverages Xen governors such as *ondemand*, *performance*, etc, to
+> calculate the performance hints. In the future, we will introduce an advanced
+> active mode to enable autonomous performence level selection.
+> 
+> Field epp, energy performance preference, which only has meaning when active
+> mode is enabled and will be introduced later in details, so we read
+> pre-defined BIOS value for it in passive mode.
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-And ACPI, as per my patch (which then will need re-basing).
+With the issue I had pointed out, leading to ...
 
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v8 -> v9
+> - embed struct amd_cppc_drv_data{} into struct cpufreq_policy{}
 
-Not quite, this really is Reported-by: as it's a bug you fix, and in turn it
-also wants to gain a Fixes: tag. This also will need backporting.
+... this change, I think the tag would have needed to be dropped.
 
-It would also have been nice if you had Cc-ed Jason right away, seeing that
-this code was all written by him.
+> +static void cf_check amd_cppc_write_request_msrs(void *info)
+> +{
+> +    const struct amd_cppc_drv_data *data = info;
+> +
+> +    wrmsrl(MSR_AMD_CPPC_REQ, data->req.raw);
+> +}
+> +
+> +static void amd_cppc_write_request(unsigned int cpu,
+> +                                   struct amd_cppc_drv_data *data,
+> +                                   uint8_t min_perf, uint8_t des_perf,
+> +                                   uint8_t max_perf, uint8_t epp)
+> +{
+> +    uint64_t prev = data->req.raw;
+> +
+> +    data->req.min_perf = min_perf;
+> +    data->req.max_perf = max_perf;
+> +    data->req.des_perf = des_perf;
+> +    data->req.epp = epp;
+> +
+> +    if ( prev == data->req.raw )
+> +        return;
+> +
+> +    on_selected_cpus(cpumask_of(cpu), amd_cppc_write_request_msrs, data, 1);
 
-> @@ -259,7 +258,7 @@ static int cf_check hwp_cpufreq_target(struct cpufreq_policy *policy,
->                                         unsigned int relation)
->  {
->      unsigned int cpu = policy->cpu;
-> -    struct hwp_drv_data *data = per_cpu(hwp_drv_data, cpu);
-> +    struct hwp_drv_data *data = policy->u.hwp;
->      /* Zero everything to ensure reserved bits are zero... */
->      union hwp_request hwp_req = { .raw = 0 };
+With "cpu" coming from ...
 
-Further down in this same function we have
+> +}
+> +
+> +static int cf_check amd_cppc_cpufreq_target(struct cpufreq_policy *policy,
+> +                                            unsigned int target_freq,
+> +                                            unsigned int relation)
+> +{
+> +    struct amd_cppc_drv_data *data = policy->u.amd_cppc;
+> +    uint8_t des_perf;
+> +    int res;
+> +
+> +    if ( unlikely(!target_freq) )
+> +        return 0;
+> +
+> +    res = amd_cppc_khz_to_perf(data, target_freq, &des_perf);
+> +    if ( res )
+> +        return res;
+> +
+> +    /*
+> +     * Having a performance level lower than the lowest nonlinear
+> +     * performance level, such as, lowest_perf <= perf <= lowest_nonliner_perf,
+> +     * may actually cause an efficiency penalty, So when deciding the min_perf
+> +     * value, we prefer lowest nonlinear performance over lowest performance.
+> +     */
+> +    amd_cppc_write_request(policy->cpu, data, data->caps.lowest_nonlinear_perf,
 
-    on_selected_cpus(cpumask_of(cpu), hwp_write_request, policy, 1);
+... here, how can this work when this particular CPU isn't online anymore?
 
-That's similarly problematic when the CPU denoted by policy->cpu isn't
-online anymore. (It's not quite clear whether all related issues would
-want fixing together, or in multiple patches.)
+> +                           des_perf, data->caps.highest_perf,
+> +                           /* Pre-defined BIOS value for passive mode */
+> +                           per_cpu(epp_init, policy->cpu));
+> +    return 0;
+> +}
+> +
+> +static void cf_check amd_cppc_init_msrs(void *info)
+> +{
+> +    struct cpufreq_policy *policy = info;
+> +    struct amd_cppc_drv_data *data = policy->u.amd_cppc;
+> +    uint64_t val;
+> +    unsigned int min_freq = 0, nominal_freq = 0, max_freq;
+> +
+> +    /* Package level MSR */
+> +    rdmsrl(MSR_AMD_CPPC_ENABLE, val);
 
-> @@ -350,7 +349,7 @@ static void hwp_get_cpu_speeds(struct cpufreq_policy *policy)
->  static void cf_check hwp_init_msrs(void *info)
->  {
->      struct cpufreq_policy *policy = info;
-> -    struct hwp_drv_data *data = this_cpu(hwp_drv_data);
-> +    struct hwp_drv_data *data = policy->u.hwp;
->      uint64_t val;
->  
->      /*
-> @@ -426,15 +425,14 @@ static int cf_check hwp_cpufreq_cpu_init(struct cpufreq_policy *policy)
->  
->      policy->governor = &cpufreq_gov_hwp;
->  
-> -    per_cpu(hwp_drv_data, cpu) = data;
-> +    policy->u.hwp = data;
->  
->      on_selected_cpus(cpumask_of(cpu), hwp_init_msrs, policy, 1);
+Here you clarify the scope, yet what about ...
 
-If multiple CPUs are in a domain, not all of them will make it here. By
-implication the MSRs accessed by hwp_init_msrs() would need to have wider
-than thread scope. The SDM, afaics, says nothing either way in this regard
-in the Architectural MSRs section. Later model-specific tables have some
-data.
+> +    /*
+> +     * Only when Enable bit is on, the hardware will calculate the processor’s
+> +     * performance capabilities and initialize the performance level fields in
+> +     * the CPPC capability registers.
+> +     */
+> +    if ( !(val & AMD_CPPC_ENABLE) )
+> +    {
+> +        val |= AMD_CPPC_ENABLE;
+> +        wrmsrl(MSR_AMD_CPPC_ENABLE, val);
+> +    }
+> +
+> +    rdmsrl(MSR_AMD_CPPC_CAP1, data->caps.raw);
 
-Which gets me back to my original question: Is "sharing" actually possible
-for HWP? Note further how there are both HWP_REQUEST and HWP_REQUEST_PKG
-MSRs, for example. Which one is (to be) used looks to be controlled by
-HWP_CTL.PKG_CTL_POLARITY.
+... this and ...
 
-> @@ -462,10 +460,8 @@ static int cf_check hwp_cpufreq_cpu_init(struct cpufreq_policy *policy)
->  
->  static int cf_check hwp_cpufreq_cpu_exit(struct cpufreq_policy *policy)
->  {
-> -    struct hwp_drv_data *data = per_cpu(hwp_drv_data, policy->cpu);
-> -
-> -    per_cpu(hwp_drv_data, policy->cpu) = NULL;
-> -    xfree(data);
-> +    if ( policy->u.hwp )
-> +        XFREE(policy->u.hwp);
+> +    if ( data->caps.highest_perf == 0 || data->caps.lowest_perf == 0 ||
+> +         data->caps.nominal_perf == 0 || data->caps.lowest_nonlinear_perf == 0 ||
+> +         data->caps.lowest_perf > data->caps.lowest_nonlinear_perf ||
+> +         data->caps.lowest_nonlinear_perf > data->caps.nominal_perf ||
+> +         data->caps.nominal_perf > data->caps.highest_perf )
+> +    {
+> +        amd_cppc_err(policy->cpu,
+> +                     "Out of range values: highest(%u), lowest(%u), nominal(%u), lowest_nonlinear(%u)\n",
+> +                     data->caps.highest_perf, data->caps.lowest_perf,
+> +                     data->caps.nominal_perf, data->caps.lowest_nonlinear_perf);
+> +        goto err;
+> +    }
+> +
+> +    amd_process_freq(&cpu_data[policy->cpu],
+> +                     NULL, NULL, &this_cpu(pxfreq_mhz));
+> +
+> +    data->err = amd_get_cpc_freq(data, data->cppc_data->cpc.lowest_mhz,
+> +                                 data->caps.lowest_perf, &min_freq);
+> +    if ( data->err )
+> +        return;
+> +
+> +    data->err = amd_get_cpc_freq(data, data->cppc_data->cpc.nominal_mhz,
+> +                                 data->caps.nominal_perf, &nominal_freq);
+> +    if ( data->err )
+> +        return;
+> +
+> +    data->err = amd_get_max_freq(data, &max_freq);
+> +    if ( data->err )
+> +        return;
+> +
+> +    if ( min_freq > nominal_freq || nominal_freq > max_freq )
+> +    {
+> +        amd_cppc_err(policy->cpu,
+> +                     "min(%u), or max(%u), or nominal(%u) freq value is incorrect\n",
+> +                     min_freq, max_freq, nominal_freq);
+> +        goto err;
+> +    }
+> +
+> +    policy->min = min_freq;
+> +    policy->max = max_freq;
+> +
+> +    policy->cpuinfo.min_freq = min_freq;
+> +    policy->cpuinfo.max_freq = max_freq;
+> +    policy->cpuinfo.perf_freq = nominal_freq;
+> +    /*
+> +     * Set after policy->cpuinfo.perf_freq, as we are taking
+> +     * APERF/MPERF average frequency as current frequency.
+> +     */
+> +    policy->cur = cpufreq_driver_getavg(policy->cpu, GOV_GETAVG);
+> +
+> +    /* Store pre-defined BIOS value for passive mode */
+> +    rdmsrl(MSR_AMD_CPPC_REQ, val);
 
-No if() needed here.
+... this?
 
-> @@ -480,7 +476,7 @@ static int cf_check hwp_cpufreq_cpu_exit(struct cpufreq_policy *policy)
->  static void cf_check hwp_set_misc_turbo(void *info)
->  {
->      const struct cpufreq_policy *policy = info;
-> -    struct hwp_drv_data *data = per_cpu(hwp_drv_data, policy->cpu);
-> +    struct hwp_drv_data *data = policy->u.hwp;
->      uint64_t msr;
->  
->      data->ret = 0;
-> @@ -511,7 +507,7 @@ static int cf_check hwp_cpufreq_update(unsigned int cpu, struct cpufreq_policy *
->  {
->      on_selected_cpus(cpumask_of(cpu), hwp_set_misc_turbo, policy, 1);
->  
-> -    return per_cpu(hwp_drv_data, cpu)->ret;
-> +    return policy->u.hwp->ret;
->  }
->  #endif /* CONFIG_PM_OP */
+> +static int cf_check amd_cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
+> +{
+> +    unsigned int cpu = policy->cpu;
+> +    struct amd_cppc_drv_data *data;
+> +
+> +    data = xvzalloc(struct amd_cppc_drv_data);
+> +    if ( !data )
+> +        return -ENOMEM;
+> +    policy->u.amd_cppc = data;
+> +
+> +    data->cppc_data = &processor_pminfo[cpu]->cppc_data;
+> +
+> +    on_selected_cpus(cpumask_of(cpu), amd_cppc_init_msrs, policy, 1);
+> +
+> +    /*
+> +     * The enable bit is sticky, as we need to enable it at the very first
+> +     * begining, before CPPC capability values sanity check.
+> +     * If error path is taken effective, not only amd-cppc cpufreq core fails
+> +     * to initialize, but also we could not fall back to legacy P-states
+> +     * driver, irrespective of the command line specifying a fallback option.
+> +     */
+> +    if ( data->err )
+> +    {
+> +        amd_cppc_err(cpu, "Could not initialize cpufreq core in CPPC mode\n");
+> +        amd_cppc_cpufreq_cpu_exit(policy);
+> +        return data->err;
 
-Same concern here wrt MSR scope. MISC_ENABLE.TURBO_DISENGAGE's scope is
-package as per the few tables which have the bit explicitly explained;
-whether that extends to all models is unclear.
+amd_cppc_cpufreq_cpu_exit() has already freed what data points to.
 
 > --- a/xen/include/acpi/cpufreq/cpufreq.h
 > +++ b/xen/include/acpi/cpufreq/cpufreq.h
-> @@ -62,6 +62,7 @@ struct perf_limits {
->      uint32_t min_policy_pct;
+> @@ -63,6 +63,7 @@ struct perf_limits {
 >  };
 >  
-> +struct hwp_drv_data;
-
-This shouldn't be needed.
-
-> @@ -81,6 +82,11 @@ struct cpufreq_policy {
->      int8_t              turbo;  /* tristate flag: 0 for unsupported
->                                   * -1 for disable, 1 for enabled
->                                   * See CPUFREQ_TURBO_* below for defines */
-> +    union {
-> +#ifdef CONFIG_INTEL
-> +        struct hwp_drv_data *hwp; /* Driver data for Intel HWP */
+>  struct hwp_drv_data;
+> +struct amd_cppc_drv_data;
+>  struct cpufreq_policy {
+>      cpumask_var_t       cpus;          /* affected CPUs */
+>      unsigned int        shared_type;   /* ANY or ALL affected CPUs
+> @@ -85,6 +86,9 @@ struct cpufreq_policy {
+>      union {
+>  #ifdef CONFIG_INTEL
+>          struct hwp_drv_data *hwp; /* Driver data for Intel HWP */
 > +#endif
+> +#ifdef CONFIG_AMD
+> +        struct amd_cppc_drv_data *amd_cppc; /* Driver data for AMD CPPC */
+>  #endif
+>      } u;
+>  };
 
-While it may make for a smaller diff, ultimately I think we don't want
-this to be a pointer, much like I've done in my patch for the ACPI driver.
-
-> +    } u;
-
-This wants to either not have a name at all, or be named e.g. drv_data.
+Same comments here as for the HWP patch.
 
 Jan
 
