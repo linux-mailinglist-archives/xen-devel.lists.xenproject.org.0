@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA8D4B43E8B
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 16:21:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1110285.1459565 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77C35B43EBA
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 16:27:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1110336.1459607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuAqH-0006AM-V3; Thu, 04 Sep 2025 14:21:37 +0000
+	id 1uuAw5-0000J3-Nb; Thu, 04 Sep 2025 14:27:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1110285.1459565; Thu, 04 Sep 2025 14:21:37 +0000
+Received: by outflank-mailman (output) from mailman id 1110336.1459607; Thu, 04 Sep 2025 14:27:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuAqH-00067g-Qz; Thu, 04 Sep 2025 14:21:37 +0000
-Received: by outflank-mailman (input) for mailman id 1110285;
- Thu, 04 Sep 2025 14:21:35 +0000
+	id 1uuAw5-0000GI-JU; Thu, 04 Sep 2025 14:27:37 +0000
+Received: by outflank-mailman (input) for mailman id 1110336;
+ Thu, 04 Sep 2025 14:27:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m40+=3P=epam.com=Oleksii_Moisieiev@srs-se1.protection.inumbo.net>)
- id 1uuAqF-0005ts-QV
- for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 14:21:35 +0000
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20f::7])
+ <SRS0=9Vqu=3P=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uuAw3-0000GC-MZ
+ for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 14:27:35 +0000
+Received: from fout-a7-smtp.messagingengine.com
+ (fout-a7-smtp.messagingengine.com [103.168.172.150])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7501f5db-899a-11f0-9809-7dc792cee155;
- Thu, 04 Sep 2025 16:21:33 +0200 (CEST)
-Received: from DU0PR03MB8934.eurprd03.prod.outlook.com (2603:10a6:10:473::15)
- by DU0PR03MB8290.eurprd03.prod.outlook.com (2603:10a6:10:31c::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.18; Thu, 4 Sep
- 2025 14:21:29 +0000
-Received: from DU0PR03MB8934.eurprd03.prod.outlook.com
- ([fe80::26fd:98f2:a1cc:be40]) by DU0PR03MB8934.eurprd03.prod.outlook.com
- ([fe80::26fd:98f2:a1cc:be40%7]) with mapi id 15.20.9052.013; Thu, 4 Sep 2025
- 14:21:29 +0000
+ id 4a6ed29c-899b-11f0-9809-7dc792cee155;
+ Thu, 04 Sep 2025 16:27:32 +0200 (CEST)
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailfout.phl.internal (Postfix) with ESMTP id 6B31FEC0275;
+ Thu,  4 Sep 2025 10:27:30 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-01.internal (MEProxy); Thu, 04 Sep 2025 10:27:30 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 4 Sep 2025 10:27:28 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,399 +44,300 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7501f5db-899a-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K1h/HTSJh7gr2ZIJZCnyDO166So+wPA6iUjDi5K5ZmcjpxcFSwddRQwsCksC/8dhQ3u8150eXwtvmkYFQX466m8vwk9465mHxyXIAB2E8alfqAf7TSjzIquCMowv/rIu6jpoHnUe2U6sXOHI99eiB07eHiP0eG/LAXksew7394ROLCQwmxm49gJBAjKFfoReigNtr9bJYXJVnmf0pq8Nn8mJrQ9Qom1zukFg0lwXLF2PWDD+PBMPPr++/8VJjaUn+ZNo+OeNZTsE9++jlXOMK+/3Ijta4uFLXgPUD9zFAmPcPfrHgW1zFsoAgyIm7oU+PyM/ZKqsY5bp6bGFYzSsUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AaHCelQ59jKtKWLwfwblTdez/+Ey8JJ4o/qqx28tWCs=;
- b=t0SZ0KLzi5XjpCMaldxP7p+gaz65zBbZojdotruPZw1hfZTRtnYZwSPOn3NB3w42JQ8pndnVkhm5/xItXw73YAQA5wSj4RJdWiP/m3I79sq1oEuijJ7gcuN9iqgYKKed/mz8247PrJ5Qu0VI5YzEwUzx9c2lmkP6KQLNdSRnb9Z0RsaD2sApqJquW3FG9H+hEwSbQOGQ0rKRffwlo4tWQplyX/Mxg+ZMy7G1VgAa5EyE1FD1Dnc1iAXz/D4XFqkt7LrHxs5vjJ0dJ3RkIaXUcJYdZ4tSFE1NVFeAI+tjJ2kMSsJR5pAZulWP4uhwRwLPCjkeQnmYm35aXd2/4c9/uA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AaHCelQ59jKtKWLwfwblTdez/+Ey8JJ4o/qqx28tWCs=;
- b=sb6b8uDV6LSHwtb7PO7wDsAn2iMKvs6UiRyl2kkPZOwbuDrbHu36FQNWENVMUl3yfJLe0Sc2aPqVfCeFSzWY74nlcu+2A6/+5U36SyU/Mol16oEfBs3birU2hi3Z3UXiCYzhSoAntKtVdoepMh3WCAZMQxDaTEVBcvCQMsy0PmCRVrP54QkDOkW5/pgVLE5DIZ1/gJPWOKx/WxyHkvg5IUsoxQm9KxMP9OtWdArtVHZmk1TgfvVJtX0mec28SeZWriSAiCE+VM9KY2HVqLbwiIO3JtF7oYZbq7pG9GCH10QemdkCh6cZiUW6gErhBFC4JhQzPeFcYsOepOJMxKeCkQ==
-From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Bertrand Marquis <bertrand.marquis@arm.com>, Jan
- Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, Julien Grall
-	<julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Oleksii Moisieiev
-	<Oleksii_Moisieiev@epam.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Grygorii Strashko
-	<grygorii_strashko@epam.com>
-Subject: [PATCH v9 4/4] docs: arm: add docs for SCMI over SMC calls forwarding
- driver
-Thread-Topic: [PATCH v9 4/4] docs: arm: add docs for SCMI over SMC calls
- forwarding driver
-Thread-Index: AQHcHaczJu4B0gXzU0Kn/cb9yNa3XQ==
-Date: Thu, 4 Sep 2025 14:21:28 +0000
-Message-ID:
- <eeb93a37a5b90abd36ab05663ff013e11ae273cf.1756995595.git.oleksii_moisieiev@epam.com>
-References: <cover.1756995595.git.oleksii_moisieiev@epam.com>
-In-Reply-To: <cover.1756995595.git.oleksii_moisieiev@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DU0PR03MB8934:EE_|DU0PR03MB8290:EE_
-x-ms-office365-filtering-correlation-id: bfe85a21-0b65-43d1-e573-08ddebbe571c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?gwF1j6gsXeE3x/HcVzW9nv/qqvnnyZT1YD8ZoMtop954CVCRLoFo3f5ojh?=
- =?iso-8859-1?Q?8IRszZYLMalMP6WdV5dPT4JxmP0XAH8UAJnqqlZFDc4h80a43S4+ep92ed?=
- =?iso-8859-1?Q?aDO3YfDde4YOaBiDC9ouZ6DZR/P0pA5EaJtq6fD4raAutB8Q8EfZTDOV6K?=
- =?iso-8859-1?Q?xLTtgmlFpZvT3+0Pm3NLyqKN9g5xBNqeLXe7IFXmFhLJSban8TL7q/mx8p?=
- =?iso-8859-1?Q?JQ/1tGE93Z9HUJt41Pg1OwMfpRzh4P/3A0xyVr4RlUYvURB7Na+wFOUsEU?=
- =?iso-8859-1?Q?bRkCTwMGsEw8IWQx0zGWzBFLyOg1SIlZuYrZAdEW4b0TJf7XcWQVJI0BCJ?=
- =?iso-8859-1?Q?JNwBt0b3f+F6Qjo9fW7omdk4un/j9+TiGfZNKLQynrM7dvNnDyhMn8hMr5?=
- =?iso-8859-1?Q?SICMZHaop3jct9an6o0eQ+ZCxugOSAeMkWC2dt4BkfNWXI3BkAUXZdZVY+?=
- =?iso-8859-1?Q?vRFMYmOEZLywTa6nqTttY7pPsLTkRQJF8wTXVu8wQn1glI6iaNgeRADJ2d?=
- =?iso-8859-1?Q?91UznIRtA81kbKYo4MmbCwOAi4bOU126NPkL6X/gCtlbkRJyPTVzaB+i/G?=
- =?iso-8859-1?Q?x+HN/rjWbdiB0dT5d5XNvjyL2cFwEB6wx563clL5mV4M+kpUOS8YiLhUOo?=
- =?iso-8859-1?Q?mB6z50BjrPuR0SNKcJoRl3O1Lg5U8B4El5Dl1ujN1Z0lG7hZbsKaqnnS8d?=
- =?iso-8859-1?Q?okqJerQjEqJb9WDwEDPCOHInJYLjjEqueoMIxJv+IkWrEmyGlMHpYrrz5x?=
- =?iso-8859-1?Q?zyH7L8goFS7g1OB73UCFmISu550JsjDiaipEjjacgGep5fmxCQ9kGwujyO?=
- =?iso-8859-1?Q?Wf9A23oclEhwTAXz7o2vu61c5W4NulM+yB9zk595qYmOxMbLik67Jsig1S?=
- =?iso-8859-1?Q?DqOcGH8Pi9uba/n6sBkf+U9k+ZWyAJXMKNBOZRVj8OCdRht4EmJHyFpzOm?=
- =?iso-8859-1?Q?O9SYWD4R047s89t4jdPPcncOyRWOai5sv4NhhAjwCi4xDftBdkGzlW7mpx?=
- =?iso-8859-1?Q?0oLZpoDmocGJ4ApAO8luizgTaCLkNzr/pbuPmmHWT8dW8Nl0oH55Q/K+9R?=
- =?iso-8859-1?Q?W6ARQW5ty97vCQUOBJLkqtEOyfebMJkb/i58cbE423NSyShIHpr/gnyMWB?=
- =?iso-8859-1?Q?X860uDK79wdXpfZYq1L99HrNV/w2/Pzh2NcuzqBAvb+HPCtj9Cc+JCQffP?=
- =?iso-8859-1?Q?UZgGy/PNm2W3dlWL/6CJpDGBxjtWJMRcONzH+85fKCK62EqQ7smBRcw9VH?=
- =?iso-8859-1?Q?cb65WxDs55f8tGvjAgOyii5+CkCZhFs9x1SjB0C8refWzNHxmE1Jd1P0TH?=
- =?iso-8859-1?Q?79PHLjTAVHkLG3oFwy4Xy4/hq+f/0w6fVKOGNhr0LY3N1DQ5og/6ZNO5/6?=
- =?iso-8859-1?Q?DYcKAmVPolsD0C5eAK3B7mPV0Drxox8zLmSi3IpI9N5XWDE01DsufI/4Wj?=
- =?iso-8859-1?Q?Efr1BV43hWAK9MH73JvC3261r+ZG2ncuUaL3gSBejh/xPE3axoSRU0bZ4g?=
- =?iso-8859-1?Q?c=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR03MB8934.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?CbWxF8axaGdst0B+kaObiUS+DfhCRYe95kmcaDQya1rKFtguXVdkZyQzPr?=
- =?iso-8859-1?Q?QCip1hzwXZAeKlVDNGoxdO5WuNNfo3NikrU06Zc7RQBVWB+4PbpwgEpQuJ?=
- =?iso-8859-1?Q?dak/Ptuz/9pOVeEfOjCeFM7S9mHZ9XyIiqrTSqIAdU65vu9Xl1HyEzRcS7?=
- =?iso-8859-1?Q?SrKgsxwME8hHgmxbo6LmobLyasillSPgYQwXbvk9tXSg5GmC/aIqilXsq6?=
- =?iso-8859-1?Q?uwSXlV13sw8i4bvRDODZ+N49TAqHpn2+rAmZLwgFXesTqZirjA1omiXkYD?=
- =?iso-8859-1?Q?UeajE+CPTgZfzaIKOHomAK2skqDW3KXxdbjkhcHQY38GgQ8kcB6i0aa40j?=
- =?iso-8859-1?Q?AYNsH5hbf9o0ZRTdEdU/bR6W1K3ZxUh9tB7Y3M+/4c8oWHFyVO2V8qIYt5?=
- =?iso-8859-1?Q?O1LHpNSM7WKjd04YxCKg++AA7imQP6GWf0fwGbDs0fdGpDDzRhmsiazm5H?=
- =?iso-8859-1?Q?H654DToTHUy2ojhFeM/72LTk7+aHybaHKrfQ5BRWSqO98w+T3Gyayxv2rn?=
- =?iso-8859-1?Q?sdnwV/dfmB7OE6fn0d1BYUKCl1zYZYwaMW7folfctx66yyxgLmegxXvFgr?=
- =?iso-8859-1?Q?+fp5uyU+qiEpNFUrPNNm3wV9UkQ8/OrKg35xuBHbOq2vgQmUHfzHZI6QrG?=
- =?iso-8859-1?Q?Kb8++7wlPGeQlfdKWYQaXj99CK1bCNSF55/mxPL8OL9aMs7zOEYwYtm4A5?=
- =?iso-8859-1?Q?w5u5lKMPOF4qPYiC3qT0rEiI0/WIL6IK9HJY9mXSL12T/Aizww7gW+8+Q9?=
- =?iso-8859-1?Q?AkNPe255jKPxErcqlP81D18hIA7yQz+a/fBpQ21CZf48eSrPokSrxdQw2x?=
- =?iso-8859-1?Q?aRG5Uotb+TujQroMMcNuM3V8l4EA9M8HTgNxSSVhsuXWui2Vgn43S7m/vD?=
- =?iso-8859-1?Q?hYoUag11VYp9MY1B1d7SLkR+1C+VkH0E4AjEPH3+BAX1ydnP4tBKRX4Onm?=
- =?iso-8859-1?Q?X868HvESGRLgYW2RCvdSJ5/zxHo/c0UzzZkq7FaoBLP+68DxSYOvBCUUP8?=
- =?iso-8859-1?Q?KiuodVVrCmsiZUgXyddUMNaPKqp+l0A0UhnBedtJ2saz+1p1j2oie300DT?=
- =?iso-8859-1?Q?nw2wsi/2uuc3oudnA1vciUmhLnSeiGxWCOw8ZelRXthwt4F4nw40R2evKK?=
- =?iso-8859-1?Q?Fx0Hv9achHCI3aoBySSjsXoD4F/GWedITQR2vQ8SmwQAidlyhdG4/VgRgc?=
- =?iso-8859-1?Q?3B/pNig3XS2xjRjA2FcBMQWsXOBe3Lngwm1FjoGcXYRR8RcXBnP0f7smMX?=
- =?iso-8859-1?Q?V6oUOhqSAa8twvQgHOPtSjbUdmHjMllr/41Rxa+rxO1XLWiEFzncL9hreM?=
- =?iso-8859-1?Q?ZpacoJRtxSd3rAawFBttYammHzRndRPMfiBLglZFlD6OIBJHjCIn3aCRXo?=
- =?iso-8859-1?Q?UwQeTXdkj1OwvlZoXT17elMwcC/K3MqvxG7yK4Rk94F2MVGF90YBA4HpXL?=
- =?iso-8859-1?Q?KAu0dxNMtVUPYBjpHkvrTIytnr3ewP3ZFd+7eSp9rBJr3RxElExkt44EHx?=
- =?iso-8859-1?Q?LeZNj3dqxZoawJiacpJ5SdxFdEjvaGVn7iUZ6iowwJNZMGZTfdiq0DvbPV?=
- =?iso-8859-1?Q?oq7CZiUIgfQ1+InZM71HF7QvApujWiCi4xqNhNZMzeEOWY2toGHtBDjUl7?=
- =?iso-8859-1?Q?MO0PY0/ZaK+KZrEQyJUJoUQx2lL3E3GaVBrh8xDxuGH0g5tI3M8HixoA?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 4a6ed29c-899b-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1756996050;
+	 x=1757082450; bh=0PF0/TWTKN6ReBqUEasJOa3agjL3JFjZ5ey/uYSth8Q=; b=
+	CMtCrvoSVvyBVnKyRCtrjrjzDQpGP5T/lvkAXckgy9L9U5m9iyxS+4UD/k5xEYY+
+	bCby0d/Xt0C1Gj5B4OJRHZi3H9hZA8OtVAaQlYEG468KYN4MuqkgAVpQxomUCmJx
+	jlX2yybTNisvu7+xiWTDeRqUTAu/sE+TJ9O2TP23c7h+avNIGHOKOxqtI7yBnWjW
+	cmaoIXfssgMl/NTraMht2VEtmITluf62Zk5VqNGmtTnHf881u6TCw43y3yADLRd+
+	UOMKxyTO2y6A2HtKb11ASzcjpgTwVophNggC2ab/IT7gqYVyJyxg1v+b37gEdFEm
+	2eX606CwIzL3iUrmmy29jw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1756996050; x=1757082450; bh=0PF0/TWTKN6ReBqUEasJOa3agjL3JFjZ5ey
+	/uYSth8Q=; b=OV1aL/yEydyqWw761fUOdFqGZ6Ah5G7n6Yt8h5CohpJMpZOjCQA
+	Qj1Pd/BWw21ppO8TU8xP7/EcbQa1NbNbtHfrtPedgaKD3rNcyEI65lYKLWbsu2PO
+	i5e/IY8PHO6obhb+AtXL+1EF8nBMYJpO0oYaHzrcadVgZCopSJuKYVPVG11NOSqZ
+	1WUwcnIZRIBjahwdh6RaNe/PwVgwSx+NkshtuJIsm2V+rivg0hgPG77stFcFThKb
+	8eahz3U/UlrKihqXyunA9DIstemq+6kJCz9YEiKqaVehrmpgeoNJf+VcglmHq6/4
+	EXC2veK9ACC3Dp71oxXmE2K+zy+FeRu7TkQ==
+X-ME-Sender: <xms:0qG5aMFGC-KrCtLs_pqD4BtBheW5DOolyGTjNkd7AIRZeLU3EJbytA>
+    <xme:0qG5aCRE14uBsrE6G9fPgRxU8HtEzO060T2LrLMI2QiMkk1B-5PeOW0mRgbKj9ELv
+    pG_0r_me5lX6w>
+X-ME-Received: <xmr:0qG5aBx5-W8uMnD5LxhNOmYQBlg-mJinPvtwKWiVypgL2dUxxsb_wi6_vIIu9r-4frILLqrcb9jExTFLN26rbXyGs6W1_IEm1xM>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdeivdeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
+    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
+    epfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgr
+    rhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsih
+    gslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhephfekhfelgeeu
+    tdduvddtveetheetudevudelffdvhfffffehjeegleevtdeffffgnecuffhomhgrihhnpe
+    hkvghrnhgvlhdrohhrghdpghhnuhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecu
+    rfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthh
+    hinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeekpdhmohguvgepshhmthhpohhu
+    thdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtohhmpdhrtghpthhtoheprg
+    hnthhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtthhopegrnhgu
+    rhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtohepmhhitghhrg
+    hlrdhorhiivghlsegrmhgurdgtohhmpdhrtghpthhtohepjhhulhhivghnseigvghnrdho
+    rhhgpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpth
+    htohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepgigv
+    nhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhg
+X-ME-Proxy: <xmx:0qG5aGdHFub4NKeyl_xCeDP-uqDT_36YuMAv3UPMaKTLbJJnPgyE1Q>
+    <xmx:0qG5aMPuTgGyB9EbwJV6BhTYPgzuYHdq9scs6UevSgKzRz_mm7pzkw>
+    <xmx:0qG5aJsrpjFYlY_aZmYeiNh7FPS3ywGyVPU7SfEsckBazlMlP7hSHA>
+    <xmx:0qG5aFCzhT71seQYJbsiJaSAqAGpSVuUR0YQ7FQYBN29W8xs-I1pBQ>
+    <xmx:0qG5aPoMzzZTRoKal3WXeH2rFSYJk-ErISrP_9YKXgX7WqIKWLpnthcx>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 4 Sep 2025 16:27:27 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] Strip build path directories in tools and hypervisor
+Message-ID: <aLmhz9P1c9wYjdwp@mail-itl>
+References: <20250904114202.2722478-1-marmarek@invisiblethingslab.com>
+ <488408be-4728-4666-89a5-ac5b438bdbf5@suse.com>
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DU0PR03MB8934.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfe85a21-0b65-43d1-e573-08ddebbe571c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Sep 2025 14:21:28.2367
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zJR6n9bf+6oFtLnhLcwuR850GVmi4nxhBLBsfAAaH602cglmwDfyp579dl2VSP+63pOemDbhd/7OaK4Z4uUSWjvPCcRUL6LxpZm27lTLpm8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB8290
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="/LOmJVvnW0+dvPYA"
+Content-Disposition: inline
+In-Reply-To: <488408be-4728-4666-89a5-ac5b438bdbf5@suse.com>
 
-From: Grygorii Strashko <grygorii_strashko@epam.com>
 
-Add documentation section for Simple Arm SCMI over SMC calls forwarding
-driver (EL3).
+--/LOmJVvnW0+dvPYA
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 4 Sep 2025 16:27:27 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] Strip build path directories in tools and hypervisor
 
-Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
----
+On Thu, Sep 04, 2025 at 02:58:20PM +0200, Jan Beulich wrote:
+> On 04.09.2025 13:41, Marek Marczykowski-G=C3=B3recki wrote:
+> > Use -fdebug-prefix-map in preference to -ffile-prefix-map, as it's
+> > available in earlier toolchain versions. But use it together with
+> > -fmacro-prefix-map (if available) for hypervisor build, otherwise it
+> > still contains some paths in out-of-tree builds.
+>=20
+> I consider it wrong not to use -ffile-prefix-map when available. That
+> already covers more than "debug" and "macro", and it may gain further
+> functionality.
 
-(no changes since v7)
+I asked about that on v1 and got ambiguous answer suggesting the opposite:
+https://lore.kernel.org/xen-devel/0370c0eb1fd9ac00acab016792132fa0b943d384.=
+1742317309.git-series.marmarek@invisiblethingslab.com/T/#m74a8883835e30fb74=
+a85b07a7b14507ee52e7c65
 
-Changes in v7:
-- fixed typos
 
-Changes in v6:
-- add link to the scmi bindings used in the doc
-- remove mentions about HVC calls from doc
-- rename cmdline parameter to scmi-smc-passthrough
+> > The out of tree build requires -fdebug-prefix-map mapping for both sour=
+ce
+> > dir and object dir - otherwise the latter is included (2 occurrences) in
+> > xen-syms.
+>=20
+> As indicated in a reply to Andrew on the thread hanging off of my
+> patch - I think whether to remove those wants to be left to the user.
+>=20
+> > --- a/tools/Makefile
+> > +++ b/tools/Makefile
+> > @@ -1,4 +1,4 @@
+> > -XEN_ROOT =3D $(CURDIR)/..
+> > +XEN_ROOT =3D $(realpath $(CURDIR)/..)
+> > =20
+> >  export PKG_CONFIG_DIR =3D $(CURDIR)/pkg-config
+> > =20
+> > diff --git a/tools/Rules.mk b/tools/Rules.mk
+> > index 725c3c32e9a2..428fce094819 100644
+> > --- a/tools/Rules.mk
+> > +++ b/tools/Rules.mk
+> > @@ -166,6 +166,8 @@ endif
+> >  CFLAGS-$(CONFIG_X86_32) +=3D $(call cc-option,$(CC),-mno-tls-direct-se=
+g-refs)
+> >  CFLAGS +=3D $(CFLAGS-y)
+> > =20
+> > +$(call cc-option-add,CFLAGS,CC,-fdebug-prefix-map=3D$(realpath $(XEN_R=
+OOT))=3D.)
+>=20
+> Here and below - no need to use cc-option-add for -fdebug-prefix-map,
+> which all permissible compilers support.
 
-Changes in v5:
-- rename dom0_scmi_smc_passthrough in documentation
+Ok.
 
- .../arm/firmware/arm-scmi.rst                 | 180 ++++++++++++++++++
- docs/hypervisor-guide/arm/index.rst           |   9 +
- docs/hypervisor-guide/index.rst               |   1 +
- 3 files changed, 190 insertions(+)
- create mode 100644 docs/hypervisor-guide/arm/firmware/arm-scmi.rst
- create mode 100644 docs/hypervisor-guide/arm/index.rst
+> Further, again as per reply to Andrew on the thread hanging off of my
+> patch - I don't view it as desirable to leave the tools/ prefix in
+> place, or e.g. for libraries, the entire tools/libs/<subdir>/ part.
+> Imo every binary should have only the path (if any) from its own source
+> root left. (And yes, how to deal with e.g. shared include files isn't
+> quite clear to me, yet. Maybe we actually need to pass two options.)
 
-diff --git a/docs/hypervisor-guide/arm/firmware/arm-scmi.rst b/docs/hypervi=
-sor-guide/arm/firmware/arm-scmi.rst
-new file mode 100644
-index 0000000000..d65ce35acb
---- /dev/null
-+++ b/docs/hypervisor-guide/arm/firmware/arm-scmi.rst
-@@ -0,0 +1,180 @@
-+.. SPDX-License-Identifier: CC-BY-4.0
-+
-+ARM System Control and Management Interface (SCMI)
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
-+
-+The System Control and Management Interface (SCMI) [1], which is a set of =
-operating
-+system-independent software interfaces that are used in system management.=
- SCMI currently
-+provides interfaces for:
-+
-+- Discovery and self-description of the interfaces it supports
-+- Power domain management
-+- Clock management
-+- Reset domain management
-+- Voltage domain management
-+- Sensor management
-+- Performance management
-+- Power capping and monitoring
-+- Pin control protocol.
-+
-+The SCMI compliant firmware could run:
-+
-+- as part of EL3 secure world software (like Trusted Firmware-A) with
-+  ARM SMC shared-memory transport;
-+- on dedicated System Control Processor (SCP) with HW mailbox shared-memor=
-y transport
-+
-+The major purpose of enabling SCMI support in Xen is to enable guest domai=
-ns access to the SCMI
-+interfaces for performing management actions on passed-through devices (su=
-ch as clocks/resets etc)
-+without accessing directly to the System control HW (like clock controller=
-s) which in most cases
-+can't be shared/split between domains. Or, at minimum, allow SCMI access f=
-or dom0/hwdom (or guest
-+domain serving as Driver domain).
-+
-+The below sections describe SCMI support options available for Xen.
-+
-+| [1] `Arm SCMI <https://developer.arm.com/documentation/den0056/latest/>`=
-_
-+| [2] `System Control and Management Interface (SCMI) bindings <https://we=
-b.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documenta=
-tion/devicetree/bindings/firmware/arm,scmi.yaml>`_
-+
-+Simple SCMI over SMC calls forwarding driver (EL3)
-+------------------------------------------------------
-+
-+The EL3 SCMI firmware (TF-A) with a single SCMI OSPM agent support is pret=
-ty generic case for
-+the default vendors SDK and new platforms with SCMI support. Such EL3 SCMI=
- firmware supports only
-+single SCMI OSPM transport (agent) with Shared memory based transport and =
-SMC calls as doorbell.
-+
-+The SCMI over SMC calls forwarding driver solves major problem for this ca=
-se by allowing
-+SMC calls to be forwarded from guest to the EL3 SCMI firmware.
-+
-+By default, the SCMI over SMC calls forwarding is enabled for Dom0/hwdom.
-+
-+::
-+
-+    +--------------------------+
-+    |                          |
-+    | EL3 SCMI FW (TF-A)       |
-+    ++-------+--^--------------+
-+     |shmem  |  | smc-id
-+     +----^--+  |
-+          |     |
-+     +----|-+---+---+----------+
-+     |    | |  FWD  |      Xen |
-+     |    | +---^---+          |
-+     +----|-----|--------------+
-+          |     | smc-id
-+     +----v-----+--+ +---------+
-+     |             | |         |
-+     | Dom0/hwdom  | | DomU    |
-+     |             | |         |
-+     |             | |         |
-+     +-------------+ +---------+
-+
-+
-+The SCMI messages are passed directly through SCMI shared-memory (zero-cop=
-y) and driver only
-+forwards SMC calls.
-+
-+Compiling
-+^^^^^^^^^
-+
-+To build with the SCMI over SMC calls forwarding enabled support, enable K=
-config option
-+
-+::
-+
-+    SCMI_SMC
-+
-+The ``CONFIG_SCMI_SMC`` is enabled by default.
-+
-+Pass-through SCMI SMC to domain which serves as Driver domain
-+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-+
-+This section describes how to configure the SCMI over SMC calls forwarding=
- driver to handle use
-+case "thin Dom0 with guest domain, which serves as Driver domain". In this=
- case HW need to be
-+enabled in Driver domain and dom0 is performing only control functions (wi=
-thout accessing FW) and so,
-+the SCMI need to be enabled in Driver domain.
-+
-+::
-+
-+     +--------------------------+
-+     |EL3 SCMI FW (TF-A)        |
-+     |                          |
-+     +-------------^--+-------+-+
-+             smc-id|  |shmem0 |
-+                   |  +----^--+
-+    +-------------++------+|----+
-+    |Xen          |  FWD  ||    |
-+    |             +--^----+|    |
-+    +----------------|-----|----+
-+              smc-id |     |
-+    +-----------+ +--+-----v-----+
-+    |           | |              |
-+    | Dom0      | |    Driver    |
-+    | Control   | |    domain    |
-+    |           | |              |
-+    +-----------+ +--------------+
-+
-+The SCMI can be enabled for one and only one guest domain.
-+
-+First, configure Dom0 to enable SCMI pass-through using Xen Command Line
-+**"scmi-smc-passthrough"** option. This will disable SCMI for Dom0/hwdom a=
-nd SCMI nodes will
-+be removed from Dom0/hwdom device tree.
-+
-+**Configure SCMI pass-through for guest domain with toolstack**
-+
-+* In domain's xl.cfg file add **"arm_sci"** option as below
-+
-+::
-+
-+    arm_sci =3D "type=3Dscmi_smc"
-+
-+* In domain's xl.cfg file enable access to the "arm,scmi-shmem"
-+
-+::
-+
-+    iomem =3D [
-+        "47ff0,1@22001",
-+    ]
-+
-+.. note:: It's up to the user to select guest IPA for mapping SCMI shared-=
-memory.
-+
-+* Add SCMI nodes to the Driver domain partial device tree as in the below =
-example:
-+
-+.. code::
-+
-+    passthrough {
-+       scmi_shm_0: sram@22001000 {
-+           compatible =3D "arm,scmi-shmem";
-+           reg =3D <0x0 0x22001000 0x0 0x1000>;
-+       };
-+
-+       firmware {
-+            compatible =3D "simple-bus";
-+                scmi: scmi {
-+                    compatible =3D "arm,scmi-smc";
-+                    shmem =3D <&scmi_shm_0>;
-+                    ...
-+                }
-+        }
-+    }
-+
-+Please refer to [2] for details of SCMI DT bindings.
-+
-+In general, the configuration is similar to any other HW pass-through, exc=
-ept explicitly
-+enabling SCMI with "arm_sci" xl.cfg option.
-+
-+**Configure SCMI pass-through for predefined domain (dom0less)**
-+
-+* add "xen,sci_type" property for required DomU ("xen,domain") node
-+
-+::
-+
-+       xen,sci_type=3D"scmi_smc"
-+
-+* add scmi nodes to the Driver domain partial device tree the same way as =
-above and enable access
-+  to the "arm,scmi-shmem" according to  dom0less documentation. For exampl=
-e:
-+
-+.. code::
-+
-+      scmi_shm_0: sram@22001000 {
-+            compatible =3D "arm,scmi-shmem";
-+            reg =3D <0x00 0x22001000 0x00 0x1000>;
-+    ->        xen,reg =3D <0x0 0x47ff0000 0x0 0x1000 0x0 0x22001000>;
-+    ->        xen,force-assign-without-iommu;
-+      };
-diff --git a/docs/hypervisor-guide/arm/index.rst b/docs/hypervisor-guide/ar=
-m/index.rst
-new file mode 100644
-index 0000000000..7aae4a0a03
---- /dev/null
-+++ b/docs/hypervisor-guide/arm/index.rst
-@@ -0,0 +1,9 @@
-+.. SPDX-License-Identifier: CC-BY-4.0
-+
-+ARM
-+=3D=3D=3D
-+
-+.. toctree::
-+   :maxdepth: 2
-+
-+   firmware/arm-scmi
-diff --git a/docs/hypervisor-guide/index.rst b/docs/hypervisor-guide/index.=
-rst
-index e4393b0697..520fe01554 100644
---- a/docs/hypervisor-guide/index.rst
-+++ b/docs/hypervisor-guide/index.rst
-@@ -9,3 +9,4 @@ Hypervisor documentation
-    code-coverage
-=20
-    x86/index
-+   arm/index
-\ No newline at end of file
+I don't think it's valid to strip arbitrary prefixes from debug symbols,
+especially in tools. This will break some automated tools that try to match
+coredumps (and similar) to source code and sometimes even debug symbols
+too. But even for manual usage, having to jump between directories (I'm
+not sure if gdb supports multiple source dirs at once?) just because you
+happen to debug a binary that use more of libraries isn't exactly
+desirable.
+I think the paths in debug symbols and similar should match the layout
+in the source repository, not a subset of it.
+
+Theoretically this doesn't apply to the hypervisor yet, as I'm not aware
+of any tool processing xen memory dumps automatically (and those for
+manual usage are quite unstable, to say the least...). But I don't think
+it's an excuse to have incomplete paths in there, just to save few
+bytes?
+The only case where I can see it would make some sense is out of tree
+build, where indeed it's about just the hypervisor, not the toolstack
+(IMO due to the build system limitation, but well...). But at the same
+time, having different path variant depending on it-tree/out-of-tree
+build feels weird.
+
+> > --- a/xen/Makefile
+> > +++ b/xen/Makefile
+> > @@ -208,7 +208,7 @@ VPATH :=3D $(srctree)
+> > =20
+> >  export srctree objtree VPATH
+> > =20
+> > -export XEN_ROOT :=3D $(abs_srctree)/..
+> > +export XEN_ROOT :=3D $(patsubst %/xen,%,$(abs_srctree))
+>=20
+> Unlike for tools/, is this still needed here? You don't use XEN_ROOT belo=
+w.
+
+Indeed in this revision not anymore.
+
+> > @@ -412,6 +412,10 @@ ifneq ($(CONFIG_CC_IS_CLANG),y)
+> >  CFLAGS +=3D -Wa,--strip-local-absolute
+> >  endif
+> > =20
+> > +$(call cc-option-add,CFLAGS,CC,-fdebug-prefix-map=3D$(abs_objtree)=3D.=
+/xen)
+> > +$(call cc-option-add,CFLAGS,CC,-fdebug-prefix-map=3D$(abs_srctree)=3D.=
+/xen)
+> > +$(call cc-option-add,CFLAGS,CC,-fmacro-prefix-map=3D$(abs_srctree)=3D.=
+/xen)
+>=20
+> I disagree with leaving any xen/ prefix there. That's not how in-tree bui=
+lds
+> name files; everything there is relative to xen/.
+>=20
+> I also don't really see a point in using . in the substitution (similarly
+> for the toolstack, but there I have less to say).
+>=20
+> Finally, why pass two identical, possibly long options for in-tree builds
+> (where $(abs_objtree) =3D=3D $(abs_srctree))?
+
+That can be avoided, yes.
+
+> Below I'll reproduce my own further re-worked patch. It's not quite ready
+> for v2 submission yet, I expect though. For example, the actual Kconfig
+> portion is still missing. Whether the @SRC@ and @BLD@ parts actually make
+> sense (or what to replace them by) I'm also unsure about. If nothing else
+> they may need replacing by plain .
+>=20
+> Jan
+>=20
+> build: avoid absolute paths in executables
+>=20
+> For in-tree builds relative paths are used in most cases, whereas for out-
+> of-tree builds in various situations absolute ones come into play. The
+> extra paths can be long, wasting space and e.g. serial line bandwidth.
+> They would also get in the way of location-independent reproducible
+> builds. Leverage newer gcc's (and Clang's) ability to "remap" file names.
+> For older gcc fall back to using the option affecting debug info only.
+>=20
+> For the few absolute paths appearing in in-tree builds' debug info, use
+> the generally available option, conditional upon a new Kconfig control
+>=20
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> Of course we may want to consider putting this in the top-level Config.mk,
+> to also affect other sub-trees (presently mainly/only affecting debug
+> info, for which even gcc5 already supports -fdebug-prefix-remap=3D).
+>=20
+> As to a Fixes: tag, I wasn't quite sure whether to "blame" the
+> introduction of out-of-tree builds.
+>=20
+> Note that at least in the gcc5 I'm testing with the (limited) effect is
+> further undermined by the compiler emitting the specified command line
+> options into debug info, thus still leaving references to the absolute
+> directories in place.
+>=20
+> For the mentioned gcc15 issue see
+> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D121788.
+> ---
+> v2: Use $(abs_srctree). Introduce DEBUG_INFO_REL_PATHS.
+>=20
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -461,7 +461,21 @@ CFLAGS +=3D -flto
+>  LDFLAGS-$(CONFIG_CC_IS_CLANG) +=3D -plugin LLVMgold.so
+>  endif
+> =20
+> +CFLAGS-$(CONFIG_DEBUG_INFO_REL_PATHS) +=3D -fdebug-prefix-map=3D$(abs_sr=
+ctree)=3D@SRC@
+> +
+>  ifdef building_out_of_srctree
+> +    # Need to add to CFLAGS-y here, as gcc checks later options before e=
+arlier
+> +    # ones, and we want in particular the latter one(s) here to be check=
+ed
+> +    # first.
+> +    CFLAGS-$(CONFIG_DEBUG_INFO_REL_PATHS) +=3D -fdebug-prefix-map=3D$(ab=
+s_objtree)=3D@BLD@
+> +    CFLAGS-y +=3D $(call cc-option,$(CC),-ffile-prefix-map=3D$(abs_srctr=
+ee)/=3D)
+> +    # While -ffile-prefix-map=3D implies -fdebug-prefix-map=3D, we need =
+to use the
+> +    # latter explicitly: Up to at least gcc15 the compiler specs transla=
+te all
+> +    # -ffile-prefix-map=3D ahead of all -fdebug-prefix-map=3D when invok=
+ing the
+> +    # the assembler for *.S files, thus breaking our intended ordering.
+> +    # (Otherwise the option below could be passed as 3rd [fallback] argu=
+ment to
+> +    # cc-option above.)
+> +    CFLAGS-y +=3D -fdebug-prefix-map=3D$(abs_srctree)/=3D
+>      CFLAGS +=3D -I$(objtree)/include
+>      CFLAGS +=3D -I$(objtree)/arch/$(SRCARCH)/include
+>  endif
+>=20
+
 --=20
-2.34.1
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--/LOmJVvnW0+dvPYA
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmi5oc8ACgkQ24/THMrX
+1ywiXwf/dOuj3Ri32AYXFOP8bbsJJyHpJCvgNeCtbuJtOmKQTOjdenNzaU/rTTf+
+7KCD69hXKoQAmBtOh6is1FcZXZmv+MGRPdBFgUvWi1yOaxDc/8o8/luCDE1HuveD
+IGiYDPG72oLD3rfBW9LGgmLTPTm8rAvKcpdgU08RGN3dT2hhFYqI9SI6pAr4iqo6
+tQGS8aqm0hZU47vGo4g/xpgs4wt9d8lvxl3ARQCt/qgXvSrdrlEESj8fjpHBtlir
++gCHTzydVtchwKFbTFh9KDTNYksv3PwtUctVgvAN8VDdVea8ds049GGSGs3KYwAI
+alYd6Y6z/FMFDicPFlx+yxUar31j/A==
+=oUbX
+-----END PGP SIGNATURE-----
+
+--/LOmJVvnW0+dvPYA--
 
