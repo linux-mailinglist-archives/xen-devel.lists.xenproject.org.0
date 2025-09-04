@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77C35B43EBA
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 16:27:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1110336.1459607 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5965FB43F07
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 16:37:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1110379.1459615 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuAw5-0000J3-Nb; Thu, 04 Sep 2025 14:27:37 +0000
+	id 1uuB5S-0002Gi-IG; Thu, 04 Sep 2025 14:37:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1110336.1459607; Thu, 04 Sep 2025 14:27:37 +0000
+Received: by outflank-mailman (output) from mailman id 1110379.1459615; Thu, 04 Sep 2025 14:37:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuAw5-0000GI-JU; Thu, 04 Sep 2025 14:27:37 +0000
-Received: by outflank-mailman (input) for mailman id 1110336;
- Thu, 04 Sep 2025 14:27:35 +0000
+	id 1uuB5S-0002Dy-Fa; Thu, 04 Sep 2025 14:37:18 +0000
+Received: by outflank-mailman (input) for mailman id 1110379;
+ Thu, 04 Sep 2025 14:37:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9Vqu=3P=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uuAw3-0000GC-MZ
- for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 14:27:35 +0000
-Received: from fout-a7-smtp.messagingengine.com
- (fout-a7-smtp.messagingengine.com [103.168.172.150])
+ <SRS0=MJB8=3P=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1uuB5R-0002Ds-HV
+ for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 14:37:17 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4a6ed29c-899b-11f0-9809-7dc792cee155;
- Thu, 04 Sep 2025 16:27:32 +0200 (CEST)
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailfout.phl.internal (Postfix) with ESMTP id 6B31FEC0275;
- Thu,  4 Sep 2025 10:27:30 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-01.internal (MEProxy); Thu, 04 Sep 2025 10:27:30 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 4 Sep 2025 10:27:28 -0400 (EDT)
+ id a6869c4d-899c-11f0-9809-7dc792cee155;
+ Thu, 04 Sep 2025 16:37:15 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3dcce361897so764078f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 07:37:15 -0700 (PDT)
+Received: from [10.17.76.214] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3d7ac825b88sm14982660f8f.7.2025.09.04.07.37.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Sep 2025 07:37:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,300 +45,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a6ed29c-899b-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1756996050;
-	 x=1757082450; bh=0PF0/TWTKN6ReBqUEasJOa3agjL3JFjZ5ey/uYSth8Q=; b=
-	CMtCrvoSVvyBVnKyRCtrjrjzDQpGP5T/lvkAXckgy9L9U5m9iyxS+4UD/k5xEYY+
-	bCby0d/Xt0C1Gj5B4OJRHZi3H9hZA8OtVAaQlYEG468KYN4MuqkgAVpQxomUCmJx
-	jlX2yybTNisvu7+xiWTDeRqUTAu/sE+TJ9O2TP23c7h+avNIGHOKOxqtI7yBnWjW
-	cmaoIXfssgMl/NTraMht2VEtmITluf62Zk5VqNGmtTnHf881u6TCw43y3yADLRd+
-	UOMKxyTO2y6A2HtKb11ASzcjpgTwVophNggC2ab/IT7gqYVyJyxg1v+b37gEdFEm
-	2eX606CwIzL3iUrmmy29jw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1756996050; x=1757082450; bh=0PF0/TWTKN6ReBqUEasJOa3agjL3JFjZ5ey
-	/uYSth8Q=; b=OV1aL/yEydyqWw761fUOdFqGZ6Ah5G7n6Yt8h5CohpJMpZOjCQA
-	Qj1Pd/BWw21ppO8TU8xP7/EcbQa1NbNbtHfrtPedgaKD3rNcyEI65lYKLWbsu2PO
-	i5e/IY8PHO6obhb+AtXL+1EF8nBMYJpO0oYaHzrcadVgZCopSJuKYVPVG11NOSqZ
-	1WUwcnIZRIBjahwdh6RaNe/PwVgwSx+NkshtuJIsm2V+rivg0hgPG77stFcFThKb
-	8eahz3U/UlrKihqXyunA9DIstemq+6kJCz9YEiKqaVehrmpgeoNJf+VcglmHq6/4
-	EXC2veK9ACC3Dp71oxXmE2K+zy+FeRu7TkQ==
-X-ME-Sender: <xms:0qG5aMFGC-KrCtLs_pqD4BtBheW5DOolyGTjNkd7AIRZeLU3EJbytA>
-    <xme:0qG5aCRE14uBsrE6G9fPgRxU8HtEzO060T2LrLMI2QiMkk1B-5PeOW0mRgbKj9ELv
-    pG_0r_me5lX6w>
-X-ME-Received: <xmr:0qG5aBx5-W8uMnD5LxhNOmYQBlg-mJinPvtwKWiVypgL2dUxxsb_wi6_vIIu9r-4frILLqrcb9jExTFLN26rbXyGs6W1_IEm1xM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdeivdeiucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
-    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
-    epfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgr
-    rhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsih
-    gslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhephfekhfelgeeu
-    tdduvddtveetheetudevudelffdvhfffffehjeegleevtdeffffgnecuffhomhgrihhnpe
-    hkvghrnhgvlhdrohhrghdpghhnuhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecu
-    rfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthh
-    hinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeekpdhmohguvgepshhmthhpohhu
-    thdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtohhmpdhrtghpthhtoheprg
-    hnthhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtthhopegrnhgu
-    rhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtohepmhhitghhrg
-    hlrdhorhiivghlsegrmhgurdgtohhmpdhrtghpthhtohepjhhulhhivghnseigvghnrdho
-    rhhgpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpth
-    htohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepgigv
-    nhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhg
-X-ME-Proxy: <xmx:0qG5aGdHFub4NKeyl_xCeDP-uqDT_36YuMAv3UPMaKTLbJJnPgyE1Q>
-    <xmx:0qG5aMPuTgGyB9EbwJV6BhTYPgzuYHdq9scs6UevSgKzRz_mm7pzkw>
-    <xmx:0qG5aJsrpjFYlY_aZmYeiNh7FPS3ywGyVPU7SfEsckBazlMlP7hSHA>
-    <xmx:0qG5aFCzhT71seQYJbsiJaSAqAGpSVuUR0YQ7FQYBN29W8xs-I1pBQ>
-    <xmx:0qG5aPoMzzZTRoKal3WXeH2rFSYJk-ErISrP_9YKXgX7WqIKWLpnthcx>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 4 Sep 2025 16:27:27 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2] Strip build path directories in tools and hypervisor
-Message-ID: <aLmhz9P1c9wYjdwp@mail-itl>
-References: <20250904114202.2722478-1-marmarek@invisiblethingslab.com>
- <488408be-4728-4666-89a5-ac5b438bdbf5@suse.com>
+X-Inumbo-ID: a6869c4d-899c-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756996634; x=1757601434; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=iJCwKFoMwnJG5hneaGZsfWFqvLmvoxOanH68IbCRnyc=;
+        b=m+G4WRzCJ/oHalyEGgtY8q9wZBm3BkebdrDMIiVduhLfMrre7221CN98pkkrOF6iMJ
+         hvIN5xvflhqiPguf37KSOPW75JxGxi/p6PnTk0+4MtYHEwcKxJVUAkIOSfSiag74FfCj
+         L4pv/e48Q3cRGgXAvjYcWSk/Dfr/fA3BJFfstNhHBdnktyXQPjHqpPhaq4FVYaz2nEYH
+         9B8XmUd9jZBAgHFVa3AEUxzoeIiXBp18cvxQcn5Hj0ByyO7/KwSOmk91VzSBAKuDqaAb
+         gbLKFdjJ0TMQCPqGgZJazGUyo4c7glAYfvdlGZ9gOi9xi0AFtD4lYfpmQo/N9Gg23e12
+         tB8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756996634; x=1757601434;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=iJCwKFoMwnJG5hneaGZsfWFqvLmvoxOanH68IbCRnyc=;
+        b=jeQVdfZ6qFMt6rOJGpHSD6DVuhpPl+hyGgqy29btPxKTC5Ku1HaJxEZwa/zrvD18n1
+         b/nq6U2dnDCVGlyx768m1pbNa+abiGgqQ50SlnkEHYPr6T4jbxgPSa2juTFvCFfGXOYe
+         dN1sugozy6EYf+Z4KonbQRZv3+lhKL7LApKcMpgPidhOroADlEo+Z3MK6B6hfboBXcIZ
+         holvbZ0He2dn3UQbYr5TtpzCxookmGkN4dBhUgPUS8/GuzZmDCVs67kM8+fYmKA/xOoO
+         sJe2jOng/Gl8Hnj27IQQ64KAKQoE7/rv5s8w5fgMFJFMThaFnG60AybauySS2/f0Odfn
+         wq0g==
+X-Forwarded-Encrypted: i=1; AJvYcCVTmrXt/vL0JoC0MF/MCbeLobBRssB0LYOkGQ1ZbysDl/zqqzujAmzeSRyxvH/7Pp0qH+EEmKAjHYM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwcJzYSUbSB8wSupXhdTHPjRoc0/Vxc13R7I/ZlCvtLpmBHUzPz
+	cWjM2RN+VmNmY48tl/nH5sxbgtbbXsA1pkfDYVf+IT7XhDX34KDUfI44
+X-Gm-Gg: ASbGncsBMNjN46JJkGcWLRiH5UXT8042xaSnK+mdvnI+Pi+GyR1TLhFkcsT7m8uE1vI
+	uisCrnPTOGhGfpgDau5m+Itw+aZj/2UNClqp+bJoihL+kaocAAVGFT7xdCKWVsO2P/ZzUP4AlWx
+	PzreGZsbXiIi/gmkWNWX2gasWtVZPROay1F98/3BsRtMSZJJdm6Pz0EFy1wEIoZR4uJqFBem///
+	FxaA3KWv9+zX+H+PyYqv5vbStNC6uhzoVhVzWTLSXTL5v4cg0JUlduy9KmdtLi+WkWdOvcGKfja
+	3Qw/Kk/ODcN/GuJkrwndKYBJC+KA7fLm8p4azTk9g7EfSoS2CKL3xkMGwLzi5xdjqczoHkmpaVJ
+	4BUDcG6cR31t1mWg28C9yQaBOt5+hxHyugYURun8HJ12foYDsc/D38Xq3XmOk1EFgOQ==
+X-Google-Smtp-Source: AGHT+IGP9XYswsF0kuWSHdZ+9DWYj1MiK//7idoUn9FVRQaIP7QA+oT1aQxbrNKYtzFm7sM4dh395g==
+X-Received: by 2002:a05:6000:2381:b0:3d7:cd09:ae1e with SMTP id ffacd0b85a97d-3d7cd09b425mr9764805f8f.17.1756996634259;
+        Thu, 04 Sep 2025 07:37:14 -0700 (PDT)
+Message-ID: <b25eb195-a0fb-44aa-a0f7-aca7d4d0d076@gmail.com>
+Date: Thu, 4 Sep 2025 17:37:12 +0300
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="/LOmJVvnW0+dvPYA"
-Content-Disposition: inline
-In-Reply-To: <488408be-4728-4666-89a5-ac5b438bdbf5@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 05/12] xen/arm: gicv3: implement handling of GICv3.1
+ eSPI
+To: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+References: <cover.1756908472.git.leonid_komarianskyi@epam.com>
+ <e8433c8b860c4b8512a57432c61f55dfe629ed07.1756908472.git.leonid_komarianskyi@epam.com>
+Content-Language: en-US
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+In-Reply-To: <e8433c8b860c4b8512a57432c61f55dfe629ed07.1756908472.git.leonid_komarianskyi@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
---/LOmJVvnW0+dvPYA
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 4 Sep 2025 16:27:27 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2] Strip build path directories in tools and hypervisor
 
-On Thu, Sep 04, 2025 at 02:58:20PM +0200, Jan Beulich wrote:
-> On 04.09.2025 13:41, Marek Marczykowski-G=C3=B3recki wrote:
-> > Use -fdebug-prefix-map in preference to -ffile-prefix-map, as it's
-> > available in earlier toolchain versions. But use it together with
-> > -fmacro-prefix-map (if available) for hypervisor build, otherwise it
-> > still contains some paths in out-of-tree builds.
->=20
-> I consider it wrong not to use -ffile-prefix-map when available. That
-> already covers more than "debug" and "macro", and it may gain further
-> functionality.
+On 03.09.25 17:30, Leonid Komarianskyi wrote:
 
-I asked about that on v1 and got ambiguous answer suggesting the opposite:
-https://lore.kernel.org/xen-devel/0370c0eb1fd9ac00acab016792132fa0b943d384.=
-1742317309.git-series.marmarek@invisiblethingslab.com/T/#m74a8883835e30fb74=
-a85b07a7b14507ee52e7c65
+Hello Leonid
 
 
-> > The out of tree build requires -fdebug-prefix-map mapping for both sour=
-ce
-> > dir and object dir - otherwise the latter is included (2 occurrences) in
-> > xen-syms.
->=20
-> As indicated in a reply to Andrew on the thread hanging off of my
-> patch - I think whether to remove those wants to be left to the user.
->=20
-> > --- a/tools/Makefile
-> > +++ b/tools/Makefile
-> > @@ -1,4 +1,4 @@
-> > -XEN_ROOT =3D $(CURDIR)/..
-> > +XEN_ROOT =3D $(realpath $(CURDIR)/..)
-> > =20
-> >  export PKG_CONFIG_DIR =3D $(CURDIR)/pkg-config
-> > =20
-> > diff --git a/tools/Rules.mk b/tools/Rules.mk
-> > index 725c3c32e9a2..428fce094819 100644
-> > --- a/tools/Rules.mk
-> > +++ b/tools/Rules.mk
-> > @@ -166,6 +166,8 @@ endif
-> >  CFLAGS-$(CONFIG_X86_32) +=3D $(call cc-option,$(CC),-mno-tls-direct-se=
-g-refs)
-> >  CFLAGS +=3D $(CFLAGS-y)
-> > =20
-> > +$(call cc-option-add,CFLAGS,CC,-fdebug-prefix-map=3D$(realpath $(XEN_R=
-OOT))=3D.)
->=20
-> Here and below - no need to use cc-option-add for -fdebug-prefix-map,
-> which all permissible compilers support.
-
-Ok.
-
-> Further, again as per reply to Andrew on the thread hanging off of my
-> patch - I don't view it as desirable to leave the tools/ prefix in
-> place, or e.g. for libraries, the entire tools/libs/<subdir>/ part.
-> Imo every binary should have only the path (if any) from its own source
-> root left. (And yes, how to deal with e.g. shared include files isn't
-> quite clear to me, yet. Maybe we actually need to pass two options.)
-
-I don't think it's valid to strip arbitrary prefixes from debug symbols,
-especially in tools. This will break some automated tools that try to match
-coredumps (and similar) to source code and sometimes even debug symbols
-too. But even for manual usage, having to jump between directories (I'm
-not sure if gdb supports multiple source dirs at once?) just because you
-happen to debug a binary that use more of libraries isn't exactly
-desirable.
-I think the paths in debug symbols and similar should match the layout
-in the source repository, not a subset of it.
-
-Theoretically this doesn't apply to the hypervisor yet, as I'm not aware
-of any tool processing xen memory dumps automatically (and those for
-manual usage are quite unstable, to say the least...). But I don't think
-it's an excuse to have incomplete paths in there, just to save few
-bytes?
-The only case where I can see it would make some sense is out of tree
-build, where indeed it's about just the hypervisor, not the toolstack
-(IMO due to the build system limitation, but well...). But at the same
-time, having different path variant depending on it-tree/out-of-tree
-build feels weird.
-
-> > --- a/xen/Makefile
-> > +++ b/xen/Makefile
-> > @@ -208,7 +208,7 @@ VPATH :=3D $(srctree)
-> > =20
-> >  export srctree objtree VPATH
-> > =20
-> > -export XEN_ROOT :=3D $(abs_srctree)/..
-> > +export XEN_ROOT :=3D $(patsubst %/xen,%,$(abs_srctree))
->=20
-> Unlike for tools/, is this still needed here? You don't use XEN_ROOT belo=
-w.
-
-Indeed in this revision not anymore.
-
-> > @@ -412,6 +412,10 @@ ifneq ($(CONFIG_CC_IS_CLANG),y)
-> >  CFLAGS +=3D -Wa,--strip-local-absolute
-> >  endif
-> > =20
-> > +$(call cc-option-add,CFLAGS,CC,-fdebug-prefix-map=3D$(abs_objtree)=3D.=
-/xen)
-> > +$(call cc-option-add,CFLAGS,CC,-fdebug-prefix-map=3D$(abs_srctree)=3D.=
-/xen)
-> > +$(call cc-option-add,CFLAGS,CC,-fmacro-prefix-map=3D$(abs_srctree)=3D.=
-/xen)
->=20
-> I disagree with leaving any xen/ prefix there. That's not how in-tree bui=
-lds
-> name files; everything there is relative to xen/.
->=20
-> I also don't really see a point in using . in the substitution (similarly
-> for the toolstack, but there I have less to say).
->=20
-> Finally, why pass two identical, possibly long options for in-tree builds
-> (where $(abs_objtree) =3D=3D $(abs_srctree))?
-
-That can be avoided, yes.
-
-> Below I'll reproduce my own further re-worked patch. It's not quite ready
-> for v2 submission yet, I expect though. For example, the actual Kconfig
-> portion is still missing. Whether the @SRC@ and @BLD@ parts actually make
-> sense (or what to replace them by) I'm also unsure about. If nothing else
-> they may need replacing by plain .
->=20
-> Jan
->=20
-> build: avoid absolute paths in executables
->=20
-> For in-tree builds relative paths are used in most cases, whereas for out-
-> of-tree builds in various situations absolute ones come into play. The
-> extra paths can be long, wasting space and e.g. serial line bandwidth.
-> They would also get in the way of location-independent reproducible
-> builds. Leverage newer gcc's (and Clang's) ability to "remap" file names.
-> For older gcc fall back to using the option affecting debug info only.
->=20
-> For the few absolute paths appearing in in-tree builds' debug info, use
-> the generally available option, conditional upon a new Kconfig control
->=20
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Introduced appropriate register definitions, helper macros,
+> and initialization of required GICv3.1 distributor registers
+> to support eSPI. This type of interrupt is handled in the
+> same way as regular SPI interrupts, with the following
+> differences:
+> 
+> 1) eSPIs can have up to 1024 interrupts, starting from the
+> beginning of the range, whereas regular SPIs use INTIDs from
+> 32 to 1019, totaling 988 interrupts;
+> 2) eSPIs start at INTID 4096, necessitating additional interrupt
+> index conversion during register operations.
+> 
+> In case if appropriate config is disabled, or GIC HW doesn't
+> support eSPI, the existing functionality will remain the same.
+> 
+> Signed-off-by: Leonid Komarianskyi <leonid_komarianskyi@epam.com>
+> Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
 > ---
-> Of course we may want to consider putting this in the top-level Config.mk,
-> to also affect other sub-trees (presently mainly/only affecting debug
-> info, for which even gcc5 already supports -fdebug-prefix-remap=3D).
->=20
-> As to a Fixes: tag, I wasn't quite sure whether to "blame" the
-> introduction of out-of-tree builds.
->=20
-> Note that at least in the gcc5 I'm testing with the (limited) effect is
-> further undermined by the compiler emitting the specified command line
-> options into debug info, thus still leaving references to the absolute
-> directories in place.
->=20
-> For the mentioned gcc15 issue see
-> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D121788.
+> Changes in V6:
+> - removed unnecessary parentheses in gic_is_valid_espi()
+> - updated gic_is_valid_line(): it now verifies the condition irq <
+>    gic_number_lines() first, as it is more likely that the irq number
+>    will be from the non-eSPI range
+> - minor change: changed the macros ESPI_INTID2IDX and ESPI_IDX2INTID
+>    into appropriate inline functions introduced in the previous patch
+> - added reviewed-by from Oleksandr Tyshchenko
+> 
+> Changes in V5:
+> - fixed minor nits, no functional changes: changed u32 to uint32_t and
+>    added a comment noting that the configuration for eSPIs is the same as
+>    for regular SPIs
+> - removed ifdefs for eSPI-specific offsets to reduce the number of
+>    ifdefs and code duplication in further changes
+> - removed reviewed-by as moving offset from ifdefs requires additional
+>    confirmation from reviewers
+> 
+> Changes in V4:
+> - added offsets for GICD_IGRPMODRnE and GICD_NSACRnE that are required
+>    for vGIC emulation
+> - added a log banner with eSPI information, similar to the one for
+>    regular SPI
+> - added newline after ifdef and before gic_is_valid_line
+> - added reviewed-by from Volodymyr Babchuk
+> 
+> Changes in V3:
+> - add __init attribute to gicv3_dist_espi_common_init
+> - change open-codded eSPI register initialization to the appropriate
+>    gen-mask macro
+> - fixed formatting for lines with more than 80 symbols
+> - introduced gicv3_dist_espi_init_aff to be able to use stubs in case of
+>    CONFIG_GICV3_ESPI disabled
+> - renamed parameter in the GICD_TYPER_ESPI_RANGE macro to espi_range
+>    (name was taken from GIC specification) to avoid confusion
+> - changed type for i variable to unsigned int since it cannot be
+>    negative
+> 
+> Changes in V2:
+> - move gic_number_espis function from
+>    [PATCH 08/10] xen/arm: vgic: add resource management for extended SPIs
+>    to use it in the newly introduced gic_is_valid_espi
+> - add gic_is_valid_espi which checks if IRQ number is in supported
+>    by HW eSPI range
+> - update gic_is_valid_irq conditions to allow operations with eSPIs
 > ---
-> v2: Use $(abs_srctree). Introduce DEBUG_INFO_REL_PATHS.
->=20
-> --- a/xen/Makefile
-> +++ b/xen/Makefile
-> @@ -461,7 +461,21 @@ CFLAGS +=3D -flto
->  LDFLAGS-$(CONFIG_CC_IS_CLANG) +=3D -plugin LLVMgold.so
->  endif
-> =20
-> +CFLAGS-$(CONFIG_DEBUG_INFO_REL_PATHS) +=3D -fdebug-prefix-map=3D$(abs_sr=
-ctree)=3D@SRC@
+>   xen/arch/arm/gic-v3.c                  | 83 ++++++++++++++++++++++++++
+>   xen/arch/arm/include/asm/gic.h         | 21 ++++++-
+>   xen/arch/arm/include/asm/gic_v3_defs.h | 38 ++++++++++++
+>   3 files changed, 141 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+> index a1e302fea2..a69263e461 100644
+> --- a/xen/arch/arm/gic-v3.c
+> +++ b/xen/arch/arm/gic-v3.c
+> @@ -485,6 +485,36 @@ static void __iomem *get_addr_by_offset(struct irq_desc *irqd, uint32_t offset)
+>           default:
+>               break;
+>           }
+> +#ifdef CONFIG_GICV3_ESPI
+> +    case ESPI_BASE_INTID ... ESPI_MAX_INTID:
+> +    {
+> +        uint32_t irq_index = espi_intid_to_idx(irqd->irq);
 > +
->  ifdef building_out_of_srctree
-> +    # Need to add to CFLAGS-y here, as gcc checks later options before e=
-arlier
-> +    # ones, and we want in particular the latter one(s) here to be check=
-ed
-> +    # first.
-> +    CFLAGS-$(CONFIG_DEBUG_INFO_REL_PATHS) +=3D -fdebug-prefix-map=3D$(ab=
-s_objtree)=3D@BLD@
-> +    CFLAGS-y +=3D $(call cc-option,$(CC),-ffile-prefix-map=3D$(abs_srctr=
-ee)/=3D)
-> +    # While -ffile-prefix-map=3D implies -fdebug-prefix-map=3D, we need =
-to use the
-> +    # latter explicitly: Up to at least gcc15 the compiler specs transla=
-te all
-> +    # -ffile-prefix-map=3D ahead of all -fdebug-prefix-map=3D when invok=
-ing the
-> +    # the assembler for *.S files, thus breaking our intended ordering.
-> +    # (Otherwise the option below could be passed as 3rd [fallback] argu=
-ment to
-> +    # cc-option above.)
-> +    CFLAGS-y +=3D -fdebug-prefix-map=3D$(abs_srctree)/=3D
->      CFLAGS +=3D -I$(objtree)/include
->      CFLAGS +=3D -I$(objtree)/arch/$(SRCARCH)/include
->  endif
->=20
+> +        switch ( offset )
+> +        {
+> +        case GICD_ISENABLER:
+> +            return (GICD + GICD_ISENABLERnE + (irq_index / 32) * 4);
+> +        case GICD_ICENABLER:
+> +            return (GICD + GICD_ICENABLERnE + (irq_index / 32) * 4);
+> +        case GICD_ISPENDR:
+> +            return (GICD + GICD_ISPENDRnE + (irq_index / 32) * 4);
+> +        case GICD_ICPENDR:
+> +            return (GICD + GICD_ICPENDRnE + (irq_index / 32) * 4);
+> +        case GICD_ISACTIVER:
+> +            return (GICD + GICD_ISACTIVERnE + (irq_index / 32) * 4);
+> +        case GICD_ICACTIVER:
+> +            return (GICD + GICD_ICACTIVERnE + (irq_index / 32) * 4);
+> +        case GICD_ICFGR:
+> +            return (GICD + GICD_ICFGRnE + (irq_index / 16) * 4);
+> +        case GICD_IROUTER:
+> +            return (GICD + GICD_IROUTERnE + irq_index * 8);
+> +        case GICD_IPRIORITYR:
+> +            return (GICD + GICD_IPRIORITYRnE + irq_index);
+> +        default:
+> +            break;
+> +        }
+> +    }
+> +#endif
+>       default:
+>           break;
+>       }
+> @@ -655,6 +685,55 @@ static void gicv3_set_irq_priority(struct irq_desc *desc,
+>       spin_unlock(&gicv3.lock);
+>   }
+>   
+> +#ifdef CONFIG_GICV3_ESPI
+> +unsigned int gic_number_espis(void)
+> +{
+> +    return gic_hw_ops->info->nr_espi;
+> +}
+> +
+> +static void __init gicv3_dist_espi_common_init(uint32_t type)
+> +{
+> +    unsigned int espi_nr, i;
+> +
+> +    espi_nr = min(1024U, GICD_TYPER_ESPIS_NUM(type));
+> +    gicv3_info.nr_espi = espi_nr;
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
 
---/LOmJVvnW0+dvPYA
-Content-Type: application/pgp-signature; name=signature.asc
+Sorry, I have just noticed one thing, and gicv3_cpu_init() probably 
+would be a more correct place to write about it, but since you don't 
+modify that function (it is not visible in the context), so writing here:
 
------BEGIN PGP SIGNATURE-----
+ From "Arm IHI 0069H.b (ID041224)"
+10.1.2 GICv3.1 extended INTID range support
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmi5oc8ACgkQ24/THMrX
-1ywiXwf/dOuj3Ri32AYXFOP8bbsJJyHpJCvgNeCtbuJtOmKQTOjdenNzaU/rTTf+
-7KCD69hXKoQAmBtOh6is1FcZXZmv+MGRPdBFgUvWi1yOaxDc/8o8/luCDE1HuveD
-IGiYDPG72oLD3rfBW9LGgmLTPTm8rAvKcpdgU08RGN3dT2hhFYqI9SI6pAr4iqo6
-tQGS8aqm0hZU47vGo4g/xpgs4wt9d8lvxl3ARQCt/qgXvSrdrlEESj8fjpHBtlir
-+gCHTzydVtchwKFbTFh9KDTNYksv3PwtUctVgvAN8VDdVea8ds049GGSGs3KYwAI
-alYd6Y6z/FMFDicPFlx+yxUar31j/A==
-=oUbX
------END PGP SIGNATURE-----
+Note
+Arm recommends that Armv8-R AArch64 PEs report ICC_CTLR_EL1.ExtRange==1, 
+indicating that the GICv3.1 extended SPI and PPI ranges are supported.
 
---/LOmJVvnW0+dvPYA--
+Linux driver has an extra check for that:
+
+  WARN((gic_data.ppi_nr > 16 || GIC_ESPI_NR != 0) &&
+  !(gic_read_ctlr() & ICC_CTLR_EL1_ExtRange),
+  "Distributor has extended ranges, but CPU%d doesn't\n",
+  smp_processor_id());
+
+added by the following commit:
+irqchip/gic-v3: Warn about inconsistent implementations of extended ranges
+https://github.com/torvalds/linux/commit/ad5a78d3da81836c88d1f2d53310484462660997
+
+
+What is your opinion, is it worth having a similar check in Xen?
+
+
+> +    /* The GIC HW doesn't support eSPI, so we can leave from here */
+> +    if ( gicv3_info.nr_espi == 0 )
+> +        return;
+> +
+> +    printk("GICv3: %d eSPI lines\n", gicv3_info.nr_espi);
+> +
+
+
+[snip]
+
 
