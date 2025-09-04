@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5965FB43F07
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 16:37:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1110379.1459615 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 665D5B43FB4
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 16:54:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1110399.1459626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuB5S-0002Gi-IG; Thu, 04 Sep 2025 14:37:18 +0000
+	id 1uuBLr-0005N7-Tc; Thu, 04 Sep 2025 14:54:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1110379.1459615; Thu, 04 Sep 2025 14:37:18 +0000
+Received: by outflank-mailman (output) from mailman id 1110399.1459626; Thu, 04 Sep 2025 14:54:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuB5S-0002Dy-Fa; Thu, 04 Sep 2025 14:37:18 +0000
-Received: by outflank-mailman (input) for mailman id 1110379;
- Thu, 04 Sep 2025 14:37:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MJB8=3P=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1uuB5R-0002Ds-HV
- for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 14:37:17 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a6869c4d-899c-11f0-9809-7dc792cee155;
- Thu, 04 Sep 2025 16:37:15 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3dcce361897so764078f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 07:37:15 -0700 (PDT)
-Received: from [10.17.76.214] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3d7ac825b88sm14982660f8f.7.2025.09.04.07.37.13
+	id 1uuBLr-0005Ld-Qj; Thu, 04 Sep 2025 14:54:15 +0000
+Received: by outflank-mailman (input) for mailman id 1110399;
+ Thu, 04 Sep 2025 14:54:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=iTa/=3P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uuBLp-0005LE-TL
+ for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 14:54:14 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 04ce721e-899f-11f0-9d12-b5c5bf9af7f9;
+ Thu, 04 Sep 2025 16:54:12 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-61e8fe26614so1995864a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 07:54:12 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-61cfc1c7ed1sm14881499a12.1.2025.09.04.07.54.11
+ for <xen-devel@lists.xenproject.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Sep 2025 07:37:13 -0700 (PDT)
+ Thu, 04 Sep 2025 07:54:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,234 +46,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6869c4d-899c-11f0-9809-7dc792cee155
+X-Inumbo-ID: 04ce721e-899f-11f0-9d12-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756996634; x=1757601434; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=iJCwKFoMwnJG5hneaGZsfWFqvLmvoxOanH68IbCRnyc=;
-        b=m+G4WRzCJ/oHalyEGgtY8q9wZBm3BkebdrDMIiVduhLfMrre7221CN98pkkrOF6iMJ
-         hvIN5xvflhqiPguf37KSOPW75JxGxi/p6PnTk0+4MtYHEwcKxJVUAkIOSfSiag74FfCj
-         L4pv/e48Q3cRGgXAvjYcWSk/Dfr/fA3BJFfstNhHBdnktyXQPjHqpPhaq4FVYaz2nEYH
-         9B8XmUd9jZBAgHFVa3AEUxzoeIiXBp18cvxQcn5Hj0ByyO7/KwSOmk91VzSBAKuDqaAb
-         gbLKFdjJ0TMQCPqGgZJazGUyo4c7glAYfvdlGZ9gOi9xi0AFtD4lYfpmQo/N9Gg23e12
-         tB8Q==
+        d=suse.com; s=google; t=1756997652; x=1757602452; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=KvfZFCF++iFIXHxCkympi4+YUmyTvno+HR2qF84oyOw=;
+        b=gm/QYKp0gn/YGXgFKDA1UPMAj650RO4GnlmdvFuScfgxV8JO3Qhcizx+ZiFfyuMAGg
+         DjCjhhiE8SbyGTXxD1G3A1FEddxEFwZvaQRBJ7LQzc0IWZOSkZEmOMhOYGxWhQ6YATEA
+         oaGs4vhmJCziP2Xf48CXuYK7OUI23Q/gpTRe2udkki35V8F/i1wPkukI94K3TUB6r8jR
+         EVcXlmXr+EMq1v5gHQdlsqFFy9wASR2WgOyzVI3XVS2eJCVPdgv62kCW7cEYVwFA531g
+         WkPCQ3+QK+qno9/SFlYWpQVul6Fbq0jfKyjOIMZSOkoUfftZvFqkVu6CrexmrC49/oBF
+         kxhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756996634; x=1757601434;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=iJCwKFoMwnJG5hneaGZsfWFqvLmvoxOanH68IbCRnyc=;
-        b=jeQVdfZ6qFMt6rOJGpHSD6DVuhpPl+hyGgqy29btPxKTC5Ku1HaJxEZwa/zrvD18n1
-         b/nq6U2dnDCVGlyx768m1pbNa+abiGgqQ50SlnkEHYPr6T4jbxgPSa2juTFvCFfGXOYe
-         dN1sugozy6EYf+Z4KonbQRZv3+lhKL7LApKcMpgPidhOroADlEo+Z3MK6B6hfboBXcIZ
-         holvbZ0He2dn3UQbYr5TtpzCxookmGkN4dBhUgPUS8/GuzZmDCVs67kM8+fYmKA/xOoO
-         sJe2jOng/Gl8Hnj27IQQ64KAKQoE7/rv5s8w5fgMFJFMThaFnG60AybauySS2/f0Odfn
-         wq0g==
-X-Forwarded-Encrypted: i=1; AJvYcCVTmrXt/vL0JoC0MF/MCbeLobBRssB0LYOkGQ1ZbysDl/zqqzujAmzeSRyxvH/7Pp0qH+EEmKAjHYM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwcJzYSUbSB8wSupXhdTHPjRoc0/Vxc13R7I/ZlCvtLpmBHUzPz
-	cWjM2RN+VmNmY48tl/nH5sxbgtbbXsA1pkfDYVf+IT7XhDX34KDUfI44
-X-Gm-Gg: ASbGncsBMNjN46JJkGcWLRiH5UXT8042xaSnK+mdvnI+Pi+GyR1TLhFkcsT7m8uE1vI
-	uisCrnPTOGhGfpgDau5m+Itw+aZj/2UNClqp+bJoihL+kaocAAVGFT7xdCKWVsO2P/ZzUP4AlWx
-	PzreGZsbXiIi/gmkWNWX2gasWtVZPROay1F98/3BsRtMSZJJdm6Pz0EFy1wEIoZR4uJqFBem///
-	FxaA3KWv9+zX+H+PyYqv5vbStNC6uhzoVhVzWTLSXTL5v4cg0JUlduy9KmdtLi+WkWdOvcGKfja
-	3Qw/Kk/ODcN/GuJkrwndKYBJC+KA7fLm8p4azTk9g7EfSoS2CKL3xkMGwLzi5xdjqczoHkmpaVJ
-	4BUDcG6cR31t1mWg28C9yQaBOt5+hxHyugYURun8HJ12foYDsc/D38Xq3XmOk1EFgOQ==
-X-Google-Smtp-Source: AGHT+IGP9XYswsF0kuWSHdZ+9DWYj1MiK//7idoUn9FVRQaIP7QA+oT1aQxbrNKYtzFm7sM4dh395g==
-X-Received: by 2002:a05:6000:2381:b0:3d7:cd09:ae1e with SMTP id ffacd0b85a97d-3d7cd09b425mr9764805f8f.17.1756996634259;
-        Thu, 04 Sep 2025 07:37:14 -0700 (PDT)
-Message-ID: <b25eb195-a0fb-44aa-a0f7-aca7d4d0d076@gmail.com>
-Date: Thu, 4 Sep 2025 17:37:12 +0300
+        d=1e100.net; s=20230601; t=1756997652; x=1757602452;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=KvfZFCF++iFIXHxCkympi4+YUmyTvno+HR2qF84oyOw=;
+        b=F7O0noT436kDNjZ4AchJzhp6tBgolaygI+VkqFECYPcaOyjAvmxRrtOecFOx8Sjpje
+         d8dlD3uBXx6dAvcNGNCNeQpxaPve0XaEr6dG1DGh0VR7eGfHLm6e5etmVthJm9EGsRQx
+         vDFe1Tuezk2gdnM77XkxzHHRK7EbRAieu77g7xvb4H2n7HTxzkz1Acnn+Rlnv0ipAGZT
+         TPNXPfv6bkspK0vlH+J8ASJJnzGAT1yt4xdWvjWVuguD4ksOmKpO9r4OgryfmHudUx7k
+         y3u4GfIVDtLiQOEoW2CovvDwdSX9t5vz8mfezmmmTatMnBpfW7Bei8gZWSJCAkdVGQi0
+         IoUw==
+X-Gm-Message-State: AOJu0YzT4PONWB0trtkstxQVApaGeXNDTMRX4hN79mNcANla6ZNqaCd4
+	JNWcQ/+5Kh1LpLUY7y0weV9Lk/d0a+Akb/4+O59zuwHm1YMJuMb0+FqhuAB4uw9yTGsNRTqhlKa
+	/sdg=
+X-Gm-Gg: ASbGncssy0uK6EWrX2ac++YdXmFbbki5Xpj5g1yQuQVD3708yjJvaDz1Lz2pw2YKdbE
+	94LGu/+dLg0Q138eO0lOb4qipXRptmfKON5AHC3EiFeVvZr73A6sm5QiJih68evg/1pdNKXd9Gu
+	h4EqFa9RbM+HxTqjSzSEhiA4B0UmkdK0Hjy+kv4RsW1nPT9U3h5Zql//i9x1onwP0l6K4ODAaCG
+	1OyngIfoEPdehtbGm0SN2qlOBpAl/BR0Z+DMfDH1ZofxU/lZO2zuwzAUOrna5uiC0O8Ns1rVpeO
+	5ozH+valj2biqn63jTR7LMbLNbFKCcNs3fcVQeUdZX2uVTyRkjA0IH+WpYTJjcn5Q8JfTwoBpKk
+	NKUsw2DrDOOCAM7tHTX3DyPaVaHZGVERgcZPmkmQ4vhQCBzSnQrFZZRQXxFHHSwQCV2xvl/TYoy
+	VA4tMVXVxVgSsj1F8gaw==
+X-Google-Smtp-Source: AGHT+IHe9kK1smMzFK70YRuzIDzb8hTWRDmN35rvVE6wZVCua2cIfFKu3TEepqm8IcluEAEZZZticg==
+X-Received: by 2002:a05:6402:d0e:b0:61c:8114:8832 with SMTP id 4fb4d7f45d1cf-61d2699b037mr17856608a12.16.1756997651721;
+        Thu, 04 Sep 2025 07:54:11 -0700 (PDT)
+Message-ID: <78196af7-d6b6-4f08-a806-ffee777ee762@suse.com>
+Date: Thu, 4 Sep 2025 16:54:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 05/12] xen/arm: gicv3: implement handling of GICv3.1
- eSPI
-To: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-References: <cover.1756908472.git.leonid_komarianskyi@epam.com>
- <e8433c8b860c4b8512a57432c61f55dfe629ed07.1756908472.git.leonid_komarianskyi@epam.com>
+Subject: Re: New Defects reported by Coverity Scan for XenProject
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <68b9a73be8eb_27ea7e2d9ed55e799088716@prd-scan-dashboard-0.mail>
 Content-Language: en-US
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-In-Reply-To: <e8433c8b860c4b8512a57432c61f55dfe629ed07.1756908472.git.leonid_komarianskyi@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <68b9a73be8eb_27ea7e2d9ed55e799088716@prd-scan-dashboard-0.mail>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-
-
-On 03.09.25 17:30, Leonid Komarianskyi wrote:
-
-Hello Leonid
-
-
-> Introduced appropriate register definitions, helper macros,
-> and initialization of required GICv3.1 distributor registers
-> to support eSPI. This type of interrupt is handled in the
-> same way as regular SPI interrupts, with the following
-> differences:
+On 04.09.2025 16:50, scan-admin@coverity.com wrote:
+> Hi,
 > 
-> 1) eSPIs can have up to 1024 interrupts, starting from the
-> beginning of the range, whereas regular SPIs use INTIDs from
-> 32 to 1019, totaling 988 interrupts;
-> 2) eSPIs start at INTID 4096, necessitating additional interrupt
-> index conversion during register operations.
+> Please find the latest report on new defect(s) introduced to XenProject found with Coverity Scan.
 > 
-> In case if appropriate config is disabled, or GIC HW doesn't
-> support eSPI, the existing functionality will remain the same.
+> 1 new defect(s) introduced to XenProject found with Coverity Scan.
+> 2 defect(s), reported by Coverity Scan earlier, were marked fixed in the recent build analyzed by Coverity Scan.
 > 
-> Signed-off-by: Leonid Komarianskyi <leonid_komarianskyi@epam.com>
-> Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> New defect(s) Reported-by: Coverity Scan
+> Showing 1 of 1 defect(s)
 > 
-> ---
-> Changes in V6:
-> - removed unnecessary parentheses in gic_is_valid_espi()
-> - updated gic_is_valid_line(): it now verifies the condition irq <
->    gic_number_lines() first, as it is more likely that the irq number
->    will be from the non-eSPI range
-> - minor change: changed the macros ESPI_INTID2IDX and ESPI_IDX2INTID
->    into appropriate inline functions introduced in the previous patch
-> - added reviewed-by from Oleksandr Tyshchenko
 > 
-> Changes in V5:
-> - fixed minor nits, no functional changes: changed u32 to uint32_t and
->    added a comment noting that the configuration for eSPIs is the same as
->    for regular SPIs
-> - removed ifdefs for eSPI-specific offsets to reduce the number of
->    ifdefs and code duplication in further changes
-> - removed reviewed-by as moving offset from ifdefs requires additional
->    confirmation from reviewers
+> ** CID 1665214:       Integer handling issues  (INTEGER_OVERFLOW)
+> /tools/firmware/xen-dir/xen-root/xen/common/symbols.c: 123           in symbols_lookup()
 > 
-> Changes in V4:
-> - added offsets for GICD_IGRPMODRnE and GICD_NSACRnE that are required
->    for vGIC emulation
-> - added a log banner with eSPI information, similar to the one for
->    regular SPI
-> - added newline after ifdef and before gic_is_valid_line
-> - added reviewed-by from Volodymyr Babchuk
 > 
-> Changes in V3:
-> - add __init attribute to gicv3_dist_espi_common_init
-> - change open-codded eSPI register initialization to the appropriate
->    gen-mask macro
-> - fixed formatting for lines with more than 80 symbols
-> - introduced gicv3_dist_espi_init_aff to be able to use stubs in case of
->    CONFIG_GICV3_ESPI disabled
-> - renamed parameter in the GICD_TYPER_ESPI_RANGE macro to espi_range
->    (name was taken from GIC specification) to avoid confusion
-> - changed type for i variable to unsigned int since it cannot be
->    negative
-> 
-> Changes in V2:
-> - move gic_number_espis function from
->    [PATCH 08/10] xen/arm: vgic: add resource management for extended SPIs
->    to use it in the newly introduced gic_is_valid_espi
-> - add gic_is_valid_espi which checks if IRQ number is in supported
->    by HW eSPI range
-> - update gic_is_valid_irq conditions to allow operations with eSPIs
-> ---
->   xen/arch/arm/gic-v3.c                  | 83 ++++++++++++++++++++++++++
->   xen/arch/arm/include/asm/gic.h         | 21 ++++++-
->   xen/arch/arm/include/asm/gic_v3_defs.h | 38 ++++++++++++
->   3 files changed, 141 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-> index a1e302fea2..a69263e461 100644
-> --- a/xen/arch/arm/gic-v3.c
-> +++ b/xen/arch/arm/gic-v3.c
-> @@ -485,6 +485,36 @@ static void __iomem *get_addr_by_offset(struct irq_desc *irqd, uint32_t offset)
->           default:
->               break;
->           }
-> +#ifdef CONFIG_GICV3_ESPI
-> +    case ESPI_BASE_INTID ... ESPI_MAX_INTID:
-> +    {
-> +        uint32_t irq_index = espi_intid_to_idx(irqd->irq);
-> +
-> +        switch ( offset )
-> +        {
-> +        case GICD_ISENABLER:
-> +            return (GICD + GICD_ISENABLERnE + (irq_index / 32) * 4);
-> +        case GICD_ICENABLER:
-> +            return (GICD + GICD_ICENABLERnE + (irq_index / 32) * 4);
-> +        case GICD_ISPENDR:
-> +            return (GICD + GICD_ISPENDRnE + (irq_index / 32) * 4);
-> +        case GICD_ICPENDR:
-> +            return (GICD + GICD_ICPENDRnE + (irq_index / 32) * 4);
-> +        case GICD_ISACTIVER:
-> +            return (GICD + GICD_ISACTIVERnE + (irq_index / 32) * 4);
-> +        case GICD_ICACTIVER:
-> +            return (GICD + GICD_ICACTIVERnE + (irq_index / 32) * 4);
-> +        case GICD_ICFGR:
-> +            return (GICD + GICD_ICFGRnE + (irq_index / 16) * 4);
-> +        case GICD_IROUTER:
-> +            return (GICD + GICD_IROUTERnE + irq_index * 8);
-> +        case GICD_IPRIORITYR:
-> +            return (GICD + GICD_IPRIORITYRnE + irq_index);
-> +        default:
-> +            break;
-> +        }
-> +    }
-> +#endif
->       default:
->           break;
->       }
-> @@ -655,6 +685,55 @@ static void gicv3_set_irq_priority(struct irq_desc *desc,
->       spin_unlock(&gicv3.lock);
->   }
->   
-> +#ifdef CONFIG_GICV3_ESPI
-> +unsigned int gic_number_espis(void)
-> +{
-> +    return gic_hw_ops->info->nr_espi;
-> +}
-> +
-> +static void __init gicv3_dist_espi_common_init(uint32_t type)
-> +{
-> +    unsigned int espi_nr, i;
-> +
-> +    espi_nr = min(1024U, GICD_TYPER_ESPIS_NUM(type));
-> +    gicv3_info.nr_espi = espi_nr;
+> _____________________________________________________________________________________________
+> *** CID 1665214:         Integer handling issues  (INTEGER_OVERFLOW)
+> /tools/firmware/xen-dir/xen-root/xen/common/symbols.c: 123             in symbols_lookup()
+> 117         }
+> 118     
+> 119         /* If we hit an END symbol, move to the previous (real) one. */
+> 120         if (!symbols_names[get_symbol_offset(low)]) {
+> 121             ASSERT(low);
 
+With this I wonder ...
 
-Sorry, I have just noticed one thing, and gicv3_cpu_init() probably 
-would be a more correct place to write about it, but since you don't 
-modify that function (it is not visible in the context), so writing here:
+> 122             symbol_end = symbols_address(low);
+>>>>     CID 1665214:         Integer handling issues  (INTEGER_OVERFLOW)
+>>>>     Expression "--low", where "low" is known to be equal to 0, underflows the type of "--low", which is type "unsigned int".
+> 123             --low;
 
- From "Arm IHI 0069H.b (ID041224)"
-10.1.2 GICv3.1 extended INTID range support
+... how "low" can be known to be zero when getting here. Without the
+assertion I would accept that the tool doesn't understand that an
+"end" symbol can't come first (albeit imo the report then would still
+be a false positive one).
 
-Note
-Arm recommends that Armv8-R AArch64 PEs report ICC_CTLR_EL1.ExtRange==1, 
-indicating that the GICv3.1 extended SPI and PPI ranges are supported.
-
-Linux driver has an extra check for that:
-
-  WARN((gic_data.ppi_nr > 16 || GIC_ESPI_NR != 0) &&
-  !(gic_read_ctlr() & ICC_CTLR_EL1_ExtRange),
-  "Distributor has extended ranges, but CPU%d doesn't\n",
-  smp_processor_id());
-
-added by the following commit:
-irqchip/gic-v3: Warn about inconsistent implementations of extended ranges
-https://github.com/torvalds/linux/commit/ad5a78d3da81836c88d1f2d53310484462660997
-
-
-What is your opinion, is it worth having a similar check in Xen?
-
-
-> +    /* The GIC HW doesn't support eSPI, so we can leave from here */
-> +    if ( gicv3_info.nr_espi == 0 )
-> +        return;
-> +
-> +    printk("GICv3: %d eSPI lines\n", gicv3_info.nr_espi);
-> +
-
-
-[snip]
-
+Jan
 
