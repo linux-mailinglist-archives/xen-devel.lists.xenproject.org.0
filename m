@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2804EB43B32
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 14:11:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1109931.1459304 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AFD3B43B3F
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 14:13:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1109942.1459313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uu8oV-00046I-85; Thu, 04 Sep 2025 12:11:39 +0000
+	id 1uu8pn-0004ay-Hs; Thu, 04 Sep 2025 12:12:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1109931.1459304; Thu, 04 Sep 2025 12:11:39 +0000
+Received: by outflank-mailman (output) from mailman id 1109942.1459313; Thu, 04 Sep 2025 12:12:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uu8oV-00043l-52; Thu, 04 Sep 2025 12:11:39 +0000
-Received: by outflank-mailman (input) for mailman id 1109931;
- Thu, 04 Sep 2025 12:11:37 +0000
+	id 1uu8pn-0004Yh-F2; Thu, 04 Sep 2025 12:12:59 +0000
+Received: by outflank-mailman (input) for mailman id 1109942;
+ Thu, 04 Sep 2025 12:12:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iTa/=3P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uu8oT-00043c-A3
- for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 12:11:37 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1uu8pm-0004Yb-JM
+ for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 12:12:58 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4cf387e0-8988-11f0-9809-7dc792cee155;
- Thu, 04 Sep 2025 14:11:34 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-afec5651966so185028366b.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 05:11:35 -0700 (PDT)
+ id 7d97b526-8988-11f0-9809-7dc792cee155;
+ Thu, 04 Sep 2025 14:12:56 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b5ad4f0so1646159a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 05:12:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b0470f11088sm298889166b.111.2025.09.04.05.11.33
+ 4fb4d7f45d1cf-61cfc51e0c1sm13979947a12.42.2025.09.04.05.12.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Sep 2025 05:11:34 -0700 (PDT)
+ Thu, 04 Sep 2025 05:12:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4cf387e0-8988-11f0-9809-7dc792cee155
+X-Inumbo-ID: 7d97b526-8988-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756987894; x=1757592694; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756987976; x=1757592776; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8Q3EHp9v6FdnZ7sKhzqDgygy/4jbvc7hiANoP2TGvuk=;
-        b=be1QH5upUK+tlQjMsAyei6n0z6/ScUatu/Tk0qMAPR2YGz6NXVCNiC7dzM0m1q5wlj
-         19qtd1Zro0VZACeePz/L8cPzfi6mbujnzTW6qUhDLKpAXN5uiiB7A4a60wRzvv/7FIT+
-         NUk+sCIIRIIaldHhuI634aLyk6qpATVayNQ4NNg2kN0FHdh2u3dq/wgu43HVNP8tvLaj
-         dfkH9j85otiunwf0BTi2GFHQqZt59K0RKrdi8bTc7o68TaS9s0wgstoxgH8y62etTRgb
-         t+bimGAkhLYw2+zZXzy/9eq5hRGLJBcbNsIHS7+zT+l4nZGIddR2usiAHaS5c03c0t08
-         Gs4w==
+        bh=nOBEWNFFHPjnbNq4i67ABuyUthOxE9J2j5V1Te/Ttdk=;
+        b=VYjvtrZ2fscMfYuUcSqOVs0GXZ9gG3PL8MEZSXv7edqlIpuSnWsIonZNlccDviIXqB
+         3uTKOFx+JP0xOXJXwfgxIk4ogngObFHUQZbHfmlvpJyB/LjCnGfkwvp9aM8Xems97hIj
+         pF1EbrnfzLtgEVS+IwDy252vfOUZibPcCnyQ5iEmO0VeWSMJwwvchg/cUgYV7wOFVfk3
+         i5oGcZC27nI4wardf4m87+gBwg3yguL4PzK4aGP1rpE0wmISjmX2BKm+xDJCiWgNKwZM
+         9bBTMDGJu1IaSyEoJBQUhEnR+0TvDFBAyIiRJLdgfzJPuXJif7kcRrSqziAUPhrl7W3E
+         Mi2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756987894; x=1757592694;
+        d=1e100.net; s=20230601; t=1756987976; x=1757592776;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8Q3EHp9v6FdnZ7sKhzqDgygy/4jbvc7hiANoP2TGvuk=;
-        b=C9UXkA+VubpLVzTlzjN5C8GjRWwcrnSi4617EtzScvjBZFYVtR+eGJ/0X+e75DBJR4
-         uJVVu0rg1F0SyYztluJD4dFfsn39qad8c9sbIBV3GexvqN0348yBEMcXhZS06rOAgOAI
-         YipyM7gEPr3UewtzpNrM+IjFFRdNu65Wh2les8KD/eJa78xkWBFvHnxRYUH/wAaSnQ1R
-         pqde0LEFooDG9nXJdcF/pjZxZj8hmOcxM2C7PGwV7XfV2J6Fmo41wcTXjqBiDUmdcT7C
-         EOpsRxpyB1WX+2/1WbteW5SWqtTiD7nTplSrS1vS4U/ha9KhSBoQnrpwo8dV7IU4d2BN
-         +L0Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWdWRXNiCmXfSQroEJOzKOc8XZ9GTy3EiZPc5zFdW+z8GU8IbJpAgG73XV3sCaRRTaBnhXDxBKKAy0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxv+NwlBt5mp5QMxqNj4aE0ZNiSftoVMjqTpCrolTDNLC1dD+2w
-	eTBSfIHAAS+eL5mvJCHDNMkqskJYQ1YxNWeqlNSrGWqPKO9Fc0aVtp6PC4kBlNVFNw==
-X-Gm-Gg: ASbGncvHwsNY4LdEk4cgwU/fd4jSmZkz+hnwRnw3c5W0sTYmpzuR5NCRE8Pw1iIoCc3
-	imkQzDITw4MclZcP3Oc+hNH/jvQpBFNMQLoopESfo2ZEgEtQT6o2kVvrxZzVeXm7cw93NIsQly5
-	R+jLe94FsTNVVl7vVTkwhQQEgNo8Gbu8u/SuA/ItGW7hAlqbBwbBthVWrq+VKT1I9MsFVOFcCk+
-	UEEYmyXn3aNqenErSVV2sPCqosH2kbx0mMNr1fpvu5H676MRcf0AkOUUo7sxBYLJ+e4nHu5xXI+
-	lacKrxNH+tgJ1VTfh3LHSMrKnTnY62ZfuISEJBle3h7kl1kPmNnbTwUkJbU2oa6vxgIsCcxf+eV
-	kuWWP4/LMvcAhIjUeW9uNzA47liacvRrm+ktXbI2J3uCgGva5Zy44+oihCRS5bK+QazOlRnLjsv
-	lXpe+lJ/U=
-X-Google-Smtp-Source: AGHT+IHkUcuqwzDVqhNhZE8NGgCet4Xtlfsz24oRz6u9rPdnIXCZTAFmc9X68dABcGkOcJ9XRzzqBw==
-X-Received: by 2002:a17:906:4fca:b0:b04:6546:347e with SMTP id a640c23a62f3a-b0465463a5bmr659419766b.51.1756987894499;
-        Thu, 04 Sep 2025 05:11:34 -0700 (PDT)
-Message-ID: <71560c55-b3e7-4049-bf7d-5474982c76dd@suse.com>
-Date: Thu, 4 Sep 2025 14:11:32 +0200
+        bh=nOBEWNFFHPjnbNq4i67ABuyUthOxE9J2j5V1Te/Ttdk=;
+        b=F1lfI301EKjE8dhPmhjzHH3ubmIWXDv09nCY528auylD3K2POHTjUIIOhuHoYmmgnp
+         qZsID+7X2oi5h4T7zCfg/RgWJN1S+Fipm8QlwcUJXOCTC8WiUGQKwR5vQlp10b71tPvJ
+         RIvWd1dilivkNaxEqXCWGE8Fmx7eML69iqf8BiSy97wi1IL/tqKD6CL5iywV25R7KPLU
+         FB6zdweOJteiJnt+BMA3G8tf0jwXx0f9G4H9bevBoKge0ODrm6Dasm9fKba6cTCgxT13
+         ky766HTQ0XJm8lEPr334h6dPkL/meRTZ9KHdlSxNfU8TTwbNitT96SbKlmFRo1querPW
+         UDKw==
+X-Forwarded-Encrypted: i=1; AJvYcCVr9a1c3qfS9QDIslSKy0mJSDc8QXEmSo1LVP2ZW6Uytl/zuYgXYGEujEFKW2PC/gUVNfbuhTPNaoA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyFJ5BuzxTL4j1Yst+cLYKmCanLkqFn3CfG1JBe3qB0LUQU9S/Y
+	/K+fEZGrhd0iAQrGN5Mj5kjM3vHtzvwC7U5zZxKNtP9nV0nbZwFp7VPdwoGpygQ9mA==
+X-Gm-Gg: ASbGncuYcDyKUs0vHgb1yHli7omp42m+Ng5TK9CcBdgZp9outT1fZlL7ujnSx2uMqIm
+	yKam3OnUOxlNWSJAWseu1KyAPoJaxaIcM0irLGym37rrrEf58t0DiA9gLJ1k75Z2cnV/TZo5frP
+	OG38eCrYUo9caDs5KN7xA4ywNVnGMEqgkN+LcQ5lA16LTDfG2rvH7Fe33boSg4u2uphkPYFVQkC
+	G4buZC1oClSgZUQE0QKvT6XMofBf+WqbU51cLCAJ334wO83z5apcAaZbyaTlRkjwf+1T2Vd0Ysi
+	Fpv8a8rTSIUruHH8mJYsV+fEDO2erIXhx3JnWIrpw59PeYvGlS4AWaXpNHyr8sqgz7M0gMF/ARF
+	KkS03kAey6F+LxMKwzbk3CzSk18ete4nBneExMGL9cxGcFW2sWAR486y735P8MFUfhejhzn8xZb
+	a6u86jDiw=
+X-Google-Smtp-Source: AGHT+IFT/+IREivLHHAl0YQHtnZpANlRv7fpvIMIt389jc9BAEBskf1NeQHaCQEoTKr+xpftH/SdyA==
+X-Received: by 2002:a05:6402:4345:b0:61c:5440:ff7b with SMTP id 4fb4d7f45d1cf-61d26eac5b6mr16848524a12.25.1756987976176;
+        Thu, 04 Sep 2025 05:12:56 -0700 (PDT)
+Message-ID: <afb6af88-11f6-4b18-91c9-2506e74b3ae9@suse.com>
+Date: Thu, 4 Sep 2025 14:12:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/8] xen/cpufreq: implement amd-cppc driver for CPPC in
- passive mode
+Subject: Re: [PATCH v9 3/8] xen/cpufreq: implement amd-cppc-epp driver for
+ CPPC in active mode
 To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250904063518.2097629-1-Penny.Zheng@amd.com>
- <20250904063518.2097629-3-Penny.Zheng@amd.com>
+ <20250904063518.2097629-4-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,81 +123,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250904063518.2097629-3-Penny.Zheng@amd.com>
+In-Reply-To: <20250904063518.2097629-4-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 04.09.2025 08:35, Penny Zheng wrote:
-> @@ -50,10 +139,333 @@ int __init amd_cppc_cmdline_parse(const char *s, const char *e)
->      return 0;
->  }
->  
-> +/*
-> + * If CPPC lowest_freq and nominal_freq registers are exposed then we can
-> + * use them to convert perf to freq and vice versa. The conversion is
-> + * extrapolated as an linear function passing by the 2 points:
-> + *  - (Low perf, Low freq)
-> + *  - (Nominal perf, Nominal freq)
-> + * Parameter freq is always in kHz.
-> + */
-> +static int amd_cppc_khz_to_perf(const struct amd_cppc_drv_data *data,
-> +                                unsigned int freq, uint8_t *perf)
-> +{
-> +    const struct xen_processor_cppc *cppc_data = data->cppc_data;
-> +    unsigned int mul, div;
-> +    int offset = 0, res;
-> +
-> +    if ( cppc_data->cpc.lowest_mhz &&
-> +         data->caps.nominal_perf > data->caps.lowest_perf &&
-> +         cppc_data->cpc.nominal_mhz > cppc_data->cpc.lowest_mhz )
-> +    {
-> +        mul = data->caps.nominal_perf - data->caps.lowest_perf;
-> +        div = cppc_data->cpc.nominal_mhz - cppc_data->cpc.lowest_mhz;
-> +
-> +        /*
-> +         * We don't need to convert to kHz for computing offset and can
-> +         * directly use nominal_mhz and lowest_mhz as the division
-> +         * will remove the frequency unit.
-> +         */
-> +        offset = data->caps.nominal_perf -
-> +                 (mul * cppc_data->cpc.nominal_mhz) / div;
-> +    }
-> +    else
-> +    {
-> +        /* Read Processor Max Speed(MHz) as anchor point */
-> +        mul = data->caps.highest_perf;
-> +        div = this_cpu(pxfreq_mhz);
+> ---
+> v8 -> v9:
+> - Adapt to changes of "Embed struct amd_cppc_drv_data{} into struct
+> cpufreq_policy{}"
 
-How do you know you ever initialized this instance of the per-CPU variable?
-amd_cppc_init_msrs() may never have run for this particular CPU.
-
-> +static int cf_check amd_cppc_cpufreq_target(struct cpufreq_policy *policy,
-> +                                            unsigned int target_freq,
-> +                                            unsigned int relation)
-> +{
-> +    struct amd_cppc_drv_data *data = policy->u.amd_cppc;
-> +    uint8_t des_perf;
-> +    int res;
-> +
-> +    if ( unlikely(!target_freq) )
-> +        return 0;
-> +
-> +    res = amd_cppc_khz_to_perf(data, target_freq, &des_perf);
-> +    if ( res )
-> +        return res;
-> +
-> +    /*
-> +     * Having a performance level lower than the lowest nonlinear
-> +     * performance level, such as, lowest_perf <= perf <= lowest_nonliner_perf,
-> +     * may actually cause an efficiency penalty, So when deciding the min_perf
-> +     * value, we prefer lowest nonlinear performance over lowest performance.
-> +     */
-> +    amd_cppc_write_request(policy->cpu, data, data->caps.lowest_nonlinear_perf,
-> +                           des_perf, data->caps.highest_perf,
-> +                           /* Pre-defined BIOS value for passive mode */
-> +                           per_cpu(epp_init, policy->cpu));
-
-This may access per-CPU data of an offline CPU.
+With problems mentioned there also extending here.
 
 Jan
 
