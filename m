@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68EF1B42D2E
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 01:05:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1109171.1458964 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 115D5B42E0B
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 02:20:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1109224.1458974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utwWU-0006bF-8z; Wed, 03 Sep 2025 23:04:14 +0000
+	id 1utxh9-00077c-EN; Thu, 04 Sep 2025 00:19:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1109171.1458964; Wed, 03 Sep 2025 23:04:14 +0000
+Received: by outflank-mailman (output) from mailman id 1109224.1458974; Thu, 04 Sep 2025 00:19:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utwWU-0006Yr-65; Wed, 03 Sep 2025 23:04:14 +0000
-Received: by outflank-mailman (input) for mailman id 1109171;
- Wed, 03 Sep 2025 23:04:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1utwWS-0006Yl-Sb
- for xen-devel@lists.xenproject.org; Wed, 03 Sep 2025 23:04:12 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1utwWR-004nWw-1O;
- Wed, 03 Sep 2025 23:04:11 +0000
-Received: from [2a02:8012:3a1:0:2cb0:b4e5:ef93:763c]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1utwWR-00Ex9P-1A;
- Wed, 03 Sep 2025 23:04:11 +0000
+	id 1utxh9-00075d-BJ; Thu, 04 Sep 2025 00:19:19 +0000
+Received: by outflank-mailman (input) for mailman id 1109224;
+ Thu, 04 Sep 2025 00:19:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=axuo=3P=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1utxh8-00075X-9Z
+ for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 00:19:18 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ca318025-8924-11f0-9d12-b5c5bf9af7f9;
+ Thu, 04 Sep 2025 02:19:16 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 77A7140A41;
+ Thu,  4 Sep 2025 00:19:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 141D3C4CEE7;
+ Thu,  4 Sep 2025 00:19:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,90 +41,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=RhhQYyZ5A3pujMZNcLTiHu3xupigp4QFFgdnGH0gUug=; b=bcdfrGjgNJEEnQxya0kSANhJ/M
-	bbCwJogKGmAQp4oKpudL/lA4aMc+AHKkQemn9BbOznSi9/52QtIjUdeKMAsZQmtp7Fg+QKKAoxQjQ
-	sTubUQvg7It/UZBevx9Ax00CHYRPrimch000pmF/ci7sndZ1fb04xH6t51HM2Eb2eZ3U=;
-Message-ID: <13ed364c-bec3-4c3e-a451-7bc312b2db9d@xen.org>
-Date: Thu, 4 Sep 2025 00:04:09 +0100
+X-Inumbo-ID: ca318025-8924-11f0-9d12-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1756945154;
+	bh=Vwns9sCZhya6D4JDh1TQ0NJdzpUw5R3lAGOsHD395TY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=VVMBTVX84FbG3Vl+PwPOMNjct+wDmo8rEC5A0oO1H2iz4IsXby3hX8eBbYVU8qvOi
+	 GzMjdjBLk43/0UQTu53XNxkPvGya8+dmSIuuDsPPKoflZEBMDEC+FrFUod9MUcpfVF
+	 sbVnfCha8yrx9oRFq23wPhBJo/I/tI1HOd7LU6o+6lpFHvwzOdMfTp15ZmYvsBDtep
+	 h+MK6DGUs5FI88qQ2YLNLuGohcE1uVT/EDytJsqlChYalzgazRICC7BxpXUD+RFgr8
+	 HcAotorWKwwU3eqxjG4XmDFD4NxOPVlWJBpOWYOpIIltIBRKl5ykIZllfjlmYM+v9d
+	 a+RWOFMeMbmDA==
+Date: Wed, 3 Sep 2025 17:19:11 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Victor Lira <victorm.lira@amd.com>
+cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH v1 1/2] automation: call expect script with redirected
+ standard error
+In-Reply-To: <729708b7e6c1815e7ba9b712f6c847e0a0374fd9.1756834803.git.victorm.lira@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2509031719040.1405870@ubuntu-linux-20-04-desktop>
+References: <729708b7e6c1815e7ba9b712f6c847e0a0374fd9.1756834803.git.victorm.lira@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 10/12] xen/arm: vgic-v3: add emulation of GICv3.1 eSPI
- registers
-Content-Language: en-GB
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <cover.1756908472.git.leonid_komarianskyi@epam.com>
- <345da260fcb3bb400834f8a59dacfda8b37440a1.1756908472.git.leonid_komarianskyi@epam.com>
- <cb34378c-95c7-4618-8aeb-a7b7c5c97f2d@gmail.com> <87plc7tdxx.fsf@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <87plc7tdxx.fsf@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="8323329-437634610-1756945154=:1405870"
 
-Hi,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 03/09/2025 22:37, Volodymyr Babchuk wrote:
-> Hi Oleksandr,
-> 
-> Oleksandr Tyshchenko <olekstysh@gmail.com> writes:
-> 
-> 
-> [...]
-> 
->>> +static inline uint32_t vgic_get_reg_offset(uint32_t reg, uint32_t spi_base,
->>> +                                           uint32_t espi_base)
->>> +{
->>> +    if ( reg < espi_base )
->>> +        return reg - spi_base;
->>> +    else
->>> +        return reg - espi_base;
->>> +}
->>
->> I am wondering (I do not request a change) whether
->> vgic_get_reg_offset() is really helpfull,
->> e.g. is
->>   offset = vgic_get_reg_offset(reg, GICD_IPRIORITYR, GICD_IPRIORITYRnE);
->> much better than:
->>   offset = reg < GICD_IPRIORITYRnE ? reg - GICD_IPRIORITYR : reg -
->>   GICD_IPRIORITYRnE;
- >>>
-> IMO, it is easy to make a mistake, because you need to write register
-> name 3 times. Can cause errors during copy-pasting.
+--8323329-437634610-1756945154=:1405870
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-+1.
-
-  But I saw clever
-> trick by Mykola Kvach, something like this:
+On Tue, 2 Sep 2025, victorm.lira@amd.com wrote:
+> From: Victor Lira <victorm.lira@amd.com>
 > 
-> #define vgic_get_reg_offset(addr, reg_name) ( addr < reg_name##nE ? \
->   addr - reg_name : addr - reg_name##nE )
+> In the console expect script, "send_error" will send a message to standard
+> error. Current use of this script redirects only standard output into a
+> pipeline. This causes the error messages to sometimes appear hidden in the
+> middle of the test logs.
 > 
-> And then you can just use this as
+> Redirect also standard error to clearly show when a test has timed out or hit
+> EOF.
 > 
-> offset = vgic_get_reg_offset(reg, GICD_IPRIORITYR)
+> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> ---
+> example of the problem:
+>  - https://gitlab.com/xen-project/people/luca.miccio/xen/-/jobs/11136585863#L615
+>  - timeout message on line 615 shown before end of log
+> note:
+>  - I couldn't check the change on cirrus-ci as I don't have access
+> ---
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: Anthony PERARD <anthony.perard@vates.tech>
+> Cc: Michal Orzel <michal.orzel@amd.com>
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Julien Grall <julien@xen.org>
+> Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Doug Goldstein <cardoe@cardoe.com>
+> Cc: xen-devel@lists.xenproject.org
+> ---
+>  .cirrus.yml                                       | 2 +-
+>  automation/scripts/include/xtf-runner             | 2 +-
+>  automation/scripts/qemu-alpine-x86_64.sh          | 2 +-
+>  automation/scripts/qemu-smoke-dom0-arm32.sh       | 2 +-
+>  automation/scripts/qemu-smoke-dom0-arm64.sh       | 2 +-
+>  automation/scripts/qemu-smoke-dom0less-arm32.sh   | 2 +-
+>  automation/scripts/qemu-smoke-dom0less-arm64.sh   | 2 +-
+>  automation/scripts/qemu-smoke-ppc64le.sh          | 2 +-
+>  automation/scripts/qemu-smoke-riscv64.sh          | 2 +-
+>  automation/scripts/qubes-x86-64.sh                | 2 +-
+>  automation/scripts/xilinx-smoke-dom0-x86_64.sh    | 2 +-
+>  automation/scripts/xilinx-smoke-dom0less-arm64.sh | 2 +-
+>  12 files changed, 12 insertions(+), 12 deletions(-)
 > 
-> I don't know what maintainers think about this type of preprocessor
-> trickery, but in my opinion it is justified in this case, because it
-> leaves less room for a mistake.
-
-I don't have a strong opinion between the macro version or the static 
-inline helper. However:
-   * for the macro version, you want to store 'addr' in a local variable 
-to ensure it is only evaluated once.
-   * for both case, I would prefer if we assert (for the static inline 
-helper) or use BUILD_BUG_ON() to confirm that spi_base < espi_base
-
-Cheers,
-
--- 
-Julien Grall
-
+> diff --git a/.cirrus.yml b/.cirrus.yml
+> index 3163ab8f11..f295c8cb0a 100644
+> --- a/.cirrus.yml
+> +++ b/.cirrus.yml
+> @@ -166,7 +166,7 @@ task:
+>      export TEST_LOG="serial-${FREEBSD_BUILD}-${XTF_ARCH}.txt"
+>      export PASSED="Test result: SUCCESS"
+>      export TEST_TIMEOUT=120
+> -    ./automation/scripts/console.exp | sed 's/\r\+$//'
+> +    ./automation/scripts/console.exp |& sed 's/\r\+$//'
+> 
+>    always:
+>      serial_artifacts:
+> diff --git a/automation/scripts/include/xtf-runner b/automation/scripts/include/xtf-runner
+> index b7fea52dad..43ff2d4d88 100644
+> --- a/automation/scripts/include/xtf-runner
+> +++ b/automation/scripts/include/xtf-runner
+> @@ -114,7 +114,7 @@ function xtf_run_test()
+>  {
+>      rm -f ${TEST_LOG}
+>      export BOOT_MSG PASSED TEST_CMD TEST_LOG UBOOT_CMD
+> -    ./console.exp | sed 's/\r\+$//'
+> +    ./console.exp |& sed 's/\r\+$//'
+>  }
+> 
+>  # Setup environment and run an XTF test.
+> diff --git a/automation/scripts/qemu-alpine-x86_64.sh b/automation/scripts/qemu-alpine-x86_64.sh
+> index 746e70483d..c4666b9507 100755
+> --- a/automation/scripts/qemu-alpine-x86_64.sh
+> +++ b/automation/scripts/qemu-alpine-x86_64.sh
+> @@ -84,4 +84,4 @@ export BOOT_MSG="Latest ChangeSet: "
+>  export LOG_MSG="Domain-0"
+>  export PASSED="BusyBox"
+> 
+> -./automation/scripts/console.exp | sed 's/\r\+$//'
+> +./automation/scripts/console.exp |& sed 's/\r\+$//'
+> diff --git a/automation/scripts/qemu-smoke-dom0-arm32.sh b/automation/scripts/qemu-smoke-dom0-arm32.sh
+> index 4f50eabdef..36c47daa42 100755
+> --- a/automation/scripts/qemu-smoke-dom0-arm32.sh
+> +++ b/automation/scripts/qemu-smoke-dom0-arm32.sh
+> @@ -96,4 +96,4 @@ export BOOT_MSG="Latest ChangeSet: "
+>  export LOG_MSG="Domain-0"
+>  export PASSED="/ #"
+> 
+> -../automation/scripts/console.exp | sed 's/\r\+$//'
+> +../automation/scripts/console.exp |& sed 's/\r\+$//'
+> diff --git a/automation/scripts/qemu-smoke-dom0-arm64.sh b/automation/scripts/qemu-smoke-dom0-arm64.sh
+> index d6f6b74880..ee682015a0 100755
+> --- a/automation/scripts/qemu-smoke-dom0-arm64.sh
+> +++ b/automation/scripts/qemu-smoke-dom0-arm64.sh
+> @@ -106,4 +106,4 @@ export TEST_LOG="smoke.serial"
+>  export LOG_MSG="Domain-0"
+>  export PASSED="BusyBox"
+> 
+> -./automation/scripts/console.exp | sed 's/\r\+$//'
+> +./automation/scripts/console.exp |& sed 's/\r\+$//'
+> diff --git a/automation/scripts/qemu-smoke-dom0less-arm32.sh b/automation/scripts/qemu-smoke-dom0less-arm32.sh
+> index 0e2c5496db..e27636dc9e 100755
+> --- a/automation/scripts/qemu-smoke-dom0less-arm32.sh
+> +++ b/automation/scripts/qemu-smoke-dom0less-arm32.sh
+> @@ -149,4 +149,4 @@ export TEST_LOG="${serial_log}"
+>  export LOG_MSG="${dom0_prompt}"
+>  export PASSED="${passed}"
+> 
+> -../automation/scripts/console.exp | sed 's/\r\+$//'
+> +../automation/scripts/console.exp |& sed 's/\r\+$//'
+> diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh b/automation/scripts/qemu-smoke-dom0less-arm64.sh
+> index e7a3e670d0..e660485f3a 100755
+> --- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
+> +++ b/automation/scripts/qemu-smoke-dom0less-arm64.sh
+> @@ -218,4 +218,4 @@ export TEST_LOG="smoke.serial"
+>  export LOG_MSG="Welcome to Alpine Linux"
+>  export PASSED="${passed}"
+> 
+> -./automation/scripts/console.exp | sed 's/\r\+$//'
+> +./automation/scripts/console.exp |& sed 's/\r\+$//'
+> diff --git a/automation/scripts/qemu-smoke-ppc64le.sh b/automation/scripts/qemu-smoke-ppc64le.sh
+> index 617096ad1f..119c3ed4d5 100755
+> --- a/automation/scripts/qemu-smoke-ppc64le.sh
+> +++ b/automation/scripts/qemu-smoke-ppc64le.sh
+> @@ -24,4 +24,4 @@ export TEST_CMD="qemu-system-ppc64 \
+>  export TEST_LOG="${serial_log}"
+>  export PASSED="Hello, ppc64le!"
+> 
+> -./automation/scripts/console.exp | sed 's/\r\+$//'
+> +./automation/scripts/console.exp |& sed 's/\r\+$//'
+> diff --git a/automation/scripts/qemu-smoke-riscv64.sh b/automation/scripts/qemu-smoke-riscv64.sh
+> index 25f9e4190e..c0b1082a08 100755
+> --- a/automation/scripts/qemu-smoke-riscv64.sh
+> +++ b/automation/scripts/qemu-smoke-riscv64.sh
+> @@ -16,4 +16,4 @@ export TEST_CMD="qemu-system-riscv64 \
+>  export TEST_LOG="smoke.serial"
+>  export PASSED="All set up"
+> 
+> -./automation/scripts/console.exp | sed 's/\r\+$//'
+> +./automation/scripts/console.exp |& sed 's/\r\+$//'
+> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
+> index b49a44c5b1..bd939dc948 100755
+> --- a/automation/scripts/qubes-x86-64.sh
+> +++ b/automation/scripts/qubes-x86-64.sh
+> @@ -292,7 +292,7 @@ export LOG_MSG="\nWelcome to Alpine Linux"
+>  export TEST_CMD="ssh $CONTROLLER console"
+>  export TEST_LOG="smoke.serial"
+>  export TEST_TIMEOUT="$timeout"
+> -./automation/scripts/console.exp | sed 's/\r\+$//'
+> +./automation/scripts/console.exp |& sed 's/\r\+$//'
+>  TEST_RESULT=$?
+> 
+>  if [ -n "$retrieve_xml" ]; then
+> diff --git a/automation/scripts/xilinx-smoke-dom0-x86_64.sh b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+> index 0ad8f658e3..96f534f3aa 100755
+> --- a/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+> +++ b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+> @@ -173,7 +173,7 @@ export BOOT_MSG="Latest ChangeSet: "
+>  export TEST_CMD="cat ${SERIAL_DEV}"
+>  export TEST_LOG="smoke.serial"
+> 
+> -./automation/scripts/console.exp | sed 's/\r\+$//'
+> +./automation/scripts/console.exp |& sed 's/\r\+$//'
+>  TEST_RESULT=$?
+>  sh "/scratch/gitlab-runner/${TEST_BOARD}.sh" 2
+>  exit ${TEST_RESULT}
+> diff --git a/automation/scripts/xilinx-smoke-dom0less-arm64.sh b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
+> index 1d7162f1b3..a6da7a830c 100755
+> --- a/automation/scripts/xilinx-smoke-dom0less-arm64.sh
+> +++ b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
+> @@ -137,7 +137,7 @@ export LOG_MSG="Welcome to Alpine Linux"
+>  export TEST_CMD="cat ${SERIAL_DEV}"
+>  export TEST_LOG="smoke.serial"
+> 
+> -./automation/scripts/console.exp | sed 's/\r\+$//'
+> +./automation/scripts/console.exp |& sed 's/\r\+$//'
+>  TEST_RESULT=$?
+>  sh "/scratch/gitlab-runner/zcu102.sh" 2
+>  exit ${TEST_RESULT}
+> --
+> 2.50.GIT
+> 
+--8323329-437634610-1756945154=:1405870--
 
