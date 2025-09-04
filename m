@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2EE5B433DB
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 09:25:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1109667.1459180 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5034B43919
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 12:44:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1109811.1459229 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uu4LA-00087B-J8; Thu, 04 Sep 2025 07:25:04 +0000
+	id 1uu7R2-0006oE-JU; Thu, 04 Sep 2025 10:43:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1109667.1459180; Thu, 04 Sep 2025 07:25:04 +0000
+Received: by outflank-mailman (output) from mailman id 1109811.1459229; Thu, 04 Sep 2025 10:43:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uu4LA-00084Y-Fy; Thu, 04 Sep 2025 07:25:04 +0000
-Received: by outflank-mailman (input) for mailman id 1109667;
- Thu, 04 Sep 2025 07:25:03 +0000
+	id 1uu7R2-0006lZ-FD; Thu, 04 Sep 2025 10:43:20 +0000
+Received: by outflank-mailman (input) for mailman id 1109811;
+ Thu, 04 Sep 2025 10:43:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iTa/=3P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uu4L9-00084S-3G
- for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 07:25:03 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9Vqu=3P=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uu7R0-0006lT-LO
+ for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 10:43:18 +0000
+Received: from fout-b3-smtp.messagingengine.com
+ (fout-b3-smtp.messagingengine.com [202.12.124.146])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4440129d-8960-11f0-9809-7dc792cee155;
- Thu, 04 Sep 2025 09:25:00 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-aff0775410eso207377566b.0
- for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 00:25:00 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b04190700a4sm1087796866b.63.2025.09.04.00.24.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Sep 2025 00:24:59 -0700 (PDT)
+ id f6233262-897b-11f0-9809-7dc792cee155;
+ Thu, 04 Sep 2025 12:43:16 +0200 (CEST)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfout.stl.internal (Postfix) with ESMTP id 868A81D00291;
+ Thu,  4 Sep 2025 06:43:14 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Thu, 04 Sep 2025 06:43:14 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 4 Sep 2025 06:43:13 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,167 +44,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4440129d-8960-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756970700; x=1757575500; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OfeT1Se81zUkeC4IRHtpFJi1bgBDIe5kD6wRBMQJTog=;
-        b=FkGYxcU7uNGWI4y5GuOmXZ/RUhyaCd3KlTcnnUJ9wE1AiyhFi/EXPCbG8AbWTdmdKy
-         7hTnm9EyCxP090bYcoF6vMQDviCmZ5KblMn0yBt/ZCuHXmYQLIWdXwff3gEe4550lgCu
-         luD91EZoX1uhpXR6RX5GGpN9qTBLpDvPcY8R5USErJ4qbwjz5SJbl4/2zLZ14996pBxS
-         Pdd2rYRsIQPMZCK/CucgyQ1YwzN9xTbPAt2J3wn4h2Nn6E9sCp5SY6Iy+GbTxaDj2g4Z
-         9tM+rjRd9cBlH8T1kH/wo/IdzmlOMbXj95w0yVPD4lr1HDPs/kLG33NM+/5btk/1eIzA
-         Vyfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756970700; x=1757575500;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OfeT1Se81zUkeC4IRHtpFJi1bgBDIe5kD6wRBMQJTog=;
-        b=kgRgOirEA9QvKnP+asWE21N0iixGbEMh1H4jugIYqeqv3FGHIRdtBqGsh1HhCZOhpv
-         fSF7UpHgPpctHp/rhUcGKUCuf+VE7pLre59pwoD+xqi00Rl6+4OvgegcHZnjhxkbCa/I
-         rCuHTqXac3qggBDfdwStDLRYQ0cJB06EcEbB5VChUN5pnZziuyC+vVEMMJ/+f0DbPtIC
-         uVE15xryL/3jI5eDViow9VsAuWDDJLXmo/q9h/y9uDKdtiApw55Qps4eX0QExhCkvjj0
-         SlO8zkIoxfDKIhw++d4ZrOG/4aw/UYawH+O2F8rP+/mFOMHt618dJT7xLHc2wFq/rgjG
-         a0dw==
-X-Forwarded-Encrypted: i=1; AJvYcCV2z7MMgIMXnGBjkNzb7Cd9/Oxha0j63l0CNGwcS4tkc4D7lzuD8suaAQtyGz+wlHc8lvDWat4wmXI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyxhPCQiIdawYzH2kxQoQ1GwcdPNlTr3HeB6OIGzq8ViJ9+0M7o
-	oZ/Jqr337XnOAlNCI6C2pvF5SFngdG7cydYTwxmobFs67bGVSfU4I0oZC2rE/4cM8w==
-X-Gm-Gg: ASbGncuZZDUNGYWn32X0BAEV64h4/uG83olDahy4SRrORR2Gx3TeAsKC/S+yl3JkUqy
-	G5YVR80ByERGgOljZAPfYPe4BluNNkyDvIZcVt7KZGYEFAY/JgkIuxj4x6ml2KcdRoa2Cbq5jun
-	QXW+Wlp0NIGZO8W5flsOAj+LmhjLREWKKfDdT7jjq9upOOuXM4PwUguKnmksmqk63WI+Zc98VGh
-	pYXJSYQA68lFuPH1ZAbTHUOajaAz06Zjx35mLK4/OMq+1exKOXbeXO6Nec8rkMSwjlqvkR8lPxk
-	W5WPqVGHGDHFCqeNahI7uD4KiXlL+1nGq5ip9mMJEzErrtA6X3V2A+YAbUbTMDx4jqv83AJkCIf
-	lD3OjR7vqlOorqJzNKlIqiUFDsgc2F5TUAQo7jwBCWdm9wGi8hrtLdryfHI1pD3NwUKzj500nWi
-	V0cRigYHha91xcj4AhrQ==
-X-Google-Smtp-Source: AGHT+IHhjVQsEfPZJ6EM9ZjWu4GFSa4gaSk0ZhleQjH+dGUqJy1XLk/VpJZsVZQ8gC/6dCT/m1eexA==
-X-Received: by 2002:a17:907:a45:b0:afe:8bd8:e2c3 with SMTP id a640c23a62f3a-b01af2e0a2fmr2167487566b.0.1756970699845;
-        Thu, 04 Sep 2025 00:24:59 -0700 (PDT)
-Message-ID: <e6324252-d8e5-48a3-9607-d53c8eaec446@suse.com>
-Date: Thu, 4 Sep 2025 09:24:57 +0200
+X-Inumbo-ID: f6233262-897b-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1756982594;
+	 x=1757068994; bh=vLKJ8EQ4Q3uf2z4yXyC1FFM1RW9BEz2YR4iv12SQq6w=; b=
+	LURMkdxb8sbMyjphe4X9+sdSkSTMK/z3MPLKxcif0eWNtV8nVi8jcphh16y9l9Bu
+	Bdhteoyo4+jCc8L+nr2dUluq3u4JJ53yrSyi9JSDID02nQjgr2xRhVGBlcGTmuKl
+	V+y87tRRc5JCWqboBwlJOFGaLSfjeEeFm5gxj5lEl6KrBWlp5Wh07QuQ7/GqM493
+	Q/Azsj+mlF5tNCgSOHWom1dz3bmEtgwZ0dI+lJg9wfqtYyGXutR+OEFXh/3XF3sa
+	A5jYVk0QAARxEaOAgCZnYuUBK+xXtkmVBd7shibvx27Zu/pAhcvRkj1NQFTpyy/1
+	SF3yHVdBNlyIBk0GdzzYDg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1756982594; x=1757068994; bh=vLKJ8EQ4Q3uf2z4yXyC1FFM1RW9BEz2YR4i
+	v12SQq6w=; b=eubCI+C3AX/GECW0qkukQzfkz7fL3mcxVDqIAGOUvJ9kWNyJa0+
+	AqPQBtjC69hiQg4mpN8Xdb/2ZxVhoE2h00uMbNd/gIf6/ynpk7Tbh8hJa91fAF7N
+	Qqhq3sBOiqXgJV9DtfTmhPcmYfLN/BmLNFkhyTOibNqiBEVXollqFmTb5PiZs5Xu
+	MdTp1xXhfBWvv/nY2k49e2bnmY6dxPCZZGWqDpYI2AQW6xqrQv6UZid1uxdRYGtU
+	taJU5V3Yj1Ou9n0VjoeCd9WOxu1HVi5mL+WjIaijM2lDo7nvid11shesitk9gBQk
+	AA1IC6MRyngConerFn+EbRkDuFF6CsZOrbA==
+X-ME-Sender: <xms:Qm25aF_6X38-I0OCO18igIA1Cb2dcNkII8CDU7Y8Dmu4bH7WSgAmFA>
+    <xme:Qm25aJ7qq9y3_9vlf7JWXfiv7UkNG2iPyD77j9STydyKfX4ck5Ur2R33QFvIqg8QS
+    4i67u5WuANW2Q>
+X-ME-Received: <xmr:Qm25aE0if9-JvUMMC8-FM3lenK5o5vco5QKNy1rRKWUfJW1xkCbPFPf0IdzvyQ5SDW1rbP4AsCx6ytXobInrXJuJiR-Z315LxlM>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdehkeduucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
+    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
+    epfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgr
+    rhgtiiihkhhofihskhhiuceomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhephedtfeeuhffgjeehfeetvdevueef
+    feehkeetfedujeehgfejudehleegudehgeeunecuffhomhgrihhnpehgihhtlhgrsgdrtg
+    homhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehm
+    rghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprh
+    gtphhtthhopedvpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehjsggvuhhlihgt
+    hhesshhushgvrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgi
+    gvnhhprhhojhgvtghtrdhorhhg
+X-ME-Proxy: <xmx:Qm25aIBGtbCZKzTAtMXpDKJswfgl-v46rcX9F3_2Gqta-VYLHfkYkQ>
+    <xmx:Qm25aO3vHbbdAgAE28ZvXalBWrbv_IPk_Uc9NAR5Cv5IicVdkCEWUQ>
+    <xmx:Qm25aKvIXgD-W6AE5VHysfJbxOMs-zhPVALCqPOvGYVItgw056P8lA>
+    <xmx:Qm25aG4KG0qR3znVK8Zro3UsylsX0Q3RPGzBu3lTQs6aEjLJT1jtjw>
+    <xmx:Qm25aHoZChHcw1ftsncKzkJncO91pL4i4qpQPlRBpttf_-o0UzT_VSsz>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 4 Sep 2025 12:43:11 +0200
+From: Marek Marczykowski <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: xen | Failed pipeline for staging-4.18 | 51190865
+Message-ID: <aLltQFCZyz_JQzqB@mail-itl>
+References: <68b862c0518f3_2cdd2ac12775d@gitlab-sidekiq-catchall-v2-5996545549-kk9d8.mail>
+ <8319cf73-52f9-48e2-a571-452da53c36d9@suse.com>
+ <aLhm5OMSUjGvQYAW@mail-itl>
+ <0fb22103-c928-40ff-8be9-bf8d3914f028@suse.com>
+ <15650736-585b-4b5c-b2d2-53f4670d8530@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] build: avoid absolute paths in executables
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <1071997f-efe6-4088-b753-b74d3a045a09@suse.com>
- <795b069f-12ea-4d05-bdc4-877a6a93fe7c@citrix.com>
- <6f310470-60f3-4c8e-a1fd-1216fd44e4ea@suse.com>
- <dc8047f3-215f-42af-ad42-76f206e4d557@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <dc8047f3-215f-42af-ad42-76f206e4d557@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="KfBoBeeBXiUIOfsO"
+Content-Disposition: inline
+In-Reply-To: <15650736-585b-4b5c-b2d2-53f4670d8530@suse.com>
 
-On 03.09.2025 18:40, Andrew Cooper wrote:
-> On 03/09/2025 5:12 pm, Jan Beulich wrote:
->> On 03.09.2025 17:26, Andrew Cooper wrote:
->>> On 03/09/2025 4:13 pm, Jan Beulich wrote:
->>>> --- a/xen/Makefile
->>>> +++ b/xen/Makefile
->>>> @@ -448,6 +448,8 @@ LDFLAGS-$(CONFIG_CC_IS_CLANG) += -plugin
->>>>  endif
->>>>  
->>>>  ifdef building_out_of_srctree
->>>> +    CFLAGS += $(call cc-option,$(CC),-ffile-prefix-map=$(srctree)/=, \
->>>> +                                     -fdebug-prefix-map=$(srctree)/=)
->>>>      CFLAGS += -I$(objtree)/include
->>>>      CFLAGS += -I$(objtree)/arch/$(SRCARCH)/include
->>>>  endif
->>> We do want to be taking a change like this, but it's also definitely not
->>> limited to out-of-tree builds.  I have full paths embedded even for
->>> in-tree builds.
->> In xen-syms I see only two full paths - in debug info, supplying the base
->> path to the tree.
 
-What I'm missing from your reply is clarification whether the mentioned
-instances are indeed the only ones you see, or whether there's more in
-what you have (and what I'm not seeing for whatever reason).
+--KfBoBeeBXiUIOfsO
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 4 Sep 2025 12:43:11 +0200
+From: Marek Marczykowski <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: xen | Failed pipeline for staging-4.18 | 51190865
 
->> That's okay to stay imo.
-> 
-> Not for reducible builds it's not.
+On Thu, Sep 04, 2025 at 08:27:14AM +0200, Jan Beulich wrote:
+> On 04.09.2025 07:58, Jan Beulich wrote:
+> > On 03.09.2025 18:03, Marek Marczykowski wrote:
+> >> On Wed, Sep 03, 2025 at 05:58:32PM +0200, Jan Beulich wrote:
+> >>> On 03.09.2025 17:46, GitLab wrote:
+> >>>>
+> >>>>
+> >>>> Pipeline #2019390073 has failed!
+> >>>>
+> >>>> Project: xen ( https://gitlab.com/xen-project/hardware/xen )
+> >>>> Branch: staging-4.18 ( https://gitlab.com/xen-project/hardware/xen/-=
+/commits/staging-4.18 )
+> >>>>
+> >>>> Commit: 51190865 ( https://gitlab.com/xen-project/hardware/xen/-/com=
+mit/51190865a4918c443c310c0478247d5f9caa5dad )
+> >>>> Commit Message: x86/suspend: unconditionally raise a timer soft...
+> >>>> Commit Author: Roger Pau Monn=C3=A9
+> >>>> Committed by: Jan Beulich ( https://gitlab.com/jbeulich )
+> >>>>
+> >>>>
+> >>>> Pipeline #2019390073 ( https://gitlab.com/xen-project/hardware/xen/-=
+/pipelines/2019390073 ) triggered by Jan Beulich ( https://gitlab.com/jbeul=
+ich )
+> >>>> had 5 failed jobs.
+> >>>>
+> >>>> Job #11230955404 ( https://gitlab.com/xen-project/hardware/xen/-/job=
+s/11230955404/raw )
+> >>>>
+> >>>> Stage: test
+> >>>> Name: adl-suspend-x86-64-gcc-debug
+> >>>> Job #11230955410 ( https://gitlab.com/xen-project/hardware/xen/-/job=
+s/11230955410/raw )
+> >>>>
+> >>>> Stage: test
+> >>>> Name: adl-pci-pv-x86-64-gcc-debug
+> >>>> Job #11230955417 ( https://gitlab.com/xen-project/hardware/xen/-/job=
+s/11230955417/raw )
+> >>>>
+> >>>> Stage: test
+> >>>> Name: adl-pci-hvm-x86-64-gcc-debug
+> >>>> Job #11233274365 ( https://gitlab.com/xen-project/hardware/xen/-/job=
+s/11233274365/raw )
+> >>>>
+> >>>> Stage: test
+> >>>> Name: adl-smoke-x86-64-gcc-debug
+> >>>> Job #11233405609 ( https://gitlab.com/xen-project/hardware/xen/-/job=
+s/11233405609/raw )
+> >>>>
+> >>>> Stage: test
+> >>>> Name: adl-smoke-x86-64-dom0pvh-gcc-debug
+> >>>
+> >>> While the same tests are fine for 4.19 and 4.20, all five show rubbis=
+h in the log,
+> >>> and then fail. No idea what's going on.
+> >>
+> >> The log says "baudrate is    : 115200", but looking at the state after
+> >> the test I see 9600. No idea if that was simply switched back after, or
+> >> setting to 115200 didn't work. Anyway I suggest to restart (now that
+> >> other jobs completed). I set it manually to 115200 now too (not sure if
+> >> that will remain there...).
+> >=20
+> > The rubbish in the output looks to have gone away, but the adl-* tests =
+fail
+> > as before. I'm retrying two of them another time, but with little hope.
+>=20
+> As opposed to 4.19, where we have this
+>=20
+> minimal cmds is: no
+> !! STDIN is not a TTY !! Continue anyway...
+> Type [C-a] [C-h] to see available commands
+> Terminal ready
+>  Xen 4.19.4-pre
+> (XEN) [00000043ae35c0c9] Xen version 4.19.4-pre (root@) (gcc (Alpine 12.2=
+=2E1_git20220924-r10) 12.2.1 20220924) debug=3Dy Wed Sep  3 12:15:19 UTC 20=
+25
+>=20
+> for 4.18 things (consistently across the tests) look like this
+>=20
+> minimal cmds is: no
+> !! STDIN is not a TTY !! Continue anyway...
+> Type [C-a] [C-h] to see available commands
+> Terminal ready
+> Accessing Gembird #0 USB device 038
+> Switched outlet 2 on
+> Setting boot mode for 2 to gitlabci... done
+> + trap 'ssh control@thor.testnet poweroff; : > /tmp/console-stdin' EXIT
+> + '[' -n  ]
+> + set +x
+>  Xen 4.18.5
+> (XEN) Xen version 4.18.5 (root@) (gcc (Alpine 12.2.1_git20220924-r10) 12.=
+2.1 20220924) debug=3Dy Wed Sep  3 12:27:30 UTC 2025
+>=20
+> For 4.19 there's no visible delay between "Terminal ready" and the first =
+Xen
+> message, whereas for 4.18 there is an approx 1:30min (=C2=B110s) delay af=
+ter the
+> "+ set +x". That's a lot when the timeout is 2min.
 
-Yes, I realized this later.
+That makes no sense to me, at this point there isn't really much
+Xen-specific code running yet, so there shouldn't be any difference
+between branches. I think this is only different presentation of the
+output, because 4.18 doesn't use expect in that script yet.
 
-However, I can see benefits to both: When one wants reproducible builds,
-no absolute path whatsoever should remain. In other (debugging) cases
-having a reference to the root of what everything else is relative to
-might be helpful. So whether to replace these remaining instances may
-want to be configurable (in turn making it necessary to deal with that
-independently for xen/ and tools/; for xen/ that would be a Kconfig
-option dependent upon DEBUG_INFO=y).
+As for the actual reason, at least one job ends at "Waiting for uevents
+to be processed", which sounds like USB devices enumeration. Just in
+case I reset that emulated USB now.
 
-In out-of-tree builds similar references exist to the build tree root.
-Once we zap both, the result is at risk of being ambiguous. I wonder
-whether it would be possible (supported by consumers) to replace both
-references by something macro-like (along the lines of $SRC/ and $BLD/).
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
->> In xen.efi I see a few hundred, but they're all the same as above. As I
->> learned earlier today, SHF_MERGE processing isn't invoked when linking
->> ELF objects into a PE binary.
->>
->>> To be useful, it wants to apply to everything, not just the hypervisor,
->>> so does want to be in the top level Config.mk.
->> As per my first remark then. But no, I meanwhile realized that this can't
->> go in Config.mk: For the hypervisor we want to use $(srctree), i.e.
->> including the leaf /xen referencing the xen/ subtree. I expect that for
->> e.g. tools/libs/ we'd want something similar - eliminate the entire path
->> up to the base of the component's source dir. So it will need to be
->> piecemeal.
-> 
-> Relative to the root of xen.git (or the source tarball) is the only
-> sensible option.  Anything else is intentionally misleading.
+--KfBoBeeBXiUIOfsO
+Content-Type: application/pgp-signature; name=signature.asc
 
-I disagree. In-tree builds record things downward from xen/ only. So should
-out-of-tree builds do. Every individual binary (i.e. including all the tools/
-ones) has no need to record anything more than is necessary to unambiguously
-identify the source files. In particular us bundling hypervisor, toolstack,
-and stubdom (and there we expand various external packages) in a single
-repo / tarball is an artifact, not how things normally would be arranged.
+-----BEGIN PGP SIGNATURE-----
 
-> In fact, Marek had a more-correct form of this patch in
-> https://lore.kernel.org/xen-devel/0370c0eb1fd9ac00acab016792132fa0b943d384.1742317309.git-series.marmarek@invisiblethingslab.com/T/#u
-> which seems to be waiting on you to reply.
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmi5bUAACgkQ24/THMrX
+1yySjAf/ZxQ5pIPIxP6YSbdoNIX85J4HFy/lRM4TUCZ4oHZJpq66WlMxVC+rUTte
+tJb/CoHoZ83GI9Nlv4urIYdcRxB66DgXm6mimdLuIxTJA5HDb8Hj1I+i4xJsPAmz
+nnbX+qiGxpOQrmf61PZw3T9iYK1NcEDbegy5Y+fpz0660qfy30y0+6H76HKXOIpA
+lRAdcsJ8SzNjoCqNjSpYXl+eCQ+r0BpdB1+7DDA5IxUkNRhLB1GyFq9rqBsdTHI7
+K5M3a6gGvXt6c5qhkZiseiXGjsR6FCi1Z16IkwO5pvjgKKPRh1Rj9j4ijk6tyk+F
+tiguG+C2M//PM94rxSdup0kULjlyhw==
+=eTPH
+-----END PGP SIGNATURE-----
 
-I can't spot anything expecting my reply. What I can spot is a promise to
-submit a v2. And, having entirely forgotten that there already was an
-attempt, I only now realize why the options coming into play seemed
-somewhat familiar.
-
-Jan
+--KfBoBeeBXiUIOfsO--
 
