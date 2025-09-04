@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AFD3B43B3F
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 14:13:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1109942.1459313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF9CEB43B84
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Sep 2025 14:27:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1109965.1459324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uu8pn-0004ay-Hs; Thu, 04 Sep 2025 12:12:59 +0000
+	id 1uu93D-0006Om-R2; Thu, 04 Sep 2025 12:26:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1109942.1459313; Thu, 04 Sep 2025 12:12:59 +0000
+Received: by outflank-mailman (output) from mailman id 1109965.1459324; Thu, 04 Sep 2025 12:26:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uu8pn-0004Yh-F2; Thu, 04 Sep 2025 12:12:59 +0000
-Received: by outflank-mailman (input) for mailman id 1109942;
- Thu, 04 Sep 2025 12:12:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uu93D-0006Ls-Nn; Thu, 04 Sep 2025 12:26:51 +0000
+Received: by outflank-mailman (input) for mailman id 1109965;
+ Thu, 04 Sep 2025 12:26:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iTa/=3P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uu8pm-0004Yb-JM
- for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 12:12:58 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7d97b526-8988-11f0-9809-7dc792cee155;
- Thu, 04 Sep 2025 14:12:56 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-6188b5ad4f0so1646159a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 05:12:56 -0700 (PDT)
+ id 1uu93C-0006Lm-Sj
+ for xen-devel@lists.xenproject.org; Thu, 04 Sep 2025 12:26:50 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6de1115b-898a-11f0-9d12-b5c5bf9af7f9;
+ Thu, 04 Sep 2025 14:26:49 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-61cf8280f02so1367598a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 05:26:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cfc51e0c1sm13979947a12.42.2025.09.04.05.12.55
+ 4fb4d7f45d1cf-61cfc4bbc51sm13901945a12.27.2025.09.04.05.26.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Sep 2025 05:12:55 -0700 (PDT)
+ Thu, 04 Sep 2025 05:26:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d97b526-8988-11f0-9809-7dc792cee155
+X-Inumbo-ID: 6de1115b-898a-11f0-9d12-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756987976; x=1757592776; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756988808; x=1757593608; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nOBEWNFFHPjnbNq4i67ABuyUthOxE9J2j5V1Te/Ttdk=;
-        b=VYjvtrZ2fscMfYuUcSqOVs0GXZ9gG3PL8MEZSXv7edqlIpuSnWsIonZNlccDviIXqB
-         3uTKOFx+JP0xOXJXwfgxIk4ogngObFHUQZbHfmlvpJyB/LjCnGfkwvp9aM8Xems97hIj
-         pF1EbrnfzLtgEVS+IwDy252vfOUZibPcCnyQ5iEmO0VeWSMJwwvchg/cUgYV7wOFVfk3
-         i5oGcZC27nI4wardf4m87+gBwg3yguL4PzK4aGP1rpE0wmISjmX2BKm+xDJCiWgNKwZM
-         9bBTMDGJu1IaSyEoJBQUhEnR+0TvDFBAyIiRJLdgfzJPuXJif7kcRrSqziAUPhrl7W3E
-         Mi2w==
+        bh=XNX2HRvMEi5y+i4pXQz5zgydtrI2YMz4JAmIh8Fhxf0=;
+        b=MlgaWAdcfputkfECWT7OxMyxuvlPRBZtY53+E496Zvr7TfZNSzeKpNape1Fgpj1KTe
+         pSwGySfUF3VHkRIykJd05EkmkyKfGhD/gecBrDlA4TtmQ3JIvAZ0xVS/BohqpRBpP53j
+         cRqzUnee6yLd6/U155merePheNL5LKInINt5Qj3QvF7GyNsyXWZwX0W4xQUnwVoyirUT
+         LmZ2uHeHUcmGdhAp+HR+x2HrZbLe6e9lHb1SEJbZSU3abWZfHsjnZf9Ei2+Vbj7jvOO/
+         8CqOzqJVBMEedTvSGHxDKESmIt/8ZWb9giJV7ephDbk/HIXwqy/UIz4x6lM2D7SWSoU1
+         fKZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756987976; x=1757592776;
+        d=1e100.net; s=20230601; t=1756988808; x=1757593608;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nOBEWNFFHPjnbNq4i67ABuyUthOxE9J2j5V1Te/Ttdk=;
-        b=F1lfI301EKjE8dhPmhjzHH3ubmIWXDv09nCY528auylD3K2POHTjUIIOhuHoYmmgnp
-         qZsID+7X2oi5h4T7zCfg/RgWJN1S+Fipm8QlwcUJXOCTC8WiUGQKwR5vQlp10b71tPvJ
-         RIvWd1dilivkNaxEqXCWGE8Fmx7eML69iqf8BiSy97wi1IL/tqKD6CL5iywV25R7KPLU
-         FB6zdweOJteiJnt+BMA3G8tf0jwXx0f9G4H9bevBoKge0ODrm6Dasm9fKba6cTCgxT13
-         ky766HTQ0XJm8lEPr334h6dPkL/meRTZ9KHdlSxNfU8TTwbNitT96SbKlmFRo1querPW
-         UDKw==
-X-Forwarded-Encrypted: i=1; AJvYcCVr9a1c3qfS9QDIslSKy0mJSDc8QXEmSo1LVP2ZW6Uytl/zuYgXYGEujEFKW2PC/gUVNfbuhTPNaoA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyFJ5BuzxTL4j1Yst+cLYKmCanLkqFn3CfG1JBe3qB0LUQU9S/Y
-	/K+fEZGrhd0iAQrGN5Mj5kjM3vHtzvwC7U5zZxKNtP9nV0nbZwFp7VPdwoGpygQ9mA==
-X-Gm-Gg: ASbGncuYcDyKUs0vHgb1yHli7omp42m+Ng5TK9CcBdgZp9outT1fZlL7ujnSx2uMqIm
-	yKam3OnUOxlNWSJAWseu1KyAPoJaxaIcM0irLGym37rrrEf58t0DiA9gLJ1k75Z2cnV/TZo5frP
-	OG38eCrYUo9caDs5KN7xA4ywNVnGMEqgkN+LcQ5lA16LTDfG2rvH7Fe33boSg4u2uphkPYFVQkC
-	G4buZC1oClSgZUQE0QKvT6XMofBf+WqbU51cLCAJ334wO83z5apcAaZbyaTlRkjwf+1T2Vd0Ysi
-	Fpv8a8rTSIUruHH8mJYsV+fEDO2erIXhx3JnWIrpw59PeYvGlS4AWaXpNHyr8sqgz7M0gMF/ARF
-	KkS03kAey6F+LxMKwzbk3CzSk18ete4nBneExMGL9cxGcFW2sWAR486y735P8MFUfhejhzn8xZb
-	a6u86jDiw=
-X-Google-Smtp-Source: AGHT+IFT/+IREivLHHAl0YQHtnZpANlRv7fpvIMIt389jc9BAEBskf1NeQHaCQEoTKr+xpftH/SdyA==
-X-Received: by 2002:a05:6402:4345:b0:61c:5440:ff7b with SMTP id 4fb4d7f45d1cf-61d26eac5b6mr16848524a12.25.1756987976176;
-        Thu, 04 Sep 2025 05:12:56 -0700 (PDT)
-Message-ID: <afb6af88-11f6-4b18-91c9-2506e74b3ae9@suse.com>
-Date: Thu, 4 Sep 2025 14:12:54 +0200
+        bh=XNX2HRvMEi5y+i4pXQz5zgydtrI2YMz4JAmIh8Fhxf0=;
+        b=JRxJP1v0SYcCPH7JqT36FVmVdz0B28iVtDOiO+sKkVs+XIY9g4OgTZgVsdFDlC0yU4
+         BmSvdAZlK6226B3Cco182oBOyPUybqRpHAOP1ErHCmNrw0kA+cUu9Uodp8+GgPZct8T7
+         AGeBbsL9ihGNP2SbFPKvG2NQncy9dVE+L1HVTP6AGdA5lVrgw4KwUBkBfMXw6STUx566
+         aasCQdcJ7PQLw+BaXHV8/1UjF4sJuafzRmSe5O+inqDPGtmg2Q2ENJJME1aoPY0iybKu
+         jRdEt17FEkGsZlgznMyIbUVYzbTzzZvYaSBUCMtpSvlvWzx2PErsugbdomHUk5SYO3Wx
+         ixZw==
+X-Forwarded-Encrypted: i=1; AJvYcCWxN+9NZSsmTcy2acT7L8eztKYJFpXIxazcwOZCoEsSrTSS5YItiMrUpr+Sw3UQBXciLo9AH+2hS7M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwWcjsu4iFZTajfeTa3LJFskLrrasgbyDpNGCERZlsj+cOb8tVh
+	3ypBknacM7qZXfW6KFpekOHHCtawSS6JGpsZnJv16kQZ2uqQPCl3ZFP3ILas2/injw==
+X-Gm-Gg: ASbGncthpxesu2xh8CrnJfWSlmT+i0lxITP9ZHGlBakWcDP5/Rmn9fLGqegzrKiF2L8
+	MElNTd4LwJvlkp+DdWr1oOw+OmbAPphpF7GVXQ/HCSQN6wYFcEXAt+DCsvC/eQWESgtWK3GEcVQ
+	iwU4X0H54uhE35R+gDCfLlVdPUDyIl9bzQR+i5MjpWMN8NxCcHxw2nff7HWbzSP8t8J/EzAKI+q
+	GD/VrDqBTNGhrk9HjaOSwfDB8velNYW7QkqG5ZHxzdecOJ3hNvhJvtNBvWkhmQkA/oPutEyJHjH
+	wftJcq5n11MZDNbuMiWgH/yY4336twcCfEkjwLJoLJaBwslsKxh0I/KYZZ+EPjIbH1FlOr24Fhq
+	hsSjq6UAdI6a5W8iSjJOXL5oGcp/TmuddHIV44ZFHXD29SVgTpy6Fsua2JAk9EeWN7tgWdabrDr
+	jjxQ6jG7tjZ2MoRwvvqg==
+X-Google-Smtp-Source: AGHT+IGRGxHkCR7V7xWervRFwYHMkNpFFiZAM0Oc4tHlJgeZxvC0/JlQ8PAbJnKm90JilP+lry15/Q==
+X-Received: by 2002:a05:6402:3594:b0:61d:3e6a:197d with SMTP id 4fb4d7f45d1cf-61d3e6a198dmr14978452a12.22.1756988808480;
+        Thu, 04 Sep 2025 05:26:48 -0700 (PDT)
+Message-ID: <fb2918bc-5ca2-4b95-ab03-4e9ad4989db2@suse.com>
+Date: Thu, 4 Sep 2025 14:26:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/8] xen/cpufreq: implement amd-cppc-epp driver for
- CPPC in active mode
+Subject: Re: [PATCH v9 5/8] tools/cpufreq: extract CPPC para from cpufreq para
 To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250904063518.2097629-1-Penny.Zheng@amd.com>
- <20250904063518.2097629-4-Penny.Zheng@amd.com>
+ <20250904063518.2097629-6-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,17 +122,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250904063518.2097629-4-Penny.Zheng@amd.com>
+In-Reply-To: <20250904063518.2097629-6-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 04.09.2025 08:35, Penny Zheng wrote:
-> ---
-> v8 -> v9:
-> - Adapt to changes of "Embed struct amd_cppc_drv_data{} into struct
-> cpufreq_policy{}"
+> --- a/xen/include/public/sysctl.h
+> +++ b/xen/include/public/sysctl.h
+> @@ -492,7 +492,6 @@ struct xen_get_cpufreq_para {
+>                  struct  xen_ondemand ondemand;
+>              } u;
+>          } s;
+> -        struct xen_get_cppc_para cppc_para;
+>      } u;
 
-With problems mentioned there also extending here.
+Which means the outer union could now be dropped as well. Which may help
+proving (or perhaps even easily seeing) the safety of the change you're
+making in patch 7.
 
 Jan
 
