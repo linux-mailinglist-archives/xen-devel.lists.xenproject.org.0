@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24F8FB46410
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 22:00:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1112346.1460657 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97BF2B4642D
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 22:03:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1112357.1460668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uucaS-00026W-NE; Fri, 05 Sep 2025 19:59:08 +0000
+	id 1uuceR-0003kk-7X; Fri, 05 Sep 2025 20:03:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1112346.1460657; Fri, 05 Sep 2025 19:59:08 +0000
+Received: by outflank-mailman (output) from mailman id 1112357.1460668; Fri, 05 Sep 2025 20:03:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uucaS-00024Z-KH; Fri, 05 Sep 2025 19:59:08 +0000
-Received: by outflank-mailman (input) for mailman id 1112346;
- Fri, 05 Sep 2025 19:59:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uuceR-0003il-3n; Fri, 05 Sep 2025 20:03:15 +0000
+Received: by outflank-mailman (input) for mailman id 1112357;
+ Fri, 05 Sep 2025 20:03:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=URqW=3Q=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uucaR-00024T-8p
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 19:59:07 +0000
+ id 1uuceP-0003if-VK
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 20:03:13 +0000
 Received: from fhigh-a8-smtp.messagingengine.com
  (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c3324319-8a92-11f0-9809-7dc792cee155;
- Fri, 05 Sep 2025 21:59:00 +0200 (CEST)
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
- by mailfhigh.phl.internal (Postfix) with ESMTP id D82F714000F2;
- Fri,  5 Sep 2025 15:58:58 -0400 (EDT)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 59e17d9b-8a93-11f0-9d12-b5c5bf9af7f9;
+ Fri, 05 Sep 2025 22:03:12 +0200 (CEST)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 17AA21400166;
+ Fri,  5 Sep 2025 16:03:12 -0400 (EDT)
 Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-03.internal (MEProxy); Fri, 05 Sep 2025 15:58:58 -0400
+ by phl-compute-04.internal (MEProxy); Fri, 05 Sep 2025 16:03:12 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 5 Sep 2025 15:58:56 -0400 (EDT)
+ 5 Sep 2025 16:03:10 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,35 +44,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3324319-8a92-11f0-9809-7dc792cee155
+X-Inumbo-ID: 59e17d9b-8a93-11f0-9d12-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1757102338;
-	 x=1757188738; bh=yqI0DkiqFignuWCWjqEs7djqwvdCihcKW6BCeRfMemY=; b=
-	lVsT1dbQxPAmU0PnRd037Y7yEOIfwQUN2cyapOy016wlF2uTxawI4DKE3feQsz0P
-	4yMaBXmzPsoLsRNjZBq9KaYPxUf+gDWsyoR4zBlsAJX/N7HWaT4/l0d0yEbsn5jz
-	VWZglElSv27z8QsSuKLz1bjUGZ8gqtZdrDgtNo0/VdZuTmhKYtl9P0b8kzuNi+wO
-	0GaRVGNnUMJYeDwsC4ocXRKVVMX7DbGDaiZZZx3ljFi8qYQz1a2KRydFbiutniaG
-	saewg+3vzN1KxqysbR4dOQtevreYGuKUGoyT1wVXbzt0heT/6MEZxsDx9QGKEnxv
-	NXLbzeoM2JurgaFXVYAlHQ==
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1757102592;
+	 x=1757188992; bh=yTJmYk2jAFBxEe0tEVUQwPU5zQxCRQdlLX4xJPUKZ6A=; b=
+	LeVWsQp6yrQ+6Hxzq8fZV6CPhoE+XFPBSo0TFdemCmtunjz2lZKAJHgmnCnSB/N7
+	AsQx9SwoINwZKaKnvOjlF/WUs1UbAkwTtmBmll0uzs11ed+6/b/S5dJhvPKG5scO
+	wrTKUwxdstLZz3NjdEQKOycmNlgoOilc52BI0GfeLDlkzCzRwU1kpWsGNma+V1cY
+	i933SIvx0gDKXIstIF5YvklT6AT4QjS/7yf3dPjyKU0JRDcz9Drco39qOzYA3LeZ
+	XkQPnAbULidFVhwGcaGE3FKQk3jwQrwJ3YQ+4z/W0P6Yqyna1iIeoNFoNf7IxYy1
+	IuK6rY52gUsssozWXciU+w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:subject:subject:to
 	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1757102338; x=1757188738; bh=yqI0DkiqFignuWCWjqEs7djqwvdCihcKW6B
-	CeRfMemY=; b=RrEYRdMr1eqf7PxQi3iJv8Icm5HtRKBHiGo4/7KQzxZQGjTKwSs
-	roZE5f8djtv1X1l4GXElkpOUv53MscDrEYD4xC+33QqKIqOe6QPeDq/M5fHmt+6H
-	59r47etlq9wgm1QUG6jF4ux/+KAKrx9PgBF71euwvpjp1hV6lIQ9mcANgTmnmKkm
-	I9YgPGiqGbu29WSfAO4Q9nqY2MZvHS8ckxtOp7GDc6PiYts50wRSyMaqI7Hw1GBL
-	b8Na6UCsd91gimibYSqfFcx0o37UYuQtJ5tSspNo+Y8SFCI3r1e4yUPrxU/Iac+l
-	UZVcGBNRyiHxN1rjmesZ9rqemXa0AHiUpDw==
-X-ME-Sender: <xms:AkG7aKvc0CSFMnmLrH4iq5_n0AYJXBjkX25Pd15PFJGEaIUOGoL7qg>
-    <xme:AkG7aPJYTpTIVlYWoluoqDPxmCWiOQRvSW7leOofObrJs4LzM0m1PLHBR4-y8oYiF
-    EFDs_9GJBsGsA>
-X-ME-Received: <xmr:AkG7aBbR1cZWe5uuWUg-OWvgmcHD_sn7AvghsomGY4uuC_jUaCGGEeat_-yGV40kX01aVKsvw6zPDDjGOHNEv2kG9m-FQbAwJIs>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdeljeelucetufdoteggodetrfdotf
+	1757102592; x=1757188992; bh=yTJmYk2jAFBxEe0tEVUQwPU5zQxCRQdlLX4
+	xJPUKZ6A=; b=FhRgkFt8a1tIs2VxJAm6UgeXZdBtOcCwnhFR4VW1TknlgawEB8d
+	Rk/yTZ5uUhqr764wHznvqNThwCSkrWtjh4dyS8XP62WekAc/Yp+x21Ie5AfS35hJ
+	/4ht4MTsgrPCQaeersq2LYgzVoGz/Dp0B07gHeOlp+mikOUTZxxlzY0endvG0RiX
+	CTeE/og36PpMN53EZ9hPdgN2c7ViSiy9RW0dZXOFZXYzpGzKl3TxsLl+HsoHDiv6
+	a0QrmI7bkbNo7TiPk9BZzIzNfRJNJtuY6iUoqeDnfob037EMK2Dh6zizqpFuS6YJ
+	v/iDcf4uYp6u97RWtOExa97yu/Vvwe/97vQ==
+X-ME-Sender: <xms:_0G7aLZZM8woUP2CS7j92JD4wbEChkoQUvmeltKr1eK8cVjDXx9SpQ>
+    <xme:_0G7aKF4uSXHPH9iHMRimT9m3a57rK5onSlVLbdm7oDR3IFHgT568Xn08e6mX9GZy
+    bIhxm7745yw0w>
+X-ME-Received: <xmr:_0G7aJmIPecMR4oHvR5ANUvSBiJKQ4vcKABtgq-PKIBRqizoNPJ1F36GIPHhHn3nhiLgkICzNLBQI18MPYxc513XBwlZqy6WZlI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdelkedtucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
     lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
     epfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgr
@@ -83,24 +83,24 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdeljeelucetufdoteggod
     ihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepuddupdhmoh
     guvgepshhmthhpohhuthdprhgtphhtthhopehgvghrrghlugdrvghluggvrhdqvhgrshhs
     segtlhhouhgurdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgi
-    gvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheprhhoshhsrdhlrghgvghrfigrlhhl
-    segtihhtrhhigidrtghomhdprhgtphhtthhopeguphhsmhhithhhsegrphgvrhhtuhhssh
-    holhhuthhiohhnshdrtghomhdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgt
-    ohhmpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomh
-    dprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrugesvhgrthgvshdrthgvtghhpdhr
-    tghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgurdgtohhmpdhrtghpthhtohepjh
-    hulhhivghnseigvghnrdhorhhg
-X-ME-Proxy: <xmx:AkG7aBAOeo4DP24agYrzSm0Mo0VGZZZ6lRfV3qS9jcQ4p6FuDRiW3w>
-    <xmx:AkG7aLYvPyAptt8mGBRv2_HcU3RxlSiATQTwJPv6FdfcR36AQCYQ-A>
-    <xmx:AkG7aJnvVx8rue44j_2C6Vlfyiz70sE5B-j1mKCda4Sq9btyY4fqfQ>
-    <xmx:AkG7aArl8aXUmPlCz020N4mq7HvZ_GCRigx4Okj5lmSLbxcHuihxqw>
-    <xmx:AkG7aKZLmlLC3Qzhss8Az2EF0MnyruZrD33hiZlVjbtAwalleajP7-tS>
+    gvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtohepkhgvvhhinhdrlhgrmhhpihhssegt
+    lhhouhgurdgtohhmpdhrtghpthhtohepughpshhmihhthhesrghpvghrthhushhsohhluh
+    htihhonhhsrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdp
+    rhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtg
+    hpthhtoheprghnthhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtphht
+    thhopehmihgthhgrlhdrohhriigvlhesrghmugdrtghomhdprhgtphhtthhopehjuhhlih
+    gvnhesgigvnhdrohhrgh
+X-ME-Proxy: <xmx:_0G7aNfiRlCCQB3KMYyCwP2UcSyWnDmdiIMVIkS0byZxoJp_Jd_Qyw>
+    <xmx:_0G7aHGSFGXRb7q1dvqt6lDPkAeqVIwTL94znDblgCxrCQnS2LP40g>
+    <xmx:_0G7aDj7SlNsArrcsi-GNQRwVN04Pwc0hQjYbHXuE1CKNwBQjjeg9A>
+    <xmx:_0G7aL2xcrkVlpaNFX8KcEY7Yo3ul8SSo5kNm2igT9tHRSazbwqTyg>
+    <xmx:AEK7aO1NSehz6HKVycbbo_WGa_aq9NqdLgbJN2STEGr6tv_HDCfrfFVN>
 Feedback-ID: i1568416f:Fastmail
-Date: Fri, 5 Sep 2025 21:58:54 +0200
+Date: Fri, 5 Sep 2025 22:03:08 +0200
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Kevin Lampis <kevin.lampis@cloud.com>,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -108,27 +108,26 @@ Cc: Xen-devel <xen-devel@lists.xenproject.org>,
 	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
 	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v4 1/2] efi: Add a function to check if Secure Boot mode
- is enabled
-Message-ID: <aLtA_1qFNo4EoLdS@mail-itl>
+Subject: Re: [PATCH v4 2/2] efi: Support using Shim's LoadImage protocol
+Message-ID: <aLtB_JFMOAnWzXFF@mail-itl>
 References: <cover.1757071716.git.gerald.elder-vass@cloud.com>
- <8d66f9ce2c9c352794c0c144f6e00d0a9d465dbe.1757071716.git.gerald.elder-vass@cloud.com>
+ <93ffff66c08d05bc2d912be1831954911e17a27c.1757071716.git.gerald.elder-vass@cloud.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="A/iiYqqFR0gfBTD0"
+	protocol="application/pgp-signature"; boundary="DFPUPugwv6mACCPu"
 Content-Disposition: inline
-In-Reply-To: <8d66f9ce2c9c352794c0c144f6e00d0a9d465dbe.1757071716.git.gerald.elder-vass@cloud.com>
+In-Reply-To: <93ffff66c08d05bc2d912be1831954911e17a27c.1757071716.git.gerald.elder-vass@cloud.com>
 
 
---A/iiYqqFR0gfBTD0
+--DFPUPugwv6mACCPu
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 5 Sep 2025 21:58:54 +0200
+Date: Fri, 5 Sep 2025 22:03:08 +0200
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Kevin Lampis <kevin.lampis@cloud.com>,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -136,18 +135,29 @@ Cc: Xen-devel <xen-devel@lists.xenproject.org>,
 	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
 	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v4 1/2] efi: Add a function to check if Secure Boot mode
- is enabled
+Subject: Re: [PATCH v4 2/2] efi: Support using Shim's LoadImage protocol
 
-On Fri, Sep 05, 2025 at 12:10:17PM +0000, Gerald Elder-Vass wrote:
-> From: Ross Lagerwall <ross.lagerwall@citrix.com>
+On Fri, Sep 05, 2025 at 12:10:18PM +0000, Gerald Elder-Vass wrote:
+> The existing Verify functionality of the Shim lock protocol is
+> deprecated and will be removed, the alternative it to use the LoadImage
+> interface to perform the verification.
 >=20
-> Also cache it to avoid needing to repeatedly ask the firmware.
+> When the loading is successful we won't be using the newly loaded image
+> (as of yet) so we must then immediately unload the image to clean up.
 >=20
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+> If the LoadImage protocol isn't available then fall back to the Shim
+> Lock (Verify) interface.
+>=20
+> Log when the kernel is not verified and fail if this occurs
+> when secure boot mode is enabled.
+>=20
 > Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+> Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
+
 
 Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+
+Preferably with comment adjustment as suggested by Andrew.
 
 > ---
 > CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
@@ -161,91 +171,131 @@ Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
 > CC: Stefano Stabellini <sstabellini@kernel.org>
 >=20
 > v4:
-> - Fix MISRA warning regarding SecureBoot string
+> - Updated error message when failing due to lack of verification
+>=20
 > v3:
-> - Fix build on ARM
+> - Use Shim Image by default, fall back to Shim Lock
 > ---
->  xen/common/efi/boot.c    | 24 ++++++++++++++++++++++++
->  xen/common/efi/runtime.c |  1 +
->  xen/include/xen/efi.h    |  2 ++
->  3 files changed, 27 insertions(+)
+>  xen/common/efi/boot.c | 59 +++++++++++++++++++++++++++++++++++++------
+>  1 file changed, 51 insertions(+), 8 deletions(-)
 >=20
 > diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index e12fa1a7ec04..ccbfc401f7ba 100644
+> index ccbfc401f7ba..0a72c293301d 100644
 > --- a/xen/common/efi/boot.c
 > +++ b/xen/common/efi/boot.c
-> @@ -901,6 +901,28 @@ static void __init pre_parse(const struct file *file)
->                     " last line will be ignored.\r\n");
+> @@ -38,6 +38,8 @@
+>    { 0xf2fd1544U, 0x9794, 0x4a2c, {0x99, 0x2e, 0xe5, 0xbb, 0xcf, 0x20, 0x=
+e3, 0x94} }
+>  #define SHIM_LOCK_PROTOCOL_GUID \
+>    { 0x605dab50U, 0xe046, 0x4300, {0xab, 0xb6, 0x3d, 0xd8, 0x10, 0xdd, 0x=
+8b, 0x23} }
+> +#define SHIM_IMAGE_LOADER_GUID \
+> +  { 0x1f492041U, 0xfadb, 0x4e59, {0x9e, 0x57, 0x7c, 0xaf, 0xe7, 0x3a, 0x=
+55, 0xab} }
+>  #define APPLE_PROPERTIES_PROTOCOL_GUID \
+>    { 0x91bd12feU, 0xf6c3, 0x44fb, {0xa5, 0xb7, 0x51, 0x22, 0xab, 0x30, 0x=
+3a, 0xe0} }
+>  #define EFI_SYSTEM_RESOURCE_TABLE_GUID    \
+> @@ -70,6 +72,13 @@ typedef struct {
+>      EFI_SHIM_LOCK_VERIFY Verify;
+>  } EFI_SHIM_LOCK_PROTOCOL;
+> =20
+> +typedef struct _SHIM_IMAGE_LOADER {
+> +    EFI_IMAGE_LOAD LoadImage;
+> +    EFI_IMAGE_START StartImage;
+> +    EFI_EXIT Exit;
+> +    EFI_IMAGE_UNLOAD UnloadImage;
+> +} SHIM_IMAGE_LOADER;
+> +
+>  struct _EFI_APPLE_PROPERTIES;
+> =20
+>  typedef EFI_STATUS
+> @@ -1047,6 +1056,46 @@ static UINTN __init efi_find_gop_mode(EFI_GRAPHICS=
+_OUTPUT_PROTOCOL *gop,
+>      return gop_mode;
 >  }
 > =20
-> +static void __init init_secure_boot_mode(void)
+> +static void __init efi_verify_kernel(EFI_HANDLE ImageHandle)
 > +{
-> +    static EFI_GUID __initdata gv_uuid =3D EFI_GLOBAL_VARIABLE;
-> +    static CHAR16 __initdata str_SecureBoot[] =3D L"SecureBoot";
+> +    static EFI_GUID __initdata shim_image_guid =3D SHIM_IMAGE_LOADER_GUI=
+D;
+> +    static EFI_GUID __initdata shim_lock_guid =3D SHIM_LOCK_PROTOCOL_GUI=
+D;
+> +    SHIM_IMAGE_LOADER *shim_loader;
+> +    EFI_HANDLE loaded_kernel;
+> +    EFI_SHIM_LOCK_PROTOCOL *shim_lock;
 > +    EFI_STATUS status;
-> +    uint8_t data =3D 0;
-> +    UINTN size =3D sizeof(data);
-> +    UINT32 attr =3D 0;
+> +    bool verified =3D false;
 > +
-> +    status =3D efi_rs->GetVariable(str_SecureBoot, &gv_uuid, &attr, &siz=
-e, &data);
+> +    /* Look for LoadImage first */
+> +    if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_image_guid, NULL,
+> +                                           (void **)&shim_loader)) )
+> +    {
+> +        status =3D shim_loader->LoadImage(false, ImageHandle, NULL,
+> +                                        (void *)kernel.ptr, kernel.size,
+> +                                        &loaded_kernel);
+> +        if ( !EFI_ERROR(status) )
+> +            verified =3D true;
 > +
-> +    if ( status =3D=3D EFI_NOT_FOUND ||
-> +         (status =3D=3D EFI_SUCCESS &&
-> +          attr =3D=3D (EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RU=
-NTIME_ACCESS) &&
-
-FYI, I was unsure if checking this is a good idea, but UEFI spec does
-define exactly those attributes for the "SecureBoot" variable, so it
-sounds okay.
-
-> +          size =3D=3D 1 && data =3D=3D 0) )
-> +        /* Platform does not support Secure Boot or it's disabled. */
-> +        efi_secure_boot =3D false;
-> +    else
-> +        /* Everything else play it safe and assume enabled. */
-> +        efi_secure_boot =3D true;
+> +        /* LoadImage performed verification, now clean up with UnloadIma=
+ge */
+> +        shim_loader->UnloadImage(loaded_kernel);
+> +    }
+> +
+> +    /* else fall back to Shim Lock */
+> +    if ( !verified &&
+> +         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
+> +                                           (void **)&shim_lock)) &&
+> +         !EFI_ERROR(shim_lock->Verify(kernel.ptr, kernel.size)) )
+> +        verified =3D true;
+> +
+> +    if ( !verified )
+> +    {
+> +        PrintStr(L"Kernel was not verified\n");
+> +
+> +        if ( efi_secure_boot )
+> +            blexit(L"Refusing to boot unverified kernel with UEFI Secure=
+Boot enabled");
+> +    }
 > +}
 > +
->  static void __init efi_init(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *Sy=
-stemTable)
+>  static void __init efi_tables(void)
 >  {
->      efi_ih =3D ImageHandle;
-> @@ -915,6 +937,8 @@ static void __init efi_init(EFI_HANDLE ImageHandle, E=
-FI_SYSTEM_TABLE *SystemTabl
+>      unsigned int i;
+> @@ -1334,13 +1383,11 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE =
+ImageHandle,
+>                                        EFI_SYSTEM_TABLE *SystemTable)
+>  {
+>      static EFI_GUID __initdata loaded_image_guid =3D LOADED_IMAGE_PROTOC=
+OL;
+> -    static EFI_GUID __initdata shim_lock_guid =3D SHIM_LOCK_PROTOCOL_GUI=
+D;
+>      EFI_LOADED_IMAGE *loaded_image;
+>      EFI_STATUS status;
+>      unsigned int i;
+>      CHAR16 *file_name, *cfg_file_name =3D NULL, *options =3D NULL;
+>      UINTN gop_mode =3D ~0;
+> -    EFI_SHIM_LOCK_PROTOCOL *shim_lock;
+>      EFI_GRAPHICS_OUTPUT_PROTOCOL *gop =3D NULL;
+>      union string section =3D { NULL }, name;
+>      bool base_video =3D false;
+> @@ -1591,12 +1638,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE I=
+mageHandle,
+>       * device tree through the efi_check_dt_boot function, in this stage
+>       * verify it.
+>       */
+> -    if ( kernel.ptr &&
+> -         !kernel_verified &&
+> -         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
+> -                                           (void **)&shim_lock)) &&
+> -         (status =3D shim_lock->Verify(kernel.ptr, kernel.size)) !=3D EF=
+I_SUCCESS )
+> -        PrintErrMesg(L"Dom0 kernel image could not be verified", status);
+> +    if ( kernel.ptr && !kernel_verified )
+> +        efi_verify_kernel(ImageHandle);
 > =20
->      StdOut =3D SystemTable->ConOut;
->      StdErr =3D SystemTable->StdErr ?: StdOut;
-> +
-> +    init_secure_boot_mode();
->  }
+>      efi_arch_edd();
 > =20
->  static void __init efi_console_set_mode(void)
-> diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
-> index 42386c6bde42..30d649ca5c1b 100644
-> --- a/xen/common/efi/runtime.c
-> +++ b/xen/common/efi/runtime.c
-> @@ -41,6 +41,7 @@ void efi_rs_leave(struct efi_rs_state *state);
->  unsigned int __read_mostly efi_num_ct;
->  const EFI_CONFIGURATION_TABLE *__read_mostly efi_ct;
-> =20
-> +bool __ro_after_init efi_secure_boot;
->  unsigned int __read_mostly efi_version;
->  unsigned int __read_mostly efi_fw_revision;
->  const CHAR16 *__read_mostly efi_fw_vendor;
-> diff --git a/xen/include/xen/efi.h b/xen/include/xen/efi.h
-> index 623ed2ccdf31..723cb8085270 100644
-> --- a/xen/include/xen/efi.h
-> +++ b/xen/include/xen/efi.h
-> @@ -36,6 +36,8 @@ static inline bool efi_enabled(unsigned int feature)
->  }
->  #endif
-> =20
-> +extern bool efi_secure_boot;
-> +
->  void efi_init_memory(void);
->  bool efi_boot_mem_unused(unsigned long *start, unsigned long *end);
->  bool efi_rs_using_pgtables(void);
 > --=20
 > 2.47.3
 >=20
@@ -255,20 +305,20 @@ Best Regards,
 Marek Marczykowski-G=C3=B3recki
 Invisible Things Lab
 
---A/iiYqqFR0gfBTD0
+--DFPUPugwv6mACCPu
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmi7QP4ACgkQ24/THMrX
-1ywnnAf/ctBMx4R4WhP9RCPd7wtaG8d6QE7/TzYXF/KL2C1p94RfhFiyD/kut9xD
-PJd3R4DShlJljr44nURCdA0dBt4hUpV5Kt2dQ0M+VHT4oZkAH0D9b/hgRgWQDzJy
-sQSzgi21MNAKkctGNIEKGDAoxCa9PJzaRMlry7stAEy5mH09pBj/2MUXewq4Fy5/
-sCH+1c2/v2Kau7ecpPpM0VlU4yBzHKfRpNhz05VY9xp/QXzzcPxUrzw6Mte5qpiq
-rSRBD5SKxNQ/EuGQ5gi8baaChtq5E/hM6JKTLgiA8UmtEdZu3nP266GPm2YjBofq
-19farN4c+W7kQqwWiStMKHWrM/oHEA==
-=b7bR
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmi7QfwACgkQ24/THMrX
+1ywdpgf+MwRbdFKr4yxFkRsX6My6MtYx7RtTm3q9euEz+yyj6V0Ua3y7j0FC9s97
+fuUeiIHqTDAXWL2aELUTTgQXAHGuqk2xlbKBu0cHoo2wVy7kqtm5FKgGb/rqEk00
+TGWy4d+FpmgwM+M+PZx7JK4Ql2PIrfD2Lzgw9EpLIH0rbxSIESJ5ZGdB5zeHuBCx
+FbDBuPWSy4M9bwAfP2V86MNdAUWjVa9dfG75Fk0Oddvnfms+ERDW59YeqtI6Huxo
+N8TuwOUgiDblI7a+xi1WVxXdkY+J9HLvUFIhv7DlW06dlDmdc7mgS/H4VB8ouSFV
+t/pWEvDGOP70c66gTOXLhJZtA1ffZg==
+=2FuS
 -----END PGP SIGNATURE-----
 
---A/iiYqqFR0gfBTD0--
+--DFPUPugwv6mACCPu--
 
