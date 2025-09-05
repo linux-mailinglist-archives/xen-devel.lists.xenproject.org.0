@@ -2,34 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A264B45F5B
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 18:51:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1112185.1460578 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFB51B45F6B
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 18:55:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1112197.1460589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuZeR-0000og-2n; Fri, 05 Sep 2025 16:51:03 +0000
+	id 1uuZiY-0001QJ-Jg; Fri, 05 Sep 2025 16:55:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1112185.1460578; Fri, 05 Sep 2025 16:51:03 +0000
+Received: by outflank-mailman (output) from mailman id 1112197.1460589; Fri, 05 Sep 2025 16:55:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuZeQ-0000ln-VH; Fri, 05 Sep 2025 16:51:02 +0000
-Received: by outflank-mailman (input) for mailman id 1112185;
- Fri, 05 Sep 2025 16:51:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=622N=3Q=kernel.org=leon@srs-se1.protection.inumbo.net>)
- id 1uuZeP-0000be-BT
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 16:51:01 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f84f444-8a78-11f0-9d12-b5c5bf9af7f9;
- Fri, 05 Sep 2025 18:51:00 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1C43F43A6C;
- Fri,  5 Sep 2025 16:50:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 291F0C4CEF1;
- Fri,  5 Sep 2025 16:50:57 +0000 (UTC)
+	id 1uuZiY-0001NB-F5; Fri, 05 Sep 2025 16:55:18 +0000
+Received: by outflank-mailman (input) for mailman id 1112197;
+ Fri, 05 Sep 2025 16:55:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FJR0=3Q=amd.com=Soham.Dandapat@srs-se1.protection.inumbo.net>)
+ id 1uuZiV-0001N3-VK
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 16:55:16 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20610.outbound.protection.outlook.com
+ [2a01:111:f403:2414::610])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 14eb23e2-8a79-11f0-9809-7dc792cee155;
+ Fri, 05 Sep 2025 18:55:10 +0200 (CEST)
+Received: from DS7PR03CA0303.namprd03.prod.outlook.com (2603:10b6:8:2b::19) by
+ DS2PR12MB9709.namprd12.prod.outlook.com (2603:10b6:8:276::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9094.19; Fri, 5 Sep 2025 16:55:04 +0000
+Received: from DS2PEPF00003445.namprd04.prod.outlook.com
+ (2603:10b6:8:2b:cafe::e1) by DS7PR03CA0303.outlook.office365.com
+ (2603:10b6:8:2b::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9094.19 via Frontend Transport; Fri,
+ 5 Sep 2025 16:55:04 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF00003445.mail.protection.outlook.com (10.167.17.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9094.14 via Frontend Transport; Fri, 5 Sep 2025 16:55:04 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 5 Sep
+ 2025 11:53:17 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 5 Sep
+ 2025 11:53:16 -0500
+Received: from drvdevbldsrv2.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39 via Frontend
+ Transport; Fri, 5 Sep 2025 11:53:09 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,111 +64,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f84f444-8a78-11f0-9d12-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1757091058;
-	bh=ed7tjh37WUsiWKbFsXU4Fz4LWP9OYuSxI0T6PtehL5I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Hkj6jwvLxKggBm5BaYRmXNHFJSTzS4j//v2v297B9zbvAb6zaXk3ye+d7kJpzYt+i
-	 pVjGPf+glYmCMY8ZXxKqFzfErZn5vYpuxstgE5z7K6bWjnB52Zu2pWhWX8YpcE0TZ3
-	 wqpQ/atJ+vA0oyDRUVNRdo8I0NXlm4wfllQDaEaUhi9U9aEo4xqnHh2mcEuBjTyxog
-	 A1t4vtOjJmcxMXWsrEs0iDeQq9drkmd4Whjs7cSHTOvVKn09EIzsL7m+VCMmXlxsZx
-	 LFVA53bS5HpTQKBuuE67ybcB5j6vm/3A//si20RgKUC4Z6Fe/u+7Z/FKOCjsOXLxSF
-	 Mdr++eBA7BRQw==
-Date: Fri, 5 Sep 2025 19:50:51 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>,
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
-	David Hildenbrand <david@redhat.com>, iommu@lists.linux.dev,
-	Jason Wang <jasowang@redhat.com>, Jens Axboe <axboe@kernel.dk>,
-	Joerg Roedel <joro@8bytes.org>, Jonathan Corbet <corbet@lwn.net>,
-	Juergen Gross <jgross@suse.com>, kasan-dev@googlegroups.com,
-	Keith Busch <kbusch@kernel.org>, linux-block@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-nvme@lists.infradead.org,
-	linuxppc-dev@lists.ozlabs.org, linux-trace-kernel@vger.kernel.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v5 07/16] dma-mapping: convert dma_direct_*map_page to be
- phys_addr_t based
-Message-ID: <20250905165051.GA25881@unreal>
-References: <cover.1756822782.git.leon@kernel.org>
- <CGME20250902144935eucas1p253de9e94315de54325cc61dea9c76490@eucas1p2.samsung.com>
- <6b2f4cb436c98d6342db69e965a5621707b9711f.1756822782.git.leon@kernel.org>
- <087e7f3d-1e0d-4efe-822f-72d16d161a60@samsung.com>
+X-Inumbo-ID: 14eb23e2-8a79-11f0-9809-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xvZRFe36vrYyAPLOeonfYj77oebZ/hCcdMV5taaPptgQdcoR2Ryqh+Y3Wr2M/VjEA8od6QzjrA+b4Ym9KebyPF13gU2ebJFGp/GOPwdMSuLTLkGzmkwjODZSM/6lQ50qMlKtmJKAf2nOQWBhoZlZ25cm+NEk4YYiDqHO/KoKGvkpm/vqgbI8W4BJjHsbMifGoDTMXcpyKxb28jz7SVa1gTpYHoq1IwEYYJ5z0PF8MaWRFkJVSUH2vy3m/RJCTLmjWMniIRsE42U210k16Ark/mSLtPcMzdSl7P9LBvtiHgRig7INMx4fwF6pjRt/BCmF+5Hbje841OPLVH6u7BKTCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sZ4DTlzlIKd/12RtkgLudAGUzA4uI4t07+Tf0C6Wtno=;
+ b=O1sXlC0DxiHgaayd9JFn8pLgoy/t5iThwtuynItmsr0x9szOLZUTFStAt1Hfh7WZxk7ynV1Z49bopX5wiX7uvF5bJQZTCUcTsBOcb7ihQrqjvbiChE9hlCjqSidRh1PwQ91p9qeO7cLMUhco6hr+sdfO9ZEW7SWe/4ucNb3PFcGjWqVYtXYY6/WfOaCxHRV4wFfTPIP4WcA7vczw0SD/5oZYJo0onxBiWr46HFDV4+m2XC+Q/y+Uuxq8PsS4OQm+1eaSjEoAMJfwNSj966EeCAq3VJIbAzIdhB/JY4eTqfwth4QgGrwJp/1AQjtxVZ30pOy3quK0f8OGDxEWeaHvFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sZ4DTlzlIKd/12RtkgLudAGUzA4uI4t07+Tf0C6Wtno=;
+ b=ORJh2Xx8egdNWe3z+oIDTRJRCqCoFlA9BFoNft8x2oV41CHcuwVhM+VLzzCqp7ITMOEeF38//jYYfhFnvH+41rIrPe/eAOVzXkrYBSvrhMdJYOjpMjjSw8oJEVj6w+/pelJXiPw7dSzLWpYV7I2Ma91FDgxmuYGQpzhHGZ7xkwk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Soham Dandapat <Soham.Dandapat@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <jason.andryuk@amd.com>, Soham Dandapat <Soham.Dandapat@amd.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Soham Dandapat
+	<soham.dandapat@amd.com>
+Subject: [PATCH] x86/mcheck: allow varying bank counts per CPU
+Date: Fri, 5 Sep 2025 22:22:12 +0530
+Message-ID: <20250905165212.96843-1-Soham.Dandapat@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <087e7f3d-1e0d-4efe-822f-72d16d161a60@samsung.com>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003445:EE_|DS2PR12MB9709:EE_
+X-MS-Office365-Filtering-Correlation-Id: ed350cef-1cf9-4239-4c45-08ddec9cf5e5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|30052699003|36860700013|1800799024|376014|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?ToCT4UYXx0Vqkx7TanqLWEjKJOZxjYEdpvFZAMNPyJ02VrGpRcSCMqxzM/YQ?=
+ =?us-ascii?Q?hoDGlN+eroLFgyC4Py0MK17Y7clU0bPqiN77giRXm6Ovpy77D1ix+cx0u9bh?=
+ =?us-ascii?Q?pXKwzDDZYPuLfh80+OtG2CLG3yvaDwsCzoY8RVr1IbMZ0QWLGYSkLvVop2XS?=
+ =?us-ascii?Q?efLEjVBFyQp+URveRUWyY3g/O4Clc4x+uUcdtZPGWb/2e9+QAS644pjgeePK?=
+ =?us-ascii?Q?fxijk9SHgiTpUP4R2byvs5bxUvjdpcuz2MqFdompJhAcPLV1lXxIFePATZzp?=
+ =?us-ascii?Q?XHzvYIRi48g24Tr4gcgfm+mqb6SFUDQ20TBJuSDyHzEAfHbUfPSX3D8Tp1OH?=
+ =?us-ascii?Q?uv3Bh1HbdPLE/Ve0XMrfe6i6jKiQt+0Js79+I3x9OVFu5PKnbsvSK8xdyfth?=
+ =?us-ascii?Q?OPdLlBRfFs5AiwlRtksmfzobz3wJ/SYbAbC+Vlv0astYGoWlLhEDDKfMt34z?=
+ =?us-ascii?Q?Kzj0wECEGe7FNbl7jKEHFf1lULl4Ra5e+g5j1OzHR65BwV7Mwl3eq0iRnQvr?=
+ =?us-ascii?Q?gSWPPCcKttQKO37b8BlQMFg5XFv/+u2HYLfweiHGut9Z44sMmhp4WpGDldCN?=
+ =?us-ascii?Q?sOxSdo1l31JARHtzu7JRu3BHXGPXbsxeLRCHJzLby9VXO2UANTk6MaaQ66ZJ?=
+ =?us-ascii?Q?JwbGYL3wfoFtpEjxnUeNjR/q25JW9w3JYV6NO5cLTLU/R5A9sb3k+YXa18HL?=
+ =?us-ascii?Q?Ulyk5a4awoOsJemD9zLXZyoeDDuTZZKQXhpXPE30xGDw7sbnYHhtmpyrpe+U?=
+ =?us-ascii?Q?lEvwIwuv+ibM/ltBaWlxVtgy18wF+IoLS9/aAX+H55a+8rA5g/zGJhZ2ltYr?=
+ =?us-ascii?Q?nzKJCs/AinJvVWxJXceD+n+Ops6UisbKDMcV2cVqFTQp8gca2VvQiodJXp7J?=
+ =?us-ascii?Q?GWa+mHnQlcJBKqBP0/GjNB+FsFz3clEhCquIyqQ7xPfgE+eXa6Z6rz4BkOXn?=
+ =?us-ascii?Q?I3PXE5m9m9hNmecw4DyZQeDvsSmWQEZt2nyk80Gn7iWwuLBJm3eEmhoMu6y4?=
+ =?us-ascii?Q?BKMA+vBbM4F4iTji37y/RIkolBN8E1/sdnVt+GpLOBZDLE9oexyuzfv4F4cV?=
+ =?us-ascii?Q?pKjwDC9H7UX3NU5QVJ7fMsFTch+juEZwdhqrRvrn/HKMNUWXlXj0y+K0HD1B?=
+ =?us-ascii?Q?hgzVmOZTCkXxivz9AbCydi5Nj5RuyL/CUJweC9rKr0NsoF33W/UohYymww2U?=
+ =?us-ascii?Q?s6544AQWe6ectMQ/iRjMBxcphUs0aQESS2xshkEAGC88TmfA7m1EQucy35y4?=
+ =?us-ascii?Q?4yuOlGnIJfoQXA2X3L8Qtu+mjAVwv+Jxp2h5p0yP4HHUSObkgZth2c5Rtl+0?=
+ =?us-ascii?Q?gAYhj9DAFO7t0uCBTov21FXlCT8Z10m8L8HNdYENDZ5nWROboaWcOY/lL4Qm?=
+ =?us-ascii?Q?/ueDvNSJRwmBqnXHp8FEwogdGugbRs+hxol9/pOU+2kkOWizCiHdc+T00dq0?=
+ =?us-ascii?Q?PtJC84nbQTsyhD2/LxBbE9DySfH5HBtuI5KQjdPVh0aOAvBPqpKRJUO+lkvK?=
+ =?us-ascii?Q?cvVKdmh9SQBvVEMy6Iol/OErYemNGQ4cIIRW?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(30052699003)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2025 16:55:04.0162
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed350cef-1cf9-4239-4c45-08ddec9cf5e5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF00003445.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9709
 
-On Fri, Sep 05, 2025 at 06:21:44PM +0200, Marek Szyprowski wrote:
-> On 02.09.2025 16:48, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> >
-> > Convert the DMA direct mapping functions to accept physical addresses
-> > directly instead of page+offset parameters. The functions were already
-> > operating on physical addresses internally, so this change eliminates
-> > the redundant page-to-physical conversion at the API boundary.
-> >
-> > The functions dma_direct_map_page() and dma_direct_unmap_page() are
-> > renamed to dma_direct_map_phys() and dma_direct_unmap_phys() respectively,
-> > with their calling convention changed from (struct page *page,
-> > unsigned long offset) to (phys_addr_t phys).
-> >
-> > Architecture-specific functions arch_dma_map_page_direct() and
-> > arch_dma_unmap_page_direct() are similarly renamed to
-> > arch_dma_map_phys_direct() and arch_dma_unmap_phys_direct().
-> >
-> > The is_pci_p2pdma_page() checks are replaced with DMA_ATTR_MMIO checks
-> > to allow integration with dma_direct_map_resource and dma_direct_map_phys()
-> > is extended to support MMIO path either.
-> >
-> > Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > ---
-> >   arch/powerpc/kernel/dma-iommu.c |  4 +--
-> >   include/linux/dma-map-ops.h     |  8 ++---
-> >   kernel/dma/direct.c             |  6 ++--
-> >   kernel/dma/direct.h             | 57 +++++++++++++++++++++------------
-> >   kernel/dma/mapping.c            |  8 ++---
-> >   5 files changed, 49 insertions(+), 34 deletions(-)
+In mca_cap_init function,the mcabanks_alloc allocates and
+initializes an mca_banks structure for managing MCA banks,
+setting up a bank map and storing the specified or default number
+of banks.
 
-<...>
+After this we will call mcabanks_set(i, mca_allbanks);
+The mcabanks_set function sets a specific bit in the bank_map of
+an mca_banks structure, provided the structure, its bank_map, and
+the bit index are valid.
 
-> > -	if (unlikely(!dma_capable(dev, dma_addr, size, true)) ||
-> > -	    dma_kmalloc_needs_bounce(dev, size, dir)) {
-> > -		if (is_pci_p2pdma_page(page))
-> > -			return DMA_MAPPING_ERROR;
-> > -		if (is_swiotlb_active(dev))
-> > -			return swiotlb_map(dev, phys, size, dir, attrs);
-> > -
-> > -		dev_WARN_ONCE(dev, 1,
-> > -			     "DMA addr %pad+%zu overflow (mask %llx, bus limit %llx).\n",
-> > -			     &dma_addr, size, *dev->dma_mask, dev->bus_dma_limit);
-> > -		return DMA_MAPPING_ERROR;
-> > +	if (attrs & DMA_ATTR_MMIO) {
-> > +		dma_addr = phys;
-> > +		if (unlikely(dma_capable(dev, dma_addr, size, false)))
-> 
-> "!dma_capable(dev, dma_addr, size, false)" in the above line.
-> 
-> It took me a while to find this after noticing that this patchset breaks booting some of me test systems.
+At the end, we will call
+mcabanks_free(xchg(&mca_allbanks, all));
+This function is thread safe and does below:
+   1. Atomically exchanges the value of "mca_allbanks" with "all"
+   2. Returns the old value that was previously in "mca_allbanks"
+So, when we will call mcabanks_free , that will free the memory.
 
-Ohh, sorry, I overlooked it. Do you expect from me v6?
+The problem is that mcabanks_set(i, mca_allbanks) function is updating
+mca_allbanks which will be freed via mcabanks_free later. This means
+new mca_allbanks instance("all") will never get chance to update
+it's bank_map.
 
-Thanks
+Due to this when we will collect log from mcheck_mca_logout function ,
+the condition "if ( !mcabanks_test(i, bankmask) )" will always fails
+and MCA logs will not be collected for any bank.
+
+The fix is to solve this problem.
+
+Fixes: 560cf418c845 ("x86/mcheck: allow varying bank counts per CPU")
+Signed-off-by: Soham Dandapat <soham.dandapat@amd.com>
+---
+ xen/arch/x86/cpu/mcheck/mce.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.c
+index 9028ccde54..84238cd0ef 100644
+--- a/xen/arch/x86/cpu/mcheck/mce.c
++++ b/xen/arch/x86/cpu/mcheck/mce.c
+@@ -663,7 +663,7 @@ static int mca_cap_init(void)
+         if ( !all )
+             return -ENOMEM;
+         for ( i = 0; i < nr; i++ )
+-            mcabanks_set(i, mca_allbanks);
++            mcabanks_set(i, all);
+         mcabanks_free(xchg(&mca_allbanks, all));
+     }
+ 
+-- 
+2.17.1
+
 
