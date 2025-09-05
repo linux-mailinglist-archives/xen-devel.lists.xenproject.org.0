@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83941B45418
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 12:06:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1111580.1460237 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D553B45417
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 12:06:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1111582.1460248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuTKC-0007jT-Nl; Fri, 05 Sep 2025 10:05:44 +0000
+	id 1uuTKO-000857-22; Fri, 05 Sep 2025 10:05:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1111580.1460237; Fri, 05 Sep 2025 10:05:44 +0000
+Received: by outflank-mailman (output) from mailman id 1111582.1460248; Fri, 05 Sep 2025 10:05:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuTKC-0007ht-L7; Fri, 05 Sep 2025 10:05:44 +0000
-Received: by outflank-mailman (input) for mailman id 1111580;
- Fri, 05 Sep 2025 10:05:42 +0000
+	id 1uuTKN-00082g-SS; Fri, 05 Sep 2025 10:05:55 +0000
+Received: by outflank-mailman (input) for mailman id 1111582;
+ Fri, 05 Sep 2025 10:05:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sj+0=3Q=cloud.com=gerald.elder-vass@srs-se1.protection.inumbo.net>)
- id 1uuTKA-0007UD-H8
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 10:05:42 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1uuTKL-0007UD-SO
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 10:05:53 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e14de3ae-8a3f-11f0-9d12-b5c5bf9af7f9;
- Fri, 05 Sep 2025 12:05:41 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-b0454d63802so327912166b.2
- for <xen-devel@lists.xenproject.org>; Fri, 05 Sep 2025 03:05:41 -0700 (PDT)
+ id e815086c-8a3f-11f0-9d12-b5c5bf9af7f9;
+ Fri, 05 Sep 2025 12:05:53 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-afeec747e60so354193166b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Sep 2025 03:05:53 -0700 (PDT)
 Received: from eddie5.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b046aa92242sm589136366b.59.2025.09.05.03.05.39
+ a640c23a62f3a-b046aa92242sm589136366b.59.2025.09.05.03.05.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Sep 2025 03:05:40 -0700 (PDT)
+ Fri, 05 Sep 2025 03:05:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e14de3ae-8a3f-11f0-9d12-b5c5bf9af7f9
+X-Inumbo-ID: e815086c-8a3f-11f0-9d12-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1757066741; x=1757671541; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OPitMHA0jLlZD3e3Xgx2NPRkFt8Wh9k4Wg+0HJuHEqU=;
-        b=bGm0NIwLyFnpLCxUnOPWqDFkOBgmfltuYulANuRMHYEG52EWvFNfu46Th8oNa6x4OV
-         lUJLquGKLOR4GoqZfa1Xn+/YrgOrX0bgBLX2MPZbq0LpREi7WaxxTs9PvUia1KmJErAg
-         6PMFfPX6z7sraViBoWSbQP0pUL8rmFVfAStpQ=
+        d=cloud.com; s=cloud; t=1757066752; x=1757671552; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nvL7dCg6gz41KLkkd+Vk+H26Dav9pYh+JfZNG4PSTr0=;
+        b=gUycLGnAA+6cGM73AS2MVGb5JJXjiPq4uJRmbFMCavHi0AXqUB9TONaPSNlGdpQ5Xk
+         Yc4hwhUZ0EqZ/5qnjQ23truSthRd0qOPcKAn2vIa2/aFpD2f7yvtJfHn5ezmIdfYY6Yg
+         GstCt+EKyC7XoLnC8G+tmJOoh3f03eIoA4tFg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757066741; x=1757671541;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OPitMHA0jLlZD3e3Xgx2NPRkFt8Wh9k4Wg+0HJuHEqU=;
-        b=dtPMd2cBEnL4UTFsJYpbi4W3y3sJJqzR07ZduiSQ+JHMZgoZ00nPiieKE7AK4WOnw+
-         ZH158G6fJgtNiLzG5HiI9PPNaQNIRh0eZ2w7wefZEQ84fm4MZB4naJCGv1G5J9Tj+Yi7
-         lnaH5pxGxd5jzcT4nWpw0qZsv//r31sul3CZ/yAZjlEjmbb9Rad9phXWZeKOOJF2OQwl
-         U7CmDLYq54J4fOIoSW9JWkmIsQM+TSWZcpeOmOl8tqhfqzaNK8bhqv6Z5vfU1aGGuAQd
-         lWwEm4yQ8rdvGi8UtqeowBoE/tN49zNjatf965DOfdq+lDJoe1VoyfxiHW3NsN98M7lm
-         hhCA==
-X-Gm-Message-State: AOJu0YyXkBVRUVF/6+a34j65s9q+17ZjInaucCh4vyojjgT1RBYSbICi
-	Y01kEGvNtRHi5NZUffCqvqaFoctA5TSsNVCPcu/noh5wIoo7Tu7hvhxOPIzTM5K2x9jUSm9q1TI
-	1QN5iCXs=
-X-Gm-Gg: ASbGncvey2oqCghkoiQ1BDT80PmgnLzAxBqiSNw/Rf25n6nib+WhgbiXvwiQoOfNSW5
-	X2UUiRVFi2NUwA+xE7snc2YFdR4gJFnZvM9hHIAsozDNIiMxrT1XrakynbJvM27C2a2IKA1IC/K
-	ktdBM972icd6Az5eHFYXjL2Ea3rTdF0KYVLq1ei1soR07ndlnaR8qP/FAgv1MA1tYlWkfD9LFEG
-	PJDvEjn1m8Cu1QZw7N4q5xGLTqQlL/CBwt2/gAAT9Y7umoAR8vCgixKNXDbOM0kEqxGYt9DG0zG
-	K4xoAzwc7VWIuV66yHdSFOIFzglKNwDE75LXbOA/exxBgWE9AIeB86qYPMNxjF3SdzBOfDDYc+m
-	V8nE2CrMXAW+gTld3vU+mtQyMsdQFBNtkLhlniea8QihItw==
-X-Google-Smtp-Source: AGHT+IG1Mp//cjVox34ogFLm0En43L8JoN3VGqJiPNeWa/nib+CJdPJRUSpYH13i8vQV5m4EM4JLHg==
-X-Received: by 2002:a17:907:72d5:b0:afe:a6d3:b4a2 with SMTP id a640c23a62f3a-b01d8a39b3fmr2307105066b.11.1757066740796;
-        Fri, 05 Sep 2025 03:05:40 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1757066752; x=1757671552;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nvL7dCg6gz41KLkkd+Vk+H26Dav9pYh+JfZNG4PSTr0=;
+        b=vlzqIXliilw+94z3olcKROrGlSGA/ziSm2uuoGT995O4EhSoJshreZYgs4c/Gp0nIF
+         d1HcZhrqHLvk86PT1o2URzOgR5hTV3YC0ner2sBWeXo1FMQV87kqem98P99SLHjHuciF
+         29EBAxOMoQ34Gm3pYIVUM/ybdE+rheIJwFaFCheCNTpqGIQo7VMrsqAQs5MF0Ai3lyzJ
+         uf5dHSfW9sokNKKji5xkY4ZajRPohiW67mgF7DxbLy9FeRVo+S/ZE6H0xYELaSC5PyeF
+         Q5Fsdq2zhdQYRgq7Iyw14lLdeyfABWJTrtATXlbAdS3//21qckpuYKXPWVG6FYC6Af2k
+         uofQ==
+X-Gm-Message-State: AOJu0Yx7Vvu9xMoSSrx4IVTeh/r9iwb4W1mL1uZNeZfh+/aLvQw8rBB+
+	S0Tu47EgB9e13wE1j7+9Z6jagbT1Lfuypp5tsAWA7p4YsJIa8V9c39rGxWBR7J/e5A9kJUXa08l
+	NYFRc33g=
+X-Gm-Gg: ASbGncvZ0fFxXK8J0KwUBAqRt6/s8cmOzPb5zsV94tkGj1riosx+bLiPkYABsJzPU6G
+	7Noyo9nB46L2/F+kIddhOBWPmy7zbKw893BaX6jMc9+/gKBiViBeLbu2BBbmdcp7Fk6MCKu6AD/
+	4+mGsbQvv7iOXO3S+iRcBXA/ICgoITUDT3T+zo9AnIyeeIfAdKCSOFOOgtImaIck+FbKaep6LVe
+	esfJcc6Qv2pX9OWAjqgeSaDUYBAm1o4pOYXE0wWNbKSe8yHR2u87DFcB8rwMFgElUgKTIrA7JgZ
+	Th3qJESnnErGHpae29dlhVASgrNjuACzj8omfrXa21XY3YnGIFV7syNb1FC0GfLNMgv2+zwpJAa
+	/tB6xyxMgtMq0B7hwufUtzb9szeak/0Y9PMTdKK4570/1cXYB0fykm4Xs
+X-Google-Smtp-Source: AGHT+IHxVphbpBuI4g2ZTf16WcGhGFm1UvYvPW/G3/Q2xyoOu6/oo/ZQyapkcieYrWlN1utMsOAxJQ==
+X-Received: by 2002:a17:907:9406:b0:b04:4aa9:eec8 with SMTP id a640c23a62f3a-b044aaa4b0cmr1412828666b.17.1757066752259;
+        Fri, 05 Sep 2025 03:05:52 -0700 (PDT)
 From: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Jan Beulich <jbeulich@suse.com>,
@@ -90,29 +92,108 @@ Cc: Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 0/2] efi: Support Shim LoadImage
-Date: Fri,  5 Sep 2025 10:05:30 +0000
-Message-ID: <cover.1757066332.git.gerald.elder-vass@cloud.com>
+Subject: [PATCH v3 1/2] efi: Add a function to check if Secure Boot mode is enabled
+Date: Fri,  5 Sep 2025 10:05:31 +0000
+Message-ID: <12c18a6d0c3cbbe17cee19f9fb4501d614c23ec3.1757066332.git.gerald.elder-vass@cloud.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1757066332.git.gerald.elder-vass@cloud.com>
+References: <cover.1757066332.git.gerald.elder-vass@cloud.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Support Shim LoadImage protocol but keep Shim Lock for compatibility
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
 
-https://gitlab.com/xen-project/people/geraldev/xen/-/pipelines/2023640279
+Also cache it to avoid needing to repeatedly ask the firmware.
 
-Gerald Elder-Vass (1):
-  efi: Support using Shim's LoadImage protocol
+Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+---
+CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Julien Grall <julien@xen.org>
+CC: "Roger Pau Monné" <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
 
-Ross Lagerwall (1):
-  efi: Add a function to check if Secure Boot mode is enabled
-
- xen/common/efi/boot.c    | 83 ++++++++++++++++++++++++++++++++++++----
+v3:
+- Fix build on ARM
+---
+ xen/common/efi/boot.c    | 24 ++++++++++++++++++++++++
  xen/common/efi/runtime.c |  1 +
- xen/include/xen/efi.h    |  2 +
- 3 files changed, 78 insertions(+), 8 deletions(-)
+ xen/include/xen/efi.h    |  2 ++
+ 3 files changed, 27 insertions(+)
 
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index e12fa1a7ec04..e7e3dffa7ddc 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -901,6 +901,28 @@ static void __init pre_parse(const struct file *file)
+                    " last line will be ignored.\r\n");
+ }
+ 
++static void __init init_secure_boot_mode(void)
++{
++    static EFI_GUID __initdata gv_uuid = EFI_GLOBAL_VARIABLE;
++    EFI_STATUS status;
++    uint8_t data = 0;
++    UINTN size = sizeof(data);
++    UINT32 attr = 0;
++
++    status = efi_rs->GetVariable((CHAR16 *)L"SecureBoot", &gv_uuid, &attr,
++                                 &size, &data);
++
++    if ( status == EFI_NOT_FOUND ||
++         (status == EFI_SUCCESS &&
++          attr == (EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS) &&
++          size == 1 && data == 0) )
++        /* Platform does not support Secure Boot or it's disabled. */
++        efi_secure_boot = false;
++    else
++        /* Everything else play it safe and assume enabled. */
++        efi_secure_boot = true;
++}
++
+ static void __init efi_init(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+ {
+     efi_ih = ImageHandle;
+@@ -915,6 +937,8 @@ static void __init efi_init(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTabl
+ 
+     StdOut = SystemTable->ConOut;
+     StdErr = SystemTable->StdErr ?: StdOut;
++
++    init_secure_boot_mode();
+ }
+ 
+ static void __init efi_console_set_mode(void)
+diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
+index 42386c6bde42..30d649ca5c1b 100644
+--- a/xen/common/efi/runtime.c
++++ b/xen/common/efi/runtime.c
+@@ -41,6 +41,7 @@ void efi_rs_leave(struct efi_rs_state *state);
+ unsigned int __read_mostly efi_num_ct;
+ const EFI_CONFIGURATION_TABLE *__read_mostly efi_ct;
+ 
++bool __ro_after_init efi_secure_boot;
+ unsigned int __read_mostly efi_version;
+ unsigned int __read_mostly efi_fw_revision;
+ const CHAR16 *__read_mostly efi_fw_vendor;
+diff --git a/xen/include/xen/efi.h b/xen/include/xen/efi.h
+index 623ed2ccdf31..723cb8085270 100644
+--- a/xen/include/xen/efi.h
++++ b/xen/include/xen/efi.h
+@@ -36,6 +36,8 @@ static inline bool efi_enabled(unsigned int feature)
+ }
+ #endif
+ 
++extern bool efi_secure_boot;
++
+ void efi_init_memory(void);
+ bool efi_boot_mem_unused(unsigned long *start, unsigned long *end);
+ bool efi_rs_using_pgtables(void);
 -- 
 2.47.3
 
