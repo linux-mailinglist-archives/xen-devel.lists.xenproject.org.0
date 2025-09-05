@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0C44B44DEB
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 08:24:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1111288.1460041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F23FB44E32
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 08:45:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1111310.1460052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuPqz-0005LA-HR; Fri, 05 Sep 2025 06:23:21 +0000
+	id 1uuQBj-00085o-3V; Fri, 05 Sep 2025 06:44:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1111288.1460041; Fri, 05 Sep 2025 06:23:21 +0000
+Received: by outflank-mailman (output) from mailman id 1111310.1460052; Fri, 05 Sep 2025 06:44:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuPqz-0005IV-Eg; Fri, 05 Sep 2025 06:23:21 +0000
-Received: by outflank-mailman (input) for mailman id 1111288;
- Fri, 05 Sep 2025 06:23:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uuQBj-00083I-03; Fri, 05 Sep 2025 06:44:47 +0000
+Received: by outflank-mailman (input) for mailman id 1111310;
+ Fri, 05 Sep 2025 06:44:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1l6N=3Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uuPqx-0005IP-OY
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 06:23:19 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cdcc5e01-8a20-11f0-9809-7dc792cee155;
- Fri, 05 Sep 2025 08:23:14 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-b00a9989633so326477866b.0
- for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 23:23:14 -0700 (PDT)
+ id 1uuQBh-00083C-Iq
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 06:44:45 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ce3433e0-8a23-11f0-9d12-b5c5bf9af7f9;
+ Fri, 05 Sep 2025 08:44:44 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-b047f28a83dso259910166b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 23:44:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-62069b79e1asm2360526a12.26.2025.09.04.23.23.13
+ a640c23a62f3a-b0307435422sm1501587866b.78.2025.09.04.23.44.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Sep 2025 23:23:13 -0700 (PDT)
+ Thu, 04 Sep 2025 23:44:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdcc5e01-8a20-11f0-9809-7dc792cee155
+X-Inumbo-ID: ce3433e0-8a23-11f0-9d12-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757053394; x=1757658194; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1757054683; x=1757659483; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0XL1zHInmGojjeRUhBMCy2TvZcZvWB0YbUBSwAeXgzI=;
-        b=Zk3x0YKeTLvO9O1CpT0eEZXvu09Rch5+hDPkk2DIoDmVFierFzC3zSiqju2ZOQQH95
-         mjsIdrntY7tFYfz9Yu00bMgHRAi/7XWYpqdHPYojKq2VJjAXQmHogyoo8KKqfwQB0ag+
-         qXEWvnUlSOJDStpngQPYZRJlQYinICbwwURsHqqpMgOL5Y8FfepTfowgCUjNxCMDSibs
-         Tb0atjc2ZFJXXh8c/iHjs/5rRwXWDnssoqqvA8vdDVBVN5E1QLsSmxA0Ch6rAfxxp5y8
-         p4V4M+LbgLiS8mqaDlzUoWRWW+O+cq+oW74xpPiZS77+PPE3IsK4lsEN9ne92KhWjvK9
-         CtSA==
+        bh=bQ6NgGmyUr4WcOILQVxU1LZax48OJGEDQdBZLekTbPE=;
+        b=DFg1Q9i4+jUNuG8RObQQmSBCcyymlhfcz7+nl4PtYiOXU6AiVnQBAo+YJa8/QyMABs
+         jYdMt4Ls7/CWtresViuL66v9a9BKaysOtMlTu8RvnRgiiLUViC8F67YGcuF6osYO8r+1
+         Ghe8L+F/wqU6t7KJrfgk55TYuW8MeN/AVVc9NVsqxZ5HFSIfiI3I3hwTuxhQVvcBDo4X
+         MY7YSk7qqJ9k2GSJrsQgipMQl3JGy/dW0NjpGn1xwZXGblEp1P2XLvvjriD93/BKA1Z3
+         O6akn5DIhprYnvaFZp53QJc7f77O53dxBDx9BHFx2pjNXpVR8PYCFJGMAUZFxp7IQZf1
+         YwEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757053394; x=1757658194;
+        d=1e100.net; s=20230601; t=1757054683; x=1757659483;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0XL1zHInmGojjeRUhBMCy2TvZcZvWB0YbUBSwAeXgzI=;
-        b=lgH09YIgiG/ZLVrNssxVJWgK6BEwZUuf/UmU6KyhPTOtdMpuefAmCheliRoN0v8dmj
-         bgpZ35FyHuNeox/6OGUVCGA/Jy2OSjL9u7EFQq8YLCmbHlMxBjyFa7oTX8vbBwvpRGE8
-         CcIlpHKI0YU6WVGdsHSqcEUX3s5/hOF1ptXcclPPWqgnyFuEid+YXd6kILhNqmRJjoc3
-         Z03r3kRrHAzv9u5tXutjcMR18ClOuW2oQlHXzIAJXDVtyB2G+rJbouu4zAgDOc7PtrWa
-         9BI4nalj+ySaFKBLQ64PMmqP42Cd5n5jNb5fdYX1gSS86QhWp8O9cwUp3UcftQ3paf85
-         iZnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXHcZ7zYWk3IFBwRomGeOU6808bhl+XXQM+mvaBmqMNq8MAQfQ8vr9Q/NkN/CasAHmhtar5qznzaqc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxNy4xFYU6E/b64uoy9Oewdbgg/eTmLs2nEzgI2dREQI/1OSiOG
-	fejJKtCEdGy7OgB9BmU4i22Yyfi/dm8xPhC46zy/tOvJOwxsXntSU3eeoMjZz77lMw==
-X-Gm-Gg: ASbGncvWIwzVB0jCiuyGhOb96Gymx4T1Kd8WLwh+Bw9H4BhyMKgQ3gDr4DQAoxqabWk
-	g4SgZ4cCIoRniEy2Tjh0GPiuvZ7CFzgPT6x+VXjlgDsLXV6nA4jo1WsQqctz+eMQcFMeG8EadyQ
-	920ZrnsOjoTdWLka6RQrssBNVqw3F9jMagYUzNMZW7bgNJ+jAKH8PYRjMjwysytSU/+mBw1oiTw
-	pxDwujJhD+Xx04iFIhy+ip9F20hXC78vbXfSXarVouKFBuWkz+ztoRjEOU23loHbr7iq9men5iD
-	uiAQmqtEogu+AuDLDkqs6iWolKty2WpuldAtI6GhYN4D1aI3n0fHPHhpa6I2S3S0cSAyWzmd/Rr
-	nVo0S2i0fPYZwyz5m8Jf2THFHX05f9BAh6p9kabAQEfLK9U1ZfaWuns0nP8me31Fc6I/TJGO+7X
-	q61b3DKWgJXYqM7w+sqQ==
-X-Google-Smtp-Source: AGHT+IHVsKSNhsh56RQRb/AxWk/aKmJ0b5TbP3rgYupuCmH0SR3PGaADG0Fi8roKJnazg/0oOFazXQ==
-X-Received: by 2002:a17:907:6ea3:b0:afe:ac57:f0be with SMTP id a640c23a62f3a-b04932a677cmr262986566b.31.1757053394017;
-        Thu, 04 Sep 2025 23:23:14 -0700 (PDT)
-Message-ID: <4534a58a-b7c9-4571-a459-c3ec3d28ca49@suse.com>
-Date: Fri, 5 Sep 2025 08:23:12 +0200
+        bh=bQ6NgGmyUr4WcOILQVxU1LZax48OJGEDQdBZLekTbPE=;
+        b=mM4erfzZd0UFMm7plkwXb52eXv+nKNKs8yNbeaCV5lb2Ws9y8n0wvr05GzhjinYYRe
+         Tt2+i6EOvJuuUuiGn0S0v/5+Q54Dwg2+GCZEFXbAmXMsyV8pf10UKaBmpN5IaAMVHBeT
+         aXQiRpQ0LPX+lfffsHEKRPKrd7ASNS6YU8tUw++L2c3mk9rzxKp7IaxNOn5jsI25NBx2
+         y8FonmYVO1We03xfvHEpobLi3Kgq2dJQxSYQ0uEajFIadQzJks4+AXmY26f0xkGG3R7u
+         hJa9p+ddicTha94yBYB+91XzNVS3h+3go3c5JGZNN7m7KGiywo2m6gz1UKli02npTDgO
+         mmlw==
+X-Forwarded-Encrypted: i=1; AJvYcCUHInab91Rdqs1lJb5HKw3WZpTnA6u9xWFhUKuCKntggsr2noxSMfoDuvv3Clu7A+tWfLGUQWeI9cY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzEkAKtIJ1WH9gVTWX+Jm10IOsAvDXwxDRGsXde6GCWTZwf6t4j
+	pm8A13rMTzSFS9r30UNh/1Td04g8O+nCHA73qDIk1rUjwXB70FuDMFMz/hv08DbqeQ==
+X-Gm-Gg: ASbGnctfCi5cxkXvn5rpq8Lc7kp6hcWeObNhGoQilcMaWOKi7gSla6nA7bPc/x/ZgF6
+	yypbPw+u3/IqrkplrgjiF5hgNOsaeXjiq4lHUxO0Dzj7wciIRNPuWbLnTpsSEOdbtZtdLnqR7dH
+	CRVuAEflSdrtSoAIR2k04dNKCAowgv2xHnsyJOwBJVxmuAY5AJwJpkghUm/ff/I7X7t1vObLSqX
+	ua13phMd7yfAvRhAdEdmxNG4eZ36i2wurFeUKYPhfQTQZO3AiB/yEVpULTvcFqoEDFcS5+tU4zn
+	9CAn3Z4iSdih0TieWrOma5gZG4TZWizbpE+j0WNZc+IK167EV8CBGVi5xCGULUVwrxr49iS7Wn5
+	s/9jFB2WSoxaARBp4hNytntPZIn8yvXKLVVY1m/zAN5eVkCkQN+TkGinzp4Gah3xgEA7ux6ukBn
+	Reff78WDs=
+X-Google-Smtp-Source: AGHT+IGGz95khelF8gPOlY3aaf55yjJKT/GDxsHX0f1z36rfwxu6Q2P7L/Ge2w3fwErrxseHLNOPNw==
+X-Received: by 2002:a17:907:7e8e:b0:b04:3402:393e with SMTP id a640c23a62f3a-b0434023f95mr1619092466b.31.1757054683051;
+        Thu, 04 Sep 2025 23:44:43 -0700 (PDT)
+Message-ID: <4f2ff564-e64a-4d0e-b123-d85b81f10929@suse.com>
+Date: Fri, 5 Sep 2025 08:44:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] symbols: discard stray file symbols
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v9 2/8] xen/cpufreq: implement amd-cppc driver for CPPC in
+ passive mode
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <2412a7a0-bdcd-4647-8ea2-8d2a927dcde3@suse.com>
- <d8af4ded-1473-42b9-9f52-187936e4dd1e@amd.com>
+References: <20250904063518.2097629-1-Penny.Zheng@amd.com>
+ <20250904063518.2097629-3-Penny.Zheng@amd.com>
+ <7e769952-a906-4a3e-af27-26faa76f6dd4@suse.com>
+ <DM4PR12MB84512B3A12E5185725F84BD7E103A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,61 +126,148 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d8af4ded-1473-42b9-9f52-187936e4dd1e@amd.com>
+In-Reply-To: <DM4PR12MB84512B3A12E5185725F84BD7E103A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04.09.2025 23:53, Jason Andryuk wrote:
-> On 2025-04-16 05:00, Jan Beulich wrote:
->> By observation GNU ld 2.25 may emit file symbols for .data.read_mostly
->> when linking xen.efi. Due to the nature of file symbols in COFF symbol
->> tables (see the code comment) the symbols_offsets[] entries for such
->> symbols would cause assembler warnings regarding value truncation. Of
->> course the resulting entries would also be both meaningless and useless.
->> Add a heuristic to get rid of them, really taking effect only when
->> --all-symbols is specified (otherwise these symbols are discarded
->> anyway).
+On 05.09.2025 07:15, Penny, Zheng wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Thursday, September 4, 2025 8:04 PM
 >>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Factor 2 may in principle still be too small: We zap what looks like
->> real file symbols already in read_symbol(), so table_cnt doesn't really
->> reflect the number of symbol table entries encountered. It has proven to
->> work for me in practice though, with still some leeway left.
+>> On 04.09.2025 08:35, Penny Zheng wrote:
+>>> +static void cf_check amd_cppc_write_request_msrs(void *info) {
+>>> +    const struct amd_cppc_drv_data *data = info;
+>>> +
+>>> +    wrmsrl(MSR_AMD_CPPC_REQ, data->req.raw); }
+>>> +
+>>> +static void amd_cppc_write_request(unsigned int cpu,
+>>> +                                   struct amd_cppc_drv_data *data,
+>>> +                                   uint8_t min_perf, uint8_t des_perf,
+>>> +                                   uint8_t max_perf, uint8_t epp) {
+>>> +    uint64_t prev = data->req.raw;
+>>> +
+>>> +    data->req.min_perf = min_perf;
+>>> +    data->req.max_perf = max_perf;
+>>> +    data->req.des_perf = des_perf;
+>>> +    data->req.epp = epp;
+>>> +
+>>> +    if ( prev == data->req.raw )
+>>> +        return;
+>>> +
+>>> +    on_selected_cpus(cpumask_of(cpu), amd_cppc_write_request_msrs,
+>>> + data, 1);
 >>
->> --- a/xen/tools/symbols.c
->> +++ b/xen/tools/symbols.c
->> @@ -213,6 +213,16 @@ static int symbol_valid(struct sym_entry
->>   	if (strstr((char *)s->sym + offset, "_compiled."))
->>   		return 0;
->>   
->> +	/* At least GNU ld 2.25 may emit bogus file symbols referencing a
->> +	 * section name while linking xen.efi. In COFF symbol tables the
->> +	 * "value" of file symbols is a link (symbol table index) to the next
->> +	 * file symbol. Since file (and other) symbols (can) come with one
->> +	 * (or in principle more) auxiliary symbol table entries, the value in
->> +	 * this heuristic is bounded to twice the number of symbols we have
->> +	 * found. See also read_symbol() as to the '?' checked for here. */
->> +	if (s->sym[0] == '?' && s->sym[1] == '.' && s->addr < table_cnt * 2)
->> +		return 0;
->> +
->>   	return 1;
->>   }
+>> With "cpu" coming from ...
+>>
+>>> +}
+>>> +
+>>> +static int cf_check amd_cppc_cpufreq_target(struct cpufreq_policy *policy,
+>>> +                                            unsigned int target_freq,
+>>> +                                            unsigned int relation) {
+>>> +    struct amd_cppc_drv_data *data = policy->u.amd_cppc;
+>>> +    uint8_t des_perf;
+>>> +    int res;
+>>> +
+>>> +    if ( unlikely(!target_freq) )
+>>> +        return 0;
+>>> +
+>>> +    res = amd_cppc_khz_to_perf(data, target_freq, &des_perf);
+>>> +    if ( res )
+>>> +        return res;
+>>> +
+>>> +    /*
+>>> +     * Having a performance level lower than the lowest nonlinear
+>>> +     * performance level, such as, lowest_perf <= perf <= lowest_nonliner_perf,
+>>> +     * may actually cause an efficiency penalty, So when deciding the min_perf
+>>> +     * value, we prefer lowest nonlinear performance over lowest performance.
+>>> +     */
+>>> +    amd_cppc_write_request(policy->cpu, data,
+>>> + data->caps.lowest_nonlinear_perf,
+>>
+>> ... here, how can this work when this particular CPU isn't online anymore?
 > 
-> I looked at this.  It'll drop symbols, but I don't know enough to give 
-> an R-b.  I can't give an actionable A-b either.   Maybe someone else can 
-> chime in.
-> 
-> Maybe this is just showing my lack of knowledge, but could any symbol 
-> starting "?." be considered invalid?  I don't think I've ever seen any 
-> like that.
+> Once any processor in the domain gets offline, the governor will stop, then .target() could not be invoked any more:
+> ```
+>         if ( hw_all || cpumask_weight(cpufreq_dom->map) == domain_info->num_processors )
+>                 __cpufreq_governor(policy, CPUFREQ_GOV_STOP);
+> ```
 
-With quotation, almost any symbol name can appear in principle. I wouldn't
-want to judge symbol validity by its name. What's more important here,
-though, is that sym[0] isn't part of the name; it's the symbol's type as
-taken from nm's output. We're therefore heuristically looking at symbols
-of unknown type with a dot as the first character (as section names would
-conventionally have it).
+I can't bring the code in line with what you say.
+
+>>> +                           des_perf, data->caps.highest_perf,
+>>> +                           /* Pre-defined BIOS value for passive mode */
+>>> +                           per_cpu(epp_init, policy->cpu));
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +static void cf_check amd_cppc_init_msrs(void *info) {
+>>> +    struct cpufreq_policy *policy = info;
+>>> +    struct amd_cppc_drv_data *data = policy->u.amd_cppc;
+>>> +    uint64_t val;
+>>> +    unsigned int min_freq = 0, nominal_freq = 0, max_freq;
+>>> +
+>>> +    /* Package level MSR */
+>>> +    rdmsrl(MSR_AMD_CPPC_ENABLE, val);
+>>
+>> Here you clarify the scope, yet what about ...
+>>
+>>> +    /*
+>>> +     * Only when Enable bit is on, the hardware will calculate the processor’s
+>>> +     * performance capabilities and initialize the performance level fields in
+>>> +     * the CPPC capability registers.
+>>> +     */
+>>> +    if ( !(val & AMD_CPPC_ENABLE) )
+>>> +    {
+>>> +        val |= AMD_CPPC_ENABLE;
+>>> +        wrmsrl(MSR_AMD_CPPC_ENABLE, val);
+>>> +    }
+>>> +
+>>> +    rdmsrl(MSR_AMD_CPPC_CAP1, data->caps.raw);
+>>
+>> ... this and ...
+>>
+> GOV_GETAVG);
+>>> +
+>>> +    /* Store pre-defined BIOS value for passive mode */
+>>> +    rdmsrl(MSR_AMD_CPPC_REQ, val);
+>>
+>> ... this?
+> 
+> They are all Per-thread MSR. I'll add descriptions.
+
+If they're per-thread, coordination will be yet more difficult if any domain
+had more than one thread in it. So question again: Is it perhaps disallowed
+by the spec for there to be any "domain" covering more than a single thread?
+
+>>> --- a/xen/include/acpi/cpufreq/cpufreq.h
+>>> +++ b/xen/include/acpi/cpufreq/cpufreq.h
+>>> @@ -63,6 +63,7 @@ struct perf_limits {  };
+>>>
+>>>  struct hwp_drv_data;
+>>> +struct amd_cppc_drv_data;
+>>>  struct cpufreq_policy {
+>>>      cpumask_var_t       cpus;          /* affected CPUs */
+>>>      unsigned int        shared_type;   /* ANY or ALL affected CPUs
+>>> @@ -85,6 +86,9 @@ struct cpufreq_policy {
+>>>      union {
+>>>  #ifdef CONFIG_INTEL
+>>>          struct hwp_drv_data *hwp; /* Driver data for Intel HWP */
+>>> +#endif
+>>> +#ifdef CONFIG_AMD
+>>> +        struct amd_cppc_drv_data *amd_cppc; /* Driver data for AMD
+>>> +CPPC */
+>>>  #endif
+>>>      } u;
+>>>  };
+>>
+>> Same comments here as for the HWP patch.
+> 
+> May I ask why structure over pointer here?
+
+Efficiency: Less allocations, and one less indirection level. For relatively
+small structures you also want to consider the storage overhead of the extra
+pointer.
 
 Jan
 
