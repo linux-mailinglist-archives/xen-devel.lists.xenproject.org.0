@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2116B45844
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 14:54:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1111981.1460489 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ACD8B45875
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 15:07:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1112001.1460497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuVwq-0001wU-DQ; Fri, 05 Sep 2025 12:53:48 +0000
+	id 1uuWAE-0003f3-Hv; Fri, 05 Sep 2025 13:07:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1111981.1460489; Fri, 05 Sep 2025 12:53:48 +0000
+Received: by outflank-mailman (output) from mailman id 1112001.1460497; Fri, 05 Sep 2025 13:07:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuVwq-0001tQ-A4; Fri, 05 Sep 2025 12:53:48 +0000
-Received: by outflank-mailman (input) for mailman id 1111981;
- Fri, 05 Sep 2025 12:53:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IfYY=3Q=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uuVwp-0001tK-5U
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 12:53:47 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5b8ac6d6-8a57-11f0-9809-7dc792cee155;
- Fri, 05 Sep 2025 14:53:45 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-45dda7d87faso4073625e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 05 Sep 2025 05:53:45 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3cf3458a67fsm4334066f8f.62.2025.09.05.05.53.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Sep 2025 05:53:44 -0700 (PDT)
+	id 1uuWAE-0003cr-F5; Fri, 05 Sep 2025 13:07:38 +0000
+Received: by outflank-mailman (input) for mailman id 1112001;
+ Fri, 05 Sep 2025 13:07:37 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1uuWAC-0003cl-Ud
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 13:07:36 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uuWAC-007x8c-1L;
+ Fri, 05 Sep 2025 13:07:36 +0000
+Received: from [2a02:8012:3a1:0:9f:253:13d3:5d9d]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uuWAC-00H1sz-1J;
+ Fri, 05 Sep 2025 13:07:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +39,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b8ac6d6-8a57-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1757076825; x=1757681625; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=si9qQCwIJBugiLUvuKF99IHWOHJ6ZkxN6J1JHrdifGs=;
-        b=jr5hw1qbw/xHtaTU/PTaKTq/QeaLu3/EbQNjIk5pZacU53mKGvYvLBjQLs/KVjmZoE
-         Mgmu+x5mGL8aqGRitujFCWvCFjq/1hK8XHDK7Yyo+iL8ODQnu8itfBD8/vA/QvysVN14
-         pGoIaggjmK82lc/Vdg8QvrJdoQD7Ggdw0YSZA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757076825; x=1757681625;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=si9qQCwIJBugiLUvuKF99IHWOHJ6ZkxN6J1JHrdifGs=;
-        b=tHvRuacOfPzn3oq+2gdniend/GmmQaOzND4x/sK/fno8ynFHJBvaP0TI7+/0Escanb
-         X8RRy/USXU0r10QSn9oJrXznYyeEZm9E+9hCxiHfooeFl+PVg/5vtz50ZkJUSxoP5d2y
-         QACiDe5o+enqKdRhodSvQ5jVosR3FR0ScGSqlyss0Od/V6LHZXjm2sfk7fW8u02mfvR0
-         ge8fmE8fb2OatFbElCFnz/fuVvi4mL04Xr+myEIUOHSZUfHQWB7uNqS+Wklz9BPD/BC4
-         LTEwy2wgCRpquhkWeIe4bvLWWjwEZu+nx2l9Lzn24Qo4Z6vK5088uSvLvceoFyytJaC5
-         csXw==
-X-Forwarded-Encrypted: i=1; AJvYcCX3UfsaYtbLl5oFPGCh06aO3NXUBKDp3sWTXMc9tnnGJZ9sadYv6YL34H/nSzjV24/qFsWqLZF4B9g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxsjfCRKlCqEMH8BvDkDne+f2jMtRfudS9dA0jF1h6Xzizx9YRC
-	1De+J94X/Usec83fp4yq/ZewMcMn4H0Ite0ZVSC/VS7XLpZFK89h4/aLMS3FfS1ShoQ=
-X-Gm-Gg: ASbGncv+n+vio6FpwHkNvI6mV4aOhRxGQi65clmtXtXWuIums6kDeRxgx11rox5hFK7
-	u9etqGqBsjQwuYEUVmJ70SXYnB0Mc+7rqCS+Z9scIH62NJdlFZZdi2UAgp26Rz/j2YF0xp3i2lb
-	/TBfX0MC0z7G/UH/xP6QQ3M9AuoH7QtEkB0w5RKM7DcD3x0lR2IX2auCxkTAKzB/CTEfV1q2quj
-	dvTYx64NAsqwwLMg6/PhAJbvRnp/XpTf40Zyb3qsXKYVurJVVw64p7s9MeZEwMFzgJXFJKX4CHm
-	uStRViO/uPeZvVl+JZZ0SwZt6lbdXEeH8SH411KYEE5OVRdxnaRF6BTchiVqEpSjIpg6fc39s5/
-	CaVpiqpPdKxhSyn6YF3aqlwVN1wqRoSoTp8nRuY9B9E5vhXb3eYbmxlpJJZStDpS38vsbWumQyB
-	dwn6U=
-X-Google-Smtp-Source: AGHT+IEsPmjs/ej6BkUItdPmxuuWxTLBEkcqaSxZgGTtFQEaKELIeZFklcT4NvDNqYp9w5rZLOsf6g==
-X-Received: by 2002:a05:600c:1c0e:b0:459:e466:1bec with SMTP id 5b1f17b1804b1-45cb5871c12mr68592605e9.2.1757076824576;
-        Fri, 05 Sep 2025 05:53:44 -0700 (PDT)
-Message-ID: <bd92ced3-dd1d-4bfb-b4e5-07c2312a935f@citrix.com>
-Date: Fri, 5 Sep 2025 13:53:43 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=bhWQ5boihjzjB/CqJBYJUAjfcczXgA/RlON/+Ky0ejM=; b=OymO6Qh3wRlulaERdnGxFit25n
+	nKC7yA96lgAuw0XEfSYQVOK0AxfOUV3S2ET9RL+3inSe4qwR8MwP/dVZtImaNbk945IWhB5PKWNMk
+	ulo6erlXoE7kI5gLfXSgPpfzTSPQ4HCRLKuKmEY0BjNbdpP63LtHJnFbJ3l/ffuTh23I=;
+Message-ID: <1b27dc46-4d5c-4c6d-8976-0f9b98d11d6b@xen.org>
+Date: Fri, 5 Sep 2025 14:07:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] efi: Add a function to check if Secure Boot mode
- is enabled
-To: Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1757071716.git.gerald.elder-vass@cloud.com>
- <8d66f9ce2c9c352794c0c144f6e00d0a9d465dbe.1757071716.git.gerald.elder-vass@cloud.com>
+Subject: Re: [PATCH v2 3/4] xen/arm64: allow to make aarch32 support optional
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <8d66f9ce2c9c352794c0c144f6e00d0a9d465dbe.1757071716.git.gerald.elder-vass@cloud.com>
-Content-Type: text/plain; charset=UTF-8
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <20250806094929.293658-1-grygorii_strashko@epam.com>
+ <20250806094929.293658-4-grygorii_strashko@epam.com>
+ <87ms7l39gl.fsf@epam.com> <540abaa2-9946-40b8-bf49-b54e4f7a1393@epam.com>
+ <87o6rpqent.fsf@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <87o6rpqent.fsf@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/09/2025 1:10 pm, Gerald Elder-Vass wrote:
-> From: Ross Lagerwall <ross.lagerwall@citrix.com>
->
-> Also cache it to avoid needing to repeatedly ask the firmware.
->
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+On 05/09/2025 13:15, Volodymyr Babchuk wrote:
+> Hi,
+> 
+> Grygorii Strashko <grygorii_strashko@epam.com> writes:
+> 
+>> On 27.08.25 03:16, Volodymyr Babchuk wrote:
+>>> Hi Grygorii,
+>>> Grygorii Strashko <grygorii_strashko@epam.com> writes:
+>>>
+>>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>>
+>>>> Now Arm64 AArch32 guest support is always enabled and built-in while not
+>>>> all Arm64 platforms supports AArch32 (for exmaple on Armv9A) or this
+>>>> support might not be needed (Arm64 AArch32 is used quite rarely in embedded
+>>>> systems). More over, when focusing on safety certification, AArch32 related
+>>>> code in Xen leaves a gap in terms of coverage that cannot really be
+>>>> justified in words. This leaves two options: either support it (lots of
+>>>> additional testing, requirements and documents would be needed) or compile
+>>>> it out.
+>>>>
+>>>> Hence, this patch introduces basic support to allow make Arm64
+>>>> AArch32 guest support optional. The following changes are introduced:
+>>>>
+>>>> - Introduce Kconfig option CONFIG_ARM64_AARCH32 to allow enable/disable
+>>>>     Arm64 AArch32 guest support (default y)
+>>>>
+>>>> - Introduce is_aarch32_enabled() helper which accounts Arm64 HW capability
+>>>>     and CONFIG_ARM64_AARCH32 setting
+>>>>
+>>>> - Introduce arm64_set_domain_type() to configure Arm64 domain type in
+>>>>     unified way instead of open coding (d)->arch.type, and account
+>>>>     CONFIG_ARM64_AARCH32 configuration.
+>>>>
+>>>> - toolstack: do not advertise "xen-3.0-armv7l " capability if AArch32 is
+>>>>     disabled.
+>>>>
+>>>> - do not expose EL1 AArch32 support to guest in ID_AA64PFR0_EL1 reg if
+>>>>     AArch32 is disabled.
+>>>>
+>>>> - Set Arm64 domain type to DOMAIN_64BIT by default.
+>>>>     - the Arm Xen boot code is handling this case properly already;
+>>>>     - for toolstack case the XEN_DOMCTL_set_address_size hypercall handling
+>>>>       updated to forcibly configure domain type regardless of current domain
+>>>>       type configuration, so toolstack behavior is unchanged.
+>>>>
+>>>> With CONFIG_ARM64_AARCH32=n the Xen will reject AArch32 guests (kernels) if
+>>>> configured by user in the following way:
+>>>> - Xen boot will fail with panic during dom0 or dom0less domains creation
+>>>> - toolstack domain creation will be rejected due to xc_dom_compat_check()
+>>>>     failure.
+>>>>
+>>>> Making Arm64 AArch32 guest support open further possibilities for build
+>>>> optimizations of Arm64 AArch32 guest support code.
+>>>>
+>>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>> ---
+>>>> changes in v2:
+>>>> - use Arm64 "cpu_has_el1_32" in all places to check if HW has AArch32 support
+>>>> - rework Arm64 XEN_DOMCTL_set_address_size hypercall handling to work with any
+>>>>     initial domain type set (32bit or 64 bit)
+>>>> - fix comments related to macro parameters evaluation issues
+>>>> - do not expose EL1 AArch32 support to guest in ID_AA64PFR0_EL1 reg if
+>>>>     AArch32 is disabled
+>>>>
+>>>>    xen/arch/arm/Kconfig                    |  7 ++++
+>>>>    xen/arch/arm/arm64/domain-build.c       | 46 +++++++++++++++++++++++--
+>>>>    xen/arch/arm/arm64/domctl.c             | 16 +++++----
+>>>>    xen/arch/arm/arm64/vsysreg.c            |  9 +++++
+>>>>    xen/arch/arm/domain.c                   |  9 +++++
+>>>>    xen/arch/arm/domain_build.c             | 21 +++--------
+>>>>    xen/arch/arm/include/asm/arm32/domain.h | 12 +++++++
+>>>>    xen/arch/arm/include/asm/arm64/domain.h | 23 +++++++++++++
+>>>>    xen/arch/arm/setup.c                    |  2 +-
+>>>>    9 files changed, 119 insertions(+), 26 deletions(-)
+>>>>
+>>>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+>>>> index a0c816047427..bf6dd73caf73 100644
+>>>> --- a/xen/arch/arm/Kconfig
+>>>> +++ b/xen/arch/arm/Kconfig
+>>>> @@ -266,6 +266,13 @@ config PCI_PASSTHROUGH
+>>>>    	help
+>>>>    	  This option enables PCI device passthrough
+>>>>    +config ARM64_AARCH32
+>>>> +	bool "AArch32 Guests support on on ARM64 (UNSUPPORTED)" if UNSUPPORTED
+>>> But aarch32 guests are supported... I understand that you wanted to
+>>> say
+>>> "Disabling aarch32 support is unsupported". But currently this entry
+>>> reads backwards. I think it should be reworded better. But I have no
+>>> idea - how to do this.
+>>
+>> I think "(UNSUPPORTED)" can be just dropped. Is it ok?
+> 
+> As I understand, If you want this feature to be eventually certified, it
+> should not be UNSUPPORTED nor EXPERIMENTAL.
+
+The certification is somewhat irrelevant to the decision of the state of 
+the feature. Instead, the decision should be based on the criteria based 
+in SUPPORT.MD (see "Status"). If it is experimental/unsupported, then 
+what's missing to make it supported?
+
+In addition to that, there is the "EXPERT" mode. This was introduced 
+mainly to allow the user to tailor the Kconfig but also limit to what we 
+security support. This is to reduce the amount of workload on the 
+security team when it comes to decide on whether we need to issue an XSA 
+(the more possibility, the more difficult it becomes).
+
+There has been discussion on providing a small set of config (one could 
+be for certification purpose) that would be security supported. But I 
+don't think we come to a conclusion yet.
+
+Cheers,
+
+-- 
+Julien Grall
+
 
