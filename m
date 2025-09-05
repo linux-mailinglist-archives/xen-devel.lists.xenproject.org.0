@@ -2,67 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CA7AB453B2
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 11:47:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1111557.1460218 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83941B45418
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 12:06:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1111580.1460237 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuT2a-0004OQ-5X; Fri, 05 Sep 2025 09:47:32 +0000
+	id 1uuTKC-0007jT-Nl; Fri, 05 Sep 2025 10:05:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1111557.1460218; Fri, 05 Sep 2025 09:47:32 +0000
+Received: by outflank-mailman (output) from mailman id 1111580.1460237; Fri, 05 Sep 2025 10:05:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuT2a-0004LK-2D; Fri, 05 Sep 2025 09:47:32 +0000
-Received: by outflank-mailman (input) for mailman id 1111557;
- Fri, 05 Sep 2025 09:47:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uuTKC-0007ht-L7; Fri, 05 Sep 2025 10:05:44 +0000
+Received: by outflank-mailman (input) for mailman id 1111580;
+ Fri, 05 Sep 2025 10:05:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iJZl=3Q=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
- id 1uuT2Y-0004LE-GO
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 09:47:30 +0000
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5275ef4b-8a3d-11f0-9809-7dc792cee155;
- Fri, 05 Sep 2025 11:47:24 +0200 (CEST)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5858E7UF022544;
- Fri, 5 Sep 2025 09:46:31 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 48usurfkcd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Sep 2025 09:46:31 +0000 (GMT)
-Received: from m0356517.ppops.net (m0356517.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5859bi0p009310;
- Fri, 5 Sep 2025 09:46:30 GMT
-Received: from ppma11.dal12v.mail.ibm.com
- (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 48usurfkc7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Sep 2025 09:46:30 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
- by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5856Gg3M013959;
- Fri, 5 Sep 2025 09:46:29 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
- by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 48veb3rk09-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Sep 2025 09:46:28 +0000
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
- [10.20.54.103])
- by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 5859kQ0M52101484
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 5 Sep 2025 09:46:26 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id BCE5220040;
- Fri,  5 Sep 2025 09:46:26 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AF00220063;
- Fri,  5 Sep 2025 09:46:24 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.111.88.103])
- by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Fri,  5 Sep 2025 09:46:24 +0000 (GMT)
+ <SRS0=sj+0=3Q=cloud.com=gerald.elder-vass@srs-se1.protection.inumbo.net>)
+ id 1uuTKA-0007UD-H8
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 10:05:42 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e14de3ae-8a3f-11f0-9d12-b5c5bf9af7f9;
+ Fri, 05 Sep 2025 12:05:41 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-b0454d63802so327912166b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Sep 2025 03:05:41 -0700 (PDT)
+Received: from eddie5.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b046aa92242sm589136366b.59.2025.09.05.03.05.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Sep 2025 03:05:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,115 +45,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5275ef4b-8a3d-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=6wm0ttcidOnuuW+7W5s4enprUWnKXF
-	XXBpVS5cSOiYc=; b=VMha2oUbllfJfLMtOLr57qJJz6vzFJD7LJ8gk5XShnJjc7
-	IbrZHVpXb0CrQB5ykpgaxxSFsvvfNEanPBHuuHOGbETD14NXO2pqfL1MNf784mVy
-	uvjiyf12/QVwQ2mZmkqASP9O1WaaViYltK6jPW1ia7fc4z77ZZIcxHNd6zZP5Nha
-	CbH/zL34/kidtMFkhDHPIOsMEJbRBMwe8T8wEPT/Ddq6WBOoaLYfsZ8bm+i7vTSv
-	P1GmCBCUdyPpWD67R2YaTENZDIlFGnxT+oj4rEpMuGkVtfQCqHsL9/re90DkKZLP
-	0DLbyK939ud6LvSGoOT7rBnWZkhI2AUGLtGlCZgg==
-Date: Fri, 5 Sep 2025 11:46:23 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        Andreas Larsson <andreas@gaisler.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        David Hildenbrand <david@redhat.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
-        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
-        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
-        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Ryan Roberts <ryan.roberts@arm.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
-        Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
-        linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
-        xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 0/7] Nesting support for lazy MMU mode
-Message-ID: <9fd076c7-f163-4b92-8201-d8a259a338c1-agordeev@linux.ibm.com>
-References: <20250904125736.3918646-1-kevin.brodsky@arm.com>
+X-Inumbo-ID: e14de3ae-8a3f-11f0-9d12-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1757066741; x=1757671541; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=OPitMHA0jLlZD3e3Xgx2NPRkFt8Wh9k4Wg+0HJuHEqU=;
+        b=bGm0NIwLyFnpLCxUnOPWqDFkOBgmfltuYulANuRMHYEG52EWvFNfu46Th8oNa6x4OV
+         lUJLquGKLOR4GoqZfa1Xn+/YrgOrX0bgBLX2MPZbq0LpREi7WaxxTs9PvUia1KmJErAg
+         6PMFfPX6z7sraViBoWSbQP0pUL8rmFVfAStpQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1757066741; x=1757671541;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=OPitMHA0jLlZD3e3Xgx2NPRkFt8Wh9k4Wg+0HJuHEqU=;
+        b=dtPMd2cBEnL4UTFsJYpbi4W3y3sJJqzR07ZduiSQ+JHMZgoZ00nPiieKE7AK4WOnw+
+         ZH158G6fJgtNiLzG5HiI9PPNaQNIRh0eZ2w7wefZEQ84fm4MZB4naJCGv1G5J9Tj+Yi7
+         lnaH5pxGxd5jzcT4nWpw0qZsv//r31sul3CZ/yAZjlEjmbb9Rad9phXWZeKOOJF2OQwl
+         U7CmDLYq54J4fOIoSW9JWkmIsQM+TSWZcpeOmOl8tqhfqzaNK8bhqv6Z5vfU1aGGuAQd
+         lWwEm4yQ8rdvGi8UtqeowBoE/tN49zNjatf965DOfdq+lDJoe1VoyfxiHW3NsN98M7lm
+         hhCA==
+X-Gm-Message-State: AOJu0YyXkBVRUVF/6+a34j65s9q+17ZjInaucCh4vyojjgT1RBYSbICi
+	Y01kEGvNtRHi5NZUffCqvqaFoctA5TSsNVCPcu/noh5wIoo7Tu7hvhxOPIzTM5K2x9jUSm9q1TI
+	1QN5iCXs=
+X-Gm-Gg: ASbGncvey2oqCghkoiQ1BDT80PmgnLzAxBqiSNw/Rf25n6nib+WhgbiXvwiQoOfNSW5
+	X2UUiRVFi2NUwA+xE7snc2YFdR4gJFnZvM9hHIAsozDNIiMxrT1XrakynbJvM27C2a2IKA1IC/K
+	ktdBM972icd6Az5eHFYXjL2Ea3rTdF0KYVLq1ei1soR07ndlnaR8qP/FAgv1MA1tYlWkfD9LFEG
+	PJDvEjn1m8Cu1QZw7N4q5xGLTqQlL/CBwt2/gAAT9Y7umoAR8vCgixKNXDbOM0kEqxGYt9DG0zG
+	K4xoAzwc7VWIuV66yHdSFOIFzglKNwDE75LXbOA/exxBgWE9AIeB86qYPMNxjF3SdzBOfDDYc+m
+	V8nE2CrMXAW+gTld3vU+mtQyMsdQFBNtkLhlniea8QihItw==
+X-Google-Smtp-Source: AGHT+IG1Mp//cjVox34ogFLm0En43L8JoN3VGqJiPNeWa/nib+CJdPJRUSpYH13i8vQV5m4EM4JLHg==
+X-Received: by 2002:a17:907:72d5:b0:afe:a6d3:b4a2 with SMTP id a640c23a62f3a-b01d8a39b3fmr2307105066b.11.1757066740796;
+        Fri, 05 Sep 2025 03:05:40 -0700 (PDT)
+From: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v3 0/2] efi: Support Shim LoadImage
+Date: Fri,  5 Sep 2025 10:05:30 +0000
+Message-ID: <cover.1757066332.git.gerald.elder-vass@cloud.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250904125736.3918646-1-kevin.brodsky@arm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAzMCBTYWx0ZWRfX0b7vKa9wIqUd
- 15JIKVxY/eFyoNy0/rx0rVDv/Yc4PB6ogniG6U5JZlC8qyn8Y0NgFv6oYYbeCaWjZF7P/Etub/q
- /XnEYzafYNkoOrYQMbqj6nFHYpYxymufPYjcGAjaRnVt2jxUzS3zPb6lpNjC6s5Oxrs0WYMRvbR
- dBvy+J/7pMy+teTA+x9T/E6ggkXyizQGe//4AxcBxcrhCKNqzem6rRKcxJLTefmrfU0CU2VW6uC
- 5x2JqlOAMSNtXM1AfGSytrxIFOr2S3XPEdTEP1QyOTNlKzTtGtrjaWkIbxQVZc7XyWa9Ggbdnl8
- wkgYg373aI71Rh0ZOzmEr1tWX4M68Yz9HwoQbCiqMpeXkMBa3EZ9mW+HowhL506x5+1yPvl4rLU
- 90pIQxaV
-X-Proofpoint-GUID: NmMecPGQNEFV5Z6yet56qjNF4vqqAdRy
-X-Proofpoint-ORIG-GUID: 1xCeVzb0bz4EbY7yd5ySncyf5nvF03Hn
-X-Authority-Analysis: v=2.4 cv=Ao/u3P9P c=1 sm=1 tr=0 ts=68bab177 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=kj9zAlcOel0A:10 a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8
- a=PE-dCK3ueRk4C2obWmcA:9 a=CjuIK1q_8ugA:10 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-05_02,2025-09-04_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 phishscore=0 impostorscore=0 priorityscore=1501 spamscore=0
- suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508300030
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 04, 2025 at 01:57:29PM +0100, Kevin Brodsky wrote:
+Support Shim LoadImage protocol but keep Shim Lock for compatibility
 
-Hi Kevin,
+https://gitlab.com/xen-project/people/geraldev/xen/-/pipelines/2023640279
 
-> When the lazy MMU mode was introduced eons ago, it wasn't made clear
-> whether such a sequence was legal:
-> 
-> 	arch_enter_lazy_mmu_mode()
-> 	...
-> 		arch_enter_lazy_mmu_mode()
-> 		...
-> 		arch_leave_lazy_mmu_mode()
-> 	...
-> 	arch_leave_lazy_mmu_mode()
+Gerald Elder-Vass (1):
+  efi: Support using Shim's LoadImage protocol
 
-I did not take too deep - sorry if you already answered this.
-Quick question - whether a concern Ryan expressed is addressed
-in general case?
+Ross Lagerwall (1):
+  efi: Add a function to check if Secure Boot mode is enabled
 
-https://lore.kernel.org/all/3cad01ea-b704-4156-807e-7a83643917a8@arm.com/
+ xen/common/efi/boot.c    | 83 ++++++++++++++++++++++++++++++++++++----
+ xen/common/efi/runtime.c |  1 +
+ xen/include/xen/efi.h    |  2 +
+ 3 files changed, 78 insertions(+), 8 deletions(-)
 
-	enter_lazy_mmu
-		for_each_pte {
-			read/modify-write pte
+-- 
+2.47.3
 
-			alloc_page
-				enter_lazy_mmu
-					make page valid
-				exit_lazy_mmu
-
-			write_to_page
-		}
-	exit_lazy_mmu
-
-<quote>
-This example only works because lazy_mmu doesn't support nesting. The "make page
-valid" operation is completed by the time of the inner exit_lazy_mmu so that the
-page can be accessed in write_to_page. If nesting was supported, the inner
-exit_lazy_mmu would become a nop and write_to_page would explode.
-</quote>
-
-...
-
-Thanks!
 
