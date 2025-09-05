@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED829B46667
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Sep 2025 00:02:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1112456.1460709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32036B46668
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Sep 2025 00:05:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1112467.1460718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uueV3-000371-76; Fri, 05 Sep 2025 22:01:41 +0000
+	id 1uueYu-0003ex-L3; Fri, 05 Sep 2025 22:05:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1112456.1460709; Fri, 05 Sep 2025 22:01:41 +0000
+Received: by outflank-mailman (output) from mailman id 1112467.1460718; Fri, 05 Sep 2025 22:05:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uueV3-00033r-48; Fri, 05 Sep 2025 22:01:41 +0000
-Received: by outflank-mailman (input) for mailman id 1112456;
- Fri, 05 Sep 2025 22:01:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nTaj=3Q=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1uueV1-00032r-DN
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 22:01:39 +0000
-Received: from sender3-of-o50.zoho.com (sender3-of-o50.zoho.com
- [136.143.184.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e487d7c2-8aa3-11f0-9d12-b5c5bf9af7f9;
- Sat, 06 Sep 2025 00:01:37 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1757109687852185.963518623823;
- Fri, 5 Sep 2025 15:01:27 -0700 (PDT)
+	id 1uueYu-0003dE-IU; Fri, 05 Sep 2025 22:05:40 +0000
+Received: by outflank-mailman (input) for mailman id 1112467;
+ Fri, 05 Sep 2025 22:05:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <dmukhin@xen.org>) id 1uueYt-0003d8-CI
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 22:05:39 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <dmukhin@xen.org>) id 1uueYr-0088Xc-2Y;
+ Fri, 05 Sep 2025 22:05:38 +0000
+Received: from [19.12.91.86] (helo=localhost)
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <dmukhin@xen.org>) id 1uueYr-0000rO-2B;
+ Fri, 05 Sep 2025 22:05:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,179 +39,308 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e487d7c2-8aa3-11f0-9d12-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; t=1757109690; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=boqs4QylBKzZHRmmYiho2A0YcLRaJbYtJPclLj8VxYiCkZD4qR9BVlLzqMAsuQtTt00cWSolGLO8rOap1DpQDKdeAAR16DBwV70F0viYU2PzHAj5bMh8d6yesm2ELgTGBSORvKt/kMlWNwKvDQUGGPQCiwaWLEcS7D/WmJ/a/xo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1757109690; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=8L+EHnK0q6dte/hfCAknQn7thqJFz+eAfxwfsypDOpg=; 
-	b=iinOD5lmoPIF95MKF9QdqGFBShFvmlSvWMl4FMAzUZiSYISAzqIGnalD45s6pFfP5N8ZpqWb7caW4PugP799OolqjgqlKkXwtVKV4TXvSsMJw1qI2dD8nK2CBcXUuI6A9m+qwKp833Y0nkSQyXjXC+1eWHe7UH1CetX9Jlhltjk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1757109689;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Content-Type:Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Message-Id:Reply-To;
-	bh=8L+EHnK0q6dte/hfCAknQn7thqJFz+eAfxwfsypDOpg=;
-	b=OHc21ik3a6Rxc0I/aPRMpyCDKnLC6Gypu1+HidoD9TGzXON8jRcLbzQzoNgNe04w
-	3RIFDVrn1aqdz38EPPHAd0kaGwixLjhQjP/RFR2OBviS9lH960B6fX3ptVs7CbfI04U
-	8f9dWOc8WkQmXItLcR14mU0JoeUhgJc6ehP3/+bc=
-Content-Type: multipart/alternative;
- boundary="------------KgpkQQUcUT8uNV0gnwgvxhI2"
-Message-ID: <7b36e8fe-c19d-40eb-b1d7-d869cdfb1a28@apertussolutions.com>
-Date: Fri, 5 Sep 2025 18:01:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
+	:Subject:Cc:To:Date:From; bh=N9BhIsW6Yjq0ySvhS7rzG8xH0TH0/z3tG+y5P7+uCe4=; b=
+	C4ww9JlrEtP+T/aaV38+n7wIPFjO970XbHCN7QxgDPAtSoG3TVl0GjH9mc/J/vv5X6RvMYp+5mGos
+	ZlkjrWA6xwToAHVSzJvA1vsQ13kkvZyEip2Rs23qWQ5WWx0Qw2hZbk40Fi7K/glM7hTdR9nHATA8D
+	3AsKGC6ScM9/Kb1M4=;
+From: dmukhin@xen.org
+Date: Fri, 5 Sep 2025 15:05:36 -0700
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
+	michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com
+Subject: Re: [PATCH v5 05/15] emul/ns16x50: implement EIR/IIR registers
+Message-ID: <aLtesDrD+nM5jFXH@kraken>
+References: <20250828235409.2835815-1-dmukhin@ford.com>
+ <20250828235409.2835815-6-dmukhin@ford.com>
+ <alpine.DEB.2.22.394.2508291306550.341243@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] xen/flask: limit sidtable size
-To: Jan Beulich <jbeulich@suse.com>, Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250901105231.1570041-1-Sergiy_Kibrik@epam.com>
- <de8380a4-cad9-4589-ae46-8649036186b2@suse.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <de8380a4-cad9-4589-ae46-8649036186b2@suse.com>
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2508291306550.341243@ubuntu-linux-20-04-desktop>
 
-This is a multi-part message in MIME format.
---------------KgpkQQUcUT8uNV0gnwgvxhI2
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On Fri, Aug 29, 2025 at 01:14:03PM -0700, Stefano Stabellini wrote:
+> On Thu, 28 Aug 2025, dmukhin@xen.org wrote:
+> > From: Denis Mukhin <dmukhin@ford.com> 
+> > 
+> > Add interrupt enable register emulation (EIR) and interrupt identity reason
+> 
+> EIR->IER
 
-Hi Sergiy,
+Whooops, thanks.
 
-If you don't mind, please CC me directly, as I am the only XSM 
-maintainer for which you will need my Ack. And for whatever reason, I 
-cannot find the v2 post in my xen-devel folder. If you want to resend me 
-v2, it would be greatly appreciated.
+> 
+> > (IIR) register emulation to the I/O port handler.
+> > 
+> > Also add routines for asserting/deasserting the virtual ns16x50 interrupt
+> > line as a dependent on IIR code.
+> > 
+> > Poke ns16x50_irq_check() on every I/O register access because the emulator
+> > does not have clock emulation anyway (e.g. for baud rate emulation).
+> > 
+> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> > ---
+> > Changes since v4:
+> > - new patch
+> > ---
+> >  xen/common/emul/vuart/ns16x50.c | 177 +++++++++++++++++++++++++++++++-
+> >  1 file changed, 176 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/xen/common/emul/vuart/ns16x50.c b/xen/common/emul/vuart/ns16x50.c
+> > index f9f307a4ad24..20597cc36b35 100644
+> > --- a/xen/common/emul/vuart/ns16x50.c
+> > +++ b/xen/common/emul/vuart/ns16x50.c
+> > @@ -85,9 +85,131 @@ struct vuart_ns16x50 {
+> >      spinlock_t lock;                    /* Protection */
+> >  };
+> >  
+> > +static bool ns16x50_fifo_rx_empty(const struct vuart_ns16x50 *vdev)
+> > +{
+> > +    const struct xencons_interface *cons = &vdev->cons;
+> > +
+> > +    return cons->in_prod == cons->in_cons;
+> > +}
+> 
+> there is no ring so far so I would not add ns16x50_fifo_rx_empty for now
 
-V/r,
-Daniel P. Smith
-Apertus Solutions, LLC
+Ack.
 
-On 9/2/25 05:41, Jan Beulich wrote:
-> On 01.09.2025 12:52, Sergiy Kibrik wrote:
->> --- a/xen/common/Kconfig
->> +++ b/xen/common/Kconfig
->> @@ -418,6 +418,17 @@ config XSM_FLASK_AVC_STATS
->>   
->>   	  If unsure, say Y.
->>   
->> +config XSM_FLASK_SIDTABLE_ORDER
->> +	int "Maximum number of security identifiers (base-2 exponent)" if EXPERT
->> +	range 4 32
->> +	default 32
-> When 32 is chosen (i.e. also the default when the prompt is hidden), ...
->
->> --- a/xen/xsm/flask/ss/sidtab.c
->> +++ b/xen/xsm/flask/ss/sidtab.c
->> @@ -14,6 +14,8 @@
->>   #include "security.h"
->>   #include "sidtab.h"
->>   
->> +#define SID_LIMIT ((1UL << CONFIG_XSM_FLASK_SIDTABLE_ORDER) - 1)
-> ... for Arm32 I expect either already the compiler will not like this construct,
-> or the latest an UBSAN checker would object.
->
-> Jan
---------------KgpkQQUcUT8uNV0gnwgvxhI2
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+> 
+> 
+> >  static inline uint8_t cf_check ns16x50_dlab_get(const struct vuart_ns16x50 *vdev)
+> >  {
+> > -    return 0;
+> > +    return vdev->regs[UART_LCR] & UART_LCR_DLAB ? 1 : 0;
+> > +}
+> > +
+> > +static bool cf_check ns16x50_iir_check_lsi(const struct vuart_ns16x50 *vdev)
+> > +{
+> > +    return vdev->regs[UART_LSR] & UART_LSR_MASK;
+> > +}
+> > +
+> > +static bool cf_check ns16x50_iir_check_rda(const struct vuart_ns16x50 *vdev)
+> > +{
+> > +    return !ns16x50_fifo_rx_empty(vdev);
+> > +}
+> > +
+> > +static bool cf_check ns16x50_iir_check_thr(const struct vuart_ns16x50 *vdev)
+> > +{
+> > +    return vdev->regs[NS16X50_REGS_NUM + UART_IIR] & UART_IIR_THR;
+> > +}
+> > +
+> > +static bool cf_check ns16x50_iir_check_msi(const struct vuart_ns16x50 *vdev)
+> > +{
+> > +    return vdev->regs[UART_MSR] & UART_MSR_CHANGE;
+> > +}
+> > +
+> > +/*
+> > + * Get the interrupt identity reason.
+> > + *
+> > + * IIR is re-calculated once called, because ns16x50 always reports high
+> > + * priority events first.
+> > + * regs[NS16X50_REGS_NUM + UART_IIR] is used to store THR reason only.
+> > + */
+> > +static uint8_t ns16x50_iir_get(const struct vuart_ns16x50 *vdev)
+> > +{
+> > +    /*
+> > +     * Interrupt identity reasons by priority.
+> > +     * NB: high priority are at lower indexes below.
+> > +     */
+> > +    static const struct {
+> > +        bool (*check)(const struct vuart_ns16x50 *vdev);
+> > +        uint8_t ier;
+> > +        uint8_t iir;
+> > +    } iir_by_prio[] = {
+> > +        [0] = { ns16x50_iir_check_lsi, UART_IER_ELSI,   UART_IIR_LSI },
+> > +        [1] = { ns16x50_iir_check_rda, UART_IER_ERDAI,  UART_IIR_RDA },
+> > +        [2] = { ns16x50_iir_check_thr, UART_IER_ETHREI, UART_IIR_THR },
+> > +        [3] = { ns16x50_iir_check_msi, UART_IER_EMSI,   UART_IIR_MSI },
+> > +    };
+> > +    const uint8_t *regs = vdev->regs;
+> > +    uint8_t iir = 0;
+> > +    unsigned int i;
+> > +
+> > +    /*
+> > +     * NB: every interaction w/ ns16x50 registers (except DLAB=1) goes
+> > +     * through that call.
+> > +     */
+> > +    ASSERT(spin_is_locked(&vdev->lock));
+> > +
+> > +    for ( i = 0; i < ARRAY_SIZE(iir_by_prio); i++ )
+> > +    {
+> > +        if ( (regs[UART_IER] & iir_by_prio[i].ier) &&
+> > +             iir_by_prio[i].check(vdev) )
+> > +            break;
+> > +
+> > +    }
+> > +    if ( i == ARRAY_SIZE(iir_by_prio) )
+> > +        iir |= UART_IIR_NOINT;
+> > +    else
+> > +        iir |= iir_by_prio[i].iir;
+> > +
+> > +    if ( regs[UART_FCR] & UART_FCR_ENABLE )
+> > +        iir |= UART_IIR_FE;
+> > +
+> > +    return iir;
+> > +}
+> > +
+> > +static void ns16x50_irq_assert(const struct vuart_ns16x50 *vdev)
+> > +{
+> > +    struct domain *d = vdev->owner;
+> > +    const struct vuart_info *info = vdev->info;
+> > +    int vector;
+> > +
+> > +    if ( has_vpic(d) ) /* HVM */
+> > +        vector = hvm_isa_irq_assert(d, info->irq, vioapic_get_vector);
+> > +    else
+> > +        ASSERT_UNREACHABLE();
+> > +
+> > +    ns16x50_debug(vdev, "IRQ#%d vector %d assert\n", info->irq, vector);
+> > +}
+> > +
+> > +static void ns16x50_irq_deassert(const struct vuart_ns16x50 *vdev)
+> > +{
+> > +    struct domain *d = vdev->owner;
+> > +    const struct vuart_info *info = vdev->info;
+> > +
+> > +    if ( has_vpic(d) ) /* HVM */
+> > +        hvm_isa_irq_deassert(d, info->irq);
+> > +    else
+> > +        ASSERT_UNREACHABLE();
+> > +
+> > +    ns16x50_debug(vdev, "IRQ#%d deassert\n", info->irq);
+> > +}
+> > +
+> > +/*
+> > + * Assert/deassert virtual ns16x50 interrupt line.
+> > + */
+> > +static void ns16x50_irq_check(const struct vuart_ns16x50 *vdev)
+> > +{
+> > +    uint8_t iir = ns16x50_iir_get(vdev);
+> > +    const struct vuart_info *info = vdev->info;
+> > +
+> > +    if ( iir & UART_IIR_NOINT )
+> > +        ns16x50_irq_assert(vdev);
+> 
+> It is a bit strange that if "NOINT" is set, we raise the interrupt
 
-<!DOCTYPE html>
-<html data-lt-installed="true">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body style="padding-bottom: 1px;">
-    <p>Hi Sergiy,</p>
-    <p>If you don't mind, please CC me directly, as I am the only XSM
-      maintainer for which you will need my Ack. And for whatever
-      reason, I cannot find the v2 post in my xen-devel folder. If you
-      want to resend me v2, it would be greatly appreciated. <br>
-    </p>
-    <pre class="moz-signature" cols="72">V/r,
-Daniel P. Smith
-Apertus Solutions, LLC</pre>
-    <div class="moz-cite-prefix">On 9/2/25 05:41, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:de8380a4-cad9-4589-ae46-8649036186b2@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 01.09.2025 12:52, Sergiy Kibrik wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -418,6 +418,17 @@ config XSM_FLASK_AVC_STATS
- 
- 	  If unsure, say Y.
- 
-+config XSM_FLASK_SIDTABLE_ORDER
-+	int "Maximum number of security identifiers (base-2 exponent)" if EXPERT
-+	range 4 32
-+	default 32
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-When 32 is chosen (i.e. also the default when the prompt is hidden), ...
+Yes, that is wrong.
+Thank you!
 
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/xsm/flask/ss/sidtab.c
-+++ b/xen/xsm/flask/ss/sidtab.c
-@@ -14,6 +14,8 @@
- #include "security.h"
- #include "sidtab.h"
- 
-+#define SID_LIMIT ((1UL &lt;&lt; CONFIG_XSM_FLASK_SIDTABLE_ORDER) - 1)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... for Arm32 I expect either already the compiler will not like this construct,
-or the latest an UBSAN checker would object.
+> 
+> 
+> > +    else
+> > +        ns16x50_irq_deassert(vdev);
+> > +
+> > +    ns16x50_debug(vdev, "IRQ#%d IIR 0x%02x %s\n", info->irq, iir,
+> > +                  (iir & UART_IIR_NOINT) ? "deassert" : "assert");
+> >  }
+> >  
+> >  /*
+> > @@ -102,6 +224,29 @@ static int ns16x50_io_write8(
+> >  
+> >      if ( ns16x50_dlab_get(vdev) && (reg == UART_DLL || reg == UART_DLM) )
+> >          regs[NS16X50_REGS_NUM + reg] = val;
+> > +    else
+> > +    {
+> > +        switch ( reg )
+> > +        {
+> > +        case UART_IER:
+> > +            /*
+> > +             * NB: Make sure THR interrupt is re-triggered once guest OS
+> > +             * re-enabled ETHREI in EIR.
+> 
+> EIR->IER
 
-Jan
-</pre>
-    </blockquote>
-  </body>
-  <lt-container></lt-container>
-</html>
+Will fix.
 
---------------KgpkQQUcUT8uNV0gnwgvxhI2--
+> 
+> 
+> > +             */
+> > +            if ( val & regs[UART_IER] & UART_IER_ETHREI )
+> > +                regs[NS16X50_REGS_NUM + UART_IIR] |= UART_IIR_THR;
+> 
+> I am confused by this. Shouldn't it be :
+> 
+> if ( (val & UART_IER_ETHREI) && !(regs[UART_IER] & UART_IER_ETHREI) )
+> 
+> Meaning set UART_IIR_THR if ETHREI goes 0->1 ?
+
+That is by design to re-toggle the UART_IIR_THR since there's no baud
+rate emulation.
+
+> 
+> 
+> > +            regs[UART_IER] = val & UART_IER_MASK;
+> > +
+> > +            break;
+> > +
+> > +        default:
+> > +            rc = -EINVAL;
+> > +            break;
+> > +        }
+> > +
+> > +        ns16x50_irq_check(vdev);
+> > +    }
+> >  
+> >      return rc;
+> >  }
+> > @@ -164,6 +309,29 @@ static int ns16x50_io_read8(
+> >  
+> >      if ( ns16x50_dlab_get(vdev) && (reg == UART_DLL || reg == UART_DLM) )
+> >          val = regs[NS16X50_REGS_NUM + reg];
+> > +    else {
+> > +        switch ( reg )
+> > +        {
+> > +        case UART_IER:
+> > +            val = regs[UART_IER];
+> > +            break;
+> > +
+> > +        case UART_IIR: /* RO */
+> > +            val = ns16x50_iir_get(vdev);
+> > +
+> > +            /* NB: clear IIR scratch location */
+> > +            if ( val & UART_IIR_THR )
+> > +                regs[NS16X50_REGS_NUM + UART_IIR] &= ~UART_IIR_THR;
+> 
+> Maybe add an in-code comment why it is a good idea to clear THR here
+
+Will fix.
+
+> 
+> 
+> > +
+> > +            break;
+> > +
+> > +        default:
+> > +            rc = -EINVAL;
+> > +            break;
+> > +        }
+> > +
+> > +        ns16x50_irq_check(vdev);
+> > +    }
+> >  
+> >      *data = val;
+> >  
+> > @@ -314,8 +482,15 @@ static int ns16x50_init(void *arg)
+> >      vdev->regs[NS16X50_REGS_NUM + UART_DLL] = divisor & 0xff;
+> >      vdev->regs[NS16X50_REGS_NUM + UART_DLM] = (divisor >> 8) & 0xff;
+> >  
+> > +    /* ns16x50 shall assert UART_IIR_THR whenever transmitter is empty. */
+> > +    vdev->regs[NS16X50_REGS_NUM + UART_IIR] = UART_IIR_THR;
+> > +
+> >      register_portio_handler(d, info->base_addr, info->size, ns16x50_io_handle);
+> >  
+> > +    spin_lock(&vdev->lock);
+> > +    ns16x50_irq_check(vdev);
+> > +    spin_unlock(&vdev->lock);
+> > +
+> >      return 0;
+> >  }
+> >  
+> > -- 
+> > 2.51.0
+> > 
 
