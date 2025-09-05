@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE5DCB454D5
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 12:36:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1111671.1460287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A05DB454D6
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 12:37:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1111683.1460297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuTni-0006ZY-0u; Fri, 05 Sep 2025 10:36:14 +0000
+	id 1uuToL-00078W-DU; Fri, 05 Sep 2025 10:36:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1111671.1460287; Fri, 05 Sep 2025 10:36:13 +0000
+Received: by outflank-mailman (output) from mailman id 1111683.1460297; Fri, 05 Sep 2025 10:36:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuTnh-0006Xe-To; Fri, 05 Sep 2025 10:36:13 +0000
-Received: by outflank-mailman (input) for mailman id 1111671;
- Fri, 05 Sep 2025 10:36:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uuTng-0006XY-Mq
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 10:36:12 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uuTnf-007twT-38;
- Fri, 05 Sep 2025 10:36:12 +0000
-Received: from [2a02:8012:3a1:0:9f:253:13d3:5d9d]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uuTnf-00GtMN-30;
- Fri, 05 Sep 2025 10:36:12 +0000
+	id 1uuToL-00075g-AH; Fri, 05 Sep 2025 10:36:53 +0000
+Received: by outflank-mailman (input) for mailman id 1111683;
+ Fri, 05 Sep 2025 10:36:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IfYY=3Q=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uuToJ-0006nu-0S
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 10:36:51 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3ac8c3e0-8a44-11f0-9d12-b5c5bf9af7f9;
+ Fri, 05 Sep 2025 12:36:49 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3dea538b826so1609855f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Sep 2025 03:36:49 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45dd2df4c8dsm53969085e9.15.2025.09.05.03.36.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 05 Sep 2025 03:36:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,115 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=JXReLwgsT9ZZj6+RNbLB7uHd+/xhwOST9Y7n2BmkH7E=; b=O4bcbYlMO/IEkQosQIsWbc82oE
-	cJDDJjFyIXBqW74Flwen0npq1QyWcbgZFS7AvuwyPYKtThJ0cwGCbva3NVDQw3bImNyNV9l/RnN8I
-	/RXxgCA0umHb3JB/M9sh9Qa463vImpGsPjyquJ4koCwoN/FYgQs5AFsKstywPjV28dSQ=;
-Message-ID: <fab64653-623f-4bd6-a03d-37b11909ebcd@xen.org>
-Date: Fri, 5 Sep 2025 11:36:09 +0100
+X-Inumbo-ID: 3ac8c3e0-8a44-11f0-9d12-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1757068609; x=1757673409; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=0b/snmQel6GVfLUUnAfLYoIg8AnHVTJIn6Xol2J2nlM=;
+        b=saCuCcvlwo6+1PPmelAAvdXtLbOPSvIIX9c+bEqNTr+rVh6JCGlQ+6yp0lW9/1s8NU
+         KPLlCe6HDoYul4wd8MpmtvLUWFeL7BQ9uyq6DdZYd4s5uyKgz8bk3+Gd4m84JWR506Qb
+         /WgPvMnxKGYtiKXE5+0GCBM8IVnmci4V08u6w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1757068609; x=1757673409;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0b/snmQel6GVfLUUnAfLYoIg8AnHVTJIn6Xol2J2nlM=;
+        b=deLemWxsw4Jszi6icwKtN2hNG4aEb890XGxahAjhigKUOH+u1ao3X+JRhGjq993usi
+         kAmEoJP0PCBK5QLGSsDtBq+k1cfR7L4y+3nESNBM0i7hHo67jlN3ounmJx4q++JVNXuw
+         GnxnfH3/hCJwXs55g1XqIPSDCYMrIeM1Xbg6FoNgKcJJsrlQSwuJxQxeT/QU0gNQv1jH
+         1Mcd6xjVbISzkU56ZJxitOYc6KBikSwyjHJpK/PxRU/xzvByBjBDmmuY2ECzjd+tIPIt
+         q2F7RfLUYumXgasRdm3aNYKft5haMnwHaDyRUShVQDuBZ6q/xLz+hOLxq2Y2qTuF+sYe
+         BI2Q==
+X-Gm-Message-State: AOJu0YxJTNLostqvR1y0gnTeB08J/MUi0q3XshLFflN0Om6lttQxA1ue
+	PyDFMYuRUmKYAG/0TYJlC5TDuzEcE8JW9SZ6BglmXBgrFe2uluYBsiFDsYHBorXfdgDgKBcaO5a
+	ghVIF
+X-Gm-Gg: ASbGncs5RgEVQO9gApwfzsNoGwnZ7O2VtDRFjv6w5NAEHDEGmQwhbHrqOv1SHLhrklT
+	sqHGBP39qaF0RTvK3SpSF5UKHauKbHyMSxRv6fH1rGcZ7AaxI3WSH1OB0J5+ihZ68tz5GFP2jrx
+	+IluGaEwkE9cVV9W2C9EyZOoU9zBBCZS4VP6k+YMDRmB94lrquipEsGjf1ADUbuVG8CUdauEjAW
+	DOu5l1Hd3rbmYEvlrTwOHScM7+R7Z0WrkBFWlzb9JDfBKgqDZ0rSvKRZHX03F7qefYbMxzI1mB0
+	2KdR/KeZEPjMAMRzhPJHZobpF6vUMT2am07EmXWYBjaTdOjSZ/GKeeOSwZuS189gUU1ymlkY5+M
+	xZSX6JSq9lF/QNn3KYRAJiaLeiOqDgUqgp+Ule8oUyN2IAJdjvugvX2e2/Es1+CTg7uwJ
+X-Google-Smtp-Source: AGHT+IHyU1/v76uEaQ33dRdFEarsypMpUL874bW4ArXsJt36UMJ9N4R4yRH3pyY5PnVKrnhKliTRXw==
+X-Received: by 2002:a05:6000:420c:b0:3dc:21a1:8c6a with SMTP id ffacd0b85a97d-3dc21a18ca1mr10187524f8f.11.1757068608735;
+        Fri, 05 Sep 2025 03:36:48 -0700 (PDT)
+Message-ID: <6940b548-18b8-4507-bb75-617378fe090c@citrix.com>
+Date: Fri, 5 Sep 2025 11:36:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 05/12] xen/arm: gicv3: implement handling of GICv3.1
- eSPI
-Content-Language: en-GB
-To: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "olekstysh@gmail.com" <olekstysh@gmail.com>,
+Subject: [misra] Re: [PATCH v3 1/2] efi: Add a function to check if Secure
+ Boot mode is enabled
+To: Xen-devel <xen-devel@lists.xenproject.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-References: <cover.1757015865.git.leonid_komarianskyi@epam.com>
- <bdb8b10babad3434347f7ee934e9ac18353653c9.1757015865.git.leonid_komarianskyi@epam.com>
- <820704d0-4047-4f02-a058-01daba2765f1@xen.org>
- <0843182f-2299-4942-b8f3-339b1f13db6f@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <0843182f-2299-4942-b8f3-339b1f13db6f@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+References: <cover.1757066332.git.gerald.elder-vass@cloud.com>
+ <12c18a6d0c3cbbe17cee19f9fb4501d614c23ec3.1757066332.git.gerald.elder-vass@cloud.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <12c18a6d0c3cbbe17cee19f9fb4501d614c23ec3.1757066332.git.gerald.elder-vass@cloud.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Leonid,
+On 05/09/2025 11:05 am, Gerald Elder-Vass wrote:
+> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> index e12fa1a7ec04..e7e3dffa7ddc 100644
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -901,6 +901,28 @@ static void __init pre_parse(const struct file *file)
+>                     " last line will be ignored.\r\n");
+>  }
+>  
+> +static void __init init_secure_boot_mode(void)
+> +{
+> +    static EFI_GUID __initdata gv_uuid = EFI_GLOBAL_VARIABLE;
+> +    EFI_STATUS status;
+> +    uint8_t data = 0;
+> +    UINTN size = sizeof(data);
+> +    UINT32 attr = 0;
+> +
+> +    status = efi_rs->GetVariable((CHAR16 *)L"SecureBoot", &gv_uuid, &attr,
+> +                                 &size, &data);
 
-On 05/09/2025 11:27, Leonid Komarianskyi wrote:
-> On 05.09.25 10:22, Julien Grall wrote:
->> Hi Leonid,
->>
->> On 04/09/2025 21:01, Leonid Komarianskyi wrote:
->>> +#ifdef CONFIG_GICV3_ESPI
->>> +unsigned int gic_number_espis(void)
->>> +{
->>> +    return gic_hw_ops->info->nr_espi;
->>> +}
->>> +
->>> +static void __init gicv3_dist_espi_common_init(uint32_t type)
->>> +{
->>> +    unsigned int espi_nr, i;
->>> +
->>> +    espi_nr = min(1024U, GICD_TYPER_ESPIS_NUM(type));
->>> +    gicv3_info.nr_espi = espi_nr;
->>> +    /* The GIC HW doesn't support eSPI, so we can leave from here */
->>> +    if ( gicv3_info.nr_espi == 0 )
->>> +        return;
->>> +
->>> +    printk("GICv3: %d eSPI lines\n", gicv3_info.nr_espi);
->>
->> Style: nr_espi is unsigned. So it should be %u. Can be fixed on commit
->> if there is nothing else major to change.
->>
->>> +
->>> +    /* The configuration for eSPIs is similar to that for regular
->>> SPIs */
->>> +    for ( i = 0; i < espi_nr; i += 16 )
->>> +        writel_relaxed(0, GICD + GICD_ICFGRnE + (i / 16) * 4);
->>> +
->>> +    for ( i = 0; i < espi_nr; i += 4 )
->>> +        writel_relaxed(GIC_PRI_IRQ_ALL,
->>> +                       GICD + GICD_IPRIORITYRnE + (i / 4) * 4);
->>> +
->>> +    for ( i = 0; i < espi_nr; i += 32 )
->>> +    {
->>> +        writel_relaxed(GENMASK(31, 0), GICD + GICD_ICENABLERnE + (i /
->>> 32) * 4);
->>
->> Sorry I only spotted now.
->>
->> The goal of gicv3_dist_espi_common_init() is to make sure the GIC is in
->> a sane state for Xen (the previous OS or firmware may have left some
->> state). Now the firmware may decide to use eSPI but not Xen (e.g.
->> because CONFIG_ESPI=n).
->>
->> This would means we may have eSPI interrupts that may be enabled and
->> pending. So as soon as we re-enable the GIC we may receive interrupts we
->> can't handle. So I think we may need to initialize the eSPI part of the
->> distributor unconditionally. What do you think?
->>
->>
->> This could be handled as a follow-up but within the timeframe of Xen
->> 4.21. So for this patch:
->>
->> Acked-by: Julien Grall <jgrall@amazon.com>
->>
->> Cheers,
->>
-> 
-> Yes, that's a really good point about firmware initialization - I did
-> not think about that. In that case, we just need to move the nr_espi
-> field out of the ifdef, remove the stubs for
-> gicv3_dist_espi_common_init() and gicv3_dist_espi_init_aff(), and remove
-> the ifdef for these functions. The verifications at the beginning of
-> gicv3_dist_espi_common_init() should work correctly, simply returning 0
-> on platforms without eSPI.
+This turns out to be a MISRA R7.4 violation, complaining about casing a
+string literal to a non-const pointer.
 
-I don't think we need all of these. We just need to ensure the 
-interrupts are disabled and deactivated. So no need to reset the 
-affinity or even moving the field moving the field out of the ifdef.
+The real problem here is that the EFI spec.  GetVariable() ought to take
+a const CHAR16 *, but doesn't.
 
-Cheers,
+We could fix this with:
 
--- 
-Julien Grall
+diff --git a/xen/include/efi/efiapi.h b/xen/include/efi/efiapi.h
+index a616d1238aa4..56775d553109 100644
+--- a/xen/include/efi/efiapi.h
++++ b/xen/include/efi/efiapi.h
+@@ -224,7 +224,7 @@ VOID
+ typedef
+ EFI_STATUS
+ (EFIAPI *EFI_GET_VARIABLE) (
+-    IN CHAR16                       *VariableName,
++    IN const CHAR16                 *VariableName,
+     IN EFI_GUID                     *VendorGuid,
+     OUT UINT32                      *Attributes OPTIONAL,
+     IN OUT UINTN                    *DataSize,
 
+but I fear this might get some objections.
+
+I don't think we want to be deviating every use of GetVariable() for a
+problem ultimately outside of our control.
+
+Another option would be to have a wrapper for GetVariable() which does
+the cast once, which lets us deviate in one place only.
+
+Thoughts?
+
+~Andrew
 
