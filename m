@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F6D8B4541A
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 12:06:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1111583.1460258 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7982AB45416
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 12:06:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1111579.1460228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuTKP-0008Lh-Cl; Fri, 05 Sep 2025 10:05:57 +0000
+	id 1uuTKB-0007Wx-HJ; Fri, 05 Sep 2025 10:05:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1111583.1460258; Fri, 05 Sep 2025 10:05:57 +0000
+Received: by outflank-mailman (output) from mailman id 1111579.1460228; Fri, 05 Sep 2025 10:05:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuTKP-0008JX-9T; Fri, 05 Sep 2025 10:05:57 +0000
-Received: by outflank-mailman (input) for mailman id 1111583;
- Fri, 05 Sep 2025 10:05:56 +0000
+	id 1uuTKB-0007UO-E2; Fri, 05 Sep 2025 10:05:43 +0000
+Received: by outflank-mailman (input) for mailman id 1111579;
+ Fri, 05 Sep 2025 10:05:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sj+0=3Q=cloud.com=gerald.elder-vass@srs-se1.protection.inumbo.net>)
- id 1uuTKN-0007UC-Ul
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 10:05:55 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ <SRS0=bvvL=3Q=epam.com=Leonid_Komarianskyi@srs-se1.protection.inumbo.net>)
+ id 1uuTKA-0007UC-7P
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 10:05:42 +0000
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c200::3])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e8b27d3d-8a3f-11f0-9809-7dc792cee155;
- Fri, 05 Sep 2025 12:05:54 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-b042cc39551so350006966b.0
- for <xen-devel@lists.xenproject.org>; Fri, 05 Sep 2025 03:05:54 -0700 (PDT)
-Received: from eddie5.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b046aa92242sm589136366b.59.2025.09.05.03.05.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Sep 2025 03:05:52 -0700 (PDT)
+ id de61d3f4-8a3f-11f0-9809-7dc792cee155;
+ Fri, 05 Sep 2025 12:05:37 +0200 (CEST)
+Received: from GV2PR03MB8678.eurprd03.prod.outlook.com (2603:10a6:150:7d::13)
+ by PA4PR03MB8295.eurprd03.prod.outlook.com (2603:10a6:102:260::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.27; Fri, 5 Sep
+ 2025 10:05:33 +0000
+Received: from GV2PR03MB8678.eurprd03.prod.outlook.com
+ ([fe80::4eb:3e7b:1ffa:25f9]) by GV2PR03MB8678.eurprd03.prod.outlook.com
+ ([fe80::4eb:3e7b:1ffa:25f9%6]) with mapi id 15.20.9094.017; Fri, 5 Sep 2025
+ 10:05:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,199 +47,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8b27d3d-8a3f-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1757066753; x=1757671553; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jFZPIyv8H4QpNXncD0fLMakmtwdcF6geMMtEdUBtCi0=;
-        b=iqnWYmtZM9StToG99kxQA8XvqSwssKTkX0YqXbHor56a+6SalalQkwyOo3RoBJBglC
-         Q8EOEU4SmAq42XLbKjbssUt31o9Q8BSmGJ3he1Nwq75rcbnp1fmm6ymaVhQs0pTJfhqF
-         CA08cBRRkjsBjijk1mfS2vabRWgoAtsE1YC/o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757066753; x=1757671553;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jFZPIyv8H4QpNXncD0fLMakmtwdcF6geMMtEdUBtCi0=;
-        b=qtSJhGUhRcwTIJtFmH5ncL/w09VeoaVe8LnrykoJqhTwgKx6FEMsQKf9ZECL2CJ6Bb
-         ZIC62kKQfxSuKzlM0qSJVuGfT6wbRDc0n973Y5btNzYeZEMDwBDJi0EUKs5gkP3uEcHm
-         qCcb9we9qNSI3OkKYx8t0PIEVYYh9XfUu2Os8OAt8MVN/JdgJJzIM9sz5MPzSL48mwcL
-         Ripb/brPQfTbCGJBew/BnJCBCXHLxmWEKEte7BPC46dwPUzj8Ou/gLKbYqHIyjV36uOt
-         XWAVj9C/YT9gJj7J/tMgzvXFnLr9XyFoivCT7UZXAlPBSaLxqxVeR6Px8dGLOkAjbqJG
-         BI6w==
-X-Gm-Message-State: AOJu0YxGHWiiC507u4kTFS8O/YyCSGR4liwj60qDtM4582oDKzeRLPsp
-	NKL5o2w14onjmzRuRZWml6Gfyeni2DeyuLXCB5/NWLgelcf+9i/dK26XQEPisr7raezmh/43FUs
-	13B6OjrE=
-X-Gm-Gg: ASbGncuavkKWpM1PPkW1Lmuc+Q636NFmzzJoAOzkagbgGq2yFxiJ5rhRwny0kw1vYO7
-	UykTxBNTehhkAUIW5AL9R4o7W5FzvFYFpzxKw1hIu5izqZwo/SseVKXtP7ouTxkG/yC5dYzk7zx
-	VW3J5VcAUhhc5WA1IBBmA9EvdF8M+fVeoHJIRq6oRxGJsaP6EW6NX8C1ZXpMOPejDuqkoM4Uw9x
-	BjbRD/ZYcmyvXSOOC3pgytQbSD3aMcz6HifI+vUxXiWMD6amFOh4oE0/KXJepzsLyxIm3LxulRn
-	HVQuGfIJ+ov2VnwIpFIz0ki5eFu1umREBh86SlPlShjNWd5M1cj0/kgP/AvKNUCf8zNrk3wWE5S
-	SNIUXFPKuHZNJpooJI8vkNS9O9N5LmCjvHbDo+JhS48I8lleeIiW3xQw4
-X-Google-Smtp-Source: AGHT+IH1uJXgc+Og0UAYVQaB/CKdTRswzWM/Ns9vG0UwIwswegVos1qeIoJ7Tku7FNeKt/rXmG0zfA==
-X-Received: by 2002:a17:907:720d:b0:b04:5a68:8686 with SMTP id a640c23a62f3a-b045a688d92mr1293084266b.4.1757066753266;
-        Fri, 05 Sep 2025 03:05:53 -0700 (PDT)
-From: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
-	Kevin Lampis <kevin.lampis@cloud.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 2/2] efi: Support using Shim's LoadImage protocol
-Date: Fri,  5 Sep 2025 10:05:32 +0000
-Message-ID: <7f4a47d5dacf5b2db2ddd2ac72c5e0f236f9be46.1757066332.git.gerald.elder-vass@cloud.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1757066332.git.gerald.elder-vass@cloud.com>
-References: <cover.1757066332.git.gerald.elder-vass@cloud.com>
+X-Inumbo-ID: de61d3f4-8a3f-11f0-9809-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zPPymxeUQLhU6h7Au1yUzCnjdfxamn9tHtSrgag7Sgulz/lhVQqXfeYMC1WmvSapqdWOMMvfrkRlJ75xNS/u4jGaCBjUOSf9s7IPCytINofk3d7Q0Pz/8xrgdMcAvTq2q2mdIl4IcWMjpD0cpN5LisUs7+N+qUYub6qkIxRAp57DtKpeSXAgmHWYb+LvbBFgXRkwpOkjVTXFCwJ6VMT+vFeqbNGFCsZbCMWbK0W1BPud+4g9qt6/zA5/DnBsWTYHufsmZS5U4SD7mzf6MBJrhKS8BeicCkViTBu8pU1LmgmR2/ITt1ivNO2NWBaIjF/Z2Kif0KwxPYBjwdmvUWq7jQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DdungOsxOzp7BSzikz/ChkxnYS9pubO+hZKQjxzrfWc=;
+ b=hbsJisVAfCKHTADzzI7Bum1+dGo9tfGtThi4sMxbt5xk1bpWAWgpUzJZlVzNM8rPcbP2Ea1kimj+tf30CLKSHNB5Dt+skN3Zz/dAIGkgYcZ+H0S3VC9XLR21qunyS7phGxoiH9LS4BL/n//PCPbT3k6nVA9WBOhWIlQy2WxhibDarEecPlDjxtLhXwkUtkub3r2Ps3F85GIaET1qdK6q4IuaSR1nUnQZ2zH1idYSR1A7Q6D8w+DANYay0syh5KOMs9pPf9/PK6hbMH48tozE7dBLqAZgqrA/Z8QyY0Hvi1XUNt37E9urzJ5C0lRxLcVPSId3VTUStOixRdsaEl3RYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DdungOsxOzp7BSzikz/ChkxnYS9pubO+hZKQjxzrfWc=;
+ b=Jrl6n6TM1n3aUg48zZ2Mx/PeKzkulxc/aQXs/KT8CdwOxIDVLPDqhqBboG68c7ZP55oJsYknLDdtzNIKHJlz9HqLwCbmA971jNfMhM6wOjNYsB8+Y0IkPPzEmIVc2FxaiSkW6pPqsF/o5HbtMtEExA8fxzBJBIud66EUFQKj9ts3YNIxWn6RaYNTDT5L88XRd0Kzpo/R6XMQrh680m+PVEemIhxnWGseJXInqdZA7kXWi+3yadjl5/g41zsj92PqJzn3e/a/A+b/wuahTxtLeDoJouAZU0x7pKEpz4K2dS3D3T9rXL2XmM/Nl04CYtZAP5CwByz2lgkY0qmdpOcFcg==
+From: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>
+To: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: "olekstysh@gmail.com" <olekstysh@gmail.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal
+ Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v7 04/12] xen/arm/irq: add handling for IRQs in the eSPI
+ range
+Thread-Topic: [PATCH v7 04/12] xen/arm/irq: add handling for IRQs in the eSPI
+ range
+Thread-Index: AQHcHdaxzH0gJHOWB0uscg50WGUPx7SELLEAgAAw3YA=
+Date: Fri, 5 Sep 2025 10:05:33 +0000
+Message-ID: <00bfaf5c-c502-4792-a426-015f72dfc2db@epam.com>
+References: <cover.1757015865.git.leonid_komarianskyi@epam.com>
+ <8b43ad89380261c3a3bbd0bc943461226d9cf0ce.1757015865.git.leonid_komarianskyi@epam.com>
+ <3a487f5c-0837-46b4-ad17-410a4a4bc78a@xen.org>
+In-Reply-To: <3a487f5c-0837-46b4-ad17-410a4a4bc78a@xen.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR03MB8678:EE_|PA4PR03MB8295:EE_
+x-ms-office365-filtering-correlation-id: 3b216163-e876-41a7-1f7d-08ddec63c0ce
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?MU5zZnI5RDNXV0RBWHVUZGlUL2lFZEFaR29GOHFiVy8rOTBzSTJxOVFpK1lC?=
+ =?utf-8?B?cmFBWmF5WjBiR21BL09ZZnR6ZTlCMWZ4ajczZW9ER2pSay9xMk4wMDdhQ3ZV?=
+ =?utf-8?B?bWdDdkh2YUMwY2RSbEp0SkFxY3dqY0N3eVdWRFFCWldLQ0FBVXBJQmtrQnV2?=
+ =?utf-8?B?Znp1NyswTHp2elMvT1BqY1ZWQUhFeGloQXF5NklNQklVbSsxTDRKZmpaOFRE?=
+ =?utf-8?B?empKMkVNMGkzOTNUamlLamliMnB3SGdwcmlTZXdvdGZZc2h0YVhpUk1Mak9a?=
+ =?utf-8?B?L3RtejRCODdhSUp3eHFNaHI1U1ZiZFNyeDZ2TTlra1ZldHpWL3R4bU1SWCtQ?=
+ =?utf-8?B?cmJqRkNIdGg4aEpwdk82OUp0eU9QMms5K2tRVUVwUUVDcC9YSGpUaTRUTzUv?=
+ =?utf-8?B?dVk4dElQUk1hc2IzYTJEdmRKTTdSay96RmlVMW9zYlcxa1B2K1gxK0VOK2Z2?=
+ =?utf-8?B?VlBEVE03eFpVazRCSGZXbHM1VHBETFExQWNoQUVkeTZVeDZHcnFjMWhRWktQ?=
+ =?utf-8?B?UHVxV1VEa0xpa0dRenRZNVRMK2FMdmRpaTVHamJaZkIwbWhRMnB5b3krdVI2?=
+ =?utf-8?B?a0dtOEFjMFg1elRBQUc2cTVoRUhDMURhZTk1MU0wLyt0U3dRN3hTSU5YQjNR?=
+ =?utf-8?B?TXdjdnBXZGdJYjB5cXE2djB6djdxblJqb0Y3Q01GM2hwRnJ6dDN1TWdjVU9Q?=
+ =?utf-8?B?THo1YnlFSldNYWNaeEljLzU0cmYxM2habXlMWDBpNkY4c0RsdHdHc0grNnU4?=
+ =?utf-8?B?ckRyK2RpamhFcTBVME5sL1Q4L3RhUHJSckVmbHBzbGQ1Q3hXc3dMdVdDVDhO?=
+ =?utf-8?B?R2xzcXJ5NUFRdWI2MldsTzdoUUlyTFB0Vk9QYUIyNjhzbk5RUVRhaThLZVFM?=
+ =?utf-8?B?MXRoT2lFVkpFenR0ZGNCb3NhNDJRWmtkM3p6dlEwVVptbTRHbzl2dnk1cCtp?=
+ =?utf-8?B?TTRmNXZHMUphQW1hZzM3L0pxZElzZVIrWWZlakd4dzdNM0UvYjNCTWp6SGRi?=
+ =?utf-8?B?R2hiNVZ3MXdGa0xNalRHQmJOZGVYbXRLR2VXZGFNZTl3V09rLzR2aGN1TFg3?=
+ =?utf-8?B?OFNER2twN1R3ZFhzUGszT25QbEV3Uy9TOEJsMkdvbCtTOHhqV2dQWUJod0RT?=
+ =?utf-8?B?YTNXbm9IN3llbDU2WTlaamtVNkxGVlFnUkxFR3l4TFkwaXIyOFhBaER6MFdJ?=
+ =?utf-8?B?TC9OL3EvUUltRm45NFdDNks0blhoYkpvN2ZkbnF3SVFzMmFPNnovUWU1UDBC?=
+ =?utf-8?B?WTVrTjNUNlE5NU1sTXdJTFY4TklPV0cwNWVNcDltMVpFMFhkODZoMU1nMS9I?=
+ =?utf-8?B?UUN1dWZOWmoyOWRqa05qdm03bjRUcys5azVLcHdOSElHYjljYm1XWFFPNnVO?=
+ =?utf-8?B?MmFjdmJEREhsZWFPVE91bEFYMmxsWUVGMTlhQVJ1WkVQWU12cXVGZXVzWGZJ?=
+ =?utf-8?B?VmVSa1Z1WnlOcVRZajFpV3ArdFcwajJxVXh1SjRhRXpxRStqaW1JNy95MnhN?=
+ =?utf-8?B?TUtnRitlWCt1SjNMbnJhWGJMKzRpNGhJRWgvYnBiQnNDTmdQbUg5Vld3Uysr?=
+ =?utf-8?B?MnBiT01mWHVzQ3QyaXBrdmE1dDd5cU4wa01FblZHS2xSN053MnlzS2M1Qytz?=
+ =?utf-8?B?NE1RT2xkMkxlN3VRaWZxTUdsa3JaVkV1WDYxczdoR1pYZVRaM3VkMVZ6STZk?=
+ =?utf-8?B?L2NZUlRWSWNKNHRSbXRuUFF0OHdSMnFrVWtnamgwdzVKRHF5Z3ZIemdGMFB0?=
+ =?utf-8?B?NmhXNk91SW5DbTNoN1Z5blc5OHVMbmpUbjQxOWVEWDBpU0E1RW1rL2labW1M?=
+ =?utf-8?B?emRZcDkwQzJGZllqUjl4VXhHTnBpZE91bmtrWU5JTDZrNzFoaUdHMlZzeTUr?=
+ =?utf-8?B?UEhPdXpxRFBGYmcwT2ZJaE9VcmNUSWlSeXluTDNGM1RYaEx0RXd5NlFmSU9w?=
+ =?utf-8?B?bmtVaWdkL1BLRDUwenY3UFBoalhnY1R6ckV5RWwvc2FqSmtGQUhsZUxuZ09O?=
+ =?utf-8?B?LzFFZlNOMXhnPT0=?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB8678.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?b3FZN1dDYm1peVJ6WmhGQUUzaGJ6WGtqTlUyZ1JlRWxFV3VuK2tFZ1NUaVZq?=
+ =?utf-8?B?ZlRMRFg3UkhnZ08wNFk5Z2piYTMzbTdBT0VTL2lPMG9YL3VXVTg1TUhvUkx1?=
+ =?utf-8?B?ckZGNW5yYXVvWjhNaWg1K0RmUTNLMkM0ZlI5VHp0UEZvSlNMQXV1UkpFaFNS?=
+ =?utf-8?B?VENJNnZ3ZWVLTTF2QWRuUkJacTdkYWNmUm5ZY1dsSXp2dHB2b0hsdzkxU3Vz?=
+ =?utf-8?B?bjVwR2FhVUdQOVVsYmlRV1BYWGs0Q2cwRy9iOUdMdWZsRzBQem8xMXB2UXRY?=
+ =?utf-8?B?allaeHdvcXdEQzRhdUlFWEEyVENyZjErQUZ0MG56VEpneXBJSEEzcTFodVp1?=
+ =?utf-8?B?aUl4R2N1OE0xNjZXREsvalZzUncweHlFU3A5NnRwUW5HMFZQa0lyT2FwcHFu?=
+ =?utf-8?B?YVM3MWZCMmt2d0NlWjJNdHFBdk9HOVpBTTNRV2drR2Z3UUorbERrQzNRUmM3?=
+ =?utf-8?B?MTJNaC9EUUFpMUVKUWpIbzMvMXM5ZDdOb3poNTBwS3dzSUU5cy9wQ1BVc00y?=
+ =?utf-8?B?Sm5kdnErU1Y4N1k5QjJCYjlQdlNjZ3c5bjVzSTc4WjdMNWs2b3QxZU5FQW90?=
+ =?utf-8?B?cEZWZE5PRkxaVzR5YlZLTGdpK3JKUm5uelBzbWRWS085cTF1N3REQjlKclVV?=
+ =?utf-8?B?dGdJYXNYeU5hbStwdWxNVTJXaEt2QytUS0ZiamJNTUgwUU9OTnRHa1g3OE0v?=
+ =?utf-8?B?ZHZMZXhJU2U1TEFPWDU0a0dxQzhDM0Y5Y1NnY3BMd2IrbTJDa3BmTmJqL0k0?=
+ =?utf-8?B?RXVrQTE3dUJFNGg3U0FudzJkeVhPY0M0NWFYaHl3R3RCVXY3MHNpNUhyUVUz?=
+ =?utf-8?B?YnN0UjE3Z2RTVTR4T0hyTFFJMnFiam1aSGJ4c3Vuc0MyOTk3TjRNYWV3T0pu?=
+ =?utf-8?B?aHAxS2dXaTd4UXFIOEZMRS9YaUtjMHNRNjdOYXU2U0JMbkdxcVZKbVpCWlZF?=
+ =?utf-8?B?NjV5YXJCNWJXRHpINFFnZjlLR29GanVweisxTEZSYTg5UEFSeFk0OHQrakpV?=
+ =?utf-8?B?aXBwYXA1TFlXejlDb05hMVMzRVowejVxMUFybzYwd1dBWjROQktUR0FRaDNL?=
+ =?utf-8?B?TnVlREJTMEpLTUltU0htOVYralEwbTRhLzlqdU44V1pUbkRNUVN5RFd1cnhX?=
+ =?utf-8?B?cmRVK1NJNGdRWWdFNDFieHVDTkNUTW90STM1R1lNcUJRcVhFc3JBd2tudXVu?=
+ =?utf-8?B?c3Vhbks4U0VzUDNMZG9wRzQxUkl4OEl6aENoUFRXeXhWbHpXQlhGbjM4SGFN?=
+ =?utf-8?B?T0hXL3o5SUhaeWs2OTNzUjIxL0MzYmpFem4xQXZrUW1sN2d3OFU4L0tKTzFD?=
+ =?utf-8?B?cHNtdWVUcHB2QVByUXpJbkRCL25TMWhBWDRJZWZaREM2M3BzRloxTVNZTmJ1?=
+ =?utf-8?B?UnZOU0FZcEVtUDIvSXRrMUJodnpWNVZ5aWx1dmJ3WGx5d2lFUkxrNjd1RW9M?=
+ =?utf-8?B?NEs0dkdseHhtTFBYQXFzVnN1ZloxRXVDWGtIL05IOUVRb1dGZGtBVkJsUlh2?=
+ =?utf-8?B?T0VwbmJOWGdpc3FldlArclRhSmp5eG5NMXVodUw1bzNoRklTUm5vamRxVFBS?=
+ =?utf-8?B?Rjd1Mk83TUlJTjI5dXRNcWlOcUMyMEtEeGdnQ1dINSs3TjVXZWNhOG1OeFFQ?=
+ =?utf-8?B?M0NaaEsxTElRNjVaeVppR0g1Qm95Z05UQStVbldvb3RnUGNUSksvMWRQUWtK?=
+ =?utf-8?B?alFmK3l0NFpSYjZQVG92VlhxQjVUeWhZaVZ2bzJBMHdCSmFqTy9lc0RBZ0NW?=
+ =?utf-8?B?OHFCMzNCUTQvY2lPQ2dubktrTjVZNWtQSXphazlhWitGR0paR3NXam1qcFJn?=
+ =?utf-8?B?RTh4SG05YWF5ckhCL0lvMFJydllkdS9RQzVMM3YrZUVMQzZOem93bjhjb1Fu?=
+ =?utf-8?B?MkhhdG9vc2hIYlFGRXE5cWdMdjZORGVFRjM3TXF1Qm84dDk2cVFrbks4ZEZZ?=
+ =?utf-8?B?MDZoQmVzUjF4dTdiSk95b3Y3ZXkydTBqRjBSQjZQWjY3NURNZG1ZVUp3cHpi?=
+ =?utf-8?B?SG8vTW5xN21wNkhhd1UwNWtNTVVsTmgzUkFEUE80WWgxNzJmSEdBUzBlMFQ3?=
+ =?utf-8?B?cllqSDlsczdiRXBFd1hhY21WZi9ZSFBCL3V5MHZMZnYzWjlVaVlHUUJvblhM?=
+ =?utf-8?B?SU4rLzE4K2VrSFR1a3BiRktSb3c3YnhuNXJvK3BDZytDTDhIZkxVT1lTY1hB?=
+ =?utf-8?Q?nnEtwkRPd3NjWveyyEkDCjE=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <D1ED32A546B5EB45A1AA48F0219B94C8@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB8678.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b216163-e876-41a7-1f7d-08ddec63c0ce
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Sep 2025 10:05:33.6329
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /oO6h2wPOVnIKfL0apTxr4B6+J4Gch6oXWoKQedDnJO/9NTF5SmO7PvX8k9g1aH9H2S4ItO6SH1fYMEte6dG80dEC0N5+8PEQadOZnbHJq0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB8295
 
-The existing Verify functionality of the Shim lock protocol is
-deprecated and will be removed, the alternative it to use the LoadImage
-interface to perform the verification.
-
-When the loading is successful we won't be using the newly loaded image
-(as of yet) so we must then immediately unload the image to clean up.
-
-If the LoadImage protocol isn't available then fall back to the Shim
-Lock (Verify) interface.
-
-Log when the kernel is not verified and fail if this occurs
-when secure boot mode is enabled.
-
-Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
----
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Julien Grall <julien@xen.org>
-CC: "Roger Pau Monné" <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-
-v3:
-- Use Shim Image by default, fall back to Shim Lock
----
- xen/common/efi/boot.c | 59 +++++++++++++++++++++++++++++++++++++------
- 1 file changed, 51 insertions(+), 8 deletions(-)
-
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index e7e3dffa7ddc..1f63473d264d 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -38,6 +38,8 @@
-   { 0xf2fd1544U, 0x9794, 0x4a2c, {0x99, 0x2e, 0xe5, 0xbb, 0xcf, 0x20, 0xe3, 0x94} }
- #define SHIM_LOCK_PROTOCOL_GUID \
-   { 0x605dab50U, 0xe046, 0x4300, {0xab, 0xb6, 0x3d, 0xd8, 0x10, 0xdd, 0x8b, 0x23} }
-+#define SHIM_IMAGE_LOADER_GUID \
-+  { 0x1f492041U, 0xfadb, 0x4e59, {0x9e, 0x57, 0x7c, 0xaf, 0xe7, 0x3a, 0x55, 0xab} }
- #define APPLE_PROPERTIES_PROTOCOL_GUID \
-   { 0x91bd12feU, 0xf6c3, 0x44fb, {0xa5, 0xb7, 0x51, 0x22, 0xab, 0x30, 0x3a, 0xe0} }
- #define EFI_SYSTEM_RESOURCE_TABLE_GUID    \
-@@ -70,6 +72,13 @@ typedef struct {
-     EFI_SHIM_LOCK_VERIFY Verify;
- } EFI_SHIM_LOCK_PROTOCOL;
- 
-+typedef struct _SHIM_IMAGE_LOADER {
-+    EFI_IMAGE_LOAD LoadImage;
-+    EFI_IMAGE_START StartImage;
-+    EFI_EXIT Exit;
-+    EFI_IMAGE_UNLOAD UnloadImage;
-+} SHIM_IMAGE_LOADER;
-+
- struct _EFI_APPLE_PROPERTIES;
- 
- typedef EFI_STATUS
-@@ -1047,6 +1056,46 @@ static UINTN __init efi_find_gop_mode(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop,
-     return gop_mode;
- }
- 
-+static void __init efi_verify_kernel(EFI_HANDLE ImageHandle)
-+{
-+    static EFI_GUID __initdata shim_image_guid = SHIM_IMAGE_LOADER_GUID;
-+    static EFI_GUID __initdata shim_lock_guid = SHIM_LOCK_PROTOCOL_GUID;
-+    SHIM_IMAGE_LOADER *shim_loader;
-+    EFI_HANDLE loaded_kernel;
-+    EFI_SHIM_LOCK_PROTOCOL *shim_lock;
-+    EFI_STATUS status;
-+    bool verified = false;
-+
-+    /* Look for LoadImage first */
-+    if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_image_guid, NULL,
-+                                           (void **)&shim_loader)) )
-+    {
-+        status = shim_loader->LoadImage(false, ImageHandle, NULL,
-+                                        (void *)kernel.ptr, kernel.size,
-+                                        &loaded_kernel);
-+        if ( !EFI_ERROR(status) )
-+            verified = true;
-+
-+        /* LoadImage performed verification, now clean up with UnloadImage */
-+        shim_loader->UnloadImage(loaded_kernel);
-+    }
-+
-+    /* else fall back to Shim Lock */
-+    if ( !verified &&
-+         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
-+                                           (void **)&shim_lock)) &&
-+         !EFI_ERROR(shim_lock->Verify(kernel.ptr, kernel.size)) )
-+        verified = true;
-+
-+    if ( !verified )
-+    {
-+        PrintStr(L"Kernel was not verified\n");
-+
-+        if ( efi_secure_boot )
-+            blexit(L"Failed to verify kernel");
-+    }
-+}
-+
- static void __init efi_tables(void)
- {
-     unsigned int i;
-@@ -1334,13 +1383,11 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
-                                       EFI_SYSTEM_TABLE *SystemTable)
- {
-     static EFI_GUID __initdata loaded_image_guid = LOADED_IMAGE_PROTOCOL;
--    static EFI_GUID __initdata shim_lock_guid = SHIM_LOCK_PROTOCOL_GUID;
-     EFI_LOADED_IMAGE *loaded_image;
-     EFI_STATUS status;
-     unsigned int i;
-     CHAR16 *file_name, *cfg_file_name = NULL, *options = NULL;
-     UINTN gop_mode = ~0;
--    EFI_SHIM_LOCK_PROTOCOL *shim_lock;
-     EFI_GRAPHICS_OUTPUT_PROTOCOL *gop = NULL;
-     union string section = { NULL }, name;
-     bool base_video = false;
-@@ -1591,12 +1638,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
-      * device tree through the efi_check_dt_boot function, in this stage
-      * verify it.
-      */
--    if ( kernel.ptr &&
--         !kernel_verified &&
--         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
--                                           (void **)&shim_lock)) &&
--         (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
--        PrintErrMesg(L"Dom0 kernel image could not be verified", status);
-+    if ( kernel.ptr && !kernel_verified )
-+        efi_verify_kernel(ImageHandle);
- 
-     efi_arch_edd();
- 
--- 
-2.47.3
-
+SGkgSnVsaWVuLA0KDQpUaGFuayB5b3UgZm9yIHlvdXIgY29tbWVudC4NCg0KT24gMDUuMDkuMjUg
+MTA6MTAsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgTGVvbmlkLA0KPiANCj4gT24gMDQvMDkv
+MjAyNSAyMTowMSwgTGVvbmlkIEtvbWFyaWFuc2t5aSB3cm90ZToNCj4+IGRpZmYgLS1naXQgYS94
+ZW4vYXJjaC9hcm0vaW5jbHVkZS9hc20vaXJxLmggYi94ZW4vYXJjaC9hcm0vaW5jbHVkZS8gDQo+
+PiBhc20vaXJxLmgNCj4+IGluZGV4IDViYzY0NzVlYjQuLjJmZjJkMDdkNmQgMTAwNjQ0DQo+PiAt
+LS0gYS94ZW4vYXJjaC9hcm0vaW5jbHVkZS9hc20vaXJxLmgNCj4+ICsrKyBiL3hlbi9hcmNoL2Fy
+bS9pbmNsdWRlL2FzbS9pcnEuaA0KPj4gQEAgLTMyLDYgKzMyLDEwIEBAIHN0cnVjdCBhcmNoX2ly
+cV9kZXNjIHsNCj4+IMKgICNkZWZpbmUgU1BJX01BWF9JTlRJRMKgwqAgMTAxOQ0KPj4gwqAgI2Rl
+ZmluZSBMUElfT0ZGU0VUwqDCoMKgwqDCoCA4MTkyDQo+PiArI2RlZmluZSBFU1BJX0JBU0VfSU5U
+SUQgNDA5Ng0KPj4gKyNkZWZpbmUgRVNQSV9NQVhfSU5USUTCoCA1MTE5DQo+PiArI2RlZmluZSBO
+Ul9FU1BJX0lSUVPCoMKgwqAgMTAyNA0KPj4gKw0KPj4gwqAgLyogTFBJcyBhcmUgYWx3YXlzIG51
+bWJlcmVkIHN0YXJ0aW5nIGF0IDgxOTIsIHNvIDAgaXMgYSBnb29kIGludmFsaWQgDQo+PiBjYXNl
+LiAqLw0KPj4gwqAgI2RlZmluZSBJTlZBTElEX0xQScKgwqDCoMKgIDANCj4+IEBAIC0zOSw3ICs0
+MywxMiBAQCBzdHJ1Y3QgYXJjaF9pcnFfZGVzYyB7DQo+PiDCoCAjZGVmaW5lIElOVkFMSURfSVJR
+wqDCoMKgwqAgMTAyMw0KPj4gwqAgZXh0ZXJuIGNvbnN0IHVuc2lnbmVkIGludCBucl9pcnFzOw0K
+Pj4gKyNpZmRlZiBDT05GSUdfR0lDVjNfRVNQSQ0KPj4gKy8qIFRoaXMgd2lsbCBjb3ZlciB0aGUg
+ZVNQSSByYW5nZSwgdG8gYWxsb3cgYXNpZ25tYW50IG9mIGVTUElzIHRvIA0KPj4gZG9tYWlucy4g
+Ki8NCj4gDQo+IFR5cG86IHMvYXNpZ25tYW50L2Fzc2lnbm1lbnQvDQo+IA0KPiBbLi4uXQ0KPiAN
+Cj4+IFVubGVzcyBJTlRJRHMgZnJvbSB0aGUgZVNQSQ0KPj4gKyAqIHJhbmdlIGFyZSBtaXN0YWtl
+bmx5IGRlZmluZWQgaW4gWGVuIERUUyB3aGVuIHRoZSBhcHByb3ByaWF0ZSANCj4+IGNvbmZpZyBp
+cw0KPj4gKyAqIGRpc2FibGVkLCB0aGlzIGZ1bmN0aW9uIHdpbGwgbm90IGJlIHJlYWNoZWQgYmVj
+YXVzZSBpc19lc3BpIHdpbGwgDQo+PiByZXR1cm4NCj4+ICsgKiBmYWxzZSBmb3Igbm9uLWVTUEkg
+SU5USURzLg0KPiANCj4gSSBhbSBzdGlsbCBjb25mdXNlZCB3aXRoIHRoaXMgcGFyYWdyYXBoLiBI
+b3cgaXMgdGhpcyBmdW5jdGlvbiBjYW4gYmUgDQo+IHJlYWNoZWQgaWYgaXQgaXMgY29tcGlsZWQg
+b3V0PyBTdXJlbHksIGlmIHRoZSBEVCBpcyBtaXNjb25maWd1cmVkLCB3ZSANCj4gc2hvdWxkIGdl
+dCBhbiBlcnJvciB3aGVuIHRyeWluZyB0byByb3V0ZSB0aGUgaW50ZXJydXB0LiBObz8gSWYgc28s
+IGNhbiANCj4geW91IHBvaW50IG1lIHRvIHRoYXQgY29kZT8NCj4gDQo+IENoZWVycywNCj4gDQoN
+Ck9oLCBzb3JyeSwgdGhlIHNlY29uZCBwYXJ0IG9mIHRoZSBjb21tZW50IGlzIHJlZHVuZGFudCB3
+aXRoIHRoZSBjdXJyZW50IA0KaW1wbGVtZW50YXRpb24uIEl0IHdhcyBjb3JyZWN0IHdoZW4gdGhl
+IGZ1bmN0aW9uIGhhZCBhbiBpbXBsZW1lbnRhdGlvbiANCmFuZCByZXR1cm5lZCBOVUxMLiBUaGUg
+Y29ycmVjdCBjb21tZW50IGlzOg0KDQpEZWZpbmVkIGFzIGEgcHJvdG90eXBlIGFzIGl0IHNob3Vs
+ZCBub3QgYmUgY2FsbGVkIGlmIA0KQ09ORklHX0dJQ1YzX0VTUEk9bi4gV2l0aG91dCBDT05GSUdf
+R0lDVjNfRVNQSSwgdGhlIGFkZGl0aW9uYWwgMTAyNCBJUlEgDQpkZXNjcmlwdG9ycyB3aWxsIG5v
+dCBiZSBkZWZpbmVkLCBhbmQgdGh1cywgdGhleSBjYW5ub3QgYmUgdXNlZC4NCg0KU2hvdWxkIEkg
+cHJlcGFyZSBWOCB3aXRoIHRoZSBjb21tZW50IGZpeCwgb3IgY2FuIHRoaXMgYmUgY29ycmVjdGVk
+IG9uIA0KY29tbWl0Pw0KDQpCZXN0IHJlZ2FyZHMsDQpMZW9uaWQNCg==
 
