@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C17CB4607B
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 19:43:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1112244.1460618 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F35C9B46249
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 20:32:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1112283.1460628 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuaTL-0000m2-If; Fri, 05 Sep 2025 17:43:39 +0000
+	id 1uubDR-0007g2-1Y; Fri, 05 Sep 2025 18:31:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1112244.1460618; Fri, 05 Sep 2025 17:43:39 +0000
+Received: by outflank-mailman (output) from mailman id 1112283.1460628; Fri, 05 Sep 2025 18:31:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuaTL-0000jK-F8; Fri, 05 Sep 2025 17:43:39 +0000
-Received: by outflank-mailman (input) for mailman id 1112244;
- Fri, 05 Sep 2025 17:43:37 +0000
+	id 1uubDQ-0007dC-Uw; Fri, 05 Sep 2025 18:31:16 +0000
+Received: by outflank-mailman (input) for mailman id 1112283;
+ Fri, 05 Sep 2025 18:31:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=r9AX=3Q=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
- id 1uuaTJ-0000jE-EM
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 17:43:37 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20621.outbound.protection.outlook.com
- [2a01:111:f403:2009::621])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gPPU=3Q=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1uubDO-0007d5-KA
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 18:31:14 +0000
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c201::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d627d7c6-8a7f-11f0-9809-7dc792cee155;
- Fri, 05 Sep 2025 19:43:31 +0200 (CEST)
-Received: from PH7PR12MB5757.namprd12.prod.outlook.com (2603:10b6:510:1d0::13)
- by SJ1PR12MB6265.namprd12.prod.outlook.com (2603:10b6:a03:458::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.19; Fri, 5 Sep
- 2025 17:43:26 +0000
-Received: from PH7PR12MB5757.namprd12.prod.outlook.com
- ([fe80::f012:300c:6bf4:7632]) by PH7PR12MB5757.namprd12.prod.outlook.com
- ([fe80::f012:300c:6bf4:7632%2]) with mapi id 15.20.9094.017; Fri, 5 Sep 2025
- 17:43:26 +0000
+ id 78bb5216-8a86-11f0-9809-7dc792cee155;
+ Fri, 05 Sep 2025 20:31:00 +0200 (CEST)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by DU0PR03MB8551.eurprd03.prod.outlook.com (2603:10a6:10:3e2::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.17; Fri, 5 Sep
+ 2025 18:30:58 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%5]) with mapi id 15.20.9073.026; Fri, 5 Sep 2025
+ 18:30:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,255 +47,274 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d627d7c6-8a7f-11f0-9809-7dc792cee155
+X-Inumbo-ID: 78bb5216-8a86-11f0-9809-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rmQBnyGgLjdP99D8mr1ZZogFkvBu1GxixVCgMdOsUWxb7Y7dqG5e+koq3mTeMPTToZgitqTT6e1UglS7EbP4Rw9TUv9UnB90iMWx0RLnpSdBkLknwifgJ1DNtR9E933WXvlc/V5xJ7OAvMdnk3f6v2JVKVglxVOY34+bvJvnTI0LsHB0nn6Z9EfrwT3k7Y7OHjApHh14YlyE9fO2PIn2zBJL8aZxaNf+CWSu4cVMEeF+1ot5e3511WnUG42G185AlKfOy+r4WoEcWrFAUgHChpIOAwdiVWsWUj5VEvvYEV0MM84KpdabrtEiHLn72sLP3bN4pBYFNb6p4ozf9FEN0A==
+ b=grw8OoeqFWzY2kWJhdx43YBJH1IZ297GbluVT7aLdfXUnr+jr5qAFyGl1NAT6YogwCbucpk+9ScNA/SOVgIdS6Q1NV+H/bLHBTqkNdwUcr1l71rsylEnH+yExqe7nSXOaakOVEWu6Q6LoawvXMZPJ7RMj1NWA3QC3Rd2kKxKN6ss1NNUkkYe+Ika6Ny07S5PJrI68oNZqIlLHCOZvaHQk5eF4eljsC3pWWL9KrlSngchLke/5u3aULUxLax+Yjcc0j16zPOm+m1S0fltHn4R3PfzfmYT5eQ0yd9wQ9vIhnfesqzjTC/+gzrubWkcKEpnawE5nA+qihc/yvd9ETr6sg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vILuWYAAHp1MhRoYT7hppsLaBLiTCuQw0wAnrfxfM18=;
- b=VxD8f7g/AHWTj4kRyxL+bwM6OhT6Mq+UQdCsG9L/NC1IDywcIcLByLEBSsh0gzCeBPbtpAqcrmM701hHjqznNoZxyMnwKdhXdxnPJsQ3TkGH6L4u/rL7RUVTralSADDnDRv6iZA3Ty5pC2mR4nI3fosiRGUJmkno6cs8lhx0UUFjpR0jcfPizdAQmWDSLIwdg7qsukogILm7siHujIfBUzcDUkUFMk9jIipTBRQWiCJxofamNzt7GQUab8VyMViLupZfb2UcHLtRyc9bPMZegqAD71c+Vf6SJkBy+l4OBEyMOJfDCflXzkRURoji3f7Xebtb+0vvCTtB6NyV2ALP7w==
+ bh=TcedgvUfzEoVTbTnQolZsWuqm45lXszulgJq2t5d1UY=;
+ b=s94zzmFV++hbBoclP8t+OMu7BrOLqY94vMwaBxLj9zZTWX5aXbu0v4/vTQX87l//358y9j/Plocz1IS3jVUX3T0mBhxQQIUfMi7k6dWM0q639UOGuCIwB1FG7EsZCgC9kCp0XKrLUtiRmeRyKDs/5JhWwJC9neFSGys+1rydyWgqu2jD4uRfFEHCx5/CKmdg2rN4zlAbbfvcEc6cHx1DeAbS3gIuDWaWPlg8Z6T2tXd2iH1DNbBtEH3pUMxQP7goSR5T4Ro+BGlKGK9iS1JRUQnZIqjuFPITvFJuYahyGU2qtMurFAJShsWIUb2r7XLlr/SNd8mFY+bbSVmOdOg2tw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vILuWYAAHp1MhRoYT7hppsLaBLiTCuQw0wAnrfxfM18=;
- b=hep32/RkEYW+ok3gUCMJe4RtW6SgpBDdBVE8CHVUTzQCa5m5v/1yx87NmAhrs1K5hhzKD4b52iUL0I88kmVtUEGPWQUl5/akQe4PFC7jj3GgLtelFz6U2KmwrI4ZvIR0yKtLmIuuc1rZIUOWnuNC53CKj/bM1Fyxk+7EH30TgVpz9Fq9/B/rTeRXDKZOnoDCwHfDs9JjhednG2648vJ8op2lBrZ5h/IUJa6jNMf5IRJOTUzflxRbmiCBALaZ/RYo7DNQOvrzShcEl0WZ6wagOzPxGkjK0M8fl61w1MvbhqX4sAYaY6Qkwt3tRDp0Z6yA4hTPuOTJy3IRT7aQfbAb9w==
+ bh=TcedgvUfzEoVTbTnQolZsWuqm45lXszulgJq2t5d1UY=;
+ b=Ao+xuiioEw7MLRPD6J2vv6wNvSVBhGJ13XjxucjzXGwQZqVR/YKwYSuN/0Lnbdlr0njeCyJSQsdZQWPUW1qiJ3aWuR8GDN6sCfuk8FBkvvDPi4xhExtb2Qktw28k2VcYykGse/IsILEaPdNrvgy5kGNK53xilNGOFAFO12+IWafOWAgfUseoL9/Ie0aegZET8eW2qRMFruJbeLsVqNvEknnxptBiVy9RMzOE8fNpQUzph7CJhx/uJdic3VPjwS9NdXhMBYRpBiT42+RugPKGx44d7G1b3DQ+7Qxip5KMuSNrhW2N0RhanoSpK08CcQX5eKsY17LxhxYv1syrw89wOg==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Date: Fri, 5 Sep 2025 14:43:24 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
-	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
-	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
-	kasan-dev@googlegroups.com, Keith Busch <kbusch@kernel.org>,
-	linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
-	linux-trace-kernel@vger.kernel.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 00/16] dma-mapping: migrate to physical address-based
- API
-Message-ID: <20250905174324.GI616306@nvidia.com>
-References: <cover.1755624249.git.leon@kernel.org>
- <CGME20250829131641eucas1p2ddd687e4e8c16a2bc64a293b6364fa6f@eucas1p2.samsung.com>
- <20250829131625.GK9469@nvidia.com>
- <7557f31e-1504-4f62-b00b-70e25bb793cb@samsung.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Message-ID: <99fd1f8c-03b5-482b-b421-ba17f4b17e17@epam.com>
+Date: Fri, 5 Sep 2025 21:30:56 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] xen/arm64: allow to make aarch32 support optional
+To: Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <20250806094929.293658-1-grygorii_strashko@epam.com>
+ <20250806094929.293658-4-grygorii_strashko@epam.com>
+ <87ms7l39gl.fsf@epam.com> <540abaa2-9946-40b8-bf49-b54e4f7a1393@epam.com>
+ <87o6rpqent.fsf@epam.com> <1b27dc46-4d5c-4c6d-8976-0f9b98d11d6b@xen.org>
+Content-Language: en-US
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+In-Reply-To: <1b27dc46-4d5c-4c6d-8976-0f9b98d11d6b@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7557f31e-1504-4f62-b00b-70e25bb793cb@samsung.com>
-X-ClientProxiedBy: YT4P288CA0088.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d0::21) To PH7PR12MB5757.namprd12.prod.outlook.com
- (2603:10b6:510:1d0::13)
+X-ClientProxiedBy: WA0P291CA0006.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1::18) To AS2PR03MB8907.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5e4::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5757:EE_|SJ1PR12MB6265:EE_
-X-MS-Office365-Filtering-Correlation-Id: 170388cd-19af-4e89-c8e6-08ddeca3b7e5
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|DU0PR03MB8551:EE_
+X-MS-Office365-Filtering-Correlation-Id: 830199fe-8712-427f-ceec-08ddecaa5b5c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dnhUVWFhVWdmcThFZmlyQS96TlhJNjEzcXhwUm5sU1lSSFcxdkYwUWhkNG9P?=
- =?utf-8?B?Y3lobithTmZ2SzdianR2NEQ5Sy9IYUMzclFBeExOekUxV3poRXExMEtSc3Ro?=
- =?utf-8?B?bFAvWUNqRUhyaUxmQ1BYM2o5dDYrMFpUeUl0N0p0WXppVm9LZ3BzM2RLQnBC?=
- =?utf-8?B?ZFE5U1QwMFg5Wmd4TUs5UE5sRnNubUFSdHZsVGJQQnRxT2I1cDM1MkN4Yy8v?=
- =?utf-8?B?UXRKVHRWd2RyN3Z3QStUU1RUSjlQR2U3aFN2S0tnSk9EOWxpZHpsaHRyMHpZ?=
- =?utf-8?B?emg4TUdSdVRkMitYelIvMmlUY3daV0RmRXFCbFpRSGFHeTA4a1UvQzBPSElF?=
- =?utf-8?B?Ynh5NHRjQ1FmZlZyOXhueUR4Wml2aEloNUZpRnF3bytpRWJPNEZzeEVZK3Rl?=
- =?utf-8?B?dERBdHZMWjFzak9xNklUQmRYaWlFR1pQMW81Wkw4VEZWcThXQ2tkOFFKeFZD?=
- =?utf-8?B?VzhsR2hJSDBCMy9qQnk0YXMxZ092Q0tvZ3dhWW9XVnZkZHpNTnBvL3BmMVJ5?=
- =?utf-8?B?eTBVVHREU1dwOGhieWNGQUNFa0pCRjJCS21KTENxb1JsQ0kzNzM2TWJkV0xH?=
- =?utf-8?B?eUVuazZjMGc1Zk9CVlRKS1IrQjBhSG9CN1R3d3pGbjNUR1p1Y1RSQmpiTkEx?=
- =?utf-8?B?RENUTkI5OU1zS0IwaFlJaFRHNk84UWJacGhNNXowQ3pQR1oxYzhhTFRmZXov?=
- =?utf-8?B?YmFTUGRqbS82MEYyanI0eW9ydllVREJHL3RsU040VGxQMFpsdXNYN0czRVll?=
- =?utf-8?B?RXNacE1BSDN4cXNLNnZneDh3RVBoM1lnaWI1RFhDMUpvK3cvVlltWTAwWVBP?=
- =?utf-8?B?ZjArMnoyQVMyTGxHVFFMajRRMTlwdy8zaDNFMmpvYVdXSGFzK3ppL0ZIY0xL?=
- =?utf-8?B?elRFdjdZNDZjUmwzTTNsamFNbUJPeU05cHBxV2l5c1Z3QU5VemhMaFZzOVV0?=
- =?utf-8?B?Z2JMckpUTXBRckJKZ1VQeHRHaFcrUFpnNUNOcG0rUVBHM01SOVNONEpzZktN?=
- =?utf-8?B?MEtMZ1FEc0ExWVNkTXB0V2wzc2gxQnZmUExidWU4TERrOEJqYWV0WnliamQ1?=
- =?utf-8?B?UDRFRnoyazMrUlNYN0hvK2dnc0QrVy9mNHJzN0xZKzBIY05wRlJBWWxzc2VO?=
- =?utf-8?B?NE9iNnhISHV1YWlGWHNNVUdmQm5CSjh1cmY1M2lKcXRDY0ljdWNLRXFldXdw?=
- =?utf-8?B?ME1yR2Jtd1dYclVHVzNocmtYQTZJNTF2b3VuQU1Tb2YwUnRFNmsvN0ZaWlJT?=
- =?utf-8?B?VmM5dURBT3hKYVM4K2xjQWFCdkZZUW9lRFhwV1pRblQ2V2tsZ01OTzdwSlhU?=
- =?utf-8?B?QXdlaW81bEZjYmNzaktzOFNJa3BSRWZ3STFQTzBJYVJjYWxDTHVFRlIrRFU0?=
- =?utf-8?B?NnBpTjhpZWZ5MFZSRjg3REJEd1I0TVM2c3RsZkFITjNKRDN6QWVKbUxhSS9R?=
- =?utf-8?B?K25aVGZCMDR5anZrQ0daa0VoTWJEYnV1SEx2YXdWMkw0QjFsMzNrWHMyS0VX?=
- =?utf-8?B?YkdaWUhhYVh4R2J2Mzc4eUVCMEVoRVE2S2F4am1KZ3lYUE1rM2N5Q3ZtNno3?=
- =?utf-8?B?WjhiTlNBZWlUUjVHSDc2c09XZ0NYeEczYkdmdWprQ3BNWDhtWkVQUHR1UWt3?=
- =?utf-8?B?UkgrZWg0clpiODVzK29QcXhPWWYyL1dRYjZtbzFVSllENUtoVklEdXR2NHU2?=
- =?utf-8?B?RTM0VEJXTndHVmVLVEJWQ1ZaT3dpREpTMWdHM0RrTDFZMlh2UmNPM0gzNVR2?=
- =?utf-8?B?ZU9aMy9kSi81RU95TUxtbzVJT08xYWxGUkRObGVCUTF0TWhjeFVYRWg5L1Zh?=
- =?utf-8?B?NS93YWN1MEk0RU02bkFXaVFWd05Wa2NMZS9BR1FsMk9nMHk5VlBBcy9zY0tM?=
- =?utf-8?B?M0F0Tmw0T3NxRlMzZzhVVjlLSXpiRU1JSk1XRVJtdC9rbWg3L3hFb1JOMHBp?=
- =?utf-8?Q?dAcJtJ7InDQ=3D?=
+	=?utf-8?B?Q3lSbzNmQi82SHRPWG9FS2VZb1BCZlUzNGlKQkRTdDRFMzI3eWFPZHNJMk5h?=
+ =?utf-8?B?djdMaURoa3llOVFyVnhuOGVyNVpVZStrR1JvTVVSOTBuWW9MRWpuaGFqRW43?=
+ =?utf-8?B?ZmhRQnNDNWRWR1NxcmVkMWEzc0dVbjhjZS9EWWhwOUxhSFBXeVVhWCtJSVhl?=
+ =?utf-8?B?TUZ6ek1oWnJKZEE3VGxwd09mNzNrT2RVUW1PQjVDVmwzeHU2eXlhTmdDNmlr?=
+ =?utf-8?B?NW4xN2thQXpCbWZvZFlhWi93VjNneGU3MHg1VjZVWnYzaVZoZWFQaWNSODJY?=
+ =?utf-8?B?OThMMjVGOVZMSVAyakxDK2YwR25QMStmWUdkR3NoN1JSajVUUllIY01MT1dy?=
+ =?utf-8?B?VWIwdTA3UkxocVpIUlpRakhHVHhHK0J1QXRibnMwV0RORGs3aU9KaTFHNDBP?=
+ =?utf-8?B?d2Erc2dBcXpxU044MUVwWXpOMW5hRmFYa3pubDR1ZVVpU3dIUytlZnVjaUhv?=
+ =?utf-8?B?U0JLam1OUXNiZThzWnNMV2hSclJiSHdHRFoxV0cvTWEzZDMwczZWQm5pR0VD?=
+ =?utf-8?B?cmoxMTFsenhvMkh2UmNRc3FCZ21BQ1N0UmMzMlk3Z05GNnVPYjRNdXE3cWp0?=
+ =?utf-8?B?RFR0S21lVnlENW05TVBvOEw1TUdXbzJQZE9HU1JCU3ZaL3dPaS85NXBoU2JQ?=
+ =?utf-8?B?RDR2eFdpeEo2NC8xOG1iL21jWEdUd1A3cjdjcDZNNzNLWk5QVmZPaGEwTmtp?=
+ =?utf-8?B?aHdJVTRhdVhZaUJ1NlZpTFdyY2pEQ0xCSkljak9DODBFanBHWm1MMDI5blhQ?=
+ =?utf-8?B?em05SEJzWlR3QXNqV3FtNWQ1K1hIaUVpRGlyWHNHMDJ2MHNqVDdaWTM2TkxJ?=
+ =?utf-8?B?TGs2NnJDRW9PeXplcFpGUXBMQ2FtaVQvdFd5dGNpSzZLcHd6VThCcWNmTDZ4?=
+ =?utf-8?B?OTRsRHpFTW5BUEhRTG96QnIyUFl5aDFmSGlZRk1ERHl3aEF2ZzA2YmFGSjhE?=
+ =?utf-8?B?K0Ntb29aQ2V1bjVVT0xDSklTdmtiamdUeHU1RXpNVXphbkhvYzc2a0ZDMlda?=
+ =?utf-8?B?T0QwejVpdWtBTGREMy92RldYMWo2NWcxQTR0R3Z3V00wSUt6enhTTlBvVC9y?=
+ =?utf-8?B?ZlU2OEY1cXRQdFVSK1U1NTc3SzhreC9VTXMzekxUNW9WR2x4QmRWUlhTNFBM?=
+ =?utf-8?B?K3BZNlpYZTl2UUtYTXYxUGRWSEZpdTEyR2cyVSthRE53TXY2NnhRZ1Q3UGhQ?=
+ =?utf-8?B?ajIxL3UwbklkbWRPekVmcVFlRnpqSWQyVjhSbDZLVkJZTnpnTE01Z0pYWjh2?=
+ =?utf-8?B?S3ZlWlVQMi9UL3hlUUh5d2swRXdzYlBiU05JZFpzSHZLWTdHcHp6NFE1Mzdj?=
+ =?utf-8?B?Q09TK3pheVh1OE5QV2xlTExDbHVHVnA4bFFGd0s5U3A3aDlQMVp1UkVnYVpX?=
+ =?utf-8?B?MFNOeGFmSjVORUwxNW5QeDRnVndkbmN3QXJCcnZhVXVyN2pGOUNPOHZ5VmQ4?=
+ =?utf-8?B?VnRzK3M0SFBXTmlpVzdmUkprTytWbWE5aGdURTBtSWQ1cHVIQXVMeHJDdVM5?=
+ =?utf-8?B?VU9oMEM3ZEpVY0tvWkhKaTdnVGU1VldjQVNGZGRNaGdSbXBvRFQ0NWFhQkFs?=
+ =?utf-8?B?N2NydkFJNDlEckU2dGRxVm03S2RiUmtvWGM5U3RYWnRHc2xGUjBJMnhtSVMz?=
+ =?utf-8?B?c05Zek9ESlZCNlFUYnhHVUoxUWhXZGJDZ2ptVmZqa2VKRFV4cVN5MUlrcmlz?=
+ =?utf-8?B?NnlGOXpLOEZvMnQ3T0pGREdrVFlPczRlS1FzZDB4SlFsV3FGdUF4bG1mTEtq?=
+ =?utf-8?B?VHlWQ2xKVGdZSmdHd3Rab1J2L0tnM1ZzQktlRkxreTFxMndGa1JBMktXMDdm?=
+ =?utf-8?B?Y09zU0MvUlVOb1liTlp5NTdzMW5BcEt4TEpsTG1QUWRVaFNKdlNETEtQVzlK?=
+ =?utf-8?B?UXVhTXNjTHljemJsNUQycXpjWUhSeUx3c2xxWXlIQlJUMHEwZWFJRzQ3ZDRs?=
+ =?utf-8?Q?xp/oTWg2268=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5757.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZDhuamJtcWlrMFVvN3U5bzl1djN2Q25JSm9lZnFIT0tReXVQQlhTQ0lTUnlj?=
- =?utf-8?B?VE5raGZ4cXExVmtCbEpTdTE2am1PYXJjTm8yY3N4VVhTcXJTdEFvcTh3ZGVT?=
- =?utf-8?B?WkFQSzYxSWJFMUhmZE5CQ0pFL0lwM2hUM21uU2xQcUtvcjJBSllJdmJlbitO?=
- =?utf-8?B?MEtNaG4zS043Y25oY0NDZnphWFJSUGVyOEwzOHRLRWFGSHNVdC8rQTIwS1Nx?=
- =?utf-8?B?MHduWi8vRVZDZlZVMGFwQzBjNi93SW5UcTVMa2FQb082V25BNFpKYXdaWDY3?=
- =?utf-8?B?L3UrYm80UkhBTk9GeG1WajFHckpkeUZ3VWY3MjF2d2dWcytJK0V4VWFNQmxh?=
- =?utf-8?B?UkdtV3JlZUU4NkNKajFDbnkyWExMTUJZaHA4c2tWbTZwOWpiWXBtcUpXbWRD?=
- =?utf-8?B?VkR4ckVmVFdPallkdEo5YjUxRDhaR0pxNzhPQlgxd2JFZnVobjhqbGE2Q3pP?=
- =?utf-8?B?aXpWTXV1NU5CL0lqSUdwb2FkdnBvQVN2dVRxNmlOY3BEaFhjZERXbVQwMVo3?=
- =?utf-8?B?b3UyRFlnZHplRDNpRzVwNWxnZUxFVEt1U0VPd01EOFNMaHZQcDJoZ0wwa2R1?=
- =?utf-8?B?WWlIYWFlV3dBcy8ydlFLb2F0YWplMy9kSmllZ3BPR3dIdlcvWGJ4M056cUZz?=
- =?utf-8?B?UERXamJwV05oUnprTTZzQ1dkTk5FYTRBMG16N3dFa2xPSUE0eXFSQXcwNjFa?=
- =?utf-8?B?Z1lXRUU0Z2hERmNCR1ByVFFiUk5jZzJZQ2pvMURLcjU2bDYzTERWUWtCTm8w?=
- =?utf-8?B?ak1XQzBTb21vQXZCcHRXYjQyTmRVOGtTSzlMNlpFVVpxUU9oUEUwZStBWmdB?=
- =?utf-8?B?T3A3OW5CV3QrL2p5a3h2cGRBeFVKVnozaVNESTVaUmlJSDR2OTdyZzFrRGRh?=
- =?utf-8?B?ZmJwVTdFTys1SjRLeldIcFJEQ1RPQWlLOUhEK2FBc0U5L2hSSm9lOXZITHJn?=
- =?utf-8?B?N2xOVVo0UWw4RFRpZE5iZS9rYlpNYVk2WDcwZVNCR2RXZ0xzK3hzNElBLzA5?=
- =?utf-8?B?U3FNN2FpT0Z0bEk1NWtTdXk5cDNQUm4wd0RzallzaklCSTdLcXViSitmYTF1?=
- =?utf-8?B?bnhYbzdnMHQxd3hwRi8wRGlPSkJ5d0xzSnMwN0tmQ2hVelpZcEZYaEt4b0hS?=
- =?utf-8?B?TjFZeDUwUVhZdVpmQmtrNHNQNXV1SGFsSFFaUWJDK0RRdjJSVVBMQWYvYzB6?=
- =?utf-8?B?NkQxNU8reERzajYwNkozUEpjWFBxOEZrN3BLeHF6aEh6TjNDMjZVR2diUGtl?=
- =?utf-8?B?ZVpFWmZYYXAvdjRiamZmY0FGWGs1SUFlR21Dc1pvMzZ4cHdrZ2V2ZmNXZHlj?=
- =?utf-8?B?VktRenFIRjl3YTA0SkMvYTR4SHVoWkticVdLcVVzaHRnZmZBYXVCWnRkV2kw?=
- =?utf-8?B?bUFqbmlYd0tqUGlqR3dGUExFVlFQMjM1VWZGK3hadkpsWXdGS2pSQ0h3d3Iv?=
- =?utf-8?B?VnMveDQ3SUhqb2VwaWJOVHJQNFg4Zmh4TGRBSDlRbklKK28yaEM3V05mY0Fh?=
- =?utf-8?B?N0QvNzdoRUVTU0NMaEFqMFlTSzVPb0N2bVlSR2JEWVBCVmdmR1BxZ1Nuc2NQ?=
- =?utf-8?B?U3ovdWQ4L3RFWmJVZ0tWbEJ1ODhmakVrNU45RzM2cVZZZWRFSWx3MlBMME5z?=
- =?utf-8?B?Z0ZiRTVkYXA1dmNIVVY5dDl4RGlkRVFQZmE3L0wwSXJVVVVzY2JmeXgwK0Z5?=
- =?utf-8?B?OTBHbGM4a2QvbFNIT05mK0pBTzBHSU5PbUtiRHNWVk0xdWFIcmtyTjMyY2lD?=
- =?utf-8?B?ZFZJM3BJa2lkZ0ZmSFk1RXZJdituTitIOTcwd1NzQ21YenlnWkdlWXBkQWJq?=
- =?utf-8?B?SmdVU1hEdnBsVlF3Y2J1OXYrUkdEZlM2cTRLRi9QUUFIT2hXUnJnNWs3L3JQ?=
- =?utf-8?B?YkVCdlIvUzR2ZEwxV3hBc1p0WVdLSHlOcU1PWUNUWDgrL3c3YUMweDRNMXVi?=
- =?utf-8?B?enJYdDA5bHF2bWE3eGZqNEQ1UDlOcENyQXFVaFIrMHNyc1cyakQzK3hXL3R4?=
- =?utf-8?B?c2VTSEdnVUkzS1dEUlVtWWhjNEVBaktzRWxCOCtMeVpqL3pMT20yZG00T1hC?=
- =?utf-8?B?R2F1dmpxaC9jY0lodTZIWHJ2czYxVkJKa3kxWnNTS053ZG11Mm5RZk5vUFA2?=
- =?utf-8?Q?fPXI=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 170388cd-19af-4e89-c8e6-08ddeca3b7e5
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5757.namprd12.prod.outlook.com
+	=?utf-8?B?Y0xRb1RhTnhmbkprbWtHMjQ0R3czcjVQMG9RUWxqaFZFeWcyTEtiVmQzL0w2?=
+ =?utf-8?B?K1BUQVBWZTFDYzl4a25lV1M5REJ1VVNVM0liSE1LbVJSbXdXYXlTa25DTkVN?=
+ =?utf-8?B?SG5nZU1QS3RYSWlMaGFmT29sdmh3QUI0T2lVVnRWUyt1UVdxM05ra1g3RzQ2?=
+ =?utf-8?B?UG5Wb1I4ZlNzNnJwaGpaYWxvaDl0UjlJOVlRTnBRSXE2R0JqOUt1QkR0NHVZ?=
+ =?utf-8?B?WGUweURwSXRicm8wVG9Hb0ZvNzVPRDR1Wnh6c1drdUJLTnRHUW94Y2pTRkZu?=
+ =?utf-8?B?djdlVHBESFUwcDNTWUtyM090S3RjUGlpcHNnRGMxWCtKVnMxTzNiMGJGTWUy?=
+ =?utf-8?B?MFUzOGNHTm9SU0J3UHdRejVKZzBRcEovUTNFaVVEVnB5RzcyZU1KUG80akJU?=
+ =?utf-8?B?TWNpMkp6bE92MDdoVGgzNm90RU11Z1N6WnR6NnE0WDFCcFFCaTNDTm4vSDRY?=
+ =?utf-8?B?YllsYkNhTzR3d0JpSm1CZVEvalZ2cUR1Z2FFNzZkNHF4N3NNZ3ZuQzFpdHox?=
+ =?utf-8?B?VllQNzBBeGtZSXJMZDhxZTRoQUg3ckJzcGFFMHBWeHJ1QTZuM0FBajQ3UzZo?=
+ =?utf-8?B?LzNkeGNteGJMeFVjMjBlK3lTUWVmb0phUHV2U00wcHdwYVdpQ2pjQmVqTUZt?=
+ =?utf-8?B?UUVLM3lHRWExQW9uVDVObHRmdGhndVpCUlJhYTRwNFUyYTlJWXRLZllUSisv?=
+ =?utf-8?B?cGNkNFkzMzRBRG9uc21WMkVmTmZlbWxVQ1BIQ0JrbU9hT0tiSjFBVSt5MzJS?=
+ =?utf-8?B?Q1k2SXZyNlRMeHZTcE01cDdUOXdjZVJyYWo1NEhoUCtWWjExRmJzbmpUS3BX?=
+ =?utf-8?B?dWdhcXlneE5BUkxMS29lZlY3cWQ5LzBYd0NnVldidEFKeGllWmNSLzBIWE1T?=
+ =?utf-8?B?Mm94NWl3NFA1dEJtMGplb2o3UFpoeE93U3ZzT0gzWmtKc2ZIdDhGVVJTcnlG?=
+ =?utf-8?B?OEZSbTRmS0NYSnNEcGhaNW9LM1hUNjRPbnZybmpZREt3dExmRDRyUG9TclBu?=
+ =?utf-8?B?dlhtWWR3azZRcHVBRzNISkVqd0puSk1ZWVN0a1NFYUpNN3BJYVEzZWRWWVNq?=
+ =?utf-8?B?dVl5NWhRRFdTekNEUEhFcmMzNkkzWlZlUFdacVkwYXpCaHduYytlOHgxSllS?=
+ =?utf-8?B?Y0pucEhEakpHYU5vd1JiRFZFK3A0MTJsRVIySnZmLy80amlzNmZSMnM5OUNX?=
+ =?utf-8?B?RWdxdnNIR3FsY3BNaVYyV0FBaWtLYTBZeG5pdXQyenNtb3dkOGVuZWhXbjhN?=
+ =?utf-8?B?bTBodFVHOVRtbXVGT3JTQUllY2t6M1R3V1MxWmp5a2ZMTUIrWVduN0tSY3No?=
+ =?utf-8?B?NUc2Wk83TnVmRDdHc3c3MHBNL2RJaTMra3VSS1ZCQ1NyYXczZHdPdFZyOTdZ?=
+ =?utf-8?B?YmtuYS8wVmF5YXByNnZiRkdiMldqaFV0SytVeENtc0pwaXBaZGJ0c3lzS2Rm?=
+ =?utf-8?B?WWNrMUVFTHFERUlRQU5WOTBJVnluaFV6enZRRGNBcHFKY0ZTZzJYSjJDN2Fw?=
+ =?utf-8?B?M2xZYXJSNjQrNGp6TTRBaUlOVEtRZHl4YzhMSFpXb0phZmNWYXRraklRSHp6?=
+ =?utf-8?B?amZxTUl6cU5CU3hWTnJzcnRJajBhMDVnQWE2YWZSRWluYVNnU01tbXEzSlVk?=
+ =?utf-8?B?TWNNZG9XSng2ZDdlRU5VM1I4dmR4WWFpblZjMUVZVFlNQlBVSWlrZlVXbEtm?=
+ =?utf-8?B?aXRtcjRXYjJCN1dUVitkb2h4MlRtL2txcFZnUnBOb3BaSTB4MlBtN3I0MUpl?=
+ =?utf-8?B?YmdGQmlSbFhFbHFhOWlhTm9FbkNhMlhGTHJhSStaVEhNU080QjR0NDY2L29Y?=
+ =?utf-8?B?dDlubjJkSUtWczFIanlhYkFkTUlZeWE3UGFpYzVTa2NWbnJZYzRZa29HM0dt?=
+ =?utf-8?B?TkJNVnZJRHh1bDNuMVNJUjFnTUY3ZmlsV0xYbm9nUzM0Z0FIeGt3TmdhZkFE?=
+ =?utf-8?B?UmxDMzR3Zi9UM1A1MGdvNFNFbjh5MkFmQnZ6M1JyTktWTkhWUHEwK2NLYUNp?=
+ =?utf-8?B?NXlPN1MrNU1td1lxT05xNGJwWi93STY5alhFZGRxbmFVak1lV3BtVHdDd2NS?=
+ =?utf-8?B?alp4SlltZThTanNqOVZXQ1p6Rnh6UzVUaUg1NE1kSUtycFJROEVsSUJWS3Z2?=
+ =?utf-8?B?clplb3VzQTN5UmRldEJjUnVrelpIc0Z4V0tsN0ViYXRpSFk2cE1wVVRDanFx?=
+ =?utf-8?B?SFE9PQ==?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 830199fe-8712-427f-ceec-08ddecaa5b5c
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2025 17:43:26.7235
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2025 18:30:57.9989
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J6B6cBXSQbyRzIh+uShpttmXlQ1roo6BeAEy92OWbRCVfTXsxw7FpfzT+ScCWlKU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6265
+X-MS-Exchange-CrossTenant-UserPrincipalName: gq7oHEB5a1bXOTVUzouWnK10mdneXaSpGZsqzCkqFCrpuDmZA+Gf4Wo8ZkNJB9fWJ7MUMSTh4U+fCVePhdu03mzxsCmYaiJw7V1bZN1z4aQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB8551
 
-On Fri, Sep 05, 2025 at 06:20:51PM +0200, Marek Szyprowski wrote:
+Hi
 
-> I've checked the most advertised use case in 
-> https://git.kernel.org/pub/scm/linux/kernel/git/leon/linux-rdma.git/log/?h=dmabuf-vfio
-> and I still don't see the reason why it cannot be based 
-> on dma_map_resource() API? I'm aware of the little asymmetry of the 
-> client calls is such case, indeed it is not preety, but this should work 
-> even now:
+On 05.09.25 16:07, Julien Grall wrote:
 > 
-> phys = phys_vec[i].paddr;
 > 
-> if (is_mmio)
->      dma_map_resource(phys, len, ...);
-> else
->      dma_map_page(phys_to_page(phys), offset_in_page(phys), ...);
+> On 05/09/2025 13:15, Volodymyr Babchuk wrote:
+>> Hi,
+>>
+>> Grygorii Strashko <grygorii_strashko@epam.com> writes:
+>>
+>>> On 27.08.25 03:16, Volodymyr Babchuk wrote:
+>>>> Hi Grygorii,
+>>>> Grygorii Strashko <grygorii_strashko@epam.com> writes:
+>>>>
+>>>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>>>
+>>>>> Now Arm64 AArch32 guest support is always enabled and built-in while not
+>>>>> all Arm64 platforms supports AArch32 (for exmaple on Armv9A) or this
+>>>>> support might not be needed (Arm64 AArch32 is used quite rarely in embedded
+>>>>> systems). More over, when focusing on safety certification, AArch32 related
+>>>>> code in Xen leaves a gap in terms of coverage that cannot really be
+>>>>> justified in words. This leaves two options: either support it (lots of
+>>>>> additional testing, requirements and documents would be needed) or compile
+>>>>> it out.
+>>>>>
+>>>>> Hence, this patch introduces basic support to allow make Arm64
+>>>>> AArch32 guest support optional. The following changes are introduced:
+>>>>>
+>>>>> - Introduce Kconfig option CONFIG_ARM64_AARCH32 to allow enable/disable
+>>>>>     Arm64 AArch32 guest support (default y)
+>>>>>
+>>>>> - Introduce is_aarch32_enabled() helper which accounts Arm64 HW capability
+>>>>>     and CONFIG_ARM64_AARCH32 setting
+>>>>>
+>>>>> - Introduce arm64_set_domain_type() to configure Arm64 domain type in
+>>>>>     unified way instead of open coding (d)->arch.type, and account
+>>>>>     CONFIG_ARM64_AARCH32 configuration.
+>>>>>
+>>>>> - toolstack: do not advertise "xen-3.0-armv7l " capability if AArch32 is
+>>>>>     disabled.
+>>>>>
+>>>>> - do not expose EL1 AArch32 support to guest in ID_AA64PFR0_EL1 reg if
+>>>>>     AArch32 is disabled.
+>>>>>
+>>>>> - Set Arm64 domain type to DOMAIN_64BIT by default.
+>>>>>     - the Arm Xen boot code is handling this case properly already;
+>>>>>     - for toolstack case the XEN_DOMCTL_set_address_size hypercall handling
+>>>>>       updated to forcibly configure domain type regardless of current domain
+>>>>>       type configuration, so toolstack behavior is unchanged.
+>>>>>
+>>>>> With CONFIG_ARM64_AARCH32=n the Xen will reject AArch32 guests (kernels) if
+>>>>> configured by user in the following way:
+>>>>> - Xen boot will fail with panic during dom0 or dom0less domains creation
+>>>>> - toolstack domain creation will be rejected due to xc_dom_compat_check()
+>>>>>     failure.
+>>>>>
+>>>>> Making Arm64 AArch32 guest support open further possibilities for build
+>>>>> optimizations of Arm64 AArch32 guest support code.
+>>>>>
+>>>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>>> ---
+>>>>> changes in v2:
+>>>>> - use Arm64 "cpu_has_el1_32" in all places to check if HW has AArch32 support
+>>>>> - rework Arm64 XEN_DOMCTL_set_address_size hypercall handling to work with any
+>>>>>     initial domain type set (32bit or 64 bit)
+>>>>> - fix comments related to macro parameters evaluation issues
+>>>>> - do not expose EL1 AArch32 support to guest in ID_AA64PFR0_EL1 reg if
+>>>>>     AArch32 is disabled
+>>>>>
+>>>>>    xen/arch/arm/Kconfig                    |  7 ++++
+>>>>>    xen/arch/arm/arm64/domain-build.c       | 46 +++++++++++++++++++++++--
+>>>>>    xen/arch/arm/arm64/domctl.c             | 16 +++++----
+>>>>>    xen/arch/arm/arm64/vsysreg.c            |  9 +++++
+>>>>>    xen/arch/arm/domain.c                   |  9 +++++
+>>>>>    xen/arch/arm/domain_build.c             | 21 +++--------
+>>>>>    xen/arch/arm/include/asm/arm32/domain.h | 12 +++++++
+>>>>>    xen/arch/arm/include/asm/arm64/domain.h | 23 +++++++++++++
+>>>>>    xen/arch/arm/setup.c                    |  2 +-
+>>>>>    9 files changed, 119 insertions(+), 26 deletions(-)
+>>>>>
+>>>>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+>>>>> index a0c816047427..bf6dd73caf73 100644
+>>>>> --- a/xen/arch/arm/Kconfig
+>>>>> +++ b/xen/arch/arm/Kconfig
+>>>>> @@ -266,6 +266,13 @@ config PCI_PASSTHROUGH
+>>>>>        help
+>>>>>          This option enables PCI device passthrough
+>>>>>    +config ARM64_AARCH32
+>>>>> +    bool "AArch32 Guests support on on ARM64 (UNSUPPORTED)" if UNSUPPORTED
+>>>> But aarch32 guests are supported... I understand that you wanted to
+>>>> say
+>>>> "Disabling aarch32 support is unsupported". But currently this entry
+>>>> reads backwards. I think it should be reworded better. But I have no
+>>>> idea - how to do this.
+>>>
+>>> I think "(UNSUPPORTED)" can be just dropped. Is it ok?
+>>
+>> As I understand, If you want this feature to be eventually certified, it
+>> should not be UNSUPPORTED nor EXPERIMENTAL.
 > 
-> What did I miss?
+> The certification is somewhat irrelevant to the decision of the state of the feature. 
+> Instead, the decision should be based on the criteria based in SUPPORT.MD (see "Status"). 
+> If it is experimental/unsupported, then what's missing to make it supported?
+> 
+> In addition to that, there is the "EXPERT" mode. This was introduced mainly to allow the user
+> to tailor the Kconfig but also limit to what we security support. This is to reduce the amount
+> of workload on the security team when it comes to decide on whether we need to issue an XSA
+> (the more possibility, the more difficult it becomes).
 
-I have a somewhat different answer than Leon..
+If I understood comments about Kconfig option correctly (which I might not be):
+- Not sure if it can be called a "feature" it rather optimization (enabled optionally)
+- From my point of view it's basically completed
+- The "Arm64 AArch32 guest support" is not mentioned SUPPORT.MD
 
-The link path would need a resource variation too:
+I'm not sure what support level can be considered for "Arm64 AArch32 guest support"
+hence there was no related Kconfig option before.
 
-+			ret = dma_iova_link(attachment->dev, state,
-+					    phys_vec[i].paddr, 0,
-+					    phys_vec[i].len, dir, attrs);
-+			if (ret)
-+				goto err_unmap_dma;
-+
-+			mapped_len += phys_vec[i].len;
+if treat "Arm64 AArch32 guest support" as : "Supported"
+(a) by default ARM64_AARCH32=y, so no changes in Xen default behavior or interfaces
+(b) switching to ARM64_AARCH32=n might change status and seems fall under
+    "EXPERT and DEBUG Kconfig options are not security supported."
 
-It is an existing bug that we don't properly handle all details of
-MMIO for link.
+if treat status other than "Supported" - probably no need to depend from EXPERT.
 
-Since this is already a phys_addr_t I wouldn't strongly argue that
-should be done by adding ATTR_MMIO to dma_iova_link().
+I'm going to change dependency to EXPERT in the next version.
 
-If you did that, then you'd still want a dma_(un)map_phys() helper
-that handled ATTR_MMIO too. It could be an inline "if () resource else
-page" wrapper like you say.
+> 
+> There has been discussion on providing a small set of config (one could be for certification purpose)
+> that would be security supported. But I don't think we come to a conclusion yet.
 
-So API wise I think we have the right design here.
+Thanks a lot for your comments.
 
-I think the question you are asking is how much changing to the
-internals of the DMA API do you want to do to make ATTR_MMIO.
+-- 
+Best regards,
+-grygorii
 
-It is not zero, but there is some minimum that is less than this.
-
-So reason #1 much of this ATTR_MMIO is needed anyhow. Being consistent
-and unifying the dma_map_resource path with ATTR_MMIO should improve
-the long term maintainability of the code. We already uncovered paths
-where map_resource is not behaving consistently with map_page and it
-is unclear if these are bugs or deliberate.
-
-Reason #2 we do actually want to get rid of struct page usage to help
-advance Matthew's work. This means we want to build a clean struct
-page less path for IO. Meaning we can do phys to virt, or kmap phys,
-but none of: phys to page, page to virt, page to phys. Stopping at a
-phys based public API and then leaving all the phys to page/etc
-conversions hidden inside is not enough.
-
-This is why I was looking at the dma_ops path, to see just how much
-page usage there is, and I found very little. So this dream is
-achievable and with this series we are there for ARM64 and x86
-environments.
-
-> This patchset focuses only on the dma_map_page -> dma_map_phys rework. 
-> There are also other interfaces, like dma_alloc_pages() and so far 
-> nothing has been proposed for them so far.
-
-That's because they already have non-page alternatives.
-
-Allmost all places call dma_alloc_noncoherent():
-
-static inline void *dma_alloc_noncoherent(struct device *dev, size_t size,
-		dma_addr_t *dma_handle, enum dma_data_direction dir, gfp_t gfp)
-{
-	struct page *page = dma_alloc_pages(dev, size, dma_handle, dir, gfp);
-	return page ? page_address(page) : NULL;
-
-Which is KVA based.
-
-There is only one user I found of alloc_pages:
-
-drivers/firewire/ohci.c:                ctx->pages[i] = dma_alloc_pages(dev, PAGE_SIZE, &dma_addr,
-
-And it deliberately uses page->private:
-
-		set_page_private(ctx->pages[i], dma_addr);
-
-So it is correct to use the struct page API.
-
-Some usages of dma_alloc_noncontiguous() can be implemented using the
-dma_iova_link() flow like drivers/vfio/pci/mlx5/cmd.c shows by using
-alloc_pages_bulk() for the allocator. We don't yet have a 'dma alloc
-link' operation though, and there are only 4 users of
-dma_alloc_noncontiguous()..
-
-Jason
 
