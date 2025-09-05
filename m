@@ -2,67 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10C92B45D16
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 17:53:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1112096.1460527 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 593A2B45D97
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 18:12:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1112123.1460538 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuYl0-00073G-W7; Fri, 05 Sep 2025 15:53:46 +0000
+	id 1uuZ2s-00024S-Eh; Fri, 05 Sep 2025 16:12:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1112096.1460527; Fri, 05 Sep 2025 15:53:46 +0000
+Received: by outflank-mailman (output) from mailman id 1112123.1460538; Fri, 05 Sep 2025 16:12:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuYl0-00071g-TR; Fri, 05 Sep 2025 15:53:46 +0000
-Received: by outflank-mailman (input) for mailman id 1112096;
- Fri, 05 Sep 2025 15:53:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iJZl=3Q=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
- id 1uuYkz-00071a-7M
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 15:53:45 +0000
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7f2efbbf-8a70-11f0-9809-7dc792cee155;
- Fri, 05 Sep 2025 17:53:43 +0200 (CEST)
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5858qiX8001199;
- Fri, 5 Sep 2025 15:52:50 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 48wshfcpx3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Sep 2025 15:52:50 +0000 (GMT)
-Received: from m0356516.ppops.net (m0356516.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 585Fmcsp012235;
- Fri, 5 Sep 2025 15:52:49 GMT
-Received: from ppma12.dal12v.mail.ibm.com
- (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 48wshfcpwy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Sep 2025 15:52:49 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
- by ppma12.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 585FmxfV019937;
- Fri, 5 Sep 2025 15:52:48 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
- by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 48vbmujcy7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Sep 2025 15:52:48 +0000
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com
- [10.20.54.104])
- by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 585Fqke750659768
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 5 Sep 2025 15:52:46 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8C56520043;
- Fri,  5 Sep 2025 15:52:46 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1DCE620040;
- Fri,  5 Sep 2025 15:52:45 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.111.48.240])
- by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Fri,  5 Sep 2025 15:52:45 +0000 (GMT)
+	id 1uuZ2s-00021k-Bs; Fri, 05 Sep 2025 16:12:14 +0000
+Received: by outflank-mailman (input) for mailman id 1112123;
+ Fri, 05 Sep 2025 16:12:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1uuZ2r-00021e-0L
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 16:12:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1uuZ2q-0081Om-1Q
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 16:12:12 +0000
+Received: from mail-vk1-f181.google.com ([209.85.221.181])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1uuZ2q-00HCbg-1y
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 16:12:12 +0000
+Received: by mail-vk1-f181.google.com with SMTP id
+ 71dfb90a1353d-544ad727e87so1834916e0c.2
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Sep 2025 09:12:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,116 +42,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f2efbbf-8a70-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=yrKzRKvPlqc1QwFwyTNKlG24n0S3B0
-	erGWAU2bVkVqg=; b=qnifUl96cq8S6mdWIUWZY6BIWU8yF2upNweBx/YvMVrUqk
-	RurxzzOfjdHTO1vZruHBUGw3vkJ3WeEmWzLy0ib2dt0fUdi9302JluZSn5voqpb9
-	tt+K2LZopne4AXw3OGAsBjWP8De3MBm1hwH4/INAMOLsTRAjDmX8jUJ/gKxB4XAc
-	KrIlZNUzwzjCaqkU+ZOpln4XrPIJTWESS5y/saIRobaltfDoOVm72NdzSHeS2nKf
-	hGMYLo6HZzSBX5xdzjXsfqIsGIlRMWccKTKAhN9S2rP+bQ/qPKUMPRNpVA8A/v6E
-	L8fXKTqpSJEYDa6i80pdzLQ72TamFaiRukB8PM0g==
-Date: Fri, 5 Sep 2025 17:52:43 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        Andreas Larsson <andreas@gaisler.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        David Hildenbrand <david@redhat.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
-        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
-        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
-        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Ryan Roberts <ryan.roberts@arm.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
-        Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
-        linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
-        xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 5/7] powerpc/mm: support nested lazy_mmu sections
-Message-ID: <074ff6ab-5868-4fde-b5bb-9e17632ad817-agordeev@linux.ibm.com>
-References: <20250904125736.3918646-1-kevin.brodsky@arm.com>
- <20250904125736.3918646-6-kevin.brodsky@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Content-Type:To:Subject:Message-ID:Date:
+	From:MIME-Version; bh=DI5JWH5qM1LPNZ0VXiqV4VaX9KCnlMFHYnnAJNngHHU=; b=JAngV4S
+	eMLQP28imoaKyrS8815may6kgEKufkIqH+RMD6vmcRSXYM1iJlc7RggCi8V86yyGp1TttgL+Y9nlS
+	4NCe4sp3d5QXwuy/mBJ7Z2BA3zs1IA0STSW9fbTyUQ3Hr24X6Pz6DrSteCKidkNqMIivDtNoI8DAX
+	vDJVOPxANw=;
+X-Gm-Message-State: AOJu0Yxmzg7fxWcODI9go5DfQac9WihkVYbsJM02H8zKr+frOCp1QKt8
+	lh5D+GWSqK5X3ilhQ1q0Snh1cVtaREvHGywJO880Ip/l+DP9RDn0lt/j0S4qCOUko9sDkJ1wagG
+	bjm5z7C46Wz7qLMhoZmrz41BT+pIGFs0=
+X-Google-Smtp-Source: AGHT+IGyxo9LHvXQSpSuAIBx6nQiCl/ewyYMuSdjJ26/fkJQfWMZOTO61RcFN1QOPfxKRDX9CdSPwiTaMKQjDux1Yig=
+X-Received: by 2002:a05:6122:4f82:b0:531:236f:1283 with SMTP id
+ 71dfb90a1353d-544a024826cmr8562956e0c.10.1757088732182; Fri, 05 Sep 2025
+ 09:12:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250904125736.3918646-6-kevin.brodsky@arm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: lCd6YOMsS3DuDBadSx3AqoWK9sgWIwBw
-X-Authority-Analysis: v=2.4 cv=do3bC0g4 c=1 sm=1 tr=0 ts=68bb0752 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=kj9zAlcOel0A:10 a=yJojWOMRYYMA:10 a=j0AthGTrb4EvYsEn83oA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: f87PfJay9odLOn37oqVwjr2CAlcWWHn1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTAyMDA0MCBTYWx0ZWRfX6sVQx3QDeZVb
- n0/AHQXDAd1IPDvrbQDAZqWNvYoji1vUEPP9JAjcx2sdZwqxFNT8P6jKDiqCdhkxMnGuyNq6xN0
- S8g8X6OMzE3gSb6sI+vSPcwT7zIQgnHlzsA9jiitgokDLD2w11I2lobQd0RzFFdQVPBFq7gLH2W
- w3OGrenK+wBn0voMSBbmNjp1Fjlqy/CSo5Vh9PvP5VNsOgQXuA9fqz0KJ8mfFGOfUfce75STf2p
- eu65lI0DTVxqmjYKeyaFdLRjc3SxwtmZeh1Pe6KdSGdqawAHM6zOfs0r4Yils+ob60NU/kRnAup
- 7+9DLLEmBuvBzuYqwqF9czbkIes2bGJOe8p5YqMQ0X/8i+oJ9lIUH4tj2BythK5q2hT0kmdi9nq
- KtlUPSlt
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-05_05,2025-09-04_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 impostorscore=0 bulkscore=0 suspectscore=0
- malwarescore=0 spamscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509020040
+From: Cody Zuschlag <cody.zuschlag@xenproject.org>
+Date: Fri, 5 Sep 2025 18:12:00 +0200
+X-Gmail-Original-Message-ID: <CAJbE=KxuKM32Hq_6uXnc-tYATN2b9vEBXpBc3C5nwQJ4khPL=A@mail.gmail.com>
+X-Gm-Features: Ac12FXyB3PnexJ6si2VCYqOGyRD-BYzwcUAHS7mSMdygDGE4XfxRqK4JNtkfQ-o
+Message-ID: <CAJbE=KxuKM32Hq_6uXnc-tYATN2b9vEBXpBc3C5nwQJ4khPL=A@mail.gmail.com>
+Subject: [REMINDER] Avoid automatic warning banners in xen-devel emails
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000b8809d063e101905"
 
-On Thu, Sep 04, 2025 at 01:57:34PM +0100, Kevin Brodsky wrote:
-...
->  static inline lazy_mmu_state_t arch_enter_lazy_mmu_mode(void)
->  {
->  	struct ppc64_tlb_batch *batch;
-> +	int lazy_mmu_nested;
->  
->  	if (radix_enabled())
->  		return LAZY_MMU_DEFAULT;
-> @@ -39,9 +40,14 @@ static inline lazy_mmu_state_t arch_enter_lazy_mmu_mode(void)
->  	 */
->  	preempt_disable();
->  	batch = this_cpu_ptr(&ppc64_tlb_batch);
-> -	batch->active = 1;
-> +	lazy_mmu_nested = batch->active;
->  
-> -	return LAZY_MMU_DEFAULT;
-> +	if (!lazy_mmu_nested) {
+--000000000000b8809d063e101905
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Why not just?
+Hi everyone,
 
-	if (!batch->active) {
+Emails to this list *should not include* automatic warning banners like:
 
-> +		batch->active = 1;
-> +		return LAZY_MMU_DEFAULT;
-> +	} else {
-> +		return LAZY_MMU_NESTED;
-> +	}
->  }
->  
->  static inline void arch_leave_lazy_mmu_mode(lazy_mmu_state_t state)
-> @@ -54,7 +60,10 @@ static inline void arch_leave_lazy_mmu_mode(lazy_mmu_state_t state)
->  
->  	if (batch->index)
->  		__flush_tlb_pending(batch);
-> -	batch->active = 0;
-> +
-> +	if (state != LAZY_MMU_NESTED)
-> +		batch->active = 0;
-> +
->  	preempt_enable();
->  }
+WARNING: This message originated outside of [Company Name]=E2=80=A6
 
-Thanks!
+
+We understand these are added automatically by some corporate systems and
+aren=E2=80=99t the sender=E2=80=99s intention. However, since *messages are=
+ publicly
+archived*, these warnings are inaccurate and can be distracting or
+misleading. They also clutter replies and make threads harder to follow.
+
+If possible, we encourage contributors to:
+
+   - Request an exception for FOSS mailing lists,
+   - Use a company-provided developer address (if available),
+   - Or send from a personal address that avoids these banners.
+
+
+You can find more community guidance here:
+
+   - https://subspace.kernel.org/etiquette.html
+   - https://wiki.xenproject.org/wiki/Xen_Users_Netiquette
+
+
+Thanks everyone for helping keep our discussions clean, readable, and for
+being a member of the community!
+
+Best regards,
+
+
+Cody Zuschlag
+Xen Project - Community Manager
+
+--000000000000b8809d063e101905
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi everyone,</div><div><br>Emails to this list <b>sho=
+uld not include</b> automatic warning banners like:<br><br><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
+gb(204,204,204);padding-left:1ex">WARNING: This message originated outside =
+of [Company Name]=E2=80=A6</blockquote><br>We understand these are added au=
+tomatically by some corporate systems and aren=E2=80=99t the sender=E2=80=
+=99s intention. However, since <b>messages are publicly archived</b>, these=
+ warnings are inaccurate and can be distracting or misleading. They also cl=
+utter replies and make threads harder to follow.<br><br>If possible, we enc=
+ourage contributors to:<br><ul><li>Request an exception for FOSS mailing li=
+sts,</li><li>Use a company-provided developer address (if available),</li><=
+li>Or send from a personal address that avoids these banners.</li></ul><br>=
+You can find more community guidance here:<br><ul><li><a href=3D"https://su=
+bspace.kernel.org/etiquette.html">https://subspace.kernel.org/etiquette.htm=
+l</a></li><li><a href=3D"https://wiki.xenproject.org/wiki/Xen_Users_Netique=
+tte">https://wiki.xenproject.org/wiki/Xen_Users_Netiquette</a></li></ul><br=
+>Thanks everyone for helping keep our discussions clean, readable, and for =
+being a member of the community!<br><br>Best regards,</div><div><br></div><=
+div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_sign=
+ature"><div dir=3D"ltr"><img src=3D"https://ci3.googleusercontent.com/mail-=
+sig/AIorK4x5nkRDCOFJDJAv9aMXdZ0mghItsp3D36JrwBCQtitBSW_0NeDS6mBmJ2F4vZVE2oB=
+OqnY6IaJUrl12"><br><div>Cody Zuschlag</div><div>Xen Project - Community Man=
+ager</div></div></div></div></div>
+
+--000000000000b8809d063e101905--
 
