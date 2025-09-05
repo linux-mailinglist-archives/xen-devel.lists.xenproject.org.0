@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A05DB454D6
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 12:37:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1111683.1460297 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24F18B45519
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 12:44:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1111696.1460307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuToL-00078W-DU; Fri, 05 Sep 2025 10:36:53 +0000
+	id 1uuTvX-0000aN-3x; Fri, 05 Sep 2025 10:44:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1111683.1460297; Fri, 05 Sep 2025 10:36:53 +0000
+Received: by outflank-mailman (output) from mailman id 1111696.1460307; Fri, 05 Sep 2025 10:44:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuToL-00075g-AH; Fri, 05 Sep 2025 10:36:53 +0000
-Received: by outflank-mailman (input) for mailman id 1111683;
- Fri, 05 Sep 2025 10:36:51 +0000
+	id 1uuTvX-0000YJ-18; Fri, 05 Sep 2025 10:44:19 +0000
+Received: by outflank-mailman (input) for mailman id 1111696;
+ Fri, 05 Sep 2025 10:44:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IfYY=3Q=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uuToJ-0006nu-0S
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 10:36:51 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1l6N=3Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uuTvV-0000YD-Nx
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 10:44:17 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3ac8c3e0-8a44-11f0-9d12-b5c5bf9af7f9;
- Fri, 05 Sep 2025 12:36:49 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3dea538b826so1609855f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 05 Sep 2025 03:36:49 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45dd2df4c8dsm53969085e9.15.2025.09.05.03.36.47
+ id 44fe058d-8a45-11f0-9d12-b5c5bf9af7f9;
+ Fri, 05 Sep 2025 12:44:16 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-6228de280ccso13501a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Sep 2025 03:44:16 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b041d7107d9sm1368452466b.4.2025.09.05.03.44.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Sep 2025 03:36:48 -0700 (PDT)
+ Fri, 05 Sep 2025 03:44:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,161 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ac8c3e0-8a44-11f0-9d12-b5c5bf9af7f9
+X-Inumbo-ID: 44fe058d-8a45-11f0-9d12-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1757068609; x=1757673409; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1757069056; x=1757673856; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0b/snmQel6GVfLUUnAfLYoIg8AnHVTJIn6Xol2J2nlM=;
-        b=saCuCcvlwo6+1PPmelAAvdXtLbOPSvIIX9c+bEqNTr+rVh6JCGlQ+6yp0lW9/1s8NU
-         KPLlCe6HDoYul4wd8MpmtvLUWFeL7BQ9uyq6DdZYd4s5uyKgz8bk3+Gd4m84JWR506Qb
-         /WgPvMnxKGYtiKXE5+0GCBM8IVnmci4V08u6w=
+        bh=SwUSFm5NnSz+qANY7euZXluaZusjbdZg+ebSEO2SD8w=;
+        b=bDpVgll+kpHONVEtJfTM8Sbjrxuj4qxqmalt8y8WycBwWsV3YjBU4CYeKY3TebByGO
+         hRLkePsURLcMYbk2I2F3N9gLaGb7YpnIPk4Zd26pIGidUlrTb8vckDt1UR6pLDHblNCx
+         mcoxP08fcibV35FHmj1H0tuYECNjOwc2ISi9h3nkHkuZXBUaKLSPWQyX3DmK40dUHnNQ
+         WB42TxMf6w+vfa2coaowU/+DozplqEPy1yhNb+uU88+0ZK9GToxtH1Z3f66gh0D+Qm/E
+         mIet7Qpcr9BsWz0+MUUyEG2Br4mTdYzTG0FmX9CH2p6OxME/RLaU7jIFVmoBFOss2hyo
+         4YzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757068609; x=1757673409;
+        d=1e100.net; s=20230601; t=1757069056; x=1757673856;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0b/snmQel6GVfLUUnAfLYoIg8AnHVTJIn6Xol2J2nlM=;
-        b=deLemWxsw4Jszi6icwKtN2hNG4aEb890XGxahAjhigKUOH+u1ao3X+JRhGjq993usi
-         kAmEoJP0PCBK5QLGSsDtBq+k1cfR7L4y+3nESNBM0i7hHo67jlN3ounmJx4q++JVNXuw
-         GnxnfH3/hCJwXs55g1XqIPSDCYMrIeM1Xbg6FoNgKcJJsrlQSwuJxQxeT/QU0gNQv1jH
-         1Mcd6xjVbISzkU56ZJxitOYc6KBikSwyjHJpK/PxRU/xzvByBjBDmmuY2ECzjd+tIPIt
-         q2F7RfLUYumXgasRdm3aNYKft5haMnwHaDyRUShVQDuBZ6q/xLz+hOLxq2Y2qTuF+sYe
-         BI2Q==
-X-Gm-Message-State: AOJu0YxJTNLostqvR1y0gnTeB08J/MUi0q3XshLFflN0Om6lttQxA1ue
-	PyDFMYuRUmKYAG/0TYJlC5TDuzEcE8JW9SZ6BglmXBgrFe2uluYBsiFDsYHBorXfdgDgKBcaO5a
-	ghVIF
-X-Gm-Gg: ASbGncs5RgEVQO9gApwfzsNoGwnZ7O2VtDRFjv6w5NAEHDEGmQwhbHrqOv1SHLhrklT
-	sqHGBP39qaF0RTvK3SpSF5UKHauKbHyMSxRv6fH1rGcZ7AaxI3WSH1OB0J5+ihZ68tz5GFP2jrx
-	+IluGaEwkE9cVV9W2C9EyZOoU9zBBCZS4VP6k+YMDRmB94lrquipEsGjf1ADUbuVG8CUdauEjAW
-	DOu5l1Hd3rbmYEvlrTwOHScM7+R7Z0WrkBFWlzb9JDfBKgqDZ0rSvKRZHX03F7qefYbMxzI1mB0
-	2KdR/KeZEPjMAMRzhPJHZobpF6vUMT2am07EmXWYBjaTdOjSZ/GKeeOSwZuS189gUU1ymlkY5+M
-	xZSX6JSq9lF/QNn3KYRAJiaLeiOqDgUqgp+Ule8oUyN2IAJdjvugvX2e2/Es1+CTg7uwJ
-X-Google-Smtp-Source: AGHT+IHyU1/v76uEaQ33dRdFEarsypMpUL874bW4ArXsJt36UMJ9N4R4yRH3pyY5PnVKrnhKliTRXw==
-X-Received: by 2002:a05:6000:420c:b0:3dc:21a1:8c6a with SMTP id ffacd0b85a97d-3dc21a18ca1mr10187524f8f.11.1757068608735;
-        Fri, 05 Sep 2025 03:36:48 -0700 (PDT)
-Message-ID: <6940b548-18b8-4507-bb75-617378fe090c@citrix.com>
-Date: Fri, 5 Sep 2025 11:36:47 +0100
+        bh=SwUSFm5NnSz+qANY7euZXluaZusjbdZg+ebSEO2SD8w=;
+        b=kkH3AI/faTDT14JTHw3RTY3gKnNtYSXV4QLDDjWuWI4vl18Jb2MYuGPzSk7JH3m6Ni
+         tAI94FEb/Fdw0fR4fU8+nsClcpNIhxYagV8dE4bxCNGYZcXh9yIrsKatP2XkOcq7WAO2
+         6AlmBavlJzLvSzoNgnu/E2IzhhoOMqJp25MNSWPz0LKoZrWiTFye7pOmtlS1IirwEYIE
+         96SD/cTZfZFUX6IncoRKHHkZyusDpVgNHDQO/yB0S4Qjcv7zpLhrUVwycet49LqXoPD7
+         EUZY1jQgbUpdfek5jV9WPIbmARtsDMtQxy5yuXWR/pjsCbECb9Auq8kNLMbqpCLFaPcf
+         XEng==
+X-Forwarded-Encrypted: i=1; AJvYcCW4Fo8Q0ip6VtTi6TH/fT2BrIF4GleO4MJ4OmLskePzsiqxAJNbw1NeEfp9oZWw2GZtAtmml1EPu58=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz4A10trvwa321G0jXQl0VbT2MtJppqJab6+TyCj1G9J4m7MivL
+	XzH20Ss49Agx54ShdW1h5JjmCtVaNxHgrcXQt9a1oRhLwkl9qaPsWZg1o57PgVzaGw==
+X-Gm-Gg: ASbGnctfzci8guhONVWnNPYtFKE+v5+PH/Mmo8jB2f41TLylqfbpZjfos6k0jvweuLk
+	PEvlhf/jq+zE4ELLLgUcvUdRQHLdnn0TDWNuzRpv17qQlY/HkqvKejI9L99fX2IcP7t89AHefdr
+	blLxHM9XUODIiP4a0kOafY5ufwNnG9KbLx8MQIClW9MzPYqk3AF8IYuYNNV65vDf8sdrVsQmv8b
+	Tj6YKzmPqF61BDCnVBLyh/OYTkojMoN8exc1NF9d/PrBsBy26n1jKFQ0iUz1aZjEAfCwVF/c5zU
+	t7tSvqalLNhWfMoH3D2EZt6AO6lGULkdtw+12Inf6FUEA7+t7XsQIIwl1odfI5/qUoDMDveUU7L
+	5fnFzPsWOCfsVCoKPX9xxipTRpX1Hbs0WM39xDRJZThRK7NPbvOq5YiPZQEj0kK1RE+CKOLgmvF
+	2824PSvZQ=
+X-Google-Smtp-Source: AGHT+IGFWlVTAH8cy07+cniQjYQj2+LbYruGSs3jNhiSN4O5iloq+6nghZmq3NRIjlf+8kmA9K23/Q==
+X-Received: by 2002:a17:907:8690:b0:b04:95da:d2de with SMTP id a640c23a62f3a-b0495dae9b4mr222076266b.6.1757069055699;
+        Fri, 05 Sep 2025 03:44:15 -0700 (PDT)
+Message-ID: <8df5e7b1-6eee-44dd-b8c3-f38cc5322f98@suse.com>
+Date: Fri, 5 Sep 2025 12:44:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [misra] Re: [PATCH v3 1/2] efi: Add a function to check if Secure
+Subject: Re: [misra] Re: [PATCH v3 1/2] efi: Add a function to check if Secure
  Boot mode is enabled
-To: Xen-devel <xen-devel@lists.xenproject.org>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
  =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>,
  "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+ Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
 References: <cover.1757066332.git.gerald.elder-vass@cloud.com>
  <12c18a6d0c3cbbe17cee19f9fb4501d614c23ec3.1757066332.git.gerald.elder-vass@cloud.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <12c18a6d0c3cbbe17cee19f9fb4501d614c23ec3.1757066332.git.gerald.elder-vass@cloud.com>
+ <6940b548-18b8-4507-bb75-617378fe090c@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6940b548-18b8-4507-bb75-617378fe090c@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05/09/2025 11:05 am, Gerald Elder-Vass wrote:
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index e12fa1a7ec04..e7e3dffa7ddc 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -901,6 +901,28 @@ static void __init pre_parse(const struct file *file)
->                     " last line will be ignored.\r\n");
->  }
->  
-> +static void __init init_secure_boot_mode(void)
-> +{
-> +    static EFI_GUID __initdata gv_uuid = EFI_GLOBAL_VARIABLE;
-> +    EFI_STATUS status;
-> +    uint8_t data = 0;
-> +    UINTN size = sizeof(data);
-> +    UINT32 attr = 0;
-> +
-> +    status = efi_rs->GetVariable((CHAR16 *)L"SecureBoot", &gv_uuid, &attr,
-> +                                 &size, &data);
+On 05.09.2025 12:36, Andrew Cooper wrote:
+> On 05/09/2025 11:05 am, Gerald Elder-Vass wrote:
+>> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+>> index e12fa1a7ec04..e7e3dffa7ddc 100644
+>> --- a/xen/common/efi/boot.c
+>> +++ b/xen/common/efi/boot.c
+>> @@ -901,6 +901,28 @@ static void __init pre_parse(const struct file *file)
+>>                     " last line will be ignored.\r\n");
+>>  }
+>>  
+>> +static void __init init_secure_boot_mode(void)
+>> +{
+>> +    static EFI_GUID __initdata gv_uuid = EFI_GLOBAL_VARIABLE;
+>> +    EFI_STATUS status;
+>> +    uint8_t data = 0;
+>> +    UINTN size = sizeof(data);
+>> +    UINT32 attr = 0;
+>> +
+>> +    status = efi_rs->GetVariable((CHAR16 *)L"SecureBoot", &gv_uuid, &attr,
+>> +                                 &size, &data);
+> 
+> This turns out to be a MISRA R7.4 violation, complaining about casing a
+> string literal to a non-const pointer.
+> 
+> The real problem here is that the EFI spec.  GetVariable() ought to take
+> a const CHAR16 *, but doesn't.
+> 
+> We could fix this with:
+> 
+> diff --git a/xen/include/efi/efiapi.h b/xen/include/efi/efiapi.h
+> index a616d1238aa4..56775d553109 100644
+> --- a/xen/include/efi/efiapi.h
+> +++ b/xen/include/efi/efiapi.h
+> @@ -224,7 +224,7 @@ VOID
+>  typedef
+>  EFI_STATUS
+>  (EFIAPI *EFI_GET_VARIABLE) (
+> -    IN CHAR16                       *VariableName,
+> +    IN const CHAR16                 *VariableName,
+>      IN EFI_GUID                     *VendorGuid,
+>      OUT UINT32                      *Attributes OPTIONAL,
+>      IN OUT UINTN                    *DataSize,
+> 
+> but I fear this might get some objections.
 
-This turns out to be a MISRA R7.4 violation, complaining about casing a
-string literal to a non-const pointer.
+The interface lacking the const in principle means that we can't rely on
+there being implementations which actually do fiddle with the string.
+Hence ...
 
-The real problem here is that the EFI spec.  GetVariable() ought to take
-a const CHAR16 *, but doesn't.
+> I don't think we want to be deviating every use of GetVariable() for a
+> problem ultimately outside of our control.
+> 
+> Another option would be to have a wrapper for GetVariable() which does
+> the cast once, which lets us deviate in one place only.
 
-We could fix this with:
+... this doesn't look like a viable route to me. (Nor a scalable one,
+as down the road we then may need more such wrappers.)
 
-diff --git a/xen/include/efi/efiapi.h b/xen/include/efi/efiapi.h
-index a616d1238aa4..56775d553109 100644
---- a/xen/include/efi/efiapi.h
-+++ b/xen/include/efi/efiapi.h
-@@ -224,7 +224,7 @@ VOID
- typedef
- EFI_STATUS
- (EFIAPI *EFI_GET_VARIABLE) (
--    IN CHAR16                       *VariableName,
-+    IN const CHAR16                 *VariableName,
-     IN EFI_GUID                     *VendorGuid,
-     OUT UINT32                      *Attributes OPTIONAL,
-     IN OUT UINTN                    *DataSize,
+> Thoughts?
 
-but I fear this might get some objections.
+Why not instead use
 
-I don't think we want to be deviating every use of GetVariable() for a
-problem ultimately outside of our control.
+    static CHAR16 __initdata str_SecureBoot[] = L"SecureBoot";
 
-Another option would be to have a wrapper for GetVariable() which does
-the cast once, which lets us deviate in one place only.
+and be done?
 
-Thoughts?
-
-~Andrew
+Jan
 
