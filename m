@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D379CB45012
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 09:39:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1111445.1460171 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A738AB4510F
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 10:15:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1111492.1460180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuR2q-00039e-8G; Fri, 05 Sep 2025 07:39:40 +0000
+	id 1uuRbK-0000vT-6T; Fri, 05 Sep 2025 08:15:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1111445.1460171; Fri, 05 Sep 2025 07:39:40 +0000
+Received: by outflank-mailman (output) from mailman id 1111492.1460180; Fri, 05 Sep 2025 08:15:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuR2q-00036V-5J; Fri, 05 Sep 2025 07:39:40 +0000
-Received: by outflank-mailman (input) for mailman id 1111445;
- Fri, 05 Sep 2025 07:39:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uuRbK-0000tR-3P; Fri, 05 Sep 2025 08:15:18 +0000
+Received: by outflank-mailman (input) for mailman id 1111492;
+ Fri, 05 Sep 2025 08:15:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1l6N=3Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uuR2o-00036C-Sy
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 07:39:38 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7916f9c8-8a2b-11f0-9809-7dc792cee155;
- Fri, 05 Sep 2025 09:39:37 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-b0418f6fc27so285613966b.3
- for <xen-devel@lists.xenproject.org>; Fri, 05 Sep 2025 00:39:36 -0700 (PDT)
+ id 1uuRbI-0000tL-KH
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 08:15:16 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 73b74268-8a30-11f0-9d12-b5c5bf9af7f9;
+ Fri, 05 Sep 2025 10:15:15 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-61cebce2f78so1375738a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Sep 2025 01:15:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aff15fccad1sm1599532166b.108.2025.09.05.00.39.35
+ 4fb4d7f45d1cf-61cfc1c7dfesm16150230a12.7.2025.09.05.01.15.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Sep 2025 00:39:36 -0700 (PDT)
+ Fri, 05 Sep 2025 01:15:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7916f9c8-8a2b-11f0-9809-7dc792cee155
+X-Inumbo-ID: 73b74268-8a30-11f0-9d12-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757057976; x=1757662776; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1757060115; x=1757664915; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bxBl2+ipg4oH2IDTr8qT5pfOuU6yISDJu4FyOB9afXU=;
-        b=fG3BcqRJMFhdWFEFFEoFzadPD8w3G7WCvnkbsJszzQtuuzRSlWif7iqh6FxJ+k2OVA
-         r8OldJXGTZGXtYdhGOAiIvHptCx1Ulr47DSqU1bWj6r6ySkcY2ZvGbG3jDXwSLZbTeAL
-         hCW3kszq6KO8PHq2WoPqerFb8p3Qg/bvLROQDU6AiEkzm1gz0id0Cy2Auq6HDLVR5uKR
-         th2syas34aDay6flEXsiBH0HEceIPRAFYPUZ25j9w2GZXsnKzuMzKMv8icUFF1oRn0Ij
-         OQUs8hYWRAk5r3mqPBuvZ6hi66LF/C0aNA8w1BvYUvqds4OkvYZp+Na2AOoWx7Rq17kc
-         htCA==
+        bh=2VsriFXGsBt9nqoCLaquLayjIb1I6ZvvllaP7w5kKmY=;
+        b=dFlJUSZ4a9FN/p6jYaVskzVbuS9W+s1LoS8SY0rVoc16KpXCo9SqPoyIGp0/wZ6tIs
+         FKIwdptu/ygMVxhzCyh3iK2l2Y/FcLyrjvOx6lKO+2+IJ3QbNpCVKftnPLen7fw1EwGn
+         W4Z5Hk7MTEZ5Tet3it9yeC7ZlMlnGc+XAyqv4QTA143gP5F4bVcOSiQEMMdLPa5z76AT
+         JjzKbrqgG9kXHeSmUAOfP6gQQksmAbimZn4s6tgZKoWdtDBtedoQp+SOA/L4ORTYG9R9
+         NQm1O8VdnAAjy7nzZEufcV7Ol/qksYVLGplbLq+yrPXk1aeH/IM61qaRabLUdtfDiklj
+         9vFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757057976; x=1757662776;
+        d=1e100.net; s=20230601; t=1757060115; x=1757664915;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bxBl2+ipg4oH2IDTr8qT5pfOuU6yISDJu4FyOB9afXU=;
-        b=ttXYMRyBabQjYjO5mGyLIaAMhXUiD01F9rQhZc7maGxVgpU2Kp7BW1vC7UAxJGw5ll
-         WAxYLDYNafydX8rECdA0N16kfPPlfzu52b4rwSraWHKWRav7cyXNi6Pp9Q+DBN3Vkxno
-         fVy2gMjDED1tZG/YPybnLKN7FewlSarkXOQd4SNA+MNHrvsiYENhho5LzBQr4MI7hdSv
-         93SSytkNzWK3+ojGsiFjubb1puJ+TY53Iyb0x/IwLOo+sPH2OoJpUzlPfVcuKLqWfxRJ
-         htvmJyITpo33PO23QD9OBd0GMHPvwV1MM93DXdHA84ZttHcIujnakZbFKS7VmUMttpqk
-         Wkpw==
-X-Forwarded-Encrypted: i=1; AJvYcCU1UKwRKWGd4bPr+TMootTAJ5anDPpr2cFQGMV8LMrJeM0yVFiCiXe3RaAfpJv6cjzkx84co+NDvTQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwSplUvA+ZFha/IruLcN2W/3tbwFMh7lN5uFPMpXr9pNcpSLcfY
-	LOcw79UsxPDzwvSQZ6umCGhjJL56/tmYnTZzSoq2VLm0XfU+v3rQerUXe4Yg5dVlDQ==
-X-Gm-Gg: ASbGncvUTDmEyWl/2pxROGUUw0dK39B9qChckEo4aA1X8poeTb/vcvabi0PR9Xy431s
-	hqe1uWFWwgUIIrYGq8eAJQYWyOMpK5V9mrjW1FZT1AHm9aipcTBUYXZTWDLkBT7vIDlvg1zR3Cd
-	e2Vxv0E+xDWp5P7TJWIXKFI/EJsanUaI6pBxISKTPHx2NomTqlpO9CiZVn5OwJiLpmjSh5ScKPN
-	7xwCPCqV44GLpci0HMDWBWqsMKdGKg7LxwntNlvxId1BCpsau7Vs8H0AjfNbdHq/embboxD3cgE
-	bBAqp3ip8ICfA9ep5Vsp2W7yfPqLBIn55bOAF5pQSVzeN9J0ox0cmHo4xoXsbKnyK/UGmSGsXzS
-	1TPsIo9voVd6csLf/KoiP9H3czLukmBc8Tl/UjcVLSlFogMeuJeeJWb6FNV1iAiWy+6MeQ7d96H
-	3SbYk5JOJ/aAjIqp9iKQ==
-X-Google-Smtp-Source: AGHT+IHzooTQPQZReUjjuhvLyKkqPUEUG27QiHszwkIqz3kc0qVgX5iNh7WmeM93i8N/6xFJncdUYA==
-X-Received: by 2002:a17:907:7f89:b0:afe:d62a:f053 with SMTP id a640c23a62f3a-b01d8a322c4mr2213506966b.10.1757057976376;
-        Fri, 05 Sep 2025 00:39:36 -0700 (PDT)
-Message-ID: <57fedb53-18b7-4d81-acc8-2756a899ef90@suse.com>
-Date: Fri, 5 Sep 2025 09:39:34 +0200
+        bh=2VsriFXGsBt9nqoCLaquLayjIb1I6ZvvllaP7w5kKmY=;
+        b=UxD+K/Gf1LzTyFbH25IuayqFQDNn1kn/DWn3sc0aWVCGW2nT+u4dATO/3GuiSVdaDA
+         L60v9DQGN7ptE54Y1qiyq/t4141RtjfOJWLYuaaJ1NEjlbSJCl/ITbPEhFSXWvh0S6XR
+         AwWUZse+rEvAtIvKW4HVPiQa80Z8jq0G/07zxXXPLy0WRzzt2ZkxSbSymo1O21fkJBZd
+         qAY8dvFqtDZ3ZSmpd1pv9gvNkI8gUm+ezmH9IhQjfKu0PddgHn5J45dSJ20OzPaet6VI
+         eGuU2flFb7Lkl9aVrTgf0X0EINJckoNkAQj4CNCpSl1sjHTfEFoxIhK5nalavAZfAXhx
+         2Icg==
+X-Forwarded-Encrypted: i=1; AJvYcCUgoGC9tihX84LyCqFjsw9XNOxqmeRmN276r1Z/a9DhbXO83w+t0kEZa78+qHlPBe103eZy/hoLaf0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxTsY3AI5UbjHGPNPs7AXncTnH9fro4YkRhSOCfBLR7D/sULT59
+	/FQ0MVGmUJguRl521gK2ABZ8KAirDu0JxT2Z9Xih8a/msvF1bMrTVexRt509S/5e4Q==
+X-Gm-Gg: ASbGncvlBjwNJW8ROzgZRCtorRnWEhz6uMGngyWEdjly5MR92hTMRIZc2fRcT3LaVmr
+	jeUQqS0QgY4QbqtEXnwaeSvvO1PkZgqigtd3wx/CKWymkCXzSQNZQqjyFrJr+SEamzdsHIiRNZH
+	O+27e6WG4AvHaEuEy6KKnG9hambl4aODYylPHK73ko7Zl0Pc8EwYWx0YAkOuDnmZyFpGyMj8PLf
+	u+OXf/HH/EPqnY5rqH4mYBe9EqVjXSlClHHJtUSs5EPHDsJ1sYB6GdGZRc/bNfJ+54RYSMUJcPf
+	rrSVmNj1cUHXSRO8hOPHHbc1tXVmi6B7L9ouZOxNpmIk2wflS49LD1F/ObsuCgM2MDqJpD+00n5
+	tOsjtYJr+NcXQcJTCUs6FgsO1E0gGWc93qm398yHnYRKpHH79Fn6tDqjRLRstkH+wdHlISFIvrY
+	1/JxCyn/+EVulwiUfQ7Q==
+X-Google-Smtp-Source: AGHT+IHlyKTzV4EUsZfsWyXI7udscmyHy3ubo4wwqYDCMt5o9V1aM2EVFuwCR+GKUQsEgiKh/NkTpw==
+X-Received: by 2002:a05:6402:2115:b0:61c:5b95:c8b2 with SMTP id 4fb4d7f45d1cf-61d26d8503fmr20631034a12.22.1757060114770;
+        Fri, 05 Sep 2025 01:15:14 -0700 (PDT)
+Message-ID: <d8d57a91-eaca-4896-ab59-72136c54a5e4@suse.com>
+Date: Fri, 5 Sep 2025 10:15:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/apic: Avoid infinite loop in
- io_apic_level_ack_pending()
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2] Strip build path directories in tools and hypervisor
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250904215137.135529-1-jason.andryuk@amd.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250904114202.2722478-1-marmarek@invisiblethingslab.com>
+ <488408be-4728-4666-89a5-ac5b438bdbf5@suse.com> <aLmhz9P1c9wYjdwp@mail-itl>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,35 +123,91 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250904215137.135529-1-jason.andryuk@amd.com>
+In-Reply-To: <aLmhz9P1c9wYjdwp@mail-itl>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04.09.2025 23:51, Jason Andryuk wrote:
-> io_apic_level_ack_pending() will end up in an infinite loop if
-> entry->pin == -1.  entry does not change, so it will keep reading -1.
+On 04.09.2025 16:27, Marek Marczykowski-Górecki wrote:
+> On Thu, Sep 04, 2025 at 02:58:20PM +0200, Jan Beulich wrote:
+>> On 04.09.2025 13:41, Marek Marczykowski-Górecki wrote:
+>>> Use -fdebug-prefix-map in preference to -ffile-prefix-map, as it's
+>>> available in earlier toolchain versions. But use it together with
+>>> -fmacro-prefix-map (if available) for hypervisor build, otherwise it
+>>> still contains some paths in out-of-tree builds.
+>>
+>> I consider it wrong not to use -ffile-prefix-map when available. That
+>> already covers more than "debug" and "macro", and it may gain further
+>> functionality.
 > 
-> Switched to breaking out of the loop.
+> I asked about that on v1 and got ambiguous answer suggesting the opposite:
+> https://lore.kernel.org/xen-devel/0370c0eb1fd9ac00acab016792132fa0b943d384.1742317309.git-series.marmarek@invisiblethingslab.com/T/#m74a8883835e30fb74a85b07a7b14507ee52e7c65
+
+Ambiguous answer(s)? There's no reply to that mail of yours, and I don't
+see how the conclusion drawn fits my earlier comment. That was more
+towards what I did in v1 of my patch - fall back to the more widely
+supported option when the less widely available one can't be used.
+
+>>> --- a/tools/Makefile
+>>> +++ b/tools/Makefile
+>>> @@ -1,4 +1,4 @@
+>>> -XEN_ROOT = $(CURDIR)/..
+>>> +XEN_ROOT = $(realpath $(CURDIR)/..)
+>>>  
+>>>  export PKG_CONFIG_DIR = $(CURDIR)/pkg-config
+>>>  
+>>> diff --git a/tools/Rules.mk b/tools/Rules.mk
+>>> index 725c3c32e9a2..428fce094819 100644
+>>> --- a/tools/Rules.mk
+>>> +++ b/tools/Rules.mk
+>>> @@ -166,6 +166,8 @@ endif
+>>>  CFLAGS-$(CONFIG_X86_32) += $(call cc-option,$(CC),-mno-tls-direct-seg-refs)
+>>>  CFLAGS += $(CFLAGS-y)
+>>>  
+>>> +$(call cc-option-add,CFLAGS,CC,-fdebug-prefix-map=$(realpath $(XEN_ROOT))=.)
+>>
+>> Here and below - no need to use cc-option-add for -fdebug-prefix-map,
+>> which all permissible compilers support.
 > 
-> Fixes: f821102450a1 ("x86: IRQ Migration logic enhancement.")
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> ---
-> Noticed during code inspection.
+> Ok.
+> 
+>> Further, again as per reply to Andrew on the thread hanging off of my
+>> patch - I don't view it as desirable to leave the tools/ prefix in
+>> place, or e.g. for libraries, the entire tools/libs/<subdir>/ part.
+>> Imo every binary should have only the path (if any) from its own source
+>> root left. (And yes, how to deal with e.g. shared include files isn't
+>> quite clear to me, yet. Maybe we actually need to pass two options.)
+> 
+> I don't think it's valid to strip arbitrary prefixes from debug symbols,
+> especially in tools. This will break some automated tools that try to match
+> coredumps (and similar) to source code and sometimes even debug symbols
+> too. But even for manual usage, having to jump between directories (I'm
+> not sure if gdb supports multiple source dirs at once?)
 
-Well spotted, just that ...
+Pretty necessarily: When debugging you might easily cross project boundaries.
 
-> --- a/xen/arch/x86/io_apic.c
-> +++ b/xen/arch/x86/io_apic.c
-> @@ -1715,7 +1715,7 @@ static bool io_apic_level_ack_pending(unsigned int irq)
->  
->          pin = entry->pin;
->          if (pin == -1)
-> -            continue;
-> +            break;
+> just because you
+> happen to debug a binary that use more of libraries isn't exactly
+> desirable.
+> I think the paths in debug symbols and similar should match the layout
+> in the source repository, not a subset of it.
 
-... we shouldn't terminate the loop here, but rather continue with the next
-entry in the list (if any). Hence presumably why "continue" was used, without
-achieving the intended effect.
+Well, okay, we disagree here. To me, xen.git really is an agglomeration of
+too many things in a single repo. If things were properly split, you'd end
+up with what I'm asking for anyway.
+
+> Theoretically this doesn't apply to the hypervisor yet, as I'm not aware
+> of any tool processing xen memory dumps automatically (and those for
+> manual usage are quite unstable, to say the least...). But I don't think
+> it's an excuse to have incomplete paths in there, just to save few
+> bytes?
+> The only case where I can see it would make some sense is out of tree
+> build, where indeed it's about just the hypervisor, not the toolstack
+> (IMO due to the build system limitation, but well...). But at the same
+> time, having different path variant depending on it-tree/out-of-tree
+> build feels weird.
+
+Which is why I'm arguing for the dropping of the xen/ prefixes, as that's
+how things come out in in-tree builds.
 
 Jan
 
