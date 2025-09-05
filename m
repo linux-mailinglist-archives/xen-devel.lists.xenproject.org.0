@@ -2,53 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D5F1B45A4E
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 16:24:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1112038.1460508 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B0D0B45CFC
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 17:50:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1112087.1460517 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuXLc-0004Xv-Nz; Fri, 05 Sep 2025 14:23:28 +0000
+	id 1uuYge-0005Ui-GL; Fri, 05 Sep 2025 15:49:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1112038.1460508; Fri, 05 Sep 2025 14:23:28 +0000
+Received: by outflank-mailman (output) from mailman id 1112087.1460517; Fri, 05 Sep 2025 15:49:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuXLc-0004VH-Jn; Fri, 05 Sep 2025 14:23:28 +0000
-Received: by outflank-mailman (input) for mailman id 1112038;
- Fri, 05 Sep 2025 14:23:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uuYge-0005TI-DI; Fri, 05 Sep 2025 15:49:16 +0000
+Received: by outflank-mailman (input) for mailman id 1112087;
+ Fri, 05 Sep 2025 15:49:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RRNw=3Q=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uuXLb-0004V6-83
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 14:23:27 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20619.outbound.protection.outlook.com
- [2a01:111:f403:2417::619])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e18fb50a-8a63-11f0-9d12-b5c5bf9af7f9;
- Fri, 05 Sep 2025 16:23:24 +0200 (CEST)
-Received: from BY5PR04CA0024.namprd04.prod.outlook.com (2603:10b6:a03:1d0::34)
- by BL1PR12MB5756.namprd12.prod.outlook.com (2603:10b6:208:393::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.19; Fri, 5 Sep
- 2025 14:23:17 +0000
-Received: from CO1PEPF000075ED.namprd03.prod.outlook.com
- (2603:10b6:a03:1d0:cafe::cd) by BY5PR04CA0024.outlook.office365.com
- (2603:10b6:a03:1d0::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9094.18 via Frontend Transport; Fri,
- 5 Sep 2025 14:23:16 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000075ED.mail.protection.outlook.com (10.167.249.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9094.14 via Frontend Transport; Fri, 5 Sep 2025 14:23:16 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 5 Sep
- 2025 09:23:16 -0500
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Fri, 5 Sep
- 2025 07:23:13 -0700
+ <SRS0=iJZl=3Q=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
+ id 1uuYgc-0005Sh-UY
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 15:49:14 +0000
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dc12aad4-8a6f-11f0-9809-7dc792cee155;
+ Fri, 05 Sep 2025 17:49:09 +0200 (CEST)
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 585AgQoa017948;
+ Fri, 5 Sep 2025 15:48:31 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 48usurhfn9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 05 Sep 2025 15:48:31 +0000 (GMT)
+Received: from m0356517.ppops.net (m0356517.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 585FkhKr005421;
+ Fri, 5 Sep 2025 15:48:30 GMT
+Received: from ppma23.wdc07v.mail.ibm.com
+ (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 48usurhfmf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 05 Sep 2025 15:48:30 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 585D0Hpj019442;
+ Fri, 5 Sep 2025 15:48:29 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+ by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 48vd4na0hb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 05 Sep 2025 15:48:29 +0000
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
+ [10.20.54.103])
+ by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 585FmRQ252298180
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 5 Sep 2025 15:48:27 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CB1582004E;
+ Fri,  5 Sep 2025 15:48:26 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4EE2320043;
+ Fri,  5 Sep 2025 15:48:25 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.111.48.240])
+ by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Fri,  5 Sep 2025 15:48:25 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,205 +74,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e18fb50a-8a63-11f0-9d12-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hclL765Ah+0nwN5jTe5vSFVeNcLQbEE7xAftUwlvsu9QfBTnad6zIkthz2V3n+j++9wgFkBibvcBu2Pg2s4lnwK8LBotO8j2+JH2VFK3LWd3JI9oZXtQrnGksxLDAQV5FDhI48Twahq18juTJz4GdfyCcPBAT5hK/w/47yc1uW+hbwTHdmZDolI7RfQLsvPQHHT3VMjFZr7ZzvBkVM+0USsY2zAhUHaD23q6Ziq6frm5PQXGeAV9rEnY50zTPUjJxWOIAN3EGGShBxGndodMBiIF8qtl6YcxGm7p3D1vA4N309RVuPXiaN9xsXmZ1CZ/2hIwyfRpxc3EfbC70B6c+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vBMpyFtOkrIZHsOBkab5BX5XX/KDsJxINZyIGOe9kc8=;
- b=JeIntKn1U47FS8eDW8XdxoRODbml8oOEIu2ROG3S8zffnkthy3Bnh6HVQ45vkV9suUKakmT9YZSriiE3UC/YiZOYJNKb+XdASaBV9OgfyAe/XoZ820+jXTMWI9A+c9wKdSFp3TmM5SsLd8F+QTCG/aUwQMjpkjSBxhT94QA0we/2nY5nSpSagm7Esah/zSXE/6H+fK81AZVNp8ub0II4CKz5fl/EU6whFD8K357YnoabWKajVopvU2h3Yb3964XQAVa2TFmfXyCWnNTEDU3zUk2zmfnzu2r6wWFj49/FHSGMbY85W8H4sT/eoUwCeBq+SDUC9I3W5fdLAMDx8c/Akg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vBMpyFtOkrIZHsOBkab5BX5XX/KDsJxINZyIGOe9kc8=;
- b=Mt/Nz1PZoBaD/rDIwSj+JX0z6MPT/n2LqGphLcCplDfv9JXoR76YJuU1qlG72u7fE7PXHg0k9AFwIUEn26v/3eW6TCgfZwN9tynSM3KNPgVjpYa6rSMre0Mdkype2xZVHd6NJFGc96HkOzpuzIFoP8f+Ek0S6Y70or8ivKu4IV0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: dc12aad4-8a6f-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=mCfoUYLMC6HNsYLC2Cmci4imZfw/Ws
+	ROhnMAP3rAWN8=; b=DRFTEJUzUMLxbxYuAXuLuwNqrzv8c+DrkFqe89wjY27c9F
+	HPKmwnL0ffbZLOY3Rz5gz7HsHuFYQX6DqipN3T17S7pXXoPQ0OUX26rpw2bM2Ta4
+	HCoGI8+peE6wgvdwt4ZhOwwGmSI9acpU5CBc496pJ6Kl9gzxQDChu/+1O6PlEWaS
+	HHHSSQvfm9GSge31HtdVFwim+meO0SH5sOxV9j5RYTRpeOEqPos2duD1GYvhAUwk
+	Y1ASxol3ifR8yNeQRkjgWqPhocL/iRqrC9el8+zCXSORnp/lvdaNXU7o8ETDqd86
+	PWf/tQ2g4yPndZLt/k4Lq6iGIW8zebN60vYAGngw==
+Date: Fri, 5 Sep 2025 17:48:23 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        Andreas Larsson <andreas@gaisler.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        David Hildenbrand <david@redhat.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Ryan Roberts <ryan.roberts@arm.com>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+        Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
+        linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
+        xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 4/7] x86/xen: support nested lazy_mmu sections (again)
+Message-ID: <d3adc2a0-5888-411e-ac7c-9df45e3389c9-agordeev@linux.ibm.com>
+References: <20250904125736.3918646-1-kevin.brodsky@arm.com>
+ <20250904125736.3918646-5-kevin.brodsky@arm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Fri, 5 Sep 2025 16:23:12 +0200
-Message-ID: <DCKXNJQ1AVB9.1PE1JBUJXW93Y@amd.com>
-CC: <andrew.cooper3@citrix.com>, <anthony.perard@vates.tech>,
-	<jbeulich@suse.com>, <julien@xen.org>, <michal.orzel@amd.com>,
-	<roger.pau@citrix.com>, <sstabellini@kernel.org>, <dmukhin@ford.com>,
-	=?utf-8?q?Marek_Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, Simon Gaiser
-	<simon@invisiblethingslab.com>, Xen-devel
-	<xen-devel-bounces@lists.xenproject.org>
-Subject: Re: [PATCH v17 0/4] xen/domain: domain ID allocation
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Demi Marie Obenour <demiobenour@gmail.com>, <dmukhin@xen.org>,
-	<xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.20.1
-References: <20250829232132.3460081-1-dmukhin@ford.com>
- <4bfee720-f117-4ac5-8cf8-8d9e718f6694@gmail.com>
-In-Reply-To: <4bfee720-f117-4ac5-8cf8-8d9e718f6694@gmail.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075ED:EE_|BL1PR12MB5756:EE_
-X-MS-Office365-Filtering-Correlation-Id: 14cd9070-c99c-4f7f-1e1a-08ddec87c187
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|7416014|376014|82310400026|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?a1N3dGFkcVFpWTkrNDNnc09RQ2tvSjRMaTVxbFZra0diRWMyNmJLMkVPeVhD?=
- =?utf-8?B?U2ZmRStuVmIxNmdWQUpyZW9lNS9sMWFkU1lQYUcrNi9CZld0eWtqeXF5eGQr?=
- =?utf-8?B?ZlgrUFcxV2hpVTFYMG9XMkVVYmFpM2hxTWZ5OWdtS08yN1lwZ2hWZWEwck1J?=
- =?utf-8?B?KythOWF4eVJnUkxvdkFsM1JCT3cxaXhJV0dmOXF4Qk1jOHloU3BRVmVlOXMv?=
- =?utf-8?B?TERYSUtvVEdqcU9aRkhkZWxreEN5RzBpUVNSckp3SGdubS9NRDgzZFRPalV4?=
- =?utf-8?B?UlFnVFplcjJDR2s2QXRERXhucW5oWnU5NGRidWgvTVEya3U4cHFiRGZvdExl?=
- =?utf-8?B?VWdUSjVZZE04QWhEZmtESG9peW9rUStQSFFSdmZRdjFEbEpmalltNWcyT1p5?=
- =?utf-8?B?NGJYcXgrczEyR0Q0MmhZdHhvR3RTaXFKS2NzMDcvNnBBeGRVVllzRnJvNDU4?=
- =?utf-8?B?UnpiamMzWC9VUGlPWG54ZkVPZXc3dHQvN2swOHhXUXlZTmFMbFVtb3Y5N1RK?=
- =?utf-8?B?RWQ5K083a2x4NG1LWjNydnpkeTFwTXVHT0NteFpGSGU0UEdWQUwwQXVjSVNy?=
- =?utf-8?B?VnlyTjgyaEpOS0lDak4zSTNBR0I3UlluSDdrTTBvcThLbkpETEJTL0VLbzMw?=
- =?utf-8?B?Qy92aGc0UC9GdFQ5aHJIMEM3RlY4RDIwY2tKVGZML1BCbmg0QjJxRndlS2h4?=
- =?utf-8?B?K0FORlc4aGZWSk40T1Z5VVZ2RExUdzFmcjlpVm9iaUJxYlRvYXNpbUlNR0Jh?=
- =?utf-8?B?MUhQUndPTnRHVDhsQk41TXArNHp5b3REaWV4WGFoa2xqODg2Um5raTErRzJk?=
- =?utf-8?B?VG9uWk11RVJ0S24weXJLUTI4QVBvWDF1dkMzYmtzeXVEUkhqRCtSanRMa084?=
- =?utf-8?B?aUpGam9PSmpEWVp1MkpNc1NZRDN3alBrbDE3dGQycm1KMnEyWFE3RGp2M2FM?=
- =?utf-8?B?djdVeUMrdCtGSlRJb25IVVZmVHE5YlcraER2Z0piQjkvclhOM2haVWY1c3ZJ?=
- =?utf-8?B?Qyt5RHFGYi90dlF2SjQ0bWdxZm5GaHpLakNlNmI4RUJlVTZDeW9ITjJCZHNH?=
- =?utf-8?B?QkZlMjdNaWg1cjNvN3FHbmtnMkFqYzdwdml6aUJsaWR6K3MzREVMQWlNTllW?=
- =?utf-8?B?aG43ZXJMNzRPTUd1LzcxQS9BOUZnMUNJU1ZRN3FlYUxXcTk2cTFZZHczdURO?=
- =?utf-8?B?ZTdhTmdkcExLY2I2RUNZWloyMlJEcy8yK1JZZ3BuYlpDRGlRMDQvMFRKaWxK?=
- =?utf-8?B?SlE0UzhKVDZydW5kcXUySURmblZvbm5xekpiTkJtWHU1eTJwelR0dElFUmw5?=
- =?utf-8?B?ZFQ4UVJFckVSQjF3OWtleFpNb29OWHFSTE1kcllwbTYrZXpnQWRGYkVjUGVF?=
- =?utf-8?B?ekJTL3lWMGlkdHBQaHJrQ2RwZkluaGJka3FCYVFlaHNsclMrZjNBOE5oc1Ri?=
- =?utf-8?B?K01UNlhTeitHNUFNN3dXWFlFakpjdGZYT2NpVXV2em43UU9qR0I5T2NNVHBN?=
- =?utf-8?B?V0J5NVgxaU4yMUxmaWJ6TU5pWEJ4SlJUY1BzKzB3ZTZJRnhIblZLd1Q4VFhO?=
- =?utf-8?B?K0ZUV2FlVUVhc1VMNlJSbFRPQ202VUwyQnJxb2pZbk9LQzIxMkpvcDR0a1Jn?=
- =?utf-8?B?TllzOGxFTkYyQlpmWGxBSThJWmpRelZPdEs1YitsZVVPWW9MZ21kVi9Yb3pH?=
- =?utf-8?B?YmE5Z29Ca05IOHVOYlp3UlJyYkh0cXRkcnVtZ21SMXBuZE1vMmM1NXRnVUlz?=
- =?utf-8?B?blhPVWpsVUJxdlE2TFRaMG1lVDJ4cExBdEJ6c2grZ0VjU2tiaHlabHU5Q1pY?=
- =?utf-8?B?azNkUnF5ZldiU2RxWmUrMHJpMUNKd3lLWVV2MEtwWFpGbSs2Ykt4bllDTm9Y?=
- =?utf-8?B?RWxJdVk3bkxZMUI4blFlaFcyY1NXMEFKcHhyTFhOVmpOalJjU1JLdXhacTVH?=
- =?utf-8?B?WXk1Rzdodm5DeTViRmpCYWlPVVcvdWxXQTFUR2M2VUlNWmRacEJQNnhHdzFQ?=
- =?utf-8?Q?tpV8xog6KJD5KxkmRNmiOVXFa+RAnw=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(7416014)(376014)(82310400026)(13003099007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2025 14:23:16.6736
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14cd9070-c99c-4f7f-1e1a-08ddec87c187
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000075ED.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5756
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250904125736.3918646-5-kevin.brodsky@arm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAzMCBTYWx0ZWRfX5iXkXHtPokV2
+ s58RZ7e813edv+vWWoqJUrrtWQXbub6NiX58yP1v9mbmzE5GTo4wfrfFkR/YZ/MbCR+iaBSdaCX
+ adCNlkxNA/nEsZ3agSOH3KgEWq38b6wGZtWAzoLq+mKBzCvbn/uEMkBgl3O9f5obeDeeWy94B3P
+ LgKQGohc5o/PIli23EYmnTGZI+Oj8pYgiOworIhg3wrM4u606YHplewCbIn1zTW8AdxtJuUJDYA
+ iMBC7cL5Ca1p2IQg+1kqXYCy73F3DoQq/aCn8/pSszhndcjXi11V8uX0tGswVehF3dhVd7AerLt
+ JrqhsabJDFJw5fzoqnl1EhDRooO7y32BwqH5cYOjZy4q0rOcELXv53bz54YHJ9HbXtIGc4qdlip
+ ckpxcnXd
+X-Proofpoint-GUID: u6h_butZCR90wxuVu6ifBPi5r4KK37UM
+X-Proofpoint-ORIG-GUID: HU44fewV-eZEBpYhS3NFrN8FS6mJ4q6n
+X-Authority-Analysis: v=2.4 cv=Ao/u3P9P c=1 sm=1 tr=0 ts=68bb064f cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=yJojWOMRYYMA:10 a=36QzpkCBnVJsay_x71QA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-05_05,2025-09-04_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 impostorscore=0 priorityscore=1501 spamscore=0
+ suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508300030
 
-On Thu Sep 4, 2025 at 10:15 PM CEST, Demi Marie Obenour wrote:
-> On 8/29/25 19:21, dmukhin@xen.org wrote:
->> Patch 1 introduces new domid_{alloc,free} calls.
->> Patch 2 is a prep change for domain ID allocator test.
->> Patch 3 introduces some basic testing for domain ID allocator.
->> Patch 4 adjusts create_dom0() messages (use %pd).
->>=20
->> Link to v16: https://lore.kernel.org/xen-devel/20250812223024.2364749-1-=
-dmukhin@ford.com/
->> Link to CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipeline=
-s/2012378054
->>=20
->> Denis Mukhin (4):
->>   xen/domain: unify domain ID allocation
->>   tools/include: move xc_bitops.h to xen-tools/bitops.h
->>   tools/tests: introduce unit tests for domain ID allocator
->>   xen/domain: update create_dom0() messages
->>=20
->>  .../xen-tools/bitops.h}                       | 16 +++-
->>  tools/libs/ctrl/xc_misc.c                     | 13 +--
->>  tools/libs/guest/xg_dom_elfloader.c           |  1 -
->>  tools/libs/guest/xg_dom_hvmloader.c           |  1 -
->>  tools/libs/guest/xg_private.h                 |  2 +-
->>  tools/libs/guest/xg_sr_common.h               |  2 -
->>  tools/tests/Makefile                          |  1 +
->>  tools/tests/domid/.gitignore                  |  2 +
->>  tools/tests/domid/Makefile                    | 88 +++++++++++++++++
->>  tools/tests/domid/harness.h                   | 54 +++++++++++
->>  tools/tests/domid/test-domid.c                | 95 +++++++++++++++++++
->>  xen/arch/arm/domain_build.c                   | 13 ++-
->>  xen/arch/x86/setup.c                          | 11 ++-
->>  xen/common/Makefile                           |  1 +
->>  xen/common/device-tree/dom0less-build.c       | 15 +--
->>  xen/common/domain.c                           |  2 +
->>  xen/common/domctl.c                           | 43 ++-------
->>  xen/common/domid.c                            | 95 +++++++++++++++++++
->>  xen/include/xen/domain.h                      |  3 +
->>  xen/lib/find-next-bit.c                       |  5 +
->>  20 files changed, 397 insertions(+), 66 deletions(-)
->>  rename tools/{libs/ctrl/xc_bitops.h =3D> include/xen-tools/bitops.h} (8=
-4%)
->>  create mode 100644 tools/tests/domid/.gitignore
->>  create mode 100644 tools/tests/domid/Makefile
->>  create mode 100644 tools/tests/domid/harness.h
->>  create mode 100644 tools/tests/domid/test-domid.c
->>  create mode 100644 xen/common/domid.c
->
-> Would it make sense to support virtualizing the domain ID space?
-> That would allow the toolstack to only allow a domain to communicate
-> with other domains of its choosing, rather than with any domain XSM
-> permits.  This would also allow avoiding domain ID reuse problems,
-> because a virtual domain ID would stay valid even after the domain
-> it refers to no longer exists.  It would need to be explicitly released
-> by the guest kernel before it could refer to a different domain.
+On Thu, Sep 04, 2025 at 01:57:33PM +0100, Kevin Brodsky wrote:
+...
+> -static void xen_enter_lazy_mmu(void)
+> +static lazy_mmu_state_t xen_enter_lazy_mmu(void)
+>  {
+> +	if (this_cpu_read(xen_lazy_mode) == XEN_LAZY_MMU)
+> +		return LAZY_MMU_NESTED;
+> +
+>  	enter_lazy(XEN_LAZY_MMU);
+> +	return LAZY_MMU_DEFAULT;
+>  }
+>  
+>  static void xen_flush_lazy_mmu(void)
+> @@ -2167,11 +2171,12 @@ static void __init xen_post_allocator_init(void)
+>  	pv_ops.mmu.write_cr3 = &xen_write_cr3;
+>  }
+>  
+> -static void xen_leave_lazy_mmu(void)
+> +static void xen_leave_lazy_mmu(lazy_mmu_state_t state)
+>  {
+>  	preempt_disable();
+>  	xen_mc_flush();
+> -	leave_lazy(XEN_LAZY_MMU);
+> +	if (state != LAZY_MMU_NESTED)
+> +		leave_lazy(XEN_LAZY_MMU);
 
-I'd be all-in for something like that. For context, this is something we
-briefly touched on over lunch on the last Xen Summit (it was Juergen, Marek=
- you
-and I, I think?). Regardless, this series is only tangentially related. Eve=
-n if
-you do have several domclusters, you'd still need a per-cluster allocator o=
-f
-domids. For something like domcluster-namespaces to work, we'd need to exte=
-nd
-createdomain to also take a domcluster-id, then the unique domain identifie=
-r
-comes from a domcluster-id+domid.
+Based on xen_enter_lazy_mmu(), whether this condition needs to be
+executed with the preemption disabled?
 
-I tried shortly after we discussed it to sketch out a credible plan to gett=
-ing
-there, but there were more wrinkles than I expected. You'd definitely want =
-some
-domains to be in several namespaces at the same time (The hwdom, at least),
-which involves some refcounting I was unsure how to do. Not a major show-st=
-opper
-but I hate refcounts with the intensity of a power plant.
+Or may be this_cpu_read(xen_lazy_mode) + enter_lazy(XEN_LAZY_MMU)
+should be executed with the preemption disabled?
 
-grants also become more complicated when you have a domain in several
-namespaces, because now you need several grant tables per domain (one per
-namespace). The ultimate consequence of this means that if dom0 wants to cr=
-eate
-a new domcluster and bind itself to it, now it needs to create a NEW grant =
-table
-for itself. Xen is also unaware of this multi-grant table shenanigans so th=
-at
-needs accounting for too.
+>  	preempt_enable();
+>  }
 
-Then there's adjustments to be done on the maptrack.
-
-So. I'd really like for this to become a reality, but it requires someone w=
-ith
-time to do it to sit down and walk down the rabbit hole. It was definitely
-far deeper than I expected it to be. It doesn't seem to be untractably deep=
-,
-but deep enough that I don't want to do it in my spare time. It'd require
-coordinated changes at least in Linux, Xen and the toolstack.
-
-Cheers,
-Alejandro
+Thanks!
 
