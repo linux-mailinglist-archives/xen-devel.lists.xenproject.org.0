@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01B2AB46730
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Sep 2025 01:27:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1112649.1460966 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58157B4673E
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Sep 2025 01:35:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1112821.1460985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uufqH-0005SU-7k; Fri, 05 Sep 2025 23:27:41 +0000
+	id 1uufwW-00032P-0m; Fri, 05 Sep 2025 23:34:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1112649.1460966; Fri, 05 Sep 2025 23:27:41 +0000
+Received: by outflank-mailman (output) from mailman id 1112821.1460985; Fri, 05 Sep 2025 23:34:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uufqG-0005CQ-9g; Fri, 05 Sep 2025 23:27:40 +0000
-Received: by outflank-mailman (input) for mailman id 1112649;
- Fri, 05 Sep 2025 23:27:35 +0000
+	id 1uufwV-00030O-UV; Fri, 05 Sep 2025 23:34:07 +0000
+Received: by outflank-mailman (input) for mailman id 1112821;
+ Fri, 05 Sep 2025 23:34:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dmukhin@xen.org>) id 1uufqB-0004Ts-IH
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 23:27:35 +0000
+ (envelope-from <dmukhin@xen.org>) id 1uufwU-00030I-DU
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 23:34:06 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1uufqB-008AD3-0N;
- Fri, 05 Sep 2025 23:27:35 +0000
+ (envelope-from <dmukhin@xen.org>) id 1uufwS-008ANg-2G;
+ Fri, 05 Sep 2025 23:34:04 +0000
 Received: from [19.12.91.86] (helo=localhost)
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1uufqB-0005Dk-0M;
- Fri, 05 Sep 2025 23:27:35 +0000
+ (envelope-from <dmukhin@xen.org>) id 1uufwS-0005QN-22;
+ Fri, 05 Sep 2025 23:34:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,192 +40,48 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From;
-	bh=3mwBazL9kANwQ3BnZxsZTOwFxpPGlCvixHJoTT4Lu2c=; b=YlcGtW3+chCoHlxxDwnt0y8l13
-	sIv7ttz6hYQ0OurpgLhVhQQ95/EEVfqYbKSPaCNFXpLDqoRK9x4EhwXNcY1QoefMyQGYtiDIBbkwn
-	PP+ivJWyufaoLcSB930NB9DcAHQbiKxUbejx0DWCnT0ZsYP6pZw8hLqWWjd144N3aIJc=;
+	s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
+	:Subject:Cc:To:Date:From; bh=fE7dfamD3/y6Do8P8KllY6vbBuhY9YcldmKhoAUq324=; b=
+	ozGLzVylFoCz98McC8cnuTlnSVXrPs7Mrsdilm3NwQM/G18moXeHzuYG7YMYz4jT0K3orJtVOjb+z
+	Yz7o2DUF1DzsJRomFvAWq0R5wK+9sGmP89irMyW9JC9jeOj/VW/w9E3j2Gdx+GaP2C8wxUROoDxz6
+	FGUvPW1ZmgY8z+XLs=;
 From: dmukhin@xen.org
-To: xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com,
-	anthony.perard@vates.tech,
-	jbeulich@suse.com,
-	julien@xen.org,
-	michal.orzel@amd.com,
-	roger.pau@citrix.com,
-	sstabellini@kernel.org,
-	dmukhin@ford.com
-Subject: [PATCH v6 15/15] emul/ns16x50: implement IRQ emulation via vIOAPIC
-Date: Fri,  5 Sep 2025 16:27:14 -0700
-Message-ID: <20250905232715.440758-16-dmukhin@ford.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20250905232715.440758-1-dmukhin@ford.com>
-References: <20250905232715.440758-1-dmukhin@ford.com>
+Date: Fri, 5 Sep 2025 16:34:03 -0700
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+	anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
+	roger.pau@citrix.com, dmukhin@ford.com
+Subject: Re: [PATCH v5 03/15] emul/ns16x50: implement emulator stub
+Message-ID: <aLtza997gsdL4ikv@kraken>
+References: <20250828235409.2835815-1-dmukhin@ford.com>
+ <20250828235409.2835815-4-dmukhin@ford.com>
+ <alpine.DEB.2.22.394.2508291237100.341243@ubuntu-linux-20-04-desktop>
+ <d2f16c51-9557-4185-a603-cb161ce1cf7d@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d2f16c51-9557-4185-a603-cb161ce1cf7d@suse.com>
 
-From: Denis Mukhin <dmukhin@ford.com> 
+On Tue, Sep 02, 2025 at 11:36:19AM +0200, Jan Beulich wrote:
+> On 29.08.2025 21:57, Stefano Stabellini wrote:
+> > On Thu, 28 Aug 2025, dmukhin@xen.org wrote:
+> >> +static void cf_check ns16x50_free(void *arg)
+> >> +{
+> >> +    struct vuart_ns16x50 *vdev = arg;
+> >> +
+> >> +    if ( vdev )
+> >> +        ns16x50_deinit(vdev);
+> >> +
+> >> +    XVFREE(vdev);
+> > 
+> > XVFREE should only be called if ( vdev )
+> 
+> Why would this be? Like free(), both xfree() and xvfree() are fine to be
+> called with a NULL pointer. What's odd here is that the uppercase form (the
+> wrapper macro) is used - clearing the local variable is pointless when it
+> is about to go out of scope anyway.
 
-PVH domains use vIOAPIC, not vPIC and NS16550 emulates ISA IRQs which cannot
-be asserted on vIOAPIC.
-
-{map,unmap}_domain_pirq_emuirq() infrastructure is modified by adding new
-type of interrupt resources 'IRQ_EMU' which means 'emulated device IRQ'
-(similarly to IRQ_MSI_EMU).
-
-This is necessary to for IOAPIC emulation code to skip IRQ->PIRQ mapping
-(vioapic_hwdom_map_gsi()) when guest OS unmasks vIOAPIC pin corresponding to
-virtual device's IRQ.
-
-Also, hvm_gsi_eoi() is modified to trigger assertion in hvm_gsi_deassert()
-path for ISA IRQs.
-
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
----
-Changes since v5:
-- did cosmetic renaming and dropped unneeded changes
-- fixed ns16x50_irq_assert() and ns16x50_irq_deassert() as per Jan's
-  suggestion in v4 (missed to address in v5)
-- fixed __hvm_dpci_eoi()
-- Link to v5: https://lore.kernel.org/xen-devel/20250828235409.2835815-16-dmukhin@ford.com/
----
- xen/arch/x86/hvm/vioapic.c        | 10 ++++++++++
- xen/arch/x86/include/asm/irq.h    |  6 ++++++
- xen/common/emul/vuart/ns16x50.c   | 28 ++++++++++++++++++++++++++++
- xen/drivers/passthrough/x86/hvm.c | 11 ++++++++++-
- 4 files changed, 54 insertions(+), 1 deletion(-)
-
-diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
-index 7c725f9e471f..6314874b64f7 100644
---- a/xen/arch/x86/hvm/vioapic.c
-+++ b/xen/arch/x86/hvm/vioapic.c
-@@ -177,6 +177,16 @@ static int vioapic_hwdom_map_gsi(unsigned int gsi, unsigned int trig,
- 
-     ASSERT(is_hardware_domain(currd));
- 
-+    /*
-+     * Interrupt is claimed by one of the platform virtual devices (e.g.
-+     * NS16550); do nothing.
-+     */
-+    write_lock(&currd->event_lock);
-+    ret = is_domain_emuirq_claimed(currd, gsi);
-+    write_unlock(&currd->event_lock);
-+    if ( ret )
-+        return 0;
-+
-     /* Interrupt has been unmasked, bind it now. */
-     ret = mp_register_gsi(gsi, trig, pol);
-     if ( ret == -EEXIST )
-diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.h
-index 8bffec3bbfee..bdbe700274e9 100644
---- a/xen/arch/x86/include/asm/irq.h
-+++ b/xen/arch/x86/include/asm/irq.h
-@@ -168,6 +168,11 @@ void free_domain_pirqs(struct domain *d);
- int map_domain_emuirq_pirq(struct domain *d, int pirq, int emuirq);
- int unmap_domain_pirq_emuirq(struct domain *d, int pirq);
- 
-+#define domain_emuirq_claim(d, irq)     map_domain_emuirq_pirq(d, irq, IRQ_EMU)
-+#define domain_emuirq_unclaim(d, irq)   unmap_domain_pirq_emuirq(d, irq)
-+#define is_domain_emuirq_claimed(d, irq) \
-+    (domain_pirq_to_emuirq(d, irq) != IRQ_UNBOUND)
-+
- /* Evacuate interrupts assigned to CPUs not present in the CPU online map. */
- void fixup_irqs(void);
- void fixup_eoi(void);
-@@ -221,6 +226,7 @@ void cleanup_domain_irq_mapping(struct domain *d);
- #define IRQ_UNBOUND (-1)
- #define IRQ_PT      (-2)
- #define IRQ_MSI_EMU (-3)
-+#define IRQ_EMU     (-4)
- 
- bool cpu_has_pending_apic_eoi(void);
- 
-diff --git a/xen/common/emul/vuart/ns16x50.c b/xen/common/emul/vuart/ns16x50.c
-index bcbd765b815d..723b1b0bb55d 100644
---- a/xen/common/emul/vuart/ns16x50.c
-+++ b/xen/common/emul/vuart/ns16x50.c
-@@ -292,6 +292,8 @@ static void ns16x50_irq_assert(const struct vuart_ns16x50 *vdev)
- 
-     if ( has_vpic(d) )
-         vector = hvm_isa_irq_assert(d, info->irq, vioapic_get_vector);
-+    else if ( has_vioapic(d) )
-+        vector = hvm_ioapic_assert(d, info->irq, false);
-     else
-         ASSERT_UNREACHABLE();
- 
-@@ -305,6 +307,8 @@ static void ns16x50_irq_deassert(const struct vuart_ns16x50 *vdev)
- 
-     if ( has_vpic(d) )
-         hvm_isa_irq_deassert(d, info->irq);
-+    else if ( has_vioapic(d) )
-+        hvm_ioapic_deassert(d, info->irq);
-     else
-         ASSERT_UNREACHABLE();
- 
-@@ -815,6 +819,17 @@ static int ns16x50_init(void *arg)
-         return rc;
-     }
- 
-+    /* Claim virtual IRQ */
-+    write_lock(&d->event_lock);
-+    rc = domain_emuirq_claim(d, info->irq);
-+    write_unlock(&d->event_lock);
-+    if ( rc )
-+    {
-+        ns16x50_err(info, "virtual IRQ#%d: cannot claim: %d\n",
-+                    info->irq, rc);
-+        return rc;
-+    }
-+
-     /* NB: report 115200 baud rate. */
-     vdev->regs[NS16X50_REGS_NUM + UART_DLL] = divisor & 0xff;
-     vdev->regs[NS16X50_REGS_NUM + UART_DLM] = (divisor >> 8) & 0xff;
-@@ -834,9 +849,22 @@ static int ns16x50_init(void *arg)
- static void cf_check ns16x50_deinit(void *arg)
- {
-     struct vuart_ns16x50 *vdev = arg;
-+    const struct vuart_info *info;
-+    struct domain *d;
-+    int rc;
- 
-     ASSERT(vdev);
- 
-+    d = vdev->owner;
-+    info = vdev->info;
-+
-+    write_lock(&d->event_lock);
-+    rc = domain_emuirq_unclaim(d, info->irq);
-+    write_unlock(&d->event_lock);
-+    if ( rc )
-+        ns16x50_err(vdev, "virtual IRQ#%d: cannot unclaim: %d\n",
-+                    info->irq, rc);
-+
-     spin_lock(&vdev->lock);
-     ns16x50_fifo_tx_flush(vdev);
-     spin_unlock(&vdev->lock);
-diff --git a/xen/drivers/passthrough/x86/hvm.c b/xen/drivers/passthrough/x86/hvm.c
-index a2ca7e0e570c..20641194561f 100644
---- a/xen/drivers/passthrough/x86/hvm.c
-+++ b/xen/drivers/passthrough/x86/hvm.c
-@@ -922,7 +922,16 @@ static void __hvm_dpci_eoi(struct domain *d,
- 
- static void hvm_gsi_eoi(struct domain *d, unsigned int gsi)
- {
--    struct pirq *pirq = pirq_info(d, gsi);
-+    struct pirq *pirq;
-+
-+    /* Check if GSI is claimed by one of the virtual devices. */
-+    if ( is_domain_emuirq_claimed(d, gsi) )
-+    {
-+        hvm_gsi_deassert(d, gsi);
-+        return;
-+    }
-+
-+    pirq = pirq_info(d, gsi);
- 
-     /* Check if GSI is actually mapped. */
-     if ( !pirq_dpci(pirq) )
--- 
-2.51.0
-
+Thank you for remark!
+I switched the code to xvfree() in v6
 
