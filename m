@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF222B44C6F
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 05:44:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1111177.1459991 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F686B44C77
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Sep 2025 05:47:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1111192.1460002 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuNMG-0002Fo-RN; Fri, 05 Sep 2025 03:43:28 +0000
+	id 1uuNQ2-0002pw-Bb; Fri, 05 Sep 2025 03:47:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1111177.1459991; Fri, 05 Sep 2025 03:43:28 +0000
+Received: by outflank-mailman (output) from mailman id 1111192.1460002; Fri, 05 Sep 2025 03:47:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuNMG-0002Cl-Mp; Fri, 05 Sep 2025 03:43:28 +0000
-Received: by outflank-mailman (input) for mailman id 1111177;
- Fri, 05 Sep 2025 03:43:27 +0000
+	id 1uuNQ2-0002oR-8L; Fri, 05 Sep 2025 03:47:22 +0000
+Received: by outflank-mailman (input) for mailman id 1111192;
+ Fri, 05 Sep 2025 03:47:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=iOkq=3Q=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1uuNMF-0002Ce-Cg
- for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 03:43:27 +0000
-Received: from mail-yb1-xb2f.google.com (mail-yb1-xb2f.google.com
- [2607:f8b0:4864:20::b2f])
+ id 1uuNQ1-0002oL-D3
+ for xen-devel@lists.xenproject.org; Fri, 05 Sep 2025 03:47:21 +0000
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [2607:f8b0:4864:20::b2c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 749e2de6-8a0a-11f0-9809-7dc792cee155;
- Fri, 05 Sep 2025 05:43:16 +0200 (CEST)
-Received: by mail-yb1-xb2f.google.com with SMTP id
- 3f1490d57ef6-e94d678e116so1909009276.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 20:43:16 -0700 (PDT)
+ id 05365e4e-8a0b-11f0-9809-7dc792cee155;
+ Fri, 05 Sep 2025 05:47:19 +0200 (CEST)
+Received: by mail-yb1-xb2c.google.com with SMTP id
+ 3f1490d57ef6-e98b7071cc9so1738693276.3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Sep 2025 20:47:19 -0700 (PDT)
 Received: from [10.138.34.110]
  (h96-60-249-169.cncrtn.broadband.dynamic.tds.net. [96.60.249.169])
  by smtp.gmail.com with ESMTPSA id
- 3f1490d57ef6-e9bbdf57cc0sm2793700276.13.2025.09.04.20.43.13
+ 3f1490d57ef6-e9bbdf22ff7sm2828105276.5.2025.09.04.20.47.17
+ for <xen-devel@lists.xenproject.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Sep 2025 20:43:13 -0700 (PDT)
+ Thu, 04 Sep 2025 20:47:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,59 +47,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 749e2de6-8a0a-11f0-9809-7dc792cee155
+X-Inumbo-ID: 05365e4e-8a0b-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1757043795; x=1757648595; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=2zQhNvAcIHUkjaejeDu6urO9HeyOmYI1JdYTW0V/6oU=;
-        b=TFKyB0tmDI3fRicnCm4hOmQXBFd8ZY1jTDj3m+OCQmYPPpENuVPiCoNv1/cDnFq8bo
-         vonRyO6QYKaqnqzJZgQPxz1dDEBXToLJtDZjhNfMn03z6d4X4PwcPKPlHinqi62bmyvG
-         L9S8s927RDxZQZwEKnT4VTNCF40ON5UKRKS1gitWW/mem/tLlxqiHjalCSVtyQPibuTB
-         Rhj+UB2LSWsSTLhYiYKV62OlT0sC0lu4YHXAH2XHTzshJJg/kQm1c04xcGv5JlFnov68
-         CMeY4Yuda9TCr1wtiYwEe/FZf6FL7qPzIM5rCOcdoWObErldIM+o4GBTS2PTmvdwCjSB
-         6iXw==
+        d=gmail.com; s=20230601; t=1757044038; x=1757648838; darn=lists.xenproject.org;
+        h=autocrypt:subject:from:to:content-language:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=mS96W1ucccxZFOwlQruoJzC6cMM2RSuJ0wxmye6Uyls=;
+        b=j4whAQUmrG2rKhzo6/N7ZYaUS28x9CKcF0SQBgU4YU3hkj6jY1TTOnl/GdkrwBA+Pj
+         M9cmzgYprhVSQ0wsT38fk4PsfT82O8aCmOIe0GZua98NtlLURQqp+yeSJoYRqO8jbGrf
+         cEkEa98iizh8zV/DAMiQDNR6c+LT0OLSQrs0cYxCP+TqKLpUHhF60Nfiy8SYZPX/nZGI
+         fqHkHbW2HJJmIo/ZYd+SLF23nTirUJDqXmvPxDDhXuHjcw/gijrL8b7Ct8UkcZR2iJy7
+         jZEsuXMwpWJSShKD18SW/lQ+gfNOb/qiDshavx9+77jDfBQQVq30KhNEiNW8oGN2XlK+
+         7B8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757043795; x=1757648595;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=2zQhNvAcIHUkjaejeDu6urO9HeyOmYI1JdYTW0V/6oU=;
-        b=hOSqwMx2+igg0oIIG7HB2BFI1aGobgERJpTHddobuYtYyvtCbUTi/7xYJAoKJS/Irh
-         PJ30a09UrbluWiyLCBOqhM6POJ07tIKP2A4hwpfGCEVMUt1SuAHnqhiaFLcnEURmSXVl
-         HC6nzmNoPTHOhOWiZoP3ikt3U37FJOFFySGPtLvGwH5ScYU1LX6iRZucka+GnEvkfl9U
-         Adyq9QX9RKcuVeCKSef1kQXNyLw7GOBl01CWYMLrC4lS5sDpKvYuFi2J29RNcCxADsfS
-         EuK0rdFP3+QsBPOeHhqpLtmo7kULt1VUBtbZgTS7v3tZXSCndsyjIWEcIMeWbp/Ylt2U
-         4WMA==
-X-Forwarded-Encrypted: i=1; AJvYcCV7xQG78UEKPXcZUeSH8+dz5MvDcpmaRHhKzIk3u104ipNSsJudO2ruRRmUFClMUcOkc2BC/cprf9A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxU4OwxlCNlJaSM4oA7AQWYnFABu6ZFN1214eCLXdtCFIIDjXve
-	iZe28NZkPXIAdM9YeYFfxuPWNhBuE6td2tg/NevxRGoyxsT6OT49aqC0MsyedUxv
-X-Gm-Gg: ASbGncvhCBFmfkkOlw3mxxEe/LNiW2N4n02uqsK1qABPyL/oM/yGNLkcoNHftecKJXm
-	zOErlWeD6VVcoFQu/fjMKDfUgOPsnXr6cjHUJsA4uscRVXhLDunOkptx1YJnyGcOxf7GrTu6PIL
-	gP84nk3gGbsZg/ZIW3l/OyC36U1Ds+glmNq/rBuzY+80sisPApzEyxA+BOTeE+7OlDApLYvs6JM
-	Q1SThmhWzU9tp3bADx2OVi5lPR2VcaSAgQMfe/9dv6xV7AYAdD2XQ7z44EqdPi2iF6TdeFoThyW
-	ydNvgzbzhz7iEjBi87PcKi14EVPQ9qrcxuy8DPujF2EauKtWJ+sNJ9KJX7kucK5zG6weipvqMTW
-	KZqSbh4TO7CmWSaMPXhDUA3A/8QJ7EQyz7OOxKZLYYzq14qCmiWzRtEUkOrWgTu1nv689QCborn
-	Zt6HO25HT9oQpsTejfEwkStDJj/lnvBRRhGG29GgAuqjEeUw==
-X-Google-Smtp-Source: AGHT+IFbcywim/ULfHO/sn87UU4dLggomtkc8jsuIJQ1l1Jw8gj1yKhtsqyk1CSkx1R1/iv719bTOA==
-X-Received: by 2002:a25:8684:0:b0:e97:55f4:3ed3 with SMTP id 3f1490d57ef6-e98a5828076mr19183633276.28.1757043795268;
-        Thu, 04 Sep 2025 20:43:15 -0700 (PDT)
-Message-ID: <5a6bf835-6c87-4e1d-adfb-a932fa1d7581@gmail.com>
-Date: Thu, 4 Sep 2025 23:43:07 -0400
+        d=1e100.net; s=20230601; t=1757044038; x=1757648838;
+        h=autocrypt:subject:from:to:content-language:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mS96W1ucccxZFOwlQruoJzC6cMM2RSuJ0wxmye6Uyls=;
+        b=vUqeOwZff0+ic8O51TRndijTrXfoKMzMf9YYE36OUk4X3hbipKcjFnHCKd7PcmUSnj
+         u/6PSHnGUVjJ5I+cC4Xjzms3JzYxVncH9Kxji2HDuA4JfR1UNRgkuM48YU8OcVjWGEyT
+         rTvOY+M+jKrnl9p/S47TJMGgFzVQXO8fui5818BbNXTZeWLpH+x4/8bhVIffBFPDJq0H
+         o9uKhhN59k7MHAnZe5wp3BhALUBhUB7CAIH4VaTuHtbFpI+hSLvvVmYqV8hh/b4L/5D1
+         vBAtipthEmpGOb/hhARsOFemqy2ShrVcfLtvQ9zPXsAFc7Pb6Rn4pBjEmvUIZcNyoBZK
+         dHFA==
+X-Gm-Message-State: AOJu0YwxXQSGgdJQQkX4b1nkNrP3zIiO/O066TBYbimVVVD6aiNbl6mW
+	8xe3anLUERljgrsoiZvHKIPXrbPQGckA246/WEeTclV9KLuYBvcTtbujFAcxkXhW
+X-Gm-Gg: ASbGncus14JuIRjvAqNKcy4sG/7ge08g7FKOPIZgeDrLY+jfBTF+o1AEwBUEhdPYbkn
+	5p2cv9t0/tG0KYAVcrLATnx+v7xHdWl8cz/e9p2/wYEwccuHmstxOLqw4Ri7kADyy4i71//8fWE
+	evyxpy9aDNv2KPL/mGPOft/Zyf5YYni+Dg+j6ASOO8d7i00FoIZNi2vrfpSKjX41IrdA4LyDX9P
+	Vccpk08blkIrLtotfTvuq2BFJvoaZ7cYkNqNOm2ib46+lxQLl7cAGjM4ZhOxi2+NOi2m0ECsXwh
+	L0x+UVpoqhrg7SPBqCWDiCrm0p5CC87H2y+vizqxupLvYmqBgcS9iXYH8N2pm4EE91qtkZoNdnN
+	nK97d6w+crRvgQVZrPzkJUPVbrtXL6NTZjS/GXLk+5V+EwzDduVXXVDxBR6z9Vr9ac/JGAmozZs
+	ClaUqotU9nT23h1QB9JL9gpBK/+7jn5goAesY=
+X-Google-Smtp-Source: AGHT+IEa1EYM13YEuhnYKcKYljUv5PgUN2yu4/o9aROoMbsKZ1ZPHSQtgNsPiRSMR6HvyTspfDsO7Q==
+X-Received: by 2002:a05:6902:cc7:b0:e97:9be:73be with SMTP id 3f1490d57ef6-e98a575e3e4mr22958398276.3.1757044037918;
+        Thu, 04 Sep 2025 20:47:17 -0700 (PDT)
+Message-ID: <88efc685-507b-433f-a6d7-9c96987a0567@gmail.com>
+Date: Thu, 4 Sep 2025 23:47:13 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] xen/arm64: allow to make aarch32 support optional
-To: Grygorii Strashko <grygorii_strashko@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250806094929.293658-1-grygorii_strashko@epam.com>
- <20250806094929.293658-4-grygorii_strashko@epam.com>
 Content-Language: en-US
+To: Xen developer discussion <xen-devel@lists.xenproject.org>
 From: Demi Marie Obenour <demiobenour@gmail.com>
+Subject: Differentiating "For experts only" and "Not security supported" in
+ Kconfig
 Autocrypt: addr=demiobenour@gmail.com; keydata=
  xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
  aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
@@ -142,142 +135,49 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20250806094929.293658-4-grygorii_strashko@epam.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------0I9vwDPw0jL26fHBaNe0sM2c"
+ boundary="------------1o0Wfu10x02TqmkeJ17VjS3Y"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0I9vwDPw0jL26fHBaNe0sM2c
-Content-Type: multipart/mixed; boundary="------------gP1rC7XyTbFWFX13NBMyz0eO";
+--------------1o0Wfu10x02TqmkeJ17VjS3Y
+Content-Type: multipart/mixed; boundary="------------N6cJIZGTd8tpaPzmS9v4NSPu";
  protected-headers="v1"
 From: Demi Marie Obenour <demiobenour@gmail.com>
-To: Grygorii Strashko <grygorii_strashko@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Message-ID: <5a6bf835-6c87-4e1d-adfb-a932fa1d7581@gmail.com>
-Subject: Re: [PATCH v2 3/4] xen/arm64: allow to make aarch32 support optional
-References: <20250806094929.293658-1-grygorii_strashko@epam.com>
- <20250806094929.293658-4-grygorii_strashko@epam.com>
-In-Reply-To: <20250806094929.293658-4-grygorii_strashko@epam.com>
+To: Xen developer discussion <xen-devel@lists.xenproject.org>
+Message-ID: <88efc685-507b-433f-a6d7-9c96987a0567@gmail.com>
+Subject: Differentiating "For experts only" and "Not security supported" in
+ Kconfig
 
---------------gP1rC7XyTbFWFX13NBMyz0eO
-Content-Type: multipart/mixed; boundary="------------IwzRKAGR9ZilgszFKbC2Z0QT"
+--------------N6cJIZGTd8tpaPzmS9v4NSPu
+Content-Type: multipart/mixed; boundary="------------OPogiCWfzJbN0nwobuzsoTg9"
 
---------------IwzRKAGR9ZilgszFKbC2Z0QT
+--------------OPogiCWfzJbN0nwobuzsoTg9
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 8/6/25 05:49, Grygorii Strashko wrote:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
->=20
-> Now Arm64 AArch32 guest support is always enabled and built-in while no=
-t
-> all Arm64 platforms supports AArch32 (for exmaple on Armv9A) or this
-> support might not be needed (Arm64 AArch32 is used quite rarely in embe=
-dded
-> systems). More over, when focusing on safety certification, AArch32 rel=
-ated
-> code in Xen leaves a gap in terms of coverage that cannot really be
-> justified in words. This leaves two options: either support it (lots of=
+Right now, both EXPERT and UNSUPPORTED options are
+not security supported.  However, this seems to be
+causing problems for safety-certified use-cases.
 
-> additional testing, requirements and documents would be needed) or comp=
-ile
-> it out.
->=20
-> Hence, this patch introduces basic support to allow make Arm64
-> AArch32 guest support optional. The following changes are introduced:
->=20
-> - Introduce Kconfig option CONFIG_ARM64_AARCH32 to allow enable/disable=
+Specifically, disabling AMD or Intel support is certainly
+something that should fall under EXPERT IMO, as it is a
+great way to produce a Xen binary that will not boot on
+a large fraction of hardware.  However, I see no fundamental
+reason it should not be security supported.  Not security
+supporting it means that those producing safety-certified
+builds of Xen (which, presumably, are some of the most
+security-critical there are!) are having to use
+security-unsupported configurations.
 
->   Arm64 AArch32 guest support (default y)
->=20
-> - Introduce is_aarch32_enabled() helper which accounts Arm64 HW capabil=
-ity
->   and CONFIG_ARM64_AARCH32 setting
->=20
-> - Introduce arm64_set_domain_type() to configure Arm64 domain type in
->   unified way instead of open coding (d)->arch.type, and account
->   CONFIG_ARM64_AARCH32 configuration.
->=20
-> - toolstack: do not advertise "xen-3.0-armv7l " capability if AArch32 i=
-s
->   disabled.
->=20
-> - do not expose EL1 AArch32 support to guest in ID_AA64PFR0_EL1 reg if
->   AArch32 is disabled.
->=20
-> - Set Arm64 domain type to DOMAIN_64BIT by default.
->   - the Arm Xen boot code is handling this case properly already;
->   - for toolstack case the XEN_DOMCTL_set_address_size hypercall handli=
-ng
->     updated to forcibly configure domain type regardless of current dom=
-ain
->     type configuration, so toolstack behavior is unchanged.
->=20
-> With CONFIG_ARM64_AARCH32=3Dn the Xen will reject AArch32 guests (kerne=
-ls) if
-> configured by user in the following way:
-> - Xen boot will fail with panic during dom0 or dom0less domains creatio=
-n
-> - toolstack domain creation will be rejected due to xc_dom_compat_check=
-()
->   failure.
->=20
-> Making Arm64 AArch32 guest support open further possibilities for build=
-
-> optimizations of Arm64 AArch32 guest support code.
->=20
-> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-> ---
-> changes in v2:
-> - use Arm64 "cpu_has_el1_32" in all places to check if HW has AArch32 s=
-upport
-> - rework Arm64 XEN_DOMCTL_set_address_size hypercall handling to work w=
-ith any
->   initial domain type set (32bit or 64 bit)
-> - fix comments related to macro parameters evaluation issues
-> - do not expose EL1 AArch32 support to guest in ID_AA64PFR0_EL1 reg if
->   AArch32 is disabled
->=20
->  xen/arch/arm/Kconfig                    |  7 ++++
->  xen/arch/arm/arm64/domain-build.c       | 46 +++++++++++++++++++++++--=
-
->  xen/arch/arm/arm64/domctl.c             | 16 +++++----
->  xen/arch/arm/arm64/vsysreg.c            |  9 +++++
->  xen/arch/arm/domain.c                   |  9 +++++
->  xen/arch/arm/domain_build.c             | 21 +++--------
->  xen/arch/arm/include/asm/arm32/domain.h | 12 +++++++
->  xen/arch/arm/include/asm/arm64/domain.h | 23 +++++++++++++
->  xen/arch/arm/setup.c                    |  2 +-
->  9 files changed, 119 insertions(+), 26 deletions(-)
->=20
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index a0c816047427..bf6dd73caf73 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -266,6 +266,13 @@ config PCI_PASSTHROUGH
->  	help
->  	  This option enables PCI device passthrough
-> =20
-> +config ARM64_AARCH32
-> +	bool "AArch32 Guests support on on ARM64 (UNSUPPORTED)" if UNSUPPORTE=
-D
-> +	depends on ARM_64
-> +	default y
-> +	help
-> +	  This option enables AArch32 Guests on ARM64.
-> +
->  endmenu
-Why UNSUPPORTED?  A safety-certified build of Xen should only be using
-security-supported features.
+This definitely does not seem right to me.  Safety
+certification and security support should go hand in hand,
+not conflict with each other!  Is there a plan to address this?
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------IwzRKAGR9ZilgszFKbC2Z0QT
+
+--------------OPogiCWfzJbN0nwobuzsoTg9
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -397,31 +297,31 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------IwzRKAGR9ZilgszFKbC2Z0QT--
+--------------OPogiCWfzJbN0nwobuzsoTg9--
 
---------------gP1rC7XyTbFWFX13NBMyz0eO--
+--------------N6cJIZGTd8tpaPzmS9v4NSPu--
 
---------------0I9vwDPw0jL26fHBaNe0sM2c
+--------------1o0Wfu10x02TqmkeJ17VjS3Y
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmi6XEwACgkQszaHOrMp
-8lOMaxAAkFg4L8d7fVNX/HCDNBpDZ1ZZcMeM7100zkxBBHoacHgcG7Pd+TgnwPV9
-cqjlVPCKsLmeB/M8CVeu5qn4GvYJeF4x0OarNt/LwVJIxwtiZBZ2v8uFdygy6kXA
-6QGKx+FQl9ES6GCAnRhIbZyOi7tpn1tMEI/QYGpPfsNK9YZ3o8Mg9y7/GHxyCGca
-ixTEgbBbVJ7pHPhpA3qrEII3IM9bAgNalVdMmiB/kzZLbw03tMKKrtgLcLjfzLTt
-+DUtThg/hTTH7Ulec7LDEfvOGV36qAfYWdwviQiVf7gvOoNmJokFSfhNObk2QYTL
-w5geqQsWtKiTzHIr6FNYVKV6tlImIHotsBq99A8xHPoPmLuruZq+9jWQ9iNESJhe
-VNaXv6F2xTkACdfbMZELwE6Zh9m9KscutE38eqzPgu6oHllPXU4Q/GI5Ev0Lw8tu
-5s0bEHtdLAMMRo3hdPtv73kAD8NAEHdAZYLGm6JQmiVXzsxluzI2IhkKqfRp3Z9j
-8OBBlJ1A6XAI6KRqT1LvzvSdg/cmXcAUStpoPB65kizwwibLr2dxvdugyA6OkzZN
-yBGZ0/i3cyqRRdUJpUT1Wc/cYor1J5l/UWv6/yrPfpVzEaK+YbxOj+JxXz87KhxU
-z6Hx3WeDj7Vqku1Gfvbqvdz1nRDe7iYud7WdjGxY6DMKO7+Kf98=
-=gX/d
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmi6XUIACgkQszaHOrMp
+8lOKww//RQJKEjNfMphB0GpYr2s523uqvvcQYcZ9dPLXL/fL71LToIwp2mFS7Egm
+pUMtgZc9bmD+EyvT910YcN4Lp6aDDB2oXfyyEGv53z6kA+IH4k+DOJ82MDmg972h
+fLFsyh3NKblfr3s9d8ap6jqXefVXuH2k8Da1RtY6ryFW8A4LyFssV6oqdcwbVZjI
+q603LHxpKuOxlBdbYDToQMXzCzaT+N7rrvRak0VXS8mQZSjky+ezXVmpvGlDEvsv
+R3zcB80S+8ZxRAGHMWHNmBom1Rj9mjWJWDGB085fe0F4yYF5In8qY6Pb3j5v9pB/
+FwKnLd+AfjTn70Z1672a8X4e+8rNh75bHsPc+3MSEf2lD0zlADYTRpdM3FgQ1GhF
+bHLq79bayvRjDH4TvlN8ECCwTJCRgz9NCKj3osP5Hu7QRA2/5vfKVHcSi8kEU16R
+AjCJA0ixQbb1HiMb0SmFNmj3qSlrMDcXSmRmiGMDB98Tjenw71GFtRD0dRofDN3P
+KZj/96+py+K/kzljnummUBLbUqAXgfi+Cf+4S8/2vyXRXQLZdjXTgj546IKAtoMo
+4um0EQ2rAOv5Fv+rVUohnNZPfn0iao0fw2ywItL/anEI13b85/6sDVMUFIOiobMJ
+B7J3ilPZQP+ISW8/iy3jyyO/lsfa6P5/sNhjui207fuZzzdrnMM=
+=/NgF
 -----END PGP SIGNATURE-----
 
---------------0I9vwDPw0jL26fHBaNe0sM2c--
+--------------1o0Wfu10x02TqmkeJ17VjS3Y--
 
