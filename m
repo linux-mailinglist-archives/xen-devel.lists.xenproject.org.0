@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B6C4B46845
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Sep 2025 04:05:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1113026.1461147 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5AC1B468F1
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Sep 2025 06:19:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1113115.1461175 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuiIL-0006MC-Fe; Sat, 06 Sep 2025 02:04:49 +0000
+	id 1uukNa-0006ct-VO; Sat, 06 Sep 2025 04:18:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1113026.1461147; Sat, 06 Sep 2025 02:04:49 +0000
+Received: by outflank-mailman (output) from mailman id 1113115.1461175; Sat, 06 Sep 2025 04:18:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuiIL-0006It-CJ; Sat, 06 Sep 2025 02:04:49 +0000
-Received: by outflank-mailman (input) for mailman id 1113026;
- Sat, 06 Sep 2025 02:04:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wK8U=3R=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uuiIK-0005tC-05
- for xen-devel@lists.xenproject.org; Sat, 06 Sep 2025 02:04:48 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dc43226c-8ac5-11f0-9809-7dc792cee155;
- Sat, 06 Sep 2025 04:04:46 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 6DC82602AA;
- Sat,  6 Sep 2025 02:04:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBA72C4CEF1;
- Sat,  6 Sep 2025 02:04:43 +0000 (UTC)
+	id 1uukNa-0006aS-Sa; Sat, 06 Sep 2025 04:18:22 +0000
+Received: by outflank-mailman (input) for mailman id 1113115;
+ Sat, 06 Sep 2025 04:18:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <dmukhin@xen.org>) id 1uukNZ-0006aM-7j
+ for xen-devel@lists.xenproject.org; Sat, 06 Sep 2025 04:18:21 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <dmukhin@xen.org>) id 1uukNX-009RfV-1W;
+ Sat, 06 Sep 2025 04:18:19 +0000
+Received: from [19.12.91.86] (helo=localhost)
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <dmukhin@xen.org>) id 1uukNX-000JQ0-1C;
+ Sat, 06 Sep 2025 04:18:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,43 +39,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc43226c-8ac5-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1757124285;
-	bh=z99ETD8Pz6tniWOzx+rgCWKpN5O5JaorEAJ2xal6oi4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=lEnIQOrW6MFJygCTXwy5JWQOF42qa4HDL7cvnIUrP7/EExatz3UJryjLRraxbP2Zk
-	 RHRmxQmAx6GM7Jtyrt7/6NeRZfrUiFMtc5mXxUZbxktG+SDlDUC6RfF1zc9CIhEcf0
-	 3EtK6bruJfrepUZX7Goy0cVoVi9WsAUqB4ARrgggQRIWCu3o9iU/l7MSoBPtpUfEBA
-	 mqvW12bmT1hsoiTpyjMz5PYnhCg3ZaEpk1sA99KBxrs53GEHiuzzN27yZ0bFAEq/zH
-	 5fclpPqafzQXLE4+yfAb3kaVX9rYMMfdLNVyDg5zDa/LUiwte2lzYYXJlAvnWcNWFI
-	 uIFTaGBVCHHTg==
-Date: Fri, 5 Sep 2025 19:04:42 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: dmukhin@xen.org
-cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
-    anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
-    michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
-    dmukhin@ford.com
-Subject: Re: [PATCH v6 11/15] emul/ns16x50: implement FCR register
- (write-only)
-In-Reply-To: <20250905232715.440758-12-dmukhin@ford.com>
-Message-ID: <alpine.DEB.2.22.394.2509051904360.1405870@ubuntu-linux-20-04-desktop>
-References: <20250905232715.440758-1-dmukhin@ford.com> <20250905232715.440758-12-dmukhin@ford.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
+	:Subject:Cc:To:Date:From; bh=FFHTHv+ciDFyK8pkM0/CoPbfpYr0LBC0kpQLqatYuNY=; b=
+	IWrlr0MQLmmD2KYQ1A6qbR23VAIodfM7Uj5HvGz9JofSIuUd9I00XnxebQf0RSdIYqHS9uuVjKu2V
+	C7FUaI2F1uCRnrn6jFyhXc0MFpPGD2Q2v8GKYSSKNnzp1BYzCVHpninw6gjUuMFX1t26diguZMjB3
+	a7pXMgEPqFgWTzfXc=;
+From: dmukhin@xen.org
+Date: Fri, 5 Sep 2025 21:18:18 -0700
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
+	michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com
+Subject: Re: [PATCH v6 03/15] emul/ns16x50: implement emulator stub
+Message-ID: <aLu2Cj1vi+LvnY3L@kraken>
+References: <20250905232715.440758-1-dmukhin@ford.com>
+ <20250905232715.440758-4-dmukhin@ford.com>
+ <alpine.DEB.2.22.394.2509051902510.1405870@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2509051902510.1405870@ubuntu-linux-20-04-desktop>
 
-On Fri, 5 Sep 2025, dmukhin@xen.org wrote:
-> From: Denis Mukhin <dmukhin@ford.com> 
+On Fri, Sep 05, 2025 at 07:03:19PM -0700, Stefano Stabellini wrote:
+> On Fri, 5 Sep 2025, dmukhin@xen.org wrote:
+> > From: Denis Mukhin <dmukhin@ford.com> 
+> > 
+[..]
+> > --- a/xen/common/emul/vuart/Kconfig
+> > +++ b/xen/common/emul/vuart/Kconfig
+> > @@ -3,4 +3,23 @@ config VUART_FRAMEWORK
+> >  
+> >  menu "UART Emulation"
+> >  
+> > +config VUART_NS16X50
+> > +	bool "NS16550-compatible UART Emulator" if EXPERT
+> > +	depends on X86 && HVM
+> > +	select VUART_FRAMEWORK
+> > +	default n
+> > +	help
+> > +	  In-hypervisor NS16x50 UART emulation.
+> > +
+> > +	  Only legacy PC COM2 port is emulated.
+> > +
+> > +	  This is strictly for testing purposes (such as early HVM guest console),
+> > +	  and not appropriate for use in production.
+> > +
+> > +config VUART_NS16X50_DEBUG
+> > +	bool "NS16550-compatible UART Emulator Debugging"
+> > +	depends on VUART_NS16X50 && DEBUG
+> > +	help
+> > +	  Enable development debugging.
 > 
-> Add emulation logic for FCR register.
-> 
-> Note, that does not hook FIFO interrupt moderation to the FIFO management
-> code for simplicity.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> There is a question about adding the kconfig option early in the series.
+> I think it would be best to add it as last patch
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Will do.
 
