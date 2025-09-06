@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58350B47193
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Sep 2025 16:58:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1113388.1461215 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5403B47725
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Sep 2025 22:38:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1113539.1461225 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuuLt-00037N-VI; Sat, 06 Sep 2025 14:57:17 +0000
+	id 1uuzfN-0007vj-4a; Sat, 06 Sep 2025 20:37:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1113388.1461215; Sat, 06 Sep 2025 14:57:17 +0000
+Received: by outflank-mailman (output) from mailman id 1113539.1461225; Sat, 06 Sep 2025 20:37:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uuuLt-00035x-Rm; Sat, 06 Sep 2025 14:57:17 +0000
-Received: by outflank-mailman (input) for mailman id 1113388;
- Sat, 06 Sep 2025 14:57:17 +0000
+	id 1uuzfM-0007tt-TH; Sat, 06 Sep 2025 20:37:44 +0000
+Received: by outflank-mailman (input) for mailman id 1113539;
+ Sat, 06 Sep 2025 20:37:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bKTp=3R=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uuuLt-00035r-50
- for xen-devel@lists.xenproject.org; Sat, 06 Sep 2025 14:57:17 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
+ id 1uuzfL-0007tn-Kp
+ for xen-devel@lists.xenproject.org; Sat, 06 Sep 2025 20:37:43 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c628eb1a-8b31-11f0-9809-7dc792cee155;
- Sat, 06 Sep 2025 16:57:14 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-5607c2f1598so3169386e87.3
- for <xen-devel@lists.xenproject.org>; Sat, 06 Sep 2025 07:57:14 -0700 (PDT)
+ id 55695828-8b61-11f0-9809-7dc792cee155;
+ Sat, 06 Sep 2025 22:37:41 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-336cee72f40so28305561fa.2
+ for <xen-devel@lists.xenproject.org>; Sat, 06 Sep 2025 13:37:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,50 +40,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c628eb1a-8b31-11f0-9809-7dc792cee155
+X-Inumbo-ID: 55695828-8b61-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1757170634; x=1757775434; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1757191060; x=1757795860; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rlTtPpR8RMUC4GLRdCF17L/D6D1eCOR6eggI+Sb6QQo=;
-        b=mpHV1dNmOAx2k9vApy3NU17BWy+sif21oA/xS0gCa77WxoWj7S0/Cc/2zxhBH+Iz02
-         amwslk7ACGFGo228fmqLBHILsnad5ycvKzbGMAfGjhwULTNCztjCw5o2MHxJpaps8+PP
-         EAx5hA4W4OP3ACIZA+930gZVUqomUigJC49mq/QwRQ3KuHcI+VPKQ2lGZGMXJJd8dfrU
-         1pX/h7juBUAPem8IV0FDCK8w0IB2NxsTE1y9y7teYj4SbvkwaLh7QTXWrAxys9WS3PPS
-         rf0n9WYvqBtx2Qd61/pe2e/tbiX4Zyaebp31kYxDaef9YUqzZ8wyOrc56VOZsPPwujvN
-         WxpA==
+        bh=cl9wBI2qiAIO2fcJPMTYS8NlpunnhlluqBZRo3cmsXw=;
+        b=DYGAus1GHRuJEj/XM8vVN7o+sKHOGQkAJ/BN2u4OgACvji/prI4QvSoqW4VwGLoOyt
+         PC5OA2H1XvL3QeKQpGSd3HANQm6pimUfxE+rZyEYIH+hYJZ70is8thz7budh5EI8vXtf
+         EHWzOMffCqBIQ/6qZaHwIHe2fKCQSzddi218VFI12cKC5GMJCitKL4L6aRzpWDQ4UFgX
+         qR0ucR6qOPHJRIltmnd06dlmgGsjp2kKYLznIHq1HCH+Xss232umPgBdbjnbhCOr9KN5
+         avFnPx60uSMG0wGlbYJ0EadhGss65ayKYYNDGrtLx0zs85IhnipjNH2ML8N0VhNimyrd
+         Xz2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757170634; x=1757775434;
+        d=1e100.net; s=20230601; t=1757191060; x=1757795860;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=rlTtPpR8RMUC4GLRdCF17L/D6D1eCOR6eggI+Sb6QQo=;
-        b=f4eMinzNrAXx7N0Dq5efJfgHGsYFkagVKwQ4No9uSV/e0dfxvSvT06/Vb794okWIcZ
-         4Jjz6osmCMnrJBSmrwinSiYjhIv7mA9avWp3JE9XE4un0MGZdrRYYyJIDLXfUwVpWiP0
-         xYps+NrM/JS2WqsB8EhxdGETnZpWE1BbJhmzDrgRkwj12RNrkX6I3DyffE+bHOzIkKBA
-         2tJ2xiL1H8Q9fF9OYeq/Zs7w6UVIi2SZTt1JOUPcEYEVKxXrLyKUrNedDifkd8UxmwHz
-         q2UNcX/VhA+tXFyoTYU7jsE68fZmWy28PD9lAH4ObLfRadx0SfH0SuIjdIYouyuZTFES
-         qoUA==
-X-Gm-Message-State: AOJu0YwNJpt4tVJGMY1kZQ1ENwzOx1engqI/r5h6xXICu5aRcoFMFjcQ
-	9tYpawq9VchxWPEa7+GBcUojoHfOnFbgGV/Tt+drKrsnhxwpot2sy8hmPtPfW/VjPntOgf/Odxs
-	GacFN0wyfk1jEHkuRDGuCxOzOTYtfYhI=
-X-Gm-Gg: ASbGncuKCZcnNgO4Sl3i+E56NNKy4LJT5ED9gL08iqorTf/D6Ah6AwQ4neBLNo0Iitv
-	dyTzr2lUbJ3P1eSFpSFed1IYawpKN//8x5HpVfhbycvcJMRsdWVzWIXAqtmxTHt00XCxQ+9FEgH
-	RoA+q6snnE/07GdXSVCqCjEoYemKAYQd7Rugb9a6htIaf/9Zy3RPadW/O07MnxxMgNbMiqdLfiG
-	CBA98reRuEvO8LW
-X-Google-Smtp-Source: AGHT+IGhDVdgvLzKa2HyBz0qq5oOFERCsLsXvgi6NDVo2FuFblqT8roa9JrD++8b/B6RJ6B7rN23IvKeoPLzH1gGegs=
-X-Received: by 2002:a05:6512:2c94:b0:55f:5f7e:9ba8 with SMTP id
- 2adb3069b0e04-56260e42a9bmr751287e87.31.1757170633509; Sat, 06 Sep 2025
- 07:57:13 -0700 (PDT)
+        bh=cl9wBI2qiAIO2fcJPMTYS8NlpunnhlluqBZRo3cmsXw=;
+        b=M/w0LFjypv9/pTgoaajZLaspl8BTAsUTmuHNZMtgngIcbrVe/qFG25pxOsg4lrdS/k
+         t0a9FQOGau2lWF6PaXzdAXGI/x745E4Q9sPcLUUgpQpy3Bkztaemz4yDl9/mxjZ40zTb
+         6IBM73COOALOZJ/qiOV72pxR5cX8gjkXr9lEAjd6nps+BoRkwonCQZbRvDfzJujZhWxg
+         081evtlASUcd75NQUUk4AF9bfjoh+Lq3ITgQWVn7nAuVhnjBcF27UAhH9F3nblXlMIEn
+         ih6U2dQN5RQIhzkC5t3hPFyJkQ9kZAs04SU7d3qZ4qBHGnfsjylWMo7o/QFIoHSMWyRM
+         PG1A==
+X-Gm-Message-State: AOJu0YwirZGSmKWOJChs6VIxuOzb2MrZe4et1pkw9z4Raa7kori/1BEF
+	cWwbWbPnseA6OjfLIl5PD/v16Ia2sn31S7lRwlvnwMAFlcsxILUIBwQY4IGbcvrEWn7TSG9OPdL
+	eTlBFbI+/yMYBR7zs1YfQwyMoKxVfoBA=
+X-Gm-Gg: ASbGnctTGYOan8hKZ3Qd8XFXkvNNOUHCAM9medx14ETDHVIF8+/k3XrGOfpFv6jqC7o
+	jh1mKGXhrwAh4n7prYeRWSsyx6LfC7sicoJsSG6mQRfSYvpYqjV9IBTXhunDZSrMuoLTFx3ELJ6
+	U8oBmMhEvzooKPimPUP2f4zc/l3smkfMYpmL7q85S1lX1SBqNTvqttgimNWh7wcFeqEA7M/Yc0o
+	z6M10NkSn346sPG
+X-Google-Smtp-Source: AGHT+IEIY+AvuQvPoLyvrchQFhBGu/c84ta+/bkHThsmV2FD7p7LawJ85ywsTp5Ooj8mEjm51eJPLU3hDHhBEORXlFY=
+X-Received: by 2002:a2e:b8c4:0:b0:336:8c3d:fb0a with SMTP id
+ 38308e7fff4ca-33b5cccbf9fmr7823661fa.21.1757191060073; Sat, 06 Sep 2025
+ 13:37:40 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250905232715.440758-1-dmukhin@ford.com> <20250905232715.440758-3-dmukhin@ford.com>
-In-Reply-To: <20250905232715.440758-3-dmukhin@ford.com>
+References: <20250905232715.440758-1-dmukhin@ford.com> <20250905232715.440758-4-dmukhin@ford.com>
+In-Reply-To: <20250905232715.440758-4-dmukhin@ford.com>
 From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Sat, 6 Sep 2025 17:57:02 +0300
-X-Gm-Features: Ac12FXyc8lz7iWirGMSYGarP0BTW1dpBGjMlRbLpsTyjpI_JlGf_ZMxMzTGeWu0
-Message-ID: <CAGeoDV8Q5i_KAmU9Sdu7e06vC72O97ZmdcmJpGNe=AxbE+3jeg@mail.gmail.com>
-Subject: Re: [PATCH v6 02/15] xen/8250-uart: update definitions
+Date: Sat, 6 Sep 2025 23:37:28 +0300
+X-Gm-Features: Ac12FXw3bETyQXRwYP9XXoROfQO_ek4xeb76iacmdeHoMDsVYkGPDklAS4oYJTM
+Message-ID: <CAGeoDV87whMh9G88NNYd9UYBBurgohFJHY6qiSArOFEW034x9A@mail.gmail.com>
+Subject: Re: [PATCH v6 03/15] emul/ns16x50: implement emulator stub
 To: dmukhin@xen.org
 Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
 	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
@@ -98,186 +98,615 @@ On Sat, Sep 6, 2025 at 2:27=E2=80=AFAM <dmukhin@xen.org> wrote:
 >
 > From: Denis Mukhin <dmukhin@ford.com>
 >
-> Added missing definitions needed for NS16550 UART emulator.
+> The change is the first on the way on introducing minimally functional
+> NS16550-compatible UART emulator.
 >
-> Newly introduced MSR definitions re-used in the existing ns16550 driver.
+> Define UART state and a set of emulated registers.
 >
-> Also, corrected FCR DMA definition bit#3 (0x08) as per:
->   https://www.ti.com/lit/ds/symlink/tl16c550c.pdf
-> See "7.7.2 FIFO Control Register (FCR)".
+> Implement alloc/free vUART hooks.
+>
+> Stub out I/O port handler.
+>
+> Add initialization of the NS16x50-compatible UART emulator state machine.
+>
+> Plumb debug logging.
 >
 > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 > ---
 > Changes since v5:
-> - fixed commentaries
-> - Link to v5: https://lore.kernel.org/xen-devel/20250828235409.2835815-3-=
+> - v5 feedback
+> - Link to v5: https://lore.kernel.org/xen-devel/20250828235409.2835815-4-=
 dmukhin@ford.com/
 > ---
->  xen/drivers/char/ns16550.c  | 16 ++++++------
->  xen/include/xen/8250-uart.h | 50 ++++++++++++++++++++++++++++++-------
->  2 files changed, 49 insertions(+), 17 deletions(-)
+>  xen/arch/x86/hvm/hvm.c          |  21 ++
+>  xen/common/emul/vuart/Kconfig   |  19 ++
+>  xen/common/emul/vuart/Makefile  |   1 +
+>  xen/common/emul/vuart/ns16x50.c | 366 ++++++++++++++++++++++++++++++++
+>  4 files changed, 407 insertions(+)
+>  create mode 100644 xen/common/emul/vuart/ns16x50.c
 >
-> diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-> index df7fff7f81df..0e80fadbb894 100644
-> --- a/xen/drivers/char/ns16550.c
-> +++ b/xen/drivers/char/ns16550.c
-> @@ -388,7 +388,7 @@ static void __init cf_check ns16550_init_preirq(struc=
-t serial_port *port)
->
->      /* Check this really is a 16550+. Otherwise we have no FIFOs. */
->      if ( uart->fifo_size <=3D 1 &&
-> -         ((ns_read_reg(uart, UART_IIR) & 0xc0) =3D=3D 0xc0) &&
-> +         ((ns_read_reg(uart, UART_IIR) & UART_IIR_FE) =3D=3D UART_IIR_FE=
-) &&
->           ((ns_read_reg(uart, UART_FCR) & UART_FCR_TRG14) =3D=3D UART_FCR=
-_TRG14) )
->          uart->fifo_size =3D 16;
->  }
-> @@ -728,20 +728,20 @@ static int __init check_existence(struct ns16550 *u=
-art)
->       * Mask out IER[7:4] bits for test as some UARTs (e.g. TL
->       * 16C754B) allow only to modify them if an EFR bit is set.
->       */
-> -    scratch2 =3D ns_read_reg(uart, UART_IER) & 0x0f;
-> -    ns_write_reg(uart,UART_IER, 0x0F);
-> -    scratch3 =3D ns_read_reg(uart, UART_IER) & 0x0f;
-> +    scratch2 =3D ns_read_reg(uart, UART_IER) & UART_IER_MASK;
-> +    ns_write_reg(uart, UART_IER, UART_IER_MASK);
-> +    scratch3 =3D ns_read_reg(uart, UART_IER) & UART_IER_MASK;
->      ns_write_reg(uart, UART_IER, scratch);
-> -    if ( (scratch2 !=3D 0) || (scratch3 !=3D 0x0F) )
-> +    if ( (scratch2 !=3D 0) || (scratch3 !=3D UART_IER_MASK) )
->          return 0;
->
->      /*
->       * Check to see if a UART is really there.
->       * Use loopback test mode.
->       */
-> -    ns_write_reg(uart, UART_MCR, UART_MCR_LOOP | 0x0A);
-> -    status =3D ns_read_reg(uart, UART_MSR) & 0xF0;
-> -    return (status =3D=3D 0x90);
-> +    ns_write_reg(uart, UART_MCR, UART_MCR_LOOP | UART_MCR_RTS | UART_MCR=
-_OUT2);
-> +    status =3D ns_read_reg(uart, UART_MSR) & UART_MSR_STATUS;
-> +    return (status =3D=3D (UART_MSR_CTS | UART_MSR_DCD));
->  }
->
->  #ifdef CONFIG_HAS_PCI
-> diff --git a/xen/include/xen/8250-uart.h b/xen/include/xen/8250-uart.h
-> index d13352940c13..bbbffb14d320 100644
-> --- a/xen/include/xen/8250-uart.h
-> +++ b/xen/include/xen/8250-uart.h
-> @@ -32,6 +32,7 @@
->  #define UART_MCR          0x04    /* Modem control        */
->  #define UART_LSR          0x05    /* line status          */
->  #define UART_MSR          0x06    /* Modem status         */
-> +#define UART_SCR          0x07    /* Scratch pad          */
->  #define UART_USR          0x1f    /* Status register (DW) */
->  #define UART_DLL          0x00    /* divisor latch (ls) (DLAB=3D1) */
->  #define UART_DLM          0x01    /* divisor latch (ms) (DLAB=3D1) */
-> @@ -42,6 +43,8 @@
->  #define UART_IER_ETHREI   0x02    /* tx reg. empty        */
->  #define UART_IER_ELSI     0x04    /* rx line status       */
->  #define UART_IER_EMSI     0x08    /* MODEM status         */
-> +#define UART_IER_MASK \
-> +    (UART_IER_ERDAI | UART_IER_ETHREI | UART_IER_ELSI | UART_IER_EMSI)
->
->  /* Interrupt Identification Register */
->  #define UART_IIR_NOINT    0x01    /* no interrupt pending */
-> @@ -51,12 +54,19 @@
->  #define UART_IIR_THR      0x02    /*  - tx reg. empty     */
->  #define UART_IIR_MSI      0x00    /*  - MODEM status      */
->  #define UART_IIR_BSY      0x07    /*  - busy detect (DW) */
-> +#define UART_IIR_FE       0xc0    /* FIFO enabled (2 bits) */
->
->  /* FIFO Control Register */
-> -#define UART_FCR_ENABLE   0x01    /* enable FIFO          */
-> -#define UART_FCR_CLRX     0x02    /* clear Rx FIFO        */
-> -#define UART_FCR_CLTX     0x04    /* clear Tx FIFO        */
-> -#define UART_FCR_DMA      0x10    /* enter DMA mode       */
-> +#define UART_FCR_ENABLE     BIT(0, U)   /* enable FIFO          */
-> +#define UART_FCR_CLRX       BIT(1, U)   /* clear Rx FIFO        */
-> +#define UART_FCR_CLTX       BIT(2, U)   /* clear Tx FIFO        */
-> +#define UART_FCR_DMA        BIT(3, U)   /* enter DMA mode       */
-> +#define UART_FCR_RESERVED0  BIT(4, U)   /* reserved; always 0   */
-> +#define UART_FCR_RESERVED1  BIT(5, U)   /* reserved; always 0   */
-> +#define UART_FCR_RTB0       BIT(6, U)   /* receiver trigger bit #0 */
-> +#define UART_FCR_RTB1       BIT(7, U)   /* receiver trigger bit #1 */
-> +#define UART_FCR_TRG_MASK   (UART_FCR_RTB0 | UART_FCR_RTB1)
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 23bd7f078a1d..91c971f11e14 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -28,6 +28,7 @@
+>  #include <xen/softirq.h>
+>  #include <xen/trace.h>
+>  #include <xen/vm_event.h>
 
-Thanks for the patch. I noticed that in this changeset some bit
-definitions (e.g. UART_FCR_*) were rewritten using the BIT(n, U)
-macro, while others (e.g. UART_IER_* and rest of UART_FCR_*) are
-still left as plain hex values (0x01, 0x02, etc.), even though they
-are also powers of two.
+I noticed that this include ...
 
-Could you clarify the reasoning behind this choice? From a reader=E2=80=99s
-perspective it looks inconsistent. Would it make sense to either:
+> +#include <xen/vuart.h>
 
-  - update all of them to use BIT() for consistency, or
-  - keep the existing style unchanged in this patch and move a full
-    conversion to BIT() into a separate cleanup patch?
+... is out of alphabetical order. All other includes in this block
+are correctly sorted.
 
-This would make the codebase easier to follow.
+>  #include <xen/vpci.h>
+>  #include <xen/wait.h>
+>  #include <xen/warning.h>
+> @@ -689,6 +690,22 @@ int hvm_domain_initialise(struct domain *d,
+>      if ( rc !=3D 0 )
+>          goto fail1;
+>
+> +    /* Limit NS16550 emulator for dom0 only for now. */
+> +    if ( IS_ENABLED(CONFIG_VUART_NS16X50) && is_hardware_domain(d) )
+
+Currently, the Xen glossary defines a "hardware domain" as:
+
+    A domain, commonly dom0, which shares responsibility with Xen
+    about the system as a whole.
+
+It has been historically correct to treat is_hardware_domain(d) as
+equivalent to dom0. However, according to patch series [1], this is
+no longer guaranteed:
+
+    "Setting hardware domain as domid 0 is removed."
+
+After these changes, the assumption that hardware domain always equals
+dom0 may not hold. As a result, the above comment in the code could
+become misleading. Consider updating it to something like:
+
+    /* Limit NS16550 emulator to the hardware domain only for now */
+
+to reflect the new semantics.
+
+> +    {
+> +        struct vuart_info info =3D {
+> +            .name       =3D "COM2",
+> +            .compatible =3D "ns16550",
+> +            .base_addr  =3D 0x2f8,
+> +            .size       =3D 8,
+> +            .irq        =3D 3,
+> +        };
+
+Consider defining COM2 base address and IRQ in a shared header
+(e.g., VUART_COM2_BASE and VUART_COM2_IRQ) rather than using
+the magic numbers 0x2f8 and 3 here. This would allow reuse in
+`__start_xen` and other places, and makes the code clearer and
+easier to maintain.
 
 > +
->  #define UART_FCR_TRG1     0x00    /* Rx FIFO trig lev 1   */
->  #define UART_FCR_TRG4     0x40    /* Rx FIFO trig lev 4   */
->  #define UART_FCR_TRG8     0x80    /* Rx FIFO trig lev 8   */
-> @@ -96,11 +106,32 @@
->  #define UART_LCR_CONF_MODE_B   0xBF            /* Configuration mode B *=
-/
->
->  /* Modem Control Register */
-> -#define UART_MCR_DTR      0x01    /* Data Terminal Ready  */
-> -#define UART_MCR_RTS      0x02    /* Request to Send      */
-> -#define UART_MCR_OUT2     0x08    /* OUT2: interrupt mask */
-> -#define UART_MCR_LOOP     0x10    /* Enable loopback test mode */
-> -#define UART_MCR_TCRTLR   0x40    /* Access TCR/TLR (TI16C752, EFR[4]=3D=
-1) */
-> +#define UART_MCR_DTR            BIT(0, U)   /* Data Terminal Ready  */
-> +#define UART_MCR_RTS            BIT(1, U)   /* Request to Send      */
-> +#define UART_MCR_OUT1           BIT(2, U)   /* Output #1 */
-> +#define UART_MCR_OUT2           BIT(3, U)   /* Output #2 */
-> +#define UART_MCR_LOOP           BIT(4, U)   /* Enable loopback test mode=
- */
-> +#define UART_MCR_RESERVED0      BIT(5, U)   /* Reserved #0 */
-> +#define UART_MCR_TCRTLR         BIT(6, U)   /* Access TCR/TLR (TI16C752,=
- EFR[4]=3D1) */
-> +#define UART_MCR_RESERVED1      BIT(7, U)   /* Reserved #1 */
-> +#define UART_MCR_MASK \
-> +    (UART_MCR_DTR | UART_MCR_RTS | \
-> +     UART_MCR_OUT1 | UART_MCR_OUT2 | \
-> +     UART_MCR_LOOP | UART_MCR_TCRTLR)
+> +        rc =3D vuart_init(d, &info);
+> +        if ( rc )
+> +            goto out_vioapic_deinit;
+> +    }
 > +
-> +/* Modem Status Register */
-> +#define UART_MSR_DCTS           BIT(0, U)   /* Change in CTS */
-> +#define UART_MSR_DDSR           BIT(1, U)   /* Change in DSR */
-> +#define UART_MSR_TERI           BIT(2, U)   /* Change in RI */
-> +#define UART_MSR_DDCD           BIT(3, U)   /* Change in DCD */
-> +#define UART_MSR_CTS            BIT(4, U)
-> +#define UART_MSR_DSR            BIT(5, U)
-> +#define UART_MSR_RI             BIT(6, U)
-> +#define UART_MSR_DCD            BIT(7, U)
-> +#define UART_MSR_CHANGE \
-> +    (UART_MSR_DCTS | UART_MSR_DDSR | UART_MSR_TERI | UART_MSR_DDCD)
-> +#define UART_MSR_STATUS \
-> +    (UART_MSR_CTS | UART_MSR_DSR | UART_MSR_RI | UART_MSR_DCD)
+>      stdvga_init(d);
 >
->  /* Line Status Register */
->  #define UART_LSR_DR       0x01    /* Data ready           */
-> @@ -111,6 +142,7 @@
->  #define UART_LSR_THRE     0x20    /* Xmit hold reg empty  */
->  #define UART_LSR_TEMT     0x40    /* Xmitter empty        */
->  #define UART_LSR_ERR      0x80    /* Error                */
-> +#define UART_LSR_MASK     (UART_LSR_OE | UART_LSR_BI)
+>      rtc_init(d);
+> @@ -712,6 +729,8 @@ int hvm_domain_initialise(struct domain *d,
+>      return 0;
 >
->  /* These parity settings can be ORed directly into the LCR. */
->  #define UART_PARITY_NONE  (0<<3)
+>   fail2:
+> +    vuart_deinit(d);
+> + out_vioapic_deinit:
+>      vioapic_deinit(d);
+>   fail1:
+>      if ( is_hardware_domain(d) )
+> @@ -774,6 +793,8 @@ void hvm_domain_destroy(struct domain *d)
+>      if ( hvm_funcs.domain_destroy )
+>          alternative_vcall(hvm_funcs.domain_destroy, d);
+>
+> +    vuart_deinit(d);
+> +
+>      vioapic_deinit(d);
+>
+>      XFREE(d->arch.hvm.pl_time);
+> diff --git a/xen/common/emul/vuart/Kconfig b/xen/common/emul/vuart/Kconfi=
+g
+> index ce1b976b7da7..a27d7ca135af 100644
+> --- a/xen/common/emul/vuart/Kconfig
+> +++ b/xen/common/emul/vuart/Kconfig
+> @@ -3,4 +3,23 @@ config VUART_FRAMEWORK
+>
+>  menu "UART Emulation"
+>
+> +config VUART_NS16X50
+> +       bool "NS16550-compatible UART Emulator" if EXPERT
+> +       depends on X86 && HVM
+> +       select VUART_FRAMEWORK
+> +       default n
+> +       help
+> +         In-hypervisor NS16x50 UART emulation.
+> +
+> +         Only legacy PC COM2 port is emulated.
+> +
+> +         This is strictly for testing purposes (such as early HVM guest =
+console),
+> +         and not appropriate for use in production.
+> +
+> +config VUART_NS16X50_DEBUG
+> +       bool "NS16550-compatible UART Emulator Debugging"
+> +       depends on VUART_NS16X50 && DEBUG
+> +       help
+> +         Enable development debugging.
+> +
+>  endmenu
+> diff --git a/xen/common/emul/vuart/Makefile b/xen/common/emul/vuart/Makef=
+ile
+> index 97f792dc6641..fe904f6cb65d 100644
+> --- a/xen/common/emul/vuart/Makefile
+> +++ b/xen/common/emul/vuart/Makefile
+> @@ -1 +1,2 @@
+>  obj-y +=3D vuart.o
+> +obj-$(CONFIG_VUART_NS16X50) +=3D ns16x50.o
+> diff --git a/xen/common/emul/vuart/ns16x50.c b/xen/common/emul/vuart/ns16=
+x50.c
+> new file mode 100644
+> index 000000000000..0462a961e785
+> --- /dev/null
+> +++ b/xen/common/emul/vuart/ns16x50.c
+> @@ -0,0 +1,366 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * NS16550-compatible UART Emulator.
+> + *
+> + * See:
+> + * - Serial and UART Tutorial:
+> + *     https://download.freebsd.org/doc/en/articles/serial-uart/serial-u=
+art_en.pdf
+> + * - UART w/ 16 byte FIFO:
+> + *     https://www.ti.com/lit/ds/symlink/tl16c550c.pdf
+> + * - UART w/ 64 byte FIFO:
+> + *     https://www.ti.com/lit/ds/symlink/tl16c750.pdf
+> + *
+> + * Limitations:
+> + * - Only x86;
+> + * - Only Xen console as a backend, no inter-domain communication (simil=
+ar to
+> + *   vpl011 on Arm);
+> + * - Only 8n1 emulation (8-bit data, no parity, 1 stop bit);
+> + * - No baud rate emulation (reports 115200 baud to the guest OS);
+> + * - No FIFO-less mode emulation;
+> + * - No RX FIFO interrupt moderation (FCR) emulation;
+> + * - No integration w/ VM snapshotting (HVM_REGISTER_SAVE_RESTORE() and
+> + *   friends);
+> + * - No ISA IRQ sharing allowed;
+> + * - No MMIO-based UART emulation.
+> + */
+> +
+> +#define pr_prefix               "ns16x50"
+> +#define pr_fmt(fmt)             pr_prefix ": " fmt
+> +
+> +#ifdef CONFIG_VUART_NS16X50_DEBUG
+> +#define guest_prefix            "FROM GUEST "
+> +#define ns16x50_log_level       2
+> +#else
+> +#define guest_prefix            ""
+> +#define ns16x50_log_level       0
+> +#endif
+> +
+> +#include <xen/8250-uart.h>
+> +#include <xen/console.h>
+> +#include <xen/err.h>
+> +#include <xen/iocap.h>
+> +#include <xen/vuart.h>
+> +#include <xen/xvmalloc.h>
+> +
+> +#include <public/io/console.h>
+> +
+> +#define ns16x50_log(n, lvl, vdev, fmt, args...) \
+> +do { \
+> +    if ( ns16x50_log_level >=3D n ) \
+> +        gprintk(lvl, pr_fmt("%s: " fmt), (vdev)->name, ## args); \
+> +} while (0)
+> +
+> +#define ns16x50_err(vdev, fmt, args...) \
+> +    ns16x50_log(0, XENLOG_ERR, vdev, fmt, ## args)
+> +#define ns16x50_warn(vdev, fmt, args...) \
+> +    ns16x50_log(1, XENLOG_WARNING, vdev, fmt, ## args)
+> +#define ns16x50_info(vdev, fmt, args...) \
+> +    ns16x50_log(2, XENLOG_INFO, vdev, fmt, ## args)
+> +#define ns16x50_debug(vdev, fmt, args...) \
+> +    ns16x50_log(3, XENLOG_DEBUG, vdev, fmt, ## args)
+> +
+> +/*
+> + * Number of supported registers in the UART.
+> + */
+> +#define NS16X50_REGS_NUM        (UART_SCR + 1)
+> +
+> +/*
+> + * Number of emulated registers.
+> + *
+> + * - Emulated registers [0..NS16X50_REGS_NUM] are R/W registers for DLAB=
+=3D0.
+> + * - DLAB=3D1, R/W, DLL            =3D NS16X50_REGS_NUM + 0
+> + * - DLAB=3D1, R/W, DLM            =3D NS16X50_REGS_NUM + 1
+> + * -         R/O, IIR (IIR_THR)  =3D NS16X50_REGS_NUM + 2
+> + */
+> +#define NS16X50_EMU_REGS_NUM    (NS16X50_REGS_NUM + 3)
+> +
+> +/*
+> + * Virtual ns16x50 device state.
+> + */
+> +struct vuart_ns16x50 {
+> +    uint8_t regs[NS16X50_EMU_REGS_NUM]; /* Emulated registers */
+> +    const struct vuart_info *info;      /* UART description */
+> +    struct domain *owner;               /* Owner domain */
+> +    const char *name;                   /* Device name */
+> +    spinlock_t lock;                    /* Protection */
+> +    struct xencons_interface cons;      /* Emulated RX/TX FIFOs */
+> +};
+> +
+> +static uint8_t ns16x50_dlab_get(const struct vuart_ns16x50 *vdev)
+> +{
+> +    return 0;
+> +}
+> +
+> +/*
+> + * Emulate 8-bit write access to ns16x50 register.
+> + */
+> +static int ns16x50_io_write8(
+> +    struct vuart_ns16x50 *vdev, uint32_t reg, uint8_t *data)
+> +{
+> +    int rc =3D 0;
+> +
+> +    return rc;
+> +}
+> +
+> +/*
+> + * Emulate 16-bit write access to ns16x50 register.
+> + * NB: some guest OSes use outw() to access UART_DLL.
+> + */
+> +static int ns16x50_io_write16(
+> +    struct vuart_ns16x50 *vdev, uint32_t reg, uint16_t *data)
+> +{
+> +    int rc =3D -EINVAL;
+> +
+> +    return rc;
+> +}
+> +
+> +/*
+> + * Emulate write access to ns16x50 register.
+> + */
+> +static int ns16x50_io_write(
+> +    struct vuart_ns16x50 *vdev, uint8_t reg, uint32_t size, uint32_t *da=
+ta)
+> +{
+> +    int rc;
+> +
+> +    switch ( size )
+> +    {
+> +    case 1:
+> +        rc =3D ns16x50_io_write8(vdev, reg, (uint8_t *)data);
+> +        break;
+> +
+> +    case 2:
+> +        rc =3D ns16x50_io_write16(vdev, reg, (uint16_t *)data);
+> +        break;
+> +
+> +    default:
+> +        rc =3D -EINVAL;
+> +        break;
+> +    }
+> +
+> +    return rc;
+> +}
+> +
+> +/*
+> + * Emulate 8-bit read access to ns16x50 register.
+> + */
+> +static int ns16x50_io_read8(
+> +    struct vuart_ns16x50 *vdev, uint32_t reg, uint8_t *data)
+> +{
+> +    uint8_t val =3D 0xff;
+
+Instead of hardcoding 0xff here, consider using UINT8_MAX. This makes
+it clear that the value is the maximum for uint8_t and avoids magic
+numbers.
+
+Similarly, in other places where constants for 16-bit or 32-bit
+unsigned integers are used, it would be good to replace them with
+UINT16_MAX and UINT32_MAX respectively for consistency and clarity.
+
+> +    int rc =3D 0;
+> +
+> +    *data =3D val;
+> +
+> +    return rc;
+> +}
+> +
+> +/*
+> + * Emulate 16-bit read access to ns16x50 register.
+> + */
+> +static int ns16x50_io_read16(
+> +    struct vuart_ns16x50 *vdev, uint32_t reg, uint16_t *data)
+> +{
+> +    uint16_t val =3D 0xffff;
+> +    int rc =3D -EINVAL;
+> +
+> +    *data =3D val;
+> +
+> +    return rc;
+> +}
+> +
+> +/*
+> + * Emulate read access to ns16x50 register.
+> + */
+> +static int ns16x50_io_read(
+> +    struct vuart_ns16x50 *vdev, uint8_t reg, uint32_t size, uint32_t *da=
+ta)
+> +{
+> +    int rc;
+> +
+> +    switch ( size )
+> +    {
+> +    case 1:
+> +        rc =3D ns16x50_io_read8(vdev, reg, (uint8_t *)data);
+> +        break;
+> +
+> +    case 2:
+> +        rc =3D ns16x50_io_read16(vdev, reg, (uint16_t *)data);
+> +        break;
+> +
+> +    default:
+> +        *data =3D 0xffffffff;
+> +        rc =3D -EINVAL;
+> +        break;
+> +    }
+> +
+> +    return rc;
+> +}
+> +
+> +/*
+> + * Emulate I/O access to ns16x50 register.
+> + * Note, emulation always returns X86EMUL_OKAY, once I/O port trap is en=
+abled.
+> + */
+> +static int cf_check ns16x50_io_handle(
+> +    int dir, unsigned int addr, unsigned int size, uint32_t *data)
+> +{
+> +#define op(dir)     (((dir) =3D=3D IOREQ_WRITE) ? 'W' : 'R')
+
+Instead of defining the op(dir) macro, it might be cleaner to compute
+the direction character once at the beginning, e.g.:
+
+    const char dir_char =3D (dir =3D=3D IOREQ_WRITE) ? 'W' : 'R';
+
+and then use dir_char in printk()/debug. This avoids the local macro
+and makes the code easier to follow.
+
+> +    struct domain *d =3D rcu_lock_current_domain();
+> +    struct vuart *vuart =3D vuart_find_by_io_range(d, addr, size);
+> +    struct vuart_ns16x50 *vdev;
+> +    const struct domain *owner;
+> +    const struct vuart_info *info;
+> +    uint32_t reg;
+> +    unsigned dlab;
+> +    int rc;
+> +
+> +    if ( !vuart || !vuart->vdev )
+> +    {
+> +        printk(XENLOG_ERR "%c io 0x%04x %d: not initialized\n",
+> +               op(dir), addr, size);
+> +
+> +        ASSERT_UNREACHABLE();
+> +        goto out;
+> +    }
+> +    vdev =3D vuart->vdev;
+> +
+> +    owner =3D vuart->owner;
+> +    ASSERT(owner);
+> +    if ( d !=3D owner )
+> +    {
+> +        ns16x50_err(vdev, "%c io 0x%04x %d: does not match current domai=
+n %pv\n",
+> +                    op(dir), addr, size, d);
+> +
+> +        ASSERT_UNREACHABLE();
+> +        goto out;
+> +    }
+> +
+> +    info =3D vuart->info;
+> +    ASSERT(info);
+> +    reg =3D addr - info->base_addr;
+> +    if ( !IS_ALIGNED(reg, size) )
+> +    {
+> +        ns16x50_err(vdev, "%c 0x%04x %d: unaligned access\n",
+> +                    op(dir), addr, size);
+> +        goto out;
+> +    }
+> +
+> +    dlab =3D ns16x50_dlab_get(vdev);
+> +    if ( reg >=3D NS16X50_REGS_NUM )
+> +    {
+> +        ns16x50_err(vdev, "%c io 0x%04x %d: DLAB=3D%d %02"PRIx32" 0x%08"=
+PRIx32": not implemented\n",
+> +                    op(dir), addr, size, dlab, reg, *data);
+> +        goto out;
+> +    }
+> +
+> +    spin_lock(&vdev->lock);
+> +
+> +    if ( dir =3D=3D IOREQ_WRITE )
+> +    {
+> +        ns16x50_debug(vdev, "%c 0x%04x %d: DLAB=3D%d %02"PRIx32" 0x%08"P=
+RIx32"\n",
+> +                      op(dir), addr, size, dlab, reg, *data);
+> +        rc =3D ns16x50_io_write(vdev, reg, size, data);
+
+AFAICT ns16x50_io_read() and ns16x50_io_write() have identical
+signatures. Would it be cleaner to store them in an array of
+function pointers and call through that, e.g.:
+
+    rc =3D ns16x50_io_op[dir =3D=3D IOREQ_WRITE](vdev, reg, size, data);
+
+This would avoid the if/else block here.
+
+> +    }
+> +    else
+> +    {
+> +        rc =3D ns16x50_io_read(vdev, reg, size, data);
+> +        ns16x50_debug(vdev, "%c 0x%04x %d: DLAB=3D%d %02"PRIx32" 0x%08"P=
+RIx32"\n",
+> +                      op(dir), addr, size, dlab, reg, *data);
+
+The ns16x50_debug() call is duplicated in both branches of the
+IOREQ_WRITE check, differing only in whether it's placed before or
+after the access. Would it make sense to move this debug print
+outside the condition, so the same code is used for both read and
+write paths (assuming the "data"  is not modified during a write)?
+
+> +    }
+> +    if ( rc < 0 )
+> +        ns16x50_err(vdev, "%c 0x%04x %d: DLAB=3D%d %02"PRIx32" 0x%08"PRI=
+x32": unsupported access\n",
+> +                    op(dir), addr, size, dlab, reg, *data);
+
+The ns16x50_err() call doesn=E2=80=99t require holding vdev->lock, so it wo=
+uld
+be cleaner to move it after spin_unlock(). That way the critical section
+is shorter.
+
+> +
+> +    spin_unlock(&vdev->lock);
+> +
+> +out:
+> +    rcu_unlock_domain(d);
+> +
+> +    return X86EMUL_OKAY;
+> +#undef op
+> +}
+> +
+> +static int ns16x50_init(void *arg)
+> +{
+> +    struct vuart_ns16x50 *vdev =3D arg;
+> +    const struct vuart_info *info =3D vdev->info;
+> +    struct domain *d =3D vdev->owner;
+> +
+> +    ASSERT(vdev);
+> +
+> +    register_portio_handler(d, info->base_addr, info->size, ns16x50_io_h=
+andle);
+> +
+> +    return 0;
+> +}
+> +
+> +static void cf_check ns16x50_deinit(void *arg)
+> +{
+> +    struct vuart_ns16x50 *vdev =3D arg;
+> +
+> +    ASSERT(vdev);
+> +}
+> +
+> +static void * cf_check ns16x50_alloc(struct domain *d, const struct vuar=
+t_info *info)
+> +{
+> +    struct vuart_ns16x50 *vdev;
+> +    int rc;
+> +
+> +    if ( !info )
+> +        return ERR_PTR(-EINVAL);
+> +
+> +    if ( vuart_find_by_io_range(d, info->base_addr, info->size) )
+> +    {
+> +        ns16x50_err(info, "already registered\n");
+> +        return ERR_PTR(-EBUSY);
+> +    }
+> +
+> +    if ( !is_hvm_domain(d) )
+
+Currently, ns16x50_alloc() first calls vuart_find_by_io_range() and
+only afterwards checks if the domain is an HVM domain. Wouldn=E2=80=99t it
+be more logical to perform the HVM check first? If the console is
+only available for HVM domains, the extra check for an uninitialized
+vuart field seems unnecessary.
+
+> +    {
+> +        ns16x50_err(info, "not an HVM domain\n");
+> +        return ERR_PTR(-ENOSYS);
+> +    }
+> +
+> +    vdev =3D xvzalloc(typeof(*vdev));
+> +    if ( !vdev )
+> +    {
+> +        ns16x50_err(info, "failed to allocate memory\n");
+> +        return ERR_PTR(-ENOMEM);
+> +    }
+> +
+> +    spin_lock_init(&vdev->lock);
+> +    vdev->name =3D info->name;
+> +    vdev->owner =3D d;
+> +    vdev->info =3D info;
+> +
+> +    rc =3D ns16x50_init(vdev);
+> +    if ( rc )
+
+If ns16x50_init(vdev) fails, vdev should be freed with xvfree() to
+avoid a memory leak.
+
+Currently, ns16x50_init() always returns 0. If it is not planned to
+return other values in the future, it may be simpler to make the
+function return void, avoiding the need for the rc variable and
+conditional checks.
+
+> +        return ERR_PTR(rc);
+> +
+> +    return vdev;
+> +}
+> +
+> +static void cf_check ns16x50_free(void *arg)
+> +{
+> +    if ( arg )
+> +        ns16x50_deinit(arg);
+> +
+> +    xvfree(arg);
+> +}
+> +
+> +#define ns16x50_emulator                \
+> +{                                       \
+> +    .compatible =3D "ns16550",            \
+> +    .alloc      =3D ns16x50_alloc,        \
+> +    .free       =3D ns16x50_free,         \
+> +    .dump_state =3D NULL,                 \
+
+dump_state is set to NULL, but vuart_dump_state() in the previous
+commit does not check this pointer. If all commits up to this one
+are applied and domain state is dumped, this could result in a
+NULL pointer dereference and crash the hypervisor.
+
+Consider adding a NULL check in vuart_dump_state() or initializing
+dump_state properly.
+
+> +    .put_rx     =3D NULL,                 \
+> +}
+> +
+> +VUART_REGISTER(ns16x50, ns16x50_emulator);
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
 > --
 > 2.51.0
 >
 >
+
+[1] https://patchew.org/Xen/20250416212911.410946-1-jason.andryuk@amd.com/
 
 Best regards,
 Mykola
