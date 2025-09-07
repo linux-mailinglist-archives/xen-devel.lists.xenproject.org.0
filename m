@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EE4BB47C66
-	for <lists+xen-devel@lfdr.de>; Sun,  7 Sep 2025 18:21:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1114188.1461336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7275B47C67
+	for <lists+xen-devel@lfdr.de>; Sun,  7 Sep 2025 18:21:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1114194.1461346 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvI8I-00044L-8O; Sun, 07 Sep 2025 16:20:50 +0000
+	id 1uvI8K-0004MT-I4; Sun, 07 Sep 2025 16:20:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1114188.1461336; Sun, 07 Sep 2025 16:20:50 +0000
+Received: by outflank-mailman (output) from mailman id 1114194.1461346; Sun, 07 Sep 2025 16:20:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvI8I-00043U-5P; Sun, 07 Sep 2025 16:20:50 +0000
-Received: by outflank-mailman (input) for mailman id 1114188;
- Sun, 07 Sep 2025 16:20:48 +0000
+	id 1uvI8K-0004JB-EW; Sun, 07 Sep 2025 16:20:52 +0000
+Received: by outflank-mailman (input) for mailman id 1114194;
+ Sun, 07 Sep 2025 16:20:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bCRb=3S=cloud.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
- id 1uvI41-00009z-NJ
- for xen-devel@lists.xenproject.org; Sun, 07 Sep 2025 16:16:25 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1uvI42-00009z-Nd
+ for xen-devel@lists.xenproject.org; Sun, 07 Sep 2025 16:16:26 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ffa40c74-8c05-11f0-9809-7dc792cee155;
- Sun, 07 Sep 2025 18:16:24 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-b04b869abb9so149781466b.1
- for <xen-devel@lists.xenproject.org>; Sun, 07 Sep 2025 09:16:24 -0700 (PDT)
+ id 00344c93-8c06-11f0-9809-7dc792cee155;
+ Sun, 07 Sep 2025 18:16:25 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-b046f6fb230so604182166b.1
+ for <xen-devel@lists.xenproject.org>; Sun, 07 Sep 2025 09:16:25 -0700 (PDT)
 Received: from MinisforumBD795m.phoenix-carat.ts.net
  ([2a02:1748:f7df:8cb1:5474:d7c3:6edd:e683])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b047b61cf00sm908263766b.15.2025.09.07.09.15.30
+ a640c23a62f3a-b047b61cf00sm908263766b.15.2025.09.07.09.16.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Sep 2025 09:16:22 -0700 (PDT)
+ Sun, 07 Sep 2025 09:16:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,250 +46,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ffa40c74-8c05-11f0-9809-7dc792cee155
+X-Inumbo-ID: 00344c93-8c06-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1757261783; x=1757866583; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1757261784; x=1757866584; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kxqBH4UoXF5zKcyV4oRkehvh5BG1QBuBGrUOn4bw4TQ=;
-        b=BaMyCOjDkwGZ2u73dbJ7SgDKbTt37YCQOSWkDjTDW/EGETYm2x8weqpPjSDcgHnSyz
-         BIz77+tfhymkXZusWhxoBn31kwQo3DOc8PuPyfTOg8MK0DUFw1fzT35BJ/AZwi2Z4X3K
-         lxiHHHwRlCBKjpmCV5Gkr+r0wvRtnZj3sjqMU=
+        bh=vBTzAM9dJn/x75BZsxvktFF5ekUsBrdK+iYKuv7j92Y=;
+        b=Ehd7Nxq1zVQLYJAv33FDslPZN7BVOQLT/G0L4euiksG3FNcFkQ0utT+d1mf0dMLsEV
+         K+1SeIu2+IakYyBvM2k+6mlxir91mMcQORLcJFiiv9AnAmuUKlVmeap/+Vttj6g1U1lr
+         lKvqmT0A24Yf+zGEXN7UtgGI8nRpelsjoMgVI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757261783; x=1757866583;
+        d=1e100.net; s=20230601; t=1757261784; x=1757866584;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=kxqBH4UoXF5zKcyV4oRkehvh5BG1QBuBGrUOn4bw4TQ=;
-        b=VkHOKXqVAIEm2BQI5wdYdUIFvFzxJq59IaW8fNcgZlU7wsdlBnqjrNC2vn4miyylnj
-         SEYnEmw1UWcUU4jbqTVzAslL1u4ZF8KRPYpYq5gA4oksgo2puMzf8F6guCMz3QEtwX7T
-         SyoYLIjAfOgz8DqRhQgsW0LzbQzxt7mkceIcnUdHePByuu0x1E+bWpJEYEtAhoGV57/H
-         wRUGC3fW8la9vqXHix3xxlPwswtMkgBx+O68rhBpvnL1pgAi+QbuM9y4UIssasMm+6eB
-         YB9Dyne7vTO1fcwQ4K6dL/cNoPp4Xxeh67KzzvlX7CVPRZkW8B/iGKvvjhXz8tZ38c6T
-         BrtQ==
-X-Gm-Message-State: AOJu0Yzp6qpredsVDAGtxLNT7TTH82gyb7ddFnGaNqlvsHDHxu+4L5bU
-	BefLffoBfXYN4YWkqftM90NHj2zEOysPALUQmyUnzqVlA0e5atAoZGA87ovrAj7hSQjNPLDysLL
-	HvEZVkTk=
-X-Gm-Gg: ASbGnctTPup+qfU4eopObUYAO5dl7hrPdQCs/CqY+9LBKAzck5JAt8J9R+91kTCBmhb
-	Vmz1CRIUhJ9mVdl35Ow/3oYo+Js0Moz7061TrsOlpaObR4S27iKHYXTqTwJCa8OP1t725Cl8BxK
-	TrcQTAHnJ8oDRwaHoX+Glzwu4qF1augqeAjBJ+e8DPIwOGZxlC093YQ6sPWMIwOGrp9PmH3zM05
-	v/qBfkDWv1MBsgFa+PIiVyS9iH+AFieb9Zj3fEtPoT7jCOqDgzvYWWjKS2VuCaZxUgVNjqu+Xsb
-	G16Gp3ObCnPa2SwYjbF+V7QPq/a0/ut388Uyv4qAqPaUGO31pn8qkP7OSwk0ANhozaQ66sziKM2
-	2o6MWhFPM26bE+v0Ry7PjAL7N3tU31vbJJLiYy4kQ5op8hbwuYT2GFmK3C3/c0PgwGbFybQaloG
-	3XZA==
-X-Google-Smtp-Source: AGHT+IGHe1uaFOFNYQ4DJtikarPhM2GREyUd/9dIGycR1RQtQQeD3n91MRtwwnizdTXOOCUvQtLQmw==
-X-Received: by 2002:a17:906:d54b:b0:b04:53cc:4400 with SMTP id a640c23a62f3a-b04b14a198emr528981066b.27.1757261783273;
-        Sun, 07 Sep 2025 09:16:23 -0700 (PDT)
+        bh=vBTzAM9dJn/x75BZsxvktFF5ekUsBrdK+iYKuv7j92Y=;
+        b=iE9jbJd4dFA8ve0fXZfkI8An9z9BfuMcS+SEukz2Qdg58X90CMSluIDRO36NqBBxNi
+         vhJvpCJQX/FcXvb6k1TYLtO/0YPjie0DJCE7TVsGMZT7hpgCXRK8CRPaFOQgI1UuKNiU
+         oZOTpbZqUWX+j5TfCmXp2PKX0TGMZV+MK+IWez3rN+9nDRs/U18rKYf+oiovXZAgYbhG
+         ZHpNdelNolHE8XmoAlT8/afMq5x3KVLSGNPPJllaWNZG2orbekyUDxmKjd4gKP26JBB2
+         UVsLarcyHYJR4rPGbD4QEnHvmHDSEwUvJOt6prIDKe/2RD8KQ4R7MBA2wPSWfjKg+G1J
+         11Fg==
+X-Gm-Message-State: AOJu0Yzj3jBlSERwNX7qLmAyMKapd0SNaBJFsqFegjbpbvewly0n2SkR
+	QB5skVRTa9Db4fq/wlqWizs8nFpH28zui2bp9ImyjzsOAUqKG0qHBmr+g8Gnn2mR8vtuXaEwY2m
+	n047UIUY=
+X-Gm-Gg: ASbGncsIzNlbmovo48jc4vgobIdQjBp/ENa1qIfqAqCGLX1do5k+d+tPvl1zMQW8zAY
+	BmF39m30e+LwuiTmdzcV82ACHWj47JlK/GoOhGi4ZdZvf0ckv1r4KJNowS2pecXnfFTPVICG2A8
+	jpbZT1v35Rfnjl1+Oe0vKKVxro2AvkOGklQV3r6U9kozVxQfyKGvqtEvMVmMOWYicpeAvx93oNv
+	vJEaeiqmO5VvH3wPnUqtr7tIVKbstKxYtp/CoZvHjBfa537elEgQcRn01LSxoqwYSR9E0KxQSqi
+	ok/9cRCpfnp5LpDQsypQ2b9O1lk7C8ODcYSt34AxNTJfmNpuJQcb+kekGQ4zJzT1U8zMVJHz6AN
+	8uPbQT9YVH1v51fgyj276vGNienp97C60TBWymEvfl5cUnwJ3KeEIbwznHcbLf9hEvUMsZdybBw
+	k4iA==
+X-Google-Smtp-Source: AGHT+IFNkJmollUYz0E9myq+0ab1Fzt9pFOg5uIHhtER2VpUj1FgGRJDBcAtjSl+tX9M37Qw/YC6FA==
+X-Received: by 2002:a17:907:805:b0:afe:94d7:7283 with SMTP id a640c23a62f3a-b04932a2452mr1010424466b.32.1757261784279;
+        Sun, 07 Sep 2025 09:16:24 -0700 (PDT)
 From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
 	Bernhard Kaindl <bernhard.kaindl@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Tamas K Lengyel <tamas@tklengyel.com>
-Subject: [PATCH v3 5/7] xen/page_alloc: Pass node to adjust_tot_pages and check it
-Date: Sun,  7 Sep 2025 18:15:20 +0200
-Message-ID: <80adbc587f6acf6bae05bf66016ffecb532f8877.1757261045.git.bernhard.kaindl@cloud.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v3 6/7] xen/page_alloc: Protect claimed memory against other allocations
+Date: Sun,  7 Sep 2025 18:15:21 +0200
+Message-ID: <b37634dd9a37b52030bc8196dcdeec896a5706a6.1757261045.git.bernhard.kaindl@cloud.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1757261045.git.bernhard.kaindl@cloud.com>
 References: <cover.1757261045.git.bernhard.kaindl@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-domain_adjust_tot_pages() consumes remaining claims as pages
-are allocated, now also from the claimed node.
+Extend get_free_buddy() to only allocate from nodes with enough
+unclaimed memory left, unless the allocation is made by a domain
+with sufficient claims on this node to cover the allocation.
 
-Update it to skip consuming the outstanding claims when the page
-was allocated from a different NUMA node.
-
-This in itself would not be critically needed as the page should
-only be allocated from a different NUMA node in case the target
-node has no available memory, but for multi-node claims, we need
-to reduce the outstanding claims only on the NUMA node the page
-was allocated from.
-
-For this, we need to pass the NUMA node of the allocated page,
-so we can use it to perform this check (and in the future update
-the claim only on the NUMA node the page was allocated from)
-
+Signed-off-by: Marcus Granado <marcus.granado@cloud.com>
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
 
 ---
-- Reorganized v3, v4 and v5 as per review to avoid non-functional
-  changes:
-  - Split from patch v2#3 and merged the related changed from v2#5
-    into a consolidated patch.
----
- xen/arch/x86/mm.c             |  3 ++-
- xen/arch/x86/mm/mem_sharing.c |  4 ++--
- xen/common/grant_table.c      |  4 ++--
- xen/common/memory.c           |  3 ++-
- xen/common/page_alloc.c       | 21 ++++++++++++++++-----
- xen/include/xen/mm.h          |  2 +-
- 6 files changed, 25 insertions(+), 12 deletions(-)
+Changes in v3:
 
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index b929d15d00..b0f654e02e 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -4442,7 +4442,8 @@ int steal_page(
-     page_list_del(page, &d->page_list);
- 
-     /* Unlink from original owner. */
--    if ( !(memflags & MEMF_no_refcount) && !domain_adjust_tot_pages(d, -1) )
-+    if ( !(memflags & MEMF_no_refcount) &&
-+         !domain_adjust_tot_pages(d, NUMA_NO_NODE, -1) )
-         drop_dom_ref = true;
- 
-     nrspin_unlock(&d->page_alloc_lock);
-diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-index 4787b27964..15b8a3a9d9 100644
---- a/xen/arch/x86/mm/mem_sharing.c
-+++ b/xen/arch/x86/mm/mem_sharing.c
-@@ -720,7 +720,7 @@ static int page_make_sharable(struct domain *d,
-     if ( !validate_only )
-     {
-         page_set_owner(page, dom_cow);
--        drop_dom_ref = !domain_adjust_tot_pages(d, -1);
-+        drop_dom_ref = !domain_adjust_tot_pages(d, NUMA_NO_NODE, -1);
-         page_list_del(page, &d->page_list);
-     }
- 
-@@ -766,7 +766,7 @@ static int page_make_private(struct domain *d, struct page_info *page)
-     ASSERT(page_get_owner(page) == dom_cow);
-     page_set_owner(page, d);
- 
--    if ( domain_adjust_tot_pages(d, 1) == 1 )
-+    if ( domain_adjust_tot_pages(d, page_to_nid(page), 1) == 1 )
-         get_knownalive_domain(d);
-     page_list_add_tail(page, &d->page_list);
-     nrspin_unlock(&d->page_alloc_lock);
-diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-index cf131c43a1..8fea75dbb2 100644
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -2405,7 +2405,7 @@ gnttab_transfer(
-         }
- 
-         /* Okay, add the page to 'e'. */
--        if ( unlikely(domain_adjust_tot_pages(e, 1) == 1) )
-+        if ( unlikely(domain_adjust_tot_pages(e, page_to_nid(page), 1) == 1) )
-             get_knownalive_domain(e);
- 
-         /*
-@@ -2431,7 +2431,7 @@ gnttab_transfer(
-              * page in the page total
-              */
-             nrspin_lock(&e->page_alloc_lock);
--            drop_dom_ref = !domain_adjust_tot_pages(e, -1);
-+            drop_dom_ref = !domain_adjust_tot_pages(e, NUMA_NO_NODE, -1);
-             nrspin_unlock(&e->page_alloc_lock);
- 
-             if ( okay /* i.e. e->is_dying due to the surrounding if() */ )
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index 3371edec11..4c54ce5ede 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -775,7 +775,8 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
- 
-                 nrspin_lock(&d->page_alloc_lock);
-                 drop_dom_ref = (dec_count &&
--                                !domain_adjust_tot_pages(d, -dec_count));
-+                                !domain_adjust_tot_pages(d, NUMA_NO_NODE,
-+                                                         -dec_count));
-                 nrspin_unlock(&d->page_alloc_lock);
- 
-                 if ( drop_dom_ref )
+Rewritten based on a check by Marcus Granado which needs to be inside
+the NUMA node loop of get_free_buddy() to only allow it to allocating
+from NUMA nodes with enough unclaimed memory.
+
+It was originally only intented for when looping over all NUMA nodes,
+but the check also needs to be done when falling back to other nodes:
+
+I updated the check to be generic: Now, it used for all requests by
+integrating the check of the claim of the domain from Alejandro's
+can_alloc() helper into it.
+
+This fixes the issue that when falling back from a nodemask to allocate
+from (based on MEMF_get_node(memflags) or from d->node_affinity):
+
+When falling back to other NUMA nodes, still only allocate from nodes
+with enough unclaimed memory left, unless the allocation is made by
+a domain with sufficient claims on this node to cover the allocation.
+
+This makes the can_alloc() helper function obsolete, as the needed
+checks are done for the NUMA nodes as they are considered, not only
+for the orignally requested NUMA node (not just before searching).
+---
+ xen/common/page_alloc.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
 diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index bbb34994b7..ebf41a1b33 100644
+index ebf41a1b33..b866076b78 100644
 --- a/xen/common/page_alloc.c
 +++ b/xen/common/page_alloc.c
-@@ -542,8 +542,11 @@ static unsigned long avail_heap_pages(
-  * Update the total number of pages and outstanding claims of a domain.
-  * - When pages were freed, we do not increase outstanding claims.
-  * - On a domain's claims update, global outstanding_claims are updated as well.
-+ * - If the domain's claim is on a NUMA node, we only update outstanding claims
-+ *   of the domain and the node, when the allocation is from the same NUMA node.
-  */
--unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
-+unsigned long domain_adjust_tot_pages(struct domain *d, nodeid_t node,
-+                                      long pages)
- {
-     unsigned long adjustment;
- 
-@@ -557,8 +560,12 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
-      *
-      * If the domain has no outstanding claims (or we freed pages instead),
-      * we don't update outstanding claims and skip the claims adjustment.
-+     *
-+     * Else, a page was allocated: But if the domain has a node_claim and
-+     * the page was allocated from a different node, don't update claims.
-      */
--    if ( !d->outstanding_pages || pages <= 0 )
-+    if ( !d->outstanding_pages || pages <= 0 ||
-+         (domain_has_node_claim(d) && d->claim_node != node) )
-         goto out;
- 
-     spin_lock(&heap_lock);
-@@ -2662,6 +2669,8 @@ int assign_pages(
- 
-     if ( !(memflags & MEMF_no_refcount) )
+@@ -980,9 +980,19 @@ static struct page_info *get_free_buddy(unsigned int zone_lo,
      {
-+        nodeid_t node = page_to_nid(&pg[0]);
-+
-         if ( unlikely(d->tot_pages + nr < nr) )
-         {
-             gprintk(XENLOG_INFO,
-@@ -2672,8 +2681,9 @@ int assign_pages(
-             rc = -E2BIG;
-             goto out;
-         }
-+        ASSERT(node == page_to_nid(&pg[nr - 1]));
+         zone = zone_hi;
+         do {
+-            /* Check if target node can support the allocation. */
+-            if ( !avail[node] || (avail[node][zone] < (1UL << order)) )
+-                continue;
++            unsigned long request = 1UL << order;
++            /*
++             * Check if this node is currently suitable for this allocation.
++             * 1. It has sufficient memory in the requested zone and the
++             * 2. request must fit in the unclaimed memory of the node minus
++             *    outstanding claims, unless the allocation is made by a domain
++             *    with sufficient node-claimed memory to cover the allocation.
++             */
++            if ( !avail[node] || (avail[node][zone] < request) ||
++                 (insufficient_memory(node, request) &&
++                  (!d || node != d->claim_node ||     /* a domain with claims */
++                   request > d->outstanding_pages)) ) /* claim covers request */
++                continue;  /* next zone/node if insufficient memory or claims */
  
--        if ( unlikely(domain_adjust_tot_pages(d, nr) == nr) )
-+        if ( unlikely(domain_adjust_tot_pages(d, node, nr) == nr) )
-             get_knownalive_domain(d);
-     }
- 
-@@ -2806,7 +2816,8 @@ void free_domheap_pages(struct page_info *pg, unsigned int order)
-                 }
-             }
- 
--            drop_dom_ref = !domain_adjust_tot_pages(d, -(1 << order));
-+            drop_dom_ref = !domain_adjust_tot_pages(d, NUMA_NO_NODE,
-+                                                    -(1 << order));
- 
-             rspin_unlock(&d->page_alloc_lock);
- 
-@@ -3012,7 +3023,7 @@ void free_domstatic_page(struct page_info *page)
- 
-     arch_free_heap_page(d, page);
- 
--    drop_dom_ref = !domain_adjust_tot_pages(d, -1);
-+    drop_dom_ref = !domain_adjust_tot_pages(d, NUMA_NO_NODE, -1);
- 
-     unprepare_staticmem_pages(page, 1, scrub_debug);
- 
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index 52c12c5783..5a5252fc69 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -131,7 +131,7 @@ mfn_t xen_map_to_mfn(unsigned long va);
- int populate_pt_range(unsigned long virt, unsigned long nr_mfns);
- /* Claim handling */
- unsigned long __must_check domain_adjust_tot_pages(struct domain *d,
--    long pages);
-+    nodeid_t node, long pages);
- int domain_claim_pages(struct domain *d, nodeid_t node, unsigned long pages);
- void get_outstanding_claims(uint64_t *free_pages, uint64_t *outstanding_pages);
- 
+             /* Find smallest order which can satisfy the request. */
+             for ( j = order; j <= MAX_ORDER; j++ )
 -- 
 2.43.0
 
