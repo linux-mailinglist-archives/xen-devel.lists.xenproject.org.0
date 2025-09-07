@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20735B47C62
-	for <lists+xen-devel@lfdr.de>; Sun,  7 Sep 2025 18:17:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1114166.1461325 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73343B47EDC
+	for <lists+xen-devel@lfdr.de>; Sun,  7 Sep 2025 22:29:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1114312.1461355 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvI4i-0002J9-Km; Sun, 07 Sep 2025 16:17:08 +0000
+	id 1uvM0A-0006rB-7a; Sun, 07 Sep 2025 20:28:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1114166.1461325; Sun, 07 Sep 2025 16:17:08 +0000
+Received: by outflank-mailman (output) from mailman id 1114312.1461355; Sun, 07 Sep 2025 20:28:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvI4i-0002Gx-Hd; Sun, 07 Sep 2025 16:17:08 +0000
-Received: by outflank-mailman (input) for mailman id 1114166;
- Sun, 07 Sep 2025 16:17:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uvM0A-0006pj-3r; Sun, 07 Sep 2025 20:28:42 +0000
+Received: by outflank-mailman (input) for mailman id 1114312;
+ Sun, 07 Sep 2025 20:28:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bCRb=3S=cloud.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
- id 1uvI4g-0002Gl-UL
- for xen-devel@lists.xenproject.org; Sun, 07 Sep 2025 16:17:07 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 17f8bfc5-8c06-11f0-9809-7dc792cee155;
- Sun, 07 Sep 2025 18:17:05 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-afcb7ae31caso616594566b.3
- for <xen-devel@lists.xenproject.org>; Sun, 07 Sep 2025 09:17:05 -0700 (PDT)
-Received: from MinisforumBD795m.phoenix-carat.ts.net
- ([2a02:1748:f7df:8cb1:5474:d7c3:6edd:e683])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b047b61cf00sm908263766b.15.2025.09.07.09.16.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Sep 2025 09:17:03 -0700 (PDT)
+ <SRS0=+xcF=3S=epam.com=Leonid_Komarianskyi@srs-se1.protection.inumbo.net>)
+ id 1uvM08-0006pd-Hd
+ for xen-devel@lists.xenproject.org; Sun, 07 Sep 2025 20:28:40 +0000
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazlp170130006.outbound.protection.outlook.com
+ [2a01:111:f403:c201::6])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3cc5d9ad-8c29-11f0-9d13-b5c5bf9af7f9;
+ Sun, 07 Sep 2025 22:28:39 +0200 (CEST)
+Received: from GV2PR03MB8678.eurprd03.prod.outlook.com (2603:10a6:150:7d::13)
+ by DB8PR03MB6153.eurprd03.prod.outlook.com (2603:10a6:10:142::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.19; Sun, 7 Sep
+ 2025 20:28:35 +0000
+Received: from GV2PR03MB8678.eurprd03.prod.outlook.com
+ ([fe80::4eb:3e7b:1ffa:25f9]) by GV2PR03MB8678.eurprd03.prod.outlook.com
+ ([fe80::4eb:3e7b:1ffa:25f9%6]) with mapi id 15.20.9094.018; Sun, 7 Sep 2025
+ 20:28:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,400 +47,311 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17f8bfc5-8c06-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1757261824; x=1757866624; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6FiQwP0VdUGmMFkU0uIYAV7JnXqoktiIQH9nuSROebE=;
-        b=NMW6bFbACu43o7wvBgzu33iydiwRwevxL/DzodDQONkl39IhPYtKpC6KbfiDq2r+1J
-         6gpiveF/YsP90HxaV2kTAnqdm9UxLGOBCrw66FgkKbhXPd1Htt5Qb8u2E2vuZnpRngBq
-         5sALD2zbaGX8qfd/ZiZeiH4WRA5u1T9hU/d+k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757261824; x=1757866624;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6FiQwP0VdUGmMFkU0uIYAV7JnXqoktiIQH9nuSROebE=;
-        b=FvRYSUKHmRlRJiVuHCsKNUS2IBQZ5/fv+XyIo+yoNxk8uszgGJ5kSuD6hjPqCk3W2J
-         mw5M6afPNx5IC/qg1dGeg65r2urHOm11u5Mw/SW9+XbjXm5mFNPpAT4/9meYvS0AhWuw
-         eXGz4PbtsrWUjwkKaZEQsUUAkMK7wbCE4pM/9hsbIvTAnA6tuBPe2me6TYiH+w2Hi+3o
-         6zpdIVfcROjYbqQ+XYRlRv+IGNkQGYiQfKayfXdWXZXX8+OpGMQMkPoMrb0AyVmwj2gD
-         eGABnwjIP/B6Yq2VfbxAJwCmxX8Ce92MD++xkS/lsy9h6C5zFi8UkcvQ9TH9tSCbZsaZ
-         vCvA==
-X-Gm-Message-State: AOJu0YyPnr+BUy2rf7jJeebbmfOz9EgbCMldQRR3anuZbKPmAj+0bH6P
-	Vhmwh+TsY6hsvXD6nXs1dO3D1INeV1x9wx8Zntoa2JgGv4Wt4biOGN2GIcW9jSsP+Kf2hk6keSO
-	xlcsCmwE=
-X-Gm-Gg: ASbGncv4HhjyGMrIYccHjLVTgfpFluru0d1UXWBrmUIoRpAoAiZz4hKR+QgJz/JPx7+
-	SXV+U7j1n8ayZA9PPqknyTCl6dyvT1oekukq3oqxVJNiQe1e+wpDBr3rwCFN/Sg35uHXZFrFJj7
-	71mRHDRCXcZJtRdYZInJbIOTaaxvSXfRXAXbRx5t6TJ85Dkc3ZhPAuQKx8g0esqTAYgj+tMt4Pk
-	vkO4vsqJn5SOb7wytfMuM2Lu+nz2dJBWcGFrYdAGfS65N7jLP/lPO4gd2fzOnHs41oV1TwRuSX2
-	nAjjBqkvVbtYzmmHzM6ZTjkNpa0x8J5EkNs6vsOv95s8uXfUPES6YNiMRnhzT4dgKEEk2pamMVU
-	hebjqBNLdczpz0oakyeQVPdgg8Mfl4zfAhqDlnjAX0h8ysrzV/PUo//USCM9PQPJSQnQ=
-X-Google-Smtp-Source: AGHT+IHQ41CzQUwsGmIiJ1de/f1zmmWKWPxtBh6Y9WUIDTwFCa8uQ+VvzK+oXvx3Q1NVWFYCh8wBSw==
-X-Received: by 2002:a17:907:6d0d:b0:b04:ae7c:703e with SMTP id a640c23a62f3a-b04b140a770mr473628766b.24.1757261823683;
-        Sun, 07 Sep 2025 09:17:03 -0700 (PDT)
-From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
-	Bernhard Kaindl <bernhard.kaindl@cloud.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>
-Subject: [PATCH v3 7/7] xen: New hypercall to claim memory using XEN_DOMCTL_claim_memory
-Date: Sun,  7 Sep 2025 18:15:22 +0200
-Message-ID: <e45dee16b67f31960e89fb3a3033064fcff02aae.1757261045.git.bernhard.kaindl@cloud.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1757261045.git.bernhard.kaindl@cloud.com>
-References: <cover.1757261045.git.bernhard.kaindl@cloud.com>
+X-Inumbo-ID: 3cc5d9ad-8c29-11f0-9d13-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Di2e3C6ssJHcLmqg00m+3W9xzznQJ9s4Pb6Rw0/OqMYs85tqHpvy8mEJlFixlv/v2Tsc51BwfEgLsJj8zCGg7079oW2Rq39/ikaW2R8mM79H05oK7ApeKj/0Nt0mNEJRSQgJCLoPFI7eDJI4Xg7+dEGQvAz+YkoaivazQNrPrTKOCbm2clP+I4n1x0FvU4dxSWxwbocCVFJF8E71oq1F0b1BHp4GPcbmAYrgN32oXrOkUAg3FraEhCYhvCxgcmqCcdaUmvZLpxlGFxNT8HMCEyO76y+ASuZQPR4ZGj9aM+RiWN8Tnh7YWXM62vTBZuhrSemWF6ypx24f2asYJlO3ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l3l2Y7gHfL5eSmA1215hHkIci4eb3jEdnMCO9tns+fE=;
+ b=euDNLsogL6L5vXCZFOesBE/Muy8VroZ28WOtOg2Z470bAfG+/raq9dBQ4qL++HUxxsdAJOrLYkncFNYVWVKcT3xJMi41MIKgUwLZFxZgbFZhxnblCpMtAAOiuEVpVNO/xrqio+nTb7dvskUTpFF4CHu5CxBrvj3AtmUTGJovMTfpI3V62JPzJmK/e/d8XdzMMmmO8w8C9vsY/TklOcBU67qDYn51uHH14mJj86K7LO8gIZj38ckYB9Dkjp0Z6fwEMvuiVnXnMh22X+QiEGW8LPHoKnX6bdB7Ui4slG8Zqt3LYZUn6CH3QTh6XmQvMzecaaKMVHo19F+Xi/HYZxPkAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l3l2Y7gHfL5eSmA1215hHkIci4eb3jEdnMCO9tns+fE=;
+ b=kIcodGp6zB6Fe2rsU4yqw9a/0Kqsg97Rxwg4iCYLrLWkkeCE+12Qq2QbJ1MawwswTH5QI/leq05l9ZQMYUCqJpqMskORkQqnsK61owmsRLFAO8W1uBx+0NDqhd1ZhSYU1BSSvniaDlBCtjbjaJpz1K82GNmOBr749MnrWq6Jqn0bENnzdOAv+fHthw64FiWAjxpQP8U8aHPmi4ZrwhJdvx7oBRuCHDmEOpwwD4zmS7MB1f3ogIPdRlcapcPaCOf+v2I3UTIJiy9jp4uKLNCS7v65dr5g5BEeG1J/qUKNLimLCFseHoMNFvMiuItpbDtZ3F51PVb05rIHK4Hv6gP9hA==
+From: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"olekstysh@gmail.com" <olekstysh@gmail.com>, Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Anthony PERARD <anthony.perard@vates.tech>, Oleksii Kurochko
+	<oleksii.kurochko@gmail.com>, Community Manager
+	<community.manager@xenproject.org>
+Subject: Re: [PATCH v7 00/12] Introduce eSPI support
+Thread-Topic: [PATCH v7 00/12] Introduce eSPI support
+Thread-Index: AQHcHdai+Ac/NEuVikikoMKerzFsQrSFS7aAgALkkoA=
+Date: Sun, 7 Sep 2025 20:28:34 +0000
+Message-ID: <374b7296-bfc0-4a4d-8f2c-b148c29c0517@epam.com>
+References: <cover.1757015865.git.leonid_komarianskyi@epam.com>
+ <alpine.DEB.2.22.394.2509051717530.1405870@ubuntu-linux-20-04-desktop>
+In-Reply-To:
+ <alpine.DEB.2.22.394.2509051717530.1405870@ubuntu-linux-20-04-desktop>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR03MB8678:EE_|DB8PR03MB6153:EE_
+x-ms-office365-filtering-correlation-id: 72267a4d-0123-4798-9d8b-08ddee4d1ea6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?OTlLdGhIY05FTmhzYjdIN0NjMWJqWTdwNUFQUElUcUtrb0d1amdJNjFzOUpX?=
+ =?utf-8?B?b0lnSTNqS3VmYXlud3Z5OVBYRjVJNFhycVA1U0UxYTVlRjJNVVJsLzZUeStX?=
+ =?utf-8?B?eUtjZ3h4M1pNYkFtdnpXYnQ3UmE1QllFTG9WOE8zODViTG15UVBuQjJjNktw?=
+ =?utf-8?B?VzZBS3ZKV2M1RWhEUmFCUEpEKytDYnpzZXJRUzlHWkpQVTFiczYrcVh0Z0lQ?=
+ =?utf-8?B?clNOSEQrVGMzNUJnSDVuaS9HM0R2VXBiQWEzMHNBRC9lQnJnMncweVdhVW1w?=
+ =?utf-8?B?NzNXVUlyV0FOTDIzUUpJNTB5UWlhTUtoSDYyNzVjQU1sWFFUWE85MGhhN3VK?=
+ =?utf-8?B?STROZmM4bDJ4c0s5bm9SVDZlUXBQSXVXNGtDYWVSVDk2dm1Qa0YzclFQMExD?=
+ =?utf-8?B?Ly8xLytrVWxxZFJVMFdRUlhqdmt5ejBTUlRKR1BoTFBGdDVINWNscGRSeWRN?=
+ =?utf-8?B?NGdMRkR2dWlZRmZ1cmh4WnpNa1NhdStsbkdaWHFhTWl5SU9tZEd5a1JPSEor?=
+ =?utf-8?B?OUdNaTZGbkdYbzVVeE5vdVhJeHN6b2FUa1NUK1VZeWdNb2pIeE5MUkEzVkRK?=
+ =?utf-8?B?L212Mk5KQm1aWFp2ZnhWbW9HMlVpQjRmVjd2QXh4UTJrRytmUkFhQ05WMEZv?=
+ =?utf-8?B?aER3cmZqdHRBY0l0alc0bnFsak5BVlMvV1F6cktZWXZUZThncTlVdGQ5TGJu?=
+ =?utf-8?B?Q0lqTEhRVzFrdE50eWZxOWRFTlQxcFUxTGc1cXNZLzVCalBpWlo4RnhXYXN4?=
+ =?utf-8?B?ZnY2eGU3ajFIS3R6eWdjNnZ5Mm1JZjEwMDIrYk9MTnZOZkZCSVFjQytWeUNN?=
+ =?utf-8?B?blcrOENMYlErZENCNStQc01SbUZqNG51ckJmL0NhK09Scjd5UkgwTFZ1OHJ3?=
+ =?utf-8?B?c1dWMEZqbWlLeTFLSlloY0ZXV0ZzaVJoOUpsQU1vNHZlS2xPM3k3dE50VmV6?=
+ =?utf-8?B?VEhQcXlNbHNPTExMWHdWaDZjalN3eWpOdTdXSTB4RERLRnNLOFV4UTFmNElq?=
+ =?utf-8?B?VUxobVNFUnhUU1dESjUwM1VyaldkQ1E3WXMyU1VWVGtkdGM0cXNZSnkxcEpQ?=
+ =?utf-8?B?M2UvUGRGNGpRVEpCcGFVbzZreUg3UEk4R25kbnFWbVpIaXlUSFhnTmNFVTJI?=
+ =?utf-8?B?aGd5VFBLZXJzNUVmRTFaekxybDQyZHJ3V0hsMVlkbGp6eGdaQm5WYW5MWktT?=
+ =?utf-8?B?cmlLS3E5S3dVNEREbjFmVXRwT3BBK2x4TkorM0hQeGhTU0prMDdqK1Zna04z?=
+ =?utf-8?B?blpwTmRwMW1QUFpnN25seVM3UVJTSVcrWUFiRk1xOW1Ka1pBWjcyejNrWDVu?=
+ =?utf-8?B?YTZYVkNKMmdlMmR3VWlEZnlNOG5mcVkrRExkakl1YS9rTnZSSFNCRDBJR2lE?=
+ =?utf-8?B?U1ZtVWxRZFMxUVlLdGFPYjIyOERCM1RJbE1IUllFU2pqSzVyU1M1cVpiUkVY?=
+ =?utf-8?B?WjRsRTNDaUp1cmpwbnVxZW9xa1NidG5PdGY1c0FvKzc2OFY5NlhTZUR0Z01o?=
+ =?utf-8?B?R3pDWnU1RVEvdjVUYklhaGNCQTVzR3VYOXMrbTFpUXAxRVNIS094OWhEVFdn?=
+ =?utf-8?B?OUhnVFFEYlpHTmFRQUsra2JHOHBUaWpjcVRJS0RrM1pBSkVUMWFpSWdlZ1pC?=
+ =?utf-8?B?Ymt6YTVZQ0tzakU5K0VCUnN1Y3JOaWZYay9yWEIzczFkVER6SGZnQmtGb1Mx?=
+ =?utf-8?B?dEVHQnBiMWV2WlFGUnNPNXVMaHRwTkhwUUxyeWpOaXZKWmt1ajliai9Na0lQ?=
+ =?utf-8?B?Q1hqQXUwWmpxVFF1RXV5TDRLeHoxWE5VKzZ2aXc4NWZ5YnNoUWZlU0IyNXJB?=
+ =?utf-8?B?Q01HNm90Zm0rQjhOL2dRNDNXMldzMzdqQUU2b1BwMXhqUVRUMUpEdnpERnlw?=
+ =?utf-8?B?M0h4SjBTamZsSFJiM3NYSTRTNzdmaStURVdSWGMyWkg2eTZHWHZZaWZOb0xk?=
+ =?utf-8?Q?cHjefHWO1GY=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB8678.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?NHRvSEVpVzhmbEhTWDhTbXBYajhyZWJSUEhHVEhmQVlJRUEwL3ZiVnVvRE1Q?=
+ =?utf-8?B?QTB6dnFPWlI5MlN5VWl3M3Yybm9UYnkrOVZHc2pVYmJDcUlMdGwxbjR5TUc5?=
+ =?utf-8?B?OTU5TkJKL0ZRdFE0L1BseFVBMS9IRUNUd2dKTDR6UjRsUUVXcFZzdDB2K1Bl?=
+ =?utf-8?B?OXMydHpkVzVJYytZczRkbVY4dmxtMFltc2RzRTJVZFp0Ulg0REFDc2lENDJp?=
+ =?utf-8?B?eEZFRTRvSzREajU0TTJCaFhhWEN3dmRjd0RtNkh2Wkhab1duSTVDSnp1dnd5?=
+ =?utf-8?B?YldHQlRFNEpmOG5KYkd1dHVoTkNSRHJwNFE3bjdFVENIMDdEMEt2NjNjR3dD?=
+ =?utf-8?B?NCsvRGhDWXZOT1FGdXlIVGZCUmFRTngvdWkvWnVwQUtzdTdSZHMvSHhFT09j?=
+ =?utf-8?B?TXRsdmYvVWwyZlh6bHlMaG4wekJUUzYxVXA5Y1FST0VsdjRWZE5GWElHcmZF?=
+ =?utf-8?B?THo3engzTEs2Q21QaVhpQzNleW5CbjFHUFlCYVBPazV2TUFiR0xBL3lGbGh1?=
+ =?utf-8?B?Z25KYkd5MjVZbVpOVjVQaFg5eUMrc2JwZU5uMWxrQXVoNjFJZ1l2TnFNZnIr?=
+ =?utf-8?B?bFp3ekRrd2pObHN3K2s0bnBQNTBnN3RTUWFLb1A1NUNFRUltdER6L0hUb2R2?=
+ =?utf-8?B?QnE1OXp2bHpPN1UzUmdCejd3aWJHZktZV3FKVlR4VXQyUTRGc2loNEtqSGMv?=
+ =?utf-8?B?R3NDSzRtUEV5UEphZU5zekU3ajRCVk85UnVGd0JZOUUyWk9SMGVDbmh1a3ds?=
+ =?utf-8?B?UFJtdVBuaXJoYnZFU1JlUkJiS1FTenoxek5XbzlTUTdmRHhvZzFzUmxlUzlo?=
+ =?utf-8?B?cWdtNWRidzh6UHlvUFp6eXpsNUdzQ25SSGRoWmxkN1ZiUnJDV1RDOWF3RFRF?=
+ =?utf-8?B?MVlQeW9sRFdOQjg0bTRBYW5RTk04R1UxZGd5aVA3MFFCZEN0V25kckpVc2E2?=
+ =?utf-8?B?cFcrN3dtTWptdU95QytLWTZsNGhhUHJFWndkOE9hWjRzT1BPSkQ4M1M0Nk0v?=
+ =?utf-8?B?QzdSMjZNUTdGQjdXYzhCWWUvT2s3ZkVWUnRFajJsOHRuZ0V4RENKZS9Rek5T?=
+ =?utf-8?B?NzJmem1lZlBBS3lWQ2JUT2tka1YvQmVDdFRVSVJZdFJhNmE3aEg3cWt4ekZW?=
+ =?utf-8?B?aXRwZXFhSEtNcnJRZjY0QlFMRkFhSVJlaWxaSWFVWGdMcUZ5L0VFZkpCQTg4?=
+ =?utf-8?B?Y3VtTWk1Y01XaTdlQXpGOWk3SXQram85U3g5WC95MHhDM3lpN05IUTFXc0hx?=
+ =?utf-8?B?TUM0cGJ5Qk8wSUc3VGZ2U0tWSWEwTnNmLzhMM1lBaG9VK2tFejdxNmNEYzFz?=
+ =?utf-8?B?OTZMbC9pRlRFR0FRblpFdGdVajMzb2hsdGg0ZWt3eE5wWDE5RUh2RzRKV1ht?=
+ =?utf-8?B?cW8zWFJxRVBYZ2V5NmwvYWZGUTBpbncrZmNkRWNUV1FTMzhid2hEMDV2UjZU?=
+ =?utf-8?B?UkxWcnVxbTlWdWJSVHhjRFl0VGVhMWRZUzhyRFhONm5ORVlSZ1k5cnpEaW5m?=
+ =?utf-8?B?K0Q1TDd4RWdWNzNTVTlwcUF5RVN2YUx3VlVDZitKTGo0amZhaWdlTWhia09w?=
+ =?utf-8?B?U0hhd0NLZVVuTzR1cnNmMm1pYjVwRG9sQ3lpbFVvR2poSndzMFdMdVU0VWth?=
+ =?utf-8?B?MWw0TlJla3AwUExxNXl4TzdOWDJVNWVGT0x3OWV4RERVMnBpQ0t2RnpCTnI1?=
+ =?utf-8?B?eE5iR1NYOFhyRHRObS9IZXdFQStyVG5pUjBtbDR1K3NZZ0lyUi8rS1pPdjE3?=
+ =?utf-8?B?TlgrbVlZRDFtVjNxb2E4SDZXdktmR2VPOVZkZDB4UXVJaklsZkNPOVZwSGJF?=
+ =?utf-8?B?bVlsNXQ5R3N2ZWlYSGJVK0NwNW1tM2hlS3hZd0M0Zm9zTXR1N2kzb0E2ejhV?=
+ =?utf-8?B?cW14YVNjNVJhVC9GaE5GaTgzTStySXNvckNwVjBHUDU2clNOTkVmbmM0NFZ0?=
+ =?utf-8?B?MW01ZGwzVjRiUXRERXlaSEo0Q2htUSt0N01vVGFNckh1a2pCOU9qaUh6WlBy?=
+ =?utf-8?B?TkxCZURoQnlTNVV5cXgvQnFMNmIvbmxEWDFKamdEOWRXcGtDNlk2cFVSdVdm?=
+ =?utf-8?B?Vk1VQXJ4bEtYcDUxS3VOUjhhZzd3ZGR3Z280Q0R0VlhyVk85cFpoVXc4cDRq?=
+ =?utf-8?B?VHhWeG1xWEs4VnNsSmdhN1BjVkkvWXVoRXI4Y1RkMzZUN0RiTmkzdGFkUlZv?=
+ =?utf-8?Q?Hc13EbBf92CfwuTJCSndFaU=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <2BD9648EB8C03F4185C7B1C31F189788@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB8678.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72267a4d-0123-4798-9d8b-08ddee4d1ea6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2025 20:28:35.0426
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2Q2f86T40VKxmeoS6dvFUweX12QscnQIkSom6UkvrFUtz2tpDEA29e7ivbEd0UxTm9Ggu9/a7J2srr4u57dbpdqYGVaDMLKIaF3WoVYGwyo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR03MB6153
 
-Add the new hypercall requested during the review of the v1 series
-do not require changing the API for multi-node claims.
-
-The hypercall receives a number of claims, intented to be one claim per
-NUMA node, and limited to one claim for now. The changes to update the
-NUMA claims management to handle updating the claims for multiple
-NUMA nodes of a domain at once are deferred to the next series.
-
-Cc: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-
----
-Changes in v3:
-- As a review to check nr_claims to be > 0 (but uint = superflous),
-  but to avoid a raised eyebrow, add "> 0", which the compiler will
-  optimise away anyway.
----
- tools/flask/policy/modules/dom0.te  |  1 +
- tools/flask/policy/modules/xen.if   |  1 +
- tools/include/xenctrl.h             |  4 +++
- tools/libs/ctrl/xc_domain.c         | 42 +++++++++++++++++++++++++++++
- tools/ocaml/libs/xc/xenctrl.ml      |  9 +++++++
- tools/ocaml/libs/xc/xenctrl.mli     |  9 +++++++
- tools/ocaml/libs/xc/xenctrl_stubs.c | 21 +++++++++++++++
- xen/common/domain.c                 | 29 ++++++++++++++++++++
- xen/common/domctl.c                 |  8 ++++++
- xen/include/public/domctl.h         | 17 ++++++++++++
- xen/include/xen/domain.h            |  2 ++
- xen/xsm/flask/hooks.c               |  3 +++
- xen/xsm/flask/policy/access_vectors |  2 ++
- 13 files changed, 148 insertions(+)
-
-diff --git a/tools/flask/policy/modules/dom0.te b/tools/flask/policy/modules/dom0.te
-index ad2b4f9ea7..8801cb24f2 100644
---- a/tools/flask/policy/modules/dom0.te
-+++ b/tools/flask/policy/modules/dom0.te
-@@ -105,6 +105,7 @@ allow dom0_t dom0_t:domain2 {
- 	get_cpu_policy
- 	dt_overlay
- 	get_domain_state
-+	claim_memory
- };
- allow dom0_t dom0_t:resource {
- 	add
-diff --git a/tools/flask/policy/modules/xen.if b/tools/flask/policy/modules/xen.if
-index ef7d8f438c..8e2dceb505 100644
---- a/tools/flask/policy/modules/xen.if
-+++ b/tools/flask/policy/modules/xen.if
-@@ -98,6 +98,7 @@ define(`create_domain_common', `
- 		vuart_op
- 		set_llc_colors
- 		get_domain_state
-+		claim_memory
- 	};
- 	allow $1 $2:security check_context;
- 	allow $1 $2:shadow enable;
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 965d3b585a..43ece3f2a7 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -2660,6 +2660,10 @@ int xc_domain_set_llc_colors(xc_interface *xch, uint32_t domid,
-                              const uint32_t *llc_colors,
-                              uint32_t num_llc_colors);
- 
-+int xc_domain_claim_memory(xc_interface *xch, uint32_t domid,
-+                           uint32_t nr_claims,
-+                           const memory_claim_t *claims);
-+
- #if defined(__arm__) || defined(__aarch64__)
- int xc_dt_overlay(xc_interface *xch, void *overlay_fdt,
-                   uint32_t overlay_fdt_size, uint8_t overlay_op);
-diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
-index 2ddc3f4f42..e022b76430 100644
---- a/tools/libs/ctrl/xc_domain.c
-+++ b/tools/libs/ctrl/xc_domain.c
-@@ -2229,6 +2229,48 @@ out:
- 
-     return ret;
- }
-+
-+/*
-+ * Claim memory for a domain. A Domain can only have one type of claim:
-+ *
-+ * If the number of claims is 0, existing claims are cancelled.
-+ * Updating claims is not supported, cancel the existing claim first.
-+ *
-+ * Memory allocations consume the outstanding claim and if not enough memory is
-+ * free, the allocation must be satisfied from the remaining outstanding claim.
-+ */
-+int xc_domain_claim_memory(xc_interface *xch, uint32_t domid,
-+                           uint32_t nr_claims,
-+                           const memory_claim_t *claims)
-+{
-+    struct xen_domctl domctl = {
-+        .cmd = XEN_DOMCTL_claim_memory,
-+        .domain = domid,
-+        .u.claim_memory.nr_claims = nr_claims,
-+    };
-+    int ret;
-+    DECLARE_HYPERCALL_BUFFER(struct xen_domctl_claim_memory, buffer);
-+
-+    /* Use an array to not need changes for multi-node claims in the future */
-+    if ( nr_claims > 0 )
-+    {
-+        size_t bytes = sizeof(memory_claim_t) * nr_claims;
-+
-+        buffer = xc_hypercall_buffer_alloc(xch, buffer, bytes);
-+        if ( buffer == NULL )
-+        {
-+            PERROR("Could not allocate memory for xc_domain_claim_memory");
-+            return -1;
-+        }
-+        memcpy(buffer, claims, bytes);
-+        set_xen_guest_handle(domctl.u.claim_memory.claims, buffer);
-+    }
-+
-+    ret = do_domctl(xch, &domctl);
-+    xc_hypercall_buffer_free(xch, buffer);
-+    return ret;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index 97108b9d86..c8692fb169 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -370,6 +370,15 @@ external domain_deassign_device: handle -> domid -> (int * int * int * int) -> u
- external domain_test_assign_device: handle -> domid -> (int * int * int * int) -> bool
-   = "stub_xc_domain_test_assign_device"
- 
-+type claim =
-+  {
-+    node: int;
-+    nr_pages: int64;
-+  }
-+
-+external domain_claim_memory: handle -> domid -> int -> claim array -> unit
-+  = "stub_xc_domain_claim_memory"
-+
- external version: handle -> version = "stub_xc_version_version"
- external version_compile_info: handle -> compile_info
-   = "stub_xc_version_compile_info"
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index 9fccb2c2c2..82d59fc80d 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -297,6 +297,15 @@ external domain_deassign_device: handle -> domid -> (int * int * int * int) -> u
- external domain_test_assign_device: handle -> domid -> (int * int * int * int) -> bool
-   = "stub_xc_domain_test_assign_device"
- 
-+type claim =
-+  {
-+    node: int;
-+    nr_pages: int64;
-+  }
-+
-+external domain_claim_memory: handle -> domid -> int -> claim array -> unit
-+  = "stub_xc_domain_claim_memory"
-+
- external version : handle -> version = "stub_xc_version_version"
- external version_compile_info : handle -> compile_info
-   = "stub_xc_version_compile_info"
-diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
-index ac2a7537d6..53f56c5437 100644
---- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-+++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-@@ -1435,6 +1435,27 @@ CAMLprim value stub_xc_watchdog(value xch_val, value domid, value timeout)
- 	CAMLreturn(Val_int(ret));
- }
- 
-+/* Claim memory for a domain. See xc_domain_claim_memory() for details. */
-+CAMLprim value stub_xc_domain_claim_memory(value xch_val, value domid,
-+                                           value num_claims, value desc)
-+{
-+	CAMLparam4(xch_val, domid, num_claims, desc);
-+	xc_interface *xch = xch_of_val(xch_val);
-+	int i, retval, nr_claims = Int_val(num_claims);
-+	memory_claim_t claim[nr_claims];
-+
-+	for (i = 0; i < nr_claims; i++) {
-+		claim[i].node = Int_val(Field(desc, i*2));
-+		claim[i].nr_pages = Int64_val(Field(desc, i*2 + 1));
-+	}
-+
-+	retval = xc_domain_claim_memory(xch, Int_val(domid), nr_claims, claim);
-+	if (retval < 0)
-+		failwith_xc(xch);
-+
-+	CAMLreturn(Val_unit);
-+}
-+
- /*
-  * Local variables:
-  *  indent-tabs-mode: t
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 6ee9f23b10..39f1c3718c 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -267,6 +267,35 @@ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
-     return rc;
- }
- 
-+/* XEN_DOMCTL_claim_memory: Claim an amount of memory for a domain */
-+int claim_memory(struct domain *d, const struct xen_domctl_claim_memory *uinfo)
-+{
-+    memory_claim_t claim;
-+    int rc;
-+
-+    switch ( uinfo->nr_claims )
-+    {
-+        case 0:
-+            /* Cancel existing claim. */
-+            rc = domain_claim_pages(d, 0, 0);
-+            break;
-+
-+        case 1:
-+            /* Only single node claims supported at the moment. */
-+            if ( copy_from_guest(&claim, uinfo->claims, 1) )
-+                return -EFAULT;
-+
-+            rc = domain_claim_pages(d, claim.node, claim.nr_pages);
-+            break;
-+
-+        default:
-+            rc = -EOPNOTSUPP;
-+            break;
-+    }
-+
-+    return rc;
-+}
-+
- static void __domain_finalise_shutdown(struct domain *d)
- {
-     struct vcpu *v;
-diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-index 71e712c1f3..cf9537b02c 100644
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -863,6 +863,14 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-         ret = get_domain_state(&op->u.get_domain_state, d, &op->domain);
-         break;
- 
-+    case XEN_DOMCTL_claim_memory:
-+        ret = xsm_claim_pages(XSM_PRIV, d);
-+        if ( ret )
-+            break;
-+
-+        ret = claim_memory(d, &op->u.claim_memory);
-+        break;
-+
-     default:
-         ret = arch_do_domctl(op, d, u_domctl);
-         break;
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 8f6708c0a7..1cebbb878e 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -1276,6 +1276,21 @@ struct xen_domctl_get_domain_state {
-     uint64_t unique_id;      /* Unique domain identifier. */
- };
- 
-+struct xen_memory_claim {
-+    unsigned int node;      /* NUMA node, XC_NUMA_NO_NODE for a host claim */
-+    unsigned long nr_pages; /* Number of pages to claim */
-+};
-+typedef struct xen_memory_claim memory_claim_t;
-+DEFINE_XEN_GUEST_HANDLE(memory_claim_t);
-+
-+/* XEN_DOMCTL_claim_memory: Claim an amount of memory for a domain */
-+struct xen_domctl_claim_memory {
-+    /* IN: array of memory claims */
-+    XEN_GUEST_HANDLE_64(memory_claim_t) claims;
-+    /* IN: number of claims */
-+    unsigned int nr_claims;
-+};
-+
- struct xen_domctl {
- /* Stable domctl ops: interface_version is required to be 0.  */
-     uint32_t cmd;
-@@ -1368,6 +1383,7 @@ struct xen_domctl {
- #define XEN_DOMCTL_gsi_permission                88
- #define XEN_DOMCTL_set_llc_colors                89
- #define XEN_DOMCTL_get_domain_state              90 /* stable interface */
-+#define XEN_DOMCTL_claim_memory                  91
- #define XEN_DOMCTL_gdbsx_guestmemio            1000
- #define XEN_DOMCTL_gdbsx_pausevcpu             1001
- #define XEN_DOMCTL_gdbsx_unpausevcpu           1002
-@@ -1436,6 +1452,7 @@ struct xen_domctl {
- #endif
-         struct xen_domctl_set_llc_colors    set_llc_colors;
-         struct xen_domctl_get_domain_state  get_domain_state;
-+        struct xen_domctl_claim_memory      claim_memory;
-         uint8_t                             pad[128];
-     } u;
- };
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index 8aab05ae93..cd3e933fbf 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -195,4 +195,6 @@ extern bool vmtrace_available;
- 
- extern bool vpmu_is_available;
- 
-+int claim_memory(struct domain *d, const struct xen_domctl_claim_memory *uinfo);
-+
- #endif /* __XEN_DOMAIN_H__ */
-diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-index b0308e1b26..6b2535b666 100644
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -853,6 +853,9 @@ static int cf_check flask_domctl(struct domain *d, unsigned int cmd,
-     case XEN_DOMCTL_set_llc_colors:
-         return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__SET_LLC_COLORS);
- 
-+    case XEN_DOMCTL_claim_memory:
-+        return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__CLAIM_MEMORY);
-+
-     default:
-         return avc_unknown_permission("domctl", cmd);
-     }
-diff --git a/xen/xsm/flask/policy/access_vectors b/xen/xsm/flask/policy/access_vectors
-index 51a1577a66..87338b5c2a 100644
---- a/xen/xsm/flask/policy/access_vectors
-+++ b/xen/xsm/flask/policy/access_vectors
-@@ -259,6 +259,8 @@ class domain2
-     set_llc_colors
- # XEN_DOMCTL_get_domain_state
-     get_domain_state
-+# XEN_DOMCTL_claim_memory
-+    claim_memory
- }
- 
- # Similar to class domain, but primarily contains domctls related to HVM domains
--- 
-2.43.0
-
+SGVsbG8gU3RlZmFubywNCg0KVGhhbmsgeW91IGZvciB5b3VyIGNvbW1lbnRzIGFuZCBmb3IgcHJv
+dmlkaW5nIHRoZSBFY2xhaXIgcmVwb3J0cy4NCg0KT24gMDYuMDkuMjUgMDM6MTcsIFN0ZWZhbm8g
+U3RhYmVsbGluaSB3cm90ZToNCj4gSGkgTGVvbmlkLA0KPg0KPiBJIHdhcyBhYm91dCB0byBjb21t
+aXQgdGhpcyBidXQgdW5mb3J0dW5hdGVseSBpdCBpcyBpbnRyb2R1Y2luZyBNSVNSQQ0KPiByZWdy
+ZXNzaW9ucy4gU2VlOg0KPiBodHRwczovL2dpdGxhYi5jb20veGVuLXByb2plY3QvcGVvcGxlL3Nz
+dGFiZWxsaW5pL3hlbi8tL3RyZWUvcHBwNj9yZWZfdHlwZT1oZWFkcw0KPg0KPiBodHRwczovL2dp
+dGxhYi5jb20veGVuLXByb2plY3QvcGVvcGxlL3NzdGFiZWxsaW5pL3hlbi8tL2pvYnMvMTEyNjUw
+MDUxMTgNCj4NCj4gQ29tcGFyZWQgdGhpcyByZXN1bHQ6DQo+IGh0dHBzOi8vZWNsYWlyLWFuYWx5
+c2lzLWxvZ3MueGVucHJvamVjdC5vcmcvZnMvdmFyL2xvY2FsL2VjbGFpci94ZW4tcHJvamVjdC5l
+Y2RmL3hlbi1wcm9qZWN0L3Blb3BsZS9zc3RhYmVsbGluaS94ZW4vRUNMQUlSX25vcm1hbC9wcHA2
+L0FSTTY0LzExMjY1MDA1MTE4L1BST0pFQ1QuZWNkOy9ieV9zZXJ2aWNlLmh0bWwjc2VydmljZSZr
+aW5kDQo+DQo+IEFnYWluc3QgdXBzdHJlYW0gc3RhZ2luZzoNCj4gaHR0cHM6Ly9lY2xhaXItYW5h
+bHlzaXMtbG9ncy54ZW5wcm9qZWN0Lm9yZy9mcy9zcGFjZS9YRU4uZWNkZi94ZW4tcHJvamVjdC9o
+YXJkd2FyZS94ZW4vRUNMQUlSX25vcm1hbC9zdGFnaW5nL0FSTTY0LzExMjY0NzcyNjA1L1BST0pF
+Q1QuZWNkOy9ieV9zZXJ2aWNlLmh0bWwjc2VydmljZSZraW5kDQo+DQo+IEl0IGlzIGludHJvZHVj
+aW5nIGEgY291cGxlIG9mIGVhc3ktdG8tZml4IDE2LjMgaXNzdWVzIGFuZCBhbHNvIGEgY291cGxl
+DQo+IG9mIG5ldyAxNi40IGlzc3Vlcy4gVGhleSBzaG91bGQgYmUgYWxsIGVhc3kgdG8gZml4LiBJ
+dCBpcyBhbHNvDQo+IGludHJvZHVjaW5nIHRocmVlIG5ldyAxMy4yIGlzc3VlcyBhbmQgb25lIDE4
+LjEgYnV0IEkgaGF2ZW4ndCBsb29rZWQNCj4gY2xvc2VseSBpbnRvIHRob3NlLiBQbGVhc2UgYWRk
+cmVzcyB0aGVtLg0KPg0KDQpSZWdhcmRpbmcgdGhlIE1JU1JBIDE2LjMvMTYuNCB2aW9sYXRpb25z
+IGFuZCAxMy4yIGNhdXRpb25zIC0gdGhlcmUgYXJlDQpubyBxdWVzdGlvbnMgZnJvbSBteSBzaWRl
+LiBJIGhhdmUgZml4ZWQgdGhlbSBhbmQgd2lsbCBzZW5kIHRoZSB1cGRhdGVkDQpWOCAod2l0aCB0
+eXBvIGZpeGVzLCBhZGRlZCBhY2tlZC9yZXZpZXdlZC1ieSB0YWdzLCBldGMuKS4gSG93ZXZlciwg
+SQ0Kd291bGQgbGlrZSB0byBjbGFyaWZ5IHJlZ2FyZGluZyB0aGUgTUlTUkEgMTguMSBjYXV0aW9u
+IHJlZ3Jlc3Npb24gYW5kDQpyZXZpZXcgcHJvY2VzcyBydWxlczoNCg0KTUlTUkEgMTguMSBjYXV0
+aW9uOg0KDQp4ZW4vYXJjaC9hcm0vaXJxLmM6MTA1LjEzLTEwNS4zOTogWzhdIGFjY2VzcyBvZiAn
+aXJxX2Rlc2MnIGF0IGFuDQpvdmVyZmxvd2luZyBpbmRleCwgd2hpbGUgaXQgaG9sZHMgb25seSA5
+OTIgJ3N0cnVjdCBpcnFfZGVzYycgZWxlbWVudHMNCg0KQWN0dWFsbHksIHRoZXJlIGlzIG5vIG5l
+dyByZWFsIGlzc3VlIGhlcmUsIGJlY2F1c2UgdGhlIG1haW5saW5lDQppcnFfZGVzYygpIGN1cnJl
+bnRseSBkb2VzIG5vdCBoYXZlIHVwcGVyIGxpbWl0IGNoZWNrcyBmb3IgSVJRczoNCg0Kc3RydWN0
+IGlycV9kZXNjICpfX2lycV90b19kZXNjKHVuc2lnbmVkIGludCBpcnEpDQp7DQogICAgIGlmICgg
+aXJxIDwgTlJfTE9DQUxfSVJRUyApDQogICAgICAgICByZXR1cm4gJnRoaXNfY3B1KGxvY2FsX2ly
+cV9kZXNjKVtpcnFdOw0KDQogICAgIHJldHVybiAmaXJxX2Rlc2NbaXJxLU5SX0xPQ0FMX0lSUVNd
+Ow0KfQ0KDQouLi4gYXMgYSByZXN1bHQgRWNsYWlyIGRvZXMgbm90IHNwb3QgYW55IGlzc3VlcyBp
+biB0aGlzIGNvZGUgYWNjb3JkaW5nDQp0byB0aGUgc3RhZ2luZyByZXBvcnQuIEFzIEkgdW5kZXJz
+dGFuZCwgaXQgdHJpZ2dlcnMgb24gcGF0Y2hlcyB3aXRoIGVTUEkNCmJlY2F1c2UgSSBpbnRyb2R1
+Y2VkIG5ldyBjaGVja3MgZm9yIHRoZSBlU1BJIElOVElEIHJhbmdlLCB3aGljaCBzaG91bGQNCm5v
+dCBiZSB1c2VkIHdpdGhvdXQgQ09ORklHX0dJQ1YzX0VTUEk9eS4NCg0KQWxzbywgYSBzaW1pbGFy
+IGlzc3VlIHdpdGggaW52YWxpZCBJTlRJRHMgd2FzIGRpc2N1c3NlZCBpbiB0aGUgdGhyZWFkOg0K
+DQpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL2FyY2hpdmVzL2h0bWwveGVuLWRldmVsLzIw
+MjUtMDkvbXNnMDA0MDEuaHRtbA0KDQpMb25nIHN0b3J5IHNob3J0OiB0aGUgbWFpbmxpbmUgWGVu
+IGN1cnJlbnRseSBhbGxvd3MgZGVmaW5pbmcgaW52YWxpZA0KSU5USURzIGluIHRoZSBYZW4gRFRT
+IGFuZCBjcmFzaGVzIGluIF9faXJxX3RvX2Rlc2MoKSB3aGVuIGF0dGVtcHRpbmcgdG8NCm9wZXJh
+dGUgb24gYW4gaW52YWxpZCBpbnRlcnJ1cHQgbnVtYmVyLg0KDQpJIGhhdmUgcHJlcGFyZWQgYSBm
+aXggZm9yIHRoZSAxOC4xIGNhdXRpb24sIGJ1dCBJIGFtIG5vdCBzdXJlIHdoZXRoZXIgaXQNCmlz
+IHdvcnRoIGFwcGx5aW5nIGp1c3QgdG8gYWRkcmVzcyB0aGUgRWNsYWlyIHJlcG9ydCAoaWYgaXQg
+aXMgbm90IGNyaXRpY2FsKToNCmh0dHBzOi8vZ2l0aHViLmNvbS9MS29tYXJ5YW5za2l5L3hlbi9j
+b21taXQvYWY1ZDlhNDgzMzAyZjdiY2ZhYWRiZWZiODVmNWU0ZWUzNWY2Y2IzYg0KDQpTbywgY291
+bGQgeW91IHBsZWFzZSBjbGFyaWZ5IHdoaWNoIG9wdGlvbiB3b3VsZCBiZSBiZXR0ZXI6DQoxKSBM
+ZWF2ZSB0aGUgY29kZSBhcyBpdCBpcyBmb3Igbm93LCBhY2NlcHRpbmcgdGhlIE1JU1JBIGNhdXRp
+b24gZnJvbQ0KRWNsYWlyIGFuZCBmaXggdGhlIGlzc3VlIGxhdGVyIGluIHRoZSBjb250ZXh0IG9m
+IGFkZHJlc3NpbmcgWGVuIGNyYXNoaW5nDQp3aXRoIGludmFsaWQgSU5USURzIGFuZCBpbXBsZW1l
+bnRpbmcgZHluYW1pYyBhbGxvY2F0aW9uIG9mIGlycV9kZXNjX3QgYXJyYXk7DQoyKSBBcHBseSB0
+aGUgZml4IG5vdyAod2hpbGUgYWxzbyBwbGFubmluZyB0byBhZGRyZXNzIHRoZSBpbnZhbGlkIElO
+VElEDQppc3N1ZSBpbiB0aGUgZnV0dXJlKQ0KDQoNClJlZ2FyZGluZyB0aGUgcmV2aWV3IHByb2Nl
+c3M6DQpTaG91bGQgSSByZW1vdmUgdGhlICdyZXZpZXdlZC1ieScgdGFncyBmcm9tIHRoZSBwYXRj
+aGVzIHdoZXJlIEkgYWRkZWQNCm1pc3NpbmcgYnJlYWtzICh3aXRoIHRoZSBjb3JyZXNwb25kaW5n
+IGNvZGUgdXBkYXRlcykgb3IgaW50cm9kdWNlZA0KdmFyaWFibGVzIHRvIGZpeCBNSVNSQSBpc3N1
+ZXM/IEkgYW0gYXNraW5nIGJlY2F1c2UgdGhlc2UgYXJlIGNvZGUNCmNoYW5nZXMsIGFuZCBJIGFt
+IG5vdCBzdXJlIGlmIEkgc2hvdWxkIGxlYXZlIHRoZSBSQiB0YWdzIGluIHRoaXMgY2FzZS4NCg0K
+Pg0KPiBPbGVrc2lpLA0KPg0KPiBUZWNobmljYWxseSwgdGhlIHNlcmllcyBpcyBmdWxseSBhY2tl
+ZCBhbmQgcmVhZHkgdG8gYmUgY29tbWl0dGVkLiBGcm9tIGENCj4gcmlzayBwZXJzcGVjdGl2ZSwg
+SSB3b3VsZCBiZSBjb21mb3J0YWJsZSBjb21taXR0aW5nIGl0IG5vdyB3aXRoIHRoZQ0KPiBvdXRz
+dGFuZGluZyBNSVNSQSByZWdyZXNzaW9ucywgbGVhdmluZyBMZW9uaWQgdG8gZml4IHRoZW0gb3Zl
+ciB0aGUgbmV4dA0KPiBmZXcgZGF5cy4gSG93ZXZlciwgSSBoYXZlIG5vdCBkb25lIHNvIGJlY2F1
+c2UgaXQgd291bGQgbWFrZSBpdCBoYXJkZXIgdG8NCj4gc3BvdCB0aGUgTUlTUkEgcmVncmVzc2lv
+bnMgZHVlIHRvIHRoZSB3YXkgdGhlIHNjYW5uZXIgd29ya3MgKGl0DQo+IGNvbXBhcmVzIGFnYWlu
+c3QgdGhlIHByZXZpb3VzIHZlcnNpb24pLg0KPg0KPiBJIHN1Z2dlc3Qgd2UgYWxsb3cgdGhpcyBz
+ZXJpZXMgdG8gYmUgY29tbWl0dGVkIGluIHRoZSBuZXh0IGNvdXBsZSBvZg0KPiBkYXlzLCBvbmNl
+IExlb25pZCBhZGRyZXNzZXMgdGhlIHJlZ3Jlc3Npb25zLCBldmVuIHRob3VnaCBpdCB3b3VsZA0K
+PiB0ZWNobmljYWxseSBiZSBwYXN0IHRoZSBmZWF0dXJlIGZyZWV6ZS4NCj4NCj4gQ2hlZXJzLA0K
+Pg0KPiBTdGVmYW5vDQo+DQo+IFAuUy4NCj4NCj4gTGVvbmlkLCB5b3UgbWlnaHQgd2FudCB0byBj
+aGVjayBteSBjb21taXRzIGJlY2F1c2UgSSBmaXhlZCBhIGNvdXBsZSBvZg0KPiB0aGluZ3Mgb24g
+Y29tbWl0LCBpbiBhZGRpdGlvbiB0byBhZGRpbmcgdGhlIHZhcmlvdXMgYWNrZWQtYnkgdGFncy4N
+Cj4NCj4NCj4gT24gVGh1LCA0IFNlcCAyMDI1LCBMZW9uaWQgS29tYXJpYW5za3lpIHdyb3RlOg0K
+Pj4gSGVsbG8gZXZlcnlvbmUhDQo+Pg0KPj4gVjYgY29udGFpbnMgYW4gaXNzdWUgZm9yIGRlYnVn
+IGJ1aWxkcyB3aXRoIENPTkZJR19HSUNWM19FU1BJPW4gZHVlIHRvIGENCj4+IG1pc3Rha2UgaW4g
+dGhlIEFTU0VSVCgpIGNvbmRpdGlvbiBpbiB0aGUgaXNfZXNwaSgpIGZ1bmN0aW9uLiBUaGlzIHBh
+dGNoDQo+PiBzZXJpZXMgZml4ZXMgdGhlIGlzc3VlIGFuZCBhbHNvIGluY2x1ZGVzIG1pbm9yIGZp
+eGVzIGFjY29yZGluZyB0byB0aGUNCj4+IHJldmlldyBvZiBWNi4NCj4+DQo+PiBTdW1tYXJpemVk
+IGRlc2NyaXB0aW9uOg0KPj4gVGhpcyBwYXRjaCBzZXJpZXMgYWRkcyBzdXBwb3J0IGZvciB0aGUg
+ZXh0ZW5kZWQgc2hhcmVkIHBlcmlwaGVyYWwNCj4+IGludGVycnVwdCAoZVNQSSkgcmFuZ2UgKElO
+VElEcyA0MDk2LTUxMTkgWzJdKHJhbmdlcyBvZiBJTlRJRHMpKSBmb3IgWGVuDQo+PiBhbmQgZ3Vl
+c3QgZG9tYWlucy4gVGhlIGltcGxlbWVudGF0aW9uIHVzZXMgYSBnZW5lcmljIGFwcHJvYWNoIHRv
+IGhhbmRsZQ0KPj4gZVNQSXMsIHNpbWlsYXIgdG8gcmVndWxhciBTUElzLCB3aGlsZSBtYWludGFp
+bmluZyBjb21wYXRpYmlsaXR5IHdpdGggdGhlDQo+PiBleGlzdGluZyBTUEkgcmFuZ2UuIEZ1bmN0
+aW9uYWxpdHkgcmVtYWlucyB1bmNoYW5nZWQgZm9yIHNldHVwcyB0aGF0IGRvDQo+PiBub3QgcmVx
+dWlyZSBlU1BJcy4NCj4+DQo+PiBUaGUgc2VyaWVzIGluY2x1ZGVzOg0KPj4gMSkgR2VuZXJhbCBy
+ZWZhY3RvcmluZyBvZiBjb21tb24gSVJRIG9wZXJhdGlvbnMgd2l0aCBHSUMgcmVnaXN0ZXJzIHRv
+DQo+PiBpbXByb3ZlIGNvZGUgcmVhZGFiaWxpdHksIHNpbXBsaWZ5IGZ1cnRoZXIgbWFpbnRlbmFu
+Y2UgYW5kIHByZXBhcmUgdGhlDQo+PiBrZXkgZnVuY3Rpb25zIGZvciBlU1BJIGltcGxlbWVudGF0
+aW9uLg0KPj4gMikgSW50cm9kdWNpbmcgYSBuZXcgS2NvbmZpZyBvcHRpb24gKGRlZmF1bHQgbikg
+dG8gZW5hYmxlIG9yIGRpc2FibGUNCj4+IGVTUEkgc3VwcG9ydC4gRGlzYWJsaW5nIHRoaXMgb3B0
+aW9uIHByZXZlbnRzIHVubmVjZXNzYXJ5IHJlc291cmNlDQo+PiBhbGxvY2F0aW9uIGZvciBzZXR1
+cHMgdGhhdCBkbyBub3QgcmVxdWlyZSBlU1BJcy4NCj4+IDMpIEFkZGluZyBhZGRpdGlvbmFsIHJl
+c291cmNlcyB0byBzdG9yZSByZXF1aXJlZCBpbmZvcm1hdGlvbiBhbmQgb3BlcmF0ZQ0KPj4gd2l0
+aCB1cCB0byAxMDI0IGludGVycnVwdHMgZnJvbSBlU1BJIHJhbmdlLg0KPj4gNCkgQWRqdXN0aW5n
+IGFzc2VydGlvbnMgYW5kIGNoZWNrcyB0byBwYXNzIHZlcmlmaWNhdGlvbiBmb3IgSU5USURzIGlu
+DQo+PiB0aGUgZVNQSSByYW5nZS4NCj4+IDUpIENvbmZpZ3VyYXRpb24gb2YgZVNQSS1zcGVjaWZp
+YyByZWdpc3RlcnMgZHVyaW5nIEdJQyBpbml0aWFsaXphdGlvbg0KPj4gZm9yIHN5c3RlbXMgd2l0
+aCBHSUN2My4xKyBoYXJkd2FyZS4NCj4+IDYpIEVuYWJsZXMgZVNQSSBNTUlPIGVtdWxhdGlvbiBm
+b3IgdkdJQywgYWxsb3dpbmcgZ3Vlc3QgZG9tYWlucyB0bw0KPj4gYWNjZXNzIGFuZCBvcGVyYXRl
+IHdpdGhpbiB0aGUgZVNQSSdzIElOVElEcy4NCj4+IDcpIFVwZGF0aW5nIGRvY3VtZW50YXRpb24g
+YW5kIENIQU5HRUxPRyB0byByZWZsZWN0IHRoZSBjaGFuZ2VzIG1hZGUgZm9yIGVTUEkNCj4+IHN1
+cHBvcnQuDQo+Pg0KPj4gQWxzbywgdG8gc2ltcGxpZnkgcmV2aWV3aW5nLCBwbGVhc2UgZmluZCBi
+ZWxvdyBsaW5rIHRvIHVuc3F1YXNoZWQgcGF0Y2hlcywgdGhhdA0KPj4gYXJlIG9uIHRvcCBvZiBl
+dmVyeSBwYXRjaCwgdGhhdCBpcyBjaGFuZ2VkIGluIHRoZSBzZXJpZXMsIGNvbXBhcmVkIHRvIFY2
+Og0KPj4gaHR0cHM6Ly9naXRodWIuY29tL0xLb21hcnlhbnNraXkveGVuL2NvbW1pdHMvZXNwaS1z
+dXBwb3J0LW1hc3Rlci11cHN0cmVhbS12Ny11bnNxdWFzaGVkLw0KPj4NCj4+IEdpdGh1YiBicmFu
+Y2ggd2l0aCBwYXRjaCBzZXJpZXM6DQo+PiBodHRwczovL2dpdGh1Yi5jb20vTEtvbWFyeWFuc2tp
+eS94ZW4vY29tbWl0cy9lc3BpLXN1cHBvcnQtbWFzdGVyLXVwc3RyZWFtLXY3Lw0KPj4NCj4+IENo
+YW5nZXMgaW4gVjc6DQo+PiAtIGluZGl2aWR1YWwgY2hhbmdlcyBpbiBwYXRjaGVzDQo+Pg0KPj4g
+TGluayBvbiBWNjoNCj4+IC0gaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9hcmNoaXZlcy9o
+dG1sL3hlbi1kZXZlbC8yMDI1LTA5L21zZzAwMjk2Lmh0bWwNCj4+DQo+PiBDaGFuZ2VzIGluIFY2
+Og0KPj4gLSBpbmRpdmlkdWFsIGNoYW5nZXMgaW4gcGF0Y2hlcw0KPj4NCj4+IExpbmsgb24gVjU6
+DQo+PiAtIGh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvYXJjaGl2ZXMvaHRtbC94ZW4tZGV2
+ZWwvMjAyNS0wOC9tc2cwMjA4Ni5odG1sDQo+Pg0KPj4gQ2hhbmdlcyBpbiBWNToNCj4+IC0gaW5k
+aXZpZHVhbCBjaGFuZ2VzIGluIHBhdGNoZXMNCj4+DQo+PiBMaW5rIG9uIFY0Og0KPj4gLSBodHRw
+czovL2xpc3RzLnhlbnByb2plY3Qub3JnL2FyY2hpdmVzL2h0bWwveGVuLWRldmVsLzIwMjUtMDgv
+bXNnMDE3NjcuaHRtbA0KPj4NCj4+IENoYW5nZXMgaW4gVjQ6DQo+PiAtIGFkZGVkIGEgcGF0Y2gg
+Zm9yIGRvY3VtZW50YXRpb24NCj4+IC0gaW5kaXZpZHVhbCBjaGFuZ2VzIGluIHBhdGNoZXMNCj4+
+DQo+PiBMaW5rIG9uIFYzOg0KPj4gLSBodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL2FyY2hp
+dmVzL2h0bWwveGVuLWRldmVsLzIwMjUtMDgvbXNnMDE2MjguaHRtbA0KPj4NCj4+IENoYW5nZXMg
+aW4gVjM6DQo+PiAtIGFkZGVkIGEgcGF0Y2ggdG8gdXBkYXRlIENIQU5HRUxPRy5tZA0KPj4gLSBp
+bmRpdmlkdWFsIGNoYW5nZXMgaW4gcGF0Y2hlcw0KPj4NCj4+IExpbmsgb24gVjI6DQo+PiAtIGh0
+dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvYXJjaGl2ZXMvaHRtbC94ZW4tZGV2ZWwvMjAyNS0w
+OC9tc2cwMDM3Mi5odG1sDQo+Pg0KPj4gQ2hhbmdlcyBpbiBWMjoNCj4+IC0gYWRkZWQgMiBtb3Jl
+IHBhdGNoZXMgdG8gaW1wbGVtZW50IGhlbHBlcg0KPj4gICAgZnVuY3Rpb25zIGZvciBnaWMvdmdp
+YzoNCj4+ICAgIHhlbi9hcm06IGdpYzogaW1wbGVtZW50IGhlbHBlciBmdW5jdGlvbnMgZm9yIElO
+VElEIGNoZWNrcw0KPj4gICAgeGVuL2FybTogdmdpYzogaW1wbGVtZW50IGhlbHBlciBmdW5jdGlv
+bnMgZm9yIHZpcnEgY2hlY2tzDQo+PiAtIHJlbW92ZWQgMiBwYXRjaGVzOg0KPj4gICAgeGVuL2Fy
+bS9pcnE6IGFsbG93IGFzc2lnbm1lbnQvcmVsZWFzaW5nIG9mIGVTUEkgaW50ZXJydXB0cw0KPj4g
+ICAgeGVuL2FybTogZ2ljL2lycTogcGVybWl0IHJvdXRpbmcgb2YgZVNQSSBpbnRlcnJ1cHRzIHRv
+IFhlbiBhbmQgZG9tYWlucw0KPj4gICAgc2luY2UgdGhlaXIgZnVuY3Rpb25hbGl0eSBjYW4gYmUg
+bW92ZWQgdG8gYXBwcm9wcmlhdGUgcGF0Y2hlcyBhZnRlcg0KPj4gICAgaW50cm9kdWNpbmcgcGF0
+Y2hlcyB3aXRoIGhlbHBlciBmdW5jdGlvbnMNCj4+IC0gaW5kaXZpZHVhbCBjaGFuZ2VzIGluIHBh
+dGNoZXMNCj4+DQo+PiBMaW5rIG9uIFYxOg0KPj4gLSBodHRwczovL2xpc3RzLnhlbnByb2plY3Qu
+b3JnL2FyY2hpdmVzL2h0bWwveGVuLWRldmVsLzIwMjUtMDcvbXNnMDE4MDkuaHRtbA0KPj4NCj4+
+IExlb25pZCBLb21hcmlhbnNreWkgKDEyKToNCj4+ICAgIHhlbi9hcm06IGdpY3YzOiByZWZhY3Rv
+ciBvYnRhaW5pbmcgR0lDIGFkZHJlc3NlcyBmb3IgY29tbW9uIG9wZXJhdGlvbnMNCj4+ICAgIHhl
+bi9hcm06IGdpYzogaW1wbGVtZW50IGhlbHBlciBmdW5jdGlvbnMgZm9yIElOVElEIGNoZWNrcw0K
+Pj4gICAgeGVuL2FybTogdmdpYzogaW1wbGVtZW50IGhlbHBlciBmdW5jdGlvbnMgZm9yIHZpcnEg
+Y2hlY2tzDQo+PiAgICB4ZW4vYXJtL2lycTogYWRkIGhhbmRsaW5nIGZvciBJUlFzIGluIHRoZSBl
+U1BJIHJhbmdlDQo+PiAgICB4ZW4vYXJtOiBnaWN2MzogaW1wbGVtZW50IGhhbmRsaW5nIG9mIEdJ
+Q3YzLjEgZVNQSQ0KPj4gICAgeGVuL2FybS9pcnE6IGFsbG93IGVTUEkgcHJvY2Vzc2luZyBpbiB0
+aGUgZ2ljX2ludGVycnVwdCBmdW5jdGlvbg0KPj4gICAgeGVuL2FybTogZ2ljdjM6IG1vZGlmeSBJ
+Q0hfTFJfUEhZU0lDQUxfTUFTSyB0byBhbGxvdyBlU1BJIHByb2Nlc3NpbmcNCj4+ICAgIHhlbi9h
+cm06IHZnaWM6IGFkZCByZXNvdXJjZSBtYW5hZ2VtZW50IGZvciBleHRlbmRlZCBTUElzDQo+PiAg
+ICB4ZW4vYXJtOiBkb21haW5fYnVpbGQvZG9tMGxlc3MtYnVpbGQ6IGFkanVzdCBkb21haW5zIGNv
+bmZpZyB0byBzdXBwb3J0DQo+PiAgICAgIGVTUElzDQo+PiAgICB4ZW4vYXJtOiB2Z2ljLXYzOiBh
+ZGQgZW11bGF0aW9uIG9mIEdJQ3YzLjEgZVNQSSByZWdpc3RlcnMNCj4+ICAgIGRvYy9tYW46IHVw
+ZGF0ZSBkZXNjcmlwdGlvbiBmb3IgbnJfc3BpcyB3aXRoIGVTUEkNCj4+ICAgIENIQU5HRUxPRy5t
+ZDogYWRkIG1lbnRpb24gb2YgR0lDdjMuMSBlU1BJIHN1cHBvcnQNCj4+DQo+PiAgIENIQU5HRUxP
+Ry5tZCAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAyICsNCj4+ICAgZG9jcy9tYW4veGwu
+Y2ZnLjUucG9kLmluICAgICAgICAgICAgICAgfCAgMTMgKy0NCj4+ICAgeGVuL2FyY2gvYXJtL0tj
+b25maWcgICAgICAgICAgICAgICAgICAgfCAgIDggKw0KPj4gICB4ZW4vYXJjaC9hcm0vZG9tMGxl
+c3MtYnVpbGQuYyAgICAgICAgICB8ICAgMiArLQ0KPj4gICB4ZW4vYXJjaC9hcm0vZG9tYWluX2J1
+aWxkLmMgICAgICAgICAgICB8ICAgMiArLQ0KPj4gICB4ZW4vYXJjaC9hcm0vZ2ljLXYzLmMgICAg
+ICAgICAgICAgICAgICB8IDE5NSArKysrKysrKysrKysrKysrKysrLS0tLQ0KPj4gICB4ZW4vYXJj
+aC9hcm0vZ2ljLmMgICAgICAgICAgICAgICAgICAgICB8ICAgOCArLQ0KPj4gICB4ZW4vYXJjaC9h
+cm0vaW5jbHVkZS9hc20vZ2ljLmggICAgICAgICB8ICAyOCArKysrDQo+PiAgIHhlbi9hcmNoL2Fy
+bS9pbmNsdWRlL2FzbS9naWNfdjNfZGVmcy5oIHwgIDQwICsrKystDQo+PiAgIHhlbi9hcmNoL2Fy
+bS9pbmNsdWRlL2FzbS9pcnEuaCAgICAgICAgIHwgIDM4ICsrKysrDQo+PiAgIHhlbi9hcmNoL2Fy
+bS9pbmNsdWRlL2FzbS92Z2ljLmggICAgICAgIHwgIDU2ICsrKysrKy0NCj4+ICAgeGVuL2FyY2gv
+YXJtL2lycS5jICAgICAgICAgICAgICAgICAgICAgfCAgNjIgKysrKysrKy0NCj4+ICAgeGVuL2Fy
+Y2gvYXJtL3ZnaWMtdjMuYyAgICAgICAgICAgICAgICAgfCAyMDMgKysrKysrKysrKysrKysrKysr
+LS0tLS0NCj4+ICAgeGVuL2FyY2gvYXJtL3ZnaWMuYyAgICAgICAgICAgICAgICAgICAgfCAyMTIg
+KysrKysrKysrKysrKysrKysrKysrKystLQ0KPj4gICB4ZW4vYXJjaC9hcm0vdmdpYy92Z2ljLmMg
+ICAgICAgICAgICAgICB8ICAgNSArDQo+PiAgIDE1IGZpbGVzIGNoYW5nZWQsIDc2MiBpbnNlcnRp
+b25zKCspLCAxMTIgZGVsZXRpb25zKC0pDQo+Pg0KPj4gLS0NCj4+IDIuMzQuMQ0KPj4NCg0KQmVz
+dCByZWdhcmRzLA0KTGVvbmlkDQo=
 
