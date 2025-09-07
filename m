@@ -2,33 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1E4DB47767
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Sep 2025 23:24:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1113565.1461246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FC8FB47A0A
+	for <lists+xen-devel@lfdr.de>; Sun,  7 Sep 2025 11:17:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1113912.1461255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uv0Om-00061F-Lj; Sat, 06 Sep 2025 21:24:40 +0000
+	id 1uvBVr-0002XR-Md; Sun, 07 Sep 2025 09:16:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1113565.1461246; Sat, 06 Sep 2025 21:24:40 +0000
+Received: by outflank-mailman (output) from mailman id 1113912.1461255; Sun, 07 Sep 2025 09:16:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uv0Om-0005yM-ID; Sat, 06 Sep 2025 21:24:40 +0000
-Received: by outflank-mailman (input) for mailman id 1113565;
- Sat, 06 Sep 2025 21:24:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bKTp=3R=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uv0Ol-0005yG-3p
- for xen-devel@lists.xenproject.org; Sat, 06 Sep 2025 21:24:39 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e3c141b8-8b67-11f0-9809-7dc792cee155;
- Sat, 06 Sep 2025 23:24:36 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-55f7cd8ec2cso4131192e87.2
- for <xen-devel@lists.xenproject.org>; Sat, 06 Sep 2025 14:24:36 -0700 (PDT)
+	id 1uvBVr-0002UO-G2; Sun, 07 Sep 2025 09:16:43 +0000
+Received: by outflank-mailman (input) for mailman id 1113912;
+ Sun, 07 Sep 2025 09:16:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=GwGO=3S=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1uvBVq-0002UI-7D
+ for xen-devel@lists.xenproject.org; Sun, 07 Sep 2025 09:16:42 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5d3c5aa6-8bcb-11f0-9d12-b5c5bf9af7f9;
+ Sun, 07 Sep 2025 11:16:41 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B38596792C;
+ Sun,  7 Sep 2025 09:16:39 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6D45113675;
+ Sun,  7 Sep 2025 09:16:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id rFHoGHdNvWhkcAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Sun, 07 Sep 2025 09:16:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,142 +52,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3c141b8-8b67-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1757193876; x=1757798676; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5Zbvt6oOBwV3PGgfK6/FgHYGh+bR/uoLcr6FyocAarY=;
-        b=Dr/GQGRg6GFtDaAuOwYGrWDRIPyyfdjswk582I2Kih9iVsKBPQNltLVtyz0d9acV6r
-         0bGgc5nW0YCbS5CTbBxypTLQBaFB7dyQSD7uyisksA5KWjxh9svNBVv0/VfbiesFSdFc
-         mp/+ed2yThAMwpAE5nmGl6PuhrMxZYuZ2KKO8woiD+4z/CUFy22QAXjKvseMPsX6vIew
-         HPcIhVWNyUnhYfQPi2KXsGtth+sZgf6ETAxaqYX3TFeNJKinVLqMYWFYee/7gQNtjxuY
-         rL64EdgL7JQb7r+AaaTWKNwln0cPxW9NC+jIysApeOoKv0+dt83b0TTnD+kNGpu9a+wJ
-         dpow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757193876; x=1757798676;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=5Zbvt6oOBwV3PGgfK6/FgHYGh+bR/uoLcr6FyocAarY=;
-        b=sgwDBeiGz4Asg2fyVBxQrBTMqIWhBP98G7wYsvre5nY0Z4VQW+EjGbD4VeTkMVgoHB
-         VW5ISDtu+oclpa3EI3T8iA+nTHyyihdkLUI6yxxJe1/obyc8XqGfwzuSA99dBwDcKTT/
-         9Q096+P05Tzj/pRxYV5Tt7gpYohjKTZtYohmxkV5FdJJ9bTnrVDBNLCB+59BUZOFowqd
-         sAuQ10HqZRlOVaVe0cKQ/c2YDyBP6UOu67IEziH8g+WP79ZFr0awg4M03jgUazblVJej
-         1oWjLa73BWAVnH/8gM9UUEGKiup2qsrJo/XHFnx/tIju7u6kxCV1dcIbQScKel2aZuDL
-         Zf8A==
-X-Gm-Message-State: AOJu0Yx4ScmHRSJAzMltGqkswb/EyzMaeX9VTLOLr5RiWgeamFg4a/dx
-	p4qsGF1OVFcNDWSnwJMYGmhrby9oIkirDRNDHqi1WrxZOZRSO/1vjFQZKbga3S6qS9IwTHij9uM
-	k+05yyIa900hLhqgamp10l71vJHPEywc=
-X-Gm-Gg: ASbGnct6gw5MeMCjzrYiN+HCYa5rA0Sk9pIu0lhOJ6uTxF5vG6CYGbprmaXan5GBXB+
-	fycybhS3jxu4U9iBkN1Qo/gr7YAtxMPkf51CrvISYTp4xmyav0v/BxiRVUxhiWf1vVzgLMvwA0U
-	8ggWB54LvA4DGUJA6mBR6cXbbIkmXbFzuHZjBKllCG9qFmZ2QYJADVh5AX/iZqKa2kKuRrXRec9
-	DzTtg==
-X-Google-Smtp-Source: AGHT+IH4t02xrH24g6DqccWlzjGa/TZfpXr/VusbElSTvXa/ScX1Pj2e1rPmwzPp0a2+iua7sHdORv9grupx41kjj9M=
-X-Received: by 2002:a05:6512:138a:b0:560:8484:a92e with SMTP id
- 2adb3069b0e04-5625f5355ffmr1048505e87.15.1757193876041; Sat, 06 Sep 2025
- 14:24:36 -0700 (PDT)
+X-Inumbo-ID: 5d3c5aa6-8bcb-11f0-9d12-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1757236600; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Ev5L/dwy/jG5Pl410mx4qKsRn3g6LOMAgJW8IZdok8k=;
+	b=QbuBQnGITvl4m/tDDzI7iTWZdvEixLKbfVVPX180V7+f09DFugY7HYfWg6u95Le/KYZ/Uo
+	B3YfWgYJRwUNPIUjEgVKh+Q9bq1nujg0ksFponS+Pu6RGtmy9uLVds1dLXOCQRg9mzB1ja
+	k+ER9DGIQ88gKef3JxVlpldrQ5Jlelc=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=TtawrOVA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1757236599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Ev5L/dwy/jG5Pl410mx4qKsRn3g6LOMAgJW8IZdok8k=;
+	b=TtawrOVAE5/ntr7xPRhKqW6xOPCp/60Y5u1UAnHYMdI28D1djraWTT/fumCDxDoTbgkZ2t
+	oU6/BKoS6AT82YfYYkDwVYfP4958Ooatwna4gwiWwnZWytHeJ2VR9CpTOiC0mzxLsiCayn
+	9jexupIJ8gFlvViUZ4hUQlpnBzA4RB8=
+Message-ID: <3a78bf70-2588-47bf-947b-7da9db6b072b@suse.com>
+Date: Sun, 7 Sep 2025 11:16:38 +0200
 MIME-Version: 1.0
-References: <20250905232715.440758-1-dmukhin@ford.com> <20250905232715.440758-6-dmukhin@ford.com>
-In-Reply-To: <20250905232715.440758-6-dmukhin@ford.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Sun, 7 Sep 2025 00:24:24 +0300
-X-Gm-Features: Ac12FXxMBmI9d_pQVABD4456xopwScZyRU_4MxZyPpF7J5sXNqXylvrhfWhkFu8
-Message-ID: <CAGeoDV_YrSrKTYj5LitZQzdcO9-QBCqVmnqE63hGAendiqNxpw@mail.gmail.com>
-Subject: Re: [PATCH v6 05/15] emul/ns16x50: implement SCR register
-To: dmukhin@xen.org
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
-	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
-	michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
-	dmukhin@ford.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 8/9] SUPPORT.md: add xenstorepvh-stubdom live update
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20250730122305.4050-1-jgross@suse.com>
+ <20250730122305.4050-9-jgross@suse.com>
+ <ce9a6f53-e8b3-446b-8b43-96581a900aae@suse.com>
+Content-Language: en-US
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <ce9a6f53-e8b3-446b-8b43-96581a900aae@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------trpub4uqq7UT2GfFDpIMyhMY"
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Rspamd-Queue-Id: B38596792C
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-6.41 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SIGNED_PGP(-2.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_BASE64_TEXT(0.10)[];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	HAS_ATTACHMENT(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:email]
+X-Spam-Score: -6.41
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------trpub4uqq7UT2GfFDpIMyhMY
+Content-Type: multipart/mixed; boundary="------------pdM9f86IgsFm9ZrCc0dugDTw";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+Message-ID: <3a78bf70-2588-47bf-947b-7da9db6b072b@suse.com>
+Subject: Re: [PATCH v3 8/9] SUPPORT.md: add xenstorepvh-stubdom live update
+References: <20250730122305.4050-1-jgross@suse.com>
+ <20250730122305.4050-9-jgross@suse.com>
+ <ce9a6f53-e8b3-446b-8b43-96581a900aae@suse.com>
+In-Reply-To: <ce9a6f53-e8b3-446b-8b43-96581a900aae@suse.com>
+Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
+ ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
+ Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
+ pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
+ tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
+ OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
+ v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
+ 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
+ jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
+ DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
+ Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
+ dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
+ AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
+
+--------------pdM9f86IgsFm9ZrCc0dugDTw
+Content-Type: multipart/mixed; boundary="------------a7OMCbclef6r8MBzEq47OFV6"
+
+--------------a7OMCbclef6r8MBzEq47OFV6
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gOC8yMC8yNSAwODowNSwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4gUGluZz8NCj4gDQo+
+IE9uIDMwLjA3LjI1IDE0OjIzLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gTGl2ZSB1cGRh
+dGUgaXMgbm93IHdvcmtpbmcgd2l0aCB0aGUgUFZIIHZhcmlhbnQgb2YgeGVuc3RvcmUtc3R1
+YmRvbS4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3Vz
+ZS5jb20+DQo+PiAtLS0NCj4+IFYyOg0KPj4gLSBuZXcgcGF0Y2gNCj4+IC0tLQ0KPj4gwqAg
+U1VQUE9SVC5tZCB8IDIgKy0NCj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigr
+KSwgMSBkZWxldGlvbigtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9TVVBQT1JULm1kIGIvU1VQ
+UE9SVC5tZA0KPj4gaW5kZXggNmE4MmE5MjE4OS4uZWI0NGVlODVmZCAxMDA2NDQNCj4+IC0t
+LSBhL1NVUFBPUlQubWQNCj4+ICsrKyBiL1NVUFBPUlQubWQNCj4+IEBAIC0yODAsNyArMjgw
+LDcgQEAgb3IgaXRzZWxmIHdpbGwgbm90IGJlIHJlZ2FyZGVkIGEgc2VjdXJpdHkgaXNzdWUu
+DQo+PiDCoCAjIyMgQyB4ZW5zdG9yZSBzdHViZG9tIFBWSA0KPj4gwqDCoMKgwqDCoCBTdGF0
+dXM6IFN1cHBvcnRlZA0KPj4gLcKgwqDCoCBTdGF0dXMsIExpdmV1cGRhdGU6IE5vdCBpbXBs
+ZW1lbnRlZA0KPj4gK8KgwqDCoCBTdGF0dXMsIExpdmV1cGRhdGU6IFN1cHBvcnRlZA0KPj4g
+wqAgIyMjIE9DYW1sIHhlbnN0b3JlZCBkYWVtb24NCj4gDQoNCkFuZCA0MCBkYXlzIGFmdGVy
+IHNlbmRpbmcgb3V0OiBQSU5HPw0KDQoNCkp1ZXJnZW4NCg==
+--------------a7OMCbclef6r8MBzEq47OFV6
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
 
-Hi Denis,
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-On Sat, Sep 6, 2025 at 2:27=E2=80=AFAM <dmukhin@xen.org> wrote:
->
-> From: Denis Mukhin <dmukhin@ford.com>
->
-> Add SCR register emulation to the I/O port handler.
-> Firmware (e.g. OVMF) may use SCR during the guest OS boot.
->
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
-> Changes since v5:
-> - moved earlier in the series to simplify I/O handler population in
->   the follow on patches
-> - Link to v5: https://lore.kernel.org/xen-devel/20250828235409.2835815-11=
--dmukhin@ford.com/
-> ---
->  xen/common/emul/vuart/ns16x50.c | 27 +++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
->
-> diff --git a/xen/common/emul/vuart/ns16x50.c b/xen/common/emul/vuart/ns16=
-x50.c
-> index 7f479a5be4a2..51ec85e57627 100644
-> --- a/xen/common/emul/vuart/ns16x50.c
-> +++ b/xen/common/emul/vuart/ns16x50.c
-> @@ -103,6 +103,20 @@ static int ns16x50_io_write8(
->
->      if ( ns16x50_dlab_get(vdev) && (reg =3D=3D UART_DLL || reg =3D=3D UA=
-RT_DLM) )
->          regs[NS16X50_REGS_NUM + reg] =3D val;
-> +    else
-> +    {
-> +        switch ( reg )
-> +        {
-> +        /* NB: Firmware (e.g. OVMF) may rely on SCR presence. */
-> +        case UART_SCR:
-> +            regs[UART_SCR] =3D val;
-> +            break;
-> +
-> +        default:
-> +            rc =3D -EINVAL;
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-In the previous commit, when ns16x50_dlab_get() was zero and UART_DLL
-or UART_DLM was accessed, the function returned 0. With this commit,
-the behavior changes: now an -EINVAL error is returned for both DLL
-and DLM when ns16x50_dlab_get() is zero.
+--------------a7OMCbclef6r8MBzEq47OFV6--
 
-Should this be fixed in the previous commit, or is this change
-intentional in this one? Note that for 16-bit accesses you already
-return an error when ns16x50_dlab_get() is zero, so the behavior is
-inconsistent for 8-bit accesses to DLL/DLM.
+--------------pdM9f86IgsFm9ZrCc0dugDTw--
 
-> +            break;
-> +        }
-> +    }
->
->      return rc;
->  }
-> @@ -165,6 +179,19 @@ static int ns16x50_io_read8(
->
->      if ( ns16x50_dlab_get(vdev) && (reg =3D=3D UART_DLL || reg =3D=3D UA=
-RT_DLM) )
->          val =3D regs[NS16X50_REGS_NUM + reg];
-> +    else
-> +    {
-> +        switch ( reg )
-> +        {
-> +        case UART_SCR:
-> +            val =3D regs[UART_SCR];
-> +            break;
-> +
-> +        default:
-> +            rc =3D -EINVAL;
-> +            break;
-> +        }
-> +    }
->
->      *data =3D val;
->
-> --
-> 2.51.0
->
->
+--------------trpub4uqq7UT2GfFDpIMyhMY
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-Best regards,
-Mykola
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmi9TXcFAwAAAAAACgkQsN6d1ii/Ey9k
+WQf7BYFuWxMeLOPrzL6JT4w+xYag1uFV73A+8bu/rvc9wamIWWODgC5hXkessWyZNuBmd1igbwYt
+f9mLWQ4w3szHigpPMbBiJHxw6jFaXN/jLzOAwNJLPAfUvYiWRTvFbCbBPZ2jjUdcmI5Wn5ms852p
+fmQ2otC4KBi7RRhO/8GVybvzPwISZ70sFJ56Cm5173uDT3DcQM5HjG/NNYQV+UPvDYOK/QRUqJpX
+nTU2LP7R3DVnOb95QiU5hBXuRJRNNI6EJRA5xoAFQNcR2hu3IGQaA++n7P17ZKU4V1Sw3PZdrgZt
+XqAv6BmZFa634wz0J6xCEyB6UPx2YYdZp8aerCTqHA==
+=p7Hh
+-----END PGP SIGNATURE-----
+
+--------------trpub4uqq7UT2GfFDpIMyhMY--
 
