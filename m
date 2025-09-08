@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53453B487D7
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 11:08:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1114873.1461673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2927B48833
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 11:22:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1114886.1461683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvXrd-0000RN-1v; Mon, 08 Sep 2025 09:08:41 +0000
+	id 1uvY4n-0003RV-5W; Mon, 08 Sep 2025 09:22:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1114873.1461673; Mon, 08 Sep 2025 09:08:41 +0000
+Received: by outflank-mailman (output) from mailman id 1114886.1461683; Mon, 08 Sep 2025 09:22:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvXrc-0000Px-Ta; Mon, 08 Sep 2025 09:08:40 +0000
-Received: by outflank-mailman (input) for mailman id 1114873;
- Mon, 08 Sep 2025 09:08:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uvY4n-0003Ol-2h; Mon, 08 Sep 2025 09:22:17 +0000
+Received: by outflank-mailman (input) for mailman id 1114886;
+ Mon, 08 Sep 2025 09:22:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=suiz=3T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uvXrb-0000Pr-AD
- for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 09:08:39 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 67e26256-8c93-11f0-9d13-b5c5bf9af7f9;
- Mon, 08 Sep 2025 11:08:38 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-b0472bd218bso648864666b.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 02:08:38 -0700 (PDT)
+ id 1uvY4m-0003Of-7z
+ for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 09:22:16 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4e07cbe1-8c95-11f0-9809-7dc792cee155;
+ Mon, 08 Sep 2025 11:22:14 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-b043a33b060so649902266b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 02:22:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b040d44c9adsm2138413466b.9.2025.09.08.02.08.36
+ a640c23a62f3a-b042c7b3671sm1889634366b.42.2025.09.08.02.22.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Sep 2025 02:08:37 -0700 (PDT)
+ Mon, 08 Sep 2025 02:22:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67e26256-8c93-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: 4e07cbe1-8c95-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757322517; x=1757927317; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WEpQWJAguHNxZnf5RskzNGHiQ7p8CvADHoDg7CzPj7o=;
-        b=Bq4/pcEnUKpjpsdjteCiwvkJ9caw57YGGGrmtGGaPqjvOP7o8e/GS61irq70qo8NLX
-         Gpo3lGDPP42psmTblFAfyPvncfsK9Th2lJssfFpoIgEgOjhd5ZPY+j2B9rTIWMrnYZiH
-         bj9Cw6EZZWYDYIyY4/f5lo2RlT0p3Du01OgpI6XVnQUr9idwp8gSoBaiK2iR2LSWDIGC
-         NQSK5qqwzY1Hn4XvNI8wYhjMODrXT/Ozyi15r+Zx7UKaf+bRDI62Xx3LHY/Cd9FnR6KE
-         D9xSyfpr+w0q2WjdKf6pdSP5IHm6OamMaW5OujKe21TJSq5f/tq0r7T5pMY3y5oMN53P
-         zdBQ==
+        d=suse.com; s=google; t=1757323333; x=1757928133; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=To+fyq1+DsW+Z7hPJvmq0jsMSUnqGvpSSfICJdqPr84=;
+        b=Pu1fS/qIN5HN2datNm1Nj4uM/d1j2fbd2DLIm1Yw2STcVUR+g5u2F5sXIkFBffZcRY
+         pO01KQMUNfodPDHx0ZQMZGjL+PAPwaUvmXYFE42U17M3KXyuPTX4uWfS/yPV/2bjiTdv
+         HX0393ly6wYNVElSroMIqqqxuWg6zpPLCXrl/CKm4IJMTbTf0K0oyRgeFJaMQbb5fLSi
+         ro7TMufXKn6iwae0TCToKlIByXJhFk+SV1JGgQrVaeODwwlAeqBhT3VEiP09ccHg71ka
+         9/wBPFAoJ2wAkmmLKyTPmOmDNhyQBKbwAiLGRxkVAC67rKj3BA5KQFhvc36wp7/zGfjY
+         7w3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757322517; x=1757927317;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WEpQWJAguHNxZnf5RskzNGHiQ7p8CvADHoDg7CzPj7o=;
-        b=K1dlRnLqug6m8Q6QnKYWv6jkBEQmK88NkFqoTomcQt9nZgIc13Gdq1oxPS8/n8KvgI
-         e8xt97oFJ06LNEDqUqXG4xyh9A8/wOeEj32lO0GM0mx0bcEm4G7WIvP0bGytpMaZCpoC
-         ixv+L38ZDtf1wChK5/T1VUBVfDRTxmgNB0fdOuitwe5c1D+Sburhd7PjbsMPQpucVnjc
-         Iwn4NWWPwoDH4Nnp4N3umUpgKcqRZmrru9Ps1kegFANZ0ZhRP2X9veCfl2t5gDu2qRli
-         KCfYeNbTwAzG/9CQaQSqWl0/ZsTPc/0W0C3a9WFvrRoKtBzefAf+WOtEp8Lwbab/hTgM
-         4trA==
-X-Forwarded-Encrypted: i=1; AJvYcCWU9iri2SFkUj05GwQdWp+VuHxUzmf/L8r36pPyIASZGchPZ2Ojl1/S/E1sEnQtTkNLUTyEGUgT8sc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyhzy05Myh3K0aIy8fvq+o642vHfvmVFB5tlqwps3+aH/FdwVbQ
-	Ed3VadV9IRku6yBXEfdPS8CL0jTSolrqw2zpWtQ+kFyIpLQ/UilfT5SD65VGpbQSKA==
-X-Gm-Gg: ASbGnctXKrjK4TUfHsZ9yBdCX6RBRNLZd0CrsEIpNOnSfBVA1UV3ISwU49iBtC0JIlq
-	xAgcT8y6yEMfEu+0oNNUh6B/c+cHfAuNQFJAJtl7644T5AzqjMKscjQSh0BULBxJqXw/BbCeDEe
-	2y5gGgkIYxTnd35AhDZ23r/a4OynCVwyUQ+xG1/VqAysc6f4PSg6czzrbJAdalTlU6iMj3xHkF5
-	sSioZhckIPOmRaud0LyiJCLUbGW9rNuHjz3NkPbW1OhCiPiwsKfK8h7TSF7dhqlJZu1xo/lBYUW
-	/UB2IZ0vlVk3KjwsUjeBkFA2WPEwJriy/ZOcQ4TXEWFl1MzO3Pn0ppw32VWva+nxC3PLzG1HZJM
-	6CTebvcv3IYOCsosZ2ZBIOBtl3OiCEh+E2ZNDeBHmrS0zAIPHag+h93KN8dpQTCJpwuxXoZszQe
-	y66b9alAs=
-X-Google-Smtp-Source: AGHT+IEW4wwj4VNlz0B5HbTxnvcFvYP81avxbkLEMWkrCUvZv4sXjXpZbEAB0fYPq1fPULOgS3qxMA==
-X-Received: by 2002:a17:907:1c10:b0:b04:1a80:35b9 with SMTP id a640c23a62f3a-b04b13cd575mr676078766b.12.1757322517466;
-        Mon, 08 Sep 2025 02:08:37 -0700 (PDT)
-Message-ID: <89d0b668-537b-4ee4-8cda-e0d95d9eed90@suse.com>
-Date: Mon, 8 Sep 2025 11:08:36 +0200
+        d=1e100.net; s=20230601; t=1757323333; x=1757928133;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=To+fyq1+DsW+Z7hPJvmq0jsMSUnqGvpSSfICJdqPr84=;
+        b=C0xdWNcomCaEUTFD5QX9pau8ZzwIQNhNYGUHdRrmwQz3ThuSfr6Z1VWfLxeXbkh5s6
+         Yorj3ogh+l7qX+O9+pJjV9+80Aaw47nK3u9Hi5xAcnJSOI0aF5W0BXegwKL+tukbSDFG
+         DzMmDAAMPYZXf8ruylxqNZ+UkW281/AbdVHpwOx9dPXnR+5ScbmAkXpfWqbQnI9qvbV3
+         vLHXKSORM677FYVifaAUVaEA3RJF/5XDvzEKvQc9BMw7sieNp4rxHJ8oMh+7g6w7xfDe
+         hK187Meio/jFT0caZ6r0YGKFpZwfePXRQV+70IUqrJYhMkPj4EL18u+mCuRRc+rh4Yo+
+         ADfA==
+X-Gm-Message-State: AOJu0YwFOrWnehFYsXeV+UlcUVGMMcdKK+dbh51c99pQA8dkQf7vdE98
+	ijZRlB9fjxdscvky0vDBTb1rvX8GdwR4yUsiuu5sve0ECjxr705rPVHIvgkcmsdfL9Rv8q9tssb
+	0eh8=
+X-Gm-Gg: ASbGncsuCLNUWoMYu0c3v6eGkApGiO8d+AxfGMnTmvd4EiWQRRL1zDlQ6WwW/wNBvuv
+	UHUvMtFTRA6ej0x42DFtSmMygXAfofuP3ENKWV/jWGvWxnewosGasVxCqNBaFEjTazb+5dFJOEK
+	+p0DnkqUWKy/6I/afYJJ45GwIYUWuGXreS2ungT0fq3k6XzaUl6sWSfh8oAfDP6MvFjGWO32K/0
+	8KJU7cAkMGsMA5/Lb+bLbUFFPN26vEoHISZ5ivT9dQ8GJfYSseTm42Ti8/iTZPM5TbAQnF3R4eA
+	u6P6TTSIdSDlAuZHXUAGteizsACzQgn1m3mji0WAU+WAXng2VfAOHbySaCtwey44OZEiI86nWrX
+	8/korlJOSYaM6avy81t8RhKRk919oQH2NRSrEp8/bSSTErljaI3LbjA8Vz43pOPYfCQjxt/7/Ob
+	PegQiPZI32jadLojdNrg==
+X-Google-Smtp-Source: AGHT+IFqSMQ4+y9luPqZJq3VrSrWEw/FSiwLEj+ID/hfLNdG0MjUPZP9FX/bLo1s0qyXjoT7vdT+lQ==
+X-Received: by 2002:a17:907:3ccb:b0:b04:3a46:c4f2 with SMTP id a640c23a62f3a-b04b1702e94mr699330766b.48.1757323333074;
+        Mon, 08 Sep 2025 02:22:13 -0700 (PDT)
+Message-ID: <d5136292-e02d-47bc-b230-c85c6aba2174@suse.com>
+Date: Mon, 8 Sep 2025 11:22:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mcheck: allow varying bank counts per CPU
-To: Jason Andryuk <jason.andryuk@amd.com>,
- Soham Dandapat <Soham.Dandapat@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250905165212.96843-1-Soham.Dandapat@amd.com>
- <32f89ab8-9742-4bc8-a5ef-848b66e788b2@amd.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] symbols: fix xensyms_read() hitting the final "end" symbol
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -121,54 +119,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <32f89ab8-9742-4bc8-a5ef-848b66e788b2@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.09.2025 19:02, Jason Andryuk wrote:
-> 
-> 
-> On 2025-09-05 12:52, Soham Dandapat wrote:
->> In mca_cap_init function,the mcabanks_alloc allocates and
->> initializes an mca_banks structure for managing MCA banks,
->> setting up a bank map and storing the specified or default number
->> of banks.
->>
->> After this we will call mcabanks_set(i, mca_allbanks);
->> The mcabanks_set function sets a specific bit in the bank_map of
->> an mca_banks structure, provided the structure, its bank_map, and
->> the bit index are valid.
->>
->> At the end, we will call
->> mcabanks_free(xchg(&mca_allbanks, all));
->> This function is thread safe and does below:
->>     1. Atomically exchanges the value of "mca_allbanks" with "all"
->>     2. Returns the old value that was previously in "mca_allbanks"
->> So, when we will call mcabanks_free , that will free the memory.
->>
->> The problem is that mcabanks_set(i, mca_allbanks) function is updating
->> mca_allbanks which will be freed via mcabanks_free later. This means
->> new mca_allbanks instance("all") will never get chance to update
->> it's bank_map.
->>
->> Due to this when we will collect log from mcheck_mca_logout function ,
->> the condition "if ( !mcabanks_test(i, bankmask) )" will always fails
->> and MCA logs will not be collected for any bank.
->>
->> The fix is to solve this problem.
->>
->> Fixes: 560cf418c845 ("x86/mcheck: allow varying bank counts per CPU")
->> Signed-off-by: Soham Dandapat <soham.dandapat@amd.com>
-> 
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-> 
-> Maybe the patch subject should be "x86/mcheck: Fix mca bank 
-> initialization" to differentiate from the Fixes commit?
+A new "no (more) symbol" path there was lacking a necessary unlock.
 
-That's still more generic than wanted. How about "x86/mcheck: fix
-mca_allbanks updating"? With a more concise title (which can be
-adjusted while committing, so long as there's agreement):
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Fixes: d3b637fba31b ("symbols: arrange to know where functions end")
+Coverity ID: 1665212
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+--- a/xen/common/symbols.c
++++ b/xen/common/symbols.c
+@@ -202,7 +202,10 @@ int xensyms_read(uint32_t *symnum, char
+     {
+         ++next_offset;
+         if ( ++*symnum == symbols_num_addrs )
++        {
++            spin_unlock(&symbols_mutex);
+             goto no_symbol;
++        }
+     }
+ 
+     *type = symbols_get_symbol_type(next_offset);
 
