@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4985BB48548
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 09:32:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1114612.1461446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 453F8B4854B
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 09:32:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1114615.1461456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvWMV-0002W7-2l; Mon, 08 Sep 2025 07:32:27 +0000
+	id 1uvWMm-0002q6-BJ; Mon, 08 Sep 2025 07:32:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1114612.1461446; Mon, 08 Sep 2025 07:32:27 +0000
+Received: by outflank-mailman (output) from mailman id 1114615.1461456; Mon, 08 Sep 2025 07:32:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvWMV-0002TL-02; Mon, 08 Sep 2025 07:32:27 +0000
-Received: by outflank-mailman (input) for mailman id 1114612;
- Mon, 08 Sep 2025 07:32:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uvWMm-0002oT-6m; Mon, 08 Sep 2025 07:32:44 +0000
+Received: by outflank-mailman (input) for mailman id 1114615;
+ Mon, 08 Sep 2025 07:32:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=g5GF=3T=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1uvWMT-0002TF-3U
- for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 07:32:25 +0000
+ id 1uvWMk-0002lu-QV
+ for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 07:32:42 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id f3651fed-8c85-11f0-9809-7dc792cee155;
- Mon, 08 Sep 2025 09:32:19 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 00a2eb0b-8c86-11f0-9d13-b5c5bf9af7f9;
+ Mon, 08 Sep 2025 09:32:41 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4F1201692;
- Mon,  8 Sep 2025 00:32:10 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 88AA2169C;
+ Mon,  8 Sep 2025 00:32:32 -0700 (PDT)
 Received: from [10.57.58.69] (unknown [10.57.58.69])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5A2713F63F;
- Mon,  8 Sep 2025 00:32:12 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CFA563F63F;
+ Mon,  8 Sep 2025 00:32:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,12 +42,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3651fed-8c85-11f0-9809-7dc792cee155
-Message-ID: <16a63f8a-fe9f-4a65-be45-7260858734bd@arm.com>
-Date: Mon, 8 Sep 2025 09:32:09 +0200
+X-Inumbo-ID: 00a2eb0b-8c86-11f0-9d13-b5c5bf9af7f9
+Message-ID: <1f822d8b-eb46-4998-b1c1-9996d70e1958@arm.com>
+Date: Mon, 8 Sep 2025 09:32:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] x86/xen: support nested lazy_mmu sections (again)
+Subject: Re: [PATCH 5/7] powerpc/mm: support nested lazy_mmu sections
 To: Alexander Gordeev <agordeev@linux.ibm.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  Andreas Larsson <andreas@gaisler.com>,
@@ -71,56 +71,41 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
  xen-devel@lists.xenproject.org
 References: <20250904125736.3918646-1-kevin.brodsky@arm.com>
- <20250904125736.3918646-5-kevin.brodsky@arm.com>
- <d3adc2a0-5888-411e-ac7c-9df45e3389c9-agordeev@linux.ibm.com>
+ <20250904125736.3918646-6-kevin.brodsky@arm.com>
+ <074ff6ab-5868-4fde-b5bb-9e17632ad817-agordeev@linux.ibm.com>
 Content-Language: en-GB
 From: Kevin Brodsky <kevin.brodsky@arm.com>
-In-Reply-To: <d3adc2a0-5888-411e-ac7c-9df45e3389c9-agordeev@linux.ibm.com>
+In-Reply-To: <074ff6ab-5868-4fde-b5bb-9e17632ad817-agordeev@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05/09/2025 17:48, Alexander Gordeev wrote:
-> On Thu, Sep 04, 2025 at 01:57:33PM +0100, Kevin Brodsky wrote:
+On 05/09/2025 17:52, Alexander Gordeev wrote:
+> On Thu, Sep 04, 2025 at 01:57:34PM +0100, Kevin Brodsky wrote:
 > ...
->> -static void xen_enter_lazy_mmu(void)
->> +static lazy_mmu_state_t xen_enter_lazy_mmu(void)
+>>  static inline lazy_mmu_state_t arch_enter_lazy_mmu_mode(void)
 >>  {
->> +	if (this_cpu_read(xen_lazy_mode) == XEN_LAZY_MMU)
->> +		return LAZY_MMU_NESTED;
->> +
->>  	enter_lazy(XEN_LAZY_MMU);
->> +	return LAZY_MMU_DEFAULT;
->>  }
+>>  	struct ppc64_tlb_batch *batch;
+>> +	int lazy_mmu_nested;
 >>  
->>  static void xen_flush_lazy_mmu(void)
->> @@ -2167,11 +2171,12 @@ static void __init xen_post_allocator_init(void)
->>  	pv_ops.mmu.write_cr3 = &xen_write_cr3;
->>  }
->>  
->> -static void xen_leave_lazy_mmu(void)
->> +static void xen_leave_lazy_mmu(lazy_mmu_state_t state)
->>  {
+>>  	if (radix_enabled())
+>>  		return LAZY_MMU_DEFAULT;
+>> @@ -39,9 +40,14 @@ static inline lazy_mmu_state_t arch_enter_lazy_mmu_mode(void)
+>>  	 */
 >>  	preempt_disable();
->>  	xen_mc_flush();
->> -	leave_lazy(XEN_LAZY_MMU);
->> +	if (state != LAZY_MMU_NESTED)
->> +		leave_lazy(XEN_LAZY_MMU);
-> Based on xen_enter_lazy_mmu(), whether this condition needs to be
-> executed with the preemption disabled?
+>>  	batch = this_cpu_ptr(&ppc64_tlb_batch);
+>> -	batch->active = 1;
+>> +	lazy_mmu_nested = batch->active;
+>>  
+>> -	return LAZY_MMU_DEFAULT;
+>> +	if (!lazy_mmu_nested) {
+> Why not just?
+>
+> 	if (!batch->active) {
 
-AFAIU xen_mc_flush() needs preemption to be disabled. I don't think
-{enter,leave}_lazy() do, but this patch doesn't introduce any change
-from that perspective. I suppose it doesn't hurt that
-xen_leave_lazy_mmu() calls leave_lazy() with preemption disabled.
-
-> Or may be this_cpu_read(xen_lazy_mode) + enter_lazy(XEN_LAZY_MMU)
-> should be executed with the preemption disabled?
-
-Adding another this_cpu_read(xen_lazy_mode) in xen_enter_lazy_mmu()
-shouldn't change the situation, i.e. preemption should still be safe. If
-preemption occurs in the middle of that function,
-xen_{start,end}_context_switch() will do the right thing to save/restore
-xen_lazy_mode.
+Very fair question! I think the extra variable made sense in an earlier
+version of that patch, but now it's used only once and doesn't really
+improve readability either. Will remove it in v2, also in patch 6
+(basically the same code). Thanks!
 
 - Kevin
 
