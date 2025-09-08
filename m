@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67978B4889A
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 11:35:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1114950.1461734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9C71B4889B
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 11:36:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1114953.1461744 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvYHs-0007Lm-Ax; Mon, 08 Sep 2025 09:35:48 +0000
+	id 1uvYI7-0007it-M4; Mon, 08 Sep 2025 09:36:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1114950.1461734; Mon, 08 Sep 2025 09:35:48 +0000
+Received: by outflank-mailman (output) from mailman id 1114953.1461744; Mon, 08 Sep 2025 09:36:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvYHs-0007JK-7q; Mon, 08 Sep 2025 09:35:48 +0000
-Received: by outflank-mailman (input) for mailman id 1114950;
- Mon, 08 Sep 2025 09:35:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=suiz=3T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uvYHr-0007JA-DC
- for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 09:35:47 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32421f1a-8c97-11f0-9d13-b5c5bf9af7f9;
- Mon, 08 Sep 2025 11:35:46 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-aff0775410eso745177166b.0
- for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 02:35:46 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b04279a59ffsm1902705566b.60.2025.09.08.02.35.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Sep 2025 02:35:45 -0700 (PDT)
+	id 1uvYI7-0007hD-IH; Mon, 08 Sep 2025 09:36:03 +0000
+Received: by outflank-mailman (input) for mailman id 1114953;
+ Mon, 08 Sep 2025 09:36:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zbUz=3T=cloud.com=gerald.elder-vass@srs-se1.protection.inumbo.net>)
+ id 1uvYI5-0007dH-OP
+ for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 09:36:01 +0000
+Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
+ [2607:f8b0:4864:20::b31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 38669b95-8c97-11f0-9809-7dc792cee155;
+ Mon, 08 Sep 2025 11:35:56 +0200 (CEST)
+Received: by mail-yb1-xb31.google.com with SMTP id
+ 3f1490d57ef6-e9d5e41c670so3911386276.0
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 02:35:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,162 +40,250 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32421f1a-8c97-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: 38669b95-8c97-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757324145; x=1757928945; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vAWbVGFOyVbyku9ekhHyfh442nJbdOdcBzWpnssbG5A=;
-        b=CMdBN4J2cMPtA5cr5RqE294PS558EnKFBwcWB1ncISFVL2FWsDPNIIZi+BTC8Wxw1v
-         njWw+dMIPmLuK/LGlulX4f6g7qpZqDnAoDhQgGIvUEMn/IgrowXQ+oJzY3sdWrBkn3Zr
-         A+tSzbgGxBXFGuHzXoz/z96YkkFEeghpudKr0QgYxjJdv02Vp0WyMdocsA4PnnY/rzIf
-         gA5fOWbZqxtr4Pq3HETDrHpgvvW4bjhXN4xMjK1ZiTbNfdI0oIZAm/yPE8p26l4SG708
-         vlEuKDnyxZlfPVG9XmuhqUTZANp7yDYfIhuECia29h+tCHlXVcN0QiDGj3s92eJZjGUi
-         T3rw==
+        d=cloud.com; s=cloud; t=1757324156; x=1757928956; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=VmNQj5CvzMm3+mVyvgID5aOJAeNFb9zTblKtJiTor2I=;
+        b=TL/HRPCeqDoz1b2MdPMpufnUbAIv3Ttqn0LtlNJoiatk7gNRIqaos6hA8C5QG5nyox
+         qZv6A3lC/ipDOjgFRJkGVFLfM1GSqOOdqp9/fYiT07P9kf1u43YTQ8RfCWIyXq3UBfYg
+         d1R89Jh0ACaYi+GoeliPz23ImtxhmZfpwHguk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757324145; x=1757928945;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vAWbVGFOyVbyku9ekhHyfh442nJbdOdcBzWpnssbG5A=;
-        b=FPNL04PG/6tRm7C1Qknduwg59qIr8azhYygoRJLrMGh9U6SqS0eKtzyz75FF3Ckyh6
-         GbX1c+OGf7JcJvvavjuupJ2136nInzv0GaQtq0ZShITQPBmHmbeiB2/fWqmP4umqMMDt
-         x+RKiEenNBzv+/eYD5Jp1Ucr9rX690wi7etWroYlgCKmOzJEBb4Au/voRNEpeEIUKhUK
-         FIwCnGwokQg5IPfVbmL0uhCQgFNv4Z5e6rxLLcZml/+nWWTm6lEjm7Q0ITZbm14ULrqV
-         75zqsQiuynM+s9YTXEAQP5znuLcSiEtswxRZ4dJx4JswcJZUe0Rcr7GfMnPsJ/5nZFFC
-         wfxA==
-X-Forwarded-Encrypted: i=1; AJvYcCUvilQ6b6TRJvwoyediYzdqJ8H2qVRgzR/saXfmhct1A+5mKK9GldZgLaW49L+pp1km+EskGc1Iq4E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzd1fFB5r18m9FJHY0emtBz/9Usx5cTzRMH69LDox1FFOQ6wmx+
-	D69MVpKp0tw2jkltj5kNaOjwK4OYyT869vlFqEq+pKfVQFtW6uOu5aLAXfTgEMQohg==
-X-Gm-Gg: ASbGnctmHvV/JqDIQPbNHpQfKD8ibmJ6s7AZ6YOiz0jmkHyjQwTnfzTkFGbia4s1q92
-	12F2Qxfi/rIrTpAenVSFKyJtqKJvVMfDRvMrK6tmTUy122tdBehKyLZCP1EPLXeyQWXY0YnW7U4
-	ifnFgUdMfu0S8VbyaoR07TVeAKGQ/Uz7j6AkKJBW0WswgZp7j/hvUfJPTGKO/bnX4E+qpgidz/f
-	bjWo4EURmogk+RPmjVM3UCLliVZJyoVurTCIgDkeNZS09AP/T6p7ocPbU31RtRiF5XqAcGlC+4f
-	Gnw0gnj6KD5YDQk5fG4OflWnJPthjjrcoKF5lYxgDqSBQ0deFpOu3tIZEahg9xqGJYxeSyuANJi
-	Yis/XCC/A2+UNQxKF+ElJmmdp2lS8KjPUWAxpgtMkLaPu5RlYc0DTi63qJDwyFf7/HR/S0LL8nF
-	S26mYComM=
-X-Google-Smtp-Source: AGHT+IGTuMXtVjPISB1s7aGMxTgzZ489AnseGOsTbQpR3w/49IpmHYrsZYszaZZLrBSOa4FZz7dJBg==
-X-Received: by 2002:a17:907:3f92:b0:afe:d4b0:c0bf with SMTP id a640c23a62f3a-b04931f4c34mr1289895866b.17.1757324145337;
-        Mon, 08 Sep 2025 02:35:45 -0700 (PDT)
-Message-ID: <ca5f1389-8d8f-4490-a476-462ffb8aa212@suse.com>
-Date: Mon, 8 Sep 2025 11:35:44 +0200
+        d=1e100.net; s=20230601; t=1757324156; x=1757928956;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VmNQj5CvzMm3+mVyvgID5aOJAeNFb9zTblKtJiTor2I=;
+        b=Q8UbIjVPELZcbXGh2CLMT/u+HvK2aNzlFnfwHWLlm5zKkTu4P8tFXUcgXQ+KU7yIXU
+         L7SsBBYd4Pj0OrY7uUBJMWIzmg46HV3/m08oNwvYlC5dtluNfEmMETTCg0kcjHeupOfN
+         xBXZVuU9hQ/BeaaUQr2jE2zkZSRNbJ1sGYcQYZdLnRUKlo4gSgObXZlyIebKtMNqaWHh
+         0WBGym9kdVDV8AVFgFVF6Hcy2I4mKpe9LNrYeOYgiPQynfjM8v/pNeQ9BA/bdE08R5hz
+         lxW4lj20Sq+aBUPgZH/BfVF15Ny2vAOQAwQ0rL4QW2vYFk8dq5OT/Hm5JA60uz027ZGr
+         SL+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCX9Arbwu60m0S3v5KTIflrCZVf5v60EaZoghynZPaBiArPVw/8ImDx2J0BPBTHRTyaMJ/C2ELjICzI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwLS1n92nG2xsX3oODFSu2Ke+oNA/znMvUYGE2FRdqeAtfkm5Bc
+	OupgQm16jK0bjqOnGOmxaViEZ0PstRHN/2gT1X2i4wHGNCcNCcv72dZYNUdZtzmsoKXrRRFcBho
+	RynrkwvI4oM/Z4faG/aEzk6E8VSz3Gm8h/AsyYeXMvA==
+X-Gm-Gg: ASbGncumZ8MWCC7kI+qk/PQTcmCymSiW4vmhPcX4RCrk/SLIZ7Vf52jhJ1QKj5nIxEo
+	yH/dLgMgZ6G1zabiwLrfwchtR8S2kvR27xdbv7sOB/BBRqo/SbIlHg6xMoQQUsiIkr5NcOkEReG
+	LoTdAOZHX0cjpKHa1cyCZJ9qqZqN6Be0WkSBNlz2WldDNKEX7dajZvLZhXTg0T1u8UAf4Tsd5JG
+	sXZc2xR9NoY+zR6b98x07bCnMRIlPOoS9XBvLLq
+X-Google-Smtp-Source: AGHT+IElmatWT17jYWsW+gUSp/ZDRToxQ2dIgLj9ktdeVpGM1UhetYGY2AJ4XLEcUtbelrsOzoa+UhGMz7Rt+Fqp+ko=
+X-Received: by 2002:a05:6902:2304:b0:e97:b32:fa5c with SMTP id
+ 3f1490d57ef6-e9f685ad47bmr6332215276.49.1757324155607; Mon, 08 Sep 2025
+ 02:35:55 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/8] xen/cpufreq: embed hwp into struct
- cpufreq_policy{}
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Penny Zheng <Penny.Zheng@amd.com>
-References: <20250904063518.2097629-1-Penny.Zheng@amd.com>
- <20250904063518.2097629-2-Penny.Zheng@amd.com>
- <849f73f1-4004-4d17-a7a9-d755fb0f889b@suse.com>
- <ea021d1d-1e53-48cb-8957-f83313c2f8f3@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ea021d1d-1e53-48cb-8957-f83313c2f8f3@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1757071716.git.gerald.elder-vass@cloud.com>
+ <8d66f9ce2c9c352794c0c144f6e00d0a9d465dbe.1757071716.git.gerald.elder-vass@cloud.com>
+ <ed2e2406-bfab-4111-a9d0-025c85b51bdb@suse.com>
+In-Reply-To: <ed2e2406-bfab-4111-a9d0-025c85b51bdb@suse.com>
+From: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+Date: Mon, 8 Sep 2025 10:35:44 +0100
+X-Gm-Features: AS18NWDOw7R2YJ1ONaLccNozwnaHV0Wy5EqpPDFZJL9g1LnuJ7Z2Srq8_BrT58Y
+Message-ID: <CAOJ+D-UkSveZ4LdYK5GA3VucxxSbQgBv5m9jfZ0H_MyuHP-UZQ@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] efi: Add a function to check if Secure Boot mode
+ is enabled
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+	Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="0000000000000cfec2063e46ea56"
 
-On 04.09.2025 20:53, Jason Andryuk wrote:
-> On 2025-09-04 07:50, Jan Beulich wrote:
->> On 04.09.2025 08:35, Penny Zheng wrote:
->>> @@ -259,7 +258,7 @@ static int cf_check hwp_cpufreq_target(struct cpufreq_policy *policy,
->>>                                          unsigned int relation)
->>>   {
->>>       unsigned int cpu = policy->cpu;
->>> -    struct hwp_drv_data *data = per_cpu(hwp_drv_data, cpu);
->>> +    struct hwp_drv_data *data = policy->u.hwp;
->>>       /* Zero everything to ensure reserved bits are zero... */
->>>       union hwp_request hwp_req = { .raw = 0 };
->>
->> Further down in this same function we have
->>
->>      on_selected_cpus(cpumask_of(cpu), hwp_write_request, policy, 1);
->>
->> That's similarly problematic when the CPU denoted by policy->cpu isn't
->> online anymore. (It's not quite clear whether all related issues would
->> want fixing together, or in multiple patches.)
->>
->>> @@ -350,7 +349,7 @@ static void hwp_get_cpu_speeds(struct cpufreq_policy *policy)
->>>   static void cf_check hwp_init_msrs(void *info)
->>>   {
->>>       struct cpufreq_policy *policy = info;
->>> -    struct hwp_drv_data *data = this_cpu(hwp_drv_data);
->>> +    struct hwp_drv_data *data = policy->u.hwp;
->>>       uint64_t val;
->>>   
->>>       /*
->>> @@ -426,15 +425,14 @@ static int cf_check hwp_cpufreq_cpu_init(struct cpufreq_policy *policy)
->>>   
->>>       policy->governor = &cpufreq_gov_hwp;
->>>   
->>> -    per_cpu(hwp_drv_data, cpu) = data;
->>> +    policy->u.hwp = data;
->>>   
->>>       on_selected_cpus(cpumask_of(cpu), hwp_init_msrs, policy, 1);
->>
->> If multiple CPUs are in a domain, not all of them will make it here. By
->> implication the MSRs accessed by hwp_init_msrs() would need to have wider
->> than thread scope. The SDM, afaics, says nothing either way in this regard
->> in the Architectural MSRs section. Later model-specific tables have some
->> data.
-> 
-> When I wrote the HWP driver, I expected there to be per-cpu 
-> hwp_drv_data.  policy->cpu looked like the correct way to identify each 
-> CPU.  I was unaware of the idea of cpufreq_domains, and didn't intend 
-> there to be any sharing.
-> 
->> Which gets me back to my original question: Is "sharing" actually possible
->> for HWP? Note further how there are both HWP_REQUEST and HWP_REQUEST_PKG
->> MSRs, for example. Which one is (to be) used looks to be controlled by
->> HWP_CTL.PKG_CTL_POLARITY.
-> 
-> I was aware of the Package Level MSRs, but chose not to support them. 
-> Topology information didn't seem readily available to the driver, and 
-> using non-Package Level MSRs is needed for backwards compatibility anyway.
-> 
-> I don't have access to an HWP system, so I cannot check if processors 
-> share a domain.  I'd feel a little silly if I only ever wrote to CPU 0 :/
-> 
-> I have no proof, but I want to say that at some point I had debug 
-> statements and saw hwp_cpufreq_target() called for each CPU.
-> 
-> Maybe forcing hw_all=1 in cpufreq_add_cpu()/cpufreq_del_cpu() would 
-> ensure per-cpu policies?
+--0000000000000cfec2063e46ea56
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-No, domain info is handed to us from ACPI (_PSD). That's what
-cpufreq_add_cpu() evaluates. Therefore if there was evidence that HWP (and
-CPPC) can only ever have single-CPU domains, we could refuse such _PSD
-being handed to us (ideally already in set_px_pminfo()). But I don't think
-we can just go and override what we were told. I fear though that the mere
-existence of a package-level (alternative) MSR suggests that such
-configurations might be possible.
+>> +          size =3D=3D 1 && data =3D=3D 0) )
+>
+>... any reason it's literal 1 here?
 
-Jan
+The size variable is also used as output from GetVariable and we should
+verify that the size of the returned data is as expected, it is simply one
+byte so probably not worth defining any macros to make it clearer
+
+
+*Gerald Elder-Vass*
+Senior Software Engineer
+
+XenServer
+Cambridge, UK
+
+On Mon, Sep 8, 2025 at 9:49=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+
+> On 05.09.2025 14:10, Gerald Elder-Vass wrote:
+> > From: Ross Lagerwall <ross.lagerwall@citrix.com>
+> >
+> > Also cache it to avoid needing to repeatedly ask the firmware.
+> >
+> > Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+> > Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+> > ---
+> > CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> > CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+> > CC: Jan Beulich <jbeulich@suse.com>
+> > CC: Andrew Cooper <andrew.cooper3@citrix.com>
+> > CC: Anthony PERARD <anthony.perard@vates.tech>
+> > CC: Michal Orzel <michal.orzel@amd.com>
+> > CC: Julien Grall <julien@xen.org>
+> > CC: "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
+> > CC: Stefano Stabellini <sstabellini@kernel.org>
+> >
+> > v4:
+> > - Fix MISRA warning regarding SecureBoot string
+> > v3:
+> > - Fix build on ARM
+> > ---
+> >  xen/common/efi/boot.c    | 24 ++++++++++++++++++++++++
+> >  xen/common/efi/runtime.c |  1 +
+> >  xen/include/xen/efi.h    |  2 ++
+> >  3 files changed, 27 insertions(+)
+> >
+> > diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> > index e12fa1a7ec04..ccbfc401f7ba 100644
+> > --- a/xen/common/efi/boot.c
+> > +++ b/xen/common/efi/boot.c
+> > @@ -901,6 +901,28 @@ static void __init pre_parse(const struct file
+> *file)
+> >                     " last line will be ignored.\r\n");
+> >  }
+> >
+> > +static void __init init_secure_boot_mode(void)
+> > +{
+> > +    static EFI_GUID __initdata gv_uuid =3D EFI_GLOBAL_VARIABLE;
+> > +    static CHAR16 __initdata str_SecureBoot[] =3D L"SecureBoot";
+> > +    EFI_STATUS status;
+> > +    uint8_t data =3D 0;
+> > +    UINTN size =3D sizeof(data);
+>
+> Unlike here, ...
+>
+> > +    UINT32 attr =3D 0;
+> > +
+> > +    status =3D efi_rs->GetVariable(str_SecureBoot, &gv_uuid, &attr,
+> &size, &data);
+> > +
+> > +    if ( status =3D=3D EFI_NOT_FOUND ||
+> > +         (status =3D=3D EFI_SUCCESS &&
+> > +          attr =3D=3D (EFI_VARIABLE_BOOTSERVICE_ACCESS |
+> EFI_VARIABLE_RUNTIME_ACCESS) &&
+>
+> (Nit: Overlong line.)
+>
+> > +          size =3D=3D 1 && data =3D=3D 0) )
+>
+> ... any reason it's literal 1 here?
+>
+> Jan
+>
+
+--0000000000000cfec2063e46ea56
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><span class=3D"gmail-im">&gt;&gt; +=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 size =3D=3D 1 &amp;&amp; data =3D=3D 0) )<br>&gt;<br></sp=
+an>&gt;... any reason it&#39;s literal 1 here?<font color=3D"#888888" style=
+=3D"--darkreader-inline-color: var(--darkreader-text-888888, #9d9488);"><br=
+></font></div><div><br></div><div>The size variable is also used as output =
+from GetVariable and we should verify that the size of the returned data is=
+ as expected, it is simply one byte so probably not worth defining any macr=
+os to make it clearer</div><div><br></div><div><div dir=3D"ltr" class=3D"gm=
+ail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div><b>=
+<br></b></div><div><b>Gerald Elder-Vass</b></div><div>Senior Software Engin=
+eer</div><div><br></div><div>XenServer</div><div>Cambridge, UK</div></div><=
+/div></div></div><br><div class=3D"gmail_quote gmail_quote_container"><div =
+dir=3D"ltr" class=3D"gmail_attr">On Mon, Sep 8, 2025 at 9:49=E2=80=AFAM Jan=
+ Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt;=
+ wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
+0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 05.09=
+.2025 14:10, Gerald Elder-Vass wrote:<br>
+&gt; From: Ross Lagerwall &lt;<a href=3D"mailto:ross.lagerwall@citrix.com" =
+target=3D"_blank">ross.lagerwall@citrix.com</a>&gt;<br>
+&gt; <br>
+&gt; Also cache it to avoid needing to repeatedly ask the firmware.<br>
+&gt; <br>
+&gt; Signed-off-by: Ross Lagerwall &lt;<a href=3D"mailto:ross.lagerwall@cit=
+rix.com" target=3D"_blank">ross.lagerwall@citrix.com</a>&gt;<br>
+&gt; Signed-off-by: Gerald Elder-Vass &lt;<a href=3D"mailto:gerald.elder-va=
+ss@cloud.com" target=3D"_blank">gerald.elder-vass@cloud.com</a>&gt;<br>
+&gt; ---<br>
+&gt; CC: Marek Marczykowski-G=C3=B3recki &lt;<a href=3D"mailto:marmarek@inv=
+isiblethingslab.com" target=3D"_blank">marmarek@invisiblethingslab.com</a>&=
+gt;<br>
+&gt; CC: &quot;Daniel P. Smith&quot; &lt;<a href=3D"mailto:dpsmith@apertuss=
+olutions.com" target=3D"_blank">dpsmith@apertussolutions.com</a>&gt;<br>
+&gt; CC: Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com" target=3D"_bl=
+ank">jbeulich@suse.com</a>&gt;<br>
+&gt; CC: Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citrix.com" tar=
+get=3D"_blank">andrew.cooper3@citrix.com</a>&gt;<br>
+&gt; CC: Anthony PERARD &lt;anthony.perard@vates.tech&gt;<br>
+&gt; CC: Michal Orzel &lt;<a href=3D"mailto:michal.orzel@amd.com" target=3D=
+"_blank">michal.orzel@amd.com</a>&gt;<br>
+&gt; CC: Julien Grall &lt;<a href=3D"mailto:julien@xen.org" target=3D"_blan=
+k">julien@xen.org</a>&gt;<br>
+&gt; CC: &quot;Roger Pau Monn=C3=A9&quot; &lt;<a href=3D"mailto:roger.pau@c=
+itrix.com" target=3D"_blank">roger.pau@citrix.com</a>&gt;<br>
+&gt; CC: Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org" t=
+arget=3D"_blank">sstabellini@kernel.org</a>&gt;<br>
+&gt; <br>
+&gt; v4:<br>
+&gt; - Fix MISRA warning regarding SecureBoot string<br>
+&gt; v3:<br>
+&gt; - Fix build on ARM<br>
+&gt; ---<br>
+&gt;=C2=A0 xen/common/efi/boot.c=C2=A0 =C2=A0 | 24 ++++++++++++++++++++++++=
+<br>
+&gt;=C2=A0 xen/common/efi/runtime.c |=C2=A0 1 +<br>
+&gt;=C2=A0 xen/include/xen/efi.h=C2=A0 =C2=A0 |=C2=A0 2 ++<br>
+&gt;=C2=A0 3 files changed, 27 insertions(+)<br>
+&gt; <br>
+&gt; diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c<br>
+&gt; index e12fa1a7ec04..ccbfc401f7ba 100644<br>
+&gt; --- a/xen/common/efi/boot.c<br>
+&gt; +++ b/xen/common/efi/boot.c<br>
+&gt; @@ -901,6 +901,28 @@ static void __init pre_parse(const struct file *f=
+ile)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0&quot; last line will be ignored.\r\n&quot;);<br>
+&gt;=C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; +static void __init init_secure_boot_mode(void)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 static EFI_GUID __initdata gv_uuid =3D EFI_GLOBAL_VARIA=
+BLE;<br>
+&gt; +=C2=A0 =C2=A0 static CHAR16 __initdata str_SecureBoot[] =3D L&quot;Se=
+cureBoot&quot;;<br>
+&gt; +=C2=A0 =C2=A0 EFI_STATUS status;<br>
+&gt; +=C2=A0 =C2=A0 uint8_t data =3D 0;<br>
+&gt; +=C2=A0 =C2=A0 UINTN size =3D sizeof(data);<br>
+<br>
+Unlike here, ...<br>
+<br>
+&gt; +=C2=A0 =C2=A0 UINT32 attr =3D 0;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 status =3D efi_rs-&gt;GetVariable(str_SecureBoot, &amp;=
+gv_uuid, &amp;attr, &amp;size, &amp;data);<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 if ( status =3D=3D EFI_NOT_FOUND ||<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(status =3D=3D EFI_SUCCESS &amp;&am=
+p;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 attr =3D=3D (EFI_VARIABLE_BOOTSERV=
+ICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS) &amp;&amp;<br>
+<br>
+(Nit: Overlong line.)<br>
+<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 size =3D=3D 1 &amp;&amp; data =3D=
+=3D 0) )<br>
+<br>
+... any reason it&#39;s literal 1 here?<br>
+<br>
+Jan<br>
+</blockquote></div>
+
+--0000000000000cfec2063e46ea56--
 
