@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DE2CB484E4
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 09:16:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1114593.1461435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4985BB48548
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 09:32:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1114612.1461446 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvW6w-00087A-LP; Mon, 08 Sep 2025 07:16:22 +0000
+	id 1uvWMV-0002W7-2l; Mon, 08 Sep 2025 07:32:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1114593.1461435; Mon, 08 Sep 2025 07:16:22 +0000
+Received: by outflank-mailman (output) from mailman id 1114612.1461446; Mon, 08 Sep 2025 07:32:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvW6w-00085Y-IS; Mon, 08 Sep 2025 07:16:22 +0000
-Received: by outflank-mailman (input) for mailman id 1114593;
- Mon, 08 Sep 2025 07:16:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dmukhin@xen.org>) id 1uvW6v-00085S-Ey
- for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 07:16:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1uvW6t-00D9Ti-2d;
- Mon, 08 Sep 2025 07:16:20 +0000
-Received: from [19.12.91.86] (helo=localhost)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1uvW6t-003JRU-2L;
- Mon, 08 Sep 2025 07:16:19 +0000
+	id 1uvWMV-0002TL-02; Mon, 08 Sep 2025 07:32:27 +0000
+Received: by outflank-mailman (input) for mailman id 1114612;
+ Mon, 08 Sep 2025 07:32:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=g5GF=3T=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
+ id 1uvWMT-0002TF-3U
+ for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 07:32:25 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id f3651fed-8c85-11f0-9809-7dc792cee155;
+ Mon, 08 Sep 2025 09:32:19 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4F1201692;
+ Mon,  8 Sep 2025 00:32:10 -0700 (PDT)
+Received: from [10.57.58.69] (unknown [10.57.58.69])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5A2713F63F;
+ Mon,  8 Sep 2025 00:32:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,216 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:Message-ID:Subject:Cc:To:Date:From;
-	bh=R4a1KEWzdUb7m/MZk5nH0esNuTV5ImuyIj7AA2rSAYY=; b=u6vv2y4qqMg/K8rdRt0Zrjowzp
-	9IKmj0QzLYFjm08w5lWXfDvNxfrGc5JEUPakGbYPhX+a3D5taSshcXiQO8W+rVyVvG9cBIJiTciC5
-	qXxtudCFMbvUucr0UgA2dp9s+HnQhVhXkFYsLz2XfUrkU+DSO2j4IfJuar8iYJ/fFbFQ=;
-From: dmukhin@xen.org
-Date: Mon, 8 Sep 2025 00:16:18 -0700
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
-	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
-	michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
-	dmukhin@ford.com
-Subject: Re: [PATCH v6 01/15] emul/vuart: introduce framework for UART
- emulators
-Message-ID: <aL6CwuSme+yyOY0e@kraken>
-References: <20250905232715.440758-1-dmukhin@ford.com>
- <20250905232715.440758-2-dmukhin@ford.com>
- <CAGeoDV8T8UN7uNXZ9Co0he=B1Bt_gXBWAFDPtiE0jvCGb=MA-g@mail.gmail.com>
+X-Inumbo-ID: f3651fed-8c85-11f0-9809-7dc792cee155
+Message-ID: <16a63f8a-fe9f-4a65-be45-7260858734bd@arm.com>
+Date: Mon, 8 Sep 2025 09:32:09 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGeoDV8T8UN7uNXZ9Co0he=B1Bt_gXBWAFDPtiE0jvCGb=MA-g@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/7] x86/xen: support nested lazy_mmu sections (again)
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ David Hildenbrand <david@redhat.com>, "David S. Miller"
+ <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
+ Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
+ <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+ Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+References: <20250904125736.3918646-1-kevin.brodsky@arm.com>
+ <20250904125736.3918646-5-kevin.brodsky@arm.com>
+ <d3adc2a0-5888-411e-ac7c-9df45e3389c9-agordeev@linux.ibm.com>
+Content-Language: en-GB
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+In-Reply-To: <d3adc2a0-5888-411e-ac7c-9df45e3389c9-agordeev@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 06, 2025 at 12:43:01PM +0300, Mykola Kvach wrote:
-> Hi Denis,
-> 
-> On Sat, Sep 6, 2025 at 2:27 AM <dmukhin@xen.org> wrote:
-[..]
-> > +
-> > +const static struct vuart *
-> > +vuart_find_by_console_permission(const struct domain *d)
-> 
-> Other functions that search for a console (e.g., by compatible string or IO
-> range) take an argument to specify what to search by. Here,
-> vuart_find_by_console_permission takes no argument and just checks a single
-> flag. It might be clearer to either add a flags argument to make it general,
-> or rename the function to reflect that it checks only this one permission flag.
+On 05/09/2025 17:48, Alexander Gordeev wrote:
+> On Thu, Sep 04, 2025 at 01:57:33PM +0100, Kevin Brodsky wrote:
+> ...
+>> -static void xen_enter_lazy_mmu(void)
+>> +static lazy_mmu_state_t xen_enter_lazy_mmu(void)
+>>  {
+>> +	if (this_cpu_read(xen_lazy_mode) == XEN_LAZY_MMU)
+>> +		return LAZY_MMU_NESTED;
+>> +
+>>  	enter_lazy(XEN_LAZY_MMU);
+>> +	return LAZY_MMU_DEFAULT;
+>>  }
+>>  
+>>  static void xen_flush_lazy_mmu(void)
+>> @@ -2167,11 +2171,12 @@ static void __init xen_post_allocator_init(void)
+>>  	pv_ops.mmu.write_cr3 = &xen_write_cr3;
+>>  }
+>>  
+>> -static void xen_leave_lazy_mmu(void)
+>> +static void xen_leave_lazy_mmu(lazy_mmu_state_t state)
+>>  {
+>>  	preempt_disable();
+>>  	xen_mc_flush();
+>> -	leave_lazy(XEN_LAZY_MMU);
+>> +	if (state != LAZY_MMU_NESTED)
+>> +		leave_lazy(XEN_LAZY_MMU);
+> Based on xen_enter_lazy_mmu(), whether this condition needs to be
+> executed with the preemption disabled?
 
-Agreed, will update.
-Thanks for the suggestion.
+AFAIU xen_mc_flush() needs preemption to be disabled. I don't think
+{enter,leave}_lazy() do, but this patch doesn't introduce any change
+from that perspective. I suppose it doesn't hurt that
+xen_leave_lazy_mmu() calls leave_lazy() with preemption disabled.
 
-> 
-> > +{
-> > +    const struct vuart *vuart = d->console.vuart;
-> > +
-> > +    if ( !vuart || !vuart->emulator || !vuart->emulator->put_rx ||
-> 
-> Looking at vuart_init, vuart->emulator is always set when vuart is valid.
-> So the vuart->emulator check seems redundant.
+> Or may be this_cpu_read(xen_lazy_mode) + enter_lazy(XEN_LAZY_MMU)
+> should be executed with the preemption disabled?
 
-Ack.
+Adding another this_cpu_read(xen_lazy_mode) in xen_enter_lazy_mmu()
+shouldn't change the situation, i.e. preemption should still be safe. If
+preemption occurs in the middle of that function,
+xen_{start,end}_context_switch() will do the right thing to save/restore
+xen_lazy_mode.
 
-> 
-> If it is truly needed, the same check should also appear in
-> vuart_dump_state and vuart_deinit. Otherwise, for consistency we
-> could safely assume vuart->emulator is non-NULL after vuart_init.
-
-Agreed, will update.
-
-> 
-> > +         !(vuart->flags & VUART_CONSOLE_INPUT))
-> > +        return NULL;
-> > +
-> > +    return vuart;
-> > +}
-> > +
-> > +struct vuart *vuart_find_by_io_range(struct domain *d, unsigned long addr,
-> > +                                     unsigned long size)
-> > +{
-> > +    struct vuart *vuart = d->console.vuart;
-> > +
-> > +    if ( !vuart || !vuart->info )
-> 
-> Is it possible to have a valid vuart pointer without a valid info pointer?
-
-Yes, the vuart->info check is redundant, will drop.
-
-> 
-> > +        return NULL;
-> > +
-> > +    if ( addr >= vuart->info->base_addr &&
-> > +         addr + size - 1 <= vuart->info->base_addr + vuart->info->size - 1 )
-> > +        return vuart;
-> > +
-> > +    return NULL;
-> > +}
-> > +
-> > +int vuart_init(struct domain *d, struct vuart_info *info)
-> > +{
-> > +    const struct vuart_emulator *emulator;
-> > +    struct vuart *vuart;
-> > +    int rc;
-> > +
-> > +    if ( d->console.vuart )
-> > +        return -EBUSY;
-> > +
-> > +    emulator = vuart_match_by_compatible(d, info->compatible);
-> > +    if ( !emulator )
-> > +        return -ENODEV;
-> > +
-> > +    vuart = xzalloc(typeof(*vuart));
-> > +    if ( !vuart )
-> > +        return -ENOMEM;
-> > +
-> > +    vuart->info = xvzalloc(typeof(*info));
-> > +    if ( !vuart->info )
-> > +    {
-> > +        rc = -ENOMEM;
-> > +        goto err_out;
-> > +    }
-> > +    memcpy(vuart->info, info, sizeof(*info));
-> > +
-> > +    vuart->vdev = emulator->alloc(d, vuart->info);
-> > +    if ( IS_ERR(vuart->vdev) )
-> > +    {
-> > +        rc = PTR_ERR(vuart->vdev);
-> > +        goto err_out;
-> > +    }
-> > +
-> > +    vuart->emulator = emulator;
-> > +    vuart->owner = d;
-> > +    vuart->flags |= VUART_CONSOLE_INPUT;
-> > +
-> > +    d->console.input_allowed = true;
-> > +    d->console.vuart = vuart;
-> > +
-> > +    return 0;
-> > +
-> > + err_out:
-> > +    if ( vuart )
-> 
-> As far as I can see, it isn’t possible to reach this point when vuart
-> is NULL. The err_out label is only jumped to after vuart has been
-> successfully allocated, so the check if (vuart) is redundant.
-
-Right, thanks.
-
-> 
-> > +        xvfree(vuart->info);
-> > +    xvfree(vuart);
-> > +
-> > +    return rc;
-> > +}
-> > +
-> > +/*
-> > + * Release any resources taken by UART emulators.
-> > + *
-> > + * NB: no flags are cleared, since currently exit() is called only during
-> > + * domain destroy.
-> > + */
-> > +void vuart_deinit(struct domain *d)
-> > +{
-> > +    struct vuart *vuart = d->console.vuart;
-> > +
-> > +    if ( vuart )
-> > +    {
-> > +        vuart->emulator->free(vuart->vdev);
-> > +        xvfree(vuart->info);
-> > +    }
-> > +    XVFREE(d->console.vuart);
-> > +}
-> > +
-> > +void vuart_dump_state(const struct domain *d)
-> > +{
-> > +    struct vuart *vuart = d->console.vuart;
-> > +
-> > +    if ( vuart )
-> > +        vuart->emulator->dump_state(vuart->vdev);
-> > +}
-> > +
-> > +/*
-> > + * Put character to the *first* suitable emulated UART's FIFO.
-> > + */
-> 
-> This comment could be a single line since it doesn’t exceed 80 characters.
-
-I will update the comment.
-
-> 
-> > +int vuart_put_rx(struct domain *d, char c)
-> > +{
-> > +    const struct vuart *vuart = vuart_find_by_console_permission(d);
-> 
-> If vuart_deinit has already been called, is it possible that vuart
-> points to freed memory here or in other places?
-> 
-> Should we add reference counting or locks to protect against such
-> use-after-free, or are we relying on higher-level mechanisms to
-> guarantee that these structs aren’t freed while vuart is accessed?
-
-That should be covered with rcu_{un,}lock_domain() calls.
-
-But a dedicated vUART lock will be needed in the future series (vpl011 and
-hwdom vuart plumbing into the new framework).
-
-> 
-> Should we also check whether the domain is currently being
-> destroyed and avoid putting new characters into the emulated UART
-> in that case?
-
-There's only one callsite currently (in the console driver) and it is
-guaranteed that domain will not be destroyed during the call.
-
-> 
-> If we are relying on some upper-level mechanism, I think it deserves a
-> comment somewhere to make that guarantee explicit.
-
-Agree, will add some explanations.
-
-Thanks!
+- Kevin
 
