@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 367B6B488CB
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 11:42:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1114987.1461763 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C882B488DF
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 11:44:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1115002.1461774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvYNt-0001oz-Fr; Mon, 08 Sep 2025 09:42:01 +0000
+	id 1uvYQ8-0002QG-0X; Mon, 08 Sep 2025 09:44:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1114987.1461763; Mon, 08 Sep 2025 09:42:01 +0000
+Received: by outflank-mailman (output) from mailman id 1115002.1461774; Mon, 08 Sep 2025 09:44:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvYNt-0001mn-D5; Mon, 08 Sep 2025 09:42:01 +0000
-Received: by outflank-mailman (input) for mailman id 1114987;
- Mon, 08 Sep 2025 09:41:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=suiz=3T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uvYNr-0001mh-Mt
- for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 09:41:59 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0fbbf0d6-8c98-11f0-9809-7dc792cee155;
- Mon, 08 Sep 2025 11:41:57 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-62221568039so3265952a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 02:41:57 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-622ac41b1d6sm5447520a12.32.2025.09.08.02.41.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Sep 2025 02:41:56 -0700 (PDT)
+	id 1uvYQ7-0002Ni-Th; Mon, 08 Sep 2025 09:44:19 +0000
+Received: by outflank-mailman (input) for mailman id 1115002;
+ Mon, 08 Sep 2025 09:44:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zbUz=3T=cloud.com=gerald.elder-vass@srs-se1.protection.inumbo.net>)
+ id 1uvYQ6-0002Nc-Ml
+ for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 09:44:18 +0000
+Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
+ [2607:f8b0:4864:20::b34])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 62ca0b44-8c98-11f0-9d13-b5c5bf9af7f9;
+ Mon, 08 Sep 2025 11:44:17 +0200 (CEST)
+Received: by mail-yb1-xb34.google.com with SMTP id
+ 3f1490d57ef6-e9d6cb1df67so3098687276.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 02:44:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +40,270 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fbbf0d6-8c98-11f0-9809-7dc792cee155
+X-Inumbo-ID: 62ca0b44-8c98-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757324517; x=1757929317; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YdCnBPWj7Y1Qdy/d2R6kjaN8gf65DHmCfaEnsK0LXzs=;
-        b=PTku73G7LIqpIlt28/4SeuWX9H+cxw2KpqoJoTrUaQmK+RyymTdxBmBI8WLjHrQhse
-         gS44BVTydPFLAl5VS86BxVEBXUNh8BEQ0Hko4xJGNZMagI9lRezUD7yBRKmn3ohFS+is
-         VdYz6MpxbEfrqHEPW2PADASnvBJmPkh/8dLLqmaQSgS6p5cMpt/IeOyJVy1XSld3lYij
-         V4frSN3T/kiePKepVJYJJFf4mlFybhe/lNnVp2j/BxULB0G8B2DiBkXgSnxDwDC+9x3A
-         zISQJ+iFCda68EixfpHNp9i/wED2FmFx/4HwMYP08vxMbwMSRb2Koq7YIV4Kt5bTkJzw
-         6wvA==
+        d=cloud.com; s=cloud; t=1757324656; x=1757929456; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=LRv9xXnqBppOLm6ep710A8MEaXq8DwLigxo6yffIagA=;
+        b=FYIN4oj6nBa2rtTPxszmKXBUJpXd+rM//9nj+bujjWygPf+wTSpIWUDrCjvlHOrt0d
+         blmAKKCkAYORcG5xxh/5lzCZ+gBql4ST3mHATV/jFBIDsdJ7+N0yr+QEd3/eiskMskVd
+         ZY4fl5uoHPw2QZuSY4FH0KSos4yQUybiPERyA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757324517; x=1757929317;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YdCnBPWj7Y1Qdy/d2R6kjaN8gf65DHmCfaEnsK0LXzs=;
-        b=peexjVyVT7iqykcsTIegeTjmAtINaFrzKLgr+k17eAVzgZ87KvuKe4ATxkVLI/Vv6U
-         XoUJGbJ2fD7PRjxbSTzsJ3b5Jx8oWOQvP5Xd98hqYVo8nPe417LKBwL71MG4zg3dJKLl
-         xuNsEjDPMlMhPuAYTNF/X7QlLOxzT5DPcJxacYPuTvu3el+bENM2jULLRfLn0lVSitUX
-         qdWzCsL+E++qJdoTzlm7qGd0Acl9/8uQ/RoqGUP/cClghLn5IgBzwbPFJQ7cKPXemExr
-         Wm9jAiD0bIjud+a42S+Xa/+nqE/Pj6+l8D1+/ZPFeRGueoUQ3L1szNjs7g35vzVmAdHJ
-         pRoA==
-X-Forwarded-Encrypted: i=1; AJvYcCX6wLuw16/wDU5/GGh+k0G5Cmfiu8MX0hCYC6TJyZd84MDm9n1/iruV6Fe8HcPQ3N6Xbx0AbwIurB4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxzCS58W/+KIXUTa0/oLaBsenbMHRzUKaG3aYKJJjiuzjPjKTwQ
-	cryl+M8cGRlo0aGVkjI5JPdZFXybdyZ1rBzvdAye+nh2UAwz0sbsj5+N8mYrEOcxVg==
-X-Gm-Gg: ASbGncuHnOwuQ5kJBYdJA/QCVNchSn3E9OtphJeK/mPn3UZD918hIP+d5trLdVSeuZp
-	OUthL7j8iD3/8w31NeaSxnymOtGBtuOWqvhyKs13ZrRx9ztMS2MvzXhtWEARR6Ml0empmNZRtIO
-	AudprX6dyyXONMw31xTN39wdRHBdVhhYMyl2NokU2hX446gFotqwkIpQr/3dqJH/mbCirf8GyuD
-	KmxZWXx6JRke9yd8zeTFYl6ffkrrl7CAAqKcKTJq2XfKXTKqqiBchiCTTCBd0cychFnzFAJTgGA
-	+EgZAvmW4u6/IhzPndK5dkpRlXyyvPAGD6jEDh+QTHNDtqKPYa78r19Wb4eBOZQIBjwb5ib3/zj
-	pHptpsDDEN3tWahk6SduFGKZP1V8n6v/QW1Q44tYtqc2/BAzqTRL7zr57AO00WGgEyEllbRXs8v
-	FNxYguJ+c=
-X-Google-Smtp-Source: AGHT+IFt9noQxm44zpfwQ0pHuUqSK720WXSiFzCBmJ8n2/GZQ4EMSgk5rBbK38L11/h10Cmm5Uci7w==
-X-Received: by 2002:a05:6402:2553:b0:61e:d3d8:9377 with SMTP id 4fb4d7f45d1cf-62373df688emr6400692a12.9.1757324517112;
-        Mon, 08 Sep 2025 02:41:57 -0700 (PDT)
-Message-ID: <bf218191-fca6-439d-ad75-04162335b3ca@suse.com>
-Date: Mon, 8 Sep 2025 11:41:55 +0200
+        d=1e100.net; s=20230601; t=1757324656; x=1757929456;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LRv9xXnqBppOLm6ep710A8MEaXq8DwLigxo6yffIagA=;
+        b=uiq+wvVc9FsRhb6ZI3fu/PxacD/GaUYiJi96eMqXYN/iA/umOj6+ykjxDlodguQS57
+         OyiyzH5yA/Vk3QgKSgRXCKv2uqwoqgel8CsmaRnH4wj59FQV2r4xSgPqQR18h+BAkHI3
+         Eh7LUlVZqlq4o2a23pq96k2PwZdsOfOHXXYSsYz/e811A13wFqIcQr26On+bvOi7Rm40
+         Op3xDXWSwHjPzIOA5Fb+ARUHxiNH4A4xcQWb2ygq7s+P26Eut1WPle3k5Cr7Ycow73RM
+         8pRfz697fbJNMxS7nogqZFrIrFVkDsVlmVFBSSwnqbQKgyOSLitzVEZYBE4MooD+dw7H
+         yaHA==
+X-Forwarded-Encrypted: i=1; AJvYcCUonfLgO7i3+Xz/aB1YnA20sHGAj2XVQ3ALEBVmnSAydxK3dgf3QbEchqXRfrY3iVOO9fpL4lHtAbk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyE/PVWcoVTD58nBDXNdhsoxNRVvhs41vSWlo2/NIUvDpsXuMPN
+	fTDKZQLGUXKxlzqc1NQq+dKo+y3XKIpIfJQbiTSobYGk845OY19WgWO9qoSx1GabRf6KYRdV+yL
+	mKQgiYVeDJKhUlnlVUYI47IOjOGnHqwspJKttBopHjg==
+X-Gm-Gg: ASbGncsky9XCLeti0q9HsZbJZ9ER6dUj3ra1b2XJakalo9htGddnPYXN0pxcg33hvzp
+	w5gp6jmGlP4d3/izAqUbQglLZt9UyUABwJZ8he3CaSEWiutGrEXzmAfVot5MvztRvGq8niev6ko
+	ujq3QKFeVJ+e3V/mod6rg2FFF+XeoA/MwHZSGXbPF/y4PS4jM7Ir8AQOOjFAgW/6lgbjxXJH56J
+	fYgA32m7KlXXfaU
+X-Google-Smtp-Source: AGHT+IHt5NAdOp8KILqDzaClGtMsAd/9fJPpEpYr7mqS0v+/tXhrR6jL1Aw9KyX6kOPWl5huP0DrJQhgIrlV3vl7Lhg=
+X-Received: by 2002:a05:6902:102a:b0:e93:4ce0:c1e4 with SMTP id
+ 3f1490d57ef6-e9f6798ffa6mr6157579276.30.1757324656436; Mon, 08 Sep 2025
+ 02:44:16 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] efi: Add a function to check if Secure Boot mode
- is enabled
-To: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
 References: <cover.1757071716.git.gerald.elder-vass@cloud.com>
- <8d66f9ce2c9c352794c0c144f6e00d0a9d465dbe.1757071716.git.gerald.elder-vass@cloud.com>
- <ed2e2406-bfab-4111-a9d0-025c85b51bdb@suse.com>
- <CAOJ+D-UkSveZ4LdYK5GA3VucxxSbQgBv5m9jfZ0H_MyuHP-UZQ@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAOJ+D-UkSveZ4LdYK5GA3VucxxSbQgBv5m9jfZ0H_MyuHP-UZQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <93ffff66c08d05bc2d912be1831954911e17a27c.1757071716.git.gerald.elder-vass@cloud.com>
+ <6647009f-a1f8-4cf0-923a-c04f0a59106a@suse.com>
+In-Reply-To: <6647009f-a1f8-4cf0-923a-c04f0a59106a@suse.com>
+From: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+Date: Mon, 8 Sep 2025 10:44:05 +0100
+X-Gm-Features: AS18NWDODnBlrUOf1ACCnkkPhhPutlitMCUN0sKBZWoz8pfFeKfZtgNbxw1zWvM
+Message-ID: <CAOJ+D-Ww=0vaLftfkC5MfgjkSJ_Fg-g1OXSGXX38EoH4LgkfXw@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] efi: Support using Shim's LoadImage protocol
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Kevin Lampis <kevin.lampis@cloud.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+	Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="000000000000e763d9063e4707b3"
 
-On 08.09.2025 11:35, Gerald Elder-Vass wrote:
->>> +          size == 1 && data == 0) )
->>
->> ... any reason it's literal 1 here?
-> 
-> The size variable is also used as output from GetVariable and we should
-> verify that the size of the returned data is as expected, it is simply one
-> byte so probably not worth defining any macros to make it clearer
+--000000000000e763d9063e4707b3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I don't understand this reply. Why would the initializer of the variable
-use one thing (sizeof()) and the checking of the variable another (literal
-1)? Even consistently using 1 would already be better imo; consistently
-using sizeof() is what I think would be best.
+>As already said on an earlier version, the use of !EFI_ERROR() here is a
+>behavioral change from ...
+>
+>> @@ -1591,12 +1638,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE
+ImageHandle,
+>>       * device tree through the efi_check_dt_boot function, in this stag=
+e
+>>       * verify it.
+>>       */
+>> -    if ( kernel.ptr &&
+>> -         !kernel_verified &&
+>> -         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
+>> -                                           (void **)&shim_lock)) &&
+>> -         (status =3D shim_lock->Verify(kernel.ptr, kernel.size)) !=3D
+EFI_SUCCESS )
+>
+>... checking for EFI_SUCCESS alone here. There's also nothing in the
+>description justifying the change. (See the various EFI_WARN_* that exist.=
+)
 
-Jan
+You're correct! The EFI_WARN_* responses should all be treated as failures,
+I'll revert that particular change in the patch series
+
+*Gerald Elder-Vass*
+Senior Software Engineer
+
+XenServer
+Cambridge, UK
+
+
+On Mon, Sep 8, 2025 at 9:56=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+
+> On 05.09.2025 14:10, Gerald Elder-Vass wrote:
+> > @@ -1047,6 +1056,46 @@ static UINTN __init
+> efi_find_gop_mode(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop,
+> >      return gop_mode;
+> >  }
+> >
+> > +static void __init efi_verify_kernel(EFI_HANDLE ImageHandle)
+> > +{
+> > +    static EFI_GUID __initdata shim_image_guid =3D SHIM_IMAGE_LOADER_G=
+UID;
+> > +    static EFI_GUID __initdata shim_lock_guid =3D SHIM_LOCK_PROTOCOL_G=
+UID;
+> > +    SHIM_IMAGE_LOADER *shim_loader;
+> > +    EFI_HANDLE loaded_kernel;
+> > +    EFI_SHIM_LOCK_PROTOCOL *shim_lock;
+> > +    EFI_STATUS status;
+> > +    bool verified =3D false;
+> > +
+> > +    /* Look for LoadImage first */
+> > +    if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_image_guid, NULL,
+> > +                                           (void **)&shim_loader)) )
+> > +    {
+> > +        status =3D shim_loader->LoadImage(false, ImageHandle, NULL,
+> > +                                        (void *)kernel.ptr, kernel.siz=
+e,
+> > +                                        &loaded_kernel);
+> > +        if ( !EFI_ERROR(status) )
+> > +            verified =3D true;
+> > +
+> > +        /* LoadImage performed verification, now clean up with
+> UnloadImage */
+> > +        shim_loader->UnloadImage(loaded_kernel);
+> > +    }
+> > +
+> > +    /* else fall back to Shim Lock */
+> > +    if ( !verified &&
+> > +         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
+> > +                                           (void **)&shim_lock)) &&
+> > +         !EFI_ERROR(shim_lock->Verify(kernel.ptr, kernel.size)) )
+>
+> As already said on an earlier version, the use of !EFI_ERROR() here is a
+> behavioral change from ...
+>
+> > @@ -1591,12 +1638,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE
+> ImageHandle,
+> >       * device tree through the efi_check_dt_boot function, in this sta=
+ge
+> >       * verify it.
+> >       */
+> > -    if ( kernel.ptr &&
+> > -         !kernel_verified &&
+> > -         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
+> > -                                           (void **)&shim_lock)) &&
+> > -         (status =3D shim_lock->Verify(kernel.ptr, kernel.size)) !=3D
+> EFI_SUCCESS )
+>
+> ... checking for EFI_SUCCESS alone here. There's also nothing in the
+> description justifying the change. (See the various EFI_WARN_* that exist=
+.)
+>
+> Jan
+>
+
+--000000000000e763d9063e4707b3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>&gt;As already said on an earlier version, the use of=
+ !EFI_ERROR() here is a<br>&gt;behavioral change from ...<span><br>&gt;<br>=
+&gt;&gt; @@ -1591,12 +1638,8 @@ void EFIAPI __init noreturn efi_start(EFI_H=
+ANDLE ImageHandle,<br>&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0* device tree thro=
+ugh the efi_check_dt_boot function, in this stage<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0* verify it.<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>&gt;&gt; -=C2=A0 =C2=A0 if ( kerne=
+l.ptr &amp;&amp;<br>&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0!kernel_ver=
+ified &amp;&amp;<br>
+&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0!EFI_ERROR(efi_bs-&gt;LocatePro=
+tocol(&amp;shim_lock_guid, NULL,<br>&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(void **)&amp;shim_lock=
+)) &amp;&amp;<br>&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(status =3D sh=
+im_lock-&gt;Verify(kernel.ptr, kernel.size)) !=3D EFI_SUCCESS )<br>&gt;<br>=
+</span>&gt;... checking for EFI_SUCCESS alone here. There&#39;s also nothin=
+g in the<br>&gt;description justifying the change. (See the various EFI_WAR=
+N_* that exist.)<font color=3D"#888888" style=3D"--darkreader-inline-color:=
+ var(--darkreader-text-888888, #9d9488);"><br></font></div><div><br></div><=
+div>You&#39;re correct! The EFI_WARN_* responses should all be treated as f=
+ailures, I&#39;ll revert that particular change in the patch series</div><d=
+iv><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signa=
+ture"><div dir=3D"ltr"><div><b><br></b></div><div><b>Gerald Elder-Vass</b><=
+/div><div>Senior Software Engineer</div><div><br></div><div>XenServer</div>=
+<div>Cambridge, UK</div></div></div></div><br></div><br><div class=3D"gmail=
+_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Sep 8, 2025 at 9:56=
+=E2=80=AFAM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com" target=3D"=
+_blank">jbeulich@suse.com</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex">On 05.09.2025 14:10, Gerald Elder-Vass wrote:<br>
+&gt; @@ -1047,6 +1056,46 @@ static UINTN __init efi_find_gop_mode(EFI_GRAPH=
+ICS_OUTPUT_PROTOCOL *gop,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 return gop_mode;<br>
+&gt;=C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; +static void __init efi_verify_kernel(EFI_HANDLE ImageHandle)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 static EFI_GUID __initdata shim_image_guid =3D SHIM_IMA=
+GE_LOADER_GUID;<br>
+&gt; +=C2=A0 =C2=A0 static EFI_GUID __initdata shim_lock_guid =3D SHIM_LOCK=
+_PROTOCOL_GUID;<br>
+&gt; +=C2=A0 =C2=A0 SHIM_IMAGE_LOADER *shim_loader;<br>
+&gt; +=C2=A0 =C2=A0 EFI_HANDLE loaded_kernel;<br>
+&gt; +=C2=A0 =C2=A0 EFI_SHIM_LOCK_PROTOCOL *shim_lock;<br>
+&gt; +=C2=A0 =C2=A0 EFI_STATUS status;<br>
+&gt; +=C2=A0 =C2=A0 bool verified =3D false;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 /* Look for LoadImage first */<br>
+&gt; +=C2=A0 =C2=A0 if ( !EFI_ERROR(efi_bs-&gt;LocateProtocol(&amp;shim_ima=
+ge_guid, NULL,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0(void **)&amp;shim_loader)) )<br>
+&gt; +=C2=A0 =C2=A0 {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 status =3D shim_loader-&gt;LoadImage(fals=
+e, ImageHandle, NULL,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (voi=
+d *)kernel.ptr, kernel.size,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp=
+;loaded_kernel);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ( !EFI_ERROR(status) )<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 verified =3D true;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* LoadImage performed verification, now =
+clean up with UnloadImage */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 shim_loader-&gt;UnloadImage(loaded_kernel=
+);<br>
+&gt; +=C2=A0 =C2=A0 }<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 /* else fall back to Shim Lock */<br>
+&gt; +=C2=A0 =C2=A0 if ( !verified &amp;&amp;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0!EFI_ERROR(efi_bs-&gt;LocateProtoco=
+l(&amp;shim_lock_guid, NULL,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0(void **)&amp;shim_lock)) &amp;&amp;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0!EFI_ERROR(shim_lock-&gt;Verify(ker=
+nel.ptr, kernel.size)) )<br>
+<br>
+As already said on an earlier version, the use of !EFI_ERROR() here is a<br=
+>
+behavioral change from ...<br>
+<br>
+&gt; @@ -1591,12 +1638,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDL=
+E ImageHandle,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0* device tree through the efi_check_dt_boot =
+function, in this stage<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0* verify it.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
+&gt; -=C2=A0 =C2=A0 if ( kernel.ptr &amp;&amp;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0!kernel_verified &amp;&amp;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0!EFI_ERROR(efi_bs-&gt;LocateProtoco=
+l(&amp;shim_lock_guid, NULL,<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0(void **)&amp;shim_lock)) &amp;&amp;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(status =3D shim_lock-&gt;Verify(ke=
+rnel.ptr, kernel.size)) !=3D EFI_SUCCESS )<br>
+<br>
+... checking for EFI_SUCCESS alone here. There&#39;s also nothing in the<br=
+>
+description justifying the change. (See the various EFI_WARN_* that exist.)=
+<br>
+<br>
+Jan<br>
+</blockquote></div>
+
+--000000000000e763d9063e4707b3--
 
