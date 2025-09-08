@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60216B49137
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 16:21:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1115338.1462005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ED73B49147
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 16:23:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1115355.1462015 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvckI-0006Rs-PN; Mon, 08 Sep 2025 14:21:26 +0000
+	id 1uvcm2-00075W-9S; Mon, 08 Sep 2025 14:23:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1115338.1462005; Mon, 08 Sep 2025 14:21:26 +0000
+Received: by outflank-mailman (output) from mailman id 1115355.1462015; Mon, 08 Sep 2025 14:23:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvckI-0006Pa-Ly; Mon, 08 Sep 2025 14:21:26 +0000
-Received: by outflank-mailman (input) for mailman id 1115338;
- Mon, 08 Sep 2025 14:21:25 +0000
+	id 1uvcm2-00072U-6E; Mon, 08 Sep 2025 14:23:14 +0000
+Received: by outflank-mailman (input) for mailman id 1115355;
+ Mon, 08 Sep 2025 14:23:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tiOd=3T=epam.com=Oleksii_Moisieiev@srs-se1.protection.inumbo.net>)
- id 1uvckH-0006PU-EZ
- for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 14:21:25 +0000
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c207::3])
+ <SRS0=PLPY=3T=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uvcm0-00072M-Nu
+ for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 14:23:12 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 16e607db-8cbf-11f0-9809-7dc792cee155;
- Mon, 08 Sep 2025 16:21:20 +0200 (CEST)
-Received: from PAVPR03MB8946.eurprd03.prod.outlook.com (2603:10a6:102:32e::21)
- by AM0PR03MB6226.eurprd03.prod.outlook.com (2603:10a6:20b:15c::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.19; Mon, 8 Sep
- 2025 14:21:17 +0000
-Received: from PAVPR03MB8946.eurprd03.prod.outlook.com
- ([fe80::f12d:7394:bbe3:dfc]) by PAVPR03MB8946.eurprd03.prod.outlook.com
- ([fe80::f12d:7394:bbe3:dfc%6]) with mapi id 15.20.9094.016; Mon, 8 Sep 2025
- 14:21:16 +0000
+ id 58b372d7-8cbf-11f0-9809-7dc792cee155;
+ Mon, 08 Sep 2025 16:23:10 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-afcb7a16441so674297466b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 07:23:10 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aff12a6b404sm2389136766b.88.2025.09.08.07.23.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Sep 2025 07:23:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,286 +45,565 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16e607db-8cbf-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xWdQyAYPT72dhboSXrTHTCeC8HCjcmFJFxfNYoM9vPyArIFHz8oqzAC/owUq8VW+M377jE1os2eZkUs3tymqn+f12u8gNytO31Na4pymOuuGjSDgKEClyogs57SAWsKAasunsVb9FlZCFRBLxPO0QI/GN9JJot24gtDKDemshYucnrxP09ArN0j98MKpzsgWnxUGNj1Ysf1c2S2fOnhuUJRQP6etUjInFmAeqtQnKh2jb93OCfNCkIFfgILx7dAX1fXKhmQm+BWOBdaUXJW06VJg+dkcLIVSMnkJ/PaS+aUnvSlzTu74NYX2SEBaTEqTjNwBOgTw37TE8Z3Wu+TAUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T7XIpzDMhQo0UGRoonUrL8hYhkoFqR0FMvF0miXxjWI=;
- b=s4Ti7iVJhXNRkE6ZN1SIy9hdSlQV7iwJgWqZtDwYDaNBee82yTF0i6G+lYqFQFtrvcMvdlATY0W6HUOHBROk+tNdULW6hFp03SSbrHCvD8hQm1XY99n05cBfdlUQ12WgyDteM5MZmUzxry2LKs0RC7mdJUzLLMti5b2Sj132rSk8q12JqsWFX2mlFn03dTKpihWFYcN/mrqXgiZgFBJm3twtiZdViRB0zGJoHN/qRmIxIXGcrKMPtVK9UyXaZieNUflj67WOp61MAyjFbkQChGmddrMsOuyrDXvFiT6DQxOB9FXaB1+6UAYoENWzVWh3eps1/lySMlhuCwAsRyh/LA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T7XIpzDMhQo0UGRoonUrL8hYhkoFqR0FMvF0miXxjWI=;
- b=Xd/BNmuSCzcpbEIHMtym3rZHZrRF65XBOMNRdgKUA1+ImRNBbvq2K9RiuGolMkdxjBTkd4JFE3mixMOEG9uGfFDnY7RV0+r/E0hei78uzVJcKfA7ZeUUhN1OhXYdQV9tg47bauq81d4HYO5hij4Q3pGopWd773/03DyBi2yXgZjoNuqS5wvtmVPcS0dxpPVgNnfdscGK4lRUFl5680Kg+91pCMxqa8dxsxTY2Cs6HLzG3LpPwIdTydo6dzjMMY/GtX71QS3dUyb5teRnZBxQd8OhAN1TwPwe4m1qllw3O+XckLZuIDey4d17OoQ9ROzjcTFfoOWAYEnHZSEd/6oqTQ==
-From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Bertrand Marquis <bertrand.marquis@arm.com>, Jan
- Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, Julien Grall
-	<julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Grygorii Strashko
-	<grygorii_strashko@epam.com>
-Subject: Re: [PATCH v9 0/4] xen/arm: scmi: introduce SCI SCMI SMC single-agent
- support
-Thread-Topic: [PATCH v9 0/4] xen/arm: scmi: introduce SCI SCMI SMC
- single-agent support
-Thread-Index: AQHcHaczzFSreK7re0KgM50DbxoBaLSJWYOAgAAC2AA=
-Date: Mon, 8 Sep 2025 14:21:16 +0000
-Message-ID: <c19592f6-2ee5-4faf-8f88-000e07b652f9@epam.com>
-References: <cover.1756995595.git.oleksii_moisieiev@epam.com>
- <e60397da-41fd-441d-a3b1-d1d22b322b1a@gmail.com>
-In-Reply-To: <e60397da-41fd-441d-a3b1-d1d22b322b1a@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB8946:EE_|AM0PR03MB6226:EE_
-x-ms-office365-filtering-correlation-id: 157ec55d-3fcc-45c0-0c7e-08ddeee2f90f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|1800799024|376014|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?bzBDTnVpanVGSy9IdE5tTFRXR3VaYWNqQVhIZTJBaEMyUWdCUHRJeDA2RkhV?=
- =?utf-8?B?aDBQMlFYaG5oMUoxVU5abFBJMkFTZDhWUmZhay85RlltL2hXR2VkUHVEN0JZ?=
- =?utf-8?B?SWo1UmVKMllkZU82ckNERmdMWkVQamM5d0RTbWhSQldsZmZSUnRiMkdXa3hz?=
- =?utf-8?B?QUJpUUJMVUhjMjBsYjFQekI5VE5mWmU5bm1FK2htazQvU3BIbGpoUEVrRXJY?=
- =?utf-8?B?QlBSVGhaRytYTXNFVEFjN250amdRUW4yWTlLVldlNzhnd3VCUkd3bkQ3U2V1?=
- =?utf-8?B?UUg1U1hMdTRJcmdNcnFGQTdzVXp1ZXpMcElEOXlZL2JJQm1JQlFBWWdZSTUv?=
- =?utf-8?B?RmViZXBSRFlpVjBpbnJETjhKdFU2V2d1MEpLYmxTWklEbURNaGR3SHdjOC9z?=
- =?utf-8?B?eUJieUY4YVpMTDloSDc2d3RaT2phNFJXZElsZkJ0VGxHRy9XSGVXOTZrUmtR?=
- =?utf-8?B?bVZFOU5UWEtBUk5Oc0Rmc2RaY3JLSXBUOEl0RWt4OTdUb2s2UHRXTitWVG9q?=
- =?utf-8?B?clgxZHl5UGs5M1NjcW9OT0pJdVpiZUtsc2g5blFqeHRKSFpxdFkvTVo3K2Jj?=
- =?utf-8?B?ak5PS3VsdjJHRHA2bDhYT0xkRzhCZFhYUkRTVUlDZkNmZXlXVTdoWjhsK0h0?=
- =?utf-8?B?YXg1clFleVhzNzJ5aEZlT3g5OE1lMXpVZEFINVNNbktNeEhHWVFGQ2Nselpz?=
- =?utf-8?B?b3Zuem1UWWtEVHh6bzdYY0txZWs3bGMzcXhzd3RpUDlzWGRlamI4R2p5MmIx?=
- =?utf-8?B?bEYwNGFiWDdsRUNqUG9QTFhZY21FUG1SczVqUmdpNHdlc09neXVKd2VydTRS?=
- =?utf-8?B?OEpKTklmaWNCNkFsOXRpZzlJcU8xY3FyelYyUFRTU3IzN04rYVZEYUd6ay81?=
- =?utf-8?B?TXdCZjRNZGQ3anVVRTNwTHJCQ0NzWHBDMkZaTlRnYjVxN1FmTFJQSUxMMlN0?=
- =?utf-8?B?YnNaNDdXb2JDQ0Y0ZytQSnVLNUNKOHBoWThvbDgvMEtDTm9Ycjc3K2xGa1FB?=
- =?utf-8?B?S1RYSnpvN1NTVk52U3FNa2VlU3d6V0dhLytUWTlSRzZEVndZazh2aFRpaWdP?=
- =?utf-8?B?VHRPZmRzSVREVlpKRDc4TWZLdThVS2tOa2RpZStOV1M2MzVpL0JIemFIRFpN?=
- =?utf-8?B?bkNYdFp0bk8ybWJlSUcxTzJkSDBNWCt6MzcrZXR5RllKOWNWWTM0ZXBUZTZa?=
- =?utf-8?B?dTBsR3Y5VGJRelh4NXFoamk0NEJPTHh2dHdhdDlzbytRMHNuZnlhdVhWaCtR?=
- =?utf-8?B?djlHd1pJM0ZDYnNDbzFSaWdLdkJKd0p1R2thbXl5UFl0aGNremk5L3Y0bjRH?=
- =?utf-8?B?ZDg1ZnZDbU83R0w5UG1ERWY4SEd1N3JNbjhudXV3T01yTC9RTCtHMEVPQ0ZJ?=
- =?utf-8?B?b3lVaUp3QnNtWVg0ZUhNMHh5V0pqbFdEWE1PSkl4ekhFM1NXdy9jYVpSa2Fm?=
- =?utf-8?B?ZkhERVNrMi9RYkw1cmhoekMyMHhoZUxSOTJMQXZvK3dqemlJTzBsbUUvTGtS?=
- =?utf-8?B?QVdaVXVnLzFoSkxGNld1aFBBVWtjc1ljQXd2V2F0S1hKWUFseU5JeXF5NUZV?=
- =?utf-8?B?bnBMZjF3SHoyY05XVCtkWWVvWk53MmVWWmpKOVJVSzJzN0NwS1lxcVAyUzZQ?=
- =?utf-8?B?bitieEJjNnhjSlhIZUtHcGI3MHUrenV3YUJwUEU2VE45WjFkVFFtMm1ZWWJa?=
- =?utf-8?B?UGdCRTkxWlNXWlJ0ZmM3eUJFSU5lV0VyM1Biem9IVHQ5YlF5RFpTK2xJbnlU?=
- =?utf-8?B?YnpBQ2FZVHRKVENRa0NCaEdxdytOTkhPZnhxNW9PaWF0MytIUmphUDJicDVj?=
- =?utf-8?B?aWl4SDVaNThhclBPNHNJNnEyNkNLNlJzVU9lbStUY0sxb3B2VW5rK0xGTG1t?=
- =?utf-8?B?VHgvc1FBcyt1ZnhJRWRFR3hyYUFlcGtud2c4TUxzWHhDcUQvczVwK0NZSUEw?=
- =?utf-8?Q?YxRozUosiLo=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB8946.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Um5VcUh6NThnN1N4dEp5WnNYQWdPL3Y5RjNYTVo1SHRvZ04rNmVGR1BPRm03?=
- =?utf-8?B?UDJsdXJmZ1U3cDNWb3l0VmpsWHVrZjNBZEh0SU1aQ2xJSDFqbjJ1RWY5RnM1?=
- =?utf-8?B?R1dGbTgyVjB0cmFtMmFDT2tYc0tTWWpuVml5VXphTjZrLy8yYnNsU3pUMlBl?=
- =?utf-8?B?a0dPUS85RUJ3N21oNjRkTGRnc1cweXV3amdaY1FET1dkaWp4VGM2RTluTlI4?=
- =?utf-8?B?OXdra3lpUHhodEdGWTM4R2FqRVFTenNHTE9jWURabnpWSytkT2xpelZZMGhZ?=
- =?utf-8?B?aWVnb0RmYTlMbEkyUnVJWWFMOWFDZ1F1WGIyNzFralcyenAzNGYxYWR5Njc4?=
- =?utf-8?B?T2ZJU0krd0tmZUV0YVpjN21nakUwRXFrb1pSTHlHRXJEeDI5azZ5R2k0L1Rt?=
- =?utf-8?B?V3ljRkdMRmVTTWJrRkNTTW9BK29xTk9hbFFocEZoWk9pNW1hRkJPREZDeXQv?=
- =?utf-8?B?aHdBb1h3cDVNYnN1T3k3Rk1sZHhDV2hadkdYMC9kMjRYVEkwY2l1OWFRZUZ2?=
- =?utf-8?B?RHluQzlBT2ZsbStNUEVENzk0d3VNVitqTml1ZWYzN3hxQ2p5TzM0a05NMHIy?=
- =?utf-8?B?ZUIzTGhJMEtZeE9nV2ptRTRvRUdkNzNuVDc5Q28xc1M2a0hoRzZGVlFTV2VB?=
- =?utf-8?B?R2lobHkrVlVnRTc2dytBaTlkK2tWTEgyVlZPR2RITCtDclhqT2MxZ1FGNFFY?=
- =?utf-8?B?MklKSGV3b2xEbFQwTElNTVJGWmI1L3BadGJ3ckhkNzlYQTQ5S2FFMjV3Tytz?=
- =?utf-8?B?ZGl4WFlJRk44ZEhhZFE1VzJxS2NsdFRxODNsOHdlZDFjeTg4Y3pFV21oVXZa?=
- =?utf-8?B?YlRrR2p1amRrMkdaS2VtVUxEcUVpOSsvUFFZYXV0OVFpUU1Bamg3Um9kMVAy?=
- =?utf-8?B?V3RLb1pWVE9vT3MzS0Jyd0JQcHVrMGxMZitTb2VQcHNoM3JwSHBVV0JRaWhK?=
- =?utf-8?B?aTdZMy9sbHg0MUFwdk1zTXMrNzlSdHlHWUcrS1FZeDdybTlyUnhHQUJRNFM3?=
- =?utf-8?B?amJKSEhXWFdwQkJ5cjhvRFZ2Z2xuMEZhelB0Ymc3OXRqdkRQckJnTVBsWUcv?=
- =?utf-8?B?dFp2ME4yWjlwdWNLK1NLRWo5dm9qaVNnam5TZ3czcDZSS1pGYkV1akR6M2xT?=
- =?utf-8?B?OER0N285RThySk1iMzNPT3dHVE5HbjF5S2RGbHV2VUpZZksza0QxTkNWSEYr?=
- =?utf-8?B?WElreWxQbmVSVXlsM3hpVDBPRGlCbk9GeDBwMytvelU5SmgyRURWdHZPUzN4?=
- =?utf-8?B?TmREL2p6L3RlTDUraWRwdjlZaFZreUQ1YmZyWm8xeUV0bDF3d0hBNy8rY3NG?=
- =?utf-8?B?Q20wZ2tONmpzVkZmMjdxOERvWG9sa1dqa3NBT3pWVkt0VnJZTTNQOTJDR0Rw?=
- =?utf-8?B?VjE5WnNzZ2tGWWtWbGRKRUZlRDNITU5iSDcrSHpDQThxTXhKY0QweEo3MWJv?=
- =?utf-8?B?TmdwZEgweG9GeFBoWU9qQlVGZGxVQmNBUy83RmZvMzJPbGJ2NUpsOHRrOGtV?=
- =?utf-8?B?QWx0MEhYdyt2a25Hd0U0TGdmd2VWRERZcFIzazdIanJKVU1URWhCQmpFNjlE?=
- =?utf-8?B?ZmJuTXZtYW9zK2VEM1BkeHFxc1FIbHdvdS9ja0Q3OVR0K1QzOGp4bkJsQ3Iw?=
- =?utf-8?B?N1V0U0M0dVhWTG4yQnVucUZBNFkwTitMRzIybUloUTBEa3hDNmJyaGRjclV2?=
- =?utf-8?B?YXlCdXp0Vmd5T2dpblI3cG5pNlVURmg3ejRRUlFhYmlQMGs3bFV1UGJib3FJ?=
- =?utf-8?B?RXFKRHgrTjJMbElvT1JaMnM3VXNsV1hjdnFCR1hCS1VGeENmTUI3NDNHeEox?=
- =?utf-8?B?Ly9wTlpUeFBpeStqSmlKMVJDeDRyMnRWcklhTzQ0a3QvTUp4amF3U1orUzFz?=
- =?utf-8?B?M25zUlU3d2tqZ1Jxc242VUJaREk5dThpYXV5YkNEVlFJWmNEaE9HMEUrZTRa?=
- =?utf-8?B?R1dMSVcxU0xCenhMUVM3ZnpqcFRHd2lpdjVvcDdJcittR2k4NlJBb1FrQVRN?=
- =?utf-8?B?bUtabDByNmRRMHNON0tLdUxTYzhvZ3VRWHdRVXA4ankzdWRXWk1sYTFHMzI1?=
- =?utf-8?B?bW5nNkJBaXljenplbUpyeHJING5EcHo2WDJJTnlKc1JPYU5kVnVzUDc1ZThx?=
- =?utf-8?B?U0ZtWVR0UDZJNUxGK0lqMVIzcWViQWczLzlBTUdJWi8zT0g2WWdDaUVieWhI?=
- =?utf-8?B?SEE9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <C2E93FD5FA2EC945AE5680D9FE0F1365@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 58b372d7-8cbf-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1757341390; x=1757946190; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=t2J04C54WHB2YgdKhT+s3TJDuvNRnA5qAvN3ckQ2EXc=;
+        b=Xq3E5WiEOKNIYg9ty4VNehchKOb1TiW2OUyRp8UDMrJEXYmS4m9lUxpb6EZrDcHxio
+         MDEX4YepaMAcAy6JHa5k36ROqfSr0aVzBnCW5uf8UwqRJE9Ml1pOlbH8M6VwMrTrLN8V
+         A6HDEOl5WP2goGEMpqo7DikwlPhoLSI0zGXv59uMdVNerDMlwDdecOG0zdYx1E0C2huB
+         WJ9Gf9ydO/a9YtSPf48xzz7dwHgb0i1ZNuEYIh+pvIO4b3+3VlxLSRrstAfqOxInAaok
+         oXEsWZiJkxZuBnLPL9k1+/+cDtWOprvtdQL90qkKdNKuMvRWLDZ2tPKINB4movIMVgrP
+         3p5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1757341390; x=1757946190;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=t2J04C54WHB2YgdKhT+s3TJDuvNRnA5qAvN3ckQ2EXc=;
+        b=Wql5gq0yMbpgh+J8WybvZ6QXB0bbjvv4uPSMNr8tV252adEIciD2ZwUKq94AwazvSM
+         5KxwL2GPA3FYIkrr5Bf4FQNs37P4G/trxzghimqyHl8I/EmNeCbPvo9n3qVJ6QqtPE4e
+         FdLfTuW4h+UcrfXAxC2/F0FsBnXB6VbdTDLBnAdIv6c4YNjykc8i5WWUE5ZDVePPMZmz
+         akLmmG7ZpECgEvvRoEJFuyOQ6+22rKhsgjQpfofWC3IV7+ryOhmYqS8Tt+xicRRJHQCs
+         A5Nmc3p24gUAuPeNyJl2unviK1BnjRYIUvnT6DhRSB//fOeSNl4ZZ9I/BQWD1Sr4SAme
+         gapQ==
+X-Gm-Message-State: AOJu0YzDF0YmFlOKgMnFBLiau/qkWE1nxsHL2j9tkuaVMVMYiff1BZMa
+	MWXJh05+Fl/fsR4w0ehU6P0EvSeYZFDVf6dA3ufkXyIkRpQaHnNqId/R
+X-Gm-Gg: ASbGnctanRBgCIgEoWDbJ2bfDC+e5q3LOTD3EWPEm0eiXRy54Q9uF0bpQLfyqQCfonZ
+	obFvbUJIYkmdcJ4bHd6GD78Q1tSBzeGOC/KmgVCs03a0qCQog1spMaNWeR+nb4txCC0Zt2+LRpt
+	kOFhHACVCZf1YGroe3N87LlVpBWbTFdarEkC67TxzP21CKhpjWLfkLuh6Fu2DnRHUJvPS2aSdkN
+	oGu3hAsTsXNSihzhKiVQ+29VvcWzzEX7R5iC9KarNYdyrbeQXugIwKkIL58cjSNH11sLZfl/4Tk
+	nRrBLEyQ5kFvXSiIK5Nujq4Z8risny6Wu2wIE0RqZT8UYjkrWb2Hmp3Ge8YZfKJkfGDdVkeUCvO
+	hvJnonyYlHB61ntTkzryCUbimk+hK/A6d614QWnUb+4SLjBiqCuuxvIyIG6O5fDsrYc0CeSMkwH
+	IvvKbv3oo=
+X-Google-Smtp-Source: AGHT+IEFmO9av6pwjcoX8SFGMe2bGCjUOm9oZqgqMi+SuNag9Ie58Dadwk+xbA0Xe0sJuof+gtP76A==
+X-Received: by 2002:a17:907:60cd:b0:b04:37ca:77e7 with SMTP id a640c23a62f3a-b04b1701a0amr736180866b.44.1757341389575;
+        Mon, 08 Sep 2025 07:23:09 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------B0k0jQ02Q6YalU4PRH5xLGzA"
+Message-ID: <fff47b95-6c3c-49d5-affd-3acbe933bc01@gmail.com>
+Date: Mon, 8 Sep 2025 16:23:07 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB8946.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 157ec55d-3fcc-45c0-0c7e-08ddeee2f90f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2025 14:21:16.4645
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dhaR7hzaENchWTONfpX39CSsomyhsW4Mfb7Ujwpq46B6UFSRDuXxVHpfwduCfgJYACqYJsKY+uJh3YyEbyUgq9QxAcVfhROLoobGIRAUUnw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB6226
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 00/15] x86: introduce NS16550-compatible UART emulator
+To: Mykola Kvach <xakep.amatop@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+ anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com, dmukhin@xen.org
+References: <20250905232715.440758-1-dmukhin@ford.com>
+ <alpine.DEB.2.22.394.2509051900200.1405870@ubuntu-linux-20-04-desktop>
+ <CAGeoDV87bTaDiG=5xAvSGZXKTJ0zSRUz7Nq2JSenBqu8DnLe2A@mail.gmail.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <CAGeoDV87bTaDiG=5xAvSGZXKTJ0zSRUz7Nq2JSenBqu8DnLe2A@mail.gmail.com>
 
-SGkgT2xla3NpaSwNCg0KT24gMDgvMDkvMjAyNSAxNzoxMSwgT2xla3NpaSBLdXJvY2hrbyB3cm90
-ZToNCj4gSGVsbG8gZXZlcnlvbmUsDQo+IEJhc2VkIG9uIHRoZSBtZXNzYWdlIGZyb20gdGhlIHBy
-ZXZpb3VzIHZlcnNpb24sIHRoZSBNSVNSQSBpc3N1ZXMgaGF2ZSBiZWVuIGZpeGVkLA0KPiBhbmQg
-YXNpZGUgZnJvbSBvbmUgcmVtYWluaW5nIGRvY3VtZW50YXRpb24gcGF0Y2ggKCJkb2NzOiBhcm06
-IGFkZCBkb2NzIGZvciBTQ01JDQo+IG92ZXIgU01DIGNhbGxzIGZvcndhcmRpbmcgZHJpdmVyIiks
-IHRoZSBwYXRjaCBzZXJpZXMgYXBwZWFycyB0byBiZSByZWFkeS4NCkl0IHNlZW1zIHRvIG1lIHRo
-YXQgSSBoYXZlIGZpeGVkIGFsbCBjb21tZW50cyBmb3IgdGhlIGRvY3VtZW50YXRpb24gDQpwYXRj
-aC4gRGlkIEkgbWlzcyBzb21ldGhpbmc/IFdoeSBkbyB5b3UgdGhpbmsgaXQncyBub3QgcmVhZHkg
-Zm9yIG1lcmdlPw0KPiBJIGJlbGlldmUgd2UgY2FuIGNvbnNpZGVyIGluY2x1ZGluZyBpdCBpbiA0
-LjIxLiBXZSBzaG91bGQgaGF2ZSBzdWZmaWNpZW50IHRpbWUNCj4gdG8gYWRkcmVzcyBhbnkgYnVn
-cyB0aGF0IG1heSBhcmlzZS4NCj4gQnkgdGhlIHdheSwgaXQgd291bGQgYWxzbyBiZSBnb29kIHRv
-IHByZXBhcmUgYSBDSEFOR0VMT0cgcGF0Y2guDQpJcyBpdCBnb2luZyB0byBiZSBjaGFuZ2VkIGR1
-cmluZyByZWxlYXNlIHByb2Nlc3Mgb3IgaXQgcmVxdWlyZXMgc2VwYXJhdGUgDQpwYXRjaCB0byBi
-ZSBzZW50Pw0KPiBEb2VzIGFueW9uZSBoYXZlIGFueSBvYmplY3Rpb25zPw0KPiBCZXN0IHJlZ2Fy
-ZHMsDQo+ICAgT2xla3NpaQ0KPiBPbiA5LzQvMjUgNDoyMSBQTSwgT2xla3NpaSBNb2lzaWVpZXYg
-d3JvdGU6DQo+PiBJbnJvZHVjaW5nIFY5IHBhdGNoIHNlcmllcyAgb24gdG9wIG9mIHRoZSBYZW4g
-dmVyc2lvbiA0LjIwLXJjMg0KPj4gd2hpY2ggaW5jbHVkZXMgaW1wbGVtZW50YXRpb24gb2YgdGhl
-IFNDSSBTQ01JIFNNQyBzaW5nbGUtYWdlbnQgc3VwcG9ydC4NCj4+DQo+PiBUaGlzIHBhdGNoIHNl
-cmllcyBpcyB0aGUgZmlyc3QgY2h1bmsgb2YgdGhlDQo+PiAieGVuL2FybTogc2NtaTogaW50cm9k
-dWNlIFNDSSBTQ01JIFNNQyBtdWx0aS1hZ2VudCBzdXBwb3J0IiB3aGljaCBjYW4NCj4+IGJlIGZv
-dW5kIGF0IFswXQ0KPj4NCj4+IFNDTUktbXVsdGlhZ2VudCBzdXBwb3J0IHdpbGwgYmUgcHJvdmlk
-ZWQgYXMgdGhlIGZvbGxvd3VwIHBhdGNoIHNlcmllcy4NCj4+DQo+PiBbMF1odHRwczovL2xvcmUu
-a2VybmVsLm9yZy94ZW4tZGV2ZWwvY292ZXIuMTc1MzE4NDQ4Ny5naXQub2xla3NpaV9tb2lzaWVp
-ZXZAZXBhbS5jb20vDQo+Pg0KPj4gUGF0Y2ggMSAieGVuL2FybTogYWRkIGdlbmVyaWMgU0NJIHN1
-YnN5c3RlbSINCj4+IC0gcmViYXNlZCBhbmQgcmVmYWN0b3JlZA0KPj4gLSBpbnRyb2R1Y2VkIERF
-VklDRV9BUk1fU0NJIERUIGRldmljZSBjbGFzcyBhbmQgdXNlZCBmb3IgU0NJIGRyaXZlcnMgcHJv
-YmluZw0KPj4gaW5zdGVhZCBvZiBjdXN0b20sDQo+PiAgICBsaW5rZXIgc2VjdGlvbnMgYmFzZWQg
-aW1wbGVtZW50YXRpb24uDQo+PiAtIGFkZGVkIFNDSSBBUEkgZm9yIERvbTAgRFQgaGFuZGxpbmcs
-IGluc3RlYWQgb2YgbWFuaXB1bGF0aW5nIHdpdGggQVJNIGFyY2gNCj4+IGRvbTAgY29kZSBkaXJl
-Y3RseS4NCj4+IC0gUkZDIGNoYW5nZXMgaW4gWEVOX0RPTUNUTF9hc3NpZ25fZGV2aWNlIE9QIHBy
-b2Nlc3NpbmcNCj4+IC0gSW50cm9kdWNlIGFyY2hfaGFuZGxlX3Bhc3N0aHJvdWdoX3Byb3AgY2Fs
-bCB0byBoYW5kbGUgYXJtIHNwZWNpZmljDQo+PiBub2Rlcw0KPj4NCj4+IFBhdGNoIDIgInhlbi9h
-cm06IHNjbWktc21jOiB1cGRhdGUgdG8gYmUgdXNlZCB1bmRlciBzY2kgc3Vic3lzdGVtIg0KPj4g
-LSB1cGRhdGUgZHJpdmVyIGludHJvZHVjZWQgYnkgY29tbWl0IDNlMzIyYmVmOGJjMCAoInhlbi9h
-cm06IGZpcm13YXJlOiBBZGQgU0NNSQ0KPj4gb3ZlciBTTUMgY2FsbHMNCj4+IGhhbmRsaW5nIGxh
-eWVyIikgYmUgdXNlZCB1bmRlciBzY2kgc3Vic3lzdGVtLg0KPj4gLSBubyBmdW5jdGlvbmFsIGNo
-YW5nZXMgaW4gZ2VuZXJhbA0KPj4NCj4+IFBhdGNoIDMgInhlbi9hcm06IHNjbWktc21jOiBwYXNz
-dGhyb3VnaCBTQ01JIFNNQyB0byBndWVzdCBkb21haW4NCj4+IFRoaXMgaXMgbmV3IGNoYW5nZSB3
-aGljaCBhbGxvd3MgcGFzc3Rocm91Z2ggU0NNSSBTTUMsIHNpbmdsZSBhZ2VudCBpbnRlcmZhY2Ug
-dG8NCj4+IGd1ZXN0IGRvbWFpbg0KPj4gY292ZXIgdXNlIGNhc2UgInRoaW4gRG9tMCB3aXRoIGd1
-ZXN0IGRvbWFpbiwgd2hpY2ggc2VydmVzIGFzIERyaXZlciBkb21haW4iLg0KPj4gU2VlIHBhdGNo
-IGNvbW1pdCBtZXNzYWdlIGZvciBmdWxsIGRlc2NyaXB0aW9uLg0KPj4NCj4+IFBhdGNoIDQgLSBk
-b2NzOiBhcm06IGFkZCBkb2NzIGZvciBTQ01JIG92ZXIgU01DIGNhbGxzIGZvcndhcmRpbmcNCj4+
-IGRyaXZlcg0KPj4gLSBhZGQgZG9jdW1lbnRhdGlvbiBzZWN0aW9uIGZvciBTaW1wbGUgQXJtIFND
-TUkgb3ZlciBTTUMgY2FsbHMNCj4+IGZvcndhcmRpbmcgZHJpdmVyLg0KPj4NCj4+IENvZGUgY2Fu
-IGJlIGZvdW5kIGF0Og0KPj4gaHR0cHM6Ly9naXRodWIuY29tL29sZWtzaWltb2lzaWVpZXYveGVu
-L3RyZWUvc2NtaV91cHN0cnY1DQo+Pg0KPj4gWzFdIFJGQyB2MjoNCj4+IGh0dHA6Ly9wYXRjaHdv
-cmsua2VybmVsLm9yZy9wcm9qZWN0L3hlbi1kZXZlbC9jb3Zlci9jb3Zlci4xNjQ0MzQxNjM1Lmdp
-dC5vbGVrc2lpX21vaXNpZWlldkBlcGFtLmNvbS8NCj4+IFsyXSBSRkMgdjM6DQo+PiBodHRwczov
-L3BhdGNod29yay5rZXJuZWwub3JnL3Byb2plY3QveGVuLWRldmVsL3BhdGNoLzIwMjUwMzExMTEx
-NjE4LjE4NTA5MjctMS1ncnlnb3JpaV9zdHJhc2hrb0BlcGFtLmNvbQ0KPj4gU0NNSSBzcGVjOg0K
-Pj4gaHR0cHM6Ly9kZXZlbG9wZXIuYXJtLmNvbS9kb2N1bWVudGF0aW9uL2RlbjAwNTYvZS8/bGFu
-Zz1lbg0KPj4NCj4+IFNDTUkgYmluZGluZ3M6DQo+PiBodHRwczovL3dlYi5naXQua2VybmVsLm9y
-Zy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvdG9ydmFsZHMvbGludXguZ2l0L3RyZWUvRG9jdW1l
-bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Zpcm13YXJlL2FybSxzY21pLnlhbWwNCj4+IGh0
-dHBzOi8vd2ViLmdpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90b3J2YWxk
-cy9saW51eC5naXQvdHJlZS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvYWNjZXNz
-LWNvbnRyb2xsZXJzL2FjY2Vzcy1jb250cm9sbGVycy55YW1sDQo+Pg0KPj4gUmVmZXJlbmNlIEVM
-MyBGVzoNCj4+IFJQSTU6aHR0cHM6Ly9naXRodWIuY29tL3hlbi10cm9vcHMvYXJtLXRydXN0ZWQt
-ZmlybXdhcmUvY29tbWl0cy9ycGk1X2Rldi8NCj4+IFJlbmVzYXMgdjRoOg0KPj4gaHR0cHM6Ly9n
-aXRodWIuY29tL0dyeWdpcmlpUy9hcm0tdHJ1c3RlZC1maXJtd2FyZS9jb21taXRzL3JjYXJfZ2Vu
-NF92Mi43X3Y0eC1zY21pX3VwZC8NCj4+DQo+PiBiYXNlLWNvbW1pdDogZGJlNjBmMjQ0YyAoVXBk
-YXRlIFhlbiB0byA0LjIxLCAyMDI1LTAyLTIxKQ0KPj4NCj4+IENoYW5nZXMgaW4gdjk6DQo+PiAt
-IGNoYW5nZSBpbnB1dCBwYXJhbSBuYW1lIGZvciBzY2lfaGFuZGxlX2NhbGwgZnVuY3Rpb24gdG8g
-bWF0Y2ggTUlTUkEgcnVsZXMNCj4+IC0gdXBkYXRlIGRvbXVfZHRfc2NpX3BhcnNlIGRlY2xhcmF0
-aW9uIHRvIG1hdGNoIE1DM0EyLlI4LjQgTUlTUkEgcnVsZQ0KPj4NCj4+IENoYW5nZXMgaW4gdjg6
-DQo+PiAtIHJlbmVyZWdhdGVkIHtoZWxwZXJzL3R5cGVzfS5nZW4uZ28sIGRyb3BwZWQgdW5uZWVk
-ZWQgcGFyYW1ldGVycw0KPj4NCj4+IENoYW5nZXMgaW4gdjc6DQo+PiAtIGZpeCBzY2lfaGFuZGxf
-Y2FsbCB0byBtYWtlIGNoYW5nZXMgbW9yZSByZWFkYWJsZQ0KPj4gLSBmaXggYnVpbGQgZXJyb3Ig
-d2hlbiBET00wTEVTU19CVUlMRCBpcyBkaXNhYmxlZCAocmVtb3ZlZA0KPj4gICBhcmNoX2hhbmRs
-ZV9wYXNzdGhyb3VnaF9wcm9wIGZyb20gdGhlIGhlYWRlcikNCj4+IC0gc29ydCBoZWFkZXJzIGlu
-IGFscGhhYmV0aWNhbCBvcmRlciBpbiBzY2kuaA0KPj4gLSBzb3J0IGhlYWRlcnMgaW4gc2NtaS1z
-bWMuYyBmaWxlDQo+PiAtIEZpeCBjb21taXQgZGVzY3JpcHRpb24uDQo+PiAtIE1vdmUgc2NtaS1z
-bWMtcGFzc3Rocm91Z2ggZGVmaW5pdGlvbiB0byBtYXRjaCBhbHBoYWJlcmljYWwgb3JkZXINCj4+
-IC0gcmVtb3ZlIHVubmVlZGVkIGluaXRpYWxpemF0aW9uIHdpdGggTlVMTA0KPj4gLSBjaGFuZ2Vk
-IHU2NCB0byB1aW50NjRfdA0KPj4gLSBTZW5kIHdhcm5pbmcgaWYgaW9tZW0gcGVybWl0IGFjY2Vz
-cyB3YXMgZmFpbGVkDQo+PiAtIGZpeGVkIHR5cG9zDQo+Pg0KPj4gQ2hhbmdlcyBpbiB2NjoNCj4+
-IC0gcmViYXNlIG9uIHRvcCBvZiB0aGUgbGF0ZXN0IG1hc3Rlcg0KPj4gLSBmaXggcmV0dXJuIHZh
-bHVlIG9mIHNjaV9kdF9maW5hbGl6ZSgpIGNhbGwNCj4+IC0gYWRkIFItYiB0YWcNCj4+IC0gYWRk
-ZWQgZ2VuZXJhdGVkIGhlbHBlcnMgYW5kIHR5cGVzIGdvIGZpbGVzDQo+PiAtIHJlbmFtZSBjbWRs
-aW5lIHBhcmFtZXRlciB0byBzY21pLXNtYy1wYXNzdGhyb3VnaA0KPj4gLSBmaXggZ290byB0YWcg
-aW4gcGFyc2VfYXJtX3NjaV9jb25maWcNCj4+IC0gYWRkIGxpbmsgdG8gdGhlIHNjbWkgYmluZGlu
-Z3MgdXNlZCBpbiB0aGUgZG9jDQo+PiAtIHJlbW92ZSBtZW50aW9ucyBhYm91dCBIVkMgY2FsbHMg
-ZnJvbSBkb2MNCj4+IC0gcmVuYW1lIGNtZGxpbmUgcGFyYW1ldGVyIHRvIHNjbWktc21jLXBhc3N0
-aHJvdWdoDQo+Pg0KPj4gQ2hhbmdlcyBpbiB2NToNCj4+IC0gdXBkYXRlIE1haW50YWluZXJzIGZp
-bGUuIFNldCByb2xlIGFzIGEgUmV2aWV3ZXINCj4+IC0gcmViYXNlZCBvbiB0aGUgbGF0ZXN0IG1h
-c3RlciBicmFuY2gNCj4+IC0gSW50cm9kdWNlIGFyY2hfaGFuZGxlX3Bhc3N0aHJvdWdoX3Byb3Ag
-Y2FsbCB0byBoYW5kbGUgYXJtIHNwZWNpZmljIG5vZGVzDQo+PiAtIHJlbmFtZSBkb20wX3NjbWlf
-c21jX3Bhc3N0aHJvdWdoIHRvIHNjbWlfc21jX3Bhc3N0aHJvdWdoDQo+PiAtIHJlbmFtZSBkb20w
-X3NjbWlfc21jX3Bhc3N0aHJvdWdoIGluIGRvY3VtZW50YXRpb24NCj4+DQo+PiBDaGFuZ2VzIGlu
-IHY0Og0KPj4gLSBmaXggU1BEWC1MaWNlbnNlDQo+PiAtIHJlbmFtZSBERVZJQ0VfQVJNX1NDSSBE
-VCBkZXZpY2UgY2xhc3MgdG8gRklSTVdBUkVfREVWSUNFDQo+PiAtIG1vdmUgWEVOX0RPTUNUTF9h
-c3NpZ25fZGV2aWNlIGNvZGUgaW4gc2VwYXJhdGUgcGF0Y2gNCj4+IC0gQWRkIGRvY3VtZW50YXRp
-b24gZm9yIFNDSSBTQ01JIGRyaXZlcnMNCj4+IC0geGwuY2ZnIGRvYw0KPj4gLSBmaXggY29tbWVu
-dHMgZnJvbSBTdGVmYW5vIFN0YWJlbGxpbmkNCj4+IC0gZml4IHRvb2xzdGFjayBjb2RlIGFzIHN1
-Z2VzdGVkIGJ5IEFudGhvbnkgUEVSQVJEDQo+PiAgICAtIHVzZSBNQVRDSF9PUFRJT04oKQ0KPj4g
-ICAgLSBtb3ZlIGFybV9zY2kgc3RydWN0IGFuZCBjZmcgcGFyYW1zIGluICJhcmNoX2FybSINCj4+
-IC0gYWRkIFNDTUkgcGFzc3Rocm91Z2ggZm9yIGRvbTBsZXNzIGNhc2UNCj4+DQo+PiBHcnlnb3Jp
-aSBTdHJhc2hrbyAoMyk6DQo+PiAgICB4ZW4vYXJtOiBzY21pLXNtYzogdXBkYXRlIHRvIGJlIHVz
-ZWQgdW5kZXIgc2NpIHN1YnN5c3RlbQ0KPj4gICAgeGVuL2FybTogc2NtaS1zbWM6IHBhc3N0aHJv
-dWdoIFNDTUkgU01DIHRvIGRvbWFpbiwgc2luZ2xlIGFnZW50DQo+PiAgICBkb2NzOiBhcm06IGFk
-ZCBkb2NzIGZvciBTQ01JIG92ZXIgU01DIGNhbGxzIGZvcndhcmRpbmcgZHJpdmVyDQo+Pg0KPj4g
-T2xla3NpaSBNb2lzaWVpZXYgKDEpOg0KPj4gICAgeGVuL2FybTogYWRkIGdlbmVyaWMgU0NJIHN1
-YnN5c3RlbQ0KPj4NCj4+ICAgTUFJTlRBSU5FUlMgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHwgICA2ICsNCj4+ICAgLi4uL2FybS9maXJtd2FyZS9hcm0tc2NtaS5yc3QgICAgICAg
-ICAgICAgICAgIHwgMTgwICsrKysrKysrKysrKysrKysNCj4+ICAgZG9jcy9oeXBlcnZpc29yLWd1
-aWRlL2FybS9pbmRleC5yc3QgICAgICAgICAgIHwgICA5ICsNCj4+ICAgZG9jcy9oeXBlcnZpc29y
-LWd1aWRlL2luZGV4LnJzdCAgICAgICAgICAgICAgIHwgICAxICsNCj4+ICAgZG9jcy9tYW4veGwu
-Y2ZnLjUucG9kLmluICAgICAgICAgICAgICAgICAgICAgIHwgIDM0ICsrKw0KPj4gICBkb2NzL21p
-c2MvYXJtL2RldmljZS10cmVlL2Jvb3RpbmcudHh0ICAgICAgICAgfCAgMTUgKysNCj4+ICAgZG9j
-cy9taXNjL3hlbi1jb21tYW5kLWxpbmUucGFuZG9jICAgICAgICAgICAgIHwgICA5ICsNCj4+ICAg
-dG9vbHMvZ29sYW5nL3hlbmxpZ2h0L2hlbHBlcnMuZ2VuLmdvICAgICAgICAgIHwgIDM1ICsrKw0K
-Pj4gICB0b29scy9nb2xhbmcveGVubGlnaHQvdHlwZXMuZ2VuLmdvICAgICAgICAgICAgfCAgMTEg
-Kw0KPj4gICB0b29scy9pbmNsdWRlL2xpYnhsLmggICAgICAgICAgICAgICAgICAgICAgICAgfCAg
-IDUgKw0KPj4gICB0b29scy9saWJzL2xpZ2h0L2xpYnhsX2FybS5jICAgICAgICAgICAgICAgICAg
-fCAgMTQgKysNCj4+ICAgdG9vbHMvbGlicy9saWdodC9saWJ4bF90eXBlcy5pZGwgICAgICAgICAg
-ICAgIHwgIDEwICsNCj4+ICAgdG9vbHMveGwveGxfcGFyc2UuYyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHwgIDM2ICsrKysNCj4+ICAgeGVuL2FyY2gvYXJtL2RldmljZS5jICAgICAgICAgICAg
-ICAgICAgICAgICAgIHwgICA1ICsNCj4+ICAgeGVuL2FyY2gvYXJtL2RvbTBsZXNzLWJ1aWxkLmMg
-ICAgICAgICAgICAgICAgIHwgIDQwICsrKysNCj4+ICAgeGVuL2FyY2gvYXJtL2RvbWFpbi5jICAg
-ICAgICAgICAgICAgICAgICAgICAgIHwgIDEyICstDQo+PiAgIHhlbi9hcmNoL2FybS9kb21haW5f
-YnVpbGQuYyAgICAgICAgICAgICAgICAgICB8ICAgOCArDQo+PiAgIHhlbi9hcmNoL2FybS9maXJt
-d2FyZS9LY29uZmlnICAgICAgICAgICAgICAgICB8ICAyNSArKy0NCj4+ICAgeGVuL2FyY2gvYXJt
-L2Zpcm13YXJlL01ha2VmaWxlICAgICAgICAgICAgICAgIHwgICAxICsNCj4+ICAgeGVuL2FyY2gv
-YXJtL2Zpcm13YXJlL3NjaS5jICAgICAgICAgICAgICAgICAgIHwgMTU0ICsrKysrKysrKysrKysr
-DQo+PiAgIHhlbi9hcmNoL2FybS9maXJtd2FyZS9zY21pLXNtYy5jICAgICAgICAgICAgICB8IDE5
-NCArKysrKysrKysrKysrLS0tLQ0KPj4gICB4ZW4vYXJjaC9hcm0vaW5jbHVkZS9hc20vZG9tYWlu
-LmggICAgICAgICAgICAgfCAgIDUgKw0KPj4gICB4ZW4vYXJjaC9hcm0vaW5jbHVkZS9hc20vZmly
-bXdhcmUvc2NpLmggICAgICAgfCAyMDAgKysrKysrKysrKysrKysrKysrDQo+PiAgIHhlbi9hcmNo
-L2FybS9pbmNsdWRlL2FzbS9maXJtd2FyZS9zY21pLXNtYy5oICB8ICA0MSAtLS0tDQo+PiAgIHhl
-bi9hcmNoL2FybS92c21jLmMgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgNCArLQ0KPj4g
-ICB4ZW4vY29tbW9uL2RldmljZS10cmVlL2RvbTBsZXNzLWJ1aWxkLmMgICAgICAgfCAgIDQgKw0K
-Pj4gICB4ZW4vaW5jbHVkZS9hc20tZ2VuZXJpYy9kZXZpY2UuaCAgICAgICAgICAgICAgfCAgIDEg
-Kw0KPj4gICB4ZW4vaW5jbHVkZS9wdWJsaWMvYXJjaC1hcm0uaCAgICAgICAgICAgICAgICAgfCAg
-IDUgKw0KPj4gICB4ZW4vaW5jbHVkZS94ZW4vZG9tMGxlc3MtYnVpbGQuaCAgICAgICAgICAgICAg
-fCAgIDMgKw0KPj4gICAyOSBmaWxlcyBjaGFuZ2VkLCA5ODIgaW5zZXJ0aW9ucygrKSwgODUgZGVs
-ZXRpb25zKC0pDQo+PiAgIGNyZWF0ZSBtb2RlIDEwMDY0NCBkb2NzL2h5cGVydmlzb3ItZ3VpZGUv
-YXJtL2Zpcm13YXJlL2FybS1zY21pLnJzdA0KPj4gICBjcmVhdGUgbW9kZSAxMDA2NDQgZG9jcy9o
-eXBlcnZpc29yLWd1aWRlL2FybS9pbmRleC5yc3QNCj4+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IHhl
-bi9hcmNoL2FybS9maXJtd2FyZS9zY2kuYw0KPj4gICBjcmVhdGUgbW9kZSAxMDA2NDQgeGVuL2Fy
-Y2gvYXJtL2luY2x1ZGUvYXNtL2Zpcm13YXJlL3NjaS5oDQo+PiAgIGRlbGV0ZSBtb2RlIDEwMDY0
-NCB4ZW4vYXJjaC9hcm0vaW5jbHVkZS9hc20vZmlybXdhcmUvc2NtaS1zbWMuaA0KPj4NCg==
+This is a multi-part message in MIME format.
+--------------B0k0jQ02Q6YalU4PRH5xLGzA
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hello Everyone,
+
+On 9/8/25 11:04 AM, Mykola Kvach wrote:
+> Hi Denis and Stefano
+>
+> I’d like to acknowledge the significant effort that went into this patch
+> series -- it’s clear that a lot of work has been invested.
+>
+> On Sat, Sep 6, 2025 at 5:02 AM Stefano Stabellini
+> <sstabellini@kernel.org> wrote:
+>> Oleksii and all,
+>>
+>> I would like to consider patches 1-12 of this patch series for 4.21,
+>> pending the few minor comments I made addressed.
+> Although I am neither a maintainer nor an official reviewer for this
+> project, I have looked over some of the first patches in the series. In my
+> opinion, the series is not yet ready for merging.
+>
+> Even if my review is set aside, the changes are largely x86-specific and
+> produce the most impact on this architecture. I believe that before
+> merging, one of the x86 maintainers (or at least a trusted reviewer for
+> x86, if available) should carefully review these patches.
+
+I agree with this point. Considering that this part is being moved to
+common code, it would be helpful to get some input from the x86 maintainers.
+
+Also, since the entire patch series is not yet ready, I think it makes
+sense at this stage of development to either have the whole series reviewed
+or postpone it to 4.22. (The last one is preferred at the current stage of
+development)
+
+~ Oleksii
+
+
+>>
+>> On Fri, 5 Sep 2025,dmukhin@xen.org wrote:
+>>> x86 port of Xen lacks vUART facility similar to Arm's vpl011 to support x86
+>>> guest OS bring up in the embedded setups.
+>>>
+>>> This patch series introduces initial in-hypervisor emulator for
+>>> NS8250/NS16x50-compatible UARTs under CONFIG_VUART_NS16X50.
+>>>
+>>> In parallel domain creation scenario (hyperlaunch), NS16550 emulator helps
+>>> early guest firmware and OS bringup debugging, because it eliminates
+>>> dependency on the external emulator (qemu) being operational by the time
+>>> domains are created.
+>>>
+>>> The emulator also allows to forward the physical console input to the x86
+>>> domain which is useful when a system has only one physical UART for early
+>>> debugging and this UART is owned by Xen.
+>>>
+>>> By default, CONFIG_VUART_NS16X50 enables emulation of NS16550 at I/O port
+>>> 0x2f8, IRQ#3 in guest OS (legacy COM2). Legacy COM resources cannot be
+>>> selected at built-time or via per-domain xl configuration in this initial
+>>> submission.
+>>>
+>>> CONFIG_VUART_NS16X50_DEBUG enables some extra debugging facilities useful
+>>> for NS16550 emulator development/debugging (disabled by default).
+>>>
+>>> The NS16550 emulator is disabled in default x86 configuration and goes under
+>>> CONFIG_EXPERT in Kconfig.
+>>>
+>>> Limitations
+>>> ===========
+>>> - Only x86;
+>>> - Only legacy COM2 resources, custom I/O ports/IRQs are not supported;
+>>> - Only Xen console as a backend, no inter-domain communication (similar to
+>>>    vpl011 on Arm);
+>>> - Only 8n1 emulation (8-bit data, no parity, 1 stop bit);
+>>> - No toolstack integration;
+>>> - No baud rate emulation (reports 115200 baud to the guest OS);
+>>> - No FIFO-less mode emulation;
+>>> - No RX FIFO interrupt moderation (FCR) emulation;
+>>> - No integration w/ VM snapshotting (HVM_REGISTER_SAVE_RESTORE() and
+>>>    friends);
+>>> - No MMIO-based UART emulation.
+>>>
+>>> Series
+>>> ======
+>>>
+>>>    Patch 1 introduces the new vUART framework, that is the code originally
+>>>    posted here:
+>>>      https://lore.kernel.org/xen-devel/20250624035443.344099-16-dmukhin@ford.com/
+>>>    Required for emulator.
+>>>
+>>>    Patch 2 adds missing NS16550 definitions, required for emulator.
+>>>
+>>>    Patch 3 introduces the basic emulator skeleton - state machine
+>>>    initialization stubs, I/O port handler stub, logging, etc.
+>>>
+>>>    Patches 4-11 incrementally populate the minimal NS16550 register emulation.
+>>>
+>>>    Patch 12 hooks vUART state debugging (disabled by default).
+>>>
+>>>    Pathes 13-15 introduce necessary changes to enable NS16550 on dom0 (and PVH).
+>>>
+>>> Link to CI:https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/2024756493
+>>> Link to branch:https://gitlab.com/xen-project/people/dmukhin/xen/-/tree/vuart-ns8250-v6?ref_type=heads
+>>>
+>>> Testing
+>>> =======
+>>>
+>>>    ```shell
+>>>    echo CONFIG_EXPERT=y >> .config
+>>>    echo CONFIG_VUART_NS16X50=y >> .config
+>>>    make olddefconfig
+>>>    ```
+>>>    COM2 (0x2f8) resources are used by default.
+>>>
+>>>    To test w/ virtual COM2, the guest kernel parameters should contain
+>>>    something like the following:
+>>>      earlycon=uart,io,0x2f8,115200n8 console=uart,io,0x2f8,115200n8
+>>>
+>>>    HVM
+>>>    ---
+>>>    Tested only boot of HVM linux guest with OVMF as the virtual firmware.
+>>>    SeaBIOS as a virtual firmware is not tested.
+>>>
+>>>    PVH (dom0)
+>>>    ----------
+>>>    Xen is able to forward physical console input to the domain with virtual
+>>>    NS16550. To switch the console focus press Ctrl+aaa.
+>>>    Console switch is limited on x86 to dom0 and Xen (fixes pending).
+>>>
+>>> Changes since v5:
+>>> - Split THR/RBR into two separate patches.
+>>> - Addressed feedback from v5.
+>>> - Link to v5:https://lore.kernel.org/xen-devel/20250828235409.2835815-1-dmukhin@ford.com/
+>>>
+>>> Changes since v4:
+>>> - Split the series to make it simpler to review.
+>>> - Addressed feedback from v4.
+>>> - Dropped xl changes, which I will submit separately.
+>>> - Link to v4:https://lore.kernel.org/xen-devel/20250731192130.3948419-1-dmukhin@ford.com/
+>>>
+>>> Changes since v3:
+>>> - Reduced the blast radius of the series, thanks to reviews, individual
+>>>    aspects (like console focus) touched in v3 moved to separate threads.
+>>> - Kept the UART emulator framework since I need to redo some of emulator code
+>>>    and there's more-or-less agreement on it (where to place, naming, scope).
+>>> - Applied the feedback from
+>>>      https://lore.kernel.org/xen-devel/20250624035443.344099-1-dmukhin@ford.com/
+>>> - Link to v3:https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com/
+>>>
+>>> Changes since v2:
+>>> - renamed emulator s/NS8250/NS16550/g
+>>> - reduced the patch series after addressing v2 feedback
+>>> - introduced driver framework for UART emulators
+>>> - unified guest OS printouts across all available UART emulators
+>>> - Link to v2:https://lore.kernel.org/xen-devel/20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com/
+>>>
+>>> Changes since v1:
+>>> - dropped kmalloc/kfree aliases
+>>> - fixed ECLAIR jobs (thanks Andrew Cooper)
+>>> - addressed console forwarding on arm32 and arm64 (thanks to Luca Fancellu)
+>>> - moved NS8250 debugging stubs into its own patch
+>>> - added fix forhttps://gitlab.com/xen-project/xen/-/issues/184
+>>> - Link to v1:https://lore.kernel.org/r/20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com
+>>>
+>>> Denis Mukhin (15):
+>>>    emul/vuart: introduce framework for UART emulators
+>>>    xen/8250-uart: update definitions
+>>>    emul/ns16x50: implement emulator stub
+>>>    emul/ns16x50: implement DLL/DLM registers
+>>>    emul/ns16x50: implement SCR register
+>>>    emul/ns16x50: implement IER/IIR registers
+>>>    emul/ns16x50: implement LCR/LSR registers
+>>>    emul/ns16x50: implement MCR/MSR registers
+>>>    emul/ns16x50: implement RBR register
+>>>    emul/ns16x50: implement THR register
+>>>    emul/ns16x50: implement FCR register (write-only)
+>>>    emul/ns16550: implement dump_state() hook
+>>>    x86/domain: enable per-domain I/O port bitmaps
+>>>    xen/domain: allocate d->irq_caps before arch-specific initialization
+>>>    emul/ns16x50: implement IRQ emulation via vIOAPIC
+>>>
+>>>   xen/arch/arm/xen.lds.S                   |   1 +
+>>>   xen/arch/ppc/xen.lds.S                   |   1 +
+>>>   xen/arch/riscv/xen.lds.S                 |   1 +
+>>>   xen/arch/x86/Makefile                    |   1 +
+>>>   xen/arch/x86/dom0_build.c                | 112 +--
+>>>   xen/arch/x86/hvm/dom0_build.c            |   7 +
+>>>   xen/arch/x86/hvm/hvm.c                   |  56 +-
+>>>   xen/arch/x86/hvm/nestedhvm.c             |   8 +-
+>>>   xen/arch/x86/hvm/quirks.c                |   3 -
+>>>   xen/arch/x86/hvm/svm/nestedsvm.c         |   2 +-
+>>>   xen/arch/x86/hvm/vioapic.c               |  10 +
+>>>   xen/arch/x86/hvm/vmx/vvmx.c              |   4 +-
+>>>   xen/arch/x86/include/asm/hvm/nestedhvm.h |   3 +-
+>>>   xen/arch/x86/include/asm/hvm/support.h   |   2 -
+>>>   xen/arch/x86/include/asm/iocap.h         |   2 +
+>>>   xen/arch/x86/include/asm/irq.h           |   8 +
+>>>   xen/arch/x86/ioport.c                    | 163 ++++
+>>>   xen/arch/x86/irq.c                       |   8 +
+>>>   xen/arch/x86/pv/dom0_build.c             |   7 +
+>>>   xen/arch/x86/xen.lds.S                   |   1 +
+>>>   xen/common/Kconfig                       |   2 +
+>>>   xen/common/Makefile                      |   1 +
+>>>   xen/common/domain.c                      |   8 +-
+>>>   xen/common/emul/Kconfig                  |   6 +
+>>>   xen/common/emul/Makefile                 |   1 +
+>>>   xen/common/emul/vuart/Kconfig            |  25 +
+>>>   xen/common/emul/vuart/Makefile           |   2 +
+>>>   xen/common/emul/vuart/ns16x50.c          | 984 +++++++++++++++++++++++
+>>>   xen/common/emul/vuart/vuart.c            | 157 ++++
+>>>   xen/common/keyhandler.c                  |   3 +
+>>>   xen/drivers/char/console.c               |   6 +-
+>>>   xen/drivers/char/ns16550.c               |  16 +-
+>>>   xen/drivers/passthrough/x86/hvm.c        |  11 +-
+>>>   xen/include/xen/8250-uart.h              |  50 +-
+>>>   xen/include/xen/sched.h                  |   4 +
+>>>   xen/include/xen/serial.h                 |   3 +
+>>>   xen/include/xen/vuart.h                  | 116 +++
+>>>   xen/include/xen/xen.lds.h                |  10 +
+>>>   38 files changed, 1634 insertions(+), 171 deletions(-)
+>>>   create mode 100644 xen/arch/x86/ioport.c
+>>>   create mode 100644 xen/common/emul/Kconfig
+>>>   create mode 100644 xen/common/emul/Makefile
+>>>   create mode 100644 xen/common/emul/vuart/Kconfig
+>>>   create mode 100644 xen/common/emul/vuart/Makefile
+>>>   create mode 100644 xen/common/emul/vuart/ns16x50.c
+>>>   create mode 100644 xen/common/emul/vuart/vuart.c
+>>>   create mode 100644 xen/include/xen/vuart.h
+>>>
+>>> --
+>>> 2.51.0
+>>>
+> Best regards,
+> Mykola
+--------------B0k0jQ02Q6YalU4PRH5xLGzA
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <pre>Hello Everyone,
+
+</pre>
+    <div class="moz-cite-prefix">On 9/8/25 11:04 AM, Mykola Kvach wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAGeoDV87bTaDiG=5xAvSGZXKTJ0zSRUz7Nq2JSenBqu8DnLe2A@mail.gmail.com">
+      <pre wrap="" class="moz-quote-pre">Hi Denis and Stefano
+
+I’d like to acknowledge the significant effort that went into this patch
+series -- it’s clear that a lot of work has been invested.
+
+On Sat, Sep 6, 2025 at 5:02 AM Stefano Stabellini
+<a class="moz-txt-link-rfc2396E" href="mailto:sstabellini@kernel.org">&lt;sstabellini@kernel.org&gt;</a> wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+Oleksii and all,
+
+I would like to consider patches 1-12 of this patch series for 4.21,
+pending the few minor comments I made addressed.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Although I am neither a maintainer nor an official reviewer for this
+project, I have looked over some of the first patches in the series. In my
+opinion, the series is not yet ready for merging.
+
+Even if my review is set aside, the changes are largely x86-specific and
+produce the most impact on this architecture. I believe that before
+merging, one of the x86 maintainers (or at least a trusted reviewer for
+x86, if available) should carefully review these patches.
+</pre>
+    </blockquote>
+    <pre data-start="59" data-end="205">I agree with this point. Considering that this part is being moved to
+common code, it would be helpful to get some input from the x86 maintainers.</pre>
+    <pre data-start="207" data-end="377">Also, since the entire patch series is not yet ready, I think it makes
+sense at this stage of development to either have the whole series reviewed
+or postpone it to 4.22. (The last one is preferred at the current stage of
+development)
+</pre>
+    <pre>
+~ Oleksii
+
+
+</pre>
+    <blockquote type="cite"
+cite="mid:CAGeoDV87bTaDiG=5xAvSGZXKTJ0zSRUz7Nq2JSenBqu8DnLe2A@mail.gmail.com">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+
+On Fri, 5 Sep 2025, <a class="moz-txt-link-abbreviated" href="mailto:dmukhin@xen.org">dmukhin@xen.org</a> wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">x86 port of Xen lacks vUART facility similar to Arm's vpl011 to support x86
+guest OS bring up in the embedded setups.
+
+This patch series introduces initial in-hypervisor emulator for
+NS8250/NS16x50-compatible UARTs under CONFIG_VUART_NS16X50.
+
+In parallel domain creation scenario (hyperlaunch), NS16550 emulator helps
+early guest firmware and OS bringup debugging, because it eliminates
+dependency on the external emulator (qemu) being operational by the time
+domains are created.
+
+The emulator also allows to forward the physical console input to the x86
+domain which is useful when a system has only one physical UART for early
+debugging and this UART is owned by Xen.
+
+By default, CONFIG_VUART_NS16X50 enables emulation of NS16550 at I/O port
+0x2f8, IRQ#3 in guest OS (legacy COM2). Legacy COM resources cannot be
+selected at built-time or via per-domain xl configuration in this initial
+submission.
+
+CONFIG_VUART_NS16X50_DEBUG enables some extra debugging facilities useful
+for NS16550 emulator development/debugging (disabled by default).
+
+The NS16550 emulator is disabled in default x86 configuration and goes under
+CONFIG_EXPERT in Kconfig.
+
+Limitations
+===========
+- Only x86;
+- Only legacy COM2 resources, custom I/O ports/IRQs are not supported;
+- Only Xen console as a backend, no inter-domain communication (similar to
+  vpl011 on Arm);
+- Only 8n1 emulation (8-bit data, no parity, 1 stop bit);
+- No toolstack integration;
+- No baud rate emulation (reports 115200 baud to the guest OS);
+- No FIFO-less mode emulation;
+- No RX FIFO interrupt moderation (FCR) emulation;
+- No integration w/ VM snapshotting (HVM_REGISTER_SAVE_RESTORE() and
+  friends);
+- No MMIO-based UART emulation.
+
+Series
+======
+
+  Patch 1 introduces the new vUART framework, that is the code originally
+  posted here:
+    <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/20250624035443.344099-16-dmukhin@ford.com/">https://lore.kernel.org/xen-devel/20250624035443.344099-16-dmukhin@ford.com/</a>
+  Required for emulator.
+
+  Patch 2 adds missing NS16550 definitions, required for emulator.
+
+  Patch 3 introduces the basic emulator skeleton - state machine
+  initialization stubs, I/O port handler stub, logging, etc.
+
+  Patches 4-11 incrementally populate the minimal NS16550 register emulation.
+
+  Patch 12 hooks vUART state debugging (disabled by default).
+
+  Pathes 13-15 introduce necessary changes to enable NS16550 on dom0 (and PVH).
+
+Link to CI: <a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/2024756493">https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/2024756493</a>
+Link to branch: <a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/dmukhin/xen/-/tree/vuart-ns8250-v6?ref_type=heads">https://gitlab.com/xen-project/people/dmukhin/xen/-/tree/vuart-ns8250-v6?ref_type=heads</a>
+
+Testing
+=======
+
+  ```shell
+  echo CONFIG_EXPERT=y &gt;&gt; .config
+  echo CONFIG_VUART_NS16X50=y &gt;&gt; .config
+  make olddefconfig
+  ```
+  COM2 (0x2f8) resources are used by default.
+
+  To test w/ virtual COM2, the guest kernel parameters should contain
+  something like the following:
+    earlycon=uart,io,0x2f8,115200n8 console=uart,io,0x2f8,115200n8
+
+  HVM
+  ---
+  Tested only boot of HVM linux guest with OVMF as the virtual firmware.
+  SeaBIOS as a virtual firmware is not tested.
+
+  PVH (dom0)
+  ----------
+  Xen is able to forward physical console input to the domain with virtual
+  NS16550. To switch the console focus press Ctrl+aaa.
+  Console switch is limited on x86 to dom0 and Xen (fixes pending).
+
+Changes since v5:
+- Split THR/RBR into two separate patches.
+- Addressed feedback from v5.
+- Link to v5: <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/20250828235409.2835815-1-dmukhin@ford.com/">https://lore.kernel.org/xen-devel/20250828235409.2835815-1-dmukhin@ford.com/</a>
+
+Changes since v4:
+- Split the series to make it simpler to review.
+- Addressed feedback from v4.
+- Dropped xl changes, which I will submit separately.
+- Link to v4: <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/20250731192130.3948419-1-dmukhin@ford.com/">https://lore.kernel.org/xen-devel/20250731192130.3948419-1-dmukhin@ford.com/</a>
+
+Changes since v3:
+- Reduced the blast radius of the series, thanks to reviews, individual
+  aspects (like console focus) touched in v3 moved to separate threads.
+- Kept the UART emulator framework since I need to redo some of emulator code
+  and there's more-or-less agreement on it (where to place, naming, scope).
+- Applied the feedback from
+    <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/20250624035443.344099-1-dmukhin@ford.com/">https://lore.kernel.org/xen-devel/20250624035443.344099-1-dmukhin@ford.com/</a>
+- Link to v3: <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com/">https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com/</a>
+
+Changes since v2:
+- renamed emulator s/NS8250/NS16550/g
+- reduced the patch series after addressing v2 feedback
+- introduced driver framework for UART emulators
+- unified guest OS printouts across all available UART emulators
+- Link to v2: <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com/">https://lore.kernel.org/xen-devel/20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com/</a>
+
+Changes since v1:
+- dropped kmalloc/kfree aliases
+- fixed ECLAIR jobs (thanks Andrew Cooper)
+- addressed console forwarding on arm32 and arm64 (thanks to Luca Fancellu)
+- moved NS8250 debugging stubs into its own patch
+- added fix for <a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/xen/-/issues/184">https://gitlab.com/xen-project/xen/-/issues/184</a>
+- Link to v1: <a class="moz-txt-link-freetext" href="https://lore.kernel.org/r/20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com">https://lore.kernel.org/r/20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com</a>
+
+Denis Mukhin (15):
+  emul/vuart: introduce framework for UART emulators
+  xen/8250-uart: update definitions
+  emul/ns16x50: implement emulator stub
+  emul/ns16x50: implement DLL/DLM registers
+  emul/ns16x50: implement SCR register
+  emul/ns16x50: implement IER/IIR registers
+  emul/ns16x50: implement LCR/LSR registers
+  emul/ns16x50: implement MCR/MSR registers
+  emul/ns16x50: implement RBR register
+  emul/ns16x50: implement THR register
+  emul/ns16x50: implement FCR register (write-only)
+  emul/ns16550: implement dump_state() hook
+  x86/domain: enable per-domain I/O port bitmaps
+  xen/domain: allocate d-&gt;irq_caps before arch-specific initialization
+  emul/ns16x50: implement IRQ emulation via vIOAPIC
+
+ xen/arch/arm/xen.lds.S                   |   1 +
+ xen/arch/ppc/xen.lds.S                   |   1 +
+ xen/arch/riscv/xen.lds.S                 |   1 +
+ xen/arch/x86/Makefile                    |   1 +
+ xen/arch/x86/dom0_build.c                | 112 +--
+ xen/arch/x86/hvm/dom0_build.c            |   7 +
+ xen/arch/x86/hvm/hvm.c                   |  56 +-
+ xen/arch/x86/hvm/nestedhvm.c             |   8 +-
+ xen/arch/x86/hvm/quirks.c                |   3 -
+ xen/arch/x86/hvm/svm/nestedsvm.c         |   2 +-
+ xen/arch/x86/hvm/vioapic.c               |  10 +
+ xen/arch/x86/hvm/vmx/vvmx.c              |   4 +-
+ xen/arch/x86/include/asm/hvm/nestedhvm.h |   3 +-
+ xen/arch/x86/include/asm/hvm/support.h   |   2 -
+ xen/arch/x86/include/asm/iocap.h         |   2 +
+ xen/arch/x86/include/asm/irq.h           |   8 +
+ xen/arch/x86/ioport.c                    | 163 ++++
+ xen/arch/x86/irq.c                       |   8 +
+ xen/arch/x86/pv/dom0_build.c             |   7 +
+ xen/arch/x86/xen.lds.S                   |   1 +
+ xen/common/Kconfig                       |   2 +
+ xen/common/Makefile                      |   1 +
+ xen/common/domain.c                      |   8 +-
+ xen/common/emul/Kconfig                  |   6 +
+ xen/common/emul/Makefile                 |   1 +
+ xen/common/emul/vuart/Kconfig            |  25 +
+ xen/common/emul/vuart/Makefile           |   2 +
+ xen/common/emul/vuart/ns16x50.c          | 984 +++++++++++++++++++++++
+ xen/common/emul/vuart/vuart.c            | 157 ++++
+ xen/common/keyhandler.c                  |   3 +
+ xen/drivers/char/console.c               |   6 +-
+ xen/drivers/char/ns16550.c               |  16 +-
+ xen/drivers/passthrough/x86/hvm.c        |  11 +-
+ xen/include/xen/8250-uart.h              |  50 +-
+ xen/include/xen/sched.h                  |   4 +
+ xen/include/xen/serial.h                 |   3 +
+ xen/include/xen/vuart.h                  | 116 +++
+ xen/include/xen/xen.lds.h                |  10 +
+ 38 files changed, 1634 insertions(+), 171 deletions(-)
+ create mode 100644 xen/arch/x86/ioport.c
+ create mode 100644 xen/common/emul/Kconfig
+ create mode 100644 xen/common/emul/Makefile
+ create mode 100644 xen/common/emul/vuart/Kconfig
+ create mode 100644 xen/common/emul/vuart/Makefile
+ create mode 100644 xen/common/emul/vuart/ns16x50.c
+ create mode 100644 xen/common/emul/vuart/vuart.c
+ create mode 100644 xen/include/xen/vuart.h
+
+--
+2.51.0
+
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Best regards,
+Mykola
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------B0k0jQ02Q6YalU4PRH5xLGzA--
 
