@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87E8CB490D7
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 16:11:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1115283.1461965 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3285B490E5
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 16:12:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1115295.1461974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvcaT-00035N-0x; Mon, 08 Sep 2025 14:11:17 +0000
+	id 1uvcbF-0003ap-CW; Mon, 08 Sep 2025 14:12:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1115283.1461965; Mon, 08 Sep 2025 14:11:16 +0000
+Received: by outflank-mailman (output) from mailman id 1115295.1461974; Mon, 08 Sep 2025 14:12:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvcaS-00032p-Th; Mon, 08 Sep 2025 14:11:16 +0000
-Received: by outflank-mailman (input) for mailman id 1115283;
- Mon, 08 Sep 2025 14:11:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PLPY=3T=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uvcaR-00032j-GN
- for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 14:11:15 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a967d5e5-8cbd-11f0-9d13-b5c5bf9af7f9;
- Mon, 08 Sep 2025 16:11:06 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-b049bd81ce5so545150066b.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 07:11:07 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b04279a59ffsm1944788466b.60.2025.09.08.07.11.04
+	id 1uvcbF-0003Yl-9s; Mon, 08 Sep 2025 14:12:05 +0000
+Received: by outflank-mailman (input) for mailman id 1115295;
+ Mon, 08 Sep 2025 14:12:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=suiz=3T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uvcbD-0003Pu-IB
+ for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 14:12:03 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ca148e11-8cbd-11f0-9809-7dc792cee155;
+ Mon, 08 Sep 2025 16:12:01 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-b0415e03e25so619682466b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 07:12:01 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b0470f11088sm1238911966b.111.2025.09.08.07.11.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Sep 2025 07:11:05 -0700 (PDT)
+ Mon, 08 Sep 2025 07:12:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,429 +45,319 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a967d5e5-8cbd-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: ca148e11-8cbd-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1757340666; x=1757945466; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LZ4LKQMdwxZDnuWaDQYBpnyDtKMzx4kkjPJ67hL4DO4=;
-        b=nGt37FuNInFMLOkUyawcM/7DXud6id7Sy0epq9rLfmpEDG0eEQBr0u/a+I08i1vzkB
-         WjCO8mmMrnYuWCr/1KZAe3fu5MQAK62SsgVdAKZUQJCu0aAX+U5ZW/FwyrQcFlrVQYTF
-         6QuUky01khOOAN/kuRIyLe3ka1jle7FQr+rbD4QsmhCilMzwbK9/ejSUvJxfxASqcr4x
-         63BqWNhTYatfyl/oxQo275u+4SXtfgH1J1AyYm7HCmGkdlJlOC1vbP9vkxmoEn0Hc88W
-         u84c3edwSyk0tP9LZ96Pqz8G3TGTWeku+Ef6aILyctapmdqIAuqnjevg4hsM2GDWNXNz
-         O4hA==
+        d=suse.com; s=google; t=1757340721; x=1757945521; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ge1iyHHTlaM4s1ETZlW2q1Im8RFT7Hpk7sY6IEPE3Bc=;
+        b=TAx5SD2VsR6JuwDIo6t4N3YvrYiywC9B3JX4/6uIOJ0bQFlymvDVa0N/IU6b5ZNnew
+         hJRvoxZXeyg2WCT8RLiQ1BoWNMb6cbiozoI+2DiUtJs9MKK5sH/N3Pl9qw7v/7pyuiIN
+         C0qri4ptAPtr4GvJszq4GGUuTLWRgZSp3r8gBAB1GiGOXH2wRA1uUeps8zJqKuHcyp+g
+         qs+lJfDrJMt8+7Cj8yYEZ28YdSEdixQpQBogKl7/w63xG7o1BqQUms9+UfzYgIX+hc3Q
+         HoXWwVHkgk6lKTr6Z1o3uQWLUuHUjreFWRDiXeXf2O2Q1jLl6UaNb1PC93xoWyFz8+IT
+         QIFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757340666; x=1757945466;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=LZ4LKQMdwxZDnuWaDQYBpnyDtKMzx4kkjPJ67hL4DO4=;
-        b=AThxH+QBmlkQ65k/7Isb7wkV/H0DlmJCFzZWIxT55sC9yEq6z/fyjFD8xF4ERjVKNh
-         dn+RFpbYYDViKwbIwwMCQl73rl7wxkmext0p/eKafSzWQFy5MZ5UipD163gjkCkbYVEm
-         zUs2dyLu0v9HuN82zC0Zcl4eqFkCw8+H3cNWPatZP7JplPQOeWx4es9SsPsQwUMjrBMP
-         kiqV5xkgemL1bdiWFd2M5kAnr1bfa5MzUhuSW3UCfYwk9FU5YANeHk0ewBjjATVzzTy3
-         s5xONNtovdavo1Iuyrj87HF9+hYoFqA16ZULe1uNzXjVg0XFHQvW+9yGDWJ/DMmlH4Si
-         9XaQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU/+4udmzHxiBD3hgqBq+M24k5vOnEzPYRMriwPQrODkd2L6Aps6S3CEVSc+bSjg4q9p3XCQFmeVyA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwCE6nahyVq0KvYLOlv4qyQIyNzpYXTaPFiFSmi70m0ejNlpPwX
-	4inCiKZhnbSjmeyS84wXgJbUIBDZbxFbc73ZR9Mc46k7b9cLKkgIgr5w
-X-Gm-Gg: ASbGnctZ4+mefAjzuaZpaJ31NMCPWl+vsIxE6vicJFRpTdINalUyFJxB5GazOyTUW/Y
-	22aHYiqc93AU0eloNbim7Aws3Fa2HwTm9fprNQ0JRoxcsuFMTZvsf8cNeG8ohswj4HBAVEm/hT5
-	eJZQUAhCi+DSVRmYB6wkclSC2JKZJF/rTFF1hEA6TMfgo2HJsabj+fsKnQG65P2vL6qqt+3pv1N
-	RGKV0qYZn/xraJilbU4DPHs1u8Ooo3/vXB2J2XWwMRcFTdt3RTiHynsAMNZkrmTrJEsAtmeljnd
-	6etqgEzcMBav0i9SMufDdOviPdv/ypkMKURnyCgo0/J87txGYbfYyZJbE7j3dgh1FCPNfGBbJOi
-	/ANSF7ZKuTooC12njSNA0+fIDckfdYdt7ED2QijUmyuA5VdUSr65FvRvEaAZrhkaGrugIPoTmJ1
-	ksYd36oQI=
-X-Google-Smtp-Source: AGHT+IGDSTO2JbaZR60pQvyiHWjWXt1pzI8JMJ4Xmfa4HislaGZbABwMdRGpiNTy66l41lGHdiibuQ==
-X-Received: by 2002:a17:907:3f8c:b0:b04:7514:f9ce with SMTP id a640c23a62f3a-b049307f5edmr1204976266b.2.1757340665994;
-        Mon, 08 Sep 2025 07:11:05 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------9ZeOuM06A0eBtsmxEG5pDP7Y"
-Message-ID: <e60397da-41fd-441d-a3b1-d1d22b322b1a@gmail.com>
-Date: Mon, 8 Sep 2025 16:11:03 +0200
+        d=1e100.net; s=20230601; t=1757340721; x=1757945521;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Ge1iyHHTlaM4s1ETZlW2q1Im8RFT7Hpk7sY6IEPE3Bc=;
+        b=T5DkNXF/g9aVCjT0ci1d3FVQdsLvpeNrEwr0Nc/TS8PGR/YOHuYunGzlXiM7+oP921
+         XA08ehlLEKqN2dCGMYaNbnZS2K3U4PQvpSHn6WerqrNgdLJK78Bczkx64wWp3qWzNtBH
+         9T4cG5ER8qSQ7QWdwvID+eMOgRTbvqKmtA7s8/XodCJwTmLZ/nTHigBxE1aKK5lWPZH5
+         looYXjB3D6/KEdP6FC1H7AgO9aIPFGv47+PbLS1ziyrLt8nceTchUempzFgEXNZS8f7n
+         dmC2nTFPuNvwief9kr+fcSKqgSBBVWs+qeO0lx9p19x1klgMh0Y9D9POFODkv8NQLElx
+         i5eQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWwciCMW6XZUfzfRCCrkErwZUBBgtKbRmEMvYATrDamv+D3734FwXNGvQK2lSux69I2R15wpFgiqxI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyBJ3RmuE2JeHDBeDcIzI2db7L1doLOaZFzDif7n0ZnpAx0u7SU
+	ORNaG/Ys7CYbFYYjgLFTtqACkfu5ReW6ij7fLw+2I/GFZXPJR0hhv1Itz9vY0yCNBA==
+X-Gm-Gg: ASbGncva6Ufa2xBocRvxsFF9TjyIF4kQHHL6UF3GjtcS2Mwo/QznJeR2qWlzM3Mymp4
+	27+Zy6pfa5NUEKSKXSBxPN1CcEqpcomaDyEru14sO4lx5mkVObO6dovgJ+hRAGPW4/rdJuN4zxK
+	2ZNmfsNNbF3E/B83Z9WVlVpgygJugW4wcRyqF7YDtUJ2vfjTexIN/PLCIGPv7JwBBAe8bVzYtyZ
+	4JAUTnq5AFzZH4jkT7zMuFCu0pRoRGohi/acEE7035NZ/QgXLNs3dr3G9JLTvlcQEPWsrm2dRuO
+	t1j3sy4clCyk++njxo91DP+QACex91hMVRWP0fhnXthMovQH84paw9gHZkGz2A6xgGrpFTziu4R
+	aqbsLOoPxvrQY6QDgGLrDAZ0D6M4geilCxoAuWH7VFg/67OsWHY/1w4YBkI34xCP/sejAKuOGjg
+	kHH5BwvkkSHlQhYbhUmQ==
+X-Google-Smtp-Source: AGHT+IEivTXhx/++/qoAsdmqe8PiAEFkfJd/UObwawZmR2YVftE/x4hbgDmYZ8FB+Ugv1u1FIj+S1g==
+X-Received: by 2002:a17:907:890d:b0:b04:9ad9:5b2c with SMTP id a640c23a62f3a-b04b140d270mr698827966b.25.1757340720914;
+        Mon, 08 Sep 2025 07:12:00 -0700 (PDT)
+Message-ID: <b495c5f8-07d2-4ff2-a4ec-7a819335442a@suse.com>
+Date: Mon, 8 Sep 2025 16:11:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 0/4] xen/arm: scmi: introduce SCI SCMI SMC single-agent
- support
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Jan Beulich
- <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>,
- Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v3 1/7] xen/numa: Add per_node() variables paralleling
+ per_cpu() variables
+To: Bernhard Kaindl <bernhard.kaindl@cloud.com>
+Cc: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>
-References: <cover.1756995595.git.oleksii_moisieiev@epam.com>
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1757261045.git.bernhard.kaindl@cloud.com>
+ <2a2e557f84ba4785f3f8788d31d3edf64e689da0.1757261045.git.bernhard.kaindl@cloud.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <cover.1756995595.git.oleksii_moisieiev@epam.com>
-
-This is a multi-part message in MIME format.
---------------9ZeOuM06A0eBtsmxEG5pDP7Y
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <2a2e557f84ba4785f3f8788d31d3edf64e689da0.1757261045.git.bernhard.kaindl@cloud.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hello everyone,
+On 07.09.2025 18:15, Bernhard Kaindl wrote:
+> During the review of the 3rd commit of the NUMA claims v1 series, it
+> was found to be concerning (performance-wise) add add another array
+> like this that randomly written from all nodes:
+> 
+> +/* Per-node counts of free pages */
+> +static unsigned long pernode_avail_pages[MAX_NUMNODES];
+> 
+> As solution, it was suggested to introduce per_node() paralleling
+> per_cpu(), or (less desirable) to make sure one particular cache
+> line would only ever be written from a single node.
+> 
+> It was mentioned that node_need_scrub[] could/should use it, and
+> I assume others may benefit too.
+> 
+> per_cpu() is a simple standard blueprint that is easy to copy, add
+> per_node(), paralleling per_cpu() as the preferred suggestion:
+> 
+> It is entirely derived from per_cpu(), with a few differences:
+> 
+> - No add/remove callback: Nodes are onlined on boot and never offlined.
+> 
+> - As per_node(avail_pages) and pernode(outstanding_claims) are used by
+>   the buddy allocator itself, and the buddy allocator is used to alloc
+>   the per_node() memory from the local NUMA node, there is a catch:
+> 
+>   per_node() must already be working to have a working buddy allocator:
+> 
+>   - Init per_node() before the buddy allocator is ready as it needs
+>     to be setup before its use, e.g. to init per_node(avail_pages)!
+> 
+>   Use an early static __initdata array during early boot and migrate
+>   it to the NUMA-node-local xenheap before we enable the secondary CPUs.
 
-Based on the message from the previous version, the MISRA issues have been fixed,
-and aside from one remaining documentation patch ("docs: arm: add docs for SCMI
-over SMC calls forwarding driver"), the patch series appears to be ready.
+Hmm, this is awkward, especially the need to update the offsets. See
+comment further down. This aspect may put under question whether the
+underlying idea was actually a good one.
 
-I believe we can consider including it in 4.21. We should have sufficient time
-to address any bugs that may arise.
+> Cc: Jan Beulich <jbeulich@suse.com>
 
-By the way, it would also be good to prepare a CHANGELOG patch.
+Cc: here is a little odd, for my taste at least. This may want to be
+Requested-by:.
 
-Does anyone have any objections?
+> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
+> 
+> ---
+> Changes:
+> - This is patch is new in v3 to resolve the the suggestion from the review.
+> - The previous patch #2 is removed from the series as not required,
+>   which is best visualized by how claims are used:
+> 
+>   - Claim needed memory
+>   - Allocate all domain memory
+>   - Cancel a possible leftover claim
+>   - Finish building the domain and unpause it.
+> 
+>   As it makes no sense to repeat "Claim needed memory" at any time,
+>   the change made had no practical significance.  It can be applied
+>   later as a tiny, not important cleanup, e.g. with multi-node claims.
+> 
+> Implementation note on this patch (not needed for the commit message):
+> 
+> Instead of the __initdata array, I tried to alloc bootmem, but it
+> caused paging_init() to panic with not enough memory for p2m on a
+> very large 4-Socket, 480 pCPU, 4TiB RAM host (or it caused boot to
+> hang after the microcode updates of the 480 pCPUs)
 
-Best regards,
-  Oleksii
+That's odd, but without any details it's hard to make a suggestion.
 
-On 9/4/25 4:21 PM, Oleksii Moisieiev wrote:
-> Inroducing V9 patch series  on top of the Xen version 4.20-rc2
-> which includes implementation of the SCI SCMI SMC single-agent support.
->
-> This patch series is the first chunk of the
-> "xen/arm: scmi: introduce SCI SCMI SMC multi-agent support" which can
-> be found at [0]
->
-> SCMI-multiagent support will be provided as the followup patch series.
->
-> [0]https://lore.kernel.org/xen-devel/cover.1753184487.git.oleksii_moisieiev@epam.com/
->
-> Patch 1 "xen/arm: add generic SCI subsystem"
-> - rebased and refactored
-> - introduced DEVICE_ARM_SCI DT device class and used for SCI drivers probing
-> instead of custom,
->    linker sections based implementation.
-> - added SCI API for Dom0 DT handling, instead of manipulating with ARM arch
-> dom0 code directly.
-> - RFC changes in XEN_DOMCTL_assign_device OP processing
-> - Introduce arch_handle_passthrough_prop call to handle arm specific
-> nodes
->
-> Patch 2 "xen/arm: scmi-smc: update to be used under sci subsystem"
-> - update driver introduced by commit 3e322bef8bc0 ("xen/arm: firmware: Add SCMI
-> over SMC calls
-> handling layer") be used under sci subsystem.
-> - no functional changes in general
->
-> Patch 3 "xen/arm: scmi-smc: passthrough SCMI SMC to guest domain
-> This is new change which allows passthrough SCMI SMC, single agent interface to
-> guest domain
-> cover use case "thin Dom0 with guest domain, which serves as Driver domain".
-> See patch commit message for full description.
->
-> Patch 4 - docs: arm: add docs for SCMI over SMC calls forwarding
-> driver
-> - add documentation section for Simple Arm SCMI over SMC calls
-> forwarding driver.
->
-> Code can be found at:
-> https://github.com/oleksiimoisieiev/xen/tree/scmi_upstrv5
->
-> [1] RFC v2:
-> http://patchwork.kernel.org/project/xen-devel/cover/cover.1644341635.git.oleksii_moisieiev@epam.com/
-> [2] RFC v3:
-> https://patchwork.kernel.org/project/xen-devel/patch/20250311111618.1850927-1-grygorii_strashko@epam.com
-> SCMI spec:
-> https://developer.arm.com/documentation/den0056/e/?lang=en
->
-> SCMI bindings:
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/access-controllers/access-controllers.yaml
->
-> Reference EL3 FW:
-> RPI5:https://github.com/xen-troops/arm-trusted-firmware/commits/rpi5_dev/
-> Renesas v4h:
-> https://github.com/GrygiriiS/arm-trusted-firmware/commits/rcar_gen4_v2.7_v4x-scmi_upd/
->
-> base-commit: dbe60f244c (Update Xen to 4.21, 2025-02-21)
->
-> Changes in v9:
-> - change input param name for sci_handle_call function to match MISRA rules
-> - update domu_dt_sci_parse declaration to match MC3A2.R8.4 MISRA rule
->
-> Changes in v8:
-> - reneregated {helpers/types}.gen.go, dropped unneeded parameters
->
-> Changes in v7:
-> - fix sci_handl_call to make changes more readable
-> - fix build error when DOM0LESS_BUILD is disabled (removed
->   arch_handle_passthrough_prop from the header)
-> - sort headers in alphabetical order in sci.h
-> - sort headers in scmi-smc.c file
-> - Fix commit description.
-> - Move scmi-smc-passthrough definition to match alphaberical order
-> - remove unneeded initialization with NULL
-> - changed u64 to uint64_t
-> - Send warning if iomem permit access was failed
-> - fixed typos
->
-> Changes in v6:
-> - rebase on top of the latest master
-> - fix return value of sci_dt_finalize() call
-> - add R-b tag
-> - added generated helpers and types go files
-> - rename cmdline parameter to scmi-smc-passthrough
-> - fix goto tag in parse_arm_sci_config
-> - add link to the scmi bindings used in the doc
-> - remove mentions about HVC calls from doc
-> - rename cmdline parameter to scmi-smc-passthrough
->
-> Changes in v5:
-> - update Maintainers file. Set role as a Reviewer
-> - rebased on the latest master branch
-> - Introduce arch_handle_passthrough_prop call to handle arm specific nodes
-> - rename dom0_scmi_smc_passthrough to scmi_smc_passthrough
-> - rename dom0_scmi_smc_passthrough in documentation
->
-> Changes in v4:
-> - fix SPDX-License
-> - rename DEVICE_ARM_SCI DT device class to FIRMWARE_DEVICE
-> - move XEN_DOMCTL_assign_device code in separate patch
-> - Add documentation for SCI SCMI drivers
-> - xl.cfg doc
-> - fix comments from Stefano Stabellini
-> - fix toolstack code as sugested by Anthony PERARD
->    - use MATCH_OPTION()
->    - move arm_sci struct and cfg params in "arch_arm"
-> - add SCMI passthrough for dom0less case
->
-> Grygorii Strashko (3):
->    xen/arm: scmi-smc: update to be used under sci subsystem
->    xen/arm: scmi-smc: passthrough SCMI SMC to domain, single agent
->    docs: arm: add docs for SCMI over SMC calls forwarding driver
->
-> Oleksii Moisieiev (1):
->    xen/arm: add generic SCI subsystem
->
->   MAINTAINERS                                   |   6 +
->   .../arm/firmware/arm-scmi.rst                 | 180 ++++++++++++++++
->   docs/hypervisor-guide/arm/index.rst           |   9 +
->   docs/hypervisor-guide/index.rst               |   1 +
->   docs/man/xl.cfg.5.pod.in                      |  34 +++
->   docs/misc/arm/device-tree/booting.txt         |  15 ++
->   docs/misc/xen-command-line.pandoc             |   9 +
->   tools/golang/xenlight/helpers.gen.go          |  35 +++
->   tools/golang/xenlight/types.gen.go            |  11 +
->   tools/include/libxl.h                         |   5 +
->   tools/libs/light/libxl_arm.c                  |  14 ++
->   tools/libs/light/libxl_types.idl              |  10 +
->   tools/xl/xl_parse.c                           |  36 ++++
->   xen/arch/arm/device.c                         |   5 +
->   xen/arch/arm/dom0less-build.c                 |  40 ++++
->   xen/arch/arm/domain.c                         |  12 +-
->   xen/arch/arm/domain_build.c                   |   8 +
->   xen/arch/arm/firmware/Kconfig                 |  25 ++-
->   xen/arch/arm/firmware/Makefile                |   1 +
->   xen/arch/arm/firmware/sci.c                   | 154 ++++++++++++++
->   xen/arch/arm/firmware/scmi-smc.c              | 194 +++++++++++++----
->   xen/arch/arm/include/asm/domain.h             |   5 +
->   xen/arch/arm/include/asm/firmware/sci.h       | 200 ++++++++++++++++++
->   xen/arch/arm/include/asm/firmware/scmi-smc.h  |  41 ----
->   xen/arch/arm/vsmc.c                           |   4 +-
->   xen/common/device-tree/dom0less-build.c       |   4 +
->   xen/include/asm-generic/device.h              |   1 +
->   xen/include/public/arch-arm.h                 |   5 +
->   xen/include/xen/dom0less-build.h              |   3 +
->   29 files changed, 982 insertions(+), 85 deletions(-)
->   create mode 100644 docs/hypervisor-guide/arm/firmware/arm-scmi.rst
->   create mode 100644 docs/hypervisor-guide/arm/index.rst
->   create mode 100644 xen/arch/arm/firmware/sci.c
->   create mode 100644 xen/arch/arm/include/asm/firmware/sci.h
->   delete mode 100644 xen/arch/arm/include/asm/firmware/scmi-smc.h
->
---------------9ZeOuM06A0eBtsmxEG5pDP7Y
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+> --- a/xen/common/numa.c
+> +++ b/xen/common/numa.c
+> @@ -320,6 +320,51 @@ static bool __init nodes_cover_memory(void)
+>      return true;
+>  }
+>  
+> +/* Defined on the BSS in xen.lds.S, used for area sizes and relative offsets */
+> +extern const char __pernode_start[];
+> +extern const char __pernode_end[];
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <pre data-start="110" data-end="125">Hello everyone,</pre>
-    <pre data-start="127" data-end="362">Based on the message from the previous version, the MISRA issues have been fixed,
-and aside from one remaining documentation patch ("docs: arm: add docs for SCMI
-over SMC calls forwarding driver"), the patch series appears to be ready.</pre>
-    <pre data-start="364" data-end="478">I believe we can consider including it in 4.21. We should have sufficient time
-to address any bugs that may arise.</pre>
-    <pre data-start="480" data-end="543">By the way, it would also be good to prepare a CHANGELOG patch.</pre>
-    <pre data-start="545" data-end="577">Does anyone have any objections?</pre>
-    <pre data-start="579" data-end="602">Best regards,
- Oleksii</pre>
-    <pre></pre>
-    <div class="moz-cite-prefix">On 9/4/25 4:21 PM, Oleksii Moisieiev
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:cover.1756995595.git.oleksii_moisieiev@epam.com">
-      <pre wrap="" class="moz-quote-pre">
-Inroducing V9 patch series  on top of the Xen version 4.20-rc2
-which includes implementation of the SCI SCMI SMC single-agent support.
+May I suggest to use unsigned char throughout?
 
-This patch series is the first chunk of the
-"xen/arm: scmi: introduce SCI SCMI SMC multi-agent support" which can
-be found at [0]
+> +unsigned long __read_mostly __pernode_offset[MAX_NUMNODES];
 
-SCMI-multiagent support will be provided as the followup patch series.
+With what you say in the description as to differences from per-CPU data,
+this can be __ro_after_init, I expect?
 
-[0] <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/cover.1753184487.git.oleksii_moisieiev@epam.com/">https://lore.kernel.org/xen-devel/cover.1753184487.git.oleksii_moisieiev@epam.com/</a>
+> +#define EARLY_PERNODE_AREA_SIZE (SMP_CACHE_BYTES)
 
-Patch 1 "xen/arm: add generic SCI subsystem"
-- rebased and refactored
-- introduced DEVICE_ARM_SCI DT device class and used for SCI drivers probing
-instead of custom,
-  linker sections based implementation.
-- added SCI API for Dom0 DT handling, instead of manipulating with ARM arch
-dom0 code directly.
-- RFC changes in XEN_DOMCTL_assign_device OP processing
-- Introduce arch_handle_passthrough_prop call to handle arm specific
-nodes
+On what basis was this chosen? And how would we, at build time, notice when
+this became too small?
 
-Patch 2 "xen/arm: scmi-smc: update to be used under sci subsystem"
-- update driver introduced by commit 3e322bef8bc0 ("xen/arm: firmware: Add SCMI
-over SMC calls
-handling layer") be used under sci subsystem.
-- no functional changes in general
+> +static char early_pernode_area[MAX_NUMNODES][EARLY_PERNODE_AREA_SIZE]
+> +    __initdata __cacheline_aligned;
+> +
+> +/* per_node() needs to be ready before the first alloc call using the heap */
+> +static void __init early_init_pernode_areas(void)
+> +{
+> +    unsigned int node;
+> +
+> +    if (__pernode_end - __pernode_start > EARLY_PERNODE_AREA_SIZE)
 
-Patch 3 "xen/arm: scmi-smc: passthrough SCMI SMC to guest domain
-This is new change which allows passthrough SCMI SMC, single agent interface to
-guest domain
-cover use case "thin Dom0 with guest domain, which serves as Driver domain".
-See patch commit message for full description.
+Nit: Style.
 
-Patch 4 - docs: arm: add docs for SCMI over SMC calls forwarding
-driver
-- add documentation section for Simple Arm SCMI over SMC calls
-forwarding driver.
+> +        panic("per_node() area too small, increase EARLY_PERNODE_AREA_SIZE");
+> +
+> +    for_each_online_node(node)
+> +        __pernode_offset[node] = early_pernode_area[node] - __pernode_start;
 
-Code can be found at:
-<a class="moz-txt-link-freetext" href="https://github.com/oleksiimoisieiev/xen/tree/scmi_upstrv5">https://github.com/oleksiimoisieiev/xen/tree/scmi_upstrv5</a>
+percpu_init_areas() poisons all slots, i.e. unused ones will remain poisoned.
+I think something like that is wanted here, too.
 
-[1] RFC v2:
-<a class="moz-txt-link-freetext" href="http://patchwork.kernel.org/project/xen-devel/cover/cover.1644341635.git.oleksii_moisieiev@epam.com/">http://patchwork.kernel.org/project/xen-devel/cover/cover.1644341635.git.oleksii_moisieiev@epam.com/</a>
-[2] RFC v3:
-<a class="moz-txt-link-freetext" href="https://patchwork.kernel.org/project/xen-devel/patch/20250311111618.1850927-1-grygorii_strashko@epam.com">https://patchwork.kernel.org/project/xen-devel/patch/20250311111618.1850927-1-grygorii_strashko@epam.com</a>
-SCMI spec:
-<a class="moz-txt-link-freetext" href="https://developer.arm.com/documentation/den0056/e/?lang=en">https://developer.arm.com/documentation/den0056/e/?lang=en</a>
+> +}
+> +
+> +/* Before going SMP, migrate the per_node memory areas to their NUMA nodes */
+> +static int __init init_pernode_areas(void)
 
-SCMI bindings:
-<a class="moz-txt-link-freetext" href="https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/firmware/arm,scmi.yaml">https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/firmware/arm,scmi.yaml</a>
-<a class="moz-txt-link-freetext" href="https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/access-controllers/access-controllers.yaml">https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/access-controllers/access-controllers.yaml</a>
+This lacks cf_check, for its use with presmp_initcall() below.
 
-Reference EL3 FW:
-RPI5: <a class="moz-txt-link-freetext" href="https://github.com/xen-troops/arm-trusted-firmware/commits/rpi5_dev/">https://github.com/xen-troops/arm-trusted-firmware/commits/rpi5_dev/</a>
-Renesas v4h:
-<a class="moz-txt-link-freetext" href="https://github.com/GrygiriiS/arm-trusted-firmware/commits/rcar_gen4_v2.7_v4x-scmi_upd/">https://github.com/GrygiriiS/arm-trusted-firmware/commits/rcar_gen4_v2.7_v4x-scmi_upd/</a>
+> +{
+> +    const int pernode_size = __pernode_end - __pernode_start;  /* size in BSS */
 
-base-commit: dbe60f244c (Update Xen to 4.21, 2025-02-21)
+Why plain int? The value can't go negative.
 
-Changes in v9:
-- change input param name for sci_handle_call function to match MISRA rules
-- update domu_dt_sci_parse declaration to match MC3A2.R8.4 MISRA rule
+> +    unsigned int node;
+> +
+> +    for_each_online_node(node)
+> +    {
+> +        char *p = alloc_xenheap_pages(get_order_from_bytes(pernode_size),
+> +                                      MEMF_node(node));
 
-Changes in v8:
-- reneregated {helpers/types}.gen.go, dropped unneeded parameters
+Is per-node data really in need of being page granular? (Question also
+applies to the new linker script construct.) Then again I realize we still
+don't really have NUMA-aware sub-page-allocator functions. So a comment
+here may have to do for now.
 
-Changes in v7:
-- fix sci_handl_call to make changes more readable
-- fix build error when DOM0LESS_BUILD is disabled (removed
- arch_handle_passthrough_prop from the header)
-- sort headers in alphabetical order in sci.h
-- sort headers in scmi-smc.c file
-- Fix commit description.
-- Move scmi-smc-passthrough definition to match alphaberical order
-- remove unneeded initialization with NULL
-- changed u64 to uint64_t
-- Send warning if iomem permit access was failed
-- fixed typos
+Further, like done for CPU0, imo node 0 will want to use the .bss area,
+rather than having something allocated for it. That would partly address
+the non-NUMA related comment given elsewhere.
 
-Changes in v6:
-- rebase on top of the latest master
-- fix return value of sci_dt_finalize() call
-- add R-b tag
-- added generated helpers and types go files
-- rename cmdline parameter to scmi-smc-passthrough
-- fix goto tag in parse_arm_sci_config
-- add link to the scmi bindings used in the doc
-- remove mentions about HVC calls from doc
-- rename cmdline parameter to scmi-smc-passthrough
+> +        if ( !p )
+> +            return -ENOMEM;
 
-Changes in v5:
-- update Maintainers file. Set role as a Reviewer
-- rebased on the latest master branch
-- Introduce arch_handle_passthrough_prop call to handle arm specific nodes
-- rename dom0_scmi_smc_passthrough to scmi_smc_passthrough
-- rename dom0_scmi_smc_passthrough in documentation
+How's this going to work? Initcalls don't really have their return values
+checked, iirc.
 
-Changes in v4:
-- fix SPDX-License
-- rename DEVICE_ARM_SCI DT device class to FIRMWARE_DEVICE
-- move XEN_DOMCTL_assign_device code in separate patch
-- Add documentation for SCI SCMI drivers
-- xl.cfg doc
-- fix comments from Stefano Stabellini
-- fix toolstack code as sugested by Anthony PERARD
-  - use MATCH_OPTION()
-  - move arm_sci struct and cfg params in "arch_arm"
-- add SCMI passthrough for dom0less case
+> +        /* migrate the pernode data from the bootmem area to the xenheap */
 
-Grygorii Strashko (3):
-  xen/arm: scmi-smc: update to be used under sci subsystem
-  xen/arm: scmi-smc: passthrough SCMI SMC to domain, single agent
-  docs: arm: add docs for SCMI over SMC calls forwarding driver
+Nit (style): Capital letter at start of comment please.
 
-Oleksii Moisieiev (1):
-  xen/arm: add generic SCI subsystem
+> +        memcpy(p, early_pernode_area[node], SMP_CACHE_BYTES);
 
- MAINTAINERS                                   |   6 +
- .../arm/firmware/arm-scmi.rst                 | 180 ++++++++++++++++
- docs/hypervisor-guide/arm/index.rst           |   9 +
- docs/hypervisor-guide/index.rst               |   1 +
- docs/man/xl.cfg.5.pod.in                      |  34 +++
- docs/misc/arm/device-tree/booting.txt         |  15 ++
- docs/misc/xen-command-line.pandoc             |   9 +
- tools/golang/xenlight/helpers.gen.go          |  35 +++
- tools/golang/xenlight/types.gen.go            |  11 +
- tools/include/libxl.h                         |   5 +
- tools/libs/light/libxl_arm.c                  |  14 ++
- tools/libs/light/libxl_types.idl              |  10 +
- tools/xl/xl_parse.c                           |  36 ++++
- xen/arch/arm/device.c                         |   5 +
- xen/arch/arm/dom0less-build.c                 |  40 ++++
- xen/arch/arm/domain.c                         |  12 +-
- xen/arch/arm/domain_build.c                   |   8 +
- xen/arch/arm/firmware/Kconfig                 |  25 ++-
- xen/arch/arm/firmware/Makefile                |   1 +
- xen/arch/arm/firmware/sci.c                   | 154 ++++++++++++++
- xen/arch/arm/firmware/scmi-smc.c              | 194 +++++++++++++----
- xen/arch/arm/include/asm/domain.h             |   5 +
- xen/arch/arm/include/asm/firmware/sci.h       | 200 ++++++++++++++++++
- xen/arch/arm/include/asm/firmware/scmi-smc.h  |  41 ----
- xen/arch/arm/vsmc.c                           |   4 +-
- xen/common/device-tree/dom0less-build.c       |   4 +
- xen/include/asm-generic/device.h              |   1 +
- xen/include/public/arch-arm.h                 |   5 +
- xen/include/xen/dom0less-build.h              |   3 +
- 29 files changed, 982 insertions(+), 85 deletions(-)
- create mode 100644 docs/hypervisor-guide/arm/firmware/arm-scmi.rst
- create mode 100644 docs/hypervisor-guide/arm/index.rst
- create mode 100644 xen/arch/arm/firmware/sci.c
- create mode 100644 xen/arch/arm/include/asm/firmware/sci.h
- delete mode 100644 xen/arch/arm/include/asm/firmware/scmi-smc.h
+This SMP_CACHE_BYTES (which really means to be EARLY_PERNODE_AREA_SIZE aiui)
+wants to become a suitable ARRAY_SIZE().
 
-</pre>
-    </blockquote>
-  </body>
-</html>
+This also doesn't look to be safe towards an interrupt kicking in, when
+sooner or later some interrupt handling code may also access per-node
+data.
 
---------------9ZeOuM06A0eBtsmxEG5pDP7Y--
+> +        __pernode_offset[node] = p - __pernode_start;
+> +    }
+> +    return 0;
+> +}
+> +
+> +presmp_initcall(init_pernode_areas);
+
+Nit: We prefer no blank line between the function and such an annotation.
+
+> @@ -617,7 +662,7 @@ static int __init numa_emulation(unsigned long start_pfn,
+>  }
+>  #endif
+>  
+> -void __init numa_initmem_init(unsigned long start_pfn, unsigned long end_pfn)
+> +static void __init init_nodes(unsigned long start_pfn, unsigned long end_pfn)
+>  {
+>      unsigned int i;
+>      paddr_t start = pfn_to_paddr(start_pfn);
+> @@ -656,6 +701,12 @@ void __init numa_initmem_init(unsigned long start_pfn, unsigned long end_pfn)
+>      setup_node_bootmem(0, start, end);
+>  }
+>  
+> +void __init numa_initmem_init(unsigned long start_pfn, unsigned long end_pfn)
+> +{
+> +    init_nodes(start_pfn, end_pfn);
+> +    early_init_pernode_areas(); /* With all nodes registered, init per_node() */
+> +}
+
+This file is built only when CONFIG_NUMA=y. Non-NUMA configurations, however,
+also need to have a working per_node(), with only ever 0 passed in as the node
+ID.
+
+> --- a/xen/include/xen/numa.h
+> +++ b/xen/include/xen/numa.h
+> @@ -152,4 +152,19 @@ static inline nodeid_t mfn_to_nid(mfn_t mfn)
+>  
+>  #define page_to_nid(pg) mfn_to_nid(page_to_mfn(pg))
+>  
+> +/* Per NUMA node data area handling based on per-cpu data area handling. */
+> +extern unsigned long __pernode_offset[];
+> +
+> +#define DECLARE_PER_NODE(type, name) \
+> +    extern __typeof__(type) pernode__ ## name
+> +
+> +#define __DEFINE_PER_NODE(attr, type, name) \
+> +    attr __typeof__(type) pernode_ ## name
+
+I would suggest to omit this as long as there's just a single use.
+
+> +#define DEFINE_PER_NODE(type, name) \
+> +    __DEFINE_PER_NODE(__section(".bss.pernode"), type, _ ## name)
+> +
+> +#define per_node(var, node)  \
+> +    (*RELOC_HIDE(&pernode__##var, __pernode_offset[node]))
+
+I'm glad you didn't add this_node() (yet). As per discussion with Andrew earlier
+today, there may want to be a comment here as to its absence, explaining that
+what "this node" is first needs determining. There can, after all, be a CPU, a
+memory, and a device view. While for devices we may not want to use this_node(),
+for memory it may well happen. Hence something entirely CPU-centric may not work.
+
+Furthermore Andrew pointed out that the ACPI exposed granularity may not be
+sufficient for all purposes. He suggested to make clear here that for the time
+being all of this is entirely SRAT based. (Iirc there was some DT work towards
+supporting NUMA there as well, but my impression is that this work was abandoned.)
+
+Jan
 
