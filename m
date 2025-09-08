@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBC3EB488E9
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 11:45:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1115015.1461783 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4F61B4890D
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 11:50:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1115031.1461793 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvYRa-0002vF-9g; Mon, 08 Sep 2025 09:45:50 +0000
+	id 1uvYVm-0004oL-QF; Mon, 08 Sep 2025 09:50:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1115015.1461783; Mon, 08 Sep 2025 09:45:50 +0000
+Received: by outflank-mailman (output) from mailman id 1115031.1461793; Mon, 08 Sep 2025 09:50:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvYRa-0002tB-72; Mon, 08 Sep 2025 09:45:50 +0000
-Received: by outflank-mailman (input) for mailman id 1115015;
- Mon, 08 Sep 2025 09:45:49 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dmukhin@xen.org>) id 1uvYRZ-0002t2-9W
- for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 09:45:49 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1uvYRY-0000is-0j;
- Mon, 08 Sep 2025 09:45:48 +0000
-Received: from [19.12.91.86] (helo=localhost)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1uvYRY-0001He-0E;
- Mon, 08 Sep 2025 09:45:48 +0000
+	id 1uvYVm-0004m7-Nh; Mon, 08 Sep 2025 09:50:10 +0000
+Received: by outflank-mailman (input) for mailman id 1115031;
+ Mon, 08 Sep 2025 09:50:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LEzK=3T=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uvYVl-0004m1-33
+ for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 09:50:09 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 337ccff3-8c99-11f0-9809-7dc792cee155;
+ Mon, 08 Sep 2025 11:50:07 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-45cb659e858so28715445e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 02:50:07 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45b6f30fe02sm506065895e9.18.2025.09.08.02.50.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Sep 2025 02:50:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,88 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:Message-ID:Subject:Cc:To:Date:From;
-	bh=X9oAsv6G13ucz5Dw61cD/LKtcJhmND9b2ShsybDBP0Q=; b=r/1VMfemFGv+3dWdLI/HJFWSXW
-	8YTgiHqCm8/c/mbxQ87ERHmsYI7YWJvRUDRE6Up1JiHn5CrDSpzSdF+aoDSlYa0zQ5LOq1xNyoJt1
-	VYULqF0vAdKcW+rOdrbrWXU+u5Hof1miKSu7NePh0hX0YKkNo4hfaJIeCD5Me1TWvH/Q=;
-From: dmukhin@xen.org
-Date: Mon, 8 Sep 2025 02:45:46 -0700
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
-	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
-	michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
-	dmukhin@ford.com
-Subject: Re: [PATCH v6 01/15] emul/vuart: introduce framework for UART
- emulators
-Message-ID: <aL6lymRB5LtxzDMT@kraken>
-References: <20250905232715.440758-1-dmukhin@ford.com>
- <20250905232715.440758-2-dmukhin@ford.com>
- <CAGeoDV8xKHSobiLiWuzKtnxPXnRvFWf139BddeTUkuREEvrk2w@mail.gmail.com>
+X-Inumbo-ID: 337ccff3-8c99-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1757325006; x=1757929806; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=vAbXrVFx1N9qzSUrDKSkA07ICdV0MWA216vF/dShUCw=;
+        b=lGVIzy4bDxwXID6mdHvaHINe5elRGSU8yTkGRO/WLaO8W1k26s3FRd1ISWNH99+bLd
+         Z3GQA5qrafNn+8vb83GIP3BFzla6urE1CN2CQgFWXpmOAnytQWs3Qd2kB081jfatV5tK
+         nh1QVAisB+ufb4zKM+lPlJ8l8LK7TXEMj4jj0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1757325006; x=1757929806;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vAbXrVFx1N9qzSUrDKSkA07ICdV0MWA216vF/dShUCw=;
+        b=xFfXwQgVw6X1f+mzSbxUwCXQhOIwbIesLC8m5Fl9He8GE1rW7zisqybWPYlbDgiYnw
+         XJLf0t4kQtIC3ZTslo1pKEWM7p8cvvFoZhsF90aMNHEyDjiV8fTKmfBIT0I62wGeeaHH
+         acshnnrKQNs9IW/aIisb/LAmbMSm9575UX1OGl5R9gCWdvklRc40mVJXhOnSuhK1lT9x
+         CtzPpp/mRGjxfrBhAThlg6u0wASVnq+o3R2k6F3DJDMBKmfUnrOlnzCBzJcbx3fuDAED
+         PeQMRVURTZ28HUQCtYLFX3uVu+tzyY3VD1AMnFx0aZbwDSZZ0zfM0YReMAbC6yHRhnQv
+         PJJg==
+X-Forwarded-Encrypted: i=1; AJvYcCWoneTVLhPqrFVL063AP18TW6/Y9howkrlLENKH3JHmX1A1lINSdDUkUztjGC2Ch9SYMv8pF4ADAM4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzJNdrHHIHnlFKhQO5EsU9R5GOfomdEgmyhN8MIvsrOfq25ItKi
+	0Ok57RMq1W6nRQ0leYLRDXNDsaQqmZ+FBaLRpPkurGsqVJ0++zt2kzx8lbyfOLFIWmc=
+X-Gm-Gg: ASbGncsNWcTKad8WwfJiz2iGZm+TRTgH2FJ6lrfb/m+Db2Oz/D6zvBMERzJGOTXA+mQ
+	S7lAzu8GLCrUn4A+/voog+0sYEb1kMt9WVotMzwThzLntkPQgzSvreCCoJ56UuOwzCD410ZckY1
+	fQisboXLT8wA2eNMNDhGEI3qySR8Jj8QTq+fyS34prt1m8rHB2ZsPoF5bSppiq06CE3qxlSfjXH
+	plV+i05G6XSrnQdHv7D2gHoz2VrM+CW4cNdJrV/UdMRk44cgs408TZhM3PQCQ1i6a95QB/lyvfU
+	f0PwcE3UAuBAyX6zz4kRHwFq/Kz5bSfU4y4f5WOex2Rmpz5+FMWpH1r7593YzeuoW5p3hGr7ic4
+	Uvi1vjtyZYN4D4tEzys9/VOi5BPR1BLExBlT1gK7N6clXMugrjks0HnLi9rpBLt5CqHPykPINHY
+	hbPDI=
+X-Google-Smtp-Source: AGHT+IHmfmaKU0Wbd+gpu/74Lh8oQIiBjUi1YStCv3+qzRLav0Agz3OedRTsrnu4ot0YiFFll8u2Ag==
+X-Received: by 2002:a05:600c:4453:b0:45b:9c37:6c92 with SMTP id 5b1f17b1804b1-45dddef02f7mr60014535e9.31.1757325006561;
+        Mon, 08 Sep 2025 02:50:06 -0700 (PDT)
+Message-ID: <4b651048-10f2-4184-bd6a-e6d7a5b64565@citrix.com>
+Date: Mon, 8 Sep 2025 10:50:05 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGeoDV8xKHSobiLiWuzKtnxPXnRvFWf139BddeTUkuREEvrk2w@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] symbols: fix xensyms_read() hitting the final "end"
+ symbol
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <d5136292-e02d-47bc-b230-c85c6aba2174@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <d5136292-e02d-47bc-b230-c85c6aba2174@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 08, 2025 at 11:29:03AM +0300, Mykola Kvach wrote:
-> On Sat, Sep 6, 2025 at 2:27 AM <dmukhin@xen.org> wrote:
-[..]
-> > +++ b/xen/common/emul/vuart/Kconfig
-> > @@ -0,0 +1,6 @@
-> > +config VUART_FRAMEWORK
-> > +       bool
-> 
-> If VUART_FRAMEWORK has no dependencies, it can be enabled on any
-> architecture. For example, I tried enabling it on arm64 and the build
-> fails:
-> 
->   ./include/xen/vuart.h:26:8: error: redefinition of ‘struct vuart’
-> 
-> Should this config be restricted (e.g. "depends on X86") or the code
-> adjusted to handle non-x86 architectures properly?
+On 08/09/2025 10:22 am, Jan Beulich wrote:
+> A new "no (more) symbol" path there was lacking a necessary unlock.
+>
+> Fixes: d3b637fba31b ("symbols: arrange to know where functions end")
+> Coverity ID: 1665212
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Yes, missed that; the code is for x86 only for now.
-`struct vuart` on Arm corresponds to simple MMIO-based UART emulator for
-hwdom's earlyprintk.
-
-Arm part is pending:
-  https://lore.kernel.org/xen-devel/20250624035443.344099-1-dmukhin@ford.com/
-
-Most of the feedback resolved locally, but I need to wait for the other series to land
-
-[..]
-> > +static const struct vuart_emulator *
-> > +vuart_match_by_compatible(const struct domain *d, const char *compat)
-> > +{
-> > +    const struct vuart_emulator *emulator;
-> > +
-> > +    for_each_emulator(emulator)
-> > +        if ( emulator->compatible &&
-> > +             !strncmp(compat, emulator->compatible,
-> > +                      strlen(emulator->compatible)) )
-> > +            return emulator;
-> > +
-> > +    return NULL;
-> > +}
-> > +
-> > +const static struct vuart *
-> > +vuart_find_by_console_permission(const struct domain *d)
-> 
-> During the first review of this patch I thought you planned to add a
-> searching procedure into this and the next function in one of the later
-> commits. However, looking at the series now, it seems these functions
-> remain unchanged and don’t actually perform any searching.
-> 
-> Do you think the current names are accurate, or would it make sense to
-> rename them to better reflect their purpose?
-
-Arm has two vUART emulators enabled by default, so there will be at least two
-vUARTs and some search in vuart.c.
-
-I scoped x86 portion of the change into the current series, Arm is to follow,
-since I have pending series to plumb vpl011 (i.e. SBSA) and hwdom vuart (i.e.
-early dtuart) into that new framework. There will be some adjustments in
-vuart.c
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
