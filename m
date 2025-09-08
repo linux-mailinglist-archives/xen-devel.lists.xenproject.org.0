@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0956B49B9A
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 23:12:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1115554.1462220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C04B7B49B93
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 23:12:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1115556.1462227 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvj9p-0003Ex-Em; Mon, 08 Sep 2025 21:12:13 +0000
+	id 1uvj9q-0003XO-QD; Mon, 08 Sep 2025 21:12:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1115554.1462220; Mon, 08 Sep 2025 21:12:13 +0000
+Received: by outflank-mailman (output) from mailman id 1115556.1462227; Mon, 08 Sep 2025 21:12:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvj9o-00030o-Fq; Mon, 08 Sep 2025 21:12:12 +0000
-Received: by outflank-mailman (input) for mailman id 1115554;
+	id 1uvj9p-0003Ct-RQ; Mon, 08 Sep 2025 21:12:13 +0000
+Received: by outflank-mailman (input) for mailman id 1115556;
  Mon, 08 Sep 2025 21:12:09 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dmukhin@xen.org>) id 1uvj9k-0002L2-Ng
- for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 21:12:08 +0000
+ (envelope-from <dmukhin@xen.org>) id 1uvj9l-0002aN-RZ
+ for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 21:12:09 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1uvj9k-000FVM-1s;
- Mon, 08 Sep 2025 21:12:08 +0000
+ (envelope-from <dmukhin@xen.org>) id 1uvj9l-000FVX-2F;
+ Mon, 08 Sep 2025 21:12:09 +0000
 Received: from [19.12.91.86] (helo=localhost)
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1uvj9k-000gNe-27;
- Mon, 08 Sep 2025 21:12:08 +0000
+ (envelope-from <dmukhin@xen.org>) id 1uvj9l-000gNi-2T;
+ Mon, 08 Sep 2025 21:12:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,9 +42,9 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From;
-	bh=2EIgKUJ6qf0RiPOYjpi3onfm0JU2Yq54wzXSyn3SuHQ=; b=pT7tt06uHlD/3fRZmHZr8/lEaY
-	srf21/NDSqLw48HMOMSwwra/+LUhoZr+aPDqKD/SyDl0W3l+sg8mynD7jKEVCoIyZ78vUyditFcwx
-	YQ3w1tZXpHzrQyZRMfbZjlpUXzb1p3mk4THrznmJuE2+ESWTwoi0giJk08ZrJFDNjZsw=;
+	bh=QgoMqHbu0tUc+lVtvyYl2w5a013VrqpmgCwPwd2nRFw=; b=sOqZXpCXdQNe+SfB8ANsxd7Vn4
+	ZxrzEB4O/VMXSs0Fr3nr5FmWbheVLjFkqlmzUFrSF1+D0tmWM43cGV0CSvKydOw7dY9AbSw45y7M6
+	FsI9G9nOelJVlrFjztHRmbcjYGVEGob1snavNNwQppzgnhaWoUNvvV0i+b7LRE+TMm6E=;
 From: dmukhin@xen.org
 To: xen-devel@lists.xenproject.org
 Cc: andrew.cooper3@citrix.com,
@@ -55,9 +55,9 @@ Cc: andrew.cooper3@citrix.com,
 	roger.pau@citrix.com,
 	sstabellini@kernel.org,
 	dmukhin@ford.com
-Subject: [PATCH v7 15/16] xen/domain: allocate d->irq_caps before arch-specific initialization
-Date: Mon,  8 Sep 2025 14:11:48 -0700
-Message-ID: <20250908211149.279143-16-dmukhin@ford.com>
+Subject: [PATCH v7 16/16] emul/ns16x50: implement IRQ emulation via vIOAPIC
+Date: Mon,  8 Sep 2025 14:11:49 -0700
+Message-ID: <20250908211149.279143-17-dmukhin@ford.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250908211149.279143-1-dmukhin@ford.com>
 References: <20250908211149.279143-1-dmukhin@ford.com>
@@ -66,137 +66,109 @@ Content-Transfer-Encoding: 8bit
 
 From: Denis Mukhin <dmukhin@ford.com> 
 
-Make sure that NS16550 emulator does not share virtual device IRQ with the
-physical one. This is needed for enabling NS16550 emulator for PVH hwdom
-(dom0).
+PVH domains use vIOAPIC, not vPIC and NS16550 emulates ISA IRQs which cannot
+be asserted on vIOAPIC.
 
-To do that, move per-domain interrupt rangeset allocation before arch-specific
-code. Add irqs_setup_access() to setup the initial rangeset.
+{map,unmap}_domain_pirq_emuirq() infrastructure is modified by adding new
+type of interrupt resources 'IRQ_EMU' which means 'emulated device IRQ'
+(similarly to IRQ_MSI_EMU).
+
+This is necessary to for IOAPIC emulation code to skip IRQ->PIRQ mapping
+(vioapic_hwdom_map_gsi()) when guest OS unmasks vIOAPIC pin corresponding to
+virtual device's IRQ.
+
+Also, hvm_gsi_eoi() is modified to trigger assertion in hvm_gsi_deassert()
+path for ISA IRQs.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
 Changes since v6:
 - n/a
 ---
- xen/arch/x86/dom0_build.c       | 1 -
- xen/arch/x86/hvm/dom0_build.c   | 7 +++++++
- xen/arch/x86/include/asm/irq.h  | 2 ++
- xen/arch/x86/irq.c              | 8 ++++++++
- xen/arch/x86/pv/dom0_build.c    | 3 +++
- xen/common/domain.c             | 8 ++++++--
- xen/common/emul/vuart/ns16x50.c | 9 +++++++++
- 7 files changed, 35 insertions(+), 3 deletions(-)
+ xen/arch/x86/hvm/vioapic.c        | 10 ++++++++++
+ xen/arch/x86/include/asm/irq.h    |  6 ++++++
+ xen/common/emul/vuart/ns16x50.c   | 28 ++++++++++++++++++++++++++--
+ xen/drivers/passthrough/x86/hvm.c | 11 ++++++++++-
+ 4 files changed, 52 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
-index 26202b33345c..9dc87efbf3e8 100644
---- a/xen/arch/x86/dom0_build.c
-+++ b/xen/arch/x86/dom0_build.c
-@@ -442,7 +442,6 @@ int __init dom0_setup_permissions(struct domain *d)
+diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
+index 7c725f9e471f..6314874b64f7 100644
+--- a/xen/arch/x86/hvm/vioapic.c
++++ b/xen/arch/x86/hvm/vioapic.c
+@@ -177,6 +177,16 @@ static int vioapic_hwdom_map_gsi(unsigned int gsi, unsigned int trig,
  
-     rc |= iomem_permit_access(d, 0UL,
-                               PFN_DOWN(1UL << domain_max_paddr_bits(d)) - 1);
--    rc |= irqs_permit_access(d, 1, nr_irqs_gsi - 1);
+     ASSERT(is_hardware_domain(currd));
  
-     /* Local APIC. */
-     if ( mp_lapic_addr != 0 )
-diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
-index 5551f9044836..245a42dec9aa 100644
---- a/xen/arch/x86/hvm/dom0_build.c
-+++ b/xen/arch/x86/hvm/dom0_build.c
-@@ -1348,6 +1348,13 @@ int __init dom0_construct_pvh(const struct boot_domain *bd)
-          */
-         pvh_setup_mmcfg(d);
- 
-+        rc = irqs_setup_access(d);
-+        if ( rc )
-+        {
-+            printk("%pd unable to setup IRQ rangeset: %d\n", d, rc);
-+            return rc;
-+        }
++    /*
++     * Interrupt is claimed by one of the platform virtual devices (e.g.
++     * NS16550); do nothing.
++     */
++    write_lock(&currd->event_lock);
++    ret = is_domain_emuirq_claimed(currd, gsi);
++    write_unlock(&currd->event_lock);
++    if ( ret )
++        return 0;
 +
-         /*
-          * Setup permissions early so that calls to add MMIO regions to the
-          * p2m as part of vPCI setup don't fail due to permission checks.
+     /* Interrupt has been unmasked, bind it now. */
+     ret = mp_register_gsi(gsi, trig, pol);
+     if ( ret == -EEXIST )
 diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.h
-index 8c81f66434a8..8bffec3bbfee 100644
+index 8bffec3bbfee..bdbe700274e9 100644
 --- a/xen/arch/x86/include/asm/irq.h
 +++ b/xen/arch/x86/include/asm/irq.h
-@@ -231,4 +231,6 @@ int allocate_and_map_gsi_pirq(struct domain *d, int index, int *pirq_p);
- int allocate_and_map_msi_pirq(struct domain *d, int index, int *pirq_p,
-                               int type, struct msi_info *msi);
+@@ -168,6 +168,11 @@ void free_domain_pirqs(struct domain *d);
+ int map_domain_emuirq_pirq(struct domain *d, int pirq, int emuirq);
+ int unmap_domain_pirq_emuirq(struct domain *d, int pirq);
  
-+int irqs_setup_access(struct domain *d);
++#define domain_emuirq_claim(d, irq)     map_domain_emuirq_pirq(d, irq, IRQ_EMU)
++#define domain_emuirq_unclaim(d, irq)   unmap_domain_pirq_emuirq(d, irq)
++#define is_domain_emuirq_claimed(d, irq) \
++    (domain_pirq_to_emuirq(d, irq) != IRQ_UNBOUND)
 +
- #endif /* _ASM_HW_IRQ_H */
-diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-index 556134f85aa0..079277be719d 100644
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -3046,3 +3046,11 @@ int allocate_and_map_msi_pirq(struct domain *d, int index, int *pirq_p,
+ /* Evacuate interrupts assigned to CPUs not present in the CPU online map. */
+ void fixup_irqs(void);
+ void fixup_eoi(void);
+@@ -221,6 +226,7 @@ void cleanup_domain_irq_mapping(struct domain *d);
+ #define IRQ_UNBOUND (-1)
+ #define IRQ_PT      (-2)
+ #define IRQ_MSI_EMU (-3)
++#define IRQ_EMU     (-4)
  
-     return ret;
- }
-+
-+int irqs_setup_access(struct domain *d)
-+{
-+    if ( is_hardware_domain(d) )
-+        return irqs_permit_access(d, 1, nr_irqs_gsi - 1);
-+
-+    return 0;
-+}
-diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
-index 2b8b4d869ee7..1a092b802833 100644
---- a/xen/arch/x86/pv/dom0_build.c
-+++ b/xen/arch/x86/pv/dom0_build.c
-@@ -1037,6 +1037,9 @@ static int __init dom0_construct(const struct boot_domain *bd)
-     rc = ioports_setup_access(d);
-     BUG_ON(rc != 0);
+ bool cpu_has_pending_apic_eoi(void);
  
-+    rc = irqs_setup_access(d);
-+    BUG_ON(rc != 0);
-+
-     rc = dom0_setup_permissions(d);
-     BUG_ON(rc != 0);
- 
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 775c33928585..edf76b02e1a1 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -952,6 +952,11 @@ struct domain *domain_create(domid_t domid,
-     radix_tree_init(&d->pirq_tree);
- #endif
- 
-+    err = -ENOMEM;
-+    d->irq_caps = rangeset_new(d, "Interrupts", 0);
-+    if ( !d->irq_caps )
-+        goto fail;
-+
-     if ( (err = arch_domain_create(d, config, flags)) != 0 )
-         goto fail;
-     init_status |= INIT_arch;
-@@ -961,8 +966,7 @@ struct domain *domain_create(domid_t domid,
- 
-     err = -ENOMEM;
-     d->iomem_caps = rangeset_new(d, "I/O Memory", RANGESETF_prettyprint_hex);
--    d->irq_caps   = rangeset_new(d, "Interrupts", 0);
--    if ( !d->iomem_caps || !d->irq_caps )
-+    if ( !d->iomem_caps )
-         goto fail;
- 
-     if ( (err = xsm_domain_create(XSM_HOOK, d, config->ssidref)) != 0 )
 diff --git a/xen/common/emul/vuart/ns16x50.c b/xen/common/emul/vuart/ns16x50.c
-index ea34c3ae598a..6bd58ba5540b 100644
+index 6bd58ba5540b..081d2639aa7a 100644
 --- a/xen/common/emul/vuart/ns16x50.c
 +++ b/xen/common/emul/vuart/ns16x50.c
-@@ -797,6 +797,15 @@ static int ns16x50_init(void *arg)
+@@ -299,7 +299,7 @@ static void ns16x50_irq_assert(const struct vuart_ns16x50 *vdev)
+     if ( has_vpic(d) )
+         vector = hvm_isa_irq_assert(d, info->irq, vioapic_get_vector);
+     else if ( has_vioapic(d) )
+-        /* TODO */
++        vector = hvm_ioapic_assert(d, info->irq, false);
+     else
+         ASSERT_UNREACHABLE();
+ 
+@@ -314,7 +314,7 @@ static void ns16x50_irq_deassert(const struct vuart_ns16x50 *vdev)
+     if ( has_vpic(d) )
+         hvm_isa_irq_deassert(d, info->irq);
+     else if ( has_vioapic(d) )
+-        /* TODO */
++        hvm_ioapic_deassert(d, info->irq);
+     else
+         ASSERT_UNREACHABLE();
+ 
+@@ -806,6 +806,17 @@ static int ns16x50_init(void *arg)
          return rc;
      }
  
-+    /* Disallow sharing physical IRQ */
-+    rc = irq_deny_access(d, info->irq);
++    /* Claim virtual IRQ */
++    write_lock(&d->event_lock);
++    rc = domain_emuirq_claim(d, info->irq);
++    write_unlock(&d->event_lock);
 +    if ( rc )
 +    {
-+        ns16x50_err(info, "virtual IRQ#%d: conflict w/ physical IRQ: %d\n",
++        ns16x50_err(info, "virtual IRQ#%d: cannot claim: %d\n",
 +                    info->irq, rc);
 +        return rc;
 +    }
@@ -204,6 +176,51 @@ index ea34c3ae598a..6bd58ba5540b 100644
      /* NB: report 115200 baud rate. */
      vdev->regs[NS16X50_REGS_NUM + UART_DLL] = divisor & UINT8_MAX;
      vdev->regs[NS16X50_REGS_NUM + UART_DLM] = (divisor >> 8) & UINT8_MAX;
+@@ -822,9 +833,22 @@ static int ns16x50_init(void *arg)
+ static void cf_check ns16x50_deinit(void *arg)
+ {
+     struct vuart_ns16x50 *vdev = arg;
++    const struct vuart_info *info;
++    struct domain *d;
++    int rc;
+ 
+     ASSERT(vdev);
+ 
++    d = vdev->owner;
++    info = vdev->info;
++
++    write_lock(&d->event_lock);
++    rc = domain_emuirq_unclaim(d, info->irq);
++    write_unlock(&d->event_lock);
++    if ( rc )
++        ns16x50_err(vdev, "virtual IRQ#%d: cannot unclaim: %d\n",
++                    info->irq, rc);
++
+     spin_lock(&vdev->lock);
+     ns16x50_fifo_tx_flush(vdev);
+     spin_unlock(&vdev->lock);
+diff --git a/xen/drivers/passthrough/x86/hvm.c b/xen/drivers/passthrough/x86/hvm.c
+index a2ca7e0e570c..20641194561f 100644
+--- a/xen/drivers/passthrough/x86/hvm.c
++++ b/xen/drivers/passthrough/x86/hvm.c
+@@ -922,7 +922,16 @@ static void __hvm_dpci_eoi(struct domain *d,
+ 
+ static void hvm_gsi_eoi(struct domain *d, unsigned int gsi)
+ {
+-    struct pirq *pirq = pirq_info(d, gsi);
++    struct pirq *pirq;
++
++    /* Check if GSI is claimed by one of the virtual devices. */
++    if ( is_domain_emuirq_claimed(d, gsi) )
++    {
++        hvm_gsi_deassert(d, gsi);
++        return;
++    }
++
++    pirq = pirq_info(d, gsi);
+ 
+     /* Check if GSI is actually mapped. */
+     if ( !pirq_dpci(pirq) )
 -- 
 2.51.0
 
