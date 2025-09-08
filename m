@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4F61B4890D
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 11:50:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1115031.1461793 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E48B7B48914
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 11:53:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1115041.1461804 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvYVm-0004oL-QF; Mon, 08 Sep 2025 09:50:10 +0000
+	id 1uvYYg-0005MG-6w; Mon, 08 Sep 2025 09:53:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1115031.1461793; Mon, 08 Sep 2025 09:50:10 +0000
+Received: by outflank-mailman (output) from mailman id 1115041.1461804; Mon, 08 Sep 2025 09:53:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvYVm-0004m7-Nh; Mon, 08 Sep 2025 09:50:10 +0000
-Received: by outflank-mailman (input) for mailman id 1115031;
- Mon, 08 Sep 2025 09:50:09 +0000
+	id 1uvYYg-0005Kl-3w; Mon, 08 Sep 2025 09:53:10 +0000
+Received: by outflank-mailman (input) for mailman id 1115041;
+ Mon, 08 Sep 2025 09:53:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LEzK=3T=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uvYVl-0004m1-33
- for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 09:50:09 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ <SRS0=dbc6=3T=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uvYYe-0005Kf-UX
+ for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 09:53:09 +0000
+Received: from fout-b5-smtp.messagingengine.com
+ (fout-b5-smtp.messagingengine.com [202.12.124.148])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 337ccff3-8c99-11f0-9809-7dc792cee155;
- Mon, 08 Sep 2025 11:50:07 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-45cb659e858so28715445e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 02:50:07 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b6f30fe02sm506065895e9.18.2025.09.08.02.50.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Sep 2025 02:50:06 -0700 (PDT)
+ id 9c0ed4e3-8c99-11f0-9809-7dc792cee155;
+ Mon, 08 Sep 2025 11:53:03 +0200 (CEST)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfout.stl.internal (Postfix) with ESMTP id ADD0A1D00068;
+ Mon,  8 Sep 2025 05:53:01 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Mon, 08 Sep 2025 05:53:02 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 8 Sep 2025 05:52:59 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +44,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 337ccff3-8c99-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1757325006; x=1757929806; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vAbXrVFx1N9qzSUrDKSkA07ICdV0MWA216vF/dShUCw=;
-        b=lGVIzy4bDxwXID6mdHvaHINe5elRGSU8yTkGRO/WLaO8W1k26s3FRd1ISWNH99+bLd
-         Z3GQA5qrafNn+8vb83GIP3BFzla6urE1CN2CQgFWXpmOAnytQWs3Qd2kB081jfatV5tK
-         nh1QVAisB+ufb4zKM+lPlJ8l8LK7TXEMj4jj0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757325006; x=1757929806;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vAbXrVFx1N9qzSUrDKSkA07ICdV0MWA216vF/dShUCw=;
-        b=xFfXwQgVw6X1f+mzSbxUwCXQhOIwbIesLC8m5Fl9He8GE1rW7zisqybWPYlbDgiYnw
-         XJLf0t4kQtIC3ZTslo1pKEWM7p8cvvFoZhsF90aMNHEyDjiV8fTKmfBIT0I62wGeeaHH
-         acshnnrKQNs9IW/aIisb/LAmbMSm9575UX1OGl5R9gCWdvklRc40mVJXhOnSuhK1lT9x
-         CtzPpp/mRGjxfrBhAThlg6u0wASVnq+o3R2k6F3DJDMBKmfUnrOlnzCBzJcbx3fuDAED
-         PeQMRVURTZ28HUQCtYLFX3uVu+tzyY3VD1AMnFx0aZbwDSZZ0zfM0YReMAbC6yHRhnQv
-         PJJg==
-X-Forwarded-Encrypted: i=1; AJvYcCWoneTVLhPqrFVL063AP18TW6/Y9howkrlLENKH3JHmX1A1lINSdDUkUztjGC2Ch9SYMv8pF4ADAM4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzJNdrHHIHnlFKhQO5EsU9R5GOfomdEgmyhN8MIvsrOfq25ItKi
-	0Ok57RMq1W6nRQ0leYLRDXNDsaQqmZ+FBaLRpPkurGsqVJ0++zt2kzx8lbyfOLFIWmc=
-X-Gm-Gg: ASbGncsNWcTKad8WwfJiz2iGZm+TRTgH2FJ6lrfb/m+Db2Oz/D6zvBMERzJGOTXA+mQ
-	S7lAzu8GLCrUn4A+/voog+0sYEb1kMt9WVotMzwThzLntkPQgzSvreCCoJ56UuOwzCD410ZckY1
-	fQisboXLT8wA2eNMNDhGEI3qySR8Jj8QTq+fyS34prt1m8rHB2ZsPoF5bSppiq06CE3qxlSfjXH
-	plV+i05G6XSrnQdHv7D2gHoz2VrM+CW4cNdJrV/UdMRk44cgs408TZhM3PQCQ1i6a95QB/lyvfU
-	f0PwcE3UAuBAyX6zz4kRHwFq/Kz5bSfU4y4f5WOex2Rmpz5+FMWpH1r7593YzeuoW5p3hGr7ic4
-	Uvi1vjtyZYN4D4tEzys9/VOi5BPR1BLExBlT1gK7N6clXMugrjks0HnLi9rpBLt5CqHPykPINHY
-	hbPDI=
-X-Google-Smtp-Source: AGHT+IHmfmaKU0Wbd+gpu/74Lh8oQIiBjUi1YStCv3+qzRLav0Agz3OedRTsrnu4ot0YiFFll8u2Ag==
-X-Received: by 2002:a05:600c:4453:b0:45b:9c37:6c92 with SMTP id 5b1f17b1804b1-45dddef02f7mr60014535e9.31.1757325006561;
-        Mon, 08 Sep 2025 02:50:06 -0700 (PDT)
-Message-ID: <4b651048-10f2-4184-bd6a-e6d7a5b64565@citrix.com>
-Date: Mon, 8 Sep 2025 10:50:05 +0100
+X-Inumbo-ID: 9c0ed4e3-8c99-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1757325181;
+	 x=1757411581; bh=cR7RUvZMenD1jeAwc6PFFl10oTT3YqXfPHHL/bwY6t8=; b=
+	efJm/QJUyTdh+au/mDtGCVin62X+OTKoszpfRer1aBaNgor2xCGCYSUP3HaazHup
+	0buCiAQhszuqXxgONHbemIkorg/HUvQVqPrcNFKeheVFeZj+oaJg/tNjxiQDwoh0
+	z1Fe4w4lijxVoFyZVkp1mS3fgz6Vsb9ALCk1fTGHTJXMT9O/KfCAT9hpFausnOuw
+	r3FMwWp+KpuEMDK7h7JK5gc2GJDIpFC6Oh2M8FtFPLv9HTpA/jWrlcSFzvl0yqIS
+	XYUWt+UW+d0gMGxl68iOnxOpMd5ra81hmphUotPjcYQo2iuxWRAOxpVmC8VUHix0
+	XWrpf0WkvynaAixeA5nIcg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1757325181; x=1757411581; bh=cR7RUvZMenD1jeAwc6PFFl10oTT3YqXfPHH
+	L/bwY6t8=; b=g58cze0DMI7Uk6qQFPssGI3mUiCmF0yUCiFIOtfZCPztQMY0v9S
+	grycycPp3995DINOPqqc4vJYdcI/t44LjYBjcGUlAmZ1OBrj3jk5HGMrbGB3CxJM
+	eJb6qgmi1+qKK4g+5PQqFKMcRYCMx31F2rFBvpvOwRDHk1Z6roLr0IolV9fd3T/j
+	ZWDphALbVu+Qa7lHVhx4Fod0672H7X8MpKvxEvjm2+D0Fh2tT0pLCC9y2MBBPWif
+	mPc5xBJBoq/faMgzkJsPCinjg1c6VT/A4898PgaTWyIXOAmzdQTUnxhmASBhOD7w
+	hth0ft0Nv546dTjsgpxJmviALQ0QmXhFzbw==
+X-ME-Sender: <xms:fae-aBaTkX08sU5rn1boW0vZwepGg-z-RWxAvaSvvdrKKVsFaS2NvA>
+    <xme:fae-aIEm5HZMaaOhi21sGTE9Mi5zieX5MIKuYeJnTuB36FhvflUwIdSjXEZlJxPac
+    Hr_e6H9VRSJfg>
+X-ME-Received: <xmr:fae-aPnQIFkF4QHwxgxJBC34Qa3-P9nYQvhByXqZgTzxlXZTT8RiF3ZizNbK8iJh5OD39F1CKyoK2WMPwDZnko3rH3Ucj37EE6E>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddujedvvdcutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
+    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteef
+    vefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvg
+    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
+    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeduuddpmh
+    houggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtgho
+    mhdprhgtphhtthhopehgvghrrghlugdrvghluggvrhdqvhgrshhssegtlhhouhgurdgtoh
+    hmpdhrtghpthhtoheprhhoshhsrdhlrghgvghrfigrlhhlsegtihhtrhhigidrtghomhdp
+    rhgtphhtthhopeguphhsmhhithhhsegrphgvrhhtuhhsshholhhuthhiohhnshdrtghomh
+    dprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhr
+    tghpthhtoheprghnthhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtph
+    htthhopehmihgthhgrlhdrohhriigvlhesrghmugdrtghomhdprhgtphhtthhopehjuhhl
+    ihgvnhesgigvnhdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigi
+    drtghomh
+X-ME-Proxy: <xmx:fae-aLfzkvk5_Zs56sq_zD3LNoQUG63TWyK38tFUj9L_RhclNb_X9Q>
+    <xmx:fae-aNEBIaCE8domZ7zUgYdYefU3XHDUGUrSkVGjXGzl9x9PoiIzRw>
+    <xmx:fae-aBinJpBIdx0-8Ne71A3Kr4tmIDmmvrJaP8XU7QXcboFj3axYtg>
+    <xmx:fae-aB0g5rGRhZ9X0JGUI9gNUUBL553kmBUH5Le_iigKnCOsm8vPYg>
+    <xmx:fae-aGUcJg3dqdGeujjPs1ZZk6iD03HPIHj7yNGYZkjwjLqmOXEx7Wyu>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 8 Sep 2025 11:52:57 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v4 1/2] efi: Add a function to check if Secure Boot mode
+ is enabled
+Message-ID: <aL6nedjTUxgKh2uq@mail-itl>
+References: <cover.1757071716.git.gerald.elder-vass@cloud.com>
+ <8d66f9ce2c9c352794c0c144f6e00d0a9d465dbe.1757071716.git.gerald.elder-vass@cloud.com>
+ <ed2e2406-bfab-4111-a9d0-025c85b51bdb@suse.com>
+ <CAOJ+D-UkSveZ4LdYK5GA3VucxxSbQgBv5m9jfZ0H_MyuHP-UZQ@mail.gmail.com>
+ <bf218191-fca6-439d-ad75-04162335b3ca@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] symbols: fix xensyms_read() hitting the final "end"
- symbol
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <d5136292-e02d-47bc-b230-c85c6aba2174@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <d5136292-e02d-47bc-b230-c85c6aba2174@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="WArpHYyzDXvmIVQj"
+Content-Disposition: inline
+In-Reply-To: <bf218191-fca6-439d-ad75-04162335b3ca@suse.com>
 
-On 08/09/2025 10:22 am, Jan Beulich wrote:
-> A new "no (more) symbol" path there was lacking a necessary unlock.
->
-> Fixes: d3b637fba31b ("symbols: arrange to know where functions end")
-> Coverity ID: 1665212
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+--WArpHYyzDXvmIVQj
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 8 Sep 2025 11:52:57 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v4 1/2] efi: Add a function to check if Secure Boot mode
+ is enabled
+
+On Mon, Sep 08, 2025 at 11:41:55AM +0200, Jan Beulich wrote:
+> On 08.09.2025 11:35, Gerald Elder-Vass wrote:
+> >>> +          size =3D=3D 1 && data =3D=3D 0) )
+> >>
+> >> ... any reason it's literal 1 here?
+> >=20
+> > The size variable is also used as output from GetVariable and we should
+> > verify that the size of the returned data is as expected, it is simply =
+one
+> > byte so probably not worth defining any macros to make it clearer
+>=20
+> I don't understand this reply. Why would the initializer of the variable
+> use one thing (sizeof()) and the checking of the variable another (literal
+> 1)? Even consistently using 1 would already be better imo; consistently
+> using sizeof() is what I think would be best.
+
+'size' as input value is the allocated size of the data parameter, so
+makes sense to be sizeof(data). IOW, 'size' as the input value comes
+=66rom the size of the 'data' variable, while the output value check comes
+=66rom UEFI spec. While the size of the 'data' variable should match the
+spec, IMO changing its type (to a wider one) should not break the
+behavior here.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--WArpHYyzDXvmIVQj
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmi+p3kACgkQ24/THMrX
+1ywVqAf/dxDyv8lw6FnoT5OcEwtuInoXnylyxZMhsFu/XF554KvnGTZusr6e2mH8
+nN7ADPdxVcKMIj1nudKe6iEFA4RmxOeMdP622+qlsC9oLoRCsPi5XrgQzqTGgYBh
+KQZJrDMbVkCtfPbNjdKDneZiHluY/5oY5Dh4Vhq6uy1qZsxUoAS2NCv+uNKTRKZG
+KnzWWiiP0DVehe1+JkYNom19rIFng1l7nK3AeKHKATmB65No5SzOdehbWC6hauK8
+XWji6z0s1mKZaUdStfKc6M8R+Lu984xsO17SBeCdAZcIvrGWSUeORsWBq43AsFmF
+/qNJrdL/QvdigKjjLiTF3REoDBN9ZA==
+=BNds
+-----END PGP SIGNATURE-----
+
+--WArpHYyzDXvmIVQj--
 
