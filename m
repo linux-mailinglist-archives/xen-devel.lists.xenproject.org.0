@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66EE6B490F6
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 16:14:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1115308.1461984 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37062B49119
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 16:19:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1115324.1461995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvcds-0004DD-P1; Mon, 08 Sep 2025 14:14:48 +0000
+	id 1uvciD-0004ym-CW; Mon, 08 Sep 2025 14:19:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1115308.1461984; Mon, 08 Sep 2025 14:14:48 +0000
+Received: by outflank-mailman (output) from mailman id 1115324.1461995; Mon, 08 Sep 2025 14:19:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvcds-0004Bm-MA; Mon, 08 Sep 2025 14:14:48 +0000
-Received: by outflank-mailman (input) for mailman id 1115308;
- Mon, 08 Sep 2025 14:14:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uvciD-0004wN-9o; Mon, 08 Sep 2025 14:19:17 +0000
+Received: by outflank-mailman (input) for mailman id 1115324;
+ Mon, 08 Sep 2025 14:19:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PLPY=3T=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uvcdr-0004Bg-3E
- for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 14:14:47 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 269d2fd3-8cbe-11f0-9809-7dc792cee155;
- Mon, 08 Sep 2025 16:14:36 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-b0431c12df3so772541566b.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 07:14:36 -0700 (PDT)
+ id 1uvciC-0004wH-G4
+ for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 14:19:16 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cc9384c7-8cbe-11f0-9d13-b5c5bf9af7f9;
+ Mon, 08 Sep 2025 16:19:15 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-6263d0e4b94so3851078a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 07:19:15 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
  [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cfc1c7a10sm22747185a12.5.2025.09.08.07.14.34
+ a640c23a62f3a-aff0681aefdsm2507185466b.8.2025.09.08.07.19.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Sep 2025 07:14:35 -0700 (PDT)
+ Mon, 08 Sep 2025 07:19:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,443 +45,277 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 269d2fd3-8cbe-11f0-9809-7dc792cee155
+X-Inumbo-ID: cc9384c7-8cbe-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1757340876; x=1757945676; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KNegjNmEZ9mXa2wP9a2k2r3tsR6hBXVwLbrDTxk/LG4=;
-        b=hMuzW4Lixs5yu9tvDuVeVL3VBud/UuQuMRLogEizt7J6plFbBKf2wqJ/SBgIM4ewvR
-         q+2hB3smk5yl0uThLeQNX0WLHO+9cQW6AUZXUIUGiLYIeTxiXRY15YTnOcLu9ngJ08JT
-         X3HKCu9I74lz2PH2CeFC/MmxzrQ6ZqMhTdW2AeThEvD5DhlDWDoE4J7fIJC/FHyWiGQz
-         EhuZXey3hrNwduDsEBxBQRVnNRjRp7mqWls39n74sOtwoJMKWeRxOPJxBYsbcz5nBXul
-         HMcYYx37ZFrDkcGMgkVlIjgiIjEDJSZbRzgvDhr+zMY+qOXhOT7gLoe8WLbbrwWtClQO
-         Fz/Q==
+        d=gmail.com; s=20230601; t=1757341155; x=1757945955; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Lbe8QKSIU3o79OXS///q+DjnP7EZq18ayU20B7dhrM0=;
+        b=R+vNnddtPPu+RIDBBrLicu4js1v93yxyx19S+xmxzljyEtk+Y8Cw+yLgS4Lzi7/xSa
+         UONbNBvRyn30oB5p1WMc2c7Rd2EozhDB4aBSbQHAudc6tVUTKDtfcSsHt6hBc4+JLBzu
+         O7z7iHM6/9zwhpIH1z5iToh+qZ+DoiFWypFRCzVHi1k56D3g2MiVwSn5fNqVMMC+/tuB
+         DhImmG/UarvM+WZS5BK3aQihhdjtZrUzgAQyPRrWIJPusPELeiXE5TjH9ac+Ta9uCBeF
+         /51stHXcUK9u1BX63g24McPDje51WB/hhtUa7o5YP8srkY8nBdPXKQxG2P7V7Hz0Af3p
+         SPQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757340876; x=1757945676;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=KNegjNmEZ9mXa2wP9a2k2r3tsR6hBXVwLbrDTxk/LG4=;
-        b=l1TG4BP5Q7DMpxkVO8azfe06jkN1YmYaXSVf9YBMeFVhMc8TGX4H2e8f0vzKM14PV4
-         fvaUKUMObUpjZNFCimAExhcwPNWhxXvi0q1LRfmtJhG+cv9M0ycKW8eIhoIaalI8JTBS
-         Rz85M3gaQzCMCEj2X1SLnay6xs1zBKWYiN/De/sKuPjU/iECqC8xo+YAlHmyIWe6NQD7
-         Eyh0PRc64Lt9jNW+33G0kjUXmmlPB8iFynVeQMQZr1/Ho/PK+jPr4n9DYFsyL4wWN+tL
-         Wma2MLi+hvyGXjrYlAPSymH+9uql0JYuce//T+4IylZvoA04pfVLci+670CEaufWnN4d
-         oT2g==
-X-Gm-Message-State: AOJu0YzabIKcx7pVNouzezLZmTOUZsfoonQVLen4Cde2mKNDy6mkNFv0
-	u8UfMGbhsSJARL43AqM9ph6MQNpC2ieNd/9QUZoelUsy15Z+uU3x/zTE
-X-Gm-Gg: ASbGnctkJwQQlCcPqyDMRzToH1fFOj3ycfVkWz9oAbeMi/UnY/0/sNhqe1dLINhQ/fh
-	PsliPPToDecSwz5c2fbNARexqNw8hAcrY2QRSeQbTwarLRd0X3vEsiPRqYIME6UXrzAPWwScTWB
-	cqKUm5l2CiJxc05TCFe27pMGsCRzAryvpAvNPKhqk0+ZHjopne59fHtOViyDZK6q28YRQnbaxyN
-	RTwD4N2ipg/57cbTSamabgyvDUd9GSJkMq9Tbdqj72HzSGEVinkqvu/VeVExbn68vtAeamibejW
-	mUPu/DZJwdLiX6h6Hs1eG+FlWUSdvw1nMU6VQaZ0MVFuH1tX+CIZDE2+OyipJhipXkuRcn9k8qe
-	NqIE3DUpUGuUlT8hvf/8IgeK6WYUUeBe+yrMvRIE2PPSLKTxRCzy+VLY6LM63sbsbNBYU+eDKfH
-	OcTlFe8Ds=
-X-Google-Smtp-Source: AGHT+IHoGK3ZsoIvRUjqB3AsjdnaDoM9jc9iXpQx1Ow7S4JzpLGgCcEyML8vZ5rae6BpjxnOdbnhpA==
-X-Received: by 2002:a17:906:fe0c:b0:b04:7708:ee36 with SMTP id a640c23a62f3a-b04b13c8c2dmr803511366b.9.1757340875958;
-        Mon, 08 Sep 2025 07:14:35 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------HlzBhsLQrd1xKNgWvngjZygp"
-Message-ID: <5cb8fdc8-9ea9-471b-bb07-ede3d27c575b@gmail.com>
-Date: Mon, 8 Sep 2025 16:14:32 +0200
+        d=1e100.net; s=20230601; t=1757341155; x=1757945955;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Lbe8QKSIU3o79OXS///q+DjnP7EZq18ayU20B7dhrM0=;
+        b=i/cmL84/tZu+ZYOdgHPJjIdUl5mziOsygeKPR8UlcoJaxLJKfcGy0qJBtHbHohVPJN
+         sDL5xs8+Mb4pa+MJ9O7lJvRpFif5K2aaXTYRgmLwmmHcKisFD6D6vl94SZx3ZjzqmZs/
+         VCeGFH/wbLyK/wZ/VpDepk5uUXLEF5OV8XJn6cEWqu7FT9FywAng7FLMDF99Z82uLwCd
+         LJJd2dft6asVCO5/5A+v5ve+Tg9sB4rZ2p36OLlRgJOJdCeCnY+tqkPPhnwApNL0PwFd
+         YCg9aSfTgV8ax1fL0r4xUCp6odHosXbJGRgNzG9pg6U2DEUzQDfMmTlAWMGGlNqXDurR
+         wigg==
+X-Gm-Message-State: AOJu0Yxty0MarVMy0CAPUETDM4ofW92QnkFTpcrhL12XA9uBoJ0knSpP
+	JMpS/d7v/H7uLh0l0dOEfprXsSzGvvqqA/j5phwNPJYctdPzQKZFZV6X
+X-Gm-Gg: ASbGncv1IAH/gYCjKaaRXr4Jna+wfoPvRIjsUSjxG1UI3FazHZh7s/adE1MnQuJORhR
+	xmVMkS2de7DUguJBCTnsKTKeQykboJv9WdmtyYxLvslF/0PKink/GIg6DJh9x2rrz6gEQ5/pZAJ
+	22OaY75+nOuGihdMC0nv32CBkX4TkOST8NncSRkhNjxWIfv/tTE9zdVpEyx+01ZgBbLp6p7P4H/
+	zY6+kzTBoPoYwsvH2/l5UCwTYuTALYQ9tnAPp5/BcM6U+2xb+gJPvwE8FhfrVLNhQM+YMBo4DMP
+	kIXKGSCaM1cs/WXDPqJ0XEefwdGVMP0PhVtfVycfbWC4du7TGLsC/tL/YUhkevabvRdxG/Yfmyc
+	OAao1iAOKTgeZvSO87kHO9DOHKwgV3vZ3dZWECntHLdWAKnRmyKlt+O/UFV1qlBTUHLm3cKg+67
+	bT6ilbiJE=
+X-Google-Smtp-Source: AGHT+IE1wBXI9qyXo7M9D553RjuOpUoEmW292MJ/8y0g3scG9Yipgcfvqa1hkpPClg/csBTiJ1i8aA==
+X-Received: by 2002:a17:907:1ca7:b0:af9:6bfb:58b7 with SMTP id a640c23a62f3a-b04b13cd4f7mr672350066b.5.1757341154729;
+        Mon, 08 Sep 2025 07:19:14 -0700 (PDT)
+Message-ID: <8dd6a815-0987-40f4-8afe-d4955fe5394d@gmail.com>
+Date: Mon, 8 Sep 2025 16:19:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 00/12] Introduce eSPI support
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "olekstysh@gmail.com" <olekstysh@gmail.com>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Community Manager <community.manager@xenproject.org>
-References: <cover.1757015865.git.leonid_komarianskyi@epam.com>
- <alpine.DEB.2.22.394.2509051717530.1405870@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v6 00/15] x86: introduce NS16550-compatible UART emulator
+To: Mykola Kvach <xakep.amatop@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+ anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com, dmukhin@xen.org
+References: <20250905232715.440758-1-dmukhin@ford.com>
+ <alpine.DEB.2.22.394.2509051900200.1405870@ubuntu-linux-20-04-desktop>
+ <CAGeoDV87bTaDiG=5xAvSGZXKTJ0zSRUz7Nq2JSenBqu8DnLe2A@mail.gmail.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <alpine.DEB.2.22.394.2509051717530.1405870@ubuntu-linux-20-04-desktop>
-
-This is a multi-part message in MIME format.
---------------HlzBhsLQrd1xKNgWvngjZygp
+In-Reply-To: <CAGeoDV87bTaDiG=5xAvSGZXKTJ0zSRUz7Nq2JSenBqu8DnLe2A@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
-On 9/6/25 2:17 AM, Stefano Stabellini wrote:
-> Hi Leonid,
+On 9/8/25 11:04 AM, Mykola Kvach wrote:
+> Hi Denis and Stefano
 >
-> I was about to commit this but unfortunately it is introducing MISRA
-> regressions. See:
-> https://gitlab.com/xen-project/people/sstabellini/xen/-/tree/ppp6?ref_type=heads
+> I’d like to acknowledge the significant effort that went into this patch
+> series -- it’s clear that a lot of work has been invested.
 >
-> https://gitlab.com/xen-project/people/sstabellini/xen/-/jobs/11265005118
+> On Sat, Sep 6, 2025 at 5:02 AM Stefano Stabellini
+> <sstabellini@kernel.org> wrote:
+>> Oleksii and all,
+>>
+>> I would like to consider patches 1-12 of this patch series for 4.21,
+>> pending the few minor comments I made addressed.
+> Although I am neither a maintainer nor an official reviewer for this
+> project, I have looked over some of the first patches in the series. In my
+> opinion, the series is not yet ready for merging.
 >
-> Compared this result:
-> https://eclair-analysis-logs.xenproject.org/fs/var/local/eclair/xen-project.ecdf/xen-project/people/sstabellini/xen/ECLAIR_normal/ppp6/ARM64/11265005118/PROJECT.ecd;/by_service.html#service&kind
+> Even if my review is set aside, the changes are largely x86-specific and
+> produce the most impact on this architecture. I believe that before
+> merging, one of the x86 maintainers (or at least a trusted reviewer for
+> x86, if available) should carefully review these patches.
 >
-> Against upstream staging:
-> https://eclair-analysis-logs.xenproject.org/fs/space/XEN.ecdf/xen-project/hardware/xen/ECLAIR_normal/staging/ARM64/11264772605/PROJECT.ecd;/by_service.html#service&kind
->
-> It is introducing a couple of easy-to-fix 16.3 issues and also a couple
-> of new 16.4 issues. They should be all easy to fix. It is also
-> introducing three new 13.2 issues and one 18.1 but I haven't looked
-> closely into those. Please address them.
->
->
-> Oleksii,
->
-> Technically, the series is fully acked and ready to be committed. From a
-> risk perspective, I would be comfortable committing it now with the
-> outstanding MISRA regressions, leaving Leonid to fix them over the next
-> few days. However, I have not done so because it would make it harder to
-> spot the MISRA regressions due to the way the scanner works (it
-> compares against the previous version).
->
-> I suggest we allow this series to be committed in the next couple of
-> days, once Leonid addresses the regressions, even though it would
-> technically be past the feature freeze.
-
-If there is no any strong objects, it sounds good to me to give couple
-of days to fix the regressions and then commit this patch series.
-
-~ Oleksii
-
->
-> Cheers,
->
-> Stefano
->
-> P.S.
->
-> Leonid, you might want to check my commits because I fixed a couple of
-> things on commit, in addition to adding the various acked-by tags.
->
->
-> On Thu, 4 Sep 2025, Leonid Komarianskyi wrote:
->> Hello everyone!
 >>
->> V6 contains an issue for debug builds with CONFIG_GICV3_ESPI=n due to a
->> mistake in the ASSERT() condition in the is_espi() function. This patch
->> series fixes the issue and also includes minor fixes according to the
->> review of V6.
->>
->> Summarized description:
->> This patch series adds support for the extended shared peripheral
->> interrupt (eSPI) range (INTIDs 4096-5119 [2](ranges of INTIDs)) for Xen
->> and guest domains. The implementation uses a generic approach to handle
->> eSPIs, similar to regular SPIs, while maintaining compatibility with the
->> existing SPI range. Functionality remains unchanged for setups that do
->> not require eSPIs.
->>
->> The series includes:
->> 1) General refactoring of common IRQ operations with GIC registers to
->> improve code readability, simplify further maintenance and prepare the
->> key functions for eSPI implementation.
->> 2) Introducing a new Kconfig option (default n) to enable or disable
->> eSPI support. Disabling this option prevents unnecessary resource
->> allocation for setups that do not require eSPIs.
->> 3) Adding additional resources to store required information and operate
->> with up to 1024 interrupts from eSPI range.
->> 4) Adjusting assertions and checks to pass verification for INTIDs in
->> the eSPI range.
->> 5) Configuration of eSPI-specific registers during GIC initialization
->> for systems with GICv3.1+ hardware.
->> 6) Enables eSPI MMIO emulation for vGIC, allowing guest domains to
->> access and operate within the eSPI's INTIDs.
->> 7) Updating documentation and CHANGELOG to reflect the changes made for eSPI
->> support.
->>
->> Also, to simplify reviewing, please find below link to unsquashed patches, that
->> are on top of every patch, that is changed in the series, compared to V6:
->> https://github.com/LKomaryanskiy/xen/commits/espi-support-master-upstream-v7-unsquashed/
->>
->> Github branch with patch series:
->> https://github.com/LKomaryanskiy/xen/commits/espi-support-master-upstream-v7/
->>
->> Changes in V7:
->> - individual changes in patches
->>
->> Link on V6:
->> -https://lists.xenproject.org/archives/html/xen-devel/2025-09/msg00296.html
->>
->> Changes in V6:
->> - individual changes in patches
->>
->> Link on V5:
->> -https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg02086.html
->>
->> Changes in V5:
->> - individual changes in patches
->>
->> Link on V4:
->> -https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg01767.html
->>
->> Changes in V4:
->> - added a patch for documentation
->> - individual changes in patches
->>
->> Link on V3:
->> -https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg01628.html
->>
->> Changes in V3:
->> - added a patch to update CHANGELOG.md
->> - individual changes in patches
->>
->> Link on V2:
->> -https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg00372.html
->>
->> Changes in V2:
->> - added 2 more patches to implement helper
->>    functions for gic/vgic:
->>    xen/arm: gic: implement helper functions for INTID checks
->>    xen/arm: vgic: implement helper functions for virq checks
->> - removed 2 patches:
->>    xen/arm/irq: allow assignment/releasing of eSPI interrupts
->>    xen/arm: gic/irq: permit routing of eSPI interrupts to Xen and domains
->>    since their functionality can be moved to appropriate patches after
->>    introducing patches with helper functions
->> - individual changes in patches
->>
->> Link on V1:
->> -https://lists.xenproject.org/archives/html/xen-devel/2025-07/msg01809.html
->>
->> Leonid Komarianskyi (12):
->>    xen/arm: gicv3: refactor obtaining GIC addresses for common operations
->>    xen/arm: gic: implement helper functions for INTID checks
->>    xen/arm: vgic: implement helper functions for virq checks
->>    xen/arm/irq: add handling for IRQs in the eSPI range
->>    xen/arm: gicv3: implement handling of GICv3.1 eSPI
->>    xen/arm/irq: allow eSPI processing in the gic_interrupt function
->>    xen/arm: gicv3: modify ICH_LR_PHYSICAL_MASK to allow eSPI processing
->>    xen/arm: vgic: add resource management for extended SPIs
->>    xen/arm: domain_build/dom0less-build: adjust domains config to support
->>      eSPIs
->>    xen/arm: vgic-v3: add emulation of GICv3.1 eSPI registers
->>    doc/man: update description for nr_spis with eSPI
->>    CHANGELOG.md: add mention of GICv3.1 eSPI support
->>
->>   CHANGELOG.md                           |   2 +
->>   docs/man/xl.cfg.5.pod.in               |  13 +-
->>   xen/arch/arm/Kconfig                   |   8 +
->>   xen/arch/arm/dom0less-build.c          |   2 +-
->>   xen/arch/arm/domain_build.c            |   2 +-
->>   xen/arch/arm/gic-v3.c                  | 195 +++++++++++++++++++----
->>   xen/arch/arm/gic.c                     |   8 +-
->>   xen/arch/arm/include/asm/gic.h         |  28 ++++
->>   xen/arch/arm/include/asm/gic_v3_defs.h |  40 ++++-
->>   xen/arch/arm/include/asm/irq.h         |  38 +++++
->>   xen/arch/arm/include/asm/vgic.h        |  56 ++++++-
->>   xen/arch/arm/irq.c                     |  62 +++++++-
->>   xen/arch/arm/vgic-v3.c                 | 203 ++++++++++++++++++-----
->>   xen/arch/arm/vgic.c                    | 212 +++++++++++++++++++++++--
->>   xen/arch/arm/vgic/vgic.c               |   5 +
->>   15 files changed, 762 insertions(+), 112 deletions(-)
->>
->> -- 
->> 2.34.1
->>
---------------HlzBhsLQrd1xKNgWvngjZygp
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 9/6/25 2:17 AM, Stefano Stabellini
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:alpine.DEB.2.22.394.2509051717530.1405870@ubuntu-linux-20-04-desktop">
-      <pre wrap="" class="moz-quote-pre">Hi Leonid,
-
-I was about to commit this but unfortunately it is introducing MISRA
-regressions. See:
-<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/sstabellini/xen/-/tree/ppp6?ref_type=heads">https://gitlab.com/xen-project/people/sstabellini/xen/-/tree/ppp6?ref_type=heads</a>
-
-<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/sstabellini/xen/-/jobs/11265005118">https://gitlab.com/xen-project/people/sstabellini/xen/-/jobs/11265005118</a>
-
-Compared this result:
-<a class="moz-txt-link-freetext" href="https://eclair-analysis-logs.xenproject.org/fs/var/local/eclair/xen-project.ecdf/xen-project/people/sstabellini/xen/ECLAIR_normal/ppp6/ARM64/11265005118/PROJECT.ecd;/by_service.html#service&amp;kind">https://eclair-analysis-logs.xenproject.org/fs/var/local/eclair/xen-project.ecdf/xen-project/people/sstabellini/xen/ECLAIR_normal/ppp6/ARM64/11265005118/PROJECT.ecd;/by_service.html#service&amp;kind</a>
-
-Against upstream staging:
-<a class="moz-txt-link-freetext" href="https://eclair-analysis-logs.xenproject.org/fs/space/XEN.ecdf/xen-project/hardware/xen/ECLAIR_normal/staging/ARM64/11264772605/PROJECT.ecd;/by_service.html#service&amp;kind">https://eclair-analysis-logs.xenproject.org/fs/space/XEN.ecdf/xen-project/hardware/xen/ECLAIR_normal/staging/ARM64/11264772605/PROJECT.ecd;/by_service.html#service&amp;kind</a>
-
-It is introducing a couple of easy-to-fix 16.3 issues and also a couple
-of new 16.4 issues. They should be all easy to fix. It is also
-introducing three new 13.2 issues and one 18.1 but I haven't looked
-closely into those. Please address them.
-
-
-Oleksii,
-
-Technically, the series is fully acked and ready to be committed. From a
-risk perspective, I would be comfortable committing it now with the
-outstanding MISRA regressions, leaving Leonid to fix them over the next
-few days. However, I have not done so because it would make it harder to
-spot the MISRA regressions due to the way the scanner works (it
-compares against the previous version).
-
-I suggest we allow this series to be committed in the next couple of
-days, once Leonid addresses the regressions, even though it would
-technically be past the feature freeze.</pre>
-    </blockquote>
-    <pre>If there is no any strong objects, it sounds good to me to give couple
-of days to fix the regressions and then commit this patch series.
-
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-cite="mid:alpine.DEB.2.22.394.2509051717530.1405870@ubuntu-linux-20-04-desktop">
-      <pre wrap="" class="moz-quote-pre">
-
-Cheers,
-
-Stefano
-
-P.S.
-
-Leonid, you might want to check my commits because I fixed a couple of
-things on commit, in addition to adding the various acked-by tags.
-
-
-On Thu, 4 Sep 2025, Leonid Komarianskyi wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Hello everyone!
-
-V6 contains an issue for debug builds with CONFIG_GICV3_ESPI=n due to a
-mistake in the ASSERT() condition in the is_espi() function. This patch
-series fixes the issue and also includes minor fixes according to the
-review of V6.
-
-Summarized description:
-This patch series adds support for the extended shared peripheral
-interrupt (eSPI) range (INTIDs 4096-5119 [2](ranges of INTIDs)) for Xen
-and guest domains. The implementation uses a generic approach to handle
-eSPIs, similar to regular SPIs, while maintaining compatibility with the
-existing SPI range. Functionality remains unchanged for setups that do
-not require eSPIs.
-
-The series includes:
-1) General refactoring of common IRQ operations with GIC registers to
-improve code readability, simplify further maintenance and prepare the
-key functions for eSPI implementation.
-2) Introducing a new Kconfig option (default n) to enable or disable
-eSPI support. Disabling this option prevents unnecessary resource
-allocation for setups that do not require eSPIs.
-3) Adding additional resources to store required information and operate
-with up to 1024 interrupts from eSPI range.
-4) Adjusting assertions and checks to pass verification for INTIDs in
-the eSPI range.
-5) Configuration of eSPI-specific registers during GIC initialization
-for systems with GICv3.1+ hardware.
-6) Enables eSPI MMIO emulation for vGIC, allowing guest domains to
-access and operate within the eSPI's INTIDs.
-7) Updating documentation and CHANGELOG to reflect the changes made for eSPI
-support.
-
-Also, to simplify reviewing, please find below link to unsquashed patches, that
-are on top of every patch, that is changed in the series, compared to V6:
-<a class="moz-txt-link-freetext" href="https://github.com/LKomaryanskiy/xen/commits/espi-support-master-upstream-v7-unsquashed/">https://github.com/LKomaryanskiy/xen/commits/espi-support-master-upstream-v7-unsquashed/</a>
-
-Github branch with patch series:
-<a class="moz-txt-link-freetext" href="https://github.com/LKomaryanskiy/xen/commits/espi-support-master-upstream-v7/">https://github.com/LKomaryanskiy/xen/commits/espi-support-master-upstream-v7/</a>
-
-Changes in V7:
-- individual changes in patches
-
-Link on V6:
-- <a class="moz-txt-link-freetext" href="https://lists.xenproject.org/archives/html/xen-devel/2025-09/msg00296.html">https://lists.xenproject.org/archives/html/xen-devel/2025-09/msg00296.html</a>
-
-Changes in V6:
-- individual changes in patches
-
-Link on V5:
-- <a class="moz-txt-link-freetext" href="https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg02086.html">https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg02086.html</a>
-
-Changes in V5:
-- individual changes in patches
-
-Link on V4:
-- <a class="moz-txt-link-freetext" href="https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg01767.html">https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg01767.html</a>
-
-Changes in V4:
-- added a patch for documentation
-- individual changes in patches
-
-Link on V3:
-- <a class="moz-txt-link-freetext" href="https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg01628.html">https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg01628.html</a>
-
-Changes in V3:
-- added a patch to update CHANGELOG.md
-- individual changes in patches
-
-Link on V2:
-- <a class="moz-txt-link-freetext" href="https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg00372.html">https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg00372.html</a>
-
-Changes in V2:
-- added 2 more patches to implement helper
-  functions for gic/vgic:
-  xen/arm: gic: implement helper functions for INTID checks
-  xen/arm: vgic: implement helper functions for virq checks
-- removed 2 patches:
-  xen/arm/irq: allow assignment/releasing of eSPI interrupts
-  xen/arm: gic/irq: permit routing of eSPI interrupts to Xen and domains
-  since their functionality can be moved to appropriate patches after
-  introducing patches with helper functions
-- individual changes in patches
-
-Link on V1:
-- <a class="moz-txt-link-freetext" href="https://lists.xenproject.org/archives/html/xen-devel/2025-07/msg01809.html">https://lists.xenproject.org/archives/html/xen-devel/2025-07/msg01809.html</a>
-
-Leonid Komarianskyi (12):
-  xen/arm: gicv3: refactor obtaining GIC addresses for common operations
-  xen/arm: gic: implement helper functions for INTID checks
-  xen/arm: vgic: implement helper functions for virq checks
-  xen/arm/irq: add handling for IRQs in the eSPI range
-  xen/arm: gicv3: implement handling of GICv3.1 eSPI
-  xen/arm/irq: allow eSPI processing in the gic_interrupt function
-  xen/arm: gicv3: modify ICH_LR_PHYSICAL_MASK to allow eSPI processing
-  xen/arm: vgic: add resource management for extended SPIs
-  xen/arm: domain_build/dom0less-build: adjust domains config to support
-    eSPIs
-  xen/arm: vgic-v3: add emulation of GICv3.1 eSPI registers
-  doc/man: update description for nr_spis with eSPI
-  CHANGELOG.md: add mention of GICv3.1 eSPI support
-
- CHANGELOG.md                           |   2 +
- docs/man/xl.cfg.5.pod.in               |  13 +-
- xen/arch/arm/Kconfig                   |   8 +
- xen/arch/arm/dom0less-build.c          |   2 +-
- xen/arch/arm/domain_build.c            |   2 +-
- xen/arch/arm/gic-v3.c                  | 195 +++++++++++++++++++----
- xen/arch/arm/gic.c                     |   8 +-
- xen/arch/arm/include/asm/gic.h         |  28 ++++
- xen/arch/arm/include/asm/gic_v3_defs.h |  40 ++++-
- xen/arch/arm/include/asm/irq.h         |  38 +++++
- xen/arch/arm/include/asm/vgic.h        |  56 ++++++-
- xen/arch/arm/irq.c                     |  62 +++++++-
- xen/arch/arm/vgic-v3.c                 | 203 ++++++++++++++++++-----
- xen/arch/arm/vgic.c                    | 212 +++++++++++++++++++++++--
- xen/arch/arm/vgic/vgic.c               |   5 +
- 15 files changed, 762 insertions(+), 112 deletions(-)
-
--- 
-2.34.1
-
-</pre>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------HlzBhsLQrd1xKNgWvngjZygp--
+>> On Fri, 5 Sep 2025, dmukhin@xen.org wrote:
+>>> x86 port of Xen lacks vUART facility similar to Arm's vpl011 to support x86
+>>> guest OS bring up in the embedded setups.
+>>>
+>>> This patch series introduces initial in-hypervisor emulator for
+>>> NS8250/NS16x50-compatible UARTs under CONFIG_VUART_NS16X50.
+>>>
+>>> In parallel domain creation scenario (hyperlaunch), NS16550 emulator helps
+>>> early guest firmware and OS bringup debugging, because it eliminates
+>>> dependency on the external emulator (qemu) being operational by the time
+>>> domains are created.
+>>>
+>>> The emulator also allows to forward the physical console input to the x86
+>>> domain which is useful when a system has only one physical UART for early
+>>> debugging and this UART is owned by Xen.
+>>>
+>>> By default, CONFIG_VUART_NS16X50 enables emulation of NS16550 at I/O port
+>>> 0x2f8, IRQ#3 in guest OS (legacy COM2). Legacy COM resources cannot be
+>>> selected at built-time or via per-domain xl configuration in this initial
+>>> submission.
+>>>
+>>> CONFIG_VUART_NS16X50_DEBUG enables some extra debugging facilities useful
+>>> for NS16550 emulator development/debugging (disabled by default).
+>>>
+>>> The NS16550 emulator is disabled in default x86 configuration and goes under
+>>> CONFIG_EXPERT in Kconfig.
+>>>
+>>> Limitations
+>>> ===========
+>>> - Only x86;
+>>> - Only legacy COM2 resources, custom I/O ports/IRQs are not supported;
+>>> - Only Xen console as a backend, no inter-domain communication (similar to
+>>>    vpl011 on Arm);
+>>> - Only 8n1 emulation (8-bit data, no parity, 1 stop bit);
+>>> - No toolstack integration;
+>>> - No baud rate emulation (reports 115200 baud to the guest OS);
+>>> - No FIFO-less mode emulation;
+>>> - No RX FIFO interrupt moderation (FCR) emulation;
+>>> - No integration w/ VM snapshotting (HVM_REGISTER_SAVE_RESTORE() and
+>>>    friends);
+>>> - No MMIO-based UART emulation.
+>>>
+>>> Series
+>>> ======
+>>>
+>>>    Patch 1 introduces the new vUART framework, that is the code originally
+>>>    posted here:
+>>>      https://lore.kernel.org/xen-devel/20250624035443.344099-16-dmukhin@ford.com/
+>>>    Required for emulator.
+>>>
+>>>    Patch 2 adds missing NS16550 definitions, required for emulator.
+>>>
+>>>    Patch 3 introduces the basic emulator skeleton - state machine
+>>>    initialization stubs, I/O port handler stub, logging, etc.
+>>>
+>>>    Patches 4-11 incrementally populate the minimal NS16550 register emulation.
+>>>
+>>>    Patch 12 hooks vUART state debugging (disabled by default).
+>>>
+>>>    Pathes 13-15 introduce necessary changes to enable NS16550 on dom0 (and PVH).
+>>>
+>>> Link to CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/2024756493
+>>> Link to branch: https://gitlab.com/xen-project/people/dmukhin/xen/-/tree/vuart-ns8250-v6?ref_type=heads
+>>>
+>>> Testing
+>>> =======
+>>>
+>>>    ```shell
+>>>    echo CONFIG_EXPERT=y >> .config
+>>>    echo CONFIG_VUART_NS16X50=y >> .config
+>>>    make olddefconfig
+>>>    ```
+>>>    COM2 (0x2f8) resources are used by default.
+>>>
+>>>    To test w/ virtual COM2, the guest kernel parameters should contain
+>>>    something like the following:
+>>>      earlycon=uart,io,0x2f8,115200n8 console=uart,io,0x2f8,115200n8
+>>>
+>>>    HVM
+>>>    ---
+>>>    Tested only boot of HVM linux guest with OVMF as the virtual firmware.
+>>>    SeaBIOS as a virtual firmware is not tested.
+>>>
+>>>    PVH (dom0)
+>>>    ----------
+>>>    Xen is able to forward physical console input to the domain with virtual
+>>>    NS16550. To switch the console focus press Ctrl+aaa.
+>>>    Console switch is limited on x86 to dom0 and Xen (fixes pending).
+>>>
+>>> Changes since v5:
+>>> - Split THR/RBR into two separate patches.
+>>> - Addressed feedback from v5.
+>>> - Link to v5: https://lore.kernel.org/xen-devel/20250828235409.2835815-1-dmukhin@ford.com/
+>>>
+>>> Changes since v4:
+>>> - Split the series to make it simpler to review.
+>>> - Addressed feedback from v4.
+>>> - Dropped xl changes, which I will submit separately.
+>>> - Link to v4: https://lore.kernel.org/xen-devel/20250731192130.3948419-1-dmukhin@ford.com/
+>>>
+>>> Changes since v3:
+>>> - Reduced the blast radius of the series, thanks to reviews, individual
+>>>    aspects (like console focus) touched in v3 moved to separate threads.
+>>> - Kept the UART emulator framework since I need to redo some of emulator code
+>>>    and there's more-or-less agreement on it (where to place, naming, scope).
+>>> - Applied the feedback from
+>>>      https://lore.kernel.org/xen-devel/20250624035443.344099-1-dmukhin@ford.com/
+>>> - Link to v3: https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com/
+>>>
+>>> Changes since v2:
+>>> - renamed emulator s/NS8250/NS16550/g
+>>> - reduced the patch series after addressing v2 feedback
+>>> - introduced driver framework for UART emulators
+>>> - unified guest OS printouts across all available UART emulators
+>>> - Link to v2: https://lore.kernel.org/xen-devel/20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com/
+>>>
+>>> Changes since v1:
+>>> - dropped kmalloc/kfree aliases
+>>> - fixed ECLAIR jobs (thanks Andrew Cooper)
+>>> - addressed console forwarding on arm32 and arm64 (thanks to Luca Fancellu)
+>>> - moved NS8250 debugging stubs into its own patch
+>>> - added fix for https://gitlab.com/xen-project/xen/-/issues/184
+>>> - Link to v1: https://lore.kernel.org/r/20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com
+>>>
+>>> Denis Mukhin (15):
+>>>    emul/vuart: introduce framework for UART emulators
+>>>    xen/8250-uart: update definitions
+>>>    emul/ns16x50: implement emulator stub
+>>>    emul/ns16x50: implement DLL/DLM registers
+>>>    emul/ns16x50: implement SCR register
+>>>    emul/ns16x50: implement IER/IIR registers
+>>>    emul/ns16x50: implement LCR/LSR registers
+>>>    emul/ns16x50: implement MCR/MSR registers
+>>>    emul/ns16x50: implement RBR register
+>>>    emul/ns16x50: implement THR register
+>>>    emul/ns16x50: implement FCR register (write-only)
+>>>    emul/ns16550: implement dump_state() hook
+>>>    x86/domain: enable per-domain I/O port bitmaps
+>>>    xen/domain: allocate d->irq_caps before arch-specific initialization
+>>>    emul/ns16x50: implement IRQ emulation via vIOAPIC
+>>>
+>>>   xen/arch/arm/xen.lds.S                   |   1 +
+>>>   xen/arch/ppc/xen.lds.S                   |   1 +
+>>>   xen/arch/riscv/xen.lds.S                 |   1 +
+>>>   xen/arch/x86/Makefile                    |   1 +
+>>>   xen/arch/x86/dom0_build.c                | 112 +--
+>>>   xen/arch/x86/hvm/dom0_build.c            |   7 +
+>>>   xen/arch/x86/hvm/hvm.c                   |  56 +-
+>>>   xen/arch/x86/hvm/nestedhvm.c             |   8 +-
+>>>   xen/arch/x86/hvm/quirks.c                |   3 -
+>>>   xen/arch/x86/hvm/svm/nestedsvm.c         |   2 +-
+>>>   xen/arch/x86/hvm/vioapic.c               |  10 +
+>>>   xen/arch/x86/hvm/vmx/vvmx.c              |   4 +-
+>>>   xen/arch/x86/include/asm/hvm/nestedhvm.h |   3 +-
+>>>   xen/arch/x86/include/asm/hvm/support.h   |   2 -
+>>>   xen/arch/x86/include/asm/iocap.h         |   2 +
+>>>   xen/arch/x86/include/asm/irq.h           |   8 +
+>>>   xen/arch/x86/ioport.c                    | 163 ++++
+>>>   xen/arch/x86/irq.c                       |   8 +
+>>>   xen/arch/x86/pv/dom0_build.c             |   7 +
+>>>   xen/arch/x86/xen.lds.S                   |   1 +
+>>>   xen/common/Kconfig                       |   2 +
+>>>   xen/common/Makefile                      |   1 +
+>>>   xen/common/domain.c                      |   8 +-
+>>>   xen/common/emul/Kconfig                  |   6 +
+>>>   xen/common/emul/Makefile                 |   1 +
+>>>   xen/common/emul/vuart/Kconfig            |  25 +
+>>>   xen/common/emul/vuart/Makefile           |   2 +
+>>>   xen/common/emul/vuart/ns16x50.c          | 984 +++++++++++++++++++++++
+>>>   xen/common/emul/vuart/vuart.c            | 157 ++++
+>>>   xen/common/keyhandler.c                  |   3 +
+>>>   xen/drivers/char/console.c               |   6 +-
+>>>   xen/drivers/char/ns16550.c               |  16 +-
+>>>   xen/drivers/passthrough/x86/hvm.c        |  11 +-
+>>>   xen/include/xen/8250-uart.h              |  50 +-
+>>>   xen/include/xen/sched.h                  |   4 +
+>>>   xen/include/xen/serial.h                 |   3 +
+>>>   xen/include/xen/vuart.h                  | 116 +++
+>>>   xen/include/xen/xen.lds.h                |  10 +
+>>>   38 files changed, 1634 insertions(+), 171 deletions(-)
+>>>   create mode 100644 xen/arch/x86/ioport.c
+>>>   create mode 100644 xen/common/emul/Kconfig
+>>>   create mode 100644 xen/common/emul/Makefile
+>>>   create mode 100644 xen/common/emul/vuart/Kconfig
+>>>   create mode 100644 xen/common/emul/vuart/Makefile
+>>>   create mode 100644 xen/common/emul/vuart/ns16x50.c
+>>>   create mode 100644 xen/common/emul/vuart/vuart.c
+>>>   create mode 100644 xen/include/xen/vuart.h
+>>>
+>>> --
+>>> 2.51.0
+>>>
+> Best regards,
+> Mykola
 
