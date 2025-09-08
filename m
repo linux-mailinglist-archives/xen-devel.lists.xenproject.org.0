@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16E7CB487BF
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 11:04:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1114859.1461663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53453B487D7
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Sep 2025 11:08:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1114873.1461673 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvXnW-000715-Ds; Mon, 08 Sep 2025 09:04:26 +0000
+	id 1uvXrd-0000RN-1v; Mon, 08 Sep 2025 09:08:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1114859.1461663; Mon, 08 Sep 2025 09:04:26 +0000
+Received: by outflank-mailman (output) from mailman id 1114873.1461673; Mon, 08 Sep 2025 09:08:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvXnW-0006zI-AZ; Mon, 08 Sep 2025 09:04:26 +0000
-Received: by outflank-mailman (input) for mailman id 1114859;
- Mon, 08 Sep 2025 09:04:24 +0000
+	id 1uvXrc-0000Px-Ta; Mon, 08 Sep 2025 09:08:40 +0000
+Received: by outflank-mailman (input) for mailman id 1114873;
+ Mon, 08 Sep 2025 09:08:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/zpM=3T=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uvXnU-0006zC-Sh
- for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 09:04:24 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=suiz=3T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uvXrb-0000Pr-AD
+ for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 09:08:39 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cfeff4ea-8c92-11f0-9d13-b5c5bf9af7f9;
- Mon, 08 Sep 2025 11:04:23 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-336b071e806so36069761fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 02:04:23 -0700 (PDT)
+ id 67e26256-8c93-11f0-9d13-b5c5bf9af7f9;
+ Mon, 08 Sep 2025 11:08:38 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-b0472bd218bso648864666b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Sep 2025 02:08:38 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b040d44c9adsm2138413466b.9.2025.09.08.02.08.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Sep 2025 02:08:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,305 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cfeff4ea-8c92-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: 67e26256-8c93-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1757322263; x=1757927063; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3H+NDhuBzFU7/0BQZrmGJSHfPYagzaqwE55SgUvWRTw=;
-        b=D030oT/yViWgCOr1TTDui7Ibwwrwgmiu1IFDO+BrH95P5QiuR0jlHc2eng9r4Wrv7r
-         Zx6rH1/GLJhE+EFg/Gx8JUvQyVw1WGCZWFZvUDMChz0vhG7zychTUIiWylLnTcnRKfoe
-         9rYv0sf5fbWh4odK5ULFROC4rB/Kt26CQw46aJK8/pzenjXPlDbdgtBgVItH4Mm3Lyyp
-         kBPVuVefZjZ5y+Qi9wf5K9/KFouqIgIe9ujy1x6Fpvx3rAF+HCEAA6/6HqsvcVi8Lr72
-         CERrGKabAEWTkPT9acA5xIZwcFVbp2u2YMp+N/70ZRSCWfcrg41f3Km0VHCstm8sCNSw
-         LL5A==
+        d=suse.com; s=google; t=1757322517; x=1757927317; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=WEpQWJAguHNxZnf5RskzNGHiQ7p8CvADHoDg7CzPj7o=;
+        b=Bq4/pcEnUKpjpsdjteCiwvkJ9caw57YGGGrmtGGaPqjvOP7o8e/GS61irq70qo8NLX
+         Gpo3lGDPP42psmTblFAfyPvncfsK9Th2lJssfFpoIgEgOjhd5ZPY+j2B9rTIWMrnYZiH
+         bj9Cw6EZZWYDYIyY4/f5lo2RlT0p3Du01OgpI6XVnQUr9idwp8gSoBaiK2iR2LSWDIGC
+         NQSK5qqwzY1Hn4XvNI8wYhjMODrXT/Ozyi15r+Zx7UKaf+bRDI62Xx3LHY/Cd9FnR6KE
+         D9xSyfpr+w0q2WjdKf6pdSP5IHm6OamMaW5OujKe21TJSq5f/tq0r7T5pMY3y5oMN53P
+         zdBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757322263; x=1757927063;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3H+NDhuBzFU7/0BQZrmGJSHfPYagzaqwE55SgUvWRTw=;
-        b=Y/QFIwpi6F8RCRKsaScCLJqO0c6LyQdTiOB+3qrf7KR5sviGOUgj7aYjuKsWU+F0Xc
-         VSyNt/NVHEDuXyG7rTjxUEe+rq4hZsAUcaj2YBwEZmVSBeVwLhkp7kBBIE4VVkQ5HxiS
-         qHlqtZKRGPv9fxOlzCCqA7WmDuZRYgaNTdYJJWoXuHbxwwpwY4y/xOfdYrbxNmN/ENDr
-         +QPRlSuHfQjpcys3nCv1NmaygB9as5wWp39/0owg8SqkrfcMcQWXo+EfaFVS/p0coQb8
-         EXMEGHIP9k0AKn1ybjWC1TSNiJ+n4nPObA1jnBEd1o4O2OqQh4TZJ9zn2wfZGzoxiK0O
-         PVlA==
-X-Forwarded-Encrypted: i=1; AJvYcCWq90G9SoiJ6VTO440Q2VJL+myb2OgodojoNKgO8PbkLbyXQdXlxU40G7bUKbK6P1SnTPjmcWJK+Q8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyFKqyJHTLGhkcm8A5Tvz5AvFMt6wo5EbFvbpPbvXvz0uI7jGlj
-	r7DTifNh5SgaLYRc65qAGLlmMzlFIFYsOje2DdN6Xn4RQHX3L8/AEzJObkvrbyhL4BGwgelz0EA
-	sYk3FqyzSdSSeFDvTjPcPpaJDUfUUURs=
-X-Gm-Gg: ASbGncs09ADijldGy7OkGl6nq2PN7oxl1DvXoEJyfXPiiZQE75/7kgNDSYXLMUq86Ls
-	8x5oVng9YIk1whDABAuGFeKeUuvfQQeGxpYAySqx0T859LeFVwaZONPEskLMtxDxxMhn+kJEU+U
-	ZiRoEkMPn5XRePMEaA7P7KqiGmdyMWNho/loF/05Qwb88scDC2xJhHwQ90vn6DGXf7aRnBp/tvc
-	ioh2Q==
-X-Google-Smtp-Source: AGHT+IGvNiFAE25gOTt4VJbBRIxBdBf3jcVvF8AQIzxMcgOhwIzmR4+M/t5xlE7CZH5GseplTGCMUQfdYQPfIlAX+FE=
-X-Received: by 2002:a05:651c:400d:b0:338:2ef:649b with SMTP id
- 38308e7fff4ca-33b553ae8c8mr14965711fa.27.1757322262299; Mon, 08 Sep 2025
- 02:04:22 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1757322517; x=1757927317;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WEpQWJAguHNxZnf5RskzNGHiQ7p8CvADHoDg7CzPj7o=;
+        b=K1dlRnLqug6m8Q6QnKYWv6jkBEQmK88NkFqoTomcQt9nZgIc13Gdq1oxPS8/n8KvgI
+         e8xt97oFJ06LNEDqUqXG4xyh9A8/wOeEj32lO0GM0mx0bcEm4G7WIvP0bGytpMaZCpoC
+         ixv+L38ZDtf1wChK5/T1VUBVfDRTxmgNB0fdOuitwe5c1D+Sburhd7PjbsMPQpucVnjc
+         Iwn4NWWPwoDH4Nnp4N3umUpgKcqRZmrru9Ps1kegFANZ0ZhRP2X9veCfl2t5gDu2qRli
+         KCfYeNbTwAzG/9CQaQSqWl0/ZsTPc/0W0C3a9WFvrRoKtBzefAf+WOtEp8Lwbab/hTgM
+         4trA==
+X-Forwarded-Encrypted: i=1; AJvYcCWU9iri2SFkUj05GwQdWp+VuHxUzmf/L8r36pPyIASZGchPZ2Ojl1/S/E1sEnQtTkNLUTyEGUgT8sc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyhzy05Myh3K0aIy8fvq+o642vHfvmVFB5tlqwps3+aH/FdwVbQ
+	Ed3VadV9IRku6yBXEfdPS8CL0jTSolrqw2zpWtQ+kFyIpLQ/UilfT5SD65VGpbQSKA==
+X-Gm-Gg: ASbGnctXKrjK4TUfHsZ9yBdCX6RBRNLZd0CrsEIpNOnSfBVA1UV3ISwU49iBtC0JIlq
+	xAgcT8y6yEMfEu+0oNNUh6B/c+cHfAuNQFJAJtl7644T5AzqjMKscjQSh0BULBxJqXw/BbCeDEe
+	2y5gGgkIYxTnd35AhDZ23r/a4OynCVwyUQ+xG1/VqAysc6f4PSg6czzrbJAdalTlU6iMj3xHkF5
+	sSioZhckIPOmRaud0LyiJCLUbGW9rNuHjz3NkPbW1OhCiPiwsKfK8h7TSF7dhqlJZu1xo/lBYUW
+	/UB2IZ0vlVk3KjwsUjeBkFA2WPEwJriy/ZOcQ4TXEWFl1MzO3Pn0ppw32VWva+nxC3PLzG1HZJM
+	6CTebvcv3IYOCsosZ2ZBIOBtl3OiCEh+E2ZNDeBHmrS0zAIPHag+h93KN8dpQTCJpwuxXoZszQe
+	y66b9alAs=
+X-Google-Smtp-Source: AGHT+IEW4wwj4VNlz0B5HbTxnvcFvYP81avxbkLEMWkrCUvZv4sXjXpZbEAB0fYPq1fPULOgS3qxMA==
+X-Received: by 2002:a17:907:1c10:b0:b04:1a80:35b9 with SMTP id a640c23a62f3a-b04b13cd575mr676078766b.12.1757322517466;
+        Mon, 08 Sep 2025 02:08:37 -0700 (PDT)
+Message-ID: <89d0b668-537b-4ee4-8cda-e0d95d9eed90@suse.com>
+Date: Mon, 8 Sep 2025 11:08:36 +0200
 MIME-Version: 1.0
-References: <20250905232715.440758-1-dmukhin@ford.com> <alpine.DEB.2.22.394.2509051900200.1405870@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2509051900200.1405870@ubuntu-linux-20-04-desktop>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Mon, 8 Sep 2025 12:04:10 +0300
-X-Gm-Features: Ac12FXxkizsrO_ZopBmBLCyD-WlOSVLeyqe3PlqMM4Zxdj8bhhg91L1jgdKhxG4
-Message-ID: <CAGeoDV87bTaDiG=5xAvSGZXKTJ0zSRUz7Nq2JSenBqu8DnLe2A@mail.gmail.com>
-Subject: Re: [PATCH v6 00/15] x86: introduce NS16550-compatible UART emulator
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: oleksii.kurochko@gmail.com, xen-devel@lists.xenproject.org, 
-	andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, 
-	julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com, 
-	dmukhin@xen.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/mcheck: allow varying bank counts per CPU
+To: Jason Andryuk <jason.andryuk@amd.com>,
+ Soham Dandapat <Soham.Dandapat@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20250905165212.96843-1-Soham.Dandapat@amd.com>
+ <32f89ab8-9742-4bc8-a5ef-848b66e788b2@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <32f89ab8-9742-4bc8-a5ef-848b66e788b2@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Denis and Stefano
+On 05.09.2025 19:02, Jason Andryuk wrote:
+> 
+> 
+> On 2025-09-05 12:52, Soham Dandapat wrote:
+>> In mca_cap_init function,the mcabanks_alloc allocates and
+>> initializes an mca_banks structure for managing MCA banks,
+>> setting up a bank map and storing the specified or default number
+>> of banks.
+>>
+>> After this we will call mcabanks_set(i, mca_allbanks);
+>> The mcabanks_set function sets a specific bit in the bank_map of
+>> an mca_banks structure, provided the structure, its bank_map, and
+>> the bit index are valid.
+>>
+>> At the end, we will call
+>> mcabanks_free(xchg(&mca_allbanks, all));
+>> This function is thread safe and does below:
+>>     1. Atomically exchanges the value of "mca_allbanks" with "all"
+>>     2. Returns the old value that was previously in "mca_allbanks"
+>> So, when we will call mcabanks_free , that will free the memory.
+>>
+>> The problem is that mcabanks_set(i, mca_allbanks) function is updating
+>> mca_allbanks which will be freed via mcabanks_free later. This means
+>> new mca_allbanks instance("all") will never get chance to update
+>> it's bank_map.
+>>
+>> Due to this when we will collect log from mcheck_mca_logout function ,
+>> the condition "if ( !mcabanks_test(i, bankmask) )" will always fails
+>> and MCA logs will not be collected for any bank.
+>>
+>> The fix is to solve this problem.
+>>
+>> Fixes: 560cf418c845 ("x86/mcheck: allow varying bank counts per CPU")
+>> Signed-off-by: Soham Dandapat <soham.dandapat@amd.com>
+> 
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+> 
+> Maybe the patch subject should be "x86/mcheck: Fix mca bank 
+> initialization" to differentiate from the Fixes commit?
 
-I=E2=80=99d like to acknowledge the significant effort that went into this =
-patch
-series -- it=E2=80=99s clear that a lot of work has been invested.
+That's still more generic than wanted. How about "x86/mcheck: fix
+mca_allbanks updating"? With a more concise title (which can be
+adjusted while committing, so long as there's agreement):
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-On Sat, Sep 6, 2025 at 5:02=E2=80=AFAM Stefano Stabellini
-<sstabellini@kernel.org> wrote:
->
-> Oleksii and all,
->
-> I would like to consider patches 1-12 of this patch series for 4.21,
-> pending the few minor comments I made addressed.
-
-Although I am neither a maintainer nor an official reviewer for this
-project, I have looked over some of the first patches in the series. In my
-opinion, the series is not yet ready for merging.
-
-Even if my review is set aside, the changes are largely x86-specific and
-produce the most impact on this architecture. I believe that before
-merging, one of the x86 maintainers (or at least a trusted reviewer for
-x86, if available) should carefully review these patches.
-
->
->
-> On Fri, 5 Sep 2025, dmukhin@xen.org wrote:
-> > x86 port of Xen lacks vUART facility similar to Arm's vpl011 to support=
- x86
-> > guest OS bring up in the embedded setups.
-> >
-> > This patch series introduces initial in-hypervisor emulator for
-> > NS8250/NS16x50-compatible UARTs under CONFIG_VUART_NS16X50.
-> >
-> > In parallel domain creation scenario (hyperlaunch), NS16550 emulator he=
-lps
-> > early guest firmware and OS bringup debugging, because it eliminates
-> > dependency on the external emulator (qemu) being operational by the tim=
-e
-> > domains are created.
-> >
-> > The emulator also allows to forward the physical console input to the x=
-86
-> > domain which is useful when a system has only one physical UART for ear=
-ly
-> > debugging and this UART is owned by Xen.
-> >
-> > By default, CONFIG_VUART_NS16X50 enables emulation of NS16550 at I/O po=
-rt
-> > 0x2f8, IRQ#3 in guest OS (legacy COM2). Legacy COM resources cannot be
-> > selected at built-time or via per-domain xl configuration in this initi=
-al
-> > submission.
-> >
-> > CONFIG_VUART_NS16X50_DEBUG enables some extra debugging facilities usef=
-ul
-> > for NS16550 emulator development/debugging (disabled by default).
-> >
-> > The NS16550 emulator is disabled in default x86 configuration and goes =
-under
-> > CONFIG_EXPERT in Kconfig.
-> >
-> > Limitations
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > - Only x86;
-> > - Only legacy COM2 resources, custom I/O ports/IRQs are not supported;
-> > - Only Xen console as a backend, no inter-domain communication (similar=
- to
-> >   vpl011 on Arm);
-> > - Only 8n1 emulation (8-bit data, no parity, 1 stop bit);
-> > - No toolstack integration;
-> > - No baud rate emulation (reports 115200 baud to the guest OS);
-> > - No FIFO-less mode emulation;
-> > - No RX FIFO interrupt moderation (FCR) emulation;
-> > - No integration w/ VM snapshotting (HVM_REGISTER_SAVE_RESTORE() and
-> >   friends);
-> > - No MMIO-based UART emulation.
-> >
-> > Series
-> > =3D=3D=3D=3D=3D=3D
-> >
-> >   Patch 1 introduces the new vUART framework, that is the code original=
-ly
-> >   posted here:
-> >     https://lore.kernel.org/xen-devel/20250624035443.344099-16-dmukhin@=
-ford.com/
-> >   Required for emulator.
-> >
-> >   Patch 2 adds missing NS16550 definitions, required for emulator.
-> >
-> >   Patch 3 introduces the basic emulator skeleton - state machine
-> >   initialization stubs, I/O port handler stub, logging, etc.
-> >
-> >   Patches 4-11 incrementally populate the minimal NS16550 register emul=
-ation.
-> >
-> >   Patch 12 hooks vUART state debugging (disabled by default).
-> >
-> >   Pathes 13-15 introduce necessary changes to enable NS16550 on dom0 (a=
-nd PVH).
-> >
-> > Link to CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelin=
-es/2024756493
-> > Link to branch: https://gitlab.com/xen-project/people/dmukhin/xen/-/tre=
-e/vuart-ns8250-v6?ref_type=3Dheads
-> >
-> > Testing
-> > =3D=3D=3D=3D=3D=3D=3D
-> >
-> >   ```shell
-> >   echo CONFIG_EXPERT=3Dy >> .config
-> >   echo CONFIG_VUART_NS16X50=3Dy >> .config
-> >   make olddefconfig
-> >   ```
-> >   COM2 (0x2f8) resources are used by default.
-> >
-> >   To test w/ virtual COM2, the guest kernel parameters should contain
-> >   something like the following:
-> >     earlycon=3Duart,io,0x2f8,115200n8 console=3Duart,io,0x2f8,115200n8
-> >
-> >   HVM
-> >   ---
-> >   Tested only boot of HVM linux guest with OVMF as the virtual firmware=
-.
-> >   SeaBIOS as a virtual firmware is not tested.
-> >
-> >   PVH (dom0)
-> >   ----------
-> >   Xen is able to forward physical console input to the domain with virt=
-ual
-> >   NS16550. To switch the console focus press Ctrl+aaa.
-> >   Console switch is limited on x86 to dom0 and Xen (fixes pending).
-> >
-> > Changes since v5:
-> > - Split THR/RBR into two separate patches.
-> > - Addressed feedback from v5.
-> > - Link to v5: https://lore.kernel.org/xen-devel/20250828235409.2835815-=
-1-dmukhin@ford.com/
-> >
-> > Changes since v4:
-> > - Split the series to make it simpler to review.
-> > - Addressed feedback from v4.
-> > - Dropped xl changes, which I will submit separately.
-> > - Link to v4: https://lore.kernel.org/xen-devel/20250731192130.3948419-=
-1-dmukhin@ford.com/
-> >
-> > Changes since v3:
-> > - Reduced the blast radius of the series, thanks to reviews, individual
-> >   aspects (like console focus) touched in v3 moved to separate threads.
-> > - Kept the UART emulator framework since I need to redo some of emulato=
-r code
-> >   and there's more-or-less agreement on it (where to place, naming, sco=
-pe).
-> > - Applied the feedback from
-> >     https://lore.kernel.org/xen-devel/20250624035443.344099-1-dmukhin@f=
-ord.com/
-> > - Link to v3: https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v=
-3-v1-0-c5d36b31d66c@ford.com/
-> >
-> > Changes since v2:
-> > - renamed emulator s/NS8250/NS16550/g
-> > - reduced the patch series after addressing v2 feedback
-> > - introduced driver framework for UART emulators
-> > - unified guest OS printouts across all available UART emulators
-> > - Link to v2: https://lore.kernel.org/xen-devel/20241205-vuart-ns8250-v=
-1-0-e9aa923127eb@ford.com/
-> >
-> > Changes since v1:
-> > - dropped kmalloc/kfree aliases
-> > - fixed ECLAIR jobs (thanks Andrew Cooper)
-> > - addressed console forwarding on arm32 and arm64 (thanks to Luca Fance=
-llu)
-> > - moved NS8250 debugging stubs into its own patch
-> > - added fix for https://gitlab.com/xen-project/xen/-/issues/184
-> > - Link to v1: https://lore.kernel.org/r/20241126-vuart-ns8250-v1-v1-0-8=
-7b9a8375b7a@ford.com
-> >
-> > Denis Mukhin (15):
-> >   emul/vuart: introduce framework for UART emulators
-> >   xen/8250-uart: update definitions
-> >   emul/ns16x50: implement emulator stub
-> >   emul/ns16x50: implement DLL/DLM registers
-> >   emul/ns16x50: implement SCR register
-> >   emul/ns16x50: implement IER/IIR registers
-> >   emul/ns16x50: implement LCR/LSR registers
-> >   emul/ns16x50: implement MCR/MSR registers
-> >   emul/ns16x50: implement RBR register
-> >   emul/ns16x50: implement THR register
-> >   emul/ns16x50: implement FCR register (write-only)
-> >   emul/ns16550: implement dump_state() hook
-> >   x86/domain: enable per-domain I/O port bitmaps
-> >   xen/domain: allocate d->irq_caps before arch-specific initialization
-> >   emul/ns16x50: implement IRQ emulation via vIOAPIC
-> >
-> >  xen/arch/arm/xen.lds.S                   |   1 +
-> >  xen/arch/ppc/xen.lds.S                   |   1 +
-> >  xen/arch/riscv/xen.lds.S                 |   1 +
-> >  xen/arch/x86/Makefile                    |   1 +
-> >  xen/arch/x86/dom0_build.c                | 112 +--
-> >  xen/arch/x86/hvm/dom0_build.c            |   7 +
-> >  xen/arch/x86/hvm/hvm.c                   |  56 +-
-> >  xen/arch/x86/hvm/nestedhvm.c             |   8 +-
-> >  xen/arch/x86/hvm/quirks.c                |   3 -
-> >  xen/arch/x86/hvm/svm/nestedsvm.c         |   2 +-
-> >  xen/arch/x86/hvm/vioapic.c               |  10 +
-> >  xen/arch/x86/hvm/vmx/vvmx.c              |   4 +-
-> >  xen/arch/x86/include/asm/hvm/nestedhvm.h |   3 +-
-> >  xen/arch/x86/include/asm/hvm/support.h   |   2 -
-> >  xen/arch/x86/include/asm/iocap.h         |   2 +
-> >  xen/arch/x86/include/asm/irq.h           |   8 +
-> >  xen/arch/x86/ioport.c                    | 163 ++++
-> >  xen/arch/x86/irq.c                       |   8 +
-> >  xen/arch/x86/pv/dom0_build.c             |   7 +
-> >  xen/arch/x86/xen.lds.S                   |   1 +
-> >  xen/common/Kconfig                       |   2 +
-> >  xen/common/Makefile                      |   1 +
-> >  xen/common/domain.c                      |   8 +-
-> >  xen/common/emul/Kconfig                  |   6 +
-> >  xen/common/emul/Makefile                 |   1 +
-> >  xen/common/emul/vuart/Kconfig            |  25 +
-> >  xen/common/emul/vuart/Makefile           |   2 +
-> >  xen/common/emul/vuart/ns16x50.c          | 984 +++++++++++++++++++++++
-> >  xen/common/emul/vuart/vuart.c            | 157 ++++
-> >  xen/common/keyhandler.c                  |   3 +
-> >  xen/drivers/char/console.c               |   6 +-
-> >  xen/drivers/char/ns16550.c               |  16 +-
-> >  xen/drivers/passthrough/x86/hvm.c        |  11 +-
-> >  xen/include/xen/8250-uart.h              |  50 +-
-> >  xen/include/xen/sched.h                  |   4 +
-> >  xen/include/xen/serial.h                 |   3 +
-> >  xen/include/xen/vuart.h                  | 116 +++
-> >  xen/include/xen/xen.lds.h                |  10 +
-> >  38 files changed, 1634 insertions(+), 171 deletions(-)
-> >  create mode 100644 xen/arch/x86/ioport.c
-> >  create mode 100644 xen/common/emul/Kconfig
-> >  create mode 100644 xen/common/emul/Makefile
-> >  create mode 100644 xen/common/emul/vuart/Kconfig
-> >  create mode 100644 xen/common/emul/vuart/Makefile
-> >  create mode 100644 xen/common/emul/vuart/ns16x50.c
-> >  create mode 100644 xen/common/emul/vuart/vuart.c
-> >  create mode 100644 xen/include/xen/vuart.h
-> >
-> > --
-> > 2.51.0
-> >
->
-
-Best regards,
-Mykola
+Jan
 
