@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A920B4A780
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 11:22:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1115986.1462425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC62DB4A77E
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 11:22:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1115987.1462434 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvuY7-0005Gg-Aw; Tue, 09 Sep 2025 09:22:03 +0000
+	id 1uvuYD-0005Vf-LD; Tue, 09 Sep 2025 09:22:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1115986.1462425; Tue, 09 Sep 2025 09:22:03 +0000
+Received: by outflank-mailman (output) from mailman id 1115987.1462434; Tue, 09 Sep 2025 09:22:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvuY7-0005Ex-7m; Tue, 09 Sep 2025 09:22:03 +0000
-Received: by outflank-mailman (input) for mailman id 1115986;
- Tue, 09 Sep 2025 09:22:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wvTB=3U=cloud.com=gerald.elder-vass@srs-se1.protection.inumbo.net>)
- id 1uvuY6-0005Er-K6
- for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 09:22:02 +0000
-Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
- [2607:f8b0:4864:20::b2e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 70b9b4d6-8d5e-11f0-9d13-b5c5bf9af7f9;
- Tue, 09 Sep 2025 11:22:01 +0200 (CEST)
-Received: by mail-yb1-xb2e.google.com with SMTP id
- 3f1490d57ef6-ea0297e9cd4so1791470276.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Sep 2025 02:22:01 -0700 (PDT)
+	id 1uvuYD-0005Tv-IP; Tue, 09 Sep 2025 09:22:09 +0000
+Received: by outflank-mailman (input) for mailman id 1115987;
+ Tue, 09 Sep 2025 09:22:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ezXQ=3U=redhat.com=david@srs-se1.protection.inumbo.net>)
+ id 1uvuYC-0005TO-1o
+ for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 09:22:08 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 731103a1-8d5e-11f0-9809-7dc792cee155;
+ Tue, 09 Sep 2025 11:22:05 +0200 (CEST)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-381-fx5GjJQJN0KGkv1x5gtcpA-1; Tue, 09 Sep 2025 05:21:59 -0400
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-3df19a545c2so3899904f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Sep 2025 02:21:59 -0700 (PDT)
+Received: from ?IPV6:2003:d8:2f23:9c00:d1f6:f7fe:8f14:7e34?
+ (p200300d82f239c00d1f6f7fe8f147e34.dip0.t-ipconnect.de.
+ [2003:d8:2f23:9c00:d1f6:f7fe:8f14:7e34])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45b98e77231sm303120095e9.12.2025.09.09.02.21.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Sep 2025 02:21:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,281 +51,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70b9b4d6-8d5e-11f0-9d13-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1757409720; x=1758014520; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ed7LZ2xg4GvAWyGx7uRH5GevbRcowu1w3Knng+7fX9k=;
-        b=Ao1ngiwao41StB2An+KPh4oFNSe/SfPGNIG/blGUZtsYrlnnULR8eJMiQB7MJWdbwT
-         48TGfL/5WXAeQbfRx6P7SA+IGd/SJd8WAtxQVjNHNK1PFqwZpUKQlLd30bDOStW+NwJD
-         LJGEPGEwqRHmxmOTjlL43zE1PjIPuZsvbYago=
+X-Inumbo-ID: 731103a1-8d5e-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1757409724;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=yZ7mpSu7Vyx7D7KzsRAEX4kah9GPWTLG09gnV5krCYA=;
+	b=fmJeNe05aDh+QLAyGSmDxr5jGvK1npaqXcStJOkt+ytPw/fJF4WzVllFHlELcfC5jIfyZb
+	RNc8mMJ5A+oux1tineuHgGjF7SBhUjsKAZUl1Jq35bA7YwkHdsDGUybBemN3uk+HS4+mAJ
+	JCa0le23r58vqWhS/mnMFVj7W098lkI=
+X-MC-Unique: fx5GjJQJN0KGkv1x5gtcpA-1
+X-Mimecast-MFC-AGG-ID: fx5GjJQJN0KGkv1x5gtcpA_1757409719
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757409720; x=1758014520;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1757409717; x=1758014517;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Ed7LZ2xg4GvAWyGx7uRH5GevbRcowu1w3Knng+7fX9k=;
-        b=bpTqG92dcW5Jt6MW7MPSrcFubJSJgNU2TcUhDUMKOyMQ/cvTNGAUz7kmjKtjnyYTJs
-         V7RCNcsVaCQ1JVfklLVmVyRhXoAEg3gwi8gwQ3UXDZaSfza/bDu0xU5OeqpFOlD8j/qw
-         PCkQ5y1Ug3sEz3XCDY022sXNRHuTBL4MwtDCrOCd9PVUbsP8Hj+kN2VUQYvnjhCR6KSN
-         DbQWYgIsG9T6PNyDBxbYw8gUljt1/wHqmJ7BkY3fiqUqSTPq2dPDqnAYPH2gSZgXQuK8
-         zCrRBIOIl8QQ4ZjxpE9/SW7zh7FRuG0bWwBlvErG4fH80gDxRIzDoyyhby5UrJ3u+WyR
-         V/Rw==
-X-Forwarded-Encrypted: i=1; AJvYcCUc7R1SVKoU6Qnxcs9Aactsu53tWuDgfAWHitBsqD2tItapUvTmzjtLgrbiG2xrrMk+y8wBy42M0Z0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwDvXzEkCBgGQWnbRVsU8r2TJddOVjZLXrK6mho4Dy6yrKVnjmP
-	OE+fbxKPLnDv2rzTx5aAGBtzxA9GmHO5SVs609lnDU5DQ0QsGwEWUhaHBrQ0T0Q7grvL4a0SXOp
-	cNxBmAMw03eC9l+t3zvwMWebpMn4jKaxGK89qAfXVAjdJKp6xCJhx2kz4YA==
-X-Gm-Gg: ASbGncupeWa1OWyGIur7X3cqujlHMsm5g3NcN3oC590Mkn96sz4A+JKzUbi5/eYIigN
-	XgluD/g1I1dxNvm6fXT5a4T+NI6iEUX3ea7snveP4tnFsR8iFRXvdnkjJ2Z23xQIA80Z5TFtCxy
-	1Bv/Qs8fRjYQUBSDLy+/pLcDkkNdhuiVDOxNtADFFXkKN9gzHHSwpav0zPC80h7y38MWNFlHvTo
-	Zn4hQ==
-X-Google-Smtp-Source: AGHT+IFkUInW1d9tToYDaO3KHKozP6J1/Vp9+e6EVZXMA+bRp2vl05Nn8fAQ4vTZThtusnO0rLY/Y8Y2mHdkQzlq9e8=
-X-Received: by 2002:a05:6902:2b0e:b0:ea0:f4c6:5812 with SMTP id
- 3f1490d57ef6-ea0f4d5ad88mr6585449276.32.1757409719783; Tue, 09 Sep 2025
- 02:21:59 -0700 (PDT)
+        bh=yZ7mpSu7Vyx7D7KzsRAEX4kah9GPWTLG09gnV5krCYA=;
+        b=ntehK+cBn/+iA8817DOU3TSlJCSaQlXTLOFInbGpXzDgfYeCz/fgYHcwU1LYz7Rmym
+         esXSxxGMhuS2QCMFVHVqJ7mrF0s0fme/DxAVDIRwQ5qhOWRYMjbvrvYNNrbvz4iVqjoc
+         t/eCgsMZVQWEFkOiUH+TVhLbVH2y+fzcwIiFHyMSxRakNISs/jVcKZGJ5xhRE5uwFmW+
+         FkUJ7nln1vzeOzPJC6wOyG64YksKLrZaR+cYOoE06XtuNVmYJyW/VdxS2Wn8HADFNBDg
+         KG17b88a33iMAlBYAOsL2ArqeY5lbDo8oEl1RcJOrR099annTjzouARrDTdYKmfGsXbm
+         1xhw==
+X-Forwarded-Encrypted: i=1; AJvYcCXmN4FrY7EYPTs9O3+wWIEYaXZbmHbQTxsY69SWlEOHRa/h9I+5w3+p6JzWys7lk2WsYzrWUhnCy2E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyxNBO9vBhM7wbhFkunKDFfEuqO6QRX8/StmcFniIhFaB4RNxJ/
+	qV1BJrwCyiX4nOWRKK1MKku8UIqYOlY9AeZ4+blk8TK7ZsKP4h4THUG0dpKst4cYTV2csHM5Tw0
+	DAcsDxoZ3BFfE8v65Vq5av4g82ZxdSRuJdGTZYh8+Gnl/5uCiNxd13OdM6d646MLf+P7s
+X-Gm-Gg: ASbGnctmz0M7ZcjDrD5cSKjdzKLmEdTbtzJNJ21QGWSAu8hAp89FWtMwRcL6NUROmwu
+	xfx/x4/1SB5/S9pD4y9V0TdIqR6TUdeqk9U5MDkTdS7rZaVgrcB7jpeZlD/KbzCKluuC5IQKrmf
+	ePDvEQDEsobS1FtMIOogeY1Szg7gvDb8j8plTQUxK8diBueofmOqtRmjm0+qrwDoDPyiB7e3Z/Q
+	xaNizVYAsbN9m7HIg3pIf1oPVzUi1tM7cFLliyK+/J0mYLfHL6tCVkv7EeWlIG0+W6BvCLSIcLO
+	SBcIWo2nLZlU+lYCZLBGWHWUm7kB1P9Nhjvup+AKH4J1aqxb6Y69c8Wvd7740ZudpOsW+LyW1W6
+	ahj1ECpnWbvP1DvesmSuYmTIiLCzXvEKFaOrjtId82ostbrEweFapl0jUVjtgqjphjQs=
+X-Received: by 2002:a05:6000:d0e:b0:3e7:4fb7:4e9 with SMTP id ffacd0b85a97d-3e74fb7050cmr2433461f8f.47.1757409717595;
+        Tue, 09 Sep 2025 02:21:57 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFHaiuV2XNAb2KzSftztUT7DW61EOo5r3IILYTR3cBriEgdDR9uMZbXOjouMq5dEBDNTmzUKg==
+X-Received: by 2002:a05:6000:d0e:b0:3e7:4fb7:4e9 with SMTP id ffacd0b85a97d-3e74fb7050cmr2433419f8f.47.1757409717177;
+        Tue, 09 Sep 2025 02:21:57 -0700 (PDT)
+Message-ID: <d1b4ff2a-052f-4556-91ae-273962edbed0@redhat.com>
+Date: Tue, 9 Sep 2025 11:21:54 +0200
 MIME-Version: 1.0
-References: <cover.1757071716.git.gerald.elder-vass@cloud.com>
- <8d66f9ce2c9c352794c0c144f6e00d0a9d465dbe.1757071716.git.gerald.elder-vass@cloud.com>
- <ed2e2406-bfab-4111-a9d0-025c85b51bdb@suse.com> <CAOJ+D-UkSveZ4LdYK5GA3VucxxSbQgBv5m9jfZ0H_MyuHP-UZQ@mail.gmail.com>
- <bf218191-fca6-439d-ad75-04162335b3ca@suse.com> <aL6nedjTUxgKh2uq@mail-itl>
-In-Reply-To: <aL6nedjTUxgKh2uq@mail-itl>
-From: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-Date: Tue, 9 Sep 2025 10:21:49 +0100
-X-Gm-Features: AS18NWCLnFQ8EaKYaAKaD_Lme80PLQ_otAAs_onfwJQPt3WB5jCMDoan9Nfp0Ss
-Message-ID: <CAOJ+D-UECKGmKzpu3n76Bdd53sqC3X163gFwRQ1MGcA2qRBQOQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] efi: Add a function to check if Secure Boot mode
- is enabled
-To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Ross Lagerwall <ross.lagerwall@citrix.com>, 
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
-	Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="00000000000012b5a2063e5ad6ba"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/7] Nesting support for lazy MMU mode
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
+ Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
+ <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+ Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org
+References: <20250908073931.4159362-1-kevin.brodsky@arm.com>
+ <20250908191602.61160a7990b9ea418de758c7@linux-foundation.org>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20250908191602.61160a7990b9ea418de758c7@linux-foundation.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: O9LlzzASwtXmZtSpXao8PSlPdEowBia80dxdKKt7AR0_1757409719
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---00000000000012b5a2063e5ad6ba
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 09.09.25 04:16, Andrew Morton wrote:
+> On Mon,  8 Sep 2025 08:39:24 +0100 Kevin Brodsky <kevin.brodsky@arm.com> wrote:
+> 
+>> The main change enabling nesting is patch 2, following the approach
+>> suggested by Catalin Marinas [4]: have enter() return some state and
+>> the matching leave() take that state.
+> 
+> This is so totally the correct way.  Thanks.
 
- > On Mon, Sep 08, 2025 at 11:41:55AM +0200, Jan Beulich wrote:
-> > On 08.09.2025 11:35, Gerald Elder-Vass wrote:
-> > >>> +          size =3D=3D 1 && data =3D=3D 0) )
-> > >>
-> > >> ... any reason it's literal 1 here?
-> > >
-> > > The size variable is also used as output from GetVariable and we
-should
-> > > verify that the size of the returned data is as expected, it is
-simply one
-> > > byte so probably not worth defining any macros to make it clearer
-> >
-> > I don't understand this reply. Why would the initializer of the variabl=
-e
-> > use one thing (sizeof()) and the checking of the variable another
-(literal
-> > 1)? Even consistently using 1 would already be better imo; consistently
-> > using sizeof() is what I think would be best.
->
- > 'size' as input value is the allocated size of the data parameter, so
-> makes sense to be sizeof(data). IOW, 'size' as the input value comes
-> from the size of the 'data' variable, while the output value check comes
-> from UEFI spec. While the size of the 'data' variable should match the
->spec, IMO changing its type (to a wider one) should not break the
->behavior here.
+Staring at this, I wonder if we could alternatively handle it like 
+pagefault_disable()/pagefault_enable(), having something like 
+current->lazy_mmu_enabled.
 
- The UEFI spec defines the "SecureBoot" global variable as an 8-bit unsigne=
-d
-integer, in the event the size of the data used for output was not large
-enough to
-contain the output then it would return an EFI_BUFFER_TOO_SMALL status
-(which the function would then interpret as "play it safe and assume
-enabled").
+We wouldn't have to worry about preemption in that case I guess (unless 
+the arch has special requirements).
 
-The "SecureBoot" variable is defined:
-https://uefi.org/specs/UEFI/2.11/03_Boot_Manager.html#globally-defined-vari=
-ables
+Not sure if that was already discussed, just a thought.
 
-So I believe we are correct in using uint8_t here
+-- 
+Cheers
 
+David / dhildenb
 
-*Gerald Elder-Vass*
-Senior Software Engineer
-
-XenServer
-Cambridge, UK
-
-
-On Mon, Sep 8, 2025 at 10:53=E2=80=AFAM Marek Marczykowski-G=C3=B3recki <
-marmarek@invisiblethingslab.com> wrote:
-
-> On Mon, Sep 08, 2025 at 11:41:55AM +0200, Jan Beulich wrote:
-> > On 08.09.2025 11:35, Gerald Elder-Vass wrote:
-> > >>> +          size =3D=3D 1 && data =3D=3D 0) )
-> > >>
-> > >> ... any reason it's literal 1 here?
-> > >
-> > > The size variable is also used as output from GetVariable and we shou=
-ld
-> > > verify that the size of the returned data is as expected, it is simpl=
-y
-> one
-> > > byte so probably not worth defining any macros to make it clearer
-> >
-> > I don't understand this reply. Why would the initializer of the variabl=
-e
-> > use one thing (sizeof()) and the checking of the variable another
-> (literal
-> > 1)? Even consistently using 1 would already be better imo; consistently
-> > using sizeof() is what I think would be best.
->
-> 'size' as input value is the allocated size of the data parameter, so
-> makes sense to be sizeof(data). IOW, 'size' as the input value comes
-> from the size of the 'data' variable, while the output value check comes
-> from UEFI spec. While the size of the 'data' variable should match the
-> spec, IMO changing its type (to a wider one) should not break the
-> behavior here.
->
-> --
-> Best Regards,
-> Marek Marczykowski-G=C3=B3recki
-> Invisible Things Lab
->
-
---00000000000012b5a2063e5ad6ba
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>
-&gt;
-
-<span class=3D"gmail-im">On Mon, Sep 08, 2025 at 11:41:55AM +0200, Jan Beul=
-ich wrote:<br></span>
-&gt;
-
-<span class=3D"gmail-im">&gt; On 08.09.2025 11:35, Gerald Elder-Vass wrote:=
-<br></span>
-&gt;
-
-<span class=3D"gmail-im">&gt; &gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 size =3D=3D 1 &amp;&amp; data =3D=3D 0) )<br></span>
-&gt;
-
-<span class=3D"gmail-im">&gt; &gt;&gt;<br></span>
-&gt;
-
-<span class=3D"gmail-im">&gt; &gt;&gt; ... any reason it&#39;s literal 1 he=
-re?<br></span>
-&gt;
-
-<span class=3D"gmail-im">&gt; &gt;=C2=A0<br></span>
-&gt;
-
-<span class=3D"gmail-im">&gt; &gt; The size variable is also used as output=
- from GetVariable and we should<br></span>
-&gt;
-
-<span class=3D"gmail-im">&gt; &gt; verify that the size of the returned dat=
-a is as expected, it is simply one<br></span>
-&gt;
-
-<span class=3D"gmail-im">&gt; &gt; byte so probably not worth defining any =
-macros to make it clearer<br></span>
-&gt;
-
-<span class=3D"gmail-im">&gt;=C2=A0<br></span>
-&gt;
-
-<span class=3D"gmail-im">&gt; I don&#39;t understand this reply. Why would =
-the initializer of the variable<br></span>
-&gt;
-
-<span class=3D"gmail-im">&gt; use one thing (sizeof()) and the checking of =
-the variable another (literal<br></span>
-&gt;
-
-<span class=3D"gmail-im">&gt; 1)? Even consistently using 1 would already b=
-e better imo; consistently<br></span>
-&gt;
-
-<span class=3D"gmail-im">&gt; using sizeof() is what I think would be best.=
-<br></span>
-&gt;
-
-<br>=C2=A0&gt;
-
-&#39;size&#39; as input value is the allocated size of the data parameter, =
-so<br>
-&gt;
-
-makes sense to be sizeof(data). IOW, &#39;size&#39; as the input value come=
-s<br>
-&gt;
-
-from the size of the &#39;data&#39; variable, while the output value check =
-comes<br>
-&gt;
-
-from UEFI spec. While the size of the &#39;data&#39; variable should match =
-the<br>&gt;spec, IMO changing its type (to a wider one) should not break th=
-e<br>&gt;behavior here.</div><div><br></div><div>=C2=A0The UEFI spec define=
-s the &quot;SecureBoot&quot; global variable as an 8-bit unsigned</div><div=
->integer, in the event the size of the data used for output was not large e=
-nough to</div><div>contain the output then it would return an EFI_BUFFER_TO=
-O_SMALL status</div><div>(which the function would then interpret as &quot;=
-play it safe and assume enabled&quot;).</div><div><br></div><div>The &quot;=
-SecureBoot&quot; variable is defined:</div><div><a href=3D"https://uefi.org=
-/specs/UEFI/2.11/03_Boot_Manager.html#globally-defined-variables">https://u=
-efi.org/specs/UEFI/2.11/03_Boot_Manager.html#globally-defined-variables</a>=
-</div><div><br></div><div>So I believe we are correct in using uint8_t here=
-</div><div><br clear=3D"all"></div><div><div dir=3D"ltr" class=3D"gmail_sig=
-nature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div><b><br></b=
-></div><div><b>Gerald Elder-Vass</b></div><div>Senior Software Engineer</di=
-v><div><br></div><div>XenServer</div><div>Cambridge, UK</div></div></div></=
-div><br></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Mon, Sep 8, 2025 at 10:53=E2=80=AFAM Marek=
- Marczykowski-G=C3=B3recki &lt;<a href=3D"mailto:marmarek@invisiblethingsla=
-b.com">marmarek@invisiblethingslab.com</a>&gt; wrote:<br></div><blockquote =
-class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
-id rgb(204,204,204);padding-left:1ex">On Mon, Sep 08, 2025 at 11:41:55AM +0=
-200, Jan Beulich wrote:<br>
-&gt; On 08.09.2025 11:35, Gerald Elder-Vass wrote:<br>
-&gt; &gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 size =3D=3D 1 &amp;&a=
-mp; data =3D=3D 0) )<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; ... any reason it&#39;s literal 1 here?<br>
-&gt; &gt; <br>
-&gt; &gt; The size variable is also used as output from GetVariable and we =
-should<br>
-&gt; &gt; verify that the size of the returned data is as expected, it is s=
-imply one<br>
-&gt; &gt; byte so probably not worth defining any macros to make it clearer=
-<br>
-&gt; <br>
-&gt; I don&#39;t understand this reply. Why would the initializer of the va=
-riable<br>
-&gt; use one thing (sizeof()) and the checking of the variable another (lit=
-eral<br>
-&gt; 1)? Even consistently using 1 would already be better imo; consistentl=
-y<br>
-&gt; using sizeof() is what I think would be best.<br>
-<br>
-&#39;size&#39; as input value is the allocated size of the data parameter, =
-so<br>
-makes sense to be sizeof(data). IOW, &#39;size&#39; as the input value come=
-s<br>
-from the size of the &#39;data&#39; variable, while the output value check =
-comes<br>
-from UEFI spec. While the size of the &#39;data&#39; variable should match =
-the<br>
-spec, IMO changing its type (to a wider one) should not break the<br>
-behavior here.<br>
-<br>
--- <br>
-Best Regards,<br>
-Marek Marczykowski-G=C3=B3recki<br>
-Invisible Things Lab<br>
-</blockquote></div>
-
---00000000000012b5a2063e5ad6ba--
 
