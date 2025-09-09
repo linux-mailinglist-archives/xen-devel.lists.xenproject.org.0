@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FF26B4ACF7
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 13:55:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1116423.1462745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54535B4AD13
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 14:01:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1116439.1462760 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvwwM-0002bW-KT; Tue, 09 Sep 2025 11:55:14 +0000
+	id 1uvx1Y-0004WL-Es; Tue, 09 Sep 2025 12:00:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1116423.1462745; Tue, 09 Sep 2025 11:55:14 +0000
+Received: by outflank-mailman (output) from mailman id 1116439.1462760; Tue, 09 Sep 2025 12:00:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvwwM-0002Yd-H9; Tue, 09 Sep 2025 11:55:14 +0000
-Received: by outflank-mailman (input) for mailman id 1116423;
- Tue, 09 Sep 2025 11:55:12 +0000
+	id 1uvx1Y-0004Tq-C1; Tue, 09 Sep 2025 12:00:36 +0000
+Received: by outflank-mailman (input) for mailman id 1116439;
+ Tue, 09 Sep 2025 12:00:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ezXQ=3U=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1uvwwK-0002YW-SE
- for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 11:55:12 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OEb6=3U=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
+ id 1uvx1X-0004Tc-BT
+ for xen-devel@lists.xen.org; Tue, 09 Sep 2025 12:00:35 +0000
+Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d3c56314-8d73-11f0-9809-7dc792cee155;
- Tue, 09 Sep 2025 13:55:07 +0200 (CEST)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-133-UAH-kuizO96D6f-TV0fwig-1; Tue, 09 Sep 2025 07:55:04 -0400
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-45df609b181so303175e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 09 Sep 2025 04:55:04 -0700 (PDT)
-Received: from ?IPV6:2003:d8:2f23:9c00:d1f6:f7fe:8f14:7e34?
- (p200300d82f239c00d1f6f7fe8f147e34.dip0.t-ipconnect.de.
- [2003:d8:2f23:9c00:d1f6:f7fe:8f14:7e34])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3e75223898csm2497249f8f.39.2025.09.09.04.55.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Sep 2025 04:55:02 -0700 (PDT)
+ id 93c5610d-8d74-11f0-9809-7dc792cee155;
+ Tue, 09 Sep 2025 14:00:30 +0200 (CEST)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1uvx1K-001exF-14;
+ Tue, 09 Sep 2025 12:00:22 +0000
+Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.96)
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1uvx1K-001SUg-0t;
+ Tue, 09 Sep 2025 12:00:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,211 +43,303 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3c56314-8d73-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1757418906;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wOh5IdHecYmXNJFyfTY+5ofA8ReFnlDB1RFePKgZiG8=;
-	b=LsYeTzlNsM41M2M8/Bqw2Kt/2mNt7o0ao12CZrHgHc+oSijEiI+f5I1kfXmy+pI7W17faJ
-	hOdajbyoSZwUDAPpSpHUABKjqjNEkJjGxz9QEA8tqA+rI4wnnpS6rRzHtskbQcCSIU5VbL
-	+tIr2Cb8deyfgxsbX+3Do77uLJi6wpo=
-X-MC-Unique: UAH-kuizO96D6f-TV0fwig-1
-X-Mimecast-MFC-AGG-ID: UAH-kuizO96D6f-TV0fwig_1757418903
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757418903; x=1758023703;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=wOh5IdHecYmXNJFyfTY+5ofA8ReFnlDB1RFePKgZiG8=;
-        b=szhGpWpm7D5CvfwvpOiEX5+IISMov3HlyDbZf4OS5lFWcj/tPCEfsBNhWwbj+kyiBJ
-         wF5+OFaq9CBEK468ykGvYgreKKlEJ79Oj2GHkTJhA3B9ka2UcLKOcl007iCQaB4I29OX
-         JXpGHiGEpfjPixU8pTfJ/nQ7YaEFDJ8SiTOkFk2utZocv63f5rIVDIsSyf7yH9CHAa4i
-         l/0QVDpy3iDUVyo+kUMkjxVyHDc5PkuTNGLn4T16woK4ffV53C1qJXqunhqKZe9TrU4a
-         jsY8zFewBZtVlPd16t2R6D11u0LpSS2EWbluSrapexE34ylRvijhzqHV6Hb9A8NrDDmx
-         zImQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUTTSaWjsAQu2H6fDi7rDmC9Uhu41hB/wXb3xlrjzfJbANigwHcMxG52aO3xVx/7jmp0EegIY67nOI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyaH825pCWj1BvEfTFS0Y3hJW0MwOTN0NBu58yNLOOWnzYsMHVq
-	XbRYe8PZeEMynb4GfMbzDNooSrVXfefkZDCW6yoHX05QHrU5t0WkrYr9pzajD/2c6vVhu/YykHs
-	CiRqU9fva4x6iWw7HK8yCiwK+oiQFBNjJwEhWHdI9Ks+mNagXmSWCLYhhzBFFrsN9lWdJ
-X-Gm-Gg: ASbGncs1LmjmEETJfGQvh6P17OmUOOulYA96Wjwzk8pSMVMJQeRceFjFqMeZ5XpRiPK
-	aXWWrw7ObVNT5zLG3juvT12+o0jqClnmssxrI8YPmvZdzGu4lvRbD4IFDdREexx2hp6Wjq50KSC
-	faz4kDTEMH+vvRHlX0dHFGGTMf8UlVlo+DaIQ6a/AX9u6MEdIHRmMRy5R8cpv8HtyGsxCXwNDEz
-	xXJZLITzDG3yNXANy7imXeHlvNgEWj4l9qB2FNAI08fEkcNbnGrNM1bVg0mLO0zbqsbDZtlqEFw
-	JB77zoxRXLaHY23wu5bf0h8EoewH61qU/0FadM8TEItdAff+Xn39Us4UDGi5giKeJMfqIjVsuqv
-	Bqyj6G5eIXLYAXUj3HpyjFJBgGWxAqSaJ+wOnzLhvE/6pWAObZMLsEir1BIXs71BJImg=
-X-Received: by 2002:a5d:5f82:0:b0:3e7:42ae:d3dd with SMTP id ffacd0b85a97d-3e742aed713mr7769542f8f.53.1757418903206;
-        Tue, 09 Sep 2025 04:55:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF+ZfFXrc3J/ZXb10wuImf1IN/WN2zT9Bnd5gvpLTDU+4GYxL8KyTu1AXUf0+6BD7rUQ8++xA==
-X-Received: by 2002:a5d:5f82:0:b0:3e7:42ae:d3dd with SMTP id ffacd0b85a97d-3e742aed713mr7769489f8f.53.1757418902733;
-        Tue, 09 Sep 2025 04:55:02 -0700 (PDT)
-Message-ID: <e521b1f4-3f2b-48cd-9568-b9a4cf4c4830@redhat.com>
-Date: Tue, 9 Sep 2025 13:54:59 +0200
+X-Inumbo-ID: 93c5610d-8d74-11f0-9809-7dc792cee155
+Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
+Content-Transfer-Encoding: binary
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/7] mm: introduce local state for lazy_mmu sections
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Andreas Larsson <andreas@gaisler.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
- Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
- Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
- <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
- Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org
-References: <20250908073931.4159362-1-kevin.brodsky@arm.com>
- <20250908073931.4159362-3-kevin.brodsky@arm.com>
- <d23ea683-cca4-4973-88b1-4f6fd9b22314@redhat.com>
- <ca2054ad-b163-4e61-8ec4-6f2e36461628-agordeev@linux.ibm.com>
- <e7acb889-1fe9-4db3-acf4-39f4960e8ccd@redhat.com>
- <2fecfae7-1140-4a23-a352-9fd339fcbae5-agordeev@linux.ibm.com>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; keydata=
- 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
- qIws/H2t
-In-Reply-To: <2fecfae7-1140-4a23-a352-9fd339fcbae5-agordeev@linux.ibm.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: H3kB-LYTLAECgs2dmjrVQHZf5vrJOzkI0FHfJToDmBE_1757418903
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Mailer: MIME-tools 5.510 (Entity 5.510)
+To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
+ xen-users@lists.xen.org, oss-security@lists.openwall.com
+From: Xen.org security team <security@xen.org>
+CC: Xen.org security team <security-team-members@xen.org>
+Subject: Xen Security Advisory 472 v2 (CVE-2025-27466,CVE-2025-58142,CVE-2025-58143)
+ - Mutiple vulnerabilities in the Viridian interface
+Message-Id: <E1uvx1K-001SUg-0t@xenbits.xenproject.org>
+Date: Tue, 09 Sep 2025 12:00:22 +0000
+
+--=separator
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 7bit
 
-On 09.09.25 13:45, Alexander Gordeev wrote:
-> On Tue, Sep 09, 2025 at 12:09:48PM +0200, David Hildenbrand wrote:
->> On 09.09.25 11:40, Alexander Gordeev wrote:
->>> On Tue, Sep 09, 2025 at 11:07:36AM +0200, David Hildenbrand wrote:
->>>> On 08.09.25 09:39, Kevin Brodsky wrote:
->>>>> arch_{enter,leave}_lazy_mmu_mode() currently have a stateless API
->>>>> (taking and returning no value). This is proving problematic in
->>>>> situations where leave() needs to restore some context back to its
->>>>> original state (before enter() was called). In particular, this
->>>>> makes it difficult to support the nesting of lazy_mmu sections -
->>>>> leave() does not know whether the matching enter() call occurred
->>>>> while lazy_mmu was already enabled, and whether to disable it or
->>>>> not.
->>>>>
->>>>> This patch gives all architectures the chance to store local state
->>>>> while inside a lazy_mmu section by making enter() return some value,
->>>>> storing it in a local variable, and having leave() take that value.
->>>>> That value is typed lazy_mmu_state_t - each architecture defining
->>>>> __HAVE_ARCH_ENTER_LAZY_MMU_MODE is free to define it as it sees fit.
->>>>> For now we define it as int everywhere, which is sufficient to
->>>>> support nesting.
->>> ...
->>>>> {
->>>>> + lazy_mmu_state_t lazy_mmu_state;
->>>>> ...
->>>>> - arch_enter_lazy_mmu_mode();
->>>>> + lazy_mmu_state = arch_enter_lazy_mmu_mode();
->>>>> ...
->>>>> - arch_leave_lazy_mmu_mode();
->>>>> + arch_leave_lazy_mmu_mode(lazy_mmu_state);
->>>>> ...
->>>>> }
->>>>>
->>>>> * In a few cases (e.g. xen_flush_lazy_mmu()), a function knows that
->>>>>      lazy_mmu is already enabled, and it temporarily disables it by
->>>>>      calling leave() and then enter() again. Here we want to ensure
->>>>>      that any operation between the leave() and enter() calls is
->>>>>      completed immediately; for that reason we pass LAZY_MMU_DEFAULT to
->>>>>      leave() to fully disable lazy_mmu. enter() will then re-enable it
->>>>>      - this achieves the expected behaviour, whether nesting occurred
->>>>>      before that function was called or not.
->>>>>
->>>>> Note: it is difficult to provide a default definition of
->>>>> lazy_mmu_state_t for architectures implementing lazy_mmu, because
->>>>> that definition would need to be available in
->>>>> arch/x86/include/asm/paravirt_types.h and adding a new generic
->>>>>     #include there is very tricky due to the existing header soup.
->>>>
->>>> Yeah, I was wondering about exactly that.
->>>>
->>>> In particular because LAZY_MMU_DEFAULT etc resides somewehere compeltely
->>>> different.
->>>>
->>>> Which raises the question: is using a new type really of any benefit here?
->>>>
->>>> Can't we just use an "enum lazy_mmu_state" and call it a day?
->>>
->>> I could envision something completely different for this type on s390,
->>> e.g. a pointer to a per-cpu structure. So I would really ask to stick
->>> with the current approach.
->>
->> Would that integrate well with LAZY_MMU_DEFAULT etc?
-> 
-> Hmm... I though the idea is to use LAZY_MMU_* by architectures that
-> want to use it - at least that is how I read the description above.
-> 
-> It is only kasan_populate|depopulate_vmalloc_pte() in generic code
-> that do not follow this pattern, and it looks as a problem to me.
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
 
-Yes, that's why I am asking.
+ Xen Security Advisory CVE-2025-27466,CVE-2025-58142,CVE-2025-58143 / XSA-472
+                                   version 2
 
-What kind of information (pointer to a per-cpu structure) would you want 
-to return, and would handling it similar to how 
-pagefault_disable()/pagefault_enable() e.g., using a variable in 
-"current" to track the nesting level avoid having s390x to do that?
+           Mutiple vulnerabilities in the Viridian interface
 
--- 
-Cheers
+UPDATES IN VERSION 2
+====================
 
-David / dhildenb
+Public release.
 
+ISSUE DESCRIPTION
+=================
+
+There are multiple issues related to the handling and accessing of guest
+memory pages in the viridian code:
+
+ 1. A NULL pointer dereference in the updating of the reference TSC area.
+    This is CVE-2025-27466.
+
+ 2. A NULL pointer dereference by assuming the SIM page is mapped when
+    a synthetic timer message has to be delivered.  This is
+    CVE-2025-58142.
+
+ 3. A race in the mapping of the reference TSC page, where a guest can
+    get Xen to free a page while still present in the guest physical to
+    machine (p2m) page tables.  This is CVE-2025-58143.
+
+IMPACT
+======
+
+Denial of Service (DoS) affecting the entire host, information leaks, or
+elevation of privilege.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen versions 4.13 and newer are vulnerable.  Xen versions 4.12 and older
+are not vulnerable.
+
+Only x86 HVM guests which have the reference_tsc or stimer viridian
+extensions enabled are vulnerable.
+
+MITIGATION
+==========
+
+Not enabling the reference_tsc and stimer viridian extensions will avoid
+the issues.
+
+CREDITS
+=======
+
+This issue was discovered by Roger Pau Monné of XenServer.
+
+RESOLUTION
+==========
+
+Applying the appropriate set of attached patches resolves this issue.
+
+Note that patches for released versions are generally prepared to
+apply to the stable branches, and may not apply cleanly to the most
+recent release tarball.  Downstreams are encouraged to update to the
+tip of the stable branch before applying these patches.
+
+xsa472-?.patch         xen-unstable - Xen 4.17.x
+
+$ sha256sum xsa472*
+16e14b3cc87800c08d96adc18e66aa4a20a77834af12b9cdd01d739882f07b7d  xsa472-1.patch
+4be6a1066fbec367e8c9883240cec2a78671d484928d51ac5fb82e2c539e38ca  xsa472-2.patch
+9e1972a2b5a7a817b25cad0fa80c983198bb73a2788a4d0b5cdcaca4518a57cf  xsa472-3.patch
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches (but not mitigations) described above (or others
+which are substantially similar) is permitted during the embargo, even on
+public-facing systems with untrusted guest users and administrators.
+
+This is because the mitigations are guest visible changes, and hence could
+give hints to users about the upcoming vulnerabilities.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team's decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community's agreed Security Policy:
+  http://www.xenproject.org/security-policy.html
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmjAFT8MHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZGV8H+QEb73eX4Nf/BSKpeLxzO5vpieWv9vFX83Tq9/LH
+KFQKbz4Y13XjtrxEpQhnZCYBEjgByBECrCnngaqjT8P3G17fhiEp2pMgMsU783mz
+TPtmdDcC63WGNyqB/7j3jxDLuCscPKKGjS+DHmcIbiV9H820EYQi83mWOGNwXRQP
+pYaMz5HSO15YypxKgK4i+piVceTS/fL0dclFU/vY13bq9sCqE/E4XRsClPgk1ryS
+LqUBtXbQJfxSK9asMxd0BLozVsWNVgZ6e2XTWpPf/T5EBoOo+qhQ2XaRmGCyVi98
+D5t8BJ0HV83Ptik37QlosjsRbtogPXpOiaPsFmB15WFlxk8=
+=/zd8
+-----END PGP SIGNATURE-----
+
+--=separator
+Content-Type: application/octet-stream; name="xsa472-1.patch"
+Content-Disposition: attachment; filename="xsa472-1.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSAyNjIxMTRhNDQwYmY3YzMyZmQ2ZDIxNWUyNDNiM2VhZWJkZDZkN2Nk
+IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBSb2dlciBQYXUgTW9u
+bmUgPHJvZ2VyLnBhdUBjaXRyaXguY29tPgpEYXRlOiBUaHUsIDEwIEp1bCAy
+MDI1IDE1OjUxOjQwICswMjAwClN1YmplY3Q6IFtQQVRDSCAxLzNdIHg4Ni92
+aXJpZGlhbjogYXZvaWQgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGluCiB1
+cGRhdGVfcmVmZXJlbmNlX3RzYygpCk1JTUUtVmVyc2lvbjogMS4wCkNvbnRl
+bnQtVHlwZTogdGV4dC9wbGFpbjsgY2hhcnNldD1VVEYtOApDb250ZW50LVRy
+YW5zZmVyLUVuY29kaW5nOiA4Yml0CgpUaGUgZnVuY3Rpb24gaXMgb25seSBj
+YWxsZWQgd2hlbiB0aGUgTVNSIGhhcyB0aGUgZW5hYmxlZCBiaXQgc2V0LCBi
+dXQgZXZlbgp0aGVuIHRoZSBwYWdlIG1pZ2h0IG5vdCBiZSBtYXBwZWQgYmVj
+YXVzZSB0aGUgZ3Vlc3QgcHJvdmlkZWQgZ2ZuIGlzIG5vdApzdWl0YWJsZS4K
+ClByZXZlbnQgYSBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2UgaW4gdXBkYXRl
+X3JlZmVyZW5jZV90c2MoKSBieSBjaGVja2luZwp3aGV0aGVyIHRoZSBwYWdl
+IGlzIG1hcHBlZC4KClRoaXMgaXMgQ1ZFLTIwMjUtMjc0NjYgLyBwYXJ0IG9m
+IFhTQS00NzIuCgpGaXhlczogMzg2YjMzNjUyMjFkICgndmlyaWRpYW46IHVz
+ZSB2aXJpZGlhbl9tYXAvdW5tYXBfZ3Vlc3RfcGFnZSgpIGZvciByZWZlcmVu
+Y2UgdHNjIHBhZ2UnKQpTaWduZWQtb2ZmLWJ5OiBSb2dlciBQYXUgTW9ubsOp
+IDxyb2dlci5wYXVAY2l0cml4LmNvbT4KUmV2aWV3ZWQtYnk6IEphbiBCZXVs
+aWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KLS0tCiB4ZW4vYXJjaC94ODYvaHZt
+L3ZpcmlkaWFuL3RpbWUuYyB8IDQgKysrKwogMSBmaWxlIGNoYW5nZWQsIDQg
+aW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL3hlbi9hcmNoL3g4Ni9odm0v
+dmlyaWRpYW4vdGltZS5jIGIveGVuL2FyY2gveDg2L2h2bS92aXJpZGlhbi90
+aW1lLmMKaW5kZXggMTM3NTc3Mzg0ZjFlLi5jYTZkNTI2ZjQ2YjcgMTAwNjQ0
+Ci0tLSBhL3hlbi9hcmNoL3g4Ni9odm0vdmlyaWRpYW4vdGltZS5jCisrKyBi
+L3hlbi9hcmNoL3g4Ni9odm0vdmlyaWRpYW4vdGltZS5jCkBAIC0yNiw2ICsy
+NiwxMCBAQCBzdGF0aWMgdm9pZCB1cGRhdGVfcmVmZXJlbmNlX3RzYyhjb25z
+dCBzdHJ1Y3QgZG9tYWluICpkLCBib29sIGluaXRpYWxpemUpCiAgICAgSFZf
+UkVGRVJFTkNFX1RTQ19QQUdFICpwID0gcnQtPnB0cjsKICAgICB1aW50MzJf
+dCBzZXE7CiAKKyAgICAvKiBSZWZlcmVuY2UgVFNDIHBhZ2UgbWlnaHQgbm90
+IGJlIG1hcHBlZCBldmVuIGlmIHRoZSBNU1IgaXMgZW5hYmxlZC4gKi8KKyAg
+ICBpZiAoICFwICkKKyAgICAgICAgcmV0dXJuOworCiAgICAgaWYgKCBpbml0
+aWFsaXplICkKICAgICAgICAgY2xlYXJfcGFnZShwKTsKIAotLSAKMi40OS4w
+Cgo=
+
+--=separator
+Content-Type: application/octet-stream; name="xsa472-2.patch"
+Content-Disposition: attachment; filename="xsa472-2.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSA3MWM5NTY4ZTI5MGI1MWRmZDdhYjA5MWFjOThiMjcyZmQwYWEwYjkw
+IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBSb2dlciBQYXUgTW9u
+bmUgPHJvZ2VyLnBhdUBjaXRyaXguY29tPgpEYXRlOiBUaHUsIDEwIEp1bCAy
+MDI1IDE1OjU4OjUxICswMjAwClN1YmplY3Q6IFtQQVRDSCAyLzNdIHg4Ni92
+aXJpZGlhbjogYXZvaWQgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGluCiB2
+aXJpZGlhbl9zeW5pY19kZWxpdmVyX3RpbWVyX21zZygpCk1JTUUtVmVyc2lv
+bjogMS4wCkNvbnRlbnQtVHlwZTogdGV4dC9wbGFpbjsgY2hhcnNldD1VVEYt
+OApDb250ZW50LVRyYW5zZmVyLUVuY29kaW5nOiA4Yml0CgpUaGUgZnVuY3Rp
+b24gaXMgY2FsbGVkIHVuY29uZGl0aW9uYWxseSwgcmVnYXJkbGVzcyBvZiB3
+aGV0aGVyIHRoZSBTSU0gcGFnZQppcyBtYXBwZWQuICBBdm9pZCBhIE5VTEwg
+cG9pbnRlciBkZXJlZmVyZW5jZSBpbgp2aXJpZGlhbl9zeW5pY19kZWxpdmVy
+X3RpbWVyX21zZygpIGJ5IGNoZWNraW5nIHdoZXRoZXIgdGhlIFNJTSBwYWdl
+IGlzCm1hcHBlZC4KClRoaXMgaXMgQ1ZFLTIwMjUtNTgxNDIgLyBwYXJ0IG9m
+IFhTQS00NzIuCgpGaXhlczogMjZmYmEzYzg1NTcxICgndmlyaWRpYW46IGFk
+ZCBpbXBsZW1lbnRhdGlvbiBvZiBzeW50aGV0aWMgdGltZXJzJykKU2lnbmVk
+LW9mZi1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5j
+b20+ClJldmlld2VkLWJ5OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5j
+b20+Ci0tLQogeGVuL2FyY2gveDg2L2h2bS92aXJpZGlhbi9zeW5pYy5jIHwg
+NCArKysrCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspCgpkaWZm
+IC0tZ2l0IGEveGVuL2FyY2gveDg2L2h2bS92aXJpZGlhbi9zeW5pYy5jIGIv
+eGVuL2FyY2gveDg2L2h2bS92aXJpZGlhbi9zeW5pYy5jCmluZGV4IGMzZGM1
+NzNiMDAzZC4uZTZjYmE3NTQ4ZjFiIDEwMDY0NAotLS0gYS94ZW4vYXJjaC94
+ODYvaHZtL3ZpcmlkaWFuL3N5bmljLmMKKysrIGIveGVuL2FyY2gveDg2L2h2
+bS92aXJpZGlhbi9zeW5pYy5jCkBAIC0zMzgsNiArMzM4LDEwIEBAIGJvb2wg
+dmlyaWRpYW5fc3luaWNfZGVsaXZlcl90aW1lcl9tc2coc3RydWN0IHZjcHUg
+KnYsIHVuc2lnbmVkIGludCBzaW50eCwKICAgICAgICAgLkRlbGl2ZXJ5VGlt
+ZSA9IGRlbGl2ZXJ5LAogICAgIH07CiAKKyAgICAvKiBEb24ndCBhc3N1bWUg
+U0lNIHBhZ2UgdG8gYmUgbWFwcGVkLiAqLworICAgIGlmICggIW1zZyApCisg
+ICAgICAgIHJldHVybiBmYWxzZTsKKwogICAgIC8qCiAgICAgICogVG8gYXZv
+aWQgdXNpbmcgYW4gYXRvbWljIHRlc3QtYW5kLXNldCwgYW5kIGJhcnJpZXIg
+YmVmb3JlIGNhbGxpbmcKICAgICAgKiB2bGFwaWNfc2V0X2lycSgpLCB0aGlz
+IGZ1bmN0aW9uIG11c3QgYmUgY2FsbGVkIGluIGNvbnRleHQgb2YgdGhlCi0t
+IAoyLjQ5LjAKCg==
+
+--=separator
+Content-Type: application/octet-stream; name="xsa472-3.patch"
+Content-Disposition: attachment; filename="xsa472-3.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSBhZWQ0Y2ZkNjRkMTc4YWVlNjc3YTg3OTA0NDBhZGRkYTAzNjc4Y2Q2
+IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBSb2dlciBQYXUgTW9u
+bmUgPHJvZ2VyLnBhdUBjaXRyaXguY29tPgpEYXRlOiBUaHUsIDMgSnVsIDIw
+MjUgMTM6MDk6MDMgKzAyMDAKU3ViamVjdDogW1BBVENIIDMvM10geDg2L3Zp
+cmlkaWFuOiBwcm90ZWN0IGNvbmN1cnJlbnQgbW9kaWZpY2F0aW9uIG9mIHRo
+ZQogcmVmZXJlbmNlIFRTQyBwYWdlCk1JTUUtVmVyc2lvbjogMS4wCkNvbnRl
+bnQtVHlwZTogdGV4dC9wbGFpbjsgY2hhcnNldD1VVEYtOApDb250ZW50LVRy
+YW5zZmVyLUVuY29kaW5nOiA4Yml0CgpUaGUgcmVmZXJlbmNlIFRTQyBwYWdl
+IGlzIHNoYXJlZCBiZXR3ZWVuIGFsbCB2Q1BVcywgYW5kIHRoZSBkYXRhIHN0
+b3JlZCBpbgp0aGUgZG9tYWluIHN0cnVjdC4gIEhvd2V2ZXIgdGhlIGhhbmRs
+ZXJzIHRvIHNldCBhbmQgY2xlYXIgaXQgYXJlIG5vdCBzYWZlCmFnYWluc3Qg
+Y29uY3VycmVudCBhY2Nlc3Nlcy4gIEl0J3MgcG9zc2libGUgZm9yIHR3byAo
+b3IgbW9yZSkgdkNQVXMgdG8gY2FsbApIVl9YNjRfTVNSX1JFRkVSRU5DRV9U
+U0MgYXQgdGhlIHNhbWUgdGltZSBhbmQgY2F1c2UgdGhlIGluLXVzZSByZWZl
+cmVuY2UKVFNDIHBhZ2UgdG8gYmUgZnJlZWQsIHdoaWxlIHN0aWxsIGJlaW5n
+IG9uIHRoZSBwMm0uICBUaGlzIGNyZWF0ZXMgYW4KaW5mb3JtYXRpb24gbGVh
+aywgd2hlcmUgdGhlIHBhZ2UgY2FuIGVuZCB1cCBtYXBwZWQgaW4gYW5vdGhl
+ciBkb21haW4gd2hpbGUKc3RpbGwgYmVpbmcgcGFydCBvZiB0aGUgb3JpZ2lu
+YWwgZG9tYWluIHAybS4KCkl0J3MgYWxzbyBwb3NzaWJsZSB0byB1bmRlcmZs
+b3cgdGhlIHJlZmVyZW5jZSBjb3VudGVyLCBhcyBtdWx0aXBsZQpjb25jdXJy
+ZW50IHdyaXRlcyB0byBIVl9YNjRfTVNSX1JFRkVSRU5DRV9UU0MgY2FuIGNy
+ZWF0ZSBhbiBpbWJhbGFuY2Ugb24KdGhlIG51bWJlciBvZiBwdXRfcGFnZV9h
+bmRfdHlwZSgpIGNhbGxzLgoKSW50cm9kdWNlIGEgbG9jayB0byBwcm90ZWN0
+IHRoZSByZWZlcmVuY2UgVFNDIGRvbWFpbiBmaWVsZCwgdGh1cwpzZXJpYWxp
+emluZyBjb25jdXJyZW50IHZDUFUgYWNjZXNzZXMuCgpUaGlzIGlzIENWRS0y
+MDI1LTU4MTQzIC8gcGFydCBvZiBYU0EtNDcyLgoKRml4ZXM6IDM4NmIzMzY1
+MjIxZCAoJ3ZpcmlkaWFuOiB1c2UgdmlyaWRpYW5fbWFwL3VubWFwX2d1ZXN0
+X3BhZ2UoKSBmb3IgcmVmZXJlbmNlIHRzYyBwYWdlJykKU2lnbmVkLW9mZi1i
+eTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+ClJl
+dmlld2VkLWJ5OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+Ci0t
+LQogeGVuL2FyY2gveDg2L2h2bS92aXJpZGlhbi90aW1lLmMgICAgICAgIHwg
+NCArKysrCiB4ZW4vYXJjaC94ODYvaHZtL3ZpcmlkaWFuL3ZpcmlkaWFuLmMg
+ICAgfCAyICsrCiB4ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vaHZtL3Zpcmlk
+aWFuLmggfCAxICsKIDMgZmlsZXMgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCsp
+CgpkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2h2bS92aXJpZGlhbi90aW1l
+LmMgYi94ZW4vYXJjaC94ODYvaHZtL3ZpcmlkaWFuL3RpbWUuYwppbmRleCBj
+YTZkNTI2ZjQ2YjcuLjkzMTE4NThkNjNjMCAxMDA2NDQKLS0tIGEveGVuL2Fy
+Y2gveDg2L2h2bS92aXJpZGlhbi90aW1lLmMKKysrIGIveGVuL2FyY2gveDg2
+L2h2bS92aXJpZGlhbi90aW1lLmMKQEAgLTEwOCw4ICsxMDgsMTAgQEAgc3Rh
+dGljIHZvaWQgdGltZV9yZWZfY291bnRfdGhhdyhjb25zdCBzdHJ1Y3QgZG9t
+YWluICpkKQogCiAgICAgdHJjLT5vZmYgPSAoaW50NjRfdCl0cmMtPnZhbCAt
+IHRyY192YWwoZCwgMCk7CiAKKyAgICBzcGluX2xvY2soJnZkLT5sb2NrKTsK
+ICAgICBpZiAoIHZkLT5yZWZlcmVuY2VfdHNjLm1zci5lbmFibGVkICkKICAg
+ICAgICAgdXBkYXRlX3JlZmVyZW5jZV90c2MoZCwgZmFsc2UpOworICAgIHNw
+aW5fdW5sb2NrKCZ2ZC0+bG9jayk7CiB9CiAKIHN0YXRpYyB1aW50NjRfdCB0
+aW1lX3JlZl9jb3VudChjb25zdCBzdHJ1Y3QgZG9tYWluICpkKQpAQCAtMzMx
+LDYgKzMzMyw3IEBAIGludCB2aXJpZGlhbl90aW1lX3dybXNyKHN0cnVjdCB2
+Y3B1ICp2LCB1aW50MzJfdCBpZHgsIHVpbnQ2NF90IHZhbCkKICAgICAgICAg
+aWYgKCAhKHZpcmlkaWFuX2ZlYXR1cmVfbWFzayhkKSAmIEhWTVBWX3JlZmVy
+ZW5jZV90c2MpICkKICAgICAgICAgICAgIHJldHVybiBYODZFTVVMX0VYQ0VQ
+VElPTjsKIAorICAgICAgICBzcGluX2xvY2soJnZkLT5sb2NrKTsKICAgICAg
+ICAgdmlyaWRpYW5fdW5tYXBfZ3Vlc3RfcGFnZSgmdmQtPnJlZmVyZW5jZV90
+c2MpOwogICAgICAgICB2ZC0+cmVmZXJlbmNlX3RzYy5tc3IucmF3ID0gdmFs
+OwogICAgICAgICB2aXJpZGlhbl9kdW1wX2d1ZXN0X3BhZ2UodiwgIlJFRkVS
+RU5DRV9UU0MiLCAmdmQtPnJlZmVyZW5jZV90c2MpOwpAQCAtMzM5LDYgKzM0
+Miw3IEBAIGludCB2aXJpZGlhbl90aW1lX3dybXNyKHN0cnVjdCB2Y3B1ICp2
+LCB1aW50MzJfdCBpZHgsIHVpbnQ2NF90IHZhbCkKICAgICAgICAgICAgIHZp
+cmlkaWFuX21hcF9ndWVzdF9wYWdlKGQsICZ2ZC0+cmVmZXJlbmNlX3RzYyk7
+CiAgICAgICAgICAgICB1cGRhdGVfcmVmZXJlbmNlX3RzYyhkLCB0cnVlKTsK
+ICAgICAgICAgfQorICAgICAgICBzcGluX3VubG9jaygmdmQtPmxvY2spOwog
+ICAgICAgICBicmVhazsKIAogICAgIGNhc2UgSFZfWDY0X01TUl9USU1FX1JF
+Rl9DT1VOVDoKZGlmZiAtLWdpdCBhL3hlbi9hcmNoL3g4Ni9odm0vdmlyaWRp
+YW4vdmlyaWRpYW4uYyBiL3hlbi9hcmNoL3g4Ni9odm0vdmlyaWRpYW4vdmly
+aWRpYW4uYwppbmRleCA3ZWE2YzkwMTY4OTQuLmMwYmUyNGJkMjIxMCAxMDA2
+NDQKLS0tIGEveGVuL2FyY2gveDg2L2h2bS92aXJpZGlhbi92aXJpZGlhbi5j
+CisrKyBiL3hlbi9hcmNoL3g4Ni9odm0vdmlyaWRpYW4vdmlyaWRpYW4uYwpA
+QCAtNDk0LDYgKzQ5NCw4IEBAIGludCB2aXJpZGlhbl9kb21haW5faW5pdChz
+dHJ1Y3QgZG9tYWluICpkKQogICAgIGlmICggIWQtPmFyY2guaHZtLnZpcmlk
+aWFuICkKICAgICAgICAgcmV0dXJuIC1FTk9NRU07CiAKKyAgICBzcGluX2xv
+Y2tfaW5pdCgmZC0+YXJjaC5odm0udmlyaWRpYW4tPmxvY2spOworCiAgICAg
+cmMgPSB2aXJpZGlhbl9zeW5pY19kb21haW5faW5pdChkKTsKICAgICBpZiAo
+IHJjICkKICAgICAgICAgZ290byBmYWlsOwpkaWZmIC0tZ2l0IGEveGVuL2Fy
+Y2gveDg2L2luY2x1ZGUvYXNtL2h2bS92aXJpZGlhbi5oIGIveGVuL2FyY2gv
+eDg2L2luY2x1ZGUvYXNtL2h2bS92aXJpZGlhbi5oCmluZGV4IDRjOGZmNmU4
+MGI2Zi4uNDdjOWQxMzg0MWFjIDEwMDY0NAotLS0gYS94ZW4vYXJjaC94ODYv
+aW5jbHVkZS9hc20vaHZtL3ZpcmlkaWFuLmgKKysrIGIveGVuL2FyY2gveDg2
+L2luY2x1ZGUvYXNtL2h2bS92aXJpZGlhbi5oCkBAIC03MSw2ICs3MSw3IEBA
+IHN0cnVjdCB2aXJpZGlhbl9kb21haW4KICAgICBERUNMQVJFX0JJVE1BUCho
+eXBlcmNhbGxfZmxhZ3MsIF9IQ0FMTF9ucik7CiAgICAgc3RydWN0IHZpcmlk
+aWFuX3RpbWVfcmVmX2NvdW50IHRpbWVfcmVmX2NvdW50OwogICAgIHN0cnVj
+dCB2aXJpZGlhbl9wYWdlIHJlZmVyZW5jZV90c2M7CisgICAgc3BpbmxvY2tf
+dCBsb2NrOwogfTsKIAogdm9pZCBjcHVpZF92aXJpZGlhbl9sZWF2ZXMoY29u
+c3Qgc3RydWN0IHZjcHUgKnYsIHVpbnQzMl90IGxlYWYsCi0tIAoyLjQ5LjAK
+Cg==
+
+--=separator--
 
