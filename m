@@ -2,53 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D17CEB49DA2
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 01:53:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1115766.1462261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E20F6B49DE0
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 02:11:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1115784.1462271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvleb-0006bO-1p; Mon, 08 Sep 2025 23:52:09 +0000
+	id 1uvlwV-0001hP-Cd; Tue, 09 Sep 2025 00:10:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1115766.1462261; Mon, 08 Sep 2025 23:52:09 +0000
+Received: by outflank-mailman (output) from mailman id 1115784.1462271; Tue, 09 Sep 2025 00:10:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvlea-0006Zm-Uq; Mon, 08 Sep 2025 23:52:08 +0000
-Received: by outflank-mailman (input) for mailman id 1115766;
- Mon, 08 Sep 2025 23:52:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uvlwV-0001eS-9L; Tue, 09 Sep 2025 00:10:39 +0000
+Received: by outflank-mailman (input) for mailman id 1115784;
+ Tue, 09 Sep 2025 00:10:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=snl7=3T=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
- id 1uvleZ-0006ZN-D5
- for xen-devel@lists.xenproject.org; Mon, 08 Sep 2025 23:52:07 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2061e.outbound.protection.outlook.com
- [2a01:111:f403:2414::61e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cfc9c391-8d0e-11f0-9809-7dc792cee155;
- Tue, 09 Sep 2025 01:52:01 +0200 (CEST)
-Received: from DS7P220CA0005.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:1ca::7) by
- CH2PR12MB4183.namprd12.prod.outlook.com (2603:10b6:610:7a::24) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9094.22; Mon, 8 Sep 2025 23:51:55 +0000
-Received: from CY4PEPF0000E9D0.namprd03.prod.outlook.com
- (2603:10b6:8:1ca:cafe::8) by DS7P220CA0005.outlook.office365.com
- (2603:10b6:8:1ca::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9094.22 via Frontend Transport; Mon,
- 8 Sep 2025 23:51:53 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000E9D0.mail.protection.outlook.com (10.167.241.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9115.13 via Frontend Transport; Mon, 8 Sep 2025 23:51:55 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 8 Sep
- 2025 16:51:54 -0700
-Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17 via Frontend Transport; Mon, 8 Sep 2025 16:51:53 -0700
+ <SRS0=aO0K=3U=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uvlwT-0001eM-HR
+ for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 00:10:37 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 67dabca3-8d11-11f0-9d13-b5c5bf9af7f9;
+ Tue, 09 Sep 2025 02:10:35 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id AF06A40770;
+ Tue,  9 Sep 2025 00:10:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24987C4CEF1;
+ Tue,  9 Sep 2025 00:10:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,144 +41,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cfc9c391-8d0e-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U6+x4N2D6KVyvPw3c08CMuZl+7ghpZSmX7cQB+iWIRd+zvagXdsZJobKtf/BV2RhxXy27fut6bLsIG8yx8y/r67HOmI+YEe9tZKNRjULZ+e752gt1k93xvncDd+EfKuM2dQ47Wl5Q26abbBkEfahXu+BmvykSIT0HMnC6+IOmkxRHPYVccMbiafPj7Yk+RaXt8SA2w9SbQtBuifvUev3oHqPgg9xtsUFmc9Qh85rbmfor/J8QgrxZDJUpL5rjjKYJKOMmnCJ5HdbuiKytOJEfjN9PGcPwFcYQyBXQFtbgTLFZYUPOwj6vDn8Q9Ef1PtYnQRekK/rs8lKkCgq1BuUkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SxfbD5t4AAmavriFKCaj/6pnOKSAkpFeOYbctAmbv3k=;
- b=Po5d9S/9VVMY8ZMEjt2MzcycknpAyTVO0q1ckbVw1AtjmHkPcfa8ZQQgz1hEIZWA/J2Tf5GoPN8hBDy385IeI8TCHfTTzfWAwYNx2BoGMSVMI1vF7WZxkPRmz1bsDpAf7S3gdTEA/Ebdiy9sI9FbowO5kkjgqFND9wo/4hvIuJGliMsJzMvflypvJSm5i/vUyR+HxSlp36aql/llh9ZTTrkmvIopKX3akBtFUvGrZVavRon6+0P8ndIylZ04OKSluBWjI4/iGmWiWXn8ZT210ZQLyG5tgKyI24L4yckYR52KbvUTWyiWa6kaG2py1MMv8KDvUMTYFLhNyqQ2Lq9mpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SxfbD5t4AAmavriFKCaj/6pnOKSAkpFeOYbctAmbv3k=;
- b=wagYQW/nI1242r/EnlU8XbaRMR/GufMWhIw00nt+UjOR/SwTW8JQm7MB6pNXMR1euS94+MGi7MpEDg02AbQ0AeViByYl5ie+nZMnvZzDrouAfJykoIBxL7UKcEj1vs1NJSVTNUOVbSkidqYL5tz6jCyftpAKaXJa1XRQV0FgqJk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Date: Mon, 8 Sep 2025 16:51:53 -0700
-From: Stefano Stabellini <stefano.stabellini@amd.com>
+X-Inumbo-ID: 67dabca3-8d11-11f0-9d13-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1757376633;
+	bh=YgoZWQQJmWUo7bCUBFqAZOOGn9GzTDDXpPCzKCZ+oio=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=teL9MhdykjWH9HhMeI/9Hc3mQINBrskNXRU+9iHOthI9AYm73iNyuGJYCVuDzME9l
+	 +YBtCEwb86+T3EKLu6SUKQFxBASCgTFdAUEqcogJUmskjIU0YLDLrXUPFQib6WDByr
+	 psncamMOKM0gvhIccFCLG+07fTfex6S/Br0eCgHwP1xIQCatffb1gai01XjJO2YMAv
+	 nlF7xEhr6s8iIpOBTPtpCR23LIp2awCipqhlbYd60FFgz5aBhXXN0N9nbQ1kVW7snv
+	 mxCFfECT/IOWB6gX/gpg2jxmkL/vqVWnXRaUGE48SHN+f5a9oQ8q/6awSmS77K0ROa
+	 p2BSt7WhupkxA==
+Date: Mon, 8 Sep 2025 17:10:30 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-CC: Mykola Kvach <xakep.amatop@gmail.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, <xen-devel@lists.xenproject.org>,
-	<andrew.cooper3@citrix.com>, <anthony.perard@vates.tech>,
-	<jbeulich@suse.com>, <julien@xen.org>, <michal.orzel@amd.com>,
-	<roger.pau@citrix.com>, <dmukhin@ford.com>, <dmukhin@xen.org>
-Subject: Re: [PATCH v6 00/15] x86: introduce NS16550-compatible UART
- emulator
-In-Reply-To: <fff47b95-6c3c-49d5-affd-3acbe933bc01@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2509081650560.1405870@ubuntu-linux-20-04-desktop>
-References: <20250905232715.440758-1-dmukhin@ford.com> <alpine.DEB.2.22.394.2509051900200.1405870@ubuntu-linux-20-04-desktop> <CAGeoDV87bTaDiG=5xAvSGZXKTJ0zSRUz7Nq2JSenBqu8DnLe2A@mail.gmail.com> <fff47b95-6c3c-49d5-affd-3acbe933bc01@gmail.com>
+To: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "olekstysh@gmail.com" <olekstysh@gmail.com>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+    Community Manager <community.manager@xenproject.org>
+Subject: Re: [PATCH v7 00/12] Introduce eSPI support
+In-Reply-To: <374b7296-bfc0-4a4d-8f2c-b148c29c0517@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2509081706580.1405870@ubuntu-linux-20-04-desktop>
+References: <cover.1757015865.git.leonid_komarianskyi@epam.com> <alpine.DEB.2.22.394.2509051717530.1405870@ubuntu-linux-20-04-desktop> <374b7296-bfc0-4a4d-8f2c-b148c29c0517@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
-	boundary="8323329-174628289-1757375514=:1405870"
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D0:EE_|CH2PR12MB4183:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6f0d964-c8e1-42c5-f642-08ddef32b10f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|376014|7416014|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?cjJSQkNzdTZTMC9UUm4xYTE2ZTg0UUhLbm9GRnFRVm5ibHRCRDhqSzdjWURZ?=
- =?utf-8?B?ZnZFT1FldkpxK1A4SlBzRWtKQm5QVjNwRzZhYmhGOTZZbkh0TTdRVTNSY2Zu?=
- =?utf-8?B?OHQ3N3JnWHBDcDk0aDJ0anBIazFJRldiRzBoc0ovb1pTTEVRaXlqbGQ3SWFQ?=
- =?utf-8?B?OHl6OEhSbUlZSzh0c0FLd2pPWUVOS1lDeFd4QWhLWWlVemVvM3h1YTAwdzJq?=
- =?utf-8?B?WGFiWEQzMXBBZUEwNzl1REdJYTVVOFhCbEo0WDQ5Rkc3SER4azY2RmgwR3Ar?=
- =?utf-8?B?dE9LclltN3VaaHI5TTZKeUF4ZzhpcDJtYlNuNHpOYlVGMmxQS1Rxa0R1TGl3?=
- =?utf-8?B?MGRiYlFmTzk1ZnhzNXFTT0NhbFJlVE9aRW4zODZXSldsd2gzQnoxUnFmUWdh?=
- =?utf-8?B?M0QxQlZmTW9IbzZuVDhLdkhXZThWb0ZrN2NyWXhiK3FrU2cyUTFJTmhxQkEv?=
- =?utf-8?B?YURmSWVTbm9hWUFjZzMxc0plL1pGc1lYL0ZLWHFIcDc4ODZzTU9KUFFTak5X?=
- =?utf-8?B?NjlYVzc4eHZwUHFuSEpVSHNvZjBrS20rWjh4Y1FwSHNTcnZvWlk4S1ljdGVm?=
- =?utf-8?B?dEdqcitFaUNzT3RoNUwxS0F0RDdZNVJXd21TZ2lXMG5vQjRqWVJZc1ZpWWs4?=
- =?utf-8?B?UWJ0blNOckxXcVEyVC9tR0VCK0xxUDdRemV0RjZyYjdSNkx0aXlNTTRjem1U?=
- =?utf-8?B?c1NoaFd2SW8zaFFoZ2NLTUNRK0RYM1VDOEprU1JKUjJFK3ZuZ2VWSUIvTXFh?=
- =?utf-8?B?TWRtVWlaN3h1bnZ4MkFUQm05OVcxVG1CbWV4Tm5BcFh0cWVFQktrY0p4SDd2?=
- =?utf-8?B?ZE13UzUrY1lBZ21sTmJuOThJUG8xNkU4YnlERjB3OW1hOS9xOUFublVTQ1du?=
- =?utf-8?B?akxhbmdzRHhZYmk2TGJLTXF6cHYxYnNKVm01KzRDK1lnbVlCK0pCdzZhZXlR?=
- =?utf-8?B?bE1TRWFPR0pRN2lwSFBSN2VyYWJvMmg1THFiT0lnQ0QyMGN4NUk0bE5acXZX?=
- =?utf-8?B?Njd6UHVCbDRLNnl1S0RzY0Nnd0JHU2wzdXdNdlFmVHdXMW9KOFFrSkhYMk9n?=
- =?utf-8?B?K2svOVh4Ni9udWdYOWJsRk9hVEduQTQvakNYUG1PZnlRekJ4cmphWHhuYlRj?=
- =?utf-8?B?b0RpbVBobGdFeUdqWUhGNmRTZTk1UDNiNEE3WUlVNFEyS0xQaVpZN3QyVFBE?=
- =?utf-8?B?Uy81YStxQmljUkprSkxGNmg3eG1kREtxaisvbWhkeXppTU9KRFJJWWhaekZy?=
- =?utf-8?B?R21WQnAzeDh0WEx2YjRMT0N4MEtFQmZKbkdDaUg0L3UvTXlRa0pIUmxPeEJn?=
- =?utf-8?B?RXBrdGNON1EzU1FCR3pqK1NzWjFtZXFxeDFDbnNMZFBhLzd1WHkxSVhCNTU1?=
- =?utf-8?B?WThySmVpaVM0TnNqcmpiTjkvZUNlcTJ4OGtzOFNSKzY2eVVxL0UyWmxzMkNy?=
- =?utf-8?B?YVhtc1BZb2pjbVgwOWdySFZWbDRCUmkyWXI5aHFyNkZIYndRS3FTNUFsMGZ5?=
- =?utf-8?B?SVZCK3ZGMW5RaVRDLzZmaU1WSk8yV1dYa004Qjlrd0xieW85T2hFaWsxbE1z?=
- =?utf-8?B?RGVtbmsxTWFJUTRUblp4OW8xTmtTbGhoTWd5VW1uYm1BREZEcVVKVlVTZCtS?=
- =?utf-8?B?ZHFQUW8vTHNJWkdOcUxMOWhNVXZNWW01ZGdJUUdBZmVCVENIdXhQT2hWZzRN?=
- =?utf-8?B?YXg3YVdvaENUWWI5WlYrUDZyQVRuSm5jbWIwWTdpdkVsbkg1Y3dKQnZVb1lY?=
- =?utf-8?B?Qzhpd1pVRG41ZEY3SnBBbG03cDl6ZnhvSlEzUVNTYTY1Qkc4NU04V0xZQk9v?=
- =?utf-8?B?eHpGSlpndDU0MWtzTWVhNE12ZUNSKzNSL2RRL0hlRjRtQUtYNzA3RlAyamlv?=
- =?utf-8?B?Y0diL3NtSjFUNWVoWEpoWnYxcXAvcEp6MXVTME1yWk11TEcrQmxqSkhZMUJP?=
- =?utf-8?B?alNtUFkvV3FpYUg5RkF3NSsrRERlZnBCOGp3UVRSdHhEcFVxcmNsUUcyMXBX?=
- =?utf-8?B?OEtpYlJFcFIrelNONzEvSlQxUk5RRzVIaDJsSGxSYTc1d3dvbW5jK0Uxai9H?=
- =?utf-8?Q?N+SSVe?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(7416014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2025 23:51:55.3623
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6f0d964-c8e1-42c5-f642-08ddef32b10f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000E9D0.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4183
+Content-Type: text/plain; charset=US-ASCII
 
---8323329-174628289-1757375514=:1405870
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8BIT
+On Sun, 7 Sep 2025, Leonid Komarianskyi wrote:
+> Hello Stefano,
+> 
+> Thank you for your comments and for providing the Eclair reports.
+> 
+> On 06.09.25 03:17, Stefano Stabellini wrote:
+> > Hi Leonid,
+> >
+> > I was about to commit this but unfortunately it is introducing MISRA
+> > regressions. See:
+> > https://gitlab.com/xen-project/people/sstabellini/xen/-/tree/ppp6?ref_type=heads
+> >
+> > https://gitlab.com/xen-project/people/sstabellini/xen/-/jobs/11265005118
+> >
+> > Compared this result:
+> > https://eclair-analysis-logs.xenproject.org/fs/var/local/eclair/xen-project.ecdf/xen-project/people/sstabellini/xen/ECLAIR_normal/ppp6/ARM64/11265005118/PROJECT.ecd;/by_service.html#service&kind
+> >
+> > Against upstream staging:
+> > https://eclair-analysis-logs.xenproject.org/fs/space/XEN.ecdf/xen-project/hardware/xen/ECLAIR_normal/staging/ARM64/11264772605/PROJECT.ecd;/by_service.html#service&kind
+> >
+> > It is introducing a couple of easy-to-fix 16.3 issues and also a couple
+> > of new 16.4 issues. They should be all easy to fix. It is also
+> > introducing three new 13.2 issues and one 18.1 but I haven't looked
+> > closely into those. Please address them.
+> >
+> 
+> Regarding the MISRA 16.3/16.4 violations and 13.2 cautions - there are
+> no questions from my side. I have fixed them and will send the updated
+> V8 (with typo fixes, added acked/reviewed-by tags, etc.).
 
-On Mon, 8 Sep 2025, Oleksii Kurochko wrote:
-> Hello Everyone,
-> 
-> On 9/8/25 11:04 AM, Mykola Kvach wrote:
-> 
-> Hi Denis and Stefano
-> 
-> I’d like to acknowledge the significant effort that went into this patch
-> series -- it’s clear that a lot of work has been invested.
-> 
-> On Sat, Sep 6, 2025 at 5:02 AM Stefano Stabellini
-> <sstabellini@kernel.org> wrote:
-> 
-> Oleksii and all,
-> 
-> I would like to consider patches 1-12 of this patch series for 4.21,
-> pending the few minor comments I made addressed.
-> 
-> Although I am neither a maintainer nor an official reviewer for this
-> project, I have looked over some of the first patches in the series. In my
-> opinion, the series is not yet ready for merging.
-> 
-> Even if my review is set aside, the changes are largely x86-specific and
-> produce the most impact on this architecture. I believe that before
-> merging, one of the x86 maintainers (or at least a trusted reviewer for
-> x86, if available) should carefully review these patches.
-> 
-> I agree with this point. Considering that this part is being moved to
-> common code, it would be helpful to get some input from the x86 maintainers.
-> 
-> Also, since the entire patch series is not yet ready, I think it makes
-> sense at this stage of development to either have the whole series reviewed
-> or postpone it to 4.22. (The last one is preferred at the current stage of
-> development)
+Thanks!
 
-Even with x86 review, it would be difficult to get the whole series
-merged now. If it is all or nothing, then I suggest we wait for 4.22.
---8323329-174628289-1757375514=:1405870--
+
+> However, I
+> would like to clarify regarding the MISRA 18.1 caution regression and
+> review process rules:
+> 
+> MISRA 18.1 caution:
+> 
+> xen/arch/arm/irq.c:105.13-105.39: [8] access of 'irq_desc' at an
+> overflowing index, while it holds only 992 'struct irq_desc' elements
+> 
+> Actually, there is no new real issue here, because the mainline
+> irq_desc() currently does not have upper limit checks for IRQs:
+> 
+> struct irq_desc *__irq_to_desc(unsigned int irq)
+> {
+>      if ( irq < NR_LOCAL_IRQS )
+>          return &this_cpu(local_irq_desc)[irq];
+> 
+>      return &irq_desc[irq-NR_LOCAL_IRQS];
+> }
+> 
+> ... as a result Eclair does not spot any issues in this code according
+> to the staging report. As I understand, it triggers on patches with eSPI
+> because I introduced new checks for the eSPI INTID range, which should
+> not be used without CONFIG_GICV3_ESPI=y.
+> 
+> Also, a similar issue with invalid INTIDs was discussed in the thread:
+> 
+> https://lists.xenproject.org/archives/html/xen-devel/2025-09/msg00401.html
+> 
+> Long story short: the mainline Xen currently allows defining invalid
+> INTIDs in the Xen DTS and crashes in __irq_to_desc() when attempting to
+> operate on an invalid interrupt number.
+> 
+> I have prepared a fix for the 18.1 caution, but I am not sure whether it
+> is worth applying just to address the Eclair report (if it is not critical):
+> https://github.com/LKomaryanskiy/xen/commit/af5d9a483302f7bcfaadbefb85f5e4ee35f6cb3b
+> 
+> So, could you please clarify which option would be better:
+> 1) Leave the code as it is for now, accepting the MISRA caution from
+> Eclair and fix the issue later in the context of addressing Xen crashing
+> with invalid INTIDs and implementing dynamic allocation of irq_desc_t array;
+> 2) Apply the fix now (while also planning to address the invalid INTID
+> issue in the future)
+
+I am happy to apply the fix now as part of the series
+
+
+> Regarding the review process:
+> Should I remove the 'reviewed-by' tags from the patches where I added
+> missing breaks (with the corresponding code updates) or introduced
+> variables to fix MISRA issues? I am asking because these are code
+> changes, and I am not sure if I should leave the RB tags in this case.
+
+Please keep them
+
+> >
+> > Oleksii,
+> >
+> > Technically, the series is fully acked and ready to be committed. From a
+> > risk perspective, I would be comfortable committing it now with the
+> > outstanding MISRA regressions, leaving Leonid to fix them over the next
+> > few days. However, I have not done so because it would make it harder to
+> > spot the MISRA regressions due to the way the scanner works (it
+> > compares against the previous version).
+> >
+> > I suggest we allow this series to be committed in the next couple of
+> > days, once Leonid addresses the regressions, even though it would
+> > technically be past the feature freeze.
+> >
+> > Cheers,
+> >
+> > Stefano
+> >
+> > P.S.
+> >
+> > Leonid, you might want to check my commits because I fixed a couple of
+> > things on commit, in addition to adding the various acked-by tags.
+> >
+> >
+> > On Thu, 4 Sep 2025, Leonid Komarianskyi wrote:
+> >> Hello everyone!
+> >>
+> >> V6 contains an issue for debug builds with CONFIG_GICV3_ESPI=n due to a
+> >> mistake in the ASSERT() condition in the is_espi() function. This patch
+> >> series fixes the issue and also includes minor fixes according to the
+> >> review of V6.
+> >>
+> >> Summarized description:
+> >> This patch series adds support for the extended shared peripheral
+> >> interrupt (eSPI) range (INTIDs 4096-5119 [2](ranges of INTIDs)) for Xen
+> >> and guest domains. The implementation uses a generic approach to handle
+> >> eSPIs, similar to regular SPIs, while maintaining compatibility with the
+> >> existing SPI range. Functionality remains unchanged for setups that do
+> >> not require eSPIs.
+> >>
+> >> The series includes:
+> >> 1) General refactoring of common IRQ operations with GIC registers to
+> >> improve code readability, simplify further maintenance and prepare the
+> >> key functions for eSPI implementation.
+> >> 2) Introducing a new Kconfig option (default n) to enable or disable
+> >> eSPI support. Disabling this option prevents unnecessary resource
+> >> allocation for setups that do not require eSPIs.
+> >> 3) Adding additional resources to store required information and operate
+> >> with up to 1024 interrupts from eSPI range.
+> >> 4) Adjusting assertions and checks to pass verification for INTIDs in
+> >> the eSPI range.
+> >> 5) Configuration of eSPI-specific registers during GIC initialization
+> >> for systems with GICv3.1+ hardware.
+> >> 6) Enables eSPI MMIO emulation for vGIC, allowing guest domains to
+> >> access and operate within the eSPI's INTIDs.
+> >> 7) Updating documentation and CHANGELOG to reflect the changes made for eSPI
+> >> support.
+> >>
+> >> Also, to simplify reviewing, please find below link to unsquashed patches, that
+> >> are on top of every patch, that is changed in the series, compared to V6:
+> >> https://github.com/LKomaryanskiy/xen/commits/espi-support-master-upstream-v7-unsquashed/
+> >>
+> >> Github branch with patch series:
+> >> https://github.com/LKomaryanskiy/xen/commits/espi-support-master-upstream-v7/
+> >>
+> >> Changes in V7:
+> >> - individual changes in patches
+> >>
+> >> Link on V6:
+> >> - https://lists.xenproject.org/archives/html/xen-devel/2025-09/msg00296.html
+> >>
+> >> Changes in V6:
+> >> - individual changes in patches
+> >>
+> >> Link on V5:
+> >> - https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg02086.html
+> >>
+> >> Changes in V5:
+> >> - individual changes in patches
+> >>
+> >> Link on V4:
+> >> - https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg01767.html
+> >>
+> >> Changes in V4:
+> >> - added a patch for documentation
+> >> - individual changes in patches
+> >>
+> >> Link on V3:
+> >> - https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg01628.html
+> >>
+> >> Changes in V3:
+> >> - added a patch to update CHANGELOG.md
+> >> - individual changes in patches
+> >>
+> >> Link on V2:
+> >> - https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg00372.html
+> >>
+> >> Changes in V2:
+> >> - added 2 more patches to implement helper
+> >>    functions for gic/vgic:
+> >>    xen/arm: gic: implement helper functions for INTID checks
+> >>    xen/arm: vgic: implement helper functions for virq checks
+> >> - removed 2 patches:
+> >>    xen/arm/irq: allow assignment/releasing of eSPI interrupts
+> >>    xen/arm: gic/irq: permit routing of eSPI interrupts to Xen and domains
+> >>    since their functionality can be moved to appropriate patches after
+> >>    introducing patches with helper functions
+> >> - individual changes in patches
+> >>
+> >> Link on V1:
+> >> - https://lists.xenproject.org/archives/html/xen-devel/2025-07/msg01809.html
+> >>
+> >> Leonid Komarianskyi (12):
+> >>    xen/arm: gicv3: refactor obtaining GIC addresses for common operations
+> >>    xen/arm: gic: implement helper functions for INTID checks
+> >>    xen/arm: vgic: implement helper functions for virq checks
+> >>    xen/arm/irq: add handling for IRQs in the eSPI range
+> >>    xen/arm: gicv3: implement handling of GICv3.1 eSPI
+> >>    xen/arm/irq: allow eSPI processing in the gic_interrupt function
+> >>    xen/arm: gicv3: modify ICH_LR_PHYSICAL_MASK to allow eSPI processing
+> >>    xen/arm: vgic: add resource management for extended SPIs
+> >>    xen/arm: domain_build/dom0less-build: adjust domains config to support
+> >>      eSPIs
+> >>    xen/arm: vgic-v3: add emulation of GICv3.1 eSPI registers
+> >>    doc/man: update description for nr_spis with eSPI
+> >>    CHANGELOG.md: add mention of GICv3.1 eSPI support
+> >>
+> >>   CHANGELOG.md                           |   2 +
+> >>   docs/man/xl.cfg.5.pod.in               |  13 +-
+> >>   xen/arch/arm/Kconfig                   |   8 +
+> >>   xen/arch/arm/dom0less-build.c          |   2 +-
+> >>   xen/arch/arm/domain_build.c            |   2 +-
+> >>   xen/arch/arm/gic-v3.c                  | 195 +++++++++++++++++++----
+> >>   xen/arch/arm/gic.c                     |   8 +-
+> >>   xen/arch/arm/include/asm/gic.h         |  28 ++++
+> >>   xen/arch/arm/include/asm/gic_v3_defs.h |  40 ++++-
+> >>   xen/arch/arm/include/asm/irq.h         |  38 +++++
+> >>   xen/arch/arm/include/asm/vgic.h        |  56 ++++++-
+> >>   xen/arch/arm/irq.c                     |  62 +++++++-
+> >>   xen/arch/arm/vgic-v3.c                 | 203 ++++++++++++++++++-----
+> >>   xen/arch/arm/vgic.c                    | 212 +++++++++++++++++++++++--
+> >>   xen/arch/arm/vgic/vgic.c               |   5 +
+> >>   15 files changed, 762 insertions(+), 112 deletions(-)
+> >>
+> >> --
+> >> 2.34.1
+> >>
+> 
+> Best regards,
+> Leonid
+> 
 
