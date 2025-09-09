@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C46EDB4A4D6
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 10:15:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1115888.1462335 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7841B4A651
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 11:01:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1115917.1462365 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvtUs-0001vU-Sb; Tue, 09 Sep 2025 08:14:38 +0000
+	id 1uvuDJ-00087F-FP; Tue, 09 Sep 2025 09:00:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1115888.1462335; Tue, 09 Sep 2025 08:14:38 +0000
+Received: by outflank-mailman (output) from mailman id 1115917.1462365; Tue, 09 Sep 2025 09:00:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvtUs-0001u0-PT; Tue, 09 Sep 2025 08:14:38 +0000
-Received: by outflank-mailman (input) for mailman id 1115888;
- Tue, 09 Sep 2025 08:14:37 +0000
+	id 1uvuDJ-00085l-Cb; Tue, 09 Sep 2025 09:00:33 +0000
+Received: by outflank-mailman (input) for mailman id 1115917;
+ Tue, 09 Sep 2025 09:00:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7i4f=3U=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uvtUr-0001tt-PZ
- for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 08:14:37 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ezXQ=3U=redhat.com=david@srs-se1.protection.inumbo.net>)
+ id 1uvuDH-00085f-NQ
+ for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 09:00:31 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0622135a-8d55-11f0-9d13-b5c5bf9af7f9;
- Tue, 09 Sep 2025 10:14:36 +0200 (CEST)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-337f6cdaf2cso39805151fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 09 Sep 2025 01:14:36 -0700 (PDT)
+ id 6eb1b69c-8d5b-11f0-9d13-b5c5bf9af7f9;
+ Tue, 09 Sep 2025 11:00:29 +0200 (CEST)
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-562-qku-7RXjMb6mQF5z-uRibg-1; Tue, 09 Sep 2025 05:00:27 -0400
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-45a15f10f31so35597445e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Sep 2025 02:00:26 -0700 (PDT)
+Received: from ?IPV6:2003:d8:2f23:9c00:d1f6:f7fe:8f14:7e34?
+ (p200300d82f239c00d1f6f7fe8f147e34.dip0.t-ipconnect.de.
+ [2003:d8:2f23:9c00:d1f6:f7fe:8f14:7e34])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3e752238997sm1838274f8f.37.2025.09.09.02.00.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Sep 2025 02:00:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,226 +51,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0622135a-8d55-11f0-9d13-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1757405676; x=1758010476; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NSOcl2lQrpQOBUV/otn8F3Hh70moqQjNoxI4z5jDjVE=;
-        b=HtYdzmK/3YgfwTH0e4Q3kD4Fkl/9/dE7z++25vJw+X9/7DqKzZnwMP2nOTeQC50oE8
-         H5svL/vnSrpTNWBUYarWL64oHTRFdCxiIJwnH/x7Mo0Zo2JJBv1umuRJE1C/esHw/3S3
-         tjJjmqT3+hDweggvtWvngtlFyW8SVtrOaNCV+yPj6ZW1brH+B9jZR05kYGc4BpNx2jX+
-         /P1HBE5GQvU4w3AEni0QC1MTJiyT9F2/OxoFzZ0949C4KVFsW0FWAyax/mdJfI3VdjOg
-         GGVRYvb/yAVF27M5z97m23Ob91aO7MGIX+V1mn/EzahuBQLUU1vB4IPRrINR8nGDErak
-         f4Ew==
+X-Inumbo-ID: 6eb1b69c-8d5b-11f0-9d13-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1757408428;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=FFaNWFCl2wdsjl/T84rwbCzslw/ZOsn9DcOtT4QWrC0=;
+	b=O8XofVYIRJ7JdydV/AcXJE6OL/CzP5apt68h114P/51brpsJaH1b/Lk9wp9D3jOzjTm5bj
+	SyY3GBBRZRzFnFY7fcz8XB/q8rGkqbGxoqAOTaUA7SNVtSB4zIzNQ1/e+SGFAGkJkKXwxK
+	BxXiUxINIGEbRczdgB4W20L0dgBeFxg=
+X-MC-Unique: qku-7RXjMb6mQF5z-uRibg-1
+X-Mimecast-MFC-AGG-ID: qku-7RXjMb6mQF5z-uRibg_1757408426
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757405676; x=1758010476;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NSOcl2lQrpQOBUV/otn8F3Hh70moqQjNoxI4z5jDjVE=;
-        b=V3Rvcka0C/lPut/IYoOX2opPJgvmPNMvHcT0v3JyY1uKYHcSv0eze8zACHbszeZ5Sr
-         9YGQdlrXKy5Su8GS02foaLjJiYHACJe03RnUXewexadtYyi9aMOAYQkM1ePNxsMlrUyY
-         Qhyp/ROCulNvfMVbbDOw3v24F++L326dN7c0wmW2q0qZ2JiDyXUecjBjAR7ZX/F7V2vp
-         hHkX7In+G4ME8HBTvlmVxowjQO3Ygk/eDUQ5vsefFHEo/Y91nX6f4DelxelPM+x+b303
-         +sinr+PLn2vRZH1Nyu2mKLrn01Q11G334gQyXLhAE/XDXW9n9un7N0tUuMQNETTkanJH
-         UxCw==
-X-Forwarded-Encrypted: i=1; AJvYcCUTBIDdN1lDEWlTct95YARjOX35eQnBoGNDijA7U/5kIOESIAVjOicmpwbWl+EguMwoiBR/BSLi1xM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxbd8vO00L/SjBzjU7TYyaC0C9T3j+sm8L2fR8cdiAk4UJW9raW
-	0Dr9VZhvjaABO/us1mDfF2dzo+dDx4/JJa0AnOkLhuXq90cStvdH1aqj8iwUF3t9n0H8/4ooGho
-	0nJiE7WUQE3VtGCfRIXo2Im95IzKyzP8=
-X-Gm-Gg: ASbGncv7ip7S9ZuWXoFv4eH8CXCaVIE021gHjdD5LOkwpaDDVQ3xSvohshUkaBY770U
-	O4OZw5xdxh3Hpgamkw21vpydwZp9ORqfBKYdTv6uhMeW6sxZfCfg39tw+RdKOQcO3gNl5cMDm02
-	iFn7XH9lSCLhO3XBTl5jZmiBgQ9Qvxsrq4Edd9kLWW8uOIKSO2q9sPysyL5lblK4Yf6RUGOTKIT
-	kCY2Q==
-X-Google-Smtp-Source: AGHT+IE9kEU0uZJRPdgQRQ4m7VOm6GOPEkr+AWRiE1dXUs1tKXb0MOL3pJNiprO1Y65NiMddtc3V54qxLdFIvNGjKb8=
-X-Received: by 2002:a05:651c:50f:b0:32a:6e77:3e57 with SMTP id
- 38308e7fff4ca-33b56ad9de6mr27060271fa.21.1757405675366; Tue, 09 Sep 2025
- 01:14:35 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1757408426; x=1758013226;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=FFaNWFCl2wdsjl/T84rwbCzslw/ZOsn9DcOtT4QWrC0=;
+        b=r/rJHgXv5vbILGDEo8tU8Sax7SU8WVkA5F9QjYqEkS9rcF77TdOPorJoZxyQ+Vtr9p
+         axy1ODVt/m28GlsxF3Rzk2zXklrJfc0Dp6bpLmoMDwajr1dByW21TQeNLB0bktVqES1/
+         hByPuZqiIi+kHEO5sQK6KuS6rB2uRL+zMFDMzm70CbwOrCeLC4mjnWrKfp1tenYlPpXC
+         z15kuvqknEBRmK9WcyPCUd//kmF+ZljMY6ychNBi8h/cXMvmLTLZWcOlKll2jl0xDil2
+         M2AMj48vBN1cX9a0Jx5cyD0/Zxszk5T/fgCbGdAHMDfE2AjRmLhGfKt9kPDbReob89Hc
+         HHGg==
+X-Forwarded-Encrypted: i=1; AJvYcCWG38Cl6OjaeQK4QFzVR2WZVUXBG/do5n3c5xUh3zGH/S8C4kq7YbOv5zOyDwds4sjWcsyrY56Getg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy0nhUT6Fli7x3UmoZWRdhzqdkikHE5ZXiI1PplZOf9npPIICFa
+	QBafjt8lBTYtTsIhqVoQAvvdoEXeB5OYJxmdYjgtn3ZrGE2lpgQ/yjgbs95SwZ1Gl8D749wSK3i
+	NuN7BkXtiSotsRNAgrav1kSXNuOKXpkMUcK8uH4ILC6qvIYuZt9O6RLauImB8m9C9klVk
+X-Gm-Gg: ASbGnctLM2ewatmjNaLsJ9hY8Lf8p70mmS3/rpPfUoHjfLfa5cFGaZCLlpPykeAtFVn
+	mp6fAFliKGNZyRdQ2kbxKu5TYPJkCzOtsE5SebB5or3ftSOyCCJ9+2XjSMLzHnq0493SmGbnVvG
+	VA1C+xY75Us1S1wzEK+Skdal86TaotZp79+iLgy3ptztJSeVbv53b5TtBqmiBrwMlt0EnlZ2sL3
+	bJN1sY5NDFzzMxDeXdnbJvF2HSwAcI5mQMdYCQmCi5cLTdQFa0eI+KOXqhDaKDnyjHa2PhrXNkf
+	p0xevIp/s5ofLZj8sU6fWxBTGrTMTtuiwqLJTt2ozO/OqAZjV0m4K4bzjkk3aiis/i4FI4dmoFO
+	lnJa6LDC5BUB20lR9hdhAPMBNMOViOayN4NNeHrgbW22kfQtD7qo1PGpbAzmOqRaf1kw=
+X-Received: by 2002:a05:6000:250c:b0:3e0:b982:ca49 with SMTP id ffacd0b85a97d-3e627a7cc9bmr9939824f8f.2.1757408425692;
+        Tue, 09 Sep 2025 02:00:25 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHjFbjC0Ku1RkV979c1EkKILIgMIbFwdRAtmt79V1a4P0VkSugVjLkyPMCm81yr9ZzkyWnCIw==
+X-Received: by 2002:a05:6000:250c:b0:3e0:b982:ca49 with SMTP id ffacd0b85a97d-3e627a7cc9bmr9939756f8f.2.1757408425189;
+        Tue, 09 Sep 2025 02:00:25 -0700 (PDT)
+Message-ID: <97b8023e-90ad-425d-8645-c3dd258e0ff8@redhat.com>
+Date: Tue, 9 Sep 2025 11:00:22 +0200
 MIME-Version: 1.0
-References: <cover.1756763487.git.mykola_kvach@epam.com> <547196292a007ec2bbedd52036e8f8a0cc69c4ea.1756763487.git.mykola_kvach@epam.com>
- <fb1709de-c288-4641-8419-fdd4a2fd8401@suse.com> <CAGeoDV_JwupoKWsiztgDSYbEgAHrRjgSHYZ+y=KCiJEoZ2eK_g@mail.gmail.com>
- <CAGeoDV8hPDXFfY2UWwhNFi7K0sJZoKvyKY=Lrs7cer7hn2xX4g@mail.gmail.com> <21f2f6e1-cbf7-4b36-bbba-bffc2dab3422@suse.com>
-In-Reply-To: <21f2f6e1-cbf7-4b36-bbba-bffc2dab3422@suse.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Tue, 9 Sep 2025 11:14:23 +0300
-X-Gm-Features: Ac12FXy20zCFqXZDLJZTwC66AIFdRf8kpTF9hKINCh8ac-o-7VuSmQRi1NAIOpM
-Message-ID: <CAGeoDV-U74A2ooAsZ5N00_rm8Xo=GNnGA6zBuvF=naQ45jhtyw@mail.gmail.com>
-Subject: Re: [PATCH v6 11/13] xen/arm: Add support for system suspend
- triggered by hardware domain
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Saeed Nowshadi <saeed.nowshadi@xilinx.com>, Mykyta Poturai <mykyta_poturai@epam.com>, 
-	Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/7] mm: remove arch_flush_lazy_mmu_mode()
+To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
+ Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
+ <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+ Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org
+References: <20250908073931.4159362-1-kevin.brodsky@arm.com>
+ <20250908073931.4159362-2-kevin.brodsky@arm.com>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20250908073931.4159362-2-kevin.brodsky@arm.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 0hWWTitszB2IQ0sKJh4zL8UAeSoCBqCH8HxlFdBt4L8_1757408426
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for the fast response.
+On 08.09.25 09:39, Kevin Brodsky wrote:
+> This function has only ever been used in arch/x86, so there is no
+> need for other architectures to implement it. Remove it from
+> linux/pgtable.h and all architectures besides x86.
+> 
+> The arm64 implementation is not empty but it is only called from
+> arch_leave_lazy_mmu_mode(), so we can simply fold it there.
+> 
+> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
+> ---
 
-On Tue, Sep 9, 2025 at 9:57=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 09.09.2025 08:29, Mykola Kvach wrote:
-> > On Wed, Sep 3, 2025 at 7:31=E2=80=AFAM Mykola Kvach <xakep.amatop@gmail=
-.com> wrote:
-> >> On Tue, Sep 2, 2025 at 5:33=E2=80=AFPM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >>> On 02.09.2025 00:10, Mykola Kvach wrote:
-> >>>> --- a/xen/common/domain.c
-> >>>> +++ b/xen/common/domain.c
-> >>>> @@ -1317,7 +1317,11 @@ int domain_shutdown(struct domain *d, u8 reas=
-on)
-> >>>>          d->shutdown_code =3D reason;
-> >>>>      reason =3D d->shutdown_code;
-> >>>>
-> >>>> +#if defined(CONFIG_SYSTEM_SUSPEND) && defined(CONFIG_ARM)
-> >>>> +    if ( reason !=3D SHUTDOWN_suspend && is_hardware_domain(d) )
-> >>>> +#else
-> >>>>      if ( is_hardware_domain(d) )
-> >>>> +#endif
-> >>>>          hwdom_shutdown(reason);
-> >>>
-> >>> I still don't follow why Arm-specific code needs to live here. If thi=
-s
-> >>> can't be properly abstracted, then at the very least I'd expect some
-> >>> code comment here, or at the very, very least something in the descri=
-ption.
-> >>
-> >> Looks like I missed your comment about this in the previous version of
-> >> the patch series.
-> >>
-> >>>
-> >>> From looking at hwdom_shutdown() I get the impression that it doesn't
-> >>> expect to be called with SHUTDOWN_suspend, yet then the question is w=
-hy we
-> >>> make it into domain_shutdown() with that reason code.
-> >>
-> >> Thank you for the question, it is a good one.
-> >>
-> >> Thinking about it, with the current implementation (i.e. when the HW d=
-omain
-> >> requests system suspend), we don't really need to call domain_shutdown=
-().
-> >> It would be enough to pause the last running vCPU (the current one) ju=
-st to
-> >> make sure that we don't return control to the domain after exiting fro=
-m the
-> >> hvc trap on the PSCI SYSTEM_SUSPEND command. We also need to set
-> >> shutting_down to ensure that any asynchronous code or timer callbacks
-> >> behave properly during suspend (i.e. skip their normal actions).
-> >
-> > If we avoid calling domain_shutdown() for the hardware domain during
-> > suspend, we would need to duplicate most of its logic except for the
-> > hwdom_shutdown() call, which is not ideal.
->
-> That is, you effectively take back what you said earlier (as to not needi=
-ng
-> to call domain_shutdown())?
+Acked-by: David Hildenbrand <david@redhat.com>
 
-Sure. Looking more closely, I see that for the vCPUs, for example, many fla=
-gs
-are checked. In the case of the control domain initializing shutdown, I nee=
-d
-to see the __domain_finalise_shutdown() call.
+-- 
+Cheers
 
-We currently don=E2=80=99t have any functionality inside arch_domain_shutdo=
-wn()
-for ARM, but it would be nice to have it in the future. Calling
-domain_shutdown() for every domain makes the code more consistent.
+David / dhildenb
 
-The flow for all domains will be the same during suspend, at least within
-Xen=E2=80=99s internal code.
-
->
-> > To improve this, I suggest introducing a helper function:
-> >
-> >     static inline bool need_hwdom_shutdown(const struct domain *d, u8 r=
-eason)
-> >     {
-> >         if ( IS_ENABLED(CONFIG_SYSTEM_SUSPEND) && IS_ENABLED(CONFIG_ARM=
-) )
-> >             return is_hardware_domain(d) && reason !=3D SHUTDOWN_suspen=
-d;
-> >
-> >         return is_hardware_domain(d);
-> >     }
->
-> If I see a call to a function of this name, I'd expect the "hardware
-> domain" nature already having been checked. I.e. a call site would
-> rather look like
->
->     if ( is_hardware_domain(d) && need_hwdom_shutdown(d, reason) )
->         ...;
->
-
-For me, the name simply indicates whether we need to call
-hwdom_shutdown() or not, and I expect it to perform the check for whether
-the domain is a hardware domain inside the function itself.
-
-> > Then, in domain_shutdown(), we can call need_hwdom_shutdown() instead
-> > of directly checking is_hardware_domain(d). This keeps the logic
-> > readable and avoids code duplication.
-> >
-> > What do you think about this approach?
->
-> Well, there's still the CONFIG_ARM check in there that I would like to
-> see gone. (As a nit, the use of u8 would also want to go away.)
-
-We could combine your proposal from v5 of this patch series, i.e., using th=
-e
-HAS_HWDOM_SUSPEND extra config together with this helper function:
-
-    static inline bool need_hwdom_shutdown(const struct domain *d)
-    {
-        bool is_hw_dom =3D is_hardware_domain(d);
-
-        if ( !IS_ENABLED(CONFIG_HAS_HWDOM_SUSPEND) )
-            return is_hw_dom && d->shutdown_code !=3D SHUTDOWN_suspend;
-
-        return is_hw_dom;
-    }
-
-As for the second argument (reason), I can extract it directly from the
-domain structure, as is done in the function above.
-
->
-> Furthermore with continuing to (ab)use domain_shutdown() also for the
-> suspend case (Dom0 isn't really shut down when suspending, aiui), you
-> retain the widening of the issue with the bogus setting of
-> d->is_shutting_down (and hence the need for later clearing the flag
-> again) that I mentioned elsewhere. (Yes, I remain of the opinion that
-> you don't need to sort that as a prereq to your work, yet at the same
-> time I think the goal should be to at least not make a bad situation
-> worse.)
-
-From the perspective of ARM logic inside Xen, we perform the exact same
-shutdown steps as for other domains, except that in the end we need to
-call Xen suspend.
-
-For a domain with a toolstack, it is possible to have a running Xen
-watchdog service. For example, if we have systemd, it can be easily stopped
-from the guest because we have hooks and can perform some actions before
-suspend.
-
-The same story applies to a Linux kernel driver: if it has PM ops installed
-for the Xen watchdog driver, nothing bad happens.
-
-However, in the case of using init.d, it isn=E2=80=99t easy to stop the Xen=
- WDT
-automatically right before suspend. Therefore, Xen code has an extra check
-(see domain_watchdog_timeout) where it checks the is_shutting_down flag
-and does nothing if it is set.
-
-The is_shutting_down flag is easily reset on Xen resume via a
-domain_resume call, so I don=E2=80=99t see any problems with that.
-
->
-> Jan
-
-Best regards,
-Mykola
 
