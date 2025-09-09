@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7051CB4ACB4
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 13:48:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1116394.1462725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEE70B4ACBA
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 13:49:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1116404.1462735 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvwpn-0000Rc-JP; Tue, 09 Sep 2025 11:48:27 +0000
+	id 1uvwqN-0000ug-RP; Tue, 09 Sep 2025 11:49:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1116394.1462725; Tue, 09 Sep 2025 11:48:27 +0000
+Received: by outflank-mailman (output) from mailman id 1116404.1462735; Tue, 09 Sep 2025 11:49:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvwpn-0000QB-G2; Tue, 09 Sep 2025 11:48:27 +0000
-Received: by outflank-mailman (input) for mailman id 1116394;
- Tue, 09 Sep 2025 11:48:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=r7oN=3U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uvwpl-0000Q5-Va
- for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 11:48:25 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e3de6404-8d72-11f0-9809-7dc792cee155;
- Tue, 09 Sep 2025 13:48:23 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-b0449b1b56eso804779166b.1
- for <xen-devel@lists.xenproject.org>; Tue, 09 Sep 2025 04:48:23 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b04670b5eacsm1507551766b.27.2025.09.09.04.48.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Sep 2025 04:48:22 -0700 (PDT)
+	id 1uvwqN-0000t9-OE; Tue, 09 Sep 2025 11:49:03 +0000
+Received: by outflank-mailman (input) for mailman id 1116404;
+ Tue, 09 Sep 2025 11:49:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fYTq=3U=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uvwqM-0000mB-2G
+ for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 11:49:02 +0000
+Received: from fhigh-b7-smtp.messagingengine.com
+ (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f916dc09-8d72-11f0-9d13-b5c5bf9af7f9;
+ Tue, 09 Sep 2025 13:49:00 +0200 (CEST)
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 5F7CA7A014B;
+ Tue,  9 Sep 2025 07:48:58 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-11.internal (MEProxy); Tue, 09 Sep 2025 07:48:58 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 9 Sep 2025 07:48:55 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,147 +44,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3de6404-8d72-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757418503; x=1758023303; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=si+TFBWW2d+pAwZZw/WH0jcWpZgvOA1F2Gn4rX/yois=;
-        b=fb3QSs4Qyn+v/+nUkfTUWYCBS5Zm4eJxNt72UUJvg5HVDKRLYlXhqwslVXrvElGxmU
-         EvcmZUIxrMOOw8gefo6txjUvbJIUJ3EQIvoirankmfuzN+ho4pjYwKDKqS5Vr4pS9vgL
-         MX/cf6UTRd9a6gKPIh7hxfX5XRdl/CpynwSsDaQC0KwT2OzoTYlnwpi8ua5mM9wo1uO3
-         f8vlW8emrYUfFi16DC+e+/OQ4Jbp9Q3+X6wPms11rs6Nm2k7cOAIBhM8NxMuDhNRQkND
-         QD/AeLfWetRMsKitT4qk/n9yKxO/1miU8rbNMoPR1FL4NuMqxNd0JL0YuYaEclreqqAJ
-         Q8AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757418503; x=1758023303;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=si+TFBWW2d+pAwZZw/WH0jcWpZgvOA1F2Gn4rX/yois=;
-        b=wUTxXgHP2YrFBwuP0UD7eHGyRkB24X+uSbpKAx7Y+8waeITMBvIxsAX2Wn8WUuCgLG
-         KNb9EgkjV3bX1v8w9RTsamsjrvpVg/SXOVWUEzN4bg8ereiGn4eRClXFOCn1SQ5RqGZu
-         jS3+ffTeGapNQFDqUgPmnUP2t7YTert76NRqxzy+Hi2neCCuKxqL261jrCZiYAJWkwNE
-         UYwTji4H3pxb0VzWZTw39f8f6uptn9Lze46W0iC3gndwd0f22YMuEWaOSm5R9yEhoXcP
-         63GqTjW6EZEMkOJPEnVhTwf5EnALq5aVW0nkurChfewYNgTMah2PKyq+lIe/YovgY2mm
-         YBfg==
-X-Forwarded-Encrypted: i=1; AJvYcCXuvI+7/ALg+nUBzfBoQ1ER8xo8BEd+D/5MFAPyE9a1f/UoCTUVI/d4mBMu/NQDvysZ/+EFDyMCygo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyAVIMpLStDubnC+X9XF0weQimtdsu7C6bx/xcXnxxA3AHH5CAD
-	H+HBsHnhcTgF8tc/vy+nxH/gggu23rf2PQ5JfK68n7i1i5VcYchfA/rKgslRuO+LYA==
-X-Gm-Gg: ASbGncsOkOFkxN7rulfCAd15BtjvWoMmb1+PV/0hH17mIJDG5pDsmvoJ0qbSUSyi4PJ
-	XcN69G72eV2caFs1HVKWkJXlDI/B8fszLk96ty2/AKscCbLRVDJLhOt5XfzGwfTSv9BnYETaNvl
-	qaVRgbEJqqSr9RCZ9iRseGwQ5qcOR7ekhDbYg33cGYc5Eyg0PHH4x1cPlUmjLlJWPAAyRBtwLKE
-	ExynOXkEw8nVhylrcuoErUit94tQL7PpoW+7T6eAqh9kodKYrjBsOp00c816Z4jkwQpELuC/0u+
-	6888NB0S31Qnuf2kOxeedMs+IiAyEOVpVtqpC6hCqwUX0OftiySwRLm0Njyz/mktKdlIjooQvtC
-	Oij++7EDZ1WqztMsjpsYueD/B7cXEPEtxPsfm14exd0vuXnmYUMbypZbqwpsRx7HS5xqc/KrXOi
-	RYLINjL+mWFHScgpZoXw==
-X-Google-Smtp-Source: AGHT+IHmJ1UoN/YX+YLdWXEnVsMkWdEhlwjct2tncvIE/nnp9Sn84gGnRJldA4LkjqecQuIfysVp6Q==
-X-Received: by 2002:a17:907:7f89:b0:b04:725c:bcb with SMTP id a640c23a62f3a-b04b14b7851mr1087810366b.23.1757418503141;
-        Tue, 09 Sep 2025 04:48:23 -0700 (PDT)
-Message-ID: <370220d9-5ed7-429d-ab9c-2b947911de75@suse.com>
-Date: Tue, 9 Sep 2025 13:48:21 +0200
+X-Inumbo-ID: f916dc09-8d72-11f0-9d13-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1757418538;
+	 x=1757504938; bh=InuPwEoWWL1ylRxBhIyOeZE7bOkepMVDOxnsG3KOGIk=; b=
+	U2P+WsD8y8pGBlankTzVG8r3k6mAxW4e495cTT8uvSAbOIccJuMbeUarXx2TONg5
+	YeHUAeS5kTXwO9u7yXHHF/XVFlriz6x474rpbOU2SjaAnoxgdX12ZqCPp3GpMjT5
+	tcRgl3JRmhOT7arKaASlAthStYYKNPc7tHHwxqs+h690ljGf1v1nfLMr8fup9tG/
+	Ve3LfKg7P19souRpPJ0zyCd1I4jkLoYz4hL4HP+U5TTm0OQdCKRHe3ZllaqaptgA
+	ZjWheAnWIuIa6FuJdfpEnXxypJioejcWaakqvMjwucRBUc/GpQYUJvDZutBbMbRh
+	ZvvBxxyhA3Zuh9nn+SbeWA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1757418538; x=1757504938; bh=InuPwEoWWL1ylRxBhIyOeZE7bOkepMVDOxn
+	sG3KOGIk=; b=TkFjVfLKo7CYNJIIxIQGFWTZrrI/C3DMeX0+B8cEc/cu9Wo6CYW
+	PYsRuE3LxIi2fbGTZhOEF8vlnuatp4KsieV/3uKvRdshQGj0bc/MaCwyHhLkj4mH
+	zznvXVIufHJIp5jA7VDorrbx4y1TuF1XBH5PwuMs8K/xSlzfK6tY6EJvRTWLiR47
+	dhEzyFs69uK+qDqrz0RJnyUd8gOR9ESfyJYN18++iP/wxetK4XnKJCV9B78wlX3F
+	MpzmuLy2hJur8+oTTGR9gU7eez7FlXnC3JIwahnwou5HBG8tlcERq7qd7uuEwdPm
+	2SGJWZAoT/m4vUHcc78ei1SlaGdZ2JMfA9Q==
+X-ME-Sender: <xms:KRTAaJHgI_gpn11e0IPnO3ZFlWi55J8l-aWkCmS5mIltMJitrvkNdA>
+    <xme:KRTAaFkxLG5sMdc3_abMQYPEm0Doe3GywYb8F07C_5w9UHHk10AM_R8pv2br8j6pd
+    ClnwBixp13VYg>
+X-ME-Received: <xmr:KRTAaGBAs3lzVZPxQIOphm98-G1n502iWKkB-dyFV44aFM5G94Wc52-i88o4LC2SQmwa9U4imzWSnHpEQz7uHFcIPdJeM47nGQ0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvtdefgecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
+    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteef
+    vefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvg
+    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
+    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedugedpmh
+    houggvpehsmhhtphhouhhtpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegt
+    ihhtrhhigidrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvg
+    hnphhrohhjvggtthdrohhrghdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghruges
+    vhgrthgvshdrthgvtghhpdhrtghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgurd
+    gtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthho
+    pehjuhhlihgvnhesgigvnhdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegtih
+    htrhhigidrtghomhdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdr
+    ohhrghdprhgtphhtthhopehsrghnrghsthgrshhiohesrhgrphhtohhrvghnghhinhgvvg
+    hrihhnghdrtghomh
+X-ME-Proxy: <xmx:KRTAaPAwE5UTjI07yFv-a2WcXlQb2IZHmivrRtCVrnwpLSk3YMu8XA>
+    <xmx:KRTAaFG1gZIbmZ3gX08s3vWTiFd3GFhhXWAR5TGL7v3BSWfKbd7AlQ>
+    <xmx:KRTAaO6MSDGc6DCstLFqUsMd2Lkha93B6XTAsME-qGK7vVTR4XuNHw>
+    <xmx:KRTAaERVyrrfQFdCRXpSuBN2fH46FyIhqOstvqwPJI74g1wcBPKTKg>
+    <xmx:KhTAaJdxMaecLmRoV3A2wd7c7nTpF9JpB1iOxvSZ3N9buhDI6EtJ0mA6>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 9 Sep 2025 13:48:53 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Victor Lira <victorm.lira@amd.com>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH for-4.21 0/5] CI: Add Debian Trixie
+Message-ID: <aMAUJehaWkYyyM-E@mail-itl>
+References: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 11/13] xen/arm: Add support for system suspend
- triggered by hardware domain
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Saeed Nowshadi <saeed.nowshadi@xilinx.com>,
- Mykyta Poturai <mykyta_poturai@epam.com>,
- Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org
-References: <cover.1756763487.git.mykola_kvach@epam.com>
- <547196292a007ec2bbedd52036e8f8a0cc69c4ea.1756763487.git.mykola_kvach@epam.com>
- <fb1709de-c288-4641-8419-fdd4a2fd8401@suse.com>
- <CAGeoDV_JwupoKWsiztgDSYbEgAHrRjgSHYZ+y=KCiJEoZ2eK_g@mail.gmail.com>
- <CAGeoDV8hPDXFfY2UWwhNFi7K0sJZoKvyKY=Lrs7cer7hn2xX4g@mail.gmail.com>
- <21f2f6e1-cbf7-4b36-bbba-bffc2dab3422@suse.com>
- <CAGeoDV-U74A2ooAsZ5N00_rm8Xo=GNnGA6zBuvF=naQ45jhtyw@mail.gmail.com>
- <646f7070-83c7-45ce-a4c9-c59cd39a33c5@suse.com>
- <CAGeoDV_79CUDzG-=36c+NkWwbBH+pcKaw1QTdozuHMsnMORPiQ@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAGeoDV_79CUDzG-=36c+NkWwbBH+pcKaw1QTdozuHMsnMORPiQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="7ByBE5CgLQp0KhHp"
+Content-Disposition: inline
+In-Reply-To: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
 
-On 09.09.2025 11:55, Mykola Kvach wrote:
-> On Tue, Sep 9, 2025 at 12:14 PM Jan Beulich <jbeulich@suse.com> wrote:
->> On 09.09.2025 10:14, Mykola Kvach wrote:
->>> On Tue, Sep 9, 2025 at 9:57 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>> Furthermore with continuing to (ab)use domain_shutdown() also for the
->>>> suspend case (Dom0 isn't really shut down when suspending, aiui), you
->>>> retain the widening of the issue with the bogus setting of
->>>> d->is_shutting_down (and hence the need for later clearing the flag
->>>> again) that I mentioned elsewhere. (Yes, I remain of the opinion that
->>>> you don't need to sort that as a prereq to your work, yet at the same
->>>> time I think the goal should be to at least not make a bad situation
->>>> worse.)
->>>
->>> From the perspective of ARM logic inside Xen, we perform the exact same
->>> shutdown steps as for other domains, except that in the end we need to
->>> call Xen suspend.
->>
->> Which, as said, feels wrong. Domains to be revived after resume aren't
->> really shut down, so imo they should never have ->is_shutting_down set.
-> 
-> I believe this is out of scope for this series;
 
-Yes, but see at the bottom.
+--7ByBE5CgLQp0KhHp
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 9 Sep 2025 13:48:53 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Victor Lira <victorm.lira@amd.com>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH for-4.21 0/5] CI: Add Debian Trixie
 
-> actually, the same applies to shutdown_code.
+On Sat, Aug 09, 2025 at 11:12:01PM +0100, Andrew Cooper wrote:
+> I know it's past the last-post deadline, but Trixie was only released tod=
+ay.
+>=20
+> In terms of backports, we should at least go back to the bugfix branches.
 
-Not quite sure there.
+What is the state of this series? I'm preparing refresh of my various CI
+series and some add more jobs on debian-12 - I wonder if I should make
+them debian-13 already - but for this I need this series committed...
 
->>> The is_shutting_down flag is easily reset on Xen resume via a
->>> domain_resume call, so I don’t see any problems with that.
->>
->> You did read my earlier mail though, regarding concerns towards the clearing
->> of that flag once it was set? (You must have, since iirc you even asked [1]
->> whether you're expected to address those issues up front.)
-> 
-> As far as I understand, this issue is relevant to x86, and I believe
-> it is out of scope for this series.
+> Andrew Cooper (5):
+>   CI: Trixie containers
+>   CI: Update ppc64 to use Debian Trixie
+>   CI: Update riscv64 to use Debian Trixie
+>   stubdom: Fix -Wimplicit-int in newlib
+>   CI: Update x86 to use Debian Trixie
+>=20
+>  automation/build/debian/13-ppc64le.dockerfile | 37 ++++++++
+>  automation/build/debian/13-riscv64.dockerfile | 37 ++++++++
+>  automation/build/debian/13-x86_32.dockerfile  | 51 ++++++++++
+>  automation/build/debian/13-x86_64.dockerfile  | 74 +++++++++++++++
+>  automation/gitlab-ci/build.yaml               | 94 +++++++++++++++----
+>  automation/gitlab-ci/test.yaml                | 14 +--
+>  stubdom/Makefile                              |  1 +
+>  stubdom/newlib-fix-etext.patch                | 23 +++++
+>  8 files changed, 306 insertions(+), 25 deletions(-)
+>  create mode 100644 automation/build/debian/13-ppc64le.dockerfile
+>  create mode 100644 automation/build/debian/13-riscv64.dockerfile
+>  create mode 100644 automation/build/debian/13-x86_32.dockerfile
+>  create mode 100644 automation/build/debian/13-x86_64.dockerfile
+>  create mode 100644 stubdom/newlib-fix-etext.patch
+>=20
+> --=20
+> 2.39.5
+>=20
+>=20
 
-Yes and ...
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-> See my previous message here:
-> https://lists.xen.org/archives/html/xen-devel/2025-08/msg02127.html
-> 
-> I will prepare a separate patch series to address it.
+--7ByBE5CgLQp0KhHp
+Content-Type: application/pgp-signature; name=signature.asc
 
-... thanks. My request to not extend the badness remains though, as to the
-series here.
+-----BEGIN PGP SIGNATURE-----
 
-Jan
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmjAFCUACgkQ24/THMrX
+1yzTzQf9EWJQA/eQRV7sHma79ZvBdWfndwcfJvPH2ulKf8aVxxKfN8JUesjPSj/n
+jJDJzNuE+SweAa1aqKAoK8ON3pnWPTzoPGjRoaaMItG8uSyTGfyshRbmQPT7gTkc
+NAniEFGU47f1h4Y0EpkkkYoJ7jTwcqiPfFAo0jpqe4g1mcfmJZxc/byZNaJPkbmj
+zamPyXn7hunRWG9RBbGrEMgMkFgBmfOTyAdLcEPCTazmKEVLKOp7786hFfPSD518
+N2fn40l8ux+gqI4FcqnssyrM62ha56s+6QKLpOL+hPFy1MVU/jEmGVT/4m7EJMsL
+tCxw17UR1oeFP/9f4Zb3CFK6urGoIQ==
+=QEex
+-----END PGP SIGNATURE-----
+
+--7ByBE5CgLQp0KhHp--
 
