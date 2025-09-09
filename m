@@ -2,67 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E847CB4ACAC
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 13:47:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1116383.1462715 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7051CB4ACB4
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 13:48:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1116394.1462725 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvwoJ-0008M9-9d; Tue, 09 Sep 2025 11:46:55 +0000
+	id 1uvwpn-0000Rc-JP; Tue, 09 Sep 2025 11:48:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1116383.1462715; Tue, 09 Sep 2025 11:46:55 +0000
+Received: by outflank-mailman (output) from mailman id 1116394.1462725; Tue, 09 Sep 2025 11:48:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvwoJ-0008JZ-6W; Tue, 09 Sep 2025 11:46:55 +0000
-Received: by outflank-mailman (input) for mailman id 1116383;
- Tue, 09 Sep 2025 11:46:54 +0000
+	id 1uvwpn-0000QB-G2; Tue, 09 Sep 2025 11:48:27 +0000
+Received: by outflank-mailman (input) for mailman id 1116394;
+ Tue, 09 Sep 2025 11:48:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QZzH=3U=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
- id 1uvwoI-0008JT-5R
- for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 11:46:54 +0000
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ac89f271-8d72-11f0-9809-7dc792cee155;
- Tue, 09 Sep 2025 13:46:51 +0200 (CEST)
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5896Wdr4031713;
- Tue, 9 Sep 2025 11:45:56 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 490bcsq781-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 09 Sep 2025 11:45:56 +0000 (GMT)
-Received: from m0353725.ppops.net (m0353725.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 589BTqxc006985;
- Tue, 9 Sep 2025 11:45:55 GMT
-Received: from ppma11.dal12v.mail.ibm.com
- (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 490bcsq77y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 09 Sep 2025 11:45:55 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
- by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 589BMn2N001188;
- Tue, 9 Sep 2025 11:45:54 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 491203akyh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 09 Sep 2025 11:45:54 +0000
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
- [10.20.54.101])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 589BjqjF8323344
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 9 Sep 2025 11:45:53 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D59D020043;
- Tue,  9 Sep 2025 11:45:52 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 247CD20040;
- Tue,  9 Sep 2025 11:45:52 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.155.204.135])
- by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Tue,  9 Sep 2025 11:45:52 +0000 (GMT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=r7oN=3U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uvwpl-0000Q5-Va
+ for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 11:48:25 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e3de6404-8d72-11f0-9809-7dc792cee155;
+ Tue, 09 Sep 2025 13:48:23 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-b0449b1b56eso804779166b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Sep 2025 04:48:23 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b04670b5eacsm1507551766b.27.2025.09.09.04.48.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Sep 2025 04:48:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,148 +45,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac89f271-8d72-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=CW2dDor0IqMzIAmq0spxwQ7puBTFQt
-	VzTFSMyEgoGjA=; b=P7fiZwOZoDl89TYxIoDk4jbhXrf0kjh5+A0apcBU6C2GdT
-	340+8Qq55LXFwzCb2OnrGtv2LTms5uaynX6WfkjgKzFQGzs3e9pvZUBahm6iSSWT
-	WAluYtYKMO3NEFWsaHTLmzNgjJggCA+UUE8JfV+YFOMHIpa6bduy64J5wPglMBbo
-	1st8bDHq/DM0/FJSwtUsBhE7FRmCOK1/CvbO0pfJAVLuQ89IraoJ4ZhEiV9SJGge
-	R76Ejpm7X8SvuisIf2tyP1lB+0dxfGRnwYufiviL57J7ea4xGb3TC+Uy45RwDr54
-	4cOe5ZFz+UmaDEeE2xXzL/ExCyZXDdsidA5E1ouQ==
-Date: Tue, 9 Sep 2025 13:45:50 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: David Hildenbrand <david@redhat.com>
-Cc: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org, Andreas Larsson <andreas@gaisler.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
-        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
-        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
-        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Ryan Roberts <ryan.roberts@arm.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
-        Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
-        linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
-        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 2/7] mm: introduce local state for lazy_mmu sections
-Message-ID: <2fecfae7-1140-4a23-a352-9fd339fcbae5-agordeev@linux.ibm.com>
-References: <20250908073931.4159362-1-kevin.brodsky@arm.com>
- <20250908073931.4159362-3-kevin.brodsky@arm.com>
- <d23ea683-cca4-4973-88b1-4f6fd9b22314@redhat.com>
- <ca2054ad-b163-4e61-8ec4-6f2e36461628-agordeev@linux.ibm.com>
- <e7acb889-1fe9-4db3-acf4-39f4960e8ccd@redhat.com>
+X-Inumbo-ID: e3de6404-8d72-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1757418503; x=1758023303; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=si+TFBWW2d+pAwZZw/WH0jcWpZgvOA1F2Gn4rX/yois=;
+        b=fb3QSs4Qyn+v/+nUkfTUWYCBS5Zm4eJxNt72UUJvg5HVDKRLYlXhqwslVXrvElGxmU
+         EvcmZUIxrMOOw8gefo6txjUvbJIUJ3EQIvoirankmfuzN+ho4pjYwKDKqS5Vr4pS9vgL
+         MX/cf6UTRd9a6gKPIh7hxfX5XRdl/CpynwSsDaQC0KwT2OzoTYlnwpi8ua5mM9wo1uO3
+         f8vlW8emrYUfFi16DC+e+/OQ4Jbp9Q3+X6wPms11rs6Nm2k7cOAIBhM8NxMuDhNRQkND
+         QD/AeLfWetRMsKitT4qk/n9yKxO/1miU8rbNMoPR1FL4NuMqxNd0JL0YuYaEclreqqAJ
+         Q8AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1757418503; x=1758023303;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=si+TFBWW2d+pAwZZw/WH0jcWpZgvOA1F2Gn4rX/yois=;
+        b=wUTxXgHP2YrFBwuP0UD7eHGyRkB24X+uSbpKAx7Y+8waeITMBvIxsAX2Wn8WUuCgLG
+         KNb9EgkjV3bX1v8w9RTsamsjrvpVg/SXOVWUEzN4bg8ereiGn4eRClXFOCn1SQ5RqGZu
+         jS3+ffTeGapNQFDqUgPmnUP2t7YTert76NRqxzy+Hi2neCCuKxqL261jrCZiYAJWkwNE
+         UYwTji4H3pxb0VzWZTw39f8f6uptn9Lze46W0iC3gndwd0f22YMuEWaOSm5R9yEhoXcP
+         63GqTjW6EZEMkOJPEnVhTwf5EnALq5aVW0nkurChfewYNgTMah2PKyq+lIe/YovgY2mm
+         YBfg==
+X-Forwarded-Encrypted: i=1; AJvYcCXuvI+7/ALg+nUBzfBoQ1ER8xo8BEd+D/5MFAPyE9a1f/UoCTUVI/d4mBMu/NQDvysZ/+EFDyMCygo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyAVIMpLStDubnC+X9XF0weQimtdsu7C6bx/xcXnxxA3AHH5CAD
+	H+HBsHnhcTgF8tc/vy+nxH/gggu23rf2PQ5JfK68n7i1i5VcYchfA/rKgslRuO+LYA==
+X-Gm-Gg: ASbGncsOkOFkxN7rulfCAd15BtjvWoMmb1+PV/0hH17mIJDG5pDsmvoJ0qbSUSyi4PJ
+	XcN69G72eV2caFs1HVKWkJXlDI/B8fszLk96ty2/AKscCbLRVDJLhOt5XfzGwfTSv9BnYETaNvl
+	qaVRgbEJqqSr9RCZ9iRseGwQ5qcOR7ekhDbYg33cGYc5Eyg0PHH4x1cPlUmjLlJWPAAyRBtwLKE
+	ExynOXkEw8nVhylrcuoErUit94tQL7PpoW+7T6eAqh9kodKYrjBsOp00c816Z4jkwQpELuC/0u+
+	6888NB0S31Qnuf2kOxeedMs+IiAyEOVpVtqpC6hCqwUX0OftiySwRLm0Njyz/mktKdlIjooQvtC
+	Oij++7EDZ1WqztMsjpsYueD/B7cXEPEtxPsfm14exd0vuXnmYUMbypZbqwpsRx7HS5xqc/KrXOi
+	RYLINjL+mWFHScgpZoXw==
+X-Google-Smtp-Source: AGHT+IHmJ1UoN/YX+YLdWXEnVsMkWdEhlwjct2tncvIE/nnp9Sn84gGnRJldA4LkjqecQuIfysVp6Q==
+X-Received: by 2002:a17:907:7f89:b0:b04:725c:bcb with SMTP id a640c23a62f3a-b04b14b7851mr1087810366b.23.1757418503141;
+        Tue, 09 Sep 2025 04:48:23 -0700 (PDT)
+Message-ID: <370220d9-5ed7-429d-ab9c-2b947911de75@suse.com>
+Date: Tue, 9 Sep 2025 13:48:21 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e7acb889-1fe9-4db3-acf4-39f4960e8ccd@redhat.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAxMCBTYWx0ZWRfXzv0l4od4j6eW
- QmMdktKyBl9+62xDiwDCsXs13FmwdhJ/yKVW0Nx7wmldwiO4Gphv89/+dwt/LpECn2XxOtXfh60
- jKyl21EsFo5dPWLP41rL8yAE8JVwfpPHGCyDSUYtA7sAOdIW58vIVprQ0pXotY+dKbj+gh2UVow
- aUYpiI8EbPfiUOAf+qOVUjNN2gNw6goKU2Itja8LgZVxED1lOakW8e7o8p6kPC5x+5elb/cjfAw
- /8FfQVABacfNl7ZdgYZjcvC3V+L7x+hQVkP58f0SM4yX0U4T+rMqQaJBKGdD5nUVcqnn5OalH7l
- hJOgJuaJEM3zF3TSqJtIp3pJKLVcHjM9sdtipTndXY1FAdeDQTINxSKeTjMqDRhxe/M13RVfvwK
- e7diuTK0
-X-Authority-Analysis: v=2.4 cv=SKNCVPvH c=1 sm=1 tr=0 ts=68c01374 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=kj9zAlcOel0A:10 a=yJojWOMRYYMA:10 a=sjzYMD-SKWPhrPIpRwUA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: XopatD14CEfuivKQbcWn3mfk3pBU2G5u
-X-Proofpoint-ORIG-GUID: YV8Uas4Jwghz0nGFl4MnfkXLTyTlxDw-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-09_01,2025-09-08_02,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- adultscore=0 suspectscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060010
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 11/13] xen/arm: Add support for system suspend
+ triggered by hardware domain
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Saeed Nowshadi <saeed.nowshadi@xilinx.com>,
+ Mykyta Poturai <mykyta_poturai@epam.com>,
+ Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org
+References: <cover.1756763487.git.mykola_kvach@epam.com>
+ <547196292a007ec2bbedd52036e8f8a0cc69c4ea.1756763487.git.mykola_kvach@epam.com>
+ <fb1709de-c288-4641-8419-fdd4a2fd8401@suse.com>
+ <CAGeoDV_JwupoKWsiztgDSYbEgAHrRjgSHYZ+y=KCiJEoZ2eK_g@mail.gmail.com>
+ <CAGeoDV8hPDXFfY2UWwhNFi7K0sJZoKvyKY=Lrs7cer7hn2xX4g@mail.gmail.com>
+ <21f2f6e1-cbf7-4b36-bbba-bffc2dab3422@suse.com>
+ <CAGeoDV-U74A2ooAsZ5N00_rm8Xo=GNnGA6zBuvF=naQ45jhtyw@mail.gmail.com>
+ <646f7070-83c7-45ce-a4c9-c59cd39a33c5@suse.com>
+ <CAGeoDV_79CUDzG-=36c+NkWwbBH+pcKaw1QTdozuHMsnMORPiQ@mail.gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAGeoDV_79CUDzG-=36c+NkWwbBH+pcKaw1QTdozuHMsnMORPiQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 09, 2025 at 12:09:48PM +0200, David Hildenbrand wrote:
-> On 09.09.25 11:40, Alexander Gordeev wrote:
-> > On Tue, Sep 09, 2025 at 11:07:36AM +0200, David Hildenbrand wrote:
-> > > On 08.09.25 09:39, Kevin Brodsky wrote:
-> > > > arch_{enter,leave}_lazy_mmu_mode() currently have a stateless API
-> > > > (taking and returning no value). This is proving problematic in
-> > > > situations where leave() needs to restore some context back to its
-> > > > original state (before enter() was called). In particular, this
-> > > > makes it difficult to support the nesting of lazy_mmu sections -
-> > > > leave() does not know whether the matching enter() call occurred
-> > > > while lazy_mmu was already enabled, and whether to disable it or
-> > > > not.
-> > > > 
-> > > > This patch gives all architectures the chance to store local state
-> > > > while inside a lazy_mmu section by making enter() return some value,
-> > > > storing it in a local variable, and having leave() take that value.
-> > > > That value is typed lazy_mmu_state_t - each architecture defining
-> > > > __HAVE_ARCH_ENTER_LAZY_MMU_MODE is free to define it as it sees fit.
-> > > > For now we define it as int everywhere, which is sufficient to
-> > > > support nesting.
-> > ...
-> > > > {
-> > > > + lazy_mmu_state_t lazy_mmu_state;
-> > > > ...
-> > > > - arch_enter_lazy_mmu_mode();
-> > > > + lazy_mmu_state = arch_enter_lazy_mmu_mode();
-> > > > ...
-> > > > - arch_leave_lazy_mmu_mode();
-> > > > + arch_leave_lazy_mmu_mode(lazy_mmu_state);
-> > > > ...
-> > > > }
-> > > > 
-> > > > * In a few cases (e.g. xen_flush_lazy_mmu()), a function knows that
-> > > >     lazy_mmu is already enabled, and it temporarily disables it by
-> > > >     calling leave() and then enter() again. Here we want to ensure
-> > > >     that any operation between the leave() and enter() calls is
-> > > >     completed immediately; for that reason we pass LAZY_MMU_DEFAULT to
-> > > >     leave() to fully disable lazy_mmu. enter() will then re-enable it
-> > > >     - this achieves the expected behaviour, whether nesting occurred
-> > > >     before that function was called or not.
-> > > > 
-> > > > Note: it is difficult to provide a default definition of
-> > > > lazy_mmu_state_t for architectures implementing lazy_mmu, because
-> > > > that definition would need to be available in
-> > > > arch/x86/include/asm/paravirt_types.h and adding a new generic
-> > > >    #include there is very tricky due to the existing header soup.
-> > > 
-> > > Yeah, I was wondering about exactly that.
-> > > 
-> > > In particular because LAZY_MMU_DEFAULT etc resides somewehere compeltely
-> > > different.
-> > > 
-> > > Which raises the question: is using a new type really of any benefit here?
-> > > 
-> > > Can't we just use an "enum lazy_mmu_state" and call it a day?
-> > 
-> > I could envision something completely different for this type on s390,
-> > e.g. a pointer to a per-cpu structure. So I would really ask to stick
-> > with the current approach.
+On 09.09.2025 11:55, Mykola Kvach wrote:
+> On Tue, Sep 9, 2025 at 12:14 PM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 09.09.2025 10:14, Mykola Kvach wrote:
+>>> On Tue, Sep 9, 2025 at 9:57 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>> Furthermore with continuing to (ab)use domain_shutdown() also for the
+>>>> suspend case (Dom0 isn't really shut down when suspending, aiui), you
+>>>> retain the widening of the issue with the bogus setting of
+>>>> d->is_shutting_down (and hence the need for later clearing the flag
+>>>> again) that I mentioned elsewhere. (Yes, I remain of the opinion that
+>>>> you don't need to sort that as a prereq to your work, yet at the same
+>>>> time I think the goal should be to at least not make a bad situation
+>>>> worse.)
+>>>
+>>> From the perspective of ARM logic inside Xen, we perform the exact same
+>>> shutdown steps as for other domains, except that in the end we need to
+>>> call Xen suspend.
+>>
+>> Which, as said, feels wrong. Domains to be revived after resume aren't
+>> really shut down, so imo they should never have ->is_shutting_down set.
 > 
-> Would that integrate well with LAZY_MMU_DEFAULT etc?
+> I believe this is out of scope for this series;
 
-Hmm... I though the idea is to use LAZY_MMU_* by architectures that
-want to use it - at least that is how I read the description above.
+Yes, but see at the bottom.
 
-It is only kasan_populate|depopulate_vmalloc_pte() in generic code
-that do not follow this pattern, and it looks as a problem to me.
+> actually, the same applies to shutdown_code.
 
-> -- 
-> Cheers
+Not quite sure there.
+
+>>> The is_shutting_down flag is easily reset on Xen resume via a
+>>> domain_resume call, so I don’t see any problems with that.
+>>
+>> You did read my earlier mail though, regarding concerns towards the clearing
+>> of that flag once it was set? (You must have, since iirc you even asked [1]
+>> whether you're expected to address those issues up front.)
 > 
-> David / dhildenb
+> As far as I understand, this issue is relevant to x86, and I believe
+> it is out of scope for this series.
 
-Thanks!
+Yes and ...
+
+> See my previous message here:
+> https://lists.xen.org/archives/html/xen-devel/2025-08/msg02127.html
+> 
+> I will prepare a separate patch series to address it.
+
+... thanks. My request to not extend the badness remains though, as to the
+series here.
+
+Jan
 
