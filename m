@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55ABDB50663
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 21:25:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1117291.1463452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8915DB5067F
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 21:38:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1117303.1463463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uw3xt-0000xg-NB; Tue, 09 Sep 2025 19:25:17 +0000
+	id 1uw4AB-0002mc-PG; Tue, 09 Sep 2025 19:37:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1117291.1463452; Tue, 09 Sep 2025 19:25:17 +0000
+Received: by outflank-mailman (output) from mailman id 1117303.1463463; Tue, 09 Sep 2025 19:37:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uw3xt-0000wA-KB; Tue, 09 Sep 2025 19:25:17 +0000
-Received: by outflank-mailman (input) for mailman id 1117291;
- Tue, 09 Sep 2025 19:25:16 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1uw4AB-0002kr-KZ; Tue, 09 Sep 2025 19:37:59 +0000
+Received: by outflank-mailman (input) for mailman id 1117303;
+ Tue, 09 Sep 2025 19:37:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dmukhin@xen.org>) id 1uw3xs-0000w2-1o
- for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 19:25:16 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1uw3xr-001o1h-2Q;
- Tue, 09 Sep 2025 19:25:15 +0000
-Received: from [19.12.91.86] (helo=localhost)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1uw3xr-001yU5-2c;
- Tue, 09 Sep 2025 19:25:15 +0000
+ (envelope-from <SRS0=XOGe=3U=kernel.org=leon@srs-se1.protection.inumbo.net>)
+ id 1uw4A9-0002kl-NQ
+ for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 19:37:57 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7a9de4b7-8db4-11f0-9809-7dc792cee155;
+ Tue, 09 Sep 2025 21:37:55 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0F194442F8;
+ Tue,  9 Sep 2025 19:37:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30BB1C4CEF4;
+ Tue,  9 Sep 2025 19:37:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,63 +41,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:Message-ID:Subject:Cc:To:Date:From;
-	bh=OexK4p8Ifzjl3kdRxgkg5QWNesTe1yyMw4MnYMEBVHE=; b=RWf3T/9B/rF3aP/QpQ8d1U12B8
-	CYoue24FJstUUwZtD0cpehIw9A104lsIUWohfaIxWq/xtn6kS1TSo0/6G8jFYlnISn/Co8/P+JA0g
-	vOQpHwOyLiBbiphlIDeFc/0b898z2tDYdJFo9Wuu31xE3L/ajlYmBdjcRvgfnRjQ/mJw=;
-From: dmukhin@xen.org
-Date: Tue, 9 Sep 2025 12:25:14 -0700
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
+X-Inumbo-ID: 7a9de4b7-8db4-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1757446672;
+	bh=Vkfs1C2Q/m2ciXngYEnMywKI/5g7jYuOYmYnMi4Z+6A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BK33sGpV6gJZdNQka35B5igzFncF6O4QoVJduYx5uymEwm19+Pae/Y8Ji2ztm6vFh
+	 Of79hrgQzN752E6kK9Pd6CitdpQ05JM71b0yY2nJK5WUadz3JmWI4AqHd+rhRkpPML
+	 jPSesTwS7Zw48bKNgh3AxJtfj3r28MMf09jWFv3Lide1Ok8C5lkasp0zoJfr6zuOnF
+	 N5cxlSvTSt07fnYvpbKZtFqt6TP2eL80kCSBPIQL9mOveIT/STSyNFrSlP91N6uUF+
+	 FdL0uwcDH/ATxbhiykxuiJP1XMjnnp4vhtxpR+0sRrU4PCEIaA22KI5S4HXWZpjWlB
+	 smMV1bUYsFvcA==
+Date: Tue, 9 Sep 2025 22:37:48 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+	David Hildenbrand <david@redhat.com>, iommu@lists.linux.dev,
+	Jason Wang <jasowang@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+	Joerg Roedel <joro@8bytes.org>, Jonathan Corbet <corbet@lwn.net>,
+	Juergen Gross <jgross@suse.com>, kasan-dev@googlegroups.com,
+	Keith Busch <kbusch@kernel.org>, linux-block@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linux-nvme@lists.infradead.org,
+	linuxppc-dev@lists.ozlabs.org, linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH TEST-ARTEFACTS] Be explicit about root in
- scripts/alpine-rootfs.sh
-Message-ID: <aMB/GpG7/VZRqVK9@kraken>
-References: <20250909170111.1810147-1-andrew.cooper3@citrix.com>
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6 03/16] dma-debug: refactor to use physical addresses
+ for page mapping
+Message-ID: <20250909193748.GG341237@unreal>
+References: <cover.1757423202.git.leonro@nvidia.com>
+ <56d1a6769b68dfcbf8b26a75a7329aeb8e3c3b6a.1757423202.git.leonro@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250909170111.1810147-1-andrew.cooper3@citrix.com>
+In-Reply-To: <56d1a6769b68dfcbf8b26a75a7329aeb8e3c3b6a.1757423202.git.leonro@nvidia.com>
 
-On Tue, Sep 09, 2025 at 06:01:11PM +0100, Andrew Cooper wrote:
-> The container is running as root, but be explicit anyway.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On Tue, Sep 09, 2025 at 04:27:31PM +0300, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
 
-Reviewed-by: Denis Mukhin <dmukhin@ford.com> 
+<...>
 
-> ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> ---
->  scripts/alpine-rootfs.sh | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/scripts/alpine-rootfs.sh b/scripts/alpine-rootfs.sh
-> index c999b89dbcd8..6fa1d56775bc 100755
-> --- a/scripts/alpine-rootfs.sh
-> +++ b/scripts/alpine-rootfs.sh
-> @@ -84,7 +84,7 @@ cd /
->      PATHS="bin etc home init lib mnt opt root sbin srv usr var"
->      find $PATHS -print0
->      echo -ne "dev\0proc\0run\0sys\0"
-> -} | cpio -0 -H newc -o | gzip > "${COPYDIR}/rootfs.cpio.gz"
-> +} | cpio -0 -R 0:0 -H newc -o | gzip > "${COPYDIR}/rootfs.cpio.gz"
->  
->  # Print the contents for the build log
->  zcat "${COPYDIR}/rootfs.cpio.gz" | cpio -tv
-> 
-> base-commit: d7434697deec41ddf31a2f3d189dee75d4d2486f
-> -- 
-> 2.39.5
-> 
-> 
+>  include/linux/page-flags.h         |  1 +
+
+<...>
+
+> --- a/include/linux/page-flags.h
+> +++ b/include/linux/page-flags.h
+> @@ -614,6 +614,7 @@ FOLIO_FLAG(dropbehind, FOLIO_HEAD_PAGE)
+>   * available at this point.
+>   */
+>  #define PageHighMem(__p) is_highmem_idx(page_zonenum(__p))
+> +#define PhysHighMem(__p) (PageHighMem(phys_to_page(__p)))
+
+This was a not so great idea to add PhysHighMem() because of "else"
+below which unfolds to maze of macros and automatically generated
+functions with "static inline int Page##uname ..." signature.
+
+>  #define folio_test_highmem(__f)	is_highmem_idx(folio_zonenum(__f))
+>  #else
+>  PAGEFLAG_FALSE(HighMem, highmem)
+
+Thanks
 
