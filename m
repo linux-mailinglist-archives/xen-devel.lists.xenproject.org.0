@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A98D3B50036
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 16:52:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1117090.1463313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F71CB500AB
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Sep 2025 17:09:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1117147.1463342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvziA-0002CJ-6Y; Tue, 09 Sep 2025 14:52:46 +0000
+	id 1uvzyN-0005eU-WA; Tue, 09 Sep 2025 15:09:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1117090.1463313; Tue, 09 Sep 2025 14:52:46 +0000
+Received: by outflank-mailman (output) from mailman id 1117147.1463342; Tue, 09 Sep 2025 15:09:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uvziA-0002Aj-2h; Tue, 09 Sep 2025 14:52:46 +0000
-Received: by outflank-mailman (input) for mailman id 1117090;
- Tue, 09 Sep 2025 14:52:44 +0000
+	id 1uvzyN-0005bu-Sp; Tue, 09 Sep 2025 15:09:31 +0000
+Received: by outflank-mailman (input) for mailman id 1117147;
+ Tue, 09 Sep 2025 15:09:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wvTB=3U=cloud.com=gerald.elder-vass@srs-se1.protection.inumbo.net>)
- id 1uvzi8-0001x1-Iq
- for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 14:52:44 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=r7oN=3U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uvzyM-0005bn-5g
+ for xen-devel@lists.xenproject.org; Tue, 09 Sep 2025 15:09:30 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a3f94728-8d8c-11f0-9d13-b5c5bf9af7f9;
- Tue, 09 Sep 2025 16:52:43 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-61d143aa4acso9172109a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 09 Sep 2025 07:52:43 -0700 (PDT)
-Received: from eddie5.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-62c018f663asm1414898a12.43.2025.09.09.07.52.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Sep 2025 07:52:42 -0700 (PDT)
+ id fb353283-8d8e-11f0-9d13-b5c5bf9af7f9;
+ Tue, 09 Sep 2025 17:09:29 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-aff0775410eso202213466b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Sep 2025 08:09:28 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b0783049ee4sm6044366b.18.2025.09.09.08.09.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Sep 2025 08:09:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,208 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3f94728-8d8c-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: fb353283-8d8e-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1757429563; x=1758034363; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=N/zX6oZGR3iPEmqzxrgqeby+Y3izMNsOvFj5VzGCrp4=;
-        b=C0cD0DRw+lSGrx/Q1ev/NPSh9PXRdyH5B365otD3VZMtqHRSrIq2TcRMX0Sxw6wDMa
-         BTx54PkYToRFXxYf4DytWt6y4u1Z8k8M2H2D8xAAsFRMLbVGB6RKw9dAvztn0c0rT6WI
-         Z4wrABGcTnn6RtRnYoZJv5DdrJVOq5vB8o/j0=
+        d=suse.com; s=google; t=1757430568; x=1758035368; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=9UHydMwrSBctP1oJVoY6Mbc86Lfti206VpuVxs6VsZ8=;
+        b=dFacP/XiEFCXIDLSW2Yc7/Y3MNpZXuPn8FNmMsas2R4JL1m8qetzd0unL1MykbJgkk
+         V517tDYBRI9R2mdwv/5dFgnI/3FSTuw9oyXqffMYhLkpyfSbPM4Lh0c9IwG0N7PimK8t
+         sTisa7f4ikYsNv9dgkN459qG5j8T1ulzvuohA3O0PEv5d6wxbibVyZkOzAaLQpnfBeLS
+         jErJVBqCdTsIu0Pwt6i3NB2lfxRym4qs901RvCLM0qTnE7qn+bwkUCkBLtmd4FeCgh3T
+         RM0bBu7EW3HkDQFziSO1XNFe3eJidTT3aHX12Izohg53qpLBhiKTmBozP/kQgZ28S0DY
+         xrOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757429563; x=1758034363;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=N/zX6oZGR3iPEmqzxrgqeby+Y3izMNsOvFj5VzGCrp4=;
-        b=cCirkcZJP0F79prGXpUA0ORjP4JGj6ZfEQswr2otFanVie4cFGxmsCXqmGtFdmTtpN
-         gEX7s4fjeHsIC9l/IAyUvEEjLYg5GXaEL+YK/utiDN7Jwg3zNc9Xrfoa7zzEyN51L9Qm
-         pqep0w4vItzQoaYN6BeI7wv0yhBQWKGaknrFWPBGPMVIbeDpcANwkNeevcOHMx2wGLQS
-         fnxCv5MQpxmYFBX6qk6qrblG+zuFFTn/Y66Je7VESYhlgNSb2G+jJOauudyNuT4kXycS
-         ClmXbAtHE16EuOZ8wuUwIrqmU39o7V2znmsn3k5axePCKYDDj1mJXUfTxqqNXDQJQC6f
-         NW/Q==
-X-Gm-Message-State: AOJu0Ywk9ymeMftQ6WPnq/wbwJawlfHn3iS+At6L8xyxoPbyCW83c3K7
-	OshcHFbHe6s0AfGA8GYBd+9eKZyAjUVC+R4rMQtOywL2x/rX7TumrloaLRsYqHAV+NbRGToX/Tn
-	2uCZmYXE=
-X-Gm-Gg: ASbGncse9uZasfLCZ/aiKisLFNiRFliK+MnlH5NrT5NPdbHjov7NbU12an8jcyibolI
-	3RdqR7fMs8RqBAkszZGCgAKpTqZLVpMwTWTRxCq/+iO54BWdwbt3JBz4k1ZE5C+yQ20wvs/0ciI
-	mM3tI3pT8ecemBELHttw9dCqctgSx8FPa1DEmpus0uYUajR+Z0BQQaeNeydKpkJzLshQQ9rq3XE
-	CIJVVv7hz+2hXTvENpkD9XgPMTb0lJph9781LP99E02wlpXcn+T/yc5r0knhG4pxd7w3/tb5TEA
-	DzkLgv+MhimH503wrmN21oCJWJtj7aFffgCAM6G5qemHPpSBsMomFKT+vfwztWprO0BFkBMBLl0
-	DINkHoIGiGk/4y2Y5WfFAlcEnQC3K/yYrSVMUcZ769ddkwA==
-X-Google-Smtp-Source: AGHT+IE0TeY5ImlbPGw6G6DSZO46aVvnvk3NMNB5XQANqprPUgE4HQU1QcU3a8pNUeO2PSFuIwlBXA==
-X-Received: by 2002:a05:6402:3814:b0:620:1030:138d with SMTP id 4fb4d7f45d1cf-6237edb1ca2mr10899206a12.22.1757429562713;
-        Tue, 09 Sep 2025 07:52:42 -0700 (PDT)
-From: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
-	Kevin Lampis <kevin.lampis@cloud.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 2/2] efi: Support using Shim's LoadImage protocol
-Date: Tue,  9 Sep 2025 14:52:33 +0000
-Message-ID: <c28c49929fc0bdf3ee45dff151a7f1b7f4f178f9.1757421999.git.gerald.elder-vass@cloud.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1757421999.git.gerald.elder-vass@cloud.com>
-References: <cover.1757421999.git.gerald.elder-vass@cloud.com>
+        d=1e100.net; s=20230601; t=1757430568; x=1758035368;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9UHydMwrSBctP1oJVoY6Mbc86Lfti206VpuVxs6VsZ8=;
+        b=UASuSHvA12O4J8tZ0WF+S1yFAwV0/ghSTQIwRu0BeIzPf45lulzzVmlT4aj+urKJva
+         rqgoFNws8ubY1U2xcxEfIAnM5Pg8Smjqe41KHa7oJV39jAHD0mmXYpNT/SMi48McuVr8
+         yQ1z9IURJhzqf8g4khmgkXXHtiTGVplY2Qc9P+Zpn88Qx9x4My1tCNO5KwjpY9sE2JAE
+         hEt6Fs8C25mq9diDAkkZrdUNNRg9olJvU0lmmmoqWhn/FiskqWdPakkEFd68kvL1MUNu
+         4hgoCKT13NugaO9MFM6p0Ly9+oSh6zuwuKfI/m4XmiHNqRQs1jCcD2qfhClcZHGg85MR
+         uqGQ==
+X-Gm-Message-State: AOJu0Yzi/2usPEXYb6gJ1GgnIvBFJNsRKEcw/diJxXj6GG5S103S3Q9F
+	D1l9jP1Kr+3fMUy47iJSHv3BWC5OzJaznkMBgAW1RPqq+FnuV3j3X9pxF+JTRJ5bOw==
+X-Gm-Gg: ASbGncsBTOvQcP0oRGlEcswGrUP3JcuLQ6pREJNiztd63CE0c5VjAA29CfoYP0vwTO3
+	t3DPIZXCQdwkgwzxfKsc6mTQc1XrhiBsNELVaLHvc+PG2ZEyjlRBYKIMfcqrMR1yjcmKoBIQSaT
+	uiR8Y2/mE4gbxhKBR/63roclxGtFkrQiL0CLW4F6q1Q/gnSBrdr5WrFyjXVmHOCZ+JrolDnJFiu
+	5YVj+Wa/1+6rWRNYYyY6Qhpt6zcXJN5k0uWoueQyf5vjhqCFZNHilH4Jx0kJjSqHnnTTqyvBliZ
+	2AV8grP+2GrCtmkuSlhhDEnGDwVKzRhmtVeSrSW2iT891fu1hwnRTQxnDH+CnfN6KqoSNTNTktv
+	iAVsqzWVudTD5vq7aXqcFHLbffw/XPpFT3c2mJsDvsd2isrO2da3KkCpZh5fE9T+mhxzM/0y7Jz
+	PygNtRFQtbJFRCkE8cieXiYd/J/Gjr
+X-Google-Smtp-Source: AGHT+IEOw7rjG/+rECJURORF2MIBSQkwJaJF1/blN8ejW75ahbjZh+QMJDNdITr7z3wE/mN+rdy77g==
+X-Received: by 2002:a17:907:7f87:b0:b04:38f2:9060 with SMTP id a640c23a62f3a-b04b1f0d32emr1199078966b.18.1757430568091;
+        Tue, 09 Sep 2025 08:09:28 -0700 (PDT)
+Message-ID: <f14b3b9c-5646-4517-b3c5-b1eaffddaa0f@suse.com>
+Date: Tue, 9 Sep 2025 17:09:26 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/2] efi: Support Shim LoadImage
+To: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+References: <cover.1757421999.git.gerald.elder-vass@cloud.com>
+Content-Language: en-US
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <cover.1757421999.git.gerald.elder-vass@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-The existing Verify functionality of the Shim lock protocol is
-deprecated and will be removed, the alternative it to use the LoadImage
-interface to perform the verification.
+On 09.09.2025 16:52, Gerald Elder-Vass wrote:
+> Support Shim LoadImage protocol but keep Shim Lock for compatibility
+> 
+> https://gitlab.com/xen-project/people/geraldev/xen/-/pipelines/2029800410
+> - Saw known unrelated debian-12-x86_64 issue
+> 
+> Gerald Elder-Vass (1):
+>   efi: Support using Shim's LoadImage protocol
+> 
+> Ross Lagerwall (1):
+>   efi: Add a function to check if Secure Boot mode is enabled
 
-When the loading is successful we won't be using the newly loaded image
-(as of yet) so we must then immediately unload the image to clean up.
+You realize that both patches have gone in already, so adjustments need to
+be incremental patches now?
 
-If the LoadImage protocol isn't available then fall back to the Shim
-Lock (Verify) interface.
-
-Log when the kernel is not verified and fail if this occurs
-when secure boot mode is enabled.
-
-Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
----
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Julien Grall <julien@xen.org>
-CC: "Roger Pau Monné" <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-
-v5:
-- Expand comment to add more clarity on need for unloading the image
-- Check for EFI_SUCCESS from Verify to account for possible warnings,
-  this matches the original behaviour
-v4:
-- Updated error message when failing due to lack of verification
-v3:
-- Use Shim Image by default, fall back to Shim Lock
----
- xen/common/efi/boot.c | 62 +++++++++++++++++++++++++++++++++++++------
- 1 file changed, 54 insertions(+), 8 deletions(-)
-
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 5eb0394e2937..76cccb03aa42 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -38,6 +38,8 @@
-   { 0xf2fd1544U, 0x9794, 0x4a2c, {0x99, 0x2e, 0xe5, 0xbb, 0xcf, 0x20, 0xe3, 0x94} }
- #define SHIM_LOCK_PROTOCOL_GUID \
-   { 0x605dab50U, 0xe046, 0x4300, {0xab, 0xb6, 0x3d, 0xd8, 0x10, 0xdd, 0x8b, 0x23} }
-+#define SHIM_IMAGE_LOADER_GUID \
-+  { 0x1f492041U, 0xfadb, 0x4e59, {0x9e, 0x57, 0x7c, 0xaf, 0xe7, 0x3a, 0x55, 0xab} }
- #define APPLE_PROPERTIES_PROTOCOL_GUID \
-   { 0x91bd12feU, 0xf6c3, 0x44fb, {0xa5, 0xb7, 0x51, 0x22, 0xab, 0x30, 0x3a, 0xe0} }
- #define EFI_SYSTEM_RESOURCE_TABLE_GUID    \
-@@ -70,6 +72,13 @@ typedef struct {
-     EFI_SHIM_LOCK_VERIFY Verify;
- } EFI_SHIM_LOCK_PROTOCOL;
- 
-+typedef struct _SHIM_IMAGE_LOADER {
-+    EFI_IMAGE_LOAD LoadImage;
-+    EFI_IMAGE_START StartImage;
-+    EFI_EXIT Exit;
-+    EFI_IMAGE_UNLOAD UnloadImage;
-+} SHIM_IMAGE_LOADER;
-+
- struct _EFI_APPLE_PROPERTIES;
- 
- typedef EFI_STATUS
-@@ -1048,6 +1057,49 @@ static UINTN __init efi_find_gop_mode(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop,
-     return gop_mode;
- }
- 
-+static void __init efi_verify_kernel(EFI_HANDLE ImageHandle)
-+{
-+    static EFI_GUID __initdata shim_image_guid = SHIM_IMAGE_LOADER_GUID;
-+    static EFI_GUID __initdata shim_lock_guid = SHIM_LOCK_PROTOCOL_GUID;
-+    SHIM_IMAGE_LOADER *shim_loader;
-+    EFI_HANDLE loaded_kernel;
-+    EFI_SHIM_LOCK_PROTOCOL *shim_lock;
-+    EFI_STATUS status;
-+    bool verified = false;
-+
-+    /* Look for LoadImage first */
-+    if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_image_guid, NULL,
-+                                           (void **)&shim_loader)) )
-+    {
-+        status = shim_loader->LoadImage(false, ImageHandle, NULL,
-+                                        (void *)kernel.ptr, kernel.size,
-+                                        &loaded_kernel);
-+        if ( !EFI_ERROR(status) )
-+            verified = true;
-+
-+        /* Always unload the image. We only wanted LoadImage to perform
-+         * verification, in the case of a failure there may still be cleanup
-+         * needing to be performed.
-+         */
-+        shim_loader->UnloadImage(loaded_kernel);
-+    }
-+
-+    /* else fall back to Shim Lock */
-+    if ( !verified &&
-+         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
-+                                           (void **)&shim_lock)) &&
-+         shim_lock->Verify(kernel.ptr, kernel.size) == EFI_SUCCESS )
-+        verified = true;
-+
-+    if ( !verified )
-+    {
-+        PrintStr(L"Kernel was not verified\n");
-+
-+        if ( efi_secure_boot )
-+            blexit(L"Refusing to boot unverified kernel with UEFI SecureBoot enabled");
-+    }
-+}
-+
- static void __init efi_tables(void)
- {
-     unsigned int i;
-@@ -1335,13 +1387,11 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
-                                       EFI_SYSTEM_TABLE *SystemTable)
- {
-     static EFI_GUID __initdata loaded_image_guid = LOADED_IMAGE_PROTOCOL;
--    static EFI_GUID __initdata shim_lock_guid = SHIM_LOCK_PROTOCOL_GUID;
-     EFI_LOADED_IMAGE *loaded_image;
-     EFI_STATUS status;
-     unsigned int i;
-     CHAR16 *file_name, *cfg_file_name = NULL, *options = NULL;
-     UINTN gop_mode = ~0;
--    EFI_SHIM_LOCK_PROTOCOL *shim_lock;
-     EFI_GRAPHICS_OUTPUT_PROTOCOL *gop = NULL;
-     union string section = { NULL }, name;
-     bool base_video = false;
-@@ -1592,12 +1642,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
-      * device tree through the efi_check_dt_boot function, in this stage
-      * verify it.
-      */
--    if ( kernel.ptr &&
--         !kernel_verified &&
--         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
--                                           (void **)&shim_lock)) &&
--         (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
--        PrintErrMesg(L"Dom0 kernel image could not be verified", status);
-+    if ( kernel.ptr && !kernel_verified )
-+        efi_verify_kernel(ImageHandle);
- 
-     efi_arch_edd();
- 
--- 
-2.47.3
-
+Jan
 
