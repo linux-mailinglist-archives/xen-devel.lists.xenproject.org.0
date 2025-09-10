@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56F2CB50FA8
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 09:39:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1117574.1463658 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 767FAB50FB0
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 09:39:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1117579.1463668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwFQ6-0006EP-O6; Wed, 10 Sep 2025 07:39:10 +0000
+	id 1uwFQO-0006gA-0t; Wed, 10 Sep 2025 07:39:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1117574.1463658; Wed, 10 Sep 2025 07:39:10 +0000
+Received: by outflank-mailman (output) from mailman id 1117579.1463668; Wed, 10 Sep 2025 07:39:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwFQ6-0006Ch-LJ; Wed, 10 Sep 2025 07:39:10 +0000
-Received: by outflank-mailman (input) for mailman id 1117574;
- Wed, 10 Sep 2025 07:39:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uwFQN-0006ec-TE; Wed, 10 Sep 2025 07:39:27 +0000
+Received: by outflank-mailman (input) for mailman id 1117579;
+ Wed, 10 Sep 2025 07:39:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=T+uy=3V=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1uwFQ4-0005yt-GW
- for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 07:39:08 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2060c.outbound.protection.outlook.com
- [2a01:111:f403:2414::60c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3b29f9b7-8e19-11f0-9d13-b5c5bf9af7f9;
- Wed, 10 Sep 2025 09:39:07 +0200 (CEST)
-Received: from SJ0P220CA0017.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::27)
- by CH2PR12MB9544.namprd12.prod.outlook.com (2603:10b6:610:280::19)
+ id 1uwFQL-0005yo-Gz
+ for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 07:39:25 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20617.outbound.protection.outlook.com
+ [2a01:111:f403:2418::617])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4471cef5-8e19-11f0-9809-7dc792cee155;
+ Wed, 10 Sep 2025 09:39:23 +0200 (CEST)
+Received: from BYAPR11CA0044.namprd11.prod.outlook.com (2603:10b6:a03:80::21)
+ by PH7PR12MB5853.namprd12.prod.outlook.com (2603:10b6:510:1d4::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Wed, 10 Sep
- 2025 07:39:03 +0000
-Received: from SN1PEPF000252A4.namprd05.prod.outlook.com
- (2603:10b6:a03:41b:cafe::60) by SJ0P220CA0017.outlook.office365.com
- (2603:10b6:a03:41b::27) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 07:39:16 +0000
+Received: from SN1PEPF000252A1.namprd05.prod.outlook.com
+ (2603:10b6:a03:80:cafe::1b) by BYAPR11CA0044.outlook.office365.com
+ (2603:10b6:a03:80::21) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.15 via Frontend Transport; Wed,
- 10 Sep 2025 07:39:03 +0000
+ 10 Sep 2025 07:39:16 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000252A4.mail.protection.outlook.com (10.167.242.11) with Microsoft
+ SN1PEPF000252A1.mail.protection.outlook.com (10.167.242.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9115.13 via Frontend Transport; Wed, 10 Sep 2025 07:39:03 +0000
+ 15.20.9115.13 via Frontend Transport; Wed, 10 Sep 2025 07:39:15 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 10 Sep 2025 00:38:58 -0700
+ 15.2.2562.17; Wed, 10 Sep 2025 00:39:00 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b29f9b7-8e19-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: 4471cef5-8e19-11f0-9809-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yjYAtNysZXPnxXPZywMkxtpRWtfpd0NwvpyfkkblJm1e59WLAj2246pYtPCzq5JFp39U54cpe3mnAjL7t2Y2jj+Y9arDj8vYaEMVDMoJBk5PRkF68ujK7tecqR22xz6tUp+3gvA/xMbto4KdDXXX5swevDphnG1eQAMdudMj2xSmAb2QVcNeTOM2jgfdsEFW6FFzEqL9O18+mNBhBcOdnnbTJQ7+9yVEGgakNtT6MZeHDQx9Fn5JWfzqcL/0Tztxq79m+YrgWtbsHOzxsanZ3erQ7dEL6pgyyb3MziswfCi1A7N/9BtN5O5tsv52TWu/8EaTVRCDNY7Yq1Nc+LSnAQ==
+ b=TDn/iPtAeFk2eolpwvEXxyGtiRb0z1Up5i+4L5Iv461Mx1yVqktEfmsOcLs3/dcG7EUp3vDL9HDm71a3hT+FSAR2JheFQKUoMb4j2VXxNSkr+Gd8M8+mIL+GZbe+niug3yfLC/xs45dGZ9loL3d78CZNhVdejG77eNmRNH6eJweOIGTUncFu2s2PO6kQMclnmw9dGn0apW9IOSa/aq387YrDmR7lAVTUeit9IhuV4FtwCPFIgwzhjf+LGeaR8lCuikRNWZZX0mDknD5q3Ka5eEW4Soe+cEoTOKoq6n8oUE/uJWQKEj7kVfY5w+LCTin98slKA4eoPpCd8X2nGvJNoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YxOcHOXvmIbr0QEYbINptXR3BM3f6TIv8bBEhB3MSPE=;
- b=K1hjXjn5Ga2XHPikBmzNn+vjOkL0V6r49xymlNlLHa/rExtLmz9rVlCr6VREfyBsEFLIp/dVZ8vWi+G1qxKsPo6j2OJzMqViKXW3ytP7Q5RH8iRUEigFse2as7dpfz5UGpuNrw8V/+FghSw0TQgHFb3AO9vzog83iZgeaRSTtrfvvjs7E1U/QGFnfFZTM/SKcXLwsbVmnT/7X0XQurQmOAWrBmlj5IbsvhdnxXkcpYkHCAtB9N7nIUn0yx4Q634MSgAwAhKlmwCRsjPmk/4kbCk6Bfj6n51pbjUZ0yHW8liKe6iVrLMFjPY6/CnXX9h/DN3YpiZUnp4WQBpZetVzdw==
+ bh=mmjjRmwBMN19DHx48HzdXSUmgXoB7lWnLJIzlZkESg8=;
+ b=owPkcO50ToyKBWkA+ee4VT74Hz03nbvo3Zdeksogb3b7OLq89y3fyabihHo1Quf4Zbgw1MAhFEmMAFiz+N/7Jfrb2PurOF9JQ+4YykEAHH0nXzhjH4bLZpBNYnUom92vAnCWVico9Zbbijia7XvhvPLsNrZox2mkDnux33nldVwugvFc22qcf9W0t0tFFCjdt82ycrUZy6sSO9Pi5vKxOdqYQZ7kMTaF2eAH4U9+lR8bL+SWIPep2LQDp3MCARjLEdAf9/pCzM5rit+iizLMFpTEOjVcejjg6fYNPKOfGu65mHjCkmwr7zz/Wc7ZQ1d9aj5oNO/5BIYphcoVL7zGyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YxOcHOXvmIbr0QEYbINptXR3BM3f6TIv8bBEhB3MSPE=;
- b=G6oMCg++PlJB6Rd0kHxqX4agvhUXF9o26MSDdbEXyKXA+l6Ykt9E+aXcouZaeyI0ZIW8wmTlWrKRyKqpjrj1z61/qMM95aXUtJmZOwSELYa0p/XHgqY/3F9/OaZBgYnV4InWKpX6V2wAAn9wvxwolNT1rIlnZoKFvBsKBnVNTzM=
+ bh=mmjjRmwBMN19DHx48HzdXSUmgXoB7lWnLJIzlZkESg8=;
+ b=SasBvWLOY5+BxXYlgiMYoP5TsMw3F89UZgdfFIEvVJuirpYSDcF5H1aWIamjjiFX3Y6O+EHeCltLiGhPYGj25fY2TF/S44+E/hjzFrL1PLpWrOa9h1aIcd7sRKf+HX/y24+5RbPvN/Qe/vQognVj9XAS72dZjKBd2Rq1S1rNEeM=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -79,15 +79,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 From: Penny Zheng <Penny.Zheng@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 01/26] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
-Date: Wed, 10 Sep 2025 15:38:02 +0800
-Message-ID: <20250910073827.3622177-2-Penny.Zheng@amd.com>
+To: <xen-devel@lists.xenproject.org>, <xen-devel@dornerworks.com>
+CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
+ Grall" <julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	"Bertrand Marquis" <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>, Nathan Studer
+	<nathan.studer@dornerworks.com>, Stewart Hildebrand <stewart@stew.dk>, "Dario
+ Faggioli" <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>, George
+ Dunlap <gwd@xenproject.org>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v2 02/26] xen/sysctl: replace CONFIG_SYSCTL with CONFIG_MGMT_DOMCTL
+Date: Wed, 10 Sep 2025 15:38:03 +0800
+Message-ID: <20250910073827.3622177-3-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250910073827.3622177-1-Penny.Zheng@amd.com>
 References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
@@ -99,160 +106,897 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A4:EE_|CH2PR12MB9544:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6b828ef-62d5-4e73-9dec-08ddf03d1d54
+X-MS-TrafficTypeDiagnostic: SN1PEPF000252A1:EE_|PH7PR12MB5853:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6c366754-861e-47f8-4b00-08ddf03d2493
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
+	BCL:0;ARA:13230040|376014|7416014|82310400026|1800799024|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?lRcMgvABeNNSS2kzOiQqAFxZsOU80Lms3fMDKFzLs8n1XXULDq3vlLz1L10w?=
- =?us-ascii?Q?Pso4n9h6GceDPmRuPjCQXHGwa3TLHJ9dLrge0spr1jzeC+yMK2pvs7j43piy?=
- =?us-ascii?Q?9m6kSBdu9OorssHsKcu0gizxqywA/+2D+KmIgKaiVxTIvEjaGUXF1S2o+0g7?=
- =?us-ascii?Q?aFacyBLcHQ5PuJ8f1lC/pzcE6ZZCDrtPhGAiWrrdEBh8Pp8mKxS9VUMnNKNd?=
- =?us-ascii?Q?OWMK7QRdeAVh1WRr/rBFx41BGpDWJJP9K3mJjOmBAKinwr1z4ashoSGhc9WY?=
- =?us-ascii?Q?hE91x/mUGA7uR7hCrMMf7WbGqcu6eZ//OIC53RVmhxeHyPm7kyx9KqMqtkbI?=
- =?us-ascii?Q?1rRliw6p6OenpUYNtGSiOMbz75+4zlJICunGwSgtNBLrbCdYQJp+xEEmenAf?=
- =?us-ascii?Q?1er0JD9VDGV3RrRB7b8EpEFIMBar0ulGDdfSf8k/l/pR2RfhZyYYQ9VLXMOi?=
- =?us-ascii?Q?Md2Y+5fJzU1TuCfXZTM5avEuqHpUmoP/foIs2fNqbZvhEyC+aCC9krY/230F?=
- =?us-ascii?Q?9nlM6KZjm7uwLEwNwIpl4h0WgspXgFp44EfXvAqZRm8bH6oaV5sOI+ggrkfr?=
- =?us-ascii?Q?7nMedc8rRVNc44WtbnIENyp8n9s/Ndt1n/uvpeZlHDY58E3311r7NnT2eBwY?=
- =?us-ascii?Q?GEV5tX48neYqKU29W57nhf+r/9e57x6qS104Uos2hJMRH8AJyf6x4cUNKGLt?=
- =?us-ascii?Q?KfcWs0ToPny9AWtR4HcNx1eGRglbNB5dUOZnB7VKKQgA4njYFd+vfIT9pz7B?=
- =?us-ascii?Q?5wuKmqmH2+hRj4/131I3AKaNVtDNKMHBsoXWx0CMiOuwUnQI/wO6JL1jX4PN?=
- =?us-ascii?Q?Q5WeBO+5Lk74cVZRviTFpePVslr3bfHsG6YFCRdwYw0rJ/SEDAeLMQ7KlJSy?=
- =?us-ascii?Q?h+XwJApY2ahxkyddzcCdJ/wFFOUvOKEeS1SQJ75PvB9926i5P04WqQGVx0qc?=
- =?us-ascii?Q?DMhQWozoGi8WCIFV351E4+lEwiQPo291LOHeSKdpI6juX+zIHd24GK2vBR38?=
- =?us-ascii?Q?iivnPNGayNCY2NlnKQ5UT13R5mFt3CpJwvHURAIPi4e+VRaZh6xLliMTM0xL?=
- =?us-ascii?Q?FSpta82ZhbuHP6ERD3XRAeLfFb2I3al//aQkvFKPviGMoaikL/mg3mDJD8oC?=
- =?us-ascii?Q?d4FsguwB/F9BREYDxpGT15Do7EFSHxAV30OaG7jd5lKAfJtecDSaLTSQNT9d?=
- =?us-ascii?Q?YSiPEvzp7Lnqlmgptku3ZNaE5I1GscGCXzlJG877n9EthVVo8LZknd17TOH9?=
- =?us-ascii?Q?LDY4YF0GCc+EL9h1Hwjsb3gFpN07Vxy9pgdgxfG1ghUgn8ENbbsBGUfuFsjl?=
- =?us-ascii?Q?R3YKO1zziwiK7PuqAnDsI1ybF5xlfnGLAgeCkKP4Uh5KJKp+WRdfJPWub4ab?=
- =?us-ascii?Q?Ikl2amTrP7igYbeE/dX1pDDeBMr2e4iWSzSBXEr/piIwBxNPO9+VnJGXXffz?=
- =?us-ascii?Q?frP2zuGPDrq5wYFnnfiBPgMRTLSlOCHkvxoswxKIDGf2TAmdiuKK51IpOmmk?=
- =?us-ascii?Q?ONHu8sKYB07xv2GGXaDhHglyLaJZ3VkYAPnH?=
+	=?us-ascii?Q?SDCwXseAW7duwi/8yuHhOmmJmXQY/CMRvCfTRXmjsJEJbPaHkq6wN+/50URe?=
+ =?us-ascii?Q?RXbuNSmsZv2EkHrky+zxgsnALCFtaR8hvkIBO67W+fHcOxIp1lY9HjJ6QfTk?=
+ =?us-ascii?Q?t4MReTCWl0jPbMnrrRaIYsWu6J2YyMchlBtGVOvHBdQJVCzZ04r4oFTImAuZ?=
+ =?us-ascii?Q?OBhiOBoyyaCxbJ1X3Bup2WRTMrSO+PXGvR9xQauAnFG2GwiUxVs5ebhcTk15?=
+ =?us-ascii?Q?q+DEL0Z0KFTRlQ28uIkrIJX0MZmVY4hW4e6pAHHn3P2flm2uRjFweEG3V+gb?=
+ =?us-ascii?Q?ZxdyGtodZ8QH97lOL/gGeBc33+qZamSVpr5csxFrBBlwMiVlQtY8QLNT+G0f?=
+ =?us-ascii?Q?fowg2B9vfMhDp81/dpYp9Yv1Yeaxh/TpYYvamenGsS71McLLPNb/ttFZClE0?=
+ =?us-ascii?Q?I+LUgatxYBclP2Kv2v+DFWUCMtGfB5RboYa7X+LODoTtfFugVpiaWZR8UIKZ?=
+ =?us-ascii?Q?jM6ksgXZP5eekd4hrifEjba5n/JHgW8np/MdMu6LjRVRY2FmUpTM+erCVnCv?=
+ =?us-ascii?Q?Q7JfTsT8x48AQUGOVo+fz/bEOnqRMIqdkmyPQSwxxMTehyCn/n69zw2VYe5U?=
+ =?us-ascii?Q?55jU4PJjTj6QdzOOv8pWXTQoQdP3oml0b7f2G5qj166TesSAHDgXsdeLS2Nw?=
+ =?us-ascii?Q?S1CqYH4n8jamPHPH2ghtS57WdQienXODk7Aa9gwycObqX/UOuptL5cKaxbna?=
+ =?us-ascii?Q?t8m+wGsJzRxbYVAQoEBQ79ujyYBcmkMk5UQQbU3rSyAEDIPiB16hQeV3iHvi?=
+ =?us-ascii?Q?7iAR8ImMctE9j58DrVAIyKZRTGbepRYuBI1Q39vrUII3TYv94+bpV2kpXqyZ?=
+ =?us-ascii?Q?Xq1WOsdgHaOT77/MunC8nCh69wxsfseloE8K9Lhex4fYYC77vzoRub7gye02?=
+ =?us-ascii?Q?lhzLOEGS+5XJyYSqiqyjTg+7OJx1sniD6PWQYAPBzeb+qmwliV37x3gJVRUV?=
+ =?us-ascii?Q?cAbj0O9QouXCyylZF0VdgGG3jkCLNq+eHZukt+JX0AqixvgU7o/G+4aD/xgo?=
+ =?us-ascii?Q?lU5yXA8r4yUQTIlrzj8sInxgSn3WBjXzPnyXDR2Ei/4If2y04LFpxZba0Hro?=
+ =?us-ascii?Q?+WepfyLX3XpICnGj7MogfC01DZhD5f5OgIM6uzTvNAbAtdz5P2NSg3qWCDuJ?=
+ =?us-ascii?Q?tILGGIRYtiXder4Rrt8k6QXkVs0aoMl+/2JYlymeG+pZelR4R8+0BexYeOfc?=
+ =?us-ascii?Q?OGIH2JDwGLDS38nHwFz6iG7FyZrRLQCRS8V/WE2pJI6DUB4zKroz2VsHb4FF?=
+ =?us-ascii?Q?s7ly0VfioUP/4/oeT4ScIqSOAFgjPPX3TeuaJXoP+ODMOPIwyN8SKhVNia1R?=
+ =?us-ascii?Q?uPjCP0xk/PCNi7k7VYbUy1KR4ti60lDEliHe/MPL94leRN5PsQ1rWc/0o1Z3?=
+ =?us-ascii?Q?6XC8zaD1nEq6Qmrd6VnJYEFnw/5Wbe0S7CGkNY8Xy8PNL6Y5Ie0tfUVyHZmc?=
+ =?us-ascii?Q?N8ZRZj8eahSeG/lHJibOIvaIn7gS5BnCrxIamf+wcgQsg3XBQiqhNke3Pi07?=
+ =?us-ascii?Q?e31ZQsM0jCSoudM1506izVZCZ3KRmHJp4vaj?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2025 07:39:03.1589
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2025 07:39:15.3094
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6b828ef-62d5-4e73-9dec-08ddf03d1d54
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c366754-861e-47f8-4b00-08ddf03d2493
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000252A4.namprd05.prod.outlook.com
+	SN1PEPF000252A1.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9544
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5853
 
-In order to fix CI error of a randconfig picking both PV_SHIM_EXCLUSIVE=y and
-HVM=y results in hvm.c being built, but domctl.c not being built, which leaves
-a few functions, like domctl_lock_acquire/release() undefined, causing linking
-to fail.
-To fix that, we intend to move domctl.o out of the PV_SHIM_EXCLUSIVE Makefile
-/hypercall-defs section, with this adjustment, we also need to release
-redundant vnuma_destroy() stub definition from PV_SHIM_EXCLUSIVE guardian,
-to not break compilation
-Above change will leave dead code in the shim binary temporarily and will be
-fixed with the introduction of "wrap domctl-op with CONFIG_MGMT_HYPERCALLS".
+Rename all the CONFIG_SYSCTL into a single CONFIG_MGMT_HYPERCALLS to help
+provide a single option to manage all unnecessary hypercalls, including
+sysctl, domctl, etc, in dom0less system and PV shim mode, which could also
+make it easier to support randconfigs.
 
-Fixes: 568f806cba4c ("xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"")
-Reported-by: Jan Beulich <jbeulich@suse.com>
+Suggested-by: Stefano Stabellini <sstabellini@kernel.org>
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 ---
 v1 -> v2:
-- remove paging_domctl hypercall-defs
+- new commit
 ---
- xen/arch/x86/Makefile        | 2 +-
- xen/common/Makefile          | 5 +----
- xen/include/hypercall-defs.c | 4 +---
- xen/include/xen/domain.h     | 4 ----
- 4 files changed, 3 insertions(+), 12 deletions(-)
+ xen/Kconfig.debug                     |  2 +-
+ xen/arch/arm/Makefile                 |  2 +-
+ xen/arch/riscv/stubs.c                |  4 ++--
+ xen/arch/x86/Makefile                 |  2 +-
+ xen/arch/x86/configs/pvshim_defconfig |  2 +-
+ xen/arch/x86/psr.c                    | 26 +++++++++++++-------------
+ xen/common/Kconfig                    | 20 ++++++++------------
+ xen/common/Makefile                   |  2 +-
+ xen/common/page_alloc.c               |  8 ++++----
+ xen/common/perfc.c                    |  4 ++--
+ xen/common/sched/arinc653.c           | 10 +++++-----
+ xen/common/sched/core.c               |  6 +++---
+ xen/common/sched/cpupool.c            | 16 ++++++++--------
+ xen/common/sched/credit.c             |  6 +++---
+ xen/common/sched/credit2.c            |  6 +++---
+ xen/common/sched/private.h            |  4 ++--
+ xen/common/spinlock.c                 |  4 ++--
+ xen/drivers/char/console.c            |  4 ++--
+ xen/include/hypercall-defs.c          |  4 ++--
+ xen/include/xsm/xsm.h                 | 12 ++++++------
+ xen/xsm/dummy.c                       |  6 +++---
+ xen/xsm/flask/hooks.c                 | 22 +++++++++++-----------
+ 22 files changed, 84 insertions(+), 88 deletions(-)
 
+diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
+index d900d926c5..a69615cd63 100644
+--- a/xen/Kconfig.debug
++++ b/xen/Kconfig.debug
+@@ -37,7 +37,7 @@ config SELF_TESTS
+ 
+ config COVERAGE
+ 	bool "Code coverage support"
+-	depends on SYSCTL && !LIVEPATCH
++	depends on MGMT_HYPERCALLS && !LIVEPATCH
+ 	select SUPPRESS_DUPLICATE_SYMBOL_WARNINGS if !ENFORCE_UNIQUE_SYMBOLS
+ 	help
+ 	  Enable code coverage support.
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index 7e88ddd3d7..2aff1a1630 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -51,7 +51,7 @@ obj-y += setup.o
+ obj-y += shutdown.o
+ obj-y += smp.o
+ obj-y += smpboot.o
+-obj-$(CONFIG_SYSCTL) += sysctl.o
++obj-$(CONFIG_MGMT_HYPERCALLS) += sysctl.o
+ obj-y += time.o
+ obj-y += traps.o
+ obj-y += vcpreg.o
+diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+index 1a8c86cd8d..a74e56843c 100644
+--- a/xen/arch/riscv/stubs.c
++++ b/xen/arch/riscv/stubs.c
+@@ -282,7 +282,7 @@ unsigned long raw_copy_from_guest(void *to, const void __user *from,
+     BUG_ON("unimplemented");
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ /* sysctl.c */
+ 
+ long arch_do_sysctl(struct xen_sysctl *sysctl,
+@@ -295,7 +295,7 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+ {
+     BUG_ON("unimplemented");
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ /* p2m.c */
+ 
 diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index d7aed7d92c..84a83839d6 100644
+index 84a83839d6..a9fdba0b4c 100644
 --- a/xen/arch/x86/Makefile
 +++ b/xen/arch/x86/Makefile
-@@ -28,6 +28,7 @@ obj-y += delay.o
- obj-y += desc.o
- obj-bin-y += dmi_scan.init.o
- obj-y += domain.o
-+obj-y += domctl.o
- obj-bin-y += dom0_build.init.o
- obj-y += domain_page.o
- obj-y += e820.o
-@@ -79,7 +80,6 @@ obj-y += vm_event.o
- obj-y += xstate.o
+@@ -67,7 +67,7 @@ obj-y += smpboot.o
+ obj-y += spec_ctrl.o
+ obj-y += srat.o
+ obj-y += string.o
+-obj-$(CONFIG_SYSCTL) += sysctl.o
++obj-$(CONFIG_MGMT_HYPERCALLS) += sysctl.o
+ obj-y += time.o
+ obj-y += traps-setup.o
+ obj-y += traps.o
+diff --git a/xen/arch/x86/configs/pvshim_defconfig b/xen/arch/x86/configs/pvshim_defconfig
+index 24f4e4857d..d1db94df78 100644
+--- a/xen/arch/x86/configs/pvshim_defconfig
++++ b/xen/arch/x86/configs/pvshim_defconfig
+@@ -25,4 +25,4 @@ CONFIG_PDX_NONE=y
+ # CONFIG_INTEL_IOMMU is not set
+ # CONFIG_DEBUG is not set
+ # CONFIG_GDBSX is not set
+-# CONFIG_SYSCTL is not set
++# CONFIG_MGMT_HYPERCALLS is not set
+diff --git a/xen/arch/x86/psr.c b/xen/arch/x86/psr.c
+index cce7020868..80ce5804b4 100644
+--- a/xen/arch/x86/psr.c
++++ b/xen/arch/x86/psr.c
+@@ -135,7 +135,7 @@ static const struct feat_props {
+      */
+     enum psr_type alt_type;
  
- ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
--obj-y += domctl.o
- obj-y += platform_hypercall.o
- obj-$(CONFIG_COMPAT) += x86_64/platform_hypercall.o
- endif
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index 0c7d0f5d46..be442a3e47 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -11,6 +11,7 @@ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
- obj-$(CONFIG_DEVICE_TREE_PARSE) += device-tree/
- obj-$(CONFIG_IOREQ_SERVER) += dm.o
- obj-y += domain.o
-+obj-y += domctl.o
- obj-y += domid.o
- obj-y += event_2l.o
- obj-y += event_channel.o
-@@ -70,10 +71,6 @@ obj-bin-$(CONFIG_X86) += $(foreach n,decompress bunzip2 unxz unlzma lzo unlzo un
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     /* get_feat_info is used to return feature HW info through sysctl. */
+     bool (*get_feat_info)(const struct feat_node *feat,
+                           uint32_t data[], unsigned int array_len);
+@@ -422,7 +422,7 @@ static bool mba_init_feature(const struct cpuid_leaf *regs,
+     return true;
+ }
  
- obj-$(CONFIG_COMPAT) += $(addprefix compat/,domain.o memory.o multicall.o xlat.o)
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ static bool cf_check cat_get_feat_info(
+     const struct feat_node *feat, uint32_t data[], unsigned int array_len)
+ {
+@@ -435,7 +435,7 @@ static bool cf_check cat_get_feat_info(
  
--ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
--obj-y += domctl.o
--endif
--
- extra-y := symbols-dummy.o
+     return true;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
  
- obj-$(CONFIG_COVERAGE) += coverage/
-diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
-index 8370b4b289..221dc25f6f 100644
---- a/xen/include/hypercall-defs.c
-+++ b/xen/include/hypercall-defs.c
-@@ -200,8 +200,8 @@ sysctl(xen_sysctl_t *u_sysctl)
- #if defined(CONFIG_X86) && defined(CONFIG_PAGING)
- paging_domctl_cont(xen_domctl_t *u_domctl)
+ /* L3 CAT props */
+ static void cf_check l3_cat_write_msr(
+@@ -448,14 +448,14 @@ static const struct feat_props l3_cat_props = {
+     .cos_num = 1,
+     .type[0] = PSR_TYPE_L3_CBM,
+     .alt_type = PSR_TYPE_UNKNOWN,
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     .get_feat_info = cat_get_feat_info,
  #endif
--#ifndef CONFIG_PV_SHIM_EXCLUSIVE
- domctl(xen_domctl_t *u_domctl)
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
- platform_op(xen_platform_op_t *u_xenpf_op)
- #endif
- #ifdef CONFIG_HVM
-@@ -280,9 +280,7 @@ hvm_op                             do       do       do       do       do
- #ifdef CONFIG_SYSCTL
- sysctl                             do       do       do       do       do
- #endif
--#ifndef CONFIG_PV_SHIM_EXCLUSIVE
- domctl                             do       do       do       do       do
--#endif
- #ifdef CONFIG_KEXEC
- kexec_op                           compat   do       -        -        -
- #endif
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index 8aab05ae93..11d2505420 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -185,11 +185,7 @@ struct vnuma_info {
-     struct xen_vmemrange *vmemrange;
+     .write_msr = l3_cat_write_msr,
+     .sanitize = cat_check_cbm,
  };
  
--#ifndef CONFIG_PV_SHIM_EXCLUSIVE
- void vnuma_destroy(struct vnuma_info *vnuma);
--#else
--static inline void vnuma_destroy(struct vnuma_info *vnuma) { ASSERT(!vnuma); }
--#endif
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ /* L3 CDP props */
+ static bool cf_check l3_cdp_get_feat_info(
+     const struct feat_node *feat, uint32_t data[], uint32_t array_len)
+@@ -467,7 +467,7 @@ static bool cf_check l3_cdp_get_feat_info(
  
- extern bool vmtrace_available;
+     return true;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
  
+ static void cf_check l3_cdp_write_msr(
+     unsigned int cos, uint32_t val, enum psr_type type)
+@@ -483,7 +483,7 @@ static const struct feat_props l3_cdp_props = {
+     .type[0] = PSR_TYPE_L3_DATA,
+     .type[1] = PSR_TYPE_L3_CODE,
+     .alt_type = PSR_TYPE_L3_CBM,
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     .get_feat_info = l3_cdp_get_feat_info,
+ #endif
+     .write_msr = l3_cdp_write_msr,
+@@ -501,14 +501,14 @@ static const struct feat_props l2_cat_props = {
+     .cos_num = 1,
+     .type[0] = PSR_TYPE_L2_CBM,
+     .alt_type = PSR_TYPE_UNKNOWN,
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     .get_feat_info = cat_get_feat_info,
+ #endif
+     .write_msr = l2_cat_write_msr,
+     .sanitize = cat_check_cbm,
+ };
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ /* MBA props */
+ static bool cf_check mba_get_feat_info(
+     const struct feat_node *feat, uint32_t data[], unsigned int array_len)
+@@ -523,7 +523,7 @@ static bool cf_check mba_get_feat_info(
+ 
+     return true;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ static void cf_check mba_write_msr(
+     unsigned int cos, uint32_t val, enum psr_type type)
+@@ -561,7 +561,7 @@ static const struct feat_props mba_props = {
+     .cos_num = 1,
+     .type[0] = PSR_TYPE_MBA_THRTL,
+     .alt_type = PSR_TYPE_UNKNOWN,
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     .get_feat_info = mba_get_feat_info,
+ #endif
+     .write_msr = mba_write_msr,
+@@ -826,7 +826,7 @@ static struct psr_socket_info *get_socket_info(unsigned int socket)
+     return socket_info + socket;
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ int psr_get_info(unsigned int socket, enum psr_type type,
+                  uint32_t data[], unsigned int array_len)
+ {
+@@ -858,7 +858,7 @@ int psr_get_info(unsigned int socket, enum psr_type type,
+ 
+     return -EINVAL;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ int psr_get_val(struct domain *d, unsigned int socket,
+                 uint32_t *val, enum psr_type type)
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 76f9ce705f..c1571377d3 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -508,7 +508,7 @@ config CRYPTO
+ config LIVEPATCH
+ 	bool "Live patching support"
+ 	default X86
+-	depends on "$(XEN_HAS_BUILD_ID)" = "y" && SYSCTL && HAS_VMAP
++	depends on "$(XEN_HAS_BUILD_ID)" = "y" && MGMT_HYPERCALLS && HAS_VMAP
+ 	select CC_SPLIT_SECTIONS
+ 	help
+ 	  Allows a running Xen hypervisor to be dynamically patched using
+@@ -600,7 +600,7 @@ config DTB_FILE
+ config TRACEBUFFER
+ 	bool "Enable tracing infrastructure" if EXPERT
+ 	default y
+-	depends on SYSCTL
++	depends on MGMT_HYPERCALLS
+ 	help
+ 	  Enable tracing infrastructure and pre-defined tracepoints within Xen.
+ 	  This will allow live information about Xen's execution and performance
+@@ -648,21 +648,17 @@ config SYSTEM_SUSPEND
+ 
+ 	  If unsure, say N.
+ 
+-menu "Supported hypercall interfaces"
+-	visible if EXPERT
+-
+-config SYSCTL
+-	bool "Enable sysctl hypercall"
++config MGMT_HYPERCALLS
++	bool "Enable hypercalls under management"
+ 	default y
+ 	help
+ 	  This option shall only be disabled on some dom0less systems, or
+-	  PV shim on x86, to reduce Xen footprint.
+-
+-endmenu
++	  PV shim on x86, to reduce Xen footprint via managing unnessary
++	  hypercalls, like sysctl, etc.
+ 
+ config PM_OP
+ 	bool "Enable Performance Management Operation"
+-	depends on ACPI && HAS_CPUFREQ && SYSCTL
++	depends on ACPI && HAS_CPUFREQ && MGMT_HYPERCALLS
+ 	default y
+ 	help
+ 	  This option shall enable userspace performance management control
+@@ -670,7 +666,7 @@ config PM_OP
+ 
+ config PM_STATS
+ 	bool "Enable Performance Management Statistics"
+-	depends on ACPI && HAS_CPUFREQ && SYSCTL
++	depends on ACPI && HAS_CPUFREQ && MGMT_HYPERCALLS
+ 	default y
+ 	help
+ 	  Enable collection of performance management statistics to aid in
+diff --git a/xen/common/Makefile b/xen/common/Makefile
+index be442a3e47..fdf826f218 100644
+--- a/xen/common/Makefile
++++ b/xen/common/Makefile
+@@ -52,7 +52,7 @@ obj-y += spinlock.o
+ obj-$(CONFIG_STACK_PROTECTOR) += stack-protector.o
+ obj-y += stop_machine.o
+ obj-y += symbols.o
+-obj-$(CONFIG_SYSCTL) += sysctl.o
++obj-$(CONFIG_MGMT_HYPERCALLS) += sysctl.o
+ obj-y += tasklet.o
+ obj-y += time.o
+ obj-y += timer.o
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 1f67b88a89..26615d1e97 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -602,7 +602,7 @@ out:
+     return ret;
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ void get_outstanding_claims(uint64_t *free_pages, uint64_t *outstanding_pages)
+ {
+     spin_lock(&heap_lock);
+@@ -610,7 +610,7 @@ void get_outstanding_claims(uint64_t *free_pages, uint64_t *outstanding_pages)
+     *free_pages = avail_heap_pages(MEMZONE_XEN + 1, NR_ZONES - 1, -1);
+     spin_unlock(&heap_lock);
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ static bool __read_mostly first_node_initialised;
+ #ifndef CONFIG_SEPARATE_XENHEAP
+@@ -1788,7 +1788,7 @@ int offline_page(mfn_t mfn, int broken, uint32_t *status)
+     return 0;
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ /*
+  * Online the memory.
+  *   The caller should make sure end_pfn <= max_page,
+@@ -1873,7 +1873,7 @@ int query_page_offline(mfn_t mfn, uint32_t *status)
+ 
+     return 0;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ /*
+  * This function should only be called with valid pages from the same NUMA
+diff --git a/xen/common/perfc.c b/xen/common/perfc.c
+index 0f3b89af2c..97a94ef1fc 100644
+--- a/xen/common/perfc.c
++++ b/xen/common/perfc.c
+@@ -149,7 +149,7 @@ void cf_check perfc_reset(unsigned char key)
+     }
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ static struct xen_sysctl_perfc_desc perfc_d[NR_PERFCTRS];
+ static xen_sysctl_perfc_val_t *perfc_vals;
+ static unsigned int      perfc_nbr_vals;
+@@ -266,7 +266,7 @@ int perfc_control(struct xen_sysctl_perfc_op *pc)
+ 
+     return rc;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ /*
+  * Local variables:
+diff --git a/xen/common/sched/arinc653.c b/xen/common/sched/arinc653.c
+index 8a4f4259d8..7d6c40d800 100644
+--- a/xen/common/sched/arinc653.c
++++ b/xen/common/sched/arinc653.c
+@@ -220,7 +220,7 @@ static void update_schedule_units(const struct scheduler *ops)
+                       SCHED_PRIV(ops)->schedule[i].unit_id);
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ /**
+  * This function is called by the adjust_global scheduler hook to put
+  * in place a new ARINC653 schedule.
+@@ -335,7 +335,7 @@ arinc653_sched_get(
+ 
+     return 0;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ /**************************************************************************
+  * Scheduler callback functions                                           *
+@@ -661,7 +661,7 @@ a653_switch_sched(struct scheduler *new_ops, unsigned int cpu,
+     return &sr->_lock;
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ /**
+  * Xen scheduler callback function to perform a global (not domain-specific)
+  * adjustment. It is used by the ARINC 653 scheduler to put in place a new
+@@ -701,7 +701,7 @@ a653sched_adjust_global(const struct scheduler *ops,
+ 
+     return rc;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ /**
+  * This structure defines our scheduler for Xen.
+@@ -736,7 +736,7 @@ static const struct scheduler sched_arinc653_def = {
+     .switch_sched   = a653_switch_sched,
+ 
+     .adjust         = NULL,
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     .adjust_global  = a653sched_adjust_global,
+ #endif
+ 
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index 2ab4313517..a0faddcb92 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -2068,7 +2068,7 @@ long do_set_timer_op(s_time_t timeout)
+     return 0;
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ /* scheduler_id - fetch ID of current scheduler */
+ int scheduler_id(void)
+ {
+@@ -2111,7 +2111,7 @@ long sched_adjust(struct domain *d, struct xen_domctl_scheduler_op *op)
+     return ret;
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ long sched_adjust_global(struct xen_sysctl_scheduler_op *op)
+ {
+     struct cpupool *pool;
+@@ -2140,7 +2140,7 @@ long sched_adjust_global(struct xen_sysctl_scheduler_op *op)
+ 
+     return rc;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ static void vcpu_periodic_timer_work_locked(struct vcpu *v)
+ {
+diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
+index f5459c2779..51ba3cb43d 100644
+--- a/xen/common/sched/cpupool.c
++++ b/xen/common/sched/cpupool.c
+@@ -241,12 +241,12 @@ struct cpupool *cpupool_get_by_id(unsigned int poolid)
+     return __cpupool_get_by_id(poolid, true);
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ static struct cpupool *cpupool_get_next_by_id(unsigned int poolid)
+ {
+     return __cpupool_get_by_id(poolid, false);
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ void cpupool_put(struct cpupool *pool)
+ {
+@@ -354,7 +354,7 @@ static struct cpupool *cpupool_create(unsigned int poolid,
+ 
+     return ERR_PTR(ret);
+ }
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ /*
+  * destroys the given cpupool
+  * returns 0 on success, 1 else
+@@ -382,7 +382,7 @@ static int cpupool_destroy(struct cpupool *c)
+     debugtrace_printk("cpupool_destroy(pool=%u)\n", c->cpupool_id);
+     return 0;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ /*
+  * Move domain to another cpupool
+@@ -572,7 +572,7 @@ static int cpupool_unassign_cpu_start(struct cpupool *c, unsigned int cpu)
+     return ret;
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ static long cf_check cpupool_unassign_cpu_helper(void *info)
+ {
+     struct cpupool *c = info;
+@@ -638,7 +638,7 @@ static int cpupool_unassign_cpu(struct cpupool *c, unsigned int cpu)
+     }
+     return continue_hypercall_on_cpu(work_cpu, cpupool_unassign_cpu_helper, c);
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ /*
+  * add a new domain to a cpupool
+@@ -816,7 +816,7 @@ static void cpupool_cpu_remove_forced(unsigned int cpu)
+     rcu_read_unlock(&sched_res_rculock);
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ /*
+  * do cpupool related sysctl operations
+  */
+@@ -982,7 +982,7 @@ int cpupool_do_sysctl(struct xen_sysctl_cpupool_op *op)
+ 
+     return ret;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ unsigned int cpupool_get_id(const struct domain *d)
+ {
+diff --git a/xen/common/sched/credit.c b/xen/common/sched/credit.c
+index 6dcf6b2c8b..0cbec2a9c0 100644
+--- a/xen/common/sched/credit.c
++++ b/xen/common/sched/credit.c
+@@ -1256,7 +1256,7 @@ __csched_set_tslice(struct csched_private *prv, unsigned int timeslice_ms)
+     prv->credit = prv->credits_per_tslice * prv->ncpus;
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ static int cf_check
+ csched_sys_cntl(const struct scheduler *ops,
+                         struct xen_sysctl_scheduler_op *sc)
+@@ -1299,7 +1299,7 @@ csched_sys_cntl(const struct scheduler *ops,
+     out:
+     return rc;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ static void *cf_check
+ csched_alloc_domdata(const struct scheduler *ops, struct domain *dom)
+@@ -2290,7 +2290,7 @@ static const struct scheduler sched_credit_def = {
+ 
+     .adjust         = csched_dom_cntl,
+     .adjust_affinity= csched_aff_cntl,
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     .adjust_global  = csched_sys_cntl,
+ #endif
+ 
+diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
+index 75316d42b7..307e63ebd8 100644
+--- a/xen/common/sched/credit2.c
++++ b/xen/common/sched/credit2.c
+@@ -3131,7 +3131,7 @@ csched2_aff_cntl(const struct scheduler *ops, struct sched_unit *unit,
+         __clear_bit(__CSFLAG_pinned, &svc->flags);
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ static int cf_check csched2_sys_cntl(
+     const struct scheduler *ops, struct xen_sysctl_scheduler_op *sc)
+ {
+@@ -3163,7 +3163,7 @@ static int cf_check csched2_sys_cntl(
+ 
+     return 0;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ static void *cf_check
+ csched2_alloc_domdata(const struct scheduler *ops, struct domain *dom)
+@@ -4248,7 +4248,7 @@ static const struct scheduler sched_credit2_def = {
+ 
+     .adjust         = csched2_dom_cntl,
+     .adjust_affinity= csched2_aff_cntl,
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     .adjust_global  = csched2_sys_cntl,
+ #endif
+ 
+diff --git a/xen/common/sched/private.h b/xen/common/sched/private.h
+index d6884550cd..b7ff67200b 100644
+--- a/xen/common/sched/private.h
++++ b/xen/common/sched/private.h
+@@ -356,7 +356,7 @@ struct scheduler {
+                                     struct sched_unit *unit,
+                                     const struct cpumask *hard,
+                                     const struct cpumask *soft);
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     int          (*adjust_global)  (const struct scheduler *ops,
+                                     struct xen_sysctl_scheduler_op *sc);
+ #endif
+@@ -512,7 +512,7 @@ static inline int sched_adjust_dom(const struct scheduler *s, struct domain *d,
+     return s->adjust ? s->adjust(s, d, op) : 0;
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ static inline int sched_adjust_cpupool(const struct scheduler *s,
+                                        struct xen_sysctl_scheduler_op *op)
+ {
+diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
+index 0389293b09..9d08159615 100644
+--- a/xen/common/spinlock.c
++++ b/xen/common/spinlock.c
+@@ -690,7 +690,7 @@ void cf_check spinlock_profile_reset(unsigned char key)
+     spinlock_profile_iterate(spinlock_profile_reset_elem, NULL);
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ typedef struct {
+     struct xen_sysctl_lockprof_op *pc;
+     int                      rc;
+@@ -750,7 +750,7 @@ int spinlock_profile_control(struct xen_sysctl_lockprof_op *pc)
+ 
+     return rc;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ void _lock_profile_register_struct(
+     int32_t type, struct lock_profile_qhead *qhead, int32_t idx)
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index 9bd5b4825d..c38b58d5fc 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -371,7 +371,7 @@ static void conring_puts(const char *str, size_t len)
+         conringc = conringp - conring_size;
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ long read_console_ring(struct xen_sysctl_readconsole *op)
+ {
+     XEN_GUEST_HANDLE_PARAM(char) str;
+@@ -414,7 +414,7 @@ long read_console_ring(struct xen_sysctl_readconsole *op)
+ 
+     return 0;
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ 
+ /*
+diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
+index 221dc25f6f..cd2c801af6 100644
+--- a/xen/include/hypercall-defs.c
++++ b/xen/include/hypercall-defs.c
+@@ -194,7 +194,7 @@ kexec_op(unsigned long op, void *uarg)
+ #ifdef CONFIG_IOREQ_SERVER
+ dm_op(domid_t domid, unsigned int nr_bufs, xen_dm_op_buf_t *bufs)
+ #endif
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ sysctl(xen_sysctl_t *u_sysctl)
+ #endif
+ #if defined(CONFIG_X86) && defined(CONFIG_PAGING)
+@@ -277,7 +277,7 @@ physdev_op                         compat   do       hvm      hvm      do_arm
+ #ifdef CONFIG_HVM
+ hvm_op                             do       do       do       do       do
+ #endif
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ sysctl                             do       do       do       do       do
+ #endif
+ domctl                             do       do       do       do       do
+diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
+index 9a23d2827c..3c960ad909 100644
+--- a/xen/include/xsm/xsm.h
++++ b/xen/include/xsm/xsm.h
+@@ -57,7 +57,7 @@ struct xsm_ops {
+     int (*domain_create)(struct domain *d, uint32_t ssidref);
+     int (*getdomaininfo)(struct domain *d);
+     int (*domctl_scheduler_op)(struct domain *d, int op);
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     int (*sysctl_scheduler_op)(int op);
+ #endif
+     int (*set_target)(struct domain *d, struct domain *e);
+@@ -140,7 +140,7 @@ struct xsm_ops {
+     int (*resource_setup_gsi)(int gsi);
+     int (*resource_setup_misc)(void);
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     int (*page_offline)(uint32_t cmd);
+ #endif
+     int (*hypfs_op)(void);
+@@ -246,7 +246,7 @@ static inline int xsm_domctl_scheduler_op(
+     return alternative_call(xsm_ops.domctl_scheduler_op, d, cmd);
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ static inline int xsm_sysctl_scheduler_op(xsm_default_t def, int cmd)
+ {
+     return alternative_call(xsm_ops.sysctl_scheduler_op, cmd);
+@@ -267,7 +267,7 @@ static inline int xsm_domctl(xsm_default_t def, struct domain *d,
+ 
+ static inline int xsm_sysctl(xsm_default_t def, int cmd)
+ {
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     return alternative_call(xsm_ops.sysctl, cmd);
+ #else
+     return -EOPNOTSUPP;
+@@ -276,7 +276,7 @@ static inline int xsm_sysctl(xsm_default_t def, int cmd)
+ 
+ static inline int xsm_readconsole(xsm_default_t def, uint32_t clear)
+ {
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     return alternative_call(xsm_ops.readconsole, clear);
+ #else
+     return -EOPNOTSUPP;
+@@ -603,7 +603,7 @@ static inline int xsm_resource_setup_misc(xsm_default_t def)
+ 
+ static inline int xsm_page_offline(xsm_default_t def, uint32_t cmd)
+ {
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     return alternative_call(xsm_ops.page_offline, cmd);
+ #else
+     return -EOPNOTSUPP;
+diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
+index 8b7e01b506..f5483e0709 100644
+--- a/xen/xsm/dummy.c
++++ b/xen/xsm/dummy.c
+@@ -19,12 +19,12 @@ static const struct xsm_ops __initconst_cf_clobber dummy_ops = {
+     .domain_create                 = xsm_domain_create,
+     .getdomaininfo                 = xsm_getdomaininfo,
+     .domctl_scheduler_op           = xsm_domctl_scheduler_op,
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     .sysctl_scheduler_op           = xsm_sysctl_scheduler_op,
+ #endif
+     .set_target                    = xsm_set_target,
+     .domctl                        = xsm_domctl,
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     .sysctl                        = xsm_sysctl,
+     .readconsole                   = xsm_readconsole,
+ #endif
+@@ -98,7 +98,7 @@ static const struct xsm_ops __initconst_cf_clobber dummy_ops = {
+     .resource_setup_gsi            = xsm_resource_setup_gsi,
+     .resource_setup_misc           = xsm_resource_setup_misc,
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     .page_offline                  = xsm_page_offline,
+ #endif
+     .hypfs_op                      = xsm_hypfs_op,
+diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+index b0308e1b26..21914d3507 100644
+--- a/xen/xsm/flask/hooks.c
++++ b/xen/xsm/flask/hooks.c
+@@ -626,7 +626,7 @@ static int cf_check flask_domctl_scheduler_op(struct domain *d, int op)
+     }
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ static int cf_check flask_sysctl_scheduler_op(int op)
+ {
+     switch ( op )
+@@ -641,7 +641,7 @@ static int cf_check flask_sysctl_scheduler_op(int op)
+         return avc_unknown_permission("sysctl_scheduler_op", op);
+     }
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ static int cf_check flask_set_target(struct domain *d, struct domain *t)
+ {
+@@ -858,7 +858,7 @@ static int cf_check flask_domctl(struct domain *d, unsigned int cmd,
+     }
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ static int cf_check flask_sysctl(int cmd)
+ {
+     switch ( cmd )
+@@ -946,7 +946,7 @@ static int cf_check flask_readconsole(uint32_t clear)
+ 
+     return domain_has_xen(current->domain, perms);
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ static inline uint32_t resource_to_perm(uint8_t access)
+ {
+@@ -1208,12 +1208,12 @@ static int cf_check flask_resource_unplug_core(void)
+     return avc_current_has_perm(SECINITSID_DOMXEN, SECCLASS_RESOURCE, RESOURCE__UNPLUG, NULL);
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ static int flask_resource_use_core(void)
+ {
+     return avc_current_has_perm(SECINITSID_DOMXEN, SECCLASS_RESOURCE, RESOURCE__USE, NULL);
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ static int cf_check flask_resource_plug_pci(uint32_t machine_bdf)
+ {
+@@ -1278,7 +1278,7 @@ static int cf_check flask_resource_setup_misc(void)
+     return avc_current_has_perm(SECINITSID_XEN, SECCLASS_RESOURCE, RESOURCE__SETUP, NULL);
+ }
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+ static inline int cf_check flask_page_offline(uint32_t cmd)
+ {
+     switch ( cmd )
+@@ -1293,7 +1293,7 @@ static inline int cf_check flask_page_offline(uint32_t cmd)
+         return avc_unknown_permission("page_offline", cmd);
+     }
+ }
+-#endif /* CONFIG_SYSCTL */
++#endif /* CONFIG_MGMT_HYPERCALLS */
+ 
+ static inline int cf_check flask_hypfs_op(void)
+ {
+@@ -1889,12 +1889,12 @@ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
+     .domain_create = flask_domain_create,
+     .getdomaininfo = flask_getdomaininfo,
+     .domctl_scheduler_op = flask_domctl_scheduler_op,
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     .sysctl_scheduler_op = flask_sysctl_scheduler_op,
+ #endif
+     .set_target = flask_set_target,
+     .domctl = flask_domctl,
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     .sysctl = flask_sysctl,
+     .readconsole = flask_readconsole,
+ #endif
+@@ -1956,7 +1956,7 @@ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
+     .resource_setup_gsi = flask_resource_setup_gsi,
+     .resource_setup_misc = flask_resource_setup_misc,
+ 
+-#ifdef CONFIG_SYSCTL
++#ifdef CONFIG_MGMT_HYPERCALLS
+     .page_offline = flask_page_offline,
+ #endif
+     .hypfs_op = flask_hypfs_op,
 -- 
 2.34.1
 
