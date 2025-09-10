@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B67E2B51A29
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 16:50:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1118378.1464174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32948B51A7A
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 16:57:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1118401.1464194 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwM8k-0001lH-4A; Wed, 10 Sep 2025 14:49:42 +0000
+	id 1uwMFt-0003wi-35; Wed, 10 Sep 2025 14:57:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1118378.1464174; Wed, 10 Sep 2025 14:49:42 +0000
+Received: by outflank-mailman (output) from mailman id 1118401.1464194; Wed, 10 Sep 2025 14:57:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwM8k-0001iW-0i; Wed, 10 Sep 2025 14:49:42 +0000
-Received: by outflank-mailman (input) for mailman id 1118378;
- Wed, 10 Sep 2025 14:49:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Pisp=3V=epam.com=Oleksii_Moisieiev@srs-se1.protection.inumbo.net>)
- id 1uwM8j-0001iQ-30
- for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 14:49:41 +0000
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20a::7])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5f701c97-8e55-11f0-9809-7dc792cee155;
- Wed, 10 Sep 2025 16:49:37 +0200 (CEST)
-Received: from PAVPR03MB8946.eurprd03.prod.outlook.com (2603:10a6:102:32e::21)
- by PAXPR03MB7611.eurprd03.prod.outlook.com (2603:10a6:102:205::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Wed, 10 Sep
- 2025 14:49:35 +0000
-Received: from PAVPR03MB8946.eurprd03.prod.outlook.com
- ([fe80::f12d:7394:bbe3:dfc]) by PAVPR03MB8946.eurprd03.prod.outlook.com
- ([fe80::f12d:7394:bbe3:dfc%6]) with mapi id 15.20.9094.021; Wed, 10 Sep 2025
- 14:49:35 +0000
+	id 1uwMFs-0003tz-W1; Wed, 10 Sep 2025 14:57:04 +0000
+Received: by outflank-mailman (input) for mailman id 1118401;
+ Wed, 10 Sep 2025 14:57:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8l2o=3V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uwMFq-0003tr-Qi
+ for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 14:57:02 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 67c3b860-8e56-11f0-9d13-b5c5bf9af7f9;
+ Wed, 10 Sep 2025 16:57:01 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-b0418f6fc27so1148310166b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Sep 2025 07:57:01 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b0783047b9bsm179425366b.13.2025.09.10.07.56.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Sep 2025 07:56:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,165 +45,407 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f701c97-8e55-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HDw+dv+3KAVp9Q6EJlUnS8077pxd20r64ka/2Hni4D4IG+r0zGpAbixmijj9LyDnaGEV+3vgyOb5W7uxRrbwg4K97juhwNQDst6EtnmlDLV4iZ0fCMx7OtNHW8QcR0YECgK2mGDGdVLfOfcF1bzUdvHQiwurGKF/I/164YdWkLb0SkTeTTz0GMBE8k47RRJ5DcU+dXylFqHWdJX1U3WGFH+wJ5ZF4J0amf4qBQS8Fv9Gx1cdAomlqvJEbrGClHjGrA8vsc24ztyU71ejLd48ve/ptlvzymiWcFvDiZuPgdJSpDmEofOitOwXuW9mJrwBMEgQGXS1zmmRwYh6izSqiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KRaxHGvw2BTA0vfQ5YtYv6Ce4yTniHnIe4jQcbb1m2c=;
- b=TQRtY6Fivz6WYQEnQbeRYkHIhumpEP78l26U/JepveIV7JqT+CFpJfuX+oDsnbccIJyQ8Z6VEZRhwND76LxXJ6jvhu+WaIfp2N2qhbU4Ezzr6cL1NeFufS+UqmdpGea0ov122W+TpuFZHq/4qVLfovkq/bL6v5Zg4WnavBr44t6bHZsB2m7tF+MSOWON67pEW8N18vdMOeCih9QP7/yJ1HcAuSfehktUYsW4O4uLvqqQKVl3UoMJLVkjmNDUxiYigQiQu7GFz4uG2GA/CC+vOH4RTA4ogq1PyLL6HkTn2fhlTjLxarHuVTX/jAQKXv5w6MTnbraF4pHXJhXTtaIYLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KRaxHGvw2BTA0vfQ5YtYv6Ce4yTniHnIe4jQcbb1m2c=;
- b=l2zzl+kQNtuE72aljgtgUREAobM/+JBPWG18TtFVhtrnTozOZWNVQMjOdGpuesANA28Sq1NjMCukoHirz1CH+lQaqN0UWJFjGN9dECweS6BaujOPJTXfqzDlNSFQZPdmSIFmQGS9+I3690hydVUjjYi+pyEGF5u/dyIOCTTJfky9a9PjYRTpRQx1H9NrKwGmHEZLGrlPTUYF2tk+rfFQDPxgy1fFE1mEtqlXM4ExP6HSU7oS2BU3HIq018D52gqHn1RkkbYb5MZhU/du3YO2Et2f+i9/G/78MJD6bZ2J4LhL33kexef3ralf/CYgnuYVEUpdPFeKKiVtIi//LMctyA==
-From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-To: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Bertrand Marquis <bertrand.marquis@arm.com>, Jan
- Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, Michal Orzel
-	<michal.orzel@amd.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Grygorii Strashko
-	<grygorii_strashko@epam.com>
-Subject: Re: [PATCH v9 1/4] xen/arm: add generic SCI subsystem
-Thread-Topic: [PATCH v9 1/4] xen/arm: add generic SCI subsystem
-Thread-Index: AQHcHaczp/pn2jKXU0i48m8PFCAwNLSKpFGAgAHknYA=
-Date: Wed, 10 Sep 2025 14:49:35 +0000
-Message-ID: <e1291003-0738-4c42-83ae-1da575a00f9c@epam.com>
-References: <cover.1756995595.git.oleksii_moisieiev@epam.com>
- <3e237c5256054a88b1c099d85d8bd1a602bba230.1756995595.git.oleksii_moisieiev@epam.com>
- <c68f1d0e-8a0d-4d8e-a98e-7617c548337a@xen.org>
-In-Reply-To: <c68f1d0e-8a0d-4d8e-a98e-7617c548337a@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB8946:EE_|PAXPR03MB7611:EE_
-x-ms-office365-filtering-correlation-id: f828c17c-0920-4743-c7f1-08ddf0794250
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|7416014|38070700021;
-x-microsoft-antispam-message-info:
- =?utf-8?B?ZGJjYU1SdGVkMVFHUkxMQ1JpTVRWRmNtMEdISXVwbkRBNTNLN09sUStBcldn?=
- =?utf-8?B?T2pzQ3VCOW1sT081eWVVNVNjRFJRcVZXTU8xUXRxcEhrVDFlR0JERWdRUnVW?=
- =?utf-8?B?VjBOYUJOM3ptdFUrbUIxcWI3SVNHSVBkdUNJUVUvdWg5ZnZLUE5EZkw5bTFG?=
- =?utf-8?B?K1RvOTIrUWYvNU5ieU9Uais2cGdUUkd4dVlheG1aZy9zUGVsbStWazZPaEZh?=
- =?utf-8?B?UnRVTVg1MjNibEVhaWlhT09sTEF2OGgzS3VjUWVzbUhaZHRmZTk4UkhWUm4w?=
- =?utf-8?B?YmYxOXcxZ1VUdDMrSlpkQStobThkNGdNd0lFWHdRcUIwWWdJb2pmQlBoNVhi?=
- =?utf-8?B?VHRwS0Qva2VDRHJ1VXJhN1lZU0wzVzVTbVI5TlAyZDlqcE1HNHJpaVI2OStB?=
- =?utf-8?B?YWVQR21FZWlKYngxUzk4bnhmTGhFeUhMR0Jpb3krd0d3NlRUMnNPeVFJRlRX?=
- =?utf-8?B?T2RrWXdGL09sai9pN1ZwalpVR2RQaXFzMVk5dEJDMWxlcTFQZ2dTbDZGaTdP?=
- =?utf-8?B?S3Y0NlRpaStEc0JUYW5lT0lJdW8wVDlXWlNqRHNpMHl3NWludUQ0bjQ5Y3hH?=
- =?utf-8?B?N0Q4d2FJVlY1VjdXV1FoTDNJSFVTd1NCa1ZPZjhsV1BkM1grbUtuUEVieUQ0?=
- =?utf-8?B?TURlWTJJeGVpNmRvZjZrOTJMczNjclowRkdqS3NwZjVPbGJJRUlVSVkrSWtW?=
- =?utf-8?B?TFcvWVdkM0M0KzR0azdjSFFUQngyWDliQW5oTzdEMnYzOCs2QVFXV0pQeDVZ?=
- =?utf-8?B?SDBIQzluYlNVcWhIVXBkOU5USHZUcTBLOUJoa2FCbDZXNkhPaHdnWXBPMVEx?=
- =?utf-8?B?SWV4WVFFcUhBZUhOeDlIVERWRGJCUlQ1S2pMNFpsQkNpMVlmT2t0dDkyMjRR?=
- =?utf-8?B?dFpJRUJvRm4zcUk1bDBLS2YvNkgvalZMQ20rMVB3MHEydkwwS250NlRGN2xB?=
- =?utf-8?B?TTRxaW9mRG9XR3cxb3creTA4WkJiZTBKYTY5cXRkbXRIYXh6TGhSaGtMU0t3?=
- =?utf-8?B?cXUvN2ptcE4wNGZWelhkdEFRNWk3NWtNS0NJaFdRMTBkSG9QYTFqZCtUSW5n?=
- =?utf-8?B?L0J5OEluNkpXbXI5WEVIbkNQSkdZV0E2K09sTWxjblprMnByNTVxY0FnRmtO?=
- =?utf-8?B?VjhjNmhkTmtJUmtBdDlDQWhOMFJUR0ljRy82VyswR093MW0vUUhCWmFVUWRU?=
- =?utf-8?B?R3JkYU1IWHYwRlZrZzh0TEs4Z2NDeEZ0dUgxMTFlTW9PR1Z6bmN0bkdUUzhy?=
- =?utf-8?B?Vi9QUGMrN3BLRmpQZng0Lzk1ak8vT2JRV3BpMThEbTJoTDJnSllzRVU5S3Nw?=
- =?utf-8?B?M0NXem5SeE1hQndpSEFTMlF0aW5NSzRRV1VLa1VFVkxrYkIvOVVVaFcxYndC?=
- =?utf-8?B?TW1odXhWc3pWaVhRY3hTMm9hdlJiWXYwTTloV1MxMFlKSDVSS1hmcktRcmJC?=
- =?utf-8?B?R3ZIZk5kdE9Fd2Nsd1pvbzFOdkRBNzl1cm1ENW50eGZjbXcwN0dtWG1kclhq?=
- =?utf-8?B?aWJaUFNGUVZzWWhETkVzOFJqNFNuTkRodFNNNG9CcjBPVTY5elZ1bEkwTjNP?=
- =?utf-8?B?VDlaSVcxYTJiNm15R0VlQVZoU0FiY2FpVm5GODFmYXZFMi9Ic2xKYk5mVlVj?=
- =?utf-8?B?S0gwYzFHTTl4RDdqTnQ3Z2N1eFFsaUxPSzRWTXcrT094ZWNzMWgvTWUvZTho?=
- =?utf-8?B?NUwvazJ2a1MwZ25yUnBYOGxaN1FGdDBkLzlxQmpQUTc1Qzd5VW5xeUZuNCs0?=
- =?utf-8?B?KzdxYkhVZjRteGV6emovbHJTaWtmSUp3enc1SlBPRjQ5bXh4YmtMSDNsRDVz?=
- =?utf-8?B?L084bkZqZE5sWVAzMjdVZFRFTjNXd2FmeFZPc292djZ2RCtnTmF2bWF1WFEy?=
- =?utf-8?B?dkowZWY0RnR0SEM4QUU1SC84TkwxU2NvMmZ1YkZGblZLVElWbWJ3aTNPaDBE?=
- =?utf-8?B?aDhlaDc2T0pVKytSazNVWDJyZVRTZ3Y3K3NodVRYY1RlTCt0QUxCVTA5dXFE?=
- =?utf-8?Q?RGau3AMy7Kh4ybfhIwFjBPMLFKNRy4=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB8946.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?bnBTekVLRHBxd3pGYzRDWFEwVVpHTmNvYlpTblE2cXJmRG9vWGVoK0dtaVRz?=
- =?utf-8?B?eEZWbDN0dGlMS2FQd0Z3UUZNQ0w1MURUUHNyZG8rNFFTenJJdE95V1VoWGdu?=
- =?utf-8?B?QTFuRE1zTDJ4cjN3Q2J5ZGZIbmREQTMrRksrOFpZRE5nd0QwVFNHeldKYjlr?=
- =?utf-8?B?dDVNbVIxUkQvRFdKRStQNWFmZWdKR3F2UUl2R3ljdVd2eGNNQk5XYU5Id1cx?=
- =?utf-8?B?UG9RMWYybGQ0QmFBT2FSemdyYUxrT0xxOXl1Z0dlWUdQVGpOUnlxUnZHdjhX?=
- =?utf-8?B?cm8ycVd1bGhmWEpNQmdJUU1UcHBGLzN4T2RiaU80elRzNVhWbFc3ZzNCb1hm?=
- =?utf-8?B?RkFwT25xbTh3WHJEMXVRZjRpL25CTzE3K3BMV05Yc0dCeHM3b2Z2c2piWEVo?=
- =?utf-8?B?ZzJocFNEQUJlL1p4TXNnUytoTUJ6SElCNTdkMWRma0JMZGVTVUdNRkFNR3FF?=
- =?utf-8?B?RTdDTW84Yy8rSHQxRWgrN3lmWTFabENrMkNXV3hXRyt2RzE3ZjBYeUh1UmI4?=
- =?utf-8?B?V0IvUTlKZUNaSTlzNEUyR3V6RjdZU09VNDZ4UnNHd0J0L3JWRDJ3RkNsdmgv?=
- =?utf-8?B?aXhHNW1VQndMOFEvUnhFRktXZzduMEl2cXE0ODRrWUhZYzFUaGdzMFNxL3Zu?=
- =?utf-8?B?cnBvNlhGdGdHRmQvcVYrOUhwZG9uUDhBeXRacGt0a09DdmpqNGdwblRqV0lG?=
- =?utf-8?B?WTdwSEEwZUJ1SENlTmw5VWhzeWFuYVROTTlZUnRqbWhEU1BuNUwzNUZiR3dF?=
- =?utf-8?B?MGhXMm5UZU1LMEk0Yy8yd0RDTzZpMzVIMGtlTFNHcExETjhRejBEaWFqUFN5?=
- =?utf-8?B?OEVJMUZseHdXaG53RWZnc041QVhHajBQeld4T01DNlJtWVArYVVJYWN3blNv?=
- =?utf-8?B?Zk9ndlloWkNIbUFoK0k5UkNCMzlHa1ZoMWd3TCthSjI3Z3RVRGY2eEJyS2Rs?=
- =?utf-8?B?WE1kc3I4UGJMeEFQQTlhS3BTaFE4Y0tRbzZHWmRlRHBWNEJqL0FYak81RFNw?=
- =?utf-8?B?KzFtbFdxNjlpY21zQytIK2ZtVm1VL2ovVnVWOFdJNG1KaUxKQ3F0TU5uaDU4?=
- =?utf-8?B?OVRXOGhUSnc1RXZpeVlDYUZkSTRxcGZxRXdWZHJPUmx4WjhIZE9VdmZqclRC?=
- =?utf-8?B?QkRuTExPS2hDWWZQTGNQWTV6ZjBoMDM5T0xjeEpzdkVCNnJXamZZM2RpTXU5?=
- =?utf-8?B?cGxvazhEcEs2M0Y2S1dIcm4rRzlnS2wwQ1E2KytkSlphK2s0OHFFeEVXRmhy?=
- =?utf-8?B?UVMyNysrSHByQ2cxZUI2ZEFYbzZIaldsQW1yeG02UkVjRkx0cFMxTTd5VGF2?=
- =?utf-8?B?bzJiUENXSEpxTGVPUmsrZmJyLzZPRVYwdjJnY0pDNEVjNWNHb3pHR0lBNlhk?=
- =?utf-8?B?cE4xUU5VQk9oSWVNY2ViTXpLUGE1V0IrNlZYRXAzZjE4WVU2T3BDS21xU0lR?=
- =?utf-8?B?Z3RManNRaW44dWpXdTMzWC9wYlF5U1BOM0NoKzUxSElieFNmRmlmRTExMU5w?=
- =?utf-8?B?UStVRUpyaVJ4SXFKa2N3VEMrTUs3MFJDQnYwQS9QYnUxTE0rR2c5cW9QQmh3?=
- =?utf-8?B?V3k3eXh1ZUJxMzNaMHBwRVhKeXhHRUxHbXpCNks4QUdFMWF3VXRBMHpnRjRi?=
- =?utf-8?B?Mi9zVlJiNUlEN0t2OE5PalhjdmhDUmxBUGszUjJQZDBaT2JoWkZzMTQvUUVh?=
- =?utf-8?B?YUhjZ1JEZk9kK0VZeUZwV24yRlpUTXNTeFN3UVgrUFJ1MnZKUXRWb1NTMVM5?=
- =?utf-8?B?Q2JvSUxJejdhcGZZelhVbXhpMlNDSEI1YTY2NlFuZUUzSjlVYWIvT29rN3BM?=
- =?utf-8?B?RjduczFLcGxUTVBSRTYwSGFrZnBEVHhJYm5TQ2tWS3huS0hieEVvanZPdTZv?=
- =?utf-8?B?MEJUOTJUdXJDN3VXVEljYys2dzErM0VJdnRCUnNCY2dWL1MrSVhaZE1ET01I?=
- =?utf-8?B?eEI1elRLQnVvSmlKK0djSml1RnJKL0o5aXJpN24xbGxzOUc4QjhwTGRycnly?=
- =?utf-8?B?NmJkRGpNMlA4TGhaMm5OV2ovZ1ZGZWNtZDZDTkwyWjNXbm1ZMFhpcDEyMGs2?=
- =?utf-8?B?K0N6UFNhbGdRQmRwc01WTVJobEg0bVBUK3Y1S0VYWlR2eFNtK2dBNU9PNFNa?=
- =?utf-8?B?ZnNYZDhidWt6K2MzczZxSUZ1ZXRCSnF3QzFBWFR5a0taTjc3cVpmeXkvRG93?=
- =?utf-8?B?SUE9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <23B2D5C239AEDC409CD5B4F1A358B0C9@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 67c3b860-8e56-11f0-9d13-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1757516220; x=1758121020; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=15cYQVjB6Bko11Is5/dYR/Umn5ijIKC3kxDHPdxDkiM=;
+        b=DwQD8XijE3CnVlzG0MLzzgIMHzSaaxSWPYIisVYRjQlxQp4lwUFkIDCawRCba+1CzS
+         xpCENmCHqtYOBk2N5IEI/Kp7YXKVbYFSE2qhjzCoRNeOqqdHtQ+6jhfE2vN4CV124IQB
+         H1kWpLSi3NFvZ2YOWwAPzpNP2aokeuYBcRgHCN3UFTb6wBtZWd+QBarxe8sukD9f2ris
+         07xZLemC5YkN0qBSI7SgHPwST/Tw6ce0Hjmd8rAdKf18tNkIIfKDU42N+2SHwfewvo3w
+         VxA8kOrrzfjispa4FtgeHwxECSw9Py26ljX5s62zVDL6r7eiBLjkvQYugi9+lnRJsLLe
+         xEHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1757516220; x=1758121020;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=15cYQVjB6Bko11Is5/dYR/Umn5ijIKC3kxDHPdxDkiM=;
+        b=WG7/fyuCT/0Dkd1X5pe4gdunZ/Lu3GKcXukOF8I4JvyzEMEaw6VGqDx5YCJ/jP5PpK
+         Cc0ROcwfV1q4FmPDrJUi9JB+d/Agmdh8/vjxTxoWp5YHZNqCfnRHmz2rrryGCHFOo3sv
+         6lWlR4DMhEcojYXXKurR5v7y7o/R1M0HhwMjYW1o//84M6ICZfUm2b4q2FQqUJf/+xWH
+         Cs95dZ11QlAar+uci7n3pHXqNqCUa7wkt8kDfUf5UnXy/md/Y1g7i4RJMqAHmPII0h4+
+         5yNpo29G+4+WNVcTPwYXpz9Nwk71PAra9sxNRcalPz06EwKPTGQL20dK0z3FeRmeoI6M
+         eXjQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVY0G8RBFqtR69DnZN9VgEK3NwSm68gY1oy96t5eOIn1m2N/ERJ2GWjNLmES42xkgimImsNw4hX478=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyOw27fRcoJFjjXuuP0tiQGdS19dNAEQdCTReebxDfdb+32PiUP
+	Ge5IXK6cisB59ufDwQPvCBmubX5ijm0u5S19OEd55Iow8AQjLsk7/Y+sUtVQABnfbA==
+X-Gm-Gg: ASbGncsiGE3OpmGDfPVcnZ/nFAFoRa9R0ziNmOLbgM5EYoWoePYFvuuq7HLFnZjRmtl
+	MWktm0afCDBYgKZ/LhHRQGqYybSk8sBrQy5Ld0l55mqs2QxHkSCUMeXYFM/i7s6Vj+mrREaYI1J
+	KHzmYf+dVZKvMo+AN41hEe0sUkjfJUT/VHbFUfJ3v+cs+LPb+ocMCG98hWOXToLgRhHtxQ8WDL4
+	IyXEG1QamPWhJzPBQUhfjQWvuUr2ay0LvpVdLb3wAAfhpIYiJng7Y7bX4tkDsCzn6qXAwMlWJFG
+	U2jfcC+Bzv0vZ5LqTYNxGkQblTrtuYOmcf1rS5NdmdaGSBlWb581R8GcTM69QI36/ZiVDR8oSA4
+	KnLQHnz2bqoEOLDfAoyEq/Ao4QSoL8yFHx2sz2ao1/LOzgQQv7byAFzFguipF8IWatr6b/013kw
+	571yAwBOHamrjaCIYnnw==
+X-Google-Smtp-Source: AGHT+IFr09DYlgXsLIVaZOvNGub5Ek7Opv2Xbme58zhVraW4jrG3tuyMHtAqrksVw3G4Vlg1fTmang==
+X-Received: by 2002:a17:906:456:b0:b07:6214:79f9 with SMTP id a640c23a62f3a-b0762148115mr734727866b.19.1757516220138;
+        Wed, 10 Sep 2025 07:57:00 -0700 (PDT)
+Message-ID: <b8430631-f857-426a-a144-c6b8fbf94ee9@suse.com>
+Date: Wed, 10 Sep 2025 16:56:58 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB8946.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f828c17c-0920-4743-c7f1-08ddf0794250
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2025 14:49:35.0376
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 03c5O3sU0SbSX8Y+6xVR+tCq8Zbj/Cu2Xo0Nprzedk69fEbDuDNM+by52/XJMM+GRxgCmFwVMvldc6A8udhEs8ibzaK0qaOZ6Y0Ek2uJxug=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR03MB7611
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 04/26] xen: consolidate CONFIG_VM_EVENT
+To: Penny Zheng <Penny.Zheng@amd.com>, Tamas K Lengyel <tamas@tklengyel.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
+ <20250910073827.3622177-5-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250910073827.3622177-5-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-SGkgSnVsaWVuLA0KDQpUaGFuayB5b3UgZm9yIHlvdXIgb2JzZXJ2YXRpb25zLiBZb3UncmUgYWJz
-b2x1dGVseSByaWdodCBhYm91dCB0aGlzLg0KDQpDdXJyZW50bHksIHRoZSBzY2lfcmVsaW5xdWlz
-aF9yZXNvdXJjZXMgY2FsbCBkb2Vzbid0IHBlcmZvcm0gYW55IG9wZXJhdGlvbnMNCmJlY2F1c2Ug
-dGhlIHNpbmdsZS1hZ2VudCBkb2Vzbid0IGltcGxlbWVudCBhIGNhbGxiYWNrLg0KDQpJJ2xsIG1v
-dmUgdGhlIHNjaSBpbXBsZW1lbnRhdGlvbiB0byBiZSBwb3NpdGlvbmVkIGFib3ZlIHRoZSB0ZWUg
-DQppbXBsZW1lbnRhdGlvbg0KYW5kIHByZXBhcmUgYSBwYXRjaCBmb3IgdGhpcyBjaGFuZ2UuDQoN
-Ci0tDQpPbGVrc2lpDQoNCk9uIDA5LzA5LzIwMjUgMTI6NTUsIEp1bGllbiBHcmFsbCB3cm90ZToN
-Cj4gSGkgT2xla3NpaSwNCj4NCj4gV2hpbGUgZ29pbmcgdGhyb3VnaCB0aGUgbGlzdCBvZiByZWNl
-bnRseSBjb21taXR0ZWQgcGF0Y2hlcywgSSBub3RpY2VkIA0KPiBzb21lIGNoYW5nZXMgaW4gdGhl
-IHJlbGlucXVpc2ggY29kZS4NCj4NCj4NCj4gT24gMDQvMDkvMjAyNSAxNToyMSwgT2xla3NpaSBN
-b2lzaWVpZXYgd3JvdGU6DQo+PiBAQCAtMTEwMyw2ICsxMTA5LDEwIEBAIGludCBkb21haW5fcmVs
-aW5xdWlzaF9yZXNvdXJjZXMoc3RydWN0IGRvbWFpbiAqZCkNCj4+IMKgwqDCoMKgwqDCoMKgwqDC
-oCByZXQgPSByZWxpbnF1aXNoX3AybV9tYXBwaW5nKGQpOw0KPj4gwqDCoMKgwqDCoMKgwqDCoMKg
-IGlmICggcmV0ICkNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiByZXQ7DQo+
-DQo+IFN0eWxlOiBUaGVyZSBpcyBhIG1pc3NpbmcgbmV3bGluZS4NCj4NCj4+ICvCoMKgwqAgUFJP
-R1JFU1Moc2NpKToNCj4NCj4gSSBkb24ndCBxdWl0ZSB1bmRlcnN0YW5kIHdoeSB0aGUgc2NpIHJl
-bGlucXVpc2ggd2FzIGFkZGVkIHJpZ2h0IGluIHRoZSANCj4gbWlkZGxlIG9mIHRoZSBQMk0gcmVs
-aW5xdWlzaCBsb2dpYy4gQXQgbGVhc3QgdG8gbWUsIGl0IG1ha2VzIG1vcmUgDQo+IHNlbnNlIHRv
-IGJlIGNsb3NlciB0byBURUUgKGJlY2F1c2UgdGhpcyBpcyBmaXJtd2FyZSBzdWJzeXN0ZW0pIGFu
-ZCANCj4gcG9zc2libHkgZXZlbiBiZWZvcmUgcmVsZWFzaW5nIGFueSBkZXZpY2VzLg0KPg0KPiBD
-YW4geW91IGNsYXJpZnkgd2h5IHlvdSBjaG9zZSB0aGlzIHBsYWNlbWVudD8NCj4NCj4gQ2hlZXJz
-LA0KPg0K
+On 10.09.2025 09:38, Penny Zheng wrote:
+> @@ -2456,9 +2460,13 @@ static struct hvm_function_table __initdata_cf_clobber svm_function_table = {
+>      .fpu_dirty_intercept  = svm_fpu_dirty_intercept,
+>      .msr_read_intercept   = svm_msr_read_intercept,
+>      .msr_write_intercept  = svm_msr_write_intercept,
+> +#ifdef CONFIG_VM_EVENT
+>      .enable_msr_interception = svm_enable_msr_interception,
+> +#endif
+>      .set_rdtsc_exiting    = svm_set_rdtsc_exiting,
+> +#ifdef CONFIG_VM_EVENT
+>      .set_descriptor_access_exiting = svm_set_descriptor_access_exiting,
+> +#endif
+
+I think in such a case it would be preferable to move one of the existing
+lines, so we can get away with just a single #ifdef.
+
+> --- a/xen/arch/x86/include/asm/hvm/hvm.h
+> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
+> @@ -192,7 +192,9 @@ struct hvm_function_table {
+>      void (*handle_cd)(struct vcpu *v, unsigned long value);
+>      void (*set_info_guest)(struct vcpu *v);
+>      void (*set_rdtsc_exiting)(struct vcpu *v, bool enable);
+> +#ifdef CONFIG_VM_EVENT
+>      void (*set_descriptor_access_exiting)(struct vcpu *v, bool enable);
+> +#endif
+>  
+>      /* Nested HVM */
+>      int (*nhvm_vcpu_initialise)(struct vcpu *v);
+> @@ -224,7 +226,9 @@ struct hvm_function_table {
+>                                  paddr_t *L1_gpa, unsigned int *page_order,
+>                                  uint8_t *p2m_acc, struct npfec npfec);
+>  
+> +#ifdef CONFIG_VM_EVENT
+>      void (*enable_msr_interception)(struct domain *d, uint32_t msr);
+> +#endif
+
+Possibly same here.
+
+> @@ -435,7 +439,11 @@ static inline bool using_svm(void)
+>  
+>  static inline bool hvm_has_set_descriptor_access_exiting(void)
+>  {
+> +#ifdef CONFIG_VM_EVENT
+>      return hvm_funcs.set_descriptor_access_exiting;
+> +#else
+> +    return false;
+> +#endif
+>  }
+
+This is actively wrong. It being only monitor.[ch] which use the function,
+I don't see why it can't just be wrapped in an #ifdef. With what you do,
+some new caller might function fine until run in a VM_EVENT=n build.
+
+> @@ -681,7 +689,9 @@ static inline int nhvm_hap_walk_L1_p2m(
+>  
+>  static inline void hvm_enable_msr_interception(struct domain *d, uint32_t msr)
+>  {
+> +#ifdef CONFIG_VM_EVENT
+>      alternative_vcall(hvm_funcs.enable_msr_interception, d, msr);
+> +#endif
+>  }
+
+Mostly the same here.
+
+> --- a/xen/arch/x86/include/asm/hvm/monitor.h
+> +++ b/xen/arch/x86/include/asm/hvm/monitor.h
+> @@ -17,14 +17,16 @@ enum hvm_monitor_debug_type
+>      HVM_MONITOR_DEBUG_EXCEPTION,
+>  };
+>  
+> +#define hvm_monitor_crX(cr, new, old) \
+> +                        hvm_monitor_cr(VM_EVENT_X86_##cr, new, old)
+> +
+> +#ifdef CONFIG_VM_EVENT
+>  /*
+>   * Called for current VCPU on crX/MSR changes by guest. Bool return signals
+>   * whether emulation should be postponed.
+>   */
+>  bool hvm_monitor_cr(unsigned int index, unsigned long value,
+>                      unsigned long old);
+> -#define hvm_monitor_crX(cr, new, old) \
+> -                        hvm_monitor_cr(VM_EVENT_X86_##cr, new, old)
+>  bool hvm_monitor_msr(unsigned int msr, uint64_t new_value, uint64_t old_value);
+>  void hvm_monitor_descriptor_access(uint64_t exit_info,
+>                                     uint64_t vmx_exit_qualification,
+> @@ -45,6 +47,65 @@ int hvm_monitor_vmexit(unsigned long exit_reason,
+>  
+>  int hvm_monitor_io(unsigned int port, unsigned int bytes,
+>                     bool in, bool str);
+> +#else
+> +static inline bool hvm_monitor_cr(unsigned int index, unsigned long value,
+> +                                  unsigned long old)
+> +{
+> +    return false;
+> +}
+> +
+> +static inline bool hvm_monitor_msr(unsigned int msr, uint64_t new_value,
+> +                                   uint64_t old_value)
+> +{
+> +    return false;
+> +}
+> +
+> +static inline void hvm_monitor_descriptor_access(uint64_t exit_info,
+> +                                        uint64_t vmx_exit_qualification,
+> +                                        uint8_t descriptor, bool is_write) {}
+> +
+> +static inline int hvm_monitor_debug(unsigned long rip,
+> +                                    enum hvm_monitor_debug_type type,
+> +                                    unsigned int trap_type,
+> +                                    unsigned int insn_length,
+> +                                    unsigned int pending_dbg)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+> +
+> +static inline int hvm_monitor_cpuid(unsigned long insn_length,
+> +                                    unsigned int leaf, unsigned int subleaf)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+> +
+> +static inline void hvm_monitor_interrupt(unsigned int vector,
+> +                                         unsigned int type,
+> +                                         unsigned int err, uint64_t cr2) {}
+> +
+> +static inline bool hvm_monitor_emul_unimplemented(void)
+> +{
+> +    return false;
+> +}
+> +
+> +static inline bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn,
+> +                                         uint32_t pfec, uint16_t kind)
+> +{
+> +    return false;
+> +}
+> +
+> +static inline int hvm_monitor_vmexit(unsigned long exit_reason,
+> +                                     unsigned long exit_qualification)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+> +
+> +static inline int hvm_monitor_io(unsigned int port, unsigned int bytes,
+> +                                 bool in, bool str)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+
+For this one it's perhaps easiest to see that -EOPNOTSUPP (or in fact any
+negative value) is wrong to return from the stub: Just go look at both
+use sites. Guests wouldn't be able to use I/O insns anymore for intercepted
+ports. Others look to have similar issues, while the ones returning "false"
+look okay.
+
+> --- a/xen/include/xen/mem_access.h
+> +++ b/xen/include/xen/mem_access.h
+> @@ -33,9 +33,7 @@
+>   */
+>  struct vm_event_st;
+>  
+> -#ifdef CONFIG_VM_EVENT
+>  #include <asm/mem_access.h>
+> -#endif
+
+Aiui this breaks the build on PPC and RISC-V, which don't have such a
+header. If this change is really needed (which I'm not convinced of, as
+x86's hvm/hvm.c could as well include asm/mem_access.h directly), you'll
+need to use has_include() here.
+
+> @@ -74,6 +72,7 @@ typedef enum {
+>  } p2m_access_t;
+>  
+>  struct p2m_domain;
+> +#ifdef CONFIG_VM_EVENT
+>  bool xenmem_access_to_p2m_access(const struct p2m_domain *p2m,
+>                                   xenmem_access_t xaccess,
+>                                   p2m_access_t *paccess);
+> @@ -99,10 +98,40 @@ long p2m_set_mem_access_multi(struct domain *d,
+>  int p2m_get_mem_access(struct domain *d, gfn_t gfn, xenmem_access_t *access,
+>                         unsigned int altp2m_idx);
+>  
+> -#ifdef CONFIG_VM_EVENT
+>  int mem_access_memop(unsigned long cmd,
+>                       XEN_GUEST_HANDLE_PARAM(xen_mem_access_op_t) arg);
+>  #else
+> +static inline bool xenmem_access_to_p2m_access(const struct p2m_domain *p2m,
+> +                                               xenmem_access_t xaccess,
+> +                                               p2m_access_t *paccess)
+> +{
+> +    return false;
+> +}
+
+So this is needed when VM_EVENT=n and ALTP2M=y. Tamas, is this a configuration
+which makes sense?
+
+> +static inline long p2m_set_mem_access(struct domain *d, gfn_t gfn, uint32_t nr,
+> +                                      uint32_t start, uint32_t mask,
+> +                                      xenmem_access_t access,
+> +                                      unsigned int altp2m_idx)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+> +
+> +static inline long p2m_set_mem_access_multi(struct domain *d,
+> +                            const XEN_GUEST_HANDLE(const_uint64) pfn_list,
+> +                            const XEN_GUEST_HANDLE(const_uint8) access_list,
+> +                            uint32_t nr, uint32_t start, uint32_t mask,
+> +                            unsigned int altp2m_idx)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+> +
+> +static inline int p2m_get_mem_access(struct domain *d, gfn_t gfn,
+> +                                     xenmem_access_t *access,
+> +                                     unsigned int altp2m_idx)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+
+Instead of these, I wonder whether a single #ifdef in do_altp2m_op()
+wouldn't be more appropriate (assuming the above config makes some sense
+in the first place). Actually, it would need to be two #ifdef-s, one in
+each of the two switch() blocks.
+
+> --- a/xen/include/xen/monitor.h
+> +++ b/xen/include/xen/monitor.h
+> @@ -30,6 +30,7 @@ struct xen_domctl_monitor_op;
+>  #ifdef CONFIG_VM_EVENT
+>  int monitor_domctl(struct domain *d, struct xen_domctl_monitor_op *mop);
+>  void monitor_guest_request(void);
+> +int monitor_traps(struct vcpu *v, bool sync, vm_event_request_t *req);
+>  #else /* !CONFIG_VM_EVENT */
+>  static inline int monitor_domctl(struct domain *d,
+>                                   struct xen_domctl_monitor_op *mop)
+> @@ -37,8 +38,11 @@ static inline int monitor_domctl(struct domain *d,
+>      return -EOPNOTSUPP;
+>  }
+>  static inline void monitor_guest_request(void) {}
+> +static inline int monitor_traps(struct vcpu *v, bool sync,
+> +                                vm_event_request_t *req)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+
+Is this needed? There's only one call that needs taking care of afaics,
+in hvm_hap_nested_page_fault(). That's gated on "req_ptr" being non-NULL
+though, which isn't possible when p2m_mem_access_check() also is a stub.
+Hence the compiler ought to be able to DCE the call.
+
+> --- a/xen/include/xen/vm_event.h
+> +++ b/xen/include/xen/vm_event.h
+> @@ -50,6 +50,7 @@ struct vm_event_domain
+>      unsigned int last_vcpu_wake_up;
+>  };
+>  
+> +#ifdef CONFIG_VM_EVENT
+>  /* Returns whether a ring has been set up */
+>  bool vm_event_check_ring(struct vm_event_domain *ved);
+>  
+> @@ -68,6 +69,20 @@ bool vm_event_check_ring(struct vm_event_domain *ved);
+>   */
+>  int __vm_event_claim_slot(struct domain *d, struct vm_event_domain *ved,
+>                            bool allow_sleep);
+> +#else
+> +static inline bool vm_event_check_ring(struct vm_event_domain *ved)
+> +{
+> +    return false;
+> +}
+
+Which call site is in need of this stub? I was first considering
+mem_paging_enabled(), but MEM_PAGING already now depends on VM_EVENT.
+
+> +static inline int __vm_event_claim_slot(struct domain *d,
+> +                                        struct vm_event_domain *ved,
+> +                                        bool allow_sleep)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+
+Sadly this looks to be needed when MEM_SHARING=y and VM_EVENT=n.
+
+> @@ -82,23 +97,28 @@ static inline int vm_event_claim_slot_nosleep(struct domain *d,
+>  
+>  void vm_event_cancel_slot(struct domain *d, struct vm_event_domain *ved);
+>  
+> +#ifdef CONFIG_VM_EVENT
+>  void vm_event_put_request(struct domain *d, struct vm_event_domain *ved,
+>                            vm_event_request_t *req);
+>  
+> -#ifdef CONFIG_VM_EVENT
+>  /* Clean up on domain destruction */
+>  void vm_event_cleanup(struct domain *d);
+>  int vm_event_domctl(struct domain *d, struct xen_domctl_vm_event_op *vec);
+> +
+> +void vm_event_vcpu_pause(struct vcpu *v);
+>  #else /* !CONFIG_VM_EVENT */
+> +static inline void vm_event_put_request(struct domain *d,
+> +                                        struct vm_event_domain *ved,
+> +                                        vm_event_request_t *req) {}
+
+Same here and ...
+
+>  static inline void vm_event_cleanup(struct domain *d) {}
+>  static inline int vm_event_domctl(struct domain *d,
+>                                    struct xen_domctl_vm_event_op *vec)
+>  {
+>      return -EOPNOTSUPP;
+>  }
+> +static inline void vm_event_vcpu_pause(struct vcpu *v) {};
+
+... here.
+
+>  #endif /* !CONFIG_VM_EVENT */
+>  
+> -void vm_event_vcpu_pause(struct vcpu *v);
+>  void vm_event_vcpu_unpause(struct vcpu *v);
+
+Please move vm_event_vcpu_unpause() as well (without adding a stub). The
+two would better stay together.
+
+Jan
 
