@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6596BB517DC
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 15:26:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1118245.1464099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81BE8B517F4
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 15:31:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1118257.1464110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwKqK-00047t-SB; Wed, 10 Sep 2025 13:26:36 +0000
+	id 1uwKut-0005l1-CK; Wed, 10 Sep 2025 13:31:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1118245.1464099; Wed, 10 Sep 2025 13:26:36 +0000
+Received: by outflank-mailman (output) from mailman id 1118257.1464110; Wed, 10 Sep 2025 13:31:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwKqK-00046B-PJ; Wed, 10 Sep 2025 13:26:36 +0000
-Received: by outflank-mailman (input) for mailman id 1118245;
- Wed, 10 Sep 2025 13:26:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uwKut-0005i0-9P; Wed, 10 Sep 2025 13:31:19 +0000
+Received: by outflank-mailman (input) for mailman id 1118257;
+ Wed, 10 Sep 2025 13:31:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kMwI=3V=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uwKqI-000465-V6
- for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 13:26:34 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c48b40d1-8e49-11f0-9809-7dc792cee155;
- Wed, 10 Sep 2025 15:26:33 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-45dd505a1dfso43374305e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 10 Sep 2025 06:26:33 -0700 (PDT)
+ id 1uwKur-0005hu-6o
+ for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 13:31:17 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6d2f3ba0-8e4a-11f0-9d13-b5c5bf9af7f9;
+ Wed, 10 Sep 2025 15:31:16 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3df726ecff3so3603385f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Sep 2025 06:31:16 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45df81c72edsm28526685e9.1.2025.09.10.06.26.31
+ ffacd0b85a97d-3e7521ca22esm7509346f8f.18.2025.09.10.06.31.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Sep 2025 06:26:31 -0700 (PDT)
+ Wed, 10 Sep 2025 06:31:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c48b40d1-8e49-11f0-9809-7dc792cee155
+X-Inumbo-ID: 6d2f3ba0-8e4a-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1757510792; x=1758115592; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1757511075; x=1758115875; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UyO9lwvUP4MF7hak4fj1iSeZE9v5FUGZpfGxCuN8ZIk=;
-        b=DEb5ls23JUdtffuGkzoN/YkD529J+hUyvmybD+ic2gpbu1pYhIpAzP5/HugPDrQCZw
-         5pZ9iI9HssnK+8jR/XA/p9DS/+xsKaIvpYNihFPhwdlMhZs0pvOrw2nqgIpw9idpsJz5
-         wehlOPqFSA2IpPcXhWOj98N565puuVr6lANuM=
+        bh=3MkGfz3VUq3hV2r7iXh77w3Mca/dAE9rQocE9HyDvFg=;
+        b=exJBG9wVJvhOnxBrqS3gB84gCBd0Q4nVNWfodNsYbkw3oSoRBcXf0kdWYU45LU3UpJ
+         eGQh4DJcGbIahYlzpfzjPiyHG4VOnbZ2+RSH+7mItw1ooY1SbNbjb/PseNd4rFhYsUjv
+         bNhx4Uwi8a+SWwiNGbuhj9CNJdXAd0+UHmyEM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757510792; x=1758115592;
+        d=1e100.net; s=20230601; t=1757511075; x=1758115875;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UyO9lwvUP4MF7hak4fj1iSeZE9v5FUGZpfGxCuN8ZIk=;
-        b=WcguUq3g2kLhvCjFFbG82x1eIXZc+0L9/DiSizVWtzkop4rOBuMKRvseOU2DsEfQIH
-         2aIFdz412MXS6SQgrYw33UeZWjXMBibW6kI9+h1KaPOSEfJy8lkvr6sxpZMh79TQZtvA
-         BRYRaCujboGevMdzMBy4A8o1h+EJg1MPTbwnXAFMJLlCP1ukF4VvOy7cL3WVtsklelRZ
-         FPY4AxZSnn6k6LivBKqIqfNJZXhAbmj8LF6kTs768KBxORHzlogfq82u1jN4vXBKwp2s
-         Lh4y6uC/vJlROFnerpkAomKhnwv9hP2O6kjJEBlqKi2FNf9XDCj8i5rKqyYGNTsUEJgx
-         RxYQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXzQKmUkaxz0RrqPBzOCtzX5hDfgzYIdRfdoV/rEhN1Pyt5pQHk/ecmFBl+PtVGQAUvQ8GUGH8QJDY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyECbogz3RK3XlvNYSUJ1haCfhP/VD55/fClRN1J87qhURZvDgt
-	Hp0hgFdNnUZwCdhOa5ZubpMiYg2QVFHpx/FMiRzJ8kN2s6ZuTw35krkCQWgHXgRBIxs=
-X-Gm-Gg: ASbGncug2wimYbnAXst2avB7fH+6DPYJdSOU9jPsCWtdfZ09BEmrLHWBpEXabmqVJpl
-	8Cew1F9EWaq5EWbhMnZzIPPX+iPxcnd2t58crR2xsxn/HNGxHRr0wFaeJ7Xe7tNbwlU/GND6R0E
-	r4qxnihwUTNdPvJlcujlx8wQJJX+rGaH/wcco571PHvmL7p+AIo3QeSOCBadrnHHXgkxrZpKCOL
-	FkrxaVAUXZ8PcE0Qg81mXwjIYQrip/Tw3JAWLdBsbqLdStfOvww1b6Iti1evrTbZ5ZUDu2Yu17b
-	4rjJx9xBwzpd0rDAq2LT10T1dInam/YAnek4JPX7t0CEH25WBvbqZokNn3kqNz0SP+bzg045Ztm
-	yPD6cSxMvpI+Uq9G1Ry/IIE3eUhgwzQ5i6tMDT6SQX2513iJ/WIbpg07rJYwrSSB19Kgv4X0HvH
-	V3o7V/SlYts+T0SQ==
-X-Google-Smtp-Source: AGHT+IGElgGFoDyljSjCkEbC4J1Xam49FWC4hAq0w5OnD+Olq5O6YGdFMZOMWyveohq5E1L1RRfy1A==
-X-Received: by 2002:a05:600c:474e:b0:456:1b6f:c888 with SMTP id 5b1f17b1804b1-45dddecd894mr133709535e9.23.1757510792455;
-        Wed, 10 Sep 2025 06:26:32 -0700 (PDT)
-Message-ID: <bbe33d31-949c-4bf1-96f5-598b21faf149@citrix.com>
-Date: Wed, 10 Sep 2025 14:26:30 +0100
+        bh=3MkGfz3VUq3hV2r7iXh77w3Mca/dAE9rQocE9HyDvFg=;
+        b=U8vAFJrzPb+GG7eFqkg2MewouvUx87nIKKdjX8r0AYuvN8VcZ5YfHjOcO40CdwbS87
+         7/xTkvlbXHAJO169NNgw17G6DobOmgDzu2xX57zTc+hCZRVkbovuGVbFDCFUf+QnHML9
+         nWUL0yxyDwQHognC2AB5to7Q8gr2iSwOQTBhhS7+yphsqkB0D+oT4iCXQwgJF5D2TEwu
+         uLOGOegSVCd/b+29kK5r2tvyLltkk9KWNbH9w7N+tBdYPc/Qn6WfVlKGhsAaKOfa0tcX
+         m5vdyv6Oe2gKj2dn8yRQhrohxktgLGS/Jkut3kC/2xNwp/HBjqq6iTwfMFrjQYIlH1ek
+         qfxA==
+X-Forwarded-Encrypted: i=1; AJvYcCWQoL+s9hFj+RdkOYbuzLea8T/CRo5pNKiULFsi6jbwjnCmSTh2hg5/Ho+uoVBFH0LRPbV0dIp5At0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzEEt6k3BfWqQPLaH5Lw5R3FN9wWNNe7bbSAhOsQzQ4mGwQQciZ
+	GthHdevBNUi0f2oebMn1mQe2DVJMptfgZ4EFvzhXnUIk9f8Aknqd8dmmI2haabKrpe8=
+X-Gm-Gg: ASbGncv6HZ/f9nQqHgu5eWeNO7Gia0I1VUHCg+w+TiIWplz49+l5Ih60kCg8tKwFhS7
+	J1nMTsKPARfCwi76PUSBbaXpHWFWa+1K4TioOs3thKGt29qhDriX5M0xtgP8nwOQkzbhoZQC7Pt
+	Wpowmeux5TYD7+cQzyI+DKaGek0PagRLpe964rTAGJ4AOalaGgtctAJ1TZKgMz34FRobaW5lSQO
+	YAWym9P4kE/BmpurUkZTRTHhuqx8wpLI1zFIuUZDWETnMEl8+ehZYmrLPB7B47JwUcDP96tqepK
+	7XmR6VyKH0HXSLf1rwdMwO64qCyjXLX0yAPKYgh6/DpOOBOOxkPjecSNY3aJsb4wN83cYaZErGb
+	0BjJiBFCHODadN4S9FxjU4Mx3v3yfQr5B8n4SwpqbqpTE7jKTaZPKJDQ1ff1KEFeYSP35
+X-Google-Smtp-Source: AGHT+IETzShO/bkLQIEEBmlENUpxbqlf3kZMYCjRdhPOSyGuCiy/UYsCGFCFoO0oZlp+cnHoaknRUw==
+X-Received: by 2002:a05:6000:26d2:b0:3df:b9e7:35ba with SMTP id ffacd0b85a97d-3e6440f0674mr12375342f8f.57.1757511075270;
+        Wed, 10 Sep 2025 06:31:15 -0700 (PDT)
+Message-ID: <cfe16ba2-2940-4a64-bf80-97cb66e84f92@citrix.com>
+Date: Wed, 10 Sep 2025 14:31:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/IO-APIC: drop setup_ioapic_ids_from_mpc()
+Subject: Re: [PATCH 2/2] x86/IO-APIC: drop io_apic_get_unique_id()
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "consulting@bugseng.com" <consulting@bugseng.com>
 References: <e2e54b68-1521-4bf6-9cb9-5703ed2a69fc@suse.com>
- <034dd6dd-4e3f-4353-9a11-7a0ebda9a664@suse.com>
+ <80c035e0-54f6-4632-a5c2-a10d2c1c8422@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,11 +136,11 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <034dd6dd-4e3f-4353-9a11-7a0ebda9a664@suse.com>
+In-Reply-To: <80c035e0-54f6-4632-a5c2-a10d2c1c8422@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03/09/2025 8:55 am, Jan Beulich wrote:
+On 03/09/2025 8:56 am, Jan Beulich wrote:
 > Along the lines of what b89f8f054f96 ("x86/apic: Drop sync_Arb_IDs()")
 > said, the function is dead logic as well: All 64-bit capable Intel systems
 > have (at least) xAPIC (if not x2APIC).
@@ -156,19 +155,15 @@ On 03/09/2025 8:55 am, Jan Beulich wrote:
 >
 > Otoh it's "only" __init code.
 >
+> As this removes the last user of APIC_XAPIC(), remove the macro as well.
+>
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-The code change is fine, but the commit message should be first
-paragraph only.
+Same feedback as with the previous patch, albeit about the middle 3
+paragraphs.  Again with a strong preference for those to be removed,
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-The first paragraph is plenty of justification to make the change,
-irrespective of anything else.
-
-The other 3 paragraphs are musings on an area of MISRA where which is
-unclear, or even disputed.  The code here is statically reachable,
-dynamically unreachable, and trying to argue this in terms of dead or
-unreachability detracts from an otherwise clear patch.
-
-With a very strong preference to have the commit message be only the
-first paragraph, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I'd not even spotted that APIC_XAPIC() existed.  This being explicit
+conformation of where XAPIC starts would have been helpful when doing
+archaeology.
 
