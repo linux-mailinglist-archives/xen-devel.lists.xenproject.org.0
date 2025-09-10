@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35810B51B22
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 17:13:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1118459.1464233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE7FFB51B36
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 17:16:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1118469.1464244 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwMVs-0008P6-3m; Wed, 10 Sep 2025 15:13:36 +0000
+	id 1uwMYl-0000dT-IP; Wed, 10 Sep 2025 15:16:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1118459.1464233; Wed, 10 Sep 2025 15:13:36 +0000
+Received: by outflank-mailman (output) from mailman id 1118469.1464244; Wed, 10 Sep 2025 15:16:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwMVs-0008Mj-1C; Wed, 10 Sep 2025 15:13:36 +0000
-Received: by outflank-mailman (input) for mailman id 1118459;
- Wed, 10 Sep 2025 15:13:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8l2o=3V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uwMVr-0008Md-0S
- for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 15:13:35 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b79f7a89-8e58-11f0-9d13-b5c5bf9af7f9;
- Wed, 10 Sep 2025 17:13:34 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-afcb7322da8so1300650766b.0
- for <xen-devel@lists.xenproject.org>; Wed, 10 Sep 2025 08:13:34 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b078304716dsm181620166b.12.2025.09.10.08.13.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Sep 2025 08:13:32 -0700 (PDT)
+	id 1uwMYl-0000ap-E0; Wed, 10 Sep 2025 15:16:35 +0000
+Received: by outflank-mailman (input) for mailman id 1118469;
+ Wed, 10 Sep 2025 15:16:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4bPx=3V=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
+ id 1uwMYj-0000aj-JO
+ for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 15:16:33 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 1f3989f3-8e59-11f0-9809-7dc792cee155;
+ Wed, 10 Sep 2025 17:16:28 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AD96716F2;
+ Wed, 10 Sep 2025 08:16:18 -0700 (PDT)
+Received: from [10.57.67.148] (unknown [10.57.67.148])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 99AFA3F694;
+ Wed, 10 Sep 2025 08:16:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +42,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b79f7a89-8e58-11f0-9d13-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757517213; x=1758122013; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=N/ASnHQArI5LvrunbEBR5tVoOsDlVKT+G13H/FwoRxc=;
-        b=Qr+++NF9JfRjTNkxXlc28mMIhVzlvKFycn8R7gKO4XYoRcEJSluoHlorCzMFP8zagE
-         35ukuKxEh9veWAJfA3sD7Zj3+5KvIzsgxpitgVWTWH9CLQmP/ZneP39WJmVmOIJIjPQI
-         gouOrHVLzq0RqXuKpc9ZgFMzyR9py4dJxPMy700RKlbA1q7B/pFY+E/F6B3tBRWPfC+9
-         OqaN4WtSlvfp5BZxbeOm2NhRqNoOxaz3kEb5Q+w/abYJ/K30VbwefGaXEeh09wCXjsBY
-         7fQfDDmyDJD8W2scfoEPK+Fked1NP6RaUyOPkce3Gznh+coOW2Gtcz52/NKglHdbwTkR
-         /r4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757517213; x=1758122013;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=N/ASnHQArI5LvrunbEBR5tVoOsDlVKT+G13H/FwoRxc=;
-        b=EBtCcilgoAgeN34AZ6ADcJpvRWVNbeE2PcrQKKnrI7kyrshTDiXUFeDPbBnSyO9IXH
-         1dnkV+I6ODaMrzF6bTtANwn6K//ZuVNGL9AjL4uPvKo4HMqsooCoJpVUFVVNYddj1zCI
-         CADLMAZcnOk1rXwjdEw+wbDddG2cLuM6f6lkW+jtsYBE+6SOsLtKSAbIlZpk8dcOucY/
-         DQM4GJukl9egzZMILq4vvRSK+9s/ySS2KlfoJkRYuWsl12UaYweLJ7EqjVvgKzmTAkAH
-         Vb7T/C7Wh/EhEq5uehKu0wBCCFgHYRxL3yY5KyXxyq17i4MJH/HhDCGV+pYtkJcJO1kU
-         MT/A==
-X-Forwarded-Encrypted: i=1; AJvYcCXGMVQmeAJMbq+4h19GG+NFdaAX6N/EvKT+4/KzE9T4lJupGSura9uc27udXhqDLk0wse9cYPd+KEc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwqCH2kqMAME+1hyl4svN8RtMnpi7bBXpt8f1XkgPTxjUmul5Nc
-	Ey0Vo8qI8Kaq3+6Kdl20PjhRGf0d6Le62o5B+emz2K/O+gMbHCorB5S4b5FyewIrHw==
-X-Gm-Gg: ASbGncvij7CVSxN2gwiqtXnRX2jeFl7yefCANHo8V4Ni2I3WIw1H2duGI2hMjXe9qhE
-	KevpyUX+7eWedREIWzZVCIDYx+t22WAxX/YSJ3Fg7YepZZKhKD7nnXjCWYBc/c5vB9DX0RJn8RJ
-	UBT4WxTLzzVmpyrw3yiyRVhHejpzvLTHJucJZWElVL4fKIsUX2EB08l4TK0Mb8DFAayze1yLp8P
-	0reUD3ArfQWAL3dym+buGn7nf8qEoMhZ5Ak1y5CTv5N7cXlyT/wgjc5V3DFq0TRfwn6BWMBM1kd
-	FbexECVO2M5E/9XC4gMSP82gW6OPTz0sirH4d/lftfIyYjABEmWvD5q71VjQzV/jiTbkoV0RlAV
-	DcXFdtduilLnn49COLz2u6a0Ua/YEeVkkq/0JP5OBE2YjiDK1bLy6kHJOmSIsOgh51kBzNGLXYE
-	nWv01CMG9aBVLkHVFAvQ==
-X-Google-Smtp-Source: AGHT+IEmqT/lUXyiN8ceod6sU/U7EFtrMnM+e5fk6fD3+1ukT9mha5Hv4iZoX4ARNXq2o/UHiFp5jQ==
-X-Received: by 2002:a17:907:970e:b0:b04:6858:13fb with SMTP id a640c23a62f3a-b04b1663673mr1575365666b.36.1757517213033;
-        Wed, 10 Sep 2025 08:13:33 -0700 (PDT)
-Message-ID: <4be69331-8002-47a3-a2e1-e34b12a5c5bb@suse.com>
-Date: Wed, 10 Sep 2025 17:13:31 +0200
+X-Inumbo-ID: 1f3989f3-8e59-11f0-9809-7dc792cee155
+Message-ID: <9de08024-adfc-421b-8799-62653468cf63@arm.com>
+Date: Wed, 10 Sep 2025 17:16:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/26] xen/domctl: wrap domain_soft_reset() with
- CONFIG_MGMT_HYPERCALLS
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
- <20250910073827.3622177-9-Penny.Zheng@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250910073827.3622177-9-Penny.Zheng@amd.com>
+Subject: Re: [PATCH v2 2/7] mm: introduce local state for lazy_mmu sections
+To: David Hildenbrand <david@redhat.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
+ Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
+ <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+ Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Mark Rutland <Mark.Rutland@arm.com>
+References: <20250908073931.4159362-1-kevin.brodsky@arm.com>
+ <20250908073931.4159362-3-kevin.brodsky@arm.com>
+ <d23ea683-cca4-4973-88b1-4f6fd9b22314@redhat.com>
+ <ca2054ad-b163-4e61-8ec4-6f2e36461628-agordeev@linux.ibm.com>
+ <e7acb889-1fe9-4db3-acf4-39f4960e8ccd@redhat.com>
+ <2fecfae7-1140-4a23-a352-9fd339fcbae5-agordeev@linux.ibm.com>
+ <e521b1f4-3f2b-48cd-9568-b9a4cf4c4830@redhat.com>
+ <47ee1df7-1602-4200-af94-475f84ca8d80@arm.com>
+ <29383ee2-d6d6-4435-9052-d75a263a5c45@redhat.com>
+Content-Language: en-GB
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+In-Reply-To: <29383ee2-d6d6-4435-9052-d75a263a5c45@redhat.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10.09.2025 09:38, Penny Zheng wrote:
-> Function domain_soft_reset() is responsible for domain soft reset domctl-op,
-> and shall be wrapped with CONFIG_MGMT_HYPERCALLS
-> Tracking its calling chain, and the following functions shall also be wrapped
-> with CONFIG_MGMT_HYPERCALLS:
-> - grant_table_warn_active_grants()
-> - argo_soft_reset()
-> - arch_domain_soft_reset()
-> Wrap XEN_DOMCTL_soft_reset-case transiently with CONFIG_MGMT_HYPERCALLS, and
-> it will be removed when introducing CONFIG_MGMT_HYPERCALLS on the
-> common/domctl.c in the last.
-> 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> ---
-> v1 -> v2:
-> - remove unnessary wrapping in stub.c
-> - adapt to changes of "unify DOMCTL to MGMT_HYPERCALLS"
-> - wrap XEN_DOMCTL_soft_reset-case transiently
-> ---
->  xen/arch/arm/domain.c    | 2 ++
->  xen/arch/x86/domain.c    | 2 ++
++Mark Rutland
 
-What about PPC and RISC-V? They have the function in stubs.c, but not adding
-the #ifdef there increases the chance that when the stubs are replaced by
-real functions, the intended #ifdef might then be forgotten to add.
+On 09/09/2025 16:28, David Hildenbrand wrote:
+>>>>>>> Can't we just use an "enum lazy_mmu_state" and call it a day?
+>>>>>>
+>>>>>> I could envision something completely different for this type on
+>>>>>> s390,
+>>>>>> e.g. a pointer to a per-cpu structure. So I would really ask to
+>>>>>> stick
+>>>>>> with the current approach.
+>>
+>> This is indeed the motivation - let every arch do whatever it sees fit.
+>> lazy_mmu_state_t is basically an opaque type as far as generic code is
+>> concerned, which also means that this API change is the first and last
+>> one we need (famous last words, I know).
+>
+> It makes the API more complicated, though. :)
 
-Jan
+Somewhat, but in the regular case where enter() is called followed by
+leave() there is really no complexity for the caller, just an extra
+local variable.
+
+There are complications where we want to exit lazy_mmu temporarily, as
+in mm/kasan/shadow.c [1k], but this is in fact unavoidable. Chatting
+with Mark Rutland, I realised that to truly support nested sections,
+this must be handled in a special way in any case. To be clear, I am
+referring to this situation:
+
+__kasan_populate_vmalloc:
+    apply_to_page_range:
+        arch_enter_lazy_mmu_mode() {1}
+
+        kasan_populate_vmalloc_pte:
+            arch_leave_lazy_mmu_mode() {2}
+            arch_enter_lazy_mmu_mode() {3}
+
+        arch_leave_lazy_mmu_mode() {4}
+
+With the approach this series takes, call {2} is made safe by passing a
+special parameter (say LAZY_MMU_FLUSH) that forces lazy_mmu to be fully
+exited - and call {3} will then re-enter lazy_mmu. This works regardless
+of whether __kasan_populate_vmalloc() has been called with lazy_mmu
+already enabled (i.e. calls {1} and {4} can be nested).
+
+On the other hand, with a pagefault_disabled-like approach, there is no
+way to instruct call {3} to fully exit lazy_mmu regardless of the
+nesting level.
+
+It would be possible to make both approaches work by introducing a new
+API, along the lines of:
+- int arch_disable_save_lazy_mmu_mode() (the return value indicates the
+nesting level)
+- void arch_restore_lazy_mmu_mode(int state) (re-enter lazy_mmu at the
+given nesting level)
+
+This is arguably more self-documenting than passing LAZY_MMU_FLUSH in
+call {2}. This API is however no simpler when using a
+pagefault_disabled-like approach (and less consistent than when always
+saving state on the stack).
+
+[1k]
+https://lore.kernel.org/all/0d2efb7ddddbff6b288fbffeeb10166e90771718.1755528662.git.agordeev@linux.ibm.com/
+
+>
+>>
+>> I mentioned in the cover letter that the pkeys-based page table
+>> protection series [1] would have an immediate use for lazy_mmu_state_t.
+>> In that proposal, any helper writing to pgtables needs to modify the
+>> pkey register and then restore it. To reduce the overhead, lazy_mmu is
+>> used to set the pkey register only once in enter(), and then restore it
+>> in leave() [2]. This currently relies on storing the original pkey
+>> register value in thread_struct, which is suboptimal and most
+>
+> Can you elaborate why this is suboptimal? See below regarding the size
+> of task_struct.
+
+Suboptimal in the sense that we're allocating fixed space for each task
+that we are almost never using.
+
+>
+>> importantly doesn't work if lazy_mmu sections nest.
+>
+> Can you elaborate why it would be problematic with nesting (if we
+> would have a count
+> and can handle the transition from 0->1 and 1->0)?
+
+It doesn't work in that specific patch I linked - but yes it can be made
+to work if we have both an extra task_struct member to store the level
+of nesting *and* an extra thread_struct member to store the saved pkey
+register value (both of which are only used while in lazy_mmu).
+
+
+>
+>> With this series, we
+>> could instead store the pkey register value in lazy_mmu_state_t
+>> (enlarging it to 64 bits or more).
+>
+> Yes.
+>
+>>
+>> I also considered going further and making lazy_mmu_state_t a pointer as
+>> Alexander suggested - more complex to manage, but also a lot more
+>> flexible.
+>>
+>>>>> Would that integrate well with LAZY_MMU_DEFAULT etc?
+>>>>
+>>>> Hmm... I though the idea is to use LAZY_MMU_* by architectures that
+>>>> want to use it - at least that is how I read the description above.
+>>>>
+>>>> It is only kasan_populate|depopulate_vmalloc_pte() in generic code
+>>>> that do not follow this pattern, and it looks as a problem to me.
+>>
+>> This discussion also made me realise that this is problematic, as the
+>> LAZY_MMU_{DEFAULT,NESTED} macros were meant only for architectures'
+>> convenience, not for generic code (where lazy_mmu_state_t should ideally
+>> be an opaque type as mentioned above). It almost feels like the kasan
+>> case deserves a different API, because this is not how enter() and
+>> leave() are meant to be used. This would mean quite a bit of churn
+>> though, so maybe just introduce another arch-defined value to pass to
+>> leave() for such a situation - for instance,
+>> arch_leave_lazy_mmu_mode(LAZY_MMU_FLUSH)?
+>
+> The discussion made me realize that it's a bit hack right now :)
+>
+> If LAZY_MMU_DEFAULT etc. are not for common code, then please
+> maintain them for the individual archs as well, just like you do with the
+> opaque type.
+
+I see your point - having them defined in <linux/mm_types.h> could be
+misleading. I just wanted to avoid all 4 architectures defining the same
+macros. Maybe call them __LAZY_MMU_* to suggest they're not supposed to
+be used in generic code?
+
+>
+>>
+>>>
+>>> Yes, that's why I am asking.
+>>>
+>>> What kind of information (pointer to a per-cpu structure) would you
+>>> want to return, and would handling it similar to how
+>>> pagefault_disable()/pagefault_enable() e.g., using a variable in
+>>> "current" to track the nesting level avoid having s390x to do that?
+>>
+>> The pagefault_disabled approach works fine for simple use-cases, but it
+>> doesn't scale well. The space allocated in task_struct/thread_struct to
+>> track that state is wasted (unused) most of the time.
+>
+> I'm not sure that's a concern. Fitting an int into existing holes
+> should work
+> and even another 64bit (8byte )...
+>
+> I just checked with pahole using the Fedora config on current
+> mm-unstable.
+>
+>
+> /* size: 9792, cachelines: 153, members: 276 */
+> /* sum members: 9619, holes: 20, sum holes: 125 */
+> /* sum bitfield members: 85 bits, bit holes: 2, sum bit holes: 43 bits */
+> /* padding: 32 */
+> /* member types with holes: 4, total: 6, bit holes: 2, total: 2 */
+> /* paddings: 6, sum paddings: 49 */
+> /* forced alignments: 12, forced holes: 2, sum forced holes: 60 */
+>
+> Due to some "arch_task_struct_size" we might actually allocate more
+> space.
+>
+>
+> Staring at my live system:
+>
+> $ sudo slabinfo
+> Name                   Objects Objsize           Space Slabs/Part/Cpu 
+> O/S O %Fr %Ef Flg
+> ...
+> task_struct               1491   12376           24.8M     
+> 721/25/37    2 3   3  74
+>
+>
+> I am not sure if even an additional 8byte would move the needle here.
+>
+>
+> Worse, it does not
+>> truly enable states to be nested: it allows the outermost section to
+>> store some state, but nested sections cannot allocate extra space. This
+>> is really what the stack is for.
+>
+> If it's really just 8 bytes I don't really see the problem. So likely
+> there is
+> more to it? 
+
+I suppose 8 extra bytes per task is acceptable, but some architectures
+may want to add more state there.
+
+The one case that is truly problematic (though not required at this
+point) is where each (nested) section needs to store its own state. With
+this series it works just fine as there is a lazy_mmu_state_t for each
+section, however if we use task_struct/thread_struct there can be only
+one member shared by all nested sections.
+
+- Kevin
 
