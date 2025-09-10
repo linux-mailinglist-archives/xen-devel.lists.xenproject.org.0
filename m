@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 139DAB51802
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 15:36:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1118269.1464121 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78B37B5182F
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 15:44:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1118289.1464130 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwKzg-0006Q0-Tj; Wed, 10 Sep 2025 13:36:16 +0000
+	id 1uwL71-000896-PO; Wed, 10 Sep 2025 13:43:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1118269.1464121; Wed, 10 Sep 2025 13:36:16 +0000
+Received: by outflank-mailman (output) from mailman id 1118289.1464130; Wed, 10 Sep 2025 13:43:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwKzg-0006Mq-QV; Wed, 10 Sep 2025 13:36:16 +0000
-Received: by outflank-mailman (input) for mailman id 1118269;
- Wed, 10 Sep 2025 13:36:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uwL71-000877-LL; Wed, 10 Sep 2025 13:43:51 +0000
+Received: by outflank-mailman (input) for mailman id 1118289;
+ Wed, 10 Sep 2025 13:43:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8l2o=3V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uwKzf-0006Is-GS
- for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 13:36:15 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1ea233bd-8e4b-11f0-9809-7dc792cee155;
- Wed, 10 Sep 2025 15:36:13 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-621b8b0893bso8815340a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 10 Sep 2025 06:36:13 -0700 (PDT)
+ id 1uwL70-00085n-R8
+ for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 13:43:50 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2a7444f4-8e4c-11f0-9d13-b5c5bf9af7f9;
+ Wed, 10 Sep 2025 15:43:43 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-625e1dfc43dso7409961a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Sep 2025 06:43:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-62c0123f23dsm3378742a12.25.2025.09.10.06.36.12
+ a640c23a62f3a-b078346526fsm162617066b.109.2025.09.10.06.43.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Sep 2025 06:36:12 -0700 (PDT)
+ Wed, 10 Sep 2025 06:43:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ea233bd-8e4b-11f0-9809-7dc792cee155
+X-Inumbo-ID: 2a7444f4-8e4c-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757511373; x=1758116173; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1757511822; x=1758116622; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JmV45LpAXTHcg/3ZeB8mIxSHX3C+aS/dsTEggteiobI=;
-        b=TzLwKkpcPFh385jKXiLn775vsKtE3v38eY5Y4HCp9AWeQi5eDw9MrZZGSM//vpnv+U
-         78tTJr7K0ir0rG0ofiN8HoOmR4duJW9co1jMTE0J+NVwxQvPdOJqoiNGhJZH4zj1y8qb
-         /q3bUXUcWQt0g0wtzjxNrZ7Y9aa8s44wFzk7Zr2PBXln8rjfO48dCEqzK5uICTP33OcU
-         o2zKb5CcqXIFcwDK1rhaqMOWEmpJeksCBeQ50w/GxQtP9HNRxqBf8hHBA4hOTMegN5iB
-         WC5c/j4iPsiMeU9ArzWj8POcRbGD4lrnuGJbznPa8EDWm59C13V2ibz1Dn+KZgb15MoI
-         DN0Q==
+        bh=vbwMiLvCK9iCoMikXzhNk8c+qVgPMbmENZwXNlWUKN8=;
+        b=CrYXY6DoKUJBAXu0JlXOlTVE2sFTdhna2IdRSr2pOE8SWrE91C31ahloy19zJoziLS
+         4oPFwXlM5gfZ5w8kGUDZhUWZMhG6caiZYlHU9oQ5OVd2y83b7BxAk7wDdNqdKR9h0cKi
+         vV/pQ4P+HPlKh4BAxElivqzQ5DXMZF+tL8CKEJRdgZ9K/74VD2owNeT5Hh1q/SvBqXbL
+         vWsqFYFYbG3Eoyl0JRi8hkqCCdPQO7wT5mSH0ck/EmEfcGQsKzH2i95X3dEE1wHW2leI
+         BRK/dTxZ1vjGZz2yWiVbaOsW8p97544lRuKrLj172JWoU1gHwwEkZ/9E2R+dwhMmfefA
+         8Pmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757511373; x=1758116173;
+        d=1e100.net; s=20230601; t=1757511822; x=1758116622;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JmV45LpAXTHcg/3ZeB8mIxSHX3C+aS/dsTEggteiobI=;
-        b=OD32+iGwqgDL3IxQAjMxa2BJ5IQ3qSdpagroMtdmTtn5Wi37+OvYdMeROzjR+J8r2C
-         m4ctXIrmXL3kYocPaRkB3xjuYVgiin94q5TdWiq6v1udlAea4SH35SnXN2A3NnEPTSCk
-         VxWopZ/5E0kTOsoxwZQBFhZyAQBodSTqZUXs4Dh3N8Pq2hrgqsp3SYM/QIJNa7UH8GmL
-         dvfjZ0sG5udXpgIL0qL4Se3GT209KfwjpL7yinlBM3SwSp9A6p36dnL+w+LOk8DzgxKO
-         iviD+GhdrALTpHfCN3S7uCyy7RXy7VEcxwrUT/qgJoS58yFW5awfUxItM2WmMmPgkros
-         yqUg==
-X-Forwarded-Encrypted: i=1; AJvYcCViXW+iDHag+1jVYbk4Kme3Nwl/zJrpzjFbj4bS6n1WUsTTQYlzyM4BW6HTdU3P24hGGezUzFRsuWU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywlu0lndCC4nUL/WiPk7DaSc2euujOnwVdu/pYaPkVidRkqyW4x
-	AXr3yoKbc8Z08uOPXpGw1GBdIYbVRaPsJAFa0V/q+MCrtZfytpD62fNloD53B/oK7G/roEJW0KG
-	CCrk=
-X-Gm-Gg: ASbGncu/xbSriZbRBjVvW3pAwNA/CV3+BMIdOwoyRDtRWw1PQO+uyaM9dbKcpx78PbQ
-	G0QoesLpnO+lbbwJadknm5GuBlOeQc4kVWJjq9hsNFL0v48ZrwZCvUeXAqT//3Hrfh8CwaE17bB
-	tHsbvMrAaImW8KQ7lxCK3ZDTJcKGhcSYw8ssGhRtndl3pLDK6Ga1bYXu7wVYfBCxdxwec2PXk8j
-	V+195UarVQNtaQcTa6AAobKm4mS7e6TDvm1rLAOlUkhU9/TpK/AhMP309JHs1UAYqVPd4xe0GM6
-	XQVgL2gn0AzWSIggtvPuRiNVx0Dv9sL6Sxk+34ZKOhzylXFjleUnCuFrFFEPh0b0K3O+Jss6kdV
-	6EWDmxSzPW5zrXRdKpOqrblCYrhLs0StUNQ1JTqUTB3M/PNP2nEtgGCbImXCNx0RSBqPuY1fXS2
-	Ias9ZC6eMX1CVOIcNupw==
-X-Google-Smtp-Source: AGHT+IHmJrFbeQw21awAqUVBng12qFt5BFFbAZ79vsHf38XFsWr01xkzHbLIXZ0Olfs6K8yMLdOJWQ==
-X-Received: by 2002:a05:6402:505c:b0:621:ceb4:12fb with SMTP id 4fb4d7f45d1cf-6237ebc6feemr14048594a12.20.1757511373125;
-        Wed, 10 Sep 2025 06:36:13 -0700 (PDT)
-Message-ID: <3c678b60-4e1d-4c51-bfe4-efe3acee4e8f@suse.com>
-Date: Wed, 10 Sep 2025 15:36:11 +0200
+        bh=vbwMiLvCK9iCoMikXzhNk8c+qVgPMbmENZwXNlWUKN8=;
+        b=IvLYfHaqQ9sq/FLRpHmrK91DMGgHluP3KcDy64rUtwYA3wFjOK0VmSI5t55GZK0kQy
+         9wfRJR5+IjFR3Z3sBHvU4j1doRI8RVfYkbgcx3uIM0jiBicG9EP//9tALx3I51Ur/wy4
+         qvGel5MXdIc8D8W+bCdktL7T1rMEmhGPkNYRsCAip0iUqxmcfjKNaH0yV5iKK4BrIniB
+         XYNmYEq6wXHnh0rzbUqwi1i9sOkyI55oHzUrK9MYs60iltVG8b1ZO4rxubfdzPr6vkMa
+         gTN3M38m2rBlzAsO9IPdD3eAglUwADbJwyagQnbawQ8+fOBqOZXginiy+9A/+qfH8//d
+         sf5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXT6Fnsle5UZL8+/Tk1vrjFuBzUoIho5bmBaNXAKahCjtRJ1lGak/E1xkW8ldzl7eRPC//pNOeAijI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxk5Ksu3Ts7TpN2pTIeAFiJ0pR/YHcnysA+DNHp4HTovUJNmRvn
+	PJEa+flqHsY28qKIw3gW3Ege36iWfDymwJHggfi2HxFZ4r7jJrtLTb29OSIqoxmtDA==
+X-Gm-Gg: ASbGncvYxiAtn77R1+7zkdNYZwlj0qmuJZZVMh+pnULKJHzP1cky9TIU1SfxP0P0Y2t
+	hXLbWAv1NS1yA8eIiUjGE49CizbncDZk5GaUqiQL5dc4kih4mD+Wv8U7t5LSlup6qzmVxRIOfnB
+	qAuGdNykmJrGP/V1R8sP21wof41R9d5ZAUI2JzNSYn4K2Ot/MdHrLt6nY3d54/rPmJRXyR5trNk
+	9FUYbP0W5ExkSfMxNN+4Z9UsHYnTz8Rir2/XFByemCV7pbsqHlhd7cSRsAJ7pS9xGxoYy9Kd8lE
+	OqCYNgVpR6JKOAx5GdePAt4Fy/67zaZmwES+uYGwGbmlw09YVf0gBJ3mponfyrVZC73KwCnpZ/0
+	MWfd94W58CTbI3DP2owwaUG8LcjxCD7N8w/I1lNUz+w7+chfOTk9Ae+4bQJhE5Hr+nzKfw0Scn3
+	iugvn9emQsliEVvRdo/w==
+X-Google-Smtp-Source: AGHT+IENTcR0ugA8owAojjjzpCJeEJjokdSTdokjtEuHsOcKeyTXZYGl91Kf+hnA08d3UZkaRA2P6g==
+X-Received: by 2002:a17:906:7304:b0:b04:5b3d:c31f with SMTP id a640c23a62f3a-b04b1698bbbmr1416843266b.49.1757511822458;
+        Wed, 10 Sep 2025 06:43:42 -0700 (PDT)
+Message-ID: <5d639a3a-6f15-4d78-8f41-47a4f66820a5@suse.com>
+Date: Wed, 10 Sep 2025 15:43:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/IO-APIC: drop setup_ioapic_ids_from_mpc()
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "consulting@bugseng.com" <consulting@bugseng.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <e2e54b68-1521-4bf6-9cb9-5703ed2a69fc@suse.com>
- <034dd6dd-4e3f-4353-9a11-7a0ebda9a664@suse.com>
- <bbe33d31-949c-4bf1-96f5-598b21faf149@citrix.com>
+Subject: Re: [PATCH v2 26/26] xen/domctl: wrap common/domctl.c with
+ CONFIG_MGMT_HYPERCALLS
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Penny Zheng <Penny.Zheng@amd.com>
+References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
+ <20250910073827.3622177-27-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,48 +123,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bbe33d31-949c-4bf1-96f5-598b21faf149@citrix.com>
+In-Reply-To: <20250910073827.3622177-27-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10.09.2025 15:26, Andrew Cooper wrote:
-> On 03/09/2025 8:55 am, Jan Beulich wrote:
->> Along the lines of what b89f8f054f96 ("x86/apic: Drop sync_Arb_IDs()")
->> said, the function is dead logic as well: All 64-bit capable Intel systems
->> have (at least) xAPIC (if not x2APIC).
->>
->> Even if Eclair can't know it, such code is violating Misra rule 2.2 (dead
->> code; we didn't accept that yet, but - where possible - we probably would
->> better follow it). Depending on one's reading, this code may actually be a
->> violation of rule 2.1 (unreachable), which we did accept:
->>
->> "Code is unreachable if, ..., there is no combination of program inputs
->>  that can cause it to be executed."
->>
->> Otoh it's "only" __init code.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 10.09.2025 09:38, Penny Zheng wrote:
+> Wrap domctl hypercall def and domctl.o with CONFIG_MGMT_HYPERCALLS,
+> and remove all #ifdef CONFIG_MGMT_HYPERCALLS wrappings in common/domctl.c
+> With MGMT_HYPERCALLS=n, we need to provide stub for
+> domctl_lock_{acquire,release}(), as it may be invoked by hvm_set_param().
 > 
-> The code change is fine, but the commit message should be first
-> paragraph only.
-> 
-> The first paragraph is plenty of justification to make the change,
-> irrespective of anything else.
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> ---
+> v1 -> v2:
+> - remove stub in common/domctl.c
+> - combine the original commit of "xen/domctl: provide stub for
+>  domctl_lock_{acquire,release}"
+> - adapt to changes of "unify DOMCTL to MGMT_HYPERCALLS"
+> ---
+>  xen/common/Kconfig           |  2 +-
+>  xen/common/Makefile          |  2 +-
+>  xen/common/domctl.c          | 24 ------------------------
+>  xen/include/hypercall-defs.c |  4 +++-
+>  xen/include/xen/domain.h     |  9 +++++++++
+>  5 files changed, 14 insertions(+), 27 deletions(-)
 
-Well. I wouldn't have added the other parts if we weren't where we are in
-the release cycle. Strictly speaking, with them dropped I can't put these
-two patches in right now. Oleksii, may I ask for your view please (on
-both of the patches, as they're both similar in this regard)?
-
-> The other 3 paragraphs are musings on an area of MISRA where which is
-> unclear, or even disputed.  The code here is statically reachable,
-> dynamically unreachable, and trying to argue this in terms of dead or
-> unreachability detracts from an otherwise clear patch.
-> 
-> With a very strong preference to have the commit message be only the
-> first paragraph, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Thanks (also for the one for patch 2).
+Please see all the removals of #ifdef-s below for why I was arguing towards
+the Kconfig control wanting to (re)gain its prompt last. These #ifdef-s will
+have been added by earlier patches in the series (which I didn't look at
+yet), and that kind of churn could have been avoided.
 
 Jan
 
