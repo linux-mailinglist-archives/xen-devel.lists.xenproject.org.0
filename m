@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8BF4B517B0
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 15:12:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1118228.1464090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6596BB517DC
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 15:26:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1118245.1464099 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwKbS-0002N5-MA; Wed, 10 Sep 2025 13:11:14 +0000
+	id 1uwKqK-00047t-SB; Wed, 10 Sep 2025 13:26:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1118228.1464090; Wed, 10 Sep 2025 13:11:14 +0000
+Received: by outflank-mailman (output) from mailman id 1118245.1464099; Wed, 10 Sep 2025 13:26:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwKbS-0002KE-J3; Wed, 10 Sep 2025 13:11:14 +0000
-Received: by outflank-mailman (input) for mailman id 1118228;
- Wed, 10 Sep 2025 13:11:12 +0000
+	id 1uwKqK-00046B-PJ; Wed, 10 Sep 2025 13:26:36 +0000
+Received: by outflank-mailman (input) for mailman id 1118245;
+ Wed, 10 Sep 2025 13:26:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kMwI=3V=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uwKbQ-0002K8-Ol
- for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 13:11:12 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1uwKqI-000465-V6
+ for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 13:26:34 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9eabe3bb-8e47-11f0-9809-7dc792cee155;
- Wed, 10 Sep 2025 15:11:10 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-45b4d89217aso45148055e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 10 Sep 2025 06:11:10 -0700 (PDT)
+ id c48b40d1-8e49-11f0-9809-7dc792cee155;
+ Wed, 10 Sep 2025 15:26:33 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-45dd505a1dfso43374305e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Sep 2025 06:26:33 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3e7522387acsm6812647f8f.40.2025.09.10.06.11.06
+ 5b1f17b1804b1-45df81c72edsm28526685e9.1.2025.09.10.06.26.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Sep 2025 06:11:07 -0700 (PDT)
+ Wed, 10 Sep 2025 06:26:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9eabe3bb-8e47-11f0-9809-7dc792cee155
+X-Inumbo-ID: c48b40d1-8e49-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1757509870; x=1758114670; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1757510792; x=1758115592; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ow6FD6a4zTTUiQDCDP70Lj/7acZG5OGLgjzi9bSr5XY=;
-        b=h2IS1YjT/ouHX7FU6qziHeMG9kqefrFKOdezvNKL4IBygof/rkItWek/JZn/wGBRSy
-         arHKxdZQjdkR18/GaVt8xtoic1PDWj0SVmalSr7JZmj81K3YTFm4isUySqKvjkI6ZdpT
-         XmJC7TAr1xzVnbW6mU8zUAQd5TR/a6Pj8sRbA=
+        bh=UyO9lwvUP4MF7hak4fj1iSeZE9v5FUGZpfGxCuN8ZIk=;
+        b=DEb5ls23JUdtffuGkzoN/YkD529J+hUyvmybD+ic2gpbu1pYhIpAzP5/HugPDrQCZw
+         5pZ9iI9HssnK+8jR/XA/p9DS/+xsKaIvpYNihFPhwdlMhZs0pvOrw2nqgIpw9idpsJz5
+         wehlOPqFSA2IpPcXhWOj98N565puuVr6lANuM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757509870; x=1758114670;
+        d=1e100.net; s=20230601; t=1757510792; x=1758115592;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ow6FD6a4zTTUiQDCDP70Lj/7acZG5OGLgjzi9bSr5XY=;
-        b=BuBjzXY0OaZUouLJvb6aH9eeLRqv3m1WBuuInOsAOoTQ1Hwvi8CMXxXiaxxoyXA9nJ
-         6181ySXBw+WmmbsRMuxz/zoTFgMF1GDWLoqc7eKor/A72qreYt1vAnuTWJ4U3kOlHi71
-         A5rLRK05QUmqtB5tZ0xUiUA+2b2Pt+6vu6zLF6685S3H/H5Ww7sJ6whlUX+6cqyjy5lf
-         dWEWetWaMoaOkCLhV9LzqCU6zDmqNbZMMyRlQRfNjPWX+w0Ih6TbmBssn06/5DAtF6t2
-         u4vlezA628dQS9/bQiT+L9A8YkekttUWr6cYLe15J6lyAPl4VDNaNZ7y7DPvS27h8FgK
-         0WWA==
-X-Gm-Message-State: AOJu0YyO3JO0279krNAGTh9NaEQ5t3EqgeBYhImPOE9+y10rUu+ikz+X
-	z+hXPQUSo0ziPPlMt+snPgl3gWhUyTNtZvJxaoOoE8Xu6eUotn9rwXFsJiJsy3wb9dc=
-X-Gm-Gg: ASbGncvFRuwkl/yUjoWIKN6PU0dooAP3HLToTFhdje/BjEv6UCziaRDnwgc7+fQev4N
-	iF21sYK53WvJaAVFRdAdcB+e7nWTxc26hkIwm2adcVqJUg+E2gOfTtbAeD50oFEyPuZDBX1Qxjz
-	a3xkN96ZvsCxNc+GVnygEehp2anMvi2jx5+0cVG5Gi+hyP1+cqyXFk/06uK3ougy2slpC7sWti1
-	OLo/fUA5H2GiMGywvMqyyYmoRyj07ffVU4cnJ8+WZgm5AkUkfa3eqBzEdTF6FHa+P6aPcECa5UG
-	263J4IH1xoTXE1OGMEdT+wjnhg95Fu/KRXJ3bh/J0BfV1HJMiUmQnk4sAI8Iv+yRaJ/mYvpIRUO
-	P4Vz4SHB5MG6uyLl/VKjl8+NBjuHReog0a4gDnb9u/+9RVDC6vqA2N0g7IhW/rNqo2b5o
-X-Google-Smtp-Source: AGHT+IHJUNflVznGtQBQ66yq6dLaLbNIShPzRyn6PiH6nnnqCwWViqokKPBtikjL0Atq7QvglQwCog==
-X-Received: by 2002:a05:600c:314b:b0:45d:e111:de7e with SMTP id 5b1f17b1804b1-45de111df85mr121329225e9.19.1757509869878;
-        Wed, 10 Sep 2025 06:11:09 -0700 (PDT)
-Message-ID: <2c91d873-7f13-4f78-a0d8-8f67f06c88b2@citrix.com>
-Date: Wed, 10 Sep 2025 14:11:05 +0100
+        bh=UyO9lwvUP4MF7hak4fj1iSeZE9v5FUGZpfGxCuN8ZIk=;
+        b=WcguUq3g2kLhvCjFFbG82x1eIXZc+0L9/DiSizVWtzkop4rOBuMKRvseOU2DsEfQIH
+         2aIFdz412MXS6SQgrYw33UeZWjXMBibW6kI9+h1KaPOSEfJy8lkvr6sxpZMh79TQZtvA
+         BRYRaCujboGevMdzMBy4A8o1h+EJg1MPTbwnXAFMJLlCP1ukF4VvOy7cL3WVtsklelRZ
+         FPY4AxZSnn6k6LivBKqIqfNJZXhAbmj8LF6kTs768KBxORHzlogfq82u1jN4vXBKwp2s
+         Lh4y6uC/vJlROFnerpkAomKhnwv9hP2O6kjJEBlqKi2FNf9XDCj8i5rKqyYGNTsUEJgx
+         RxYQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXzQKmUkaxz0RrqPBzOCtzX5hDfgzYIdRfdoV/rEhN1Pyt5pQHk/ecmFBl+PtVGQAUvQ8GUGH8QJDY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyECbogz3RK3XlvNYSUJ1haCfhP/VD55/fClRN1J87qhURZvDgt
+	Hp0hgFdNnUZwCdhOa5ZubpMiYg2QVFHpx/FMiRzJ8kN2s6ZuTw35krkCQWgHXgRBIxs=
+X-Gm-Gg: ASbGncug2wimYbnAXst2avB7fH+6DPYJdSOU9jPsCWtdfZ09BEmrLHWBpEXabmqVJpl
+	8Cew1F9EWaq5EWbhMnZzIPPX+iPxcnd2t58crR2xsxn/HNGxHRr0wFaeJ7Xe7tNbwlU/GND6R0E
+	r4qxnihwUTNdPvJlcujlx8wQJJX+rGaH/wcco571PHvmL7p+AIo3QeSOCBadrnHHXgkxrZpKCOL
+	FkrxaVAUXZ8PcE0Qg81mXwjIYQrip/Tw3JAWLdBsbqLdStfOvww1b6Iti1evrTbZ5ZUDu2Yu17b
+	4rjJx9xBwzpd0rDAq2LT10T1dInam/YAnek4JPX7t0CEH25WBvbqZokNn3kqNz0SP+bzg045Ztm
+	yPD6cSxMvpI+Uq9G1Ry/IIE3eUhgwzQ5i6tMDT6SQX2513iJ/WIbpg07rJYwrSSB19Kgv4X0HvH
+	V3o7V/SlYts+T0SQ==
+X-Google-Smtp-Source: AGHT+IGElgGFoDyljSjCkEbC4J1Xam49FWC4hAq0w5OnD+Olq5O6YGdFMZOMWyveohq5E1L1RRfy1A==
+X-Received: by 2002:a05:600c:474e:b0:456:1b6f:c888 with SMTP id 5b1f17b1804b1-45dddecd894mr133709535e9.23.1757510792455;
+        Wed, 10 Sep 2025 06:26:32 -0700 (PDT)
+Message-ID: <bbe33d31-949c-4bf1-96f5-598b21faf149@citrix.com>
+Date: Wed, 10 Sep 2025 14:26:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CI: Switch the alpine containers to be non-root
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <JBeulich@suse.com>
-References: <20250910113416.1835988-1-andrew.cooper3@citrix.com>
- <aMFnqW7xgbL1ZSBi@mail-itl>
+Subject: Re: [PATCH 1/2] x86/IO-APIC: drop setup_ioapic_ids_from_mpc()
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "consulting@bugseng.com" <consulting@bugseng.com>
+References: <e2e54b68-1521-4bf6-9cb9-5703ed2a69fc@suse.com>
+ <034dd6dd-4e3f-4353-9a11-7a0ebda9a664@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,69 +137,38 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <aMFnqW7xgbL1ZSBi@mail-itl>
+In-Reply-To: <034dd6dd-4e3f-4353-9a11-7a0ebda9a664@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/09/2025 12:57 pm, Marek Marczykowski-Górecki wrote:
-> On Wed, Sep 10, 2025 at 12:34:16PM +0100, Andrew Cooper wrote:
->> Testing on staging-4.19 is hitting a reliable failure, caused by alpine/3.18
->> being a root build container, but debian/12-x86_64 being a non-root test
->> container.  Specifically, the test container can't copy XEN_PAGING_DIR and
->> XEN_DUMP_DIR (both 700) from the build root in order to construct the initrd.
->>
->> staging-4.20 and later do not repack the initrd in this way, so are not
->> affected.
->>
->> Switch both alpine containers to being non-root.  This is still slightly
->> fragile, but better than depending on using root containers for both.
-> This will likely explode done as is...
+On 03/09/2025 8:55 am, Jan Beulich wrote:
+> Along the lines of what b89f8f054f96 ("x86/apic: Drop sync_Arb_IDs()")
+> said, the function is dead logic as well: All 64-bit capable Intel systems
+> have (at least) xAPIC (if not x2APIC).
 >
-> First, grub.cfg is not writable anymore:
-> https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/11305545275#L170
+> Even if Eclair can't know it, such code is violating Misra rule 2.2 (dead
+> code; we didn't accept that yet, but - where possible - we probably would
+> better follow it). Depending on one's reading, this code may actually be a
+> violation of rule 2.1 (unreachable), which we did accept:
 >
-> I'm not sure what 'user' gets remapped to here, but the whole container
-> is running under rootless podman, as gitlab-runner user. Files on the
-> host are owned by gitlab-runner user.
+> "Code is unreachable if, ..., there is no combination of program inputs
+>  that can cause it to be executed."
 >
-> But second, repacking initrd as non-root, without any extra care will
-> result in broken initrd. At the very least /sbin/mount is suid root -
-> when repacked as normal user, it will end up as suid to non-root,
-> breaking it quite effectively. I've run into this issue when needing to
-> repack rootfs anyway and ended up using fakeroot (again):
-> https://gitlab.com/xen-project/people/marmarek/xen/-/commit/bab939159127a9f8e56e119c1fa553c7bbb6d4f7
+> Otoh it's "only" __init code.
 >
-> At least your "CI: Create initrd fragments explicitly as root" patch may
-> need backporting, but TBH I'm not sure if that's enough. /dev will
-> likely be messed up too.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-There's a lot of collateral damage here.  Summarising things a little.
+The code change is fine, but the commit message should be first
+paragraph only.
 
-* We cannot change the root-ness of alpine/3.18-arm64v8.  Like
-xilinx-xenial, it does need root to drive real hardware
+The first paragraph is plenty of justification to make the change,
+irrespective of anything else.
 
-* We can change the root-ness of alpine/3.18.  It is only used as a
-build container, not a test container.
+The other 3 paragraphs are musings on an area of MISRA where which is
+unclear, or even disputed.  The code here is statically reachable,
+dynamically unreachable, and trying to argue this in terms of dead or
+unreachability detracts from an otherwise clear patch.
 
-* Contrary to my previous analysis, we have backported the test-artefact
-CPIO work to 4.19, but not the build step CPIO archive.
-
-
-And, what to do:
-
-* We really do need to be rootless in the build containers.  Therefore I
-think we need to split alpine/3.18-arm64v8 in two, and when bumping to
-the next version is the obvious point to do this.  We should make a
-dedicated qubes container similar to xilinx-xenial, and separate it from
-the build step.
-
-* I should see about backporting the build step CPIO archive.  I'm
-beginning to think that was an oversight of mine, because I didn't
-intend to end up with a split like this.  This should avoid the step
-causing us problems here.
-
-* I'm very inclined to change the root-ness of alpine/3.18.  Testing
-suggests this is fine.
-
-~Andrew
+With a very strong preference to have the commit message be only the
+first paragraph, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
