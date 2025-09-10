@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81BE8B517F4
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 15:31:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1118257.1464110 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 139DAB51802
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 15:36:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1118269.1464121 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwKut-0005l1-CK; Wed, 10 Sep 2025 13:31:19 +0000
+	id 1uwKzg-0006Q0-Tj; Wed, 10 Sep 2025 13:36:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1118257.1464110; Wed, 10 Sep 2025 13:31:19 +0000
+Received: by outflank-mailman (output) from mailman id 1118269.1464121; Wed, 10 Sep 2025 13:36:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwKut-0005i0-9P; Wed, 10 Sep 2025 13:31:19 +0000
-Received: by outflank-mailman (input) for mailman id 1118257;
- Wed, 10 Sep 2025 13:31:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kMwI=3V=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uwKur-0005hu-6o
- for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 13:31:17 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6d2f3ba0-8e4a-11f0-9d13-b5c5bf9af7f9;
- Wed, 10 Sep 2025 15:31:16 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3df726ecff3so3603385f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 10 Sep 2025 06:31:16 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3e7521ca22esm7509346f8f.18.2025.09.10.06.31.13
+	id 1uwKzg-0006Mq-QV; Wed, 10 Sep 2025 13:36:16 +0000
+Received: by outflank-mailman (input) for mailman id 1118269;
+ Wed, 10 Sep 2025 13:36:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8l2o=3V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uwKzf-0006Is-GS
+ for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 13:36:15 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1ea233bd-8e4b-11f0-9809-7dc792cee155;
+ Wed, 10 Sep 2025 15:36:13 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-621b8b0893bso8815340a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Sep 2025 06:36:13 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-62c0123f23dsm3378742a12.25.2025.09.10.06.36.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Sep 2025 06:31:14 -0700 (PDT)
+ Wed, 10 Sep 2025 06:36:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d2f3ba0-8e4a-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: 1ea233bd-8e4b-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1757511075; x=1758115875; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1757511373; x=1758116173; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3MkGfz3VUq3hV2r7iXh77w3Mca/dAE9rQocE9HyDvFg=;
-        b=exJBG9wVJvhOnxBrqS3gB84gCBd0Q4nVNWfodNsYbkw3oSoRBcXf0kdWYU45LU3UpJ
-         eGQh4DJcGbIahYlzpfzjPiyHG4VOnbZ2+RSH+7mItw1ooY1SbNbjb/PseNd4rFhYsUjv
-         bNhx4Uwi8a+SWwiNGbuhj9CNJdXAd0+UHmyEM=
+        bh=JmV45LpAXTHcg/3ZeB8mIxSHX3C+aS/dsTEggteiobI=;
+        b=TzLwKkpcPFh385jKXiLn775vsKtE3v38eY5Y4HCp9AWeQi5eDw9MrZZGSM//vpnv+U
+         78tTJr7K0ir0rG0ofiN8HoOmR4duJW9co1jMTE0J+NVwxQvPdOJqoiNGhJZH4zj1y8qb
+         /q3bUXUcWQt0g0wtzjxNrZ7Y9aa8s44wFzk7Zr2PBXln8rjfO48dCEqzK5uICTP33OcU
+         o2zKb5CcqXIFcwDK1rhaqMOWEmpJeksCBeQ50w/GxQtP9HNRxqBf8hHBA4hOTMegN5iB
+         WC5c/j4iPsiMeU9ArzWj8POcRbGD4lrnuGJbznPa8EDWm59C13V2ibz1Dn+KZgb15MoI
+         DN0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757511075; x=1758115875;
+        d=1e100.net; s=20230601; t=1757511373; x=1758116173;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3MkGfz3VUq3hV2r7iXh77w3Mca/dAE9rQocE9HyDvFg=;
-        b=U8vAFJrzPb+GG7eFqkg2MewouvUx87nIKKdjX8r0AYuvN8VcZ5YfHjOcO40CdwbS87
-         7/xTkvlbXHAJO169NNgw17G6DobOmgDzu2xX57zTc+hCZRVkbovuGVbFDCFUf+QnHML9
-         nWUL0yxyDwQHognC2AB5to7Q8gr2iSwOQTBhhS7+yphsqkB0D+oT4iCXQwgJF5D2TEwu
-         uLOGOegSVCd/b+29kK5r2tvyLltkk9KWNbH9w7N+tBdYPc/Qn6WfVlKGhsAaKOfa0tcX
-         m5vdyv6Oe2gKj2dn8yRQhrohxktgLGS/Jkut3kC/2xNwp/HBjqq6iTwfMFrjQYIlH1ek
-         qfxA==
-X-Forwarded-Encrypted: i=1; AJvYcCWQoL+s9hFj+RdkOYbuzLea8T/CRo5pNKiULFsi6jbwjnCmSTh2hg5/Ho+uoVBFH0LRPbV0dIp5At0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzEEt6k3BfWqQPLaH5Lw5R3FN9wWNNe7bbSAhOsQzQ4mGwQQciZ
-	GthHdevBNUi0f2oebMn1mQe2DVJMptfgZ4EFvzhXnUIk9f8Aknqd8dmmI2haabKrpe8=
-X-Gm-Gg: ASbGncv6HZ/f9nQqHgu5eWeNO7Gia0I1VUHCg+w+TiIWplz49+l5Ih60kCg8tKwFhS7
-	J1nMTsKPARfCwi76PUSBbaXpHWFWa+1K4TioOs3thKGt29qhDriX5M0xtgP8nwOQkzbhoZQC7Pt
-	Wpowmeux5TYD7+cQzyI+DKaGek0PagRLpe964rTAGJ4AOalaGgtctAJ1TZKgMz34FRobaW5lSQO
-	YAWym9P4kE/BmpurUkZTRTHhuqx8wpLI1zFIuUZDWETnMEl8+ehZYmrLPB7B47JwUcDP96tqepK
-	7XmR6VyKH0HXSLf1rwdMwO64qCyjXLX0yAPKYgh6/DpOOBOOxkPjecSNY3aJsb4wN83cYaZErGb
-	0BjJiBFCHODadN4S9FxjU4Mx3v3yfQr5B8n4SwpqbqpTE7jKTaZPKJDQ1ff1KEFeYSP35
-X-Google-Smtp-Source: AGHT+IETzShO/bkLQIEEBmlENUpxbqlf3kZMYCjRdhPOSyGuCiy/UYsCGFCFoO0oZlp+cnHoaknRUw==
-X-Received: by 2002:a05:6000:26d2:b0:3df:b9e7:35ba with SMTP id ffacd0b85a97d-3e6440f0674mr12375342f8f.57.1757511075270;
-        Wed, 10 Sep 2025 06:31:15 -0700 (PDT)
-Message-ID: <cfe16ba2-2940-4a64-bf80-97cb66e84f92@citrix.com>
-Date: Wed, 10 Sep 2025 14:31:13 +0100
+        bh=JmV45LpAXTHcg/3ZeB8mIxSHX3C+aS/dsTEggteiobI=;
+        b=OD32+iGwqgDL3IxQAjMxa2BJ5IQ3qSdpagroMtdmTtn5Wi37+OvYdMeROzjR+J8r2C
+         m4ctXIrmXL3kYocPaRkB3xjuYVgiin94q5TdWiq6v1udlAea4SH35SnXN2A3NnEPTSCk
+         VxWopZ/5E0kTOsoxwZQBFhZyAQBodSTqZUXs4Dh3N8Pq2hrgqsp3SYM/QIJNa7UH8GmL
+         dvfjZ0sG5udXpgIL0qL4Se3GT209KfwjpL7yinlBM3SwSp9A6p36dnL+w+LOk8DzgxKO
+         iviD+GhdrALTpHfCN3S7uCyy7RXy7VEcxwrUT/qgJoS58yFW5awfUxItM2WmMmPgkros
+         yqUg==
+X-Forwarded-Encrypted: i=1; AJvYcCViXW+iDHag+1jVYbk4Kme3Nwl/zJrpzjFbj4bS6n1WUsTTQYlzyM4BW6HTdU3P24hGGezUzFRsuWU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywlu0lndCC4nUL/WiPk7DaSc2euujOnwVdu/pYaPkVidRkqyW4x
+	AXr3yoKbc8Z08uOPXpGw1GBdIYbVRaPsJAFa0V/q+MCrtZfytpD62fNloD53B/oK7G/roEJW0KG
+	CCrk=
+X-Gm-Gg: ASbGncu/xbSriZbRBjVvW3pAwNA/CV3+BMIdOwoyRDtRWw1PQO+uyaM9dbKcpx78PbQ
+	G0QoesLpnO+lbbwJadknm5GuBlOeQc4kVWJjq9hsNFL0v48ZrwZCvUeXAqT//3Hrfh8CwaE17bB
+	tHsbvMrAaImW8KQ7lxCK3ZDTJcKGhcSYw8ssGhRtndl3pLDK6Ga1bYXu7wVYfBCxdxwec2PXk8j
+	V+195UarVQNtaQcTa6AAobKm4mS7e6TDvm1rLAOlUkhU9/TpK/AhMP309JHs1UAYqVPd4xe0GM6
+	XQVgL2gn0AzWSIggtvPuRiNVx0Dv9sL6Sxk+34ZKOhzylXFjleUnCuFrFFEPh0b0K3O+Jss6kdV
+	6EWDmxSzPW5zrXRdKpOqrblCYrhLs0StUNQ1JTqUTB3M/PNP2nEtgGCbImXCNx0RSBqPuY1fXS2
+	Ias9ZC6eMX1CVOIcNupw==
+X-Google-Smtp-Source: AGHT+IHmJrFbeQw21awAqUVBng12qFt5BFFbAZ79vsHf38XFsWr01xkzHbLIXZ0Olfs6K8yMLdOJWQ==
+X-Received: by 2002:a05:6402:505c:b0:621:ceb4:12fb with SMTP id 4fb4d7f45d1cf-6237ebc6feemr14048594a12.20.1757511373125;
+        Wed, 10 Sep 2025 06:36:13 -0700 (PDT)
+Message-ID: <3c678b60-4e1d-4c51-bfe4-efe3acee4e8f@suse.com>
+Date: Wed, 10 Sep 2025 15:36:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/IO-APIC: drop io_apic_get_unique_id()
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 1/2] x86/IO-APIC: drop setup_ioapic_ids_from_mpc()
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "consulting@bugseng.com" <consulting@bugseng.com>
+ "consulting@bugseng.com" <consulting@bugseng.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <e2e54b68-1521-4bf6-9cb9-5703ed2a69fc@suse.com>
- <80c035e0-54f6-4632-a5c2-a10d2c1c8422@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <80c035e0-54f6-4632-a5c2-a10d2c1c8422@suse.com>
+ <034dd6dd-4e3f-4353-9a11-7a0ebda9a664@suse.com>
+ <bbe33d31-949c-4bf1-96f5-598b21faf149@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <bbe33d31-949c-4bf1-96f5-598b21faf149@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03/09/2025 8:56 am, Jan Beulich wrote:
-> Along the lines of what b89f8f054f96 ("x86/apic: Drop sync_Arb_IDs()")
-> said, the function is dead logic as well: All 64-bit capable Intel systems
-> have (at least) xAPIC (if not x2APIC).
->
-> Even if Eclair can't know it, such code is violating Misra rule 2.2 (dead
-> code; we didn't accept that yet, but - where possible - we probably would
-> better follow it). Depending on one's reading, this code may actually be a
-> violation of rule 2.1 (unreachable), which we did accept:
->
-> "Code is unreachable if, ..., there is no combination of program inputs
->  that can cause it to be executed."
->
-> Otoh it's "only" __init code.
->
-> As this removes the last user of APIC_XAPIC(), remove the macro as well.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 10.09.2025 15:26, Andrew Cooper wrote:
+> On 03/09/2025 8:55 am, Jan Beulich wrote:
+>> Along the lines of what b89f8f054f96 ("x86/apic: Drop sync_Arb_IDs()")
+>> said, the function is dead logic as well: All 64-bit capable Intel systems
+>> have (at least) xAPIC (if not x2APIC).
+>>
+>> Even if Eclair can't know it, such code is violating Misra rule 2.2 (dead
+>> code; we didn't accept that yet, but - where possible - we probably would
+>> better follow it). Depending on one's reading, this code may actually be a
+>> violation of rule 2.1 (unreachable), which we did accept:
+>>
+>> "Code is unreachable if, ..., there is no combination of program inputs
+>>  that can cause it to be executed."
+>>
+>> Otoh it's "only" __init code.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> The code change is fine, but the commit message should be first
+> paragraph only.
+> 
+> The first paragraph is plenty of justification to make the change,
+> irrespective of anything else.
 
-Same feedback as with the previous patch, albeit about the middle 3
-paragraphs.  Again with a strong preference for those to be removed,
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Well. I wouldn't have added the other parts if we weren't where we are in
+the release cycle. Strictly speaking, with them dropped I can't put these
+two patches in right now. Oleksii, may I ask for your view please (on
+both of the patches, as they're both similar in this regard)?
 
-I'd not even spotted that APIC_XAPIC() existed.  This being explicit
-conformation of where XAPIC starts would have been helpful when doing
-archaeology.
+> The other 3 paragraphs are musings on an area of MISRA where which is
+> unclear, or even disputed.  The code here is statically reachable,
+> dynamically unreachable, and trying to argue this in terms of dead or
+> unreachability detracts from an otherwise clear patch.
+> 
+> With a very strong preference to have the commit message be only the
+> first paragraph, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Thanks (also for the one for patch 2).
+
+Jan
 
