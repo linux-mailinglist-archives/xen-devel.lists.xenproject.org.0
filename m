@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F00AAB52087
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 21:00:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1118707.1464387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53F97B523EE
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 23:59:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1118844.1464497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwQ28-00016L-MH; Wed, 10 Sep 2025 18:59:08 +0000
+	id 1uwSpI-00068i-BH; Wed, 10 Sep 2025 21:58:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1118707.1464387; Wed, 10 Sep 2025 18:59:08 +0000
+Received: by outflank-mailman (output) from mailman id 1118844.1464497; Wed, 10 Sep 2025 21:58:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwQ28-000142-Hk; Wed, 10 Sep 2025 18:59:08 +0000
-Received: by outflank-mailman (input) for mailman id 1118707;
- Wed, 10 Sep 2025 18:59:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uwSpI-00065Z-7H; Wed, 10 Sep 2025 21:58:04 +0000
+Received: by outflank-mailman (input) for mailman id 1118844;
+ Wed, 10 Sep 2025 21:58:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1pHK=3V=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1uwQ26-00013w-SE
- for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 18:59:06 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060f.outbound.protection.outlook.com
- [2a01:111:f403:2416::60f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 373ff95b-8e78-11f0-9d13-b5c5bf9af7f9;
- Wed, 10 Sep 2025 20:59:04 +0200 (CEST)
-Received: from DS7PR03CA0308.namprd03.prod.outlook.com (2603:10b6:8:2b::31) by
- BY5PR12MB4212.namprd12.prod.outlook.com (2603:10b6:a03:202::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9094.22; Wed, 10 Sep 2025 18:58:59 +0000
-Received: from DS1PEPF0001709A.namprd05.prod.outlook.com
- (2603:10b6:8:2b:cafe::90) by DS7PR03CA0308.outlook.office365.com
- (2603:10b6:8:2b::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.15 via Frontend Transport; Wed,
- 10 Sep 2025 18:58:59 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DS1PEPF0001709A.mail.protection.outlook.com (10.167.18.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9115.13 via Frontend Transport; Wed, 10 Sep 2025 18:58:58 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 10 Sep
- 2025 11:58:58 -0700
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 10 Sep
- 2025 13:58:57 -0500
-Received: from [172.17.248.197] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 10 Sep 2025 11:58:57 -0700
+ <SRS0=kMwI=3V=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uwSpH-00065S-7T
+ for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 21:58:03 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 37ea44c2-8e91-11f0-9809-7dc792cee155;
+ Wed, 10 Sep 2025 23:58:01 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-45df0cde41bso448055e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Sep 2025 14:58:01 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3e7521c9a2esm9136460f8f.14.2025.09.10.14.57.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Sep 2025 14:57:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,140 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 373ff95b-8e78-11f0-9d13-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CMR9rjrEUCIV6jGLSI3N800XeFcdzOw4bWgwM78PBbbqncHK2GKPv9wuzovjwXuRfura3Piaxd4BKAlQ0Val2JJC/+3W6stN2wz7MllAsd+EnxvPRPbAvLsDVKZKC87g8osFj8VkCFZF09Qkwd8iCybH4vC1iSUDlTlCyMza9FOkNCds0fKPX2kxyP6nUuNK9sA4JM0tQmmFbri8k8aEZ0ZDt4bVFuHmXPuZYXT4pd8wxG7GCtkwbGH5UDDth4acUXV1fIPrAsSvnVg03+AmaWTvay4QUuMUUo/XUH5prsada+2QVfKDm9rGqdU/8LhWb19bpjEhBaJnm3oiQ3g6qA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2ARLEM3ngR7nSo8f7KyFfxgKHL610BYYDyw90q456cw=;
- b=QIeQA9PrLIgeVyuZUmQNOSTWrZBdcgusj95p05dwaYA1JUUjyjY3BYIFQ06+1QfXiyf+DOcko6t2KDU8lVOCDCEKd1luPBp/+m3Qwjepolv0njRAI4PTZasKihD00rwDCMO2Rh3J8byGqpnuTl5q7qTt98/roiH40cq4YEQ5i90MT7l1/l3YMtRNmIcs546yY1W6wuFhnLUbrC6h9FR58e/cFW2MOc3NbIL8aoBdY7rOaiAoVXf+NX1Jz0Xv+ANHCYa83DrNWX26flPtu6GI9paVMGqBsjcHm/C/npSvMKsrIxK5UCVkhE2vswPCAJcRfTpVo6ShwGZSFlgWDWtZhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2ARLEM3ngR7nSo8f7KyFfxgKHL610BYYDyw90q456cw=;
- b=CrtKQegwKBMRgDBWBe/ZwAhHFURxwQgOY1m1eARr8i1HmFQyHnzjxrJEmdllPU7ZVsBAjsi6+8Z+8u3BgnZFMUrKjL+uDhznG7S0tzjvEe015WzU5aY9Eu/khrpZQkiJFL9AnSvFTimeHQ48ofQtpjt/0W5OQR8p5+CzHIH50Qc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <fae4b58f-c6ff-4db1-8198-1a5f76868d4d@amd.com>
-Date: Wed, 10 Sep 2025 14:58:57 -0400
+X-Inumbo-ID: 37ea44c2-8e91-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1757541480; x=1758146280; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=gMcZ5/Z8eru/CYsg9zyRNPxYeOwt+OeYK1yBmcLCv4s=;
+        b=LwzIz4R6ZLuEOsS93163GcDx8nHaqR+BwyQ6SL833nvCrT8Yjr/jj1u87BtFa9przU
+         +iRw2iQTeLP311qYIdvf5B0U+4vFBOPofE8Ef829lccoAYg5ud5uu4e+NuTfARUv600G
+         R7Ufy5F+LhoPOTcKVfF7kA287WeQdJMV8CRKw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1757541480; x=1758146280;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=gMcZ5/Z8eru/CYsg9zyRNPxYeOwt+OeYK1yBmcLCv4s=;
+        b=HbkJJnKvNKVq5Bd8ETHMzlE2dNfPCtV+g/Lf9b9v7yc3WUFGqTjU3GVgnE4KNY7d3D
+         pEE0Jh6/oBM+GV/O7nJCDtMYQvxzduxWnF0vEc3a26HRS5yegzDdgVh1tw1CpZ7JzW+k
+         y+b4dkwj1V1O0Wrg/qgWmKmnI3iuvD+IuFIva6o2WuevO6Up8LBpFxcAffTdPbJ5JPYZ
+         qg6Lswo4T/4Fd8cP4Nuj3ArFRHtQwsrD8tV7y5WuTbi9hoHEfiZtoFLcS9FQE/L7qumj
+         id4bmgRomA0G/PoaUfZb9+C6Z2DhUeseO8PQnQSBl2aDhut/PKUh4MbVPga15SkUi3D9
+         z9ZQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXLa3NnHYlGHfeqEvYjq2pQZOtTq9v302LPEgYl1l+ec+vbq06Mk7+zgjo9ql2Z6QX3XukFy/eKQn4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzNa0fopqdErVvwnOpcKbsrOjLgLDehkiibcHHU+8ZGq88pay7I
+	y2X9wVgqdAQ1HYkoOCOYvXfbEjh2iXD8vwP7DeA1xgJn+aaW3lv+cXuT5p9Et1r8fNc=
+X-Gm-Gg: ASbGncvdFzPNUASN88pIlD0Or4zjuBg1nXiaMRSpPZbEvp2ZkSvxg0TtKfU9XsyEvzQ
+	VivzxHKjfTl7jfGm3zwherL4mT/wrFZvuc+oq9CUBUMOO2UYPB6Ujgpvp9s04J0wyIbfm8sAySY
+	co2/fUU35NRBe+NuHj4MdGSgDCS0qwz7S97WyHIRmIKzq+cxDiscRf8zRq26B1Slg4t7zXUpSNX
+	RqH/5vtCGsjNt0oZydHZmAXmDwfvuR12ClCOJVByHo/zRIcDe1D/GkNudGOqc/Yu3Cj2pOnbPld
+	MymBCiUfl3Opp7Tmxshwyc+IX7+83B/tdmruQaGUAsyObYCsJ2tWW9gcVk5ViLWUcWsGWKsmKUY
+	uy+n8OPDD/vhjUL/uOkLl7uln2JhQUu/hsRJGqOjM2kbkDhIjm+qMeyAFXDnU+4F+IgPn
+X-Google-Smtp-Source: AGHT+IFQCJGdRhWzE+OAbnCcJ0g0+6rJ7r01ntPR+RRqL/jUtSvV5WSRQYST35o+xHknpjs8D86iUA==
+X-Received: by 2002:a05:600c:198a:b0:456:13b6:4b18 with SMTP id 5b1f17b1804b1-45dddedd746mr166251105e9.31.1757541480256;
+        Wed, 10 Sep 2025 14:58:00 -0700 (PDT)
+Message-ID: <d81b0c13-853e-479a-ad11-9b9990b723a3@citrix.com>
+Date: Wed, 10 Sep 2025 22:57:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Xen-devel <xen-devel@lists.xenproject.org>
-From: Jason Andryuk <jason.andryuk@amd.com>
-Subject: domU reboot claim failed
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001709A:EE_|BY5PR12MB4212:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5bf05df-3d36-4895-c9ff-08ddf09c1957
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?eVZjZ244R21teEVGWWhnbHp0eVBvRkFHMXI2NzVpTGQvd3pLNEdKYzFUY1Rr?=
- =?utf-8?B?amJvN3JrNEJRTWRxVXZ6d0Q2Z2pJWUxsOU13VG5qMnFqZnJwdzFVLzNwNHZz?=
- =?utf-8?B?LzA3NHFuME9HSXpiMlFEbHg4MW1tWTloaTBoc01FMGxPMmg1REZQMTFIemZB?=
- =?utf-8?B?L29CRnE0RW1uNldhSGI2cytVSlFhRmhKVW54K0oyaW41NytKMzIydmw0NWpw?=
- =?utf-8?B?KzEwNUcrNjhuZmYrdW5PWnVlSWhuckJlY1lZaXdsOFRlSVlxNERQL2VEd1hz?=
- =?utf-8?B?Ump0Rm1mYkNCNW5sRjdlL2tUMEpXQW01WEFXNXI1MDFhUkVESjNqQm1zYWls?=
- =?utf-8?B?SWhiVjFacWc5SWQ3WU8wT0hUcWNaYVdFS3JyQlJESDhQNTdLNFZCa0UzNUhk?=
- =?utf-8?B?L2pqL21MbVUvV2k1QmNPbFBsM1FLZGQxN2lSSVZ2Qk5HRk1WNExOOWpaKysr?=
- =?utf-8?B?R0ZYYWFFNDVZQmpaNjhnVjdsVmNsMS91VUNtbTVSdnY1TU95bHVKblphMFBS?=
- =?utf-8?B?OUFHK1JaSUZZcG1yQ3dNTU43YjRZU2xGbkI3cmNiVE1mT3JyTjNFNG9ZeEhu?=
- =?utf-8?B?WVdhUlVvZ0d1OGkzY1hUc2h4YW5jRTlQcW9VUVpDNTJWOGQvVkZNZmoxRHBx?=
- =?utf-8?B?Y0FxUTdMQmlrVWRQQzFwQ2lsa0Zpd3plUWswVmRqSkExWkFhc0h6Q1lucGkv?=
- =?utf-8?B?QUM3aGpCMmptS0ZxWC8ySmtoYlFJMloyYUNMYWszN0xIdW5HeDdmV1VPZ3l2?=
- =?utf-8?B?bW03eDNFNFN1NlpEM2V5SVBwTVJHeWozcGE1RFRlN0NPQUgyNVRSSWVGdEti?=
- =?utf-8?B?cTJDRTZFay9pd29yL2dTeDE5UGVWRHlEVGd6MFJ6K000Z3BZWlh3TlBab1hQ?=
- =?utf-8?B?ZWg2OGcwYi9IR3NHVmptVVczNkg2YUFXRWhEcFR0UHhESzJERlYvUXRKYjZi?=
- =?utf-8?B?VWpGeUJUSWRSV2FucVo4TnFOZjlKb2d3MUJ2R2NwTnVYZ1NkYU9tMWdmNXRG?=
- =?utf-8?B?WEY5N1pybXhsUHRsYXp2eXhaVXJ5dk9lLzF0MDQ1OVBWRzFvdU1uYVFzQXJV?=
- =?utf-8?B?dldkTXVCOWM4ZGx6UC9TSXNMYWhZVjB6WDc1K2Uxa0trZURLSElWMlBJczdO?=
- =?utf-8?B?KzNKc0ZPZzlXQTlkaG9WRzhEdEgyUUUrYjRuclB1VS9JMnZVV2JyN3JGM2pM?=
- =?utf-8?B?UnJZTWNuTEFZNFArVmNtRGMvVExpY1RCZW5VK2VvSnMwayt6RnhBRGVFZ3Ir?=
- =?utf-8?B?cHNpQ2VXZ2ZlWndTVi82RVNYT0ZIb21XOFF2TFdBQ2cybW1wZnBLWkJHTnlE?=
- =?utf-8?B?dFc5R1l5T0VZOUQzelgrT2wwckJPV3E0RXBUMDRFbm10RFpYYjV0eUM3akhQ?=
- =?utf-8?B?dEhDMWdOSThmNHppZUdKRTJBc2xSRGY1MVZZV1NQWDRHS2c1NmZua3hQT2Ri?=
- =?utf-8?B?cUx2MnJxaHIyVjZuODQ2amYrNG9RaVcyV0hEVXB5OHhSVTlPWTFsZGY3Nm1T?=
- =?utf-8?B?dU14OEJieWNISTZPTlpkVUdGYWNwVXlkcndLV1pkaVB3eXJockg1S1VSQWpF?=
- =?utf-8?B?QVJtOTJFaXFzVWk2R0JqL1Y1VVhzUDdjZFB3QU1WaUNDaGlETHhCUlpBVDB2?=
- =?utf-8?B?Y1Z1bDVyc2FZZy96dGphaXVERTAwZTFQTHpVeFNlMkFVRWQ2MlZQSWNmVHZp?=
- =?utf-8?B?eFl1ZFRyMFN1cnNSZzBnaStXUFRZT2tzTkc1dHpxaElVZ3o0RUdkLzVhZW5u?=
- =?utf-8?B?a3pBVDVVY1RjakYxdW1kRXUxYlN0Z0IveWJrdkZyTWI0bnArYVI5WjBUemt0?=
- =?utf-8?B?RVRVdzY0MDZveTRUbDZvbmxxby8zQ1FKR21qNDlTaEZoZnZQSHJtUTNaNTBu?=
- =?utf-8?B?aTNOZEZlRUJ4VzFnQkQrb2UydXpzYTdLTUdUOUJsdXI0MUllME1VbnlpcGUr?=
- =?utf-8?B?ZlViZVIxc3VxUHR4Ui95OW5ZS29CcEtSUDBKL1VDMExPN09tbnErY1NyTmpM?=
- =?utf-8?B?UktWQzg0VWxsYi9IbFJtMjVVUms5TGZHajFZSXI2MDJaakZwZW1wTWNMNE5k?=
- =?utf-8?Q?toSP0O?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2025 18:58:58.6430
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5bf05df-3d36-4895-c9ff-08ddf09c1957
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF0001709A.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4212
+Subject: Re: domU reboot claim failed
+To: Jason Andryuk <jason.andryuk@amd.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <fae4b58f-c6ff-4db1-8198-1a5f76868d4d@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <fae4b58f-c6ff-4db1-8198-1a5f76868d4d@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On 10/09/2025 7:58 pm, Jason Andryuk wrote:
+> Hi,
+>
+> We're running Android as a guest and it's running the Compatibility
+> Test Suite.  During the CTS, the Android domU is rebooted multiple times.
+>
+> In the middle of the CTS, we've seen reboot fail.  xl -vvv shows:
+> domainbuilder: detail: Could not allocate memory for HVM guest as we
+> cannot claim memory!
+> xc: error: panic: xg_dom_boot.c:119: xc_dom_boot_mem_init: can't
+> allocate low memory for domain: Out of memory
+> libxl: error: libxl_dom.c:581:libxl__build_dom: xc_dom_boot_mem_init
+> failed: Cannot allocate memory
+> domainbuilder: detail: xc_dom_release: called
+>
+> So the claim failed.  The system has enough memory since we're just
+> rebooting the same VM.  As a work around, I added sleep(1) + retry,
+> which works.
+>
+> The curious part is the memory allocation.  For d2 to d5, we have:
+> domainbuilder: detail: range: start=0x0 end=0xf0000000
+> domainbuilder: detail: range: start=0x100000000 end=0x1af000000
+> xc: detail: PHYSICAL MEMORY ALLOCATION:
+> xc: detail:   4KB PAGES: 0x0000000000000000
+> xc: detail:   2MB PAGES: 0x00000000000006f8
+> xc: detail:   1GB PAGES: 0x0000000000000003
+>
+> But when we have to retry the claim for d6, there are no 1GB pages used:
+> domainbuilder: detail: range: start=0x0 end=0xf0000000
+> domainbuilder: detail: range: start=0x100000000 end=0x1af000000
+> domainbuilder: detail: HVM claim failed! attempt 0
+> xc: detail: PHYSICAL MEMORY ALLOCATION:
+> xc: detail:   4KB PAGES: 0x0000000000002800
+> xc: detail:   2MB PAGES: 0x0000000000000ce4
+> xc: detail:   1GB PAGES: 0x0000000000000000
+>
+> But subsequent reboots for d7 and d8 go back to using 1GB pages.
+>
+> Does the change in memory allocation stick out to anyone?
+>
+> Unfortunately, I don't have insight into what the failing test is doing.
+>
+> Xen doesn't seem set up to track the claim across reboot.  Retrying
+> the claim works in our scenario since we have a controlled configuration.
 
-We're running Android as a guest and it's running the Compatibility Test 
-Suite.  During the CTS, the Android domU is rebooted multiple times.
+This looks to me like a known phenomenon.  Ages back, a change was made
+in how Xen scrubs memory, from being synchronous in domain_kill(), to
+being asynchronous in the idle loop.
 
-In the middle of the CTS, we've seen reboot fail.  xl -vvv shows:
-domainbuilder: detail: Could not allocate memory for HVM guest as we 
-cannot claim memory!
-xc: error: panic: xg_dom_boot.c:119: xc_dom_boot_mem_init: can't 
-allocate low memory for domain: Out of memory
-libxl: error: libxl_dom.c:581:libxl__build_dom: xc_dom_boot_mem_init 
-failed: Cannot allocate memory
-domainbuilder: detail: xc_dom_release: called
+The consequence being that, on an idle system, you can shutdown and
+reboot the domain faster, but on a busy system you end up trying to
+allocate the new domain while memory from the old domain is still dirty.
 
-So the claim failed.  The system has enough memory since we're just 
-rebooting the same VM.  As a work around, I added sleep(1) + retry, 
-which works.
+It is a classic example of a false optimisation, which looks great on an
+idle system only because the idle CPUs are swallowing the work.
 
-The curious part is the memory allocation.  For d2 to d5, we have:
-domainbuilder: detail: range: start=0x0 end=0xf0000000
-domainbuilder: detail: range: start=0x100000000 end=0x1af000000
-xc: detail: PHYSICAL MEMORY ALLOCATION:
-xc: detail:   4KB PAGES: 0x0000000000000000
-xc: detail:   2MB PAGES: 0x00000000000006f8
-xc: detail:   1GB PAGES: 0x0000000000000003
+This impacts the ability to find a 1G aligned block of free memory to
+allocate a superpage with, and by the sounds of it, claims (which
+predate this behaviour change) aren't aware of the "to be scrubbed"
+queue and fail instead.
 
-But when we have to retry the claim for d6, there are no 1GB pages used:
-domainbuilder: detail: range: start=0x0 end=0xf0000000
-domainbuilder: detail: range: start=0x100000000 end=0x1af000000
-domainbuilder: detail: HVM claim failed! attempt 0
-xc: detail: PHYSICAL MEMORY ALLOCATION:
-xc: detail:   4KB PAGES: 0x0000000000002800
-xc: detail:   2MB PAGES: 0x0000000000000ce4
-xc: detail:   1GB PAGES: 0x0000000000000000
+I thought OpenXT had a revert of this.  IIRC it was considered a
+material regression in being able to know when a domain has gone away.
 
-But subsequent reboots for d7 and d8 go back to using 1GB pages.
-
-Does the change in memory allocation stick out to anyone?
-
-Unfortunately, I don't have insight into what the failing test is doing.
-
-Xen doesn't seem set up to track the claim across reboot.  Retrying the 
-claim works in our scenario since we have a controlled configuration.
-
-Thanks,
-Jason
+~Andrew
 
