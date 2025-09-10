@@ -2,49 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB396B51EF0
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 19:30:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1118662.1464353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F00AAB52087
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 21:00:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1118707.1464387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwOdn-0006r0-3k; Wed, 10 Sep 2025 17:29:55 +0000
+	id 1uwQ28-00016L-MH; Wed, 10 Sep 2025 18:59:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1118662.1464353; Wed, 10 Sep 2025 17:29:55 +0000
+Received: by outflank-mailman (output) from mailman id 1118707.1464387; Wed, 10 Sep 2025 18:59:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwOdm-0006nq-Vd; Wed, 10 Sep 2025 17:29:54 +0000
-Received: by outflank-mailman (input) for mailman id 1118662;
- Wed, 10 Sep 2025 17:29:52 +0000
+	id 1uwQ28-000142-Hk; Wed, 10 Sep 2025 18:59:08 +0000
+Received: by outflank-mailman (input) for mailman id 1118707;
+ Wed, 10 Sep 2025 18:59:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9Ly7=3V=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uwOdk-0006nc-Qi
- for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 17:29:52 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20613.outbound.protection.outlook.com
- [2a01:111:f403:200a::613])
+ <SRS0=1pHK=3V=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1uwQ26-00013w-SE
+ for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 18:59:06 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2060f.outbound.protection.outlook.com
+ [2a01:111:f403:2416::60f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c13ee6ca-8e6b-11f0-9d13-b5c5bf9af7f9;
- Wed, 10 Sep 2025 19:29:50 +0200 (CEST)
-Received: from MN2PR17CA0021.namprd17.prod.outlook.com (2603:10b6:208:15e::34)
- by PH0PR12MB7813.namprd12.prod.outlook.com (2603:10b6:510:286::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Wed, 10 Sep
- 2025 17:29:46 +0000
-Received: from BL6PEPF00022572.namprd02.prod.outlook.com
- (2603:10b6:208:15e:cafe::a4) by MN2PR17CA0021.outlook.office365.com
- (2603:10b6:208:15e::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9094.16 via Frontend Transport; Wed,
- 10 Sep 2025 17:29:45 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF00022572.mail.protection.outlook.com (10.167.249.40) with Microsoft
+ id 373ff95b-8e78-11f0-9d13-b5c5bf9af7f9;
+ Wed, 10 Sep 2025 20:59:04 +0200 (CEST)
+Received: from DS7PR03CA0308.namprd03.prod.outlook.com (2603:10b6:8:2b::31) by
+ BY5PR12MB4212.namprd12.prod.outlook.com (2603:10b6:a03:202::8) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9115.13 via Frontend Transport; Wed, 10 Sep 2025 17:29:45 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 10 Sep
- 2025 10:29:44 -0700
+ 15.20.9094.22; Wed, 10 Sep 2025 18:58:59 +0000
+Received: from DS1PEPF0001709A.namprd05.prod.outlook.com
+ (2603:10b6:8:2b:cafe::90) by DS7PR03CA0308.outlook.office365.com
+ (2603:10b6:8:2b::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.15 via Frontend Transport; Wed,
+ 10 Sep 2025 18:58:59 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DS1PEPF0001709A.mail.protection.outlook.com (10.167.18.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9115.13 via Frontend Transport; Wed, 10 Sep 2025 18:58:58 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 10 Sep
+ 2025 11:58:58 -0700
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 10 Sep
+ 2025 13:58:57 -0500
+Received: from [172.17.248.197] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 10 Sep 2025 11:58:57 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,189 +63,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c13ee6ca-8e6b-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: 373ff95b-8e78-11f0-9d13-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v4jzC+STGa0F6fdRtKB0+wEZxkU5DY8RXHSjqGye1whQhG6ckM4xI/SDE6+Ej6rFrD33gduy4gMinngl+k8syBD4/DgGByBPhT9NbP9BQR01OQEVmFmxnL2hoLovXWIPT5WMqI5I4hgG+xtK9Cx/VfxWI+UGhQYWmWgX2h70A2rctRHcjurkfv5EyqsngtI1q8iCJWi4W6SaQd7tGb+ZdarBYSShBq0yhzECor7tfD1sUjBlRS4fvVQSgvIQz6htsT36PkngSqwCRSHczOLImVpoq107FOx2d80BI2J7dtMC2Zpvqwzriwim7a1XazjdjQBckYKgRKGlYJM/yJMeCg==
+ b=CMR9rjrEUCIV6jGLSI3N800XeFcdzOw4bWgwM78PBbbqncHK2GKPv9wuzovjwXuRfura3Piaxd4BKAlQ0Val2JJC/+3W6stN2wz7MllAsd+EnxvPRPbAvLsDVKZKC87g8osFj8VkCFZF09Qkwd8iCybH4vC1iSUDlTlCyMza9FOkNCds0fKPX2kxyP6nUuNK9sA4JM0tQmmFbri8k8aEZ0ZDt4bVFuHmXPuZYXT4pd8wxG7GCtkwbGH5UDDth4acUXV1fIPrAsSvnVg03+AmaWTvay4QUuMUUo/XUH5prsada+2QVfKDm9rGqdU/8LhWb19bpjEhBaJnm3oiQ3g6qA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Eg5T/iQcS2XH8Uv+ZB99onyrXxOKCdOx9AyoMMLx7Q=;
- b=bWUrLn3Zbp3lt1BNUx9OyYoAafHbTD4UrSlv9VQuRc3XpAMWqwwZhv1xHp6X+QPmE7pNmJpvlODPBtOspshzptgPpKBZQbr38D43vnGwdluBWmkr1Jk1sV0Dubp+NGkycehFtymYBw4r7Yb5xEFWS/GrLAfckBRzqs/sbvsqptitFEmUAxlzlbZCwe1nawRjmtHFDP+4oboYRDfRvNFNsQKaYUK39mGdRAU3cA9ryUu7h2rUmllJ4aXm7jDEkuzfBWmFraXV8NIKvxkN5gX1TZqJyN6XjM/WGHsmgU1Yzipc9h4UiHtWUQIuPY73OCb0U3Khv7sB14cc+kfk/bErUg==
+ bh=2ARLEM3ngR7nSo8f7KyFfxgKHL610BYYDyw90q456cw=;
+ b=QIeQA9PrLIgeVyuZUmQNOSTWrZBdcgusj95p05dwaYA1JUUjyjY3BYIFQ06+1QfXiyf+DOcko6t2KDU8lVOCDCEKd1luPBp/+m3Qwjepolv0njRAI4PTZasKihD00rwDCMO2Rh3J8byGqpnuTl5q7qTt98/roiH40cq4YEQ5i90MT7l1/l3YMtRNmIcs546yY1W6wuFhnLUbrC6h9FR58e/cFW2MOc3NbIL8aoBdY7rOaiAoVXf+NX1Jz0Xv+ANHCYa83DrNWX26flPtu6GI9paVMGqBsjcHm/C/npSvMKsrIxK5UCVkhE2vswPCAJcRfTpVo6ShwGZSFlgWDWtZhQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7Eg5T/iQcS2XH8Uv+ZB99onyrXxOKCdOx9AyoMMLx7Q=;
- b=E/95nCaSVSl5AO2+fT+Ejm0jrf/0Me4NejIko1FjZBMWU4LcrEAHMv+NQ3ianZA7/Q0j8pdHaZoKiEHtsXuCf/hcnheWxAOImKgidwn8EvffD7lWom5GQXjy/EBM3PzwDysDArFJmpmhJ6ok1lRh0NN/UUhY9DBUTeQd1Wrgj20=
+ bh=2ARLEM3ngR7nSo8f7KyFfxgKHL610BYYDyw90q456cw=;
+ b=CrtKQegwKBMRgDBWBe/ZwAhHFURxwQgOY1m1eARr8i1HmFQyHnzjxrJEmdllPU7ZVsBAjsi6+8Z+8u3BgnZFMUrKjL+uDhznG7S0tzjvEe015WzU5aY9Eu/khrpZQkiJFL9AnSvFTimeHQ48ofQtpjt/0W5OQR8p5+CzHIH50Qc=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <fae4b58f-c6ff-4db1-8198-1a5f76868d4d@amd.com>
+Date: Wed, 10 Sep 2025 14:58:57 -0400
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Wed, 10 Sep 2025 19:29:42 +0200
-Message-ID: <DCPAR2NLL4VI.78XRJRDLA0ID@amd.com>
-CC: Anthony PERARD <anthony.perard@vates.tech>, Grygorii Strashko
-	<grygorii_strashko@epam.com>, Roger Pau Monne <roger.pau@citrix.com>,
-	<xen-devel@lists.xenproject.org>, Xen-devel
-	<xen-devel-bounces@lists.xenproject.org>
-Subject: Re: [PATCH] libacpi: Remove CPU hotplug and GPE handling from PVH
- DSDTs
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Jan Beulich
-	<jbeulich@suse.com>
-X-Mailer: aerc 0.20.1
-References: <20250910144921.29048-1-alejandro.garciavallejo@amd.com>
- <2c559b3a-9991-4aab-ad65-645ac0cca5ab@suse.com>
- <DCP7XE3F1J8P.3HEG1CKHZW39U@amd.com>
- <d753bbad-eb2d-4902-bdf5-ad77542ac28f@suse.com>
- <DCPA5G9EUXZZ.1739W35VKVBBP@amd.com>
-In-Reply-To: <DCPA5G9EUXZZ.1739W35VKVBBP@amd.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Xen-devel <xen-devel@lists.xenproject.org>
+From: Jason Andryuk <jason.andryuk@amd.com>
+Subject: domU reboot claim failed
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022572:EE_|PH0PR12MB7813:EE_
-X-MS-Office365-Filtering-Correlation-Id: c470c5e9-0b59-4933-bfb4-08ddf08fa2b2
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709A:EE_|BY5PR12MB4212:EE_
+X-MS-Office365-Filtering-Correlation-Id: d5bf05df-3d36-4895-c9ff-08ddf09c1957
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700013;
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?NXF5RXZlOHBTOXptdEVEaVZ4QnhxMVJ2eFQ3Z0E4V1lIZldsMFRMMlVYejhs?=
- =?utf-8?B?N01JalFOTy9XVUdMVm0yQW40eithUmJyT1hWaTllYXpic0FpWkJ1SzBFNWgy?=
- =?utf-8?B?M20rYUJSTWg2clRIWFB5bjFRb2RZWmtHV2d5SzYwYkcxcEpLL3VZejJCVVNi?=
- =?utf-8?B?TFBxK3VSZTc1VWRxL21adXZydmYrSE5aeC9uV1RZTXMwVVRrQjBveVlJWktl?=
- =?utf-8?B?MTByZmo5QmFlNlNiRGlxZmFxTSswYkowR1JjM0pVUHJKUGNDMW91eW1PaXlS?=
- =?utf-8?B?VVR4SFRKMGJuNlVuaFhYd1ZnU1FMQkVoUTNsYWxnaGN2T1JoZnhjOGh4d2lI?=
- =?utf-8?B?WWozNFR1MnlLeEVHMDdORHM0ZnBobGtkcVFMR1RRUjgwREFZZ211cHU3SXdT?=
- =?utf-8?B?MVk4OXJWaXlSUWVzVXdKTzhWUWNJSjFNYXozMnV0RTJFQjFuLzBodGNUWWRS?=
- =?utf-8?B?S2pZSW1HS1ZHWVVCZ0t3R2J3TVVYUlhUd3V0M2FoM2VWQVc1QWg4TWJqTWRY?=
- =?utf-8?B?ZERNZnlpRms0Y3JkVmF5STZzSitEMkpKKzRESDgxRndwcHcvd3piRDVqeW84?=
- =?utf-8?B?ZklKY1JnMGtZazZiTWJ4dlRVbGloekw2SlE5L2o0RnJXOG84NWNXU3dhNEVV?=
- =?utf-8?B?SnE4NllJUzlXdGMxSStGcUJ5L1F6YTc5aGFLMlBabzdTNDdmaG5tQklZRmJH?=
- =?utf-8?B?cVdadzJVYjRTUWRySllCUVE2QzU4TjBSZDdscEFrMTJiSGNhL3VSckFVMkNZ?=
- =?utf-8?B?NG5Vd3M0QmNkVEhDeUx4UFppSFU5UkVpWU4wcE55TUNmY0s3eDdRZXJqRlpj?=
- =?utf-8?B?Wml0Y0Y4OWRpcU51SGUxL0lwSDNaWjQvZWo2MzVoWHh6dEFOL1BuTW5mUG8x?=
- =?utf-8?B?NzM4WEx2bDdaQWRmU01JaWxTalpnTEEvQjJGNkl6UUN5NXp1QURXWGlac00x?=
- =?utf-8?B?djZRdis3YTdwNlJvWlZoTlZZb00zNU4wdzFtZjBiY2dvZ0hIMjUrczUrQllN?=
- =?utf-8?B?d2l3RXpFNHVyclYwQWpiRFpMZTNSeGZSZjVvTFBxT3VUclNVc0RQK3FUeTNB?=
- =?utf-8?B?TURDZzVkby80SzZ3dFpXQ3RHUWRrRU80SjdJbGVUV0RQUHFROXp0Ni9CR3pI?=
- =?utf-8?B?SCs0NW5iS0JvWHZDNlh5Y1plNUVkSEFuTTNWdGpHSVIwMEZUbFBQZjFDWEtZ?=
- =?utf-8?B?NjNaYjBkbzJmVVZJcWVqZ0xvR0l3UEtFeVNxejNNSFZIM0dHOFQzZm8xNnBV?=
- =?utf-8?B?ZGlueWtYd0pES0N6RWFaSFhjMVF1ZTFHa2lOSk92Rm5HaFNHK0M5dmVzWXdQ?=
- =?utf-8?B?Wm1RR3pFQ0N5V0U2OE9zUk5BZGxLdzF3TDdpaFd6UDc2OFJ0SEhTK21IRnFt?=
- =?utf-8?B?ZG43SUVoVFlaWnMyallBR2RWbVpRcFU4SEVSZnNsWFkxbDBXR1Y5QTFTMEVx?=
- =?utf-8?B?RDJGY2s4RkdoMnZPSG40SitTc1JhbGhrTGZ6b3M1d2RJLy93bDVvOWVxSjEv?=
- =?utf-8?B?U3lMdzduMnBoaGMrNTh1eXZETkdNZFpMK2JYK0RNcXFkaVNabVZvMHZ5WFR3?=
- =?utf-8?B?RGdmTDVub3YyMitETXhxKzFpQUpHNXZGdXNHemw4VCtZRXhBZVVNNzBLUlhl?=
- =?utf-8?B?Tm9yVHJiZllyY28wRmhXdFMzcWxrT0h5ZVhBcXEySHAycEVPUjEwQ0lDVG56?=
- =?utf-8?B?aFRnclQ2SkllVHBjQnBhbi9Fd1VHMU1scXBkWFhGVjNGMFJrVHkrYUtVLzF0?=
- =?utf-8?B?ZjM1ak5PU2lpdDhaM01VRGwvVzhmMlllNEl4OGxYdyt0SnVkTUNqOXg5c3JO?=
- =?utf-8?B?NEFHd01uYktkRVoyZTlVdXk5TUVmNFNPK3U0Nlh6Z1RtWVRIM0dBVkVZRUh4?=
- =?utf-8?B?RnpUTk1xRnNGYjAxaXRVK3ZJdzZGUWV5eFh5b0VTeGNML3Q0WU1hcDdhRlVT?=
- =?utf-8?B?Qjl6S2krRFF4dzdUdW1oWWpyeXVuUUo4aDEybmQxdzQyeloxVzdCNkdvajBq?=
- =?utf-8?B?OTdjcDBKd3ZNNVowN2c3dnVWam12dmNEWXNvMThCOGw2SXlhenFBZ24zNk9L?=
- =?utf-8?Q?cWsasD?=
+	=?utf-8?B?eVZjZ244R21teEVGWWhnbHp0eVBvRkFHMXI2NzVpTGQvd3pLNEdKYzFUY1Rr?=
+ =?utf-8?B?amJvN3JrNEJRTWRxVXZ6d0Q2Z2pJWUxsOU13VG5qMnFqZnJwdzFVLzNwNHZz?=
+ =?utf-8?B?LzA3NHFuME9HSXpiMlFEbHg4MW1tWTloaTBoc01FMGxPMmg1REZQMTFIemZB?=
+ =?utf-8?B?L29CRnE0RW1uNldhSGI2cytVSlFhRmhKVW54K0oyaW41NytKMzIydmw0NWpw?=
+ =?utf-8?B?KzEwNUcrNjhuZmYrdW5PWnVlSWhuckJlY1lZaXdsOFRlSVlxNERQL2VEd1hz?=
+ =?utf-8?B?Ump0Rm1mYkNCNW5sRjdlL2tUMEpXQW01WEFXNXI1MDFhUkVESjNqQm1zYWls?=
+ =?utf-8?B?SWhiVjFacWc5SWQ3WU8wT0hUcWNaYVdFS3JyQlJESDhQNTdLNFZCa0UzNUhk?=
+ =?utf-8?B?L2pqL21MbVUvV2k1QmNPbFBsM1FLZGQxN2lSSVZ2Qk5HRk1WNExOOWpaKysr?=
+ =?utf-8?B?R0ZYYWFFNDVZQmpaNjhnVjdsVmNsMS91VUNtbTVSdnY1TU95bHVKblphMFBS?=
+ =?utf-8?B?OUFHK1JaSUZZcG1yQ3dNTU43YjRZU2xGbkI3cmNiVE1mT3JyTjNFNG9ZeEhu?=
+ =?utf-8?B?WVdhUlVvZ0d1OGkzY1hUc2h4YW5jRTlQcW9VUVpDNTJWOGQvVkZNZmoxRHBx?=
+ =?utf-8?B?Y0FxUTdMQmlrVWRQQzFwQ2lsa0Zpd3plUWswVmRqSkExWkFhc0h6Q1lucGkv?=
+ =?utf-8?B?QUM3aGpCMmptS0ZxWC8ySmtoYlFJMloyYUNMYWszN0xIdW5HeDdmV1VPZ3l2?=
+ =?utf-8?B?bW03eDNFNFN1NlpEM2V5SVBwTVJHeWozcGE1RFRlN0NPQUgyNVRSSWVGdEti?=
+ =?utf-8?B?cTJDRTZFay9pd29yL2dTeDE5UGVWRHlEVGd6MFJ6K000Z3BZWlh3TlBab1hQ?=
+ =?utf-8?B?ZWg2OGcwYi9IR3NHVmptVVczNkg2YUFXRWhEcFR0UHhESzJERlYvUXRKYjZi?=
+ =?utf-8?B?VWpGeUJUSWRSV2FucVo4TnFOZjlKb2d3MUJ2R2NwTnVYZ1NkYU9tMWdmNXRG?=
+ =?utf-8?B?WEY5N1pybXhsUHRsYXp2eXhaVXJ5dk9lLzF0MDQ1OVBWRzFvdU1uYVFzQXJV?=
+ =?utf-8?B?dldkTXVCOWM4ZGx6UC9TSXNMYWhZVjB6WDc1K2Uxa0trZURLSElWMlBJczdO?=
+ =?utf-8?B?KzNKc0ZPZzlXQTlkaG9WRzhEdEgyUUUrYjRuclB1VS9JMnZVV2JyN3JGM2pM?=
+ =?utf-8?B?UnJZTWNuTEFZNFArVmNtRGMvVExpY1RCZW5VK2VvSnMwayt6RnhBRGVFZ3Ir?=
+ =?utf-8?B?cHNpQ2VXZ2ZlWndTVi82RVNYT0ZIb21XOFF2TFdBQ2cybW1wZnBLWkJHTnlE?=
+ =?utf-8?B?dFc5R1l5T0VZOUQzelgrT2wwckJPV3E0RXBUMDRFbm10RFpYYjV0eUM3akhQ?=
+ =?utf-8?B?dEhDMWdOSThmNHppZUdKRTJBc2xSRGY1MVZZV1NQWDRHS2c1NmZua3hQT2Ri?=
+ =?utf-8?B?cUx2MnJxaHIyVjZuODQ2amYrNG9RaVcyV0hEVXB5OHhSVTlPWTFsZGY3Nm1T?=
+ =?utf-8?B?dU14OEJieWNISTZPTlpkVUdGYWNwVXlkcndLV1pkaVB3eXJockg1S1VSQWpF?=
+ =?utf-8?B?QVJtOTJFaXFzVWk2R0JqL1Y1VVhzUDdjZFB3QU1WaUNDaGlETHhCUlpBVDB2?=
+ =?utf-8?B?Y1Z1bDVyc2FZZy96dGphaXVERTAwZTFQTHpVeFNlMkFVRWQ2MlZQSWNmVHZp?=
+ =?utf-8?B?eFl1ZFRyMFN1cnNSZzBnaStXUFRZT2tzTkc1dHpxaElVZ3o0RUdkLzVhZW5u?=
+ =?utf-8?B?a3pBVDVVY1RjakYxdW1kRXUxYlN0Z0IveWJrdkZyTWI0bnArYVI5WjBUemt0?=
+ =?utf-8?B?RVRVdzY0MDZveTRUbDZvbmxxby8zQ1FKR21qNDlTaEZoZnZQSHJtUTNaNTBu?=
+ =?utf-8?B?aTNOZEZlRUJ4VzFnQkQrb2UydXpzYTdLTUdUOUJsdXI0MUllME1VbnlpcGUr?=
+ =?utf-8?B?ZlViZVIxc3VxUHR4Ui95OW5ZS29CcEtSUDBKL1VDMExPN09tbnErY1NyTmpM?=
+ =?utf-8?B?UktWQzg0VWxsYi9IbFJtMjVVUms5TGZHajFZSXI2MDJaakZwZW1wTWNMNE5k?=
+ =?utf-8?Q?toSP0O?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2025 17:29:45.6632
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2025 18:58:58.6430
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c470c5e9-0b59-4933-bfb4-08ddf08fa2b2
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5bf05df-3d36-4895-c9ff-08ddf09c1957
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00022572.namprd02.prod.outlook.com
+	DS1PEPF0001709A.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7813
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4212
 
-On Wed Sep 10, 2025 at 7:01 PM CEST, Alejandro Vallejo wrote:
-> On Wed Sep 10, 2025 at 5:31 PM CEST, Jan Beulich wrote:
->> On 10.09.2025 17:16, Alejandro Vallejo wrote:
->>> On Wed Sep 10, 2025 at 5:02 PM CEST, Jan Beulich wrote:
->>>> On 10.09.2025 16:49, Alejandro Vallejo wrote:
->>>>> CPU hotplug relies on the guest having access to the legacy online CP=
-U
->>>>> bitmap that QEMU provides at PIO 0xAF00. But PVH guests have no DM, s=
-o
->>>>> this causes the MADT to get corrupted due to spurious modifications o=
-f
->>>>> the "online" flag in MADT entries and the table checksum during the
->>>>> initial acpica passes.
->>>>
->>>> I don't understand this MADT corruption aspect, which - aiui - is why
->>>> there's a Fixes: tag here. The code change itself looks plausible.
->>>=20
->>> When there's no DM to provide a real and honest online CPU bitmap on PI=
-O 0xAF00
->>> then we get all 1s (because there's no IOREQ server). Which confuses th=
-e GPE
->>> handler.
->>>=20
->>> Somehow, the GPE handler is being triggered. Whether this is due to a r=
-eal SCI
->>> or just it being spuriously executed as part of the initial acpica pass=
-, I don't
->>> know.
->>>=20
->>> Both statements combined means the checksum and online flags in the MAD=
-T get
->>> changed after initial parsing making it appear as-if all 128 CPUs were =
-plugged.
->>
->> I can follow this part (the online flags one, that is).
->>
->>> This patch makes the checksums be correct after acpica init.
->>
->> I'm still in trouble with this one. If MADT is modified in the process, =
-there's
->> only one of two possible options:
->> 1) It's expected for the checksum to no longer be correct.
->> 2) The checksum is being fixed up in the process.
->> That's independent of being HVM or PVH and independent of guest boot or =
-later.
->> (Of course there's a sub-variant of 2, where the adjusting of the checks=
-um
->> would be broken, but that wouldn't be covered by your change.)
->>
->> Jan
->
-> I see what you mean now. The checksum correction code LOOKS correct. But =
-I
-> wonder about the table length... We report a table as big as it needs to =
-be,
-> but the checksum update is done irrespective of FLG being inside the vali=
-d range
-> of the MADT. If a guest with 2 vCPUs (in max_vcpus) sees vCPU127 being si=
-gnalled
-> that'd trigger the (unseen) online flag to be enabled and the checksum ad=
-justed,
-> except the checksum must not being adjusted.
->
-> I could add even more AML to cover that, but that'd be QEMU misbehaving (=
-or
-> being absent). This patch covers the latter case, but it might be good to
-> change the commit message to reflect the real problem.
->
-> Cheers,
-> Alejandro
+Hi,
 
-It doesn't quite add up in the mismatch though. There might be something el=
-se
-lurking in there.
+We're running Android as a guest and it's running the Compatibility Test 
+Suite.  During the CTS, the Android domU is rebooted multiple times.
 
-Regardless, I don't want this junk in PVH. Would a commit reword suffice to=
- have
-it acked?
+In the middle of the CTS, we've seen reboot fail.  xl -vvv shows:
+domainbuilder: detail: Could not allocate memory for HVM guest as we 
+cannot claim memory!
+xc: error: panic: xg_dom_boot.c:119: xc_dom_boot_mem_init: can't 
+allocate low memory for domain: Out of memory
+libxl: error: libxl_dom.c:581:libxl__build_dom: xc_dom_boot_mem_init 
+failed: Cannot allocate memory
+domainbuilder: detail: xc_dom_release: called
 
-Cheers,
-Alejandro
+So the claim failed.  The system has enough memory since we're just 
+rebooting the same VM.  As a work around, I added sleep(1) + retry, 
+which works.
+
+The curious part is the memory allocation.  For d2 to d5, we have:
+domainbuilder: detail: range: start=0x0 end=0xf0000000
+domainbuilder: detail: range: start=0x100000000 end=0x1af000000
+xc: detail: PHYSICAL MEMORY ALLOCATION:
+xc: detail:   4KB PAGES: 0x0000000000000000
+xc: detail:   2MB PAGES: 0x00000000000006f8
+xc: detail:   1GB PAGES: 0x0000000000000003
+
+But when we have to retry the claim for d6, there are no 1GB pages used:
+domainbuilder: detail: range: start=0x0 end=0xf0000000
+domainbuilder: detail: range: start=0x100000000 end=0x1af000000
+domainbuilder: detail: HVM claim failed! attempt 0
+xc: detail: PHYSICAL MEMORY ALLOCATION:
+xc: detail:   4KB PAGES: 0x0000000000002800
+xc: detail:   2MB PAGES: 0x0000000000000ce4
+xc: detail:   1GB PAGES: 0x0000000000000000
+
+But subsequent reboots for d7 and d8 go back to using 1GB pages.
+
+Does the change in memory allocation stick out to anyone?
+
+Unfortunately, I don't have insight into what the failing test is doing.
+
+Xen doesn't seem set up to track the claim across reboot.  Retrying the 
+claim works in our scenario since we have a controlled configuration.
+
+Thanks,
+Jason
 
