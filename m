@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3953CB515D5
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 13:35:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1118155.1464070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98D25B5164A
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 13:59:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1118172.1464080 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwJ5i-0006UI-Af; Wed, 10 Sep 2025 11:34:22 +0000
+	id 1uwJTM-00010F-4u; Wed, 10 Sep 2025 11:58:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1118155.1464070; Wed, 10 Sep 2025 11:34:22 +0000
+Received: by outflank-mailman (output) from mailman id 1118172.1464080; Wed, 10 Sep 2025 11:58:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwJ5i-0006So-7e; Wed, 10 Sep 2025 11:34:22 +0000
-Received: by outflank-mailman (input) for mailman id 1118155;
- Wed, 10 Sep 2025 11:34:20 +0000
+	id 1uwJTM-0000xR-1r; Wed, 10 Sep 2025 11:58:48 +0000
+Received: by outflank-mailman (input) for mailman id 1118172;
+ Wed, 10 Sep 2025 11:58:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kMwI=3V=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uwJ5g-0006Si-Kw
- for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 11:34:20 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=HW4J=3V=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
+ id 1uwJTK-0000xL-KY
+ for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 11:58:46 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061e.outbound.protection.outlook.com
+ [2a01:111:f403:2009::61e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 170fd537-8e3a-11f0-9d13-b5c5bf9af7f9;
- Wed, 10 Sep 2025 13:34:19 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3df2f4aedc7so3808957f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 10 Sep 2025 04:34:19 -0700 (PDT)
-Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3e752238832sm6343296f8f.31.2025.09.10.04.34.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Sep 2025 04:34:18 -0700 (PDT)
+ id 80094c5b-8e3d-11f0-9d13-b5c5bf9af7f9;
+ Wed, 10 Sep 2025 13:58:45 +0200 (CEST)
+Received: from PH7PR12MB5757.namprd12.prod.outlook.com (2603:10b6:510:1d0::13)
+ by CH3PR12MB8709.namprd12.prod.outlook.com (2603:10b6:610:17c::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Wed, 10 Sep
+ 2025 11:58:41 +0000
+Received: from PH7PR12MB5757.namprd12.prod.outlook.com
+ ([fe80::f012:300c:6bf4:7632]) by PH7PR12MB5757.namprd12.prod.outlook.com
+ ([fe80::f012:300c:6bf4:7632%2]) with mapi id 15.20.9094.021; Wed, 10 Sep 2025
+ 11:58:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,156 +47,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 170fd537-8e3a-11f0-9d13-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1757504059; x=1758108859; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=j6+nn9UIr1kZR9BUz4wxS+TIl8oWXnDTOsT/TpLgGVU=;
-        b=ApR4q8gW//nLJ2gW4KN2jPq13220Rom+2qrqcAN+V2LnSCZKpwLB4YYNezOf6klzCz
-         OmHG2nX2gbUsKfCmK6x4uj9+rjB+EtImbYRaqtYy9WtvSR8qA1eshhkgrnxOndZJ6jjA
-         SqzD7kFkfFyjh8AAyNyoRuyeqZB4nc6Xd8gYg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757504059; x=1758108859;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=j6+nn9UIr1kZR9BUz4wxS+TIl8oWXnDTOsT/TpLgGVU=;
-        b=H7wEA+747TNlHvU9UorE6dTYMxupdaZelxqVQkhfkF88wM8zPXaAVQE0ND3h5z811R
-         EMrJ4+TsJEhIfb9nZ+F6meqrNqU4k/KZlanTKAL03HPEm4ymX97OonBfoRCc+stWW/zT
-         8zqRlvqKdZ/G2mwRf232GCx5Wo/rW1IDnw213vk99a+sEjKfPgWRxSYCymrs0hbJ7Zuf
-         Suqg4v8nPysRwvSkpdSNYG+PQL+UKyriKQnHfsmgcIfa9CWY82xTcUezWSJdySVWypqM
-         EZZLQ/IiOJjxPpQl2mELafpZVoTKfd42rL2fjgQ6e/0i1bN823JiGb2/OUDlYdTPe98V
-         nhQw==
-X-Gm-Message-State: AOJu0Ywz0EZ1y0K03bsubk4T+1clZCI4Yd24ZarnwB2Shtk666yviVjH
-	8xpYyc8c9UUyp5HEG028vync895mQhtybdtP13Nt+Pg9Sok8nULA3ijukLS/wJ9NtdTjZMsoSh3
-	8LtM/
-X-Gm-Gg: ASbGncs1THVjkhxSTW3349h4+EDyPsvwVgSNkeG+dhxDGfcAkFrVhLjMJpRc+ja7NHs
-	Wbbiyy5GB7xmT+JNgq7dwYrrx9JQKz5PGjpFR6kae4Ru13nMOSLWIF0V9QGOmtfFSQFOig2gHC4
-	cJi/vZ3AFvj1gq8Kj5qXIPIufVsYlNx0TP1FyA986Ik+ZdrTgxrwb/HA74OtFhokcSPv4i86+r7
-	6xFoucRS5cflodkgwC+bhJWeIhj73L5CDAoT1nD7EfBF6JLQfCIO0ueKedxMvwPQlbXXQ3QFrJI
-	OyBcOUFzUpPU+H0pa7uzagIrGLM/6JYJpMJyeJgoOKkcbJO/NmAvPd3VSw+zQegGg6A1aDLnLW8
-	u6WhzK4t8wQl/tamK8EK5zCSVvqsbLeblGtTEgFRycypntpuZRkQO5bxnm1Lq017HZ8S6Tg/KF1
-	jrHHIhPaG17Vk=
-X-Google-Smtp-Source: AGHT+IFIyERCIsO1mNcq6O6MZm9Fk5DxT0mcYLDk29QHvYrnzM7migljfZFkUPnIHU+XPBwztjETBQ==
-X-Received: by 2002:a05:6000:420f:b0:3d9:70cc:6dd2 with SMTP id ffacd0b85a97d-3e64317eee0mr10039762f8f.40.1757504058633;
-        Wed, 10 Sep 2025 04:34:18 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
+X-Inumbo-ID: 80094c5b-8e3d-11f0-9d13-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Sn3V7oELjkrT+Ex+wYuTTfJd3WsUwYgnJmnkM+tItOpmbM+J8qovkAPHYt/A7PKdAxoWGlisZ5TesXjmIXvOHKWcNXtA1O3Hg9SA6mAhfrHEezRPKmMCSHIRBmSiBgsvZgxaw6V0hH4pbdO54/Yd5q5EIYBFKZuN7d/8WIw+zLxloBetM/UCcYtcIc6GW5rH0jBKwge7a0m4jPykaBH8Y8sKHehJQWlDdKdUNpkCp2evYTZ7lvgs+TsiTWScPuI24eLlp6TrdOL+hleedbJyK+OJ4SytpZZpW4FYO/j3zVP4FD60hiKyFc9ZB4/0Ery3tfckBgfq1QXuqElNvsjftw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M2CRGJWbvgTRAKQCpQVq3CvW0DQ/ZyYML+xgjXHDleo=;
+ b=tB2vXc4aLG7Xvj/iBdZSvwn5l5BDP6C+4bz1pIRIWCRgMWFDDbhmT5qJwttomGtb8BHCznSs1U/3u4v6DHTHmWC/I6z+Xr6vluxXtIpc3nRzQiDjGvtecnGkPUr8uW7zs/hJWBGP80S7Nc1dUlCLFh9qUOu5jO987pSlHgXoT/P1w6NsT3FQBwOILLwl3So1eAjWPEjg3x9jiy8sN7xCZqAPkDZVJitbvd8ChCDhycviaJq9+sQzjix1CUYwDf9us224wMfxwnVp/LXMt9t30uAoOeFS7X2kQZFGh8Eg3ciqLaMSqi0Ur/Kgqry1mm4HqC3j/XfupYGVGiT8b2TLaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M2CRGJWbvgTRAKQCpQVq3CvW0DQ/ZyYML+xgjXHDleo=;
+ b=DCGX5i1wV1JzbNNAuAK46B1FTzUqbIWJJr1k/xRxSeDUhzU9om62gERPuNF9zaGeSw3Z47iVGhqjLYvnnpANarQksVzq5onyjKQEa/uqx4+QH9ptjWiYcpUBJuCKrMO21J8C5gZEzPW3uZshpwp8TsczXFauxzksXuc9pJwioRUTXudhdy6L2hUGfrzW6zFhm7ermfbnA+frN//qvdI/SL4Ye+KQ/MfEcYEEtrj13319OvercvtIa+jAK7pRYfUZPJwYgn+rUmDsHPM/wcOgja0mFu5Tjb6neURlaC8VFX+tVNuwHJvJyj+If2Ypv4p2rx/AJA7xTfLlNTPx9BllEA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Date: Wed, 10 Sep 2025 08:58:39 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+	David Hildenbrand <david@redhat.com>, iommu@lists.linux.dev,
+	Jason Wang <jasowang@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+	Joerg Roedel <joro@8bytes.org>, Jonathan Corbet <corbet@lwn.net>,
+	Juergen Gross <jgross@suse.com>, kasan-dev@googlegroups.com,
+	Keith Busch <kbusch@kernel.org>, linux-block@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linux-nvme@lists.infradead.org,
+	linuxppc-dev@lists.ozlabs.org, linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Jan Beulich <JBeulich@suse.com>
-Subject: [PATCH] CI: Switch the alpine containers to be non-root
-Date: Wed, 10 Sep 2025 12:34:16 +0100
-Message-Id: <20250910113416.1835988-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6 03/16] dma-debug: refactor to use physical addresses
+ for page mapping
+Message-ID: <20250910115839.GT789684@nvidia.com>
+References: <cover.1757423202.git.leonro@nvidia.com>
+ <56d1a6769b68dfcbf8b26a75a7329aeb8e3c3b6a.1757423202.git.leonro@nvidia.com>
+ <20250909193748.GG341237@unreal>
+ <20250910052618.GH341237@unreal>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250910052618.GH341237@unreal>
+X-ClientProxiedBy: YT4PR01CA0498.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10c::6) To PH7PR12MB5757.namprd12.prod.outlook.com
+ (2603:10b6:510:1d0::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5757:EE_|CH3PR12MB8709:EE_
+X-MS-Office365-Filtering-Correlation-Id: d3d1beeb-870b-4064-522c-08ddf0616235
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?FzIxhCTl/DFGFmaXIkSJW43QRlHeUwrObkzUBGOXZlpW5TknvixiA4gDQdO0?=
+ =?us-ascii?Q?Y/Q2AqArhV3Ean+ESTnkZr/fvpBX2nkWxFKLLH4g5CA9C8G475Hr3gb3OOjv?=
+ =?us-ascii?Q?6uJVbcwr9hyVssPYNNIHf4cHbHNfa1FcsJ0EkEfNXG98vrQPHF/sWCvG8QI/?=
+ =?us-ascii?Q?COGsWCNfWUGpIWeBBcktY7eFttSjXnJa/fCDlR5M7SnWvVHjP09ct5kmeZoH?=
+ =?us-ascii?Q?SAYNOPDNskcy46Em8ly9RRUNfqYG4XoPucVxFGwyPQt0cGYV/RAX2nuBRLnY?=
+ =?us-ascii?Q?oDenFOddnolaVnUlfh0CImgVZFr/tUkfCle8aamRAftKGcs67gzyutBwvoDi?=
+ =?us-ascii?Q?dNUaAWRksh0OpZeDtOzS+yUixVU6iF6zuAgdtdJ+/SJw1dzFDkGfm80wGCoH?=
+ =?us-ascii?Q?pckzkDSveUd+iwi2lfDzjyPVQ9yj0CiH/xxWs9md9M1AQSc3NZiJU1hLjeKm?=
+ =?us-ascii?Q?aAY8FuT7mkNTvmr+F8IaY1xbUkqwDE0/IWF1EmvaP2B2COuQ7wMj4RNUjEOc?=
+ =?us-ascii?Q?O/AhbcPzLAMyP9dJTa4ojajfgOMtdCIXx/Rxry4yk0Rx2rZ2fjSA6M+C0jit?=
+ =?us-ascii?Q?E4yYm3ZocgAEqqYDdafANBeHp39vXTx87t0jZIqiUkS+AeC6ISIHwD9hDxkj?=
+ =?us-ascii?Q?3NKmejdUiaLbjH+sBCgqd206gGNFVcc0Zt98Oozys1GBZXwHRLMY812uQPYE?=
+ =?us-ascii?Q?uyHrhpRnGAIYWFfAHefw01QVwryhLl4F/p2FxxZ5WJ2mJk8iLma6uzFa9nse?=
+ =?us-ascii?Q?KDIQcCRrG9o4DskmRPMDf1PaNxx8TvwULUPJB0jwTMsE0RkZQnTZYU69eX3J?=
+ =?us-ascii?Q?DTJiamg3E5I0LV9zQ7KUNLWj7+scC2fn2wUO2D+w6NK2kvcb0lvj02l6UkTc?=
+ =?us-ascii?Q?X7jKgFI4/1/bAGQetuBuvx+ircaAenX1Iq6FMnRYQcgdor2MWhUDTqFKizIA?=
+ =?us-ascii?Q?vJmD0Pht5I+lSm+VVTECa5eMOZE6H/UwUgnXBgFiR+SdXv8DEnEnO9a+9Ujl?=
+ =?us-ascii?Q?fTzsLsC/NZI0DsiAFIBO+4w+7SMolqtyX9A00a9XgVJOp0yXxu2QqO44FHlF?=
+ =?us-ascii?Q?F5kOApjBfLOwHK4UEafL48ADf1hzQpNZPMIk6R2fhwlKEIUMoSNqHn4cTPxl?=
+ =?us-ascii?Q?znJlbuU5Ch+3Eejo3q7yZqrX3ozlPCo0nBxc8d/f9Cr9yddhddHSyXN4+eBq?=
+ =?us-ascii?Q?1K8vM06RHw5aht/nrdIYWUbgLh/jYAL7eVKdCjw67lWNVVQn+anrn3l19WdD?=
+ =?us-ascii?Q?BSnlzXwqrv/YfQoqXhsDx+EYQ9FcwydQzXtPK0D5bSt8yOGcjkm9NRk++zQ6?=
+ =?us-ascii?Q?K5aUj8NJxT+OVBPsX2TS4htXjJaFpFkDZIIIo3/5K+GVBWGmqOwVOybPuki7?=
+ =?us-ascii?Q?iI62pGuhOEA82Yro5WGvlkvleuez4YsUAy/C9hO+W3hCWvzy7fg3ZN0wgqkG?=
+ =?us-ascii?Q?ptHYclhyF3Q=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5757.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9YO2VNtN7/AVkNY5N+N6bpbx5DVFYyJdxIshjK2kTpMeuaOdcSF5l7noHEF1?=
+ =?us-ascii?Q?s+lB5UEncua+s5Drg3oPC44ZKgxdHC7EQ1mmSbi+XEq4qFKNNVBpiRWSIfc/?=
+ =?us-ascii?Q?8ywQrj440x8YBHiXj4uZB0QE+J1KktuhiJc4bflyorZLYXXCNTQlvOTv371c?=
+ =?us-ascii?Q?ASDGOoCEv3wTgUSySdjTbUQQGWvJC0NQpKSsq2qJNstew84LYBuDpBk3uV4o?=
+ =?us-ascii?Q?vBenXfKllbuWTEDAUQSxwockvdu2HZ5HxpgplNGCWZ7znKBO2Us7KIHdhBAe?=
+ =?us-ascii?Q?TCX53Fa2wFwLETR5Ho0D0sOXqpILTIZlgHisolBKChaVQ1AKIqqsvk1hmIgd?=
+ =?us-ascii?Q?YE6/iB4CEGVROiDFPAO5TfADkkrbbKpGKD5A/XCbSSUrHrrkqIUnPM/LzYXQ?=
+ =?us-ascii?Q?WGT0sXGTpAAVusd7OCVZF7nEWNxNPvf9OafKMixxZg+5lm9hMrGaDiXZ7U/0?=
+ =?us-ascii?Q?bWiQu0xeLBXSVpmNEob1HkW8KfUJ1e3A8+quycFN8fJOn5cfpnSW3FEqOAjC?=
+ =?us-ascii?Q?JgfkhIRa6APiEb2G4je21c6BWKbOX5cOHZDHFENP3jL5g+YoyyU1LJz0NoX8?=
+ =?us-ascii?Q?mASc/SCKxHdg3dyOiFa2V+Xpjd+N2LutqqAwhQg4IORPN9sNWSwzKWeX8TPJ?=
+ =?us-ascii?Q?OYNp+31ak76mDNFtIe0GgR/CPpX7wrNktItOo5t05HaCglof/SdPTIbMFvnQ?=
+ =?us-ascii?Q?dIlVEWzu0f1mZZgQUsT1aBY9Hx24N4Kx5QcmLxuijEYIEebO87J8trQkpOC6?=
+ =?us-ascii?Q?5HvTn80xxmbnBR4Z8s48Qux7dO4liJ+EP9gA8N10i8HYKFz6FU5y6aWdKBDu?=
+ =?us-ascii?Q?F2nCo6aUF13uff4b9pX53OdttabCsWvQhcMi73AjQz70ijVhIZRi5rD81caI?=
+ =?us-ascii?Q?qzAmnxy0fXs8ZFjYivEVLHNmcYoWZVTCFLm9h9ZlCYQajTaL3WZ2b4bBYqGY?=
+ =?us-ascii?Q?mE3YlmZLwZtHu8pjWIHa8Vu9ugDe14ebg5WRs5a83zohvO7s4Sb4LfCpMic1?=
+ =?us-ascii?Q?IpBv8kPo4agNFbf1H2TyXz5QyQaAkHqbPjJgR2bgQJ8ELYUjejyvmEhrmoEJ?=
+ =?us-ascii?Q?cle6p7D1vIfzHtVjImdzimXsTUYCsAKTGPmt140QMNxPK7rxy96x1wl3+GfE?=
+ =?us-ascii?Q?2QmAUir2xSQdsVPQXgP+rTTiGOpzo02zLXIOySsQlKBQPfcSP0MVBNdZmxpU?=
+ =?us-ascii?Q?KY1LAWASYTztVwsHLEbLnBvuORa0/G0/n1GbQA1BBOj9PkqnwENbff4O7HYX?=
+ =?us-ascii?Q?n/06d/f2gFt8Gr7mnZ6gme2FoyHeKWUKi0gX2Yeoawx+x9szqxzDkBmWGxM8?=
+ =?us-ascii?Q?R24cd960+95kkj5RLQyuLq+qQSfIut3CnDpnavZuMCT8M7VanWjlKpxbVBmH?=
+ =?us-ascii?Q?9ZdLMvbeCVO22byX6zJ/TqPCtJxTr4zQCRF5JSAHjnClMwsB+zPNa8RuDdCD?=
+ =?us-ascii?Q?ozo2sXZqvbCbHoDATIse33PWDM4HV99uQGVFvcLv2sGGvcSNU4Qq3K73wuEo?=
+ =?us-ascii?Q?rAyxsA9mNo4oh0K+wFkx6BNR032gCcNqav90jaUAoi5RrDp9pRWy4nuuK/ZR?=
+ =?us-ascii?Q?TKRZ0lKjkgxNLtP0ngU=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3d1beeb-870b-4064-522c-08ddf0616235
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2025 11:58:40.8152
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NOBo5qiUePOEw1x7YNat0KXcE5eLDbKYD5g/dL+or0XOWmfL8YpjCGLIZSmZwreP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8709
 
-Testing on staging-4.19 is hitting a reliable failure, caused by alpine/3.18
-being a root build container, but debian/12-x86_64 being a non-root test
-container.  Specifically, the test container can't copy XEN_PAGING_DIR and
-XEN_DUMP_DIR (both 700) from the build root in order to construct the initrd.
+On Wed, Sep 10, 2025 at 08:26:18AM +0300, Leon Romanovsky wrote:
+>  #define PageHighMem(__p) is_highmem_idx(page_zonenum(__p))
+> -#define PhysHighMem(__p) (PageHighMem(phys_to_page(__p)))
+>  #define folio_test_highmem(__f)        is_highmem_idx(folio_zonenum(__f))
+>  #else
+>  PAGEFLAG_FALSE(HighMem, highmem)
+>  #endif
+> +#define PhysHighMem(__p) (PageHighMem(phys_to_page(__p)))
 
-staging-4.20 and later do not repack the initrd in this way, so are not
-affected.
+Yeah, that's what I imagined, and I'd make it a static inline
 
-Switch both alpine containers to being non-root.  This is still slightly
-fragile, but better than depending on using root containers for both.
+static inline bool PhysHighMem(phys_addr_t phys)
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-CC: Jan Beulich <JBeulich@suse.com>
+These existing macros are old fashioned imho.
 
-The only less fragile option I can think of would be to backport the initrd
-CPIO optimisations.  I backported it from 4.21 to 4.20, and can't remember if
-there was a blocking reason on 4.19, or simply that it would be a lot of work.
-
-I've rebuilt these containers in registry.gitlab.com/xen-project/people/andyhhp/xen
-
-Runs using this registry:
-  staging:
-    https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2031831044
-  staging-4.19:
-    https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2031832855
-
-(There will be a delay until these can run fully.  The CPPCheck container
-takes an unreasonable amount of time to rebuild, and it's holding up a couple
-of others.)
----
- automation/build/alpine/3.18-arm64v8.dockerfile | 16 ++++++++--------
- automation/build/alpine/3.18.dockerfile         | 16 ++++++++--------
- 2 files changed, 16 insertions(+), 16 deletions(-)
-
-diff --git a/automation/build/alpine/3.18-arm64v8.dockerfile b/automation/build/alpine/3.18-arm64v8.dockerfile
-index b8482d5bf43f..360da8281054 100644
---- a/automation/build/alpine/3.18-arm64v8.dockerfile
-+++ b/automation/build/alpine/3.18-arm64v8.dockerfile
-@@ -3,13 +3,10 @@ FROM --platform=linux/arm64/v8 alpine:3.18
- LABEL maintainer.name="The Xen Project" \
-       maintainer.email="xen-devel@lists.xenproject.org"
- 
--ENV USER root
--
--RUN mkdir /build
--WORKDIR /build
--
--# build depends
--RUN apk --no-cache add \
-+RUN adduser -S user && \
-+  mkdir /build && \
-+  # build depends
-+  apk --no-cache add \
-   \
-   # xen build deps
-   argp-standalone \
-@@ -48,4 +45,7 @@ RUN apk --no-cache add \
-   # qubes test deps
-   openssh-client \
-   fakeroot \
--  expect \
-+  expect
-+
-+USER user
-+WORKDIR /build
-diff --git a/automation/build/alpine/3.18.dockerfile b/automation/build/alpine/3.18.dockerfile
-index 263e9e90d888..4ccbe8e5c1b3 100644
---- a/automation/build/alpine/3.18.dockerfile
-+++ b/automation/build/alpine/3.18.dockerfile
-@@ -3,13 +3,10 @@ FROM --platform=linux/amd64 alpine:3.18
- LABEL maintainer.name="The Xen Project" \
-       maintainer.email="xen-devel@lists.xenproject.org"
- 
--ENV USER root
--
--RUN mkdir /build
--WORKDIR /build
--
--# build depends
--RUN apk --no-cache add \
-+RUN adduser -S user && \
-+  mkdir /build && \
-+  # build depends
-+  apk --no-cache add \
-   \
-   # xen build deps
-   argp-standalone \
-@@ -49,4 +46,7 @@ RUN apk --no-cache add \
-   ninja \
-   pixman-dev \
-   # livepatch-tools deps
--  elfutils-dev \
-+  elfutils-dev
-+
-+USER user
-+WORKDIR /build
--- 
-2.39.5
-
+Jason
 
