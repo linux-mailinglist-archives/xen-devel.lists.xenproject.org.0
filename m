@@ -2,35 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE7FFB51B36
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 17:16:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1118469.1464244 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A7C7B51B3F
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Sep 2025 17:17:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1118480.1464255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwMYl-0000dT-IP; Wed, 10 Sep 2025 15:16:35 +0000
+	id 1uwMZG-0001Fe-TX; Wed, 10 Sep 2025 15:17:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1118469.1464244; Wed, 10 Sep 2025 15:16:35 +0000
+Received: by outflank-mailman (output) from mailman id 1118480.1464255; Wed, 10 Sep 2025 15:17:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwMYl-0000ap-E0; Wed, 10 Sep 2025 15:16:35 +0000
-Received: by outflank-mailman (input) for mailman id 1118469;
- Wed, 10 Sep 2025 15:16:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uwMZG-0001CK-Q2; Wed, 10 Sep 2025 15:17:06 +0000
+Received: by outflank-mailman (input) for mailman id 1118480;
+ Wed, 10 Sep 2025 15:17:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4bPx=3V=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1uwMYj-0000aj-JO
- for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 15:16:33 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 1f3989f3-8e59-11f0-9809-7dc792cee155;
- Wed, 10 Sep 2025 17:16:28 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AD96716F2;
- Wed, 10 Sep 2025 08:16:18 -0700 (PDT)
-Received: from [10.57.67.148] (unknown [10.57.67.148])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 99AFA3F694;
- Wed, 10 Sep 2025 08:16:20 -0700 (PDT)
+ <SRS0=9Ly7=3V=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1uwMZE-0000x5-Ni
+ for xen-devel@lists.xenproject.org; Wed, 10 Sep 2025 15:17:04 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2061a.outbound.protection.outlook.com
+ [2a01:111:f403:2413::61a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 343d2d5e-8e59-11f0-9d13-b5c5bf9af7f9;
+ Wed, 10 Sep 2025 17:17:03 +0200 (CEST)
+Received: from BYAPR05CA0013.namprd05.prod.outlook.com (2603:10b6:a03:c0::26)
+ by DS0PR12MB8813.namprd12.prod.outlook.com (2603:10b6:8:14e::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Wed, 10 Sep
+ 2025 15:16:59 +0000
+Received: from SJ1PEPF00002311.namprd03.prod.outlook.com
+ (2603:10b6:a03:c0:cafe::72) by BYAPR05CA0013.outlook.office365.com
+ (2603:10b6:a03:c0::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.15 via Frontend Transport; Wed,
+ 10 Sep 2025 15:16:59 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002311.mail.protection.outlook.com (10.167.242.165) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9115.13 via Frontend Transport; Wed, 10 Sep 2025 15:16:59 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 10 Sep
+ 2025 08:16:56 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,247 +56,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f3989f3-8e59-11f0-9809-7dc792cee155
-Message-ID: <9de08024-adfc-421b-8799-62653468cf63@arm.com>
-Date: Wed, 10 Sep 2025 17:16:18 +0200
+X-Inumbo-ID: 343d2d5e-8e59-11f0-9d13-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n93j8innBKuJuVUUwFqUcFCMNoCSuv+XN0q9R5+CjpNNF+wIa9GmDWmsayir2xcDaoLIKoiHrElq5JdRJ40KIvkP/26oTM9rBX4pHKI+1vDUESzCLEi9qFpliLY838tSLS71qMUUnNmN/FZlQu1cO9XJWZcSx9+NZZuAkPwGr3ks0kxYQz2RtHczN1L2UaMU/46MfpvxgeoQ3e6T50FFoWf0ec9d0gFOR4aPr8JNhA9XaScEEEyowWkzzWcrJCzRe3PABncEKz+ZsixdBrS7iDGjhJIUYqpz8UVXIgeHMLVbVwEWpqgwomDOBeKeG8E949WcofRequTo6+LrlKLhQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wlCm9wSUY/e2X1TE/PRNyvakaoCfl+WJ+Dh7fT51WK8=;
+ b=St7OphjDZeww2kd2+nc4+kn4nk+PZ9yI5IILBSTrn+RLBtAsSQyzMxnRHC67vcRHLDkQpn+PvYofar/7wTy5Pcb4xeq/64cmfib2AQhN7TQL+yjCJOrjtQXu0nxRRoyaqzH6Huux0Ts5uxF0GyewPePnsnOfJ8dBtxqqZOwuyZsU3dfnRgjxeDiqkgSDW9wTy+kMs8WLodEiMFkwupx/c4BdUA4CxUaG9Hr3gCYiRvXndEpOvPSXUd7IBQMQv32sbe/0gIq6HTGz07jaghn+RF6G60KRTW4bjWTzmMQ4yGlU5G22xdz52RBt2LlXiibl2c/LAcKL3yVgsHSU1oAlHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wlCm9wSUY/e2X1TE/PRNyvakaoCfl+WJ+Dh7fT51WK8=;
+ b=o3RBHhzYLq/SK1T5HhadtV7LmD9y31QmDW5uisRakIq4iBYVM8G96oBo9CZi4VoSI+DGI07PudRHycRc8VWKRok86oWbzlSJIMOOHGNrAS2Y5wzg3W1jxTQ9xP3fJygP5jdVI9rSL36jpFMlp40GSMuWRtkPi8tlK2fL7/gSr9k=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/7] mm: introduce local state for lazy_mmu sections
-To: David Hildenbrand <david@redhat.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Andreas Larsson <andreas@gaisler.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
- Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
- Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
- <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
- Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
- Mark Rutland <Mark.Rutland@arm.com>
-References: <20250908073931.4159362-1-kevin.brodsky@arm.com>
- <20250908073931.4159362-3-kevin.brodsky@arm.com>
- <d23ea683-cca4-4973-88b1-4f6fd9b22314@redhat.com>
- <ca2054ad-b163-4e61-8ec4-6f2e36461628-agordeev@linux.ibm.com>
- <e7acb889-1fe9-4db3-acf4-39f4960e8ccd@redhat.com>
- <2fecfae7-1140-4a23-a352-9fd339fcbae5-agordeev@linux.ibm.com>
- <e521b1f4-3f2b-48cd-9568-b9a4cf4c4830@redhat.com>
- <47ee1df7-1602-4200-af94-475f84ca8d80@arm.com>
- <29383ee2-d6d6-4435-9052-d75a263a5c45@redhat.com>
-Content-Language: en-GB
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-In-Reply-To: <29383ee2-d6d6-4435-9052-d75a263a5c45@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Wed, 10 Sep 2025 17:16:54 +0200
+Message-ID: <DCP7XE3F1J8P.3HEG1CKHZW39U@amd.com>
+CC: Anthony PERARD <anthony.perard@vates.tech>, Grygorii Strashko
+	<grygorii_strashko@epam.com>, Roger Pau Monne <roger.pau@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] libacpi: Remove CPU hotplug and GPE handling from PVH
+ DSDTs
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+X-Mailer: aerc 0.20.1
+References: <20250910144921.29048-1-alejandro.garciavallejo@amd.com>
+ <2c559b3a-9991-4aab-ad65-645ac0cca5ab@suse.com>
+In-Reply-To: <2c559b3a-9991-4aab-ad65-645ac0cca5ab@suse.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002311:EE_|DS0PR12MB8813:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1209682b-12d4-4e5e-874a-08ddf07d164f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZDRsdW0yMU1DeDk0UVNtZG5TaHMzZ1dlS0RSWEk1K2RPVVI0NFNBRkdZb0pB?=
+ =?utf-8?B?S0pibEYxTmNzT0ZQaHVqeHZSOGdOaDF2dU5uQkdXWTJQUlFYZHBrYXc4Qnl3?=
+ =?utf-8?B?OEo1SW9paUtaa2R4UnRMRDBLOC9oeFZMZEZqS0JXOTRkVHY1TkRsR0VYN2E5?=
+ =?utf-8?B?d2JaUWwxelJYbDQ0SW8rdytFaTBzWjFNZCswOUZLS0tVdUlTL0ZzR2cwcjM4?=
+ =?utf-8?B?YjIrQjV1VDNwRjErZXBwb2F4UWxuSlZNWHNMcGxRODBtZzlDWmZYOW5BMDR1?=
+ =?utf-8?B?OG5RSnJCTExlZk5VZFpIc2M2cERlUzlCNi91ZWYzME0vQ2tHbWp0VnJoa0Js?=
+ =?utf-8?B?YzJDVjJoZDFYdlo3NE42Ti9qSVh3RnFwUDNMcUR5bFZvRFlKcE9qZG5vd1JL?=
+ =?utf-8?B?ZXBZNmZ0WGxzeGhrWVN0SkVkcmJrT1ppWWUxc2Vad0NJV2FXS2M2WlJsUDN5?=
+ =?utf-8?B?UStpZXpTaXBnUXBSNkxEa2x1djl4RS9LcGpHeHp2bWVsNUk0NXN0UDdKbGNn?=
+ =?utf-8?B?Wm13YnN6K2cwZ1FJQTlIdlhUa25WUXVaa0syVExGRFNLYU40R3JieEV2V2tR?=
+ =?utf-8?B?NXJSTGFIOXNTN2taZG9mT29EOStxWXY2YXMzNFk2VzhTNGtUYWJnNXlVMFBt?=
+ =?utf-8?B?aTdPQm4rUDhsd3ZHcm5CUWFJalBqMzBOMTRaSWZoWmc2ZENXcWF3d1EzOFF4?=
+ =?utf-8?B?K2hsSVFaRC9QRHJiZWdYZ2JaMzlxeHJaWGUyd0pRR2VhUXFKZUk1VS9GWEUx?=
+ =?utf-8?B?U3lwQ3h0U1NPTk10UG80YTFyOTFWVlczYWg4a3pweXZOM0JFUVdMYUNuQ3JN?=
+ =?utf-8?B?dVcwN2tkcDlpWEo3MDZNdmlCYnNVRXZ0dUkyekF6TWEzNnlsMWIvUmJ4cGM3?=
+ =?utf-8?B?OURRdUFtQ0JaaWM1WFNvdmE5a1ZWbzNPdVRURkVuSEV6VVJUbDRLVE5jc2xp?=
+ =?utf-8?B?NGJweXhjYUtFRFRsdXowNXo5SXkvQW9yNS9JdXk3ZmxMY0pUaDNJYzdJT2xn?=
+ =?utf-8?B?emwvdXRxR1haS2t6Wjh0b2lPWUlLKzlDdzhCOVozWGVEWWhqeEJ6ckJrRWtT?=
+ =?utf-8?B?NysxcWF1UHFYdGlPNU5ER1hpRERkbGgyUDRVdVQvL0hnMUNvbE41enNLN05z?=
+ =?utf-8?B?eEdCMGlzSWpxMFdtZ1lRZjlyVGUwOVNsRjZGa1cvN1ZxcGhjdnZKNUx2akt5?=
+ =?utf-8?B?Z0s2ZjhTeDYwYnlQQkRqZHJSaHQ0ZzNKcWU2RkNqNUpjYUdCVFdsbjNEZFkw?=
+ =?utf-8?B?cXkzTmdjTkJLOEN2dWNpZ1VIN040eFRONXdVZE9rV2RmbFZtS1JFSlFIQ0lK?=
+ =?utf-8?B?ck4vNmVmRmcrWFN4dUNZd1oxV0t4d3dwSGMwV2JIaEN5VWJRbUpsYU1KYSt2?=
+ =?utf-8?B?RlBGNDdScjV0ZklNemhDZEpLQ0N6eGxhZGNTYTF2Y09odjlNNkplY2wyKy9Z?=
+ =?utf-8?B?ZjNtZys0TDlFc2V6Zis2c28xNmliQjJQOGVVbXJMKzBENmlMdkdNbG1mRGhq?=
+ =?utf-8?B?dkpaQlN3NXd2MTBLd3RPSVBNdjNwS0xlMFYweERoajE3Q0tJODFLRG9LSHRq?=
+ =?utf-8?B?bWw5cVpqejhROTVsbnhVVE9CR3ZrcUhBZ2c4T0srSnF6NXc1QVdsSmMySGpt?=
+ =?utf-8?B?UFY4d2hHSFpLWnd0RXE2bTJTVVUyUFpWNVByYkY0UzNaSy9HQkN3c09saVBn?=
+ =?utf-8?B?dk9Ndy9PUnBCSE85SS9IYWdTSCtyUmI1WnBpNnBMVXFXa1lUMjhHaXZ3b1dK?=
+ =?utf-8?B?cFFJVGQrY0pZT1BUVFl5SGo4WXlUY2cramkzeFdJUEpiVndtTy9WUElZMk1R?=
+ =?utf-8?B?em9jeEN1dGNjL0R2RjVUNmJRR1ZZcHlKUHM4blpGTHh6NVJZWHdyK0xTWlRE?=
+ =?utf-8?B?RnN2SmpWQzh3c084bVhQMDJQVE4yK0NoZ2JXQ2U4SnVNTVlvVFJNQlVKOE1k?=
+ =?utf-8?B?dDh2dklhK2haVEZhQjhiVnJJL0FzY1A1SUVLV2Q5c1hSN085ck02ODF5WDBU?=
+ =?utf-8?B?bmtZSWRBWkRGcXRTNE5RQjA2Mm14WU1iSG82WUFIOG1JME5nWWFKOERtZ2Jv?=
+ =?utf-8?Q?BS0w0v?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2025 15:16:59.1029
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1209682b-12d4-4e5e-874a-08ddf07d164f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002311.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8813
 
-+Mark Rutland
+On Wed Sep 10, 2025 at 5:02 PM CEST, Jan Beulich wrote:
+> On 10.09.2025 16:49, Alejandro Vallejo wrote:
+>> CPU hotplug relies on the guest having access to the legacy online CPU
+>> bitmap that QEMU provides at PIO 0xAF00. But PVH guests have no DM, so
+>> this causes the MADT to get corrupted due to spurious modifications of
+>> the "online" flag in MADT entries and the table checksum during the
+>> initial acpica passes.
+>
+> I don't understand this MADT corruption aspect, which - aiui - is why
+> there's a Fixes: tag here. The code change itself looks plausible.
+>
+> Jan
 
-On 09/09/2025 16:28, David Hildenbrand wrote:
->>>>>>> Can't we just use an "enum lazy_mmu_state" and call it a day?
->>>>>>
->>>>>> I could envision something completely different for this type on
->>>>>> s390,
->>>>>> e.g. a pointer to a per-cpu structure. So I would really ask to
->>>>>> stick
->>>>>> with the current approach.
->>
->> This is indeed the motivation - let every arch do whatever it sees fit.
->> lazy_mmu_state_t is basically an opaque type as far as generic code is
->> concerned, which also means that this API change is the first and last
->> one we need (famous last words, I know).
->
-> It makes the API more complicated, though. :)
+When there's no DM to provide a real and honest online CPU bitmap on PIO 0x=
+AF00
+then we get all 1s (because there's no IOREQ server). Which confuses the GP=
+E
+handler.
 
-Somewhat, but in the regular case where enter() is called followed by
-leave() there is really no complexity for the caller, just an extra
-local variable.
+Somehow, the GPE handler is being triggered. Whether this is due to a real =
+SCI
+or just it being spuriously executed as part of the initial acpica pass, I =
+don't
+know.
 
-There are complications where we want to exit lazy_mmu temporarily, as
-in mm/kasan/shadow.c [1k], but this is in fact unavoidable. Chatting
-with Mark Rutland, I realised that to truly support nested sections,
-this must be handled in a special way in any case. To be clear, I am
-referring to this situation:
+Both statements combined means the checksum and online flags in the MADT ge=
+t
+changed after initial parsing making it appear as-if all 128 CPUs were plug=
+ged.
 
-__kasan_populate_vmalloc:
-    apply_to_page_range:
-        arch_enter_lazy_mmu_mode() {1}
+This patch makes the checksums be correct after acpica init.
 
-        kasan_populate_vmalloc_pte:
-            arch_leave_lazy_mmu_mode() {2}
-            arch_enter_lazy_mmu_mode() {3}
+Grygorii noticed the checksum mismatch while validating an ACPI dump on a P=
+VH
+Linux system.
 
-        arch_leave_lazy_mmu_mode() {4}
-
-With the approach this series takes, call {2} is made safe by passing a
-special parameter (say LAZY_MMU_FLUSH) that forces lazy_mmu to be fully
-exited - and call {3} will then re-enter lazy_mmu. This works regardless
-of whether __kasan_populate_vmalloc() has been called with lazy_mmu
-already enabled (i.e. calls {1} and {4} can be nested).
-
-On the other hand, with a pagefault_disabled-like approach, there is no
-way to instruct call {3} to fully exit lazy_mmu regardless of the
-nesting level.
-
-It would be possible to make both approaches work by introducing a new
-API, along the lines of:
-- int arch_disable_save_lazy_mmu_mode() (the return value indicates the
-nesting level)
-- void arch_restore_lazy_mmu_mode(int state) (re-enter lazy_mmu at the
-given nesting level)
-
-This is arguably more self-documenting than passing LAZY_MMU_FLUSH in
-call {2}. This API is however no simpler when using a
-pagefault_disabled-like approach (and less consistent than when always
-saving state on the stack).
-
-[1k]
-https://lore.kernel.org/all/0d2efb7ddddbff6b288fbffeeb10166e90771718.1755528662.git.agordeev@linux.ibm.com/
-
->
->>
->> I mentioned in the cover letter that the pkeys-based page table
->> protection series [1] would have an immediate use for lazy_mmu_state_t.
->> In that proposal, any helper writing to pgtables needs to modify the
->> pkey register and then restore it. To reduce the overhead, lazy_mmu is
->> used to set the pkey register only once in enter(), and then restore it
->> in leave() [2]. This currently relies on storing the original pkey
->> register value in thread_struct, which is suboptimal and most
->
-> Can you elaborate why this is suboptimal? See below regarding the size
-> of task_struct.
-
-Suboptimal in the sense that we're allocating fixed space for each task
-that we are almost never using.
-
->
->> importantly doesn't work if lazy_mmu sections nest.
->
-> Can you elaborate why it would be problematic with nesting (if we
-> would have a count
-> and can handle the transition from 0->1 and 1->0)?
-
-It doesn't work in that specific patch I linked - but yes it can be made
-to work if we have both an extra task_struct member to store the level
-of nesting *and* an extra thread_struct member to store the saved pkey
-register value (both of which are only used while in lazy_mmu).
-
-
->
->> With this series, we
->> could instead store the pkey register value in lazy_mmu_state_t
->> (enlarging it to 64 bits or more).
->
-> Yes.
->
->>
->> I also considered going further and making lazy_mmu_state_t a pointer as
->> Alexander suggested - more complex to manage, but also a lot more
->> flexible.
->>
->>>>> Would that integrate well with LAZY_MMU_DEFAULT etc?
->>>>
->>>> Hmm... I though the idea is to use LAZY_MMU_* by architectures that
->>>> want to use it - at least that is how I read the description above.
->>>>
->>>> It is only kasan_populate|depopulate_vmalloc_pte() in generic code
->>>> that do not follow this pattern, and it looks as a problem to me.
->>
->> This discussion also made me realise that this is problematic, as the
->> LAZY_MMU_{DEFAULT,NESTED} macros were meant only for architectures'
->> convenience, not for generic code (where lazy_mmu_state_t should ideally
->> be an opaque type as mentioned above). It almost feels like the kasan
->> case deserves a different API, because this is not how enter() and
->> leave() are meant to be used. This would mean quite a bit of churn
->> though, so maybe just introduce another arch-defined value to pass to
->> leave() for such a situation - for instance,
->> arch_leave_lazy_mmu_mode(LAZY_MMU_FLUSH)?
->
-> The discussion made me realize that it's a bit hack right now :)
->
-> If LAZY_MMU_DEFAULT etc. are not for common code, then please
-> maintain them for the individual archs as well, just like you do with the
-> opaque type.
-
-I see your point - having them defined in <linux/mm_types.h> could be
-misleading. I just wanted to avoid all 4 architectures defining the same
-macros. Maybe call them __LAZY_MMU_* to suggest they're not supposed to
-be used in generic code?
-
->
->>
->>>
->>> Yes, that's why I am asking.
->>>
->>> What kind of information (pointer to a per-cpu structure) would you
->>> want to return, and would handling it similar to how
->>> pagefault_disable()/pagefault_enable() e.g., using a variable in
->>> "current" to track the nesting level avoid having s390x to do that?
->>
->> The pagefault_disabled approach works fine for simple use-cases, but it
->> doesn't scale well. The space allocated in task_struct/thread_struct to
->> track that state is wasted (unused) most of the time.
->
-> I'm not sure that's a concern. Fitting an int into existing holes
-> should work
-> and even another 64bit (8byte )...
->
-> I just checked with pahole using the Fedora config on current
-> mm-unstable.
->
->
-> /* size: 9792, cachelines: 153, members: 276 */
-> /* sum members: 9619, holes: 20, sum holes: 125 */
-> /* sum bitfield members: 85 bits, bit holes: 2, sum bit holes: 43 bits */
-> /* padding: 32 */
-> /* member types with holes: 4, total: 6, bit holes: 2, total: 2 */
-> /* paddings: 6, sum paddings: 49 */
-> /* forced alignments: 12, forced holes: 2, sum forced holes: 60 */
->
-> Due to some "arch_task_struct_size" we might actually allocate more
-> space.
->
->
-> Staring at my live system:
->
-> $ sudo slabinfo
-> Name                   Objects Objsize           Space Slabs/Part/Cpu 
-> O/S O %Fr %Ef Flg
-> ...
-> task_struct               1491   12376           24.8M     
-> 721/25/37    2 3   3  74
->
->
-> I am not sure if even an additional 8byte would move the needle here.
->
->
-> Worse, it does not
->> truly enable states to be nested: it allows the outermost section to
->> store some state, but nested sections cannot allocate extra space. This
->> is really what the stack is for.
->
-> If it's really just 8 bytes I don't really see the problem. So likely
-> there is
-> more to it? 
-
-I suppose 8 extra bytes per task is acceptable, but some architectures
-may want to add more state there.
-
-The one case that is truly problematic (though not required at this
-point) is where each (nested) section needs to store its own state. With
-this series it works just fine as there is a lazy_mmu_state_t for each
-section, however if we use task_struct/thread_struct there can be only
-one member shared by all nested sections.
-
-- Kevin
+Cheers,
+Alejandro
 
