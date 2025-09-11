@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2AD9B5326C
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 14:36:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1120213.1465254 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 847B2B5331B
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 15:03:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1120236.1465264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwgX8-0003er-Qg; Thu, 11 Sep 2025 12:36:14 +0000
+	id 1uwgwm-00086A-Oq; Thu, 11 Sep 2025 13:02:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1120213.1465254; Thu, 11 Sep 2025 12:36:14 +0000
+Received: by outflank-mailman (output) from mailman id 1120236.1465264; Thu, 11 Sep 2025 13:02:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwgX8-0003cL-NC; Thu, 11 Sep 2025 12:36:14 +0000
-Received: by outflank-mailman (input) for mailman id 1120213;
- Thu, 11 Sep 2025 12:36:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QF+R=3W=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uwgX7-0003b0-LL
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 12:36:13 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20620.outbound.protection.outlook.com
- [2a01:111:f403:2417::620])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e10265be-8f0b-11f0-9809-7dc792cee155;
- Thu, 11 Sep 2025 14:36:03 +0200 (CEST)
-Received: from MN0PR02CA0019.namprd02.prod.outlook.com (2603:10b6:208:530::34)
- by BL3PR12MB6570.namprd12.prod.outlook.com (2603:10b6:208:38d::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Thu, 11 Sep
- 2025 12:35:58 +0000
-Received: from BL6PEPF0001AB74.namprd02.prod.outlook.com
- (2603:10b6:208:530:cafe::72) by MN0PR02CA0019.outlook.office365.com
- (2603:10b6:208:530::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.16 via Frontend Transport; Thu,
- 11 Sep 2025 12:35:58 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0001AB74.mail.protection.outlook.com (10.167.242.167) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9115.13 via Frontend Transport; Thu, 11 Sep 2025 12:35:58 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 11 Sep
- 2025 05:35:57 -0700
+	id 1uwgwm-00083K-Lg; Thu, 11 Sep 2025 13:02:44 +0000
+Received: by outflank-mailman (input) for mailman id 1120236;
+ Thu, 11 Sep 2025 13:02:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dUpj=3W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uwgwk-00083E-QD
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 13:02:42 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 958b99c5-8f0f-11f0-9d13-b5c5bf9af7f9;
+ Thu, 11 Sep 2025 15:02:34 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-62598fcf41aso910694a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 06:02:34 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-62ec33b4d63sm1133500a12.23.2025.09.11.06.02.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Sep 2025 06:02:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,161 +45,272 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e10265be-8f0b-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ng+LSWqDkkqSb30MbdOJEKGuu9m0SkWT+aRXABKpG6CJlURyEVEIpBzISJ//asqLvAc35Vu0Qs5PACZUzmi1T9o9KOMxIOZUfps2R3KH/VwAdTAa3i+RBijP+QLClMvWxFLX8mtILB5gP8JFadx5O7EqyYjw0PLsDpV3SC0UNY3wqki7DcGGNF6XqOXEwREgdTiAV7/C8ex+kMr/62X2rkiWHT2iZZ5awrWhZh1v5/TDrvRSHSvAiTKd6YPUGfpxIAtWeE0HCDnW+AHlo2490rzydOuhlLGc6TTcCnsgTK8wtLwN0XkWiIud0vqPDgOGM5s2Mi6MAPgJe3Ed1erZnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DYBsyTbeLIqtnkUldpoqCbwHqVEi3abOMhzuF8zI7Ak=;
- b=xpqbu0+ysLPNMlskt3qin3PmeXxAOKq4HmHoGbB6JCfLZircYUe2ksIIDq/wVcaTLdluLMi/jy1eW+okAxTfo+H/nuH2an9ar98//x6dia3FfEIq5PFLvs3uqsuMNTW1sfFyColw/yzCxNGEBcBZCIT0pWuVG+B62JmU037zFDlQAdGfvNZ4fs3BacQzq1YFpuRrOOImubCQ5jWMyNWwM5YQ8Y5JYLU8kk7WgPeadeH5jaGgv7PyNoyHVI3DZdfKsHllmvLlVgh+Ispj6c8N7pcwetNV3VNlZqZicCfzV7cID2ZVEgKYZFBBsa2Pa0jH8mXnM8ULS4oqj36x7+zyrw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DYBsyTbeLIqtnkUldpoqCbwHqVEi3abOMhzuF8zI7Ak=;
- b=1hmhAdPZD6PzfYnR5eb8ZOPflQSs/tlWDbnKlLCAIT8nFoUM8pYJASPAhONznfwNtpkrPn6YTy/m3/CG7nIKq2/aqgPbSGBdQtT6FHhy3UxGeeOa83m6suuZ03PEs5HL5aDsHCUF4y+Qo33+NekrtIoqjAq6ZXQKvnJUoa8Stpo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+X-Inumbo-ID: 958b99c5-8f0f-11f0-9d13-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1757595754; x=1758200554; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=23RZBBF9aJ5+NKN0Qo5G3UUaRiLapvjbrInirG7jKoo=;
+        b=KEejP3LC6hdVShTMemVX27m7P2Cdqcar/AR2R65jHbyZQChlpDVG9Bl0gNYUJrToNF
+         ewShmGZpTz3MU95PAMBW9V7470I5bb6GFiraRB1RkCqNxxh33dPti7anDHJuUpPeLpof
+         Eu7iysC9kw3Ipi6Yqh1kBZlWaQ/Cw8eCX+WnrFOL9uKRQq0jpSO23+sfIw55gZwQaaIb
+         +fOfv73bP4gMt3XG2AhOtjMUefoFXOOKgXwT6nkQW9CEdmnkVWDp8MHpnTs12FFpqzIF
+         V0l2Hws1k2VMm4JytLaLBQ5fjrVl9EjcTp2t1PHyuP2R+M4poHpM6d9Jq6feT0RLdW7m
+         8Low==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1757595754; x=1758200554;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=23RZBBF9aJ5+NKN0Qo5G3UUaRiLapvjbrInirG7jKoo=;
+        b=LKCAS+gerIQ5asPGiwxQLF1gL9kGM+Z62haQRPcau+iud5vxeckjrxJxE+zK6bg1Xf
+         KgB392hkUJCEnL7uZTu2e3m90JDcf7dWExPywyZU6S7te3EbPPDpithVhLJ578khPsEf
+         ai/eXFqK3CdD+RKuKxRO88707U0L1eQ0SGuGy4VtlGuM+vYevRSsI+vhvD7VIsICcG6t
+         j0jscaQ3T0AofVjDMvXyFRayw/rGXqOdMMXClEeU21X5Vi8qPIJ84bXJ29yiKMfCOppD
+         PAKKluxL443xsV9zAbKZsS5FXOAbzcJAltwREsaMynvbLfPMxLOZQrbIaTeKlBdDmrJs
+         /PEw==
+X-Forwarded-Encrypted: i=1; AJvYcCUu1ArQ+ZshW1r39RT99/JGtpallCPyWdyJztizbAq1W3AnpZLdEOEW296OjXs/6g5HI1jARLB/Awk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxGqoF2IW+q1FJlRyTMv5EOZcfTnp02oQHx2JB5IrQNkT8RdfKH
+	h/dAtHqTpTfDd8LIfgGeib8Frwi/pyfCX3dGd5h+XGBpvw05VZDW543q9Exomn2CBA==
+X-Gm-Gg: ASbGncsNgjz98L2V0UlETDRsyCrhrrIfrH9lNIM6YUeJp3jmdPjoKuaByf4w9VAAeB7
+	DGisYc5ynN2y4JPcnF1b3obMzDEHD3RSUSx5rFrmuUtctQQXNxez1ElvaeIwcMeXbppmh+/KSn4
+	cN9N28fDjX2pKSLTmmhcws6JUkQ4JjDJ0gab9JOWa7mxC2BA8+iYS1MdkvvBTzZHieVzM71DuZT
+	CVOLWxhAybrd+thX8QkAXbJq73kwGGYDjTCoT0X2Odf3Ip4vR4eaoJd2x3XRJcmfy5/1C2Ndk+b
+	hcerEvrB9CpsMDDx5v9NduCslTBfjat4oEzJHkh/RifFCzbPWYH8Ym1ty4Szf62RQv1BriWmmho
+	vwyYq7KIFxRnTBG5y/Wkkbzyn1v1xYl5jkc32sMxDfgt6UkkJJg3MogYkgR6mfhRoSrWvTPZlrR
+	TcnOEXRcEw0/rn3fMcOQ==
+X-Google-Smtp-Source: AGHT+IGzfD85p+zWbyyfT7Lx3PvSLRipfyMd5Osh+QDPyKHb3FQ5eb2JVwoewn0Xxy25QAn9AJFhZA==
+X-Received: by 2002:a05:6402:3596:b0:629:949c:a653 with SMTP id 4fb4d7f45d1cf-629949cb00dmr12863519a12.24.1757595753685;
+        Thu, 11 Sep 2025 06:02:33 -0700 (PDT)
+Message-ID: <56024eb0-b30f-43fd-84b7-6070a1d79cf0@suse.com>
+Date: Thu, 11 Sep 2025 15:02:31 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 11 Sep 2025 14:35:55 +0200
-Message-ID: <DCPZ4OKQIQDP.2KSJ8IZNXHCXB@amd.com>
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: Re: [PATCH v2 1/2] libacpi: Prevent CPU hotplug AML from corrupting
- memory
-X-Mailer: aerc 0.20.1
-References: <20250911115308.16580-1-alejandro.garciavallejo@amd.com>
- <20250911115308.16580-2-alejandro.garciavallejo@amd.com>
- <42bf6ed7-3a6b-4021-9a53-1891117ff2ba@citrix.com>
-In-Reply-To: <42bf6ed7-3a6b-4021-9a53-1891117ff2ba@citrix.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB74:EE_|BL3PR12MB6570:EE_
-X-MS-Office365-Filtering-Correlation-Id: d3abc0ab-8073-4918-2c56-08ddf12fc287
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bytYalVtWitDa2tpd1g0bVA2REQ5dUpuK3FMNkhCamlsNFlJNk5zTmZYMWty?=
- =?utf-8?B?ZlVIUTA3QUlJZU4wVS9WNnhXbGNJU1VEWStEcllpbnUycTdqRGc3L21uU0V3?=
- =?utf-8?B?T3FCODgrUjd3Y0xPSm1QZmZWUndwUjlZWEhDMG53UkpZcFovWkRJZWlNMjhx?=
- =?utf-8?B?RXNmeUl1R1psSzY2MzJGUEpDK0FVT1I0RXdISTFWZUdoTExqY0tUR3oyNURl?=
- =?utf-8?B?RGIrUk5oZFNacVcyc0lwMm84TVQxTTFIRSs5Qno4VCtJTEF0V0RNRFN0WWNM?=
- =?utf-8?B?dFJaRW80QVJxM1AxelBHSlo1d2w1VHVBVWZXZ0RIQXlYSWlQVkY1a2VmWkxs?=
- =?utf-8?B?UHUwVlBQOTBhWU5ET3gyaDNCR084ZGxxdldzWVczYmt0RzhoSmNTOHVjVnE0?=
- =?utf-8?B?TGl1WlBwZ0xVMG5iZ0UzZG8vQ2NrZnZMb0xBc1J0S0VNTk0yUytmcXVqMlBU?=
- =?utf-8?B?VXo0SDhnM2VGTzRyYzR2WU11ZVl6c2lpbDVmQXFUWFMwZnZ1UEdZUTd5enVs?=
- =?utf-8?B?ZzBWRkR1c2F4RGZiWTNWdUpoTy9nNzJsTVY2MTI3dG10a2hoTWh4VFZXSXlq?=
- =?utf-8?B?c2lOSG1xUEFNb05IMWxEeEw4aTVrTDkrcHY5ZHhMWjJ2eENTTkJyWnVyRVBm?=
- =?utf-8?B?aHdoYkZtei8xWmhXR0FsdW1OOEh5eUcyUENRenVZTTNUYkN3MXpaZDFtNkNF?=
- =?utf-8?B?L3BNY256SkNOODZQTmdhQ3dKak5hSEg5Q3NIUy9QcUgvNzhJRDRUbnhEazl4?=
- =?utf-8?B?V21pTFJzNDJzREFDaUJCTlpZRGQwRFJ6YW8xK0x1bk1lUGs5MzVockJDMW4y?=
- =?utf-8?B?Z0JvVEVpdVdMb3R1NEpXamxHSElkeXBPQnpOOTFlckNsdTFaajJjMWV2NjVK?=
- =?utf-8?B?NHk1QTVpWUlaN2J4azhnNjJiVnllU3B5ZWxJTmNJVWgrM1ovQ29ndTZMSkJN?=
- =?utf-8?B?aHF1UXlWMVY5OG9JZ3BGdnBLc3oyblVkdjVXL1YrZjB4ZWF1dlpBaTMvL0kw?=
- =?utf-8?B?eWZIY2VRaWFjZklub2hMOWxVYlVlQ0RLcUxlUDRiSU8xb0hKUjdSVmdrNVBZ?=
- =?utf-8?B?K0NpeDhpMmdFT1lEMkRHeGZWY2N4dE9CRXJrT1JHS2hkeXBNanJPUk5Nb3p6?=
- =?utf-8?B?SWdUcFFzSnJNMVpPUnZITFVBaTRsRnFiNHlDdzB4a3g0NGRXdkxYOTQ0ZGZJ?=
- =?utf-8?B?aW5kNThnWEEvTy9aNmVGdlphMEplYXJOTW9PclFDenhZUVhralZRVmNiZjFI?=
- =?utf-8?B?Yyt3bXpTVW0zQWh3Mnh3UVFwTUsxZzlsWHZHSXJQdVdidDdkZTRNZFczd3Y0?=
- =?utf-8?B?eUR1Tkk2czlRU0VWMDJMMmorWmJ0cStpL2ROTDk1eTFCTitjdkFDN01QSUk2?=
- =?utf-8?B?aW9tdHRRRFpxNmZRQkRvQW0wSjhLY1pGRXNGM2Q1eDlqYjdHcy92OGpGS0x4?=
- =?utf-8?B?QW5UOVMwampEdWI1ZG16WmcrRFRrUTh1TWdDdGpJbXloU3dmQ0xFZlVMZEd3?=
- =?utf-8?B?ZzJ0OGlkTFFTMUlJd2tXd21pYmI5NUJXNlFhTmNLMFd5TlBMR2xISTF2Z1Fa?=
- =?utf-8?B?R3RNVHVrK1pnY0hOMFY0R3NQaGUvSlpWYVRwcDVsaTllbGhMOEJnL3B3MVZS?=
- =?utf-8?B?dFNGcDU2NVlkb0RuWjdaY2M1ZjhyaXRkYnBVSElSTzIxb0xXaFF6cWpSWkRP?=
- =?utf-8?B?a0FxZXNGTUwwZytaVDFEbzdWbFlnNWx4QjFYQ2lvVUlBcEwwYXNJZitSVk5o?=
- =?utf-8?B?UG5JRjh2bXY2N0p6T0o4RWpzNmU1Yk8yOVd2ZHIyTy83eEs5eGFIVVR5S3Nu?=
- =?utf-8?B?Tk9zalU2Y2IwNFpnVHVsdkY4YVdEN01ORVlCY1pqZVdSVnhXTjY5ZkRzRjht?=
- =?utf-8?B?Y2RDMmlIdkF0WnJmTktuLy91SXpvd09iYlFQUkRxTlYxVmVTTGllRUMxRGpn?=
- =?utf-8?B?ZGs0V2tFdXVBaDNMNDdWdHFVWnhCZUtyM1NVRWtJLzFZRngrOG9hZmEvaG11?=
- =?utf-8?B?U2s4cU5KY3RNNDRhbHh3dndHYXhsSDUxUTduWHZOWkk3UGZDbjRIUFVwVkdn?=
- =?utf-8?Q?a2+k4M?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2025 12:35:58.5451
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3abc0ab-8073-4918-2c56-08ddf12fc287
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB74.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6570
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 24/26] xen/domctl: wrap arch-specific domctl-op with
+ CONFIG_MGMT_HYPERCALLS
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
+ <20250910073827.3622177-25-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250910073827.3622177-25-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu Sep 11, 2025 at 2:03 PM CEST, Andrew Cooper wrote:
-> On 11/09/2025 12:53 pm, Alejandro Vallejo wrote:
->> CPU hotplug relies on the online CPU bitmap being provided on PIO 0xaf00
->> by the device model. The GPE handler checks this and compares it against
->> the "online" flag on each MADT LAPIC entry, setting the flag to its
->> related bit in the bitmap and adjusting the table's checksum.
->>
->> The bytecode doesn't, however, stop at NCPUS. It keeps comparing until i=
-t
->> reaches 128, even if that overflows the MADT into some other (hopefully
->> mapped) memory. The reading isn't as problematic as the writing though.
->>
->> If an "entry" outside the MADT is deemed to disagree with the CPU bitmap
->> then the bit where the "online" flag would be is flipped, thus
->> corrupting that memory. And the MADT checksum gets adjusted for a flip
->> that happened outside its range. It's all terrible.
->>
->> Note that this corruption happens regardless of the device-model being
->> present or not, because even if the bitmap holds 0s, the overflowed
->> memory might not at the bits corresponding to the "online" flag.
->>
->> This patch adjusts the DSDT so entries >=3DNCPUS are skipped.
->>
->> Fixes: c70ad37a1f7c("HVM vcpu add/remove: setup dsdt infrastructure...")
->> Reported-by: Grygorii Strashko <grygorii_strashko@epam.com>
->> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->> ---
->> Half RFC. Not thoroughly untested. Pipeline is green, but none of this i=
-s tested
->> there.
->>
->> v2:
->>   * New patch with the general fix for HVM too. Turns out the correction
->>     logic was buggy after all.
->
-> Hmm, this does sound rather more serious.=C2=A0 I have a nagging feeling =
-that
-> until recently we always wrote 128 MADT entries.
+On 10.09.2025 09:38, Penny Zheng wrote:
+> Function arch_do_domctl() is responsible for arch-specific domctl-op,
+> and shall be wrapped with CONFIG_MGMT_HYPERCALLS
+> Tracking its calling chain and the following functions shall be wrapped with
+> CONFIG_MGMT_HYPERCALLS:
+> For x86:
+> - hvm_save_one
+> - hvm_acpi_power_button
+> - hvm_acpi_sleep_button
+> - hvm_debug_op
+> - mem_sharing_domctl
+> - make P2M_AUDIT depend on CONFIG_MGMT_HYPERCALLS
+> - make PG_log_dirty depend on CONFIG_MGMT_HYPERCALLS
+> - make policy.o depend on CONFIG_MGMT_HYPERCALLS
+> - do_vmtrace_op
+>   - hvm_vmtrace_control
+>     - hvm_funcs.vmtrace_control
+>   - hvm_vmtrace_get_option
+>     - hvm_funcs.vmtrace_get_option
+>   - hvm_vmtrace_set_option
+>     - hvm_funcs.vmtrace_set_option
+> - paging_domctl_cont
+> For ARM:
+> - subarch_do_domctl
+> 
+> Also, remove all #ifdef CONFIG_MGMT_HYPERCALLS-s in arch-specific domctl.c, as
+> we put the guardian in Makefile for the whole file.
+> Wrap default-case and arch_get_domain_info() transiently with
+> CONFIG_MGMT_HYPERCALLS, and it will be removed when introducing
+> CONFIG_MGMT_HYPERCALLS on the common/domctl.c in the last.
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> ---
+> v1 -> v2:
+> - split out xsm parts
+> - adapt to changes of "unify DOMCTL to MGMT_HYPERCALLS"
+> - wrap default-case and arch_get_domain_info() transiently
+> ---
+>  xen/Kconfig.debug                  |  2 +-
+>  xen/arch/arm/arm32/Makefile        |  2 +-
+>  xen/arch/arm/arm64/Makefile        |  2 +-
+>  xen/arch/arm/domctl.c              |  2 --
 
-If so, I don't see where. It used to be 16, waaaaaaaaaaaaaaaaaaaaay back wh=
-en.
-Then it got extended to whatever it needed to be.
+Isn't there a change missing to arm/Makefile? Or else, how can ...
 
-I have the nagging feeling that rather opaque "some OSs (cough Windows coug=
-h)
-don't like more than 16 CPUs was actually this bug in action. Making the DS=
-DTs
-with exactly 16 CPUs a particular kind of silly.
+> --- a/xen/arch/arm/domctl.c
+> +++ b/xen/arch/arm/domctl.c
+> @@ -184,7 +184,6 @@ long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
+>      }
+>  }
+>  
+> -#ifdef CONFIG_MGMT_HYPERCALLS
+>  void arch_get_info_guest(struct vcpu *v, vcpu_guest_context_u c)
+>  {
+>      struct vcpu_guest_context *ctxt = c.nat;
+> @@ -200,7 +199,6 @@ void arch_get_info_guest(struct vcpu *v, vcpu_guest_context_u c)
+>      if ( !test_bit(_VPF_down, &v->pause_flags) )
+>          ctxt->flags |= VGCF_online;
+>  }
+> -#endif /* CONFIG_MGMT_HYPERCALLS */
 
->
-> So, while this looks like a good fix, I think we might want a second
-> Fixes tag.
+... this be correct?
 
-Happy to add it, but I really don't see anything like that in the git log.
+> --- a/xen/arch/x86/hvm/save.c
+> +++ b/xen/arch/x86/hvm/save.c
+> @@ -121,6 +121,7 @@ size_t hvm_save_size(struct domain *d)
+>      return sz;
+>  }
 
-Cheers,
-Alejandro
+Both this and ...
+
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>  /*
+>   * Extract a single instance of a save record, by marshalling all records of
+>   * that type and copying out the one we need.
+> @@ -195,6 +196,7 @@ int hvm_save_one(struct domain *d, unsigned int typecode, unsigned int instance,
+>      xfree(ctxt.data);
+>      return rv;
+>  }
+> +#endif /* CONFIG_MGMT_HYPERCALLS */
+>  
+>  int hvm_save(struct domain *d, hvm_domain_context_t *h)
+>  {
+
+... this and hvm_load() (and some others) will end up unreachable when
+MGMT_HYPERCALLS=n and MEM_SHARING=n.
+
+> --- a/xen/arch/x86/hvm/vmx/vmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> @@ -2585,6 +2585,7 @@ static bool cf_check vmx_get_pending_event(
+>      (RTIT_STATUS_FILTER_EN | RTIT_STATUS_CONTEXT_EN | RTIT_STATUS_TRIGGER_EN | \
+>       RTIT_STATUS_ERROR | RTIT_STATUS_STOPPED)
+>  
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>  static int cf_check vmtrace_get_option(
+>      struct vcpu *v, uint64_t key, uint64_t *output)
+>  {
+
+This #ifdef wants to move up a few lines, to also cover the two #define-s.
+
+> @@ -2693,6 +2694,7 @@ static int cf_check vmtrace_control(struct vcpu *v, bool enable, bool reset)
+>  
+>      return 0;
+>  }
+> +#endif /* CONFIG_MGMT_HYPERCALLS */
+>  
+>  static int cf_check vmtrace_output_position(struct vcpu *v, uint64_t *pos)
+>  {
+> @@ -2883,10 +2885,14 @@ static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
+>      .altp2m_vcpu_emulate_ve = vmx_vcpu_emulate_ve,
+>      .altp2m_vcpu_emulate_vmfunc = vmx_vcpu_emulate_vmfunc,
+>  #endif
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>      .vmtrace_control = vmtrace_control,
+> +#endif
+>      .vmtrace_output_position = vmtrace_output_position,
+
+Why would this remain? Patch 05 makes VM_EVENT dependent upon MGMT_HYPERCALLS,
+and outside of domctl.c the only other caller is in vm_event.c.
+
+> @@ -747,8 +751,10 @@ bool altp2m_vcpu_emulate_ve(struct vcpu *v);
+>  
+>  static inline int hvm_vmtrace_control(struct vcpu *v, bool enable, bool reset)
+>  {
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>      if ( hvm_funcs.vmtrace_control )
+>          return alternative_call(hvm_funcs.vmtrace_control, v, enable, reset);
+> +#endif
+>  
+>      return -EOPNOTSUPP;
+>  }
+> @@ -765,8 +771,10 @@ static inline int hvm_vmtrace_output_position(struct vcpu *v, uint64_t *pos)
+>  static inline int hvm_vmtrace_set_option(
+>      struct vcpu *v, uint64_t key, uint64_t value)
+>  {
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>      if ( hvm_funcs.vmtrace_set_option )
+>          return alternative_call(hvm_funcs.vmtrace_set_option, v, key, value);
+> +#endif
+>  
+>      return -EOPNOTSUPP;
+>  }
+> @@ -774,8 +782,10 @@ static inline int hvm_vmtrace_set_option(
+>  static inline int hvm_vmtrace_get_option(
+>      struct vcpu *v, uint64_t key, uint64_t *value)
+>  {
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>      if ( hvm_funcs.vmtrace_get_option )
+>          return alternative_call(hvm_funcs.vmtrace_get_option, v, key, value);
+> +#endif
+>  
+>      return -EOPNOTSUPP;
+>  }
+
+Why #ifdef inside the functions? The sole users each are in domctl.c.
+
+> --- a/xen/common/domctl.c
+> +++ b/xen/common/domctl.c
+> @@ -114,7 +114,9 @@ void getdomaininfo(struct domain *d, struct xen_domctl_getdomaininfo *info)
+>  
+>      memcpy(info->handle, d->handle, sizeof(xen_domain_handle_t));
+>  
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>      arch_get_domain_info(d, info);
+> +#endif
+>  }
+
+This shouldn't be necessary; instead imo patch 18 should be extended to cover
+getdomainfo() altogether.
+
+> --- a/xen/lib/x86/Makefile
+> +++ b/xen/lib/x86/Makefile
+> @@ -1,3 +1,3 @@
+>  obj-y += cpuid.o
+>  obj-y += msr.o
+> -obj-y += policy.o
+> +obj-$(CONFIG_MGMT_HYPERCALLS) += policy.o
+
+Fair parts of cpuid.c also become unreachable. And all of msr.c afaics.
+
+Jan
 
