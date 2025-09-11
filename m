@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D131B52EE2
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 12:46:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1119926.1465070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 291D0B52F0E
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 13:02:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1119949.1465080 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uweoU-0005fN-FB; Thu, 11 Sep 2025 10:46:02 +0000
+	id 1uwf4K-00008L-OH; Thu, 11 Sep 2025 11:02:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1119926.1465070; Thu, 11 Sep 2025 10:46:02 +0000
+Received: by outflank-mailman (output) from mailman id 1119949.1465080; Thu, 11 Sep 2025 11:02:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uweoU-0005cV-Bx; Thu, 11 Sep 2025 10:46:02 +0000
-Received: by outflank-mailman (input) for mailman id 1119926;
- Thu, 11 Sep 2025 10:46:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uwf4K-00005n-LB; Thu, 11 Sep 2025 11:02:24 +0000
+Received: by outflank-mailman (input) for mailman id 1119949;
+ Thu, 11 Sep 2025 11:02:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dUpj=3W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uweoT-0005cK-Md
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 10:46:01 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 81383d96-8efc-11f0-9d13-b5c5bf9af7f9;
- Thu, 11 Sep 2025 12:46:00 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-afcb7ae6ed0so81562566b.3
- for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 03:46:00 -0700 (PDT)
+ id 1uwf4J-00005g-VX
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 11:02:23 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c9f7d1c9-8efe-11f0-9809-7dc792cee155;
+ Thu, 11 Sep 2025 13:02:21 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-b0418f6fc27so94965066b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 04:02:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b07b32f20dcsm102819566b.90.2025.09.11.03.45.58
+ a640c23a62f3a-b07b32ddf93sm110457266b.69.2025.09.11.04.02.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Sep 2025 03:45:59 -0700 (PDT)
+ Thu, 11 Sep 2025 04:02:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81383d96-8efc-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: c9f7d1c9-8efe-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757587559; x=1758192359; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1757588540; x=1758193340; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rHSUWoYMdgzf4IiT3dMD5pcRmUqjWPY7dpo49gnYGMM=;
-        b=TcfH3ZCbQWlTdVolvmCJVCCd6jMTh698ZpVs0BAiMQHyXFZLliKGeuYukc/hZJjdH5
-         OYmJgECdacAARk+FIRe1D/O7rcbrwbBJqj8hIS/VGv2FepUhqRvTRIg7reZ26NpIhEhU
-         VLJXuQcvm3ZPAazD8Xhei5edFWsDfrvDwghcm73HcWpZ3WMfYW0MCg7wRYP0TXp4D+PP
-         l6H2kv2dIYTZ7OwTbT4ACa77z8PoFXCQwl5kbTRMoZ4CEtflhofuM9BfYA8vA74g/m+H
-         u/fKQbGKqBR9OGi3aXdAL0PHKjlsP9iKZrColJQ8+/ehZC9BASVVXk3t1ILiN1QCcuXu
-         DjLg==
+        bh=HOZseogxC7Jw13BzxMtqs9U3YWfc5TF5Ry9p9rPXVxk=;
+        b=LHdunsBuwXTtf0qwQjuEaXEy2iTFiYswQ94ocf/IjQRo7ZZx7d0NRLlPUC9Wgk21xd
+         VzTavyESz+94tCimkSRupXvysqReknBVKMyCdZqJlTclyBadMEswZDxBoZijBWOT7QGb
+         M7PvMR1Qqd+PaoN1Y2meykl+iTvRazyszn6HER5tzRvV9Lqo7DbD2PTpCk+CCIg1gfPJ
+         FfOPme5AcwlygDz3AC08ccBvVuVFkP7oDZRzRLG6rCiltlCigqbnekC7jYd3Dn0nE8oj
+         2kWOjNgDKREAFsZVSfppp7rqVK8fp1Kzr7bBpakmBmK0ZQgLiR0Oig6gnyO9oCvEQzk7
+         cuug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757587559; x=1758192359;
+        d=1e100.net; s=20230601; t=1757588540; x=1758193340;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rHSUWoYMdgzf4IiT3dMD5pcRmUqjWPY7dpo49gnYGMM=;
-        b=mZfegkFViQmijErTmXrOVnxoTdiwBDywjKdA9SKR2upq4hm6LauzGEwxXUi+y07caK
-         h3AeXTgRxudvmgUju7V7gZcuTZxxwFrMHY8jwX5YnlbBXy1z4qoCb2/RmisG2KuBR8wb
-         6POH3sR4aSai2VbCStMajkUfZkOZlLJKHBR6TvwyB8fWrHWwbPO7KRt8jcJW8ObgLRRI
-         QCid8B21NRwrar6ELTaMW9y8PkLNXOhVvVcxrh+ppYXPBwSYn+M9rra5nOarH3hW/3dI
-         yQP7TmbuV9HWST9zLFtS4+iiRhPhdzc7Llp0Z5o9Jutehkj/tveVpE5l/mLzdmt/qjFR
-         1Xnw==
-X-Gm-Message-State: AOJu0YxssRX8B0w8VOtDe7zIss3kx483wy8/5U/BSsJfNZP5uK+MPDn4
-	AVZcM/Wsurd3MBEddbr1EoNhUbSZS03HwnkfnExfO9RnYH5CypuS/Czu/YPNmTktJA==
-X-Gm-Gg: ASbGncvMQy9uaeCoPxHKAlCf3v/HiNgVRGAUPdW4PIXNpCGpcwLm/uk5OdNGU6Iqyka
-	ETo2I0psF18KswiFwsIn9V6hhGkmAmSHmD2/dr/M4j20P0T0sCfWuXMrese6XHB6p5GkAiw/0gL
-	ZFXbFPokN9EuhG1N6M+VxtJq6mVgt2EyshTNIlnyS6FpijGM4GKLYVsYO3geN0nZ0VOISVqUzW5
-	OurinzykTaD/HBFsQuuaQ4tIGDyoPF1vNDt3ilRQwAgdvWOkfgKfQZLbM24mBcKfqGBSm+7S+60
-	0qqpeQ1KXZjcm4RXitn+ISRBdg5Bj3W3ZKsVVcGVKtAdSshGtsxd9YkrGtAisiAT+XME8+LcHvS
-	VQcePLkyArIhKp8W4NiNSoK+siUmg2S40Sszkfi4xUeLtbm7rnmypcJpk4yaMcQ/3Y6YjSgtfE4
-	z3F21vizM=
-X-Google-Smtp-Source: AGHT+IHDk0BCWy9NHTP0eiCLaecgTZsDe5m+fK2o/oqPqrl/NBLCQhql3xIzO3/sK7pT9MKLV5vTVQ==
-X-Received: by 2002:a17:906:fd8a:b0:afe:85d5:a318 with SMTP id a640c23a62f3a-b04b1666d66mr1826857866b.36.1757587559423;
-        Thu, 11 Sep 2025 03:45:59 -0700 (PDT)
-Message-ID: <1a81010e-98f5-40f3-a64e-ca01b64ae8fc@suse.com>
-Date: Thu, 11 Sep 2025 12:45:57 +0200
+        bh=HOZseogxC7Jw13BzxMtqs9U3YWfc5TF5Ry9p9rPXVxk=;
+        b=GZPLyV+HD9tLkuvMWSvD0IRA84tRJjtPy21QSYn6Hz1ANA9pyr8V81UzwteMwuQ9T3
+         Bys4TcURRT7F5al33n6pX2Wj2tHFyz/ETdgzmNmusnTdQd5HaRfWLWAj5fzZ/O6lUF93
+         HOPL5nlN7r1pbzIr9KIfTFHJCjkpqjQBvcJ4Tr2I68p6CbCzPt9gItlpRnE3SFxqi2gp
+         KfaDtQC8iJcK98WaIDuNWaMkj7PWGnAHh+WaZqMUSPQTf4LxdQl4FMxzjd0bm4LP+ODg
+         RVk4GgLDQWdrHKPdF3Sk6bA8wuDexLGgSbgyIIAzDAbmT5c8hDftPKgIehN6J7IU6M/V
+         fNRg==
+X-Forwarded-Encrypted: i=1; AJvYcCXY2mbSvdZmpUC5SPwwWw82dWmpUNW+4wc96fyJwyD0QQR98Ln1a9RePvBT36aXWOzxUq+V3zpQBaA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwE491axtRsXXYCkueiZv0FiF6Ovb/oE59lQXYfzoSM3U0C0XvQ
+	9LnTg29CLJ10ayEUtVR4w9XY8tn01oxwB5AZBBeQMk0LueuWBwCF6D+WvpLutdI1dg==
+X-Gm-Gg: ASbGncuA9Zygn5OBI6vP+MQEqE8pal7+hnQPD59GJtwMGj81l0W2r6Fo8TtMzOry6TA
+	+AiofRGWjH3js0yJcoiCT5oltV4Qh7AmJgl+n30sstJ33v/XITUIN5Stf3umUPVzOrhENfFSUSY
+	/pRaFin4xhvP2Dy09KNJcWI9cOm/j2VxZTlF2o1YED9WZUH0skVa1mT/NYYeoTwmCtrLYhUzgYZ
+	acKm1/GbNRu4qwgMqP0H8cEvm2EO7TSxC/1BD866pPUzbkU9suIuSYBm6VSutOESBLwZl4eFJOQ
+	LbOMd1azJWYdOU6JhcpJmISlpxYi9W8/JfJb1We5KqNJvZcf2r1hdokPq+5M+vb6jHe2D+V3fO1
+	T8703zVKf8nu9iA9zNT9LZ/dxSKSP53zFNng2oCWkHgima+drDArj4AWfVI/U3U62UiYBY6LFxz
+	Wc63HPhCE=
+X-Google-Smtp-Source: AGHT+IHnzaLBah+FOTdjftyOl5jR2taPQVoByueBEXEWqPK1VdjzzJkPE0aV9yosXbt73dDXZKlxYA==
+X-Received: by 2002:a17:906:b59:b0:b07:8809:9c22 with SMTP id a640c23a62f3a-b0788099dbcmr490214066b.15.1757588540003;
+        Thu, 11 Sep 2025 04:02:20 -0700 (PDT)
+Message-ID: <1bb90323-6071-4aec-9f6f-33163e6f769d@suse.com>
+Date: Thu, 11 Sep 2025 13:02:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/26] xen/domctl: wrap arch-specific
- arch_get_info_guest() with CONFIG_MGMT_HYPERCALLS
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Penny Zheng <Penny.Zheng@amd.com>
-Cc: xen-devel@lists.xenproject.org, ray.huang@amd.com,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v2 15/26] xen/domctl: wrap
+ xsm_{irq_permission,iomem_permission} with CONFIG_MGMT_HYPERCALLS
+To: Penny Zheng <Penny.Zheng@amd.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: ray.huang@amd.com, xen-devel@lists.xenproject.org
 References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
- <20250910073827.3622177-15-Penny.Zheng@amd.com>
- <alpine.DEB.2.22.394.2509101930300.52703@ubuntu-linux-20-04-desktop>
+ <20250910073827.3622177-16-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,30 +120,79 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2509101930300.52703@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20250910073827.3622177-16-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.09.2025 04:31, Stefano Stabellini wrote:
-> On Wed, 10 Sep 2025, Penny Zheng wrote:
->> Arch-specific function arch_get_info_guest() is responsible for
->> XEN_DOMCTL_getvcpucontext domctl-op, and shall be wrapped with
->> CONFIG_MGMT_HYPERCALLS
->> Wrap XEN_DOMCTL_getvcpucontext-case transiently with CONFIG_MGMT_HYPERCALLS,
->> and it will be removed when introducing CONFIG_MGMT_HYPERCALLS on the
->> common/domctl.c in the last.
->>
->> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> 
-> There is arch_get_info_guest under riscv but it is only a stub so:
+On 10.09.2025 09:38, Penny Zheng wrote:
+> @@ -508,13 +510,21 @@ static inline int xsm_unbind_pt_irq(
+>  static inline int xsm_irq_permission(
+>      xsm_default_t def, struct domain *d, int pirq, uint8_t allow)
+>  {
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>      return alternative_call(xsm_ops.irq_permission, d, pirq, allow);
+> +#else
+> +    return -EOPNOTSUPP;
+> +#endif
+>  }
+>  
+>  static inline int xsm_iomem_permission(
+>      xsm_default_t def, struct domain *d, uint64_t s, uint64_t e, uint8_t allow)
+>  {
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>      return alternative_call(xsm_ops.iomem_permission, d, s, e, allow);
+> +#else
+> +    return -EOPNOTSUPP;
+> +#endif
+>  }
 
-As said in reply to other patches, I think those stubs want covering nevertheless.
+Along the lines of Stefano's comment - why would these inline functions stay
+around? Them returning an error in the MGMT_HYPERCALLS=n case is actually a
+problem: For xsm_iomem_permission() it's only a conceptual one, but for
+xsm_irq_permission() you break x86's handling of XEN_DOMCTL_gsi_permission.
+I would have added "transiently", but from the titles of later patches I
+can't spot where to expect that one to be taken care of.
 
-And btw, this is an example of a patch which would have been entirely unnecessary
-(afaict) if the Kconfig setting didn't have a prompt (yet / anymore).
+> --- a/xen/xsm/flask/hooks.c
+> +++ b/xen/xsm/flask/hooks.c
+> @@ -1111,12 +1111,14 @@ static int cf_check flask_unbind_pt_irq(
+>      return current_has_perm(d, SECCLASS_RESOURCE, RESOURCE__REMOVE);
+>  }
+>  
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>  static int cf_check flask_irq_permission(
+>      struct domain *d, int pirq, uint8_t access)
+>  {
+>      /* the PIRQ number is not useful; real IRQ is checked during mapping */
+>      return current_has_perm(d, SECCLASS_RESOURCE, resource_to_perm(access));
+>  }
+> +#endif /* CONFIG_MGMT_HYPERCALLS */
+>  
+>  struct iomem_has_perm_data {
+>      uint32_t ssid;
+> @@ -1943,8 +1945,10 @@ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
+>      .unmap_domain_irq = flask_unmap_domain_irq,
+>      .bind_pt_irq = flask_bind_pt_irq,
+>      .unbind_pt_irq = flask_unbind_pt_irq,
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>      .irq_permission = flask_irq_permission,
+>      .iomem_permission = flask_iomem_permission,
+> +#endif
+>      .iomem_mapping = flask_iomem_mapping,
+>      .pci_config_permission = flask_pci_config_permission,
+>  
+
+It's odd that flask_iomem_permission() remains as a function, but for the
+moment that looks to be necessary, as it's (oddly enough) called from
+flask_iomem_mapping(). However, for that one I again can't drive from
+titles of subsequent patches where it would be taken care of.
+
+Daniel - is this layering actually helpful? Can't we either drop
+flask_iomem_mapping() (with the benefit of a cf_check disappearing), or
+have it do directly what it wants done, rather than calling the other
+hook function?
+
+Having reached the bottom of the patch - what about xsm/dummy.h?
 
 Jan
-
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
 
