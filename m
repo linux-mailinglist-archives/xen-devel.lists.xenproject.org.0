@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C3B4B52BC4
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 10:35:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1119757.1465006 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17A47B52BD4
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 10:36:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1119772.1465016 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwclj-0002Wn-6V; Thu, 11 Sep 2025 08:35:03 +0000
+	id 1uwcma-00035a-Ir; Thu, 11 Sep 2025 08:35:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1119757.1465006; Thu, 11 Sep 2025 08:35:03 +0000
+Received: by outflank-mailman (output) from mailman id 1119772.1465016; Thu, 11 Sep 2025 08:35:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwclj-0002VK-2u; Thu, 11 Sep 2025 08:35:03 +0000
-Received: by outflank-mailman (input) for mailman id 1119757;
- Thu, 11 Sep 2025 08:35:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uwcma-000333-Fw; Thu, 11 Sep 2025 08:35:56 +0000
+Received: by outflank-mailman (input) for mailman id 1119772;
+ Thu, 11 Sep 2025 08:35:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dUpj=3W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uwclh-0002VE-Ik
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 08:35:01 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2cf4ee72-8eea-11f0-9809-7dc792cee155;
- Thu, 11 Sep 2025 10:34:47 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-b0411b83aafso63645866b.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 01:34:47 -0700 (PDT)
+ id 1uwcmY-0002qI-JB
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 08:35:54 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 543f2fa3-8eea-11f0-9d13-b5c5bf9af7f9;
+ Thu, 11 Sep 2025 10:35:53 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-b04679375f6so75378666b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 01:35:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b07b33478e4sm79430366b.96.2025.09.11.01.34.45
+ a640c23a62f3a-b07b31283e3sm84056866b.24.2025.09.11.01.35.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Sep 2025 01:34:46 -0700 (PDT)
+ Thu, 11 Sep 2025 01:35:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2cf4ee72-8eea-11f0-9809-7dc792cee155
+X-Inumbo-ID: 543f2fa3-8eea-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757579687; x=1758184487; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1757579753; x=1758184553; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6om+MgAOmuQxmj0lBwEIDPkVNrCBj3qz4cJqW+B19+A=;
-        b=XeWWvtB/FN27f/WyfJ1oynaQnQ9aJ26vKp2mabkd3eDOxK4WObHLFukCehGJazRQGb
-         VJrNFbO2KGrP5P4YFtWTTbyaJway7cXQIlBIYDQ/0PGKUrXgSORbym/P2QEc2tmPGs7o
-         bgv8LMtcPusHWvsQYGQEugNDR5HuTYf8jx9D5YQotRFWXEokh3EOtoxEliFp8C9GOKRc
-         NqMPlm7FGkNSFInOpZO6imeGJk8aCkRJwBHovZwJVL3seHqITRrHjXn/pWkAHKFOEkG4
-         sqyMlSrWxezDvV4SgZ/lDPemvLaEX/QtTwjbo32mzdSzvjCbFSqGpJsO4bnW2b0295vQ
-         ygjQ==
+        bh=grTetyzW0o2pITRC2Tai7FBoj6w8DqouuQvdNUY70cs=;
+        b=OBqZnUQxvy0o0teMnyjffSB3+KX1vy+8PIcwNRamaM4W08/q9xx4DxZERclAN0GqCc
+         j11owq/biSrCaWZlR4/rlRnZKIHlGNXF/P/s7O0Wgsfxsy+LBeb2MvbxC67nv384ZmAK
+         d/tHENMfwnWd53AFBDy45Oj/96yDlC14oMHjrUEdgTmBglASfc8SnTmrWelBshoHp8H5
+         TGvyOqZwqBjeY8BJGX4jrqvI+/TbtoQDbmwVWCq+wYUoDkXOxuiOgT02REiwYVx5d9qY
+         yIHviufdofl/Rk9/IVH0L6IHsTiizTG+LKkpdnxzkinoH+yA0kXogECB+jOEvbGesntA
+         JaIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757579687; x=1758184487;
+        d=1e100.net; s=20230601; t=1757579753; x=1758184553;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6om+MgAOmuQxmj0lBwEIDPkVNrCBj3qz4cJqW+B19+A=;
-        b=plNJUgKXuodN2GXAHxlP/DfROc83jjdxc11H7zKUgrBVCDcDUUhgnNR8gbl4DPLFxE
-         JQk6QMw1Je9+ieBVzkklCRbNrVGOythQtRoCySdUuO7GdRmjnQWbVAQ2NSOpWvbAydPJ
-         /OS2QwQiyCeR4JTikDrYyeQpa9buv7abhNcZqDCv94O2oEYpktNxASeZc3OZzROGtCyu
-         H20oCAVqYvZQU6HIABhzy3T69dqw6xFXmHKFRukfr/XaZkH8JRzJEEPn9WqFQVD9UBHM
-         XIM9qNeiyrpkCFRi+ilbM3teNZwR8xql284b1trGQrucMcvQeOAcvnPswaCvsNUisea6
-         7M/Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUfOpdDPwfNse+YH6E5kCfnZzG2wUyRSaBwv+oNIIrYqLl8XLn6A7g9gVHHCH0ZCA2KR5Nv7VgYsXI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyQHojXB2YkjASroILfnoAGumphMaX6i22gFfLhUdm6pGfxs6BC
-	uMIGgKlq98tGhunwXv5hrZSdrKQHB9ZJOpH4F7r8CHr7nWm2nEDbRPpaA87R+WHpN6anKcBDFIP
-	fe+8=
-X-Gm-Gg: ASbGncvT9vYLeY/CjAb1+kWbFEpS/TQd1tpf9EQ3Gl3u936Jr0tbwS8+CIRL+/lGxm9
-	ePCIzHiJayU3ZVI7Ow+t56CWqwgZ/bVO5vqPabnmnxrFuYEYtVofwC/Jc0vflAaWXykJQv/sfSN
-	ChxaKzCopqtKKLnaq09QRrzwjJqtwtQ7cQfNGSYnPTqPAZG0oUNB8UfcNg+9qIr29yrCMe5WCar
-	cp+ixf5F6jZJeymlurIArBAE7o9v2SBLkk11ch6cgeKJmRX76oOnTT3cfpyE2lRru6+/3uAV3RT
-	wkXvARK13ylnu1u2igha4bos4NHqvM7JKMezR5YBE89UgK/3I+03kn8iwIIdb4DwzBFzJUxjZMd
-	tjtged5ncJDKl1EoLUnz83pFkFR7jbWU9EJGcgSYOgEHexJzB4wwGL9Sbb8jxZIShT+jiVZrx1J
-	BFxucfYmNiEDbekVSsRQ==
-X-Google-Smtp-Source: AGHT+IGKeO0u3ps5n1Fad3J0ER9y7vjudn1pSBY6n1ak9068BaHbvyWqXC8bI00X7CYymSUfYrU7wg==
-X-Received: by 2002:a17:906:1b14:b0:b07:87ef:9d9e with SMTP id a640c23a62f3a-b0787efaa43mr453561166b.61.1757579687140;
-        Thu, 11 Sep 2025 01:34:47 -0700 (PDT)
-Message-ID: <48e537f5-2379-4b8d-a9b5-4761225a855a@suse.com>
-Date: Thu, 11 Sep 2025 10:34:44 +0200
+        bh=grTetyzW0o2pITRC2Tai7FBoj6w8DqouuQvdNUY70cs=;
+        b=e0wrLHcSHMVzZMMRmkRJHI436M9MmCL0SrG4VDggB2+NgsSiOZoWOtqe2O3mRxOA5d
+         cOs+8jOcPU1pZ84pTqe1kogAwPL+b1ZiW44cWFZ3rwadXtVwMMV9LlnMRP8f81Z9yjCw
+         xwaF6DYJ0kMU6y4BPhFgyAHK2a3Glv5hsi63xdTD7BvEbVcvbCFOwxWjn6sSyHA/7LWS
+         rsAdpW5PT9bwqKZG9Y6a+b3MBYUvqcRYcb+nmyK7HKSszwHfdKgIilLbDFfMKHV2RNBQ
+         aSXjnq+l1w7EGvO+jy4j/ZVVktAFjA2rLnLQ2ptqlKmRRhuqrB2Kvz1eizcT3RMcmQb8
+         jkRw==
+X-Forwarded-Encrypted: i=1; AJvYcCWx7iZ8xuKQSaL5zIhW/M1WktojVe3PZRga7KKHovkStzwYdds5iFitN/dAouREzWDeSsC3XRRayLs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyTgtpPxw0NurKXqaLbUOw9et3AYo7UlnDWWxBsV7Pc9LQVhYUF
+	561rz93O+ylxpmelhkTdqFfOtR3NOM2U2mJ5MCj8ZDZVm9durwIFsAw223OfWt31kA==
+X-Gm-Gg: ASbGncubpLUIQPI4PyMN2d++/0S9/3Y0EIiHQCCxAI0BaytdMK5cRbDoUJCRAKW29qM
+	R1w1VQ1PrbHIrYNWQiOSx7YzUFQOAjG/f/IGxZLzTkbiphb6E+9k+T/GxHelzKLMs0ESEbOwUmi
+	QRLljyILwMFSHBXTcz0dfNRM7jJF0ZnMp0Cya5QjaoGa5FwKOUry2CMFXuPvvBLEfEY4B7FAsQg
+	slIMmpgm4izvU/8rsW4FCKNkZTou20fSHdZ2Z91a2ah1DrTKnJrwYFN7j/mK0P4BupcrtDaXeTX
+	kP2hX9j97iEljGTzIIBlVqoKdMH1XHA5cVhYlUPsGOz5ZJvHwjDf1O28jIpg2T/3LEFWVHDi2ZF
+	kQ4qkpOjiKbLfM9puJe8eb6J52kXsSN8+2UF6p938b5y2l9og6XNJtOI8Viw4/fspNOiNQD8LQD
+	/iBpwrP4A=
+X-Google-Smtp-Source: AGHT+IE7lhgpbqp2YlZulaeqA1+XHpXOd4eA0f7IGybh0TpnDUwIAmIW7XrpRtc0JMZuWxfz77ZcBg==
+X-Received: by 2002:a17:906:16c9:b0:b07:6087:6803 with SMTP id a640c23a62f3a-b0760876abdmr915216966b.21.1757579753096;
+        Thu, 11 Sep 2025 01:35:53 -0700 (PDT)
+Message-ID: <2a1df546-c0b5-4937-9d9f-4d1c58c3e925@suse.com>
+Date: Thu, 11 Sep 2025 10:35:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] efi: Protect against unnecessary image unloading
+Subject: Re: [PATCH 3/3] efi: Limit Shim's Verify success to EFI_SUCCESS
 To: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
 Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>,
@@ -101,7 +100,7 @@ Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  Stefano Stabellini <sstabellini@kernel.org>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <cover.1757519202.git.gerald.elder-vass@cloud.com>
- <1f7b5737d4b36623af2734d525c895b77fef08fc.1757519202.git.gerald.elder-vass@cloud.com>
+ <20fa42c198ab257085a49e157a2d0e58a0010393.1757519202.git.gerald.elder-vass@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,33 +126,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1f7b5737d4b36623af2734d525c895b77fef08fc.1757519202.git.gerald.elder-vass@cloud.com>
+In-Reply-To: <20fa42c198ab257085a49e157a2d0e58a0010393.1757519202.git.gerald.elder-vass@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11.09.2025 10:24, Gerald Elder-Vass wrote:
-> @@ -1078,11 +1078,12 @@ static void __init efi_verify_kernel(EFI_HANDLE ImageHandle)
->              verified = true;
->  
->          /*
-> -         * Always unload the image.  We only needed LoadImage() to perform
-> -         * verification anyway, and in the case of a failure there may still
-> -         * be cleanup needing to be performed.
-> +         * If the kernel was loaded, unload it. We only needed LoadImage() to
-> +         * perform verification anyway, and in the case of a failure there may
-> +         * still be cleanup needing to be performed.
->           */
-> -        shim_loader->UnloadImage(loaded_kernel);
-> +        if ( loaded_kernel )
-> +            shim_loader->UnloadImage(loaded_kernel);
->      }
+> Commit 59a1d6d3ea1e replaced the Verify status check with
+> !EFI_ERROR(...), this changed the behaviour to consider any warnings
+> (EFI_WARN_) to be considered a successful verification.
+> 
+> This commit reverts that behaviour change.
 
-To me this looks as odd as the earlier unconditional unloading. How would a
-halfway sane implementation of LoadImage() return an error, but require
-subsequent cleanup (and set what the last function argument points at to
-non-NULL)? Unless explicitly specified otherwise, my expectation would be
-that upon failure loaded_kernel could have any arbitrary value, possibly
-entirely unsuitable to pass to UnloadImage().
+Reported-by: Jan Beulich <jbeulich@suse.com>
+Fixes: ...
 
-Jan
+> Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
 
