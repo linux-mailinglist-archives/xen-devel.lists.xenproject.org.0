@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F47DB53174
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 13:54:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1120054.1465158 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0398B53176
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 13:54:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1120055.1465164 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwfrq-0001aQ-1Z; Thu, 11 Sep 2025 11:53:34 +0000
+	id 1uwfrq-0001dn-9u; Thu, 11 Sep 2025 11:53:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1120054.1465158; Thu, 11 Sep 2025 11:53:34 +0000
+Received: by outflank-mailman (output) from mailman id 1120055.1465164; Thu, 11 Sep 2025 11:53:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwfrp-0001Ys-Tr; Thu, 11 Sep 2025 11:53:33 +0000
-Received: by outflank-mailman (input) for mailman id 1120054;
- Thu, 11 Sep 2025 11:53:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uwfrq-0001aY-43; Thu, 11 Sep 2025 11:53:34 +0000
+Received: by outflank-mailman (input) for mailman id 1120055;
+ Thu, 11 Sep 2025 11:53:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QF+R=3W=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uwfrn-0001L8-RG
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 11:53:31 +0000
+ id 1uwfro-0001L2-OK
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 11:53:32 +0000
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20606.outbound.protection.outlook.com
- [2a01:111:f403:2009::606])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eecf0432-8f05-11f0-9d13-b5c5bf9af7f9;
- Thu, 11 Sep 2025 13:53:30 +0200 (CEST)
-Received: from DS7PR03CA0192.namprd03.prod.outlook.com (2603:10b6:5:3b6::17)
- by BL1PR12MB5828.namprd12.prod.outlook.com (2603:10b6:208:397::11) with
+ (mail-bn7nam10on2062b.outbound.protection.outlook.com
+ [2a01:111:f403:2009::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ef42a230-8f05-11f0-9809-7dc792cee155;
+ Thu, 11 Sep 2025 13:53:31 +0200 (CEST)
+Received: from DS7PR03CA0184.namprd03.prod.outlook.com (2603:10b6:5:3b6::9) by
+ SN7PR12MB7834.namprd12.prod.outlook.com (2603:10b6:806:34d::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Thu, 11 Sep
- 2025 11:53:24 +0000
+ 2025 11:53:25 +0000
 Received: from DS2PEPF0000343F.namprd02.prod.outlook.com
- (2603:10b6:5:3b6:cafe::3d) by DS7PR03CA0192.outlook.office365.com
- (2603:10b6:5:3b6::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.16 via Frontend Transport; Thu,
- 11 Sep 2025 11:53:24 +0000
+ (2603:10b6:5:3b6:cafe::ea) by DS7PR03CA0184.outlook.office365.com
+ (2603:10b6:5:3b6::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.17 via Frontend Transport; Thu,
+ 11 Sep 2025 11:53:25 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
  DS2PEPF0000343F.mail.protection.outlook.com (10.167.18.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9115.13 via Frontend Transport; Thu, 11 Sep 2025 11:53:24 +0000
+ 15.20.9115.13 via Frontend Transport; Thu, 11 Sep 2025 11:53:25 +0000
 Received: from xcbagarciav01.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 11 Sep
- 2025 04:53:22 -0700
+ 2025 04:53:23 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eecf0432-8f05-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: ef42a230-8f05-11f0-9809-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xp7qzRQlLvcftuLGSkY3eT37iOoRkWkWm7K08Ocuu6QZYcY1CaaI0Ic4xKPNlu5GI0B9I1VtvSpj39SnAtz2Dk/NGHDR1zyheES2WeHPA2SguVYeMIGJ9h9Z2jIIKWKHtgzfy3zP9dHIQqu01v5nAmkUEasGmmrq6DBqOSsW+n0LZ8Xsa07z6ak1yfxXlwhgYkuITuRUOPN8yKzfUvdx32cumdOJRBBAfsHedaXMEFiUDDFQsGGPJAragjCI0ESYLiWK+WWsMT/hE4qJu2uSkTaq9TBICDM9TRyGRQ9/amOBQ+UYZnnMsr6M0t/IgJGI6/G4b7VYNm+OKkqUpElZGA==
+ b=y8jXL90Mj1dKfsAu1tQhYtMmhJhK0bnMWtZW0/pldbw/+j9jvsHWzH4lOO9MiskOD0pGZt97JLhY6xOrhMt1ohEdB3X4mck8ofsn+TsqxOwECs8bRfrtNj1nUjgaFBCTi9GRbs2pTz1NS++J5unk2vA1VPhqCRTys0U74tkepjk2DIEIKwxblfQ8Uf/EADLEwd37VzZzlOmKXFErfi7Iz4iJZKDPqLv5+pqVRGOoDFWJD63V3ESM1N17/+W9RuyUL6G+tdY7TfBrqrJwCQZ2Wjcw2PColzBGUsfJRYfMfdTaovtaPFtOQAwAkkqyRHm0HZqkTbEZFrAwu3B/0k0Jrg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zkDMZW5IAo1eBCGEcen5eEzeBVV+iCXu9QaTMqlJeYQ=;
- b=GbVoN3eWlH5RMTmVxxyk8zCFxVSDvEC0iuBVJ0pNJiJGXUDcYlVjS0kInnhkDiz+rhnCgGD6FJDQ8Jli3lFJjmV8pEz5yroRAeVQmKahIhfAK67nHd3SaBIQIVS/3T6fJ5eUBTO6ZCxap29baaU8ULx/qgR6ftaMNxVTOpQ5Phv6Fx+qP/HJm865+nruZA+DEzj2PIag2oFgebUBdUdGBtGWj2c2BEKvCHy0ZblciUQv98iA2EVVOoD7Pkr8VJYjbLjRrsnk3Zu9QYMtHdccAgx2maWQhvkeHup8I9OTHfGIEK7HLKG70tkI28VRsB8bbnNz1mXHwL5lIar8zjjTQA==
+ bh=cwmMyqpJdahiFQT+aq+YWQtIG3NlD4esX8arqlLAnZU=;
+ b=xZZ5rti0GlYmofwyZAGsR1tRRdBK6P7UykS6KUDRAnsFvCJDOe7hSIehVgikypD+rzWP7ZxgsL+Qk6WYpHql2fpxTJU4jSW3Ng7oxT/4UhLUMD4b6CxqOJwgwXJnDY+CpS3wcokZtThEl9rIFjUJGquxiYDy0DpujfyvGE+XjU4QxBr3j4SoHHpbuAeJ5a+FLyb2NYYuU9vVnxeyQu0dQ1nCEEm83hcV1RBioA/B0f24yDMFMX1jGqFUX3VsQgN6YeM98CHB2XH5bA3Ay0v/l243C4hUZD0Nc6nYBJCfex1Lng7pxg+P/4QUgb0lR4PTXqpKWegfQGilR1S5j5lFhA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zkDMZW5IAo1eBCGEcen5eEzeBVV+iCXu9QaTMqlJeYQ=;
- b=h88Vlp/b9AqrdvljtiNUifMRsKYUNu/9aEU8MTc4ZpbyCZ0QRASaYoDKUyYEwZCzmo9l3BkpC2tf9wxrQ57FNf7XFvQUVMxV5xsG03x3uqZuEnYMMfcFwnSHpE2D2dygmLdDlRm2j1oLPedpq39Lli0X7Q7WsTiare+k43lwamE=
+ bh=cwmMyqpJdahiFQT+aq+YWQtIG3NlD4esX8arqlLAnZU=;
+ b=qkzwdikVYvUa6KzHwNHkQcMI7vVz5EY2vTik81VYFzJmzwEX/FVTi8TtgTYYggNk5VHRuYcbWBVwoyhNISDQl29sDPQiDOD67lj44wl6EyYa201PYyrjlYPk74xQ0Lvc15QYob9HiStLUCDRaCCRUhULWDkrJr51di/ay0T49+g=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -81,11 +81,10 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Anthony PERARD <anthony.perard@vates.tech>, "Grygorii
- Strashko" <grygorii_strashko@epam.com>
-Subject: [PATCH v2 1/2] libacpi: Prevent CPU hotplug AML from corrupting memory
-Date: Thu, 11 Sep 2025 13:53:02 +0200
-Message-ID: <20250911115308.16580-2-alejandro.garciavallejo@amd.com>
+	<jbeulich@suse.com>, Anthony PERARD <anthony.perard@vates.tech>
+Subject: [PATCH v2 2/2] libacpi: Remove CPU hotplug and GPE handling from PVH DSDTs
+Date: Thu, 11 Sep 2025 13:53:03 +0200
+Message-ID: <20250911115308.16580-3-alejandro.garciavallejo@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250911115308.16580-1-alejandro.garciavallejo@amd.com>
 References: <20250911115308.16580-1-alejandro.garciavallejo@amd.com>
@@ -97,101 +96,98 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343F:EE_|BL1PR12MB5828:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a345029-02ba-45fe-be20-08ddf129d049
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343F:EE_|SN7PR12MB7834:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa27fa81-f89c-45bd-296b-08ddf129d0ac
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?7i+FXEWLKV/oQn9sb+cV4wh4zsbuVkrYSabzXjjuDQXYF6f+1yFJqNnShgrP?=
- =?us-ascii?Q?lXw5RzPF7iw/W3PghY49cIHVICGKoCk/LWF2ERspt1mtcnClUZvYoLnu+K1Y?=
- =?us-ascii?Q?Gg2Xar3MyJX9+QQURGWO3n+MrGEjTJrT3fSe1WEREfLqVroHJ8fHYntdQu/q?=
- =?us-ascii?Q?uPJPXXi1VgCH2eUW4uXwnKW4K4+N5rEybowOxI//t80cecU6gD0zwE7Y7ruH?=
- =?us-ascii?Q?ffsMD7uVHXjoSPqyPtHIVV3gNqi+U4qaZ0jE3iU5Js9crynUOS5VQrDzGN0D?=
- =?us-ascii?Q?aiSb3C90gxQ0k//3ioieywT67aKv5sXG8mJogbY8nwhbcp5luHOAEaeV2BnN?=
- =?us-ascii?Q?uWVTX+eH/evn+03JouQ+fhJMThcD0bS/Tmb9vxy7g+6sK07o7WmwuoPlmcpX?=
- =?us-ascii?Q?pPDYKPOhlQz8VCyFiwqeSC/SgSkmzIE66pHNSXOkasK1v4R75F3RwiS9EApU?=
- =?us-ascii?Q?0VFf+ls6wWhcc7Nnq+jsQshHFaoq/sag7p8q5SmO6d/HYggAaoQ9MCKielNZ?=
- =?us-ascii?Q?DK3h9YmlS6d7RHkhSGn+u3NhhT0O8aiK+uLVqG8yflN3oXhA7rjB2GTbcNab?=
- =?us-ascii?Q?FHRNxnXobel+SDXgnqxfQ0WKhq5MB+0pklNs1W10hl/o20oOjn2LZ7yb2z9H?=
- =?us-ascii?Q?aMChC2M3Ai2qnevg1a+nzNgRMKbXOnpa2B/Dz67BlEKJ4AY7a0YYs+Vuwtjg?=
- =?us-ascii?Q?pYGQ5HfcDnAlIt4hZSFvYMPmW8ig40hIKEBqHWL894//DrqWNQlOS+EMa9dC?=
- =?us-ascii?Q?jj8NSMbEQ2eRMt1IHMtkq2FUjdqynD0foI0mJ03UUv8koBgiTCHT/msZ8quP?=
- =?us-ascii?Q?BXwFdwEIKrFeDOwEAiXR1hawRy5U+OjfnaYEijjMuIX+51bb4pSkyGSQB3Oz?=
- =?us-ascii?Q?IemKXASoRZpUtWc9jit1RCUrf6o9m17VA95XCKfII6pHb6P8UkLrQ514H4fu?=
- =?us-ascii?Q?lt5YNeuaKKPV6kGiwU8Km5BevtI01yIZrYiNPYGrurtmQTx0nyfJrnvYp/QK?=
- =?us-ascii?Q?zSU3v15Re1rrihXLBXspE1CZRnPc5bUysXcpx+VHdkYHrlP4s2Rz/9eCwRhX?=
- =?us-ascii?Q?nDGZc1IliFRnQCLqYBh3IBO0GQby7fJ/kngksEa3Smf7XFojCrG15xKVZ2Iy?=
- =?us-ascii?Q?vh+teu7VWgYtXQmF3dQOXKf7RS/AHqPNct21dljfqftVadm3Op6qm3oKv/zI?=
- =?us-ascii?Q?RMtKYbltt80mKHwxvuu0QMmYzSu1G1y0shpRLZ37QEvrtUEyo3NaZWh5wMZi?=
- =?us-ascii?Q?DA0gS7SdytzPisiSR+Lyv94yUNFqr6WNHm4f9KBQ350ecc9nUeSsVLtRnueb?=
- =?us-ascii?Q?OXDyufH0blRh8pQfr5olFpatz9vq9l2ymEoL2nJeBsvSTGPsHUWrZp28+DQK?=
- =?us-ascii?Q?lOiTU241Oj3XInoPql+slqcch1ECye0zlZHpSsATMxf1OghVgsxHr2FmiKnA?=
- =?us-ascii?Q?+Bjivn7VGRNDEANYfHugVQm86oDBCemTZYYh74ecrZfsxVL5O1h4kIAUmjpT?=
- =?us-ascii?Q?Gub95bC9/pdRt5mMTYV5tsP9RTKBPAaGp5mr?=
+	=?us-ascii?Q?K7i+cOfacqlXJDM8MmdSaxOUQcXqCAIjB4SJXVOshgWwcx7IBme7C/p2yIcF?=
+ =?us-ascii?Q?sA0/arwjTxa25GiGhuQO8xXgBS9QjaW862ty+AHtWuSS+6WOdLoAidmRhpKk?=
+ =?us-ascii?Q?bVyC+x/nWvfztcZRnMPUHhXYO9GqNUoe1JwOAaoj9JWI1nf3sj0cd0CQ7gYo?=
+ =?us-ascii?Q?HcyUGDutlX+ZM+UtbgOJ5LbSWXYyJW45Fd2QUK7RI3nllfM9NKF6LA7KAc9V?=
+ =?us-ascii?Q?aL6KV3YJRYvwea6K3eFEMgqD+YpRoBLoJNvup/8giz5JP3ZVeEq4rxswq5TH?=
+ =?us-ascii?Q?Z+uJLaadstWKgqbxQFfg0Y7tGClDTvgdIJ3HdVeQEbJyzL2AxfgiRyyymSej?=
+ =?us-ascii?Q?hxfVvpsZj9rJ10nktfcx4m0zwEsB6iS7f0upFrVjbgkacW2ecxFTG1z8j/Xk?=
+ =?us-ascii?Q?5SZEwvka5Ggbm9nSZQvyDn8rP7zyiT2203yCDwKx8NG/xifpWEilHxt53fi2?=
+ =?us-ascii?Q?KaEPCU01GY+Rsb/w29lh4+sTJOfQxKM6TIYhhVahKmMlw4Zw/HRnr9vw6FK3?=
+ =?us-ascii?Q?Ggm02RTIU8xhEcNTL2ia5eCYh8k/Uqxeq00ibwrgJfhG1ahpHoHh8CKe9RIY?=
+ =?us-ascii?Q?dem4qqoKH7bE+ZnrmdolsgiaBfoZ2oCELGB212H8m3nsAUmqWTxKz9tZJ9Ik?=
+ =?us-ascii?Q?JZawWQ4GyLcPsOfXBycHDmcydrSSusGhPT8fMAl+uRqPgGpu4J6oFvU4s7U6?=
+ =?us-ascii?Q?wLEuStcTMlH8hUS3A2Anxb+0DX3gTBL07zvI6JFR0WQALys66eSjBTSk5rD6?=
+ =?us-ascii?Q?3WNwhIB+x1cSrHEDofh7qIYkB3yT1xaDch9BKcQ18BfYpwkigh2XfmJHAQnk?=
+ =?us-ascii?Q?EXoZvKYXoXSDIKX8lUrMjo61W+uDYTQb+1IBZdS/m8ujva82Tm6Xs5EtUYtg?=
+ =?us-ascii?Q?uIfy6kSZvWxxFOnB26wv3EU/0hke/tjT1uMs0PUY8M/tq4h26dZFvKpJ9AFo?=
+ =?us-ascii?Q?xtteOXHat5WIyrhvzmePSHIrO75b+jtmb2q6oTCXLORPQ7Z8g4ZtK7g+dsVn?=
+ =?us-ascii?Q?6EthjpJplDl9fC66MTUcp9TIA6lc4ehRW2Uyv5pZTav+0kPW/OKTWeCkK03c?=
+ =?us-ascii?Q?/ckJas9Ig/WpNFj52mShCy8EIsQ87SQnGqdudQsvMn+JKotx2+3mRQADecra?=
+ =?us-ascii?Q?WudMZz/xDFDRSBBFZuWzv+yUU2o2pqlfzUN4knJ5K0RTJmeVp4zjDiXljOop?=
+ =?us-ascii?Q?TArH6OPpF/Z9O8hbQYBLbqepudV94UUV97QJTLdNfN7dTYf/gpOKNJQrPeiw?=
+ =?us-ascii?Q?hYNNzEeSm7Epy3GwTClc+GBIvazue5FHctdXoQJFvqECT1n1VWeE9SZyDYzc?=
+ =?us-ascii?Q?YaFvrUlcytFSVHKEO5c6h4D6i587JzJdgV8uoVW7AlknzI0EPFeFLlz71+Wo?=
+ =?us-ascii?Q?p0hMjAhJu5Z5wxIY3j5CkMdA7CZ1f1nWeWU6J/KwgV0moEvFlTfffDWQbhpy?=
+ =?us-ascii?Q?Fl8K0mPv5MdNVGtc+7mK7peqWpDi5yjgCdf2+3O/kfhD4RuMF5tDlr+CdGJo?=
+ =?us-ascii?Q?AkEP+tXvZpcG5gIHoIxSPi9xgFug2LO9HPoN?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2025 11:53:24.6123
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2025 11:53:25.2576
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a345029-02ba-45fe-be20-08ddf129d049
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa27fa81-f89c-45bd-296b-08ddf129d0ac
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	DS2PEPF0000343F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5828
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7834
 
-CPU hotplug relies on the online CPU bitmap being provided on PIO 0xaf00
-by the device model. The GPE handler checks this and compares it against
-the "online" flag on each MADT LAPIC entry, setting the flag to its
-related bit in the bitmap and adjusting the table's checksum.
+PVH guests have no DM, so this causes the guest to fetch the online CPU
+bitmap from an unbacked 0xaf00 PIO port when executing the GPE handler.
 
-The bytecode doesn't, however, stop at NCPUS. It keeps comparing until it
-reaches 128, even if that overflows the MADT into some other (hopefully
-mapped) memory. The reading isn't as problematic as the writing though.
+Seeing how ACPI CPU hotplug is the only event delivered via GPE, remove
+the GPE handler in addition to anything ACPI CPU hotplug related.
 
-If an "entry" outside the MADT is deemed to disagree with the CPU bitmap
-then the bit where the "online" flag would be is flipped, thus
-corrupting that memory. And the MADT checksum gets adjusted for a flip
-that happened outside its range. It's all terrible.
+This shrinks PVH's DSDT substantially and prevents spuriously executing
+a large amount of AML with no purpose at all.
 
-Note that this corruption happens regardless of the device-model being
-present or not, because even if the bitmap holds 0s, the overflowed
-memory might not at the bits corresponding to the "online" flag.
-
-This patch adjusts the DSDT so entries >=NCPUS are skipped.
-
-Fixes: c70ad37a1f7c("HVM vcpu add/remove: setup dsdt infrastructure...")
-Reported-by: Grygorii Strashko <grygorii_strashko@epam.com>
 Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 ---
-Half RFC. Not thoroughly untested. Pipeline is green, but none of this is tested
-there.
-
 v2:
-  * New patch with the general fix for HVM too. Turns out the correction
-    logic was buggy after all.
+  * Adjusted commit message
+  * All other tags except S-by moved to patch 1.
 ---
- tools/libacpi/mk_dsdt.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ tools/libacpi/mk_dsdt.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/tools/libacpi/mk_dsdt.c b/tools/libacpi/mk_dsdt.c
-index 8ac4f9d0b4..06a229e2e9 100644
+index 06a229e2e9..cc4ed3961c 100644
 --- a/tools/libacpi/mk_dsdt.c
 +++ b/tools/libacpi/mk_dsdt.c
-@@ -239,7 +239,8 @@ int main(int argc, char **argv)
-         /* Extract current CPU's status: 0=offline; 1=online. */
-         stmt("And", "Local1, 1, Local2");
-         /* Check if status is up-to-date in the relevant MADT LAPIC entry... */
--        push_block("If", "LNotEqual(Local2, \\_SB.PR%02X.FLG)", cpu);
-+        push_block("If", "And(LLess(%d, NCPU), LNotEqual(Local2, \\_SB.PR%02X.FLG))",
-+                   cpu, cpu);
-         /* ...If not, update it and the MADT checksum, and notify OSPM. */
-         stmt("Store", "Local2, \\_SB.PR%02X.FLG", cpu);
-         push_block("If", "LEqual(Local2, 1)");
+@@ -218,6 +218,11 @@ int main(int argc, char **argv)
+     pop_block();
+     /**** Processor end ****/
+ #else
++    if (dm_version == QEMU_NONE) {
++        pop_block();
++        pop_block();
++        return 0;
++    }
+ 
+     /* Operation Region 'PRST': bitmask of online CPUs. */
+     stmt("OperationRegion", "PRST, SystemIO, %#x, %d",
+@@ -265,10 +270,6 @@ int main(int argc, char **argv)
+     pop_block();
+     pop_block();
+ 
+-    if (dm_version == QEMU_NONE) {
+-        pop_block();
+-        return 0;
+-    }
+     /**** Processor end ****/
+ 
+ 
 -- 
 2.43.0
 
