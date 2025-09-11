@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 513F3B531CC
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 14:13:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1120175.1465219 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 655FCB531F2
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 14:20:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1120193.1465228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwgAd-0007Zy-Nt; Thu, 11 Sep 2025 12:12:59 +0000
+	id 1uwgHK-0000PH-FG; Thu, 11 Sep 2025 12:19:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1120175.1465219; Thu, 11 Sep 2025 12:12:59 +0000
+Received: by outflank-mailman (output) from mailman id 1120193.1465228; Thu, 11 Sep 2025 12:19:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwgAd-0007Wx-Jp; Thu, 11 Sep 2025 12:12:59 +0000
-Received: by outflank-mailman (input) for mailman id 1120175;
- Thu, 11 Sep 2025 12:12:57 +0000
+	id 1uwgHK-0000NW-CC; Thu, 11 Sep 2025 12:19:54 +0000
+Received: by outflank-mailman (input) for mailman id 1120193;
+ Thu, 11 Sep 2025 12:19:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dUpj=3W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uwgAb-0007Wr-Ex
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 12:12:57 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1uwgHJ-0000NP-Ev
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 12:19:53 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a5df3fb0-8f08-11f0-9809-7dc792cee155;
- Thu, 11 Sep 2025 14:12:55 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-623720201fdso1319012a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 05:12:55 -0700 (PDT)
+ id 9d7ccba1-8f09-11f0-9809-7dc792cee155;
+ Thu, 11 Sep 2025 14:19:51 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-b079c13240eso105124666b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 05:19:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b07b3333e81sm122410966b.94.2025.09.11.05.12.54
+ a640c23a62f3a-b07b32dd3efsm120831966b.55.2025.09.11.05.19.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Sep 2025 05:12:54 -0700 (PDT)
+ Thu, 11 Sep 2025 05:19:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5df3fb0-8f08-11f0-9809-7dc792cee155
+X-Inumbo-ID: 9d7ccba1-8f09-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757592775; x=1758197575; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1757593190; x=1758197990; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CJ4QEto79CF5RB4ihut1AYj5dYYkPa+6FCfTnZrB3sQ=;
-        b=fn0YLycd7wVyWgZ79gJ3bzVlu0zUkschKa4U/oE0hRI/q/ayAOGFLxfAqWC+yz/H91
-         wXkFWD/5n3AzCv+g9d3kOjRtHlrqVgdGnw4zMa8lDhV/aHmu+3PR9YsrfvxS03ooxpEP
-         qTGvW76zpP/AL5qky/BTi5mLDMaIf8UEBiOWcm3KS3iUZO5bCVINV3+kQqfuUXNsrn2c
-         3R0AJlCrBNWRvWj4jbOa/RrbO4e527S60rby462HJp9KrqSIvxLa4ayms4ex5CDTIHIA
-         4vmn0j9iQdJcFdICCBacOO312JEd4Mc80lVZleWpOkaauNAZeQ+wTrz4DN1ZTM3DaOjx
-         ERgA==
+        bh=07cCRKFEKR73KcOdWtmwOLBVT2/9Zq2igD34GYfPbwI=;
+        b=WVss+EDtO2nSlnwKB3ifA/VGAuw8tCeiFC7mzhx+Shc3+gqW7Tk+2I/r1pB4zbEWEX
+         APg13QTwPbSduZknJZ9ulFVeoWP22hXTxOsYklE6hGh2etf0fxTWr/yqmMNOf+oT8w7U
+         rvGoKesomleXQph5S+USQ5rR5vdAtyzRMA0T9Uu++G0lReMLmS0vVZN2WEMk8oj0fwSW
+         uI34KJShJ0IN5U2C/7AphaCW6QjqQMB4MV649ZzicwmFUV3+6H5D/QSPAICpdptSijcJ
+         KOuAM9u3uw8xg6B2C49dZykR0zUPP75uCbtXZqFUTnQnsCBrM9+QQku6OFMyxez3M4D4
+         qwBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757592775; x=1758197575;
+        d=1e100.net; s=20230601; t=1757593190; x=1758197990;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CJ4QEto79CF5RB4ihut1AYj5dYYkPa+6FCfTnZrB3sQ=;
-        b=M2CLnYW/KpakUKwx8tHsN/5yMhQD1RJE/740d5Pi7Ws2uru1SouAmMNeag29BbC7H0
-         bOggw6fKpE/pgWKy8/uMc7eWjYIA7x2ruSwrTuH6T9F8+UUm/4UXWPTc9LiQx1WXsowo
-         JHf52DIV8n8tPnrcKdPMHsDp/JB/CkOHyBunVDE1GzYyjMFZKAXxI06cVhu3/aG+nV0e
-         4gEBiXK/qBlRh6NGzKOr5VuiKIYWLBW1Y+LmvhpKGtOavl3xjyGhpvUujAM0C34bnrq6
-         imnTwJEnuMwRVXQOIKypsA6JVy4ywZJk3raKO8WCthAt/9lPypKyzGyRmmzfJ83EGigL
-         G81Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWN0zdcemsp671q8+Ev6acPfxb5vKESlEwMPCBMShz3tywc+5+bJ3u0e+gV5FIxlREjzL9QY5u6OkI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxYseypYm56/Er1R8mn0+kYKkri4tU3jAOQnZYgxKGWLv1BO/fe
-	oSvZ8DtjU+rF+tvro4iEBbnENLFn41KOs4h8SuDCuYOBTOqBsjcbAz8AGeJbHq/QIQ==
-X-Gm-Gg: ASbGncsSZvo7cEDTyImHmZmu+Hjqe4B4T9QrSKeEWvPdGQYiPkylt4LoB5AP5TbmLWR
-	8YNscImQKY7NCW52zM9Jc1doTNtNcpDC6RnYrUoYu8kvEmRvsdGZwcpc2UpcHsOXu9B+rTYl1IW
-	Biakq0UJTgyo09FMzJJA7P16MAbTznFgjFsn2/fob3MHimLj9WAwCKpI/+rJBZG7ezlWmgkuBlb
-	z2xrx0emI5vthAuMm2w9hej4jr7ejHPIc8YQ8AWxT7QeGyHPP8XgqlaJj9Ne248pXHBHBmfEXxp
-	6Y7nr4Ae+go/VkdkOFzGBdvPIHaW0PDqqaGv5PHsfFEoekZ0gfdDiP04leBxSrBX6YlNh/qMxJa
-	vucb6joYSoczuwEhdwLQgQLbLiiFHb2CCpqAqJt/00erL9H9uSK0WRv8BIORCC3nNBQu0AYS3S9
-	TFRQKPx2XzwPMybfUoTA==
-X-Google-Smtp-Source: AGHT+IHR/BZHwwwmp9AKZklb5fedwLJhv7KbT4p14ukSCP6uv9LTJ10hW0kwZ1IljaBIfyDb8//mxQ==
-X-Received: by 2002:a17:907:7290:b0:b04:32ff:5d3a with SMTP id a640c23a62f3a-b04b10081d8mr1861189066b.0.1757592774926;
-        Thu, 11 Sep 2025 05:12:54 -0700 (PDT)
-Message-ID: <1c67c451-9c52-46e4-89ee-419c6bc96e0e@suse.com>
-Date: Thu, 11 Sep 2025 14:12:53 +0200
+        bh=07cCRKFEKR73KcOdWtmwOLBVT2/9Zq2igD34GYfPbwI=;
+        b=agF3HEL0+B0XwMGSJWp+LHxUGfdg8IoWo1OZgd0IlBoycvY1EZ/4wtjrAJeWajaD0P
+         IVLWFDf8MxC2Ct0FrPX4+njqPnXpYXO9ytnkHtLBXZrh7lKReEmrMTbOOV1KauH6uwmS
+         O3tGVC3ayp9V/6bZe3TtEAwcIOAeTN35y3Ru05XwIBkSa3dXNm3c/XHB7rRa6zcm69/A
+         Yg2rJ75xLEHq+QUUfRWu70AB3PsyknjE6/7PE2qHAQaTt5ZxzFKZ8DbAKln6tE+OTDa/
+         zAnJ1rL5l+v8JqP5EYa0y+I7RAFFfM2OwQUHSKy9NKtXMPB7OCZVCqYcg6JXeGkkhnQD
+         HSbg==
+X-Gm-Message-State: AOJu0Yw8L+Bb5uKeh8XTdcZzLdmsrVbS5wEFAgg7mbn7fxcEkFUsGiVo
+	oQ1Ep1/YqvyFzU3kgygOdvsgtlJ+HL286wJnMREoL8QK/P9uuiO/qPclLRu1ls2GNw==
+X-Gm-Gg: ASbGncs6Do6uXr5USrGZNOMWqMaCxCEgAliLLbRIwsIjbBARcTi/HI01KBqV3pMDdio
+	B5aTNZcqPN2w2MObIMfmwHr0Cbfzfk6znlZn8RNw2D3pnECMouyR993V4xsTb/BmDXpCiQNH8fn
+	qpCLB0/NKSYXMUQHiGkKJXjMJOaVxpgU+8LNVwZ2P+D6yX1S2A7MAcXzQ1FvzMTCgnbd39Vl67e
+	e7hjwjCjX5ZPyqTWZr1Qvsghdhu3tjTiF6QqrUM7Ez7uOr91s0sX/mD2BCuEjrwbVgYF632xOat
+	ej7YUJ46Sq4jyclZFL7E0qylbuE1RYVRDEaakSoWEWW6pn78bnt87kJCL7lySnMj+ow96b02X6h
+	zbiQ64CBLyJlW7H2jnckc9Gs8a/g4yafyA7wwymGgkplw6kaUKLb+MZYIYfzgRJxAG4+e6YOesI
+	RqoXpZYHc=
+X-Google-Smtp-Source: AGHT+IGS+R8sUY7Cmx8cqEPn9NCyABx3ZIvVKD+39LfDEEmyjXzcbDBHdgosaFLE6xltRODWVO0obA==
+X-Received: by 2002:a17:907:6d16:b0:b04:48b5:6e8a with SMTP id a640c23a62f3a-b04b13c1734mr1957582266b.7.1757593190176;
+        Thu, 11 Sep 2025 05:19:50 -0700 (PDT)
+Message-ID: <6c53c773-019e-4650-93a7-4a3127e33410@suse.com>
+Date: Thu, 11 Sep 2025 14:19:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 22/26] xen/domctl: wrap
- arch_{get,set}_paging_mempool_size() with CONFIG_MGMT_HYPERCALLS
-To: Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org
-Cc: ray.huang@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Subject: Re: [PATCH v2 23/26] xen/x86: make CONFIG_X86_PSR depend on
+ CONFIG_MGMT_HYPERCALLS
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: xen-devel@lists.xenproject.org, ray.huang@amd.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
- <20250910073827.3622177-23-Penny.Zheng@amd.com>
+ <20250910073827.3622177-24-Penny.Zheng@amd.com>
+ <alpine.DEB.2.22.394.2509102020240.52703@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,20 +122,21 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250910073827.3622177-23-Penny.Zheng@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2509102020240.52703@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10.09.2025 09:38, Penny Zheng wrote:
-> Arch-specific arch_{get,set}_paging_mempool_size() is responsible for
-> XEN_DOMCTL_{get,set}_paging_mempool_size domctl-op, and shall be wrapped
-> with CONFIG_MGMT_HYPERCALLS
-> Wrap XEN_DOMCTL_{get,set}_paging_mempool_size-case transiently with
-> CONFIG_MGMT_HYPERCALLS, and it will be removed when introducing
-> CONFIG_MGMT_HYPERCALLS on the common/domctl.c in the last.
+On 11.09.2025 05:22, Stefano Stabellini wrote:
+> On Wed, 10 Sep 2025, Penny Zheng wrote:
+>> Users control/monitor Intel Platform Shared Resource (PSR) through
+>> related domctl-op or sysctl-op, so CONFIG_X86_PSR can be put under
+>> MGMT_HYPERCALLS. With this change, we could remove MGMT_HYPERCALLS-wrapping
+>> in psr.c
+>>
+>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 > 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Acked-by: Jan Beulich <jbeulich@suse.com> # x86
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 
