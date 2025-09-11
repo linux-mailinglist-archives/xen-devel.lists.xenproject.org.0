@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA6AFB536F4
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 17:08:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1120402.1465353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E46EB53704
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 17:11:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1120413.1465363 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwity-0001Wy-Tz; Thu, 11 Sep 2025 15:07:58 +0000
+	id 1uwixG-00030W-C6; Thu, 11 Sep 2025 15:11:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1120402.1465353; Thu, 11 Sep 2025 15:07:58 +0000
+Received: by outflank-mailman (output) from mailman id 1120413.1465363; Thu, 11 Sep 2025 15:11:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwity-0001VD-RJ; Thu, 11 Sep 2025 15:07:58 +0000
-Received: by outflank-mailman (input) for mailman id 1120402;
- Thu, 11 Sep 2025 15:07:57 +0000
+	id 1uwixG-0002yL-9A; Thu, 11 Sep 2025 15:11:22 +0000
+Received: by outflank-mailman (input) for mailman id 1120413;
+ Thu, 11 Sep 2025 15:11:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dUpj=3W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uwitx-0001V7-OY
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 15:07:57 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WJvt=3W=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uwixF-0002yF-4P
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 15:11:21 +0000
+Received: from fhigh-b6-smtp.messagingengine.com
+ (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 18736faa-8f21-11f0-9809-7dc792cee155;
- Thu, 11 Sep 2025 17:07:55 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b0472bd218bso144477366b.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 08:07:55 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b07b3128a5csm150603666b.37.2025.09.11.08.07.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Sep 2025 08:07:54 -0700 (PDT)
+ id 90fedb2e-8f21-11f0-9809-7dc792cee155;
+ Thu, 11 Sep 2025 17:11:18 +0200 (CEST)
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 40E717A0316;
+ Thu, 11 Sep 2025 11:11:17 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-09.internal (MEProxy); Thu, 11 Sep 2025 11:11:17 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 11 Sep 2025 11:11:16 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +44,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18736faa-8f21-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757603275; x=1758208075; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=D15V0iG2MZ0Z/AwcKFpgky46QGXFGdQ+EP2jUIV+Wb0=;
-        b=eOD9XlnTHr94tjuJG8LIIqBubxiBkGTTYBPfGMZD1S4Obehp2DGd8UeSxjaurlD0sS
-         wB7WYVhoeQkyPRMTsJXWcLe/HUZYkw8+PR0Bw/Qwfo5MAsrqxAkMMabIRSGLphvlgFqE
-         0cR7lF6K7wbu7wLnB69Yqqr1GEx+2Si+a/fxqIpY6V3CD0oJuJRH5TqbgyfXAR7X8xli
-         cmrlvEykmgJ/UOlhDyOAHXOuV0pf+Xyx3uz6HOIbKOSN2Eab2yWRLea9pT6oRpwIPkQg
-         R1srLtTu6lUGNCllKesr0qJQO9y8XUJsZ6hbLea3oX173y6k6eCwp8ZB4WmFsOPTo91Y
-         eh/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757603275; x=1758208075;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=D15V0iG2MZ0Z/AwcKFpgky46QGXFGdQ+EP2jUIV+Wb0=;
-        b=sbiobsEYqDSRp7KrD9vH3n/pnvwp1+XcEDzwt3OAffXeTWcR9MoGIJwzlEgD4p0hjR
-         vShmGi33PUgsBSsqO5JIbqgFBeeMB+LP3SzYFYyLPGBKNusmqSkg6jpAs2qh6LorMvo5
-         PftpxvsLzow789rsCuiSvnPoKIWanrYMYlUEq/apYvmZ5HLb4SB74UI+pZqSx4ieT7uC
-         HdXQkD1eWijuh4xYUDl6V7tKpNQednNx7pR26Knhsw607IoifoSaDrp9NazGvpqNqz7J
-         w79iHFJcgBZskgt4ZTMMMhNhm7IdECoW5LNHW6BGCYoOIB7DzeW870zMWqED4pACo1HE
-         Y5Ew==
-X-Forwarded-Encrypted: i=1; AJvYcCWs5GCmitZ7thhIz1bkJxUPkmEGbZfbXWmqL3Z4edFJzR6boBvOmnPJaLwkgX0eWRayafEkbs50F5o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxuyW4B2hAybsPFPM+VsVgRVyl52i83p9078RTYbbNAYYhQPZ4C
-	MEoXZ1GtYDIatgDxeF43NZmooD3EQwhz7ZyiiDdzdnlEcWKqdxQ0XEaqNhBdWUCeRw==
-X-Gm-Gg: ASbGncudtQFGYog5S2kGqa3g7+90qXDjZM0LYXZOc7lfeJ/9zYOvfz5zKcbkiFLV4rS
-	TzBB8U0YMuqIfrkVSObzaiYLYSlrzIXUphuLoi/6xR0knEJtsHa6lRyhp8WNgpNjTJjwxgdNqrn
-	ENqd0xJC0V/SvijTWBFQPRuk2NPtuZszg7ViY2G0Q0BpRtPe4gnbw3YJrAghPBTv4IrC9+5Q/tY
-	RlpdzJAj2rv+iWlOBp/iDXa4tfCb5WgmuMdOdxUvdiy15h74YRJq7QbS4R3HhB+c+osdqp7M7Gz
-	LhJhLo/JariWVLK1LIlTevDZock4Pav0Uv+lq5cuFb4fbaYd6sEqyjtKk7mvMk3aUMCf6VxYMY5
-	IcmRJ0ciWgo2Zcf0TGst9TQk/WwfBAeAjmELxALHOapCqCShyDCJA3oAwtkj2BD0k4Kl/AtE/+9
-	kREg6qVwsvngU3DcOYXw==
-X-Google-Smtp-Source: AGHT+IFjZqJVmgqgHemcJZQq4tHzj5mw/hBJGKQ/o2zPwesmJRplaY6EhAf31Dsych+uasVHMj4Heg==
-X-Received: by 2002:a17:906:dc92:b0:afe:9e58:754d with SMTP id a640c23a62f3a-b04b1714a6amr1818246266b.64.1757603275014;
-        Thu, 11 Sep 2025 08:07:55 -0700 (PDT)
-Message-ID: <daf8c564-80ff-4480-97b4-7c86206ba36e@suse.com>
-Date: Thu, 11 Sep 2025 17:07:53 +0200
+X-Inumbo-ID: 90fedb2e-8f21-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm1; t=1757603477; x=1757689877; bh=Op
+	BV2oIANtjlUKd2RvH8eUWtuy1HmwEUDQuIs61cuGk=; b=G453LlSFIk2lR+OVsi
+	A0BvzRcYK9kO15aqEBKIYjK0CKA5Hh9OG/nV6Hllr8pE+a4wiLeVsIfB8DbXCPMS
+	ajAXpOlYoal2J7GomN9Q2ozhu/kgWWL7e8rfKbD6YKarpEZ3wDfGOkc0Znri6Bj7
+	hFgemAZw355EN2LQX50oKaSFvErB8/JRJ2/k844iMBvMXFso3bGXA2PtgWmAEddr
+	2hqcYsbHbvXrLmgoIrFfQGTUaw/VofPzxjH9K/BUmljWGOv72ou6AcqWyziSY34Q
+	wNEWtIAA95AKN9qmPv6RPMoNmeEtN0e1ZNB8kHoQPBq/yslcLIcKpHsalE0Nl6/E
+	lxDQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1757603477; x=
+	1757689877; bh=OpBV2oIANtjlUKd2RvH8eUWtuy1HmwEUDQuIs61cuGk=; b=P
+	SteqXSoNJOR5oo3TjOUB8hS/qduXgkPT3cDSMMwfpqRuo4BLL1wWauvUcm32wN8X
+	b5DW8bCgF+4OIlQjZsEG0nQAQCieqrFSlNGWv7TG8zoc/FNc9csay2P6dzDbPucO
+	82D3wZ9BfDOTbl+gI/u1iFR10cEB5Dq8FIMDX9QYnb4MtXioY8xosIRCjzx47QNp
+	qnVBKnUSF6U0msnk6V4tIkqpVnL9nPVWK3y614saLfuqvnrGeqTIkXWIz9fR4hpv
+	/Cpj1t174tOMKTrE6RxwBIuf39dQ2Ew/J0A8fuoub9OIvffhk1kgkgLPjrET1Pee
+	s0zGT2orMkHOAVCyuoh5g==
+X-ME-Sender: <xms:lObCaHt7x9UUTckJ4VLz9QK5Bt7_W6JC0Vl8eYvItUJzhgrJF0fJ6w>
+    <xme:lObCaIoLjfIiBoiXQq0Vl5rWpj_4Sg241xEeCb-g6Mw1krcR6zqmpjJUPujP_Ve2B
+    lVyxGz45EFsuA>
+X-ME-Received: <xmr:lObCaMkufnWLmt9xbL_VlUT0mLAR2gebcfEL8vwD42wXg9N_sr569544UHXrc6wLrtMkuv_yiJZmPKTBiItLpIo_lSx3xe5pR9A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvieeglecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecunecujfgurhepfffhvfevuffkgggtugesghdtreertddtje
+    enucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceo
+    mhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecugg
+    ftrfgrthhtvghrnhephfetuefhiefgtddtlefggffggeevhedtvdefffeugfeiieeiheef
+    teefgefggeejnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghruf
+    hiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhi
+    shhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedvpdhmohguvg
+    epshhmthhpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghn
+    phhrohhjvggtthdrohhrghdprhgtphhtthhopehjghhrohhsshesshhushgvrdgtohhm
+X-ME-Proxy: <xmx:lObCaEz_1L3ZcTEHqV3sHAC_WNVRFYRU-th_IxBaBL9Gqdqy9BVWRw>
+    <xmx:lObCaMnmthCy9uYiz6t7GZdXB2WA8H__4nR3NEotNMtvfrUPCICqvw>
+    <xmx:lObCaFeMGVyHf_YMkewJrv7C39UTepm9i4XgViVmfUphMOXaXBwF7A>
+    <xmx:lObCaKri_K7RaG8Rc4920Hp3iN5BvoLh0yXQwguA7lVnjERpLwB8Mg>
+    <xmx:lebCaDbLCI8KFASTa3vbXWAB1OKAput4JGGRyDTngfr_Fn17aFb_XE5_>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 11 Sep 2025 17:11:14 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: WARN in xennet_disconnect_backend when frontend is paused during
+ backend shutdown
+Message-ID: <aMLmkjui9kdEuiy2@mail-itl>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] libacpi: Remove CPU hotplug and GPE handling from
- PVH DSDTs
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <20250911115308.16580-1-alejandro.garciavallejo@amd.com>
- <20250911115308.16580-3-alejandro.garciavallejo@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250911115308.16580-3-alejandro.garciavallejo@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="x55zhp3nHLq16CA6"
+Content-Disposition: inline
 
-On 11.09.2025 13:53, Alejandro Vallejo wrote:
-> PVH guests have no DM, so this causes the guest to fetch the online CPU
-> bitmap from an unbacked 0xaf00 PIO port when executing the GPE handler.
-> 
-> Seeing how ACPI CPU hotplug is the only event delivered via GPE, remove
-> the GPE handler in addition to anything ACPI CPU hotplug related.
-> 
-> This shrinks PVH's DSDT substantially and prevents spuriously executing
-> a large amount of AML with no purpose at all.
-> 
-> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+--x55zhp3nHLq16CA6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 11 Sep 2025 17:11:14 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: WARN in xennet_disconnect_backend when frontend is paused during
+ backend shutdown
 
-> ---
-> v2:
->   * Adjusted commit message
->   * All other tags except S-by moved to patch 1.
+Hi,
 
-This will want backporting; I expect finding a suitable commit for a Fixes:
-tag is somewhat difficult.
+The steps:
+1. Have domU netfront ("untrusted" here) and domU netback
+("sys-firewall-alt" here).
+2. Pause frontend
+3. Shutdown backend
+4. Unpause frontend
+5. Detach network (in my case attaching another one follows just after,
+but I believe it's not relevant).
 
-Jan
+This gives the following on the frontend side:
+
+    ------------[ cut here ]------------
+    WARNING: CPU: 1 PID: 141 at include/linux/mm.h:1328 xennet_disconnect_b=
+ackend+0x1be/0x590 [xen_netfront]
+    Modules linked in: snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd=
+_timer snd soundcore nft_reject_ipv6 nf_reject_ipv6 nft_reject_ipv4 nf_reje=
+ct_ipv4 nft_reject nft_ct nft_masq nft_chain_nat nf_nat nf_conntrack nf_def=
+rag_ipv6 nf_defrag_ipv4 nf_tables intel_rapl_msr intel_rapl_common intel_un=
+core_frequency_common intel_pmc_core pmt_telemetry pmt_discovery pmt_class =
+intel_pmc_ssram_telemetry intel_vsec polyval_clmulnighash_clmulni_intel xen=
+_netfront pcspkr xen_scsiback target_core_mod xen_netback xen_privcmd xen_g=
+ntdev xen_gntalloc xen_blkback xen_evtchn i2c_dev loop fuse nfnetlink overl=
+ay xen_blkfront
+    CPU: 1 UID: 0 PID: 141 Comm: xenwatch Not tainted 6.17.0-0.rc5.1.qubes.=
+1.fc41.x86_64 #1 PREEMPT(full)
+    RIP: 0010:xennet_disconnect_backend+0x1be/0x590 [xen_netfront]
+    Code: 00 0f 83 93 03 00 00 48 8b 94 dd 90 10 00 00 48 8b 4a 08 f6 c1 01=
+ 75 79 66 90 0f b6 4a 33 81 f9 f5 00 00 00 0f 85 f3 fe ff ff <0f> 0b 49 81 =
+ff 00 01 00 00 0f 82 01 ff ff ff 4c 89 fe 48 c7 c7 e0
+    RSP: 0018:ffffc90001123cf8 EFLAGS: 00010246
+    RAX: 0000000000000010 RBX: 0000000000000001 RCX: 00000000000000f5
+    RDX: ffffea0000a05200 RSI: 0000000000000001 RDI: ffffffff82528d60
+    RBP: ffff888041400000 R08: ffff888005054c80 R09: ffff888005054c80
+    R10: 0000000000150013 R11: ffff88801851cd80 R12: 0000000000000000
+    R13: ffff888053619000 R14: ffff888005d61a80 R15: 0000000000000001
+    FS:  0000000000000000(0000) GS:ffff8880952c6000(0000) knlGS:00000000000=
+00000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: 00006182a11f3328 CR3: 000000001084c006 CR4: 0000000000770ef0
+    PKRU: 55555554
+    Call Trace:
+     <TASK>
+     xennet_remove+0x1e/0x80 [xen_netfront]
+     xenbus_dev_remove+0x6e/0xf0
+     device_release_driver_internal+0x19c/0x200
+     bus_remove_device+0xc6/0x130
+     device_del+0x160/0x3e0
+     ? _raw_spin_unlock+0xe/0x30
+     ? klist_iter_exit+0x18/0x30
+     ? __pfx_xenwatch_thread+0x10/0x10
+     device_unregister+0x17/0x60
+     xenbus_dev_changed+0x1d7/0x240
+     xenwatch_thread+0x8f/0x1c0
+     ? __pfx_autoremove_wake_function+0x10/0x10
+     kthread+0xf9/0x240
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x152/0x180
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+    ---[ end trace 0000000000000000 ]---
+    xen_netfront: backend supports XDP headroom
+    vif vif-0: bouncing transmitted data to zeroed pages
+
+The last two are likely related to following attach, not detach.
+
+The same happens on 6.15 too, so it isn't new thing.
+
+Shutting down backend without detaching first is not really a normal
+operation, and doing that while frontend is paused is even less so. But
+is the above expected outcome? If I read it right, it's
+WARN_ON_ONCE(folio_test_slab(folio)) in get_page(), which I find
+confusing.
+
+Originally reported at https://github.com/QubesOS/qubes-core-agent-linux/pu=
+ll/603#issuecomment-3280953080
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--x55zhp3nHLq16CA6
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmjC5pIACgkQ24/THMrX
+1yzJJQgAmAjqLnEPVaJSeYfoos6u0fhu2ziAdmtCzMkQEEAsbcozZionCqKy2Tzy
+uF0Db7aLOiG9P/WXLwIaaZQLQ3kOHQbvcJsL5z7onFgbsisQFAB27QKC4sk4R2sB
+/de4lxFGxutRmpl15q5RvyvBybcjBmw9qKGWTjBbwBOYOvVMPkSQivFOgPuCaQMd
++UkdMtEBsUDBvw7dWSxMoKIWGDOvJY9pIs2GvMm0ErtYFfAT84WqZELozQvJ2htI
+P7eupj04AZZbiFaMn7Mu7htOBEC3QVxfzA13k86DLRetat4fCfrz5EE7FMGmqylG
+Ms9csQwCERXFiI5oa0Ql8/d6WpK8Hw==
+=Eqh1
+-----END PGP SIGNATURE-----
+
+--x55zhp3nHLq16CA6--
 
