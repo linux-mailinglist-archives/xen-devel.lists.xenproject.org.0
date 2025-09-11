@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5FF4B52ED2
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 12:43:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1119914.1465060 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D131B52EE2
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 12:46:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1119926.1465070 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwelD-00057H-Vr; Thu, 11 Sep 2025 10:42:39 +0000
+	id 1uweoU-0005fN-FB; Thu, 11 Sep 2025 10:46:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1119914.1465060; Thu, 11 Sep 2025 10:42:39 +0000
+Received: by outflank-mailman (output) from mailman id 1119926.1465070; Thu, 11 Sep 2025 10:46:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwelD-00054c-TC; Thu, 11 Sep 2025 10:42:39 +0000
-Received: by outflank-mailman (input) for mailman id 1119914;
- Thu, 11 Sep 2025 10:42:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uweoU-0005cV-Bx; Thu, 11 Sep 2025 10:46:02 +0000
+Received: by outflank-mailman (input) for mailman id 1119926;
+ Thu, 11 Sep 2025 10:46:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dUpj=3W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uwelC-00054W-8E
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 10:42:38 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 076d0391-8efc-11f0-9809-7dc792cee155;
- Thu, 11 Sep 2025 12:42:35 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-6188b5ad681so781724a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 03:42:35 -0700 (PDT)
+ id 1uweoT-0005cK-Md
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 10:46:01 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 81383d96-8efc-11f0-9d13-b5c5bf9af7f9;
+ Thu, 11 Sep 2025 12:46:00 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-afcb7ae6ed0so81562566b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 03:46:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b07b30da289sm103895266b.17.2025.09.11.03.42.32
+ a640c23a62f3a-b07b32f20dcsm102819566b.90.2025.09.11.03.45.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Sep 2025 03:42:32 -0700 (PDT)
+ Thu, 11 Sep 2025 03:45:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 076d0391-8efc-11f0-9809-7dc792cee155
+X-Inumbo-ID: 81383d96-8efc-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757587355; x=1758192155; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1757587559; x=1758192359; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KKV7CufMZ9DOV2XuiV7SNMDgZvcY2sS7LvVboG84b4U=;
-        b=I4iauHolos4FDE8Ny/P8QrWiMR59X6g1gUSgQFk0Ks7gxOmWGXCPU3V/0gtRM0iyEp
-         VhVDHBrxYtxZp9Z2sLNrYBjB31Bkq06MPNRggDvFlAHaHntSNLMXjYWsUAjj/2vJsl0D
-         NKObN8wf6dO6bqTHk7ZQrAnWLgJSiARFHhsXrLFXpbFSXZvVgdLpi3BIr21d9x9NQzQa
-         E5rQCFeOF0fwVkf+JZAbvbWD5E4C1+17wrs/ajwD39L+/ocuVrER/LY7AyfGPS4i5DBp
-         eT27tIR2rxOEZIwlMjR8LDXX+eWFHKM36Kv4xXgraD6WvEfppwlnnYGH8qw6rFheAYtH
-         ULnQ==
+        bh=rHSUWoYMdgzf4IiT3dMD5pcRmUqjWPY7dpo49gnYGMM=;
+        b=TcfH3ZCbQWlTdVolvmCJVCCd6jMTh698ZpVs0BAiMQHyXFZLliKGeuYukc/hZJjdH5
+         OYmJgECdacAARk+FIRe1D/O7rcbrwbBJqj8hIS/VGv2FepUhqRvTRIg7reZ26NpIhEhU
+         VLJXuQcvm3ZPAazD8Xhei5edFWsDfrvDwghcm73HcWpZ3WMfYW0MCg7wRYP0TXp4D+PP
+         l6H2kv2dIYTZ7OwTbT4ACa77z8PoFXCQwl5kbTRMoZ4CEtflhofuM9BfYA8vA74g/m+H
+         u/fKQbGKqBR9OGi3aXdAL0PHKjlsP9iKZrColJQ8+/ehZC9BASVVXk3t1ILiN1QCcuXu
+         DjLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757587355; x=1758192155;
+        d=1e100.net; s=20230601; t=1757587559; x=1758192359;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KKV7CufMZ9DOV2XuiV7SNMDgZvcY2sS7LvVboG84b4U=;
-        b=SQBFzL+ngnHuIEdYi6APZqJ/6bEg+XiBOPpTzrHJBDYu1s6JYU4c8A23Emz54XAGwS
-         5sIfOTWNwNwDT+xsOQmGIZoSz1dm5fEW+N+FYw0lxbjvT4WCyozUrIUVgCkNkaM9rEGn
-         toR7WDhmmq4JfAcpiL0OOMbrAO256shg0G4ketMXLHbLiQ+eQKqXWdVSdIendTPUEstn
-         /AKFd11iH0W05Nd6G4yqmOgO1Vnj7JHe+MB9WIbPvLVWxfvmB1fQhg+k3AXYkEgaet/B
-         cM0tyaxAdK4OEJusW7jW8qQ36pcgFR028Ua2AmlVfl56gUubAV18O3cywBos3QhBrqWm
-         OL9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXuRrt1HGGW2hMYq+WYuaOClA+Nkphmg7FLYMMFLMO/QAMgcb/EIxwBOVfNBon11nTYVAGcJBZQ1J8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxYhNwzu1LDuncmXNYOjkLquHWM7g/wYKSCuNK0RLWzmObr20J+
-	JLFisEWqhQm1bk+Xpj+c2hdhOKfB0AEmo4PHcyLttgTHKk1riOUahHJ6lddooxMH7Q==
-X-Gm-Gg: ASbGnctc5nmjXH7g4Sou01uOWaXZPMLUcyqjgjQaUj915zjjqlBkUvOiXU6F9yKGH9g
-	F+b9HFWyJAxug40/kFhvhW+Mz+SsNqsxlDGbDKkU+zx1tKRuho4t5NY+DmDHYcJ8832aGa5c6m0
-	+9r8HlQ1KufDdGlleBtPPG9raSho/tJwHeReHcWuhtZMbupjyj7i7myBVwfT2YEbTTb5HAGMtSc
-	K4Mh2rjbbkgN/srb+X75vqloR68t58biszxlAZz6Ie2VqzcfgmJ2UJrf8doWNdV5qRpd9FLS+PA
-	ChTDcdprSeQK2QwolhuwGYYqaO/QTkXYI/E1E6r+h2vLUEKdiillPyrUOCddJSrJaMt0kQ+MWsh
-	Doxs8TiNUKrkmvSdkpbR83QQ176WClWIRarSbqatYT+ErUw94/S1hqNv3tzFM7o+c7KLPays+s2
-	u/St3Bc2DA9b9dq9HLAg==
-X-Google-Smtp-Source: AGHT+IHBzE1uckw4rF1TBD4T+H0Qopzs26WImiSNm0xzEVbIUfiP4txYvWirEm25U4TQvWmN5L/gjA==
-X-Received: by 2002:a17:907:2d91:b0:b04:3302:d7a8 with SMTP id a640c23a62f3a-b04b16d300dmr1811696566b.58.1757587353024;
-        Thu, 11 Sep 2025 03:42:33 -0700 (PDT)
-Message-ID: <ebf43b03-2cee-49d1-acca-6a8e0944d2cd@suse.com>
-Date: Thu, 11 Sep 2025 12:42:31 +0200
+        bh=rHSUWoYMdgzf4IiT3dMD5pcRmUqjWPY7dpo49gnYGMM=;
+        b=mZfegkFViQmijErTmXrOVnxoTdiwBDywjKdA9SKR2upq4hm6LauzGEwxXUi+y07caK
+         h3AeXTgRxudvmgUju7V7gZcuTZxxwFrMHY8jwX5YnlbBXy1z4qoCb2/RmisG2KuBR8wb
+         6POH3sR4aSai2VbCStMajkUfZkOZlLJKHBR6TvwyB8fWrHWwbPO7KRt8jcJW8ObgLRRI
+         QCid8B21NRwrar6ELTaMW9y8PkLNXOhVvVcxrh+ppYXPBwSYn+M9rra5nOarH3hW/3dI
+         yQP7TmbuV9HWST9zLFtS4+iiRhPhdzc7Llp0Z5o9Jutehkj/tveVpE5l/mLzdmt/qjFR
+         1Xnw==
+X-Gm-Message-State: AOJu0YxssRX8B0w8VOtDe7zIss3kx483wy8/5U/BSsJfNZP5uK+MPDn4
+	AVZcM/Wsurd3MBEddbr1EoNhUbSZS03HwnkfnExfO9RnYH5CypuS/Czu/YPNmTktJA==
+X-Gm-Gg: ASbGncvMQy9uaeCoPxHKAlCf3v/HiNgVRGAUPdW4PIXNpCGpcwLm/uk5OdNGU6Iqyka
+	ETo2I0psF18KswiFwsIn9V6hhGkmAmSHmD2/dr/M4j20P0T0sCfWuXMrese6XHB6p5GkAiw/0gL
+	ZFXbFPokN9EuhG1N6M+VxtJq6mVgt2EyshTNIlnyS6FpijGM4GKLYVsYO3geN0nZ0VOISVqUzW5
+	OurinzykTaD/HBFsQuuaQ4tIGDyoPF1vNDt3ilRQwAgdvWOkfgKfQZLbM24mBcKfqGBSm+7S+60
+	0qqpeQ1KXZjcm4RXitn+ISRBdg5Bj3W3ZKsVVcGVKtAdSshGtsxd9YkrGtAisiAT+XME8+LcHvS
+	VQcePLkyArIhKp8W4NiNSoK+siUmg2S40Sszkfi4xUeLtbm7rnmypcJpk4yaMcQ/3Y6YjSgtfE4
+	z3F21vizM=
+X-Google-Smtp-Source: AGHT+IHDk0BCWy9NHTP0eiCLaecgTZsDe5m+fK2o/oqPqrl/NBLCQhql3xIzO3/sK7pT9MKLV5vTVQ==
+X-Received: by 2002:a17:906:fd8a:b0:afe:85d5:a318 with SMTP id a640c23a62f3a-b04b1666d66mr1826857866b.36.1757587559423;
+        Thu, 11 Sep 2025 03:45:59 -0700 (PDT)
+Message-ID: <1a81010e-98f5-40f3-a64e-ca01b64ae8fc@suse.com>
+Date: Thu, 11 Sep 2025 12:45:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/26] xen/domctl: wrap sched_adjust() with
- CONFIG_MGMT_HYPERCALLS
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 14/26] xen/domctl: wrap arch-specific
+ arch_get_info_guest() with CONFIG_MGMT_HYPERCALLS
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Penny Zheng <Penny.Zheng@amd.com>
+Cc: xen-devel@lists.xenproject.org, ray.huang@amd.com,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Nathan Studer <nathan.studer@dornerworks.com>,
- Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
- Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
- Meng Xu <mengxu@cis.upenn.edu>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org, xen-devel@dornerworks.com
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
- <20250910073827.3622177-14-Penny.Zheng@amd.com>
+ <20250910073827.3622177-15-Penny.Zheng@amd.com>
+ <alpine.DEB.2.22.394.2509101930300.52703@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,68 +126,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250910073827.3622177-14-Penny.Zheng@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2509101930300.52703@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10.09.2025 09:38, Penny Zheng wrote:
-> --- a/xen/common/sched/arinc653.c
-> +++ b/xen/common/sched/arinc653.c
-> @@ -735,8 +735,8 @@ static const struct scheduler sched_arinc653_def = {
->  
->      .switch_sched   = a653_switch_sched,
->  
-> -    .adjust         = NULL,
+On 11.09.2025 04:31, Stefano Stabellini wrote:
+> On Wed, 10 Sep 2025, Penny Zheng wrote:
+>> Arch-specific function arch_get_info_guest() is responsible for
+>> XEN_DOMCTL_getvcpucontext domctl-op, and shall be wrapped with
+>> CONFIG_MGMT_HYPERCALLS
+>> Wrap XEN_DOMCTL_getvcpucontext-case transiently with CONFIG_MGMT_HYPERCALLS,
+>> and it will be removed when introducing CONFIG_MGMT_HYPERCALLS on the
+>> common/domctl.c in the last.
+>>
+>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> 
+> There is arch_get_info_guest under riscv but it is only a stub so:
 
-This line can just be dropped, can't it? It doesn't need ...
+As said in reply to other patches, I think those stubs want covering nevertheless.
 
->  #ifdef CONFIG_MGMT_HYPERCALLS
-> +    .adjust         = NULL,
-
-... re-adding here.
-
-> @@ -2288,7 +2290,9 @@ static const struct scheduler sched_credit_def = {
->      .wake           = csched_unit_wake,
->      .yield          = csched_unit_yield,
->  
-> +#ifdef CONFIG_MGMT_HYPERCALLS
->      .adjust         = csched_dom_cntl,
-> +#endif
->      .adjust_affinity= csched_aff_cntl,
->  #ifdef CONFIG_MGMT_HYPERCALLS
->      .adjust_global  = csched_sys_cntl,
-
-Again better to get away with just a single #ifdef, I suppose.
-
-> @@ -4246,7 +4248,9 @@ static const struct scheduler sched_credit2_def = {
->      .wake           = csched2_unit_wake,
->      .yield          = csched2_unit_yield,
->  
-> +#ifdef CONFIG_MGMT_HYPERCALLS
->      .adjust         = csched2_dom_cntl,
-> +#endif
->      .adjust_affinity= csched2_aff_cntl,
->  #ifdef CONFIG_MGMT_HYPERCALLS
->      .adjust_global  = csched2_sys_cntl,
-
-Same here.
-
-> --- a/xen/common/sched/private.h
-> +++ b/xen/common/sched/private.h
-> @@ -349,9 +349,11 @@ struct scheduler {
->      void         (*migrate)        (const struct scheduler *ops,
->                                      struct sched_unit *unit,
->                                      unsigned int new_cpu);
-> +#ifdef CONFIG_MGMT_HYPERCALLS
->      int          (*adjust)         (const struct scheduler *ops,
->                                      struct domain *d,
->                                      struct xen_domctl_scheduler_op *op);
-> +#endif
->      void         (*adjust_affinity)(const struct scheduler *ops,
->                                      struct sched_unit *unit,
->                                      const struct cpumask *hard,
-
-And here, even if the other #ifdef is (just) out of context.
+And btw, this is an example of a patch which would have been entirely unnecessary
+(afaict) if the Kconfig setting didn't have a prompt (yet / anymore).
 
 Jan
+
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
 
