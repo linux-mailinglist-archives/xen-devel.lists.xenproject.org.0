@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2542CB52DAF
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 11:53:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1119867.1465051 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5FF4B52ED2
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 12:43:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1119914.1465060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwdyL-0006xt-Gk; Thu, 11 Sep 2025 09:52:09 +0000
+	id 1uwelD-00057H-Vr; Thu, 11 Sep 2025 10:42:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1119867.1465051; Thu, 11 Sep 2025 09:52:09 +0000
+Received: by outflank-mailman (output) from mailman id 1119914.1465060; Thu, 11 Sep 2025 10:42:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwdyL-0006uz-Cw; Thu, 11 Sep 2025 09:52:09 +0000
-Received: by outflank-mailman (input) for mailman id 1119867;
- Thu, 11 Sep 2025 09:52:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uwelD-00054c-TC; Thu, 11 Sep 2025 10:42:39 +0000
+Received: by outflank-mailman (input) for mailman id 1119914;
+ Thu, 11 Sep 2025 10:42:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dUpj=3W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uwdyJ-0006ut-QV
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 09:52:07 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f98053b1-8ef4-11f0-9d13-b5c5bf9af7f9;
- Thu, 11 Sep 2025 11:52:05 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-b0787fdb137so72047666b.0
- for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 02:52:05 -0700 (PDT)
+ id 1uwelC-00054W-8E
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 10:42:38 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 076d0391-8efc-11f0-9809-7dc792cee155;
+ Thu, 11 Sep 2025 12:42:35 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b5ad681so781724a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 03:42:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b07b30da4c5sm92931366b.21.2025.09.11.02.52.04
+ a640c23a62f3a-b07b30da289sm103895266b.17.2025.09.11.03.42.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Sep 2025 02:52:04 -0700 (PDT)
+ Thu, 11 Sep 2025 03:42:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f98053b1-8ef4-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: 076d0391-8efc-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757584325; x=1758189125; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1757587355; x=1758192155; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uywRppr1+m9BATvN76D6Q1/AqxH6pkAJLlw5PWEDakw=;
-        b=YA9ZR8wI5RI9AsCIU9SQCbqcTqOfqZ0i52pi825/KFJTX5B7o/K0ohj0ebVbtQnqUN
-         Cu1G+KbOX167KCp1speZhxLlD0WhWUjZuD7ErIYftKK6OPa/InQQJGfhHXXhjFOKUsmq
-         tVTMCa5NCxBZeuxp8tTQb9fYU/LSvGCnGv3FNOSSwuH4ACerjZTx/pWlspcSyjRW2GUt
-         QjeVi2JJmySy8v5yt1h1WHzpGTX+ZL6DgwTWDD9WnZGKY12tgZ2PTrh6lrgO4upoOCXa
-         F/dVSVygcI2LcTO5Dg28oEyCeopeIu6OKVK2PWgDfBdtTIRhUzpWWDjjS+dlnlhZDb1R
-         YO1Q==
+        bh=KKV7CufMZ9DOV2XuiV7SNMDgZvcY2sS7LvVboG84b4U=;
+        b=I4iauHolos4FDE8Ny/P8QrWiMR59X6g1gUSgQFk0Ks7gxOmWGXCPU3V/0gtRM0iyEp
+         VhVDHBrxYtxZp9Z2sLNrYBjB31Bkq06MPNRggDvFlAHaHntSNLMXjYWsUAjj/2vJsl0D
+         NKObN8wf6dO6bqTHk7ZQrAnWLgJSiARFHhsXrLFXpbFSXZvVgdLpi3BIr21d9x9NQzQa
+         E5rQCFeOF0fwVkf+JZAbvbWD5E4C1+17wrs/ajwD39L+/ocuVrER/LY7AyfGPS4i5DBp
+         eT27tIR2rxOEZIwlMjR8LDXX+eWFHKM36Kv4xXgraD6WvEfppwlnnYGH8qw6rFheAYtH
+         ULnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757584325; x=1758189125;
+        d=1e100.net; s=20230601; t=1757587355; x=1758192155;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uywRppr1+m9BATvN76D6Q1/AqxH6pkAJLlw5PWEDakw=;
-        b=s1MEavyW4mMOJXZ73LdZyjUVtTXkY05YARCON5LE2vW+VUZeJI5i+B12bmc0BR5HmL
-         EUALvyqWJ5LUOa2EkwMkcrOfZrOtYY1iSegTHXmLxepNLIj8ZvnfWj8ncNxYoB1XkAsc
-         R+YQjTaHBWRtC2ExmqX5wUVdsgraMLhfXIMoCtD7k3Nqbvm16wONLF249JBR5OCunh1u
-         CPlTutDhumEYuaPL1YQBw4behElONtbVEmNHqT/gZusMUoJ9TIi90xXVuaPhMmxTCaEQ
-         FGhJRdRe/WOGnUa8hlFUYCvHuFdsIBotKst9+cFdtFKHGktnqjOLyUV+GADP5FvfmppQ
-         eEyw==
-X-Forwarded-Encrypted: i=1; AJvYcCWacK1gICqAW8X5l/pQYS9F4ryhe+rMiSvWcR6Qh1gn3jiu47OtaBjI/GU5bYjwJ6pIhgbYKG2YOUw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyBAHCrlH6uzRWlfBXQjyBzXILHkeipgtoDSFE75lO32ngsdvLD
-	UK3MWbUtldAPQxxgwZhCINAPvEydpR/il59+aAAOOKnycLu+aegC8kF8zaXP7h80jA==
-X-Gm-Gg: ASbGncuETXaLJqHyG3NSCiqM21RT1FzoScL8q7sGAAmVY2zqQowB90Gtb+PtKxzrPzS
-	ElVhK7cOqsmjLrA/H++D7bJpXKd1nwRDKlVjAD279FMN6TpdL0gFGofMabgAruulk2ngUoVVZ2l
-	0OBNniLQ6jEKrsZ4fsAkh7XlZD/IR9rTaV9rYcJkIzo0sSaPQ1kcjfzCuwSId/qkMWdUffFL45j
-	43m3JfrTiVBS7QwSwwUeBrMPrq/rKt1mkgw9U+8WhRFZCOz/vj1we0a/Pxgym84GXBV9xXnKZWB
-	6eZvAekwtkRbTf9wXyjiyZORxuxNbsKjPlZCFjkylA9h8pQUxSLexmJlOBUvWT4jCLtjCHeROjl
-	s37iNwhXJrazWg5gaKh+UANO8GXr/Pg0NFT0CGFjX6BguSsVcrnvyhtEbLZpNc8tpVpTwcD3T9J
-	JnIbS68n5VIQxkpfHHhg==
-X-Google-Smtp-Source: AGHT+IELfaxamOpX9yHEKCdCkmm8rIUdT7oqykT5WIC7t7znsYYimJV7Gc3Tg4Tae67bdhO5SskCSA==
-X-Received: by 2002:a17:907:7e8b:b0:b07:b19c:1381 with SMTP id a640c23a62f3a-b07b19c15bcmr189748466b.50.1757584325243;
-        Thu, 11 Sep 2025 02:52:05 -0700 (PDT)
-Message-ID: <5d5b4f0e-4c5e-42ac-a9e2-61fbb60718f5@suse.com>
-Date: Thu, 11 Sep 2025 11:52:03 +0200
+        bh=KKV7CufMZ9DOV2XuiV7SNMDgZvcY2sS7LvVboG84b4U=;
+        b=SQBFzL+ngnHuIEdYi6APZqJ/6bEg+XiBOPpTzrHJBDYu1s6JYU4c8A23Emz54XAGwS
+         5sIfOTWNwNwDT+xsOQmGIZoSz1dm5fEW+N+FYw0lxbjvT4WCyozUrIUVgCkNkaM9rEGn
+         toR7WDhmmq4JfAcpiL0OOMbrAO256shg0G4ketMXLHbLiQ+eQKqXWdVSdIendTPUEstn
+         /AKFd11iH0W05Nd6G4yqmOgO1Vnj7JHe+MB9WIbPvLVWxfvmB1fQhg+k3AXYkEgaet/B
+         cM0tyaxAdK4OEJusW7jW8qQ36pcgFR028Ua2AmlVfl56gUubAV18O3cywBos3QhBrqWm
+         OL9Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXuRrt1HGGW2hMYq+WYuaOClA+Nkphmg7FLYMMFLMO/QAMgcb/EIxwBOVfNBon11nTYVAGcJBZQ1J8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxYhNwzu1LDuncmXNYOjkLquHWM7g/wYKSCuNK0RLWzmObr20J+
+	JLFisEWqhQm1bk+Xpj+c2hdhOKfB0AEmo4PHcyLttgTHKk1riOUahHJ6lddooxMH7Q==
+X-Gm-Gg: ASbGnctc5nmjXH7g4Sou01uOWaXZPMLUcyqjgjQaUj915zjjqlBkUvOiXU6F9yKGH9g
+	F+b9HFWyJAxug40/kFhvhW+Mz+SsNqsxlDGbDKkU+zx1tKRuho4t5NY+DmDHYcJ8832aGa5c6m0
+	+9r8HlQ1KufDdGlleBtPPG9raSho/tJwHeReHcWuhtZMbupjyj7i7myBVwfT2YEbTTb5HAGMtSc
+	K4Mh2rjbbkgN/srb+X75vqloR68t58biszxlAZz6Ie2VqzcfgmJ2UJrf8doWNdV5qRpd9FLS+PA
+	ChTDcdprSeQK2QwolhuwGYYqaO/QTkXYI/E1E6r+h2vLUEKdiillPyrUOCddJSrJaMt0kQ+MWsh
+	Doxs8TiNUKrkmvSdkpbR83QQ176WClWIRarSbqatYT+ErUw94/S1hqNv3tzFM7o+c7KLPays+s2
+	u/St3Bc2DA9b9dq9HLAg==
+X-Google-Smtp-Source: AGHT+IHBzE1uckw4rF1TBD4T+H0Qopzs26WImiSNm0xzEVbIUfiP4txYvWirEm25U4TQvWmN5L/gjA==
+X-Received: by 2002:a17:907:2d91:b0:b04:3302:d7a8 with SMTP id a640c23a62f3a-b04b16d300dmr1811696566b.58.1757587353024;
+        Thu, 11 Sep 2025 03:42:33 -0700 (PDT)
+Message-ID: <ebf43b03-2cee-49d1-acca-6a8e0944d2cd@suse.com>
+Date: Thu, 11 Sep 2025 12:42:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/26] xen: consolidate CONFIG_VM_EVENT
-To: "Penny, Zheng" <penny.zheng@amd.com>,
- Tamas K Lengyel <tamas@tklengyel.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 13/26] xen/domctl: wrap sched_adjust() with
+ CONFIG_MGMT_HYPERCALLS
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Nathan Studer <nathan.studer@dornerworks.com>,
+ Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
+ Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
+ Meng Xu <mengxu@cis.upenn.edu>,
  "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+ xen-devel@lists.xenproject.org, xen-devel@dornerworks.com
 References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
- <20250910073827.3622177-5-Penny.Zheng@amd.com>
- <b8430631-f857-426a-a144-c6b8fbf94ee9@suse.com>
- <DM4PR12MB84517E150D46E26EF2708B44E109A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <20250910073827.3622177-14-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,43 +129,68 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB84517E150D46E26EF2708B44E109A@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <20250910073827.3622177-14-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.09.2025 11:20, Penny, Zheng wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Wednesday, September 10, 2025 10:57 PM
->>
->> On 10.09.2025 09:38, Penny Zheng wrote:
->>> --- a/xen/include/xen/vm_event.h
->>> +++ b/xen/include/xen/vm_event.h
->>> @@ -50,6 +50,7 @@ struct vm_event_domain
->>>      unsigned int last_vcpu_wake_up;
->>>  };
->>>
->>> +#ifdef CONFIG_VM_EVENT
->>>  /* Returns whether a ring has been set up */  bool
->>> vm_event_check_ring(struct vm_event_domain *ved);
->>>
->>> @@ -68,6 +69,20 @@ bool vm_event_check_ring(struct vm_event_domain
->> *ved);
->>>   */
->>>  int __vm_event_claim_slot(struct domain *d, struct vm_event_domain *ved,
->>>                            bool allow_sleep);
->>> +#else
->>> +static inline bool vm_event_check_ring(struct vm_event_domain *ved) {
->>> +    return false;
->>> +}
->>
->> Which call site is in need of this stub? I was first considering
->> mem_paging_enabled(), but MEM_PAGING already now depends on VM_EVENT.
->>
-> 
-> It is used in hvm.c to check whether vm_event_share ring is empty. And it has the same problem as the below: whether we support the configuration: VM_EVENT=n and MEM_SHARING=y.
+On 10.09.2025 09:38, Penny Zheng wrote:
+> --- a/xen/common/sched/arinc653.c
+> +++ b/xen/common/sched/arinc653.c
+> @@ -735,8 +735,8 @@ static const struct scheduler sched_arinc653_def = {
+>  
+>      .switch_sched   = a653_switch_sched,
+>  
+> -    .adjust         = NULL,
 
-Hmm, yes, I must have overlooked that. This needs to stay, I expect.
+This line can just be dropped, can't it? It doesn't need ...
+
+>  #ifdef CONFIG_MGMT_HYPERCALLS
+> +    .adjust         = NULL,
+
+... re-adding here.
+
+> @@ -2288,7 +2290,9 @@ static const struct scheduler sched_credit_def = {
+>      .wake           = csched_unit_wake,
+>      .yield          = csched_unit_yield,
+>  
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>      .adjust         = csched_dom_cntl,
+> +#endif
+>      .adjust_affinity= csched_aff_cntl,
+>  #ifdef CONFIG_MGMT_HYPERCALLS
+>      .adjust_global  = csched_sys_cntl,
+
+Again better to get away with just a single #ifdef, I suppose.
+
+> @@ -4246,7 +4248,9 @@ static const struct scheduler sched_credit2_def = {
+>      .wake           = csched2_unit_wake,
+>      .yield          = csched2_unit_yield,
+>  
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>      .adjust         = csched2_dom_cntl,
+> +#endif
+>      .adjust_affinity= csched2_aff_cntl,
+>  #ifdef CONFIG_MGMT_HYPERCALLS
+>      .adjust_global  = csched2_sys_cntl,
+
+Same here.
+
+> --- a/xen/common/sched/private.h
+> +++ b/xen/common/sched/private.h
+> @@ -349,9 +349,11 @@ struct scheduler {
+>      void         (*migrate)        (const struct scheduler *ops,
+>                                      struct sched_unit *unit,
+>                                      unsigned int new_cpu);
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+>      int          (*adjust)         (const struct scheduler *ops,
+>                                      struct domain *d,
+>                                      struct xen_domctl_scheduler_op *op);
+> +#endif
+>      void         (*adjust_affinity)(const struct scheduler *ops,
+>                                      struct sched_unit *unit,
+>                                      const struct cpumask *hard,
+
+And here, even if the other #ifdef is (just) out of context.
 
 Jan
 
