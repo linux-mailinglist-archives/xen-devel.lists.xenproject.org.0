@@ -2,35 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20912B538F0
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 18:20:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1120578.1465453 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40798B53914
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 18:24:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1120608.1465477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwk25-0000Rj-8i; Thu, 11 Sep 2025 16:20:25 +0000
+	id 1uwk5q-0001bU-HG; Thu, 11 Sep 2025 16:24:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1120578.1465453; Thu, 11 Sep 2025 16:20:25 +0000
+Received: by outflank-mailman (output) from mailman id 1120608.1465477; Thu, 11 Sep 2025 16:24:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwk25-0000PI-52; Thu, 11 Sep 2025 16:20:25 +0000
-Received: by outflank-mailman (input) for mailman id 1120578;
- Thu, 11 Sep 2025 16:20:23 +0000
+	id 1uwk5q-0001Vw-Cv; Thu, 11 Sep 2025 16:24:18 +0000
+Received: by outflank-mailman (input) for mailman id 1120608;
+ Thu, 11 Sep 2025 16:24:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ty2s=3W=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1uwk23-00085B-QX
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 16:20:23 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 36ea5af1-8f2b-11f0-9809-7dc792cee155;
- Thu, 11 Sep 2025 18:20:21 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D43CB1756;
- Thu, 11 Sep 2025 09:20:12 -0700 (PDT)
-Received: from [10.57.70.14] (unknown [10.57.70.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 462913F694;
- Thu, 11 Sep 2025 09:20:14 -0700 (PDT)
+ <SRS0=QF+R=3W=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1uwk5p-0001Cf-8y
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 16:24:17 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2060d.outbound.protection.outlook.com
+ [2a01:111:f403:2416::60d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c19072a0-8f2b-11f0-9809-7dc792cee155;
+ Thu, 11 Sep 2025 18:24:15 +0200 (CEST)
+Received: from DS7PR06CA0039.namprd06.prod.outlook.com (2603:10b6:8:54::7) by
+ MW4PR12MB6897.namprd12.prod.outlook.com (2603:10b6:303:20a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Thu, 11 Sep
+ 2025 16:24:07 +0000
+Received: from CY4PEPF0000E9D9.namprd05.prod.outlook.com
+ (2603:10b6:8:54:cafe::e2) by DS7PR06CA0039.outlook.office365.com
+ (2603:10b6:8:54::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.17 via Frontend Transport; Thu,
+ 11 Sep 2025 16:24:07 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D9.mail.protection.outlook.com (10.167.241.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9115.13 via Frontend Transport; Thu, 11 Sep 2025 16:24:06 +0000
+Received: from xcbagarciav01.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 11 Sep
+ 2025 09:24:04 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,125 +56,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36ea5af1-8f2b-11f0-9809-7dc792cee155
-Message-ID: <076c7f16-fe56-49a8-910e-7d71d3f8f0b4@arm.com>
-Date: Thu, 11 Sep 2025 18:20:11 +0200
+X-Inumbo-ID: c19072a0-8f2b-11f0-9809-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=khpTxSjS5qTCijoQK2D3WJJ5sRYAWSH3PHWGbTaf2Z3W9m0dVCAi33D1DX6XLZav3GbzeXgrLgycqoQT47R71EErWFMTgQw9YoWlBsZd+r0FnW9MZtGF0Kxnb1QJcCfizBtgFZ2qp5bv0ywCTkz2o3sLj8nAx9mWhFg2/ZFBMK1CrTQt2fFyzH5QnbrzmNXra50AjQk5QcBeHDo3EtQkj3BuI3AQVvJpTLLBx6MiElYqv1JEUzqbcJhW9KwACk6xSWBBD+BsMHslybMvOTfHqufVHsLBCKzvWBZMWraR054gl+hBw/JsDF/Ur91CbCiTpj0VP+ySuqPH80k9veBMrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Fn+dK7+SCQSLAhJxI3AXAoO++irC+zRNHzsL5Pd8Fv8=;
+ b=CDC6vhVVbToYct/gaay2+pBiQ/ypxzd6dJnPkYfiWMHMdUTgaTzuj8s6nZ6SCkryzOlufwzTikRfkn86ah2BImQqodSnlmazMO0MaQ8tQTmW/PQlGRcDfFO+FrytLBXIBY0kU+Fa0AbCgrC0KnFGJ1WmjK5PkwuUR4JLoHMJPeOEneHjHYFxeAzFz6WfuHBjEovrs4MUA8BkhGB/GB3WQwdmGfjHBMAT8OCWjF+SHrtp8BbqtWPio9NX/0p/wUrgvqQNutgv2Ssr1I85CQAo8RP0abLS+MsIJGLBYdm9Sh1Uzui73wRS/UftcX2eu0hFcLISHVKrN6HF4LJxpoCAUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Fn+dK7+SCQSLAhJxI3AXAoO++irC+zRNHzsL5Pd8Fv8=;
+ b=YsJGwqUKHYsJXbI6xk6BqdETVrIDlLnINjwRb+XQ2sjJvK4edCY0MMbzc8MtrNWyZPsqGFto2MkLCpKth8sox4S99weYf/PE09stT0cxf69VbtsZ7Pkkci2qV3JJKKXEipH9XtoWegS9NiSc1GP3rktYMtAXUMNWrtIVEwW969c=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Anthony PERARD <anthony.perard@vates.tech>, "Grygorii
+ Strashko" <grygorii_strashko@epam.com>
+Subject: [PATCH v2 0/2] libacpi: Fix memory corruption on ACPI CPU hotplug
+Date: Thu, 11 Sep 2025 18:23:31 +0200
+Message-ID: <20250911162336.23887-1-alejandro.garciavallejo@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/7] mm: introduce local state for lazy_mmu sections
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: David Hildenbrand <david@redhat.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Andreas Larsson <andreas@gaisler.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
- Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
- Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
- <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
- Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
- Mark Rutland <Mark.Rutland@arm.com>
-References: <20250908073931.4159362-1-kevin.brodsky@arm.com>
- <20250908073931.4159362-3-kevin.brodsky@arm.com>
- <d23ea683-cca4-4973-88b1-4f6fd9b22314@redhat.com>
- <ca2054ad-b163-4e61-8ec4-6f2e36461628-agordeev@linux.ibm.com>
- <e7acb889-1fe9-4db3-acf4-39f4960e8ccd@redhat.com>
- <2fecfae7-1140-4a23-a352-9fd339fcbae5-agordeev@linux.ibm.com>
- <e521b1f4-3f2b-48cd-9568-b9a4cf4c4830@redhat.com>
- <47ee1df7-1602-4200-af94-475f84ca8d80@arm.com>
- <b2e52967-7ca1-411e-9c66-8d3483624ca7-agordeev@linux.ibm.com>
- <250835cd-f07a-4b8a-bc01-ace24b407efc@arm.com>
- <80be36e5-d6e1-4b37-a1ca-47e92ac21b02-agordeev@linux.ibm.com>
-Content-Language: en-GB
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-In-Reply-To: <80be36e5-d6e1-4b37-a1ca-47e92ac21b02-agordeev@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D9:EE_|MW4PR12MB6897:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c0f4a41-b11b-4805-1df6-08ddf14fa151
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?2my4Kcx7Fld+iIGETGdqLpToyuu+3MRnIP2X3t1BmOA8RyUR2yBosVj0phxp?=
+ =?us-ascii?Q?tfjdoJunZ3AvdCLt4p37bFyBSJBBnDexAT+pD0vrVd2AcDwV+CjtP6Nkf/8y?=
+ =?us-ascii?Q?TcE/1E++pDW164ZtkTPk6LSvIBcN2BEQVruLzekomTt3sibOS560qLz0zy6w?=
+ =?us-ascii?Q?oAOC7MkLU0Zgp6hDyuWZqtaewQtHy0e+bXPnnVA3WO1rGT7n6GNIHkY5C6F5?=
+ =?us-ascii?Q?YmJ6i6sQCJJxMlMqn0AuF9GF342SLJVSNXJvVVE/mcUbTf0Ec6FX/LrzqQ3n?=
+ =?us-ascii?Q?Gqw6av7RWSBmUfhjbQKUgkuSvysx12S/D+7IguzmBp5Xx+GkzH+myxwJVZKg?=
+ =?us-ascii?Q?GnOMPu6uTwGYrF7JItNbMGjDKoXUZHAkgGXHSuiEUckTbURwyUIL/6iAGyDA?=
+ =?us-ascii?Q?EsMOX9+3trs20D3YGn9hmnt2f1QDqFzsV6GmBhYh1j8ZxMQqw7D6Dt2Sv0pi?=
+ =?us-ascii?Q?I5naSnzIVlzpNxLbkCtEbrYymg854Xh4IkbCR+RSz0dAlaloyi85fRcngGIU?=
+ =?us-ascii?Q?BuRm9ZqFwAKq8rcL+U5ZOAcifOpzdS1tPVZuS3uJikyFd8IzYzOzKVWeaYeD?=
+ =?us-ascii?Q?P57bz4yvqlyAgaZ51vZMrfKPXa3lGkVSAqcGhpMvEvJOU8xjFnoiWKL6Sybw?=
+ =?us-ascii?Q?xCGX3ZboLolrvz4Gixbr3EZ7sc3DY9lyN/zJ1Y/9BhD3jFbum6wX/9smrhqj?=
+ =?us-ascii?Q?VifqXD9IhgEk9YxDfOZuq3CI4A0mVZpxayNOLcvPuNx6/EGzTNEzx9R7OAJ+?=
+ =?us-ascii?Q?sKI7CTO6ZezPXk7aH/nOZ3xhhjsXCa6dNKj2fWc1FSiwRjMaVc96FxWPJxqD?=
+ =?us-ascii?Q?cF8ixVfWkXG3BCWaYVNMmwdC7tf4QupeeLM/U0qXR+E2AfIsq5hsFASnWSf1?=
+ =?us-ascii?Q?0bT6XbgONgjFX7Fl+pdipvyB4up5gROoU6pRp657tAy5P5E08SjWB5dcc1OC?=
+ =?us-ascii?Q?9gVigYaATFRV41sX/yymOjA2O6ewg8smfxKhnbY39ESZD3L+It3ZjRDwC3go?=
+ =?us-ascii?Q?B3vVvE1gFXlMckwGJ4LUzEWEDZe2ffAM3VURmOYh3MrO5o9OLl3X6zwKKaty?=
+ =?us-ascii?Q?Ch3QWUOW96xFbESoZyl6QPPvHDESIiQvOur0tJqFkbDllt/tEA9E21Xh/zgY?=
+ =?us-ascii?Q?bKHayjdTd2KzM+4/t6Xd+tfuO21vPaG6wEbYKhVF6OT7+dcegNlZkUvmHJwg?=
+ =?us-ascii?Q?S5EHIdkNoEiqs7uaQTZM6CpX5NrhI8cgg1eR+bgNptp2qLRzoP3wAJ+IEBEY?=
+ =?us-ascii?Q?RR9KJgA93Qnx4S1H61Utoef7x7Gew0r3vcLgJwCIgF3Zts6M6Vte87aXvYL6?=
+ =?us-ascii?Q?Exc2xaMyrxDMzlEQ+StE1wsQPp0HhCVYGVFT8iukrqmheAi/I4wo8sDECQ0b?=
+ =?us-ascii?Q?6AyyqTFdRl/cQ8E91l4otP85mX9IjMjoCF7AqDOiPpuTGwXPNuyHyuL+WMG9?=
+ =?us-ascii?Q?dzmargS0l2QFVaJs6w5qSmMYddCpN2NK2cvzE7aGRAF1nd5q6NVl1p5UyCrS?=
+ =?us-ascii?Q?mC70nJCfuKJelNaOK1i0MlfwtqnYDgMIl8/AlMpZjeObxyHWfA9YU3tduA?=
+ =?us-ascii?Q?=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2025 16:24:06.6751
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c0f4a41-b11b-4805-1df6-08ddf14fa151
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6897
 
-On 11/09/2025 14:06, Alexander Gordeev wrote:
-> On Wed, Sep 10, 2025 at 06:11:54PM +0200, Kevin Brodsky wrote:
->
-> Hi Kevin,
->
->> On 09/09/2025 16:38, Alexander Gordeev wrote:
->>>>>>> Would that integrate well with LAZY_MMU_DEFAULT etc?
->>>>>> Hmm... I though the idea is to use LAZY_MMU_* by architectures that
->>>>>> want to use it - at least that is how I read the description above.
->>>>>>
->>>>>> It is only kasan_populate|depopulate_vmalloc_pte() in generic code
->>>>>> that do not follow this pattern, and it looks as a problem to me.
->>>> This discussion also made me realise that this is problematic, as the
->>>> LAZY_MMU_{DEFAULT,NESTED} macros were meant only for architectures'
->>>> convenience, not for generic code (where lazy_mmu_state_t should ideally
->>>> be an opaque type as mentioned above). It almost feels like the kasan
->>>> case deserves a different API, because this is not how enter() and
->>>> leave() are meant to be used. This would mean quite a bit of churn
->>>> though, so maybe just introduce another arch-defined value to pass to
->>>> leave() for such a situation - for instance,
->>>> arch_leave_lazy_mmu_mode(LAZY_MMU_FLUSH)?
->>> What about to adjust the semantics of apply_to_page_range() instead?
->>>
->>> It currently assumes any caller is fine with apply_to_pte_range() to
->>> enter the lazy mode. By contrast, kasan_(de)populate_vmalloc_pte() are
->>> not fine at all and must leave the lazy mode. That literally suggests
->>> the original assumption is incorrect.
->>>
->>> We could change int apply_to_pte_range(..., bool create, ...) to e.g.
->>> apply_to_pte_range(..., unsigned int flags, ...) and introduce a flag
->>> that simply skips entering the lazy mmu mode.
->> This is pretty much what Ryan proposed [1r] some time ago, although for
->> a different purpose (avoiding nesting). There wasn't much appetite for
->> it then, but I agree that this would be a more logical way to go about it.
->>
->> - Kevin
->>
->> [1r]
->> https://lore.kernel.org/all/20250530140446.2387131-4-ryan.roberts@arm.com/
-> May be I missing the point, but I read it as an opposition to the whole
-> series in general and to the way apply_to_pte_range() would be altered
-> in particular:
->
->  static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
->  				     unsigned long addr, unsigned long end,
->  				     pte_fn_t fn, void *data, bool create,
-> -				     pgtbl_mod_mask *mask)
-> +				     pgtbl_mod_mask *mask, bool lazy_mmu)
->
-> The idea of instructing apply_to_page_range() to skip the lazy mmu mode
-> was not countered. Quite opposite, Liam suggested exactly the same:
+Hi,
 
-Yes that's a fair point. It would be sensible to post a new series
-trying to eliminate the leave()/enter() calls in mm/kasan as you
-suggested. Still I think that it makes sense to define an API to handle
-that situation ("pausing" lazy_mmu), as discussed with David H.
+Both patches are independent Patch 2 can very well go in before patch 1.
 
-- Kevin
+pipeline:  https://gitlab.com/xen-project/people/agvallejo/xen/-/pipelines/2034774204
+(still running as of now)
 
->
-> <quote>
-> Could we do something like the pgtbl_mod_mask or zap_details and pass
-> through a struct or one unsigned int for create and lazy_mmu?
->
-> These wrappers are terrible for readability and annoying for argument
-> lists too.
->
-> Could we do something like the pgtbl_mod_mask or zap_details and pass
-> through a struct or one unsigned int for create and lazy_mmu?
->
-> At least we'd have better self-documenting code in the wrappers.. and if
-> we ever need a third boolean, we could avoid multiplying the wrappers
-> again.
-> <quote>
->
-> Thanks!
+      v1: https://lore.kernel.org/xen-devel/20250911115308.16580-1-alejandro.garciavallejo@amd.com/
+original: https://lore.kernel.org/xen-devel/20250910144921.29048-1-alejandro.garciavallejo@amd.com/
+
+Cheers,
+Alejandro
+
+Alejandro Vallejo (2):
+  libacpi: Prevent CPU hotplug AML from corrupting memory
+  libacpi: Remove CPU hotplug and GPE handling from PVH DSDTs
+
+ tools/libacpi/mk_dsdt.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
+
+
+base-commit: 16fae1561354f35dd524eb8953385d31eac3ce37
+-- 
+2.43.0
+
 
