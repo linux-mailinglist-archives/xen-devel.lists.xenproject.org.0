@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81768B53A43
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 19:21:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1120693.1465503 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D78CB53A7C
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 19:38:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1120713.1465513 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwkyV-00041o-O8; Thu, 11 Sep 2025 17:20:47 +0000
+	id 1uwlFm-00061i-7b; Thu, 11 Sep 2025 17:38:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1120693.1465503; Thu, 11 Sep 2025 17:20:47 +0000
+Received: by outflank-mailman (output) from mailman id 1120713.1465513; Thu, 11 Sep 2025 17:38:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwkyV-00040T-KT; Thu, 11 Sep 2025 17:20:47 +0000
-Received: by outflank-mailman (input) for mailman id 1120693;
- Thu, 11 Sep 2025 17:20:46 +0000
+	id 1uwlFm-00060F-4j; Thu, 11 Sep 2025 17:38:38 +0000
+Received: by outflank-mailman (input) for mailman id 1120713;
+ Thu, 11 Sep 2025 17:38:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QF+R=3W=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uwkyU-00040I-Ao
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 17:20:46 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20623.outbound.protection.outlook.com
- [2a01:111:f403:2415::623])
+ <SRS0=g8rd=3W=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uwlFk-000609-GW
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 17:38:36 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a584a0a7-8f33-11f0-9d13-b5c5bf9af7f9;
- Thu, 11 Sep 2025 19:20:44 +0200 (CEST)
-Received: from MW4PR04CA0135.namprd04.prod.outlook.com (2603:10b6:303:84::20)
- by PH8PR12MB7277.namprd12.prod.outlook.com (2603:10b6:510:223::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Thu, 11 Sep
- 2025 17:20:39 +0000
-Received: from CO1PEPF000042AD.namprd03.prod.outlook.com
- (2603:10b6:303:84:cafe::4) by MW4PR04CA0135.outlook.office365.com
- (2603:10b6:303:84::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.15 via Frontend Transport; Thu,
- 11 Sep 2025 17:20:39 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000042AD.mail.protection.outlook.com (10.167.243.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9115.13 via Frontend Transport; Thu, 11 Sep 2025 17:20:38 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 11 Sep
- 2025 10:20:35 -0700
+ id 248c03a2-8f36-11f0-9d13-b5c5bf9af7f9;
+ Thu, 11 Sep 2025 19:38:35 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-b043a33b060so150832266b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 10:38:35 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b07b31291bbsm176732466b.42.2025.09.11.10.38.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Sep 2025 10:38:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,200 +45,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a584a0a7-8f33-11f0-9d13-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pgjlpbR0y9F406TNN3Xslshdwpeso0jAIfY08Pj8F+1NYs6179iLFdUoI6FhfE4CHszaW5WRxWH79WhY/ZuOe33utbVdXBguiY2KX+AhivOi1VZvbQsNsG2Dk6CBesiH+m71j6H3YwIuucqMQbrRniNFFl3025TDjv81x87uxjn/95453vXFBUymCdcVG3Ew62XHdMEIbYoaurwSTaTjnq23WCQxWJQZxO5LmtqgRmn8z1DHL42s1+sXms1QwDeeg7bt4LNrY3g5WxeBxEGqbRisNL6oBGZl/0ZhPySHO3Q3tyR0dI/4FCXYRryAPkjeuaMxvBxFi6N5+9foYNviCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KtD0HXiA6kfML2R5w42sJk/0LJZtoVkpc5kiCLJuFaI=;
- b=lHManHIRfza+6Dda0wOx62y6liPuxYLFDEvZcDsnq4ffZX0u8eurPQZmEQ9RRNriSGfbm5LZ9bkVydTVKXsZSdHDnkS0jZtEik+l4FTCRU4EPqseITHtVzYydgpT0K63DX7J0OkRVjv9ecQi0UZGFp3e5w0TYO7/akFdPfDH+H/iZ1r5LqHHZoWe8v+oKZXiVRY9VIT6OZiE/tQVDNVyfk87mqmzdymaH9RF297LtEAGcn4ZnfluOduUE/gGN+NPOC3HUO/9f7+hKdb2KyAc0a1jWJh3V5SyNTHNp9dJvb/X/nwHgHRkROdUK9qqBC61i0C19YukuDz51y80ojF0ww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=cloud.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KtD0HXiA6kfML2R5w42sJk/0LJZtoVkpc5kiCLJuFaI=;
- b=ihnlEoCvaMdaTLVSOWH/HEvwZSAZAr3wyhTI5ay6g0/cjYI6wTjb2Giq6YH5kOpeUogq2bwRhFIPs9HLtIiywqFHgYb0o0YlNqKfHdkYhe5yQUIkVLE7KmBf0vhBEIfewXT7zYp2S1WrFNyKXM/Te3lDL5j1vHY8aymM0y85p9o=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+X-Inumbo-ID: 248c03a2-8f36-11f0-9d13-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1757612314; x=1758217114; darn=lists.xenproject.org;
+        h=cc:subject:from:to:content-language:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Fg6U/zUUNT5guRlToLkcmCkMbxQgwYvKIezKtcB8DA0=;
+        b=GdE/RpjKmMyYj5Exy3SIcEXh4jy6D+f+hOaQIeEuuicVC5rts8CI12RwszzJpXxdc9
+         xx9MqrDNPwg65FI1V4aNUp++M/9ZUgpuDBEuxImnCZbE/sYXOClrPP0vUKP6sSbaIzMC
+         3Mud1M0GdF8pRp+577WNnPzt7AHv3U+MFUHsV1H74NrAovhM7XSx3SzgFBTwK8Jnxbc7
+         L8mpzvShiGtXYNjr3R8miVpO+2RVEm4FzAuomIuSu8typGBuS/oHDwmbZRhT1ijXa/W/
+         3JBsOtBb3nrISrzpD59DOooF4rOQzTkMkzu81JxOBByM84YBToi4+TlxvchAv2oiDXcu
+         sDjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1757612314; x=1758217114;
+        h=cc:subject:from:to:content-language:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Fg6U/zUUNT5guRlToLkcmCkMbxQgwYvKIezKtcB8DA0=;
+        b=U542oytS67CN6+gzS6gJ8rFrBpwzFO55WSSt2VURvVOKFkJHByLpxISb2pkHKgOkOB
+         ujx7RIfKINfR0OL2GGruwxMC4+yqP/kY/QKSWh0kf6Nni2zSvGY8aqmRV2nIBdevkRW9
+         aU1dlqneccmIpe+RbGe6HZhLec6WqWwG8a7yhQhiiNugSJCC0ptWBuEi3DLqIgngh/7S
+         oNEsYbB9GTjOWzUdbAp6KsBLXz5mzYIc8xvHefuUydWa02J1jzkolmMNkZ1Fw/+UTv9P
+         LsI1wizIQILZyv0NWoo8wz+EKtSIuQeahSn8Kyv+w7kgvzmUFDTKwpK/XHt2fcDgGSyt
+         S47Q==
+X-Gm-Message-State: AOJu0YxYXo8SZjBtP8TfHUY/AyzwyioxSKGmg0ekyjrx+KizZssfJzMi
+	XgK7Wp5bvyzaBte1Qdhx44Y70k+rA1TgiKDcrf90zuwJ8MmM8jJ5sWcZHMZ5zw==
+X-Gm-Gg: ASbGncvHKSJefM4UVkv8n4QpohNNVhHF9uRXJm1OKMC56EQ1nCveQ2MB2ToK5whAlXD
+	3xrzyWcq7PqEIUauyT6w+oWL/9TtzxgQDJA6jDNOML+pU2wR+GtjQp+4ZOjXUsSI8aqCFGVAeB5
+	qumqEpCuQX1fP0Ae8JGxKVgdFZr8fT5ov3cSEd6klCx8l45D5rvJSRY+AkshGlDdwrkHFsvpGPQ
+	WXX/Vb6hyX8z0Lph+xeQ22Eu7dv+2r3dq0BzqQ904fcElGrMw2kxJtljHUzZdFDGq+rOXIWXskw
+	QmZbJDqMLzIstKsqLknsE14PqVzYXr1f5Q6W6P9j800Qul/eTV6eoy5LsxhR/L2dlOnrE0hz6/W
+	K69in5UnIBNFTB+M2BOqW7qK1m2y5Svns0fcn91eQIUjUa4seGYKZCbL6tULeiziXhxZLBY4AEE
+	CDmbkq2PA=
+X-Google-Smtp-Source: AGHT+IFyCnlj1AKoIK+JOCfX7ooQVOLLkUhOpB1E69W0nkfe2fk9WJSnW0WLpZTkfice2u9e2Bas8Q==
+X-Received: by 2002:a17:906:9c84:b0:ae9:c494:1ade with SMTP id a640c23a62f3a-b04b173b495mr1765918766b.53.1757612314245;
+        Thu, 11 Sep 2025 10:38:34 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------ziRazTzCRRdtO7kmyc9E8GfB"
+Message-ID: <1248fd0c-08c7-42b1-ba10-755ae8696528@gmail.com>
+Date: Thu, 11 Sep 2025 19:38:33 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 11 Sep 2025 19:20:33 +0200
-Message-ID: <DCQ56M1S1EH6.ASTCL1OINQWY@amd.com>
-To: Gerald Elder-Vass <gerald.elder-vass@cloud.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-CC: =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>, Jan Beulich <jbeulich@suse.com>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Xen-devel <xen-devel-bounces@lists.xenproject.org>
-Subject: Re: [PATCH 2/3] efi: Protect against unnecessary image unloading
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-X-Mailer: aerc 0.20.1
-References: <cover.1757519202.git.gerald.elder-vass@cloud.com>
- <1f7b5737d4b36623af2734d525c895b77fef08fc.1757519202.git.gerald.elder-vass@cloud.com>
-In-Reply-To: <1f7b5737d4b36623af2734d525c895b77fef08fc.1757519202.git.gerald.elder-vass@cloud.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AD:EE_|PH8PR12MB7277:EE_
-X-MS-Office365-Filtering-Correlation-Id: 26778f01-fc76-4b88-6b37-08ddf15786f8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|36860700013|82310400026|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?L2QzckJ6OU04N3J3M1FyTFJpblRoQzJJWmU3RjcyWlIvdFBoVDFvTExoZncr?=
- =?utf-8?B?RUpMY3dVODVzR0FwLzZWVXkrK2RldHI0SnVHejJqRnA4SGVqWWVnY2FsN3E5?=
- =?utf-8?B?Yi9uNTFRS3NITTZweXNsTVpyNFhpdDRwNkFOdnArZkNlVVZKZW12aFBYY2NK?=
- =?utf-8?B?VWk3OFEzdVZ6Z0kwVjdJaWsvclRPRUxjdkJYTWhlbEdOM2lIK2RxUE1zYVp1?=
- =?utf-8?B?WXcvQUdnL0MvTE4vQ1VGVWdKZUx2OGdPblpBMGZMVmF1QkRJZjRtQ09VeDBM?=
- =?utf-8?B?eThQMDJvMjdhbGI5QW9hTkF5USt2c0xDWVVEYVg5UmtiTkZHL3hwWFdnZmVD?=
- =?utf-8?B?MFYrNm1nSmdPcVNGMlpYV1dkYSszL2pHYjBVQ0N3cU9SMU9MN2hMcW1kSGVu?=
- =?utf-8?B?elhicHl2VXZoc1Rkb0Z2MWloNURlb09STTRHQ1Uwb2x3K0o0MG5pR3NhWEo4?=
- =?utf-8?B?LzhjVlUzRDJuQTlhbXZ1Ymc1R2E0ak12dTJRQTdSdGNvUU52OWpnYkFuTWVT?=
- =?utf-8?B?dVU5b0kycHhJa1M5VlpOcysxbm5qdkkrckp3Y05hRWs1bkZzN05nSkxMWko0?=
- =?utf-8?B?U1AySERZQVA0bUp6MGFFTk1mVzVhV0RBeXFaOGpENmZ5SHloU0VTLzlPYlZ3?=
- =?utf-8?B?Q0J1amYwZ1JKSlZjRlNFK0twL3VjSSszaWZKSVJxbkpib0xPNS9QVCsrbVVp?=
- =?utf-8?B?TmFUNXA0VWwxdUQzNTNZdnpMMlNrMlFxdHBPdnhNcDF2aDJvdEJuZ296aDJv?=
- =?utf-8?B?Um1HMHhzT3cyZEtCNjJBSXI3MDJUVHN4cWErbzA4UGgvN0xtZXRRQ3NpcGdr?=
- =?utf-8?B?ZS9PUDR3bnE5YmNIazJXQmxUVU5YS3NsdTdhZDJicW4xL0ZJenVTVmpVckxz?=
- =?utf-8?B?V3h4Q1dPbHBlajdUYjFhY29jQVJlaDAweTZwUEQwOWxKc3F2dnpieHBGM01x?=
- =?utf-8?B?OG9CVEhaRmlNUlF2M3ZPV1kwWGQwQm9BTjUzRjluZnFtaGpGQ2V0eWphYm9N?=
- =?utf-8?B?dXpMM3hULytmeEFDLzQrR2d6ZzRxWWEyTFBVZHRVVWpkYXNLQVVtS2tvRTRo?=
- =?utf-8?B?RWNJeVBRdzhyd3BPUWJSbnhZaks2TW5BUmJxdC9vNEtXNmhxT2lCTmdLT3Fq?=
- =?utf-8?B?Q3lhTHVFaDZ6UlEwWFpPaEdaTGs4L0c2WWdSTG1seW9vZW9wamJMdUtqV3Iy?=
- =?utf-8?B?aUdUeEhGS2FDTktaS09zOHJoUzVCNFRBeFpCZDRjYzl1MGt4RzdiMlBGMEZz?=
- =?utf-8?B?cFlDbUVXUVV2ekREQ1c2SkpjK3lrc2NKMHU1U0doc2gydkI5bTA2MkRhOEZL?=
- =?utf-8?B?d24wL21XSEFpRlYyM1JwajFSUjJxaFdFaXZxNyttTmpROTM5RnVYZDJ0d0Rh?=
- =?utf-8?B?MG1BcXhrcnhnV0pucEd1OWUvTGFjaTdwSjFsYXBhV1pOZlhIQ1JQQ3ZEaVBo?=
- =?utf-8?B?T0h5RTUra3ZXTitWbW9rUUtodlltLzdjSUNDL2lOTTBUQndGUGFSemd0cFl0?=
- =?utf-8?B?N1ZDT2FITStwV050N2o3RHhsNFh2dVF6QWVBeVZmMjJVVWYvaEkreTRJVi95?=
- =?utf-8?B?OHV0TU00Znh6R3BxZFR5ZlV4d216bUVWbGEyVXRuT0Z5WHIxZnpCTnpZM1Ay?=
- =?utf-8?B?ck12Nlk0MmIwYXJybXdMMjRrcGc1OTM5c21hNFBnK0VZUVJlZVc4cStEelU1?=
- =?utf-8?B?cHlnSkJsNG9CaGlOaTBLYlJPNElpbUorUUZxb0pTL3h6Tk11VUJLUllPdTBE?=
- =?utf-8?B?d3NFbk9zMnNXMFhlT3F5dWRwUG5OeTBwbWtiUkR2RWJTWFQxdnptanJxVERi?=
- =?utf-8?B?VHFqMFBQSDNPSk1zZHo5NkRoM2QwUjEvRlVNblBQK0wvcGRsdDY1dlowc2lM?=
- =?utf-8?B?bmlRUGtXMWozbzVsdDBMV1FrV2FJT3dHWmYvbzVhM0NUZGVXa0kvNEZ2WmFo?=
- =?utf-8?B?Q1NLV3lUbkJTNG9JTmpadWN0UzE3MzIrUEdWQXQ3T1hjak1DeEtjZ1pMTW0v?=
- =?utf-8?B?YkNXZ0pGT2dBPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(36860700013)(82310400026)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2025 17:20:38.4026
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26778f01-fc76-4b88-6b37-08ddf15786f8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000042AD.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7277
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Xen-devel <xen-devel@lists.xenproject.org>
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Code freeze is Fri Oct 03, 2025
+Cc: Community Manager <community.manager@xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>
 
-On Thu Sep 11, 2025 at 10:24 AM CEST, Gerald Elder-Vass wrote:
-> Commit 59a1d6d3ea1e introduced Shim's LoadImage protocol and unloads the
-> image after loading it (for verification purposes) regardless of the
-> returned status. The protocol API implies this is the correct behaviour
-> but we should add a check to protect against the unlikely case this
-> frees any memory in use.
+This is a multi-part message in MIME format.
+--------------ziRazTzCRRdtO7kmyc9E8GfB
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Any what memory in use? The function loads an image, it's not a consumer.
+Hello everyone,
 
-It can't free anything because it doesn't know where it came from. It might=
-'ve
-been embedded in your own binary, and it can't compromise its integrity lik=
-e
-that.
+I would like to inform you that the release schedule has been updated due to
+an extension of the Feature Freeze.
 
->
-> Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-> ---
-> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> CC: Andrew Cooper <andrew.cooper3@citrix.com>
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Julien Grall <julien@xen.org>
-> CC: "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> ---
->  xen/common/efi/boot.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
->
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index 69fc022c18ab..ca162db0d8d3 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -1062,7 +1062,7 @@ static void __init efi_verify_kernel(EFI_HANDLE Ima=
-geHandle)
->      static EFI_GUID __initdata shim_image_guid =3D SHIM_IMAGE_LOADER_GUI=
-D;
->      static EFI_GUID __initdata shim_lock_guid =3D SHIM_LOCK_PROTOCOL_GUI=
-D;
->      SHIM_IMAGE_LOADER *shim_loader;
-> -    EFI_HANDLE loaded_kernel;
-> +    EFI_HANDLE loaded_kernel =3D NULL;
+The Code Freeze is now scheduled for*Friday, October 3, 2025*.
 
-This isn't required if unloading checks for the success case or the only er=
-ror case
-that has a successful load. See below.
+You can find the updated schedule here:
+  https://wiki.xenproject.org/wiki/Xen_Project_X.YY_Release_Notes
 
-Furthermore, you don't really know if the callee clobbered it.
+Have a good evening.
 
->      EFI_SHIM_LOCK_PROTOCOL *shim_lock;
->      EFI_STATUS status;
->      bool verified =3D false;
-> @@ -1078,11 +1078,12 @@ static void __init efi_verify_kernel(EFI_HANDLE I=
-mageHandle)
->              verified =3D true;
-> =20
->          /*
-> -         * Always unload the image.  We only needed LoadImage() to perfo=
-rm
-> -         * verification anyway, and in the case of a failure there may s=
-till
-> -         * be cleanup needing to be performed.
-> +         * If the kernel was loaded, unload it. We only needed LoadImage=
-() to
-> +         * perform verification anyway, and in the case of a failure the=
-re may
-> +         * still be cleanup needing to be performed.
->           */
-> -        shim_loader->UnloadImage(loaded_kernel);
-> +        if ( loaded_kernel )
+Best regards,
+  Oleksii
 
-Not sure this is what you want. The image needs unloading only when there's=
- no
-error OR the error is EFI_SECURITY_VIOLATION. See section 7.4.1:
+--------------ziRazTzCRRdtO7kmyc9E8GfB
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-https://uefi.org/specs/UEFI/2.11/07_Services_Boot_Services.html#efi-boot-se=
-rvices-loadimage
+<!DOCTYPE html>
+<html>
+  <head>
 
-... and shim being a drop-in replacement, it's meant to be spec-compliant.
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <pre>Hello everyone,
 
-Trying to unload based on the assumption that loaded_image will remain undi=
-sturbed is
-an assumption waiting to be broken.
+I would like to inform you that the release schedule has been updated due to
+an extension of the Feature Freeze.
 
-IMO, this wants to be instead:
+The Code Freeze is now scheduled for <strong data-start="282"
+    data-end="309">Friday, October 3, 2025</strong>.
 
-  if ( !EFI_ERROR(status) || (status =3D=3D EFI_SECURITY_VIOLATION) )
-      // unload
+You can find the updated schedule here:
+ <a class="moz-txt-link-freetext" href="https://wiki.xenproject.org/wiki/Xen_Project_X.YY_Release_Notes">https://wiki.xenproject.org/wiki/Xen_Project_X.YY_Release_Notes</a>
 
-Cheers,
-Alejandro
+Have a good evening.
+
+Best regards,
+ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------ziRazTzCRRdtO7kmyc9E8GfB--
 
