@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B790DB52A71
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 09:48:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1119493.1464826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 995DAB52A81
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 09:51:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1119517.1464845 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwc2j-0002ay-5J; Thu, 11 Sep 2025 07:48:33 +0000
+	id 1uwc5G-0004Zc-O1; Thu, 11 Sep 2025 07:51:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1119493.1464826; Thu, 11 Sep 2025 07:48:33 +0000
+Received: by outflank-mailman (output) from mailman id 1119517.1464845; Thu, 11 Sep 2025 07:51:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwc2j-0002YC-2Z; Thu, 11 Sep 2025 07:48:33 +0000
-Received: by outflank-mailman (input) for mailman id 1119493;
- Thu, 11 Sep 2025 07:48:31 +0000
+	id 1uwc5G-0004Y9-L8; Thu, 11 Sep 2025 07:51:10 +0000
+Received: by outflank-mailman (input) for mailman id 1119517;
+ Thu, 11 Sep 2025 07:51:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=g8rd=3W=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uwc2h-0002Y3-TT
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 07:48:31 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1uwc5E-0004Y3-Hm
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 07:51:08 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b4ee4953-8ee3-11f0-9809-7dc792cee155;
- Thu, 11 Sep 2025 09:48:29 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-b04271cfc3eso49158666b.3
- for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 00:48:29 -0700 (PDT)
+ id 128e78f6-8ee4-11f0-9809-7dc792cee155;
+ Thu, 11 Sep 2025 09:51:06 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-62221568039so528741a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 00:51:06 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
  [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b07b32dd47bsm74004666b.58.2025.09.11.00.48.26
+ 4fb4d7f45d1cf-62ec33ad2d6sm658964a12.18.2025.09.11.00.51.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Sep 2025 00:48:28 -0700 (PDT)
+ Thu, 11 Sep 2025 00:51:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,96 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4ee4953-8ee3-11f0-9809-7dc792cee155
+X-Inumbo-ID: 128e78f6-8ee4-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1757576909; x=1758181709; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1757577066; x=1758181866; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3OiiKyOJFvu6X5z3RLlId/CdIpqvtrIsJnYhRupUhuc=;
-        b=jt9nMAYZep88oDS9pFHT0qwLDvmEJ9riyLavdvb7Fc6BhHOUnqyXBjfxHEuHmGK5HB
-         X4g8Bf3QN27Ya6D9Ldu7527MxkcOelOmxu1XR6ckJAR/q0kCzc1BFge3q4CpTgkknVSt
-         wMeEhm3Ib2kKOh+Gw8F3pi5SaUqw/4vdDI//x5QI1YoS9llepvL1EeQlxTpRU4BIRJuM
-         WzP2e1P6iKsSB0dpzoGyWjj9B1Sjwdd/AjZM2Sib1mSxlMA98j/XVjMfQ3cFNgb69+dY
-         mLOxkDY82EdWWssPeuGoy2TDyOi/hYAXDALRbzlHTJK+VydtGUvzoOtPXvO5ri9KPPms
-         eTzg==
+        bh=3MofUxMIU3nSs2OBHcSvaghiWRwiNziBj+Blr4k+xrA=;
+        b=GiyhDVeJ82pBweA1axtprl/6hm9K2NYprZYBQZcDMHXZM/LsZXsnYAR8eBBgkPXM/f
+         ywdCP5IuzbDIBvqQ8aa6s27rXuYCa5U5kOArohtQUl/vV9EJMPND7CbJ+fjNXmsSYC4v
+         6/MRUdNdsAFhKOxqOXknWXN4j7fMkqvmh2JGZKMSXocMoPIn7slRGkFHW4/YfNLa61XI
+         zLnSAMuGQuG0khJmkKMQ17VKjr4OD/i4sjHWfPN6RmE6srU2iAo2rogT6v8nftRPSHVh
+         1PwK60wvfpSCtHgLkv/PTGjG9XaZpioq73//Kxxb4o7i76FaNjedCcRJZ0uLuCmZBrhP
+         bTng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757576909; x=1758181709;
+        d=1e100.net; s=20230601; t=1757577066; x=1758181866;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=3OiiKyOJFvu6X5z3RLlId/CdIpqvtrIsJnYhRupUhuc=;
-        b=Qh64NiNGiqeveIDdm/OcVOGQNQIgoels+nM/me4Z8afMIB7TQIJ2dRumCgrzhlFQfI
-         c5aMb4iVWVA51GS8MT246HMoNVnjXbCbEtb6N98/Fi/UBboVixu5ZIm/h71ZmWXHOvru
-         OPgS8kTYJ1r7WnTT+oiY9CwSeuH/fgVx+CqqHMtkDb/Ty3hP8P6u6+3BXgmH63KzZLX6
-         UccIG7WfuEQf4G5OXjXbp7xSX3CUJs7uCa4jl5LKshFsJI8YwYCcuElXX53p83yXndKc
-         ak9DSCbjlEsgq/mbz4sRadU6EDe8b3o8K2Qh7oL65NEbqjemLTM4HJ4X+Um8JPeHGIAs
-         GNfw==
-X-Forwarded-Encrypted: i=1; AJvYcCWKIccyCGnmZ+DtLg7OwFgxsHjvPPVCaJ+VKjzbmUro6+mEfea93b8YyGGZWYP0n73g9tzAGnGcTDs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxhh8eJ4KP+uuO0zDFWhrk/R7Y0mI8jBi/Enjq2YumjTJUHWK3E
-	a/gBen/A/oW0qgrsgBhZZF/uAF2iu6NwKtsk4/bYHJ6FLMOgeHbeh9kE
-X-Gm-Gg: ASbGncs9DmMTdhADw5KZxIenANxuD5PrC4T1JSnrPh5LAyVQnEmqkcQqJy6ENt5POnV
-	IT4aqmoJLlZKoQ+wj8iLCyMFiojzAbtkVnF3fLvQUXlI4lEUNXtLXtMAhesh12ncnO/++rMhCo1
-	292TZ16+ReQF8cEHp5QY2rKX/pXTPY24f3SmrzqYZMmyTrAJXqX89Rxp3fEYPV5lQZdrqN3qqW5
-	HTxCir27YlMI58s9NaY3kNUUZJmHmG++ePqo79vnjvQte41yCmblOBzCEnovpVtM6pUcwzeQLU2
-	Sk4IWFetgn2OHM5FdUoSxVjFHMcOG/CygerFAE14LQ65zcs7LeOqi4aAGFiE8lgl5kPPZJdjRCX
-	8WuuZGgv9XG4GH1g/YHmcbdvdlbIYNKGTfytaPG0jjoZ+0hWnR56m7l70gQy7DXASd0FumCc+Ev
-	xFcUVarZI=
-X-Google-Smtp-Source: AGHT+IGk8SQOHJgNbkyjJVrzJcbajCl74dCdOvXFBC/bfymBLqk8YIRaQjtESD1XgTI3lS3LgdLEqw==
-X-Received: by 2002:a17:907:9810:b0:b04:a1ec:d073 with SMTP id a640c23a62f3a-b04b1437db2mr1808993766b.18.1757576908567;
-        Thu, 11 Sep 2025 00:48:28 -0700 (PDT)
+        bh=3MofUxMIU3nSs2OBHcSvaghiWRwiNziBj+Blr4k+xrA=;
+        b=OjkZrPjLyh1rmdvHJAEkywcxtpCcL7CPV4ANl1u8GhKdnnGB4Rr0DT2nwIuGNwkFNP
+         A3iWsUguWrODQIc4nLqb/vhJHQhMjNFrmkuUN1B1CCR4heU6VixoVyGkmGd/lUH7wnto
+         AnF0gBJzLGcOzwE45/+dQWvYoT1fE80ydSehKkplRyg39rvb7+aHAjQVYUvRV36oWlx9
+         sY/XClCeMZfjVeJZvcCndsUtOr+rQEZW7Ju4dpmgCwgzcClUebUg4X7ehp3Vo+WxXhpE
+         ltIbCNCkcfWcUoy//ouY4bdJII0Hf5kwPJz5UMguLh5MOeBFn75zQkJGxxw5MI6C36Vx
+         bJCg==
+X-Forwarded-Encrypted: i=1; AJvYcCWdVIm3JWr21AJFrEDKQtAR100VWWNvpE6wwRU/3V0cqsFLRRVccFtadselTCLUFx/Du6DhrrN7miA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyqjeTu1ldByCm7aN2sW5izQAhdpRYCneJejTRFIYciWdf8lPRB
+	rNXw7qHRn0m7V7o+9ZZDycQV+DW1wvhmxhbUi5/Oco5eFDFXlVkfVUgTxNEKEQ==
+X-Gm-Gg: ASbGncu/+Bh6Pk8KdIaODo9atP4lsqlWx/FJTeSkcKJ0ijp9zMyYMqFPg4RxH+OEKfb
+	ucwfUjtpsK50hSdBjvr5k2hVIbAvm95e7sXTleYkVEaludPJvTjflIJFdk8YLhV+2Rn8l79IXrc
+	sH2wF5NHck2GFEY6DX+Gtq04zOQA4MWbWH2i+Hmho8lGe5Wf9FtfZdoY88cRO37qs76sakKDaZV
+	Dx9me/GCzFdSp0i4T0oM6FzpYeP6yJovuEvvx6N40H4dlRAo/c5OWUqSuosKJsak/9vpIIdNdAS
+	/8JDdz1X4PAavadp6w2AIpAAs7n5BvyGdhKKbPxklbruhbW0AMMj5T7Cr6oqmyV3b7+81dQ8lwi
+	WC+fE2wqmkQgUMuQPY1f3z6dZg2mmuTKmlzi2DkJHtsWNGBzU65CPIfEZr211p7nrkXZrkAf2
+X-Google-Smtp-Source: AGHT+IGxDQcg2tUf8709VzIaMOZF5znxCRYuOQOgbOKN+HvF/61Sjz01pp9iy48Xvh5Cp/zwyNtWPQ==
+X-Received: by 2002:a05:6402:2806:b0:627:1120:f824 with SMTP id 4fb4d7f45d1cf-6271120fc43mr14310224a12.17.1757577065682;
+        Thu, 11 Sep 2025 00:51:05 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------tBtFFG0xJgK5YRGK3Yb0Ut2a"
-Message-ID: <f114731c-7a67-4b24-a6bb-12575733cc9b@gmail.com>
-Date: Thu, 11 Sep 2025 09:48:26 +0200
+ boundary="------------DXL1HUsGUfi9OKC3KFyjjzdG"
+Message-ID: <fb7137de-cf5c-48ad-a742-e6ebf0ca72f5@gmail.com>
+Date: Thu, 11 Sep 2025 09:51:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21 0/5] CI: Add Debian Trixie
-To: Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH v2 3/3] CHANGELOG: Notes about distro changes in CI
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Shawn Anastasio <sanastasio@raptorengineering.com>,
- Doug Goldstein <cardoe@cardoe.com>, Victor Lira <victorm.lira@amd.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Juergen Gross <jgross@suse.com>
-References: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
- <aMAUJehaWkYyyM-E@mail-itl>
- <alpine.DEB.2.22.394.2509091452200.1405870@ubuntu-linux-20-04-desktop>
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20250910222313.1858941-1-andrew.cooper3@citrix.com>
+ <20250910222313.1858941-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <alpine.DEB.2.22.394.2509091452200.1405870@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20250910222313.1858941-4-andrew.cooper3@citrix.com>
 
 This is a multi-part message in MIME format.
---------------tBtFFG0xJgK5YRGK3Yb0Ut2a
+--------------DXL1HUsGUfi9OKC3KFyjjzdG
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
-On 9/9/25 11:53 PM, Stefano Stabellini wrote:
-> On Tue, 9 Sep 2025, Marek Marczykowski-Górecki wrote:
->> On Sat, Aug 09, 2025 at 11:12:01PM +0100, Andrew Cooper wrote:
->>> I know it's past the last-post deadline, but Trixie was only released today.
->>>
->>> In terms of backports, we should at least go back to the bugfix branches.
->> What is the state of this series? I'm preparing refresh of my various CI
->> series and some add more jobs on debian-12 - I wonder if I should make
->> them debian-13 already - but for this I need this series committed...
-> I have been too busy reviewing the non-gitlab patch series for the
-> feature freeze last Friday and we have a couple of series still to
-> process.
+On 9/11/25 12:23 AM, Andrew Cooper wrote:
+> Also state the RISC-V baseline now it's been set, as it's the reason why
+> RISC-V Bullseye got dropped.
 >
-> Maybe gitlab-related series could be committed also past the feature
-> freeze.
+> Signed-off-by: Andrew Cooper<andrew.cooper3@citrix.com>
 
-It makes sense to me. And I think we had such conversation somewhere else.
+LGTM: Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+
+Thanks.
 
 ~ Oleksii
 
---------------tBtFFG0xJgK5YRGK3Yb0Ut2a
+> ---
+> CC: Anthony PERARD<anthony.perard@vates.tech>
+> CC: Michal Orzel<michal.orzel@amd.com>
+> CC: Jan Beulich<jbeulich@suse.com>
+> CC: Julien Grall<julien@xen.org>
+> CC: Roger Pau Monné<roger.pau@citrix.com>
+> CC: Stefano Stabellini<sstabellini@kernel.org>
+> CC: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>
+> v2:
+>   * New
+> ---
+>   CHANGELOG.md | 3 +++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index 7bd96ac09d14..ca1b43b940d2 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>    - The minimum toolchain requirements have increased for some architectures:
+>      - For x86, GCC 5.1 and Binutils 2.25, or Clang/LLVM 11
+>      - For ARM32 and ARM64, GCC 5.1 and Binutils 2.25
+> +   - For RISC-V, GCC 12.2 and Binutils 2.39
+> + - Debian Trixie added to CI.  Debian Bullseye retired from CI for RISC-V due
+> +   to the baseline change.
+>    - Linux based device model stubdomains are now fully supported.
+>   
+>    - On x86:
+--------------DXL1HUsGUfi9OKC3KFyjjzdG
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -146,42 +160,58 @@ Content-Transfer-Encoding: 8bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 9/9/25 11:53 PM, Stefano Stabellini
+    <div class="moz-cite-prefix">On 9/11/25 12:23 AM, Andrew Cooper
       wrote:<br>
     </div>
     <blockquote type="cite"
-cite="mid:alpine.DEB.2.22.394.2509091452200.1405870@ubuntu-linux-20-04-desktop">
-      <pre wrap="" class="moz-quote-pre">On Tue, 9 Sep 2025, Marek Marczykowski-Górecki wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On Sat, Aug 09, 2025 at 11:12:01PM +0100, Andrew Cooper wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">I know it's past the last-post deadline, but Trixie was only released today.
+      cite="mid:20250910222313.1858941-4-andrew.cooper3@citrix.com">
+      <pre wrap="" class="moz-quote-pre">Also state the RISC-V baseline now it's been set, as it's the reason why
+RISC-V Bullseye got dropped.
 
-In terms of backports, we should at least go back to the bugfix branches.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-What is the state of this series? I'm preparing refresh of my various CI
-series and some add more jobs on debian-12 - I wonder if I should make
-them debian-13 already - but for this I need this series committed...
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I have been too busy reviewing the non-gitlab patch series for the
-feature freeze last Friday and we have a couple of series still to
-process.
-
-Maybe gitlab-related series could be committed also past the feature
-freeze.</pre>
+Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a></pre>
     </blockquote>
-    <pre>It makes sense to me. And I think we had such conversation somewhere else.
+    <pre>LGTM: Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+Thanks.
 
 ~ Oleksii
 </pre>
+    <blockquote type="cite"
+      cite="mid:20250910222313.1858941-4-andrew.cooper3@citrix.com">
+      <pre wrap="" class="moz-quote-pre">
+---
+CC: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
+CC: Michal Orzel <a class="moz-txt-link-rfc2396E" href="mailto:michal.orzel@amd.com">&lt;michal.orzel@amd.com&gt;</a>
+CC: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+CC: Julien Grall <a class="moz-txt-link-rfc2396E" href="mailto:julien@xen.org">&lt;julien@xen.org&gt;</a>
+CC: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
+CC: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:sstabellini@kernel.org">&lt;sstabellini@kernel.org&gt;</a>
+CC: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+v2:
+ * New
+---
+ CHANGELOG.md | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 7bd96ac09d14..ca1b43b940d2 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
+  - The minimum toolchain requirements have increased for some architectures:
+    - For x86, GCC 5.1 and Binutils 2.25, or Clang/LLVM 11
+    - For ARM32 and ARM64, GCC 5.1 and Binutils 2.25
++   - For RISC-V, GCC 12.2 and Binutils 2.39
++ - Debian Trixie added to CI.  Debian Bullseye retired from CI for RISC-V due
++   to the baseline change.
+  - Linux based device model stubdomains are now fully supported.
+ 
+  - On x86:
+</pre>
+    </blockquote>
   </body>
 </html>
 
---------------tBtFFG0xJgK5YRGK3Yb0Ut2a--
+--------------DXL1HUsGUfi9OKC3KFyjjzdG--
 
