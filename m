@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B614AB53812
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 17:43:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1120492.1465413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91DDDB5381C
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 17:46:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1120503.1465423 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwjSM-00015z-Po; Thu, 11 Sep 2025 15:43:30 +0000
+	id 1uwjV8-0001uM-6R; Thu, 11 Sep 2025 15:46:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1120492.1465413; Thu, 11 Sep 2025 15:43:30 +0000
+Received: by outflank-mailman (output) from mailman id 1120503.1465423; Thu, 11 Sep 2025 15:46:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwjSM-00014W-N7; Thu, 11 Sep 2025 15:43:30 +0000
-Received: by outflank-mailman (input) for mailman id 1120492;
- Thu, 11 Sep 2025 15:43:29 +0000
+	id 1uwjV8-0001sm-3e; Thu, 11 Sep 2025 15:46:22 +0000
+Received: by outflank-mailman (input) for mailman id 1120503;
+ Thu, 11 Sep 2025 15:46:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dUpj=3W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uwjSL-00014O-NP
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 15:43:29 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QF+R=3W=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1uwjV5-0001sb-W7
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 15:46:19 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2009::600])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0fb17bc5-8f26-11f0-9d13-b5c5bf9af7f9;
- Thu, 11 Sep 2025 17:43:28 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-b0411b83aafso130796466b.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 08:43:28 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b07b31283e3sm159623666b.24.2025.09.11.08.43.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Sep 2025 08:43:27 -0700 (PDT)
+ id 74896bad-8f26-11f0-9d13-b5c5bf9af7f9;
+ Thu, 11 Sep 2025 17:46:18 +0200 (CEST)
+Received: from BL1PR13CA0113.namprd13.prod.outlook.com (2603:10b6:208:2b9::28)
+ by SA3PR12MB7781.namprd12.prod.outlook.com (2603:10b6:806:31a::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Thu, 11 Sep
+ 2025 15:46:13 +0000
+Received: from BN2PEPF000055DC.namprd21.prod.outlook.com
+ (2603:10b6:208:2b9:cafe::96) by BL1PR13CA0113.outlook.office365.com
+ (2603:10b6:208:2b9::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.8 via Frontend Transport; Thu,
+ 11 Sep 2025 15:46:13 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000055DC.mail.protection.outlook.com (10.167.245.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9137.0 via Frontend Transport; Thu, 11 Sep 2025 15:46:13 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 11 Sep
+ 2025 08:46:09 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,102 +56,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fb17bc5-8f26-11f0-9d13-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757605408; x=1758210208; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZalBOOkrRJa5IA8T/hiJ81YAsRHcOaaxM0Uyj8g4wlI=;
-        b=BkstLBpKIGJ+pNRz565iMhQI0aNW2ZwRTIyCtXRnN2QE3Im3rvBWRxFOrg3hyDVVHq
-         Mv9+XIOzpNC3f6atCwapqMUmML2mbxs79RnfJv9P8ni8pqm705lp2/yA/s3JZKZx1rcg
-         nRsc0qtB64VPGrGwLtf7lAbAHFzCqWKw14iKOfCAYhpfN4Qqvh13YJXx9AXTf7mGM4RS
-         ijNUZUEXWSg7KmIS7eouBF8dZCzZll3ceUgl0p4W3eNaylpAillNAqbwPBmNwp2/TE0h
-         jMuX3+8aeFZrogxnhMyTj4LkowxPvZAp8G0mt9BPw9p+pURyNQg+/ugvSpk2pUc5WBrs
-         ElkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757605408; x=1758210208;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZalBOOkrRJa5IA8T/hiJ81YAsRHcOaaxM0Uyj8g4wlI=;
-        b=thlTXP6KLbK0Joh7UD1FLUkls55zJExrPZp6k+V/Jr3DWcPvedNRxroiqEtdKCFTPW
-         Pl31zXIq/SF2wTwHNrosTGQ4KQNTliPdh4l9k8SAzGTHY9rdfBgDrbDRg9oMSYEMelIy
-         p2B0POGAjeyIR7l3e2YdiMhbtfJQGjwK55dxO2jJC3VbFv644WUAImVo+CNc1siofPKp
-         cNNCEridltQ6qRSUNrZv1uSLnAHp6QStfD3wTp+vt7uchmM95pWah4GhbXrLjnHbymkO
-         PoMU+ZevYC1TUs5V71BhLWMNiNoiwlAmkbr50gfkdJE0WHDGkQEwm7EsCHmmA2g2+2C1
-         pF4g==
-X-Forwarded-Encrypted: i=1; AJvYcCWsPDVNEwb1p/H5udziI8s2aNAGmnWFxA0XbHj2g7C6cxo5Avy01i8BqDhO6MTvh35NdmOxcpJG19Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyo+w2NUVf+wUl/YyYJ1p4EreRq0o/4A3NhG9RQ+YHeX+dAs0vP
-	K+ptP5zTwPMuD7aGndqLx6Ag5tUizkezE6mir6yRszYNXzImmBEoLcr+VdCCqpZnhg==
-X-Gm-Gg: ASbGnctyDHMvWSzkz5iBv7rbmmHvn9qc9MmdaXoaukzLTkJEp7UFLQmzI/45Ksv83ih
-	iJTQdGM6bGIdkFG90LydsRtxBwBVRbbEmwEX58d7ESkhN16XwloJB3VBbBPIlph38gaH9B+r0zK
-	IrySyepo3f+MsdejRQXs2jrptoyDJ1R5c+Gm4/AEaxk423ck9Fnh/K+MSAAeMUm/CRJ9SCOzTcD
-	3JPYtuI0x9ao9kpvHTywUpoJR5KjnkAeC4QwSEZr9g7rlQvtOpUZrQAEmWISRTaX00CDAgHf4KG
-	orHar+n2hCwxlHgPq3C8x3xPPIL7HLX7o/DuyW2NlkZmMSbe9MG8U7pebdtP4jXSNrfJwnAqNUQ
-	mN4/KwBcVoi9jbaOxjwKfxw7ZVjlqey8GVJpDp6YNWv4dn6oHsPc4FniArPC29rnp7bSNEaxWnJ
-	2sO6/y90xCg+Jnkj4fiw==
-X-Google-Smtp-Source: AGHT+IHCpHmEpSIB1MGnmSybZH/FMjJf0nTIZkntNo/f9fUR5EkVbkVoubCmRO356LveC2TrdXnOTw==
-X-Received: by 2002:a17:907:3f2a:b0:b04:9d90:a7e6 with SMTP id a640c23a62f3a-b04b1741ac2mr1987530466b.55.1757605407865;
-        Thu, 11 Sep 2025 08:43:27 -0700 (PDT)
-Message-ID: <6b616feb-8984-40c9-b7c0-8c75dca65596@suse.com>
-Date: Thu, 11 Sep 2025 17:43:26 +0200
+X-Inumbo-ID: 74896bad-8f26-11f0-9d13-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e1u3LApDYszOTEma88lL46zxbHQhLkO0HRq583UzgeIfnMyRcPUFDYuS+UWUmfXvRsP15/WsAKJC+APpeoElUtM78X2j+YMAfQ/lJyYqi3hYpEUQCjEuy3/Cew2O3mIRgzTcnuLuMGXxIaXexVQQ2Qi8MaNZajFtH713XwUo+O/QUR4jmdT7EhuAKL81zzfa9I7HFIjBggmIPlhVTWt4FtF1/6NjDMdz8EuKGEfaU4oxnx08CRxQEi8rATyYGovX590zJOk1Shm+6KXI1ZY5dacx7e7pVAjwFPptplZqlXrNmgpC3+O7fyaS6pEJOQNAsB6K/uGxL41lpX+nLkllJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1GKoceEeRTsg1YvJtSF0BHGnKeYr1esTx0wBbEOPykQ=;
+ b=iCDBYxuQVOzEtH5rosJwVYxGPWPLurWk9z8E2usiuYo+mmB9qZAGQmlSilSI42bhbTPiE4mpmfjEAy/fDXqDVPyKIScxouvImVxRYB0eDBeJ8rU1WneC6DcwBpHxtxgAr+XZ21IhdnnRKDHEaN8adcrC6yM/33lOnMJdI12tYuFfGGe3TCYr07DBuIvxuDrYHo4IWjfgvtgV+MRieAi8CkkdR5C4GiPly4iwkq0Rl0Cb+cStRTsxCHgTY9OB1uVvO8cjW6SdfbqcKnJQPCKLcr7PU8vl6J7qv1PPvShTQMWytaO5d83lua2x0Mhs8mkqDNmqNh4C/qyHjPJodkKa9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1GKoceEeRTsg1YvJtSF0BHGnKeYr1esTx0wBbEOPykQ=;
+ b=ns+9JQ6EhZONsehp0bH8BWZGlT79oOazrzG8+WZ0ddmlSdKbwhC8YvmIh0YwORChkiBbQ+lbm7rfv50cEjZTqHJKTLEHtQdALKFi0JWNSA7Rv2bLNxJcHARg6jl0FY01523E88XPtzaq7tzblb+dZDBEYZWGuEhIUZXJb+Uh++g=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] libacpi: Remove CPU hotplug and GPE handling from
- PVH DSDTs
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <20250911115308.16580-1-alejandro.garciavallejo@amd.com>
- <20250911115308.16580-3-alejandro.garciavallejo@amd.com>
- <daf8c564-80ff-4480-97b4-7c86206ba36e@suse.com>
- <DCQ2YNMO668H.CG938HPXECLC@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DCQ2YNMO668H.CG938HPXECLC@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 11 Sep 2025 17:46:08 +0200
+Message-ID: <DCQ36BD5H3WJ.3HQWZERCZS2JD@amd.com>
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Jason Andryuk <jason.andryuk@amd.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Xen-devel
+	<xen-devel-bounces@lists.xenproject.org>
+Subject: Re: domU reboot claim failed
+X-Mailer: aerc 0.20.1
+References: <fae4b58f-c6ff-4db1-8198-1a5f76868d4d@amd.com>
+ <d81b0c13-853e-479a-ad11-9b9990b723a3@citrix.com>
+ <dfed2c2a-f4b7-4efe-bb1e-c5173c1fe531@suse.com>
+In-Reply-To: <dfed2c2a-f4b7-4efe-bb1e-c5173c1fe531@suse.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DC:EE_|SA3PR12MB7781:EE_
+X-MS-Office365-Filtering-Correlation-Id: 301d1f7b-331d-4500-e19a-08ddf14a566b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SXV2OStzVlE5VW9uelFoV1pockRLcktqVm1xamFLRUp6WEdBUjdaMGd3VGxh?=
+ =?utf-8?B?Q0Q1SVk4NkRJbkZRY29zMU0reU9WSkZSd2pkVW9xYm44SEYxK3hLUDIyc2dr?=
+ =?utf-8?B?d2VqTENHendxRk0zS2VFWnA5RmlRVlNTZEp2R091WHQ5NHR4S1R2YkRlanRK?=
+ =?utf-8?B?SitUQndlMjF5a0JZanNjbnlEelhQWWdRK0thSkhIRENKbWhsSEUvSXJPaWZ5?=
+ =?utf-8?B?NEVYZU9CVlRIUFVTYzlGQjkyZ2NVL1NMN3UvVVhnU3lxb2JHNGw4OGpOT0NQ?=
+ =?utf-8?B?Qk5VOEVNczAyZXQ2QlNXdHkwQUIySUgxRG1BbFBGTHp1R3o4Y0p4ZEZaTDZW?=
+ =?utf-8?B?Z3ZCd2hiTnoxdXh4M1ZtcTNSeGpGUXgxTlpTNDM2cnkwOXdHeXZSWXZwdU9R?=
+ =?utf-8?B?VkVLdjVvOVhwSStZMjFxN1NDdjVTK1JtcUh1bWpQNzUzMEJsazRSbUdmdzg5?=
+ =?utf-8?B?Nmt5V3lZQ1hSbGs4QVJvRkdPZHdTOHhSWDF0S2pBOXF2LzhFNlIxU3hjaEtv?=
+ =?utf-8?B?aUhVWFo4VkZJaEU0R2ZJSm81ZTdpTHpZVnp4aTJtWkEzeUVBcVNvVWpwOWp6?=
+ =?utf-8?B?VkIvdnZubmNDR3NseUFKc0RheDFpYzIzVkZtUy9SOWNYYU5td2JZcUcwVWJT?=
+ =?utf-8?B?ZndHUW5YKzMvczRGbzB3MGRiNHk5bXdzYkZqd3cwc28yK1Z6RVBSREpZNXMv?=
+ =?utf-8?B?dlh0UnMwZWczREZPVDVETHBndFUwNk5OMWd1MFFablBVQXVyM0RPNDBlU3Rt?=
+ =?utf-8?B?aEYrVmhmTzdhRG1iSklncXNkNEFZQnRYWThDSGIzY2piaDZuL3JPZWRSdXhk?=
+ =?utf-8?B?ZWVnOVA4NVgvblZla29jQUU0b3RzZVREU2E0Z2k1OWhlZStWd2ZyWEE2cWg2?=
+ =?utf-8?B?bGtndnUrSjVEYk1MRUo3aHZIeXk5OWZjNDc1MEN2d21ITTZQN0c3a0FqRHNX?=
+ =?utf-8?B?SzErNFZJOXlKN1FETVh1MW85b0xPS2tUOEN3Nll6VkltYU11aEFlZWU4dk93?=
+ =?utf-8?B?Ym8rU2xiYTBpU2IrTDZMSWxmbXdIUUV2ZVg0eGVOYW1oL0NjRjdCVGVPc2hs?=
+ =?utf-8?B?dlNwYW9HUk1BSkd2amtFaTJseTRWcDVsSWdjOFNMcmpxTVBWNktBcjJGU1dX?=
+ =?utf-8?B?WHdSTWpVblJ6bE9SRlQ5a1h4SUtCTmZLTkRYMHp6ck1wYWpUUFNvNTE4eEcz?=
+ =?utf-8?B?MjZTRGdmQkZSbVRkTmdyazBTTDNLcXN4cEg0dUZVclZaQ210RHV2czE1TDFN?=
+ =?utf-8?B?WmVrMlJXbVVwV1ZocUNFU3RQbHY1OFpSYVlJc2wwN3IybDlhdnNJM1ZnNDlH?=
+ =?utf-8?B?dnFBc0pETVd1Y0VMUWIweUdoL0ZnNHhpUEl1eGNCaUtScDRrR2tkOEhoMlZM?=
+ =?utf-8?B?ckQvWVRGbDdPcldlTkt0Nmo3NUFtTXNiUzVMVlNOcy9QVUVyNU1aTTB3OFJ2?=
+ =?utf-8?B?Vm1oek1SNTIxWitQclIva3ZaZ3JvZWZBcnZsWGlDbVMzV01yajRtMGxQVHBV?=
+ =?utf-8?B?WFJFb3VXSk1mdW1YeFJvZ0RoQjJRRWVha1BOajlKZ0hFcVVXZXpUeW5penlq?=
+ =?utf-8?B?ZzVuaFFrdDJ0SkU3Vm1CQlFXcUJoTTI0RmI5MmV3M21pTXZXMmlWYUEydWI3?=
+ =?utf-8?B?N0NyZzEyazdrT3pIRHR4ek9yMXJBeElqb2tUYU9iYUx5bCt2elhFL3dXUjdF?=
+ =?utf-8?B?Q0hsMWFxb3NaSGRaNVZZbml3eEprUlQ2OEVzMEh0Rk1hZzV1RExCNFJTRExp?=
+ =?utf-8?B?aGp4NXV4Y0tmcVpHMW5GU1ZXWVZSbkNLcmFsOWRKRUxuWGZQUlgvNGdvdTJY?=
+ =?utf-8?B?eXlKSTY0MkxmMzFIQ1FkdW1PVlp6NW1najcxS2huNiszWm02RE5wN3FwbGFy?=
+ =?utf-8?B?Rm53clhncDFBaXVMYkdVMUpoQTI0aTJHcDFjZGJ6d1JkQTV4TWFSRlJwRE1q?=
+ =?utf-8?B?NWRWWjQ3Q2Y0dVlRQkVyN3MrVndoU1dWQlY5c0ljYmxEc3RYUElLMDczMEJK?=
+ =?utf-8?B?MXRlY3pZSnRGTEcwd3VYRkVGVEVoNWRFYXIrTWtHZzN0MjJUaXpvUTMxaVNV?=
+ =?utf-8?Q?IEzF01?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2025 15:46:13.5843
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 301d1f7b-331d-4500-e19a-08ddf14a566b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000055DC.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7781
 
-On 11.09.2025 17:36, Alejandro Vallejo wrote:
-> On Thu Sep 11, 2025 at 5:07 PM CEST, Jan Beulich wrote:
->> On 11.09.2025 13:53, Alejandro Vallejo wrote:
->>> ---
->>> v2:
->>>   * Adjusted commit message
->>>   * All other tags except S-by moved to patch 1.
->>
->> This will want backporting; I expect finding a suitable commit for a Fixes:
->> tag is somewhat difficult.
-> 
-> I'd say it's the patch that needlessly enabled GPE handling on PVH.
-> 
-> Fixes: 062975dc9441("acpi: PVH guests need _E02 method")
+On Thu Sep 11, 2025 at 9:55 AM CEST, Jan Beulich wrote:
+> On 10.09.2025 23:57, Andrew Cooper wrote:
+>> On 10/09/2025 7:58 pm, Jason Andryuk wrote:
+>>> Hi,
+>>>
+>>> We're running Android as a guest and it's running the Compatibility
+>>> Test Suite.=C2=A0 During the CTS, the Android domU is rebooted multiple=
+ times.
+>>>
+>>> In the middle of the CTS, we've seen reboot fail.=C2=A0 xl -vvv shows:
+>>> domainbuilder: detail: Could not allocate memory for HVM guest as we
+>>> cannot claim memory!
+>>> xc: error: panic: xg_dom_boot.c:119: xc_dom_boot_mem_init: can't
+>>> allocate low memory for domain: Out of memory
+>>> libxl: error: libxl_dom.c:581:libxl__build_dom: xc_dom_boot_mem_init
+>>> failed: Cannot allocate memory
+>>> domainbuilder: detail: xc_dom_release: called
+>>>
+>>> So the claim failed.=C2=A0 The system has enough memory since we're jus=
+t
+>>> rebooting the same VM.=C2=A0 As a work around, I added sleep(1) + retry=
+,
+>>> which works.
+>>>
+>>> The curious part is the memory allocation.=C2=A0 For d2 to d5, we have:
+>>> domainbuilder: detail: range: start=3D0x0 end=3D0xf0000000
+>>> domainbuilder: detail: range: start=3D0x100000000 end=3D0x1af000000
+>>> xc: detail: PHYSICAL MEMORY ALLOCATION:
+>>> xc: detail:=C2=A0=C2=A0 4KB PAGES: 0x0000000000000000
+>>> xc: detail:=C2=A0=C2=A0 2MB PAGES: 0x00000000000006f8
+>>> xc: detail:=C2=A0=C2=A0 1GB PAGES: 0x0000000000000003
+>>>
+>>> But when we have to retry the claim for d6, there are no 1GB pages used=
+:
+>>> domainbuilder: detail: range: start=3D0x0 end=3D0xf0000000
+>>> domainbuilder: detail: range: start=3D0x100000000 end=3D0x1af000000
+>>> domainbuilder: detail: HVM claim failed! attempt 0
+>>> xc: detail: PHYSICAL MEMORY ALLOCATION:
+>>> xc: detail:=C2=A0=C2=A0 4KB PAGES: 0x0000000000002800
+>>> xc: detail:=C2=A0=C2=A0 2MB PAGES: 0x0000000000000ce4
+>>> xc: detail:=C2=A0=C2=A0 1GB PAGES: 0x0000000000000000
+>>>
+>>> But subsequent reboots for d7 and d8 go back to using 1GB pages.
+>>>
+>>> Does the change in memory allocation stick out to anyone?
+>>>
+>>> Unfortunately, I don't have insight into what the failing test is doing=
+.
+>>>
+>>> Xen doesn't seem set up to track the claim across reboot.=C2=A0 Retryin=
+g
+>>> the claim works in our scenario since we have a controlled configuratio=
+n.
+>>=20
+>> This looks to me like a known phenomenon.=C2=A0 Ages back, a change was =
+made
+>> in how Xen scrubs memory, from being synchronous in domain_kill(), to
+>> being asynchronous in the idle loop.
+>>=20
+>> The consequence being that, on an idle system, you can shutdown and
+>> reboot the domain faster, but on a busy system you end up trying to
+>> allocate the new domain while memory from the old domain is still dirty.
+>>=20
+>> It is a classic example of a false optimisation, which looks great on an
+>> idle system only because the idle CPUs are swallowing the work.
+>
+> I wouldn't call this a "false optimization", but rather one ...
+>
+>> This impacts the ability to find a 1G aligned block of free memory to
+>> allocate a superpage with, and by the sounds of it, claims (which
+>> predate this behaviour change) aren't aware of the "to be scrubbed"
+>> queue and fail instead.
+>
+> ... which isn't sufficiently integrated with the rest of the allocator.
+>
+> Jan
 
-Oh, right.
+That'd depend on the threat model. At the very least there ought to be a
+Kconfig knob to control it. You can't really tell a customer "your data is
+gone from our systems" unless it really is gone. I'm guessing part of the
+rationale was speeding up the obnoxiously slow destroydomain, since it hogs
+a dom0 vCPU until it's done and it can take many minutes in large domains.
 
-Jan
+IOW: It's a nice optimisation, but there's multiple use cases for specifica=
+lly
+not wanting something like that.
+
+Cheers,
+Alejandro
 
