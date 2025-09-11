@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9279CB52B75
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 10:21:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1119648.1464935 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6D17B52B79
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 10:21:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1119646.1464916 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwcXz-00051L-8x; Thu, 11 Sep 2025 08:20:51 +0000
+	id 1uwcXu-0004aK-Q8; Thu, 11 Sep 2025 08:20:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1119648.1464935; Thu, 11 Sep 2025 08:20:51 +0000
+Received: by outflank-mailman (output) from mailman id 1119646.1464916; Thu, 11 Sep 2025 08:20:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwcXz-0004zk-5E; Thu, 11 Sep 2025 08:20:51 +0000
-Received: by outflank-mailman (input) for mailman id 1119648;
- Thu, 11 Sep 2025 08:20:48 +0000
+	id 1uwcXu-0004XH-MM; Thu, 11 Sep 2025 08:20:46 +0000
+Received: by outflank-mailman (input) for mailman id 1119646;
+ Thu, 11 Sep 2025 08:20:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ApBa=3W=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1uwcXw-0004XB-UF
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 08:20:48 +0000
+ id 1uwcXs-0004XB-VW
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 08:20:44 +0000
 Received: from OSPPR02CU001.outbound.protection.outlook.com
  (mail-norwayeastazlp170130007.outbound.protection.outlook.com
  [2a01:111:f403:c20f::7])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 38196c94-8ee8-11f0-9809-7dc792cee155;
- Thu, 11 Sep 2025 10:20:47 +0200 (CEST)
+ id 323dccd9-8ee8-11f0-9809-7dc792cee155;
+ Thu, 11 Sep 2025 10:20:37 +0200 (CEST)
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
  by AS2PR03MB9468.eurprd03.prod.outlook.com (2603:10a6:20b:59b::6)
  with Microsoft SMTP Server (version=TLS1_2,
@@ -47,37 +47,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38196c94-8ee8-11f0-9809-7dc792cee155
+X-Inumbo-ID: 323dccd9-8ee8-11f0-9809-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YcnxHkCloahbG6p5FNFww5ojMRW/gJ0OQElIIKrPArg0CHA/4kuTjiJkk8sdWeAPiJcY64UsTUejAsfskGXnvTKx9t0cLbkYgn4BW/OYQ8wbh180gpj7rA37F2TwnaLOj/72bWMRB7tsygC8k9IqEcyLRblC6DYk7HvxBVcFbtx6uDW5ikFh2OyFoSbSOEhLLm5sqi6a78zi+m/fpCz5QoSIGkcx7ZuYawG9MR/YG906NTf5i3JqdhgaVCTFqpUKHoXZAjOyI31eNn+/JewDk0hIFTwksEnsvUaZH4z6wFfQkQYY4LsovIaZEVMDZ8px0vvCKxY7t437dvcpDvkS0A==
+ b=DhgfujdFGKbgZNmB7wZtwA2+nBKxqdGVVtMR1ZPbhmhj6goPIjXfK+mXn/vLkjSU5xdhn/IPtFNXlsBk7EjLWhNDtFl62uI941b/hfCopmGpHXpgJ5w86JVNO/zb1pqZ7AjAgOzWxnU6jEpiWGrATAeYnZEXLTBaG0o6s0+aGJTrDDp6Yp9f/nAqu+lJM9EFhRvxb3I/XjF9m9HxmL4nzTow+1PUMCpp/lzVqlc2dIcTaAUYsgEsdjWnZWasl/Qq+Nnrbm9cQC95BxX+ohjtSfliY8ivw7eXHbA58Jz+9RweFgLzvmBD6i0CmNdFQIvnC86r1kgj0YAeMZipL5Wy0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rX2rdTxDeSwKJ1lHrAmzqYdj5Iky3KiEQg90cX64EBY=;
- b=mue+0pAYqbIO536mTFxh/dwYTnbFCocqFOD7elj1+0fMLU3P2EF9Sz/y7+nm3TBPFuwZDgYT/C6tWfJkTtzwuG1VVEBXWsvPFS20uHmSFgeQNGKd3pkcYmRW3JmTbGZpIu6IgUb8XjfjGP6fCFTsfn+57BTu/lymRSanY/PJ7TNTDGEWtT7kIQra9Dz0WmU9+qJk1mrhHyUFBqkCS85Yhizrh0AhWqBFkgF0rFbD37AGjO/m4ngEf/QlVpUpvTsHIBrMUmk0dfoH1LaIn/FaDV2lX/Gf6zCeN5GP02HlaSP7em926VwMq1SqkdSfAHnYOHQNVJaWYkYVF4DPlPAQHg==
+ bh=9ZP1/GNLyYNR7SY89GsUWKdIx7nrZHZbAe/tWpM58Vk=;
+ b=Kbm40uKqQm9sIhOFFXyzFyVL3eRkmzkDe9gen1XHC3mTzItLro+RyS5efPtC9ldCILR/RvxMLDDRTIpFiYVai2kDtTmApIslRSUBTvR2DpEi9mVJujfUGzy4C+l35dBc2680uNqiK64feChsrlFvYdZpReIM7JS6mByDxerT7K31dWwzgmoR4mptFViPb0wJMJxF0tLRVfWMV2NDTT1F6V6FU5UespUatLdUcTKQ47JZVWeDI5Ozace8VFOFTc+9cGFJ3zgF3+LMaNE/aQHQEZ/DZ1qPiOSu1rN5HTPkTkAoGAbtZojKe4ou6AHIB4WDiSe/nSDKk03SrqzpdIOqdg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rX2rdTxDeSwKJ1lHrAmzqYdj5Iky3KiEQg90cX64EBY=;
- b=PFYqDIX+b6k7ub9j16KvSJWUl+skFKqI7RXbcMXm2qK0MsIS83Jm5TIdpf1WW3iRPGwdrTZyg+mVE9nmvLZxxyDHDOPssIhnBtSPAroS/aoCeVME7wCfRGqpJYK6wHRl6mAzGI9/B8KtWJlL4u7xVdChH7Ewf23LsbxTQggJ+X2rE86oyktmfCHeIjQhnU91+51cYRhJYXymmyYMiiDY0o51SiydRynNF6NG5krG653a4GXSQu7dYCec52XXqNZAjVOfCW/gBx4Sx1Ku8qg0whE7lOayFH5nvWHkKX8PIOJUXWfRHeX6SNhwyXRQ+dxJMsg03IsCbHwxDTG8CFt7JQ==
+ bh=9ZP1/GNLyYNR7SY89GsUWKdIx7nrZHZbAe/tWpM58Vk=;
+ b=DX7JOA8NnzBu/K4H/KneioV6F5FrYmQO+CpBNEBXHPqhOAE9HkrXxDrpviZ9Y1h6zS3s7gD9SOH/f9ds0Og4xX+mokqo1oKNcmHXXJdHA4lsWfzlzhBsM8vuf5jESISRekSOCQJlU2pJt+tr0YpKsaaekRt4oD4SDHaDz1zTEJ771MCILuvKpUIQmjLE379+r7/O1xcK/EU1Q6uSEZoCgAlj4fbuxP+ObPELcMAPzoVXPX6jx8WiSjKZuyQJimPtrm+wrpb9SMWkH9DjGiehV2ic9eO0US8+jAhDOOZMMLZgqDeWeVMJ2K1lF8A3oTLw1WGTB7kh5Qje2LjYK3ybpw==
 From: Grygorii Strashko <grygorii_strashko@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Grygorii Strashko <grygorii_strashko@epam.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3 2/4] xen/arm: split is_32bit/64bit_domain() between
- arm64/arm32
-Thread-Topic: [PATCH v3 2/4] xen/arm: split is_32bit/64bit_domain() between
- arm64/arm32
-Thread-Index: AQHcIvTyqGjM1f4hhUaFOl5Oytg18g==
+ Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Jan
+ Beulich <jbeulich@suse.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>
+Subject: [PATCH v3 0/4] xen/arm64: allow to make aarch32 el1 support optional
+Thread-Topic: [PATCH v3 0/4] xen/arm64: allow to make aarch32 el1 support
+ optional
+Thread-Index: AQHcIvTyx9z2i0DJTUamNSgeNa0v/g==
 Date: Thu, 11 Sep 2025 08:20:35 +0000
-Message-ID: <20250911082034.1326377-3-grygorii_strashko@epam.com>
-References: <20250911082034.1326377-1-grygorii_strashko@epam.com>
-In-Reply-To: <20250911082034.1326377-1-grygorii_strashko@epam.com>
+Message-ID: <20250911082034.1326377-1-grygorii_strashko@epam.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -86,70 +85,69 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: AS2PR03MB8907:EE_|AS2PR03MB9468:EE_
-x-ms-office365-filtering-correlation-id: 8607d37e-6679-41b5-cda5-08ddf10c157d
+x-ms-office365-filtering-correlation-id: 830e03e5-1440-4770-6d50-08ddf10c14ff
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|38070700021;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?x00dVmFen7y2hKXeLKcIWQ41nV8u9C2s8U4glClP7SOhKtMMViwyEXu7X6?=
- =?iso-8859-1?Q?PqvMBzE5gvNKqg+nHpzlpzqCt15UNGBPRkKysdtBl0OyO8gb6iXQ61U+CM?=
- =?iso-8859-1?Q?Ng/1vNqpSMwdYKZUNdQ6L6REdD6wWn2PaMBI09YpQ1yAYsO//H/zsotD59?=
- =?iso-8859-1?Q?jXFNIXyrhjR455spbz+g+AYgkm4YS+mavOIBVYLyGX1KN06UMTSO4cTSKg?=
- =?iso-8859-1?Q?cp22Ups+e/voQNABEetuqIrOQgG0iLjMxDwiP8RUVdidI80LBt6whOUkQg?=
- =?iso-8859-1?Q?TUDjp9D+paBBla4iv3ikoD+lgAr6dzSU9lnKtMrSrFgR8yzki2jHMNG9j1?=
- =?iso-8859-1?Q?UC/IVXuE8NVM58JfJM4QMYF9tfPGz6nIMkn6vKOUzefWU6FnbaAMvbMs1l?=
- =?iso-8859-1?Q?KU4O5Jz+uHf6LuA8P62d79ZfiZz1zArDXrHqGukG7xQrTR++FmXa3VGnA4?=
- =?iso-8859-1?Q?vHTSuZYziNSngrJye7P2Sc5binC/9jzg9ze7HKtfqujh7N3lRsWB6FX88p?=
- =?iso-8859-1?Q?iN8VdGarKqZ11qJYFZVUGVNzSJbN+daJTATO/y3bOjlm2ge2nM/z1ueM1t?=
- =?iso-8859-1?Q?N4zAV2b7ovWMTE6wL5wdwWU7f4kbfuNu50OElpLLYONOtibnuOpiEVYAk/?=
- =?iso-8859-1?Q?rlKvZQTbv/0OdAF/IslI7+npRt4jPFKWMIIT9fmTNwEAQxd/Bf1VZYwiJv?=
- =?iso-8859-1?Q?2jvrLloX5YrN0nLlVfZ7Tb+BBF1tYYHBwpEExGirQOmqn5hWyBX5m8jVVH?=
- =?iso-8859-1?Q?VTb5PG9M42TSNBrRTLgiqS1frbNpe5sH5rnr6LnWIUezSPBq60ejCzNJS5?=
- =?iso-8859-1?Q?af7YLIbcTdboym3G/vSzNaBPv/Isa0wMtYzF6YpvU2KzZAWqinFq4jAQNi?=
- =?iso-8859-1?Q?0+88n93KIxJPnxnNuyoDPw04qOnTt04kwMAa3iApoAos7seSUEgo6fqa/E?=
- =?iso-8859-1?Q?UEphOAqcV9rvpFpTmC4MzqMvoW2XhOe4dGydl8UGJw5K2cLvv84QtYOu8m?=
- =?iso-8859-1?Q?El8O5+zExYZFLyfPpGzbFeI38z5u1hEazWJJtvvH445ZEa4VKk0Jm45hec?=
- =?iso-8859-1?Q?x5fKxKna8BAatfTww95ZmlsrNZrOgBUt2qdky5d6xyY3nsQ9OMSCBMFB58?=
- =?iso-8859-1?Q?qFKgBRb+QuxNOwN2hYov4/OuaH8ZRT/yas/Ty7mcZj3IaMhgAg5e1g1iAG?=
- =?iso-8859-1?Q?KLGpmNv2AwMvdPE5Nq93Lip4faXNEggov4RU1El4PxwLnXU4n3tYWR20p9?=
- =?iso-8859-1?Q?UeRa1pbGjWJp/6cSioVyFz6eW+X3A67YkBFyEVtVKEFWL6u7ostQGLwKJG?=
- =?iso-8859-1?Q?8LOsFlEDWnCw6yUSkuBa/aJ0wL9O+wYC00rSrYYqZMxO9EdnSxBLLu9GjD?=
- =?iso-8859-1?Q?DYt6gCX7WQsaF3o38UyiMJlWcQHq+YLIPJqwUj4Bi2Z6tME/Ut5eJr048A?=
- =?iso-8859-1?Q?aobt3UA3kEtl8zfxYzJ/h9w3sk3Jh1jakjWqFo7RJnVVP9ZgJcry4ig2fq?=
- =?iso-8859-1?Q?IzEcMAC0hgUfTNkU8GK8htMRNFWLLhCUOtdkzyV3zOY9Yc6W3AFaBUB8h1?=
- =?iso-8859-1?Q?IlPAQzQ=3D?=
+ =?iso-8859-1?Q?vmTNMeoUB/BH8soVYGey1/OUhMt3JARGEjUudixBZYfrAQA8taRA2holf+?=
+ =?iso-8859-1?Q?uLBWlAJLos29qVQRdfRjyrWQ4hC+zvURduMzPEu9s0SqpAdSJHjmb+O3O5?=
+ =?iso-8859-1?Q?AO4cDX7NPQfjyiQcxmqqeGFLwUdqZ4nV+XUnS0ch40mczpj4A22Aheldu1?=
+ =?iso-8859-1?Q?5um8o7dMjxPNpm2ZVLIQ1RGOhNDS5/lHhEldX883skWWIH8+6Fo3StDfa5?=
+ =?iso-8859-1?Q?jAn6XhFbH6g9XIwLXhtwE/bWAt+AZPZvSh4LbwqLSu9KS8JFC292BQ4nq9?=
+ =?iso-8859-1?Q?7tumzj5dK0Szi2EWkS2HlV/XDhAtCWs8ce+xs8D3iKMIqTDGqr0faLbjSv?=
+ =?iso-8859-1?Q?uLX2oZIQ6C7ga0vhD+XAaCNPriJViD6Uz4/iH7/n/exq21bQmQmcQaq1KI?=
+ =?iso-8859-1?Q?scJkwOFWCsKfQf66ExVQnpsLOvizxwIG+KAI8RFcfc8+jRXOqbMUgqInmc?=
+ =?iso-8859-1?Q?ZP3j66MG5QJ59G6LU5rleDLe+NBCRQGQCV5/zTiprovA06PQYbW2ndTjpx?=
+ =?iso-8859-1?Q?UQy1m4yL9gbGuWsY6A6Erxj91bGcFsun5ZHK1d29ocVrP+KdcKaQjxFzEi?=
+ =?iso-8859-1?Q?8Crr6WrEBWmhzaX3vgmhDOXy2Yc8/IHfUD2bvjBGAi5cpEQMzqUlm2tbxx?=
+ =?iso-8859-1?Q?fdIN7jO4fnvxs8OygDuyBvZcZDOg/mBkX59ig4xYMTYtGRhZFulWjWA8+x?=
+ =?iso-8859-1?Q?JlEZAy7dslP6TmS0ZyHjlYudEDFCteRk/I4VoI9XVrZ79fGpfH+lrsS6Su?=
+ =?iso-8859-1?Q?seBKlkc0MECqZ+P3b35PulCefqnyA8c8ZmBa57Lb258MHkmx+Z9BBfJ6Ah?=
+ =?iso-8859-1?Q?k0bsUcJNjDcZrzLhyxC4neE1QmP6ZnxeVtaTSxw4OmifV5WHn6J5AizUSp?=
+ =?iso-8859-1?Q?PESAxbIWXtfUmzdlACiQCKTbWxMNpAJUlwnNNXQhJwIqWkR+dsash2IcW2?=
+ =?iso-8859-1?Q?LASQ9DIv8rwypHgES3VWAmn6N/aE88PwkKMihFIuS3m07n6k3dw7VbZ3fg?=
+ =?iso-8859-1?Q?8SS0FEJXa7P0+fBSc3X61OiM/G+GAj1jJdFkuSy0zymrinFQHB3jeHkKpv?=
+ =?iso-8859-1?Q?nEsNcYBrbjyq62cy0YHpLMaKiQJj6nawokKD+w1rXsJFozr/+8l80/c+0Q?=
+ =?iso-8859-1?Q?ApKtYAYFVPZGigEes1Ns4vgi/MXiszPjj3EE/H/uHbyl/MgUFj+O+ByoId?=
+ =?iso-8859-1?Q?pkv+ZDn7KbA1X0bKsT3w+AU8YQPGKc/QqkiSZVOz+I/0q6uaP1FM78A7vH?=
+ =?iso-8859-1?Q?A3Ilflep28A/6kAKTT7il4WHoxkY9nQ+iDNMTTpp6meJgu/DRV1sGlOWuX?=
+ =?iso-8859-1?Q?aN29z1nOdmxubbJjQTTSkb8Jl6a9IjwLrnS465jX1Vuc4FABaiKin1vP1q?=
+ =?iso-8859-1?Q?WTpALptJycfomi6JAvRDBtMI8UCuBuDdR4FWY3PYou81tmEYxGBzhHtfxD?=
+ =?iso-8859-1?Q?Ff3Hxo6d6aXLdpuziIhdRNSFrHk8jlBVmSmzigaZooG8qejqSkpEDfsc/x?=
+ =?iso-8859-1?Q?8=3D?=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700021);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?Sf/Gjt1rfMd9Pl8Jw1o9omlnWxnHOy+uGbSPlGykLNM4t1dAUR8H42jmd0?=
- =?iso-8859-1?Q?Gmfyt+4qliwijjsSQZgaeleGDRaXVvzYJf8QYYJWpn4b6EI31G6Q58OMQb?=
- =?iso-8859-1?Q?wTXj2EKvNWPubxn4rWvc0/UxUjNCGCsxcR3eSdKro/MTRHkAtIN4ReKZOb?=
- =?iso-8859-1?Q?pmzQ0ia5BJB3tXIutystQKkz5baT+LfCLEfZN8hGkZQ4JGeGmZb5DLh8ab?=
- =?iso-8859-1?Q?OojvbfV9Zy0l5tcDjUtpsgEJs+QVEut0TXoFsbEj+SZ2Nk4LUVQSfiNiCC?=
- =?iso-8859-1?Q?EdIJFhhXfrp576MrwJQRwLGLfymHRmsKJoBIsQ1AWfd7DXpyUp5tQi1CuY?=
- =?iso-8859-1?Q?V7daNmJEiUkF2BGv1qD9qcznh7HcNpy1zuiJ6NWpOukbQKwEG/3UX7/7N/?=
- =?iso-8859-1?Q?LitLE08q95DtZ3UN67SZ0x+mgYSwzwrxHW7ozUHXJVo3qkRU1JbyK1Hph+?=
- =?iso-8859-1?Q?nOw5ZfCTlif1cXOuSOSB5sICXGff3y59AlbqFFtc7/1nWseMjiP599nn+j?=
- =?iso-8859-1?Q?VpyUnWcqs9PCkwTfJxrv9zcI96zktjoRW0hcs3PnPtlPCpNI4kOD5fpGHS?=
- =?iso-8859-1?Q?U33CFvcH7Vt2eFnWL0Au+4JOrZ8PEShk+ft0CPp8Awto8g/gnwhTBq0/Eb?=
- =?iso-8859-1?Q?0MkUx0tpXtruI2+omhGTtBb4DXBHbOgKeAJDrRuOpk4zxN5ZSKrJciFUlD?=
- =?iso-8859-1?Q?EFORTzDKVOIk3hOS9zx4IOZMPTur3YAPo1OLvB4JRiuaieGP1afKsBoaZ3?=
- =?iso-8859-1?Q?DGmoj5lilyd15bGNcV2XzCHmrFQ6nP+d53nR+p2QvkIplwBr/mWeLKuN67?=
- =?iso-8859-1?Q?hmPYdyqI7+eICOZJbr6Kgpno71plE9/aOW7oL4OA6ngb22R43woYSYtEnG?=
- =?iso-8859-1?Q?S1tfhVAA7bfBJHlQBuJQUimv1/dn0dbQFI61+za5VaE0NINReFe4FPNRqm?=
- =?iso-8859-1?Q?dkDRjY3L8nl1W71+HtM0lGyc2RD1jb63ueO6y9WUiJ9RJNuw+lpR5Mupoy?=
- =?iso-8859-1?Q?UI4j4CfRUSLb9bGZmRMcJYnI1rgFlXvAYTKAWG25VL5xyl0q26KofOPMY/?=
- =?iso-8859-1?Q?lGsm0fF2gVkC0st172NaxKwsvEjC1AMzX3Cu0n1q3Pxp4A9WjI1uakiJgE?=
- =?iso-8859-1?Q?DaEYbgRym/3Cg3JeYeCrmcPyYkTfjPBfUAzBfsBpHGS1xDarytj3zXkGyM?=
- =?iso-8859-1?Q?g2JzcJ+MbLC1xLqTUs0IQHqSrkfv5wTz/MCIZ7aKudNPydD1RA3WoOHUEb?=
- =?iso-8859-1?Q?ZVmowhe7aJSwti6CaXWGRJWQQ7lb+Bzn6WnLIQI6zR42cF8s0pAPPTxQAr?=
- =?iso-8859-1?Q?ECM+fYrjsdm9JWGhjeUJa/gEGN/ySxaq9u5KLtVF2Dil48DU+QR5ziESmP?=
- =?iso-8859-1?Q?0OFWANUXU7GFIUZDmQxtwZhSRjdUdODJ865WQmzgAeGJ8ijMnQ7wFX/7Xy?=
- =?iso-8859-1?Q?JUSrMDFQdcBCeX3MGapxuGzNC85hjr6R3np0ILVFFKQrkuYJb7lYAWTNrZ?=
- =?iso-8859-1?Q?aOOMzaQUhrBeTFZikF9ffW4ZaVRS+vUmXCC0zdTGAjqFx1ETK283eOq6PY?=
- =?iso-8859-1?Q?9V41FTpGxFdUR6xjUyAbWn3rs/f8Y3K5DlDIbPXUB6wMDKhAEbL8l8v7Qw?=
- =?iso-8859-1?Q?ULfebSIP28qt2BtF3DzKipAC7dhIvOC9jhEX4ijZpsYefFNmsbONRCgA?=
+ =?iso-8859-1?Q?Ejk/Anr+YAziaZ6Rx92j4PRrdQ77qfLpd2epfq11FLLGjVpRn5/CbcbGAB?=
+ =?iso-8859-1?Q?zv5fzrGCpmtwu1bb1s2l4gErH4KGw+gtu1a865rg8jKg9yhoSiE4Uo4vGN?=
+ =?iso-8859-1?Q?tjHGQBIkoDJypWvUSxgDNoLsqoDl0zmDrgybK+BKb5mWXLF8vWHAnycyPX?=
+ =?iso-8859-1?Q?9ZJvRf9glAxgmq1xxOnshfGIahXwFVpT3W6xkAfBDWMZr+0Nkyjj4u9KKh?=
+ =?iso-8859-1?Q?bfS7YHhHR3tDd9LMrl8Q0DFacUcCiE/59/Wmg76k7JCFwEADSJs/0ds7Lm?=
+ =?iso-8859-1?Q?mudTjVehB7b9+aztKjdgGm72CmrbOuKaNLE0ewhRO2N6Pxh1nGo6dB/MaZ?=
+ =?iso-8859-1?Q?oRV1B9XjOdYXbRTaX22UB0Pg9D6wAP8Ij8PO18Y26cWz9mLN3qn4Flc0xw?=
+ =?iso-8859-1?Q?PBRnnUOwN+8d67S2hDq0dU4DEatBny49HL1m7PvFPbWbOQEsGcjPNR6EeE?=
+ =?iso-8859-1?Q?hAhTlFQt3iVhCZOUWnj8VRo4JMPQT4Zka+Svrx9AGjM7AUrh9JHtJCMR7R?=
+ =?iso-8859-1?Q?ueerRD9YOwvtioPv+RZmkixh24JUq3OmGMDSZQrMo+4GSk96C7uC0CD4i/?=
+ =?iso-8859-1?Q?AfRE3joL9cMM5Gw/1FmV6l8UW9UfDx7CGWrx7EUazdEiCCVW6p68YAxZVz?=
+ =?iso-8859-1?Q?ICSdszI4IC6ubkBPf78Muw0cRqtSASO5D+p9c7YXjO/F8XQggntobdQ2dX?=
+ =?iso-8859-1?Q?dnMgyRzEycDgOUybf3XYBDy+a38VIQRrAawaks3UidpGEg6ixeTglMJPwh?=
+ =?iso-8859-1?Q?85BYJhOee5VPLCC2VgxQSQ8wihl85nhw3ZZ3fcWGkv6oRul3Ew99vp5p7b?=
+ =?iso-8859-1?Q?P1tHAWbNmlDKD8x5xxL6cfeD9kN+VxN5RoGzfy7NO2eosizoVy1DlINhXs?=
+ =?iso-8859-1?Q?03vaPiVeBtVo+ZyaX4q7Au27/vlQ3YIeqLGHfxgpBYZkIODrGWkfclvQtD?=
+ =?iso-8859-1?Q?pIpg6Isf1sQJ8b35oT1Cg3+evN8xkQb7emIZuCQljG7fyAkfmxWXaOr982?=
+ =?iso-8859-1?Q?2GbI43LCcpajbeFZ9C9LbJ8EBq7pDKO9KomIgHJ7bZxKyQPKmiNK0Uk1dp?=
+ =?iso-8859-1?Q?wFFyATy2/RoxFh8mU2tnP32biJxDHohSsDM5WCE0zg84rw42t4M9Sbo4EZ?=
+ =?iso-8859-1?Q?s/ADY5gKyM+JB+mdfTuUxKw+UOfuVHuIi2GFt75ULddQiu+02btpqz069z?=
+ =?iso-8859-1?Q?9AXNRhU+pdtzqZW0kje7aAKEvBe2z2S/wY6Fwxh+P6ZhLXaWx5Rnu8Diuz?=
+ =?iso-8859-1?Q?tEhnAjicSAXU97LsSLPxssIZyWCfaOeVXc7cqnA2W/0FGfD+214zgFH3nN?=
+ =?iso-8859-1?Q?30Qa5UrnqCeZfAlWMagIGYup8WhXJ3WBXu/1ZONwTAIioL5hvMd4yB3GS2?=
+ =?iso-8859-1?Q?R8jskqkSXu7Mo/CKicdiYwW9QhBObdHG54H91LkT4aN2l0m9doy2BgtSwq?=
+ =?iso-8859-1?Q?Ow5glYtTqwOhXNcUIyVvj4Ch/2ugDaKc2EyV/tLP6DCh4OQwTHwwY1x2da?=
+ =?iso-8859-1?Q?nJoMhKZt7grisHrwDk0JCENuVWZeSABT/eKGVNvJqJm9xLUyt+H1lgsDBl?=
+ =?iso-8859-1?Q?uukIhOQzhpqngwHVrRHpjIT+ECPLk7C4WOJOw8Iex8A57cQOw1zAiLYEE6?=
+ =?iso-8859-1?Q?2+yhDXl4pHWWTUSmjaCpHB8hoCK16xgxI+yJLAB0ZoQ+biMSoqyxcroQ?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -157,118 +155,118 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8607d37e-6679-41b5-cda5-08ddf10c157d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2025 08:20:35.8346
+X-MS-Exchange-CrossTenant-Network-Message-Id: 830e03e5-1440-4770-6d50-08ddf10c14ff
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2025 08:20:35.0394
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bDiDLms0kG0CGOd2ovImZXyOM2Cc5Y4/kVQUSRetGgjiw6SDprAtudRZ9BSITj4GlExzxJg9oDrcsiPnLT8F9JMe4KDN5YKJaFPd7mpEPXk=
+X-MS-Exchange-CrossTenant-userprincipalname: JmixxRq9Qb4oVl7lxw7D5yNe8Zgf9yoSS1DnoBnNkZsRzSrImt9ftT7ROKFaLfG5tL0bHxpBNhnkIqzkZlMq16teKOD6hOXaoRSsZvsN8PU=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB9468
 
 From: Grygorii Strashko <grygorii_strashko@epam.com>
 
-Split is_32bit/64bit_domain() macro implementations between arm64/arm32.
+Hi,
 
-Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
----
-v3:
-- no changes, add tag
+During review of v1 [1] of this series Julien Grall raised concern that=20
+"If the desire is to make 32-bit domain optional on Arm64.=20
+Then I think it would be better to pass the domain type when the domain is
+created (IOW add an extra flags to XEN_DOMCTL_createdomain)." for which
+I've sent patches attempting to start solving the problem [2] and try to
+probe guest kernels before creating domains. While proposed changes [2] is
+under review and hence there are definitely more work is required I'd
+appreciated if current series can be considered as it's Arm specific only
+and working (and tested) with current Xen in its current state.
 
-v2:
+Now Arm64 AArch32 EL1 guest support is always enabled and built-in while no=
+t
+all Arm64 platforms supports AArch32 (for examaple on Armv9A) or this
+support might not be needed (Arm64 AArch32 El1 is used quite rarely in embe=
+dded
+systems). More over, when focusing on safety certification, AArch32 related
+code in Xen leaves a gap in terms of coverage that cannot really be
+justified in words. This leaves two options: either support it (lots of
+additional testing, requirements and documents would be needed) or compile
+it out.
+
+The series doesn't affect on Arm64 Guest's EL0 32-bit ARM execution state
+support.
+
+Patches 1-2 Prerequisite patches
+Patch 3 - allows to make aarch32 support optional by introducing Kconfig op=
+tion
+          CONFIG_ARM64_AARCH32
+Patch 4 - enables build-time optimization of AArch32 specific code by redef=
+ining some
+          is_32/64bit_domain() macro as constants
+
+Tested (CONFIG_ARM64_AARCH32=3Dy/n):
+- dom0 with AArch32/64 kernel
+- toolstack create domain with AArch32/64 kernel
+- dom0less domains with AArch32/64 kernel
+- creating domain with AArch64 kernel and AArch32 EL0 rootfs
+
+Changes in v3:
+- Kconfig ARM64_AARCH32 use dependency from EXPERT instead of UNSUPPORTED
+- drop code for "do not expose EL1 AArch32 support to guest in ID_AA64PFR0_=
+EL1 reg"
+- apply comments from Volodymyr Babchuk
+
+Changes in v2:
+- dropped patches
+  - (licensing issue) "xen/arm: move vcpu_switch_to_aarch64_mode() in arch_=
+vcpu_create()"
+  - (problematic change) "xen/arm: move vcpu_switch_to_aarch64_mode() in ar=
+m64"
+  - constifying is_32/64bit_domain() macro gives most of results in terms o=
+f coverage,
+    drop regs changes for now (can be added latter):
+    "xen/arm: regs.h split subarch definitions between arm64/arm32"
+    "xen/arm64: constify regs_mode_is_32bit macro for CONFIG_ARM64_AARCH32=
+=3Dn"
+- use Arm64 "cpu_has_el1_32" in all places to check if HW has AArch32 suppo=
+rt
+- rework Arm64 XEN_DOMCTL_set_address_size hypercall handling to work with =
+any initial domain type
+  set (32bit or 64 bit)
 - fix comments related to macro parameters evaluation issues
+- do not expose EL1 AArch32 support to guest in ID_AA64PFR0_EL1 reg if
+  AArch32 is disabled
 
- xen/arch/arm/include/asm/arm32/domain.h | 20 +++++++++++++++++
- xen/arch/arm/include/asm/arm64/domain.h | 29 +++++++++++++++++++++++++
- xen/arch/arm/include/asm/domain.h       |  7 +++---
- 3 files changed, 52 insertions(+), 4 deletions(-)
+Link on v1:
+[1] https://lore.kernel.org/xen-devel/20250723075835.3993182-1-grygorii_str=
+ashko@epam.com/
+
+[2] https://patchwork.kernel.org/project/xen-devel/cover/20250731094234.996=
+684-1-grygorii_strashko@epam.com/
+
+Grygorii Strashko (4):
+  xen/arm: split set_domain_type() between arm64/arm32
+  xen/arm: split is_32bit/64bit_domain() between arm64/arm32
+  xen/arm64: allow to make aarch32 support optional
+  xen/arm64: constify is_32/64bit_domain() macro for
+    CONFIG_ARM64_AARCH32=3Dn
+
+ xen/arch/arm/Kconfig                    |  9 ++++
+ xen/arch/arm/arm32/Makefile             |  1 +
+ xen/arch/arm/arm32/domain-build.c       | 22 ++++++++
+ xen/arch/arm/arm64/Makefile             |  1 +
+ xen/arch/arm/arm64/domain-build.c       | 67 +++++++++++++++++++++++++
+ xen/arch/arm/arm64/domctl.c             | 12 +++--
+ xen/arch/arm/dom0less-build.c           | 14 ------
+ xen/arch/arm/domain.c                   |  9 ++++
+ xen/arch/arm/domain_build.c             | 21 ++------
+ xen/arch/arm/include/asm/arm32/domain.h | 32 ++++++++++++
+ xen/arch/arm/include/asm/arm64/domain.h | 54 ++++++++++++++++++++
+ xen/arch/arm/include/asm/domain.h       |  7 ++-
+ xen/arch/arm/setup.c                    |  2 +-
+ xen/include/xen/dom0less-build.h        |  8 +++
+ 14 files changed, 220 insertions(+), 39 deletions(-)
+ create mode 100644 xen/arch/arm/arm32/domain-build.c
+ create mode 100644 xen/arch/arm/arm64/domain-build.c
  create mode 100644 xen/arch/arm/include/asm/arm32/domain.h
  create mode 100644 xen/arch/arm/include/asm/arm64/domain.h
 
-diff --git a/xen/arch/arm/include/asm/arm32/domain.h b/xen/arch/arm/include=
-/asm/arm32/domain.h
-new file mode 100644
-index 000000000000..1bd0735c9194
---- /dev/null
-+++ b/xen/arch/arm/include/asm/arm32/domain.h
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#ifndef ARM_ARM32_DOMAIN_H
-+#define ARM_ARM32_DOMAIN_H
-+
-+/* Arm32 always runs guests in AArch32 mode */
-+
-+#define is_32bit_domain(d) ((void)(d), 1)
-+#define is_64bit_domain(d) ((void)(d), 0)
-+
-+#endif /* ARM_ARM32_DOMAIN_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/include/asm/arm64/domain.h b/xen/arch/arm/include=
-/asm/arm64/domain.h
-new file mode 100644
-index 000000000000..1a2d73950bf0
---- /dev/null
-+++ b/xen/arch/arm/include/asm/arm64/domain.h
-@@ -0,0 +1,29 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#ifndef ARM_ARM64_DOMAIN_H
-+#define ARM_ARM64_DOMAIN_H
-+
-+/*
-+ * Returns true if guest execution state is AArch32
-+ *
-+ * @d: pointer to the domain structure
-+ */
-+#define is_32bit_domain(d) ((d)->arch.type =3D=3D DOMAIN_32BIT)
-+
-+/*
-+ * Returns true if guest execution state is AArch64
-+ *
-+ * @d: pointer to the domain structure
-+ */
-+#define is_64bit_domain(d) ((d)->arch.type =3D=3D DOMAIN_64BIT)
-+
-+#endif /* ARM_ARM64_DOMAIN_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/d=
-omain.h
-index af3e168374b4..1a83f3924fb7 100644
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -22,11 +22,10 @@ enum domain_type {
-     DOMAIN_32BIT,
-     DOMAIN_64BIT,
- };
--#define is_32bit_domain(d) ((d)->arch.type =3D=3D DOMAIN_32BIT)
--#define is_64bit_domain(d) ((d)->arch.type =3D=3D DOMAIN_64BIT)
-+
-+# include <asm/arm64/domain.h>
- #else
--#define is_32bit_domain(d) (1)
--#define is_64bit_domain(d) (0)
-+# include <asm/arm32/domain.h>
- #endif
-=20
- /*
 --=20
 2.34.1
 
