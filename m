@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C40F4B533C7
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 15:30:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1120286.1465303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C4CBB5365D
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 16:53:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1120365.1465332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwhNO-0005Jh-HW; Thu, 11 Sep 2025 13:30:14 +0000
+	id 1uwiey-0007Y8-Ec; Thu, 11 Sep 2025 14:52:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1120286.1465303; Thu, 11 Sep 2025 13:30:14 +0000
+Received: by outflank-mailman (output) from mailman id 1120365.1465332; Thu, 11 Sep 2025 14:52:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwhNO-0005HR-EE; Thu, 11 Sep 2025 13:30:14 +0000
-Received: by outflank-mailman (input) for mailman id 1120286;
- Thu, 11 Sep 2025 13:30:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uwiey-0007We-Br; Thu, 11 Sep 2025 14:52:28 +0000
+Received: by outflank-mailman (input) for mailman id 1120365;
+ Thu, 11 Sep 2025 14:52:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dUpj=3W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uwhNN-0004pq-Ed
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 13:30:13 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 71556973-8f13-11f0-9809-7dc792cee155;
- Thu, 11 Sep 2025 15:30:11 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-b0415e03e25so94847966b.0
- for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 06:30:11 -0700 (PDT)
+ id 1uwiew-0007WY-Sw
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 14:52:26 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ee16f37c-8f1e-11f0-9d13-b5c5bf9af7f9;
+ Thu, 11 Sep 2025 16:52:25 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b5ae1e8so1076226a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 07:52:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b07b31295c9sm137298666b.43.2025.09.11.06.30.10
+ 4fb4d7f45d1cf-62ec3400c92sm1336966a12.38.2025.09.11.07.52.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Sep 2025 06:30:11 -0700 (PDT)
+ Thu, 11 Sep 2025 07:52:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71556973-8f13-11f0-9809-7dc792cee155
+X-Inumbo-ID: ee16f37c-8f1e-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757597411; x=1758202211; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1757602345; x=1758207145; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5VDz3WA7cDa9FIjcLpWB/5k5debjAvF8zkERceJxvUY=;
-        b=Uornn5XRRzqEgs4+UCOewta0VFu++v3zPfi6BBdfp25ts7+mh0BldCdhl88oFcBitc
-         AE2EFcExoQVEeQ9h8y1Y8pKQHCIlyN5MkrU3i9bnTmsSVZFodKhtNG14oON+5hwPFq59
-         0FU0glmqFrytaDaeZtIn4AfpzszqCIF4T3z6M0ZHsuVOIVmYatIl4CNhw0pNppJ96DSN
-         PXn7yFW3ZQ8UqH01jZT23fE0KqzapJvrKX/MYCoy4SbtcytkYFkMZ8h+onkWoTReBfVw
-         Q349v1GXrIgWDaOF4tm+Qq3cdDnJIAsHAzUSflkBi1qO2y5Sfr1GziAet2XHWSK3ODLx
-         V8FQ==
+        bh=2lhZ27yQ4va1xoMlXoRfL42mfmMrtYi47J2r+hzd8r0=;
+        b=X172xgHxBIg3VX3rGrrKV7Nw9pjZkDE3m0tlExk6V+yRJJGarZLn9Wius4rQtKxwnS
+         Wa4rWcWebAqwPiYbVCPF5Ft2YNPajKn+7Y4rZJvGgEjVjbvSNTVoHsKdPaAxhGhxRSpu
+         v3XH0dpQ/DrmMk88lWLx7WjzlR+8cyNHJK4LWiMYOg+SBnSTeUKXPKWU0GkTDPKn2y+r
+         sm5YJ6Ix/kqYyBfEmwTp/sd3U0Sj6TEOnv4Z/dojjvXmQn+h/UBiQ6qKZYuPil1Jlgw/
+         LTJcmMhGW5TEPhOoImAGvyZrF3xMN+b6UhXs2hhtLke7590i37AgL2cViCsMhNw+tQxE
+         Y3WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757597411; x=1758202211;
+        d=1e100.net; s=20230601; t=1757602345; x=1758207145;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5VDz3WA7cDa9FIjcLpWB/5k5debjAvF8zkERceJxvUY=;
-        b=XvyA4Lk3Ml8GLmDuR98h/GCqqd/O5X0lOTFM6G4Bgu1HhfetElw8CVzZErUgoODBf3
-         Z9hE+ggywGGfw/LhJi96M5rjneg4cH4wi6MyqgQ5Fm0MCOOCPd86NKSb0v/0To2Nykgg
-         +wbDJoNmd0KE32uZV+xi9Dd1OFWfcSAYtMqMipjoSdJz8fy+skA5G1+tiM0j7nrox+1s
-         /beEplpobAN4yXzHh2hEh/2dFIYOqm9ug5DLZGGn7eToUoJcaowWxJ66hjTl+taAwuE6
-         IrAX2uTaIbUdaZTCw8TObbUfcS7f2QfFt6FyNwoU7xWZQzPEDOii1KaKDJd8PqBWNxai
-         dzSw==
-X-Forwarded-Encrypted: i=1; AJvYcCULM5Dqgae6xkJ8Dqrr2oT8LKvAcSgtDViBJGi6/qA5RYNCvfknHUe3IqGVdAgJLVx7fEomGKl/IhY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyAWSgAIyOjYk+jxqMDYQrtSWHHfoBDvQ9W26L6CqFSvddUE4gX
-	9RVGfsxCXeX9tLEyendvNPOCYc4KV3LiUTyTPxxPhs367+BnK3iI83c2aQIRsF19yg==
-X-Gm-Gg: ASbGncvwPRgKzCmtxgTjaDi+ztv2RqxXlNG6ek5IGlUcL4yirxY2llj5863/CxlB5D+
-	qb56J5ynbntl0rZT9O/VkDY6hvw36tGw/28Mhn5pV6ef6qUnpUcLcA/pPglvz/WqJwH7bcg5OY3
-	EiEhMxGa0uY+UBhjfoiKJ8bQE87/nAyCiCCpDqSy0Qgic2lfhO1nHW0QgB7d5DezzMWh0de2a4I
-	XxgS4ggKLrP6a9Nq4JKTYcPkEQCUdoWxEEyyf+2olepVIrBpcyAvJgulozInlAT3HBboTlLFmwM
-	9K6fPDNfp5AwHYZ8Mlj2mnKarIk+W9tXvqLqhP5fPCBPH5gpotUOg/6CC7coqoWud/hYo2Iytrk
-	iVyNqUBkjAeWsbZVofsCWHjr35SBSRKxiqEPI+PdwdynKlwN06BHasr4StU1y2HvVoL0kWmoPeK
-	3zVJ6sf5M=
-X-Google-Smtp-Source: AGHT+IF/Rxn5onPTjug4vXjTkrTTpagvnrSI9fReADu97oJMeMktdOGGd9G9PrXQrqRYMvcgk1vE4Q==
-X-Received: by 2002:a17:907:890d:b0:b04:9ad9:5b2c with SMTP id a640c23a62f3a-b04b140d270mr1888579666b.25.1757597411245;
-        Thu, 11 Sep 2025 06:30:11 -0700 (PDT)
-Message-ID: <a8b93dcc-c003-49a6-8a78-5fb890cbaec0@suse.com>
-Date: Thu, 11 Sep 2025 15:30:09 +0200
+        bh=2lhZ27yQ4va1xoMlXoRfL42mfmMrtYi47J2r+hzd8r0=;
+        b=Ej6VU+xIo1WOwSw3vDHOjp1FLZUR39EOI1VetpEMeSkPTno6Q365AikaCF1Igoztzu
+         TwFhaYnXg5oYHDvMDhdQJRTvXiHnwA0iS9UDw/F3dMezXxkzr0kpSA2mpn8ohS4xxb7R
+         PQJjT6xNJvzUT7NDMjaGvOs9j6grEjC1Ctiv0a22YUfDFqq+6xjmbJ9M+pncFd/o7rkP
+         BDvxIqYNpmwXQRcomkMTkaJ12xRMol6+6CtahcXdNwL54mdNtweIH2YTD12Jo7fUeOBs
+         U/v3sWPiZYrqOGIOvolUXRTCWjyinJMpwxpwZjaPy8IHLpi6TvIeRFKmOVX7OEWIGHKu
+         ERIw==
+X-Forwarded-Encrypted: i=1; AJvYcCVKlSfPoyfrTwqmNidVJDPiZh3h1uYW7kNvCRs5QpmhDI6CkVPHuaOKTqsBTj/CeGQ6xmLpamIf5BY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx1gsuOd9YeC3pEIYbbPsVIYKNCJ/hb/A0qcpo3PZbVekkm1RLQ
+	8EtXB23WLpjV9lUAu8yxjIiL5iq9yT+kfb3gwTI7kElgTsE3FxamaRB2pR2P0bGjVg==
+X-Gm-Gg: ASbGncviwuODmaK3os/znj6W0VX0coqjWGKJQsgfW9EYezZO8OUqls1E5i2ctYF1EwL
+	LDwjBXz9ze3S0i6D5u60tmMNQH6dUC1ixxQFsaXk638weVO4LtvZf3QlHY6Yku51sCOJfFsV05t
+	Z7VZkXxCSBB5u8hHv/hN4yyIKL1eZOmVRC/MUlSHhU5CeMd9OYHc1NpIzXa+NMTn7KdyjKWXA/b
+	O5lQWnZVh3Ad0Oz4xa/POVSvSJVgr9zBFnhIPQeki3iEnjv1h4iXy3eKdAuctpsuZ7735l6qB95
+	NmsRgoHsScK5jgUUFjY8EwdbPFsUOLEXe6wMXa+BYzh7zUwajGV/A2LeQGUHGw719Oo8kKSf6P0
+	axKoDEXjHIkP9vtF4PJF2VOd6x3REnYVhjzQd9J0uxcszt2ZFjzouamAOgkLQDkzxlv0TDrJY8R
+	zA+g1FL9M9FeBf4efNaw==
+X-Google-Smtp-Source: AGHT+IHNCAse2nLu2lgUtDgDErKBK9yqKMEXuusRKDNyJ/cAuMSzxpT0xHeUrM5wLhnShSc680Juuw==
+X-Received: by 2002:a05:6402:2102:b0:620:e309:6c67 with SMTP id 4fb4d7f45d1cf-62376d2c9b6mr17463096a12.2.1757602344915;
+        Thu, 11 Sep 2025 07:52:24 -0700 (PDT)
+Message-ID: <a62ce5aa-6f2e-457b-bf4b-49e6b7f6eb7a@suse.com>
+Date: Thu, 11 Sep 2025 16:52:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 18/26] xen/domctl: wrap xsm_getdomaininfo() with
- CONFIG_MGMT_HYPERCALLS
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+Subject: Re: [PATCH v2 1/2] libacpi: Prevent CPU hotplug AML from corrupting
+ memory
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
  xen-devel@lists.xenproject.org
-References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
- <20250910073827.3622177-19-Penny.Zheng@amd.com>
+References: <20250911115308.16580-1-alejandro.garciavallejo@amd.com>
+ <20250911115308.16580-2-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,41 +121,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250910073827.3622177-19-Penny.Zheng@amd.com>
+In-Reply-To: <20250911115308.16580-2-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10.09.2025 09:38, Penny Zheng wrote:
-> --- a/xen/include/xsm/xsm.h
-> +++ b/xen/include/xsm/xsm.h
-> @@ -55,8 +55,8 @@ struct xsm_ops {
->      void (*security_domaininfo)(struct domain *d,
->                                  struct xen_domctl_getdomaininfo *info);
->      int (*domain_create)(struct domain *d, uint32_t ssidref);
-> -    int (*getdomaininfo)(struct domain *d);
->  #ifdef CONFIG_MGMT_HYPERCALLS
-> +    int (*getdomaininfo)(struct domain *d);
->      int (*domctl_scheduler_op)(struct domain *d, int op);
->      int (*sysctl_scheduler_op)(int op);
->      int (*set_target)(struct domain *d, struct domain *e);
-> @@ -234,7 +234,11 @@ static inline int xsm_domain_create(
->  
->  static inline int xsm_getdomaininfo(xsm_default_t def, struct domain *d)
->  {
-> +#ifdef CONFIG_MGMT_HYPERCALLS
->      return alternative_call(xsm_ops.getdomaininfo, d);
-> +#else
-> +    return -EOPNOTSUPP;
-> +#endif
->  }
+On 11.09.2025 13:53, Alejandro Vallejo wrote:
+> CPU hotplug relies on the online CPU bitmap being provided on PIO 0xaf00
+> by the device model. The GPE handler checks this and compares it against
+> the "online" flag on each MADT LAPIC entry, setting the flag to its
+> related bit in the bitmap and adjusting the table's checksum.
+> 
+> The bytecode doesn't, however, stop at NCPUS. It keeps comparing until it
+> reaches 128, even if that overflows the MADT into some other (hopefully
+> mapped) memory. The reading isn't as problematic as the writing though.
+> 
+> If an "entry" outside the MADT is deemed to disagree with the CPU bitmap
+> then the bit where the "online" flag would be is flipped, thus
+> corrupting that memory. And the MADT checksum gets adjusted for a flip
+> that happened outside its range. It's all terrible.
+> 
+> Note that this corruption happens regardless of the device-model being
+> present or not, because even if the bitmap holds 0s, the overflowed
+> memory might not at the bits corresponding to the "online" flag.
+> 
+> This patch adjusts the DSDT so entries >=NCPUS are skipped.
+> 
+> Fixes: c70ad37a1f7c("HVM vcpu add/remove: setup dsdt infrastructure...")
 
-This is in use by a Xenstore sysctl and a Xenstore domctl. The sysctl is
-hence already broken with the earlier series. Now the domctl is also being
-screwed up. I don't think MGMT_HYPERCALLS really ought to extend to any
-operations available to other than the core toolstack. That's the Xenstore
-ones here, but also the ones used by qemu (whether run in Dom0 or a stubdom).
-IOW I think there's a conceptual issue with this work which needs resolving
-first.
+The code in question originates from e5dc62c4d4f1 ("hvmloader: Fix CPU
+hotplug notify handler in ACPI DSDT"), though. Before that there was a
+different issue (as mentioned in the description).
+
+> --- a/tools/libacpi/mk_dsdt.c
+> +++ b/tools/libacpi/mk_dsdt.c
+> @@ -239,7 +239,8 @@ int main(int argc, char **argv)
+>          /* Extract current CPU's status: 0=offline; 1=online. */
+>          stmt("And", "Local1, 1, Local2");
+>          /* Check if status is up-to-date in the relevant MADT LAPIC entry... */
+> -        push_block("If", "LNotEqual(Local2, \\_SB.PR%02X.FLG)", cpu);
+> +        push_block("If", "And(LLess(%d, NCPU), LNotEqual(Local2, \\_SB.PR%02X.FLG))",
+> +                   cpu, cpu);
+
+Don't we need to use \\_SB.NCPU here? From the other two uses it's not
+quite clear; it might also be that the one using this form is actually
+needlessly doing so. Yet here it may be better if only for consistency's
+sake, as the LNotEqual() also operates on an absolute reference.
+
+The other thing is that I'm not fluent in AML operand evaluation rules.
+We want to avoid even the read access to FLG, and I'm unconvinced And()
+will avoid evaluating its 2nd argument when the first one is 0. IOW this
+may need to become a 2nd "If".
+
+I further think that strictly speaking you mean LAnd() here, not And()
+(but the above concern remains; all the ASL spec says is "Source1 and
+Source2 are evaluated as integers" for both And() and LAnd()).
 
 Jan
 
