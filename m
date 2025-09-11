@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4C78B53197
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 13:59:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1120092.1465177 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4449AB531AD
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 14:03:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1120118.1465188 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwfwv-0003EX-SC; Thu, 11 Sep 2025 11:58:49 +0000
+	id 1uwg1R-0004rm-GR; Thu, 11 Sep 2025 12:03:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1120092.1465177; Thu, 11 Sep 2025 11:58:49 +0000
+Received: by outflank-mailman (output) from mailman id 1120118.1465188; Thu, 11 Sep 2025 12:03:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwfwv-0003Cp-Pa; Thu, 11 Sep 2025 11:58:49 +0000
-Received: by outflank-mailman (input) for mailman id 1120092;
- Thu, 11 Sep 2025 11:58:49 +0000
+	id 1uwg1R-0004q2-Dg; Thu, 11 Sep 2025 12:03:29 +0000
+Received: by outflank-mailman (input) for mailman id 1120118;
+ Thu, 11 Sep 2025 12:03:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dUpj=3W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uwfwv-0003Cj-30
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 11:58:49 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=imb0=3W=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uwg1P-0004ps-UX
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 12:03:27 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aca06238-8f06-11f0-9d13-b5c5bf9af7f9;
- Thu, 11 Sep 2025 13:58:47 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b042eb09948so128806166b.3
- for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 04:58:47 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b07b33478e4sm114444966b.96.2025.09.11.04.58.46
+ id 530b73de-8f07-11f0-9d13-b5c5bf9af7f9;
+ Thu, 11 Sep 2025 14:03:27 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-45cb6428c46so8086835e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 05:03:27 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45e016b5a16sm24440585e9.12.2025.09.11.05.03.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Sep 2025 04:58:46 -0700 (PDT)
+ Thu, 11 Sep 2025 05:03:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aca06238-8f06-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: 530b73de-8f07-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757591927; x=1758196727; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1757592206; x=1758197006; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ypJXWGy4zGKZEm6L6+M44/YFGkPLMs03nR2P4e+tGzU=;
-        b=CmClvW6HNeUoMvTt1nTA/Hl+ZbXrJTd3mySiFm6OQCPkwMwiB3XboieLUMsv1T6Si5
-         quGnWcwzJdqYurfcVYbObzg5+AAN+xCd6zSQ3f0pwaXFFYCXtARt5U+IpaILTat1l2Aa
-         HFWEsP5MsXPzg/pBkRYDkkPXfYeRCs4c1Tv0fClMrEe/vTsQAnOjoKEtkImaxYhxV1YE
-         jwvqOVTcLQ6yi/XLX6ju3ChImbyxNZ3BqnslFKQPpEGn1VfiFa10MCWmjfnJAnUK+PfA
-         wF35WW3jgRCW5OOdEk9qUn2BQnAMzFLKsdWxLTb08eGu3hgL2y4fol/NTPhtxqBFdvPF
-         mcCw==
+        bh=TNq70eBJGjUku1kl6S4ZWlnYQIdhEGvIwf2HGXsVXBA=;
+        b=lwzZatexubpZxhfPhi9NhC3IWQs9fYSOhxaVgJNHsyE4Zo9yCARvXWkSp8lY67Kok6
+         mJDsKD4mGrAvFDNgiDMfmJJNFcozpjaFBEwFRdqb1dR7nKFbyIBLkfeeO75MGAAUPwHk
+         Y5rLd9zZuXTByizw8X/lFxGe/JFzYdE6wNsXU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757591927; x=1758196727;
+        d=1e100.net; s=20230601; t=1757592206; x=1758197006;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ypJXWGy4zGKZEm6L6+M44/YFGkPLMs03nR2P4e+tGzU=;
-        b=BWwlDV3Nn9zeKhxDlJSKy/JjKT+oqj/7l3spi+AnClng+lfBdV9O5IjNw4ALOh4xYF
-         N3ZO6KFwfLyVuNzh8Crg+RC26sgCGOCfrcD/r4oqCBqscDGp2Iug5dtVwLKq1v5MrZf2
-         WIA+j7vhQR2FCj3oANRw8tZmM5k9d/VwISi0CD/of3gYmVvuwgFOTsxH3Pt0tHVsusCV
-         DFpM2/eqYXkXV/ttQHocTXHhfxlpQsEwqyHUPVVre5r5xQETweuimfmB/nHkIlSq9Qbu
-         8H4S6uasQafQPtUjuOzmfMt0h2nL6G+aN9+pjYtNZ+AfziR4KfahjQaIk4i3XaS2vXAl
-         sflg==
-X-Forwarded-Encrypted: i=1; AJvYcCWkBbAlaqFAIg+rE/P3KQgqDN6mbMpqRx7O5bjY1KPWaKnSnbHUd2O92Wt4bMs2ywh7+JVgRlv7fD8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwdykQxCzNOnL+OC2PiIjqhTyvcNZxBLrUCZp8m4b/eDyJDYfQb
-	WEtPiQzobG+3jCx8thVS5mGypLMdexdSkscjuBVMwNGAaIRIe7c66L8oCaNvIzFjeQ==
-X-Gm-Gg: ASbGncsMwb37yubMX7PQalH0+QRgSUHrgq0Fpwmb4rPZcGhrxYnhF4Pj3sWb+5ZKuk/
-	e8TGshgbTMwDyubarB5JBGLQV3cZGU9NTKtYUVifUML8Rl+jo30TrOJX9PXvzNxxhw4GSy6kSxI
-	deDiE/de66uGze5G9WFXGqCppKwL78NA8X1hZTI7D/5cX5bUWQWHdMU65L9dl5zvUhsu/k0g00h
-	kCmU+dp71cZRMMPamrvYsTow1N4J4Tv6+yzn8zOaKVzBh3gVroJSYADGQc9Oibn8mtQaN76I4Qb
-	+GthLtO0HtmCC447KIWYObsIWmp/s5k4U++W7NIlNosmnEeTsyredVpGXkmHHyG+DOl8urhOrxo
-	ai8s9Et65K24XvR+lti3Pi49rOPZvbBZmqQnscRDBhIeD1D7BATXXwMYYHw+PvNcyIuodaxKlMp
-	JWWqwYoKPYgJgM/Ozquw==
-X-Google-Smtp-Source: AGHT+IFCDzCthNPJUSi2K9wmpOK9kYw8IA/ZAdccooK858tHScEc6r6kKI4Z2o9VyagOar30EN2oBQ==
-X-Received: by 2002:a17:907:e98b:b0:afe:d62a:f038 with SMTP id a640c23a62f3a-b04b13fe73bmr1673487666b.8.1757591927225;
-        Thu, 11 Sep 2025 04:58:47 -0700 (PDT)
-Message-ID: <0af66ec5-a53e-4f09-96bd-3cedb7419006@suse.com>
-Date: Thu, 11 Sep 2025 13:58:45 +0200
+        bh=TNq70eBJGjUku1kl6S4ZWlnYQIdhEGvIwf2HGXsVXBA=;
+        b=Jxic/rmoZzaV0QgUuy1Bwzx92qdOWNiCqMZB6lFU9kCvu4BnNlG8iQEpHO/ep7GJQO
+         Ant/nK97gto2faUmQXAN+/qLRkd6brmsumw8e7lh+kg/ArvdgEFCfZHBC/qkgSOBMhPV
+         b+aSHRkfQ1JrPnRbhU+wJM7/6i73TxLBgxLLl32TroEdXm8my1YQweTZ7bbtZHigjK9l
+         0ObgeMM+f99PevnqRzypUTh9KGg7KVlHkRlkc0UFNnmAv9AD9hgqc0NIki81XZjiN4yy
+         R8egPUecfYe0qAvIbZR+nUDw3SVmspfAFUWDfhUqjKrPdQ5ID2VKBBElDbtqXgtyzC+M
+         XVrw==
+X-Forwarded-Encrypted: i=1; AJvYcCWOMP84A+u/T3gNmqwfYOz67FVTO6yj0RE3DeGpu/C5Eiyf2ce24U/1w69UtJ2GPndUgF6pLXXBeC4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YytKmP6Pru9w1fzEi9i+Y5rBRHjAtfJ021VsS06BPqCALil1xHb
+	Bwy1jZm7H/ijflCVHnQgFsSxn4ZFLrbM19IdhjXRn751DU3aLgn1/DcYpzI0vwiQ7gw=
+X-Gm-Gg: ASbGnctUeWH1If2qJTMI8CliME38pzGP6mgN68tNZL7ii4WbIequTVt9lsqJflAoCZ5
+	1dfvVNYnanUIpO9J0UK6hZEAgUIti3LsblqDTXkhveo3L7N/ViTNusEm2jbfoXZnf93lLUJrHUq
+	1iuE2JwnM0IzFh/f3rHHvKxFbRq9UUUm/Z5jQC6BN6JDJDsKAtJHLp9EjceL/jtiYTx7ShGmwIf
+	Rqa48+x8KMGbawEerEqIXESDQOg1P2wXKYaXKiyVvPGWeYfqgrqw6ZtgT++wVeZoxKxGFLhrctH
+	++bJb4kwzxOfpAcfROhc57qRJAIsQjyi9EA2unH1h2LXZUveqhpm9n4PSnULg14dLu7ryCfk6R9
+	Kf1lmC/8F3V0rWWTzJBEC719350gzuc3u2FSgHy5HrrEsUVuBH92RGXxd9b31dW5yOTs/
+X-Google-Smtp-Source: AGHT+IEWu4l3ou+sTPuGxSUbLYD3F14++0HjkAt2KSBW6zTA8F8AfQcygaIzwYmANYx07z0KYf4knA==
+X-Received: by 2002:a05:600c:6305:b0:45d:5c71:76a9 with SMTP id 5b1f17b1804b1-45ddded7652mr193370495e9.24.1757592206400;
+        Thu, 11 Sep 2025 05:03:26 -0700 (PDT)
+Message-ID: <42bf6ed7-3a6b-4021-9a53-1891117ff2ba@citrix.com>
+Date: Thu, 11 Sep 2025 13:03:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 20/26] xen/domctl: wrap iommu-related domctl op with
- CONFIG_MGMT_HYPERCALLS
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 1/2] libacpi: Prevent CPU hotplug AML from corrupting
+ memory
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
-References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
- <20250910073827.3622177-21-Penny.Zheng@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250910073827.3622177-21-Penny.Zheng@amd.com>
+ Grygorii Strashko <grygorii_strashko@epam.com>
+References: <20250911115308.16580-1-alejandro.garciavallejo@amd.com>
+ <20250911115308.16580-2-alejandro.garciavallejo@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250911115308.16580-2-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10.09.2025 09:38, Penny Zheng wrote:
-> Function iommu_do_domctl() is the main entry for all iommu-related domctl-op,
-> and shall be wrapped with CONFIG_MGMT_HYPERCALLS.
-> Tracking its calling chain, the following functions shall all be wrapped
-> with CONFIG_MGMT_HYPERCALLS:
-> - iommu_do_pci_domctl
->   - iommu_get_device_group
->     - amd_iommu_group_id/intel_iommu_group_id
->   - device_assigned
->   - assign_device
->     - intel_iommu_assign_device/amd_iommu_assign_device
->   - deassign_device
->     - reassign_device_ownership/reassign_device
-> - iommu_do_dt_domctl
->   - iommu_deassign_dt_device
->     - arm_smmu_reassign_dev/arm_smmu_reassign_dev
->     - ipmmu_reassign_dev
->       - ipmmu_deassign_dev
->         - ipmmu_detach_dev
->   - dt_find_node_by_gpath
-> Wrap XEN_DOMCTL_assign_device{test_assign_device,deassign_device,
-> get_device_group}-case transiently with CONFIG_MGMT_HYPERCALLS,
-> and it will be removed when introducing CONFIG_MGMT_HYPERCALLS on the whole
-> domctl.c in the last.
-> 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+On 11/09/2025 12:53 pm, Alejandro Vallejo wrote:
+> CPU hotplug relies on the online CPU bitmap being provided on PIO 0xaf00
+> by the device model. The GPE handler checks this and compares it against
+> the "online" flag on each MADT LAPIC entry, setting the flag to its
+> related bit in the bitmap and adjusting the table's checksum.
+>
+> The bytecode doesn't, however, stop at NCPUS. It keeps comparing until it
+> reaches 128, even if that overflows the MADT into some other (hopefully
+> mapped) memory. The reading isn't as problematic as the writing though.
+>
+> If an "entry" outside the MADT is deemed to disagree with the CPU bitmap
+> then the bit where the "online" flag would be is flipped, thus
+> corrupting that memory. And the MADT checksum gets adjusted for a flip
+> that happened outside its range. It's all terrible.
+>
+> Note that this corruption happens regardless of the device-model being
+> present or not, because even if the bitmap holds 0s, the overflowed
+> memory might not at the bits corresponding to the "online" flag.
+>
+> This patch adjusts the DSDT so entries >=NCPUS are skipped.
+>
+> Fixes: c70ad37a1f7c("HVM vcpu add/remove: setup dsdt infrastructure...")
+> Reported-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+> ---
+> Half RFC. Not thoroughly untested. Pipeline is green, but none of this is tested
+> there.
+>
+> v2:
+>   * New patch with the general fix for HVM too. Turns out the correction
+>     logic was buggy after all.
 
-Apart from all of the above another aspect becomes apparent here: Some code is
-called at boot time only once management hypercalls are compiled out. Such
-code should then move to .init.text, so we may need to gain something like
-__init_or_mgmt. Imo that would want dealing with right here, but I can imagine
-opinions to differ on this.
+Hmm, this does sound rather more serious.  I have a nagging feeling that
+until recently we always wrote 128 MADT entries.
 
-Furthermore, while looking around, I noticed that there's dt_overlay_sysctl(),
-entirely unguarded despite the earlier sysctl series. Yet if that work (and
-Misra checking) assumed OVERLAY_DTB=n, then there's iommu_remove_dt_device()
-which is only used when OVERLAY_DTB=y.
+So, while this looks like a good fix, I think we might want a second
+Fixes tag.
 
-Jan
+~Andrew
 
