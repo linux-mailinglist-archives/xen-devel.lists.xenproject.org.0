@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C1FDB5264C
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 04:09:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1119077.1464595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DDCAB5265E
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 04:18:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1119088.1464606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwWjn-0007MJ-2W; Thu, 11 Sep 2025 02:08:39 +0000
+	id 1uwWtM-0000hZ-VL; Thu, 11 Sep 2025 02:18:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1119077.1464595; Thu, 11 Sep 2025 02:08:39 +0000
+Received: by outflank-mailman (output) from mailman id 1119088.1464606; Thu, 11 Sep 2025 02:18:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwWjm-0007Jz-WC; Thu, 11 Sep 2025 02:08:39 +0000
-Received: by outflank-mailman (input) for mailman id 1119077;
- Thu, 11 Sep 2025 02:08:37 +0000
+	id 1uwWtM-0000eh-Ry; Thu, 11 Sep 2025 02:18:32 +0000
+Received: by outflank-mailman (input) for mailman id 1119088;
+ Thu, 11 Sep 2025 02:18:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5SW2=3W=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uwWjl-0007Jt-U1
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 02:08:37 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org
- [2600:3c04:e001:324:0:1991:8:25])
+ id 1uwWtL-0000eb-A6
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 02:18:31 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 387693c2-8eb4-11f0-9d13-b5c5bf9af7f9;
- Thu, 11 Sep 2025 04:08:35 +0200 (CEST)
+ id 9a3a23da-8eb5-11f0-9d13-b5c5bf9af7f9;
+ Thu, 11 Sep 2025 04:18:28 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 29D7D6013D;
- Thu, 11 Sep 2025 02:08:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40E30C4CEEB;
- Thu, 11 Sep 2025 02:08:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B64FF6013D;
+ Thu, 11 Sep 2025 02:18:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BCACC4CEEB;
+ Thu, 11 Sep 2025 02:18:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,37 +41,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 387693c2-8eb4-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: 9a3a23da-8eb5-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1757556512;
-	bh=FutJm2e+CDFR9L+V04eCu1tWkGjnTq25lBH6bQUg4xo=;
+	s=k20201202; t=1757557106;
+	bh=DhOeGsdl69RyahR+iYjVB2KU6W40Xqzqd3W+B4l5g6o=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=mhhL0hIrb7mC/+jRo+vboeQ7aS5fOInwBft0ndbJQXUH+SKB939NfBt2w9BfyN3u5
-	 HYPLGxxD/0HwpT9ZP5vzI0SiFmFSsjGOl6UofWwjz2IRUDlDI26uplcIrTzd07ZQPl
-	 /dc5PtlvbvBgIlg6lRziJfpWKYkDfpcSJQT1r/pSE9QttrpINMOBUxzin3d8n957Cy
-	 W+Dipe8iYxJh3GoIEkQMPaTbqDhL6x7BCzhAYOrTOGepkF+/Sf8OZjzDjSWCJC0hBy
-	 NU0JWJG3B40fSe3PkxLjZxifeNM9ewYq77ZVf3txE7hGkAFIfAQsO9bj9ZRhzKTX5i
-	 dHSbYOstTVX3g==
-Date: Wed, 10 Sep 2025 19:08:30 -0700 (PDT)
+	b=JpU+N5ObB+dsfRDN5oaVdQqcGpQQwYPtP48I2kWEUYNgiT9oetRALkadLOwi3AeBf
+	 Ay8rilsuI8zUWdradaviwVedTGQCXxHPV4aXiJZaKZA4+494/5gCnCl5PWW63mNWTQ
+	 FN33jlyes7mIys1omugcuF84gEDL56mlyXVB/2sAfr6Gbq103Ialrkzejuvy/D4fxE
+	 QMo2Nyd96JKab2RVaZ2KSkH4pxHyWB4FF8lGBGtJ5O7VPfrqm7REPkk1baATwVuzSy
+	 wsuJRhiYZZxysw7IkargbVXTW+qXTocqTyvgpoYN6Y6nn06NuzWucOGAwJWlGRC9Zh
+	 LiwLcC2VgbqoA==
+Date: Wed, 10 Sep 2025 19:18:22 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Penny Zheng <Penny.Zheng@amd.com>
-cc: xen-devel@lists.xenproject.org, ray.huang@amd.com, 
+To: Stefano Stabellini <sstabellini@kernel.org>
+cc: Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org, 
+    xen-devel@dornerworks.com, ray.huang@amd.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Alistair Francis <alistair.francis@wdc.com>, 
+    Bob Eshleman <bobbyeshleman@gmail.com>, 
+    Connor Davis <connojdavis@gmail.com>, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+    Nathan Studer <nathan.studer@dornerworks.com>, 
+    Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>, 
+    Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>, 
     "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH v2 06/26] xen/xsm: wrap xsm_vm_event_control() with
- CONFIG_VM_EVENT
-In-Reply-To: <20250910073827.3622177-7-Penny.Zheng@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2509101908250.52703@ubuntu-linux-20-04-desktop>
-References: <20250910073827.3622177-1-Penny.Zheng@amd.com> <20250910073827.3622177-7-Penny.Zheng@amd.com>
+Subject: Re: [PATCH v2 02/26] xen/sysctl: replace CONFIG_SYSCTL with
+ CONFIG_MGMT_DOMCTL
+In-Reply-To: <alpine.DEB.2.22.394.2509101834510.52703@ubuntu-linux-20-04-desktop>
+Message-ID: <alpine.DEB.2.22.394.2509101917000.52703@ubuntu-linux-20-04-desktop>
+References: <20250910073827.3622177-1-Penny.Zheng@amd.com> <20250910073827.3622177-3-Penny.Zheng@amd.com> <alpine.DEB.2.22.394.2509101834510.52703@ubuntu-linux-20-04-desktop>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 10 Sep 2025, Penny Zheng wrote:
-> Function xsm_vm_event_control() is only invoked under CONFIG_VM_EVENT, so
-> it shall be wrapped with it
+On Wed, 10 Sep 2025, Stefano Stabellini wrote:
+> On Wed, 10 Sep 2025, Penny Zheng wrote:
+> > Rename all the CONFIG_SYSCTL into a single CONFIG_MGMT_HYPERCALLS to help
+> > provide a single option to manage all unnecessary hypercalls, including
+> > sysctl, domctl, etc, in dom0less system and PV shim mode, which could also
+> > make it easier to support randconfigs.
+> > 
+> > Suggested-by: Stefano Stabellini <sstabellini@kernel.org>
+> > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 > 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+With one comment:
+
+> -config SYSCTL
+> -	bool "Enable sysctl hypercall"
+> +config MGMT_HYPERCALLS
+> +	bool "Enable hypercalls under management"
+
+Please call it "Enable privileged hypercalls for system management"
 
