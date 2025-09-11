@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17A47B52BD4
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 10:36:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1119772.1465016 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01485B52CB2
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 11:09:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1119808.1465029 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwcma-00035a-Ir; Thu, 11 Sep 2025 08:35:56 +0000
+	id 1uwdI9-00009Z-VV; Thu, 11 Sep 2025 09:08:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1119772.1465016; Thu, 11 Sep 2025 08:35:56 +0000
+Received: by outflank-mailman (output) from mailman id 1119808.1465029; Thu, 11 Sep 2025 09:08:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwcma-000333-Fw; Thu, 11 Sep 2025 08:35:56 +0000
-Received: by outflank-mailman (input) for mailman id 1119772;
- Thu, 11 Sep 2025 08:35:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dUpj=3W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uwcmY-0002qI-JB
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 08:35:54 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 543f2fa3-8eea-11f0-9d13-b5c5bf9af7f9;
- Thu, 11 Sep 2025 10:35:53 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-b04679375f6so75378666b.2
- for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 01:35:53 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b07b31283e3sm84056866b.24.2025.09.11.01.35.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Sep 2025 01:35:52 -0700 (PDT)
+	id 1uwdI9-00006p-SS; Thu, 11 Sep 2025 09:08:33 +0000
+Received: by outflank-mailman (input) for mailman id 1119808;
+ Thu, 11 Sep 2025 09:08:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jUFa=3W=cloud.com=gerald.elder-vass@srs-se1.protection.inumbo.net>)
+ id 1uwdI9-00006j-7L
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 09:08:33 +0000
+Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
+ [2607:f8b0:4864:20::b31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e279a2ec-8eee-11f0-9809-7dc792cee155;
+ Thu, 11 Sep 2025 11:08:30 +0200 (CEST)
+Received: by mail-yb1-xb31.google.com with SMTP id
+ 3f1490d57ef6-e970599004aso236755276.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 02:08:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +40,238 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 543f2fa3-8eea-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: e279a2ec-8eee-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757579753; x=1758184553; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=grTetyzW0o2pITRC2Tai7FBoj6w8DqouuQvdNUY70cs=;
-        b=OBqZnUQxvy0o0teMnyjffSB3+KX1vy+8PIcwNRamaM4W08/q9xx4DxZERclAN0GqCc
-         j11owq/biSrCaWZlR4/rlRnZKIHlGNXF/P/s7O0Wgsfxsy+LBeb2MvbxC67nv384ZmAK
-         d/tHENMfwnWd53AFBDy45Oj/96yDlC14oMHjrUEdgTmBglASfc8SnTmrWelBshoHp8H5
-         TGvyOqZwqBjeY8BJGX4jrqvI+/TbtoQDbmwVWCq+wYUoDkXOxuiOgT02REiwYVx5d9qY
-         yIHviufdofl/Rk9/IVH0L6IHsTiizTG+LKkpdnxzkinoH+yA0kXogECB+jOEvbGesntA
-         JaIQ==
+        d=cloud.com; s=cloud; t=1757581709; x=1758186509; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=MDFSPpfMQx0xouLbfqxGVzwgr6YW2sVDKyq9doRjQQ8=;
+        b=LqfdYiZv/EOJQ1ZlLvv7iJesrTi7PO59QTrha7ytNc9fJZJjTh6gqNePrlb1Iu5IEl
+         Xv54wtoOJXzMt0xqyH6PjQ9mGVZrulzQTOuJn03eZWKps0SoC1gPpCk8RrMak5Es11E8
+         UaQaCr+yqevxrjky7nsroV+SpK70WCV0kYeig=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757579753; x=1758184553;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=grTetyzW0o2pITRC2Tai7FBoj6w8DqouuQvdNUY70cs=;
-        b=e0wrLHcSHMVzZMMRmkRJHI436M9MmCL0SrG4VDggB2+NgsSiOZoWOtqe2O3mRxOA5d
-         cOs+8jOcPU1pZ84pTqe1kogAwPL+b1ZiW44cWFZ3rwadXtVwMMV9LlnMRP8f81Z9yjCw
-         xwaF6DYJ0kMU6y4BPhFgyAHK2a3Glv5hsi63xdTD7BvEbVcvbCFOwxWjn6sSyHA/7LWS
-         rsAdpW5PT9bwqKZG9Y6a+b3MBYUvqcRYcb+nmyK7HKSszwHfdKgIilLbDFfMKHV2RNBQ
-         aSXjnq+l1w7EGvO+jy4j/ZVVktAFjA2rLnLQ2ptqlKmRRhuqrB2Kvz1eizcT3RMcmQb8
-         jkRw==
-X-Forwarded-Encrypted: i=1; AJvYcCWx7iZ8xuKQSaL5zIhW/M1WktojVe3PZRga7KKHovkStzwYdds5iFitN/dAouREzWDeSsC3XRRayLs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyTgtpPxw0NurKXqaLbUOw9et3AYo7UlnDWWxBsV7Pc9LQVhYUF
-	561rz93O+ylxpmelhkTdqFfOtR3NOM2U2mJ5MCj8ZDZVm9durwIFsAw223OfWt31kA==
-X-Gm-Gg: ASbGncubpLUIQPI4PyMN2d++/0S9/3Y0EIiHQCCxAI0BaytdMK5cRbDoUJCRAKW29qM
-	R1w1VQ1PrbHIrYNWQiOSx7YzUFQOAjG/f/IGxZLzTkbiphb6E+9k+T/GxHelzKLMs0ESEbOwUmi
-	QRLljyILwMFSHBXTcz0dfNRM7jJF0ZnMp0Cya5QjaoGa5FwKOUry2CMFXuPvvBLEfEY4B7FAsQg
-	slIMmpgm4izvU/8rsW4FCKNkZTou20fSHdZ2Z91a2ah1DrTKnJrwYFN7j/mK0P4BupcrtDaXeTX
-	kP2hX9j97iEljGTzIIBlVqoKdMH1XHA5cVhYlUPsGOz5ZJvHwjDf1O28jIpg2T/3LEFWVHDi2ZF
-	kQ4qkpOjiKbLfM9puJe8eb6J52kXsSN8+2UF6p938b5y2l9og6XNJtOI8Viw4/fspNOiNQD8LQD
-	/iBpwrP4A=
-X-Google-Smtp-Source: AGHT+IE7lhgpbqp2YlZulaeqA1+XHpXOd4eA0f7IGybh0TpnDUwIAmIW7XrpRtc0JMZuWxfz77ZcBg==
-X-Received: by 2002:a17:906:16c9:b0:b07:6087:6803 with SMTP id a640c23a62f3a-b0760876abdmr915216966b.21.1757579753096;
-        Thu, 11 Sep 2025 01:35:53 -0700 (PDT)
-Message-ID: <2a1df546-c0b5-4937-9d9f-4d1c58c3e925@suse.com>
-Date: Thu, 11 Sep 2025 10:35:51 +0200
+        d=1e100.net; s=20230601; t=1757581709; x=1758186509;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=MDFSPpfMQx0xouLbfqxGVzwgr6YW2sVDKyq9doRjQQ8=;
+        b=eIWeaIio4ccMy+t+DBSkfmjzqydLXYdjtlYqSJWd93ciqzyEDciG/+qITUxaHHZkLL
+         YJNjC0+fGVCZXOOfX2HGV9/4XeLh6+lqSJeO1bvEO/YkTp0bv/FLtKpwRyIIo6T/g8m4
+         EQrGAhBHjst93Dmvi1BZeLL32OvTLBg7cmnVVbD4tQPk7uEPBE86wl8pQ4G/iQxT5Y3I
+         9r7tQaSJ+zFF+HVqJM9ED+rIpRHhuSCIuFTOCIeL/D5ozjGBv9z24XjaQkeJhtIp8ZGU
+         P9bS2Rs4T1Ypp3wDE9wGJiEdiQfPdi2yCGSOLSxwqqFfAe7wYbhlnEF0CwW6gmcdmo/H
+         8mSQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXphvn47ZjFmtJN0i2EJzRXGlkOTjEmy14SXw3Q9dWBBFj2fWReDzqFml/ypHTYl7Jgvi7EUfDkSlY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwTM0AHVeA9xfWk9WDjgDV6aO66lhKjNY76EWWTjuG5fxDZjrzy
+	qtJB8Huoo+ue7kP1VlVYzD7dJF2OBUial/kG/xOATIEuJ+zmGaYSxzcd8aslUA6u+o9ATAUoK2B
+	KC4sIc3N9yTjbpVcUxyozdaiCv9DQggoRfraFAdOHPw==
+X-Gm-Gg: ASbGncvJbtu1VPJaSrdGiIBl2hFRzdl1+K0v/10hk0/ESb3Wpq6jOpwL9SP9VHm6PNh
+	iZk8qdCMW3BZImlfpXeiwqIThJmaYvCV9rmJ/+PYMyf4JMJzOFgfMCQQKtYZ8uP5D8ESpEsqcRf
+	qIqggotJVH411u4fadJ0Ax7wGDCNtmm17SlHp6WuoqyIKd6e3l5BlyOgP9WWQj4dtI02ypxYvd7
+	Z2C0Llskx2wYjNu/gzqe7eODamDNDlZwf9/EYbGss5FqRfSqC8=
+X-Google-Smtp-Source: AGHT+IGPd+dsNL21jtbwQOdC3WmVh3Qdk+YgrjLNtLVTAAYLhD6qRu5Yn0HiiHDHRgrCQYBZin3ZtpdjMSpeWVNw8hY=
+X-Received: by 2002:a05:690c:30a:b0:723:8ccd:6898 with SMTP id
+ 00721157ae682-727f28e47c9mr200833927b3.10.1757581709260; Thu, 11 Sep 2025
+ 02:08:29 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] efi: Limit Shim's Verify success to EFI_SUCCESS
-To: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
 References: <cover.1757519202.git.gerald.elder-vass@cloud.com>
- <20fa42c198ab257085a49e157a2d0e58a0010393.1757519202.git.gerald.elder-vass@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20fa42c198ab257085a49e157a2d0e58a0010393.1757519202.git.gerald.elder-vass@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <1f7b5737d4b36623af2734d525c895b77fef08fc.1757519202.git.gerald.elder-vass@cloud.com>
+ <48e537f5-2379-4b8d-a9b5-4761225a855a@suse.com>
+In-Reply-To: <48e537f5-2379-4b8d-a9b5-4761225a855a@suse.com>
+From: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+Date: Thu, 11 Sep 2025 10:08:18 +0100
+X-Gm-Features: AS18NWAsH1FBtBbkGK8qbiA5ITlL7LNC_VbNP0JbfHV6I1hu23rQFoA4qyqzDIE
+Message-ID: <CAOJ+D-UY0LC-Bqpa4mFH+o2GKF5h8AFsGdxWYBcLVXGmO_MBFA@mail.gmail.com>
+Subject: Re: [PATCH 2/3] efi: Protect against unnecessary image unloading
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+	Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="00000000000071e38c063e82e1d4"
 
-On 11.09.2025 10:24, Gerald Elder-Vass wrote:
-> Commit 59a1d6d3ea1e replaced the Verify status check with
-> !EFI_ERROR(...), this changed the behaviour to consider any warnings
-> (EFI_WARN_) to be considered a successful verification.
-> 
-> This commit reverts that behaviour change.
+--00000000000071e38c063e82e1d4
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reported-by: Jan Beulich <jbeulich@suse.com>
-Fixes: ...
+>> @@ -1078,11 +1078,12 @@ static void __init efi_verify_kernel(EFI_HANDLE
+ImageHandle)
+>>              verified =3D true;
+>>
+>>          /*
+>> -         * Always unload the image.  We only needed LoadImage() to
+perform
+>> -         * verification anyway, and in the case of a failure there may
+still
+>> -         * be cleanup needing to be performed.
+>> +         * If the kernel was loaded, unload it. We only needed
+LoadImage() to
+>> +         * perform verification anyway, and in the case of a failure
+there may
+>> +         * still be cleanup needing to be performed.
+>>           */
+>> -        shim_loader->UnloadImage(loaded_kernel);
+>> +        if ( loaded_kernel )
+>> +            shim_loader->UnloadImage(loaded_kernel);
+>>      }
+>
+>To me this looks as odd as the earlier unconditional unloading. How would =
+a
+>halfway sane implementation of LoadImage() return an error, but require
+>subsequent cleanup (and set what the last function argument points at to
+>non-NULL)? Unless explicitly specified otherwise, my expectation would be
+>that upon failure loaded_kernel could have any arbitrary value, possibly
+>entirely unsuitable to pass to UnloadImage().
 
-> Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+This is because LoadImage performs the verification step after the loading.
+They are independent operations but the output conflates the two, so we can
+receive a successfully loaded image and an EFI_SECURITY_VIOLATION
+status code, in this particular case the image will need to be unloaded. Th=
+e
+generalised check for the EFI_IMAGE_HANDLE before unloading (as
+opposed to checking this specific status code) protects against any future
+changes in the protocol.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I've linked the specification which states that the ImageHandle is created
+in this particular case.
+https://uefi.org/specs/UEFI/2.10/07_Services_Boot_Services.html#efi-boot-se=
+rvices-loadimage
 
+*Gerald Elder-Vass*
+Senior Software Engineer
+
+XenServer
+Cambridge, UK
+
+On Thu, Sep 11, 2025 at 9:34=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+
+> On 11.09.2025 10:24, Gerald Elder-Vass wrote:
+> > @@ -1078,11 +1078,12 @@ static void __init efi_verify_kernel(EFI_HANDLE
+> ImageHandle)
+> >              verified =3D true;
+> >
+> >          /*
+> > -         * Always unload the image.  We only needed LoadImage() to
+> perform
+> > -         * verification anyway, and in the case of a failure there may
+> still
+> > -         * be cleanup needing to be performed.
+> > +         * If the kernel was loaded, unload it. We only needed
+> LoadImage() to
+> > +         * perform verification anyway, and in the case of a failure
+> there may
+> > +         * still be cleanup needing to be performed.
+> >           */
+> > -        shim_loader->UnloadImage(loaded_kernel);
+> > +        if ( loaded_kernel )
+> > +            shim_loader->UnloadImage(loaded_kernel);
+> >      }
+>
+> To me this looks as odd as the earlier unconditional unloading. How would=
+ a
+> halfway sane implementation of LoadImage() return an error, but require
+> subsequent cleanup (and set what the last function argument points at to
+> non-NULL)? Unless explicitly specified otherwise, my expectation would be
+> that upon failure loaded_kernel could have any arbitrary value, possibly
+> entirely unsuitable to pass to UnloadImage().
+>
+> Jan
+>
+
+--00000000000071e38c063e82e1d4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div></div><div>&gt;<span class=3D"gmail-im">&gt; @@ -1078=
+,11 +1078,12 @@ static void __init efi_verify_kernel(EFI_HANDLE ImageHandle=
+)<br></span>
+&gt;<span class=3D"gmail-im">&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 verified =3D true;<br></span>
+&gt;<span class=3D"gmail-im">&gt;=C2=A0 <br>&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 /*<br>&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* Always un=
+load the image.=C2=A0 We only needed LoadImage() to perform<br>&gt;&gt; -=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* verification anyway, and in the case of=
+ a failure there may still<br>&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*=
+ be cleanup needing to be performed.<br>&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0* If the kernel was loaded, unload it. We only needed LoadImage()=
+ to<br>&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* perform verification a=
+nyway, and in the case of a failure there may<br>&gt;&gt; +=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0* still be cleanup needing to be performed.<br>&gt;&gt;=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>&gt;&gt; -=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 shim_loader-&gt;UnloadImage(loaded_kernel);<br>&gt;&gt; +=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 if ( loaded_kernel )<br>&gt;&gt; +=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 shim_loader-&gt;UnloadImage(loaded_kernel);<br>&gt;&g=
+t;=C2=A0 =C2=A0 =C2=A0 }<br>&gt;<br></span>&gt;To me this looks as odd as t=
+he earlier unconditional unloading. How would a<br>&gt;halfway sane impleme=
+ntation of LoadImage() return an error, but require<br>&gt;subsequent clean=
+up (and set what the last function argument points at to<br>&gt;non-NULL)? =
+Unless explicitly specified otherwise, my expectation would be<br>&gt;that =
+upon failure loaded_kernel could have any arbitrary value, possibly<br>&gt;=
+entirely unsuitable to pass to UnloadImage().<font color=3D"#888888" style=
+=3D"--darkreader-inline-color: var(--darkreader-text-888888, #9d9488);"><br=
+></font></div><div><font color=3D"#888888" style=3D"--darkreader-inline-col=
+or: var(--darkreader-text-888888, #9d9488);"><br></font></div><div>This is =
+because LoadImage performs the verification step after the loading.</div><d=
+iv>They are independent operations but the output conflates the two, so we =
+can</div><div>receive a successfully loaded image and an EFI_SECURITY_VIOLA=
+TION</div><div>status code, in this particular case the image will need to =
+be unloaded. The</div><div>generalised check for the EFI_IMAGE_HANDLE befor=
+e unloading (as</div><div>opposed to checking this specific status code) pr=
+otects against any future</div><div>changes in the protocol.</div><div><br>=
+</div><div>I&#39;ve linked the specification which states that the ImageHan=
+dle is created</div><div>in this particular case.</div><div><a href=3D"http=
+s://uefi.org/specs/UEFI/2.10/07_Services_Boot_Services.html#efi-boot-servic=
+es-loadimage">https://uefi.org/specs/UEFI/2.10/07_Services_Boot_Services.ht=
+ml#efi-boot-services-loadimage</a></div><div></div><div><div dir=3D"ltr" cl=
+ass=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"=
+><div><b><br></b></div><div><b>Gerald Elder-Vass</b></div><div>Senior Softw=
+are Engineer</div><div><br></div><div>XenServer</div><div>Cambridge, UK</di=
+v></div></div></div></div><br><div class=3D"gmail_quote gmail_quote_contain=
+er"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Sep 11, 2025 at 9:34=E2=
+=80=AFAM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse=
+.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex">On 11.09.2025 10:24, Gerald Elder-Vass wrote:<br>
+&gt; @@ -1078,11 +1078,12 @@ static void __init efi_verify_kernel(EFI_HANDL=
+E ImageHandle)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 verified =3D true;<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /*<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* Always unload the image.=C2=A0 We=
+ only needed LoadImage() to perform<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* verification anyway, and in the c=
+ase of a failure there may still<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* be cleanup needing to be performe=
+d.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* If the kernel was loaded, unload =
+it. We only needed LoadImage() to<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* perform verification anyway, and =
+in the case of a failure there may<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* still be cleanup needing to be pe=
+rformed.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 shim_loader-&gt;UnloadImage(loaded_kernel=
+);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ( loaded_kernel )<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 shim_loader-&gt;UnloadImage=
+(loaded_kernel);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
+To me this looks as odd as the earlier unconditional unloading. How would a=
+<br>
+halfway sane implementation of LoadImage() return an error, but require<br>
+subsequent cleanup (and set what the last function argument points at to<br=
+>
+non-NULL)? Unless explicitly specified otherwise, my expectation would be<b=
+r>
+that upon failure loaded_kernel could have any arbitrary value, possibly<br=
+>
+entirely unsuitable to pass to UnloadImage().<br>
+<br>
+Jan<br>
+</blockquote></div>
+
+--00000000000071e38c063e82e1d4--
 
