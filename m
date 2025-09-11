@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 445EBB537F1
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 17:36:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1120464.1465392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F29EFB53809
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Sep 2025 17:42:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1120479.1465403 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwjLP-0007Jp-Nk; Thu, 11 Sep 2025 15:36:19 +0000
+	id 1uwjR6-0000bn-HA; Thu, 11 Sep 2025 15:42:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1120464.1465392; Thu, 11 Sep 2025 15:36:19 +0000
+Received: by outflank-mailman (output) from mailman id 1120479.1465403; Thu, 11 Sep 2025 15:42:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwjLP-0007I4-LC; Thu, 11 Sep 2025 15:36:19 +0000
-Received: by outflank-mailman (input) for mailman id 1120464;
- Thu, 11 Sep 2025 15:36:19 +0000
+	id 1uwjR6-0000Yx-EQ; Thu, 11 Sep 2025 15:42:12 +0000
+Received: by outflank-mailman (input) for mailman id 1120479;
+ Thu, 11 Sep 2025 15:42:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QF+R=3W=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uwjLP-0007Ce-4b
- for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 15:36:19 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060a.outbound.protection.outlook.com
- [2a01:111:f403:2418::60a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dUpj=3W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uwjR5-0000XT-36
+ for xen-devel@lists.xenproject.org; Thu, 11 Sep 2025 15:42:11 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0c2f7502-8f25-11f0-9809-7dc792cee155;
- Thu, 11 Sep 2025 17:36:13 +0200 (CEST)
-Received: from MN2PR11CA0017.namprd11.prod.outlook.com (2603:10b6:208:23b::22)
- by IA0PPF52B16157D.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::bce) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Thu, 11 Sep
- 2025 15:36:10 +0000
-Received: from BL02EPF0001A103.namprd05.prod.outlook.com
- (2603:10b6:208:23b:cafe::7a) by MN2PR11CA0017.outlook.office365.com
- (2603:10b6:208:23b::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.16 via Frontend Transport; Thu,
- 11 Sep 2025 15:36:03 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF0001A103.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9115.13 via Frontend Transport; Thu, 11 Sep 2025 15:36:10 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 11 Sep
- 2025 08:36:09 -0700
+ id e01a9e9a-8f25-11f0-9809-7dc792cee155;
+ Thu, 11 Sep 2025 17:42:08 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-62ed3e929d1so450017a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 08:42:08 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-62ec33ac2c7sm1344908a12.13.2025.09.11.08.42.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Sep 2025 08:42:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,138 +45,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c2f7502-8f25-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IehtMrj6cehdKeo197EpFyMalbFvgv3iKoLSwdW7+Opqv5bj9HSpF1/HSu5kx41LYg7Yyl2aXsfonDgVBmOOj1eTE6NuNyEqXArkKCP3Ji2G12+ECWrdHglpOVshkqV1/JhCw9FUCRVVZX3nUrp/K0GTVGgDH+FAvjO4TEo52wIAeiQjtU1Z3A9GixIPTvcfAy7PrJ8ZkgAD6HKZ7cSzOFhvZvRsALKlYYux/0XC+GnYCsxysacVxBa4XyVtbCNCY/K2XtoEWu4BmRMxeso5pskXlNqyZiD4oIb4sGyKe74vKPv3o0fZPJg1D7QxMz6rLsgtKC6l3qOVolNIDBnDCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ILnfP8RABLb+q0Xa/Rg4y+cxoUVc0GUqnq9+CRWXsBA=;
- b=MjNgoS/RiQq1rcRXaSPycZPKm9Zs8EnG0DmdnBQEU0DxXSsVgFqO8sFfY1z2UauUAzjlBjs4b3BiJfxZVrW5hbxwfvhkXBQqDoknJmHUiLlrbvOLwTxUVGHTQLSZl+U2h+0czaziae8Cw9Pj01A4Fa0bzfVNg/BiB3QxbdRVY1NPXfI/swujYH9LIH9Nl/zR/o7wMmh7aCCLXsnmkTUw+rBrc3unOU/IvU5bMrGHVKL9vcxAUoUbl49bBIgSbpOlaltS0/PxKHRgnhcl1i7prXnCfEHSzPEkqIzx2+z04WiL6pAlFA6qWoZ0BzdQ5bVsaBaqCZhP/RgHGBOl/fiLTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ILnfP8RABLb+q0Xa/Rg4y+cxoUVc0GUqnq9+CRWXsBA=;
- b=JsRwxDI5C4MJI7f3+hvgtsdfxg6QBhpQgLXmmB4btuoRnRowUpoqnOrrabjlb2QLdQOyuHzjiIOVQlxdO9ppvtBWmEk+8rk/7iw7wNNo2aGhJ1qbGFyHypmnE8eynhpmjrUJFIwyplun8heUS3OTiMqo9yHAmJh+hsCmeRlijBM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+X-Inumbo-ID: e01a9e9a-8f25-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1757605328; x=1758210128; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1LfVpQMa8EqWRGQECfp1CNnRonRO/NJ7wxd71Gbpnak=;
+        b=XgJ0wsoEvn9VV4incs+6CPu4na0P+IKeA/+wKQHpF9JA/DgAUiTH4fS18MMSaXCi+f
+         Xvlks76Yywa2zKOSseVPOznBJjxEfnq+ma1C7IsmgMko8wavC1NvZdyuViVD+wKUzzOE
+         5jyYMKPCJPjoyHXgzzFBG1iE3ze1qtogDF+54Am1us3clJ4pJdGcP0szkgAar3cqa2kk
+         sr+1B2tNsSl8GWYQPTHKDWtd4pfjrZ0ByEu9WEZlPuo9jOW9WIfCeRjA2ZQWyRX4iRDO
+         D5yRDa949418PCFj4VRiLblCNbu4IPTpbEZ5yHQMqd2g7ySbU/8f8POIcQs9KmjcHetb
+         DvKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1757605328; x=1758210128;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1LfVpQMa8EqWRGQECfp1CNnRonRO/NJ7wxd71Gbpnak=;
+        b=b27fVAPo3M6y3I2CZ5fe8PtfvNCrz0mgo8ceuSczaD5eYWCJihLj62GieEjTzp6CeN
+         FxY8pbXpnwiKOXopFIyGnld3OQ66z1R1TsafNr+GUPNA+j97+EfMeoXCi7ckPQi9lTb3
+         boW5FujWplteGPevAE2Am3pb9U6HhlBXvQ9MI5F2O8BemfZYKoPOTL6/Ula6HiD03ss5
+         HzArNcjyT5xD3nXt4wQrfOeNn0ivaemFxZ8ryYaI4cA+FFjl90VnmvMbyU9za4fwzCAt
+         yV+IdGf4mjp4mAFL0X2I9Uqukw7m5GABB1mVKtSHIfDImxRZcZ35W781sMYf+las6qHn
+         pSbA==
+X-Forwarded-Encrypted: i=1; AJvYcCWGcX5w8z+XAWx13mSK6HxUICAqwATbFbTjURnny17p6L99q/WiPD3IeAwMCAm2/xe35/CGJxF5hGQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywuu85gN6TkQE5u90nEBfR2SnxZJYrMLU5fWl4t1fCLFVMVxV82
+	Nu6VEnb/uEartvoNVsM5zmj+VaKuB8VV5hLiVj0mJRky+HFxpB5fdlGpuYD4tWLi18Gjx0HsSRt
+	phps=
+X-Gm-Gg: ASbGnctj1k48277Fj6LIfcDPz0YxbHw2np+oeBGr6W0ypMyp5+8GSM6MDE8w4bmHrVg
+	CugU+/KCx4R/AjcUZ4NzBhxIULmx8EGI+kgrnykzp36dnQMenNSBAGqTwa2Zdtsc54kvWRD8THz
+	YiSVPeJvrV5GaRs0TAMhH9cNtxbSMaoU16S6M1uUaTFO9SxOyWYAH7lGQ+xdJ4DqBZbjQSFFfxH
+	+3FMbByoqA4WtNOld85nV5fmaDf0lLr59rYOZk+Ka9bqso6rpTM/TUh08bcM16leTyG72Psz+tn
+	4+pDOAPHWHdWxHzW3gCE+XEZsoyQ+fVm7IKtpxgwJsmTWjkWZzQinAnBXj3526KvFxfFf5e+ZH9
+	RLz+1wICIMUUmoccSMBW6E46QuZSg4zh5CUg+NAnpbnjSGcAfH8NDKrb9QbkY1nTYQgkTFNUuPD
+	EYihCyXWZ1s/ouuFiILw==
+X-Google-Smtp-Source: AGHT+IFQhaENGZCXxoeYFng5B5MFF8qjfOY/nRI9OzP/MMktsTVOeXQSduRjOVooeVq9HKd1e/NEjQ==
+X-Received: by 2002:a05:6402:23d5:b0:62b:e4d1:1192 with SMTP id 4fb4d7f45d1cf-62ed823facamr39569a12.4.1757605327938;
+        Thu, 11 Sep 2025 08:42:07 -0700 (PDT)
+Message-ID: <df2fe4ca-931a-4a4d-8b1b-f49415e7d8e8@suse.com>
+Date: Thu, 11 Sep 2025 17:42:06 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 11 Sep 2025 17:36:08 +0200
-Message-ID: <DCQ2YNMO668H.CG938HPXECLC@amd.com>
-CC: Anthony PERARD <anthony.perard@vates.tech>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2 2/2] libacpi: Remove CPU hotplug and GPE handling
- from PVH DSDTs
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-X-Mailer: aerc 0.20.1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] libacpi: Prevent CPU hotplug AML from corrupting
+ memory
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
+ xen-devel@lists.xenproject.org
 References: <20250911115308.16580-1-alejandro.garciavallejo@amd.com>
- <20250911115308.16580-3-alejandro.garciavallejo@amd.com>
- <daf8c564-80ff-4480-97b4-7c86206ba36e@suse.com>
-In-Reply-To: <daf8c564-80ff-4480-97b4-7c86206ba36e@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A103:EE_|IA0PPF52B16157D:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e5acaa8-ab95-48e9-e22f-08ddf148ef17
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?aThxbGcxZks4aG9xcThhSnVEejlGanppNkw3U0c0QmhWcHVWcThmcFNDNmZZ?=
- =?utf-8?B?OXA2KzRnd3JuRmE3SHBnSnNMZGUrQjV1WnBZcS9BYjVsbXYwTjF1VkFwN2p3?=
- =?utf-8?B?VnhRQVRDTFF2OFZWaURnRFFmY2txMnBHbzZrOW1wQmRja3NqUC9jWm9xeWN4?=
- =?utf-8?B?NmFKVE14V2hIc0ROaERTWW15L2RDdnE5K2tES3hwTEhzV0Z6ZHd0cHBQdnlw?=
- =?utf-8?B?eHFJb0owSDlwazdTTU5RNzdVS2k5bVNOY3BUMFNVaXlDNHViMDEwSzdmb0Vm?=
- =?utf-8?B?a1V0WWUzU1Z2eDd5MlY5T1B4NTJHQU1zT0VWWUNlV0MyOVN2ZVlTeWx2MUFa?=
- =?utf-8?B?a2w5STY0ZktIM2tIZGlUaFowVlhGdHNMMnZSVmh4dStOeVZwaVNjSFRLVFlr?=
- =?utf-8?B?UjU2WW5UWm5rQU1Ta3U5Nyt2VjlCTnFmTzZZbWRkcU1OKy94OW9YekdnNEVQ?=
- =?utf-8?B?b21NbmR3cUU0UGZBVm5KdnZxbnBEV2FZcm1RbFF1RjBJRFRLR0JWRnU4bTZk?=
- =?utf-8?B?T1Fob1VPU0QyUXhVcUt5RkhSUktHTEhxREhCVWQ3MjBCbkwxRVVzaVhXcTNH?=
- =?utf-8?B?d2FoV1BEbTdDOGlORTU3Vlpib0FkRTc1UVdKb1cyRDRMZXVoL3RJV2didzVZ?=
- =?utf-8?B?Sm00ZnlzNzVZZmtTTmRrbGRveW1Mb1hadE5wditUR2JZajFEMnJTRmRzOUF5?=
- =?utf-8?B?S1NXdm9HaDlTeHh4UnFkWEYzQTRGSEx5ZXd1eGRQM0JqbW4zVkExckl6a1FF?=
- =?utf-8?B?RC9DY2VzZnRTZzRvb1h0THZ5SitadUpLREs0WEhXTnRzR0MwSFcwaDA0cEVk?=
- =?utf-8?B?aGFsV3NQNGZXdi8rQVNPUm1NWlg0REtPaGpYdFgveGc1MjhUcFBvU2cxTXJl?=
- =?utf-8?B?YkVaNlFyOW52RU4yODVGUWp1VkxHTURGR1VJWFVSdHNIUVBWQ0IwaFFMdkhT?=
- =?utf-8?B?ZnlMbnVJV2cyU0xSNE9aWER6RFBTMm9RK0o2UUpxYzlNNmhPb21wcFJCRnNG?=
- =?utf-8?B?dzdZVWN0aWV4MUx5RitJeUJCS3NieFJhVW5RdVBFckF5OVJIZUxIOUhneS9h?=
- =?utf-8?B?R3V0REZoK3hnUWZlcGFQOUF2NkhlNi9LdlJOclhjMFE3ckpEblVYY0svUkFk?=
- =?utf-8?B?R2ExbEdiWlREOE5iUzJCNExOZldudURFM09vVjFhWFhpRDZGV29YbS9FdGFI?=
- =?utf-8?B?N3RWclRNYnhYd1JTVnQxWlpBa0hnWVV0SkRXbTV0c3dCSTNtcjJLVis1STRz?=
- =?utf-8?B?RVQvNjBIbGxqbmV5YjJwNkJIdWN6amszMVhEQTY3NTRGL3pDSnRqUURnU3JD?=
- =?utf-8?B?bVpGdlR4UEFOTHdIYUVVL2I1bVhWMmlHckdCSjFTaXBWK0N6dkVwbDJMekY4?=
- =?utf-8?B?QkF4RE5DSUJWSnQ3VGJ3QVF2OEN0SXdLWk1hRXdMQmVSWFpaRTVYaWVxQzQy?=
- =?utf-8?B?SEdxUm1xakdMT1M1KzNIdlY1RU83L3dNV0o1a0Z0UThDcDh5NStsc2Z5ZU9B?=
- =?utf-8?B?SldoVCtJbUNUNTFxbUNZUU9ZendzdmJHUC9QUWJSTWx5RlRBUzdsbmxGeXJx?=
- =?utf-8?B?b0JSVlh3UFgza2tEUkJZY3FUZ29RTlJDcThiTGd3a0pZZFlRd0ZhWWEwSXd4?=
- =?utf-8?B?b01JZmxORzBhblliY0ttelRqNmY3QnplbFBmTEplZFVqd2JEMEpDdTBLZnVv?=
- =?utf-8?B?TDJLQXpzSEVqSkVxTk9teGUwU0hmNEs3NS9DbjZ1dHI0c1RmRUllWFhDcW9G?=
- =?utf-8?B?UllnRDgva2loNEdiN1JRVDMrN1ZlK2dENmsrb1V4cVZzbTczVmJnNVFyc3pn?=
- =?utf-8?B?aXRBSUJMeXBDcHFaQitsUUNHaHVVUGJMcFd1cVBBcjd5cDBlamtHSVBEazRF?=
- =?utf-8?B?d1QxRDBGaUd5R2NpLzg5c0VURGdidU1od2U5TStlLzFPK0wweDl1SERYMG9C?=
- =?utf-8?B?dlU3RkRocjI2aFYzR3FwMTVxUytsc3BJWVdCMFRLbXlvcCtPcGZOM1dHMXlB?=
- =?utf-8?B?dEo4WUhqdEhpQ1c0SmxVZ0tZdUxyL3hZODZXRnZwbFFXRnFGVTE0SlF4L2ZT?=
- =?utf-8?Q?rsfply?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2025 15:36:10.7312
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e5acaa8-ab95-48e9-e22f-08ddf148ef17
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A103.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF52B16157D
+ <20250911115308.16580-2-alejandro.garciavallejo@amd.com>
+ <a62ce5aa-6f2e-457b-bf4b-49e6b7f6eb7a@suse.com>
+ <DCQ2VHRX64BT.OC19LF2SJXFV@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <DCQ2VHRX64BT.OC19LF2SJXFV@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu Sep 11, 2025 at 5:07 PM CEST, Jan Beulich wrote:
-> On 11.09.2025 13:53, Alejandro Vallejo wrote:
->> PVH guests have no DM, so this causes the guest to fetch the online CPU
->> bitmap from an unbacked 0xaf00 PIO port when executing the GPE handler.
->>=20
->> Seeing how ACPI CPU hotplug is the only event delivered via GPE, remove
->> the GPE handler in addition to anything ACPI CPU hotplug related.
->>=20
->> This shrinks PVH's DSDT substantially and prevents spuriously executing
->> a large amount of AML with no purpose at all.
->>=20
->> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On 11.09.2025 17:32, Alejandro Vallejo wrote:
+> On Thu Sep 11, 2025 at 4:52 PM CEST, Jan Beulich wrote:
+>> On 11.09.2025 13:53, Alejandro Vallejo wrote:
+>>> CPU hotplug relies on the online CPU bitmap being provided on PIO 0xaf00
+>>> by the device model. The GPE handler checks this and compares it against
+>>> the "online" flag on each MADT LAPIC entry, setting the flag to its
+>>> related bit in the bitmap and adjusting the table's checksum.
+>>>
+>>> The bytecode doesn't, however, stop at NCPUS. It keeps comparing until it
+>>> reaches 128, even if that overflows the MADT into some other (hopefully
+>>> mapped) memory. The reading isn't as problematic as the writing though.
+>>>
+>>> If an "entry" outside the MADT is deemed to disagree with the CPU bitmap
+>>> then the bit where the "online" flag would be is flipped, thus
+>>> corrupting that memory. And the MADT checksum gets adjusted for a flip
+>>> that happened outside its range. It's all terrible.
+>>>
+>>> Note that this corruption happens regardless of the device-model being
+>>> present or not, because even if the bitmap holds 0s, the overflowed
+>>> memory might not at the bits corresponding to the "online" flag.
+>>>
+>>> This patch adjusts the DSDT so entries >=NCPUS are skipped.
+>>>
+>>> Fixes: c70ad37a1f7c("HVM vcpu add/remove: setup dsdt infrastructure...")
+>>
+>> The code in question originates from e5dc62c4d4f1 ("hvmloader: Fix CPU
+>> hotplug notify handler in ACPI DSDT"), though. Before that there was a
+>> different issue (as mentioned in the description).
+> 
+> As you mentioned elsewhere, it probably is 087543338924("hvmloader: limit CPUs
+> exposed to guests") that matters. Until then the DSDT was correct.
+> 
+>>
+>>> --- a/tools/libacpi/mk_dsdt.c
+>>> +++ b/tools/libacpi/mk_dsdt.c
+>>> @@ -239,7 +239,8 @@ int main(int argc, char **argv)
+>>>          /* Extract current CPU's status: 0=offline; 1=online. */
+>>>          stmt("And", "Local1, 1, Local2");
+>>>          /* Check if status is up-to-date in the relevant MADT LAPIC entry... */
+>>> -        push_block("If", "LNotEqual(Local2, \\_SB.PR%02X.FLG)", cpu);
+>>> +        push_block("If", "And(LLess(%d, NCPU), LNotEqual(Local2, \\_SB.PR%02X.FLG))",
+>>> +                   cpu, cpu);
+>>
+>> Don't we need to use \\_SB.NCPU here? From the other two uses it's not
+>> quite clear; it might also be that the one using this form is actually
+>> needlessly doing so. Yet here it may be better if only for consistency's
+>> sake, as the LNotEqual() also operates on an absolute reference.
+> 
+> \SB.PMAT method does the same thing. I'll just change that too while at it.
+> 
+>> The other thing is that I'm not fluent in AML operand evaluation rules.
+>> We want to avoid even the read access to FLG, and I'm unconvinced And()
+>> will avoid evaluating its 2nd argument when the first one is 0. IOW this
+>> may need to become a 2nd "If".
+> 
+> I don't think there are any rules, it's unspecified. While in practice it
+> wouldn't matter a lot, it's indeed better not to rely on it not blowing up.
+> 
+> After sending this, I wondered about having a separate if with an early return.
+> 
+>>
+>> I further think that strictly speaking you mean LAnd() here, not And()
+>> (but the above concern remains; all the ASL spec says is "Source1 and
+>> Source2 are evaluated as integers" for both And() and LAnd()).
+> 
+> I very definitely did mean LAnd! Nice catch. As for 
+> 
+>>
+>> Jan
+> 
+> TL;DR: Will s/And/LAnd/ and move it to a separate If
 
-Thanks
+Except that once you use a separate If, no And() or LAnd() will be needed
+anymore.
 
->
->> ---
->> v2:
->>   * Adjusted commit message
->>   * All other tags except S-by moved to patch 1.
->
-> This will want backporting; I expect finding a suitable commit for a Fixe=
-s:
-> tag is somewhat difficult.
->
-> Jan
-
-I'd say it's the patch that needlessly enabled GPE handling on PVH.
-
-Fixes: 062975dc9441("acpi: PVH guests need _E02 method")
-
-Cheers,
-Alejandro
+Jan
 
