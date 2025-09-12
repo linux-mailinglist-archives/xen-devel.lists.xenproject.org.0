@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC11EB5534B
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Sep 2025 17:26:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1122232.1466071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1049B553BF
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Sep 2025 17:35:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1122264.1466081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ux5ee-0006jK-Tx; Fri, 12 Sep 2025 15:25:40 +0000
+	id 1ux5oD-00005e-Of; Fri, 12 Sep 2025 15:35:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1122232.1466071; Fri, 12 Sep 2025 15:25:40 +0000
+Received: by outflank-mailman (output) from mailman id 1122264.1466081; Fri, 12 Sep 2025 15:35:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ux5ee-0006hK-RB; Fri, 12 Sep 2025 15:25:40 +0000
-Received: by outflank-mailman (input) for mailman id 1122232;
- Fri, 12 Sep 2025 15:25:39 +0000
+	id 1ux5oD-0008Us-M0; Fri, 12 Sep 2025 15:35:33 +0000
+Received: by outflank-mailman (input) for mailman id 1122264;
+ Fri, 12 Sep 2025 15:35:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=66U7=3X=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1ux5ed-0006hE-KO
- for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 15:25:39 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id bbaf3a8c-8fec-11f0-9d13-b5c5bf9af7f9;
- Fri, 12 Sep 2025 17:25:37 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E94328AC;
- Fri, 12 Sep 2025 08:25:28 -0700 (PDT)
-Received: from [10.57.66.147] (unknown [10.57.66.147])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 301DA3F694;
- Fri, 12 Sep 2025 08:25:29 -0700 (PDT)
+ <SRS0=TRZT=3X=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1ux5oC-0008Su-BP
+ for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 15:35:32 +0000
+Received: from fhigh-a5-smtp.messagingengine.com
+ (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1ce3f907-8fee-11f0-9d13-b5c5bf9af7f9;
+ Fri, 12 Sep 2025 17:35:30 +0200 (CEST)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 4F04B1400459;
+ Fri, 12 Sep 2025 11:35:29 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Fri, 12 Sep 2025 11:35:29 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 12 Sep 2025 11:35:27 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,143 +44,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbaf3a8c-8fec-11f0-9d13-b5c5bf9af7f9
-Message-ID: <338ef811-1dab-4c4e-bc5f-8ebd8cb68435@arm.com>
-Date: Fri, 12 Sep 2025 17:25:27 +0200
+X-Inumbo-ID: 1ce3f907-8fee-11f0-9d13-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1757691329;
+	 x=1757777729; bh=N878IgmG87czFFaXvhNllDFTWf5isiDCSYiZ1CojGH8=; b=
+	UgwaAVgjfldmkQVJc9M5MLmxXgoajhU9j9bdi+p+QygNfRqnTlRwUDbPJomZMZ5u
+	lGxPExOpU72Poqx1P4IlSCI78d38gPnMVltUMRkAZoaVs2LI/4ltZgwI4KsXHMP2
+	AJmY2a9rxdVef4q6dp9DaeOyfSaGtT735FA58FpLm7jgkHBKseXzbZK6TelHZHKd
+	YZfZBISyrQvgHuUWtA0yxSFV9rR9iY4AaIpYPgl8BENu3tjbhiym+MYGGpEy4xtu
+	AqXr93mDFkGzH+kPU/HiYjfeLWmKzNM86Sr+ePwvPIfnGDS6UDPjEttq9sjFby1a
+	zNApuMknRC+fkejNynoTqA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1757691329; x=1757777729; bh=N878IgmG87czFFaXvhNllDFTWf5isiDCSYi
+	Z1CojGH8=; b=b5W/wOIshuYHkwx8n2Z8VmVN1j1s2suZH2QBxp1NPZ81/Hlb+9X
+	mN8Xw4J4ZPknuHM3YT3/W0sHuIzkyBN5pK+3s664rnqZJX8P1BsTinUCWqKHKgyy
+	jKPwm8335hKdydxW3db8s/vFpZvZmsA/ZdmPgCJsxat94J48Gv9/YxbO824qzrG9
+	Fv1YJfnIC7Yj8QDlJPtgRR8dJb4fJ4tvfutH1i2apRKCGNV4zWnzCnw8w1iUqITL
+	nFZfi2Fc9iQcbHwzk3AqGZS2g4+RHdybbRjYbmBlU0aF4xFTx2Xta54EDEjZ+QTy
+	sL6eVZdxOqFw+/9aWeMDxJjM/j0hE9yV3uQ==
+X-ME-Sender: <xms:wD3EaKC_jwqne_PMUu7nUhfHHOlqKOIcjDCRv8fx1f79f9jXam-rwA>
+    <xme:wD3EaI6QL9Vx-RIVBcsjm-9PIKOMe8uUl5hjROY6kfrCkgj6A84RCab7XKkkO7kE0
+    -v33efIZzm0lQ>
+X-ME-Received: <xmr:wD3EaLddthoIXoAeudYF4af_TrK0Wp5jFVVui_hVPUXH9GcSGBzbnbmxnSaJf3bVGOEdbfl6O5OogKIuPRhZAkMjHIaRdl890-4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvleegfecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
+    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteef
+    vefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvg
+    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
+    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeduvddpmh
+    houggvpehsmhhtphhouhhtpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegt
+    ihhtrhhigidrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvg
+    hnphhrohhjvggtthdrohhrghdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghruges
+    vhgrthgvshdrthgvtghhpdhrtghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgurd
+    gtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthho
+    pehjuhhlihgvnhesgigvnhdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegtih
+    htrhhigidrtghomhdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdr
+    ohhrghdprhgtphhtthhopehsrghnrghsthgrshhiohesrhgrphhtohhrvghnghhinhgvvg
+    hrihhnghdrtghomh
+X-ME-Proxy: <xmx:wD3EaGvnFpXKcVSQshG693gw1ZHM8cYh7fs_pPp7RbcOU3gFhPPGpw>
+    <xmx:wD3EaDl8TVq3PGrvu7tl2x4k8w1gX0V3DEu2qhQmhvOVZNUKA-UjiA>
+    <xmx:wD3EaBQovsz7XKfxslDPvRLxkEJwSiT6jnrZ7Z2EsGXHVI9xR-a_9w>
+    <xmx:wD3EaBKH06Flom2ZzMXqNAaxaVmrL_G7qdMWIYmF1To5DLdOWway-w>
+    <xmx:wT3EaBk-KhioibomfWFFC6OpLjCAYzDOLPKJ5AcBr-M9A4hSdqiVyq51>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 12 Sep 2025 17:35:25 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Victor Lira <victorm.lira@amd.com>
+Subject: Re: [PATCH v4 6/8] CI: Use pipefail in scripts/build
+Message-ID: <aMQ9vSyPN2se3r6J@mail-itl>
+References: <20250912144427.1905141-1-andrew.cooper3@citrix.com>
+ <20250912144427.1905141-7-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Subject: Re: [PATCH v2 0/7] Nesting support for lazy MMU mode
-To: David Hildenbrand <david@redhat.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Andreas Larsson <andreas@gaisler.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
- Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
- Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
- <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
- Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
- Mark Rutland <Mark.Rutland@arm.com>
-References: <20250908073931.4159362-1-kevin.brodsky@arm.com>
- <20250908191602.61160a7990b9ea418de758c7@linux-foundation.org>
- <d1b4ff2a-052f-4556-91ae-273962edbed0@redhat.com>
-Content-Language: en-GB
-In-Reply-To: <d1b4ff2a-052f-4556-91ae-273962edbed0@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="q81WF+hWZXgVrHl1"
+Content-Disposition: inline
+In-Reply-To: <20250912144427.1905141-7-andrew.cooper3@citrix.com>
 
-On 09/09/2025 11:21, David Hildenbrand wrote:
-> On 09.09.25 04:16, Andrew Morton wrote:
->> On Mon,  8 Sep 2025 08:39:24 +0100 Kevin Brodsky
->> <kevin.brodsky@arm.com> wrote:
->>
->>> The main change enabling nesting is patch 2, following the approach
->>> suggested by Catalin Marinas [4]: have enter() return some state and
->>> the matching leave() take that state.
->>
->> This is so totally the correct way.  Thanks.
->
-> Staring at this, I wonder if we could alternatively handle it like
-> pagefault_disable()/pagefault_enable(), having something like
-> current->lazy_mmu_enabled.
->
-> We wouldn't have to worry about preemption in that case I guess
-> (unless the arch has special requirements).
->
-> Not sure if that was already discussed, just a thought. 
 
-Based on the outcome of the discussion with David on patch 2 [1p], there
-is indeed an alternative approach that we should seriously consider. In
-summary:
+--q81WF+hWZXgVrHl1
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Sep 2025 17:35:25 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Victor Lira <victorm.lira@amd.com>
+Subject: Re: [PATCH v4 6/8] CI: Use pipefail in scripts/build
 
-* Keep the API stateless, handle nesting with a counter in task_struct
-* Introduce new functions to temporarily disable lazy_mmu without
-impacting nesting, track that with a bool in task_struct (addresses the
-situation in mm/kasan/shadow.c and possibly some x86 cases too)
-* Move as much handling from arch_* to generic functions
+On Fri, Sep 12, 2025 at 03:44:25PM +0100, Andrew Cooper wrote:
+> Marek noticed that some builds were failing with:
+>=20
+>   + cd dist/install
+>   + find
+>   + cpio -R 0:0 -o -H newc
+>   ./automation/scripts/build: line 111: cpio: command not found
+>   + gzip
+>=20
+> but succeeding overall, and producing a zero length xen-tools.cpio.gz as =
+an
+> artefact.
+>=20
+> In fact, it's all of:
+>=20
+>   archlinux:current
+>   debian:12-x86_32
+>   fedora:41
+>   opensuse:tumbleweed
+>   ubuntu (all versions)
+>=20
+> Add cpio into all of these containers, including opensuse leap for good
+> measure, and use pipefail in the build script.
+>=20
+> Fixes: 4611ae6fb8f9 ("CI: save toolstack artifact as cpio.gz")
+> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
+=2Ecom>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-What the new generic infrastructure would look like:
+Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
+om>
 
-struct task_struct {
-    ...
-#ifdef CONFIG_ARCH_LAZY_MMU
-    struct {
-        uint8_t count;
-        bool enabled; /* or paused, see below */
-    } lazy_mmu_state;
-#endif
-}
 
-* lazy_mmu_mode_enable():
-    if (!lazy_mmu_state.count) {
-        arch_enter_lazy_mmu_mode();
-        lazy_mmu_state.enabled = true;
-    }
-    lazy_mmu_state.count++;
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-* lazy_mmu_mode_disable():
-    lazy_mmu_count--;
-    if (!lazy_mmu_state.count) {
-        lazy_mmu_state.enabled = false;
-        arch_leave_lazy_mmu_mode();
-    } else {
-        arch_flush_lazy_mmu_mode();
-    }
+--q81WF+hWZXgVrHl1
+Content-Type: application/pgp-signature; name=signature.asc
 
-* lazy_mmu_mode_pause():
-    lazy_mmu_state.enabled = false;
-    arch_leave_lazy_mmu_mode();
+-----BEGIN PGP SIGNATURE-----
 
-* lazy_mmu_mode_resume();
-    arch_enter_lazy_mmu_mode();
-    lazy_mmu_state.enabled = true;
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmjEPb0ACgkQ24/THMrX
+1ywHqgf/cd7wMyXHKnPl3O9dGa6YrPxBuG5mLXrbhzxrtTCl1MumRuPdIgHSy9b3
+HsXdnjgkxijEXtjjdsqd/t+SXh0bU0AuAS6qsRRMp8fMG045cCjLSaVQCx3Vrai5
+cucpsHUlh3TK2VsAmMmiOCGC0kAPX7LgEEJPYSBzqlyfG0JTl8XbxegS5/NmDnRq
+QSpZxUrnFKBoIY4G9XtXflHJEvNql2KaosTd7te+CLBPPec6G0WRTDRsxZvfTsXk
+lq9gEgOXDQDs5NT54CiZZrAUpkb+DvY6blRRECS+UeufQCERClecNn/pVoBxC1Nn
+m26vLddf9hBGvoyDAYt+LhSQNVxrrA==
+=9W0q
+-----END PGP SIGNATURE-----
 
-The generic enable()/disable() helpers are able to handle most of the
-logic, leaving only truly arch-specific code to the arch callbacks:
-* Updating lazy_mmu_state
-* Sanity checks on lazy_mmu_state (e.g. count underflow/overflow,
-pause()/resume() only called when count > 0, etc.)
-* Bailing out if in_interrupt() (not done consistently across arch's at
-the moment)
-
-A further improvement is to make arch code check lazy_mmu_state.enabled
-to determine whether lazy_mmu is enabled at any given point. At the
-moment every arch uses a different mechanism, and this is an occasion to
-make them converge.
-
-The arch callback interface remains unchanged, and we are resurrecting
-arch_flush_lazy_mmu_mode() to handle the nested disable() case (flushing
-must happen when exiting a section regardless of nesting):
-
-enable() -> arch_enter()
-    enable() -> [nothing]
-    disable() -> arch_flush()
-disable() -> arch_leave()
-
-Note: lazy_mmu_state.enabled (set whenever lazy_mmu is actually enabled)
-could be replaced with lazy_mmu_state.paused (set inside a
-pause()/resume() section). I believe this is equivalent but the former
-is slightly more convenient for arch code - to be confirmed in practice.
-
-Any thoughts on this? Unless there are concerns, I will move towards
-that approach in v3.
-
-- Kevin
-
-[1p]
-https://lore.kernel.org/all/4aa28016-5678-4c66-8104-8dcc3fa2f5ce@redhat.com/t/#u
-
+--q81WF+hWZXgVrHl1--
 
