@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C7CAB55957
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Sep 2025 00:39:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1122722.1466250 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04D32B55972
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Sep 2025 00:43:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1122740.1466260 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uxCPy-00007F-Dm; Fri, 12 Sep 2025 22:38:58 +0000
+	id 1uxCUD-0001jJ-1R; Fri, 12 Sep 2025 22:43:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1122722.1466250; Fri, 12 Sep 2025 22:38:58 +0000
+Received: by outflank-mailman (output) from mailman id 1122740.1466260; Fri, 12 Sep 2025 22:43:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uxCPy-000053-AT; Fri, 12 Sep 2025 22:38:58 +0000
-Received: by outflank-mailman (input) for mailman id 1122722;
- Fri, 12 Sep 2025 22:38:56 +0000
+	id 1uxCUC-0001gk-V9; Fri, 12 Sep 2025 22:43:20 +0000
+Received: by outflank-mailman (input) for mailman id 1122740;
+ Fri, 12 Sep 2025 22:43:19 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uxCPw-00004w-Rp
- for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 22:38:56 +0000
+ (envelope-from <julien@xen.org>) id 1uxCUB-0001ge-OU
+ for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 22:43:19 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uxCPw-006fOu-0k;
- Fri, 12 Sep 2025 22:38:56 +0000
+ (envelope-from <julien@xen.org>) id 1uxCU7-006fTv-0h;
+ Fri, 12 Sep 2025 22:43:15 +0000
 Received: from [2a02:8012:3a1:0:95d0:d8bb:cf45:58c2]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uxCPw-006Ebm-0Z;
- Fri, 12 Sep 2025 22:38:55 +0000
+ (envelope-from <julien@xen.org>) id 1uxCU7-006F49-0h;
+ Fri, 12 Sep 2025 22:43:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,80 +42,86 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=/UZytuTqwTQZKP0akQ05+kyvh35/kIXdYoAHrinw1Hg=; b=6pxpQZcKLTGGmNSYdccGMuIEHO
-	qJ14wpzJRUbTN3CL0dXfuUI9mOXyqiDMmYU8nWP6P95nEAEJbM8sQA/rGKqPmKptQD0ZeJvy9NRsW
-	SPeOkjmlqUWWzdaUaDeIne5yKgCJGFRa7tLbqg4wJXlxU+Xie9oN6ymizZcmRjqi8+ic=;
-Message-ID: <86aec3a8-a4aa-40e4-9542-9d291c2c119e@xen.org>
-Date: Fri, 12 Sep 2025 23:38:53 +0100
+	bh=lsSS3bXDr65K5UWTyDadFhlbxDaP5BEzvQcAZse4Rsw=; b=nV/9eR8Qngj4UToEdoOP9NigF+
+	uzANHeUw7jr+apEgnZaJFooaIkg/deM0RvpGNFDb1QGZsz+svIPeVWmn409K+Jj9HN+lh7+JYo6cY
+	4Eh/gRkBcXQpvP0qdydS2i7R6LRUf9lS6+MRsF4fOU/JVXICNIF31wHd1UWSEaGzX1Cs=;
+Message-ID: <212f3043-bfd1-4c84-bce4-ed98648aa880@xen.org>
+Date: Fri, 12 Sep 2025 23:43:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v13 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for
  guests
 Content-Language: en-GB
-To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
+To: Mykola Kvach <xakep.amatop@gmail.com>, Jan Beulich <jbeulich@suse.com>
 Cc: Mykola Kvach <mykola_kvach@epam.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <cover.1756803419.git.mykola_kvach@epam.com>
  <53cc6a9cf7a73d12c632bf8b8eee2f7069e6b0f1.1756803419.git.mykola_kvach@epam.com>
+ <28e78684-ff7b-4902-89cd-c341ba236d57@suse.com>
+ <CAGeoDV_LpUjV5ctZDE7-Z8Nb5mQgOBT2vFaLwidxNqqMM1B8qw@mail.gmail.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <53cc6a9cf7a73d12c632bf8b8eee2f7069e6b0f1.1756803419.git.mykola_kvach@epam.com>
+In-Reply-To: <CAGeoDV_LpUjV5ctZDE7-Z8Nb5mQgOBT2vFaLwidxNqqMM1B8qw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Mykola,
+Hi,
 
-On 02/09/2025 10:03, Mykola Kvach wrote:
-> @@ -880,6 +883,40 @@ void arch_domain_creation_finished(struct domain *d)
->       p2m_domain_creation_finished(d);
->   }
->   
-> +int arch_domain_resume(struct domain *d)
-> +{
-> +    int rc;
-> +    typeof(d->arch.resume_ctx) *ctx = &d->arch.resume_ctx;
+On 02/09/2025 18:55, Mykola Kvach wrote:
+>>> --- a/xen/include/xen/domain.h
+>>> +++ b/xen/include/xen/domain.h
+>>> @@ -8,6 +8,10 @@
+>>>
+>>>   #include <public/xen.h>
+>>>
+>>> +#if __has_include(<asm/suspend.h>)
+>>> +#include <asm/suspend.h>
+>>> +#endif
+>>> +
+>>>   struct guest_area {
+>>>       struct page_info *pg;
+>>>       void *map;
+>>> @@ -109,6 +113,13 @@ int arch_domain_soft_reset(struct domain *d);
+>>>
+>>>   void arch_domain_creation_finished(struct domain *d);
+>>>
+>>> +#if !__has_include(<asm/suspend.h>)
+>>> +static inline int arch_domain_resume(struct domain *d)
+>>> +{
+>>> +    return 0;
+>>> +}
+>>> +#endif /* !__has_include(<asm/suspend.h>) */
+>>> +
+>>>   void arch_p2m_set_access_required(struct domain *d, bool access_required);
+>>>
+>>>   int arch_set_info_guest(struct vcpu *v, vcpu_guest_context_u c);
+>>
+>> Imo it would be preferable to have such in a single #if/#else. There's nothing
+>> wrong with an #include not sitting at the very top.
+> 
+> I understand that includes can be placed near where something from the
+> header is used. However, I find it more natural to keep them together
+> in a single location.
 
-I know this is v13, but I don't think we should use typeof() is in this 
-context. "struct resume_info" is much shorter and help the review (I 
-don't have to grep resume_ctx to figure out the type).
+It is not always possible to keep all includes together. I also have a 
+slight preference to Jan suggestion because we don't have multiple "#if 
+__has_include(<asm/suspend.h>)" which I find rather ugly but necessary.
 
-> +
-> +    if ( !d->is_shutting_down || d->shutdown_code != SHUTDOWN_suspend )
-> +    {
-> +        dprintk(XENLOG_WARNING,
-> +                "%pd: Invalid domain state for resume: is_shutting_down=%d, shutdown_code=%d\n",
-> +                d, d->is_shutting_down, d->shutdown_code);
-> +        return -EINVAL;
-> +    }
-> +
-> +    /*
-> +     * It is still possible to call domain_shutdown() with a suspend reason
-> +     * via some hypercalls, such as SCHEDOP_shutdown or SCHEDOP_remote_shutdown.
-> +     * In these cases, the resume context will be empty.
-> +     * This is not expected to cause any issues, so we just warn about the
-> +     * situation and return without error, allowing the existing logic to
-> +     * proceed as expected.
+> 
+>>
+>> (Another question is whether to put this in xen/domain.h at all. There could
+>> be a xen/suspend.h having - for now at least - just this and nothing else.)
+> 
+> With this approach, I don’t need to move the include to the middle of
+> the file.
 
-I think this odd to warn if something is expected. It would be best to 
-use "XENLOG_INFO".
-
-> +     */
-> +    if ( !ctx->wake_cpu )
-> +    {
-> +        dprintk(XENLOG_WARNING, "%pd: Invalid wake CPU pointer for resume\n",
-
-As you wrote above, there is nothing wrong. So "Invalid" is not correct. 
-I think a better wording is "Wake CPU pointer context was not provided").
-
-Also note that dprintk() will be a NOP in release build. I am guessing 
-this is intended?
-
-I will answer you Jan's comment separately. The rest looks good to me.
+A new suspend.h file would also work for me.
 
 Cheers,
 
