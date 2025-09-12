@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73935B543C4
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Sep 2025 09:24:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1121508.1465758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2494B543CE
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Sep 2025 09:26:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1121522.1465767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwy8U-0006RD-N1; Fri, 12 Sep 2025 07:23:58 +0000
+	id 1uwyAz-00076L-54; Fri, 12 Sep 2025 07:26:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1121508.1465758; Fri, 12 Sep 2025 07:23:58 +0000
+Received: by outflank-mailman (output) from mailman id 1121522.1465767; Fri, 12 Sep 2025 07:26:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwy8U-0006O4-KS; Fri, 12 Sep 2025 07:23:58 +0000
-Received: by outflank-mailman (input) for mailman id 1121508;
- Fri, 12 Sep 2025 07:23:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uwyAz-00073i-1c; Fri, 12 Sep 2025 07:26:33 +0000
+Received: by outflank-mailman (input) for mailman id 1121522;
+ Fri, 12 Sep 2025 07:26:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=t8Qx=3X=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uwy8T-0006Ny-Gg
- for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 07:23:57 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 70db4044-8fa9-11f0-9809-7dc792cee155;
- Fri, 12 Sep 2025 09:23:55 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-5688ac2f39dso1798994e87.3
- for <xen-devel@lists.xenproject.org>; Fri, 12 Sep 2025 00:23:55 -0700 (PDT)
+ <SRS0=66U7=3X=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
+ id 1uwyAx-00073c-7L
+ for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 07:26:31 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id cc310a30-8fa9-11f0-9d13-b5c5bf9af7f9;
+ Fri, 12 Sep 2025 09:26:29 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CD76F16A3;
+ Fri, 12 Sep 2025 00:26:19 -0700 (PDT)
+Received: from [10.57.66.147] (unknown [10.57.66.147])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DD1E03F63F;
+ Fri, 12 Sep 2025 00:26:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,112 +42,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70db4044-8fa9-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1757661835; x=1758266635; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/XBtKd030PtX4VgNSyh7U2rBK96P7C4gA9am3ktsEBw=;
-        b=EVquBs0mBjcczyXbjrjtzfzjQMXRU/S2sro96YXeYCpzH9VOjHDKxi48Dt2xpfVHNA
-         y6dBhSuVumNuh3ANHi25UF0RRPrEMLuAtccdsCiW/P7mVfBP7Ltk3mfl7ZdwUFPxj0gD
-         xe4Po7GjG4K7eKrRGvOv2cjsswDEjW8N7fHPDXu9uFhqgNBA+upJh/9Ud5P4Gw+AYjli
-         ULaLQFQxyisNgrj724ouM8NUunLAkyVtfZ2fNo70IxiiRwzBTjwfPFSGd4jxPrTsjoDD
-         IgL8m5Wrb1Om5ygOoa0TcwskmZOEHPzgGl0fTLrx69akciTH/kjyY/aux383wkTu7t9z
-         kTNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757661835; x=1758266635;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/XBtKd030PtX4VgNSyh7U2rBK96P7C4gA9am3ktsEBw=;
-        b=TDnqo4jKRe9Hw5xian2xqz1ntM45oVCwwH3CFwhveFjXkH6yMtZPWdV7Q2Ke6c7XpN
-         GJcnr4kQjziF1a79jlBFf4t9QdAz1lGuzYh84EoBCbEvBwYqPb+jdFtg260bG0D68OYu
-         EJ+9XAFGB0iXwCFljCypDyJ2FKHdVc+gS9Zjk5KNeuuienPaB0RfPsKzh1ZczJ4YaiOJ
-         9j6g0ZN6+E5/QbvhWTtu8xlyHQ98pyfPY/3EQtQrNdBkGse9e+c5b4sb940TwC8GaHPL
-         86m+s5SGdzhY+5DSEYZ9L8An1/yATQxpogyMlpLiM0pYDqudkg6U852X+JZWPKnK2W9q
-         sYWA==
-X-Gm-Message-State: AOJu0YyD3y1IBeDtFBakcNU5x41nLg9hEIq9N/93Hm2WnKghDHdjXpEh
-	zXk9JiKzq5W27+/GnztU4uOQ943olTMVxBBTM2O4pXEAW5oT8eC4VkcX9XSqScoWOctCRv0nNP+
-	Hm+jV5t14eWW+TJHzIRT9SNXwAwviRcY=
-X-Gm-Gg: ASbGncvED+2PkH38LbH4z+0YO07PH7KYt6VleHl7SR8DoIitYo6kOzSVj6WfxkiQ1Am
-	9EyhL2yHzsGVY1Sc1Hte4M9PXUykRaFcTuJO1mn/SIDM/qn1Nbq+LPX7e3sqU2ltWLK63c/5leg
-	TxX8VpfaqYSwop0F7kfGKOBFF3TKh42TwdDQ/PWoP1gLIeTVmicNCKQQCnI1v5uB13wGayrEJxT
-	81mH0Q3rktpBnn4
-X-Google-Smtp-Source: AGHT+IHgwEP2w9zcActW5zsVd93iodZHaojQBpFqqXGFF7lbwNT9cefyZgGD08KypNHAIUAWfw5FoTXm9eEVdzNVhCo=
-X-Received: by 2002:a05:6512:3599:b0:562:d04d:fa05 with SMTP id
- 2adb3069b0e04-5704fb8634dmr517183e87.54.1757661834640; Fri, 12 Sep 2025
- 00:23:54 -0700 (PDT)
+X-Inumbo-ID: cc310a30-8fa9-11f0-9d13-b5c5bf9af7f9
+Message-ID: <15d01c8b-5475-442e-9df5-ca37b0d5dc04@arm.com>
+Date: Fri, 12 Sep 2025 09:26:18 +0200
 MIME-Version: 1.0
-References: <20250908211149.279143-1-dmukhin@ford.com> <20250908211149.279143-6-dmukhin@ford.com>
-In-Reply-To: <20250908211149.279143-6-dmukhin@ford.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Fri, 12 Sep 2025 10:23:42 +0300
-X-Gm-Features: Ac12FXwZPcQsXKAtGl9ieahyjpUhQXfZJ9pjXTrDT5SvYeWfKCjFAlREpZIQays
-Message-ID: <CAGeoDV8PoGgYkXH89jSQYEq6faLcJ9Xe1GoeONDMeLhP95bAAA@mail.gmail.com>
-Subject: Re: [PATCH v7 05/16] emul/ns16x50: implement SCR register
-To: dmukhin@xen.org
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
-	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
-	michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
-	dmukhin@ford.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/7] mm: introduce local state for lazy_mmu sections
+To: David Hildenbrand <david@redhat.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
+ Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
+ <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+ Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Mark Rutland <Mark.Rutland@arm.com>
+References: <20250908073931.4159362-1-kevin.brodsky@arm.com>
+ <20250908073931.4159362-3-kevin.brodsky@arm.com>
+ <d23ea683-cca4-4973-88b1-4f6fd9b22314@redhat.com>
+ <ca2054ad-b163-4e61-8ec4-6f2e36461628-agordeev@linux.ibm.com>
+ <e7acb889-1fe9-4db3-acf4-39f4960e8ccd@redhat.com>
+ <2fecfae7-1140-4a23-a352-9fd339fcbae5-agordeev@linux.ibm.com>
+ <e521b1f4-3f2b-48cd-9568-b9a4cf4c4830@redhat.com>
+ <47ee1df7-1602-4200-af94-475f84ca8d80@arm.com>
+ <29383ee2-d6d6-4435-9052-d75a263a5c45@redhat.com>
+ <9de08024-adfc-421b-8799-62653468cf63@arm.com>
+ <ef343405-c394-4763-a79f-21381f217b6c@redhat.com>
+ <4b4971fd-0445-4d86-8f3a-6ba3d68d15b7@arm.com>
+ <4aa28016-5678-4c66-8104-8dcc3fa2f5ce@redhat.com>
+Content-Language: en-GB
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+In-Reply-To: <4aa28016-5678-4c66-8104-8dcc3fa2f5ce@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Denis,
+On 11/09/2025 20:14, David Hildenbrand wrote:
+>>>> On the other hand, with a pagefault_disabled-like approach, there
+>>>> is no
+>>>> way to instruct call {3} to fully exit lazy_mmu regardless of the
+>>>> nesting level.
+>>>
+>>> Sure there is, with a better API. See below. :)
+>>
+>> I meant while keeping the existing shape of the API but yes fair enough!
+>
+> Time to do it properly I guess :)
 
-Thank you for the patch.
+Yes, I think the discussions on that series have shown that we might as
+well refactor it completely. Once and for all™!
 
-On Tue, Sep 9, 2025 at 12:12=E2=80=AFAM <dmukhin@xen.org> wrote:
 >
-> From: Denis Mukhin <dmukhin@ford.com>
+> [...]
 >
-> Add SCR register emulation to the I/O port handler.
-> Firmware (e.g. OVMF) may use SCR during the guest OS boot.
+>>> Assume we store in the task_struct
+>>>
+>>> uint8_t lazy_mmu_enabled_count;
+>>> bool lazy_mmu_paused;
+>>
+>> I didn't think of that approach! I can't immediately see any problem
+>> with it, assuming we're fine with storing arch-specific context in
+>> thread_struct (which seems to be the case as things stand).
 >
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
-> Changes since v6:
-> - default handling of non-DLL/DLM registers moved to the previous patch
-> ---
->  xen/common/emul/vuart/ns16x50.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
+> Right, just to complete the picture:
 >
-> diff --git a/xen/common/emul/vuart/ns16x50.c b/xen/common/emul/vuart/ns16=
-x50.c
-> index da8583a1dc93..5643ef4cc01e 100644
-> --- a/xen/common/emul/vuart/ns16x50.c
-> +++ b/xen/common/emul/vuart/ns16x50.c
-> @@ -106,6 +106,11 @@ static int ns16x50_io_write8(
->      {
->          switch ( reg )
->          {
-> +        /* NB: Firmware (e.g. OVMF) may rely on SCR presence. */
-> +        case UART_SCR:
-> +            regs[UART_SCR] =3D val;
-> +            break;
-> +
->          default:
->              rc =3D -EINVAL;
->              break;
-> @@ -177,6 +182,10 @@ static int ns16x50_io_read8(
->      {
->          switch ( reg )
->          {
-> +        case UART_SCR:
-> +            val =3D regs[UART_SCR];
-> +            break;
-> +
->          default:
->              rc =3D -EINVAL;
->              break;
-> --
-> 2.51.0
+> a) We will have some CONFIG_ARCH_LAZY_MMU
 >
->
+> b) Without that config, all lazy_mmu_*() functions are a nop and no
+> lazy_mmu_state is stored in task_struct 
 
-Reviewed-by: Mykola Kvach <mykola_kvach@epam.com>
+Agreed on both counts (replacing __HAVE_ARCH_ENTER_LAZY_MMU_MODE).
 
-Best regards,
-Mykola
+>
+> struct lazy_mmu_state {
+>     uint8_t enabled_count;
+>     bool paused;
+
+Looking at the arm64 implementation, I'm thinking: instead of the paused
+member, how about a PF_LAZY_MMU task flag? It would be set when lazy_mmu
+is actually enabled (i.e. inside an enter()/leave() section, and not
+inside a pause()/resume() section). This way, architectures could use
+that flag directly to tell if lazy_mmu is enabled instead of reinventing
+the wheel, all in slightly different ways. Namely:
+
+* arm64 uses a thread flag (TIF_LAZY_MMU) - this is trivially replaced
+with PF_LAZY_MMU
+* powerpc and sparc use batch->active where batch is a per-CPU variable;
+I expect this can also be replaced with PF_LAZY_MMU
+* x86/xen is more complex as it has xen_lazy_mode which tracks both
+LAZY_MMU and LAZY_CPU modes. I'd probably leave that one alone, unless a
+Xen expert is motivated to refactor it.
+
+With that approach, the implementation of arch_enter() and arch_leave()
+becomes very simple (no tracking of lazy_mmu status) on arm64, powerpc
+and sparc.
+
+(Of course we could also have an "enabled" member in lazy_mmu_state
+instead of PF_LAZY_MMU, there is no functional difference.)
+
+> }
+>
+> c) With that config, common-code lazy_mmu_*() functions implement the
+> updating of the lazy_mmu_state in task_struct and call into arch code
+> on the transition from 0->1, 1->0 etc.
+
+Indeed, this is how I thought about it. There is actually quite a lot
+that can be moved to the generic functions:
+* Updating lazy_mmu_state
+* Sanity checks on lazy_mmu_state (e.g. underflow/overflow)
+* Bailing out if in_interrupt() (not done consistently across arch's at
+the moment)
+
+>
+> Maybe that can be done through exiting
+> arch_enter_lazy_mmu_mode()/arch_leave_lazy_mmu_mode() callbacks, maybe
+> we need more. I feel like
+> we might be able to implement that through the existing helpers.
+
+We might want to rename them to align with the new generic helpers, but
+yes otherwise the principle should remain unchanged.
+
+In fact, we will also need to revive arch_flush_lazy_mmu_mode(). Indeed,
+in the nested situation, we need the following arch calls:
+
+enter() -> arch_enter()
+    enter() -> [nothing]
+    leave() -> arch_flush()
+leave() -> arch_leave()
+
+leave() must always flush whatever arch state was batched, as may be
+expected by the caller.
+
+How does all that sound?
+
+>
+> [...]
+>
+>>
+>> Overall what you're proposing seems sensible to me, the additional
+>> fields in task_struct don't take much space and we can keep the API
+>> unchanged in most cases. It is also good to have the option to check
+>> that the API is used correctly. I'll reply to the cover letter to let
+>> anyone who didn't follow this thread chip in, before I go ahead and try
+>> out that new approach.
+>
+> And on top of the proposal above we will have some
+>
+> struct arch_lazy_mmu_state;
+>
+> define by the architecture (could be an empty struct on most).
+>
+> We can store that inside "struct lazy_mmu_state;" or if we ever have
+> to, start returning only that from the enable/disable etc. functions.
+
+I'm not sure we'd want to mix those styles (task_struct member + local
+variable), that's adding complexity without much upside... Also having a
+local variable at every nesting level only makes sense if we have an
+arch callback regardless of nesting level, which is unnecessary in this
+proposed API.
+
+>
+> For now, I'd say just store it in the task struct in the
+> lazy_mmu_state. But we can always adjust later if required.
+>
+> In the first (this) series we probably don't even have to introduce
+> arch_lazy_mmu_state. 
+
+I suppose this could improve the overall struct layout - but otherwise I
+don't really see the need compared to adding members to thread_struct
+(which is fully arch-specific).
+
+- Kevin
 
