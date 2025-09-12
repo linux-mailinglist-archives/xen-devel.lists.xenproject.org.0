@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11FE2B559CD
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Sep 2025 01:04:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1122779.1466281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAA0FB55A2D
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Sep 2025 01:30:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1122797.1466292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uxCoc-0005Kk-Rn; Fri, 12 Sep 2025 23:04:26 +0000
+	id 1uxDDq-00014J-TF; Fri, 12 Sep 2025 23:30:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1122779.1466281; Fri, 12 Sep 2025 23:04:26 +0000
+Received: by outflank-mailman (output) from mailman id 1122797.1466292; Fri, 12 Sep 2025 23:30:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uxCoc-0005IN-P1; Fri, 12 Sep 2025 23:04:26 +0000
-Received: by outflank-mailman (input) for mailman id 1122779;
- Fri, 12 Sep 2025 23:04:24 +0000
+	id 1uxDDq-00011B-PI; Fri, 12 Sep 2025 23:30:30 +0000
+Received: by outflank-mailman (input) for mailman id 1122797;
+ Fri, 12 Sep 2025 23:30:29 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uxCoa-0005IH-S1
- for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 23:04:24 +0000
+ (envelope-from <julien@xen.org>) id 1uxDDp-000115-B5
+ for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 23:30:29 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uxCoa-006frV-0s;
- Fri, 12 Sep 2025 23:04:24 +0000
+ (envelope-from <julien@xen.org>) id 1uxDDo-006gHx-1t;
+ Fri, 12 Sep 2025 23:30:28 +0000
 Received: from [2a02:8012:3a1:0:95d0:d8bb:cf45:58c2]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uxCoa-006G1C-17;
- Fri, 12 Sep 2025 23:04:24 +0000
+ (envelope-from <julien@xen.org>) id 1uxDDo-006HDj-2C;
+ Fri, 12 Sep 2025 23:30:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,14 +42,15 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=YEROTMEFMnIIQSzRr4/J7fp4WWdzOAOQxEfLm/Xv528=; b=GO50QwU1AVDoodDkYWVMX/WL42
-	cCpwqYo1ukXT1xKJkJd9iAMDJ4K/k3uUiFW6t1ArCvvrm3rIrc3btAYtvF/9E6GEB+hnxawQOTGOA
-	aH6sgCcbbS8Xa8cjSRme9CAi8dpJZhe4f+gfO8bTiW1HnMSvJjA0CQmRVPD6+j4a4l1Y=;
-Message-ID: <0ac3217d-f3d6-4bac-ac27-0afa6775f03c@xen.org>
-Date: Sat, 13 Sep 2025 00:04:22 +0100
+	bh=mx/IgOPXrMzMO910AY8EMCxcgVjkUkGwXy0BjCfWsN8=; b=O8GhyecqpC1He5HfRJrMXmGINi
+	zi+kVxlpU41Xt5E7kKs6Uc4q47etdXOFu8XyqslBX2stmRcdH1oRcng27rj4btH+WzNjY5XOxqjGX
+	dXGtlWOh7gxv2nOJELERSU93B+xgDlRLD2Vwo3jqlaWX+9iDZdhcBhPl30PttewY0V8Q=;
+Message-ID: <a3bf4862-b32b-4918-a924-b437f0f015cd@xen.org>
+Date: Sat, 13 Sep 2025 00:30:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/13] xen/arm: Add suspend and resume timer helpers
+Subject: Re: [PATCH v6 02/13] xen/arm: gic-v2: Implement GIC suspend/resume
+ functions
 Content-Language: en-GB
 To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
 Cc: Mirela Simonovic <mirela.simonovic@aggios.com>,
@@ -58,11 +59,12 @@ Cc: Mirela Simonovic <mirela.simonovic@aggios.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Saeed Nowshadi <saeed.nowshadi@xilinx.com>,
+ Mykyta Poturai <mykyta_poturai@epam.com>,
  Mykola Kvach <mykola_kvach@epam.com>
 References: <cover.1756763487.git.mykola_kvach@epam.com>
- <781c8e1b3a4d9b269bfde125072a84baae3f9bb3.1756763487.git.mykola_kvach@epam.com>
+ <c1744d379d7f04fa832b3283cb95bb3cbf5a9e79.1756763487.git.mykola_kvach@epam.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <781c8e1b3a4d9b269bfde125072a84baae3f9bb3.1756763487.git.mykola_kvach@epam.com>
+In-Reply-To: <c1744d379d7f04fa832b3283cb95bb3cbf5a9e79.1756763487.git.mykola_kvach@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
@@ -71,142 +73,303 @@ Hi Mykola,
 On 01/09/2025 23:10, Mykola Kvach wrote:
 > From: Mirela Simonovic <mirela.simonovic@aggios.com>
 > 
-> Timer interrupts must be disabled while the system is suspended to prevent
-> spurious wake-ups.
-
-Yet, you don't seem to disable the virtual interrupt. Can you explain why?
-
-> Suspending the timers involves disabling both the EL1
-> physical timer and the EL2 hypervisor timer.
-I know this is what Arm is naming the timers. But I would rather s/EL1// 
-and s/EL2// because the physical timer is also accessible from EL0.
-
-Note that Xen doesn't use or expose the physical timer. So it should 
-always be disabled at the point "time_suspend()" is called. I am still 
-ok to disable it just in case though.
-
-> Resuming consists of raising
-> the TIMER_SOFTIRQ, which prompts the generic timer code to reprogram the
-> EL2 timer as needed. Re-enabling of the EL1 timer is left to the entity
-> that uses it.
+> System suspend may lead to a state where GIC would be powered down.
+> Therefore, Xen should save/restore the context of GIC on suspend/resume.
 > 
-> Introduce a new helper, disable_physical_timers, to encapsulate disabling
-> of the physical timers.
+> Note that the context consists of states of registers which are
+> controlled by the hypervisor. Other GIC registers which are accessible
+> by guests are saved/restored on context switch.
 > 
 > Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
 > Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 > ---
-> Changes in V4:
->    - Rephrased comment and commit message for better clarity
->    - Created separate function for disabling physical timers
+> Changes in v6:
+> - drop extra func/line printing from dprintk
+> - drop checking context allocation from resume handler
+> - merge some loops where it is possible
 > 
-> Changes in V3:
->    - time_suspend and time_resume are now conditionally compiled
->      under CONFIG_SYSTEM_SUSPEND
+> Changes in v4:
+>    - Add error logging for allocation failures
+> 
+> Changes in v3:
+>    - Drop asserts and return error codes instead.
+>    - Wrap code with CONFIG_SYSTEM_SUSPEND.
+> 
+> Changes in v2:
+>    - Minor fixes after review.
 > ---
->   xen/arch/arm/include/asm/time.h |  5 +++++
->   xen/arch/arm/time.c             | 38 +++++++++++++++++++++++++++------
->   2 files changed, 37 insertions(+), 6 deletions(-)
+>   xen/arch/arm/gic-v2.c          | 143 +++++++++++++++++++++++++++++++++
+>   xen/arch/arm/gic.c             |  29 +++++++
+>   xen/arch/arm/include/asm/gic.h |  12 +++
+>   3 files changed, 184 insertions(+)
 > 
-> diff --git a/xen/arch/arm/include/asm/time.h b/xen/arch/arm/include/asm/time.h
-> index 49ad8c1a6d..f4fd0c6af5 100644
-> --- a/xen/arch/arm/include/asm/time.h
-> +++ b/xen/arch/arm/include/asm/time.h
-> @@ -108,6 +108,11 @@ void preinit_xen_time(void);
->   
->   void force_update_vcpu_system_time(struct vcpu *v);
+> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
+> index b23e72a3d0..6373599e69 100644
+> --- a/xen/arch/arm/gic-v2.c
+> +++ b/xen/arch/arm/gic-v2.c
+> @@ -1098,6 +1098,140 @@ static int gicv2_iomem_deny_access(struct domain *d)
+>       return iomem_deny_access(d, mfn, mfn + nr);
+>   }
 >   
 > +#ifdef CONFIG_SYSTEM_SUSPEND
-> +void time_suspend(void);
-> +void time_resume(void);
+> +
+> +/* GICv2 registers to be saved/restored on system suspend/resume */
+> +struct gicv2_context {
+> +    /* GICC context */
+> +    uint32_t gicc_ctlr;
+> +    uint32_t gicc_pmr;
+> +    uint32_t gicc_bpr;
+> +    /* GICD context */
+> +    uint32_t gicd_ctlr;
+
+I don't quite follow why all the registers above needs to be 
+saved/restored. Is it just convenience because it is too complicated to 
+recreate the value?
+
+> +    uint32_t *gicd_isenabler;
+> +    uint32_t *gicd_isactiver;
+> +    uint32_t *gicd_ipriorityr;
+> +    uint32_t *gicd_itargetsr;
+> +    uint32_t *gicd_icfgr;
+> +};> +
+> +static struct gicv2_context gicv2_context;
+> +
+> +static int gicv2_suspend(void)
+> +{
+> +    unsigned int i;
+> +
+> +    if ( !gicv2_context.gicd_isenabler )
+> +    {
+> +        dprintk(XENLOG_WARNING, "GICv2 suspend context not allocated!\n");
+> +        return -ENOMEM;
+> +    }
+> +
+> +    /* Save GICC configuration */
+> +    gicv2_context.gicc_ctlr = readl_gicc(GICC_CTLR);
+> +    gicv2_context.gicc_pmr = readl_gicc(GICC_PMR);
+> +    gicv2_context.gicc_bpr = readl_gicc(GICC_BPR);
+> +
+> +    /* Save GICD configuration */
+> +    gicv2_context.gicd_ctlr = readl_gicd(GICD_CTLR);
+> +
+> +    for ( i = 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 32); i++ )
+> +    {
+> +        gicv2_context.gicd_isenabler[i] = readl_gicd(GICD_ISENABLER + i * 4);
+> +        gicv2_context.gicd_isactiver[i] = readl_gicd(GICD_ISACTIVER + i * 4);
+> +    }
+> +
+> +    for ( i = 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 4); i++ )
+> +    {
+> +        gicv2_context.gicd_ipriorityr[i] = readl_gicd(GICD_IPRIORITYR + i * 4);
+> +        gicv2_context.gicd_itargetsr[i] = readl_gicd(GICD_ITARGETSR + i * 4);
+> +    }
+> +
+> +    for ( i = 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 16); i++ )
+> +        gicv2_context.gicd_icfgr[i] = readl_gicd(GICD_ICFGR + i * 4);
+> +
+> +    return 0;
+> +}
+> +
+> +static void gicv2_resume(void)
+> +{
+> +    unsigned int i;
+> +
+ > +    gicv2_cpu_disable();> +    /* Disable distributor */
+> +    writel_gicd(0, GICD_CTLR);
+> +
+> +    /* Restore GICD configuration */
+> +    for ( i = 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 32); i++ )
+> +    {
+> +        writel_gicd(0xffffffff, GICD_ICENABLER + i * 4);
+> +        writel_gicd(gicv2_context.gicd_isenabler[i], GICD_ISENABLER + i * 4);
+> +
+> +        writel_gicd(0xffffffff, GICD_ICACTIVER + i * 4);
+> +        writel_gicd(gicv2_context.gicd_isactiver[i], GICD_ISACTIVER + i * 4);
+> +    }
+> +
+> +    for ( i = 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 4); i++ )
+> +    {
+> +        writel_gicd(gicv2_context.gicd_ipriorityr[i], GICD_IPRIORITYR + i * 4);
+> +        writel_gicd(gicv2_context.gicd_itargetsr[i], GICD_ITARGETSR + i * 4);
+> +    }
+> +
+> +    for ( i = 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 16); i++ )
+> +        writel_gicd(gicv2_context.gicd_icfgr[i], GICD_ICFGR + i * 4);
+> +
+> +    /* Make sure all registers are restored and enable distributor */
+> +    writel_gicd(gicv2_context.gicd_ctlr | GICD_CTL_ENABLE, GICD_CTLR);
+
+Why are we forcing CTL_ENABLE? Surely it should have been set and if 
+not, then why is it fine to override it?
+
+> +
+> +    /* Restore GIC CPU interface configuration */
+> +    writel_gicc(gicv2_context.gicc_pmr, GICC_PMR);
+> +    writel_gicc(gicv2_context.gicc_bpr, GICC_BPR);
+> +
+> +    /* Enable GIC CPU interface */
+> +    writel_gicc(gicv2_context.gicc_ctlr | GICC_CTL_ENABLE | GICC_CTL_EOI,
+> +                GICC_CTLR);
+
+Same question here for both ENABLE and EOI.
+
+> +}
+> +
+> +static void gicv2_alloc_context(struct gicv2_context *gc)
+
+I am a bit surprised this is not returning an error? Why is it ok to 
+ignore the error and continue? At least for now, if someone enable 
+CONFIG_SYSTEM_SUSPEND, they would likely want the feature. So it would 
+be better to crash early.
+
+> +{
+> +    uint32_t n = gicv2_info.nr_lines;
+> +
+> +    gc->gicd_isenabler = xzalloc_array(uint32_t, DIV_ROUND_UP(n, 32));
+> +    if ( !gc->gicd_isenabler )
+> +        goto err_free;
+> +
+> +    gc->gicd_isactiver = xzalloc_array(uint32_t, DIV_ROUND_UP(n, 32));
+> +    if ( !gc->gicd_isactiver )
+> +        goto err_free;
+> +
+> +    gc->gicd_itargetsr = xzalloc_array(uint32_t, DIV_ROUND_UP(n, 4));
+> +    if ( !gc->gicd_itargetsr )
+> +        goto err_free;
+> +
+> +    gc->gicd_ipriorityr = xzalloc_array(uint32_t, DIV_ROUND_UP(n, 4));
+> +    if ( !gc->gicd_ipriorityr )
+> +        goto err_free;
+> +
+> +    gc->gicd_icfgr = xzalloc_array(uint32_t, DIV_ROUND_UP(n, 16));
+> +    if ( !gc->gicd_icfgr )
+> +        goto err_free;
+
+I am wondering if we are really saving that much by allocating each 
+array separately? It would simply the code if we fix the array to 
+support up to 1024 interrupts so we allocate a single structure.
+
+ > +> +    return;
+> +
+> + err_free:
+> +    printk(XENLOG_ERR "Failed to allocate memory for GICv2 suspend context\n");
+> +> +    xfree(gc->gicd_icfgr);
+> +    xfree(gc->gicd_ipriorityr);
+> +    xfree(gc->gicd_itargetsr);
+> +    xfree(gc->gicd_isactiver);
+> +    xfree(gc->gicd_isenabler);
+
+NIT: If you use XFREE(), then you don't need the memset below.
+
+> +
+> +    memset(gc, 0, sizeof(*gc));
+> +}
+> +
 > +#endif /* CONFIG_SYSTEM_SUSPEND */
 > +
->   #endif /* __ARM_TIME_H__ */
->   /*
->    * Local variables:
-> diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-> index e74d30d258..ad984fdfdd 100644
-> --- a/xen/arch/arm/time.c
-> +++ b/xen/arch/arm/time.c
-> @@ -303,6 +303,14 @@ static void check_timer_irq_cfg(unsigned int irq, const char *which)
->              "WARNING: %s-timer IRQ%u is not level triggered.\n", which, irq);
+>   #ifdef CONFIG_ACPI
+>   static unsigned long gicv2_get_hwdom_extra_madt_size(const struct domain *d)
+>   {
+> @@ -1302,6 +1436,11 @@ static int __init gicv2_init(void)
+>   
+>       spin_unlock(&gicv2.lock);
+>   
+> +#ifdef CONFIG_SYSTEM_SUSPEND
+> +    /* Allocate memory to be used for saving GIC context during the suspend */
+> +    gicv2_alloc_context(&gicv2_context);
+> +#endif /* CONFIG_SYSTEM_SUSPEND */
+> +
+>       return 0;
 >   }
 >   
-> +/* Disable physical timers for EL1 and EL2 on the current CPU */
-
-The name of the times are "physical timer" and "hypervisor timer".
-
-> +static inline void disable_physical_timers(void)
-
-"Physical is a bit misleading" in this context. All the 3 timers 
-(virtual, physical, hypervisor) are physical timers. My preference would 
-be to name this function disable_timers() (assuming you also need to 
-disable the virtual timer).
-
-> +{
-> +    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Physical timer disabled */
-> +    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled */
-> +    isb();
-> +}
-> +
->   /* Set up the timer interrupt on this CPU */
->   void init_timer_interrupt(void)
->   {
-> @@ -310,9 +318,7 @@ void init_timer_interrupt(void)
->       WRITE_SYSREG64(0, CNTVOFF_EL2);     /* No VM-specific offset */
->       /* Do not let the VMs program the physical timer, only read the physical counter */
->       WRITE_SYSREG(CNTHCTL_EL2_EL1PCTEN, CNTHCTL_EL2);
-> -    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Physical timer disabled */
-> -    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled */
-> -    isb();
-> +    disable_physical_timers();
+> @@ -1345,6 +1484,10 @@ static const struct gic_hw_operations gicv2_ops = {
+>       .map_hwdom_extra_mappings = gicv2_map_hwdom_extra_mappings,
+>       .iomem_deny_access   = gicv2_iomem_deny_access,
+>       .do_LPI              = gicv2_do_LPI,
+> +#ifdef CONFIG_SYSTEM_SUSPEND
+> +    .suspend             = gicv2_suspend,
+> +    .resume              = gicv2_resume,
+> +#endif /* CONFIG_SYSTEM_SUSPEND */
+>   };
 >   
->       request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
->                   "hyptimer", NULL);
-> @@ -330,9 +336,7 @@ void init_timer_interrupt(void)
->    */
->   static void deinit_timer_interrupt(void)
->   {
-> -    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Disable physical timer */
-> -    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Disable hypervisor's timer */
-> -    isb();
-> +    disable_physical_timers();
->   
->       release_irq(timer_irq[TIMER_HYP_PPI], NULL);
->       release_irq(timer_irq[TIMER_VIRT_PPI], NULL);
-> @@ -372,6 +376,28 @@ void domain_set_time_offset(struct domain *d, int64_t time_offset_seconds)
->       /* XXX update guest visible wallclock time */
+>   /* Set up the GIC */
+> diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
+> index e80fe0ca24..a018bd7715 100644
+> --- a/xen/arch/arm/gic.c
+> +++ b/xen/arch/arm/gic.c
+> @@ -425,6 +425,35 @@ int gic_iomem_deny_access(struct domain *d)
+>       return gic_hw_ops->iomem_deny_access(d);
 >   }
 >   
 > +#ifdef CONFIG_SYSTEM_SUSPEND
 > +
-> +void time_suspend(void)
+> +int gic_suspend(void)
 > +{
-> +    disable_physical_timers();
+> +    /* Must be called by boot CPU#0 with interrupts disabled */
+
+What would prevent us to suspend from another CPU?
+
+> +    ASSERT(!local_irq_is_enabled());
+> +    ASSERT(!smp_processor_id());
+> +
+> +    if ( !gic_hw_ops->suspend || !gic_hw_ops->resume )
+> +        return -ENOSYS;
+> +
+> +    return gic_hw_ops->suspend();
 > +}
 > +
-> +void time_resume(void)
+> +void gic_resume(void)
 > +{
 > +    /*
-> +     * Raising the timer softirq triggers generic code to call reprogram_timer
-> +     * with the correct timeout (not known here).
-> +     *
-> +     * No further action is needed to restore timekeeping after power down,
-> +     * since the system counter is unaffected. See ARM DDI 0487 L.a, D12.1.2
-> +     * "The system counter must be implemented in an always-on power domain."
+> +     * Must be called by boot CPU#0 with interrupts disabled after gic_suspend
+> +     * has returned successfully.
 > +     */
-> +    raise_softirq(TIMER_SOFTIRQ);
-
-I think we should add a comment about the physical timer.
-
+> +    ASSERT(!local_irq_is_enabled());
+> +    ASSERT(!smp_processor_id());
+> +    ASSERT(gic_hw_ops->resume);
+> +
+> +    gic_hw_ops->resume();
 > +}
 > +
 > +#endif /* CONFIG_SYSTEM_SUSPEND */
 > +
->   static int cpu_time_callback(struct notifier_block *nfb,
->                                unsigned long action,
->                                void *hcpu)Cheers,
+>   static int cpu_gic_callback(struct notifier_block *nfb,
+>                               unsigned long action,
+>                               void *hcpu)
+> diff --git a/xen/arch/arm/include/asm/gic.h b/xen/arch/arm/include/asm/gic.h
+> index 541f0eeb80..a706303008 100644
+> --- a/xen/arch/arm/include/asm/gic.h
+> +++ b/xen/arch/arm/include/asm/gic.h
+> @@ -280,6 +280,12 @@ extern int gicv_setup(struct domain *d);
+>   extern void gic_save_state(struct vcpu *v);
+>   extern void gic_restore_state(struct vcpu *v);
+>   
+> +#ifdef CONFIG_SYSTEM_SUSPEND
+> +/* Suspend/resume */
+> +extern int gic_suspend(void);
+> +extern void gic_resume(void);
+> +#endif /* CONFIG_SYSTEM_SUSPEND */
+> +
+>   /* SGI (AKA IPIs) */
+>   enum gic_sgi {
+>       GIC_SGI_EVENT_CHECK,
+> @@ -395,6 +401,12 @@ struct gic_hw_operations {
+>       int (*iomem_deny_access)(struct domain *d);
+>       /* Handle LPIs, which require special handling */
+>       void (*do_LPI)(unsigned int lpi);
+> +#ifdef CONFIG_SYSTEM_SUSPEND
+> +    /* Save GIC configuration due to the system suspend */
+> +    int (*suspend)(void);
+> +    /* Restore GIC configuration due to the system resume */
+> +    void (*resume)(void);
+> +#endif /* CONFIG_SYSTEM_SUSPEND */
+>   };
+>   
+>   extern const struct gic_hw_operations *gic_hw_ops;
+
+Cheers,
 
 -- 
 Julien Grall
