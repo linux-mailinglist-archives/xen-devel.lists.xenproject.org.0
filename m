@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98479B541C9
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Sep 2025 06:54:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1121387.1465712 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92165B54297
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Sep 2025 08:16:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1121413.1465724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwvmi-0003nW-LS; Fri, 12 Sep 2025 04:53:20 +0000
+	id 1uwx3x-0005J2-BW; Fri, 12 Sep 2025 06:15:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1121387.1465712; Fri, 12 Sep 2025 04:53:20 +0000
+Received: by outflank-mailman (output) from mailman id 1121413.1465724; Fri, 12 Sep 2025 06:15:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwvmi-0003ly-Hv; Fri, 12 Sep 2025 04:53:20 +0000
-Received: by outflank-mailman (input) for mailman id 1121387;
- Fri, 12 Sep 2025 04:53:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DZes=3X=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1uwvmh-0003lq-A6
- for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 04:53:19 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2061f.outbound.protection.outlook.com
- [2a01:111:f403:2405::61f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 648bdeaf-8f94-11f0-9d13-b5c5bf9af7f9;
- Fri, 12 Sep 2025 06:53:17 +0200 (CEST)
-Received: from CH2PR05CA0049.namprd05.prod.outlook.com (2603:10b6:610:38::26)
- by SA3PR12MB7904.namprd12.prod.outlook.com (2603:10b6:806:320::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Fri, 12 Sep
- 2025 04:53:11 +0000
-Received: from DS3PEPF000099D5.namprd04.prod.outlook.com
- (2603:10b6:610:38:cafe::a7) by CH2PR05CA0049.outlook.office365.com
- (2603:10b6:610:38::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.7 via Frontend Transport; Fri,
- 12 Sep 2025 04:53:10 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS3PEPF000099D5.mail.protection.outlook.com (10.167.17.6) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9115.13 via Frontend Transport; Fri, 12 Sep 2025 04:53:10 +0000
-Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Thu, 11 Sep 2025 21:53:07 -0700
+	id 1uwx3x-0005Fs-8B; Fri, 12 Sep 2025 06:15:13 +0000
+Received: by outflank-mailman (input) for mailman id 1121413;
+ Fri, 12 Sep 2025 06:15:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=BfOp=3X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uwx3v-0005Fg-Tb
+ for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 06:15:11 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d3bb4c14-8f9f-11f0-9809-7dc792cee155;
+ Fri, 12 Sep 2025 08:15:06 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-61cc281171cso2814489a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Sep 2025 23:15:06 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-62ee40dcaddsm593605a12.6.2025.09.11.23.15.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Sep 2025 23:15:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,312 +45,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 648bdeaf-8f94-11f0-9d13-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QWoLnkR+FZstMDl918V9MsD0ZOwh8btE3NJ554DF4afp+Yz0AGhnZBr+AvsPvdYpPYv9R8ZIshzF9SHkhAb8k5u6VGpXPncVnfdN59WN2YWr4tX455OfBa5jGbfP39VyG3q/uxkgSm8fGxFKT8X0lWmEnrnc8k5ZhEqP5GcJQH8MgDwq74wj14ZwuxBJVi21j5nVXQUL9gIRozaxWvkP1dD+DOSJOqeSTitjFAa6wYaVxXWXRh9j6Z6wEvOqoZ9kOcjTLf9yehWwD89g/EEAp6mh7z5fCUy3t/6n+BcyFinGZ+tJKPUMXEcrwQQaqHo5RX3wpBVpcId7ocQMVxphvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qS4zBvwuCK+Oq5V6/9fIKJDP99q1GGCdKKoXl0OBYLg=;
- b=QovQPx9MK7WLo6xJ7PALUspiElxO9U1mmQo4Ne1eEdDQr/EJ+ihULhKzCEqaOiMrUSBXPWBU3JXP/KfS2S/T20WKkLKjx00TqLqDu5cMgqxp4Pwr/EJn5S88gykOVyHxMxC9tJXwFTIX43PxxQ0mxGQSshIqqwvcmD+0TBtUEKIgTBOAjlqdZkAhH0YWM3s5nTSmaspqgKuavarW6Wi4lqf7pU7cZqHLWwLgnEwKKf4+7wNrj7vogSFrqP3s7phNKmoGFUoz0b0FpIJmOSRghnMnSoFmXd/gfrfiJ9/jUffK5I3J5aV3klIAo/K51w6NBIssequMLCSLH6TlCLTF+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qS4zBvwuCK+Oq5V6/9fIKJDP99q1GGCdKKoXl0OBYLg=;
- b=gfN436iSI4ePrQLG8MpQXxWwdf+ZRnRXK+bIEnLmpbkYEuF8Nu5Sh1yFt2Y3quD+1XOzjBOZekxofQgAjHzGup2poojU3ZDzW0Hx8UIef6yOQFqhPUQWJwREToj+0FuzrrjZR1smZQTmu+FbCiDpJPCPIMfbkX4spzwEazy1JA0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-From: Penny Zheng <Penny.Zheng@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Tamas K Lengyel
-	<tamas@tklengyel.com>, Alexandru Isaila <aisaila@bitdefender.com>, "Petre
- Pircalabu" <ppircalabu@bitdefender.com>
-Subject: [PATCH] xen/vm_event: introduce vm_event_is_enabled()
-Date: Fri, 12 Sep 2025 12:52:54 +0800
-Message-ID: <20250912045254.3731398-1-Penny.Zheng@amd.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: d3bb4c14-8f9f-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1757657706; x=1758262506; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=DAnJwl5NhEXX/VJqCboUAA4HpYs7h0yS0lxkLE0K0k0=;
+        b=HcV/3W//e62+zijb9qtoAwmECXEic9DoRVPN9njoo9IrKx36vf48ZN6p0+A5dlS540
+         znv3ZZ5UF0Xkv/rSbY0SdeBTWk4tvOiaFvtXo4krMBiZP4GTDgLSYZ9WYsVUMJJMCjVc
+         58cOnFNvcOrpFJhkTDXZgDPnNOUd64nsQciSCT9FTcjexeS4sE6y/9824Yh3B/0P/Nyd
+         7d/e/5gPZKTdISGLbHNoWf2YHxRDSl4DpfiWRrGFFsySAoWj4hXIZ6L4tMowc+sH/tPN
+         FoNXn2IjHsTJQxC6E0HsQ6JsbL85A6D7XwtUYm7PbW97LWh28XiKNuie80dKmaN6jDNI
+         kshA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1757657706; x=1758262506;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DAnJwl5NhEXX/VJqCboUAA4HpYs7h0yS0lxkLE0K0k0=;
+        b=czCssqyWs8MCM8JSU54Z/z3MnA5rgU09mKFkTk2vUWp/yAfl0RUUkHE3oJ27dNbxof
+         2tSJguNoAR02hdn0siyBnR+t2409ttJZiSHE+CI7lBO4kw1+XYR0J8pHK/dYkuAyXZ+k
+         8sweR7L8gpBxHoIt5/iQUQgU6L5yWjBWNk7qHbJoFnSsx/qbNAJFeswz+NgFHUsOrZWT
+         Cms/EIPYohUHPYvm9vLoxCcnfWPMrz3xvLAJQ5k+bkFoEhN3tazDFFsaqMeCZotK6Xr0
+         sFkuhZrW8kDejCAu4eTQ3BjrZB+dKu3jGwADRhcAawHpHVNknB66cWbH4y/nZDkqrt2R
+         NxmQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXkMrJbpaJgN4TRMY4C0JpvfGTwrlyuRW1W9/Ym5CIBd9WIwYqWIZE9rn5XWul1M+J0dSEvzatrBPw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzooiKBSxgeVG0x9DNSaZO5GPNNLhoKG4AOZiTnLK2yOVA65Zg4
+	o9zNccVRssjKgg2Dli/edOPz2nMlZtn9y7EtdM8ZkDfCrVSH+G3cLVY+500sCkQAbg==
+X-Gm-Gg: ASbGncvvoduMEkRfcitKrb08zT/ia2OmMRQTgP+PYEkHLwyTqcwBJDsAAQHaLZVDogQ
+	75W4E8ciYC+LB+5ViMs+zcHrxHB64Prn523giM0HdQUz8WAanatwZBMyrBN6foSsowAwbPUGYHc
+	lYKdUCTJAy8hazv+aLA4hW/gGI+K99wiaw9nwsQZ6dRq+dEGVOeIrwHRHjOtkyoM58Gg0Y435OC
+	5EDjhSNI9WZ0JhbwedeApyIjcHm8aZfG42iT5nJbNyMz/QdHGfoDEwFUkJvxYZ6SQIDIelgpFWJ
+	qKu2hBzh/j/EmgH3jUBI/c6uEu7fNCae0aekgbQ76MAjjIIj+/lZtVklVl+9JkOKeVa9mqgmZI/
+	U+1+g0nUu3t2HTWqAnhmqzrV/5o4iEFA9FBWaJcmVQ4Wj0i7qtHS1QDdn9v1CIijLGs+bPY/++q
+	IsUZvoQxBTE/ZVz+KC2g==
+X-Google-Smtp-Source: AGHT+IH3OsodKDruToDkB+VWGVa8UaMjifPGuxzGncTvd82uuwSt70k+GMaRrFIB1RTQ3jlTdNq1Uw==
+X-Received: by 2002:a05:6402:35c7:b0:628:b619:49ca with SMTP id 4fb4d7f45d1cf-62ed82fe63amr2079736a12.25.1757657705713;
+        Thu, 11 Sep 2025 23:15:05 -0700 (PDT)
+Message-ID: <3d0d9653-e96f-4ed7-a6c2-2a082f03b712@suse.com>
+Date: Fri, 12 Sep 2025 08:15:03 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: domU reboot claim failed
+To: Jason Andryuk <jason.andryuk@amd.com>
+References: <fae4b58f-c6ff-4db1-8198-1a5f76868d4d@amd.com>
+ <d81b0c13-853e-479a-ad11-9b9990b723a3@citrix.com>
+ <44207905-ece0-48f1-a7d7-8c30720cb48d@amd.com>
+Content-Language: en-US
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <44207905-ece0-48f1-a7d7-8c30720cb48d@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099D5:EE_|SA3PR12MB7904:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99349b40-5060-4293-8b9d-08ddf1b845e0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?4PI4yEFzxupo2PCM6TIwSTc2hBLk35v3gkdlKkqamzkoX/wc8g1kYWsVWWnd?=
- =?us-ascii?Q?oJ/IJSd+H0VQB2as0ckHCFGU2F/kcXv2xaXiXhPPG47J62GFQZo1kK6qWadC?=
- =?us-ascii?Q?gIDv7wxjtM5lDKcc1fhLJ/y0KsgnRw8qw36zEk9AjSBDOCtCv23iD9Bs8uRl?=
- =?us-ascii?Q?14J3lrs48kvr7oOIHaCL695h+eYhi0ESkef8YSAIDlT/kjdRkjMcq6YAPdpJ?=
- =?us-ascii?Q?UrqRTNZoXppxM12TXYpWrEOP75sguzLY7CGy6g6+h1KuLj6dNJAnjZaw1MxW?=
- =?us-ascii?Q?FekOeMw5UY4wFEeWbS16i6TlKtzyB/9EmwGfVN4U4vYw9h2n/fXKKqNcJj3E?=
- =?us-ascii?Q?ur3lpqT3VeU0VtRpVB8Qvd/vV5vkaMvvaia2791uQAOFUFsFcwi/pi1alhhN?=
- =?us-ascii?Q?SASQIoWXb4vuYIBwOsACOM3RAkN7L7PVYezXo2TEu42hnsUVkphosHd4ZQQ/?=
- =?us-ascii?Q?Q9EBUTVCbO1oAPtsdJLm92hnCqjntSeI2J1r/zN8pcm7A19ALCQsSmcc0xa9?=
- =?us-ascii?Q?7k29+62+ZdfvXByeNbwgmtZIT/jqnG/mQdETX62aDxmEgd+f5togpQcaaSQp?=
- =?us-ascii?Q?oJd2hwtWZjRbp2Y/WDtwZcuescpIggzOjiPRMO/OxG1WkW71TnL0U6lqcjuL?=
- =?us-ascii?Q?Cgoh26xbOFsKQoAOvW+HL3QNMxKduRyeNGCbJzO6sNLCaFIBEL6YBFqj2llO?=
- =?us-ascii?Q?fTT5drC1Mo1uIqSXXLY3QGYqV5HJNzpjm/sVLJYaBHFgrAymeXIoIETCpjH/?=
- =?us-ascii?Q?VXhnNPAoB6juH0U3OB5lN+xf+J6UwE+DUt6gWzPTiMqRIhBM8NNSR/Arpj3p?=
- =?us-ascii?Q?RLuUVPvesm3RUKGP2zIqCqeRc1xGSYJoUnBx4r0Hl5AaswZjAK9eM8G79b08?=
- =?us-ascii?Q?HG8nQ3woBWUTFGGFgGrSl2mKKPSSRINyxiUqzwuvQ1NRvq4rLad986PHj/nE?=
- =?us-ascii?Q?DadInz5PvRzV6r8Z5gGxpxDs53BkrIjpdnSloZVUi9FT5qYQBt8TF8mI09wP?=
- =?us-ascii?Q?vo2PhGd/r7Q+0J/wGbC0xzHWzNeHZyyHeqzIdc6JQXFXZtDn6Q8XFmaF50+x?=
- =?us-ascii?Q?yJcurbzNu+/dFqkrhlPMDLsdSYOvpMCnj0rqIDLaH45KcEKhYmTJrbJKV3q/?=
- =?us-ascii?Q?XQEqwr52Wq1AG30lCXf9PEgfUZ/KMwe9DYZvxs0BUiL/d1gJVTBuJvdzLg7L?=
- =?us-ascii?Q?kws/s1ef02HcCnCCvfUWIBAbyaduOAKJhyFCsgCCyq/Acs0A3hPQOAmuicFU?=
- =?us-ascii?Q?GhH3rvg0BV14TWCncyR2mp9rVgywqL2vuxRsHXfTCAxfaRR00eZ3NJQcVFQm?=
- =?us-ascii?Q?qLZ+yqs0ckMIBigyb6y7TztdEDbX/u9JXvjevp+XI22Opfn1x+Z/FgcfIW59?=
- =?us-ascii?Q?2sWC6C3ugQB8C2Yhd2Lkqp34p83dU7iVTibFa25ANP42fjwOgaQVVx866jwU?=
- =?us-ascii?Q?kUKnJtTkhzJLzCa5iVmbLh4ARisVyP5kl3P0pRi6qa6ElCsukCqOYn6y3PYk?=
- =?us-ascii?Q?J+ywZKhwsqhceRoY3WfxzEfPB3SsSn0IM1T8?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2025 04:53:10.4359
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99349b40-5060-4293-8b9d-08ddf1b845e0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099D5.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7904
 
-Function vm_event_is_enabled() is introduced to check if vm event is enabled,
-and also make the checking conditional upon CONFIG_VM_EVENT, which could help
-DCE a lot calls/codes, such as hvm_monitor_io(), etc when VM_EVENT=n.
-In-place assertion of arch.vm_event is kinds of redundant and could be
-removed.
+On 11.09.2025 23:20, Jason Andryuk wrote:
+> Thanks, everyone.
+> 
+> On 2025-09-10 17:57, Andrew Cooper wrote:
+>> On 10/09/2025 7:58 pm, Jason Andryuk wrote:
+>>> Hi,
+>>>
+>>> We're running Android as a guest and it's running the Compatibility
+>>> Test Suite.  During the CTS, the Android domU is rebooted multiple times.
+>>>
+>>> In the middle of the CTS, we've seen reboot fail.  xl -vvv shows:
+>>> domainbuilder: detail: Could not allocate memory for HVM guest as we
+>>> cannot claim memory!
+>>> xc: error: panic: xg_dom_boot.c:119: xc_dom_boot_mem_init: can't
+>>> allocate low memory for domain: Out of memory
+>>> libxl: error: libxl_dom.c:581:libxl__build_dom: xc_dom_boot_mem_init
+>>> failed: Cannot allocate memory
+>>> domainbuilder: detail: xc_dom_release: called
+>>>
+>>> So the claim failed.  The system has enough memory since we're just
+>>> rebooting the same VM.  As a work around, I added sleep(1) + retry,
+>>> which works.
+>>>
+>>> The curious part is the memory allocation.  For d2 to d5, we have:
+>>> domainbuilder: detail: range: start=0x0 end=0xf0000000
+>>> domainbuilder: detail: range: start=0x100000000 end=0x1af000000
+>>> xc: detail: PHYSICAL MEMORY ALLOCATION:
+>>> xc: detail:   4KB PAGES: 0x0000000000000000
+>>> xc: detail:   2MB PAGES: 0x00000000000006f8
+>>> xc: detail:   1GB PAGES: 0x0000000000000003
+>>>
+>>> But when we have to retry the claim for d6, there are no 1GB pages used:
+>>> domainbuilder: detail: range: start=0x0 end=0xf0000000
+>>> domainbuilder: detail: range: start=0x100000000 end=0x1af000000
+>>> domainbuilder: detail: HVM claim failed! attempt 0
+>>> xc: detail: PHYSICAL MEMORY ALLOCATION:
+>>> xc: detail:   4KB PAGES: 0x0000000000002800
+>>> xc: detail:   2MB PAGES: 0x0000000000000ce4
+>>> xc: detail:   1GB PAGES: 0x0000000000000000
+>>>
+>>> But subsequent reboots for d7 and d8 go back to using 1GB pages.
+>>>
+>>> Does the change in memory allocation stick out to anyone?
+>>>
+>>> Unfortunately, I don't have insight into what the failing test is doing.
+>>>
+>>> Xen doesn't seem set up to track the claim across reboot.  Retrying
+>>> the claim works in our scenario since we have a controlled configuration.
+>>
+>> This looks to me like a known phenomenon.  Ages back, a change was made
+>> in how Xen scrubs memory, from being synchronous in domain_kill(), to
+>> being asynchronous in the idle loop.
+>>
+>> The consequence being that, on an idle system, you can shutdown and
+>> reboot the domain faster, but on a busy system you end up trying to
+>> allocate the new domain while memory from the old domain is still dirty.
+>>
+>> It is a classic example of a false optimisation, which looks great on an
+>> idle system only because the idle CPUs are swallowing the work.
+>>
+>> This impacts the ability to find a 1G aligned block of free memory to
+>> allocate a superpage with, and by the sounds of it, claims (which
+>> predate this behaviour change) aren't aware of the "to be scrubbed"
+>> queue and fail instead.
+> 
+> Claims check total_avail_pages and outstanding_claims.  It looks like 
+> free_heap_pages() sets PGC_need_scrub and then increments 
+> total_avail_pages.  But then it's not getting through the accounting far 
+> enough to stake a claim?
+> 
+> Also free_heap_page() looks like it's trying to merge chunks - I thought 
+> that would handle larger allocations.  Are they not truly usable until 
+> they've been scrubbed, which leads to the lack of 1GB pages?
+> 
+> Clearly I need to learn more here.
 
-Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
----
- xen/arch/x86/hvm/emulate.c          |  6 ++---
- xen/arch/x86/hvm/hvm.c              | 41 +++++++++++++----------------
- xen/arch/x86/hvm/svm/intr.c         |  2 +-
- xen/arch/x86/hvm/vmx/intr.c         |  2 +-
- xen/arch/x86/include/asm/vm_event.h |  9 +++++++
- 5 files changed, 33 insertions(+), 27 deletions(-)
+I rather expect this then may not be scrubbing related, but domain cleanup
+hasn't progressed quickly enough for the earlier instance.
 
-diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
-index 2af4f30359..75567db403 100644
---- a/xen/arch/x86/hvm/emulate.c
-+++ b/xen/arch/x86/hvm/emulate.c
-@@ -105,7 +105,7 @@ static int set_context_data(void *buffer, unsigned int size)
- {
-     struct vcpu *curr = current;
- 
--    if ( curr->arch.vm_event )
-+    if ( vm_event_is_enabled(curr) )
-     {
-         unsigned int safe_size =
-             min(size, curr->arch.vm_event->emul.read.size);
-@@ -771,7 +771,7 @@ static void *hvmemul_map_linear_addr(
-             ASSERT(p2mt == p2m_ram_logdirty || !p2m_is_readonly(p2mt));
-         }
- 
--        if ( unlikely(curr->arch.vm_event) &&
-+        if ( unlikely(vm_event_is_enabled(curr)) &&
-              curr->arch.vm_event->send_event &&
-              hvm_monitor_check_p2m(addr, gfn, pfec, npfec_kind_with_gla) )
-         {
-@@ -1870,7 +1870,7 @@ static int hvmemul_rep_outs_set_context(
-     int rc = X86EMUL_OKAY;
- 
-     ASSERT(bytes_per_rep <= 4);
--    if ( !ev )
-+    if ( !vm_event_is_enabled(current) )
-         return X86EMUL_UNHANDLEABLE;
- 
-     ptr = ev->emul.read.data;
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 23bd7f078a..e3abd2849a 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -532,7 +532,7 @@ void hvm_do_resume(struct vcpu *v)
-     if ( !vcpu_ioreq_handle_completion(v) )
-         return;
- 
--    if ( unlikely(v->arch.vm_event) )
-+    if ( unlikely(vm_event_is_enabled(v)) )
-         hvm_vm_event_do_resume(v);
- 
-     /* Inject pending hw/sw event */
-@@ -546,11 +546,12 @@ void hvm_do_resume(struct vcpu *v)
-         v->arch.hvm.inject_event.vector = HVM_EVENT_VECTOR_UNSET;
-     }
- 
--    if ( unlikely(v->arch.vm_event) && v->arch.monitor.next_interrupt_enabled )
-+    if ( unlikely(vm_event_is_enabled(v)) &&
-+         v->arch.monitor.next_interrupt_enabled )
-     {
-         struct x86_event info;
- 
--        if ( hvm_get_pending_event(v, &info) )
-+        if ( hvm_get_pending_event(v, &info) && vm_event_is_enabled(v) )
-         {
-             hvm_monitor_interrupt(info.vector, info.type, info.error_code,
-                                   info.cr2);
-@@ -2088,7 +2089,7 @@ int hvm_handle_xsetbv(u32 index, u64 new_bv)
- {
-     int rc;
- 
--    if ( index == 0 )
-+    if ( index == 0 && vm_event_is_enabled(current) )
-         hvm_monitor_crX(XCR0, new_bv, current->arch.xcr0);
- 
-     rc = x86emul_write_xcr(index, new_bv, NULL);
-@@ -2337,9 +2338,7 @@ int hvm_set_cr0(unsigned long value, bool may_defer)
-     if ( may_defer && unlikely(v->domain->arch.monitor.write_ctrlreg_enabled &
-                                monitor_ctrlreg_bitmask(VM_EVENT_X86_CR0)) )
-     {
--        ASSERT(v->arch.vm_event);
--
--        if ( hvm_monitor_crX(CR0, value, old_value) )
-+        if ( vm_event_is_enabled(v) && hvm_monitor_crX(CR0, value, old_value) )
-         {
-             /* The actual write will occur in hvm_do_resume(), if permitted. */
-             v->arch.vm_event->write_data.do_write.cr0 = 1;
-@@ -2462,9 +2461,8 @@ int hvm_set_cr3(unsigned long value, bool noflush, bool may_defer)
-     if ( may_defer && unlikely(currd->arch.monitor.write_ctrlreg_enabled &
-                                monitor_ctrlreg_bitmask(VM_EVENT_X86_CR3)) )
-     {
--        ASSERT(curr->arch.vm_event);
--
--        if ( hvm_monitor_crX(CR3, value, curr->arch.hvm.guest_cr[3]) )
-+        if ( vm_event_is_enabled(curr) &&
-+             hvm_monitor_crX(CR3, value, curr->arch.hvm.guest_cr[3]) )
-         {
-             /* The actual write will occur in hvm_do_resume(), if permitted. */
-             curr->arch.vm_event->write_data.do_write.cr3 = 1;
-@@ -2544,9 +2542,7 @@ int hvm_set_cr4(unsigned long value, bool may_defer)
-     if ( may_defer && unlikely(v->domain->arch.monitor.write_ctrlreg_enabled &
-                                monitor_ctrlreg_bitmask(VM_EVENT_X86_CR4)) )
-     {
--        ASSERT(v->arch.vm_event);
--
--        if ( hvm_monitor_crX(CR4, value, old_cr) )
-+        if ( vm_event_is_enabled(v) && hvm_monitor_crX(CR4, value, old_cr) )
-         {
-             /* The actual write will occur in hvm_do_resume(), if permitted. */
-             v->arch.vm_event->write_data.do_write.cr4 = 1;
-@@ -3407,7 +3403,7 @@ static enum hvm_translation_result __hvm_copy(
-             return HVMTRANS_bad_gfn_to_mfn;
-         }
- 
--        if ( unlikely(v->arch.vm_event) &&
-+        if ( unlikely(vm_event_is_enabled(v)) &&
-              (flags & HVMCOPY_linear) &&
-              v->arch.vm_event->send_event &&
-              hvm_monitor_check_p2m(addr, gfn, pfec, npfec_kind_with_gla) )
-@@ -3538,6 +3534,7 @@ int hvm_vmexit_cpuid(struct cpu_user_regs *regs, unsigned int inst_len)
-     struct vcpu *curr = current;
-     unsigned int leaf = regs->eax, subleaf = regs->ecx;
-     struct cpuid_leaf res;
-+    int ret = 0;
- 
-     if ( curr->arch.msrs->misc_features_enables.cpuid_faulting &&
-          hvm_get_cpl(curr) > 0 )
-@@ -3554,7 +3551,10 @@ int hvm_vmexit_cpuid(struct cpu_user_regs *regs, unsigned int inst_len)
-     regs->rcx = res.c;
-     regs->rdx = res.d;
- 
--    return hvm_monitor_cpuid(inst_len, leaf, subleaf);
-+    if ( vm_event_is_enabled(curr) )
-+        ret = hvm_monitor_cpuid(inst_len, leaf, subleaf);
-+
-+    return ret;
- }
- 
- void hvm_rdtsc_intercept(struct cpu_user_regs *regs)
-@@ -3694,9 +3694,8 @@ int hvm_msr_write_intercept(unsigned int msr, uint64_t msr_content,
-         if ( ret != X86EMUL_OKAY )
-             return ret;
- 
--        ASSERT(v->arch.vm_event);
--
--        if ( hvm_monitor_msr(msr, msr_content, msr_old_content) )
-+        if ( vm_event_is_enabled(v) &&
-+             hvm_monitor_msr(msr, msr_content, msr_old_content) )
-         {
-             /* The actual write will occur in hvm_do_resume(), if permitted. */
-             v->arch.vm_event->write_data.do_write.msr = 1;
-@@ -3854,12 +3853,10 @@ int hvm_descriptor_access_intercept(uint64_t exit_info,
-     struct vcpu *curr = current;
-     struct domain *currd = curr->domain;
- 
--    if ( currd->arch.monitor.descriptor_access_enabled )
--    {
--        ASSERT(curr->arch.vm_event);
-+    if ( currd->arch.monitor.descriptor_access_enabled &&
-+         vm_event_is_enabled(curr) )
-         hvm_monitor_descriptor_access(exit_info, vmx_exit_qualification,
-                                       descriptor, is_write);
--    }
-     else if ( !hvm_emulate_one_insn(is_sysdesc_access, "sysdesc access") )
-         domain_crash(currd);
- 
-diff --git a/xen/arch/x86/hvm/svm/intr.c b/xen/arch/x86/hvm/svm/intr.c
-index 46186a1102..557ebc98d8 100644
---- a/xen/arch/x86/hvm/svm/intr.c
-+++ b/xen/arch/x86/hvm/svm/intr.c
-@@ -130,7 +130,7 @@ void asmlinkage svm_intr_assist(void)
-     enum hvm_intblk intblk;
- 
-     /* Block event injection while handling a sync vm_event. */
--    if ( unlikely(v->arch.vm_event) && v->arch.vm_event->sync_event )
-+    if ( unlikely(vm_event_is_enabled(v)) && v->arch.vm_event->sync_event )
-         return;
- 
-     /* Crank the handle on interrupt state. */
-diff --git a/xen/arch/x86/hvm/vmx/intr.c b/xen/arch/x86/hvm/vmx/intr.c
-index b35dc8c586..a8ced95871 100644
---- a/xen/arch/x86/hvm/vmx/intr.c
-+++ b/xen/arch/x86/hvm/vmx/intr.c
-@@ -239,7 +239,7 @@ void asmlinkage vmx_intr_assist(void)
-     }
- 
-     /* Block event injection while handling a sync vm_event. */
--    if ( unlikely(v->arch.vm_event) && v->arch.vm_event->sync_event )
-+    if ( unlikely(vm_event_is_enabled(v)) && v->arch.vm_event->sync_event )
-         return;
- 
- #ifdef CONFIG_MEM_SHARING
-diff --git a/xen/arch/x86/include/asm/vm_event.h b/xen/arch/x86/include/asm/vm_event.h
-index 46e77ed6d9..446d02c7d5 100644
---- a/xen/arch/x86/include/asm/vm_event.h
-+++ b/xen/arch/x86/include/asm/vm_event.h
-@@ -45,4 +45,13 @@ void vm_event_sync_event(struct vcpu *v, bool value);
- 
- void vm_event_reset_vmtrace(struct vcpu *v);
- 
-+static inline bool vm_event_is_enabled(struct vcpu *v)
-+{
-+#ifdef CONFIG_VM_EVENT
-+    return v->arch.vm_event != NULL;
-+#else
-+    return false;
-+#endif
-+}
-+
- #endif /* __ASM_X86_VM_EVENT_H__ */
--- 
-2.34.1
-
+Jan
 
