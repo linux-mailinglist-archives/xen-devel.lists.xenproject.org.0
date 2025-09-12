@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27A27B5520E
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Sep 2025 16:44:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1122091.1466016 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00602B5520D
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Sep 2025 16:44:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1122092.1466025 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ux50x-0005Iu-1Q; Fri, 12 Sep 2025 14:44:39 +0000
+	id 1ux50x-0005W6-Pf; Fri, 12 Sep 2025 14:44:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1122091.1466016; Fri, 12 Sep 2025 14:44:38 +0000
+Received: by outflank-mailman (output) from mailman id 1122092.1466025; Fri, 12 Sep 2025 14:44:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ux50w-0005CT-Qz; Fri, 12 Sep 2025 14:44:38 +0000
-Received: by outflank-mailman (input) for mailman id 1122091;
- Fri, 12 Sep 2025 14:44:37 +0000
+	id 1ux50x-0005PA-JY; Fri, 12 Sep 2025 14:44:39 +0000
+Received: by outflank-mailman (input) for mailman id 1122092;
+ Fri, 12 Sep 2025 14:44:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yT3b=3X=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ux50v-0004JT-3Z
- for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 14:44:37 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1ux50w-0004JT-3p
+ for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 14:44:38 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 00eb5423-8fe7-11f0-9d13-b5c5bf9af7f9;
- Fri, 12 Sep 2025 16:44:36 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3e8123c07d7so47009f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 12 Sep 2025 07:44:36 -0700 (PDT)
+ id 018a5300-8fe7-11f0-9d13-b5c5bf9af7f9;
+ Fri, 12 Sep 2025 16:44:37 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3e7643b0ab4so1116023f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Sep 2025 07:44:37 -0700 (PDT)
 Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45e015784c3sm72070045e9.10.2025.09.12.07.44.34
+ 5b1f17b1804b1-45e015784c3sm72070045e9.10.2025.09.12.07.44.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Sep 2025 07:44:35 -0700 (PDT)
+ Fri, 12 Sep 2025 07:44:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00eb5423-8fe7-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: 018a5300-8fe7-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1757688276; x=1758293076; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1757688277; x=1758293077; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Y8OCJ00B7SiN+TcNJnXk15Q6BMK+dvW43SxAcU8PxzY=;
-        b=qOApSUJ2J2lP50EF0B0Qn0GB2bcMi0LNEcHrK8LJ1FGZdjtu0wRI3y23Zq4iNC85Kv
-         GN62hvouCLSb/yHXIESafON9UhylSMaFvqf+8O5TIj/2k6ti5ns+BsFuEJC671X/4nKA
-         JogoNkThGmBy0FnoyYDdlj71qiHODsDTatQ9o=
+        bh=WoTkLLzczgfJCAgT/pEdPHpSfLp9QlUgMwmAH0OgjKI=;
+        b=KGPHkxMN0yexB2GGHtqTvvyTLWv5/C+76aFJ2s/78mrdthWgObhsmJ4JFuTiDEAqLW
+         K+R/XjdRLdX81y+sleVf5sgkILIJ8PnDcQTV55BvkiJFzBmqyfioKFd9Z2koUBSx2v1W
+         7r9cVzBFcAlIPioJo7Ks7fi56QEMoXhGYS/h8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757688276; x=1758293076;
+        d=1e100.net; s=20230601; t=1757688277; x=1758293077;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Y8OCJ00B7SiN+TcNJnXk15Q6BMK+dvW43SxAcU8PxzY=;
-        b=LnKkQNGn8R4tNXDdXp2MAoJeuLXsJerJBSGVLgu9nOOcmByAPEiksQbCGULCSB7bOZ
-         ZtZ8HYZObFPWf86IjdivW6IedpU+imwtP98sU9ByQ6Yvro3dFOv+1aWsp3RgQJDKptT6
-         w0g/haKmHH3juO6jDxKgDjmw71b9ccOFgZPS73bWJ2+LOsDWF++au5jGmu5X5o6n4VMH
-         ZaWNDNODC+0Wo0gOIoAMIEU6dHtisREFD0b+CjSFJ6480eMWT9ellvSPJEJA/js3DQdf
-         VuU7FiLOXYkqxRWYV6rQo7RDt1O+byOwtdxpeDzE0N1zwWs3ydDvA1WJUOu+clkfH53q
-         M/fQ==
-X-Gm-Message-State: AOJu0YyR6OzIm1O40opV7GLgEcSywZVmnEcaNSiysbJIzAIE2kRLaNGF
-	urlW2V1Ci54oGO/uhqVE7CClGJiz6L7eIfBUM2gSn1XPOqzPzT0s4wVJwAYInh/MjVXo+/f8q99
-	WjSXm
-X-Gm-Gg: ASbGncuMLrq6bRna5eujs3jxe+Q0U0fhZkXD3nru0W9iagCHK8v+K206ARAN2yehUt5
-	v4OnekE2Ir63UjcyvdVBgPwebxkLdzs6KdcIYuOwkCoTjPt67Zz59v3Eb6WFIT6M7GAiogmwSAV
-	sH6a2DmW4ZlqzWl4PBQsyDkfSQpIdNMUniBWCY0/9CrwglVLt3oTrbul2z6oeDopINsnV8a3TVo
-	jbMEzGyN/TCU/BmuQfrw3KK25Noc0csm++8FanjBEkahI80AZ1b2DZiLZoVUKVRM+6AvNknljz6
-	lb5pz2feqhD2apKxEPzmFU6xVNk/1NLADOzcwYKrFY3GjIKe670U0wp8sLSWoL5dcxnOMc2ZKO/
-	C1PWbTI+WUGAX3TGQVlyZYYvHNiuiu5lOQTFKswBXI+lrFImgC3MvSLRFq0avirYssktdXNDKak
-	Dd
-X-Google-Smtp-Source: AGHT+IFI+H0LGobGeE9zijNwuP0LN6Roi39UE0X8oThdZYHVRwFL4CZw2IWIM5DfdjrGcyGIMiEbCw==
-X-Received: by 2002:a05:6000:26cb:b0:3e2:e851:7f93 with SMTP id ffacd0b85a97d-3e75e0fc32bmr6897230f8f.7.1757688275709;
-        Fri, 12 Sep 2025 07:44:35 -0700 (PDT)
+        bh=WoTkLLzczgfJCAgT/pEdPHpSfLp9QlUgMwmAH0OgjKI=;
+        b=gPtbM2CiozQinqRMg/w1VlpXxQ+Z1YckuHO6rUeYTGPwQqYGUshRIY4ddrvhnQzHcs
+         k7f805ZhUDrxWdT5B+TLebXv/tPO0nWQCNudVDyJn5dxNkXTiPcSgPM09bGah2XgZz59
+         Cfpey/6KYHzJPQIqtY+pPTF22PlHc15/VAphVcbR3ezIYedyBisun4RqaT9zVf4wOj9D
+         Wguqkm8o79pdcn5hFobVc202kr880vABvEQUmTu6F42DcEC0QckLugfvB/lA3U2MJ/Pj
+         c3l9BSQsTC2ffiWFUzuqP9GgSjY1t4hiS9WmHOl4Z/lsd+1ZkSGGWXLRfkKQFeGFczuV
+         KQIA==
+X-Gm-Message-State: AOJu0YyJ11T3eAyYTmF8PgTPJiIk85+jkVSfC64U/IdkmutiCmoFblSX
+	isIIB6jZ4SRVL+DjH4W9vwy/lRSxgFwT4NfMTHPcIXu/nqwsDSi238D2KsNUnyGsxWm74qtdV+X
+	HQ351
+X-Gm-Gg: ASbGncsjJNUE9ErN0legYeyeUrGEh50JZwEBiBZ/6+pdV19dnAJLGD931xvawN+82mh
+	/QoNE+hMpt6p0e6XYnbTI38AThScXRcJ++AD6nyaciYy9r2RC6AcpoFF8fCuFKun4AunoIVpsDi
+	ZFJKYWPicdYmCUavdHnncqCNMtBpbtjxQ1hy8LBzjs/Xxc5pO8ppjcSJ+244iy8Y9cibe/ai2e1
+	nj98kt6Jft2joHJMCZ9AM+is8olLkDLgroieboKwVBa5M8EvZlUeXgia4TvrvXUV8kP4FsqyFBu
+	DxKO4H8HsPt7q7TbP/510bKxqUwAA8tP2jW4ewKVbLnQlnThvGlZH6TGhEs7jHT2DZgNXiqoOd/
+	tYU86MJXrKivOVMxAqGnU4E6KLJE+SNWUM1WgNdQ4xP4h9Q5uWUuskercbBSle+yP/Dp+tA44jT
+	HYMHchBPsJoquPZMn5fDfc/A==
+X-Google-Smtp-Source: AGHT+IHujJvcSHrLmVnyhhPcSJgTM1tAhBqsElDCkNGpTY6jV0fsEGre6zSrxLSpmMlrywVyLYecqw==
+X-Received: by 2002:a05:6000:2885:b0:3e3:c5a8:a1be with SMTP id ffacd0b85a97d-3e76552eb61mr3131530f8f.0.1757688276676;
+        Fri, 12 Sep 2025 07:44:36 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-Subject: [PATCH v4 5/8] x86/emul: Make condition coverage warning non-fatal
-Date: Fri, 12 Sep 2025 15:44:24 +0100
-Message-Id: <20250912144427.1905141-6-andrew.cooper3@citrix.com>
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Victor Lira <victorm.lira@amd.com>
+Subject: [PATCH v4 6/8] CI: Use pipefail in scripts/build
+Date: Fri, 12 Sep 2025 15:44:25 +0100
+Message-Id: <20250912144427.1905141-7-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250912144427.1905141-1-andrew.cooper3@citrix.com>
 References: <20250912144427.1905141-1-andrew.cooper3@citrix.com>
@@ -100,56 +104,197 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Randconfig with GCC-14 (Debian Trixie) found:
+Marek noticed that some builds were failing with:
 
-  In file included from arch/x86/x86_emulate/x86_emulate.c:11,
-                   from arch/x86/x86_emulate.c:27:
-  arch/x86/x86_emulate/x86_emulate.c: In function 'x86_emulate':
-  arch/x86/x86_emulate/private.h:482:8: error: Too many conditions (found 826); giving up coverage [-Werror=coverage-too-many-conditions]
-    482 | ({  if ( (p) ) {                                                          \
-        |        ^
-  arch/x86/x86_emulate/x86_emulate.c:1283:5: note: in expansion of macro 'generate_exception_if'
-   1283 |     generate_exception_if((mode_vif() &&
-        |     ^~~~~~~~~~~~~~~~~~~~~
+  + cd dist/install
+  + find
+  + cpio -R 0:0 -o -H newc
+  ./automation/scripts/build: line 111: cpio: command not found
+  + gzip
 
-which is a consequence of having a new enough compiler to allow
-CONFIG_CONDITIONAL_COVERAGE in to the mix.
+but succeeding overall, and producing a zero length xen-tools.cpio.gz as an
+artefact.
 
-In the short term make warning non-fatal.
+In fact, it's all of:
 
+  archlinux:current
+  debian:12-x86_32
+  fedora:41
+  opensuse:tumbleweed
+  ubuntu (all versions)
+
+Add cpio into all of these containers, including opensuse leap for good
+measure, and use pipefail in the build script.
+
+Fixes: 4611ae6fb8f9 ("CI: save toolstack artifact as cpio.gz")
+Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Anthony PERARD <anthony.perard@vates.tech>
 CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
 CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+CC: Shawn Anastasio <sanastasio@raptorengineering.com>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+CC: Doug Goldstein <cardoe@cardoe.com>
+CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+CC: Victor Lira <victorm.lira@amd.com>
 
 v4:
  * New
 
-Full failure logs:
-  https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/11331286819
----
- xen/arch/x86/Makefile | 3 +++
- 1 file changed, 3 insertions(+)
+I have already deployed the updated containers.
 
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index d7aed7d92c15..a0bba5d9085e 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -98,6 +98,9 @@ $(obj)/usercopy.o: CFLAGS-y += -iquote .
- ifneq ($(CONFIG_HVM),y)
- $(obj)/x86_emulate.o: CFLAGS-y += -Wno-unused-label
- endif
-+ifneq ($(CONFIG_CONDITION_COVERAGE),y)
-+$(obj)/x86_emulate.o: CFLAGS-y += $(call cc-option,$(CC),-Wno-error=coverage-too-many-conditions)
-+endif
+All failures:
+  https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2036157692
+---
+ automation/build/archlinux/current.dockerfile          | 1 +
+ automation/build/debian/12-x86_32.dockerfile           | 1 +
+ automation/build/fedora/41-x86_64.dockerfile           | 1 +
+ automation/build/opensuse/leap-15.6-x86_64.dockerfile  | 1 +
+ automation/build/opensuse/tumbleweed-x86_64.dockerfile | 1 +
+ automation/build/ubuntu/16.04-x86_64.dockerfile        | 1 +
+ automation/build/ubuntu/18.04-x86_64.dockerfile        | 1 +
+ automation/build/ubuntu/20.04-x86_64.dockerfile        | 1 +
+ automation/build/ubuntu/22.04-x86_64.dockerfile        | 1 +
+ automation/build/ubuntu/24.04-x86_64.dockerfile        | 1 +
+ automation/scripts/build                               | 2 ++
+ 11 files changed, 12 insertions(+)
+
+diff --git a/automation/build/archlinux/current.dockerfile b/automation/build/archlinux/current.dockerfile
+index 657ddd77a85c..4e53c835fa50 100644
+--- a/automation/build/archlinux/current.dockerfile
++++ b/automation/build/archlinux/current.dockerfile
+@@ -8,6 +8,7 @@ RUN pacman-key --init
+ RUN pacman -S --refresh --sysupgrade --noconfirm --noprogressbar --needed \
+         bridge-utils \
+         bzip2 \
++        cpio \
+         discount \
+         dtc \
+         e2fsprogs \
+diff --git a/automation/build/debian/12-x86_32.dockerfile b/automation/build/debian/12-x86_32.dockerfile
+index ef7a2571556b..447152d7e5e4 100644
+--- a/automation/build/debian/12-x86_32.dockerfile
++++ b/automation/build/debian/12-x86_32.dockerfile
+@@ -23,6 +23,7 @@ RUN <<EOF
  
- efi-y := $(shell if [ ! -r $(objtree)/include/xen/compile.h -o \
-                       -O $(objtree)/include/xen/compile.h ]; then \
+         # Tools (general)
+         ca-certificates
++        cpio
+         git-core
+         pkg-config
+         wget
+diff --git a/automation/build/fedora/41-x86_64.dockerfile b/automation/build/fedora/41-x86_64.dockerfile
+index 8032a2098632..e33329aedc9e 100644
+--- a/automation/build/fedora/41-x86_64.dockerfile
++++ b/automation/build/fedora/41-x86_64.dockerfile
+@@ -23,6 +23,7 @@ RUN <<EOF
+         checkpolicy
+ 
+         # Tools (general)
++        cpio
+         git-core
+         gzip
+         patch
+diff --git a/automation/build/opensuse/leap-15.6-x86_64.dockerfile b/automation/build/opensuse/leap-15.6-x86_64.dockerfile
+index 97890dfc006c..33db3ecd634b 100644
+--- a/automation/build/opensuse/leap-15.6-x86_64.dockerfile
++++ b/automation/build/opensuse/leap-15.6-x86_64.dockerfile
+@@ -29,6 +29,7 @@ RUN <<EOF
+         python311
+ 
+         # Tools (general)
++        cpio
+         git-core
+         gzip
+         patch
+diff --git a/automation/build/opensuse/tumbleweed-x86_64.dockerfile b/automation/build/opensuse/tumbleweed-x86_64.dockerfile
+index 61e840fc67da..218bc45294c1 100644
+--- a/automation/build/opensuse/tumbleweed-x86_64.dockerfile
++++ b/automation/build/opensuse/tumbleweed-x86_64.dockerfile
+@@ -28,6 +28,7 @@ RUN <<EOF
+         python3
+ 
+         # Tools (general)
++        cpio
+         git-core
+         gzip
+         patch
+diff --git a/automation/build/ubuntu/16.04-x86_64.dockerfile b/automation/build/ubuntu/16.04-x86_64.dockerfile
+index 9cc8ca89e8e0..72a46389fa0d 100644
+--- a/automation/build/ubuntu/16.04-x86_64.dockerfile
++++ b/automation/build/ubuntu/16.04-x86_64.dockerfile
+@@ -24,6 +24,7 @@ RUN <<EOF
+ 
+         # Tools (general)
+         ca-certificates
++        cpio
+         git-core
+         gzip
+         patch
+diff --git a/automation/build/ubuntu/18.04-x86_64.dockerfile b/automation/build/ubuntu/18.04-x86_64.dockerfile
+index aefe52125a22..2634856c8980 100644
+--- a/automation/build/ubuntu/18.04-x86_64.dockerfile
++++ b/automation/build/ubuntu/18.04-x86_64.dockerfile
+@@ -24,6 +24,7 @@ RUN <<EOF
+ 
+         # Tools (general)
+         ca-certificates
++        cpio
+         git-core
+         gzip
+         patch
+diff --git a/automation/build/ubuntu/20.04-x86_64.dockerfile b/automation/build/ubuntu/20.04-x86_64.dockerfile
+index 1ee20a13ac6b..9ec57eb975e1 100644
+--- a/automation/build/ubuntu/20.04-x86_64.dockerfile
++++ b/automation/build/ubuntu/20.04-x86_64.dockerfile
+@@ -24,6 +24,7 @@ RUN <<EOF
+ 
+         # Tools (general)
+         ca-certificates
++        cpio
+         git-core
+         gzip
+         patch
+diff --git a/automation/build/ubuntu/22.04-x86_64.dockerfile b/automation/build/ubuntu/22.04-x86_64.dockerfile
+index a9a9b84930fb..6ae7f4faa859 100644
+--- a/automation/build/ubuntu/22.04-x86_64.dockerfile
++++ b/automation/build/ubuntu/22.04-x86_64.dockerfile
+@@ -24,6 +24,7 @@ RUN <<EOF
+ 
+         # Tools (general)
+         ca-certificates
++        cpio
+         git-core
+         gzip
+         patch
+diff --git a/automation/build/ubuntu/24.04-x86_64.dockerfile b/automation/build/ubuntu/24.04-x86_64.dockerfile
+index 2005723b31ad..84777d188c0d 100644
+--- a/automation/build/ubuntu/24.04-x86_64.dockerfile
++++ b/automation/build/ubuntu/24.04-x86_64.dockerfile
+@@ -24,6 +24,7 @@ RUN <<EOF
+ 
+         # Tools (general)
+         ca-certificates
++        cpio
+         git-core
+         gzip
+         patch
+diff --git a/automation/scripts/build b/automation/scripts/build
+index d0511843e7ea..7a81d229decd 100755
+--- a/automation/scripts/build
++++ b/automation/scripts/build
+@@ -1,5 +1,7 @@
+ #!/bin/bash -ex
+ 
++set -o pipefail
++
+ test -f /etc/os-release && cat "$_"
+ 
+ # Construct $cc such that it matches what `make` will chose when taking
 -- 
 2.39.5
 
