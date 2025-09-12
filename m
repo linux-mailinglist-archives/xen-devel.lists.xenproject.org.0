@@ -2,38 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B62D9B54D3B
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Sep 2025 14:20:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1121902.1465901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FDA2B54E28
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Sep 2025 14:38:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1121922.1465911 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ux2kU-0007lj-0u; Fri, 12 Sep 2025 12:19:30 +0000
+	id 1ux32s-000296-GJ; Fri, 12 Sep 2025 12:38:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1121902.1465901; Fri, 12 Sep 2025 12:19:29 +0000
+Received: by outflank-mailman (output) from mailman id 1121922.1465911; Fri, 12 Sep 2025 12:38:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ux2kT-0007iw-Tg; Fri, 12 Sep 2025 12:19:29 +0000
-Received: by outflank-mailman (input) for mailman id 1121902;
- Fri, 12 Sep 2025 12:19:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BfOp=3X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ux2kR-0007iq-OT
- for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 12:19:27 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b89a7495-8fd2-11f0-9809-7dc792cee155;
- Fri, 12 Sep 2025 14:19:25 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-b07c38680b3so123672066b.1
- for <xen-devel@lists.xenproject.org>; Fri, 12 Sep 2025 05:19:25 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-62ee1fd6c0fsm1400841a12.5.2025.09.12.05.19.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Sep 2025 05:19:21 -0700 (PDT)
+	id 1ux32s-00027X-Dc; Fri, 12 Sep 2025 12:38:30 +0000
+Received: by outflank-mailman (input) for mailman id 1121922;
+ Fri, 12 Sep 2025 12:38:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=soo0=3X=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
+ id 1ux32r-00027R-Q9
+ for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 12:38:29 +0000
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 612e2c9c-8fd5-11f0-9d13-b5c5bf9af7f9;
+ Fri, 12 Sep 2025 14:38:28 +0200 (CEST)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58C4NGak023577;
+ Fri, 12 Sep 2025 12:37:48 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 490cmxbgbt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 12 Sep 2025 12:37:48 +0000 (GMT)
+Received: from m0353729.ppops.net (m0353729.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 58CCZk7V019437;
+ Fri, 12 Sep 2025 12:37:47 GMT
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 490cmxbgbr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 12 Sep 2025 12:37:47 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 58CAHmfd007982;
+ Fri, 12 Sep 2025 12:37:46 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 49109q2yat-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 12 Sep 2025 12:37:46 +0000
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
+ [10.20.54.100])
+ by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 58CCbiaW43581748
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 12 Sep 2025 12:37:44 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id F244B20043;
+ Fri, 12 Sep 2025 12:37:43 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2D0D220040;
+ Fri, 12 Sep 2025 12:37:43 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.155.204.135])
+ by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Fri, 12 Sep 2025 12:37:43 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,161 +74,304 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b89a7495-8fd2-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757679565; x=1758284365; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ah9BmBT3PRBdzAisUp3GUqiyxcVdWnMdjbSEzd+vKNI=;
-        b=fTbBrC/2y7kplqO7F4szVFrLVhbC3p9LEn4sVOV/g+T0BQJIrUcR+KyuWVKuNA6hKT
-         eLBKE4SSrIEBJNP274y8M/1FRs3mzwFvJ48EKnmZJA9f47vPlaeOek+0wwcdU6Kq96K3
-         /uV0mW0MSg38a4IEkOn2bRzmkade4/BAqXaife4q5E0ZT1bS6s0OuwfKvTdCFxp8Q4Nv
-         sG6en8LKc5rSjPBEYbUPfqKS2Xa6iN0Wl3bM3Lk5BECZhyib7P+J3eWcnp1m1c4Mpmvw
-         MqPYZc2bQgo8MFgDIaLsfptc5g/jj1QOwY12TqbdZG2D7cF9yjo7UP/99IYOS/TEDuJl
-         u7Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757679565; x=1758284365;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ah9BmBT3PRBdzAisUp3GUqiyxcVdWnMdjbSEzd+vKNI=;
-        b=acxT7riFlnRsF0pV7OwM52pDq07eXc5Gxj8juDGfT762Bq6R+kH+PzIxX1Wkyo3ebm
-         Xb6tjTkNE1L/cIi4q/dYXwYPVYSVJqHQOmh8pmr0+DSR7hu1FziKyqePzB9fwaCOlZbg
-         IyI4jbppdRVZbVz/aEq4MEgvQfK56hhUR8zYGEedg9CBrrmrY0mQhuUgBc1QY2NnAXFI
-         sFHlDIluQQg1fzY4tX4A4sw2sIyfxYQYwxUEl2n25awrt3SxWNrRuvNCEQ4fKk8Ldzei
-         ZeYl3glH1SMJMuiES/fbK0cf+TIIEjxOPZi54UIuoHXM1TSs03QTCk7LBhWjIUU1yypV
-         MoMQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUIcQerSlaMX3aSRbASH5umeQwiQ/Cvl7on5eLrpcCPHsWMxZmFtFVIRkI/84q5KfGpmIJYSRX4TtU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz5VJJUnIwZDx4iEAHiZZwaZuA02hSFbPRyI4NBmFokgg/Eh3oH
-	ZyGQbD4xXQ393TUgwbIjvy/2rJ4rbXpeuDe5+ytd6I6D6NLy4fmGFZYFqZBl3wzfKg==
-X-Gm-Gg: ASbGncsAclIx25lC9sVoI0yshfrHvj/ZMG48ErmzzoUcs4iSEDcZ1NJ8GnpjZr39q20
-	WS5X/L2NNw+CEyG105wJvtnT2ehmCj5lvxR9phH3i9bzyVNAoDh31IVeSAsNq2tlusB5PMSrg6t
-	K6eJMhx9DFvg9gyW/7rZH8Bybyy9ft0t6rxLGN4KLPdfz5Bl5biCLCFWyskSv43IuDd4bMbnrLY
-	P9XqM3Fz/8C27a70VxnLlhsFW0P/FGaxKbV18hzz6hWJ9d6OQk6NfSvn8GlHKcN32mXblVU4Fdb
-	mlM0+nSS5WTY91JW+PTT+/8LFWgIyNjXMl5FrE1xVNrueABSsecucLMMN47kX9Q+qf6E7jCsjQS
-	e0+/TyDEjPGlU16uH6J5Pu33ijwGKwUvtqNGa6GfGjfWm4kF80ot5aFvrUtFsmntyR7xSN2/ORi
-	cnFO3cBDHVbQArWT2feA==
-X-Google-Smtp-Source: AGHT+IEnk/AE7ZVaHib0lpAwHSkRelpaGXymI6aDcMDf/pSD9Gj2sIqHZUgdoE5ivbyYaGiacg+zAw==
-X-Received: by 2002:a17:907:96a9:b0:afa:1d2c:2dc7 with SMTP id a640c23a62f3a-b07c3a7a7d2mr286829666b.57.1757679564614;
-        Fri, 12 Sep 2025 05:19:24 -0700 (PDT)
-Message-ID: <b53b394d-a3b3-4a6f-8b4c-fd8cb1bc5adc@suse.com>
-Date: Fri, 12 Sep 2025 14:19:15 +0200
+X-Inumbo-ID: 612e2c9c-8fd5-11f0-9d13-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=F/QMkXR0QmFDH2hSNcKmtWCaKqZWJp
+	/K34Yf9Q/vV4o=; b=cj9ccOMz3g4C+PjNeaWiuuTaP4HNhRLpXSoNy8fDYBJ3tk
+	7VmA5YJda8fjEnU3nV9LYEJ0vevAyi5kPStuOoThm2LttsPn7OqSUIv9hpgYHrDl
+	VM/aZj0XTYswaLwEhX4chi7Xmx3veV2pPSKQE7Xpwhzl/TPEp2EAuPOeuv511Ow4
+	GdjQgA67d2m8iwQ5Lwg5nwGJfFU1oEES3U34uXlfpBV2PZpk1btufFqXlMgXkSrh
+	hrBnft6mO7kvHVsAtqgMa22uMd+6dFXCBNXIQ9bxYg5JQfOYQABNv/34YA++priZ
+	YK5q9EfpN5W8w2jVpUGi5mI4pVFy6aKSSO89ulWA==
+Date: Fri, 12 Sep 2025 14:37:41 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: David Hildenbrand <david@redhat.com>
+Cc: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, Andreas Larsson <andreas@gaisler.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Ryan Roberts <ryan.roberts@arm.com>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+        Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+        linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
+        Mark Rutland <Mark.Rutland@arm.com>
+Subject: Re: [PATCH v2 2/7] mm: introduce local state for lazy_mmu sections
+Message-ID: <9ed5441f-cc03-472a-adc6-b9d3ad525664-agordeev@linux.ibm.com>
+References: <47ee1df7-1602-4200-af94-475f84ca8d80@arm.com>
+ <29383ee2-d6d6-4435-9052-d75a263a5c45@redhat.com>
+ <9de08024-adfc-421b-8799-62653468cf63@arm.com>
+ <ef343405-c394-4763-a79f-21381f217b6c@redhat.com>
+ <4b4971fd-0445-4d86-8f3a-6ba3d68d15b7@arm.com>
+ <4aa28016-5678-4c66-8104-8dcc3fa2f5ce@redhat.com>
+ <15d01c8b-5475-442e-9df5-ca37b0d5dc04@arm.com>
+ <7953a735-6129-4d22-be65-ce736630d539@redhat.com>
+ <781a6450-1c0b-4603-91cf-49f16cd78c28@arm.com>
+ <a17ab4e3-627a-4989-a5a5-d430eadabb86@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] libacpi: Prevent CPU hotplug AML from corrupting
- memory
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Grygorii Strashko <grygorii_strashko@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20250911162336.23887-1-alejandro.garciavallejo@amd.com>
- <20250911162336.23887-2-alejandro.garciavallejo@amd.com>
- <4b958afe-dfcd-4ac0-bc09-468e2b9b2710@suse.com>
- <DCQPUZE9QUU9.1R2NRUOT3952H@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DCQPUZE9QUU9.1R2NRUOT3952H@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a17ab4e3-627a-4989-a5a5-d430eadabb86@redhat.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: DzRH41cgO_SjjRs72WZBVybY8ExotUyL
+X-Proofpoint-ORIG-GUID: 5szjY0KVwgiaHLPdjEz_BJ9YvOIOK4Xh
+X-Authority-Analysis: v=2.4 cv=J52q7BnS c=1 sm=1 tr=0 ts=68c4141c cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=yJojWOMRYYMA:10 a=VnNF1IyMAAAA:8 a=nv4XAxrWCHwsSIOw55kA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA2MDAyNSBTYWx0ZWRfX86gaOQ1LrR1y
+ +AynjQ4AgALVhtZYKnZDDT8c+j9DRk8HERAKDNNp36tCtsrKRRJnQfrOFLxyYdnAr8hyqmeGA1f
+ 1prxUpnPJ5rXvIAgmJzbfZjhxXBnmxRp2iqjJgJ3i90OwHrL2TrKP54cHw5M3qK3XhAF0n2TpPW
+ RsnjxBxBdvNnEesXLpwgkw7dWSF2rosg2AqDmw/wB76gRXWMNRK5mr5x7N99pH4pGAXXTiU4uVS
+ i159bhlfOwCXD+7CDYya0yNVx3NBZFrGp9nJP7w5HEd4jjYX/OX0RgcnOvpZcS7CewzKLkB5WKW
+ CUaIccrW4ap26mcSEi1Rt8r0K+KbR+7MT6HbSo+gGNNB0kqns8XawW6Wq5nSDOWHRsM/E9JdJ0e
+ dqDgxgLq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-12_04,2025-09-11_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 suspectscore=0 spamscore=0 phishscore=0
+ bulkscore=0 adultscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509060025
 
-On 12.09.2025 11:32, Alejandro Vallejo wrote:
-> On Fri Sep 12, 2025 at 8:40 AM CEST, Jan Beulich wrote:
->> On 11.09.2025 18:23, Alejandro Vallejo wrote:
->>> CPU hotplug relies on the online CPU bitmap being provided on PIO 0xaf00
->>> by the device model. The GPE handler checks this and compares it against
->>> the "online" flag on each MADT LAPIC entry, setting the flag to its
->>> related bit in the bitmap and adjusting the table's checksum.
->>>
->>> The bytecode doesn't, however, stop at NCPUS. It keeps comparing until it
->>> reaches 128, even if that overflows the MADT into some other (hopefully
->>> mapped) memory. The reading isn't as problematic as the writing though.
->>>
->>> If an "entry" outside the MADT is deemed to disagree with the CPU bitmap
->>> then the bit where the "online" flag would be is flipped, thus
->>> corrupting that memory. And the MADT checksum gets adjusted for a flip
->>> that happened outside its range. It's all terrible.
->>>
->>> Note that this corruption happens regardless of the device-model being
->>> present or not, because even if the bitmap holds 0s, the overflowed
->>> memory might not at the bits corresponding to the "online" flag.
->>>
->>> This patch adjusts the DSDT so entries >=NCPUS are skipped.
->>>
->>> Fixes: 087543338924("hvmloader: limit CPUs exposed to guests")
->>> Reported-by: Grygorii Strashko <grygorii_strashko@epam.com>
->>> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->>
->> In principle:
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Cheers,
-> 
->>
->> However, ...
->>
->>> --- a/tools/libacpi/mk_dsdt.c
->>> +++ b/tools/libacpi/mk_dsdt.c
->>> @@ -231,6 +231,20 @@ int main(int argc, char **argv)
->>>      stmt("Store", "ToBuffer(PRS), Local0");
->>>      for ( cpu = 0; cpu < max_cpus; cpu++ )
->>>      {
->>> +        if ( cpu )
->>> +        {
->>> +            /*
->>> +             * Check if we're still within the MADT bounds
->>> +             *
->>> +             * LLess() takes one byte, but LLessEqual() takes two. Increase
->>> +             * `cpu` by 1, so we can avoid it. It does add up once you do it
->>> +             * 127 times!
->>> +             */
->>> +            push_block("If", "LLess(\\_SB.NCPU, %d)", 1 + cpu);
->>> +            stmt("Return", "One");
->>
->> ... if you already care about size bloat in the conditional, why are the two
->> bytes per instance that this extra return requires not relevant? They too
->> add up, and they can be avoided by wrapping the If around the rest of the
->> code. I didn't count it, but I expect the If encoding to grow by at most one
->> byte, perhaps none at all.
-> 
-> I don't mind either way. Removing the "return" statement and the pop_block()
-> would save 254 bytes in tota at most. I don't think the conditional would grow
-> because the there wouldn't be that much contained within, but regardless the
-> early return is in the spirit of not going through 127 conditionals on every
-> GPE handle when you typically only have a handful of CPUs. The sooner we drop
-> out of AML, the better.
-> 
-> In due time I want to shrink this to be an AML loop in dsdt.asl so it can
-> be taken out of mk_dsdt.c. That will both shrink the DSDT (a ton) and accelerate
-> GPE handling, but I don't have time to do it at the moment.
-> 
-> Do you have a preference in table size vs execution-time?
+On Fri, Sep 12, 2025 at 10:55:50AM +0200, David Hildenbrand wrote:
 
-Personally I'd favor table size. The AML interpreter is slow anyway.
+Hi David, Kevin,
 
-Jan
+> Great, looking forward to seeing this all getting cleaned up and done
+> properly for good.
+
+I am currently working on lazy mmu for s390 and this nesting
+initiative kind of interferres. Well, in fact it looks like
+it does not, but I am bit lost in last couple of iterations ;)
+
+The prerequisite for s390 would be something like the change
+below. With that change I can store the context in a per-cpu
+structure and use it later in arch-specific ptep_* primitives.
+
+Moreover, with a further (experimental) rework we could use
+a custom kasan sanitizer to spot false directly compiled
+PTE accesses, as opposed to set_pte()/ptep_get() accessors.
+
+I am not quite sure see whether this could be derailed by
+the new lazy mmu API. At least I do not immediately see any
+obvious problem. But may be you do?
+
+
+[PATCH] mm: Make lazy MMU mode context-aware
+
+The lazy MMU mode is assumed to be context-independent in a
+sense the MMU does not need any additional data in lazy mode.
+Yet, s390 architecture may benefit strongly if it knows the
+exact page table entries being changed while in lazy mode.
+
+Introduce arch_enter_lazy_mmu_mode_pte() that is provided
+with the process memory space and the page table being
+operated on as the prerequisite for s390 optimization.
+It is expected to be called only against PTE page tables
+and never cross the page table boundary.
+
+There is no change for architectures that do not need any
+context.
+
+Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
+---
+ fs/proc/task_mmu.c      | 2 +-
+ include/linux/pgtable.h | 8 ++++++++
+ mm/madvise.c            | 8 ++++----
+ mm/memory.c             | 8 ++++----
+ mm/mprotect.c           | 2 +-
+ mm/mremap.c             | 2 +-
+ mm/vmalloc.c            | 6 +++---
+ 7 files changed, 22 insertions(+), 14 deletions(-)
+
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 751479eb128f..02fcd2771b2a 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -2493,7 +2493,7 @@ static int pagemap_scan_pmd_entry(pmd_t *pmd, unsigned long start,
+ 		return 0;
+ 	}
+ 
+-	arch_enter_lazy_mmu_mode();
++	arch_enter_lazy_mmu_mode_pte(vma->vm_mm, start, end, start_pte);
+ 
+ 	if ((p->arg.flags & PM_SCAN_WP_MATCHING) && !p->vec_out) {
+ 		/* Fast path for performing exclusive WP */
+diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+index 0b6e1f781d86..16235c198bcb 100644
+--- a/include/linux/pgtable.h
++++ b/include/linux/pgtable.h
+@@ -235,6 +235,14 @@ static inline int pmd_dirty(pmd_t pmd)
+ #define arch_enter_lazy_mmu_mode()	do {} while (0)
+ #define arch_leave_lazy_mmu_mode()	do {} while (0)
+ #define arch_flush_lazy_mmu_mode()	do {} while (0)
++
++static inline void arch_enter_lazy_mmu_mode_pte(struct mm_struct *mm,
++						unsigned long addr,
++						unsigned long end,
++						pte_t *ptep)
++{
++	arch_enter_lazy_mmu_mode(); 
++}
+ #endif
+ 
+ #ifndef pte_batch_hint
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 1d44a35ae85c..d36d4dc42378 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -448,7 +448,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 	if (!start_pte)
+ 		return 0;
+ 	flush_tlb_batched_pending(mm);
+-	arch_enter_lazy_mmu_mode();
++	arch_enter_lazy_mmu_mode_pte(mm, addr, end, start_pte);
+ 	for (; addr < end; pte += nr, addr += nr * PAGE_SIZE) {
+ 		nr = 1;
+ 		ptent = ptep_get(pte);
+@@ -509,7 +509,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 				if (!start_pte)
+ 					break;
+ 				flush_tlb_batched_pending(mm);
+-				arch_enter_lazy_mmu_mode();
++				arch_enter_lazy_mmu_mode_pte(mm, addr, end, start_pte);
+ 				if (!err)
+ 					nr = 0;
+ 				continue;
+@@ -678,7 +678,7 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
+ 	if (!start_pte)
+ 		return 0;
+ 	flush_tlb_batched_pending(mm);
+-	arch_enter_lazy_mmu_mode();
++	arch_enter_lazy_mmu_mode_pte(mm, addr, end, start_pte);
+ 	for (; addr != end; pte += nr, addr += PAGE_SIZE * nr) {
+ 		nr = 1;
+ 		ptent = ptep_get(pte);
+@@ -743,7 +743,7 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
+ 				if (!start_pte)
+ 					break;
+ 				flush_tlb_batched_pending(mm);
+-				arch_enter_lazy_mmu_mode();
++				arch_enter_lazy_mmu_mode_pte(mm, addr, end, pte);
+ 				if (!err)
+ 					nr = 0;
+ 				continue;
+diff --git a/mm/memory.c b/mm/memory.c
+index b0cda5aab398..93c0b8457eb0 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -1131,7 +1131,7 @@ copy_pte_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
+ 	spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+ 	orig_src_pte = src_pte;
+ 	orig_dst_pte = dst_pte;
+-	arch_enter_lazy_mmu_mode();
++	arch_enter_lazy_mmu_mode_pte(src_mm, addr, end, src_pte);
+ 
+ 	do {
+ 		nr = 1;
+@@ -1723,7 +1723,7 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+ 		return addr;
+ 
+ 	flush_tlb_batched_pending(mm);
+-	arch_enter_lazy_mmu_mode();
++	arch_enter_lazy_mmu_mode_pte(mm, addr, end, start_pte);
+ 	do {
+ 		bool any_skipped = false;
+ 
+@@ -2707,7 +2707,7 @@ static int remap_pte_range(struct mm_struct *mm, pmd_t *pmd,
+ 	mapped_pte = pte = pte_alloc_map_lock(mm, pmd, addr, &ptl);
+ 	if (!pte)
+ 		return -ENOMEM;
+-	arch_enter_lazy_mmu_mode();
++	arch_enter_lazy_mmu_mode_pte(mm, addr, end, mapped_pte);
+ 	do {
+ 		BUG_ON(!pte_none(ptep_get(pte)));
+ 		if (!pfn_modify_allowed(pfn, prot)) {
+@@ -3024,7 +3024,7 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
+ 			return -EINVAL;
+ 	}
+ 
+-	arch_enter_lazy_mmu_mode();
++	arch_enter_lazy_mmu_mode_pte(mm, addr, end, mapped_pte);
+ 
+ 	if (fn) {
+ 		do {
+diff --git a/mm/mprotect.c b/mm/mprotect.c
+index 88608d0dc2c2..919c1dedff87 100644
+--- a/mm/mprotect.c
++++ b/mm/mprotect.c
+@@ -106,7 +106,7 @@ static long change_pte_range(struct mmu_gather *tlb,
+ 		target_node = numa_node_id();
+ 
+ 	flush_tlb_batched_pending(vma->vm_mm);
+-	arch_enter_lazy_mmu_mode();
++	arch_enter_lazy_mmu_mode_pte(vma->vm_mm, addr, end, pte);
+ 	do {
+ 		oldpte = ptep_get(pte);
+ 		if (pte_present(oldpte)) {
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 60f6b8d0d5f0..08b9cb3bb9ef 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -233,7 +233,7 @@ static int move_ptes(struct pagetable_move_control *pmc,
+ 	if (new_ptl != old_ptl)
+ 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
+ 	flush_tlb_batched_pending(vma->vm_mm);
+-	arch_enter_lazy_mmu_mode();
++	arch_enter_lazy_mmu_mode_pte(mm, old_addr, old_end, old_pte);
+ 
+ 	for (; old_addr < old_end; old_pte++, old_addr += PAGE_SIZE,
+ 				   new_pte++, new_addr += PAGE_SIZE) {
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 6dbcdceecae1..29cfc64970a5 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -105,7 +105,7 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
+ 	if (!pte)
+ 		return -ENOMEM;
+ 
+-	arch_enter_lazy_mmu_mode();
++	arch_enter_lazy_mmu_mode_pte(&init_mm, addr, end, pte);
+ 
+ 	do {
+ 		if (unlikely(!pte_none(ptep_get(pte)))) {
+@@ -359,7 +359,7 @@ static void vunmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
+ 	unsigned long size = PAGE_SIZE;
+ 
+ 	pte = pte_offset_kernel(pmd, addr);
+-	arch_enter_lazy_mmu_mode();
++	arch_enter_lazy_mmu_mode_pte(&init_mm, addr, end, pte);
+ 
+ 	do {
+ #ifdef CONFIG_HUGETLB_PAGE
+@@ -526,7 +526,7 @@ static int vmap_pages_pte_range(pmd_t *pmd, unsigned long addr,
+ 	if (!pte)
+ 		return -ENOMEM;
+ 
+-	arch_enter_lazy_mmu_mode();
++	arch_enter_lazy_mmu_mode_pte(&init_mm, addr, end, pte);
+ 
+ 	do {
+ 		struct page *page = pages[*nr];
+
+> David / dhildenb
+
+Thanks!
 
