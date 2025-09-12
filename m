@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64D56B543E3
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Sep 2025 09:30:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1121536.1465776 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5FD1B543FA
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Sep 2025 09:34:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1121553.1465787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwyEG-0007fj-IX; Fri, 12 Sep 2025 07:29:56 +0000
+	id 1uwyIb-0000pf-6a; Fri, 12 Sep 2025 07:34:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1121536.1465776; Fri, 12 Sep 2025 07:29:56 +0000
+Received: by outflank-mailman (output) from mailman id 1121553.1465787; Fri, 12 Sep 2025 07:34:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uwyEG-0007di-Fx; Fri, 12 Sep 2025 07:29:56 +0000
-Received: by outflank-mailman (input) for mailman id 1121536;
- Fri, 12 Sep 2025 07:29:55 +0000
+	id 1uwyIb-0000np-3o; Fri, 12 Sep 2025 07:34:25 +0000
+Received: by outflank-mailman (input) for mailman id 1121553;
+ Fri, 12 Sep 2025 07:34:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BfOp=3X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uwyEF-0007dc-Kx
- for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 07:29:55 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1uwyIZ-0000nj-KP
+ for xen-devel@lists.xenproject.org; Fri, 12 Sep 2025 07:34:23 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 45f94926-8faa-11f0-9809-7dc792cee155;
- Fri, 12 Sep 2025 09:29:53 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b07c28f390eso99169766b.2
- for <xen-devel@lists.xenproject.org>; Fri, 12 Sep 2025 00:29:53 -0700 (PDT)
+ id e5f5b9d9-8faa-11f0-9809-7dc792cee155;
+ Fri, 12 Sep 2025 09:34:21 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-b0418f6fc27so271179066b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Sep 2025 00:34:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b07b30da289sm307046866b.17.2025.09.12.00.29.51
+ a640c23a62f3a-b07b33478e4sm303481166b.96.2025.09.12.00.34.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Sep 2025 00:29:52 -0700 (PDT)
+ Fri, 12 Sep 2025 00:34:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45f94926-8faa-11f0-9809-7dc792cee155
+X-Inumbo-ID: e5f5b9d9-8faa-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757662192; x=1758266992; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1757662461; x=1758267261; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1OaZ4ACBHXcPAaQSwE2GYXsBNKUBXGC1v8dtnTOZtjQ=;
-        b=N1yRLAUS2/5ZXKPbs0A5j/d9wA2/7t5CTFHAeb2kUihbszR8zGTvXFziue1DmBhtVL
-         meijvjk8vKsoYNxA6pN+pNeJxJlg/Aq8Mhn/U4bqaPO3vf/Mk3mbLiUsFqWLPDuStj0v
-         5EnEI3YC07WgkiclMwLrT351IRm+g+hQTlOMcsM0/OGzi5RuumZkt9OQNZrDXc8M6Wwx
-         iHtcwkHvyok6Uuue+qxYoZF+pSMLVgQclFfwecBwEV8KIm1hqgspL/PGF6fcP1k+YUhi
-         Qy6DYKaWhj/g700UjMJhDjM5PARJGNMmD1hwoUL1ZSxJYJSlk4ieAOFsafdJNfgMb4rw
-         3I8A==
+        bh=Zx+F00AEOde4cYO30/QXLuJvTThR4MJ7BuHCJG0MFUI=;
+        b=M9///Qxh/Xvg9nwGUQ9P0j1snaLXMtixeC78QdzS4ZbqK6Wfte/kh/Uzee5a89C7it
+         xYSRJwTvaoQNWQJ8BsHTCrxnMd6SaDJmdIdG3COzLUParxP6+B1oLTq75JlAEpJ0Cszi
+         bLtQr3nV5GV7YonCIEONHeAcoUsZ/kvOHHGg0gPrki68Qq8WhXSVyYKOMvQ2ZfF1mhMJ
+         Otj+QN8B6uapFL3pCRmjPtQJqYNNKXNDQciuZiBGOKUkRAAPb40ZwPShAiRFSBIycY/e
+         sX99gJI6XY/yPcEVOWciv1aczfciNx/ZpdYeZpx8YQVOiVCfA3s9HD1L8ve/K+GCqRaG
+         I/HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757662192; x=1758266992;
+        d=1e100.net; s=20230601; t=1757662461; x=1758267261;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1OaZ4ACBHXcPAaQSwE2GYXsBNKUBXGC1v8dtnTOZtjQ=;
-        b=AlLJmyarIir8hOs0iQxZoDiYjw/lifLzrP9r8fslFU/daTTEJfZXPMFj1lpomjn4g7
-         gGhiuG4hTc2pB0Z7wK3BE+udSTRe2Uqxr501hfsDpFV39G5fuBByONvWswjuUkFHQO6h
-         yq/NbK0a7q1pUZz9c4v2hQ+YjOMEwBZ/0Yi/NIyCNyhwNFM5SGHAAyjvUzdVOZ8Qt4mJ
-         ez9C3jhvPKSh0StBGzrtQiodbSVpt82XVmZEAE/XVuT/8Gq+gWfCY0eOH0a6+BQubK5T
-         BpIMkeV0qByiHxkjaZidroNSjsqg+tGXFMDVFszU+2uQEorgCQ4h+6x1Qn4L6RgM4BAH
-         L8AA==
-X-Forwarded-Encrypted: i=1; AJvYcCV0cimtTa4B1Ao7IUWYRLDljyAZjSlxcUp87DJ0rZyGVC9WmuQ5ZjApoeIW8KZokDxzwIOZhLi8VkU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw80AX4x3WbtQjLd6fKAaQ3gXzzR3PcZtT/OgJX6AgU4vVA1eqm
-	7MmrUpjLdchW1KH3lKjPrNDQPzToSH5uMtweTvrwlny8tR+Nf0ukMRJv97JJBBfX6g==
-X-Gm-Gg: ASbGncurUN7JD2MMsHYKc9AOSzH2zrRWl3Srx2kLWFFfJ4C65Pn7xSK3K0yrcbGlboq
-	dy4D7ymj+rQZOwkMEScjx3j5KPUnqRJHWxBeH5RFZPjG24Aguv6I+gNZTWT/zJ8+A5zXIeVVjpf
-	Wk34fZZEvVSXWER84y0vqHuMesZLP5X0wD++W3fG7s1QuqBMxE+08d1/xxOGBTzpGZQxwf9/OMo
-	zIQQyHEpHW98r1s0dU1VnDOLzb3mRg+BjHmIBZJxoSA19q8osvz9kx2fUkyqO4B/QQuvMV6S2FL
-	GFBiUFTfYDX/zspm9GvCsC1fV5M0x1NkcRVr5C1/h9fEJ2m6NBDbaOGqpyVCjAo6l9iNtimZJjl
-	9D5wgg+XzEAPeO0tut/M99RjU9LMaaALDljp/c1kz0D2wiVv7K/p5hD/KI3yj/5OcDQHey4Cay1
-	YSraOfsqBltnjQBvK8NQ==
-X-Google-Smtp-Source: AGHT+IEBqGfy0KWQ0edxWi2/LvF8zYRmD0eI8sUiDHIpd85tM4bid6kQzCDaOu5unS8XwDcNLXdEXA==
-X-Received: by 2002:a17:907:7e8c:b0:b04:3513:5138 with SMTP id a640c23a62f3a-b07c37fca87mr188017766b.41.1757662192371;
-        Fri, 12 Sep 2025 00:29:52 -0700 (PDT)
-Message-ID: <e29930b6-2f13-483b-a8ce-62a93550199d@suse.com>
-Date: Fri, 12 Sep 2025 09:29:50 +0200
+        bh=Zx+F00AEOde4cYO30/QXLuJvTThR4MJ7BuHCJG0MFUI=;
+        b=LQpFg59KMeUfUekaFhm8nby7C6pWuK02PjZu7PNN+3KRboX+Ew9ugRkKo3ElV7ITXE
+         f8BgZd+yD4BWZevLOElFftlfY10MTbkyq9gLFLXc9DjrO2oTgmyWdUi5M+eljJnNdAvr
+         Uel95d+ERHYwuigiv+TfLJA31yLRAY1VmQ5qvo7rnOSTDXNdPhP0Ewia0nxvog5f+2dN
+         51hu23atha3uzGUJ7QEdU1cXcETuSgfSGZ6wJhpw9KeRyKliAptoTzSCs8ycTy6N2z2R
+         o9RVzHZqciIzgl1Q0FbkpDtTU08w0Yp5b+21+cnx2xWbItbDgDpQGrfx0GjsF/Il6vqm
+         +aQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVqIXTzqEJ8be8+VREyZpeDhcIFHTDkuUQ1OhKNVVBw9UQD3bMkWSChBKEIAfKPtatK6pOEjAP2CXE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx9dULscJZMSexeM5FMbA712u7jnAuHHzggzrgqUUyI1QZLXxuB
+	m8pkZwp2GHySuypXokauEgaqOWHzBAc/V4m/js/XPZzaacfsscPmMKLy/6Wr/jkMag==
+X-Gm-Gg: ASbGncv7mGOodvN8GqqE6X5lWWHHTM/EtoZlTPsmjvagdL6bkN/Oys2J/ncqLYHOReL
+	HXbDajDsWsPzRmxtfhxAvk9Zwnv7JewfOFz3DyYpOq4jDIsO9ok2DydBMKT5mqOuUo1krKKVMCd
+	CWzdNLxIaWUgfDwE+coa8x+m4vW+2JqGkgsrGc0Sfki3DlEkOSnIhLndHVMAK6eJc0jihUr2Vu/
+	wlTGdrWRXNl3fxQ+2sIodn9TNFYAflFaeHWm7KLagOCS+13js8wkpt5U+fLuAx22wfQtq8trGk1
+	0N/QD4y4n0iuO/OwBTvYip7MqUaTjhJhnexIezgXPlvWRX95+RAbyGvOh5F44f/4xb+iPth2uAy
+	TIF1uUxQqJg4WuKAC8/vj5pEos+3zZJiFJdjIrzAo3VFWkO3GQ7vR5tB8SzjcuL69dnEIRH2J72
+	1JLLNyhp0=
+X-Google-Smtp-Source: AGHT+IGC3n9FQ8CRAkQaABFzd2YTSR/FuqVCzRGdMdwEPElV45vHOx47uhzQlXJSwzMlZeVyoDy1RA==
+X-Received: by 2002:a17:907:2d20:b0:b04:74d1:a561 with SMTP id a640c23a62f3a-b07c34d63f1mr215449266b.25.1757662460813;
+        Fri, 12 Sep 2025 00:34:20 -0700 (PDT)
+Message-ID: <17003bf5-4005-4ff1-8e8f-26bfe39e7e6b@suse.com>
+Date: Fri, 12 Sep 2025 09:34:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/vm_event: introduce vm_event_is_enabled()
-To: Penny Zheng <Penny.Zheng@amd.com>, Tamas K Lengyel <tamas@tklengyel.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 08/26] xen/domctl: wrap domain_soft_reset() with
+ CONFIG_MGMT_HYPERCALLS
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- xen-devel@lists.xenproject.org, Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20250912045254.3731398-1-Penny.Zheng@amd.com>
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
+ <20250910073827.3622177-9-Penny.Zheng@amd.com>
+ <4be69331-8002-47a3-a2e1-e34b12a5c5bb@suse.com>
+ <DM4PR12MB8451D1EBF99396A526F05FB6E108A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,238 +131,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250912045254.3731398-1-Penny.Zheng@amd.com>
+In-Reply-To: <DM4PR12MB8451D1EBF99396A526F05FB6E108A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12.09.2025 06:52, Penny Zheng wrote:
-> Function vm_event_is_enabled() is introduced to check if vm event is enabled,
-> and also make the checking conditional upon CONFIG_VM_EVENT, which could help
-> DCE a lot calls/codes, such as hvm_monitor_io(), etc when VM_EVENT=n.
-> In-place assertion of arch.vm_event is kinds of redundant and could be
-> removed.
+On 12.09.2025 09:18, Penny, Zheng wrote:
+> [Public]
 > 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Wednesday, September 10, 2025 11:14 PM
+>> To: Penny, Zheng <penny.zheng@amd.com>
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; Stefano Stabellini
+>> <sstabellini@kernel.org>; Julien Grall <julien@xen.org>; Bertrand Marquis
+>> <bertrand.marquis@arm.com>; Orzel, Michal <Michal.Orzel@amd.com>;
+>> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>; Andrew Cooper
+>> <andrew.cooper3@citrix.com>; Anthony PERARD <anthony.perard@vates.tech>;
+>> Roger Pau Monné <roger.pau@citrix.com>; Christopher Clark
+>> <christopher.w.clark@gmail.com>; Daniel P. Smith
+>> <dpsmith@apertussolutions.com>; xen-devel@lists.xenproject.org
+>> Subject: Re: [PATCH v2 08/26] xen/domctl: wrap domain_soft_reset() with
+>> CONFIG_MGMT_HYPERCALLS
+>>
+>> On 10.09.2025 09:38, Penny Zheng wrote:
+>>> Function domain_soft_reset() is responsible for domain soft reset
+>>> domctl-op, and shall be wrapped with CONFIG_MGMT_HYPERCALLS Tracking
+>>> its calling chain, and the following functions shall also be wrapped
+>>> with CONFIG_MGMT_HYPERCALLS:
+>>> - grant_table_warn_active_grants()
+>>> - argo_soft_reset()
+>>> - arch_domain_soft_reset()
+>>> Wrap XEN_DOMCTL_soft_reset-case transiently with
+>>> CONFIG_MGMT_HYPERCALLS, and it will be removed when introducing
+>>> CONFIG_MGMT_HYPERCALLS on the common/domctl.c in the last.
+>>>
+>>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+>>> ---
+>>> v1 -> v2:
+>>> - remove unnessary wrapping in stub.c
+>>> - adapt to changes of "unify DOMCTL to MGMT_HYPERCALLS"
+>>> - wrap XEN_DOMCTL_soft_reset-case transiently
+>>> ---
+>>>  xen/arch/arm/domain.c    | 2 ++
+>>>  xen/arch/x86/domain.c    | 2 ++
+>>
+>> What about PPC and RISC-V? They have the function in stubs.c, but not adding the
+>> #ifdef there increases the chance that when the stubs are replaced by real
+>> functions, the intended #ifdef might then be forgotten to add.
+> 
+> As we are addressing concerns on the v1 about editing stubs.c files [1], I removed them all in this patch serie. If they are considered necessary now, I'll add them back in next version
+> [1] https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg00135.html
 
-Why is this sent standalone, without even a reference to the domctl series?
-Without the connection, this clearly wouldn't be valid to consider for 4.21.
-Also you will want to Cc Oleksii on such past-the-deadline submissions.
-
-> ---
->  xen/arch/x86/hvm/emulate.c          |  6 ++---
->  xen/arch/x86/hvm/hvm.c              | 41 +++++++++++++----------------
->  xen/arch/x86/hvm/svm/intr.c         |  2 +-
->  xen/arch/x86/hvm/vmx/intr.c         |  2 +-
->  xen/arch/x86/include/asm/vm_event.h |  9 +++++++
->  5 files changed, 33 insertions(+), 27 deletions(-)
-
-With this diffstat, I think the subject prefix is misleading (should perhaps
-be x86/vm_event: or x86/hvm:).
-
-> --- a/xen/arch/x86/hvm/emulate.c
-> +++ b/xen/arch/x86/hvm/emulate.c
-> @@ -105,7 +105,7 @@ static int set_context_data(void *buffer, unsigned int size)
->  {
->      struct vcpu *curr = current;
->  
-> -    if ( curr->arch.vm_event )
-> +    if ( vm_event_is_enabled(curr) )
->      {
->          unsigned int safe_size =
->              min(size, curr->arch.vm_event->emul.read.size);
-> @@ -771,7 +771,7 @@ static void *hvmemul_map_linear_addr(
->              ASSERT(p2mt == p2m_ram_logdirty || !p2m_is_readonly(p2mt));
->          }
->  
-> -        if ( unlikely(curr->arch.vm_event) &&
-> +        if ( unlikely(vm_event_is_enabled(curr)) &&
->               curr->arch.vm_event->send_event &&
->               hvm_monitor_check_p2m(addr, gfn, pfec, npfec_kind_with_gla) )
->          {
-> @@ -1870,7 +1870,7 @@ static int hvmemul_rep_outs_set_context(
->      int rc = X86EMUL_OKAY;
->  
->      ASSERT(bytes_per_rep <= 4);
-> -    if ( !ev )
-> +    if ( !vm_event_is_enabled(current) )
->          return X86EMUL_UNHANDLEABLE;
-
-I wonder if in a case like this one the assignment (to ev) would better move
-past the predicate check.
-
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -532,7 +532,7 @@ void hvm_do_resume(struct vcpu *v)
->      if ( !vcpu_ioreq_handle_completion(v) )
->          return;
->  
-> -    if ( unlikely(v->arch.vm_event) )
-> +    if ( unlikely(vm_event_is_enabled(v)) )
->          hvm_vm_event_do_resume(v);
->  
->      /* Inject pending hw/sw event */
-> @@ -546,11 +546,12 @@ void hvm_do_resume(struct vcpu *v)
->          v->arch.hvm.inject_event.vector = HVM_EVENT_VECTOR_UNSET;
->      }
->  
-> -    if ( unlikely(v->arch.vm_event) && v->arch.monitor.next_interrupt_enabled )
-> +    if ( unlikely(vm_event_is_enabled(v)) &&
-
-With this, ...
-
-> +         v->arch.monitor.next_interrupt_enabled )
->      {
->          struct x86_event info;
->  
-> -        if ( hvm_get_pending_event(v, &info) )
-> +        if ( hvm_get_pending_event(v, &info) && vm_event_is_enabled(v) )
-
-... why this?
-
-> @@ -2088,7 +2089,7 @@ int hvm_handle_xsetbv(u32 index, u64 new_bv)
->  {
->      int rc;
->  
-> -    if ( index == 0 )
-> +    if ( index == 0 && vm_event_is_enabled(current) )
->          hvm_monitor_crX(XCR0, new_bv, current->arch.xcr0);
->  
->      rc = x86emul_write_xcr(index, new_bv, NULL);
-> @@ -2337,9 +2338,7 @@ int hvm_set_cr0(unsigned long value, bool may_defer)
->      if ( may_defer && unlikely(v->domain->arch.monitor.write_ctrlreg_enabled &
->                                 monitor_ctrlreg_bitmask(VM_EVENT_X86_CR0)) )
->      {
-> -        ASSERT(v->arch.vm_event);
-> -
-> -        if ( hvm_monitor_crX(CR0, value, old_value) )
-> +        if ( vm_event_is_enabled(v) && hvm_monitor_crX(CR0, value, old_value) )
->          {
-
-I don't think assertions (here and below) should be replaced like this.
-Can't you e.g. force "may_defer" to false at the top of the function when
-vm_event_is_enabled() returns false?
-
-> @@ -2462,9 +2461,8 @@ int hvm_set_cr3(unsigned long value, bool noflush, bool may_defer)
->      if ( may_defer && unlikely(currd->arch.monitor.write_ctrlreg_enabled &
->                                 monitor_ctrlreg_bitmask(VM_EVENT_X86_CR3)) )
->      {
-> -        ASSERT(curr->arch.vm_event);
-> -
-> -        if ( hvm_monitor_crX(CR3, value, curr->arch.hvm.guest_cr[3]) )
-> +        if ( vm_event_is_enabled(curr) &&
-> +             hvm_monitor_crX(CR3, value, curr->arch.hvm.guest_cr[3]) )
->          {
->              /* The actual write will occur in hvm_do_resume(), if permitted. */
->              curr->arch.vm_event->write_data.do_write.cr3 = 1;
-> @@ -2544,9 +2542,7 @@ int hvm_set_cr4(unsigned long value, bool may_defer)
->      if ( may_defer && unlikely(v->domain->arch.monitor.write_ctrlreg_enabled &
->                                 monitor_ctrlreg_bitmask(VM_EVENT_X86_CR4)) )
->      {
-> -        ASSERT(v->arch.vm_event);
-> -
-> -        if ( hvm_monitor_crX(CR4, value, old_cr) )
-> +        if ( vm_event_is_enabled(v) && hvm_monitor_crX(CR4, value, old_cr) )
->          {
->              /* The actual write will occur in hvm_do_resume(), if permitted. */
->              v->arch.vm_event->write_data.do_write.cr4 = 1;
-> @@ -3407,7 +3403,7 @@ static enum hvm_translation_result __hvm_copy(
->              return HVMTRANS_bad_gfn_to_mfn;
->          }
->  
-> -        if ( unlikely(v->arch.vm_event) &&
-> +        if ( unlikely(vm_event_is_enabled(v)) &&
->               (flags & HVMCOPY_linear) &&
->               v->arch.vm_event->send_event &&
->               hvm_monitor_check_p2m(addr, gfn, pfec, npfec_kind_with_gla) )
-> @@ -3538,6 +3534,7 @@ int hvm_vmexit_cpuid(struct cpu_user_regs *regs, unsigned int inst_len)
->      struct vcpu *curr = current;
->      unsigned int leaf = regs->eax, subleaf = regs->ecx;
->      struct cpuid_leaf res;
-> +    int ret = 0;
->  
->      if ( curr->arch.msrs->misc_features_enables.cpuid_faulting &&
->           hvm_get_cpl(curr) > 0 )
-> @@ -3554,7 +3551,10 @@ int hvm_vmexit_cpuid(struct cpu_user_regs *regs, unsigned int inst_len)
->      regs->rcx = res.c;
->      regs->rdx = res.d;
->  
-> -    return hvm_monitor_cpuid(inst_len, leaf, subleaf);
-> +    if ( vm_event_is_enabled(curr) )
-> +        ret = hvm_monitor_cpuid(inst_len, leaf, subleaf);
-> +
-> +    return ret;
->  }
->  
->  void hvm_rdtsc_intercept(struct cpu_user_regs *regs)
-> @@ -3694,9 +3694,8 @@ int hvm_msr_write_intercept(unsigned int msr, uint64_t msr_content,
->          if ( ret != X86EMUL_OKAY )
->              return ret;
->  
-> -        ASSERT(v->arch.vm_event);
-> -
-> -        if ( hvm_monitor_msr(msr, msr_content, msr_old_content) )
-> +        if ( vm_event_is_enabled(v) &&
-> +             hvm_monitor_msr(msr, msr_content, msr_old_content) )
->          {
->              /* The actual write will occur in hvm_do_resume(), if permitted. */
->              v->arch.vm_event->write_data.do_write.msr = 1;
-> @@ -3854,12 +3853,10 @@ int hvm_descriptor_access_intercept(uint64_t exit_info,
->      struct vcpu *curr = current;
->      struct domain *currd = curr->domain;
->  
-> -    if ( currd->arch.monitor.descriptor_access_enabled )
-> -    {
-> -        ASSERT(curr->arch.vm_event);
-> +    if ( currd->arch.monitor.descriptor_access_enabled &&
-> +         vm_event_is_enabled(curr) )
->          hvm_monitor_descriptor_access(exit_info, vmx_exit_qualification,
->                                        descriptor, is_write);
-> -    }
->      else if ( !hvm_emulate_one_insn(is_sysdesc_access, "sysdesc access") )
->          domain_crash(currd);
-
-Following "xen: consolidate CONFIG_VM_EVENT" this function is actually unreachable
-when VM_EVENT=n, so no change should be needed here. It's instead the unreachability
-which needs properly taking care of (to satisfy Misra requirements) there.
-
-> --- a/xen/arch/x86/hvm/svm/intr.c
-> +++ b/xen/arch/x86/hvm/svm/intr.c
-> @@ -130,7 +130,7 @@ void asmlinkage svm_intr_assist(void)
->      enum hvm_intblk intblk;
->  
->      /* Block event injection while handling a sync vm_event. */
-> -    if ( unlikely(v->arch.vm_event) && v->arch.vm_event->sync_event )
-> +    if ( unlikely(vm_event_is_enabled(v)) && v->arch.vm_event->sync_event )
->          return;
->  
->      /* Crank the handle on interrupt state. */
-> diff --git a/xen/arch/x86/hvm/vmx/intr.c b/xen/arch/x86/hvm/vmx/intr.c
-> index b35dc8c586..a8ced95871 100644
-> --- a/xen/arch/x86/hvm/vmx/intr.c
-> +++ b/xen/arch/x86/hvm/vmx/intr.c
-> @@ -239,7 +239,7 @@ void asmlinkage vmx_intr_assist(void)
->      }
->  
->      /* Block event injection while handling a sync vm_event. */
-> -    if ( unlikely(v->arch.vm_event) && v->arch.vm_event->sync_event )
-> +    if ( unlikely(vm_event_is_enabled(v)) && v->arch.vm_event->sync_event )
->          return;
->  
->  #ifdef CONFIG_MEM_SHARING
-> diff --git a/xen/arch/x86/include/asm/vm_event.h b/xen/arch/x86/include/asm/vm_event.h
-> index 46e77ed6d9..446d02c7d5 100644
-> --- a/xen/arch/x86/include/asm/vm_event.h
-> +++ b/xen/arch/x86/include/asm/vm_event.h
-> @@ -45,4 +45,13 @@ void vm_event_sync_event(struct vcpu *v, bool value);
->  
->  void vm_event_reset_vmtrace(struct vcpu *v);
->  
-> +static inline bool vm_event_is_enabled(struct vcpu *v)
-> +{
-> +#ifdef CONFIG_VM_EVENT
-> +    return v->arch.vm_event != NULL;
-
-Is "enabled" (in the function name) a good description of this condition, Tamas?
+Hmm, looks like I changed my perspective, previously not having taken into account
+the aspect mentioned above. I'm sorry for the back and forth. And yes, it is on
+the edge, seeing also what Stefano said. I guess I should say "okay either way,
+with (now) a slight preference to also adding the #ifdef-s there".
 
 Jan
 
