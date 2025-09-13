@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21960B56279
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Sep 2025 20:10:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1123464.1466473 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13808B563BF
+	for <lists+xen-devel@lfdr.de>; Sun, 14 Sep 2025 01:23:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1123570.1466482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uxUgs-0000Q1-PN; Sat, 13 Sep 2025 18:09:38 +0000
+	id 1uxZZC-0002zR-J8; Sat, 13 Sep 2025 23:22:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1123464.1466473; Sat, 13 Sep 2025 18:09:38 +0000
+Received: by outflank-mailman (output) from mailman id 1123570.1466482; Sat, 13 Sep 2025 23:22:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uxUgs-0000OW-MM; Sat, 13 Sep 2025 18:09:38 +0000
-Received: by outflank-mailman (input) for mailman id 1123464;
- Sat, 13 Sep 2025 18:09:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dmukhin@xen.org>) id 1uxUgr-0000OQ-Gs
- for xen-devel@lists.xenproject.org; Sat, 13 Sep 2025 18:09:37 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1uxUgq-0089RO-11;
- Sat, 13 Sep 2025 18:09:36 +0000
-Received: from [19.12.91.86] (helo=localhost)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1uxUgq-007VHd-0k;
- Sat, 13 Sep 2025 18:09:36 +0000
+	id 1uxZZC-0002ws-DX; Sat, 13 Sep 2025 23:22:02 +0000
+Received: by outflank-mailman (input) for mailman id 1123570;
+ Sat, 13 Sep 2025 23:22:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vBAy=3Y=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1uxZZA-0002wm-SX
+ for xen-devel@lists.xenproject.org; Sat, 13 Sep 2025 23:22:00 +0000
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6e6a047c-90f8-11f0-9d13-b5c5bf9af7f9;
+ Sun, 14 Sep 2025 01:21:54 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1757805708409168.5613458921232;
+ Sat, 13 Sep 2025 16:21:48 -0700 (PDT)
+Received: by mail-oa1-f44.google.com with SMTP id
+ 586e51a60fabf-322f0a39794so911666fac.2
+ for <xen-devel@lists.xenproject.org>; Sat, 13 Sep 2025 16:21:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,116 +41,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:Message-ID:Subject:Cc:To:Date:From;
-	bh=F3WkMxo0QuWWcnZ3fFw0tI3XNr0b24EUPuuABcpHFuM=; b=prjZjvsI2g7U2ZvdrrdDWMMIUX
-	BFgKJ5HtF+R4RK0qx05cOrCGbT7HSqnmGITHH4DoawQcynmZ9fT1rRNVLv5pdFou31IvSFMecepYm
-	f66sThnBCZCX6JAHCv5C501AlznbLLJZe8zVitUYVBu3S272Nw5vm6OwPCCx1c19oQck=;
-From: dmukhin@xen.org
-Date: Sat, 13 Sep 2025 11:09:35 -0700
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
-	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
-	michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
-	dmukhin@ford.com
-Subject: Re: [PATCH v7 01/16] emul/vuart: introduce framework for UART
- emulators
-Message-ID: <aMWzXzL3bhSkKNEp@kraken>
-References: <20250908211149.279143-1-dmukhin@ford.com>
- <20250908211149.279143-2-dmukhin@ford.com>
- <CAGeoDV92gvzfF4fEo2KBPhvYba2ULK5yW2LGBBQ2e8z2FU2yyQ@mail.gmail.com>
+X-Inumbo-ID: 6e6a047c-90f8-11f0-9d13-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; t=1757805710; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Svcm3mobCYbmtaKgvDfiCw1S4czfRKrJHI7Nxwh20aCslb3hRrIkLmmtS2hnV5ddndgiz8urjqKjGSwEiWih8UM7qzknWYXaC/C+SBYtBqzENc9mZq+shimHU8EAZdgTrvXJCIULqGbP/j05yjzWSL6bYQtcgEaXpdw9Qx242Rw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1757805710; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Lb4oPEpeznTSNONNNkvIwZWMW8wPE/TZ8ZqgB31kdBU=; 
+	b=NSoPXnzXA639TFkNgfIiRYqfiVgi7+MuoGlPp1QvxTT788pSSVOWM9HL45geL7dAj2VFITu5Je8FJvYF0D+oE5ggzpEIeQ/eXVQ29yEx+orttH6SpcUEVoPNKo8uiV+Py3pGEDuth+T2PHYyI7uOSHLblWo6OoxMzy7Gw97R114=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1757805710;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Lb4oPEpeznTSNONNNkvIwZWMW8wPE/TZ8ZqgB31kdBU=;
+	b=BJYCEwM+J6jYBeb7HP+RwlN+8fBFs5gVClzhI3hE5bsopg45UdPjWJVuku1WJi6P
+	gO0ebe7Kh72EWNgPWettBCvlbYAz2NevJLyjuFhmpYbp69KQlKvgZAVkjwbdQLOpcvz
+	fcWBf7rojmkH004+9gbvrNP44NdsE5SOP4zT2+1s=
+X-Forwarded-Encrypted: i=1; AJvYcCVhcyMAUTmuTdJ7VI1yP1MCoPiL8Zh0xoX+uC7NiYA1lBBMqz5/SThXWosONi/xUyiN5JAj8I80y/s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxUGt+qYU4UQ6AiPReTfeuc1eRSFebD11r+E6BtWUST2MrEBvvu
+	JFaoIfZB4GMutnbdVTA3havYOXjL14CqPyoBvSkU1oQlKJ4HOvbqOGClFBkdLWQ6C65qM4BfSbU
+	UA9wVTsK2xizZPmnW1rwM0Sp/MmcOkLQ=
+X-Google-Smtp-Source: AGHT+IH6rlFWsBb58CAzact8c+s/gwD+oH00dVydclqv9iB+pIhEiCJYR+hgRKqOyTCVo2GGvYjynTkFHE6w7e1a0S8=
+X-Received: by 2002:a05:6871:611:b0:31d:8c33:59b4 with SMTP id
+ 586e51a60fabf-32e55ec69f7mr3157277fac.28.1757805707555; Sat, 13 Sep 2025
+ 16:21:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGeoDV92gvzfF4fEo2KBPhvYba2ULK5yW2LGBBQ2e8z2FU2yyQ@mail.gmail.com>
+References: <20250910073827.3622177-1-Penny.Zheng@amd.com> <20250910073827.3622177-6-Penny.Zheng@amd.com>
+ <4e61f21e-6e1e-4baf-a78e-2b17b876d20c@suse.com>
+In-Reply-To: <4e61f21e-6e1e-4baf-a78e-2b17b876d20c@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Sat, 13 Sep 2025 19:21:11 -0400
+X-Gmail-Original-Message-ID: <CABfawhkON8sEQHHmCY+hknoX33uJ4xr=d3J3WOV=eDc_oR60wQ@mail.gmail.com>
+X-Gm-Features: AS18NWBoTwWby4gfbh2Hlm-4u3KeUcE6OcRxRuvhCYTlG9I8nsZw1HHCi0AJzgM
+Message-ID: <CABfawhkON8sEQHHmCY+hknoX33uJ4xr=d3J3WOV=eDc_oR60wQ@mail.gmail.com>
+Subject: Re: [PATCH v2 05/26] xen/x86: make VM_EVENT depend on CONFIG_MGMT_HYPERCALLS
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Penny Zheng <Penny.Zheng@amd.com>, ray.huang@amd.com, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 10, 2025 at 10:57:14AM +0300, Mykola Kvach wrote:
-> > +int vuart_init(struct domain *d, const struct vuart_info *info)
-> > +{
-> > +    const struct vuart_emulator *emulator;
-> > +    struct vuart *vuart;
-> > +    int rc;
-> > +
-> > +    if ( d->console.vuart )
-> > +        return -EBUSY;
-> > +
-> > +    emulator = vuart_match_by_compatible(d, info->compatible);
-> > +    if ( !emulator )
-> > +        return -ENODEV;
-> > +
-> > +    vuart = xzalloc(typeof(*vuart));
-> > +    if ( !vuart )
-> > +        return -ENOMEM;
-> > +
-> > +    vuart->info = xvzalloc(typeof(*vuart->info));
-> > +    if ( !vuart->info )
-> > +    {
-> > +        rc = -ENOMEM;
-> > +        goto err_out1;
-> > +    }
-> > +    memcpy(vuart->info, info, sizeof(*info));
-> > +
-> > +    vuart->vdev = emulator->alloc(d, vuart->info);
-> > +    if ( IS_ERR(vuart->vdev) )
-> > +    {
-> > +        rc = PTR_ERR(vuart->vdev);
-> > +        goto err_out2;
-> > +    }
-> > +
-> > +    vuart->emulator = emulator;
-> > +    vuart->owner = d;
-> > +    vuart->flags |= VUART_CONSOLE_INPUT;
-> > +
-> > +    d->console.input_allowed = true;
-> 
-> I'm not a specialist in the area of consoles, but I'm wondering:
-> Does the input_allowed flag serve the same purpose as
-> VUART_CONSOLE_INPUT? If so, do we need both, or
-> could one be removed to simplify the code?
+On Wed, Sep 10, 2025 at 11:06=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
+ote:
+>
+> On 10.09.2025 09:38, Penny Zheng wrote:
+> > VM event could only be enabled/disabled via vm_event domctl-op, so
+> > CONFIG_VM_EVENT shall depend on CONFIG_MGMT_HYPERCALLS
+> >
+> > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+>
+> Looks plausible to me, so:
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> but really Tamas (now Cc-ed) should also get a chance to express possible
+> concerns.
 
-At this point these two flags must be in sync.
+No concerns, thanks.
 
-`console.input_allowed` is a permission for a domain to take the physical
-console input.
-
-`VUART_CONSOLE_INPUT` in `vuart->flags` is a permission for vUART to take
-the physical console input.
-
-pvshim does not have vUART, but can have console focus.
-
-And not every vUART can be configured to have a console input (e.g. Arm's
-"hwdom vuart").
-
-> > +/*
-> > + * Put character to the first emulated UART's FIFO with the physical console
-> > + * forwarding enabled.
-> > + *
-> > + * Must be called under rcu_lock_domain().
-> > + */
-> > +int vuart_put_rx(struct domain *d, char c)
-> > +{
-> > +    const struct vuart *vuart = vuart_find_by_flags(d, VUART_CONSOLE_INPUT);
-> 
-> The call to vuart_find_by_flags() with VUART_CONSOLE_INPUT in
-> vuart_put_rx() appears unnecessary. Every vUART console is always
-> initialized with VUART_CONSOLE_INPUT, so even if multiple consoles
-> exist, the search will always return the first console. It would be
-> simpler and clearer to use d->console.vuart directly.
-
-There's no certain order in which multiple vUARTs are initialized, so there
-should be something which scans the vUART list and selects the vUART with
-console input permission. Follow on Arm's change will add multiple vUARTs
-and I decided to generalize logic in this patch, so that there will be 
-minimal update in vuart_find_by_flags() only.
-
-> 
-> Consider updating the function to remove the flag-based search and add a
-> short comment explaining why checking the flag isn’t needed. This will
-> help avoid confusion for future maintainers. Alternatively, we could
-> pass flags to the init functions instead of hardcoding
-> VUART_CONSOLE_INPUT for every console.
-
-That will work, thanks for suggestion.
+Tamas
 
