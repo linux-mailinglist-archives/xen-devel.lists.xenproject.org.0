@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18B61B56094
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Sep 2025 13:57:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1123184.1466405 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E1AAB56156
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Sep 2025 16:09:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1123297.1466418 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uxOrQ-0005HI-PO; Sat, 13 Sep 2025 11:56:08 +0000
+	id 1uxQuv-0003ih-O5; Sat, 13 Sep 2025 14:07:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1123184.1466405; Sat, 13 Sep 2025 11:56:08 +0000
+Received: by outflank-mailman (output) from mailman id 1123297.1466418; Sat, 13 Sep 2025 14:07:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uxOrQ-0005Fp-L9; Sat, 13 Sep 2025 11:56:08 +0000
-Received: by outflank-mailman (input) for mailman id 1123184;
- Sat, 13 Sep 2025 11:56:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uxQuv-0003gx-Ks; Sat, 13 Sep 2025 14:07:53 +0000
+Received: by outflank-mailman (input) for mailman id 1123297;
+ Sat, 13 Sep 2025 14:07:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oBHe=3Y=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uxOrO-0005FN-JM
- for xen-devel@lists.xenproject.org; Sat, 13 Sep 2025 11:56:06 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a09abb86-9098-11f0-9d13-b5c5bf9af7f9;
- Sat, 13 Sep 2025 13:56:05 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-45de56a042dso17216085e9.3
- for <xen-devel@lists.xenproject.org>; Sat, 13 Sep 2025 04:56:05 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45f29174de1sm10869425e9.2.2025.09.13.04.56.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 13 Sep 2025 04:56:04 -0700 (PDT)
+ <SRS0=qWgP=3Y=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1uxQuu-0003gr-Ip
+ for xen-devel@lists.xenproject.org; Sat, 13 Sep 2025 14:07:52 +0000
+Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
+ [2607:f8b0:4864:20::d36])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 07f99544-90ab-11f0-9809-7dc792cee155;
+ Sat, 13 Sep 2025 16:07:50 +0200 (CEST)
+Received: by mail-io1-xd36.google.com with SMTP id
+ ca18e2360f4ac-887764c2834so169282439f.1
+ for <xen-devel@lists.xenproject.org>; Sat, 13 Sep 2025 07:07:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,144 +40,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a09abb86-9098-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: 07f99544-90ab-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1757764565; x=1758369365; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YVwhMoFe1PU4VrHRnseDMYfClY1TX/o63ebu+sBig8s=;
-        b=bU4n1px1Wf1HqR0kHYHYxmXTfZQ37/JBfxZiifxBZfVCM0yWR2M+evidYdt3M2E5aD
-         fRm294NQhZPOpM5JZVaopBXufJBU6INSz/RTKx5KgxlkT/vSTYPvDDt9C9hEfNRMnDa8
-         TFsXZbTmHhc6XqKY/elUYUwEqd5J4441pjzWE=
+        d=gmail.com; s=20230601; t=1757772469; x=1758377269; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=M3PsKtcxHDBTZqejD/5uhh+ObuTl+eI1gWgG9+w7CQo=;
+        b=MjawJm2xmy+mWzHqV4UjVd6MYclZMBwryvW13n8xFXzbL8xNuuzfNC2VhMgokWcwO0
+         JB9mNeI/rbvxFk2twBx9C/vCebl3T1D3W4wQTC2zx5IRQKqN6nmCm0Fi9dhvlN/WYOiD
+         EADq5KCZ1pfl21tP5cn/fNovCz4pqiOHoT3JYOyWrtXsUhYc11hoPHMuMyI4B+GKYUUJ
+         c7+3sfFl9DAtaRKZVqkizMfp1E07NBE5eNNp0Txq9Xigwol1hq+u0IWWRGzKPs+7nUlm
+         s99PGjkIf+ltnlWHj2WMoGL9QZvRUvVO943U8VE8Vwn3Je1mMQ1PH3X5zuUr0FI5sLxM
+         77Jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757764565; x=1758369365;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YVwhMoFe1PU4VrHRnseDMYfClY1TX/o63ebu+sBig8s=;
-        b=waTNVquDMbXkgg7s5KM/+z7X05LCXf9ZcqsYuC9RoxIoMKfARrI/1NHYYc4QLGEpTq
-         jvYDoU3nDCZcrgiY1SnSa7l1WKS47nM/rbFDZhLP6NINjX9KA2uO9u2xBEoO0kg3eANO
-         eeCkmBYAvXtTAu9knw7EPEQtpsLEPVvOfsTs+9bWifrQhPSurYaD6bX92IDIJkY3yP/J
-         l+zm1e90Dcs8biUn1/9mijX4N7XYkNAU7IXfiKpKGNCPYCnsd/AnufSG+q7mc1Ac+Zs8
-         DchrTukBeLOb0zcdIYYanDB01eEH1jcbK43Cu3Q5nMhU6nF/xnL1oGIN/Ozirsz8YXVk
-         /pMQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWfI1hRJ2QIdkBgL9+hYjD7G1wQjwujypGZsdNLXwPrX0wti0QgaOQE4elPny5OpI0eAsnj9e+dmP0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwWkyTbJrwm+ESz7KO0SE9OsoRvmFuOgfKOCmWxd1wKQVEJnyTg
-	vOIZdAeZl5PjcxGtrI0JomKSCs24jeH02pyIlRd0RuaE90SEhyRZCjc7qydqCqyJCPM=
-X-Gm-Gg: ASbGncv217rYm18Jf+pzoQzNMW583TUmd1zTz0R0Tych2N8Eu09NbPuUVNt8nQ8yCC4
-	leOACJHLcjag6XDl11QipD8IFC5Xd4SHjYFfH0xKL3NT+Y6CYEPYaRfGBKQofrJ5OvjDTE/S6by
-	2qxX4huY5Ffa0bdQ1GbGhwTycXEHz7uYc+Uf5SJgichADiro2i4+2c3Wjx7aqr1I/pawreCK2PM
-	2jg1z34iAeo8jV2EnB1pxUBrW7tFZmUbwcd5zpUZu6DZ5cjKLLSqlMYqKqEiVbyEJEpXj2ohsfo
-	uc2jbO5TUBY3CZuxHRYzPjNVbU2QduxeRoGVyBCybB+tmQkecNySw0Q2Zc+jOsmO9SswFvuocnR
-	bD+nnx7M+eaJAnU7Ofudjwps40mMvLD3OqbGhusdNilKmZt4azEvgZdV5fSTadsKmOF2I
-X-Google-Smtp-Source: AGHT+IFMpVubaQB1SxParmZlHPl++SyKaXtezFsGGOZXZj/NAFjcZbavjHGLfPGVnddGQZXaBWVC6g==
-X-Received: by 2002:a05:600c:4691:b0:45f:28d5:fae with SMTP id 5b1f17b1804b1-45f28d511f7mr10557045e9.4.1757764564593;
-        Sat, 13 Sep 2025 04:56:04 -0700 (PDT)
-Message-ID: <3ba29020-3a9b-4e10-8523-82bfb63482f6@citrix.com>
-Date: Sat, 13 Sep 2025 12:56:03 +0100
+        d=1e100.net; s=20230601; t=1757772469; x=1758377269;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=M3PsKtcxHDBTZqejD/5uhh+ObuTl+eI1gWgG9+w7CQo=;
+        b=Rtnd+58iKFDwFe/1AaAjzab9jgItsgzASVB1q/80J/wkV6GeVE7nQsP7JS/3c85Mr6
+         UbrHQQ7WwcIBE7Jc2p0I9yaeSjXUoBpIOXOziY9P4Z5pPLkGjVPJJ+ADbDaN/lGaiydx
+         EiSFXS/dJwwzP5mFaWja7dw1LkrY/oq0rjlmBUfNKFZGeJa75ZHT8r5+YVRqFuvOeBdT
+         RmJUm8QYLby8iXow8wGbtIHprzARHrnr3UxSYQ+e+siPSY2vVAMCRroYA6R1090eIWkd
+         i6QZcoWkjzPFCwDvlK+PfbhonkpcL78g3gir5FSZ0S1cieMCPz1lnMhzUdEJyC5Ownf5
+         ziww==
+X-Gm-Message-State: AOJu0YxRjiuaJAl3V4J8DyjNUghoNGE/O5LicuC2xx+wl8uC/5FXqdQ1
+	t6u+VnUi0Av+kU+rLYgQm3jnxPQxwLjWt5ia5L4lGrIPeSPV6ZTnhR3tq7giteEruvl51OJ43Fm
+	qbRdscwVE/GZ9o7XAtAuF9RBNtXI1kBg=
+X-Gm-Gg: ASbGncuF+Nhdw5zmaMamQCL4loonoVE2yYLFvmIeOjqjaAn3NGYoIf5+u0SpPD9A7Xd
+	+p45vFqLojmMD2NN+JBvL4QeptgtdmYTbtwlrrry2N0qk66IXFnhFE5wDwWPmOEdOG+9lObaZBJ
+	GCi73DGQHTPLu4UnfLvICKoDWeHfmYsURCfGKM5Lft9j3ES4vENOemdI9CTgllciD/7YHMxVEJV
+	PnpSfc=
+X-Google-Smtp-Source: AGHT+IF89tmQegCh6KAMDjdGA+TabGB+hc+yDdmhYIA9SYQsEnlna6Q8sqIe5NtrTdKlPEYGjaC7lPhF/dRnKmNMLB0=
+X-Received: by 2002:a05:6602:2ccf:b0:88d:69d4:39b4 with SMTP id
+ ca18e2360f4ac-890351aeffdmr794069639f.18.1757772465398; Sat, 13 Sep 2025
+ 07:07:45 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/domctl: Fix double domid_free in
- XEN_DOMCTL_createdomain error path
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <37561a9a3b6000502bb1a43651f6ddc49cd9149c.1757759941.git.oleksii_moisieiev@epam.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <37561a9a3b6000502bb1a43651f6ddc49cd9149c.1757759941.git.oleksii_moisieiev@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <164651d0662e674002ed17399300c3a25e6dcbfc.1757757602.git.oleksii_moisieiev@epam.com>
+In-Reply-To: <164651d0662e674002ed17399300c3a25e6dcbfc.1757757602.git.oleksii_moisieiev@epam.com>
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Date: Sat, 13 Sep 2025 17:07:34 +0300
+X-Gm-Features: Ac12FXwCyXiBCi50rT6fK1r8TQptK4hLc4L4nnyZXEDCLJO6_Ko1cLbg4Q5Tztg
+Message-ID: <CAPD2p-no-PzREaQNnH6XWmM6qE+MNUW7aErGq8N_FeSfswoXSQ@mail.gmail.com>
+Subject: Re: [PATCH][for-4.21] xen/arm: Reorder SCI resource cleanup in domain destruction
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: multipart/alternative; boundary="000000000000657449063eaf4bcc"
 
-On 13/09/2025 11:44 am, Oleksii Moisieiev wrote:
-> Remove redundant domid_free() call in the XEN_DOMCTL_createdomain error
-> handling path to prevent a double-free condition.
->
-> When domain_create() fails, it internally calls _domain_destroy() during
-> its cleanup routine, which already invokes domid_free() to release the
-> allocated domain ID. The additional domid_free() call in the domctl error
-> path creates a double-free scenario, triggering an assertion failure in
-> domid.c:
->
->     Assertion 'rc' failed at common/domid.c:84
->
-> The domain creation flow is:
-> 1. domid_alloc() allocates a domain ID
-> 2. domain_create() is called with the allocated ID
-> 3. If domain_create() fails:
->    a) domain_create() calls _domain_destroy() internally
->    b) _domain_destroy() calls domid_free() to release the ID
->    c) domctl incorrectly calls domid_free() again
->
-> This double-free violates the domain ID management invariants and causes
-> system instability. The fix ensures domid_free() is called exactly once
-> per allocated domain ID, maintaining proper resource cleanup
-> semantics.
+--000000000000657449063eaf4bcc
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 2d5065060710 ("xen/domain: unify domain ID allocation")
+On Sat, Sep 13, 2025 at 1:31=E2=80=AFPM Oleksii Moisieiev <
+Oleksii_Moisieiev@epam.com> wrote:
 
+Hello Oleksii
+
+Move the SCI (System Control and Management Interface) resource cleanup
+> earlier in the domain_relinquish_resources() sequence to ensure proper
+> cleanup ordering during domain destruction.
+>
+> The SCI cleanup is now performed before TEE (Trusted Execution Environmen=
+t)
+> cleanup rather than after P2M mapping cleanup. This reordering ensures th=
+at
+> SCI resources are properly released before other subsystems that might
+> depend on them are torn down.
+>
+> This change addresses potential resource cleanup dependencies where SCI
+> resources need to be released before P2M mappings are cleaned up,
+> preventing
+> potential issues during domain destruction on ARM platforms with SCI
+> support.
+>
 > Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> ---
+>
+>  xen/arch/arm/domain.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+>
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 1a8585d02b..0ac381a5a5 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -1090,6 +1090,11 @@ int domain_relinquish_resources(struct domain *d)
+>              return ret;
+>  #endif
+>
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+There is an enum above (not visible in context)
 
-the tl;dr is that domain_create() either inserts the domain into the
-domlist, or cleans up after itself.
+enum {
+     PROG_pci =3D 1,
+     PROG_tee,
+     PROG_xen,
+     PROG_page,
+     PROG_mapping,
+     PROG_p2m_root,
+     PROG_p2m,
+     PROG_p2m_pool,
+     PROG_sci,
+     PROG_done,
+};
 
-The domid alloc infrastructure is problematic in multiple ways, not
-least because it now means there are two sources of truth for which
-domain's exist, and they are not interlocked.
+I am sorry, but shouldn't PROG_sci location there reflect to where you now
+put PROGRESS(sci)
+(I mean above PROG_tee)?
 
-I would have blocked this from being committed if I'd had any time to
-look at it.  It will need remediating one way or another before 4.21
-goes out.
 
-~Andrew
+
+> +    PROGRESS(sci):
+> +        ret =3D sci_relinquish_resources(d);
+> +        if ( ret )
+> +            return ret;
+> +
+>      PROGRESS(tee):
+>          ret =3D tee_relinquish_resources(d);
+>          if (ret )
+> @@ -1109,10 +1114,6 @@ int domain_relinquish_resources(struct domain *d)
+>          ret =3D relinquish_p2m_mapping(d);
+>          if ( ret )
+>              return ret;
+> -    PROGRESS(sci):
+> -        ret =3D sci_relinquish_resources(d);
+> -        if ( ret )
+> -            return ret;
+>
+>      PROGRESS(p2m_root):
+>          /*
+> --
+> 2.34.1
+>
+>
+
+--=20
+Regards,
+
+Oleksandr Tyshchenko
+
+--000000000000657449063eaf4bcc
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Sat, Sep 13,=
+ 2025 at 1:31=E2=80=AFPM Oleksii Moisieiev &lt;<a href=3D"mailto:Oleksii_Mo=
+isieiev@epam.com">Oleksii_Moisieiev@epam.com</a>&gt; wrote:<br></div><div d=
+ir=3D"ltr" class=3D"gmail_attr"><br></div><div class=3D"gmail_attr">Hello O=
+leksii</div><div dir=3D"ltr" class=3D"gmail_attr"><br></div><blockquote cla=
+ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
+rgb(204,204,204);padding-left:1ex">Move the SCI (System Control and Managem=
+ent Interface) resource cleanup<br>
+earlier in the domain_relinquish_resources() sequence to ensure proper<br>
+cleanup ordering during domain destruction.<br>
+<br>
+The SCI cleanup is now performed before TEE (Trusted Execution Environment)=
+<br>
+cleanup rather than after P2M mapping cleanup. This reordering ensures that=
+<br>
+SCI resources are properly released before other subsystems that might<br>
+depend on them are torn down.<br>
+<br>
+This change addresses potential resource cleanup dependencies where SCI<br>
+resources need to be released before P2M mappings are cleaned up, preventin=
+g<br>
+potential issues during domain destruction on ARM platforms with SCI suppor=
+t.<br>
+<br>
+Signed-off-by: Oleksii Moisieiev &lt;<a href=3D"mailto:oleksii_moisieiev@ep=
+am.com" target=3D"_blank">oleksii_moisieiev@epam.com</a>&gt;<br>
+---<br>
+<br>
+=C2=A0xen/arch/arm/domain.c | 9 +++++----<br>
+=C2=A01 file changed, 5 insertions(+), 4 deletions(-)<br>
+<br>
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c<br>
+index 1a8585d02b..0ac381a5a5 100644<br>
+--- a/xen/arch/arm/domain.c<br>
++++ b/xen/arch/arm/domain.c<br>
+@@ -1090,6 +1090,11 @@ int domain_relinquish_resources(struct domain *d)<br=
+>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>
+=C2=A0#endif<br></blockquote><div><br></div><div>There is an enum above (no=
+t visible in context)</div><div><br></div><div>enum {<br>=C2=A0 =C2=A0 =C2=
+=A0PROG_pci =3D 1,<br>=C2=A0 =C2=A0 =C2=A0PROG_tee,<br>=C2=A0 =C2=A0 =C2=A0=
+PROG_xen,<br>=C2=A0 =C2=A0 =C2=A0PROG_page,<br>=C2=A0 =C2=A0 =C2=A0PROG_map=
+ping,<br>=C2=A0 =C2=A0 =C2=A0PROG_p2m_root,<br>=C2=A0 =C2=A0 =C2=A0PROG_p2m=
+,<br>=C2=A0 =C2=A0 =C2=A0PROG_p2m_pool,<br>=C2=A0 =C2=A0 =C2=A0PROG_sci,<br=
+>=C2=A0 =C2=A0 =C2=A0PROG_done,<br>};</div><div><br></div><div>I am sorry, =
+but shouldn&#39;t PROG_sci location there reflect to where you now put PROG=
+RESS(sci)</div><div>(I mean above PROG_tee)?</div><div>=C2=A0</div><div><br=
+></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;=
+border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
++=C2=A0 =C2=A0 PROGRESS(sci):<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D sci_relinquish_resources(d);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ( ret )<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0PROGRESS(tee):<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D tee_relinquish_resources(d);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret )<br>
+@@ -1109,10 +1114,6 @@ int domain_relinquish_resources(struct domain *d)<br=
+>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D relinquish_p2m_mapping(d);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( ret )<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>
+-=C2=A0 =C2=A0 PROGRESS(sci):<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D sci_relinquish_resources(d);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ( ret )<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0PROGRESS(p2m_root):<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
+-- <br>
+2.34.1<br>
+<br>
+</blockquote></div><div><br clear=3D"all"></div><div><br></div><span class=
+=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_s=
+ignature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><spa=
+n style=3D"background-color:rgb(255,255,255)"><font size=3D"2"><span style=
+=3D"color:rgb(51,51,51);font-family:Arial,sans-serif">Regards,</span></font=
+></span></div><div dir=3D"ltr"><br></div><div dir=3D"ltr"><div><span style=
+=3D"background-color:rgb(255,255,255)"><font size=3D"2">Oleksandr Tyshchenk=
+o</font></span></div></div></div></div></div></div></div></div>
+
+--000000000000657449063eaf4bcc--
 
