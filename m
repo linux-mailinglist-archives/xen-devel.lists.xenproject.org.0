@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF53EB56965
-	for <lists+xen-devel@lfdr.de>; Sun, 14 Sep 2025 15:44:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1123873.1466574 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0263CB56975
+	for <lists+xen-devel@lfdr.de>; Sun, 14 Sep 2025 15:49:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1123889.1466582 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uxn1K-0004AT-CC; Sun, 14 Sep 2025 13:43:58 +0000
+	id 1uxn6k-0004ts-09; Sun, 14 Sep 2025 13:49:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1123873.1466574; Sun, 14 Sep 2025 13:43:58 +0000
+Received: by outflank-mailman (output) from mailman id 1123889.1466582; Sun, 14 Sep 2025 13:49:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uxn1K-00047y-7q; Sun, 14 Sep 2025 13:43:58 +0000
-Received: by outflank-mailman (input) for mailman id 1123873;
- Sun, 14 Sep 2025 13:43:56 +0000
+	id 1uxn6j-0004sO-Tr; Sun, 14 Sep 2025 13:49:33 +0000
+Received: by outflank-mailman (input) for mailman id 1123889;
+ Sun, 14 Sep 2025 13:49:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rprq=3Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uxn1I-00047s-3w
- for xen-devel@lists.xenproject.org; Sun, 14 Sep 2025 13:43:56 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1uxn6j-0004sI-Bi
+ for xen-devel@lists.xenproject.org; Sun, 14 Sep 2025 13:49:33 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id da7ce60a-9170-11f0-9809-7dc792cee155;
- Sun, 14 Sep 2025 15:43:53 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3dae49b117bso2605853f8f.1
- for <xen-devel@lists.xenproject.org>; Sun, 14 Sep 2025 06:43:53 -0700 (PDT)
+ id a3b28e5e-9171-11f0-9809-7dc792cee155;
+ Sun, 14 Sep 2025 15:49:31 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3ea3d3ae48fso189476f8f.1
+ for <xen-devel@lists.xenproject.org>; Sun, 14 Sep 2025 06:49:31 -0700 (PDT)
 Received: from [172.20.3.155] ([12.157.112.82])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-32df2bf49b1sm3496242a91.1.2025.09.14.06.43.52
+ 98e67ed59e1d1-32dd620a64dsm12239775a91.8.2025.09.14.06.49.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 14 Sep 2025 06:43:52 -0700 (PDT)
+ Sun, 14 Sep 2025 06:49:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,92 +45,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da7ce60a-9170-11f0-9809-7dc792cee155
+X-Inumbo-ID: a3b28e5e-9171-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757857433; x=1758462233; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1757857771; x=1758462571; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=dKoCnE6l414VKWhPoxHQvdoC8TQFdArRiHZZAzXuJPk=;
-        b=bELoh1HYrEJysdvtTamp7M3keFdZzG3mzzIy0WD5Mep3V4n95EtObpFbOmlFpOsxvx
-         xPvNixZxxyYgFqDuyGCR3HTue7t1Rlbkd20GEEAx/ukXA4OGqj+sf5M7PxmrmUrnuqXn
-         uBNzH6uVZl2HcCpyWI5nFS1O0LPCRQKZogTlbN4QqdwnrDNvuiVU0alRgtuf3+fyetzA
-         bKeU6kjj2Q5Snlc9TrXEsEZqQJTc43aCrjrVaQ5FNVDWS2/kyJJumIQkWGrXG5+qgyiN
-         bEYdGX95UFWUr2jkMvxPV1dglAzh08qCLtr2z9/RlPZSHLBKqFAsKKrzlmtLsSCjOT5S
-         XorA==
+        bh=pW/+k4+KI0qELuCUefA1eTNn6dv6V3ftKzgsVCCt42A=;
+        b=WRe9B5+3mMkMcDka12dO2a9MAnpYJNwwVUyuYGhlstfiqKlbHKG/FN1FBaJLoqj00o
+         1KvZn2vJLoXF98Lb9pKeNgcO6+WyfW/d2+roLtu/Kxed2UVp3a0BtESQp5EwgznGoyBd
+         hqtRDfz1/RJpgEHeKAjJ6PcRtX7K71X4FumI7QIFnmQHBBYCDrZ1A40lnBzivLYl8erZ
+         QIVFRU8hC0hCjZZIrqAKRDuKYl/mue9QfTznO0yzk8oveKSkSEgEnUqRKf6AgQVgBH0d
+         fWYOMtxwuZhSFOoH0jzafM6d4FY9VmNwmXe7wqmOBTFB9HHIJWIcNlA/b5aPsHEjInev
+         A4kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757857433; x=1758462233;
+        d=1e100.net; s=20230601; t=1757857771; x=1758462571;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dKoCnE6l414VKWhPoxHQvdoC8TQFdArRiHZZAzXuJPk=;
-        b=USzWEfdSnlObuvsdx7K2ROcUnM66ZX2O80MKhxKvzEeWoff/Ecls34yV4ZViGl0xuF
-         kuqFsESrDntu3H0a1fYnDnxJkZOFBYQOtXub+7lJfO9g04mRze25F7UQdq3KIWg+Fcvg
-         fZ0yu7mnNBzXLjxxUWnWxqPn2glK3We5TROfZv2RRHtxi/qGJPEVLFg6MAF6d8ABJflt
-         2gkcHU5ZY8HxkNuRaCJpz6J2cj9Q4xZNp5QmBbv5P7cwOZ+kwLEsWLqL+LtLVNqBgWg4
-         gbNDfjcAht4PPPEBcs5DUENeqS+N8D2kkrNOJWtQG1cH9N+uX9xancFDz8KL07cI0ocQ
-         85Gg==
-X-Forwarded-Encrypted: i=1; AJvYcCVDqH2onW8bkbeFzM0m6xydfpvYy5uBt/dct0rstqQnCVEdBrxnxMrVj5TETyjEcVtoJ6m9KvEOluE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwOoyYWs5Hwgy33q92pRQXnxpPDm4orNudiXp4XYfML+Iom3BJ0
-	qdkylXAQLBGzRBStnllna+uaQk4TMJWrxnTImm9XfZ5gF8jwRiRdmk5bIDSGMuCGlA==
-X-Gm-Gg: ASbGncvZvPtpeHMo3WiW3vfCzyJVwp6L7Qrcfrp+Le7md8hR1CZNsOLEMux6vqYc3tN
-	rhNIlZ1J6rGZenpw8YpQAS1Acx/IJ/Lf6AxsVy/35EIWR+RxX8CH8OhuGIANUL7kGgpfQqsjlxD
-	gouSCQa5r8rODKEHZm5e19hx7qjY6hxHeG1KhlFvPIZLRdcqLvKvnPbUm7ZVQK9c6O5fnaiwZmZ
-	+FMgyOVfvGrc1sDgJuzPYZIOJw35ORAQVsuxLWD1aTAhZo4UScIInozuG7Jg9OMIV8mPFN0KH1d
-	YzrGcGToJ3PMYvtQOkOMzb3DEknVCjKPLNRHtX898QBCMo3zDCVmOW3RBCEoiE18WUFPEbXbY/o
-	Z4QcbgI25oqtE5mFjSvUpOzM/nU3uVArh4WqVeEe8kA==
-X-Google-Smtp-Source: AGHT+IHddcuDiwmhwy8tIym6TxHFInfVIoVq9M2Ao0l5IdkMBZYzrYZf2oHFbrZS+nN14BhNvtlIEQ==
-X-Received: by 2002:a05:6000:208a:b0:3d7:eb95:b1e1 with SMTP id ffacd0b85a97d-3e7659eb4admr5824405f8f.32.1757857433167;
-        Sun, 14 Sep 2025 06:43:53 -0700 (PDT)
-Message-ID: <b031118e-8949-4c8a-8894-f70b89ae2b5a@suse.com>
-Date: Sun, 14 Sep 2025 15:43:51 +0200
+        bh=pW/+k4+KI0qELuCUefA1eTNn6dv6V3ftKzgsVCCt42A=;
+        b=qO/nitg96KEZkXh9WdWFCww168uKQhdIWvsLjI0Hh69cX7v1RMCtbIOFjKu2BL80+z
+         UmYgoIN1bKeh2T72wjhJ6OAT0fek29Hu6OgPrC5YILQidaLo/Xz4wBC2704Yf575cmDJ
+         BnfFmHh1NdzgzaaWPd28JRayYAemiIwNfjJtY0UBkjro87hwJqN0qCVINvsH85S27bS+
+         HQRSsi+E+YkyNdpOnYof0iu7ppINWablHiaANXyFKdbiU5i3ce4SKGDGJ2SqP4DwR2Vx
+         kMAuMTMRa2U6rz20Hug2tniOVjnZ7DWQ3e+5b0P2ydWK8vsk8PzHHQLnzuZ4fODHFt/5
+         K8iQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUUGFFvr2ZvyezcvJZL64fsqMATxY32KGm68vJlkT4hraOzKe9v8egB5wo6359nHry8BaeWyppGDu4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyOdb3UMVgnl5Xhr3NtdWzadaDRVd6CbXqL9/cPEpiURDqkqUmJ
+	tpfyytAm/6e8fbuXjQT8juNCMW+bIaUZPUJPrK/MxtbRFmWlfwc2r1ahSTGzcOtGUw==
+X-Gm-Gg: ASbGncvLHeKYYaGVLo/NQshLtcviqsr2TkEzqom1OPfNMMTSWlvg9tO0/Fx8XLN7MNw
+	4qR0dTpPoMH78MRgk2xX5Fm/vLCWLs5O0jdsjrozlyS2Sk/1BtgZM400KE1ETg23YaqQvzZSdR7
+	gOOWTE52yOb+rjZBRlQ3QchFmVjRTbVYLLQzT1U+oEp6Tpk+e8293j5gyG6tn6ZbrjRRYCRNIG3
+	MBapk57gYFv5M14rOuLKjlRnIF3Jo8lrvDoTckm4C3/GQJU69P2lIMeMO41aWSSWELCeOAy5QTP
+	+UOxGMka7DKiqRBLsyraofb321Q8c1axZ8qAlf7Sexd5lUzEQ+TnpkZ/s1U2aHPAgxjGAP97lcm
+	NSUrNQQTdafF4o+jk7ewKKvqD3WT1F3iw0DgUfQYk/Q==
+X-Google-Smtp-Source: AGHT+IGtn/M0UGs7OVW81zJaWqH1M8LU5Y33+XeEc0V8f3hfQAi1pRjgrEQTVtAo+bQmX77TWJPeBQ==
+X-Received: by 2002:a5d:64e9:0:b0:3e2:3717:cce5 with SMTP id ffacd0b85a97d-3e75e16b341mr11002810f8f.30.1757857770818;
+        Sun, 14 Sep 2025 06:49:30 -0700 (PDT)
+Message-ID: <2a818f1b-4326-4335-8ca5-4301632b1f33@suse.com>
+Date: Sun, 14 Sep 2025 15:49:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] releases: use newer compression methods for tarballs
-To: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <a9b52101-c332-4791-8034-2d3043f82356@suse.com>
- <53d760ad-c58d-4d3f-bd66-598b4a95a8ff@xen.org>
+Subject: Re: [PATCH] xen/vm_event: introduce vm_event_is_enabled()
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Cc: Penny Zheng <Penny.Zheng@amd.com>, ray.huang@amd.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ xen-devel@lists.xenproject.org, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20250912045254.3731398-1-Penny.Zheng@amd.com>
+ <e29930b6-2f13-483b-a8ce-62a93550199d@suse.com>
+ <CABfawhmB_WxfR0aL3F6kgo-jgVBJh8M6PLRZikboZPkPTF+hPA@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <53d760ad-c58d-4d3f-bd66-598b4a95a8ff@xen.org>
+In-Reply-To: <CABfawhmB_WxfR0aL3F6kgo-jgVBJh8M6PLRZikboZPkPTF+hPA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.09.2025 23:23, Julien Grall wrote:
-> On 11/09/2025 09:14, Jan Beulich wrote:
->> Other projects have long switched to xz and/or lzip.
+On 14.09.2025 01:24, Tamas K Lengyel wrote:
+>>> +static inline bool vm_event_is_enabled(struct vcpu *v)
+>>> +{
+>>> +#ifdef CONFIG_VM_EVENT
+>>> +    return v->arch.vm_event != NULL;
 >>
->> Tidy things some as well: With the removal of qemu from the tarball,
->> intermediately extracting the tarball again has become wasteful. Drop
->> that. Invoke compressors using asynchronous lists, to reduce overall
->> latency. Drop the -v option from the (previously implicit) gzip
->> invocation.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> Is "enabled" (in the function name) a good description of this condition, Tamas?
 > 
-> I have tested manually the steps and the correct tarballs have been 
-> produced. I will update my scripts to copy & sign all the tarballs once 
-> this is merged.
-> 
-> Acked-by: Julien Grall <jgrall@amazon.com>
-> Tested-by: Julien Grall <jgrall@amazon.com>
+> Sure, sounds fine to me.
 
-Thanks.
-
-> Is this intended for Xen 4.21?
-
-So far it was, but I'm increasingly unsure, seeing that it still hasn't
-gone in. Cc-ing Oleksii too now. Andrew had voiced concern towards the
-rm use, but hasn't come back as to his argument towards the uncompressed
-tarball previously not having been removed (when I can't see that one
-would have been created in the first place), hence why I couldn't make
-use of his (conditional) R-b.
+That is the pointer alone being non-NULL identifies "enabled"? And not
+just e.g. "active" or "available" (can be enabled with further things
+set up)?
 
 Jan
 
