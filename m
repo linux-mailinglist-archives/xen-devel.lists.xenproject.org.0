@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EC4BB5669C
-	for <lists+xen-devel@lfdr.de>; Sun, 14 Sep 2025 06:11:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1123711.1466543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C6BDB56933
+	for <lists+xen-devel@lfdr.de>; Sun, 14 Sep 2025 15:17:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1123848.1466553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uxe5V-0005Vy-KL; Sun, 14 Sep 2025 04:11:41 +0000
+	id 1uxmaS-00088s-2N; Sun, 14 Sep 2025 13:16:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1123711.1466543; Sun, 14 Sep 2025 04:11:41 +0000
+Received: by outflank-mailman (output) from mailman id 1123848.1466553; Sun, 14 Sep 2025 13:16:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uxe5V-0005UB-Gb; Sun, 14 Sep 2025 04:11:41 +0000
-Received: by outflank-mailman (input) for mailman id 1123711;
- Sun, 14 Sep 2025 04:11:39 +0000
+	id 1uxmaR-00086M-RI; Sun, 14 Sep 2025 13:16:11 +0000
+Received: by outflank-mailman (input) for mailman id 1123848;
+ Sun, 14 Sep 2025 13:16:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lLjW=3Z=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uxe5T-0005U5-UH
- for xen-devel@lists.xenproject.org; Sun, 14 Sep 2025 04:11:39 +0000
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
- [2607:f8b0:4864:20::1036])
+ <SRS0=7UnR=3Z=epam.com=Oleksii_Moisieiev@srs-se1.protection.inumbo.net>)
+ id 1uxmaQ-00086G-Mn
+ for xen-devel@lists.xenproject.org; Sun, 14 Sep 2025 13:16:10 +0000
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c202::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e885823d-9120-11f0-9d13-b5c5bf9af7f9;
- Sun, 14 Sep 2025 06:11:38 +0200 (CEST)
-Received: by mail-pj1-x1036.google.com with SMTP id
- 98e67ed59e1d1-32e1288eb0cso476216a91.3
- for <xen-devel@lists.xenproject.org>; Sat, 13 Sep 2025 21:11:38 -0700 (PDT)
-Received: from ?IPV6:2601:646:9e00:b920::2bf4? ([2601:646:9e00:b920::2bf4])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7760793b65dsm9376593b3a.9.2025.09.13.21.11.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 13 Sep 2025 21:11:36 -0700 (PDT)
+ id fa0fc1b2-916c-11f0-9d13-b5c5bf9af7f9;
+ Sun, 14 Sep 2025 15:16:08 +0200 (CEST)
+Received: from PAVPR03MB8946.eurprd03.prod.outlook.com (2603:10a6:102:32e::21)
+ by AM0PR03MB6243.eurprd03.prod.outlook.com (2603:10a6:20b:144::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Sun, 14 Sep
+ 2025 13:16:05 +0000
+Received: from PAVPR03MB8946.eurprd03.prod.outlook.com
+ ([fe80::f12d:7394:bbe3:dfc]) by PAVPR03MB8946.eurprd03.prod.outlook.com
+ ([fe80::f12d:7394:bbe3:dfc%5]) with mapi id 15.20.9115.018; Sun, 14 Sep 2025
+ 13:16:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,174 +47,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e885823d-9120-11f0-9d13-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1757823097; x=1758427897; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sksv9cuJpSxQMGAkjPHpmVpw8OJEWIXA+fog+o/4DNE=;
-        b=C3do8tBeLdIqkSocaLeYCtyMvRMEF++yvbckh3A6Xsw7CItBaGLgiqlpVKlFWP0KyS
-         ZLBDV48IdgX0AFCSPMYVpTOtJI2ySgKiY+VaSmSlETa+w4em+/Tffqxr+/9CdUn3NWRH
-         +2IqIVPoUej/uOQcUVRnUkC1WkwtmuO9jbbbE0qizBl7/32MiIoIbGR0yrlogEtpoVjM
-         vWif4R3rfyosFvrW2bIYzy+Lcwg2YyNY+ImB+hIhW3pJVAaLM/IAizvJs4r4a+2MHPiR
-         QwGLvJxtRQrttZDzxPoFc9OhR6NxrsKCy2Z+Ac+A8zaxMKppPb0QZ4KoSp1RLxTLIy4Q
-         epgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757823097; x=1758427897;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=sksv9cuJpSxQMGAkjPHpmVpw8OJEWIXA+fog+o/4DNE=;
-        b=F4vROxWVxWrBkBUx+NvRwvkOYnP8aA4yA5XBo7Gg7ffKVLTjlzKFzp74HuH9KHjbzB
-         9KaVVIaDc6yzkDZQRqI03BGLydxUzvHyITThLto7kdbf25eV28H7DQzWyxI1EO+769s0
-         wgX8i1nGZ+4epnlPISPaRUoiQaR1/swQ+Eoah4LFbNmcrOAJC3GtuK3PJdWT6OxKLg5S
-         HnkMtM20rpDKNCMF62sQHUjSIySEoat3SdgwA7gqh8bOwoMYqS6I/5JYTw8+ohmyiwDN
-         GBCYrPCqH4XOksRIDRgwLBhVjSoG++8p+79B9AnqHd09I6I6FiOCCfj39bFRNSP2K41K
-         8mFw==
-X-Forwarded-Encrypted: i=1; AJvYcCVXHWcUTCnIZdP05IuldxxA0h9MiLL6eiVUgdTbV9EW1YjUgJZTl+lRTH6qiMZLDBBtzQbkpeBN17Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz8ss4ZajKbnQ56Db8gbXyn+GnW9SDWr3fceFjZWQxZjM1M8bmL
-	EN4XFurjva3cbFTp6Y4GezQpHydKurQgAqxwzhZzOOER9zOBGwVnG2ARFcMrXfZW
-X-Gm-Gg: ASbGncsyDrLYI9AbZxLPcUkwMP+13pEFFT26gwNl7q5rDKkS+gRtX4dWYzljYccpJuX
-	NyX3N6uG8CQj8uWxZyiHwoMAbRQsjt1hPm8R/aq9SDWp7dH1lKRI3DqLcSUN58M6jEeFd9ZowAB
-	26tXtX8BoS6XvZf1e08cnNQCPhOhDGE8elqeRApA+bqX3iDvh+KPC5TYFLTOnVrgn7X86f2PLjz
-	IQ+dNDnJN6uD0HbfW25j5R7Prr4MFZIRRIZeX8iRzZcJDC7yL2wLUGy9x11qzcB9mYKZn4dzk7r
-	LzbowAVqr7oTjSSE4eEhtupgKaAY0CVA77MU9sThDaxPNsVb70GlBsmXQ/Psk0ntrdY+DqxfMJ8
-	k7qH26F0+6GTZ1OSFh/3tG/tO8avCxbyNA39fhPnIAWjT60EYtWwaGzbjq9p/AvVN
-X-Google-Smtp-Source: AGHT+IHjgh1wqqQn8YLgOVA3pN603Ez/HqF6uPzCVy8ssLqsgqRpavRpB0oc6IK4aE3X/+4XytPrCg==
-X-Received: by 2002:a17:90b:1d47:b0:32e:2798:9064 with SMTP id 98e67ed59e1d1-32e27989209mr2668119a91.35.1757823096818;
-        Sat, 13 Sep 2025 21:11:36 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------rz1mpetzxbwWGK7PgvjqWYzI"
-Message-ID: <6b2c6641-38ac-4ed5-855b-e79a1deb4b9b@gmail.com>
-Date: Sun, 14 Sep 2025 06:11:33 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/4] xen/arm: add generic SCI subsystem
-To: Julien Grall <julien@xen.org>,
- Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Jan Beulich
- <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>
-References: <cover.1756995595.git.oleksii_moisieiev@epam.com>
- <3e237c5256054a88b1c099d85d8bd1a602bba230.1756995595.git.oleksii_moisieiev@epam.com>
- <c68f1d0e-8a0d-4d8e-a98e-7617c548337a@xen.org>
- <e1291003-0738-4c42-83ae-1da575a00f9c@epam.com>
- <1715e68b-fef3-4846-8db0-5cbd49878f27@xen.org>
+X-Inumbo-ID: fa0fc1b2-916c-11f0-9d13-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BUCoz7cJkjo/8x6YP47E82iDC+/7fySvX5rmXnlyHgW36tPicn5jBEKtqFifuy13YPvx/rsXkbYsb5pZkG7HacyxmO5wwtkuDqh0Ba38kke/8foQZoLOjQ03Y73fzPViSPLdPkUU4jNk9vbWzZPSniGMj51wuLVNnqWsuZ1V8xugnCUjTD19WKVjNkKmBWTBu+ouHAV63aePm9OrZS5/NuqDNRUwm3aijaJePe5z7TRur2oW74DP3fer5cZMN6sHsuhrLkMMUUIRVn1rJEJFIIwIbJ84oK/mHKvWnEx7k7sxyUgQSq25/FUZ+E8Xss+6ARnoHVgXjSVfYOY+G7yBBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1CJzf1o3FIkwIZND5pCfpJAVKyuUylbQ8n2PwOOqp5A=;
+ b=PR3wuc3AsEEwmDkInsBqe2DulFJAh18AY6/mtZqRCVL1PV0AYrp2GLzyDzIXiLmKFnou9NE+ta9F6yQx1x6CAEUTBIjIfdw//Pkvb2+DeE7TI0aJX1HE6pCYuJLFtbcITlqdOSyclsHWRPk1ok4v9gsoiqSw8xHthElvHt5+dL2y2Wad24mZcd5VSn5BpJBcEnCehtBW8X+TuQC7PfbHLhsSUGp0wqeGu3UpbK/J+65Hvfxkfnfla1tYnc/mS0F94f9lAEzf92F/GfAoffgxc1otUCk582JPnwSgxg9Gx/jZfUoojDNbjsTpJgcOhRf+4YS7JrPWg1WAOkkWrhrA4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1CJzf1o3FIkwIZND5pCfpJAVKyuUylbQ8n2PwOOqp5A=;
+ b=iKk/B60imaRGmnTjTNGYia83235eVq5+9CWJlpFl4HP5j1cRzbvqiSXsMnrRMRnScfv4mDyTeaJKvVZGInjsdW+7fRe/azWUbL3d0FGNcRZN45TFi0LFIx1hPkxWDpypF3KaGDoBQNH/OWEeuOn7nSzaVLVFvfj+mqOBgS0xn+wjVwCaK3r+qcRz6GOwc4Pb3EEeoviiiBjPmG+9FsrHJz2tvV7T0tbihn2KNKbcUj7OB1rTFk9lko77THic8Vep5+UaXgFfG32QCsIygAGEooBOS8sSCm0lnqeP+5LM9lcrHtvLetb+GhjmEnWxIp+/23oOTr9sZV1Rfoqbpzco6w==
+From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Subject: [PATCH v2] xen/domctl: Fix double domid_free in
+ XEN_DOMCTL_createdomain error path
+Thread-Topic: [PATCH v2] xen/domctl: Fix double domid_free in
+ XEN_DOMCTL_createdomain error path
+Thread-Index: AQHcJXm5/L1/35fsPkySCbuTTizhog==
+Date: Sun, 14 Sep 2025 13:16:05 +0000
+Message-ID:
+ <d93294cbdaa0ca393ee369245a5dfd7e85b8a821.1757855718.git.oleksii_moisieiev@epam.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <1715e68b-fef3-4846-8db0-5cbd49878f27@xen.org>
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAVPR03MB8946:EE_|AM0PR03MB6243:EE_
+x-ms-office365-filtering-correlation-id: b7bf8982-bf92-49fd-ecc7-08ddf390dc39
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700021;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?ztuj4NfOV6SBLDQ56Ts9IKMw/lLnehs779qnA7FN55UyTrWA3bbXE1DGui?=
+ =?iso-8859-1?Q?aK5JcFx0nX9qhPNfn4UiCltf06iJzt8c5F8yvuxNPIfaJ5zHxFi1XvtefH?=
+ =?iso-8859-1?Q?4QGqxG7eM7XHkOVN5SBNuXLeWWfTaj7HW6MogOinoKsgG0/ViyzjeReikR?=
+ =?iso-8859-1?Q?RXtOGvKJFBygeP9vxkLfRChdc9Fxj3M7O5P7/9uuNyDXaWZpk7ZhUG1+6+?=
+ =?iso-8859-1?Q?iVKRQ7nHqrg+W4Z/9mp6m+7tmdNWbm7MCEcg5vf/BMWfGM0bccWi/1dB/g?=
+ =?iso-8859-1?Q?tI96wXA0VN+PAavdmwxHp5qNHF1MD7SqV5F3DxKgSMXFVcSDjMi/L8gre1?=
+ =?iso-8859-1?Q?TUvRn0XO0+OZANMtr383VQ7YPqkrT07L55V33s6GQ014sPBIFae7o7rZdv?=
+ =?iso-8859-1?Q?belVOoWvamgV8VNAynVaZz+M/0r8fNXVUM7S52sqxEOtfTSUZ4F+FkYO+W?=
+ =?iso-8859-1?Q?17kcXTSdtZVcDf074ZV4woVJNruYW0yecGjnECAtsyb+JWapQ8ANbh3SKX?=
+ =?iso-8859-1?Q?nV6YArQmyklnIYqrN98EZYBKgA9ATc4mp/L1P+7KxUJs0wowzXuNCtwU/B?=
+ =?iso-8859-1?Q?crf/uJhmk+ySQrIu8DWATS05iOv54GKtDS0aS45+PpcjnKuB2558zyv6P1?=
+ =?iso-8859-1?Q?lzBzTV7a0d4EBwa2kNFWozAqgoQ05nYVMftB5lZCxyUtaIS+CAMyT5kuej?=
+ =?iso-8859-1?Q?okLYPa1d33CEPEbMlakfzL1laHLp6uCiWwDpk3wg3ac4fw1yaWnrO4RBgl?=
+ =?iso-8859-1?Q?MB1r95bsmHXDczYiKrY346gqVwxJ5rXvx30G6NrsKeSaGe88AtjQTcd/8/?=
+ =?iso-8859-1?Q?4ahOZoyE6zZLtPXP45gyKmvQ3/b/LrelNt8tOyEikpHfnFQij8ZOg66zDM?=
+ =?iso-8859-1?Q?6LP6nceyzMdeZhEMpZ+TFryqGvn/gVT5c1hJTj3TgiPfB/7ORJFLgOrnnH?=
+ =?iso-8859-1?Q?HRn29KCxS1wS9C0lRX69ZUzULk7/qN3wMlh5NAG63s5DI3LO+wgM3e0BEb?=
+ =?iso-8859-1?Q?ZpAIdD8bLT4cmXq+JwbByBxwi6lvPCqKpVySZrFjxrlifS8o4jQJDtD/k/?=
+ =?iso-8859-1?Q?R+9qi/ryGHMCGsjwIfPMyFRrGfJRefV0ttFc93mh89GtZwPrBLmta7r7VL?=
+ =?iso-8859-1?Q?2bOm3YSxliLJ0pSKSZB0bzbN9n03KMIp/8/A2ldGy8M4/HJ3sxzQb0dLrM?=
+ =?iso-8859-1?Q?SQYMT9bt9+bJIDylCePz7YIyeGXl/k+TiiIhD+fFRpmddOkIxr9Cw53mI1?=
+ =?iso-8859-1?Q?hADUtZJCyIjxfs82lPbg5tJ8jgaEIqasG5JSq9GjqjieYdgkOj7lGdj6eb?=
+ =?iso-8859-1?Q?0v3rdpEyr19D7kSibqUsRAP5wMVG3LO5Z5xjHasaBmLMaHP5DPrze4YH0U?=
+ =?iso-8859-1?Q?AAc/C5nNAz9QRXLIrOIJtlkI4aptKjFZ3TVvZ/zosoYvuxlXOihC1Yqp9r?=
+ =?iso-8859-1?Q?G/8pvk6tW5GAl44QWoF3M0FQeyzDYGi5MlXyc2IgvWBJpjdFcUz8YK5x6P?=
+ =?iso-8859-1?Q?5MOow0czn3Wmsab/ovCC8DFXSr/HfmL7eDfjGcZcdTecSU6E4o6cMuGk/I?=
+ =?iso-8859-1?Q?rC8bkAE=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB8946.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?yAvw8mShWs5J+/wrzniJ36BYF0P8zGRQ+4N6sjaJCFwG/wKpzmB8rJBtkk?=
+ =?iso-8859-1?Q?T64zvrfZ7ZEdfbjxlTOQL+h04VNZupTAovzxfOfaLvN4r2MgTWEC/xxpRQ?=
+ =?iso-8859-1?Q?i27ilFeu0doBq1qXP//tfXK54DgzNjxDjAXzAWoR92EqZj2QlMF9hlPa3p?=
+ =?iso-8859-1?Q?NpPsY4PJ6YnIVQMZKiBQFwKN7do9Wld/o0h/VkL0W6nBeferVisdApudMd?=
+ =?iso-8859-1?Q?vCccG4XjbvjaOsoZ1z1Mc7WkGP5fbOlRuEocSTskKhrj/CFEU+eIt745Y0?=
+ =?iso-8859-1?Q?MdSxEU05lMijxef78uxE45no4CCPnkuoQjfW08yhkX0Nu58cJAC4p1UadH?=
+ =?iso-8859-1?Q?8FB8qegEA728xemIe9H5jrOy+wvE+2mlFGtvD/uLfeMwIG7dhOvatiKrM2?=
+ =?iso-8859-1?Q?W08en1PI6JOuO6tc7aydYJb/tpjrRFiQPrw8r6W4XdypkPPzz+cmbV2yl+?=
+ =?iso-8859-1?Q?S4TLC1QRipyEtmT5eGhomQyvfXOepwzbd6KjqECRYEY9WRKgFEmesydnfh?=
+ =?iso-8859-1?Q?vuCugswVl9hYhslIxsxUoNEbCIK3EMNxq+DD4ZwCJkJ/zCtgKsGl3sOK20?=
+ =?iso-8859-1?Q?ZbTIC2MdjsHfY3XWXtYZfPqYtmuwCmIJiMZlSu6qlN4ASdHUVR0dAqvFqO?=
+ =?iso-8859-1?Q?K2/KHwjwXnDuOwEV1vADkmsk9uX8aIbrBaYnfl4ggn8z0sv8+57+knDBvN?=
+ =?iso-8859-1?Q?+U0Rpo8pbsC5H6FISbkjOWzRwYHkvz9+TndOT0snop259SJlBfZn9dALwb?=
+ =?iso-8859-1?Q?a1Ty3s9apA9if/itK+SBeGcg0ZZA2i1d9t7B1OQ+dYSR/T6X9BYrMxddWG?=
+ =?iso-8859-1?Q?k4xBVnUkt1QMvaPj2xnbrK3DJOEP2YFPzQ+q9EhWTGsRZy5SPYB0+w3nCN?=
+ =?iso-8859-1?Q?a7mX7CXMH0LGbKZwdv0J6G4k0VdnRt9yh7Dhxh6knm3YsCImvXovagr0q9?=
+ =?iso-8859-1?Q?HZkUufTOtzzJj+Oh28VGZEt9O2PYzPO57cVxC+vSkJ1U3FKaYJOzDNmQQO?=
+ =?iso-8859-1?Q?K5SwICgqXOTHlFDUP3UTleG8m+2v6/+VMfgPHcjc+eILnIk9gWd2ihSZcf?=
+ =?iso-8859-1?Q?3ZrhBaT7bBZT3g8E4wKsWwQ6rE6739rcONy6X+XkzFB/FxVAdj3nNwR+hp?=
+ =?iso-8859-1?Q?ltBznz9qOhRaJypx3tFZFddyecV8uqdyWBLwOVzJuAbAZFPWNNROoS2Ao4?=
+ =?iso-8859-1?Q?9YbM2/pjtQ7Kfo4SpAzhj/5IEOx7TubyafLdJfwFFfroTOd6wxnAvngkDs?=
+ =?iso-8859-1?Q?/UGLoWpZjMRPY/YbIRco1RcNpKHFhsahlTnqvyTBcQx+VaavaM/ah8jL4B?=
+ =?iso-8859-1?Q?iMwNTL+ovp1mFhkgs9nh00S7rNyE/oIVTJTMSWrsbrs++weEluYBUnEg3K?=
+ =?iso-8859-1?Q?lfQ5CoHXITUYQTMVyIxUC1uwhmtZj/fM7Yw6gVh7xsSXM6pzsXJeb18IRo?=
+ =?iso-8859-1?Q?JMgTlrk7m99EOUFb+LBGlhzNYzoilkEYnhsMunjAld/GxMaRPSpC5ZNlvY?=
+ =?iso-8859-1?Q?03KSYKWH1MZfR3sqIPXFuh1gTAd6Jd1oOzuW5eiNAR4ZMcC9WxBWRBH2Kh?=
+ =?iso-8859-1?Q?Qn0+wdEVN9SB/YWCp0GE/PuGFqVFSflzBuKVkGIVQOGrAm+NJTvrgk+mM/?=
+ =?iso-8859-1?Q?YWsdPotg7MmmSMw83DYNU3p7e8yB/toABMI0ktx98LciRLNdfAN3Cpig?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB8946.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7bf8982-bf92-49fd-ecc7-08ddf390dc39
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2025 13:16:05.1678
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lz97l1hIJJW1V9U2UokDmODMJDTWRyhNtJg+czjbQcGVvV7LzcyLdJjaloqDyeRlmOO6ehC5zYFPI+GIoqybrrsVpGg9wQjPP1t0CNgqKOs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB6243
 
-This is a multi-part message in MIME format.
---------------rz1mpetzxbwWGK7PgvjqWYzI
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Remove redundant domid_free() call in the XEN_DOMCTL_createdomain error
+handling path to prevent a double-free condition.
 
+When domain_create() fails, it internally calls _domain_destroy() during
+its cleanup routine, which already invokes domid_free() to release the
+allocated domain ID. The additional domid_free() call in the domctl error
+path creates a double-free scenario, triggering an assertion failure in
+domid.c:
 
-On 9/12/25 11:38 PM, Julien Grall wrote:
-> (+ Release manager)
->
-> On 10/09/2025 15:49, Oleksii Moisieiev wrote:
->> Hi Julien,
->>
->> Thank you for your observations. You're absolutely right about this.
->>
->> Currently, the sci_relinquish_resources call doesn't perform any 
->> operations
->> because the single-agent doesn't implement a callback.
->>
->> I'll move the sci implementation to be positioned above the tee
->> implementation
->> and prepare a patch for this change.
->
-> Thanks! I think this change should go in Xen 4.21. Please tag it with 
-> [for-4.21] or similar.
->
-In one of previous replies we already agreed that it is fine to have this patch series in
-4-21. Just to be sure:
-  Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+    Assertion 'rc' failed at common/domid.c:84
 
-Thanks.
+The domain creation flow is:
+1. domid_alloc() allocates a domain ID
+2. domain_create() is called with the allocated ID
+3. If domain_create() fails:
+   a) domain_create() calls _domain_destroy() internally
+   b) _domain_destroy() calls domid_free() to release the ID
+   c) domctl incorrectly calls domid_free() again
 
-~ Oleksii
+This double-free violates the domain ID management invariants and causes
+system instability. The fix ensures domid_free() is called exactly once
+per allocated domain ID, maintaining proper resource cleanup
+semantics.
 
-> CCing Oleksii Kurochko to keep track.
->
-> Cheers,
->
---------------rz1mpetzxbwWGK7PgvjqWYzI
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Fixes: 2d5065060710 ("xen/domain: unify domain ID allocation")
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 9/12/25 11:38 PM, Julien Grall
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:1715e68b-fef3-4846-8db0-5cbd49878f27@xen.org">(+ Release
-      manager)
-      <br>
-      <br>
-      On 10/09/2025 15:49, Oleksii Moisieiev wrote:
-      <br>
-      <blockquote type="cite">Hi Julien,
-        <br>
-        <br>
-        Thank you for your observations. You're absolutely right about
-        this.
-        <br>
-        <br>
-        Currently, the sci_relinquish_resources call doesn't perform any
-        operations
-        <br>
-        because the single-agent doesn't implement a callback.
-        <br>
-        <br>
-        I'll move the sci implementation to be positioned above the tee
-        <br>
-        implementation
-        <br>
-        and prepare a patch for this change.
-        <br>
-      </blockquote>
-      <br>
-      Thanks! I think this change should go in Xen 4.21. Please tag it
-      with [for-4.21] or similar.
-      <br>
-      <br>
-    </blockquote>
-    <pre>In one of previous replies we already agreed that it is fine to have this patch series in
-4-21. Just to be sure:
- Release-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+---
 
-Thanks.
+Changes in v2:
+- add "Fixes:" section to the commit description
 
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:1715e68b-fef3-4846-8db0-5cbd49878f27@xen.org">CCing
-      Oleksii Kurochko to keep track.
-      <br>
-      <br>
-      Cheers,
-      <br>
-      <br>
-    </blockquote>
-  </body>
-</html>
+ xen/common/domctl.c | 1 -
+ 1 file changed, 1 deletion(-)
 
---------------rz1mpetzxbwWGK7PgvjqWYzI--
+diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+index 71e712c1f3..954d790226 100644
+--- a/xen/common/domctl.c
++++ b/xen/common/domctl.c
+@@ -421,7 +421,6 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_d=
+omctl)
+         d =3D domain_create(domid, &op->u.createdomain, false);
+         if ( IS_ERR(d) )
+         {
+-            domid_free(domid);
+             ret =3D PTR_ERR(d);
+             d =3D NULL;
+             break;
+--=20
+2.34.1
 
