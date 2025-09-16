@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8006AB5967E
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Sep 2025 14:46:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1124649.1466913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0A88B597ED
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Sep 2025 15:41:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1124660.1466922 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyV3p-0001od-BW; Tue, 16 Sep 2025 12:45:29 +0000
+	id 1uyVvv-0000V6-8m; Tue, 16 Sep 2025 13:41:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1124649.1466913; Tue, 16 Sep 2025 12:45:29 +0000
+Received: by outflank-mailman (output) from mailman id 1124660.1466922; Tue, 16 Sep 2025 13:41:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyV3p-0001n9-7T; Tue, 16 Sep 2025 12:45:29 +0000
-Received: by outflank-mailman (input) for mailman id 1124649;
- Tue, 16 Sep 2025 12:45:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uyVvv-0000T4-5y; Tue, 16 Sep 2025 13:41:23 +0000
+Received: by outflank-mailman (input) for mailman id 1124660;
+ Tue, 16 Sep 2025 13:41:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=29h8=33=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
- id 1uyV3n-0001n2-T8
- for xen-devel@lists.xenproject.org; Tue, 16 Sep 2025 12:45:28 +0000
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c201::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 04354fd1-92fb-11f0-9809-7dc792cee155;
- Tue, 16 Sep 2025 14:45:25 +0200 (CEST)
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
- by AM0PR03MB6163.eurprd03.prod.outlook.com (2603:10a6:20b:151::7) with
- Microsoft SMTP Server (version=TLS1_2,
+ <SRS0=U/dE=33=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1uyVvt-0000Sy-CY
+ for xen-devel@lists.xenproject.org; Tue, 16 Sep 2025 13:41:21 +0000
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20f::7])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d3937680-9302-11f0-9d13-b5c5bf9af7f9;
+ Tue, 16 Sep 2025 15:41:20 +0200 (CEST)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by AM9PR03MB8056.eurprd03.prod.outlook.com (2603:10a6:20b:412::24)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.22; Tue, 16 Sep
- 2025 12:45:23 +0000
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e%5]) with mapi id 15.20.9115.020; Tue, 16 Sep 2025
- 12:45:22 +0000
+ 2025 13:41:16 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%5]) with mapi id 15.20.9115.020; Tue, 16 Sep 2025
+ 13:41:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,247 +47,362 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04354fd1-92fb-11f0-9809-7dc792cee155
+X-Inumbo-ID: d3937680-9302-11f0-9d13-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oJ+LhB7yoHFCBWDrO2GttJbrg7hLB45xz2as+yjLTnk6OpjHb3cDg9W73KGe6rWJ2kfNVBW2Bw7xyEXWlrsula/OBSRlb3cP13FL09QWZStAmeJJIjgtiwxJSMvZ5lcyjQdlO6HiFaJrkFueE7ggxwEVVUmJo0AO+w1BK0bE12JuY9GMkeBhtP7C4OCKGSccU3UJjO6VXMYNEREFxQ2gvpTWpY7P9orS3yikVJxxe8NXwfUv+7nXhN+lBemCiT1WhWbziSI2nYELaGEhuYynNUNRiKVPDQmBommTqCJFvdN+56l0UEeMXs1CGreQeKVAmxjjQit6h5werlKcmPdT+A==
+ b=st8JHsIbVdYGuyoOdrFhdQenTt0sp1LPGKB8Yag+uJovIaFHesY0eFz60FSKFcRSjcgZVzAMguAb8teyKnkJLMaNAfafH4KcIINlhLVHthaQc+JSUr0k3+z1qrnNMRJvaS1jqtHRo+5Y6rGzLR5RhAwbhB+WBw4soS6oOtZR9dcExpXjjA+fKrbn+5M3N3mZugVpmVZtX1DckiIOiA8tygo0F16UtpxsixjOPd4tgqO+SlqZOQMmBP7pcCIpD5IALmvNU0o5wT/SuZy7bOHr4RRra1csry6L+yyDBQ71drQqo5g9dj3+d373RGzOwigyxVxMRUaJzJOEtnbquY5WFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W6XoUttgMRb6pOjMwWhbuAvhXm2rApd18bfiIb1FoJA=;
- b=OaVc0jI0LmwDZNVrVRWJFN2q5hH09jeIxE05AgraRGXGTdwCScU+xJ6eSSExBFN/oPUI2Gi18oJ9op0a/01bL9vCA9/XHmQsjga9410Aiq1/XjnlNXe3r7YGGHyIdYgTD+2ltjFK5WBJjNO+lFAXYVVTCyGvcnngQwAJ5e60Q6HO1fQ0qtUx2G7lXrVGyIVYRlUKWJMzTy3G2ZcBrHLsyOt7m7EV1Tkc8DqsY5hkeEF2CCIVeQQLf1862B9nQKObdJ6htaaAr5cBQ8DUEQsCV7TNsTfDN3SpOhqYGkcLwYyCIAJbtqaT0/IrU4rnSXp+l5+E2W7rPGzbfGHQsIzt/A==
+ bh=RLpF1mnMF2e6pzGWDziI1N7zYaog8WbysndvDk8Wg50=;
+ b=GEPdhNHuC8cDYeeRgWgO0Xyj4k0TIQn7rI3EzUU53Wn4GAUn4LmSNbL4V6aDw3+r+r+gB5e0w2hwpqV8Yj8nCDdMTtOQRyoGyHKjImOCmGM6Tvy2XXBWaLXiMdyEb930ZjbKYD9fgjL0EuEacvfliPUPzVNB0efmF4C3pPRQFtRPDvPlLGdnjHydaiPnLmhJMxhJ40FmtpSQTBCxgqfjkXgu7VFG+7xsN7AyeWqMy4sA5Av7K7BYuy2M2tgzd2uXO+kKbfAlxi5a0OCD9XrapQSDfexIWvADZWzIB3u3EZj6YnhifLW9NyM2Tb+o7Z5Dvoe7n8vtOTaKFrb2kCv4Vg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W6XoUttgMRb6pOjMwWhbuAvhXm2rApd18bfiIb1FoJA=;
- b=jZQXhvY///RvPJatItir2TkMbYi+9wz4FUfxOMW2D+/+iussgvyf0t1f03fjhpXGri/2EuKdJOHx3C1MfT660evTl8P8sk2wL/D45imelP0z8CcxVYK3qJ0N7W+h8AN5uRsBAHfNIepIuax5awq10+9GvnPIFzkO3c3ztfbgbAO/P2wFub41eAvd8twtl7Df2IH4L2VrY7tytIYVRBFY7c/EhraRPP3wE9g0kUkHtjo1SaDh8gEwCBurrRKGTiMwQwRV3jzZrcQq1skYVog39mKG7ZDdHfySuzywgYfZWSkVOSUBflubp6TCGVOJ5PTJ+lKUKfkfkcGlMo42Y54iSQ==
-From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+ bh=RLpF1mnMF2e6pzGWDziI1N7zYaog8WbysndvDk8Wg50=;
+ b=BG9ph+wvDRntMgJPfy61EtN0ZEvEPQqi63FV+qpHUSPeYT8LHuHWxgL5ghRqZ+j/eKW0OJ8Phz934fWZfRtkSI6rFtRIw2kjwGUvB8H1cN/VvTV7yUOt+cbVOy7AD1kWqAHbfwYJsbUFCxTATqbEfYSwweDRUVlFYzAgmQ5QsuBPuxN0pj5af/70EP2AnhJYDvtY2IQ7B0vU3DNl8N0yRLHG60I67Hdx12ymTffQJLsOPOdvNN3o7VpTpcH2EY9YcznK1TtyUsB+jqQFxAlIloXe4zYPLyUBpCttIwFLJP2NqPrHAVlm4nLuRByIr0NPeZh7YKHKMYGyCYhoHBOhjg==
+From: Grygorii Strashko <grygorii_strashko@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Nicola Vetrini
-	<nicola.vetrini@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>
-Subject: [PATCH v2] misra: add deviation of Rule 2.1 for BUG() macro
-Thread-Topic: [PATCH v2] misra: add deviation of Rule 2.1 for BUG() macro
-Thread-Index: AQHcJwfEWjVU7vF+102YDgRq9OEY7w==
-Date: Tue, 16 Sep 2025 12:45:22 +0000
-Message-ID:
- <0adc0a8f75cb88b0b26d38289d1dd5823386290d.1758024454.git.dmytro_prokopchuk1@epam.com>
-Accept-Language: en-US, uk-UA, ru-RU
+CC: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>, Paul Durrant <paul@xen.org>, Alejandro Vallejo
+	<alejandro.garciavallejo@amd.com>, Grygorii Strashko
+	<grygorii_strashko@epam.com>
+Subject: [XEN][PATCH v3] x86: make Viridian support optional
+Thread-Topic: [XEN][PATCH v3] x86: make Viridian support optional
+Thread-Index: AQHcJw+TXHcbPb3jhkSvBimN3GcHkg==
+Date: Tue, 16 Sep 2025 13:41:15 +0000
+Message-ID: <20250916134114.2214104-1-grygorii_strashko@epam.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|AM0PR03MB6163:EE_
-x-ms-office365-filtering-correlation-id: 742b2fd4-650f-49a0-ddb9-08ddf51ee6dc
+x-ms-traffictypediagnostic: AS2PR03MB8907:EE_|AM9PR03MB8056:EE_
+x-ms-office365-filtering-correlation-id: bd601bbd-85ed-4540-84bd-08ddf526b5c3
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|366016|376014|42112799006|1800799024|38070700021|13003099007;
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700021;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?YAGb7eCK3dfVW3eClyiSEJkdHYhYRI8gdgO3pUo06ELCxb8At42UjcKny1?=
- =?iso-8859-1?Q?vDFWvD4THtEd495lJNtAcMSWh3C+sRAmgiJQlCMAxmLQRZNavXEKyH6CX1?=
- =?iso-8859-1?Q?XjYoozwYh6u6AsCWYKzT4lRRJTx7ibj7PTK45ajcLSWw+X5nLj9DkOiELz?=
- =?iso-8859-1?Q?OheLsV3GBJwX3F1aLAsasL3Gp7vjHyHdQcex3ZjipU5TB7+0Ne2KtfGzPC?=
- =?iso-8859-1?Q?gYjw626UhJ0qPxiF/vsbXF1CanG5laSW8AOpbgt/u+2iXmjH4V/n6R8ZEq?=
- =?iso-8859-1?Q?tRLwkknhjbjBo20EkZPaEuYqDTo/5Bc5Z+HtwTgKAESaTrvasgZ2BO03ef?=
- =?iso-8859-1?Q?1EWhTzmuhgh3X2Zn2VC6Jz3EwKdhC73XJUjM8fuID/aeU3CqKuwi7cVPBN?=
- =?iso-8859-1?Q?IrNtfGRX6pCxddsn/E6J61W3fcbVERCf/d7R+WweU8fMiyxx+NELu4ZGEW?=
- =?iso-8859-1?Q?JSqbyn0s0CGxnXiA0on8llpbWAPfISe7eJjbuBbXCAJlqb1hQmxktPPJLu?=
- =?iso-8859-1?Q?NKgm3vy7UDkROmEDuxfwDC2nRFYFWgmFk/HWgim33lfVVDgl2Wex0tVMMb?=
- =?iso-8859-1?Q?8LnrxmiRJnqpSg2whyvHOAnUGTTGL0VLt983DZnJ+T0VC7WwUS0It3kahp?=
- =?iso-8859-1?Q?FiukwsLI3PeUeeLecup41s9jsZotIH/9px3PUAD34PPBwSyuAVZykB3Xgq?=
- =?iso-8859-1?Q?bVv4kHDssbqjemRY9sZJvdVn4IML8UY6aM0ykZ6JLwXBUuhF9PR0rGrHeN?=
- =?iso-8859-1?Q?IF/QMmXwmPsoLoH0GgmDE8UG3g0cDLvam3W/LOjngq5AxRfPDKI3krk+wj?=
- =?iso-8859-1?Q?R+pqyWmT5ljEqIKfJ5HlQ5xyQaIHD2I9EO0OoRArr45ZwDkBzlfZiqolU/?=
- =?iso-8859-1?Q?kIuV0sH1DjeG/QPiE8t5ycdqyMbPgCu1zU6QaUiMAS3VElymHlc+WtDw6Y?=
- =?iso-8859-1?Q?VI8zqFC7LB82igMRyPZkMzINOltXUQn7BEX9C4knD4BoHUDCrZncgUaDUq?=
- =?iso-8859-1?Q?/zURFpO/ptntl5hL2mGMyHn6W1VI48cf2C6VcH6E3voKM27e7Ho9XoPaG9?=
- =?iso-8859-1?Q?uS7lqKpLZq3TsLd32/0VooxpZQLYy0i3ALDUHosilwnAaBCUOOJeA5fUmR?=
- =?iso-8859-1?Q?ci2RzcQPYt25F2hQ/83UtOoo4eRHTBszl812RAn8vD+bl3L/SNVGfzLfck?=
- =?iso-8859-1?Q?ECNvjiG+128LXltnPd1Q0ssMLUZc4L9kj9/qKmGdyNNp7MnymLqgxFwhrd?=
- =?iso-8859-1?Q?YT6cqvreU31f3k9kyyltwnKWGyUjWrKJMGmNfpv5Bt9/TkvDfqyd23vpYW?=
- =?iso-8859-1?Q?23tgL0SLVCjk2TyREJnpjcKz8UOWlFerRZivZAFdXm/pf7ORc5BfUhCQEr?=
- =?iso-8859-1?Q?ToMeJN6gT/RD5W4sApAeW2dwjgJXgWZpQjOtMyswIqXEi3iidncXL0kCzg?=
- =?iso-8859-1?Q?FAc0dXFZLNeZ36ARpheT6kt413zyBXTgUpQ4m65Bq9bgoCJhv9OfKtF7mK?=
- =?iso-8859-1?Q?0=3D?=
+ =?iso-8859-1?Q?7fQCUZ9KLLcoDZh5SkGrEZOIzde2l0jykqnwpQyfVP/nwephyHNYrlfbUL?=
+ =?iso-8859-1?Q?X4F63EL7ctRx+0sEEtNFm48NnK7O3nPNS0JM3lkcQ2SvxA+rlDsp2n1F86?=
+ =?iso-8859-1?Q?MtmLr3zDbcgga7iNU+7/+I6RTCxBLKVVQSDuM5bqMzcjqsa50dHhayBd0/?=
+ =?iso-8859-1?Q?WdjGwL3g5amDOhymKVD6AVBNAO04CHQFWt81Ug/iDZ898vPxFXK65L6JPh?=
+ =?iso-8859-1?Q?tYe+5rfCJfK7iWGSWzU3mpMgXB0gEVNSFKtzGeC3As8wF8+CoYgs62D2C1?=
+ =?iso-8859-1?Q?JiLwYHCZ3OBXH8dTxjvitg/ChpA5XnLg2JHhmOdNymZFmKGCzFs2B0tGuP?=
+ =?iso-8859-1?Q?A7tzYLMJaoyycTYx+e3sANj/WMJXmq17RKXZoahOIXbc4Yi2TCFh1/eTHY?=
+ =?iso-8859-1?Q?Nwqet76BmpFJsPF3nXVDX7Bc8DRAX+chYl/cB4XUeAmCeIO7/L4cgfzMXg?=
+ =?iso-8859-1?Q?S93cb14MTt/k/RVrRhmnd64fvO3/7b4O1CBzoNmFYDrDy5Dxv+bYBLAwmI?=
+ =?iso-8859-1?Q?23PBowa2KwskcTQOApTycqXmfBYJb/A/7FkafM811zPyCLOAAGb7ZxoYew?=
+ =?iso-8859-1?Q?ovVe4RGitP/YbNLLTZ1TS9hsflbYo8LmHl9ul7xmwlaE/3AMVoBdvfGuZC?=
+ =?iso-8859-1?Q?ZfV4EnvpPYI8jvguIW+whkMqlDXxAOBQLzdAwExG21Q4B0qWHeyiRjzKbJ?=
+ =?iso-8859-1?Q?aucoQMDVL4CG6yVhRl7IV/XsHanB2GcaecBeJ4koRWNZaKx1nG9rb7K4sI?=
+ =?iso-8859-1?Q?6ubsaJhr7ehAoXqrhr4eilL6BOfOyr2SRz7Rn0Ab3+hDwLltDMyQhG4BRZ?=
+ =?iso-8859-1?Q?VBxo6h4jeKGAWxj/laxxSvjH6OAJTouZikpmYdqiRQZ54wQa1VmhH38XHN?=
+ =?iso-8859-1?Q?J/L4CB/Qk1gVic+Im7juaKRXlh6mM2Q0dE/fS3ntr4GwR1u4Hjnu0f+woe?=
+ =?iso-8859-1?Q?Kz8mAo9ChnwqaOUnVAK3u0HE7NoGrVwv5jwIYsFfb0qEqy+ZaKnxJhP76k?=
+ =?iso-8859-1?Q?rkopcHP/Gq2cAGLoXetrPP0E2Of3DABV+sszInJ0FYfp9dEfjp3M0Dhbso?=
+ =?iso-8859-1?Q?jglPgdi1tjh3OEzlyk2jWMPU4kW18BtqaENkCLVywvF75Tr+ZaFl8FrFNQ?=
+ =?iso-8859-1?Q?TSls+PfM8zGYbT2+Zyiu22PpB3mibP3tcLzguwP8ysx75w1KMoLGbQVEmL?=
+ =?iso-8859-1?Q?qbdIZNwZjCtzODDorv65xeq0mpGgHGBVhxbcyTpv3NC+C/K6xsPVJcvwjz?=
+ =?iso-8859-1?Q?NWmkhT5m02Qqb7bpWJdSxRvNTiK+Aajleewpdf4v9tMzvq5mgj1+juv8Vs?=
+ =?iso-8859-1?Q?IFj4GKtcbSy91HNQ0vmPZRD33F+KlcNx0fLvO6kJTsNgT7mD/D4ILSJpTl?=
+ =?iso-8859-1?Q?DnnZbpjD26cNmndzLC/YuV5aujwAF2poMBHDdxd3a/uyWV4oRgU4shSLy4?=
+ =?iso-8859-1?Q?26CFFgzekb6lC+wbmfwQCX3ifN+ADviDeQPWaZ9XS0FYy1JS8qqsTNDYTG?=
+ =?iso-8859-1?Q?xFVM1Slto9DGvLGGm4xcJ0PKZW6mm7Zht/6BRCjcezFA=3D=3D?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(42112799006)(1800799024)(38070700021)(13003099007);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700021);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?ixd3aZ4pRHUcJRaKkAnpTaVdnw4LHqeTXhIDTDefx8w0LF4xQzn8hgMBSX?=
- =?iso-8859-1?Q?4FcPLbyv309pxPiuI5d1pm76A95mvWMSlnjBGV1yN0nYgyGY7vPn9MOp5p?=
- =?iso-8859-1?Q?mWxP9Og0zllrU7rMGSw8Ykkp+RA4DaA+nF1SyVJIkNkLTGdxzUSp5xAjc8?=
- =?iso-8859-1?Q?ZSsPZxwDgF+WiT49ZGxGJ66gJ56Lpb2Azxg3WeF0HxDahBNjfvphmmV2oh?=
- =?iso-8859-1?Q?pnG55jHVrddf+IuI5qGT1ljzRbs2ECGJeyzya1qtvAQOUbGqwdvmFB6Op3?=
- =?iso-8859-1?Q?gabDgqiZ43nLHqYZjRuOtrvZrxqT+HgfxOsVwtovWX7hAJv6QNRGzQT48t?=
- =?iso-8859-1?Q?hDgUfFeHDeXE/Vjz+wOEZeCTYjMhzpACBoJGcHYbYE9fafOLvoBtbi2V6j?=
- =?iso-8859-1?Q?ykrW9RWbz6sg1RRYtClRTmEHs7DEdMzbObhIHzbEJT3UUFDI4YyDS2k7w5?=
- =?iso-8859-1?Q?tK+9TnNFjub4AsGULhUt/lURobG4bRupHfWNyq0BOruY3X0D65vFVwAKa8?=
- =?iso-8859-1?Q?MyYKNeDFk057U41151KevMGb3GSWGB/QM8u8kdvp6yJSISkdU9cVjXwqOK?=
- =?iso-8859-1?Q?TyQCPqtRxOltaqo3KiTOCmE1QqHzbPz33i01dd/ImhWf0oo0xzZEa0U1ES?=
- =?iso-8859-1?Q?eu6+xwiXsmPSPbgjzC4v/9p5tROXM6wsn647pc/szJ8h0NW8XiZCdHvig4?=
- =?iso-8859-1?Q?IVm2c6rafHKBNob3D1XN1KoYNSvF/lpb02P85osh+Vhi9USr4fdCxMfdYo?=
- =?iso-8859-1?Q?xPl/RrYFDDuT2CYOEShms4nlSk1veyXZf37QviD4B+vpBeP6bWPFyYnEEj?=
- =?iso-8859-1?Q?kXx6qMfLGwG19jchs1PIb1Cms5BgGolY1MoYkB2LOvCaHdmDkgwTmCFwyJ?=
- =?iso-8859-1?Q?LDs3HAXD9wc1z7mZyv3VvhRZtfaX4oY+gwcSRArpQBkg0bibsBZ9hxIYFr?=
- =?iso-8859-1?Q?elfR9zQdTyNLnC4PRuG9vCauYAMEbLFcEP8AVLLYpVDR/VY7cAIxf+aOij?=
- =?iso-8859-1?Q?sbD1zppzko/tMykRu5arcKcCixMM53I+aHd69OTROb8ezF0HW9mRahj+m+?=
- =?iso-8859-1?Q?LNW2jV7m1sdu+EgXM+Rn1tSirdF27iYIYOdvMVSzHib3HIap5VA8MfOh+6?=
- =?iso-8859-1?Q?F8kyTP9EnBX8BsaY8llD5ESRugScIX7GvJI5E/j6JI54oI9rB3QykOgzTc?=
- =?iso-8859-1?Q?nXpFeOdXBQuc1qygGfpS9IosPh61lQO7O2JZQlpKv3pnH2hu9tJEzEdzxA?=
- =?iso-8859-1?Q?nYWlcxSa8AEk6xQO5KewD1W013kG1HoDz+d9kAfkDjOV5xZ57mTOR7C8Gp?=
- =?iso-8859-1?Q?Kzt/jBABD76nL0DLvCP2w8YssqGdfyvNj1losFZh4aoTCBCL58IVf8fAYZ?=
- =?iso-8859-1?Q?r3rnSDA1gHT02Bq6f4ZLFNfobGFeSq0zrt71aftMWA4/8v1QJi1tG8xRkU?=
- =?iso-8859-1?Q?zwcL/MTGGnLnXnd0NmRaKZXz9Abf3c1ggUcHLDB8daBywwrJw6DQymkzQw?=
- =?iso-8859-1?Q?Ge8horKy6chm/0PGQa216MNuq0W1/2nTv3NMfK3rRFAxUQFv1cZC5LrsLE?=
- =?iso-8859-1?Q?EtnkztlBYIStSdFO507Ohn2kwxgfdCFlV8EfpNDxBe7S7cJGLKUJa3DO78?=
- =?iso-8859-1?Q?9yIMqMGXlulpcY4bNx3NR8N0nN4slrcz4zgrIfNQJuMs0H1pVeWFjyUQ?=
+ =?iso-8859-1?Q?P1qOY2TxD5w1HzxiscFLGnP50K0d3d5vrMpAEVPmcI04RI8M593DhxNzuI?=
+ =?iso-8859-1?Q?YaKIDgtXBQgdlymzqJq8tiPaqYigDaDSaMa5I/abewhSjza7LsA2gbeN7r?=
+ =?iso-8859-1?Q?8wMXs4MhxYC5Ezl8ggSmKKsODUPdA9wKT7D1KpU+bLY+KlJN2lGQq1BFH3?=
+ =?iso-8859-1?Q?oChGGkUTJzkbix/REdlPCiZDNNKzbxKoJTHakQySLK08LtPSe1b/mG2mjr?=
+ =?iso-8859-1?Q?6xkbTs7epIPwIkLz+AfpbB/F2HtfijxEwItiEt8bgxN39UHzI1Uk0iPI3b?=
+ =?iso-8859-1?Q?1Tyme4Q0WZvG0eZ8i/bRzBQ7iucCP5WpNRiY7+5LIBDYeGAZMaMO3B3mL7?=
+ =?iso-8859-1?Q?1shSezDURUhvwYaILREU+6yDDqoFmvUv3NTHGRTpeoNrQhwonC02DtZ6z+?=
+ =?iso-8859-1?Q?wn8NtLeQ6nQh9Bf2W4ik/yduqB0KrFXQb3bJvTBBY/F2EQDcLvuC9v/DPq?=
+ =?iso-8859-1?Q?I+ltVy1o72CWVzazNGEkFuU/hJhcZgogFTO8gFNiQyNfu9le0rH5phO43S?=
+ =?iso-8859-1?Q?873Sd+sdoJ1KpmY/I55nCy8u0KopCH03i7GAv76hwU4w+HLJiv659X0zDT?=
+ =?iso-8859-1?Q?K5YOLYRNDiPUxzhUiiUjiXcIzry1QCtCNpCoZbjKcQ97MOHVg5eLp1p9jq?=
+ =?iso-8859-1?Q?W28EPMdrKbQtkifWl1LoBOkT991Mlm/Jx9dKn2l4Fv82KvBrjeza8ojjfO?=
+ =?iso-8859-1?Q?1ham0GWSSIMnI1Z6cnz+bwU7+YZQLtNI48IXE4UsiSgwJPyvK8OohQ2zFb?=
+ =?iso-8859-1?Q?O0UW3iCSD05GDU0PIMlOdzLH097gUM7JTFweW5ZjdQqZz606p1qnBm2tOB?=
+ =?iso-8859-1?Q?JrSmTyWAtYZ+/kF2H9+JZxIJvJINCN9J3Ft32eCa/dH8exlbEdlVq+rFbj?=
+ =?iso-8859-1?Q?AkwpIjDg+esF8BPEw4bAOssZrpSFYioAuf70wg/oZXg7CfgBsEriFz3Qwi?=
+ =?iso-8859-1?Q?BAlPaYVbEVkqdiQYAgMFWSl4gbHDtAtV++vPqQT6DHhgfcMbee3l0LQJTs?=
+ =?iso-8859-1?Q?2yOp4ywCp8qKyoMDSsKcqfSH6tVytT0QYOw6XPjFIrL6WknXDi/bW6803X?=
+ =?iso-8859-1?Q?V2wWp01+/abQwYY/2KudPg25SVL2uzSDKlcyHq6Y9/3t1sV5Fi7nXe5yzg?=
+ =?iso-8859-1?Q?n6EKQJzfkzlCqgwjQvAx2Zk3oXwbBczoo6SZ9tNO6dPltVm0fwYbVvoWjR?=
+ =?iso-8859-1?Q?vuNWtYfhQJRW6zA1lWP7Ot6S0VbLkSOGQndWejjKVbGzL7n3E9zrY1og8r?=
+ =?iso-8859-1?Q?H0o4uvOJd5w++3qH1+1BuUcd/nMeKOjqGZ4Li/NQFhOUC7SSaqmI3soozy?=
+ =?iso-8859-1?Q?MFR7imy/wQmVL9fDloDqgpOK1CGAFnH4ZeAqmf42m+TS4EerQBx/g/qT8X?=
+ =?iso-8859-1?Q?eSwHg2JM6iAgBwnScmWhDZL5JH2cQssUFuK7C/wmcVDbPj6lJCCnI4GtnA?=
+ =?iso-8859-1?Q?4YEDVrR/pqL1suEtAAMhtDPJTLPikakV0O9LUdgufLI8BLX2lB5jyuEniN?=
+ =?iso-8859-1?Q?J3kGouvjC+X08c8BSJdcuTs6kU5HW18pNtG/GVIaDuWXnomsXJDE+DmHLE?=
+ =?iso-8859-1?Q?kSCESeB4brQwO1w1q87ykRpYiyS/Q8K7h2BeRdlaNiiyQtuKQdccDaCskF?=
+ =?iso-8859-1?Q?l5s54bn/7GdQ4ShAGe3hWMl/az7qCM4xS88AWc4bSP9Q9jfoA1NKdXOw?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 742b2fd4-650f-49a0-ddb9-08ddf51ee6dc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2025 12:45:22.7472
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd601bbd-85ed-4540-84bd-08ddf526b5c3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2025 13:41:16.3028
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: A7csYRwZ7Rtgx9PBnCc5AE8qEUr0O3NhjFQ+zjSi7X0LzDWQANMjJoIvYCBFeMtrRpW74EFFd+QxGCTbvb4eSWHw618upwMKOzfOlBY0Nck=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB6163
+X-MS-Exchange-CrossTenant-userprincipalname: a3/fGwVDpIg7RCZtwjvId/8niKG6xxa9iFMIUpLMAk51n+FnYBfNVICsWtrrE5qB2x3aMSk5zLexxXcwMNIgG1/boo0PZbsALMaAFd4NFXE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB8056
 
-MISRA C Rule 2.1 states: "A project shall not contain unreachable code".
-Functions that are non-returning and are not explicitly annotated with
-the 'noreturn' attribute are considered a violation of this rule.
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 
-In certain cases, some functions might be non-returning in specific build
-configurations due to call to '__builtin_unreachable()' in the expansion
-of the macro 'BUG()':
- - functions 'gicv3_do_LPI()' and 'gicv3_its_setup_collection()' when the
-config CONFIG_HAS_ITS is not defined, it is intentionally used to catch
-and prevent any unintended execution of code that should only run when
-ITS is available;
- - function 'prepare_acpi()' when the config CONFIG_ACPI is not defined,
-to trigger an error if ACPI-related features are used incorrectly.
+Add config option HVM_VIRIDIAN that covers viridian code within HVM.
+Calls to viridian functions guarded by is_viridian_domain() and related mac=
+ros.
+Having this option may be beneficial by reducing code footprint for systems
+that are not using Hyper-V.
 
-Although these functions are defined as 'static inline' and the compiler
-may remove them from the object if they are not called (e.g., during Dead
-Code Elimination (DCE)), they are still present after preprocessing and
-are analyzed by the Eclair tool (regardless of whether this code is later
-removed by the compiler). This is what causes Eclair to detect these rule
-violations.
-
-To account for that in specific builds, update the ECLAIR configuration
-to deviate these violations. Update deviations.rst file accordingly.
-No functional changes.
-
-Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+[grygorii_strashko@epam.com: fixed NULL pointer deref in
+viridian_save_domain_ctxt()]
+Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
 ---
-Changes in v2:
-- updated commit message (added explanation why the Eclair detects these
-  violations)
-- aligned Eclair configs with deviations wordings (explicit specify header
-  file and function 'static inline' attributes)
+changes in v3:
+- fixed NULL pointer deref in viridian_save_domain_ctxt() reported for v2,
+  which caused v2 revert by commit 1fffcf10cd71 ("Revert "x86: make Viridia=
+n
+  support optional"")
 
-Link to v1:
-https://patchew.org/Xen/f7b4112aad84162c25f96a9d6db43a0c2ba85daa.1756046023=
-.git.dmytro._5Fprokopchuk1@epam.com/
+v2: https://patchwork.kernel.org/project/xen-devel/patch/20250321092633.398=
+2645-1-Sergiy_Kibrik@epam.com/
 
-Test CI pipeline:
-https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/2042397534
----
- .../eclair_analysis/ECLAIR/deviations.ecl       | 12 ++++++++++++
- docs/misra/deviations.rst                       | 17 +++++++++++++++++
- 2 files changed, 29 insertions(+)
+ xen/arch/x86/hvm/Kconfig              | 10 ++++++++++
+ xen/arch/x86/hvm/Makefile             |  2 +-
+ xen/arch/x86/hvm/hvm.c                | 27 ++++++++++++++++++---------
+ xen/arch/x86/hvm/viridian/viridian.c  |  8 ++++----
+ xen/arch/x86/hvm/vlapic.c             | 11 +++++++----
+ xen/arch/x86/include/asm/hvm/domain.h |  2 ++
+ xen/arch/x86/include/asm/hvm/hvm.h    |  3 ++-
+ xen/arch/x86/include/asm/hvm/vcpu.h   |  2 ++
+ 8 files changed, 46 insertions(+), 19 deletions(-)
 
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/=
-eclair_analysis/ECLAIR/deviations.ecl
-index 7f3fd35a33..c10dbf4f26 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -41,6 +41,18 @@ not executable, and therefore it is safe for them to be =
-unreachable."
- -call_properties+=3D{"name(__builtin_unreachable)&&stmt(begin(any_exp(macr=
-o(name(ASSERT_UNREACHABLE)))))", {"noreturn(false)"}}
- -doc_end
+diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
+index 5cb9f2904255..cf2726ef6bc3 100644
+--- a/xen/arch/x86/hvm/Kconfig
++++ b/xen/arch/x86/hvm/Kconfig
+@@ -62,6 +62,16 @@ config ALTP2M
 =20
-+-doc_begin=3D"In the specific build configuration (when the config CONFIG_=
-ACPI is not defined) the 'BUG()' macro is intentionally
-+used in the 'prepare_acpi()' function defined as 'static inline' in the he=
-ader file 'xen/arch/arm/include/asm/domain_build.h'
-+to trigger a runtime error if ACPI-related features are used incorrectly."
-+-config=3DMC3A2.R2.1,reports+=3D{deliberate, "any_area(any_loc(file(^xen/a=
-rch/arm/include/asm/domain_build\\.h$))&&context(name(prepare_acpi)&&writte=
-n_inline()&&written_storage(static)))"}
-+-doc_end
-+
-+-doc_begin=3D"In the specific build configuration (when the config CONFIG_=
-HAS_ITS is not defined) the 'BUG()' macro is intentionally
-+used in the 'gicv3_do_LPI()' and 'gicv3_its_setup_collection()' functions =
-defined as 'static inline' in the header file 'xen/arch/arm/include/asm/gic=
-_v3_its.h'
-+to catch and prevent any unintended execution of code that should only run=
- when ITS is available."
-+-config=3DMC3A2.R2.1,reports+=3D{deliberate, "any_area(any_loc(file(^xen/a=
-rch/arm/include/asm/gic_v3_its\\.h$))&&context(name(gicv3_do_LPI||gicv3_its=
-_setup_collection)&&written_inline()&&written_storage(static)))"}
-+-doc_end
-+
- -doc_begin=3D"Proving compliance with respect to Rule 2.2 is generally imp=
-ossible:
- see https://arxiv.org/abs/2212.13933 for details. Moreover, peer review gi=
-ves us
- confidence that no evidence of errors in the program's logic has been miss=
-ed due
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index 3271317206..45f665d5e3 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -98,6 +98,23 @@ Deviations related to MISRA C:2012 Rules:
-        even when debug-only assertions like `ASSERT_UNREACHABLE()` are rem=
-oved.
-      - ECLAIR has been configured to ignore those statements.
+ 	  If unsure, stay with defaults.
 =20
-+   * - R2.1
-+     - In the specific build configuration (when the config CONFIG_ACPI is=
- not
-+       defined) the 'BUG()' macro is intentionally used in the 'prepare_ac=
-pi()'
-+       function in the header file 'xen/arch/arm/include/asm/domain_build.=
-h'
-+       defined as 'static inline' to trigger a runtime error if ACPI-relat=
-ed
-+       features are used incorrectly.
-+     - Tagged as `deliberate` for ECLAIR.
++config HVM_VIRIDIAN
++	bool "Hyper-V enlightenments for guests" if EXPERT
++	default y
++	help
++	  Support optimizations for Hyper-V guests such as faster hypercalls,
++	  efficient timer and interrupt handling, and enhanced paravirtualized
++	  I/O. This is to improve performance and compatibility of Windows VMs.
 +
-+   * - R2.1
-+     - In the specific build configuration (when the config CONFIG_HAS_ITS=
- is not
-+       defined) the 'BUG()' macro is intentionally used in the 'gicv3_do_L=
-PI()'
-+       and 'gicv3_its_setup_collection()' functions defined as 'static inl=
-ine'
-+       in the header file 'xen/arch/arm/include/asm/gic_v3_its.h' to catch=
- and
-+       prevent any unintended execution of code that should only run when =
-ITS is
-+       available.
-+     - Tagged as `deliberate` for ECLAIR.
++	  If unsure, say Y.
 +
-    * - R2.2
-      - Proving compliance with respect to Rule 2.2 is generally impossible=
-:
-        see `<https://arxiv.org/abs/2212.13933>`_ for details. Moreover, pe=
-er
+ config MEM_PAGING
+ 	bool "Xen memory paging support (UNSUPPORTED)" if UNSUPPORTED
+ 	depends on VM_EVENT
+diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
+index 6ec2c8f2db56..0aee4cd114b8 100644
+--- a/xen/arch/x86/hvm/Makefile
++++ b/xen/arch/x86/hvm/Makefile
+@@ -1,6 +1,6 @@
+ obj-$(CONFIG_AMD_SVM) +=3D svm/
+ obj-$(CONFIG_INTEL_VMX) +=3D vmx/
+-obj-y +=3D viridian/
++obj-$(CONFIG_HVM_VIRIDIAN) +=3D viridian/
+=20
+ obj-y +=3D asid.o
+ obj-y +=3D dm.o
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 330103ddf386..0d063ae95f6b 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -701,9 +701,12 @@ int hvm_domain_initialise(struct domain *d,
+     if ( hvm_tsc_scaling_supported )
+         d->arch.hvm.tsc_scaling_ratio =3D hvm_default_tsc_scaling_ratio;
+=20
+-    rc =3D viridian_domain_init(d);
+-    if ( rc )
+-        goto fail2;
++    if ( is_viridian_domain(d) )
++    {
++        rc =3D viridian_domain_init(d);
++        if ( rc )
++            goto fail2;
++    }
+=20
+     rc =3D alternative_call(hvm_funcs.domain_initialise, d);
+     if ( rc !=3D 0 )
+@@ -739,7 +742,8 @@ void hvm_domain_relinquish_resources(struct domain *d)
+     if ( hvm_funcs.nhvm_domain_relinquish_resources )
+         alternative_vcall(hvm_funcs.nhvm_domain_relinquish_resources, d);
+=20
+-    viridian_domain_deinit(d);
++    if ( is_viridian_domain(d) )
++        viridian_domain_deinit(d);
+=20
+     ioreq_server_destroy_all(d);
+=20
+@@ -1643,9 +1647,12 @@ int hvm_vcpu_initialise(struct vcpu *v)
+          && (rc =3D nestedhvm_vcpu_initialise(v)) < 0 ) /* teardown: neste=
+dhvm_vcpu_destroy */
+         goto fail5;
+=20
+-    rc =3D viridian_vcpu_init(v);
+-    if ( rc )
+-        goto fail6;
++    if ( is_viridian_domain(d) )
++    {
++        rc =3D viridian_vcpu_init(v);
++        if ( rc )
++            goto fail6;
++    }
+=20
+     rc =3D ioreq_server_add_vcpu_all(d, v);
+     if ( rc !=3D 0 )
+@@ -1675,13 +1682,15 @@ int hvm_vcpu_initialise(struct vcpu *v)
+  fail2:
+     hvm_vcpu_cacheattr_destroy(v);
+  fail1:
+-    viridian_vcpu_deinit(v);
++    if ( is_viridian_domain(d) )
++        viridian_vcpu_deinit(v);
+     return rc;
+ }
+=20
+ void hvm_vcpu_destroy(struct vcpu *v)
+ {
+-    viridian_vcpu_deinit(v);
++    if ( is_viridian_domain(v->domain) )
++        viridian_vcpu_deinit(v);
+=20
+     ioreq_server_remove_vcpu_all(v->domain, v);
+=20
+diff --git a/xen/arch/x86/hvm/viridian/viridian.c b/xen/arch/x86/hvm/viridi=
+an/viridian.c
+index c0be24bd2210..7a2f718e6be7 100644
+--- a/xen/arch/x86/hvm/viridian/viridian.c
++++ b/xen/arch/x86/hvm/viridian/viridian.c
+@@ -1116,14 +1116,14 @@ static int cf_check viridian_save_domain_ctxt(
+ {
+     const struct domain *d =3D v->domain;
+     const struct viridian_domain *vd =3D d->arch.hvm.viridian;
+-    struct hvm_viridian_domain_context ctxt =3D {
+-        .hypercall_gpa =3D vd->hypercall_gpa.raw,
+-        .guest_os_id =3D vd->guest_os_id.raw,
+-    };
++    struct hvm_viridian_domain_context ctxt =3D {};
+=20
+     if ( !is_viridian_domain(d) )
+         return 0;
+=20
++    ctxt.hypercall_gpa =3D vd->hypercall_gpa.raw;
++    ctxt.guest_os_id =3D vd->guest_os_id.raw,
++
+     viridian_time_save_domain_ctxt(d, &ctxt);
+     viridian_synic_save_domain_ctxt(d, &ctxt);
+=20
+diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+index 993e972cd71e..79697487ba90 100644
+--- a/xen/arch/x86/hvm/vlapic.c
++++ b/xen/arch/x86/hvm/vlapic.c
+@@ -426,7 +426,8 @@ void vlapic_EOI_set(struct vlapic *vlapic)
+      * priority vector and then recurse to handle the lower priority
+      * vector.
+      */
+-    bool missed_eoi =3D viridian_apic_assist_completed(v);
++    bool missed_eoi =3D has_viridian_apic_assist(v->domain) &&
++                      viridian_apic_assist_completed(v);
+     int vector;
+=20
+  again:
+@@ -442,7 +443,7 @@ void vlapic_EOI_set(struct vlapic *vlapic)
+      * NOTE: It is harmless to call viridian_apic_assist_clear() on a
+      *       recursion, even though it is not necessary.
+      */
+-    if ( !missed_eoi )
++    if ( has_viridian_apic_assist(v->domain) && !missed_eoi )
+         viridian_apic_assist_clear(v);
+=20
+     vlapic_clear_vector(vector, &vlapic->regs->data[APIC_ISR]);
+@@ -1360,7 +1361,8 @@ int vlapic_has_pending_irq(struct vcpu *v)
+      * If so, we need to emulate the EOI here before comparing ISR
+      * with IRR.
+      */
+-    if ( viridian_apic_assist_completed(v) )
++    if ( has_viridian_apic_assist(v->domain) &&
++         viridian_apic_assist_completed(v) )
+         vlapic_EOI_set(vlapic);
+=20
+     isr =3D vlapic_find_highest_isr(vlapic);
+@@ -1373,7 +1375,8 @@ int vlapic_has_pending_irq(struct vcpu *v)
+     if ( isr >=3D 0 &&
+          (irr & 0xf0) <=3D (isr & 0xf0) )
+     {
+-        viridian_apic_assist_clear(v);
++        if ( has_viridian_apic_assist(v->domain) )
++            viridian_apic_assist_clear(v);
+         return -1;
+     }
+=20
+diff --git a/xen/arch/x86/include/asm/hvm/domain.h b/xen/arch/x86/include/a=
+sm/hvm/domain.h
+index 333501d5f2ac..07eec231f023 100644
+--- a/xen/arch/x86/include/asm/hvm/domain.h
++++ b/xen/arch/x86/include/asm/hvm/domain.h
+@@ -111,7 +111,9 @@ struct hvm_domain {
+     /* hypervisor intercepted msix table */
+     struct list_head       msixtbl_list;
+=20
++#ifdef CONFIG_HVM_VIRIDIAN
+     struct viridian_domain *viridian;
++#endif
+=20
+     /*
+      * TSC value that VCPUs use to calculate their tsc_offset value.
+diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/=
+hvm/hvm.h
+index 24a7ed88567b..ad05101f19ca 100644
+--- a/xen/arch/x86/include/asm/hvm/hvm.h
++++ b/xen/arch/x86/include/asm/hvm/hvm.h
+@@ -500,7 +500,8 @@ hvm_get_cpl(struct vcpu *v)
+     (has_hvm_params(d) ? (d)->arch.hvm.params[HVM_PARAM_VIRIDIAN] : 0)
+=20
+ #define is_viridian_domain(d) \
+-    (is_hvm_domain(d) && (viridian_feature_mask(d) & HVMPV_base_freq))
++    (IS_ENABLED(CONFIG_HVM_VIRIDIAN) && \
++     is_hvm_domain(d) && (viridian_feature_mask(d) & HVMPV_base_freq))
+=20
+ #define is_viridian_vcpu(v) \
+     is_viridian_domain((v)->domain)
+diff --git a/xen/arch/x86/include/asm/hvm/vcpu.h b/xen/arch/x86/include/asm=
+/hvm/vcpu.h
+index 924af890c5b2..b38702045818 100644
+--- a/xen/arch/x86/include/asm/hvm/vcpu.h
++++ b/xen/arch/x86/include/asm/hvm/vcpu.h
+@@ -176,7 +176,9 @@ struct hvm_vcpu {
+     /* Pending hw/sw interrupt (.vector =3D -1 means nothing pending). */
+     struct x86_event     inject_event;
+=20
++#ifdef CONFIG_HVM_VIRIDIAN
+     struct viridian_vcpu *viridian;
++#endif
+ };
+=20
+ #endif /* __ASM_X86_HVM_VCPU_H__ */
 --=20
-2.43.0
+2.34.1
 
