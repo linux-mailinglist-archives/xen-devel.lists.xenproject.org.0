@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F1E4B58BB6
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Sep 2025 04:08:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1124497.1466823 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61902B58FDD
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Sep 2025 10:01:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1124528.1466833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyL72-0008IG-Pt; Tue, 16 Sep 2025 02:08:08 +0000
+	id 1uyQbz-00078J-Fc; Tue, 16 Sep 2025 08:00:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1124497.1466823; Tue, 16 Sep 2025 02:08:08 +0000
+Received: by outflank-mailman (output) from mailman id 1124528.1466833; Tue, 16 Sep 2025 08:00:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyL72-0008GW-Mj; Tue, 16 Sep 2025 02:08:08 +0000
-Received: by outflank-mailman (input) for mailman id 1124497;
- Tue, 16 Sep 2025 02:08:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KURy=33=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uyL71-0008GQ-Dd
- for xen-devel@lists.xenproject.org; Tue, 16 Sep 2025 02:08:07 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb87a422-92a1-11f0-9d13-b5c5bf9af7f9;
- Tue, 16 Sep 2025 04:08:05 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3e9c5faa858so2191172f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Sep 2025 19:08:05 -0700 (PDT)
-Received: from [172.20.3.155] ([12.157.112.82])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-77607a48c19sm14652415b3a.36.2025.09.15.19.08.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Sep 2025 19:08:04 -0700 (PDT)
+	id 1uyQbz-00075n-Cw; Tue, 16 Sep 2025 08:00:27 +0000
+Received: by outflank-mailman (input) for mailman id 1124528;
+ Tue, 16 Sep 2025 08:00:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gL7b=33=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1uyQbx-00075f-Kd
+ for xen-devel@lists.xenproject.org; Tue, 16 Sep 2025 08:00:25 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 31677c26-92d3-11f0-9809-7dc792cee155;
+ Tue, 16 Sep 2025 10:00:21 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-570d0c280e4so4936815e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Sep 2025 01:00:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,98 +40,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb87a422-92a1-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: 31677c26-92d3-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1757988485; x=1758593285; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JPsCIOYK1ovn9kCkK+EjWsBMX09q+U37GNtiL4+vhHI=;
-        b=GQ9Ij5IIcrL66gglJ49ymwzkV3yDBg8XKVcNY4M5II6MPlo6rGwMM6VcqSowWBkOlL
-         rf6D0ZQP6/9hoAr7Cp+8zmgCNhLZWzZb0P/lJTMCDeBbyX//LnTNc5fNb0Ic6mTwZZm/
-         +wX97GpLz+YBdWUv58S5z+xngC4msn2gBUz1TFHo2yjDJg+x+uS+lQkniEX8qklorEOe
-         g5KmCEHRXaywqijnPlLAHfEMMiU7zSl+QLZwbi+tVC/7nFA12iDNVjqZM8WPY4sRAL0V
-         6/UrXzVIcsd4sD8o6MFT6ZoVuedK0AOVGiQHb7Jq3GZPkvBFWz6CCtTGhhA20Tm3yz2N
-         W6SQ==
+        d=gmail.com; s=20230601; t=1758009621; x=1758614421; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KouwesFlgNsfi6ZAeLHccS36bPkCPn/8z9o1uRe7qGM=;
+        b=JchCTBO1VhCxeqiqaO+AaLqATiHwmAq3SY6c3NtD/mk4czXhYp3TtA4BfKk7F2NUzf
+         +MEiZmuHPt8L4N3JRW6TVCL5ZExqpksOWSbNEFz/RUjy6ojTyLXIKpxmYFBZvrBpSdhU
+         mq67xfLvWXe2HlfzzFOQ8e2ZRTtNbDsGXPdyW5z4GSdEqMWtvdSxS7l4dD5rc7lqWmTy
+         ezfVlkVML/VDRHe+Bh6eGLxU08jAJ0tGKKka8IBgXTRGtlY9zH9feHrKUPNN2x0a/yzB
+         o5S0L/e1dCXLEfbI/A/ZR3ISvoPa9yACGBGu99odFLoupYwc/ay6ULbWsWMuYyoab9Pw
+         ciIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757988485; x=1758593285;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JPsCIOYK1ovn9kCkK+EjWsBMX09q+U37GNtiL4+vhHI=;
-        b=ibCNwxMouksUJ1mqrfudnqiNgW130DsyJ0FEOyV521APcfWqszKXNHafwwM72FyJQS
-         SCZZcO28q+iaZVB4g08fGQdLQ7IKOuGKjKIc/LxgnRtkkYCaS/wOBFGcrpNjPJo14oyG
-         oum18GNyTCl2lj/TEiQCBnVesQ9V3qkZeC9UjDgNCwFPGTPcxq8vuqzXrFcH7Rk9EFIp
-         J7WpT/tpDAEjVfV2yj3g48SI5BCQvzb5w/o2+w3+GnnGWhRzH2NVLk2bMWqy2NCknZMr
-         ewjh3Ww6TPqD5tHPT6QgSIGIR+XuGUsY1hfTX2BJh7b0wFR85ouNFux1c37O2kILSxOs
-         HySg==
-X-Gm-Message-State: AOJu0YyQdCMxyKIGND5ygtOvDF2WO7SMko4x15976Ex3ARsCMPsTyIT9
-	prIRhlHsLkpTQvp3SObrkDzY4qPprWPLfYrJHBZh/dXgszyOvWxo5PoEtBPug1GPCnvLQGjwSd4
-	ho2o=
-X-Gm-Gg: ASbGncujdneb0KcwIWximYhEL+Ei+4w4LjW1eoSfdHfXImMXcPU0a+5lZuBPnf3Rg5H
-	H1XoH+JMpCIluc7vMJGNktruNJdvdRYiZeoPygJEv2vOYktxuTsdX/8VHlE7Nszsc/p8SXnDHV1
-	b1qHGMQr5Z0g9m5NCutaRHQP+7zVGC2ptfOieHQtmmzjxahQLT5Rb+UUBdGvKt25+zZD/UUyvPv
-	MWJepc3TtDWpk3eOQX/mt/aykbx3nrU0K3giZYYt3jATi+fHEqAToyiaCDE4SKc9kBFnQ40LyFM
-	yt4gDZVPFquSf27Nv3awEb3SAxphjqkYfseuHqvoCE1w9Umb3sv0iEuhhr7NrpOh9zUdzPjYJVc
-	p8WcWcjwVxfJycPLTQcJavIGRaOyg/msrL70auzE9iQ==
-X-Google-Smtp-Source: AGHT+IHfIN4wemmccqIycCmIMWgsu/kfqM5TmDn/KFABeca2z5LgaL6gmyVh1i7MkMGxTf2zVCahBQ==
-X-Received: by 2002:a05:6000:2410:b0:3e7:5f26:f1d6 with SMTP id ffacd0b85a97d-3e765790821mr14622490f8f.13.1757988485122;
-        Mon, 15 Sep 2025 19:08:05 -0700 (PDT)
-Message-ID: <ad0d3a66-99e6-43f7-b49c-cfd661ad93e7@suse.com>
-Date: Tue, 16 Sep 2025 04:08:02 +0200
+        d=1e100.net; s=20230601; t=1758009621; x=1758614421;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=KouwesFlgNsfi6ZAeLHccS36bPkCPn/8z9o1uRe7qGM=;
+        b=MFpyXX3VQnsfUGOeejJXx+YBbsaNwn514nqYadQNoHXvGzUzCCe8reiU0vkmMjqCZ1
+         pB5956yC4r9bLB2qVqBTRCbB50IExXjrcjhu+/6mUpdUFumZfQ4q4yNA/E3KYV85aN9Z
+         4DG5+GkYXUkI8MBbz2fMkXGYEq4diwqYtNzSz3/LOpysr7mx73AhvDfl5IAbMBx6Fk4S
+         ZN2JbyuvjvIWZI3HpHU41f3cY6yrT9BtL0S85uMfTmVuU8J3SUoPALACURKlrxGJTSAp
+         NwJiNA/5NprOvSqdRvxl77GCFULcw5jsRvqdPj0XJvuA7D8BgsDUv0FokiuqVdNcfCVY
+         nY1A==
+X-Gm-Message-State: AOJu0Yzih26Me6HTUuYkfRe6qffWgQ/YyEHdS2Kb6urXjHfCRdMJgIYT
+	oRXtuGsOZPpsHEaJFZfESj+3SsyeZnoMQ3SaUb34t51H6rWp2b5DIFcT6qEkCPxdifZ0HFX+7yr
+	WKUdgrFSoneUyudkWqkv3EOCbPTBAHpw=
+X-Gm-Gg: ASbGncuS2Ngsx9/gcI5VlQXvXg5PxDHVoY3AginL7de2Wj+7V+WYuNzhTrDBpGgZr+L
+	jLg0H8cCGNpOE7Tt/sGe1Y0s53UshcaugjYanZnMYrNwkvHTRIuq9Qr6F2VEiROofRJ2OkoqT3I
+	LDwwG8jVKb/IQSaMzbdaHZ/tUu67t+8pgqSPwSgODBnTn2ZQQCpByzUUzql9idV41LWTFVrhUZt
+	E12bQ==
+X-Google-Smtp-Source: AGHT+IEJrFZoMW7PmfVoWSINU4I3HTGnlRnflqU8TM/JJ21hH/uIwpZeNizqRloY1Ku3PrMZkcKn2al9cAtez+w3dGA=
+X-Received: by 2002:a05:651c:211b:b0:32a:6eea:5c35 with SMTP id
+ 38308e7fff4ca-3513c8db849mr40085881fa.15.1758009620350; Tue, 16 Sep 2025
+ 01:00:20 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Request for patch to fix boot loop issue in Xen 4.17.6
-To: Ngamia Djabiri Julie <Julie.NgamiaDjabiri@student.uliege.be>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <DB9P250MB05235527B537774F77EB9E26A08D2@DB9P250MB0523.EURP250.PROD.OUTLOOK.COM>
- <ccfce0be-8208-4431-b93d-da0e63f3552e@suse.com>
- <DB9P250MB0523A25B90E1223BD1037EE7A015A@DB9P250MB0523.EURP250.PROD.OUTLOOK.COM>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <DB9P250MB0523A25B90E1223BD1037EE7A015A@DB9P250MB0523.EURP250.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20250908211149.279143-1-dmukhin@ford.com> <20250908211149.279143-9-dmukhin@ford.com>
+ <CAGeoDV8iL374T7n=f_AQTA5VPfKThcEq-fN4X3kzWLzbjCzjew@mail.gmail.com> <9d55721e-bd95-4354-b839-f8896eedab24@suse.com>
+In-Reply-To: <9d55721e-bd95-4354-b839-f8896eedab24@suse.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Tue, 16 Sep 2025 11:00:09 +0300
+X-Gm-Features: AS18NWCfWk7FtPLvfHN8_wjN3-wtq_vXU4WVFhLiUY-DdOAnW_zEPy5DbArYNG0
+Message-ID: <CAGeoDV-wzvRe=jmeKdr7=ectxiUVViLm_n4GvKdiCoFTwyoRrQ@mail.gmail.com>
+Subject: Re: [PATCH v7 08/16] emul/ns16x50: implement MCR/MSR registers
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
+	anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, 
+	roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, 
+	dmukhin@xen.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 15.09.2025 18:52, Ngamia Djabiri Julie wrote:
-> Dear Jan,
-> I want to underline that this issue is a critical security problem affecting system availability and that it has direct consequences for XEN users:
-> 
->   *
-> Systems running Xen 4.17.0 – 4.17.3 will fail to boot when upgraded to 4.17.4 or 4.17.5 under Intel Nested Virtualization.
-> 
->   *
-> Diagnosing and fixing this requires advanced skills and time, and in some cases may be impossible for standard users, leaving their systems unusable or unmaintained.
-> 
->   *
-> The problem has been known to Xen maintainers since 2024-01-20, but no official communication has been made.
-> 
->   *
-> Root cause: commit 6bdb9651<https://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=6bdb965178bbb3fc50cd4418d4770a7789956e2c> (2024-01-17)
-> 
->   *
-> Fix: commit dd05d265<https://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=dd05d265b8abda4cc7206b29cd71b77fb46658bf> (2025-01-21), applied in Xen 4.18.5, 4.19.2, 4.20.0-rc3
-> 
->   *
-> Xen 4.17 remains security-supported until 2025-12-12, but this fix was not included in 4.17.5
+Hi Jan,
 
-Yes; the fix isn't fixing a security issue, so won't go onto that branch.
-You (now) calling it a security issue doesn't make it one. Note how ...
+On Mon, Sep 15, 2025 at 5:49=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 15.09.2025 08:00, Mykola Kvach wrote:
+> > On Tue, Sep 9, 2025 at 12:12=E2=80=AFAM <dmukhin@xen.org> wrote:
+> >> --- a/xen/common/emul/vuart/ns16x50.c
+> >> +++ b/xen/common/emul/vuart/ns16x50.c
+> >> @@ -107,7 +107,7 @@ static bool cf_check ns16x50_iir_check_thr(const s=
+truct vuart_ns16x50 *vdev)
+> >>
+> >>  static bool cf_check ns16x50_iir_check_msi(const struct vuart_ns16x50=
+ *vdev)
+> >>  {
+> >> -    return false;
+> >> +    return vdev->regs[UART_MSR] & UART_MSR_CHANGE;
+> >>  }
+> >>
+> >>  /*
+> >> @@ -232,12 +232,63 @@ static int ns16x50_io_write8(
+> >>              regs[UART_LCR] =3D val;
+> >>              break;
+> >>
+> >> +        case UART_MCR: {
+> >
+> > Probably the opening brace should be moved to the next line.
+> > See CODING_STYLE:
+> >
+> > Braces ('{' and '}') are usually placed on a line of their own, except
+> > for:
+> >
+> > - the do/while loop
+> > - the opening brace in definitions of enum, struct, and union
+> > - the opening brace in initializers
+> > - compound literals
+>
 
-> On 03.05.2025 16:02, Ngamia Djabiri Julie wrote:
->> Dear Xen developers,
->>
->> I would like to ask if the following fix can also be included in Xen 4.17.6 (and eventually in the Xen versions after 4.17.6 that don't have the fix) :
->>
->> https://xenbits.xen.org/gitweb/?p=xen.git;a=commitdiff;h=dd05d265b8abda4cc7206b29cd71b77fb46658bf
->>
->> This bug causes a boot loop in nested virtualization environments (for instance nested environments that use VMware Workstation), making Xen unable to start. It was introduced in version 4.17.3 and the fix has already be included in 4.19(.2) and 4.20(.0) and woud be planned to be included in Xen 4.18.6 in the coming weeks.
->>
->> Even though Xen 4.17 is in security-only support, this is an issue that blocks testing and usage for users and projects such as Alpine Linux.
+Thanks for clarifying.
 
-... there also was no talk of this being a security in your original report.
-Quite the opposite, you asked for the fix to be included despite the branch
-being in security-only mode.
+> strictly by the wording of the doc you're right, yet if you go look then
+> you'll see that we really permit both forms (and apparently prefer the
+> one used here).
 
-Jan
+I just want to make sure I understand the expectation correctly.
+The CODING_STYLE document has wording about brace placement, but as
+you noted, the actual code in this subsystem uses both styles, and the
+one used here seems to be preferred in practice.
+
+To get a better sense, I did a quick search in the repository. The
+pattern with the brace on the next line after case appears roughly
+340 times, while the variant with the brace on the same line as case
+appears about 75 times. So overall the first form seems to be much
+more common.
+
+That makes me think the choice here is more a matter of maintainer
+preference than a global convention. My main concern is consistency:
+if in one place both forms are accepted, but in another case reviewers
+point back to the document and ask for strict compliance, it could
+create confusion for contributors.
+
+I'm fine if Denis leaves it as is. I just wanted to note the
+misalignment with the CODING_STYLE doc.
+
+>
+> Jan
+
+Best regard,
+Mykola
 
