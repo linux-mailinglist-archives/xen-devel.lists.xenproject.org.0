@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D668FB587E5
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Sep 2025 00:57:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1124467.1466803 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EAB5B58B88
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Sep 2025 03:53:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1124487.1466812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyI8f-0007nc-5P; Mon, 15 Sep 2025 22:57:37 +0000
+	id 1uyKsI-0006Aa-MG; Tue, 16 Sep 2025 01:52:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1124467.1466803; Mon, 15 Sep 2025 22:57:37 +0000
+Received: by outflank-mailman (output) from mailman id 1124487.1466812; Tue, 16 Sep 2025 01:52:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyI8f-0007lk-23; Mon, 15 Sep 2025 22:57:37 +0000
-Received: by outflank-mailman (input) for mailman id 1124467;
- Mon, 15 Sep 2025 22:57:35 +0000
+	id 1uyKsI-00068e-G7; Tue, 16 Sep 2025 01:52:54 +0000
+Received: by outflank-mailman (input) for mailman id 1124487;
+ Tue, 16 Sep 2025 01:52:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=70H4=32=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uyI8d-0007ld-HP
- for xen-devel@lists.xenproject.org; Mon, 15 Sep 2025 22:57:35 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=KURy=33=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uyKsH-00068W-Mh
+ for xen-devel@lists.xenproject.org; Tue, 16 Sep 2025 01:52:53 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5da38ac8-9287-11f0-9d13-b5c5bf9af7f9;
- Tue, 16 Sep 2025 00:57:34 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-45f2b062b86so12974735e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 15 Sep 2025 15:57:34 -0700 (PDT)
-Received: from smtpclient.apple (public-gprs232241.centertel.pl.
- [31.60.54.114]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45e037186e5sm196923275e9.5.2025.09.15.15.57.32
+ id da6be9c3-929f-11f0-9d13-b5c5bf9af7f9;
+ Tue, 16 Sep 2025 03:52:51 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3ebe8dc13a3so697729f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Sep 2025 18:52:51 -0700 (PDT)
+Received: from [172.20.3.155] ([12.157.112.82])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-32ea41d3e19sm236103a91.11.2025.09.15.18.52.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Sep 2025 15:57:32 -0700 (PDT)
+ Mon, 15 Sep 2025 18:52:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +45,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5da38ac8-9287-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: da6be9c3-929f-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1757977053; x=1758581853; darn=lists.xenproject.org;
-        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
-         :from:content-transfer-encoding:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mnYhUQzKzPFnbfPJig1Dv6FPRHTgQ6d8LY4Eo419aR8=;
-        b=g1BxkWklR4I4FXn4KUecmVzocgkZssdRQmOiCgMptEP0227t+izRFJCXu5KVYaAUVq
-         6gO9ilLoyKT3pkI+PNJdsGxhkYn6qnB4Oq8u+0JAgKnO0SG8QRzVCWoViN3Z0nyka1a1
-         V9G67uZcMfPHpvfIbAdgwKCUHGb1srK/MW3aySU1TOimf5FthWL0QcOkFb3REWmtISsu
-         HPXZkNB2PzGlNE3DGi78sjoIX043LFBf6yeth3iJlbXljsXiFgkM9P+3BAgMoWQHuhL8
-         P8Ud9W4YYkPIFQWQH4YV2S5xuTQgNizO2CJxICwRIxti4VhSbtzzvqPvZuFglIKKLLcy
-         Ekaw==
+        d=suse.com; s=google; t=1757987571; x=1758592371; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:cc:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=bTA5cgKGgBiuphRp7mP3u6Gnvre7ZlNtP4IpL5fN19o=;
+        b=G9+kdw5sCs1zW3PurEyggg21GPWXsYBODak1zipNH0TlJmjlTXmyJ7RpPb7GK0ZjPw
+         aIAgB8pCkqJ1Ft9/JM8nmpNM9H/vGOdT3yg1eSiKVCBN29rf0NETBw5BuC4250ZUXAAZ
+         c8VPB1R6SbjA/ZHT5BndrjopDWPb+WerdMOJ3M9FuMVT1nfu4wq10oBHk7AzMHh2rC8E
+         RTQLIYoJcTFj9+CN+awprQ6VphzQjrjEda0+8OZyM8enIQobScJkCH/jkdsZN8JHJ6Yl
+         ubHBnB2OTcnIcP707++KAK4If83/9z36an79Mb05kuymPXm5rZWX2GNTLQIAHN3lxC20
+         izaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757977053; x=1758581853;
-        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
-         :from:content-transfer-encoding:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=mnYhUQzKzPFnbfPJig1Dv6FPRHTgQ6d8LY4Eo419aR8=;
-        b=k5sdjn5+LK9bxVG1laWrdrY5ir/p+Jc2q2xheHkSnustDOVZNX6iP1fkWK0h/TXuCA
-         lSuGzMdOwRyTNZHbjed2RUuquk8Vyxzj70Upahj1KT559pNoDDGxowRPpngf+1SKhRuT
-         4mJ33JrPNyMNgqBHAXCEitHsz1ia4G8dgEUfiqqnQnwhpdVZNZ+/Ygjk68l77+7+xgd9
-         2SqvR49bCeucxb9PDk0iZXh0dMMTL0bUj7IR3Exy96Dnnq8lToz3TtC/YZteiIzy8r8Z
-         XyAopatPJtZTcZfEaWWfqaeb/9ktJrTIgV8QC9VvGqwfZw+Ms2A6iPAAHDmCDH/0Ynu/
-         54WA==
-X-Forwarded-Encrypted: i=1; AJvYcCXoJgtH1BPqDBQoOToWJKGoZk0gWvwf1wGtkO2TKvTl/vDcrpQHtdXVHOuiwiH2dMcphY04UFYOMn8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywo3v2d3wXLgDIY2P/fpvwmFuzDvJWnjdmUei/MLKlw6XycGSES
-	KX+nXYmsw0S8D0dCX+iY8Q219PjaWynU/uKcP08HPi9XpLLpk1XIqkXO
-X-Gm-Gg: ASbGncsmDpsm51Esibqx06ZYsihMi5GGqG1gLIBi6vn6bqgFblXIaVLiUxn1uLWeb5n
-	4Kb7+/vVV9Y8BIIIoo+0ywTc8N+EU07fNqb/lKKpunCvfP7fVAkSFbE9WAz+IHHrihp3u0gjV5g
-	Lk7sXHxrdTO2+/IF0G9ZLD4ULb2Shd5DbfNgaQdXn9tqxEd818RV5IikB47X+RqffnEMy9UxAbx
-	fWClH3wJO4C6WEfiskr1OolpZMMSnSqv/vigoh6OeO52zXCgP8IcFllpxP/Tju5FMAitNM44Dr6
-	gf1Ih9kIuqOuEUVL1b/M6vd69Rn18SbiCILqfn69654yA4JnjQZNGHEFUg6ooRVTJu0Q84X99+p
-	mk4yzetui29WL3qojfJL0LmUbW6HroZ89nkZ3kpBAwVP/cVj5ePmAP+Pi8+YT8xrgxRFpFhZD+D
-	lJIA==
-X-Google-Smtp-Source: AGHT+IHe21Bb6U/hH+aoudD0UnxR50zXP8AXLSlZ2b+vP9vkVNg8jFmKP+8aOgNvxs+gXBVp3sMe1A==
-X-Received: by 2002:a05:600c:1c98:b0:45f:2cf9:c229 with SMTP id 5b1f17b1804b1-45f2cf9c54bmr49262505e9.0.1757977053078;
-        Mon, 15 Sep 2025 15:57:33 -0700 (PDT)
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH v3] releases: use newer compression methods for tarballs
-Date: Mon, 15 Sep 2025 15:57:19 -0700
-Message-Id: <63F3548C-5DD5-4A0E-B7BA-C480ABF60CB4@gmail.com>
-References: <a01e2f6d-9bf4-4635-b1d1-9826494177bd@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>,
- =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>
-In-Reply-To: <a01e2f6d-9bf4-4635-b1d1-9826494177bd@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-X-Mailer: iPhone Mail (22G100)
+        d=1e100.net; s=20230601; t=1757987571; x=1758592371;
+        h=content-transfer-encoding:in-reply-to:from:cc:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bTA5cgKGgBiuphRp7mP3u6Gnvre7ZlNtP4IpL5fN19o=;
+        b=lI5f2wU7bi4Q2UgcxiDACOhmGVA3LdtzpwrWq3yuh+xEr77Xc+FZf9totnWpEApckS
+         PmoYhFB1NRaQSpX+fok3wCTsJTAhJfQQKlk1Fxf0yqEIW4N2UsCNVGP8BeKycgZ2UJHo
+         1c5bE3BhxVusBlieFA8B4Ny2rhAOg0Pi8qe9JQqv2vZflgZhxVPFWwbIGPA3bh8ys3gP
+         c1cz4UsrZAako3kv4ba5RBpBtPKfg8PczASZwkX5h3SrCOHwW57QjnU0I7jYvHprpmNt
+         nAtKL3TBpaloU5qYLblluwWFUQeNKvNH58C5g2xhps+PqpGHdAHOLHHN+g5/YkMaLyKV
+         Kexw==
+X-Gm-Message-State: AOJu0Yxs/vSqT/XwJHt5+a5FH8ZmazQurosD2iiYwFHnul/l5RPjKwfH
+	e6BqiUnSexORlc6obhx3VwwJDmwGJ+IFslaskgCTkrB2u8bgl2ZHjeOzhNlrhNUn8g==
+X-Gm-Gg: ASbGnctZZbJgZHwZQkGYLh89XafYOfchNYyI6M8t8d/3D0t5JOihJJuxlxdMi3eBvjT
+	oAPzz3gJYGVfNAS+QeTU6PPkQp+XXDyThC9rDy95V3LLAQBQNMzNZPluKnFD7JP+6l1dBEI3GC8
+	FsYbkOfqOWW+oc/2Hs2sHbCvBjC+714odqK1LrqDPevhgvc5DBgU+2PE2f1rGV0Ka/e0jJdJFVr
+	CfGVnyK9qhBAG7xghpe0RhSmKD6TceNyt+NapX0d94G9ceO+GQH0//7x9I5HFVBiSpK+sYK4N09
+	yLsugkvs2n7l/zNSs0aXI7nMlqpd6p/Me6jC0r+1YMCXMCJifm9poofEwLZxKYYt+r7fEI6xtO9
+	mahytkyDLmkoK/7sXAQaNOBagSJuc4Uk=
+X-Google-Smtp-Source: AGHT+IEpJkzEeA/kd4GuzYObfhnHnswToz97S95soyEjoJnKdBc5H2XFfzGincPgU8veGYERV79B/Q==
+X-Received: by 2002:a5d:4d81:0:b0:3e7:bbaf:6a07 with SMTP id ffacd0b85a97d-3e7bbbeb55cmr8086260f8f.6.1757987570634;
+        Mon, 15 Sep 2025 18:52:50 -0700 (PDT)
+Message-ID: <7228afa5-6ebc-4fdd-8181-b30c78417767@suse.com>
+Date: Tue, 16 Sep 2025 03:52:48 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [llvm coverage] Update LLVM profile raw format from v4 to v10
+To: Saman Dehghan <samaan.dehghan@gmail.com>
+References: <12f2f3bd9010422004c38c23f6758c87df8682a5.1757951300.git.samaan.dehghan@gmail.com>
+Content-Language: en-US
+Cc: xen-devel@lists.xenproject.org
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <12f2f3bd9010422004c38c23f6758c87df8682a5.1757951300.git.samaan.dehghan@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 15.09.2025 18:56, Saman Dehghan wrote:
+> This patch updates the LLVM profile raw format in
+> `xen/common/coverage/llvm.c` from version 4 to version 10,
+> enabling compatibility with LLVM versions 19 and 20.
+> While the patch supports only one version:
+> 1. It seems better to support one version than no version --
+>    the current profile version 4 is not compatible with
+>    LLVM version 11 or later
 
+Indeed.
 
-> On 14 Sep 2025, at 10:57, Jan Beulich <jbeulich@suse.com> wrote:
->=20
-> =EF=BB=BFOn 14.09.2025 18:59, Oleksii Kurochko wrote:
->>=20
->>> On 9/14/25 3:43 PM, Jan Beulich wrote:
->>> On 12.09.2025 23:23, Julien Grall wrote:
->>>> On 11/09/2025 09:14, Jan Beulich wrote:
->>>>> Other projects have long switched to xz and/or lzip.
->>>>>=20
->>>>> Tidy things some as well: With the removal of qemu from the tarball,
->>>>> intermediately extracting the tarball again has become wasteful. Drop
->>>>> that. Invoke compressors using asynchronous lists, to reduce overall
->>>>> latency. Drop the -v option from the (previously implicit) gzip
->>>>> invocation.
->>>>>=20
->>>>> Signed-off-by: Jan Beulich<jbeulich@suse.com>
->>>> I have tested manually the steps and the correct tarballs have been
->>>> produced. I will update my scripts to copy & sign all the tarballs once=
+> 2. The patch could be extended to support multiple
+>    LLVM profile versions, e.g., from 5 to 10
 
->>>> this is merged.
->>>>=20
->>>> Acked-by: Julien Grall<jgrall@amazon.com>
->>>> Tested-by: Julien Grall<jgrall@amazon.com>
->>> Thanks.
->>>=20
->>>> Is this intended for Xen 4.21?
->>=20
->> IMO, it would be nice to have that in Xen 4.21.
->=20
-> May I translate this to a release-ack then?
-Yes.
+Would certainly be nice, perhaps as a follow-on.
 
-Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> The llvm-cov toolchain, with its Source-based Code Coverage,
+> offers two substantial advantages over gcov:
+>   - More accurate coverage reporting when compiler optimizations
+>     are enabled, ensuring better analysis of optimized code.
+>   - Better tracking of coverage across inlined function boundaries,
+>     critical for complex control flows in Xen.
+> 
+> Overall, this change would enhance Xen's code coverage analysis
+> capabilities by leveraging the latest LLVM toolchain improvements,
+> particularly for safety-critical hypervisor code.
+> 
+> The patch modifies only `xen/common/coverage/llvm.c`,
+> maintaining API compatibility while enabling modern toolchain support.
+> Testing was performed with LLVM 19 and 20 to confirm functionality.
+> 
+> ---
 
-~ Oleksii
+What's missing in any event is your Signed-off-by:.
 
->=20
->>> So far it was, but I'm increasingly unsure, seeing that it still hasn't
->>> gone in. Cc-ing Oleksii too now. Andrew had voiced concern towards the
->>> rm use, but hasn't come back as to his argument towards the uncompressed=
-
->>> tarball previously not having been removed (when I can't see that one
->>> would have been created in the first place), hence why I couldn't make
->>> use of his (conditional) R-b.
->>=20
->> There is not too much sense in the uncompressed tarball. I prefer to not
->> generate it at all.
->=20
-> Generating is helpful, to do it only once (instead of once per compressed
-> tarball).
->=20
->> Also I have regarding .gz. If other projects switched to xz and/or
->> lzip (as it is mentioned in the commit message) what is the purpose of
->> having .gz tarball then?
->=20
-> At the very least to help people presently assuming they'll find a .gz.
->=20
-> Jan
+Jan
 
