@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61902B58FDD
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Sep 2025 10:01:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1124528.1466833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DA93B59056
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Sep 2025 10:23:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1124542.1466842 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyQbz-00078J-Fc; Tue, 16 Sep 2025 08:00:27 +0000
+	id 1uyQxa-0001d1-6d; Tue, 16 Sep 2025 08:22:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1124528.1466833; Tue, 16 Sep 2025 08:00:27 +0000
+Received: by outflank-mailman (output) from mailman id 1124542.1466842; Tue, 16 Sep 2025 08:22:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyQbz-00075n-Cw; Tue, 16 Sep 2025 08:00:27 +0000
-Received: by outflank-mailman (input) for mailman id 1124528;
- Tue, 16 Sep 2025 08:00:25 +0000
+	id 1uyQxa-0001aT-3Q; Tue, 16 Sep 2025 08:22:46 +0000
+Received: by outflank-mailman (input) for mailman id 1124542;
+ Tue, 16 Sep 2025 08:22:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gL7b=33=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uyQbx-00075f-Kd
- for xen-devel@lists.xenproject.org; Tue, 16 Sep 2025 08:00:25 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
+ id 1uyQxX-0001Zv-TM
+ for xen-devel@lists.xenproject.org; Tue, 16 Sep 2025 08:22:43 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 31677c26-92d3-11f0-9809-7dc792cee155;
- Tue, 16 Sep 2025 10:00:21 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-570d0c280e4so4936815e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 16 Sep 2025 01:00:21 -0700 (PDT)
+ id 4d218b12-92d6-11f0-9809-7dc792cee155;
+ Tue, 16 Sep 2025 10:22:36 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-56088927dcbso6530495e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Sep 2025 01:22:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,126 +40,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31677c26-92d3-11f0-9809-7dc792cee155
+X-Inumbo-ID: 4d218b12-92d6-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758009621; x=1758614421; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1758010956; x=1758615756; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KouwesFlgNsfi6ZAeLHccS36bPkCPn/8z9o1uRe7qGM=;
-        b=JchCTBO1VhCxeqiqaO+AaLqATiHwmAq3SY6c3NtD/mk4czXhYp3TtA4BfKk7F2NUzf
-         +MEiZmuHPt8L4N3JRW6TVCL5ZExqpksOWSbNEFz/RUjy6ojTyLXIKpxmYFBZvrBpSdhU
-         mq67xfLvWXe2HlfzzFOQ8e2ZRTtNbDsGXPdyW5z4GSdEqMWtvdSxS7l4dD5rc7lqWmTy
-         ezfVlkVML/VDRHe+Bh6eGLxU08jAJ0tGKKka8IBgXTRGtlY9zH9feHrKUPNN2x0a/yzB
-         o5S0L/e1dCXLEfbI/A/ZR3ISvoPa9yACGBGu99odFLoupYwc/ay6ULbWsWMuYyoab9Pw
-         ciIQ==
+        bh=imugdng3S5FK+Hm/ZoItPyp1ChMcqMTz5qfgj1SIRFw=;
+        b=ZLWqxM5o1yBuI6KvSXnbp1gAT8rf4KZV6Wfhntw8Zd2nkhWJbC7mTAkEfD6aWxEMnJ
+         pi8XCC6IjVJ3zndgZVdfKDF/+1ehKT5CkQ2fBPfh8WXEJjF4ZDkAGDXikbv4qFRFagce
+         FVD1uS7Nu9eQbKh5jvYjIg8/kDEj8qsOnVhdAMwfnbAV+6R8ugLjTlUvU2VsPD4QDc1t
+         0GUSyYoj+hkO+h3eSoftYsylSOx29yvceXIYJF4ksKvyc9QBJRq8iLX4Blx5tZM+GKZn
+         bQZ6NWgNEBrRLTFhCW/LNDLaz1k2E7jMFj7hf3eq0uzl4bbm5OvRnbIJTqDx7o7HPx3D
+         x9tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758009621; x=1758614421;
+        d=1e100.net; s=20230601; t=1758010956; x=1758615756;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=KouwesFlgNsfi6ZAeLHccS36bPkCPn/8z9o1uRe7qGM=;
-        b=MFpyXX3VQnsfUGOeejJXx+YBbsaNwn514nqYadQNoHXvGzUzCCe8reiU0vkmMjqCZ1
-         pB5956yC4r9bLB2qVqBTRCbB50IExXjrcjhu+/6mUpdUFumZfQ4q4yNA/E3KYV85aN9Z
-         4DG5+GkYXUkI8MBbz2fMkXGYEq4diwqYtNzSz3/LOpysr7mx73AhvDfl5IAbMBx6Fk4S
-         ZN2JbyuvjvIWZI3HpHU41f3cY6yrT9BtL0S85uMfTmVuU8J3SUoPALACURKlrxGJTSAp
-         NwJiNA/5NprOvSqdRvxl77GCFULcw5jsRvqdPj0XJvuA7D8BgsDUv0FokiuqVdNcfCVY
-         nY1A==
-X-Gm-Message-State: AOJu0Yzih26Me6HTUuYkfRe6qffWgQ/YyEHdS2Kb6urXjHfCRdMJgIYT
-	oRXtuGsOZPpsHEaJFZfESj+3SsyeZnoMQ3SaUb34t51H6rWp2b5DIFcT6qEkCPxdifZ0HFX+7yr
-	WKUdgrFSoneUyudkWqkv3EOCbPTBAHpw=
-X-Gm-Gg: ASbGncuS2Ngsx9/gcI5VlQXvXg5PxDHVoY3AginL7de2Wj+7V+WYuNzhTrDBpGgZr+L
-	jLg0H8cCGNpOE7Tt/sGe1Y0s53UshcaugjYanZnMYrNwkvHTRIuq9Qr6F2VEiROofRJ2OkoqT3I
-	LDwwG8jVKb/IQSaMzbdaHZ/tUu67t+8pgqSPwSgODBnTn2ZQQCpByzUUzql9idV41LWTFVrhUZt
-	E12bQ==
-X-Google-Smtp-Source: AGHT+IEJrFZoMW7PmfVoWSINU4I3HTGnlRnflqU8TM/JJ21hH/uIwpZeNizqRloY1Ku3PrMZkcKn2al9cAtez+w3dGA=
-X-Received: by 2002:a05:651c:211b:b0:32a:6eea:5c35 with SMTP id
- 38308e7fff4ca-3513c8db849mr40085881fa.15.1758009620350; Tue, 16 Sep 2025
- 01:00:20 -0700 (PDT)
+        bh=imugdng3S5FK+Hm/ZoItPyp1ChMcqMTz5qfgj1SIRFw=;
+        b=VUvXCltn0RCVS1dyrpMq4YtNTqZ5pvf2lLQuYb3eTWz3GnEvRU5LLjiz71XRBBBRnd
+         IaooE/ZxFX7WwI+WKO0gMvysHikntoWU26Zryqvi7p1ygUATPe6vAsx9sdZCm6WJ46ED
+         r+CLfyA0GOIMTCwA80xvYG17K7izabe88H4+i2rvbLuv2t1aHf07gQB1V/PnGb4RJclX
+         WbkVyFYHz8uxKTVCGolOpiGK1kLS/whp0vuXIPqYx/1v1XrfcTrVwNbbpRiZiz4cS4/1
+         fJyKFiq/8AlR9Utes6IDhV6+5nk2eIfj35L43sOZpMwjW1fnkLTZLPuuQzzaZRiUhmwX
+         a36Q==
+X-Gm-Message-State: AOJu0YwxPFThdr1LnoERRpTbG9FZTH6Yct4PWMQjcJQ2W9mnfjPoIMXM
+	zjCyHIJn9h6mJfo1Wzxz3Dmbwo58s7KrvL1BIShdzlLFcJDcULaDbbWkvTstghdvU+RrM+xW6Wi
+	OdCTJXYKn4BvfwuPDIIaoI2RchRliSpk=
+X-Gm-Gg: ASbGncsLNjgL8lYodtwioyNWdd3tvP9gdNgDQfMcpllXgLR1NjTCvnM39uwXzgaRJGK
+	LEX7tdY8R1hG78VpB/4E8cTfQ8EjA2EvPazXleKfx58Dl5xqOOa46y74UgWYhaHQon/wDo+qx5t
+	GHCRlkMPfk18XIlzpjFzHcaHNNgEZYeIfnlqqnktkmfD3BWO4++WUqvgCT6X4P1RfkGbStEA9py
+	AJCfa4H2LEickc1
+X-Google-Smtp-Source: AGHT+IFLTHm5o0mv4CGWgrUqeErZr9HrQbQ/VmFgZ0l3RsPrOLo7zFMVPFu7+ypT31Wj9MZz2Qe/ZkQz+FZSSbkyE0s=
+X-Received: by 2002:ac2:4ca9:0:b0:55f:3f00:a832 with SMTP id
+ 2adb3069b0e04-5704aaa0544mr3746790e87.10.1758010955682; Tue, 16 Sep 2025
+ 01:22:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250908211149.279143-1-dmukhin@ford.com> <20250908211149.279143-9-dmukhin@ford.com>
- <CAGeoDV8iL374T7n=f_AQTA5VPfKThcEq-fN4X3kzWLzbjCzjew@mail.gmail.com> <9d55721e-bd95-4354-b839-f8896eedab24@suse.com>
-In-Reply-To: <9d55721e-bd95-4354-b839-f8896eedab24@suse.com>
+References: <cover.1756803419.git.mykola_kvach@epam.com> <53cc6a9cf7a73d12c632bf8b8eee2f7069e6b0f1.1756803419.git.mykola_kvach@epam.com>
+ <86aec3a8-a4aa-40e4-9542-9d291c2c119e@xen.org>
+In-Reply-To: <86aec3a8-a4aa-40e4-9542-9d291c2c119e@xen.org>
 From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Tue, 16 Sep 2025 11:00:09 +0300
-X-Gm-Features: AS18NWCfWk7FtPLvfHN8_wjN3-wtq_vXU4WVFhLiUY-DdOAnW_zEPy5DbArYNG0
-Message-ID: <CAGeoDV-wzvRe=jmeKdr7=ectxiUVViLm_n4GvKdiCoFTwyoRrQ@mail.gmail.com>
-Subject: Re: [PATCH v7 08/16] emul/ns16x50: implement MCR/MSR registers
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
-	anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, 
-	roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, 
-	dmukhin@xen.org
+Date: Tue, 16 Sep 2025 11:22:24 +0300
+X-Gm-Features: AS18NWAVe7RC4KzRpPhU8KOkhwSyTlHJT8npqcpWzNQkODJfUSEcgs0V2YDr5HM
+Message-ID: <CAGeoDV8dA0MiP_tL9K=rqzY2opG494V=sSMhgsCmpyaXfmwYuA@mail.gmail.com>
+Subject: Re: [PATCH v13 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for guests
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jan,
+Hi Julien,
 
-On Mon, Sep 15, 2025 at 5:49=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
+Thank you for reviewing this patch series and for your valuable feedback.
+
+On Sat, Sep 13, 2025 at 1:38=E2=80=AFAM Julien Grall <julien@xen.org> wrote=
+:
 >
-> On 15.09.2025 08:00, Mykola Kvach wrote:
-> > On Tue, Sep 9, 2025 at 12:12=E2=80=AFAM <dmukhin@xen.org> wrote:
-> >> --- a/xen/common/emul/vuart/ns16x50.c
-> >> +++ b/xen/common/emul/vuart/ns16x50.c
-> >> @@ -107,7 +107,7 @@ static bool cf_check ns16x50_iir_check_thr(const s=
-truct vuart_ns16x50 *vdev)
-> >>
-> >>  static bool cf_check ns16x50_iir_check_msi(const struct vuart_ns16x50=
- *vdev)
-> >>  {
-> >> -    return false;
-> >> +    return vdev->regs[UART_MSR] & UART_MSR_CHANGE;
-> >>  }
-> >>
-> >>  /*
-> >> @@ -232,12 +232,63 @@ static int ns16x50_io_write8(
-> >>              regs[UART_LCR] =3D val;
-> >>              break;
-> >>
-> >> +        case UART_MCR: {
-> >
-> > Probably the opening brace should be moved to the next line.
-> > See CODING_STYLE:
-> >
-> > Braces ('{' and '}') are usually placed on a line of their own, except
-> > for:
-> >
-> > - the do/while loop
-> > - the opening brace in definitions of enum, struct, and union
-> > - the opening brace in initializers
-> > - compound literals
+> Hi Mykola,
 >
+> On 02/09/2025 10:03, Mykola Kvach wrote:
+> > @@ -880,6 +883,40 @@ void arch_domain_creation_finished(struct domain *=
+d)
+> >       p2m_domain_creation_finished(d);
+> >   }
+> >
+> > +int arch_domain_resume(struct domain *d)
+> > +{
+> > +    int rc;
+> > +    typeof(d->arch.resume_ctx) *ctx =3D &d->arch.resume_ctx;
+>
+> I know this is v13, but I don't think we should use typeof() is in this
+> context. "struct resume_info" is much shorter and help the review (I
+> don't have to grep resume_ctx to figure out the type).
 
-Thanks for clarifying.
-
-> strictly by the wording of the doc you're right, yet if you go look then
-> you'll see that we really permit both forms (and apparently prefer the
-> one used here).
-
-I just want to make sure I understand the expectation correctly.
-The CODING_STYLE document has wording about brace placement, but as
-you noted, the actual code in this subsystem uses both styles, and the
-one used here seems to be preferred in practice.
-
-To get a better sense, I did a quick search in the repository. The
-pattern with the brace on the next line after case appears roughly
-340 times, while the variant with the brace on the same line as case
-appears about 75 times. So overall the first form seems to be much
-more common.
-
-That makes me think the choice here is more a matter of maintainer
-preference than a global convention. My main concern is consistency:
-if in one place both forms are accepted, but in another case reviewers
-point back to the document and ask for strict compliance, it could
-create confusion for contributors.
-
-I'm fine if Denis leaves it as is. I just wanted to note the
-misalignment with the CODING_STYLE doc.
+Ack
 
 >
-> Jan
+> > +
+> > +    if ( !d->is_shutting_down || d->shutdown_code !=3D SHUTDOWN_suspen=
+d )
+> > +    {
+> > +        dprintk(XENLOG_WARNING,
+> > +                "%pd: Invalid domain state for resume: is_shutting_dow=
+n=3D%d, shutdown_code=3D%d\n",
+> > +                d, d->is_shutting_down, d->shutdown_code);
+> > +        return -EINVAL;
+> > +    }
+> > +
+> > +    /*
+> > +     * It is still possible to call domain_shutdown() with a suspend r=
+eason
+> > +     * via some hypercalls, such as SCHEDOP_shutdown or SCHEDOP_remote=
+_shutdown.
+> > +     * In these cases, the resume context will be empty.
+> > +     * This is not expected to cause any issues, so we just warn about=
+ the
+> > +     * situation and return without error, allowing the existing logic=
+ to
+> > +     * proceed as expected.
+>
+> I think this odd to warn if something is expected. It would be best to
+> use "XENLOG_INFO".
 
-Best regard,
+Ack.
+
+>
+> > +     */
+> > +    if ( !ctx->wake_cpu )
+> > +    {
+> > +        dprintk(XENLOG_WARNING, "%pd: Invalid wake CPU pointer for res=
+ume\n",
+>
+> As you wrote above, there is nothing wrong. So "Invalid" is not correct.
+> I think a better wording is "Wake CPU pointer context was not provided").
+
+Thanks for the suggestion. I'll change the message.
+
+>
+> Also note that dprintk() will be a NOP in release build. I am guessing
+> this is intended?
+
+Yep. In any case, the status is checked after the call to arch_domain_resum=
+e
+(see domain_resume), so we notify the user about the situation. Detailed
+prints are only available in debug builds.
+
+>
+> I will answer you Jan's comment separately. The rest looks good to me.
+>
+> Cheers,
+>
+> --
+> Julien Grall
+>
+
+Best regards,
 Mykola
 
