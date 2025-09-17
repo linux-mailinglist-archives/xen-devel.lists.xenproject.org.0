@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ED50B80FB8
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Sep 2025 18:27:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1125402.1467365 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8CABB80FD3
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Sep 2025 18:29:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1125412.1467376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyv0U-0005sl-Un; Wed, 17 Sep 2025 16:27:46 +0000
+	id 1uyv1Z-0006PP-81; Wed, 17 Sep 2025 16:28:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1125402.1467365; Wed, 17 Sep 2025 16:27:46 +0000
+Received: by outflank-mailman (output) from mailman id 1125412.1467376; Wed, 17 Sep 2025 16:28:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyv0U-0005qS-S0; Wed, 17 Sep 2025 16:27:46 +0000
-Received: by outflank-mailman (input) for mailman id 1125402;
- Wed, 17 Sep 2025 16:27:46 +0000
+	id 1uyv1Z-0006N1-5M; Wed, 17 Sep 2025 16:28:53 +0000
+Received: by outflank-mailman (input) for mailman id 1125412;
+ Wed, 17 Sep 2025 16:28:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WYKi=34=redhat.com=berrange@srs-se1.protection.inumbo.net>)
- id 1uyv0U-0005pp-2Z
- for xen-devel@lists.xenproject.org; Wed, 17 Sep 2025 16:27:46 +0000
+ id 1uyv1Y-0006Mn-23
+ for xen-devel@lists.xenproject.org; Wed, 17 Sep 2025 16:28:52 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3cd4faaf-93e3-11f0-9809-7dc792cee155;
- Wed, 17 Sep 2025 18:27:44 +0200 (CEST)
+ id 64065043-93e3-11f0-9809-7dc792cee155;
+ Wed, 17 Sep 2025 18:28:50 +0200 (CEST)
 Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-665-SZbV2YjlNuOnI3UjfZyBFQ-1; Wed,
- 17 Sep 2025 12:27:39 -0400
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-41-oHHjpyQePCWNg5nvpOTFhA-1; Wed,
+ 17 Sep 2025 12:28:46 -0400
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id D16311800284; Wed, 17 Sep 2025 16:27:33 +0000 (UTC)
+ id E449D1800578; Wed, 17 Sep 2025 16:28:39 +0000 (UTC)
 Received: from redhat.com (unknown [10.42.28.195])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 1FFA51800446; Wed, 17 Sep 2025 16:27:04 +0000 (UTC)
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 7CCE819560B1; Wed, 17 Sep 2025 16:28:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,21 +52,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cd4faaf-93e3-11f0-9809-7dc792cee155
+X-Inumbo-ID: 64065043-93e3-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1758126463;
+	s=mimecast20190719; t=1758126529;
 	h=from:from:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=IXOx+jvVJd3lNAzICcdpQlTQ2913UvUrv5ED+R6MTL0=;
-	b=NYt3c9m9xXTZS7pNDybNXK4dv+4aJiJebiPNkD8cysjrQlXA2cSUat8ybhjxdHDyeiiNOe
-	61UsDWvk0RupfEcXEzUoMh2Ku/Agq7mEneR2m3FgVIZkmB0O4Xcr+S37+Aj8vWQKWitEXS
-	BA5wMGN/ooYW1Y195sg66rYcsMBv638=
-X-MC-Unique: SZbV2YjlNuOnI3UjfZyBFQ-1
-X-Mimecast-MFC-AGG-ID: SZbV2YjlNuOnI3UjfZyBFQ_1758126455
-Date: Wed, 17 Sep 2025 17:26:59 +0100
+	bh=ZDezycxulpvqbuXIFVRvukz4G+S7KwYiBf/Z4wmzbGY=;
+	b=iCE/EU852EhcQFzoUiHU2xmnpuVF7yUH03qeD3ualLiQIC6d/+LJkBomBuIZY6VYz5wL0+
+	E7fKPqnMORDjAoWMDVBNsqvTEUt3HIEDYAVJCIjapWY5UDkkDSjf8oS+zVq9QFGejME9cl
+	L5YJvFR+t2iIqFMddyv5zncGyHA/X8Q=
+X-MC-Unique: oHHjpyQePCWNg5nvpOTFhA-1
+X-Mimecast-MFC-AGG-ID: oHHjpyQePCWNg5nvpOTFhA_1758126521
+Date: Wed, 17 Sep 2025 17:28:09 +0100
 From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
 Cc: qemu-devel@nongnu.org, Alex Williamson <alex.williamson@redhat.com>,
@@ -112,21 +112,21 @@ Cc: qemu-devel@nongnu.org, Alex Williamson <alex.williamson@redhat.com>,
 	Paul Durrant <paul@xen.org>,
 	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
 	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 3/7] hw/core/register: Do not unparent in
+Subject: Re: [PATCH v3 4/7] hv-balloon: hw/core/register: Do not unparent in
  instance_finalize()
-Message-ID: <aMrhU7-Z-mKUUVe3@redhat.com>
+Message-ID: <aMrhmYmZvRapJREE@redhat.com>
 Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 References: <20250917-use-v3-0-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
- <20250917-use-v3-3-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
+ <20250917-use-v3-4-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250917-use-v3-3-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <20250917-use-v3-4-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
 User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Wed, Sep 17, 2025 at 07:13:28PM +0900, Akihiko Odaki wrote:
+On Wed, Sep 17, 2025 at 07:13:29PM +0900, Akihiko Odaki wrote:
 > Children are automatically unparented so manually unparenting is
 > unnecessary.
 > 
@@ -137,9 +137,8 @@ On Wed, Sep 17, 2025 at 07:13:28PM +0900, Akihiko Odaki wrote:
 > 
 > Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
 > ---
->  hw/core/register.c | 1 -
->  1 file changed, 1 deletion(-)
->
+>  hw/hyperv/hv-balloon.c | 12 +-----------
+>  1 file changed, 1 insertion(+), 11 deletions(-)
 
 Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
 
