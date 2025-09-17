@@ -2,33 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF317B7EEE0
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Sep 2025 15:06:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1124919.1467066 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 609E7B7EEB1
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Sep 2025 15:06:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1124936.1467076 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyirS-00012C-Fk; Wed, 17 Sep 2025 03:29:38 +0000
+	id 1uyk6h-0002Fy-2e; Wed, 17 Sep 2025 04:49:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1124919.1467066; Wed, 17 Sep 2025 03:29:38 +0000
+Received: by outflank-mailman (output) from mailman id 1124936.1467076; Wed, 17 Sep 2025 04:49:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyirS-00010I-Bc; Wed, 17 Sep 2025 03:29:38 +0000
-Received: by outflank-mailman (input) for mailman id 1124919;
- Wed, 17 Sep 2025 03:29:36 +0000
+	id 1uyk6g-0002D9-Uz; Wed, 17 Sep 2025 04:49:26 +0000
+Received: by outflank-mailman (input) for mailman id 1124936;
+ Wed, 17 Sep 2025 04:49:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s7FR=34=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uyirQ-00010B-L9
- for xen-devel@lists.xenproject.org; Wed, 17 Sep 2025 03:29:36 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
+ <SRS0=0j/D=34=edera.dev=alexander@srs-se1.protection.inumbo.net>)
+ id 1uyk6e-0002Bk-TM
+ for xen-devel@lists.xenproject.org; Wed, 17 Sep 2025 04:49:24 +0000
+Received: from mail-io1-xd2d.google.com (mail-io1-xd2d.google.com
+ [2607:f8b0:4864:20::d2d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 87d9eed6-9376-11f0-9d13-b5c5bf9af7f9;
- Wed, 17 Sep 2025 05:29:34 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-35eecfce023so3869441fa.1
- for <xen-devel@lists.xenproject.org>; Tue, 16 Sep 2025 20:29:34 -0700 (PDT)
+ id adcb2818-9381-11f0-9d13-b5c5bf9af7f9;
+ Wed, 17 Sep 2025 06:49:23 +0200 (CEST)
+Received: by mail-io1-xd2d.google.com with SMTP id
+ ca18e2360f4ac-8876de33c86so450432939f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Sep 2025 21:49:23 -0700 (PDT)
+Received: from localhost ([2605:9480:312:2031:4ed7:17ff:feaa:a013])
+ by smtp.gmail.com with ESMTPSA id
+ 8926c6da1cb9f-511f2f32facsm6630066173.19.2025.09.16.21.49.20
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 Sep 2025 21:49:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,448 +46,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87d9eed6-9376-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: adcb2818-9381-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758079774; x=1758684574; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0QFWpLR2EIZkKKQy2sEaLjYFIeEBGT0kYHmIFZ2W/UI=;
-        b=nX2A+y0VS/Eev7nFyLvBSj/DpXJF0SugaIU43kF78o/MZgIowKV2qq+VDZ0jcbN+pc
-         J/T2BxBxXguovSbDozedNj1LK4lzt3KV7DNEbZ42+LJY+szaFcXQT5XxF5ZaN0eIc3Sc
-         H0O5vWT47yd2259W46W8z/trXf9fZwSZLjC9LsGSh+LCCsuLndaJgR64bIfw/EclDjs1
-         63t/GfBrbQTXmDQlgE3hAlKWHD5qNsRsQ/Y8RhQiRvPKnmJbU2QN8L9vOmdS8GeaxAPv
-         NLfQpAeY90O2RgxhXuL94c9iVKCe3qZvnbgeNavX5j9qyOMbQucHXz8/Gv4YUr3UkV1g
-         GZPQ==
+        d=edera.dev; s=google; t=1758084562; x=1758689362; darn=lists.xenproject.org;
+        h=to:from:subject:message-id:date:content-transfer-encoding
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=jZ7hBKPepBdLWV/w2l/ZIF3GaLF0WRrNhLtwU/RtH5o=;
+        b=NI7vofzrrHwMTjsvbf1RBUxy015t3Tag7wot9C2hS9tygExFhyN3Yq+4eFKA++OkqW
+         SQzxchZRA6t3qtNdF1t0zAIVTYU6DnqQNzIEigl0fkACq2VwpWcvdQmlaCOdoxuKq810
+         z4/RWsMEJQOAro8OeOk/5Iv+aT9uEioQnH2xLZzxpddFf4uGDHRb+EnMl6g51CHByHzx
+         dbbVp6NWgPr1bK8TNI7+E23onotqn2UNwWeZ0OLfwYEi43jiEj77S0yBNAr0GxpKd87R
+         dQPbhHvQo7pLay6JdGnGPtiM5n1Ms6j5uGJb4BwcTY9GUCJmEiFatYmmUfSiayS80vdJ
+         JqTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758079774; x=1758684574;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0QFWpLR2EIZkKKQy2sEaLjYFIeEBGT0kYHmIFZ2W/UI=;
-        b=ZSWlM959YDdw6H+Z5QJNMPrB8NCvF5ip6fL70sRAqfQocp8t7ZOJNsAiIVtPnBqf8G
-         4P8PKGBNey+en2fnC/V8U3Fb/Bugi1GbAEXHEIfSRPMdFqyCwv3nucLocGkbqUQ8Ro7v
-         XD3L7QXxzoke3Esd0Rah7hESPcGVvXTq+FpOoH1doDX2WBNuMNCixi96X6l7tEEzP3+f
-         ZhVeLHYZrhm528cJBCCp7F4CzIfLgOlu35WeLXzjKc6tPE/TB2z91vi10n7jYvVeHhUH
-         rtH2y61BMOckGegmyfsekQNb/9tlrL8PXt9MC7lq1QjNWbGLCbqoqGcQn7U45JqzF5E/
-         lPpA==
-X-Gm-Message-State: AOJu0YzcsyUb4HkDdO33aUs8wji4kY/pOjknl67EFXxsp54fYZjSBlyi
-	/9AsZT0ro9icjmVfxaEiOk3+pn2YpUNJIrKk8o0a9yzQT3iq47TER/8i1+Cwxg5uWTwl1oxFbF0
-	R8gHwZovTNUU/2AKcavd3YPzOZdSRGjA=
-X-Gm-Gg: ASbGncvKoLj5kdblI3BdtoND5d6hb968jo8FAMldO4DVH3ojQyEVbBQyxbfVv0pnsuJ
-	gmGXoh+8CojY6SxRqahdGdApew8HpftvzjnP0WI1SIFf5ARrbvh1GYyV08PMI3vogkpXJFPF0ak
-	hcz99/NXZ4mCQBAc/AA01tdyfcNKtfgvFk0/7zD6wULEj7F8chiprPix754sAjRwkLiaGa+AEEb
-	rWlZQ==
-X-Google-Smtp-Source: AGHT+IEWMxTLq0nRfC5yHHPPIDeIrX1w4CJXBz6+h+O2zMj4MIdXTJvDydiyUZ3UurwhD/tloz/JnekYpuZB1qzxPOA=
-X-Received: by 2002:a05:651c:25d7:20b0:333:b90c:f48a with SMTP id
- 38308e7fff4ca-35f6093dd1bmr1721841fa.10.1758079773443; Tue, 16 Sep 2025
- 20:29:33 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1756763487.git.mykola_kvach@epam.com> <c1744d379d7f04fa832b3283cb95bb3cbf5a9e79.1756763487.git.mykola_kvach@epam.com>
- <a3bf4862-b32b-4918-a924-b437f0f015cd@xen.org>
-In-Reply-To: <a3bf4862-b32b-4918-a924-b437f0f015cd@xen.org>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Wed, 17 Sep 2025 06:29:21 +0300
-X-Gm-Features: AS18NWAoSKbAZ2zIcfqCTbUkF_yTXor_xLZhqzD8x2YbD_XBUJLpPciP61Vbs48
-Message-ID: <CAGeoDV9gBq9SSg-PmDUnAPtv6QK9v6d6nz=OxUOoMU-x-eT5MQ@mail.gmail.com>
-Subject: Re: [PATCH v6 02/13] xen/arm: gic-v2: Implement GIC suspend/resume functions
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, 
-	Mirela Simonovic <mirela.simonovic@aggios.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Saeed Nowshadi <saeed.nowshadi@xilinx.com>, 
-	Mykyta Poturai <mykyta_poturai@epam.com>, Mykola Kvach <mykola_kvach@epam.com>
-Content-Type: text/plain; charset="UTF-8"
+        d=1e100.net; s=20230601; t=1758084562; x=1758689362;
+        h=to:from:subject:message-id:date:content-transfer-encoding
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=jZ7hBKPepBdLWV/w2l/ZIF3GaLF0WRrNhLtwU/RtH5o=;
+        b=j6q6z18diVFxJISi0bYvbHyRB0+Zj9/helwL8J+cBVgJeADXkIXo5+B7YCdbd1EKgq
+         lX5yDHu7BCYAJyPEckZbmnADWZBY3S59/EnCubXLCkdPkKqpQkfmGsbjdnYpAuvHtGK3
+         xWRoc7ZIavtxdNZVo6fjZXudVZvusBT9BvZe6IlXUe3RW8A7+ROHHQ1JW7e/USOUhQkm
+         PUcZAmPM1jdv3BMZIgwnXDWQxGri6a2dE1danu0taRmrO/ZQLLPzXZTGvEunfpfxiEVu
+         6anmkdr9pt6iUPGt4ELAOmf25gLNmJpWwwyOK3RO+480HSYDLMX7sONu7xrCMovty824
+         kFJA==
+X-Gm-Message-State: AOJu0YyKg9AApxrnUcTyZJkH12+DR7+bOwelgnXRO0A9MbBZH9X9Lt3a
+	Uy5ZiUqzGr9+ZO/iRU+NjqUYI557A9y3utIhIn8mET2nyR7TeG6Abw5qyWHbFyQcaJQ08GoVbQb
+	gBifMrSY=
+X-Gm-Gg: ASbGnctW/C2+oY+itRRs78spFevAxKBtrHRFwEFQ3bnPgYVckdxqp2YtHcJ9G/VIxok
+	jjl5DY01fDX0Rcj3+qb/no+mQ0Y+hTZb572PPJhgT7a1b8EKDF0U59q2IbgtegilDkO6EuFwC2D
+	UHs9mpDhPZFf/wtKPUrVT8DH5MSxl3T8bL+JdQGCMfcydp6jRj1qPZjC+FGMIsCosEoYYq4r0vh
+	X+a+MDJ+CXUjw8aGTEnWwA1hmvZHdWAwo76UDGnLm94mFTVFYgH9M1G9JymgI2wMZJPiMNglwQb
+	9SVXB2uTPjigXfEmGu0OjWurxyjAxBxHka/HlBQPc6jB3Ne10d3enZUaRKDFuV98sU684p0G+WL
+	XNKd6Mq2MW6B8+cyHsY9Lug==
+X-Google-Smtp-Source: AGHT+IHFrx3ohwYyBFJhKdBb2A5tBp0OwGtFKYm3ziHVzlPekfmHeNiENSxmKXS9+ItdnEFy7AC3cA==
+X-Received: by 2002:a05:6602:3412:b0:890:1f62:492c with SMTP id ca18e2360f4ac-89d1bfab247mr130671639f.8.1758084561635;
+        Tue, 16 Sep 2025 21:49:21 -0700 (PDT)
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 16 Sep 2025 23:49:19 -0500
+Message-Id: <DCUSYP0Y5FYU.37Q6RNEA7AMZQ@edera.dev>
+Subject: Xen Summit 2025 - Design Discussion Notes - Xen ABI
+From: "Alexander M. Merritt" <alexander@edera.dev>
+To: <xen-devel@lists.xenproject.org>
+X-Mailer: aerc 0.18.2
 
-Hi Julien,
+Hi all, it was requested I send the notes I took during the design discussi=
+on on the ABI / APIs to the list.
 
-Thank you for the review.
+Normally I keep this as personal notes, so there may be errors (esp if I di=
+d not hear correctly), so please feel free to correct or expand. Details ma=
+y be missing where I am unaware of the history behind something.
 
-On Sat, Sep 13, 2025 at 2:30=E2=80=AFAM Julien Grall <julien@xen.org> wrote=
-:
->
-> Hi Mykola,
->
-> On 01/09/2025 23:10, Mykola Kvach wrote:
-> > From: Mirela Simonovic <mirela.simonovic@aggios.com>
-> >
-> > System suspend may lead to a state where GIC would be powered down.
-> > Therefore, Xen should save/restore the context of GIC on suspend/resume=
-.
-> >
-> > Note that the context consists of states of registers which are
-> > controlled by the hypervisor. Other GIC registers which are accessible
-> > by guests are saved/restored on context switch.
-> >
-> > Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
-> > Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
-> > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> > ---
-> > Changes in v6:
-> > - drop extra func/line printing from dprintk
-> > - drop checking context allocation from resume handler
-> > - merge some loops where it is possible
-> >
-> > Changes in v4:
-> >    - Add error logging for allocation failures
-> >
-> > Changes in v3:
-> >    - Drop asserts and return error codes instead.
-> >    - Wrap code with CONFIG_SYSTEM_SUSPEND.
-> >
-> > Changes in v2:
-> >    - Minor fixes after review.
-> > ---
-> >   xen/arch/arm/gic-v2.c          | 143 ++++++++++++++++++++++++++++++++=
-+
-> >   xen/arch/arm/gic.c             |  29 +++++++
-> >   xen/arch/arm/include/asm/gic.h |  12 +++
-> >   3 files changed, 184 insertions(+)
-> >
-> > diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
-> > index b23e72a3d0..6373599e69 100644
-> > --- a/xen/arch/arm/gic-v2.c
-> > +++ b/xen/arch/arm/gic-v2.c
-> > @@ -1098,6 +1098,140 @@ static int gicv2_iomem_deny_access(struct domai=
-n *d)
-> >       return iomem_deny_access(d, mfn, mfn + nr);
-> >   }
-> >
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +
-> > +/* GICv2 registers to be saved/restored on system suspend/resume */
-> > +struct gicv2_context {
-> > +    /* GICC context */
-> > +    uint32_t gicc_ctlr;
-> > +    uint32_t gicc_pmr;
-> > +    uint32_t gicc_bpr;
-> > +    /* GICD context */
-> > +    uint32_t gicd_ctlr;
->
-> I don't quite follow why all the registers above needs to be
-> saved/restored. Is it just convenience because it is too complicated to
-> recreate the value?
+-Alex Merritt
 
-Do you mean reinitializing them with the same values as in the init path?
-My reasoning for saving/restoring is to avoid duplicating assumptions from
-initialization in the resume code. If the init sequence changes in the
-future, or if some registers are modified outside of init, the resume path
-would also need to be updated. Saving/restoring directly feels like a more
-universal and robust approach.
 
->
-> > +    uint32_t *gicd_isenabler;
-> > +    uint32_t *gicd_isactiver;
-> > +    uint32_t *gicd_ipriorityr;
-> > +    uint32_t *gicd_itargetsr;
-> > +    uint32_t *gicd_icfgr;
-> > +};> +
-> > +static struct gicv2_context gicv2_context;
-> > +
-> > +static int gicv2_suspend(void)
-> > +{
-> > +    unsigned int i;
-> > +
-> > +    if ( !gicv2_context.gicd_isenabler )
-> > +    {
-> > +        dprintk(XENLOG_WARNING, "GICv2 suspend context not allocated!\=
-n");
-> > +        return -ENOMEM;
-> > +    }
-> > +
-> > +    /* Save GICC configuration */
-> > +    gicv2_context.gicc_ctlr =3D readl_gicc(GICC_CTLR);
-> > +    gicv2_context.gicc_pmr =3D readl_gicc(GICC_PMR);
-> > +    gicv2_context.gicc_bpr =3D readl_gicc(GICC_BPR);
-> > +
-> > +    /* Save GICD configuration */
-> > +    gicv2_context.gicd_ctlr =3D readl_gicd(GICD_CTLR);
-> > +
-> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 32); i++ )
-> > +    {
-> > +        gicv2_context.gicd_isenabler[i] =3D readl_gicd(GICD_ISENABLER =
-+ i * 4);
-> > +        gicv2_context.gicd_isactiver[i] =3D readl_gicd(GICD_ISACTIVER =
-+ i * 4);
-> > +    }
-> > +
-> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 4); i++ )
-> > +    {
-> > +        gicv2_context.gicd_ipriorityr[i] =3D readl_gicd(GICD_IPRIORITY=
-R + i * 4);
-> > +        gicv2_context.gicd_itargetsr[i] =3D readl_gicd(GICD_ITARGETSR =
-+ i * 4);
-> > +    }
-> > +
-> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 16); i++ )
-> > +        gicv2_context.gicd_icfgr[i] =3D readl_gicd(GICD_ICFGR + i * 4)=
-;
-> > +
-> > +    return 0;
-> > +}
-> > +
-> > +static void gicv2_resume(void)
-> > +{
-> > +    unsigned int i;
-> > +
->  > +    gicv2_cpu_disable();> +    /* Disable distributor */
-> > +    writel_gicd(0, GICD_CTLR);
-> > +
-> > +    /* Restore GICD configuration */
-> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 32); i++ )
-> > +    {
-> > +        writel_gicd(0xffffffff, GICD_ICENABLER + i * 4);
-> > +        writel_gicd(gicv2_context.gicd_isenabler[i], GICD_ISENABLER + =
-i * 4);
-> > +
-> > +        writel_gicd(0xffffffff, GICD_ICACTIVER + i * 4);
-> > +        writel_gicd(gicv2_context.gicd_isactiver[i], GICD_ISACTIVER + =
-i * 4);
-> > +    }
-> > +
-> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 4); i++ )
-> > +    {
-> > +        writel_gicd(gicv2_context.gicd_ipriorityr[i], GICD_IPRIORITYR =
-+ i * 4);
-> > +        writel_gicd(gicv2_context.gicd_itargetsr[i], GICD_ITARGETSR + =
-i * 4);
-> > +    }
-> > +
-> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 16); i++ )
-> > +        writel_gicd(gicv2_context.gicd_icfgr[i], GICD_ICFGR + i * 4);
-> > +
-> > +    /* Make sure all registers are restored and enable distributor */
-> > +    writel_gicd(gicv2_context.gicd_ctlr | GICD_CTL_ENABLE, GICD_CTLR);
->
-> Why are we forcing CTL_ENABLE? Surely it should have been set and if
-> not, then why is it fine to override it?
 
-You are right =E2=80=94 forcing GICD_CTL_ENABLE is unnecessary here.
-The value of GICD_CTLR was already saved before suspend, so restoring
-it as-is should be sufficient.
 
-I will drop the | GICD_CTL_ENABLE and just restore the saved value.
+Design Discussion: Xen ABIs and APIs
 
->
-> > +
-> > +    /* Restore GIC CPU interface configuration */
-> > +    writel_gicc(gicv2_context.gicc_pmr, GICC_PMR);
-> > +    writel_gicc(gicv2_context.gicc_bpr, GICC_BPR);
-> > +
-> > +    /* Enable GIC CPU interface */
-> > +    writel_gicc(gicv2_context.gicc_ctlr | GICC_CTL_ENABLE | GICC_CTL_E=
-OI,
-> > +                GICC_CTLR);
->
-> Same question here for both ENABLE and EOI.
-
-You are right here as well =E2=80=94 we don=E2=80=99t need to force GICC_CT=
-L_ENABLE
-or GICC_CTL_EOI. The saved GICC_CTLR value should already reflect
-the correct state at the time of suspend.
-
-So it would be cleaner to just restore the saved register value
-directly, without OR=E2=80=99ing additional bits.
-
->
-> > +}
-> > +
-> > +static void gicv2_alloc_context(struct gicv2_context *gc)
->
-> I am a bit surprised this is not returning an error? Why is it ok to
-> ignore the error and continue? At least for now, if someone enable
-> CONFIG_SYSTEM_SUSPEND, they would likely want the feature. So it would
-> be better to crash early.
-
-This behavior was introduced based on feedback on one of the earlier
-versions of the patch series.
-
-I agree with your point =E2=80=94 if CONFIG_SYSTEM_SUSPEND is enabled, then
-failing to allocate the context should be treated as fatal. I will
-update the code to crash early in this case.
-
->
-> > +{
-> > +    uint32_t n =3D gicv2_info.nr_lines;
-> > +
-> > +    gc->gicd_isenabler =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 32)=
-);
-> > +    if ( !gc->gicd_isenabler )
-> > +        goto err_free;
-> > +
-> > +    gc->gicd_isactiver =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 32)=
-);
-> > +    if ( !gc->gicd_isactiver )
-> > +        goto err_free;
-> > +
-> > +    gc->gicd_itargetsr =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 4))=
-;
-> > +    if ( !gc->gicd_itargetsr )
-> > +        goto err_free;
-> > +
-> > +    gc->gicd_ipriorityr =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 4)=
-);
-> > +    if ( !gc->gicd_ipriorityr )
-> > +        goto err_free;
-> > +
-> > +    gc->gicd_icfgr =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 16));
-> > +    if ( !gc->gicd_icfgr )
-> > +        goto err_free;
->
-> I am wondering if we are really saving that much by allocating each
-> array separately? It would simply the code if we fix the array to
-> support up to 1024 interrupts so we allocate a single structure.
-
-I suppose some systems may have only local interrupts, or a very small
-number of SPIs, which is allowed by the spec.
-
-We could rewrite the code to use a single allocation for all arrays, or
-possibly avoid dynamic allocation entirely and declare the arrays of
-structs in global scope. The latter approach would simplify the code
-and reduce the number of allocations, but it would use memory less
-efficiently.
-
->
->  > +> +    return;
-> > +
-> > + err_free:
-> > +    printk(XENLOG_ERR "Failed to allocate memory for GICv2 suspend con=
-text\n");
-> > +> +    xfree(gc->gicd_icfgr);
-> > +    xfree(gc->gicd_ipriorityr);
-> > +    xfree(gc->gicd_itargetsr);
-> > +    xfree(gc->gicd_isactiver);
-> > +    xfree(gc->gicd_isenabler);
->
-> NIT: If you use XFREE(), then you don't need the memset below.
-
-Ack.
-
->
-> > +
-> > +    memset(gc, 0, sizeof(*gc));
-> > +}
-> > +
-> > +#endif /* CONFIG_SYSTEM_SUSPEND */
-> > +
-> >   #ifdef CONFIG_ACPI
-> >   static unsigned long gicv2_get_hwdom_extra_madt_size(const struct dom=
-ain *d)
-> >   {
-> > @@ -1302,6 +1436,11 @@ static int __init gicv2_init(void)
-> >
-> >       spin_unlock(&gicv2.lock);
-> >
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +    /* Allocate memory to be used for saving GIC context during the su=
-spend */
-> > +    gicv2_alloc_context(&gicv2_context);
-> > +#endif /* CONFIG_SYSTEM_SUSPEND */
-> > +
-> >       return 0;
-> >   }
-> >
-> > @@ -1345,6 +1484,10 @@ static const struct gic_hw_operations gicv2_ops =
-=3D {
-> >       .map_hwdom_extra_mappings =3D gicv2_map_hwdom_extra_mappings,
-> >       .iomem_deny_access   =3D gicv2_iomem_deny_access,
-> >       .do_LPI              =3D gicv2_do_LPI,
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +    .suspend             =3D gicv2_suspend,
-> > +    .resume              =3D gicv2_resume,
-> > +#endif /* CONFIG_SYSTEM_SUSPEND */
-> >   };
-> >
-> >   /* Set up the GIC */
-> > diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-> > index e80fe0ca24..a018bd7715 100644
-> > --- a/xen/arch/arm/gic.c
-> > +++ b/xen/arch/arm/gic.c
-> > @@ -425,6 +425,35 @@ int gic_iomem_deny_access(struct domain *d)
-> >       return gic_hw_ops->iomem_deny_access(d);
-> >   }
-> >
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +
-> > +int gic_suspend(void)
-> > +{
-> > +    /* Must be called by boot CPU#0 with interrupts disabled */
->
-> What would prevent us to suspend from another CPU?
-
-Nothing prevents suspend from being called on another CPU.
-According to the PSCI specification, it just needs to be the last
-running CPU in the system.
-
->
-> > +    ASSERT(!local_irq_is_enabled());
-> > +    ASSERT(!smp_processor_id());
-> > +
-> > +    if ( !gic_hw_ops->suspend || !gic_hw_ops->resume )
-> > +        return -ENOSYS;
-> > +
-> > +    return gic_hw_ops->suspend();
-> > +}
-> > +
-> > +void gic_resume(void)
-> > +{
-> > +    /*
-> > +     * Must be called by boot CPU#0 with interrupts disabled after gic=
-_suspend
-> > +     * has returned successfully.
-> > +     */
-> > +    ASSERT(!local_irq_is_enabled());
-> > +    ASSERT(!smp_processor_id());
-> > +    ASSERT(gic_hw_ops->resume);
-> > +
-> > +    gic_hw_ops->resume();
-> > +}
-> > +
-> > +#endif /* CONFIG_SYSTEM_SUSPEND */
-> > +
-> >   static int cpu_gic_callback(struct notifier_block *nfb,
-> >                               unsigned long action,
-> >                               void *hcpu)
-> > diff --git a/xen/arch/arm/include/asm/gic.h b/xen/arch/arm/include/asm/=
-gic.h
-> > index 541f0eeb80..a706303008 100644
-> > --- a/xen/arch/arm/include/asm/gic.h
-> > +++ b/xen/arch/arm/include/asm/gic.h
-> > @@ -280,6 +280,12 @@ extern int gicv_setup(struct domain *d);
-> >   extern void gic_save_state(struct vcpu *v);
-> >   extern void gic_restore_state(struct vcpu *v);
-> >
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +/* Suspend/resume */
-> > +extern int gic_suspend(void);
-> > +extern void gic_resume(void);
-> > +#endif /* CONFIG_SYSTEM_SUSPEND */
-> > +
-> >   /* SGI (AKA IPIs) */
-> >   enum gic_sgi {
-> >       GIC_SGI_EVENT_CHECK,
-> > @@ -395,6 +401,12 @@ struct gic_hw_operations {
-> >       int (*iomem_deny_access)(struct domain *d);
-> >       /* Handle LPIs, which require special handling */
-> >       void (*do_LPI)(unsigned int lpi);
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +    /* Save GIC configuration due to the system suspend */
-> > +    int (*suspend)(void);
-> > +    /* Restore GIC configuration due to the system resume */
-> > +    void (*resume)(void);
-> > +#endif /* CONFIG_SYSTEM_SUSPEND */
-> >   };
-> >
-> >   extern const struct gic_hw_operations *gic_hw_ops;
->
-> Cheers,
->
-> --
-> Julien Grall
->
-
-Best regards,
-Mykola
+- Chris on remote: Andrew has been and wants to work on a new ABI
+- Andrew: put together a collection of documents to understand what we have
+to work with, what we want to improve, before starting the work on any
+design or iterations on interfaces we currently have
+- link to document in the design session
+        =E2=80=90 https://design-sessions.xenproject.org/uid/discussion/dis=
+c_3IEQbyaCTkqLf2fFzoze/view
+- number of things we have been aware of for a while
+- some attempts to address them on the list
+- one problem: if you only try to fix one of them, it brings in discussion =
+of
+fixing many other items
+- everyone has opinion on what the end result will look like
+- existing designs only fix subsets, not the whole thing
+- we want to address all the problems from the start, before deciding on a =
+plan
+to fix them
+- enumerate the ABIs and APIs that currently exist
+        =E2=80=90 problems not apparent if you just think about this
+        =E2=80=90 many folks think this is just the hypercalls
+        =E2=80=90 there is the enumeration information
+        =E2=80=90 xen has many bugs - originally monorepo with xen, linux, =
+qemu, BSDs,
+        bochs, ... with =E2=80=9Cmake world=E2=80=9D you got a system. All =
+guests were
+        required to have event channel - no discovery exists because they a=
+ll
+        had it
+        =E2=80=90 grant table v2, migrate old version of xen to new, exerci=
+se new code
+        paths, then kernel crashed
+        =E2=80=90 initial state of vcpus - many folks don=E2=80=99t think a=
+bout them, but what
+        xen presents, we have bugs describing those via the hypercalls we u=
+se
+        =E2=80=90 the hypercalls themselves -- 46? -- half of them specific=
+ for PV guests
+                - x86 HVM / ARM HVM are only a small fraction of the total
+                hypercalls that exist
+- the reason the hypercalls look like this now, Xen started with pv guests =
+on
+x86, a VAS system made sense
+        =E2=80=90 when HVM guests came along, we have hacks fitting PV gues=
+ts into HVM
+        =E2=80=90 Xen has to walk the page tables of the guest just to get =
+the
+        information it needs, you cannot do that in encrypted VMs by design
+        =E2=80=90 need to change the way we deal with pointers in the API
+- evtchn send, pass pointer information on the stack
+        =E2=80=90 get interrupt for someone else!
+- look over all APIs and ABIs that exist because they have different proble=
+ms in
+different areas
+- XenServer cares most about right now host UEFI secure boot
+        =E2=80=90 new priv boundary that does not exist previously
+        =E2=80=90 admin with root cannot (should not) violate security boun=
+dary, cannot
+        read/write arbitrary memroy
+        =E2=80=90 hypercalls: open /dev/xen/privcmd and pointers into user =
+space
+        memory, nothing stops passing kernel pointer memory
+                - giant privilege escalation hole in UEFI secure boot
+                - root user space is not priv enough to execute arbitrary c=
+ode
+        =E2=80=90 all problems compound, thus we want to look at all of the=
+m before we
+        start figuring out what to do
+- another example: being based on x86 originally, large hypercalls have a s=
+hift
+by 12, assume 4k pages, problem with ARM wanting 64k page tables
+        =E2=80=90 event the data layout wants to change
+- if you change the version of Xen, you break the user space (library versi=
+ons)
+        =E2=80=90 was intentional choice early on, doesn=E2=80=99t scale
+        =E2=80=90 get rid of unstable APIs -- killing xen
+- security hotfix - recompile QEMU
+        =E2=80=90 ABI rules say any change in hypervisor, thus rebuilding u=
+ser space,
+        and QEMU -- anything that links against the xen packages!
+- Bertrand: look at problem yesterday: how we create and configure a guest,
+coherency to reach dom0less
+        =E2=80=90 twice code to create a guest, duplicated code
+        =E2=80=90 duplicate configuration format
+        =E2=80=90 if we modify ABI between dom0 and Xen, need to look at ha=
+ve
+        coherent format so we can reuse the same code
+- Alex M: can we hide hypercalls via libraries?
+        =E2=80=90 yes but currently the versions for a break
+        =E2=80=90 definitely an option forward
+        =E2=80=90 still doesn=E2=80=99t solve the issue, because other libr=
+aries in other languages
+        won=E2=80=99t be shielded from unstable ABIs
+- Jan: both knowing what to do and where we go is useful
+        =E2=80=90 Andrew: have to have broad idea where to go....
+- Jan: carrying out hypercall is independent of the mechansim we define
+        =E2=80=90 Andrew: still needs backwards compatibility
+        =E2=80=90 Andrew: use higher op numbers
+- Alex M: is our problem unique to us?
+        =E2=80=90 Andrew: we have enough corner cases that yes
+        =E2=80=90 Bertrand: PV guests require a large number of hypercalls
+        =E2=80=90 Jan: keep VA for PV hypercalls
+- Rich on call: work together with Chris to write down something difficult =
+in
+scope
+        =E2=80=90 any work written down, useful for folks on other side whe=
+re we may
+        encounter failures
+        =E2=80=90 newcomers: xen forked by HP (?)
+        =E2=80=90 everyone tried to narrow to verticle markets, focus on sp=
+ecific markets
+        =E2=80=90 Xen: is last entity standing, still trying to pull all st=
+akeholders together,
+        but not sure how long it will last
+        =E2=80=90 if collapses: accidental or intentional interoperability,=
+ carve out the
+        pieces so that the ppl at table today have a chance to know what
+        results from it
+        =E2=80=90 what will last longest: certified entities that have long=
+ lifecycles,
+        decades or more
+        =E2=80=90 certified snapshots will become longest lived design choi=
+ces
+- Andrew: shared info page
+        =E2=80=90 layout was done with unsigned longs which changed sizes
+        =E2=80=90 layout of the shared info page changes
+        =E2=80=90 different vcpus can be in different modes at a time
+        =E2=80=90 we cache the mode of the cpu at the point which it makes =
+one of two
+        types of hypercalls
+- another design session tomorrow
 
