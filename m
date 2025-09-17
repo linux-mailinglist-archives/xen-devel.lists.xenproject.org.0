@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EF06B7FEE2
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Sep 2025 16:23:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1125228.1467236 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59284B80439
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Sep 2025 16:53:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1125245.1467247 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyt3i-0000Sx-5d; Wed, 17 Sep 2025 14:22:58 +0000
+	id 1uytWH-0004m6-CO; Wed, 17 Sep 2025 14:52:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1125228.1467236; Wed, 17 Sep 2025 14:22:58 +0000
+Received: by outflank-mailman (output) from mailman id 1125245.1467247; Wed, 17 Sep 2025 14:52:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyt3i-0000RU-2d; Wed, 17 Sep 2025 14:22:58 +0000
-Received: by outflank-mailman (input) for mailman id 1125228;
- Wed, 17 Sep 2025 14:22:56 +0000
+	id 1uytWH-0004jO-95; Wed, 17 Sep 2025 14:52:29 +0000
+Received: by outflank-mailman (input) for mailman id 1125245;
+ Wed, 17 Sep 2025 14:52:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Emon=34=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uyt3g-0000RO-Ps
- for xen-devel@lists.xenproject.org; Wed, 17 Sep 2025 14:22:56 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ (envelope-from <SRS0=Fd1X=34=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1uytWG-0004jI-4y
+ for xen-devel@lists.xenproject.org; Wed, 17 Sep 2025 14:52:28 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cd771725-93d1-11f0-9d13-b5c5bf9af7f9;
- Wed, 17 Sep 2025 16:22:55 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3ece0e4c5faso737785f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 17 Sep 2025 07:22:55 -0700 (PDT)
-Received: from [172.20.3.155] ([12.157.112.82])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7760793b730sm19338127b3a.15.2025.09.17.07.22.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Sep 2025 07:22:54 -0700 (PDT)
+ id ec97d14c-93d5-11f0-9d13-b5c5bf9af7f9;
+ Wed, 17 Sep 2025 16:52:25 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 55BE9206A3;
+ Wed, 17 Sep 2025 14:52:24 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D37E71368D;
+ Wed, 17 Sep 2025 14:52:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KeoIMibLymiwEgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 17 Sep 2025 14:52:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +52,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd771725-93d1-11f0-9d13-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1758118975; x=1758723775; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:cc:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=U03JiOX1pR4ni6BN6su9Z2bN0KkbdhKqHkKE9GUMhno=;
-        b=KCn9KANxD3luPEMVr2iYOjE/KEdkecIWnhcGX3WeErl5PiChhTNZZsYeakAOWanPDo
-         yDK6y/VTt6B4iMl4A21HcY8SXBPnNG7o6tLJMBAYF2LnHbgWxOlPLtHr/BwDWArcGqdS
-         WklfaxU1IKC/OjGlhE6TJakeYYiEi0b3qsImH3uc7g+fXlX8Ke5f9K60zU/l9kx2I7OD
-         gmkPzemL7aCSbKa4oKTjsniOhrhWolMzehuXISpQfkI0TbTxu86kgONKv10BovQ9hNEv
-         vjy4O+NZjLzWpyHPJIoVKi+8k4y/LJhQvPHpXJNIVoXCSYKEHSwOg158NACoN0BdQVbz
-         NxHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758118975; x=1758723775;
-        h=content-transfer-encoding:in-reply-to:from:cc:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=U03JiOX1pR4ni6BN6su9Z2bN0KkbdhKqHkKE9GUMhno=;
-        b=GFevTvTH6VZ9kNy7tCzd3edKCIEIpf5osNtPi+LfgW5lX2B1KwUrcR8Ceu92vtVXB1
-         20oUFGeXmr8AOJtrw2gnK7vyIeL2tarkyxBWTKtRdQIvarFoYowtgAtQM6OoDcTkOeV5
-         joI80htbwacNgmRxvD+9eROvBUnAXvu1YzJFwY1f1oV6YFYs0oiowEW1i0SLjWGnqPon
-         0IrNqySGLz5dIwNKAJ/zksY7IuCZDEyKoBota00HUMzsV2JZgu5fI2VhHBc1wXClv0Z9
-         oy9NCDZTfrypgLhtXrxrsdviwUhNpIzEPr+nplMQ6Ju6Y5pVw5OqDX7xnWIA3UlCW4VM
-         KqFg==
-X-Gm-Message-State: AOJu0YztDH180uwubbum8jsL2MU22JOVFTe1tf/HoqJi7a5pTWKXjpKB
-	MH6hBo9dHbGRoO3p1eimo1tkccLJrgsspPgWb3KOtyv7siI6jrcIe5EufS7UDrL7KvOUMRyAp2e
-	Eie8=
-X-Gm-Gg: ASbGncu6hTHtOdsFLdUeIoDEDOnbb7iu/WE2P4RIoE3zHNL9pi83z5qomcPrWyCDblR
-	wO6qVqGi4uB2S+A9siEokT+ZkouVNX2fcFQKqKMU0QTeVPFhk2TauqigL7pOhGiUytglbtqFJwo
-	KK9l3E9CoEVl8vIxh7xnxRjFofXtYuDHcaFWZb8GdD/JB9Qg1HIPotfYp2UW/m54SdMVuBm/2V5
-	XaLMs2TEgFNCNFtL8e7RXmCuqYgmWS0y8e3sOuARCWwu0tmG8oviZRpOg9GUmvbsS0QvhPn6uJN
-	d/cSsKy7dEUszJ5aQXckGJ3gplFcrD3bK2So6mZ9qBAye2AFwqNphfIB7KQ0XKp08kr6M4su6Kq
-	VGBTCh3A8PWhydnNK+gxzF/sUT4h6gKI=
-X-Google-Smtp-Source: AGHT+IF6amnpVsQn0Dst1pj0fA6A/2NJ+jYqmwQMPSoH17hP7L1nUUawH7VLPHVytlIxGaTbxoY4gQ==
-X-Received: by 2002:a05:6000:2889:b0:3eb:d944:8888 with SMTP id ffacd0b85a97d-3ecdfa356b2mr2589572f8f.55.1758118974840;
-        Wed, 17 Sep 2025 07:22:54 -0700 (PDT)
-Message-ID: <110b04b1-f123-4421-9019-43713384a7b8@suse.com>
-Date: Wed, 17 Sep 2025 16:22:53 +0200
+X-Inumbo-ID: ec97d14c-93d5-11f0-9d13-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1758120744; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=L6BoEVB67MQVk+5t0IisdIC5veavG4aoIDsIXi8t0tU=;
+	b=RPFv+dnZnlgFjOhg/ujMRqSYaNo/zqANG7tI0s/Iw6Ip6ZBA/XIabW52qG0IdUi7rRi96h
+	eDh4aOQVlKU8OtBoS71gT9KEc1Evkqdq4Qw7PtF3neBDkjsLUxCwbDNE08dJl9Tltx9S+j
+	q6avLnl0p/xCt0paRdDmxUh7jQqKo9c=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=RPFv+dnZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1758120744; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=L6BoEVB67MQVk+5t0IisdIC5veavG4aoIDsIXi8t0tU=;
+	b=RPFv+dnZnlgFjOhg/ujMRqSYaNo/zqANG7tI0s/Iw6Ip6ZBA/XIabW52qG0IdUi7rRi96h
+	eDh4aOQVlKU8OtBoS71gT9KEc1Evkqdq4Qw7PtF3neBDkjsLUxCwbDNE08dJl9Tltx9S+j
+	q6avLnl0p/xCt0paRdDmxUh7jQqKo9c=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	linux-hyperv@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	loongarch@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org,
+	kvm@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Waiman Long <longman@redhat.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel@lists.xenproject.org,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>,
+	Oleg Nesterov <oleg@redhat.com>
+Subject: [PATCH v2 00/21] paravirt: cleanup and reorg
+Date: Wed, 17 Sep 2025 16:51:59 +0200
+Message-ID: <20250917145220.31064-1-jgross@suse.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Xen Summit 2025 - Design Discussion Notes - Xen ABI
-To: "Alexander M. Merritt" <alexander@edera.dev>
-References: <DCUSYP0Y5FYU.37Q6RNEA7AMZQ@edera.dev>
-Content-Language: en-US
-Cc: xen-devel@lists.xenproject.org
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <DCUSYP0Y5FYU.37Q6RNEA7AMZQ@edera.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-1.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[suse.com,kernel.org,linutronix.de,redhat.com,alien8.de,linux.intel.com,zytor.com,microsoft.com,infradead.org,gmail.com,oracle.com,lists.xenproject.org,broadcom.com,armlinux.org.uk,arm.com,xen0n.name,linux.ibm.com,ellerman.id.au,csgroup.eu,sifive.com,dabbelt.com,eecs.berkeley.edu,ghiti.fr,linaro.org,goodmis.org,google.com,suse.de,lists.infradead.org,epam.com];
+	ARC_NA(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCVD_TLS_ALL(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RLkdkdrsxe9hqhhs5ask8616i6)];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	RCPT_COUNT_GT_50(0.00)[57];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:mid,suse.com:dkim];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 55BE9206A3
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -1.51
 
-On 17.09.2025 06:49, Alexander M. Merritt wrote:
-> Hi all, it was requested I send the notes I took during the design discussion on the ABI / APIs to the list.
+Some cleanups and reorg of paravirt code and headers:
 
-Thanks much. We will want to try to have notes taken more systematically
-today.
+- The first 2 patches should be not controversial at all, as they
+  remove just some no longer needed #include and struct forward
+  declarations.
 
-Jan
+- The 3rd patch is removing CONFIG_PARAVIRT_DEBUG, which IMO has
+  no real value, as it just changes a crash to a BUG() (the stack
+  trace will basically be the same). As the maintainer of the main
+  paravirt user (Xen) I have never seen this crash/BUG() to happen.
+
+- The 4th patch is just a movement of code.
+
+- I don't know for what reason asm/paravirt_api_clock.h was added,
+  as all archs supporting it do it exactly in the same way. Patch
+  5 is removing it.
+
+- Patches 6-14 are streamlining the paravirt clock interfaces by
+  using a common implementation across architectures where possible
+  and by moving the related code into common sched code, as this is
+  where it should live.
+
+- Patches 15-20 are more like RFC material preparing the paravirt
+  infrastructure to support multiple pv_ops function arrays.
+  As a prerequisite for that it makes life in objtool much easier
+  with dropping the Xen static initializers of the pv_ops sub-
+  structures, which is done in patches 15-17.
+  Patches 18-20 are doing the real preparations for multiple pv_ops
+  arrays and using those arrays in multiple headers.
+
+- Patch 21 is an example how the new scheme can look like using the
+  PV-spinlocks.
+
+Changes in V2:
+- new patches 13-18 and 20
+- complete rework of patch 21
+
+Juergen Gross (21):
+  x86/paravirt: Remove not needed includes of paravirt.h
+  x86/paravirt: Remove some unneeded struct declarations
+  x86/paravirt: Remove PARAVIRT_DEBUG config option
+  x86/paravirt: Move thunk macros to paravirt_types.h
+  paravirt: Remove asm/paravirt_api_clock.h
+  sched: Move clock related paravirt code to kernel/sched
+  arm/paravirt: Use common code for paravirt_steal_clock()
+  arm64/paravirt: Use common code for paravirt_steal_clock()
+  loongarch/paravirt: Use common code for paravirt_steal_clock()
+  riscv/paravirt: Use common code for paravirt_steal_clock()
+  x86/paravirt: Use common code for paravirt_steal_clock()
+  x86/paravirt: Move paravirt_sched_clock() related code into tsc.c
+  x86/paravirt: Introduce new paravirt-base.h header
+  x86/paravirt: Move pv_native_*() prototypes to paravirt.c
+  x86/xen: Drop xen_irq_ops
+  x86/xen: Drop xen_cpu_ops
+  x86/xen: Drop xen_mmu_ops
+  objtool: Allow multiple pv_ops arrays
+  x86/paravirt: Allow pv-calls outside paravirt.h
+  x86/paravirt: Specify pv_ops array in paravirt macros
+  x86/pvlocks: Move paravirt spinlock functions into own header
+
+ arch/Kconfig                                  |   3 +
+ arch/arm/Kconfig                              |   1 +
+ arch/arm/include/asm/paravirt.h               |  22 --
+ arch/arm/include/asm/paravirt_api_clock.h     |   1 -
+ arch/arm/kernel/Makefile                      |   1 -
+ arch/arm/kernel/paravirt.c                    |  23 --
+ arch/arm64/Kconfig                            |   1 +
+ arch/arm64/include/asm/paravirt.h             |  14 -
+ arch/arm64/include/asm/paravirt_api_clock.h   |   1 -
+ arch/arm64/kernel/paravirt.c                  |  11 +-
+ arch/loongarch/Kconfig                        |   1 +
+ arch/loongarch/include/asm/paravirt.h         |  13 -
+ .../include/asm/paravirt_api_clock.h          |   1 -
+ arch/loongarch/kernel/paravirt.c              |  10 +-
+ arch/powerpc/include/asm/paravirt.h           |   3 -
+ arch/powerpc/include/asm/paravirt_api_clock.h |   2 -
+ arch/powerpc/platforms/pseries/setup.c        |   4 +-
+ arch/riscv/Kconfig                            |   1 +
+ arch/riscv/include/asm/paravirt.h             |  14 -
+ arch/riscv/include/asm/paravirt_api_clock.h   |   1 -
+ arch/riscv/kernel/paravirt.c                  |  11 +-
+ arch/x86/Kconfig                              |   8 +-
+ arch/x86/entry/entry_64.S                     |   1 -
+ arch/x86/entry/vsyscall/vsyscall_64.c         |   1 -
+ arch/x86/hyperv/hv_spinlock.c                 |  11 +-
+ arch/x86/include/asm/apic.h                   |   4 -
+ arch/x86/include/asm/highmem.h                |   1 -
+ arch/x86/include/asm/mmu_context.h            |   1 -
+ arch/x86/include/asm/mshyperv.h               |   1 -
+ arch/x86/include/asm/paravirt-base.h          |  29 ++
+ arch/x86/include/asm/paravirt-spinlock.h      | 146 ++++++++
+ arch/x86/include/asm/paravirt.h               | 331 +++++-------------
+ arch/x86/include/asm/paravirt_api_clock.h     |   1 -
+ arch/x86/include/asm/paravirt_types.h         | 269 +++++++-------
+ arch/x86/include/asm/pgtable_32.h             |   1 -
+ arch/x86/include/asm/ptrace.h                 |   2 +-
+ arch/x86/include/asm/qspinlock.h              |  89 +----
+ arch/x86/include/asm/spinlock.h               |   1 -
+ arch/x86/include/asm/timer.h                  |   1 +
+ arch/x86/include/asm/tlbflush.h               |   4 -
+ arch/x86/kernel/Makefile                      |   2 +-
+ arch/x86/kernel/apm_32.c                      |   1 -
+ arch/x86/kernel/callthunks.c                  |   1 -
+ arch/x86/kernel/cpu/bugs.c                    |   1 -
+ arch/x86/kernel/cpu/vmware.c                  |   1 +
+ arch/x86/kernel/kvm.c                         |  11 +-
+ arch/x86/kernel/kvmclock.c                    |   1 +
+ arch/x86/kernel/paravirt-spinlocks.c          |  24 +-
+ arch/x86/kernel/paravirt.c                    |  42 +--
+ arch/x86/kernel/tsc.c                         |  10 +-
+ arch/x86/kernel/vsmp_64.c                     |   1 -
+ arch/x86/kernel/x86_init.c                    |   1 -
+ arch/x86/lib/cache-smp.c                      |   1 -
+ arch/x86/mm/init.c                            |   1 -
+ arch/x86/xen/enlighten_pv.c                   |  82 ++---
+ arch/x86/xen/irq.c                            |  20 +-
+ arch/x86/xen/mmu_pv.c                         | 100 ++----
+ arch/x86/xen/spinlock.c                       |  11 +-
+ arch/x86/xen/time.c                           |   2 +
+ drivers/clocksource/hyperv_timer.c            |   2 +
+ drivers/xen/time.c                            |   2 +-
+ include/linux/sched/cputime.h                 |  18 +
+ kernel/sched/core.c                           |   5 +
+ kernel/sched/cputime.c                        |  13 +
+ kernel/sched/sched.h                          |   3 +-
+ tools/objtool/arch/x86/decode.c               |   8 +-
+ tools/objtool/check.c                         |  78 ++++-
+ tools/objtool/include/objtool/check.h         |   2 +
+ 68 files changed, 657 insertions(+), 828 deletions(-)
+ delete mode 100644 arch/arm/include/asm/paravirt.h
+ delete mode 100644 arch/arm/include/asm/paravirt_api_clock.h
+ delete mode 100644 arch/arm/kernel/paravirt.c
+ delete mode 100644 arch/arm64/include/asm/paravirt_api_clock.h
+ delete mode 100644 arch/loongarch/include/asm/paravirt_api_clock.h
+ delete mode 100644 arch/powerpc/include/asm/paravirt_api_clock.h
+ delete mode 100644 arch/riscv/include/asm/paravirt_api_clock.h
+ create mode 100644 arch/x86/include/asm/paravirt-base.h
+ create mode 100644 arch/x86/include/asm/paravirt-spinlock.h
+ delete mode 100644 arch/x86/include/asm/paravirt_api_clock.h
+
+-- 
+2.51.0
+
 
