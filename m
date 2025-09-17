@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C59CCB80F94
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Sep 2025 18:26:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1125377.1467346 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF974B80F9D
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Sep 2025 18:26:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1125390.1467356 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyuyW-0004ku-9a; Wed, 17 Sep 2025 16:25:44 +0000
+	id 1uyuzW-0005J3-MH; Wed, 17 Sep 2025 16:26:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1125377.1467346; Wed, 17 Sep 2025 16:25:44 +0000
+Received: by outflank-mailman (output) from mailman id 1125390.1467356; Wed, 17 Sep 2025 16:26:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uyuyW-0004ir-4V; Wed, 17 Sep 2025 16:25:44 +0000
-Received: by outflank-mailman (input) for mailman id 1125377;
- Wed, 17 Sep 2025 16:25:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uyuzW-0005HG-In; Wed, 17 Sep 2025 16:26:46 +0000
+Received: by outflank-mailman (input) for mailman id 1125390;
+ Wed, 17 Sep 2025 16:26:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WYKi=34=redhat.com=berrange@srs-se1.protection.inumbo.net>)
- id 1uyuyU-0004il-EW
- for xen-devel@lists.xenproject.org; Wed, 17 Sep 2025 16:25:42 +0000
+ id 1uyuzV-0004zg-Ke
+ for xen-devel@lists.xenproject.org; Wed, 17 Sep 2025 16:26:45 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec50c653-93e2-11f0-9809-7dc792cee155;
- Wed, 17 Sep 2025 18:25:29 +0200 (CEST)
-Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 18b2e9cb-93e3-11f0-9d13-b5c5bf9af7f9;
+ Wed, 17 Sep 2025 18:26:44 +0200 (CEST)
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-693-YtmfcQCKOC6r91WcsH294Q-1; Wed,
- 17 Sep 2025 12:25:23 -0400
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-416-hapfZl48PW2hRo36aERNxg-1; Wed,
+ 17 Sep 2025 12:26:40 -0400
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id A86521956087; Wed, 17 Sep 2025 16:25:13 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id D764318002C5; Wed, 17 Sep 2025 16:26:33 +0000 (UTC)
 Received: from redhat.com (unknown [10.42.28.195])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id C0BCD1955F1A; Wed, 17 Sep 2025 16:24:46 +0000 (UTC)
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 787DA180035E; Wed, 17 Sep 2025 16:26:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,21 +52,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec50c653-93e2-11f0-9809-7dc792cee155
+X-Inumbo-ID: 18b2e9cb-93e3-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1758126328;
+	s=mimecast20190719; t=1758126402;
 	h=from:from:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kUXP9ocaHqG4ZvLyR3c2nu51I8BLK/XgpriRiiBs2cY=;
-	b=YtnNkCuoVzTvF/roE60q0Qbg5hTDxOKWWRUca3ux5t/Nm+gcKiJYdOeAYGiMDBQfmmoaCw
-	Zn6QbSTH/zi9nouWTjKxfLvLvIlm3WgpU95pYn8Lq3agWvLnQ8KsxYMOmPu9WeOTBBuZ8w
-	3/aYFWDrReAYUBiPmqsPUS0Oc2/U0Pg=
-X-MC-Unique: YtmfcQCKOC6r91WcsH294Q-1
-X-Mimecast-MFC-AGG-ID: YtmfcQCKOC6r91WcsH294Q_1758126316
-Date: Wed, 17 Sep 2025 17:24:35 +0100
+	bh=EqhuwGi6H3Q2byL0tqEwD6JYj4RMpDrC49lpCY7PLmg=;
+	b=UJbyIN+HLH4biBqpHib7LjVFt14MNjDIskZ2xSPQdPhShhxxKeF/aUh1R3/1Iy4/JLOS2W
+	POP2eRahzKK6Q5D0Ti0jHqfDNrFVGovexvUxD+cOJ10TgIXhFzjs6ZosSfuYF47aGVRxgm
+	5qHkIKEu0qtcpmBg3pTZtuZhCUourhA=
+X-MC-Unique: hapfZl48PW2hRo36aERNxg-1
+X-Mimecast-MFC-AGG-ID: hapfZl48PW2hRo36aERNxg_1758126395
+Date: Wed, 17 Sep 2025 17:26:01 +0100
 From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
 Cc: qemu-devel@nongnu.org, Alex Williamson <alex.williamson@redhat.com>,
@@ -112,35 +112,32 @@ Cc: qemu-devel@nongnu.org, Alex Williamson <alex.williamson@redhat.com>,
 	Paul Durrant <paul@xen.org>,
 	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
 	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 1/7] docs/devel: Do not unparent in instance_finalize()
-Message-ID: <aMrgw4EUz81u8Rae@redhat.com>
+Subject: Re: [PATCH v3 2/7] vfio/pci: Do not unparent in instance_finalize()
+Message-ID: <aMrhGZrMhzUPWmGf@redhat.com>
 Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 References: <20250917-use-v3-0-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
- <20250917-use-v3-1-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
+ <20250917-use-v3-2-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250917-use-v3-1-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <20250917-use-v3-2-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
 User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Wed, Sep 17, 2025 at 07:13:26PM +0900, Akihiko Odaki wrote:
+On Wed, Sep 17, 2025 at 07:13:27PM +0900, Akihiko Odaki wrote:
 > Children are automatically unparented so manually unparenting is
 > unnecessary.
 > 
-> Worse, automatic unparenting happens before the instance_finalize()
+> Worse, automatic unparenting happens before the insntance_finalize()
 > callback of the parent gets called, so object_unparent() calls in
 > the callback will refer to objects that are already unparented, which
 > is semantically incorrect.
 > 
-> Remove the instruction to call object_unparent(), and the exception
-> of the "do not call object_unparent()" rule for instance_finalize().
-> 
 > Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
 > ---
->  docs/devel/memory.rst | 19 ++++++-------------
->  1 file changed, 6 insertions(+), 13 deletions(-)
+>  hw/vfio/pci.c | 4 ----
+>  1 file changed, 4 deletions(-)
 
 Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
 
