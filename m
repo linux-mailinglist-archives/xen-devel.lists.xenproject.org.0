@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1911BB820A2
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Sep 2025 23:56:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1125581.1467475 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56839B820AB
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Sep 2025 23:56:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1125582.1467485 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uz084-0007No-DN; Wed, 17 Sep 2025 21:55:56 +0000
+	id 1uz085-0007b1-Nw; Wed, 17 Sep 2025 21:55:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1125581.1467475; Wed, 17 Sep 2025 21:55:56 +0000
+Received: by outflank-mailman (output) from mailman id 1125582.1467485; Wed, 17 Sep 2025 21:55:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uz084-0007M5-AV; Wed, 17 Sep 2025 21:55:56 +0000
-Received: by outflank-mailman (input) for mailman id 1125581;
+	id 1uz085-0007Zd-J9; Wed, 17 Sep 2025 21:55:57 +0000
+Received: by outflank-mailman (input) for mailman id 1125582;
  Wed, 17 Sep 2025 21:55:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=C67B=34=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uz082-0007Lt-Vu
+ id 1uz083-0007Lu-QT
  for xen-devel@lists.xenproject.org; Wed, 17 Sep 2025 21:55:55 +0000
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [2607:f8b0:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 13e2b581-9411-11f0-9809-7dc792cee155;
- Wed, 17 Sep 2025 23:55:52 +0200 (CEST)
-Received: by mail-pl1-x630.google.com with SMTP id
- d9443c01a7336-267f0fe72a1so1858795ad.2
- for <xen-devel@lists.xenproject.org>; Wed, 17 Sep 2025 14:55:52 -0700 (PDT)
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [2607:f8b0:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 14b0e6dd-9411-11f0-9d13-b5c5bf9af7f9;
+ Wed, 17 Sep 2025 23:55:54 +0200 (CEST)
+Received: by mail-pl1-x62a.google.com with SMTP id
+ d9443c01a7336-26060bcc5c8so2755765ad.1
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Sep 2025 14:55:54 -0700 (PDT)
 Received: from fedora ([149.199.65.200]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-26980053da4sm5538095ad.20.2025.09.17.14.55.49
+ d9443c01a7336-26980053da4sm5538095ad.20.2025.09.17.14.55.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Sep 2025 14:55:50 -0700 (PDT)
+ Wed, 17 Sep 2025 14:55:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,41 +44,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13e2b581-9411-11f0-9809-7dc792cee155
+X-Inumbo-ID: 14b0e6dd-9411-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758146151; x=1758750951; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=t7wL9p64D8keeYetVsE8VmLXNMGlwrZzPrEEjyLI3t0=;
-        b=blGO3N7e81BDUJ9nY1j2yUIxZYqEPQ+x8D4ap4hLn4JD9NngClCbC12CRlpfRNuomK
-         AyaoSE4OUQM6EspYC6kf5R2Ci/VwGzLSZ5f6ihXbTbBoRlABybFr2XPe4fbTWxBSuocm
-         kSiv4BMdbI5/SRGXiqZzFVD0SAJoqPqdBOpTY7HKRyp5nvF9NafkSzPU/fvTazmcS7YS
-         fAyUmsxKnUjWv0jKw3sUW4iO9gFIAe8UME8bjIrwtjePbpZrabjb9yNwEKGmJhKsZNXM
-         POaYDDZ3PRMS7kHJaqqGrNPSWUKhtMiXQAtAhDBpchNE22/mOIQqazYehzmK3v2hj6jE
-         c1CA==
+        d=gmail.com; s=20230601; t=1758146152; x=1758750952; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8ZKBeOzQlMI0H2OFn3PfjH1UwDz/qzKq2B8yZK4VfQM=;
+        b=UBiGUh4WO/uimQQx4AcwOItA+dGGKK41OO6UrtOG3FVcM9KBbQK1SS0ZsN4eh5UTND
+         bVFjCjOrMByj1OICSlQfTRCTXsOTfD3bIwpWiwB8LuVI9luGbCk7PWF2D2EZk0vhpVhD
+         GjAPnlRGU6ARHOocmB5zZuqK3bKeu5TRzyPkUHRRLJAOa4wQhYG6FTbilqJYMDtVz6m4
+         yrPDjfJM8LUJX+Hqasq4cLsi6mkiCSHejLp2abMOlZRguX3jepGG7tn5pKVZYrRJ51LN
+         ZxWfUbtQ1zmHWUcLBC1n9ae8AFdmwvYOcWf4H0d4659nTAbSVAqDIX751ZOmlAmG0yG8
+         Uueg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758146151; x=1758750951;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=t7wL9p64D8keeYetVsE8VmLXNMGlwrZzPrEEjyLI3t0=;
-        b=s6NRjpJfCCsSrWPF/90Tt+lQptCF+KVQCup8MY0nNzD6i7P/fQdC8jXHw1zT2GkX17
-         KhPnqLTS1dc48oenaV7tlxyMYtAudAr2SxLnu768pvvnwkC5dwBacm3NQVZvPhEQiflg
-         MIlNw2GWrb1EhrT9AgLJqJchf0ZaGA9X4syqKABHqnXKAWrNCyBW/TdilbgYPiffOMtr
-         LIgFmyC3M3bW9RJBb7WAmcB0edEGaVr2vQW6AvBS+zmUWJGbZcXAJrZWQ7vu7co+zDJv
-         ZqA2NFafWxUaqHHepcoZjDtaMMUIbIO5vOqJYrjoAjBEfvzYxVes0tPsfsrTL8R9vSEr
-         gUxA==
-X-Gm-Message-State: AOJu0Yzl1E1KiQD8G6FnYerLOZrzpMlC2OmSSaXrCJSIblQ4jJa2IsjK
-	N8wU+kcmVoePCkc0zORFK4ArCMMH/8xNanqOTdsZCd4ibhTCF93bvpKm8KQ+fVzkXgY=
-X-Gm-Gg: ASbGncv0qax9O0ApvHqmKRtWjxHnr5Bfk1O8m2/jRy70QBBikR1ubTIAhiHka0htbOt
-	+968lzuPleQjkJg9dEpUYW5n9fb6TD4dlD2RCKIZcBv7qwEQN/ekpDIzxh87qK7TBRx+eVmlQjk
-	wM0im92oCtOVfITx7V2Uj5EPOru0QfAwiNjLF6dYKXhwrcEAfgzRWcIvfMuvjxjsRON5COlMmTn
-	MgZVdIWFrOFCdwbaxDd1txnDpzTK+LjFj3IH3Pk55S9rbQRbXkVd+u5c3Wryndzm0N4rbuCEZ4t
-	VB1BLi5rbY3liNTuiw14b71BMTtGao0Edcvv4x+o60jRriUrdrYOF4SaRFOOkdwN9Xjwh6aP2j4
-	gBuH8XO+m8Iy6+AWDB6KO2uEMMOHfVXRu/pHbqzeKOVqY
-X-Google-Smtp-Source: AGHT+IEgHMUp3Oo/HXbN6jZZ4INo1TLXrt9jqtZfEzKCEIqFDtAh06tMdONG8vYNaOEe8Vlgv+vS1A==
-X-Received: by 2002:a17:903:3888:b0:24c:7b94:2f87 with SMTP id d9443c01a7336-26811ba7117mr36774155ad.14.1758146150634;
-        Wed, 17 Sep 2025 14:55:50 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1758146152; x=1758750952;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=8ZKBeOzQlMI0H2OFn3PfjH1UwDz/qzKq2B8yZK4VfQM=;
+        b=u0L6Q2Ie4S4cCJ6ev0HC6O+UzgOxz4qhOCtR0Szm44Ef1IXSsTqPRBuDv3q5KusvvS
+         yiddt2tQsfQSttOM0z23x4QkI/bB0oyNmdDIJX47z8uCW3UPvjJdbNcebZhN4xQ28E87
+         h4OKEIFof/3NB8o3vP+o2RLLH3htDceY5gu6lKWmhdLNfbu6YbrmdwqBvtQiGqvHWBgu
+         TVWGxO8cUAk3xDRINHXk4zqF5b9gPsbJluyVCUZKfF/Ck70pZPo+U2dRWhivQY9s4fcl
+         mmqsbY6YIvKTRQ/znIhljn7FJfiBdSjtNf0IVtQ8p3xljTZAISSstwP1UfrDVQpQLJEJ
+         lMDw==
+X-Gm-Message-State: AOJu0Ywe4WAuRGhSj2dP3Xr9KjSWxhNnqTkrynwcSLQX+4GXW6R3quuX
+	GbLWwwUBMwKcZIzT3vTwVFbzqIx71KUuQt07yqx/5KZqYQB/WLGHP0ckXTQRJYqblfU=
+X-Gm-Gg: ASbGnctkKDo6f3i3DPJA5vC0hIYxy/le9ZgJyjoqKi5dkkESyd6mZVi9fyADsK4Nwmj
+	iKJt+moD5BFlgdFwM2xAR5pS5Uwa0X0rqjRxqD/DqAGcZEA6wggWhHlmvhgZudEEAAQxFT5pDpI
+	LdiBDO5+IV6NsHWobhDB9mNGiWD5pe2K6qkkKh0bxmrcT4cKd5N7+8qDIPI5Ljw1PUDSXO1tKoK
+	FTUpTAH5ISN3sCGcEg+7Ge+P/vYT7pm8jAuSPvTHrsVHG8GP+Hvcz7yKfQ0fVQDlRnknZ7eJwih
+	kJ1D4FD//0PiuC1hu2m9Mf2uVHOrQd9QFaZDnlvQPu+sIT/jQGaoqOl3pdiAf/OAm0gcd2aVleE
+	7sJv8Jq6rWxW/HzIvg0tdk3hJ6XN/xOzIxKAwZhVytegQ4XwSPhIWJrg=
+X-Google-Smtp-Source: AGHT+IG+AQa3vNEfZDh2GYoeHvCiqtccLKi1evIwWX4dlloxp4goqioSadQ8Ej/G9S1lL+YRa9kMwg==
+X-Received: by 2002:a17:902:f54f:b0:265:89c:251b with SMTP id d9443c01a7336-268137f24f6mr40577165ad.29.1758146152035;
+        Wed, 17 Sep 2025 14:55:52 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -91,115 +92,258 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v4 00/18 for 4.22] xen/riscv: introduce p2m functionality
-Date: Wed, 17 Sep 2025 23:55:20 +0200
-Message-ID: <cover.1758145428.git.oleksii.kurochko@gmail.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v4 01/18] xen/riscv: detect and initialize G-stage mode
+Date: Wed, 17 Sep 2025 23:55:21 +0200
+Message-ID: <7cc37e612db4a0bfe72b63a475d3a492b2e68c83.1758145428.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <cover.1758145428.git.oleksii.kurochko@gmail.com>
+References: <cover.1758145428.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In this patch series are introduced necessary functions to build and manage
-RISC-V guest page tables and MMIO/RAM mappings.
+Introduce gstage_mode_detect() to probe supported G-stage paging
+modes at boot. The function iterates over possible HGATP modes
+(Sv32x4 on RV32, Sv39x4/Sv48x4/Sv57x4 on RV64) and selects the
+first valid one by programming CSR_HGATP and reading it back.
 
----
-Changes in V4:
- - Merged to staging:
-   - xen/riscv: introduce sbi_remote_hfence_gvma()
-   - xen/riscv: introduce sbi_remote_hfence_gvma_vmid()
- - Drop "xen/riscv: introduce page_{get,set}_xenheap_gfn()" as grant tables aren't going to be introduced for the moment. Also, drops other parts connected to grant tables support.
- - All other changes are patch specific.
----
-Changes in V3:
- - Introduce metadata table to store P2M types.
- - Use x86's way to allocate VMID.
- - Abstract Arm-specific p2m type name for device MMIO mappings.
- - All other updates please look at specific patch.
----
-Changes in V2:
- - Merged to staging:
-   - [PATCH v1 1/6] xen/riscv: add inclusion of xen/bitops.h to asm/cmpxchg.h
- - New patches:
-   - xen/riscv: implement sbi_remote_hfence_gvma{_vmid}().
- - Split patch "xen/riscv: implement p2m mapping functionality" into smaller
-   one patches:
-   - xen/riscv: introduce page_set_xenheap_gfn()
-   - xen/riscv: implement guest_physmap_add_entry() for mapping GFNs to MFNs
-   - xen/riscv: implement p2m_set_entry() and __p2m_set_entry()
-   - xen/riscv: Implement p2m_free_entry() and related helpers
-   - xen/riscv: Implement superpage splitting for p2m mappings
-   - xen/riscv: implement p2m_next_level()
-   - xen/riscv: Implement p2m_entry_from_mfn() and support PBMT configuration
- - Move root p2m table allocation to separate patch:
-   xen/riscv: add root page table allocation
- - Drop dependency of this patch series from the patch witn an introduction of
-   SvPBMT as it was merged.
- - Patch "[PATCH v1 4/6] xen/riscv: define pt_t and pt_walk_t structures" was
-   renamed to xen/riscv: introduce pte_{set,get}_mfn() as after dropping of
-   bitfields for PTE structure, this patch introduce only pte_{set,get}_mfn().
- - Rename "xen/riscv: define pt_t and pt_walk_t structures" to
-   "xen/riscv: introduce pte_{set,get}_mfn()" as pt_t and pt_walk_t were
-   dropped.
- - Introduce guest domain's VMID allocation and manegement.
- - Add patches necessary to implement p2m lookup:
-   - xen/riscv: implement mfn_valid() and page reference, ownership handling helpers
-   - xen/riscv: add support of page lookup by GFN
- - Re-sort patch series.
- - All other changes are patch-specific. Please check them.
----
+The selected mode is stored in gstage_mode (marked __ro_after_init)
+and reported via printk. If no supported mode is found, Xen panics
+since Bare mode is not expected to be used.
 
-Oleksii Kurochko (18):
-  xen/riscv: detect and initialize G-stage mode
-  xen/riscv: introduce VMID allocation and manegement
-  xen/riscv: introduce things necessary for p2m initialization
-  xen/riscv: construct the P2M pages pool for guests
-  xen/riscv: add root page table allocation
-  xen/riscv: introduce pte_{set,get}_mfn()
-  xen/riscv: add new p2m types and helper macros for type classification
-  xen/dom0less: abstract Arm-specific p2m type name for device MMIO
-    mappings
-  xen/riscv: implement function to map memory in guest p2m
-  xen/riscv: implement p2m_set_range()
-  xen/riscv: Implement p2m_free_subtree() and related helpers
-  xen/riscv: Implement p2m_pte_from_mfn() and support PBMT configuration
-  xen/riscv: implement p2m_next_level()
-  xen/riscv: Implement superpage splitting for p2m mappings
-  xen/riscv: implement put_page()
-  xen/riscv: implement mfn_valid() and page reference, ownership
-    handling helpers
-  xen/riscv: add support of page lookup by GFN
-  xen/riscv: introduce metadata table to store P2M type
+Finally, CSR_HGATP is cleared and a local_hfence_gvma_all() is issued
+to avoid any potential speculative pollution of the TLB, as required
+by the RISC-V spec.
 
- xen/arch/arm/include/asm/p2m.h              |    5 +
- xen/arch/riscv/Makefile                     |    3 +
- xen/arch/riscv/cpufeature.c                 |    1 +
- xen/arch/riscv/include/asm/Makefile         |    1 -
- xen/arch/riscv/include/asm/cpufeature.h     |    1 +
- xen/arch/riscv/include/asm/domain.h         |   23 +
- xen/arch/riscv/include/asm/flushtlb.h       |   13 +-
- xen/arch/riscv/include/asm/mm.h             |   29 +-
- xen/arch/riscv/include/asm/p2m.h            |  183 ++-
- xen/arch/riscv/include/asm/page.h           |   38 +
- xen/arch/riscv/include/asm/paging.h         |   20 +
- xen/arch/riscv/include/asm/riscv_encoding.h |    7 +
- xen/arch/riscv/include/asm/vmid.h           |    8 +
- xen/arch/riscv/mm.c                         |   71 +-
- xen/arch/riscv/p2m.c                        | 1337 +++++++++++++++++++
- xen/arch/riscv/paging.c                     |  137 ++
- xen/arch/riscv/setup.c                      |    6 +
- xen/arch/riscv/stubs.c                      |    5 -
- xen/arch/riscv/vmid.c                       |  193 +++
- xen/common/device-tree/dom0less-build.c     |    2 +-
- 20 files changed, 2058 insertions(+), 25 deletions(-)
- create mode 100644 xen/arch/riscv/include/asm/paging.h
- create mode 100644 xen/arch/riscv/include/asm/vmid.h
+The following issue starts to occur:
+ ./<riscv>/asm/flushtlb.h:37:55: error: 'struct page_info'  declared inside
+   parameter list will not be visible outside of this definition or
+   declaration [-Werror]
+ 37 | static inline void page_set_tlbflush_timestamp(struct page_info *page)
+To resolve it, forward declaration of struct page_info is added to
+<asm/flushtlb.h.
+
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+Changes in V5:
+ - New patch.
+---
+ xen/arch/riscv/Makefile                     |  1 +
+ xen/arch/riscv/include/asm/flushtlb.h       |  7 ++
+ xen/arch/riscv/include/asm/p2m.h            |  4 +
+ xen/arch/riscv/include/asm/riscv_encoding.h |  5 ++
+ xen/arch/riscv/p2m.c                        | 91 +++++++++++++++++++++
+ xen/arch/riscv/setup.c                      |  3 +
+ 6 files changed, 111 insertions(+)
  create mode 100644 xen/arch/riscv/p2m.c
- create mode 100644 xen/arch/riscv/paging.c
- create mode 100644 xen/arch/riscv/vmid.c
 
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index e2b8aa42c8..264e265699 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -7,6 +7,7 @@ obj-y += intc.o
+ obj-y += irq.o
+ obj-y += mm.o
+ obj-y += pt.o
++obj-y += p2m.o
+ obj-$(CONFIG_RISCV_64) += riscv64/
+ obj-y += sbi.o
+ obj-y += setup.o
+diff --git a/xen/arch/riscv/include/asm/flushtlb.h b/xen/arch/riscv/include/asm/flushtlb.h
+index 51c8f753c5..e70badae0c 100644
+--- a/xen/arch/riscv/include/asm/flushtlb.h
++++ b/xen/arch/riscv/include/asm/flushtlb.h
+@@ -7,6 +7,13 @@
+ 
+ #include <asm/sbi.h>
+ 
++struct page_info;
++
++static inline void local_hfence_gvma_all(void)
++{
++    asm volatile ( "hfence.gvma zero, zero" ::: "memory" );
++}
++
+ /* Flush TLB of local processor for address va. */
+ static inline void flush_tlb_one_local(vaddr_t va)
+ {
+diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
+index e43c559e0c..9d4a5d6a2e 100644
+--- a/xen/arch/riscv/include/asm/p2m.h
++++ b/xen/arch/riscv/include/asm/p2m.h
+@@ -6,6 +6,8 @@
+ 
+ #include <asm/page-bits.h>
+ 
++extern unsigned long gstage_mode;
++
+ #define paddr_bits PADDR_BITS
+ 
+ /*
+@@ -88,6 +90,8 @@ static inline bool arch_acquire_resource_check(struct domain *d)
+     return false;
+ }
+ 
++void gstage_mode_detect(void);
++
+ #endif /* ASM__RISCV__P2M_H */
+ 
+ /*
+diff --git a/xen/arch/riscv/include/asm/riscv_encoding.h b/xen/arch/riscv/include/asm/riscv_encoding.h
+index 6cc8f4eb45..b15f5ad0b4 100644
+--- a/xen/arch/riscv/include/asm/riscv_encoding.h
++++ b/xen/arch/riscv/include/asm/riscv_encoding.h
+@@ -131,13 +131,16 @@
+ #define HGATP_MODE_SV32X4		_UL(1)
+ #define HGATP_MODE_SV39X4		_UL(8)
+ #define HGATP_MODE_SV48X4		_UL(9)
++#define HGATP_MODE_SV57X4		_UL(10)
+ 
+ #define HGATP32_MODE_SHIFT		31
++#define HGATP32_MODE_MASK		_UL(0x80000000)
+ #define HGATP32_VMID_SHIFT		22
+ #define HGATP32_VMID_MASK		_UL(0x1FC00000)
+ #define HGATP32_PPN			_UL(0x003FFFFF)
+ 
+ #define HGATP64_MODE_SHIFT		60
++#define HGATP64_MODE_MASK		_ULL(0xF000000000000000)
+ #define HGATP64_VMID_SHIFT		44
+ #define HGATP64_VMID_MASK		_ULL(0x03FFF00000000000)
+ #define HGATP64_PPN			_ULL(0x00000FFFFFFFFFFF)
+@@ -170,6 +173,7 @@
+ #define HGATP_VMID_SHIFT		HGATP64_VMID_SHIFT
+ #define HGATP_VMID_MASK			HGATP64_VMID_MASK
+ #define HGATP_MODE_SHIFT		HGATP64_MODE_SHIFT
++#define HGATP_MODE_MASK			HGATP64_MODE_MASK
+ #else
+ #define MSTATUS_SD			MSTATUS32_SD
+ #define SSTATUS_SD			SSTATUS32_SD
+@@ -181,6 +185,7 @@
+ #define HGATP_VMID_SHIFT		HGATP32_VMID_SHIFT
+ #define HGATP_VMID_MASK			HGATP32_VMID_MASK
+ #define HGATP_MODE_SHIFT		HGATP32_MODE_SHIFT
++#define HGATP_MODE_MASK			HGATP32_MODE_MASK
+ #endif
+ 
+ #define TOPI_IID_SHIFT			16
+diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
+new file mode 100644
+index 0000000000..56113a2f7a
+--- /dev/null
++++ b/xen/arch/riscv/p2m.c
+@@ -0,0 +1,91 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#include <xen/init.h>
++#include <xen/lib.h>
++#include <xen/macros.h>
++#include <xen/sections.h>
++
++#include <asm/csr.h>
++#include <asm/flushtlb.h>
++#include <asm/riscv_encoding.h>
++
++unsigned long __ro_after_init gstage_mode;
++
++void __init gstage_mode_detect(void)
++{
++    unsigned int mode_idx;
++
++    const struct {
++        unsigned long mode;
++        unsigned int paging_levels;
++        const char *name;
++    } modes[] = {
++        /*
++         * Based on the RISC-V spec:
++         *   When SXLEN=32, the only other valid setting for MODE is Sv32,
++         *   a paged virtual-memory scheme described in Section 10.3.
++         *   When SXLEN=64, three paged virtual-memory schemes are defined:
++         *   Sv39, Sv48, and Sv57.
++         */
++#ifdef CONFIG_RISCV_32
++        { HGATP_MODE_SV32X4, 2, "Sv32x4" }
++#else
++        { HGATP_MODE_SV39X4, 3, "Sv39x4" },
++        { HGATP_MODE_SV48X4, 4, "Sv48x4" },
++        { HGATP_MODE_SV57X4, 5, "Sv57x4" },
++#endif
++    };
++
++    gstage_mode = HGATP_MODE_OFF;
++
++    for ( mode_idx = 0; mode_idx < ARRAY_SIZE(modes); mode_idx++ )
++    {
++        unsigned long mode = modes[mode_idx].mode;
++
++        csr_write(CSR_HGATP, MASK_INSR(mode, HGATP_MODE_MASK));
++
++        if ( MASK_EXTR(csr_read(CSR_HGATP), HGATP_MODE_MASK) == mode )
++        {
++            gstage_mode = mode;
++            break;
++        }
++    }
++
++    if ( gstage_mode == HGATP_MODE_OFF )
++        panic("Xen expects that G-stage won't be Bare mode\n");
++
++    printk("%s: G-stage mode is %s\n", __func__, modes[mode_idx].name);
++
++    csr_write(CSR_HGATP, 0);
++
++    /*
++     * From RISC-V spec:
++     *   Speculative executions of the address-translation algorithm behave as
++     *   non-speculative executions of the algorithm do, except that they must
++     *   not set the dirty bit for a PTE, they must not trigger an exception,
++     *   and they must not create address-translation cache entries if those
++     *   entries would have been invalidated by any SFENCE.VMA instruction
++     *   executed by the hart since the speculative execution of the algorithm
++     *   began.
++     * The quote above mention explicitly SFENCE.VMA, but I assume it is true
++     * for HFENCE.VMA.
++     *
++     * Also, despite of the fact here it is mentioned that when V=0 two-stage
++     * address translation is inactivated:
++     *   The current virtualization mode, denoted V, indicates whether the hart
++     *   is currently executing in a guest. When V=1, the hart is either in
++     *   virtual S-mode (VS-mode), or in virtual U-mode (VU-mode) atop a guest
++     *   OS running in VS-mode. When V=0, the hart is either in M-mode, in
++     *   HS-mode, or in U-mode atop an OS running in HS-mode. The
++     *   virtualization mode also indicates whether two-stage address
++     *   translation is active (V=1) or inactive (V=0).
++     * But on the same side, writing to hgatp register activates it:
++     *   The hgatp register is considered active for the purposes of
++     *   the address-translation algorithm unless the effective privilege mode
++     *   is U and hstatus.HU=0.
++     *
++     * Thereby it leaves some room for speculation even in this stage of boot,
++     * so it could be that we polluted local TLB so flush all guest TLB.
++     */
++    local_hfence_gvma_all();
++}
+diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+index 483cdd7e17..87ee96bdb3 100644
+--- a/xen/arch/riscv/setup.c
++++ b/xen/arch/riscv/setup.c
+@@ -22,6 +22,7 @@
+ #include <asm/early_printk.h>
+ #include <asm/fixmap.h>
+ #include <asm/intc.h>
++#include <asm/p2m.h>
+ #include <asm/sbi.h>
+ #include <asm/setup.h>
+ #include <asm/traps.h>
+@@ -148,6 +149,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+ 
+     console_init_postirq();
+ 
++    gstage_mode_detect();
++
+     printk("All set up\n");
+ 
+     machine_halt();
 -- 
 2.51.0
 
