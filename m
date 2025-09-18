@@ -2,43 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8701B86DB4
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Sep 2025 22:12:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1126599.1468115 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD0F6B86DF6
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Sep 2025 22:16:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1126621.1468125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uzKzK-0004Nt-IM; Thu, 18 Sep 2025 20:12:18 +0000
+	id 1uzL3F-00056Z-50; Thu, 18 Sep 2025 20:16:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1126599.1468115; Thu, 18 Sep 2025 20:12:18 +0000
+Received: by outflank-mailman (output) from mailman id 1126621.1468125; Thu, 18 Sep 2025 20:16:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uzKzK-0004Km-FS; Thu, 18 Sep 2025 20:12:18 +0000
-Received: by outflank-mailman (input) for mailman id 1126599;
- Thu, 18 Sep 2025 20:12:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=j8y1=35=redhat.com=peterx@srs-se1.protection.inumbo.net>)
- id 1uzKzI-0004Kg-9s
- for xen-devel@lists.xenproject.org; Thu, 18 Sep 2025 20:12:16 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c0078c65-94cb-11f0-9d14-b5c5bf9af7f9;
- Thu, 18 Sep 2025 22:12:07 +0200 (CEST)
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-73-VBwf8nGCM1uiYMIaqUIzrA-1; Thu, 18 Sep 2025 16:12:04 -0400
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4b5fbf0388eso18110091cf.3
- for <xen-devel@lists.xenproject.org>; Thu, 18 Sep 2025 13:12:04 -0700 (PDT)
-Received: from x1.local
- (bras-base-aurron9134w-grc-11-174-89-135-121.dsl.bell.ca. [174.89.135.121])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4bda23b2f56sm18877261cf.17.2025.09.18.13.12.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Sep 2025 13:12:02 -0700 (PDT)
+	id 1uzL3F-000555-28; Thu, 18 Sep 2025 20:16:21 +0000
+Received: by outflank-mailman (input) for mailman id 1126621;
+ Thu, 18 Sep 2025 20:16:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/FRX=35=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1uzL3D-00054z-Vs
+ for xen-devel@lists.xenproject.org; Thu, 18 Sep 2025 20:16:20 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 530c9be5-94cc-11f0-9809-7dc792cee155;
+ Thu, 18 Sep 2025 22:16:13 +0200 (CEST)
+Received: from localhost.localdomain (93-57-251-12.ip167.fastwebnet.it
+ [93.57.251.12]) (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPSA id BD90C4EE8C90;
+ Thu, 18 Sep 2025 22:16:12 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,175 +40,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0078c65-94cb-11f0-9d14-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1758226326;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oEVcW8H0ePrVkukmBhlQeYMXet9+27y8NnV6UVsaWN8=;
-	b=gSPHM0yjwNoopRRUHJn9eZoRNY5uxy1pp041qJxzK7LW1ZToTjfKrI+6j/L2goQ3nX+j4q
-	dfBBrRx9OA9AQJ9X48mct8j3SWDcYMwZ7ZAlrPyakrdFdI9syuVBFDnCKPkYeSNCygj7Y5
-	MpreG3xHNVQcLIVMpZytib9/zUaEkgw=
-X-MC-Unique: VBwf8nGCM1uiYMIaqUIzrA-1
-X-Mimecast-MFC-AGG-ID: VBwf8nGCM1uiYMIaqUIzrA_1758226324
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758226324; x=1758831124;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oEVcW8H0ePrVkukmBhlQeYMXet9+27y8NnV6UVsaWN8=;
-        b=kjeuqpNQavzd2hC5kyqz27UWv5nAbKs7jKLTRMyZjyxYtqAsXtAG3Lk3Yah02e4PkW
-         VH9X5q1inRvkRYK6297VQ9+0LmmivERFG8BK3EhwerXO5I80Uwermq0Xmwe7IyslgQt0
-         cecT+F13O+rLhY9BwqNcuL9r/or0XmLTTPrNJ/o3MfmYPxvNf0rSwl4SSXthaly8pAqu
-         R8YR1HlBkncCfZvQ5WkJ98uyjWjpKS6PzwJgx90V1a1B8JM6DGF/lM3hQDCAC2Gnk29a
-         7eSPfrpATkjkSFqE3pGOvwbsLG/5tkmn/j7oGohd7+PE+VCQy+jr6uA7yaenQDsJJol/
-         ePNw==
-X-Forwarded-Encrypted: i=1; AJvYcCWtD5XWFcDdlQXHWTckThV7sj6LOU4k00H4al/gS57HB/XEw4SR0tSlc4UUg4NglAomWwdHZQrkYQc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzBbtxIMQHmk3TAbPC+NUUqaY0W5pEXXPuiMoHYzLzNUC/EP7VK
-	h5OeH3s0iTboFDBe3taz9RhLRVeon+r2by7jk8uYLWKze13UiYURgaETGHIZCCC4mvz8NgRLG8Y
-	N4pRZCtXch3L5wsiplXzCY/NTDzP58UqqdJqTZ7uJqiSqY0SE4qUXi9L1kd+5ObHogqTl
-X-Gm-Gg: ASbGncv9pzBr21MdRbMbZ7w6DrQ7sccW+oXbIq/Uhd4RuTPnYmmVPYZ5eqIYHkQzP7I
-	CovH4GmVxkLzcgewfjpqBKr1Jl7ifhZIcbV/1MqsT+ItbkdTH09K5ikXJwktZ9sx0Iif+T3ln0e
-	T5nTcdirJgVqe2AuzOEDD+8CMig9g2ZGbi/xhcbU34l7NQt76p/maZuiu2wvB0TIIZ1F7uw7Hj5
-	G4yXERnmwJ9sd+90ZRh3nC9jsGbkhdqpWJkgAs4lGGaj8g+FwDfff5ho3Wk8BTrQ5xV89CUO4Ew
-	zqvcQfJ3Yli6lJVDAWMfg6QaDBWM02AeaJ2BkRji+6QKRWvtKkJFei6UAY/EVQDX4YCIWrgkKlX
-	8/M7FVP3Yxmt/YKd44I4tig==
-X-Received: by 2002:a05:622a:1c15:b0:4b7:7c2c:8534 with SMTP id d75a77b69052e-4c06e3f8fe3mr6440771cf.15.1758226323614;
-        Thu, 18 Sep 2025 13:12:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGlL/+jeC2xoiK55a+vc+/BjJtvtoJAoNqaFYRNOAjjjJKNk/RRtRDSXXsR7MkcplaBP8vv5Q==
-X-Received: by 2002:a05:622a:1c15:b0:4b7:7c2c:8534 with SMTP id d75a77b69052e-4c06e3f8fe3mr6440401cf.15.1758226322974;
-        Thu, 18 Sep 2025 13:12:02 -0700 (PDT)
-Date: Thu, 18 Sep 2025 16:11:59 -0400
-From: Peter Xu <peterx@redhat.com>
-To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Cc: qemu-devel@nongnu.org, Alex Williamson <alex.williamson@redhat.com>,
-	=?utf-8?Q?C=C3=A9dric?= Le Goater <clg@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	David Hildenbrand <david@redhat.com>,
-	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Helge Deller <deller@gmx.de>,
-	=?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>, John Snow <jsnow@redhat.com>,
-	qemu-block@nongnu.org, Keith Busch <kbusch@kernel.org>,
-	Klaus Jensen <its@irrelevant.dk>,
-	Jesper Devantier <foss@defmacro.it>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Nicholas Piggin <npiggin@gmail.com>, qemu-ppc@nongnu.org,
-	John Levon <john.levon@nutanix.com>,
-	Thanos Makatos <thanos.makatos@nutanix.com>,
-	Yanan Wang <wangyanan55@huawei.com>,
-	BALATON Zoltan <balaton@eik.bme.hu>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Daniel Henrique Barboza <danielhb413@gmail.com>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	Alexey Kardashevskiy <aik@ozlabs.ru>,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Fabiano Rosas <farosas@suse.de>, Thomas Huth <thuth@redhat.com>,
-	Laurent Vivier <lvivier@redhat.com>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Aurelien Jarno <aurelien@aurel32.net>,
-	Aleksandar Rikalo <arikalo@gmail.com>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	=?utf-8?B?SGVydsOp?= Poussineau <hpoussin@reactos.org>,
-	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
-	Artyom Tarasenko <atar4qemu@gmail.com>,
-	Alistair Francis <alistair@alistair23.me>,
-	"Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
-	Bin Meng <bmeng.cn@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Paul Durrant <paul@xen.org>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 1/7] docs/devel: Do not unparent in instance_finalize()
-Message-ID: <aMxnj7ID0PpWUVNu@x1.local>
-References: <20250917-use-v3-0-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
- <20250917-use-v3-1-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
- <aMxlpfp_LSgiIk9Z@x1.local>
+X-Inumbo-ID: 530c9be5-94cc-11f0-9809-7dc792cee155
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=93.57.251.12
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1758226573;
+	b=gNkY2VaE/7oBZxEsIgxcjDha0yAGUgSuHrdhCk7l7/tEYBz9Y0XLftEVIChZXSWlsccV
+	 XPr2irK0NdVchg4KrRejGtnbERvLXERzbS0foCB86G9gohzMyJcvIWMAWRrj7CSYDlctq
+	 O8pOR6+8rnqKxLVK7jSU1oLC4NfNb+Ej7+mvyz5DoSXZyoTWKCz6P2e3YP5fX5jfiMgUg
+	 I0BEjbEdJpQQh30khhOrJyCYytcn85Odh4l8Mn740QOT3k0l1STjgLj2B0tQMiZiUWwfC
+	 UAC3SA85LYKVYK95X3QzaJs9lsXtugHE2GajL3Jh7iCjlZoxbd5kFHsJfrAmO5dF/Wnjn
+	 TLDBsmm0TsbqrBeVRY54EqpB3/mQUXIBFdmvtpSFwWsgkrOJ+Zj+xq6JoXE/J/Lbkd7O+
+	 LQVohEFutwwMeJbwjaWyscScguhg/ox4m7nNZGyR0IH7BCT9u/S0nQJmSsLc5Kj6chZlE
+	 SYv6wG96UwnSgH2h/HnZj8tr2HB2b8pKWGwcfOv+G3AlRAvwsHKYdjEyG9cavXDXgWz/n
+	 NXKrUT1vlYELCSAgdL2tPjClZmXDN9qcwtRv5rchedm0T8WJljjKcXBxuz1PA940xCRyH
+	 ct17RGS/GXfsx8j6LmbpKj4Ue/clJzp70zURpHluiPU1iWtA7q4gNS6nhzxhwjA=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1758226573;
+	h=DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=qPTBLZ8UJbfLqGPM8eHSSCnZOzSzmEdxISP7KOJYQnI=;
+	b=F86wEK5OXq3o/kvZ8NK5ogCZstzDRy0xuEjBe+neVQ5/QQmJdQl+WqoqBvtnyjHitJOL
+	 B93/UCmFeUrMfWD6TTdN5TX3ecw/5/+r9W9PHXve92jEYzAV0HOzAr4W4wE9sHd7Fiotl
+	 SytYkebyixWWXl4COKrzP3sQ9lhClWvr4+VTM0cXGYpWxWEj+HHndJQmv2VMWZpH2pjpJ
+	 qIm+J8QtIiN0EjaJfNUAFVcnJd/0PzdK4ONmgj3KCHrvg8NCanw4bS6WryZBtnIlu7PC8
+	 +I0o8BZ+31V/+iIVeSZGZbh2Jii6yOPkndhzDHFNaqHZhIV1T3BjBNmUiSL8QIjn6w3dE
+	 9qds+Ul8yHjQziP94B8sFojDU4ejR64SVjjXI1e/foGOY/9CWMQ3EE28PRRrjsS3AQyV7
+	 GTWrH+pmduA8lQf0E8tw9QYrB0eOdoj3hpkcNCM6UvcieywGTwdsnvWS7imgouiJo9e4P
+	 jEM2wnDbnV3rdZkOVoW/3SWe/qTjXmZtK7m/IY3OitygFQD9td7aVHNlUuvuLTMF2TbeN
+	 ocVbfZBZsibIOMoe4TPeUL7DAAu7y0w5fQ79YJUj8FctyBgTITA55FaMEWuqVMFpfTJN1
+	 mYEVTk7XrLx7w8SiaarXnYxKmfqNcuK9inmTkcNwFwiqpUpvsghZGy0MPKJoo/I=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=93.57.251.12
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1758226573; bh=OuWNAloEC753OlhWTV9Q2rSFc2tQrl8vXxKS5qP4ONU=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Bjr04aUGu7aW4qJYDw2N5wViVjX/HwoyYg8CvNgOYWnBzp05MARHC+zbirlKLYl3F
+	 ZKtRzs9Nwfn4RkeA13Sg4yYCCBl1MTNMHTAEA4JeMmIj1umfV1d2uVJr2QNp/lZAxe
+	 MmYd0t84piSg22Qfel6bdVD3lf+ljAkhWs7lF7Ua0JL0yAyMmbuUXZyiYfInLeNiN6
+	 HUMi24AcUqUk+q956CtyKfJXZom/BVxoZEM0DgOoxNVLGumJrhohTu0bYUbALNRn9z
+	 rI+gkuuYUCb3rNk4+dHLzoQ1cqHv4Kyn+2+Ju2rQMBPGGXIR7G41TCdJfvQqYCQ4uo
+	 QlWwwhAVYLHvA==
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: [XEN PATCH] automation/eclair: add new analysis jobs with differing configurations
+Date: Thu, 18 Sep 2025 22:16:08 +0200
+Message-ID: <d4a0924c84e78b3f677b0d987c2f8e4b3f6b80a5.1758226234.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-In-Reply-To: <aMxlpfp_LSgiIk9Z@x1.local>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ewBEzSpwM5U06pT75eya7oFfG1QjkMRc16p7R5X04vc_1758226324
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 18, 2025 at 04:03:49PM -0400, Peter Xu wrote:
-> On Wed, Sep 17, 2025 at 07:13:26PM +0900, Akihiko Odaki wrote:
-> > Children are automatically unparented so manually unparenting is
-> > unnecessary.
-> > 
-> > Worse, automatic unparenting happens before the instance_finalize()
-> > callback of the parent gets called, so object_unparent() calls in
-> > the callback will refer to objects that are already unparented, which
-> > is semantically incorrect.
-> > 
-> > Remove the instruction to call object_unparent(), and the exception
-> > of the "do not call object_unparent()" rule for instance_finalize().
-> > 
-> > Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-> > ---
-> >  docs/devel/memory.rst | 19 ++++++-------------
-> >  1 file changed, 6 insertions(+), 13 deletions(-)
-> > 
-> > diff --git a/docs/devel/memory.rst b/docs/devel/memory.rst
-> > index 57fb2aec76e0..749f11d8a4dd 100644
-> > --- a/docs/devel/memory.rst
-> > +++ b/docs/devel/memory.rst
-> > @@ -161,18 +161,11 @@ or never.
-> >  Destruction of a memory region happens automatically when the owner
-> >  object dies.
-> >  
-> > -If however the memory region is part of a dynamically allocated data
-> > -structure, you should call object_unparent() to destroy the memory region
-> > -before the data structure is freed.  For an example see VFIOMSIXInfo
-> > -and VFIOQuirk in hw/vfio/pci.c.
-> 
-> Should we still keep some of these examples?  After the series they'll be
-> doing the right things.  Dynamic MRs are still slightly tricky, I think
-> it's still good to have some references.
-> 
-> > -
-> >  You must not destroy a memory region as long as it may be in use by a
-> >  device or CPU.  In order to do this, as a general rule do not create or
-> > -destroy memory regions dynamically during a device's lifetime, and only
-> > -call object_unparent() in the memory region owner's instance_finalize
-> > -callback.  The dynamically allocated data structure that contains the
-> > -memory region then should obviously be freed in the instance_finalize
-> > -callback as well.
-> > +destroy memory regions dynamically during a device's lifetime.
-> > +The dynamically allocated data structure that contains the
-> > +memory region should be freed in the instance_finalize callback.
-> >  
-> >  If you break this rule, the following situation can happen:
-> >  
-> > @@ -198,9 +191,9 @@ this exception is rarely necessary, and therefore it is discouraged,
-> >  but nevertheless it is used in a few places.
-> >  
-> >  For regions that "have no owner" (NULL is passed at creation time), the
-> > -machine object is actually used as the owner.  Since instance_finalize is
-> > -never called for the machine object, you must never call object_unparent
-> > -on regions that have no owner, unless they are aliases or containers.
-> > +machine object is actually used as the owner.  You must never call
-> > +object_unparent on regions that have no owner, unless they are aliases
-> > +or containers.
-> 
-> This looks like a completely separate change.  So we start to allow
-> machines to be finalized now?  I'm not familiar with machine object
-> lifecycles.  Maybe split it out even if it's true?
+The following analysis jobs are performed:
+- eclair-{x86_64,ARM64}: analyze Xen using the default configuration for
+  that architecture; runs on runners tagged `eclair-analysis'.
 
-I didn't see anything elsewhere.  If you agree with above, I can queue this
-series with above touched up, then no need to repost.
+- eclair-{x86-64,ARM64}-safety: analyze Xen using the configuration for
+  safety, which is more restricted; runs on runners tagged
+  `eclair-analysis-safety`.
 
-Thanks,
+- eclair-{x86_64,ARM64}-testing: analyze Xen using the default
+  configuration for the purposes of testing new runner updates; runs on
+  runners tagged `eclair-analysis-testing`.
 
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+Naturally the right tags to the runners should be set beforehand for
+this to work as intended:
+
+xen-eclair-runner -> eclair-analysis-testing 
+xen-eclair-runner2 -> eclair-analysis, eclair-analysis-safety
+TBD -> eclair-analysis-safety
+
+The last runner is not set up yet, but due to the redundancy can be
+brought up anytime.
+---
+ automation/gitlab-ci/analyze.yaml | 38 +++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
+
+diff --git a/automation/gitlab-ci/analyze.yaml b/automation/gitlab-ci/analyze.yaml
+index d50721006740..a4cca00fd100 100644
+--- a/automation/gitlab-ci/analyze.yaml
++++ b/automation/gitlab-ci/analyze.yaml
+@@ -45,6 +45,21 @@ eclair-x86_64:
+     LOGFILE: "eclair-x86_64.log"
+     VARIANT: "X86_64"
+     RULESET: "monitored"
++
++eclair-x86_64-testing:
++  extends: eclair-x86_64
++  tags:
++    - eclair-analysis-testing
++  rules:
++    - if: $CI_PROJECT_PATH =~ /^xen-project\/people\/bugseng.*$/
++      when: always
++    - !reference [.eclair-analysis:triggered, rules]
++
++eclair-x86_64-safety:
++  extends: eclair-x86_64
++  tags:
++    - eclair-analysis-safety
++  variables:
+     EXTRA_XEN_CONFIG: |
+       CONFIG_AMD=y
+       CONFIG_INTEL=n
+@@ -75,6 +90,10 @@ eclair-x86_64:
+       CONFIG_DEBUG_LOCKS=n
+       CONFIG_SCRUB_DEBUG=n
+       CONFIG_XMEM_POOL_POISON=n
++  rules:
++    - if: $CI_PROJECT_PATH =~ /^xen-project\/hardware\/xen$/ && /$CI_COMMIT_BRANCH =~ /^staging$/
++      when: always
++    - !reference [.eclair-analysis:triggered, rules]
+ 
+ eclair-ARM64:
+   extends: .eclair-analysis:triggered
+@@ -82,6 +101,21 @@ eclair-ARM64:
+     LOGFILE: "eclair-ARM64.log"
+     VARIANT: "ARM64"
+     RULESET: "monitored"
++
++eclair-ARM64-testing:
++  extends: eclair-ARM64
++  tags:
++    - eclair-analysis-testing
++  rules:
++    - if: $CI_PROJECT_PATH =~ /^xen-project\/people\/bugseng.*$/
++      when: always
++    - !reference [.eclair-analysis:triggered, rules]
++
++eclair-ARM64-safety:
++  extends: eclair-ARM64
++  tags:
++    - eclair-analysis-safety
++  variables:
+     EXTRA_XEN_CONFIG: |
+       CONFIG_NR_CPUS=16
+       CONFIG_GICV2=n
+@@ -120,6 +154,10 @@ eclair-ARM64:
+       CONFIG_DEBUG_LOCKS=n
+       CONFIG_SCRUB_DEBUG=n
+       CONFIG_XMEM_POOL_POISON=n
++  rules:
++    - if: $CI_PROJECT_PATH =~ /^xen-project\/hardware\/xen$/ && /$CI_COMMIT_BRANCH =~ /^staging$/
++      when: always
++    - !reference [.eclair-analysis, rules]
+ 
+ .eclair-analysis:on-schedule:
+   extends: .eclair-analysis
 -- 
-Peter Xu
+2.43.0
 
 
