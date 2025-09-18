@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37794B8676A
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Sep 2025 20:46:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1126449.1468055 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA7C9B86785
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Sep 2025 20:46:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1126461.1468075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uzJdq-0005Q0-Cg; Thu, 18 Sep 2025 18:46:02 +0000
+	id 1uzJe3-0006dd-TA; Thu, 18 Sep 2025 18:46:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1126449.1468055; Thu, 18 Sep 2025 18:46:02 +0000
+Received: by outflank-mailman (output) from mailman id 1126461.1468075; Thu, 18 Sep 2025 18:46:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uzJdq-0005LS-8P; Thu, 18 Sep 2025 18:46:02 +0000
-Received: by outflank-mailman (input) for mailman id 1126449;
- Thu, 18 Sep 2025 18:46:01 +0000
+	id 1uzJe3-0006bT-Ph; Thu, 18 Sep 2025 18:46:15 +0000
+Received: by outflank-mailman (input) for mailman id 1126461;
+ Thu, 18 Sep 2025 18:46:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TAPY=35=kernel.org=leon@srs-se1.protection.inumbo.net>)
- id 1uzJdp-0003Vt-Ae
- for xen-devel@lists.xenproject.org; Thu, 18 Sep 2025 18:46:01 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
+ id 1uzJe1-0003Vt-Re
+ for xen-devel@lists.xenproject.org; Thu, 18 Sep 2025 18:46:13 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org
+ [2600:3c04:e001:324:0:1991:8:25])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6e99914-94bf-11f0-9809-7dc792cee155;
- Thu, 18 Sep 2025 20:45:58 +0200 (CEST)
+ id bf29110f-94bf-11f0-9809-7dc792cee155;
+ Thu, 18 Sep 2025 20:46:12 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 63592435E5;
- Thu, 18 Sep 2025 18:45:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65B01C4CEE7;
- Thu, 18 Sep 2025 18:45:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4988060207;
+ Thu, 18 Sep 2025 18:46:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41BE7C4CEE7;
+ Thu, 18 Sep 2025 18:46:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,17 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6e99914-94bf-11f0-9809-7dc792cee155
+X-Inumbo-ID: bf29110f-94bf-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1758221157;
-	bh=1mDXfVNbsYLo4a+duzDpY85ZUnJWos79Vyrao8w+xkA=;
+	s=k20201202; t=1758221171;
+	bh=uXtCKxAn4lJIk0uyzU0s1tMehbPq4hSpIpuFU2JE2Qo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=uJjcqkjioeaPHR3oTtovXk7XnK/pd4Dpvt6tqBF2mLVNs5Q4naZBBRjxEELRfi2+Y
-	 D4kIQlN6hJhac0eiwI3sASKq7B/5bGRMKu7BFRE0t7mA5u6NXWj4T2DNxp00i+Dz8P
-	 CDKvCCa9nHcj0qbtseSusPltdxhIdxKZ4Yl5D4KaZQNkpzvLKwIkvugBIZkuUi+n41
-	 sRDjxFx3/OcIdrXVx9M+pcPfgc0XKte5yCfdgAtR79e5ju1JRnVXErNA0tRs33R8Nz
-	 1UIUOZkvr968XteLjAHpFkZyPWqxmq1DajIw+0WZAlLFornxw8ZulfpFSWmmyNnZ69
-	 l7OvidjZ6KebQ==
+	b=XcDUWomlStMMeFZ3/TJvShNKVI2ne4pT3ymiWQxIQ5cB6pCz+OArBrbwKpELnS63X
+	 AsFRL1spAgwyeCLnIS2Br262lbJnqBbpCVd4ULOZVZtnj2C10kT6CvJ8n+8JUEAfYP
+	 jFqxdtfM+opMXomXA3Ct9jKZuU3nvXXXih1anUIUmeYA2+NA0FUjI4Yl436qNKhCCW
+	 Aa/Vm8u8X4+psfEgiqdpsNqbGjvUEPS8JA0bNbKSpeXk0dd7H1N/gfHZ8mh5pUso/C
+	 fhMyzuZ9ej7kREv+eyKj/qcU15OhLAX2+3kVxzRJlcJjo/s2nJbBu1ygM503fdcjcp
+	 lkA9Tjnlkw/og==
 From: Leon Romanovsky <leon@kernel.org>
 To: Marek Szyprowski <m.szyprowski@samsung.com>
 Cc: Leon Romanovsky <leonro@nvidia.com>,
@@ -85,9 +85,9 @@ Cc: Leon Romanovsky <leonro@nvidia.com>,
 	virtualization@lists.linux.dev,
 	x86@kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH 7/9] vdpa: Convert to physical address DMA mapping
-Date: Thu, 18 Sep 2025 21:45:07 +0300
-Message-ID: <517785de56c12927a782b6bc51cc84e06493958d.1758219787.git.leon@kernel.org>
+Subject: [PATCH 8/9] xen: swiotlb: Convert mapping routine to rely  on physical address
+Date: Thu, 18 Sep 2025 21:45:08 +0300
+Message-ID: <bdc496de560c8a62ab934a65ebab4137421c4cb1.1758219787.git.leon@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <cover.1758219786.git.leon@kernel.org>
 References: <cover.1758219786.git.leon@kernel.org>
@@ -96,120 +96,89 @@ Content-Transfer-Encoding: 8bit
 
 From: Leon Romanovsky <leonro@nvidia.com>
 
-Use physical address directly in DMA mapping flow.
+Switch to .map_phys callback instead of .map_page.
 
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- drivers/vdpa/vdpa_user/iova_domain.c | 11 +++++------
- drivers/vdpa/vdpa_user/iova_domain.h |  8 ++++----
- drivers/vdpa/vdpa_user/vduse_dev.c   | 18 ++++++++++--------
- 3 files changed, 19 insertions(+), 18 deletions(-)
+ drivers/xen/grant-dma-ops.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/vdpa/vdpa_user/iova_domain.c b/drivers/vdpa/vdpa_user/iova_domain.c
-index 58116f89d8dae..c0ecf01003cd3 100644
---- a/drivers/vdpa/vdpa_user/iova_domain.c
-+++ b/drivers/vdpa/vdpa_user/iova_domain.c
-@@ -396,17 +396,16 @@ void vduse_domain_sync_single_for_cpu(struct vduse_iova_domain *domain,
- 	read_unlock(&domain->bounce_lock);
+diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+index 29257d2639dbf..7f76e516fe24c 100644
+--- a/drivers/xen/grant-dma-ops.c
++++ b/drivers/xen/grant-dma-ops.c
+@@ -163,18 +163,22 @@ static void xen_grant_dma_free_pages(struct device *dev, size_t size,
+ 	xen_grant_dma_free(dev, size, page_to_virt(vaddr), dma_handle, 0);
  }
  
--dma_addr_t vduse_domain_map_page(struct vduse_iova_domain *domain,
--				 struct page *page, unsigned long offset,
--				 size_t size, enum dma_data_direction dir,
-+dma_addr_t vduse_domain_map_phys(struct vduse_iova_domain *domain,
-+				 phys_addr_t pa, size_t size,
-+				 enum dma_data_direction dir,
- 				 unsigned long attrs)
+-static dma_addr_t xen_grant_dma_map_page(struct device *dev, struct page *page,
+-					 unsigned long offset, size_t size,
++static dma_addr_t xen_grant_dma_map_phys(struct device *dev, phys_addr_t phys,
++					 size_t size,
+ 					 enum dma_data_direction dir,
+ 					 unsigned long attrs)
  {
- 	struct iova_domain *iovad = &domain->stream_iovad;
- 	unsigned long limit = domain->bounce_size - 1;
--	phys_addr_t pa = page_to_phys(page) + offset;
- 	dma_addr_t iova = vduse_domain_alloc_iova(iovad, size, limit);
+ 	struct xen_grant_dma_data *data;
++	unsigned long offset = offset_in_page(phys);
+ 	unsigned long dma_offset = xen_offset_in_page(offset),
+ 			pfn_offset = XEN_PFN_DOWN(offset);
+ 	unsigned int i, n_pages = XEN_PFN_UP(dma_offset + size);
+ 	grant_ref_t grant;
+ 	dma_addr_t dma_handle;
  
--	if (!iova)
-+	if (!iova || (attrs & DMA_ATTR_MMIO))
- 		return DMA_MAPPING_ERROR;
- 
- 	if (vduse_domain_init_bounce_map(domain))
-@@ -430,7 +429,7 @@ dma_addr_t vduse_domain_map_page(struct vduse_iova_domain *domain,
- 	return DMA_MAPPING_ERROR;
- }
- 
--void vduse_domain_unmap_page(struct vduse_iova_domain *domain,
-+void vduse_domain_unmap_phys(struct vduse_iova_domain *domain,
- 			     dma_addr_t dma_addr, size_t size,
- 			     enum dma_data_direction dir, unsigned long attrs)
- {
-diff --git a/drivers/vdpa/vdpa_user/iova_domain.h b/drivers/vdpa/vdpa_user/iova_domain.h
-index 7f3f0928ec781..7c4546fd856ab 100644
---- a/drivers/vdpa/vdpa_user/iova_domain.h
-+++ b/drivers/vdpa/vdpa_user/iova_domain.h
-@@ -53,12 +53,12 @@ void vduse_domain_sync_single_for_cpu(struct vduse_iova_domain *domain,
- 				      dma_addr_t dma_addr, size_t size,
- 				      enum dma_data_direction dir);
- 
--dma_addr_t vduse_domain_map_page(struct vduse_iova_domain *domain,
--				 struct page *page, unsigned long offset,
--				 size_t size, enum dma_data_direction dir,
-+dma_addr_t vduse_domain_map_phys(struct vduse_iova_domain *domain,
-+				 phys_addr_t phys, size_t size,
-+				 enum dma_data_direction dir,
- 				 unsigned long attrs);
- 
--void vduse_domain_unmap_page(struct vduse_iova_domain *domain,
-+void vduse_domain_unmap_phys(struct vduse_iova_domain *domain,
- 			     dma_addr_t dma_addr, size_t size,
- 			     enum dma_data_direction dir, unsigned long attrs);
- 
-diff --git a/drivers/vdpa/vdpa_user/vduse_dev.c b/drivers/vdpa/vdpa_user/vduse_dev.c
-index 04620bb77203d..75aa3c9f83fb5 100644
---- a/drivers/vdpa/vdpa_user/vduse_dev.c
-+++ b/drivers/vdpa/vdpa_user/vduse_dev.c
-@@ -834,25 +834,27 @@ static void vduse_dev_sync_single_for_cpu(struct device *dev,
- 	vduse_domain_sync_single_for_cpu(domain, dma_addr, size, dir);
- }
- 
--static dma_addr_t vduse_dev_map_page(struct device *dev, struct page *page,
--				     unsigned long offset, size_t size,
--				     enum dma_data_direction dir,
-+static dma_addr_t vduse_dev_map_phys(struct device *dev, phys_addr_t phys,
-+				     size_t size, enum dma_data_direction dir,
- 				     unsigned long attrs)
- {
- 	struct vduse_dev *vdev = dev_to_vduse(dev);
- 	struct vduse_iova_domain *domain = vdev->domain;
- 
--	return vduse_domain_map_page(domain, page, offset, size, dir, attrs);
 +	if (attrs & DMA_ATTR_MMIO)
 +		return DMA_MAPPING_ERROR;
 +
-+	return vduse_domain_map_phys(domain, phys, size, dir, attrs);
+ 	if (WARN_ON(dir == DMA_NONE))
+ 		return DMA_MAPPING_ERROR;
+ 
+@@ -190,7 +194,7 @@ static dma_addr_t xen_grant_dma_map_page(struct device *dev, struct page *page,
+ 
+ 	for (i = 0; i < n_pages; i++) {
+ 		gnttab_grant_foreign_access_ref(grant + i, data->backend_domid,
+-				pfn_to_gfn(page_to_xen_pfn(page) + i + pfn_offset),
++				pfn_to_gfn(page_to_xen_pfn(phys_to_page(phys)) + i + pfn_offset),
+ 				dir == DMA_TO_DEVICE);
+ 	}
+ 
+@@ -199,7 +203,7 @@ static dma_addr_t xen_grant_dma_map_page(struct device *dev, struct page *page,
+ 	return dma_handle;
  }
  
--static void vduse_dev_unmap_page(struct device *dev, dma_addr_t dma_addr,
-+static void vduse_dev_unmap_phys(struct device *dev, dma_addr_t dma_addr,
- 				size_t size, enum dma_data_direction dir,
- 				unsigned long attrs)
+-static void xen_grant_dma_unmap_page(struct device *dev, dma_addr_t dma_handle,
++static void xen_grant_dma_unmap_phys(struct device *dev, dma_addr_t dma_handle,
+ 				     size_t size, enum dma_data_direction dir,
+ 				     unsigned long attrs)
  {
- 	struct vduse_dev *vdev = dev_to_vduse(dev);
- 	struct vduse_iova_domain *domain = vdev->domain;
+@@ -242,7 +246,7 @@ static void xen_grant_dma_unmap_sg(struct device *dev, struct scatterlist *sg,
+ 		return;
  
--	return vduse_domain_unmap_page(domain, dma_addr, size, dir, attrs);
-+	return vduse_domain_unmap_phys(domain, dma_addr, size, dir, attrs);
+ 	for_each_sg(sg, s, nents, i)
+-		xen_grant_dma_unmap_page(dev, s->dma_address, sg_dma_len(s), dir,
++		xen_grant_dma_unmap_phys(dev, s->dma_address, sg_dma_len(s), dir,
+ 				attrs);
  }
  
- static void *vduse_dev_alloc_coherent(struct device *dev, size_t size,
-@@ -896,8 +898,8 @@ static size_t vduse_dev_max_mapping_size(struct device *dev)
- static const struct dma_map_ops vduse_dev_dma_ops = {
- 	.sync_single_for_device = vduse_dev_sync_single_for_device,
- 	.sync_single_for_cpu = vduse_dev_sync_single_for_cpu,
--	.map_page = vduse_dev_map_page,
--	.unmap_page = vduse_dev_unmap_page,
-+	.map_phys = vduse_dev_map_phys,
-+	.unmap_phys = vduse_dev_unmap_phys,
- 	.alloc = vduse_dev_alloc_coherent,
- 	.free = vduse_dev_free_coherent,
- 	.max_mapping_size = vduse_dev_max_mapping_size,
+@@ -257,7 +261,7 @@ static int xen_grant_dma_map_sg(struct device *dev, struct scatterlist *sg,
+ 		return -EINVAL;
+ 
+ 	for_each_sg(sg, s, nents, i) {
+-		s->dma_address = xen_grant_dma_map_page(dev, sg_page(s), s->offset,
++		s->dma_address = xen_grant_dma_map_phys(dev, sg_phys(s),
+ 				s->length, dir, attrs);
+ 		if (s->dma_address == DMA_MAPPING_ERROR)
+ 			goto out;
+@@ -286,8 +290,8 @@ static const struct dma_map_ops xen_grant_dma_ops = {
+ 	.free_pages = xen_grant_dma_free_pages,
+ 	.mmap = dma_common_mmap,
+ 	.get_sgtable = dma_common_get_sgtable,
+-	.map_page = xen_grant_dma_map_page,
+-	.unmap_page = xen_grant_dma_unmap_page,
++	.map_phys = xen_grant_dma_map_phys,
++	.unmap_phys = xen_grant_dma_unmap_phys,
+ 	.map_sg = xen_grant_dma_map_sg,
+ 	.unmap_sg = xen_grant_dma_unmap_sg,
+ 	.dma_supported = xen_grant_dma_supported,
 -- 
 2.51.0
 
