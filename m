@@ -2,41 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BA74B84F4E
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Sep 2025 16:04:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1126126.1467796 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32229B850AA
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Sep 2025 16:10:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1126139.1467805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uzFFB-0001Fg-28; Thu, 18 Sep 2025 14:04:17 +0000
+	id 1uzFKm-0002Rt-K3; Thu, 18 Sep 2025 14:10:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1126126.1467796; Thu, 18 Sep 2025 14:04:17 +0000
+Received: by outflank-mailman (output) from mailman id 1126139.1467805; Thu, 18 Sep 2025 14:10:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uzFFA-0001Du-UR; Thu, 18 Sep 2025 14:04:16 +0000
-Received: by outflank-mailman (input) for mailman id 1126126;
- Thu, 18 Sep 2025 14:04:15 +0000
+	id 1uzFKm-0002Oy-HI; Thu, 18 Sep 2025 14:10:04 +0000
+Received: by outflank-mailman (input) for mailman id 1126139;
+ Thu, 18 Sep 2025 14:10:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=j8y1=35=redhat.com=peterx@srs-se1.protection.inumbo.net>)
- id 1uzFF9-0001Do-0D
- for xen-devel@lists.xenproject.org; Thu, 18 Sep 2025 14:04:15 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (envelope-from <SRS0=TAPY=35=kernel.org=leon@srs-se1.protection.inumbo.net>)
+ id 1uzFKl-00023R-67
+ for xen-devel@lists.xenproject.org; Thu, 18 Sep 2025 14:10:03 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5ac96565-9498-11f0-9d13-b5c5bf9af7f9;
- Thu, 18 Sep 2025 16:04:13 +0200 (CEST)
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-61-ebReSU0YM8uN14Z_M_oQJA-1; Thu, 18 Sep 2025 10:04:10 -0400
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-8217df6d44cso161433985a.2
- for <xen-devel@lists.xenproject.org>; Thu, 18 Sep 2025 07:04:09 -0700 (PDT)
-Received: from x1.local ([174.89.135.121]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8363344e970sm165242485a.61.2025.09.18.07.04.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Sep 2025 07:04:07 -0700 (PDT)
+ id 2a80a570-9499-11f0-9d13-b5c5bf9af7f9;
+ Thu, 18 Sep 2025 16:10:02 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 67FB560052;
+ Thu, 18 Sep 2025 14:10:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AE6CC4CEE7;
+ Thu, 18 Sep 2025 14:09:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,109 +41,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ac96565-9498-11f0-9d13-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1758204252;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oylp830QgzWCxYygQPu4YXMnJbTIkCEHwCADQS7PoK8=;
-	b=gb8YW2X6GyTHcq1cYm9jVcVGeCa+yqlAiKn/xqomi54Dxmk2yuoFbKTY0wwBOSLxuH70Ac
-	tlCSUPlWjhMLfhXDDS90e9EFeRdEuPl1TkJ8DPyO8aWB6SNR/IY1MxJtw9Cw1qH4dHr4lB
-	7g1NuEAFfVsU0fkegsC4Z/K8+ANvC88=
-X-MC-Unique: ebReSU0YM8uN14Z_M_oQJA-1
-X-Mimecast-MFC-AGG-ID: ebReSU0YM8uN14Z_M_oQJA_1758204249
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758204249; x=1758809049;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oylp830QgzWCxYygQPu4YXMnJbTIkCEHwCADQS7PoK8=;
-        b=jsREnOp90QPDW4YD7U2ENjWtjnnHmIAb8SY68NrMPR3WGz5sq5QSVhjqtvE9hmHo2W
-         39XLXb2gqPHtSZ/UjFoUkIfeAJLhOapersXKsVPtbDfAWE/v4HW4fws/swhhdqJtTiLa
-         7fDXrOsRBxDPM2gHpHWhXYJtzFPEzrBUn0+Mt6hk6KQPvNWBdFHe6595a8XHEbb7P9uz
-         q3pDVakvlo+L2GWJOL/phO5oJihvRzFB7bUUAP5cOv99nkg04Y+Pl3nUiYYfvpYogRno
-         v04Q0w/Y4VW1YJOc3dPZUnmtPtPzo8GTBSPnbWEVb14MWKNA80zY51U1VrYHUlpyXw/r
-         hKaQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXOjvrwS0XyfuM/silX6iGtR1V6bhj9LOW5iZYaAg0Md2bfs7EKRXZgb0LbLKnZmfx2+bOKH0e1vj0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzG1ozzr1nZU3TEiaiPG36CPM1oSMg6nMFW+vTlPKi327cHx1WZ
-	8pBqnaImsRS7rATHrVPlJ9KrYVg43Wo0r4g7I4ja8T/j72wMon6BYhvt27Q3s08boXvSULk+5n1
-	c/3HdNSX6pnexXiYsNeAdOHZhdWEpOX7001SSiRRpR4auoOmOoPJU332sO8xqJsaIB0GB
-X-Gm-Gg: ASbGncvuiN8v3RVMLBTN3SQUnDvLau/8W3H1xLNB74yUtEWUWIg5Il8nJG5HugXzM9V
-	eOvnekWcZN3TDw9q41Pwp66AdOsY22Za4X2Nmv+6fEdlDvmxZ+Kj7nuzvpyB7pWZeIGW4m3i+i5
-	avJSnDv55EjwqM2yiThN4lEBG+WsPtpopY8vomHg1enbbXhoPbBvHY8oIflLCjTlGx0celM2Fnu
-	10zU+5fI1jhHbrq3mHj7ZP9g6sJ4yJZFQUKF6fjgEGOpEdbKH0imDBX/wWHGgoSYSQHi20O1Otl
-	dRlOnwMJp1DuoA19NefwOrjj3//ew0+J
-X-Received: by 2002:a05:620a:2a07:b0:822:f45b:a5ef with SMTP id af79cd13be357-8310a6416admr643808985a.29.1758204249165;
-        Thu, 18 Sep 2025 07:04:09 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHa8HlWVxiunhxh9YQWqVYN7oHdznhotjK4AQbo42C9SFdIf9dV/mPRmaLtfzCAOkZHoqjgOw==
-X-Received: by 2002:a05:620a:2a07:b0:822:f45b:a5ef with SMTP id af79cd13be357-8310a6416admr643799885a.29.1758204248504;
-        Thu, 18 Sep 2025 07:04:08 -0700 (PDT)
-Date: Thu, 18 Sep 2025 10:03:54 -0400
-From: Peter Xu <peterx@redhat.com>
-To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Cc: qemu-devel@nongnu.org, Alex Williamson <alex.williamson@redhat.com>,
-	=?utf-8?Q?C=C3=A9dric?= Le Goater <clg@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	David Hildenbrand <david@redhat.com>,
-	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Helge Deller <deller@gmx.de>,
-	=?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>, John Snow <jsnow@redhat.com>,
-	qemu-block@nongnu.org, Keith Busch <kbusch@kernel.org>,
-	Klaus Jensen <its@irrelevant.dk>,
-	Jesper Devantier <foss@defmacro.it>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Nicholas Piggin <npiggin@gmail.com>, qemu-ppc@nongnu.org,
-	John Levon <john.levon@nutanix.com>,
-	Thanos Makatos <thanos.makatos@nutanix.com>,
-	Yanan Wang <wangyanan55@huawei.com>,
-	BALATON Zoltan <balaton@eik.bme.hu>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Daniel Henrique Barboza <danielhb413@gmail.com>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	Alexey Kardashevskiy <aik@ozlabs.ru>,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Fabiano Rosas <farosas@suse.de>, Thomas Huth <thuth@redhat.com>,
-	Laurent Vivier <lvivier@redhat.com>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Aurelien Jarno <aurelien@aurel32.net>,
-	Aleksandar Rikalo <arikalo@gmail.com>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	=?utf-8?B?SGVydsOp?= Poussineau <hpoussin@reactos.org>,
-	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
-	Artyom Tarasenko <atar4qemu@gmail.com>,
-	Alistair Francis <alistair@alistair23.me>,
-	"Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
-	Bin Meng <bmeng.cn@gmail.com>,
+X-Inumbo-ID: 2a80a570-9499-11f0-9d13-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1758204600;
+	bh=Pi5T819TFc2iqtg/dEe1hcW6EHD16i+UrHXuy/WzDOY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=N6hq4IZioMzxZVLrqPxIN1sDeyN1/MixcEr36decDtSa4WNTO48EIzoRtCfHURiTP
+	 XMufzHtXGUQWyG32ltphrXys4JlT2/nPQzRJUepSs7aIKZ4Dt/Ss1EyEAK8QkC8zc3
+	 vIl5lD0WF4qeZn8Z3KGVbFo72DRy50Klk5ZEVPZ2yeHGy8hIMfUDG6YgqbV6WFZxca
+	 4kV/RF3TSWU8WIaiPtXWJzI2gXYl0Crd2VqYcMMNL6jc66qQmehT4vZSRFKtxGw7Jr
+	 cRVkT6eGVn1SU0m0y41HUKDXp21LxO+guGGu3EyXnpZKW4XO6cr0Q6FOwPLQ0JkSJE
+	 62ET1qQlR3oRw==
+From: Leon Romanovsky <leon@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+	iommu@lists.linux.dev,
+	Juergen Gross <jgross@suse.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Russell King <linux@armlinux.org.uk>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Paul Durrant <paul@xen.org>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
 	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 0/7] Do not unparent in instance_finalize()
-Message-ID: <aMwRSpezxmIwIHrU@x1.local>
-References: <20250917-use-v3-0-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
+Subject: [PATCH v4 0/6] Preparation to .map_page and .unmap_page removal
+Date: Thu, 18 Sep 2025 17:09:23 +0300
+Message-ID: <cover.1758203802.git.leon@kernel.org>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-In-Reply-To: <20250917-use-v3-0-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: OfzqKQY38lv-94LIVMChFHDyTkZx_b917uRkBfTOWWw_1758204249
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 17, 2025 at 07:13:25PM +0900, Akihiko Odaki wrote:
-> Based-on: <cover.1751493467.git.balaton@eik.bme.hu>
-> ("[PATCH v2 00/14] hw/pci-host/raven clean ups")
+Changelog:
+v4:
+ * Added Jason's ROB tags
+ * Added "xen: swiotlb ..." patch to the list of patches which had .map_resource
+ * Added extra patch "ARM: dma-mapping: Reduce ..." to remove struct
+   page as much as possible.
+ * Added call to .map_phys/.unmap_phys to dma_common_*_pages() functions.
+v3: https://lore.kernel.org/all/cover.1758006942.git.leon@kernel.org
+ * Rewrote the series to allow combination of .map_resource and
+ * .map_page
+   to one flow.
+ * Added two new patches to convert and remove .map_resource.
+v2: https://lore.kernel.org/all/cover.1752734252.git.leon@kernel.org/
+ * Added default "else" section without map_phys and map_page
+   callbacks (impossible).
+v1: https://lore.kernel.org/all/cover.1753003879.git.leon@kernel.org
+ * Changed "else if" instead of "if".
+v0: https://lore.kernel.org/all/cover.1752734252.git.leon@kernel.org
+---------------------------------------------------------------------
 
-Could I ask why this is a dependency?
+This is followup to "dma-mapping: migrate to physical address-based API" series
+https://lore.kernel.org/all/cover.1757423202.git.leonro@nvidia.com
+
+Thanks
+
+Leon Romanovsky (6):
+  dma-mapping: prepare dma_map_ops to conversion to physical address
+  dma-mapping: convert dummy ops to physical address mapping
+  ARM: dma-mapping: Reduce struct page exposure in arch_sync_dma*()
+  ARM: dma-mapping: Switch to physical address mapping callbacks
+  xen: swiotlb: Switch to physical address mapping callbacks
+  dma-mapping: remove unused mapping resource callbacks
+
+ arch/arm/mm/dma-mapping.c   | 180 +++++++++++-------------------------
+ drivers/xen/swiotlb-xen.c   |  63 ++++++-------
+ include/linux/dma-map-ops.h |  13 +--
+ kernel/dma/dummy.c          |  13 ++-
+ kernel/dma/mapping.c        |  20 ++--
+ kernel/dma/ops_helpers.c    |  12 ++-
+ 6 files changed, 113 insertions(+), 188 deletions(-)
 
 -- 
-Peter Xu
+2.51.0
 
 
