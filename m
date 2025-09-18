@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6062CB86D21
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Sep 2025 22:04:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1126585.1468105 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8701B86DB4
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Sep 2025 22:12:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1126599.1468115 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uzKrG-0002i8-PG; Thu, 18 Sep 2025 20:03:58 +0000
+	id 1uzKzK-0004Nt-IM; Thu, 18 Sep 2025 20:12:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1126585.1468105; Thu, 18 Sep 2025 20:03:58 +0000
+Received: by outflank-mailman (output) from mailman id 1126599.1468115; Thu, 18 Sep 2025 20:12:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uzKrG-0002g5-Mb; Thu, 18 Sep 2025 20:03:58 +0000
-Received: by outflank-mailman (input) for mailman id 1126585;
- Thu, 18 Sep 2025 20:03:57 +0000
+	id 1uzKzK-0004Km-FS; Thu, 18 Sep 2025 20:12:18 +0000
+Received: by outflank-mailman (input) for mailman id 1126599;
+ Thu, 18 Sep 2025 20:12:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j8y1=35=redhat.com=peterx@srs-se1.protection.inumbo.net>)
- id 1uzKrF-0002fu-Il
- for xen-devel@lists.xenproject.org; Thu, 18 Sep 2025 20:03:57 +0000
+ id 1uzKzI-0004Kg-9s
+ for xen-devel@lists.xenproject.org; Thu, 18 Sep 2025 20:12:16 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9b815562-94ca-11f0-9d14-b5c5bf9af7f9;
- Thu, 18 Sep 2025 22:03:57 +0200 (CEST)
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ id c0078c65-94cb-11f0-9d14-b5c5bf9af7f9;
+ Thu, 18 Sep 2025 22:12:07 +0200 (CEST)
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-379-4FgNIfiwPGqI7IfuebIWrg-1; Thu, 18 Sep 2025 16:03:54 -0400
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4b60dd9634dso28278751cf.2
- for <xen-devel@lists.xenproject.org>; Thu, 18 Sep 2025 13:03:54 -0700 (PDT)
+ us-mta-73-VBwf8nGCM1uiYMIaqUIzrA-1; Thu, 18 Sep 2025 16:12:04 -0400
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-4b5fbf0388eso18110091cf.3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Sep 2025 13:12:04 -0700 (PDT)
 Received: from x1.local
  (bras-base-aurron9134w-grc-11-174-89-135-121.dsl.bell.ca. [174.89.135.121])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4bda15f91a0sm19307741cf.1.2025.09.18.13.03.50
+ d75a77b69052e-4bda23b2f56sm18877261cf.17.2025.09.18.13.12.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Sep 2025 13:03:52 -0700 (PDT)
+ Thu, 18 Sep 2025 13:12:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,46 +50,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b815562-94ca-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: c0078c65-94cb-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1758225836;
+	s=mimecast20190719; t=1758226326;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=LgVRs4qDWWl/SassPeYOJGunpCbcT4oPhyAu1oaWNOQ=;
-	b=S7Ki0vBOvTkGsDnbAugmyhW83aFqvZGqXhokZtk3aQrUJoHeQUqU2emEfsUZxamDcOt7Wl
-	1phEZkaA+7AFuYsF20h6aEH3LBpVMtsVU1nLoSykrBjWfW8VWn59fYevUHxkQnT/GjQ9iL
-	dIb5wk+wYHOMsIV4SsY5Lh08uHe1yDY=
-X-MC-Unique: 4FgNIfiwPGqI7IfuebIWrg-1
-X-Mimecast-MFC-AGG-ID: 4FgNIfiwPGqI7IfuebIWrg_1758225834
+	bh=oEVcW8H0ePrVkukmBhlQeYMXet9+27y8NnV6UVsaWN8=;
+	b=gSPHM0yjwNoopRRUHJn9eZoRNY5uxy1pp041qJxzK7LW1ZToTjfKrI+6j/L2goQ3nX+j4q
+	dfBBrRx9OA9AQJ9X48mct8j3SWDcYMwZ7ZAlrPyakrdFdI9syuVBFDnCKPkYeSNCygj7Y5
+	MpreG3xHNVQcLIVMpZytib9/zUaEkgw=
+X-MC-Unique: VBwf8nGCM1uiYMIaqUIzrA-1
+X-Mimecast-MFC-AGG-ID: VBwf8nGCM1uiYMIaqUIzrA_1758226324
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758225834; x=1758830634;
+        d=1e100.net; s=20230601; t=1758226324; x=1758831124;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LgVRs4qDWWl/SassPeYOJGunpCbcT4oPhyAu1oaWNOQ=;
-        b=Zl4Wn99oGVdrl0ETQTPhTU8H/a1nYcOfUw9S/VvOdgWJzq11pYk+e7wdqI2n/RO8pB
-         QgvG24eydz0SLnWjcnFdeL0Uq5MmsJ5EQqGjizghjWwHXjoijImPnnivQc43yT9HBdk+
-         0btJiICsGlLfI51Pz4F9O/nLpe8EqmTmWWGXZBh5SSdoOfQCfyQW/QwXJiykGhU2yp4T
-         AZOOSbHbo6a/IlEOmNu2w6GHNs+NXvc/+X4YDfmXdIrHz+tr/GHgeGJAuYZBWTnzAR3+
-         9MdjjtpZBa9VNiu9yZ1L5+U9GgXU/JtA2YqLiF9mvFFvNiPWEZWQ29Kd445mdJ0ZLfyq
-         QwnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVagIlIqWx38xajlMhnAvo222+CrdWjmqxULOA+7L5m0oojLEnxUsWaw9x/cX6EKYrzE145+2Re7pU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwOSDxj5+jaKb9ZF9W1tsE4UU2V9YH0WQOZrQK6Z4qHR3HaSvyv
-	SVLH+P+nYkFiRx00Igqed8Mlw1ChOGp9iN8eV5RjjdZ0pS5LCK8mKyDNLeZ3ZS6Z8+Xe9NsKEoh
-	+PR0SOcztlgPAni0OWAIUKJQ3KEkb0zaNfl6CJjWlUwwHOZV5Ggc7JiL+fx62hJX+Kurh
-X-Gm-Gg: ASbGncvPxgrwiQWBuYihJnkP8jahgfekuNSZEvmWP8EkVTXGd0sjgZswNRhZG1zQoxX
-	xugf6apH41VwOYWenrd1GVQRJ+7aQjR5f/BPAcOVZrhEwxM/yrIfnC6J9MR7G66SqZiZc/SAatK
-	cEwFOwa6THU/3n+eqaWLz+act5TRDvuQEU1kan0eDyiwt7Vy4Nh1hU+J9AkPwSRWh8GQcNWr4Lk
-	FIZrB+KNFQbIKT0pNFNbYpkVFFRKUOmji5wCqDt0TRcyGDpzj7vD36Ba7bZhV9vpc4AmDxnvWxn
-	aT0KI9AqoYUoFltzDQYxjsCOnbbSsH5vs/Mr94HMT+vkmtjNmyKHduUPNAwfvapcck3hWnCjEMN
-	QK9Vhx1n9Mid6sxb5efPHmA==
-X-Received: by 2002:a05:622a:5a88:b0:4b7:a98b:8933 with SMTP id d75a77b69052e-4c072d2d400mr6025911cf.62.1758225833754;
-        Thu, 18 Sep 2025 13:03:53 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEB62ZbYxbCV9ZW2QX6E1EIwlRMLvImUy5ZMYB2/qRwmfyMDoEyMnXIs2TXp5P2RdybchVl+g==
-X-Received: by 2002:a05:622a:5a88:b0:4b7:a98b:8933 with SMTP id d75a77b69052e-4c072d2d400mr6025121cf.62.1758225833133;
-        Thu, 18 Sep 2025 13:03:53 -0700 (PDT)
-Date: Thu, 18 Sep 2025 16:03:49 -0400
+        bh=oEVcW8H0ePrVkukmBhlQeYMXet9+27y8NnV6UVsaWN8=;
+        b=kjeuqpNQavzd2hC5kyqz27UWv5nAbKs7jKLTRMyZjyxYtqAsXtAG3Lk3Yah02e4PkW
+         VH9X5q1inRvkRYK6297VQ9+0LmmivERFG8BK3EhwerXO5I80Uwermq0Xmwe7IyslgQt0
+         cecT+F13O+rLhY9BwqNcuL9r/or0XmLTTPrNJ/o3MfmYPxvNf0rSwl4SSXthaly8pAqu
+         R8YR1HlBkncCfZvQ5WkJ98uyjWjpKS6PzwJgx90V1a1B8JM6DGF/lM3hQDCAC2Gnk29a
+         7eSPfrpATkjkSFqE3pGOvwbsLG/5tkmn/j7oGohd7+PE+VCQy+jr6uA7yaenQDsJJol/
+         ePNw==
+X-Forwarded-Encrypted: i=1; AJvYcCWtD5XWFcDdlQXHWTckThV7sj6LOU4k00H4al/gS57HB/XEw4SR0tSlc4UUg4NglAomWwdHZQrkYQc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzBbtxIMQHmk3TAbPC+NUUqaY0W5pEXXPuiMoHYzLzNUC/EP7VK
+	h5OeH3s0iTboFDBe3taz9RhLRVeon+r2by7jk8uYLWKze13UiYURgaETGHIZCCC4mvz8NgRLG8Y
+	N4pRZCtXch3L5wsiplXzCY/NTDzP58UqqdJqTZ7uJqiSqY0SE4qUXi9L1kd+5ObHogqTl
+X-Gm-Gg: ASbGncv9pzBr21MdRbMbZ7w6DrQ7sccW+oXbIq/Uhd4RuTPnYmmVPYZ5eqIYHkQzP7I
+	CovH4GmVxkLzcgewfjpqBKr1Jl7ifhZIcbV/1MqsT+ItbkdTH09K5ikXJwktZ9sx0Iif+T3ln0e
+	T5nTcdirJgVqe2AuzOEDD+8CMig9g2ZGbi/xhcbU34l7NQt76p/maZuiu2wvB0TIIZ1F7uw7Hj5
+	G4yXERnmwJ9sd+90ZRh3nC9jsGbkhdqpWJkgAs4lGGaj8g+FwDfff5ho3Wk8BTrQ5xV89CUO4Ew
+	zqvcQfJ3Yli6lJVDAWMfg6QaDBWM02AeaJ2BkRji+6QKRWvtKkJFei6UAY/EVQDX4YCIWrgkKlX
+	8/M7FVP3Yxmt/YKd44I4tig==
+X-Received: by 2002:a05:622a:1c15:b0:4b7:7c2c:8534 with SMTP id d75a77b69052e-4c06e3f8fe3mr6440771cf.15.1758226323614;
+        Thu, 18 Sep 2025 13:12:03 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGlL/+jeC2xoiK55a+vc+/BjJtvtoJAoNqaFYRNOAjjjJKNk/RRtRDSXXsR7MkcplaBP8vv5Q==
+X-Received: by 2002:a05:622a:1c15:b0:4b7:7c2c:8534 with SMTP id d75a77b69052e-4c06e3f8fe3mr6440401cf.15.1758226322974;
+        Thu, 18 Sep 2025 13:12:02 -0700 (PDT)
+Date: Thu, 18 Sep 2025 16:11:59 -0400
 From: Peter Xu <peterx@redhat.com>
 To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
 Cc: qemu-devel@nongnu.org, Alex Williamson <alex.williamson@redhat.com>,
@@ -137,79 +137,86 @@ Cc: qemu-devel@nongnu.org, Alex Williamson <alex.williamson@redhat.com>,
 	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
 	xen-devel@lists.xenproject.org
 Subject: Re: [PATCH v3 1/7] docs/devel: Do not unparent in instance_finalize()
-Message-ID: <aMxlpfp_LSgiIk9Z@x1.local>
+Message-ID: <aMxnj7ID0PpWUVNu@x1.local>
 References: <20250917-use-v3-0-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
  <20250917-use-v3-1-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
+ <aMxlpfp_LSgiIk9Z@x1.local>
 MIME-Version: 1.0
-In-Reply-To: <20250917-use-v3-1-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <aMxlpfp_LSgiIk9Z@x1.local>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: DP4OJgtEntgX6uPWD2zYiopcK8FreBLhMwm9YZLDtfI_1758225834
+X-Mimecast-MFC-PROC-ID: ewBEzSpwM5U06pT75eya7oFfG1QjkMRc16p7R5X04vc_1758226324
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 
-On Wed, Sep 17, 2025 at 07:13:26PM +0900, Akihiko Odaki wrote:
-> Children are automatically unparented so manually unparenting is
-> unnecessary.
+On Thu, Sep 18, 2025 at 04:03:49PM -0400, Peter Xu wrote:
+> On Wed, Sep 17, 2025 at 07:13:26PM +0900, Akihiko Odaki wrote:
+> > Children are automatically unparented so manually unparenting is
+> > unnecessary.
+> > 
+> > Worse, automatic unparenting happens before the instance_finalize()
+> > callback of the parent gets called, so object_unparent() calls in
+> > the callback will refer to objects that are already unparented, which
+> > is semantically incorrect.
+> > 
+> > Remove the instruction to call object_unparent(), and the exception
+> > of the "do not call object_unparent()" rule for instance_finalize().
+> > 
+> > Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+> > ---
+> >  docs/devel/memory.rst | 19 ++++++-------------
+> >  1 file changed, 6 insertions(+), 13 deletions(-)
+> > 
+> > diff --git a/docs/devel/memory.rst b/docs/devel/memory.rst
+> > index 57fb2aec76e0..749f11d8a4dd 100644
+> > --- a/docs/devel/memory.rst
+> > +++ b/docs/devel/memory.rst
+> > @@ -161,18 +161,11 @@ or never.
+> >  Destruction of a memory region happens automatically when the owner
+> >  object dies.
+> >  
+> > -If however the memory region is part of a dynamically allocated data
+> > -structure, you should call object_unparent() to destroy the memory region
+> > -before the data structure is freed.  For an example see VFIOMSIXInfo
+> > -and VFIOQuirk in hw/vfio/pci.c.
 > 
-> Worse, automatic unparenting happens before the instance_finalize()
-> callback of the parent gets called, so object_unparent() calls in
-> the callback will refer to objects that are already unparented, which
-> is semantically incorrect.
+> Should we still keep some of these examples?  After the series they'll be
+> doing the right things.  Dynamic MRs are still slightly tricky, I think
+> it's still good to have some references.
 > 
-> Remove the instruction to call object_unparent(), and the exception
-> of the "do not call object_unparent()" rule for instance_finalize().
+> > -
+> >  You must not destroy a memory region as long as it may be in use by a
+> >  device or CPU.  In order to do this, as a general rule do not create or
+> > -destroy memory regions dynamically during a device's lifetime, and only
+> > -call object_unparent() in the memory region owner's instance_finalize
+> > -callback.  The dynamically allocated data structure that contains the
+> > -memory region then should obviously be freed in the instance_finalize
+> > -callback as well.
+> > +destroy memory regions dynamically during a device's lifetime.
+> > +The dynamically allocated data structure that contains the
+> > +memory region should be freed in the instance_finalize callback.
+> >  
+> >  If you break this rule, the following situation can happen:
+> >  
+> > @@ -198,9 +191,9 @@ this exception is rarely necessary, and therefore it is discouraged,
+> >  but nevertheless it is used in a few places.
+> >  
+> >  For regions that "have no owner" (NULL is passed at creation time), the
+> > -machine object is actually used as the owner.  Since instance_finalize is
+> > -never called for the machine object, you must never call object_unparent
+> > -on regions that have no owner, unless they are aliases or containers.
+> > +machine object is actually used as the owner.  You must never call
+> > +object_unparent on regions that have no owner, unless they are aliases
+> > +or containers.
 > 
-> Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-> ---
->  docs/devel/memory.rst | 19 ++++++-------------
->  1 file changed, 6 insertions(+), 13 deletions(-)
-> 
-> diff --git a/docs/devel/memory.rst b/docs/devel/memory.rst
-> index 57fb2aec76e0..749f11d8a4dd 100644
-> --- a/docs/devel/memory.rst
-> +++ b/docs/devel/memory.rst
-> @@ -161,18 +161,11 @@ or never.
->  Destruction of a memory region happens automatically when the owner
->  object dies.
->  
-> -If however the memory region is part of a dynamically allocated data
-> -structure, you should call object_unparent() to destroy the memory region
-> -before the data structure is freed.  For an example see VFIOMSIXInfo
-> -and VFIOQuirk in hw/vfio/pci.c.
+> This looks like a completely separate change.  So we start to allow
+> machines to be finalized now?  I'm not familiar with machine object
+> lifecycles.  Maybe split it out even if it's true?
 
-Should we still keep some of these examples?  After the series they'll be
-doing the right things.  Dynamic MRs are still slightly tricky, I think
-it's still good to have some references.
+I didn't see anything elsewhere.  If you agree with above, I can queue this
+series with above touched up, then no need to repost.
 
-> -
->  You must not destroy a memory region as long as it may be in use by a
->  device or CPU.  In order to do this, as a general rule do not create or
-> -destroy memory regions dynamically during a device's lifetime, and only
-> -call object_unparent() in the memory region owner's instance_finalize
-> -callback.  The dynamically allocated data structure that contains the
-> -memory region then should obviously be freed in the instance_finalize
-> -callback as well.
-> +destroy memory regions dynamically during a device's lifetime.
-> +The dynamically allocated data structure that contains the
-> +memory region should be freed in the instance_finalize callback.
->  
->  If you break this rule, the following situation can happen:
->  
-> @@ -198,9 +191,9 @@ this exception is rarely necessary, and therefore it is discouraged,
->  but nevertheless it is used in a few places.
->  
->  For regions that "have no owner" (NULL is passed at creation time), the
-> -machine object is actually used as the owner.  Since instance_finalize is
-> -never called for the machine object, you must never call object_unparent
-> -on regions that have no owner, unless they are aliases or containers.
-> +machine object is actually used as the owner.  You must never call
-> +object_unparent on regions that have no owner, unless they are aliases
-> +or containers.
-
-This looks like a completely separate change.  So we start to allow
-machines to be finalized now?  I'm not familiar with machine object
-lifecycles.  Maybe split it out even if it's true?
+Thanks,
 
 -- 
 Peter Xu
