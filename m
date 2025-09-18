@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83E2FB82BE5
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Sep 2025 05:19:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1125892.1467686 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EC29B83076
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Sep 2025 07:40:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1125923.1467696 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uz5Aq-000612-UI; Thu, 18 Sep 2025 03:19:08 +0000
+	id 1uz7MX-0005gt-GU; Thu, 18 Sep 2025 05:39:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1125892.1467686; Thu, 18 Sep 2025 03:19:08 +0000
+Received: by outflank-mailman (output) from mailman id 1125923.1467696; Thu, 18 Sep 2025 05:39:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uz5Aq-0005xt-RQ; Thu, 18 Sep 2025 03:19:08 +0000
-Received: by outflank-mailman (input) for mailman id 1125892;
- Thu, 18 Sep 2025 03:19:07 +0000
+	id 1uz7MX-0005ec-DB; Thu, 18 Sep 2025 05:39:21 +0000
+Received: by outflank-mailman (input) for mailman id 1125923;
+ Thu, 18 Sep 2025 05:39:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KFeD=35=intel.com=lkp@srs-se1.protection.inumbo.net>)
- id 1uz5Ap-0005xn-13
- for xen-devel@lists.xenproject.org; Thu, 18 Sep 2025 03:19:07 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ id 1uz7MV-0005eW-B2
+ for xen-devel@lists.xenproject.org; Thu, 18 Sep 2025 05:39:19 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 390f3188-943e-11f0-9d13-b5c5bf9af7f9;
- Thu, 18 Sep 2025 05:19:03 +0200 (CEST)
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2025 20:19:00 -0700
+ id cf7a0b8a-9451-11f0-9d13-b5c5bf9af7f9;
+ Thu, 18 Sep 2025 07:39:16 +0200 (CEST)
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2025 22:39:13 -0700
 Received: from lkp-server01.sh.intel.com (HELO 84a20bd60769) ([10.239.97.150])
- by orviesa004.jf.intel.com with ESMTP; 17 Sep 2025 20:18:55 -0700
+ by fmviesa010.fm.intel.com with ESMTP; 17 Sep 2025 22:39:07 -0700
 Received: from kbuild by 84a20bd60769 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1uz5Aa-0002hN-0w;
- Thu, 18 Sep 2025 03:18:52 +0000
+ (envelope-from <lkp@intel.com>) id 1uz7MH-0002nP-0J;
+ Thu, 18 Sep 2025 05:39:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,58 +44,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 390f3188-943e-11f0-9d13-b5c5bf9af7f9
+X-Inumbo-ID: cf7a0b8a-9451-11f0-9d13-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1758165544; x=1789701544;
+  t=1758173956; x=1789709956;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=BXxqhBJxXxvdickLzCyDX1rwS2LGPscfHrBsIJKBFHg=;
-  b=gv5YNZZJ94ZK7jtClABAwIWpxIbJHWypQxQDOgINpcE4clvvtm8sc5KO
-   hzOeBFxby8NXt7DuMvzbUCdDixj4+NHoD8tmRQrb3pTBReY5KbB126j67
-   CInB7F4R0C9Wj7j6iPuIkXRtIsKrXph1pWZBr1u9n89iyCbfOpOIgzrZ4
-   c0KdcJYsSkCSUIJ3g5eSj6c7915nNVuAEENVEg4qFLXAHOGx7zrkcVaRc
-   8xW6/i+RIFp4DIiGmJmvG4PHHuQ9du9dByugHDQj4U476MoTAnMTdGvuB
-   toSGy+qCEKJ80ATzfHxU3SSC71tIuU0Iwt3uxb8lrgh1F1qfcfws8RByD
-   w==;
-X-CSE-ConnectionGUID: NkGumBFJQFCTuNRdv+4Avg==
-X-CSE-MsgGUID: qSnuh0ouQnubUxyJnz9wrQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11556"; a="85925407"
-X-IronPort-AV: E=Sophos;i="6.18,273,1751266800"; 
-   d="scan'208";a="85925407"
-X-CSE-ConnectionGUID: lnvzHdwpST6cNElr5TApng==
-X-CSE-MsgGUID: LA6PePTrQ6WURP8TceJ/ag==
+  bh=y+jC5ADb61yhBWtArYZLqp9di3X9xAiUey258IJUPcs=;
+  b=FkQuVnSYcpuZuW2WBlhX/Cr2rtvzopaiwW9sDplvcrUgEje6gDSHhar+
+   6FEPqbCjtxHo0/5914DbKpxvTazqPvrQ8xYWFS93pgPKRkSGMgMhfr/7m
+   09gt8xkU7a4tc0iegt2NyGZSxVkX6WtEc8VSD1QaOi04E3/fwwvX6e1Bj
+   7r2Jq7pADTz85ruTEqOb7/jPXi3yMt+BS7n0qS9SAGZ2JlWUoB9An336K
+   vDKQotSlKUe3+9lhI9F3p6zTKhYBiyrx0e3JfyU9pkrXx1JfjjVKG9WqN
+   Uc0sFNgCHv6YNVNnaAAqz/Ykp1uNkcxzvOyl+aljmryaiDnOA76HkyCJR
+   A==;
+X-CSE-ConnectionGUID: SdiLoVRFSbSR4oSyOQfxLw==
+X-CSE-MsgGUID: 4tOxUa3ES7KmH21/7xbMfA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11556"; a="60604380"
+X-IronPort-AV: E=Sophos;i="6.18,274,1751266800"; 
+   d="scan'208";a="60604380"
+X-CSE-ConnectionGUID: Ufc8YFrWTvOutN5VHn7ZoQ==
+X-CSE-MsgGUID: d+DbLpL5RNivQdPIyzn/tQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,273,1751266800"; 
-   d="scan'208";a="179702293"
-Date: Thu, 18 Sep 2025 11:18:00 +0800
+X-IronPort-AV: E=Sophos;i="6.18,274,1751266800"; 
+   d="scan'208";a="176233971"
+Date: Thu, 18 Sep 2025 13:38:27 +0800
 From: kernel test robot <lkp@intel.com>
 To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
-	x86@kernel.org, linux-hyperv@vger.kernel.org
+	x86@kernel.org, linux-hyperv@vger.kernel.org,
+	virtualization@lists.linux.dev, kvm@vger.kernel.org
 Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Juergen Gross <jgross@suse.com>, Andy Lutomirski <luto@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
 	Thomas Gleixner <tglx@linutronix.de>,
 	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
 	"H. Peter Anvin" <hpa@zytor.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun.feng@gmail.com>,
-	Waiman Long <longman@redhat.com>, Jiri Kosina <jikos@kernel.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
 	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
 	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 01/21] x86/paravirt: Remove not needed includes of
- paravirt.h
-Message-ID: <202509181151.ja2As5H4-lkp@intel.com>
-References: <20250917145220.31064-2-jgross@suse.com>
+Subject: Re: [PATCH v2 21/21] x86/pvlocks: Move paravirt spinlock functions
+ into own header
+Message-ID: <202509181317.YubLCpdh-lkp@intel.com>
+References: <20250917145220.31064-22-jgross@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250917145220.31064-2-jgross@suse.com>
+In-Reply-To: <20250917145220.31064-22-jgross@suse.com>
 
 Hi Juergen,
 
@@ -110,116 +113,126 @@ https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Juergen-Gross/x86-paravirt-Remove-not-needed-includes-of-paravirt-h/20250917-230321
 base:   tip/sched/core
-patch link:    https://lore.kernel.org/r/20250917145220.31064-2-jgross%40suse.com
-patch subject: [PATCH v2 01/21] x86/paravirt: Remove not needed includes of paravirt.h
-config: x86_64-allnoconfig (https://download.01.org/0day-ci/archive/20250918/202509181151.ja2As5H4-lkp@intel.com/config)
+patch link:    https://lore.kernel.org/r/20250917145220.31064-22-jgross%40suse.com
+patch subject: [PATCH v2 21/21] x86/pvlocks: Move paravirt spinlock functions into own header
+config: x86_64-allnoconfig (https://download.01.org/0day-ci/archive/20250918/202509181317.YubLCpdh-lkp@intel.com/config)
 compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250918/202509181151.ja2As5H4-lkp@intel.com/reproduce)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250918/202509181317.YubLCpdh-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202509181151.ja2As5H4-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202509181317.YubLCpdh-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
-   In file included from kernel/cpu.c:13:
-   In file included from include/linux/sched/isolation.h:5:
-   In file included from include/linux/cpuset.h:18:
+   In file included from arch/x86/kernel/alternative.c:4:
    In file included from include/linux/mmu_context.h:5:
->> arch/x86/include/asm/mmu_context.h:225:2: error: call to undeclared function 'paravirt_enter_mmap'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   arch/x86/include/asm/mmu_context.h:225:2: error: call to undeclared function 'paravirt_enter_mmap'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
      225 |         paravirt_enter_mmap(mm);
          |         ^
->> arch/x86/include/asm/mmu_context.h:232:2: error: call to undeclared function 'paravirt_arch_exit_mmap'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   arch/x86/include/asm/mmu_context.h:232:2: error: call to undeclared function 'paravirt_arch_exit_mmap'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
      232 |         paravirt_arch_exit_mmap(mm);
          |         ^
    arch/x86/include/asm/mmu_context.h:232:2: note: did you mean 'ldt_arch_exit_mmap'?
    arch/x86/include/asm/mmu_context.h:61:6: note: 'ldt_arch_exit_mmap' declared here
       61 | void ldt_arch_exit_mmap(struct mm_struct *mm);
          |      ^
-   In file included from kernel/cpu.c:42:
-   In file included from include/trace/events/power.h:12:
-   In file included from include/linux/trace_events.h:10:
+   In file included from arch/x86/kernel/alternative.c:5:
    In file included from include/linux/perf_event.h:53:
    In file included from include/linux/security.h:35:
    In file included from include/linux/bpf.h:33:
    In file included from arch/x86/include/asm/rqspinlock.h:5:
-   arch/x86/include/asm/paravirt.h:736:20: error: static declaration of 'paravirt_enter_mmap' follows non-static declaration
-     736 | static inline void paravirt_enter_mmap(struct mm_struct *mm)
+   arch/x86/include/asm/paravirt.h:570:20: error: static declaration of 'paravirt_enter_mmap' follows non-static declaration
+     570 | static inline void paravirt_enter_mmap(struct mm_struct *mm)
          |                    ^
    arch/x86/include/asm/mmu_context.h:225:2: note: previous implicit declaration is here
      225 |         paravirt_enter_mmap(mm);
          |         ^
-   In file included from kernel/cpu.c:42:
-   In file included from include/trace/events/power.h:12:
-   In file included from include/linux/trace_events.h:10:
+   In file included from arch/x86/kernel/alternative.c:5:
    In file included from include/linux/perf_event.h:53:
    In file included from include/linux/security.h:35:
    In file included from include/linux/bpf.h:33:
    In file included from arch/x86/include/asm/rqspinlock.h:5:
-   arch/x86/include/asm/paravirt.h:742:20: error: static declaration of 'paravirt_arch_exit_mmap' follows non-static declaration
-     742 | static inline void paravirt_arch_exit_mmap(struct mm_struct *mm)
+   arch/x86/include/asm/paravirt.h:576:20: error: static declaration of 'paravirt_arch_exit_mmap' follows non-static declaration
+     576 | static inline void paravirt_arch_exit_mmap(struct mm_struct *mm)
          |                    ^
    arch/x86/include/asm/mmu_context.h:232:2: note: previous implicit declaration is here
      232 |         paravirt_arch_exit_mmap(mm);
          |         ^
-   4 errors generated.
---
-   In file included from kernel/workqueue.c:52:
-   In file included from include/linux/sched/isolation.h:5:
-   In file included from include/linux/cpuset.h:18:
-   In file included from include/linux/mmu_context.h:5:
->> arch/x86/include/asm/mmu_context.h:225:2: error: call to undeclared function 'paravirt_enter_mmap'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     225 |         paravirt_enter_mmap(mm);
+>> arch/x86/kernel/alternative.c:2317:2: error: call to undeclared function 'paravirt_set_cap'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    2317 |         paravirt_set_cap();
          |         ^
->> arch/x86/include/asm/mmu_context.h:232:2: error: call to undeclared function 'paravirt_arch_exit_mmap'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     232 |         paravirt_arch_exit_mmap(mm);
-         |         ^
-   arch/x86/include/asm/mmu_context.h:232:2: note: did you mean 'ldt_arch_exit_mmap'?
-   arch/x86/include/asm/mmu_context.h:61:6: note: 'ldt_arch_exit_mmap' declared here
-      61 | void ldt_arch_exit_mmap(struct mm_struct *mm);
-         |      ^
-   2 errors generated.
---
->> arch/x86/kernel/x86_init.c:90:15: error: use of undeclared identifier 'default_banner'
-      90 |                 .banner                 = default_banner,
-         |                                           ^
-   1 error generated.
---
-   In file included from arch/x86/mm/init.c:30:
->> arch/x86/include/asm/mmu_context.h:225:2: error: call to undeclared function 'paravirt_enter_mmap'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     225 |         paravirt_enter_mmap(mm);
-         |         ^
->> arch/x86/include/asm/mmu_context.h:232:2: error: call to undeclared function 'paravirt_arch_exit_mmap'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     232 |         paravirt_arch_exit_mmap(mm);
-         |         ^
-   arch/x86/include/asm/mmu_context.h:232:2: note: did you mean 'ldt_arch_exit_mmap'?
-   arch/x86/include/asm/mmu_context.h:61:6: note: 'ldt_arch_exit_mmap' declared here
-      61 | void ldt_arch_exit_mmap(struct mm_struct *mm);
-         |      ^
->> arch/x86/mm/init.c:827:2: error: call to undeclared function 'paravirt_enter_mmap'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     827 |         paravirt_enter_mmap(text_poke_mm);
-         |         ^
-   3 errors generated.
+   arch/x86/kernel/alternative.c:2317:2: note: did you mean 'paravirt_ret0'?
+   arch/x86/include/asm/paravirt-base.h:23:15: note: 'paravirt_ret0' declared here
+      23 | unsigned long paravirt_ret0(void);
+         |               ^
+   5 errors generated.
 
 
-vim +/paravirt_enter_mmap +225 arch/x86/include/asm/mmu_context.h
+vim +/paravirt_set_cap +2317 arch/x86/kernel/alternative.c
 
-a31e184e4f6996 Dave Hansen        2019-01-02  221  
-c10e83f598d080 Thomas Gleixner    2017-12-14  222  static inline int arch_dup_mmap(struct mm_struct *oldmm, struct mm_struct *mm)
-a1ea1c032b8f8c Dave Hansen        2014-11-18  223  {
-a31e184e4f6996 Dave Hansen        2019-01-02  224  	arch_dup_pkeys(oldmm, mm);
-c9ae1b10d95610 Juergen Gross      2023-02-07 @225  	paravirt_enter_mmap(mm);
-82721d8b25d76c Kirill A. Shutemov 2023-03-12  226  	dup_lam(oldmm, mm);
-a4828f81037f49 Thomas Gleixner    2017-12-14  227  	return ldt_dup_context(oldmm, mm);
-a1ea1c032b8f8c Dave Hansen        2014-11-18  228  }
-a1ea1c032b8f8c Dave Hansen        2014-11-18  229  
-a1ea1c032b8f8c Dave Hansen        2014-11-18  230  static inline void arch_exit_mmap(struct mm_struct *mm)
-a1ea1c032b8f8c Dave Hansen        2014-11-18  231  {
-a1ea1c032b8f8c Dave Hansen        2014-11-18 @232  	paravirt_arch_exit_mmap(mm);
-f55f0501cbf65e Andy Lutomirski    2017-12-12  233  	ldt_arch_exit_mmap(mm);
-a1ea1c032b8f8c Dave Hansen        2014-11-18  234  }
-a1ea1c032b8f8c Dave Hansen        2014-11-18  235  
+270a69c4485d7d arch/x86/kernel/alternative.c  Peter Zijlstra            2023-02-08  2288  
+9a0b5817ad97bb arch/i386/kernel/alternative.c Gerd Hoffmann             2006-03-23  2289  void __init alternative_instructions(void)
+9a0b5817ad97bb arch/i386/kernel/alternative.c Gerd Hoffmann             2006-03-23  2290  {
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2291  	u64 ibt;
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2292  
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2293  	int3_selftest();
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2294  
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2295  	/*
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2296  	 * The patching is not fully atomic, so try to avoid local
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2297  	 * interruptions that might execute the to be patched code.
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2298  	 * Other CPUs are not running.
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2299  	 */
+8f4e956b313dcc arch/i386/kernel/alternative.c Andi Kleen                2007-07-22  2300  	stop_nmi();
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2301  
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2302  	/*
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2303  	 * Don't stop machine check exceptions while patching.
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2304  	 * MCEs only happen when something got corrupted and in this
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2305  	 * case we must do something about the corruption.
+32b1cbe380417f arch/x86/kernel/alternative.c  Marco Ammon               2019-09-02  2306  	 * Ignoring it is worse than an unlikely patching race.
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2307  	 * Also machine checks tend to be broadcast and if one CPU
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2308  	 * goes into machine check the others follow quickly, so we don't
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2309  	 * expect a machine check to cause undue problems during to code
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2310  	 * patching.
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2311  	 */
+8f4e956b313dcc arch/i386/kernel/alternative.c Andi Kleen                2007-07-22  2312  
+4e6292114c7412 arch/x86/kernel/alternative.c  Juergen Gross             2021-03-11  2313  	/*
+f7af6977621a41 arch/x86/kernel/alternative.c  Juergen Gross             2023-12-10  2314  	 * Make sure to set (artificial) features depending on used paravirt
+f7af6977621a41 arch/x86/kernel/alternative.c  Juergen Gross             2023-12-10  2315  	 * functions which can later influence alternative patching.
+4e6292114c7412 arch/x86/kernel/alternative.c  Juergen Gross             2021-03-11  2316  	 */
+4e6292114c7412 arch/x86/kernel/alternative.c  Juergen Gross             2021-03-11 @2317  	paravirt_set_cap();
+4e6292114c7412 arch/x86/kernel/alternative.c  Juergen Gross             2021-03-11  2318  
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2319  	/* Keep CET-IBT disabled until caller/callee are patched */
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2320  	ibt = ibt_save(/*disable*/ true);
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2321  
+931ab63664f02b arch/x86/kernel/alternative.c  Peter Zijlstra            2022-10-27  2322  	__apply_fineibt(__retpoline_sites, __retpoline_sites_end,
+1d7e707af44613 arch/x86/kernel/alternative.c  Mike Rapoport (Microsoft  2025-01-26  2323) 			__cfi_sites, __cfi_sites_end, true);
+931ab63664f02b arch/x86/kernel/alternative.c  Peter Zijlstra            2022-10-27  2324  
+7508500900814d arch/x86/kernel/alternative.c  Peter Zijlstra            2021-10-26  2325  	/*
+7508500900814d arch/x86/kernel/alternative.c  Peter Zijlstra            2021-10-26  2326  	 * Rewrite the retpolines, must be done before alternatives since
+7508500900814d arch/x86/kernel/alternative.c  Peter Zijlstra            2021-10-26  2327  	 * those can rewrite the retpoline thunks.
+7508500900814d arch/x86/kernel/alternative.c  Peter Zijlstra            2021-10-26  2328  	 */
+1d7e707af44613 arch/x86/kernel/alternative.c  Mike Rapoport (Microsoft  2025-01-26  2329) 	apply_retpolines(__retpoline_sites, __retpoline_sites_end);
+1d7e707af44613 arch/x86/kernel/alternative.c  Mike Rapoport (Microsoft  2025-01-26  2330) 	apply_returns(__return_sites, __return_sites_end);
+7508500900814d arch/x86/kernel/alternative.c  Peter Zijlstra            2021-10-26  2331  
+a82b26451de126 arch/x86/kernel/alternative.c  Peter Zijlstra (Intel     2025-06-03  2332) 	its_fini_core();
+a82b26451de126 arch/x86/kernel/alternative.c  Peter Zijlstra (Intel     2025-06-03  2333) 
+e81dc127ef6988 arch/x86/kernel/alternative.c  Thomas Gleixner           2022-09-15  2334  	/*
+ab9fea59487d8b arch/x86/kernel/alternative.c  Peter Zijlstra            2025-02-07  2335  	 * Adjust all CALL instructions to point to func()-10, including
+ab9fea59487d8b arch/x86/kernel/alternative.c  Peter Zijlstra            2025-02-07  2336  	 * those in .altinstr_replacement.
+e81dc127ef6988 arch/x86/kernel/alternative.c  Thomas Gleixner           2022-09-15  2337  	 */
+e81dc127ef6988 arch/x86/kernel/alternative.c  Thomas Gleixner           2022-09-15  2338  	callthunks_patch_builtin_calls();
+e81dc127ef6988 arch/x86/kernel/alternative.c  Thomas Gleixner           2022-09-15  2339  
+ab9fea59487d8b arch/x86/kernel/alternative.c  Peter Zijlstra            2025-02-07  2340  	apply_alternatives(__alt_instructions, __alt_instructions_end);
+ab9fea59487d8b arch/x86/kernel/alternative.c  Peter Zijlstra            2025-02-07  2341  
+be0fffa5ca894a arch/x86/kernel/alternative.c  Peter Zijlstra            2023-06-22  2342  	/*
+be0fffa5ca894a arch/x86/kernel/alternative.c  Peter Zijlstra            2023-06-22  2343  	 * Seal all functions that do not have their address taken.
+be0fffa5ca894a arch/x86/kernel/alternative.c  Peter Zijlstra            2023-06-22  2344  	 */
+1d7e707af44613 arch/x86/kernel/alternative.c  Mike Rapoport (Microsoft  2025-01-26  2345) 	apply_seal_endbr(__ibt_endbr_seal, __ibt_endbr_seal_end);
+ed53a0d971926e arch/x86/kernel/alternative.c  Peter Zijlstra            2022-03-08  2346  
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2347  	ibt_restore(ibt);
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2348  
 
 -- 
 0-DAY CI Kernel Test Service
