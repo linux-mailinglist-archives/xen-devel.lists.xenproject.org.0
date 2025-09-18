@@ -2,32 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF53DB84DE7
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Sep 2025 15:36:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1126107.1467785 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BA74B84F4E
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Sep 2025 16:04:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1126126.1467796 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uzEnl-0005eg-Q8; Thu, 18 Sep 2025 13:35:57 +0000
+	id 1uzFFB-0001Fg-28; Thu, 18 Sep 2025 14:04:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1126107.1467785; Thu, 18 Sep 2025 13:35:57 +0000
+Received: by outflank-mailman (output) from mailman id 1126126.1467796; Thu, 18 Sep 2025 14:04:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uzEnl-0005cB-NL; Thu, 18 Sep 2025 13:35:57 +0000
-Received: by outflank-mailman (input) for mailman id 1126107;
- Thu, 18 Sep 2025 13:35:56 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1uzFFA-0001Du-UR; Thu, 18 Sep 2025 14:04:16 +0000
+Received: by outflank-mailman (input) for mailman id 1126126;
+ Thu, 18 Sep 2025 14:04:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uzEnk-0005c5-ME
- for xen-devel@lists.xenproject.org; Thu, 18 Sep 2025 13:35:56 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uzEnk-00FyFa-0k;
- Thu, 18 Sep 2025 13:35:56 +0000
-Received: from [15.248.2.235] (helo=[10.24.67.203])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uzEnk-00GKVy-0p;
- Thu, 18 Sep 2025 13:35:56 +0000
+ (envelope-from <SRS0=j8y1=35=redhat.com=peterx@srs-se1.protection.inumbo.net>)
+ id 1uzFF9-0001Do-0D
+ for xen-devel@lists.xenproject.org; Thu, 18 Sep 2025 14:04:15 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5ac96565-9498-11f0-9d13-b5c5bf9af7f9;
+ Thu, 18 Sep 2025 16:04:13 +0200 (CEST)
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-61-ebReSU0YM8uN14Z_M_oQJA-1; Thu, 18 Sep 2025 10:04:10 -0400
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-8217df6d44cso161433985a.2
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Sep 2025 07:04:09 -0700 (PDT)
+Received: from x1.local ([174.89.135.121]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8363344e970sm165242485a.61.2025.09.18.07.04.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Sep 2025 07:04:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,160 +48,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=l3czIp3hSCM+jgKutsn+9ltPY+cNP43JxGW/OkrSBzk=; b=330WumM/FodOXMLJ3zk4w66dx/
-	VHDUNRghBIg2WM4OEB8XvpDKar1S6BHM7PyhVEjUIDQngzNAb0eaW/MAgUd8VCBU1KuaidvzdMETq
-	hp6DtIKr/YGvr1Ji9dmITu3VAs5+LlKbNYfJWeesdMIqZGVpDuvBlGe0ENzGOp+q2Mpg=;
-Message-ID: <ddce2b69-3ba3-4c04-ab82-092ce2c98cf3@xen.org>
-Date: Thu, 18 Sep 2025 14:35:54 +0100
+X-Inumbo-ID: 5ac96565-9498-11f0-9d13-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1758204252;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oylp830QgzWCxYygQPu4YXMnJbTIkCEHwCADQS7PoK8=;
+	b=gb8YW2X6GyTHcq1cYm9jVcVGeCa+yqlAiKn/xqomi54Dxmk2yuoFbKTY0wwBOSLxuH70Ac
+	tlCSUPlWjhMLfhXDDS90e9EFeRdEuPl1TkJ8DPyO8aWB6SNR/IY1MxJtw9Cw1qH4dHr4lB
+	7g1NuEAFfVsU0fkegsC4Z/K8+ANvC88=
+X-MC-Unique: ebReSU0YM8uN14Z_M_oQJA-1
+X-Mimecast-MFC-AGG-ID: ebReSU0YM8uN14Z_M_oQJA_1758204249
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1758204249; x=1758809049;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oylp830QgzWCxYygQPu4YXMnJbTIkCEHwCADQS7PoK8=;
+        b=jsREnOp90QPDW4YD7U2ENjWtjnnHmIAb8SY68NrMPR3WGz5sq5QSVhjqtvE9hmHo2W
+         39XLXb2gqPHtSZ/UjFoUkIfeAJLhOapersXKsVPtbDfAWE/v4HW4fws/swhhdqJtTiLa
+         7fDXrOsRBxDPM2gHpHWhXYJtzFPEzrBUn0+Mt6hk6KQPvNWBdFHe6595a8XHEbb7P9uz
+         q3pDVakvlo+L2GWJOL/phO5oJihvRzFB7bUUAP5cOv99nkg04Y+Pl3nUiYYfvpYogRno
+         v04Q0w/Y4VW1YJOc3dPZUnmtPtPzo8GTBSPnbWEVb14MWKNA80zY51U1VrYHUlpyXw/r
+         hKaQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXOjvrwS0XyfuM/silX6iGtR1V6bhj9LOW5iZYaAg0Md2bfs7EKRXZgb0LbLKnZmfx2+bOKH0e1vj0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzG1ozzr1nZU3TEiaiPG36CPM1oSMg6nMFW+vTlPKi327cHx1WZ
+	8pBqnaImsRS7rATHrVPlJ9KrYVg43Wo0r4g7I4ja8T/j72wMon6BYhvt27Q3s08boXvSULk+5n1
+	c/3HdNSX6pnexXiYsNeAdOHZhdWEpOX7001SSiRRpR4auoOmOoPJU332sO8xqJsaIB0GB
+X-Gm-Gg: ASbGncvuiN8v3RVMLBTN3SQUnDvLau/8W3H1xLNB74yUtEWUWIg5Il8nJG5HugXzM9V
+	eOvnekWcZN3TDw9q41Pwp66AdOsY22Za4X2Nmv+6fEdlDvmxZ+Kj7nuzvpyB7pWZeIGW4m3i+i5
+	avJSnDv55EjwqM2yiThN4lEBG+WsPtpopY8vomHg1enbbXhoPbBvHY8oIflLCjTlGx0celM2Fnu
+	10zU+5fI1jhHbrq3mHj7ZP9g6sJ4yJZFQUKF6fjgEGOpEdbKH0imDBX/wWHGgoSYSQHi20O1Otl
+	dRlOnwMJp1DuoA19NefwOrjj3//ew0+J
+X-Received: by 2002:a05:620a:2a07:b0:822:f45b:a5ef with SMTP id af79cd13be357-8310a6416admr643808985a.29.1758204249165;
+        Thu, 18 Sep 2025 07:04:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHa8HlWVxiunhxh9YQWqVYN7oHdznhotjK4AQbo42C9SFdIf9dV/mPRmaLtfzCAOkZHoqjgOw==
+X-Received: by 2002:a05:620a:2a07:b0:822:f45b:a5ef with SMTP id af79cd13be357-8310a6416admr643799885a.29.1758204248504;
+        Thu, 18 Sep 2025 07:04:08 -0700 (PDT)
+Date: Thu, 18 Sep 2025 10:03:54 -0400
+From: Peter Xu <peterx@redhat.com>
+To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+Cc: qemu-devel@nongnu.org, Alex Williamson <alex.williamson@redhat.com>,
+	=?utf-8?Q?C=C3=A9dric?= Le Goater <clg@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	David Hildenbrand <david@redhat.com>,
+	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Helge Deller <deller@gmx.de>,
+	=?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>, John Snow <jsnow@redhat.com>,
+	qemu-block@nongnu.org, Keith Busch <kbusch@kernel.org>,
+	Klaus Jensen <its@irrelevant.dk>,
+	Jesper Devantier <foss@defmacro.it>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Nicholas Piggin <npiggin@gmail.com>, qemu-ppc@nongnu.org,
+	John Levon <john.levon@nutanix.com>,
+	Thanos Makatos <thanos.makatos@nutanix.com>,
+	Yanan Wang <wangyanan55@huawei.com>,
+	BALATON Zoltan <balaton@eik.bme.hu>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Daniel Henrique Barboza <danielhb413@gmail.com>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	Harsh Prateek Bora <harshpb@linux.ibm.com>,
+	Alexey Kardashevskiy <aik@ozlabs.ru>,
+	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Fabiano Rosas <farosas@suse.de>, Thomas Huth <thuth@redhat.com>,
+	Laurent Vivier <lvivier@redhat.com>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Aurelien Jarno <aurelien@aurel32.net>,
+	Aleksandar Rikalo <arikalo@gmail.com>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	=?utf-8?B?SGVydsOp?= Poussineau <hpoussin@reactos.org>,
+	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+	Artyom Tarasenko <atar4qemu@gmail.com>,
+	Alistair Francis <alistair@alistair23.me>,
+	"Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
+	Bin Meng <bmeng.cn@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Paul Durrant <paul@xen.org>,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 0/7] Do not unparent in instance_finalize()
+Message-ID: <aMwRSpezxmIwIHrU@x1.local>
+References: <20250917-use-v3-0-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/4] arm/sysctl: Implement cpu hotplug ops
-Content-Language: en-GB
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1758197507.git.mykyta_poturai@epam.com>
- <34c9b488ad949cbcd93bd8578dd5bc180fab8738.1758197507.git.mykyta_poturai@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <34c9b488ad949cbcd93bd8578dd5bc180fab8738.1758197507.git.mykyta_poturai@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20250917-use-v3-0-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: OfzqKQY38lv-94LIVMChFHDyTkZx_b917uRkBfTOWWw_1758204249
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-Hi Mykyta,
+On Wed, Sep 17, 2025 at 07:13:25PM +0900, Akihiko Odaki wrote:
+> Based-on: <cover.1751493467.git.balaton@eik.bme.hu>
+> ("[PATCH v2 00/14] hw/pci-host/raven clean ups")
 
-On 18/09/2025 13:16, Mykyta Poturai wrote:
-> Implement XEN_SYSCTL_CPU_HOTPLUG_* calls to allow for enabling/disabling
-> CPU cores in runtime.
-> 
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> ---
->   xen/arch/arm/sysctl.c | 67 +++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 67 insertions(+)
-> 
-> diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
-> index 32cab4feff..ca8fb550fd 100644
-> --- a/xen/arch/arm/sysctl.c
-> +++ b/xen/arch/arm/sysctl.c
-> @@ -12,6 +12,7 @@
->   #include <xen/dt-overlay.h>
->   #include <xen/errno.h>
->   #include <xen/hypercall.h>
-> +#include <xen/cpu.h>
->   #include <asm/arm64/sve.h>
->   #include <public/sysctl.h>
->   
-> @@ -23,6 +24,68 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
->                                          XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);
->   }
->   
-> +static long cpu_up_helper(void *data)
-> +{
-> +    unsigned long cpu = (unsigned long) data;
-> +    return cpu_up(cpu);
-> +}
-> +
-> +static long cpu_down_helper(void *data)
-> +{
-> +    unsigned long cpu = (unsigned long) data;
-> +    return cpu_down(cpu);
-> +}
-> +
-> +static long smt_up_down_helper(void *data)
-
-Looking at the code, you will effectively disable all the CPUs but CPU0. 
-But I don't understand why. From the name is goal seems to be disable 
-SMT threading.
-
-> +{
-> +    bool up = (bool) data;
-> +    unsigned int cpu;
-> +    int ret;
-> +
-> +    for_each_present_cpu ( cpu )
-> +    {
-> +        if ( cpu == 0 )
-> +            continue;
-> +
-> +        if ( up )
-> +            ret = cpu_up(cpu);
-> +        else
-> +            ret = cpu_down(cpu);
-> +
-
-Regardless what I wrote above, you likely want to handle preemption.
-
-> +        if ( ret )
-> +            return ret;
- > +    }
-> +
-> +    return 0;
-> +}
-> +
-> +static long cpu_hotplug_sysctl(struct xen_sysctl_cpu_hotplug *hotplug)
-> +{
-> +    bool up;
-> +
-> +    switch (hotplug->op) {
-> +        case XEN_SYSCTL_CPU_HOTPLUG_ONLINE:
-> +            if ( hotplug->cpu == 0 )
-
-I can't find a similar check on x86. Do you have any pointer?
-
-> +                return -EINVAL;
-
-On x86, they seem to check for XSM permission before continuing. Can you 
-explain why this is not necessary? Same questions applies below.
-
-> +            return continue_hypercall_on_cpu(0, cpu_up_helper, _p(hotplug->cpu));
-> +
-> +        case XEN_SYSCTL_CPU_HOTPLUG_OFFLINE:
-> +            if ( hotplug->cpu == 0 )
-> +                return -EINVAL;
-> +            return continue_hypercall_on_cpu(0, cpu_down_helper, _p(hotplug->cpu));
-> +
-> +        case XEN_SYSCTL_CPU_HOTPLUG_SMT_ENABLE:
-> +        case XEN_SYSCTL_CPU_HOTPLUG_SMT_DISABLE:
-
-Why are we implementing those helpers on Arm?
-
-> +            if ( CONFIG_NR_CPUS <= 1 )
-> +                return 0;
-> +            up = hotplug->op == XEN_SYSCTL_CPU_HOTPLUG_SMT_ENABLE;
-> +            return continue_hypercall_on_cpu(0, smt_up_down_helper, _p(up));
-> +
-> +        default:
-> +            return -EINVAL;
-> +    }
-> +}
-> +
->   long arch_do_sysctl(struct xen_sysctl *sysctl,
->                       XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->   {
-> @@ -34,6 +97,10 @@ long arch_do_sysctl(struct xen_sysctl *sysctl,
->           ret = dt_overlay_sysctl(&sysctl->u.dt_overlay);
->           break;
->   
-> +    case XEN_SYSCTL_cpu_hotplug:
-
-This will also enable CPU hotplug on 32-bit Arm. Is this what you 
-intended? (I see patch #4 only mention 64-bit Arm).
-
-> +        ret = cpu_hotplug_sysctl(&sysctl->u.cpu_hotplug);
-> +        break;
-> +
->       default:
->           ret = -ENOSYS;
->           break;
-
-Cheers,
+Could I ask why this is a dependency?
 
 -- 
-Julien Grall
+Peter Xu
 
 
