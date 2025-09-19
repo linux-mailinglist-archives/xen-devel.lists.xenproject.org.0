@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66C18B86E21
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Sep 2025 22:21:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1126634.1468136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38CD6B8927C
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Sep 2025 12:53:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1126833.1468156 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uzL7f-0006dM-Lv; Thu, 18 Sep 2025 20:20:55 +0000
+	id 1uzYk2-0000l1-O6; Fri, 19 Sep 2025 10:53:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1126634.1468136; Thu, 18 Sep 2025 20:20:55 +0000
+Received: by outflank-mailman (output) from mailman id 1126833.1468156; Fri, 19 Sep 2025 10:53:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uzL7f-0006b5-J2; Thu, 18 Sep 2025 20:20:55 +0000
-Received: by outflank-mailman (input) for mailman id 1126634;
- Thu, 18 Sep 2025 20:20:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uzYk2-0000hs-KT; Fri, 19 Sep 2025 10:53:26 +0000
+Received: by outflank-mailman (input) for mailman id 1126833;
+ Fri, 19 Sep 2025 10:53:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/FRX=35=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1uzL7e-0006az-8J
- for xen-devel@lists.xenproject.org; Thu, 18 Sep 2025 20:20:54 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f96efdab-94cc-11f0-9d14-b5c5bf9af7f9;
- Thu, 18 Sep 2025 22:20:53 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 880164EEBC46;
- Thu, 18 Sep 2025 22:20:52 +0200 (CEST)
+ <SRS0=BFOU=36=rsg.ci.i.u-tokyo.ac.jp=odaki@srs-se1.protection.inumbo.net>)
+ id 1uzYk1-0000hQ-0N
+ for xen-devel@lists.xenproject.org; Fri, 19 Sep 2025 10:53:25 +0000
+Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id db5ad10c-9546-11f0-9809-7dc792cee155;
+ Fri, 19 Sep 2025 12:53:22 +0200 (CEST)
+Received: from [133.11.54.205] (h205.csg.ci.i.u-tokyo.ac.jp [133.11.54.205])
+ (authenticated bits=0)
+ by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 58JAkcQT033756
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Fri, 19 Sep 2025 19:46:38 +0900 (JST)
+ (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,196 +42,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f96efdab-94cc-11f0-9d14-b5c5bf9af7f9
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1758226852;
-	b=vjpKQbaf3xGJ4eYygWmgWWIY3Cfj5ZUQ31+14WyvhLcIrFWZ1GtT3kOHoPUOUoEyKMuy
-	 lFtji/ofr2hQhgEf5bgDYPgS7o+9adaxXUH25BomOQZ1HqDFNfnSe89Jx0D/535OQW0yO
-	 OQa/7RkOSDG0crVzIgdRuJ007nvmn7v2fmBTZwscf8k5fzDuB4p+BCtWaraaUWK/5VDs2
-	 Yk+45qB/apW6FgYEFo+TwKIzVUkFSfnAXo8y/mwayBKs+0lbmfWEtz0SNIdh8TC3nE2xE
-	 S6uS/WV7iHknGUxqe5D4A4lbVTlu0YzjjvGrFlduX2V9ZqJ5MQlMypYFFTgVqDpqDZnw6
-	 6dwkj2f+HYl3jlKS1IRF99luQWhvI0mwsDHxoOPMytkuqf6CUnGzAMJWNnh6vj/ibHcIK
-	 KeigVrG7UefiHk0XIRC9Q2na6+/zYRuCvsHQQbTrv0xFr4Gwr87wJOzYVb2MySgKHHsRD
-	 0ZsYj+6Kiehif94A2NUWKCgzEf6Pk0CsF45e8g6nvrhKhF3EzqjUxM9cxO1HzdxGH3lg2
-	 KgGRlI16P3P8mngGOQLMqGQsNN1tadFVJDhLIp00xNbXPxr+s31OeZj2ukD3PoKSwg9P2
-	 HLBbAMIx6XSZRqudG9mAn8PTmxA+GCHZkkhGs8qL/w0RZ6yHlpDvKa1d+wJGyCk=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1758226852;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=24zUaynGRgP2C6h9wNbYiP2S+tmjDNyTWTI96tpvjXI=;
-	b=vc32Y/QN9mnFkyoFXJE70fiL8rQ/MzBGu/7T61F8nZ8/EvUFN6AglBWirmRzShrxOPEZ
-	 GLOJbF71vUZYvvpZLV0wbf0ZLf+3l6IXYyo+AaIGAjCMNuExx9KfV9YJNLwVn5hqY2OI5
-	 t4EygkJbZEc7Z9chw7sI90s48QWbWxbhBY1CxOx1KmQSnU8hM2Acr1G76InsspnLXUVht
-	 QIs5XvlHCm413BbOiTL6UEORBC1JtO7LkmOOF9S9q+bIpqzm5rz+yTRCOHIGbQOIUKjtQ
-	 1jIgA97ZMGMNf4BgtNMcmzv7ae8bcVS93z1/2OJ/FqVt6uoFuQnCZ75I05qFq+pt/rqcR
-	 f8RoDmIlWth17/Px5LrWBBf5Wnq+1xWvFzV9vrKBAuJ+BMR/DJC/lHRtg7wHqMNmSJpjH
-	 feevp1xPjIrTILZenKYnFJgTDNm1xFk+jN/EVymBjp0PaqoP4NqpVy436JaOwIczo4f6a
-	 voi0Eu1P0J9thJsibju/twA+e26BzvF5CgJc3VSczQTSAfs9s/CQGbKSRo03uLPwvxEe7
-	 hwGleR4Fb8yfqagKFkdtejoGfCAXbBqu2wrafs3klJJbwaKSOe3CeeCC2z+xefIvRuZeL
-	 SMe8IN9q8EDTpyAeflEuIGXGUZFVPDr8c0Hr6hrhH3STCdv5pAx94n2Stm8Lk8o=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1758226852; bh=6iIra69cuzKV3VJWr1RJqp2ftMdT2ygbviSgAOwwgEI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=NrNpXRuHSVbhi7tVk3H2UX+FPADPefL+Lyc0SamHPBMqNS70m8ElQOMPujffbLg4C
-	 sAC9ce9QZuGoYeoN9Fk+aTIOoHO84LzU+OmoYrwonMllK6POsPabrnOJuZxhjWBq3H
-	 jLKUCwZvfRq2AV/wX+kt9EgaqKmCoyDlrbbP0Yc6K9KtE3n9DfOrlIlLJKjRvG0DlF
-	 zWpQ0hKxt9GElbRHho05xaDrG83loJ8I8X+JgPFM7vEp67zTGsK8KeQwblPaJa+wCA
-	 YNMGDSp2GZfceKTuVyPaF5FVDo8aPQVxnDl3pULSIoLEtvHNmKUWviQC+lI9Jen25Q
-	 0X9rC5VESMwwA==
+X-Inumbo-ID: db5ad10c-9546-11f0-9809-7dc792cee155
+DKIM-Signature: a=rsa-sha256; bh=rWCFvrSz0E2oCjuTU959aed1+QCvq+UCU8sf+vOrvRg=;
+        c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+        h=Message-ID:Date:Subject:To:From;
+        s=rs20250326; t=1758278798; v=1;
+        b=CJhWqRXMK7EVEqt5O4fzgwRHkpbvNlCZaOFGT2JRrokvtE+QlXyrJW49lss+htTp
+         KFQ9E4TwLqRPpCtI4tDvZhlu5p+VEeAg5rZ5h32ZHa35LPKVJVUy9pwNtE/60NSZ
+         qq56vOq+zd3BaQf/Jvtr0LJAzESnC/31asffQw6Px03Q2E14OlyKOsrSBsT9SdS/
+         sf6iBD4VFClJOHPImJDN5/M2qkalIoEDAePrmpoDFSsBz1S0IDQSBvgwEmvShJG+
+         6hbf/Npf5//RO3LzPxRwYamdTAldhiXOb0FjhvPd7Yg15U62VVBLFDiaTcrYKflb
+         uoErgJ/vf6oO0EVI+zRkug==
+Message-ID: <7511a948-10ef-4325-9818-35775c522aee@rsg.ci.i.u-tokyo.ac.jp>
+Date: Fri, 19 Sep 2025 19:46:38 +0900
 MIME-Version: 1.0
-Date: Thu, 18 Sep 2025 22:20:52 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: victorm.lira@amd.com
-Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Marek_Marczykowski-G=C3=B3r?=
- =?UTF-8?Q?ecki?= <marmarek@invisiblethingslab.com>, Anthony PERARD
- <anthony.perard@vates.tech>, Doug Goldstein <cardoe@cardoe.com>, Stefano
- Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v1] automation: edit pipeline to prevent running
- non-selected jobs
-In-Reply-To: <1437334569e10b76d1d7dc4e9fca7c25606855fb.1756862843.git.victorm.lira@amd.com>
-References: <1437334569e10b76d1d7dc4e9fca7c25606855fb.1756862843.git.victorm.lira@amd.com>
-Message-ID: <bdd5b8e3711fed45325fe87bd2f68566@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/7] docs/devel: Do not unparent in instance_finalize()
+To: Peter Xu <peterx@redhat.com>
+Cc: qemu-devel@nongnu.org, Alex Williamson <alex.williamson@redhat.com>,
+        =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?=
+ <berrange@redhat.com>,
+        Eduardo Habkost <eduardo@habkost.net>,
+        David Hildenbrand <david@redhat.com>,
+        =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+        Richard Henderson <richard.henderson@linaro.org>,
+        Helge Deller <deller@gmx.de>,
+        =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
+ <marcandre.lureau@redhat.com>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Gerd Hoffmann <kraxel@redhat.com>, John Snow <jsnow@redhat.com>,
+        qemu-block@nongnu.org, Keith Busch <kbusch@kernel.org>,
+        Klaus Jensen <its@irrelevant.dk>, Jesper Devantier <foss@defmacro.it>,
+        Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+        Nicholas Piggin <npiggin@gmail.com>, qemu-ppc@nongnu.org,
+        John Levon <john.levon@nutanix.com>,
+        Thanos Makatos <thanos.makatos@nutanix.com>,
+        Yanan Wang <wangyanan55@huawei.com>,
+        BALATON Zoltan <balaton@eik.bme.hu>,
+        Jiaxun Yang <jiaxun.yang@flygoat.com>,
+        Daniel Henrique Barboza <danielhb413@gmail.com>,
+        David Gibson <david@gibson.dropbear.id.au>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        Alexey Kardashevskiy <aik@ozlabs.ru>,
+        =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>,
+        Fabiano Rosas <farosas@suse.de>, Thomas Huth <thuth@redhat.com>,
+        Laurent Vivier <lvivier@redhat.com>,
+        Peter Maydell <peter.maydell@linaro.org>,
+        Aurelien Jarno <aurelien@aurel32.net>,
+        Aleksandar Rikalo
+ <arikalo@gmail.com>,
+        Max Filippov <jcmvbkbc@gmail.com>,
+        =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
+        Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+        Artyom Tarasenko <atar4qemu@gmail.com>,
+        Alistair Francis <alistair@alistair23.me>,
+        "Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
+        Bin Meng <bmeng.cn@gmail.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
+        "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+        xen-devel@lists.xenproject.org
+References: <20250917-use-v3-0-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
+ <20250917-use-v3-1-72c2a6887c6c@rsg.ci.i.u-tokyo.ac.jp>
+ <aMxlpfp_LSgiIk9Z@x1.local> <aMxnj7ID0PpWUVNu@x1.local>
+Content-Language: en-US
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <aMxnj7ID0PpWUVNu@x1.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2025-09-03 03:49, victorm.lira@amd.com wrote:
-> From: Victor Lira <victorm.lira@amd.com>
-> 
-> Filtering jobs using the selected jobs regex is missing for
-> qemu-export/yocto- jobs when running regular pipelines and eclair jobs
-> when running scheduled pipelines.
-> 
-> Add the missing rules to filter out those jobs, and set a default value
-> for the selected jobs regex to remove the need to always check if the
-> variable is empty.
-> 
-> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+On 2025/09/19 5:11, Peter Xu wrote:
+> On Thu, Sep 18, 2025 at 04:03:49PM -0400, Peter Xu wrote:
+>> On Wed, Sep 17, 2025 at 07:13:26PM +0900, Akihiko Odaki wrote:
+>>> Children are automatically unparented so manually unparenting is
+>>> unnecessary.
+>>>
+>>> Worse, automatic unparenting happens before the instance_finalize()
+>>> callback of the parent gets called, so object_unparent() calls in
+>>> the callback will refer to objects that are already unparented, which
+>>> is semantically incorrect.
+>>>
+>>> Remove the instruction to call object_unparent(), and the exception
+>>> of the "do not call object_unparent()" rule for instance_finalize().
+>>>
+>>> Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+>>> ---
+>>>   docs/devel/memory.rst | 19 ++++++-------------
+>>>   1 file changed, 6 insertions(+), 13 deletions(-)
+>>>
+>>> diff --git a/docs/devel/memory.rst b/docs/devel/memory.rst
+>>> index 57fb2aec76e0..749f11d8a4dd 100644
+>>> --- a/docs/devel/memory.rst
+>>> +++ b/docs/devel/memory.rst
+>>> @@ -161,18 +161,11 @@ or never.
+>>>   Destruction of a memory region happens automatically when the owner
+>>>   object dies.
+>>>   
+>>> -If however the memory region is part of a dynamically allocated data
+>>> -structure, you should call object_unparent() to destroy the memory region
+>>> -before the data structure is freed.  For an example see VFIOMSIXInfo
+>>> -and VFIOQuirk in hw/vfio/pci.c.
+>>
+>> Should we still keep some of these examples?  After the series they'll be
+>> doing the right things.  Dynamic MRs are still slightly tricky, I think
+>> it's still good to have some references.
 
-Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com> # ECLAIR
+I agree. I'll restore it with the next version.
 
-If this goes in before [1] (which is likely), then I should rebase 
-because it will probably conflict
+>>
+>>> -
+>>>   You must not destroy a memory region as long as it may be in use by a
+>>>   device or CPU.  In order to do this, as a general rule do not create or
+>>> -destroy memory regions dynamically during a device's lifetime, and only
+>>> -call object_unparent() in the memory region owner's instance_finalize
+>>> -callback.  The dynamically allocated data structure that contains the
+>>> -memory region then should obviously be freed in the instance_finalize
+>>> -callback as well.
+>>> +destroy memory regions dynamically during a device's lifetime.
+>>> +The dynamically allocated data structure that contains the
+>>> +memory region should be freed in the instance_finalize callback.
+>>>   
+>>>   If you break this rule, the following situation can happen:
+>>>   
+>>> @@ -198,9 +191,9 @@ this exception is rarely necessary, and therefore it is discouraged,
+>>>   but nevertheless it is used in a few places.
+>>>   
+>>>   For regions that "have no owner" (NULL is passed at creation time), the
+>>> -machine object is actually used as the owner.  Since instance_finalize is
+>>> -never called for the machine object, you must never call object_unparent
+>>> -on regions that have no owner, unless they are aliases or containers.
+>>> +machine object is actually used as the owner.  You must never call
+>>> +object_unparent on regions that have no owner, unless they are aliases
+>>> +or containers.
+>>
+>> This looks like a completely separate change.  So we start to allow
+>> machines to be finalized now?  I'm not familiar with machine object
+>> lifecycles.  Maybe split it out even if it's true?
 
-[1] 
-https://lore.kernel.org/xen-devel/d4a0924c84e78b3f677b0d987c2f8e4b3f6b80a5.1758226234.git.nicola.vetrini@bugseng.com/T/#u
+I intended to remove phrase "since instance_finalize is never called for 
+the machine object" because whether instance_finalize is called or not 
+is no longer relevant, and thus object_unparent is always prohibited, 
+whether regions have owners or not, unless they are aliases or containers.
 
-> ---
-> example of the problem:
->   - 
-> https://gitlab.com/xen-project/people/sstabellini/xen/-/pipelines/2018353899
->   - SELECTED_JOBS_ONLY=/alpine-3.18-gcc$/ should produce 1 job only
-> note:
->   - I tested only on sstabellini but the logic should work for 
-> hardware/staging
->     too
-> ---
-> Cc: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> Cc: Anthony PERARD <anthony.perard@vates.tech>
-> Cc: Doug Goldstein <cardoe@cardoe.com>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: xen-devel@lists.xenproject.org
-> ---
->  .gitlab-ci.yml                    | 1 +
->  automation/gitlab-ci/analyze.yaml | 5 +++--
->  automation/gitlab-ci/build.yaml   | 9 ++++++---
->  3 files changed, 10 insertions(+), 5 deletions(-)
-> 
-> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-> index 7974ac4e82..64bed300a6 100644
-> --- a/.gitlab-ci.yml
-> +++ b/.gitlab-ci.yml
-> @@ -2,6 +2,7 @@ variables:
->    XEN_REGISTRY: registry.gitlab.com/xen-project/xen
->    SELECTED_JOBS_ONLY:
->      description: "Regex to select only some jobs, must be enclosed 
-> with /. For example /job1|job2/"
-> +    value: "/.*/"
-> 
->  workflow:
->    name: "$CI_PIPELINE_SCHEDULE_DESCRIPTION"
-> diff --git a/automation/gitlab-ci/analyze.yaml 
-> b/automation/gitlab-ci/analyze.yaml
-> index d507210067..1f58e13cb2 100644
-> --- a/automation/gitlab-ci/analyze.yaml
-> +++ b/automation/gitlab-ci/analyze.yaml
-> @@ -31,8 +31,7 @@
->    rules:
->      - if: $CI_PIPELINE_SOURCE == "schedule"
->        when: never
-> -    - if: $SELECTED_JOBS_ONLY && $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
-> -    - if: $SELECTED_JOBS_ONLY
-> +    - if: $CI_JOB_NAME !~ $SELECTED_JOBS_ONLY
->        when: never
->      - if: $WTOKEN && $CI_PROJECT_PATH =~ /^xen-project\/people\/.*$/
->        when: manual
-> @@ -126,6 +125,8 @@ eclair-ARM64:
->    rules:
->      - if: $CI_PIPELINE_SOURCE != "schedule"
->        when: never
-> +    - if: $CI_JOB_NAME !~ $SELECTED_JOBS_ONLY
-> +      when: never
->      - !reference [.eclair-analysis, rules]
-> 
->  eclair-x86_64:on-schedule:
-> diff --git a/automation/gitlab-ci/build.yaml 
-> b/automation/gitlab-ci/build.yaml
-> index ab5211f77e..b2f96c1fe0 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -226,6 +226,9 @@
->        - binaries/
->      when: always
->    needs: []
-> +  rules:
-> +    - if: $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
-> +      when: manual
-> 
->  .yocto-test-arm64:
->    extends: .yocto-test
-> @@ -261,6 +264,9 @@
->  .test-jobs-artifact-common:
->    stage: build
->    needs: []
-> +  rules:
-> +    - if: $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
-> +      when: on_success
-> 
->  # Arm test artifacts
-> 
-> @@ -468,20 +474,17 @@ yocto-qemuarm64:
->    extends: .yocto-test-arm64
->    variables:
->      YOCTO_BOARD: qemuarm64
-> -  when: manual
-> 
->  yocto-qemuarm:
->    extends: .yocto-test-arm64
->    variables:
->      YOCTO_BOARD: qemuarm
->      YOCTO_OUTPUT: --copy-output
-> -  when: manual
-> 
->  yocto-qemux86-64:
->    extends: .yocto-test-x86-64
->    variables:
->      YOCTO_BOARD: qemux86-64
-> -  when: manual
-> 
->  # Cppcheck analysis jobs
-> 
-> --
-> 2.50.GIT
+The statement still mentions "regions that have no owner"; the 
+restriction of object_unparent is enforced whether the regions have 
+owners, so it is a bit misleading.
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+> 
+> I didn't see anything elsewhere.  If you agree with above, I can queue this
+> series with above touched up, then no need to repost.
+
+I guess I will rewrite this patch, restoring the VFIOQuirk example, and 
+re-check if this whole section is structured logically and consistently.
+
+Regards,
+Akihiko Odaki
 
