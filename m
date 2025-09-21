@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2385B8CE3A
-	for <lists+xen-devel@lfdr.de>; Sat, 20 Sep 2025 19:48:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1127453.1468307 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A0B6B8D2CE
+	for <lists+xen-devel@lfdr.de>; Sun, 21 Sep 2025 02:48:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1127518.1468315 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v01ge-0007gb-Hm; Sat, 20 Sep 2025 17:47:52 +0000
+	id 1v08Ev-0004Ie-6R; Sun, 21 Sep 2025 00:47:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1127453.1468307; Sat, 20 Sep 2025 17:47:52 +0000
+Received: by outflank-mailman (output) from mailman id 1127518.1468315; Sun, 21 Sep 2025 00:47:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v01ge-0007dU-DO; Sat, 20 Sep 2025 17:47:52 +0000
-Received: by outflank-mailman (input) for mailman id 1127453;
- Sat, 20 Sep 2025 17:47:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1v08Ev-0004Fg-0C; Sun, 21 Sep 2025 00:47:41 +0000
+Received: by outflank-mailman (input) for mailman id 1127518;
+ Sun, 21 Sep 2025 00:47:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dmukhin@xen.org>) id 1v01gd-0007dO-M2
- for xen-devel@lists.xenproject.org; Sat, 20 Sep 2025 17:47:51 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1v01gd-001bDx-08;
- Sat, 20 Sep 2025 17:47:51 +0000
-Received: from [19.12.91.86] (helo=localhost)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1v01gc-003Bru-3C;
- Sat, 20 Sep 2025 17:47:50 +0000
+ (envelope-from <SRS0=jld+=4A=kernel.org=kbusch@srs-se1.protection.inumbo.net>)
+ id 1v08Et-0004FV-QU
+ for xen-devel@lists.xenproject.org; Sun, 21 Sep 2025 00:47:39 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org
+ [2600:3c04:e001:324:0:1991:8:25])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8f74c4ac-9684-11f0-9809-7dc792cee155;
+ Sun, 21 Sep 2025 02:47:34 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 70099600AC;
+ Sun, 21 Sep 2025 00:47:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F266C4CEEB;
+ Sun, 21 Sep 2025 00:47:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,163 +42,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
-	Subject:Cc:To:From; bh=Nnhy/WcZtN3kTUljtGt+CfyIIvU2I2Q6XwMwbPjJp78=; b=6Rq3FY
-	E76JcEFYMstY65SsAV/dQHW56hWyG41Iin2eJiV3IRMq7P3U9+jQwS9Tl03OSfkRG1XkWG5uo1GHr
-	PFUNY69sVAKgsN/soPVlK+LR/JSxcnxQOtmBq8L5IPHjeQaa0yX282J0HYnvejJpyKKK8FNZTYh8y
-	9lUBoAc1D08=;
-From: dmukhin@xen.org
-To: xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com,
-	anthony.perard@vates.tech,
-	jbeulich@suse.com,
-	julien@xen.org,
-	michal.orzel@amd.com,
-	roger.pau@citrix.com,
-	sstabellini@kernel.org,
-	dmukhin@ford.com
-Subject: [PATCH v2] xen/domain: introduce DOMID_ANY
-Date: Sat, 20 Sep 2025 10:47:33 -0700
-Message-ID: <20250920174732.1207847-2-dmukhin@ford.com>
-X-Mailer: git-send-email 2.51.0
+X-Inumbo-ID: 8f74c4ac-9684-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1758415652;
+	bh=aFgKZNQUQCaJ2vrroedLHD+DNPOlwj6GGUlnWjzhG5w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=fLUxwzDvBQpVLTwxkVcEMGkM0isY6OG/nLB20SsNVXIRKxxZrAbNIPP/lH+JLvuUn
+	 Kib9NA0Qx8ucaR4Lud4LpP66fHzAfy4YMg/WGXGCNSBD/snmzPLJ/GJr5uZM4GRPA4
+	 FmPuCrywKU63yNMwT+i1LUerAAz4LYMUpnupPis0tcH13QBvBt9TCQlrhzdIw9AGje
+	 8PZjHxaN7jKNeL5CBfGmMNjS4nLwafvguDKC8M88c1TuvUDa7uTmWsQUU6EjD9ZRCh
+	 q7PhsUzYYnzKkPRC+D+A2gtlVl3c6gXMUqXDS+5w81SLBHHJjwyUZmv9q7TG8Bge2K
+	 OMtCSqZskSdHw==
+Date: Sat, 20 Sep 2025 18:47:27 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+	David Hildenbrand <david@redhat.com>, iommu@lists.linux.dev,
+	Jason Wang <jasowang@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+	Joerg Roedel <joro@8bytes.org>, Jonathan Corbet <corbet@lwn.net>,
+	Juergen Gross <jgross@suse.com>, kasan-dev@googlegroups.com,
+	linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+	linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6 00/16] dma-mapping: migrate to physical address-based
+ API
+Message-ID: <aM9LH6WSeOPGeleY@kbusch-mbp>
+References: <CGME20250909132821eucas1p1051ce9e0270ddbf520e105c913fa8db6@eucas1p1.samsung.com>
+ <cover.1757423202.git.leonro@nvidia.com>
+ <0db9bce5-40df-4cf5-85ab-f032c67d5c71@samsung.com>
+ <20250912090327.GU341237@unreal>
+ <aM1_9cS_LGl4GFC5@kbusch-mbp>
+ <20250920155352.GH10800@unreal>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250920155352.GH10800@unreal>
 
-From: Denis Mukhin <dmukhin@ford.com> 
+On Sat, Sep 20, 2025 at 06:53:52PM +0300, Leon Romanovsky wrote:
+> On Fri, Sep 19, 2025 at 10:08:21AM -0600, Keith Busch wrote:
+> > On Fri, Sep 12, 2025 at 12:03:27PM +0300, Leon Romanovsky wrote:
+> > > On Fri, Sep 12, 2025 at 12:25:38AM +0200, Marek Szyprowski wrote:
+> > > > >
+> > > > > This series does the core code and modern flows. A followup series
+> > > > > will give the same treatment to the legacy dma_ops implementation.
+> > > > 
+> > > > Applied patches 1-13 into dma-mapping-for-next branch. Let's check if it 
+> > > > works fine in linux-next.
+> > > 
+> > > Thanks a lot.
+> > 
+> > Just fyi, when dma debug is enabled, we're seeing this new warning
+> > below. I have not had a chance to look into it yet, so I'm just
+> > reporting the observation.
+> 
+> Did you apply all patches or only Marek's branch?
+> I don't get this warning when I run my NVMe tests on current dmabuf-vfio branch.
 
-Add a new symbol DOMID_ANY aliasing DOMID_INVALID to improve the readability
-of the code.
+This was the snapshot of linux-next from the 20250918 tag. It doesn't
+have the full patchset applied.
 
-Update all relevant domid_alloc() call sites.
-
-Amends: 2d5065060710 ("xen/domain: unify domain ID allocation")
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
----
-Changes since v1:
-- moved DOMID_ANY from the public header
----
- tools/tests/domid/harness.h             |  1 +
- tools/tests/domid/test-domid.c          | 12 ++++++------
- xen/common/device-tree/dom0less-build.c |  2 +-
- xen/common/domctl.c                     |  2 +-
- xen/common/domid.c                      |  2 +-
- xen/include/xen/domain.h                |  3 +++
- 6 files changed, 13 insertions(+), 9 deletions(-)
-
-diff --git a/tools/tests/domid/harness.h b/tools/tests/domid/harness.h
-index 17eb22a9a854..610b564d4061 100644
---- a/tools/tests/domid/harness.h
-+++ b/tools/tests/domid/harness.h
-@@ -41,6 +41,7 @@ extern unsigned long find_next_zero_bit(const unsigned long *addr,
- 
- #define DOMID_FIRST_RESERVED            (100)
- #define DOMID_INVALID                   (101)
-+#define DOMID_ANY                       DOMID_INVALID
- 
- #endif /* _TEST_HARNESS_ */
- 
-diff --git a/tools/tests/domid/test-domid.c b/tools/tests/domid/test-domid.c
-index 5915c4699a5c..71cc4e7fd86d 100644
---- a/tools/tests/domid/test-domid.c
-+++ b/tools/tests/domid/test-domid.c
-@@ -41,20 +41,20 @@ int main(int argc, char **argv)
-         domid_free(expected);
- 
-     /*
--     * Test that that two consecutive calls of domid_alloc(DOMID_INVALID)
-+     * Test that that two consecutive calls of domid_alloc(DOMID_ANY)
-      * will never return the same ID.
-      * NB: ID#0 is reserved and shall not be allocated by
--     * domid_alloc(DOMID_INVALID).
-+     * domid_alloc(DOMID_ANY).
-      */
-     for ( expected = 1; expected < DOMID_FIRST_RESERVED; expected++ )
-     {
--        allocated = domid_alloc(DOMID_INVALID);
-+        allocated = domid_alloc(DOMID_ANY);
-         verify(allocated == expected,
-                "TEST 3: expected %u allocated %u\n", expected, allocated);
-     }
-     for ( expected = 1; expected < DOMID_FIRST_RESERVED; expected++ )
-     {
--        allocated = domid_alloc(DOMID_INVALID);
-+        allocated = domid_alloc(DOMID_ANY);
-         verify(allocated == DOMID_INVALID,
-                "TEST 4: expected %u allocated %u\n", DOMID_INVALID, allocated);
-     }
-@@ -64,7 +64,7 @@ int main(int argc, char **argv)
-         domid_free(expected);
-     for ( expected = 1; expected < DOMID_FIRST_RESERVED / 2; expected++ )
-     {
--        allocated = domid_alloc(DOMID_INVALID);
-+        allocated = domid_alloc(DOMID_ANY);
-         verify(allocated == expected,
-                "TEST 5: expected %u allocated %u\n", expected, allocated);
-     }
-@@ -72,7 +72,7 @@ int main(int argc, char **argv)
-     /* Re-allocate last ID from [1..DOMID_FIRST_RESERVED - 1]. */
-     expected = DOMID_FIRST_RESERVED - 1;
-     domid_free(DOMID_FIRST_RESERVED - 1);
--    allocated = domid_alloc(DOMID_INVALID);
-+    allocated = domid_alloc(DOMID_ANY);
-     verify(allocated == expected,
-            "TEST 6: expected %u allocated %u\n", expected, allocated);
- 
-diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
-index 9fd004c42af7..e2764768c983 100644
---- a/xen/common/device-tree/dom0less-build.c
-+++ b/xen/common/device-tree/dom0less-build.c
-@@ -848,7 +848,7 @@ void __init create_domUs(void)
-         if ( (max_init_domid + 1) >= DOMID_FIRST_RESERVED )
-             panic("No more domain IDs available\n");
- 
--        domid = domid_alloc(DOMID_INVALID);
-+        domid = domid_alloc(DOMID_ANY);
-         if ( domid == DOMID_INVALID )
-             panic("Error allocating ID for domain %s\n", dt_node_name(node));
- 
-diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-index 954d79022645..ca91686a03d8 100644
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -410,7 +410,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-     case XEN_DOMCTL_createdomain:
-     {
-         /* NB: ID#0 is reserved, find the first suitable ID instead. */
--        domid_t domid = domid_alloc(op->domain ?: DOMID_INVALID);
-+        domid_t domid = domid_alloc(op->domain ?: DOMID_ANY);
- 
-         if ( domid == DOMID_INVALID )
-         {
-diff --git a/xen/common/domid.c b/xen/common/domid.c
-index 2387ddb08300..76b7f3e7ae6e 100644
---- a/xen/common/domid.c
-+++ b/xen/common/domid.c
-@@ -19,7 +19,7 @@ static DECLARE_BITMAP(domid_bitmap, DOMID_FIRST_RESERVED);
-  * @param domid Domain ID hint:
-  * - If an explicit domain ID is provided, verify its availability and use it
-  *   if ID is not used;
-- * - If DOMID_INVALID is provided, search [1..DOMID_FIRST_RESERVED-1] range,
-+ * - If DOMID_ANY is provided, search [1..DOMID_FIRST_RESERVED-1] range,
-  *   starting from the last used ID. Implementation guarantees that two
-  *   consecutive calls will never return the same ID. ID#0 is reserved for
-  *   the first boot domain (currently, dom0) and excluded from the allocation
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index 8aab05ae93c8..cd3e32d17683 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -15,6 +15,9 @@ struct guest_area {
- 
- #include <asm/domain.h>
- 
-+/* Domain ID allocator: search [1..DOMID_FIRST_RESERVED-1] range. */
-+#define DOMID_ANY            DOMID_INVALID
-+
- typedef union {
-     struct vcpu_guest_context *nat;
-     struct compat_vcpu_guest_context *cmp;
--- 
-2.51.0
-
+One other thing to note, this was runing on arm64 platform using smmu
+configured with 64k pages. If your iommu granule is 4k instead, we
+wouldn't use the blk_dma_map_direct path.
 
