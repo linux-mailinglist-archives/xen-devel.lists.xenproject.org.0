@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 470FDB9380F
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Sep 2025 00:44:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1128087.1468566 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 714BAB93831
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Sep 2025 00:49:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1128102.1468576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v0pGL-0002Rx-8m; Mon, 22 Sep 2025 22:44:01 +0000
+	id 1v0pLC-000381-QB; Mon, 22 Sep 2025 22:49:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1128087.1468566; Mon, 22 Sep 2025 22:44:01 +0000
+Received: by outflank-mailman (output) from mailman id 1128102.1468576; Mon, 22 Sep 2025 22:49:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v0pGL-0002Pi-5k; Mon, 22 Sep 2025 22:44:01 +0000
-Received: by outflank-mailman (input) for mailman id 1128087;
- Mon, 22 Sep 2025 22:43:59 +0000
+	id 1v0pLC-00035j-N2; Mon, 22 Sep 2025 22:49:02 +0000
+Received: by outflank-mailman (input) for mailman id 1128102;
+ Mon, 22 Sep 2025 22:49:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PyN9=4B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v0pGJ-0002PP-QP
- for xen-devel@lists.xenproject.org; Mon, 22 Sep 2025 22:43:59 +0000
+ id 1v0pLA-00035d-UK
+ for xen-devel@lists.xenproject.org; Mon, 22 Sep 2025 22:49:00 +0000
 Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
  [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a04d9818-9805-11f0-9809-7dc792cee155;
- Tue, 23 Sep 2025 00:43:58 +0200 (CEST)
+ id 538d4158-9806-11f0-9809-7dc792cee155;
+ Tue, 23 Sep 2025 00:48:58 +0200 (CEST)
 Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3ee13baf2e1so3466085f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Sep 2025 15:43:58 -0700 (PDT)
+ ffacd0b85a97d-3f2ae6fadb4so2929125f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Sep 2025 15:48:58 -0700 (PDT)
 Received: from [192.168.42.55] ([74.50.221.250])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2698018167asm142213415ad.57.2025.09.22.15.43.56
+ d9443c01a7336-269800530b7sm144312795ad.18.2025.09.22.15.48.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Sep 2025 15:43:56 -0700 (PDT)
+ Mon, 22 Sep 2025 15:48:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +45,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a04d9818-9805-11f0-9809-7dc792cee155
+X-Inumbo-ID: 538d4158-9806-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1758581037; x=1759185837; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1758581338; x=1759186138; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1reynL0NO/WMAk1bmvRUNgObJOg6+q45A/OSLy/lsJg=;
-        b=fefJIJOxRtlY9KVgDVJcvJmGrtAwwaFpDV+DtZfQU7N7FLZBQP/RZCsJ62orymzkXx
-         ZeGPpmj0th9rQaF4ZpERMnZ2xyB579vc2z+ysvTqmyp4doR3WQkD/m1u5qHwmiy/Agek
-         YZTD5PnPVrsFJU+IRhTlhP2z9/WITM6AB8kr3bbFOj3cQneUTIteIbQncTv5KnJ6sW/2
-         GwS3Mj6DU9/YimYL195FyFOmGqNdDDFhC7BZjvpM9+enUUMzB3rdWZY3ktxj3n8SyFEx
-         gMeNw1f3a39UR7mGY8VTwyXDUBJzqpuKMRTgOUgmwizaScLstZZ7lIQYsTNzodMu3TkT
-         M0rg==
+        bh=PW1DxOozcSBOC2kGlK4owxTShNLt3wMc0LQR2Roa+jU=;
+        b=H0TuYhmJYsagWFl40T9AeepPHUh9NjgF8JVnkNrmpl/WWzkz18JYSceCNBQK9JMJge
+         1wupe0mPMGwwVVWiMkya3bDDJGnf0URbuJVHLJbAAwG8hCilsLC10ys23OKCOwS2o/cX
+         k6co4Xd1q98g2qMYe29FPjVYJSmiJ1lzNb2zqPkGFvsxDVGmPOtaZtdVJZPDWhMMXKLV
+         JAqbCkaywNq6brEFUKlO13X+jL9IKyESAah6e6xiA1OPyNsn8JVT3pOANmJd17AneXfE
+         +F6zvzo6K/x89mKjxHUp63ndPX+FXp36eUrWpGB9iG5KU3P5txfKfF9nqoV22mu/Rg0M
+         Yt2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758581037; x=1759185837;
+        d=1e100.net; s=20230601; t=1758581338; x=1759186138;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1reynL0NO/WMAk1bmvRUNgObJOg6+q45A/OSLy/lsJg=;
-        b=cLmY5wn1JQq/cYko5ug2gekIhMNCH9RqJKCh/F58V4PgDlGOiFJ9KHvpkwIrMzjrs2
-         EPzUiT8n1w7B+2Q+UQaIjL3cBnx2etSOce+nHfBycKjJWpea0R3Plj9j+FhlQSJYOTZs
-         y8R3ZRYSK2tX6Q+PF8tKbEgz9THQp06KMThu/wvUPDySfmDzubMt9yZeaqYiyyJK8QTo
-         CCVh+eTKOkdOnnGzUDA+v6yJyHfjM5eGBDT3a6PKTWnS9YRNpBCVoLqFrnwWwAq3cW7J
-         rOxt+qv68DY65CNCs2cj+BUj1KRvz0Brc4Xhg6/OIGQ3uzQ0p1nOXPSsv1Qq4/wTKYFP
-         WyJA==
-X-Forwarded-Encrypted: i=1; AJvYcCWoNLaoTiHGjXqbqQH6yaq0e/CikFC0M+USjr7tYEt8eKc+MmRdZx0OhK09wmTvoYgskWHUv/5T+5I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxfIAnGHr2EE/uVI8fvgRF/+DKuEO+9zZ8KydX9uop/88GoFHZ+
-	DoodQuLkII55NGpTQWNMtB8AKkNtzwu/UJic9SAZ//KFxPZMi19JCxxiEsRk83eLSg==
-X-Gm-Gg: ASbGnctC5Bl2M+iA/Nt9ZJvuUjRm/9pKkQxCsNvdTYxso/SGcuo7r5pkWjPlb2y/XEg
-	mCK4+z1NV8JkoeL6jXCzdQCIMpjp8xLFRFLy49qcaQVrAmk+l1wlrLMq5rZjz5aT3rjEIQkFFzb
-	M6kLKVXJzuq3FwrtG4yBgSkRqdfpJuKy88pSY7uc3K7COazfeWz7dYXb7TW1M94LCfzzNqkIRST
-	AeympCPCXuJBF1nfSS9MaZThnQ7gU+h3OLyfzA+wEacSNkAyou0kcUYG5B2jRE3K54KVHVXxcXg
-	nF4/hzDJQI5MgrBbTv1TgVjppFkMiPvltqfP/B95cdsp2JtenvcJvIzWyAnRZk8JwFGR4G2V6Wo
-	YR2AOSScGA/p+0UG1Valnd95VY6+O6Aus
-X-Google-Smtp-Source: AGHT+IE9Ex6CZcskMDsvYNsODTnl7gCRLG0NzWVjWyJ1rDEI05ttOlNXgHfr3c5woqNah9qomcYSAw==
-X-Received: by 2002:a05:6000:401f:b0:3ee:1296:d9e8 with SMTP id ffacd0b85a97d-405c4c80030mr212021f8f.17.1758581037571;
-        Mon, 22 Sep 2025 15:43:57 -0700 (PDT)
-Message-ID: <c3a3bb25-b37f-4ccc-b71b-3bd5f5b8a3ef@suse.com>
-Date: Tue, 23 Sep 2025 00:43:54 +0200
+        bh=PW1DxOozcSBOC2kGlK4owxTShNLt3wMc0LQR2Roa+jU=;
+        b=lkKDyHCBVBJjc0W1hwZOl3D3L00mze6b46TZ7307rsFAmpm/AJ9SDyHXP8mtDJ0kYZ
+         Vz2ybcwTCJeImF9PR0zDdLV36OLELThQqLzVlr4+MuVKFrzwa3OysPC6y6FKMHnnWc2X
+         ZCtLsUcxx522ZTv8c8N7dQzTn3gAE3vB53qGTrFEGW7Jygtty2a1RIrE4DyEc0Wbg1AF
+         WO1byNbzVtIkkEPKlfNSZ6oeJ5VSv9WZRR/w3R7vIry52rR5jcRhLyDZdzYJORDmZ1su
+         AZZSrCk4u5tOQZfpgZwYaplxYwsQaWPeUWYK6Kjn/BV0ZMQuvfTAx9cxMQ/19K5CLv5J
+         QlcQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVeyWLM7yj70NORklT6/utBjgozLUEZnU95Dmt26HhmE5YWP3b3/wA/h1Bo20pSkihSfybBJfwQPrw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyp1DygWC6vMuYyfS9lvPSZrrsBDPDeZ3a6TKp7XDds58DcsUJk
+	bY5HzgNN7CvWwp3NgFAa4L6ZuemAYhFwOHdZ7W3ZCFoOz9qtY2a5PjLgvgKP8t81EQ==
+X-Gm-Gg: ASbGncuWoKcPie9PXqe+ikzSSpN/+WM5e2sB7ZCCU6CrcBcYqrvY8cWm5ubF4GYdUok
+	yx+003uC1nQXG+KcF0N6wPGe2YekcWGiWArGkHzYRY7fzBOE0dfkseTWN0Am9jfSN6qd7HNcDBM
+	u6Wuson1DHN+rmh0slF8pG/gh/rHueClgZJkgCFgKjdGXAcPFzc+F7cy6RyoYfqbE11gLZls4nk
+	9uBSRmH8RK6C1eW2s4XHWQNhk/U6WpQ/UsNy8i4ZMBBn8Vtx2C3WR19/R8vAP94uXRLxVrRWVrZ
+	Op7oNWO/0jPglk+SPXZgnCsEx0qQlJYRCDr8aUA1NAtg95Nth5CUhE3gyYKo9hLtj+EMIXmXHYO
+	LLCN/JseBMiD+xI3ceVvbFjmYYix4VzzYsnO0H9VZtlI=
+X-Google-Smtp-Source: AGHT+IHxLwq8YJ+Le7Qe9XKReLYZdjF5aLLqotGFK4bL8gH1oUqwVAOQBMUnkujQ8eW0af7AUW24zQ==
+X-Received: by 2002:a05:6000:2003:b0:3e4:d981:e312 with SMTP id ffacd0b85a97d-405cc70f7eemr264302f8f.62.1758581338257;
+        Mon, 22 Sep 2025 15:48:58 -0700 (PDT)
+Message-ID: <0e901379-41a0-4fa0-bfbb-3407162437ff@suse.com>
+Date: Tue, 23 Sep 2025 00:48:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/domain: introduce DOMID_ANY
-To: dmukhin@xen.org
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250920174732.1207847-2-dmukhin@ford.com>
- <c7e17ae4-0630-4061-b0e8-495cba02bc20@suse.com> <aNHGCmItdmjEAdZK@kraken>
+Subject: Re: [PATCH v3 06/22] xen/arch/x86: reserve TXT memory during Slaunch
+To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Ross Philipson <ross.philipson@oracle.com>,
+ trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
+References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
+ <8d5ba2e7a0a8bd05bb9cdb89db3f15b831f7f4f7.1748611041.git.sergii.dmytruk@3mdeb.com>
+ <45ed8b90-ce0c-419e-9c7d-2ab58ee539a2@suse.com> <aNHBIkJt2HvxlcMe@MjU3Nj>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <aNHGCmItdmjEAdZK@kraken>
+In-Reply-To: <aNHBIkJt2HvxlcMe@MjU3Nj>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.09.2025 23:56, dmukhin@xen.org wrote:
-> On Mon, Sep 22, 2025 at 05:23:37PM +0200, Jan Beulich wrote:
->> On 20.09.2025 19:47, dmukhin@xen.org wrote:
->>> From: Denis Mukhin <dmukhin@ford.com> 
->>>
->>> Add a new symbol DOMID_ANY aliasing DOMID_INVALID to improve the readability
->>> of the code.
->>>
->>> Update all relevant domid_alloc() call sites.
->>>
->>> Amends: 2d5065060710 ("xen/domain: unify domain ID allocation")
->>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
->>> ---
->>> Changes since v1:
->>> - moved DOMID_ANY from the public header
+On 22.09.2025 23:35, Sergii Dmytruk wrote:
+> On Thu, Jul 10, 2025 at 03:00:07PM +0200, Jan Beulich wrote:
+>> On 30.05.2025 15:17, Sergii Dmytruk wrote:
+>>> +void __init txt_reserve_mem_regions(void)
+>>> +{
+>>> +    int rc;
+>>> +    uint64_t sinit_base, sinit_size;
+>>> +
+>>> +    /* TXT Heap */
+>>> +    BUG_ON(txt_heap_base == 0);
+>>> +    printk("SLAUNCH: reserving TXT heap (%#lx - %#lx)\n", txt_heap_base,
+>>> +           txt_heap_base + txt_heap_size);
 >>
->> This addresses my comment, but not Andrew's subsequent response, specifically
->> aiming at ...
+>> Please log ranges in a way that makes it unambiguous whether they're exclusive
+>> or inclusive (especially at the upper end).
 > 
-> AFAIU, toolstack should start using DOMID_ANY instead of 0 in
-> XEN_DOMCTL_createdomain.
-> 
-> I was planning to send a separate patch to address it if that's OK.
-> 
->>
->>> --- a/tools/tests/domid/harness.h
->>> +++ b/tools/tests/domid/harness.h
->>> @@ -41,6 +41,7 @@ extern unsigned long find_next_zero_bit(const unsigned long *addr,
->>>  
->>>  #define DOMID_FIRST_RESERVED            (100)
->>>  #define DOMID_INVALID                   (101)
->>> +#define DOMID_ANY                       DOMID_INVALID
->>
->> ... avoiding the need for any such secondary definitions.
-> 
-> In the current design, unit test harness.h has to define DOMID_ANY.
-> Enabling xen/domain.h to compile for unit test is a separate task, IMO.
+> I'll use start:end notation which I think suggests inclusive bounds.
 
-That wasn't suggested as an option. The #define wants to move back to
-the public header, but be properly guarded there. See the v1 replies
-you got.
+Please use mathematical notation when logging ranges, i.e. [a,b) or [a,b].
 
 Jan
 
