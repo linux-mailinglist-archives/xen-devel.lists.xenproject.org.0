@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40CDDB92414
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Sep 2025 18:41:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1127852.1468405 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49D42B9251C
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Sep 2025 18:56:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1127865.1468415 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v0jab-0003qA-HP; Mon, 22 Sep 2025 16:40:33 +0000
+	id 1v0jpK-0005Wd-Ot; Mon, 22 Sep 2025 16:55:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1127852.1468405; Mon, 22 Sep 2025 16:40:33 +0000
+Received: by outflank-mailman (output) from mailman id 1127865.1468415; Mon, 22 Sep 2025 16:55:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v0jab-0003o8-EW; Mon, 22 Sep 2025 16:40:33 +0000
-Received: by outflank-mailman (input) for mailman id 1127852;
- Mon, 22 Sep 2025 16:40:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v0jpK-0005Uu-Lp; Mon, 22 Sep 2025 16:55:46 +0000
+Received: by outflank-mailman (input) for mailman id 1127865;
+ Mon, 22 Sep 2025 16:55:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Vq0y=4B=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1v0jaZ-0003o2-VS
- for xen-devel@lists.xenproject.org; Mon, 22 Sep 2025 16:40:32 +0000
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c110::3])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d4f1bae1-97d2-11f0-9d14-b5c5bf9af7f9;
- Mon, 22 Sep 2025 18:40:24 +0200 (CEST)
-Received: from BY3PR10CA0002.namprd10.prod.outlook.com (2603:10b6:a03:255::7)
- by LV8PR12MB9336.namprd12.prod.outlook.com (2603:10b6:408:208::12)
+ id 1v0jpI-0005Uo-Vt
+ for xen-devel@lists.xenproject.org; Mon, 22 Sep 2025 16:55:44 +0000
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c107::3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f7eb22f0-97d4-11f0-9809-7dc792cee155;
+ Mon, 22 Sep 2025 18:55:42 +0200 (CEST)
+Received: from SJ0PR13CA0212.namprd13.prod.outlook.com (2603:10b6:a03:2c1::7)
+ by IA0PR12MB8748.namprd12.prod.outlook.com (2603:10b6:208:482::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.19; Mon, 22 Sep
- 2025 16:40:19 +0000
-Received: from SJ1PEPF000023CF.namprd02.prod.outlook.com
- (2603:10b6:a03:255:cafe::5a) by BY3PR10CA0002.outlook.office365.com
- (2603:10b6:a03:255::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.21; Mon, 22 Sep
+ 2025 16:55:36 +0000
+Received: from SJ1PEPF00002320.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::2f) by SJ0PR13CA0212.outlook.office365.com
+ (2603:10b6:a03:2c1::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.20 via Frontend Transport; Mon,
- 22 Sep 2025 16:40:19 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000023CF.mail.protection.outlook.com (10.167.244.11) with Microsoft
+ 22 Sep 2025 16:55:36 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002320.mail.protection.outlook.com (10.167.242.86) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.12 via Frontend Transport; Mon, 22 Sep 2025 16:40:18 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 22 Sep
- 2025 09:40:17 -0700
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 22 Sep
- 2025 09:40:17 -0700
-Received: from [10.71.195.192] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 22 Sep 2025 09:40:16 -0700
+ 15.20.9137.12 via Frontend Transport; Mon, 22 Sep 2025 16:55:36 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Mon, 22 Sep
+ 2025 09:55:35 -0700
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 22 Sep
+ 2025 11:55:35 -0500
+Received: from [10.71.195.192] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 22 Sep 2025 09:55:33 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,109 +63,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4f1bae1-97d2-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: f7eb22f0-97d4-11f0-9809-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TQIFb+LYaR4ww7P+oUv7RdjG4hSuKWCRvyFoEN+QOq9muiK3x1c3BaPKwDoSgmmsNbtqJws7tTEfab8H6WBMbQVGO4TtM4D0G9v3Ok2RjSi3+5vQPupJqyyIkssHQOKpXkYg5f6FgTzFsQzwvtOkbXyLs5vGmTBDc35K6Xs2Jl9SCaq3ldQEkfArRvMuToSmBQuvc8PuKCTzYIzfSfCM0Fm1I3ZvfUCSPa8Ay/w+chLuEgwB78ajVRIiaj0Qb5BF9EWf/TqA8AIwri7oP8mof1H0QRfHvofzl5fNPFnLzUG3RVWVTqk8axNscUw/8Mz/b8qOug/8oOm4u3F0dLddWQ==
+ b=AONnWHxOaGCryV3CkYDXCKXjRiqerQvkqDFdBzF4YjrCSpd3A1XvmPZOsTDbWB4A7X4oM8q4YdTiOUl/Qy5QaoLbafyDoA8NDjZkcG72bFxcu6GnSXuUqA7xQYUjEoHyrMgOOnq/uerUcR4MZAgXXxS54N8lsz+DggTx6sm3ye6biCc53eq1G+oA2309OX7iBXo9eHYkJ/C8Tgs/lSdr7V5ylCtG299I8ijC8Yljz5sUF4QQ/SxDo/D4mKlgjWODoNftGZOiFDbpkR5xize+mM00ebQaO9g2/dQ6VVHjGnLNE0sW5mekCpDsJ91TYLJz56OE8wtaB3vWhpRMGdI2RQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9KSwD4q0Aahid8xmhKhxDgqFMYslyx5ICq3471gYpE4=;
- b=pnFnAbj1V8Gev3nN2Y+B+qcSzKKj5EIOlyKXba6gihaLRyw5RhxpJJj2MrPE1x5sjkyFKZybgKEMwVV85pbEpbrDw7FgHzJSiif6YzqP+kisi9ndc+SJUNqC8PZu3ytnSN+oTCP5wAM4sJYvGUx7443+2VpIG02VnjpwTctD2U5Ob/5WuRTb6v3WC5mJH2Rzp6LQV7vqUYgJ1cL07qMgpdmbu2fBK7Y6xRd13u6uZnNEcl32nW8x6KyVFOC51lDEVCZ58L8VelX/3wUvpGtGzKMGWyKpbsB2cVpgsyVPfrry7loEXgVxRVp7vdnb6D9YY3dVoHoF0dL+Caxf21qSHg==
+ bh=k+HtFtnHizkVwm3iHtIBny6Q4Lf+QYAEmQX1AOlj1jE=;
+ b=hmo1Q3Ax+s0vrQLLTUxc2BDJ/1byBSiejORl9O3JVLpiYlVSGjFKjEaNJsgzuwC9JaAcDaOWJLlsw0+IM+0N/DPEW+z/itNV2ze4jM4olnZsG2M7v4szQ6CesHoAV2JQZZ8CzAMZtrL0nK+1S4jtQ0gJyFelpkqa+1srqt4L/Etb5j0N2gDvwFqiBBXMctFT3rcoEh/ufUql2KMZRCxn+U7LynVhb8Cv4FMx59jF3VTrHz7fZHl7uNom5yatB/WIQzlMBlmPU38ROLWDaYusAomX5+g9BWfu1V+d9jrATF0ODNCrphBurlHLAE+itN+tE/Hry2B2xD/NKp9InKC+BA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9KSwD4q0Aahid8xmhKhxDgqFMYslyx5ICq3471gYpE4=;
- b=ah30m11NqOZ3zGH6j9XnDn/Y/RUGlYCnj1ZQtMjuveddGvjzxMMFbJmmc1IDF+xoYCYIDd7Uh6cJfO66nVEe+9ZzYf1AHKrb3+jdURoUVFQ0PtHbtSKL2Kjs0ZE/o35WgmRFtttxUQytZNby3bTnHuR0EAr1LHlz6uwvWVN3YJM=
+ bh=k+HtFtnHizkVwm3iHtIBny6Q4Lf+QYAEmQX1AOlj1jE=;
+ b=B4DFnWJmSs9nYrCH8WDAufdhD6Iudi6BZ1a47R7/7uRBkTBpJLxLLtit7s7QBft2RvQfOAbO0cdMWt1CThmv/7Xh2xBRXjn8BjDZnJeis7TvqFHefX6w64UWmz7VLAN9XfUQ5DUIoAOMY1nNCCqxclgbiY4ypBV2nLzBnEhU0So=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <b3198457-9aca-430a-80ef-27f22de4ae9b@amd.com>
-Date: Mon, 22 Sep 2025 17:40:16 +0100
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <762b9d19-f1dd-4bfe-a298-d88ab8e7bbd2@amd.com>
+Date: Mon, 22 Sep 2025 17:55:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Ayan Kumar Halder <ayankuma@amd.com>
 Subject: Re: [RFC PATCH] xen/arm: Introduce GICV3 Self Tests
-To: Julien Grall <julien@xen.org>, Ayan Kumar Halder
-	<ayan.kumar.halder@amd.com>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel
-	<michal.orzel@amd.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250912170055.3077923-1-ayan.kumar.halder@amd.com>
- <7bbd581f-bfa4-444e-9c76-bcb833a2ec74@xen.org>
 Content-Language: en-GB
-In-Reply-To: <7bbd581f-bfa4-444e-9c76-bcb833a2ec74@xen.org>
+To: Grygorii Strashko <grygorii_strashko@epam.com>, Ayan Kumar Halder
+	<ayan.kumar.halder@amd.com>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250912170055.3077923-1-ayan.kumar.halder@amd.com>
+ <bd0d3670-51c7-4c60-9b45-201f00a14b8e@epam.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <bd0d3670-51c7-4c60-9b45-201f00a14b8e@epam.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CF:EE_|LV8PR12MB9336:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0a93f81b-d1d6-49f9-8bfd-08ddf9f6b74e
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002320:EE_|IA0PR12MB8748:EE_
+X-MS-Office365-Filtering-Correlation-Id: c281d26a-34b8-4349-583b-08ddf9f8da0a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
+	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?OHZzMjFnaTNCMTJ3YTA1K1RwT2F0OUhFcnV2NXRkUFBiNmpOR0ZSOEszMVg1?=
- =?utf-8?B?QStCRkxHdGJUdUdYMUZVWVZkS0duMmUyUzI5NDZtZmt6RWNxYmJKK0swalVv?=
- =?utf-8?B?TXFNeTcxMzlMeE4zaGtnQ3NoTmNKd0twMW5GMUgrUDNiYVVBU2Z0Zm9xcjVV?=
- =?utf-8?B?clRWK2sxVmZxSkkzcEYybDIyRmV3dlFZNG9qM0VMd3JGK0I3ZURWdTJZV3Q3?=
- =?utf-8?B?WktMNXVPUFNyaThFNkFIbjd5c2VPVm13UnBNaENaV2JqdlY4UUhZNjcvRWx2?=
- =?utf-8?B?SmhaQUU2b2ZHM2F0SnJDL2pUZEsrRzZHM1B3OWorWmFvMzJ4RGVZT0JyTUsv?=
- =?utf-8?B?RUVWemg2cGw4SGZka3gvZ2VkaThWcnhxTHM3RE12REdLNTZFN3FGWWw0WTlj?=
- =?utf-8?B?MHByQ1R6SmYxbTFYLzk0dGZXNjJwMFN0bmxqc3BEbGw4OTVCcUFXZnpkMk9I?=
- =?utf-8?B?aktJMVZEMlAycFZMb01JUEpzWW9VUTBwMFBMWUsvNWlnbmd3Yk9ZcG1uRXBY?=
- =?utf-8?B?QnRIeHI4TmFtd3lRUGQyNHkrdkF5L1paMGVPYmxZNjJxVmJQY24rMFdOZWF2?=
- =?utf-8?B?djFuMmJubVVncWdZQTNKWFhaWHZDMlJ0aTdTV29BclNTZlBISDFaWGJNM29r?=
- =?utf-8?B?SW9RVFZOWnVuWnlDQTdpZmNqYzFya3pOWFZvTDluMVBrNVhkWUFpWHE3bHZK?=
- =?utf-8?B?cG9NVGZrcThLb2NpTXBqam5kaHZRMXZFR1ZqQ0lOZ2xhT3ZDaVQ4aUE2WEZ0?=
- =?utf-8?B?Z0d5VXlLNGRYRzltdGUrOUdCMVpPc3B4Q3lsOWFZN3NqejFiSVVkdHliaDVE?=
- =?utf-8?B?aEo5bzBzVEV6aVEvU1NMU3NJNnBPYllSSkdKTXpLdm9hMlFsdFlMdkJBTFV5?=
- =?utf-8?B?SmxWRFhBRWM2eXdVWFJSZEhrQlNtOGdjREhIOHI3SU1GUWxlSFh2OXd3MGFX?=
- =?utf-8?B?U01KdU4yVkpxR01PUkk5RGVTUC81Z0lwMS9rVzNHejVpcStkSzkxN2k0aVYr?=
- =?utf-8?B?NEVCS0VIYVE3WTJKbVVqckNFYUhnZDk1eWh4bDFzeDBmUVBkeEUrOGVGbkhz?=
- =?utf-8?B?dWRna0xrRGVNUTVzMDNSd2lvalRIRTBSZjd3R2orRzV4aHdiWi9SaG1QRTYv?=
- =?utf-8?B?b3pnUVpTQ3VtRWVIUk5MbTlETEEzRWdCOSt5VDNncDFHZktxWkF3aVo4N1dZ?=
- =?utf-8?B?S21FdmxvRGFjZHpIeUlvTVVBSEJKV0RxRGxGNDhlTVduNDVGNEZQc0VscXJO?=
- =?utf-8?B?T1dOS3RCcXpuN0o2cmdUckFSMGxnTFF6a1VCRUkvRTZuaDZYeGxsaGtYZ1NC?=
- =?utf-8?B?Q0k4YVZiMytjS25rcGVrTGNxRnhtNTJ1eHN0T091dFdwbjJEWW5Tem10eFVP?=
- =?utf-8?B?dm9ucUZUYk9NdzRzZ1pZdHdFUUNTclFveExqT3lDazFsQ2l0cjJIZUJaakth?=
- =?utf-8?B?cDdMaEZHOTlFMUY1bkt4NDNTVDc2WmhTWUx4YWs0ODh0dXJQT09Jc0RxYjYw?=
- =?utf-8?B?WnRlcUdzeldHRTVQRlRPVmdvT3VmNFk3WnVwa1QwMlNoSHNEZXBzY1kzTjEr?=
- =?utf-8?B?dXY2bEFVdzUxcCtLcno2UC9LRkVLZmpIdGxxR2p2ZE9wOVUrbnlTMThLVk5h?=
- =?utf-8?B?OXcwT2xpYUUyR1BCQWx6SjhqYXVRYjNhKzBCV25PTG5QWE5wQ1N1VWJEWkUr?=
- =?utf-8?B?WHBZLzNGdVZQS25WRGFhQnBTYTA1NmRlbC9Fak1BelBZRzA0bklORGlvWmwv?=
- =?utf-8?B?aHdHaEZveHBMdytQRHdPR0JKZjhPOHdndHJXVXlmSktDUTlJN3lPWmhXRFhj?=
- =?utf-8?B?Kzl2QldnUEljdjFsaHAzVTdieFRqUFBtVjZqdm1LVzBGeGJHbW00T0pnV0tj?=
- =?utf-8?B?TzRpSG1CRG9NRVNOYTRGS0tCSkpsQmFVb2daQXIwUk9jcVdDRS9qNnY5bWdY?=
- =?utf-8?B?MXB3UEFkMTJRZGpycWk3ejJ5WmJZaGc1WFR4QXZ1QkhzejB4dzdFbEFCZjZ3?=
- =?utf-8?B?cC9ocy93QU53RUtqK0xYalZTN1Fzc3NoTEp2S3paZjZKSWZUSGZTUTNrQXVa?=
- =?utf-8?Q?cdjcWJ?=
+	=?utf-8?B?TXdLV05ZUE56ZkY0bzlqdFZnWTgrdEo0WWhPb0xQM1BGbk5DZGthM0xaMlFQ?=
+ =?utf-8?B?MHMxbWxDZjlBSWpRcGVLVjlKSGNibU5JUWJDTmhSVTBNMFhYK2txVThxY3hG?=
+ =?utf-8?B?NzZBbVdPSFRtWDBFdDF6bEJTT3NMWHBoOWowbE1hOXA1SFQvT2o1UHRrSG4x?=
+ =?utf-8?B?MHlYTjR1eTVzMXFKOEdUT0h4LytxRmFOZFI1TFhVMDc2R1I0NDVTVVRySita?=
+ =?utf-8?B?Q3RpOS9sVldvM2JTajJ5TFBSdTVJZmt2R3dNemVpUDJ4UmNSYktTcnpKTDVR?=
+ =?utf-8?B?OW1tcHF5eHZPeWcxamJOazBETWJjTlliRlpyWWNvVnd3cmhTM3VkWE9WazNs?=
+ =?utf-8?B?Vytucm5UVG9zSm5XZFplOHJoNGxVMHRKdkhJZDBxKzFMM1E4T3NiWC80MlJr?=
+ =?utf-8?B?MkJOcXJHbWhwOEdINnZGL0NkbzJsNENVbzhxUUtsSURKNTFHaEplbkpIUHNN?=
+ =?utf-8?B?SFZFU1VTWS8xbWxiWHd2MHZLcTlIdWFIbTZTam5DSHlQOEhqaHN4cnp6K1c4?=
+ =?utf-8?B?RDIyUkhPYU9XM0xHUXlrWDU2dEtMYlJocktyNFZJanMxZVZFcFRha1ltTGg3?=
+ =?utf-8?B?bEJlTEl4SW5KYll2aHZmeVJzcGtLb1BnZ2IvRS9lcXJhdzRLL2w4QStaSXov?=
+ =?utf-8?B?UTlVa0xhblpqVVdyVWxTbWtpWGMxb2tCYmFOZ0V4WHQ4RWlabEdML0cvcWF2?=
+ =?utf-8?B?bUlLYWlsNWJzalM3Wk1UYzlUTWFxYlkwVnlyalVMT3hxVU9Oa2p3ZDJCWFZa?=
+ =?utf-8?B?a01KZ1BGV0JkakMzRHJlMG5sNVFucFZhbG9EWG5ySE50ekZmMHFjcXBOanMy?=
+ =?utf-8?B?TGIrNk1VYmVScTZ2cXNtZlNnZXJiNy8ybHg1TTg4UGZndVFxWUg3VkNEUTRG?=
+ =?utf-8?B?cDZuK3FnWDJiODdoMkxFbU5qMGlkTytwTnYzc0Y0MGpTTkFaVHNSVlNMek5j?=
+ =?utf-8?B?UEVxSWl1Zm10OFFUQVM2Y3lJMFBYWmtLTUt2clhUYjhzSXhucWF1NkoxZEw5?=
+ =?utf-8?B?dlhkaW1CY3RRT3JiWWRCMUQxczZ5blYrOXNCZnM1cit0OTlsQkMrZFNuZm04?=
+ =?utf-8?B?Z0NuK3EwUytuTHFQQkhuK1Nod2hKNVRkZWJJSmdzQ25MT2Z4MUlpVWc5ME1P?=
+ =?utf-8?B?eG5HRHpHb1kwN1haUkZ2cHByTGpWUjdML2NFUTkrUFhxeGJXOWhHcU5xc2lM?=
+ =?utf-8?B?TmtjZmJIWVhWbEc0Y1hUZ2VJNjh4MkVBOVNUMnBMYkx1OERTMk53dHZMdGl5?=
+ =?utf-8?B?NHRGdHVremE3N1pZL0FhVnhrNkNnNFpEd0cyZWdFV3VsWUNqRUE2WWZWc0Z5?=
+ =?utf-8?B?aTFPemFmOTFqY2JkTHBBdmdwc0F3VUFTK3hadXhmckxxZVVRdmFBeWVBZFll?=
+ =?utf-8?B?MFQySnRYcXU4V0pPdFgvNFE0TmpUWkZJU21sZkNFbk5LM1VhZ3RuYXFmc2do?=
+ =?utf-8?B?Zll0ekg1dWpTS3h6VHdaN0VUWExoZGhUUitwT3F5V0NsaGN0MWRnUFZ4WEdH?=
+ =?utf-8?B?TnNmZTlpQzJNNklHVjJRUFFtb3BNb2RxeTQyY21wcGRWMU5uMDBUNU9HNmQ4?=
+ =?utf-8?B?aWJRRkk0QmVqenh5QXZtR2RWY1JpYnBpdG5NQUJSVjdVazJkc1ZDdzJ3Qzk5?=
+ =?utf-8?B?RHBrcExEMXRPcktqb0FUWlhCdFdRNVBMM1k3a2Q4RWFvcVI5KzJkN0Q5bFRE?=
+ =?utf-8?B?V2NTdndaai9LZEZTci9oTHAxQkRPdngwL3JqaGVwL1pPKzBITXdyVVZ0cWJv?=
+ =?utf-8?B?WWVQcGZZbFNJc2MrN1NObjlvM1l0ZXJPY2JIY1JqejlvSEY5VXZ0UTBVODdB?=
+ =?utf-8?B?UDBOUlJQTkFDemNsUnAyNG1oK1J0bVpwdWZTd1E5ZnV1QmI3aWRKQ1AwZUZB?=
+ =?utf-8?B?VXhoMCtkOHBiU2s2aWJlcGFZRjlNZis5WlZ0Z0FXZzY4ZVkrUTYzN3I0WXRu?=
+ =?utf-8?B?RFlSajJlMmtiMG5keTk1TkpnM1Q4MnB6UGU3akZ6MHF4Y0tpQzlYSXgzUE5Z?=
+ =?utf-8?B?M1hmTHk4b3FHbVVmQld4Z2NCTEsydTR3cFdkUXNHcGptdUtxVjFkTVFkUk5H?=
+ =?utf-8?Q?y/e7Gr?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2025 16:40:18.7786
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2025 16:55:36.0453
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a93f81b-d1d6-49f9-8bfd-08ddf9f6b74e
+X-MS-Exchange-CrossTenant-Network-Message-Id: c281d26a-34b8-4349-583b-08ddf9f8da0a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023CF.namprd02.prod.outlook.com
+	SJ1PEPF00002320.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9336
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8748
 
 
-On 15/09/2025 12:14, Julien Grall wrote:
+On 16/09/2025 11:55, Grygorii Strashko wrote:
 > Hi Ayan,
-Hi Julien,
+Hi Grygorii,
 >
-> On 12/09/2025 18:00, Ayan Kumar Halder wrote:
+> On 12.09.25 20:00, Ayan Kumar Halder wrote:
 >> Introduce CONFIG_GICV3_SELFTEST to enclose tests for GICv3 driver.
 >> Test that Xen is able to generate SGIs.
 >>
@@ -197,13 +197,6 @@ Hi Julien,
 >> check whether Xen can trigger SGIs after gicv3_init() is invoked. If 
 >> so, we can
 >> claim that gicv3_init() was done properly to be able to trigger SGIs. 
->
-> To clarify, this only guarantees that the boot CPU can send SGIs to self. 
-Yes, this is the idea.
-> Secondary CPUs are brought up later and will need their own setup to 
-> enable SGIs.
-Yes, we will have separate tests for them.
->
 >> Likewise
 >> we will have tests to check for priorities, SPIs, etc.
 >>
@@ -245,35 +238,68 @@ Yes, we will have separate tests for them.
 >> +    send_SGI_self(GIC_SGI_CALL_FUNCTION);
 >> +    send_SGI_self(GIC_SGI_MAX);
 >> +#endif
+>> +
 >
-> Looking a the code below, it seems like Xen will not be functional 
-> after running the selftests? Is this intended? If so, we need to stop 
-> Xen as soon as possible.
+> I'd like to ask, if possible, to minimize mixing selftest and 
+> functional code.
+> Like add gic-v3-selftest.c.
 
-Tbh, I didnot realize this with the current test. However you are 
-correct that for some of these tests, Xen will not be usable. We can put 
-a while(1) after it completes the tests.
+I can try that. However, the self test needs to be invoked from 
+functional code.
 
-Or, I can invoke machine_halt() .
+Also, your suggestion gave me an idea. I can do :-
 
-The important bit here is CONFIG_GICV3_SELFTEST cannot be enabled for 
-normal usage of Xen. IOW, user should not expect Xen to run domains when 
-this configuration is enabled.
-
-They are used to run baremetal tests.
++static bool __initdata opt_gicv3_selftest = false;
++
++#ifdef CONFIG_GICV3_SELFTEST
++opt_gicv3_selftest = true;
++#endif
 
 >
-> Also, looking at start_xen(), we call local_irq_enable() a little 
-> after gicv3_init() is called. So I am a little bit surprised this is 
-> working?
+>>   out:
+>>       spin_unlock(&gicv3.lock);
+>>   diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
+>> index d922ea67aa..5cb58cdb92 100644
+>> --- a/xen/arch/arm/gic.c
+>> +++ b/xen/arch/arm/gic.c
+>> @@ -346,6 +346,26 @@ static void do_sgi(struct cpu_user_regs *regs, 
+>> enum gic_sgi sgi)
+>>        */
+>>       smp_rmb();
+>>   +#ifdef CONFIG_GICV3_SELFTEST
+>
+> if (gic_selftest_run)
+And then instead of ifdef, I can enclose the below under "if 
+(gicv3_selftest)" .
+>
+>> +    switch (sgi)
+>> +    {
+>> +    case GIC_SGI_EVENT_CHECK:
+>> +        printk("GIC_SGI_EVENT_CHECK received\n");
+>> +        break;
+>> +    case GIC_SGI_DUMP_STATE:
+>> +        printk("GIC_SGI_DUMP_STATE received\n");
+>> +        break;
+>> +    case GIC_SGI_CALL_FUNCTION:
+>> +        printk("GIC_SGI_CALL_FUNCTION received\n");
+>> +        break;
+>> +    case GIC_SGI_MAX:
+>> +        printk("GIC_SGI_MAX received\n");
+>
+>        gic_selftest_done = true;
+>
+>> +        break;
+>> +    default:
+>> +        panic("Unknown SGI triggered\n");
+>> +        break;
+>> +    }
+>
+> Potentially GIC selftest code can be guarded by some 
+> "gic_selftest_run/done" vars
+> if xen boot is expected to proceed further after testing.
 
-This is working i.e. we are getting interrupts. However, I can put the 
-test after local_irq_enable() as Xen is expected to terminate after 
-running the tests.
+Ah no, Xen will terminate after running the self test.
 
 - Ayan
 
->
-> Cheers,
->
 
