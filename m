@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93564B92660
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Sep 2025 19:22:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1127896.1468436 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23D84B9274E
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Sep 2025 19:36:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1127909.1468446 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v0kEs-0001bZ-2M; Mon, 22 Sep 2025 17:22:10 +0000
+	id 1v0kRx-0003LR-5o; Mon, 22 Sep 2025 17:35:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1127896.1468436; Mon, 22 Sep 2025 17:22:10 +0000
+Received: by outflank-mailman (output) from mailman id 1127909.1468446; Mon, 22 Sep 2025 17:35:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v0kEr-0001ZG-Ut; Mon, 22 Sep 2025 17:22:09 +0000
-Received: by outflank-mailman (input) for mailman id 1127896;
- Mon, 22 Sep 2025 17:22:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1v0kRx-0003KL-2K; Mon, 22 Sep 2025 17:35:41 +0000
+Received: by outflank-mailman (input) for mailman id 1127909;
+ Mon, 22 Sep 2025 17:35:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1v0kEq-0001ZA-Lg
- for xen-devel@lists.xenproject.org; Mon, 22 Sep 2025 17:22:08 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1v0kEq-004kYP-0n;
- Mon, 22 Sep 2025 17:22:08 +0000
-Received: from [2a02:8012:3a1:0:b59c:e142:82de:6ab8]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1v0kEq-007Oh2-19;
- Mon, 22 Sep 2025 17:22:08 +0000
+ (envelope-from <SRS0=PyN9=4B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1v0kRv-0003KF-Po
+ for xen-devel@lists.xenproject.org; Mon, 22 Sep 2025 17:35:39 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8cd88cbc-97da-11f0-9809-7dc792cee155;
+ Mon, 22 Sep 2025 19:35:37 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3f0ae439b56so2306818f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Sep 2025 10:35:37 -0700 (PDT)
+Received: from [192.168.42.55] ([74.50.221.250])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3306064edb8sm13923125a91.7.2025.09.22.10.35.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Sep 2025 10:35:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,158 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=hRx4qSd5ff7i6y/kWg8c6/2M87Ca1BspaZ//MUGPlhw=; b=P0nU+YkpvVu1KKVNyoK1uWT9eR
-	0kdDuHCgrSqvKIg3/Wuu8jSMXWKwlLjLOplRqdfrfXN0WhKSBoc337cmEpneubXLJTa+kAH8VUhXv
-	6KeDPnPp4woR9AQWLX22DE/wGWVfwsu+sJ+obSiEbWpEWoNQuc/bxMS6CZSdfUTLn4TE=;
-Message-ID: <7afc0bde-062d-4606-8a99-b57abf953710@xen.org>
-Date: Mon, 22 Sep 2025 18:22:06 +0100
+X-Inumbo-ID: 8cd88cbc-97da-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1758562536; x=1759167336; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=orYSQfBASql4iF0wCOgQN3xflN64DbRXmnfV23xwClI=;
+        b=EA4lbsC5oxJEKWa7jiHtZ922Xm74AoLtMz3nxxr/njHOiPqK4jxDZjOA8D64DNbdFO
+         5LS5sbdIM92WI67aNTZXsTrlzDbMiRIaRvw66qqulvXha9KAMY91rZZRmgpgPZqqWSYc
+         ZyBx/3KM1Yg3aBOBvx9SVxK0C+KDJIFuVXclXPP6u4C/xzjMB4qY2BT0iqaeNOBXGRMv
+         oGgDv/5Qs1xRJ/XCR3rcpBFOHzI0lDce8jua5JszxIp4z2HcSJQtrwYzFsGhbVn8u1Lf
+         aH6uB4xQGHTnE6cJAXszgmt1dMAxGbnJRLlXaTApcgyL9+YnvG20d2aL1n1ckjxsFCYH
+         cqHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1758562536; x=1759167336;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=orYSQfBASql4iF0wCOgQN3xflN64DbRXmnfV23xwClI=;
+        b=V2vsdIQkDnSHveGomlsQuBV+sHxTmDelUfSXBa67Vfj/p2+THPIYBIleQzstBp7WYX
+         1zW4pwQyV67tNo6qhOHc9UW6vzIq4XUdT4DecLZ/u5g8kWCrFgGsPMeh9Tro/FIPkVGS
+         7f9WriiEo4Usd1GND8Xjf6EQyHgNqkmtjKN+IoHPBWLbLx61fuPbteASfFYqTINnON88
+         wUhXLz6oOdToqt7RB2Z8lNX9WY8qd+M5i7X/o7xCi3U8/jTGWxIwCTptuZfZbxEqWN1Z
+         /huQLr4/oLP9HyRW+l1qFbn8OOhFfJCSE56NOAVKBhMkj2xjxKc6qzT3B78qXbj5TJyX
+         e/ug==
+X-Forwarded-Encrypted: i=1; AJvYcCVARfVNjD6edoEK771xKiUX22sOpYSlAYJG+R8/i6btJ3DjD7bXan/OwsaDE6O4yRqcpeNfj9RCb/M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxbQ8zpwjl/RTtvEjz6zGIBko08IfpFTbXIh9oCnr4I886peYEb
+	HFTohB2LvzcH3KHBbJWLM4OoA12hIlyMAXNpkKrO4sJgn9r+/JVFCpyCJBFu8Jq/Ww==
+X-Gm-Gg: ASbGncsNuO8FyihC5a6Nj0WvrrrRt+aDBoKBE3kYayWA/uBqN6FRm3bm/kzQ0hG8zMI
+	02ZIlvxshWljHwIBDx1VbIlHnYItK8RiI/Aw34gIlmZRY8EaB7oAW115AA0h+M+Vi8HgTmHyKpU
+	OR0o+WDb2Xu4mf8TowmuAYPRRvsMQL7sVkJ8pLc2dRfkN/Li/EkLMwFKkDqziDCoOy3TuAW6IPQ
+	HjMItDeFjqZHaJeNgVw+EZV9vlhcdCxM1DUcSgbeLmuz5exDQVrqs0Iqlooe9I0fHeSzDZSEWSh
+	ticiE8uu0sED9O5nSMJIztohA3XjNKuVpBHVDR3a8eDVkhOEdFuYS9GCjdnC7JbLs5r2sO1+nI/
+	LjEpNtQqzEsQf6hgYx/jxoP37COXo/8DZ
+X-Google-Smtp-Source: AGHT+IFZsuSpeBMsF8HsNI5Y3qjYF6Bf4uBmhPbNXJdp0EqPsQEkJlNBfoQAh4aYgh/R9qec5tVTNQ==
+X-Received: by 2002:a05:6000:4210:b0:3da:e7d7:f1e0 with SMTP id ffacd0b85a97d-3ee7e6c0f4dmr12477861f8f.27.1758562536504;
+        Mon, 22 Sep 2025 10:35:36 -0700 (PDT)
+Message-ID: <0cf7a47f-f852-479a-bfb2-2f723f66c72e@suse.com>
+Date: Mon, 22 Sep 2025 19:35:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen/arm: Introduce GICV3 Self Tests
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250912170055.3077923-1-ayan.kumar.halder@amd.com>
- <7bbd581f-bfa4-444e-9c76-bcb833a2ec74@xen.org>
- <b3198457-9aca-430a-80ef-27f22de4ae9b@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <b3198457-9aca-430a-80ef-27f22de4ae9b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v4 13/18] xen/riscv: implement p2m_next_level()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1758145428.git.oleksii.kurochko@gmail.com>
+ <30a203de44b04a06613aa1f873a072a4594c5bb4.1758145428.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <30a203de44b04a06613aa1f873a072a4594c5bb4.1758145428.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Ayan,
-
-On 22/09/2025 17:40, Ayan Kumar Halder wrote:
+On 17.09.2025 23:55, Oleksii Kurochko wrote:
+> Implement the p2m_next_level() function, which enables traversal and dynamic
+> allocation of intermediate levels (if necessary) in the RISC-V
+> p2m (physical-to-machine) page table hierarchy.
 > 
-> On 15/09/2025 12:14, Julien Grall wrote:
->> Hi Ayan,
-> Hi Julien,
->>
->> On 12/09/2025 18:00, Ayan Kumar Halder wrote:
->>> Introduce CONFIG_GICV3_SELFTEST to enclose tests for GICv3 driver.
->>> Test that Xen is able to generate SGIs.
->>>
->>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>> ---
->>> One of the aim of functional safety is to test hw/sw interface. This 
->>> means that
->>> Xen is able to configure the hardware correctly for the desired 
->>> functionalities.
->>>
->>> Normally this is tested from the VMs. For eg if a VM is able to 
->>> receive irq, this
->>> implies that Xen has configured the GICv3 interface 'correctly'. 
->>> However this is
->>> a high level (or integration) test which uses not only the GICv3 
->>> interface
->>> between Xen and VM, but the interrupt injection code for Xen to VMs.
->>>
->>> We want to have some kind of unit tests to check that Xen is able to 
->>> receive
->>> various interrupts, set priorities, etc. Here, we have written unit 
->>> tests for
->>> software generated interrupts (SGIs) as example.
->>>
->>> These tests are expected to be triggered as Xen boots (right after 
->>> Xen has
->>> initialised the GICv3 interface ie gicv3_init(). The aim of this test 
->>> is to
->>> check whether Xen can trigger SGIs after gicv3_init() is invoked. If 
->>> so, we can
->>> claim that gicv3_init() was done properly to be able to trigger SGIs. 
->>
->> To clarify, this only guarantees that the boot CPU can send SGIs to self. 
-> Yes, this is the idea.
->> Secondary CPUs are brought up later and will need their own setup to 
->> enable SGIs.
-> Yes, we will have separate tests for them.
->>
->>> Likewise
->>> we will have tests to check for priorities, SPIs, etc.
->>>
->>> A script will parse the logs and claim that Xen is able to trigger SGIs.
->>>
->>>   xen/arch/arm/Kconfig  |  8 ++++++++
->>>   xen/arch/arm/gic-v3.c |  7 +++++++
->>>   xen/arch/arm/gic.c    | 21 +++++++++++++++++++++
->>>   3 files changed, 36 insertions(+)
->>>
->>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
->>> index 950e4452c1..739f99eaa9 100644
->>> --- a/xen/arch/arm/Kconfig
->>> +++ b/xen/arch/arm/Kconfig
->>> @@ -73,6 +73,14 @@ config GICV3
->>>         Driver for the ARM Generic Interrupt Controller v3.
->>>         If unsure, use the default setting.
->>>   +config GICV3_SELFTEST
->>> +    bool "GICv3 driver self test"
->>> +    default n
->>> +    depends on GICV3
->>> +    ---help---
->>> +
->>> +      Self tests to validate GICV3 driver.
->>> +
->>>   config HAS_ITS
->>>           bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if 
->>> UNSUPPORTED
->>>           depends on GICV3 && !NEW_VGIC && !ARM_32
->>> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
->>> index 4e6c98bada..eb0c05231c 100644
->>> --- a/xen/arch/arm/gic-v3.c
->>> +++ b/xen/arch/arm/gic-v3.c
->>> @@ -1818,6 +1818,13 @@ static int __init gicv3_init(void)
->>>         gicv3_hyp_init();
->>>   +#ifdef CONFIG_GICV3_SELFTEST
->>> +    send_SGI_self(GIC_SGI_EVENT_CHECK);
->>> +    send_SGI_self(GIC_SGI_DUMP_STATE);
->>> +    send_SGI_self(GIC_SGI_CALL_FUNCTION);
->>> +    send_SGI_self(GIC_SGI_MAX);
->>> +#endif
->>
->> Looking a the code below, it seems like Xen will not be functional 
->> after running the selftests? Is this intended? If so, we need to stop 
->> Xen as soon as possible.
+> To support this, the following helpers are introduced:
+> - page_to_p2m_table(): Constructs non-leaf PTEs pointing to next-level page
+>   tables with correct attributes.
+> - p2m_alloc_page(): Allocates page table pages, supporting both hardware and
+>   guest domains.
+> - p2m_create_table(): Allocates and initializes a new page table page and
+>   installs it into the hierarchy.
 > 
-> Tbh, I didnot realize this with the current test. However you are 
-> correct that for some of these tests, Xen will not be usable. We can put 
-> a while(1) after it completes the tests.
-> 
-> Or, I can invoke machine_halt() .
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> Changes in V4:
+>  - make `page` argument of page_to_p2m_table pointer-to-const.
+>  - Move p2m_next_level()'s local variable `ret` to the more narrow space where
+>    it is really used.
+>  - Drop stale ASSERT() in p2m_next_level().
+>  - Stray blank after * in declaration of paging_alloc_page().
 
-I think it would be better to use machine_halt(). This would tell QEMU 
-to stop and hopefully we don't wait until it timeouts.
+When you deal with comments like this, can you please make sure you
+apply them to at least a patch as a whole, if not the entire series?
+I notice ...
 
-> 
-> The important bit here is CONFIG_GICV3_SELFTEST cannot be enabled for 
-> normal usage of Xen. IOW, user should not expect Xen to run domains when 
-> this configuration is enabled.
-> 
-> They are used to run baremetal tests.
-> 
->>
->> Also, looking at start_xen(), we call local_irq_enable() a little 
->> after gicv3_init() is called. So I am a little bit surprised this is 
->> working?
-> 
-> This is working i.e. we are getting interrupts. However, I can put the 
-> test after local_irq_enable() as Xen is expected to terminate after 
-> running the tests.
+> --- a/xen/arch/riscv/include/asm/paging.h
+> +++ b/xen/arch/riscv/include/asm/paging.h
+> @@ -15,4 +15,6 @@ int paging_ret_pages_to_freelist(struct domain *d, unsigned int nr_pages);
+>  
+>  void paging_free_page(struct domain *d, struct page_info *pg);
+>  
+> +struct page_info * paging_alloc_page(struct domain *d);
 
-I don't understand how this is working. Can you check whether the 
-interrupts are unmasked? If yes, it would be good to know who unmasked 
-them because it is not meant to be safe to enable them until the call of 
-local_irq_enable() in start_xen().
+... there's still a stray blank here. With this dropped:
+Acked-by: Jan Beulich <jbeulich@suse.com>
+I have one other question, though:
 
-Cheers,
+> +/*
+> + * Allocate a new page table page with an extra metadata page and hook it
+> + * in via the given entry.
+> + */
+> +static int p2m_create_table(struct p2m_domain *p2m, pte_t *entry)
+> +{
+> +    struct page_info *page;
+> +
+> +    ASSERT(!pte_is_valid(*entry));
 
--- 
-Julien Grall
+Isn't this going to get in the way of splitting superpages? The caller
+will need to initialize *entry just for this assertion to not trigger.
 
+Jan
 
