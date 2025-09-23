@@ -2,56 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19147B96DFD
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Sep 2025 18:48:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1128585.1468896 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03C57B96F40
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Sep 2025 19:10:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1128599.1468905 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v16Aj-0001EU-0p; Tue, 23 Sep 2025 16:47:21 +0000
+	id 1v16WV-00048I-Mz; Tue, 23 Sep 2025 17:09:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1128585.1468896; Tue, 23 Sep 2025 16:47:20 +0000
+Received: by outflank-mailman (output) from mailman id 1128599.1468905; Tue, 23 Sep 2025 17:09:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v16Ai-0001CX-UU; Tue, 23 Sep 2025 16:47:20 +0000
-Received: by outflank-mailman (input) for mailman id 1128585;
- Tue, 23 Sep 2025 16:47:19 +0000
+	id 1v16WV-00046f-K5; Tue, 23 Sep 2025 17:09:51 +0000
+Received: by outflank-mailman (input) for mailman id 1128599;
+ Tue, 23 Sep 2025 17:09:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hKVX=4C=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1v16Ah-0001CR-7S
- for xen-devel@lists.xenproject.org; Tue, 23 Sep 2025 16:47:19 +0000
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c000::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=53lz=4C=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
+ id 1v16WT-00046Z-NK
+ for xen-devel@lists.xenproject.org; Tue, 23 Sep 2025 17:09:49 +0000
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170100009.outbound.protection.outlook.com
+ [2a01:111:f403:c107::9])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f595345e-989c-11f0-9d14-b5c5bf9af7f9;
- Tue, 23 Sep 2025 18:47:17 +0200 (CEST)
-Received: from BYAPR06CA0058.namprd06.prod.outlook.com (2603:10b6:a03:14b::35)
- by SJ1PR12MB6099.namprd12.prod.outlook.com (2603:10b6:a03:45e::13)
+ id 1ac56e5b-98a0-11f0-9d14-b5c5bf9af7f9;
+ Tue, 23 Sep 2025 19:09:47 +0200 (CEST)
+Received: from PH7PR12MB5757.namprd12.prod.outlook.com (2603:10b6:510:1d0::13)
+ by CY8PR12MB7097.namprd12.prod.outlook.com (2603:10b6:930:51::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.19; Tue, 23 Sep
- 2025 16:47:08 +0000
-Received: from CO1PEPF000044F4.namprd05.prod.outlook.com
- (2603:10b6:a03:14b:cafe::ab) by BYAPR06CA0058.outlook.office365.com
- (2603:10b6:a03:14b::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.20 via Frontend Transport; Tue,
- 23 Sep 2025 16:47:08 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000044F4.mail.protection.outlook.com (10.167.241.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.12 via Frontend Transport; Tue, 23 Sep 2025 16:47:08 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 23 Sep
- 2025 09:47:02 -0700
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 23 Sep
- 2025 09:47:02 -0700
-Received: from [172.20.229.150] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 23 Sep 2025 09:47:00 -0700
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.14; Tue, 23 Sep
+ 2025 17:09:39 +0000
+Received: from PH7PR12MB5757.namprd12.prod.outlook.com
+ ([fe80::f012:300c:6bf4:7632]) by PH7PR12MB5757.namprd12.prod.outlook.com
+ ([fe80::f012:300c:6bf4:7632%2]) with mapi id 15.20.9137.018; Tue, 23 Sep 2025
+ 17:09:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,175 +47,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f595345e-989c-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: 1ac56e5b-98a0-11f0-9d14-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rwsrvIxavi2kwdodbPVo1N2iGMqK3f8+sRw1Gu6KyGFs2MMZRE1TOIhxk20HZ6w+owOQYJ7RyCgZc4K70odLXBWY4LyJLSBz2UR197XOON6zFOXzpA9/3OrJJ/Qkiw3F1E4CsbXfgumQiD00Md46Y7DrzmnsH55TaZfc/9ivUumbEueVxyXC6jgr5TTJVoqabNgdEH5xBms2qJE3CFgL5uuVgtHua2CUC1TBqJ3w6Rm8ZOMSZeOSGyBgUDFrKwiKRimoD0bEVNfdZ3rV6ZoIU5W5AGCKH0eoZ6WKBs4Or/xxLaKANDA1m2yFOJGQ2gnRQiD3fDH8FPHu7WiDdZ0nlw==
+ b=oWXggwVgG5+rl5z3SotJHQW1m4VjyXkt4rjniHHR2g+2Y3BHmjdoAqeVdP8k6mFe4IPb7kV+kge+ua1wSDvFL/quwLj4xhgtg8qlTIIUhCND6ACY1ARSrSYQ1pBHaSOpuwWRUe4OCI33oN+aektYyfNGfWTTlHi5lIwPl+an8UXKbN+hNUXK9Al/EyVpsysGtHD3vdUrEgNt1EMA7AVtqQwfJvPDoxL69kJrBOAbNaM3P//k0fFCX16uKv5cS6gw5sNS6VeWBk1hZgy5h50/yWGLyF4jP1+0rbw5DoPWdZbzD2HEXux/VkFJmyXHmptrQF3nI2FE+1vg30x+4Ui66g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=etSRuqcxug86BJLSlFeargc1Q+LCaWnLDyhcA0MdyGg=;
- b=KdEEYzGe4ysoIGrprFPW981icbzWsOl+mo4lWcetunztIvgw0R3h/ioGeJFokhnsNRSulYaEMbbQMXQqGDw+3LjC1jwEpJdNai8Ssjhx7RTM2AHLAieMHCrKJrcsq6cGRC8eKKR+S7SWzKZQjD5chv81cIsTtXP7LiBqkSYr1Dk131ZPuCugo5iyM3cxWUbcNhvfVDLC6g7mYMwdjf0uepwWGHlWVq1ddHGdIjKTL7gXwcYVMw0lfF63SD5wfL22ZWlPASjnR7uTUaADsYFlBUBlDCQJvYDuxjf2N127zP/csuXAJwEffbY/hFUGEr3m57S288R1EtRCEqFn6sSUBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=zfBJt5ORyJeWyTmriSi9rxIRbYwbq9D6z6afL/pAXS8=;
+ b=c4pMUCw0BfP/FSxTb+iJvOpFnhv2VZ5tk4N0rFUs3VE5JxKA+/LCYfsgEscOPhkcBmn8mnqWcvQBR8ozQh3kBNvhm/k8t/iXX0N3X3MAB7NL+3A7G+2SRwEnBiw9tNhNJ++RJMXlSFhasUB3UKspQrLRpqDBn809urbmvdRpCe8BQtw+rAQ3B6qSQMHUcXgjB97FDu8Z8M/QGUR/kkKu8BrcsyDg+z1FjySil2bvtHYp5VbPFYh3DrMT5KLkFnOVJE3g2Z9jrRPkrKYpnxDMu5ap+AsWNINW9UHaB4ftMQ/b789+skrb0bomTQOX2Z14ErVFPJGj3bG6xxi2XV3jKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=etSRuqcxug86BJLSlFeargc1Q+LCaWnLDyhcA0MdyGg=;
- b=rbnN7jXY2NGKW+BAAgn9ilAvneBym3CZUl42joyM9AR7P76WYVCvH/3RO7MASh6oCGmGq1QcdFWlvNdR2yNNBwMTn9ywd6N4f0qSrJZ/nabKv8bAYPTcvu7gsqaxIyuK6Fmh5wcMADKHUMbpJMtORiLj1jsHiOl2o9jl263lhyw=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <1106c080-508b-4328-a636-900ca8377d2d@amd.com>
-Date: Tue, 23 Sep 2025 12:47:00 -0400
+ bh=zfBJt5ORyJeWyTmriSi9rxIRbYwbq9D6z6afL/pAXS8=;
+ b=Clve4RHOxCmnuRZI1E6kaQWOMfhYl/gXKCQEkQ5MRl2kUIrjhbIR4RSReFQ4rSuBhHkpAhanzX9NW2skuKFHEmfVa54Dw9rU1UpMbeRRdeCaTVsqubTq5izKSmZ2udMsGlUy976lrNdGvdmcewLGFwRbyDxCvRPRoebjb0xsVLmuoCx7xSrUXpYQ2q6w72pNlFOj9SpzTionNFu8B24ImUw3Ndcfg55P7wKftC1gE6vXBr7HTN7jnMw935VCoF1V33cShDJxWK0rx+upcHZ3CsEhvN/LdNaaegoduC2dMaXY5bYkNtV4+9iHn88R4gzIty8gy1HBx5HgdWMNwtZsXg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Date: Tue, 23 Sep 2025 14:09:36 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Keith Busch <kbusch@kernel.org>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+	David Hildenbrand <david@redhat.com>, iommu@lists.linux.dev,
+	Jason Wang <jasowang@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+	Joerg Roedel <joro@8bytes.org>, Jonathan Corbet <corbet@lwn.net>,
+	Juergen Gross <jgross@suse.com>, kasan-dev@googlegroups.com,
+	linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+	linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6 00/16] dma-mapping: migrate to physical address-based
+ API
+Message-ID: <20250923170936.GA2614310@nvidia.com>
+References: <CGME20250909132821eucas1p1051ce9e0270ddbf520e105c913fa8db6@eucas1p1.samsung.com>
+ <cover.1757423202.git.leonro@nvidia.com>
+ <0db9bce5-40df-4cf5-85ab-f032c67d5c71@samsung.com>
+ <20250912090327.GU341237@unreal>
+ <aM1_9cS_LGl4GFC5@kbusch-mbp>
+ <20250920155352.GH10800@unreal>
+ <aM9LH6WSeOPGeleY@kbusch-mbp>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aM9LH6WSeOPGeleY@kbusch-mbp>
+X-ClientProxiedBy: BL0PR0102CA0062.prod.exchangelabs.com
+ (2603:10b6:208:25::39) To PH7PR12MB5757.namprd12.prod.outlook.com
+ (2603:10b6:510:1d0::13)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 7/8] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
- xen_sysctl_pm_op for amd-cppc driver
-To: Jan Beulich <jbeulich@suse.com>, Penny Zheng <Penny.Zheng@amd.com>
-CC: <ray.huang@amd.com>, Anthony PERARD <anthony.perard@vates.tech>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>
-References: <20250923043826.3831957-1-Penny.Zheng@amd.com>
- <20250923043826.3831957-8-Penny.Zheng@amd.com>
- <5a2e887f-d6da-42e2-aff0-efe55b041749@suse.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <5a2e887f-d6da-42e2-aff0-efe55b041749@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F4:EE_|SJ1PR12MB6099:EE_
-X-MS-Office365-Filtering-Correlation-Id: 385f10d3-4dde-494d-33d4-08ddfac0d606
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5757:EE_|CY8PR12MB7097:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc204952-1979-427d-43f4-08ddfac3faa1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?SklZMGFrUTdJbmp3STBTclYrMnNnajVQbFg3L1JvcW9FWXM0aCtjVmNmWGlR?=
- =?utf-8?B?MFVJakU5M3Q3dkZMY1dPZTBtVG8vQmlBSTBUUHlUT05xSHVLZDJ4SlNRNGpC?=
- =?utf-8?B?SFlmNzBPbU9ramNDLzFYTWh1TnFwSzV5ZDR6R3pDbGUwTStXYjJNcis5K1RJ?=
- =?utf-8?B?clMyNjJCLzBDaUVyeWFQM2t0TUJSZlFhZzg1dW5lUW10M3NBdTNEdmRzL0ZL?=
- =?utf-8?B?SnZpaDZXQU4vb3YvVTRQSDE3YUdQNC9BTVJVTmNkc3RzWnhJNjRTWUgyOU9t?=
- =?utf-8?B?WEdnVjg2eTRJWlh0bnpiV2JwZmVDNFgyZyt6eDRLZGN6c01sTVc2aFJ2dENF?=
- =?utf-8?B?LzNLVmZENjVTM1NpbHA2RU1lTlpPb1J1UnNHZ3hnT2RiczdBR1dLNEdMQTUv?=
- =?utf-8?B?UCs1Um1tRHhQOUlJUkRiVFV0cEl1VTljSWwyZU5tTzVxV2M4Rkp6L2VEcHFX?=
- =?utf-8?B?bXBNb3NtK2k5YXovbmdDdThLRmhORTRNNWFjdWpuR1Z1S3UrNXVOTXp5M0NW?=
- =?utf-8?B?UnVXcDBYbTFGTWpEMGRFZFhxWk9FRnh3SjNBMFFmVFNtSHJ3U1hrdmwvamM3?=
- =?utf-8?B?MStqZ0F3RlBFRlpyL0tYTjNQMXNsWmU2K2lBQTNacFNBTG5WOFl1K2ZCQmVG?=
- =?utf-8?B?TGtVZ2lON0VHRjVaVldSWnVzMTJ4MFdOdVBaQ3UvQy8wR3laOVB1REEvZXNO?=
- =?utf-8?B?Sm5aYWJNeXpBNUxmbXhDb1BaWGxMMDYzWWR4VkFpN1p0T05GbUhrQi9JZ3J5?=
- =?utf-8?B?UWlHMWNJcUc4NFVqSjJpTm1zb01tQWhOUjJMT2l6aEZxWkl1N1RkdU1BcElV?=
- =?utf-8?B?UFo4eDZoSlpWcENPaXUzZXNLWk00U2prNkcrVHRUSW0zUDhsZUxobXU0aENT?=
- =?utf-8?B?RUl4REZLb20vT2Z0R2NTK0JLditRVm9lZFd5Z3lhTTFneGNDTmZtd2NkUnBS?=
- =?utf-8?B?WStKMHMvNnFGMnBLeE9DR2xGNGxVVW85TU03WUhIUWhqSFBVakk4bm1ob2hX?=
- =?utf-8?B?aEVrdFB2T3JZbWMrV2VwWUhrd3JOVWdvMEp2aGgybDV2Z2Y4eUk4bHhrdDlF?=
- =?utf-8?B?ZTA1c2NORDJpUyttb1RzTmtCTjVaZ0JZV0t0YjlEcTdvdjRtQjVYWXdSMU9U?=
- =?utf-8?B?bjhBSEVJbU9jZGhUTjhwZW92cGFFd2FoMmFpQnlVZ0d3S004ZkdBNktaVXpY?=
- =?utf-8?B?OVdyQ2t5K2pzOEoxcU9HY21MTXFmcTdmQlRHaUk5VkVITEpXeHpXa1kxaDVZ?=
- =?utf-8?B?RHpQc2NLN2dwcTFMcFZUYmRWSS85L3lrWUI2RUw3bHZwOGpZOXAxTWFNc2N5?=
- =?utf-8?B?bUhhbS9wWStPZzYrbGRTR0U0alRwZjNrR3JRemcxVzNGYnUvYkJVZ3gxV0th?=
- =?utf-8?B?OVpjODRSZzJPbkZZR1pwWHRzZU1NWEtTSjJ1WGY5UHhxSTNRNnVTUmdQT3FE?=
- =?utf-8?B?WHdpMWQyVytXb2w1MU1QTjVoWm9iSzRLQ0c1WEZiSkpnOVZHSVRJV0ZXZ2pz?=
- =?utf-8?B?OWFZaTdiOStWdmlwelNuazNkOVprZzg3WDRhNGl2TmtjNVpUbXlLcHZ1WGFW?=
- =?utf-8?B?MnltN2IzbVVTb3pSMFVCUlBwN3liRmt0QktBTkVUZ0xCdGMxc2xWZmt4VmxB?=
- =?utf-8?B?US94Y0s3cGFLZ084WCtwNGJuYjdjdHphZlBkT3BSdVFyQ05OSVdMZ0IzM0x2?=
- =?utf-8?B?NmxTTEZTMjBPcHFHdmdzaE5veWs2TEVNZFA1ZlBGbTZIb1VzVU9zbXBZT2Fl?=
- =?utf-8?B?SThSTkR6bEwzckJJcFZUdzUwYm1OSG45VmZqejBkMllHSTJHUVdZTGZCSWNX?=
- =?utf-8?B?M0RkZUlhMU1MUGxWZ1Y5Qm1mb1hqNUNEVHJVQkdkQU1WK0czSGlPNXZjSUth?=
- =?utf-8?B?WUhuQkNJdnMxMHNsN2lkdXQxU3o5YS9nSXYxNUNtaWxyZUl1Nkx4MVdidEJ0?=
- =?utf-8?B?SFdGT1BkbnVSTXNKckZZZlU4aFRkRFcyU1puQ1p4NXBvbmliN3gzZ1ZoN283?=
- =?utf-8?B?MDR6Mzc3ZWIraXVaWXFTRmh1R0ovRThaOUxsb0ZQVGRGMVZoV2ZORTJROWFL?=
- =?utf-8?Q?grxVQF?=
+	=?us-ascii?Q?SJmAD6P8WrWWuHZOaif2sELSogZjML3CSOMNpyLWiBOtInZlQ+z3+HEwPek+?=
+ =?us-ascii?Q?xMrD+nXnpvB6+wyNA1MiGP7PUnMUXGOAo3Uji+JoeKTFjjpa2Wi8Tbdyy306?=
+ =?us-ascii?Q?lwMaY9apU4XbSh6ZMNDCYILAWKLg9xO1o0WaQX8X0t8PvWqGVI05dXYUfaJS?=
+ =?us-ascii?Q?dP23xF90g3yxrMg3E0ZweazGKCUtcpUk0BvZseMZ9Mn3ZEYPDC6SUqNTPyT5?=
+ =?us-ascii?Q?h9T0/JdzXqp5RVHFb0bCnTeE1SrhMbi0i6Rwq9D+7fSAiRtjgDGvD08j6Dh4?=
+ =?us-ascii?Q?9zDSElycQTqtC+SxuEXwPTeBP5j6mXPlytrpc/8I54CGMdxY0OT/iG0EKH+k?=
+ =?us-ascii?Q?fKXK1lmN2YB3l8NfwJKB3i6Bz1OJ+8wsnPpvf5DTWI6QOizZNh1dlKcg9Ons?=
+ =?us-ascii?Q?TwWJMjyGVaKnEc2KUnRHPRc9MXBxGdU2tpcoHFFMsv9ME5toHcHyY+5fBPyE?=
+ =?us-ascii?Q?3Lb1wA0tfhFmNLq9dByW3S/Z+OHToqipzWlBOL6llXnYqFA+YekgTSmj5THl?=
+ =?us-ascii?Q?IUevUbBBCkjpZQxFLPv0NEJI2jBOhEfviO8nRNoLyQPmgl2v4GXdiHmnd5B0?=
+ =?us-ascii?Q?qgOqPkxSpeWRVpwdlX+vRBOY8V8aTOnh+PZoebudEvEnynv7uqK6MA0Pr1F4?=
+ =?us-ascii?Q?+TlSLo1HaMFQ+fiKgoBluBBPW4Er7lSbish+pOk2mGuC9aJf+Flh7VdsNF6A?=
+ =?us-ascii?Q?UBkhE3SDC/eCbRcZtuyp5GvG8SnptVS3yn2DsSwwLQpvFtNh5A2kh4ZNKih5?=
+ =?us-ascii?Q?QE5ni5X10wtQk9Lj7T3AchwuQtLJwd4rBA7qvGl2P71YUZWb2LPuBW0/72Ko?=
+ =?us-ascii?Q?HO0ZQDsdrG8umM0sZrIhMKAFizButughBB28ZD1cnb+YnbeglqerRHRo9O8o?=
+ =?us-ascii?Q?1tTH5/UldaE30aM/XBB3HqZ6cRzzPdXjNJQwa2kWysbdYBzArHi4lJOq6uT+?=
+ =?us-ascii?Q?mZxfrv0YS27avYVToN6qcOyuSpCKxEBWrDJacnMkhhw+w06PXPIWOVgcLgod?=
+ =?us-ascii?Q?pRGBSZmi4gYf6GWVOypTrxrQ0KtcbuO8KCcCkSjevTbrbQp5gUbkFJW/lEoY?=
+ =?us-ascii?Q?zELONf86F3MT5VsZE9116D1a+e6lzmJCL9whVQqkV5sdp1irFJ+ropB9qI/k?=
+ =?us-ascii?Q?gGCmG061yMAzLvZxz6tc7q3/3RWpV+zHLlQxPe1v04t0wauH76R68fyv9HNn?=
+ =?us-ascii?Q?zn9NF6ZRGRZ5r/qNo2Uw/19OKlKFBpbeXLMMvKu5NQTSsADFKP7IT7jD76xH?=
+ =?us-ascii?Q?mn/fba6qnsgXbTXfsL0KdhGksYcRoJxVvi8p2TUhJ41p79ubs5tNZJcXm0IY?=
+ =?us-ascii?Q?Nd/QX/TgbDELc27Fsek28z6L76ISG+5VrCn+LPiDjw7PEuA4X6IpJ76tIYcL?=
+ =?us-ascii?Q?6ccVwWP77+YQSyB29uu+HetpBBRd/bjPUMECjnJO/TWb3cSYEl3+bHX392Dy?=
+ =?us-ascii?Q?2VgYRkJLZZo=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2025 16:47:08.6525
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5757.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9brSa+bdlvi/6eftqG0wEDppljbQgJEznYpb1kQH86dDICWbUMxtWiwK0/X7?=
+ =?us-ascii?Q?4rEWjqAc1kRsokCGBoz/oQbnANRsFgz673fviV3zWc3btFSRfD9I/XSh4cqp?=
+ =?us-ascii?Q?Q+Q+8h58Gm0cfSghyhxjy0uUK1l4e4fzZLwD04xX2uZPZxg3rHzASRTDh+us?=
+ =?us-ascii?Q?qgCFEDJR1PuMoPABTM36UOjJ6ub0/RXqf1Q10EItpXz66f9Eqppjjk/LCCMf?=
+ =?us-ascii?Q?49LiQkJ7Jeo39RkV8AIR7CtfJoLZrdV3MdmykRQ57YzURLJzvykAbUMGKRFx?=
+ =?us-ascii?Q?OQFm3ar9RMXa+/T8WxRzXgwMvRW/YW7wivCv74tpewW3AhCRCEu+wj3SOSB+?=
+ =?us-ascii?Q?4RlQ9MjNbsW7Jl9giTy6DXl4x6Fu9qIX6oRShn8Uilv+pRN/ry8KE3UcA+Wn?=
+ =?us-ascii?Q?ULvpHSCX1TyG+D3TBfE5QuTqlCG3isyhf2JNFtZpdroPhK0r/PANzfcv3BWG?=
+ =?us-ascii?Q?5+EH4FUjAbQPDabCUvlrG6EzUYfox05xMC6bLMoreyRPS7Ojy2mp1v2pIg7j?=
+ =?us-ascii?Q?7c1YIEg/truGG6QwtrwM4sI/9Vf+vz4UxPJNkExIvW4XDBa07XUdpPIfdPwD?=
+ =?us-ascii?Q?wx9RpRN+d13xiSLdQIFkuqZII6bHusCMmTb9E4narF0h5L/oEgpOqxsBcHBg?=
+ =?us-ascii?Q?ewdVKMLIBuo4fNrUkHkFKGzyKxveEUg9bW8w2PUI6njWI+DQIkg5J+YF38uK?=
+ =?us-ascii?Q?Ew1CW/yzGdWCvjC7hpcT8Ks7ALN72NOBDVhNCOMPtfuQ00fdyYU/ImkkcDCa?=
+ =?us-ascii?Q?OgXhBxMQtCnHPN/94sn7nXKb42TanX5SvZSuubFyUn9YK/MPNCkdbSd2cvPd?=
+ =?us-ascii?Q?O+eiBurynvlcVjvyQvC6tIMszTe9kXiIDrHL6h2TvytWCOgZyCSBQYmy8HjZ?=
+ =?us-ascii?Q?AJE8h0BeCiD4GxdgQU0B9kVCJ7SRRuaVeWcG/byzaTRliSgzwspmNszSU7vI?=
+ =?us-ascii?Q?w1zJZCrHgFDVq5KyG3ask7NK2W0l6gI+hQBLGORGHW4LJCSId4OVNZlD53px?=
+ =?us-ascii?Q?qw+5w0iybqAX5cb/BcIO3BvJd+6Dvl9TTQXENrWmNE4hrPzOz3r/cCf6XjLK?=
+ =?us-ascii?Q?MOa7ZLp/kRBF0xUqB0hEEAt7uVdrDwUHTBraQMBLZdDZS6Yh5Wmnam1J2ZZu?=
+ =?us-ascii?Q?gL5lGS0Sa8F7GW+ZQWERfs/8h3BinfAAwALQr+XognophwGG/PoHnulu55wn?=
+ =?us-ascii?Q?N6N61LxtGOTnozw9ccWDX9sp7X/5ZZUgMTNqDe5HPkkzf8E+TRIWQaSqsUMZ?=
+ =?us-ascii?Q?h7hVC2StbNxHjI6L/97Q4lxxwCOl59nYpHes7gqUxhZIKkFj1NJ/QML71bGJ?=
+ =?us-ascii?Q?SRBra1y1gGCD6HM4rDZdFiWixSvuP/Zl8olGEJUgiYR0LZo7l2+3qJ0DENnC?=
+ =?us-ascii?Q?5qugSmfjHJFJVySpdCgDiGx7H/u147UlCRCnLlNsX1sBgdSO5fMLmg1bj1M1?=
+ =?us-ascii?Q?8KkyHbCIbZvB+TBvJjr+HZZoL9DomFAIc8tlOZAIx2zdP7zX2hvfN/h9EOpe?=
+ =?us-ascii?Q?dRp/8lGy1sAFgNZzIblQrUHChTBvYY7FFJUihHYLu0AQAC7CntY0Dde2YTGz?=
+ =?us-ascii?Q?SOVUD2AqRajEjF69PyqwB/dZIVBwUeZ/PoDq/A15?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc204952-1979-427d-43f4-08ddfac3faa1
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2025 17:09:39.1137
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 385f10d3-4dde-494d-33d4-08ddfac0d606
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000044F4.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6099
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ceigpDcxetN7qTmDdR6xf/u6VfAhbxjc3VgXcalLxLEkjfvE0x+7MsjxHGl5BBWd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7097
 
-On 2025-09-23 11:38, Jan Beulich wrote:
-> On 23.09.2025 06:38, Penny Zheng wrote:
->> @@ -154,6 +156,17 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
->>       else
->>           strlcpy(op->u.get_para.scaling_driver, "Unknown", CPUFREQ_NAME_LEN);
->>   
->> +    /*
->> +     * In CPPC active mode, we are borrowing governor field to indicate
->> +     * policy info.
->> +     */
->> +    if ( policy->governor->name[0] )
+On Sat, Sep 20, 2025 at 06:47:27PM -0600, Keith Busch wrote:
+> On Sat, Sep 20, 2025 at 06:53:52PM +0300, Leon Romanovsky wrote:
+> > On Fri, Sep 19, 2025 at 10:08:21AM -0600, Keith Busch wrote:
+> > > On Fri, Sep 12, 2025 at 12:03:27PM +0300, Leon Romanovsky wrote:
+> > > > On Fri, Sep 12, 2025 at 12:25:38AM +0200, Marek Szyprowski wrote:
+> > > > > >
+> > > > > > This series does the core code and modern flows. A followup series
+> > > > > > will give the same treatment to the legacy dma_ops implementation.
+> > > > > 
+> > > > > Applied patches 1-13 into dma-mapping-for-next branch. Let's check if it 
+> > > > > works fine in linux-next.
+> > > > 
+> > > > Thanks a lot.
+> > > 
+> > > Just fyi, when dma debug is enabled, we're seeing this new warning
+> > > below. I have not had a chance to look into it yet, so I'm just
+> > > reporting the observation.
+> > 
+> > Did you apply all patches or only Marek's branch?
+> > I don't get this warning when I run my NVMe tests on current dmabuf-vfio branch.
 > 
-> amd_cppc_prepare_policy() may leave ->governor set to NULL afaics, so I
-> think you need to add a NULL check here alongside with pulling this out
-> of ...
+> This was the snapshot of linux-next from the 20250918 tag. It doesn't
+> have the full patchset applied.
 > 
->> +        strlcpy(op->u.get_para.s.scaling_governor,
->> +                policy->governor->name, CPUFREQ_NAME_LEN);
->> +    else
->> +        strlcpy(op->u.get_para.s.scaling_governor, "Unknown",
->> +                CPUFREQ_NAME_LEN);
->> +
->>       if ( !cpufreq_is_governorless(op->cpuid) )
->>       {
-> 
-> ... this conditional.
-> 
-> The description also continues to not mention the effect for HWP. I'm
-> actually somewhat confused, I suppose (Jason, question mainly to you):
-> HWP falls in the governor-less category, iirc. Yet it doesn't supply
-> a .setpolicy hook, hence __cpufreq_set_policy() goes through the normal
-> governor setting logic. What's the deal here? The answer may affect
-> whether I'd deem the pulling out of the conditional correct (or at least
-> benign) here as to HWP.
+> One other thing to note, this was runing on arm64 platform using smmu
+> configured with 64k pages. If your iommu granule is 4k instead, we
+> wouldn't use the blk_dma_map_direct path.
 
-Hi,
+I spent some time looking to see if I could guess what this is and
+came up empty. It seems most likely we are leaking a dma mapping
+tracking somehow? The DMA API side is pretty simple here though..
 
-When I wrote HWP, I didn't realize using .setpolicy would bypass the 
-governor code.  Instead, I implemented the no-op HWP governor, since I 
-thought I needed something as a governor.
+Not sure the 64k/4k itself is a cause, but triggering the non-iova
+flow is probably the issue.
 
-set_hwp_para() actually changes the configuration.  HWP only implements 
-the equivalent of amd-cppc-epp autonomous (active) mode.
+Can you check the output of this debugfs:
 
-So I think HWP could switch to .setpolicy and drop its governor.
+/*
+ * Dump mappings entries on user space via debugfs
+ */
+static int dump_show(struct seq_file *seq, void *v)
 
-But looking at this hunk:
+? If the system is idle and it has lots of entries that is probably
+confirmation of the theory.
 
- > @@ -321,10 +327,12 @@ static int set_cpufreq_cppc(struct
- > xen_sysctl_pm_op *op)
- >      if ( !policy || !policy->governor )
-
-Doesn't this !policy->governor prevent amd-cppc-epp from setting 
-parameters?
-
- >          return -ENOENT;
- >
- > -    if ( !hwp_active() )
- > -        return -EOPNOTSUPP;
- > +    if ( hwp_active() )
- > +        return set_hwp_para(policy, &op->u.set_cppc);
- > +    if ( processor_pminfo[op->cpuid]->init & XEN_CPPC_INIT )
- > +        return amd_cppc_set_para(policy, &op->u.set_cppc);
- >
- > -    return set_hwp_para(policy, &op->u.set_cppc);
- > +    return -EOPNOTSUPP;
- >  }
-
-So there may be other checks that would need dropping or adjusting to 
-support HWP without a governor.
-
-Thanks,
 Jason
 
