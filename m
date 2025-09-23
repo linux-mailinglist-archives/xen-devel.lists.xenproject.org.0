@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB2BDB96C29
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Sep 2025 18:09:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1128560.1468886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19147B96DFD
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Sep 2025 18:48:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1128585.1468896 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v15aH-00042o-8q; Tue, 23 Sep 2025 16:09:41 +0000
+	id 1v16Aj-0001EU-0p; Tue, 23 Sep 2025 16:47:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1128560.1468886; Tue, 23 Sep 2025 16:09:41 +0000
+Received: by outflank-mailman (output) from mailman id 1128585.1468896; Tue, 23 Sep 2025 16:47:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v15aH-000413-4H; Tue, 23 Sep 2025 16:09:41 +0000
-Received: by outflank-mailman (input) for mailman id 1128560;
- Tue, 23 Sep 2025 16:09:40 +0000
+	id 1v16Ai-0001CX-UU; Tue, 23 Sep 2025 16:47:20 +0000
+Received: by outflank-mailman (input) for mailman id 1128585;
+ Tue, 23 Sep 2025 16:47:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=QOel=4C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v15aG-0003gK-Hp
- for xen-devel@lists.xenproject.org; Tue, 23 Sep 2025 16:09:40 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hKVX=4C=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1v16Ah-0001CR-7S
+ for xen-devel@lists.xenproject.org; Tue, 23 Sep 2025 16:47:19 +0000
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c000::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1098616-9897-11f0-9d14-b5c5bf9af7f9;
- Tue, 23 Sep 2025 18:09:32 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-46b303f755aso29417775e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Sep 2025 09:09:32 -0700 (PDT)
-Received: from [172.20.5.108] ([50.239.116.157])
- by smtp.gmail.com with ESMTPSA id
- e9e14a558f8ab-42585a701eesm6905255ab.7.2025.09.23.09.09.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Sep 2025 09:09:31 -0700 (PDT)
+ id f595345e-989c-11f0-9d14-b5c5bf9af7f9;
+ Tue, 23 Sep 2025 18:47:17 +0200 (CEST)
+Received: from BYAPR06CA0058.namprd06.prod.outlook.com (2603:10b6:a03:14b::35)
+ by SJ1PR12MB6099.namprd12.prod.outlook.com (2603:10b6:a03:45e::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.19; Tue, 23 Sep
+ 2025 16:47:08 +0000
+Received: from CO1PEPF000044F4.namprd05.prod.outlook.com
+ (2603:10b6:a03:14b:cafe::ab) by BYAPR06CA0058.outlook.office365.com
+ (2603:10b6:a03:14b::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.20 via Frontend Transport; Tue,
+ 23 Sep 2025 16:47:08 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF000044F4.mail.protection.outlook.com (10.167.241.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9137.12 via Frontend Transport; Tue, 23 Sep 2025 16:47:08 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 23 Sep
+ 2025 09:47:02 -0700
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 23 Sep
+ 2025 09:47:02 -0700
+Received: from [172.20.229.150] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 23 Sep 2025 09:47:00 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,169 +63,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1098616-9897-11f0-9d14-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1758643772; x=1759248572; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=md3OcWKWFoeMzSQmVx17gVX0YatX4wCX8y/G7Y7g2f4=;
-        b=VnXAhRGRYJtQyGiZ+CsZXPPNndmsFhLI5gAJjgGfFA0ppqTlimmlP/z2LjRroXJ+SG
-         b+qa7sklHT2jzIGHkJwWdJ71348O1gZvr+8cVuiJ3BqNWksRiA/BlAxxHvq8zXQjk6HG
-         nvjSHzNVIoA/k87c4z9Df3kK1iTM/0uSlSgpSg0NJRmtPm4XaaknsK/mjJ7RCTjXT85V
-         xqlFvwcgeIrLumKeA/tR8BWE4lPqAlAH6OQb7krC0zcQ1ZsDovgwwnx36TjLBU9aLI4A
-         BAuR6DMU6TTj+sFd8XgkvW1agJKBWf6pF74q0egaO0v/VxRB4HAJiUYgQ1GsiWaxM075
-         IfTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758643772; x=1759248572;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=md3OcWKWFoeMzSQmVx17gVX0YatX4wCX8y/G7Y7g2f4=;
-        b=H2Dpla3Jl14DmR6myJmQlDgQaHSBkWhoo4eFiZnk6aYm67QdEwuaWfMmKl/oa1jNha
-         +KVoY1Fqx+0jNCHdLSIBLPUq2neZIM3ZmS4Y4WkRq/L67e1K4uwDixnD6CawkHqnCP0A
-         i0RG2/DsFxFT+NImqnJ15L0RqdbOSgHortMjjnjrZ7kRmSCfUqMwiXgag4eHv4diQH+S
-         6hNgSnhnOoRP4lq6reu641otA7CkCM1sjKE4V68OccmO0DPwAcnetoyxyjd1EcjDogZa
-         x3/a5m0Mrm6GUE100irnN3upJeShxKPxcyjuLZnZ4xeV4mRGSry8bv7aTanQnKo1kiah
-         crtQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU6NnZIDrkmo22K5DONPaw+vaExE0W9iwD9QDUsOdfpx29j0frXneB6bqcxrp8F15LYnSBDSGQlRPs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YweelVQHeVwUx7qmnmMR0QXXh5W+SdBH3GWlEKIRUUEF6ctogyP
-	wfdMkgalSMWa9BUTCV2piDGViJH4Xjv+0dRMuJ0gGZ2lngIU/PvmfHZzto/YpwOHEQ==
-X-Gm-Gg: ASbGncsQgAjHVnoXKWCQ3b8UPdos1EtHN8Hjh1cXoh8t46vtHg7d9wBxn6jxuuneKgD
-	S/j3X+M0nip5ANE2CNbQs38WBI+RMn17cjOmx+QCbQk0m9qyeLpMu1TJ3+3zRPW1adRg8cLTVYU
-	6LcwbewDwTd6fuh0Arn/f/GUWsx2Qs+5g8i4F/o+PeQ33Dcr0yX1cjiSIq4LFhI85RJdarCploC
-	f2uRTHVqNm3cbsBkDj6/jVW7Ac58g7wcJKhslU9nsy00JnxUlsdVvIEezPk9+WKwhBOmUv0FF9U
-	M3F5K9HLz/HGpGuS8JbBYerB/yOlkTpfGChkKNm3cKuahVloMAnUjlyLkSzHU7VxNMCrpBxQsa3
-	WNHxGP+wgbhKL9dW2DhdsmYzWVaCIRLuY
-X-Google-Smtp-Source: AGHT+IEf9YumDmq+JfMP17oEAdNSk7b2T8g3BXcZjNkiik0z2n0utEBoRZoFQ4x84AdWKaSiFXkaJQ==
-X-Received: by 2002:a5d:5703:0:b0:3ed:e1d8:bd73 with SMTP id ffacd0b85a97d-405ccbd7134mr2141266f8f.57.1758643772085;
-        Tue, 23 Sep 2025 09:09:32 -0700 (PDT)
-Message-ID: <d3dedc8f-48d7-4ccb-b62c-50378687da8d@suse.com>
-Date: Tue, 23 Sep 2025 18:09:30 +0200
+X-Inumbo-ID: f595345e-989c-11f0-9d14-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rwsrvIxavi2kwdodbPVo1N2iGMqK3f8+sRw1Gu6KyGFs2MMZRE1TOIhxk20HZ6w+owOQYJ7RyCgZc4K70odLXBWY4LyJLSBz2UR197XOON6zFOXzpA9/3OrJJ/Qkiw3F1E4CsbXfgumQiD00Md46Y7DrzmnsH55TaZfc/9ivUumbEueVxyXC6jgr5TTJVoqabNgdEH5xBms2qJE3CFgL5uuVgtHua2CUC1TBqJ3w6Rm8ZOMSZeOSGyBgUDFrKwiKRimoD0bEVNfdZ3rV6ZoIU5W5AGCKH0eoZ6WKBs4Or/xxLaKANDA1m2yFOJGQ2gnRQiD3fDH8FPHu7WiDdZ0nlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=etSRuqcxug86BJLSlFeargc1Q+LCaWnLDyhcA0MdyGg=;
+ b=KdEEYzGe4ysoIGrprFPW981icbzWsOl+mo4lWcetunztIvgw0R3h/ioGeJFokhnsNRSulYaEMbbQMXQqGDw+3LjC1jwEpJdNai8Ssjhx7RTM2AHLAieMHCrKJrcsq6cGRC8eKKR+S7SWzKZQjD5chv81cIsTtXP7LiBqkSYr1Dk131ZPuCugo5iyM3cxWUbcNhvfVDLC6g7mYMwdjf0uepwWGHlWVq1ddHGdIjKTL7gXwcYVMw0lfF63SD5wfL22ZWlPASjnR7uTUaADsYFlBUBlDCQJvYDuxjf2N127zP/csuXAJwEffbY/hFUGEr3m57S288R1EtRCEqFn6sSUBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=etSRuqcxug86BJLSlFeargc1Q+LCaWnLDyhcA0MdyGg=;
+ b=rbnN7jXY2NGKW+BAAgn9ilAvneBym3CZUl42joyM9AR7P76WYVCvH/3RO7MASh6oCGmGq1QcdFWlvNdR2yNNBwMTn9ywd6N4f0qSrJZ/nabKv8bAYPTcvu7gsqaxIyuK6Fmh5wcMADKHUMbpJMtORiLj1jsHiOl2o9jl263lhyw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <1106c080-508b-4328-a636-900ca8377d2d@amd.com>
+Date: Tue, 23 Sep 2025 12:47:00 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/7] xen/page_alloc: Add staking a NUMA node claim for
- a domain
-To: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-Cc: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1757261045.git.bernhard.kaindl@cloud.com>
- <a16fa2042c30183fc9a16bcaf400021661ae5b0b.1757261045.git.bernhard.kaindl@cloud.com>
+Subject: Re: [PATCH v10 7/8] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
+ xen_sysctl_pm_op for amd-cppc driver
+To: Jan Beulich <jbeulich@suse.com>, Penny Zheng <Penny.Zheng@amd.com>
+CC: <ray.huang@amd.com>, Anthony PERARD <anthony.perard@vates.tech>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>
+References: <20250923043826.3831957-1-Penny.Zheng@amd.com>
+ <20250923043826.3831957-8-Penny.Zheng@amd.com>
+ <5a2e887f-d6da-42e2-aff0-efe55b041749@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <a16fa2042c30183fc9a16bcaf400021661ae5b0b.1757261045.git.bernhard.kaindl@cloud.com>
-Content-Type: text/plain; charset=UTF-8
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <5a2e887f-d6da-42e2-aff0-efe55b041749@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F4:EE_|SJ1PR12MB6099:EE_
+X-MS-Office365-Filtering-Correlation-Id: 385f10d3-4dde-494d-33d4-08ddfac0d606
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SklZMGFrUTdJbmp3STBTclYrMnNnajVQbFg3L1JvcW9FWXM0aCtjVmNmWGlR?=
+ =?utf-8?B?MFVJakU5M3Q3dkZMY1dPZTBtVG8vQmlBSTBUUHlUT05xSHVLZDJ4SlNRNGpC?=
+ =?utf-8?B?SFlmNzBPbU9ramNDLzFYTWh1TnFwSzV5ZDR6R3pDbGUwTStXYjJNcis5K1RJ?=
+ =?utf-8?B?clMyNjJCLzBDaUVyeWFQM2t0TUJSZlFhZzg1dW5lUW10M3NBdTNEdmRzL0ZL?=
+ =?utf-8?B?SnZpaDZXQU4vb3YvVTRQSDE3YUdQNC9BTVJVTmNkc3RzWnhJNjRTWUgyOU9t?=
+ =?utf-8?B?WEdnVjg2eTRJWlh0bnpiV2JwZmVDNFgyZyt6eDRLZGN6c01sTVc2aFJ2dENF?=
+ =?utf-8?B?LzNLVmZENjVTM1NpbHA2RU1lTlpPb1J1UnNHZ3hnT2RiczdBR1dLNEdMQTUv?=
+ =?utf-8?B?UCs1Um1tRHhQOUlJUkRiVFV0cEl1VTljSWwyZU5tTzVxV2M4Rkp6L2VEcHFX?=
+ =?utf-8?B?bXBNb3NtK2k5YXovbmdDdThLRmhORTRNNWFjdWpuR1Z1S3UrNXVOTXp5M0NW?=
+ =?utf-8?B?UnVXcDBYbTFGTWpEMGRFZFhxWk9FRnh3SjNBMFFmVFNtSHJ3U1hrdmwvamM3?=
+ =?utf-8?B?MStqZ0F3RlBFRlpyL0tYTjNQMXNsWmU2K2lBQTNacFNBTG5WOFl1K2ZCQmVG?=
+ =?utf-8?B?TGtVZ2lON0VHRjVaVldSWnVzMTJ4MFdOdVBaQ3UvQy8wR3laOVB1REEvZXNO?=
+ =?utf-8?B?Sm5aYWJNeXpBNUxmbXhDb1BaWGxMMDYzWWR4VkFpN1p0T05GbUhrQi9JZ3J5?=
+ =?utf-8?B?UWlHMWNJcUc4NFVqSjJpTm1zb01tQWhOUjJMT2l6aEZxWkl1N1RkdU1BcElV?=
+ =?utf-8?B?UFo4eDZoSlpWcENPaXUzZXNLWk00U2prNkcrVHRUSW0zUDhsZUxobXU0aENT?=
+ =?utf-8?B?RUl4REZLb20vT2Z0R2NTK0JLditRVm9lZFd5Z3lhTTFneGNDTmZtd2NkUnBS?=
+ =?utf-8?B?WStKMHMvNnFGMnBLeE9DR2xGNGxVVW85TU03WUhIUWhqSFBVakk4bm1ob2hX?=
+ =?utf-8?B?aEVrdFB2T3JZbWMrV2VwWUhrd3JOVWdvMEp2aGgybDV2Z2Y4eUk4bHhrdDlF?=
+ =?utf-8?B?ZTA1c2NORDJpUyttb1RzTmtCTjVaZ0JZV0t0YjlEcTdvdjRtQjVYWXdSMU9U?=
+ =?utf-8?B?bjhBSEVJbU9jZGhUTjhwZW92cGFFd2FoMmFpQnlVZ0d3S004ZkdBNktaVXpY?=
+ =?utf-8?B?OVdyQ2t5K2pzOEoxcU9HY21MTXFmcTdmQlRHaUk5VkVITEpXeHpXa1kxaDVZ?=
+ =?utf-8?B?RHpQc2NLN2dwcTFMcFZUYmRWSS85L3lrWUI2RUw3bHZwOGpZOXAxTWFNc2N5?=
+ =?utf-8?B?bUhhbS9wWStPZzYrbGRTR0U0alRwZjNrR3JRemcxVzNGYnUvYkJVZ3gxV0th?=
+ =?utf-8?B?OVpjODRSZzJPbkZZR1pwWHRzZU1NWEtTSjJ1WGY5UHhxSTNRNnVTUmdQT3FE?=
+ =?utf-8?B?WHdpMWQyVytXb2w1MU1QTjVoWm9iSzRLQ0c1WEZiSkpnOVZHSVRJV0ZXZ2pz?=
+ =?utf-8?B?OWFZaTdiOStWdmlwelNuazNkOVprZzg3WDRhNGl2TmtjNVpUbXlLcHZ1WGFW?=
+ =?utf-8?B?MnltN2IzbVVTb3pSMFVCUlBwN3liRmt0QktBTkVUZ0xCdGMxc2xWZmt4VmxB?=
+ =?utf-8?B?US94Y0s3cGFLZ084WCtwNGJuYjdjdHphZlBkT3BSdVFyQ05OSVdMZ0IzM0x2?=
+ =?utf-8?B?NmxTTEZTMjBPcHFHdmdzaE5veWs2TEVNZFA1ZlBGbTZIb1VzVU9zbXBZT2Fl?=
+ =?utf-8?B?SThSTkR6bEwzckJJcFZUdzUwYm1OSG45VmZqejBkMllHSTJHUVdZTGZCSWNX?=
+ =?utf-8?B?M0RkZUlhMU1MUGxWZ1Y5Qm1mb1hqNUNEVHJVQkdkQU1WK0czSGlPNXZjSUth?=
+ =?utf-8?B?WUhuQkNJdnMxMHNsN2lkdXQxU3o5YS9nSXYxNUNtaWxyZUl1Nkx4MVdidEJ0?=
+ =?utf-8?B?SFdGT1BkbnVSTXNKckZZZlU4aFRkRFcyU1puQ1p4NXBvbmliN3gzZ1ZoN283?=
+ =?utf-8?B?MDR6Mzc3ZWIraXVaWXFTRmh1R0ovRThaOUxsb0ZQVGRGMVZoV2ZORTJROWFL?=
+ =?utf-8?Q?grxVQF?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2025 16:47:08.6525
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 385f10d3-4dde-494d-33d4-08ddfac0d606
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000044F4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6099
 
-On 07.09.2025 18:15, Bernhard Kaindl wrote:
-> Update domain_set_outstanding_pages() to domain_claim_pages() for
-> staking claims for domains on NUMA nodes:
+On 2025-09-23 11:38, Jan Beulich wrote:
+> On 23.09.2025 06:38, Penny Zheng wrote:
+>> @@ -154,6 +156,17 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
+>>       else
+>>           strlcpy(op->u.get_para.scaling_driver, "Unknown", CPUFREQ_NAME_LEN);
+>>   
+>> +    /*
+>> +     * In CPPC active mode, we are borrowing governor field to indicate
+>> +     * policy info.
+>> +     */
+>> +    if ( policy->governor->name[0] )
 > 
-> domain_claim_pages() is a handler for claiming pages, where its former
-> name suggested that it just sets the domain's outstanding claims.
+> amd_cppc_prepare_policy() may leave ->governor set to NULL afaics, so I
+> think you need to add a NULL check here alongside with pulling this out
+> of ...
 > 
-> Actually, three different code locations do perform just this task:
+>> +        strlcpy(op->u.get_para.s.scaling_governor,
+>> +                policy->governor->name, CPUFREQ_NAME_LEN);
+>> +    else
+>> +        strlcpy(op->u.get_para.s.scaling_governor, "Unknown",
+>> +                CPUFREQ_NAME_LEN);
+>> +
+>>       if ( !cpufreq_is_governorless(op->cpuid) )
+>>       {
 > 
-> Fix this using a helper to avoid repeating yourself (an anti-pattern)
-> for just only updating the domain's outstanding pages is added as well:
+> ... this conditional.
 > 
-> It removes the need to repeat the same sequence of operations at three
-> diffent places and helps to have a single location for adding multi-node
-> claims. It also makes the code much shorter and easier to follow.
-> 
-> Fix the meaning of the claims argument of domain_claim_pages()
-> for NUMA-node claims:
-> 
-> - For NUMA-node claims, we need to claim defined amounts of memory
->   on different NUMA nodes. Previously, the argument was a "reservation"
->   and the claim was made on the difference between d->tot_pages and
->   the reservations. Of course, the argument needed to be > d->tot_pages.
-> 
->   This interacs badly with NUMA claims:
->   NUMA node claims are not related to potentially already allocated
->   memory and reducing the claim by already allocated memory would
->   not work in case d->tot_pages already has some amount of pages.
-> 
-> - Fix this by simply claiming the given amount of pages.
-> 
-> - Update the legacy caller of domain_claim_pages() accordingly by
->   moving the reduction of the claim by d->tot_pages to it:
-> 
->   No change for the users of the legacy hypercall, and a usable
->   interface for staking NUMA claims.
-> 
-> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> The description also continues to not mention the effect for HWP. I'm
+> actually somewhat confused, I suppose (Jason, question mainly to you):
+> HWP falls in the governor-less category, iirc. Yet it doesn't supply
+> a .setpolicy hook, hence __cpufreq_set_policy() goes through the normal
+> governor setting logic. What's the deal here? The answer may affect
+> whether I'd deem the pulling out of the conditional correct (or at least
+> benign) here as to HWP.
 
-This looks the wrong way round, and then I expect a From: is also missing.
+Hi,
 
-> ---
-> Changes in v3:
-> 
-> - Renamed domain_set_outstanding_pages() and add check from review.
-> - Reorganized v3, v4 and v5 as per review to avoid non-functional
->   changes:
+When I wrote HWP, I didn't realize using .setpolicy would bypass the 
+governor code.  Instead, I implemented the no-op HWP governor, since I 
+thought I needed something as a governor.
 
-What's v3, v4, and v5 here (when we're only at v3)?
+set_hwp_para() actually changes the configuration.  HWP only implements 
+the equivalent of amd-cppc-epp autonomous (active) mode.
 
-> --- a/xen/common/memory.c
-> +++ b/xen/common/memory.c
-> @@ -1682,7 +1682,20 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->          rc = xsm_claim_pages(XSM_PRIV, d);
->  
->          if ( !rc )
-> -            rc = domain_set_outstanding_pages(d, reservation.nr_extents);
-> +        {
-> +            unsigned long new_claim = reservation.nr_extents;
-> +
-> +            /*
-> +             * For backwards compatibility, keep the meaning of nr_extents:
-> +             * it is the target number of pages for the domain.
-> +             * In case memory for the domain was allocated before, we must
-> +             * substract the already allocated pages from the reservation.
-> +             */
-> +            if ( new_claim )
-> +                new_claim -= domain_tot_pages(d);
+So I think HWP could switch to .setpolicy and drop its governor.
 
-This is now racy (and hence a functional change): Without holding the heap
-lock, a domain's total pages can change behind you back.
+But looking at this hunk:
 
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -492,6 +492,30 @@ DEFINE_PER_NODE(unsigned long, avail_pages);
->  
->  static DEFINE_SPINLOCK(heap_lock);
->  static long outstanding_claims; /* total outstanding claims by all domains */
-> +DECLARE_PER_NODE(long, outstanding_claims);
-> +DEFINE_PER_NODE(long, outstanding_claims);
+ > @@ -321,10 +327,12 @@ static int set_cpufreq_cppc(struct
+ > xen_sysctl_pm_op *op)
+ >      if ( !policy || !policy->governor )
 
-See comment on the earlier patch.
+Doesn't this !policy->governor prevent amd-cppc-epp from setting 
+parameters?
 
-> +#define domain_has_node_claim(d) (d->claim_node != NUMA_NO_NODE)
-> +
-> +static inline bool insufficient_memory(unsigned long request, nodeid_t node)
+ >          return -ENOENT;
+ >
+ > -    if ( !hwp_active() )
+ > -        return -EOPNOTSUPP;
+ > +    if ( hwp_active() )
+ > +        return set_hwp_para(policy, &op->u.set_cppc);
+ > +    if ( processor_pminfo[op->cpuid]->init & XEN_CPPC_INIT )
+ > +        return amd_cppc_set_para(policy, &op->u.set_cppc);
+ >
+ > -    return set_hwp_para(policy, &op->u.set_cppc);
+ > +    return -EOPNOTSUPP;
+ >  }
 
-Except in special cases, no inline please for static functions in .c files.
+So there may be other checks that would need dropping or adjusting to 
+support HWP without a governor.
 
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -405,6 +405,7 @@ struct domain
->      unsigned int     outstanding_pages; /* pages claimed but not possessed */
->      unsigned int     max_pages;         /* maximum value for domain_tot_pages() */
->      unsigned int     extra_pages;       /* pages not included in domain_tot_pages() */
-> +    nodeid_t         claim_node;        /* NUMA_NO_NODE for host-wide claims */
-
-I don't quite understand the purpose of this field: It looks to be a
-hidden parameter to domain_adjust_outstanding_claim(), yet then why isn't
-is a real one?
-
-As I'm also having a hard time following the description, I fear I have to
-stay away from making further comments (on the main part of the code
-changes), until I understand better what's (intended to be) going on here.
-
-Jan
+Thanks,
+Jason
 
