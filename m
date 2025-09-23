@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6C67B964C5
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Sep 2025 16:36:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1128442.1468797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72E54B965C1
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Sep 2025 16:45:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1128461.1468805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1481-0004uV-Qf; Tue, 23 Sep 2025 14:36:25 +0000
+	id 1v14G4-0006XB-Mn; Tue, 23 Sep 2025 14:44:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1128442.1468797; Tue, 23 Sep 2025 14:36:25 +0000
+Received: by outflank-mailman (output) from mailman id 1128461.1468805; Tue, 23 Sep 2025 14:44:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1481-0004rK-Mc; Tue, 23 Sep 2025 14:36:25 +0000
-Received: by outflank-mailman (input) for mailman id 1128442;
- Tue, 23 Sep 2025 14:36:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v14G4-0006Un-KE; Tue, 23 Sep 2025 14:44:44 +0000
+Received: by outflank-mailman (input) for mailman id 1128461;
+ Tue, 23 Sep 2025 14:44:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YQ3Z=4C=bounce.vates.tech=bounce-md_30504962.68d2b065.v1-acfe7957fc674b7d9a61cb1cffdd2e0d@srs-se1.protection.inumbo.net>)
- id 1v1480-0004qp-Ma
- for xen-devel@lists.xenproject.org; Tue, 23 Sep 2025 14:36:24 +0000
+ <SRS0=KqZy=4C=bounce.vates.tech=bounce-md_30504962.68d2b256.v1-94d0a8d6c86a4ea9abe15f9c011bd057@srs-se1.protection.inumbo.net>)
+ id 1v14G2-0006Uh-LN
+ for xen-devel@lists.xenproject.org; Tue, 23 Sep 2025 14:44:42 +0000
 Received: from mail133-23.atl131.mandrillapp.com
  (mail133-23.atl131.mandrillapp.com [198.2.133.23])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ace9e44f-988a-11f0-9d14-b5c5bf9af7f9;
- Tue, 23 Sep 2025 16:36:23 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d4ed65ca-988b-11f0-9809-7dc792cee155;
+ Tue, 23 Sep 2025 16:44:39 +0200 (CEST)
 Received: from pmta13.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
  by mail133-23.atl131.mandrillapp.com (Mailchimp) with ESMTP id
- 4cWMx156Ljz35hVQg
- for <xen-devel@lists.xenproject.org>; Tue, 23 Sep 2025 14:36:21 +0000 (GMT)
+ 4cWN6Z1dV4z35hWC8
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Sep 2025 14:44:38 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- acfe7957fc674b7d9a61cb1cffdd2e0d; Tue, 23 Sep 2025 14:36:21 +0000
+ 94d0a8d6c86a4ea9abe15f9c011bd057; Tue, 23 Sep 2025 14:44:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,133 +43,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ace9e44f-988a-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: d4ed65ca-988b-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1758638181; x=1758908181;
-	bh=P8Oo8nkljt7Riu6h2XQ7dGEmIIPy5qgKPXON1CCjxu8=;
+	s=mte1; t=1758638678; x=1758908678;
+	bh=DmKrUPickkfvJc0Xd5IFkjipDk3pdqzLI+e+o4I2eTw=;
 	h=From:Subject:Message-Id:To:Feedback-ID:Date:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=KH0qq21wYlv9MJxG7UOF14O2z9zy/k9r5K2xbVPY7OOErADjJvS2AK1LvHiHfIeSB
-	 80BjF1trS+KLXxtu2SBD/iK5rqlAPACyQ5oNSIQgqq6ioriqVSkL+eBrQ03930iyWT
-	 xn0UUJ/XarDP14Fnagmu9SMHSrVAN+axEy1t8go+tlc+oQx4hIX+4A3SpjlhktRh3i
-	 woyu3g1Rh2N7vVtcn6Iljjgalf750jmwZJk5UZ33kbS6lWxBEq4Zlf5pmhJSOnH2jy
-	 foWKjiavbNzCo6cP7WzfcN1QV05FKXnTM3/1RURWv48pkVR39tV++XmoqG6L+zd6cG
-	 8Wnyrsv66qGPg==
+	b=mc8170emKNIkM3mGb8gQcDPdPd1A8kH52GsDWtnWSSC/sQE7g7MEJzJwAJUA/ZXuP
+	 qSofImjLVZJX/m/52PDkGGPny2osfvcdxkIGY/jzN1l7DK9TMPeMVoQ74asg4ZsNuK
+	 3TXL/edI568Ut+DqK7Rml5TRtUsOm2SqXMcfx8sH1bMH4YjWyw4GaSRrqwRC6OKN7l
+	 mvOHc/Jkr6GwFX3cPRZLiRzxMSEiORvdomlvzUeUv/wxA4mQHhGXpt5dPfou2tu50r
+	 DpLUc1+1oQpg9PFv+sZc3uT9TqV1PYVCyJpzLoi/fzMUEOK5aLFtHNaEJTjCDAXq7T
+	 97Z+gw/LttT7w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1758638181; x=1758898681; i=yann.sionneau@vates.tech;
-	bh=P8Oo8nkljt7Riu6h2XQ7dGEmIIPy5qgKPXON1CCjxu8=;
+	t=1758638678; x=1758899178; i=yann.sionneau@vates.tech;
+	bh=DmKrUPickkfvJc0Xd5IFkjipDk3pdqzLI+e+o4I2eTw=;
 	h=From:Subject:Message-Id:To:Feedback-ID:Date:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=i965NleXoj797NhDg/X+66HXon8aS/JPpPBMtLn+P9QN7xH8SQJhANKmlzJ39CgiW
-	 wA6eHi/t90p3X7XcECCtZhSUZEtq3nI4csA9tNJ2ZHUNh5BKwFFEPOo//pX0aOw8uD
-	 vHSuGE2/5Ptmtn9EciXnaOW5sV9WxTDih4Q6lUQjpYeLhkAv3X13fvS2JSF9KlkBjC
-	 uVINRL5mCQBbcJ/C1pC86Ib3IsjVXKMhfpznSxiNs5KFDkhBn0EV2PpuWnQFTGKtlN
-	 eVjb8MwpUxPW132jpww2Qc8nOecR9sFLd4AwRzjWS7uOI59p4LCTw8fVi/cmMHcBOJ
-	 ilu7dRXlHEN8w==
+	b=wGydgrOw8LAvnL/syjVh2IbE6dJG7HGd6WPY7Ns2KeqICWE4RXekby6QlYbDoawGq
+	 QA2fiZlNi6CONxd0AUHjmM6lm2H7rpOryI6zd6ZS1K6UDl8zgc6EGSbtcyV2Aw8vbU
+	 tjEhzYyIy3HxdNjVJxEhzFmSy1RxHZFBo8xci9cZZFZCAHZE1go7Ep0WfMqwmRCMc4
+	 hhDTvV7ZSv+MRO7VCx2SV6lia+jA87auT5ylShLL23PLT9hdbq3m/9A2bK2HiN3R6M
+	 2JD1YUhQ5xtM3Maj8nMnPYUdcBzGvz/WeZ3cmKqO4YgkzAtSFG5hWZhcldvQaL09GK
+	 s7Fz+4oNalYcQ==
 From: "Yann Sionneau" <yann.sionneau@vates.tech>
-Subject: =?utf-8?Q?Xen=20Summit=202025=20-=20"x86=20Nested=20Virtualization=20-=20Project=20Plan"=20design=20session=20notes?=
+Subject: =?utf-8?Q?Xen=20Summit=202025=20-=20"Documentation=20Next=20Steps"=20design=20session=20notes?=
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1758638181050
-Message-Id: <de45d1c8-5740-430f-8e9e-7517cc4b8254@vates.tech>
+X-Bm-Transport-Timestamp: 1758638676524
+Message-Id: <68f987fb-4845-4811-b559-7999e283cf98@vates.tech>
 To: "Xen developer discussion" <xen-devel@lists.xenproject.org>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.acfe7957fc674b7d9a61cb1cffdd2e0d?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.94d0a8d6c86a4ea9abe15f9c011bd057?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20250923:md
-Date: Tue, 23 Sep 2025 14:36:21 +0000
+Date: Tue, 23 Sep 2025 14:44:38 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+"Documentation Next Steps" 
+(https://design-sessions.xenproject.org/uid/discussion/disc_Jp2T9yq2I3sH00t=
+eD0CT/view) 
+design session notes
 
-Here are my notes from this design session: 
-https://design-sessions.xenproject.org/uid/discussion/disc_ADNniRk2YcQ1wMOZ=
-eMXc/view
+Animated by Cody.
 
-I apologize for it being partial and maybe containing errors, it was not 
-an easy task for a non-native speaker as well as someone who does not 
-know the topic of nested virt.
+The documentation kind of exist=E2=80=A6
+There=E2=80=99s the wiki but you cannot register: it=E2=80=99s deactivated.
+We had to put a control system because some people were crashing the 
+wiki content.
+Cody : the technical documentation is being created in Sphinx
+It=E2=80=99s hard to find getting started, documentation and guides.
+It=E2=80=99s in the wiki but it also contain outdated documentation.
+Problem of the wiki is that it=E2=80=99s not related to some Xen version.
+Sphinx is at least tied to some Xen version.
+The wiki also contains how-to=E2=80=99s, list of boards, things that don=E2=
+=80=99t 
+really make sense in xen.git but are helpful to people.
+If we write pages on the website the number of person to contribute to 
+this will be limited.
+The website is in a git repo now 
+(https://gitlab.com/xen-project/www-xenproject-org)
+Some wiki pages are outdated because they are only valid for some 
+versions of Xen.
+We should have a getting started guide which is well maintained.
+We could have some information in the wiki like specific getting started 
+for some specific boards and then put the link to the wiki pages in the 
+website.
+Real documentation should not be on the wiki because it=E2=80=99s getting o=
+ut of 
+date and is not tied to Xen versions.
+We should prevent people from writing =E2=80=9Cgit clone xen.git; make=E2=
+=80=9D in the 
+wiki, we should always provide branch/tags/sha1 so that the information 
+stays true.
+It=E2=80=99s OK to have some outdated info, it=E2=80=99s better than having=
+ no info at all.
+We need to write more doc/info.
+Also, what do we put in the documentation for instance to explain how to 
+put Xen on an RPI? Since we don=E2=80=99t maintain yocto meta-virtualizatio=
+n.
+How do we provide the domU?
+We should have a user documentation auto generated from git repo (sphinx?)
+So first we would need to convert current doc (in xen.git and some parts 
+of the wiki) into sphinx format. Before then adding new content.
+We need to link to the new sphinx doc in the website 
+(https://xenbits.xen.org/docs/sphinx-4.20-testing/ for instance).
+- need a list of supported boards, should be listed on the website
+We should put some text in the getting started to say =E2=80=9Cif you have 
+difficulties, please email xen-users mailing list=E2=80=9D
 
-####################
-Wednesday 17/09
-
-Nested Virt It=E2=80=99s going to be a requirement for windows in a couple =
-of years.
-Let=E2=80=99s present the bigger picture plan, how to break it down and how=
- 
-people can help
-Also maybe prioritizing
-
-*A break down in small pieces is shown on screen*
-
-Feature prep :
-Nested virt is a huge undertaking
-Few bits are optional
-In theory it=E2=80=99s just a couple of instructions
-It=E2=80=99s easy to implement wrong and create security vuln
-Idea is to try and have each small piece have testing (XTF?)
-
-cpuid/msr it=E2=80=99s an old topic, we are struggling to finish this
-we don=E2=80=99t have a good way of controlling the features in the hypervi=
-sor
-There is a lot of code that assumes that all VMs are configured the same 
-way.
-
-We need to control all nested features per domain
-
-Lot of other work to do : hvm fixes.
-Lot of work that is not actually nested virt related
-Some is deleting code which is great.
-
-Mostly it=E2=80=99s not integration with the emulator that causes most work
-XenServer goal is to get VBS to work (Virtualization Based Security)
-(Windows using HyperV underneath)
-An issue is that Windows, if it sees that virt is available it could 
-turn anything on.
-It makes assumptions that a group of features are available in one group.
-To make windows happy it will demand quite a number of features available
-making WSL2 working is smaller than making VBS working according to Andrew.
-Viridian nested work has to be proven to work safely, this is a 
-performance improvement, it=E2=80=99s not a priority. However you really wa=
-nt it 
-because otherwise perf are bad.
-=3D> Make existing code work towards our need
-I=E2=80=99m not quite sure how much we can use existing code (Jan)
-Some pieces will definitely need rewriting
-NMI handling, breakpoint handling are broken
-We have bugs to fix wrt to MSR: the check for the bitmap is in the 
-generic hook
-We need to fix them (bugs) in order not to have security vuln in the 
-nested virt case
-
-Maybe focusing on one vendor first (intel vs amd) to have it out more 
-quickly?
-AMD has 50 controls, intel has ~500.
-If we look at AMD first =E2=80=A6 it would help to have something out
-90% of the work is common.
-Teddy : Nested paging handling is not in the shown breakdown
-How do we transition from the old way of nested virt to the new one?
-Would it be ok to send a patch to ditch the old way?
-Andrew : I don=E2=80=99t think we want to slowly move from the old to the n=
-ew
-Andrew : I think we should rewrite from scratch, and by someone actively 
-ignoring current code.
-Andrew : we should remove code and put the new one in a single release
-If we are building feature by feature it should be doable
-Andrew : if we do it in 1 release we should put the removal of 1 feature 
-and the restoration in one patch series.
-Running hypervisor that are not Xen , on top of Xen, should be part of 
-the testing
-Today most likely only Xen on Xen works because their assumptions do align.
-XAPI testing for instance uses a lot nested virt to just spin up lots of 
-Xen and do pool join etc
-
-Conclusion: let=E2=80=99s do a first basic working solution running on 1st 
-generation hardware, from scratch.
-
-####################
 
 -- 
 
