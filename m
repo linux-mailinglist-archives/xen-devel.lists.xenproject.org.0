@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9527EB95137
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Sep 2025 10:53:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1128328.1468726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A21E5B95E68
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Sep 2025 14:57:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1128359.1468735 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v0yln-0004py-8n; Tue, 23 Sep 2025 08:53:07 +0000
+	id 1v12Yw-0006vo-OA; Tue, 23 Sep 2025 12:56:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1128328.1468726; Tue, 23 Sep 2025 08:53:07 +0000
+Received: by outflank-mailman (output) from mailman id 1128359.1468735; Tue, 23 Sep 2025 12:56:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v0yln-0004nG-5e; Tue, 23 Sep 2025 08:53:07 +0000
-Received: by outflank-mailman (input) for mailman id 1128328;
- Tue, 23 Sep 2025 08:53:05 +0000
+	id 1v12Yw-0006uE-JG; Tue, 23 Sep 2025 12:56:06 +0000
+Received: by outflank-mailman (input) for mailman id 1128359;
+ Tue, 23 Sep 2025 12:56:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u1Uj=4C=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1v0yll-0004n9-Ks
- for xen-devel@lists.xenproject.org; Tue, 23 Sep 2025 08:53:05 +0000
-Received: from 19.mo583.mail-out.ovh.net (19.mo583.mail-out.ovh.net
- [46.105.35.78]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b78144f1-985a-11f0-9d14-b5c5bf9af7f9;
- Tue, 23 Sep 2025 10:53:04 +0200 (CEST)
-Received: from director11.ghost.mail-out.ovh.net (unknown [10.110.37.252])
- by mo583.mail-out.ovh.net (Postfix) with ESMTP id 4cWDJv4jB6z6VSJ
- for <xen-devel@lists.xenproject.org>; Tue, 23 Sep 2025 08:53:03 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-q9x2g (unknown [10.110.96.9])
- by director11.ghost.mail-out.ovh.net (Postfix) with ESMTPS id B7DCAC5BA6;
- Tue, 23 Sep 2025 08:53:01 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.103])
- by ghost-submission-5b5ff79f4f-q9x2g with ESMTPSA
- id 9gqAIO1f0mjuYQAAD2cM0A
- (envelope-from <sergii.dmytruk@3mdeb.com>); Tue, 23 Sep 2025 08:53:01 +0000
+ <SRS0=bcE1=4C=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1v12Yv-0006u8-Au
+ for xen-devel@lists.xenproject.org; Tue, 23 Sep 2025 12:56:05 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a9e11ee5-987c-11f0-9d14-b5c5bf9af7f9;
+ Tue, 23 Sep 2025 14:56:04 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-b04ba58a84fso949298666b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Sep 2025 05:56:04 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-67-38.play-internet.pl.
+ [109.243.67.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b29f45b5384sm671968266b.27.2025.09.23.05.56.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Sep 2025 05:56:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,91 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b78144f1-985a-11f0-9d14-b5c5bf9af7f9
-Authentication-Results:garm.ovh; auth=pass (GARM-103G0058440662f-1117-4644-be73-4f94ea993088,
-                    4804EDC472500D38916C4D805CCC5D85F75C271A) smtp.auth=sergii.dmytruk@3mdeb.com
-X-OVh-ClientIp:176.111.184.221
-Date: Tue, 23 Sep 2025 11:52:16 +0300
-From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Ross Philipson <ross.philipson@oracle.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Lukasz Hawrylko <lukasz@hawrylko.pl>,
-	Mateusz =?iso-8859-1?Q?M=F3wka?= <mateusz.mowka@intel.com>,
-	trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 01/22] x86/include/asm/intel-txt.h: constants and
- accessors for TXT registers and heap
-Message-ID: <aNJfwP36FPBr78i1@MjU3Nj>
-References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
- <5da8e6c9fd2d986cd99be35774b850584e4a43ee.1748611041.git.sergii.dmytruk@3mdeb.com>
- <ce7ff2f4-4657-45a6-98ea-7f6d3a448447@suse.com>
- <aGqc6HfryKoVoLDL@MjU3Nj>
- <70869cab-ecd1-4756-a874-91fbc9b7ec35@suse.com>
+X-Inumbo-ID: a9e11ee5-987c-11f0-9d14-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1758632164; x=1759236964; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5tBdwgS747dBZVBV0IIJCXA3915gEcA/QF5qizjHD+A=;
+        b=l7R+VeEjazLebv+Nby664WWBpUTsnUd1J+PtLer6MDv8aU62iGoxH5yD/TJJlJZ+7Z
+         a0joDS1hTYtmmvpHEkozzMLJln/DPCgeDmQekZdcPC0UJT6hLH/ntoC6mNMAnPmAqx2x
+         Yyl5rERPEiCffgB3x8UnaaC8yNEpsSpTojOlssX3XhCATvs/iZ2W3N5pDVO6CP335+GU
+         ZuqdJHQoq6Hrq0Tjvd+i0ZMQ+UorHvU6X01kUtSQeAeSntteEc6RJ/S2vercaNw54Deu
+         ydaOpNZKl7lMkrj1WEirheWZq5e9HjzLMzg4AlbrKvcuG/M1nUV5O+rR7o/afksPj8GV
+         NS4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1758632164; x=1759236964;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=5tBdwgS747dBZVBV0IIJCXA3915gEcA/QF5qizjHD+A=;
+        b=IM16iCWvXDNBZUaP5A4m6bQLrIgd6feSQQvEa7HLYIl/kZjR1bkUe4dakvhfyGn6eM
+         p8BqTSARDLe4+sBhl9BVwGYNj8CLYwEA6k5yOZku84XUC5J84b22HfJ/OwTt0YIpzMhq
+         c3htjAMhQtlgGoR846tcwIprPJVYUvMaYb3IAt0zYN0sy2s8TTPeO+N8dyJBPDvs412C
+         aestWq77nwti95babF4BWde6YiIjj2Kkik35ktrRGCPIIu9OHyr9CfwtWHt0EatHTy4M
+         vbTw162jefi9QSmNJhHbTWW8osQ704SUZPgQGYcEo3G+LbQDIx1Jqp0BoRwQx9xDG21H
+         M9IQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVnE6LnMrpubFVTCj2gHtYArL2uGVCKv03wxOhugV180VrvW8ftgkg/6zD5yw/ZZuJ8/4gDij0NCdE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwuqTvx0zzFe7b+w8kDHEc2BmHyP6qj01puhTzx07rAK4Mu7sZQ
+	saqQ4VIkMIXfpNMpDk/39pWgGEH+QCrVyBC5b/0LaUo2BxFVKqszgSQU
+X-Gm-Gg: ASbGncuMS0V/nr2AztAFiODSdT1mobm8vxbgUr+TyAj6yTEADKu6CX8qUZS10R53cjo
+	ZmIA2nEEiGm1jir6ecV2WHMFWNLOVZregJXWDsov1EvxJ0f0RGQ1Y6xOv1q67P5kfnp45bK+IkO
+	TFGxyiJidz1NWKbGSFZR+3XcHT2moM7gRaYrVi4QLAPDLMbuF0E+SiYpHjr8732Lls6wMX35W2F
+	gF2FkoAPByY+q9pQXozZRQgiA6dGynYFXTY1ExMUIgdn7Deh9oYwqmOeF8d94QhLa14KDOjo8WV
+	ak466zXm8jnJWeJ6Y9MQxwB5u3LD9ZO7WjgvMrY0NyaLsu7wC3GtnklrATLIXenUhxEySx2C3Oa
+	2nPNSa5aCyr9aC4XSBwI0lGJqYwQsInKcB59VuH5wD0VIEiJtzs7eYqR7Jl29NKjzjBbeV+5S
+X-Google-Smtp-Source: AGHT+IGvTj04ixM3W6kjbnuE60+qySvz/SpECJ8DcJ/qV6ivZLIh4aVbvFs+qCHj/BZDKJlZg/tLAg==
+X-Received: by 2002:a17:907:7f91:b0:b04:848f:a0d4 with SMTP id a640c23a62f3a-b30263b8326mr239483166b.13.1758632163362;
+        Tue, 23 Sep 2025 05:56:03 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------D9E9RIuLltWrosOGlBe0fF4b"
+Message-ID: <ff9b5c10-dfb9-4341-ba8e-19ea6a22e2a9@gmail.com>
+Date: Tue, 23 Sep 2025 14:56:01 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <70869cab-ecd1-4756-a874-91fbc9b7ec35@suse.com>
-X-Ovh-Tracer-Id: 6912462481714361433
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTF3cPJaf/9hw6Nuh/cAQGE4V1JYeBNdgVI/FVLtRv8IAAr3IUPP98mKOx6sOSpJ88Rt4QXBM11KpFoxIIyWSdZcm79CcP1+2p2GWJ8K6zfY3w4OYO4QSf0EEmG+7JTO/ufFQSWlidzyEJhVbnO5O0qU4/Epx06vTRxPPmQp/AJsFi5l7mYBsuo3wtnwOIVqyhqopZSm4B68ikKIeroS31UYh4/1PWcmgNX2w0u/hM2eQDfR9wLIVfUWTmNPCUhWv+esPsIvosi4Ke36D/xXHA3Zks6SHHncmFALOFYJz/5h9yBfj1CaAKy04LziedOKO+WV8Vu3umMh3L4oKHL4YUP/L2VsZ1aVGefR2058ZeKb1eoa3YO99sPpyO06Ok2wBhU0e8vBHhviUwBscaHA9mFwHO5YXEwzcB9NRubfhH/cc9PkXHAcKwH4GI7xqpyx80eAa+mdA1U5s44qNMCMT6qjarPIS3U5ebJPn4Wd2hMShGGAkqnuj+bnUYAY3g7hleRyP1V61umJ5LgsuzSwx1f7Bo/UoxAs+BlF6Dd7WY3qoK0jMa2yUtjpVxCPT5V9lnFYW5LXDiKoEhAH9yjd0PmnSX9t3F9qUiKfOVwC7AHlPi2omZP2NbQidiJLLQY2zjp1KWBSy+VBddqP55N72xMP4MgFAPN35/VKFy9u4KuvHA
-DKIM-Signature: a=rsa-sha256; bh=+auXqZgcWe7xQ7lN3jz0tyMvHEYH8Md1KLPy5CiipSE=;
- c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1758617583; v=1;
- b=lB87drY7jL9YkmEUbmkXVrPcnYH4yWz3g9wdUMaGRN0C8F9aC47qe4V7JRhyIMnUHAT+Br4v
- CaxFmi7ygbbW1vNvseJiScEqxjMqEHFGDtwTPbHh9zy5eE+U+NALuYmltnwUaBbnVp5iKM7ILPL
- 45ztXjxKDEzmZIl3feWkGY4F+qRw73UjiPLSKqh/vZrtXvbn/Duns9NnELyBSMOqrT7WZgdZXzJ
- /iSCW6jizA0QoGtD3afOO8Nsg97NCRL/fPvhyFQOBH/a2+fmRrtX2Cd13b62nr/ef85AWBbH846
- jIzZmlcOsBUermPQmUyAWt+JM3rK4pkjI2J22+lVK8jkQ==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 8/8] CHANGELOG.md: add amd-cppc/amd-cppc-epp cpufreq
+ driver support
+To: Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org
+Cc: ray.huang@amd.com, Community Manager <community.manager@xenproject.org>
+References: <20250923043826.3831957-1-Penny.Zheng@amd.com>
+ <20250923043826.3831957-9-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20250923043826.3831957-9-Penny.Zheng@amd.com>
 
-On Mon, Jul 07, 2025 at 10:24:37AM +0200, Jan Beulich wrote:
-> On 06.07.2025 17:57, Sergii Dmytruk wrote:
-> > On Wed, Jul 02, 2025 at 04:29:18PM +0200, Jan Beulich wrote:
-> >> Btw, a brief rev log would be nice here. I saw you have something in the
-> >> cover letter, but having to look in two places isn't very helpful.
-> >
-> > I don't really know how to effectively maintain 23 logs at the same time
-> > given that changing one patch has cascading effects on the rest.  I'd
-> > suggest using `git diff-range` instead, commands for which I can include
-> > in cover letters for convenience.
+This is a multi-part message in MIME format.
+--------------D9E9RIuLltWrosOGlBe0fF4b
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+On 9/23/25 6:38 AM, Penny Zheng wrote:
+> Signed-off-by: Penny Zheng<Penny.Zheng@amd.com>
+> ---
+> v9 -> v10:
+> - s/Support/New/ and add a full stop at the end
+> ---
+>   CHANGELOG.md | 1 +
+>   1 file changed, 1 insertion(+)
 >
-> Well, no, doing this per patch is possible and relevant. For cascading
-> effects their mentioning in a revlog can be pretty brief.
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index ca1b43b940..7b9518ff08 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -36,6 +36,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>      - Support in hvmloader for new SMBIOS tables: 7 (Cache Info), 8 (Port
+>        Connector), 9 (System Slots), 26 (Voltage Probe), 27 (Cooling Device),
+>        and 28 (Temperature Probe).
+> +   - New amd-cppc/amd-cppc-epp cpufreq driver.
 
-OK, will give it a try.
+LGTM: Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-> >>> +    (void)txt_read(TXTCR_ESTS);
-> >>
-> >> I don't think the cast is needed.
-> >
-> > It's not needed, but I think that explicitly discarding unused return
-> > value is a generally good practice even when there is a comment.
->
-> In the context of Misra there has been discussion about doing so. But in our
-> present code base you will find such as the exception, not the rule.
+Thanks.
 
-Will state the result is discarded in a comment instead.
+~ Oleksii
 
-> >>> +    txt_write(TXTCR_CMD_RESET, 1);
-> >>> +    unreachable();
-> >>
-> >> What guarantees the write to take immediate effect? That is, shouldn't there
-> >> be e.g. an infinite loop here, just in case?
-> >
-> > I'll return infinite loop from v2.  Tried adding `halt()` as Ross
-> > suggests, but including <asm/system.h> doesn't work in the early code
-> > (something about compat headers and missing expansion of things like
-> > __DeFiNe__).
->
-> Yeah, untangling that may be a little involved. Open-coding halt() is an
-> option, as long as you clearly indicate it as such (for e.g. grep to still
-> find that instance).
->
-> Jan
+>   
+>    - On Arm:
+>       - Ability to enable stack protector
+--------------D9E9RIuLltWrosOGlBe0fF4b
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Will do that.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 9/23/25 6:38 AM, Penny Zheng wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20250923043826.3831957-9-Penny.Zheng@amd.com">
+      <pre wrap="" class="moz-quote-pre">Signed-off-by: Penny Zheng <a class="moz-txt-link-rfc2396E" href="mailto:Penny.Zheng@amd.com">&lt;Penny.Zheng@amd.com&gt;</a>
+---
+v9 -&gt; v10:
+- s/Support/New/ and add a full stop at the end
+---
+ CHANGELOG.md | 1 +
+ 1 file changed, 1 insertion(+)
 
-Regards
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index ca1b43b940..7b9518ff08 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -36,6 +36,7 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
+    - Support in hvmloader for new SMBIOS tables: 7 (Cache Info), 8 (Port
+      Connector), 9 (System Slots), 26 (Voltage Probe), 27 (Cooling Device),
+      and 28 (Temperature Probe).
++   - New amd-cppc/amd-cppc-epp cpufreq driver.</pre>
+    </blockquote>
+    <pre>LGTM: Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+Thanks.
+
+~ Oleksii
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:20250923043826.3831957-9-Penny.Zheng@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+ 
+  - On Arm:
+     - Ability to enable stack protector
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------D9E9RIuLltWrosOGlBe0fF4b--
 
