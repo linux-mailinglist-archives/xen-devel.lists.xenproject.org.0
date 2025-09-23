@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 260A9B973B1
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Sep 2025 20:45:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1128672.1468956 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32BBCB975D5
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Sep 2025 21:35:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1128693.1468965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v181J-00016D-5E; Tue, 23 Sep 2025 18:45:45 +0000
+	id 1v18mn-0007dH-K1; Tue, 23 Sep 2025 19:34:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1128672.1468956; Tue, 23 Sep 2025 18:45:45 +0000
+Received: by outflank-mailman (output) from mailman id 1128693.1468965; Tue, 23 Sep 2025 19:34:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v181J-00014W-2W; Tue, 23 Sep 2025 18:45:45 +0000
-Received: by outflank-mailman (input) for mailman id 1128672;
- Tue, 23 Sep 2025 18:45:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1v18mn-0007ai-HR; Tue, 23 Sep 2025 19:34:49 +0000
+Received: by outflank-mailman (input) for mailman id 1128693;
+ Tue, 23 Sep 2025 19:34:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1v181H-00014Q-NL
- for xen-devel@lists.xenproject.org; Tue, 23 Sep 2025 18:45:43 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1v181H-006RTL-0n;
- Tue, 23 Sep 2025 18:45:43 +0000
-Received: from [2a02:8012:3a1:0:5196:5816:243d:dc7b]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1v181H-009rfR-0u;
- Tue, 23 Sep 2025 18:45:43 +0000
+ (envelope-from <SRS0=4oKJ=4C=gmail.com=linmag7@srs-se1.protection.inumbo.net>)
+ id 1v18mm-0007ac-2w
+ for xen-devel@lists.xenproject.org; Tue, 23 Sep 2025 19:34:48 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5b597a7a-98b4-11f0-9809-7dc792cee155;
+ Tue, 23 Sep 2025 21:34:44 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-62fbc90e6f6so8101349a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Sep 2025 12:34:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,175 +40,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=cN8YcMWZlMZh5DbUFDu5aozwqjqXd2migigsxSiVLGY=; b=hgTLsJQ4b9PeEeUmJ9Cb19/X96
-	1XjElB+/gO9kmS3qEQO05ggt11XW3W+CVP1C2EMTv+/GUIrTf7iq7v9FlBErCJx6LoH9V6fbIe15F
-	rEuncnLsR6yuSeC3+KT4uZpKIKPiEBHdlZ+UBo6GW8YsuPqzvKTR8s0W2JXkhxa5WCaE=;
-Message-ID: <81a1de69-0c42-450b-a97d-8d30cfe247de@xen.org>
-Date: Tue, 23 Sep 2025 19:45:41 +0100
+X-Inumbo-ID: 5b597a7a-98b4-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1758656084; x=1759260884; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=++d3dqdiBWxrOtz0QgpiS/0g7+oJyTqlQjLbyxgEnJo=;
+        b=KxaO1att+YSOo9JmuvAo4yqzfYX4vr5qIAuJoYcQwSa5gA3CvvrsNgYpSS2xJLz5yc
+         pizt9ClrPQr1n6c+lSitmdXksIYx0AwWP8AHV01Am2yHz/9ufFnCwf2TvNik6BNiAQRR
+         9WnqtXrQJccwsa6D7v+kbh+ulE3ZzJWah3Qr4Us92be9LhS85lNsjPifQ7oyBmVxrEO8
+         nFWT/e9AXTxQUHQAPUmwVY0mjGq/uicDGnPU4GHV/PA5WiEvA650IQ8hsUfIoroqCvJo
+         uW19IKde0uPWaBNpAWD1cm7x/LfDCFGBet4K90bzHlK3WiV7MGpnbT6cJ4eyRvE+93nB
+         /GKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1758656084; x=1759260884;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=++d3dqdiBWxrOtz0QgpiS/0g7+oJyTqlQjLbyxgEnJo=;
+        b=DWhEFRHn4/tIcAJ+5FHE1n56RRVBGq4lcMANIu32uPSU9KMxVQgPAFl0w5IibiTdPI
+         Y8h3oRHGD4bYFuGGKmrdg4jwSDguHyUcu7jUDybZEh76nVwG1kbIVJ+rkQ+FN6LiCj/e
+         HGC0u48X3xmt9ZoYZMcbe7jhi5jpF4kGcRSnuVO4JTBODaO2EjllxZzz2St5c+t7Zuev
+         Un3v0DQpX6MV5XPeMKjOCR1755XrPQMYek6hDQ7lAQJXv733qPlByYi4YnseMVmz5Um8
+         grtCQiqSVJh+mVmVOmhpsEp2eNctryHjHy8NFqcuA2MeM99Lmlk4I6ffo4aVhxE5IZri
+         OhqA==
+X-Forwarded-Encrypted: i=1; AJvYcCXiccJAd4M46BR6qo5OlHN6KYzb3qmYZAdGVf9eHf1v1MyuT4nHT1zTjpOzXvSv6WRUqAH0tcP8bAo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywo8ihugyuhC0pO/4gjrTw/pEDcWLUYiAHvf+k8HyS0ZmJMOdY+
+	80XZtmqXhW6JBGf08Lo/melJmpSSy3hEsGpyhOFEh5gJsT4fXl+4uxFYLAd6w4vqt/b8IlLWwP3
+	QJLOQPS3szYoH/qW0r8tev9kR6TJ1Jp8=
+X-Gm-Gg: ASbGnct9NaWBwofxfPAn2gcUpsPBHO8EUODgN55Y1U+djpr80zfGt9wH18c7jQjlYYk
+	gQQ4Dt4e0OE+lON3siv+G9ILzET3iCso0f7jfYWgXg7B22Hai62RMlj3b8tyK4L+E3bE+5ZO/TX
+	N/xuF567uzCw9AeBJ6iqAx7Vs9emLhsveAo+GqVa3YTNB692ZdWfQitdtXsbPGPgBVOh//XNLVJ
+	xRxGRy8
+X-Google-Smtp-Source: AGHT+IG+y6U2HPtJWiJ06zINgKFsCV3h5cNmzOdYimKubd6x0uYI1nvJ7cf5K8syyZNEK08ri4tKiPSTOpp4XlvA7nY=
+X-Received: by 2002:a05:6402:520a:b0:633:8c43:eff8 with SMTP id
+ 4fb4d7f45d1cf-63467a15e4cmr3129540a12.36.1758656083579; Tue, 23 Sep 2025
+ 12:34:43 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/4] arm/sysctl: Implement cpu hotplug ops
-Content-Language: en-GB
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1758197507.git.mykyta_poturai@epam.com>
- <34c9b488ad949cbcd93bd8578dd5bc180fab8738.1758197507.git.mykyta_poturai@epam.com>
- <ddce2b69-3ba3-4c04-ab82-092ce2c98cf3@xen.org>
- <721b5d6a-257e-447d-bac6-675ccedc3928@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <721b5d6a-257e-447d-bac6-675ccedc3928@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <cover.1758219786.git.leon@kernel.org> <0c64474985af55b1aa934b857808068a0e609c6e.1758219787.git.leon@kernel.org>
+ <CA+=Fv5Q8dVUFVBh82mAe=fy3mV6mWtQT_0pBPLQwLNBt3f8E1g@mail.gmail.com> <20250923171819.GM10800@unreal>
+In-Reply-To: <20250923171819.GM10800@unreal>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Tue, 23 Sep 2025 21:34:31 +0200
+X-Gm-Features: AS18NWB41C3D5JsYFHuNFW-M81tws8xiK0mHlB-cBnQqvONalyjABahoz4jqIPg
+Message-ID: <CA+=Fv5SJcQ5C4UeX2+deV9mPAe5QxrocMG8EJ2eVcYjbLE5U+A@mail.gmail.com>
+Subject: Re: [PATCH 1/9] alpha: Convert mapping routine to rely on physical address
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Jason Gunthorpe <jgg@nvidia.com>, 
+	Andreas Larsson <andreas@gaisler.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "David S. Miller" <davem@davemloft.net>, 
+	Geoff Levand <geoff@infradead.org>, Helge Deller <deller@gmx.de>, Ingo Molnar <mingo@redhat.com>, 
+	iommu@lists.linux.dev, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Jason Wang <jasowang@redhat.com>, 
+	Juergen Gross <jgross@suse.com>, linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Matt Turner <mattst88@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Richard Henderson <richard.henderson@linaro.org>, 
+	sparclinux@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Thomas Gleixner <tglx@linutronix.de>, 
+	virtualization@lists.linux.dev, x86@kernel.org, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Mykyta,
+>
+> I will try to setup Alpha architecture in QEMU in following days, but
+> would like to ask first. Did you test alpha on clean v6.17-rc5 (without
+> my patches) as a reference?
+>
+I'm running now on a fresh git pull from today so it's more like a
+6.17-rc7. So no problems running the latest git at least.  I can
+dig deeper into this to see if we can figure this one out. First
+of all, is this alpha specific?
 
-On 23/09/2025 14:37, Mykyta Poturai wrote:
-> On 18.09.25 16:35, Julien Grall wrote:
->> Hi Mykyta,
->>
->> On 18/09/2025 13:16, Mykyta Poturai wrote:
->>> Implement XEN_SYSCTL_CPU_HOTPLUG_* calls to allow for enabling/disabling
->>> CPU cores in runtime.
->>>
->>> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
->>> ---
->>>    xen/arch/arm/sysctl.c | 67 +++++++++++++++++++++++++++++++++++++++++++
->>>    1 file changed, 67 insertions(+)
->>>
->>> diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
->>> index 32cab4feff..ca8fb550fd 100644
->>> --- a/xen/arch/arm/sysctl.c
->>> +++ b/xen/arch/arm/sysctl.c
->>> @@ -12,6 +12,7 @@
->>>    #include <xen/dt-overlay.h>
->>>    #include <xen/errno.h>
->>>    #include <xen/hypercall.h>
->>> +#include <xen/cpu.h>
->>>    #include <asm/arm64/sve.h>
->>>    #include <public/sysctl.h>
->>> @@ -23,6 +24,68 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
->>>                                           
->>> XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);
->>>    }
->>> +static long cpu_up_helper(void *data)
->>> +{
->>> +    unsigned long cpu = (unsigned long) data;
->>> +    return cpu_up(cpu);
->>> +}
->>> +
->>> +static long cpu_down_helper(void *data)
->>> +{
->>> +    unsigned long cpu = (unsigned long) data;
->>> +    return cpu_down(cpu);
->>> +}
->>> +
->>> +static long smt_up_down_helper(void *data)
->>
->> Looking at the code, you will effectively disable all the CPUs but CPU0.
->> But I don't understand why. From the name is goal seems to be disable
->> SMT threading.
->>
-> 
-> Sorry I have slightly misunderstood the x86 implementation/reasoning of
-> this ops. I will drop them in V2.
-> 
->>> +{
->>> +    bool up = (bool) data;
->>> +    unsigned int cpu;
->>> +    int ret;
->>> +
->>> +    for_each_present_cpu ( cpu )
->>> +    {
->>> +        if ( cpu == 0 )
->>> +            continue;
->>> +
->>> +        if ( up )
->>> +            ret = cpu_up(cpu);
->>> +        else
->>> +            ret = cpu_down(cpu);
->>> +
->>
->> Regardless what I wrote above, you likely want to handle preemption.
->>
->>> +        if ( ret )
->>> +            return ret;
->>   > +    }
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static long cpu_hotplug_sysctl(struct xen_sysctl_cpu_hotplug *hotplug)
->>> +{
->>> +    bool up;
->>> +
->>> +    switch (hotplug->op) {
->>> +        case XEN_SYSCTL_CPU_HOTPLUG_ONLINE:
->>> +            if ( hotplug->cpu == 0 )
->>
->> I can't find a similar check on x86. Do you have any pointer?
-> 
-> Jan correctly mentioned that CPU0 can't be disabled so this is a short
-> circuit for clarity.
+Regards
 
-I have replied to Jan. In short, the clarify you are referring is what 
-would make more difficult to support offlining CPU0. So I would rather 
-prefer if they are not present.
->>
->>> +            return continue_hypercall_on_cpu(0, cpu_up_helper,
->>> _p(hotplug->cpu));
->>> +
->>> +        case XEN_SYSCTL_CPU_HOTPLUG_OFFLINE:
->>> +            if ( hotplug->cpu == 0 )
->>> +                return -EINVAL;
->>> +            return continue_hypercall_on_cpu(0, cpu_down_helper,
->>> _p(hotplug->cpu));
->>> +
->>> +        case XEN_SYSCTL_CPU_HOTPLUG_SMT_ENABLE:
->>> +        case XEN_SYSCTL_CPU_HOTPLUG_SMT_DISABLE:
->>
->> Why are we implementing those helpers on Arm?
->>
->>> +            if ( CONFIG_NR_CPUS <= 1 )
->>> +                return 0;
->>> +            up = hotplug->op == XEN_SYSCTL_CPU_HOTPLUG_SMT_ENABLE;
->>> +            return continue_hypercall_on_cpu(0, smt_up_down_helper,
->>> _p(up));
->>> +
->>> +        default:
->>> +            return -EINVAL;
->>> +    }
->>> +}
->>> +
->>>    long arch_do_sysctl(struct xen_sysctl *sysctl,
->>>                        XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->>>    {
->>> @@ -34,6 +97,10 @@ long arch_do_sysctl(struct xen_sysctl *sysctl,
->>>            ret = dt_overlay_sysctl(&sysctl->u.dt_overlay);
->>>            break;
->>> +    case XEN_SYSCTL_cpu_hotplug:
->>
->> This will also enable CPU hotplug on 32-bit Arm. Is this what you
->> intended? (I see patch #4 only mention 64-bit Arm).
-> 
-> It wasn't intended. I will additionally check if it works on arm32 end
-> explicitly specify it.
-
-It will not work properly on arm32 because of the page table code. We 
-have per-CPU pagetables (see init_domheap_mappings()) and they will need 
-to be freed.
-
-Note this is not a request to add support for arm32 CPU offlining.
-
-Cheers,
-
--- 
-Julien Grall
-
+Magnus
 
