@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BDE3B983B0
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 06:44:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1128903.1469106 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85874B98385
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 06:40:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1128836.1469049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1HMc-0008Jb-4v; Wed, 24 Sep 2025 04:44:22 +0000
+	id 1v1HHy-0004Aw-5q; Wed, 24 Sep 2025 04:39:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1128903.1469106; Wed, 24 Sep 2025 04:44:22 +0000
+Received: by outflank-mailman (output) from mailman id 1128836.1469049; Wed, 24 Sep 2025 04:39:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1HMc-0008HV-0h; Wed, 24 Sep 2025 04:44:22 +0000
-Received: by outflank-mailman (input) for mailman id 1128903;
- Wed, 24 Sep 2025 04:44:20 +0000
+	id 1v1HHy-00042t-1c; Wed, 24 Sep 2025 04:39:34 +0000
+Received: by outflank-mailman (input) for mailman id 1128836;
+ Wed, 24 Sep 2025 04:39:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1tVB=4D=rsg.ci.i.u-tokyo.ac.jp=odaki@srs-se1.protection.inumbo.net>)
- id 1v1HMa-0008Gs-Sd
- for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 04:44:20 +0000
+ id 1v1HHw-0003tk-30
+ for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 04:39:32 +0000
 Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 201c4b3c-9901-11f0-9809-7dc792cee155;
- Wed, 24 Sep 2025 06:44:18 +0200 (CEST)
+ id 73138fe5-9900-11f0-9809-7dc792cee155;
+ Wed, 24 Sep 2025 06:39:27 +0200 (CEST)
 Received: from h205.csg.ci.i.u-tokyo.ac.jp (h205.csg.ci.i.u-tokyo.ac.jp
  [133.11.54.205]) (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 58O4bSmv091795
+ by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 58O4bSmw091795
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
  Wed, 24 Sep 2025 13:37:40 +0900 (JST)
  (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
@@ -42,25 +42,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 201c4b3c-9901-11f0-9809-7dc792cee155
-DKIM-Signature: a=rsa-sha256; bh=kiY10umG59rX3Ai7tv8N39IcOWzLTG5ZJdgQouDTy2w=;
+X-Inumbo-ID: 73138fe5-9900-11f0-9809-7dc792cee155
+DKIM-Signature: a=rsa-sha256; bh=7V8/qJWDXy9ssgUKD3EAH/SqAL55N0OPmxt1YNRhgjg=;
         c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
         h=From:Date:Subject:Message-Id:To;
-        s=rs20250326; t=1758688660; v=1;
-        b=bYISStphDJwegYwwc2rICh89XnoVbrBbd3Jr4ouFuJjLVwyeUjtqjTleQ7UE6nED
-         5vJ/TcBEBn6sqzYTNLaB0oj75gpOKIDdYgCYt5vEDn3Mh8WY/o+35Ii2LIHZkf4e
-         i53fFpswin9p5Dm26bNuRVKY1LjWr0XkMmbBPdYo07Jdh9cSvgRGW4Nw0i6V/Sac
-         oeN0eaoO9HSSEzaOTVMKg4JVUIVXrmZozVIxOLaPkgluMFw3jzAe5zFT85PN1xe8
-         yYj56giV4oVv2QBk7zRIo+fuDGTQ5cYYRBMn5TcacbjlD+WA4psk/qNrLJOGp3yq
-         4VVjbYMEuou5BrRW0FwIqw==
+        s=rs20250326; t=1758688661; v=1;
+        b=fpEBclbjIpKxVrq15ObmeGZp2X/hB8cpT+Fe9ZF5ZwtxWHg367i9ECVMpItYYweS
+         DohE22Tg/9jZhCUI5s7FKc1H9W8MlVuCMARv6JIyr9D1c0NGzhDk38GWl3Jz5q1Q
+         YAVE8A1GB/BpemF3PehrsfWVyGLx1vCtH3YsngVEfqcRhi9+YPgRGYG0xATeQakf
+         HVIfH42Ks5Db+qbIX5PdX/z41TkljcGjQagV5kudvXnF0DNKDzVqwMlwubuCP0Ut
+         QxcNW98yc5qReI0Pr5yJWdlE5fRwA7dRt504qTCEgqhDK6WEw2+MpzoUpE6FY0Za
+         ciOhUwfZuaYV4vSgEyu1YA==
 From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Date: Wed, 24 Sep 2025 13:37:22 +0900
-Subject: [PATCH v4 3/7] hw/core/register: Do not unparent in
+Date: Wed, 24 Sep 2025 13:37:23 +0900
+Subject: [PATCH v4 4/7] hv-balloon: hw/core/register: Do not unparent in
  instance_finalize()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20250924-use-v4-3-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
+Message-Id: <20250924-use-v4-4-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
 References: <20250924-use-v4-0-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
 In-Reply-To: <20250924-use-v4-0-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
 To: qemu-devel@nongnu.org
@@ -120,21 +120,39 @@ is semantically incorrect.
 Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
 Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- hw/core/register.c | 1 -
- 1 file changed, 1 deletion(-)
+ hw/hyperv/hv-balloon.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/hw/core/register.c b/hw/core/register.c
-index 8f63d9f227c4..3340df70b06e 100644
---- a/hw/core/register.c
-+++ b/hw/core/register.c
-@@ -314,7 +314,6 @@ RegisterInfoArray *register_init_block64(DeviceState *owner,
- 
- void register_finalize_block(RegisterInfoArray *r_array)
- {
--    object_unparent(OBJECT(&r_array->mem));
-     g_free(r_array->r);
-     g_free(r_array);
+diff --git a/hw/hyperv/hv-balloon.c b/hw/hyperv/hv-balloon.c
+index 6dbcb2d9a29d..2d6d7db4ee0e 100644
+--- a/hw/hyperv/hv-balloon.c
++++ b/hw/hyperv/hv-balloon.c
+@@ -1475,16 +1475,6 @@ static void hv_balloon_ensure_mr(HvBalloon *balloon)
+     balloon->mr->align = memory_region_get_alignment(hostmem_mr);
  }
+ 
+-static void hv_balloon_free_mr(HvBalloon *balloon)
+-{
+-    if (!balloon->mr) {
+-        return;
+-    }
+-
+-    object_unparent(OBJECT(balloon->mr));
+-    g_clear_pointer(&balloon->mr, g_free);
+-}
+-
+ static void hv_balloon_vmdev_realize(VMBusDevice *vdev, Error **errp)
+ {
+     ERRP_GUARD();
+@@ -1580,7 +1570,7 @@ static void hv_balloon_vmdev_reset(VMBusDevice *vdev)
+  */
+ static void hv_balloon_unrealize_finalize_common(HvBalloon *balloon)
+ {
+-    hv_balloon_free_mr(balloon);
++    g_clear_pointer(&balloon->mr, g_free);
+     balloon->addr = 0;
+ 
+     balloon->memslot_count = 0;
 
 -- 
 2.51.0
