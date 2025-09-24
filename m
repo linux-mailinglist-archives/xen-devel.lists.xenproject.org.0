@@ -2,43 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34A8AB99908
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 13:23:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1129301.1469315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE2AAB99917
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 13:24:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1129318.1469327 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1NZv-0007z3-CG; Wed, 24 Sep 2025 11:22:31 +0000
+	id 1v1NbU-00007w-SI; Wed, 24 Sep 2025 11:24:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1129301.1469315; Wed, 24 Sep 2025 11:22:31 +0000
+Received: by outflank-mailman (output) from mailman id 1129318.1469327; Wed, 24 Sep 2025 11:24:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1NZv-0007wo-9Q; Wed, 24 Sep 2025 11:22:31 +0000
-Received: by outflank-mailman (input) for mailman id 1129301;
- Wed, 24 Sep 2025 11:22:29 +0000
+	id 1v1NbU-0008WF-PG; Wed, 24 Sep 2025 11:24:08 +0000
+Received: by outflank-mailman (input) for mailman id 1129318;
+ Wed, 24 Sep 2025 11:24:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=R8Be=4D=redhat.com=clg@srs-se1.protection.inumbo.net>)
- id 1v1NZt-0007wi-RN
- for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 11:22:29 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=946M=4D=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1v1NbS-0008Vb-V0
+ for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 11:24:07 +0000
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c110::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c06424c1-9938-11f0-9d14-b5c5bf9af7f9;
- Wed, 24 Sep 2025 13:22:28 +0200 (CEST)
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-593-7O7_IitvOie3eLey579gAg-1; Wed, 24 Sep 2025 07:22:23 -0400
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-3ee13e43dd9so2807472f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 04:22:23 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:280:24f0:576b:abc6:6396:ed4a?
- ([2a01:e0a:280:24f0:576b:abc6:6396:ed4a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46e2aae3d58sm30912385e9.21.2025.09.24.04.22.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Sep 2025 04:22:21 -0700 (PDT)
+ id fa1e77dd-9938-11f0-9d14-b5c5bf9af7f9;
+ Wed, 24 Sep 2025 13:24:05 +0200 (CEST)
+Received: from PH1PEPF000132F3.NAMP220.PROD.OUTLOOK.COM (2603:10b6:518:1::38)
+ by PH7PR12MB7938.namprd12.prod.outlook.com (2603:10b6:510:276::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.19; Wed, 24 Sep
+ 2025 11:23:57 +0000
+Received: from CY4PEPF0000E9D2.namprd03.prod.outlook.com
+ (2a01:111:f403:f912::4) by PH1PEPF000132F3.outlook.office365.com
+ (2603:1036:903:47::3) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.19 via Frontend Transport; Wed,
+ 24 Sep 2025 11:23:56 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D2.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9160.9 via Frontend Transport; Wed, 24 Sep 2025 11:23:56 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 24 Sep
+ 2025 04:23:54 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,188 +56,239 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c06424c1-9938-11f0-9d14-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1758712947;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=KQXPYLh+of7Gb6x92qz6TH1PpHfEJDOd50U9lMltvh8=;
-	b=YypqHN1NfLTTsxuBzFLtC+4aR0shp0FJA4DYFxtJp1lg+xBm+Zu3SVfGtXE6byoUre4zb1
-	UDqE72ySq3u+WSQ6OOD8kBifrfx8Diw8rEe0z8JGqCZaIyr4A13/lvjTj7MidYoJLFF55/
-	y+As8CMt7TRLNXGxRg7xf+mXajg3F9Q=
-X-MC-Unique: 7O7_IitvOie3eLey579gAg-1
-X-Mimecast-MFC-AGG-ID: 7O7_IitvOie3eLey579gAg_1758712943
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758712942; x=1759317742;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KQXPYLh+of7Gb6x92qz6TH1PpHfEJDOd50U9lMltvh8=;
-        b=ty63CHjAz5oMnHr4ngZBcd8UWXmHf5KLyQxDMmTyE2I3KcFeGYF6XSik1r9bW3PB5Q
-         7fBZNqYX603VdeWHvLzQ0bjT5UBp9oF5SCmCkJWUlyytP5DHggAD9E589e6SM4HRSFOW
-         quxXS9LlkMiUAuoMaPH5v7kyX3C0V0AQ2l3nzIfJQwIcapwu7cWlb6DFKjQjXi7BzOSN
-         7E3w6b4XWKZrnD/g6llYByjNLTZI+RdJX58S6ewnfr6hFcY0l3TH4zTVTUWjHkN+IiyE
-         OH/wNBfiZhGYt4guLGF77KWrkfZzsadm8l4IuN1rq2FmbC5VXB9T+EzwYBEbI4y1rAX4
-         yarw==
-X-Forwarded-Encrypted: i=1; AJvYcCVBvBs+ptl19CA840ctz65n/1GGNwiPcLmS1nFuTOpJCvyZ/RpUiXpe+KqEpLC5IUjr2BX0VsZQqL4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywu0mXrjPFlIvcm9Q4w7Hipm6zU+T/Eo7gTSNlhrHmusI4EAjZX
-	CqCiCghiRhhxUxLFxHewB+8oS1lb1DJSL/HOUuc8L/CCvyyu7yiSRN/Cw4ux5muGjxcMS+EAFbE
-	H30W6IfNVlTR/8Xek2WAF+wXaqX92Jb7uhpsA8SCo5H5mc68fRvjRM7Q6cH3t3QzGSahr
-X-Gm-Gg: ASbGncucchKhzd3iItZ+4h7nwNrm6kSxsBLK1A5S2nira86ZYrMUAwcgvgDgXZjjSnI
-	jJUOnaueCtJFW0ozPGeH2MPDgJBmjknfvo4hfMSXMUmJRNFCMglBN7N+datpHe+5YGZlEQW6pFU
-	AUdIcpNklVfY6/3JAgIYBmz1ZpF63/Ljj7PT+qDnLQuqVOa4w/lXG9/FcLR8VRUGm7ms6bexrct
-	R/NWGu0MI1wRsdwcI8gvV+XTU5mlZ5pHUazvm4opcup+ldPmTittFgqwcrdlJhM6GiZRPwf0xmE
-	jG00udqYrDu6iZ5lzB/WS7oJZTzCzkeKlL04yNXD4uesaep1AQCb3CmGp/Vi5t4ejxiDesu3hQu
-	rEz0=
-X-Received: by 2002:a05:600c:1c27:b0:46d:7fa2:7579 with SMTP id 5b1f17b1804b1-46e1d97f519mr61733495e9.9.1758712942615;
-        Wed, 24 Sep 2025 04:22:22 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH4zxIdqb0bQt7+O6bR7wlR8dDmENCHycIYRfk3vyL1fyeHgFfcRcxjXOAAR51hT9R4ZdiPfA==
-X-Received: by 2002:a05:600c:1c27:b0:46d:7fa2:7579 with SMTP id 5b1f17b1804b1-46e1d97f519mr61732805e9.9.1758712942128;
-        Wed, 24 Sep 2025 04:22:22 -0700 (PDT)
-Message-ID: <2e5a20cd-7ea6-44fd-9401-82e741a089ff@redhat.com>
-Date: Wed, 24 Sep 2025 13:22:19 +0200
+X-Inumbo-ID: fa1e77dd-9938-11f0-9d14-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JRMkRlVBYZX35HXUseKZopbzGYhXj2Z1lq8LQEXqyhJi2+tANNDe3Efxlau37Tuk9+lrNuyp63x7asTmSFue6KOA/Hrtn8TdlT74z5A5XsuVywwi55oY7mbvEE5z4nXMPouJCDSRJWCLay+derZF4bCwIVcGW2jnK7rm+9dsAZZ50co2qCPGfd5AcylLL02G4rdmCVi1VZM/bsIot4yiunQGtCMs4OcQl2M1aGWAsTlQbo46OXiD5IZ5PU03A0XXyMhc4pvoDrFzk1HtlI0bzxW/I3+7JlvCaz8OsaoK1+7Fg030o18d2dyhYD7KbmRJkieJzNh6/BtQ0xFLwYJgeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TJ1tSyabFMHOybYVns4qVp3jMn68goaH320dG5GL//I=;
+ b=CTV9UcAaD5nd4O9Z/XwvxmnI+xsmsT66BB75L/bDbv9AoTzN5h7/muCRGq4gGEG7uaSinN2mPLjwJbrPDX9abNKYyrMHyaOmDLPPwqIJhI8t8RQHVceTZlIrWeNz8C3+ejB6FMAX45j9Lu6O7QlhVrxzchrmXp78uIY770PmpcDZuqnPwZLkBc2E0pSrOq5oF6dTHd1p4RJ+qpJZDlCtWTfzwnVbMiQ0uKT0Gc7eLJU/k3S+7/eqo2tZ597FAgVjHU5H8C5Wjl3oRIhOWuOM/OAsDXKbjAevfqGgkhHaazxopChOVUqO8GWm9ba0xhjvPpnZbJDPH7C/X+V9bZjFkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TJ1tSyabFMHOybYVns4qVp3jMn68goaH320dG5GL//I=;
+ b=DeUsyd2h555B9FZD37iTvNHR9AeaowBv8UF4iHK45/MNLudSBY75WEd3/HD0FttCEGTd3Kj/vf/02jx/CyR2qwHsBccDt3UhKcDrKJT9NhSArKEFHUEHcZGKs+hd3a/Eb9lOEpwCFTKhBHipDa/ezRG9JShw0zjjrTSnFqtGWQs=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/7] vfio/pci: Do not unparent in instance_finalize()
-To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, qemu-devel@nongnu.org
-Cc: Alex Williamson <alex.williamson@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>, =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?=
- <berrange@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
- Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Richard Henderson <richard.henderson@linaro.org>,
- Helge Deller <deller@gmx.de>, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
- <marcandre.lureau@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, John Snow <jsnow@redhat.com>,
- qemu-block@nongnu.org, Keith Busch <kbusch@kernel.org>,
- Klaus Jensen <its@irrelevant.dk>, Jesper Devantier <foss@defmacro.it>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Nicholas Piggin <npiggin@gmail.com>, qemu-ppc@nongnu.org,
- John Levon <john.levon@nutanix.com>,
- Thanos Makatos <thanos.makatos@nutanix.com>,
- Yanan Wang <wangyanan55@huawei.com>, BALATON Zoltan <balaton@eik.bme.hu>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>,
- Daniel Henrique Barboza <danielhb413@gmail.com>,
- David Gibson <david@gibson.dropbear.id.au>,
- Harsh Prateek Bora <harshpb@linux.ibm.com>,
- Alexey Kardashevskiy <aik@ozlabs.ru>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, Fabiano Rosas <farosas@suse.de>,
- Thomas Huth <thuth@redhat.com>, Laurent Vivier <lvivier@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>,
- Aurelien Jarno <aurelien@aurel32.net>, Aleksandar Rikalo
- <arikalo@gmail.com>, Max Filippov <jcmvbkbc@gmail.com>,
- =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
- Artyom Tarasenko <atar4qemu@gmail.com>,
- Alistair Francis <alistair@alistair23.me>,
- "Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
- Bin Meng <bmeng.cn@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- xen-devel@lists.xenproject.org
-References: <20250924-use-v4-0-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
- <20250924-use-v4-2-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
-From: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>
-Autocrypt: addr=clg@redhat.com; keydata=
- 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
- uVKe8BVz4atMOoktmt0GWTOC8P4=
-In-Reply-To: <20250924-use-v4-2-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: SchNzHXNnjs-JEJIRyJ-edVWWGAnq8Bdlz9h_-cIM-A_1758712943
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, fr
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Wed, 24 Sep 2025 13:23:53 +0200
+Message-ID: <DD0ZQLVE0KSS.3HHC8OHAQPL8L@amd.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Oleksii Kurochko
+	<oleksii.kurochko@gmail.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [XEN][PATCH 1/2] x86: hvm: vmx: fix runtime vmx presence check
+ for !CONFIG_INTEL_VMX case
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: Andrew Cooper <andrew@xen.org>, Grygorii Strashko
+	<grygorii_strashko@epam.com>, Jan Beulich <jbeulich@suse.com>
+X-Mailer: aerc 0.20.1
+References: <20250916103251.2144449-1-grygorii_strashko@epam.com>
+ <3baf457c-d32b-4965-96bb-022a2f92bb9d@suse.com>
+ <bcd7a98b-5827-4b4d-baa6-52fe24339faa@epam.com>
+ <88cc4cf1-3bc9-47f5-b8f7-e04f01b027ee@xen.org>
+In-Reply-To: <88cc4cf1-3bc9-47f5-b8f7-e04f01b027ee@xen.org>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D2:EE_|PH7PR12MB7938:EE_
+X-MS-Office365-Filtering-Correlation-Id: bbebd8ed-c60b-4f03-5878-08ddfb5cd9bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700013|82310400026|1800799024|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?bTRVVER6bS9oRDRSTVdaK3RmUkd6U0VGdE9Uay9mQ29lbTRidUFOSGNQL2Qr?=
+ =?utf-8?B?cTJ3L2NTWEE2aXVpTzdWaUJBcVl5NHVnSmZ3aU1HekxsYTg5QzVzMnZvM21t?=
+ =?utf-8?B?WHo1cXQ0Zk9YbjRZZXF5Qml2SVNtWlloSGpQdVJVam1QYjlqOE45eEpiNVRv?=
+ =?utf-8?B?Zld2VzJRQVUrTVY5ODQwd29zbzF2TnVMaUJxQjNreGhkb0llUVpQQmNtZjJl?=
+ =?utf-8?B?cy9WTXo2SHV5QWJJclNnYkVuT25sdDdXamcvMnBzWFF4aWcvYWg5SWt5cWIw?=
+ =?utf-8?B?ODRWY3A1R1Y4SVFzSW1IelJvSDJRV0M1L0hQRHVtTWExTUxZK0FCZ1FhRGNw?=
+ =?utf-8?B?aVBHUldxLytERWVxRUFabnpvOENRR2tJMnMrcU9GNXpRMCtrUGRzLzYzR01h?=
+ =?utf-8?B?cGRERzdTRC9JL3Q0Nm5MRFNrajRNOTBib2hBZENYc3hxTUtOT0NTL3ZPN0sw?=
+ =?utf-8?B?SUYwbHUrZ0J0eURSMS8rMDI0dUFIU0Q2ZnljYjNXenNpY2tkUXJWQit3WXFZ?=
+ =?utf-8?B?VnJJNnpSMEhFQWdMcVU2MFRhSzUrZXdYemVvUkN6NmVxbjhGZGpEbjJXVDVF?=
+ =?utf-8?B?WE1nVGNscmRnVW45VTBKWkU3Mmh5ci9jTkFVNlVXRlJVZ3M2Qjk3eEtPY0Rn?=
+ =?utf-8?B?N0M0SDJwN0I5VW11dUk4L29MdFdoT0h3dFA1cUJkQzZ2Nld5b09IbTYvTmtq?=
+ =?utf-8?B?N2Naei9wRC94cTZJUk9YNlJEa3loQk10Mk1pTXprTjRiNjYzaFMyRkp4Mmd6?=
+ =?utf-8?B?dHB5dDJWQUZ5RVB5OExmc3FSZUN6SndqN05UWU1rM2NPNk50WDdqYUhIYTlj?=
+ =?utf-8?B?WVg0Z0pUU3hWeU9iWEtjZ2svUEVFS1hZTDRNOFh0YkpadFRjbnBucWNTeTRh?=
+ =?utf-8?B?NE9SRlhBN0xPcjhzeUgvcVIxME1oNm5BaVV5S3I0TzBhSVdBU2p5ODZuTUU1?=
+ =?utf-8?B?Z1Z2M1psZEhQT2tUWWRveHc5cEdnNldwWmV4TCtJVWRDZUxkQ1VlcmFiV3Uw?=
+ =?utf-8?B?QzVHblFIbzFJa1hTbFJ6bWtoMUZxdVpGT3pCbXRmSTQxOHZpaGo3Q0VTT0Vj?=
+ =?utf-8?B?ckRXOGNlZ1grTFdwQzY3L0dTR01QWk1xV0JNSmZUb1JORnN3M2kzTlJ1akZt?=
+ =?utf-8?B?ZmNKQkJld083QVYvbUpGTWFkZTlGcXI1Y0xGTVFPbHM2czdwbnptVzFSUlBN?=
+ =?utf-8?B?MDd2UUxIb3ZZb3JlTFlTc0V2WDI1bEtEUEFGbDAxUWxCcFlmYVNmT0xteUJT?=
+ =?utf-8?B?MW0xUHRFakVVOHczM2UrS3JoWkJNTzRxVGI5K1RhOUhvbjdWUmdqN2wzUkFZ?=
+ =?utf-8?B?VDZCWUhRMG9iejZFdVpBdU1rMytRc0ZHRUllV1BCeXBCVnVDQ2ZiQnN6NjEx?=
+ =?utf-8?B?MHZtOWh5YkpEZGdJK1Nmb3JKWGp4a3JMWmNQTlhUWUo1NVo5OGZNRWZ2K3Vp?=
+ =?utf-8?B?NGRkK1JuQlRXQ21vRUo2b1VnSG00RGRYcG9mUFE5SkdjbDVkN2RvYTFscXlu?=
+ =?utf-8?B?RFZDNEdGRHpDbHhxRUd3R0hiNkR0V2dPODhORzZLclQ4YWZTdUpjbERHMm8r?=
+ =?utf-8?B?eW1NejZ1ZUJsSkd5QXNRL2gzM1k0NmtvdTlMdXJGdjhhM2k0SWpFVVNGM1RJ?=
+ =?utf-8?B?QmJ4RzczQmU4LzYrcGN3YUozRnlnSHZnOWZUVk0wNjNoNXNSWXFsc0dIS0pq?=
+ =?utf-8?B?bFRlVG14c0xVMUQ4T3BkUEhnNEwrM0ZmbUUreFMvRysvWmZHN0UxRVNLOVR4?=
+ =?utf-8?B?ODhUbFpMeGpXTk1mbGNURXNyTlBGT2p6RjZhbERCV0REYSs5YmtOTFFUK2lp?=
+ =?utf-8?B?L2ZIRnN0SmRzSnRqOUowY0w4MnJaZEtoQlowWjJ6ZmZZSEp2V1d5VkNQWHI3?=
+ =?utf-8?B?SXB0dHBmYXdPenFqWUdabXMxNjF6WEJ4TCtuL2dHZ3ZJcFVadXBuSXBNbVdz?=
+ =?utf-8?B?ZklNdXRlRG14K2g4eGxudUJHSmxnVGRlelBYZHBTeVFCRzBzN0U0ODh6cHlF?=
+ =?utf-8?B?WWJpSHdMei9HMVZMOUdyRFovTm1GajBicnZ2Z29PMXZHdndEY3pONGVFNVNm?=
+ =?utf-8?B?Y1JNRnJqdGF5OTkzcmpJTDBUN3F6RzA2aG93Zz09?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024)(13003099007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2025 11:23:56.4238
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bbebd8ed-c60b-4f03-5878-08ddfb5cd9bd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D2.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7938
 
-On 9/24/25 06:37, Akihiko Odaki wrote:
-> Children are automatically unparented so manually unparenting is
-> unnecessary.
-> 
-> Worse, automatic unparenting happens before the insntance_finalize()
-> callback of the parent gets called, so object_unparent() calls in
-> the callback will refer to objects that are already unparented, which
-> is semantically incorrect.
-> 
-> Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-> Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-> ---
->   hw/vfio/pci.c | 4 ----
->   1 file changed, 4 deletions(-)
-> 
-> diff --git a/hw/vfio/pci.c b/hw/vfio/pci.c
-> index d14e96b2f82d..bc0b4c4d562b 100644
-> --- a/hw/vfio/pci.c
-> +++ b/hw/vfio/pci.c
-> @@ -2025,7 +2025,6 @@ static void vfio_bars_finalize(VFIOPCIDevice *vdev)
->           vfio_region_finalize(&bar->region);
->           if (bar->mr) {
->               assert(bar->size);
-> -            object_unparent(OBJECT(bar->mr));
->               g_free(bar->mr);
->               bar->mr = NULL;
->           }
-> @@ -2033,9 +2032,6 @@ static void vfio_bars_finalize(VFIOPCIDevice *vdev)
->   
->       if (vdev->vga) {
->           vfio_vga_quirk_finalize(vdev);
-> -        for (i = 0; i < ARRAY_SIZE(vdev->vga->region); i++) {
-> -            object_unparent(OBJECT(&vdev->vga->region[i].mem));
-> -        }
->           g_free(vdev->vga);
->       }
->   }
-> 
+On Tue Sep 16, 2025 at 7:14 PM CEST, Andrew Cooper wrote:
+> On 16/09/2025 9:57 am, Grygorii Strashko wrote:
+>> Hi Jan,
+>>
+>> On 16.09.25 17:34, Jan Beulich wrote:
+>>> On 16.09.2025 12:32, Grygorii Strashko wrote:
+>>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>>
+>>>> Since commit b99227347230 ("x86: Fix AMD_SVM and INTEL_VMX
+>>>> dependency") the
+>>>> HVM Intel VT-x support can be gracefully disabled, but it still
+>>>> keeps VMX
+>>>> code partially built-in, because HVM code uses mix of:
+>>>>
+>>>> =C2=A0 - "cpu_has_vmx" macro, which doesn't account for CONFIG_INTEL_V=
+MX cfg
+>>>> =C2=A0 - "using_vmx()" function, which accounts for CONFIG_INTEL_VMX c=
+fg
+>>>>
+>>>> for runtime VMX availability checking. As result compiler DCE can't
+>>>> remove
+>>>> all, unreachable VMX code.
+>>>>
+>>>> Fix it by sticking to "cpu_has_vmx" macro usage only which is
+>>>> updated to
+>>>> account CONFIG_INTEL_VMX cfg.
+>>>>
+>>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>> ---
+>>>> Hi
+>>>>
+>>>> It could be good to have it in 4.21, so vmx/svm disabling
+>>>> option will be in complete state within 4.21 version.
+>>>
+>>> Imo this isn't release critical and has come too late. It's of course
+>>> Oleksii's call in the end.
+>>>
+>>>> --- a/xen/arch/x86/include/asm/cpufeature.h
+>>>> +++ b/xen/arch/x86/include/asm/cpufeature.h
+>>>> @@ -136,7 +136,8 @@ static inline bool boot_cpu_has(unsigned int feat)
+>>>> =C2=A0 #define cpu_has_sse3=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 boot_cpu_has(X86_FEATURE_SSE3)
+>>>> =C2=A0 #define cpu_has_pclmulqdq=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 b=
+oot_cpu_has(X86_FEATURE_PCLMULQDQ)
+>>>> =C2=A0 #define cpu_has_monitor=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 boot_cpu_has(X86_FEATURE_MONITOR)
+>>>> -#define cpu_has_vmx=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 boot_cpu_has(X86_FEATURE_VMX)
+>>>> +#define cpu_has_vmx=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 (IS_ENABLED(CONFIG_INTEL_VMX) && \
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 boot_cpu_has(X86_FEATURE_V=
+MX))
+>>>
+>>> I'm pretty sure using_vmx() was introduced precisely to avoid the use o=
+f
+>>> IS_ENABLED() here. What is completely missing from the description is a
+>>> discussion of the effect of this change on pre-existing uses of the
+>>> macro. ISTR there being at least one instance which would break with
+>>> that change. And no, I'm not looking forward to digging that out again,
+>>> when I already did at the time the using_vmx() was suggested and then
+>>> implemented. (I can't exclude it was the SVM counterpart; we want to
+>>> keep both in sync in any event, imo.)
 
+Apologies if this has already been discussed, but I didn't participate in p=
+rior
+discussions. Targeted lookups in lore are not shedding a lot of light eithe=
+r.
 
+>>
+>> Thank you for your comments and sorry for not digging into the history o=
+f
+>> the related patches.
+>>
+>> All, please ignore these patches as existing places. where
+>> cpu_has_vmx/smv
+>> are still used, need to be revised one by one.
+>>
+>
+> Off the top of my head, fixups to MSR_FEATURE_CONTROL, and AMD SKINIT
+> need cpu_has_vmx/svm not guarded by Kconfig like this.
+>
+> ~Andrew
 
-Reviewed-by: Cédric Le Goater <clg@redhat.com>
+What do you mean? AFAICS SKINIT is guarded by cpu_has_skinit, not cpu_has_s=
+vm.
 
-Thanks,
+And MSR_IA32_FEATURE_CONTROL tweaking seems self-contained in xen/hvm/vmx/ =
+which
+is compiled out when !CONFIG_INTEL_VMX.
 
-C.
+For the hypothetical case in which we might want to know the real HW value
+we can go look at the raw policy, as in "raw_cpu_policy.basic.vmx" or
+"raw_cpu_policy.extd.svm". Or what's mentioned in passing here.
 
+https://lore.kernel.org/xen-devel/a881c6a6-2c36-4e5c-8336-21cd0e14b873@suse=
+.com/
 
+Forcing the common case to use a helper and leaving the rare case in the
+shorthand macro seems like a bad idea. This ought to follow what cpu_has_nx
+already does.
+
+Is there a specific code instance in which having IS_ENABLED() in the
+cpu_has_{svm,vmx} macros would cause issues today? While there are some dub=
+ious
+choices of svm vs vmx with or without negation, they all seem to resolve
+to correct code, with less codegen after IS_ENABLED() ends up in all the
+conditionals.
+
+IOW: I have seen fear of incorrectness, but not proof of it. Now, obviously=
+ the
+burden of proof rests on the submitter, indeed, but I'd like to know where =
+we
+stand in terms of what that proof would look like. A naive grep shows not m=
+any
+sites to check.
+
+  $git grep cpu_has_svm | grep -v cpu_has_svm_ | wc -l
+  6
+
+  $git grep cpu_has_vmx | grep -v cpu_has_vmx_ | wc -l
+  11
+
+cpu_has_X_Y would be off when cpu_has_X is off, but those shouldn't matter =
+for
+this discussion.
+
+Am I missing something here?
+
+Cheers,
+Alejandro
 
