@@ -2,38 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F39BB99953
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 13:31:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1129331.1469336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CA84B9995C
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 13:32:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1129342.1469346 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1NiT-0001ne-I1; Wed, 24 Sep 2025 11:31:21 +0000
+	id 1v1NjV-0002K9-RK; Wed, 24 Sep 2025 11:32:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1129331.1469336; Wed, 24 Sep 2025 11:31:21 +0000
+Received: by outflank-mailman (output) from mailman id 1129342.1469346; Wed, 24 Sep 2025 11:32:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1NiT-0001lZ-El; Wed, 24 Sep 2025 11:31:21 +0000
-Received: by outflank-mailman (input) for mailman id 1129331;
- Wed, 24 Sep 2025 11:31:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9CQP=4D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1v1NiS-0001lT-8J
- for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 11:31:20 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fd3bcab1-9939-11f0-9d14-b5c5bf9af7f9;
- Wed, 24 Sep 2025 13:31:19 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-62fc89cd630so8088882a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 04:31:19 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-67-38.play-internet.pl.
- [109.243.67.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-62fa5f121f2sm12674695a12.28.2025.09.24.04.31.16
+	id 1v1NjV-0002Hs-O7; Wed, 24 Sep 2025 11:32:25 +0000
+Received: by outflank-mailman (input) for mailman id 1129342;
+ Wed, 24 Sep 2025 11:32:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=R8Be=4D=redhat.com=clg@srs-se1.protection.inumbo.net>)
+ id 1v1NjT-0002Hk-S1
+ for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 11:32:23 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 22093ac1-993a-11f0-9809-7dc792cee155;
+ Wed, 24 Sep 2025 13:32:21 +0200 (CEST)
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-563-1e7dVatdNqCk6R9CasEJ7A-1; Wed, 24 Sep 2025 07:32:18 -0400
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-3f44000639fso3576086f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 04:32:18 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:280:24f0:576b:abc6:6396:ed4a?
+ ([2a01:e0a:280:24f0:576b:abc6:6396:ed4a])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3ee15bfab67sm24078831f8f.43.2025.09.24.04.32.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Sep 2025 04:31:17 -0700 (PDT)
+ Wed, 24 Sep 2025 04:32:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,309 +50,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd3bcab1-9939-11f0-9d14-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758713478; x=1759318278; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LPFDb3PbtCP5J2g852+Vzx93vzGoEbOujSKET5GEjgU=;
-        b=luUXoBSeKX+vgs0QKGes7ZdA6qJwoYSJyf8/QdkkuBReH7dVcWC+cu0vqEf34ROgF5
-         GX1TSXXZ2eSbBj9b3tXn05QOBbCV5qgeo/v8/nXvTgjej7uAWdgAejkpOFZ8DOUBKyog
-         DcW1/u6zzjzEtIsg4Sl41WN+Dp7CgeM5I35HJXcGj/ZfDrNdbqh/HhJaUlsJGoCXeKyV
-         ylEgpB2bwPriqOa4IKV+mfMJt+kRFJfeyHP/1GDUl2VmhPA2+2vBpz9o8MZPbeYfaFLe
-         pHDZvBTqBI8hRY+sJEHeYP4ln9hGzqSpms7htz7C2vGs7mum3T6fR7TXCu5sWuyEjufM
-         4lRw==
+X-Inumbo-ID: 22093ac1-993a-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1758713540;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=3wm4aQYa97ehJU5fswKMnk8HHXPm1syDq073s2wb1ds=;
+	b=Ewqynfj1Cl/zGy4ektfXpRZ3jpYGvR4dddq1k9ZIAEGeHytttrdRG49/h8Gbre+0UigTwJ
+	dSpBMZ/FnsMbYbAybtBPcZqQZserg2ed1uOqczx71uRba9P0Ro60+QBqkYpqM8KOjAhRc8
+	FdDicdOY0uFg+3iK4W8DCYTuqPcwuac=
+X-MC-Unique: 1e7dVatdNqCk6R9CasEJ7A-1
+X-Mimecast-MFC-AGG-ID: 1e7dVatdNqCk6R9CasEJ7A_1758713537
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758713478; x=1759318278;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=LPFDb3PbtCP5J2g852+Vzx93vzGoEbOujSKET5GEjgU=;
-        b=DIMFvmeqVunFVb9dP80awLbJN3qmXzEYYKT+iYm2S6yB08JPDOcO5HyjEsjx67mtAr
-         yx32ZRQO2rOP16NCN/4E/K+lqIsjVGGItsZRHn3TnyUnXg4KBrF6X2r93qyKDO/jSKqL
-         bODgOYFzEAfGulrTNImGDMrpILwInECztm9TgVWEpsjMw1wZ1KhLiqmmX6HXdvl0vcZt
-         Y9Eu4rsZUtY/eFzZ2yscTBgE01bS3nzE20NKtVS+p2NrRaUbuKvtzWzjYWSeqHh0Sm4N
-         2gwENXsFHiMCRy2iGu3c7sqnml3VXOGiP8DKjIxlbZy34yKqY3vFl+lgfRv+BHFS1Ofk
-         pZlg==
-X-Forwarded-Encrypted: i=1; AJvYcCW8tky87BeUfGAJ/G1jeJ4x6VDSgdAVYWrz+yk9hH2fTUDAZcRe/WWl5zTh98Z0vwLjHDejWp7zOfc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxZX/BN2O/7xZYKmC71eJgl92YUhWFp22HTcf7FUgJ2x8MNgPrA
-	/g+dA8UtxJNmoV9QLxIbu5FmhX/hW9WQXTPDXXU7afHvb4rywryt+2eV
-X-Gm-Gg: ASbGncvyIOt1a2fl/2Bd0TPo9ywg5FStbOZ/dFRa2impWd6Q88/Qsyj4FciXk0C27dQ
-	lMk9OgvSw2SNBgimdvTxw7BcgdGqdl75tP10NAVKHWe3DXHlpqVCMtJ1XVKqEIXp7KQQiHhBNbL
-	hmqUeO1dmEINXvC866LSTOwC1DRBnZ0cBVUZ0752QbwmEviWTPPg2KsDCca8DyZvphX6bZ5N1dA
-	TTkPr8r/FMxNn8PRprzcWzp9XelfdSX5itLWNnhvvVF+vBnol5jxKgX3fG7m2ucT8ewGb7wRl7X
-	CP45LBIfc55RwEVhRpKw6Dudw+toD/BHguwGamTnFH0S0ffTOJ/CQvZRS1pGNk2LHsUX5MLpme+
-	GL6vVPnS/4AQv/A6VyZWHyKw8acK9XipSaxkF9JLtW8cIAvBphh/cXQBRw87vZyEgH7l443A2
-X-Google-Smtp-Source: AGHT+IFcNa1vMx5+l6VzxZ2nObDBx+4GF2C0kd1VIk0Eikj2mNMYn0Rq7/I00cVr3UOrfdGrR4VnPA==
-X-Received: by 2002:a05:6402:2690:b0:631:a0ed:6471 with SMTP id 4fb4d7f45d1cf-63467678a38mr4779058a12.2.1758713478155;
-        Wed, 24 Sep 2025 04:31:18 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------d2qVW7ePvJk7iwiPY4HR0j6d"
-Message-ID: <0c4e446b-abe1-481c-91a6-60a49459b486@gmail.com>
-Date: Wed, 24 Sep 2025 13:31:15 +0200
+        d=1e100.net; s=20230601; t=1758713537; x=1759318337;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3wm4aQYa97ehJU5fswKMnk8HHXPm1syDq073s2wb1ds=;
+        b=f/zbuSFLkMIxEmZu0eSURzpoBFFrG6peJlSb8Xgj1n7Ej5a+eoRYvjY7tjDvpjbp0k
+         BZ7TIXGz1g26uMx/oB31K5Kl0TJzBcqpjk/8fyE4h5RR/GYTVmEuFj+gNP+Rl3I4Mp/q
+         vFLR5qLGttdlsQCpXTU6vpz/7vsIRgucxhJX85H0ITR1/EEmWtVQmX1KeDQn/qIV9D6J
+         jsI58X/4LJOUmVzDu4Tfjvi9XgsQjwRGv5xuBowafBy5sQyTmPB7ma63UqiaR8l/uelV
+         ZALLTnE3awExxMc2nm/P2gQCO8wH/7nqRpXcR60rWkRI+Uyx8dcRivtPaxk0MQXcBQoD
+         x/kw==
+X-Forwarded-Encrypted: i=1; AJvYcCWFVj5HBurkaOpfS0XhtLz1OOvAqIWbFhHhTM+MGRziEk1y3RmeDeyVn4bleEwdbVXgKUpH83X7j9s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwPf+t0IwY39gjR6VFz7weU09LHLqub+GM59Uu0zxHJ+YMNihHN
+	MadFkqyIm7wKalWTloacuyGxNw6knvSEJq3NcOOej8314zI3+ue+5FXmrLjADJg5CXB3HzzjrwD
+	3+LWvBLhn03ZclrqlIc6zY5guqXMHHT9mKj3CmrGPyoBbAJT50jx5LoDwIQw1xHRVycQG
+X-Gm-Gg: ASbGncuJ7+av7gmvZ7ojscOg484iG5sijCEUdiz376eFuD2w+uu9eVAU08jreqVo65C
+	3gXYjy4rZNJKFi7UXioKvI2JTtddwy9S2VyOIVBCLczBxrst6NosxqhZgBEHN9/pnVncl/eCIhP
+	o53/tF15sk0FEQcTSK1FFxcS00nDN5eWDCaglMXzyM37sNa/jntOjkEIMj+pyrfAd+8ZtK3VH2U
+	waCASZ+c8S/DmdZ34mIScizhmt1Hz//ghnexes2vHz+tO+6jVUvEs+ygQ4B73zb4VNOOAn3w7b+
+	UGVLeW8QSv6yO1Gg9zmSluYeR1U/8u2f6eIzdG5gMyLbRrS0F4mUUREASWpqIN2B3SKyjN4+TCE
+	705Q=
+X-Received: by 2002:a05:6000:2802:b0:405:ed47:b285 with SMTP id ffacd0b85a97d-405ed47c21bmr2970234f8f.58.1758713536871;
+        Wed, 24 Sep 2025 04:32:16 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFoNAZLN+nDh03f9cXRCLX0UgIm+FEEbH1KWxZOtQMveos7vpMCeoUcTE8YA9R2fRZI1we1Gw==
+X-Received: by 2002:a05:6000:2802:b0:405:ed47:b285 with SMTP id ffacd0b85a97d-405ed47c21bmr2970171f8f.58.1758713536387;
+        Wed, 24 Sep 2025 04:32:16 -0700 (PDT)
+Message-ID: <ab5369c7-f7f0-4f0a-b314-ff5bbaa9263e@redhat.com>
+Date: Wed, 24 Sep 2025 13:32:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/18] xen/riscv: detect and initialize G-stage mode
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1758145428.git.oleksii.kurochko@gmail.com>
- <7cc37e612db4a0bfe72b63a475d3a492b2e68c83.1758145428.git.oleksii.kurochko@gmail.com>
- <b7fa50ae-8094-4451-8326-53c975f7b441@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <b7fa50ae-8094-4451-8326-53c975f7b441@suse.com>
-
-This is a multi-part message in MIME format.
---------------d2qVW7ePvJk7iwiPY4HR0j6d
+Subject: Re: [PATCH v4 6/7] vfio: Do not unparent in instance_finalize()
+To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, qemu-devel@nongnu.org
+Cc: Alex Williamson <alex.williamson@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?=
+ <berrange@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
+ Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Helge Deller <deller@gmx.de>, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
+ <marcandre.lureau@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, John Snow <jsnow@redhat.com>,
+ qemu-block@nongnu.org, Keith Busch <kbusch@kernel.org>,
+ Klaus Jensen <its@irrelevant.dk>, Jesper Devantier <foss@defmacro.it>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Nicholas Piggin <npiggin@gmail.com>, qemu-ppc@nongnu.org,
+ John Levon <john.levon@nutanix.com>,
+ Thanos Makatos <thanos.makatos@nutanix.com>,
+ Yanan Wang <wangyanan55@huawei.com>, BALATON Zoltan <balaton@eik.bme.hu>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ David Gibson <david@gibson.dropbear.id.au>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ Alexey Kardashevskiy <aik@ozlabs.ru>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, Fabiano Rosas <farosas@suse.de>,
+ Thomas Huth <thuth@redhat.com>, Laurent Vivier <lvivier@redhat.com>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Aurelien Jarno <aurelien@aurel32.net>, Aleksandar Rikalo
+ <arikalo@gmail.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+ Artyom Tarasenko <atar4qemu@gmail.com>,
+ Alistair Francis <alistair@alistair23.me>,
+ "Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
+ Bin Meng <bmeng.cn@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ xen-devel@lists.xenproject.org
+References: <20250924-use-v4-0-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
+ <20250924-use-v4-6-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
+From: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>
+Autocrypt: addr=clg@redhat.com; keydata=
+ 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
+ uVKe8BVz4atMOoktmt0GWTOC8P4=
+In-Reply-To: <20250924-use-v4-6-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: voN5DcSkEb90Cspy8x6PBWLgJbdc6keBsX94M7rzTsI_1758713537
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, fr
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+On 9/24/25 06:37, Akihiko Odaki wrote:
+> Children are automatically unparented so manually unparenting is
+> unnecessary.
+> 
+> Worse, automatic unparenting happens before the instance_finalize()
+> callback of the parent gets called, so object_unparent() calls in
+> the callback will refer to objects that are already unparented, which
+> is semantically incorrect.
+> 
+> Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+> Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+> ---
+>   hw/vfio/pci-quirks.c | 9 +--------
+>   hw/vfio/region.c     | 3 ---
+>   2 files changed, 1 insertion(+), 11 deletions(-)
+> 
+> diff --git a/hw/vfio/pci-quirks.c b/hw/vfio/pci-quirks.c
+> index c97606dbf194..b5da6afbf5b0 100644
+> --- a/hw/vfio/pci-quirks.c
+> +++ b/hw/vfio/pci-quirks.c
+> @@ -1159,15 +1159,12 @@ void vfio_vga_quirk_exit(VFIOPCIDevice *vdev)
+>   
+>   void vfio_vga_quirk_finalize(VFIOPCIDevice *vdev)
+>   {
+> -    int i, j;
+> +    int i;
+>   
+>       for (i = 0; i < ARRAY_SIZE(vdev->vga->region); i++) {
+>           while (!QLIST_EMPTY(&vdev->vga->region[i].quirks)) {
+>               VFIOQuirk *quirk = QLIST_FIRST(&vdev->vga->region[i].quirks);
+>               QLIST_REMOVE(quirk, next);
+> -            for (j = 0; j < quirk->nr_mem; j++) {
+> -                object_unparent(OBJECT(&quirk->mem[j]));
+> -            }
+>               g_free(quirk->mem);
+>               g_free(quirk->data);
+>               g_free(quirk);
+> @@ -1207,14 +1204,10 @@ void vfio_bar_quirk_exit(VFIOPCIDevice *vdev, int nr)
+>   void vfio_bar_quirk_finalize(VFIOPCIDevice *vdev, int nr)
+>   {
+>       VFIOBAR *bar = &vdev->bars[nr];
+> -    int i;
+>   
+>       while (!QLIST_EMPTY(&bar->quirks)) {
+>           VFIOQuirk *quirk = QLIST_FIRST(&bar->quirks);
+>           QLIST_REMOVE(quirk, next);
+> -        for (i = 0; i < quirk->nr_mem; i++) {
+> -            object_unparent(OBJECT(&quirk->mem[i]));
+> -        }
+>           g_free(quirk->mem);
+>           g_free(quirk->data);
+>           g_free(quirk);
+> diff --git a/hw/vfio/region.c b/hw/vfio/region.c
+> index d04c57db630f..b165ab0b9378 100644
+> --- a/hw/vfio/region.c
+> +++ b/hw/vfio/region.c
+> @@ -365,12 +365,9 @@ void vfio_region_finalize(VFIORegion *region)
+>       for (i = 0; i < region->nr_mmaps; i++) {
+>           if (region->mmaps[i].mmap) {
+>               munmap(region->mmaps[i].mmap, region->mmaps[i].size);
+> -            object_unparent(OBJECT(&region->mmaps[i].mem));
+>           }
+>       }
+>   
+> -    object_unparent(OBJECT(region->mem));
+> -
+>       g_free(region->mem);
+>       g_free(region->mmaps);
+>   
+> 
 
-On 9/18/25 5:54 PM, Jan Beulich wrote:
-> On 17.09.2025 23:55, Oleksii Kurochko wrote:
->> --- /dev/null
->> +++ b/xen/arch/riscv/p2m.c
->> @@ -0,0 +1,91 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +
->> +#include <xen/init.h>
->> +#include <xen/lib.h>
->> +#include <xen/macros.h>
->> +#include <xen/sections.h>
->> +
->> +#include <asm/csr.h>
->> +#include <asm/flushtlb.h>
->> +#include <asm/riscv_encoding.h>
->> +
->> +unsigned long __ro_after_init gstage_mode;
->> +
->> +void __init gstage_mode_detect(void)
->> +{
->> +    unsigned int mode_idx;
->> +
->> +    const struct {
-> static and __initconst.
->
->> +        unsigned long mode;
-> Here and also for the global var: Why "long", when it's at most 4 bits?
+What about vfio_subregion_unmap() calling object_unparent() too ?
 
-No specific reason now. In the first version of this function they were used
-directly to write a value to CSR register which is 'unsigned long'.
-Considering that MASK_INSR() and MASK_EXTR() are used, 'char' should be enough
-to describe mode.
+C.
 
->
->> +        unsigned int paging_levels;
->> +        const char *name;
-> More efficiently char[8]?
-
-I wanted to be sure that the name will always have correct length. But I agree
-that char[8] is more efficient and a length could be checked "manually". I will
-use char[8] instead of 'char *'.
-
->
->> +    } modes[] = {
->> +        /*
->> +         * Based on the RISC-V spec:
->> +         *   When SXLEN=32, the only other valid setting for MODE is Sv32,
-> The use of "other" is lacking some context here.
-
-I will add the following:
-   Bare mode is always supported, regardless of SXLEN.
-
->
->> +         *   a paged virtual-memory scheme described in Section 10.3.
-> Section numbers tend to change. Either to disambiguate by also spcifying
-> the doc version, or (preferably) you give the section title instead.
-
-I will take that into account in the future. For now, I think that this part
-of the comment could be just dropped as here it doesn't matter what is a scheme
-of Sv32.
-
->> --- a/xen/arch/riscv/setup.c
->> +++ b/xen/arch/riscv/setup.c
->> @@ -22,6 +22,7 @@
->>   #include <asm/early_printk.h>
->>   #include <asm/fixmap.h>
->>   #include <asm/intc.h>
->> +#include <asm/p2m.h>
->>   #include <asm/sbi.h>
->>   #include <asm/setup.h>
->>   #include <asm/traps.h>
->> @@ -148,6 +149,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
->>   
->>       console_init_postirq();
->>   
->> +    gstage_mode_detect();
-> I find it odd for something as fine grained as this to be called from top-
-> level start_xen(). Imo this wants to be a sub-function of whatever does
-> global paging and/or p2m preparations (or even more generally guest ones).
-
-It makes sense. I will move the call to gstage_mode_detect() into p2m_init()
-when the latter is introduced.
-Probably, I will move the current patch after p2m_init() is introduced to make
-gstage_mode_detect() static function.
-
-Thanks.
-
-~ Oleksii
-
---------------d2qVW7ePvJk7iwiPY4HR0j6d
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 9/18/25 5:54 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:b7fa50ae-8094-4451-8326-53c975f7b441@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 17.09.2025 23:55, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- /dev/null
-+++ b/xen/arch/riscv/p2m.c
-@@ -0,0 +1,91 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#include &lt;xen/init.h&gt;
-+#include &lt;xen/lib.h&gt;
-+#include &lt;xen/macros.h&gt;
-+#include &lt;xen/sections.h&gt;
-+
-+#include &lt;asm/csr.h&gt;
-+#include &lt;asm/flushtlb.h&gt;
-+#include &lt;asm/riscv_encoding.h&gt;
-+
-+unsigned long __ro_after_init gstage_mode;
-+
-+void __init gstage_mode_detect(void)
-+{
-+    unsigned int mode_idx;
-+
-+    const struct {
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-static and __initconst.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+        unsigned long mode;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Here and also for the global var: Why "long", when it's at most 4 bits?</pre>
-    </blockquote>
-    <pre>No specific reason now. In the first version of this function they were used
-directly to write a value to CSR register which is 'unsigned long'.
-Considering that MASK_INSR() and MASK_EXTR() are used, 'char' should be enough
-to describe mode.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:b7fa50ae-8094-4451-8326-53c975f7b441@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+        unsigned int paging_levels;
-+        const char *name;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-More efficiently char[8]?</pre>
-    </blockquote>
-    <pre>I wanted to be sure that the name will always have correct length. But I agree
-that char[8] is more efficient and a length could be checked "manually". I will
-use char[8] instead of 'char *'.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:b7fa50ae-8094-4451-8326-53c975f7b441@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    } modes[] = {
-+        /*
-+         * Based on the RISC-V spec:
-+         *   When SXLEN=32, the only other valid setting for MODE is Sv32,
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-The use of "other" is lacking some context here.</pre>
-    </blockquote>
-    <pre>I will add the following:
-  Bare mode is always supported, regardless of SXLEN.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:b7fa50ae-8094-4451-8326-53c975f7b441@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+         *   a paged virtual-memory scheme described in Section 10.3.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Section numbers tend to change. Either to disambiguate by also spcifying
-the doc version, or (preferably) you give the section title instead.</pre>
-    </blockquote>
-    <pre>I will take that into account in the future. For now, I think that this part
-of the comment could be just dropped as here it doesn't matter what is a scheme
-of Sv32.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:b7fa50ae-8094-4451-8326-53c975f7b441@suse.com">
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -22,6 +22,7 @@
- #include &lt;asm/early_printk.h&gt;
- #include &lt;asm/fixmap.h&gt;
- #include &lt;asm/intc.h&gt;
-+#include &lt;asm/p2m.h&gt;
- #include &lt;asm/sbi.h&gt;
- #include &lt;asm/setup.h&gt;
- #include &lt;asm/traps.h&gt;
-@@ -148,6 +149,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
- 
-     console_init_postirq();
- 
-+    gstage_mode_detect();
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I find it odd for something as fine grained as this to be called from top-
-level start_xen(). Imo this wants to be a sub-function of whatever does
-global paging and/or p2m preparations (or even more generally guest ones).</pre>
-    </blockquote>
-    <pre>It makes sense. I will move the call to gstage_mode_detect() into p2m_init()
-when the latter is introduced.
-Probably, I will move the current patch after p2m_init() is introduced to make
-gstage_mode_detect() static function.
-
-Thanks.
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------d2qVW7ePvJk7iwiPY4HR0j6d--
 
