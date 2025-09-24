@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03394B9A70D
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 17:02:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1129488.1469426 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4041B9ABB2
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 17:40:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1129508.1469435 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1R10-0005hT-3N; Wed, 24 Sep 2025 15:02:42 +0000
+	id 1v1RaY-0001Pb-Ph; Wed, 24 Sep 2025 15:39:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1129488.1469426; Wed, 24 Sep 2025 15:02:42 +0000
+Received: by outflank-mailman (output) from mailman id 1129508.1469435; Wed, 24 Sep 2025 15:39:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1R10-0005fI-0e; Wed, 24 Sep 2025 15:02:42 +0000
-Received: by outflank-mailman (input) for mailman id 1129488;
- Wed, 24 Sep 2025 15:02:40 +0000
+	id 1v1RaY-0001NA-N2; Wed, 24 Sep 2025 15:39:26 +0000
+Received: by outflank-mailman (input) for mailman id 1129508;
+ Wed, 24 Sep 2025 15:39:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=uXxj=4D=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1v1R0y-0005fC-06
- for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 15:02:40 +0000
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazlp170120005.outbound.protection.outlook.com
- [2a01:111:f403:c200::5])
+ id 1v1RaY-0001N4-62
+ for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 15:39:26 +0000
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20f::7])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 82445dff-9957-11f0-9809-7dc792cee155;
- Wed, 24 Sep 2025 17:02:37 +0200 (CEST)
+ id a55ea08d-995c-11f0-9809-7dc792cee155;
+ Wed, 24 Sep 2025 17:39:24 +0200 (CEST)
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by PA4PR03MB6992.eurprd03.prod.outlook.com (2603:10a6:102:e3::6) with
- Microsoft SMTP Server (version=TLS1_2,
+ by AM9PR03MB7074.eurprd03.prod.outlook.com (2603:10a6:20b:2dc::20)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.9; Wed, 24 Sep
- 2025 15:02:35 +0000
+ 2025 15:39:21 +0000
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9137.018; Wed, 24 Sep 2025
- 15:02:35 +0000
+ 15:39:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,327 +47,299 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82445dff-9957-11f0-9809-7dc792cee155
+X-Inumbo-ID: a55ea08d-995c-11f0-9809-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MgpWgbl05+rFSTzyzTjig9a9otKvulS8IETKA47uKYx51qXySkNtrqrjFMSWpNt0U330LGiYpNzYaautXTlHu4LEQWJyoHolCvXklsF65w4or6D8wiPHE6I5gHftWj+/DQtSKjnz8Ry9E/uYVTJY6D4gXZHR1Y+nzlkRpdFyOAgAdKwV9/HSSeYi+aC6za6b5+AnnBx7b/7lZZx9+L+61vIdsx6wHSfqg8fN7HD9uJIl7QN5qSDxmN52Veeva/l8pd8AJrT4v9OyA5gbGrANfoNzjWNw/03rmcg3/Gxzcb5ciVXNKgTVinygwRrtNBU3mXWB3N5+S9satzEHfV1GQg==
+ b=l4g1WMmtwAIW9U2QGGXnq0tMGRacrf+ISrlqLjiq/q64FhFsS/X3kmkOD2nWF0WG05eu9IjJxt7/z7NyCeh8Z8yMZXWJT9d0pawl5jVL+KYs0kal0gvMqXh/0/jyMihdF3xihYPuDAMUYvadC6EC/ikpFquf1zmrSNpoE8W6sSeWjX0hwuHJV54CvYh9JV8qwF4mZHCSKH9C1q1Mp5ZO5hPdOWtiYsWl/lz8dDY3HmpEN+LqNkhCnogWNP6tiMN+PiFvQaM1+VwcU4EECKUMO9MsQt8DykvFsMg4peBSE8Ts55bF+cm8i7GtS1tJMBLDZiJmVgBo+KgckmGCTK5HqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JVZnX4ULP295CayncxiVgpVqhfvOZOT/j+OGAfYSWww=;
- b=A22JJKvhXAEmG6wabZlPWxULj4Ie9O2X6stMFvisq6IqLdOxS2Ql/pU9SUTh3bvWNf7Wzk72rcMUqrluBvgPHbNp9opOEJqJSTFTqQw72eFewqlhdQpCbu+ahcSUozXfEZAyAhJuJ7Gp1F68IidkHgv41/1u0xCkxYuMXNgMTqdDz1jhqH1YMqKa1/pi0a/+bxhAQLWg3g84hdHeVMCXxIMiXu7Ot2D6hY6M6R0nGycayenAwMs1+xLU0dWFyFjVj2q2sTJbcND533SK/lvNufgs2ZP8g4yEBKmpHm1kHfUA0MPrMjExJubKKO3SR8apH18VfJ5IOyF1PCVE9tEMJw==
+ bh=A4Z9+LUwwUfJH4SrNkv1fo7udWuHs5t2KQpnN/guLrA=;
+ b=xIXIIUhayAbWbiOzIkwkadKSMV+YSUSRFOzFRbfoLpy5XLhY8z94zJdiZ+DTlI9can3V8UCxsblkqGtZCpCa5vZ03JknW7n35rr0eD0OKJh6alWZBTIThc3+oowFxXA/V8TDJvbhsdY4cLzaMIjc1Cfs1o7SClrBzULXr74tGsOsbkk8I+UvBt7iOklDddvtWLQtZaHmr6gDDGTWkTQCKzXO/bi+XGj4t6I26IVL7cZN5JQTgmGhg0SlewqghW0OpVC3LUtSzYDjRI0t6UwAbr7TlEz3MtlDnlqtvkD10jcGZw3mpMdXcHHjzazl5I51mUm36xn8jlEOsyq02O5u8g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JVZnX4ULP295CayncxiVgpVqhfvOZOT/j+OGAfYSWww=;
- b=VStoRBbzwrrouIaRrRqZKOa7lK5tL1lLRDKxOpUEkkSVUhh9pAvZNma5pXJOn7KjynfGCBI6z4GiLbFjpkcERYj52k0IR6dNBVksM7bBxsYHRJ88TeEoeF4igMFVKvA6D+CfytHyHPaPib6MZ8aLF3XPnAVNGzUyL/ulDRf+hR5mH/ezTG5Cm7L4KTvMeDrNOLOx3p7zphAZv7fAFWAI9Cejd39VqNYvWoLs2BCt4+HvxddRo7szeip6aa6eXN10tEu3JUy/1a9yAN2X319QB1i33c7cA/YeqXlMrfHVUdV4rjYZQGikbBcPwHOHfZb9jx5YJBxagvwcfKJ8TdqeFg==
+ bh=A4Z9+LUwwUfJH4SrNkv1fo7udWuHs5t2KQpnN/guLrA=;
+ b=LHjqoRzt5SlobxPRICWxv+lCEDW762cMavpSEiweutSgXcjRW4rngjrNXaTpHqMpMf4fm5QG/ThzLSA2Uo8PMsg7MiHbiPI8xDHrCretrNmT54RvnHOcwfTzsX+g5kR+vNhn8zXCfocKjYmMGSqAvMb0L2XgOarL5MXwuRHvIlzrCZQ+Bs5f6SqAHEi7jdnwn0C6DKJkRc/nZLcumOj3iwaAC2VQ4/Z8jKfmXZcvsdTC0IOdG9vgTlN+KzPKbG3ExunD9QS/asFjwFud0uxRlBkpKM7u+SSoW0TvlSzALv5exdCzM72YzUAexMuVKLwg78UhU75yz+U2UUL9EaIXsw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <05ac348d-b392-42ab-b769-8a1c1355a4af@epam.com>
-Date: Wed, 24 Sep 2025 18:02:34 +0300
+Message-ID: <691c8b06-b30a-4d2c-b371-fc4f47bf431d@epam.com>
+Date: Wed, 24 Sep 2025 18:39:17 +0300
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH 1/2] x86: hvm: vmx: fix runtime vmx presence check
- for !CONFIG_INTEL_VMX case
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Andrew Cooper <andrew@xen.org>, Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250916103251.2144449-1-grygorii_strashko@epam.com>
- <3baf457c-d32b-4965-96bb-022a2f92bb9d@suse.com>
- <bcd7a98b-5827-4b4d-baa6-52fe24339faa@epam.com>
- <88cc4cf1-3bc9-47f5-b8f7-e04f01b027ee@xen.org>
- <DD0ZQLVE0KSS.3HHC8OHAQPL8L@amd.com>
+Subject: Re: domU suspend issue - freeze processes failed - Linux 6.16
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+References: <aKiBJeqsYx_4Top5@mail-itl> <aKiBwEsogK420kwo@mail-itl>
+ <05e9628d-83e5-4feb-881d-5854b72bd560@suse.com> <aKi6Foj-Lx_n0L6l@mail-itl>
+ <aNEgTgis2JeyQ4HA@mail-itl> <8f6b8f08-ca62-467b-a6be-4d33208e5393@epam.com>
+ <aNPyW5a7BHni-SuI@mail-itl>
 Content-Language: en-US
 From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <DD0ZQLVE0KSS.3HHC8OHAQPL8L@amd.com>
+In-Reply-To: <aNPyW5a7BHni-SuI@mail-itl>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: WA2P291CA0009.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1e::6) To AS2PR03MB8907.eurprd03.prod.outlook.com
+X-ClientProxiedBy: WA2P291CA0003.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1e::7) To AS2PR03MB8907.eurprd03.prod.outlook.com
  (2603:10a6:20b:5e4::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|PA4PR03MB6992:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0bf7aa47-94a1-4bd3-a2e8-08ddfb7b6513
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|AM9PR03MB7074:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30a3eaf4-3dea-4f4b-679b-08ddfb808683
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|3122999003;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?WFJVd0hSeFVqcUVWY0wrWnk2THRiUDU1TUJldUpQZHdibnUvNWZvYmp3ZTBR?=
- =?utf-8?B?clBCaWo1VENaMThtZkNDQURLaE85TVdqaUt2ZGdtS1lJMHdGV0VNUVNvTlU2?=
- =?utf-8?B?V1VqTXgxUUk3VE5mREtXOCtpOUlTYVZ4YzFHUWNOUTZjZ3ZPTWZNSkY3QnBW?=
- =?utf-8?B?UkluRnRaRjRhd1pJd1hnM1NuL2YxY2hnQTB6U1RGMnRhSkhlbDN1dnBFODZG?=
- =?utf-8?B?UlM5YlZUc1pkdEpKMFlMaTk2L1dBT2RLdjNlTXlhQVRWb081ZFhsb0VSbDla?=
- =?utf-8?B?dGRnRVFpMFJ2T28xVG5wNHVJS1lYcUhCWVlMU0xuQ3hjaXFHY2kwblpTRlFw?=
- =?utf-8?B?VEtENUdpRkdweUZYM3J1RnFXV0JOTTdKYWFvUVRaZndBM3JyZ0hrZ0xmRFJM?=
- =?utf-8?B?dG4ybXB2NUFCWkNNWUQrdGRaVGx0VVppWkJFNzRneExaenpOUXB0RmVkaE1P?=
- =?utf-8?B?RlpKUE9Tc3AxRFI0aDExVnQrOW16WGZlemRQajVyNUM3cXNva1RkVFU2eGhF?=
- =?utf-8?B?V2NSZ1Y2cEExYVZ1VGtjUzJ2Ym1Xdm1PazhOTXJGNFNveXRvVHdlNUt3R1BU?=
- =?utf-8?B?VlZsZUtlbXlSREM3dkh6czRZT1hieWl2UHcxQTFMSmRHUDlmdlc2RVZhenZT?=
- =?utf-8?B?aWN5Wkt3QkhQSEo4N3dvamdGc2c1ZzRnczkvWXhPUm16YkxIb3VOOGk2WGZh?=
- =?utf-8?B?RjdFaWVoYkNzdldnbUtic2RyUmJHRWY3MnJMN3ZzTWtqTjVmcnFISjdSQzU2?=
- =?utf-8?B?dWpldWFYNEFnem5xMEJLOHhITklVdVVHRzUxaEpzQ2pkUmJDM1g5ODFWTWZl?=
- =?utf-8?B?bkhUaGFQdDIrSGZNNklMRU9iNU85TlRjaGNZcHZYeWlUUFlHRUJIOTN5ZDMz?=
- =?utf-8?B?RDZhdjBqV00wdmJHOEUxN2doNWZDWG93aDExTElWWlBPNmpPRDZSWHdDYmdC?=
- =?utf-8?B?TlBseWRpMVE5djZjUHRmcmhtMmN3L0pEd01tU1ZJNTlXdEJyeFFnWXRuNWhl?=
- =?utf-8?B?eW1ZR2pUekZEYm5CVk4rMWhQRjJUbU9IMjdnbEtaNXc2SHZxajc0eFNOQ29X?=
- =?utf-8?B?amg1S2VCall1TEwyUFZZd0kyQUkvdnRWcFhMNUtyS2twVVgvYWVtVWZsMjB2?=
- =?utf-8?B?a0tGVUhMUitpak9ndkdrckloQkFKOW5lTHgxREVEd3N6akVxKyt1UjRNMkM4?=
- =?utf-8?B?RmRRT21EMVZUa2ZkSmZ0ZEtESGU3dXZEdDgzL1czSUJtU0Q5alhUSU9CQnFz?=
- =?utf-8?B?VkxrVW5GQWdmb2NwNEhxbmJvL3lDRkhBTlg4RmhtQmI1MEpzMTdhcFRrb0Jx?=
- =?utf-8?B?cjJnU1lmdEdJMmRnWkxYdkdQZnU2VG5BQkpGcURhc0JWZS9pVWxNODlueFdZ?=
- =?utf-8?B?U0p1czYwS0hpNXdpSDVsVlVob1hRRVVJZktJNkxEVEtjcEQ0bXROM0ZoODdM?=
- =?utf-8?B?K1N4T1JzOHFkUm1Gc09FUUkzNnU5WWxzUFBESmRvVzB6Tkd6N1lweld2ZlhT?=
- =?utf-8?B?S1V2cFBkWC9RTXdqK1lXTTZBdlpNek5NdmxQQkpOQ3VsVWNDUWw4YU01Tm52?=
- =?utf-8?B?bGxsRGs3YmNoOElycEYyazVmcERnOXpXaUlDTXBPeXhYeGZ1WGJ2UTVmV1VC?=
- =?utf-8?B?WEdYZG51YTUvSDNOMzJZSkt1Nzc4K2QrcS9OMXBPVm04ak5rbmtNUHU5MnVY?=
- =?utf-8?B?Uk1RS3FqcXRWM1YwaDhkaEtDTGdJLzN4RTNIWi9rT2pHZnlkc085cU5SbzNu?=
- =?utf-8?B?bWs1bmJQY2dyNkZTd0l1K3J2cTNSMlhJcDZXVHJRUEh0RFNvcDRKYkZzV2lL?=
- =?utf-8?Q?P4cq8BFsxqzFQ9C8LGZpE35YnVnAeCQSdwzH8=3D?=
+	=?utf-8?B?N2lBVURpRGRaaWJROWVhTjBQS01JTGZTMjNaMGlpenVXNXZCY09XMHNuQm82?=
+ =?utf-8?B?Q2E5TWFEZjl0VER6NzBQbHFQMDNZaVROZytqb0pJZCtiS3Bod0JZT0p4ck93?=
+ =?utf-8?B?SjliQW5WWSs1a1JaZ2Nxc2NseWJrWUZaMFJKMnBIY2w5NU5uNGFka1FyOVMy?=
+ =?utf-8?B?azJnU090TklCenJmWjBHbjBLZUFaWk44QlNQSnFjR09UbDZIVHhXYW81MW5h?=
+ =?utf-8?B?MnovOWdkYzd1TXgyWjIrWkVYZTBSRzV2VXRXdjJWN1ZBeXYwTTZibitSZk40?=
+ =?utf-8?B?a2FVN1cyTG95RDk0amFFUm1XMk5uQm5KNXdGRE5UU2ovZXI4WjR4Q2NodXR2?=
+ =?utf-8?B?UTRJUVRtWnp4SS96aXIrSFpRdnlxUktRSXdDeFJZbnl0RU1mcWw2b2RTSE9a?=
+ =?utf-8?B?bDJ5K0pKTWowb1gxdlNBY1pDaFN4SU5LN1dYaU9oOHhSbTJmRHpmc051WlNT?=
+ =?utf-8?B?SjdXNWQ3SW41NHJ0RGJ6Q0JBSFV5SlorMDkzLytYRythWUFVVzBwVGFlWW9z?=
+ =?utf-8?B?VW9xR0J3V1ZEYXY3NkUydWZoUW8rc0I1T0dGMGJlUE1MWGFWNDFIWG1seUJE?=
+ =?utf-8?B?WEY1S3lKOFU5UGVFbXI1MDRyWktsZjd6TCtlS1czaHNuaS94SlFEbjhWVWZo?=
+ =?utf-8?B?R2h3b2RKbVB6NFpKNXY5THJ3N1ZKcGc2cTgxYnY4T3lOVERkTlBWOHFiNENs?=
+ =?utf-8?B?TVVWS0FPMGRBN2Vob3Q4djdoRmhLNDUxSXI0RWV0SUhTcWZMc0E2dXBBcnJl?=
+ =?utf-8?B?K3hIR3UwQzQ4Z1BjTnA5WVZZcmE1NS9zN2xuc1ZiczBsRk0ybUZOSW5iRThw?=
+ =?utf-8?B?cVNQdEJucitnRE1EVHFHdW1tRHVjUHdBT2MzTVdqRUZNaVU2aWxlZk1kQjc2?=
+ =?utf-8?B?NVNoelZZOXE1WWtMTFk5MDFFR3I1cTNXZlBjeVRHUXJCMG50NkVNV2tITGJG?=
+ =?utf-8?B?VHQ0OUdWUUU0aFlxUkZwV2dMWHN1Q3hORWRoRkpEa2Z1YURzb3dYcVhENXRm?=
+ =?utf-8?B?TDNGSWpyVGxqY2pzcEFqMFlRRjhhTkVnQy9vTzdIWG5hZzNHV0Z5OWVseDFo?=
+ =?utf-8?B?SVlpblJZNHBSMDdrSDdoNzhDbXYvRUoxSWIxcGlPQ1BnRXNHbFJNRDFqWS94?=
+ =?utf-8?B?cHR3YWp4Rmc1bi91cGRwSG5PS01TcTVYdmxlNU5XSFlsQkJ4by9JT3pnWkJ2?=
+ =?utf-8?B?L096MGJ4cS92MkJBSEpvUThMUHhUODRBUE1SQUhpWU8yN096OFB2aUhVU28w?=
+ =?utf-8?B?SGRBdDZVTjlHK0hMeG1BSHRSYlJHSUFRZnNXaVVaZUQ2R1pEbmFDZ3Z4b0Ro?=
+ =?utf-8?B?aUF0NGUxZFpEbUphb1pwNU5FVjRXdFlnaFl2aEtQYXpOeG9wNHQ0aHJqT1V1?=
+ =?utf-8?B?eTMyenE4cnRiekt0eFR5S1NLRXFnYTlaSFpYaDRyY3dONUpHMmVOSGF4S3lD?=
+ =?utf-8?B?dFNTVnVyUDJ4TnJSOWdjM1hVazJoTEJMRWdRUmFqaWRLNjlidFRaREdIOE5P?=
+ =?utf-8?B?VVZKMDl2VGY1b1dTMVFaVW1CUStCYjdQVFoyeEV1cmJIcVlRQlBnN2MzV2M2?=
+ =?utf-8?B?THF2dUxTTHQ0ZFk1Z094MmZJSVAxSENTUXNHNG83Mi9Rb1RIMEROTjE2d1hl?=
+ =?utf-8?B?dGx6TEIyT0hvbWRTMGE4MmIvTUFWaHFXdHFOWnJtSUc5RlpwcXorM2xscnpi?=
+ =?utf-8?B?QVN2YjJSTFpHKzR4UUpJS2FGL3RweXU4YldBTkdjL09jT0N3ZklqcmhsZTFs?=
+ =?utf-8?B?TDRtOUp2aXU5d1k0V1lwdFVNbldlSklTSGhLZFc4cUZjYXdxYlIxazNjZ1dK?=
+ =?utf-8?B?bCtWQUViS2ZlM2N5cDFINzFYMDUzWThJNXRrY3A4cjRKZUdBcjhtVVZDNVFI?=
+ =?utf-8?B?Q0xRcnhWRC9oWitLVHVLYlJTdVZkQzRYK29DQkxTRUsxNncxT3VjVlczaTk5?=
+ =?utf-8?Q?RNTPmPQYUIw=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(3122999003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TWFvRG1NRTZ0ZHdxNGIwZy9MNkFVMkZ0QkQ4QzE1eUVKMUZOc1JiMzFSV0Fy?=
- =?utf-8?B?L2x4d1ZxaFJsY1JoV0M4eG1xd2ZSTW91UUdqZGlSa3hhUkZxRW9tWnVZaStG?=
- =?utf-8?B?NSs2eDkyVHBkQlFlaUYxTHJNQmVIV1JLZEszTnN6SERQUFlkYUxBRFUxOGFV?=
- =?utf-8?B?RkNKS3U3Mm1leXhYT0NrOHNTQzc5TE9keFh6UkRGMTliWkVZT3pWZGsrb2tO?=
- =?utf-8?B?dXFWNG9pTnVFdjBVWTJvSEx6Q2wwQ2VZRTdjZURnc3Z4MG5RZEdYLzQ1aHZa?=
- =?utf-8?B?cm1yQnlFTjN2T3BxcTgxU1lCQXg4alJpRWdOQmFTeGloUWY3ZnJCc0RXYkds?=
- =?utf-8?B?bHZ1S0l5VlhTN05COU9ZcWxxTzRhR0s4NlZuU0Z0UGttTHQzb3g0NERZeVBh?=
- =?utf-8?B?emVCQVR1dHFZVHRzKzR3S0EwNlI2NDF2VUV1WXJIVVh4d1dua1ZNQm1GV2Vo?=
- =?utf-8?B?N3F2UXRhWUJPWWR5OHp5cWI2bDVGUXlMdThmMCt2WWdqVnVuZVVhdW9IZHdj?=
- =?utf-8?B?aTladW5TMVBrcDc0aitxUjM5ZDM1cE56Tkt2NVZzWWdNcnVwOUptQVdSemRu?=
- =?utf-8?B?ME94VDczZFVJWlo0MUxHamRqN3pCUkN0Q09RTERUVUVlWmkzN3kvYXdVTG9E?=
- =?utf-8?B?SE1KTldlSUd0V0NCRlZyZDJHcGlyeW5rNFIyVFltYzArbFVYUTVjakJJMERY?=
- =?utf-8?B?MGtpczZWQlJYYmlQUGFaKy9SL2p5WDZqZ0hOUnc5eERiaW55ZDFmb1gyQTBS?=
- =?utf-8?B?MW9jR2kvanU1K1R0NHN4ZzdabWhMSkNISklVQ3A2MXFMVXJzQ1BNaFZjSTJN?=
- =?utf-8?B?NUVBOVNEbmR3ZjRBSDRyT2FKdmk5Nmc5ZlhxYUdoRzlxTmtuemk2dlhlcEpV?=
- =?utf-8?B?QXBqNDBNTkhQUTd1V2grVlUzY1lucGg2OVFxTldpT2poUUVYMFFucXByQkY2?=
- =?utf-8?B?T21Xd2lXN2hYYkU4Ui9RaFVHcTRrcGErWmcrUEpISDk4TVJILzE4Q0dudkkv?=
- =?utf-8?B?TEpObWRxcHZ2N2dMMzgxZXRZdjBFY3hLbWFTdURyOTIwUm1sUk1RUzU4bGVa?=
- =?utf-8?B?MFBSVnF6YUZTcE1XNEsrcjg0QkZ3QW9tVjhNYk8yN0xXNTIyd1hQT1gycWxR?=
- =?utf-8?B?ajM1UGZEalE0WVp2SXpQZWZLQkY3VkVEUTlrdkphUCtXWUM5Qnk1YmQwNnhl?=
- =?utf-8?B?ZlRHUGR3T29Gbml1MFZhTWdXSXZsL2MxRGtwMUFLbkE4WnkxK1YwSi82WE9k?=
- =?utf-8?B?RG02bU5SSWl6UzZFNzIxZHlGemdySTdxWjFXYkVkVGo2dlkzNGRiM2NqL25y?=
- =?utf-8?B?aXE0MlJyUHBUN0lUWDA5TXBucUt1N1Q2aVpQbmp2MWh1aVZMKzFiLzNBUjBr?=
- =?utf-8?B?dXBndzc3dUZqeDJ6VEJ5ZE80bEpEc0xQeFJWdzRXT0NscUZTVVp1bUVFaWhm?=
- =?utf-8?B?a2NxS3ZNTDJhK09DR250TDY2cSsxVXlYOEZrL05oejVMUkpoOUFXeER3WFc0?=
- =?utf-8?B?ZmJFeXJIU2pkT3lkWFRjVFR2OE5lN1YvcWFEZ0pLbVlzZzFpVVVIbndjZzlr?=
- =?utf-8?B?a0hlV0lHUFJxaU1qNXJHVTlCMmk5TW4zejNNcmp1QXhRZ29OaWc3REExZjh3?=
- =?utf-8?B?S3gxRXJHWFF0RjZMaHZNTm5aRm9wUHFsNTZOc2NEeHRQYlpWVS81WStoUkJs?=
- =?utf-8?B?UWRvSkcrODdBeXBmVlV2L21oc1lkWWRpN2xIcHlSQytmaTdPYmJkOVFyYXdj?=
- =?utf-8?B?T25aSXJxcmM3Y0RydXRZWnk1endkd0ZTYXJGQk1oRDA0V3RxdXdyaEpEc1px?=
- =?utf-8?B?OWl5QXZHVE1MTlA0ZVM4RTdYMWZVNldxVUNMTGdNT3lyaWpyZVRCUHN4bVNP?=
- =?utf-8?B?aVdReFhYTVhvb1g5ZVg4Q2xpT29Md29CZXpWS3pyVmhmdEZOQ3ZWNzI3djZp?=
- =?utf-8?B?RVAvVWRGWXZycTBJSG1SN0FjcTlMNFNkNkxqOGJJdnNUNlU1SUdIdUkzVll2?=
- =?utf-8?B?NkZoMGtiQXhUQUd5c1JWOXg5TURMMm5KVVllYXVQQzJUUzI0R3R3S1NQRHlD?=
- =?utf-8?B?UHlLMks1bWFsVEpqQ0pBQk5EMG04WVZUQlBLMnRLV0dUYU15MVgwZlRzL2JN?=
- =?utf-8?B?UkdINitGWHdTaEdWTEpTTnpreHl1UStrOExqczJhRDlQV3hSdHA5VHA1bWZN?=
- =?utf-8?B?THc9PQ==?=
+	=?utf-8?B?ZzAzTU1hRERJZDFwQ0R1UUVhY0lBZ2RhazZvNWp2ZVYzRXozZURFdnNSeEc0?=
+ =?utf-8?B?YzZONENhb0NUbCtkS0hhUEZzWGVEZm8rUWZMczVCMmhkR28zR3FhYkZrQTlm?=
+ =?utf-8?B?RTZTT3I0SkZVU1pVRG82dGpPTklxd1FMUk01REl5bDNsRkVRazdwL3lsb09q?=
+ =?utf-8?B?Zk1Cb1ZtOFBsN3dxV0RmdTZFV1NVd2x0bzl5QWg2K1V0MFRZM2FRdjNjd3Zm?=
+ =?utf-8?B?aVNabzVJTkpWemRHanhSTDRyTlA5YWhyODZZOGg5L1p1cG53MTlRZmdGZlli?=
+ =?utf-8?B?cU1VdERNYUs1VFV1TVU1dWw1WEZNRWZsaWF6OUtTUDZkSmx2N20wNmhHbmFG?=
+ =?utf-8?B?dW13QXRiNGx2MWtRS1hKTkVjQzhxSW5aZG00N0pkN0EwTmxpTkJVN0NrSk45?=
+ =?utf-8?B?QWsraUxma2g3WnAwVVVRcnRkdkwxMmRXblBsTGVlVDRBZ0R4Z0g0dTJhOExh?=
+ =?utf-8?B?bWdHRmcwc2w1RnF3YUdvUGkwZ1FvcFViQTkzcDFwNW4rWHhmcTJZNVo0eXkw?=
+ =?utf-8?B?N3FKWXhyb2RoZFRlNG00OHl4a3JTUHpHWHltNWNIaXRtT29tOEVDeFZzWGh5?=
+ =?utf-8?B?ZmJqS3RuYjZHWW1XSXI5MjQ0R3dMSWNiczZaVVAxUGxjOGJCWFFZLzI2dTVU?=
+ =?utf-8?B?OThQc3ZDdGdxTTN0SW85S3VpbUsxM3pCMVgzV012OHZZZ0tsTmc2VFhkb2N2?=
+ =?utf-8?B?TjVGUjJIWjgrOHZWTktsNVp3ZThTZGxVRVJZZGg2Wkt6dXFmOExNaDhwbE1V?=
+ =?utf-8?B?eUI0Y3pQd0V5cWlaU1BDRVRGU1JFNUtBWTVYWm5SSWlwb1dWaXROVENVMzNG?=
+ =?utf-8?B?Sms1OE01bVYzMVh5M2lnZjZtd0ZaWG1FN1ZEcUtBNUlaRUNxVmc2UGVxYWJt?=
+ =?utf-8?B?OUgvSlVibllCeUhBdVB6aTRaaDRvQkl2bEwrbHM5akUrUTI2UHZJSmFwTlZ3?=
+ =?utf-8?B?bStxRzRERk9sQ0hIUFUvQUZseE9SeTlRc3Z5SXJ0ZFh1WjEzSkN1TnhNcWZp?=
+ =?utf-8?B?R2VyeWxkSXhQMkozNUhKUnR0dWNjbTZzSFlDMStTeWxBb2pRaWJXb3BsZkF0?=
+ =?utf-8?B?THNSVWtLYVNhODgraURybjk2RWFtUDFPMkdLcE81UHdRaThvRWZHb05FSEZP?=
+ =?utf-8?B?QUlVWlZVSzhNZzFRaDRPWlNSTmx6c1IwVm8vTU5FNGQwNmloRGdTUnk5Z3BK?=
+ =?utf-8?B?bUM2S2plY3FGUWFHMzlZdWVHcUxYa1VpZHVFUXZTb1dJNCsyQ3o2OE9KTlpQ?=
+ =?utf-8?B?TkVRUS9WKzkwYUhxcDArQ2dneFJ5WEE5eUhaaE50ZHY3aitYOVdmTXhoQWR1?=
+ =?utf-8?B?ZVRvMEdIaWVKUW5tZkhzazNZdThWaDBIaUhkOW5tOWVDd1B5ZitMallCNjM5?=
+ =?utf-8?B?YWg3b3BNWHpHSjg5STFsRnJPc29RUGlrbU9Yb1docWRUMjlvQVZVaEdXL1k5?=
+ =?utf-8?B?WXc1ZkdEZEdLK0kwREhZbGtwNGQzRnJmZHcwdEs3eTR1NTh4NkY2YmRTa252?=
+ =?utf-8?B?UlZRaENGWllvVnEvbmR0bVhuZStQS0hGc1poTmJ6T1FuZnExTndSOGZhNTVa?=
+ =?utf-8?B?N1RpK3U1SEhTTTBMeWtWd0dyUGw0dms3ZzVSQUlUWU9ObnVja3FSakMwR3lH?=
+ =?utf-8?B?aFBndGFjb0wyZWltKzd6V3ZPMmo3WWc0UWtRN1JIREF5dTNoMWxCVVc4d2pX?=
+ =?utf-8?B?eUZaZ1ExclBiL0p6V0lPTks5K0hvVTYzTVlWaXpWMzBjMVU2TnNaNnZ2QWor?=
+ =?utf-8?B?VUNaVVNTTnFkMmo5TXA2RzRXSUZHdVJZTWF2eWt2cVlQMXVTeFhoT01nbHNQ?=
+ =?utf-8?B?UFg5Ymk2Zk5xM1ZNN1VoZzVMeWlZVWlpUkllUEV1Myt3WUVWb1B0am0vUzho?=
+ =?utf-8?B?a3p0R3FFbkUrWlJBOWxiY3c4RlNPUnZZaXpyQjl0NWg3cGpqMFIvaklkbHFS?=
+ =?utf-8?B?OUpzM0JlaHQ4czhabkFWWUhJYjdaRndEV2dJTXZsR0NrSzZwVmZ0bVZQTGJw?=
+ =?utf-8?B?cGJ0NHJaRFZYa0Z0ZTl1WTg4M1JlSDVTQ05HUFVxRi80Mmx5Z1JhaHA3enQz?=
+ =?utf-8?B?SHFIYXZsZk5GRkJzZEk0aWt4azBDbUp4Q0d5UjhKWGZjZDJPelFwYUR2alRy?=
+ =?utf-8?B?MW41cDh1N25RNjJEU2ZncU9pZVZnQkJ6aFVrWDZvV1RkV3M1bmplTjdwenJk?=
+ =?utf-8?B?SEE9PQ==?=
 X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bf7aa47-94a1-4bd3-a2e8-08ddfb7b6513
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30a3eaf4-3dea-4f4b-679b-08ddfb808683
 X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2025 15:02:35.4036
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2025 15:39:18.9111
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SvkYLCN5EP2+qVPqPIilPxyTfIh04TuftlYv4KqRaJ9yf5BoLDWWKlII62l9E30/OKJBE6AqwxDLcFLfj/zCXKoT7Z5LLt6b0hrF7xzBYZ4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB6992
+X-MS-Exchange-CrossTenant-UserPrincipalName: o5KxIL1+Vehce5Aa9kMsPvb8gYe9g10jsrrB79tUUpssqXxikzRGZSynCvBkhvuTkeJdK4IdDP6b/3IwTu+CRHAP43XgAt+B9aqOiywwNh4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7074
 
-Hi Alejandro,
 
-On 24.09.25 14:23, Alejandro Vallejo wrote:
-> On Tue Sep 16, 2025 at 7:14 PM CEST, Andrew Cooper wrote:
->> On 16/09/2025 9:57 am, Grygorii Strashko wrote:
->>> Hi Jan,
->>>
->>> On 16.09.25 17:34, Jan Beulich wrote:
->>>> On 16.09.2025 12:32, Grygorii Strashko wrote:
->>>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>>>>
->>>>> Since commit b99227347230 ("x86: Fix AMD_SVM and INTEL_VMX
->>>>> dependency") the
->>>>> HVM Intel VT-x support can be gracefully disabled, but it still
->>>>> keeps VMX
->>>>> code partially built-in, because HVM code uses mix of:
->>>>>
->>>>>    - "cpu_has_vmx" macro, which doesn't account for CONFIG_INTEL_VMX cfg
->>>>>    - "using_vmx()" function, which accounts for CONFIG_INTEL_VMX cfg
->>>>>
->>>>> for runtime VMX availability checking. As result compiler DCE can't
->>>>> remove
->>>>> all, unreachable VMX code.
->>>>>
->>>>> Fix it by sticking to "cpu_has_vmx" macro usage only which is
->>>>> updated to
->>>>> account CONFIG_INTEL_VMX cfg.
->>>>>
->>>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->>>>> ---
->>>>> Hi
->>>>>
->>>>> It could be good to have it in 4.21, so vmx/svm disabling
->>>>> option will be in complete state within 4.21 version.
->>>>
->>>> Imo this isn't release critical and has come too late. It's of course
->>>> Oleksii's call in the end.
->>>>
->>>>> --- a/xen/arch/x86/include/asm/cpufeature.h
->>>>> +++ b/xen/arch/x86/include/asm/cpufeature.h
->>>>> @@ -136,7 +136,8 @@ static inline bool boot_cpu_has(unsigned int feat)
->>>>>    #define cpu_has_sse3            boot_cpu_has(X86_FEATURE_SSE3)
->>>>>    #define cpu_has_pclmulqdq       boot_cpu_has(X86_FEATURE_PCLMULQDQ)
->>>>>    #define cpu_has_monitor         boot_cpu_has(X86_FEATURE_MONITOR)
->>>>> -#define cpu_has_vmx             boot_cpu_has(X86_FEATURE_VMX)
->>>>> +#define cpu_has_vmx             (IS_ENABLED(CONFIG_INTEL_VMX) && \
->>>>> +                                 boot_cpu_has(X86_FEATURE_VMX))
->>>>
->>>> I'm pretty sure using_vmx() was introduced precisely to avoid the use of
->>>> IS_ENABLED() here. What is completely missing from the description is a
->>>> discussion of the effect of this change on pre-existing uses of the
->>>> macro. ISTR there being at least one instance which would break with
->>>> that change. And no, I'm not looking forward to digging that out again,
->>>> when I already did at the time the using_vmx() was suggested and then
->>>> implemented. (I can't exclude it was the SVM counterpart; we want to
->>>> keep both in sync in any event, imo.)
-> 
-> Apologies if this has already been discussed, but I didn't participate in prior
-> discussions. Targeted lookups in lore are not shedding a lot of light either.
-> 
->>>
->>> Thank you for your comments and sorry for not digging into the history of
->>> the related patches.
->>>
->>> All, please ignore these patches as existing places. where
->>> cpu_has_vmx/smv
->>> are still used, need to be revised one by one.
->>>
+
+On 24.09.25 16:30, Marek Marczykowski-Górecki wrote:
+> On Wed, Sep 24, 2025 at 01:17:15PM +0300, Grygorii Strashko wrote:
 >>
->> Off the top of my head, fixups to MSR_FEATURE_CONTROL, and AMD SKINIT
->> need cpu_has_vmx/svm not guarded by Kconfig like this.
 >>
->> ~Andrew
+>> On 22.09.25 13:09, Marek Marczykowski-Górecki wrote:
+>>> On Fri, Aug 22, 2025 at 08:42:30PM +0200, Marek Marczykowski-Górecki wrote:
+>>>> On Fri, Aug 22, 2025 at 05:27:20PM +0200, Jürgen Groß wrote:
+>>>>> On 22.08.25 16:42, Marek Marczykowski-Górecki wrote:
+>>>>>> On Fri, Aug 22, 2025 at 04:39:33PM +0200, Marek Marczykowski-Górecki wrote:
+>>>>>>> Hi,
+>>>>>>>
+>>>>>>> When suspending domU I get the following issue:
+>>>>>>>
+>>>>>>>        Freezing user space processes
+>>>>>>>        Freezing user space processes failed after 20.004 seconds (1 tasks refusing to freeze, wq_busy=0):
+>>>>>>>        task:xl              state:D stack:0     pid:466   tgid:466   ppid:1      task_flags:0x400040 flags:0x00004006
+>>>>>>>        Call Trace:
+>>>>>>>         <TASK>
+>>>>>>>         __schedule+0x2f3/0x780
+>>>>>>>         schedule+0x27/0x80
+>>>>>>>         schedule_preempt_disabled+0x15/0x30
+>>>>>>>         __mutex_lock.constprop.0+0x49f/0x880
+>>>>>>>         unregister_xenbus_watch+0x216/0x230
+>>>>>>>         xenbus_write_watch+0xb9/0x220
+>>>>>>>         xenbus_file_write+0x131/0x1b0
+>>>>>>>         vfs_writev+0x26c/0x3d0
+>>>>>>>         ? do_writev+0xeb/0x110
+>>>>>>>         do_writev+0xeb/0x110
+>>>>>>>         do_syscall_64+0x84/0x2c0
+>>>>>>>         ? do_syscall_64+0x200/0x2c0
+>>>>>>>         ? generic_handle_irq+0x3f/0x60
+>>>>>>>         ? syscall_exit_work+0x108/0x140
+>>>>>>>         ? do_syscall_64+0x200/0x2c0
+>>>>>>>         ? __irq_exit_rcu+0x4c/0xe0
+>>>>>>>         entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>>>>>>>        RIP: 0033:0x79b618138642
+>>>>>>>        RSP: 002b:00007fff9a192fc8 EFLAGS: 00000246 ORIG_RAX: 0000000000000014
+>>>>>>>        RAX: ffffffffffffffda RBX: 00000000024fd490 RCX: 000079b618138642
+>>>>>>>        RDX: 0000000000000003 RSI: 00007fff9a193120 RDI: 0000000000000014
+>>>>>>>        RBP: 00007fff9a193000 R08: 0000000000000000 R09: 0000000000000000
+>>>>>>>        R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000014
+>>>>>>>        R13: 00007fff9a193120 R14: 0000000000000003 R15: 0000000000000000
+>>>>>>>         </TASK>
+>>>>>>>        OOM killer enabled.
+>>>>>>>        Restarting tasks: Starting
+>>>>>>>        Restarting tasks: Done
+>>>>>>>        xen:manage: do_suspend: freeze processes failed -16
+>>>>>>>
+>>>>>>> The process in question is `xl devd` daemon. It's a domU serving a
+>>>>>>> xenvif backend.
+>>>>>>>
+>>>>>>> I noticed it on 6.16.1, but looking at earlier test logs I see it with
+>>>>>>> 6.16-rc6 already (but interestingly, not 6.16-rc2 yet? feels weird given
+>>>>>>> seemingly no relevant changes between rc2 and rc6).
+>>>>>>
+>>>>>> I forgot to include link for (a little) more details:
+>>>>>> https://github.com/QubesOS/qubes-linux-kernel/pull/1157
+>>>>>>
+>>>>>> Especially, there is another call trace with panic_on_warn enabled -
+>>>>>> slightly different, but looks related.
+>>>>>>
+>>>>>
+>>>>> I'm pretty sure the PV variant for suspending is just wrong: it is calling
+>>>>> dpm_suspend_start() from do_suspend() without taking the required
+>>>>> system_transition_mutex, resulting in the WARN() in pm_restrict_gfp_mask().
+>>>>>
+>>>>> It might be as easy as just adding the mutex() call to do_suspend(), but I'm
+>>>>> really not sure that will be a proper fix.
+>>>>
+>>>> Hm, this might explain the second call trace, but not the freeze failure
+>>>> quoted here above, I think?
+>>>
+>>> While the patch I sent appears to fix this particular issue, it made me
+>>> wonder: is there any fundamental reason why do_suspend() is not using
+>>> pm_suspend() and register Xen-specific actions via platform_suspend_ops
+>>> (and maybe syscore_ops)? From a brief look at the code, it should
+>>> theoretically be possible, and should avoid issues like this.
+>>>
+>>> I tried to do a quick&dirty attempt at that[1], and it failed (panic). I
+>>> surely made several mistakes there (and also left a ton of todo
+>>> comments). But before spending any more time at that, I'd like to ask
+>>> if this is a viable option at all.
+>>
+>> I think it might, but be careful with this, because there are two "System Low power" paths in Linux
+>> 1) Suspend2RAM and Co
+>> 2) Hybernation
+>>
+>> While "Suspend2RAM and Co" path is relatively straight forward and expected to be always
+>> started through pm_suspend(). In general, it's expected to happen
+>>   - from sysfs (User space)
+>>   - from autosuspend (wakelocks).
+>>
+>> the "hibernation" path is more complicated:(
+>> - Genuine Linux hybernation hibernate()/hibernate_quiet_exec()
 > 
-> What do you mean? AFAICS SKINIT is guarded by cpu_has_skinit, not cpu_has_svm.
+> IIUC hibernation is very different as it puts Linux in charge of dumping
+> all the state to the disk. In case of Xen, the primary use case for
+> suspend is preparing VM for Xen toolstack serializing its state to disk
+> (or migrating to another host).
+> Additionally, VM suspend may be used as preparation for host suspend
+> (this is what I actually do here). This is especially relevant if the VM
+> has some PCI passthrough - to properly suspend (and resume) devices
+> across host suspend.
 > 
-> And MSR_IA32_FEATURE_CONTROL tweaking seems self-contained in xen/hvm/vmx/ which
-> is compiled out when !CONFIG_INTEL_VMX.
+>> I'm not sure what path Xen originally implemented :( It seems like "suspend2RAM",
+>> but, at the same time "hybernation" specific staff is used, like PMSG_FREEZE/PMSG_THAW/PMSG_RESTORE.
+>> As result, Linux suspend/hybernation code moves forward while Xen stays behind and unsync.
 > 
-> For the hypothetical case in which we might want to know the real HW value
-> we can go look at the raw policy, as in "raw_cpu_policy.basic.vmx" or
-> "raw_cpu_policy.extd.svm". Or what's mentioned in passing here.
+> Yeah, I think it's supposed to be suspend2RAM. TBH the
+> PMSG_FREEZE/PMSG_THAW/PMSG_RESTORE confuses me too and Qubes OS has a
+> patch[2] to switch it to PMSG_SUSPEND/PMSG_RESUME.
 > 
-> https://lore.kernel.org/xen-devel/a881c6a6-2c36-4e5c-8336-21cd0e14b873@suse.com/
+>> So it sounds reasonable to avoid custom implementation, but may be not easy :(
+>>
+>> Suspending Xen features can be split between suspend stages, but
+>> not sure if platform_suspend_ops can be used.
+>>
+>> Generic suspend stages list
+>> - freeze
+>> - prepare
+>> - suspend
+>> - suspend_late
+>> - suspend_noirq (SPIs disabled, except wakeups)
+>>    [most of Xen specific staff has to be suspended at this point]
+>> - disable_secondary_cpus
+>> - arch disable IRQ (from this point no IRQs allowed, no timers, no scheduling)
+>> - syscore_suspend
+>>    [rest here]
+>> - platform->enter() (suspended)
+>>
+>> You can't just overwrite platform_suspend_ops, because ARM64 is expected to enter
+>> suspend through PSCI FW interface:
+>> drivers/firmware/psci/psci.c
+>>   static const struct platform_suspend_ops psci_suspend_ops = {
 > 
-> Forcing the common case to use a helper and leaving the rare case in the
-> shorthand macro seems like a bad idea. This ought to follow what cpu_has_nx
-> already does.
-> 
-> Is there a specific code instance in which having IS_ENABLED() in the
-> cpu_has_{svm,vmx} macros would cause issues today? While there are some dubious
-> choices of svm vs vmx with or without negation, they all seem to resolve
-> to correct code, with less codegen after IS_ENABLED() ends up in all the
-> conditionals.
-> 
-> IOW: I have seen fear of incorrectness, but not proof of it. Now, obviously the
-> burden of proof rests on the submitter, indeed, but I'd like to know where we
-> stand in terms of what that proof would look like. A naive grep shows not many
-> sites to check.
-> 
->    $git grep cpu_has_svm | grep -v cpu_has_svm_ | wc -l
->    6
+> Does this apply to a VM on ARM64 too? At least on x86, the VM is
+> supposed to make a hypercall to tell Xen it suspended (the hypercall
+> will return only on resume).
 
-arch/x86/flushtlb.c:    bool asid = is_hvm_domain(d) && (cpu_has_svm || shadow);
-arch/x86/hvm/hvm.c:    if ( nestedhvm_enabled(v->domain) && cpu_has_svm &&
-arch/x86/spec_ctrl.c:        if ( !cpu_has_svm )
-
-not checked yet.
-
-> 
->    $git grep cpu_has_vmx | grep -v cpu_has_vmx_ | wc -l
->    11
-
-Here:
-1) arch/x86/hvm/dom0_build.c:    if ( cpu_has_vmx && paging_mode_hap(d) && !vmx_unrestricted_guest(v) )
-    arch/x86/hvm/hvm.c:        if ( !paging_mode_hap(d) || !cpu_has_vmx )
-
-^ is safe to opt-opt. I've sent patch [1]
-It gives biggest coverage benefit actually.
-
-2) arch/x86/hvm/viridian/viridian.c:    *(u8  *)(p + 7) = (cpu_has_vmx ? 0xc1 : 0xd9);
-There is strict dependency on HW. In general, viridian should never be enabled on INTEL, for example,
-if !INTEL_VMX. So, could be opt out
-
-3) arch/x86/mm/mem_sharing.c:        if ( unlikely(!is_hvm_domain(d) || !cpu_has_vmx) )
-MEM_SHARING has strict dependency on INTEL_VMX, so it is "doesn't matter" case.
-MEM_SHARING should never be enabled if !INTEL_VMX.
-
-4) arch/x86/hvm/nestedhvm.c:    unsigned nr = cpu_has_vmx ? 2 : 3;
-There shadow_io_bitmap pages allocated, page number to be used returned by
-nestedhvm_vcpu_iomap_get(). Opt-out should be safe for !INTEL_VMX as nr==3 and
-nestedhvm_vcpu_iomap_get() will never overflow shadow_io_bitmap[].
-
-5) arch/x86/mm/mem_access.c:    return is_hvm_domain(d) && cpu_has_vmx && hap_enabled(d);
-It is p2m_mem_access_sanity_check() called from mem_access_memop().
-Seems like whole XENMEM_access_op (MEM_ACCESS) depends on INTEL_VMX on x86.
-But there is dependency on VM_EVENT is defined already.
-
-How to proceed???
-
-6) arch/x86/hvm/monitor.c:    if ( cpu_has_vmx )
-This is hvm_monitor_descriptor_access():
-     if ( cpu_has_vmx )
-     {
-         req.u.desc_access.arch.vmx.instr_info = exit_info;
-         req.u.desc_access.arch.vmx.exit_qualification = vmx_exit_qualification;
-     }
-
-Should be safe to opt-out.
-
-7) arch/x86/cpu-policy.c:    if ( cpu_has_vmx )
-    arch/x86/cpu-policy.c:    if ( !cpu_has_vmx )
-It is calculate_hvm_max_policy()
-
-Place (a)
-     if ( cpu_has_vmx )
-     {
-
-[below features have to be cleared if !INTEL_VMX, so can't just out-out cpu_has_vmx here.
-  Possible option: remove "if ( cpu_has_vmx )"]
-
-         if ( !cpu_has_vmx_rdtscp )
-             __clear_bit(X86_FEATURE_RDTSCP, fs);
-
-         if ( !cpu_has_vmx_invpcid )
-             __clear_bit(X86_FEATURE_INVPCID, fs);
-
-         if ( !cpu_has_vmx_mpx )
-             __clear_bit(X86_FEATURE_MPX, fs);
-
-         if ( !cpu_has_vmx_xsaves )
-             __clear_bit(X86_FEATURE_XSAVES, fs);
-     }
-
-Place (b)
-     if ( !cpu_has_vmx )
-         __clear_bit(X86_FEATURE_PKS, fs);
-
-Should be safe to out-out
-
+On ARM64 Guest expected to trigger PSCI(SYSTEM_SUSPEND) (which is HVC - trap, similar to hypercall on x86)
+PSCI is Arm Power State Coordination Interface which defines unified FW interface for PM.
+So if you overwrite platform_suspend_ops (which is Singleton) it will break ARM Guest suspend.
 
 > 
-> cpu_has_X_Y would be off when cpu_has_X is off, but those shouldn't matter for
-> this discussion.
+>> As an option, some Xen components could be converted to use syscore_ops (but not xenstore),
+>> and some might need to use DD(dev_pm_ops).
+>>
+>>>
+>>> [1] https://github.com/marmarek/linux/commit/47cfdb991c85566c9c333570511e67bf477a5da6
+>>
+>> -- 
+>> Best regards,
+>> -grygorii
+>>
 > 
-> Am I missing something here?
-
-[1] https://patchwork.kernel.org/project/xen-devel/patch/20250924101417.229108-1-grygorii_strashko@epam.com/
+> [2] https://github.com/QubesOS/qubes-linux-kernel/blob/main/xen-pm-use-suspend.patch
+> 
 
 -- 
 Best regards,
