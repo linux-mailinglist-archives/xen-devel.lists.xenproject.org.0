@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73878B9837C
+	by mail.lfdr.de (Postfix) with ESMTPS id 71F47B9837B
 	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 06:40:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1128837.1469057 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1128835.1469043 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1HHy-0004Kd-IK; Wed, 24 Sep 2025 04:39:34 +0000
+	id 1v1HHx-00042a-SH; Wed, 24 Sep 2025 04:39:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1128837.1469057; Wed, 24 Sep 2025 04:39:34 +0000
+Received: by outflank-mailman (output) from mailman id 1128835.1469043; Wed, 24 Sep 2025 04:39:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1HHy-0004At-DF; Wed, 24 Sep 2025 04:39:34 +0000
-Received: by outflank-mailman (input) for mailman id 1128837;
- Wed, 24 Sep 2025 04:39:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v1HHx-0003wN-NG; Wed, 24 Sep 2025 04:39:33 +0000
+Received: by outflank-mailman (input) for mailman id 1128835;
+ Wed, 24 Sep 2025 04:39:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1tVB=4D=rsg.ci.i.u-tokyo.ac.jp=odaki@srs-se1.protection.inumbo.net>)
- id 1v1HHw-0003tj-3L
- for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 04:39:32 +0000
+ id 1v1HHu-0003tk-6P
+ for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 04:39:31 +0000
 Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7478f1a8-9900-11f0-9d14-b5c5bf9af7f9;
- Wed, 24 Sep 2025 06:39:30 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 730b5eda-9900-11f0-9809-7dc792cee155;
+ Wed, 24 Sep 2025 06:39:27 +0200 (CEST)
 Received: from h205.csg.ci.i.u-tokyo.ac.jp (h205.csg.ci.i.u-tokyo.ac.jp
  [133.11.54.205]) (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 58O4bSmt091795
+ by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 58O4bSmu091795
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
  Wed, 24 Sep 2025 13:37:39 +0900 (JST)
  (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
@@ -42,24 +42,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7478f1a8-9900-11f0-9d14-b5c5bf9af7f9
-DKIM-Signature: a=rsa-sha256; bh=stt1PYHjZPmmH11DgDaK1e3bftbIHLz7TmtRdVRF/9A=;
+X-Inumbo-ID: 730b5eda-9900-11f0-9809-7dc792cee155
+DKIM-Signature: a=rsa-sha256; bh=jWpLp8n23CdClF2nwSY2mTKMJfX9C2XmSiyVTvW4DxU=;
         c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
         h=From:Date:Subject:Message-Id:To;
-        s=rs20250326; t=1758688659; v=1;
-        b=lKHDilw5Fq1/cnZFtWrkLQsf0wSND4A4CU0I4JhwbBbzg1lFKYlm5Q6wiWuBCtxG
-         CBRYgMu6tQ2BVB7pBZ4GKpjKjWSZFTvVUm0oTmudZfXEsN8GNwYfzHYCC7V2sEjn
-         SWwyuMCezPLlRWJoNUlfxXyyK+NclfnGNRTrHEZnjUWn2czlf+auXXMRtpwS0RGD
-         0eOCj+jtWsvogScD6U0vQbVzanTlRUywY+cLXorEA1hhfKVYP1sH1Uj43IJdxQUo
-         kvY6GCE+/eIZjhpVu+LCvIvEwMqhx+YtYzSwQh4kYV8v9fTB/B5MDHg2SQtUp3+c
-         sOnfgKokiFWh2MNIuOFJvA==
+        s=rs20250326; t=1758688660; v=1;
+        b=Z/ywqlxOJlUU34+E0osmWrMy3ELkCuh2OmBTrboInpXjOqD4SffZwY/4CYZU9EMl
+         Dzx+hMFZXJ69msVRzYu3/rva7z862cW0LJjoo/7a+OQagfk8KQoAs9iIRpTaSSa0
+         pt61xjJaSVVPqRurq0vu8rPC19jEuObo8buUpNjAPokMhv64OcpL5QB9Y95TzlPO
+         DlIeieX9/8KQLvSGtaM+M1bC9SwqmIQfS3fxvyYmqXzx7aCq3R7AM6yqLJEfDQ+v
+         CJWE+1FHrkF22D4QuYAryKLCEdfm+xmGbKGgorUxyLRleupCLTsp+J1Kg+Ny5fWK
+         7e33gFmpWCJMRvhjM4Rrxw==
 From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Date: Wed, 24 Sep 2025 13:37:20 +0900
-Subject: [PATCH v4 1/7] docs/devel: Do not unparent in instance_finalize()
+Date: Wed, 24 Sep 2025 13:37:21 +0900
+Subject: [PATCH v4 2/7] vfio/pci: Do not unparent in instance_finalize()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20250924-use-v4-1-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
+Message-Id: <20250924-use-v4-2-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
 References: <20250924-use-v4-0-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
 In-Reply-To: <20250924-use-v4-0-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
 To: qemu-devel@nongnu.org
@@ -111,58 +111,39 @@ X-Mailer: b4 0.15-dev-179e8
 Children are automatically unparented so manually unparenting is
 unnecessary.
 
-Worse, automatic unparenting happens before the instance_finalize()
+Worse, automatic unparenting happens before the insntance_finalize()
 callback of the parent gets called, so object_unparent() calls in
 the callback will refer to objects that are already unparented, which
 is semantically incorrect.
 
-Remove the instruction to call object_unparent(), and the exception
-of the "do not call object_unparent()" rule for instance_finalize().
-
 Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
 Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- docs/devel/memory.rst | 17 ++++++-----------
- 1 file changed, 6 insertions(+), 11 deletions(-)
+ hw/vfio/pci.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/docs/devel/memory.rst b/docs/devel/memory.rst
-index 42d3ca29c431..11858543f256 100644
---- a/docs/devel/memory.rst
-+++ b/docs/devel/memory.rst
-@@ -165,17 +165,14 @@ and finalized one by one.  The order in which memory regions will be
- finalized is not guaranteed.
+diff --git a/hw/vfio/pci.c b/hw/vfio/pci.c
+index d14e96b2f82d..bc0b4c4d562b 100644
+--- a/hw/vfio/pci.c
++++ b/hw/vfio/pci.c
+@@ -2025,7 +2025,6 @@ static void vfio_bars_finalize(VFIOPCIDevice *vdev)
+         vfio_region_finalize(&bar->region);
+         if (bar->mr) {
+             assert(bar->size);
+-            object_unparent(OBJECT(bar->mr));
+             g_free(bar->mr);
+             bar->mr = NULL;
+         }
+@@ -2033,9 +2032,6 @@ static void vfio_bars_finalize(VFIOPCIDevice *vdev)
  
- If however the memory region is part of a dynamically allocated data
--structure, you should call object_unparent() to destroy the memory region
--before the data structure is freed.  For an example see VFIOMSIXInfo
--and VFIOQuirk in hw/vfio/pci.c.
-+structure, you should free the memory region in the instance_finalize
-+callback.  For an example see VFIOMSIXInfo and VFIOQuirk in
-+hw/vfio/pci.c.
- 
- You must not destroy a memory region as long as it may be in use by a
- device or CPU.  In order to do this, as a general rule do not create or
--destroy memory regions dynamically during a device's lifetime, and only
--call object_unparent() in the memory region owner's instance_finalize
--callback.  The dynamically allocated data structure that contains the
--memory region then should obviously be freed in the instance_finalize
--callback as well.
-+destroy memory regions dynamically during a device's lifetime, and must
-+never call object_unparent().
- 
- If you break this rule, the following situation can happen:
- 
-@@ -201,9 +198,7 @@ this exception is rarely necessary, and therefore it is discouraged,
- but nevertheless it is used in a few places.
- 
- For regions that "have no owner" (NULL is passed at creation time), the
--machine object is actually used as the owner.  Since instance_finalize is
--never called for the machine object, you must never call object_unparent
--on regions that have no owner, unless they are aliases or containers.
-+machine object is actually used as the owner.
- 
- 
- Overlapping regions and priority
+     if (vdev->vga) {
+         vfio_vga_quirk_finalize(vdev);
+-        for (i = 0; i < ARRAY_SIZE(vdev->vga->region); i++) {
+-            object_unparent(OBJECT(&vdev->vga->region[i].mem));
+-        }
+         g_free(vdev->vga);
+     }
+ }
 
 -- 
 2.51.0
