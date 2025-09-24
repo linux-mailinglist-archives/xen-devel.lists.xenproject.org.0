@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45266B9ABC7
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 17:40:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1129522.1469445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44217B9AC21
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 17:45:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1129539.1469455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1Rbn-0002sa-6l; Wed, 24 Sep 2025 15:40:43 +0000
+	id 1v1Rfz-0003UW-NY; Wed, 24 Sep 2025 15:45:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1129522.1469445; Wed, 24 Sep 2025 15:40:43 +0000
+Received: by outflank-mailman (output) from mailman id 1129539.1469455; Wed, 24 Sep 2025 15:45:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1Rbn-0002r6-46; Wed, 24 Sep 2025 15:40:43 +0000
-Received: by outflank-mailman (input) for mailman id 1129522;
- Wed, 24 Sep 2025 15:40:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v1Rfz-0003T2-KF; Wed, 24 Sep 2025 15:45:03 +0000
+Received: by outflank-mailman (input) for mailman id 1129539;
+ Wed, 24 Sep 2025 15:45:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9CQP=4D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1v1Rbl-0002pn-Dc
- for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 15:40:41 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d26fb0b3-995c-11f0-9809-7dc792cee155;
- Wed, 24 Sep 2025 17:40:39 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-62fce8b75a3so9679809a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 08:40:39 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-67-38.play-internet.pl.
- [109.243.67.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-62fa5cfa883sm12792294a12.11.2025.09.24.08.40.35
+ <SRS0=XUMG=4D=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1v1Rfy-0003Sw-0M
+ for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 15:45:02 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6e1e7c46-995d-11f0-9d14-b5c5bf9af7f9;
+ Wed, 24 Sep 2025 17:45:01 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-45e03730f83so31301765e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 08:45:00 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-46e32b4db71sm627895e9.1.2025.09.24.08.44.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Sep 2025 08:40:36 -0700 (PDT)
+ Wed, 24 Sep 2025 08:44:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,208 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d26fb0b3-995c-11f0-9809-7dc792cee155
+X-Inumbo-ID: 6e1e7c46-995d-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758728439; x=1759333239; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wVBKlxFl0q41Dyy+SNAdonJB3IkGEvRpEGHFUwik7Jw=;
-        b=feoQ6gpXkki8v6XuX9GbZDGvqN8nMytXJv1ZThVRazpOZ1F5qsNBLg5rftbM6jsgKW
-         zLepeQZT8w1FuUFsYPFGz5W4iRB+SH+QJDDy6Ghiv48TH+Dvye4HdjjSGhx82tT2mmU6
-         pPz7DA+IDGqX7xxIvcVXlJqvnvq8pkbqNQprPlaLHv+GdsTBS3pNDpfeyHupbJxeJ8Zh
-         fBA8eF2aBj/gyWYFRoE+CiawghA45N7w4vffr9uB5OtPkylOOq8I+3gFppKqQb8XBDD7
-         v+6cmeEkJF6hvBTUgez2KQEGyK+dS9Em6yicEjWWe8NGz5Ma0jQRMmJk/C92H26bRzFL
-         cE9w==
+        d=citrix.com; s=google; t=1758728700; x=1759333500; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=x+IHe9qKQVrqrZmSJcCWnSM95WGYUKAaUtGK45Vyh9I=;
+        b=JCDjJvpJrfSE7si8YjtP+jivMJO92JYhSjiVmDjEk2MO4NVkDFSRYIMR82b1MavJRs
+         886tmUlXohdoYbmOQHsQpflphY7FbrbO3J7srPPzYJzpTTmsln5LffmH2FXG5qhI2KhE
+         I5HB7jigz6XztIgDwH0uu2tPWNbPKkxVGOXQ4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758728439; x=1759333239;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=wVBKlxFl0q41Dyy+SNAdonJB3IkGEvRpEGHFUwik7Jw=;
-        b=c1zh6m3HoOv9oWxqwc7rR7Qq89JOl0XUWkxgtRn6OP8naaq81lBPwAsxk7Y4hh6YXm
-         mnBtaXRWLGrpJhKUKjCxfCLanpqJ/zLlaoAgXlY7W7S/8sIbBOnnn2NVcE8oHA8r+phu
-         a+FvlOVePp/ElZOgYzZ+/UtIPN8dAyyHMH+QuIGPIZsaf2e44+RyPUIr3s/snklbSHdc
-         ngwvvcllvyMushZ39b7Asa1qUzBY1VyBT+SQLvstz4Bo1ry9XsY2+X47YaQJprY5ZpdR
-         vvSGLWJKuL0YFwznIFwji1zkNdvYQcSgm5oxKnaf38jt9DeJq72dbEtceuDv4UP7cWIP
-         cu9A==
-X-Forwarded-Encrypted: i=1; AJvYcCUPJ/6SvnLNX5Y602HwEG1+7JPoGzg4QWLfS0j09EvzBOM6QtYvnjaQcBSW5dCqxgAUTQuELY8FiDg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxzJOAfBfzsOwNL/cXNdJ4HMvQ2jIr3YNC4O7idM/SwyU3lYYuW
-	xiMIPv11Gqz3xenyBkeG3ric72VK2tiQNcxvtKo8jgzLZ5aNBf6x3umC
-X-Gm-Gg: ASbGnctx17yHPBRx+VwiR6GEOnK7xVPPndkIUfHclyvyhR+Ios35R3Obtck7QpWsQNK
-	C0rzskO/04y31F04MCtOoZYu0+Is+gHi3Hv9ziuY8YMx/vR49EDhdd8VU745EFceZU4FKY006hi
-	ROq6jPJry+pkQFIRWpuzhfUWjuafvM/hFwSj7Ca1diiNzl+0/BnHZJ5GWZkp2IqCYEeom6ugzEG
-	qrmUMbw/5Tld2GRZOzzzNuhQ1SdMiISHDC+ROOKVvN0G3KOV/0cnv10euhbd7ZhqLKey45/9BUb
-	dPDYUfVkHdmhM3MrxRxnwKpUTOEeYbpuU7GqerkUbKiiCqIerfdXt7Bo9Ak0d7sKkiHyD1XWpH/
-	U84GHyAw48GEat7U+IB0L2dQV3zYfYCdnGs9D/hmwz8mEeUe/AGbbUtRm8cu3aaZB4uZKzDZ6
-X-Google-Smtp-Source: AGHT+IERDAEwh5Zcaqw9MJW4RwnxelL38x+IM1tVUdsvkKUm82nki96yCEqfNnZB7mu68in5mS03Mw==
-X-Received: by 2002:a17:907:7245:b0:b0d:d831:6fb8 with SMTP id a640c23a62f3a-b34bc584811mr25134866b.62.1758728437255;
-        Wed, 24 Sep 2025 08:40:37 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------6YyVHfXiWVeBQLQJtUOQiw52"
-Message-ID: <31a0e82c-6855-41d3-ad9c-282261012656@gmail.com>
-Date: Wed, 24 Sep 2025 17:40:34 +0200
+        d=1e100.net; s=20230601; t=1758728700; x=1759333500;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=x+IHe9qKQVrqrZmSJcCWnSM95WGYUKAaUtGK45Vyh9I=;
+        b=MpYx13736VSZaZ7tIt+xpvThjF/egp67c6wR8JggzhQS0fwLe4VgTGDW62RbF0qmcC
+         VmkXhDjRZXN0BkU0zpRth420KfeCe7r5ENKVlfSSeWycTuPjXJdyx9ach8h8hJf+i50C
+         1Ds+vP76R/lrxlo3S1UwszBzrq/W9At8F5J2s6CYX7/SHDeYsI5TLkv/45XDFszxpGw2
+         eTnfmyzwOrWJX8vKGldFbGUaPjF5xWR/qUjj+x0safyNMmnrwaVOmu7NZmt/4i6Sq0FX
+         QFNmpsMLHEyccBbY3qw6sz2+YHXyjkgivcIQP1Tosv2NzVxCnkf2fYFftx1xytGhKLnk
+         bpvw==
+X-Forwarded-Encrypted: i=1; AJvYcCVR0ZobqehvdEtHmSjW1TuME9Ruic+J1cdxpLbddYsljYxvUmfD/RCTJGexAZrYvXeYVpTD/vnIjVY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzA0oC8ECoUcuQbO4OGjal+RhsIY4fEOUP+lKwCtOp92RDXN3Ls
+	HNTMcKgbLMwM3Y7SASjLyN8Bg7raw4T83NVzdS5UCYLVRruAgdnHwv2O8KbkP0RmgLs=
+X-Gm-Gg: ASbGncuiQ6xOIxRuFqBaYAH+YhbTlN1kEmc3ilUCFdDgPh7ksCzFI4KtJK3qEj2HfMB
+	0K/0KsNDOeyAytOqp1frefkRwL+xZ3juG6d2cXwNBvvhfnVdZabcyGpz541D+ovjLCsjbb8kcBK
+	wG12z5vIIZard9W8srQO7NTD7rLtC79UwsZocJi0WBIwrLXeBg11PMzwz97DKe8WVbYHvObcOdw
+	1eyBWWt/uGhT+zeMR0l/AwjIA2xMBRdEXd30F0s1sZWveqkWS69ij+I80SEldvpEH59gY9Mm5FJ
+	bLt3Hp7CPhisS+ycMXG1QT/biEfqYHV9AABbgWEt69+NWE7sAH7Q/7dPSIXTXgxk4oxMcp1FiGH
+	2To6M6QkB8ev15y/oOdtLKiygnHUcEB3z/oHbqs5sCL9ga7zJHlGf/kI7JRMMJ4pt7tkI
+X-Google-Smtp-Source: AGHT+IE2Fxv2nPIF15hQ4Z5YMTqJ5ocrjxDevA9lxfUnk2qmvzgeqB+K/1s1jaY/GcRPraEbvCNO6A==
+X-Received: by 2002:a05:600c:3b8f:b0:46e:23d3:6415 with SMTP id 5b1f17b1804b1-46e3299ee26mr3675385e9.6.1758728700121;
+        Wed, 24 Sep 2025 08:45:00 -0700 (PDT)
+Message-ID: <ee10a58f-80fa-40d4-8045-c413054baef8@citrix.com>
+Date: Wed, 24 Sep 2025 16:44:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/18] xen/riscv: add root page table allocation
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1758145428.git.oleksii.kurochko@gmail.com>
- <2b636ea03bf82cae50df87d525e3f58b68f16cb2.1758145428.git.oleksii.kurochko@gmail.com>
- <eda37f82-5381-4900-aa75-3f4bfbc01440@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <eda37f82-5381-4900-aa75-3f4bfbc01440@suse.com>
+Subject: Re: [PATCH] docs/xentop: Add documentation for physical CPU
+ monitoring feature
+To: Jahan Murudi <jahan.murudi.zg@renesas.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20250904172525.2795998-1-jahan.murudi.zg@renesas.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250904172525.2795998-1-jahan.murudi.zg@renesas.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------6YyVHfXiWVeBQLQJtUOQiw52
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 9/20/25 12:14 AM, Jan Beulich wrote:
-> On 17.09.2025 23:55, Oleksii Kurochko wrote:
+On 04/09/2025 10:25 am, Jahan Murudi wrote:
+> Add man page documentation for the new '-p/--pcpus' flag that displays
+> physical CPU utilization metrics. This provides hypervisor-level CPU
+> usage insights alongside existing domain statistics.
 >
->> +{
->> +    return MASK_INSR(mfn_x(page_to_mfn(p2m->root)), HGATP_PPN) |
->> +           MASK_INSR(gstage_mode, HGATP_MODE_MASK) |
->> +           MASK_INSR(vmid, HGATP_VMID_MASK);
->> +}
->> +
->> +static int p2m_alloc_root_table(struct p2m_domain *p2m)
->> +{
->> +    struct domain *d = p2m->domain;
->> +    struct page_info *page;
->> +    int rc;
->> +
->> +    /*
->> +     * Return back P2M_ROOT_PAGES to assure the root table memory is also
->> +     * accounted against the P2M pool of the domain.
->> +     */
->> +    if ( (rc = paging_ret_pages_to_domheap(d, P2M_ROOT_PAGES)) )
->> +        return rc;
-> I read the "ret" in the name as "return" here. However, ...
+> Changes include:
+> - Add '-p' flag to SYNOPSIS section
+> - Document '--pcpus' option with description
+> - Maintain consistency with existing documentation style
 >
->> +    /*
->> +     * As mentioned in the Priviliged Architecture Spec (version 20240411)
->> +     * in Section 18.5.1, for the paged virtual-memory schemes  (Sv32x4,
->> +     * Sv39x4, Sv48x4, and Sv57x4), the root page table is 16 KiB and must
->> +     * be aligned to a 16-KiB boundary.
->> +     */
->> +    page = alloc_domheap_pages(d, P2M_ROOT_ORDER, MEMF_no_owner);
->> +    if ( !page )
->> +    {
->> +        /*
->> +         * If allocation of root table pages fails, the pages acquired above
->> +         * must be returned to the freelist to maintain proper freelist
->> +         * balance.
->> +         */
->> +        paging_ret_pages_to_freelist(d, P2M_ROOT_PAGES);
-> ... "return" doesn't make sense here, so I wonder what the "ret" here means.
+> Signed-off-by: Jahan Murudi <jahan.murudi.zg@renesas.com>
 
-In both cases,|ret| was supposed to mean/"return"/, since in both cases we
-“return” memory.
-I agree that in the case of|paging_ret_pages_to_freelist()|, the flow is
-slightly different: a page is allocated from the domheap and then added back
-to the freelist. That looks more like/adding/ than/returning/. Still, I felt that
-“return” could also apply here, as the page is being given back.
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-For more clarity, do you think it would make sense to rename
-|paging_ret_pages_to_freelist()| to|paging_add_page_to_freelist()|?
+This needs a release ack now for Xen 4.21 (CC Oleksii), but it's a docs
+patch for a new feature so ought to be considered.
 
-~ Oleksii
-
-
---------------6YyVHfXiWVeBQLQJtUOQiw52
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 9/20/25 12:14 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:eda37f82-5381-4900-aa75-3f4bfbc01440@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 17.09.2025 23:55, Oleksii Kurochko wrote:
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+{
-+    return MASK_INSR(mfn_x(page_to_mfn(p2m-&gt;root)), HGATP_PPN) |
-+           MASK_INSR(gstage_mode, HGATP_MODE_MASK) |
-+           MASK_INSR(vmid, HGATP_VMID_MASK);
-+}
-+
-+static int p2m_alloc_root_table(struct p2m_domain *p2m)
-+{
-+    struct domain *d = p2m-&gt;domain;
-+    struct page_info *page;
-+    int rc;
-+
-+    /*
-+     * Return back P2M_ROOT_PAGES to assure the root table memory is also
-+     * accounted against the P2M pool of the domain.
-+     */
-+    if ( (rc = paging_ret_pages_to_domheap(d, P2M_ROOT_PAGES)) )
-+        return rc;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I read the "ret" in the name as "return" here. However, ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    /*
-+     * As mentioned in the Priviliged Architecture Spec (version 20240411)
-+     * in Section 18.5.1, for the paged virtual-memory schemes  (Sv32x4,
-+     * Sv39x4, Sv48x4, and Sv57x4), the root page table is 16 KiB and must
-+     * be aligned to a 16-KiB boundary.
-+     */
-+    page = alloc_domheap_pages(d, P2M_ROOT_ORDER, MEMF_no_owner);
-+    if ( !page )
-+    {
-+        /*
-+         * If allocation of root table pages fails, the pages acquired above
-+         * must be returned to the freelist to maintain proper freelist
-+         * balance.
-+         */
-+        paging_ret_pages_to_freelist(d, P2M_ROOT_PAGES);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... "return" doesn't make sense here, so I wonder what the "ret" here means.</pre>
-    </blockquote>
-    <pre data-start="207" data-end="302">In both cases, <code
-    data-start="222" data-end="227">ret</code> was supposed to mean <em
-    data-start="249" data-end="259">"return"</em>, since in both cases we
-“return” memory.
-I agree that in the case of <code data-start="332" data-end="364">paging_ret_pages_to_freelist()</code>, the flow is
-slightly different: a page is allocated from the domheap and then added back
-to the freelist. That looks more like <em data-start="493"
-    data-end="501">adding</em> than <em data-start="507" data-end="518">returning</em>. Still, I felt that
-“return” could also apply here, as the page is being given back.</pre>
-    <pre data-start="607" data-end="738">For more clarity, do you think it would make sense to rename
-<code data-start="668" data-end="700">paging_ret_pages_to_freelist()</code> to <code
-    data-start="704" data-end="735">paging_add_page_to_freelist()</code>?
-
-~ Oleksii
-</pre>
-    <pre></pre>
-    <br>
-  </body>
-</html>
-
---------------6YyVHfXiWVeBQLQJtUOQiw52--
+~Andrew
 
