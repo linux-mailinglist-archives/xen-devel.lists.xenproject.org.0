@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0E14B9BB98
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 21:34:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1129679.1469526 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D39CEB9C1A7
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 22:36:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1129704.1469535 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1VEx-0000PO-Se; Wed, 24 Sep 2025 19:33:23 +0000
+	id 1v1WDM-0007sb-8Z; Wed, 24 Sep 2025 20:35:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1129679.1469526; Wed, 24 Sep 2025 19:33:23 +0000
+Received: by outflank-mailman (output) from mailman id 1129704.1469535; Wed, 24 Sep 2025 20:35:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1VEx-0000Mm-Pf; Wed, 24 Sep 2025 19:33:23 +0000
-Received: by outflank-mailman (input) for mailman id 1129679;
- Wed, 24 Sep 2025 19:33:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v1WDM-0007pw-5h; Wed, 24 Sep 2025 20:35:48 +0000
+Received: by outflank-mailman (input) for mailman id 1129704;
+ Wed, 24 Sep 2025 20:35:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kInu=4D=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1v1VEw-0000Mg-9F
- for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 19:33:22 +0000
-Received: from fout-b7-smtp.messagingengine.com
- (fout-b7-smtp.messagingengine.com [202.12.124.150])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 531445a9-997d-11f0-9d14-b5c5bf9af7f9;
- Wed, 24 Sep 2025 21:33:20 +0200 (CEST)
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
- by mailfout.stl.internal (Postfix) with ESMTP id A8B021D0008C;
- Wed, 24 Sep 2025 15:33:18 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-12.internal (MEProxy); Wed, 24 Sep 2025 15:33:18 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 24 Sep 2025 15:33:17 -0400 (EDT)
+ <SRS0=PjKe=4D=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
+ id 1v1WDK-0007pm-Br
+ for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 20:35:46 +0000
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20a::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0aee235d-9986-11f0-9809-7dc792cee155;
+ Wed, 24 Sep 2025 22:35:43 +0200 (CEST)
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
+ by AS4PR03MB8205.eurprd03.prod.outlook.com (2603:10a6:20b:4f8::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.19; Wed, 24 Sep
+ 2025 20:35:40 +0000
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e%5]) with mapi id 15.20.9160.008; Wed, 24 Sep 2025
+ 20:35:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,312 +47,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 531445a9-997d-11f0-9d14-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1758742398;
-	 x=1758828798; bh=B5ttDfSsGgDCbZiM+N4h1AzDTCDphKCk7GkTUmZUHhA=; b=
-	f/Uy+LQ7CYtWIkYY4z6sgxi2D4uWXPe05AJI1rSfRaQzaEh6NyC9yWaRcb59Nl+n
-	z8BQOyAmsg91eY9vF13+9awE2VUiuB+FuLSLmyPUsvmJtokDQi2+LDQFr+5fc84C
-	D0NLGm/sesWuqxWwLAZhFC6I5NnA9QrG5PlIMaO25RjqvHISoZck/HsX1bKYGvHD
-	NoU26sj+Amw2bEsD09teT24LV0u5F8hzkInzu30c+hJHzOkA2vTclqT6e9XfKXfX
-	v7/8rtqQL2DfZnYB9uF0MD3d2eYGa/0TTCKJj0bMzA54bKiXoL3gQPTPSiBgSsA7
-	ak6P2anBxGhTttkerghvaQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1758742398; x=1758828798; bh=B5ttDfSsGgDCbZiM+N4h1AzDTCDphKCk7Gk
-	TUmZUHhA=; b=ChBNh34FnElEvh4NlCH+u+fe6zfGP4ltpHmPojFQeMBfCumK4LU
-	d3QhWUByc05eLUJTToveTOwS6HbCRWO/e6bCHnKVC1t3lhL9mwksW5eRfSmZ2x1R
-	OzU1a8ZgoCRdtRWImMrmOJXasj0r641GqX61BMe7WavU+Er3idh218TYYYXTj51G
-	nqWy3SdWDmEqeQSLRa0gwwYC279+2LYrTkP95j2yarnfNLSO7/sOwCfA9aWh74/O
-	2ZBxEPNXJ9Py7QKiGBDR3ms9juQWibfgiNTW/7fgRU5Lt1HT5erodFYsdUxOo03q
-	KuExUWxIgHlp1jah9vbGzLur8R8cQb51SCw==
-X-ME-Sender: <xms:fkfUaPIKAnXVUAZ49ei0Ag2Y77YNnRJOFWAVaxnS4A5J8Qk0ZlIVlw>
-    <xme:fkfUaJK0X3N84cU3cQREOqHnuZLHfhfFBuMC6L-8LtlQFpgUSoD0k6JYEfxDOCfV4
-    6epHGXSUdWGOF_FP8dJhFbu1hVVW7lu3Ut5gx4Ed9kESPyPE5s>
-X-ME-Received: <xmr:fkfUaFUE3GLnmiCDgk79QjB9Vu1LSj9Zj0EQFlJudCIP8Iv6pH5z2dyq6IZGl54MgWEZ_hEPFNM75GKOIYjtEM85riUwhXNCENE>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdeigeeghecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeukeetteeg
-    gffgkeduheetgeeileejjeeiiefhjeegvefhtefggfetueetteeuteenucffohhmrghinh
-    epghhithhhuhgsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
-    rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
-    drtghomhdpnhgspghrtghpthhtohepvddpmhhouggvpehsmhhtphhouhhtpdhrtghpthht
-    ohephigrnhhnrdhsihhonhhnvggruhesvhgrthgvshdrthgvtghhpdhrtghpthhtohepgi
-    gvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhg
-X-ME-Proxy: <xmx:fkfUaDh_yJ842c2Qt7XQ--s1HMvwrADYkbqL714Wpl_Wd2uLtp7jAg>
-    <xmx:fkfUaI_4EOxW7dBcQMlAB-MSCyIihB9iXLvbpu44zObSnibDBKDgHA>
-    <xmx:fkfUaFA69oWw5AhcLHRi7ZxpgXKw42pljqMBo3eafG4xEK67ZVJs9w>
-    <xmx:fkfUaNJmjz-_a84wHuzrTTetH710O8VYg41F5cuHoE9jD-qEiuffnA>
-    <xmx:fkfUaB7pof4SVZe1UKHiSAnxy3luZ9iAlmqxtDOOK8AAWUi6O8Y2nt6N>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 24 Sep 2025 21:33:15 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Yann Sionneau <yann.sionneau@vates.tech>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: domU suspend issue - freeze processes failed - Linux 6.16
-Message-ID: <aNRHe_mDQD5mjSE1@mail-itl>
-References: <aKiBJeqsYx_4Top5@mail-itl>
- <aKiBwEsogK420kwo@mail-itl>
- <05e9628d-83e5-4feb-881d-5854b72bd560@suse.com>
- <aKi6Foj-Lx_n0L6l@mail-itl>
- <aNEgTgis2JeyQ4HA@mail-itl>
- <8f6b8f08-ca62-467b-a6be-4d33208e5393@epam.com>
- <aNPyW5a7BHni-SuI@mail-itl>
- <32097dc9-761f-4319-9fa8-6bcb15c06a82@vates.tech>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="iQNCPjvv7VHlfBcR"
-Content-Disposition: inline
-In-Reply-To: <32097dc9-761f-4319-9fa8-6bcb15c06a82@vates.tech>
-
-
---iQNCPjvv7VHlfBcR
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: 0aee235d-9986-11f0-9809-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XpgIu36CfE41baqJK7QWmOs9J5+os3jDk+Bwm83O2f2WVQdHBUihMyn/7Ne/bM6+mPcWnB8w6yc/1jUz/RC1ahOrK11p9ARrPDMc9QlJOvrq6D4vG1JxGgjNbnCOshTdzFbU5wsYWjPpvCrze/oZkBiy/vHfzeq9RG0YF19PqNmU6p6sqTuhuDCer/+m1xRG5ckeKCXsERRtxY3ST1s6nlErxkezhW/67gy6NpfG5Ag7bM4/Dq+V2M9314Wz/t7omb7ezQ2nLgXzwhvB0AsNK3d6Iln9NcfiQdB3f6lnZ3yOKN7tiHdYAxj4DGboNFAWEAUBzhT61VlPVgZmbVWesg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sB0+C1pxh8R+Ds/c0r1Xd+nU31NJsXRp6/WwQyk7idg=;
+ b=Aus6GIuejqWCT1gEhNkSPCsbia1/Jhh29dfnqGzKLYkBZuJ/5+MLuP2BTZM7V+rIUWBW+ulwdxT/3gNA3Ar2oLBl75FZdLAXyVblzkkPIGH+57ZHcmnpeY5XlqteGpkn0K0l74a5iUSTQGE2BvA32+uHDEGniIvB43Ts50iWjzkLMvSIEp5dFsxzomyTBQ3GIRyl8wazmroL3QW2dnRbNrzOvG/EJNd++K7uOqGwO/PfPDsLagoOgX8JRYukym2Awq1fXngbfo/ATCxaCo02jmISYc5yjU0q05L2Vln+ScPxkM6aV9gLtODAteXPSfiA5PmgNnOz7uIk/YY2o4BMbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sB0+C1pxh8R+Ds/c0r1Xd+nU31NJsXRp6/WwQyk7idg=;
+ b=c84SM+dRJio53FnMSbqAw3T7PZnYr+SwZ4Kv5tQA+iIty7mfRAsX5ZAPi9jPrOuOQ9yGd4HHjlC3vrIzDFqXV2DVfiy/uoUleAToofdV520nwSZgJIU5jini97c2e5WQa82XEVks61yAcVi5DLRKBQd80B+WYTuxSocuwJ23IXW0HkPtxMXg8OQUMLZOzZYO9jy1K2hlI6ZbwpFjr+kF/XUb6e7w1igTxArtxZ9oMHMAZCzHT+uDLbEVFkmvLObxtIOQlpDBCOZY4Y0ndJ5E9yv8D5itnYTz0U8GOgAS17ofcUgchK8ksOeBa3X2ulWEAYr/+ZwT4vy0bL+N+JQ3zw==
+From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v3] arm: address violations of MISRA C Rule 2.1
+Thread-Topic: [PATCH v3] arm: address violations of MISRA C Rule 2.1
+Thread-Index: AQHcLZLK+ABBtomrNE+mTHydZzSxzQ==
+Date: Wed, 24 Sep 2025 20:35:40 +0000
+Message-ID:
+ <620eb8fe22204e204cb471e93d2ea789f879d854.1758744144.git.dmytro_prokopchuk1@epam.com>
+Accept-Language: en-US, uk-UA, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|AS4PR03MB8205:EE_
+x-ms-office365-filtering-correlation-id: 77500320-1a9c-4d72-6e4d-08ddfba9ed1c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|42112799006|38070700021;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?bkL2t7gx/GmcDeVKIjNhExMenKNlEGoE+mXqxNXcQZ33kzxWB2XI9+NRGL?=
+ =?iso-8859-1?Q?6YyEFSwQ0HzbqCwpg/j3CqdTXG8rUrWzqqYz/hxiFPY1Aalq7M/5+Upj55?=
+ =?iso-8859-1?Q?bkHRdzTsoNjCsrGw4IVQiQnx/TVkYming5OdszGSdUneeMhr+7oT78soPU?=
+ =?iso-8859-1?Q?9eJ5V+MdixFABeSuTRxBU6hJUk6m0oPVDl7TDX6Ip1p/xWyWmVNfJqPS3B?=
+ =?iso-8859-1?Q?5v1DGb/J86SiMSdH0XMpLjLw8zogtQ26mMiWYJCELQezcWTN+lKJvHjtgd?=
+ =?iso-8859-1?Q?wb5Q669j/Z7+iiyNX3rna9kapPMQ3gz43trhbPy1Np7Eq/V7EMEXifFlhg?=
+ =?iso-8859-1?Q?z+KokJqwE8hgGTDCUMLr0/dJa7Mu0T2akafXaij10QQbcT/Ih2ymF1xBsO?=
+ =?iso-8859-1?Q?9XVBzrwa0tnfgTZd2RlS1QA9OdVHhxqIA2JnrYSKtRBotJ9UQfSbwRafGc?=
+ =?iso-8859-1?Q?6LSJ2Ztvpwc/aRHuhFx/ym3dcnOcSs+/BMZEIAAzUStyMLbTysQnILw/u4?=
+ =?iso-8859-1?Q?4DNPfp0vj1eCiC9bPhTqUdCBYOvycvVKEEVlnXJn5FSZGWOCb7E9uGWfHL?=
+ =?iso-8859-1?Q?ftr8L5jXSi47qj64q12qlfZQAPWOTHrwG5wXDcmaqxX9g+E6DCI75/wmr3?=
+ =?iso-8859-1?Q?sAEcLpUpMHjvnpVR7NWOiCchRjgnfUpAUjgEBklKFXn7R/v6IJxHlkuRo9?=
+ =?iso-8859-1?Q?FA9B2Jey+hYds48t79yAlPTQUliCh6sFbHLyiGNW2CouGoMdqXkvUMetdJ?=
+ =?iso-8859-1?Q?8v1XgAlp8B8k4IKysicvOxpKhNRnwMCTAmIZuUxBuHEm+cQwUitL13wQD5?=
+ =?iso-8859-1?Q?CDQPjjAOa0Hj3022orGgbnc3M6YhnniCQzhFCnclEWeZYztygEwHeJgexP?=
+ =?iso-8859-1?Q?zE9bBUDArrhAgf14JI9q794zGy3tN6t6cvE94iYSfYWaApv2x7UEiJ4FDY?=
+ =?iso-8859-1?Q?GZ89ib4YeWqrkmS3FH5ZuFzXBJDBY1L9INaKVmFqbGSdEl54qDzzWAVgXe?=
+ =?iso-8859-1?Q?ZIfZJ/p+QPUzk/ejR+c5+EtKW1WPuLTRFnGBZnQsEKpUQvSXGmT9riivSX?=
+ =?iso-8859-1?Q?5oBT+Rndg2tkMzbvwrlh4sedBHagR/pfjFbDOKR818XcqxLS4+irSAh2sB?=
+ =?iso-8859-1?Q?Cp5PaaYUF80UkvAG6QxAKFQg2T5622LUh3XpmW08rfAz24TH6ha6N38ZH9?=
+ =?iso-8859-1?Q?JBmmOJxCUH1sjGLfkl+iGn0TuaHAFA2XSGkpfHp3YVjFZx2rz2tyJcEXjI?=
+ =?iso-8859-1?Q?TclZxFLbXOtcMMDpqF1UtZa80i3dZsPDHsy+ZYl/47imPAnRlfQC5T4VXu?=
+ =?iso-8859-1?Q?BRGtagEIXe7I5EVh4S2a3RgOIeqARZGvGHDMqJv2na80rCzJtmBuIYke/T?=
+ =?iso-8859-1?Q?LWSqY0H9rOAsZizvoU1kE8x8STwQql4IeBqVRAwosiovfRX7pESezhHpoo?=
+ =?iso-8859-1?Q?KHcnKwVNpAb4vMRNm2svpHbAsBN0O92AXoZruINOVBp3IKx6bRw6AoBemp?=
+ =?iso-8859-1?Q?M=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(42112799006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?eygDxR09523dJHRCHvLQkYrx25gAL7dSUub+frvpBONvgIkuF/DIRVfg87?=
+ =?iso-8859-1?Q?Sh483XI7g0JgTgQ+dfbTOQ5DdrevQJY8beoXqeOPf3O5fGYuW4FAcMyjOV?=
+ =?iso-8859-1?Q?owgNlZVV9xvC6cWYyzLZhkKGQGH1Uc+26KMZfMMqksrFK7wHn7OcZvC5iQ?=
+ =?iso-8859-1?Q?e0v2nlr9Dh/bPg79tXMVBXWdEJXuScIwe7u23sUFHimHhyMOxtvlhKMGUU?=
+ =?iso-8859-1?Q?pI/4YVWEDpe6YSWE20EQ0Ma/lG5Ft0DPWBfvXQY1AfKxbDGdsERbzVm7bB?=
+ =?iso-8859-1?Q?C/qxeRwB6rwFCOwbB6J/lTwQpB3Q+pkz2Xh2JSZ17lM03bs/SPDTtOcsd2?=
+ =?iso-8859-1?Q?rmgLZrWRhWJHKF2w39zqpj2az89VJeC/z4AfWfevjVzed/wN+SPoq7XFzJ?=
+ =?iso-8859-1?Q?np+YvzgGhrBKw+XFMEmntuOrF70K/SEaixd9aUgBevZt7CzAKZ0w3xjRxR?=
+ =?iso-8859-1?Q?oASo3zezbkOycnK1GbdVyefY6ObsHzZ1RuR9hMalmUT6EtdSJe8T0bGdOA?=
+ =?iso-8859-1?Q?quZlJd+wE807GYOsKapfQQCQboXSTZIEG28RNTWkvLRxzeoc6zwr9oiFId?=
+ =?iso-8859-1?Q?ByIBu92lfqx+WH+MVUG4Cw/4I766drssNzUwBv86LLirJcx3/xr2uwdYQl?=
+ =?iso-8859-1?Q?Oo2cs5hqDkXe34vf5EfsAkfEiC0Do8gctmsbBwWiWQetI7kTsldzYQCJFK?=
+ =?iso-8859-1?Q?Zeub6wfdPQJEUlZqEQmAe9UooConOPsN15x4SrWLczyHTPn8ImY5tT9sy1?=
+ =?iso-8859-1?Q?7VGRAPWX3+tIIpxiGZ6xjcjgdqKZqZCxMkl/1pmisJakO8hPmZDZEWxxI6?=
+ =?iso-8859-1?Q?s2FJUBAu5xej8uWlllVQ0Ok5R1qUQ0pyzAIbjAJFCq6NI167Bq7UMp4zSa?=
+ =?iso-8859-1?Q?WTk81zPTIJydANe3LfFMet+Yn57SB38bIPWbhbw54F6rVwsIkRrG9kPE52?=
+ =?iso-8859-1?Q?765Dmd8WdwnUNwTWMuxsO5GquH5mmoF0MCmwM+/0Elsgwl/HRljnjWqAJ6?=
+ =?iso-8859-1?Q?KG3VwLEcjQSyNM7fPq7voMtLhKiWHWZNZN93yZ+HIECC97zmMh3cEbgFap?=
+ =?iso-8859-1?Q?pm6cSxNw6f0knIxB2gCH+7voB99RNrqNw575AhuKPN/Jn6GL8q4iOZZxxv?=
+ =?iso-8859-1?Q?99GiBY4IZduEboyHukzk5KVn+OmUNIgTs8NARgauZbhEwUats9+Vcz1uKu?=
+ =?iso-8859-1?Q?Z5Y+cccYsjg3j2xzO7bEO9LriiH6e5YYNqWrebdGm0Pn2AUrsCiDTjKS8b?=
+ =?iso-8859-1?Q?tCaJxfwuPHe+m0fAnFs/WhDEUguNp6ebyz9sqAL0OxZmiOIdhtBk/3HPhb?=
+ =?iso-8859-1?Q?IImnAT+X6wDTEFocs973Yfny0y7bHAqXoubvdIKOBeowOe1Tyw+QJmQpMw?=
+ =?iso-8859-1?Q?qJ0UlAeIDw3hhunvalqDzDOb6gQIkXBxvdLXCcXw5EWbvvxecNm0oFRo1f?=
+ =?iso-8859-1?Q?mrSlqp2MWTzcm/Oqn5ZbBQyb1vz+q+Nt73GEHvjxDG64mAceRhb3pdoybz?=
+ =?iso-8859-1?Q?w8K3ctG9Sm/adjVE2JVYcEVRHQB2iPmo44klO7cf418trW55ovaKU4+VKP?=
+ =?iso-8859-1?Q?8g1cw3FJvIHmUgtRegcIMzc11PCPw3qpGwAscdpcn0XivHEJnfn/DLrGN4?=
+ =?iso-8859-1?Q?JtSSousc6VN+srPm7+SxZZ1ju/khjJV9BUVadewbgz1lnrl3nXmsTYdg?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Sep 2025 21:33:15 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Yann Sionneau <yann.sionneau@vates.tech>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: domU suspend issue - freeze processes failed - Linux 6.16
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77500320-1a9c-4d72-6e4d-08ddfba9ed1c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2025 20:35:40.2466
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Td12YReJS+9zHrzQaLb934Tz7pqI1kMqMfc537v3MGHOoZ0H15brs9bYhVtvQgQ4yK3kKE/FWQKglGusrKn4lPfuDh8zWaspMxhQqBXxhaE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR03MB8205
 
-On Wed, Sep 24, 2025 at 02:28:27PM +0000, Yann Sionneau wrote:
-> On 9/24/25 15:30, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Wed, Sep 24, 2025 at 01:17:15PM +0300, Grygorii Strashko wrote:
-> >>
-> >>
-> >> On 22.09.25 13:09, Marek Marczykowski-G=C3=B3recki wrote:
-> >>> On Fri, Aug 22, 2025 at 08:42:30PM +0200, Marek Marczykowski-G=C3=B3r=
-ecki wrote:
-> >>>> On Fri, Aug 22, 2025 at 05:27:20PM +0200, J=C3=BCrgen Gro=C3=9F wrot=
-e:
-> >>>>> On 22.08.25 16:42, Marek Marczykowski-G=C3=B3recki wrote:
-> >>>>>> On Fri, Aug 22, 2025 at 04:39:33PM +0200, Marek Marczykowski-G=C3=
-=B3recki wrote:
-> >>>>>>> Hi,
-> >>>>>>>
-> >>>>>>> When suspending domU I get the following issue:
-> >>>>>>>
-> >>>>>>>        Freezing user space processes
-> >>>>>>>        Freezing user space processes failed after 20.004 seconds =
-(1 tasks refusing to freeze, wq_busy=3D0):
-> >>>>>>>        task:xl              state:D stack:0     pid:466   tgid:46=
-6   ppid:1      task_flags:0x400040 flags:0x00004006
-> >>>>>>>        Call Trace:
-> >>>>>>>         <TASK>
-> >>>>>>>         __schedule+0x2f3/0x780
-> >>>>>>>         schedule+0x27/0x80
-> >>>>>>>         schedule_preempt_disabled+0x15/0x30
-> >>>>>>>         __mutex_lock.constprop.0+0x49f/0x880
-> >>>>>>>         unregister_xenbus_watch+0x216/0x230
-> >>>>>>>         xenbus_write_watch+0xb9/0x220
-> >>>>>>>         xenbus_file_write+0x131/0x1b0
-> >>>>>>>         vfs_writev+0x26c/0x3d0
-> >>>>>>>         ? do_writev+0xeb/0x110
-> >>>>>>>         do_writev+0xeb/0x110
-> >>>>>>>         do_syscall_64+0x84/0x2c0
-> >>>>>>>         ? do_syscall_64+0x200/0x2c0
-> >>>>>>>         ? generic_handle_irq+0x3f/0x60
-> >>>>>>>         ? syscall_exit_work+0x108/0x140
-> >>>>>>>         ? do_syscall_64+0x200/0x2c0
-> >>>>>>>         ? __irq_exit_rcu+0x4c/0xe0
-> >>>>>>>         entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> >>>>>>>        RIP: 0033:0x79b618138642
-> >>>>>>>        RSP: 002b:00007fff9a192fc8 EFLAGS: 00000246 ORIG_RAX: 0000=
-000000000014
-> >>>>>>>        RAX: ffffffffffffffda RBX: 00000000024fd490 RCX: 000079b61=
-8138642
-> >>>>>>>        RDX: 0000000000000003 RSI: 00007fff9a193120 RDI: 000000000=
-0000014
-> >>>>>>>        RBP: 00007fff9a193000 R08: 0000000000000000 R09: 000000000=
-0000000
-> >>>>>>>        R10: 0000000000000000 R11: 0000000000000246 R12: 000000000=
-0000014
-> >>>>>>>        R13: 00007fff9a193120 R14: 0000000000000003 R15: 000000000=
-0000000
-> >>>>>>>         </TASK>
-> >>>>>>>        OOM killer enabled.
-> >>>>>>>        Restarting tasks: Starting
-> >>>>>>>        Restarting tasks: Done
-> >>>>>>>        xen:manage: do_suspend: freeze processes failed -16
-> >>>>>>>
-> >>>>>>> The process in question is `xl devd` daemon. It's a domU serving a
-> >>>>>>> xenvif backend.
-> >>>>>>>
-> >>>>>>> I noticed it on 6.16.1, but looking at earlier test logs I see it=
- with
-> >>>>>>> 6.16-rc6 already (but interestingly, not 6.16-rc2 yet? feels weir=
-d given
-> >>>>>>> seemingly no relevant changes between rc2 and rc6).
-> >>>>>>
-> >>>>>> I forgot to include link for (a little) more details:
-> >>>>>> https://github.com/QubesOS/qubes-linux-kernel/pull/1157
-> >>>>>>
-> >>>>>> Especially, there is another call trace with panic_on_warn enabled=
- -
-> >>>>>> slightly different, but looks related.
-> >>>>>>
-> >>>>>
-> >>>>> I'm pretty sure the PV variant for suspending is just wrong: it is =
-calling
-> >>>>> dpm_suspend_start() from do_suspend() without taking the required
-> >>>>> system_transition_mutex, resulting in the WARN() in pm_restrict_gfp=
-_mask().
-> >>>>>
-> >>>>> It might be as easy as just adding the mutex() call to do_suspend()=
-, but I'm
-> >>>>> really not sure that will be a proper fix.
-> >>>>
-> >>>> Hm, this might explain the second call trace, but not the freeze fai=
-lure
-> >>>> quoted here above, I think?
-> >>>
-> >>> While the patch I sent appears to fix this particular issue, it made =
-me
-> >>> wonder: is there any fundamental reason why do_suspend() is not using
-> >>> pm_suspend() and register Xen-specific actions via platform_suspend_o=
-ps
-> >>> (and maybe syscore_ops)? From a brief look at the code, it should
-> >>> theoretically be possible, and should avoid issues like this.
-> >>>
-> >>> I tried to do a quick&dirty attempt at that[1], and it failed (panic)=
-=2E I
-> >>> surely made several mistakes there (and also left a ton of todo
-> >>> comments). But before spending any more time at that, I'd like to ask
-> >>> if this is a viable option at all.
-> >>
-> >> I think it might, but be careful with this, because there are two "Sys=
-tem Low power" paths in Linux
-> >> 1) Suspend2RAM and Co
-> >> 2) Hybernation
-> >>
-> >> While "Suspend2RAM and Co" path is relatively straight forward and exp=
-ected to be always
-> >> started through pm_suspend(). In general, it's expected to happen
-> >>   - from sysfs (User space)
-> >>   - from autosuspend (wakelocks).
-> >>
-> >> the "hibernation" path is more complicated:(
-> >> - Genuine Linux hybernation hibernate()/hibernate_quiet_exec()
-> >
-> > IIUC hibernation is very different as it puts Linux in charge of dumping
-> > all the state to the disk. In case of Xen, the primary use case for
-> > suspend is preparing VM for Xen toolstack serializing its state to disk
-> > (or migrating to another host).
-> > Additionally, VM suspend may be used as preparation for host suspend
-> > (this is what I actually do here). This is especially relevant if the VM
-> > has some PCI passthrough - to properly suspend (and resume) devices
-> > across host suspend.
-> >
-> >> I'm not sure what path Xen originally implemented :( It seems like "su=
-spend2RAM",
-> >> but, at the same time "hybernation" specific staff is used, like PMSG_=
-FREEZE/PMSG_THAW/PMSG_RESTORE.
-> >> As result, Linux suspend/hybernation code moves forward while Xen stay=
-s behind and unsync.
-> >
-> > Yeah, I think it's supposed to be suspend2RAM. TBH the
-> > PMSG_FREEZE/PMSG_THAW/PMSG_RESTORE confuses me too and Qubes OS has a
-> > patch[2] to switch it to PMSG_SUSPEND/PMSG_RESUME.
-> >
-> >> So it sounds reasonable to avoid custom implementation, but may be not=
- easy :(
-> >>
-> >> Suspending Xen features can be split between suspend stages, but
-> >> not sure if platform_suspend_ops can be used.
-> >>
-> >> Generic suspend stages list
-> >> - freeze
-> >> - prepare
-> >> - suspend
-> >> - suspend_late
-> >> - suspend_noirq (SPIs disabled, except wakeups)
-> >>    [most of Xen specific staff has to be suspended at this point]
-> >> - disable_secondary_cpus
-> >> - arch disable IRQ (from this point no IRQs allowed, no timers, no sch=
-eduling)
-> >> - syscore_suspend
-> >>    [rest here]
-> >> - platform->enter() (suspended)
-> >>
-> >> You can't just overwrite platform_suspend_ops, because ARM64 is expect=
-ed to enter
-> >> suspend through PSCI FW interface:
-> >> drivers/firmware/psci/psci.c
-> >>   static const struct platform_suspend_ops psci_suspend_ops =3D {
-> >
-> > Does this apply to a VM on ARM64 too? At least on x86, the VM is
-> > supposed to make a hypercall to tell Xen it suspended (the hypercall
-> > will return only on resume).
-> >
-> >> As an option, some Xen components could be converted to use syscore_op=
-s (but not xenstore),
-> >> and some might need to use DD(dev_pm_ops).
-> >>
-> >>>
-> >>> [1] https://github.com/marmarek/linux/commit/47cfdb991c85566c9c333570=
-511e67bf477a5da6
-> >>
-> >> --
-> >> Best regards,
-> >> -grygorii
-> >>
-> >
-> > [2] https://github.com/QubesOS/qubes-linux-kernel/blob/main/xen-pm-use-=
-suspend.patch
-> >
->=20
-> On my setup I get a weird behavior when trying to suspend (s2idle) a
-> Linux guest.
-> Doing echo freeze > /sys/power/state in the guest seems to "freeze" the
-> guest for good, I could not unfreeze it afterward.
-> VCPU goes to 100% according to XenOrchestra
-> xl list shows state "r" but xl console blocks forever
-> xl shutdown would block for some time and then print:
-> Shutting down domain 721
-> ?ibxl: error: libxl_domain.c:848:pvcontrol_cb: guest didn't acknowledge
-> control request: -9
-> shutdown failed (rc=3D-9)
->=20
-> Do you think it's related to your current issue?
+MISRA C Rule 2.1 states: "A project shall not contain unreachable code".
+In certain  build configurations the following functions 'prepare_acpi()'
+and 'gicv3_its_setup_collection()' are defined as inline functions and
+contain the macro 'BUG()'. This resulted in violations due to these
+functions became non-returning.
 
-Maybe? Is it a HVM guest or PV?
+To ensure compliance with MISRA C Rule 2.1 remove inline function
+implementations and their 'BUG()'-based unreachable code. Provide
+unconditional function declarations for 'gicv3_its_setup_collection()'
+and 'prepare_acpi()'. Rely on the compiler's DCE to remove unused function
+calls in builds where these configs 'CONFIG_ACPI' or 'CONFIG_HAS_ITS' are
+not enabled.
 
-Regarding s2idle, we have another patch:
-https://github.com/QubesOS/qubes-linux-kernel/blob/main/xen-events-Add-wake=
-up-support-to-xen-pirq.patch
-but it fixes wakeup, not really going to sleep.
+Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+---
+Link to v2:
+https://patchew.org/Xen/0adc0a8f75cb88b0b26d38289d1dd5823386290d.1758024454=
+.git.dmytro._5Fprokopchuk1@epam.com/
 
-It was posted also to this ML, but still waiting for review (see link
-in the patch header).
+Changes in v3:
+- updated commit subject and message
+- removed inline functions with unreachable code
+- provided unconditional function declarations
 
+Test CI pipeline:
+https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/2060806048
+---
+ xen/arch/arm/include/asm/domain_build.h |  9 ---------
+ xen/arch/arm/include/asm/gic_v3_its.h   | 11 ++---------
+ 2 files changed, 2 insertions(+), 18 deletions(-)
+
+diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include=
+/asm/domain_build.h
+index c6fec3168c..6674dac5e2 100644
+--- a/xen/arch/arm/include/asm/domain_build.h
++++ b/xen/arch/arm/include/asm/domain_build.h
+@@ -15,16 +15,7 @@ void evtchn_allocate(struct domain *d);
+ void set_interrupt(gic_interrupt_t interrupt, unsigned int irq,
+                    unsigned int cpumask, unsigned int level);
+=20
+-#ifndef CONFIG_ACPI
+-static inline int prepare_acpi(struct domain *d, struct kernel_info *kinfo=
+)
+-{
+-    /* Only booting with ACPI will hit here */
+-    BUG();
+-    return -EINVAL;
+-}
+-#else
+ int prepare_acpi(struct domain *d, struct kernel_info *kinfo);
+-#endif
+=20
+ int add_ext_regions(unsigned long s_gfn, unsigned long e_gfn, void *data);
+=20
+diff --git a/xen/arch/arm/include/asm/gic_v3_its.h b/xen/arch/arm/include/a=
+sm/gic_v3_its.h
+index 0737e67aa6..fc5a84892c 100644
+--- a/xen/arch/arm/include/asm/gic_v3_its.h
++++ b/xen/arch/arm/include/asm/gic_v3_its.h
+@@ -131,6 +131,8 @@ struct host_its {
+     unsigned int flags;
+ };
+=20
++/* Map a collection for this host CPU to each host ITS. */
++int gicv3_its_setup_collection(unsigned int cpu);
+=20
+ #ifdef CONFIG_HAS_ITS
+=20
+@@ -160,9 +162,6 @@ int gicv3_its_init(void);
+ void gicv3_set_redist_address(paddr_t address, unsigned int redist_id);
+ uint64_t gicv3_get_redist_address(unsigned int cpu, bool use_pta);
+=20
+-/* Map a collection for this host CPU to each host ITS. */
+-int gicv3_its_setup_collection(unsigned int cpu);
+-
+ /* Initialize and destroy the per-domain parts of the virtual ITS support.=
+ */
+ int vgic_v3_its_init_domain(struct domain *d);
+ void vgic_v3_its_free_domain(struct domain *d);
+@@ -256,12 +255,6 @@ static inline void gicv3_set_redist_address(paddr_t ad=
+dress,
+ {
+ }
+=20
+-static inline int gicv3_its_setup_collection(unsigned int cpu)
+-{
+-    /* We should never get here without an ITS. */
+-    BUG();
+-}
+-
+ static inline int vgic_v3_its_init_domain(struct domain *d)
+ {
+     return 0;
 --=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---iQNCPjvv7VHlfBcR
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmjUR3sACgkQ24/THMrX
-1yyGCgf/UlGeDdaLKbch3r2mmzvaetImPwjEuU3+tgIuYdDF7dnCKnpr6CQqcCQl
-qR/lt+cSDqxQSMEF3Vk37VzegMpJtekF/5ZPQ3dQn0soAPdAUuoTFf02pokCM45G
-Ta5GiK45X2CpAnnGSGLng9G5H/k5MXbWrMfiy4bv65M5RtvlMNcq20mrFe61wuEl
-mWydYzIZQUva74K+T/fUWqv4JOAgAyOC3Cs6ygT5bqUheivGFvI8bpOtgI9Pvnq4
-Elt2kkmWCi/3/NGcHv51pq7RxZWajnyK2lznS3+JJUkWuqt0aRGW5jLt8TuvQpZ0
-TtEJPsKWp5b5mnBIeBRbVwiTvxPr2g==
-=meio
------END PGP SIGNATURE-----
-
---iQNCPjvv7VHlfBcR--
+2.43.0
 
