@@ -2,43 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CA84B9995C
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 13:32:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1129342.1469346 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 589D1B99A67
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 13:50:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1129361.1469356 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1NjV-0002K9-RK; Wed, 24 Sep 2025 11:32:25 +0000
+	id 1v1O0j-0005S1-DJ; Wed, 24 Sep 2025 11:50:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1129342.1469346; Wed, 24 Sep 2025 11:32:25 +0000
+Received: by outflank-mailman (output) from mailman id 1129361.1469356; Wed, 24 Sep 2025 11:50:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1NjV-0002Hs-O7; Wed, 24 Sep 2025 11:32:25 +0000
-Received: by outflank-mailman (input) for mailman id 1129342;
- Wed, 24 Sep 2025 11:32:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=R8Be=4D=redhat.com=clg@srs-se1.protection.inumbo.net>)
- id 1v1NjT-0002Hk-S1
- for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 11:32:23 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22093ac1-993a-11f0-9809-7dc792cee155;
- Wed, 24 Sep 2025 13:32:21 +0200 (CEST)
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-563-1e7dVatdNqCk6R9CasEJ7A-1; Wed, 24 Sep 2025 07:32:18 -0400
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-3f44000639fso3576086f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 04:32:18 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:280:24f0:576b:abc6:6396:ed4a?
- ([2a01:e0a:280:24f0:576b:abc6:6396:ed4a])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3ee15bfab67sm24078831f8f.43.2025.09.24.04.32.14
+	id 1v1O0j-0005PT-A6; Wed, 24 Sep 2025 11:50:13 +0000
+Received: by outflank-mailman (input) for mailman id 1129361;
+ Wed, 24 Sep 2025 11:50:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XUMG=4D=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1v1O0i-0005PG-07
+ for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 11:50:12 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9fd85506-993c-11f0-9d14-b5c5bf9af7f9;
+ Wed, 24 Sep 2025 13:50:11 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-46e1e318f58so17202605e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 04:50:11 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-46e2a9ac5basm35884395e9.7.2025.09.24.04.50.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Sep 2025 04:32:15 -0700 (PDT)
+ Wed, 24 Sep 2025 04:50:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,215 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22093ac1-993a-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1758713540;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=3wm4aQYa97ehJU5fswKMnk8HHXPm1syDq073s2wb1ds=;
-	b=Ewqynfj1Cl/zGy4ektfXpRZ3jpYGvR4dddq1k9ZIAEGeHytttrdRG49/h8Gbre+0UigTwJ
-	dSpBMZ/FnsMbYbAybtBPcZqQZserg2ed1uOqczx71uRba9P0Ro60+QBqkYpqM8KOjAhRc8
-	FdDicdOY0uFg+3iK4W8DCYTuqPcwuac=
-X-MC-Unique: 1e7dVatdNqCk6R9CasEJ7A-1
-X-Mimecast-MFC-AGG-ID: 1e7dVatdNqCk6R9CasEJ7A_1758713537
+X-Inumbo-ID: 9fd85506-993c-11f0-9d14-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1758714610; x=1759319410; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=w4NUC+z63X17U9VukrJh/ccZd6HBxfTIkH8sGzGx5f0=;
+        b=TRfCaJ9hZV6H0eQwtVHwvef94UeVOpwLRgUSsASHbFG9LUJMaIjjRomv3wklIbP/qV
+         GtOr3O11moZCtcEs5rONXGC0RJCfjCViNfn0K0tJA2VhHiwetOnsAQFdSHN27Lz9DqUr
+         4ztM3kHKmB/TqJ8NThRKQJs+YDYWoLDIPqQiU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758713537; x=1759318337;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3wm4aQYa97ehJU5fswKMnk8HHXPm1syDq073s2wb1ds=;
-        b=f/zbuSFLkMIxEmZu0eSURzpoBFFrG6peJlSb8Xgj1n7Ej5a+eoRYvjY7tjDvpjbp0k
-         BZ7TIXGz1g26uMx/oB31K5Kl0TJzBcqpjk/8fyE4h5RR/GYTVmEuFj+gNP+Rl3I4Mp/q
-         vFLR5qLGttdlsQCpXTU6vpz/7vsIRgucxhJX85H0ITR1/EEmWtVQmX1KeDQn/qIV9D6J
-         jsI58X/4LJOUmVzDu4Tfjvi9XgsQjwRGv5xuBowafBy5sQyTmPB7ma63UqiaR8l/uelV
-         ZALLTnE3awExxMc2nm/P2gQCO8wH/7nqRpXcR60rWkRI+Uyx8dcRivtPaxk0MQXcBQoD
-         x/kw==
-X-Forwarded-Encrypted: i=1; AJvYcCWFVj5HBurkaOpfS0XhtLz1OOvAqIWbFhHhTM+MGRziEk1y3RmeDeyVn4bleEwdbVXgKUpH83X7j9s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwPf+t0IwY39gjR6VFz7weU09LHLqub+GM59Uu0zxHJ+YMNihHN
-	MadFkqyIm7wKalWTloacuyGxNw6knvSEJq3NcOOej8314zI3+ue+5FXmrLjADJg5CXB3HzzjrwD
-	3+LWvBLhn03ZclrqlIc6zY5guqXMHHT9mKj3CmrGPyoBbAJT50jx5LoDwIQw1xHRVycQG
-X-Gm-Gg: ASbGncuJ7+av7gmvZ7ojscOg484iG5sijCEUdiz376eFuD2w+uu9eVAU08jreqVo65C
-	3gXYjy4rZNJKFi7UXioKvI2JTtddwy9S2VyOIVBCLczBxrst6NosxqhZgBEHN9/pnVncl/eCIhP
-	o53/tF15sk0FEQcTSK1FFxcS00nDN5eWDCaglMXzyM37sNa/jntOjkEIMj+pyrfAd+8ZtK3VH2U
-	waCASZ+c8S/DmdZ34mIScizhmt1Hz//ghnexes2vHz+tO+6jVUvEs+ygQ4B73zb4VNOOAn3w7b+
-	UGVLeW8QSv6yO1Gg9zmSluYeR1U/8u2f6eIzdG5gMyLbRrS0F4mUUREASWpqIN2B3SKyjN4+TCE
-	705Q=
-X-Received: by 2002:a05:6000:2802:b0:405:ed47:b285 with SMTP id ffacd0b85a97d-405ed47c21bmr2970234f8f.58.1758713536871;
-        Wed, 24 Sep 2025 04:32:16 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFoNAZLN+nDh03f9cXRCLX0UgIm+FEEbH1KWxZOtQMveos7vpMCeoUcTE8YA9R2fRZI1we1Gw==
-X-Received: by 2002:a05:6000:2802:b0:405:ed47:b285 with SMTP id ffacd0b85a97d-405ed47c21bmr2970171f8f.58.1758713536387;
-        Wed, 24 Sep 2025 04:32:16 -0700 (PDT)
-Message-ID: <ab5369c7-f7f0-4f0a-b314-ff5bbaa9263e@redhat.com>
-Date: Wed, 24 Sep 2025 13:32:14 +0200
+        d=1e100.net; s=20230601; t=1758714610; x=1759319410;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=w4NUC+z63X17U9VukrJh/ccZd6HBxfTIkH8sGzGx5f0=;
+        b=jN2eWVOEMldt2gAHbkQwWkystSDw0g5eW8f3naEuuhdjvsauWCfkHv2wXQDId2eZRE
+         N8o00Tpn8Mw0dIawzV7tAxtsLICPQ9QpPatxG8oq10ZAQ/GDaMMi7bsA9GU6rZ4swU5w
+         bnoVfSnI2BgjpbqB802cdn/yxJ4PCrHNyG9o/euLmffhobMJCLRf2UyQbjJJUn86ew0P
+         wyhmGmBC6rmkscJ5XExFSEvj5OO6uB+/PzQWhQK6QkahU89JO+Wb4j0W3mjYgEPp6Ggp
+         zk1Z4sU49JiB31Cs4r502FvMBbnudl2jcLjL7yTIgP9B+/k4OvcBeQE3HgQq9EN5Y0xx
+         T4HA==
+X-Forwarded-Encrypted: i=1; AJvYcCU8FmcB++BHt493+4ttD08GCRJ3iMGv2meOVWzLrBRjwSGzFVnzn7BD1KPLSBMHYDT4i3NQJMks1wY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwrC0aN7OOQdhMVfmgFdskXxdHwAgxW7OLT8fB6MC0nwfssxSMw
+	AuU8Ab0AOd0ns5dE18Zew3DotlNYccSZn/vdJX3RrIdbDLWUboRcwGgZqm+kmTksoaY=
+X-Gm-Gg: ASbGncv7QJCwrsOb5WRZ7YOk0JJHHA6/7qB5Mwowz1S7m/bd6rsBOcPDo7Du4ikIDg6
+	OAaVrISb9LG2/ORRVfk1sJk1MgDqKc0wIDqdsJwHEwplmzwDP3kab/CT4GPhRrG4foq8X+PFW6R
+	Iu3Wy2X/LXSojkrtPki1YYuRudh/DVtG8n0f1+/z0IgcaQRqnK94blICl/+yCEwllP31IOsHRZN
+	zkodtFNVIK3lzm2tzpcZ1bkWz//Pv5eJr+RgESvyLv2TPuMZ+8KRtkvgG7aEUF2CoXMuBJcv5VK
+	ABEhLPDZnoHO3/ZOosRsBclozPUnZmCPrGPR0JA7Lsj+J6jPm0XPo2vHVg5Q0s8tsFqiEX6iFdU
+	ifCUEpwgXN2TTYL41CpBQ80GDTFfwjJ6FV7VH39x11dXCa6f/n1ZWJuacnxATsXZl9C4k
+X-Google-Smtp-Source: AGHT+IHgx3vivsXPC3nEl5EvQKu276zSNzNPLu04iQtOsxUzKjcliAZOzbj+64dlkAlS2tIKkVeb0w==
+X-Received: by 2002:a05:600c:1ca5:b0:468:9798:2043 with SMTP id 5b1f17b1804b1-46e1dabf75bmr70088985e9.26.1758714610245;
+        Wed, 24 Sep 2025 04:50:10 -0700 (PDT)
+Message-ID: <ffc1067c-677d-4277-b56f-a63ba2fe4d06@citrix.com>
+Date: Wed, 24 Sep 2025 12:50:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/7] vfio: Do not unparent in instance_finalize()
-To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, qemu-devel@nongnu.org
-Cc: Alex Williamson <alex.williamson@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>, =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?=
- <berrange@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
- Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Richard Henderson <richard.henderson@linaro.org>,
- Helge Deller <deller@gmx.de>, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
- <marcandre.lureau@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, John Snow <jsnow@redhat.com>,
- qemu-block@nongnu.org, Keith Busch <kbusch@kernel.org>,
- Klaus Jensen <its@irrelevant.dk>, Jesper Devantier <foss@defmacro.it>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Nicholas Piggin <npiggin@gmail.com>, qemu-ppc@nongnu.org,
- John Levon <john.levon@nutanix.com>,
- Thanos Makatos <thanos.makatos@nutanix.com>,
- Yanan Wang <wangyanan55@huawei.com>, BALATON Zoltan <balaton@eik.bme.hu>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>,
- Daniel Henrique Barboza <danielhb413@gmail.com>,
- David Gibson <david@gibson.dropbear.id.au>,
- Harsh Prateek Bora <harshpb@linux.ibm.com>,
- Alexey Kardashevskiy <aik@ozlabs.ru>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, Fabiano Rosas <farosas@suse.de>,
- Thomas Huth <thuth@redhat.com>, Laurent Vivier <lvivier@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>,
- Aurelien Jarno <aurelien@aurel32.net>, Aleksandar Rikalo
- <arikalo@gmail.com>, Max Filippov <jcmvbkbc@gmail.com>,
- =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
- Artyom Tarasenko <atar4qemu@gmail.com>,
- Alistair Francis <alistair@alistair23.me>,
- "Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
- Bin Meng <bmeng.cn@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- xen-devel@lists.xenproject.org
-References: <20250924-use-v4-0-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
- <20250924-use-v4-6-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
-From: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>
-Autocrypt: addr=clg@redhat.com; keydata=
- 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
- uVKe8BVz4atMOoktmt0GWTOC8P4=
-In-Reply-To: <20250924-use-v4-6-07c6c598f53d@rsg.ci.i.u-tokyo.ac.jp>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: voN5DcSkEb90Cspy8x6PBWLgJbdc6keBsX94M7rzTsI_1758713537
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, fr
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH for-4.21] x86/cpu: populate CPUID 0x1.edx features early
+ for self-snoop detection
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: oleksii.kurochko@gmail.com, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20250924110051.2160-1-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250924110051.2160-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 9/24/25 06:37, Akihiko Odaki wrote:
-> Children are automatically unparented so manually unparenting is
-> unnecessary.
-> 
-> Worse, automatic unparenting happens before the instance_finalize()
-> callback of the parent gets called, so object_unparent() calls in
-> the callback will refer to objects that are already unparented, which
-> is semantically incorrect.
-> 
-> Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-> Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-> ---
->   hw/vfio/pci-quirks.c | 9 +--------
->   hw/vfio/region.c     | 3 ---
->   2 files changed, 1 insertion(+), 11 deletions(-)
-> 
-> diff --git a/hw/vfio/pci-quirks.c b/hw/vfio/pci-quirks.c
-> index c97606dbf194..b5da6afbf5b0 100644
-> --- a/hw/vfio/pci-quirks.c
-> +++ b/hw/vfio/pci-quirks.c
-> @@ -1159,15 +1159,12 @@ void vfio_vga_quirk_exit(VFIOPCIDevice *vdev)
->   
->   void vfio_vga_quirk_finalize(VFIOPCIDevice *vdev)
->   {
-> -    int i, j;
-> +    int i;
->   
->       for (i = 0; i < ARRAY_SIZE(vdev->vga->region); i++) {
->           while (!QLIST_EMPTY(&vdev->vga->region[i].quirks)) {
->               VFIOQuirk *quirk = QLIST_FIRST(&vdev->vga->region[i].quirks);
->               QLIST_REMOVE(quirk, next);
-> -            for (j = 0; j < quirk->nr_mem; j++) {
-> -                object_unparent(OBJECT(&quirk->mem[j]));
-> -            }
->               g_free(quirk->mem);
->               g_free(quirk->data);
->               g_free(quirk);
-> @@ -1207,14 +1204,10 @@ void vfio_bar_quirk_exit(VFIOPCIDevice *vdev, int nr)
->   void vfio_bar_quirk_finalize(VFIOPCIDevice *vdev, int nr)
->   {
->       VFIOBAR *bar = &vdev->bars[nr];
-> -    int i;
->   
->       while (!QLIST_EMPTY(&bar->quirks)) {
->           VFIOQuirk *quirk = QLIST_FIRST(&bar->quirks);
->           QLIST_REMOVE(quirk, next);
-> -        for (i = 0; i < quirk->nr_mem; i++) {
-> -            object_unparent(OBJECT(&quirk->mem[i]));
-> -        }
->           g_free(quirk->mem);
->           g_free(quirk->data);
->           g_free(quirk);
-> diff --git a/hw/vfio/region.c b/hw/vfio/region.c
-> index d04c57db630f..b165ab0b9378 100644
-> --- a/hw/vfio/region.c
-> +++ b/hw/vfio/region.c
-> @@ -365,12 +365,9 @@ void vfio_region_finalize(VFIORegion *region)
->       for (i = 0; i < region->nr_mmaps; i++) {
->           if (region->mmaps[i].mmap) {
->               munmap(region->mmaps[i].mmap, region->mmaps[i].size);
-> -            object_unparent(OBJECT(&region->mmaps[i].mem));
->           }
->       }
->   
-> -    object_unparent(OBJECT(region->mem));
-> -
->       g_free(region->mem);
->       g_free(region->mmaps);
->   
-> 
+On 24/09/2025 4:00 am, Roger Pau Monne wrote:
+> Otherwise the check for the SS feature in
+> check_memory_type_self_snoop_errata() fails unconditionally, which leads to
+> X86_FEATURE_XEN_SELFSNOOP never being set.
+>
+> We could also avoid this by not doing the reset_cpuinfo() for the BSP in
+> identify_cpu(), because SS detection uses boot_cpu_data.
 
-What about vfio_subregion_unmap() calling object_unparent() too ?
+Doesn't this, mean ...
 
-C.
+>   However that
+> creates an imbalance on the state of the BSP versus the APs in the
+> identify_cpu() code.
+>
+> I've opted for the less controversial solution of populating FEATURESET_1d
+> in generic_identify(), as the value is already there.  The same is done for
+> the AMD faulting probe code.
+>
+> Fixes: f2663ca2e520 ("x86/cpu/intel: Clear cache self-snoop capability in CPUs with known errata")
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
+... this Fixes tag is incorrect?
+
+~Andrew
 
