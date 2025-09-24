@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 534C6B99FD1
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 15:14:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1129390.1469366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 419D2B9A084
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Sep 2025 15:30:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1129404.1469375 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1PJQ-0006oN-94; Wed, 24 Sep 2025 13:13:36 +0000
+	id 1v1PZT-000190-Jp; Wed, 24 Sep 2025 13:30:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1129390.1469366; Wed, 24 Sep 2025 13:13:36 +0000
+Received: by outflank-mailman (output) from mailman id 1129404.1469375; Wed, 24 Sep 2025 13:30:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1PJQ-0006lt-6Q; Wed, 24 Sep 2025 13:13:36 +0000
-Received: by outflank-mailman (input) for mailman id 1129390;
- Wed, 24 Sep 2025 13:13:35 +0000
+	id 1v1PZT-00016J-Gh; Wed, 24 Sep 2025 13:30:11 +0000
+Received: by outflank-mailman (input) for mailman id 1129404;
+ Wed, 24 Sep 2025 13:30:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lDcr=4D=renesas.com=jahan.murudi.zg@srs-se1.protection.inumbo.net>)
- id 1v1PJO-0006lm-Tt
- for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 13:13:35 +0000
-Received: from OS0P286CU010.outbound.protection.outlook.com
- (mail-japanwestazlp170110001.outbound.protection.outlook.com
- [2a01:111:f403:c407::1])
+ <SRS0=kInu=4D=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1v1PZS-00015u-4C
+ for xen-devel@lists.xenproject.org; Wed, 24 Sep 2025 13:30:10 +0000
+Received: from fout-a7-smtp.messagingengine.com
+ (fout-a7-smtp.messagingengine.com [103.168.172.150])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4190f18f-9948-11f0-9d14-b5c5bf9af7f9;
- Wed, 24 Sep 2025 15:13:28 +0200 (CEST)
-Received: from OSOPR01MB12408.jpnprd01.prod.outlook.com (2603:1096:604:2d7::7)
- by OS9PR01MB12454.jpnprd01.prod.outlook.com (2603:1096:604:2e7::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.10; Wed, 24 Sep
- 2025 13:13:22 +0000
-Received: from OSOPR01MB12408.jpnprd01.prod.outlook.com
- ([fe80::7ff4:8a98:ccd4:daa1]) by OSOPR01MB12408.jpnprd01.prod.outlook.com
- ([fe80::7ff4:8a98:ccd4:daa1%7]) with mapi id 15.20.9160.008; Wed, 24 Sep 2025
- 13:13:22 +0000
+ id 95e1269f-994a-11f0-9d14-b5c5bf9af7f9;
+ Wed, 24 Sep 2025 15:30:07 +0200 (CEST)
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfout.phl.internal (Postfix) with ESMTP id 55198EC01B1;
+ Wed, 24 Sep 2025 09:30:06 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-05.internal (MEProxy); Wed, 24 Sep 2025 09:30:06 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 24 Sep 2025 09:30:04 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,128 +44,292 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4190f18f-9948-11f0-9d14-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j9iGc+6x1qRpShhre/pPxlycMeKMvtOKvUpMDB0znyEhJ47dTzRMMgDuCvNKFAoG5C+IDtN1xSEm1XiYOtNi1MzRyie+Nuj1FVm9YrXMekbwd4NcZcgj6ug5HpQTWSfuP7e6dNtl2kA1EipbgavzG1rlT4W012N5Xzh8OdYOCpMNxjD5ime5UM4B9MBb+x54cK0w2KEE0B+WY07gvtZ5/DSFVQMiUMwXcmyCa4yuN2mn7GTlGCIPpZEyi3XdXALl4vyACRTnCKCsr9Gan4uUrLTTeaz7yHJyabixj4CQPlKIfBG/YlTmBHTIlxRXL3Urh2ZhNeYiz95PjzsmFfdZpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KNBc339dmDuvSur9RcpUtIUmh2SjL42Vj0uSxaKWbi4=;
- b=cRkmHsAWRX2GyHTLW086Ft13S6v3GWk0v6rEW7g8zDQyWBW5rhpS1/W2iW84aUWZs0D3Z+tAylvghbGE46HOF6LQgAuaP7Ch1vOgwk1tVJ8mQe3VqgzoRxlsBrZUlDPvvBfNK/ZnJZJLiI+AoetEKL3CEiUR8n6vdPliglBBiwBK+pOqFPLFZ5ixMi9/MKSa6rRW/w+jMyjZccrRUSmtd5tjMnXwKNQ9pYLl5YeL+QNcn4XI7DfD5iSObIdbQwL7rUEpBEbtgfrRRZ+DS05RT79pQuXRSeNg0IAStH/pTKHPeY9nYTY7nCYGWUpjhv0KNPQRSgqXzRb7TTU24QZ3aA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KNBc339dmDuvSur9RcpUtIUmh2SjL42Vj0uSxaKWbi4=;
- b=Xx/JwKG1XzpNjomZZAktLpYBOCGtBc+SMt5RxCNefIXhjyQnco8lqsEIb94Qc/6gTvTmyoyef9LsVrYGO/rC+wYCdFOIHy/oOlgVRishO/qA7vhNedmEkBPkjInOJ+PbH1bd/XzMgh4Tb3jPuJlAiGrZewfw0RDZ8n6uQMkf+Vg=
-From: Jahan Murudi <jahan.murudi.zg@renesas.com>
-To: Anthony PERARD <anthony.perard@vates.tech>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Jahan
- Murudi <jahan.murudi.zg@renesas.com>
-Subject: RE: [PATCH] docs/xentop: Add documentation for physical CPU
- monitoring feature
-Thread-Topic: [PATCH] docs/xentop: Add documentation for physical CPU
- monitoring feature
-Thread-Index: AQHcHcD1JxP+jqaKQEWwakPuid7f3bSibgcA
-Date: Wed, 24 Sep 2025 13:13:22 +0000
-Message-ID:
- <OSOPR01MB12408B802528454E13560CE21AB1CA@OSOPR01MB12408.jpnprd01.prod.outlook.com>
-References: <20250904172525.2795998-1-jahan.murudi.zg@renesas.com>
-In-Reply-To: <20250904172525.2795998-1-jahan.murudi.zg@renesas.com>
-Accept-Language: en-IN, kn-IN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OSOPR01MB12408:EE_|OS9PR01MB12454:EE_
-x-ms-office365-filtering-correlation-id: ec2e652c-0706-4ff4-978a-08ddfb6c235d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|38070700021;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?DIyXbjpyZn5vvTjv1ufOudaWnQ1ywsQfWUf1aIbFdPYOhAAmhRE4ES++bhvB?=
- =?us-ascii?Q?0+IoA9ouKzW/asJTIccdb3QowHrOxkeLzFBijf9G6TgC09XM0McdPPsZ7eS8?=
- =?us-ascii?Q?28hWNWh5WhCJrXQkjSJOxEhrXkEWpKAypkbA02LEi6MsAo3cKkJNzOuqzpJ0?=
- =?us-ascii?Q?hOEFZg23wdcB7NcejanInp5aYnn6zv/0Qt/bdjSocc6JZnt9yRGNkq0yWt22?=
- =?us-ascii?Q?va4OGtgv8xBQzPVUPCkd/vNY4LK/kmCQR66y+uMzdcKk5L3wvFHCK8N83i1h?=
- =?us-ascii?Q?GWauphKyvL0lH+/E2ZhvaO3ttmg1PwYHsXwpK80CtcFiSMyoR67UmO1axO5K?=
- =?us-ascii?Q?TxdtUQ5UuFtX9ffsK88vyLSZtamXVxwmSxjzcEQvZXRc2clrsYnhCe3v1euX?=
- =?us-ascii?Q?OIEMPKa5QjdwJQXC/2FUVnq0O9QYxor6QhhVNTc9ZecqRAJh2qCXANI9O2ga?=
- =?us-ascii?Q?LHUlx/tUC4MXWAUvNN1WgbrgwKxfztNEzl+aTyPfoT1VMb/CjNWWK9Dfa30/?=
- =?us-ascii?Q?sXqeG7Xw45iMuLO0UiD4z8UiNaF1UK5/mzwlcqkT1oUhmn/8c9zjt88pcCnR?=
- =?us-ascii?Q?J7EIWJMdeGD+nI64oFZA6P5uoAtYTcSZoE/99erMzVU6GwIsfyGI0KnafFAi?=
- =?us-ascii?Q?gERoxwKl9YrpHLSORbNjBxOdy9uTjowP20P+Sdk7RG33LyrDsNhtEzYlC2Uw?=
- =?us-ascii?Q?ewXYsWGQXmOY0g+QJ9p+or6TUyv7457Dq8XrDCzq2Le0H2ps2hCNEs/d1Uta?=
- =?us-ascii?Q?96ltwN1XzgYmZ5SXN+UlrY2mXO+4rgpnsV2r8kBxc/Rpr+ACjr7OA4o66EOL?=
- =?us-ascii?Q?1z3nu6c0NcH+mAIlut3Z+zbwyBFyeZFMFkKA/978lRAMhA8knoLrbnDGGZ+3?=
- =?us-ascii?Q?+iS5rusipi+waFRHeM+IFcahB0B0vq+8QC7IBTeB8Fzds65UjYjsHcE2O4n4?=
- =?us-ascii?Q?LNZA5906n8l/p3f55pI1A/gIIe+gCML2+zDlMr73Nv7cP54ItORc8Q49se2F?=
- =?us-ascii?Q?C9gWotIMGo5azUSrhcDM6OaP8KXxhXnkATVZypttCGvPtWMhxt+9QqIlVH93?=
- =?us-ascii?Q?lOAkRuzLK4o6Jj9wI5kLIzMwCSsbxOBCTUxdShY03gXL3aELI5XAto1IcDP0?=
- =?us-ascii?Q?tm3d+wpU2GrVmJFyApENHB7qdRcnOZtFAOOp9rl0CACAXC5FzeiSq84zZFtW?=
- =?us-ascii?Q?vtCgIm3tOr0WH/0FWXaGolvtZPxNq5WZThVUGl9mLwkLRxyA+Z0hZelfRpQ0?=
- =?us-ascii?Q?rtX+nHH935PaxvUsXNniac10F6/M7z9LI0I5OHf46Qk2l0lLyA/xzfWVyvp2?=
- =?us-ascii?Q?p5VqRRpU777n7N0Vlo34ACqJGNMqQVXU8pk0E5Mgd2JGv+C9a9Rr/FWF9tjj?=
- =?us-ascii?Q?BgOUDXznTg2zVD07kgDR84RFo858zo5nqOpgdK1Vjw7c9MGQbI8DrNjKLr2Q?=
- =?us-ascii?Q?r+HsaZY7VkP+JBoY08K6CSPPzokiInIEpCWqcULDQLksr2xudU5+8A=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSOPR01MB12408.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?aN/07sTv3DQnMVa3mxxOPYScygxBvJWXfHW44Bp9u9kgiy8kCTJwaGWoGfvt?=
- =?us-ascii?Q?btbI4QQKb59Gye42yXX+h/hfq1WFWyOUd9qGOzDmyxPLXnUAB+5AdEkziLCn?=
- =?us-ascii?Q?7rvWpi7ahQhsVKu2bY03biuISoWDLVlbvqMpQzyYfnjsRWsB+4cqeMzB8tlG?=
- =?us-ascii?Q?coVs2GqqrrnxCHCbmYtBOtxswQzLvE7HsQM8BIJxvE18u0xGurChzCwETFng?=
- =?us-ascii?Q?phJxik6L8py1urLsz+z6dgujIcv1f8QKTZ8DvCy8PIAOz6TnylMSSueVXbO4?=
- =?us-ascii?Q?H+YMksoPnP49/y3A//n6oT249u7oaJQ/yKrYmTYdaCehlx61Egt0uO0CzbpP?=
- =?us-ascii?Q?Yj/UclKqfQjSDoD0nO1Uiw9X5L7eH0Rby98qqlWr6BhToHjKcCr1Xjch7J07?=
- =?us-ascii?Q?TDvBNZUrSzPJj3ZoyS1nxZndudHCpZ5bHCT1Iwdp8z0y756Q3Kvf5UMHfnOu?=
- =?us-ascii?Q?e6l88FU6URxQ3wTGJAq5vHSaaChnTgRpURvxbkXo1k9R6ZfALymlNnzJUfrh?=
- =?us-ascii?Q?tasCiZa2vHhHYnnAst+LmBDvIisPYIpkpLY6st8ZJ4HMNQO6tetZ+7gLgPvm?=
- =?us-ascii?Q?weRtIQq0up2l7cU9/GeoHH+l9ipd/HZHWUGXfomIExFZxVjZcvSYrJQiyd9w?=
- =?us-ascii?Q?R9+RFz+ij/C9fAz5j7rFlvD5bEqclR2BvMgjyNiqGv255qCJrZR9003rqDEy?=
- =?us-ascii?Q?JhDQLeNNf/guJmP9R9hbvxF2G/5uuMtyAG5ol0xsIx4h44v4FJTEPTzvm/kc?=
- =?us-ascii?Q?IKnrTiWtsCy4cH7ma5xUwAw/8McTF+AaHUVuzSjNNmPS60jYvhCKfECWaopa?=
- =?us-ascii?Q?dkQGZwIPmslCFU0RD4SFQffbM1bzhHaMI8Ie1lxSMUi1KgrYr6rLUaUkFBiY?=
- =?us-ascii?Q?M6l7yhhwYVTLQQNr6872nWXjbbcPRRkQ6YjGCSCA+gSXuOhMh0vJH6gBhiGm?=
- =?us-ascii?Q?r7cabPDP79cPih5oUztKdSHkd+3iZxtGpzfI4uLnoLsTf5Zq417dVCcX9Kcp?=
- =?us-ascii?Q?cuyTFpGgwLZeJqniFNk5pepEwGqVVcGzfIqIVYn3cQ8R1xzETbIzqDq+7o9A?=
- =?us-ascii?Q?PUlvdPmB62VLuq8tmsVevOKcufSkqHqy0W0yKSKJ7Am0g7yq92os7FvM7I4U?=
- =?us-ascii?Q?wyx17rYRJnOCE/9bMPRXnzuOcsQk0foEkt4GRAIwFCQ3CpQu0JNk2Gwb+0wl?=
- =?us-ascii?Q?CCeqwx7lCl4+p6jK+EpfaWaYh6fv5kuWCi66pqETMWeefhlNHd3HmKu0kpWq?=
- =?us-ascii?Q?5xSGgor9+1VB0wGFWAPqjJP0RRiL6FWC1Ldvd2mh1mu+zzCEL4uebIcSnZTn?=
- =?us-ascii?Q?yB3KvqKk1fT70kC2rj7PNXCdx+MMmDY31b5rVJIUzrglqdjZ2Q/zL91qdbuE?=
- =?us-ascii?Q?SdsFqGnVI77y5rY7853GqtsPGw9ROTX/HZTzMl3cdbtSbvNyPcjhAoqfnMIv?=
- =?us-ascii?Q?fLk0L5f39q/nfHNvfPXBW1EgC4ucUO6y7DAUa2/ZLuL3LY3zIEDT2RNCKmXH?=
- =?us-ascii?Q?3kH3FFoLAEMXR/1Ji/uKdXTVr4FR1mEO+TAWTuYNrB6YFLeQOcifT+GTIw3q?=
- =?us-ascii?Q?PqFsRPWGCd4CxM2rR12Ogk43a+ePrIPFb1xVdanp8XuxZ3YvC3Y4ts2BPF0a?=
- =?us-ascii?Q?Dg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 95e1269f-994a-11f0-9d14-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1758720606;
+	 x=1758807006; bh=513jZbBrdfpU61xZqq4wuE9Lce/OwZsVPgheNUmfSoY=; b=
+	aRIp4rn3YbF/ufdqlaG8YYEiyHOUcGDljDsSFlBkT7AZfNbGrbfTdZZH3CFRgZFp
+	hA7xWmJ1LasG10mj+sPDYbMlvBWgdxhiKdB5d7RrfKAJ+WU9XGanjYMgFnMTQs7c
+	lCWHvoRQFmQkJ0V86xR7Hun6myOHSfj5PTka47OhZEboAZBwBrBs34S5q4oSG0sw
+	iU0Ku5vyl3/vWX3N7eniuti2T4CdT10J1Idmo+AgdK1pvFbNcYOH3opCOSmsiwIj
+	3JvIkiYrqJWsCXsi21ILTqONhv0dnVlbv6QVfDLce7P4imm/ndFkEnDShn7+DyTM
+	Ejt1Tg3BWrPB3oNDUz52Bg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1758720606; x=1758807006; bh=513jZbBrdfpU61xZqq4wuE9Lce/OwZsVPgh
+	eNUmfSoY=; b=dw9MS/KQ9FfYzDdUMLqSYQV+uZxa+me3n1JgMYvrtN+Zcfp5t2A
+	X+eSDYZYjucl8Q4n186BL0Zwy6ds/3jOnG2ftds/ZfrVNnlx3x0nc1AcH7NxL9bs
+	1XAMjWznItkMpv5wiyXdPQNJ6WBqYqvgWjQhArX6r+t6y9SVbmtiH44qVfSRL7Ki
+	dtOTys1hr0NU39vaRwlsGLahoMyvh0PiRBkgtN1I8GPZ+I+gaY+AKlT2EQyJJpxQ
+	2hWdDrIB/efvg58VCQKPLe34Bq4UayKYWv5aTFkKg1ejQCP7BTSxPpzp9+VsShLC
+	E343/Y4YJ2TVDe13zj2546ymI6LwCN61uYA==
+X-ME-Sender: <xms:XfLTaArbVlazzSNFdrrnchBqqdIEzLuYZvwEdqMX96i9Q0_-AKyO4A>
+    <xme:XfLTaKWAb1yK5n1LN3c3CkM8oNE6T2p0E3nzgx2EQVafvGL1UPgiQFNTwezRwyImI
+    SqJB69bORxM7ulnqVrf5zJOOZ4SNGy9NCIetBUMKTbnw1kShA>
+X-ME-Received: <xmr:XfLTaPBe7X--4VFT1KJYoasyefRjujMi3_ceQ1-Y1__q6_jwLCrwCAdNWf1fx3K-BqKwblP0P-dmGykm8xmqD5eWT03aeHch9iI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdeifeejfecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
+    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeukeetteeg
+    gffgkeduheetgeeileejjeeiiefhjeegvefhtefggfetueetteeuteenucffohhmrghinh
+    epghhithhhuhgsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
+    rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
+    drtghomhdpnhgspghrtghpthhtohepiedpmhhouggvpehsmhhtphhouhhtpdhrtghpthht
+    ohepghhrhihgohhrihhipghsthhrrghshhhkohesvghprghmrdgtohhmpdhrtghpthhtoh
+    epjhhgrhhoshhssehsuhhsvgdrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehl
+    ihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopehsshhtrggsvghllh
+    hinhhisehkvghrnhgvlhdrohhrghdprhgtphhtthhopeholhgvkhhsrghnughrpghthihs
+    hhgthhgvnhhkohesvghprghmrdgtohhmpdhrtghpthhtohepsghorhhishdrohhsthhroh
+    hvshhkhiesohhrrggtlhgvrdgtohhm
+X-ME-Proxy: <xmx:XfLTaO17ikSuyjrO-dRbHwe0Mqu30BvUvUI6Qnv64tLV51FOKllR0A>
+    <xmx:XfLTaB2BP8WETjznV7tqAgivQozdO7r26h1HOswEeSIRWbCSGutW-g>
+    <xmx:XfLTaDAm9sX5xH2I9iRXjc6KuJisNzFXdMGwwCFS71OzVHq8PdAsLQ>
+    <xmx:XfLTaA7ZZVKrC6iWL5FY_uuEjFMDHslvuF-wlevON0n-JQ1ptKS5-Q>
+    <xmx:XvLTaLxsA7twQFsVJcNeRQgl1iik632QBa0W0DAHrNEswJbjz13Q6Swa>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 24 Sep 2025 15:30:03 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: domU suspend issue - freeze processes failed - Linux 6.16
+Message-ID: <aNPyW5a7BHni-SuI@mail-itl>
+References: <aKiBJeqsYx_4Top5@mail-itl>
+ <aKiBwEsogK420kwo@mail-itl>
+ <05e9628d-83e5-4feb-881d-5854b72bd560@suse.com>
+ <aKi6Foj-Lx_n0L6l@mail-itl>
+ <aNEgTgis2JeyQ4HA@mail-itl>
+ <8f6b8f08-ca62-467b-a6be-4d33208e5393@epam.com>
 MIME-Version: 1.0
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OSOPR01MB12408.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec2e652c-0706-4ff4-978a-08ddfb6c235d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2025 13:13:22.4356
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IxFFfmsOhynjMETkA2j2VpZzTVp4jVH1WGBXdqbSMEHHoQGnAoALzrWmwmh8v0DODvKTkSNrOEuXlsvkKekRrxZAD+G7N8vTk8bkJ8oruqk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB12454
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="CW/IsT6ZQUUs61cd"
+Content-Disposition: inline
+In-Reply-To: <8f6b8f08-ca62-467b-a6be-4d33208e5393@epam.com>
 
-Hi Anthony,
 
-Just a gentle reminder regarding the patch that adds man page documentation=
- for the new -p/--pcpus flag in xentop. If everything looks good to you, pl=
-ease feel free to merge it. Otherwise, I'm happy to address any feedback or=
- concerns.
+--CW/IsT6ZQUUs61cd
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 24 Sep 2025 15:30:03 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: domU suspend issue - freeze processes failed - Linux 6.16
 
-Thanks,
-Jahan
+On Wed, Sep 24, 2025 at 01:17:15PM +0300, Grygorii Strashko wrote:
+>=20
+>=20
+> On 22.09.25 13:09, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Fri, Aug 22, 2025 at 08:42:30PM +0200, Marek Marczykowski-G=C3=B3rec=
+ki wrote:
+> > > On Fri, Aug 22, 2025 at 05:27:20PM +0200, J=C3=BCrgen Gro=C3=9F wrote:
+> > > > On 22.08.25 16:42, Marek Marczykowski-G=C3=B3recki wrote:
+> > > > > On Fri, Aug 22, 2025 at 04:39:33PM +0200, Marek Marczykowski-G=C3=
+=B3recki wrote:
+> > > > > > Hi,
+> > > > > >=20
+> > > > > > When suspending domU I get the following issue:
+> > > > > >=20
+> > > > > >       Freezing user space processes
+> > > > > >       Freezing user space processes failed after 20.004 seconds=
+ (1 tasks refusing to freeze, wq_busy=3D0):
+> > > > > >       task:xl              state:D stack:0     pid:466   tgid:4=
+66   ppid:1      task_flags:0x400040 flags:0x00004006
+> > > > > >       Call Trace:
+> > > > > >        <TASK>
+> > > > > >        __schedule+0x2f3/0x780
+> > > > > >        schedule+0x27/0x80
+> > > > > >        schedule_preempt_disabled+0x15/0x30
+> > > > > >        __mutex_lock.constprop.0+0x49f/0x880
+> > > > > >        unregister_xenbus_watch+0x216/0x230
+> > > > > >        xenbus_write_watch+0xb9/0x220
+> > > > > >        xenbus_file_write+0x131/0x1b0
+> > > > > >        vfs_writev+0x26c/0x3d0
+> > > > > >        ? do_writev+0xeb/0x110
+> > > > > >        do_writev+0xeb/0x110
+> > > > > >        do_syscall_64+0x84/0x2c0
+> > > > > >        ? do_syscall_64+0x200/0x2c0
+> > > > > >        ? generic_handle_irq+0x3f/0x60
+> > > > > >        ? syscall_exit_work+0x108/0x140
+> > > > > >        ? do_syscall_64+0x200/0x2c0
+> > > > > >        ? __irq_exit_rcu+0x4c/0xe0
+> > > > > >        entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> > > > > >       RIP: 0033:0x79b618138642
+> > > > > >       RSP: 002b:00007fff9a192fc8 EFLAGS: 00000246 ORIG_RAX: 000=
+0000000000014
+> > > > > >       RAX: ffffffffffffffda RBX: 00000000024fd490 RCX: 000079b6=
+18138642
+> > > > > >       RDX: 0000000000000003 RSI: 00007fff9a193120 RDI: 00000000=
+00000014
+> > > > > >       RBP: 00007fff9a193000 R08: 0000000000000000 R09: 00000000=
+00000000
+> > > > > >       R10: 0000000000000000 R11: 0000000000000246 R12: 00000000=
+00000014
+> > > > > >       R13: 00007fff9a193120 R14: 0000000000000003 R15: 00000000=
+00000000
+> > > > > >        </TASK>
+> > > > > >       OOM killer enabled.
+> > > > > >       Restarting tasks: Starting
+> > > > > >       Restarting tasks: Done
+> > > > > >       xen:manage: do_suspend: freeze processes failed -16
+> > > > > >=20
+> > > > > > The process in question is `xl devd` daemon. It's a domU servin=
+g a
+> > > > > > xenvif backend.
+> > > > > >=20
+> > > > > > I noticed it on 6.16.1, but looking at earlier test logs I see =
+it with
+> > > > > > 6.16-rc6 already (but interestingly, not 6.16-rc2 yet? feels we=
+ird given
+> > > > > > seemingly no relevant changes between rc2 and rc6).
+> > > > >=20
+> > > > > I forgot to include link for (a little) more details:
+> > > > > https://github.com/QubesOS/qubes-linux-kernel/pull/1157
+> > > > >=20
+> > > > > Especially, there is another call trace with panic_on_warn enable=
+d -
+> > > > > slightly different, but looks related.
+> > > > >=20
+> > > >=20
+> > > > I'm pretty sure the PV variant for suspending is just wrong: it is =
+calling
+> > > > dpm_suspend_start() from do_suspend() without taking the required
+> > > > system_transition_mutex, resulting in the WARN() in pm_restrict_gfp=
+_mask().
+> > > >=20
+> > > > It might be as easy as just adding the mutex() call to do_suspend()=
+, but I'm
+> > > > really not sure that will be a proper fix.
+> > >=20
+> > > Hm, this might explain the second call trace, but not the freeze fail=
+ure
+> > > quoted here above, I think?
+> >=20
+> > While the patch I sent appears to fix this particular issue, it made me
+> > wonder: is there any fundamental reason why do_suspend() is not using
+> > pm_suspend() and register Xen-specific actions via platform_suspend_ops
+> > (and maybe syscore_ops)? From a brief look at the code, it should
+> > theoretically be possible, and should avoid issues like this.
+> >=20
+> > I tried to do a quick&dirty attempt at that[1], and it failed (panic). I
+> > surely made several mistakes there (and also left a ton of todo
+> > comments). But before spending any more time at that, I'd like to ask
+> > if this is a viable option at all.
+>=20
+> I think it might, but be careful with this, because there are two "System=
+ Low power" paths in Linux
+> 1) Suspend2RAM and Co
+> 2) Hybernation
+>=20
+> While "Suspend2RAM and Co" path is relatively straight forward and expect=
+ed to be always
+> started through pm_suspend(). In general, it's expected to happen
+>  - from sysfs (User space)
+>  - from autosuspend (wakelocks).
+>=20
+> the "hibernation" path is more complicated:(
+> - Genuine Linux hybernation hibernate()/hibernate_quiet_exec()
+
+IIUC hibernation is very different as it puts Linux in charge of dumping
+all the state to the disk. In case of Xen, the primary use case for
+suspend is preparing VM for Xen toolstack serializing its state to disk
+(or migrating to another host).=20
+Additionally, VM suspend may be used as preparation for host suspend
+(this is what I actually do here). This is especially relevant if the VM
+has some PCI passthrough - to properly suspend (and resume) devices
+across host suspend.
+
+> I'm not sure what path Xen originally implemented :( It seems like "suspe=
+nd2RAM",
+> but, at the same time "hybernation" specific staff is used, like PMSG_FRE=
+EZE/PMSG_THAW/PMSG_RESTORE.
+> As result, Linux suspend/hybernation code moves forward while Xen stays b=
+ehind and unsync.
+
+Yeah, I think it's supposed to be suspend2RAM. TBH the
+PMSG_FREEZE/PMSG_THAW/PMSG_RESTORE confuses me too and Qubes OS has a
+patch[2] to switch it to PMSG_SUSPEND/PMSG_RESUME.
+
+> So it sounds reasonable to avoid custom implementation, but may be not ea=
+sy :(
+>=20
+> Suspending Xen features can be split between suspend stages, but
+> not sure if platform_suspend_ops can be used.
+>=20
+> Generic suspend stages list
+> - freeze
+> - prepare
+> - suspend
+> - suspend_late
+> - suspend_noirq (SPIs disabled, except wakeups)
+>   [most of Xen specific staff has to be suspended at this point]
+> - disable_secondary_cpus
+> - arch disable IRQ (from this point no IRQs allowed, no timers, no schedu=
+ling)
+> - syscore_suspend
+>   [rest here]
+> - platform->enter() (suspended)
+>=20
+> You can't just overwrite platform_suspend_ops, because ARM64 is expected =
+to enter
+> suspend through PSCI FW interface:
+> drivers/firmware/psci/psci.c
+>  static const struct platform_suspend_ops psci_suspend_ops =3D {
+
+Does this apply to a VM on ARM64 too? At least on x86, the VM is
+supposed to make a hypercall to tell Xen it suspended (the hypercall
+will return only on resume).
+
+> As an option, some Xen components could be converted to use syscore_ops (=
+but not xenstore),
+> and some might need to use DD(dev_pm_ops).
+>=20
+> >=20
+> > [1] https://github.com/marmarek/linux/commit/47cfdb991c85566c9c33357051=
+1e67bf477a5da6
+>=20
+> --=20
+> Best regards,
+> -grygorii
+>=20
+
+[2] https://github.com/QubesOS/qubes-linux-kernel/blob/main/xen-pm-use-susp=
+end.patch
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--CW/IsT6ZQUUs61cd
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmjT8lsACgkQ24/THMrX
+1yzVCgf/RedEYV3RMxwKwUdKHRyb9e7+GwToxwOjxy8RRxMo7G3kiDU1JHwAbfvR
+eRS9xAvoHhKnSKMd/xFlSkZlf0vf5Q+CrZay6ACNa7oUFLvXauBZCCtIOyC6kjUs
+D3bK5PPYOotbsfR/MtgNdjoa7Lb3iJdIAEzAo1LO+7SUlob3RdUoNCNlcAHfuwnZ
+vM5N85FkRF8G37CVvAKkI76vT8VnFAekT2gm2g/d4RAWvtSUAOQN8Ki1Ku1lJ3AM
+6VUoGebLFjor+Km0S/ZmSy6bd2cIAqq+XV5NlRObwCOL0bNkdzqVETNLXjidn/76
+owM4rVxzdyUI/VUnpJH7/tySz5tCRA==
+=9U9s
+-----END PGP SIGNATURE-----
+
+--CW/IsT6ZQUUs61cd--
 
