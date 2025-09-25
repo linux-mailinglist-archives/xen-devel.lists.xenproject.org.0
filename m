@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28B6DB9D7D3
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 07:45:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1129833.1469555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A9B1B9D7DC
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 07:46:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1129845.1469565 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1emC-0002AW-PR; Thu, 25 Sep 2025 05:44:20 +0000
+	id 1v1eni-0002fa-0h; Thu, 25 Sep 2025 05:45:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1129833.1469555; Thu, 25 Sep 2025 05:44:20 +0000
+Received: by outflank-mailman (output) from mailman id 1129845.1469565; Thu, 25 Sep 2025 05:45:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1emC-00027q-Im; Thu, 25 Sep 2025 05:44:20 +0000
-Received: by outflank-mailman (input) for mailman id 1129833;
- Thu, 25 Sep 2025 05:44:19 +0000
+	id 1v1enh-0002cq-TT; Thu, 25 Sep 2025 05:45:53 +0000
+Received: by outflank-mailman (input) for mailman id 1129845;
+ Thu, 25 Sep 2025 05:45:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vOWa=4E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v1emB-00027k-6I
- for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 05:44:19 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1v1enh-0002ck-1h
+ for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 05:45:53 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aab2eb65-99d2-11f0-9809-7dc792cee155;
- Thu, 25 Sep 2025 07:44:13 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-62fa99bcfcdso1107538a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 22:44:13 -0700 (PDT)
+ id e4b7f769-99d2-11f0-9809-7dc792cee155;
+ Thu, 25 Sep 2025 07:45:50 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-62fca01f0d9so1020081a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 22:45:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-634a365093asm612580a12.18.2025.09.24.22.44.12
+ a640c23a62f3a-b353e5cf32asm94454566b.1.2025.09.24.22.45.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Sep 2025 22:44:12 -0700 (PDT)
+ Wed, 24 Sep 2025 22:45:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aab2eb65-99d2-11f0-9809-7dc792cee155
+X-Inumbo-ID: e4b7f769-99d2-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1758779053; x=1759383853; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1758779150; x=1759383950; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rLBQ1A9VcSHpoybROb7rfRVVoXLeQZXYgMx9RyaCD+E=;
-        b=UoxaBtbfYGw7mrphKmAYpTM/q8IMZKN44xKKa+XifIOKIG39KfUkx+4Y0fJUZQmKkU
-         5Sfa9o9qUPpa0ayxtVOWcvOImkv4OxzLV0Bewz2OhnhA9B16OkfVE7KXzqcCJWnsOQiv
-         /La+ir8AOX9ek4UqxCaq3Q9Fi75tMUl8fY2SlFcZ0FuQZlgwpoaZM0g119oJ4GqfS9l8
-         EJwbib4oi/G4Vvyw9Ge+d3g+t8TShtHKSzbDLAyojPVvnOvQfbINtQxjKmfGIJ0zLlrm
-         LPpia7YTHVfRbPMcSzrecg9bW9WGFW90Ox28NdfPYsiVXXhdzSPr/0lTfmk0Dp2fx3Cb
-         UDbg==
+        bh=DErEVvkViAAR6Hn2FQ1S1eWGQGRWMMcsknoFlSU0QH8=;
+        b=eWFNTsTrF28DwFYOlqDp4EtUH5X3OyKDDslabJOjHAlR7Ypnp2/ZW9o2p2dIMOJ9ql
+         4az/VqsbV4zon+++wYWttKGL87M+P9odoy4znYUiuwQoCeL1hSMKrSt2oj6uFUafcafZ
+         D+gTx1756loAhcBssuexV6nqcM+/2sgPBkvO4eXkIBJQDsCIXgk6zZ+waUuv+NLUPsJ0
+         E9YQcrFbFjWMFhIFhJKBKOgoz/jq4Zd+JozWFCIH1MVAMG805KSw+m8CUJcexoYacXC0
+         Uc6JH1bLa6aEXBRVgrNfNJBb/sgvktoh9/LaeqBS6e+me04wkcJf+u9UUVXZsXznH6zy
+         V9xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758779053; x=1759383853;
+        d=1e100.net; s=20230601; t=1758779150; x=1759383950;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rLBQ1A9VcSHpoybROb7rfRVVoXLeQZXYgMx9RyaCD+E=;
-        b=O9zUEAFJ223SWmm8d8fKbM18ANIV2IATWfZkXM5yY6fJVbccx3J2B7AsZkHi+ly6MU
-         ywm0jviJ3DaifZSIaUKnXJ/VePzrwoMOv5iZQmS7DovZX0khDVF7aoQwpUOjC5Yy/3xA
-         AVPE2OJwlETGgL69bIdfrpCcDr8h9BwE6Dm37BWom9+X4EPY6Z5Ya/Hh/WA2o8bQZg5u
-         weEJXU3trE6mmwR3DC2Z9umgU6ZEH9BGMVojp3xXH04Hw/Nyan5KRgaJLuxkB5wA6maf
-         X76cCDEjQEaz3y3dlMermWtS+eahUS9QM9Ap2TYKzVemYPnhCz/Rmw8QzD9cQ0soACe9
-         cz3Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXJeuncBDlrd7IcDuqruK+npn3lRiAl7S40ZD0gcgnyfopPM7sm7f8zvfd3jrmzLxDq3fUHFA+KMRo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxY1FVgjQXkK/caOiwVGFFwXK6rQeSgB/ej4rvfNB7Ol1NGQ/pa
-	vSZwOtbuN9b+WEliRSeV8UYCaks4rDsxSOxwZchVToPPfgxMRS/ps24c66Qzm1SjAA==
-X-Gm-Gg: ASbGncvVLV/8vJ3M6sJSf1BREuEixJt7p1CTIpP/jRs24Eyvpfll3RYHAAAcBaXQdNY
-	prBrEvPIVfOSRLpuKrIdw+VhJ2N/zyoqoow1bTAXtUoPnl55VSCulJpgmTf0qqCqqibBwPbxXhM
-	eZireAOborHdSMKagqy3m/ScsCWJ4lzU9+tFxGBQOXPCzSR7wUcatrddnIG91bVhkkg4vVwpYJS
-	yf6SkU6OL9xTxjhESxHBkQ0PxRd03w30eOX8w6MWyZPWM3qWPPdvtzptBWhx1dXoOg1qaJuPt4Z
-	SzIem4iMVtuCkPkI/aiWBY2EmaiM6n981rGCd83YOGsmnN4YkkEiMh80o/NhcTQP7spQujT8wtc
-	fsh0EUBe9Hg+e5JTbdl6C5r39fr2HIvrXO0Al0khdj9mtsRBX9VA4umU6uRFMtGnfHQBFNOyAqr
-	ZiBWppuks=
-X-Google-Smtp-Source: AGHT+IGMajGtJ8WmWHv5rRGl5i4ZwfS9F4shxXK6bZ43ApJ8oPxcMhaBsSqfxmiq7K9nzIbgd9asHw==
-X-Received: by 2002:a05:6402:2383:b0:634:5791:605f with SMTP id 4fb4d7f45d1cf-6349f9d26a5mr1449144a12.4.1758779053009;
-        Wed, 24 Sep 2025 22:44:13 -0700 (PDT)
-Message-ID: <3e0e8291-e1c5-459f-b13f-c0aaa8b7778d@suse.com>
-Date: Thu, 25 Sep 2025 07:44:21 +0200
+        bh=DErEVvkViAAR6Hn2FQ1S1eWGQGRWMMcsknoFlSU0QH8=;
+        b=JYR6hHdylqNvrx/jghBsHn0+SC378oQfpnRhZWJu+iHTu2LcCOvWCZ9ugwAQNnzozv
+         6Gt77guZysnM2rUEonIpHi54PLw67mPucqE3Ynaa0wXc1lZuhOiOb3YLpa1LiEv1hOSL
+         3PCs6QJfuoeDSmzRnTzt/PBebRkOGi29i4WmCEUSBS3158DIR0+TKjmNzdPY+gQFE5wL
+         4QGkKUy7Xsn9u9+p8/hAnVI9+O8GKI5TDrki0B51+UWnv5isll3wJiZUBldCnRHT5dpN
+         DtBScNEaPF09/NRgko+qDrIKfKSsRChDN7SyXM6X9/GhU9z2W2gt3Uxmogs8rjJeVsfm
+         DXeA==
+X-Forwarded-Encrypted: i=1; AJvYcCXik9xMmw1CtbMetGnuYBNNiPO5btWESa31UYf3VXTPdByyLmaaR+Oj+phra0iMx4UOSyhl7fDGmB8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwUNymoBQ2cgqbqiqAHFeJBSocDvSuu4lq6PDiSYZYQNdWb0jF0
+	PmtKbRXUAi+USDcclCtoJhhmxXiw8L2z6tPAAGwnKO5xcd5t8ihDmAJhSi8tenYWjw==
+X-Gm-Gg: ASbGncuZKI4Ve4+vZNTG7KYSVDGd/dwZc6OzpZy03MtTZiewRMxqfRRXwpnhVyP3U1s
+	q5A4C8TE4k/eKWw2Yc3Yn1CS1AqJkvDEZufSQmNFbp7a3nx85IesCXf+/DpYHmY3ymqpUFwoqqF
+	L7hFZi9ydY7NgpkQiVnQoUYewDLVu9fbzCeTdVp85UcIhOIaKo9EmRT9+nG8iQq035QsA6fFgST
+	+Svr/C2XjEdvgPowtlrxF7skJFiuCnJAuSO9D8i1qnnZIQegKXBZTt9MBpyFMBy+3l/bWohovQX
+	qW7zq8E8QNKMxaUqiNzTWdxKKrZOZBarRv4LYU6rlw+NXPk8+CiOs7r+1F4nyJTmS0SK1cOZZMR
+	8icrpZr5LyRv35zpgBqb+fIheEagGB5qw6U6SYw7JU3yAgyWzm/UhKX/xYKgyPVWVhJ4pYYcAFg
+	gmVpfKYPGs017uRaYiPQ==
+X-Google-Smtp-Source: AGHT+IHDhBw+ESO9/uyJPQJ5SMlbtdNu2wLC4wRvQeNXoGxU+YkWpQPU50ZIsmTRPCbH9/FHdi5ARA==
+X-Received: by 2002:a17:907:6093:b0:b04:6a58:560b with SMTP id a640c23a62f3a-b34ba93ce11mr240848266b.39.1758779150380;
+        Wed, 24 Sep 2025 22:45:50 -0700 (PDT)
+Message-ID: <67342536-40d0-4473-b796-42fd556d5553@suse.com>
+Date: Thu, 25 Sep 2025 07:45:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/4] arm/sysctl: Implement cpu hotplug ops
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Mykyta Poturai <Mykyta_Poturai@epam.com>,
+Subject: Re: [PATCH v2 04/26] xen: consolidate CONFIG_VM_EVENT
+To: "Penny, Zheng" <penny.zheng@amd.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1758197507.git.mykyta_poturai@epam.com>
- <34c9b488ad949cbcd93bd8578dd5bc180fab8738.1758197507.git.mykyta_poturai@epam.com>
- <ddce2b69-3ba3-4c04-ab82-092ce2c98cf3@xen.org>
- <c05674a4-2090-4453-98a8-8f4cc0f54c5c@suse.com>
- <7a12dbe0-c3dd-4e26-b52d-610e065236da@xen.org>
+References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
+ <20250910073827.3622177-5-Penny.Zheng@amd.com>
+ <b8430631-f857-426a-a144-c6b8fbf94ee9@suse.com>
+ <CABfawhnzoDwo7vbFNN8wAnmEELoQND6snSE8m_VZnS0LWErMGQ@mail.gmail.com>
+ <bbafea99-7f78-48e6-aa26-2e498e526f29@suse.com>
+ <DM4PR12MB8451FB860756DCE542F02BCAE11CA@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,38 +129,90 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7a12dbe0-c3dd-4e26-b52d-610e065236da@xen.org>
+In-Reply-To: <DM4PR12MB8451FB860756DCE542F02BCAE11CA@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23.09.2025 20:41, Julien Grall wrote:
-> On 18/09/2025 15:51, Jan Beulich wrote:
->> On 18.09.2025 15:35, Julien Grall wrote:
->>> On 18/09/2025 13:16, Mykyta Poturai wrote:
->>>> +static long cpu_hotplug_sysctl(struct xen_sysctl_cpu_hotplug *hotplug)
->>>> +{
->>>> +    bool up;
->>>> +
->>>> +    switch (hotplug->op) {
->>>> +        case XEN_SYSCTL_CPU_HOTPLUG_ONLINE:
->>>> +            if ( hotplug->cpu == 0 )
->>>
->>> I can't find a similar check on x86. Do you have any pointer?
+On 24.09.2025 08:39, Penny, Zheng wrote:
+> [Public]
+> 
+> Hi,
+> 
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Sunday, September 14, 2025 10:04 PM
+>> To: Tamas K Lengyel <tamas@tklengyel.com>; Penny, Zheng
+>> <penny.zheng@amd.com>
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
+>> <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>;
+>> Alexandru Isaila <aisaila@bitdefender.com>; Petre Pircalabu
+>> <ppircalabu@bitdefender.com>; Daniel P. Smith <dpsmith@apertussolutions.com>;
+>> xen-devel@lists.xenproject.org
+>> Subject: Re: [PATCH v2 04/26] xen: consolidate CONFIG_VM_EVENT
 >>
->> When CPU 0 cannot be brought down (see cpu_down()), tryin to bring it up
->> is kind of pointless, and hence can perhaps be short circuited like this?
+>> On 14.09.2025 01:31, Tamas K Lengyel wrote:
+>>>>> @@ -99,10 +98,40 @@ long p2m_set_mem_access_multi(struct domain *d,
+>>>>> int p2m_get_mem_access(struct domain *d, gfn_t gfn, xenmem_access_t
+>> *access,
+>>>>>                         unsigned int altp2m_idx);
+>>>>>
+>>>>> -#ifdef CONFIG_VM_EVENT
+>>>>>  int mem_access_memop(unsigned long cmd,
+>>>>>                       XEN_GUEST_HANDLE_PARAM(xen_mem_access_op_t)
+>>>>> arg);  #else
+>>>>> +static inline bool xenmem_access_to_p2m_access(const struct p2m_domain
+>> *p2m,
+>>>>> +                                               xenmem_access_t xaccess,
+>>>>> +                                               p2m_access_t
+>>>>> +*paccess) {
+>>>>> +    return false;
+>>>>> +}
+>>>>
+>>>> So this is needed when VM_EVENT=n and ALTP2M=y. Tamas, is this a
+>>>> configuration which makes sense?
+>>>
+>>> Yes, altp2m should be functional without vm_event being enabled. There
+>>> could very well be in-guest only use of altp2m via #VE. This function
+>>> is used in p2m_init_next_altp2m which means it being stubbed out like
+>>> this when vm_event is disabled breaks altp2m.
+>>
+>> Oh, indeed - the stub still needs to handle XENMEM_access_default. Of course
+>> with MEM_ACCESS=n it's not quite clear to me what p2m->default_access ought
+>> to be; imo in principle that field ought to also go away in that case (becoming hard-
+>> coded p2m_access_rwx). While doing that will be a larger patch, perhaps using the
+>> hard-coded value here should be done right away.
+>>
+>> Once the code correctly handles MEM_ACCESS=n as an implication from
+>> VM_EVENT=n, it's also questionable whether MEM_ACCESS_ALWAYS_ON
+>> should be retained.
+>>
 > 
-> Thanks for the clarification, I missed the check in cpu_down(). That 
-> said, I don't see any value to short circuit it. In fact, I see this as 
-> more a risk because if we ever decide to allow CPU 0 to be offlined, 
-> then it would be more difficult to find places where we short circuit it.
+> If we intend to remove MEM_ACCESS_ALWAYS_ON, I suggest to do the following modification on VM_EVENT to still keep y on default on x86:
+> ```
+> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+> index 7bd8a04730..61d48a5120 100644
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -170,13 +170,10 @@ config HAS_VMAP
+>  config LIBFDT
+>         bool
 > 
-> So I would rather prefer if we remove the checks.
+> -config MEM_ACCESS_ALWAYS_ON
+> -       bool
+> -
+>  config VM_EVENT
+> -       def_bool MEM_ACCESS_ALWAYS_ON
+> -       prompt "Memory Access and VM events" if !MEM_ACCESS_ALWAYS_ON
+> +       bool "Memory Access and VM events"
+>         depends on HVM
+> +       default X86
+>         help
+> 
+>           Framework to configure memory access types for guests and receive
+> ```
 
-In fact I agree (and I merely wanted to point out the present situation):
-CPU0 not (normally) being possible to be brought down is, I think, pretty
-much an x86 thing. I.e. I think the check would want to go away from
-common code.
+Yes (at least for the time being; eventually we may want to make this default N
+even on x86).
 
 Jan
 
