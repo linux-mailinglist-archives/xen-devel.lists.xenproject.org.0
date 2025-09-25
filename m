@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D639CB9DA38
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 08:34:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1129942.1469626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67AECB9DB40
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 08:41:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1129955.1469635 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1fYm-0003jD-RN; Thu, 25 Sep 2025 06:34:32 +0000
+	id 1v1fff-0005Pc-HG; Thu, 25 Sep 2025 06:41:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1129942.1469626; Thu, 25 Sep 2025 06:34:32 +0000
+Received: by outflank-mailman (output) from mailman id 1129955.1469635; Thu, 25 Sep 2025 06:41:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1fYm-0003h4-O2; Thu, 25 Sep 2025 06:34:32 +0000
-Received: by outflank-mailman (input) for mailman id 1129942;
- Thu, 25 Sep 2025 06:34:31 +0000
+	id 1v1fff-0005Ml-EN; Thu, 25 Sep 2025 06:41:39 +0000
+Received: by outflank-mailman (input) for mailman id 1129955;
+ Thu, 25 Sep 2025 06:41:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vOWa=4E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v1fYl-0003gy-3G
- for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 06:34:31 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1v1ffe-0005Mf-Ew
+ for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 06:41:38 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b011a4d9-99d9-11f0-9809-7dc792cee155;
- Thu, 25 Sep 2025 08:34:29 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-b28e1b87aa7so89798966b.3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 23:34:29 -0700 (PDT)
+ id aeaf3d30-99da-11f0-9809-7dc792cee155;
+ Thu, 25 Sep 2025 08:41:36 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-afcb78ead12so99447266b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 23:41:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-634a3b052e0sm652782a12.47.2025.09.24.23.34.27
+ a640c23a62f3a-b3545a98300sm98485866b.106.2025.09.24.23.41.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Sep 2025 23:34:28 -0700 (PDT)
+ Wed, 24 Sep 2025 23:41:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b011a4d9-99d9-11f0-9809-7dc792cee155
+X-Inumbo-ID: aeaf3d30-99da-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1758782068; x=1759386868; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1758782496; x=1759387296; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ozP4ICgetyfPLvldh5KQA27y5QCFNaRSs6nV+auII+I=;
-        b=aLTCH3kQ5u+DL6rAVki/B+42T0lWDUnK1ZRwn6HQxuDZ0yR+1zav5SW7CBU1jAI9Bd
-         AsJnSKWQu7mS8srv01zlkboBNikmmdcRH8B2RWQscqYIx3VyW668xWA47jhSYgjmpC1I
-         Fy2ioQq+GOJTFirY3/YJOLXH6bWTCRrRMcpGxsijBDWw4S9TtRU36Gto/3lfkz2bnQFH
-         pfJxAOVs9HXs+kJfPUWk4a6Et8KTGiIMJIgzLIFzn9RwrFVh9kiiIQ9SFePQyJI6U2Hh
-         O2YeJLOceofxfNvObv0tbNOXnf2FmhksP46F2/M7HMtK9ZnUHEQK+TMVWd9Gt4QX92SO
-         4YPA==
+        bh=yMkb/XBISukaOBYe2gqGsOGKEi6LHXY5IpwYrRA0BPg=;
+        b=EaHybm54TldGV8RW2LUKF53QuyKzxDh5jRLNZNjRjte+CtpA8WPS1lIZ6y6zayr37e
+         xc/ROO0G868dhCEe8mOPgd57D5sRJ7e8HwJfFllIMxZwzU0sY+O7T0sofRK1Orr7Ql84
+         0mW0m2CU4JKRMehGV8u/v/aPokhrHhULur8G/7MeF5tYDg5FjuKLZpg0GjJwP4iG7j/R
+         R0NsAdqVkfaF54Ef/QYbb6WYTKyGTa4Rsjfix7/r/iFF8ULO4Vef+GmlrGn7YipRIlrJ
+         Uw4i8nVJWeFeJl9X62e7KuftJyE7FvyEDBb8KPgowS5lXObbBBE/v94f13NJjblcAzWu
+         V30Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758782068; x=1759386868;
+        d=1e100.net; s=20230601; t=1758782496; x=1759387296;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ozP4ICgetyfPLvldh5KQA27y5QCFNaRSs6nV+auII+I=;
-        b=DyZ2v7kxVeAUd1GZLro7Frckj7fH590UGgVp2T/3BIUwVEzxdv+ohQ3Rps8McBInCu
-         KAL2NOjkBCPmiSGTtqsIk9PffLtjwTWPi2kPyTqhzV41Wc9S3piPNEAtPmg6xQVGOx6O
-         QrNG0xTXwry/tSytTG4IQWzwhX8x/Bz17WQELVlsXjHEz+h4J5oj4fhBqjPhYBH8hGRh
-         obajf5wc4IYfOEkv1MxH55HqjzOSrWEqgd3y1g9PJng6GH5IAKSGrmqbMCWdIE0GxBDB
-         bfjRmV7byRD7vbQJ7NSc5rMx9Ta+LM5qzQM+CPk7jX7a7JzqdMOHviLPyS2ivPLg16Ia
-         7C9g==
-X-Forwarded-Encrypted: i=1; AJvYcCVrwqxlAZ1sidS7iKYj/IoBt4xxzPSmJfN1Tbpd6ND9A5mXtWgk6Eb7E/UetuITkZX722xzFVeLrDo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxB1kbj7UsZT8fetCOXbdWX1P0evnAxV1PMaxsnI7579sTelWH1
-	Yj8v8YwvwX5rL5TXsGoYVgGvQJXEc4DF+XSIpMXcR3gY8h44Smp/gZYV9QrQlWLXiw==
-X-Gm-Gg: ASbGncv7PiDAxri54rTWtyu5lZm4x2CFaMgRpFEZQyMJtpbQDf0rkyzAUDG2lBk6F5j
-	5JYLo880Bhn6kfbLOtJD6EJxZI/Ix4nK8YmlWgRwcqg0caRgOBMx9C3AtPbXsiepLCoQLPf0MAD
-	biOQq8OEanGpKhP3DVFZ1ApO6MknqMKjz93f5PTx5ryyUUZERbNfyGxab/UrhI4hlvmvG77EQxs
-	13XjbPhZLC207vPOKQ8qv7YBXMEy1oQgOjIVIqKB8dVeiE8M06/yJUsnCIRfwHTGhHkj1cUHe1t
-	jWI4my2d608UuIu3WPnaWPv1H09c92X6s0xPKj5kIVp6Bgaop3JTtiFjk3BJo2vdTKtRbco42Cs
-	sQKSI3ufv30nI4jZqmqsFQCFe3dQWHU5HHup5v0kwG/bmOdt/8xvOPh9zDSSz1qwX+6PVtUxjZN
-	EyeWCoBxU=
-X-Google-Smtp-Source: AGHT+IHzLCTXuKAPq1YsMXuj+To6GOOACzY7Bx/GCZC4Q4Waa8Q1tRyHjTVFuuopP6tPuIJSZtLR6Q==
-X-Received: by 2002:a17:907:1c15:b0:afe:87bd:da59 with SMTP id a640c23a62f3a-b34be2f5318mr221327666b.42.1758782068489;
-        Wed, 24 Sep 2025 23:34:28 -0700 (PDT)
-Message-ID: <9507e775-f9c3-4351-9c76-ca939c1147bc@suse.com>
-Date: Thu, 25 Sep 2025 08:34:36 +0200
+        bh=yMkb/XBISukaOBYe2gqGsOGKEi6LHXY5IpwYrRA0BPg=;
+        b=uQdmc6lJvUePt7ONiyhfbbXAq0f7c74gnkNUZriJTcHWisgxsLImEUdkm0/AZ8vIJz
+         uPDFDPprO+Wk+ypWBdp9NtMh0Sf8E+jcBE+wndsWGd94CnxM+QDfbEpK6xW4v2UwlNmU
+         vEm4ZpTIeA+NTiWy77dKT/aGVqM/dxX2L+crlrJsK9Eh+KNKTzEHrUNfWcyJWBa3kRqs
+         zBVXR/8BU1V4ICriik1JbDNmWyptUjDwmScwfFIONKN/gK7CBsbLSXo+ilrg24gf2g23
+         D7iC3wGeTuEmQU5g9maTYHBKaDABFdsove0A3jKq+SVDF/eEnxd6IJJuIF2ZEPfC7yGT
+         GHCw==
+X-Forwarded-Encrypted: i=1; AJvYcCVLo3VOZeIAHVIelHuvdVmQHQAG64By2BzqikxLOvuChtok+tNW6+E6aPHu0Og7w2LLZL+p70ElZRw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwniKv159Is+MCMF4mxDGW3kp/Wj6S3MtTEGz1Gr5BQ0x0thsVn
+	/5Yq8tD8IVvddhoVSlHnUezo+E7Rbhv/AYmzg9jziEMfYS5AN6jSTB0KtQSrvinhMQ==
+X-Gm-Gg: ASbGncunhPmd1xGQ9ECi9Pfra7ok2z903JBesUK+kEARzSYuHDeYusn/AcdbmQ7fESA
+	bggJ+//Eu/9axL/ptAziQA1Rpaa/E8CrWv4ZGwCZC2oNEo2eYh9j6p5prm4vo1a5/ukOjlFPbKu
+	oqt0PgssjGhbupVXgpP8ky23vwrkZS3IsaN6SMZQR4ZKlUQh3mxGfEsh+Qi57nA9d3Fm5aLRTr3
+	xr6HuJKoSxosmzX4tTr3sucVnLcJ2d9QqZCFwS+/lGAG74+go/fk2t7toGR54MY+cMA0hSKRC+G
+	FItODWPXu8UWVjJ/RfNxAlIRnP+fiFfTWlY4rrVrEGUmXfG5U0iwF99LSnhdQZQQaFisMY4DpWG
+	+JO6zPxY6ESW5/BZEYxakZ2n7MXGY3pHXHxKMBGCC+zjbm7WGRKGuUtFNhlyfEjsUWtYFc7MVLy
+	sy4VyWfQ8=
+X-Google-Smtp-Source: AGHT+IEh/iREEYFeuR6RUeuim7C4uEtzhEZ+Zn2ukY4ZuMk63D/1oFARHpvFfTEApT2WXxJBXp4uMg==
+X-Received: by 2002:a17:906:6a0a:b0:b04:85f2:d272 with SMTP id a640c23a62f3a-b34bc97172cmr242016366b.49.1758782495589;
+        Wed, 24 Sep 2025 23:41:35 -0700 (PDT)
+Message-ID: <5ca4c3e6-4dd6-4de3-a7cc-4070ab3e1d41@suse.com>
+Date: Thu, 25 Sep 2025 08:41:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/arm, xen/common: Add Kconfig option to control
- Dom0 boot
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v3] arm: address violations of MISRA C Rule 2.1
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <34e1b5036361745db2fde233e0935a568c0ebc90.1758729618.git.oleksii_moisieiev@epam.com>
+References: <620eb8fe22204e204cb471e93d2ea789f879d854.1758744144.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,28 +121,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <34e1b5036361745db2fde233e0935a568c0ebc90.1758729618.git.oleksii_moisieiev@epam.com>
+In-Reply-To: <620eb8fe22204e204cb471e93d2ea789f879d854.1758744144.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.09.2025 18:00, Oleksii Moisieiev wrote:
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -26,6 +26,14 @@ config DOM0LESS_BOOT
->  	  Xen boot without the need of a control domain (Dom0), which could be
->  	  present anyway.
->  
-> +config DOM0_BOOT
-> +	bool "Dom0 boot support" if EXPERT
-> +	default y
-> +	depends on (ARM && HAS_DOM0 && HAS_DEVICE_TREE_DISCOVERY && DOMAIN_BUILD_HELPERS) || (X86 && HAS_DOM0)
+On 24.09.2025 22:35, Dmytro Prokopchuk1 wrote:
+> MISRA C Rule 2.1 states: "A project shall not contain unreachable code".
+> In certain  build configurations the following functions 'prepare_acpi()'
+> and 'gicv3_its_setup_collection()' are defined as inline functions and
+> contain the macro 'BUG()'. This resulted in violations due to these
+> functions became non-returning.
+> 
+> To ensure compliance with MISRA C Rule 2.1 remove inline function
+> implementations and their 'BUG()'-based unreachable code. Provide
+> unconditional function declarations for 'gicv3_its_setup_collection()'
+> and 'prepare_acpi()'. Rely on the compiler's DCE to remove unused function
+> calls in builds where these configs 'CONFIG_ACPI' or 'CONFIG_HAS_ITS' are
+> not enabled.
 
-This line is too long, and really would have wanted to be broken up anyway. Clearly
-"depends on HAS_DOM0" can be separated out. I'm not quite sure about the extra
-Arm-specific dependencies: Are these two really Arm-only (as in: not also affecting
-e.g. RISC-V)? Furthermore, what if I turned this option off for x86? Doing so would,
-aiui, have no effect at all right now. An option without any effect imo better
-wouldn't be exposed.
+Imo it would have helped if you had stated the respective predicates which end
+up compile-time constant. (Likely the two changes also could have been done
+separately, as they're entirely independent of one another afaict.)
+
+> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
