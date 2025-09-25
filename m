@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 757AAB9D80E
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 07:58:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1129892.1469596 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53D31B9D89F
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 08:11:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1129905.1469607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1f04-0005bD-J5; Thu, 25 Sep 2025 05:58:40 +0000
+	id 1v1fCT-0008ST-Of; Thu, 25 Sep 2025 06:11:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1129892.1469596; Thu, 25 Sep 2025 05:58:40 +0000
+Received: by outflank-mailman (output) from mailman id 1129905.1469607; Thu, 25 Sep 2025 06:11:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1f04-0005ZV-Ff; Thu, 25 Sep 2025 05:58:40 +0000
-Received: by outflank-mailman (input) for mailman id 1129892;
- Thu, 25 Sep 2025 05:58:38 +0000
+	id 1v1fCT-0008PK-KA; Thu, 25 Sep 2025 06:11:29 +0000
+Received: by outflank-mailman (input) for mailman id 1129905;
+ Thu, 25 Sep 2025 06:11:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vOWa=4E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v1f02-0005ZP-H4
- for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 05:58:38 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1v1fCR-0008PC-K0
+ for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 06:11:27 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ad68a486-99d4-11f0-9d14-b5c5bf9af7f9;
- Thu, 25 Sep 2025 07:58:37 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-631845b51e2so611165a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 22:58:37 -0700 (PDT)
+ id 77ae1da6-99d6-11f0-9d14-b5c5bf9af7f9;
+ Thu, 25 Sep 2025 08:11:26 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-62fca216e4aso1072008a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 23:11:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-634a365093asm627828a12.18.2025.09.24.22.58.35
+ 4fb4d7f45d1cf-634a364fee9sm636715a12.16.2025.09.24.23.11.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Sep 2025 22:58:36 -0700 (PDT)
+ Wed, 24 Sep 2025 23:11:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad68a486-99d4-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: 77ae1da6-99d6-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1758779916; x=1759384716; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1758780685; x=1759385485; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cZjkbxKWrgIkfZ1tUIa7NXcyB06M2RYOUMqTSLQfcJY=;
-        b=gLz1pxZuGrmKodaSA9qfNl2LT1qCubMiktzpe885we+wBuS/mLutnVaLjntyBre1GP
-         l8GMBNjHhWTDhnxDQ9K3FrqFCiIBWZ70/WJRbOZTVPXETurdQUQi0QONFIUbB/Bq15zJ
-         NvQ6iq5/ASFHoLBcdidOnkPplgPqLgQ3ej+wP4MHqFPSM6JKTXypFOjkWxE9N7TKAo9/
-         RVbL8rFXwvtTABGUxfBueY27Jd/0RZBP+0zGIXPG8pWl/aY+cqoBvy2zi7OK4LDVdl4R
-         QE2crU7e4aEug65ZVwDn8CyoCccKUEVPoLhWJa4ezIjHO8cL2fGRWG88SjZfy849z6iB
-         /QDg==
+        bh=MBv6ftHUSjPzTuW9B1LXl5PGydN16VlgcmlbMWeGDeI=;
+        b=UiqwPpdNzyPkbP0+IizbhhkjrkeZjRPOyplr/uE4nDRMijgQ0+P5rfNselynWJaonV
+         2b/uPH4JKekB4esq+mqnjaOhUvfGl10fj/zPgsUgY3QPZeNLeWRtDxyw7OWqIAwWQ98A
+         G9SqleLfIigKrxt2AVxPYjZH1KBQUdNkCb4bC76ranFQMlZm4tdzkgpXuCoHTvxD3+pA
+         mNMCChKW+qa0aZa7j26sCLiQfA1KeIdiHihBh68GtO2veb8Sf295Tk/q4EiSF+Y9ceG1
+         vCNCbsJXceIuysvvmrXF7AIxvoZ5cIEMhdjTwaqKck1RtUsKxUO0X1iLJSoEMWcULmVq
+         hM2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758779916; x=1759384716;
+        d=1e100.net; s=20230601; t=1758780685; x=1759385485;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cZjkbxKWrgIkfZ1tUIa7NXcyB06M2RYOUMqTSLQfcJY=;
-        b=CufSTd9D8dvuPbtResJ0rRR6WN/+sj5RzTRwLPDMLNhSERLhhCxiPCsf2V4nAuq0T4
-         M+XYvkkS0k6vFyyT6F+22SYvxhezt9ucGnJs4sGklgVMJprgt1Su9KjyOZGQLGIC5KFL
-         8V/LSFmdc7IDuG0pxw90MnkxanY9YPxOVib4fRCRhiXllkzeszBD9hb+qVzC5o9GCZin
-         q0QnE575+hnS9SaxXRYRSdHkytvRHkwI28U3W0/YAnwRqDGUHTw4XeHXEvOCltLtnqjG
-         WyA1M8lyQfH7i4Q2qfsT0hJtX9h0jnJWot0/tszAVWcCaw3ridp2tHRyh2w8dDsdIjYU
-         2OpA==
-X-Forwarded-Encrypted: i=1; AJvYcCXvhgXCMS6Qi1PaYYW8/5IxirFC0t72S2EGZdOopGgXTDpE4H7fahViIb3Hjv4ofiH0RMQdraM3vd4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw5b/8ZUvyj28DIg2zyMjoUp1Y4bw+6kAiU/e73j10fCI05ObPx
-	CNnxbta9syUhdETTTAOli1PAKPWG4q32WAxAbSMvAMCGIGzpOjrEr7lOMz3qdnbU5A==
-X-Gm-Gg: ASbGncuABdZU+k1nUfnAkyiqdlfl0EQgm+4QM3N0UHi4poVBlpoH8YNZzgrc/FcwvJ+
-	8VZYnn8PFX/61t6UyrO2mVYyUg6xFVl93B1l+NpmlLCXFlpGvA6PlGmfKvfPhSn/DbehWwhxhc0
-	ulF0hfH9XIUg9wIO/dRIGYvTaOIW5qtbIEPbIxoHsfn7llwHCa3D5QQ51TuLV4kjirpAtnOM0eb
-	yp8Bn4NXMcwYuP9KuluAdXkiG0NP5fNhvgHnou3EB0TWsiZuvU3ALsG5z/7W9kebZklyELBLu3L
-	A20PGQKNXBeKlIRI+F8hgr3SFOytxYxdCMSg+TcWO4cu5YvCHcbvXuuezcHD1vI6VQF59NMpfj8
-	hCopTovi9EjlYTMqWH/ulo8ns5wSLzHsmifx4kQCCYAJJI4pkzHB6kae9BVo6a+SJCnge6o2hDJ
-	FP7Yrr104=
-X-Google-Smtp-Source: AGHT+IFqaHGlAiJrxJ1BHzG4ru52kaCya5IwOHsTk6YUShppCyGe+BI2Q0RrlYasU2jVhWQhipTjSQ==
-X-Received: by 2002:aa7:dbd8:0:b0:634:7224:c6b5 with SMTP id 4fb4d7f45d1cf-6349fa8f109mr1274277a12.28.1758779916475;
-        Wed, 24 Sep 2025 22:58:36 -0700 (PDT)
-Message-ID: <84cd0eeb-ff5c-474d-b0d0-eb79c4a33c9b@suse.com>
-Date: Thu, 25 Sep 2025 07:58:44 +0200
+        bh=MBv6ftHUSjPzTuW9B1LXl5PGydN16VlgcmlbMWeGDeI=;
+        b=kz2vZqzRA/pf38s2l4WcoIoMmcjOpzkVUbN75IOyATbFkEg9mjDCG4X/1qb1JlZpDo
+         x1D/aod9tnoYtM3xuQ9Q9NuEWRpquv5LY9ref/aqXc9dVT4U13cZSmj2HhC4ce5b9xTQ
+         EUSJvksxhNJ2gsa0ZUCsgAAzmlUVH11bVxIAF4kSh1rqW1CGRlAsKeJgdcHOJ2KJIbWh
+         UQKpr5wHPLTg62TmP/2qEJYe0fChSJw6upOjGhUoxYKfCdbmGT2eyqsj4fgl8LtXdm28
+         zemcjaj3t2lEwUIVi3fSmirPM5qe8u2cgJkkE5t22YUxRSVzwh4g4Vydi+Mbgmlyhid6
+         g1nw==
+X-Forwarded-Encrypted: i=1; AJvYcCUpJyhipZ76KkbuIAOPd5t5KodJuVjPV91TrdT0/Dj0kQiWQwkIJoRbUSgXkhoSzcSkd5RCaqhsZ2E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw8GPbUeFVx4dCT1i/ilm/AbOMiN8ACuR7/sf8ecZUrBeBSwovH
+	uMEDrpD4ZiCrXygSbv3RcGu36yqf+T7hsBhYEa9E7O9EMY9LLkM1ps9oZ4fKXqERPA==
+X-Gm-Gg: ASbGncuBJFZI5ZiGSlrVSK076fGAWgu7a8ihjZjcamJPRhzmJw6Ik/o7vgX5feMwjw2
+	4VPEwKm/9g9HP0h/2Rfj7uS2jPH9hA1GQOqZu8T/5yVVVAHs/bFZw4z1wcNN2L/dNqZPPvqBSa8
+	akOB/MQ/TCAHSNKaEXa1fs+hrMlx0hbT1/GrF/wXbltdnr1Wxm394n55pF9IX4a+TDyEXU1WaPa
+	g2hj/nDW/PGy8kRZTMiPtiUFw1CeXtT2fVbuReo80J4e17LVudbsp6qUAMHtL65I5YKuQ/+MGaz
+	eqb0tA97MLqz9GU9a1wy21Elua1kn9wwf4CEkXg8d8vO5h/y4P4LW6W/064po4CzRVzwZgoKHdk
+	wODMxZF6UDv3yo5kK/zVJDjRfzSXMmSWIfezGK75xYG7uAYsm4GZLDNVwrSupxF5bFTWr/Z04ce
+	RjWvSdhas=
+X-Google-Smtp-Source: AGHT+IFLw+dfTHbh1IdN169leXpJQ8ehjhvkJC19+T9DrNY1dZ35CQDZZeee84SxjkSGaashcp4v5A==
+X-Received: by 2002:a05:6402:234d:b0:634:54f3:2fbb with SMTP id 4fb4d7f45d1cf-634a292cddcmr1512674a12.3.1758780685412;
+        Wed, 24 Sep 2025 23:11:25 -0700 (PDT)
+Message-ID: <83116585-65ef-45fa-9358-586ae46753aa@suse.com>
+Date: Thu, 25 Sep 2025 08:11:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH 1/2] x86: hvm: vmx: fix runtime vmx presence check
- for !CONFIG_INTEL_VMX case
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v10 7/8] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
+ xen_sysctl_pm_op for amd-cppc driver
+To: Jason Andryuk <jason.andryuk@amd.com>, Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew@xen.org>
-References: <20250916103251.2144449-1-grygorii_strashko@epam.com>
- <3baf457c-d32b-4965-96bb-022a2f92bb9d@suse.com>
- <bcd7a98b-5827-4b4d-baa6-52fe24339faa@epam.com>
- <88cc4cf1-3bc9-47f5-b8f7-e04f01b027ee@xen.org>
- <DD0ZQLVE0KSS.3HHC8OHAQPL8L@amd.com>
+ xen-devel@lists.xenproject.org
+References: <20250923043826.3831957-1-Penny.Zheng@amd.com>
+ <20250923043826.3831957-8-Penny.Zheng@amd.com>
+ <5a2e887f-d6da-42e2-aff0-efe55b041749@suse.com>
+ <1106c080-508b-4328-a636-900ca8377d2d@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,130 +124,88 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DD0ZQLVE0KSS.3HHC8OHAQPL8L@amd.com>
+In-Reply-To: <1106c080-508b-4328-a636-900ca8377d2d@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 24.09.2025 13:23, Alejandro Vallejo wrote:
-> On Tue Sep 16, 2025 at 7:14 PM CEST, Andrew Cooper wrote:
->> On 16/09/2025 9:57 am, Grygorii Strashko wrote:
->>> Hi Jan,
->>>
->>> On 16.09.25 17:34, Jan Beulich wrote:
->>>> On 16.09.2025 12:32, Grygorii Strashko wrote:
->>>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>>>>
->>>>> Since commit b99227347230 ("x86: Fix AMD_SVM and INTEL_VMX
->>>>> dependency") the
->>>>> HVM Intel VT-x support can be gracefully disabled, but it still
->>>>> keeps VMX
->>>>> code partially built-in, because HVM code uses mix of:
->>>>>
->>>>>   - "cpu_has_vmx" macro, which doesn't account for CONFIG_INTEL_VMX cfg
->>>>>   - "using_vmx()" function, which accounts for CONFIG_INTEL_VMX cfg
->>>>>
->>>>> for runtime VMX availability checking. As result compiler DCE can't
->>>>> remove
->>>>> all, unreachable VMX code.
->>>>>
->>>>> Fix it by sticking to "cpu_has_vmx" macro usage only which is
->>>>> updated to
->>>>> account CONFIG_INTEL_VMX cfg.
->>>>>
->>>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->>>>> ---
->>>>> Hi
->>>>>
->>>>> It could be good to have it in 4.21, so vmx/svm disabling
->>>>> option will be in complete state within 4.21 version.
->>>>
->>>> Imo this isn't release critical and has come too late. It's of course
->>>> Oleksii's call in the end.
->>>>
->>>>> --- a/xen/arch/x86/include/asm/cpufeature.h
->>>>> +++ b/xen/arch/x86/include/asm/cpufeature.h
->>>>> @@ -136,7 +136,8 @@ static inline bool boot_cpu_has(unsigned int feat)
->>>>>   #define cpu_has_sse3            boot_cpu_has(X86_FEATURE_SSE3)
->>>>>   #define cpu_has_pclmulqdq       boot_cpu_has(X86_FEATURE_PCLMULQDQ)
->>>>>   #define cpu_has_monitor         boot_cpu_has(X86_FEATURE_MONITOR)
->>>>> -#define cpu_has_vmx             boot_cpu_has(X86_FEATURE_VMX)
->>>>> +#define cpu_has_vmx             (IS_ENABLED(CONFIG_INTEL_VMX) && \
->>>>> +                                 boot_cpu_has(X86_FEATURE_VMX))
->>>>
->>>> I'm pretty sure using_vmx() was introduced precisely to avoid the use of
->>>> IS_ENABLED() here. What is completely missing from the description is a
->>>> discussion of the effect of this change on pre-existing uses of the
->>>> macro. ISTR there being at least one instance which would break with
->>>> that change. And no, I'm not looking forward to digging that out again,
->>>> when I already did at the time the using_vmx() was suggested and then
->>>> implemented. (I can't exclude it was the SVM counterpart; we want to
->>>> keep both in sync in any event, imo.)
-> 
-> Apologies if this has already been discussed, but I didn't participate in prior
-> discussions. Targeted lookups in lore are not shedding a lot of light either.
-> 
->>>
->>> Thank you for your comments and sorry for not digging into the history of
->>> the related patches.
->>>
->>> All, please ignore these patches as existing places. where
->>> cpu_has_vmx/smv
->>> are still used, need to be revised one by one.
->>>
+On 23.09.2025 18:47, Jason Andryuk wrote:
+> On 2025-09-23 11:38, Jan Beulich wrote:
+>> On 23.09.2025 06:38, Penny Zheng wrote:
+>>> @@ -154,6 +156,17 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
+>>>       else
+>>>           strlcpy(op->u.get_para.scaling_driver, "Unknown", CPUFREQ_NAME_LEN);
+>>>   
+>>> +    /*
+>>> +     * In CPPC active mode, we are borrowing governor field to indicate
+>>> +     * policy info.
+>>> +     */
+>>> +    if ( policy->governor->name[0] )
 >>
->> Off the top of my head, fixups to MSR_FEATURE_CONTROL, and AMD SKINIT
->> need cpu_has_vmx/svm not guarded by Kconfig like this.
+>> amd_cppc_prepare_policy() may leave ->governor set to NULL afaics, so I
+>> think you need to add a NULL check here alongside with pulling this out
+>> of ...
 >>
->> ~Andrew
+>>> +        strlcpy(op->u.get_para.s.scaling_governor,
+>>> +                policy->governor->name, CPUFREQ_NAME_LEN);
+>>> +    else
+>>> +        strlcpy(op->u.get_para.s.scaling_governor, "Unknown",
+>>> +                CPUFREQ_NAME_LEN);
+>>> +
+>>>       if ( !cpufreq_is_governorless(op->cpuid) )
+>>>       {
+>>
+>> ... this conditional.
+>>
+>> The description also continues to not mention the effect for HWP. I'm
+>> actually somewhat confused, I suppose (Jason, question mainly to you):
+>> HWP falls in the governor-less category, iirc. Yet it doesn't supply
+>> a .setpolicy hook, hence __cpufreq_set_policy() goes through the normal
+>> governor setting logic. What's the deal here? The answer may affect
+>> whether I'd deem the pulling out of the conditional correct (or at least
+>> benign) here as to HWP.
 > 
-> What do you mean? AFAICS SKINIT is guarded by cpu_has_skinit, not cpu_has_svm.
+> Hi,
 > 
-> And MSR_IA32_FEATURE_CONTROL tweaking seems self-contained in xen/hvm/vmx/ which
-> is compiled out when !CONFIG_INTEL_VMX.
+> When I wrote HWP, I didn't realize using .setpolicy would bypass the 
+> governor code.  Instead, I implemented the no-op HWP governor, since I 
+> thought I needed something as a governor.
 > 
-> For the hypothetical case in which we might want to know the real HW value
-> we can go look at the raw policy, as in "raw_cpu_policy.basic.vmx" or
-> "raw_cpu_policy.extd.svm". Or what's mentioned in passing here.
+> set_hwp_para() actually changes the configuration.  HWP only implements 
+> the equivalent of amd-cppc-epp autonomous (active) mode.
 > 
-> https://lore.kernel.org/xen-devel/a881c6a6-2c36-4e5c-8336-21cd0e14b873@suse.com/
+> So I think HWP could switch to .setpolicy and drop its governor.
 > 
-> Forcing the common case to use a helper and leaving the rare case in the
-> shorthand macro seems like a bad idea. This ought to follow what cpu_has_nx
-> already does.
+> But looking at this hunk:
 > 
-> Is there a specific code instance in which having IS_ENABLED() in the
-> cpu_has_{svm,vmx} macros would cause issues today? While there are some dubious
-> choices of svm vs vmx with or without negation, they all seem to resolve
-> to correct code, with less codegen after IS_ENABLED() ends up in all the
-> conditionals.
+>  > @@ -321,10 +327,12 @@ static int set_cpufreq_cppc(struct
+>  > xen_sysctl_pm_op *op)
+>  >      if ( !policy || !policy->governor )
 > 
-> IOW: I have seen fear of incorrectness, but not proof of it. Now, obviously the
-> burden of proof rests on the submitter, indeed, but I'd like to know where we
-> stand in terms of what that proof would look like.
+> Doesn't this !policy->governor prevent amd-cppc-epp from setting 
+> parameters?
 
-Such a proof could be a statement clarifying that all use sites were audited. If
-then a reviewer found an issue with that, it would get interesting (as [possibly]
-in: it being questionable whether an audit was actually done; what I mean to say
-here is that it's not a matter of merely stating that an audit was [supposedly]
-done).
+Only if amd_cppc_prepare_policy() took the default case path of its switch(),
+aiui. Penny?
 
 Jan
 
-> A naive grep shows not many
-> sites to check.
+>  >          return -ENOENT;
+>  >
+>  > -    if ( !hwp_active() )
+>  > -        return -EOPNOTSUPP;
+>  > +    if ( hwp_active() )
+>  > +        return set_hwp_para(policy, &op->u.set_cppc);
+>  > +    if ( processor_pminfo[op->cpuid]->init & XEN_CPPC_INIT )
+>  > +        return amd_cppc_set_para(policy, &op->u.set_cppc);
+>  >
+>  > -    return set_hwp_para(policy, &op->u.set_cppc);
+>  > +    return -EOPNOTSUPP;
+>  >  }
 > 
->   $git grep cpu_has_svm | grep -v cpu_has_svm_ | wc -l
->   6
+> So there may be other checks that would need dropping or adjusting to 
+> support HWP without a governor.
 > 
->   $git grep cpu_has_vmx | grep -v cpu_has_vmx_ | wc -l
->   11
-> 
-> cpu_has_X_Y would be off when cpu_has_X is off, but those shouldn't matter for
-> this discussion.
-> 
-> Am I missing something here?
-> 
-> Cheers,
-> Alejandro
+> Thanks,
+> Jason
 
 
