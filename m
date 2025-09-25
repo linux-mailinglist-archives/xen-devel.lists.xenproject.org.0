@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 972F7B9F0B9
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 13:57:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1130436.1470003 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37E47B9F0BF
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 13:58:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1130457.1470013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1kbI-0007s4-Th; Thu, 25 Sep 2025 11:57:28 +0000
+	id 1v1kc3-00005M-6p; Thu, 25 Sep 2025 11:58:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1130436.1470003; Thu, 25 Sep 2025 11:57:28 +0000
+Received: by outflank-mailman (output) from mailman id 1130457.1470013; Thu, 25 Sep 2025 11:58:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1kbI-0007qa-R5; Thu, 25 Sep 2025 11:57:28 +0000
-Received: by outflank-mailman (input) for mailman id 1130436;
- Thu, 25 Sep 2025 11:57:27 +0000
+	id 1v1kc3-0008Ui-3g; Thu, 25 Sep 2025 11:58:15 +0000
+Received: by outflank-mailman (input) for mailman id 1130457;
+ Thu, 25 Sep 2025 11:58:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Mhi9=4E=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1v1kbH-0007lR-MX
- for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 11:57:27 +0000
+ id 1v1kc1-0007lR-1r
+ for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 11:58:13 +0000
 Received: from fout-a5-smtp.messagingengine.com
  (fout-a5-smtp.messagingengine.com [103.168.172.148])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cdf77aa4-9a06-11f0-9d14-b5c5bf9af7f9;
- Thu, 25 Sep 2025 13:57:27 +0200 (CEST)
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
- by mailfout.phl.internal (Postfix) with ESMTP id 4E4B2EC0203;
- Thu, 25 Sep 2025 07:57:26 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-11.internal (MEProxy); Thu, 25 Sep 2025 07:57:26 -0400
+ id e904b889-9a06-11f0-9d14-b5c5bf9af7f9;
+ Thu, 25 Sep 2025 13:58:12 +0200 (CEST)
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfout.phl.internal (Postfix) with ESMTP id AC176EC020D;
+ Thu, 25 Sep 2025 07:58:11 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-05.internal (MEProxy); Thu, 25 Sep 2025 07:58:11 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 25 Sep 2025 07:57:24 -0400 (EDT)
+ 25 Sep 2025 07:58:09 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,35 +44,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdf77aa4-9a06-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: e904b889-9a06-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1758801446;
-	 x=1758887846; bh=NNjvJ9DFViRSIHc6zj2a3bLS1JHSQWbqqG7AXEFCrHs=; b=
-	bF7gi29KxeYE8Z8gWTvBdEPcL/xOy77sQGgDk5oS+omMsgOkgDJSLhClmecj9Zml
-	5fjODrTuR2IIAWYfsHOz/Z9yethLsBByPSSdTfYVHYaGfZysV8psYAsd494KTwJZ
-	FPYyXUmFd/3ToFCQ5vSf4wTgiO1xRBh+Agj/5HZUxvYGI9JX/2hcy3FLZQstfBMO
-	ZKmbv8Yz4Je2RA15rLlavXkIsE8ERI7glUMpsU7M/modLK/norZBUOaOUITaJJR/
-	67IGkHDqVnY6M/zy7OTektqGOO2t92vcVozgZuw29t+NbtF3+0d0RckNBj0XpIa1
-	uGsVI54UIjcH84CNTjT4Cg==
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1758801491;
+	 x=1758887891; bh=HX9p3K2wchkmc/8ivOZi6vofoPtMjR9YTrC7j5IT+1E=; b=
+	nI8iWDzymrOGRjlg1ERb+CPrjjPQdfCEB3hbM7X8rqYuCHVijGfAkTYGwHsycG2I
+	BBtNXLgjRhkOGwAv1eh9VzuBDCWZUMHBwxoO2zUZaFAa9YDn2YE5pJ14nsjcQMoZ
+	p0QvBGOkgSMF2qiQ6TWuQPNNWmTFLfUAoi6kaDtNErCihCVUt//sZ2cb040rM9V1
+	fwCkE/C+7AezYDVHqIq4LYwWq8G67nWyGc2gc5nGHyLOZaMqyFumXxQFejuf3Et/
+	3EEWfPjS68aMee+g71NvYCZLO1okjeHiXvdMO4sAcseuLDNW/CPni55CVFFeJrf5
+	IoUpGBtixnNFyWDP40Fo/w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:subject:subject:to
 	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1758801446; x=1758887846; bh=NNjvJ9DFViRSIHc6zj2a3bLS1JHSQWbqqG7
-	AXEFCrHs=; b=RfXMFSpeMr94an6JdmGeCZSRn4XOH/eLO9eH84KuvKabHw9yqzj
-	W9jPuyuXz2IQr2rGjUOHLr2qCHZFVkItUOUKL+WGHOCIx5Aj9yBTCG8FnFTdl5de
-	/tYPBvi2UWr+ykSRjOrZRvd4bHhtHZ1WcOVYQeKqza0PNT0jYDhvqSSveUiV/v3H
-	skqW/CzKEEYifZieAapXIou6q9Ci3sSiPUlGQhqp+aFMmG+/UlfV4umggoANTQob
-	9JBCDTGo5rU6SAPj8dFRP7XcBoEVyJ72Dxmp7uki66djQPxbQcTJxIf7/uNl9sv0
-	atZ+iBtnUvP7ue4gslIb9kvQNHA/lQH3pwg==
-X-ME-Sender: <xms:JS7VaAfo7zQUjylgOechjApmq1K7vu6AvsUha60Vpftm7GLRawhAUw>
-    <xme:JS7VaOz724QxYh62SmgYQM79EuTgC4RWWLnn_mqemogL4vn7xXcpS4vnkzRW9E99C
-    2N5Zbls_GBsMkjae6mFkXF4vUAUXAPKGAFVLPTuFIUmmA9M>
-X-ME-Received: <xmr:JS7VaF-ENo84kqYZgwxC-7AIWbIcF1vnGUgoGtDws1qr3sXRFhUZfMXaViuiMslB2DR7ycS4p93FGY1E82bhTHHfGfFwStwZJIw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdeiieegvdcutefuodetggdotefrod
+	1758801491; x=1758887891; bh=HX9p3K2wchkmc/8ivOZi6vofoPtMjR9YTrC
+	7j5IT+1E=; b=K/H6qgtRGSb15gEOrYiGXLsokjvWcxTsqLufazsqGlG1TX+9nmP
+	VPxjsh4yRQC/FR8l8HLXJVto+DDc31woA/mtTsi1JqGMJLEAU2lEnb4AcSmwu4og
+	KQ97y8Z3HyQPgX05LqcGpD+fcR76mtX1NEaJg5xx2f/BVzpGXtKJmcRzEtmK4H1N
+	42JYvR8K58uS3gV8zNJx+h4NZbaTaACwHIA1R3xmMN8Gd+4yG/kZzmLnSwC9w/vb
+	/L8YjwjNEkBPSzkopPHWkzmHj+qAE0eh6OwQabmQ9Je7YhszFavszODPM/8Dtcti
+	1ITZUZP1klhOtCn1Xy0iE1fFbfdcgXt5TEA==
+X-ME-Sender: <xms:Uy7VaKU2wuGAvhFyxcD8qcmHz8jQKcBYSW9oOESOCod10c5Y_LS_SQ>
+    <xme:Uy7VaDJpsYrR_0Zx6leyRCi6ZvHpmgJlYWWMtiJYmIOhR0WbJ3qkmEyNOlgsNCiUX
+    psVPUdwa1pdlsQSgo16O96mRj-Bh7EBJtJJbGnfKacNJkbhAw>
+X-ME-Received: <xmr:Uy7VaC3vyjsMObR7VzuA-6YVrj1Rtx8kpTEgeuKirPBMiLb-fr42fXt9poskjDWUwgp64tdhAYMOz7cQun0V7Q_Qvt48xGy6ick>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdeiieegfecutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
     ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
     hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
@@ -81,120 +81,97 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdeiieegvdcutefuodetgg
     vefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvg
     hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
     vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedutddpmh
-    houggvpehsmhhtphhouhhtpdhrtghpthhtohepghgvrhgrlhgurdgvlhguvghrqdhvrghs
-    shestghlohhuugdrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrd
-    igvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopeguphhsmhhithhhsegrphgvrhht
-    uhhsshholhhuthhiohhnshdrtghomhdprhgtphhtthhopehjsggvuhhlihgthhesshhush
-    gvrdgtohhmpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidr
-    tghomhdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrugesvhgrthgvshdrthgvtg
-    hhpdhrtghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgurdgtohhmpdhrtghpthht
-    ohepjhhulhhivghnseigvghnrdhorhhgpdhrtghpthhtoheprhhoghgvrhdrphgruhestg
-    hithhrihigrdgtohhm
-X-ME-Proxy: <xmx:JS7VaMy3LI_QvditN7In1oBY9RIWEZF2Slm7yWBvuKH3B5oGTV8LIw>
-    <xmx:JS7VaNphWddcFnaq0Ok0h1Scztzz-SvGObmdVFqcSem6o5MjEesSmQ>
-    <xmx:JS7VaFr98hg9SFSyuFeeKVxduXwhPsLU5IRWTWHtaS7cZFTJIlosNQ>
-    <xmx:JS7VaFAkzR3_0D96p35ZHOgD1AcI9csg3J_svizI6w_aEFrtCNOX7w>
-    <xmx:Ji7VaOKGy7qQLyy-EZgfENaALI5lQtPdVQB7qK446C7uhKfeZnSforvk>
+    houggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtgho
+    mhdprhgtphhtthhopehgvghrrghlugdrvghluggvrhdqvhgrshhssegtlhhouhgurdgtoh
+    hmpdhrtghpthhtohepughpshhmihhthhesrghpvghrthhushhsohhluhhtihhonhhsrdgt
+    ohhmpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomh
+    dprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrugesvhgrthgvshdrthgvtghhpdhr
+    tghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgurdgtohhmpdhrtghpthhtohepjh
+    hulhhivghnseigvghnrdhorhhgpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhr
+    ihigrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorh
+    hg
+X-ME-Proxy: <xmx:Uy7VaIJFO3zwKjdk2faa6Oq80TqEzzsnCXrxjA6cucJGJMVrxlQT5A>
+    <xmx:Uy7VaFg8pVFPlewiQi6IYbdtycTHDNFIW7_Nv2j3Vb5mYWcA-lLuIQ>
+    <xmx:Uy7VaAA5tAEJt-abxPsbf_DqVKVRKjhWWLPG_npSCtcLDfGzIloP2w>
+    <xmx:Uy7VaP6tssQqpZmm9P0WjY3Zc5rW6RhJS9YOCkoY1j6k72bIVpnxbg>
+    <xmx:Uy7VaGxUMhmELNwyun-vCnKqr5w4IC1H3C9K6oaCizTQXskeQSj3jXtQ>
 Feedback-ID: i1568416f:Fastmail
-Date: Thu, 25 Sep 2025 13:57:22 +0200
+Date: Thu, 25 Sep 2025 13:58:08 +0200
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
 	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 1/3] efi: Fix line length in init_secure_boot_mode
-Message-ID: <aNUuIlYBBLZW43YQ@mail-itl>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 3/3] efi: Limit Shim's Verify success to EFI_SUCCESS
+Message-ID: <aNUuUB75zY_yJ8cz@mail-itl>
 References: <cover.1757519202.git.gerald.elder-vass@cloud.com>
- <e891b84f4814c1feff7a6bca51c89dc9c8971b02.1757519202.git.gerald.elder-vass@cloud.com>
+ <20fa42c198ab257085a49e157a2d0e58a0010393.1757519202.git.gerald.elder-vass@cloud.com>
+ <2a1df546-c0b5-4937-9d9f-4d1c58c3e925@suse.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="FGkb3Ncgfg56v8so"
+	protocol="application/pgp-signature"; boundary="3pgFQ4hiFj6ZSUDD"
 Content-Disposition: inline
-In-Reply-To: <e891b84f4814c1feff7a6bca51c89dc9c8971b02.1757519202.git.gerald.elder-vass@cloud.com>
+In-Reply-To: <2a1df546-c0b5-4937-9d9f-4d1c58c3e925@suse.com>
 
 
---FGkb3Ncgfg56v8so
+--3pgFQ4hiFj6ZSUDD
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Sep 2025 13:57:22 +0200
+Date: Thu, 25 Sep 2025 13:58:08 +0200
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
 	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 1/3] efi: Fix line length in init_secure_boot_mode
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 3/3] efi: Limit Shim's Verify success to EFI_SUCCESS
 
-On Thu, Sep 11, 2025 at 08:24:27AM +0000, Gerald Elder-Vass wrote:
-> Commit cb41b4ce14a9 introduced init_secure_boot_mode but one line was
-> not wrapped appropriately.
+On Thu, Sep 11, 2025 at 10:35:51AM +0200, Jan Beulich wrote:
+> On 11.09.2025 10:24, Gerald Elder-Vass wrote:
+> > Commit 59a1d6d3ea1e replaced the Verify status check with
+> > !EFI_ERROR(...), this changed the behaviour to consider any warnings
+> > (EFI_WARN_) to be considered a successful verification.
+> >=20
+> > This commit reverts that behaviour change.
 >=20
-> Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Fixes: ...
+>=20
+> > Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+>=20
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-
-> ---
-> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> CC: Andrew Cooper <andrew.cooper3@citrix.com>
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Julien Grall <julien@xen.org>
-> CC: "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> ---
->  xen/common/efi/boot.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index b86c83d3348c..69fc022c18ab 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -923,7 +923,8 @@ static void __init init_secure_boot_mode(void)
-> =20
->      if ( status =3D=3D EFI_NOT_FOUND ||
->           (status =3D=3D EFI_SUCCESS &&
-> -          attr =3D=3D (EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RU=
-NTIME_ACCESS) &&
-> +          attr =3D=3D (EFI_VARIABLE_BOOTSERVICE_ACCESS |
-> +                   EFI_VARIABLE_RUNTIME_ACCESS) &&
->            size =3D=3D 1 && data =3D=3D 0) )
->          /* Platform does not support Secure Boot or it's disabled. */
->          efi_secure_boot =3D false;
-> --=20
-> 2.47.3
->=20
 
 --=20
 Best Regards,
 Marek Marczykowski-G=C3=B3recki
 Invisible Things Lab
 
---FGkb3Ncgfg56v8so
+--3pgFQ4hiFj6ZSUDD
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmjVLiIACgkQ24/THMrX
-1yx0+Af+LVmJiLk3dA97mddOBx9AyE6OLb/ZubKU4YvfAYvgtDwBK8W6Uckotj8H
-9HXMxEXSDkbg5Q/Ge7puL8YorDD5N33ShlzBRV/VLB1lJjyQIXKXkAyLy7C9X/d9
-dwf8VS3VCIKct7u0/sM/c6ccsQRfRO0NGv5/4kPR+R5qgiKLqygFfjr2g9L1gIY2
-lSoRujyuePypGdCb1rNG/Oihf5CFepj5+lwWIYczS093kNFs/W+VLTHi+PT9Qtm2
-x46fyXeaeCa9h3cR2hpwtmr+vU9aveo1k3pwOZMmXcIB/QY3Jyxp+/OfgqaZGAkc
-3KyIhNFcPhCv++9ZNLbebcuOJU57Bw==
-=L83s
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmjVLlAACgkQ24/THMrX
+1yzHBQf+Mee4Vmm4EwggcQq9NZzRK89dmD/+aDFOKUNI1wfA/Ai3zI0FNpbey67F
+tCsc67NUGydRRb6PHG41YqfCzrJSipiJnKLISkSv0CO0dZUqFiOtOZv2oCgF57Y2
+njKn5+WMF3y+259/dFy1qdi/fFJCTGEH93GhwkYyEaou6agqrs4Lo4O7k1vn/DLI
+TcNsVmthNBXyRcMErUJu7T3YIA28ljAVNmCtCwPo9JAxDEZmrjtDESj+8O33f3FS
+RbNeWmPPpBJRJhSxIgA4IlxNYIotqO+1H6Njr8LIxKQq+YQIDoF/whrAQ3erYMWv
+Bkaj2zppQakgCiD/n7uVjex+AwF+mw==
+=yVRv
 -----END PGP SIGNATURE-----
 
---FGkb3Ncgfg56v8so--
+--3pgFQ4hiFj6ZSUDD--
 
