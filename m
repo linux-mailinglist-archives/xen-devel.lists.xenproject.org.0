@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53D31B9D89F
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 08:11:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1129905.1469607 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80225B9D951
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 08:27:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1129922.1469616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1fCT-0008ST-Of; Thu, 25 Sep 2025 06:11:29 +0000
+	id 1v1fR6-00027u-3I; Thu, 25 Sep 2025 06:26:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1129905.1469607; Thu, 25 Sep 2025 06:11:29 +0000
+Received: by outflank-mailman (output) from mailman id 1129922.1469616; Thu, 25 Sep 2025 06:26:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1fCT-0008PK-KA; Thu, 25 Sep 2025 06:11:29 +0000
-Received: by outflank-mailman (input) for mailman id 1129905;
- Thu, 25 Sep 2025 06:11:27 +0000
+	id 1v1fR6-00026U-04; Thu, 25 Sep 2025 06:26:36 +0000
+Received: by outflank-mailman (input) for mailman id 1129922;
+ Thu, 25 Sep 2025 06:26:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vOWa=4E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v1fCR-0008PC-K0
- for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 06:11:27 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1v1fR5-00026O-7m
+ for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 06:26:35 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77ae1da6-99d6-11f0-9d14-b5c5bf9af7f9;
- Thu, 25 Sep 2025 08:11:26 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-62fca216e4aso1072008a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 23:11:26 -0700 (PDT)
+ id 94083976-99d8-11f0-9d14-b5c5bf9af7f9;
+ Thu, 25 Sep 2025 08:26:32 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-b0787fa12e2so76523766b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 23:26:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-634a364fee9sm636715a12.16.2025.09.24.23.11.24
+ a640c23a62f3a-b353efa406asm98043466b.23.2025.09.24.23.26.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Sep 2025 23:11:24 -0700 (PDT)
+ Wed, 24 Sep 2025 23:26:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77ae1da6-99d6-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: 94083976-99d8-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1758780685; x=1759385485; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1758781592; x=1759386392; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MBv6ftHUSjPzTuW9B1LXl5PGydN16VlgcmlbMWeGDeI=;
-        b=UiqwPpdNzyPkbP0+IizbhhkjrkeZjRPOyplr/uE4nDRMijgQ0+P5rfNselynWJaonV
-         2b/uPH4JKekB4esq+mqnjaOhUvfGl10fj/zPgsUgY3QPZeNLeWRtDxyw7OWqIAwWQ98A
-         G9SqleLfIigKrxt2AVxPYjZH1KBQUdNkCb4bC76ranFQMlZm4tdzkgpXuCoHTvxD3+pA
-         mNMCChKW+qa0aZa7j26sCLiQfA1KeIdiHihBh68GtO2veb8Sf295Tk/q4EiSF+Y9ceG1
-         vCNCbsJXceIuysvvmrXF7AIxvoZ5cIEMhdjTwaqKck1RtUsKxUO0X1iLJSoEMWcULmVq
-         hM2g==
+        bh=leNqK+DTF+M/jsIecEuMggMwHPT00Chc3JwzndCGorY=;
+        b=KdJYJufZ9qp7vfRwIAryRoJKHvEKQkznLlptciBJMV3bfIxlhbonANkGGhWjwg0gxw
+         TtU0JaExADi3RKaZ1NdoUA2IDsyfP6TTxMpX4c2D5TWsSQ+9rDKXo9Up0vs9MBI30h6X
+         eg2vQEwsKHqhu4aHenWVLQxZa6OmZ5xsLa9p3KRUL9MAccRQyfFmKV2+t8PkAbsKwZPa
+         1o6CSQ++vsF4tcoTyjNiecRGK0Hja+JnEV2M3/W7z0fqlE3dtrHlgJ8L/zk+1Pi296aQ
+         VTOlhd/rh/+Tjga0F3+kqZ2EBN4rdA6E9zaOsE+652RmLUWNDhLVnTgIZ0tPTvz3yXta
+         rOIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758780685; x=1759385485;
+        d=1e100.net; s=20230601; t=1758781592; x=1759386392;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MBv6ftHUSjPzTuW9B1LXl5PGydN16VlgcmlbMWeGDeI=;
-        b=kz2vZqzRA/pf38s2l4WcoIoMmcjOpzkVUbN75IOyATbFkEg9mjDCG4X/1qb1JlZpDo
-         x1D/aod9tnoYtM3xuQ9Q9NuEWRpquv5LY9ref/aqXc9dVT4U13cZSmj2HhC4ce5b9xTQ
-         EUSJvksxhNJ2gsa0ZUCsgAAzmlUVH11bVxIAF4kSh1rqW1CGRlAsKeJgdcHOJ2KJIbWh
-         UQKpr5wHPLTg62TmP/2qEJYe0fChSJw6upOjGhUoxYKfCdbmGT2eyqsj4fgl8LtXdm28
-         zemcjaj3t2lEwUIVi3fSmirPM5qe8u2cgJkkE5t22YUxRSVzwh4g4Vydi+Mbgmlyhid6
-         g1nw==
-X-Forwarded-Encrypted: i=1; AJvYcCUpJyhipZ76KkbuIAOPd5t5KodJuVjPV91TrdT0/Dj0kQiWQwkIJoRbUSgXkhoSzcSkd5RCaqhsZ2E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw8GPbUeFVx4dCT1i/ilm/AbOMiN8ACuR7/sf8ecZUrBeBSwovH
-	uMEDrpD4ZiCrXygSbv3RcGu36yqf+T7hsBhYEa9E7O9EMY9LLkM1ps9oZ4fKXqERPA==
-X-Gm-Gg: ASbGncuBJFZI5ZiGSlrVSK076fGAWgu7a8ihjZjcamJPRhzmJw6Ik/o7vgX5feMwjw2
-	4VPEwKm/9g9HP0h/2Rfj7uS2jPH9hA1GQOqZu8T/5yVVVAHs/bFZw4z1wcNN2L/dNqZPPvqBSa8
-	akOB/MQ/TCAHSNKaEXa1fs+hrMlx0hbT1/GrF/wXbltdnr1Wxm394n55pF9IX4a+TDyEXU1WaPa
-	g2hj/nDW/PGy8kRZTMiPtiUFw1CeXtT2fVbuReo80J4e17LVudbsp6qUAMHtL65I5YKuQ/+MGaz
-	eqb0tA97MLqz9GU9a1wy21Elua1kn9wwf4CEkXg8d8vO5h/y4P4LW6W/064po4CzRVzwZgoKHdk
-	wODMxZF6UDv3yo5kK/zVJDjRfzSXMmSWIfezGK75xYG7uAYsm4GZLDNVwrSupxF5bFTWr/Z04ce
-	RjWvSdhas=
-X-Google-Smtp-Source: AGHT+IFLw+dfTHbh1IdN169leXpJQ8ehjhvkJC19+T9DrNY1dZ35CQDZZeee84SxjkSGaashcp4v5A==
-X-Received: by 2002:a05:6402:234d:b0:634:54f3:2fbb with SMTP id 4fb4d7f45d1cf-634a292cddcmr1512674a12.3.1758780685412;
-        Wed, 24 Sep 2025 23:11:25 -0700 (PDT)
-Message-ID: <83116585-65ef-45fa-9358-586ae46753aa@suse.com>
-Date: Thu, 25 Sep 2025 08:11:33 +0200
+        bh=leNqK+DTF+M/jsIecEuMggMwHPT00Chc3JwzndCGorY=;
+        b=T+19/41KUTLg278EtzgOdykhDbY2jafXI13MF/pD/2ihKj0USUm+7gyj1iHnt/VhUF
+         7ftfiW+tpAd7oWudLcxLIBUM1Lta4Bxl2I+nSnBGiJzKIzNKKXPpUkZtTgxSQ8rMU3KV
+         6YHtaJssV0cP38AgVNkRuHvfVxk4qF1Q5b2da8eCzNkTvsudxsAjqsjg0FJUcBBspmoo
+         MPVKszmcdnDBNCYyIlczsy/jao5B8GKkE6GDLiS4DMLxWp0xpqxWqCPjCfaNaMM6RE83
+         WQzGZJavmXE4VcSQ3hkYfCJtv3I2XnE6PZLRkjKIOl/1BnTQWuWA0VB8ZZCNYBaXijQk
+         4Bnw==
+X-Forwarded-Encrypted: i=1; AJvYcCVaXBZD9d2vs4fSy/iLaks9T+2+x9UwpdqALCLfqsgq4qx76sji6Rl9LF5PiPlHEjiNBeNEPnfYgPw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwVovJCPeYS8PmyxboC+js5Ut3eBAfdv+c9u0wiQsCKAN7S9ZHk
+	THs+FBw1ku2E7f8nUFaYqDrdmjfkEGfI+m7D1Nzqmn+L79Kku27Wih37gcCKivHDCVIoZB6EHU+
+	5kQs=
+X-Gm-Gg: ASbGncs0smVkUYTOR/aGvvnPmGauYn1h9WFYhUGvL7UkXpq3WwxOrMkHYDpKLRyGeXm
+	JX2ZA5pGbS9R7Is5FuzB/P6DpJHzbc5Xro1MMGd/czyFZhEu7qqi3J7PvWkbxlCWHD9RDxspJh0
+	sP2vHpYBK9w3ERH9U3cX7e/V90o3AKOKU7k19Wx7lMg4dW4VOiv7NkoP0Xx8Wqoy/0P7fz5bBXd
+	UoIc3Tcr3M74htDi86qnWEIuOe8ON0xxg+o/iH1TQ74YDrLSwmzA1b3QYnd9a0a5YkU4ocZio+m
+	Kbew3M8MqUjTpiSTVwNOZ1eJ0VaFlOcGwqrGOKxxfOvWXON0pulZnOfw2RhVOlqu2f7XrKNetNI
+	d4UySGvq4kB65a0iUKLZ/0iAP/zlo/4OFwtfaIId+3p7QKSpjxyPiQABZhi41YpXdFV4ZsPC00q
+	n3I2ejY1c=
+X-Google-Smtp-Source: AGHT+IET+T6aTzAz3NbyPXyZ3E7qw/l9Ky1FlVRdu9OSvPdReuRWU7hfTelxrQwR+YqhBu1vsebl/w==
+X-Received: by 2002:a17:907:3e8d:b0:b34:103b:4846 with SMTP id a640c23a62f3a-b34b8d96456mr283652766b.25.1758781591964;
+        Wed, 24 Sep 2025 23:26:31 -0700 (PDT)
+Message-ID: <814501c8-94e3-4930-87ed-88e7506456ed@suse.com>
+Date: Thu, 25 Sep 2025 08:26:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 7/8] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
- xen_sysctl_pm_op for amd-cppc driver
-To: Jason Andryuk <jason.andryuk@amd.com>, Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH] CHANGELOG.md: Update for 4.21 release cycle
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: committers@xenproject.org,
+ Community Manager <community.manager@xenproject.org>,
  xen-devel@lists.xenproject.org
-References: <20250923043826.3831957-1-Penny.Zheng@amd.com>
- <20250923043826.3831957-8-Penny.Zheng@amd.com>
- <5a2e887f-d6da-42e2-aff0-efe55b041749@suse.com>
- <1106c080-508b-4328-a636-900ca8377d2d@amd.com>
+References: <20250924093604.17110-1-oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,88 +120,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1106c080-508b-4328-a636-900ca8377d2d@amd.com>
+In-Reply-To: <20250924093604.17110-1-oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.09.2025 18:47, Jason Andryuk wrote:
-> On 2025-09-23 11:38, Jan Beulich wrote:
->> On 23.09.2025 06:38, Penny Zheng wrote:
->>> @@ -154,6 +156,17 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
->>>       else
->>>           strlcpy(op->u.get_para.scaling_driver, "Unknown", CPUFREQ_NAME_LEN);
->>>   
->>> +    /*
->>> +     * In CPPC active mode, we are borrowing governor field to indicate
->>> +     * policy info.
->>> +     */
->>> +    if ( policy->governor->name[0] )
->>
->> amd_cppc_prepare_policy() may leave ->governor set to NULL afaics, so I
->> think you need to add a NULL check here alongside with pulling this out
->> of ...
->>
->>> +        strlcpy(op->u.get_para.s.scaling_governor,
->>> +                policy->governor->name, CPUFREQ_NAME_LEN);
->>> +    else
->>> +        strlcpy(op->u.get_para.s.scaling_governor, "Unknown",
->>> +                CPUFREQ_NAME_LEN);
->>> +
->>>       if ( !cpufreq_is_governorless(op->cpuid) )
->>>       {
->>
->> ... this conditional.
->>
->> The description also continues to not mention the effect for HWP. I'm
->> actually somewhat confused, I suppose (Jason, question mainly to you):
->> HWP falls in the governor-less category, iirc. Yet it doesn't supply
->> a .setpolicy hook, hence __cpufreq_set_policy() goes through the normal
->> governor setting logic. What's the deal here? The answer may affect
->> whether I'd deem the pulling out of the conditional correct (or at least
->> benign) here as to HWP.
-> 
-> Hi,
-> 
-> When I wrote HWP, I didn't realize using .setpolicy would bypass the 
-> governor code.  Instead, I implemented the no-op HWP governor, since I 
-> thought I needed something as a governor.
-> 
-> set_hwp_para() actually changes the configuration.  HWP only implements 
-> the equivalent of amd-cppc-epp autonomous (active) mode.
-> 
-> So I think HWP could switch to .setpolicy and drop its governor.
-> 
-> But looking at this hunk:
-> 
->  > @@ -321,10 +327,12 @@ static int set_cpufreq_cppc(struct
->  > xen_sysctl_pm_op *op)
->  >      if ( !policy || !policy->governor )
-> 
-> Doesn't this !policy->governor prevent amd-cppc-epp from setting 
-> parameters?
+On 24.09.2025 11:36, Oleksii Kurochko wrote:
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>   - Debian Trixie added to CI.  Debian Bullseye retired from CI for RISC-V due
+>     to the baseline change.
+>   - Linux based device model stubdomains are now fully supported.
+> + - Remove libxenctrl usage from xenstored.
+>  
+>   - On x86:
+>     - Restrict the cache flushing done as a result of guest physical memory map
+> @@ -21,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>     - Allow controlling the MTRR cache attribute of the Xen platform PCI device
+>       BAR for HVM guests, to improve performance of guests using it to map the
+>       grant table or foreign memory.
+> +   - Allow to unflatten DTs.
 
-Only if amd_cppc_prepare_policy() took the default case path of its switch(),
-aiui. Penny?
+What is this about? There continues to be no use of DT on x86, so without context
+this feels pretty much meaningless to me.
+
+> @@ -36,11 +38,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>     - Support in hvmloader for new SMBIOS tables: 7 (Cache Info), 8 (Port
+>       Connector), 9 (System Slots), 26 (Voltage Probe), 27 (Cooling Device),
+>       and 28 (Temperature Probe).
+> +   - Basic kexec support to Mini-OS for running in PVH mode.
+
+Hmm, MiniOS isn't an integral part of a Xen release, so I wonder if such really
+belongs here. Yes, I also understand that there's not really anywhere else to
+put such.
 
 Jan
-
->  >          return -ENOENT;
->  >
->  > -    if ( !hwp_active() )
->  > -        return -EOPNOTSUPP;
->  > +    if ( hwp_active() )
->  > +        return set_hwp_para(policy, &op->u.set_cppc);
->  > +    if ( processor_pminfo[op->cpuid]->init & XEN_CPPC_INIT )
->  > +        return amd_cppc_set_para(policy, &op->u.set_cppc);
->  >
->  > -    return set_hwp_para(policy, &op->u.set_cppc);
->  > +    return -EOPNOTSUPP;
->  >  }
-> 
-> So there may be other checks that would need dropping or adjusting to 
-> support HWP without a governor.
-> 
-> Thanks,
-> Jason
-
 
