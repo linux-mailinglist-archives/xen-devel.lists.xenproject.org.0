@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D14CEBA158B
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 22:23:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1130844.1470210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC8C0BA1627
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 22:40:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1130861.1470221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1sUP-0000fp-9G; Thu, 25 Sep 2025 20:22:53 +0000
+	id 1v1slI-0003Qi-Lr; Thu, 25 Sep 2025 20:40:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1130844.1470210; Thu, 25 Sep 2025 20:22:53 +0000
+Received: by outflank-mailman (output) from mailman id 1130861.1470221; Thu, 25 Sep 2025 20:40:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1sUP-0000dg-6A; Thu, 25 Sep 2025 20:22:53 +0000
-Received: by outflank-mailman (input) for mailman id 1130844;
- Thu, 25 Sep 2025 20:22:52 +0000
+	id 1v1slI-0003PB-Ia; Thu, 25 Sep 2025 20:40:20 +0000
+Received: by outflank-mailman (input) for mailman id 1130861;
+ Thu, 25 Sep 2025 20:40:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LCQs=4E=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1v1sUO-0000da-4Z
- for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 20:22:52 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1v1slH-0003P5-7y
+ for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 20:40:19 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 680d9e0d-9a4d-11f0-9809-7dc792cee155;
- Thu, 25 Sep 2025 22:22:49 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-b28e1b87aa7so208818166b.3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Sep 2025 13:22:49 -0700 (PDT)
+ id cf3a2833-9a4f-11f0-9809-7dc792cee155;
+ Thu, 25 Sep 2025 22:40:02 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-b2ee3c13aa4so221032066b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Sep 2025 13:40:01 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-67-38.play-internet.pl.
  [109.243.67.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-634a3ae3227sm1716997a12.28.2025.09.25.13.22.48
+ a640c23a62f3a-b35446f7806sm239149166b.70.2025.09.25.13.39.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Sep 2025 13:22:48 -0700 (PDT)
+ Thu, 25 Sep 2025 13:40:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 680d9e0d-9a4d-11f0-9809-7dc792cee155
+X-Inumbo-ID: cf3a2833-9a4f-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758831769; x=1759436569; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1758832801; x=1759437601; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UbcLYtMnNA+Jyh0i0G4D9kZWWK8dybnKoE4FEnaFBC0=;
-        b=gkyyaaDmEOE31swIn/oAFyNSSH7idTVMEIvcTgzPQjsQ1Cqaurs+bWblVIt9wzQnyR
-         7qWMEIkF67kTRSu3PsF21Z9wNABUdNBq9NSZixVdqtaGFrSiWV9HesXO56xUihexNFxA
-         G8lls4p5N8WV/orRIRFHZX0MN2BOoxJvCoZQYNQx8lLX8s+Zm8XGFykUSONQsJ0d2+DV
-         XgDoSobQLwX1Dsc/9kXxZmpapFmEr3W1B7Rc2Thny4WIdNQRyY5lVJoVdlLB782kVTbM
-         pPwe6IZVXi5VIGpMvNLFZSu0SlTBpOcNbC7572Bu5EGZICNPGlNW1snPWJHVQQsS2aIE
-         bAKA==
+        bh=nXaUO2sQ3n/Q+JfDPL6ct2++ofgMqz7sXZdZYgJeZ6U=;
+        b=Y8GzL0l36mK7rifv5RM7vv++vZJh5FHbCEs/UKyDwui/pKR+v4qKuqrrls2zFLvHHK
+         L9etgsz8nyX/Bya/oVa/FKynxOyiWj3FHsrB07EPHD52/hItLI4R09Wi6QMzFV8sRO9e
+         chcTv+rSskzJ1PM0Yqh7eZzJLp+uXsRRD4t5QKY4QXRpcZO0ML8MwAFe/O5qb05D5T7/
+         CCy1ElqRgi6OpFXrPOfYk1LJbcDyW2ESaIus4rljAeOJopdLoaktWY8VY2JRC/Ji95CZ
+         YxG7ivRpAeXyH4bvfClAHW5QWe2xel2a12mOw9f7M4+cHCBCXVj4RsDSfmaXel+xLC67
+         cvkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758831769; x=1759436569;
+        d=1e100.net; s=20230601; t=1758832801; x=1759437601;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=UbcLYtMnNA+Jyh0i0G4D9kZWWK8dybnKoE4FEnaFBC0=;
-        b=umkjda9sobZl7lth+58f9QreSJm6hHLIhw2+FUD+W6r99qhhLyPt5QEdz6+muYxEJP
-         konaTXLIAFst1Ft2h+cRK4IDN8CosgS/Cq5sgXYpRptqVRtCxHOmb2+lB4aHrkBlxCQZ
-         oSiGGhpqVtr9yhGeeHvDZ4hAOz9aFcmnYmdKKAhJqPyiwZwTFACPHKifLYPepkqfu3JU
-         rqNPhqnUFocyUeO2qYqvmUQxSLhIRcYWH0EzT2ev2sGhgWqPQllgINfT0f8JfN2YamkG
-         dF0EmdeB0L23mYE43uG7SrvV2K1oilVwbuBs8G71VTCd1XBgmj70IS7cPKS5Lgl6iZsg
-         ch2w==
-X-Forwarded-Encrypted: i=1; AJvYcCVaG/3k8vY2ZC53PGjR8eDgFzC8FXGlqbRagSGaFjpo5H4PpfQWs+uDHKrKKZvV3bbtKAe5gJ0+Nkk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywf829YjYW60tZgitZZu8b8s4ztaAzoktIWq3mG0mkgwksGmjTg
-	odrvs848ubZOjFGLHxKjJCobWJlgX14qng8oyNU0OJ4WQsnehCAUAeBG
-X-Gm-Gg: ASbGncsmvJlfXZFZJsI499pX9kXaIlfPOhR66B245oZcpaFb/NkeRe7LO1Adl9OR8YV
-	t0oJ3UPObMbIoLT2EK8hNX7WqYi7JHTH+LaEU7nWQAWsNofzRv2MEeJ+DMv406MqhvbYd/mPkj1
-	b4/t7yQUMr5WFlASbzvZ8MPzDFZZcHMlKAP/LkVaUWZ4d8GPe+tvazHSR7wAL0uxYmagUHdnz/n
-	vDDPECSt53GR0N55azbcNgOinnUG7hwDyMibYzipnwASPX5ANPpKR9YPTW/dn6yZZ8wQuYBZHfj
-	2ACy5M94J8SdFsO02TZxsFDWux7NY1SdH7UPm99pBbfYH6nz1iaIF4iJ/5E3Ux7eDOG1EyEw2gC
-	sJfrBjQ/Oaz74QJX3BymVkXRjDj2Yzsy6Jq76DO4nn2h96BOo1eja36p0Wwm7Wri8PEx6/7Ypo9
-	4WpLftAj4=
-X-Google-Smtp-Source: AGHT+IG3dJacIiSoHeRTH5XUJgv+ZeiKSC8JZsc1F4WzD9BvK0EmH5ExVwkkhXf0rQfOgQdR7NOs+w==
-X-Received: by 2002:a17:906:7954:b0:b04:848f:a0d4 with SMTP id a640c23a62f3a-b34b9f5b524mr561238066b.13.1758831769098;
-        Thu, 25 Sep 2025 13:22:49 -0700 (PDT)
+        bh=nXaUO2sQ3n/Q+JfDPL6ct2++ofgMqz7sXZdZYgJeZ6U=;
+        b=Ojp85Pq8SbD9cvDgY1z9HO8nzOJFxG23wKHCj68K9sWYjbr8QZN1LTpaJh9GPieCWt
+         Q6Bu1zRTtnLVES6BLmOal3LLdPnxYnfL1T/Kw+Ex7e/zIdN7PWDNEA7/DUGjBC1DBaz6
+         cU/Zq7OE6b+4fgzkNexzlFd9nN4RgKncP0Hwk7EQHYa3fZo7Cpb6HQmXLRQxJANRdTmK
+         eiyf17kt6QH3Q25ccW5tLUrz9HnAgGWgqpeQEgBXZSXyrl1RxUc++Go2p8OzBOe3m/rY
+         MxVUem04HNhnIcaSlWwg4zntfRn1khtoWDWBDCrIZKsGEKpXmJVNHBePFrrdzPZd/HNu
+         Te0g==
+X-Gm-Message-State: AOJu0YxKFhg8XYJkRhWzjxPsEJdeuFmPVnk6KeIHpZ6yFEsuofjbpHWn
+	E3vL143LrVoc43be6Q3Rae9EMBufZwoYgfvlRVU6ezXn+GAgcwaspAnn
+X-Gm-Gg: ASbGncu77Yud4VqiTe93wrTy7vu5LnBlJFg0HNG3hsuq9QkwzRZxc1PqZLn/nig3Xg+
+	zFg7kadUVKBOhK9LTyNpmpfyhfiYJdWord1zUr6Kxd/4c0M26iQYSODCjV4o3esJvPmCdcZgFR+
+	8EgvIP76nFpQnrCnp4EqJ9tAzv8Hm87EtmwbkwNWFPpJlPkaohn2FF0Dn2BmDjA/oRWNBKYeIPh
+	tQTUvCHA8kYLVjvpSbZnCYKiMXJigCMIl7/1J8pARj/3KtUirO9b07yo1XV81Gl3PBQ4lIX0yjy
+	q6va/+q0Iv8PA7rIzZI58+AC9wN3mmIW634uUDiSl4W+5ZJ+kUrjOpD1ANfUMaftqW584ctqxzA
+	WQydCLYvNFXwv0cEhwwOxUIr0UDRtKwGXBEOQG4fA4jbAJivFrucS48yu/a3mr5WEACEkQext
+X-Google-Smtp-Source: AGHT+IH557yebrMNF5LAESwPiXNFyyEHkixaUB8rRbQv9yvbVM0FUKYt6kv91y1ztIoLjLDzLVouzQ==
+X-Received: by 2002:a17:906:4fcd:b0:b2c:dc13:89e4 with SMTP id a640c23a62f3a-b34ba147a90mr538291066b.9.1758832800941;
+        Thu, 25 Sep 2025 13:40:00 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------x2H67mzQyCiVpP00MH70Xlnu"
-Message-ID: <97488f35-3f94-42b0-8443-4feacf3d587d@gmail.com>
-Date: Thu, 25 Sep 2025 22:22:47 +0200
+ boundary="------------GEgyVgrdSSmxrKd3BGf0Cp6X"
+Message-ID: <c2e10aa1-2e01-4032-81f4-65a5e4542775@gmail.com>
+Date: Thu, 25 Sep 2025 22:39:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CHANGELOG.md: Update for 4.21 release cycle
-To: Jan Beulich <jbeulich@suse.com>
-Cc: committers@xenproject.org,
- Community Manager <community.manager@xenproject.org>,
- xen-devel@lists.xenproject.org
-References: <20250924093604.17110-1-oleksii.kurochko@gmail.com>
- <814501c8-94e3-4930-87ed-88e7506456ed@suse.com>
+Subject: Re: Ping: [PATCH] symbols: discard stray file symbols
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <2412a7a0-bdcd-4647-8ea2-8d2a927dcde3@suse.com>
+ <6fb3e095-172e-4cd4-8c26-60be6c5de704@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <814501c8-94e3-4930-87ed-88e7506456ed@suse.com>
+In-Reply-To: <6fb3e095-172e-4cd4-8c26-60be6c5de704@suse.com>
 
 This is a multi-part message in MIME format.
---------------x2H67mzQyCiVpP00MH70Xlnu
+--------------GEgyVgrdSSmxrKd3BGf0Cp6X
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-On 9/25/25 8:26 AM, Jan Beulich wrote:
-> On 24.09.2025 11:36, Oleksii Kurochko wrote:
->> --- a/CHANGELOG.md
->> +++ b/CHANGELOG.md
->> @@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->>    - Debian Trixie added to CI.  Debian Bullseye retired from CI for RISC-V due
->>      to the baseline change.
->>    - Linux based device model stubdomains are now fully supported.
->> + - Remove libxenctrl usage from xenstored.
->>   
->>    - On x86:
->>      - Restrict the cache flushing done as a result of guest physical memory map
->> @@ -21,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->>      - Allow controlling the MTRR cache attribute of the Xen platform PCI device
->>        BAR for HVM guests, to improve performance of guests using it to map the
->>        grant table or foreign memory.
->> +   - Allow to unflatten DTs.
-> What is this about? There continues to be no use of DT on x86, so without context
-> this feels pretty much meaningless to me.
+On 9/25/25 9:36 AM, Jan Beulich wrote:
+> On 16.04.2025 11:00, Jan Beulich wrote:
+>> By observation GNU ld 2.25 may emit file symbols for .data.read_mostly
+>> when linking xen.efi. Due to the nature of file symbols in COFF symbol
+>> tables (see the code comment) the symbols_offsets[] entries for such
+>> symbols would cause assembler warnings regarding value truncation. Of
+>> course the resulting entries would also be both meaningless and useless.
+>> Add a heuristic to get rid of them, really taking effect only when
+>> --all-symbols is specified (otherwise these symbols are discarded
+>> anyway).
+>>
+>> Signed-off-by: Jan Beulich<jbeulich@suse.com>
+> May I please ask for feedback here, so that hopefully we can have this
+> sorted in 4.21?
 
-I am referring tohttps://lore.kernel.org/xen-devel/20250722000525.7247-1-alejandro.garciavallejo@amd.com/.
-
->
->> @@ -36,11 +38,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->>      - Support in hvmloader for new SMBIOS tables: 7 (Cache Info), 8 (Port
->>        Connector), 9 (System Slots), 26 (Voltage Probe), 27 (Cooling Device),
->>        and 28 (Temperature Probe).
->> +   - Basic kexec support to Mini-OS for running in PVH mode.
-> Hmm, MiniOS isn't an integral part of a Xen release, so I wonder if such really
-> belongs here. Yes, I also understand that there's not really anywhere else to
-> put such.
-
-I decided to put it here since we include information about stubdoms in|CHANGELOG.md|,
-and MiniOS is related to that.
+It is okay for me to have this change in 4.21:
+  Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
 ~ Oleksii
 
---------------x2H67mzQyCiVpP00MH70Xlnu
+>
+> Jan
+>
+>> ---
+>> Factor 2 may in principle still be too small: We zap what looks like
+>> real file symbols already in read_symbol(), so table_cnt doesn't really
+>> reflect the number of symbol table entries encountered. It has proven to
+>> work for me in practice though, with still some leeway left.
+>>
+>> --- a/xen/tools/symbols.c
+>> +++ b/xen/tools/symbols.c
+>> @@ -213,6 +213,16 @@ static int symbol_valid(struct sym_entry
+>>   	if (strstr((char *)s->sym + offset, "_compiled."))
+>>   		return 0;
+>>   
+>> +	/* At least GNU ld 2.25 may emit bogus file symbols referencing a
+>> +	 * section name while linking xen.efi. In COFF symbol tables the
+>> +	 * "value" of file symbols is a link (symbol table index) to the next
+>> +	 * file symbol. Since file (and other) symbols (can) come with one
+>> +	 * (or in principle more) auxiliary symbol table entries, the value in
+>> +	 * this heuristic is bounded to twice the number of symbols we have
+>> +	 * found. See also read_symbol() as to the '?' checked for here. */
+>> +	if (s->sym[0] == '?' && s->sym[1] == '.' && s->addr < table_cnt * 2)
+>> +		return 0;
+>> +
+>>   	return 1;
+>>   }
+>>   
+--------------GEgyVgrdSSmxrKd3BGf0Cp6X
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -155,63 +167,74 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 9/25/25 8:26 AM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 9/25/25 9:36 AM, Jan Beulich wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:814501c8-94e3-4930-87ed-88e7506456ed@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 24.09.2025 11:36, Oleksii Kurochko wrote:
+      cite="mid:6fb3e095-172e-4cd4-8c26-60be6c5de704@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 16.04.2025 11:00, Jan Beulich wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
-  - Debian Trixie added to CI.  Debian Bullseye retired from CI for RISC-V due
-    to the baseline change.
-  - Linux based device model stubdomains are now fully supported.
-+ - Remove libxenctrl usage from xenstored.
- 
-  - On x86:
-    - Restrict the cache flushing done as a result of guest physical memory map
-@@ -21,6 +22,7 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
-    - Allow controlling the MTRR cache attribute of the Xen platform PCI device
-      BAR for HVM guests, to improve performance of guests using it to map the
-      grant table or foreign memory.
-+   - Allow to unflatten DTs.
+        <pre wrap="" class="moz-quote-pre">By observation GNU ld 2.25 may emit file symbols for .data.read_mostly
+when linking xen.efi. Due to the nature of file symbols in COFF symbol
+tables (see the code comment) the symbols_offsets[] entries for such
+symbols would cause assembler warnings regarding value truncation. Of
+course the resulting entries would also be both meaningless and useless.
+Add a heuristic to get rid of them, really taking effect only when
+--all-symbols is specified (otherwise these symbols are discarded
+anyway).
+
+Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-What is this about? There continues to be no use of DT on x86, so without context
-this feels pretty much meaningless to me.</pre>
+May I please ask for feedback here, so that hopefully we can have this
+sorted in 4.21?</pre>
     </blockquote>
-    <pre>I am referring to <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/20250722000525.7247-1-alejandro.garciavallejo@amd.com/">https://lore.kernel.org/xen-devel/20250722000525.7247-1-alejandro.garciavallejo@amd.com/</a>.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:814501c8-94e3-4930-87ed-88e7506456ed@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -36,11 +38,20 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
-    - Support in hvmloader for new SMBIOS tables: 7 (Cache Info), 8 (Port
-      Connector), 9 (System Slots), 26 (Voltage Probe), 27 (Cooling Device),
-      and 28 (Temperature Probe).
-+   - Basic kexec support to Mini-OS for running in PVH mode.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Hmm, MiniOS isn't an integral part of a Xen release, so I wonder if such really
-belongs here. Yes, I also understand that there's not really anywhere else to
-put such.</pre>
-    </blockquote>
-    <pre>I decided to put it here since we include information about stubdoms in <code
-    data-start="140" data-end="154">CHANGELOG.md</code>,
-and MiniOS is related to that.
+    <pre>It is okay for me to have this change in 4.21:
+ Release-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
 
 ~ Oleksii
 </pre>
+    <blockquote type="cite"
+      cite="mid:6fb3e095-172e-4cd4-8c26-60be6c5de704@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Jan
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">---
+Factor 2 may in principle still be too small: We zap what looks like
+real file symbols already in read_symbol(), so table_cnt doesn't really
+reflect the number of symbol table entries encountered. It has proven to
+work for me in practice though, with still some leeway left.
+
+--- a/xen/tools/symbols.c
++++ b/xen/tools/symbols.c
+@@ -213,6 +213,16 @@ static int symbol_valid(struct sym_entry
+ 	if (strstr((char *)s-&gt;sym + offset, "_compiled."))
+ 		return 0;
+ 
++	/* At least GNU ld 2.25 may emit bogus file symbols referencing a
++	 * section name while linking xen.efi. In COFF symbol tables the
++	 * "value" of file symbols is a link (symbol table index) to the next
++	 * file symbol. Since file (and other) symbols (can) come with one
++	 * (or in principle more) auxiliary symbol table entries, the value in
++	 * this heuristic is bounded to twice the number of symbols we have
++	 * found. See also read_symbol() as to the '?' checked for here. */
++	if (s-&gt;sym[0] == '?' &amp;&amp; s-&gt;sym[1] == '.' &amp;&amp; s-&gt;addr &lt; table_cnt * 2)
++		return 0;
++
+ 	return 1;
+ }
+ 
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
   </body>
 </html>
 
---------------x2H67mzQyCiVpP00MH70Xlnu--
+--------------GEgyVgrdSSmxrKd3BGf0Cp6X--
 
