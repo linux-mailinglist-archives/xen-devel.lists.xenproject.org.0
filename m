@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71678B9F8E3
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 15:26:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1130544.1470054 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FE90B9FA70
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 15:47:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1130562.1470065 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1lys-0004Dy-0d; Thu, 25 Sep 2025 13:25:54 +0000
+	id 1v1mJ6-0007A3-K0; Thu, 25 Sep 2025 13:46:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1130544.1470054; Thu, 25 Sep 2025 13:25:53 +0000
+Received: by outflank-mailman (output) from mailman id 1130562.1470065; Thu, 25 Sep 2025 13:46:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1lyr-0004BV-TO; Thu, 25 Sep 2025 13:25:53 +0000
-Received: by outflank-mailman (input) for mailman id 1130544;
- Thu, 25 Sep 2025 13:25:52 +0000
+	id 1v1mJ6-00076x-GR; Thu, 25 Sep 2025 13:46:48 +0000
+Received: by outflank-mailman (input) for mailman id 1130562;
+ Thu, 25 Sep 2025 13:46:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vOWa=4E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v1lyq-0004BP-3L
- for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 13:25:52 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1v1mJ4-00076r-Mj
+ for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 13:46:46 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 27928e26-9a13-11f0-9d14-b5c5bf9af7f9;
- Thu, 25 Sep 2025 15:25:50 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b28e1b87aa7so150259266b.3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Sep 2025 06:25:50 -0700 (PDT)
+ id 0ef586f7-9a16-11f0-9d14-b5c5bf9af7f9;
+ Thu, 25 Sep 2025 15:46:38 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-b07d4d24d09so192723866b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Sep 2025 06:46:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b35446f5c36sm167579166b.54.2025.09.25.06.25.48
+ a640c23a62f3a-b353fb5a6b1sm173858866b.49.2025.09.25.06.46.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Sep 2025 06:25:48 -0700 (PDT)
+ Thu, 25 Sep 2025 06:46:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27928e26-9a13-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: 0ef586f7-9a16-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1758806750; x=1759411550; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1758807997; x=1759412797; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3zygVjSJt3HOEAYXtJDeUJse47jyPQumbp70tWWPRFg=;
-        b=TL6qp9LKh50r5gFlTwaI9/fuQd4xOx1prTbvGvDlfDWmVrL6jWACRGE38TmY5FKDLX
-         wZz6/MHm8d49HUVJZVYnuVo17NB96kpM7uR7DE07IEBnHY2A1V0BTnX6ivNf+vBFe9jX
-         t3QXdWYl1B1ufE9MRoVun+1OPr7Tf4gIIWfDoB8t8vdUw8oLo77190TcSiiu4QgBRmlf
-         IhJ20f5hskYsWAFvaCGuvpcZnVmefpkxeSHiThgXsCYpoaCimod+zmNqZRc/YC13iCLU
-         XV4SUZmkyALBQuGOgJU7VvxLae9c5IpGiQSVPML6ESE9n4mVSpn5qsx+/SxqDkzguTy6
-         kf3Q==
+        bh=WfpJy7TlMBMd8hvcVkMmj8g87znN76f6f5pz63Zwsqw=;
+        b=KngfsZesObbU8PbUrODccLRTw6075EdZEbZ+Co2MgrL7Fedu9JQif3FE+wgOJ/vSZO
+         LI8520D4JIv1nA50DBZU5TE0qPMBdPGoNNI6Vwz51Mtbm6WZ/JqlisONgw+CM1Fmg+oB
+         j2BNqHQlq5Igohxg3U5yReKENoOoRN4qtivu0YKxzY2X0PlaGhK9ho8qsKBXNrs/wld5
+         gLLFzXFUPgj54lZbUWbjf3lG7qHc/ESlyF3ZTA7CcMX6G68zIZ1FNmgXmC5nvsE6x/J7
+         qCYYcX6wpP8WwIvyEgi+UwDyEatOa2SEkH71d2sHBeJJ0vkwf893QZ8bM0l9Yd9PmG96
+         6TiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758806750; x=1759411550;
+        d=1e100.net; s=20230601; t=1758807997; x=1759412797;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3zygVjSJt3HOEAYXtJDeUJse47jyPQumbp70tWWPRFg=;
-        b=gH44AwDx3bF/ruKbDsvkrVr67d+grU9svlgE2yvGREKIG1nbt6Wl60gGWjlRfL0pWq
-         PNlkrDPFr4kL//BJmtv4KeXyeTqoUrbazXX+XvsxPbK0gLfhUQ9UaKstHn1ymRLfR6H+
-         ErXWtDUq+K1uNOOTc+2yYJJIcV9AdMkj2i2/iMFNODAaDu8MMkQPjWntMVzJ22s3WssD
-         Hlreq2sggwmWEIDsuzvtqw+Y5eJAeytCK6uWtWST/mgArxbSp+9tAs4r4px9XA0YlR6g
-         b8uS30hgom5QscJlEZLVHUkgJA7mTHxPhcMYhev4JbUmwe/KM/NhYeQFMSqSPGpSx/Ao
-         qUqQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX9zRb4ceb0CkbtbSbNhXjZPg0YSxgKXQ/+S9nylzzSgZ+kr6DeqvCtQRb5Kepd5b+M0jKIBOkorzY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzUmNEmrjEZ0KJFRnxyue8VJPz8pgNYVkH3oZ9PnaSy3MuRtKB0
-	1cnQywtdHVHXvNIlFQsSEzSUU2oRBkp2v1MCE7DyB3XbwNxZajYOPkg6rHs1nn4SiA==
-X-Gm-Gg: ASbGncutTbxUFamge6gGJPVDqAKQ4w9Krsil5SJVwgCWehrLaotwYs+61cfJyaDapqL
-	7VG7sZeuY+Vbc8wtgQYwIVkin5yavXRDDmxP1JawN335BcCuo+8nilRWRQjduZwvWP4hNngNRt6
-	f31HQz1oMxZmhGV+zd3Avj8Ej0PI0QkFJShvyKwHzVyDAm5HsJdY0HZVSmoFZogAGAq4vV1QNLk
-	x/kCV+nS0o1LyFj8EjcMgKGZnj8YVevtnJGzhJR94vPiHk/jAs3p/xJyXdYsNtd3FyzTPAfJbGx
-	V8nPfAQR8nmDq+50rePcAEjwp2Q4CVIanRjqKwJ8ydDCR/OHWpc6C7Ltan3R+6IzRqtw5OeWYY7
-	kOKWwVMOBf7hUlRuqMM4R+VIhM2NT6l3OIaqB2eW/fpYpmNB0vUpvcMFC0JOdvCVK0Pmc9FaeXo
-	kcfOFFHkg=
-X-Google-Smtp-Source: AGHT+IEnZy9Q6X/ohu3rhj6rh9y7O7A48Oq9+lMskewJV+pvFypwFZ7KDvQ3BNd9LsmjJeCQ10CXxQ==
-X-Received: by 2002:a17:907:7e93:b0:b33:a7d6:8b58 with SMTP id a640c23a62f3a-b34baa348f3mr407296466b.16.1758806748690;
-        Thu, 25 Sep 2025 06:25:48 -0700 (PDT)
-Message-ID: <ae0ecbfc-cee0-4035-ba03-e9f9ba2661e4@suse.com>
-Date: Thu, 25 Sep 2025 15:25:57 +0200
+        bh=WfpJy7TlMBMd8hvcVkMmj8g87znN76f6f5pz63Zwsqw=;
+        b=o4cx7yqKcPEXcjDPoWqPDf4S0MH0L+Qe1GMdCoWQoYlNdcV54DvMVyxFNl9zFNfyMD
+         e/hwG8HSLDUmcBkGPaD7iT0AW8lYw8rqt1U24e+ZQu6RATrccQEdfCLL4GOYrYxQuN7w
+         +k/3nCarE+z/lsfGBq2cqJXz0bPgbURpCUCI/yxcaIeFCEoEk4QPvXadK25eDdIpA3wl
+         VRvBF84Vk0CHrz2eOyTpXx+amZ1tYdA+DCOYCM7Lq+21mjcVA/EBHElRLRi6Uev0370a
+         A4GNaSdT3VC4mAaCMYHDCWkehk6sJ3gSiNTsDHrh6+lv0mVgLb4DoRyz3NZEcwCGM8rr
+         b4Lg==
+X-Forwarded-Encrypted: i=1; AJvYcCWyBJFd020ZQjpzd0Ly0VhP6NBni2zLFzxFf6VGKr7Eye7A8bxwaN/H/ZodRRWVmiCJaszYrCQnD7A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YziZIZF0Lcvy42orcrxJCWRCXyvLKfusgxAjtQiX6c6R3VT9q64
+	6VlMi6Q2GVVpENKRozsZH9q3i5irOJnbnpS7wCq5t4jZqxIa/q9tB41nW/ZQICvI/g==
+X-Gm-Gg: ASbGnctolB+GfQ4oj3KGo6szdxtXzFAGPjpjJRvnJ692CIJgHG/Lc/Aa1qezPSi/beb
+	3YhR71y2V/GZJ8u4N86CC08+CdKzvDZyx/1YVEmrKGQEJsLmSaaitcice/HBMpL0ND7YV5tGJgb
+	VSdSnIzT12SyApV5aT9Gvx9FIrZ3RLUypLmzbdhlwoJn2Lpy9kyiUkMCt+99ZMrefJvRtY0JJjz
+	d24idQxWKPO4zTF0kOBw7sK99TSONJCqYhwfHLntsRDPtF4wP3+eZaIfF1858+ebLv+NjKXq0D1
+	iKELsD+mRDCKmVFYTJ30By32T/u0g+lBgaXe82W49nCpzZlrIuNsv1vQuHM3mDcuhF/o+OgQQOU
+	uHt5f3AyyOEusKlXlQWSjb8PbR2oFNnBNCHOqS7G3cNbkh/pbyOApn+e+EgHcelw5N4iXqEhb3b
+	dpHHxU804=
+X-Google-Smtp-Source: AGHT+IGC/ssWrq/rpfmwSfNJCyCz38yTd5CGp9GTbjTeT7Xz/NlXCafd4PVIBOHw873jafCdrSqskg==
+X-Received: by 2002:a17:907:2d26:b0:b07:b50d:df70 with SMTP id a640c23a62f3a-b34bd44061amr380672566b.34.1758807997491;
+        Thu, 25 Sep 2025 06:46:37 -0700 (PDT)
+Message-ID: <f6d2806d-26d7-4f7e-a064-23cd34fa2c39@suse.com>
+Date: Thu, 25 Sep 2025 15:46:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] misra: consider conversion from UL or (void*) to
- function pointer as safe
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v4 01/18] xen/riscv: detect and initialize G-stage mode
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <b0f269822312a442e87ab02c8deff028b6b040a9.1758787340.git.dmytro_prokopchuk1@epam.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1758145428.git.oleksii.kurochko@gmail.com>
+ <7cc37e612db4a0bfe72b63a475d3a492b2e68c83.1758145428.git.oleksii.kurochko@gmail.com>
+ <b7fa50ae-8094-4451-8326-53c975f7b441@suse.com>
+ <0c4e446b-abe1-481c-91a6-60a49459b486@gmail.com>
+ <9777e972-8ea1-4dfa-bab0-ee7e13f0a0e6@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,63 +127,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b0f269822312a442e87ab02c8deff028b6b040a9.1758787340.git.dmytro_prokopchuk1@epam.com>
+In-Reply-To: <9777e972-8ea1-4dfa-bab0-ee7e13f0a0e6@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.09.2025 10:04, Dmytro Prokopchuk1 wrote:
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -366,11 +366,22 @@ Deviations related to MISRA C:2012 Rules:
->       - Tagged as `safe` for ECLAIR.
->  
->     * - R11.1
-> -     - The conversion from a function pointer to unsigned long or (void \*) does
-> +     - The conversion from a function pointer to unsigned long or '(void *)' does
->         not lose any information, provided that the target type has enough bits
->         to store it.
->       - Tagged as `safe` for ECLAIR.
->  
-> +   * - R11.1
-> +     - The conversion from unsigned long or '(void *)' to a function pointer is
-> +       safe because it relies on both ABI definitions and compiler implementations
-> +       supported by Xen which define consistent and compatible representations
-> +       (i.e., having the same size and memory layout) for '(void *)', unsigned
-> +       long, and function pointers, enabling safe conversions between these types
-> +       without data loss or corruption. The compile-time assertions (BUILD_BUG_ON
-> +       macro) is integrated into 'xen/common/version.c' to confirm conversions
-> +       compatibility across all target platforms.
+On 24.09.2025 17:00, Oleksii Kurochko wrote:
+> 
+> On 9/24/25 1:31 PM, Oleksii Kurochko wrote:
+>>>> --- a/xen/arch/riscv/setup.c
+>>>> +++ b/xen/arch/riscv/setup.c
+>>>> @@ -22,6 +22,7 @@
+>>>>   #include <asm/early_printk.h>
+>>>>   #include <asm/fixmap.h>
+>>>>   #include <asm/intc.h>
+>>>> +#include <asm/p2m.h>
+>>>>   #include <asm/sbi.h>
+>>>>   #include <asm/setup.h>
+>>>>   #include <asm/traps.h>
+>>>> @@ -148,6 +149,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>>>>   
+>>>>       console_init_postirq();
+>>>>   
+>>>> +    gstage_mode_detect();
+>>> I find it odd for something as fine grained as this to be called from top-
+>>> level start_xen(). Imo this wants to be a sub-function of whatever does
+>>> global paging and/or p2m preparations (or even more generally guest ones).
+>> It makes sense. I will move the call to gstage_mode_detect() into p2m_init()
+>> when the latter is introduced.
+>> Probably, I will move the current patch after p2m_init() is introduced to make
+>> gstage_mode_detect() static function.
+> 
+> Maybe putting gstage_mode_detect() into p2m_init() is not a good idea, since it
+> is called during domain creation. I am not sure there is any point in calling
+> gstage_mode_detect() each time.
+> 
+> It seems that gstage_mode_detect() should be called once during physical CPU
+> initialization.
 
-As you use (and mean) plural, s/is/are/ ? I also think the "The" at the start
-of the sentence wants dropping.
+Indeed.
 
-Further, why this very dissimilar wording compared to what's said about
-conversions _from_ function pointer types?
+> A sub-function (riscv_hart_mm_init()? probably, riscv should be dropped from
+> the name) could be added in setup.c and then called in start_xen(), but
+> is it really needed a separate sub-function for something that will be called
+> once per initialization of pCPU?
 
-And then ...
-
-> --- a/xen/common/version.c
-> +++ b/xen/common/version.c
-> @@ -217,6 +217,17 @@ void __init xen_build_init(void)
->  #endif /* CONFIG_X86 */
->  }
->  #endif /* BUILD_ID */
-> +
-> +static void __init __maybe_unused build_assertions(void)
-> +{
-> +    /*
-> +     * To confirm conversion compatibility between unsigned long, (void *)
-> +     * and function pointers for all supported architectures.
-> +     */
-> +    BUILD_BUG_ON(sizeof(unsigned long) != sizeof(void (*)(void)));
-> +    BUILD_BUG_ON(sizeof(void *) != sizeof(void (*)(void)));
-> +}
-
-... I'm unconvinced checking merely the sizes is sufficient. On architectures
-involving function descriptors (e.g. ia64) converting in this direction is
-safe only if earlier on the value was obtained as the result of a conversion
-in the opposite direction (and all of this within a single component, which
-of course is guaranteed for Xen).
+Counter question: Is this going to remain the only piece of global init that's
+needed for P2M machinery? Right in the next patch you already add vmid_init()
+as another top-level call.
 
 Jan
 
