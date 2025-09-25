@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8457B9DDEC
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 09:37:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1130052.1469696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F738B9DDF8
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 09:37:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1130063.1469706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1gXA-0006GM-NX; Thu, 25 Sep 2025 07:36:56 +0000
+	id 1v1gXs-0006lp-VG; Thu, 25 Sep 2025 07:37:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1130052.1469696; Thu, 25 Sep 2025 07:36:56 +0000
+Received: by outflank-mailman (output) from mailman id 1130063.1469706; Thu, 25 Sep 2025 07:37:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1gXA-0006Ep-Jx; Thu, 25 Sep 2025 07:36:56 +0000
-Received: by outflank-mailman (input) for mailman id 1130052;
- Thu, 25 Sep 2025 07:36:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v1gXs-0006kG-Ry; Thu, 25 Sep 2025 07:37:40 +0000
+Received: by outflank-mailman (input) for mailman id 1130063;
+ Thu, 25 Sep 2025 07:37:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vOWa=4E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v1gX8-0006Ee-Oy
- for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 07:36:54 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60762e79-99e2-11f0-9809-7dc792cee155;
- Thu, 25 Sep 2025 09:36:41 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-63163a6556bso1314191a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Sep 2025 00:36:41 -0700 (PDT)
+ id 1v1gXr-0006jh-Oe
+ for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 07:37:39 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 82d9d2ac-99e2-11f0-9d14-b5c5bf9af7f9;
+ Thu, 25 Sep 2025 09:37:38 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-b2e0513433bso109453366b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Sep 2025 00:37:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-634a366116esm756513a12.21.2025.09.25.00.36.39
+ a640c23a62f3a-b35446f7506sm107325966b.52.2025.09.25.00.37.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Sep 2025 00:36:40 -0700 (PDT)
+ Thu, 25 Sep 2025 00:37:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60762e79-99e2-11f0-9809-7dc792cee155
+X-Inumbo-ID: 82d9d2ac-99e2-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1758785800; x=1759390600; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=o+vmBTrttjFBsGU7mSbaGhj/zdpSBS+dYN95fMNlirQ=;
-        b=M6sdl6nMUgaMVzGA0Zavanz8QhlBOjVBjkZlgmpc8m6szJlX4DQinmwGbFds9C8oo0
-         E1J6lCJeazL9t7GflFl6eettqZzyQz7g4EvV/PZ+XzDuX1yHD4enUWrd6E2OmqsJIdgI
-         Syh5MWDHwrkffkPMAQtFO2Fc2JRXbNw9e7jIjoylcmkTk+3oAsIY7nxFXLGzLyh49aTq
-         igCpogcTHXr8trKCOOf6blto+SWlrlSZtyZaRBaO3R+tbYbfEbDJ1U718mYk2frGmDOk
-         Q0bqcXL6yOBE87C7mD4g2/SMvCcDWnqKVTJtRQqfq7w1yeeZWsAeUBpEbiOcbCJDFemr
-         XL4A==
+        d=suse.com; s=google; t=1758785858; x=1759390658; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=7Xvx4s58dldW+GlipghvEvDWsOe4ZLY/FBatQDA7RN8=;
+        b=N/AeIbE90ehi52GduOunb1hFw22N+uxvC1Wtqf8LO1rAMgcVsaUfR9fjU/YhL8eWjv
+         w5XR/ffhPmMbXb7cxek3UIgXBTBHIR3GtCK0RTt08yPWFN+jsatPk7BHrvuOH8vFz+YY
+         vpmWiIS9ws2E5Mu6bxjZeAC7l44yZUF+SwXDkb4Z+XZ408azn0JTPrj0Fs2w607hSGDm
+         oz7mBujhxVmdrYoIDwI6PQ9KS749UmOO83MA3fh8aXhSAPbkeK9gs5Vpen75eRJbF4QJ
+         Dqf6LppfEzRneutCjzU/ltcYaL5X25zkN4zX+qH7A3Ig6m5XVkf/Qe/83MHjDgHAOsS0
+         guQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758785800; x=1759390600;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=o+vmBTrttjFBsGU7mSbaGhj/zdpSBS+dYN95fMNlirQ=;
-        b=hg+3FDO/9A5FZFJzxmCf7PWIl0yP/ax4AOWb3AGtGwvPS9z2zQ+qgwwQ+/XO6zwa1J
-         2h44abhv+tjBIMuP0Gxp/vi89br0/PVBA5y+YlKoZW1nKRVSXBR8GLWLZizoHTT+MV01
-         3H7E+yM3B0aAQnPLEbJmLcQvueMql8uLf+xrm8yFdvmhWAeTb+Tsqb+CbAaddoTHwJyl
-         2pFYPmMGX1zTnE3xALl0DKZ2w87OUVWT4WqGBhVxbu5SnM1/z7OpnkTiViPz8b9O+hur
-         0WJP9mVxJJDdFgVL6dXVlFG4C9rsG2KUYxFE1Vf7CyEnBAnli0hn0yzT8IXRMs1xC5L6
-         LiRQ==
-X-Gm-Message-State: AOJu0YzjTcHOhozNY8rkbJdgnjCrQsAovdAbps2XMC3JL5QaRpLSyXRs
-	n4ji3qHnajyPfgdK0kxZf9qJAC6G9rRA/0sDIujfym6nSQ8H4EhFcqXkpIqHM5xmDg==
-X-Gm-Gg: ASbGncs8UWFeVqwN/ihbQ5O/y4JAlxsvlu/qYRku0eItwtqgcPkUkbJOxAqfg96WGPx
-	aexCzjtjePpyv06+3a5CyYkVA1qMwmx3/yNZXJaLtUjmDYaflVb1BilUykJR6Cm0g+/D5fcylwF
-	yfHCSIHc9iIJEru5eg34G8hlB17KRsg4ztXd1Zt4QFN5YE8qBPNFJNBAb0tMTkNZ2j0L7zo8uIc
-	1j4e0QATVlgXn/3yxAVp87lITY9kve/n2ydKc48sOLJHKjGyibbuUMDnYSjIXLendSGBo/DdU6G
-	rn5uA+BbSDf4DF3j2dNh3f9ogd4FdetBNyV2jaaMoJSYBmcamWh76ZJQEuNDP3DdytkLPffQEnR
-	DdxzaWdamKNz39mU200nEyu1lB+ysu3xKK7qSBJ1NZmE0rHDgkjUEmH7NCcjqO0cWS6F2o3/4oX
-	E1sKZHB2U=
-X-Google-Smtp-Source: AGHT+IEJQcNsMEU96TbCtf1DQwSR6UxFle5gquwgY/P1j6ERZA+7+A0lc2B2YVV/C6Bi2FNkaVMMXg==
-X-Received: by 2002:aa7:c993:0:b0:62a:82e8:e1f6 with SMTP id 4fb4d7f45d1cf-6349faa698dmr1440511a12.36.1758785800418;
-        Thu, 25 Sep 2025 00:36:40 -0700 (PDT)
-Message-ID: <6fb3e095-172e-4cd4-8c26-60be6c5de704@suse.com>
-Date: Thu, 25 Sep 2025 09:36:48 +0200
+        d=1e100.net; s=20230601; t=1758785858; x=1759390658;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7Xvx4s58dldW+GlipghvEvDWsOe4ZLY/FBatQDA7RN8=;
+        b=dl2tPVyjUUQV0wt5KD+OSdl9uviJu9nyfqpsj3QEo7fwQ27tNKdJHAQr5K2774dy+r
+         MuTdfX9tG/7zeW+82lOLzCOx6Lo3t3dvTlYeilOwvSfVuGrVBsRkmwrUcxJibC/c85ir
+         25LrFrXKfTdNDSf35qalcZamARbOFVRU6liVBsqHN9g3pALIuZM+G+N98p04kLqu4vOw
+         JedBZUVGE1kGTeLp0rD6Nu3ydkqnQmJ91qk9TQVX7L1UB6+NmkYg6q8vyPXkEAEC3/Uk
+         +8z8nziQ2VldK7+HRlE/f+hKkKOe1rnOrJQHqi8eGAL0hziz6kAIif9q0IoY9MC+kA/b
+         5WWw==
+X-Gm-Message-State: AOJu0YzjVtgYzrlZGCoCIGwC+HfCKT+UyonJnxs4j0qH6PSb0JNkR3uW
+	YVA18zIAo1iGJQT/QnJCaO7H9TKaar3x9QdwKH3IdkLufRqRi0IcfXVrHoabmW3tww==
+X-Gm-Gg: ASbGncv9sXpRhp7Af51dzcI1mMfywWmDULYzMXWwWbhng74oZL+WAMACh9LB5b8pOhL
+	qvXFMbKr8zsg6svOGnwuhCyonAaZgWU92nCqhDaOg57Yi2diDQmG/xoCauv+brfBafiZVLr2wl+
+	g8un/QBRN8J8JqWeXEfPF90NqTMdO5TyjwHobKnq53anV3z0zLrWWe4kuQa+YOYe8ygjJNzoCSO
+	RpuGH+6yCUxCh1qy6Jq/ziEb0LC+GuJduiGWUSioCuJ4Y82vbTvgOjGi1IzHLRBADmnxECzlpb1
+	WH5k1HZUsNHTJ/Do55OpozWl9by9wyhidTYMKWru/TvqlXFWqLvRkDZHiTHK8O09PeXZ6ZGXekb
+	6H9XiI1yqES9jNUDYVjePIF7/eaqYZ1d7jepQQnByIR1vHQBeEfGxtNZ5ineZp3Dcv33xtDAUDw
+	u6bEKA3Ws=
+X-Google-Smtp-Source: AGHT+IENSUcX3TmRxiupZ7nlZ5fxcIh1147qMW3Yztr4ZA8VNammjLuiigVsM6EhOPa83h459kHx3A==
+X-Received: by 2002:a17:907:97d3:b0:b07:da17:79fd with SMTP id a640c23a62f3a-b34b9e59f5bmr247281166b.17.1758785857936;
+        Thu, 25 Sep 2025 00:37:37 -0700 (PDT)
+Message-ID: <1083faae-d565-48ab-8e41-3a5a12178a9f@suse.com>
+Date: Thu, 25 Sep 2025 09:37:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Ping: [PATCH] symbols: discard stray file symbols
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+Subject: Re: [PATCH for-4.21] x86/cpu: populate CPUID 0x1.edx features early
+ for self-snoop detection
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <2412a7a0-bdcd-4647-8ea2-8d2a927dcde3@suse.com>
+ "oleksii.kurochko@gmail.com" <oleksii.kurochko@gmail.com>,
+ Andrew Cooper <andrew.cooper@citrix.com>
+References: <20250924110051.2160-1-roger.pau@citrix.com>
+ <2d17d2d502df489f97b51e43a2d86535@DM6PR03MB5227.namprd03.prod.outlook.com>
+ <aNP0iNtp2q3342G9@Mac.lan> <3d45a9e8-a836-46bf-a3bc-321551ac755b@suse.com>
+ <aNTwlR02jijpwYeC@Mac.lan>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -121,51 +122,77 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2412a7a0-bdcd-4647-8ea2-8d2a927dcde3@suse.com>
+In-Reply-To: <aNTwlR02jijpwYeC@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16.04.2025 11:00, Jan Beulich wrote:
-> By observation GNU ld 2.25 may emit file symbols for .data.read_mostly
-> when linking xen.efi. Due to the nature of file symbols in COFF symbol
-> tables (see the code comment) the symbols_offsets[] entries for such
-> symbols would cause assembler warnings regarding value truncation. Of
-> course the resulting entries would also be both meaningless and useless.
-> Add a heuristic to get rid of them, really taking effect only when
-> --all-symbols is specified (otherwise these symbols are discarded
-> anyway).
+On 25.09.2025 09:34, Roger Pau Monné wrote:
+> On Thu, Sep 25, 2025 at 09:03:06AM +0200, Jan Beulich wrote:
+>> On 24.09.2025 15:40, Roger Pau Monné wrote:
+>>> On Wed, Sep 24, 2025 at 11:50:02AM +0000, Andrew Cooper wrote:
+>>>> On 24/09/2025 4:00 am, Roger Pau Monne wrote:
+>>>>> Otherwise the check for the SS feature in
+>>>>> check_memory_type_self_snoop_errata() fails unconditionally, which leads to
+>>>>> X86_FEATURE_XEN_SELFSNOOP never being set.
+>>>>>
+>>>>> We could also avoid this by not doing the reset_cpuinfo() for the BSP in
+>>>>> identify_cpu(), because SS detection uses boot_cpu_data.
+>>>>
+>>>> Doesn't this, mean ...
+>>>
+>>> Well, that's the reason for the rant here.  The reset at the top of
+>>> identify_cpu() has been there since 2005.  It's arguably to make sure
+>>> the BSP and the APs have the same empty state in the passed
+>>> cpuinfo_x86 struct, as for the BSP this would be already partially
+>>> initialized due to what's done in early_cpu_init().
+>>>
+>>> The underlying question is whether we would rather prefer to not do
+>>> the reset for the BSP, but that would lead to differences in the
+>>> contents of cpuinfo_x86 struct between the BSP and the APs.  In the
+>>> past we have arranged for leaves needed early to be populated in
+>>> generic_identify(), like FEATURESET_e21a, hence the proposed patch
+>>> does that for FEATURESET_1d.
+>>>
+>>>>>   However that
+>>>>> creates an imbalance on the state of the BSP versus the APs in the
+>>>>> identify_cpu() code.
+>>>>>
+>>>>> I've opted for the less controversial solution of populating FEATURESET_1d
+>>>>> in generic_identify(), as the value is already there.  The same is done for
+>>>>> the AMD faulting probe code.
+>>>>>
+>>>>> Fixes: f2663ca2e520 ("x86/cpu/intel: Clear cache self-snoop capability in CPUs with known errata")
+>>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>>
+>>>> ... this Fixes tag is incorrect?
+>>>
+>>> I think the Fixes tag is accurate; the code was OK before that change.
+>>> Nothing in c_early_init hooks depended on (some of) the x86_capability
+>>> fields being populated, which is required after the change.
+>>
+>> I agree. Hence:
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> I wonder though whether while there we wouldn't want to also store ecx if
+>> we already have it. (Really there is the question of whether we haven't
+>> other cpu_has_* uses which similarly come "too early".)
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Yeah, I was about to do it, but it's not strictly needed for
+> c_early_init, and it's done anyway just after the call to
+> c_early_init.  I can set that field also, but then I would need to
+> tweak the comment ahead, something like:
 
-May I please ask for feedback here, so that hopefully we can have this
-sorted in 4.21?
+Sure, i.e. fine with me.
 
 Jan
 
-> ---
-> Factor 2 may in principle still be too small: We zap what looks like
-> real file symbols already in read_symbol(), so table_cnt doesn't really
-> reflect the number of symbol table entries encountered. It has proven to
-> work for me in practice though, with still some leeway left.
+> 	/*
+> 	 * Early init of Self Snoop support requires 0x1.edx, while
+> 	 * there also set 0x1.ecx as the value is already in context.
+> 	 */
+> 	c->x86_capability[FEATURESET_1d] = edx;
+> 	c->x86_capability[FEATURESET_1c] = ecx;
 > 
-> --- a/xen/tools/symbols.c
-> +++ b/xen/tools/symbols.c
-> @@ -213,6 +213,16 @@ static int symbol_valid(struct sym_entry
->  	if (strstr((char *)s->sym + offset, "_compiled."))
->  		return 0;
->  
-> +	/* At least GNU ld 2.25 may emit bogus file symbols referencing a
-> +	 * section name while linking xen.efi. In COFF symbol tables the
-> +	 * "value" of file symbols is a link (symbol table index) to the next
-> +	 * file symbol. Since file (and other) symbols (can) come with one
-> +	 * (or in principle more) auxiliary symbol table entries, the value in
-> +	 * this heuristic is bounded to twice the number of symbols we have
-> +	 * found. See also read_symbol() as to the '?' checked for here. */
-> +	if (s->sym[0] == '?' && s->sym[1] == '.' && s->addr < table_cnt * 2)
-> +		return 0;
-> +
->  	return 1;
->  }
->  
+> Thanks, Roger.
 
 
