@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D673CB9FB84
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 15:56:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1130585.1470084 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEE45BA0000
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 16:29:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1130611.1470102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1mSV-0000vR-Kr; Thu, 25 Sep 2025 13:56:31 +0000
+	id 1v1mxS-0005KP-5J; Thu, 25 Sep 2025 14:28:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1130585.1470084; Thu, 25 Sep 2025 13:56:31 +0000
+Received: by outflank-mailman (output) from mailman id 1130611.1470102; Thu, 25 Sep 2025 14:28:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1mSV-0000sV-He; Thu, 25 Sep 2025 13:56:31 +0000
-Received: by outflank-mailman (input) for mailman id 1130585;
- Thu, 25 Sep 2025 13:56:30 +0000
+	id 1v1mxS-0005Ir-1j; Thu, 25 Sep 2025 14:28:30 +0000
+Received: by outflank-mailman (input) for mailman id 1130611;
+ Thu, 25 Sep 2025 14:28:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vOWa=4E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v1mSU-0000sP-Pa
- for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 13:56:30 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1v1mxQ-0005Ik-S8
+ for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 14:28:28 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6fb7abc4-9a17-11f0-9d14-b5c5bf9af7f9;
- Thu, 25 Sep 2025 15:56:29 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-b0787fdb137so168341366b.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Sep 2025 06:56:29 -0700 (PDT)
+ id e6a03707-9a1b-11f0-9d14-b5c5bf9af7f9;
+ Thu, 25 Sep 2025 16:28:27 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-631845b51e2so1213362a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Sep 2025 07:28:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b353e5d0526sm170866866b.12.2025.09.25.06.56.28
+ a640c23a62f3a-b35446f76a9sm176160866b.60.2025.09.25.07.28.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Sep 2025 06:56:29 -0700 (PDT)
+ Thu, 25 Sep 2025 07:28:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6fb7abc4-9a17-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: e6a03707-9a1b-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1758808589; x=1759413389; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1758810507; x=1759415307; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f6aYRcOSIqmRMg8VMGaixy+OhIDN0i7t3lVN3bkr+eg=;
-        b=eITo8+0pE/pp93GP+8bsyw0sK/EPCmTu+0f6/nxMlXdEFxU5QwVwwa6LEKRBena6ic
-         s8s6eaYzQidTAkuzVcPBip960INN7VpUgnzo4Q1UN+pSmt0mOU1ExcHC7aMy8CpeA/v2
-         WNIazcyeCVy2dGeEZK8okx8pxHVYrmHRVCX6Zm3uZOIWMmsT+7Grwsb9Uy4fdRJI6Jgg
-         SerTPmbwbpx4EW2Zr77Wbd0IYvh3k6YGYmRfLPeFoc/v97LtNUvb17YfGkE9eV+RFK2m
-         G+t52O63/4A0rPHOvFnwgVGnpMi+V8zSTYtiFK9j/kHWR5SpyjH06xFobjDUCeu3NnAc
-         yu2Q==
+        bh=POSxx/CzD6aDdQqQY9sJI3SYM4DNPaqNJIL9XBTXcmE=;
+        b=cHtije0YqoJwS0CUj1uV0Y9dFU505k/8ecKSxMVWCp5Q2aU443b3eZ6/+CmHU4P441
+         WWc/xayveszbmqXjtck5kQvDXkglgFGJ3hXbiHqL71USHLyrAuMIBXHprONVo9etfIPV
+         UQvtc0agUmIxXsz4EEhqTwb92miKbsRy2vOIg6YkFQ6sWYHKP54VkdsvuU6lWL/glZVZ
+         dbYmK2g6I8nw3Mv+AZfm+JhuQdI60OExRdLTpHUxP4+DdfXAl8XSiQqM+iP/XIRfqc4w
+         V/vmwIMIAzyXR0MFIWWZbJ6ZAOCcd46ZqFfIXB2R4sK/z4DdlQMOv8oK7h8s+VuMlLND
+         IA4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758808589; x=1759413389;
+        d=1e100.net; s=20230601; t=1758810507; x=1759415307;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=f6aYRcOSIqmRMg8VMGaixy+OhIDN0i7t3lVN3bkr+eg=;
-        b=rylNUZYOiXfWS6ei5paQbw+H2+rX3V+IvHpRx/tyG+oId+Qjs/0b2VZNkzYMgsRpTu
-         TyFhHxzoF2D7+DjMBX06Eg3oLSCrBUYdPyEkknXlr55oE3EyMHERVi8lfqy9aAeaIpk4
-         XZfOXB3oXGahJ0/BJq9mPyeA8BD9EZuMHP/pUWIWTUB2/zCsXKhkcoKUjELTCtTdNNlo
-         r5XOulrlwfhWoprgKc6Ab6FpKAwVw5J7OsIJqaVE9PM9EEQso4+auba3AucjGXAIhIpq
-         lIPjK2vds4RG0yhSBholTgTRGVsJlQXN2ebvw4ejs2tzJ4cHlebBULPCUMNuRhpH/2OA
-         PUVQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV6jA6IQxPeYUuln+inhwz/Hy0vmx7SCpfwulXiCzajBJQ/anl6bhKuyev/JxM8av8XppHQtSc5Fd0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwtqriSEYJLFIPG1N3+PoQySj7q10N+P+p0hSig4z+sx3ezGhW/
-	UFwKsxlqkt75yzGwBbA/aaz7pypB0IItIXdK/aQXccH+AeWXWR73136/yZxZDnqB9w==
-X-Gm-Gg: ASbGncvCFtrsznHq1FWS3V2BI/wons/jQEEkcKDGUQymgwiKcKCsVXmBs5n1WTuNcbv
-	3uAZ37fpct0AVQIJJhwt9BKgZQ1aVC7AA4KFV0ktWqzg47wsxzvhqnslped7TVfSUq5Xbt/rfP2
-	QYFAHfVeRmCXPDyHLg5kmQtIWN/h7FWxh2a5GWwV+stBYOrg0yFCZC6Q306DkMm/jMPMRZF2VNW
-	WfraIS1rM58Jo8iBQ/lQpTSo6htexuuwPOOasOr7Z1enAGFTo8CXk7eLfbxZSGayPDZE8e5Gr+U
-	cC/tTOUBN4YQtExzZ80R7i9aSHX3ZtO5zEBDI4+GOqp348ghZKJkWazflrS8FZmBfNIF3/SjSYi
-	0KoCpq9jhm3F7A9IYHTJy9NqCLf8q53IIl6XNKSVSUmxw2uehaKeEF4xF8B8BFLHFrE9ByK4uJ9
-	lquwhb88c=
-X-Google-Smtp-Source: AGHT+IGj6q/wE9SglkIVr9Qo5J4sdy/s3P8+MpRrfv9Znz6HRgo0Md7b6bepGBcafIVvyPpcEhZM9Q==
-X-Received: by 2002:a17:906:24cd:b0:b35:6d55:9c10 with SMTP id a640c23a62f3a-b356d55a3bemr249580366b.50.1758808589310;
-        Thu, 25 Sep 2025 06:56:29 -0700 (PDT)
-Message-ID: <68048d73-b29d-4ef7-982d-bf0c2a179ed6@suse.com>
-Date: Thu, 25 Sep 2025 15:56:37 +0200
+        bh=POSxx/CzD6aDdQqQY9sJI3SYM4DNPaqNJIL9XBTXcmE=;
+        b=ju5xRh+K3YPNzkuymuz1Qp8BTAZzoDhFEOlWC2mO7Uzx6p+qjz0ZLcRY/zYqzOKQNW
+         za5M42b/4MpW6B9xjzBihF1sawi+CzA6ZtaMkMbDutnqg690fkHdGSUxz2xEhc2I7CjT
+         fptrJ7lfa5ZgvHwpyE8ExnKYdODUyw6220Hev+GSHioXkNZMVoIosYE0LCR0rU5I4XAG
+         Sd0SFZ3co6qS/Ac5yiruGMA8thcaOXqm5s+rU2yRc2cZ26mzRX5NQ68OOebx4KImMY7r
+         14r/59Tl0AL9bK9gPRrW8KBa9hdsvqcFG96TLjPHBXsmwjTUgok8ELC6v5R/qt9E25tX
+         HpcA==
+X-Forwarded-Encrypted: i=1; AJvYcCX5XbzkmpvKtARr/45ql0PwEg1cbgl6Hb/2MzaL5+GmxEX+w8hVhWqRGn6B7znHR2qvT8/xTDFVa4o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxGimjrkdeComJ/NbmJlb1B11AzMFLnfRZIpXSKS7dVVSVaZM5A
+	Sih5H8Q2W5W/QxCtB7pEILbiZZt/0nQblNjpW0p9JT0XCsahwGOZnepuh6YP0gartA==
+X-Gm-Gg: ASbGncvECz08eWsdtSKycGiFsGv8v/GelppTlgGVyixzTX+dc77N2oJGomneR1ZMqCD
+	D5aCcnZMyKNafX9SofrxM6Uzzr2fz4ejeXKIKSP41PhcbeBkfOqXiHHOABoWKVw6OKJbkgLOa5v
+	aHaqi0ph6EGtHF1yPlGhKP0igDmkmhsFfr0TEvQp3aL1IDl6QWYrlqZra5DJKPg4PBia3poybNU
+	UT2U2y4xqIxOfQemzPUkasbiliAJTmAt3XKWj3RJIEu+K/j4fCU0PVlql71znzjsNZcm4/EVtA8
+	eTb1b+tvFueHeJlMwjbLWcDLCc219NEom2GkHpidhyMO9/z5D25PSzkj0nMHwvQM1h6B9D4g1OS
+	1Tu63WfkJ3kMxZdW3gV3haQUdBVfZWrfBScYNcsjfaALhWbU01DLudMW+Arw7JhhE6Zo43hzvQg
+	vQbFMTmWE=
+X-Google-Smtp-Source: AGHT+IFSddq+yuJQaYFPWt7nYRUWeLSXrotuLshcfLfixA6lP2Hg4AE780jEMo+FeSm7LJmvaRKmlA==
+X-Received: by 2002:a17:906:5a4d:b0:b0e:8cd4:e2d3 with SMTP id a640c23a62f3a-b3503555d83mr279615866b.19.1758810506697;
+        Thu, 25 Sep 2025 07:28:26 -0700 (PDT)
+Message-ID: <66b43c3b-c74f-4c18-b91a-bd7b56a62eff@suse.com>
+Date: Thu, 25 Sep 2025 16:28:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/18] xen/riscv: add root page table allocation
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1758145428.git.oleksii.kurochko@gmail.com>
- <2b636ea03bf82cae50df87d525e3f58b68f16cb2.1758145428.git.oleksii.kurochko@gmail.com>
- <eda37f82-5381-4900-aa75-3f4bfbc01440@suse.com>
- <31a0e82c-6855-41d3-ad9c-282261012656@gmail.com>
+Subject: Re: [PATCH v2 18/26] xen/domctl: wrap xsm_getdomaininfo() with
+ CONFIG_MGMT_HYPERCALLS
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Andryuk, Jason" <Jason.Andryuk@amd.com>,
+ "Stabellini, Stefano" <stefano.stabellini@amd.com>
+References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
+ <20250910073827.3622177-19-Penny.Zheng@amd.com>
+ <a8b93dcc-c003-49a6-8a78-5fb890cbaec0@suse.com>
+ <DM4PR12MB8451BE98219C343F8F62482AE11FA@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,65 +125,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <31a0e82c-6855-41d3-ad9c-282261012656@gmail.com>
+In-Reply-To: <DM4PR12MB8451BE98219C343F8F62482AE11FA@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 24.09.2025 17:40, Oleksii Kurochko wrote:
+On 25.09.2025 11:41, Penny, Zheng wrote:
+> [Public]
 > 
-> On 9/20/25 12:14 AM, Jan Beulich wrote:
->> On 17.09.2025 23:55, Oleksii Kurochko wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Thursday, September 11, 2025 9:30 PM
+>> To: Penny, Zheng <penny.zheng@amd.com>
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; Daniel P. Smith
+>> <dpsmith@apertussolutions.com>; xen-devel@lists.xenproject.org
+>> Subject: Re: [PATCH v2 18/26] xen/domctl: wrap xsm_getdomaininfo() with
+>> CONFIG_MGMT_HYPERCALLS
 >>
->>> +{
->>> +    return MASK_INSR(mfn_x(page_to_mfn(p2m->root)), HGATP_PPN) |
->>> +           MASK_INSR(gstage_mode, HGATP_MODE_MASK) |
->>> +           MASK_INSR(vmid, HGATP_VMID_MASK);
->>> +}
->>> +
->>> +static int p2m_alloc_root_table(struct p2m_domain *p2m)
->>> +{
->>> +    struct domain *d = p2m->domain;
->>> +    struct page_info *page;
->>> +    int rc;
->>> +
->>> +    /*
->>> +     * Return back P2M_ROOT_PAGES to assure the root table memory is also
->>> +     * accounted against the P2M pool of the domain.
->>> +     */
->>> +    if ( (rc = paging_ret_pages_to_domheap(d, P2M_ROOT_PAGES)) )
->>> +        return rc;
->> I read the "ret" in the name as "return" here. However, ...
+>> On 10.09.2025 09:38, Penny Zheng wrote:
+>>> --- a/xen/include/xsm/xsm.h
+>>> +++ b/xen/include/xsm/xsm.h
+>>> @@ -55,8 +55,8 @@ struct xsm_ops {
+>>>      void (*security_domaininfo)(struct domain *d,
+>>>                                  struct xen_domctl_getdomaininfo *info);
+>>>      int (*domain_create)(struct domain *d, uint32_t ssidref);
+>>> -    int (*getdomaininfo)(struct domain *d);
+>>>  #ifdef CONFIG_MGMT_HYPERCALLS
+>>> +    int (*getdomaininfo)(struct domain *d);
+>>>      int (*domctl_scheduler_op)(struct domain *d, int op);
+>>>      int (*sysctl_scheduler_op)(int op);
+>>>      int (*set_target)(struct domain *d, struct domain *e); @@ -234,7
+>>> +234,11 @@ static inline int xsm_domain_create(
+>>>
+>>>  static inline int xsm_getdomaininfo(xsm_default_t def, struct domain
+>>> *d)  {
+>>> +#ifdef CONFIG_MGMT_HYPERCALLS
+>>>      return alternative_call(xsm_ops.getdomaininfo, d);
+>>> +#else
+>>> +    return -EOPNOTSUPP;
+>>> +#endif
+>>>  }
 >>
->>> +    /*
->>> +     * As mentioned in the Priviliged Architecture Spec (version 20240411)
->>> +     * in Section 18.5.1, for the paged virtual-memory schemes  (Sv32x4,
->>> +     * Sv39x4, Sv48x4, and Sv57x4), the root page table is 16 KiB and must
->>> +     * be aligned to a 16-KiB boundary.
->>> +     */
->>> +    page = alloc_domheap_pages(d, P2M_ROOT_ORDER, MEMF_no_owner);
->>> +    if ( !page )
->>> +    {
->>> +        /*
->>> +         * If allocation of root table pages fails, the pages acquired above
->>> +         * must be returned to the freelist to maintain proper freelist
->>> +         * balance.
->>> +         */
->>> +        paging_ret_pages_to_freelist(d, P2M_ROOT_PAGES);
->> ... "return" doesn't make sense here, so I wonder what the "ret" here means.
+>> This is in use by a Xenstore sysctl and a Xenstore domctl. The sysctl is hence
+>> already broken with the earlier series. Now the domctl is also being screwed up. I
+>> don't think MGMT_HYPERCALLS really ought to extend to any operations available
+>> to other than the core toolstack. That's the Xenstore ones here, but also the ones
+>> used by qemu (whether run in Dom0 or a stubdom).
 > 
-> In both cases,|ret| was supposed to mean/"return"/, since in both cases we
-> “return” memory.
-> I agree that in the case of|paging_ret_pages_to_freelist()|, the flow is
-> slightly different: a page is allocated from the domheap and then added back
-> to the freelist. That looks more like/adding/ than/returning/. Still, I felt that
-> “return” could also apply here, as the page is being given back.
-> 
-> For more clarity, do you think it would make sense to rename
-> |paging_ret_pages_to_freelist()| to|paging_add_page_to_freelist()|?
+> Maybe not only limited to the core toolstack. In dom0less/hyperlaunched scenarios, hypercalls are strictly limited. QEMU is also limited to pvh machine type and with very restricted functionality(, only acting as a few virtio-pci devices backend). @Andryuk, Jason @Stabellini, Stefano Am I understanding correctly and thoroughly about our scenario here for upstream?
+> Tracking the codes, if Xenstore is created as a stub domain, it requires getdomaininfo-domctl to acquire related info.  Sorry, I haven't found how it was called in QEMU...
 
-In place of "add" I'd perhaps use "refill" and then really refill_from_domheap
-to properly indicate the opposite of ret_to_domheap. (For both of these: If
-already you want to use such long-ish names.)
+It's not "it"; it's different ones. First and foremost I was thinking of
+ * XEN_DOMCTL_ioport_mapping
+ * XEN_DOMCTL_memory_mapping
+ * XEN_DOMCTL_bind_pt_irq
+ * XEN_DOMCTL_unbind_pt_irq
+but there may be others (albeit per the dummy xsm_domctl() this is the full
+set). As a general criteria, anything using XSM_DM_PRIV checking can in
+principle be called by qemu.
 
 Jan
 
