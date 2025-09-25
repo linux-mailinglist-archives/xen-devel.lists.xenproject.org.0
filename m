@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80225B9D951
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 08:27:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1129922.1469616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D639CB9DA38
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Sep 2025 08:34:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1129942.1469626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1fR6-00027u-3I; Thu, 25 Sep 2025 06:26:36 +0000
+	id 1v1fYm-0003jD-RN; Thu, 25 Sep 2025 06:34:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1129922.1469616; Thu, 25 Sep 2025 06:26:36 +0000
+Received: by outflank-mailman (output) from mailman id 1129942.1469626; Thu, 25 Sep 2025 06:34:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v1fR6-00026U-04; Thu, 25 Sep 2025 06:26:36 +0000
-Received: by outflank-mailman (input) for mailman id 1129922;
- Thu, 25 Sep 2025 06:26:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v1fYm-0003h4-O2; Thu, 25 Sep 2025 06:34:32 +0000
+Received: by outflank-mailman (input) for mailman id 1129942;
+ Thu, 25 Sep 2025 06:34:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vOWa=4E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v1fR5-00026O-7m
- for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 06:26:35 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 94083976-99d8-11f0-9d14-b5c5bf9af7f9;
- Thu, 25 Sep 2025 08:26:32 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b0787fa12e2so76523766b.2
- for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 23:26:32 -0700 (PDT)
+ id 1v1fYl-0003gy-3G
+ for xen-devel@lists.xenproject.org; Thu, 25 Sep 2025 06:34:31 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b011a4d9-99d9-11f0-9809-7dc792cee155;
+ Thu, 25 Sep 2025 08:34:29 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-b28e1b87aa7so89798966b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Sep 2025 23:34:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b353efa406asm98043466b.23.2025.09.24.23.26.31
+ 4fb4d7f45d1cf-634a3b052e0sm652782a12.47.2025.09.24.23.34.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Sep 2025 23:26:31 -0700 (PDT)
+ Wed, 24 Sep 2025 23:34:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94083976-99d8-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: b011a4d9-99d9-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1758781592; x=1759386392; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1758782068; x=1759386868; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=leNqK+DTF+M/jsIecEuMggMwHPT00Chc3JwzndCGorY=;
-        b=KdJYJufZ9qp7vfRwIAryRoJKHvEKQkznLlptciBJMV3bfIxlhbonANkGGhWjwg0gxw
-         TtU0JaExADi3RKaZ1NdoUA2IDsyfP6TTxMpX4c2D5TWsSQ+9rDKXo9Up0vs9MBI30h6X
-         eg2vQEwsKHqhu4aHenWVLQxZa6OmZ5xsLa9p3KRUL9MAccRQyfFmKV2+t8PkAbsKwZPa
-         1o6CSQ++vsF4tcoTyjNiecRGK0Hja+JnEV2M3/W7z0fqlE3dtrHlgJ8L/zk+1Pi296aQ
-         VTOlhd/rh/+Tjga0F3+kqZ2EBN4rdA6E9zaOsE+652RmLUWNDhLVnTgIZ0tPTvz3yXta
-         rOIQ==
+        bh=ozP4ICgetyfPLvldh5KQA27y5QCFNaRSs6nV+auII+I=;
+        b=aLTCH3kQ5u+DL6rAVki/B+42T0lWDUnK1ZRwn6HQxuDZ0yR+1zav5SW7CBU1jAI9Bd
+         AsJnSKWQu7mS8srv01zlkboBNikmmdcRH8B2RWQscqYIx3VyW668xWA47jhSYgjmpC1I
+         Fy2ioQq+GOJTFirY3/YJOLXH6bWTCRrRMcpGxsijBDWw4S9TtRU36Gto/3lfkz2bnQFH
+         pfJxAOVs9HXs+kJfPUWk4a6Et8KTGiIMJIgzLIFzn9RwrFVh9kiiIQ9SFePQyJI6U2Hh
+         O2YeJLOceofxfNvObv0tbNOXnf2FmhksP46F2/M7HMtK9ZnUHEQK+TMVWd9Gt4QX92SO
+         4YPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758781592; x=1759386392;
+        d=1e100.net; s=20230601; t=1758782068; x=1759386868;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=leNqK+DTF+M/jsIecEuMggMwHPT00Chc3JwzndCGorY=;
-        b=T+19/41KUTLg278EtzgOdykhDbY2jafXI13MF/pD/2ihKj0USUm+7gyj1iHnt/VhUF
-         7ftfiW+tpAd7oWudLcxLIBUM1Lta4Bxl2I+nSnBGiJzKIzNKKXPpUkZtTgxSQ8rMU3KV
-         6YHtaJssV0cP38AgVNkRuHvfVxk4qF1Q5b2da8eCzNkTvsudxsAjqsjg0FJUcBBspmoo
-         MPVKszmcdnDBNCYyIlczsy/jao5B8GKkE6GDLiS4DMLxWp0xpqxWqCPjCfaNaMM6RE83
-         WQzGZJavmXE4VcSQ3hkYfCJtv3I2XnE6PZLRkjKIOl/1BnTQWuWA0VB8ZZCNYBaXijQk
-         4Bnw==
-X-Forwarded-Encrypted: i=1; AJvYcCVaXBZD9d2vs4fSy/iLaks9T+2+x9UwpdqALCLfqsgq4qx76sji6Rl9LF5PiPlHEjiNBeNEPnfYgPw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwVovJCPeYS8PmyxboC+js5Ut3eBAfdv+c9u0wiQsCKAN7S9ZHk
-	THs+FBw1ku2E7f8nUFaYqDrdmjfkEGfI+m7D1Nzqmn+L79Kku27Wih37gcCKivHDCVIoZB6EHU+
-	5kQs=
-X-Gm-Gg: ASbGncs0smVkUYTOR/aGvvnPmGauYn1h9WFYhUGvL7UkXpq3WwxOrMkHYDpKLRyGeXm
-	JX2ZA5pGbS9R7Is5FuzB/P6DpJHzbc5Xro1MMGd/czyFZhEu7qqi3J7PvWkbxlCWHD9RDxspJh0
-	sP2vHpYBK9w3ERH9U3cX7e/V90o3AKOKU7k19Wx7lMg4dW4VOiv7NkoP0Xx8Wqoy/0P7fz5bBXd
-	UoIc3Tcr3M74htDi86qnWEIuOe8ON0xxg+o/iH1TQ74YDrLSwmzA1b3QYnd9a0a5YkU4ocZio+m
-	Kbew3M8MqUjTpiSTVwNOZ1eJ0VaFlOcGwqrGOKxxfOvWXON0pulZnOfw2RhVOlqu2f7XrKNetNI
-	d4UySGvq4kB65a0iUKLZ/0iAP/zlo/4OFwtfaIId+3p7QKSpjxyPiQABZhi41YpXdFV4ZsPC00q
-	n3I2ejY1c=
-X-Google-Smtp-Source: AGHT+IET+T6aTzAz3NbyPXyZ3E7qw/l9Ky1FlVRdu9OSvPdReuRWU7hfTelxrQwR+YqhBu1vsebl/w==
-X-Received: by 2002:a17:907:3e8d:b0:b34:103b:4846 with SMTP id a640c23a62f3a-b34b8d96456mr283652766b.25.1758781591964;
-        Wed, 24 Sep 2025 23:26:31 -0700 (PDT)
-Message-ID: <814501c8-94e3-4930-87ed-88e7506456ed@suse.com>
-Date: Thu, 25 Sep 2025 08:26:40 +0200
+        bh=ozP4ICgetyfPLvldh5KQA27y5QCFNaRSs6nV+auII+I=;
+        b=DyZ2v7kxVeAUd1GZLro7Frckj7fH590UGgVp2T/3BIUwVEzxdv+ohQ3Rps8McBInCu
+         KAL2NOjkBCPmiSGTtqsIk9PffLtjwTWPi2kPyTqhzV41Wc9S3piPNEAtPmg6xQVGOx6O
+         QrNG0xTXwry/tSytTG4IQWzwhX8x/Bz17WQELVlsXjHEz+h4J5oj4fhBqjPhYBH8hGRh
+         obajf5wc4IYfOEkv1MxH55HqjzOSrWEqgd3y1g9PJng6GH5IAKSGrmqbMCWdIE0GxBDB
+         bfjRmV7byRD7vbQJ7NSc5rMx9Ta+LM5qzQM+CPk7jX7a7JzqdMOHviLPyS2ivPLg16Ia
+         7C9g==
+X-Forwarded-Encrypted: i=1; AJvYcCVrwqxlAZ1sidS7iKYj/IoBt4xxzPSmJfN1Tbpd6ND9A5mXtWgk6Eb7E/UetuITkZX722xzFVeLrDo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxB1kbj7UsZT8fetCOXbdWX1P0evnAxV1PMaxsnI7579sTelWH1
+	Yj8v8YwvwX5rL5TXsGoYVgGvQJXEc4DF+XSIpMXcR3gY8h44Smp/gZYV9QrQlWLXiw==
+X-Gm-Gg: ASbGncv7PiDAxri54rTWtyu5lZm4x2CFaMgRpFEZQyMJtpbQDf0rkyzAUDG2lBk6F5j
+	5JYLo880Bhn6kfbLOtJD6EJxZI/Ix4nK8YmlWgRwcqg0caRgOBMx9C3AtPbXsiepLCoQLPf0MAD
+	biOQq8OEanGpKhP3DVFZ1ApO6MknqMKjz93f5PTx5ryyUUZERbNfyGxab/UrhI4hlvmvG77EQxs
+	13XjbPhZLC207vPOKQ8qv7YBXMEy1oQgOjIVIqKB8dVeiE8M06/yJUsnCIRfwHTGhHkj1cUHe1t
+	jWI4my2d608UuIu3WPnaWPv1H09c92X6s0xPKj5kIVp6Bgaop3JTtiFjk3BJo2vdTKtRbco42Cs
+	sQKSI3ufv30nI4jZqmqsFQCFe3dQWHU5HHup5v0kwG/bmOdt/8xvOPh9zDSSz1qwX+6PVtUxjZN
+	EyeWCoBxU=
+X-Google-Smtp-Source: AGHT+IHzLCTXuKAPq1YsMXuj+To6GOOACzY7Bx/GCZC4Q4Waa8Q1tRyHjTVFuuopP6tPuIJSZtLR6Q==
+X-Received: by 2002:a17:907:1c15:b0:afe:87bd:da59 with SMTP id a640c23a62f3a-b34be2f5318mr221327666b.42.1758782068489;
+        Wed, 24 Sep 2025 23:34:28 -0700 (PDT)
+Message-ID: <9507e775-f9c3-4351-9c76-ca939c1147bc@suse.com>
+Date: Thu, 25 Sep 2025 08:34:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CHANGELOG.md: Update for 4.21 release cycle
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: committers@xenproject.org,
- Community Manager <community.manager@xenproject.org>,
- xen-devel@lists.xenproject.org
-References: <20250924093604.17110-1-oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v3] xen/arm, xen/common: Add Kconfig option to control
+ Dom0 boot
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <34e1b5036361745db2fde233e0935a568c0ebc90.1758729618.git.oleksii_moisieiev@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,39 +124,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250924093604.17110-1-oleksii.kurochko@gmail.com>
+In-Reply-To: <34e1b5036361745db2fde233e0935a568c0ebc90.1758729618.git.oleksii_moisieiev@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.09.2025 11:36, Oleksii Kurochko wrote:
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->   - Debian Trixie added to CI.  Debian Bullseye retired from CI for RISC-V due
->     to the baseline change.
->   - Linux based device model stubdomains are now fully supported.
-> + - Remove libxenctrl usage from xenstored.
+On 24.09.2025 18:00, Oleksii Moisieiev wrote:
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -26,6 +26,14 @@ config DOM0LESS_BOOT
+>  	  Xen boot without the need of a control domain (Dom0), which could be
+>  	  present anyway.
 >  
->   - On x86:
->     - Restrict the cache flushing done as a result of guest physical memory map
-> @@ -21,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->     - Allow controlling the MTRR cache attribute of the Xen platform PCI device
->       BAR for HVM guests, to improve performance of guests using it to map the
->       grant table or foreign memory.
-> +   - Allow to unflatten DTs.
+> +config DOM0_BOOT
+> +	bool "Dom0 boot support" if EXPERT
+> +	default y
+> +	depends on (ARM && HAS_DOM0 && HAS_DEVICE_TREE_DISCOVERY && DOMAIN_BUILD_HELPERS) || (X86 && HAS_DOM0)
 
-What is this about? There continues to be no use of DT on x86, so without context
-this feels pretty much meaningless to me.
-
-> @@ -36,11 +38,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->     - Support in hvmloader for new SMBIOS tables: 7 (Cache Info), 8 (Port
->       Connector), 9 (System Slots), 26 (Voltage Probe), 27 (Cooling Device),
->       and 28 (Temperature Probe).
-> +   - Basic kexec support to Mini-OS for running in PVH mode.
-
-Hmm, MiniOS isn't an integral part of a Xen release, so I wonder if such really
-belongs here. Yes, I also understand that there's not really anywhere else to
-put such.
+This line is too long, and really would have wanted to be broken up anyway. Clearly
+"depends on HAS_DOM0" can be separated out. I'm not quite sure about the extra
+Arm-specific dependencies: Are these two really Arm-only (as in: not also affecting
+e.g. RISC-V)? Furthermore, what if I turned this option off for x86? Doing so would,
+aiui, have no effect at all right now. An option without any effect imo better
+wouldn't be exposed.
 
 Jan
 
