@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16C33BA2F35
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Sep 2025 10:30:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1131338.1470470 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AF00BA308D
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Sep 2025 10:59:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1131350.1470480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v23qI-00068B-Re; Fri, 26 Sep 2025 08:30:14 +0000
+	id 1v24I8-0000nZ-VH; Fri, 26 Sep 2025 08:59:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1131338.1470470; Fri, 26 Sep 2025 08:30:14 +0000
+Received: by outflank-mailman (output) from mailman id 1131350.1470480; Fri, 26 Sep 2025 08:59:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v23qI-000665-Oy; Fri, 26 Sep 2025 08:30:14 +0000
-Received: by outflank-mailman (input) for mailman id 1131338;
- Fri, 26 Sep 2025 08:30:14 +0000
+	id 1v24I8-0000kn-S3; Fri, 26 Sep 2025 08:59:00 +0000
+Received: by outflank-mailman (input) for mailman id 1131350;
+ Fri, 26 Sep 2025 08:58:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=y8gL=4F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v23qI-00065z-1V
- for xen-devel@lists.xenproject.org; Fri, 26 Sep 2025 08:30:14 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5CHW=4F=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1v24I7-0000kh-FV
+ for xen-devel@lists.xenproject.org; Fri, 26 Sep 2025 08:58:59 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0469e81b-9ab3-11f0-9809-7dc792cee155;
- Fri, 26 Sep 2025 10:30:11 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-b29ebf9478bso251886466b.0
- for <xen-devel@lists.xenproject.org>; Fri, 26 Sep 2025 01:30:11 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b353e5cfa56sm321229466b.20.2025.09.26.01.30.09
+ id 088781dd-9ab7-11f0-9809-7dc792cee155;
+ Fri, 26 Sep 2025 10:58:56 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-6349e3578adso3450510a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Sep 2025 01:58:56 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-67-38.play-internet.pl.
+ [109.243.67.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-634a3ae308bsm2621905a12.32.2025.09.26.01.58.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Sep 2025 01:30:10 -0700 (PDT)
+ Fri, 26 Sep 2025 01:58:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,225 +45,450 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0469e81b-9ab3-11f0-9809-7dc792cee155
+X-Inumbo-ID: 088781dd-9ab7-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1758875411; x=1759480211; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uF2r96MkuC9TA/BXA2HtEMzQkNste8ou7jkvQUOVgPU=;
-        b=VNTus8+1AU1u2MIl3rywmK4UaG+mbgl1+OBGRRyKHdTmYXueqRyfzo3kSEQZywPugu
-         FRv0EJF+HWXzHqgsQY4T6KnZYTswl8R4TrTCX1KT6gBbUh9UsdLIN19F5Mo3k3lIpWY8
-         SFXr2dbwk+uEdTLrA4HZ0iyr/xeQRpZBOBjpT+WFj5Xpcpp4RsBh7TqxCrBoEGmBNM8N
-         +tWDmJTzIKAaUNA/AfHJyPVgJZevTFKWDc45vFpGFsWzaFhewMJPcUGJU6EvxKm6um8H
-         6FXgj40y3f8/cR9DHdl3PT9VqtzXagZoWoh8aE8J3EXswnpPXFWPaVCVT5vT7sOXsSlf
-         iVbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758875411; x=1759480211;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1758877136; x=1759481936; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uF2r96MkuC9TA/BXA2HtEMzQkNste8ou7jkvQUOVgPU=;
-        b=vAB0rjCiiNO0DEaKGWtmMTCLPHgIe2w51T9024XTI9S1HNgwv0UUpUx4R5/+osQAX4
-         qenPg+g9wy3B2iDnXaX70mNDCb7qygomlGxw2+cCziaLKBsusTAbC0a0syPh/AYMXxKr
-         kBXAFiu5/6jKPnFm+gXXy9Uwp6qNRPrRoGaCZ4V7TahZsPDZ+XBBJsyppT2mP/iZqncz
-         S/Pe3tMfGuR1Vlkd251GRyfELvVOM1bm9YK1dbWnQMbI1CXGqpEozQ2EIBWuX5R5HkE7
-         /XFBQADRko9M+SM2mnoGiswWP3Y4BxVJbw9M+HDt009ytdj+Oe5eS8MtrWfGeiEXsODM
-         WXxQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWIY1LVZ7zQpG1gec3NKtaFa84++60bHsWCatAbId54WaoGVORBfJmqlOG85pQCkob3Z0fPbESLaR4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw0kboioV8AWELwGvfkEG2Acp37stOAyE7alfezkXn3i1oG7dsv
-	rYh00dSK3OQ4/5fmL8u3wX7F9utmuBIOZRQJARvF74EWBkzCAk8z2W5U8Hd7jg4GqQ==
-X-Gm-Gg: ASbGncuNBZMBepIK3VN99LTZ0+ZXasaByArs7rJJy/QuakST8DN1DJRQ99kbAwedkGj
-	0VcPpIcGI4KSODibUALUIDIRbywnMQsG+gLMJvRiFBMZg7/BmW4m+dqfC+ytGfGJhb9TzPvJFWb
-	9HquIirTLV8IVS3Yg5Zs7lyuEJRe5pxv8Rt1GhixRQVR5++LGSt/tKmTqoN2iNMQrrOUolygWo0
-	g/tptQcq0kFuOb4ASu3rOrEdnOK/VStf0KNK3xcL7VAhI9Ft3wkKZdgOru4tj9hYQEPwcbYBm0E
-	lKksmiYjN5hj6iPP3Ix5kN8h3Rn3EBulUXtgjnjE2+9rk6qFmwYWaD37JEyyJC6Hu34io9Tw0F0
-	o+PFOxVF+fwFf4pC2kusofuual5XEu8J2QmH7YfW0iwjEtUczt7gUAldfaeAq5chpIJdSzuCVyi
-	vizV+HyMU=
-X-Google-Smtp-Source: AGHT+IFH0U7Id5YCeVpkA1g2SFVwPLKOQ8JbamVFa/WH5+B3uz/I3xoqZcEqpMTAZxQaDUimFCh2xg==
-X-Received: by 2002:a17:907:86ab:b0:b04:6cf7:75d4 with SMTP id a640c23a62f3a-b34bcd5959amr655797666b.49.1758875410631;
-        Fri, 26 Sep 2025 01:30:10 -0700 (PDT)
-Message-ID: <bdf1b73c-b0fa-4076-928d-87a3d1e00855@suse.com>
-Date: Fri, 26 Sep 2025 10:30:09 +0200
+        bh=Tll720uHDLhbRSVtbVJvGPYb5YUByEDNqKBzBwWkBwE=;
+        b=S8MBFSRty3vT9leqQg6GBo6KD69ABxrwpIhfLItgjiEqH5gxcxfjFJJ/T9nAv3FZfO
+         tAMF40+f5E4Ym2ZvEBWCc84cXQYDfBKQAeYRwcsWxJVhTyZ2F4d6EOv5/mU3xewDdI2L
+         +PyxK9a7moUIedgcPcEopQCPMozOYJK85rMb2YnyOxneLhCOb14k39wIWoziyw1vJHOF
+         MqbsHTTVflzaG/YCjzSbhtzHcqxI//0R8aLbyMnv2vUYLYcf9NSsaLo8NmQXyANaSRT8
+         qBgMKKpfysGtj8Dskoy2qvg6kYy4qGQSBl/VnHLvt3QIum4Ayaxr/2T2Mzy6ihoPa5Bl
+         5X2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1758877136; x=1759481936;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Tll720uHDLhbRSVtbVJvGPYb5YUByEDNqKBzBwWkBwE=;
+        b=uufFR1BSYPeEbKBWTRc5duvkJMcHj8IytDu3sGtyIzwzohy0J5nVVFZsS7Jyu8RZVK
+         xYc1tzh8sQ1CyCylnEhceIa3zuxRYDinpQFal6lNzt1OKAyBkKCS/FJUHWSUMNt3R4Z3
+         PzoKdlAbMgeOeDz+Kgq49MII9x+288jAxlzGLM25rzYnSZa47bfGGZwtYBHh9mXJsO90
+         lwhTKv17HJZc9oCLC6Is+wbBQRKFd298+PrdBASsLgM1vvbG77IKQNVExUE8Ddp0tsbc
+         ctBDaqj6kA1NPGq0M/A3lM7SwzJ2/qjqtysrgsBmiJj9kR85qqdybP56HrlDTnKrBCZE
+         n8gg==
+X-Forwarded-Encrypted: i=1; AJvYcCXfaCWYOJt3G+tQyjWVcq8UocXyfgv7o8xzJhqlis19oYbxyCTmsFz4T57mcj5gDQdQ3wKkMTjQ9Sg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwHabCA8p5gtTij80DuWyCG46fFG+0fELTU/yoAH0kCkc2Cq2+b
+	CLNpODMY91g91AjoidBxSYI9Jxkw4PqBJnfiLbKe/+FYMY7ME9QhlQoD
+X-Gm-Gg: ASbGnctXV7xme7IcnEARgv98glO2K2+/gZo9PPJNbRLN4aocMHV9zD0btoEZ+5GgyN9
+	WvGhAEHn2mhCBKccLnKpByr7+QkSf8V9VZkSjku1470k8d35kM9/wXA3/mAEAp4Crm/Lga9giS+
+	gCR1IYvLm6+aJsPOTzZKbR3uwuErnBC831qOpiJ3mU8Y+b62v2BjT2CPQAvdXrcNlmHN1wsPdqD
+	P+4ztJCc0cHaon7C3TjJkxa7Mfp3bqdDg4vg9DumIYw04XKFRiG8AWP3YHhz9XPrnZkGNSQWk2c
+	Ln2Zerlln1SuGUnhzthBsPn5y7pQjuFQEhORSYSH3xn0zoNgB9dA40m2P7Aelqx9NBdU6Dr0+IL
+	gqYcVCoJJFjkRwqkjAEiWBAPw0iECxJpJUoMUVArOr419imTRj1RX1SjNvvVDeGBR9BXGvFw5mS
+	ePqWEjtoY=
+X-Google-Smtp-Source: AGHT+IE+ILVgLUNgj/mwJQLlwWtihgh5MW/x4L7viljYl21r1liW1gbkeixvn9mBycfWQpOHWCkF1Q==
+X-Received: by 2002:aa7:cd67:0:b0:633:d0b7:d6c3 with SMTP id 4fb4d7f45d1cf-6349f9cab40mr4466363a12.5.1758877135297;
+        Fri, 26 Sep 2025 01:58:55 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------xXuEtxmw2kSPDrCxIxO0c1JV"
+Message-ID: <b60c5228-d7da-4b8e-b12b-3fe26825759b@gmail.com>
+Date: Fri, 26 Sep 2025 10:58:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 18/26] xen/domctl: wrap xsm_getdomaininfo() with
- CONFIG_MGMT_HYPERCALLS
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "Andryuk, Jason" <Jason.Andryuk@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v4 10/18] xen/riscv: implement p2m_set_range()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
- <20250910073827.3622177-19-Penny.Zheng@amd.com>
- <a8b93dcc-c003-49a6-8a78-5fb890cbaec0@suse.com>
- <DM4PR12MB8451BE98219C343F8F62482AE11FA@DM4PR12MB8451.namprd12.prod.outlook.com>
- <66b43c3b-c74f-4c18-b91a-bd7b56a62eff@suse.com>
- <DM4PR12MB84518B65027B6A355ED4D246E11EA@DM4PR12MB8451.namprd12.prod.outlook.com>
- <af57c032-541d-4956-85de-269066c50cd3@suse.com>
- <IA1PR12MB8467188458BA8FAF348AC538E11EA@IA1PR12MB8467.namprd12.prod.outlook.com>
- <a5224376-f89d-4a2f-8a74-e5256352f754@suse.com>
- <DM4PR12MB845154E8F43D440FEADFF59BE11EA@DM4PR12MB8451.namprd12.prod.outlook.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1758145428.git.oleksii.kurochko@gmail.com>
+ <5e325267a792a9a0f4cb387b4e3287d22dc8d173.1758145428.git.oleksii.kurochko@gmail.com>
+ <6ee4846e-dd27-4588-aac5-f2fe2937db18@suse.com>
+ <a5c016c9-aee4-4a86-a6cc-0d89dd5e9216@gmail.com>
+ <6b62cf4c-8367-47dc-9911-206c220fb050@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB845154E8F43D440FEADFF59BE11EA@DM4PR12MB8451.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <6b62cf4c-8367-47dc-9911-206c220fb050@suse.com>
+
+This is a multi-part message in MIME format.
+--------------xXuEtxmw2kSPDrCxIxO0c1JV
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 26.09.2025 10:22, Penny, Zheng wrote:
-> [Public]
-> 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Friday, September 26, 2025 3:14 PM
->> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; Daniel P. Smith
->> <dpsmith@apertussolutions.com>; xen-devel@lists.xenproject.org; Andryuk, Jason
->> <Jason.Andryuk@amd.com>; Andrew Cooper <andrew.cooper3@citrix.com>;
->> Julien Grall <julien@xen.org>; Stefano Stabellini <sstabellini@kernel.org>; Anthony
->> PERARD <anthony.perard@vates.tech>; Orzel, Michal <Michal.Orzel@amd.com>;
->> Roger Pau Monné <roger.pau@citrix.com>; Oleksii Kurochko
->> <oleksii.kurochko@gmail.com>
->> Subject: Re: [PATCH v2 18/26] xen/domctl: wrap xsm_getdomaininfo() with
->> CONFIG_MGMT_HYPERCALLS
+
+On 9/26/25 9:07 AM, Jan Beulich wrote:
+> On 25.09.2025 22:08, Oleksii Kurochko wrote:
+>> On 9/20/25 1:36 AM, Jan Beulich wrote:
+>>> On 17.09.2025 23:55, Oleksii Kurochko wrote:
+>>>> +static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
+>>>> +{
+>>>> +    unsigned long root_table_indx;
+>>>> +
+>>>> +    root_table_indx = gfn_x(gfn) >> P2M_LEVEL_ORDER(P2M_ROOT_LEVEL);
+>>>> +    if ( root_table_indx >= P2M_ROOT_PAGES )
+>>>> +        return NULL;
+>>>> +
+>>>> +    /*
+>>>> +     * The P2M root page table is extended by 2 bits, making its size 16KB
+>>>> +     * (instead of 4KB for non-root page tables). Therefore, p2m->root is
+>>>> +     * allocated as four consecutive 4KB pages (since alloc_domheap_pages()
+>>>> +     * only allocates 4KB pages).
+>>>> +     *
+>>>> +     * To determine which of these four 4KB pages the root_table_indx falls
+>>>> +     * into, we divide root_table_indx by
+>>>> +     * P2M_PAGETABLE_ENTRIES(P2M_ROOT_LEVEL - 1).
+>>>> +     */
+>>>> +    root_table_indx /= P2M_PAGETABLE_ENTRIES(P2M_ROOT_LEVEL - 1);
+>>> The subtraction of 1 here feels odd: You're after the root table's
+>>> number of entries, i.e. I'd expect you to pass just P2M_ROOT_LEVEL.
+>>> And the way P2M_PAGETABLE_ENTRIES() works also suggests so.
+>> The purpose of this line is to select the page within the root table, which
+>> consists of 4 consecutive pages. However, P2M_PAGETABLE_ENTRIES(P2M_ROOT_LEVEL)
+>> returns 2048, so root_table_idx will always be 0 after devision, which is not
+>> what we want.
 >>
->> On 26.09.2025 08:57, Penny, Zheng wrote:
->>>> -----Original Message-----
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: Friday, September 26, 2025 2:53 PM
->>>>
->>>> On 26.09.2025 06:41, Penny, Zheng wrote:
->>>>>> -----Original Message-----
->>>>>> From: Jan Beulich <jbeulich@suse.com>
->>>>>> Sent: Thursday, September 25, 2025 10:29 PM
->>>>>>
->>>>>> On 25.09.2025 11:41, Penny, Zheng wrote:
->>>>>>>> -----Original Message-----
->>>>>>>> From: Jan Beulich <jbeulich@suse.com>
->>>>>>>> Sent: Thursday, September 11, 2025 9:30 PM
->>>>>>>>
->>>>>>>> On 10.09.2025 09:38, Penny Zheng wrote:
->>>>>>>>> --- a/xen/include/xsm/xsm.h
->>>>>>>>> +++ b/xen/include/xsm/xsm.h
->>>>>>>>> @@ -55,8 +55,8 @@ struct xsm_ops {
->>>>>>>>>      void (*security_domaininfo)(struct domain *d,
->>>>>>>>>                                  struct xen_domctl_getdomaininfo *info);
->>>>>>>>>      int (*domain_create)(struct domain *d, uint32_t ssidref);
->>>>>>>>> -    int (*getdomaininfo)(struct domain *d);
->>>>>>>>>  #ifdef CONFIG_MGMT_HYPERCALLS
->>>>>>>>> +    int (*getdomaininfo)(struct domain *d);
->>>>>>>>>      int (*domctl_scheduler_op)(struct domain *d, int op);
->>>>>>>>>      int (*sysctl_scheduler_op)(int op);
->>>>>>>>>      int (*set_target)(struct domain *d, struct domain *e); @@
->>>>>>>>> -234,7
->>>>>>>>> +234,11 @@ static inline int xsm_domain_create(
->>>>>>>>>
->>>>>>>>>  static inline int xsm_getdomaininfo(xsm_default_t def, struct
->>>>>>>>> domain
->>>>>>>>> *d)  {
->>>>>>>>> +#ifdef CONFIG_MGMT_HYPERCALLS
->>>>>>>>>      return alternative_call(xsm_ops.getdomaininfo, d);
->>>>>>>>> +#else
->>>>>>>>> +    return -EOPNOTSUPP;
->>>>>>>>> +#endif
->>>>>>>>>  }
->>>>>>>>
->>>>>>>> This is in use by a Xenstore sysctl and a Xenstore domctl. The
->>>>>>>> sysctl is hence already broken with the earlier series. Now the
->>>>>>>> domctl is also being screwed up. I don't think MGMT_HYPERCALLS
->>>>>>>> really ought to extend to any operations available to other than
->>>>>>>> the core
->>>> toolstack.
->>>>>>>> That's the Xenstore ones here, but also the ones used by qemu
->>>>>>>> (whether run in
->>>>>> Dom0 or a stubdom).
->>>>>>>
->>>>>>> Maybe not only limited to the core toolstack. In
->>>>>>> dom0less/hyperlaunched
->>>>>> scenarios, hypercalls are strictly limited. QEMU is also limited to
->>>>>> pvh machine type and with very restricted functionality(, only
->>>>>> acting as a few virtio-pci devices backend). @Andryuk, Jason
->>>>>> @Stabellini, Stefano Am I understanding correctly and thoroughly
->>>>>> about our scenario here for
->>>> upstream?
->>>>>>> Tracking the codes, if Xenstore is created as a stub domain, it
->>>>>>> requires
->>>>>> getdomaininfo-domctl to acquire related info.  Sorry, I haven't
->>>>>> found how it was called in QEMU...
->>>>>>
->>>>>> It's not "it"; it's different ones. First and foremost I was
->>>>>> thinking of
->>>>>>  * XEN_DOMCTL_ioport_mapping
->>>>>>  * XEN_DOMCTL_memory_mapping
->>>>>>  * XEN_DOMCTL_bind_pt_irq
->>>>>>  * XEN_DOMCTL_unbind_pt_irq
->>>>>> but there may be others (albeit per the dummy xsm_domctl() this is
->>>>>> the full set). As a general criteria, anything using XSM_DM_PRIV
->>>>>> checking can in principle be called by qemu.
->>>>>>
->>>>>
->>>>> Understood.
->>>>> I assume that they are all for device passthrough. We are not
->>>>> accepting device
->>>> passthrough via core toolstack in dom0less/hyperlaunch-ed scenarios.
->>>> Jason has developed device passthrough through device tree to only
->>>> accept "static configured" passthrough in dom0less/hyperlaunch-ed
->>>> scenario, while it is still internal , it may be the only accept way
->>>> to do device passthrough in dom0less/hyperlaunch-ed scenario.
->>>>
->>>> Right, but no matter what your goals, the upstream contributions need
->>>> to be self- consistent. I.e. not (risk to) break other functionality.
->>>> (Really the four domctl-s mentioned above might better have been put
->>>> elsewhere, e.g. as dm-ops. Moving them may be an option here.)
+>> As an alternative, P2M_PAGETABLE_ENTRIES(0) could be used, since it always
+>> returns 512. Dividing root_table_idx by 512 then yields the index of the page
+>> within the root table, which is made up of 4 consecutive pages.
+>>
+>> Does it make sense now?
+> Yes and no. I understand what you're after, but that doesn't make the use of
+> P2M_PAGETABLE_ENTRIES() (with an arbitrary level as argument) correct. This
+> calculation wants doing by solely using properties of the top level.
+
+Got it, thanks. Then I will use solely properties of the top level.
+
+>>>> +static int p2m_set_entry(struct p2m_domain *p2m,
+>>>> +                           gfn_t gfn,
+>>>> +                           unsigned long page_order,
+>>>> +                           mfn_t mfn,
+>>>> +                           p2m_type_t t)
+>>> Nit: Indentation.
 >>>
->>> Understood.
->>> I'll move them all to the dm-ops
->>
->> Before you do so, please consider the consequences, though (I said "may" for a
->> reason). Also please allow others to chime in. (In this context I notice that several
->> REST maintainers weren't even Cc-ed here, and hence may not have seen the
->> earlier discussion.)
->>
-> 
-> Sorry, what I really mean is that I'm going to investigate the actual work required for moving these four hypercalls to dm-ops. Then I could go back to the discussion to have a clearer view. To be clear, you are suggesting ABI change, like XEN_DOMCTL_ioport_mapping to XEN_DMOP_ioport_mapping, or new ABI added?
+>>>> +{
+>>>> +    unsigned int level;
+>>>> +    unsigned int target = page_order / PAGETABLE_ORDER;
+>>>> +    pte_t *entry, *table, orig_pte;
+>>>> +    int rc;
+>>>> +    /*
+>>>> +     * A mapping is removed only if the MFN is explicitly set to INVALID_MFN.
+>>>> +     * Other MFNs that are considered invalid by mfn_valid() (e.g., MMIO)
+>>>> +     * are still allowed.
+>>>> +     */
+>>>> +    bool removing_mapping = mfn_eq(mfn, INVALID_MFN);
+>>>> +    DECLARE_OFFSETS(offsets, gfn_to_gaddr(gfn));
+>>>> +
+>>>> +    ASSERT(p2m_is_write_locked(p2m));
+>>>> +
+>>>> +    /*
+>>>> +     * Check if the level target is valid: we only support
+>>>> +     * 4K - 2M - 1G mapping.
+>>>> +     */
+>>>> +    ASSERT(target <= 2);
+>>>> +
+>>>> +    table = p2m_get_root_pointer(p2m, gfn);
+>>>> +    if ( !table )
+>>>> +        return -EINVAL;
+>>>> +
+>>>> +    for ( level = P2M_ROOT_LEVEL; level > target; level-- )
+>>>> +    {
+>>>> +        /*
+>>>> +         * Don't try to allocate intermediate page table if the mapping
+>>>> +         * is about to be removed.
+>>>> +         */
+>>>> +        rc = p2m_next_level(p2m, !removing_mapping,
+>>>> +                            level, &table, offsets[level]);
+>>>> +        if ( (rc == P2M_TABLE_MAP_NONE) || (rc == P2M_TABLE_MAP_NOMEM) )
+>>>> +        {
+>>>> +            rc = (rc == P2M_TABLE_MAP_NONE) ? -ENOENT : -ENOMEM;
+>>>> +            /*
+>>>> +             * We are here because p2m_next_level has failed to map
+>>>> +             * the intermediate page table (e.g the table does not exist
+>>>> +             * and they p2m tree is read-only).
+>>> I thought I commented on this or something similar already: Calling the
+>>> p2m tree "read-only" is imo misleading.
+>> I will change then "read-only" to "not allocatable".
+> That'll be only marginally better: What's "allocatable"? Why not something
+> like "... does not exist and none should be allocated"? Or maybe simply
+> omit this part of the comment?
 
-Well, merely adding new ABIs wouldn't address the problem, would it? You'd
-need to make sure the old ABIs aren't used anymore by up-to-date code, at
-which point the old domctl sub-ops could as well go away. A follow-on
-question then would be whether retaining the wrappers in libxc is
-appropriate; aiui dm-ops are rather intended to be dealt with in
-libxendevicemodel. Yet moving things between libraries can (will?) break
-consumers of the libraries.
+Agree, "allocatable" could be also confusing. Perhaps, just omitting will
+be fine.
 
-Jan
+>
+>>>> +    /*
+>>>> +     * Free the entry only if the original pte was valid and the base
+>>>> +     * is different (to avoid freeing when permission is changed).
+>>>> +     *
+>>>> +     * If previously MFN 0 was mapped and it is going to be removed
+>>>> +     * and considering that during removing MFN 0 is used then `entry`
+>>>> +     * and `new_entry` will be the same and p2m_free_subtree() won't be
+>>>> +     * called. This case is handled explicitly.
+>>>> +     */
+>>>> +    if ( pte_is_valid(orig_pte) &&
+>>>> +         (!mfn_eq(pte_get_mfn(*entry), pte_get_mfn(orig_pte)) ||
+>>>> +          (removing_mapping && mfn_eq(pte_get_mfn(*entry), _mfn(0)))) )
+>>>> +        p2m_free_subtree(p2m, orig_pte, level);
+>>> I continue to fail to understand why the MFN would matter here.
+>> My understanding is that if, for the same GFN, the MFN changes fromMFN_1 to
+>> MFN_2, then we need to update any references on the page referenced by
+>> |orig_pte| to ensure the proper reference counter is maintained for the page
+>> pointed to byMFN_1.
+>>
+>>>    Isn't the
+>>> need to free strictly tied to a VALID -> NOT VALID transition? A permission
+>>> change simply retains the VALID state of an entry.
+>> It covers a case when removing happens and probably in this case we don't need
+>> to check specifically for mfn(0) case "mfn_eq(pte_get_mfn(*entry), _mfn(0))",
+>> but it would be enough to check that pte_is_valid(entry) instead:
+>>     ...
+>>     (removing_mapping && !pte_is_valid(entry)))) )
+>>
+>> Or only check removing_mapping variable as `entry` would be invalided by the
+>> code above anyway. So we will get:
+>> +    if ( pte_is_valid(orig_pte) &&
+>> +         (!mfn_eq(pte_get_mfn(*entry), pte_get_mfn(orig_pte)) || removing_mapping) )
+>> +        p2m_free_subtree(p2m, orig_pte, level);
+>>
+>> Does it make sense now?
+> Not really, sorry. Imo the complicated condition indicates that something is
+> wrong (or at least inefficient) here.
+
+Then, in the case of aVALID -> VALID transition, where the MFN is changed for the
+same PTE, should something be done with the old MFN (e.g., calling|p2m_put_page()|
+for it), or can freeing the old MFN be delayed until|domain_relinquish_resources() |is called? If so, wouldn’t that lead to a situation where many old MFNs accumulate
+and cannot be re-used until|domain_relinquish_resources()| (or another function that
+explicitly frees pages) is invoked?
+
+If we only need to care about theVALID -> NOT VALID transition, doesn’t that mean
+|p2m_free_subtree()| should be called only when a removal actually occurs?
+
+~ Oleksii
+
+
+--------------xXuEtxmw2kSPDrCxIxO0c1JV
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 9/26/25 9:07 AM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:6b62cf4c-8367-47dc-9911-206c220fb050@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 25.09.2025 22:08, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 9/20/25 1:36 AM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 17.09.2025 23:55, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
++{
++    unsigned long root_table_indx;
++
++    root_table_indx = gfn_x(gfn) &gt;&gt; P2M_LEVEL_ORDER(P2M_ROOT_LEVEL);
++    if ( root_table_indx &gt;= P2M_ROOT_PAGES )
++        return NULL;
++
++    /*
++     * The P2M root page table is extended by 2 bits, making its size 16KB
++     * (instead of 4KB for non-root page tables). Therefore, p2m-&gt;root is
++     * allocated as four consecutive 4KB pages (since alloc_domheap_pages()
++     * only allocates 4KB pages).
++     *
++     * To determine which of these four 4KB pages the root_table_indx falls
++     * into, we divide root_table_indx by
++     * P2M_PAGETABLE_ENTRIES(P2M_ROOT_LEVEL - 1).
++     */
++    root_table_indx /= P2M_PAGETABLE_ENTRIES(P2M_ROOT_LEVEL - 1);
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">The subtraction of 1 here feels odd: You're after the root table's
+number of entries, i.e. I'd expect you to pass just P2M_ROOT_LEVEL.
+And the way P2M_PAGETABLE_ENTRIES() works also suggests so.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+The purpose of this line is to select the page within the root table, which
+consists of 4 consecutive pages. However, P2M_PAGETABLE_ENTRIES(P2M_ROOT_LEVEL)
+returns 2048, so root_table_idx will always be 0 after devision, which is not
+what we want.
+
+As an alternative, P2M_PAGETABLE_ENTRIES(0) could be used, since it always
+returns 512. Dividing root_table_idx by 512 then yields the index of the page
+within the root table, which is made up of 4 consecutive pages.
+
+Does it make sense now?
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Yes and no. I understand what you're after, but that doesn't make the use of
+P2M_PAGETABLE_ENTRIES() (with an arbitrary level as argument) correct. This
+calculation wants doing by solely using properties of the top level.</pre>
+    </blockquote>
+    <pre>Got it, thanks. Then I will use solely properties of the top level.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:6b62cf4c-8367-47dc-9911-206c220fb050@suse.com">
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+static int p2m_set_entry(struct p2m_domain *p2m,
++                           gfn_t gfn,
++                           unsigned long page_order,
++                           mfn_t mfn,
++                           p2m_type_t t)
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Nit: Indentation.
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+{
++    unsigned int level;
++    unsigned int target = page_order / PAGETABLE_ORDER;
++    pte_t *entry, *table, orig_pte;
++    int rc;
++    /*
++     * A mapping is removed only if the MFN is explicitly set to INVALID_MFN.
++     * Other MFNs that are considered invalid by mfn_valid() (e.g., MMIO)
++     * are still allowed.
++     */
++    bool removing_mapping = mfn_eq(mfn, INVALID_MFN);
++    DECLARE_OFFSETS(offsets, gfn_to_gaddr(gfn));
++
++    ASSERT(p2m_is_write_locked(p2m));
++
++    /*
++     * Check if the level target is valid: we only support
++     * 4K - 2M - 1G mapping.
++     */
++    ASSERT(target &lt;= 2);
++
++    table = p2m_get_root_pointer(p2m, gfn);
++    if ( !table )
++        return -EINVAL;
++
++    for ( level = P2M_ROOT_LEVEL; level &gt; target; level-- )
++    {
++        /*
++         * Don't try to allocate intermediate page table if the mapping
++         * is about to be removed.
++         */
++        rc = p2m_next_level(p2m, !removing_mapping,
++                            level, &amp;table, offsets[level]);
++        if ( (rc == P2M_TABLE_MAP_NONE) || (rc == P2M_TABLE_MAP_NOMEM) )
++        {
++            rc = (rc == P2M_TABLE_MAP_NONE) ? -ENOENT : -ENOMEM;
++            /*
++             * We are here because p2m_next_level has failed to map
++             * the intermediate page table (e.g the table does not exist
++             * and they p2m tree is read-only).
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">I thought I commented on this or something similar already: Calling the
+p2m tree "read-only" is imo misleading.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+I will change then "read-only" to "not allocatable".
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+That'll be only marginally better: What's "allocatable"? Why not something
+like "... does not exist and none should be allocated"? Or maybe simply
+omit this part of the comment?</pre>
+    </blockquote>
+    <pre>Agree, "allocatable" could be also confusing. Perhaps, just omitting will
+be fine.
+</pre>
+    <pre>
+</pre>
+    <blockquote type="cite"
+      cite="mid:6b62cf4c-8367-47dc-9911-206c220fb050@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+    /*
++     * Free the entry only if the original pte was valid and the base
++     * is different (to avoid freeing when permission is changed).
++     *
++     * If previously MFN 0 was mapped and it is going to be removed
++     * and considering that during removing MFN 0 is used then `entry`
++     * and `new_entry` will be the same and p2m_free_subtree() won't be
++     * called. This case is handled explicitly.
++     */
++    if ( pte_is_valid(orig_pte) &amp;&amp;
++         (!mfn_eq(pte_get_mfn(*entry), pte_get_mfn(orig_pte)) ||
++          (removing_mapping &amp;&amp; mfn_eq(pte_get_mfn(*entry), _mfn(0)))) )
++        p2m_free_subtree(p2m, orig_pte, level);
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">I continue to fail to understand why the MFN would matter here.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+My understanding is that if, for the same GFN, the MFN changes fromMFN_1 to
+MFN_2, then we need to update any references on the page referenced by
+|orig_pte| to ensure the proper reference counter is maintained for the page
+pointed to byMFN_1.
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">  Isn't the
+need to free strictly tied to a VALID -&gt; NOT VALID transition? A permission
+change simply retains the VALID state of an entry.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+It covers a case when removing happens and probably in this case we don't need
+to check specifically for mfn(0) case "mfn_eq(pte_get_mfn(*entry), _mfn(0))",
+but it would be enough to check that pte_is_valid(entry) instead:
+   ...
+   (removing_mapping &amp;&amp; !pte_is_valid(entry)))) )
+
+Or only check removing_mapping variable as `entry` would be invalided by the
+code above anyway. So we will get:
++    if ( pte_is_valid(orig_pte) &amp;&amp;
++         (!mfn_eq(pte_get_mfn(*entry), pte_get_mfn(orig_pte)) || removing_mapping) )
++        p2m_free_subtree(p2m, orig_pte, level);
+
+Does it make sense now?
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Not really, sorry. Imo the complicated condition indicates that something is
+wrong (or at least inefficient) here.</pre>
+    </blockquote>
+    <pre data-start="61" data-end="520">Then, in the case of a <span
+    data-start="84" data-end="101">VALID -&gt; VALID</span> transition, where the MFN is changed for the
+same PTE, should something be done with the old MFN (e.g., calling <code
+    data-start="212" data-end="228">p2m_put_page()</code>
+for it), or can freeing the old MFN be delayed until <code
+    data-start="282" data-end="313">domain_relinquish_resources()
+</code>is called? If so, wouldn’t that lead to a situation where many old MFNs accumulate
+and cannot be re-used until <code data-start="425" data-end="456">domain_relinquish_resources()</code> (or another function that
+explicitly frees pages) is invoked?</pre>
+    <pre data-start="522" data-end="684">If we only need to care about the <span
+    data-start="556" data-end="577">VALID -&gt; NOT VALID</span> transition, doesn’t that mean
+<code data-start="608" data-end="628">p2m_free_subtree()</code> should be called only when a removal actually occurs?
+
+~ Oleksii
+</pre>
+    <pre></pre>
+    <br>
+  </body>
+</html>
+
+--------------xXuEtxmw2kSPDrCxIxO0c1JV--
 
