@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09635BA2896
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Sep 2025 08:37:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1131037.1470272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70853BA28A5
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Sep 2025 08:41:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1131050.1470280 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v225M-0004Wo-8d; Fri, 26 Sep 2025 06:37:40 +0000
+	id 1v228p-0005zK-MR; Fri, 26 Sep 2025 06:41:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1131037.1470272; Fri, 26 Sep 2025 06:37:40 +0000
+Received: by outflank-mailman (output) from mailman id 1131050.1470280; Fri, 26 Sep 2025 06:41:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v225M-0004Tg-5o; Fri, 26 Sep 2025 06:37:40 +0000
-Received: by outflank-mailman (input) for mailman id 1131037;
- Fri, 26 Sep 2025 06:37:38 +0000
+	id 1v228p-0005xs-JP; Fri, 26 Sep 2025 06:41:15 +0000
+Received: by outflank-mailman (input) for mailman id 1131050;
+ Fri, 26 Sep 2025 06:41:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=y8gL=4F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v225K-0004Ta-HB
- for xen-devel@lists.xenproject.org; Fri, 26 Sep 2025 06:37:38 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1v228o-0005xh-4i
+ for xen-devel@lists.xenproject.org; Fri, 26 Sep 2025 06:41:14 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4a622c5f-9aa3-11f0-9d14-b5c5bf9af7f9;
- Fri, 26 Sep 2025 08:37:36 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-63486ff378cso4027407a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Sep 2025 23:37:36 -0700 (PDT)
+ id cb5a3310-9aa3-11f0-9d14-b5c5bf9af7f9;
+ Fri, 26 Sep 2025 08:41:13 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-b3194020e86so308152966b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Sep 2025 23:41:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b353f87511dsm315579466b.43.2025.09.25.23.37.35
+ a640c23a62f3a-b35446f76b4sm305704266b.64.2025.09.25.23.41.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Sep 2025 23:37:35 -0700 (PDT)
+ Thu, 25 Sep 2025 23:41:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a622c5f-9aa3-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: cb5a3310-9aa3-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1758868656; x=1759473456; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1758868873; x=1759473673; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bis+KU+KA0PLLk4iULkzRwvbb9QPLHDV6ubN40wZ3+M=;
-        b=J4aRVX5JZ9v6G5o39qk+vyqUzuHyUQ/CHMO5eWStLi46fory7jnQJ0o7QpzC2jbblJ
-         VKk0OHh0oZ1TJ4B+vpQsWDvYpq5376EyJcdRYAoiSivdcw6tgUpXrU1PF0DlB+jlSaMI
-         knJlWRtPHPNPiVbmxC1C8ByQxbTIoN8DbAuX0MWwxw1NhHDy28AlHq2OBMd5uOL4CKkU
-         p/AH1XosM0DOgGGi/6REiINnG8ti7M+4X7xfnHyK4G7hK8/3H05ux5MozrWg+f+alI29
-         ydfFnvtg9hrzvRoEAV2iZbEBpwlXH0PFcuW84egLPF8RKOVHofBpFk3ytbh8ebrVaet0
-         YK1A==
+        bh=imjnvPcdq+TnzWHoWy3kQ55QTfnBETriswp4UbSSVOw=;
+        b=edG3qMCHXCE6jKExtzxxZPKGzSDMYkNwMw8SGRXVdZdwvJfU+cIquK16uGmFZ5c4J6
+         6cp/POeoGYBym0lDbkROqB0p4GqIVV9omCCm0tx8ghTuc+InFcHi42xF4rhqhRAWvD72
+         FqfHNxXWuNd390HwIg7GgGrq0OgXXrYm9/RiiIavhQnuwPxUDOVJeB2fQ/ddNrrKMrjs
+         sZ/26m4bMYZRiFky9nScIkrkaEw3MVZ/x1IKL6/QjD/DXxumAGMtYqeRm5Ri0EUzus7w
+         rq5I42bX933XMf8k89SkUm7Jau9YPbzw8HU7Nyz2kJEvQYdNLiAbNIIYgJx+U0CCDCg0
+         L/jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758868656; x=1759473456;
+        d=1e100.net; s=20230601; t=1758868873; x=1759473673;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bis+KU+KA0PLLk4iULkzRwvbb9QPLHDV6ubN40wZ3+M=;
-        b=CWHyMTeS5MhKnEqTP7YVhOtyMGvZeRQisbxX7f8o7divGCPJfJjW+e9HeoC8TWX20d
-         SeNHUt2ONhkdqQxuNLC46oYMQDPlF6rw0O2SKlpZCJww0rvaTRMDIkYITBmV79s4OX/t
-         yB69sXzvmf+Kn8TrFhQdt5BK1UotE5YKdW1Mw/LOhhplEnWcwehcKEnGGxpyQUX+hXFe
-         BkVms8mSzDH75BdIVkH2Pz2rh5tUQsngP0OP7hoW+XkIEwFUD4mru+zOFWzxdbKLQU+7
-         XqV281BGX+ScXTnCMasabrbsLLwp/JERwpDlNPAkGtU4fmlroC0CtwWXx7Z8AMMTZAy6
-         hbKw==
-X-Forwarded-Encrypted: i=1; AJvYcCVLP7RrYJZi2WS7g0zleqZmGfl5UA30ugqrHqPaucFj0prq+5sSgGpa2rQcrtZiE4oCoHWMl8+E1j4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyPeLahE1RnHQ3n6bsCISedxWlnINvKm0PqGgZkTagOqgdbbhpf
-	qtHWiEzeJk+ZQAH6lufmQXlrZXjE7rAh5W8e6uQdhJiBlxecuALuCMJ5yw0UBQ6seg==
-X-Gm-Gg: ASbGncud7GDxWkGFdTjd0BoYKItNd1pi0JALh83N8kiJQi3mQsTDHaRvZUM/OgvxbZT
-	XO7njiN3Sl0D56ZTxIMwn77j8JFMgOuufYnBgpUsz8ZjfuU8bP6oPVUSN+PSjzIlTgqyAxphkkX
-	IOyXSZfBXY1BT+u5pHUCO3Wd6zPpu7vBy3qToTYVGb34ay6Yv4Z3Rh14yOj1gfszeuqrb7z1ANu
-	4iK+0HaPIu3bzPL3Rs2x/kRy3DntLIArsH3sKIasLRUlA1b3pANPPtXFtaexfRKea3Y7MJS34Pz
-	udkRnSlI7UKwIpXw/ZWwabUIek8oNeZKzY9YpiRXZwZUfXkL5I3x4PHjoKPXXHBeK13OVKNrP8r
-	JKdTbCESkNNTjIyRXBQnE8lkYccpu65eKdU/ZxslWCQYLKenPEOd/EJcmLc6FivpC/2dup44swl
-	p35ovX5NY=
-X-Google-Smtp-Source: AGHT+IGm9fNyKC8AyW7U7CGWYJkV5quAiBqaelRy7qa8Qn4MRuHwxl2D7JNf6BzieBnlO/NuDtW7Nw==
-X-Received: by 2002:a17:907:1c16:b0:b0b:5d7f:6ae4 with SMTP id a640c23a62f3a-b35490f2f27mr516485166b.8.1758868656253;
-        Thu, 25 Sep 2025 23:37:36 -0700 (PDT)
-Message-ID: <9cf8925c-87c6-44ec-9d46-f8b0ed30f94a@suse.com>
-Date: Fri, 26 Sep 2025 08:37:35 +0200
+        bh=imjnvPcdq+TnzWHoWy3kQ55QTfnBETriswp4UbSSVOw=;
+        b=WDz5I59KW/ZRJ5fPJ15ROfkUuqSqmAGXQMKIP5ZAGji2FgLksS4q/8RUF+4SS33DAx
+         mYIC1hsyb+tTA/tRBjw+irjD1XbvsY49zsMffkFK/IHSRfR6xr0Y6Hxy7VLRLgIf3dcZ
+         YT57NlywSr6vWPX1yMjG9fFzVx5HjhPuEQG/FA7hoPum8WDYZVRUIDsn1qsT/BobjkNF
+         rIelgaOkyWXh0yVnDQD4IFGv9A1Qq9tWnlSuiG1VV0FdKRJw+EfoWCiz1X4qwC3mopzL
+         ZIL/SOv+uzxlsI9EFu3wAtN1EVbRLc441BpH3Mhu0N+clUMejp+0IQFgGxITgQC3rAfZ
+         291g==
+X-Forwarded-Encrypted: i=1; AJvYcCVBFKFkFOnjHSfTN7P3rhjgadu8rlgbMZnlFI0oHEy5KJzenRe4vgjQSICo1/gZb/yw4pVdtKOyPo8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YypI6e5PHUEUnmscFv1Of3Q1yw2E+L90MCWHvYawplG0oRfZnco
+	BH2if4fOUCa0h9wFcGHCMqJo9NuwUHDtxIsPfOCk+iJylux9/Dvwv7QLfn+zX0ubig==
+X-Gm-Gg: ASbGnctgszR5C31zX7lMaNltYWrEuZB4vP6/GjvbCZ3uLdXCKbejJ7QCaMjn/RUWp91
+	lHdhLcBlX41iXVzY5n+11EMVsz7mwqCy7ebRgMMvnmtcfM0vAZ5BXVwNnj82xJP/hAhUPxklCkT
+	Icc/7EZLfHVaxgCTlufsyaI3MG4Tz750BXi2YvaEVspRXPAFWV2MyHSweTrt0TuAFFVubihex6d
+	tUnQ0IMviVqcQkdnImU4hlEJJN4fUUo5xpveBMKmmgul+X6eGMa44C27iQhQe9xmSbJvJ9P517R
+	4X07T0T+W/OG3VirKFwPLU249LLc/BDbOX1PYdNdy3N0zmkw1e0mHaWc0TyXq/qYcCtzYObs9mo
+	Pq5InhVcGcyfsjqVFG1hxtpdEBlSYAzf6+rDnO2XCh9szrE5p7owUqcw1+OpGo3icHyCShNueI9
+	Paw8t71KI=
+X-Google-Smtp-Source: AGHT+IFpcLiKxmjxMB4PaIYkjDteFzI1TGx+1meyKHiqpCOZ5CCWwoIP7cpLCveES4u999mEPY9z0g==
+X-Received: by 2002:a17:907:86a8:b0:b0a:aa7e:a193 with SMTP id a640c23a62f3a-b34b8d7de70mr672985666b.21.1758868872588;
+        Thu, 25 Sep 2025 23:41:12 -0700 (PDT)
+Message-ID: <c509276f-1e7d-4cef-81de-dd227a32c7ec@suse.com>
+Date: Fri, 26 Sep 2025 08:41:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] x86/hvm: mem_sharing: add dependency from
- CONFIG_INTEL_VMX
-To: Grygorii Strashko <grygorii_strashko@epam.com>
+Subject: Re: [XEN PATCH v2] xen/flask: limit sidtable size
+To: Sergiy Kibrik <sergiy_kibrik@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Tamas K Lengyel <tamas@tklengyel.com>
-References: <20250925195607.521021-1-grygorii_strashko@epam.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
+References: <20250901105231.1570041-1-Sergiy_Kibrik@epam.com>
+ <de8380a4-cad9-4589-ae46-8649036186b2@suse.com>
+ <7b36e8fe-c19d-40eb-b1d7-d869cdfb1a28@apertussolutions.com>
+ <aef15bee-be58-4749-95dc-3f87bc2540f8@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,41 +125,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250925195607.521021-1-grygorii_strashko@epam.com>
+In-Reply-To: <aef15bee-be58-4749-95dc-3f87bc2540f8@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.09.2025 21:56, Grygorii Strashko wrote:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
+On 26.09.2025 08:32, Sergiy Kibrik wrote:
+> 06.09.25 01:01, Daniel P. Smith:
+>> On 9/2/25 05:41, Jan Beulich wrote:
+>>> On 01.09.2025 12:52, Sergiy Kibrik wrote:
+>>>> --- a/xen/common/Kconfig
+>>>> +++ b/xen/common/Kconfig
+>>>> @@ -418,6 +418,17 @@ config XSM_FLASK_AVC_STATS
+>>>>   
+>>>>   	  If unsure, say Y.
+>>>>   
+>>>> +config XSM_FLASK_SIDTABLE_ORDER
+>>>> +	int "Maximum number of security identifiers (base-2 exponent)" if EXPERT
+>>>> +	range 4 32
+>>>> +	default 32
+>>> When 32 is chosen (i.e. also the default when the prompt is hidden), ...
+>>>
+>>>> --- a/xen/xsm/flask/ss/sidtab.c
+>>>> +++ b/xen/xsm/flask/ss/sidtab.c
+>>>> @@ -14,6 +14,8 @@
+>>>>   #include "security.h"
+>>>>   #include "sidtab.h"
+>>>>   
+>>>> +#define SID_LIMIT ((1UL << CONFIG_XSM_FLASK_SIDTABLE_ORDER) - 1)
+>>> ... for Arm32 I expect either already the compiler will not like this construct,
+>>> or the latest an UBSAN checker would object.
 > 
-> According to the commit b66e28226dd9 ("x86/mem_sharing: gate enabling on
-> cpu_has_vmx") the Xen memory sharing support is only possible on platforms
-> with "Intel VT-x" (INTEL_VMX=y) enabled.
-> The same commit is also added runtime check for "cpu_has_vmx" in
-> mem_sharing_control() which blocks access to XENMEM_sharing_ops if
-> !cpu_has_vmx.
+> you're right, arm32 toolchain is not building this.
+> Would the following be acceptable then? :
 > 
-> Hence add dependency from INTEL_VMX for MEM_SHARING Kconfig option.
-> 
-> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> #define SID_LIMIT ((1ULL << CONFIG_XSM_FLASK_SIDTABLE_ORDER) - 1)
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-You should have Cc-ed Tamas, for being the maintainer of mem-sharing.
-
-> --- a/xen/arch/x86/hvm/Kconfig
-> +++ b/xen/arch/x86/hvm/Kconfig
-> @@ -79,5 +79,6 @@ config MEM_PAGING
->  
->  config MEM_SHARING
->  	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
-> +	depends on INTEL_VMX
->  
->  endif
-
-Wouldn't this want accompanying by replacing the cpu_has_vmx in
-mem_sharing_control() with using_vmx()? The gain in this case may not
-be very high, but it would serve a doc purpose.
+Personally I'd consider this an abuse of the ULL suffix. But it'll be Daniel
+to judge in the end.
 
 Jan
 
