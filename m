@@ -2,40 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74261BA4919
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Sep 2025 18:12:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1131678.1470641 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 034C2BA4F5E
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Sep 2025 21:25:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1131747.1470651 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v2B2r-0001Tj-JN; Fri, 26 Sep 2025 16:11:41 +0000
+	id 1v2E3X-0006MI-AF; Fri, 26 Sep 2025 19:24:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1131678.1470641; Fri, 26 Sep 2025 16:11:41 +0000
+Received: by outflank-mailman (output) from mailman id 1131747.1470651; Fri, 26 Sep 2025 19:24:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v2B2r-0001Qw-GY; Fri, 26 Sep 2025 16:11:41 +0000
-Received: by outflank-mailman (input) for mailman id 1131678;
- Fri, 26 Sep 2025 16:11:40 +0000
+	id 1v2E3X-0006KM-7B; Fri, 26 Sep 2025 19:24:35 +0000
+Received: by outflank-mailman (input) for mailman id 1131747;
+ Fri, 26 Sep 2025 19:24:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sxmF=4F=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1v2B2q-0001Qq-PM
- for xen-devel@lists.xenproject.org; Fri, 26 Sep 2025 16:11:40 +0000
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c110::3])
+ <SRS0=CKq1=4F=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1v2E3V-0006KE-PG
+ for xen-devel@lists.xenproject.org; Fri, 26 Sep 2025 19:24:33 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 78ff0807-9af3-11f0-9809-7dc792cee155;
- Fri, 26 Sep 2025 18:11:35 +0200 (CEST)
-Received: from DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
- by CH2PR03MB5304.namprd03.prod.outlook.com (2603:10b6:610:9a::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.13; Fri, 26 Sep
- 2025 16:11:32 +0000
-Received: from DM6PR03MB5227.namprd03.prod.outlook.com
- ([fe80::c9a0:563d:c344:aec2]) by DM6PR03MB5227.namprd03.prod.outlook.com
- ([fe80::c9a0:563d:c344:aec2%5]) with mapi id 15.20.9160.010; Fri, 26 Sep 2025
- 16:11:31 +0000
+ id 6a0ebcd0-9b0e-11f0-9809-7dc792cee155;
+ Fri, 26 Sep 2025 21:24:28 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 29C8D40120;
+ Fri, 26 Sep 2025 19:24:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21A8DC4CEF4;
+ Fri, 26 Sep 2025 19:24:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,166 +41,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78ff0807-9af3-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ubIRKESjaA5RTPjkQzvmOzN9PMu88JMmnLPSq30PXv6oV2mbtDLDty0+lQ2hfJbMexbGC3KfBKU/eYn48NTAvSh0Foq74oeqcPuVIEEYbedA5jYsaOXAzpeWrCkeIs9w+YgxYFRd86DKDTbh3bSPaqnEpCXZNgVpbaB9TxmrkUgyUpiIpg7K7s37S9DM3I4B6uoQYLliEi50DfEU3KtIm09Ap5GlK4UMGMLTW8154XJ+uvlvgS1spa29rwLhfjhonQRhbLzOUF0O9YIKqyawhE0BDKuALyDa26YkDa5HRzBs090/X5AX0yYoSoOJa6M2r6vAixMY+c46mO5Eu3synA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NfY0RCovz+6I+auipczWgf3mr9J0+m54msDYturNMxQ=;
- b=wvg8Z76n2QWwRX+Pg1f+emVY686e8IWdCSRI32Tv5nBeuT4JDeQfdRjR3tSrzNYF7byg3UsO2WrH+no+nyictr78p4Hira6kWngPLCndUnKEBbqVDs3QsyDhaI1W+9PmpaHpTA5x63x4dWRfYoY9ZfFsQNxT5SCAHO0e3Ag95BF2aCdZ1EjIPk02H2CHvMdmHJS9pxPailxd4j/dbzbnwA8mBgaZiqGLych2sz3wMyeStSkLfZpaoQcI56HF25pyS0ru05Bn03L0c1rlbHO+4OKyy6b0uiXcaD9/DLEkK1g67ib27UjeAEcfxMFjh2+/lM1ito66iB/Nhvbzqlmy+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NfY0RCovz+6I+auipczWgf3mr9J0+m54msDYturNMxQ=;
- b=pAJ/rq7VCpbf7LrZYj2pwFCQ8L5YY7fVKetlpwRBu99otzzZMPc1EnRmkgW9uK2jYPDAJz/7CjxGWjMYyIq5jwW4eVZ0g7IzKYlBvMajO/srs/CPPytRMey+i1JlpKkcCj3Bm31CKO78R0FRO1Nnlqt7EB8F3lOsyoDtpo46kDs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Fri, 26 Sep 2025 18:11:28 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] MAINTAINERS: add myself as vPCI reviewer
-Message-ID: <aNa7MOjELppsYep2@Mac.lan>
-References: <20250922183537.8861-1-stewart.hildebrand@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250922183537.8861-1-stewart.hildebrand@amd.com>
-X-ClientProxiedBy: MA2P292CA0021.ESPP292.PROD.OUTLOOK.COM (2603:10a6:250::13)
- To DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
+X-Inumbo-ID: 6a0ebcd0-9b0e-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1758914665;
+	bh=RMQKJaLaOxBwjX2KvOafC1kD90VnlXjebrcQGGvLz3w=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=FdHf6jv+0FREut6yJVNe35HJGNEtuAggH/O5ujRDCsaRxAlGAxqlrRejR7HvQ/lzL
+	 KP8UWda4k4n/DLAtJdKfWYrW/B0F4wDb+y1EVFjaiyyw+JddX5Do9ixdoBeapEeW5g
+	 dbJNV74C/vVRU4Vem5NTw3qmZ/vIMNI8uFLVqLwTAayE9v70aZcfU5wuXRxYTucDCC
+	 l0SSXm+hk5oiDe7f4+15clKBW6B2A/yXnaYthDCiLxNz0efq/emGMzX3m+88Wn1/Pa
+	 aDBjsEZpFoA4H2ufmyp8gIHSWGTw/b22ahJfy6CTjwju2Ff5ZlK1k3tnpkrQo5r7xw
+	 LDi71IaldMWug==
+Date: Fri, 26 Sep 2025 12:24:23 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: "Penny, Zheng" <penny.zheng@amd.com>
+cc: Jan Beulich <jbeulich@suse.com>, "Huang, Ray" <Ray.Huang@amd.com>, 
+    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "Stabellini, Stefano" <stefano.stabellini@amd.com>, 
+    "Andryuk, Jason" <Jason.Andryuk@amd.com>
+Subject: RE: [PATCH v2 18/26] xen/domctl: wrap xsm_getdomaininfo() with
+ CONFIG_MGMT_HYPERCALLS
+In-Reply-To: <IA1PR12MB8467188458BA8FAF348AC538E11EA@IA1PR12MB8467.namprd12.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2509261224150.2244509@ubuntu-linux-20-04-desktop>
+References: <20250910073827.3622177-1-Penny.Zheng@amd.com> <20250910073827.3622177-19-Penny.Zheng@amd.com> <a8b93dcc-c003-49a6-8a78-5fb890cbaec0@suse.com> <DM4PR12MB8451BE98219C343F8F62482AE11FA@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <66b43c3b-c74f-4c18-b91a-bd7b56a62eff@suse.com> <DM4PR12MB84518B65027B6A355ED4D246E11EA@DM4PR12MB8451.namprd12.prod.outlook.com> <af57c032-541d-4956-85de-269066c50cd3@suse.com>
+ <IA1PR12MB8467188458BA8FAF348AC538E11EA@IA1PR12MB8467.namprd12.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5227:EE_|CH2PR03MB5304:EE_
-X-MS-Office365-Filtering-Correlation-Id: fedfd8c9-4bc9-4df5-6d96-08ddfd175b62
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?YzlJQm44U3ZyOE13TnJEWlFrMkU2ZnFkbmowMTZHamxpeFRxZHlpWnFjUHRk?=
- =?utf-8?B?NnhWdzZ5aXNrbndHSVYwVVl4ZXM5QnVYL28xZkV4cy9IM3pUcEg0dnkyKzhF?=
- =?utf-8?B?Z1hXcUF5RmI0U2pvT1V6ME1tRkJlTEhSL1c5dVFSQmFvZS83Q2wxL0JBcjlu?=
- =?utf-8?B?Ti80TmdqMWorUXd4UFVBUVdHNytpZzM0enFjbTZ2anpZVlJ6Y0tFS0VjVXBy?=
- =?utf-8?B?dGVYSUNXRUNuY1RHVy8rd0dYV1pURWtoVTVuclQ4R3JtdHpsbjY0RXRjNTJB?=
- =?utf-8?B?dXN2WGl5bmlWM05jYTNWMVZkZEhjcUs4ZEZEZUFYRTFMR2ZYcGxldURVUWdx?=
- =?utf-8?B?eWtNVVI3L0JyRHZBamgyaGZTN3h1V2JXdUZQTG9NRU03c1hpQ3ptM0hNR1Q0?=
- =?utf-8?B?TWNva2NtTlJvQTFwekowK1dURnRucnlGYnh4RGJ2czNzYzZNbElPUUdHekdY?=
- =?utf-8?B?THZGL2JEWGtXemlnSXQ1UHo5MnRRMDFzWlJxQTYzbzI4MHpubUtwZzRaL2Jv?=
- =?utf-8?B?L1dGQUNTN1ZIM3JNaCt2Y0dsdEJGeE9JNVBJcHFiMnUybXJna1IzaEphYWIx?=
- =?utf-8?B?R3dwTGtsT1FYd2Q4NEJFZjBQdDJEWXlXWEtMY1lWdW53NGtjNWZ5WEVEbm9y?=
- =?utf-8?B?OUN2bGpHM1VKRmREWE5HcDBQSUl0QUNnZ2FqY3JQVDdYdW5HcE1FVGlieitu?=
- =?utf-8?B?a0R0ZVZiV0ZtODNDQUM4bStHYUlpMTQ1SnMxcllVUFF2SFRXdU50d1I4VXAv?=
- =?utf-8?B?MGV3QVRsd1VlOG95bFhTM1YrTG9FUHR4T3pKd2N4V0tJd1FiM1IvOXlMN0J2?=
- =?utf-8?B?RnZ4VDQ5dGY3M3Z4bkFxS3dFT0pvVDd1RklJOEZ4QXdLbzBuZkxRMDhMWUFI?=
- =?utf-8?B?MnJ2MmRCY0o4TzNxK0FzbG5GeFFqTndYM3JLMjRWSE45bklWMktsQWtFNG1m?=
- =?utf-8?B?YlIvbitMU0EvZWVkajlVeWlhTlJReHBUNUkxL1MySDFBcEdFb1dMeVdqRks3?=
- =?utf-8?B?Q05hYUdRMVBSTGE4ZVg5UGwyNFk5amR5eFQvQUt1cjluSkpucHp1ZUtscHJ0?=
- =?utf-8?B?TVp3SnViK2JCanpKNmMzalNmdHBrN0JxaysvbHZ2ZnJnRDVlT3JheWRpZUkr?=
- =?utf-8?B?V01pWG0wdWJybUJVdTg5UmZBckMxY2RlZkw0VmhpaWZJWDF5L0FPNVM2aGI2?=
- =?utf-8?B?TGM3OEFUQ1M0S1FhQzZoUFB3Q0xhM0NvMngvSGNxZFNVV2xxRFNTc2xnK09L?=
- =?utf-8?B?dWFwV0tyenhYVWJoMmpYc01VY29MbUlNaUFPeGhCSUZqQmpoaExIb0plOEt1?=
- =?utf-8?B?QTlNR2VFQkhhYWozL3A2Smw3a1NuVGtVMEFOdXk1TE44S09hS1JGOTUySS82?=
- =?utf-8?B?WGFMSjRoem9VdG9FTjh2YXZDeVJqQU03cWErMEtHUG9XL0NVa1JCV1IxTkpx?=
- =?utf-8?B?bmpJV3E1M2orYjcvWGlDZ1ZMSjIxcUZ5UFlkaXRIR040TzFjRlRCbFA3UHo3?=
- =?utf-8?B?WGltbnNYTlNNeWVZbkFGZVBqaDBpN3k5RkZVRWxRd2x0NGtqYTY3dTFjVnRM?=
- =?utf-8?B?OFZvSGUyMlkvd1owSEdYTXlyc0dRSEtBVGVaWXZvSk1LV2NOb2NKWXhFNWdM?=
- =?utf-8?B?TmE1OTFFRjJWQ2M3cnc5L0daNHNYOHZxcUVvNnBaOGhsRmZKajBkVDJObmVi?=
- =?utf-8?B?OXNLN3NZcXluMUJob2hMa2RkS3BWdm1NTFQwWWw1MDZBNVQzZlZUb2crSkk2?=
- =?utf-8?B?TkFkdTVuNGMyR09KeDVkTzV1NVBnZTBrVDE5d0pHZDR5M3lvdVNMUFF3b1Rm?=
- =?utf-8?B?SXJRaWdLUkdQUytQTTY1ck9MSDJ5elhFT0FOREUwVUErVjcvUUdpWHppa3d2?=
- =?utf-8?B?dzFlNFdQTytJS3Y5MHYyb25COTJualFwNk8yYko3VzByZCtuTFRQT2FTS281?=
- =?utf-8?Q?E5hqq296Ti2AjJ0MlI5UEzbgYLiy0r8Q?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB5227.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NmQ2YzFDWGxxbG1Oa2p2YkIvWkxsR0Jock1ZaTg4a3cycDlPQy9XWFc4dDZ5?=
- =?utf-8?B?M2JSZEVKcXFOQ08xKzl3dndZNmJ1bHFjOUNoRzYvK1dISS9FZmQvUklpaGc1?=
- =?utf-8?B?WThPWk4wMkNVTlFmbzlKRjdEOXRackd1eS9HUEl1QWFFaFQyclFYRGIvL1hL?=
- =?utf-8?B?SytwaWJ3aHh5NWNCVkNNd3BPR1JVdnl5U1FXdktoQzhvT3BqY3ZVcElocXRh?=
- =?utf-8?B?MFBTUFNiak5rMG9kVjNqdkR2YnYvZnpJSTh2d1JCVUNGTENtZFB5Y20rcCtV?=
- =?utf-8?B?MDZNUnBZZEIxeVBjZU4xTVc0Nm82STB4dXVXZm5YTnJMcEd6SU02TTUvQzBk?=
- =?utf-8?B?cHhBY0FCZzk0bCtjK3lEYnREYTJxSEFGU05PalEwMUN3MDRLUllHb0wvZDRB?=
- =?utf-8?B?TTdBcmdHWkdnazhabStETG5KOENVZ0Z4U0VMRkdBZlNmbm9OdU5ic05XZUxa?=
- =?utf-8?B?UURYMkg0Z3N5bWxjMTY3MldGSW9YOFlna0pMYkdvemdDL05zbVdPKzA3dER1?=
- =?utf-8?B?YVJXbmh1K2ZhMEpqejNGcHdDa0tPNjk2S2xQbG11SVRURkdSRkNQanh1VGM4?=
- =?utf-8?B?VDZFZnFwcjhpcHZrWDYwNmxYU2RPVklNV2tUcGxZSUZlbUVyVElERWcrbGVx?=
- =?utf-8?B?K1QrWjRvNEFDV3hmaWVHNTc4LzRqZE9vMDRYR2JlRGdla2dwdWNQNVhySzJ3?=
- =?utf-8?B?Q3JtNUdBcHB6VW9VVld5MWI1QVBSVFY4QVRFVEZCMm95SUlnS3V2WDZpdkRh?=
- =?utf-8?B?cFJnWjNNVlg4NitiM0IzTjYxTHhIcW5ZMkIzbFRSa0luRkdUOFgwZDJmOEZM?=
- =?utf-8?B?VEhHYU5KU2Y0OWtkbEJQVFhDMmh4cGx1QnVmdll2MUlTbmJWNjEyUXU3Zk1Q?=
- =?utf-8?B?SEZuMXVFS0tBNVZ3d1p0Mi9TeE8rZkZSU1E2MDBMUnBwbE10Vm1vbjFiRzJN?=
- =?utf-8?B?N0dsL3BNcWlBUjBZeXIvaVRiZHAyWnQvdHdhUjFqd3lEbHdmMUNvRnhzREV2?=
- =?utf-8?B?alZYNnVqbVFQay96RFpmd2V6RXAzbWJUVFNjOHpZK3htQUFXUjZXcW54KzJa?=
- =?utf-8?B?UU9yUEFhdzRsSWNNWXBxb3BTSTY1NjBqM2oreGxETVFKTmVWTjNHVTlMNTND?=
- =?utf-8?B?cnNLWWhVWW9ST1l6NHBmOU51Sk5rcTdiVFhlRmhQZWZCRTlOeDdVNUxvemhj?=
- =?utf-8?B?ZTFQRHUyWDQxSHQ4L1FqaytnTzYydEM5eTUzQmVSdURncXArb3pqNDdzd0RG?=
- =?utf-8?B?dUZRcmVRS3lqME0vZVkxenk3SnlmTmxzZ2xya21hcGNCZHhoZkdSN0FSZFZu?=
- =?utf-8?B?VldzSGZmSEZHOHRZZzZqWHA1c3d1d3FyZ3JkMTJOZ2FrVHR6VlRGczFuZmd5?=
- =?utf-8?B?MEw0SDRyY1R6MEt6VlJTZGJucTdNUFJyOStqaTIrTGlPTnQzeGhPVFh1VTBa?=
- =?utf-8?B?V0Rnc2F2OTZLQVR5UGJ4NXoxampsM3ZLTlY4OHJXTUJoeEhWU1pjbU9KTFFt?=
- =?utf-8?B?eThxTXpLdXFmNFA2TUNIN2NjNTZCcUNML2pGVFZnb1ZvMU1SNEprczRzWFB2?=
- =?utf-8?B?NDMwV0RFelFWS1VOVDY4emltMGd2VFBZUndOZDNUU1I5S3FkNDBpWUdpVlUr?=
- =?utf-8?B?WTdpOXRvWVhoWm9JVmsxOVk3dnJ6Y2liTWZIeFB1RG9nRjg2K2Yva0pDd0Jw?=
- =?utf-8?B?c2tLQWdiNE5JY3Jvcnp2NW1zeHhOSVZIOHcvdG9KaHZoOEtDNEpMSkZTdFdY?=
- =?utf-8?B?K1Q5Y21WRkpxa0hBNWZYNlJmbWFIZmVnNm1ZcnEycmJJNTR4L1hxWWcyNlFS?=
- =?utf-8?B?MFpDU2dGMk93dzBSbGNPblBUYjFqK1UwVTVabHdyTXJha3JiWEtEeFltSWR3?=
- =?utf-8?B?d01DdnA0SndVYTVYekFtVTFFdHE0dEE0ZHBlampYMEdaa3lvZEZNRVNqREE2?=
- =?utf-8?B?dW43Qlk3MzF6NEpFWHgrYmJaU2dqSDkxRGo4UVByVjhGcjhFUmdEVERkR2Va?=
- =?utf-8?B?eG1TS3lQaXVDY2lra1ZUWitEYnNsVjFEbWx1dXd2OG81aUQ0b2o4RDNWZFZp?=
- =?utf-8?B?emlFYWZHTTd2TG93U3VPVkNOWGRCNzFub3pTbXJTZUYvMkJtczJXaWtDdFFC?=
- =?utf-8?Q?yFWufKGUjxWMmChNPcl4eiaFY?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fedfd8c9-4bc9-4df5-6d96-08ddfd175b62
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5227.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2025 16:11:31.7586
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ft0pyj2OOw4lasKKIMRCnstT4NdpEVegcb8IJaZz38RyzBb5OnJWzl+T2vLZfdW/WJRb7PU2Nr54kV+nYSyv7g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR03MB5304
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, Sep 22, 2025 at 02:35:35PM -0400, Stewart Hildebrand wrote:
-> I'd like to take a more active role in reviewing vPCI bits.
+On Thu, 25 Sep 2025, Penny, Zheng wrote:
+> > -----Original Message-----
+> > From: Jan Beulich <jbeulich@suse.com>
+> > Sent: Friday, September 26, 2025 2:53 PM
+> > To: Penny, Zheng <penny.zheng@amd.com>
+> > Cc: Huang, Ray <Ray.Huang@amd.com>; Daniel P. Smith
+> > <dpsmith@apertussolutions.com>; xen-devel@lists.xenproject.org; Stabellini,
+> > Stefano <stefano.stabellini@amd.com>; Andryuk, Jason
+> > <Jason.Andryuk@amd.com>
+> > Subject: Re: [PATCH v2 18/26] xen/domctl: wrap xsm_getdomaininfo() with
+> > CONFIG_MGMT_HYPERCALLS
+> >
+> > On 26.09.2025 06:41, Penny, Zheng wrote:
+> > >> -----Original Message-----
+> > >> From: Jan Beulich <jbeulich@suse.com>
+> > >> Sent: Thursday, September 25, 2025 10:29 PM
+> > >>
+> > >> On 25.09.2025 11:41, Penny, Zheng wrote:
+> > >>>> -----Original Message-----
+> > >>>> From: Jan Beulich <jbeulich@suse.com>
+> > >>>> Sent: Thursday, September 11, 2025 9:30 PM
+> > >>>>
+> > >>>> On 10.09.2025 09:38, Penny Zheng wrote:
+> > >>>>> --- a/xen/include/xsm/xsm.h
+> > >>>>> +++ b/xen/include/xsm/xsm.h
+> > >>>>> @@ -55,8 +55,8 @@ struct xsm_ops {
+> > >>>>>      void (*security_domaininfo)(struct domain *d,
+> > >>>>>                                  struct xen_domctl_getdomaininfo *info);
+> > >>>>>      int (*domain_create)(struct domain *d, uint32_t ssidref);
+> > >>>>> -    int (*getdomaininfo)(struct domain *d);
+> > >>>>>  #ifdef CONFIG_MGMT_HYPERCALLS
+> > >>>>> +    int (*getdomaininfo)(struct domain *d);
+> > >>>>>      int (*domctl_scheduler_op)(struct domain *d, int op);
+> > >>>>>      int (*sysctl_scheduler_op)(int op);
+> > >>>>>      int (*set_target)(struct domain *d, struct domain *e); @@
+> > >>>>> -234,7
+> > >>>>> +234,11 @@ static inline int xsm_domain_create(
+> > >>>>>
+> > >>>>>  static inline int xsm_getdomaininfo(xsm_default_t def, struct
+> > >>>>> domain
+> > >>>>> *d)  {
+> > >>>>> +#ifdef CONFIG_MGMT_HYPERCALLS
+> > >>>>>      return alternative_call(xsm_ops.getdomaininfo, d);
+> > >>>>> +#else
+> > >>>>> +    return -EOPNOTSUPP;
+> > >>>>> +#endif
+> > >>>>>  }
+> > >>>>
+> > >>>> This is in use by a Xenstore sysctl and a Xenstore domctl. The
+> > >>>> sysctl is hence already broken with the earlier series. Now the
+> > >>>> domctl is also being screwed up. I don't think MGMT_HYPERCALLS
+> > >>>> really ought to extend to any operations available to other than the core
+> > toolstack.
+> > >>>> That's the Xenstore ones here, but also the ones used by qemu
+> > >>>> (whether run in
+> > >> Dom0 or a stubdom).
+> > >>>
+> > >>> Maybe not only limited to the core toolstack. In
+> > >>> dom0less/hyperlaunched
+> > >> scenarios, hypercalls are strictly limited. QEMU is also limited to
+> > >> pvh machine type and with very restricted functionality(, only acting
+> > >> as a few virtio-pci devices backend). @Andryuk, Jason @Stabellini,
+> > >> Stefano Am I understanding correctly and thoroughly about our scenario here for
+> > upstream?
+> > >>> Tracking the codes, if Xenstore is created as a stub domain, it
+> > >>> requires
+> > >> getdomaininfo-domctl to acquire related info.  Sorry, I haven't found
+> > >> how it was called in QEMU...
+> > >>
+> > >> It's not "it"; it's different ones. First and foremost I was thinking
+> > >> of
+> > >>  * XEN_DOMCTL_ioport_mapping
+> > >>  * XEN_DOMCTL_memory_mapping
+> > >>  * XEN_DOMCTL_bind_pt_irq
+> > >>  * XEN_DOMCTL_unbind_pt_irq
+> > >> but there may be others (albeit per the dummy xsm_domctl() this is
+> > >> the full set). As a general criteria, anything using XSM_DM_PRIV
+> > >> checking can in principle be called by qemu.
+> > >>
+> > >
+> > > Understood.
+> > > I assume that they are all for device passthrough. We are not accepting device
+> > passthrough via core toolstack in dom0less/hyperlaunch-ed scenarios. Jason has
+> > developed device passthrough through device tree to only accept "static
+> > configured" passthrough in dom0less/hyperlaunch-ed scenario, while it is still
+> > internal , it may be the only accept way to do device passthrough in
+> > dom0less/hyperlaunch-ed scenario.
+> >
+> > Right, but no matter what your goals, the upstream contributions need to be self-
+> > consistent. I.e. not (risk to) break other functionality. (Really the four domctl-s
+> > mentioned above might better have been put elsewhere, e.g. as dm-ops. Moving
+> > them may be an option here.)
 > 
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> Understood.
+> I'll move them all to the dm-ops
 
-Sorry, I've been having issues with email.
+Hi Penny, Jan, I advise against this.
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+I think it is clear that there are open questions on how to deal with
+the safety scenarios. I briefly mentioned some of the issues last week
+at Xen Summit. One example is the listdomains hypercall that should be
+available to the control domain. We cannot resolve all problems with
+this patch series. I think we should follow a simpler plan:
 
-Thanks, Roger.
+1) introduce CONFIG_MGMT_HYPERCALLS the way this patch series does,
+   removing all domctls and sysctls
 
-> ---
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 31dbba54bb6f..793561f63f83 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -578,6 +578,7 @@ F:	xen/include/*/vm_event.h
->  
->  VPCI
->  M:	Roger Pau Monné <roger.pau@citrix.com>
-> +R:	Stewart Hildebrand <stewart.hildebrand@amd.com>
->  S:	Supported
->  F:	tools/tests/vpci/
->  F:	xen/drivers/vpci/
-> 
-> base-commit: 656b9ca03bd340715aecf405da63c515afb344a1
-> -- 
-> 2.51.0
-> 
-> 
+2) make further adjustments, such as making available the listdomains
+   hypercall and/or the hypercalls listed by Jan as a second step after
+   it
+
+This is because 1) is already a major improvement that might even be
+enough in the simpler deployment scenarios.
+
+So I advise against making this series more complex and instead just
+focusing on removing all sysctls and domctls the way it is already
+doing. This is regardless of the Xen release schedule.
+
+As it happens, my suggestion would also make it more suitable for 4.21.
+At the same time, I realize it is coming later than expected so I
+understand if Oleksii and Jan prefer to postpone it after the 4.21
+release regardless.
 
