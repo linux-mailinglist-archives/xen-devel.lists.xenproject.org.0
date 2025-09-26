@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAA3EBA2E1B
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Sep 2025 10:05:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1131288.1470441 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6846FBA2E82
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Sep 2025 10:17:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1131303.1470450 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v23Rt-0000VE-G5; Fri, 26 Sep 2025 08:05:01 +0000
+	id 1v23dz-0002mu-GJ; Fri, 26 Sep 2025 08:17:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1131288.1470441; Fri, 26 Sep 2025 08:05:01 +0000
+Received: by outflank-mailman (output) from mailman id 1131303.1470450; Fri, 26 Sep 2025 08:17:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v23Rt-0000SD-Cs; Fri, 26 Sep 2025 08:05:01 +0000
-Received: by outflank-mailman (input) for mailman id 1131288;
- Fri, 26 Sep 2025 08:05:00 +0000
+	id 1v23dz-0002kb-DU; Fri, 26 Sep 2025 08:17:31 +0000
+Received: by outflank-mailman (input) for mailman id 1131303;
+ Fri, 26 Sep 2025 08:17:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ywWV=4F=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1v23Rs-0000RE-1P
- for xen-devel@lists.xenproject.org; Fri, 26 Sep 2025 08:05:00 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (envelope-from <SRS0=y8gL=4F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1v23dy-0002kV-8i
+ for xen-devel@lists.xenproject.org; Fri, 26 Sep 2025 08:17:30 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f1eb5b4-9aaf-11f0-9d14-b5c5bf9af7f9;
- Fri, 26 Sep 2025 10:04:59 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8909B6B062;
- Fri, 26 Sep 2025 08:04:57 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6A8CA1373E;
- Fri, 26 Sep 2025 08:04:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id COQjGClJ1mibbgAAD6G6ig
- (envelope-from <jgross@suse.com>); Fri, 26 Sep 2025 08:04:57 +0000
+ id 3e1c485c-9ab1-11f0-9d14-b5c5bf9af7f9;
+ Fri, 26 Sep 2025 10:17:29 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-b2bddecc51aso277614566b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Sep 2025 01:17:29 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b37b3b46ba0sm118850166b.2.2025.09.26.01.17.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 26 Sep 2025 01:17:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,246 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f1eb5b4-9aaf-11f0-9d14-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1758873897; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=4sQh/CiinmBC59T4F3kvNbGZCHfl6iTQQwPV43dmacA=;
-	b=PU6NGCkqodSIIY9wm2kn/FnRtDLysmv5gDbUt9EcG2e6y2T+Pc+CTiert36E8fayjBMCtI
-	3ZQclQxi/hGqDoeX5T6PrgnYc9w/J5Kn9fGT/TKpVy5cu8666mDbIbDM2uOlUUumpMVoQ3
-	TNW7FDXS6iu89jYFdcM+VoTpV10BLCM=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=PU6NGCkq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1758873897; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=4sQh/CiinmBC59T4F3kvNbGZCHfl6iTQQwPV43dmacA=;
-	b=PU6NGCkqodSIIY9wm2kn/FnRtDLysmv5gDbUt9EcG2e6y2T+Pc+CTiert36E8fayjBMCtI
-	3ZQclQxi/hGqDoeX5T6PrgnYc9w/J5Kn9fGT/TKpVy5cu8666mDbIbDM2uOlUUumpMVoQ3
-	TNW7FDXS6iu89jYFdcM+VoTpV10BLCM=
-Message-ID: <9a2c77f3-fbdf-4d8a-8793-7d75f9ffb538@suse.com>
-Date: Fri, 26 Sep 2025 10:04:56 +0200
+X-Inumbo-ID: 3e1c485c-9ab1-11f0-9d14-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1758874648; x=1759479448; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Cs2I1+OSxuF8Sr6UbB64Dw+Dzy+1s8GX9PeJCHm1Yug=;
+        b=X9yyzY8EXinaZ4FFyVBH4o0SioRZ3NLGz9pdkyhssbH1jyHHRyR1Rpqv1FXHRSwHGg
+         l+aMKEECPPGNDhMiiozolNDNOuhIBXCW7832OSuVS3DlZn4J6a1O78tk9HqXMqZ+0pJr
+         BLlLqTrwBvqCIuQ1tF79NXd1j3rUQK9qdx4AuSb+lzWWyqRlw8Ma56okY3oqjpSjtpHz
+         4jhvxKzHlGbTOVZy03UFTqERjW2dP1A1G4RYerwy1AkKo6CKYH6YIltkNQpQayALsN6y
+         ZGj5ns3lW3GKpBL+r51XY2wuSpH5CbqPplMxFL2if2MAjJb6I/uSpxtBiB6fm7E0PQkJ
+         pAzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1758874648; x=1759479448;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Cs2I1+OSxuF8Sr6UbB64Dw+Dzy+1s8GX9PeJCHm1Yug=;
+        b=CsKQqOyej57J3HNT87MW67BAzvhwCAYOfZXByeqp1iMZWzYwatUqOXs4+x1kY57yLn
+         6I85mUsZU2zJVQmw7ig8Jl+jIbJ/cXaPNvN9X5eD0w0es4VFWtaO70pUPsBIkmd/fkV5
+         uzVm3XcPgA7QdI6jzQ8FWAP4ap1T4UboJpfJzUj9OHSeIgLNRDnSst1Q2APhS11CJHfO
+         L6C0Fj3bb7HUR7xTmn2iDXyU/dQqqthuZft/MNevKLJG9DLxgMn2407BYQ8JP1DtBWzG
+         www11dJF1wPOMyugBQTaniNP7neKMGrtuus6u5RJK+yvSeOIHVp14im+iwZLpGz4uzcq
+         vLcQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU4mIZUMJGxYf8aF9TprhbUymEF2hcU6OkK186Ha49xtHn68rKOWJBSgeIn5wCBX6W/nv1u8QxLX9Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx3xpy3NPlyDVYsFUCVcMhUE2e/a8skMFhvS6RPs974yATY5/k1
+	FEl05BxOJd15HLACHtT/vV4KwNn6b/IfcZjcw+9zy/b5jCbjlkhs+aQthS5f8n+38w==
+X-Gm-Gg: ASbGncttSOPB3Fb/7NiwrmCMIKAmhw/wUNBmPSto+WPiUM3QRpdnw6+AFjZFFBPf/cP
+	6UOK8SfuK5i/FHyohml0847Y3biJWe5DaeaFG4P0jHTg0shOrrDjf8SbKyvdGxQPrRWMHEO37o8
+	lpm6rsT5YUjrhLlLYvBqGyFC0Yg/RCKeP5CWR8fAlqM+fWo7z36f3GemcsglHipg5t1cuZGPxsQ
+	l+2NxIdevmRAI2V2RqkQ5kE0FVQGMEyxbaWRM6ltYks90TgVWWujL7rMiit/fgKMsZWHsjOndJS
+	1whz6RQuscbVgMr7AkK9PYM3o8/zbNAxoPzZmZr4dSa0ESOAc+by34AKK//nZWDdVmFz91tAd+q
+	ieMGOcG2M4T4Zdv4x5hBt2g8SM6u5q7cDo69qvuTi+lyRNKRCh1b/rA7Gw2QhNsXX/Q/SRZqB3Q
+	9LpXrmbKg=
+X-Google-Smtp-Source: AGHT+IH9uwwURUyKes29IiQ7UrpZEd9kPHN0CzbT2qqMjD7PLrbGD9+0C4X7WctdtlxEdOpGssZEtQ==
+X-Received: by 2002:a17:907:7e88:b0:aeb:3df1:2e75 with SMTP id a640c23a62f3a-b34bb8f2acemr689961566b.46.1758874648505;
+        Fri, 26 Sep 2025 01:17:28 -0700 (PDT)
+Message-ID: <a90600d2-a6aa-43be-8977-6d407ef7bb06@suse.com>
+Date: Fri, 26 Sep 2025 10:17:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [Question] Unexpected growth of nr_cpu in `credit` Xen scheduler?
-To: Igor Korkin <igor.korkin@gmail.com>, xen-devel@lists.xenproject.org
-References: <CAC8oKvry6UFOE6B9dkfWFPEkehc3o4w+xJPZJe-sUpks6WmzNA@mail.gmail.com>
+Subject: Re: [XEN][PATCH] x86/hvm: vlapic: fix RO bits emulation in LVTx regs
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ Jason Andryuk <jason.andryuk@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250925195558.519568-1-grygorii_strashko@epam.com>
 Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <CAC8oKvry6UFOE6B9dkfWFPEkehc3o4w+xJPZJe-sUpks6WmzNA@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------xKkZs2uT0YZrbDtpkOISbGHW"
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Rspamd-Queue-Id: 8909B6B062
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-5.41 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SIGNED_PGP(-2.00)[];
-	SUBJECT_ENDS_QUESTION(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.com:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:dkim,suse.com:mid]
-X-Spam-Score: -5.41
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250925195558.519568-1-grygorii_strashko@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------xKkZs2uT0YZrbDtpkOISbGHW
-Content-Type: multipart/mixed; boundary="------------HJjWm7veJp2SSCfsX1IZIhOI";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Igor Korkin <igor.korkin@gmail.com>, xen-devel@lists.xenproject.org
-Message-ID: <9a2c77f3-fbdf-4d8a-8793-7d75f9ffb538@suse.com>
-Subject: Re: [Question] Unexpected growth of nr_cpu in `credit` Xen scheduler?
-References: <CAC8oKvry6UFOE6B9dkfWFPEkehc3o4w+xJPZJe-sUpks6WmzNA@mail.gmail.com>
-In-Reply-To: <CAC8oKvry6UFOE6B9dkfWFPEkehc3o4w+xJPZJe-sUpks6WmzNA@mail.gmail.com>
+On 25.09.2025 21:55, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
+> 
+> The LAPIC LVTx registers have two RO bits:
+> - all: Delivery Status (DS) bit 12
+> - LINT0/LINT1: Remote IRR Flag (RIR) bit 14.
+>   This bit is reserved for other LVTx regs with RAZ/WI access type (MMIO), while
+>   WRMSR (guest_wrmsr_x2apic()) has appropiate checks for reserved bits
+>   (MBZ access type).
 
---------------HJjWm7veJp2SSCfsX1IZIhOI
-Content-Type: multipart/mixed; boundary="------------U6BH36iCPGn8AA4Wv6XOlzll"
+Question is what the behavior is for writing the r/o (but not reserved) bits.
+I wasn't able to find any statement in the SDM.
 
---------------U6BH36iCPGn8AA4Wv6XOlzll
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> and the current vLAPIC implementations allows guest to write to these RO bits.
+> 
+> The Delivery Status (DS) is not emulated by Xen - there is no IRQ msg bus, and
+> the IRQ is:
+> - or accepted at destination and appears as pending
+>   (vLAPIC Interrupt Request Register (IRR))
+> - or get rejected immediately.
+> 
+> The Remote IRR Flag (RIR) behavior emulation is not implemented for LINT0/LINT1
+> in Xen for now.
+> 
+> Hence it is definitely wrong to allow guest to write to LVTx regs RO bits,
+> fix it by unconditionally cleaning up those bits in vlapic_reg_write().
+> 
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
 
-T24gMjYuMDkuMjUgMDk6MTcsIElnb3IgS29ya2luIHdyb3RlOg0KPiBIaSBhbGwsDQo+IA0K
-PiBJJ20gb2JzZXJ2aW5nIGEgc3RlYWR5IGFuZCBhYm5vcm1hbCBpbmNyZWFzZSBpbiB0aGUg
-YG5yX2NwdWAgdmFsdWUNCj4gcmVwb3J0ZWQgYnkgdGhlIGBjcmVkaXRgIFhlbiBzY2hlZHVs
-ZXINCj4gKHZpc2libGUgdmlhIGBzdWRvIHhsIGRtZXNnOyBzdWRvIHhsIGRlYnVnLWtleXMg
-cmApLg0KPiANCj4gDQo+IFRoaXMgYmVoYXZpb3Igb2NjdXJzIGNvbnNpc3RlbnRseSB3aGVu
-IHRoZSBzeXN0ZW0gaXMgc3ViamVjdGVkIHRvDQo+IGhlYXZ5IHN5bnRoZXRpYyBsb2FkIChl
-LmcuLCBtdWx0aXBsZSBWTXMgcnVubmluZyBzdHJlc3Mgd29ya2xvYWRzIHRoYXQNCj4gZnVs
-bHkgc2F0dXJhdGUgdkNQVXMpLg0KPiBPdmVyIHRpbWUsIGBucl9jcHVgIGdyb3dzIGZhciBi
-ZXlvbmQgdGhlIGFjdHVhbCBudW1iZXIgb2YgcGh5c2ljYWwgb3INCj4gbG9naWNhbCBDUFVz
-ICg0OCBpbiBvdXIgY2FzZSksIGFuZCB0aGlzIGNvcnJlbGF0ZXMgd2l0aCBub3RpY2VhYmxl
-DQo+IHBlcmZvcm1hbmNlIGRlZ3JhZGF0aW9uLCBlc3BlY2lhbGx5IHVuZGVyIGhpZ2ggVk0g
-ZGVuc2l0eS4NCg0KQ2FuIHlvdSBwbGVhc2Ugc2hhcmUgdGhlIHJlbGF0ZWQgb3V0cHV0PyBF
-c3BlY2lhbGx5IG9uZSBpbnN0YW5jZSBvZg0KdGhlICJ4bCBkZWJ1Zy1rZXlzIHI7IHhsIGRt
-ZXNnIiBiZWZvcmUgdGhlIHRlc3QgaXMgc3RhcnRpbmcsIGFuZCBvbmUNCndpdGggdGhlIHdy
-b25nIG51bWJlciBvZiBjcHVzIGluIHRoZSBkYXRhLg0KPiBXZeKAmXJlIHJ1bm5pbmcgb24g
-YSBkdWFsLXNvY2tldCB4ODZfNjQgc2VydmVyICgyIMOXIDEyLWNvcmUgSW50ZWwgWGVvbg0K
-PiBTaWx2ZXIgNDMxMCBDUFVzIHdpdGggSHlwZXItVGhyZWFkaW5nLCB0b3RhbCA0OCBsb2dp
-Y2FsIENQVXMpIHVuZGVyDQo+IFhlbiA0LjE5Lg0KPiANCj4gSXMgdGhpcyBncm93dGggb2Yg
-YG5yX2NwdWAgZXhwZWN0ZWQgaW4gdGhlIGNyZWRpdCBzY2hlZHVsZXI/DQo+IElmIG5vdCwg
-aXQgbWF5IGluZGljYXRlIGEgYnVnIGluIENQVSBhY2NvdW50aW5nIG9yIHJ1bnF1ZXVlIG1h
-bmFnZW1lbnQNCj4gdGhhdCB3YXJyYW50cyBmdXJ0aGVyIGludmVzdGlnYXRpb24uDQo+IA0K
-PiANCj4gRW52aXJvbm1lbnQgZGV0YWlsczoNCj4gLSB4ZW5fdmVyc2lvbiAgICAgICAgICAg
-IDogNC4xOS4wLTUuMjUuMC4zODQzMQ0KPiAtIHhlbl9jYXBzICAgICAgICAgICAgICAgOiB4
-ZW4tMy4wLXg4Nl82NCBodm0tMy4wLXg4Nl8zMg0KPiBodm0tMy4wLXg4Nl8zMnAgaHZtLTMu
-MC14ODZfNjQxDQo+IC0geGVuX3NjaGVkdWxlciAgICAgICAgICA6IGNyZWRpdA0KPiAtIEhh
-cmR3YXJlIDogRHVhbC1zb2NrZXQgSW50ZWwgWGVvbiBTaWx2ZXIgNDMxMCBAIDIuMTBHSHog
-KDEyDQo+IGNvcmVzL3NvY2tldCwgSFQgZW5hYmxlZCwgNDggbG9naWNhbCBDUFVzKQ0KPiAt
-IE5VTUEgbm9kZXMgOiAyDQo+IC0gRG9tMCBrZXJuZWwgOiBEZWJpYW4gNi4xLjE0Ny0xICg2
-LjEuMC0zOC1hbWQ2NCwgU01QIFBSRUVNUFRfRFlOQU1JQykNCj4gLSBucl9jcHVzICAgICAg
-ICAgICAgICAgIDogNDgNCj4gLSBucl9ub2RlcyAgICAgICAgICAgICAgIDogMg0KPiAtIHJl
-bGVhc2UgICAgICAgICAgICAgICAgOiA2LjEuMC0zOC1hbWQ2NA0KPiAtIHZlcnNpb24gICAg
-ICAgICAgICAgICAgOiAjMSBTTVAgUFJFRU1QVF9EWU5BTUlDIERlYmlhbiA2LjEuMTQ3LTEg
-KDIwMjUtMDgtMDIpDQo+IC0gbWFjaGluZSAgICAgICAgICAgICAgICA6IHg4Nl82NA0KPiAt
-IG5yX25vZGVzICAgICAgICAgICAgICAgOiAyDQo+IC0gY29yZXNfcGVyX3NvY2tldCAgICAg
-ICA6IDEyDQo+IC0gdGhyZWFkc19wZXJfY29yZSAgICAgICA6IDINCj4gLSBjcHVfbWh6ICAg
-ICAgICAgICAgICAgIDogMjEwMC4wMDANCj4gLSB2aXJ0X2NhcHMgICAgICAgICAgICAgIDog
-cHYgaHZtIGh2bV9kaXJlY3RpbyBwdl9kaXJlY3RpbyBoYXAgc2hhZG93DQo+IGlvbW11X2hh
-cF9wdF9zaGFyZSB2bXRyYWNlIGdudHRhYi12MSBnbnR0YWItdjINCj4gLSB0b3RhbF9tZW1v
-cnkgICAgICAgICAgIDogMTMwNzI0DQo+IC0gZnJlZV9tZW1vcnkgICAgICAgICAgICA6IDU0
-MDY0DQpQbGVhc2Ugc2hhcmUgdGhlIGNvbXBsZXRlICJ4bCBpbmZvIiBvdXRwdXQsIGluY2x1
-ZGluZyB0aGUgeGVuIGNvbW1hbmQgbGluZS4NCg0KQXJlIHRoZXJlIGFueSBjcHVwb29scyBp
-bnZvbHZlZD8gQW55IGNwdSBob3RwbHVnIG9wZXJhdGlvbnM/DQoNCg0KSnVlcmdlbg0K
---------------U6BH36iCPGn8AA4Wv6XOlzll
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Please also add a Fixes: tag when correcting code.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> --- a/xen/arch/x86/hvm/vlapic.c
+> +++ b/xen/arch/x86/hvm/vlapic.c
+> @@ -880,6 +880,7 @@ void vlapic_reg_write(struct vcpu *v, unsigned int reg, uint32_t val)
+>          if ( vlapic_sw_disabled(vlapic) )
+>              val |= APIC_LVT_MASKED;
+>          val &= array_access_nospec(vlapic_lvt_mask, (reg - APIC_LVTT) >> 4);
+> +        val &= ~(APIC_LVT_REMOTE_IRR | APIC_SEND_PENDING);
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+There shouldn't be a 2nd &= here; what needs adding should imo be added to
+(really: removed from) vlapic_lvt_mask[]. (Orthogonal to this I wonder whether
+guest_wrmsr_x2apic() wouldn't better use that array, too.)
 
---------------U6BH36iCPGn8AA4Wv6XOlzll--
+While looking at this, don't we have an issue with CMCI as well?
+guest_{rd,wr}msr_x2apic() handle it, but vlapic_reg_write() doesn't. I.e. on
+AMD we would fail to deliver #GP when the guest accesses it, while on Intel
+we would lose the value written. And we also don't set its mask bit in
+vlapic_do_init(). I guess I need to make a patch ...
 
---------------HJjWm7veJp2SSCfsX1IZIhOI--
-
---------------xKkZs2uT0YZrbDtpkOISbGHW
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmjWSSgFAwAAAAAACgkQsN6d1ii/Ey/L
-gggAk2YPNJHDmOexGlb/FBwKOtgKujRy+LA/0tVewOzWTkqm4MdSbhphBzUx2FixhU+dHCYilIV/
-IOtJ7P8W+Ecr/E8VeCgOIC8wA8RB/HG7czbMWyJW0zIHNAinNRVNCdMImMbgqcrptmNrL+H7mcVo
-sDMQYBxURIPJiF1xzFzztYUHEcWlimhPay0LDvccZJ9gBDyprlCpYKblx4PbFQmbsak3pYBulNI8
-DATnud0oS7SODqtPJseDnNUjbv58LThV9VoJOcwCjFSNTvvib3qPNYlAJ4dS+NB7U5JLYxrtTIvf
-uxssxrYFUIGs1VG0L4hUkvykcgZ5Rvt+STc0I7Q2GQ==
-=454j
------END PGP SIGNATURE-----
-
---------------xKkZs2uT0YZrbDtpkOISbGHW--
+Jan
 
