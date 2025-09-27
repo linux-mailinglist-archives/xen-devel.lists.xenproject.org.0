@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1189BA61E4
-	for <lists+xen-devel@lfdr.de>; Sat, 27 Sep 2025 19:08:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1132086.1470660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1B75BA62D4
+	for <lists+xen-devel@lfdr.de>; Sat, 27 Sep 2025 21:21:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1132129.1470671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v2YOP-0001Fx-QU; Sat, 27 Sep 2025 17:07:29 +0000
+	id 1v2aT9-0000NA-12; Sat, 27 Sep 2025 19:20:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1132086.1470660; Sat, 27 Sep 2025 17:07:29 +0000
+Received: by outflank-mailman (output) from mailman id 1132129.1470671; Sat, 27 Sep 2025 19:20:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v2YOP-0001E9-KW; Sat, 27 Sep 2025 17:07:29 +0000
-Received: by outflank-mailman (input) for mailman id 1132086;
- Sat, 27 Sep 2025 17:07:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1v2aT8-0000K5-Ta; Sat, 27 Sep 2025 19:20:30 +0000
+Received: by outflank-mailman (input) for mailman id 1132129;
+ Sat, 27 Sep 2025 19:20:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1v2YOO-0001E3-QF
- for xen-devel@lists.xenproject.org; Sat, 27 Sep 2025 17:07:28 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1v2YOO-00D9gi-1I;
- Sat, 27 Sep 2025 17:07:28 +0000
-Received: from [2a02:8012:3a1:0:f879:3927:ec77:bf91]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1v2YOO-0027JR-1R;
- Sat, 27 Sep 2025 17:07:28 +0000
+ (envelope-from <SRS0=a9jj=4G=gmail.com=linmag7@srs-se1.protection.inumbo.net>)
+ id 1v2aT7-0000Jz-Rw
+ for xen-devel@lists.xenproject.org; Sat, 27 Sep 2025 19:20:29 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 062737d6-9bd7-11f0-9809-7dc792cee155;
+ Sat, 27 Sep 2025 21:20:27 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-634cef434beso1579664a12.1
+ for <xen-devel@lists.xenproject.org>; Sat, 27 Sep 2025 12:20:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,121 +40,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Lq4XnbzL28t+N7ZBxundjN4TJSMnMJ3DyZ2JYgVhkz0=; b=j2PQ8o5IZ6O85ifJUqk8DZ35o0
-	Y49oRwMYzf6Ko/hSZ/M2afoM5iAP/dPTDV2AdbMuxw0nZ4wT4kR/yDx4m9mt5/ng5iyLCQnAeehxj
-	L2ImmylPN7HN50Jk0APocJpbWrVWXdIfTxUbVnf1oq5a+Pf6bhIPI8nq+Vaih+LXb7ZE=;
-Message-ID: <88a73261-4c24-465f-93df-6f9770046982@xen.org>
-Date: Sat, 27 Sep 2025 18:07:26 +0100
+X-Inumbo-ID: 062737d6-9bd7-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1759000827; x=1759605627; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=BpNpqT8E7PV/s4bEDWlZ98/qvJvoxkZccIvsTmWeJBY=;
+        b=lP5Np4evc+xa3X8I56npoMQJmd3k2l1VbtJ5oSZ8O9FwBzCzD/l0lwccaKVaW8YGcM
+         vvGYukEfO8JflbHB810oVox/tcRCU9RXGxdaYEYvDNs25qr4b5js6pxoeFjrYXAecSIa
+         xYFG6sXG6ghn29wCIlGewt6o6EZpKkcr2+YHuVG0S+kX3Q892yOJ9r1fhtqEivTX+ESc
+         HJHtCokU7KWb7YdWirxBFzPHCLh4fP/dlvlN4QHHQC0ZGiGPrVBxZfPWFhYpeAPJjnuh
+         3nSmkeyyb/duH3A8WGqfA9bY1/gSfSjKeOL45RQ5wHLaSHzT8Zy1/u+GyKc3U05fh4VC
+         7pNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759000827; x=1759605627;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BpNpqT8E7PV/s4bEDWlZ98/qvJvoxkZccIvsTmWeJBY=;
+        b=jA7266L/MSJ6Nv3zvAvNDcMucNwB/FFV27Jzm7r2CwMi8WhwoPhCqg6+qAddmRXjPX
+         f1vdK96dm297oIWWVPn6e2BXVjF2nLVbMF9UQU0reCL6VfuBLil8rBzTk/Sg6KlEoQ6M
+         sf+2Y9r3qgHltcDBl++KLeNkMfBuvYsolakehNVm4RQxPAYYZC8y0xclRP2AUOLV+Hns
+         yHySp4jT2cSt9eIlCrf7nX9gIgq+Sn2QUs48PWgZHwXMtn6D4LLLZ75Dbzdg99vCuTVh
+         MwWLKHhw8CHx9VlWJxVLAGo86FG8KFfCp83k4SnIVuW7MFHbZEorUT9beQXMQeTs2sWo
+         uiDA==
+X-Forwarded-Encrypted: i=1; AJvYcCWX6aTI14t4K6XwG/e/KWaweWVUuqp417dXbt1a6gQiKtkl97mXMEKU1y2fJ+cZjbQbtR+s5+3HZx4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywro3rzAT8r6mdUHijO5vmtccOVUdaR1SB+rWeuuMDYAk9K8eNZ
+	TGFmMmwIa+1lKSjYHzcDu8bhNZM/xkpkibJ6u1vj3oK6P4/PrgsXKC5O3S6R/U6vEif8MsJyoSx
+	ZjunHPW4azKNNaJ+Mfmp0VCqWhPqhR6k=
+X-Gm-Gg: ASbGncvrDbTa5OtSh3GS4IntUjnLuOtP8SOGZRD7qab5/4MEHsu/B9LzVSyXNT56Zwq
+	5dlS0cfNVJRoWaivITZ154fYn7qM0lTZKzTb8fBeaDh8uRIA4PDn/A4dqsOtkO6KqfG8vFKsGaE
+	nZaKjagS8p2N9YMZCRTlB3HWQ7eNi6b53/Teotw1ePr8+sik50bBzn2iyvHEWPENzoiEEEDNtIP
+	5VPZ+jXwQNcKn+TBJ4=
+X-Google-Smtp-Source: AGHT+IE6MMpG/TRiFXxnrxz1Vvo3fuH5ytNgtdVEgpXL0NxXawEVfUDFtb+tMcdRPN344hi95Su67MTI32H6Ub9xTJM=
+X-Received: by 2002:a17:907:7b8b:b0:b3c:5f99:dac7 with SMTP id
+ a640c23a62f3a-b3c5fa9674amr74488566b.21.1759000826450; Sat, 27 Sep 2025
+ 12:20:26 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/arm: Reorder SCI resource cleanup in domain
- destruction
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20ec9d9a8533417489a95543c1b72f7f55865c9c.1757856381.git.oleksii_moisieiev@epam.com>
- <6476dc12-1f9f-4b37-b569-e994bde6bcdb@xen.org>
- <4b1cab53-e2dc-4cd4-86b5-1d1be974d089@epam.com>
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <4b1cab53-e2dc-4cd4-86b5-1d1be974d089@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <cover.1758219786.git.leon@kernel.org> <0c64474985af55b1aa934b857808068a0e609c6e.1758219787.git.leon@kernel.org>
+ <CA+=Fv5Q8dVUFVBh82mAe=fy3mV6mWtQT_0pBPLQwLNBt3f8E1g@mail.gmail.com>
+ <20250923171819.GM10800@unreal> <CA+=Fv5SJcQ5C4UeX2+deV9mPAe5QxrocMG8EJ2eVcYjbLE5U+A@mail.gmail.com>
+ <20250923235318.GD2617119@nvidia.com> <CA+=Fv5Tg7sQACpeG8aMZF6_E6dbRnN5ifg0aiHityXadxiHoPA@mail.gmail.com>
+In-Reply-To: <CA+=Fv5Tg7sQACpeG8aMZF6_E6dbRnN5ifg0aiHityXadxiHoPA@mail.gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sat, 27 Sep 2025 21:20:15 +0200
+X-Gm-Features: AS18NWCUkmopfgQP7FxvlAuimXjc1tmQlQb-89CTajXeb-5Nlye2dR2BnBQqzEg
+Message-ID: <CA+=Fv5Sze_BNmHqzypmCh8p2JO6gytXH4E6hXv3gZdfoSJsMUQ@mail.gmail.com>
+Subject: Re: [PATCH 1/9] alpha: Convert mapping routine to rely on physical address
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Andreas Larsson <andreas@gaisler.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "David S. Miller" <davem@davemloft.net>, 
+	Geoff Levand <geoff@infradead.org>, Helge Deller <deller@gmx.de>, Ingo Molnar <mingo@redhat.com>, 
+	iommu@lists.linux.dev, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Jason Wang <jasowang@redhat.com>, 
+	Juergen Gross <jgross@suse.com>, linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Matt Turner <mattst88@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Richard Henderson <richard.henderson@linaro.org>, 
+	sparclinux@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Thomas Gleixner <tglx@linutronix.de>, 
+	virtualization@lists.linux.dev, x86@kernel.org, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+
+> > Suggest testing the same branch with the alpha patch reverted just to
+> > rule out any issue in the core code. If it reproduces suggest to
+> > bisect Leon's branch.
+
+Hi again, I've booted up the ES40 again with the kernel build from Leons
+branch, it boots up but message log is full off messages like
+"EXT4-fs error (device sda4): ext4_find_extent:939: inode
+#16257327: comm init: pblk 65114257 bad header/extent:
+invalid magic"
+
+The filesystem is broken after just booting with the kernel.
+This time fsck did not fix it, I needed to re-install gentoo stage3.
+So it's for sure reproducible as well as destructive.  It's not possible to
+revert all the commits individually, since this will leave the source tree
+in a state where the kernel doesn't build. I've started off by reverting
+the following commits:
+
+e78a9d72517a88faa6f16dab4d1c6f966ed378ae
+(dma-mapping: remove unused map_page callback)
+
+d459e3b80ad1c81bf596d63d2e3347cf8c7bb0d9
+(alpha: Convert mapping routine to rely on physical address)
+
+3cd47242d513050d7a81ac6e7020fd3ef5462ad4
+(block-dma: properly take MMIO path)
+
+7950995bef32aa7e5f74699c7d0fdac41d2dad14
+ (block-dma: migrate to dma_map_phys instead of map_page)
 
 
+After reverting the above commits, I'm able to build a working kernel,
+that is, no filesystem corruption occurs. I'll take a closer look at this
+after the weekend.
 
-On 24/09/2025 09:54, Oleksii Moisieiev wrote:
-> Hi Julien,
-> 
-> On 22/09/2025 20:42, Julien Grall wrote:
->> (+ Release manager)
->>
->> Hi,
->>
->> On 14/09/2025 14:26, Oleksii Moisieiev wrote:
->>> Move the SCI (System Control and Management Interface) resource cleanup
->>> earlier in the domain_relinquish_resources() sequence to ensure proper
->>> cleanup ordering during domain destruction.
->>>
->>> The SCI cleanup is now performed before TEE (Trusted Execution
->>> Environment)
->>> cleanup rather than after P2M mapping cleanup. This reordering
->>> ensures that
->>> SCI resources are properly released before other subsystems that might
->>> depend on them are torn down.
->>>
->>> This change addresses potential resource cleanup dependencies where SCI
->>> resources need to be released before P2M mappings are cleaned up,
->>> preventing
->>> potential issues during domain destruction on ARM platforms with SCI
->>> support.
->>>
->>> Fixes: e2cc10867b (xen/arm: add generic SCI subsystem, 2025-09-04)
->>
->> I am not sure where you found this syntax. This is not the one we use
->> for Xen. It should be:
->>
->> Fixes: <commit-id> ("<patch-subject>")
->>
->> Where the commit-id is 12 characters. For this patch it should be:
->>
->> Fixes: e2cc10867b63 ("xen/arm: add generic SCI subsystem")
->>
-> Got this by using command git show -s --pretty=reference <sha>
-> Will fix.
->>>
->>> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
->>> --->
->>> Changes in v2:
->>> - rearrange enum by placing PROG_sci before PROG_tee
->>> - add "Fixes:" tag
->>>
->>>    xen/arch/arm/domain.c | 11 ++++++-----
->>>    1 file changed, 6 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
->>> index 1a8585d02b..e36719bce4 100644
->>> --- a/xen/arch/arm/domain.c
->>> +++ b/xen/arch/arm/domain.c
->>> @@ -1042,6 +1042,7 @@ static int relinquish_memory(struct domain *d,
->>> struct page_list_head *list)
->>>     */
->>>    enum {
->>>        PROG_pci = 1,
->>> +    PROG_sci,
->>
->> Can you confirm this is fine to release the SCI resources *after* we
->> releases the devices? Does this mean they are not linked somehow? For
->> instance, if a device is re-assigned to another VM, could it fail
->> because the associated (?) SCI resources were not yet released?
->>
->> Cheers,
->>
-> This is not an issue for a single-agent. This is because single-agent
-> doesn't implement relinquish_resources callback.
-> For multiagent implementation relinquish_resources is done by sending
-> SCMI_BASE_RESET_AGENT_CONFIGURATION message to the firmware which should
-> drop all agent configuration previously done.
-> If we start another VM with assigned device system will ask device
-> permission from the firmware. And if device is assigned to another agent
-> - error should be returned.
+Regards
 
-Thanks for the details. From what you wrote, I suspect we may need to 
-move relinquishing SCI resources earlier. But as we don't have 
-multi-agent right now, I will commit as-is and we can revisit.
-
-Acked-by: Julien Grall <jgrall@amazon.com>
-
-Cheers,
-
--- 
-Julien Grall
-
+Magnus
 
