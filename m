@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 034C2BA4F5E
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Sep 2025 21:25:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1131747.1470651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1189BA61E4
+	for <lists+xen-devel@lfdr.de>; Sat, 27 Sep 2025 19:08:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1132086.1470660 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v2E3X-0006MI-AF; Fri, 26 Sep 2025 19:24:35 +0000
+	id 1v2YOP-0001Fx-QU; Sat, 27 Sep 2025 17:07:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1131747.1470651; Fri, 26 Sep 2025 19:24:35 +0000
+Received: by outflank-mailman (output) from mailman id 1132086.1470660; Sat, 27 Sep 2025 17:07:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v2E3X-0006KM-7B; Fri, 26 Sep 2025 19:24:35 +0000
-Received: by outflank-mailman (input) for mailman id 1131747;
- Fri, 26 Sep 2025 19:24:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CKq1=4F=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1v2E3V-0006KE-PG
- for xen-devel@lists.xenproject.org; Fri, 26 Sep 2025 19:24:33 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a0ebcd0-9b0e-11f0-9809-7dc792cee155;
- Fri, 26 Sep 2025 21:24:28 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 29C8D40120;
- Fri, 26 Sep 2025 19:24:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21A8DC4CEF4;
- Fri, 26 Sep 2025 19:24:24 +0000 (UTC)
+	id 1v2YOP-0001E9-KW; Sat, 27 Sep 2025 17:07:29 +0000
+Received: by outflank-mailman (input) for mailman id 1132086;
+ Sat, 27 Sep 2025 17:07:28 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1v2YOO-0001E3-QF
+ for xen-devel@lists.xenproject.org; Sat, 27 Sep 2025 17:07:28 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1v2YOO-00D9gi-1I;
+ Sat, 27 Sep 2025 17:07:28 +0000
+Received: from [2a02:8012:3a1:0:f879:3927:ec77:bf91]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1v2YOO-0027JR-1R;
+ Sat, 27 Sep 2025 17:07:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,157 +39,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a0ebcd0-9b0e-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1758914665;
-	bh=RMQKJaLaOxBwjX2KvOafC1kD90VnlXjebrcQGGvLz3w=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=FdHf6jv+0FREut6yJVNe35HJGNEtuAggH/O5ujRDCsaRxAlGAxqlrRejR7HvQ/lzL
-	 KP8UWda4k4n/DLAtJdKfWYrW/B0F4wDb+y1EVFjaiyyw+JddX5Do9ixdoBeapEeW5g
-	 dbJNV74C/vVRU4Vem5NTw3qmZ/vIMNI8uFLVqLwTAayE9v70aZcfU5wuXRxYTucDCC
-	 l0SSXm+hk5oiDe7f4+15clKBW6B2A/yXnaYthDCiLxNz0efq/emGMzX3m+88Wn1/Pa
-	 aDBjsEZpFoA4H2ufmyp8gIHSWGTw/b22ahJfy6CTjwju2Ff5ZlK1k3tnpkrQo5r7xw
-	 LDi71IaldMWug==
-Date: Fri, 26 Sep 2025 12:24:23 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: "Penny, Zheng" <penny.zheng@amd.com>
-cc: Jan Beulich <jbeulich@suse.com>, "Huang, Ray" <Ray.Huang@amd.com>, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "Stabellini, Stefano" <stefano.stabellini@amd.com>, 
-    "Andryuk, Jason" <Jason.Andryuk@amd.com>
-Subject: RE: [PATCH v2 18/26] xen/domctl: wrap xsm_getdomaininfo() with
- CONFIG_MGMT_HYPERCALLS
-In-Reply-To: <IA1PR12MB8467188458BA8FAF348AC538E11EA@IA1PR12MB8467.namprd12.prod.outlook.com>
-Message-ID: <alpine.DEB.2.22.394.2509261224150.2244509@ubuntu-linux-20-04-desktop>
-References: <20250910073827.3622177-1-Penny.Zheng@amd.com> <20250910073827.3622177-19-Penny.Zheng@amd.com> <a8b93dcc-c003-49a6-8a78-5fb890cbaec0@suse.com> <DM4PR12MB8451BE98219C343F8F62482AE11FA@DM4PR12MB8451.namprd12.prod.outlook.com>
- <66b43c3b-c74f-4c18-b91a-bd7b56a62eff@suse.com> <DM4PR12MB84518B65027B6A355ED4D246E11EA@DM4PR12MB8451.namprd12.prod.outlook.com> <af57c032-541d-4956-85de-269066c50cd3@suse.com>
- <IA1PR12MB8467188458BA8FAF348AC538E11EA@IA1PR12MB8467.namprd12.prod.outlook.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Lq4XnbzL28t+N7ZBxundjN4TJSMnMJ3DyZ2JYgVhkz0=; b=j2PQ8o5IZ6O85ifJUqk8DZ35o0
+	Y49oRwMYzf6Ko/hSZ/M2afoM5iAP/dPTDV2AdbMuxw0nZ4wT4kR/yDx4m9mt5/ng5iyLCQnAeehxj
+	L2ImmylPN7HN50Jk0APocJpbWrVWXdIfTxUbVnf1oq5a+Pf6bhIPI8nq+Vaih+LXb7ZE=;
+Message-ID: <88a73261-4c24-465f-93df-6f9770046982@xen.org>
+Date: Sat, 27 Sep 2025 18:07:26 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] xen/arm: Reorder SCI resource cleanup in domain
+ destruction
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20ec9d9a8533417489a95543c1b72f7f55865c9c.1757856381.git.oleksii_moisieiev@epam.com>
+ <6476dc12-1f9f-4b37-b569-e994bde6bcdb@xen.org>
+ <4b1cab53-e2dc-4cd4-86b5-1d1be974d089@epam.com>
+Content-Language: en-GB
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <4b1cab53-e2dc-4cd4-86b5-1d1be974d089@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, 25 Sep 2025, Penny, Zheng wrote:
-> > -----Original Message-----
-> > From: Jan Beulich <jbeulich@suse.com>
-> > Sent: Friday, September 26, 2025 2:53 PM
-> > To: Penny, Zheng <penny.zheng@amd.com>
-> > Cc: Huang, Ray <Ray.Huang@amd.com>; Daniel P. Smith
-> > <dpsmith@apertussolutions.com>; xen-devel@lists.xenproject.org; Stabellini,
-> > Stefano <stefano.stabellini@amd.com>; Andryuk, Jason
-> > <Jason.Andryuk@amd.com>
-> > Subject: Re: [PATCH v2 18/26] xen/domctl: wrap xsm_getdomaininfo() with
-> > CONFIG_MGMT_HYPERCALLS
-> >
-> > On 26.09.2025 06:41, Penny, Zheng wrote:
-> > >> -----Original Message-----
-> > >> From: Jan Beulich <jbeulich@suse.com>
-> > >> Sent: Thursday, September 25, 2025 10:29 PM
-> > >>
-> > >> On 25.09.2025 11:41, Penny, Zheng wrote:
-> > >>>> -----Original Message-----
-> > >>>> From: Jan Beulich <jbeulich@suse.com>
-> > >>>> Sent: Thursday, September 11, 2025 9:30 PM
-> > >>>>
-> > >>>> On 10.09.2025 09:38, Penny Zheng wrote:
-> > >>>>> --- a/xen/include/xsm/xsm.h
-> > >>>>> +++ b/xen/include/xsm/xsm.h
-> > >>>>> @@ -55,8 +55,8 @@ struct xsm_ops {
-> > >>>>>      void (*security_domaininfo)(struct domain *d,
-> > >>>>>                                  struct xen_domctl_getdomaininfo *info);
-> > >>>>>      int (*domain_create)(struct domain *d, uint32_t ssidref);
-> > >>>>> -    int (*getdomaininfo)(struct domain *d);
-> > >>>>>  #ifdef CONFIG_MGMT_HYPERCALLS
-> > >>>>> +    int (*getdomaininfo)(struct domain *d);
-> > >>>>>      int (*domctl_scheduler_op)(struct domain *d, int op);
-> > >>>>>      int (*sysctl_scheduler_op)(int op);
-> > >>>>>      int (*set_target)(struct domain *d, struct domain *e); @@
-> > >>>>> -234,7
-> > >>>>> +234,11 @@ static inline int xsm_domain_create(
-> > >>>>>
-> > >>>>>  static inline int xsm_getdomaininfo(xsm_default_t def, struct
-> > >>>>> domain
-> > >>>>> *d)  {
-> > >>>>> +#ifdef CONFIG_MGMT_HYPERCALLS
-> > >>>>>      return alternative_call(xsm_ops.getdomaininfo, d);
-> > >>>>> +#else
-> > >>>>> +    return -EOPNOTSUPP;
-> > >>>>> +#endif
-> > >>>>>  }
-> > >>>>
-> > >>>> This is in use by a Xenstore sysctl and a Xenstore domctl. The
-> > >>>> sysctl is hence already broken with the earlier series. Now the
-> > >>>> domctl is also being screwed up. I don't think MGMT_HYPERCALLS
-> > >>>> really ought to extend to any operations available to other than the core
-> > toolstack.
-> > >>>> That's the Xenstore ones here, but also the ones used by qemu
-> > >>>> (whether run in
-> > >> Dom0 or a stubdom).
-> > >>>
-> > >>> Maybe not only limited to the core toolstack. In
-> > >>> dom0less/hyperlaunched
-> > >> scenarios, hypercalls are strictly limited. QEMU is also limited to
-> > >> pvh machine type and with very restricted functionality(, only acting
-> > >> as a few virtio-pci devices backend). @Andryuk, Jason @Stabellini,
-> > >> Stefano Am I understanding correctly and thoroughly about our scenario here for
-> > upstream?
-> > >>> Tracking the codes, if Xenstore is created as a stub domain, it
-> > >>> requires
-> > >> getdomaininfo-domctl to acquire related info.  Sorry, I haven't found
-> > >> how it was called in QEMU...
-> > >>
-> > >> It's not "it"; it's different ones. First and foremost I was thinking
-> > >> of
-> > >>  * XEN_DOMCTL_ioport_mapping
-> > >>  * XEN_DOMCTL_memory_mapping
-> > >>  * XEN_DOMCTL_bind_pt_irq
-> > >>  * XEN_DOMCTL_unbind_pt_irq
-> > >> but there may be others (albeit per the dummy xsm_domctl() this is
-> > >> the full set). As a general criteria, anything using XSM_DM_PRIV
-> > >> checking can in principle be called by qemu.
-> > >>
-> > >
-> > > Understood.
-> > > I assume that they are all for device passthrough. We are not accepting device
-> > passthrough via core toolstack in dom0less/hyperlaunch-ed scenarios. Jason has
-> > developed device passthrough through device tree to only accept "static
-> > configured" passthrough in dom0less/hyperlaunch-ed scenario, while it is still
-> > internal , it may be the only accept way to do device passthrough in
-> > dom0less/hyperlaunch-ed scenario.
-> >
-> > Right, but no matter what your goals, the upstream contributions need to be self-
-> > consistent. I.e. not (risk to) break other functionality. (Really the four domctl-s
-> > mentioned above might better have been put elsewhere, e.g. as dm-ops. Moving
-> > them may be an option here.)
+
+
+On 24/09/2025 09:54, Oleksii Moisieiev wrote:
+> Hi Julien,
 > 
-> Understood.
-> I'll move them all to the dm-ops
+> On 22/09/2025 20:42, Julien Grall wrote:
+>> (+ Release manager)
+>>
+>> Hi,
+>>
+>> On 14/09/2025 14:26, Oleksii Moisieiev wrote:
+>>> Move the SCI (System Control and Management Interface) resource cleanup
+>>> earlier in the domain_relinquish_resources() sequence to ensure proper
+>>> cleanup ordering during domain destruction.
+>>>
+>>> The SCI cleanup is now performed before TEE (Trusted Execution
+>>> Environment)
+>>> cleanup rather than after P2M mapping cleanup. This reordering
+>>> ensures that
+>>> SCI resources are properly released before other subsystems that might
+>>> depend on them are torn down.
+>>>
+>>> This change addresses potential resource cleanup dependencies where SCI
+>>> resources need to be released before P2M mappings are cleaned up,
+>>> preventing
+>>> potential issues during domain destruction on ARM platforms with SCI
+>>> support.
+>>>
+>>> Fixes: e2cc10867b (xen/arm: add generic SCI subsystem, 2025-09-04)
+>>
+>> I am not sure where you found this syntax. This is not the one we use
+>> for Xen. It should be:
+>>
+>> Fixes: <commit-id> ("<patch-subject>")
+>>
+>> Where the commit-id is 12 characters. For this patch it should be:
+>>
+>> Fixes: e2cc10867b63 ("xen/arm: add generic SCI subsystem")
+>>
+> Got this by using command git show -s --pretty=reference <sha>
+> Will fix.
+>>>
+>>> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+>>> --->
+>>> Changes in v2:
+>>> - rearrange enum by placing PROG_sci before PROG_tee
+>>> - add "Fixes:" tag
+>>>
+>>>    xen/arch/arm/domain.c | 11 ++++++-----
+>>>    1 file changed, 6 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+>>> index 1a8585d02b..e36719bce4 100644
+>>> --- a/xen/arch/arm/domain.c
+>>> +++ b/xen/arch/arm/domain.c
+>>> @@ -1042,6 +1042,7 @@ static int relinquish_memory(struct domain *d,
+>>> struct page_list_head *list)
+>>>     */
+>>>    enum {
+>>>        PROG_pci = 1,
+>>> +    PROG_sci,
+>>
+>> Can you confirm this is fine to release the SCI resources *after* we
+>> releases the devices? Does this mean they are not linked somehow? For
+>> instance, if a device is re-assigned to another VM, could it fail
+>> because the associated (?) SCI resources were not yet released?
+>>
+>> Cheers,
+>>
+> This is not an issue for a single-agent. This is because single-agent
+> doesn't implement relinquish_resources callback.
+> For multiagent implementation relinquish_resources is done by sending
+> SCMI_BASE_RESET_AGENT_CONFIGURATION message to the firmware which should
+> drop all agent configuration previously done.
+> If we start another VM with assigned device system will ask device
+> permission from the firmware. And if device is assigned to another agent
+> - error should be returned.
 
-Hi Penny, Jan, I advise against this.
+Thanks for the details. From what you wrote, I suspect we may need to 
+move relinquishing SCI resources earlier. But as we don't have 
+multi-agent right now, I will commit as-is and we can revisit.
 
-I think it is clear that there are open questions on how to deal with
-the safety scenarios. I briefly mentioned some of the issues last week
-at Xen Summit. One example is the listdomains hypercall that should be
-available to the control domain. We cannot resolve all problems with
-this patch series. I think we should follow a simpler plan:
+Acked-by: Julien Grall <jgrall@amazon.com>
 
-1) introduce CONFIG_MGMT_HYPERCALLS the way this patch series does,
-   removing all domctls and sysctls
+Cheers,
 
-2) make further adjustments, such as making available the listdomains
-   hypercall and/or the hypercalls listed by Jan as a second step after
-   it
+-- 
+Julien Grall
 
-This is because 1) is already a major improvement that might even be
-enough in the simpler deployment scenarios.
-
-So I advise against making this series more complex and instead just
-focusing on removing all sysctls and domctls the way it is already
-doing. This is regardless of the Xen release schedule.
-
-As it happens, my suggestion would also make it more suitable for 4.21.
-At the same time, I realize it is coming later than expected so I
-understand if Oleksii and Jan prefer to postpone it after the 4.21
-release regardless.
 
