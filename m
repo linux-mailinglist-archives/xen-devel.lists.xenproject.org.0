@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE0E0BA7437
-	for <lists+xen-devel@lfdr.de>; Sun, 28 Sep 2025 17:31:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1132554.1470881 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78C97BA759F
+	for <lists+xen-devel@lfdr.de>; Sun, 28 Sep 2025 19:36:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1132574.1470891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v2tMm-0004F9-4j; Sun, 28 Sep 2025 15:31:12 +0000
+	id 1v2vJX-0004Jh-Qw; Sun, 28 Sep 2025 17:35:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1132554.1470881; Sun, 28 Sep 2025 15:31:12 +0000
+Received: by outflank-mailman (output) from mailman id 1132574.1470891; Sun, 28 Sep 2025 17:35:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v2tMm-0004DX-1c; Sun, 28 Sep 2025 15:31:12 +0000
-Received: by outflank-mailman (input) for mailman id 1132554;
- Sun, 28 Sep 2025 15:31:10 +0000
+	id 1v2vJX-0004HQ-Mg; Sun, 28 Sep 2025 17:35:59 +0000
+Received: by outflank-mailman (input) for mailman id 1132574;
+ Sun, 28 Sep 2025 17:35:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zTFj=4H=kernel.org=leon@srs-se1.protection.inumbo.net>)
- id 1v2tMk-0004DR-Ft
- for xen-devel@lists.xenproject.org; Sun, 28 Sep 2025 15:31:10 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (envelope-from <SRS0=tAav=4H=gmail.com=linmag7@srs-se1.protection.inumbo.net>)
+ id 1v2vJW-0004HK-3f
+ for xen-devel@lists.xenproject.org; Sun, 28 Sep 2025 17:35:58 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2763bed2-9c80-11f0-9809-7dc792cee155;
- Sun, 28 Sep 2025 17:31:08 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7AB1A6218F;
- Sun, 28 Sep 2025 15:31:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33FAEC4CEF5;
- Sun, 28 Sep 2025 15:31:06 +0000 (UTC)
+ id 9685dbbe-9c91-11f0-9809-7dc792cee155;
+ Sun, 28 Sep 2025 19:35:55 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-63486ff378cso7507342a12.0
+ for <xen-devel@lists.xenproject.org>; Sun, 28 Sep 2025 10:35:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,87 +40,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2763bed2-9c80-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759073467;
-	bh=lGCIsTrsyWZ8QOPIKq8I5fg/cOuQCrmM7ZcLWOcdn9Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=o16pSV0PpKM0QT5VYemmYPv3rNvw+gxL11Fj3yidIo2Gut35r6WcPhG9ZUyHgf10N
-	 HDoUvAriBjQKKzLaUqSq/NvZQviTbP6Clkx6YJlm8tmGye4n+XchUKfL6k9zPTRZMV
-	 TDipWjxyMkDPns3af7oj7M+e1Jre+95S/Gx9tN+Vm4PlrusP/lU9slnofDh6/ZsSSX
-	 kT5XAqaDTqgR+UVNQA8g7H75XmRpBDadQzy2MAo6TwB1QXQn4VdvPL1TspAL2PuX9a
-	 zblg3faGha9PBO5W1YWwMCeUXrGEmQnur9K8XOOjy19L+pJZmPK1bf0y+sm4i/+kU3
-	 fsu9L2JRJahmg==
-Date: Sun, 28 Sep 2025 18:31:03 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Sam Ravnborg <sam@ravnborg.org>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Andreas Larsson <andreas@gaisler.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Geoff Levand <geoff@infradead.org>, Helge Deller <deller@gmx.de>,
-	Ingo Molnar <mingo@redhat.com>, iommu@lists.linux.dev,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Jason Wang <jasowang@redhat.com>, Juergen Gross <jgross@suse.com>,
-	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Matt Turner <mattst88@gmail.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	sparclinux@vger.kernel.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	virtualization@lists.linux.dev, x86@kernel.org,
-	xen-devel@lists.xenproject.org, Magnus Lindholm <linmag7@gmail.com>
-Subject: Re: [PATCH v1 9/9] dma-mapping: remove unused map_page callback
-Message-ID: <20250928153103.GB324804@unreal>
-References: <cover.1759071169.git.leon@kernel.org>
- <27727b8ef9b3ad55a3a28f9622a62561c9988335.1759071169.git.leon@kernel.org>
- <20250928151725.GA135708@ravnborg.org>
- <20250928152030.GA136019@ravnborg.org>
+X-Inumbo-ID: 9685dbbe-9c91-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1759080955; x=1759685755; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1hWHgpM/rb70qd87juqmeSrMZFHqG1itquQCJwHGhEk=;
+        b=hlsddbpyNfLLmj7YNhTzNdAKO6BZXIszw5PNeP3OHtfnxwwCRNwlaY13U0KKcOlETq
+         qE8/B2xCfr8YU7RmfHyCgvQXsRsxwLVDarDBTzD7qZN2LlJtSc2U2KMnIQPNhQeumR0F
+         cYHqH7Plx+OnWekLvN7tVyit11DwPw0RJE6dDkBaARIrVIB5jTWTnlXKFPxFTgDYZL1/
+         bVd9Dh/aa+aHZlfGIltbHZ78CGUiQDAwmi7nvl+PxpAImhBkONcT25x2E/cznRzf32Gw
+         07X27D3xDCyhcW9JUECaw6dxdAke9df/QrbstW78NY5X5Tznjmf/Z3KjLUYulYa51Im4
+         3SWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759080955; x=1759685755;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=1hWHgpM/rb70qd87juqmeSrMZFHqG1itquQCJwHGhEk=;
+        b=CuEmESGrq62/EC8BPeuoz2I+ZeLRjrU6iu8mFyL6gAtqqcBI/si4GqEOfoLnZnKCF2
+         53cLx8tITMRYJsfABJO0Ld1UOrGcTuOWP6HQUXArJ7Db5anvQFf2QwbUICnjRL8ViwdQ
+         WLAlJadnSFbY25TOrjqjgZ3F+8650mI1ujPhNGWrp1XvGCYB2oWJsnsrLNmeHpQX2UKT
+         QCp1AXTa86Hl5zpgWDOxPrKrtefI0AVS0VCUL2Xo7QpvXC/onn0ux9L26mmvhKM7XF8P
+         +1qxZ5iFW04OReW3oeOb/Udsi2JF/t9GNHbEATf7OLlANaAWY94SEiee9BEd9BXAjGBn
+         s1XA==
+X-Forwarded-Encrypted: i=1; AJvYcCW6l35BY+fHJT8VL6PvzA2hNM1w9WOssvAM5auMfqZdof99YJXnk2VzUgP1HtpgfWkJ7Pggm8FsqEo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxNIpGkcr5Ujd11yTMaVrEPfWs9wGD12pVZm+zVey4fxfp9YwSk
+	p2IThXl6up9O67f4ng8jgaraq2wpO8bHrntpyaDWHw1Qln8Nqqsc/Ql1M+HtOURJbAuPPwTUeJP
+	W5e7ppFAAzcr88kWEShijqkCNnFYdRNE=
+X-Gm-Gg: ASbGncuq/xpNcFC2wWelKBr/OQIGP0mbRNNbYx/2Mf2cRPNVDC2TUUpwJTiCNsNmyus
+	K010lDC8EZoiwnw/KoDmxz7yy88V9R1MG61D3u9OLl+K/gNmfOa9Jz5vt47zkBS6xAta2dt49+y
+	U1aPpdlR2urWHWxZUGd6W8HN1zIrdQY4wpQ2BC3ZbrmrW0PLl4rvU5gGpcn/fVzcaKGQKsZk5om
+	Bp5NQCsN8uFDKXULHA=
+X-Google-Smtp-Source: AGHT+IF4LtUw7v9U/JYoQT0Wh7nzvSFhJ3UqproTerTY3SiJCa0Vl/rRvk3JMudUZqWnlv9RN4X9SRqdzNlv4OAcKN8=
+X-Received: by 2002:a05:6402:352:b0:62f:453c:7235 with SMTP id
+ 4fb4d7f45d1cf-634ce845b9amr4127811a12.15.1759080955040; Sun, 28 Sep 2025
+ 10:35:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250928152030.GA136019@ravnborg.org>
+References: <cover.1759071169.git.leon@kernel.org> <512d4c498103fcfccd8c60ce1982cd961434d30b.1759071169.git.leon@kernel.org>
+In-Reply-To: <512d4c498103fcfccd8c60ce1982cd961434d30b.1759071169.git.leon@kernel.org>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 28 Sep 2025 19:35:43 +0200
+X-Gm-Features: AS18NWBtQV3w4fhUJT0qJjc42RZ2Y4lnsCSX8_2AFcicJQutzVlCWs2uQTVZ_oE
+Message-ID: <CA+=Fv5SzdR4=NXz68gRg0iXY-6Y=GRsO24UA-DF4tuyJ8r7w7Q@mail.gmail.com>
+Subject: Re: [PATCH v1 1/9] alpha: Convert mapping routine to rely on physical address
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Leon Romanovsky <leonro@nvidia.com>, 
+	Jason Gunthorpe <jgg@nvidia.com>, Andreas Larsson <andreas@gaisler.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "David S. Miller" <davem@davemloft.net>, 
+	Geoff Levand <geoff@infradead.org>, Helge Deller <deller@gmx.de>, Ingo Molnar <mingo@redhat.com>, 
+	iommu@lists.linux.dev, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Jason Wang <jasowang@redhat.com>, 
+	Juergen Gross <jgross@suse.com>, linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Matt Turner <mattst88@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Richard Henderson <richard.henderson@linaro.org>, 
+	sparclinux@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Thomas Gleixner <tglx@linutronix.de>, 
+	virtualization@lists.linux.dev, x86@kernel.org, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 28, 2025 at 05:20:30PM +0200, Sam Ravnborg wrote:
-> Hi Leon.
-> 
-> On Sun, Sep 28, 2025 at 05:17:25PM +0200, Sam Ravnborg wrote:
-> > Hi Leon.
-> > 
-> > On Sun, Sep 28, 2025 at 06:02:29PM +0300, Leon Romanovsky wrote:
-> > > From: Leon Romanovsky <leonro@nvidia.com>
-> > > 
-> > > After conversion of arch code to use physical address mapping,
-> > > there are no users of .map_page() and .unmap_page() callbacks,
-> > > so let's remove them.
-> > > 
-> > > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > > ---
-> > >  include/linux/dma-map-ops.h |  7 -------
-> > >  kernel/dma/mapping.c        | 12 ------------
-> > >  kernel/dma/ops_helpers.c    |  8 +-------
-> > >  3 files changed, 1 insertion(+), 26 deletions(-)
-> > 
-> > It looks like you missed a few sparc32 bits:
-> 
-> They were included, but the patch is named sparc64,
-> which is why I missed it.
-> 
-> If you could rename the patch that would be nice.
+On Sun, Sep 28, 2025 at 5:02=E2=80=AFPM Leon Romanovsky <leon@kernel.org> w=
+rote:
+>
+> From: Leon Romanovsky <leonro@nvidia.com>
+>
+> Alpha doesn't need struct *page and can perform mapping based on
+> physical addresses. So convert it to implement new .map_phys callback.
+>
+> As part of this change, remove useless BUG_ON() as DMA mapping layer
+> ensures that right direction is provided.
 
-Let's see if new version is required.
+After the changes in v1 this runs fine on Alpha. I've tested this on an
+ES40 Alphaserver during load (build kernel and unpack tar files).
+The v1 patch fixes the errors seen in the first revision of this patch.
 
-Thanks
-
-> 
-> 	Sam
-> 
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
 
