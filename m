@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6622BBA73E6
-	for <lists+xen-devel@lfdr.de>; Sun, 28 Sep 2025 17:20:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1132527.1470861 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66970BA7416
+	for <lists+xen-devel@lfdr.de>; Sun, 28 Sep 2025 17:28:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1132543.1470871 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v2tCV-0001Tz-Sj; Sun, 28 Sep 2025 15:20:35 +0000
+	id 1v2tKN-0002lr-Pr; Sun, 28 Sep 2025 15:28:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1132527.1470861; Sun, 28 Sep 2025 15:20:35 +0000
+Received: by outflank-mailman (output) from mailman id 1132543.1470871; Sun, 28 Sep 2025 15:28:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v2tCV-0001SW-PT; Sun, 28 Sep 2025 15:20:35 +0000
-Received: by outflank-mailman (input) for mailman id 1132527;
- Sun, 28 Sep 2025 15:20:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v2tKN-0002k1-MP; Sun, 28 Sep 2025 15:28:43 +0000
+Received: by outflank-mailman (input) for mailman id 1132543;
+ Sun, 28 Sep 2025 15:28:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vhgl=4H=ravnborg.org=sam@srs-se1.protection.inumbo.net>)
- id 1v2tCU-0001SQ-4w
- for xen-devel@lists.xenproject.org; Sun, 28 Sep 2025 15:20:34 +0000
-Received: from mailrelay-egress4.pub.mailoutpod2-cph3.one.com
- (mailrelay-egress4.pub.mailoutpod2-cph3.one.com [2a02:2350:5:403::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id acd3cc4d-9c7e-11f0-9d14-b5c5bf9af7f9;
- Sun, 28 Sep 2025 17:20:33 +0200 (CEST)
-Received: from ravnborg.org (2-105-16-150-cable.dk.customer.tdc.net
- [2.105.16.150])
- by mailrelay6.pub.mailoutpod2-cph3.one.com (Halon) with ESMTPSA
- id ab2e7cf9-9c7e-11f0-845a-494313b7f784;
- Sun, 28 Sep 2025 15:20:31 +0000 (UTC)
+ (envelope-from <SRS0=zTFj=4H=kernel.org=leon@srs-se1.protection.inumbo.net>)
+ id 1v2tKM-0002jv-Dx
+ for xen-devel@lists.xenproject.org; Sun, 28 Sep 2025 15:28:42 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cd08b0f3-9c7f-11f0-9809-7dc792cee155;
+ Sun, 28 Sep 2025 17:28:37 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 756A46218E;
+ Sun, 28 Sep 2025 15:28:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D567C4CEF0;
+ Sun, 28 Sep 2025 15:28:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,30 +41,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: acd3cc4d-9c7e-11f0-9d14-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1759072832; x=1759677632;
-	d=ravnborg.org; s=rsa1;
-	h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
-	 from:date:from;
-	bh=Ghyryt2xK5vvnvf4Q2js9Uw55oy6LtaOfQDvQKr1uy0=;
-	b=CtT4iU2T9YA3xTrD4cIA+BE+C15rUkNnZplc587YI58g+wt9Z/k8mKxjom62woRw7fEUsvfTw8Ego
-	 OORUvh9fiJQumZdtSymONvY5MMtJ3KJXP3zsnj3KxJxk4Oiw+38jzutzIsRmg9a15NqXsODmCWj0BM
-	 /EaEWRy/uNU7FXsutNnhv+ixhqzFL2HZhBJwBMscK6dVEUiiXxvphkGrAHhj1qC784KABlOh0D02mA
-	 4cLaxB8a5GgAT75FDK3kfCkRHDAAi479jPbM5IFPQLlR8lLKW/rv/Z+yeGIJUaeXNjpvPYpXFP9UyV
-	 lTS7L9y3fNmnKV3eKZ72pOl8CYKOBDg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1759072832; x=1759677632;
-	d=ravnborg.org; s=ed1;
-	h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
-	 from:date:from;
-	bh=Ghyryt2xK5vvnvf4Q2js9Uw55oy6LtaOfQDvQKr1uy0=;
-	b=J0+KaShsfwnmVbs3PB0EalU1KScQKZ0oCMj0q/S47VSr8rYDdT1FCDrtDwmZlUzToU5sipbu8KD09
-	 RgZbdwtBQ==
-X-HalOne-ID: ab2e7cf9-9c7e-11f0-845a-494313b7f784
-Date: Sun, 28 Sep 2025 17:20:30 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Leon Romanovsky <leon@kernel.org>
+X-Inumbo-ID: cd08b0f3-9c7f-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1759073315;
+	bh=j3dJ7dm9Jex7hj7zDSOs/rnehFATrVSGsSj9oi0KREM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=f1YhjVPKUf7C/0/LxXAZBncp5RteetEhwJWXFm/vEFPUulFmvL8IxH077S1rMLJtr
+	 d2ZgZgVpCx6rd1totAk5q+h7xqPmOOTtzW5w30YaKisVYvwJq5gRqIDGRHY5T/f4gQ
+	 O0PYgjbB/cH7oJ1jFPBNLr3rGkOI2qMk/87YL11RjncJuK6Qjt9VPe0h+TqS18yZyA
+	 BZqpYFUKRf23DvC6/+sd1BLnzDDD/hXAh8aUEZqIXh4WqdIZHr4zt3c9wvIaaQFzw4
+	 UZD9hcw+AzQFsbXJe27so0nVBzGtUu2qhqiGBcZy6B5qFDuhtL/1hVaC8gTpWufr4a
+	 sdkGg8+AkSuEw==
+Date: Sun, 28 Sep 2025 18:28:30 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Sam Ravnborg <sam@ravnborg.org>
 Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Leon Romanovsky <leonro@nvidia.com>,
 	Jason Gunthorpe <jgg@nvidia.com>,
 	Andreas Larsson <andreas@gaisler.com>,
 	Borislav Petkov <bp@alien8.de>,
@@ -90,7 +80,7 @@ Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
 	virtualization@lists.linux.dev, x86@kernel.org,
 	xen-devel@lists.xenproject.org, Magnus Lindholm <linmag7@gmail.com>
 Subject: Re: [PATCH v1 9/9] dma-mapping: remove unused map_page callback
-Message-ID: <20250928152030.GA136019@ravnborg.org>
+Message-ID: <20250928152830.GA324804@unreal>
 References: <cover.1759071169.git.leon@kernel.org>
  <27727b8ef9b3ad55a3a28f9622a62561c9988335.1759071169.git.leon@kernel.org>
  <20250928151725.GA135708@ravnborg.org>
@@ -98,8 +88,6 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20250928151725.GA135708@ravnborg.org>
-
-Hi Leon.
 
 On Sun, Sep 28, 2025 at 05:17:25PM +0200, Sam Ravnborg wrote:
 > Hi Leon.
@@ -119,11 +107,58 @@ On Sun, Sep 28, 2025 at 05:17:25PM +0200, Sam Ravnborg wrote:
 > >  3 files changed, 1 insertion(+), 26 deletions(-)
 > 
 > It looks like you missed a few sparc32 bits:
+> mm/iommu.c:
+> static const struct dma_map_ops sbus_iommu_dma_gflush_ops = {
+> #ifdef CONFIG_SBUS
+>         .alloc                  = sbus_iommu_alloc,
+>         .free                   = sbus_iommu_free,
+> #endif
+>         .map_page               = sbus_iommu_map_page_gflush,
+>         .unmap_page             = sbus_iommu_unmap_page,
+>         .map_sg                 = sbus_iommu_map_sg_gflush,
+> 
+> mm/io-unit.c:
+> static const struct dma_map_ops iounit_dma_ops = {
+> #ifdef CONFIG_SBUS
+>         .alloc                  = iounit_alloc,
+>         .free                   = iounit_free,
+> #endif
+>         .map_page               = iounit_map_page,
+>         .unmap_page             = iounit_unmap_page,
+>         .map_sg                 = iounit_map_sg,
+> 
+> I did not compile test, but from a quick look they need to be updated.
 
-They were included, but the patch is named sparc64,
-which is why I missed it.
+There were updated, see patch #5.
+https://lore.kernel.org/all/bac909dab3c82fc6a7a4f5a31f22bac9a69f7f07.1759071169.git.leon@kernel.org/T/#u
 
-If you could rename the patch that would be nice.
+arch/sparc/mm/iommu.c:
+  426 static const struct dma_map_ops sbus_iommu_dma_gflush_ops = {
+  427 #ifdef CONFIG_SBUS
+  428         .alloc                  = sbus_iommu_alloc,
+  429         .free                   = sbus_iommu_free,
+  430 #endif
+  431         .map_phys               = sbus_iommu_map_phys_gflush,
+  432         .unmap_phys             = sbus_iommu_unmap_phys,
+  433         .map_sg                 = sbus_iommu_map_sg_gflush,
+  434         .unmap_sg               = sbus_iommu_unmap_sg,
+  435 };
 
-	Sam
+arch/sparc/mm/io-unit.c:
+  276 static const struct dma_map_ops iounit_dma_ops = {
+  277 #ifdef CONFIG_SBUS
+  278         .alloc                  = iounit_alloc,
+  279         .free                   = iounit_free,
+  280 #endif
+  281         .map_phys               = iounit_map_phys,
+  282         .unmap_phys             = iounit_unmap_phys,
+  283         .map_sg                 = iounit_map_sg,
+  284         .unmap_sg               = iounit_unmap_sg,
+  285 };
+
+Thanks
+
+> 
+> 	Sam
+> 
 
