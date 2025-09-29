@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C706FBAA326
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 19:39:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1133085.1471262 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5EB9BAA40C
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 20:08:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1133102.1471273 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Hqc-00018U-Ch; Mon, 29 Sep 2025 17:39:38 +0000
+	id 1v3IHz-0005Me-Ja; Mon, 29 Sep 2025 18:07:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1133085.1471262; Mon, 29 Sep 2025 17:39:38 +0000
+Received: by outflank-mailman (output) from mailman id 1133102.1471273; Mon, 29 Sep 2025 18:07:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Hqc-00015j-9c; Mon, 29 Sep 2025 17:39:38 +0000
-Received: by outflank-mailman (input) for mailman id 1133085;
- Mon, 29 Sep 2025 17:39:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cYBO=4I=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
- id 1v3Hqb-00015c-4Y
- for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 17:39:37 +0000
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazlp170120002.outbound.protection.outlook.com
- [2a01:111:f403:c001::2])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 420b3dc4-9d5b-11f0-9809-7dc792cee155;
- Mon, 29 Sep 2025 19:39:35 +0200 (CEST)
-Received: from PH7PR12MB5757.namprd12.prod.outlook.com (2603:10b6:510:1d0::13)
- by MN0PR12MB5907.namprd12.prod.outlook.com (2603:10b6:208:37b::17)
+	id 1v3IHz-0005Jy-G9; Mon, 29 Sep 2025 18:07:55 +0000
+Received: by outflank-mailman (input) for mailman id 1133102;
+ Mon, 29 Sep 2025 18:07:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=o4HP=4I=epam.com=Oleksandr_Tyshchenko@srs-se1.protection.inumbo.net>)
+ id 1v3IHx-0005Jq-MK
+ for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 18:07:53 +0000
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20f::7])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 370e2d1f-9d5f-11f0-9d14-b5c5bf9af7f9;
+ Mon, 29 Sep 2025 20:07:52 +0200 (CEST)
+Received: from AM9PR03MB7025.eurprd03.prod.outlook.com (2603:10a6:20b:2d7::20)
+ by AS4PR03MB8178.eurprd03.prod.outlook.com (2603:10a6:20b:4e1::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.17; Mon, 29 Sep
- 2025 17:39:27 +0000
-Received: from PH7PR12MB5757.namprd12.prod.outlook.com
- ([fe80::f012:300c:6bf4:7632]) by PH7PR12MB5757.namprd12.prod.outlook.com
- ([fe80::f012:300c:6bf4:7632%2]) with mapi id 15.20.9160.014; Mon, 29 Sep 2025
- 17:39:27 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.16; Mon, 29 Sep
+ 2025 18:07:47 +0000
+Received: from AM9PR03MB7025.eurprd03.prod.outlook.com
+ ([fe80::bdd:3097:e48c:6c4b]) by AM9PR03MB7025.eurprd03.prod.outlook.com
+ ([fe80::bdd:3097:e48c:6c4b%5]) with mapi id 15.20.9160.015; Mon, 29 Sep 2025
+ 18:07:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,133 +47,328 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 420b3dc4-9d5b-11f0-9809-7dc792cee155
+X-Inumbo-ID: 370e2d1f-9d5f-11f0-9d14-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mKc/qv1PHUlSvIUO4I+jwJm3cPT6XA/RSAY1rBvYjyMAogQhQdTuXqDhOLaibKU2Ca5DxJQ8Km7uYanbcbTyuHsaU/D93DTWb0LwffJizSwvG7H14BjsEnhKzNcRNcVyYBFRjLV4QJ8fdSdiXKg0aHAIsB8rDE0RAPXv++p8Vg7FNVpoXvKDRcH26djNrkd7ltQlJ7fFrdojTz5f8s4IjV+t7huEzz3JFbcL3iA6XEifAxE0DnG58x8v+JfIB8/2m7XvKqfHoQh+I+NqP0Sw1FuT++/aIINwLYw/c6gXQkiiMGIYr38cpUm1KWymtqEOaXv2m2aofQaJZOAaJeNZPw==
+ b=qdQdBKITWl2CIakQ7427m3dDltjk4Hi0flKXkpc1ZdVHn75ugaamKblB3aa1hlbJePP+a9nICgVAEyBQynBbKb/NTlhI4cEP29F7gzwzmhbdKSQk2PQJeRGrtIKPRL5rbC0gwy9AV4k8Jh20R4YtU9DkYH8b+90HK0BuO3ZCkYgrJZcSjyPXUk5K+NypHRwdC/bacmnaLJUxtkM4m7ZmQiRUz/2BHn0B8Ak5HaqjzEI/eOUqDrbGwuuBZkOY+/XpL6OsyzMRzmvkPXytVkKWUfBxmRAUe8VlS1obf/z0tUul7+MTYHUwkrQZTzgm9Yi0TzxMZDESC2JSzW9xfVsXhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OtRdpiMoQ/tJHwKBwA1fxlbmM4w3B3EJ5OtppZVIkf8=;
- b=UVATGIIfRig/fYRMucdFAoZHU7QvFa0ONuV3jFRCXxo9AMq74ZQpsm4+sm5aQWTs83HGJlCtDnREnWBFFmE5jG9wGGy2gggPZEzDFMPx7YYpJEkoLjUR0m/LnVNpPuAjI9ixRc+GSg5CrytvHWk0/M6+3I9LJ9W7jLXDoAuDoPvBQBFGzo4zoVXDZ5pxujjB701u+gLfJu6j+N9b2IY5149f4jR/odjeGCCfWo9tmujWpqRQr6qNEocKEhcZM1nSDf9dhtoL+z3l0aOOEU1rM+86Z6Fdq9SU5e0rlf1LsJuVQk9iHI7JYwF7jpARF+p4vXHoRXTHMPuG1pwqHKMneA==
+ bh=lmz8ihFsTa28eFIIcZV7gRXPLn+VRuXAh5/gDPWy9GU=;
+ b=Cev/IWnJtT719yQHI9XIhXEzrTR5UyfXELP/dXddmCXMmD8otyk4wa2I3WzOdmR4oPKSEvSH14O1g5CxvsJpNCzWnYHxwcSoxm8ng49zSG2hmB4ACjjgKubgThzke3W4Ty+J9A8cXknLOC5y6QvAWuMTxXTeSYkMlHE/u9BLcG1sD4CyfQj7FK2xk7DV5Rk2eKRpNg6KRLDcrf4TM2JrRMmK471lf+EzNtscGbhScV/CuZyQ/Vy4l6R8LyZXO3bTBrOX2nT1YfLC3jkD7v5hxpmXMhBE/Y3+aywbTDnC5yDRN9TqHOKXGNXRcvtmVIUi3gWY8+jJ1AWOXeT/s2F05A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OtRdpiMoQ/tJHwKBwA1fxlbmM4w3B3EJ5OtppZVIkf8=;
- b=n5cXzyNvCDy7Px8SNfUf3cmoMpzFp+WqGN5GlTokiNn1ZUR1GRrvcND5z4FOytPgmqJkayuxnD0UqsP8CBQ4Ze1wIBb5V++u5+HhP4dV3TqKBJlLdUrqYvvFhCkfrhn/wOoSWzVGSgeS3KtpFcEs5ZZXxVspDhKK0GbYuYCiQlj33GU1eQ/YadqYsWusblpk8YeQzUKEJOKjo0AEetHNqn/uE38uum6BSKGZbvVnBl3c+JDgmoCz2tozt0Zw1wuLSptorcTzAIYv7nUVLt1N4C6d23AKLlpi3VSpNA+vcvFFC+6HtcwuWFV0mU3V5h7ddKIgTasycaunBk355Fz2Rw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Date: Mon, 29 Sep 2025 14:39:25 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Leon Romanovsky <leonro@nvidia.com>, iommu@lists.linux.dev,
-	Juergen Gross <jgross@suse.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Russell King <linux@armlinux.org.uk>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 5/6] xen: swiotlb: Switch to physical address mapping
- callbacks
-Message-ID: <20250929173925.GE2942991@nvidia.com>
-References: <cover.1758203802.git.leon@kernel.org>
- <997c0122a24c355b4d7ee353902041a7617f4c9e.1758203802.git.leon@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <997c0122a24c355b4d7ee353902041a7617f4c9e.1758203802.git.leon@kernel.org>
-X-ClientProxiedBy: BL1PR13CA0178.namprd13.prod.outlook.com
- (2603:10b6:208:2bd::33) To PH7PR12MB5757.namprd12.prod.outlook.com
- (2603:10b6:510:1d0::13)
+ bh=lmz8ihFsTa28eFIIcZV7gRXPLn+VRuXAh5/gDPWy9GU=;
+ b=PA8j063y4ZULV5Vz/d3p9xihuC94g6fia9PsVDaNoT+A4VpV639Yl0gRS8ddGy4/kexkFD+Wp6104qPi/R26Zf6XwBO6dlC8Qq79yK3Mv6iiJmJ3UkTXBbL2GlzzqNV99HXiiiV/ddq7s0cnjxZxxEgP93YBIeV3N+7Hhg1KpJDWUQ71RK17jwlz+a17QRO2rwC/mfkDyOuAFScUFOAq5zHO0Q3RTrKEeokbJl/f9RtPxRt3pf/+sGCU55LOWmMydqUjvm5+7QEXDJ6Ce9u6sKC3t+04znVSlAHOiNCJ1TY9FthE52xqvWdHs6fvNzVxZGzm4OXY1Lk4koIG1IqbdA==
+From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Ayan Kumar Halder <ayankuma@amd.com>,
+	Stefano Stabellini <stefano.stabellini@amd.com>
+Subject: [ImageBuilder] uboot-script-gen: Add ability to configure static
+ event channels
+Thread-Topic: [ImageBuilder] uboot-script-gen: Add ability to configure static
+ event channels
+Thread-Index: AQHcMWv1PEvr31auREGXSWhX8dEo6w==
+Date: Mon, 29 Sep 2025 18:07:47 +0000
+Message-ID: <20250929180746.1881872-1-oleksandr_tyshchenko@epam.com>
+Accept-Language: en-US, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM9PR03MB7025:EE_|AS4PR03MB8178:EE_
+x-ms-office365-filtering-correlation-id: 35a900cc-a209-48ee-dc19-08ddff831873
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|42112799006|38070700021;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?gXcB4qqh8Wi9H4+EhryZH9F9+WiZb76qhzjElZxl59aS5fgJWkXxmcfH8n?=
+ =?iso-8859-1?Q?Idy2nSCpfUqZm7VzrQjiKGmltU9UzqGvwMfgqXFS3Y+mot7EzhK353S8em?=
+ =?iso-8859-1?Q?rjcbUc6fzhK6d2mz8/PbbARjz9BPJwR3/EWOP99tAjaenQajwQDzHil/Oe?=
+ =?iso-8859-1?Q?vL1fAN1qj55SOHA/B9lURxaWZnbIgl91dc7BW0pd9J2jwdVaQPKsqv04Tu?=
+ =?iso-8859-1?Q?6sLm47mR75ESNMWWAwi07dKDNCc088U4qZSUSXtFJBnF+z3lxxTR9H2FmN?=
+ =?iso-8859-1?Q?ssmFjNDfIgjWxOLAGatzn1WaqtwulYRjeMWncb5uYhC9jSq9cB0c8sGF6v?=
+ =?iso-8859-1?Q?pwnn1FD8Zr1KW9IFYtKk30wcCos33XpjcSahSwYSof6Bm71rqwYfmh36PS?=
+ =?iso-8859-1?Q?SC6ePdSFL0ZJayRFp1DeqtfKSl+mv56zBgo1nWQdiHjPjVHBfj1q/xF/Vf?=
+ =?iso-8859-1?Q?1ZRMJJe8UZAHlrd5mMYwE5Lu/k5mzrvSQlGFNJBYtodwzNv1sJ7ZNR95VA?=
+ =?iso-8859-1?Q?X5hOU3ejJ+B1EhDs6UqAavdweZXxxLBH1r+TeqTbmIWGu4rceaZyvq3k0a?=
+ =?iso-8859-1?Q?aU9r1yJeP42t6Lbio9aaD976yqD39Tw1i/wHcKVwnr5GVz/A6wrBoOjqYH?=
+ =?iso-8859-1?Q?I9vqE0SCzfYu2DYXik+6A0MjIXBoqninNZgdohp59WH7NI3oXTozSWqU64?=
+ =?iso-8859-1?Q?dkao8si5zXIA4eNsX72APRSCfTGJHtLQCD9hnr5cFz/SjVsztwAcKuqlxV?=
+ =?iso-8859-1?Q?gj+Ae3B+MYkDJnCj/8EWId/7M3d/LZN/u76CEc6433BIerihVW7oODyV5M?=
+ =?iso-8859-1?Q?jVBaGxoQb/3s0i08LyxMADCOP+JQ2E9TntH0qPJKmVXcCXF5Txf84vKnA3?=
+ =?iso-8859-1?Q?ILEAvthNR/ICnbre10hu2fbNMfw06mcWdiT4P0QG1Ge4hBthB3GnNosc/l?=
+ =?iso-8859-1?Q?qJsPfnnkCKgQa1eHh4wRw4tazhFizyNlCe33NIRZfN0KXRk5+ALwoRDzWB?=
+ =?iso-8859-1?Q?OOeRrUnSWEd0XdJsqcXSXNdSS7NNHTEMmyw2rLrY1cKxtzPInftmyrcPw8?=
+ =?iso-8859-1?Q?9KYU8y3iFkrNkdi67o5Y+E4DFzDftPokjt2jB20kc/iYNqIP2uppvH9n9X?=
+ =?iso-8859-1?Q?dEYGztHsPnNPosXCeMSBA+bQXVfMQGrdOt+fMyMsdu6lu8AMDpmj67l+Sx?=
+ =?iso-8859-1?Q?+sIQsVulORpI80y+Z+yxTMKvWXcdX4/VXtbd7fQiKbJKFh0aJQnOfgK682?=
+ =?iso-8859-1?Q?sgoiQve3tHWGCIUD8a/LL5Z1ue1zIZRKeE5+AqK+rEV+a9peUzuVAOT7V6?=
+ =?iso-8859-1?Q?eBxUUbj7lMervA5Z660vXJlJN5npsbTCJnctTpZWrEBdXgv70kBGmGYEiU?=
+ =?iso-8859-1?Q?/oJz7W5uhEi9OmE/15pR3soHBIu3z1j4pGP+VIYpgfb3pxW1x3awhGJf/U?=
+ =?iso-8859-1?Q?smDP7Rb3fUUX44FdA3ifc8PoAn11PldMr0kP2OcCPlVFzvr7DNc+NQ2/F7?=
+ =?iso-8859-1?Q?XO8VOF3Nzd5zg1swJkkwtcIk+6z9ueom8VRrfAbU3G0VJZBvB/TSOFxdqO?=
+ =?iso-8859-1?Q?W7KTRSkpvouWBIGMybBWZ/rL7UuU?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR03MB7025.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(42112799006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?v+EeOO7/Y5ur1PpyQUcH8thdrE7MIKzVQUE2iHWgiXj7YYwG8S8W4bi3L6?=
+ =?iso-8859-1?Q?ZWr6JN+2lkF8xy4OslN00bW80Hn0p8eqTiRcgd7jYUdmQGT+MthXi5mLVT?=
+ =?iso-8859-1?Q?pYHgsrfccgqlhgbEJsWNkIn7N3hPdGKCCQau00hEEKPBQC3qlDqfw9HLxG?=
+ =?iso-8859-1?Q?3ycrnAJKDEFRO6/KBeAn2AfELIwkyPPRsP1XURwLX5cd9xXgZu4ybgsBL8?=
+ =?iso-8859-1?Q?rBACJK0U131JqD9CIeXg17bcNN8JB+Z7A0ZiA6JaKHC7DJOxD4Lgl70sm5?=
+ =?iso-8859-1?Q?86UMhjrJQjoox0U759o+U4pI9sYUBcgyMDCfFMnnk8KRyqo5Ls3wmupUM/?=
+ =?iso-8859-1?Q?k/wDHrVeIKiZHaeBwNfECy+LQq7GagqFFQi5sCXmlt5VviKB6+2k3vO1i5?=
+ =?iso-8859-1?Q?QHhQQ96Wmshq94RaMiKLvX/SDs1ufmg0fM46YI2MJ3Zo9eu9tKIQ+3TwgL?=
+ =?iso-8859-1?Q?wRR1eRCBWPcL6UUpLpjk2KkI96mRjNznoh69KUyaJ7ldtP34snECbOLuuG?=
+ =?iso-8859-1?Q?YjW2VH3dygvb13+/xyU4ZjOV6w3KbGNXSLlVZvuH0mj4HzyJsNAOZn7MZw?=
+ =?iso-8859-1?Q?b+3X2KJv++soink06tZYSRsrVrWPzroNdPqpaeLfSGopx/JEJOegVte/JX?=
+ =?iso-8859-1?Q?xoiEGxyUzKoVMKNmqWk1cjJqdhi5gbHV2RwYXUMJMOOeJHYg5F6oALaal0?=
+ =?iso-8859-1?Q?rWmHKMChdzkC1yx462rr74WG903KxNYBdFZhJN+Jrt32WiOzKe9LxmwY06?=
+ =?iso-8859-1?Q?Vqo1TBCkENHEEIvhzxEygC0YSRViweNPvvAAMhA/+MrQsA6UD9k0Ez7jZw?=
+ =?iso-8859-1?Q?2cgK4lTMh0ieePuXjxcmhHSOZ7+/9N7me8cBY2tk93qwtYKRQXtLzF1gJm?=
+ =?iso-8859-1?Q?kvyCYgUTNT8vdIdOqmS5bIZXgoWHUAnlnGJAJ4vUMSCItZZs79KcwgGlrh?=
+ =?iso-8859-1?Q?l4mvSDDWB6k3KwyEnNcJza2qp2mbb2Cgr/g6aqeWaBzUEhtwvIs43LMwvs?=
+ =?iso-8859-1?Q?L6qUFh628sV+tUuHqIXiwKo/rusS7ZFcmMh+4YMj22VuljESCOKIPTQt3c?=
+ =?iso-8859-1?Q?SrxChbZAIkCGE1Itg1G9ezRHtu3mXtI51ZWDQoVxWAQwpVrdQLKHtfmtiX?=
+ =?iso-8859-1?Q?8peKv62eoBGomd30JJlGP4rCuqB1hGKgWOkksedVoGVwMMxJYkREOw+aKP?=
+ =?iso-8859-1?Q?mukqaraRiEV2vZkrFlSUKCtYFeFp9JCUKUpuZsgPlKA1sPeGzkf6ihjtFS?=
+ =?iso-8859-1?Q?c6mWxGWnV6zGqIZOyN8UXLQZpB54HpmWFsQEJOXIESMqET4s723OEHiGND?=
+ =?iso-8859-1?Q?xyErJe+RI+Nllz48pomQecJRC/IP+L3l1vDER+K8hEBCRzszkG9aDRfkOV?=
+ =?iso-8859-1?Q?qqXsboxCmh949eptNp/sDJp6wsHARQpb3Z/uWFqCL/3G1p9gcy/PsjYgRx?=
+ =?iso-8859-1?Q?LtzDla1P5sBs1HrL5NoFpJpqDj3ub41AFpNt4WNqwUkuWY3I5YVXIeVPw6?=
+ =?iso-8859-1?Q?iRYEvVXe813c9LuwKqbdq1R/QCw+UG0ZRtrKwBNn5UPzwEM9+2SeV082UN?=
+ =?iso-8859-1?Q?ajxPbuIEn+p8HU+Spl4clNpQ50sbbu3ptkl802ADJCZ2q0wL6nCfQwX6ZG?=
+ =?iso-8859-1?Q?I+g2iFhT+OvJSDWqeyhnQx/pXy9bL+58+YeitKRGZmJEczY0IbWtj1jRHo?=
+ =?iso-8859-1?Q?fsWUlXoM4nvw6Do+6f0=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5757:EE_|MN0PR12MB5907:EE_
-X-MS-Office365-Filtering-Correlation-Id: 605daae0-2b76-4ed3-34b7-08ddff7f2313
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?bGzBX2cj3doO9BU9QyqzXAIwDAIogWi/hJkGlkKjl41FPbJmR5hKsYj6x5X9?=
- =?us-ascii?Q?warEZs31R/7kBj5vdtooWW0H3fppFR/bhH5R2UR6pUi2Dd7V1+0LnXqYlzZE?=
- =?us-ascii?Q?ycjAWMHt704VouS8nvg25oPOnfCVerUPi/iyofCUk2Scpsn+r1PKo9NgGYGx?=
- =?us-ascii?Q?WpmyfWmdTt3O9TCatd1110egkbghC7KlnQOlYMB2RDTo0jVWjrvcx8K+Toh+?=
- =?us-ascii?Q?R29GOxDt9MDRXzNsI7zNONNvkjdlDFEcHaDZDxM5TNutac2FXKfxdLuhFMtH?=
- =?us-ascii?Q?3LLzvsB3s8pJX7qCYr/tB7t+mzYyKn1s6SW8aCFxkAiSYtDZ8WjO+VGZzyGe?=
- =?us-ascii?Q?G8IY2teTUUHFNTO4mW3NT0R/XyXGj6wkDAlzRr3ComhwGb6hgomi8uLJXxpI?=
- =?us-ascii?Q?aaVQEutfQYggWHjdNBHCAdX0vx49dLkYSm4aTNDGwmfLlUaUqyPLyg71yhME?=
- =?us-ascii?Q?s3KZ2hT+wIhWXBe+EANv/WreLsW0ohdubuC/rvk9Re9AMMtJfKCalBqZp3Eg?=
- =?us-ascii?Q?9zAMwCYdJEh3mVshs7EEjFpKQKyc76+DuMSoU6e7OS6hKwCmuXuuMY/Q3ZDO?=
- =?us-ascii?Q?POIHElQnxhhguvVQ+XSm+4QqP7I5a5SjjkYiYw3eU20ZrpghWiZrPpm8CZ02?=
- =?us-ascii?Q?+tOx4zoc5PZdLNYUQLEFp+OiFmDgDC8VGqz/k7oT2a1lVk4ukSha4bbtAGL/?=
- =?us-ascii?Q?fcYFHQDowa7+QJfTKlaCEe57KEBLFJkgLxjGBMJZ8pesOx7F6NY8FJx5d0YR?=
- =?us-ascii?Q?afEAb/nKm8q+ojvj3oTVOYi26N5PG91XIOJc2AyKhme25xGKVnSCCX7LhRK9?=
- =?us-ascii?Q?Dk8ZYqpGlS5YfiGGPFVT0x9HHmFoZ8o/oQ2wdAmQBzEtrOVOXrR6nfFfJnVy?=
- =?us-ascii?Q?ya2IvefD8W6hpgaOn0KyXPi7igPSUbitkpSnCs6AUxmYWRvQOlj5grnbxfJ+?=
- =?us-ascii?Q?R9ml+igG1iHoD3KYtXHs7rzmR7T2QxBkHqbqX8nBqGvutbzXeLFSAV4ip14F?=
- =?us-ascii?Q?j6Zo2V/1TnEvLDlwWyfvBxe+4XxoKdgM9UQLcuYfxejHU1yQvltNpaFTfefs?=
- =?us-ascii?Q?+MZCPYi7vnKYHPpVXV3bag+PYr6cKwBCRXQhXGu2TihrA9bs6UtqRXnd/0qm?=
- =?us-ascii?Q?XAVlqLpIzqhJQCvVbVpDTbLtdySCsJkszBz72W0O1y2MtIzfsxjhdhgOCQix?=
- =?us-ascii?Q?1jdHI8RIlPt47b0jAf1yGAVHISW7iOcw1RfmzGTA5j9YpfTuHrZmUEW69UDK?=
- =?us-ascii?Q?UYZnMfAULwNuVdGbHM53oYRMIyo4bbLfCPJzvXtz61OZcWzEzwYZK8NO8ugu?=
- =?us-ascii?Q?VBC/QD6R3rQzRkqnsPcJ2mEx+npiAQUMVUUHwawOH61uXmTnjNvjslkOzaHN?=
- =?us-ascii?Q?hMTzYpcHCMTs3eEhoCBMqvr9rcjKMbhYgYrQk+sx8bLmjHYB9dxMMR47rAuJ?=
- =?us-ascii?Q?7RwWACByhXUqROerjJl3rGMDUrm1ubo6?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5757.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7rw8PttBxy94nlK24vGIyBMo2iARMNMsxMaKZNG70lQxEWpMwSo0FxrN28xC?=
- =?us-ascii?Q?Kk7hUJz4HAlL41FkLJuYtBT9nrU/yWYZ1q03Khm07pkNY9x2TuZSgrRy8hFj?=
- =?us-ascii?Q?13jX917d5RNi+JjDClq371iEvDDgwBxMIM6TJoixeRt0Er4ZIWSHL0MrVN1L?=
- =?us-ascii?Q?m4zlEEs/bQKuc3icfoHWnb7zm7KlqjAu4mEG/GcsGVbIFOzjyJtSwfBV+vBW?=
- =?us-ascii?Q?2brXJJKXjSL4VMpMdZacmDJAaSUJTKn7jQFJaAsNLXEG7MGthif7nyhveHqA?=
- =?us-ascii?Q?sU6Eb6Ff54dUKlSZP9QuQqip8/Tf8Dc9UNOdGfeMN1fzGSZETCFHGwuO+sd0?=
- =?us-ascii?Q?bW1Fr11t36rydIkvA/9IUoxE7LxBYSosMln4eDYB5ws76gZ9GqZNBuFfeqYU?=
- =?us-ascii?Q?rMglwCiH18wSvd3b0bD0CVCTPtj4HK1K+207QEAp42dF/a7OuP22i+lND53U?=
- =?us-ascii?Q?cSCGdn9X1wF0oECl/liUExs2MOU4vg7uN0wBj83Wyj98J0YVyZXj4+OcbbFj?=
- =?us-ascii?Q?83sBJewNhhvQSSzdEQw2sts0eK861xB7xZ+SxLH5KKV9flPj6/TLY5R1wMBn?=
- =?us-ascii?Q?oMVonn9vLfL7iwPjt/kOt0S2IYTxMEZ4SMDQHK24Qhw68rIlaO9B6tnvyvjq?=
- =?us-ascii?Q?Xsu9fiW5VNSqxyUteYdI2panohxblwcp/BOI1e7HOcIB6ab/LS5KddiNU5Lq?=
- =?us-ascii?Q?ktj41SxcxTjpBkvAdQfZ0vZWUuTqkCwHpni8AJD0uc0Cr9jYGcySV9X1FHRT?=
- =?us-ascii?Q?gSISzKg/ynhcRWxk87QP1h5yt8ehBt1hJVBhktDUIKOG1dInFEARrU8oMgu0?=
- =?us-ascii?Q?Mdn7LDqFIh0gU/Jz3BMHhEGEz0FcVkzLeLWXkYzQiMDdAAPX837me5Mp/H7b?=
- =?us-ascii?Q?b5XCOdkSA5OfGq0h2F4Lsy0V17qqFSFkOHnIQb+bOKHJfDTptMWWuwOcPMvh?=
- =?us-ascii?Q?XZjpu3NFzMkMjMvHHKpY2GHnWTfDRWR+UJFq8NO07wfIKzqx123cBw7KECvm?=
- =?us-ascii?Q?8vd92TAZbFA7zHfs6A37+BlDUi4FdWWKauwYnh1AnY8z+B4Y501i0CgthIe0?=
- =?us-ascii?Q?vgDGwz+gbZRNCBE0GmNK/TtCf+QBeE+3IaFKf+IkOZJFuWuKKNDX6MWrr6Nn?=
- =?us-ascii?Q?KKvXjZSssDNxlYm4BGkAhGLdQ9xQfvhNCvFHalM4z6p+tFiVPE3f9EHlDDtR?=
- =?us-ascii?Q?oloVJTe3euWx9bF/tjqKPLdJ9dvpF02yQCiDC0mm7JnejSAjyfQ4fayzpUrr?=
- =?us-ascii?Q?w18IGYPPnniFg0EVG0tgt6YJ4EoBBf4QOuUS8InejOwHLZCQWH6dTCd5aWEC?=
- =?us-ascii?Q?wonTGW7DzVB2ztVa5QmrynjJxL0ckjOCUs/ouuhPyOusaSUMkkceFwrZc1er?=
- =?us-ascii?Q?YJhHQyYRDWBPqlHPemX1tbqgTkE/tqJzk2BHzz7vWAaSOibjCZXaN0TTVpZr?=
- =?us-ascii?Q?ph/wmz1blWVkRQaVXCTcE5Fjc+nOER30otwN5Bw85BV9ieXSCAq6eGspr4qz?=
- =?us-ascii?Q?03cqAZcF6Omsc6RgU789hJLY85tPJjId2DKfIntwX08ujHQG1sEtObOOWI9J?=
- =?us-ascii?Q?jb6+Z3t3INWB+/CG5rRWwRUKiXlnGYu1l2SPbWM9?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 605daae0-2b76-4ed3-34b7-08ddff7f2313
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5757.namprd12.prod.outlook.com
+X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2025 17:39:27.2572
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR03MB7025.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35a900cc-a209-48ee-dc19-08ddff831873
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2025 18:07:47.1990
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F+hl7cBcv0F7z+opKl0LDt4UKsqiFSGQLrARsSse/0f/CdHu0PKCQxz+f8b4Qj1N
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5907
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +FFm9pUSSR/p0+1bUHPWvXARdkuGTtR+Bvh69ud3TgXNByUl5UfrA4FDe3usRJX0xr06IVZQ+MbgUNNmKbAJcQXBQ35OMhaHYUE8SeBWkkc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR03MB8178
 
-On Thu, Sep 18, 2025 at 05:09:28PM +0300, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
-> 
-> Combine resource and page mappings routines to one function
-> and remove .map_resource/.unmap_resource callbacks completely.
-> 
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> ---
->  drivers/xen/swiotlb-xen.c | 63 ++++++++++++++++++---------------------
->  1 file changed, 29 insertions(+), 34 deletions(-)
+Add DOMU_STATIC_EVTCHNS[number]=3D"local_id local_port remote_id; ..."
+configuration file string option specifying the static event channel
+definitions for domain.
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+The build script uses simple IDs to automatically and safely
+generate the required unique phandle numbers for the device tree.
+The user only needs to define simple numeric IDs and does not need
+to manage complex phandle values.
 
-Jason
+For the following example:
+DOMU_STATIC_EVTCHNS[0]=3D"1 10 2; 3 12 4"
+DOMU_STATIC_EVTCHNS[1]=3D"2 11 1; 4 13 3"
+
+it generates:
+fdt mknod /chosen/domU0 evtchn@1
+fdt set /chosen/domU0/evtchn@1 phandle <0xfffffffe>
+fdt set /chosen/domU0/evtchn@1 compatible "xen,evtchn-v1"
+fdt set /chosen/domU0/evtchn@1 xen,evtchn <10 0xfffffffd>
+fdt mknod /chosen/domU0 evtchn@3
+fdt set /chosen/domU0/evtchn@3 phandle <0xfffffffc>
+fdt set /chosen/domU0/evtchn@3 compatible "xen,evtchn-v1"
+fdt set /chosen/domU0/evtchn@3 xen,evtchn <12 0xfffffffb>
+...
+fdt mknod /chosen/domU1 evtchn@2
+fdt set /chosen/domU1/evtchn@2 phandle <0xfffffffd>
+fdt set /chosen/domU1/evtchn@2 compatible "xen,evtchn-v1"
+fdt set /chosen/domU1/evtchn@2 xen,evtchn <11 0xfffffffe>
+fdt mknod /chosen/domU1 evtchn@4
+fdt set /chosen/domU1/evtchn@4 phandle <0xfffffffb>
+fdt set /chosen/domU1/evtchn@4 compatible "xen,evtchn-v1"
+fdt set /chosen/domU1/evtchn@4 xen,evtchn <13 0xfffffffc>
+
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+ README.md                | 21 ++++++++++
+ scripts/uboot-script-gen |  7 ++++
+ scripts/xen_dt_domu      | 89 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 117 insertions(+)
+
+diff --git a/README.md b/README.md
+index 7b68cf5..52ed1f7 100644
+--- a/README.md
++++ b/README.md
+@@ -218,6 +218,27 @@ Where:
+       DOMU_VCPU_HARD_AFFINITY[number,1]=3D"3"
+ ```
+=20
++- DOMU_STATIC_EVTCHNS[number]=3D"local_id local_port remote_id; ..."
++  if specified, this parameter allows the configuration of static event ch=
+annels
++  for inter-domain communication. Each entry in DOMU_STATIC_EVTCHNS[number=
+]
++  specifies one or more event channels for a particular domain.
++  The configuration format for each event channel definition is a set of
++  three values:
++    - local_id: A simple, unique integer that identifies the local endpoin=
+t of
++      the event channel. This ID must be unique across all domains.
++    - local_port: The numeric port number for the local endpoint.
++    - remote_id: The ID of the corresponding remote endpoint to which this
++      the local port connects.
++
++  Multiple event channel definitions for a single domain can be provided b=
+y
++  separating them with a semicolon (;).
++
++  Below is an example that creates two pairs of bidirectional channels bet=
+ween
++  two domains:
++  NUM_DOMUS=3D2
++  DOMU_STATIC_EVTCHNS[0]=3D"1 10 2; 3 12 4"
++  DOMU_STATIC_EVTCHNS[1]=3D"2 11 1; 4 13 3"
++
+ - DOMU_COLORS[number] specifies the colors (cache coloring) to be used
+   for the domain and is in the format startcolor-endcolor
+=20
+diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+index 4f92610..003a622 100755
+--- a/scripts/uboot-script-gen
++++ b/scripts/uboot-script-gen
+@@ -428,6 +428,8 @@ function xen_device_tree_editing()
+         fi
+     fi
+=20
++    xen_dt_build_evtchns_map
++
+     i=3D0
+     while test $i -lt $NUM_DOMUS
+     do
+@@ -512,6 +514,11 @@ function xen_device_tree_editing()
+=20
+         xen_dt_domu_add_vcpu_nodes "/chosen/domU$i" $i ${DOMU_VCPUS[$i]}
+=20
++        if test "${DOMU_STATIC_EVTCHNS[$i]}"
++        then
++            xen_dt_domu_add_evtchns "/chosen/domU$i" "${DOMU_STATIC_EVTCHN=
+S[$i]}"
++        fi
++
+         add_device_tree_kernel "/chosen/domU$i" "domU${i}_kernel" ${domU_k=
+ernel_addr[$i]} ${domU_kernel_size[$i]} "${DOMU_CMD[$i]}"
+         if test "${domU_ramdisk_addr[$i]}"
+         then
+diff --git a/scripts/xen_dt_domu b/scripts/xen_dt_domu
+index 8134896..97c5325 100644
+--- a/scripts/xen_dt_domu
++++ b/scripts/xen_dt_domu
+@@ -37,3 +37,92 @@ function xen_dt_domu_add_vcpu_nodes()
+         fi
+     done
+ }
++
++declare -A EVTCHN_ID_TO_PHANDLE_MAP
++
++function xen_dt_build_evtchns_map()
++{
++    local i
++    local evtchn_str # The full event channel definition string
++    local def
++    local local_id remote_id id
++    local new_phandle
++
++    for (( i=3D0; i<$NUM_DOMUS; i++ ))
++    do
++        evtchn_str=3D${DOMU_STATIC_EVTCHNS[$i]}
++        if test -z "$evtchn_str"
++        then
++            continue
++        fi
++
++        IFS=3D';' read -ra evtchn_defs <<< "$evtchn_str"
++
++        # Loop over each definition and process both local and remote IDs
++        for def in "${evtchn_defs[@]}"
++        do
++            read -r local_id _ remote_id <<< "$def"
++            if test -z "$local_id" || test -z "$remote_id"
++            then
++                echo "Malformed evtchn definition: '$def'"
++                cleanup_and_return_err
++            fi
++
++            if [[ "$local_id" =3D=3D "$remote_id" ]]
++            then
++                echo "Invalid evtchn definition: '$def'"
++                cleanup_and_return_err
++            fi
++
++            for id in $local_id $remote_id
++            do
++                # If this ID is not already in our map, assign it a new ph=
+andle
++                if [[ ! -v EVTCHN_ID_TO_PHANDLE_MAP[$id] ]]
++                then
++                    get_next_phandle new_phandle
++                    EVTCHN_ID_TO_PHANDLE_MAP[$id]=3D$new_phandle
++                    echo "evtchn ID '$id' is assigned phandle '$new_phandl=
+e'"
++                fi
++            done
++        done
++    done
++}
++
++function xen_dt_domu_add_evtchns()
++{
++    # $1 - dt path
++    local path=3D$1
++    # $2 - The full event channel definition string
++    local evtchn_str=3D$2
++
++    local def
++    local local_id local_port remote_id
++    local local_phandle remote_phandle
++
++    IFS=3D';' read -ra evtchn_defs <<< "$evtchn_str"
++
++    # Loop over each definition and create a node for it
++    for def in "${evtchn_defs[@]}"
++    do
++        read -r local_id local_port remote_id <<< "$def"
++        if test -z "$local_id" || test -z "$local_port" || test -z "$remot=
+e_id"
++        then
++            echo "Malformed evtchn definition: '$def'"
++            cleanup_and_return_err
++        fi
++
++        # Look up the phandles from our globally-populated map
++        local_phandle=3D${EVTCHN_ID_TO_PHANDLE_MAP[$local_id]}
++        remote_phandle=3D${EVTCHN_ID_TO_PHANDLE_MAP[$remote_id]}
++        if test -z "$local_phandle" || test -z "$remote_phandle"
++        then
++            echo "Could not find phandle for evtchn ID '$local_id' or '$re=
+mote_id'"
++            cleanup_and_return_err
++        fi
++
++        dt_mknode "${path}" "evtchn@$local_id"
++        dt_set "${path}/evtchn@$local_id" "phandle" "hex" "$local_phandle"
++        dt_set "${path}/evtchn@$local_id" "compatible" "str" "xen,evtchn-v=
+1"
++        dt_set "${path}/evtchn@$local_id" "xen,evtchn" "hex" "$local_port =
+$remote_phandle"
++    done
++}
+--=20
+2.34.1
 
