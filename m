@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CF44BA9CB5
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 17:26:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1132964.1471165 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB042BA9D03
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 17:35:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1132978.1471179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Fl3-0005Xk-3E; Mon, 29 Sep 2025 15:25:45 +0000
+	id 1v3Fu6-0007Cm-VJ; Mon, 29 Sep 2025 15:35:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1132964.1471165; Mon, 29 Sep 2025 15:25:45 +0000
+Received: by outflank-mailman (output) from mailman id 1132978.1471179; Mon, 29 Sep 2025 15:35:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Fl3-0005VJ-01; Mon, 29 Sep 2025 15:25:45 +0000
-Received: by outflank-mailman (input) for mailman id 1132964;
- Mon, 29 Sep 2025 15:25:44 +0000
+	id 1v3Fu6-0007Aw-SK; Mon, 29 Sep 2025 15:35:06 +0000
+Received: by outflank-mailman (input) for mailman id 1132978;
+ Mon, 29 Sep 2025 15:35:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i9+i=4I=intel.com=lucas.demarchi@srs-se1.protection.inumbo.net>)
- id 1v3Fl1-0005V7-Vb
- for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 15:25:44 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ <SRS0=M4Dr=4I=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1v3Fu6-0007Aq-1s
+ for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 15:35:06 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8d5a4b35-9d48-11f0-9809-7dc792cee155;
- Mon, 29 Sep 2025 17:25:39 +0200 (CEST)
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2025 08:25:37 -0700
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2025 08:25:37 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.27; Mon, 29 Sep 2025 08:25:36 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.27 via Frontend Transport; Mon, 29 Sep 2025 08:25:36 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.55)
- by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.27; Mon, 29 Sep 2025 08:25:36 -0700
-Received: from CY5PR11MB6139.namprd11.prod.outlook.com (2603:10b6:930:29::17)
- by CH3PR11MB7868.namprd11.prod.outlook.com (2603:10b6:610:12e::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.16; Mon, 29 Sep
- 2025 15:25:30 +0000
-Received: from CY5PR11MB6139.namprd11.prod.outlook.com
- ([fe80::7141:316f:77a0:9c44]) by CY5PR11MB6139.namprd11.prod.outlook.com
- ([fe80::7141:316f:77a0:9c44%6]) with mapi id 15.20.9160.015; Mon, 29 Sep 2025
- 15:25:30 +0000
+ id de437e75-9d49-11f0-9809-7dc792cee155;
+ Mon, 29 Sep 2025 17:35:03 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-62fb48315ddso8715055a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 08:35:03 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-67-38.play-internet.pl.
+ [109.243.67.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b3545a98d7fsm946635966b.100.2025.09.29.08.35.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 Sep 2025 08:35:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,206 +45,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d5a4b35-9d48-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1759159540; x=1790695540;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=0yMBbTdrbZsoKnHaFswecQWWVrw035NB0ey/rqgunGY=;
-  b=JWeMT4mXDY9/lE8ttQk/KOeZDGZgKHomuplxGjXonimr1fI0ddLmHACo
-   y1ATwlDYHTJhnxO1K/VFuf5R3XYGj7crzVJqZZsJ1pWBcJXcADiMoV8Gy
-   GyF6oe5BlXaL4VXkYo1P4jw1uwZ6A5N/YTqzQFvPMz/Twrn7GMp3hLJW+
-   8dorKeS4YP6dJ08bGDN9izSGOLaXNzYI3ZI0DkAJT8KbG+aqM8ixoV3cq
-   n4Kn5oUL1gJmb0wvwE9dzXej16c9fjxhVIqec/8j4cOv0PoBcKUGcu5qO
-   sPsV02oqsBj5z42FdUI+/mLCeiLaupJ85bFiXIjmKhNhrghs0JuHInu1S
-   A==;
-X-CSE-ConnectionGUID: 0ucQ4DsqQma3qUdgjMhfAw==
-X-CSE-MsgGUID: klHWdng4QPWocpGTvR8Fuw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11568"; a="60615332"
-X-IronPort-AV: E=Sophos;i="6.18,301,1751266800"; 
-   d="scan'208";a="60615332"
-X-CSE-ConnectionGUID: vS2lVLIiSOaesnaX4OriqQ==
-X-CSE-MsgGUID: uoeqhmQtRhiBoZ3bnTr8Kg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,301,1751266800"; 
-   d="scan'208";a="177387425"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IAwpEE3TeyxfuQRigo3ZFdiwxt3TKU8egDzAdn/7KexEXXMPlkI0iHLcoIHdjPYDxlTTltodtWlkePpAD5nHhITvBtRWdJ9fl7gTa8ver572g9K+Z60GTVfDV3Lcz/dDfrIfE/eASzwb31JYNDIIU5aq7bbxsbspRIZ4GoWfc086A9pOA3IEYCSA20lIsCmuLjngURZFMP3MQo9aRTJxkr4ntyDNqOquYeKWlSp2t2DM/+VZvi2xur1XgM50PjxMNKiK65iwvJM4dwrrPckjSOFyG06v4eaNzq2Ou8SOZe6g0fTBUZp0N6OWX6gAQKxwUBFxfDQBm/TIfTdrQYNU6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p0lyNX3BUmvGp66jtnY0mXVEFk176o4Cm6HjnAa0dFc=;
- b=Z5LhSpWQae9MRZPSfIY2nZ4Xr4C58nQ+SWYgMWJMlswkLSFVK6RcuQP2X7++EEnGyHSMgpvi6Bnb9aW+3f7s4Tw4NK+gIHLdtiysg9nG6Y79zdKA/RzXu2Nj5najeblC5z/AmbHs1/oyM7hAO7vz1LAyQdI2YYGYPKRo8ac4DVrAlijbS0hTAtygyBy/8oCRPkbD5Oh5kUsdSmSgUp4AQEkKrYT5yTBUHtEFbxIp1IauYZsSs88NjBV7sm9x42uPvDl6gNBbhkE1xwJwflJFVhjQ55HicAm/MtDi32gW+lF2mbBsbp6jfL1oFOKojflhWHhmNoz3+CrelPEXhcH+hw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Date: Mon, 29 Sep 2025 10:25:26 -0500
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-CC: <simona@ffwll.ch>, <airlied@gmail.com>, <mripard@kernel.org>,
-	<maarten.lankhorst@linux.intel.com>, <geert@linux-m68k.org>,
-	<tomi.valkeinen@ideasonboard.com>, <dri-devel@lists.freedesktop.org>,
-	<linux-mediatek@lists.infradead.org>, <freedreno@lists.freedesktop.org>,
-	<linux-arm-msm@vger.kernel.org>, <imx@lists.linux.dev>,
-	<linux-samsung-soc@vger.kernel.org>, <nouveau@lists.freedesktop.org>,
-	<virtualization@lists.linux.dev>, <spice-devel@lists.freedesktop.org>,
-	<linux-renesas-soc@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
-	<linux-tegra@vger.kernel.org>, <intel-xe@lists.freedesktop.org>,
-	<xen-devel@lists.xenproject.org>, Matthew Auld <matthew.auld@intel.com>,
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	"Rodrigo Vivi" <rodrigo.vivi@intel.com>
-Subject: Re: [PATCH v6 23/25] drm/xe: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-Message-ID: <urjqzmhgj2otboptnkgwa3bampqxi362xxtlmbrwf5td3qm3rf@pplm7q755sgg>
-References: <20250821081918.79786-1-tzimmermann@suse.de>
- <20250821081918.79786-24-tzimmermann@suse.de>
-Content-Type: text/plain; charset="iso-8859-1"; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250821081918.79786-24-tzimmermann@suse.de>
-X-ClientProxiedBy: SJ0PR03CA0356.namprd03.prod.outlook.com
- (2603:10b6:a03:39c::31) To CY5PR11MB6139.namprd11.prod.outlook.com
- (2603:10b6:930:29::17)
+X-Inumbo-ID: de437e75-9d49-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1759160103; x=1759764903; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=St7MtK7lqhceGoxH8AAxicUHeyaRpXl1YBow1O0Mb/U=;
+        b=kK4ARTDvdj6EBBm9Qx2fQQwaDRqyJL4cAqzr25YnycZf/rwTOSik8o0hKgoJgPdzmg
+         Ef0OxvJLq/DZOAJU2s8t9B2ET7+JXA8gvpkDSDzgX3g1tRGcczCJgKz11dZEbzLpIjIX
+         Fdrm5SpJbwpdd8tixoJ1Q+tzDHvdp9jETOklKUDn2znC0pi6LPWhtcMa/zMyl2ueHXh6
+         24aq1HHibaZZOk5d5i/jkKe1RqZPnxzwUOhrKqj/EK8HJWnDaSxSCO7clGXWxfDLC6+W
+         MuxLLweNoxb/+d8UuUS6L0ZgwQS1qJDhFOdVUK45c/m4IRyIOLcK4NcBOg/8no2VjzNo
+         4KDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759160103; x=1759764903;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=St7MtK7lqhceGoxH8AAxicUHeyaRpXl1YBow1O0Mb/U=;
+        b=izhoM5fuROf06CowTBZrtL5ARUafsyjuKxsm+yESCeJsXv1oY8lvrvNoKslCw5mcWP
+         RC8cFkyDnB/aCq8QRwCjoVEekV37gZYDWM0h+CpOOx2UutxbiIBZI2BReNrlTTg3rlSH
+         cHRw7sA57vNSRz2g9vpjLCqxtCY/Tvn6fKMAhROehKHvUqeAX2fbdn6Jk0GDaZfTDYYb
+         sPj4RtM0QiK3CQnb4hoIn+q/F59he4HGsDJgduWwsyxYvzvO1lt3akXISZZ0oADCdfuk
+         yV29mSxcOnnjy2PYKn0xzevcQcrzWBJ4aV2AXV1Yhddykc5/Di47UA9k6S256QSXSYi8
+         gbOg==
+X-Forwarded-Encrypted: i=1; AJvYcCXCjj5/2uy4eEpjTWsIFS2Io6bfvFOSXu5/l0Q6VPC4E2bmhmj/kv+agfdHz9Xfs+VLeDqRJaeB1js=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YztepRl9eaAmZi01RSx/uZUS5jSLl2fXbSWk731Y2tV/Tq/OfeM
+	0JK3r59jyHVlrdp4EUMdY+L2MPDKKfzQEuK9sCEczr/OOdvbWFxWGLuj
+X-Gm-Gg: ASbGncuum7F0YOqdC7M8BWBSps+v+X917y3Ea4uRDwLWQbqRzJD87o6a4w0dV7QvMiS
+	DozW0Fw5T3IuMzvCqh53OTjBuhnWxYaghayUeK3v0wzK/tGz7gzlt00IwptWqX2dG0b6V9zAWJk
+	dP/JsX7p5EDf95wdmom1vhjiSeXTHtPj7DQIDPxjeg6jbpesYgBHShRuCVIf+32+rbaDQfAQZbr
+	xS0n69QeCzLb/Xp7fnIj4xwT8sv39EP0OpilD8dzSt9ZKOTM17w1hZ74aEnNfkcLJrRTNK8djFc
+	UFHL9C1AP04ARPl7BsPs92hQZW/wwshaHX3vDRyXFr47dUI+woGAUf3LyUuABJkIrFrRxmeoXyg
+	ipwBeAmkky30g/aM4brmBTS3RQfKxbIrrtW0VNgIL5JHwNeb6zt8Iuu+96HJC4pYv0+W+eg2Vuy
+	2P6qaboPA=
+X-Google-Smtp-Source: AGHT+IED3nY2IeswDKHnxjb2JCmFaDg/GhqWKfgRq1asooCVh8DCSPdOrP2Hs3ymU5m2+wxfqz7sDg==
+X-Received: by 2002:a17:906:dc89:b0:b3d:b3fe:27ed with SMTP id a640c23a62f3a-b3db3fe2fa1mr613933866b.57.1759160102850;
+        Mon, 29 Sep 2025 08:35:02 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------d6rGK2ExZZTEDgY53x6yI8f5"
+Message-ID: <a9f5969b-c9b8-4384-b4df-58c7951766ec@gmail.com>
+Date: Mon, 29 Sep 2025 17:35:01 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR11MB6139:EE_|CH3PR11MB7868:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a7ce1ba-c1b5-42d1-e603-08ddff6c6cdd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014|7053199007;
-X-Microsoft-Antispam-Message-Info: =?iso-8859-1?Q?JgDW+n75dUbON4IcrAM9gXBZeut+NEYdDAKyzZMSOy/a+UAuYmOb+aKsvU?=
- =?iso-8859-1?Q?tCxTC3tEevtR3QvGENanInjPLdTlWNlZcnks8+8Qp5gWnFCg1aY/14KpP1?=
- =?iso-8859-1?Q?4qi4d3SdqCXhs2SuIQ5kUf8ocjlXBi3gGUL3N6VtHgZ3QYyHHHmErPXO9f?=
- =?iso-8859-1?Q?gnwyFOh1aZZHuIVZ+jdZvWrAbQoa4X/M9Gx0268kC2MU+4SGTh6fNmstTq?=
- =?iso-8859-1?Q?yuIZugOJky1ADC4PCtssiCS6JwPmw55y6iVWduEskvnd9iqrTsu1yP0t1t?=
- =?iso-8859-1?Q?Ta4WQOWP6vcEv9zsP1a4fQe3Pu6eXuqkSyAo2Sc5nrUn/+TLN8ZCep9kL6?=
- =?iso-8859-1?Q?Q+9Br37abcU7w1/FWFihWz9YZH+HV6y/3XiCh4RGIiYa/XnhQZ/YhScxv2?=
- =?iso-8859-1?Q?5OvuNee3VvQajgQIrlDgY/yQLkGQNrK3uuXLghItw9ByUbiDwyXJuy/ykW?=
- =?iso-8859-1?Q?8TgF9r/OM17ur2r3p+knOkgFxpnV+/XndLk+9xdpOsNz9s+N0gsdCcNoSK?=
- =?iso-8859-1?Q?saksMVF0xvZYRUnGkkPMOSMo3tRhH6+SI2vhqcxS6hcfu0NEB4vMGuZmYf?=
- =?iso-8859-1?Q?z/TbXTR6VOMLmEmK3mllz5S2EHuY7mOZ7ex4f6VYQfBUWLD5h5LbjkVGZT?=
- =?iso-8859-1?Q?oA/a8HFZaVBgyhhsXAdyEMBm39S70+Cqaepit0axuvwgFeIdE1XkBrcz5a?=
- =?iso-8859-1?Q?RflIi0Ebji0+KsOSssR2H24pqCzwhW5eHXNEZwbPLGll2hpmzOGXoHF3Bz?=
- =?iso-8859-1?Q?Lc79hnyc9etauCvWTuwUoozkWAO44Iwe4+shAQgUNpCCGi7CV+coxseyUo?=
- =?iso-8859-1?Q?ywymFa0LuOTuFCn4goljNp4eMb/zKZnPmrrcu0OvktrQ5qosuafP+K2vmv?=
- =?iso-8859-1?Q?8iPf2rIricA/DwxlAShRF3F/2Fy6jMTWNnh6APdQUe1CJTMsgOhiRcd05e?=
- =?iso-8859-1?Q?YW8bF010UdNqsFwUUKnls+91hJ1i6llKjYn1VH3289GExOOE0gLUW+Xn2L?=
- =?iso-8859-1?Q?ZvT1FDXgQFj5EHUdxItCwyxt5yQA3fMcsaE5KRCnTM4N2j08tfaQo/oLXj?=
- =?iso-8859-1?Q?iKjGRZOOTwL9ZDDHVx8AtciEN5dNNotEUKZgMgB6UKtV7qql8ekeDpV18P?=
- =?iso-8859-1?Q?YXSXhQ5S0XP6e79FHqi+Pmw5pozxkkiomhzHrWcDz/qzEoLKtjyTgYSef8?=
- =?iso-8859-1?Q?S3a1oln1tvHgGho0n0pt1hPT0Lgi+/MCITrpuxS8e9Tozz429RqX6HdTGu?=
- =?iso-8859-1?Q?3zHqfcltAvbghVkwYdlHahSiy8WLYK8OTFwek9I9L+azzGQCSLClQqA5z2?=
- =?iso-8859-1?Q?apDFYN5gHs1R8/gZ4tBt2PrLkECT9zChKzIUcbH2adPfX+8usn45OXLA0e?=
- =?iso-8859-1?Q?WAPi8Ou/7jcUgs6Z3PwR+G/RNscLdUey7h8yOCZJTxdjlVml4iiGxZNxSm?=
- =?iso-8859-1?Q?4vuXK9k/zSmZVsXCJz7YXxG+tP4jZjELxTtG8yyHqeBJD0rs+JcQXGh+I0?=
- =?iso-8859-1?Q?rNuG3CeJO2uNuFBAoulLs8?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR11MB6139.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?tf+wSmX7h/PnweaMVgGBvU1wGT0ZB0STuf3BwXg60UfCA3drqBKZRzfS2o?=
- =?iso-8859-1?Q?/ZqyAt8WbVigpR4VfkcYUTV5JH4wmQjVB92GX9SXWnOdvX0yHShHvseWqJ?=
- =?iso-8859-1?Q?eZDiBjN3EnQvVHFuN1lmQZik9qaurcI4cnAmHN7UwET+zC1dYN+2HXw+kN?=
- =?iso-8859-1?Q?jXEQvFnrMgmwyy6xi3lPZ73k1wjUlfMbbCvgoIgfVr/W564ntjQwwWRe9v?=
- =?iso-8859-1?Q?9SfZrG/d253ATx7IpyWYhGRg3uTb+TwBEOFSzEl22OMYITk22ctzjVh+Bm?=
- =?iso-8859-1?Q?ZmtihVqNuZh03gk/k1fqMKCKLbfRrwmbQssAGaXI/ZHufVCNwn+7lmwk0T?=
- =?iso-8859-1?Q?CP9lUSbsgHw1tCLza/3qCGF8b2092Bzlgq+sD3uVfRD9hKAEMSaSW6Fbab?=
- =?iso-8859-1?Q?YZIg6TKncLqE1bwahGeLIKcPJsCoiE5Yg50PikcKh9YkTyPx7mpKz/vJ8H?=
- =?iso-8859-1?Q?oNyK3OObWUrdYNC071IO56fr62hyDlSIaiTjtLTmi5uKhRU8ljuyJ7PL+p?=
- =?iso-8859-1?Q?2RkLhJkCEOtWDU2RdJX6UgjUAsGzAsr2bYznvl/M0gDuGEItNvlZISCO9m?=
- =?iso-8859-1?Q?g5C2rMxSORI3gzgrwgFS9EzItU3VCJcqlr9hDrmJuxoAbk1nSAOvF6fluf?=
- =?iso-8859-1?Q?LAqrEqRdh2HXRC5fTtwfdCmfydp/hO0Yre55Vbww4HojqLu+EHq2WYmUd7?=
- =?iso-8859-1?Q?Qp9c3CoItHfMRMNTfx4O7qO0yi9wimzMAg+R+BmUzmcMQH3Q6MkTr1ayY8?=
- =?iso-8859-1?Q?F8baLI3Zgsj09YIuLO7JCFoxBR9ERxUYi81gE86u2y/jICQeUZbzTwQMGt?=
- =?iso-8859-1?Q?IakF75T0fSagXPQhtVPJwKb+xUlTGNcGGWvGqRgzUTkG/9wIRT5v4QVc98?=
- =?iso-8859-1?Q?SqGxkfewdurHzRIATCiyDv8BlEBusHKEdpX+gY24BZslMJ1YVDWeMkzPDS?=
- =?iso-8859-1?Q?rxBLSQIQ8j3eGiTGDVbqjOzFg8Q1x5cdpIIGYkoo5uUmx5onN623haWiGU?=
- =?iso-8859-1?Q?fSaSkyGTNbRaTHpSj+N+RhvNy4EV1KPhvvwpLVInZekMy4qTpf5ubCmtoj?=
- =?iso-8859-1?Q?5pwOeO5g7k1MAPL/a2rgceK8LoBbN8h7f3NExpmKEjbKu1FiG8uEQ+BMrq?=
- =?iso-8859-1?Q?QiqC8BZNY/+sowidrZ6lROpaxzecQ/h2vkSTDbFWqxZFfmn/zBNgevm6r9?=
- =?iso-8859-1?Q?gDnSYU8NChMM3/5O8rCs4XjqNgoZ9KIXeEs9SyPnjHPVP7yxOsySAO+dU8?=
- =?iso-8859-1?Q?S5qZsL+o3i71xBVpWiILJ0WVOLHghYmdKrvx6MsFWa7yBHyTPrTHh341cw?=
- =?iso-8859-1?Q?M7qCAORFBYr7Af5aAE0uKr9GGokIm9AYeZzpPKwX43CvrDLJEGIns1TzRU?=
- =?iso-8859-1?Q?+Qz5LXGuRr5O9V09fGEAIZZtS7YH0Qi6eWccHvSIeCEtCIqcov7bkMzq8H?=
- =?iso-8859-1?Q?KddXqiHCb+6Rf7yZqvmWQ11P44fhmrrtnnlZiW40JoFSLA2Qh9pFy9cyUq?=
- =?iso-8859-1?Q?z9B1ojp3dThQaNxhHdzpG7gbcdQT1tPzpH+C7Gkc3UHxQBo0zuTEyIWFpi?=
- =?iso-8859-1?Q?39Xm8PFGxEcvySM/nnU4Y3W2CrbOeb0yURH1IAPAZKBi41k9iv+GSveqDc?=
- =?iso-8859-1?Q?jEs7O4tDnTQqR/7eh3t+Ml3LB7BiINHuWC4QScIjbJNUeNzjTVfwJ1cg?=
- =?iso-8859-1?Q?=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a7ce1ba-c1b5-42d1-e603-08ddff6c6cdd
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6139.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2025 15:25:30.8021
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eZARfbdpVMrNRufPMp0vxzwZrI+oykbORRY+0kxlNZv8Erp/UhQ4BBo4LgIufw57mOjduLFIUfwUc6K6PQD0eQggml19NKcmIrHLZQXWOZg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB7868
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v2 0/8] Allow to build libxl and other tools with
+ json-c instead of yajl
+To: Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Community Manager <community.manager@xenproject.org>
+References: <20250929120756.46075-1-anthony@xenproject.org>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20250929120756.46075-1-anthony@xenproject.org>
 
-On Thu, Aug 21, 2025 at 10:17:30AM +0200, Thomas Zimmermann wrote:
->Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch
->and buffer size. Align the pitch to a multiple of 8. Align the
->buffer size according to hardware requirements.
->
->Xe's internal calculation allowed for 64-bit wide buffer sizes, but
->the ioctl's internal checks always verified against 32-bit wide limits.
->Hance, it is safe to limit the driver code to 32-bit calculations as
->well.
->
->v3:
->- mention 32-bit calculation in commit description (Matthew)
->
->Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->Reviewed-by: Matthew Auld <matthew.auld@intel.com>
->Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
->Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+This is a multi-part message in MIME format.
+--------------d6rGK2ExZZTEDgY53x6yI8f5
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Acked-by: Lucas De Marchi <lucas.demarchi@intel.com>
 
-to merge this via drm-misc.
+On 9/29/25 2:07 PM, Anthony PERARD wrote:
+> From: Anthony PERARD<anthony.perard@vates.tech>
+>
+> Patch series available in this git branch:
+> https://xenbits.xenproject.org/git-http/people/aperard/xen-unstable.git br.libxl-libjsonc-v2
+>
+> changes in v2:
+> - introduce $(XEN_JSON_LIBS) to have either -lyajl or -ljson-c or both (for a
+>    short while).
+> - few more changes detail in each patches.
+>
+> Hi,
+>
+> The library YAJL has been unmaintained for several years, without an obvious
+> fork to pick.
+>
+> On the other and the library json-c is been maintained and use by several other
+> project, it's probably already installed on your machine. So this patch series
+> intend to allow to build the Xen toolstack again json-c, and forgo yajl.
 
-thanks
-Lucas De Marchi
+Do we have any plans to drop fallback to yajl in the next release? Or because of
+this ...
 
->---
-> drivers/gpu/drm/xe/xe_bo.c | 8 ++++----
-> 1 file changed, 4 insertions(+), 4 deletions(-)
 >
->diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
->index 6fea39842e1e..2be7a618165a 100644
->--- a/drivers/gpu/drm/xe/xe_bo.c
->+++ b/drivers/gpu/drm/xe/xe_bo.c
->@@ -9,6 +9,7 @@
-> #include <linux/nospec.h>
+> Just in case, YAJL is can still be used.
 >
-> #include <drm/drm_drv.h>
->+#include <drm/drm_dumb_buffers.h>
-> #include <drm/drm_gem_ttm_helper.h>
-> #include <drm/drm_managed.h>
-> #include <drm/ttm/ttm_backup.h>
->@@ -3130,14 +3131,13 @@ int xe_bo_dumb_create(struct drm_file *file_priv,
-> 	struct xe_device *xe = to_xe_device(dev);
-> 	struct xe_bo *bo;
-> 	uint32_t handle;
->-	int cpp = DIV_ROUND_UP(args->bpp, 8);
-> 	int err;
-> 	u32 page_size = max_t(u32, PAGE_SIZE,
-> 		xe->info.vram_flags & XE_VRAM_FLAGS_NEED64K ? SZ_64K : SZ_4K);
+> There's bit of libxl API that exposes YAJL, mainly so it can be used by `xl` to
+> call libxl_domain_config_gen_json(). It was exposed via the "libxl_json.h"
+> headers. This functions and others won't be available when libxl is build
+> against json-c.
+
+... that some API trying to use API exposed by YAJL we just can't drop support
+of yajl?
+
+~ Oleksii
+
+
 >
->-	args->pitch = ALIGN(args->width * cpp, 64);
->-	args->size = ALIGN(mul_u32_u32(args->pitch, args->height),
->-			   page_size);
->+	err = drm_mode_size_dumb(dev, args, SZ_64, page_size);
->+	if (err)
->+		return err;
+> Cheers,
 >
-> 	bo = xe_bo_create_user(xe, NULL, NULL, args->size,
-> 			       DRM_XE_GEM_CPU_CACHING_WC,
->-- 
->2.50.1
+> Anthony PERARD (8):
+>    tools/configure: Introduce deps on json-c lib for libxl
+>    libxl: Convert libxl__json_parse() to use json-c
+>    libxl: convert libxl__json_object_to_yajl_gen to
+>      libxl__json_object_to_libjsonc_object
+>    libxl: libxl__object_to_json() to json-c
+>    libxl: convert libxl__json_object_to_json() to json_object
+>    tools/libxenstat: Use json-c when available
+>    configure: Use json-c by default, fallback to yajl
+>    Update CHANGELOG and README with dependency on json-c
 >
+>   CHANGELOG.md                              |   2 +
+>   README                                    |   2 +-
+>   config/Tools.mk.in                        |   1 +
+>   tools/config.h.in                         |   3 +
+>   tools/configure                           | 136 +++++-
+>   tools/configure.ac                        |  10 +-
+>   tools/include/libxl_json.h                |  27 ++
+>   tools/libs/light/Makefile                 |   6 +-
+>   tools/libs/light/gentypes.py              | 160 +++++-
+>   tools/libs/light/idl.py                   |   7 +-
+>   tools/libs/light/libxl_cpuid.c            | 119 +++++
+>   tools/libs/light/libxl_internal.h         |  23 +-
+>   tools/libs/light/libxl_json.c             | 562 +++++++++++++++++++++-
+>   tools/libs/light/libxl_qmp.c              |  53 ++
+>   tools/libs/light/libxl_types.idl          |   7 +-
+>   tools/libs/light/libxl_types_internal.idl |   3 +-
+>   tools/libs/stat/Makefile                  |   2 +-
+>   tools/libs/stat/xenstat_qmp.c             | 126 ++++-
+>   tools/xl/Makefile                         |   2 +-
+>   tools/xl/xl_info.c                        | 102 +++-
+>   20 files changed, 1312 insertions(+), 41 deletions(-)
+>
+--------------d6rGK2ExZZTEDgY53x6yI8f5
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 9/29/25 2:07 PM, Anthony PERARD
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20250929120756.46075-1-anthony@xenproject.org">
+      <pre wrap="" class="moz-quote-pre">From: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
+
+Patch series available in this git branch:
+<a class="moz-txt-link-freetext" href="https://xenbits.xenproject.org/git-http/people/aperard/xen-unstable.git">https://xenbits.xenproject.org/git-http/people/aperard/xen-unstable.git</a> br.libxl-libjsonc-v2
+
+changes in v2:
+- introduce $(XEN_JSON_LIBS) to have either -lyajl or -ljson-c or both (for a
+  short while).
+- few more changes detail in each patches.
+
+Hi,
+
+The library YAJL has been unmaintained for several years, without an obvious
+fork to pick.
+
+On the other and the library json-c is been maintained and use by several other
+project, it's probably already installed on your machine. So this patch series
+intend to allow to build the Xen toolstack again json-c, and forgo yajl.</pre>
+    </blockquote>
+    <pre>Do we have any plans to drop fallback to yajl in the next release? Or because of
+this ...
+</pre>
+    <blockquote type="cite"
+      cite="mid:20250929120756.46075-1-anthony@xenproject.org">
+      <pre wrap="" class="moz-quote-pre">
+
+Just in case, YAJL is can still be used.
+
+There's bit of libxl API that exposes YAJL, mainly so it can be used by `xl` to
+call libxl_domain_config_gen_json(). It was exposed via the "libxl_json.h"
+headers. This functions and others won't be available when libxl is build
+against json-c.</pre>
+    </blockquote>
+    <pre>... that some API trying to use API exposed by YAJL we just can't drop support
+of yajl?
+
+~ Oleksii
+</pre>
+    <p><br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:20250929120756.46075-1-anthony@xenproject.org">
+      <pre wrap="" class="moz-quote-pre">
+
+Cheers,
+
+Anthony PERARD (8):
+  tools/configure: Introduce deps on json-c lib for libxl
+  libxl: Convert libxl__json_parse() to use json-c
+  libxl: convert libxl__json_object_to_yajl_gen to
+    libxl__json_object_to_libjsonc_object
+  libxl: libxl__object_to_json() to json-c
+  libxl: convert libxl__json_object_to_json() to json_object
+  tools/libxenstat: Use json-c when available
+  configure: Use json-c by default, fallback to yajl
+  Update CHANGELOG and README with dependency on json-c
+
+ CHANGELOG.md                              |   2 +
+ README                                    |   2 +-
+ config/Tools.mk.in                        |   1 +
+ tools/config.h.in                         |   3 +
+ tools/configure                           | 136 +++++-
+ tools/configure.ac                        |  10 +-
+ tools/include/libxl_json.h                |  27 ++
+ tools/libs/light/Makefile                 |   6 +-
+ tools/libs/light/gentypes.py              | 160 +++++-
+ tools/libs/light/idl.py                   |   7 +-
+ tools/libs/light/libxl_cpuid.c            | 119 +++++
+ tools/libs/light/libxl_internal.h         |  23 +-
+ tools/libs/light/libxl_json.c             | 562 +++++++++++++++++++++-
+ tools/libs/light/libxl_qmp.c              |  53 ++
+ tools/libs/light/libxl_types.idl          |   7 +-
+ tools/libs/light/libxl_types_internal.idl |   3 +-
+ tools/libs/stat/Makefile                  |   2 +-
+ tools/libs/stat/xenstat_qmp.c             | 126 ++++-
+ tools/xl/Makefile                         |   2 +-
+ tools/xl/xl_info.c                        | 102 +++-
+ 20 files changed, 1312 insertions(+), 41 deletions(-)
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------d6rGK2ExZZTEDgY53x6yI8f5--
 
