@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7B63BAA4F0
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 20:33:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1133143.1471343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E0BABAA4F6
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 20:33:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1133151.1471352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Igo-00035H-Cy; Mon, 29 Sep 2025 18:33:34 +0000
+	id 1v3Igs-0003RE-LE; Mon, 29 Sep 2025 18:33:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1133143.1471343; Mon, 29 Sep 2025 18:33:34 +0000
+Received: by outflank-mailman (output) from mailman id 1133151.1471352; Mon, 29 Sep 2025 18:33:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Igo-00032L-8t; Mon, 29 Sep 2025 18:33:34 +0000
-Received: by outflank-mailman (input) for mailman id 1133143;
- Mon, 29 Sep 2025 18:33:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v3Igs-0003OG-HS; Mon, 29 Sep 2025 18:33:38 +0000
+Received: by outflank-mailman (input) for mailman id 1133151;
+ Mon, 29 Sep 2025 18:33:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BPw2=4I=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1v3Igm-0000iD-TB
- for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 18:33:32 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cc042e6e-9d62-11f0-9809-7dc792cee155;
- Mon, 29 Sep 2025 20:33:30 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-46e37d10ed2so48131645e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 11:33:30 -0700 (PDT)
+ id 1v3Igq-0001U2-Ij
+ for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 18:33:36 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cf51b038-9d62-11f0-9d14-b5c5bf9af7f9;
+ Mon, 29 Sep 2025 20:33:36 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-46e3cdc1a6aso27635575e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 11:33:36 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46e42eee0b6sm125709405e9.10.2025.09.29.11.33.28
+ 5b1f17b1804b1-46e2a996c03sm236802335e9.3.2025.09.29.11.33.33
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 29 Sep 2025 11:33:29 -0700 (PDT)
+ Mon, 29 Sep 2025 11:33:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc042e6e-9d62-11f0-9809-7dc792cee155
+X-Inumbo-ID: cf51b038-9d62-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1759170810; x=1759775610; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1759170815; x=1759775615; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PEWvJYylRbkib8yXjJlQ3r1Fc9sZ+i1G3AKqr/Nn6n8=;
-        b=GCwt3AlTYFW6tyHaW+MemQnB1CJRubd6bmE14DQO88o9hoMVzkTydUXloKV3CDRjfM
-         lUakLoAlMhiCxQBHjr/v2L1z0mMSF+I+rM/bD6yVuVTUkJxLpTk868HHWkqOHCRV5N1x
-         P4Wko6mV+Iw3K/pGbsJR/HnUJ2rM0AMYMUZuD6mHbtz23bM5kS+qgafY7C7ZHxN163/7
-         X5cRpYwjVR2tc6NO2KY2xwadsN6VHPb2dm7bCDfHrBvMp2no0Zu6XrSpgFmXkDfVWTk2
-         2RaJBBf1BQBYGTG5Wm4EzDeJv5c5Dj4jGFbmLjnIM7k6Y/iA+P6KCpazrlvNfURBSMDF
-         HANA==
+        bh=JRsfrHQBMjnrXhlxfeiXrXfyISPq/9LUWh417J9QSAY=;
+        b=Fmwo9CfvXaYB/hN0GcuL6pwB0lrzu5OgHkjy5Y/C+InDUhjdrM4/cxoEfYc/YP7XWJ
+         dTkRTAEeqzY5sZCVVheJPeIwZUkcvgzD/ebY+9zmI/hnSl86dOhFwevkS6bHnpyy3slB
+         Z9rmonKYH3sNQKsFmvyApYlEW2d18y4umIEFVY7RgK6A/oyx+odcnG91ZIPh0D/s++DU
+         vzGcBEl6eSIdQt0MbPIGgrK0p+UxDvRSgVBBkEnTU+rlyUzGDj8nOn2ODK3HzYcHUNSg
+         xxEybFBSz+I9ephHdp059eyHsikdiyB7NzucVqPLGHl5UGIV60D9b8OFDrtUd3MvNDZg
+         IT5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759170810; x=1759775610;
+        d=1e100.net; s=20230601; t=1759170815; x=1759775615;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=PEWvJYylRbkib8yXjJlQ3r1Fc9sZ+i1G3AKqr/Nn6n8=;
-        b=TqYak0A4D4CCFrzPSV8+7VdIIRy7nHmO5wk+/+w/DiLYZa+TA8cxMKSCXtltIVwCG/
-         mQwd4GZKnvNVe16XdEqg+F1ZVWBUMToBr2GmSbvvie/Sqk8MaHGGqq1nEf+yGYB1KqAU
-         q6pYPMAV3bywZf69NT/3Cqywi29F6XVqOTw4x4zXBSuR3CdEKd34VmlB4WeblaMBpHFm
-         lmbVj+VB3pLqB0iRnKSUpMUez9Mp5+ZiMHzsYeHTt+2XujLgF8qYatxBO+Ms1R6M+ldi
-         W0woflHSNSnG2uSL4RQX7JgAbXhxY3Ke1k71R2qp3UIcEgHl2U1rQvmIW1oW67x76Z9b
-         IqUg==
-X-Forwarded-Encrypted: i=1; AJvYcCUF20FzEM11z3Ykz21S377TxYK1+P1ijtQyyb2diitwNme7vtYUoe245YXz0nCiSWNhPadGeuC5YWs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz84COtTaDLpqc3ZxPi/zPrNxin8oxrbdGKIiY6qQycJGcdUpWY
-	Ji9Pz/85x8ro+FBaU9F+JmyCs5P5/8cNnK3uE8kUpQ941FMFQnpew28aW3DdMxe2Kdk=
-X-Gm-Gg: ASbGncsnl5oF2IKkpBZStVVL+hvHQjDHNQh1hvyZmRUH7kmS6A96GHg988dJ7REoVzY
-	hzbUxFNR67qMbGSftKjideSXgv6v/oMbuhGNqn7VwU0emhWePyli+SOQFTWZLuo9La5+J2pNnBA
-	1QvMu1dj+RzFkAsfQAJAVtsocWLzVZgu5EKkG7CuPcek/E3GYG+4V1oBkVB4cLCnK7+suM1BZKS
-	y5NRUX+O7m6rcb/hegywZny0iOsnF3lopM8CIyfXJ/1NWPii/+rJGW4I0XqogaFeZ7OgErd/3By
-	UXQJtPLxS69lJ5Ovqer/Fwdb+QDBp8OVbQQIrJBZ1atKqjB0TI6I3DhjCCZpEm/CdqJwYeoP2BE
-	aBPE3DH1SB4BxaYPdkHFrDGf7NM28xkXIux++HcNH2WgbxDC+WU2arlDrO3EqxLXM+KY3VOsuVZ
-	yAu3pmUP8=
-X-Google-Smtp-Source: AGHT+IFlycBakp5EkJDN7dbxjK7i5JzbYULjjWcaNxhP9aXTBI6jbDWLO50skO4rhy6UhWAATwe2kg==
-X-Received: by 2002:a05:600c:609b:b0:46e:4814:4b6f with SMTP id 5b1f17b1804b1-46e48144bbcmr82071665e9.2.1759170809908;
-        Mon, 29 Sep 2025 11:33:29 -0700 (PDT)
+        bh=JRsfrHQBMjnrXhlxfeiXrXfyISPq/9LUWh417J9QSAY=;
+        b=TaX9ry1Hr7DscG8ch24xkE4aAvMFJRS4r+GvnLhPeBzblZrbBHrQuYsv6d48WOo27U
+         SlyHoW+nEsYoC49Ch6tg2UjKt/DlvA7dR5vjA8bCOHaCtHYPO4dDgpalGLmgzoFqKToD
+         i84KyBWzKtdYu4EI8KBmEBhOr6WvEekkGtEKOXUIgFQHZ1CMO6Axgm+EBDZNbFnCzXhm
+         GT8CsyWMpQ/xu9rwZOVXLV+hXTEKbOWhshqn0HNEyOec3rY5NrCzLyxXvvptPqfX4/Y6
+         3LR3yHss0wngvPBSz3Uib1BF1rEehnA6sHMl4WckOzV860urd69jP89Ucehs2AQz39Pi
+         3lDw==
+X-Forwarded-Encrypted: i=1; AJvYcCVkYSs7YDIX/XXTIym2RMGD1FZgPVFeHgEiwEhTTWTI/vcJx67zDPYzbDF/FRaWDW01evEAV+cd6FI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxDfyECbHg716dmgtrM592p5K4rGyWPyDEzg9WTPINHUhyN7AQU
+	gLe7SoxioGaV/Wa91V7jss7wE/lFfSauEULIUlaXuoHw9qzXQj5YJt2sJunMcbKT3rs=
+X-Gm-Gg: ASbGnct0DRyw9Eo2UVcLwLt9MzWtR86aTjJxwUhxqBJa1BQ/BxzKVvu4CgD4pdIxVjN
+	N7YdEIGXBoInFsMX6MLmcr7Uf9uvvok4o50puaQ2RmiE3eMbX2y31kLrJlimptR3qG0uYsR6cor
+	CBeCCEDF+XxSZ2B2Cb5Do9e5evJCeba0Y7wbrLOcPKGW4E6YSmSacJEmH5tjRu1G5Suzp0xE8gY
+	Xv0JMOi/jptYcuuQ393DJJ4RJu7XYWD61PycYeWwkPJkiMsrOVcxE98jCt/sapxGl6X91EsAaP7
+	sMyKDpUnEtunxyZppMbgwXufeBi9sn2g+L/rmPF7ySJyDxG6z+1X5vrejN8QO/LjYq+WcRrsmjF
+	qsdizwIC43TrQ8pR5tb+UXnRND16azdEXhatNo24ZXlzsd+Ur+sCMiKASV+6LYmOfyaqR20lO7x
+	y7MbX2+y8=
+X-Google-Smtp-Source: AGHT+IHnK2dcf5REXjP75RtjLmG0FRF3SPCN5/ScyVADUNX4W97Ctb9XEl/zwwWPFNLidNab3G3GOQ==
+X-Received: by 2002:a05:600c:8285:b0:46d:c045:d2bd with SMTP id 5b1f17b1804b1-46e58ac80f9mr17543845e9.8.1759170815433;
+        Mon, 29 Sep 2025 11:33:35 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: Peter Maydell <peter.maydell@linaro.org>,
 	qemu-devel@nongnu.org
@@ -112,9 +112,9 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
 	Peter Xu <peterx@redhat.com>,
 	Matthew Rosato <mjrosato@linux.ibm.com>
-Subject: [PATCH 06/15] system/physmem: Pass address space argument to cpu_flush_icache_range()
-Date: Mon, 29 Sep 2025 20:32:45 +0200
-Message-ID: <20250929183254.85478-7-philmd@linaro.org>
+Subject: [PATCH 07/15] target/s390x/mmu: Replace [cpu_physical_memory -> address_space]_rw()
+Date: Mon, 29 Sep 2025 20:32:46 +0200
+Message-ID: <20250929183254.85478-8-philmd@linaro.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250929183254.85478-1-philmd@linaro.org>
 References: <20250929183254.85478-1-philmd@linaro.org>
@@ -122,80 +122,51 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Rename cpu_flush_icache_range() as address_space_flush_icache_range(),
-passing an address space by argument. The single caller, rom_reset(),
-already operates on an address space. Use it.
+When cpu_address_space_init() isn't called during vCPU creation,
+its single address space is the global &address_space_memory.
+
+As s390x boards don't call cpu_address_space_init(),
+cpu_get_address_space(CPU(cpu), 0) returns &address_space_memory.
+
+We can then replace cpu_physical_memory_rw() by the semantically
+equivalent address_space_rw() call.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- include/exec/cpu-common.h | 2 --
- include/system/memory.h   | 2 ++
- hw/core/loader.c          | 2 +-
- system/physmem.c          | 5 ++---
- 4 files changed, 5 insertions(+), 6 deletions(-)
+ target/s390x/mmu_helper.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/include/exec/cpu-common.h b/include/exec/cpu-common.h
-index a73463a7038..6c7d84aacb4 100644
---- a/include/exec/cpu-common.h
-+++ b/include/exec/cpu-common.h
-@@ -156,8 +156,6 @@ void cpu_physical_memory_unmap(void *buffer, hwaddr len,
-  */
- void qemu_flush_coalesced_mmio_buffer(void);
- 
--void cpu_flush_icache_range(hwaddr start, hwaddr len);
--
- typedef int (RAMBlockIterFunc)(RAMBlock *rb, void *opaque);
- 
- int qemu_ram_foreach_block(RAMBlockIterFunc func, void *opaque);
-diff --git a/include/system/memory.h b/include/system/memory.h
-index 6cfa22d7a80..00203522ae4 100644
---- a/include/system/memory.h
-+++ b/include/system/memory.h
-@@ -2977,6 +2977,8 @@ void address_space_cache_invalidate(MemoryRegionCache *cache,
-  */
- void address_space_cache_destroy(MemoryRegionCache *cache);
- 
-+void address_space_flush_icache_range(AddressSpace *as, hwaddr addr, hwaddr len);
-+
- /* address_space_get_iotlb_entry: translate an address into an IOTLB
-  * entry. Should be called from an RCU critical section.
-  */
-diff --git a/hw/core/loader.c b/hw/core/loader.c
-index 524af6f14a0..477661a0255 100644
---- a/hw/core/loader.c
-+++ b/hw/core/loader.c
-@@ -1242,7 +1242,7 @@ static void rom_reset(void *unused)
-          * that the instruction cache for that new region is clear, so that the
-          * CPU definitely fetches its instructions from the just written data.
-          */
--        cpu_flush_icache_range(rom->addr, rom->datasize);
-+        address_space_flush_icache_range(rom->as, rom->addr, rom->datasize);
- 
-         trace_loader_write_rom(rom->name, rom->addr, rom->datasize, rom->isrom);
-     }
-diff --git a/system/physmem.c b/system/physmem.c
-index fd2331c8d01..dc458cedc3f 100644
---- a/system/physmem.c
-+++ b/system/physmem.c
-@@ -3214,7 +3214,7 @@ MemTxResult address_space_write_rom(AddressSpace *as, hwaddr addr,
-     return MEMTX_OK;
- }
- 
--void cpu_flush_icache_range(hwaddr addr, hwaddr len)
-+void address_space_flush_icache_range(AddressSpace *as, hwaddr addr, hwaddr len)
+diff --git a/target/s390x/mmu_helper.c b/target/s390x/mmu_helper.c
+index 00946e9c0fe..4e2f31dc763 100644
+--- a/target/s390x/mmu_helper.c
++++ b/target/s390x/mmu_helper.c
+@@ -23,6 +23,7 @@
+ #include "kvm/kvm_s390x.h"
+ #include "system/kvm.h"
+ #include "system/tcg.h"
++#include "system/memory.h"
+ #include "exec/page-protection.h"
+ #include "exec/target_page.h"
+ #include "hw/hw.h"
+@@ -522,6 +523,7 @@ int s390_cpu_pv_mem_rw(S390CPU *cpu, unsigned int offset, void *hostbuf,
+ int s390_cpu_virt_mem_rw(S390CPU *cpu, vaddr laddr, uint8_t ar, void *hostbuf,
+                          int len, bool is_write)
  {
-     /*
-      * This function should do the same thing as an icache flush that was
-@@ -3229,8 +3229,7 @@ void cpu_flush_icache_range(hwaddr addr, hwaddr len)
-     RCU_READ_LOCK_GUARD();
-     while (len > 0) {
-         hwaddr addr1, l = len;
--        MemoryRegion *mr = address_space_translate(&address_space_memory,
--                                                   addr, &addr1, &l, true,
-+        MemoryRegion *mr = address_space_translate(as, addr, &addr1, &l, true,
-                                                    MEMTXATTRS_UNSPECIFIED);
- 
-         if (!memory_region_supports_direct_access(mr)) {
++    AddressSpace *as = cpu_get_address_space(CPU(cpu), 0);
+     int currlen, nr_pages, i;
+     target_ulong *pages;
+     uint64_t tec;
+@@ -545,8 +547,8 @@ int s390_cpu_virt_mem_rw(S390CPU *cpu, vaddr laddr, uint8_t ar, void *hostbuf,
+         /* Copy data by stepping through the area page by page */
+         for (i = 0; i < nr_pages; i++) {
+             currlen = MIN(len, TARGET_PAGE_SIZE - (laddr % TARGET_PAGE_SIZE));
+-            cpu_physical_memory_rw(pages[i] | (laddr & ~TARGET_PAGE_MASK),
+-                                   hostbuf, currlen, is_write);
++            address_space_rw(as, pages[i] | (laddr & ~TARGET_PAGE_MASK),
++                             MEMTXATTRS_UNSPECIFIED, hostbuf, currlen, is_write);
+             laddr += currlen;
+             hostbuf += currlen;
+             len -= currlen;
 -- 
 2.51.0
 
