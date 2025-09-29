@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4E32BAA7C7
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 21:39:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1133344.1471472 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD000BAA881
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 21:53:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1133355.1471486 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Jia-00036l-0a; Mon, 29 Sep 2025 19:39:28 +0000
+	id 1v3Jvk-0007tc-4k; Mon, 29 Sep 2025 19:53:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1133344.1471472; Mon, 29 Sep 2025 19:39:27 +0000
+Received: by outflank-mailman (output) from mailman id 1133355.1471486; Mon, 29 Sep 2025 19:53:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3JiZ-00034t-T0; Mon, 29 Sep 2025 19:39:27 +0000
-Received: by outflank-mailman (input) for mailman id 1133344;
- Mon, 29 Sep 2025 19:39:26 +0000
+	id 1v3Jvk-0007r8-22; Mon, 29 Sep 2025 19:53:04 +0000
+Received: by outflank-mailman (input) for mailman id 1133355;
+ Mon, 29 Sep 2025 19:53:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3bM2=4I=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1v3JiY-00033Y-EN
- for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 19:39:26 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ <SRS0=ONJG=4I=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1v3Jvi-0007r2-J2
+ for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 19:53:02 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 00d48e92-9d6c-11f0-9d14-b5c5bf9af7f9;
- Mon, 29 Sep 2025 21:39:24 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-46e3cdc1a6aso28169615e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 12:39:24 -0700 (PDT)
-Received: from [192.168.101.81] ([217.65.134.12])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46e59abdde8sm3726925e9.2.2025.09.29.12.39.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Sep 2025 12:39:23 -0700 (PDT)
+ id e690c9cf-9d6d-11f0-9d14-b5c5bf9af7f9;
+ Mon, 29 Sep 2025 21:53:00 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id BAC8648A65;
+ Mon, 29 Sep 2025 19:52:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1256C4CEF4;
+ Mon, 29 Sep 2025 19:52:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +41,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00d48e92-9d6c-11f0-9d14-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1759174764; x=1759779564; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=B6d4sRolAyHHh0+NKbkmnD5c3XSjQ9m4SuLVmyGF7Xs=;
-        b=I/T/5sVqumrUl7qcAOtqJKCYP1d35MtjH1VM1WZykMXikweTCbwiGVxe/Xqz2e1+jO
-         XpUWkQ3pP1ZYcdkYK1wjuri95xXksJhb1cpISg3wbVjoDbQq8X98TZX1rJuar8OSJ50A
-         5PEPYD8tR2KrjkhMekcUJ6DyfcokdEMlWlmDc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759174764; x=1759779564;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=B6d4sRolAyHHh0+NKbkmnD5c3XSjQ9m4SuLVmyGF7Xs=;
-        b=PbMwhOnckRiZM5ybEklBxWEbFx3/SeUrCyv9gKy0xM5HzZ/iCfwNEqFHg+P4LphJh2
-         06iowCsOHVaoHEYBc1ShkniEB+GMPUviugl3hzondlUx9gE24Ldkn0oGkjs2YV2QXXMp
-         ocrPsVo+6iax6/0WMFDQJx6AqVQ0K0d876X5YGqIL9EPvgjrn/Ng9vBgcyfm9uZHFTsW
-         69ZSHSQOonRjgZx7QWjQEqeFrnH2PMTHJeoJKxL29QW2tcyYMZGqeiHycRFkPzBD+1X3
-         g8eW+A2zDCGVxkcsdNVituaXo7G1CFNtycxvtMzA859hmgmEhWWnT8mA3CRQhXDTFKJR
-         gujA==
-X-Forwarded-Encrypted: i=1; AJvYcCVRmEFaZ6vwSE2H8fndFwgXkPkbBXJUzY+TITv7j58nCTZa+aoiQr1000p9y0GjyAq95KU8E+58zpc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzozUOwZcGrEUgAPdZUAMU+4RODkJGPxvf+GJOnaD4K9EhK7Iiw
-	UhMPbug4++NCkhN/hd4dpgVt1G3rFrHUEvEb8gqySGFuUk2lSqN/LArfDMBIH+j1KNg=
-X-Gm-Gg: ASbGncvNo/NSEo9Pf0NYdgWhsZCssDT8ONSZmyXH0jaW13UQUYdQ+pef+uEq8ViqnEg
-	RViDm77qfUX12YA4Au93viLEhyNZkIVztssslu7Nl8oP3sYvPs1ANRz8i+Wm7F9OSRfkcZT69+R
-	ec4ttac3RFnwcukwcG5kJcCvsL/Z2j75722huh/hm01LHJFdzAXJ8QOwSenLmzh6w7VC2wPwRvQ
-	95eDf4nk3lK9ce7N56hVjTCWKXLBvecD8pLbpMPYYBV0cNzO9jTugfVPssPoCMT8EPMqJgAihC8
-	vhEsVVKWDj71CJg/ZDcY2iXxnY3EnOV3aP7DKvtJLKpRGEuifWskPpYPvy/3MMHEPFnPa9gdTkq
-	bUR/7+wimslhMEtx6M3JQVgY9eh+ppPDCpoisRSxgXBNAzqgYOw==
-X-Google-Smtp-Source: AGHT+IGbc1FrwtGRqd9+Qt82VBloU79OFkbKdf+sjeDd4eRS/8HSYy2qGbSgZEUWIGLc8YfBAbTQ9Q==
-X-Received: by 2002:a05:600c:8b2a:b0:46e:5019:69e0 with SMTP id 5b1f17b1804b1-46e58aabf99mr15338755e9.5.1759174763948;
-        Mon, 29 Sep 2025 12:39:23 -0700 (PDT)
-Message-ID: <45afdc14-7337-4786-b3ff-e3c07a6b5f71@citrix.com>
-Date: Mon, 29 Sep 2025 21:39:21 +0200
+X-Inumbo-ID: e690c9cf-9d6d-11f0-9d14-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1759175578;
+	bh=yaK3NWvIhH77kqF52JIxXBhOidWQDdPna23D7prhFhM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=XUUiKRNWX29jDkKYRGlHSBtLNcH4tyJnzhfzyfRp28OsOX4Le3cYNNPfWjndrx/F/
+	 z/OYZIkUN0a/qBkb544LVneoJvwIxiC/1dpp3q99Hxz7o9e/EDwG3XQkHbBLveh/Aa
+	 xKwx4PAEomPwedTFNeNjp8kEnEaFOa4KPiN8p7fOGLP0GMEYUDVOeavlAQEVTW89+t
+	 HSir27mROUHMIZfdSQ9TFo5ZZ8yKTZCezQ4ixO8mU7CEKjAS0ONOmQV/61jaQHUYjM
+	 aZDrGxQE+O5zMc/dMOf4ahEjvgiULeF0F5fbIS40unpaKvMj63I1J+nu4ya0pQTHwo
+	 8RaIL12015sVw==
+Date: Mon, 29 Sep 2025 12:52:56 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Michal Orzel <michal.orzel@amd.com>, Ayan Kumar Halder <ayankuma@amd.com>, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, sstabellini@kernel.org
+Subject: Re: [ImageBuilder] uboot-script-gen: Add ability to configure static
+ event channels
+In-Reply-To: <20250929180746.1881872-1-oleksandr_tyshchenko@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2509291238340.937823@ubuntu-linux-20-04-desktop>
+References: <20250929180746.1881872-1-oleksandr_tyshchenko@epam.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/hap: Inline "flush_vcpu" in "flush_tlb"
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <bb570008f237cb77f2c74c5f025375ca6c4f140a.1759148418.git.teddy.astie@vates.tech>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <bb570008f237cb77f2c74c5f025375ca6c4f140a.1759148418.git.teddy.astie@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 29/09/2025 1:36 pm, Teddy Astie wrote:
-> flush_vcpu static function here is only used in one place which is just below
-> where it is defined. Inline the function to reduce the noise and clarify
-> what we are doing.
->
-> No functional change.
->
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+On Mon, 29 Sep 2025, Oleksandr Tyshchenko wrote:
+> Add DOMU_STATIC_EVTCHNS[number]="local_id local_port remote_id; ..."
+> configuration file string option specifying the static event channel
+> definitions for domain.
+> 
+> The build script uses simple IDs to automatically and safely
+> generate the required unique phandle numbers for the device tree.
+> The user only needs to define simple numeric IDs and does not need
+> to manage complex phandle values.
+> 
+> For the following example:
+> DOMU_STATIC_EVTCHNS[0]="1 10 2; 3 12 4"
+> DOMU_STATIC_EVTCHNS[1]="2 11 1; 4 13 3"
+> 
+> it generates:
+> fdt mknod /chosen/domU0 evtchn@1
+> fdt set /chosen/domU0/evtchn@1 phandle <0xfffffffe>
+> fdt set /chosen/domU0/evtchn@1 compatible "xen,evtchn-v1"
+> fdt set /chosen/domU0/evtchn@1 xen,evtchn <10 0xfffffffd>
+> fdt mknod /chosen/domU0 evtchn@3
+> fdt set /chosen/domU0/evtchn@3 phandle <0xfffffffc>
+> fdt set /chosen/domU0/evtchn@3 compatible "xen,evtchn-v1"
+> fdt set /chosen/domU0/evtchn@3 xen,evtchn <12 0xfffffffb>
+> ...
+> fdt mknod /chosen/domU1 evtchn@2
+> fdt set /chosen/domU1/evtchn@2 phandle <0xfffffffd>
+> fdt set /chosen/domU1/evtchn@2 compatible "xen,evtchn-v1"
+> fdt set /chosen/domU1/evtchn@2 xen,evtchn <11 0xfffffffe>
+> fdt mknod /chosen/domU1 evtchn@4
+> fdt set /chosen/domU1/evtchn@4 phandle <0xfffffffb>
+> fdt set /chosen/domU1/evtchn@4 compatible "xen,evtchn-v1"
+> fdt set /chosen/domU1/evtchn@4 xen,evtchn <13 0xfffffffc>
 
-Have you read the commit message introducing this pattern?  It's
-11d9e114b53045e5f2009a26dad1d0d0f7df441e for reference.
+I'd like to make an alternative suggestion. The user specifies triplets:
+DOMU_STATIC_EVTCHNS[0]="local-id remote-domid remote-id
 
-The compiler will do the sensible thing.  What matters is the cognitive
-complexity of the source code.
+To generate the example above:
 
-~Andrew
+DOMU_STATIC_EVTCHNS[0]="10 1 11; 12 1 13"
+DOMU_STATIC_EVTCHNS[1]="11 0 10; 13 0 12"
+
+I think this is better because it doesn't require to invent (useless)
+unique numbers as references. Instead, it focuses on the data that
+actually matters to the user: the event channel IDs at both ends and
+the domains involved. These are things the user must know anyway.
+
+The only catch with this suggesion is the definition of "remote-domid":
+in reality the DOMU array index is not the domid in dom0less so we would
+have to clarify. Maybe we could define it as remote-domain-index or
+something like that.
+
+What do you think?
+
+
+In ImageBuilder so far we have not used separators like ';' here but I
+think it does improve readability so I would keep it.
+
+
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+>  README.md                | 21 ++++++++++
+>  scripts/uboot-script-gen |  7 ++++
+>  scripts/xen_dt_domu      | 89 ++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 117 insertions(+)
+> 
+> diff --git a/README.md b/README.md
+> index 7b68cf5..52ed1f7 100644
+> --- a/README.md
+> +++ b/README.md
+> @@ -218,6 +218,27 @@ Where:
+>        DOMU_VCPU_HARD_AFFINITY[number,1]="3"
+>  ```
+>  
+> +- DOMU_STATIC_EVTCHNS[number]="local_id local_port remote_id; ..."
+> +  if specified, this parameter allows the configuration of static event channels
+> +  for inter-domain communication. Each entry in DOMU_STATIC_EVTCHNS[number]
+> +  specifies one or more event channels for a particular domain.
+> +  The configuration format for each event channel definition is a set of
+> +  three values:
+> +    - local_id: A simple, unique integer that identifies the local endpoint of
+> +      the event channel. This ID must be unique across all domains.
+> +    - local_port: The numeric port number for the local endpoint.
+> +    - remote_id: The ID of the corresponding remote endpoint to which this
+> +      the local port connects.
+> +
+> +  Multiple event channel definitions for a single domain can be provided by
+> +  separating them with a semicolon (;).
+> +
+> +  Below is an example that creates two pairs of bidirectional channels between
+> +  two domains:
+> +  NUM_DOMUS=2
+> +  DOMU_STATIC_EVTCHNS[0]="1 10 2; 3 12 4"
+> +  DOMU_STATIC_EVTCHNS[1]="2 11 1; 4 13 3"
+> +
+>  - DOMU_COLORS[number] specifies the colors (cache coloring) to be used
+>    for the domain and is in the format startcolor-endcolor
+>  
+> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+> index 4f92610..003a622 100755
+> --- a/scripts/uboot-script-gen
+> +++ b/scripts/uboot-script-gen
+> @@ -428,6 +428,8 @@ function xen_device_tree_editing()
+>          fi
+>      fi
+>  
+> +    xen_dt_build_evtchns_map
+> +
+>      i=0
+>      while test $i -lt $NUM_DOMUS
+>      do
+> @@ -512,6 +514,11 @@ function xen_device_tree_editing()
+>  
+>          xen_dt_domu_add_vcpu_nodes "/chosen/domU$i" $i ${DOMU_VCPUS[$i]}
+>  
+> +        if test "${DOMU_STATIC_EVTCHNS[$i]}"
+> +        then
+> +            xen_dt_domu_add_evtchns "/chosen/domU$i" "${DOMU_STATIC_EVTCHNS[$i]}"
+> +        fi
+> +
+>          add_device_tree_kernel "/chosen/domU$i" "domU${i}_kernel" ${domU_kernel_addr[$i]} ${domU_kernel_size[$i]} "${DOMU_CMD[$i]}"
+>          if test "${domU_ramdisk_addr[$i]}"
+>          then
+> diff --git a/scripts/xen_dt_domu b/scripts/xen_dt_domu
+> index 8134896..97c5325 100644
+> --- a/scripts/xen_dt_domu
+> +++ b/scripts/xen_dt_domu
+> @@ -37,3 +37,92 @@ function xen_dt_domu_add_vcpu_nodes()
+>          fi
+>      done
+>  }
+> +
+> +declare -A EVTCHN_ID_TO_PHANDLE_MAP
+> +
+> +function xen_dt_build_evtchns_map()
+> +{
+> +    local i
+> +    local evtchn_str # The full event channel definition string
+> +    local def
+> +    local local_id remote_id id
+> +    local new_phandle
+> +
+> +    for (( i=0; i<$NUM_DOMUS; i++ ))
+> +    do
+> +        evtchn_str=${DOMU_STATIC_EVTCHNS[$i]}
+> +        if test -z "$evtchn_str"
+> +        then
+> +            continue
+> +        fi
+> +
+> +        IFS=';' read -ra evtchn_defs <<< "$evtchn_str"
+> +
+> +        # Loop over each definition and process both local and remote IDs
+> +        for def in "${evtchn_defs[@]}"
+> +        do
+> +            read -r local_id _ remote_id <<< "$def"
+> +            if test -z "$local_id" || test -z "$remote_id"
+> +            then
+> +                echo "Malformed evtchn definition: '$def'"
+> +                cleanup_and_return_err
+> +            fi
+> +
+> +            if [[ "$local_id" == "$remote_id" ]]
+> +            then
+> +                echo "Invalid evtchn definition: '$def'"
+> +                cleanup_and_return_err
+> +            fi
+> +
+> +            for id in $local_id $remote_id
+> +            do
+> +                # If this ID is not already in our map, assign it a new phandle
+> +                if [[ ! -v EVTCHN_ID_TO_PHANDLE_MAP[$id] ]]
+> +                then
+> +                    get_next_phandle new_phandle
+> +                    EVTCHN_ID_TO_PHANDLE_MAP[$id]=$new_phandle
+> +                    echo "evtchn ID '$id' is assigned phandle '$new_phandle'"
+> +                fi
+> +            done
+> +        done
+> +    done
+> +}
+> +
+> +function xen_dt_domu_add_evtchns()
+> +{
+> +    # $1 - dt path
+> +    local path=$1
+> +    # $2 - The full event channel definition string
+> +    local evtchn_str=$2
+> +
+> +    local def
+> +    local local_id local_port remote_id
+> +    local local_phandle remote_phandle
+> +
+> +    IFS=';' read -ra evtchn_defs <<< "$evtchn_str"
+> +
+> +    # Loop over each definition and create a node for it
+> +    for def in "${evtchn_defs[@]}"
+> +    do
+> +        read -r local_id local_port remote_id <<< "$def"
+> +        if test -z "$local_id" || test -z "$local_port" || test -z "$remote_id"
+> +        then
+> +            echo "Malformed evtchn definition: '$def'"
+> +            cleanup_and_return_err
+> +        fi
+> +
+> +        # Look up the phandles from our globally-populated map
+> +        local_phandle=${EVTCHN_ID_TO_PHANDLE_MAP[$local_id]}
+> +        remote_phandle=${EVTCHN_ID_TO_PHANDLE_MAP[$remote_id]}
+> +        if test -z "$local_phandle" || test -z "$remote_phandle"
+> +        then
+> +            echo "Could not find phandle for evtchn ID '$local_id' or '$remote_id'"
+> +            cleanup_and_return_err
+> +        fi
+> +
+> +        dt_mknode "${path}" "evtchn@$local_id"
+> +        dt_set "${path}/evtchn@$local_id" "phandle" "hex" "$local_phandle"
+> +        dt_set "${path}/evtchn@$local_id" "compatible" "str" "xen,evtchn-v1"
+> +        dt_set "${path}/evtchn@$local_id" "xen,evtchn" "hex" "$local_port $remote_phandle"
+> +    done
+> +}
+> -- 
+> 2.34.1
+> 
 
