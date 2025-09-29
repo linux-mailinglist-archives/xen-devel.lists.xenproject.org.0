@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13DE4BA987E
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 16:24:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1132934.1471140 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC634BA9C88
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 17:22:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1132949.1471154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3EnK-00066e-D4; Mon, 29 Sep 2025 14:24:02 +0000
+	id 1v3FhX-0004vC-FP; Mon, 29 Sep 2025 15:22:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1132934.1471140; Mon, 29 Sep 2025 14:24:02 +0000
+Received: by outflank-mailman (output) from mailman id 1132949.1471154; Mon, 29 Sep 2025 15:22:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3EnK-00065C-AS; Mon, 29 Sep 2025 14:24:02 +0000
-Received: by outflank-mailman (input) for mailman id 1132934;
- Mon, 29 Sep 2025 14:24:01 +0000
+	id 1v3FhX-0004t4-CS; Mon, 29 Sep 2025 15:22:07 +0000
+Received: by outflank-mailman (input) for mailman id 1132949;
+ Mon, 29 Sep 2025 15:22:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M4Dr=4I=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1v3EnJ-000656-2b
- for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 14:24:01 +0000
+ id 1v3FhV-0004sx-Hm
+ for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 15:22:05 +0000
 Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
  [2a00:1450:4864:20::532])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ef9ad754-9d3f-11f0-9809-7dc792cee155;
- Mon, 29 Sep 2025 16:23:57 +0200 (CEST)
+ id 0d31830f-9d48-11f0-9809-7dc792cee155;
+ Mon, 29 Sep 2025 17:22:03 +0200 (CEST)
 Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-634cdb5ed4bso5116940a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 07:23:57 -0700 (PDT)
+ 4fb4d7f45d1cf-636255b92c9so3793803a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 08:22:03 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-67-38.play-internet.pl.
  [109.243.67.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-634a3af53basm8153889a12.41.2025.09.29.07.23.55
+ 4fb4d7f45d1cf-634c065a67csm5924635a12.36.2025.09.29.08.22.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Sep 2025 07:23:56 -0700 (PDT)
+ Mon, 29 Sep 2025 08:22:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,134 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef9ad754-9d3f-11f0-9809-7dc792cee155
+X-Inumbo-ID: 0d31830f-9d48-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1759155837; x=1759760637; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1759159323; x=1759764123; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=U04Z7yzzaE6hIKAJsqBSoKWQhf5uESKV5oZ4D+OVpmY=;
-        b=NypgUortlsXONT1N5R2Iytb4Q7LZdqPrPho94pF6+7SV9hivFAoNuwgORXCAiuRYWN
-         /xjqqLSXA5pdxW2HZoFeUBK48qY9K3qTKPquloKgnJP+W0MfFWqSXDFIsU7TKaT1zmHs
-         Xmz6iaTY8Ay9YrALO2uyT+jaLvxDFR4V/TWrttYsMyMMtkroNT2gGVbQchxcaVkWoMbn
-         5UuE6b6ZRQtyAJjfcr9/lHaA7LEULA2JiLwlFVyVmUeITB+pKrgPT8PC9WiYlX/evoN5
-         0hTQCUZuW7kEyE+kyZcMoC1ZR/D0ha78g5GxOXjqvznJfBbZMRpkO2lnsaNuSIQwu7LQ
-         o74w==
+        bh=eIsCU3Cm50J/BipKlMDBnLRM+CdqhNVX1Oigv3bXu20=;
+        b=krLF6ZtmydvVDnXGQy1xSef3MSyFXOTb/xRuxHd7kXjvdQyWjVkHWG74cOAt+FzE3Y
+         r2NQvt/QPyLXJ7IOWXvG1hYpSVo2nBfeUNKc4R4rv2wteVnqzer0+nBBPPG+bTO/CEk4
+         Mb8j4X50gx4ufQ2vzWu5t12jxEMnj5CId6wSKVUJpnzC/Pgz58/3y8kr5nIaMFpDOIjX
+         25XLqP9tftn2c+wcnKLFe3wBkyhpRvWmYGvVFlcmWRPwJ8fVlApJWYwpRnCI8vU2TWmb
+         0JfGDXtiDIlVKFHnDpMZXRgKu16n/wPvGj+vPMf2byrfubpDjN5WclasfGufu8ShrWKQ
+         cq5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759155837; x=1759760637;
+        d=1e100.net; s=20230601; t=1759159323; x=1759764123;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=U04Z7yzzaE6hIKAJsqBSoKWQhf5uESKV5oZ4D+OVpmY=;
-        b=RpVw+vXwD+Z1xtObNvixEEzQzuAN6suD70GzkwiAT3CJ3CZNk4zKSGkaIhAICOLoqU
-         z80Eb4mXQJU4/wxJY5AfHoGTn7IHqPGvCCYFtmDLH6p06G7fzsNJDNYiDJVRmtXof2c+
-         yh3Q0KDOD1d1z0j0p3vTfMB/fDXroWOjNYAEtBZE0b7Yjcsj9xJgYsN6rn9AO8v11w+z
-         qsQcM1n8u8KzMlgX4teyvKIPSTL/vFDuaaDZjcn4B1cmIwKAhy4eVps2SiyWzAMqFz2f
-         9+oVOHQ4NsdpSZeS8B5VFcT3BZVVq5VgLyRrMfF2OAFZXPvoTOaf30rqbxYB23E804to
-         xrXQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU+vNtoNCbimU7dDjD+lKyRIQc2qnfLi+m23d3PsffzIjNFjdoNiQ+EW8qWPz7QqGB6IQbdcK5s6Mg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzkhns5TEPFN22566oeFP/8418SNqft8VSaNnAwBCtJhF+ywkWa
-	Sdn1OmpWzikEWyuoe746dagPRASiITVwthJQop7e/GRoK8BRAX+ml0IT
-X-Gm-Gg: ASbGncu3Z5qy0lovXFOn0o9YUYfbTPRFfJgY0/OxawOS2sSlAQRo7xy2RzfdfEMJjRF
-	yOI3C+pZpSk0FpYGbN1cVaiuEo6cuvpmIaBPFQiBNr4mbdv4vjGMKMF3oSyP+bRU/rL/MUHhwvW
-	uIXm9ky8WV+LZ1HXItSJOZ5znrivlcoG0fSpNLoEExrpXvZx10D5oIB7GxSTd0xVTz1VMI6RInf
-	dPdqjzGp0Xo0tI5qfajHXYOTy48YzR2lfQpMnKY2EtY3kbb2qaCyLf+yLwPuxMe/FI1bXxXiANv
-	kUyNz5WffEkLOyyBxM/JhHlfdLY1VeQU//2WSo/NeeEKZihEW+C2iO/DPuHuurTrHFbF2JjE6P5
-	b5haR8/u3OfBr0IGNswC8O4d3Z43q4OkGzKHR9nQ62HFiLozh9ed4V/p4Aml9myJrU8x5mOFLzl
-	uRQJ3OJis=
-X-Google-Smtp-Source: AGHT+IGrCzC4MIiHGk4+i5jfy2zEh41CwxYsegV9UEKySlDJ1A776Ip8nj4jZYBFbqrip13b5jydrg==
-X-Received: by 2002:a17:907:9815:b0:b30:ea06:af29 with SMTP id a640c23a62f3a-b34b7fbb555mr2030666566b.16.1759155836945;
-        Mon, 29 Sep 2025 07:23:56 -0700 (PDT)
+        bh=eIsCU3Cm50J/BipKlMDBnLRM+CdqhNVX1Oigv3bXu20=;
+        b=XHE4l9z23mP5uLGPZ2SCuPAi+xlEJHBc9y9T0nEsdjWmpG2rDe8jH1Y/VMx0SqXKad
+         H69aKD5qYQk7E3Ph0WTygu0gdCVl641LXe9cQy2an5pKDbRtqQCdMHD1xSrswGeYRwHt
+         bsyGcn+0c7s0lZW74Ddh/2ieD8iEq9144MV+yoGiibeq/lKnBuMsE6+e7a/gYcWb/rmO
+         fFET4ED0EgHGTd3L/jJnH8tPycPtmi8XCW4PtqmSJ06eZRGzxslP8y7V2GuQC8BDCkCQ
+         jihAt+b+7FX5s/R4R+at0mxIVtrtYXazvzYAwMJXs8UcnSegdbZ7mxf/Xp1pJYjrMbEG
+         4nbQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX7JWj9Gr3z4cwJpf2ufj60mWEReAY0gZ63BqBDyUq2RIfJUOEa0YcrKf/npquBo/L7rsorZBdCNAU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzt56O1j3xUAbwQ7LGb0/nqxYI/LE4XEeCTQ7y0NhnVRno8/wpd
+	IovHwX7kYePjTdUJjmjFV+392kmhT+a7DfI/W3E43rYD0fnOdcY118Ce
+X-Gm-Gg: ASbGnct1SGs+uq/Hga+DTGjOVPOwpel8smiEc4eA82wS7HA9Uxsz0d9Zjt3XkLINW/6
+	mUDxuvqXoF1OsgjVHSHnkWaMUYmh5ggdUfEDvQssOLnZNQds8pmluzJnsTxz5DOTaR9zGPcnqT0
+	DviLPu9ww92K4HXu54qY21avz30wvDjSZkkZGGVmYtNwnGMJ/Qg5pPK1F7qPTHI5dm3ml+30Sq7
+	zzi5rlkvz193gtxPlP29GCOp9QNIowqa/p/qSZtiD2jKKL6AMALmjwTSQzVKv+0+EMtajWJsGX3
+	u9WaudnzK36zIW8iKsT3bla/B/iuDIq90saa77Ga372+x8gOe/leuFCJN4UApqHSPgdqX0O2z66
+	LWPHV/a3rIi3BmOs7n2aup66aUB64vLM5Ey5oYb0Q4VmxCCOQYI5Ui35hS4bDFogQ/PTcZjbCJj
+	oKTbAoiH8=
+X-Google-Smtp-Source: AGHT+IG6YEHTN6QJe/iDwYSk7kWQfckza2LegIdjqlIack5JWjG1gk8kWPIN+xHjB2SgyXy2bpZn3g==
+X-Received: by 2002:a05:6402:3491:b0:636:2ea0:df62 with SMTP id 4fb4d7f45d1cf-6362ea0e02emr5682885a12.38.1759159322594;
+        Mon, 29 Sep 2025 08:22:02 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------8H0VGdflyirX1eYzMJ7CUBH0"
-Message-ID: <98699f1b-0cc5-4e73-9d2e-865f2e3d0b0f@gmail.com>
-Date: Mon, 29 Sep 2025 16:23:55 +0200
+ boundary="------------ekHcZDyIaLFogqAXAdNV8IOr"
+Message-ID: <fdbc09a0-377a-4561-9efa-93d925e308a0@gmail.com>
+Date: Mon, 29 Sep 2025 17:22:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 13/18] xen/riscv: implement p2m_next_level()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1758145428.git.oleksii.kurochko@gmail.com>
- <30a203de44b04a06613aa1f873a072a4594c5bb4.1758145428.git.oleksii.kurochko@gmail.com>
- <0cf7a47f-f852-479a-bfb2-2f723f66c72e@suse.com>
+Subject: Re: [PATCH v2 0/3] xenconsole: Add connection flag
+To: Anthony PERARD <anthony@xenproject.org>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>
+Cc: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ Anthony PERARD <anthony.perard@vates.tech>
+References: <20250822213946.245307-1-jason.andryuk@amd.com>
+ <e5382a07-7044-4999-9232-07dcf677fb97@suse.com> <aNqHwGSihJfigmXC@l14>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <0cf7a47f-f852-479a-bfb2-2f723f66c72e@suse.com>
+In-Reply-To: <aNqHwGSihJfigmXC@l14>
 
 This is a multi-part message in MIME format.
---------------8H0VGdflyirX1eYzMJ7CUBH0
+--------------ekHcZDyIaLFogqAXAdNV8IOr
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
-On 9/22/25 7:35 PM, Jan Beulich wrote:
-> On 17.09.2025 23:55, Oleksii Kurochko wrote:
->> Implement the p2m_next_level() function, which enables traversal and dynamic
->> allocation of intermediate levels (if necessary) in the RISC-V
->> p2m (physical-to-machine) page table hierarchy.
+On 9/29/25 3:21 PM, Anthony PERARD wrote:
+> On Tue, Sep 09, 2025 at 12:18:26PM +0200, Jürgen Groß wrote:
+>> On 22.08.25 23:39, Jason Andryuk wrote:
+>>> Add a connection flag to the console interface page so a domain can tell
+>>> if it is connected or not.  This became a series in v2 to add flag
+>>> setting to libxenguest.
+>>>
+>>> Jason Andryuk (3):
+>>>     xenconsole: Add connection flag
+>>>     libs/guest: Set console page to disconnected
+>>>     libs/guest: Set console as disconnected on resume
+>>>
+>>>    tools/console/daemon/io.c                |  4 +++
+>>>    tools/include/xenguest.h                 |  4 +++
+>>>    tools/libs/guest/xg_dom_arm.c            |  2 +-
+>>>    tools/libs/guest/xg_dom_boot.c           | 36 ++++++++++++++++++++++++
+>>>    tools/libs/guest/xg_dom_x86.c            |  6 ++--
+>>>    tools/libs/guest/xg_sr_restore_x86_hvm.c |  2 +-
+>>>    tools/libs/guest/xg_sr_restore_x86_pv.c  |  1 +
+>>>    xen/include/public/io/console.h          | 13 +++++++++
+>>>    8 files changed, 63 insertions(+), 5 deletions(-)
+>>>
+>> For the series:
 >>
->> To support this, the following helpers are introduced:
->> - page_to_p2m_table(): Constructs non-leaf PTEs pointing to next-level page
->>    tables with correct attributes.
->> - p2m_alloc_page(): Allocates page table pages, supporting both hardware and
->>    guest domains.
->> - p2m_create_table(): Allocates and initializes a new page table page and
->>    installs it into the hierarchy.
->>
->> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->> ---
->> Changes in V4:
->>   - make `page` argument of page_to_p2m_table pointer-to-const.
->>   - Move p2m_next_level()'s local variable `ret` to the more narrow space where
->>     it is really used.
->>   - Drop stale ASSERT() in p2m_next_level().
->>   - Stray blank after * in declaration of paging_alloc_page().
-> When you deal with comments like this, can you please make sure you
-> apply them to at least a patch as a whole, if not the entire series?
-> I notice ...
+>> Reviewed-by: Juergen Gross<jgross@suse.com>
+> For the series:
+> Acked-by: Anthony PERARD<anthony.perard@vates.tech>
 >
->> --- a/xen/arch/riscv/include/asm/paging.h
->> +++ b/xen/arch/riscv/include/asm/paging.h
->> @@ -15,4 +15,6 @@ int paging_ret_pages_to_freelist(struct domain *d, unsigned int nr_pages);
->>   
->>   void paging_free_page(struct domain *d, struct page_info *pg);
->>   
->> +struct page_info * paging_alloc_page(struct domain *d);
-> ... there's still a stray blank here. With this dropped:
-> Acked-by: Jan Beulich<jbeulich@suse.com>
+> Hi Oleksii,
+> I think this series needs your "release-ack" tag.\
 
-Thanks.
-
-> I have one other question, though:
->
->> +/*
->> + * Allocate a new page table page with an extra metadata page and hook it
->> + * in via the given entry.
->> + */
->> +static int p2m_create_table(struct p2m_domain *p2m, pte_t *entry)
->> +{
->> +    struct page_info *page;
->> +
->> +    ASSERT(!pte_is_valid(*entry));
-> Isn't this going to get in the way of splitting superpages? The caller
-> will need to initialize *entry just for this assertion to not trigger.
-
-The superpage splitting function doesn’t use|p2m_create_table()|. It calls
-|p2m_alloc_table()|, then fills the table, and finally updates the entry
-using|p2m_write_pte()|. So this shouldn’t be an issue.
-
-Ohh, I just noticed, the comment should be updated, since an extra metadata
-page is no longer allocated here.
+It is a little bit too late. But considering that this patch should increase
+boot performance (right?) and it is pretty straightforward, I think (IIUC regarding
+boot performance) we can consider these patch series to be in 4.21:
+  Release-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
 ~ Oleksii
 
---------------8H0VGdflyirX1eYzMJ7CUBH0
+--------------ekHcZDyIaLFogqAXAdNV8IOr
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -184,88 +157,58 @@ Content-Transfer-Encoding: 8bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 9/22/25 7:35 PM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 9/29/25 3:21 PM, Anthony PERARD
+      wrote:<br>
     </div>
-    <blockquote type="cite"
-      cite="mid:0cf7a47f-f852-479a-bfb2-2f723f66c72e@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 17.09.2025 23:55, Oleksii Kurochko wrote:
+    <blockquote type="cite" cite="mid:aNqHwGSihJfigmXC@l14">
+      <pre wrap="" class="moz-quote-pre">On Tue, Sep 09, 2025 at 12:18:26PM +0200, Jürgen Groß wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Implement the p2m_next_level() function, which enables traversal and dynamic
-allocation of intermediate levels (if necessary) in the RISC-V
-p2m (physical-to-machine) page table hierarchy.
+        <pre wrap="" class="moz-quote-pre">On 22.08.25 23:39, Jason Andryuk wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">Add a connection flag to the console interface page so a domain can tell
+if it is connected or not.  This became a series in v2 to add flag
+setting to libxenguest.
 
-To support this, the following helpers are introduced:
-- page_to_p2m_table(): Constructs non-leaf PTEs pointing to next-level page
-  tables with correct attributes.
-- p2m_alloc_page(): Allocates page table pages, supporting both hardware and
-  guest domains.
-- p2m_create_table(): Allocates and initializes a new page table page and
-  installs it into the hierarchy.
+Jason Andryuk (3):
+   xenconsole: Add connection flag
+   libs/guest: Set console page to disconnected
+   libs/guest: Set console as disconnected on resume
 
-Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
----
-Changes in V4:
- - make `page` argument of page_to_p2m_table pointer-to-const.
- - Move p2m_next_level()'s local variable `ret` to the more narrow space where
-   it is really used.
- - Drop stale ASSERT() in p2m_next_level().
- - Stray blank after * in declaration of paging_alloc_page().
+  tools/console/daemon/io.c                |  4 +++
+  tools/include/xenguest.h                 |  4 +++
+  tools/libs/guest/xg_dom_arm.c            |  2 +-
+  tools/libs/guest/xg_dom_boot.c           | 36 ++++++++++++++++++++++++
+  tools/libs/guest/xg_dom_x86.c            |  6 ++--
+  tools/libs/guest/xg_sr_restore_x86_hvm.c |  2 +-
+  tools/libs/guest/xg_sr_restore_x86_pv.c  |  1 +
+  xen/include/public/io/console.h          | 13 +++++++++
+  8 files changed, 63 insertions(+), 5 deletions(-)
+
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+For the series:
+
+Reviewed-by: Juergen Gross <a class="moz-txt-link-rfc2396E" href="mailto:jgross@suse.com">&lt;jgross@suse.com&gt;</a>
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-When you deal with comments like this, can you please make sure you
-apply them to at least a patch as a whole, if not the entire series?
-I notice ...
+For the series:
+Acked-by: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
 
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/paging.h
-+++ b/xen/arch/riscv/include/asm/paging.h
-@@ -15,4 +15,6 @@ int paging_ret_pages_to_freelist(struct domain *d, unsigned int nr_pages);
- 
- void paging_free_page(struct domain *d, struct page_info *pg);
- 
-+struct page_info * paging_alloc_page(struct domain *d);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... there's still a stray blank here. With this dropped:
-Acked-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a></pre>
+Hi Oleksii,
+I think this series needs your "release-ack" tag.\</pre>
     </blockquote>
-    <pre>Thanks.
-</pre>
-    <blockquote type="cite"
-      cite="mid:0cf7a47f-f852-479a-bfb2-2f723f66c72e@suse.com">
-      <pre wrap="" class="moz-quote-pre">I have one other question, though:
+    <pre>It is a little bit too late. But considering that this patch should increase
+boot performance (right?) and it is pretty straightforward, I think (IIUC regarding
+boot performance) we can consider these patch series to be in 4.21:
+ Release-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
 
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+/*
-+ * Allocate a new page table page with an extra metadata page and hook it
-+ * in via the given entry.
-+ */
-+static int p2m_create_table(struct p2m_domain *p2m, pte_t *entry)
-+{
-+    struct page_info *page;
-+
-+    ASSERT(!pte_is_valid(*entry));
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Isn't this going to get in the way of splitting superpages? The caller
-will need to initialize *entry just for this assertion to not trigger.</pre>
-    </blockquote>
-    <pre data-start="62" data-end="268">The superpage splitting function doesn’t use <code
-    data-start="107" data-end="127">p2m_create_table()</code>. It calls
-<code data-start="138" data-end="157">p2m_alloc_table()</code>, then fills the table, and finally updates the entry
-using <code data-start="217" data-end="234">p2m_write_pte()</code>. So this shouldn’t be an issue.</pre>
-    <pre data-start="270" data-end="366">Ohh, I just noticed, the comment should be updated, since an extra metadata
-page is no longer allocated here.</pre>
-    <pre>
 ~ Oleksii</pre>
   </body>
 </html>
 
---------------8H0VGdflyirX1eYzMJ7CUBH0--
+--------------ekHcZDyIaLFogqAXAdNV8IOr--
 
