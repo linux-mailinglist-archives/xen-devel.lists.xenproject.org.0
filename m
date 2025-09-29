@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBF90BAA4D5
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 20:33:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1133118.1471313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21249BAA4E4
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 20:33:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1133123.1471323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3IgX-0001Zy-9N; Mon, 29 Sep 2025 18:33:17 +0000
+	id 1v3Igc-0001xc-Jn; Mon, 29 Sep 2025 18:33:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1133118.1471313; Mon, 29 Sep 2025 18:33:17 +0000
+Received: by outflank-mailman (output) from mailman id 1133123.1471323; Mon, 29 Sep 2025 18:33:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3IgX-0001WP-5z; Mon, 29 Sep 2025 18:33:17 +0000
-Received: by outflank-mailman (input) for mailman id 1133118;
- Mon, 29 Sep 2025 18:33:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v3Igc-0001ua-FS; Mon, 29 Sep 2025 18:33:22 +0000
+Received: by outflank-mailman (input) for mailman id 1133123;
+ Mon, 29 Sep 2025 18:33:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BPw2=4I=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1v3IgV-0001U2-Dm
- for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 18:33:15 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c241ef56-9d62-11f0-9d14-b5c5bf9af7f9;
- Mon, 29 Sep 2025 20:33:14 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3ece0e4c5faso4274681f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 11:33:14 -0700 (PDT)
+ id 1v3Igb-0000iD-2V
+ for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 18:33:21 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c56bb365-9d62-11f0-9809-7dc792cee155;
+ Mon, 29 Sep 2025 20:33:19 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-46e3af7889fso27784855e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 11:33:19 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-40fb8811ae8sm19065012f8f.19.2025.09.29.11.33.11
+ ffacd0b85a97d-40fc7d3780asm19281036f8f.52.2025.09.29.11.33.17
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 29 Sep 2025 11:33:13 -0700 (PDT)
+ Mon, 29 Sep 2025 11:33:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c241ef56-9d62-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: c56bb365-9d62-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1759170793; x=1759775593; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1759170799; x=1759775599; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=23QTyPjiy3YtVC18SQIGMGuPQmXq870ERJAMX9bHv6E=;
-        b=yz9Ho+iW6Hem25yjL6Z5dyrPGX8O43ZKREqA0rfTjODo/DoG02AahpMhJdcVQ/V42Y
-         C0rj3lcUzIcDiYG2RWTtwuUotRFGvOiXOtMwgJSJ3b5JPj9vIkXs2fM2qcWQzOOYUf9K
-         rHHVL/nnJq8V/QfR8DtZxxYOSiOwE1VoH3h+7o0aLV+j3SMFzeUMvLfDT6Rq93VeWQzV
-         6Ea7RplwNpv6wglQbxkgMhN6zapv1sfnd4v5Hqi88wVbdhtglB5iJ8rRcwJfMwUSgqQO
-         kzn1WkqrSH/WAY5A7jy9u76iiBCuUgPlFddsa3hKkb2kqR6N94TrluD1mVJ71VgB42SA
-         ZB+g==
+        bh=P3WGf5UHYCyuY+qdMKaaLuq+dGZ/nmDgi/rxgNJ1Ah4=;
+        b=waulXQMdrAHfziQiNraoPlDiPYlPE+ca1viRcMdcCLNPu3uuTZJmJE/dPfRD27NNE/
+         4fiKCDPPTZMZO15KbLiz/XaLHg+lquvPvv6JxpXVst3j1Enjg/b8cuhx0k8n8JiqjNik
+         o8VmPyAsIwc2qY6O+WipTcImxtaqcV47/r7TrUE+fx8qaiYGU0mc/7IeyxwBRKtQqHvG
+         BmdAGree7df165emhsz/rz2wdmtqasgl/6ozl1ieO3es5BHodgk/S6dLII32qP2K0+1W
+         orapiO2Wswuh07BCtRZXLePnLt6VEVsOanopkhFkELMH8yCgtNl/sCYBhIxKcdKOg95x
+         LABg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759170793; x=1759775593;
+        d=1e100.net; s=20230601; t=1759170799; x=1759775599;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=23QTyPjiy3YtVC18SQIGMGuPQmXq870ERJAMX9bHv6E=;
-        b=O4G6VXDKwFxY8nkFwSWn+knRXlx/dw8Oe0G8XOHY701IrqLbYfe/q1ABThPCCWTjTc
-         gRJafQ61mtiU8wk0TEyVBDc4jBPka/ZNfCboM/HwnjoyrDxBIc3JZR/bg/4P5tI7O5j2
-         W58WX+uzrgTp9/4stGFZeNEXl0VZ+HICvH6zU4smZmSGYF2c1Xtr3AkdtyINP0lrZuob
-         FZJSBtvB65zhBXKCaXNVjQ4D35NJznJrnUCL00yqUwG0EVNKe/QR9Kgjey7Kb24Q+YtS
-         W9LBpTlboDRMf72m4J0/placJQRI5GPOy7PD9ydSWePBtgiHJGCbe6HMFKe5/rHF5FwJ
-         TTcg==
-X-Forwarded-Encrypted: i=1; AJvYcCUDRnW5lqXzifjfz0AUNJCo3jvRbxAOKV4LP8Cifp/70CW+f7ort3Lq/Fb9w+Guva8ShX2U72+kAag=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxkv391uu9tnlcrCa2+0j1SlFDO6LY0ScekUzZPkWi9Bxo5KWRN
-	TbaNSMAScsq9lXVhNQRuCSS1yko9gb/bDItzsP+bVbrdpx+y7zG/CYid40er7ENjsbA=
-X-Gm-Gg: ASbGncvcDljKzIz1d/PKUnOpyg2hf2Te+8z97NOMIlxm7IPra/C2uWx86lcLoMxVA/T
-	JZo3sCN1d1M1BGV3G2/nJlwgbn/PiW89RGB5AleKmThPjZ+cn4UgMlURenIObwJPnOIOsa72ZWF
-	BJIgRpiflZmVnapiPKqNxTa8hiefN06qCMozlvR5kEpwmL2G2kj+8LE2bj0DHy4OXJeUodxd0Fn
-	mXWCVeBLKdzUDmjMCO7hiQrHhB09UNWeRfvc7MOkxdqwig/mpee6FFnorHVRx+7OwdNXV8isKPs
-	Qmm/AlWvVwAjj7IXiFYidaE/svYtTr1hNXFMYUw8hh6DPFaIt5iSWWj0sEezRGKTW0+Kc156fM/
-	QnOl2CJhEs1r6dRVcdvP8qGz7lG4Fm57XnIN7XzwubqeY+csoBPZf5etq9gcMV8Jf+QNSMGY0nq
-	QeKO4vlaQ=
-X-Google-Smtp-Source: AGHT+IEcDsohAJY1q22fsASxxAoYQtWlMdbA7XCLoeuebdYNdITcBiYeKjk+UAJn3Z9pxuCxt6ME3A==
-X-Received: by 2002:a05:6000:2586:b0:3e7:65a6:dbf with SMTP id ffacd0b85a97d-40e429c9c42mr14229584f8f.6.1759170793465;
-        Mon, 29 Sep 2025 11:33:13 -0700 (PDT)
+        bh=P3WGf5UHYCyuY+qdMKaaLuq+dGZ/nmDgi/rxgNJ1Ah4=;
+        b=V0oEl12WBXbT93nEnKK0Kcs4SY3rjF2a+RU8kmhfHIbNRqW3XoYGJtKopWIKQ8hQqt
+         rXLEuWHp778cINV7waBNa+weLMi68Q0Vd40lB/YKywtDkrK6M1Fqxvs4YpZgW3JxvqBc
+         oTjnCTKRp9igboC9nqiNAbt0f7v8Grjd0t1K00ZO0jr3xvTYyqbtbpmyXihofLAYLWLi
+         eQYwZv0ZttB9Zl2ixB+54hccDK9tDgu5ytFCarIHd1JbUCQCD+4yMuUyS+65xW2SHVIa
+         K5GHWmklNPDRQl32UWb1nkcnd4k763nt6g7elrW8BFYbXUcthg5PTNIPXZPSO65Q4Prr
+         oqwA==
+X-Forwarded-Encrypted: i=1; AJvYcCXQc3M8kGW1UtZupfoYrHzlXQ1xAmYFg6oK1e+vM0chWKxqImdQ121x8YzxRcqlihnrUnybvkEgVtA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxJvsjSUJ0u3PL5qPbQhjUi83y7+MqKAWF/hARF4oac0YH1aslt
+	10erhcbFa7YPqcWkTMKZgTGwFYmZ9QPauFXtUiH4RALw/81KujMudVn5jf4RoQNE26U=
+X-Gm-Gg: ASbGncunfwbHoQDV+dOoSEBz5EKdEs4LIVvY8RqkxV4gtWAwpBhROWU25fNqpaBqtb2
+	MVseAlp9WqTkSx0w1Y6BazadDeIEhj9HBxEzxC2kXO4Jm8Kp+2kDZ+5uVew0TaMokg5aAht2ftT
+	UKWchTTWJzgf+oQ95y7J6BfZmiZomlPZ2LNOf2NRmmyPya01+GXyANNQ8m4ItHAGuJP3sJGH1jU
+	SSzKZenpjjHSBHXJhFDD8+rveED5HJaNGPCQlOzlaAc0quHyUz1uEv99xgKehUqkQ/JsJVEk/gg
+	wSPZ9vtRGEXTlRpeRQjSRW0u2PWvQa6tjXaImN/IpSf736kgdy2grC2PKAoTafg4s1y3EdFwtqj
+	oXe9+B9zMoUi9GB45xO5PYSStAAdityYZpwgRFciFnRYgITsWqt3hlvC+o38mZlw7joK1QwgbHb
+	hp5SWRQbsejSUFcjkg7Q==
+X-Google-Smtp-Source: AGHT+IECk0pxJcrABdWnp0wBblgE/rUdgkYk2QyHdrh6Fg0EQMQZuDnjhZ/xllYj8G986Z96HgDgnA==
+X-Received: by 2002:a05:600c:1c01:b0:46e:5208:ded3 with SMTP id 5b1f17b1804b1-46e5208e228mr55680385e9.15.1759170798830;
+        Mon, 29 Sep 2025 11:33:18 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: Peter Maydell <peter.maydell@linaro.org>,
 	qemu-devel@nongnu.org
@@ -112,9 +112,9 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
 	Peter Xu <peterx@redhat.com>,
 	Matthew Rosato <mjrosato@linux.ibm.com>
-Subject: [PATCH 03/15] target/i386/arch_memory_mapping: Use address_space_memory_is_io()
-Date: Mon, 29 Sep 2025 20:32:42 +0200
-Message-ID: <20250929183254.85478-4-philmd@linaro.org>
+Subject: [PATCH 04/15] hw/s390x/sclp: Use address_space_memory_is_io() in sclp_service_call()
+Date: Mon, 29 Sep 2025 20:32:43 +0200
+Message-ID: <20250929183254.85478-5-philmd@linaro.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250929183254.85478-1-philmd@linaro.org>
 References: <20250929183254.85478-1-philmd@linaro.org>
@@ -122,64 +122,80 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Since all functions have an address space argument, it is
-trivial to replace cpu_physical_memory_is_io() by
-address_space_memory_is_io().
+When cpu_address_space_init() isn't called during vCPU creation,
+its single address space is the global &address_space_memory.
+
+As s390x boards don't call cpu_address_space_init(),
+cpu_get_address_space(CPU(cpu), 0) returns &address_space_memory.
+
+We can then replace cpu_physical_memory_is_io() by the semantically
+equivalent address_space_memory_is_io() call.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- target/i386/arch_memory_mapping.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ hw/s390x/sclp.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/target/i386/arch_memory_mapping.c b/target/i386/arch_memory_mapping.c
-index a2398c21732..d596aa91549 100644
---- a/target/i386/arch_memory_mapping.c
-+++ b/target/i386/arch_memory_mapping.c
-@@ -35,7 +35,7 @@ static void walk_pte(MemoryMappingList *list, AddressSpace *as,
-         }
+diff --git a/hw/s390x/sclp.c b/hw/s390x/sclp.c
+index 9718564fa42..c0d8c335b44 100644
+--- a/hw/s390x/sclp.c
++++ b/hw/s390x/sclp.c
+@@ -16,6 +16,7 @@
+ #include "qemu/units.h"
+ #include "qapi/error.h"
+ #include "hw/boards.h"
++#include "system/memory.h"
+ #include "hw/s390x/sclp.h"
+ #include "hw/s390x/event-facility.h"
+ #include "hw/s390x/s390-pci-bus.h"
+@@ -301,6 +302,7 @@ int sclp_service_call(S390CPU *cpu, uint64_t sccb, uint32_t code)
+     CPUS390XState *env = &cpu->env;
+     SCLPDevice *sclp = get_sclp_device();
+     SCLPDeviceClass *sclp_c = SCLP_GET_CLASS(sclp);
++    AddressSpace *as = cpu_get_address_space(CPU(cpu), 0);
+     SCCBHeader header;
+     g_autofree SCCB *work_sccb = NULL;
  
-         start_paddr = (pte & ~0xfff) & ~(0x1ULL << 63);
--        if (cpu_physical_memory_is_io(start_paddr)) {
-+        if (address_space_memory_is_io(as, start_paddr, 1)) {
-             /* I/O region */
-             continue;
-         }
-@@ -65,7 +65,7 @@ static void walk_pte2(MemoryMappingList *list, AddressSpace *as,
-         }
+@@ -308,7 +310,7 @@ int sclp_service_call(S390CPU *cpu, uint64_t sccb, uint32_t code)
+     if (env->psw.mask & PSW_MASK_PSTATE) {
+         return -PGM_PRIVILEGED;
+     }
+-    if (cpu_physical_memory_is_io(sccb)) {
++    if (address_space_memory_is_io(as, sccb, 1)) {
+         return -PGM_ADDRESSING;
+     }
+     if ((sccb & ~0x1fffUL) == 0 || (sccb & ~0x1fffUL) == env->psa
+@@ -317,7 +319,8 @@ int sclp_service_call(S390CPU *cpu, uint64_t sccb, uint32_t code)
+     }
  
-         start_paddr = pte & ~0xfff;
--        if (cpu_physical_memory_is_io(start_paddr)) {
-+        if (address_space_memory_is_io(as, start_paddr, 1)) {
-             /* I/O region */
-             continue;
-         }
-@@ -100,7 +100,7 @@ static void walk_pde(MemoryMappingList *list, AddressSpace *as,
-         if (pde & PG_PSE_MASK) {
-             /* 2 MB page */
-             start_paddr = (pde & ~0x1fffff) & ~(0x1ULL << 63);
--            if (cpu_physical_memory_is_io(start_paddr)) {
-+            if (address_space_memory_is_io(as, start_paddr, 1)) {
-                 /* I/O region */
-                 continue;
-             }
-@@ -142,7 +142,7 @@ static void walk_pde2(MemoryMappingList *list, AddressSpace *as,
-              */
-             high_paddr = ((hwaddr)(pde & 0x1fe000) << 19);
-             start_paddr = (pde & ~0x3fffff) | high_paddr;
--            if (cpu_physical_memory_is_io(start_paddr)) {
-+            if (address_space_memory_is_io(as, start_paddr, 1)) {
-                 /* I/O region */
-                 continue;
-             }
-@@ -203,7 +203,7 @@ static void walk_pdpe(MemoryMappingList *list, AddressSpace *as,
-         if (pdpe & PG_PSE_MASK) {
-             /* 1 GB page */
-             start_paddr = (pdpe & ~0x3fffffff) & ~(0x1ULL << 63);
--            if (cpu_physical_memory_is_io(start_paddr)) {
-+            if (address_space_memory_is_io(as, start_paddr, 1)) {
-                 /* I/O region */
-                 continue;
-             }
+     /* the header contains the actual length of the sccb */
+-    cpu_physical_memory_read(sccb, &header, sizeof(SCCBHeader));
++    address_space_read(as, sccb, MEMTXATTRS_UNSPECIFIED,
++                       &header, sizeof(SCCBHeader));
+ 
+     /* Valid sccb sizes */
+     if (be16_to_cpu(header.length) < sizeof(SCCBHeader)) {
+@@ -330,7 +333,8 @@ int sclp_service_call(S390CPU *cpu, uint64_t sccb, uint32_t code)
+      * the host has checked the values
+      */
+     work_sccb = g_malloc0(be16_to_cpu(header.length));
+-    cpu_physical_memory_read(sccb, work_sccb, be16_to_cpu(header.length));
++    address_space_read(as, sccb, MEMTXATTRS_UNSPECIFIED,
++                       work_sccb, be16_to_cpu(header.length));
+ 
+     if (!sclp_command_code_valid(code)) {
+         work_sccb->h.response_code = cpu_to_be16(SCLP_RC_INVALID_SCLP_COMMAND);
+@@ -344,8 +348,8 @@ int sclp_service_call(S390CPU *cpu, uint64_t sccb, uint32_t code)
+ 
+     sclp_c->execute(sclp, work_sccb, code);
+ out_write:
+-    cpu_physical_memory_write(sccb, work_sccb,
+-                              be16_to_cpu(work_sccb->h.length));
++    address_space_write(as, sccb, MEMTXATTRS_UNSPECIFIED,
++                        work_sccb, be16_to_cpu(header.length));
+ 
+     sclp_c->service_interrupt(sclp, sccb);
+ 
 -- 
 2.51.0
 
