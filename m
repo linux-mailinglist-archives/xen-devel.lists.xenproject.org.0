@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC634BA9C88
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 17:22:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1132949.1471154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CF44BA9CB5
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 17:26:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1132964.1471165 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3FhX-0004vC-FP; Mon, 29 Sep 2025 15:22:07 +0000
+	id 1v3Fl3-0005Xk-3E; Mon, 29 Sep 2025 15:25:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1132949.1471154; Mon, 29 Sep 2025 15:22:07 +0000
+Received: by outflank-mailman (output) from mailman id 1132964.1471165; Mon, 29 Sep 2025 15:25:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3FhX-0004t4-CS; Mon, 29 Sep 2025 15:22:07 +0000
-Received: by outflank-mailman (input) for mailman id 1132949;
- Mon, 29 Sep 2025 15:22:05 +0000
+	id 1v3Fl3-0005VJ-01; Mon, 29 Sep 2025 15:25:45 +0000
+Received: by outflank-mailman (input) for mailman id 1132964;
+ Mon, 29 Sep 2025 15:25:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M4Dr=4I=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1v3FhV-0004sx-Hm
- for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 15:22:05 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ <SRS0=i9+i=4I=intel.com=lucas.demarchi@srs-se1.protection.inumbo.net>)
+ id 1v3Fl1-0005V7-Vb
+ for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 15:25:44 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0d31830f-9d48-11f0-9809-7dc792cee155;
- Mon, 29 Sep 2025 17:22:03 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-636255b92c9so3793803a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 08:22:03 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-67-38.play-internet.pl.
- [109.243.67.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-634c065a67csm5924635a12.36.2025.09.29.08.22.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Sep 2025 08:22:02 -0700 (PDT)
+ id 8d5a4b35-9d48-11f0-9809-7dc792cee155;
+ Mon, 29 Sep 2025 17:25:39 +0200 (CEST)
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2025 08:25:37 -0700
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2025 08:25:37 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27; Mon, 29 Sep 2025 08:25:36 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27 via Frontend Transport; Mon, 29 Sep 2025 08:25:36 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.55)
+ by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27; Mon, 29 Sep 2025 08:25:36 -0700
+Received: from CY5PR11MB6139.namprd11.prod.outlook.com (2603:10b6:930:29::17)
+ by CH3PR11MB7868.namprd11.prod.outlook.com (2603:10b6:610:12e::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.16; Mon, 29 Sep
+ 2025 15:25:30 +0000
+Received: from CY5PR11MB6139.namprd11.prod.outlook.com
+ ([fe80::7141:316f:77a0:9c44]) by CY5PR11MB6139.namprd11.prod.outlook.com
+ ([fe80::7141:316f:77a0:9c44%6]) with mapi id 15.20.9160.015; Mon, 29 Sep 2025
+ 15:25:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,170 +63,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d31830f-9d48-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1759159323; x=1759764123; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eIsCU3Cm50J/BipKlMDBnLRM+CdqhNVX1Oigv3bXu20=;
-        b=krLF6ZtmydvVDnXGQy1xSef3MSyFXOTb/xRuxHd7kXjvdQyWjVkHWG74cOAt+FzE3Y
-         r2NQvt/QPyLXJ7IOWXvG1hYpSVo2nBfeUNKc4R4rv2wteVnqzer0+nBBPPG+bTO/CEk4
-         Mb8j4X50gx4ufQ2vzWu5t12jxEMnj5CId6wSKVUJpnzC/Pgz58/3y8kr5nIaMFpDOIjX
-         25XLqP9tftn2c+wcnKLFe3wBkyhpRvWmYGvVFlcmWRPwJ8fVlApJWYwpRnCI8vU2TWmb
-         0JfGDXtiDIlVKFHnDpMZXRgKu16n/wPvGj+vPMf2byrfubpDjN5WclasfGufu8ShrWKQ
-         cq5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759159323; x=1759764123;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=eIsCU3Cm50J/BipKlMDBnLRM+CdqhNVX1Oigv3bXu20=;
-        b=XHE4l9z23mP5uLGPZ2SCuPAi+xlEJHBc9y9T0nEsdjWmpG2rDe8jH1Y/VMx0SqXKad
-         H69aKD5qYQk7E3Ph0WTygu0gdCVl641LXe9cQy2an5pKDbRtqQCdMHD1xSrswGeYRwHt
-         bsyGcn+0c7s0lZW74Ddh/2ieD8iEq9144MV+yoGiibeq/lKnBuMsE6+e7a/gYcWb/rmO
-         fFET4ED0EgHGTd3L/jJnH8tPycPtmi8XCW4PtqmSJ06eZRGzxslP8y7V2GuQC8BDCkCQ
-         jihAt+b+7FX5s/R4R+at0mxIVtrtYXazvzYAwMJXs8UcnSegdbZ7mxf/Xp1pJYjrMbEG
-         4nbQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX7JWj9Gr3z4cwJpf2ufj60mWEReAY0gZ63BqBDyUq2RIfJUOEa0YcrKf/npquBo/L7rsorZBdCNAU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzt56O1j3xUAbwQ7LGb0/nqxYI/LE4XEeCTQ7y0NhnVRno8/wpd
-	IovHwX7kYePjTdUJjmjFV+392kmhT+a7DfI/W3E43rYD0fnOdcY118Ce
-X-Gm-Gg: ASbGnct1SGs+uq/Hga+DTGjOVPOwpel8smiEc4eA82wS7HA9Uxsz0d9Zjt3XkLINW/6
-	mUDxuvqXoF1OsgjVHSHnkWaMUYmh5ggdUfEDvQssOLnZNQds8pmluzJnsTxz5DOTaR9zGPcnqT0
-	DviLPu9ww92K4HXu54qY21avz30wvDjSZkkZGGVmYtNwnGMJ/Qg5pPK1F7qPTHI5dm3ml+30Sq7
-	zzi5rlkvz193gtxPlP29GCOp9QNIowqa/p/qSZtiD2jKKL6AMALmjwTSQzVKv+0+EMtajWJsGX3
-	u9WaudnzK36zIW8iKsT3bla/B/iuDIq90saa77Ga372+x8gOe/leuFCJN4UApqHSPgdqX0O2z66
-	LWPHV/a3rIi3BmOs7n2aup66aUB64vLM5Ey5oYb0Q4VmxCCOQYI5Ui35hS4bDFogQ/PTcZjbCJj
-	oKTbAoiH8=
-X-Google-Smtp-Source: AGHT+IG6YEHTN6QJe/iDwYSk7kWQfckza2LegIdjqlIack5JWjG1gk8kWPIN+xHjB2SgyXy2bpZn3g==
-X-Received: by 2002:a05:6402:3491:b0:636:2ea0:df62 with SMTP id 4fb4d7f45d1cf-6362ea0e02emr5682885a12.38.1759159322594;
-        Mon, 29 Sep 2025 08:22:02 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------ekHcZDyIaLFogqAXAdNV8IOr"
-Message-ID: <fdbc09a0-377a-4561-9efa-93d925e308a0@gmail.com>
-Date: Mon, 29 Sep 2025 17:22:01 +0200
+X-Inumbo-ID: 8d5a4b35-9d48-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1759159540; x=1790695540;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=0yMBbTdrbZsoKnHaFswecQWWVrw035NB0ey/rqgunGY=;
+  b=JWeMT4mXDY9/lE8ttQk/KOeZDGZgKHomuplxGjXonimr1fI0ddLmHACo
+   y1ATwlDYHTJhnxO1K/VFuf5R3XYGj7crzVJqZZsJ1pWBcJXcADiMoV8Gy
+   GyF6oe5BlXaL4VXkYo1P4jw1uwZ6A5N/YTqzQFvPMz/Twrn7GMp3hLJW+
+   8dorKeS4YP6dJ08bGDN9izSGOLaXNzYI3ZI0DkAJT8KbG+aqM8ixoV3cq
+   n4Kn5oUL1gJmb0wvwE9dzXej16c9fjxhVIqec/8j4cOv0PoBcKUGcu5qO
+   sPsV02oqsBj5z42FdUI+/mLCeiLaupJ85bFiXIjmKhNhrghs0JuHInu1S
+   A==;
+X-CSE-ConnectionGUID: 0ucQ4DsqQma3qUdgjMhfAw==
+X-CSE-MsgGUID: klHWdng4QPWocpGTvR8Fuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11568"; a="60615332"
+X-IronPort-AV: E=Sophos;i="6.18,301,1751266800"; 
+   d="scan'208";a="60615332"
+X-CSE-ConnectionGUID: vS2lVLIiSOaesnaX4OriqQ==
+X-CSE-MsgGUID: uoeqhmQtRhiBoZ3bnTr8Kg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,301,1751266800"; 
+   d="scan'208";a="177387425"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IAwpEE3TeyxfuQRigo3ZFdiwxt3TKU8egDzAdn/7KexEXXMPlkI0iHLcoIHdjPYDxlTTltodtWlkePpAD5nHhITvBtRWdJ9fl7gTa8ver572g9K+Z60GTVfDV3Lcz/dDfrIfE/eASzwb31JYNDIIU5aq7bbxsbspRIZ4GoWfc086A9pOA3IEYCSA20lIsCmuLjngURZFMP3MQo9aRTJxkr4ntyDNqOquYeKWlSp2t2DM/+VZvi2xur1XgM50PjxMNKiK65iwvJM4dwrrPckjSOFyG06v4eaNzq2Ou8SOZe6g0fTBUZp0N6OWX6gAQKxwUBFxfDQBm/TIfTdrQYNU6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p0lyNX3BUmvGp66jtnY0mXVEFk176o4Cm6HjnAa0dFc=;
+ b=Z5LhSpWQae9MRZPSfIY2nZ4Xr4C58nQ+SWYgMWJMlswkLSFVK6RcuQP2X7++EEnGyHSMgpvi6Bnb9aW+3f7s4Tw4NK+gIHLdtiysg9nG6Y79zdKA/RzXu2Nj5najeblC5z/AmbHs1/oyM7hAO7vz1LAyQdI2YYGYPKRo8ac4DVrAlijbS0hTAtygyBy/8oCRPkbD5Oh5kUsdSmSgUp4AQEkKrYT5yTBUHtEFbxIp1IauYZsSs88NjBV7sm9x42uPvDl6gNBbhkE1xwJwflJFVhjQ55HicAm/MtDi32gW+lF2mbBsbp6jfL1oFOKojflhWHhmNoz3+CrelPEXhcH+hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Date: Mon, 29 Sep 2025 10:25:26 -0500
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+CC: <simona@ffwll.ch>, <airlied@gmail.com>, <mripard@kernel.org>,
+	<maarten.lankhorst@linux.intel.com>, <geert@linux-m68k.org>,
+	<tomi.valkeinen@ideasonboard.com>, <dri-devel@lists.freedesktop.org>,
+	<linux-mediatek@lists.infradead.org>, <freedreno@lists.freedesktop.org>,
+	<linux-arm-msm@vger.kernel.org>, <imx@lists.linux.dev>,
+	<linux-samsung-soc@vger.kernel.org>, <nouveau@lists.freedesktop.org>,
+	<virtualization@lists.linux.dev>, <spice-devel@lists.freedesktop.org>,
+	<linux-renesas-soc@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
+	<linux-tegra@vger.kernel.org>, <intel-xe@lists.freedesktop.org>,
+	<xen-devel@lists.xenproject.org>, Matthew Auld <matthew.auld@intel.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	"Rodrigo Vivi" <rodrigo.vivi@intel.com>
+Subject: Re: [PATCH v6 23/25] drm/xe: Compute dumb-buffer sizes with
+ drm_mode_size_dumb()
+Message-ID: <urjqzmhgj2otboptnkgwa3bampqxi362xxtlmbrwf5td3qm3rf@pplm7q755sgg>
+References: <20250821081918.79786-1-tzimmermann@suse.de>
+ <20250821081918.79786-24-tzimmermann@suse.de>
+Content-Type: text/plain; charset="iso-8859-1"; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250821081918.79786-24-tzimmermann@suse.de>
+X-ClientProxiedBy: SJ0PR03CA0356.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c::31) To CY5PR11MB6139.namprd11.prod.outlook.com
+ (2603:10b6:930:29::17)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] xenconsole: Add connection flag
-To: Anthony PERARD <anthony@xenproject.org>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
- <jgross@suse.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Anthony PERARD <anthony.perard@vates.tech>
-References: <20250822213946.245307-1-jason.andryuk@amd.com>
- <e5382a07-7044-4999-9232-07dcf677fb97@suse.com> <aNqHwGSihJfigmXC@l14>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <aNqHwGSihJfigmXC@l14>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR11MB6139:EE_|CH3PR11MB7868:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a7ce1ba-c1b5-42d1-e603-08ddff6c6cdd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014|7053199007;
+X-Microsoft-Antispam-Message-Info: =?iso-8859-1?Q?JgDW+n75dUbON4IcrAM9gXBZeut+NEYdDAKyzZMSOy/a+UAuYmOb+aKsvU?=
+ =?iso-8859-1?Q?tCxTC3tEevtR3QvGENanInjPLdTlWNlZcnks8+8Qp5gWnFCg1aY/14KpP1?=
+ =?iso-8859-1?Q?4qi4d3SdqCXhs2SuIQ5kUf8ocjlXBi3gGUL3N6VtHgZ3QYyHHHmErPXO9f?=
+ =?iso-8859-1?Q?gnwyFOh1aZZHuIVZ+jdZvWrAbQoa4X/M9Gx0268kC2MU+4SGTh6fNmstTq?=
+ =?iso-8859-1?Q?yuIZugOJky1ADC4PCtssiCS6JwPmw55y6iVWduEskvnd9iqrTsu1yP0t1t?=
+ =?iso-8859-1?Q?Ta4WQOWP6vcEv9zsP1a4fQe3Pu6eXuqkSyAo2Sc5nrUn/+TLN8ZCep9kL6?=
+ =?iso-8859-1?Q?Q+9Br37abcU7w1/FWFihWz9YZH+HV6y/3XiCh4RGIiYa/XnhQZ/YhScxv2?=
+ =?iso-8859-1?Q?5OvuNee3VvQajgQIrlDgY/yQLkGQNrK3uuXLghItw9ByUbiDwyXJuy/ykW?=
+ =?iso-8859-1?Q?8TgF9r/OM17ur2r3p+knOkgFxpnV+/XndLk+9xdpOsNz9s+N0gsdCcNoSK?=
+ =?iso-8859-1?Q?saksMVF0xvZYRUnGkkPMOSMo3tRhH6+SI2vhqcxS6hcfu0NEB4vMGuZmYf?=
+ =?iso-8859-1?Q?z/TbXTR6VOMLmEmK3mllz5S2EHuY7mOZ7ex4f6VYQfBUWLD5h5LbjkVGZT?=
+ =?iso-8859-1?Q?oA/a8HFZaVBgyhhsXAdyEMBm39S70+Cqaepit0axuvwgFeIdE1XkBrcz5a?=
+ =?iso-8859-1?Q?RflIi0Ebji0+KsOSssR2H24pqCzwhW5eHXNEZwbPLGll2hpmzOGXoHF3Bz?=
+ =?iso-8859-1?Q?Lc79hnyc9etauCvWTuwUoozkWAO44Iwe4+shAQgUNpCCGi7CV+coxseyUo?=
+ =?iso-8859-1?Q?ywymFa0LuOTuFCn4goljNp4eMb/zKZnPmrrcu0OvktrQ5qosuafP+K2vmv?=
+ =?iso-8859-1?Q?8iPf2rIricA/DwxlAShRF3F/2Fy6jMTWNnh6APdQUe1CJTMsgOhiRcd05e?=
+ =?iso-8859-1?Q?YW8bF010UdNqsFwUUKnls+91hJ1i6llKjYn1VH3289GExOOE0gLUW+Xn2L?=
+ =?iso-8859-1?Q?ZvT1FDXgQFj5EHUdxItCwyxt5yQA3fMcsaE5KRCnTM4N2j08tfaQo/oLXj?=
+ =?iso-8859-1?Q?iKjGRZOOTwL9ZDDHVx8AtciEN5dNNotEUKZgMgB6UKtV7qql8ekeDpV18P?=
+ =?iso-8859-1?Q?YXSXhQ5S0XP6e79FHqi+Pmw5pozxkkiomhzHrWcDz/qzEoLKtjyTgYSef8?=
+ =?iso-8859-1?Q?S3a1oln1tvHgGho0n0pt1hPT0Lgi+/MCITrpuxS8e9Tozz429RqX6HdTGu?=
+ =?iso-8859-1?Q?3zHqfcltAvbghVkwYdlHahSiy8WLYK8OTFwek9I9L+azzGQCSLClQqA5z2?=
+ =?iso-8859-1?Q?apDFYN5gHs1R8/gZ4tBt2PrLkECT9zChKzIUcbH2adPfX+8usn45OXLA0e?=
+ =?iso-8859-1?Q?WAPi8Ou/7jcUgs6Z3PwR+G/RNscLdUey7h8yOCZJTxdjlVml4iiGxZNxSm?=
+ =?iso-8859-1?Q?4vuXK9k/zSmZVsXCJz7YXxG+tP4jZjELxTtG8yyHqeBJD0rs+JcQXGh+I0?=
+ =?iso-8859-1?Q?rNuG3CeJO2uNuFBAoulLs8?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR11MB6139.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?tf+wSmX7h/PnweaMVgGBvU1wGT0ZB0STuf3BwXg60UfCA3drqBKZRzfS2o?=
+ =?iso-8859-1?Q?/ZqyAt8WbVigpR4VfkcYUTV5JH4wmQjVB92GX9SXWnOdvX0yHShHvseWqJ?=
+ =?iso-8859-1?Q?eZDiBjN3EnQvVHFuN1lmQZik9qaurcI4cnAmHN7UwET+zC1dYN+2HXw+kN?=
+ =?iso-8859-1?Q?jXEQvFnrMgmwyy6xi3lPZ73k1wjUlfMbbCvgoIgfVr/W564ntjQwwWRe9v?=
+ =?iso-8859-1?Q?9SfZrG/d253ATx7IpyWYhGRg3uTb+TwBEOFSzEl22OMYITk22ctzjVh+Bm?=
+ =?iso-8859-1?Q?ZmtihVqNuZh03gk/k1fqMKCKLbfRrwmbQssAGaXI/ZHufVCNwn+7lmwk0T?=
+ =?iso-8859-1?Q?CP9lUSbsgHw1tCLza/3qCGF8b2092Bzlgq+sD3uVfRD9hKAEMSaSW6Fbab?=
+ =?iso-8859-1?Q?YZIg6TKncLqE1bwahGeLIKcPJsCoiE5Yg50PikcKh9YkTyPx7mpKz/vJ8H?=
+ =?iso-8859-1?Q?oNyK3OObWUrdYNC071IO56fr62hyDlSIaiTjtLTmi5uKhRU8ljuyJ7PL+p?=
+ =?iso-8859-1?Q?2RkLhJkCEOtWDU2RdJX6UgjUAsGzAsr2bYznvl/M0gDuGEItNvlZISCO9m?=
+ =?iso-8859-1?Q?g5C2rMxSORI3gzgrwgFS9EzItU3VCJcqlr9hDrmJuxoAbk1nSAOvF6fluf?=
+ =?iso-8859-1?Q?LAqrEqRdh2HXRC5fTtwfdCmfydp/hO0Yre55Vbww4HojqLu+EHq2WYmUd7?=
+ =?iso-8859-1?Q?Qp9c3CoItHfMRMNTfx4O7qO0yi9wimzMAg+R+BmUzmcMQH3Q6MkTr1ayY8?=
+ =?iso-8859-1?Q?F8baLI3Zgsj09YIuLO7JCFoxBR9ERxUYi81gE86u2y/jICQeUZbzTwQMGt?=
+ =?iso-8859-1?Q?IakF75T0fSagXPQhtVPJwKb+xUlTGNcGGWvGqRgzUTkG/9wIRT5v4QVc98?=
+ =?iso-8859-1?Q?SqGxkfewdurHzRIATCiyDv8BlEBusHKEdpX+gY24BZslMJ1YVDWeMkzPDS?=
+ =?iso-8859-1?Q?rxBLSQIQ8j3eGiTGDVbqjOzFg8Q1x5cdpIIGYkoo5uUmx5onN623haWiGU?=
+ =?iso-8859-1?Q?fSaSkyGTNbRaTHpSj+N+RhvNy4EV1KPhvvwpLVInZekMy4qTpf5ubCmtoj?=
+ =?iso-8859-1?Q?5pwOeO5g7k1MAPL/a2rgceK8LoBbN8h7f3NExpmKEjbKu1FiG8uEQ+BMrq?=
+ =?iso-8859-1?Q?QiqC8BZNY/+sowidrZ6lROpaxzecQ/h2vkSTDbFWqxZFfmn/zBNgevm6r9?=
+ =?iso-8859-1?Q?gDnSYU8NChMM3/5O8rCs4XjqNgoZ9KIXeEs9SyPnjHPVP7yxOsySAO+dU8?=
+ =?iso-8859-1?Q?S5qZsL+o3i71xBVpWiILJ0WVOLHghYmdKrvx6MsFWa7yBHyTPrTHh341cw?=
+ =?iso-8859-1?Q?M7qCAORFBYr7Af5aAE0uKr9GGokIm9AYeZzpPKwX43CvrDLJEGIns1TzRU?=
+ =?iso-8859-1?Q?+Qz5LXGuRr5O9V09fGEAIZZtS7YH0Qi6eWccHvSIeCEtCIqcov7bkMzq8H?=
+ =?iso-8859-1?Q?KddXqiHCb+6Rf7yZqvmWQ11P44fhmrrtnnlZiW40JoFSLA2Qh9pFy9cyUq?=
+ =?iso-8859-1?Q?z9B1ojp3dThQaNxhHdzpG7gbcdQT1tPzpH+C7Gkc3UHxQBo0zuTEyIWFpi?=
+ =?iso-8859-1?Q?39Xm8PFGxEcvySM/nnU4Y3W2CrbOeb0yURH1IAPAZKBi41k9iv+GSveqDc?=
+ =?iso-8859-1?Q?jEs7O4tDnTQqR/7eh3t+Ml3LB7BiINHuWC4QScIjbJNUeNzjTVfwJ1cg?=
+ =?iso-8859-1?Q?=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a7ce1ba-c1b5-42d1-e603-08ddff6c6cdd
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6139.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2025 15:25:30.8021
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eZARfbdpVMrNRufPMp0vxzwZrI+oykbORRY+0kxlNZv8Erp/UhQ4BBo4LgIufw57mOjduLFIUfwUc6K6PQD0eQggml19NKcmIrHLZQXWOZg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB7868
+X-OriginatorOrg: intel.com
 
-This is a multi-part message in MIME format.
---------------ekHcZDyIaLFogqAXAdNV8IOr
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 9/29/25 3:21 PM, Anthony PERARD wrote:
-> On Tue, Sep 09, 2025 at 12:18:26PM +0200, Jürgen Groß wrote:
->> On 22.08.25 23:39, Jason Andryuk wrote:
->>> Add a connection flag to the console interface page so a domain can tell
->>> if it is connected or not.  This became a series in v2 to add flag
->>> setting to libxenguest.
->>>
->>> Jason Andryuk (3):
->>>     xenconsole: Add connection flag
->>>     libs/guest: Set console page to disconnected
->>>     libs/guest: Set console as disconnected on resume
->>>
->>>    tools/console/daemon/io.c                |  4 +++
->>>    tools/include/xenguest.h                 |  4 +++
->>>    tools/libs/guest/xg_dom_arm.c            |  2 +-
->>>    tools/libs/guest/xg_dom_boot.c           | 36 ++++++++++++++++++++++++
->>>    tools/libs/guest/xg_dom_x86.c            |  6 ++--
->>>    tools/libs/guest/xg_sr_restore_x86_hvm.c |  2 +-
->>>    tools/libs/guest/xg_sr_restore_x86_pv.c  |  1 +
->>>    xen/include/public/io/console.h          | 13 +++++++++
->>>    8 files changed, 63 insertions(+), 5 deletions(-)
->>>
->> For the series:
->>
->> Reviewed-by: Juergen Gross<jgross@suse.com>
-> For the series:
-> Acked-by: Anthony PERARD<anthony.perard@vates.tech>
+On Thu, Aug 21, 2025 at 10:17:30AM +0200, Thomas Zimmermann wrote:
+>Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch
+>and buffer size. Align the pitch to a multiple of 8. Align the
+>buffer size according to hardware requirements.
 >
-> Hi Oleksii,
-> I think this series needs your "release-ack" tag.\
+>Xe's internal calculation allowed for 64-bit wide buffer sizes, but
+>the ioctl's internal checks always verified against 32-bit wide limits.
+>Hance, it is safe to limit the driver code to 32-bit calculations as
+>well.
+>
+>v3:
+>- mention 32-bit calculation in commit description (Matthew)
+>
+>Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+>Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+>Cc: "Thomas Hellstr�m" <thomas.hellstrom@linux.intel.com>
+>Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-It is a little bit too late. But considering that this patch should increase
-boot performance (right?) and it is pretty straightforward, I think (IIUC regarding
-boot performance) we can consider these patch series to be in 4.21:
-  Release-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+Acked-by: Lucas De Marchi <lucas.demarchi@intel.com>
 
-~ Oleksii
+to merge this via drm-misc.
 
---------------ekHcZDyIaLFogqAXAdNV8IOr
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+thanks
+Lucas De Marchi
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 9/29/25 3:21 PM, Anthony PERARD
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:aNqHwGSihJfigmXC@l14">
-      <pre wrap="" class="moz-quote-pre">On Tue, Sep 09, 2025 at 12:18:26PM +0200, Jürgen Groß wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On 22.08.25 23:39, Jason Andryuk wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">Add a connection flag to the console interface page so a domain can tell
-if it is connected or not.  This became a series in v2 to add flag
-setting to libxenguest.
-
-Jason Andryuk (3):
-   xenconsole: Add connection flag
-   libs/guest: Set console page to disconnected
-   libs/guest: Set console as disconnected on resume
-
-  tools/console/daemon/io.c                |  4 +++
-  tools/include/xenguest.h                 |  4 +++
-  tools/libs/guest/xg_dom_arm.c            |  2 +-
-  tools/libs/guest/xg_dom_boot.c           | 36 ++++++++++++++++++++++++
-  tools/libs/guest/xg_dom_x86.c            |  6 ++--
-  tools/libs/guest/xg_sr_restore_x86_hvm.c |  2 +-
-  tools/libs/guest/xg_sr_restore_x86_pv.c  |  1 +
-  xen/include/public/io/console.h          | 13 +++++++++
-  8 files changed, 63 insertions(+), 5 deletions(-)
-
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-For the series:
-
-Reviewed-by: Juergen Gross <a class="moz-txt-link-rfc2396E" href="mailto:jgross@suse.com">&lt;jgross@suse.com&gt;</a>
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-For the series:
-Acked-by: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
-
-Hi Oleksii,
-I think this series needs your "release-ack" tag.\</pre>
-    </blockquote>
-    <pre>It is a little bit too late. But considering that this patch should increase
-boot performance (right?) and it is pretty straightforward, I think (IIUC regarding
-boot performance) we can consider these patch series to be in 4.21:
- Release-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------ekHcZDyIaLFogqAXAdNV8IOr--
+>---
+> drivers/gpu/drm/xe/xe_bo.c | 8 ++++----
+> 1 file changed, 4 insertions(+), 4 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+>index 6fea39842e1e..2be7a618165a 100644
+>--- a/drivers/gpu/drm/xe/xe_bo.c
+>+++ b/drivers/gpu/drm/xe/xe_bo.c
+>@@ -9,6 +9,7 @@
+> #include <linux/nospec.h>
+>
+> #include <drm/drm_drv.h>
+>+#include <drm/drm_dumb_buffers.h>
+> #include <drm/drm_gem_ttm_helper.h>
+> #include <drm/drm_managed.h>
+> #include <drm/ttm/ttm_backup.h>
+>@@ -3130,14 +3131,13 @@ int xe_bo_dumb_create(struct drm_file *file_priv,
+> 	struct xe_device *xe = to_xe_device(dev);
+> 	struct xe_bo *bo;
+> 	uint32_t handle;
+>-	int cpp = DIV_ROUND_UP(args->bpp, 8);
+> 	int err;
+> 	u32 page_size = max_t(u32, PAGE_SIZE,
+> 		xe->info.vram_flags & XE_VRAM_FLAGS_NEED64K ? SZ_64K : SZ_4K);
+>
+>-	args->pitch = ALIGN(args->width * cpp, 64);
+>-	args->size = ALIGN(mul_u32_u32(args->pitch, args->height),
+>-			   page_size);
+>+	err = drm_mode_size_dumb(dev, args, SZ_64, page_size);
+>+	if (err)
+>+		return err;
+>
+> 	bo = xe_bo_create_user(xe, NULL, NULL, args->size,
+> 			       DRM_XE_GEM_CPU_CACHING_WC,
+>-- 
+>2.50.1
+>
 
