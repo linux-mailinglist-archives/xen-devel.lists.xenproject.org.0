@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB042BA9D03
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 17:35:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1132978.1471179 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 474E7BA9D1E
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 17:42:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1132991.1471189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Fu6-0007Cm-VJ; Mon, 29 Sep 2025 15:35:06 +0000
+	id 1v3G0V-0000QQ-Li; Mon, 29 Sep 2025 15:41:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1132978.1471179; Mon, 29 Sep 2025 15:35:06 +0000
+Received: by outflank-mailman (output) from mailman id 1132991.1471189; Mon, 29 Sep 2025 15:41:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Fu6-0007Aw-SK; Mon, 29 Sep 2025 15:35:06 +0000
-Received: by outflank-mailman (input) for mailman id 1132978;
- Mon, 29 Sep 2025 15:35:06 +0000
+	id 1v3G0V-0000NX-Ho; Mon, 29 Sep 2025 15:41:43 +0000
+Received: by outflank-mailman (input) for mailman id 1132991;
+ Mon, 29 Sep 2025 15:41:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M4Dr=4I=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1v3Fu6-0007Aq-1s
- for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 15:35:06 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ id 1v3G0T-0000NR-VA
+ for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 15:41:42 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id de437e75-9d49-11f0-9809-7dc792cee155;
- Mon, 29 Sep 2025 17:35:03 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-62fb48315ddso8715055a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 08:35:03 -0700 (PDT)
+ id c9eeb587-9d4a-11f0-9809-7dc792cee155;
+ Mon, 29 Sep 2025 17:41:39 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-b0418f6fc27so685986766b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 08:41:39 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-67-38.play-internet.pl.
  [109.243.67.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b3545a98d7fsm946635966b.100.2025.09.29.08.35.01
+ a640c23a62f3a-b353e5d168dsm970071066b.4.2025.09.29.08.41.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Sep 2025 08:35:02 -0700 (PDT)
+ Mon, 29 Sep 2025 08:41:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,147 +45,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de437e75-9d49-11f0-9809-7dc792cee155
+X-Inumbo-ID: c9eeb587-9d4a-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1759160103; x=1759764903; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1759160498; x=1759765298; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=St7MtK7lqhceGoxH8AAxicUHeyaRpXl1YBow1O0Mb/U=;
-        b=kK4ARTDvdj6EBBm9Qx2fQQwaDRqyJL4cAqzr25YnycZf/rwTOSik8o0hKgoJgPdzmg
-         Ef0OxvJLq/DZOAJU2s8t9B2ET7+JXA8gvpkDSDzgX3g1tRGcczCJgKz11dZEbzLpIjIX
-         Fdrm5SpJbwpdd8tixoJ1Q+tzDHvdp9jETOklKUDn2znC0pi6LPWhtcMa/zMyl2ueHXh6
-         24aq1HHibaZZOk5d5i/jkKe1RqZPnxzwUOhrKqj/EK8HJWnDaSxSCO7clGXWxfDLC6+W
-         MuxLLweNoxb/+d8UuUS6L0ZgwQS1qJDhFOdVUK45c/m4IRyIOLcK4NcBOg/8no2VjzNo
-         4KDw==
+        bh=JJJjl9X4f5zstmqMmUJl4SeXx33I5cLkKaLg7u6XmcU=;
+        b=QdCHsIxolSMkQGZsIGY0WVB24b+fQTLI6u2htEKI/gvWUvsiD3ekt0XAAuFkFj/flA
+         hSm9FNu32PSxF/wnmloW9mam9TIEQLHb//pPZztWwCTJlSqma6BXhfiale9PodVt24Nx
+         akUvvC+V4nI7nUUQ/GPKPPnCuaxEACk4Xm4/43oWZrI1oV65drwcDVWvgvgXU90hpj6s
+         ZrahgccX2h7Noyxmv1MqOvmc0nTKGgc068N8J8KAu+EJ6dMeiq888y3+rvBbdI7920cx
+         kDlo6HX+6dxVmAF+xgdoyULsl8VDflkT5BHcbdjAv+phS7QxoQn5iMm2ZRr5+k5CpvRT
+         szQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759160103; x=1759764903;
+        d=1e100.net; s=20230601; t=1759160498; x=1759765298;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=St7MtK7lqhceGoxH8AAxicUHeyaRpXl1YBow1O0Mb/U=;
-        b=izhoM5fuROf06CowTBZrtL5ARUafsyjuKxsm+yESCeJsXv1oY8lvrvNoKslCw5mcWP
-         RC8cFkyDnB/aCq8QRwCjoVEekV37gZYDWM0h+CpOOx2UutxbiIBZI2BReNrlTTg3rlSH
-         cHRw7sA57vNSRz2g9vpjLCqxtCY/Tvn6fKMAhROehKHvUqeAX2fbdn6Jk0GDaZfTDYYb
-         sPj4RtM0QiK3CQnb4hoIn+q/F59he4HGsDJgduWwsyxYvzvO1lt3akXISZZ0oADCdfuk
-         yV29mSxcOnnjy2PYKn0xzevcQcrzWBJ4aV2AXV1Yhddykc5/Di47UA9k6S256QSXSYi8
-         gbOg==
-X-Forwarded-Encrypted: i=1; AJvYcCXCjj5/2uy4eEpjTWsIFS2Io6bfvFOSXu5/l0Q6VPC4E2bmhmj/kv+agfdHz9Xfs+VLeDqRJaeB1js=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YztepRl9eaAmZi01RSx/uZUS5jSLl2fXbSWk731Y2tV/Tq/OfeM
-	0JK3r59jyHVlrdp4EUMdY+L2MPDKKfzQEuK9sCEczr/OOdvbWFxWGLuj
-X-Gm-Gg: ASbGncuum7F0YOqdC7M8BWBSps+v+X917y3Ea4uRDwLWQbqRzJD87o6a4w0dV7QvMiS
-	DozW0Fw5T3IuMzvCqh53OTjBuhnWxYaghayUeK3v0wzK/tGz7gzlt00IwptWqX2dG0b6V9zAWJk
-	dP/JsX7p5EDf95wdmom1vhjiSeXTHtPj7DQIDPxjeg6jbpesYgBHShRuCVIf+32+rbaDQfAQZbr
-	xS0n69QeCzLb/Xp7fnIj4xwT8sv39EP0OpilD8dzSt9ZKOTM17w1hZ74aEnNfkcLJrRTNK8djFc
-	UFHL9C1AP04ARPl7BsPs92hQZW/wwshaHX3vDRyXFr47dUI+woGAUf3LyUuABJkIrFrRxmeoXyg
-	ipwBeAmkky30g/aM4brmBTS3RQfKxbIrrtW0VNgIL5JHwNeb6zt8Iuu+96HJC4pYv0+W+eg2Vuy
-	2P6qaboPA=
-X-Google-Smtp-Source: AGHT+IED3nY2IeswDKHnxjb2JCmFaDg/GhqWKfgRq1asooCVh8DCSPdOrP2Hs3ymU5m2+wxfqz7sDg==
-X-Received: by 2002:a17:906:dc89:b0:b3d:b3fe:27ed with SMTP id a640c23a62f3a-b3db3fe2fa1mr613933866b.57.1759160102850;
-        Mon, 29 Sep 2025 08:35:02 -0700 (PDT)
+        bh=JJJjl9X4f5zstmqMmUJl4SeXx33I5cLkKaLg7u6XmcU=;
+        b=TYlEP8k+29FTc288YwSG5WrfHeankr7TX1+ipr0Bq3xohjDDGYxDxUlUEPd7FIr20u
+         IU96mwxygfx0gYr3Mhg5K7XaIZsXjBIOvz95+ZzhRPqKcyZ04+/fODmY0C2DUa9SXxh8
+         82UukT1gBXTFjJTNDoMMRWcdyyr2w+IApPtJji1Xg7S3EJ0jMo6XuRKWCoyScNm+j6zr
+         J1iBDm/rPtVnGXeknIibkI01PjkZGMVHJBEA+j5v4WZhXy4KJbTPcd2mb3hvITPOg9JD
+         ovq9gGjtkSb93dxZ6qDiEodieQXQHCB0D7wJiHw1QBeyqvDEcxDpraitPqvT/O2hlSCJ
+         nXow==
+X-Forwarded-Encrypted: i=1; AJvYcCVcuvq0FBrujbXBR3r1h5TikFBH6P8NY7HpdvmUz0qHGQGjnD4DfskLkWuRtwzChXoH4Prf96XIjDo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz0b6xpNzBDoovwqpUaR/h2QJ+e+JCtbBE9S+ZHgjLLckbVdFWF
+	as4RrKPMszhxVsgF9Pj7FQJhrK2m9nqLXhe1to8sUJ9Oz6/UZulocuEq
+X-Gm-Gg: ASbGnctHK2TWDdwGo8ZGxoibraEyVExd+gSSxIlcUSZZUdEOIujiedEJ57lwwRqSKDd
+	3p0vJqW3GqUS7OVGF0/DJsFXgHZ4nyQwamdU6JsjZg8Hfe3wU0dtDQTcHQGuJx8YQPUwfZlSvpo
+	61+00X2WqDF3wc5ZaFLGSpAPzhdhlnguY+0MKrdbqSAk2XII7X4+TmRl1Txd0aaQXGUk/4WEu/s
+	9kVdJVenmYu54IGGvUKDaT7XM62VSbhryq6c7oyvzHzErLDhusLYDYOI1nTYNKVsjx8QZ5m2tyw
+	oNy0EsM/HyXw0eBp1cCOhACuxT0eWVa64Ju0thDT6P/EDOtohtPi8ZUZoDz+++bkMUqiGOsCemI
+	E6sMk+H93VC1Bga7WjnIRkEUWW00TuhpB44t13zbrtb03ymZzO2h29JMjO8ykYG8K7Shfx58Ieg
+	RtsxlkOow=
+X-Google-Smtp-Source: AGHT+IEI3ZtP4UJcMxmXtVsEmNNvwRnBEhvRevQfIQBU4V/51Gaz9p1mdOZldFWYre3zxjNQI/HNXA==
+X-Received: by 2002:a17:907:6093:b0:afe:6c9b:c828 with SMTP id a640c23a62f3a-b34bd93b2e9mr1805028766b.61.1759160498250;
+        Mon, 29 Sep 2025 08:41:38 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------d6rGK2ExZZTEDgY53x6yI8f5"
-Message-ID: <a9f5969b-c9b8-4384-b4df-58c7951766ec@gmail.com>
-Date: Mon, 29 Sep 2025 17:35:01 +0200
+ boundary="------------X7Xm0A6ykrh0qtygjMNPUvqM"
+Message-ID: <d0d36b5d-5e4e-437d-a4ae-e5796599a471@gmail.com>
+Date: Mon, 29 Sep 2025 17:41:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 0/8] Allow to build libxl and other tools with
- json-c instead of yajl
-To: Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v2 18/26] xen/domctl: wrap xsm_getdomaininfo() with
+ CONFIG_MGMT_HYPERCALLS
+To: Jan Beulich <jbeulich@suse.com>, "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Andryuk, Jason" <Jason.Andryuk@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Community Manager <community.manager@xenproject.org>
-References: <20250929120756.46075-1-anthony@xenproject.org>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
+ <20250910073827.3622177-19-Penny.Zheng@amd.com>
+ <a8b93dcc-c003-49a6-8a78-5fb890cbaec0@suse.com>
+ <DM4PR12MB8451BE98219C343F8F62482AE11FA@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <66b43c3b-c74f-4c18-b91a-bd7b56a62eff@suse.com>
+ <DM4PR12MB84518B65027B6A355ED4D246E11EA@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <af57c032-541d-4956-85de-269066c50cd3@suse.com>
+ <IA1PR12MB8467188458BA8FAF348AC538E11EA@IA1PR12MB8467.namprd12.prod.outlook.com>
+ <a5224376-f89d-4a2f-8a74-e5256352f754@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <20250929120756.46075-1-anthony@xenproject.org>
+In-Reply-To: <a5224376-f89d-4a2f-8a74-e5256352f754@suse.com>
 
 This is a multi-part message in MIME format.
---------------d6rGK2ExZZTEDgY53x6yI8f5
+--------------X7Xm0A6ykrh0qtygjMNPUvqM
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
-On 9/29/25 2:07 PM, Anthony PERARD wrote:
-> From: Anthony PERARD<anthony.perard@vates.tech>
+On 9/26/25 9:14 AM, Jan Beulich wrote:
+> On 26.09.2025 08:57, Penny, Zheng wrote:
+>>> -----Original Message-----
+>>> From: Jan Beulich<jbeulich@suse.com>
+>>> Sent: Friday, September 26, 2025 2:53 PM
+>>>
+>>> On 26.09.2025 06:41, Penny, Zheng wrote:
+>>>>> -----Original Message-----
+>>>>> From: Jan Beulich<jbeulich@suse.com>
+>>>>> Sent: Thursday, September 25, 2025 10:29 PM
+>>>>>
+>>>>> On 25.09.2025 11:41, Penny, Zheng wrote:
+>>>>>>> -----Original Message-----
+>>>>>>> From: Jan Beulich<jbeulich@suse.com>
+>>>>>>> Sent: Thursday, September 11, 2025 9:30 PM
+>>>>>>>
+>>>>>>> On 10.09.2025 09:38, Penny Zheng wrote:
+>>>>>>>> --- a/xen/include/xsm/xsm.h
+>>>>>>>> +++ b/xen/include/xsm/xsm.h
+>>>>>>>> @@ -55,8 +55,8 @@ struct xsm_ops {
+>>>>>>>>       void (*security_domaininfo)(struct domain *d,
+>>>>>>>>                                   struct xen_domctl_getdomaininfo *info);
+>>>>>>>>       int (*domain_create)(struct domain *d, uint32_t ssidref);
+>>>>>>>> -    int (*getdomaininfo)(struct domain *d);
+>>>>>>>>   #ifdef CONFIG_MGMT_HYPERCALLS
+>>>>>>>> +    int (*getdomaininfo)(struct domain *d);
+>>>>>>>>       int (*domctl_scheduler_op)(struct domain *d, int op);
+>>>>>>>>       int (*sysctl_scheduler_op)(int op);
+>>>>>>>>       int (*set_target)(struct domain *d, struct domain *e); @@
+>>>>>>>> -234,7
+>>>>>>>> +234,11 @@ static inline int xsm_domain_create(
+>>>>>>>>
+>>>>>>>>   static inline int xsm_getdomaininfo(xsm_default_t def, struct
+>>>>>>>> domain
+>>>>>>>> *d)  {
+>>>>>>>> +#ifdef CONFIG_MGMT_HYPERCALLS
+>>>>>>>>       return alternative_call(xsm_ops.getdomaininfo, d);
+>>>>>>>> +#else
+>>>>>>>> +    return -EOPNOTSUPP;
+>>>>>>>> +#endif
+>>>>>>>>   }
+>>>>>>> This is in use by a Xenstore sysctl and a Xenstore domctl. The
+>>>>>>> sysctl is hence already broken with the earlier series. Now the
+>>>>>>> domctl is also being screwed up. I don't think MGMT_HYPERCALLS
+>>>>>>> really ought to extend to any operations available to other than the core
+>>> toolstack.
+>>>>>>> That's the Xenstore ones here, but also the ones used by qemu
+>>>>>>> (whether run in
+>>>>> Dom0 or a stubdom).
+>>>>>> Maybe not only limited to the core toolstack. In
+>>>>>> dom0less/hyperlaunched
+>>>>> scenarios, hypercalls are strictly limited. QEMU is also limited to
+>>>>> pvh machine type and with very restricted functionality(, only acting
+>>>>> as a few virtio-pci devices backend). @Andryuk, Jason @Stabellini,
+>>>>> Stefano Am I understanding correctly and thoroughly about our scenario here for
+>>> upstream?
+>>>>>> Tracking the codes, if Xenstore is created as a stub domain, it
+>>>>>> requires
+>>>>> getdomaininfo-domctl to acquire related info.  Sorry, I haven't found
+>>>>> how it was called in QEMU...
+>>>>>
+>>>>> It's not "it"; it's different ones. First and foremost I was thinking
+>>>>> of
+>>>>>   * XEN_DOMCTL_ioport_mapping
+>>>>>   * XEN_DOMCTL_memory_mapping
+>>>>>   * XEN_DOMCTL_bind_pt_irq
+>>>>>   * XEN_DOMCTL_unbind_pt_irq
+>>>>> but there may be others (albeit per the dummy xsm_domctl() this is
+>>>>> the full set). As a general criteria, anything using XSM_DM_PRIV
+>>>>> checking can in principle be called by qemu.
+>>>>>
+>>>> Understood.
+>>>> I assume that they are all for device passthrough. We are not accepting device
+>>> passthrough via core toolstack in dom0less/hyperlaunch-ed scenarios. Jason has
+>>> developed device passthrough through device tree to only accept "static
+>>> configured" passthrough in dom0less/hyperlaunch-ed scenario, while it is still
+>>> internal , it may be the only accept way to do device passthrough in
+>>> dom0less/hyperlaunch-ed scenario.
+>>>
+>>> Right, but no matter what your goals, the upstream contributions need to be self-
+>>> consistent. I.e. not (risk to) break other functionality. (Really the four domctl-s
+>>> mentioned above might better have been put elsewhere, e.g. as dm-ops. Moving
+>>> them may be an option here.)
+>> Understood.
+>> I'll move them all to the dm-ops
+> Before you do so, please consider the consequences, though (I said "may" for a
+> reason). Also please allow others to chime in. (In this context I notice that
+> several REST maintainers weren't even Cc-ed here, and hence may not have seen
+> the earlier discussion.)
 >
-> Patch series available in this git branch:
-> https://xenbits.xenproject.org/git-http/people/aperard/xen-unstable.git br.libxl-libjsonc-v2
->
-> changes in v2:
-> - introduce $(XEN_JSON_LIBS) to have either -lyajl or -ljson-c or both (for a
->    short while).
-> - few more changes detail in each patches.
->
-> Hi,
->
-> The library YAJL has been unmaintained for several years, without an obvious
-> fork to pick.
->
-> On the other and the library json-c is been maintained and use by several other
-> project, it's probably already installed on your machine. So this patch series
-> intend to allow to build the Xen toolstack again json-c, and forgo yajl.
+> One thing seems pretty clear to me: This work likely isn't going to be suitable
+> for 4.21 anymore. Hence we're back to considering alternatives to address the
+> still pending build issue. (My take on it remains: Revert the tail of the
+> sysctl work.) Adding Oleksii to Cc as well.
 
-Do we have any plans to drop fallback to yajl in the next release? Or because of
-this ...
+I agree, the patch series is still quite far from being ready to merge.
+So let’s consider it for the next release.
 
->
-> Just in case, YAJL is can still be used.
->
-> There's bit of libxl API that exposes YAJL, mainly so it can be used by `xl` to
-> call libxl_domain_config_gen_json(). It was exposed via the "libxl_json.h"
-> headers. This functions and others won't be available when libxl is build
-> against json-c.
-
-... that some API trying to use API exposed by YAJL we just can't drop support
-of yajl?
+As mentioned in the earlier (related) patch series, reverting the tail of the
+sysctl work is still, in my opinion, the best option.
 
 ~ Oleksii
 
-
->
-> Cheers,
->
-> Anthony PERARD (8):
->    tools/configure: Introduce deps on json-c lib for libxl
->    libxl: Convert libxl__json_parse() to use json-c
->    libxl: convert libxl__json_object_to_yajl_gen to
->      libxl__json_object_to_libjsonc_object
->    libxl: libxl__object_to_json() to json-c
->    libxl: convert libxl__json_object_to_json() to json_object
->    tools/libxenstat: Use json-c when available
->    configure: Use json-c by default, fallback to yajl
->    Update CHANGELOG and README with dependency on json-c
->
->   CHANGELOG.md                              |   2 +
->   README                                    |   2 +-
->   config/Tools.mk.in                        |   1 +
->   tools/config.h.in                         |   3 +
->   tools/configure                           | 136 +++++-
->   tools/configure.ac                        |  10 +-
->   tools/include/libxl_json.h                |  27 ++
->   tools/libs/light/Makefile                 |   6 +-
->   tools/libs/light/gentypes.py              | 160 +++++-
->   tools/libs/light/idl.py                   |   7 +-
->   tools/libs/light/libxl_cpuid.c            | 119 +++++
->   tools/libs/light/libxl_internal.h         |  23 +-
->   tools/libs/light/libxl_json.c             | 562 +++++++++++++++++++++-
->   tools/libs/light/libxl_qmp.c              |  53 ++
->   tools/libs/light/libxl_types.idl          |   7 +-
->   tools/libs/light/libxl_types_internal.idl |   3 +-
->   tools/libs/stat/Makefile                  |   2 +-
->   tools/libs/stat/xenstat_qmp.c             | 126 ++++-
->   tools/xl/Makefile                         |   2 +-
->   tools/xl/xl_info.c                        | 102 +++-
->   20 files changed, 1312 insertions(+), 41 deletions(-)
->
---------------d6rGK2ExZZTEDgY53x6yI8f5
+--------------X7Xm0A6ykrh0qtygjMNPUvqM
 Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 <!DOCTYPE html>
 <html>
@@ -195,94 +235,165 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 9/29/25 2:07 PM, Anthony PERARD
-      wrote:<br>
+    <div class="moz-cite-prefix">On 9/26/25 9:14 AM, Jan Beulich wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:20250929120756.46075-1-anthony@xenproject.org">
-      <pre wrap="" class="moz-quote-pre">From: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
-
-Patch series available in this git branch:
-<a class="moz-txt-link-freetext" href="https://xenbits.xenproject.org/git-http/people/aperard/xen-unstable.git">https://xenbits.xenproject.org/git-http/people/aperard/xen-unstable.git</a> br.libxl-libjsonc-v2
-
-changes in v2:
-- introduce $(XEN_JSON_LIBS) to have either -lyajl or -ljson-c or both (for a
-  short while).
-- few more changes detail in each patches.
-
-Hi,
-
-The library YAJL has been unmaintained for several years, without an obvious
-fork to pick.
-
-On the other and the library json-c is been maintained and use by several other
-project, it's probably already installed on your machine. So this patch series
-intend to allow to build the Xen toolstack again json-c, and forgo yajl.</pre>
-    </blockquote>
-    <pre>Do we have any plans to drop fallback to yajl in the next release? Or because of
-this ...
+      cite="mid:a5224376-f89d-4a2f-8a74-e5256352f754@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 26.09.2025 08:57, Penny, Zheng wrote:
 </pre>
-    <blockquote type="cite"
-      cite="mid:20250929120756.46075-1-anthony@xenproject.org">
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">-----Original Message-----
+From: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+Sent: Friday, September 26, 2025 2:53 PM
+
+On 26.09.2025 06:41, Penny, Zheng wrote:
+</pre>
+          <blockquote type="cite">
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">-----Original Message-----
+From: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+Sent: Thursday, September 25, 2025 10:29 PM
+
+On 25.09.2025 11:41, Penny, Zheng wrote:
+</pre>
+              <blockquote type="cite">
+                <blockquote type="cite">
+                  <pre wrap="" class="moz-quote-pre">-----Original Message-----
+From: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+Sent: Thursday, September 11, 2025 9:30 PM
+
+On 10.09.2025 09:38, Penny Zheng wrote:
+</pre>
+                  <blockquote type="cite">
+                    <pre wrap="" class="moz-quote-pre">--- a/xen/include/xsm/xsm.h
++++ b/xen/include/xsm/xsm.h
+@@ -55,8 +55,8 @@ struct xsm_ops {
+     void (*security_domaininfo)(struct domain *d,
+                                 struct xen_domctl_getdomaininfo *info);
+     int (*domain_create)(struct domain *d, uint32_t ssidref);
+-    int (*getdomaininfo)(struct domain *d);
+ #ifdef CONFIG_MGMT_HYPERCALLS
++    int (*getdomaininfo)(struct domain *d);
+     int (*domctl_scheduler_op)(struct domain *d, int op);
+     int (*sysctl_scheduler_op)(int op);
+     int (*set_target)(struct domain *d, struct domain *e); @@
+-234,7
++234,11 @@ static inline int xsm_domain_create(
+
+ static inline int xsm_getdomaininfo(xsm_default_t def, struct
+domain
+*d)  {
++#ifdef CONFIG_MGMT_HYPERCALLS
+     return alternative_call(xsm_ops.getdomaininfo, d);
++#else
++    return -EOPNOTSUPP;
++#endif
+ }
+</pre>
+                  </blockquote>
+                  <pre wrap="" class="moz-quote-pre">
+This is in use by a Xenstore sysctl and a Xenstore domctl. The
+sysctl is hence already broken with the earlier series. Now the
+domctl is also being screwed up. I don't think MGMT_HYPERCALLS
+really ought to extend to any operations available to other than the core
+</pre>
+                </blockquote>
+              </blockquote>
+            </blockquote>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">toolstack.
+</pre>
+          <blockquote type="cite">
+            <blockquote type="cite">
+              <blockquote type="cite">
+                <blockquote type="cite">
+                  <pre wrap="" class="moz-quote-pre">That's the Xenstore ones here, but also the ones used by qemu
+(whether run in
+</pre>
+                </blockquote>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">Dom0 or a stubdom).
+</pre>
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">
+Maybe not only limited to the core toolstack. In
+dom0less/hyperlaunched
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">scenarios, hypercalls are strictly limited. QEMU is also limited to
+pvh machine type and with very restricted functionality(, only acting
+as a few virtio-pci devices backend). @Andryuk, Jason @Stabellini,
+Stefano Am I understanding correctly and thoroughly about our scenario here for
+</pre>
+            </blockquote>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">upstream?
+</pre>
+          <blockquote type="cite">
+            <blockquote type="cite">
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">Tracking the codes, if Xenstore is created as a stub domain, it
+requires
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">getdomaininfo-domctl to acquire related info.  Sorry, I haven't found
+how it was called in QEMU...
+
+It's not "it"; it's different ones. First and foremost I was thinking
+of
+ * XEN_DOMCTL_ioport_mapping
+ * XEN_DOMCTL_memory_mapping
+ * XEN_DOMCTL_bind_pt_irq
+ * XEN_DOMCTL_unbind_pt_irq
+but there may be others (albeit per the dummy xsm_domctl() this is
+the full set). As a general criteria, anything using XSM_DM_PRIV
+checking can in principle be called by qemu.
+
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">
+Understood.
+I assume that they are all for device passthrough. We are not accepting device
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">passthrough via core toolstack in dom0less/hyperlaunch-ed scenarios. Jason has
+developed device passthrough through device tree to only accept "static
+configured" passthrough in dom0less/hyperlaunch-ed scenario, while it is still
+internal , it may be the only accept way to do device passthrough in
+dom0less/hyperlaunch-ed scenario.
+
+Right, but no matter what your goals, the upstream contributions need to be self-
+consistent. I.e. not (risk to) break other functionality. (Really the four domctl-s
+mentioned above might better have been put elsewhere, e.g. as dm-ops. Moving
+them may be an option here.)
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Understood.
+I'll move them all to the dm-ops
+</pre>
+      </blockquote>
       <pre wrap="" class="moz-quote-pre">
+Before you do so, please consider the consequences, though (I said "may" for a
+reason). Also please allow others to chime in. (In this context I notice that
+several REST maintainers weren't even Cc-ed here, and hence may not have seen
+the earlier discussion.)
 
-Just in case, YAJL is can still be used.
-
-There's bit of libxl API that exposes YAJL, mainly so it can be used by `xl` to
-call libxl_domain_config_gen_json(). It was exposed via the "libxl_json.h"
-headers. This functions and others won't be available when libxl is build
-against json-c.</pre>
+One thing seems pretty clear to me: This work likely isn't going to be suitable
+for 4.21 anymore. Hence we're back to considering alternatives to address the
+still pending build issue. (My take on it remains: Revert the tail of the
+sysctl work.) Adding Oleksii to Cc as well.</pre>
     </blockquote>
-    <pre>... that some API trying to use API exposed by YAJL we just can't drop support
-of yajl?
+    <pre>I agree, the patch series is still quite far from being ready to merge.
+So let’s consider it for the next release.
 
-~ Oleksii
-</pre>
-    <p><br>
-    </p>
-    <blockquote type="cite"
-      cite="mid:20250929120756.46075-1-anthony@xenproject.org">
-      <pre wrap="" class="moz-quote-pre">
+As mentioned in the earlier (related) patch series, reverting the tail of the
+sysctl work is still, in my opinion, the best option.
 
-Cheers,
-
-Anthony PERARD (8):
-  tools/configure: Introduce deps on json-c lib for libxl
-  libxl: Convert libxl__json_parse() to use json-c
-  libxl: convert libxl__json_object_to_yajl_gen to
-    libxl__json_object_to_libjsonc_object
-  libxl: libxl__object_to_json() to json-c
-  libxl: convert libxl__json_object_to_json() to json_object
-  tools/libxenstat: Use json-c when available
-  configure: Use json-c by default, fallback to yajl
-  Update CHANGELOG and README with dependency on json-c
-
- CHANGELOG.md                              |   2 +
- README                                    |   2 +-
- config/Tools.mk.in                        |   1 +
- tools/config.h.in                         |   3 +
- tools/configure                           | 136 +++++-
- tools/configure.ac                        |  10 +-
- tools/include/libxl_json.h                |  27 ++
- tools/libs/light/Makefile                 |   6 +-
- tools/libs/light/gentypes.py              | 160 +++++-
- tools/libs/light/idl.py                   |   7 +-
- tools/libs/light/libxl_cpuid.c            | 119 +++++
- tools/libs/light/libxl_internal.h         |  23 +-
- tools/libs/light/libxl_json.c             | 562 +++++++++++++++++++++-
- tools/libs/light/libxl_qmp.c              |  53 ++
- tools/libs/light/libxl_types.idl          |   7 +-
- tools/libs/light/libxl_types_internal.idl |   3 +-
- tools/libs/stat/Makefile                  |   2 +-
- tools/libs/stat/xenstat_qmp.c             | 126 ++++-
- tools/xl/Makefile                         |   2 +-
- tools/xl/xl_info.c                        | 102 +++-
- 20 files changed, 1312 insertions(+), 41 deletions(-)
-
-</pre>
-    </blockquote>
+~ Oleksii</pre>
   </body>
 </html>
 
---------------d6rGK2ExZZTEDgY53x6yI8f5--
+--------------X7Xm0A6ykrh0qtygjMNPUvqM--
 
