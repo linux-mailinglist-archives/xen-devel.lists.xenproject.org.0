@@ -2,34 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D79BEBAA18D
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 19:04:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1133057.1471238 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B1B6BAA31D
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Sep 2025 19:39:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1133078.1471252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3HIf-0004hZ-G5; Mon, 29 Sep 2025 17:04:33 +0000
+	id 1v3Hp9-0000cs-2R; Mon, 29 Sep 2025 17:38:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1133057.1471238; Mon, 29 Sep 2025 17:04:33 +0000
+Received: by outflank-mailman (output) from mailman id 1133078.1471252; Mon, 29 Sep 2025 17:38:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3HIf-0004fE-DT; Mon, 29 Sep 2025 17:04:33 +0000
-Received: by outflank-mailman (input) for mailman id 1133057;
- Mon, 29 Sep 2025 17:04:31 +0000
+	id 1v3Hp8-0000aR-VL; Mon, 29 Sep 2025 17:38:06 +0000
+Received: by outflank-mailman (input) for mailman id 1133078;
+ Mon, 29 Sep 2025 17:38:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ONJG=4I=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1v3HId-0004f8-TS
- for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 17:04:31 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=cYBO=4I=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
+ id 1v3Hp8-0000aL-7Y
+ for xen-devel@lists.xenproject.org; Mon, 29 Sep 2025 17:38:06 +0000
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazlp17011000f.outbound.protection.outlook.com
+ [2a01:111:f403:c100::f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5bfffeb1-9d56-11f0-9809-7dc792cee155;
- Mon, 29 Sep 2025 19:04:29 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A874144F6E;
- Mon, 29 Sep 2025 17:04:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73FAEC4CEF4;
- Mon, 29 Sep 2025 17:04:26 +0000 (UTC)
+ id 0ca63d9c-9d5b-11f0-9809-7dc792cee155;
+ Mon, 29 Sep 2025 19:38:03 +0200 (CEST)
+Received: from PH7PR12MB5757.namprd12.prod.outlook.com (2603:10b6:510:1d0::13)
+ by MN0PR12MB5907.namprd12.prod.outlook.com (2603:10b6:208:37b::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.17; Mon, 29 Sep
+ 2025 17:37:59 +0000
+Received: from PH7PR12MB5757.namprd12.prod.outlook.com
+ ([fe80::f012:300c:6bf4:7632]) by PH7PR12MB5757.namprd12.prod.outlook.com
+ ([fe80::f012:300c:6bf4:7632%2]) with mapi id 15.20.9160.014; Mon, 29 Sep 2025
+ 17:37:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,159 +47,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bfffeb1-9d56-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1759165467;
-	bh=PTfUS9dphzeB1S5ixZ54Q1nWox4nNQPxHuDNoIHXjzU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=TDo8OHGIUOOzF56rcmzqyVjjoOkzWUIPnSDZd4S9rZHDj+3k7ng94+nUFeWKbiEDQ
-	 Z739UszNw1+dfbgzEVwp7xrfO5li1VBAepk2k9IicyPCXH4bKcjimFTcKjvWnwPeWm
-	 j4riqOUxcRoNEEleEvaAzVZ+YwRTv2UmuB3Adoghrdh6lADLvVt2D3P9LKytcRRE2j
-	 p3vEkw3RZ6GdtsPgZcnFEnMUCfJWtg7BdVmR12i8EytKyonHfYuiWwi3VNQJoUMHNg
-	 qihKvvxyz0PgqrHIMj6hk8KxSpNO2z0R/XnFF8847IPSV2Y6m6RfePcsjNiosFigZf
-	 ZwQ3MsEfJG0XQ==
-Date: Mon, 29 Sep 2025 10:04:25 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Stefano Stabellini <sstabellini@kernel.org>
-cc: Jan Beulich <jbeulich@suse.com>, "Penny, Zheng" <penny.zheng@amd.com>, 
-    "Huang, Ray" <Ray.Huang@amd.com>, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "Stabellini, Stefano" <stefano.stabellini@amd.com>, 
-    "Andryuk, Jason" <Jason.Andryuk@amd.com>
-Subject: Re: [PATCH v2 18/26] xen/domctl: wrap xsm_getdomaininfo() with
- CONFIG_MGMT_HYPERCALLS
-In-Reply-To: <alpine.DEB.2.22.394.2509290959070.937823@ubuntu-linux-20-04-desktop>
-Message-ID: <alpine.DEB.2.22.394.2509291003350.937823@ubuntu-linux-20-04-desktop>
-References: <20250910073827.3622177-1-Penny.Zheng@amd.com> <20250910073827.3622177-19-Penny.Zheng@amd.com> <a8b93dcc-c003-49a6-8a78-5fb890cbaec0@suse.com> <DM4PR12MB8451BE98219C343F8F62482AE11FA@DM4PR12MB8451.namprd12.prod.outlook.com>
- <66b43c3b-c74f-4c18-b91a-bd7b56a62eff@suse.com> <DM4PR12MB84518B65027B6A355ED4D246E11EA@DM4PR12MB8451.namprd12.prod.outlook.com> <af57c032-541d-4956-85de-269066c50cd3@suse.com> <IA1PR12MB8467188458BA8FAF348AC538E11EA@IA1PR12MB8467.namprd12.prod.outlook.com>
- <alpine.DEB.2.22.394.2509261224150.2244509@ubuntu-linux-20-04-desktop> <0e72c63c-9a6b-4fd7-848d-8c8d09fc91ef@suse.com> <alpine.DEB.2.22.394.2509290959070.937823@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 0ca63d9c-9d5b-11f0-9809-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VDMq2CCp47es7DyBodDVrWytMKZpwCQFk2Upq+ibY6VHKMNVJcLlZk1YiCwiWqg5Owbnn6aZe9VxpxbcdwrzEZjql2rsjgi9IOnWU3r+S7vQvsEuakSPIE2FIRsRbS/tXvUxo2vEEFfubGSToS9BX+CHrmrXY9zRQnJcrnCRdhaWeg1Hid5eCfcC/ztb0EGdVJh2hIAxbxUSLry3jPuaCHJbmI6nV/wIcCM6JLSWDzSWVMADLBvklCTeTUBT4+kmyuRQkQe6xT6cxVd+MTCTJhYxhSVEzEydIgE9zBtCDoAwPI2GoEnG24/lbeMoSL+6s0ov/hLiqYDUvHcF4KpK4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oF74VPPHEjE4XwB3q2M/KfcPnKwJHc3I0+qZKMETvzc=;
+ b=cVPIKQtrY48PU5KyqdAtcBDW+MBO5Qrz8HtlwkwbBdcxcJnKBVxYlWfPEbuWgSJJf2LNA5Qf4eOTvblsU74xKnG6Tq0s1R9xvQcGgZylofZXwEGKj+AN3DlCb+wL1yeWYaNVxMYwKxt660yeimclFZ9aQEOim66H11/yvk8wYt35atPhLsgtL18ysIYR4Lep+RBpIHpaNviojL8A7Baxsz4G5oBrU2SR58LfzxLL1m5Gy1Wf9wjPfua4x6cbOvKK8UXGYNKa2zU0HoUK5ymiiPyKcCcrvphuPOFZetFMcoE1THwngTFTTLVbmyVdNNr9g4EQUFVF2to1w83n6ZfejQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oF74VPPHEjE4XwB3q2M/KfcPnKwJHc3I0+qZKMETvzc=;
+ b=c0FHlgizpouPngbGDaY4VL8cFyf1plkNlhUa6xga9MsMHO1LL37bgsoOzhG9P9uGmtwUmGCYUfe5bSiWzlVFgyZujNB+SelNeb0Jmhed9XwcteD8b8dfyyRQKYFTjeNuhc46+oZaVTNKIsUdej7aymOExNM/MyoINUgeaR2n+34xu2911UpvLW/dyy01XdvpY7cGtyj3Il15wktMQYF4JFtAcOnSPXGKSDdxpGqa2CZiAVdJ6bmTMDHN1xbqup8bRODCLRA8Bx561EzCWSjzwTfcS3Bx4RiCqVCIBPg63ZEp8oymSu47a8NLry8c2cbiqVY77N3hkCLEsRuvRL3S9Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Date: Mon, 29 Sep 2025 14:37:55 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Leon Romanovsky <leonro@nvidia.com>, iommu@lists.linux.dev,
+	Juergen Gross <jgross@suse.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Russell King <linux@armlinux.org.uk>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 3/6] ARM: dma-mapping: Reduce struct page exposure in
+ arch_sync_dma*()
+Message-ID: <20250929173755.GD2942991@nvidia.com>
+References: <cover.1758203802.git.leon@kernel.org>
+ <2f20069c2b616808c034ba4e75905820b94e0e22.1758203802.git.leon@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2f20069c2b616808c034ba4e75905820b94e0e22.1758203802.git.leon@kernel.org>
+X-ClientProxiedBy: BLAPR03CA0075.namprd03.prod.outlook.com
+ (2603:10b6:208:329::20) To PH7PR12MB5757.namprd12.prod.outlook.com
+ (2603:10b6:510:1d0::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5757:EE_|MN0PR12MB5907:EE_
+X-MS-Office365-Filtering-Correlation-Id: e67072d2-7f07-4cfb-5634-08ddff7eedbb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?tpSBc9tfMjdSjmNhAiZRDTRAak5b7gvEIu1hS5TSV2mXP926e8a/UVjVn4D3?=
+ =?us-ascii?Q?nPHjK08pgo3G0wFlCvw0IepJMcXZoLnaqcQZ/V+QozWBJjvH1mVq4gQt8qDs?=
+ =?us-ascii?Q?9Sh0HYUJfEc7t4j8oexxXqI5XAH5npPvnl8N2HszXQh9tdY1aDBXtgDuWc5i?=
+ =?us-ascii?Q?/uDOLASgMpQiGslQ0Ev2d1xOPgImuysmnO6hk4uYlT58xrFaDrn94vRMlBN+?=
+ =?us-ascii?Q?GqcISxIuRNqHFdh15HGFPvsFVHAM1kqlGusRU416xEaFMFtUKLP0eAy/k+Ah?=
+ =?us-ascii?Q?bQg2r+bXGt9QsTpNAoj0jtdUXeQeJvtnBV9QrrVdtZuhaazxd/XTVVOx2O0s?=
+ =?us-ascii?Q?qMhGOPLPwJkMrfeJH+r8A1uyhxGc9dFwchah5yAFkl3XZWiy1yCvC8JqHhNW?=
+ =?us-ascii?Q?JpdsGna+V+HcROgFJLyszqiSt8C1R26LpbldSdULISBFu8/yj3T3kR0KLDd5?=
+ =?us-ascii?Q?HhnWv9QADIQ/mAJ+jtzBYDu2YUakz6iJXut4klcCya6dltAT/X9TmQt7NdWl?=
+ =?us-ascii?Q?PaO9oLFb9EcmebxftlM6FNUG2xx3KNMmdtRshcfx9UuzrUo1EWbKPgAeLqct?=
+ =?us-ascii?Q?3LZOtfMQgv5EoqkdKfZUkaNBdN9f48FPa9XvT3p8zzxAKNg+0qbRMi+r+iRB?=
+ =?us-ascii?Q?04kD8rJ7H6i37hHhC1rLRZ/2t4GvHaDgrk58AHCzLSV2NY8OavN9HIGerjyr?=
+ =?us-ascii?Q?6aU4SyaXQijxifse6LB/n29PIFovBr8vF2GizomdHoR16Y4GkdMtXYb4EcRl?=
+ =?us-ascii?Q?i4vn3DdqMkYkKAcm8Q3wa3mWvVDRRMUFvEISKwfXmr1FsPh2+LbqtBCzevjZ?=
+ =?us-ascii?Q?bgYRpJgBJ2/1gGVcF2e5MqAkuzn9VZSd/x0JYlJ2AJ7gn98zun/kwK6MouvJ?=
+ =?us-ascii?Q?ZwAD2AyJ9cnK8hLUU+C1XNB77S8r2/vFYP6NdxwhyxsxaWJ4JcL2ZzzCmn3b?=
+ =?us-ascii?Q?pfAfbZiLKPdipuVF0JdDtLeot38E9ZlRtm77d9zTQC6UwX1RcIBVaDY2EXab?=
+ =?us-ascii?Q?ZO/y7tVUTZOiikK/CbQsvKQfU2RDJKH2TBscK2I4rjVvdc1qFCKsdb50jIvO?=
+ =?us-ascii?Q?8aQIuViiYTBaW/XWvGrgv8Fgikp82zbBlUsmR3j7nENgYf3v8Qy5oP8CRiJ2?=
+ =?us-ascii?Q?GPUGxSTBheHNMV7wmHEor9Zi/eahIbS2eGr9gHELyjgx+hRWK+/kHh5QwimC?=
+ =?us-ascii?Q?OMvL5xsZJX0Xh3rluae9q4iKZCUFrV4S97Giz5/uaJK3NRjoGw6ujQvlVwVW?=
+ =?us-ascii?Q?B9G55mXZcAKCwGhK9frdkUJuXGxWE1cQ1TC55aedr6uqCcQ0PFViLN90016N?=
+ =?us-ascii?Q?X/+sdCUTh7AuK/19OtwtJWKDl0jVAs9eo/wk/ViKT1bImD205CdsxkQ7pFG0?=
+ =?us-ascii?Q?RiqZkc/chsIyjWO0v2kZKJpRlUWr/zTJjBHLEsiTGOpJl1wkDMffyQgeTkfi?=
+ =?us-ascii?Q?z2vv6FB19hwj9M/Pzr4P8Joc+WeoKwzA?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5757.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?OXqqvf5Wg1hkvjCceFkQsx3qwL0XN8hegrU1q2jK3v3N5wyqGihj3CXVnGpz?=
+ =?us-ascii?Q?ZlA59uFHqhDEsrYVOYWGly+BhdVxpJoK5vsxCIPRwWtMr1wgG8vHpBBTwBFn?=
+ =?us-ascii?Q?SUE5kCXkgwh4YUJTC7RmgBZUsr2dBr1a3ltjAVws4HchX3WwfCRsFtHtXge/?=
+ =?us-ascii?Q?ALRlCU8VHfIrk9WZjaUDdq/ZWq4sB3XZKznAlObtHz5XJzcEBum+kymcblds?=
+ =?us-ascii?Q?QOZjlZFiiSYDtdgws668HDXNOrjdwIWjot2M/aVqy9hT1q9cfFN8K1DmJ9wV?=
+ =?us-ascii?Q?r0iDVvwqa8kPyZFl/RqgIvgCaxPgT0DL9tyzPiNt6+dJCB9almdMwpMy8zVN?=
+ =?us-ascii?Q?bj524rT6MBSYK8H/SeqP2HlhWjjRlwe8uO57jsUXey1XvS8ofhP5S9N25vOJ?=
+ =?us-ascii?Q?0VyyZHbCU0X9udZh1wsztzQEsfLwfXkyxZ9c/ge8h49op0Vy6IqpepJ3GBaW?=
+ =?us-ascii?Q?IYueIvAMZUoOsrPOiYhQzTpb73OpCAacZoQUnidquFyHTlrR3L164l2wLoUF?=
+ =?us-ascii?Q?qqhuEKe0UbJvRU1dy1tU48TYtldPZlORl8LFcnXSG7eKzJJOe5lsAM//SyZI?=
+ =?us-ascii?Q?YM/yZKgz14CC9LPPitWsdms7S1R9FebupyUNU3BCYSLoVNSgLUfc+a2GJWAo?=
+ =?us-ascii?Q?IxwtIXkOlPWMCk3ZlU6A7e/uroE5aditPmHlRILY/u6Aum/Z6p0qPeU+J/Fn?=
+ =?us-ascii?Q?Oae6YCXfCy788MkZjCrYJkNfnAbd8QZdSlOyKckZJRmfCeOTPQsZWlwk7HsV?=
+ =?us-ascii?Q?BsUJ63NFEtTJ/IX1RsmNWfM4Rp3L+9dhYF6qGl2kRYobv6V2kj7Si4Zfh1hW?=
+ =?us-ascii?Q?FW13bKpNtl3QxYl5hj63hsAGoTpco+WyypWG91mPODjwzhzEMWefS9d4sQ+O?=
+ =?us-ascii?Q?+TUkFGoLpnZeeXC7LnEIG53kjA8FvZzTFEQbKhtRFdQKtnU0Rvc7BJhdE1A9?=
+ =?us-ascii?Q?OziqaZvQpMP9D36OdcXQ4rAaglS7BZtRGrS3dUcfZQthiQ/1a43yiQ7P0vKK?=
+ =?us-ascii?Q?iqZsLwH3XTtl2BQMxrYH6FLZhC27XgUpaT7NeLhI6Lhzu0/PcEi83JU5rMTk?=
+ =?us-ascii?Q?W+vfnHd9BbxrVF8ITJuckFJl8JIrxsZkTosC0et6VjgHAjHYSoI0+sEe3rTX?=
+ =?us-ascii?Q?cDAxOV3sWJnu40a6Pqc/0q7eg7mvRkkgRcrPSiW1tUB680PNpKE2gl1Mk/7J?=
+ =?us-ascii?Q?ibq8kkL7GV4eL9EQ6D2Pm0YxG0QvKGSQ383iSiwSXc06UUQQrS+o8w59B3N2?=
+ =?us-ascii?Q?XLYIwLYhL9eKkjms5YC2USlVVWdWTwW6pGNwRwJ+2qAuYFDjZXB82sHZCrGD?=
+ =?us-ascii?Q?ADBOHDc477IlQuNPgV7Ogd+XOG3+yfGE30Kry2ojr51SZc1iy9K/IMOK+SJd?=
+ =?us-ascii?Q?1U+esNcQ1BmzwOKZUXUOJp+Lm812wtduGxfHFK7EWeddQYO9ljGDQLAw8OPQ?=
+ =?us-ascii?Q?PPihGidCyLhXiK6ytg9nbkofrePm+4z7kLPv6a9Qu/Vjw4zO3Vi9eHAmdDul?=
+ =?us-ascii?Q?ZjieX1PhWvQeNvnkzrU7L/IMrry1+ct8hEJZOumBrmT6uTuMogLcTQyGgrRh?=
+ =?us-ascii?Q?MerEJkZGzY5zr4QGB5XTN0B33/sD5ao+a1Giqtzr?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e67072d2-7f07-4cfb-5634-08ddff7eedbb
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2025 17:37:57.8585
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PjbfPMXm/K6Pv13Dx14ay3arFUwSi+Hnt6H763AyJRqGyJ4SyYrg7WPr9UdQ3XP8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5907
 
-On Mon, 29 Sep 2025, Stefano Stabellini wrote:
-> On Sun, 28 Sep 2025, Jan Beulich wrote:
-> > On 26.09.2025 21:24, Stefano Stabellini wrote:
-> > > On Thu, 25 Sep 2025, Penny, Zheng wrote:
-> > >>> -----Original Message-----
-> > >>> From: Jan Beulich <jbeulich@suse.com>
-> > >>> Sent: Friday, September 26, 2025 2:53 PM
-> > >>> To: Penny, Zheng <penny.zheng@amd.com>
-> > >>> Cc: Huang, Ray <Ray.Huang@amd.com>; Daniel P. Smith
-> > >>> <dpsmith@apertussolutions.com>; xen-devel@lists.xenproject.org; Stabellini,
-> > >>> Stefano <stefano.stabellini@amd.com>; Andryuk, Jason
-> > >>> <Jason.Andryuk@amd.com>
-> > >>> Subject: Re: [PATCH v2 18/26] xen/domctl: wrap xsm_getdomaininfo() with
-> > >>> CONFIG_MGMT_HYPERCALLS
-> > >>>
-> > >>> On 26.09.2025 06:41, Penny, Zheng wrote:
-> > >>>>> -----Original Message-----
-> > >>>>> From: Jan Beulich <jbeulich@suse.com>
-> > >>>>> Sent: Thursday, September 25, 2025 10:29 PM
-> > >>>>>
-> > >>>>> On 25.09.2025 11:41, Penny, Zheng wrote:
-> > >>>>>>> -----Original Message-----
-> > >>>>>>> From: Jan Beulich <jbeulich@suse.com>
-> > >>>>>>> Sent: Thursday, September 11, 2025 9:30 PM
-> > >>>>>>>
-> > >>>>>>> On 10.09.2025 09:38, Penny Zheng wrote:
-> > >>>>>>>> --- a/xen/include/xsm/xsm.h
-> > >>>>>>>> +++ b/xen/include/xsm/xsm.h
-> > >>>>>>>> @@ -55,8 +55,8 @@ struct xsm_ops {
-> > >>>>>>>>      void (*security_domaininfo)(struct domain *d,
-> > >>>>>>>>                                  struct xen_domctl_getdomaininfo *info);
-> > >>>>>>>>      int (*domain_create)(struct domain *d, uint32_t ssidref);
-> > >>>>>>>> -    int (*getdomaininfo)(struct domain *d);
-> > >>>>>>>>  #ifdef CONFIG_MGMT_HYPERCALLS
-> > >>>>>>>> +    int (*getdomaininfo)(struct domain *d);
-> > >>>>>>>>      int (*domctl_scheduler_op)(struct domain *d, int op);
-> > >>>>>>>>      int (*sysctl_scheduler_op)(int op);
-> > >>>>>>>>      int (*set_target)(struct domain *d, struct domain *e); @@
-> > >>>>>>>> -234,7
-> > >>>>>>>> +234,11 @@ static inline int xsm_domain_create(
-> > >>>>>>>>
-> > >>>>>>>>  static inline int xsm_getdomaininfo(xsm_default_t def, struct
-> > >>>>>>>> domain
-> > >>>>>>>> *d)  {
-> > >>>>>>>> +#ifdef CONFIG_MGMT_HYPERCALLS
-> > >>>>>>>>      return alternative_call(xsm_ops.getdomaininfo, d);
-> > >>>>>>>> +#else
-> > >>>>>>>> +    return -EOPNOTSUPP;
-> > >>>>>>>> +#endif
-> > >>>>>>>>  }
-> > >>>>>>>
-> > >>>>>>> This is in use by a Xenstore sysctl and a Xenstore domctl. The
-> > >>>>>>> sysctl is hence already broken with the earlier series. Now the
-> > >>>>>>> domctl is also being screwed up. I don't think MGMT_HYPERCALLS
-> > >>>>>>> really ought to extend to any operations available to other than the core
-> > >>> toolstack.
-> > >>>>>>> That's the Xenstore ones here, but also the ones used by qemu
-> > >>>>>>> (whether run in
-> > >>>>> Dom0 or a stubdom).
-> > >>>>>>
-> > >>>>>> Maybe not only limited to the core toolstack. In
-> > >>>>>> dom0less/hyperlaunched
-> > >>>>> scenarios, hypercalls are strictly limited. QEMU is also limited to
-> > >>>>> pvh machine type and with very restricted functionality(, only acting
-> > >>>>> as a few virtio-pci devices backend). @Andryuk, Jason @Stabellini,
-> > >>>>> Stefano Am I understanding correctly and thoroughly about our scenario here for
-> > >>> upstream?
-> > >>>>>> Tracking the codes, if Xenstore is created as a stub domain, it
-> > >>>>>> requires
-> > >>>>> getdomaininfo-domctl to acquire related info.  Sorry, I haven't found
-> > >>>>> how it was called in QEMU...
-> > >>>>>
-> > >>>>> It's not "it"; it's different ones. First and foremost I was thinking
-> > >>>>> of
-> > >>>>>  * XEN_DOMCTL_ioport_mapping
-> > >>>>>  * XEN_DOMCTL_memory_mapping
-> > >>>>>  * XEN_DOMCTL_bind_pt_irq
-> > >>>>>  * XEN_DOMCTL_unbind_pt_irq
-> > >>>>> but there may be others (albeit per the dummy xsm_domctl() this is
-> > >>>>> the full set). As a general criteria, anything using XSM_DM_PRIV
-> > >>>>> checking can in principle be called by qemu.
-> > >>>>>
-> > >>>>
-> > >>>> Understood.
-> > >>>> I assume that they are all for device passthrough. We are not accepting device
-> > >>> passthrough via core toolstack in dom0less/hyperlaunch-ed scenarios. Jason has
-> > >>> developed device passthrough through device tree to only accept "static
-> > >>> configured" passthrough in dom0less/hyperlaunch-ed scenario, while it is still
-> > >>> internal , it may be the only accept way to do device passthrough in
-> > >>> dom0less/hyperlaunch-ed scenario.
-> > >>>
-> > >>> Right, but no matter what your goals, the upstream contributions need to be self-
-> > >>> consistent. I.e. not (risk to) break other functionality. (Really the four domctl-s
-> > >>> mentioned above might better have been put elsewhere, e.g. as dm-ops. Moving
-> > >>> them may be an option here.)
-> > >>
-> > >> Understood.
-> > >> I'll move them all to the dm-ops
-> > > 
-> > > Hi Penny, Jan, I advise against this.
-> > > 
-> > > I think it is clear that there are open questions on how to deal with
-> > > the safety scenarios. I briefly mentioned some of the issues last week
-> > > at Xen Summit. One example is the listdomains hypercall that should be
-> > > available to the control domain. We cannot resolve all problems with
-> > > this patch series. I think we should follow a simpler plan:
-> > > 
-> > > 1) introduce CONFIG_MGMT_HYPERCALLS the way this patch series does,
-> > >    removing all domctls and sysctls
-> > > 
-> > > 2) make further adjustments, such as making available the listdomains
-> > >    hypercall and/or the hypercalls listed by Jan as a second step after
-> > >    it
-> > 
-> > I'm going to be okay-ish with that as long as the help text of the Kconfig
-> > option clearly mentions those extra pitfalls.
+On Thu, Sep 18, 2025 at 05:09:26PM +0300, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
 > 
-> +0
+> As a preparation to changing from .map_page to use .map_phys DMA
+> callbacks, convert arch_sync_dma*() functions to use physical addresses
+> instead of struct page.
+> 
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> ---
+>  arch/arm/mm/dma-mapping.c | 82 +++++++++++++++------------------------
+>  1 file changed, 31 insertions(+), 51 deletions(-)
 
-Ahah I mistyped this :-)
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
-I meant +1 in the sense that I am happy with the idea of kconfig clearly
-mentioning the pitfalls.
+Jason
 
