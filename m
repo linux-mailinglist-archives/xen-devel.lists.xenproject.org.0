@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 070AFBAB503
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 06:16:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1133501.1471637 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 524F9BAB514
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 06:16:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1133511.1471684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3RmZ-0002e0-Ch; Tue, 30 Sep 2025 04:16:07 +0000
+	id 1v3Rme-0003mF-7v; Tue, 30 Sep 2025 04:16:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1133501.1471637; Tue, 30 Sep 2025 04:16:07 +0000
+Received: by outflank-mailman (output) from mailman id 1133511.1471684; Tue, 30 Sep 2025 04:16:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3RmZ-0002av-2y; Tue, 30 Sep 2025 04:16:07 +0000
-Received: by outflank-mailman (input) for mailman id 1133501;
- Tue, 30 Sep 2025 04:16:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v3Rmd-0003ds-QG; Tue, 30 Sep 2025 04:16:11 +0000
+Received: by outflank-mailman (input) for mailman id 1133511;
+ Tue, 30 Sep 2025 04:16:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MDOg=4J=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1v3Rla-0006gD-Tj
- for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 04:15:06 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0afec4bb-9db4-11f0-9809-7dc792cee155;
- Tue, 30 Sep 2025 06:15:05 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-421851bca51so973983f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 21:15:05 -0700 (PDT)
+ id 1v3Rlf-0006tq-2Q
+ for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 04:15:11 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0e420c34-9db4-11f0-9d14-b5c5bf9af7f9;
+ Tue, 30 Sep 2025 06:15:10 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-46e4473d7f6so23421625e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 21:15:10 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-410f2007372sm20002659f8f.16.2025.09.29.21.15.02
+ 5b1f17b1804b1-46e56f3dcacsm39499115e9.2.2025.09.29.21.15.08
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 29 Sep 2025 21:15:03 -0700 (PDT)
+ Mon, 29 Sep 2025 21:15:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0afec4bb-9db4-11f0-9809-7dc792cee155
+X-Inumbo-ID: 0e420c34-9db4-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1759205705; x=1759810505; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1759205710; x=1759810510; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MBpejQiq0e/vydo49FSQoIaJ0P/BjZpeA7dR40L/9NI=;
-        b=CEWYI7sWfgToYfH3zNpYS3Y+8F0dVEJD689lzHHWBgt2kMJlxJTwUbLqrYsPrxGHzK
-         gkg+ax1/tA6XFnJrERGORi1hRXLc+go8OKX70Re46URM2qEnytrYis0R2Jp2JAgmZrBf
-         JHWA9P6Wzf3/9s2FePXBVirSeimC5iU2g+EVy4IiTs4+VIv1Tclt+yD2Zd/XPJbAV6EX
-         ffOo6DvZ/5ftCi35Bxna7AbztCQ+aADOP6PZqWj71MTwFGdrI2wtBFeBtZh0X54hm4t3
-         GjIOr22Tpdi873iuIOGvje2M1DktQhcqionkBcFtGG26EjIklp9UHFTKNrcRPXwmwngC
-         C1pw==
+        bh=+R20KfaeepivX48ztS5Qk+Utu4Wf2nP4nwxC8R0e4a4=;
+        b=Xv/gr6yTwLqgOvpmNTYhf6c5qNvdYAuPM3joeK0qrz+7BS224EumNMIVaA643XzCVO
+         GG46/6S1kESHKDT1E0fhOvboy4rQHgqNGw755pOwG+TGdIsejYMlNjqiIT7aiSKDOSc2
+         9RMm9j32JEAqryvE/lvQaDyY+Xh0x6HjJFbniZky2lp69f6BgjrN3uMfu9Mj6zI8ecRe
+         2lTBjGO6JdJY3sWqUvJERdlhTt5rZ3hPRPvKTyQrNxAwfAtXTkW5oAl3SIoZ/yXadWEh
+         Z0fqPBaPKE1+T8nky1I1IIYhzDIq1NDpPEXfZgwCWbz4X6ViuW3B44xTBw+bPtu32kc/
+         v0RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759205705; x=1759810505;
+        d=1e100.net; s=20230601; t=1759205710; x=1759810510;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=MBpejQiq0e/vydo49FSQoIaJ0P/BjZpeA7dR40L/9NI=;
-        b=xBdZtQXeyCPdb+uMZcFv1OrcITMnk/R1XDyTLbznGCHn7d3R9nG5PexP8D8VRzBy61
-         S2KtevPQFO6qEIPkaaGVbvYb2ylJdFFevlXynIhpNYeCtQ+9itwXbDbk4/3a3ZHzYnS7
-         jQsFiD8xvuhlb2VHUKqsYSnJvVlfTcvIP8MIP2KEIpI0BkpKRGGEzT5AksawCL3uGr8e
-         dOUnM5eu0C4t9H8ErXiNRxbL+XEOTvyEP60ETGVogvadiMaIDWZDugwqR2ne14q5hLFz
-         crYCPBwl7qrEdhC2/lKwZladfO9w+P7MXM3CyVDjXdHc0nvIADYpFTfK3rl5DSzlvkW8
-         H0uQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVTfYy1ka5Qi3iirimemcLO5tNyUWjYR9q/s3vbnQJMa2Tw6WcSAg36dKZjptpDdqsa6KEUmRx3QFc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YygKeRi79Jbl69t4q/8Fe9Vs15B1v9VtCxqy9LnDqWRNTd9HsxG
-	65E7ZmnZVFiX/f8ZcZDFbm+noa17s7WBu3Q0sg8tSBXDSDkgkHYdfdzB6y6SNRVMorY=
-X-Gm-Gg: ASbGnctAvYWEtrInCGO4eRKv2ep7HerPWj6WU0vs4jR1nkdbngLu8PqZbZeJXiV1cR7
-	QaLqpANiM8e2B0h8zF6ncVxOf2EWdxGdXnQMntfUjhZ25v4zVY+isnXr1rFyNmU2wYxmqrdUcOL
-	eT+7LJV0jFuqRnC+/CdBhU/F5yvjplFcFdbJKqPfz6hMUb33qEhg/UsZCGXY/bsxpfsW2PPvjFF
-	3JpPcqO8HloQHcp8P96xZjpwCbr+zbBsIHlkFX5VYrQYVcQIQld5CckeBuefRNOD/u+o6f8rKwB
-	3UeL2150xvjs44XFbUeNecbCepfa7Y9gg9JqhNpnEW6t5h8omn42Bck21TOfMmcjkv1AQE9Opwz
-	b0mL4h+U3qzuSESkPmMBELNuI0mHBo9AJTYmEz5DpjqvnEFL4qw0vOpWEqP7OPjtywkhbG8ns0T
-	ebsWwv6/GejLp3mb/GUTkfGt8s+rjcbrs=
-X-Google-Smtp-Source: AGHT+IGgqJ0JuJ77y43D9HwYeERomJh5OkTJMDKGyPclR/IBy8JcemLZxj5L2abT5KLJLVAD5Z41ZA==
-X-Received: by 2002:a05:6000:2385:b0:3da:d015:bf84 with SMTP id ffacd0b85a97d-40e481be8a9mr20254181f8f.25.1759205704783;
-        Mon, 29 Sep 2025 21:15:04 -0700 (PDT)
+        bh=+R20KfaeepivX48ztS5Qk+Utu4Wf2nP4nwxC8R0e4a4=;
+        b=ozE65R/mE/tyyDZZUxN2pPhZpejUoB1rth+g58cEEHzmCSbkKexI/K1ihohX0DK7eC
+         1vJW05jkOBmkBpm5j5EFfvLsi/DT/BbMVwor5p/u3zSD4yM9p/SmfUcV06P429HXbpAo
+         m7PJ4WCD35JH8ochyDSsb/QoiTtEYuKAYUbBxsNm9/BH/KBYYKbxAtvoL3OyImOvOgfN
+         CELN99pTiImD+NnkeDRXoV8yPkqd0fCzZdJwxVS9YuQObBQndJzu9IB1rRUbsJ2gD++P
+         A8Dh+iXP5WsM0ZaOh8JVsOqrHI2IENDtP/psZGbgfaUjwR4YIRuLSLccA5YEdrgqwt+3
+         E6vQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX4IoVIq+6Ku+NUyX1iiDfma29y//JHLavP9hmyxJIvU7hVTZw2fbIcAPn81ENjyntm9KHt+ciMx68=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxtNOMod29coQopMbQBAOOcGvRP2RfUa8e3xMSNVGqsa4Kg6gCk
+	/+QSh0k05U5tWwCrjw+cb9n1MO99MAD2y8mxJznOShhXeotbw7+gDHvJMLNU17VXs38=
+X-Gm-Gg: ASbGncvAbAn3iQ0r/9CEYAgC7ag5vTqJlTtJKvSvi7EJ7QGFpFVW9EcTaRzI8TLLW51
+	6BSwQDGheksLvDnM+R7VvaLdFjGtUhmGCZ5BHoGegiY/bf/8dcSRLcokHVq4u17XHfcakLjkaCR
+	f4T6CXZdaTajBuPPmSBPtvgqSnJg6IMRNq4FO50nKceSW3IFai8f+3X7P1PGi9MrvCigA42hkcR
+	Y/VMRtz9NcrwXcHzPq+GxRp63SFGODRvqKqU+Ty1v5chtkPQC7+iZ6EZXULBmWPtVPWt6gZtXel
+	zYcx9Q1GIqO/Oen+8kCaWYaE+h1I62EOBLCM+AI0rC5YL/rG/I+g4pLLflphNkxs0DFT72b91Ed
+	oisw0AdQEmjj5Vpaaxvxqmjo7mil9+3NJm8QZ10D7jZP74Ld0pzOQN7NwfbfRBIGzRuBB0SKZDg
+	KmFxElVHWKdJkbK8YnXD2aTRVOFJQYsQY=
+X-Google-Smtp-Source: AGHT+IEUJE1IYP/kfT6NPYb+xEkszrcjL4tSyyPjenIF9G8p6iMdA3UofkAUQEEOCpstatyYsaodDw==
+X-Received: by 2002:a05:600c:5290:b0:46e:394b:4991 with SMTP id 5b1f17b1804b1-46e394b4b1emr152224145e9.11.1759205710145;
+        Mon, 29 Sep 2025 21:15:10 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org,
 	Peter Maydell <peter.maydell@linaro.org>
@@ -112,9 +112,9 @@ Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
 	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
 	Richard Henderson <richard.henderson@linaro.org>,
 	David Hildenbrand <david@redhat.com>
-Subject: [PATCH v2 16/17] hw/virtio/vhost: Replace legacy cpu_physical_memory_*map() calls
-Date: Tue, 30 Sep 2025 06:13:24 +0200
-Message-ID: <20250930041326.6448-17-philmd@linaro.org>
+Subject: [PATCH v2 17/17] hw/virtio/virtio: Replace legacy cpu_physical_memory_map() call
+Date: Tue, 30 Sep 2025 06:13:25 +0200
+Message-ID: <20250930041326.6448-18-philmd@linaro.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250930041326.6448-1-philmd@linaro.org>
 References: <20250930041326.6448-1-philmd@linaro.org>
@@ -122,43 +122,62 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Use VirtIODevice::dma_as address space to convert the legacy
-cpu_physical_memory_[un]map() calls to address_space_[un]map().
+Propagate VirtIODevice::dma_as to virtqueue_undo_map_desc()
+in order to replace the legacy cpu_physical_memory_unmap()
+call by address_space_unmap().
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- hw/virtio/vhost.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ hw/virtio/virtio.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/hw/virtio/vhost.c b/hw/virtio/vhost.c
-index 6557c58d12a..890d2bac585 100644
---- a/hw/virtio/vhost.c
-+++ b/hw/virtio/vhost.c
-@@ -27,6 +27,7 @@
- #include "migration/blocker.h"
- #include "migration/qemu-file-types.h"
+diff --git a/hw/virtio/virtio.c b/hw/virtio/virtio.c
+index 9a81ad912e0..1ed3aa6abab 100644
+--- a/hw/virtio/virtio.c
++++ b/hw/virtio/virtio.c
+@@ -31,6 +31,7 @@
+ #include "hw/qdev-properties.h"
+ #include "hw/virtio/virtio-access.h"
  #include "system/dma.h"
 +#include "system/memory.h"
- #include "trace.h"
+ #include "system/runstate.h"
+ #include "virtio-qmp.h"
  
- /* enabled until disconnected backend stabilizes */
-@@ -455,7 +456,8 @@ static void *vhost_memory_map(struct vhost_dev *dev, hwaddr addr,
-                               hwaddr *plen, bool is_write)
+@@ -1622,7 +1623,8 @@ out:
+  * virtqueue_unmap_sg() can't be used).  Assumes buffers weren't written to
+  * yet.
+  */
+-static void virtqueue_undo_map_desc(unsigned int out_num, unsigned int in_num,
++static void virtqueue_undo_map_desc(AddressSpace *as,
++                                    unsigned int out_num, unsigned int in_num,
+                                     struct iovec *iov)
  {
-     if (!vhost_dev_has_iommu(dev)) {
--        return cpu_physical_memory_map(addr, plen, is_write);
-+        return address_space_map(vdev->dma_as, addr, plen, is_write,
-+                                 MEMTXATTRS_UNSPECIFIED);
-     } else {
-         return (void *)(uintptr_t)addr;
+     unsigned int i;
+@@ -1630,7 +1632,7 @@ static void virtqueue_undo_map_desc(unsigned int out_num, unsigned int in_num,
+     for (i = 0; i < out_num + in_num; i++) {
+         int is_write = i >= out_num;
+ 
+-        cpu_physical_memory_unmap(iov->iov_base, iov->iov_len, is_write, 0);
++        address_space_unmap(as, iov->iov_base, iov->iov_len, is_write, 0);
+         iov++;
      }
-@@ -466,7 +468,7 @@ static void vhost_memory_unmap(struct vhost_dev *dev, void *buffer,
-                                hwaddr access_len)
- {
-     if (!vhost_dev_has_iommu(dev)) {
--        cpu_physical_memory_unmap(buffer, len, is_write, access_len);
-+        address_space_unmap(vdev->dma_as, buffer, len, is_write, access_len);
-     }
+ }
+@@ -1832,7 +1834,7 @@ done:
+     return elem;
+ 
+ err_undo_map:
+-    virtqueue_undo_map_desc(out_num, in_num, iov);
++    virtqueue_undo_map_desc(vdev->dma_as, out_num, in_num, iov);
+     goto done;
+ }
+ 
+@@ -1982,7 +1984,7 @@ done:
+     return elem;
+ 
+ err_undo_map:
+-    virtqueue_undo_map_desc(out_num, in_num, iov);
++    virtqueue_undo_map_desc(vdev->dma_as, out_num, in_num, iov);
+     goto done;
  }
  
 -- 
