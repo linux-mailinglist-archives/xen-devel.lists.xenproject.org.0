@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E77EBADEE5
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 17:40:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1134350.1472277 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7A66BADF9C
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 17:50:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1134367.1472287 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3cSU-0007LV-Im; Tue, 30 Sep 2025 15:40:06 +0000
+	id 1v3ccg-0000pb-M3; Tue, 30 Sep 2025 15:50:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1134350.1472277; Tue, 30 Sep 2025 15:40:06 +0000
+Received: by outflank-mailman (output) from mailman id 1134367.1472287; Tue, 30 Sep 2025 15:50:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3cSU-0007Hv-Fq; Tue, 30 Sep 2025 15:40:06 +0000
-Received: by outflank-mailman (input) for mailman id 1134350;
- Tue, 30 Sep 2025 15:40:04 +0000
+	id 1v3ccg-0000mT-Ix; Tue, 30 Sep 2025 15:50:38 +0000
+Received: by outflank-mailman (input) for mailman id 1134367;
+ Tue, 30 Sep 2025 15:50:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fONW=4J=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1v3cSS-0006vF-E0
- for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 15:40:04 +0000
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c000::1])
+ <SRS0=t+de=4J=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1v3ccf-0000mN-L0
+ for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 15:50:37 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ba101e8a-9e13-11f0-9809-7dc792cee155;
- Tue, 30 Sep 2025 17:40:02 +0200 (CEST)
-Received: from BL1PR13CA0448.namprd13.prod.outlook.com (2603:10b6:208:2c3::33)
- by PH8PR12MB6961.namprd12.prod.outlook.com (2603:10b6:510:1bc::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.17; Tue, 30 Sep
- 2025 15:39:58 +0000
-Received: from BL02EPF0001A0FE.namprd03.prod.outlook.com
- (2603:10b6:208:2c3:cafe::d5) by BL1PR13CA0448.outlook.office365.com
- (2603:10b6:208:2c3::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.10 via Frontend Transport; Tue,
- 30 Sep 2025 15:39:58 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF0001A0FE.mail.protection.outlook.com (10.167.242.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9160.9 via Frontend Transport; Tue, 30 Sep 2025 15:39:57 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 30 Sep
- 2025 08:39:57 -0700
-Received: from [172.18.5.186] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 30 Sep 2025 08:39:56 -0700
+ id 3426e015-9e15-11f0-9809-7dc792cee155;
+ Tue, 30 Sep 2025 17:50:35 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-6318855a83fso11551732a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Sep 2025 08:50:35 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-67-38.play-internet.pl.
+ [109.243.67.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b400709f036sm367795966b.35.2025.09.30.08.50.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Sep 2025 08:50:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,109 +45,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba101e8a-9e13-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OPTJhLXcESIrOKdyr3LpwmhGAX3o8AnWvO6uJpTMjIGuPl0+onpvy0YdlVCd+IispaV2QRW073HV4eVWb7CN0I8P1CSq6CrftjfZgssUXgROyKK2ydtdNfJyjUof0wvcmztLc6Y+sEZ6AeNBiVkHrS1tAGfckZ9srTPijR68lOUjxmEAaWTMxHWGwF0WZK2prG4zwN0xMSOUZh54YMCSif/xOlUjG60apQDFHkjAHqAJQDAGQ5TRCoITNtdZdrlkpGDC6rMuAaX8UtXjVahM28O1vub+XjR+h/ifX6TfvGFsLpZ60+N1aQyFZIj27PnbowYQ/Yhvaw/URXOr0N4xsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sz9XH8Ox/al+ntoeOLZ0s/yoMY/BogCr6FnNBjGIFN0=;
- b=QoliXGaIY7DtB7dh0OyYR4eEMXYUsYFqok/f79Uf65NVxMhIhDdqBRDwPSSDJ+Bkotox83saB/M9p4Ib8EZl3EJRK/LfDTvIlFXCLcBCef1yXwb0E3J7iqOhnc42cR6/q1uiZ7fzOD52owQZxTHJgB1JvL2cuk2IXe7OKWk6pmvGNZ9NWlzb26iVCtjnwA5sMVLr9vCZEis+EoFNdoVOTr/z3YWP6Votj+P+SiHs/8c/k0zXGlt7ggkkNgADbzyZbLD0fag5IF1GmUtK9Qtaa1SO98so821HhIRPzjsZkifHYQvFkYV8P04dAe9Zont4l5QW6qoslV+ma3GlYAwn4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sz9XH8Ox/al+ntoeOLZ0s/yoMY/BogCr6FnNBjGIFN0=;
- b=5HIVZls5YXleBCUBsAxBtx2JwwEjT1KgfdEGXsakwb0W6hRKbfBzD6WXkYxXGPeUd4lfBidWZHpXrAcADCK5LD6gI4YcoRog/l9Qmd2X97GFvDKXp9Zn3QAkpqDExk3WuuGXsO1I3WF58y04XfiCVT7NFMdhjSlQFZWCThbuXco=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <5df3df3e-d3a6-4b84-a724-0edb1ce6324d@amd.com>
-Date: Tue, 30 Sep 2025 11:39:57 -0400
+X-Inumbo-ID: 3426e015-9e15-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1759247435; x=1759852235; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=odH/q2GSGoLrrbzqk1O5I44g4duKuQG3XTNgt+lVlzo=;
+        b=SgPNF8oxUaBRXzaarg8pCSqFnUDRonIwh7k+fiXhdwmJ7fWOt4Lt6xegcjh8MjRVIP
+         FrO9r+Gm37v0NBhkaA53iv4n1hG9u2UMuHBIMi9KjCelZdPUliGxXCsTfS4d+wF5Nysu
+         WxDjFzNial3zWgyoGHyX2NrUQsrePIqaYGrd/kfE3Tk+S7LtnzaTjKTxzG0lUa0P7Q0x
+         a4DOaZ7w6Rx4yQlKGt5OrBwK6os7yVNrW6hhmfwtmnMztWc7YA9jabkZjpo+itCPH756
+         ue8gD+W9X5HX/gUHE3kBMqsV7PnWWF9yxdH5JMSIEhX+RDG9WADUSOBjM9CJAPL9V99m
+         DNfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759247435; x=1759852235;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=odH/q2GSGoLrrbzqk1O5I44g4duKuQG3XTNgt+lVlzo=;
+        b=X58gbOFrmb+dzrZwu0AjJZl2rU+YIaB10PldPTuWwIbcWRdoSX3gfDTyjCtsseC9md
+         uATV3mWG75+ydwO382RZls0vcxc8q2RmHApJ1nik8Hs24Fkd4nNqn/5jJcjDJsXWRZV7
+         wA2o9KO4x4FB7bsrUQJxFPzGkziE0BIpLrKPQpYWin32uFEFbSRh7z2kyh5qlGiuPO/+
+         JsA62z+1Ev2jhpcPM8c0hxCdg1RA8vy9JUu1vIyUy/0LNorwuMMmwuLsxOh/HZjQL7ND
+         2Q9iMKDWmsjkMLtpeBdEjyGEZMS+9MYxJ63fmMEYSmPVbLq1fYvhRVsPPB0ihc/pIdGA
+         eqtA==
+X-Gm-Message-State: AOJu0Yzq09sxqHizrQhHN2rmjICk7/ky/zbczOKx09HHbt3iTMH+GYcW
+	WWRJ4wNoWmeScNnBM3xZ7bbMrU3gfSuEbGQAb9kkUaELCb4dmCHK3zit
+X-Gm-Gg: ASbGncvfOzyvmLTbC7nOPqj5SleikY/wk1OLv81dk67K9Imt/jswXPeOiR5pX7Ru0fG
+	FvBSZbIRKqiLDRo2omkfAFMktIjqkf3TFtUIaaHhaHDI5Q6B2WM3LsrGi2+iDuA/5yKaNI4xUpz
+	fZlUOpCNHWmYGVAkPY63dgbOyaCb/Di/QUtyexbxfridhZ2pMyrTu2xWTjNHxybBE/Ob5WoRL6o
+	F3EYflYRZe8sH5iQ6klcwSnA5CoXnXG14XLKVOpzi/4TcYygfhrUm7rbe6DYhg+6Gcej5OoiNhx
+	SOe2sPpHRgdHKnUzJHvAXl3d4nXgUuTx/VZXITANRIbnjUAhON2/rqAICWDkuDQk94vGCf5n05h
+	DGinIGC4y1CSKQtSxXxA8dKc2Gq1E5gwv9k+nIPkSdPwRd7KkHBkhiIGahFq909YAEKSO9NL5gJ
+	eeJ51lzuOhYhpmxCY2r3TG
+X-Google-Smtp-Source: AGHT+IF6j++ao7mg+MEo2yPj1tSxFY9nd56GYOgI53dtEc4XMCzaE0bHH8iObyoMejB+GLhoX2HyxQ==
+X-Received: by 2002:a17:907:9724:b0:b3e:1400:6cab with SMTP id a640c23a62f3a-b46e585cd82mr10862266b.17.1759247434791;
+        Tue, 30 Sep 2025 08:50:34 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------r5uiVIgilOaa4Ja1F0UjuQvz"
+Message-ID: <c76993f8-6f58-4d6d-8901-42bb5a098bc8@gmail.com>
+Date: Tue, 30 Sep 2025 17:50:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 7/8] configure: Use json-c by default, fallback to
- yajl
-To: Anthony PERARD <anthony@xenproject.org>, <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@vates.tech>
-References: <20250929120756.46075-1-anthony@xenproject.org>
- <20250929120756.46075-8-anthony@xenproject.org>
+Subject: Re: [PATCH for-4.21] vpci/msix: improve handling of bogus MSI-X
+ capabilities
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ Jan Beulich <jbeulich@suse.com>
+References: <20250929084149.70560-1-roger.pau@citrix.com>
+ <dfd39bbb-cefb-4d6a-b4cb-b3a787411fb8@gmail.com> <aNvRH-MWRMJuX9w5@Mac.lan>
 Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20250929120756.46075-8-anthony@xenproject.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FE:EE_|PH8PR12MB6961:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca193ce6-21ab-4534-db1a-08de00379c4e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Q1pXK2lKSWxjdVpNYXV3Y0thd1BjelJ3U3RNM2laQTR1Z3kwTCtiTit6K0hn?=
- =?utf-8?B?dytEeVBiaXlrTENHSyt0NWtTNnRuMjJGdE5yL2swRkNqU1J0OEFJYllDSTZy?=
- =?utf-8?B?M2xVYUEzanhQL3NUYTFaMS94Y1MyZUxDV1QyY2FpOG1HenZJL1JleVkwMmZ1?=
- =?utf-8?B?VVdqZHUyaGNFL2NwdWJrSW1HVXhzQTU1Yk43T3c2cFp6NXRmd0ZWUXJkbDl2?=
- =?utf-8?B?U3JVamNjQXdPR2hJM1hrc3ArSkxOR0plM2N3ZmJXR2sySU9VSENqY1VvbXA1?=
- =?utf-8?B?dWtqWTIwN3Z4RU82RXlwU0hJam1tVjdXNTRsSWJ0ZXZjUnNwK09rNU9pUmxo?=
- =?utf-8?B?VTVuMFZHYTY3aXJkdjBNK1pQQ1RRdmxtKzAwZDgzenlrbWJOTlVFajlHOVRQ?=
- =?utf-8?B?NTg1VWQwVmk1QzA2cHk5QVpVWmFEZys2NUtMS0FiYUtLY1RRMEorTVRhMUlC?=
- =?utf-8?B?bFlZbDFqeEFTRm5QWjZtbmZBUy9XSHo3bXdTZkE1eFFxajRmWXI4QS9rMzdE?=
- =?utf-8?B?Tm5nQmkxSGx4S0VRTFM0cno1cDdUS1Q4V0RFUWZVZ3g0ckw5YjZrQmhSRm1T?=
- =?utf-8?B?SXliY1dGUEVOWDFGNHNzN04rNkFpSzhyNXlWNTkveUtQeFFxY1NhNmNmMGF5?=
- =?utf-8?B?ekJiUzAxcGJHcjQxYVJTRDg1Q3FwUjNjSGhDKzNyV2g1NU1YcVBQRjJ6NDZ4?=
- =?utf-8?B?RVZWQ2wwaXJic3NIY2VoU0VhOVplekx2SlZVU05nSCs1U05sMy9SUkdSZW5I?=
- =?utf-8?B?VWxLdXUxTCs1MFhWQis3VTdJQ1NxOENMWVJBNmZEZXZiUXNJbUh3NUlxRC80?=
- =?utf-8?B?RXNJUTJoVitzSFMydnZtTEhmTWdXcXlRNXdETHFCaTc1TGZXbmYwVHB3VUYw?=
- =?utf-8?B?NjdqcWd5NFRDWGgrcE5hZFlrbkkwVGZUTlJGaHJtOE9OaWhaY3pGK2xOMXBR?=
- =?utf-8?B?aVcrYVdsTHlpUkp0TDVFWS9iMlVCMG05S1c5K3JRV0RrRTZIeHduVFE3dEYy?=
- =?utf-8?B?dEkzUk96Z3RXQkZzaC9UUHJQUC93ejNsZzNCSnZKSHdncERkUDdDTitwZnY0?=
- =?utf-8?B?UFAvWHNseUlLMTVUTW8xUU5GRlhOc1JKN0tEZ3NGMlUxUm1NcG1LeWNITWxk?=
- =?utf-8?B?bUlXSFY2MHRXeFhFeStWRmlQTGZnUTZXU0tsVlJTSDNHaitwS29xSHZwZ085?=
- =?utf-8?B?MTdWV3IzcHNQdStqOFBBRE5lbUdBMmhneSt5bGR1NklJcXpHZytib0NERFdS?=
- =?utf-8?B?MWlrcEZlNTA1WkU0bWttOXR5STVsem9DZFh6SlFtaUh0WTlsQjU1RWZLL0ll?=
- =?utf-8?B?bHNLRERXM2hydVdpckNxSE1ERmJqL3hmOFNweVNJektjVlZyM2QxQmhlbC83?=
- =?utf-8?B?U3R5S3FyR0RpeHF0RjM1MDlraDRwdjdkK0poL2g0bVR6VnRMN0tyVVlHMDRO?=
- =?utf-8?B?MzhJbTZqZVl3NzNOYXFod29JT1Q4WEVMUjYvZms0c2Nra2EyMVNONXFrdkEr?=
- =?utf-8?B?NndCQ1VpTGpvekwyeHcxOEhLTkt5cFZHaC9VdElraG5DdjJTVXc2SmsrZ1RR?=
- =?utf-8?B?Y0dwMXJBdGgvLzhOenFNZGZGWVFNVlRMaGtmUDM4Vk1iak5oUXNSOWhGVXh3?=
- =?utf-8?B?cUQ2TmUzK2xpT3VuSUxDY1k4SU0zNkMrS0NBaG9MYkJkcHJVak93VndFczZJ?=
- =?utf-8?B?OG9zZDRVVkZlU29EdHZESXhxeHovdDhmM1dpMUdjK1dzLzArZkZBRHljZEk3?=
- =?utf-8?B?cVNBb1lxTzlwMWRpWjhvVWZaMG54NkMvV2ZLaW5PaW5QMFAwbm1NSmRYT3lh?=
- =?utf-8?B?ODFoQzJvMFpkQTBTZGZmQ2FyRE43dEJMQTZ3SGxLRS9iVUhSNCsxeU1Hek9R?=
- =?utf-8?B?ZXlwZ0VmL2RlKzhCdnhpWkJuT2pyQXhJRUVkK3Zaa2FxdG4rZnFneWswQ1lR?=
- =?utf-8?B?ZWxqYzRPUUphODZCY2tsZ3ljTXlsWVVFd2toU3NnQituQnhTaUY0QUZuUk9n?=
- =?utf-8?B?bkNnZGVMWGZ5SytaQ0JZdVJxalJBU1R0Ylk3SVJtUlpuTFowVm5ZTmd0bkZm?=
- =?utf-8?B?TS9QSzBiY0xDVVpnSVhwOFk3Q0ZjbENaeVUzakhqdjRFdWNCekJHNG9vb2wy?=
- =?utf-8?Q?gAX8=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2025 15:39:57.7757
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca193ce6-21ab-4534-db1a-08de00379c4e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A0FE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6961
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <aNvRH-MWRMJuX9w5@Mac.lan>
 
-On 2025-09-29 08:07, Anthony PERARD wrote:
-> From: Anthony PERARD <anthony.perard@vates.tech>
-> 
-> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+This is a multi-part message in MIME format.
+--------------r5uiVIgilOaa4Ja1F0UjuQvz
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-Thanks,
-Jason
+On 9/30/25 2:46 PM, Roger Pau Monné wrote:
+> On Mon, Sep 29, 2025 at 05:59:00PM +0200, Oleksii Kurochko wrote:
+>> On 9/29/25 10:41 AM, Roger Pau Monne wrote:
+>>> I've had the luck to come across a PCI card that exposes a MSI-X capability
+>>> where the BIR of the vector and PBA tables points at a BAR that has 0 size.
+>>>
+>>> This doesn't play nice with the code in vpci_make_msix_hole(), as it would
+>>> still use the address of such empty BAR (0) and attempt to crave a hole in
+>>> the p2m.  This leads to errors like the one below being reported by Xen:
+>>>
+>>> d0v0 0000:22:00.0: existing mapping (mfn: 181c4300 type: 0) at 0 clobbers MSIX MMIO area
+>>>
+>>> And the device left unable to enable memory decoding due to the failure
+>>> reported by vpci_make_msix_hole().
+>>>
+>>> Introduce checking in init_msix() to ensure the BARs containing the MSI-X
+>>> tables are usable.  This requires checking that the BIR points to a
+>>> non-empty BAR, and the offset and size of the MSI-X tables can fit in the
+>>> target BAR.
+>>>
+>>> This fixes booting PVH dom0 on Supermicro AS -2126HS-TN severs with AMD
+>>> EPYC 9965 processors.  The broken device is:
+>>>
+>>> 22:00.0 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SATA Controller [AHCI mode] (rev 93)
+>>>
+>>> There are multiple of those integrated controllers in the system, all
+>>> broken in the same way.
+>>>
+>>> Signed-off-by: Roger Pau Monné<roger.pau@citrix.com>
+>>> ---
+>>> Cc: Stewart Hildebrand<stewart.hildebrand@amd.com>
+>>> Cc: Jan Beulich<jbeulich@suse.com>
+>>> Cc: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>>>
+>>> While not strictly a bugfix, I consider this a worthy improvement so that
+>>> PVH dom0 has a chance to boot on hardware that exposes such broken MSI-X
+>>> capabilities.
+>> Based on your commit description it looks like a bug as without it, for example,
+>> SATA controller can't be used, right?
+>>
+>>>    Hence I think this change should be considered for inclusion
+>>> into 4.21.  There a risk of regressing on hardware that was already working
+>>> with PVH, but given enough testing that should be minimal.
+>> We have some PVH tests in Xen’s GitLab CI, but I assume that isn’t enough?
+> It's a very specific controller, which we don't seem to have any
+> examples of in the lab.  The model is in the commit message.  Without
+> this fix the device doesn't work as expected when used in PVH dom0
+> mode.
+
+Thanks for the explanation.
+
+I think we should consider to have this in 4.21 as it is still a fix of bogus
+behavior:
+  Released-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+
+~ Oleksii
+
+--------------r5uiVIgilOaa4Ja1F0UjuQvz
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 9/30/25 2:46 PM, Roger Pau Monné
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:aNvRH-MWRMJuX9w5@Mac.lan">
+      <pre wrap="" class="moz-quote-pre">On Mon, Sep 29, 2025 at 05:59:00PM +0200, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 9/29/25 10:41 AM, Roger Pau Monne wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">I've had the luck to come across a PCI card that exposes a MSI-X capability
+where the BIR of the vector and PBA tables points at a BAR that has 0 size.
+
+This doesn't play nice with the code in vpci_make_msix_hole(), as it would
+still use the address of such empty BAR (0) and attempt to crave a hole in
+the p2m.  This leads to errors like the one below being reported by Xen:
+
+d0v0 0000:22:00.0: existing mapping (mfn: 181c4300 type: 0) at 0 clobbers MSIX MMIO area
+
+And the device left unable to enable memory decoding due to the failure
+reported by vpci_make_msix_hole().
+
+Introduce checking in init_msix() to ensure the BARs containing the MSI-X
+tables are usable.  This requires checking that the BIR points to a
+non-empty BAR, and the offset and size of the MSI-X tables can fit in the
+target BAR.
+
+This fixes booting PVH dom0 on Supermicro AS -2126HS-TN severs with AMD
+EPYC 9965 processors.  The broken device is:
+
+22:00.0 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SATA Controller [AHCI mode] (rev 93)
+
+There are multiple of those integrated controllers in the system, all
+broken in the same way.
+
+Signed-off-by: Roger Pau Monné<a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
+---
+Cc: Stewart Hildebrand<a class="moz-txt-link-rfc2396E" href="mailto:stewart.hildebrand@amd.com">&lt;stewart.hildebrand@amd.com&gt;</a>
+Cc: Jan Beulich<a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+Cc: Oleksii Kurochko<a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+While not strictly a bugfix, I consider this a worthy improvement so that
+PVH dom0 has a chance to boot on hardware that exposes such broken MSI-X
+capabilities.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Based on your commit description it looks like a bug as without it, for example,
+SATA controller can't be used, right?
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">  Hence I think this change should be considered for inclusion
+into 4.21.  There a risk of regressing on hardware that was already working
+with PVH, but given enough testing that should be minimal.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+We have some PVH tests in Xen’s GitLab CI, but I assume that isn’t enough?
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+It's a very specific controller, which we don't seem to have any
+examples of in the lab.  The model is in the commit message.  Without
+this fix the device doesn't work as expected when used in PVH dom0
+mode.</pre>
+    </blockquote>
+    <pre>Thanks for the explanation.
+
+I think we should consider to have this in 4.21 as it is still a fix of bogus
+behavior:
+ Released-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------r5uiVIgilOaa4Ja1F0UjuQvz--
 
