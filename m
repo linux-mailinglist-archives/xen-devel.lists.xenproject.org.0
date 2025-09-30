@@ -2,40 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD55ABAC2AA
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 11:03:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1134117.1472127 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE247BAC378
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 11:15:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1134132.1472136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3WG9-0001mj-Oa; Tue, 30 Sep 2025 09:02:57 +0000
+	id 1v3WSB-0003yr-SY; Tue, 30 Sep 2025 09:15:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1134117.1472127; Tue, 30 Sep 2025 09:02:57 +0000
+Received: by outflank-mailman (output) from mailman id 1134132.1472136; Tue, 30 Sep 2025 09:15:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3WG9-0001kP-Kj; Tue, 30 Sep 2025 09:02:57 +0000
-Received: by outflank-mailman (input) for mailman id 1134117;
- Tue, 30 Sep 2025 09:02:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TYDf=4J=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1v3WG8-0001kJ-1W
- for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 09:02:56 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3fc5ca55-9ddc-11f0-9809-7dc792cee155;
- Tue, 30 Sep 2025 11:02:53 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-61cc281171cso11645291a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 30 Sep 2025 02:02:53 -0700 (PDT)
-Received: from ?IPV6:2003:e5:873f:400:7b4f:e512:a417:5a86?
- (p200300e5873f04007b4fe512a4175a86.dip0.t-ipconnect.de.
- [2003:e5:873f:400:7b4f:e512:a417:5a86])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b3c40d9ced1sm557968466b.80.2025.09.30.02.02.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Sep 2025 02:02:52 -0700 (PDT)
+	id 1v3WSB-0003wT-Pe; Tue, 30 Sep 2025 09:15:23 +0000
+Received: by outflank-mailman (input) for mailman id 1134132;
+ Tue, 30 Sep 2025 09:15:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BylR=4J=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1v3WSB-0003wN-9j
+ for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 09:15:23 +0000
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170120001.outbound.protection.outlook.com
+ [2a01:111:f403:c107::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fcc1a45d-9ddd-11f0-9d14-b5c5bf9af7f9;
+ Tue, 30 Sep 2025 11:15:21 +0200 (CEST)
+Received: from BYAPR06CA0005.namprd06.prod.outlook.com (2603:10b6:a03:d4::18)
+ by CH3PR12MB8547.namprd12.prod.outlook.com (2603:10b6:610:164::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.17; Tue, 30 Sep
+ 2025 09:15:15 +0000
+Received: from SJ5PEPF00000209.namprd05.prod.outlook.com
+ (2603:10b6:a03:d4:cafe::c3) by BYAPR06CA0005.outlook.office365.com
+ (2603:10b6:a03:d4::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9160.17 via Frontend Transport; Tue,
+ 30 Sep 2025 09:15:14 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF00000209.mail.protection.outlook.com (10.167.244.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9160.9 via Frontend Transport; Tue, 30 Sep 2025 09:15:14 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 30 Sep
+ 2025 02:15:02 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,255 +56,241 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fc5ca55-9ddc-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1759222973; x=1759827773; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=LtMOHW+53F0W8gofi/abbzsPPcLlqTFKatap2a1mWHc=;
-        b=d+Mp5vPuyIM2NRTC5R3tCemFnPCNzpTb3JLdPGgHdrZMD1K6wzGyg+8JMa6mq0hevA
-         JCf2o7XfT22kxBj1aSL6KZ0ONcJzDC62kUIEmSLqlEDNu9sU0UWq8PL2ijreioKzLFif
-         DtWXkRN2h7CGKQaLDoYKFgZ+tYF3XTRZeD4yoNyoAlazvoPtL9jGaNrvasg7XnYjqC9d
-         MPiKiJ+6Gv2oHDBzWDc7wXTc0Ve1WCSQjrXe3p5UL2XQ6ekOPDNOCOrxLE3Hs1mof9EW
-         6zwbezGL3pQtXVD/I9xxkGrTvT15cr3ujgWs1fAwfEeqOK+HXnfHUToeqrpnnFtXpgvC
-         J7rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759222973; x=1759827773;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LtMOHW+53F0W8gofi/abbzsPPcLlqTFKatap2a1mWHc=;
-        b=f8wVYY/zHOJOFrga3GJU+1VbICDN4BRfV/dfIoGLhqOO7K5mLBo21VwdMW6QIcwfCQ
-         P8hUTeJzZkOLjKz6JG9FgCm4zxIC3ocSNr+1p9vjgQhZOu96UmZYQjPCwNcJspOoKERV
-         joX6DaMvruEFg/k1fxqVtEVG+tr4P/PNLyvEKMuScTcnudi9zSoZoqkCS4p4wU+rQOY7
-         /55KxpZZy8iCCY0DrlPJL2wrGa1cLlRHGxvbol3nvendl/9RYiAtsB+xZKAZmAzsrgRw
-         WvMHkjQoa441ItvV+ZqpoCvEleKb32BNsF9DfQynE/OoNhR0Jbckf2GdK2VUjety7QWj
-         LFlw==
-X-Forwarded-Encrypted: i=1; AJvYcCXc7Sf6TFzHfBiB+5+qJJzfT+ynBYX6q6s6GcaqdfJberBycBSbInRvKreCgd47emziCBRCrI5B8Cs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwpN9NdLxSOeanoX5/Qn1Rv5K9z09AreCcJvakM0B69+842jMZj
-	LT4wSOA5OQralEPXvRgngwvZ2XSg2zBuSqqkhM9aXnfz1o3K1jL2Seq1Bij8vuPqyNc=
-X-Gm-Gg: ASbGncv0vtL5amEUa1hvd7guifoyucF3t3SaLwQKcmNyyvriMkhRJURSg8sv85Vy55H
-	dNbV06yjmfjpuAU9zyps6lSnbuzwo8BpW1pMS/tWREC95WZxJ3ww/zo9/lAkLMFjyqKyOipsh6D
-	6fequ+7hQOAbxKA1xMMfjr2YxmHre3iOuUqkXjduWy6dyPoeB4S07QftOpBjnusU2REKhecTtUk
-	6sTLCD9YAa3zzRaaK6F0v2tGPQxta7dlcpu81hJuXMG0jJS8WGsOpxT2jlijWqJ1ekSuBYrUtyS
-	58dR5ZVCjT7l5T5OXLmioDzduPUJ6frNX6J0eVftU5Skm+2YBOYMyouK2DiEd1AC7QHn015Kr8E
-	dO7lzuaLYjJD5zgzcoIs3+QNblEyFJW6oEIkTLNgx9P4QxJyhfpkJR8lsimsZsaG4kmiQM+hfeZ
-	qaLZU6fQ7/LN1eH8QaQ8Yjr+u4JuoUu2+nODFeihMxWFpS6Qo8+hmRfMjJZ2rxC2xpiYk4
-X-Google-Smtp-Source: AGHT+IEhBcJxRX85g9uAkfqQnAOM8ZX84eGYiI6CL0xWr5Dy3J8XRMl2kqQOdaPWOVnka4EPHeMGbA==
-X-Received: by 2002:a17:907:d7c1:b0:b3a:ecc1:7774 with SMTP id a640c23a62f3a-b3aecc183bamr1092767766b.53.1759222973125;
-        Tue, 30 Sep 2025 02:02:53 -0700 (PDT)
-Message-ID: <1541b670-8b29-42a5-a58d-34d85197751d@suse.com>
-Date: Tue, 30 Sep 2025 11:02:52 +0200
+X-Inumbo-ID: fcc1a45d-9ddd-11f0-9d14-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T7nLHrrutVTHLScnZ5tBRTP0qfdDUPnunC/uSX2+bN8xXTMw5poLJHmIiKY8igkbAZBOFnmhZ06lWfcQ53CntgQq+H0sr7w0ITBPCBmPbH8fBIbjuNV+Kh0ZX35cXzasl6W0AdEsgfbZRvPGl3erUmiRAaVQbZZBOXHGm3DAKQ5a+MfRUUlpOrcyjTRefMdju/+lFDNSc+NBeKuKFrj7nlC10OF99VBb5kjKQYkM5D/rXWxk7I+/2YgA+nvksQjOJHLEDjSRRY+M7iNtHJEnSjU6d3h0RVOJyieak1uDuliSF0zFbwREjCKR1LaMFKd5f1oeZ+wvVddvAO1WnJk9sg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2AreZ7zKG8bk3F4BWT7SaaEX5dBp9i0cOavKWQdYOCY=;
+ b=Sdc7Frjt2CCr2EMyZv58JifYEjbIJZA4dB1HRqUD0364N4AtyxKCUY2rlrMbjvP7OiMN4R5Z0CjYC4kDFA14KamYWE7rMAtu34J+LG8eJNMQ+Lc6n9HvAM6jylTtAgG+Gnj2B1+fJ1AcBYFxczaGMLCfSyeM/N1BMukdxq9VPkZ3LsIKy5U1szzhoJ8u/OBfpYmzFI7oJyMUeA5OlXfEfYBzbp1uHcZ4yN6l7cmrbna2BC1r02Fbv59lyApX/NY0UgQ7pnBqd8oLVbSqmvelQlkj+xk2wnplL2cX7uBfK4Y0Kh6dEeNbl7wggyv17VD3Q9aPai9Nd8KeN957GCJJrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2AreZ7zKG8bk3F4BWT7SaaEX5dBp9i0cOavKWQdYOCY=;
+ b=pfWXJOz8ci4uWuX5VtQDOeLPjjW9ni7eOOjgv318sj20QVHnHd1T6F1nyZXVSuHHkmER9SpYDL4P4ANxZ63gzUnIpyu+HUtDo5LaxdhAL3UOOBErKEG8Ixh1ZNdC1gnXAT8D0vKSTd8+FBVrDoj0wRjYyn+xwl3AQeYErqfglIA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/12] x86/paravirt: Don't use pv_ops vector for MSR
- access functions
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux.dev, xin@zytor.com,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org
-References: <20250930070356.30695-1-jgross@suse.com>
- <20250930070356.30695-12-jgross@suse.com>
- <20250930083827.GI3245006@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20250930083827.GI3245006@noisy.programming.kicks-ass.net>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------EDjdRPJRmmUK5bP0S1o6gxj8"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------EDjdRPJRmmUK5bP0S1o6gxj8
-Content-Type: multipart/mixed; boundary="------------SnAjFPsvrro8lhJGEyYEiJll";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux.dev, xin@zytor.com,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org
-Message-ID: <1541b670-8b29-42a5-a58d-34d85197751d@suse.com>
-Subject: Re: [PATCH v2 11/12] x86/paravirt: Don't use pv_ops vector for MSR
- access functions
-References: <20250930070356.30695-1-jgross@suse.com>
- <20250930070356.30695-12-jgross@suse.com>
- <20250930083827.GI3245006@noisy.programming.kicks-ass.net>
-In-Reply-To: <20250930083827.GI3245006@noisy.programming.kicks-ass.net>
-
---------------SnAjFPsvrro8lhJGEyYEiJll
-Content-Type: multipart/mixed; boundary="------------dMBscmw5LmvOz0wWFtddEw66"
-
---------------dMBscmw5LmvOz0wWFtddEw66
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMzAuMDkuMjUgMTA6MzgsIFBldGVyIFppamxzdHJhIHdyb3RlOg0KPiBPbiBUdWUsIFNl
-cCAzMCwgMjAyNSBhdCAwOTowMzo1NUFNICswMjAwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
-PiANCj4+ICtzdGF0aWMgX19hbHdheXNfaW5saW5lIHU2NCByZWFkX21zcih1MzIgbXNyKQ0K
-Pj4gK3sNCj4+ICsJaWYgKGNwdV9mZWF0dXJlX2VuYWJsZWQoWDg2X0ZFQVRVUkVfWEVOUFYp
-KQ0KPj4gKwkJcmV0dXJuIHhlbl9yZWFkX21zcihtc3IpOw0KPj4gKw0KPj4gKwlyZXR1cm4g
-bmF0aXZlX3JkbXNycShtc3IpOw0KPj4gK30NCj4+ICsNCj4+ICtzdGF0aWMgX19hbHdheXNf
-aW5saW5lIGludCByZWFkX21zcl9zYWZlKHUzMiBtc3IsIHU2NCAqcCkNCj4+ICt7DQo+PiAr
-CWlmIChjcHVfZmVhdHVyZV9lbmFibGVkKFg4Nl9GRUFUVVJFX1hFTlBWKSkNCj4+ICsJCXJl
-dHVybiB4ZW5fcmVhZF9tc3Jfc2FmZShtc3IsIHApOw0KPj4gKw0KPj4gKwlyZXR1cm4gbmF0
-aXZlX3JlYWRfbXNyX3NhZmUobXNyLCBwKTsNCj4+ICt9DQo+PiArDQo+PiArc3RhdGljIF9f
-YWx3YXlzX2lubGluZSB2b2lkIHdyaXRlX21zcih1MzIgbXNyLCB1NjQgdmFsKQ0KPj4gK3sN
-Cj4+ICsJaWYgKGNwdV9mZWF0dXJlX2VuYWJsZWQoWDg2X0ZFQVRVUkVfWEVOUFYpKQ0KPj4g
-KwkJeGVuX3dyaXRlX21zcihtc3IsIHZhbCk7DQo+PiArCWVsc2UNCj4+ICsJCW5hdGl2ZV93
-cm1zcnEobXNyLCB2YWwpOw0KPj4gK30NCj4+ICsNCj4+ICtzdGF0aWMgX19hbHdheXNfaW5s
-aW5lIGludCB3cml0ZV9tc3Jfc2FmZSh1MzIgbXNyLCB1NjQgdmFsKQ0KPj4gK3sNCj4+ICsJ
-aWYgKGNwdV9mZWF0dXJlX2VuYWJsZWQoWDg2X0ZFQVRVUkVfWEVOUFYpKQ0KPj4gKwkJcmV0
-dXJuIHhlbl93cml0ZV9tc3Jfc2FmZShtc3IsIHZhbCk7DQo+PiArDQo+PiArCXJldHVybiBu
-YXRpdmVfd3JpdGVfbXNyX3NhZmUobXNyLCB2YWwpOw0KPj4gK30NCj4+ICsNCj4+ICtzdGF0
-aWMgX19hbHdheXNfaW5saW5lIHU2NCByZHBtYyhpbnQgY291bnRlcikNCj4+ICt7DQo+PiAr
-CWlmIChjcHVfZmVhdHVyZV9lbmFibGVkKFg4Nl9GRUFUVVJFX1hFTlBWKSkNCj4+ICsJCXJl
-dHVybiB4ZW5fcmVhZF9wbWMoY291bnRlcik7DQo+PiArDQo+PiArCXJldHVybiBuYXRpdmVf
-cmVhZF9wbWMoY291bnRlcik7DQo+PiArfQ0KPiANCj4gRWdhZHMsIGRpZG4ndCB3ZSBqdXN0
-IGNvbnN0cnVjdCBnaWFudCBBTFRFUk5BVElWRSgpcyBmb3IgdGhlIG5hdGl2ZV8NCj4gdGhp
-bmdzPyBXaHkgd3JhcCB0aGF0IGluIGEgY3B1X2ZlYXR1cmVfZW5hYmxlZCgpIGluc3RlYWQg
-b2YganVzdCBhZGRpbmcNCj4gb25lIG1vcmUgY2FzZSB0byB0aGUgQUxURVJOQVRJVkUoKSA/
-DQoNClRoZSBwcm9ibGVtIEkgZW5jb3VudGVyZWQgd2l0aCB1c2luZyBwdl9vcHMgd2FzIHRv
-IGltcGxlbWVudCB0aGUgKl9zYWZlKCkNCnZhcmlhbnRzLiBUaGVyZSBpcyBubyBzaW1wbGUg
-d2F5IHRvIGRvIHRoYXQgdXNpbmcgQUxURVJOQVRJVkVfPG4+KCksIGFzDQppbiB0aGUgWGVu
-IFBWIGNhc2UgdGhlIGNhbGwgd2lsbCByZW1haW4sIGFuZCBJIGRpZG4ndCBmaW5kIGEgd2F5
-IHRvDQpzcGVjaWZ5IGEgc2FuZSBpbnRlcmZhY2UgYmV0d2VlbiB0aGUgY2FsbC1zaXRlIGFu
-ZCB0aGUgY2FsbGVkIFhlbiBmdW5jdGlvbg0KdG8gcmV0dXJuIHRoZSBlcnJvciBpbmRpY2F0
-b3IuIFJlbWVtYmVyIHRoYXQgYXQgdGhlIGNhbGwgc2l0ZSB0aGUgbWFpbg0KaW50ZXJmYWNl
-IGlzIHRoZSBvbmUgb2YgdGhlIFJETVNSL1dSTVNSIGluc3RydWN0aW9ucy4gVGhleSBsYWNr
-IGFuIGVycm9yDQppbmRpY2F0b3IuDQoNCkluIFhpbidzIHNlcmllcyB0aGVyZSB3YXMgYSBw
-YXRjaCB3cml0dGVuIGluaXRpYWxseSBieSB5b3UgdG8gc29sdmUgc3VjaA0KYSBwcm9ibGVt
-IGJ5IGFkZGluZyB0aGUgX0FTTV9FWFRBQkxFX0ZVTkNfUkVXSU5EKCkgZXhjZXB0aW9uIHRh
-YmxlIG1ldGhvZC4NCkkgdGhpbmsgdGhpcyBpcyBhIGRlYWQgZW5kLCBhcyBpdCB3aWxsIGJy
-ZWFrIHdoZW4gdXNpbmcgYSBzaGFkb3cgc3RhY2suDQoNCkFkZGl0aW9uYWxseSBJIGZvdW5k
-IGEgcmF0aGVyIHVnbHkgaGFjayBvbmx5IHRvIGF2b2lkIHJlLWl0ZXJhdGluZyBtb3N0IG9m
-DQp0aGUgYmFyZSBtZXRhbCBBTFRFUk5BVElWRSgpIGZvciB0aGUgcGFyYXZpcnQgY2FzZS4g
-SXQgaXMgcG9zc2libGUsIGJ1dCB0aGUNCmJhcmUgbWV0YWwgY2FzZSBpcyBnYWluaW5nIG9u
-ZSBhZGRpdGlvbmFsIEFMVEVSTkFUSVZFIGxldmVsLCByZXN1bHRpbmcgaW4NCnBhdGNoaW5n
-IHRoZSBvcmlnaW5hbCBpbnN0cnVjdGlvbiB3aXRoIGFuIGlkZW50aWNhbCBjb3B5IGZpcnN0
-Lg0KDQpBbm90aGVyIGJlbmVmaXQgb2YgbXkgYXBwcm9hY2ggaXMgdGhlIGRyb3BwaW5nIG9m
-ICIjaW5jbHVkZSA8YXNtL3BhcmF2aXJ0Lmg+Ig0KZnJvbSBtc3IuaCwgd2hpY2ggaXMgbWFr
-aW5nIGxpZmUgYSBsaXR0bGUgYml0IGVhc2llci4NCg0KDQpKdWVyZ2VuDQo=
---------------dMBscmw5LmvOz0wWFtddEw66
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Tue, 30 Sep 2025 11:15:01 +0200
+Message-ID: <DD60R7HDKJ23.1BYEORZH67NOS@amd.com>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, Xen-devel
+	<xen-devel-bounces@lists.xenproject.org>
+Subject: Re: [PATCH for-4.21] vpci/msix: improve handling of bogus MSI-X
+ capabilities
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: Roger Pau Monne <roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>
+X-Mailer: aerc 0.20.1
+References: <20250929084149.70560-1-roger.pau@citrix.com>
+In-Reply-To: <20250929084149.70560-1-roger.pau@citrix.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000209:EE_|CH3PR12MB8547:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21724ccc-0a37-4c5c-9b28-08de0001dd9b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|30052699003|36860700013|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Ri9idThCdGNsaFZodDdidFpKZ1ZnQkYzeFJQaHgwRGFTeGphYWZCRUFpM2RW?=
+ =?utf-8?B?REhVRjFxWVJNNU1TRVg1VmZ1MUpnOTVlaVFYdlM2VWdaTUtkVkc1N3hUVW9q?=
+ =?utf-8?B?dWJTbjVGRWxPVWthKyt5aHc2RHhMT2JaT1RIaGJXK0lMUmVyNXFDQStRMlYw?=
+ =?utf-8?B?bi9tckNOdkc3QXo2MWhSRWx6SU9hMHZueS96eklDU0hjUnFJMXIzekt5NTJ4?=
+ =?utf-8?B?MUp6Ni9IM2JQNkJMK2pMMWZFTFRmSXNKeG9FN1doTFBYSmJTOWhrMHNHTjg2?=
+ =?utf-8?B?Zm1GSG1uQXcwbE5QTXVUY2Y1UVBNWEU5UVUrL0c3UDNIazFMRVJRekRabGFG?=
+ =?utf-8?B?T2p3Y1ROYmlJbmMxTjdLdE92RGs5cExaNC94am1vSFNtSm9tQ1hYNm1hRktr?=
+ =?utf-8?B?dFk2c1VVUUtDTFRidDlXMjdtbVRFL2ZVTndkYXZUOVN4MTN0TlozOXdGMTJw?=
+ =?utf-8?B?YUUyTGRlVlRuSWViOFE3bStST0tDK1Q4TmsvZWFJaUxnU2JQSEk1N09EZHBT?=
+ =?utf-8?B?SGFJOE9taFhRK20yMk5KQ0ZLQ3AxTXFrS2p1VE43dTRMMWpuMzVzNG5mUXFn?=
+ =?utf-8?B?OG4rdlhLeVFidzlqTEhIWloxNVZzTGpOVHdhTDdqNGk4YXpYZlpFOHlBZkRR?=
+ =?utf-8?B?MzFSM0RMYUpwbThsdWdabFU0aXUzSUZnZk95WHRMSUtkYWt6bHZCcm01WTlj?=
+ =?utf-8?B?STlFMzNDYUp2Y2orY2ZWeERseXBVUkRVeWNoMTFKdzM0YXBQaVBGT2pjVTU0?=
+ =?utf-8?B?clBXczJ5YXBZUVZVVXVVSmYwdHB4bjhVdnl1ek8xUTJkNW9JTkp2TTR2N3dr?=
+ =?utf-8?B?RFRMK3I2ZHJjMXhZK1lqM1hvN2xQbFptTFY5RVVkb0Z3U1lTUFpZSTZlMGFq?=
+ =?utf-8?B?cFozbFpTeEdDaTNWSEFMYkUyeGJpN0VKNmMxc1VFU2xLUEJrdVpkSFI3L0Mx?=
+ =?utf-8?B?bXN3emFJMWp3alVPK2hkN1crMVJROVJVcUdtc2tmekFsOW55dzVoNDZxOFJp?=
+ =?utf-8?B?K09ITW0zWFcyMStzZDZqRWdkU2hBei80bFFBWnlzNXJJQWNjR0cySG9sL2Fs?=
+ =?utf-8?B?T29EYjJsVThhVjhrZ1BtU083YUExRlNaenFsb28rcENkOXBQNG5ybEUwWWhw?=
+ =?utf-8?B?QTZ5eHd1OTh0bVN4K2NHMDcyc2Fna3J6eU9TWm4wYk5Ud2ZGUXdoczlZQ09Z?=
+ =?utf-8?B?QysrdHVYZDkvOWR0OGJtMmtDU3NKRGNYa0RBTEltWlZWTzQxUmY3RTlZb3Bo?=
+ =?utf-8?B?bnFId0RKMGwzR3lrZUtTZStNc20vOGxxVUJmTXFKcmNyekJKQUhpV3JtdUJy?=
+ =?utf-8?B?d1hxcFBoOU5lMGtxUmE1RDJRbE82Qkd4YVI1THNMeU9WMjZKMjM4L1ZtWnAx?=
+ =?utf-8?B?MlJjT1pnOXV4NXdVczhVMUh3TGZQOUx5a1grVjQ0RUxjYUkzbXpMNG5UMkhG?=
+ =?utf-8?B?eEFtOTNaMHQrS2k2TnVDT3BpMjZ6dzBpRzRjb3o3S3htdUx0bWpocWdXaW4v?=
+ =?utf-8?B?SXQ0T3NCcTcrWUR4eUl0cnBLc2gvM2tnemtXNStBNnErck5NWVJTd1g2bTJQ?=
+ =?utf-8?B?MlJMVGVPYWFyWTBLZnpSMmZMZXEzTUlVaHE5ajlCdDVsd3NKbVo2RXhTNXlu?=
+ =?utf-8?B?ZC95YS9IalR1SlJ1S2FjbldXd053VXdhc1V3WEljNWk4WGt3UGttc0pMWnFs?=
+ =?utf-8?B?dHRHV3ZnOUpmdjIyWkQ3TENZMkJ4elJWNHNkNVlWUXVINVlmbk5Wb01uZk1q?=
+ =?utf-8?B?WUJuL3N3VWhTcHZWV3dlNXhLOHNDL3ZZVTNGc2p2R3JWa3hjN0diUUVJUm9k?=
+ =?utf-8?B?UjlqMDlvRHkxZkdockNQNHNIdlJTaXhlZXR2SVpBMTRuWVFuQTF5bUtDWFpl?=
+ =?utf-8?B?SlBtYlFMSEdubS9oUEU4ODRxRHNJa1dwYkpSM1E3aHRxTmkvLzZ1ZHFaNnBO?=
+ =?utf-8?B?S0xLSFRCdDRzZFNJaExWU0hXelNMS2dkS0lWNmZibTk4c2N2dStMWVM4dnFT?=
+ =?utf-8?B?dzcySmw0YWlHTkR0V3BoTVJOUUMzRnhKWGo4d1IxREtiL1IwbXdCLytWYWpS?=
+ =?utf-8?B?SjUxOFY2YXNCK09NUm5ITjlFbWV1NkFmMG9BV0ZlQ0IvV0dwNEo2VElFQXhw?=
+ =?utf-8?Q?GyKE=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(30052699003)(36860700013)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2025 09:15:14.4771
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21724ccc-0a37-4c5c-9b28-08de0001dd9b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF00000209.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8547
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On Mon Sep 29, 2025 at 10:41 AM CEST, Roger Pau Monne wrote:
+> I've had the luck to come across a PCI card that exposes a MSI-X capabili=
+ty
+> where the BIR of the vector and PBA tables points at a BAR that has 0 siz=
+e.
+>
+> This doesn't play nice with the code in vpci_make_msix_hole(), as it woul=
+d
+> still use the address of such empty BAR (0) and attempt to crave a hole i=
+n
+> the p2m.  This leads to errors like the one below being reported by Xen:
+>
+> d0v0 0000:22:00.0: existing mapping (mfn: 181c4300 type: 0) at 0 clobbers=
+ MSIX MMIO area
+>
+> And the device left unable to enable memory decoding due to the failure
+> reported by vpci_make_msix_hole().
+>
+> Introduce checking in init_msix() to ensure the BARs containing the MSI-X
+> tables are usable.  This requires checking that the BIR points to a
+> non-empty BAR, and the offset and size of the MSI-X tables can fit in the
+> target BAR.
+>
+> This fixes booting PVH dom0 on Supermicro AS -2126HS-TN severs with AMD
+> EPYC 9965 processors.  The broken device is:
+>
+> 22:00.0 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SATA Cont=
+roller [AHCI mode] (rev 93)
+>
+> There are multiple of those integrated controllers in the system, all
+> broken in the same way.
+>
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> ---
+> Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>
+> While not strictly a bugfix, I consider this a worthy improvement so that
+> PVH dom0 has a chance to boot on hardware that exposes such broken MSI-X
+> capabilities.  Hence I think this change should be considered for inclusi=
+on
+> into 4.21.  There a risk of regressing on hardware that was already worki=
+ng
+> with PVH, but given enough testing that should be minimal.
+> ---
+>  xen/drivers/vpci/msix.c | 50 ++++++++++++++++++++++++++++++++++++-----
+>  1 file changed, 45 insertions(+), 5 deletions(-)
+>
+> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+> index 54a5070733aa..8458955d5bbb 100644
+> --- a/xen/drivers/vpci/msix.c
+> +++ b/xen/drivers/vpci/msix.c
+> @@ -675,6 +675,51 @@ static int cf_check init_msix(struct pci_dev *pdev)
+>      if ( !msix )
+>          return -ENOMEM;
+> =20
+> +    msix->tables[VPCI_MSIX_TABLE] =3D
+> +        pci_conf_read32(pdev->sbdf, msix_table_offset_reg(msix_offset));
+> +    msix->tables[VPCI_MSIX_PBA] =3D
+> +        pci_conf_read32(pdev->sbdf, msix_pba_offset_reg(msix_offset));
+> +
+> +    /* Check that the provided BAR is valid. */
+> +    for ( i =3D 0; i < ARRAY_SIZE(msix->tables); i++ )
+> +    {
+> +        const char *name =3D (i =3D=3D VPCI_MSIX_TABLE) ? "vector" : "PB=
+A";
+> +        const struct vpci_bar *bars =3D pdev->vpci->header.bars;
+> +        unsigned int bir =3D msix->tables[i] & PCI_MSIX_BIRMASK;
+> +        unsigned int type;
+> +        unsigned int offset =3D msix->tables[i] & ~PCI_MSIX_BIRMASK;
+> +        unsigned int size =3D
+> +            (i =3D=3D VPCI_MSIX_TABLE) ? max_entries * PCI_MSIX_ENTRY_SI=
+ZE
+> +                                   : ROUNDUP(DIV_ROUND_UP(max_entries, 8=
+), 8);
+> +
+> +        if ( bir >=3D ARRAY_SIZE(pdev->vpci->header.bars) )
+> +        {
+> +            printk(XENLOG_ERR "%pp: MSI-X %s table with out of range BIR=
+ %u\n",
+> +                   &pdev->sbdf, name, bir);
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+Would it be worth adding something here such that a device vendor testing t=
+heir
+hardware under Xen can trivially grep for device bugs?
 
---------------dMBscmw5LmvOz0wWFtddEw66--
+Something akin to "[Firmware bug]" on Linux, like "[Device bug]" or some su=
+ch.
 
---------------SnAjFPsvrro8lhJGEyYEiJll--
+It would also let anyone not very knowledgeable about PCI know that a devic=
+e
+they own is being unreasonable. Same below in the other XENLOG_ERR messages=
+.
 
---------------EDjdRPJRmmUK5bP0S1o6gxj8
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+> + invalid:
+> +            xfree(msix);
+> +            return -ENODEV;
+> +
+> +        }
+> +
+> +        type =3D bars[bir].type;
+> +        if ( type !=3D VPCI_BAR_MEM32 && type !=3D VPCI_BAR_MEM64_LO )
+> +        {
+> +            printk(XENLOG_ERR
+> +                   "%pp: MSI-X %s table at invalid BAR%u with type %u\n"=
+,
+> +                   &pdev->sbdf, name, bir, type);
+> +            goto invalid;
+> +        }
+> +
+> +        if ( (uint64_t)offset + size > bars[bir].size )
+> +        {
+> +            printk(XENLOG_ERR
+> +                   "%pp: MSI-X %s table offset %#x size %#x outside of B=
+AR%u size %#lx\n",
+> +                   &pdev->sbdf, name, offset, size, bir, bars[bir].size)=
+;
+> +            goto invalid;
+> +        }
+> +    }
+> +
+>      rc =3D vpci_add_register(pdev->vpci, control_read, control_write,
+>                             msix_control_reg(msix_offset), 2, msix);
+>      if ( rc )
+> @@ -686,11 +731,6 @@ static int cf_check init_msix(struct pci_dev *pdev)
+>      msix->max_entries =3D max_entries;
+>      msix->pdev =3D pdev;
+> =20
+> -    msix->tables[VPCI_MSIX_TABLE] =3D
+> -        pci_conf_read32(pdev->sbdf, msix_table_offset_reg(msix_offset));
+> -    msix->tables[VPCI_MSIX_PBA] =3D
+> -        pci_conf_read32(pdev->sbdf, msix_pba_offset_reg(msix_offset));
+> -
+>      for ( i =3D 0; i < max_entries; i++)
+>      {
+>          msix->entries[i].masked =3D true;
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmjbnLwFAwAAAAAACgkQsN6d1ii/Ey8j
-Ngf/VhebFnmOYuETy4RiRDShiplntQglNhvDrVEDyiRLy20bM8s5hGdcLlc5Ssv2N8wntccp4htO
-cF31CpnEhQS88HO7CbdPODQ8YKH1jlN8O00AsgRcnllqRgkpv83VzAGMyqyjHiAhCYsoDdrO3Kfk
-kgj30NsD+ftCgYzYmd1MwMQ0k0XcjRQ5mBLspsF3XtSUJKQwrhyP+5y6OBQnMmzWSbHncqrAdpGi
-CC9OZfIq3E6H9GbKVkVBul4kSjewsKQGXlpZTaE95Bsq2oKjR4aElYvfPqRqSKhroCdcNjZDRQJp
-0jFNZkvzBmshvDti9g0rJCROakm32uq0FwPmlX6PhA==
-=CfFP
------END PGP SIGNATURE-----
-
---------------EDjdRPJRmmUK5bP0S1o6gxj8--
 
