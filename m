@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C930DBAB50E
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 06:16:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1133507.1471671 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC40FBAB508
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 06:16:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1133505.1471656 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Rmc-0003Ul-Rl; Tue, 30 Sep 2025 04:16:10 +0000
+	id 1v3Rmb-000398-Ee; Tue, 30 Sep 2025 04:16:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1133507.1471671; Tue, 30 Sep 2025 04:16:10 +0000
+Received: by outflank-mailman (output) from mailman id 1133505.1471656; Tue, 30 Sep 2025 04:16:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Rmc-0003LK-C5; Tue, 30 Sep 2025 04:16:10 +0000
-Received: by outflank-mailman (input) for mailman id 1133507;
- Tue, 30 Sep 2025 04:16:07 +0000
+	id 1v3Rma-00030P-W1; Tue, 30 Sep 2025 04:16:08 +0000
+Received: by outflank-mailman (input) for mailman id 1133505;
+ Tue, 30 Sep 2025 04:16:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MDOg=4J=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1v3Rki-0006gD-1B
- for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 04:14:12 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1v3Rkn-0006gD-Lk
+ for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 04:14:17 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e99a04a1-9db3-11f0-9809-7dc792cee155;
- Tue, 30 Sep 2025 06:14:09 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3f0ae439bc3so2702479f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 21:14:09 -0700 (PDT)
+ id ed3c61b7-9db3-11f0-9809-7dc792cee155;
+ Tue, 30 Sep 2025 06:14:15 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3f0ae439b56so3186335f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 21:14:15 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46e5b69bc0bsm5141855e9.3.2025.09.29.21.14.07
+ ffacd0b85a97d-41f00aebdb7sm8027318f8f.57.2025.09.29.21.14.12
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 29 Sep 2025 21:14:08 -0700 (PDT)
+ Mon, 29 Sep 2025 21:14:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e99a04a1-9db3-11f0-9809-7dc792cee155
+X-Inumbo-ID: ed3c61b7-9db3-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1759205649; x=1759810449; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1759205655; x=1759810455; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uk5+wyHN7CkT7HC+T4CiL8GLFFBvq7A2wJEeem4enV4=;
-        b=eWdKJLfb2akGaqL0w5RBNmdQBGpZMIrcpsdg1SO/rsjS4blWeOjCUQ21OXhZV+dRC1
-         q+donle6dNBA+YjLvUeunSxgrut1/wH/ugY1GRw+ws6XgQ+B/sJzGAbZhDWT0Y15AJmC
-         Xw+nqTlUPKU19Oh3CY+gRZb2rmEGgerytEBm5FebAhJcHGh9OEqm2LrlCrCjE9BZFrs5
-         Ywvv/jllfm+naevyepYz5xtobfguexr9xxa+lTsF5EhfqTM2+PXIrlqPOCcA/017jQ/j
-         FuxYDqOsDj4RdHy+/I5ZWHbnT1AaU6brFbnJU/4iqP1L1dWhBWDgR+wHVj6Z40TfKlDK
-         MqoQ==
+        bh=cfNLwv+i5cO84zMF6diWkvUfOapkzoMYrwwz0ZMfYgk=;
+        b=V0Vm0dmJHbrJsQLbxiIsULltqLBaccvIHkWjB12avgOrsQGJkVPakuzVTMII9JX/gt
+         n3i7LHrK5Ph3ultX9jktHyvq7Itn1oq408vljBmvrqOfxbgcFzTwICZX4fiVkwt9Jtwu
+         eyi71NSEZz1Vtpk+91kdaM1SefnnmAWczZyh8hcoSQZwUq7AbdmhXR1XmRqPYU5j5GS4
+         8ql/HTkL1nO+Zo2PcaARyrpcEoC1ub0T8bin+Nun32ew8Rofrk6yYTXsjXbeX6hLcefl
+         G+v+nh6twl1oMszVWn6FezpoWZ46bAZV0Yp3lhVPGFSNhI87VA8KXdNvy33GBK8g4oZr
+         Q9gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759205649; x=1759810449;
+        d=1e100.net; s=20230601; t=1759205655; x=1759810455;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=uk5+wyHN7CkT7HC+T4CiL8GLFFBvq7A2wJEeem4enV4=;
-        b=psmpZcKfxd6uOX9MN4cUK1+9Ig4jwtpXI872qFh8e2yvx5aXTMpxNPzqptDXh2336j
-         vZQT/B2wFdK680Br91jOP9zM7oqKIkk+rSShde0ZeI7UwQ6mX5glGCcfTWNBSpUL4hfx
-         WLbOyC6ZhkTvlh+k6fMXcUvJnuVepLIt9/6AB6YhJpw8tFRiLKn1JPp9zHoozd9LjSdb
-         6BMB6gXPMBchWJ/wI+azbudihaBxuEALKJ9XqIdSJxEBKn6DYW8KEqVxw+M/YlVaLv4s
-         8sNPdG0dTRC/fZp55rl2kKlVdejDFwY+C+KyvkELnYK6t1vfvK9gtWzkFyT7FrAaQMaA
-         Mq/Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUK9bhMb0JksMX7zVfMbfOBd7T/uHuGm/1x1y8+gCxEWV6tvCSia3aWLRyL1EWubfsQ4e1SWLpr2RA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YysXyb/D1kO+C2hnqxWBliazXpIPJ1VcAzlfdDeLTS8j/gHftVu
-	vPNex9EpEYz7+gLv6JyB352UlaLR/Z23+5uf7xL+xYY2mYSuQQ6UcaZCykvJduyHo3I=
-X-Gm-Gg: ASbGncu8Rv4kYZqq8IeulPQFWeTOMmBYSgzOFsKpmbXpP4FSkng+fZ8wDcCC4Z3+Fun
-	td3B4OJtp098Kvy00zG5FBALlovSKf5Y71FhTQxdk451BXI4i3b9jgVfVMgIar5gelryFzNqz9h
-	ThgPewwALNbPz5bV5WL41B8FfIKNsjjA2NLsARSEBjiwmqf/s4spQsoWCMmZAOWP54SzrJVKEuD
-	OMIQmwo7E8nyoMdZ0IDCU4xZnt9W5qau/A01RfHF7QMVx6PBT4EAY7yKlp94WgxQhHKAH+HQpUb
-	mDeiv98UenLYoIrNYyXWKpLmMLU7C4/w5S3+mxe799WJVzgio2YXNkolbUH4rlsEEa34LJ3Ig96
-	TANgMqFaCylL0+d/yvXE39NY4/1J6CLmo0WBrVA6OyXS/KF/NN+0ukP9yExLvLOVWeLv+e/iHxB
-	Mjg7uozcKsQBORM96r8XAWXRcDUWGgze0=
-X-Google-Smtp-Source: AGHT+IHVwaY6Q4s0F84QmaOmJAx4BK9ueW3Bbg0HpiOJvzkr7RtDJkQ0plXWj1SaEJLGINz1Ov7KPQ==
-X-Received: by 2002:a05:6000:3101:b0:3eb:5e99:cbbc with SMTP id ffacd0b85a97d-40e458a9394mr12531634f8f.9.1759205648705;
-        Mon, 29 Sep 2025 21:14:08 -0700 (PDT)
+        bh=cfNLwv+i5cO84zMF6diWkvUfOapkzoMYrwwz0ZMfYgk=;
+        b=SWOC9HgwKgODXZoIr/fEo3KRBkQ1h9rlGMC/CM84nvt81zH49SnY/GnkEY28tnQhim
+         QZInCsgMA6bM0Rrw3RAdEVZzx9pdxReCIvzrpnJm0KZ6+BIKqhuCQ+jEY8AokztdNcd5
+         rFMEeKPcpZz8GU9NmYNXGtoNXZMFv0JWvvja1ojHDP1OMpxzb2rRNAIcJzzkfUA9SfBo
+         gX/2XkdbUQHC6SI2pxQBxMIn4inr9LD//YZrr7cNdFDuOvVXH2+m/cjvq8y5TWNiZWS5
+         UOiDQmtHd6wHcjrM5KDIBpEa4RNYlRSSgw2kZ+73lfa63Dzq8OnYI6xxhqkeGNwpuhO0
+         Dcvw==
+X-Forwarded-Encrypted: i=1; AJvYcCWes5RD/tCZB0DZG24fUymecXUla09ZxirSCWwG4UThUJv1wDTHvWDoremPfvX8CX2V4gP8v0/uk4w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzIKQa7jcnGzAfTMG30+1hSClK5WjGtc+y9goe8NFVqIFUMmrms
+	rrSRi21Lb7Qw+lpWWkWIVpjKzZoQUfGPiEWdXNt2UqCOBsrMdRI6lHwfOtEnkNo135w=
+X-Gm-Gg: ASbGncu5xj+GpcOqaA0SPjKNpyYLP2HOVgBtI5NH+Ma2ix5oG3uPYKzpiDR0hmyZ/dy
+	+KzAtPRomOMFyPzGeBXGvKnVYgs5HsXfmCwSyIe/LxFTdihJSEEeQYC7KfJVznlY6ElLNJyXnQw
+	M3MSrQ5nBCtss9IJ69VHeSalgi5sycJ+kkeqQcQSU3T0kE49xI8XGjqgZHjsYAUJeEzU1q/aCbc
+	Ag90SOL8ySQJtuffUOMQVP4pzswfe7qKYw6vXzGQzHV27Lrgcmm+au/twyhujnVkXjgU7f29DZG
+	ZlH7CrD4PZZoMRYzNzDvkrfstaXlImU8i86ppxxrX6jLCaib5dqYlMXg4CnZHItwqxzBwI6vzk9
+	z/jL73OkiCRp1itMiTU5bG5+uxE+E2s8P2kfUMDVJDB2gNLVhc11JfHX//zd5BsWmEAqGzCPa/Q
+	/pmcMM3Uv6q81TkOOHUs9F
+X-Google-Smtp-Source: AGHT+IHP/zG4X6xn4hUDdclB/D1afSsyjXOgC/ThtRrRCj048iTFTeDxSXkrbhWZePrU5zQ+WKtYTA==
+X-Received: by 2002:a05:6000:1848:b0:3eb:8395:e2e0 with SMTP id ffacd0b85a97d-40e4b38923emr16718454f8f.51.1759205654828;
+        Mon, 29 Sep 2025 21:14:14 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org,
 	Peter Maydell <peter.maydell@linaro.org>
@@ -112,9 +112,9 @@ Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
 	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
 	Richard Henderson <richard.henderson@linaro.org>,
 	David Hildenbrand <david@redhat.com>
-Subject: [PATCH v2 07/17] system/physmem: Pass address space argument to cpu_flush_icache_range()
-Date: Tue, 30 Sep 2025 06:13:15 +0200
-Message-ID: <20250930041326.6448-8-philmd@linaro.org>
+Subject: [PATCH v2 08/17] hw/s390x/sclp: Replace [cpu_physical_memory -> address_space]_r/w()
+Date: Tue, 30 Sep 2025 06:13:16 +0200
+Message-ID: <20250930041326.6448-9-philmd@linaro.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250930041326.6448-1-philmd@linaro.org>
 References: <20250930041326.6448-1-philmd@linaro.org>
@@ -122,80 +122,50 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Rename cpu_flush_icache_range() as address_space_flush_icache_range(),
-passing an address space by argument. The single caller, rom_reset(),
-already operates on an address space. Use it.
+cpu_physical_memory_read() and cpu_physical_memory_write() are
+legacy (see commit b7ecba0f6f6), replace by address_space_read()
+and address_space_write().
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- include/exec/cpu-common.h | 2 --
- include/system/memory.h   | 2 ++
- hw/core/loader.c          | 2 +-
- system/physmem.c          | 5 ++---
- 4 files changed, 5 insertions(+), 6 deletions(-)
+ hw/s390x/sclp.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/include/exec/cpu-common.h b/include/exec/cpu-common.h
-index a73463a7038..6c7d84aacb4 100644
---- a/include/exec/cpu-common.h
-+++ b/include/exec/cpu-common.h
-@@ -156,8 +156,6 @@ void cpu_physical_memory_unmap(void *buffer, hwaddr len,
-  */
- void qemu_flush_coalesced_mmio_buffer(void);
- 
--void cpu_flush_icache_range(hwaddr start, hwaddr len);
--
- typedef int (RAMBlockIterFunc)(RAMBlock *rb, void *opaque);
- 
- int qemu_ram_foreach_block(RAMBlockIterFunc func, void *opaque);
-diff --git a/include/system/memory.h b/include/system/memory.h
-index 546c643961d..dfea90c4d6b 100644
---- a/include/system/memory.h
-+++ b/include/system/memory.h
-@@ -2977,6 +2977,8 @@ void address_space_cache_invalidate(MemoryRegionCache *cache,
-  */
- void address_space_cache_destroy(MemoryRegionCache *cache);
- 
-+void address_space_flush_icache_range(AddressSpace *as, hwaddr addr, hwaddr len);
-+
- /* address_space_get_iotlb_entry: translate an address into an IOTLB
-  * entry. Should be called from an RCU critical section.
-  */
-diff --git a/hw/core/loader.c b/hw/core/loader.c
-index 524af6f14a0..477661a0255 100644
---- a/hw/core/loader.c
-+++ b/hw/core/loader.c
-@@ -1242,7 +1242,7 @@ static void rom_reset(void *unused)
-          * that the instruction cache for that new region is clear, so that the
-          * CPU definitely fetches its instructions from the just written data.
-          */
--        cpu_flush_icache_range(rom->addr, rom->datasize);
-+        address_space_flush_icache_range(rom->as, rom->addr, rom->datasize);
- 
-         trace_loader_write_rom(rom->name, rom->addr, rom->datasize, rom->isrom);
+diff --git a/hw/s390x/sclp.c b/hw/s390x/sclp.c
+index f507b36cd91..152c773d1b4 100644
+--- a/hw/s390x/sclp.c
++++ b/hw/s390x/sclp.c
+@@ -319,7 +319,8 @@ int sclp_service_call(S390CPU *cpu, uint64_t sccb, uint32_t code)
      }
-diff --git a/system/physmem.c b/system/physmem.c
-index 573e5bb1adc..70b02675b93 100644
---- a/system/physmem.c
-+++ b/system/physmem.c
-@@ -3214,7 +3214,7 @@ MemTxResult address_space_write_rom(AddressSpace *as, hwaddr addr,
-     return MEMTX_OK;
- }
  
--void cpu_flush_icache_range(hwaddr addr, hwaddr len)
-+void address_space_flush_icache_range(AddressSpace *as, hwaddr addr, hwaddr len)
- {
-     /*
-      * This function should do the same thing as an icache flush that was
-@@ -3229,8 +3229,7 @@ void cpu_flush_icache_range(hwaddr addr, hwaddr len)
-     RCU_READ_LOCK_GUARD();
-     while (len > 0) {
-         hwaddr addr1, l = len;
--        MemoryRegion *mr = address_space_translate(&address_space_memory,
--                                                   addr, &addr1, &l, true,
-+        MemoryRegion *mr = address_space_translate(as, addr, &addr1, &l, true,
-                                                    MEMTXATTRS_UNSPECIFIED);
+     /* the header contains the actual length of the sccb */
+-    cpu_physical_memory_read(sccb, &header, sizeof(SCCBHeader));
++    address_space_read(as, sccb, MEMTXATTRS_UNSPECIFIED,
++                       &header, sizeof(SCCBHeader));
  
-         if (!memory_region_supports_direct_access(mr)) {
+     /* Valid sccb sizes */
+     if (be16_to_cpu(header.length) < sizeof(SCCBHeader)) {
+@@ -332,7 +333,8 @@ int sclp_service_call(S390CPU *cpu, uint64_t sccb, uint32_t code)
+      * the host has checked the values
+      */
+     work_sccb = g_malloc0(be16_to_cpu(header.length));
+-    cpu_physical_memory_read(sccb, work_sccb, be16_to_cpu(header.length));
++    address_space_read(as, sccb, MEMTXATTRS_UNSPECIFIED,
++                       work_sccb, be16_to_cpu(header.length));
+ 
+     if (!sclp_command_code_valid(code)) {
+         work_sccb->h.response_code = cpu_to_be16(SCLP_RC_INVALID_SCLP_COMMAND);
+@@ -346,8 +348,8 @@ int sclp_service_call(S390CPU *cpu, uint64_t sccb, uint32_t code)
+ 
+     sclp_c->execute(sclp, work_sccb, code);
+ out_write:
+-    cpu_physical_memory_write(sccb, work_sccb,
+-                              be16_to_cpu(work_sccb->h.length));
++    address_space_write(as, sccb, MEMTXATTRS_UNSPECIFIED,
++                        work_sccb, be16_to_cpu(header.length));
+ 
+     sclp_c->service_interrupt(sclp, sccb);
+ 
 -- 
 2.51.0
 
