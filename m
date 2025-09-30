@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17CD7BABFDA
+	by mail.lfdr.de (Postfix) with ESMTPS id 18B27BABFDB
 	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 10:22:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1133829.1471885 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1133830.1471893 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3VcD-0007VP-WA; Tue, 30 Sep 2025 08:21:41 +0000
+	id 1v3VcE-0007ey-C8; Tue, 30 Sep 2025 08:21:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1133829.1471885; Tue, 30 Sep 2025 08:21:41 +0000
+Received: by outflank-mailman (output) from mailman id 1133830.1471893; Tue, 30 Sep 2025 08:21:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3VcD-0007Q9-R7; Tue, 30 Sep 2025 08:21:41 +0000
-Received: by outflank-mailman (input) for mailman id 1133829;
- Tue, 30 Sep 2025 08:21:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v3VcE-0007ZJ-8a; Tue, 30 Sep 2025 08:21:42 +0000
+Received: by outflank-mailman (input) for mailman id 1133830;
+ Tue, 30 Sep 2025 08:21:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MDOg=4J=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1v3VcB-0007Nm-SF
- for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 08:21:39 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7a6cdbe9-9dd6-11f0-9809-7dc792cee155;
- Tue, 30 Sep 2025 10:21:35 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3ee64bc6b85so4950395f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Sep 2025 01:21:35 -0700 (PDT)
+ id 1v3VcD-0007Nn-1f
+ for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 08:21:41 +0000
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [2a00:1450:4864:20::442])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7da6eb91-9dd6-11f0-9d14-b5c5bf9af7f9;
+ Tue, 30 Sep 2025 10:21:40 +0200 (CEST)
+Received: by mail-wr1-x442.google.com with SMTP id
+ ffacd0b85a97d-3f44000626bso3412264f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Sep 2025 01:21:40 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-40fb74e46bcsm21770765f8f.8.2025.09.30.01.21.33
+ ffacd0b85a97d-40fb72fb1a3sm22070432f8f.10.2025.09.30.01.21.38
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Tue, 30 Sep 2025 01:21:34 -0700 (PDT)
+ Tue, 30 Sep 2025 01:21:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a6cdbe9-9dd6-11f0-9809-7dc792cee155
+X-Inumbo-ID: 7da6eb91-9dd6-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1759220495; x=1759825295; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1759220500; x=1759825300; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=I6r7ywVdtgg6puBO7GNeh9QBn+ePwbPPQeAATrRMKjs=;
-        b=gyS8IQ83XQePL0dmCrxB+R3Bmw9kUZDIfcsteCVOK8lm6GRlqlmiw+Mf7C0Hz4I55t
-         ylbLgBdrh2JNCagOn0TJVnkcvwIQYzkrza5CkyTlLmEwcdi2gDaEQ7ngmjpfkt2hhdB6
-         SdEOejxAzSy8xMTTbQibEhl9MgIw4rrgRKMCceHyhlUt8cycWE8XLW0OY4i2JeIIddC6
-         8jxyPu4x1Qtm8w1iWQ/rVhKB/pqcQMGqN4Iek6paE5U7P2vmI8/PdlpjTpfPjIXKYZlR
-         WEDCwYVIhhTljiE7qIz6xgLk0hbvQ9Bxv/JuWZvuyVY+ygHnUuwAYsklPAGV1qubJSsX
-         U4Cw==
+        bh=g6Y+9YynyQUWZr+3xZXfGIWc6Jhbj4AT6sZ58oDn40Q=;
+        b=Y+cM7YYeLTxfQkqKS2tGafYM6ACeJL+5PwfoYXtJvCjlfoIMGKEdpb3xw4rI9JfvwV
+         TZhmcVCz0WZmFjmEs6HN31nEu60M9XrIFy7R4qiKpbfqfXU6abVQY7iqw5OnqqyKq/21
+         NiHL1x4v3rJEgbgJd1ErF0lOtTnq/3teCHJzgc23ZQUeo+ScJr8gSMUS35bfoL66L7Lx
+         zlGU6s98FZtAAqNteP+H9LMFUDnSUGSDcrd7AARTQNqgce3V3VoLI3+zgrK+h2/kpQ7M
+         /fmkR0OztvcIaMrEEqLNKg4XC1oj/2TXNgrq8CvAovUp/6gyrJZY2TkqEBi9aRajO+7I
+         UR5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759220495; x=1759825295;
+        d=1e100.net; s=20230601; t=1759220500; x=1759825300;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=I6r7ywVdtgg6puBO7GNeh9QBn+ePwbPPQeAATrRMKjs=;
-        b=DE91NMU7iWi6eyGvKkr9MCaPg6bBol+QPSdbldESQ1qoSW8JrdqUB4KzsDtMJAA4IW
-         R6pdAv42CIVug8HErxivmeR5kGMTkkmBfTkIjvY77cR4NvGpbfw0jm18g8LoV4se1vph
-         G+UvcFC9oRHWYTaNUcjo7ZOteQ//nKrlY+zNqnyTfJBjoUYlHQzuA/yI+9Rr6HyMN8+e
-         8CpbFR71WcjFZCO5VOyANQDIYXqtSXFaZQtrO7jbl3ih3GiGD0Fl/MmH1LdunhjNsz2L
-         XySksmSwGz5PGYQO6pv0g+4T7ftkTSr4mhToXM3xxfAC0rvHJdQztPy/wy13atmgYMzv
-         ApeQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU2L2ueVekOZ7zkzZOc/DdIzyTUPVB+FgVdKrXFuSyEUdCkNAp7GqafVN4ckoA9bWEIKDYIv54Y2Uk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzOQgC2pCXWPuPzcrYgheJrqK01vloJpCoIdVjXVOEDAcZdnjto
-	mRFPCqcR/svm8/3aR2kw+6cqIce2CPYLLRHGXKrAnZ/eZtP+0ADqvGdLaiV1RQ/biZk=
-X-Gm-Gg: ASbGncv2LJ9yqlPCu21VYJw+gPGrK1CB6LMXNezDFKEU3RVlMiMvMlEUzQTw6C3jdLX
-	TQMXxo3S/6JUALD6PURcTEKF7iB10wQBxewzokqqmcbvHZy1zwIv05cBREq017a3GYckXBzHxGt
-	Kj6dcuiVVimBngimIjl9OuYrM/kguaBlrjkRY70ftQ4I7KPlYrnQ+g3xunwALOfKQaVgYP+9DDx
-	VouVSJy/Ei3m2P950zlb8HW/p2Y9bW7AVN9fvDUixTurJTl+JlIqVzfq/M7YBTFET3VXgb72Y+q
-	LF3oHW40a4kmSBAVCsVchYJn+YQ+4wLLx88NBE4HCeRMboVik2wMvQ4Efrnlww4NPcrDsc/Nlsy
-	pMN3rRksr10us8wReYgYrjfjlrfUlYptEd7PaRn0evOb5d62rq+yhjblA68cYHy/TaADXNEHCT4
-	1BsDkwfDjnNYO7bVgNxOBB6JX6dFa86h4=
-X-Google-Smtp-Source: AGHT+IFpI3GL5cse+8n+ih1oF0AV0V9hqADSW+14D/yEjGe7vAb5o0N9WY3TIiFao6rN6HuitLNGGw==
-X-Received: by 2002:a05:6000:2089:b0:3eb:5245:7c1f with SMTP id ffacd0b85a97d-40e429c9c58mr19095049f8f.2.1759220494580;
-        Tue, 30 Sep 2025 01:21:34 -0700 (PDT)
+        bh=g6Y+9YynyQUWZr+3xZXfGIWc6Jhbj4AT6sZ58oDn40Q=;
+        b=cfdZ5eSGtrsGd3C6KuPMN6YFp8vGDVYqlPMFCsURDrG02rT4AaYNEfeWkoiUvGi8WG
+         vlt0PNlFwvWIf5S6Ls5/sBe6mi1K6FUPtRYfKB9SDNBKIbISo4DwT58VUaWDnjhj7JKY
+         PYlgO5meUqUPp5F9UGm3L+kqlvcozkyec5GKReWQSWlIuPykUpJBHZ2PrDHqK6zBqPzo
+         5ElwLLzFsA0wt+YiBbktKPYgIW8aorMBKZage8h6omyZXFy8/lR6clSMdQe34B3/odnX
+         CXA6VoxKO24Ph/7LJV8eIg7lQRjaw2ta9taLarTHm90fNmFgeyyHFcBTBMoAXjIaWe4Y
+         XBiQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVGW2YeVGD+EV41LobJFQbX62997gaC619aPkNjtg2ESNoHZxGtD8/xNZ2PsD+eaXg5IGaP8+hwlUM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzI8J7Y6SIWs0lZH/PLsEs7ZUqgyyfk/99OS6Ud8fChSeneB4aA
+	e5JucdrWkjKDINdy5k0jg1SXhVGK1z6Ekw9ET6BEgEfjkiivBekCNwq1WbjloHdqEMo=
+X-Gm-Gg: ASbGncu+8Jqs9p41sZnKrwd2S2o12XvXk7a3bOGka0fUorY/aLnIaJ9kuwq5DPQvTog
+	b5AQToqbKnw37nRYvO1bAc/mqdaKeYbZnp8cDCXpJ2Zswa/LbU93PIBWNWZfN3L3rjM8Qxa9EsG
+	DIwhrjElIvFMjtyxQ5DkSVy3WJNI14Q5j8WNotllAnvfxg2wxqTG1p9jofruu6TOvtsvBzsI9IV
+	cxlSk9ClOq3BqpEzGMGrmBMkx58HfMSLRIn7RPxyEbGqRTU5zI5/7cnLYWvKvQzBjWgSNXQb3j8
+	0iv0ZiXnKF+jIHeNmjrk2PqrzXSNn162utoIsqSZPrOOo59DEIUFunxZt8l2lVsWXYAiZ4gsgKZ
+	cj9mO2Z0pq7xKO4/INKG3dugO70+LloQBUetLYzdbM8KBLqZY8pQAfhK2pKaMIkBex6tWFyLrNI
+	yisFY7a+jr7we7jlRAqkxX
+X-Google-Smtp-Source: AGHT+IEvqZbVxTkOzuE7/OdSy85DpVZk0C8frEdFACso26c6+h9s7puUVSPKjShsswhtViU8Ba02iA==
+X-Received: by 2002:a05:6000:18a7:b0:3e9:d0a5:e436 with SMTP id ffacd0b85a97d-40e437371acmr19688375f8f.23.1759220499859;
+        Tue, 30 Sep 2025 01:21:39 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org,
 	Peter Maydell <peter.maydell@linaro.org>
@@ -112,9 +112,9 @@ Cc: Marcelo Tosatti <mtosatti@redhat.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Thomas Huth <thuth@redhat.com>,
 	Eric Farman <farman@linux.ibm.com>
-Subject: [PATCH v3 01/18] docs/devel/loads-stores: Stop mentioning cpu_physical_memory_write_rom()
-Date: Tue, 30 Sep 2025 10:21:08 +0200
-Message-ID: <20250930082126.28618-2-philmd@linaro.org>
+Subject: [PATCH v3 02/18] system/memory: Better describe @plen argument of flatview_translate()
+Date: Tue, 30 Sep 2025 10:21:09 +0200
+Message-ID: <20250930082126.28618-3-philmd@linaro.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250930082126.28618-1-philmd@linaro.org>
 References: <20250930082126.28618-1-philmd@linaro.org>
@@ -122,28 +122,68 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Update the documentation after commit 3c8133f9737 ("Rename
-cpu_physical_memory_write_rom() to address_space_write_rom()").
+flatview_translate()'s @plen argument is output-only and can be NULL.
+
+When Xen is enabled, only update @plen_out when non-NULL.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 ---
- docs/devel/loads-stores.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/system/memory.h | 5 +++--
+ system/physmem.c        | 9 +++++----
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/docs/devel/loads-stores.rst b/docs/devel/loads-stores.rst
-index 9471bac8599..f9b565da57a 100644
---- a/docs/devel/loads-stores.rst
-+++ b/docs/devel/loads-stores.rst
-@@ -474,7 +474,7 @@ This function is intended for use by the GDB stub and similar code.
- It takes a virtual address, converts it to a physical address via
- an MMU lookup using the current settings of the specified CPU,
- and then performs the access (using ``address_space_rw`` for
--reads or ``cpu_physical_memory_write_rom`` for writes).
-+reads or ``address_space_write_rom`` for writes).
- This means that if the access is a write to a ROM then this
- function will modify the contents (whereas a normal guest CPU access
- would ignore the write attempt).
+diff --git a/include/system/memory.h b/include/system/memory.h
+index aa85fc27a10..3e5bf3ef05e 100644
+--- a/include/system/memory.h
++++ b/include/system/memory.h
+@@ -2992,13 +2992,14 @@ IOMMUTLBEntry address_space_get_iotlb_entry(AddressSpace *as, hwaddr addr,
+  * @addr: address within that address space
+  * @xlat: pointer to address within the returned memory region section's
+  * #MemoryRegion.
+- * @len: pointer to length
++ * @plen_out: pointer to valid read/write length of the translated address.
++ *            It can be @NULL when we don't care about it.
+  * @is_write: indicates the transfer direction
+  * @attrs: memory attributes
+  */
+ MemoryRegion *flatview_translate(FlatView *fv,
+                                  hwaddr addr, hwaddr *xlat,
+-                                 hwaddr *len, bool is_write,
++                                 hwaddr *plen_out, bool is_write,
+                                  MemTxAttrs attrs);
+ 
+ static inline MemoryRegion *address_space_translate(AddressSpace *as,
+diff --git a/system/physmem.c b/system/physmem.c
+index 8a8be3a80e2..86422f294e2 100644
+--- a/system/physmem.c
++++ b/system/physmem.c
+@@ -566,7 +566,7 @@ iotlb_fail:
+ 
+ /* Called from RCU critical section */
+ MemoryRegion *flatview_translate(FlatView *fv, hwaddr addr, hwaddr *xlat,
+-                                 hwaddr *plen, bool is_write,
++                                 hwaddr *plen_out, bool is_write,
+                                  MemTxAttrs attrs)
+ {
+     MemoryRegion *mr;
+@@ -574,13 +574,14 @@ MemoryRegion *flatview_translate(FlatView *fv, hwaddr addr, hwaddr *xlat,
+     AddressSpace *as = NULL;
+ 
+     /* This can be MMIO, so setup MMIO bit. */
+-    section = flatview_do_translate(fv, addr, xlat, plen, NULL,
++    section = flatview_do_translate(fv, addr, xlat, plen_out, NULL,
+                                     is_write, true, &as, attrs);
+     mr = section.mr;
+ 
+-    if (xen_enabled() && memory_access_is_direct(mr, is_write, attrs)) {
++    if (xen_enabled() && plen_out && memory_access_is_direct(mr, is_write,
++                                                             attrs)) {
+         hwaddr page = ((addr & TARGET_PAGE_MASK) + TARGET_PAGE_SIZE) - addr;
+-        *plen = MIN(page, *plen);
++        *plen_out = MIN(page, *plen_out);
+     }
+ 
+     return mr;
 -- 
 2.51.0
 
