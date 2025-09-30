@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FC41BAE3D1
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 19:45:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1134393.1472296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D5B7BAE661
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 21:06:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1134417.1472307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3eOx-0005x1-Bd; Tue, 30 Sep 2025 17:44:35 +0000
+	id 1v3ffg-0006x4-SF; Tue, 30 Sep 2025 19:05:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1134393.1472296; Tue, 30 Sep 2025 17:44:35 +0000
+Received: by outflank-mailman (output) from mailman id 1134417.1472307; Tue, 30 Sep 2025 19:05:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3eOx-0005uy-8x; Tue, 30 Sep 2025 17:44:35 +0000
-Received: by outflank-mailman (input) for mailman id 1134393;
- Tue, 30 Sep 2025 17:44:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v3ffg-0006ud-OA; Tue, 30 Sep 2025 19:05:56 +0000
+Received: by outflank-mailman (input) for mailman id 1134417;
+ Tue, 30 Sep 2025 19:05:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7Niv=4J=epam.com=Oleksandr_Tyshchenko@srs-se1.protection.inumbo.net>)
- id 1v3eOv-0005ur-TK
- for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 17:44:34 +0000
+ <SRS0=I7R3=4J=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1v3fff-0006uV-L4
+ for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 19:05:55 +0000
 Received: from DUZPR83CU001.outbound.protection.outlook.com
  (mail-northeuropeazlp170120005.outbound.protection.outlook.com
  [2a01:111:f403:c200::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1e90c530-9e25-11f0-9809-7dc792cee155;
- Tue, 30 Sep 2025 19:44:31 +0200 (CEST)
-Received: from AM9PR03MB7025.eurprd03.prod.outlook.com (2603:10a6:20b:2d7::20)
- by VI1PR03MB6269.eurprd03.prod.outlook.com (2603:10a6:800:13c::21)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7d24f4af-9e30-11f0-9d14-b5c5bf9af7f9;
+ Tue, 30 Sep 2025 21:05:54 +0200 (CEST)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by AS8PR03MB7239.eurprd03.prod.outlook.com (2603:10a6:20b:2eb::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.17; Tue, 30 Sep
- 2025 17:44:24 +0000
-Received: from AM9PR03MB7025.eurprd03.prod.outlook.com
- ([fe80::bdd:3097:e48c:6c4b]) by AM9PR03MB7025.eurprd03.prod.outlook.com
- ([fe80::bdd:3097:e48c:6c4b%5]) with mapi id 15.20.9160.015; Tue, 30 Sep 2025
- 17:44:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.18; Tue, 30 Sep
+ 2025 19:05:51 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9160.017; Tue, 30 Sep 2025
+ 19:05:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,352 +47,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e90c530-9e25-11f0-9809-7dc792cee155
+X-Inumbo-ID: 7d24f4af-9e30-11f0-9d14-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EaeKvMcYk+RttFjx6vdlsKRn9ng2n949mWuLDIwYOGh1R300L6DLtl8oOLvCkAKu/AVfpMidiy9RP+putACDt+AQVNBWPfIVtoiwaSSHtnVpkafGuDZTwTyevG2S5Gd+eK9EAcY/ATLBpawYj+9b4SHHlWAlM/8gtPS/ry39eCHPa5c/ErDEFwg0HWgC20gchPzucTqm+YqOK1VYwtmvretdOhnJexXsNkFQ1ajItut6spH5LfyyskeXRCQcXfHyw4ULdvZqAWTl/Pm1+fl+p/XxkutCTX4AJGN5e7Ror3xbU4Jc5crsPCge0hBxdZTfXl/l3FnQ33wxDaYkzklhDQ==
+ b=PdyKFbaiCe0PIlGq5XH8wlOdti9Gl2Bmb5YcLAfM3O1QVRmOMlahVU0qevf3eT/vmw4SLRiS6U36zUVLWhhZnVwAHEimtPPX5X4APVhAg51gzQC45xK7XTFjOdQYXzMQ6OwiiTt52pFlps/aHQbpxZEV8xUDlPaxKPBvXXoTPr92plMV0fywVuF63ux2UzkT7yk/g8uIGz0rDDC+F9JpChnRHqydlZ3vy5q7iu6AVqGnlgw72UjtOM7AvSoc9t2WVimghNTv79861I5o++bMC6Ari7NNWbVIA+Hrr0bsVOiXholeGSjHFcxanLDILPM3npsKQwjhvoaQn11wXcf1FA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=detDOakbFZyYY+f8Axm7fNQyZuXhP3koC2LbQJDRUq8=;
- b=dNs+K+yWFp7wLxtcnFj15IZj38R/QO/vQ5w6fycZN6OEUolfLmWU8mm0AP8GX/PO9aNfzkvf7j891kL+79/k5jQcen+23juNAD7r1/dRX18CBf7dNki7c4+Xl9UmBYV4gKqjLMTPL0JqiT0//Mr7hf4EwyQXKGJjitzs8MXamS5Z+JZzLolm6aB7EMvg/FST0SeXr/9mGjJg3m7VDCUFJZ5Ni8vO7L4oYEQlTDadoOTV9hDTOyqC5tVJz6/JREgGP9jxkDv9PLlyaY/OXw87nUtzIZSI+I4VjGimEGL5kp3iqeKQcSVivHbnSZoeTmMyiYfsjysBBw9Bg93VheeOxg==
+ bh=xkjywitQPGHlxL5NC+7pvJYzTtJ5iqsyPdqmyOf2JRI=;
+ b=nD51BzQC0TrhQxJIlSY2wFa0gpmtjBJzCS0JN6C5osfJeZeHqvH7Ys9JfRLWnj5UZ0mFz639qmxa6KhMScCwct3J4fPL0LGKzUfsya0cBX/7b5TLWHzcxpnHUTldl+XaR7gLu2Mr6djihnJPl82M9l9uMFkZYRYFnSU6L81WH6PE2K6KtudWM+eHWQ1m7fvK5PCNWxHvIFRezQDPQ9q7chK4Zyler+eZDeXp3ef6oNwtmSKuIBHqeOYTQR2ymnmWNnQ25K58LxSE619ftRaFEMvxSxYNnELQgvD8RmGMYNDxarKTS3V7psEs8s0esBgwgKGmFYaemqX8JVQgjp73lA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=detDOakbFZyYY+f8Axm7fNQyZuXhP3koC2LbQJDRUq8=;
- b=PkMUYpyxQdtDAkiYgSOHI6Df/Ukju1lWDUxpzufhxyCVSCVsRlFyoZB35tdMfUs+rx0kqGya1okhBQbrfCe5Xo8GohjjiRQ9SWA/ANsN13OWuVVo5fgHQRqjmbMRCfoHrfbLnNthCID3e50kile0+9ehQmaBw+acG9gAAtZpV6UjEnv0Jj95nl5sUwDCKFKYBHoIDOvlX0nicap+wvYRRbMcFuYMIq5AdrsH4BVXVJBpzgDhzBnlMEHaiIaGx6CmX02azoBWQH65t+V3rlOeBEIwEuEE2pPh5/iaydIhH+chBDGJ+fi9gNqTgSIPZNyoEncJjkOuMeSn73wIe5REyg==
-From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+ bh=xkjywitQPGHlxL5NC+7pvJYzTtJ5iqsyPdqmyOf2JRI=;
+ b=Pyd5yYZUdQsq/gN6986qhAn1+fFkpl2GDhpJkFSwgsGvSoqnKskvE1gDQ4pdnd2Or7Ic2RmTKpTaFJze7YddiP/+rxQnWy5oHPrWwFSqTp/CR4PhqvYB7StmF94tGhm4YFEruLk42LEiDe7Q5EcGcYejoxiRsR8YrxgytmO3Gh2n/6Z5Fe09r04DULQWRSnXBwTKJI8MqVpJv9iZqQ++v/QQL1E4Ce/RpxhBDSwbdNRwwFb+LqLLLmEJ6NkvzlOWsV84i2DLX3Ar8JFpx+K63y+5cPpr7kVa9IhVD5wdn1A6Ebw3LCAvj4uPn3SZqHGFMyQ8tfSKifKmqVIXnmdowQ==
+From: Grygorii Strashko <grygorii_strashko@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Ayan Kumar Halder <ayankuma@amd.com>,
-	Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: [ImageBuilder][PATCH V2] uboot-script-gen: Add ability to configure
- static event channels
-Thread-Topic: [ImageBuilder][PATCH V2] uboot-script-gen: Add ability to
- configure static event channels
-Thread-Index: AQHcMjHccr4/QgJ2+kWZ37s9cExJRg==
-Date: Tue, 30 Sep 2025 17:44:24 +0000
-Message-ID: <20250930174421.2329608-1-oleksandr_tyshchenko@epam.com>
-Accept-Language: en-US, ru-RU
+CC: Grygorii Strashko <grygorii_strashko@epam.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Alejandro Vallejo
+	<alejandro.garciavallejo@amd.com>
+Subject: [PATCH v2] x86/hvm: vlapic: fix RO bits emulation in LVTx regs
+Thread-Topic: [PATCH v2] x86/hvm: vlapic: fix RO bits emulation in LVTx regs
+Thread-Index: AQHcMj09noDu3viL50aVl0iuVQpwow==
+Date: Tue, 30 Sep 2025 19:05:51 +0000
+Message-ID: <20250930190550.1166875-1-grygorii_strashko@epam.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM9PR03MB7025:EE_|VI1PR03MB6269:EE_
-x-ms-office365-filtering-correlation-id: 4696c420-4b99-4ccd-c987-08de0048fea3
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-ms-traffictypediagnostic: AS2PR03MB8907:EE_|AS8PR03MB7239:EE_
+x-ms-office365-filtering-correlation-id: 8545e7b3-2dcb-4ae4-9b7b-08de00545fa5
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|1800799024|366016|42112799006|38070700021;
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|38070700021;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?bx87LPqElIoclIcw8H9E0cAyS6ezoNZKsWhx8BKv4AuNB5TeZlWNzSb0e0?=
- =?iso-8859-1?Q?fjC8EUeWcPWDv5zu8wnRt8zOBKzH9k+TUiXCmQf9v1uck0pzvVEGqP5wsQ?=
- =?iso-8859-1?Q?qCLhK7B0WzqniAitBbIhQIH10FRIAFXW9e2B9vQCYNoGypuswi8jZ/EBdy?=
- =?iso-8859-1?Q?B9dnfxfdyG8EcZOZJOJ34wg3edGOYh4+/gKRZpGeSmm7GuE+kImN5D3e1f?=
- =?iso-8859-1?Q?2iWMK52L85DnYC8Cn1bNLcnfl1+xScFANFBoAOT/e2Zl1AKeVGyIjE3XWY?=
- =?iso-8859-1?Q?1YzuZe0GrJkbsYJNEhZRY9U6es67g/L0CBXu/Nv4EiQH3YlGR8QzxSsGZ6?=
- =?iso-8859-1?Q?43+6ix3rW2RlGVlBpD83k5zlYZ1Lx/qgLZ59dhkXwQrDJqPrgiQIjDpYbY?=
- =?iso-8859-1?Q?8IRngDQ3Y6l0B7TLhUgkM+LDrNGMh1KZp4lVL9wCcS9Bjeki0NmtaXa1bh?=
- =?iso-8859-1?Q?6wDtORYUdp3pvg+Gy5Qab330QWcxnPuxxYD3u4zjyRyYrPPftitJBIjOQF?=
- =?iso-8859-1?Q?hRqZwu4grMCzS2nIFnN8skukSVvw0JTBtKSv4ciFwCf91weMgGpSOyA3BN?=
- =?iso-8859-1?Q?JSv16FHq6r1WSQwMuZzzV+/d1twB4gKaurD7isC0wilxDQq7fbCnwYphNZ?=
- =?iso-8859-1?Q?u/tQY6thH132egUCSW9hFuxuIiz6HtpWinx03OJW/AxsB7PHZTvsK8mbuE?=
- =?iso-8859-1?Q?nIg7yw1wBz5fPA7/xCfoeFOoco1p9pDUKiv1X9LwFccEqQaUtczo51YSUb?=
- =?iso-8859-1?Q?Py6ZxaG7N1+AO7ruUuAEgtn1CRZfEzBFkRYuV/YXoJZzv0nRAiF9ElRhf7?=
- =?iso-8859-1?Q?vdMio/dauI5NjNJznp35Kyfi6LGv9RQkjNm13s71GBaQukH3rOc0XR88of?=
- =?iso-8859-1?Q?hTRbH2otCKQPSa1tTCdEn7SfjSFBwnff77zspjFq2B6vsEcCApOdwYKfOH?=
- =?iso-8859-1?Q?1kMChppXywGokYAfkx454CoLE74HiATPWiFRDsNesjedI8xilDxh5tARFN?=
- =?iso-8859-1?Q?r4AKhEyO8/T4tB2EyIAOG+UA+EWhPEGTXSucaLRytAH8t0Jd2+D0z2+tst?=
- =?iso-8859-1?Q?C/9FKfTaklTvRzMsr/pGiuC6ixhFmNRrE9hXwx7E35wR8tN/M9rctVzoI4?=
- =?iso-8859-1?Q?JjBHdRu8z7kvljxo4lMG1C4FqV1O2e7Qj5wKVXW2MP7KI2V8E1n84x7mjl?=
- =?iso-8859-1?Q?cK6ro4IbQUbY4ipEn5qAOApJ2a7XauZlhTVhTyyhF48Y7UBmzF96L3UoB0?=
- =?iso-8859-1?Q?93rxFxZfbMeBI9HDCU8MHWtADZfAa/JkzJtRkOVmK29tjcYsLsPOZlgp6z?=
- =?iso-8859-1?Q?jJkPGUmbdg9CS3gfPirys993q5rMv9nWLynxJToUVcRWkRFtLxbtyczVtz?=
- =?iso-8859-1?Q?ZlCfxdg+pza3ycQePSNFuOBcEmTtgomHroI7RYAcO9KLvk2dDXHqcai2Xk?=
- =?iso-8859-1?Q?fY5dN+FyIDeUGN2wnIHHg4J2ulQrqJ5gStXa1s3VBK8rrIfr3cem0XapwZ?=
- =?iso-8859-1?Q?jE9DCK2AkjUA4G/Oq073QMUp31R1Kxo5eVRkgX1StsDA=3D=3D?=
+ =?iso-8859-1?Q?RmdCp1QKrbh2UkhvT+jFW9yfqoSBgQM/2YOwvIXkT0xO6C3BnTkOF+lXjM?=
+ =?iso-8859-1?Q?Mv5Ni/FuqMwydhkEUyMk/T6syITraGV8su/BlA6ltVs0InKu/ZGpiBwo1K?=
+ =?iso-8859-1?Q?ry4WtgF3fkUk1TEwtDml0tL8KPRA46F4N3upVn1+ODerPWmYOaufMZgwpZ?=
+ =?iso-8859-1?Q?YWlYc2UR99M5KwzDv5w0eb1ZYlLDhipIGKS7x+PzYEddIuJKFeTPb05pqu?=
+ =?iso-8859-1?Q?A6eoKQoHXXSHniX6CV29dwlmfQf97eZOu+3jrmVSlcun6EFVVMbXMvlpgZ?=
+ =?iso-8859-1?Q?yUJT+A9dSgJdWdBHzHRw3HDtDjC0STxT8TvEsVVkYTQficHoUdaZvTBnH8?=
+ =?iso-8859-1?Q?sQGLOxTwPQ5Pfm2JAo0OPql8TEIhsnSrelFo3+aSHheswD7TRudNN1yVBc?=
+ =?iso-8859-1?Q?DtMNWP+f228Jt6Q45EykpYO2TF9NVT0lHVOFA7SolKmYGtrA8i2rDxupui?=
+ =?iso-8859-1?Q?c8bBTtpkboot4r3LK7MjpKSXwmRPdgmgwA2gUJ8HG97t1wq8dP+DbnLfEv?=
+ =?iso-8859-1?Q?3qP64OlBHOHThnruEfhLObTixrVbce6TTiWbPegLiHjvvR8Da9OI5AWqdb?=
+ =?iso-8859-1?Q?3Rw1u1LieMr2kzAU/tKWCRBDBmAEeRAuWKUe9H5P0R96gQ5ChjcAsrPkS2?=
+ =?iso-8859-1?Q?z2lPk4iOnXkBtVEeCKlAktta22x9S/VKLvq9ZUFaQ1A8FJ6zWH1ajc/C/p?=
+ =?iso-8859-1?Q?htjsOwp8MrlYy+tonp1kgBa+vIumlvQGwY135P+f8WWFDnedFGLKUU0H31?=
+ =?iso-8859-1?Q?Pxjuu/f0TFaNlyic2GzObAq/7goBH47XLFWf3TeATO3rsM9M1jlSbfW/ZX?=
+ =?iso-8859-1?Q?mECuurcfkQsXmQuUkzm+nzVxLma6YpamTpR7uRyO23ZtNfkepERjM/t2xR?=
+ =?iso-8859-1?Q?K38eIE2KPCpybul5udUgmIFaedH9vQB5ZwTSUpwlO+SxuDmMWRMGivls7c?=
+ =?iso-8859-1?Q?Hx0n4tq2wtMWfKoNmCXzIcz/cFN8M4b75yngGxIT1qR+OnQ6rpHHWTkrr+?=
+ =?iso-8859-1?Q?MrkyXhXzWXGkEAsIo4Tsafg4JH17i35MHDV5RgE3cMxHQH5HyLEfI80z5e?=
+ =?iso-8859-1?Q?Rmw2XDzIMDWriUqdLg4QcmYiCaLDTsm/mxX9kduCCOsgZiYFwWFQsH4Ja+?=
+ =?iso-8859-1?Q?as2jVzSUzJnwmpQaPdksnyAZQ417wh77ob8lQzoJMGMV9m2kY9qRqQYN+u?=
+ =?iso-8859-1?Q?IkpoPLeBeh51iFPhJQcwQ8hQYqw+vJolDkfAlPcmhoaRiw1rtQ5lySaG3+?=
+ =?iso-8859-1?Q?op5ZWqpPegwkWq66t+wTS4J1BDtcRCTImj9FTOlGuGh/KEkOB+TTh11cuT?=
+ =?iso-8859-1?Q?9oqLLJstCbCcZMrDAzYbm4e7FgVI0duVdLQYzoHZlrXr8yanF9QGeACQe1?=
+ =?iso-8859-1?Q?kaaUalyTYfxBxwd2kYUKTMnCJ4WeXobEImO0POabuHGNiAu/nWGKuqe6gj?=
+ =?iso-8859-1?Q?SzAGUPKYytebCqAp2h7aUUtcys2wAjgaayRh3OYz6IPhdmcLPh0VqNmUqN?=
+ =?iso-8859-1?Q?8Tc7ls2GUL9MhlOMBSa1/RR2BJmRhuSV72TXY/aYgKTA=3D=3D?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR03MB7025.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(42112799006)(38070700021);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700021);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?AeIg3I8uwG+4Cx/zItwahrFMbMC2pzntXTn7Gzs2Fgln2OkkwqZANRyG5c?=
- =?iso-8859-1?Q?LdJ6BKcCx+J/7uCmKP6JeozWvVbSqITkmDzHRdK0TrkMdW7/R28U06LK4V?=
- =?iso-8859-1?Q?LbZ0CS8C7dGaSK3rUhLU7H5xUeU3czKmQ5wNzfcwSO02Z/j8WTynwlQMZK?=
- =?iso-8859-1?Q?r8rwAcbj/HaReHp6TORTNljdZ3+OEPRdeB2jbGiS7mCcEaMThhQfGnrQMJ?=
- =?iso-8859-1?Q?821WaHs8MJfzfxzHANf6fY0shuBQGniYtFYIk+0cZQ1W8vl0n0ta3i+57U?=
- =?iso-8859-1?Q?t/BGig939D8J1jkflF1Awh46K73X6iEmYm5QV6E6bQWFdb2fX60RjRYyTD?=
- =?iso-8859-1?Q?ITo5hABdMZXu+VqssiZJZl5U1RsqXZ4U5wAZ8bReeibGBAS344r3zZLDxf?=
- =?iso-8859-1?Q?Be+jQTW2T4nJ/hUg0+spfbSEAYNtC645WZHlHzrEvDjx6/wQxAO1HeUVVG?=
- =?iso-8859-1?Q?5ZT7gxO+oia3E+TDjsrbihldlcL/hY2ynRrk3KjRNQPTTdJBEnHrUZsgPR?=
- =?iso-8859-1?Q?EKbYbgB5xz0XVCdm/fhTWdA0Ad4X1FmPjyQiJYNmbe6IlKL42jQUF34Z+w?=
- =?iso-8859-1?Q?lnbzqDBoyrFErapsR0S4WZyNxSiKOy0gIuh22+eLk2fF8jZMgqCs+OEuZh?=
- =?iso-8859-1?Q?mZ3/Hfnbw/jvKZ8ApN01wkaWFXypYgYwBSVpOMvDz1Qde16NBhjmlPxeOy?=
- =?iso-8859-1?Q?GqYnbhqKM0mn9XrUF/CXqyhFZteo5FkbZtd6ZqaphIi5R1ywK4kCSGGRSP?=
- =?iso-8859-1?Q?/VYw4gVN/CMTGTwZSNBeKN0NlX6fVumBg3quU3TbNvzO99gCpVHB8oPdx5?=
- =?iso-8859-1?Q?Azedj2D3N5i4iakwDfo5Sb0m4cx5q7SxhqGTvfGi9fTJYVwfjQzP/Bzl+l?=
- =?iso-8859-1?Q?7ga4jIJCZIdJPhuhqa+22uMyWsTDaBjaU5om28/bYwU5JWRUMW69Z3ngtt?=
- =?iso-8859-1?Q?rMGOpDWZT/RPjqPYMREOgDuPXpR0bKpC17sbkqlDlOMqXc68U96N/0nSvs?=
- =?iso-8859-1?Q?0k5vYdBOQ9a9MIQePXp6uHkRJkbGyNkcX0LMguuc+Jm+Xau41dYpPvPo8F?=
- =?iso-8859-1?Q?AT+5i47baOoTbVGuvch8eXhtou51Ba+khs7sJ0caD4Chgfv5eAEWDW/Dcy?=
- =?iso-8859-1?Q?2Ma3GIqKh6K9kScoydBlPx3+m1PZdXfN0UwnpjlTpbfYM4DbJ/X9bGxq8+?=
- =?iso-8859-1?Q?CPNLpuhL3Bi3SruSuQ3u+xDMLkJv8n6TtIwCAUrku/oZb6881L7ZXLI4Ta?=
- =?iso-8859-1?Q?Lz2QCYV4YVWGhAMoHZ3nRFcsFAhl8QCdYrJ5hxsXU6xVNPUWC/MdkOM5xR?=
- =?iso-8859-1?Q?w0Z7Z9UcN5Ebyxx/1SGEBG6AH+Kxhk3ffBuA9tiKpjHdicZnSm8B9J0s4K?=
- =?iso-8859-1?Q?d8ceNpcEp4anIk6zL+LiwtOKNuGGOx1CwLuaNalE8DaTLH/2A4Qeg/NDuv?=
- =?iso-8859-1?Q?L8NjVl9L37h1PrXuNBIFygfMkpH0kLlzmjcwhbHSR0EI4wtYrigaWSoJwJ?=
- =?iso-8859-1?Q?re0cZq2hTQO1kXLgIjhhkx9DwVMBZrTrqKsrzqoxCPYh+mLr3uQjCA8jga?=
- =?iso-8859-1?Q?QwFGrY2gMi9YkZXz+zuxmN5ZafRpbRx8OJRwHmtsAGBv1AOJPSYP874pHH?=
- =?iso-8859-1?Q?aAgI9H/UjV6w+yIIBduQBLFWhRRRzNbx6ph7TQg/of3YmbpsMgJZjcaqVS?=
- =?iso-8859-1?Q?UpFod9YyUB6X/gNbnR4=3D?=
+ =?iso-8859-1?Q?/uouuOS1Wbo5nZ6iWwgsaE4f7pAFBpyIQ4LdmNGaGSlB/GSR6NPISRGR+g?=
+ =?iso-8859-1?Q?5MdWC+fvecEEjo18DCIcgrH0lZ9xHHxaxtJqf/A4h35z42p6PklHeBtRpV?=
+ =?iso-8859-1?Q?9uO3DpzW+XY8oo3JlCP4OYuqdFDaJRZaCvSo9HcP/AZlf+tPkGq3hXGuDm?=
+ =?iso-8859-1?Q?2JozDjU5Rrd3p9gFynW/wJ8CkqFjoj/3/Ibg0fXFm5hTO8r02BQi14Bo7s?=
+ =?iso-8859-1?Q?/zcpjHWscjBwcfL1lbNt0HNFkJEMMLrAlqboJdsJRzDKxEE6eZ5bkZY1Hh?=
+ =?iso-8859-1?Q?a5AaZmpIPPYFTUGNd4qhAQXxe+Gf2WzGB36wAEfuwaqZptU6ShljPek+IY?=
+ =?iso-8859-1?Q?bJ5vjsat6CTcvbQXr0a+OE2kc6gTgWf3hAKXxz1aApHceZ8dE50mawv61d?=
+ =?iso-8859-1?Q?H0KCgD3tjU0sVqbKXSmEXSkabYrLkXcljz94XNvFkKhn3ba+hd1cPtv597?=
+ =?iso-8859-1?Q?byAdT/21ExdKaEwcZB1x+yL7sP1oY6bWrbQY0ajprSm3XayXUDkg1BVz2o?=
+ =?iso-8859-1?Q?JvfOFss9TCNtPzXCcu+drHTkC6TrvL17ggWPooerl+AUgP1VI1spRGLmYa?=
+ =?iso-8859-1?Q?4zGdPDPCE2HbJTdsvJ+XkVgy0CdisQ+gAvpIzMSHYindiRtXba2nqFLkCV?=
+ =?iso-8859-1?Q?N88sQLb3c9+w+7/gnrQG4fwIbN0TTCU2eeHz3OyAKjn/Xx9p/yOP6no6cl?=
+ =?iso-8859-1?Q?pSk+Mg9WjqoMx91uI0WNnANqJZQwHmEZ83h6E2KegWxcfEDX1NoIRONuyH?=
+ =?iso-8859-1?Q?fm1NC6LPEOY3ydqy3yrc3SQ2ydKzHuNmEQTQb5qFe274KtXVy/C2xkNYap?=
+ =?iso-8859-1?Q?CJW3TaTOEpXYQDqu8hCnjKmO5MHILiNCKnnqLqQPed8z8HzOa0Uxll8jcD?=
+ =?iso-8859-1?Q?zJlrbvmqEqrGrNABAAsdDRZ3BTOZ5B9ibtLBYNxdTgSixvgLeEEE5hnVR1?=
+ =?iso-8859-1?Q?cDyIABZ3livoIUCUvAl9GXotsE4vqm+9C+twq/kv/aokOiNw+wgV6Erv7f?=
+ =?iso-8859-1?Q?6cjMHqH5JzKiHovA3qSRiaisLCaqwJwZKn/lutsXXleP+Qy0Tn0dGKLpHl?=
+ =?iso-8859-1?Q?WXflm1DonlAwSMNmBDxZz2/0575F9s9gi2LsKjsDBeXkjHUjnWY+jQfADO?=
+ =?iso-8859-1?Q?YJnbhmP9ATdoWb9YuVmMKBWjjr4YDJ0+3g9nYuZuTazve6+9kuLhFvPXU+?=
+ =?iso-8859-1?Q?ha6DIRTKJfvp4gHAw85e6zkTe7OS6MhEhehIGM0eZy5w6yWkOyZP7iEaiE?=
+ =?iso-8859-1?Q?OGyobhD1qrW+FKUI4JfhXPGIOdt+0WqA/Qvam5L07f/0KZ5dDUe4s+PZKF?=
+ =?iso-8859-1?Q?Cc0iGAE3PgM5WQDPEjPmRnjNo38XhI7uFV8sXn2hFJq7V63QeeDMPDqNwK?=
+ =?iso-8859-1?Q?kSKM4x/zexSX5n9iJCn5PBpHk2zjDWWhuOdJbAtLKoMZm7EJ4BQrqTOkI3?=
+ =?iso-8859-1?Q?0/stpN67MXDm996mMNkVQ+awWoXGXjkJF7J2SINXRc9jhzsItZBLXBH2z4?=
+ =?iso-8859-1?Q?joj88v3o2wrbGu57x8bxbGacOdi/zgeexJUo6axeMKPrkE/j8a3eNhx9fl?=
+ =?iso-8859-1?Q?vVxgNkpYSfXqhouPXRO+nQlhG35LcLw6xoHdVwxoeRb+gbhSz5QBJN+P83?=
+ =?iso-8859-1?Q?HNy3Z7F+jl06Xq6OLMfC3Pa7QdeF8K7JWIPn69wJolXFxbAoWdUnyAtg?=
+ =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR03MB7025.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4696c420-4b99-4ccd-c987-08de0048fea3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2025 17:44:24.2309
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8545e7b3-2dcb-4ae4-9b7b-08de00545fa5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2025 19:05:51.4605
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: A5zNPwW5EuHdkdbZ83xNpVatyLJody826OF5sTmkowo/pTKd7dW40hGCWf3YKmhbAb3O8Z5g6iC1LOOYz5tgN5+UZl3CKncb8vUxDEElnrQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB6269
+X-MS-Exchange-CrossTenant-userprincipalname: IRH3kv/RY9DGJUseVbWWt+UwzGGxEGrdcXW9fbetR+tNlzKtDS8eBITgrhnvbWXrEwgJ44KALctSg/DrWSvz94YR9ALYi8Y086D7WBUN9IA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB7239
 
-Add DOMU_STATIC_EVTCHNS[number]=3D"local_port remote_dom_idx remote_port; .=
-.."
-configuration file string option specifying the static event channel
-definitions for domain.
+From: Grygorii Strashko <grygorii_strashko@epam.com>
 
-For the following example:
-DOMU_STATIC_EVTCHNS[0]=3D"10 1 11; 12 1 13"
-DOMU_STATIC_EVTCHNS[1]=3D"11 0 10; 13 0 12"
+The LAPIC LVTx registers have two RO bits:
+- all: Delivery Status (DS) bit 12
+- LINT0/LINT1: Remote IRR Flag (RIR) bit 14.
 
-it generates:
-fdt mknod /chosen/domU0 evtchn@10
-fdt set /chosen/domU0/evtchn@10 phandle <0xfffffffe>
-fdt set /chosen/domU0/evtchn@10 compatible "xen,evtchn-v1"
-fdt set /chosen/domU0/evtchn@10 xen,evtchn <10 0xfffffffd>
-fdt mknod /chosen/domU0 evtchn@12
-fdt set /chosen/domU0/evtchn@12 phandle <0xfffffffc>
-fdt set /chosen/domU0/evtchn@12 compatible "xen,evtchn-v1"
-fdt set /chosen/domU0/evtchn@12 xen,evtchn <12 0xfffffffb>
-...
-fdt mknod /chosen/domU1 evtchn@11
-fdt set /chosen/domU1/evtchn@11 phandle <0xfffffffd>
-fdt set /chosen/domU1/evtchn@11 compatible "xen,evtchn-v1"
-fdt set /chosen/domU1/evtchn@11 xen,evtchn <11 0xfffffffe>
-fdt mknod /chosen/domU1 evtchn@13
-fdt set /chosen/domU1/evtchn@13 phandle <0xfffffffb>
-fdt set /chosen/domU1/evtchn@13 compatible "xen,evtchn-v1"
-fdt set /chosen/domU1/evtchn@13 xen,evtchn <13 0xfffffffc>
+The Delivery Status (DS) is not emulated by Xen - there is no IRQ msg bus,
+and the IRQ is:
+- or accepted at destination and appears as pending
+  (vLAPIC Interrupt Request Register (IRR))
+- or get rejected immediately.
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+The Remote IRR Flag (RIR) behavior emulation is not implemented for
+LINT0/LINT1 in Xen for now.
+
+The current vLAPIC implementations allows guest to write to these RO bits.
+
+The vLAPIC LVTx registers write happens in vlapic_reg_write() which expect
+to implement "Write ignore" access type for RO bits by applying masks from
+vlapic_lvt_mask[], but vlapic_lvt_mask[] contains incorrect masks which
+allows writing to RO fields.
+
+Hence it is definitely wrong to allow guest to write to LVTx regs RO bits,
+fix it by fixing LVTx registers masks in vlapic_lvt_mask[].
+
+In case of WRMSR (guest_wrmsr_x2apic()) access to LVTx registers, the SDM
+clearly defines access type for "Reserved" bits as RsvdZ (Non-zero writes
+to reserved bits should cause #GP exception), but contains no statements
+for RO bits except that they are not "Reserved". So, guest_wrmsr_x2apic()
+now uses different masks (than vlapic_reg_write()) for checking LVTx
+registers values for "Reserved" bit settings, which include RO bits and
+do not cause #GP exception.
+
+Fixes: d1bd157fbc9b ("Big merge the HVM full-virtualisation abstractions.")
+Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
 ---
-  V2:
-   - completely rework based on Stefano-s suggestion at:
-     https://patchew.org/Xen/20250929180746.1881872-1-oleksandr._5Ftyshchen=
-ko@epam.com/
----
----
- README.md                |  21 ++++++++
- scripts/uboot-script-gen |   7 +++
- scripts/xen_dt_domu      | 103 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 131 insertions(+)
+Changes in v2:
+- masks fixed in vlapic_lvt_mask[]
+- commit msg reworded
 
-diff --git a/README.md b/README.md
-index 7b68cf5..2efac97 100644
---- a/README.md
-+++ b/README.md
-@@ -218,6 +218,27 @@ Where:
-       DOMU_VCPU_HARD_AFFINITY[number,1]=3D"3"
- ```
+v1: https://patchwork.kernel.org/project/xen-devel/patch/20250925195558.519=
+568-1-grygorii_strashko@epam.com/
+ xen/arch/x86/hvm/vlapic.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+index 79697487ba90..2ecba8163f48 100644
+--- a/xen/arch/x86/hvm/vlapic.c
++++ b/xen/arch/x86/hvm/vlapic.c
+@@ -44,15 +44,17 @@
+ static const unsigned int vlapic_lvt_mask[VLAPIC_LVT_NUM] =3D
+ {
+      /* LVTT */
+-     LVT_MASK | APIC_TIMER_MODE_MASK,
++     (LVT_MASK | APIC_TIMER_MODE_MASK) & ~APIC_SEND_PENDING,
+      /* LVTTHMR */
+-     LVT_MASK | APIC_DM_MASK,
++     (LVT_MASK | APIC_DM_MASK) & ~APIC_SEND_PENDING,
+      /* LVTPC */
+-     LVT_MASK | APIC_DM_MASK,
+-     /* LVT0-1 */
+-     LINT_MASK, LINT_MASK,
++     (LVT_MASK | APIC_DM_MASK) & ~APIC_SEND_PENDING,
++     /* LVT0 */
++     LINT_MASK & ~(APIC_LVT_REMOTE_IRR | APIC_SEND_PENDING),
++     /* LVT1 */
++     LINT_MASK & ~(APIC_LVT_REMOTE_IRR | APIC_SEND_PENDING),
+      /* LVTERR */
+-     LVT_MASK
++     LVT_MASK & ~APIC_SEND_PENDING,
+ };
 =20
-+- DOMU_STATIC_EVTCHNS[number]=3D"local_port remote_dom_idx remote_port; ..=
-."
-+  if specified, this parameter allows the configuration of static event ch=
-annels
-+  for inter-domain communication. Each entry in DOMU_STATIC_EVTCHNS[number=
-]
-+  specifies one or more event channels for a particular domain.
-+  The configuration format for each event channel definition is a set of
-+  three values:
-+    - local_port: The numeric port number for the local domain's endpoint.
-+      This value must be unique within current domain.
-+    - remote_dom_idx: The array index of the remote domain (e.g., if
-+      connecting to DomU1, this would be `1`).
-+    - remote_port: The numeric port number for the remote domain's endpoin=
-t.
-+
-+  Multiple event channel definitions for a single domain can be provided b=
-y
-+  separating them with a semicolon (;).
-+
-+  Below is an example that creates two pairs of bidirectional channels bet=
-ween
-+  two domains:
-+  NUM_DOMUS=3D2
-+  DOMU_STATIC_EVTCHNS[0]=3D"10 1 11; 12 1 13"
-+  DOMU_STATIC_EVTCHNS[1]=3D"11 0 10; 13 0 12"
-+
- - DOMU_COLORS[number] specifies the colors (cache coloring) to be used
-   for the domain and is in the format startcolor-endcolor
-=20
-diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-index 4f92610..e319de8 100755
---- a/scripts/uboot-script-gen
-+++ b/scripts/uboot-script-gen
-@@ -428,6 +428,8 @@ function xen_device_tree_editing()
-         fi
-     fi
-=20
-+    xen_dt_build_evtchns_map
-+
-     i=3D0
-     while test $i -lt $NUM_DOMUS
-     do
-@@ -512,6 +514,11 @@ function xen_device_tree_editing()
-=20
-         xen_dt_domu_add_vcpu_nodes "/chosen/domU$i" $i ${DOMU_VCPUS[$i]}
-=20
-+        if test "${DOMU_STATIC_EVTCHNS[$i]}"
-+        then
-+            xen_dt_domu_add_evtchns "/chosen/domU$i" "$i" "${DOMU_STATIC_E=
-VTCHNS[$i]}"
-+        fi
-+
-         add_device_tree_kernel "/chosen/domU$i" "domU${i}_kernel" ${domU_k=
-ernel_addr[$i]} ${domU_kernel_size[$i]} "${DOMU_CMD[$i]}"
-         if test "${domU_ramdisk_addr[$i]}"
-         then
-diff --git a/scripts/xen_dt_domu b/scripts/xen_dt_domu
-index 8134896..45891b3 100644
---- a/scripts/xen_dt_domu
-+++ b/scripts/xen_dt_domu
-@@ -37,3 +37,106 @@ function xen_dt_domu_add_vcpu_nodes()
-         fi
-     done
- }
-+
-+declare -A EVTCHN_ENDPOINT_TO_PHANDLE_MAP
-+
-+function xen_dt_build_evtchns_map()
-+{
-+    local def
-+    local local_dom_idx
-+    local local_port remote_dom_idx remote_port
-+    local new_phandle
-+    local local_key remote_key
-+
-+    for (( local_dom_idx=3D0; local_dom_idx<$NUM_DOMUS; local_dom_idx++ ))
-+    do
-+        local evtchn_str=3D${DOMU_STATIC_EVTCHNS[$local_dom_idx]}
-+        if test -z "$evtchn_str"
-+        then
-+            continue
-+        fi
-+
-+        IFS=3D';' read -ra evtchn_defs <<< "$evtchn_str"
-+
-+        # Loop over each definition and process both endpoints of the conn=
-ection
-+        for def in "${evtchn_defs[@]}"
-+        do
-+            read -r local_port remote_dom_idx remote_port <<< "$def"
-+            if test -z "$local_port" || test -z "$remote_dom_idx" || test =
--z "$remote_port"
-+            then
-+                echo "Malformed evtchn definition: '$def' in DOMU_STATIC_E=
-VTCHNS[$local_dom_idx]"
-+                cleanup_and_return_err
-+            fi
-+
-+            # Define keys for both endpoints of the connection
-+            local_key=3D"$local_dom_idx,$local_port"
-+            remote_key=3D"$remote_dom_idx,$remote_port"
-+
-+            if [[ "$local_key" =3D=3D "$remote_key" ]]; then
-+                echo "Invalid evtchn definition: '$def' in DOMU_STATIC_EVT=
-CHNS[$local_dom_idx]"
-+                cleanup_and_return_err
-+            fi
-+
-+            # For each key, if it is not already in our map, assign it a n=
-ew phandle
-+            if [[ ! -v EVTCHN_ENDPOINT_TO_PHANDLE_MAP[$local_key] ]]
-+            then
-+                get_next_phandle new_phandle
-+                EVTCHN_ENDPOINT_TO_PHANDLE_MAP[$local_key]=3D$new_phandle
-+                echo "Local endpoint '$local_key' is assigned phandle '$ne=
-w_phandle'"
-+            fi
-+
-+            if [[ ! -v EVTCHN_ENDPOINT_TO_PHANDLE_MAP[$remote_key] ]]
-+            then
-+                get_next_phandle new_phandle
-+                EVTCHN_ENDPOINT_TO_PHANDLE_MAP[$remote_key]=3D$new_phandle
-+                echo "Remote endpoint '$remote_key' is assigned phandle '$=
-new_phandle'"
-+            fi
-+        done
-+    done
-+}
-+
-+function xen_dt_domu_add_evtchns()
-+{
-+    # $1 - dt path
-+    local path=3D$1
-+    # $2 - index of the current domain
-+    local local_dom_idx=3D$2
-+    # $3 - full event channel definition string
-+    local evtchn_str=3D$3
-+
-+    local def
-+    local local_port remote_dom_idx remote_port
-+    local local_phandle remote_phandle
-+    local local_key remote_key
-+
-+    IFS=3D';' read -ra evtchn_defs <<< "$evtchn_str"
-+
-+    # Loop over each definition and create a node for it
-+    for def in "${evtchn_defs[@]}"
-+    do
-+        read -r local_port remote_dom_idx remote_port <<< "$def"
-+        if test -z "$local_port" || test -z "$remote_dom_idx" || test -z "=
-$remote_port"
-+        then
-+            echo "Malformed evtchn definition: '$def' in DOMU_STATIC_EVTCH=
-NS[$local_dom_idx]"
-+            cleanup_and_return_err
-+        fi
-+
-+        # Re-create the keys for both endpoints of the connection to look =
-up the phandles
-+        local_key=3D"$local_dom_idx,$local_port"
-+        remote_key=3D"$remote_dom_idx,$remote_port"
-+
-+        local_phandle=3D${EVTCHN_ENDPOINT_TO_PHANDLE_MAP[$local_key]}
-+        remote_phandle=3D${EVTCHN_ENDPOINT_TO_PHANDLE_MAP[$remote_key]}
-+
-+        if test -z "$local_phandle" || test -z "$remote_phandle"
-+        then
-+            echo "Could not find phandle for endpoint '$local_key' or '$re=
-mote_key'"
-+            cleanup_and_return_err
-+        fi
-+
-+        dt_mknode "${path}" "evtchn@$local_port"
-+        dt_set "${path}/evtchn@$local_port" "phandle" "hex" "$local_phandl=
-e"
-+        dt_set "${path}/evtchn@$local_port" "compatible" "str" "xen,evtchn=
--v1"
-+        dt_set "${path}/evtchn@$local_port" "xen,evtchn" "hex" "$local_por=
-t $remote_phandle"
-+    done
-+}
+ #define vlapic_lvtt_period(vlapic)                              \
 --=20
 2.34.1
 
