@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 524F9BAB514
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 06:16:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1133511.1471684 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63EC5BAB51A
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 06:16:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1133517.1471706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Rme-0003mF-7v; Tue, 30 Sep 2025 04:16:12 +0000
+	id 1v3Rmh-0004g5-P9; Tue, 30 Sep 2025 04:16:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1133511.1471684; Tue, 30 Sep 2025 04:16:12 +0000
+Received: by outflank-mailman (output) from mailman id 1133517.1471706; Tue, 30 Sep 2025 04:16:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Rmd-0003ds-QG; Tue, 30 Sep 2025 04:16:11 +0000
-Received: by outflank-mailman (input) for mailman id 1133511;
- Tue, 30 Sep 2025 04:16:08 +0000
+	id 1v3Rmh-0004a5-AA; Tue, 30 Sep 2025 04:16:15 +0000
+Received: by outflank-mailman (input) for mailman id 1133517;
+ Tue, 30 Sep 2025 04:16:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MDOg=4J=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1v3Rlf-0006tq-2Q
- for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 04:15:11 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1v3Rm3-0006tq-FB
+ for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 04:15:35 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0e420c34-9db4-11f0-9d14-b5c5bf9af7f9;
- Tue, 30 Sep 2025 06:15:10 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-46e4473d7f6so23421625e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 21:15:10 -0700 (PDT)
-Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
+ id 1cbf9552-9db4-11f0-9d14-b5c5bf9af7f9;
+ Tue, 30 Sep 2025 06:15:35 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3ee130237a8so3873877f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 21:15:35 -0700 (PDT)
+Received: from [192.168.69.221] (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46e56f3dcacsm39499115e9.2.2025.09.29.21.15.08
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 29 Sep 2025 21:15:09 -0700 (PDT)
+ ffacd0b85a97d-40fb89fb2fcsm22030581f8f.22.2025.09.29.21.15.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 Sep 2025 21:15:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +45,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e420c34-9db4-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: 1cbf9552-9db4-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1759205710; x=1759810510; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+R20KfaeepivX48ztS5Qk+Utu4Wf2nP4nwxC8R0e4a4=;
-        b=Xv/gr6yTwLqgOvpmNTYhf6c5qNvdYAuPM3joeK0qrz+7BS224EumNMIVaA643XzCVO
-         GG46/6S1kESHKDT1E0fhOvboy4rQHgqNGw755pOwG+TGdIsejYMlNjqiIT7aiSKDOSc2
-         9RMm9j32JEAqryvE/lvQaDyY+Xh0x6HjJFbniZky2lp69f6BgjrN3uMfu9Mj6zI8ecRe
-         2lTBjGO6JdJY3sWqUvJERdlhTt5rZ3hPRPvKTyQrNxAwfAtXTkW5oAl3SIoZ/yXadWEh
-         Z0fqPBaPKE1+T8nky1I1IIYhzDIq1NDpPEXfZgwCWbz4X6ViuW3B44xTBw+bPtu32kc/
-         v0RQ==
+        d=linaro.org; s=google; t=1759205734; x=1759810534; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+gM01wdk2UseDL4pB4Fgwz3uSs5dQf4zrjZtOq7eYBI=;
+        b=rwtv5pavX2EDdtqvo0dMFC05NB43px9OYAWyAcU3V76E6ZXLK3QcaN5CUshWPEKFV8
+         yLoac8rpQmYlQ2Aw+8KNaktaFsl74CePNq502svqhPZFZZuqjdiI2LdZwNo1ND/3J4Jk
+         ZcQwJV2WC0dx3ExGA283/MW2r96yjKluQzG6Th5GJpAFO4knxgOc3hf0pC+9eI2L8ieU
+         GHJPTt4evrkDhGo2F/J876e0gYlkGAfDXcPicC8Yp1gOdV7rwfccAvCKE8tJgxxAvXCl
+         Xvca6v5gwO1RAaxx+MyhohaV4ZguF3WUFsLM4nVyOp4Pq1d0yJ/WGOzP5RYE5KEBd1Vf
+         yRBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759205710; x=1759810510;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=+R20KfaeepivX48ztS5Qk+Utu4Wf2nP4nwxC8R0e4a4=;
-        b=ozE65R/mE/tyyDZZUxN2pPhZpejUoB1rth+g58cEEHzmCSbkKexI/K1ihohX0DK7eC
-         1vJW05jkOBmkBpm5j5EFfvLsi/DT/BbMVwor5p/u3zSD4yM9p/SmfUcV06P429HXbpAo
-         m7PJ4WCD35JH8ochyDSsb/QoiTtEYuKAYUbBxsNm9/BH/KBYYKbxAtvoL3OyImOvOgfN
-         CELN99pTiImD+NnkeDRXoV8yPkqd0fCzZdJwxVS9YuQObBQndJzu9IB1rRUbsJ2gD++P
-         A8Dh+iXP5WsM0ZaOh8JVsOqrHI2IENDtP/psZGbgfaUjwR4YIRuLSLccA5YEdrgqwt+3
-         E6vQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX4IoVIq+6Ku+NUyX1iiDfma29y//JHLavP9hmyxJIvU7hVTZw2fbIcAPn81ENjyntm9KHt+ciMx68=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxtNOMod29coQopMbQBAOOcGvRP2RfUa8e3xMSNVGqsa4Kg6gCk
-	/+QSh0k05U5tWwCrjw+cb9n1MO99MAD2y8mxJznOShhXeotbw7+gDHvJMLNU17VXs38=
-X-Gm-Gg: ASbGncvAbAn3iQ0r/9CEYAgC7ag5vTqJlTtJKvSvi7EJ7QGFpFVW9EcTaRzI8TLLW51
-	6BSwQDGheksLvDnM+R7VvaLdFjGtUhmGCZ5BHoGegiY/bf/8dcSRLcokHVq4u17XHfcakLjkaCR
-	f4T6CXZdaTajBuPPmSBPtvgqSnJg6IMRNq4FO50nKceSW3IFai8f+3X7P1PGi9MrvCigA42hkcR
-	Y/VMRtz9NcrwXcHzPq+GxRp63SFGODRvqKqU+Ty1v5chtkPQC7+iZ6EZXULBmWPtVPWt6gZtXel
-	zYcx9Q1GIqO/Oen+8kCaWYaE+h1I62EOBLCM+AI0rC5YL/rG/I+g4pLLflphNkxs0DFT72b91Ed
-	oisw0AdQEmjj5Vpaaxvxqmjo7mil9+3NJm8QZ10D7jZP74Ld0pzOQN7NwfbfRBIGzRuBB0SKZDg
-	KmFxElVHWKdJkbK8YnXD2aTRVOFJQYsQY=
-X-Google-Smtp-Source: AGHT+IEUJE1IYP/kfT6NPYb+xEkszrcjL4tSyyPjenIF9G8p6iMdA3UofkAUQEEOCpstatyYsaodDw==
-X-Received: by 2002:a05:600c:5290:b0:46e:394b:4991 with SMTP id 5b1f17b1804b1-46e394b4b1emr152224145e9.11.1759205710145;
-        Mon, 29 Sep 2025 21:15:10 -0700 (PDT)
-From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-To: qemu-devel@nongnu.org,
-	Peter Maydell <peter.maydell@linaro.org>
-Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Jason Herne <jjherne@linux.ibm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	xen-devel@lists.xenproject.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Paul Durrant <paul@xen.org>,
-	Eric Farman <farman@linux.ibm.com>,
-	Marcelo Tosatti <mtosatti@redhat.com>,
-	Halil Pasic <pasic@linux.ibm.com>,
-	Matthew Rosato <mjrosato@linux.ibm.com>,
-	Reinoud Zandijk <reinoud@netbsd.org>,
-	Zhao Liu <zhao1.liu@intel.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sunil Muthuswamy <sunilmut@microsoft.com>,
-	kvm@vger.kernel.org,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Peter Xu <peterx@redhat.com>,
-	Thomas Huth <thuth@redhat.com>,
-	qemu-s390x@nongnu.org,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	David Hildenbrand <david@redhat.com>
-Subject: [PATCH v2 17/17] hw/virtio/virtio: Replace legacy cpu_physical_memory_map() call
-Date: Tue, 30 Sep 2025 06:13:25 +0200
-Message-ID: <20250930041326.6448-18-philmd@linaro.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20250930041326.6448-1-philmd@linaro.org>
-References: <20250930041326.6448-1-philmd@linaro.org>
+        d=1e100.net; s=20230601; t=1759205734; x=1759810534;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+gM01wdk2UseDL4pB4Fgwz3uSs5dQf4zrjZtOq7eYBI=;
+        b=abMVVNA5TWU80jEr0Ko6630pCGRfK6j+UqcVtdOAoiL3EokgkPvbXfvsYfZm6JUI4U
+         4Mtmi20n3eXs4UVeE16AvEpOafaxBmxBWV2akUaUXrBH4rNYHUzdhDsdCCPsVi3anhNX
+         Y2Bkj2e8dM0Xrs8+f6L4FVxTuCgHkBxTnMMoz1wJmfMAk1JZwhUND+dikadq15QI1McR
+         N5cie0zIKExbHr5G6KH6lM+QatdMxmdvxSQeaVuGNeep8OdCsEf2D9bLru1z3zCI+q0Q
+         T+IMVJE+dUkNNNMcy9R5XK/KwMsVYrc/Xyhq20BxgMvjj0Wikuqk3qMcKnvUXk4KhRGu
+         iUoQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVzb9VjKQ/H2nVKCiza/LIJUf8unTWZbT/+d+RjJZ+RNupQKdfE7UsMAMO7XCc96SfUQgJLUIEIZLU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw0bFfyxKIx9t7xKthlO7xrwJP6wGhLnrnArqTb9aKeb0qWuUjP
+	MTE+gMULE9cDs8omvejpzj175E7P1RWjJt3LPyyaSoSysllB2sWz+tUefmhQkboWTiA=
+X-Gm-Gg: ASbGncvNhah5sEtJ4Ejhd5zNNJ3TAmc2piNUIEnxcqoJVkFoW+AJHe35XSRcR11rwZL
+	8idKYa0YpkRuVJrOFbBZC5pGCs1ukIF7fa3NQd2LYZmuASQ3IejCI1zNSEX4hD3CLvayyoGAMi5
+	UBzB4LhInC/lMJ7iqI9fuQ6YF51F2sLiDXRR5kh4I9uBbuDyhasCPNnjqttIMVsSMUaiv85LYOS
+	CZVZWCQ/OndWnhEFDwEGH9ZOp4L2J3V1mIOwXwbdwnCJ/QtoObtLRUGOiAje1sJIiLnIpjL3ceE
+	vyumylXdsd9fLXrp9zrDj5qBN94p2T2Xd96HlGCNYLK6haXkM7HNGGy4UrtVg5JUHCcWjABBroo
+	JEOQB+dg2kpKcS154b3k0snqdCCVZFt2IXPjZ7MEbRBqlhd9ZItqdeovsUZaPWigu5dxO6hfxgs
+	Oivk/cNPsf/5PSEO16dZzl1io8
+X-Google-Smtp-Source: AGHT+IG3+NO8caXmgDpmIXUT4U2a38OsXEUMyu+A/7GxYYPazyV8IqumGfAwZ8JxEPW+ODAlASvvgw==
+X-Received: by 2002:a5d:5888:0:b0:3ec:dd16:fc16 with SMTP id ffacd0b85a97d-40e4bd186aamr16627860f8f.43.1759205734391;
+        Mon, 29 Sep 2025 21:15:34 -0700 (PDT)
+Message-ID: <95145136-7d86-4fb0-a93e-f23af9622ea6@linaro.org>
+Date: Tue, 30 Sep 2025 06:15:31 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/17] system/physmem: Pass address space argument to
+ cpu_flush_icache_range()
+Content-Language: en-US
+To: qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>
+Cc: Jason Herne <jjherne@linux.ibm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Stefano Garzarella <sgarzare@redhat.com>, xen-devel@lists.xenproject.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Ilya Leoshkevich <iii@linux.ibm.com>,
+ Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
+ Eric Farman <farman@linux.ibm.com>, Marcelo Tosatti <mtosatti@redhat.com>,
+ Halil Pasic <pasic@linux.ibm.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
+ Reinoud Zandijk <reinoud@netbsd.org>, Zhao Liu <zhao1.liu@intel.com>,
+ David Woodhouse <dwmw2@infradead.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sunil Muthuswamy <sunilmut@microsoft.com>, kvm@vger.kernel.org,
+ "Michael S. Tsirkin" <mst@redhat.com>, Peter Xu <peterx@redhat.com>,
+ Thomas Huth <thuth@redhat.com>, qemu-s390x@nongnu.org,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ David Hildenbrand <david@redhat.com>
+References: <20250930041326.6448-1-philmd@linaro.org>
+ <20250930041326.6448-8-philmd@linaro.org>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20250930041326.6448-8-philmd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Propagate VirtIODevice::dma_as to virtqueue_undo_map_desc()
-in order to replace the legacy cpu_physical_memory_unmap()
-call by address_space_unmap().
+On 30/9/25 06:13, Philippe Mathieu-Daudé wrote:
+> Rename cpu_flush_icache_range() as address_space_flush_icache_range(),
+> passing an address space by argument. The single caller, rom_reset(),
+> already operates on an address space. Use it.
+> 
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
-Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
----
- hw/virtio/virtio.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 
-diff --git a/hw/virtio/virtio.c b/hw/virtio/virtio.c
-index 9a81ad912e0..1ed3aa6abab 100644
---- a/hw/virtio/virtio.c
-+++ b/hw/virtio/virtio.c
-@@ -31,6 +31,7 @@
- #include "hw/qdev-properties.h"
- #include "hw/virtio/virtio-access.h"
- #include "system/dma.h"
-+#include "system/memory.h"
- #include "system/runstate.h"
- #include "virtio-qmp.h"
- 
-@@ -1622,7 +1623,8 @@ out:
-  * virtqueue_unmap_sg() can't be used).  Assumes buffers weren't written to
-  * yet.
-  */
--static void virtqueue_undo_map_desc(unsigned int out_num, unsigned int in_num,
-+static void virtqueue_undo_map_desc(AddressSpace *as,
-+                                    unsigned int out_num, unsigned int in_num,
-                                     struct iovec *iov)
- {
-     unsigned int i;
-@@ -1630,7 +1632,7 @@ static void virtqueue_undo_map_desc(unsigned int out_num, unsigned int in_num,
-     for (i = 0; i < out_num + in_num; i++) {
-         int is_write = i >= out_num;
- 
--        cpu_physical_memory_unmap(iov->iov_base, iov->iov_len, is_write, 0);
-+        address_space_unmap(as, iov->iov_base, iov->iov_len, is_write, 0);
-         iov++;
-     }
- }
-@@ -1832,7 +1834,7 @@ done:
-     return elem;
- 
- err_undo_map:
--    virtqueue_undo_map_desc(out_num, in_num, iov);
-+    virtqueue_undo_map_desc(vdev->dma_as, out_num, in_num, iov);
-     goto done;
- }
- 
-@@ -1982,7 +1984,7 @@ done:
-     return elem;
- 
- err_undo_map:
--    virtqueue_undo_map_desc(out_num, in_num, iov);
-+    virtqueue_undo_map_desc(vdev->dma_as, out_num, in_num, iov);
-     goto done;
- }
- 
--- 
-2.51.0
+> ---
+>   include/exec/cpu-common.h | 2 --
+>   include/system/memory.h   | 2 ++
+>   hw/core/loader.c          | 2 +-
+>   system/physmem.c          | 5 ++---
+>   4 files changed, 5 insertions(+), 6 deletions(-)
 
 
