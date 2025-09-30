@@ -2,42 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12746BAB70B
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 07:03:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1133710.1471780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6D20BABBBE
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 09:05:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1133725.1471791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3SVw-00080y-2Y; Tue, 30 Sep 2025 05:03:00 +0000
+	id 1v3UP9-0008C4-Bi; Tue, 30 Sep 2025 07:04:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1133710.1471780; Tue, 30 Sep 2025 05:03:00 +0000
+Received: by outflank-mailman (output) from mailman id 1133725.1471791; Tue, 30 Sep 2025 07:04:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3SVv-0007yV-W7; Tue, 30 Sep 2025 05:02:59 +0000
-Received: by outflank-mailman (input) for mailman id 1133710;
- Tue, 30 Sep 2025 05:02:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v3UP9-00089e-8m; Tue, 30 Sep 2025 07:04:07 +0000
+Received: by outflank-mailman (input) for mailman id 1133725;
+ Tue, 30 Sep 2025 07:04:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=MVVz=4J=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1v3SVu-0007yO-8H
- for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 05:02:58 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b9bdd89f-9dba-11f0-9809-7dc792cee155;
- Tue, 30 Sep 2025 07:02:56 +0200 (CEST)
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-17-Uz6QhTx1OgWxMCIGnMY9BA-1; Tue, 30 Sep 2025 01:02:51 -0400
-Received: by mail-ej1-f71.google.com with SMTP id
- a640c23a62f3a-afcb72a8816so521739666b.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 22:02:51 -0700 (PDT)
-Received: from [192.168.0.7] (ltea-047-064-114-056.pools.arcor-ip.net.
- [47.64.114.56]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b353efb88ebsm1061296766b.32.2025.09.29.22.02.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Sep 2025 22:02:49 -0700 (PDT)
+ (envelope-from <SRS0=TYDf=4J=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1v3UP8-00089Y-Gr
+ for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 07:04:06 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a6763701-9dcb-11f0-9d14-b5c5bf9af7f9;
+ Tue, 30 Sep 2025 09:04:04 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9380133739;
+ Tue, 30 Sep 2025 07:04:00 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A628E13A3F;
+ Tue, 30 Sep 2025 07:03:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id hWSkJt+A22hxRwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 30 Sep 2025 07:03:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,179 +52,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9bdd89f-9dba-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1759208575;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=bL+RjxGqhOdRGXNtIbLqiRsKj/Y3K4D3P43i5DVXnfw=;
-	b=KDyi3tqoWpmkeEg0L7vUIl7hkOAiZ1lu9q6VBujRrzg0CQFQaN/I30aMrlTfEa5wkwSJuC
-	tTQ7ev9/5N1DzxlAeOu7s2Nx0iaaHcD3B4cjeIlNQOv4/0CzHXMsCx4mYpnvgbuyO3w00K
-	jUanIPvvXrrt9uACGvtNBC+EYHZnDCg=
-X-MC-Unique: Uz6QhTx1OgWxMCIGnMY9BA-1
-X-Mimecast-MFC-AGG-ID: Uz6QhTx1OgWxMCIGnMY9BA_1759208570
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759208570; x=1759813370;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bL+RjxGqhOdRGXNtIbLqiRsKj/Y3K4D3P43i5DVXnfw=;
-        b=tS5oQGtG5H8AvDe+Ms7gsuTqrzbZwHJMmnjRd7gt3ubKthUWVLaK+t5rtdiHTgs7sD
-         /ueehSjMWJjGaqfbOhyM+JhHF2KgAod/fFlXX14FgEgqVU04gRtf8A3QJPUjNrnUKmAr
-         bQq5WRDy86Q4sLnPTVRmI1N3F8jm5foJfKxxwXjw7Ggr68Akcs/JTrFgGOf4IXhZB0qE
-         OF/WuVdnCDeYr3Fwxze+8Tc6jY+BAkQYjYk58DevPIgp8cuO01LLGmfvit0sUxcJl0ok
-         VQqxLpto+hpBnEmk2PQGs8fitpUpTdU/cEkiYopAOPpSHwbsAd2zwgxjxyp2FASLH3iE
-         yeKA==
-X-Forwarded-Encrypted: i=1; AJvYcCUROMTjU98iJJtJeHdDI4AG857IF//jAO7CDPAb0lL9aFoiGVxvqvMpUQPUUrD+ZOxTVjsKFFzUvvY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwuZstutDbj7hUVSOFQomNvtjXciIuhzH7yOZpk0UIVAZqLs74F
-	9K6yNZfKhoffv/dwGQ3/hv8/qwrD4n8afPHweiuk0XWqN3TUbODeezDQHtp//oqp7sdAe0ayCHZ
-	jUQ2MGOCwDHjwRT4s66zb7nDzw2TIkaKd0ZUApc8MN2Cb1Ou7IR9PEHHgnSKg0jwzv3UW
-X-Gm-Gg: ASbGncvV42zmxz0Ey5ebudQNKiVFZHSBUbc3BVaQwxADqe57VOuPzjg5+K6uDyrIbMP
-	iJ6UWZd+atHRen/lH1He8MuKPIXb0+52CvCdtDAuK3y13ZHH+C2yj9fg+sNGdhtMV1EUuQG0rt7
-	YCPsC1CzYkXCWf+1KDm+p7DDE6KRybbrBeYK+d23P1DstsiQ8Rbd3miJttEHCed+JoY0LrIO8j/
-	eB02++FwI+Q9tKKZ6WovtIUbnnwWtR+zYORyjR7lk41lr0HceAfcCMiZFr1J/Z6gOMXoVc/++vc
-	b/6IJ5jYIMZ1j2giyLQgN9PNg6v6FM4zvI74xJ0kPpgaJB4UZmHnKki5hzN3770lhb/mLXNfco7
-	yENOCOOPRQQ==
-X-Received: by 2002:a17:906:f5a0:b0:b41:a571:21b0 with SMTP id a640c23a62f3a-b41a5712270mr236497566b.39.1759208570369;
-        Mon, 29 Sep 2025 22:02:50 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFxIe1/gUAycFtpVQcR4b+NsqR4Pre+MyQnotThndZ321+xPzQyp6FkW4vxaOLRMNcnkRphAA==
-X-Received: by 2002:a17:906:f5a0:b0:b41:a571:21b0 with SMTP id a640c23a62f3a-b41a5712270mr236492866b.39.1759208569870;
-        Mon, 29 Sep 2025 22:02:49 -0700 (PDT)
-Message-ID: <193cd8a8-2c4c-4c2c-af22-622b74c332ee@redhat.com>
-Date: Tue, 30 Sep 2025 07:02:47 +0200
+X-Inumbo-ID: a6763701-9dcb-11f0-9d14-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1759215840; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=si4gFV/3dYwzZCgZLBa+slIGVpI7ADvTkoM2AqYWyic=;
+	b=lI//7GrWbrtZpvnC/P8xTiWG1bJbDcWhKotPPRdZuKz3ngnIcX30ietrtLWvmP1jskQdao
+	4gLwLF/Cd8MQo3TpAPNLdCbc/gpChj8LWOhneF7676sm6d/4WczGF/pjpomj3dkTdfHv3r
+	z05U8sTyMyF8jumPIDaPESgjn69G6tU=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b="lI//7GrW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1759215840; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=si4gFV/3dYwzZCgZLBa+slIGVpI7ADvTkoM2AqYWyic=;
+	b=lI//7GrWbrtZpvnC/P8xTiWG1bJbDcWhKotPPRdZuKz3ngnIcX30ietrtLWvmP1jskQdao
+	4gLwLF/Cd8MQo3TpAPNLdCbc/gpChj8LWOhneF7676sm6d/4WczGF/pjpomj3dkTdfHv3r
+	z05U8sTyMyF8jumPIDaPESgjn69G6tU=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	llvm@lists.linux.dev
+Cc: xin@zytor.com,
+	Juergen Gross <jgross@suse.com>,
+	"Kirill A. Shutemov" <kas@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel@lists.xenproject.org,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>
+Subject: [PATCH v2 00/12] x86/msr: Inline rdmsr/wrmsr instructions
+Date: Tue, 30 Sep 2025 09:03:44 +0200
+Message-ID: <20250930070356.30695-1-jgross@suse.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/17] system/physmem: Un-inline
- cpu_physical_memory_read/write()
-To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>
-Cc: Jason Herne <jjherne@linux.ibm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Stefano Garzarella <sgarzare@redhat.com>, xen-devel@lists.xenproject.org,
- Paolo Bonzini <pbonzini@redhat.com>, Ilya Leoshkevich <iii@linux.ibm.com>,
- Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
- Eric Farman <farman@linux.ibm.com>, Marcelo Tosatti <mtosatti@redhat.com>,
- Halil Pasic <pasic@linux.ibm.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
- Reinoud Zandijk <reinoud@netbsd.org>, Zhao Liu <zhao1.liu@intel.com>,
- David Woodhouse <dwmw2@infradead.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sunil Muthuswamy <sunilmut@microsoft.com>, kvm@vger.kernel.org,
- "Michael S. Tsirkin" <mst@redhat.com>, Peter Xu <peterx@redhat.com>,
- qemu-s390x@nongnu.org, "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- David Hildenbrand <david@redhat.com>
-References: <20250930041326.6448-1-philmd@linaro.org>
- <20250930041326.6448-15-philmd@linaro.org>
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- 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
-In-Reply-To: <20250930041326.6448-15-philmd@linaro.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: qSedsP2layODZu98HrgFL-kZdUVQALWgbLJAlInIdno_1759208570
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-1.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[33];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	FREEMAIL_CC(0.00)[zytor.com,suse.com,kernel.org,linux.intel.com,linutronix.de,redhat.com,alien8.de,google.com,microsoft.com,oracle.com,lists.xenproject.org,broadcom.com,infradead.org,gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:mid,suse.com:dkim];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[lkml];
+	DKIM_TRACE(0.00)[suse.com:+];
+	R_RATELIMIT(0.00)[to_ip_from(RLkdkdrsxe9hqhhs5ask8616i6)];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 9380133739
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -1.51
 
-On 30/09/2025 06.13, Philippe Mathieu-Daudé wrote:
-> Un-inline cpu_physical_memory_read() and cpu_physical_memory_write().
+When building a kernel with CONFIG_PARAVIRT_XXL the paravirt
+infrastructure will always use functions for reading or writing MSRs,
+even when running on bare metal.
 
-What's the reasoning for this patch?
+Switch to inline RDMSR/WRMSR instructions in this case, reducing the
+paravirt overhead.
 
-  Thomas
+In order to make this less intrusive, some further reorganization of
+the MSR access helpers is done in the first 5 patches.
 
-> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-> ---
->   include/exec/cpu-common.h | 12 ++----------
->   system/physmem.c          | 10 ++++++++++
->   2 files changed, 12 insertions(+), 10 deletions(-)
-> 
-> diff --git a/include/exec/cpu-common.h b/include/exec/cpu-common.h
-> index 6c7d84aacb4..6e8cb530f6e 100644
-> --- a/include/exec/cpu-common.h
-> +++ b/include/exec/cpu-common.h
-> @@ -133,16 +133,8 @@ void cpu_address_space_destroy(CPUState *cpu, int asidx);
->   
->   void cpu_physical_memory_rw(hwaddr addr, void *buf,
->                               hwaddr len, bool is_write);
-> -static inline void cpu_physical_memory_read(hwaddr addr,
-> -                                            void *buf, hwaddr len)
-> -{
-> -    cpu_physical_memory_rw(addr, buf, len, false);
-> -}
-> -static inline void cpu_physical_memory_write(hwaddr addr,
-> -                                             const void *buf, hwaddr len)
-> -{
-> -    cpu_physical_memory_rw(addr, (void *)buf, len, true);
-> -}
-> +void cpu_physical_memory_read(hwaddr addr, void *buf, hwaddr len);
-> +void cpu_physical_memory_write(hwaddr addr, const void *buf, hwaddr len);
->   void *cpu_physical_memory_map(hwaddr addr,
->                                 hwaddr *plen,
->                                 bool is_write);
-> diff --git a/system/physmem.c b/system/physmem.c
-> index 70b02675b93..6d6bc449376 100644
-> --- a/system/physmem.c
-> +++ b/system/physmem.c
-> @@ -3188,6 +3188,16 @@ void cpu_physical_memory_rw(hwaddr addr, void *buf,
->                        buf, len, is_write);
->   }
->   
-> +void cpu_physical_memory_read(hwaddr addr, void *buf, hwaddr len)
-> +{
-> +    cpu_physical_memory_rw(addr, buf, len, false);
-> +}
-> +
-> +void cpu_physical_memory_write(hwaddr addr, const void *buf, hwaddr len)
-> +{
-> +    cpu_physical_memory_rw(addr, (void *)buf, len, true);
-> +}
-> +
->   /* used for ROM loading : can write in RAM and ROM */
->   MemTxResult address_space_write_rom(AddressSpace *as, hwaddr addr,
->                                       MemTxAttrs attrs,
+The next 5 patches are converting the non-paravirt case to use direct
+inlining of the MSR access instructions, including the WRMSRNS
+instruction and the immediate variants of RDMSR and WRMSR if possible.
+
+Patch 11 removes the PV hooks for MSR accesses and implements the
+Xen PV cases via calls depending on X86_FEATURE_XENPV, which results
+in runtime patching those calls away for the non-XenPV case.
+
+Patch 12 is a final little cleanup patch.
+
+This series has been tested to work with Xen PV and on bare metal.
+
+This series is inspired by Xin Li, who used a similar approach, but
+(in my opinion) with some flaws. Originally I thought it should be
+possible to use the paravirt infrastructure, but this turned out to be
+rather complicated, especially for the Xen PV case in the *_safe()
+variants of the MSR access functions.
+
+Changes since V1:
+- Use Xin Li's approach for inlining
+- Several new patches
+
+Juergen Gross (9):
+  coco/tdx: Rename MSR access helpers
+  x86/sev: replace call of native_wrmsr() with native_wrmsrq()
+  x86/kvm: Remove the KVM private read_msr() function
+  x86/msr: minimize usage of native_*() msr access functions
+  x86/msr: Move MSR trace calls one function level up
+  x86/msr: Use the alternatives mechanism for WRMSR
+  x86/msr: Use the alternatives mechanism for RDMSR
+  x86/paravirt: Don't use pv_ops vector for MSR access functions
+  x86/msr: Reduce number of low level MSR access helpers
+
+Xin Li (Intel) (3):
+  x86/cpufeatures: Add a CPU feature bit for MSR immediate form
+    instructions
+  x86/opcode: Add immediate form MSR instructions
+  x86/extable: Add support for immediate form MSR instructions
+
+ arch/x86/coco/tdx/tdx.c               |   8 +-
+ arch/x86/hyperv/ivm.c                 |   2 +-
+ arch/x86/include/asm/cpufeatures.h    |   1 +
+ arch/x86/include/asm/fred.h           |   2 +-
+ arch/x86/include/asm/kvm_host.h       |  10 -
+ arch/x86/include/asm/msr.h            | 409 +++++++++++++++++++-------
+ arch/x86/include/asm/paravirt.h       |  67 -----
+ arch/x86/include/asm/paravirt_types.h |  13 -
+ arch/x86/include/asm/sev-internal.h   |   7 +-
+ arch/x86/kernel/cpu/scattered.c       |   1 +
+ arch/x86/kernel/kvmclock.c            |   2 +-
+ arch/x86/kernel/paravirt.c            |   5 -
+ arch/x86/kvm/svm/svm.c                |  16 +-
+ arch/x86/kvm/vmx/vmx.c                |   4 +-
+ arch/x86/lib/x86-opcode-map.txt       |   5 +-
+ arch/x86/mm/extable.c                 |  39 ++-
+ arch/x86/xen/enlighten_pv.c           |  24 +-
+ arch/x86/xen/pmu.c                    |   5 +-
+ tools/arch/x86/lib/x86-opcode-map.txt |   5 +-
+ 19 files changed, 383 insertions(+), 242 deletions(-)
+
+-- 
+2.51.0
 
 
