@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E525ABAB4AF
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 06:14:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1133448.1471591 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95846BAB4BA
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 06:14:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1133460.1471600 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3RkV-0008RD-Jw; Tue, 30 Sep 2025 04:13:59 +0000
+	id 1v3Rkc-0000Uh-T7; Tue, 30 Sep 2025 04:14:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1133448.1471591; Tue, 30 Sep 2025 04:13:59 +0000
+Received: by outflank-mailman (output) from mailman id 1133460.1471600; Tue, 30 Sep 2025 04:14:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3RkV-0008Lp-Fe; Tue, 30 Sep 2025 04:13:59 +0000
-Received: by outflank-mailman (input) for mailman id 1133448;
- Tue, 30 Sep 2025 04:13:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v3Rkc-0000Rz-OT; Tue, 30 Sep 2025 04:14:06 +0000
+Received: by outflank-mailman (input) for mailman id 1133460;
+ Tue, 30 Sep 2025 04:14:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MDOg=4J=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1v3RkU-0006tq-0w
- for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 04:13:58 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e2abb080-9db3-11f0-9d14-b5c5bf9af7f9;
- Tue, 30 Sep 2025 06:13:57 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3fa528f127fso4221194f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 21:13:57 -0700 (PDT)
+ id 1v3Rkb-0006gD-AN
+ for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 04:14:05 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e638c73c-9db3-11f0-9809-7dc792cee155;
+ Tue, 30 Sep 2025 06:14:03 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-46e2e363118so52025545e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Sep 2025 21:14:03 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46e2ab31e97sm251610955e9.14.2025.09.29.21.13.55
+ ffacd0b85a97d-40fc6cf3835sm20954191f8f.46.2025.09.29.21.14.00
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 29 Sep 2025 21:13:56 -0700 (PDT)
+ Mon, 29 Sep 2025 21:14:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2abb080-9db3-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: e638c73c-9db3-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1759205637; x=1759810437; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1759205643; x=1759810443; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UsPYBf9Y41DYeMpdEdOkBi/mu9mpDrkpGT9A+u43FVY=;
-        b=EOltNrgaoPb01blgoG8FhMbkMNs42aJp+3jl6NEtrplaKslDjHAwMKagldcrT0QbO6
-         RlDv5ardTLkf/rjliK7D12I3wC2SS5Z+FZKFl6q9ybKoseD31QU47Pl0v3/Iz00bKQjq
-         nsQji94mkLt8yN3wqimjvK0Q8uMXS/DZE5mVfrTbnbB51i4YMPGmZuHlayihkKaQzzg6
-         3N/to+1Z4HbkxodoNlG+tZyI149VgTHHz6vlki25XMnXYe/XHk204mfg8fURq5l1m2kp
-         dBN0Ibo/VZlPe3s1dGZnTNeu69eJ7Kk1omln7lF9P861PJz6Y6RIXNMRcwte4i+YYLFf
-         wMNA==
+        bh=GJHuzj8i65yKq7/CrLnIUXqdpZj8DIZ6OJzdCMb/6CI=;
+        b=NgSRl0JJURpI02GiMygQU/1oYHxfu4MuU5AaAdfcfOb51gVpkYej74DwRgjlygjoyh
+         nu5ccUqc6sKCsNhQdAHkqcmyLiVghEhcI7RJwDLBWsoMAGEt4H7JMLmLnVEs8nAfgSm6
+         vjLOW3GWEJHaQLeBiB7vaXg9TwwqFDwLrLJzDOzPvJOfQYASBKOQx1SSy3YahPBby4yJ
+         pZEPM4pOCeTsGx+gksflyCBsPOBSC0+OAfNbIn6GMak8NmTUBptWxl4QAFcg3ozjjT9V
+         L0XP9X9djr9gVmz1QCXu2Hr7eiYapKRKO7MPuk5aV8trmnYD2LK+2ykRW0phQbXJHy08
+         Bx7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759205637; x=1759810437;
+        d=1e100.net; s=20230601; t=1759205643; x=1759810443;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=UsPYBf9Y41DYeMpdEdOkBi/mu9mpDrkpGT9A+u43FVY=;
-        b=CXf3xF8D7eY3mulRfhvSD9wKI5WB7aaf6Jph5qjT3vsyYQRDEvzlvG4p/y/XlEZtcy
-         Y6F2TfYBZfeZLteWz79STyN5JBWtdT+iHgZQdROUmVMAQIfG5mhuR7xzVc+j9yFF8tAl
-         urPqUTK4YXMD75QDN5u6IHSZovou02NwGTTUnFCf0YFOq6PkhXC3PlKlt/jVGwSoVxGi
-         NFjYeau9PRM4hxx+8IFDa0pd3ukG4daGiHqAdKfz1Ia4vod4PR4KvBASkdof2pk7tx/i
-         XN9t3isvzGjKGzuq4jHKjo2T6/dxHT6qNrGsyWTZCVRy4CLIpmNuKSICmm8JCd1Ufv8e
-         7ITw==
-X-Forwarded-Encrypted: i=1; AJvYcCVwtWr7/jFbO9S+tzx29xXGr+j9d0jpv2ZZlS7w/rbCtIeBp9TXkosZwGkHCUAGzylR/YHWVY5ymCo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwKV+whCc3WbRuEMnEDkJGETeJNKcWHivzAlyChHLFUBf/4s3ay
-	hd8uQQNb5eCSdp6J1sPBFM8jtTGZ8bsppJ2rdZ792ES7n1ljiy92A5S7FU3jMtZBYwc=
-X-Gm-Gg: ASbGnctX+PhzVlUT6X/9Wq0UR0wqY0JHaL4fZtuWH+ZfXLjoG5faVUJmZOms16/28J3
-	NRBEmAokvTeJYMnce8mfhrGiuRV8SsTnzd0/VxTrOHnOMCz6vb/U8CC/ZYdLle6IjtPH5w74WNK
-	CHPQR7vwBP0hQsEo3d+nZPD9k4yM34qLXfgfEZK1B/ksy7WNASd2H3SqIDD75Imtq7OibQKyL8Z
-	ywM8TH6Sg0hsUpRWFHkLF4t8G2Od1gZ58yb8vEoYSZ0oZgFDoqsLYpJ1jQ+G4MgxWxaniZMtFyM
-	Jup+p0ie+LRdo53vTFnsAr2zcXWGfT7wKwdmwjh03c+gZPi3IV8jd6rugCuEkWgbpNuHnYuQLdo
-	Oi5uKsKZI/c1OhsycwCwrnm4M9t2zFt9hxHQi7R7eQiFF++g7WkkgtA80ZwuegcNfdUEIi39TMm
-	pWHUywHEBtSoW+7FeBwJKm
-X-Google-Smtp-Source: AGHT+IH3He/bgDcAVA0O1uM4KAZUJWAOZ5pxrLV0agMvoc3nOriIeKi2nLWEPRWZf/BAWQ6cyeIFXA==
-X-Received: by 2002:a05:6000:40c7:b0:407:d776:4434 with SMTP id ffacd0b85a97d-4241227789emr2285457f8f.30.1759205636900;
-        Mon, 29 Sep 2025 21:13:56 -0700 (PDT)
+        bh=GJHuzj8i65yKq7/CrLnIUXqdpZj8DIZ6OJzdCMb/6CI=;
+        b=mjH3AVPmDzWq05RS0cVbaptBwZNxYob8Y/N7F3KoJPf/x5H3Pfq3vEMR/Koix5UAQR
+         LFOyy3lmQSUDpCZkn0utcwojJUXKef3bqkVO1//dvAP5xc8CxpGVI0KHiGsroNUzzhoW
+         j6oyP2A0TIpznT4PjSAPBjpBF9oXwJLQKs/bhJkf5acX3JjQXJ7RT4uNR4XnJvldQoJb
+         E1RerPIV+iVsZlJIrkJooq04OmwG9nOECygKvl3rknu+ZK+Ib5WyUrrtsYDqaDVwbGka
+         Pu0ZeGFhbr49qUPYPnsPXn96i7Y+ETn4wciGFuE6zh2+uhNcAMZqCVwVwuusKFzLkn1B
+         JZvg==
+X-Forwarded-Encrypted: i=1; AJvYcCWd74C/FrkDJtFjJT9DgVFfaevS3We31qw6bKVbp93zSI7Q5fBoKsMZ4lkaDoen9GQC6zc9rWz49Pk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwEscXEb9uwFRCzns7MAe8pPxn2nyzi7QIx/4ktI9DYvYDgZjrW
+	0VN5uMGL3Pw4HBVTOuiqztRWXOvf6pAPeKe6AQGqIAl53QRO+m/1tEsJYEBirJ6zxGg=
+X-Gm-Gg: ASbGncvcpG5XTzatR+ItKTI1B9HReDG+MFScqHhcT9Ub9hNIh9zfC+s1qg6cGF/K2jH
+	C4iYGQggB2IJVPNnakKBple5hyi6HKi7XPDWGRND6kxTSfuOhAS7zVsHCGw3c7hcBaBEpyp/ZId
+	0+2kF3CukrkLPIlNxS+oGPAD7YF2hIyXssPSXo94XMoN8FmBJpwoBEchcTRNfedg1y0W9Zp38Ui
+	Yn+khahYwvda/fHAsmkAqRsktWZciNS1QKywmM8iKZzLNQMG6cSiC8G4iSId9JAPpiqWOysAeqC
+	VDM5uD2Ii9AJdbHgqOj9sPW001fciuk80mDv0JqmTa/qqOWJX7htq28EPbs6FVNaX1yAK7i3e4H
+	fRLird6ycOMs8+gYdLTzYkUsxRL+r1r3178l3Dcz4+Hiydal8QjCByt52ZKeeuLBRJ/DdpVhw2U
+	vje9h71j6oblT16170I2fEY0P5F7F72D0=
+X-Google-Smtp-Source: AGHT+IFzoydC/PtH1+zccfqdIbgaSIsqjwZE3Y6j7iXWudBl2KZiSFlGWhLtg5m0yJ4ctRkRXODKlQ==
+X-Received: by 2002:a5d:588c:0:b0:3f9:fd59:7a5f with SMTP id ffacd0b85a97d-40e4a05bf52mr18187688f8f.33.1759205643111;
+        Mon, 29 Sep 2025 21:14:03 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org,
 	Peter Maydell <peter.maydell@linaro.org>
@@ -112,9 +112,9 @@ Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
 	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
 	Richard Henderson <richard.henderson@linaro.org>,
 	David Hildenbrand <david@redhat.com>
-Subject: [PATCH v2 05/17] hw/s390x/sclp: Use address_space_memory_is_io() in sclp_service_call()
-Date: Tue, 30 Sep 2025 06:13:13 +0200
-Message-ID: <20250930041326.6448-6-philmd@linaro.org>
+Subject: [PATCH v2 06/17] system/physmem: Remove cpu_physical_memory_is_io()
+Date: Tue, 30 Sep 2025 06:13:14 +0200
+Message-ID: <20250930041326.6448-7-philmd@linaro.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250930041326.6448-1-philmd@linaro.org>
 References: <20250930041326.6448-1-philmd@linaro.org>
@@ -122,49 +122,45 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When cpu_address_space_init() isn't called during vCPU creation,
-its single address space is the global &address_space_memory.
-
-As s390x boards don't call cpu_address_space_init(),
-cpu_get_address_space(CPU(cpu), 0) returns &address_space_memory.
-
-We can then replace cpu_physical_memory_is_io() by the semantically
-equivalent address_space_memory_is_io() call.
+There are no more uses of the legacy cpu_physical_memory_is_io()
+method. Remove it.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 ---
- hw/s390x/sclp.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ include/exec/cpu-common.h | 2 --
+ system/physmem.c          | 5 -----
+ 2 files changed, 7 deletions(-)
 
-diff --git a/hw/s390x/sclp.c b/hw/s390x/sclp.c
-index 9718564fa42..f507b36cd91 100644
---- a/hw/s390x/sclp.c
-+++ b/hw/s390x/sclp.c
-@@ -16,6 +16,7 @@
- #include "qemu/units.h"
- #include "qapi/error.h"
- #include "hw/boards.h"
-+#include "system/memory.h"
- #include "hw/s390x/sclp.h"
- #include "hw/s390x/event-facility.h"
- #include "hw/s390x/s390-pci-bus.h"
-@@ -301,6 +302,7 @@ int sclp_service_call(S390CPU *cpu, uint64_t sccb, uint32_t code)
-     CPUS390XState *env = &cpu->env;
-     SCLPDevice *sclp = get_sclp_device();
-     SCLPDeviceClass *sclp_c = SCLP_GET_CLASS(sclp);
-+    AddressSpace *as = cpu_get_address_space(CPU(cpu), 0);
-     SCCBHeader header;
-     g_autofree SCCB *work_sccb = NULL;
+diff --git a/include/exec/cpu-common.h b/include/exec/cpu-common.h
+index e413d8b3079..a73463a7038 100644
+--- a/include/exec/cpu-common.h
++++ b/include/exec/cpu-common.h
+@@ -149,8 +149,6 @@ void *cpu_physical_memory_map(hwaddr addr,
+ void cpu_physical_memory_unmap(void *buffer, hwaddr len,
+                                bool is_write, hwaddr access_len);
  
-@@ -308,7 +310,7 @@ int sclp_service_call(S390CPU *cpu, uint64_t sccb, uint32_t code)
-     if (env->psw.mask & PSW_MASK_PSTATE) {
-         return -PGM_PRIVILEGED;
-     }
--    if (cpu_physical_memory_is_io(sccb)) {
-+    if (address_space_is_io(as, sccb)) {
-         return -PGM_ADDRESSING;
-     }
-     if ((sccb & ~0x1fffUL) == 0 || (sccb & ~0x1fffUL) == env->psa
+-bool cpu_physical_memory_is_io(hwaddr phys_addr);
+-
+ /* Coalesced MMIO regions are areas where write operations can be reordered.
+  * This usually implies that write operations are side-effect free.  This allows
+  * batching which can make a major impact on performance when using
+diff --git a/system/physmem.c b/system/physmem.c
+index be8e66dfe02..573e5bb1adc 100644
+--- a/system/physmem.c
++++ b/system/physmem.c
+@@ -3763,11 +3763,6 @@ int cpu_memory_rw_debug(CPUState *cpu, vaddr addr,
+     return 0;
+ }
+ 
+-bool cpu_physical_memory_is_io(hwaddr phys_addr)
+-{
+-    return address_space_is_io(&address_space_memory, phys_addr);
+-}
+-
+ int qemu_ram_foreach_block(RAMBlockIterFunc func, void *opaque)
+ {
+     RAMBlock *block;
 -- 
 2.51.0
 
