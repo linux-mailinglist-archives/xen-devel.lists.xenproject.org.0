@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 101D3BABCF6
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 09:25:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1133787.1471849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77C9ABABD9B
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 09:39:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1133804.1471859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Ujg-0005Ny-5H; Tue, 30 Sep 2025 07:25:20 +0000
+	id 1v3Uwp-0007yP-BQ; Tue, 30 Sep 2025 07:38:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1133787.1471849; Tue, 30 Sep 2025 07:25:20 +0000
+Received: by outflank-mailman (output) from mailman id 1133804.1471859; Tue, 30 Sep 2025 07:38:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3Ujg-0005LW-13; Tue, 30 Sep 2025 07:25:20 +0000
-Received: by outflank-mailman (input) for mailman id 1133787;
- Tue, 30 Sep 2025 07:25:18 +0000
+	id 1v3Uwp-0007wr-7n; Tue, 30 Sep 2025 07:38:55 +0000
+Received: by outflank-mailman (input) for mailman id 1133804;
+ Tue, 30 Sep 2025 07:38:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MDOg=4J=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1v3Uje-0005KE-Ao
- for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 07:25:18 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1v3Uwn-0007wl-VF
+ for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 07:38:53 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d4e9eb8-9dce-11f0-9d14-b5c5bf9af7f9;
- Tue, 30 Sep 2025 09:25:17 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3f0134ccc0cso3772947f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 30 Sep 2025 00:25:17 -0700 (PDT)
+ id 82e1f413-9dd0-11f0-9d14-b5c5bf9af7f9;
+ Tue, 30 Sep 2025 09:38:52 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3f0ae439b56so3272313f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Sep 2025 00:38:52 -0700 (PDT)
 Received: from [192.168.69.221] (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-40fc5602f15sm21415396f8f.39.2025.09.30.00.25.15
+ ffacd0b85a97d-40fc5602efdsm22464734f8f.34.2025.09.30.00.38.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Sep 2025 00:25:16 -0700 (PDT)
+ Tue, 30 Sep 2025 00:38:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d4e9eb8-9dce-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: 82e1f413-9dd0-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1759217117; x=1759821917; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:references:cc:to:from
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=linaro.org; s=google; t=1759217932; x=1759822732; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=KXfoHJKzAEoZlm7EIBN8HZ0wCcnvYyoGTCHOMSnDlqg=;
-        b=Pb0tDXA0Q3Zo+SI4fhbQ9aLJS2kRIBODKtmt1idn2d8s5SEf+F/m5A3w6HZRBAOoC4
-         qNicizJj+aHYkuRAhvmRBaInzU3vlIoCavXKSRjlMBp+8xesBa8zJTYDzCR/nMgRguir
-         ca6gHApPS0F/WkeIcj9UG8klyYvwg8A4icRGF8Pkubjc7wUBdhO1MVC3ToqCTIV9ZtFW
-         w6MQ73S3cjQZ2uYSMnlvZXACXL7PDK7AVjWJjR0bnVZFDsES44tbqRyKiPx3bAHBokTf
-         uyc7Ui4dogyTBIagMY/LW+aaHUxU457xcWgqj9kQs1SokJaekbXUAefYXWXYPz+brA13
-         E60A==
+        bh=qE2E68kg55lkWKGNUPUbXEU5stTPqSQmthsm27d4faI=;
+        b=qYT9/Ti6kdEBs0fWf+e3tCR3MnshPbHf8Y56HV77AY9zFKECTWI0DQzOGjEsol4VZe
+         +UpnopCvrPg9yJZqZntH+WVNZ1pQFqbPX822Pas8EmW3BZokr+GBict8sK0sbMjhrZPX
+         wz3iBzTsxX4ptrJiP1BLjMWfP/v3WCXdwKq1VW1K+Kolg0drWQ8BVTzyszbb6osWZtML
+         2wMLuyIpZDqIyC3jxFYpH8fMDTN/W8zj7Tk2SyHwq0Y23HegjOJ/mK3tKzkCutGA9L6l
+         T3Fnu8Mp4lqgToKmnYKOe2bri4w2bnSotCTEqrIrdIfH/rATPQXka+SrpI747Y5P/39H
+         QEdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759217117; x=1759821917;
-        h=content-transfer-encoding:in-reply-to:references:cc:to:from
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1759217932; x=1759822732;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KXfoHJKzAEoZlm7EIBN8HZ0wCcnvYyoGTCHOMSnDlqg=;
-        b=EePaaKLdbJMY9u5ubqzVPDOvdI6Dp9kZm04SwvCxHbVXtFOP+P5eCz91T+o1vvgY/d
-         4e3BbnfbB7/P4YSDyDX1iadm/x+psr133n/izBdCa23pLDcHEf/eA9KurhDX2s7C4ZTf
-         pQekX2kAnM+mS+ycOObMXpvIQbp2aSxTf0YJdyg+CQxz2Yb2gqZJMw0df9+r3R9GTy2S
-         a79AF7LM71nYY0SDq1opbZ6eOr74nxMrJcm6yqn9khXAgEDVpbURvyX2BQYoA4SdXAm5
-         n+P6S+NtXyLr4t0sJTpIa0Ta1wCAmHZ/lpzKeTKNdk+xxMKcflkmXY5Qun2uutxTqPvp
-         gcog==
-X-Forwarded-Encrypted: i=1; AJvYcCWPTjZ31qkCdKKe4V47M8jBV2Gc9rTJmf8BeLSbKHVlaWAHL1luBZN0RTfXBN4UWMynPUcfGHOHl94=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwdCHsOyjvkvtN8gTQ1Ido0SuZ50Vp1A9xEBRfV+eGoO/t/AECB
-	8yiJuHm/l51e4Nfjrb3SsQrIQ58TO/IrbLTuy4dfLStkp3+kEJvPJy90itaoXJbyWiU=
-X-Gm-Gg: ASbGncuYikutFv4Xvruw8fZ/m6XMnT+En7JIVQg8Q/gdCevgd0hKk/wlyFbl5GwhxtG
-	gITg+ZVBsCX80WTiZUrd0yXl11znf9pvpGHQzOOHB8mO2INrq0IAJuPvZ1WKMIfZfkjoNi99YHs
-	PIZDvQnUxnDzH2bv5cMfKCl8ZS/NS9nfhcRe7RfhanzVR1Itx62E0R7Pw8dMJD/ywhjvuLhSmSh
-	Cnf0S4F2GM135Fo5JtDnWiCF1pXPKCkxYpIa+SQGTJuztA0rz+drqS0kwlUKdtzOZiMnIvYtihZ
-	jqeR8jdZk9UYGpl9YlxFYi+OOu+1IvzpnfXbQt3Y4SkSVJZplsaGZ0hgoVJDg0jM4R6XQWjtDLP
-	NNip7PO3UB28t/au+imaYE7U59hXQo8r9InG5PtsX8SWShsn7UsXS0urgOZMPF1+vyxREJBjUgp
-	HBsRr/h9SO5S4yJkcCZ1VM/4/6
-X-Google-Smtp-Source: AGHT+IEGShYXZImSoJS6MrCCwqqS6lghItgATnZgdwGJCwRUeVTX2I6q+QeiUjF2A7MJ30GqrUAwEw==
-X-Received: by 2002:adf:e646:0:b0:415:b650:a775 with SMTP id ffacd0b85a97d-415b650aca7mr8753025f8f.0.1759217116998;
-        Tue, 30 Sep 2025 00:25:16 -0700 (PDT)
-Message-ID: <04098b7f-c9bd-4531-87f1-2ea26d4a2a53@linaro.org>
-Date: Tue, 30 Sep 2025 09:25:14 +0200
+        bh=qE2E68kg55lkWKGNUPUbXEU5stTPqSQmthsm27d4faI=;
+        b=Udbijg/fCbxTyteajJG/HH5QLNHxO3lspEoqNhcNISxJWzIASsPrOrXeimHaHgsmES
+         uXpal37OGrpfLFyDfYPCuLPBLaK1fnEU3pBB7n0vDnvO4b8HnjSmr7Urd1+fbxRGMbMf
+         vUXMoUQjbcGDUOGz3hHu01Oxo6fdBhKQ4ovfs0v4Hb9PMlzdBHZnTkdoHglD2/KETxfh
+         V1mXZ433uEaENg7HY642xLcOhnBdhd3Tvq6qIMIuqrdGo/dHprMArOifhflURbMetV0J
+         AQZQlFJCSQ1gNeTWwL0Vv5tuoXUYlwooT8dXvj5UJAG7dyNRZ+sR99VdCvvfroNa3C0F
+         pmsQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU4iqxFFnbatlAJlOEZyZEy/uet7WDWzobcGwZ4ROCIYcUGGbDqwRHuo3tRbRHZXZJBjrPSufjnEgo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzymrWhjLzz4Ham4ih7F71+W3T23FbCirZzBZn1bmeHWylGKN4c
+	ynGk2MbwNmBFJaza3KAvqpKmI39b7t3MAmdBRiw9bb0uKAjBMqfBBOu/+kHzmUAi10s=
+X-Gm-Gg: ASbGncsceehSztGWqTMNLK72R6EIqDRGBFjNg5Jxe4Uazofe/r60rME+nleMy55H0bM
+	aP18xk4ZLgDCziwuC0J5w2wdYz7SlLJHS/RENgJgabX2umcAm1Wqz4d7AJQCy5bvOEvggiKphEc
+	qcFvrSKlndNFE67uYc42pMQxAcj62qtSisivpLdfLs8R+3131JSmgQKnRtE4yDBSO9XcaPzSQRA
+	FJgZQYFbN1wl7k/bHvSU0kUwlBUofInp/T/F9De9Oe8xY/dwLPkksV+lihXFJet8Mm7ucQSw29X
+	XNuuYauGeNJQ+j1sYEIhWDNsTgLUoKJTfiAnPk9MlknuDYAFe1o3p1UujSLE21r9O9l0t0YdtJT
+	njjQad+rS1ybIYi+Ifx49qwwCZO2SOZ5m1/c7WGyV0P3uQLQC4A1lMDX71rwxywvCDrrcfNnmB+
+	PF4bdx2ryq+KfDf0THM3wHSho3
+X-Google-Smtp-Source: AGHT+IE+CAzuCcPF3rL8oHgsDWK0spr1fitX6ekcCdqYoQO8jnWYejdEAIaIwc3jMgWkxQsuV9mqBA==
+X-Received: by 2002:a05:6000:2f87:b0:3e9:2fea:6795 with SMTP id ffacd0b85a97d-40e4b389223mr19891217f8f.53.1759217931688;
+        Tue, 30 Sep 2025 00:38:51 -0700 (PDT)
+Message-ID: <b06323d4-96e8-41c2-b437-ea27b2952e7a@linaro.org>
+Date: Tue, 30 Sep 2025 09:38:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/17] system/physmem: Un-inline
- cpu_physical_memory_read/write()
-Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-To: Thomas Huth <thuth@redhat.com>, qemu-devel@nongnu.org,
- Peter Maydell <peter.maydell@linaro.org>
+Subject: Re: [PATCH v2 16/17] hw/virtio/vhost: Replace legacy
+ cpu_physical_memory_*map() calls
+To: qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>
 Cc: Jason Herne <jjherne@linux.ibm.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Stefano Garzarella <sgarzare@redhat.com>, xen-devel@lists.xenproject.org,
@@ -105,83 +102,88 @@ Cc: Jason Herne <jjherne@linux.ibm.com>,
  Christian Borntraeger <borntraeger@linux.ibm.com>,
  Sunil Muthuswamy <sunilmut@microsoft.com>, kvm@vger.kernel.org,
  "Michael S. Tsirkin" <mst@redhat.com>, Peter Xu <peterx@redhat.com>,
- qemu-s390x@nongnu.org, "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Thomas Huth <thuth@redhat.com>, qemu-s390x@nongnu.org,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
  Richard Henderson <richard.henderson@linaro.org>,
  David Hildenbrand <david@redhat.com>
 References: <20250930041326.6448-1-philmd@linaro.org>
- <20250930041326.6448-15-philmd@linaro.org>
- <193cd8a8-2c4c-4c2c-af22-622b74c332ee@redhat.com>
- <61c31076-5330-426a-9c28-b2400bec44f6@linaro.org>
-In-Reply-To: <61c31076-5330-426a-9c28-b2400bec44f6@linaro.org>
+ <20250930041326.6448-17-philmd@linaro.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20250930041326.6448-17-philmd@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 30/9/25 09:23, Philippe Mathieu-Daudé wrote:
-> On 30/9/25 07:02, Thomas Huth wrote:
->> On 30/09/2025 06.13, Philippe Mathieu-Daudé wrote:
->>> Un-inline cpu_physical_memory_read() and cpu_physical_memory_write().
->>
->> What's the reasoning for this patch?
+On 30/9/25 06:13, Philippe Mathieu-Daudé wrote:
+> Use VirtIODevice::dma_as address space to convert the legacy
+> cpu_physical_memory_[un]map() calls to address_space_[un]map().
 > 
-> Remove cpu_physical_memory_rw() in the next patch without having
-> to inline the address_space_read/address_space_write() calls in
-> "exec/cpu-common.h".
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> ---
+>   hw/virtio/vhost.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
 > 
-> Maybe better squashing both together?
+> diff --git a/hw/virtio/vhost.c b/hw/virtio/vhost.c
+> index 6557c58d12a..890d2bac585 100644
+> --- a/hw/virtio/vhost.c
+> +++ b/hw/virtio/vhost.c
+> @@ -27,6 +27,7 @@
+>   #include "migration/blocker.h"
+>   #include "migration/qemu-file-types.h"
+>   #include "system/dma.h"
+> +#include "system/memory.h"
+>   #include "trace.h"
+>   
+>   /* enabled until disconnected backend stabilizes */
+> @@ -455,7 +456,8 @@ static void *vhost_memory_map(struct vhost_dev *dev, hwaddr addr,
+>                                 hwaddr *plen, bool is_write)
+>   {
+>       if (!vhost_dev_has_iommu(dev)) {
+> -        return cpu_physical_memory_map(addr, plen, is_write);
+> +        return address_space_map(vdev->dma_as, addr, plen, is_write,
+> +                                 MEMTXATTRS_UNSPECIFIED);
+>       } else {
+>           return (void *)(uintptr_t)addr;
+>       }
+> @@ -466,7 +468,7 @@ static void vhost_memory_unmap(struct vhost_dev *dev, void *buffer,
+>                                  hwaddr access_len)
+>   {
+>       if (!vhost_dev_has_iommu(dev)) {
+> -        cpu_physical_memory_unmap(buffer, len, is_write, access_len);
+> +        address_space_unmap(vdev->dma_as, buffer, len, is_write, access_len);
+>       }
+>   }
+>   
 
-That would be:
+Forgot to squash:
 
 -- >8 --
-diff --git a/include/exec/cpu-common.h b/include/exec/cpu-common.h
-index 6c7d84aacb4..910e1c2afb9 100644
---- a/include/exec/cpu-common.h
-+++ b/include/exec/cpu-common.h
-@@ -131,18 +131,8 @@ void cpu_address_space_init(CPUState *cpu, int asidx,
-   */
-  void cpu_address_space_destroy(CPUState *cpu, int asidx);
-
--void cpu_physical_memory_rw(hwaddr addr, void *buf,
--                            hwaddr len, bool is_write);
--static inline void cpu_physical_memory_read(hwaddr addr,
--                                            void *buf, hwaddr len)
--{
--    cpu_physical_memory_rw(addr, buf, len, false);
--}
--static inline void cpu_physical_memory_write(hwaddr addr,
--                                             const void *buf, hwaddr len)
--{
--    cpu_physical_memory_rw(addr, (void *)buf, len, true);
--}
-+void cpu_physical_memory_read(hwaddr addr, void *buf, hwaddr len);
-+void cpu_physical_memory_write(hwaddr addr, const void *buf, hwaddr len);
-  void *cpu_physical_memory_map(hwaddr addr,
-                                hwaddr *plen,
-                                bool is_write);
-diff --git a/system/physmem.c b/system/physmem.c
-index 70b02675b93..a654b2af2a3 100644
---- a/system/physmem.c
-+++ b/system/physmem.c
-@@ -3181,11 +3181,16 @@ MemTxResult address_space_set(AddressSpace *as, 
+diff --git a/hw/virtio/vhost.c b/hw/virtio/vhost.c
+index 890d2bac585..acd359bdb3f 100644
+--- a/hw/virtio/vhost.c
++++ b/hw/virtio/vhost.c
+@@ -456,7 +456,7 @@ static void *vhost_memory_map(struct vhost_dev *dev, 
 hwaddr addr,
-      return error;
-  }
-
--void cpu_physical_memory_rw(hwaddr addr, void *buf,
--                            hwaddr len, bool is_write)
-+void cpu_physical_memory_read(hwaddr addr, void *buf, hwaddr len)
+                                hwaddr *plen, bool is_write)
   {
--    address_space_rw(&address_space_memory, addr, MEMTXATTRS_UNSPECIFIED,
--                     buf, len, is_write);
-+    address_space_read(&address_space_memory, addr,
-+                       MEMTXATTRS_UNSPECIFIED, buf, len);
-+}
-+
-+void cpu_physical_memory_write(hwaddr addr, const void *buf, hwaddr len)
-+{
-+    address_space_write(&address_space_memory, addr,
-+                        MEMTXATTRS_UNSPECIFIED, buf, len);
+      if (!vhost_dev_has_iommu(dev)) {
+-        return address_space_map(vdev->dma_as, addr, plen, is_write,
++        return address_space_map(dev->vdev->dma_as, addr, plen, is_write,
+                                   MEMTXATTRS_UNSPECIFIED);
+      } else {
+          return (void *)(uintptr_t)addr;
+(1/2) Stage this hunk [y,n,q,a,d,j,J,g,/,e,p,?]? y
+@@ -468,7 +468,8 @@ static void vhost_memory_unmap(struct vhost_dev 
+*dev, void *buffer,
+                                 hwaddr access_len)
+  {
+      if (!vhost_dev_has_iommu(dev)) {
+-        address_space_unmap(vdev->dma_as, buffer, len, is_write, 
+access_len);
++        address_space_unmap(dev->vdev->dma_as, buffer, len, is_write,
++                            access_len);
+      }
   }
 
-  /* used for ROM loading : can write in RAM and ROM */
 ---
 
