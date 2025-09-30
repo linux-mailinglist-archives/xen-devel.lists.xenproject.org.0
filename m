@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45A20BAE7C8
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 22:00:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1134475.1472336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC3AABAE89B
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 22:28:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1134486.1472347 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3gVp-0005yf-6I; Tue, 30 Sep 2025 19:59:49 +0000
+	id 1v3gx1-0001Yc-9q; Tue, 30 Sep 2025 20:27:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1134475.1472336; Tue, 30 Sep 2025 19:59:49 +0000
+Received: by outflank-mailman (output) from mailman id 1134486.1472347; Tue, 30 Sep 2025 20:27:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3gVp-0005wV-3N; Tue, 30 Sep 2025 19:59:49 +0000
-Received: by outflank-mailman (input) for mailman id 1134475;
- Tue, 30 Sep 2025 19:59:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=G3Ea=4J=zytor.com=hpa@srs-se1.protection.inumbo.net>)
- id 1v3gVn-0005w6-Jx
- for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 19:59:47 +0000
-Received: from mail.zytor.com (terminus.zytor.com [2607:7c80:54:3::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0256c294-9e38-11f0-9d14-b5c5bf9af7f9;
- Tue, 30 Sep 2025 21:59:46 +0200 (CEST)
-Received: from [IPV6:2601:646:8081:9484:3373:e8bd:aaa4:7c23]
- ([IPv6:2601:646:8081:9484:3373:e8bd:aaa4:7c23])
- (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 58UJxGxQ388770
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Tue, 30 Sep 2025 12:59:16 -0700
+	id 1v3gx1-0001Vv-6C; Tue, 30 Sep 2025 20:27:55 +0000
+Received: by outflank-mailman (input) for mailman id 1134486;
+ Tue, 30 Sep 2025 20:27:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jqmq=4J=linaro.org=richard.henderson@srs-se1.protection.inumbo.net>)
+ id 1v3gwz-0001Vn-Qj
+ for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 20:27:53 +0000
+Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
+ [2607:f8b0:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ed9ed82c-9e3b-11f0-9809-7dc792cee155;
+ Tue, 30 Sep 2025 22:27:48 +0200 (CEST)
+Received: by mail-pf1-x42e.google.com with SMTP id
+ d2e1a72fcca58-78127433a32so3229311b3a.1
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Sep 2025 13:27:48 -0700 (PDT)
+Received: from [192.168.0.4] ([71.212.157.132])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-78102b64a87sm14613842b3a.69.2025.09.30.13.27.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Sep 2025 13:27:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,70 +45,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0256c294-9e38-11f0-9d14-b5c5bf9af7f9
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 58UJxGxQ388770
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025092201; t=1759262357;
-	bh=GUDfo0ggb2Kf0OLA6XTPKyaZ5hpYV0SrMLjTdCbuESQ=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=QaNz4Je2UXuQTSWaK4KMZazVcUDgrcjdxPf7vCTlHy0S5KlindalLZY9iSdbN0LPO
-	 dZb78UBGhBI6zN+vsilEaxZSxAvZBA+b2DzFqnhlIs+P7vKdM8tGRUo3+SmH+ShgM7
-	 b4ebKEuKD7ubKHHtEaatmx3ExNblsR56/PR+F2q18PSsag/YCLricKcIsLGhYsD8fm
-	 +3Bi3bmpb/VjsC+tI1oc2MfG6eB2Odcjqkxn6QEL3QbDHW/e4z7LKSf4okznFo2Wwy
-	 Y0OorC4QkeM6DrHa7SK6xfWjFIfjwzCLKSxx7dd3XM+E31C01/RFVTptacurWTbYs0
-	 oHt+fMunsTYzg==
-Message-ID: <2ca6c68f-16a7-402f-adb0-327583695d4a@zytor.com>
-Date: Tue, 30 Sep 2025 12:59:11 -0700
+X-Inumbo-ID: ed9ed82c-9e3b-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1759264067; x=1759868867; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/mRpoLgFc8U26Jlg/SSZYXO8nFhlzFTCTlSmEDP24rk=;
+        b=P9Wety39JmWmVQloW6Znucv+G9QERvFTWe5aXdAGOhIKPSEmv9YaOQk52CU0zn9uel
+         yOoze12NXK1mZuFHgboQhhPLaD7FGID73s7GErj6WMbgvAM5tskwFy6AzsrCpOmCLF+i
+         C75McjVm3McY1sYfWQcr52bCx2jFAdTRfOzmD3/tR6XU/R+DerXnfdfUw3BfgVB2Fe74
+         sfsRqtXWNe3GXZ8wJJpAObhp+jozOPd3F5J3nWFVyHmTwjUTcNcqIbVCIF9lO4snQtIy
+         hxD28XQKfo5pWzGKb4G3ZrajaCjXpuH3s5yjqjwOXS3N80Dt0U01M+1evWrWW0dtO7ai
+         ThWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759264067; x=1759868867;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=/mRpoLgFc8U26Jlg/SSZYXO8nFhlzFTCTlSmEDP24rk=;
+        b=BiCIREJd/6Ya/1+peoJzwZ1M7OJGzLs/dkZ/6c9+v6/r7Dl2OIYVYDTb70VorWSIH0
+         H2f/56kKtz2jPJGInG8VEOi/aXLEnn0J7EVZ1LMAa3O+LVxCkA7TQBL+ZUIdZgw+UWCR
+         d02XxlQv1pNrr5kz0qaIOPzfkpEOI59txDzSLIxRedfqxw5VnHN2rjAryDpKDDMUx87N
+         F01zEviFEGtdNbgo9TWRNKbvbKOIySZtovHWR69TyuCGZfwgFSzCueK1LJ0epPJ07b+S
+         V3ml0VctH4+uJGQNI6k85VQHD4I5YiH0ngqBNRKc3zlMnqf6qdgROQ1ai3lVz1xXt34w
+         ZaLA==
+X-Forwarded-Encrypted: i=1; AJvYcCVPZXIMbBPYKekdWJzb3PGV9D6yTM4TmvCf1djTNQJCrTrp5DoDAPWPoi8XITdLWDWosuqrzc7Yl/w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy017Oz+u4NshJv60qbX0sc74S6zp5EgsQfnr2Hj9bi+9GiwG+/
+	1fEogByWsXMGFMhTT3U9PvwAQOqdTmrMUs5OJio65XK1h1xz/6yBQ9esEk+wcgowjMU=
+X-Gm-Gg: ASbGncvMrBP6OQKYP0LJe7B/kdWtQsHXNYm5ZzFjkSYeHj9lAlhj3BXMP68KckoNgOA
+	ZPa3czjoBmpdQNc9NliR48kLipoz1CbZD+bB0MlIOVF+tCLOrO+3flK1VpwrMiM7oRuk/nDq6Md
+	rsSyyBWTpKa+YnhZw5cOmU26YtM7fD/C6i1n5qHwTZvyz6W1hPAhKBYGHbubICMZkW7+VYfJ/Tc
+	VHeREH16yknMmG15Rw0+y8YR1diOOsSuSjDwYytTmhta9e8yOdbmtP3UJkI4zFKQUXHcMok+gd6
+	ldBLa+WJBSJAa42cqfX4nQXfBgQ9/pDaF19G3TY+951p1rgLvxmFaA1isN/zD3G2QNGa67bbIaN
+	mIYAx8gE9oEgxRYI9YkRD5Vs7ECWkWPSlLGAogV7eqaldJl9DJSrwp0J7HTIrVAH/WsK59Ao=
+X-Google-Smtp-Source: AGHT+IGHwGdaI9/7x3FSGjAll2aiAsXQ51koCXbRJnhtoa+Tb/JHj9ZGjhNKi09HfL4J9l5mVWb8dA==
+X-Received: by 2002:a05:6a00:1146:b0:781:2320:5a33 with SMTP id d2e1a72fcca58-78af3ffe1e5mr846993b3a.9.1759264066784;
+        Tue, 30 Sep 2025 13:27:46 -0700 (PDT)
+Message-ID: <429e61aa-a9af-4a97-a549-d7d782e34fe5@linaro.org>
+Date: Tue, 30 Sep 2025 13:27:44 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/12] x86/paravirt: Don't use pv_ops vector for MSR
- access functions
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-        Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
-        virtualization@lists.linux.dev, xin@zytor.com,
-        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Ajay Kaher <ajay.kaher@broadcom.com>,
-        Alexey Makhalov <alexey.makhalov@broadcom.com>,
-        Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        xen-devel@lists.xenproject.org
-References: <20250930070356.30695-1-jgross@suse.com>
- <20250930070356.30695-12-jgross@suse.com>
- <20250930083827.GI3245006@noisy.programming.kicks-ass.net>
- <1541b670-8b29-42a5-a58d-34d85197751d@suse.com>
- <20250930100404.GK4067720@noisy.programming.kicks-ass.net>
- <fefbd1ee-ab8c-465e-89bf-39cd2601fc60@suse.com>
- <d2c68cbe-2e92-4801-b1a3-af4645e9ba78@zytor.com>
-Content-Language: en-US, sv-SE
-In-Reply-To: <d2c68cbe-2e92-4801-b1a3-af4645e9ba78@zytor.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 14/18] system/physmem: Un-inline
+ cpu_physical_memory_read/write()
+To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>
+Cc: Marcelo Tosatti <mtosatti@redhat.com>,
+ Ilya Leoshkevich <iii@linux.ibm.com>, Reinoud Zandijk <reinoud@netbsd.org>,
+ Peter Xu <peterx@redhat.com>, Zhao Liu <zhao1.liu@intel.com>,
+ David Hildenbrand <david@redhat.com>, Halil Pasic <pasic@linux.ibm.com>,
+ kvm@vger.kernel.org, "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ xen-devel@lists.xenproject.org, Stefano Garzarella <sgarzare@redhat.com>,
+ David Woodhouse <dwmw2@infradead.org>,
+ Sunil Muthuswamy <sunilmut@microsoft.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Matthew Rosato <mjrosato@linux.ibm.com>, qemu-s390x@nongnu.org,
+ Paul Durrant <paul@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Anthony PERARD <anthony@xenproject.org>, Jason Herne
+ <jjherne@linux.ibm.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Thomas Huth <thuth@redhat.com>, Eric Farman <farman@linux.ibm.com>
+References: <20250930082126.28618-1-philmd@linaro.org>
+ <20250930082126.28618-15-philmd@linaro.org>
+From: Richard Henderson <richard.henderson@linaro.org>
+Content-Language: en-US
+In-Reply-To: <20250930082126.28618-15-philmd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 2025-09-30 12:49, H. Peter Anvin wrote:
+On 9/30/25 01:21, Philippe Mathieu-Daudé wrote:
+> In order to remove cpu_physical_memory_rw() in a pair of commits,
+> and due to a cyclic dependency between "exec/cpu-common.h" and
+> "system/memory.h", un-inline cpu_physical_memory_read() and
+> cpu_physical_memory_write() as a prerequired step.
 > 
-> /* Xen code, stub sets CF = 1 on failure */
-> 
->    0:   e8 xx xx xx xx          call   asm_xen_pv_wrmsr
->    5:   73 03                   jnc    0xa
->    7:   0f 0b                   ud2
->    9:   90                      nop
->    a:
-> 
-> The trap point even ends up in the same place! UD2 can be any 1-, 2-, or
-> 3-byte trapping instruction.
-> 
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> ---
+>   include/exec/cpu-common.h | 12 ++----------
+>   system/physmem.c          | 10 ++++++++++
+>   2 files changed, 12 insertions(+), 10 deletions(-)
 
-You can, of course, also simply have a conditional jump, at the expense of
-making the whole alternative block one byte longer:
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 
-  0:   e8 xx xx xx xx          call   asm_xen_pv_wrmsr
-  5:   0f 82 xx xx xx xx       jc     wrmsr_failed
-
-	-hpa
-
+r~
 
