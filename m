@@ -2,46 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAFA7BABBBD
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 09:05:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1133729.1471800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89C3BBABBCC
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Sep 2025 09:05:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1133744.1471811 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3UPW-00007b-KN; Tue, 30 Sep 2025 07:04:30 +0000
+	id 1v3UQB-0000kD-0T; Tue, 30 Sep 2025 07:05:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1133729.1471800; Tue, 30 Sep 2025 07:04:30 +0000
+Received: by outflank-mailman (output) from mailman id 1133744.1471811; Tue, 30 Sep 2025 07:05:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v3UPW-0008WE-HA; Tue, 30 Sep 2025 07:04:30 +0000
-Received: by outflank-mailman (input) for mailman id 1133729;
- Tue, 30 Sep 2025 07:04:29 +0000
+	id 1v3UQA-0000hF-TL; Tue, 30 Sep 2025 07:05:10 +0000
+Received: by outflank-mailman (input) for mailman id 1133744;
+ Tue, 30 Sep 2025 07:05:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TYDf=4J=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1v3UPV-0008Ue-0d
- for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 07:04:29 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
+ id 1v3UQ9-0008Ue-Np
+ for xen-devel@lists.xenproject.org; Tue, 30 Sep 2025 07:05:09 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b35477d6-9dcb-11f0-9809-7dc792cee155;
- Tue, 30 Sep 2025 09:04:26 +0200 (CEST)
+ id cc1f23ff-9dcb-11f0-9809-7dc792cee155;
+ Tue, 30 Sep 2025 09:05:07 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1F3561F7F0;
- Tue, 30 Sep 2025 07:04:24 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D78EA1F898;
+ Tue, 30 Sep 2025 07:05:04 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 724E513A3F;
- Tue, 30 Sep 2025 07:04:23 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 59B8813A3F;
+ Tue, 30 Sep 2025 07:05:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id PKpCGveA22iWRwAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 30 Sep 2025 07:04:23 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 1I8fFCCB22jcRwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 30 Sep 2025 07:05:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,56 +52,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b35477d6-9dcb-11f0-9809-7dc792cee155
+X-Inumbo-ID: cc1f23ff-9dcb-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1759215864; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1759215905; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Gb/490BwBT2pJb8VyiYCDqR7oVEXLp6PItp8lOXpG+8=;
-	b=cLHyrL958OTnlFYNDsyhvs5Jx8YJsVXY3jgWesU9DwMy3sVcFdlCJ6ofnheGWYTCoTixda
-	XBUj2VZxq9APW9dl7AuCDkHiLj3C8xTaZ/QlrTEdbQkGzHMAjdnP1F3UOSoDrfCLpbglhW
-	660NgLMHkoojRmT5xYEh5UQk2nCGC1w=
+	bh=k/gRu11gXgbmlZdLI3CmLMHqbiCSOdJDjKieoXm17Zs=;
+	b=J4PQvC04B+PSPU5Qn0kbYDejEXysFawQCmfnFZpkuz+0XUVkV1HqUqBG3Il0Wo6kN6BnOg
+	sajF6F2Ud8w6aYGOQkXNNJKhdJO1QQAPMKxREUCCe+yVhUdjy4ehAUGNrj9auqwNXf2E5c
+	6TfBk+rIMkHcYuJlw6RXmLfymsIsER8=
 Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=cLHyrL95
+	dkim=pass header.d=suse.com header.s=susede1 header.b=BlbtgpeX
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1759215864; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1759215904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Gb/490BwBT2pJb8VyiYCDqR7oVEXLp6PItp8lOXpG+8=;
-	b=cLHyrL958OTnlFYNDsyhvs5Jx8YJsVXY3jgWesU9DwMy3sVcFdlCJ6ofnheGWYTCoTixda
-	XBUj2VZxq9APW9dl7AuCDkHiLj3C8xTaZ/QlrTEdbQkGzHMAjdnP1F3UOSoDrfCLpbglhW
-	660NgLMHkoojRmT5xYEh5UQk2nCGC1w=
+	bh=k/gRu11gXgbmlZdLI3CmLMHqbiCSOdJDjKieoXm17Zs=;
+	b=BlbtgpeXbLF5152uqQWV0JAAKoFLaMKHAq6+2yypXHAlf+7CTkYb7c8skwiJxhzxfURFNY
+	Mn+g8IuOXIJ+0XuhbydgFKILHbP8IRRGpTJsPFn/fTxM8Qdr4d+NYbJP6tntvKOL2tHQAT
+	KCDiguuQTp2eUWCmNph/s5SLlhCYHVQ=
 From: Juergen Gross <jgross@suse.com>
 To: linux-kernel@vger.kernel.org,
 	x86@kernel.org,
-	linux-hyperv@vger.kernel.org,
-	kvm@vger.kernel.org
+	virtualization@lists.linux.dev
 Cc: xin@zytor.com,
 	Juergen Gross <jgross@suse.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
 	Thomas Gleixner <tglx@linutronix.de>,
 	Ingo Molnar <mingo@redhat.com>,
 	Borislav Petkov <bp@alien8.de>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
 	"H. Peter Anvin" <hpa@zytor.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
 	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH v2 04/12] x86/msr: Minimize usage of native_*() msr access functions
-Date: Tue, 30 Sep 2025 09:03:48 +0200
-Message-ID: <20250930070356.30695-5-jgross@suse.com>
+Subject: [PATCH v2 11/12] x86/paravirt: Don't use pv_ops vector for MSR access functions
+Date: Tue, 30 Sep 2025 09:03:55 +0200
+Message-ID: <20250930070356.30695-12-jgross@suse.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250930070356.30695-1-jgross@suse.com>
 References: <20250930070356.30695-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Rspamd-Queue-Id: D78EA1F898
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spamd-Result: default: False [-3.01 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	MID_CONTAINS_FROM(1.00)[];
@@ -118,7 +117,7 @@ X-Spamd-Result: default: False [-3.01 / 50.00];
 	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[20];
+	RCPT_COUNT_TWELVE(0.00)[15];
 	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	FROM_HAS_DN(0.00)[];
@@ -129,144 +128,296 @@ X-Spamd-Result: default: False [-3.01 / 50.00];
 	RCVD_TLS_ALL(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 1F3561F7F0
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:dkim,suse.com:mid,suse.com:email]
 X-Spam-Score: -3.01
 
-In order to prepare for some MSR access function reorg work, switch
-most users of native_{read|write}_msr[_safe]() to the more generic
-rdmsr*()/wrmsr*() variants.
+Instead of using the pv_ops vector for RDMSR/WRMSR related functions,
+use a more explicit approach allowing to inline the RDMSR/WRMSR
+instructions directly when not running as a Xen PV guest.
 
-For now this will have some intermediate performance impact with
-paravirtualization configured when running on bare metal, but this
-is a prereq change for the planned direct inlining of the rdmsr/wrmsr
-instructions with this configuration.
-
-The main reason for this switch is the planned move of the MSR trace
-function invocation from the native_*() functions to the generic
-rdmsr*()/wrmsr*() variants. Without this switch the users of the
-native_*() functions would lose the related tracing entries.
-
-Note that the Xen related MSR access functions will not be switched,
-as these will be handled after the move of the trace hooks.
+By using cpu_feature_enabled(X86_FEATURE_XENPV) for the Xen PV case
+the related calls to Xen specific code will be statically disabled via
+runtime patching.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Acked-by: Sean Christopherson <seanjc@google.com>
-Acked-by: Wei Liu <wei.liu@kernel.org>
 ---
- arch/x86/hyperv/ivm.c      |  2 +-
- arch/x86/kernel/kvmclock.c |  2 +-
- arch/x86/kvm/svm/svm.c     | 16 ++++++++--------
- arch/x86/xen/pmu.c         |  4 ++--
- 4 files changed, 12 insertions(+), 12 deletions(-)
+V2:
+- new patch
+---
+ arch/x86/include/asm/msr.h            | 57 ++++++++++++++++++++++-----
+ arch/x86/include/asm/paravirt.h       | 45 ---------------------
+ arch/x86/include/asm/paravirt_types.h | 13 ------
+ arch/x86/kernel/paravirt.c            |  5 ---
+ arch/x86/xen/enlighten_pv.c           | 20 ++++------
+ arch/x86/xen/pmu.c                    |  1 +
+ 6 files changed, 57 insertions(+), 84 deletions(-)
 
-diff --git a/arch/x86/hyperv/ivm.c b/arch/x86/hyperv/ivm.c
-index ade6c665c97e..202ed01dc151 100644
---- a/arch/x86/hyperv/ivm.c
-+++ b/arch/x86/hyperv/ivm.c
-@@ -327,7 +327,7 @@ int hv_snp_boot_ap(u32 apic_id, unsigned long start_ip, unsigned int cpu)
- 	asm volatile("movl %%ds, %%eax;" : "=a" (vmsa->ds.selector));
- 	hv_populate_vmcb_seg(vmsa->ds, vmsa->gdtr.base);
+diff --git a/arch/x86/include/asm/msr.h b/arch/x86/include/asm/msr.h
+index cc592611e333..d42cd2c19818 100644
+--- a/arch/x86/include/asm/msr.h
++++ b/arch/x86/include/asm/msr.h
+@@ -290,24 +290,22 @@ static __always_inline void native_wrmsr(u32 msr, u32 low, u32 high)
+ 	native_wrmsrq(msr, (u64)high << 32 | low);
+ }
  
--	vmsa->efer = native_read_msr(MSR_EFER);
-+	rdmsrq(MSR_EFER, vmsa->efer);
- 
- 	vmsa->cr4 = native_read_cr4();
- 	vmsa->cr3 = __native_read_cr3();
-diff --git a/arch/x86/kernel/kvmclock.c b/arch/x86/kernel/kvmclock.c
-index ca0a49eeac4a..b6cd45cce5fe 100644
---- a/arch/x86/kernel/kvmclock.c
-+++ b/arch/x86/kernel/kvmclock.c
-@@ -196,7 +196,7 @@ static void kvm_setup_secondary_clock(void)
- void kvmclock_disable(void)
+-static inline u64 native_read_msr(u32 msr)
++static __always_inline u64 native_read_msr(u32 msr)
  {
- 	if (msr_kvm_system_time)
--		native_write_msr(msr_kvm_system_time, 0);
-+		wrmsrq(msr_kvm_system_time, 0);
+ 	return native_rdmsrq(msr);
  }
  
- static void __init kvmclock_init_mem(void)
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 1bfebe40854f..105d5c2aae46 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -393,12 +393,12 @@ static void svm_init_erratum_383(void)
- 		return;
- 
- 	/* Use _safe variants to not break nested virtualization */
--	if (native_read_msr_safe(MSR_AMD64_DC_CFG, &val))
-+	if (rdmsrq_safe(MSR_AMD64_DC_CFG, &val))
- 		return;
- 
- 	val |= (1ULL << 47);
- 
--	native_write_msr_safe(MSR_AMD64_DC_CFG, val);
-+	wrmsrq_safe(MSR_AMD64_DC_CFG, val);
- 
- 	erratum_383_found = true;
+-static inline int native_read_msr_safe(u32 msr, u64 *val)
++static __always_inline int native_read_msr_safe(u32 msr, u64 *val)
+ {
+ 	return __rdmsr(msr, val, EX_TYPE_RDMSR_SAFE) ? -EIO : 0;
  }
-@@ -558,9 +558,9 @@ static int svm_enable_virtualization_cpu(void)
- 		u64 len, status = 0;
- 		int err;
  
--		err = native_read_msr_safe(MSR_AMD64_OSVW_ID_LENGTH, &len);
-+		err = rdmsrq_safe(MSR_AMD64_OSVW_ID_LENGTH, &len);
- 		if (!err)
--			err = native_read_msr_safe(MSR_AMD64_OSVW_STATUS, &status);
-+			err = rdmsrq_safe(MSR_AMD64_OSVW_STATUS, &status);
+-/* Can be uninlined because referenced by paravirt */
+-static inline void notrace native_write_msr(u32 msr, u64 val)
++static __always_inline void native_write_msr(u32 msr, u64 val)
+ {
+ 	native_wrmsrq(msr, val);
+ }
  
- 		if (err)
- 			osvw_status = osvw_len = 0;
-@@ -2032,7 +2032,7 @@ static bool is_erratum_383(void)
- 	if (!erratum_383_found)
- 		return false;
+-/* Can be uninlined because referenced by paravirt */
+-static inline int notrace native_write_msr_safe(u32 msr, u64 val)
++static __always_inline int native_write_msr_safe(u32 msr, u64 val)
+ {
+ 	return __wrmsrq(msr, val, EX_TYPE_WRMSR_SAFE) ? -EIO : 0;
+ }
+@@ -325,8 +323,49 @@ static inline u64 native_read_pmc(int counter)
+ 	return EAX_EDX_VAL(val, low, high);
+ }
  
--	if (native_read_msr_safe(MSR_IA32_MC0_STATUS, &value))
-+	if (rdmsrq_safe(MSR_IA32_MC0_STATUS, &value))
- 		return false;
+-#ifdef CONFIG_PARAVIRT_XXL
+-#include <asm/paravirt.h>
++#ifdef CONFIG_XEN_PV
++#include <asm/xen/msr.h>
++
++static __always_inline u64 read_msr(u32 msr)
++{
++	if (cpu_feature_enabled(X86_FEATURE_XENPV))
++		return xen_read_msr(msr);
++
++	return native_rdmsrq(msr);
++}
++
++static __always_inline int read_msr_safe(u32 msr, u64 *p)
++{
++	if (cpu_feature_enabled(X86_FEATURE_XENPV))
++		return xen_read_msr_safe(msr, p);
++
++	return native_read_msr_safe(msr, p);
++}
++
++static __always_inline void write_msr(u32 msr, u64 val)
++{
++	if (cpu_feature_enabled(X86_FEATURE_XENPV))
++		xen_write_msr(msr, val);
++	else
++		native_wrmsrq(msr, val);
++}
++
++static __always_inline int write_msr_safe(u32 msr, u64 val)
++{
++	if (cpu_feature_enabled(X86_FEATURE_XENPV))
++		return xen_write_msr_safe(msr, val);
++
++	return native_write_msr_safe(msr, val);
++}
++
++static __always_inline u64 rdpmc(int counter)
++{
++	if (cpu_feature_enabled(X86_FEATURE_XENPV))
++		return xen_read_pmc(counter);
++
++	return native_read_pmc(counter);
++}
++
+ #else
+ static __always_inline u64 read_msr(u32 msr)
+ {
+@@ -353,7 +392,7 @@ static __always_inline u64 rdpmc(int counter)
+ 	return native_read_pmc(counter);
+ }
  
- 	/* Bit 62 may or may not be set for this mce */
-@@ -2043,11 +2043,11 @@ static bool is_erratum_383(void)
+-#endif	/* !CONFIG_PARAVIRT_XXL */
++#endif	/* !CONFIG_XEN_PV */
  
- 	/* Clear MCi_STATUS registers */
- 	for (i = 0; i < 6; ++i)
--		native_write_msr_safe(MSR_IA32_MCx_STATUS(i), 0);
-+		wrmsrq_safe(MSR_IA32_MCx_STATUS(i), 0);
+ /*
+  * Access to machine-specific registers (available on 586 and better only)
+diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
+index dc297f62b935..45f47b7d9f56 100644
+--- a/arch/x86/include/asm/paravirt.h
++++ b/arch/x86/include/asm/paravirt.h
+@@ -175,51 +175,6 @@ static inline void __write_cr4(unsigned long x)
+ 	PVOP_VCALL1(cpu.write_cr4, x);
+ }
  
--	if (!native_read_msr_safe(MSR_IA32_MCG_STATUS, &value)) {
-+	if (!rdmsrq_safe(MSR_IA32_MCG_STATUS, &value)) {
- 		value &= ~(1ULL << 2);
--		native_write_msr_safe(MSR_IA32_MCG_STATUS, value);
-+		wrmsrq_safe(MSR_IA32_MCG_STATUS, value);
+-static inline u64 paravirt_read_msr(u32 msr)
+-{
+-	return PVOP_CALL1(u64, cpu.read_msr, msr);
+-}
+-
+-static inline void paravirt_write_msr(u32 msr, u64 val)
+-{
+-	PVOP_VCALL2(cpu.write_msr, msr, val);
+-}
+-
+-static inline int paravirt_read_msr_safe(u32 msr, u64 *val)
+-{
+-	return PVOP_CALL2(int, cpu.read_msr_safe, msr, val);
+-}
+-
+-static inline int paravirt_write_msr_safe(u32 msr, u64 val)
+-{
+-	return PVOP_CALL2(int, cpu.write_msr_safe, msr, val);
+-}
+-
+-static __always_inline u64 read_msr(u32 msr)
+-{
+-	return paravirt_read_msr(msr);
+-}
+-
+-static __always_inline int read_msr_safe(u32 msr, u64 *p)
+-{
+-	return paravirt_read_msr_safe(msr, p);
+-}
+-
+-static __always_inline void write_msr(u32 msr, u64 val)
+-{
+-	paravirt_write_msr(msr, val);
+-}
+-
+-static __always_inline int write_msr_safe(u32 msr, u64 val)
+-{
+-	return paravirt_write_msr_safe(msr, val);
+-}
+-
+-static __always_inline u64 rdpmc(int counter)
+-{
+-	return PVOP_CALL1(u64, cpu.read_pmc, counter);
+-}
+-
+ static inline void paravirt_alloc_ldt(struct desc_struct *ldt, unsigned entries)
+ {
+ 	PVOP_VCALL2(cpu.alloc_ldt, ldt, entries);
+diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
+index 37a8627d8277..0d03e658ea8f 100644
+--- a/arch/x86/include/asm/paravirt_types.h
++++ b/arch/x86/include/asm/paravirt_types.h
+@@ -90,19 +90,6 @@ struct pv_cpu_ops {
+ 	void (*cpuid)(unsigned int *eax, unsigned int *ebx,
+ 		      unsigned int *ecx, unsigned int *edx);
+ 
+-	/* Unsafe MSR operations.  These will warn or panic on failure. */
+-	u64 (*read_msr)(u32 msr);
+-	void (*write_msr)(u32 msr, u64 val);
+-
+-	/*
+-	 * Safe MSR operations.
+-	 * Returns 0 or -EIO.
+-	 */
+-	int (*read_msr_safe)(u32 msr, u64 *val);
+-	int (*write_msr_safe)(u32 msr, u64 val);
+-
+-	u64 (*read_pmc)(int counter);
+-
+ 	void (*start_context_switch)(struct task_struct *prev);
+ 	void (*end_context_switch)(struct task_struct *next);
+ #endif
+diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
+index ab3e172dcc69..240eeb1beab5 100644
+--- a/arch/x86/kernel/paravirt.c
++++ b/arch/x86/kernel/paravirt.c
+@@ -129,11 +129,6 @@ struct paravirt_patch_template pv_ops = {
+ 	.cpu.read_cr0		= native_read_cr0,
+ 	.cpu.write_cr0		= native_write_cr0,
+ 	.cpu.write_cr4		= native_write_cr4,
+-	.cpu.read_msr		= native_read_msr,
+-	.cpu.write_msr		= native_write_msr,
+-	.cpu.read_msr_safe	= native_read_msr_safe,
+-	.cpu.write_msr_safe	= native_write_msr_safe,
+-	.cpu.read_pmc		= native_read_pmc,
+ 	.cpu.load_tr_desc	= native_load_tr_desc,
+ 	.cpu.set_ldt		= native_set_ldt,
+ 	.cpu.load_gdt		= native_load_gdt,
+diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+index 26bbaf4b7330..df653099c567 100644
+--- a/arch/x86/xen/enlighten_pv.c
++++ b/arch/x86/xen/enlighten_pv.c
+@@ -1160,15 +1160,16 @@ static void xen_do_write_msr(u32 msr, u64 val, int *err)
  	}
+ }
  
- 	/* Flush tlb to evict multi-match entries */
+-static int xen_read_msr_safe(u32 msr, u64 *val)
++int xen_read_msr_safe(u32 msr, u64 *val)
+ {
+ 	int err = 0;
+ 
+ 	*val = xen_do_read_msr(msr, &err);
+ 	return err;
+ }
++EXPORT_SYMBOL(xen_read_msr_safe);
+ 
+-static int xen_write_msr_safe(u32 msr, u64 val)
++int xen_write_msr_safe(u32 msr, u64 val)
+ {
+ 	int err = 0;
+ 
+@@ -1176,20 +1177,23 @@ static int xen_write_msr_safe(u32 msr, u64 val)
+ 
+ 	return err;
+ }
++EXPORT_SYMBOL(xen_write_msr_safe);
+ 
+-static u64 xen_read_msr(u32 msr)
++u64 xen_read_msr(u32 msr)
+ {
+ 	int err = 0;
+ 
+ 	return xen_do_read_msr(msr, xen_msr_safe ? &err : NULL);
+ }
++EXPORT_SYMBOL(xen_read_msr);
+ 
+-static void xen_write_msr(u32 msr, u64 val)
++void xen_write_msr(u32 msr, u64 val)
+ {
+ 	int err;
+ 
+ 	xen_do_write_msr(msr, val, xen_msr_safe ? &err : NULL);
+ }
++EXPORT_SYMBOL(xen_write_msr);
+ 
+ /* This is called once we have the cpu_possible_mask */
+ void __init xen_setup_vcpu_info_placement(void)
+@@ -1225,14 +1229,6 @@ static const typeof(pv_ops) xen_cpu_ops __initconst = {
+ 
+ 		.write_cr4 = xen_write_cr4,
+ 
+-		.read_msr = xen_read_msr,
+-		.write_msr = xen_write_msr,
+-
+-		.read_msr_safe = xen_read_msr_safe,
+-		.write_msr_safe = xen_write_msr_safe,
+-
+-		.read_pmc = xen_read_pmc,
+-
+ 		.load_tr_desc = paravirt_nop,
+ 		.set_ldt = xen_set_ldt,
+ 		.load_gdt = xen_load_gdt,
 diff --git a/arch/x86/xen/pmu.c b/arch/x86/xen/pmu.c
-index 8f89ce0b67e3..d49a3bdc448b 100644
+index d49a3bdc448b..d0dea950cd4f 100644
 --- a/arch/x86/xen/pmu.c
 +++ b/arch/x86/xen/pmu.c
-@@ -323,7 +323,7 @@ static u64 xen_amd_read_pmc(int counter)
- 		u64 val;
+@@ -370,6 +370,7 @@ u64 xen_read_pmc(int counter)
+ 	else
+ 		return xen_intel_read_pmc(counter);
+ }
++EXPORT_SYMBOL(xen_read_pmc);
  
- 		msr = amd_counters_base + (counter * amd_msr_step);
--		native_read_msr_safe(msr, &val);
-+		rdmsrq_safe(msr, &val);
- 		return val;
- 	}
- 
-@@ -349,7 +349,7 @@ static u64 xen_intel_read_pmc(int counter)
- 		else
- 			msr = MSR_IA32_PERFCTR0 + counter;
- 
--		native_read_msr_safe(msr, &val);
-+		rdmsrq_safe(msr, &val);
- 		return val;
- 	}
- 
+ int pmu_apic_update(uint32_t val)
+ {
 -- 
 2.51.0
 
