@@ -2,49 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 684E0BB41E3
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Oct 2025 16:02:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1135894.1472821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B86C5BB4237
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Oct 2025 16:07:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1135905.1472831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4Jsq-0003KI-ED; Thu, 02 Oct 2025 14:02:12 +0000
+	id 1v4Jxd-00040n-VU; Thu, 02 Oct 2025 14:07:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1135894.1472821; Thu, 02 Oct 2025 14:02:12 +0000
+Received: by outflank-mailman (output) from mailman id 1135905.1472831; Thu, 02 Oct 2025 14:07:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4Jsq-0003Im-AN; Thu, 02 Oct 2025 14:02:12 +0000
-Received: by outflank-mailman (input) for mailman id 1135894;
- Thu, 02 Oct 2025 14:02:11 +0000
+	id 1v4Jxd-0003xp-S9; Thu, 02 Oct 2025 14:07:09 +0000
+Received: by outflank-mailman (input) for mailman id 1135905;
+ Thu, 02 Oct 2025 14:07:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oua8=4L=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1v4Jsp-0003I8-Np
- for xen-devel@lists.xenproject.org; Thu, 02 Oct 2025 14:02:11 +0000
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazlp170120002.outbound.protection.outlook.com
- [2a01:111:f403:c001::2])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6234b922-9f98-11f0-9809-7dc792cee155;
- Thu, 02 Oct 2025 16:02:08 +0200 (CEST)
-Received: from BN9PR03CA0662.namprd03.prod.outlook.com (2603:10b6:408:10e::7)
- by CH3PR12MB8911.namprd12.prod.outlook.com (2603:10b6:610:169::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.18; Thu, 2 Oct
- 2025 14:02:03 +0000
-Received: from BL6PEPF0001AB71.namprd02.prod.outlook.com
- (2603:10b6:408:10e:cafe::fe) by BN9PR03CA0662.outlook.office365.com
- (2603:10b6:408:10e::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.15 via Frontend Transport; Thu,
- 2 Oct 2025 14:02:03 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0001AB71.mail.protection.outlook.com (10.167.242.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9160.9 via Frontend Transport; Thu, 2 Oct 2025 14:02:03 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 2 Oct
- 2025 07:02:01 -0700
+ <SRS0=VSxO=4L=linux.ibm.com=farman@srs-se1.protection.inumbo.net>)
+ id 1v4Jxc-0003xj-S8
+ for xen-devel@lists.xenproject.org; Thu, 02 Oct 2025 14:07:09 +0000
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 118c8f17-9f99-11f0-9809-7dc792cee155;
+ Thu, 02 Oct 2025 16:07:03 +0200 (CEST)
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 592Dnhcr018268;
+ Thu, 2 Oct 2025 14:07:01 GMT
+Received: from ppma23.wdc07v.mail.ibm.com
+ (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 49e6bhvwpp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Oct 2025 14:07:01 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 592DIJS8007293;
+ Thu, 2 Oct 2025 14:07:00 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+ by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 49eurk66k6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Oct 2025 14:07:00 +0000
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com
+ [10.241.53.101])
+ by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 592E6xTp25690876
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 2 Oct 2025 14:06:59 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 1C78C58060;
+ Thu,  2 Oct 2025 14:06:59 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 1EB755805E;
+ Thu,  2 Oct 2025 14:06:58 +0000 (GMT)
+Received: from li-479af74c-31f9-11b2-a85c-e4ddee11713b.ibm.com (unknown
+ [9.61.134.141]) by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+ Thu,  2 Oct 2025 14:06:58 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,139 +66,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6234b922-9f98-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t9gQ9JSD7tcFHO7Q+J/u7LmztQ95ZqzQ0supcfwNNSa8N+AxeKtzRLGCR+1WHRktGH2LnKMZrVqgg3ITUFUO9xD9MjpDPNac6ASkDZPyQjQ59ON8wyEFl3HC3djfCl9vVYCat8M6XrCJ9+gu+QC3FMxnVM4njvR9ZitR1nnregSClO6bdUmTK26ycuI8xhnPPcRvGEi/V1z9TTnXQj/MRqHv1uEfUzD8jJdtWU9TU6LmEN9OQk8TZuKqtfBnr3kESxtpGDlgfNtDeGE+cWXQrdpYpYcwQ94SqQ6DUYs4/K8ig/g9SEl0Ru0DGldrqhosv6v8f7YQvP87fxT+s7C4aA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cAaKGktffNeK+JSSKbbvBP+NQdcyLCUYzZAW96No8zw=;
- b=AU04U6Lm2jkp2CLA0OWdwVd24t67tm8MESJdSADtm0HR9U4eCyhlzVkJc7dlYwE+GW4QlM55bYxnpj+j5gtVKCDvv/pePEwHLWQ/1W0YFipA6JCOZvka+BEm35+EplFtUjto9KDA3NzXGqmqAPzvPyzh5h2IfTeYrnS2gfLJlrSRq9/v5QcBLGwoI46XgAtoIFczLc/uCkTfawUUvrcAJM9IPvZOUlOOdanXm9pEMixA2i9UVqiLyutbhstrZX/SDNvwCrGDQ/pNrhxvtMb6Eq2uMMw87yIl0Nnz5aru/JDnYn6CiNAmVmErIk67ixkDSp9JD3bTKBbAq7iGAu7Axg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cAaKGktffNeK+JSSKbbvBP+NQdcyLCUYzZAW96No8zw=;
- b=DN/X8rWZKSiqF8r8KgH5YYkvwqzrpxF8QXChZActRIHG9qWhmV6P7FfqvOzQ82V2xH/baYODDByyE+5y9dqVhI5bP28EGLHtT9QZmC2ROzLoCOjqhSjUO5VEkSx7pzKVMji+yos8qvhIKtw5ISqJo2NljnrCRLy9V1gyhZQysN8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 118c8f17-9f99-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=eZ8mZp
+	Snp3dIq2wMpMSDkr4FugwAU+cb5lDPjHGGpIk=; b=JH+6d9pceqjuPIQblMBsYn
+	Kg5qHopK4SDcM+QPwVZwNMHNSnvqm7wfnR3WOODGBGCdVffGE5yrFIdE0Ns469Gw
+	asWFNH2DH2IonOiXjabfebR4iTTrqxxIGXKE1Oxsga8G8NzZLf7MVlZQucTlKobA
+	JRSo35WldYoCv1IVGFDw8XB8tmckjNBjiEP+ckUBIbQ7HxRbvjWr0Dklx4bqSyQP
+	1lYIdQHrwbpGcd5m5bAMCtwId+yuRa7qPaC67NfoqE561ZAiEQ/SBIqCT3iPcAlM
+	h4PiWVwlB4jtGFhCSla3HlLb766Xm/R1qhwl25cfX+V+xNneDobUl5vjSrKKXLtg
+	==
+Message-ID: <6f3b9f98913ba738f724cb8086d9bbc2f6f6f265.camel@linux.ibm.com>
+Subject: Re: [PATCH v4 04/17] hw/s390x/sclp: Use
+ address_space_memory_is_io() in sclp_service_call()
+From: Eric Farman <farman@linux.ibm.com>
+To: Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+        qemu-devel@nongnu.org
+Cc: qemu-s390x@nongnu.org, kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
+        Thomas Huth <thuth@redhat.com>,
+        Richard
+ Henderson <richard.henderson@linaro.org>,
+        Halil Pasic	
+ <pasic@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Jason Herne <jjherne@linux.ibm.com>,
+        Matthew Rosato
+ <mjrosato@linux.ibm.com>,
+        David Hildenbrand	 <david@redhat.com>,
+        Ilya
+ Leoshkevich <iii@linux.ibm.com>
+Date: Thu, 02 Oct 2025 10:06:57 -0400
+In-Reply-To: <20251002084203.63899-5-philmd@linaro.org>
+References: <20251002084203.63899-1-philmd@linaro.org>
+	 <20251002084203.63899-5-philmd@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 2 Oct 2025 16:02:00 +0200
-Message-ID: <DD7W410Y9LYL.GD6FXC9Q6H37@amd.com>
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, Oleksii
- Kurochko <oleksii.kurochko@gmail.com>, Xen-devel
-	<xen-devel-bounces@lists.xenproject.org>
-Subject: Re: [PATCH for-4.21] x86/hvm: fix reading from 0xe9 IO port if port
- E9 hack is active
-X-Mailer: aerc 0.20.1
-References: <20251002102200.15548-1-roger.pau@citrix.com>
- <1b4bcb40-d62b-47b5-847f-b6e16906f52e@citrix.com>
- <aN6APR-CUc9xRjfM@Mac.lan>
-In-Reply-To: <aN6APR-CUc9xRjfM@Mac.lan>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB71:EE_|CH3PR12MB8911:EE_
-X-MS-Office365-Filtering-Correlation-Id: 176576af-3948-42da-ebed-08de01bc438b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Y1V2dXpYYjJya2l5TklHcTlDWnpBN2gyb2EwRDFMSUo5TGdnN2xmbGdjekQ2?=
- =?utf-8?B?WGZXNlJRZUwzYUFpL0pSaThXZTVVdmtNNWlFeUpMSHRFRkZqNEZ0VzFyRXFL?=
- =?utf-8?B?VExkakhaTVRqb2NrWjBGWE1YOXh4UU40eWMraFFoYWtWdGUyaEg4Qm44c3JU?=
- =?utf-8?B?dEZqR05YdUR1aUIwdU1rS2dzTXU4dGs1R3FlaENWL3FRdmxkR1RCSmpta0dW?=
- =?utf-8?B?YlFSZ0tmck12T0xLYStGbXk1Q3JNQTU5NVhkWWI0QitLZkVIUmUxUys0ek5j?=
- =?utf-8?B?MWxxaEp5cjIyeDlCbzFDazhrcFV6djJ6dDRWdGRCK3dHejVKemhPbjQwOTBa?=
- =?utf-8?B?Zjl1a05nVW1nK0VWa2hxZnc4aG92YXFrSFFuc0NCZTZqbnBWVS9uQ3ZWcmRw?=
- =?utf-8?B?UmVoZkUvMUZSMEo5MHQxUDdPRUxJWDBNTndwSEVuK1hmTHZML1U5RWNqNjQ2?=
- =?utf-8?B?N29FazI1NmVPYkYxY0R0dWE1MzVmVzhveVhSTGUxVzJjK05BVjVBK1M4K3pU?=
- =?utf-8?B?NnJqVkZ2aUpSeU4zLzVhVDZTVkZkSFRvYkJuWThId2xScW4yN1hTS25rZTg0?=
- =?utf-8?B?bmlwQVViMzl4enk5a2RYMkJ4MnlwRjM2dU9SVlNOOUFsbkE5aCt3UVhrL2h4?=
- =?utf-8?B?dEg3blFlOG00NGVPVlNBanRIMXcrenhEaHFlL0c0M3dNdkZFaWRoM0VybE9D?=
- =?utf-8?B?U1BXZXJYQ2RCZnVTZFhqa1M0bzdDTHN0YjMyK2IxMlNzTFBQeFVPK1h0K1Y1?=
- =?utf-8?B?TzhWYzEzcDBXR205SEdvRkNDaFNwSWN5dkRHNXdTNTZ6UXJHN2JlSGFYZS96?=
- =?utf-8?B?VW00c0U3TSs0K2VCdWtNcDlzTTJpMTBOeGh1enVQekpPTDNTWThibGZ3MXdo?=
- =?utf-8?B?ZCtSS01wbzNRd0J0OUU5aEdiUVQvMHArMmxpQ21YaG5wek80SHVXdExjRnNi?=
- =?utf-8?B?OGFMUkVzSDNRQ2laWStDbnZEVmtJeWdSNFlmTE56Y1M5Q3FkYXFQL04zdTJQ?=
- =?utf-8?B?bXlEelM3NXZpT0RibXVWSEI0Z21sVWFpWERhaFptS2JRRWxDUXJlN29qM1NV?=
- =?utf-8?B?R3A2RkMySGFzd1BNMElrZk40NHFpM05Od1BvZWpEM1JNWmtLUFh5LytBN0Vt?=
- =?utf-8?B?L0JpWTliK204bldtMG1lTUxKTHBVYjViZklHYWNWN1Uzdk5kVitPQm5LMkZI?=
- =?utf-8?B?OGRCeGRxV0VwR0lwcFRBU2YvMlhkc3NXKzVGK1QxbkpEODluQ25Wc29pVDRI?=
- =?utf-8?B?RU9IdFJycGtla2I2bk8vNGVkY0swc3ZnQTlVWGpTRmlNdXlNWnhzbkZMVTVC?=
- =?utf-8?B?Mkhqb0FKT3lJbHRvZzVTd1NvdGJ3UCs4U0FHZ3Z0V2c3NWI4K3BLVXVYSDZp?=
- =?utf-8?B?ZXlZL3FRd3lSYitabVFBNHpkbTVxeWYySDNpUUlXTS9Nb0NuLzdhRHBrNDU5?=
- =?utf-8?B?djI4T0JiS1pFR3NINUtKbHFUdXRxOTR4elNzRnhmb0tjbldSNGdleHNEblNj?=
- =?utf-8?B?ZFlpSDBtRWVzNFZRTExwczdOdkU3aWRjc1FTeTFDcGxkK3VOTjVvdXFZQmxF?=
- =?utf-8?B?NGJCYmZhaHZQNnFEZndPWWsvZkZOUlhjNEoxNXJ1SG9scSsycXY1NG02S2VM?=
- =?utf-8?B?aHRhV01tMm9TMVV2d2MxY2pmU1lGazhDb2FmeWlqODVPWGNjQkRIT2tWVVlk?=
- =?utf-8?B?cG1rMDdUL2lyOEpiSWxKVGNCNkJpUTBxUWU2WnNvQ2ltK2RCRWZXSitLdW5J?=
- =?utf-8?B?RGlveS9uYWxOTTIwaHJacEkyNEREZ0VFY2JlSExlTGd2RkxGVHR3ZDhnNVB5?=
- =?utf-8?B?ZmFLcnpDcVZaVTRidmdIWHhSQ29QTVRPTFc3UnA2b0R2S0Y0ZTc3aDdUQUYx?=
- =?utf-8?B?aDJpY0IzaDRZRkg0T0xmSGovNjlXTDBES001cFJWZmxrV2l4L2FSTWw2ZWl1?=
- =?utf-8?B?SDFPT3ZQbUFjU0dhL25vaGhack5VaGNGc3N5d2JGL2RLZXluejFwV2xDZWc4?=
- =?utf-8?B?dHN2eXRTM2lWU2xYNjhMQVVCb09Nait0d0JyTVN4ckYrTWw2bTdkRFVwSlp6?=
- =?utf-8?Q?sD0vfn?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2025 14:02:03.1477
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 176576af-3948-42da-ebed-08de01bc438b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB71.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8911
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+MIME-Version: 1.0
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=Se/6t/Ru c=1 sm=1 tr=0 ts=68de8705 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=KKAkSRfTAAAA:8 a=20KFwNOVAAAA:8
+ a=VnNF1IyMAAAA:8 a=TDcfOtANP4GnBCsQLmsA:9 a=NqO74GWdXPXpGKcKHaDJD/ajO6k=:19
+ a=QEXdDO2ut3YA:10 a=cvBusfyB2V15izCimMoJ:22 a=cPQSjfK2_nFv0Q5t_7PE:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI3MDAxMCBTYWx0ZWRfX3NwCWmSJppLp
+ 7MpvChm1MGydtXqsaVGxEIz8sAac8copHypMcmHe86072VAt31k5SMra1Oplib3bEhafZSWAI7M
+ 0eaq2fJVogf2/azlia/SttMfapnwYuusiAzi4kS55NDSKwfrJzDgW3Qx9DvBjEYmqA09AVViijh
+ 8/BO/VWCfDnOs1f1OJT8v4Kqxu+ymhQH9PveKI7WjZFsu8kZ/0SpWHvVFcX45j/khLt4cGgLKEF
+ PWdgwpf8u/OK5ou06sGlcFFkAwTruDjIE6sSPLG0owltwJh87JKDsp9Mkyn9BA8dSr8RLrOUNDj
+ zajSQezW2xY104swtBFOg+JaoLSurQyuS9E28V19YcejRW7z3hlF7rzOs03w7YS6lm2S6fjQVy4
+ UG9vwQO8iU8peq5h5OpBkNR+5suhIw==
+X-Proofpoint-GUID: yeSTTqESg1gtVaOOzXRYuBOTHp0QMtDm
+X-Proofpoint-ORIG-GUID: yeSTTqESg1gtVaOOzXRYuBOTHp0QMtDm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-10-02_05,2025-10-02_03,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ clxscore=1011 phishscore=0 priorityscore=1501 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2509270010
 
-On Thu Oct 2, 2025 at 3:38 PM CEST, Roger Pau Monn=C3=A9 wrote:
-> On Thu, Oct 02, 2025 at 11:37:36AM +0100, Andrew Cooper wrote:
->> On 02/10/2025 11:22 am, Roger Pau Monne wrote:
->> > Reading from the E9 port if the emergency console is active should ret=
-urn
->> > 0xe9 according to the documentation from Bochs:
->> >
->> > https://bochs.sourceforge.io/doc/docbook/user/bochsrc.html
->> >
->> > See `port_e9_hack` section description.
->> >
->> > Fix Xen so it also returns the port address.  OSes can use it to detec=
-t
->> > whether the emergency console is available or not.
->> >
->> > Fixes: d1bd157fbc9b ("Big merge the HVM full-virtualisation abstractio=
-ns.")
->> > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->>=20
->> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>=20
->> That's been wrong for rather a long time.=C2=A0 How did you find it?
->
-> I came across the documentation above and I didn't remember Xen
-> returning any value for reads, which sadly was indeed true.
->
-> This was because I had the intention to suggest Alejandro to (also?) use
-> the port 0xe9 hack for printing from XTF, which should work for both
-> Xen and QEMU.
+On Thu, 2025-10-02 at 10:41 +0200, Philippe Mathieu-Daud=C3=A9 wrote:
+> When cpu_address_space_init() isn't called during vCPU creation,
+> its single address space is the global &address_space_memory.
+>=20
+> As s390x boards don't call cpu_address_space_init(), cpu->as
+> points to &address_space_memory.
+>=20
+> We can then replace cpu_physical_memory_is_io() by the semantically
+> equivalent address_space_memory_is_io() call.
+>=20
+> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
+> Reviewed-by: Thomas Huth <thuth@redhat.com>
+> Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+> ---
+>  hw/s390x/sclp.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 
-QEMU doesn't support 0xE9 though?
-
-Cheers,
-Alejandro
+Reviewed-by: Eric Farman <farman@linux.ibm.com>
 
