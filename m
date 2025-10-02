@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E96ABBB419E
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Oct 2025 15:56:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1135860.1472791 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 684E0BB41E3
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Oct 2025 16:02:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1135894.1472821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4Jn1-0000fL-7X; Thu, 02 Oct 2025 13:56:11 +0000
+	id 1v4Jsq-0003KI-ED; Thu, 02 Oct 2025 14:02:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1135860.1472791; Thu, 02 Oct 2025 13:56:11 +0000
+Received: by outflank-mailman (output) from mailman id 1135894.1472821; Thu, 02 Oct 2025 14:02:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4Jn1-0000cU-4C; Thu, 02 Oct 2025 13:56:11 +0000
-Received: by outflank-mailman (input) for mailman id 1135860;
- Thu, 02 Oct 2025 13:56:09 +0000
+	id 1v4Jsq-0003Im-AN; Thu, 02 Oct 2025 14:02:12 +0000
+Received: by outflank-mailman (input) for mailman id 1135894;
+ Thu, 02 Oct 2025 14:02:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=oua8=4L=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1v4Jmz-0000cN-9R
- for xen-devel@lists.xenproject.org; Thu, 02 Oct 2025 13:56:09 +0000
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c107::3])
+ id 1v4Jsp-0003I8-Np
+ for xen-devel@lists.xenproject.org; Thu, 02 Oct 2025 14:02:11 +0000
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazlp170120002.outbound.protection.outlook.com
+ [2a01:111:f403:c001::2])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8ab7b49f-9f97-11f0-9809-7dc792cee155;
- Thu, 02 Oct 2025 15:56:06 +0200 (CEST)
-Received: from PH8PR15CA0024.namprd15.prod.outlook.com (2603:10b6:510:2d2::9)
- by SA1PR12MB7443.namprd12.prod.outlook.com (2603:10b6:806:2b7::21)
+ id 6234b922-9f98-11f0-9809-7dc792cee155;
+ Thu, 02 Oct 2025 16:02:08 +0200 (CEST)
+Received: from BN9PR03CA0662.namprd03.prod.outlook.com (2603:10b6:408:10e::7)
+ by CH3PR12MB8911.namprd12.prod.outlook.com (2603:10b6:610:169::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.18; Thu, 2 Oct
- 2025 13:56:01 +0000
-Received: from SA2PEPF000015C6.namprd03.prod.outlook.com
- (2603:10b6:510:2d2:cafe::59) by PH8PR15CA0024.outlook.office365.com
- (2603:10b6:510:2d2::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.16 via Frontend Transport; Thu,
- 2 Oct 2025 13:55:56 +0000
+ 2025 14:02:03 +0000
+Received: from BL6PEPF0001AB71.namprd02.prod.outlook.com
+ (2603:10b6:408:10e:cafe::fe) by BN9PR03CA0662.outlook.office365.com
+ (2603:10b6:408:10e::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.15 via Frontend Transport; Thu,
+ 2 Oct 2025 14:02:03 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF000015C6.mail.protection.outlook.com (10.167.241.196) with Microsoft
+ BL6PEPF0001AB71.mail.protection.outlook.com (10.167.242.164) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9182.15 via Frontend Transport; Thu, 2 Oct 2025 13:55:59 +0000
-Received: from xcbagarciav01.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.20.9160.9 via Frontend Transport; Thu, 2 Oct 2025 14:02:03 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 2 Oct
- 2025 06:55:58 -0700
+ 2025 07:02:01 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,209 +56,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ab7b49f-9f97-11f0-9809-7dc792cee155
+X-Inumbo-ID: 6234b922-9f98-11f0-9809-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SNjBg9Jpx4GLSlXc556qp9c3MhlFWqwMsa+JV2lJ4fjm/Sv4Aig/8tDHj7d9hVPz+myrRywKjDn4lV4oqVBcA6vj1RHcZN1HLGR7wmLkbpJsnnxndafLI+w/nXFr8mMXIrxL57L7K7FhkHCnsfzn53v9zaG4EaizBTSoEtUHoMbwFLs1sU2oyDouINtwF/twfCS6IhEdBiNstJeccT4nBhDlVC5I4PuOr/9/1qWZNe9V/9vxmR5ZNkQsBm7HI+eXGU7NCPjltN2PVRr2ck61RzRu86zqJmbmot5pi5JL5d6VMFnwb/n0E9BoLeoZrj/FiQZiiU0LPsPk6I+ZFTGLsA==
+ b=t9gQ9JSD7tcFHO7Q+J/u7LmztQ95ZqzQ0supcfwNNSa8N+AxeKtzRLGCR+1WHRktGH2LnKMZrVqgg3ITUFUO9xD9MjpDPNac6ASkDZPyQjQ59ON8wyEFl3HC3djfCl9vVYCat8M6XrCJ9+gu+QC3FMxnVM4njvR9ZitR1nnregSClO6bdUmTK26ycuI8xhnPPcRvGEi/V1z9TTnXQj/MRqHv1uEfUzD8jJdtWU9TU6LmEN9OQk8TZuKqtfBnr3kESxtpGDlgfNtDeGE+cWXQrdpYpYcwQ94SqQ6DUYs4/K8ig/g9SEl0Ru0DGldrqhosv6v8f7YQvP87fxT+s7C4aA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zrkCPxfsenLoTP5XQkO+LdpiBn8mkFqedF7ORoCKf2s=;
- b=Uw5Z5gPwDrgw3D5jDdUzRTdPsk5KtacZJ7GSBv/0bLM8Ac7/v72Gkwp3037+5oZhyvcno2rf86NY2xkd8x5cF+ZrMuVHxXytEiFqUmLBt6Bn+5jxFI8XxQiXEFIhdMWbB3dLHwEcKusyOY/Qij33EhBdSOb8TycmcaEqwCObQxb7Zh4OrNqDMAbhtRq6nbXfacEKJTb/WNhBbdr4CLZ1KcQU1tp1GEeEq8NrZjaID5L9dLS+QUnIfqWSnvBy4JZ/ydBGmRK4Q/CZpgbxmJa1PgU/6d6Ud52ZPnEXQ64rbSHOk2slMWjUib/SLfYv8rK1fTSSiuNOEojiAkjSmK7Euw==
+ bh=cAaKGktffNeK+JSSKbbvBP+NQdcyLCUYzZAW96No8zw=;
+ b=AU04U6Lm2jkp2CLA0OWdwVd24t67tm8MESJdSADtm0HR9U4eCyhlzVkJc7dlYwE+GW4QlM55bYxnpj+j5gtVKCDvv/pePEwHLWQ/1W0YFipA6JCOZvka+BEm35+EplFtUjto9KDA3NzXGqmqAPzvPyzh5h2IfTeYrnS2gfLJlrSRq9/v5QcBLGwoI46XgAtoIFczLc/uCkTfawUUvrcAJM9IPvZOUlOOdanXm9pEMixA2i9UVqiLyutbhstrZX/SDNvwCrGDQ/pNrhxvtMb6Eq2uMMw87yIl0Nnz5aru/JDnYn6CiNAmVmErIk67ixkDSp9JD3bTKBbAq7iGAu7Axg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zrkCPxfsenLoTP5XQkO+LdpiBn8mkFqedF7ORoCKf2s=;
- b=OYzlkeFl4ehuJexp+crh27d0ZI5ZuvMMQYeoD8QErchKlEtNwrm8K/e6z/zeCcgbFPAEFHViscL2dYAPeeacEpPOqWWBp9Tk2fzaVXXD3/zt7k5ZGAWW5TcxGnBdECHCaN751chKW7WCRllWlE21G1vVEMZTifbGPX1oME1KJIc=
+ bh=cAaKGktffNeK+JSSKbbvBP+NQdcyLCUYzZAW96No8zw=;
+ b=DN/X8rWZKSiqF8r8KgH5YYkvwqzrpxF8QXChZActRIHG9qWhmV6P7FfqvOzQ82V2xH/baYODDByyE+5y9dqVhI5bP28EGLHtT9QZmC2ROzLoCOjqhSjUO5VEkSx7pzKVMji+yos8qvhIKtw5ISqJo2NljnrCRLy9V1gyhZQysN8=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>
-Subject: [XTF PATCH v2 2/2] x86: Allow exiting QEMU in TCG/QEMU
-Date: Thu, 2 Oct 2025 15:55:34 +0200
-Message-ID: <20251002135542.28076-3-alejandro.garciavallejo@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20251002135542.28076-1-alejandro.garciavallejo@amd.com>
-References: <20251002135542.28076-1-alejandro.garciavallejo@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 2 Oct 2025 16:02:00 +0200
+Message-ID: <DD7W410Y9LYL.GD6FXC9Q6H37@amd.com>
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, Oleksii
+ Kurochko <oleksii.kurochko@gmail.com>, Xen-devel
+	<xen-devel-bounces@lists.xenproject.org>
+Subject: Re: [PATCH for-4.21] x86/hvm: fix reading from 0xe9 IO port if port
+ E9 hack is active
+X-Mailer: aerc 0.20.1
+References: <20251002102200.15548-1-roger.pau@citrix.com>
+ <1b4bcb40-d62b-47b5-847f-b6e16906f52e@citrix.com>
+ <aN6APR-CUc9xRjfM@Mac.lan>
+In-Reply-To: <aN6APR-CUc9xRjfM@Mac.lan>
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015C6:EE_|SA1PR12MB7443:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0aff8f9e-fbf2-4020-1174-08de01bb6b0e
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB71:EE_|CH3PR12MB8911:EE_
+X-MS-Office365-Filtering-Correlation-Id: 176576af-3948-42da-ebed-08de01bc438b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024;
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?lrgJx0jf1+QZ5U+TCVf1mHoSFhHtqcJqH49WR/nBH3RKWxSwsb2DIEEVuxZp?=
- =?us-ascii?Q?9buocV0ibyeufybfFY5MjVGnsC88O+LK9rjsQgOVt6O9BRcuxlAFizyOEbvX?=
- =?us-ascii?Q?k8cFVuS14FDuX+MjwWHwg89Jzb0DWJRLgvfBfYIelRdWnwj5VSiZCYX/5AST?=
- =?us-ascii?Q?CghlOSMw+ASGPPNh6exs7BPYE8xexE/o+xHNnFGmTEz3uAH3XMidQv+47zYn?=
- =?us-ascii?Q?QFkqGaGFppXaeokRY2+wHDMctKFgb3ZYJbM2J/BkfPawcDt7lLWtxXz0gRcU?=
- =?us-ascii?Q?vbLS2HQrTduuy9PXIPulK+RGaNtKNQiAr/E+01QNPmR5HlnSDi+PVEjVw6zB?=
- =?us-ascii?Q?x96MzHvAAFGMFGHA+f43M4VgpSl5Hjn8PfYB6EKyI6dNAHSdSQVlhNJ8HOxN?=
- =?us-ascii?Q?IjE0Dpqw4L25vRQOG/4X/VfwN9qXKtkQJ6KBNq3DfneS+mNs2bvPHJScc9mS?=
- =?us-ascii?Q?zNxLTn0dWC4UYfjgPplqZ2sqKWYMBmHS5sSYvOqB83dqSlosWOCy89+1lPf+?=
- =?us-ascii?Q?58x+q5ULV8RhqFodmqmLzUQNk7DOZXYAJ0TwXOrqRI0NH6uQaawKQmsTdkBv?=
- =?us-ascii?Q?0Garb83irJu19kCCTeyJAtRux1c3sFBMuCdys1IOEdS2rJwM2mUAhoxXLL+E?=
- =?us-ascii?Q?k08TEiMwn6BEMKB0ldW+7hsibxEFzIp8BqA1tUw5/c8tT51Dr2jF3gnpF61V?=
- =?us-ascii?Q?92kI7sRlTibyC2PjPKw0ChmOj/sgK2CX4aAVo6AG8kjd8YbqDuKierj4Pwve?=
- =?us-ascii?Q?wPz6aebVopySsMuTwn3SSQ0vgwjpMWqr5n+Ze8pL8L85qSFFMVZ1E7cmCKwW?=
- =?us-ascii?Q?0nAnEBWAOYV2gi8Ch//o9NHyroFVdFNYFjsKfroPeB6Ii0KaAsT9pbEmkuK1?=
- =?us-ascii?Q?5NFU0rJ0u6OPZfAeenaaUA3c4W1wISpUPo4GbT7xQqEz24cGOzhsvgZJYJxq?=
- =?us-ascii?Q?5ufegjCJWV35zDovi7jFhgggiYLv+i1ApbN+sslHp7cVhZLM7P4KLKejXgb3?=
- =?us-ascii?Q?ikJnLBanwgSpw08wwELVwcI2fv1FJtJz+yCWl1l4HDIF1RMGQ91KquG6d0+g?=
- =?us-ascii?Q?NFYxb9odvR1ll1M8Owwlt+xNixRps/XH7zcKwtL9krYfkuU/HP9CUBHiYLPn?=
- =?us-ascii?Q?JtFIBOFk1F98pG96quK9D7hx2ILyJma3YHdhzKt3b0ctpUxUJDRdhK+mGAOL?=
- =?us-ascii?Q?om8wl0Pun4XRkhsacMbtJSyI47c+GcEc/2VXgfGHtLJUlFRlGUL8o52KhMCE?=
- =?us-ascii?Q?JQG7equ641yn0R6EaohHqtfnECOkcLv9pUbxUAclMh3aMgc+v8HpouEBcZEY?=
- =?us-ascii?Q?e3/pY7Hx5ave7iGhfBnoUnYysrov85Vldn8GoaFfA6acYyp1DRb0msv1oThe?=
- =?us-ascii?Q?FyVwzR/X5NgiNnUlwv5xJVadKvKqqArcEDfmTSKkeYusyRfk0fb1Gjc+vX5E?=
- =?us-ascii?Q?+ElUf4nrXT1okzFHRuislPhcRUfAVT7bWeBs7dim5+/sQrmh6R7zu+2+KJ3l?=
- =?us-ascii?Q?le15rDXSfsWZaQzR+PvJDIrs5tbxLXcgh6kUaODvEGQOVTNEolP8W5K5jsJ9?=
- =?us-ascii?Q?7oKo7/dH/3mWrAdDxiQ=3D?=
+	=?utf-8?B?Y1V2dXpYYjJya2l5TklHcTlDWnpBN2gyb2EwRDFMSUo5TGdnN2xmbGdjekQ2?=
+ =?utf-8?B?WGZXNlJRZUwzYUFpL0pSaThXZTVVdmtNNWlFeUpMSHRFRkZqNEZ0VzFyRXFL?=
+ =?utf-8?B?VExkakhaTVRqb2NrWjBGWE1YOXh4UU40eWMraFFoYWtWdGUyaEg4Qm44c3JU?=
+ =?utf-8?B?dEZqR05YdUR1aUIwdU1rS2dzTXU4dGs1R3FlaENWL3FRdmxkR1RCSmpta0dW?=
+ =?utf-8?B?YlFSZ0tmck12T0xLYStGbXk1Q3JNQTU5NVhkWWI0QitLZkVIUmUxUys0ek5j?=
+ =?utf-8?B?MWxxaEp5cjIyeDlCbzFDazhrcFV6djJ6dDRWdGRCK3dHejVKemhPbjQwOTBa?=
+ =?utf-8?B?Zjl1a05nVW1nK0VWa2hxZnc4aG92YXFrSFFuc0NCZTZqbnBWVS9uQ3ZWcmRw?=
+ =?utf-8?B?UmVoZkUvMUZSMEo5MHQxUDdPRUxJWDBNTndwSEVuK1hmTHZML1U5RWNqNjQ2?=
+ =?utf-8?B?N29FazI1NmVPYkYxY0R0dWE1MzVmVzhveVhSTGUxVzJjK05BVjVBK1M4K3pU?=
+ =?utf-8?B?NnJqVkZ2aUpSeU4zLzVhVDZTVkZkSFRvYkJuWThId2xScW4yN1hTS25rZTg0?=
+ =?utf-8?B?bmlwQVViMzl4enk5a2RYMkJ4MnlwRjM2dU9SVlNOOUFsbkE5aCt3UVhrL2h4?=
+ =?utf-8?B?dEg3blFlOG00NGVPVlNBanRIMXcrenhEaHFlL0c0M3dNdkZFaWRoM0VybE9D?=
+ =?utf-8?B?U1BXZXJYQ2RCZnVTZFhqa1M0bzdDTHN0YjMyK2IxMlNzTFBQeFVPK1h0K1Y1?=
+ =?utf-8?B?TzhWYzEzcDBXR205SEdvRkNDaFNwSWN5dkRHNXdTNTZ6UXJHN2JlSGFYZS96?=
+ =?utf-8?B?VW00c0U3TSs0K2VCdWtNcDlzTTJpMTBOeGh1enVQekpPTDNTWThibGZ3MXdo?=
+ =?utf-8?B?ZCtSS01wbzNRd0J0OUU5aEdiUVQvMHArMmxpQ21YaG5wek80SHVXdExjRnNi?=
+ =?utf-8?B?OGFMUkVzSDNRQ2laWStDbnZEVmtJeWdSNFlmTE56Y1M5Q3FkYXFQL04zdTJQ?=
+ =?utf-8?B?bXlEelM3NXZpT0RibXVWSEI0Z21sVWFpWERhaFptS2JRRWxDUXJlN29qM1NV?=
+ =?utf-8?B?R3A2RkMySGFzd1BNMElrZk40NHFpM05Od1BvZWpEM1JNWmtLUFh5LytBN0Vt?=
+ =?utf-8?B?L0JpWTliK204bldtMG1lTUxKTHBVYjViZklHYWNWN1Uzdk5kVitPQm5LMkZI?=
+ =?utf-8?B?OGRCeGRxV0VwR0lwcFRBU2YvMlhkc3NXKzVGK1QxbkpEODluQ25Wc29pVDRI?=
+ =?utf-8?B?RU9IdFJycGtla2I2bk8vNGVkY0swc3ZnQTlVWGpTRmlNdXlNWnhzbkZMVTVC?=
+ =?utf-8?B?Mkhqb0FKT3lJbHRvZzVTd1NvdGJ3UCs4U0FHZ3Z0V2c3NWI4K3BLVXVYSDZp?=
+ =?utf-8?B?ZXlZL3FRd3lSYitabVFBNHpkbTVxeWYySDNpUUlXTS9Nb0NuLzdhRHBrNDU5?=
+ =?utf-8?B?djI4T0JiS1pFR3NINUtKbHFUdXRxOTR4elNzRnhmb0tjbldSNGdleHNEblNj?=
+ =?utf-8?B?ZFlpSDBtRWVzNFZRTExwczdOdkU3aWRjc1FTeTFDcGxkK3VOTjVvdXFZQmxF?=
+ =?utf-8?B?NGJCYmZhaHZQNnFEZndPWWsvZkZOUlhjNEoxNXJ1SG9scSsycXY1NG02S2VM?=
+ =?utf-8?B?aHRhV01tMm9TMVV2d2MxY2pmU1lGazhDb2FmeWlqODVPWGNjQkRIT2tWVVlk?=
+ =?utf-8?B?cG1rMDdUL2lyOEpiSWxKVGNCNkJpUTBxUWU2WnNvQ2ltK2RCRWZXSitLdW5J?=
+ =?utf-8?B?RGlveS9uYWxOTTIwaHJacEkyNEREZ0VFY2JlSExlTGd2RkxGVHR3ZDhnNVB5?=
+ =?utf-8?B?ZmFLcnpDcVZaVTRidmdIWHhSQ29QTVRPTFc3UnA2b0R2S0Y0ZTc3aDdUQUYx?=
+ =?utf-8?B?aDJpY0IzaDRZRkg0T0xmSGovNjlXTDBES001cFJWZmxrV2l4L2FSTWw2ZWl1?=
+ =?utf-8?B?SDFPT3ZQbUFjU0dhL25vaGhack5VaGNGc3N5d2JGL2RLZXluejFwV2xDZWc4?=
+ =?utf-8?B?dHN2eXRTM2lWU2xYNjhMQVVCb09Nait0d0JyTVN4ckYrTWw2bTdkRFVwSlp6?=
+ =?utf-8?Q?sD0vfn?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014)(7053199007);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2025 13:55:59.9131
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2025 14:02:03.1477
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0aff8f9e-fbf2-4020-1174-08de01bb6b0e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 176576af-3948-42da-ebed-08de01bc438b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF000015C6.namprd03.prod.outlook.com
+	BL6PEPF0001AB71.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7443
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8911
 
-If QEMU has a debug isa-debug-exit device, we can simply write to it
-to exit rather than spinning after a failed hypercall.
+On Thu Oct 2, 2025 at 3:38 PM CEST, Roger Pau Monn=C3=A9 wrote:
+> On Thu, Oct 02, 2025 at 11:37:36AM +0100, Andrew Cooper wrote:
+>> On 02/10/2025 11:22 am, Roger Pau Monne wrote:
+>> > Reading from the E9 port if the emergency console is active should ret=
+urn
+>> > 0xe9 according to the documentation from Bochs:
+>> >
+>> > https://bochs.sourceforge.io/doc/docbook/user/bochsrc.html
+>> >
+>> > See `port_e9_hack` section description.
+>> >
+>> > Fix Xen so it also returns the port address.  OSes can use it to detec=
+t
+>> > whether the emergency console is available or not.
+>> >
+>> > Fixes: d1bd157fbc9b ("Big merge the HVM full-virtualisation abstractio=
+ns.")
+>> > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+>>=20
+>> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>=20
+>> That's been wrong for rather a long time.=C2=A0 How did you find it?
+>
+> I came across the documentation above and I didn't remember Xen
+> returning any value for reads, which sadly was indeed true.
+>
+> This was because I had the intention to suggest Alejandro to (also?) use
+> the port 0xe9 hack for printing from XTF, which should work for both
+> Xen and QEMU.
 
-While at it, reorder an out-of-order include.
+QEMU doesn't support 0xE9 though?
 
-Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
----
- arch/x86/hvm/traps.c    | 16 +++++++++++++++-
- arch/x86/pv/traps.c     |  5 +++++
- common/lib.c            |  2 +-
- common/report.c         |  8 +++++---
- include/xtf/framework.h |  3 +++
- 5 files changed, 29 insertions(+), 5 deletions(-)
-
-diff --git a/arch/x86/hvm/traps.c b/arch/x86/hvm/traps.c
-index ad7b8cb..b8c4d0c 100644
---- a/arch/x86/hvm/traps.c
-+++ b/arch/x86/hvm/traps.c
-@@ -1,5 +1,6 @@
--#include <xtf/traps.h>
-+#include <xtf/hypercall.h>
- #include <xtf/lib.h>
-+#include <xtf/traps.h>
- 
- #include <arch/idt.h>
- #include <arch/lib.h>
-@@ -139,6 +140,19 @@ void arch_init_traps(void)
-                virt_to_gfn(__end_user_bss));
- }
- 
-+void arch_shutdown(unsigned int reason)
-+{
-+    hypercall_shutdown(reason);
-+
-+    /*
-+     * Not running under Xen. Attempt exit via the QEMU ISA debug exit device on
-+     * its default port.
-+     *
-+     * QEMU's rc is (reason << 1) | 1, if "-device isa-debug-exit" is set.
-+     */
-+    outb(reason, 0x501);
-+}
-+
- void __noreturn arch_crash_hard(void)
- {
-     /*
-diff --git a/arch/x86/pv/traps.c b/arch/x86/pv/traps.c
-index 66ef40e..913bab2 100644
---- a/arch/x86/pv/traps.c
-+++ b/arch/x86/pv/traps.c
-@@ -206,6 +206,11 @@ void arch_init_traps(void)
-         panic("Failed to unmap page at NULL: %d\n", rc);
- }
- 
-+void arch_shutdown(unsigned int reason)
-+{
-+    hypercall_shutdown(reason);
-+}
-+
- void __noreturn arch_crash_hard(void)
- {
-     /*
-diff --git a/common/lib.c b/common/lib.c
-index 7f1813f..f4de22e 100644
---- a/common/lib.c
-+++ b/common/lib.c
-@@ -25,7 +25,7 @@ void __noreturn panic(const char *fmt, ...)
- 
-     printk("******************************\n");
- 
--    hypercall_shutdown(SHUTDOWN_crash);
-+    arch_shutdown(SHUTDOWN_crash);
-     arch_crash_hard();
- }
- 
-diff --git a/common/report.c b/common/report.c
-index ffdf098..158876e 100644
---- a/common/report.c
-+++ b/common/report.c
-@@ -1,6 +1,8 @@
-+#include <xtf/framework.h>
- #include <xtf/lib.h>
- #include <xtf/report.h>
--#include <xtf/hypercall.h>
-+
-+#include <xen/sched.h>
- 
- enum test_status {
-     STATUS_RUNNING, /**< Test not yet completed.       */
-@@ -124,8 +126,8 @@ bool xtf_status_reported(void)
- void xtf_exit(void)
- {
-     xtf_report_status();
--    hypercall_shutdown(SHUTDOWN_poweroff);
--    panic("xtf_exit(): hypercall_shutdown(SHUTDOWN_poweroff) returned\n");
-+    arch_shutdown(SHUTDOWN_poweroff);
-+    panic("xtf_exit(): arch_shutdown(SHUTDOWN_poweroff) returned\n");
- }
- 
- /*
-diff --git a/include/xtf/framework.h b/include/xtf/framework.h
-index 95de195..e852882 100644
---- a/include/xtf/framework.h
-+++ b/include/xtf/framework.h
-@@ -16,6 +16,9 @@ void arch_setup(void);
- /* Set up test-specific configuration. */
- void test_setup(void);
- 
-+/* Stop the machine. See SHUTDOWN_poweroff et al for reasons */
-+void arch_shutdown(unsigned int reason);
-+
- /*
-  * In the case that normal shutdown actions have failed, contain execution as
-  * best as possible.
--- 
-2.43.0
-
+Cheers,
+Alejandro
 
