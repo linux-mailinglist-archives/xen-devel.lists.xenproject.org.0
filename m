@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A202CBB425B
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Oct 2025 16:11:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1135926.1472850 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B00E3BB426E
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Oct 2025 16:17:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1135950.1472861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4K1V-000601-Kq; Thu, 02 Oct 2025 14:11:09 +0000
+	id 1v4K7W-0006rm-BE; Thu, 02 Oct 2025 14:17:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1135926.1472850; Thu, 02 Oct 2025 14:11:09 +0000
+Received: by outflank-mailman (output) from mailman id 1135950.1472861; Thu, 02 Oct 2025 14:17:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4K1V-0005xi-HO; Thu, 02 Oct 2025 14:11:09 +0000
-Received: by outflank-mailman (input) for mailman id 1135926;
- Thu, 02 Oct 2025 14:11:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v4K7W-0006qL-8J; Thu, 02 Oct 2025 14:17:22 +0000
+Received: by outflank-mailman (input) for mailman id 1135950;
+ Thu, 02 Oct 2025 14:17:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gPIc=4L=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1v4K1T-0005xX-TX
- for xen-devel@lists.xenproject.org; Thu, 02 Oct 2025 14:11:08 +0000
-Received: from fout-a5-smtp.messagingengine.com
- (fout-a5-smtp.messagingengine.com [103.168.172.148])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a0b7b249-9f99-11f0-9809-7dc792cee155;
- Thu, 02 Oct 2025 16:11:03 +0200 (CEST)
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
- by mailfout.phl.internal (Postfix) with ESMTP id CCAF6EC0266;
- Thu,  2 Oct 2025 10:11:01 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-10.internal (MEProxy); Thu, 02 Oct 2025 10:11:01 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 2 Oct 2025 10:10:59 -0400 (EDT)
+ <SRS0=ddTC=4L=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1v4K7U-0006qA-A3
+ for xen-devel@lists.xenproject.org; Thu, 02 Oct 2025 14:17:20 +0000
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c112::7])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 80872679-9f9a-11f0-9d14-b5c5bf9af7f9;
+ Thu, 02 Oct 2025 16:17:19 +0200 (CEST)
+Received: from DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
+ by PH0PR03MB5671.namprd03.prod.outlook.com (2603:10b6:510:35::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.16; Thu, 2 Oct
+ 2025 14:17:13 +0000
+Received: from DM6PR03MB5227.namprd03.prod.outlook.com
+ ([fe80::c9a0:563d:c344:aec2]) by DM6PR03MB5227.namprd03.prod.outlook.com
+ ([fe80::c9a0:563d:c344:aec2%5]) with mapi id 15.20.9182.015; Thu, 2 Oct 2025
+ 14:17:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,304 +47,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0b7b249-9f99-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1759414261;
-	 x=1759500661; bh=8gggb7QV4k0VUwi79B1tHWxROneixw+XlPbDObPlRgo=; b=
-	WAWrPE9E5cXMcYG73cHFMXIFe7E/5fGU4SmiOmoJ42OrMDSSK1ou4ane/dlN7nK7
-	EArqXCqAs9Ycf7SoXNPQn6VagKAhw5lLCA+VjrrT/fZJRuHv7yuKcyQl0FRhyxzl
-	C9ehA5n6Qz8qOjRDPyOFkVlUzhBfCbk6nf+DrR0E3L4MUuXk6mlCvPWNO+YX+vWW
-	XWPX1H0OL/92PVFtinTHM9OdBbIQY41Xv7hLvIMlxQtjGO+ikkChkR5Fvv6dn4Dc
-	3oncuqDupGiTiQ7y2sEPhUOOhDyZ+1mJAOpzuzjbaOQwyrlCUzVV05Dp3x6JMUt7
-	7NEcFMXmxugQiBGU/mITWA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1759414261; x=1759500661; bh=8gggb7QV4k0VUwi79B1tHWxROneixw+XlPb
-	DObPlRgo=; b=nwEd+6Nu6iNza0RuH/ov0rZckO2tLriHp4F90CeehU7Pk+XxzGl
-	WxmljEcVQuLkUIGVprrLri4YSTrLWeTBrNHEpbYNiv78yOq27FM+EP+mp7L6o8t0
-	PtWGZ0lCrHwiwlrhWD8cBiIIcxLJ4BrGIGaT28c5gbm2B21bGAz3J2Abx7AnFA8/
-	+QU50ut4Q+e1u4dH8gSpemsdsxeJ1OEjqSEiGYlAGSkWN2LiLgskFhAz8EWdcAWA
-	kahq3id65FPeQZOneXPS3LeLzDGML/ECzn9OWvYbgQgf6riXfEZK3JG2MQ6iICAm
-	aTyf+xNeEnuv1ZHi+cRr2C15uPpTvm33k3Q==
-X-ME-Sender: <xms:9IfeaK6gJUyuhr8ElJakY9_ajpoVA0Df1DPSmGD6oEoYNyvxR7CrtA>
-    <xme:9IfeaPso-_sv-mbGulFeLxeRQSps5BOqydxc7EIGP25_3jzfc1Y2r6DvDwU_fF8Hz
-    -K0lse8TFaT1Fvnd4rW8-bbIXL-xhgrf5rOgqq9E0DrL6Os>
-X-ME-Received: <xmr:9IfeaE0udyrL8oYB-woDo65Gyofh24ADgE2tNFQT_d77nJAQItZ4juhDsvN3oukeooJIcwzFk--ncl8mjGkWWf3fISLFydLuAd4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdekiedvvdcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteef
-    vefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvg
-    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
-    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeduvddpmh
-    houggvpehsmhhtphhouhhtpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegt
-    ihhtrhhigidrtghomhdprhgtphhtthhopehfrhgvughirghnohdriihighhlihhosegtlh
-    houhgurdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhp
-    rhhojhgvtghtrdhorhhgpdhrtghpthhtoheprghnthhhohhnhidrphgvrhgrrhgusehvrg
-    htvghsrdhtvggthhdprhgtphhtthhopehmihgthhgrlhdrohhriigvlhesrghmugdrtgho
-    mhdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtohhmpdhrtghpthhtohepjh
-    hulhhivghnseigvghnrdhorhhgpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhr
-    ihigrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorh
-    hg
-X-ME-Proxy: <xmx:9IfeaAoiAtB_oWVG-ZGRMQ7oWLZBO_yF7ElduwWQMhYFUUKqq38XUw>
-    <xmx:9IfeaMIQQM-mBqEpbhzNGzyWH3P6iQCyyGr16bZhlp_y7HeAA-4SDw>
-    <xmx:9IfeaERALKdom0Qqj_Q8LqxVh4bH91Uyv8W6vx17qcMaCgFIYhWdsw>
-    <xmx:9IfeaMOC3e9UfQwJCsEhYynqnjktVDi37OQOSfg-nqQluOA0-6HicA>
-    <xmx:9YfeaDeQhgbBSGGBgepO2SwcUJeOJ1IbIuW-BPBRECEwxgyw7j1C7nVf>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 2 Oct 2025 16:10:57 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Daniel Smith <dpsmith@apertussolutions.com>,
-	"michal.zygowski@3mdeb.com" <michal.zygowski@3mdeb.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH v2] xen: Strip xen.efi by default
-Message-ID: <aN6H8dOlea2Um8y8@mail-itl>
-References: <20250612100705.21988-1-frediano.ziglio@cloud.com>
- <586a66e5-4b11-485e-955a-da5fc3183737@citrix.com>
+X-Inumbo-ID: 80872679-9f9a-11f0-9d14-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IPSSk3BNZMTeVPblVZwb3QDi/aVyhufcWitiOpUKPhK+sAckCkBjrhqpKErQiI+Jrt1PWseqCA3M4YgnYLuyfwejnecXVzM4j2PpKtVl8jIf/DwYmqBabXkitCGYrkQI8z7dusSO2d70oTP0XG23lrpLLVA66wL5KFsTTjMbspf+xDy59h5bC7GWDDovG+JPcfhBHzQagdVoOebtMIdABcSW00GMruECguuVMYam+5LsP3c7Vq8yk9kTbZGTuwHpoA2JSEFNXY/cCokY2AjSclAFIiTz7952XyiQX/VzukgpKyTHJ6b+32IaZkFsBDhQf50fvNXw2C06MUIZ5U3SQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9GlJZgu1I08gU3lyyayPdY1D5LMp4kTrrPWL1agCM30=;
+ b=UH5asstDnHaBO/ZRSJAnQBqJYsrWKhMWURfv5udGn6kOemIrgTJfllkWD10wwAAK6cdZySs5SrbQvpw1jGYxZktOr8F7pKWyT34MpI1REG3l6yAOdcNlwDvWFNiNHu1l7Z4YQQbOdxzLp9UzL5InGiE0LIFmY64TIRwxURmcrs36Oo2gy5VntUlBxe7lG6XQUhDj5kxhRVM7lLiaLPDME7vBIiHgwUXuPIhbmXr/av+QN/ov2VqABPBhmgvbIZnIPK3ohUWN94yxJcGQCd+C64211tAonq3CDs5SUTp1rxbnZnvB0LMd/kIBRsixDu36LO6qiSV59EJioaSTZlsT9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9GlJZgu1I08gU3lyyayPdY1D5LMp4kTrrPWL1agCM30=;
+ b=D8BzSDUG+IVv/3rslonxbVtkTTvEz/9zMalxpfMHNzsGlz2wRGStubSG9KoN0BOmzAP42OpKPHvNnfAla3Jv5ZbB7hQiKM06vAYY6v4V7/GDevbmFvKTTSuD0zakzglXhH8RgW6bKglT/cPFZ68x9piCBVvLA7XsLT03yVNARwU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Thu, 2 Oct 2025 16:17:09 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Xen-devel <xen-devel-bounces@lists.xenproject.org>
+Subject: Re: [PATCH for-4.21] x86/hvm: fix reading from 0xe9 IO port if port
+ E9 hack is active
+Message-ID: <aN6JZTlumMF2B0ym@Mac.lan>
+References: <20251002102200.15548-1-roger.pau@citrix.com>
+ <1b4bcb40-d62b-47b5-847f-b6e16906f52e@citrix.com>
+ <aN6APR-CUc9xRjfM@Mac.lan>
+ <DD7W410Y9LYL.GD6FXC9Q6H37@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DD7W410Y9LYL.GD6FXC9Q6H37@amd.com>
+X-ClientProxiedBy: MA3P292CA0010.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:2c::12) To DM6PR03MB5227.namprd03.prod.outlook.com
+ (2603:10b6:5:247::22)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Rs9xhYCy+l9bNsTA"
-Content-Disposition: inline
-In-Reply-To: <586a66e5-4b11-485e-955a-da5fc3183737@citrix.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR03MB5227:EE_|PH0PR03MB5671:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76c7a840-db97-4514-d27f-08de01be61c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?OUNqeVliMDZ4ZUxReU9aUVZrdUk2Mlo4eFhnYmMvSDhOUGhMUlJLc0NyQUl0?=
+ =?utf-8?B?QWFWYlhzbWRZTitiWEpIeGFZRVVWUVdYbXJ0czVIL1BNOHpEVlI3UmdCRjB0?=
+ =?utf-8?B?RHVuQVJCTUIvbEUyLzZmQlM2Um51V3RnR0tHWDdtTHFRVnM5b0RMSkxiMFdI?=
+ =?utf-8?B?ZzdJT1NyRUtnL0lIRkpuWFNyVDQ2UlR2eHdsUWJrUlFCWDRnWUcyajNHTnA4?=
+ =?utf-8?B?dVVNTnJZWVpyOFFpRmJWOWZRN2FZand0aVp5NmVVa0FQazZHTTg4MHd5OHFP?=
+ =?utf-8?B?MHZLTXV6TU12dERZMWh0bFR2aWR3RU9KcXAwWUg1YnExQTJZdlEzV1hheUxN?=
+ =?utf-8?B?NGZzRldsbUFhSEthUUljQjBTcHRDL0NMWWprbHdmeGlVWnZOMHhjd1Q3SS9V?=
+ =?utf-8?B?S2RFbHQ0eC9tbzdqdlk2WWg2SUhqRndKa1BmZGxPL25KNkVnNzdIN0lmL0hP?=
+ =?utf-8?B?L0hEdnl5dlVTQkJLaWZib1BweTZlR0hNQkVVbDRTeVRuOXpsQ0ZpS1FVbWpr?=
+ =?utf-8?B?TmdSYyswUnZIU1ROdmhhSU1za2IwWWpMOHBISmlueU5XaG1ubzBvRTA2b3hh?=
+ =?utf-8?B?SEpmM0thb2IxVVpVSnJFekJFWXZMWkZsOHJtNUFKNEk5SGFNUk5tV2dvOEJo?=
+ =?utf-8?B?bXZmNGJyNmVyN1BhYzVQdHQ2WjgrMzdBbXM3eW9iMXhVMllncm1yWGtvMEF4?=
+ =?utf-8?B?Nm5oY0RtdWR4MjY4U0tLUlBCYVVhL1FJWk1CeE5pNGpQTTRpdmdybkpuczll?=
+ =?utf-8?B?aVVCVWRpc1Y4R1V1a1Fhc1A5VW1Qd09wZFM5QWswVFQ5OWJQOExoaGFvVnFp?=
+ =?utf-8?B?aWVUWWlDbkdNbFFvMFF0bkxUNTQzWisrSUdFcnJDZGhlUXRzNU8rMVBWUDZm?=
+ =?utf-8?B?MXQ2Mi93emJxV0FyUkh2LzN1WkJ6THVoeW1ZaTNKNm9BQ1o1blMzQVR4anI0?=
+ =?utf-8?B?all6SWpMSVdVcWVubG01YlF3aUV5M0RtRDRxQ05nK0JFRlNjWHhGTEJhdUlt?=
+ =?utf-8?B?VFpIaGZxT0o0b2NLL05td053VWpnOTFGZjRZYWJJNnhrdi81Rjh2bWtwRzVj?=
+ =?utf-8?B?MDd6cElwUjRQR2dnV1oyVXdKekFOU2RHdEcvVCt3OFdpL2o1cFBsNVIwZGlB?=
+ =?utf-8?B?eFJoWnJIMjFpeFg3TVR1OFNjbW5JNUdvWWhoTFpsdmZ2Skc2YTJyQVVITkRl?=
+ =?utf-8?B?UVBRdWtvUTBGRDNzaHN1cXJaZDlHdUVtRGlNV2UyVWJGcHN0T2g2SFpGZHZ3?=
+ =?utf-8?B?N1RRWjNkMXE5Y2NoQk9meTBzUWIxMG83QUYxZXlwaUNpNEJnSGhqa2docDdn?=
+ =?utf-8?B?MmtBaUdVdUhXNkt5VTZqN2swVWNGMkxWUkFCWmgxZFVUNEd2R0wwSFBnenR1?=
+ =?utf-8?B?dFBoNFVjZ1hkQ2hycEpUbFFZTHVQY085a1hDRnViUFhqYlFuUnJGUzFkZEow?=
+ =?utf-8?B?S0FteHIwUm9NblRoRVZ3TUxpcnlyN2ZBeFg2YzdyK1hvVXNKWEpZZ1lTNSsz?=
+ =?utf-8?B?MHc4aW8wcUhYVjA5UGhIQWhWQkV3VFlFTVJSbFdEbHFBb3djZWpXY0t6azVE?=
+ =?utf-8?B?UG1aVXhJOWl2VWZwUmFyWHBsK1lqMnQyQXBNOEUrbmtac2V6T0ZUcE51U2hQ?=
+ =?utf-8?B?YVdRRVBVZUgyb2IyQnRwdlZmem1aNTRRMmo1Tnc4M3lNTFAwSUs0cHV0cnlX?=
+ =?utf-8?B?K0Ftem9FeGoxSWQyWkJUZnc4dnJHaFV5TG82QUlUelg5dFpZNTl2VURWZkhJ?=
+ =?utf-8?B?R1o5MjZDamFqUWhnVVNQTk1KNVp1TTdsZzVDTUI3NWtBSEo5WjVNQ0o2eFUy?=
+ =?utf-8?B?LzJ4NVJHLzFWQlRwaGVFTkxTNWQxY014UFhseVZLVXVwa3JDdG9RdVJPNS93?=
+ =?utf-8?B?QWxCVTNkYUtDeiszdjRXb2srdE5DNDhKdGNnVUpGK0RLN0E9PQ==?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB5227.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y1o3QzVvQVlndFkwOXEvOW9Jck9PQTk4TVVhOG9VdGNrM2pYN2N5RFdnNEZ3?=
+ =?utf-8?B?WXVNMVpYd05CSnl2VTlXaHpleXJyTTE0Y1hydWZleEVTWDBsbkxHRzhwTUdF?=
+ =?utf-8?B?VjQrZExqQkYwdzlsczc2KzVUN2ZoTk80SXRKbFpEWm5qNVNkUUFlaUczb3Vu?=
+ =?utf-8?B?cVcxSDBlN09OTWljM255cmxOYmd4bkJqNmVudGlURW9NZWFLYW92OUFsbmts?=
+ =?utf-8?B?cEV3aGxBT3V1M0NZUzRNRzRobS8xMmxuRFJ6MXVta2tNN0haM3J1VjhUNXZ4?=
+ =?utf-8?B?RWJibVJuaVJVaUh1MCtKRXZGdkdId0RXZjl2d0loODR3L1ljRjk4bVZGendw?=
+ =?utf-8?B?SElqU3B0WmlQaW55NG1FUHcvdDlhMXZCVzh6MFB4VHJ3Nm5jRHAxTEhrUjds?=
+ =?utf-8?B?QmtGUDJtSlNZSEZpTDlVSjhYYVdxUUtLT2QvWE1OY0JDekhlN2c4Y0ZhblBB?=
+ =?utf-8?B?RkhBc1lualBuSlNaM3Rqci9KQzFkTEdYVmo5aW9YTGNyeXNzcjRmSHE2bnRi?=
+ =?utf-8?B?MTk5QXUzTkJpK2V6L3lhV0JoWTByaWovRVRtQVZ3T2I3cXg4ejVpZUNwM2VW?=
+ =?utf-8?B?Mkd1RXhaWHM2eEs0VUJDZWR5RVd5dDhIdlJ4UnZkMnRnT1B2WGNpNHVwNW5t?=
+ =?utf-8?B?N2dxZjZrUGI3NlV0T0FzMEhtdFgvbVB2SitIQUxyZGs0Q2tSOXhMMzcvbFRo?=
+ =?utf-8?B?dnZON09FVkhldFY5bCtQVkVST2RoNTFWQ2x4aHhxV1JkblhlTnZxQTByYWZn?=
+ =?utf-8?B?TFJWdXdwSW04bTVNYmRUc3VkTU45UlNMMmZMTFF3eURUckpaSEl1dXRPV2tW?=
+ =?utf-8?B?K1VqRUhJakFPWXh2UmNHQTJVZmd3MjU3S3FtT04rdGU0ZC83eWVLVGM0SEtk?=
+ =?utf-8?B?R0ljc29obWxlUkNpZGxEaVp2M2dHdUdSekJoQ0JlUWR4TWtFa3pIa01oUkZ3?=
+ =?utf-8?B?d0xweXU1N3htUWwyd1E2eU5naWsrVkU1QjNPOTZJZGJxWnloWnlzZGFreGVh?=
+ =?utf-8?B?R0J0S1FRUVVVbEt6bnRwMWpJd0t2OUxQQ2p1YURRYmFNMnYxWDlSQkZVQ2lo?=
+ =?utf-8?B?bnBGVm5MZCtDY1JkZEpnQktDNERTRDB2WDRGbmdQdDIxQW9zU2ZCSERqZmpT?=
+ =?utf-8?B?K2d5NzZPc2dTVWpIVW8vaExiWHFuODFMbEEvY1ZyM0p3cWRhTWN0U25DUW9n?=
+ =?utf-8?B?R0xJNEc3cXZ6R3Z6a1lKWkIrTDFUSVBEeXJrd0xBMmRtTDZGNzdVTzBqZW1H?=
+ =?utf-8?B?UWZiS1I5VEtXaDZ0a25CNVVZT2xYTVY2S2d4WmxyS0daUENBbVpCR2wxcHU0?=
+ =?utf-8?B?YUJKTDFxK01mdzF4TmFRVnovM1JyTHRHa0YzRzB3U2xWNnhTbEk4eU1BN1Az?=
+ =?utf-8?B?Sjl5T0g5MFUySEM1S0lMTGJTK1JhckRxeHBFNXFhY3pBNm42L09mVG9WNFEz?=
+ =?utf-8?B?WHVMa21LTTd1VXV2NHFrdmxpZ3NkRjNIVm5OSVE1clNCWHI4c1hIUXUzMU5G?=
+ =?utf-8?B?dUJIdUxVMi8wT3dkZXpFNmNoaEZ3Y3huaURTTUlIdWN5aTdLRHhTK1Q3VTZD?=
+ =?utf-8?B?aXN0RFNjNkNTZ2R1TGFTTHFpQ1V5bTVDdGJZcUprRjhDeWlXM1FLOVhXZ3M5?=
+ =?utf-8?B?UWZkV1EwK0s2S0c0akI2Wk8xdEszamw2eDMreENMRk1CTDhzUEFWR2lCUzNk?=
+ =?utf-8?B?aEc5RVYwWHNrOHhwSVFzTXdiK0tvV2VPZE5XaTJHRVVSUDBhcVFPRXJLdWdY?=
+ =?utf-8?B?RVhuaEVmdmdlTU5EbC9HcFFsRWFqQ2lKZFRPbXVYZDlJRzFTWFRMMVpsWHhF?=
+ =?utf-8?B?SXRiWm9UVzdqd3lONzhmZEFyd2JQcFVkRHpLTTU5bVhpR3V0bkJGMDU4VTY5?=
+ =?utf-8?B?cnVJOWtJdmM3c1VwaDh1U0xnMDFxRTJsaVZqMUZmYmMzWWpvWTlXbVVLalp3?=
+ =?utf-8?B?elgrMExtY2dFTDNLSlpPQzZlZStudGJwbEQxWE9YaXQ4ekdncHhUQWFUNXVl?=
+ =?utf-8?B?UVhmNXlBLzhCZ3NuV1c4MTY1ZExhVFVJQ01XeFd6WGw1aHVTZzB6YTd4dVND?=
+ =?utf-8?B?SEJVcll0L1FUUzhSaG9UaVcwYVhneFJTenczOFkvdmVBSTFVdjlDdUx5b3BV?=
+ =?utf-8?Q?ffiGW26ccrJATQrnThN/moTn7?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76c7a840-db97-4514-d27f-08de01be61c8
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5227.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2025 14:17:13.2610
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lbFgKdt246rmbfeNWIyxm+jJBoFJfJFW2bMbTaDnKv8cpCFb5Rbyk2/JCwrcHEXWqpMZnZIYzIYyV8mieEZBpg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB5671
 
-
---Rs9xhYCy+l9bNsTA
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 2 Oct 2025 16:10:57 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Daniel Smith <dpsmith@apertussolutions.com>,
-	"michal.zygowski@3mdeb.com" <michal.zygowski@3mdeb.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH v2] xen: Strip xen.efi by default
-
-On Thu, Oct 02, 2025 at 02:05:56PM +0100, Andrew Cooper wrote:
-> On 12/06/2025 11:07 am, Frediano Ziglio wrote:
-> > For xen.gz file we strip all symbols and have an additional
-> > xen-syms file version with all symbols.
-> > Make xen.efi more coherent stripping all symbols too.
-> > xen.efi.elf can be used for debugging.
+On Thu, Oct 02, 2025 at 04:02:00PM +0200, Alejandro Vallejo wrote:
+> On Thu Oct 2, 2025 at 3:38 PM CEST, Roger Pau Monné wrote:
+> > On Thu, Oct 02, 2025 at 11:37:36AM +0100, Andrew Cooper wrote:
+> >> On 02/10/2025 11:22 am, Roger Pau Monne wrote:
+> >> > Reading from the E9 port if the emergency console is active should return
+> >> > 0xe9 according to the documentation from Bochs:
+> >> >
+> >> > https://bochs.sourceforge.io/doc/docbook/user/bochsrc.html
+> >> >
+> >> > See `port_e9_hack` section description.
+> >> >
+> >> > Fix Xen so it also returns the port address.  OSes can use it to detect
+> >> > whether the emergency console is available or not.
+> >> >
+> >> > Fixes: d1bd157fbc9b ("Big merge the HVM full-virtualisation abstractions.")
+> >> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> >> 
+> >> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> >> 
+> >> That's been wrong for rather a long time.  How did you find it?
 > >
-> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-
-Generally,
-Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
-om>
-
-But this may want a line in CHANGELOG.md, just for a little more
-visibility for people packaging Xen, as it may affect what should be
-included in debuginfo sub-package.
-
-> > ---
-> > Changes since v1:
-> > - avoid leaving target if some command fails
->=20
-> CC-ing the EFI maintainers, as this is an EFI change.
-
-Thanks. I did noticed the patch independently, but only a few minutes
-earlier due to missing CC...
-
-> At the recent QubesOS hackathon, Micha=C5=82 =C5=BBygowski (3mdeb) found =
-that
-> stripping Xen was the difference between the system booting and not.
->=20
-> With debugging symbols, xen.efi was ~32M and is placed above the 4G
-> boundary by the EFI loader, hitting Xen's sanity check that it's below 4G.
->=20
-> Xen does still have a requirement to live below the 4G boundary.=C2=A0 At=
- a
-> minimum, idle_pg_table needs to be addressable with a 32bit %cr3, but I
-> bet that isn't the only restriction we have.
->=20
-> So, either we find a way of telling the EFI loader (using PE+ headers
-> only) that we require to be below 4G (I have no idea if this is
-> possible), or we strip xen.efi by default.
->=20
-> I don't think making Xen.efi safe to operate above the 4G boundary is a
-> viable option at this point.
->=20
-> As Xen's defaults are broken on modern systems, this is also a bugfix
-> candidate for 4.21, so CC Oleksii.
-
-I agree with this wanting to be considered for 4.21.
-
-> ~Andrew
->=20
-> (Retaining full patch for those CC'd into the thread)
->=20
-> > ---
-> >  docs/misc/efi.pandoc  |  8 +-------
-> >  xen/Kconfig.debug     |  9 ++-------
-> >  xen/Makefile          | 19 -------------------
-> >  xen/arch/x86/Makefile |  8 +++++---
-> >  4 files changed, 8 insertions(+), 36 deletions(-)
+> > I came across the documentation above and I didn't remember Xen
+> > returning any value for reads, which sadly was indeed true.
 > >
-> > diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
-> > index 11c1ac3346..c66b18a66b 100644
-> > --- a/docs/misc/efi.pandoc
-> > +++ b/docs/misc/efi.pandoc
-> > @@ -20,13 +20,7 @@ Xen to load the configuration file even if multiboot=
- modules are found.
-> >  Once built, `make install-xen` will place the resulting binary directl=
-y into
-> >  the EFI boot partition, provided `EFI_VENDOR` is set in the environmen=
-t (and
-> >  `EFI_MOUNTPOINT` is overridden as needed, should the default of `/boot=
-/efi` not
-> > -match your system). When built with debug info, the binary can be quit=
-e large.
-> > -Setting `INSTALL_EFI_STRIP=3D1` in the environment will cause it to be=
- stripped
-> > -of debug info in the process of installing. `INSTALL_EFI_STRIP` can al=
-so be set
-> > -to any combination of options suitable to pass to `strip`, in case the=
- default
-> > -ones don't do. The xen.efi binary will also be installed in `/usr/lib6=
-4/efi/`,
-> > -unless `EFI_DIR` is set in the environment to override this default. T=
-his
-> > -binary will not be stripped in the process.
-> > +match your system).
-> > =20
-> >  The binary itself will require a configuration file (names with the `.=
-efi`
-> >  extension of the binary's name replaced by `.cfg`, and - until an exis=
-ting
-> > diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
-> > index d14093017e..cafbb1236c 100644
-> > --- a/xen/Kconfig.debug
-> > +++ b/xen/Kconfig.debug
-> > @@ -147,12 +147,7 @@ config DEBUG_INFO
-> >  	  Say Y here if you want to build Xen with debug information. This
-> >  	  information is needed e.g. for doing crash dump analysis of the
-> >  	  hypervisor via the "crash" tool.
-> > -	  Saying Y will increase the size of the xen-syms and xen.efi
-> > -	  binaries. In case the space on the EFI boot partition is rather
-> > -	  limited, you may want to install a stripped variant of xen.efi in
-> > -	  the EFI boot partition (look for "INSTALL_EFI_STRIP" in
-> > -	  docs/misc/efi.pandoc for more information - when not using
-> > -	  "make install-xen" for installing xen.efi, stripping needs to be
-> > -	  done outside the Xen build environment).
-> > +	  Saying Y will increase the size of the xen-syms and xen.efi.elf
-> > +	  binaries.
-> > =20
-> >  endmenu
-> > diff --git a/xen/Makefile b/xen/Makefile
-> > index 8fc4e042ff..664c4ea7b8 100644
-> > --- a/xen/Makefile
-> > +++ b/xen/Makefile
-> > @@ -488,22 +488,6 @@ endif
-> >  .PHONY: _build
-> >  _build: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
-> > =20
-> > -# Strip
-> > -#
-> > -# INSTALL_EFI_STRIP, if defined, will cause xen.efi to be stripped bef=
-ore it
-> > -# is installed. If INSTALL_EFI_STRIP is '1', then the default option(s=
-) below
-> > -# will be used. Otherwise, INSTALL_EFI_STRIP value will be used as the
-> > -# option(s) to the strip command.
-> > -ifdef INSTALL_EFI_STRIP
-> > -
-> > -ifeq ($(INSTALL_EFI_STRIP),1)
-> > -efi-strip-opt :=3D --strip-debug --keep-file-symbols
-> > -else
-> > -efi-strip-opt :=3D $(INSTALL_EFI_STRIP)
-> > -endif
-> > -
-> > -endif
-> > -
-> >  .PHONY: _install
-> >  _install: D=3D$(DESTDIR)
-> >  _install: T=3D$(notdir $(TARGET))
-> > @@ -530,9 +514,6 @@ _install: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
-> >  		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T)-$(XEN_VERSION=
-).efi; \
-> >  		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T).efi; \
-> >  		if [ -n '$(EFI_MOUNTPOINT)' -a -n '$(EFI_VENDOR)' ]; then \
-> > -			$(if $(efi-strip-opt), \
-> > -			     $(STRIP) $(efi-strip-opt) -p -o $(TARGET).efi.stripped $(TARGE=
-T).efi && \
-> > -			     $(INSTALL_DATA) $(TARGET).efi.stripped $(D)$(EFI_MOUNTPOINT)/e=
-fi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi ||) \
-> >  			$(INSTALL_DATA) $(TARGET).efi $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDO=
-R)/$(T)-$(XEN_FULLVERSION).efi; \
-> >  		elif [ "$(D)" =3D "$(patsubst $(shell cd $(XEN_ROOT) && pwd)/%,%,$(D=
-))" ]; then \
-> >  			echo 'EFI installation only partially done (EFI_VENDOR not set)' >&=
-2; \
-> > diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-> > index ce724a9daa..e0ebc8c73e 100644
-> > --- a/xen/arch/x86/Makefile
-> > +++ b/xen/arch/x86/Makefile
-> > @@ -232,14 +232,16 @@ endif
-> >  	$(MAKE) $(build)=3D$(@D) .$(@F).1r.o .$(@F).1s.o
-> >  	$(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T $(obj)/efi.lds $< \
-> >  	      $(dot-target).1r.o $(dot-target).1s.o $(orphan-handling-y) \
-> > -	      $(note_file_option) -o $@
-> > -	$(NM) -pa --format=3Dsysv $@ \
-> > +	      $(note_file_option) -o $@.tmp
-> > +	$(NM) -pa --format=3Dsysv $@.tmp \
-> >  		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
-> >  		> $@.map
-> >  ifeq ($(CONFIG_DEBUG_INFO),y)
-> > -	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O e=
-lf64-x86-64 $@ $@.elf
-> > +	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O e=
-lf64-x86-64 $@.tmp $@.elf
-> > +	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(STRIP) $@.tmp
-> >  endif
-> >  	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
-> > +	mv -f $@.tmp $@
-> >  ifeq ($(CONFIG_XEN_IBT),y)
-> >  	$(SHELL) $(srctree)/tools/check-endbr.sh $@
-> >  endif
->=20
+> > This was because I had the intention to suggest Alejandro to (also?) use
+> > the port 0xe9 hack for printing from XTF, which should work for both
+> > Xen and QEMU.
+> 
+> QEMU doesn't support 0xE9 though?
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+AFAICT it does:
 
---Rs9xhYCy+l9bNsTA
-Content-Type: application/pgp-signature; name=signature.asc
+https://wiki.osdev.org/QEMU#The_debug_console
 
------BEGIN PGP SIGNATURE-----
+However when running QEMU on Xen as a device model writes to 0xe9 are
+handled in the hypervisor, and never forwarded to any device model.
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmjeh/EACgkQ24/THMrX
-1yySAwgAjoG/tbJBHiaJVpisgopJp5GkDI1fGtLIgDJijM6A8w9d3q4HFBDcR+YL
-AKGXQrhhsQgsgLKQbJeHleDqAWx5Ccg2RUI76OiSoAAvLs2yteLy6jr9E+xOVw1n
-kiAHHOeYCdroLjKKstmlyv3QU2arpkUVeKaQH9PMy0JhTiP5aAMbdiU7ErNb4dPV
-PNDPpo1t+TZ5tQcLt4Pwl66tW1BMyZOycjn7x9zm39HjJp9mKmdBdyhwQx2/tRI9
-Pjv1LJQyxhqGgViEMU0A/WPy5VWM23lRTMkz9PcoJB0FUF5tLhSlH68zCHscu9p9
-ce1e6GAcUcq2hS2q3DBNpNNK/SCmcw==
-=QjVL
------END PGP SIGNATURE-----
-
---Rs9xhYCy+l9bNsTA--
+Regards, Roger.
 
