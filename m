@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5B30BB3485
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Oct 2025 10:46:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1135460.1472590 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B0D0BB348E
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Oct 2025 10:46:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1135476.1472636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4Eww-0004Eo-Nv; Thu, 02 Oct 2025 08:46:06 +0000
+	id 1v4Ex1-0005P9-5D; Thu, 02 Oct 2025 08:46:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1135460.1472590; Thu, 02 Oct 2025 08:46:06 +0000
+Received: by outflank-mailman (output) from mailman id 1135476.1472636; Thu, 02 Oct 2025 08:46:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4Eww-0004CR-JD; Thu, 02 Oct 2025 08:46:06 +0000
-Received: by outflank-mailman (input) for mailman id 1135460;
- Thu, 02 Oct 2025 08:46:04 +0000
+	id 1v4Ex0-0005J3-TJ; Thu, 02 Oct 2025 08:46:10 +0000
+Received: by outflank-mailman (input) for mailman id 1135476;
+ Thu, 02 Oct 2025 08:46:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9sj0=4L=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1v4EuE-000821-AV
- for xen-devel@lists.xenproject.org; Thu, 02 Oct 2025 08:43:18 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1v4EuJ-000821-6p
+ for xen-devel@lists.xenproject.org; Thu, 02 Oct 2025 08:43:23 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d7a6b1a1-9f6b-11f0-9d14-b5c5bf9af7f9;
- Thu, 02 Oct 2025 10:43:17 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3f0ae439bc3so350974f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 02 Oct 2025 01:43:17 -0700 (PDT)
+ id da9abe38-9f6b-11f0-9d14-b5c5bf9af7f9;
+ Thu, 02 Oct 2025 10:43:22 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3ee12a63af1so427231f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Oct 2025 01:43:22 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4255d8e9762sm2651528f8f.38.2025.10.02.01.43.16
+ 5b1f17b1804b1-46e5c3eca22sm54562995e9.4.2025.10.02.01.43.21
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 02 Oct 2025 01:43:16 -0700 (PDT)
+ Thu, 02 Oct 2025 01:43:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7a6b1a1-9f6b-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: da9abe38-9f6b-11f0-9d14-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1759394597; x=1759999397; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1759394602; x=1759999402; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QAgjr5yIgrIO789GqXuRF0t/EGl13bmDgqvJGL/31ds=;
-        b=RDcXuWFqtpO/bPeOzKAIyye2IDhzqQx8Jnpfzp4OI5oGo3Kj5tjlMYLMdsX1qsFFze
-         1zhL/J535NeayNio03a6XMOH/7/nzIGvyaBzGcxraNlsmj5QwJ20wqRIzsFvwT/+TrNl
-         9DvtfqPHaZ73VuqS4TJMJnDtvy2J4PjLMxvgrwXHpL2NjFFmjX72PRIFYMSNR7FfJTZy
-         kE2PD+G8aW9vF4pSSr92EopmOGLcdhZbXK1D0wilLhUPZmHQZmGex8Ovmn/dwLMvu1Ys
-         Hd5aDB1KA7y8Ja5MyZFHM/YSqy5kPeVWBW0rXg4chommlZm7wMAudmOKoS+ceVA+JeTi
-         VNVA==
+        bh=h9bjNs8nbmPHtqp1O3nLNnIUYP6MFEbM89LgRhzC8Oo=;
+        b=ILJSkoAsGlVVd3mE8qpsb4hz0g4nNw+IgrD4AqC3+KbcJawhFMx2C5SkAdOHwYGx9w
+         YfWZuenPxPQ38WS90gODtjh+rybtDKuhNg2cTjQ3GG/SUHgB5u1PDSmiVlNWIB7URuIk
+         ZXdIvAD1hR78Ij7g3hrUBizJ8hbLHja1ASxF8SznI4PnS8qF9rZDq2vyCBoejgQvwq2S
+         HG0PQBROJHPd0JgaJw2az5xeYx2bBy4X3MRRDSMRhXiekdWBGQaJFKSyC8JRywZDuh34
+         BmKWVz/YPqlvyslzVIuiNhqtMQw2nytWSiOzmFxLuvyOJZXnJ14f5b4lMJfYctA1RJPh
+         tk9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759394597; x=1759999397;
+        d=1e100.net; s=20230601; t=1759394602; x=1759999402;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=QAgjr5yIgrIO789GqXuRF0t/EGl13bmDgqvJGL/31ds=;
-        b=uOHAPe0yN8uQ2yK5b7nTuNPmuRyGhYJ0iAeB/4DVK25fPIyDeHw2QKSdBtEr66XTSJ
-         OynasNO8c7kzuQuyAmcFBzqtR5ZHrhuHAPSBMWBYWU4c1oc0KGEHJuVXVegIuuLlPLG3
-         Ty1o1FOgSEUq+1XtQshq1FRkA3DI3YHtrlEKwQROMjUmQNaIGqclqKHjZRdI+CUfOc8K
-         yf66/zx/c8yKuhSAFhpBh6zqjqs0TuC3k2ESMD1tQC8apHWKAB4Xbj+9b586rTUbnWLd
-         DH0S0zLkQHd9dXWf3prBLC2zONI3QdEpZwemkF06gaBj8ixSYj5YRv+oQ09f2NcLf4aD
-         LAlg==
-X-Forwarded-Encrypted: i=1; AJvYcCVOMgsl7SIlkeHiv/JIaT/iL8eq5meKj1OiJQMFQFLJ0xat/EpGntOON7uU/a352FhPX5UsLKdCcjE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzUfDqdNYJcwSg37hVcKP0hjpT6/mkatl6mw6wZzF3YltH/bvKe
-	RcIaE/L0WnzOTSON1E+nAVIp+LUFfb3TKOeHE3lu3bCRIcd1mU2Mwzowr8YEVpM8iA8=
-X-Gm-Gg: ASbGncuAUsDT0wfs5DqowqVVHNntizsd4uuDi710Yko1/MfxUKzpqRqooRMF/6YtAPO
-	Lvled78SUSdI75YgdfFi1nTnYEV8IUALgDUHu1hCRe4dYe3SE8cK+BI7LS5w2d8ohrd6MW+OIEX
-	yBBWveM5jdi3Oboek05iHnG0WtoAYVRemkuEJYsJTDPnAmimTGIy+wpPL03rNd4+hzGUk727ZOf
-	IDp+v3Xad61o4ran8PxxLUITYupiPz870HgwrZsJzjCs9cT8Nns52BduOxggvXDtVRv0+dUbNv/
-	fn/O443evSSl/8m4oETgCy2emxbN/ioc+gDr1INg90GOftKjerW9NQAvTPaLc+Oe8bvKFVt44ow
-	T9XfiGs//lvOag35rMg2Y72NgADCo4gctp6CsqUhogCF+qe3c3OYX81ISScU3DPpzie5rsewcEr
-	p68dqP/kER+0gHrerb3pB1FTcQcmGTBg==
-X-Google-Smtp-Source: AGHT+IF85XkLg0BRzQXNPalgqzyMpny7LwvkrLwLebNjcVy2x5/oJ5wUtocULaWC8zMsTAEaZEeQKw==
-X-Received: by 2002:a05:6000:609:b0:3d7:2284:b20 with SMTP id ffacd0b85a97d-425577ecfe7mr4915156f8f.3.1759394597239;
-        Thu, 02 Oct 2025 01:43:17 -0700 (PDT)
+        bh=h9bjNs8nbmPHtqp1O3nLNnIUYP6MFEbM89LgRhzC8Oo=;
+        b=aYzkHgSr8QnpKygbjJQqn6fi8QwlB2HP5Soscxy00vjuXvjtvjwdU0R6sYDi4DS7V8
+         0EanXkRV1v5mTR+y5Ph5W1O/9KdHQ15BdPNvgt0W6IWvSLjjYWbQ3d9+/h3TbCpbwBhg
+         hZ6bLMN+WBm5hzi6o4rBP4+2SCsNCQBzy0ZEkarlPu8efro1ky/RvRoKB/HkvsJbdWkv
+         AJLEHQBIJV7OEUodyviFVSIUqX7LOhS2VjtUtOhkNmEDTsJ9+fzvCejHVm77Bm0c+w+B
+         8dm3DdoC/xutqjdOAKcUt4iwwZ2IZC9Eb5xwxO5asdoZc9ukluC7tBjh8XDMfxgIpt4v
+         XGEA==
+X-Forwarded-Encrypted: i=1; AJvYcCUmUBm3ySChWojsQWFg2+TFlCAcFuZ3M7ZIAjQLBIZifTSDLcw+6FPoIIzoSwDaTWpevDGHebuy1VE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzSicjuhyPG05JhDZVLqhh0nPoMIQrtAHu3C7fNPZmdcezst88D
+	X9DWfVeLuxoP+0jOBnMrOUrSHaZsgsHQV/jmVUf8bDp1BevhYCQ6SFPjtdC8mR62bHLjMwLOq8D
+	abnt4isq0Qg==
+X-Gm-Gg: ASbGncuvhjIpeYHu8FYvPsCAmjhHUYoFmHfpWMNmC4wkitRNO/Vuk5x5mIqTuQ+tO+h
+	VA9IYsUEszVjqkIICWvuDTyKaigit2HEAToU0yNlGi2nWBtNw5PAjRHPnerPb1tc7DV/m9LEwE/
+	uXyJTGsNGei7eU8+TApGaOm3MCunVQc9s7RMqQSemxojOqt1ivQqctbXFHB8D0pXpaAlvz8ZY0S
+	SG7q6TiA1+WdaKDIgxYTepvZoKYVJipXDrIJRckbnDiTp4bqRqvKh2KoU9UFRl5yuV8LadFgYvz
+	JgQxWbYc/NblGLplOygRg6C26s34W2ALoJ5WJEsVHGCZXgxZQiJyStqbHIzCk0dXY9rzE8jp2xT
+	9G9qCFk+bhaEOTzjgHwsCvuWPUdktayP5mkYWoUR6P1ur5IRWpllUvz1tPdrRC22afrqR3DxjVB
+	2YbUTbgxpW+064xURAEN7bIUIYNEjbBw==
+X-Google-Smtp-Source: AGHT+IGyb5rK3wU2eYffbepInpQ5nRpyDFkLvUQpXIwaKbJPhsQ9zk9+/o3WwrGqdXtMXrkY9srT5g==
+X-Received: by 2002:a05:6000:40cc:b0:3fd:eb15:77a with SMTP id ffacd0b85a97d-425577ee891mr3832972f8f.6.1759394602152;
+        Thu, 02 Oct 2025 01:43:22 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: qemu-s390x@nongnu.org,
@@ -90,12 +91,11 @@ Cc: qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
 	Richard Henderson <richard.henderson@linaro.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Peter Xu <peterx@redhat.com>,
-	David Hildenbrand <david@redhat.com>
-Subject: [PATCH v4 15/17] system/physmem: Remove legacy cpu_physical_memory_rw()
-Date: Thu,  2 Oct 2025 10:42:00 +0200
-Message-ID: <20251002084203.63899-16-philmd@linaro.org>
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Stefano Garzarella <sgarzare@redhat.com>
+Subject: [PATCH v4 16/17] hw/virtio/vhost: Replace legacy cpu_physical_memory_*map() calls
+Date: Thu,  2 Oct 2025 10:42:01 +0200
+Message-ID: <20251002084203.63899-17-philmd@linaro.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251002084203.63899-1-philmd@linaro.org>
 References: <20251002084203.63899-1-philmd@linaro.org>
@@ -103,93 +103,47 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The legacy cpu_physical_memory_rw() method is no more used,
-remove it.
+Use VirtIODevice::dma_as address space to convert the legacy
+cpu_physical_memory_[un]map() calls to address_space_[un]map().
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 ---
- docs/devel/loads-stores.rst            |  4 +---
- scripts/coccinelle/exec_rw_const.cocci | 10 ----------
- include/exec/cpu-common.h              |  2 --
- system/physmem.c                       |  7 -------
- 4 files changed, 1 insertion(+), 22 deletions(-)
+ hw/virtio/vhost.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/docs/devel/loads-stores.rst b/docs/devel/loads-stores.rst
-index f9b565da57a..c906c6509ee 100644
---- a/docs/devel/loads-stores.rst
-+++ b/docs/devel/loads-stores.rst
-@@ -460,10 +460,8 @@ For new code they are better avoided:
+diff --git a/hw/virtio/vhost.c b/hw/virtio/vhost.c
+index 6557c58d12a..efa24aee609 100644
+--- a/hw/virtio/vhost.c
++++ b/hw/virtio/vhost.c
+@@ -27,6 +27,7 @@
+ #include "migration/blocker.h"
+ #include "migration/qemu-file-types.h"
+ #include "system/dma.h"
++#include "system/memory.h"
+ #include "trace.h"
  
- ``cpu_physical_memory_write``
- 
--``cpu_physical_memory_rw``
--
- Regexes for git grep:
-- - ``\<cpu_physical_memory_\(read\|write\|rw\)\>``
-+ - ``\<cpu_physical_memory_\(read\|write\)\>``
- 
- ``cpu_memory_rw_debug``
- ~~~~~~~~~~~~~~~~~~~~~~~
-diff --git a/scripts/coccinelle/exec_rw_const.cocci b/scripts/coccinelle/exec_rw_const.cocci
-index 35ab79e6d74..4c02c94e04e 100644
---- a/scripts/coccinelle/exec_rw_const.cocci
-+++ b/scripts/coccinelle/exec_rw_const.cocci
-@@ -21,13 +21,6 @@ expression E1, E2, E3, E4, E5;
- + address_space_rw(E1, E2, E3, E4, E5, true)
- |
- 
--- cpu_physical_memory_rw(E1, E2, E3, 0)
--+ cpu_physical_memory_rw(E1, E2, E3, false)
--|
--- cpu_physical_memory_rw(E1, E2, E3, 1)
--+ cpu_physical_memory_rw(E1, E2, E3, true)
--|
--
- - cpu_physical_memory_map(E1, E2, 0)
- + cpu_physical_memory_map(E1, E2, false)
- |
-@@ -81,9 +74,6 @@ type T;
- + address_space_write_rom(E1, E2, E3, E4, E5)
- |
- 
--- cpu_physical_memory_rw(E1, (T *)(E2), E3, E4)
--+ cpu_physical_memory_rw(E1, E2, E3, E4)
--|
- - cpu_physical_memory_read(E1, (T *)(E2), E3)
- + cpu_physical_memory_read(E1, E2, E3)
- |
-diff --git a/include/exec/cpu-common.h b/include/exec/cpu-common.h
-index 6e8cb530f6e..910e1c2afb9 100644
---- a/include/exec/cpu-common.h
-+++ b/include/exec/cpu-common.h
-@@ -131,8 +131,6 @@ void cpu_address_space_init(CPUState *cpu, int asidx,
-  */
- void cpu_address_space_destroy(CPUState *cpu, int asidx);
- 
--void cpu_physical_memory_rw(hwaddr addr, void *buf,
--                            hwaddr len, bool is_write);
- void cpu_physical_memory_read(hwaddr addr, void *buf, hwaddr len);
- void cpu_physical_memory_write(hwaddr addr, const void *buf, hwaddr len);
- void *cpu_physical_memory_map(hwaddr addr,
-diff --git a/system/physmem.c b/system/physmem.c
-index 23932b63d77..0ff7349fbbf 100644
---- a/system/physmem.c
-+++ b/system/physmem.c
-@@ -3181,13 +3181,6 @@ MemTxResult address_space_set(AddressSpace *as, hwaddr addr,
-     return error;
+ /* enabled until disconnected backend stabilizes */
+@@ -455,7 +456,8 @@ static void *vhost_memory_map(struct vhost_dev *dev, hwaddr addr,
+                               hwaddr *plen, bool is_write)
+ {
+     if (!vhost_dev_has_iommu(dev)) {
+-        return cpu_physical_memory_map(addr, plen, is_write);
++        return address_space_map(dev->vdev->dma_as, addr, plen, is_write,
++                                 MEMTXATTRS_UNSPECIFIED);
+     } else {
+         return (void *)(uintptr_t)addr;
+     }
+@@ -466,7 +468,8 @@ static void vhost_memory_unmap(struct vhost_dev *dev, void *buffer,
+                                hwaddr access_len)
+ {
+     if (!vhost_dev_has_iommu(dev)) {
+-        cpu_physical_memory_unmap(buffer, len, is_write, access_len);
++        address_space_unmap(dev->vdev->dma_as, buffer, len, is_write,
++                            access_len);
+     }
  }
  
--void cpu_physical_memory_rw(hwaddr addr, void *buf,
--                            hwaddr len, bool is_write)
--{
--    address_space_rw(&address_space_memory, addr, MEMTXATTRS_UNSPECIFIED,
--                     buf, len, is_write);
--}
--
- void cpu_physical_memory_read(hwaddr addr, void *buf, hwaddr len)
- {
-     address_space_read(&address_space_memory, addr,
 -- 
 2.51.0
 
