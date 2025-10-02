@@ -2,59 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DD6CBB424C
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Oct 2025 16:09:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1135916.1472840 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A202CBB425B
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Oct 2025 16:11:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1135926.1472850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4Jzf-0004XM-9l; Thu, 02 Oct 2025 14:09:15 +0000
+	id 1v4K1V-000601-Kq; Thu, 02 Oct 2025 14:11:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1135916.1472840; Thu, 02 Oct 2025 14:09:15 +0000
+Received: by outflank-mailman (output) from mailman id 1135926.1472850; Thu, 02 Oct 2025 14:11:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4Jzf-0004Uy-6k; Thu, 02 Oct 2025 14:09:15 +0000
-Received: by outflank-mailman (input) for mailman id 1135916;
- Thu, 02 Oct 2025 14:09:13 +0000
+	id 1v4K1V-0005xi-HO; Thu, 02 Oct 2025 14:11:09 +0000
+Received: by outflank-mailman (input) for mailman id 1135926;
+ Thu, 02 Oct 2025 14:11:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VSxO=4L=linux.ibm.com=farman@srs-se1.protection.inumbo.net>)
- id 1v4Jzd-0004Us-Fe
- for xen-devel@lists.xenproject.org; Thu, 02 Oct 2025 14:09:13 +0000
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e06fd94-9f99-11f0-9809-7dc792cee155;
- Thu, 02 Oct 2025 16:09:11 +0200 (CEST)
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 592DcqA9018505;
- Thu, 2 Oct 2025 14:09:09 GMT
-Received: from ppma23.wdc07v.mail.ibm.com
- (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 49e6bhvx26-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 02 Oct 2025 14:09:09 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5929m9CD007292;
- Thu, 2 Oct 2025 14:09:08 GMT
-Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
- by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 49eurk66sx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 02 Oct 2025 14:09:08 +0000
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com
- [10.39.53.232])
- by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 592E97FB23855854
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 2 Oct 2025 14:09:07 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A14AC58053;
- Thu,  2 Oct 2025 14:09:07 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1371158043;
- Thu,  2 Oct 2025 14:09:06 +0000 (GMT)
-Received: from li-479af74c-31f9-11b2-a85c-e4ddee11713b.ibm.com (unknown
- [9.61.134.141]) by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
- Thu,  2 Oct 2025 14:09:05 +0000 (GMT)
+ <SRS0=gPIc=4L=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1v4K1T-0005xX-TX
+ for xen-devel@lists.xenproject.org; Thu, 02 Oct 2025 14:11:08 +0000
+Received: from fout-a5-smtp.messagingengine.com
+ (fout-a5-smtp.messagingengine.com [103.168.172.148])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a0b7b249-9f99-11f0-9809-7dc792cee155;
+ Thu, 02 Oct 2025 16:11:03 +0200 (CEST)
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+ by mailfout.phl.internal (Postfix) with ESMTP id CCAF6EC0266;
+ Thu,  2 Oct 2025 10:11:01 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-10.internal (MEProxy); Thu, 02 Oct 2025 10:11:01 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 2 Oct 2025 10:10:59 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -66,79 +44,304 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e06fd94-9f99-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=IvLoj8
-	f/uaT6vb3usKUYhawAOTd750whQ4Az1PbiH24=; b=rk6T7knnIq2lEBmbBAJw2c
-	9ck6wOX6+dSAZ1mz/eTDesKeIKXTvI5A6X016FABrEMYVM5AzO82QHkOJIB1tVn4
-	hJDhNp2mmsWPF7Dz4PpyWjaZ37aaxztfrVgKY3BgC8NN0UExGZLzoxc3Zw+Bxhrt
-	0T5woftfwoqzR/8O44JKDVltvwY0KvgnWiPDvLp8jv5vgGL9A149BkPScFQCrXS6
-	5fpNhluH7QuUN9KaEhV6d+IouTBBQYoMhcTpqsNpmf/w+B063B5qLUeqpos8EpRJ
-	Iezb8bpcSR7MkaUmfyRVZ+eXjJQxMs3U4UNAH3ThezmBZM4EbGZ0jlP/6tu+8IHA
-	==
-Message-ID: <00c873bc92ebbc13413c8f236ed3eaa0bd7c98bb.camel@linux.ibm.com>
-Subject: Re: [PATCH v4 07/17] hw/s390x/sclp: Replace [cpu_physical_memory ->
- address_space]_r/w()
-From: Eric Farman <farman@linux.ibm.com>
-To: Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
-        qemu-devel@nongnu.org
-Cc: qemu-s390x@nongnu.org, kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
-        Thomas Huth <thuth@redhat.com>,
-        Richard
- Henderson <richard.henderson@linaro.org>,
-        Halil Pasic	
- <pasic@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Jason Herne <jjherne@linux.ibm.com>,
-        Matthew Rosato
- <mjrosato@linux.ibm.com>,
-        David Hildenbrand	 <david@redhat.com>,
-        Ilya
- Leoshkevich <iii@linux.ibm.com>
-Date: Thu, 02 Oct 2025 10:09:05 -0400
-In-Reply-To: <20251002084203.63899-8-philmd@linaro.org>
-References: <20251002084203.63899-1-philmd@linaro.org>
-	 <20251002084203.63899-8-philmd@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+X-Inumbo-ID: a0b7b249-9f99-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1759414261;
+	 x=1759500661; bh=8gggb7QV4k0VUwi79B1tHWxROneixw+XlPbDObPlRgo=; b=
+	WAWrPE9E5cXMcYG73cHFMXIFe7E/5fGU4SmiOmoJ42OrMDSSK1ou4ane/dlN7nK7
+	EArqXCqAs9Ycf7SoXNPQn6VagKAhw5lLCA+VjrrT/fZJRuHv7yuKcyQl0FRhyxzl
+	C9ehA5n6Qz8qOjRDPyOFkVlUzhBfCbk6nf+DrR0E3L4MUuXk6mlCvPWNO+YX+vWW
+	XWPX1H0OL/92PVFtinTHM9OdBbIQY41Xv7hLvIMlxQtjGO+ikkChkR5Fvv6dn4Dc
+	3oncuqDupGiTiQ7y2sEPhUOOhDyZ+1mJAOpzuzjbaOQwyrlCUzVV05Dp3x6JMUt7
+	7NEcFMXmxugQiBGU/mITWA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1759414261; x=1759500661; bh=8gggb7QV4k0VUwi79B1tHWxROneixw+XlPb
+	DObPlRgo=; b=nwEd+6Nu6iNza0RuH/ov0rZckO2tLriHp4F90CeehU7Pk+XxzGl
+	WxmljEcVQuLkUIGVprrLri4YSTrLWeTBrNHEpbYNiv78yOq27FM+EP+mp7L6o8t0
+	PtWGZ0lCrHwiwlrhWD8cBiIIcxLJ4BrGIGaT28c5gbm2B21bGAz3J2Abx7AnFA8/
+	+QU50ut4Q+e1u4dH8gSpemsdsxeJ1OEjqSEiGYlAGSkWN2LiLgskFhAz8EWdcAWA
+	kahq3id65FPeQZOneXPS3LeLzDGML/ECzn9OWvYbgQgf6riXfEZK3JG2MQ6iICAm
+	aTyf+xNeEnuv1ZHi+cRr2C15uPpTvm33k3Q==
+X-ME-Sender: <xms:9IfeaK6gJUyuhr8ElJakY9_ajpoVA0Df1DPSmGD6oEoYNyvxR7CrtA>
+    <xme:9IfeaPso-_sv-mbGulFeLxeRQSps5BOqydxc7EIGP25_3jzfc1Y2r6DvDwU_fF8Hz
+    -K0lse8TFaT1Fvnd4rW8-bbIXL-xhgrf5rOgqq9E0DrL6Os>
+X-ME-Received: <xmr:9IfeaE0udyrL8oYB-woDo65Gyofh24ADgE2tNFQT_d77nJAQItZ4juhDsvN3oukeooJIcwzFk--ncl8mjGkWWf3fISLFydLuAd4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdekiedvvdcutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
+    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteef
+    vefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvg
+    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
+    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeduvddpmh
+    houggvpehsmhhtphhouhhtpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegt
+    ihhtrhhigidrtghomhdprhgtphhtthhopehfrhgvughirghnohdriihighhlihhosegtlh
+    houhgurdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhp
+    rhhojhgvtghtrdhorhhgpdhrtghpthhtoheprghnthhhohhnhidrphgvrhgrrhgusehvrg
+    htvghsrdhtvggthhdprhgtphhtthhopehmihgthhgrlhdrohhriigvlhesrghmugdrtgho
+    mhdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtohhmpdhrtghpthhtohepjh
+    hulhhivghnseigvghnrdhorhhgpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhr
+    ihigrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorh
+    hg
+X-ME-Proxy: <xmx:9IfeaAoiAtB_oWVG-ZGRMQ7oWLZBO_yF7ElduwWQMhYFUUKqq38XUw>
+    <xmx:9IfeaMIQQM-mBqEpbhzNGzyWH3P6iQCyyGr16bZhlp_y7HeAA-4SDw>
+    <xmx:9IfeaERALKdom0Qqj_Q8LqxVh4bH91Uyv8W6vx17qcMaCgFIYhWdsw>
+    <xmx:9IfeaMOC3e9UfQwJCsEhYynqnjktVDi37OQOSfg-nqQluOA0-6HicA>
+    <xmx:9YfeaDeQhgbBSGGBgepO2SwcUJeOJ1IbIuW-BPBRECEwxgyw7j1C7nVf>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 2 Oct 2025 16:10:57 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	xen-devel@lists.xenproject.org,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Daniel Smith <dpsmith@apertussolutions.com>,
+	"michal.zygowski@3mdeb.com" <michal.zygowski@3mdeb.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v2] xen: Strip xen.efi by default
+Message-ID: <aN6H8dOlea2Um8y8@mail-itl>
+References: <20250612100705.21988-1-frediano.ziglio@cloud.com>
+ <586a66e5-4b11-485e-955a-da5fc3183737@citrix.com>
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=Se/6t/Ru c=1 sm=1 tr=0 ts=68de8785 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=KKAkSRfTAAAA:8 a=20KFwNOVAAAA:8
- a=VnNF1IyMAAAA:8 a=nq8n1J83xunWhl9p0hoA:9 a=NqO74GWdXPXpGKcKHaDJD/ajO6k=:19
- a=QEXdDO2ut3YA:10 a=cvBusfyB2V15izCimMoJ:22 a=cPQSjfK2_nFv0Q5t_7PE:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI3MDAxMCBTYWx0ZWRfX39RhvSZB/gEw
- fSRHuBwOdxuPFd7OlaeTzHF/Nb+cKAR9udZB/zGx2iD4cQnpJQcXJQBQWGuia/xZvDJ9pxgerqG
- eFJ03+dNfvdgD9SrzbhneaThs1kybjmf2X8pvLccB2gqCFj2cpNn50xzs3YcTVZ53mzFMycFi13
- w3f5l8sQ4vGjMxiA3tDur41+reA/5qbD/wQL86ZGeofjlyUfva9IUPjwNJajtg+S3A4Nesa1VrV
- iTeVKLL6/U42HyhWqMDLEfwyMbB2H0MG00wwNQ3T8oiwnQjHyax8s5d6P1hHCA5X1RksMgmbbBF
- F6EpivV6k015dMg+arrtgZwFW9b100QiL5fZh1C2vswTWV5ABQfH1uBbkK4ySENU+94O9KAHACJ
- m9XEmZTAubBVaAVQJAhB1GgJrWI+mA==
-X-Proofpoint-GUID: uZbYcs5fD30pLPjF7MCuOSROuWpRsdRB
-X-Proofpoint-ORIG-GUID: uZbYcs5fD30pLPjF7MCuOSROuWpRsdRB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-10-02_05,2025-10-02_03,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- clxscore=1011 phishscore=0 priorityscore=1501 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2509150000 definitions=main-2509270010
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Rs9xhYCy+l9bNsTA"
+Content-Disposition: inline
+In-Reply-To: <586a66e5-4b11-485e-955a-da5fc3183737@citrix.com>
 
-On Thu, 2025-10-02 at 10:41 +0200, Philippe Mathieu-Daud=C3=A9 wrote:
-> cpu_physical_memory_read() and cpu_physical_memory_write() are
-> legacy (see commit b7ecba0f6f6), replace by address_space_read()
-> and address_space_write().
+
+--Rs9xhYCy+l9bNsTA
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 2 Oct 2025 16:10:57 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	xen-devel@lists.xenproject.org,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Daniel Smith <dpsmith@apertussolutions.com>,
+	"michal.zygowski@3mdeb.com" <michal.zygowski@3mdeb.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v2] xen: Strip xen.efi by default
+
+On Thu, Oct 02, 2025 at 02:05:56PM +0100, Andrew Cooper wrote:
+> On 12/06/2025 11:07 am, Frediano Ziglio wrote:
+> > For xen.gz file we strip all symbols and have an additional
+> > xen-syms file version with all symbols.
+> > Make xen.efi more coherent stripping all symbols too.
+> > xen.efi.elf can be used for debugging.
+> >
+> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+
+Generally,
+Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
+om>
+
+But this may want a line in CHANGELOG.md, just for a little more
+visibility for people packaging Xen, as it may affect what should be
+included in debuginfo sub-package.
+
+> > ---
+> > Changes since v1:
+> > - avoid leaving target if some command fails
 >=20
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
-> Reviewed-by: Thomas Huth <thuth@redhat.com>
-> Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-> ---
->  hw/s390x/sclp.c | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
+> CC-ing the EFI maintainers, as this is an EFI change.
 
-Reviewed-by: Eric Farman <farman@linux.ibm.com>
+Thanks. I did noticed the patch independently, but only a few minutes
+earlier due to missing CC...
+
+> At the recent QubesOS hackathon, Micha=C5=82 =C5=BBygowski (3mdeb) found =
+that
+> stripping Xen was the difference between the system booting and not.
+>=20
+> With debugging symbols, xen.efi was ~32M and is placed above the 4G
+> boundary by the EFI loader, hitting Xen's sanity check that it's below 4G.
+>=20
+> Xen does still have a requirement to live below the 4G boundary.=C2=A0 At=
+ a
+> minimum, idle_pg_table needs to be addressable with a 32bit %cr3, but I
+> bet that isn't the only restriction we have.
+>=20
+> So, either we find a way of telling the EFI loader (using PE+ headers
+> only) that we require to be below 4G (I have no idea if this is
+> possible), or we strip xen.efi by default.
+>=20
+> I don't think making Xen.efi safe to operate above the 4G boundary is a
+> viable option at this point.
+>=20
+> As Xen's defaults are broken on modern systems, this is also a bugfix
+> candidate for 4.21, so CC Oleksii.
+
+I agree with this wanting to be considered for 4.21.
+
+> ~Andrew
+>=20
+> (Retaining full patch for those CC'd into the thread)
+>=20
+> > ---
+> >  docs/misc/efi.pandoc  |  8 +-------
+> >  xen/Kconfig.debug     |  9 ++-------
+> >  xen/Makefile          | 19 -------------------
+> >  xen/arch/x86/Makefile |  8 +++++---
+> >  4 files changed, 8 insertions(+), 36 deletions(-)
+> >
+> > diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
+> > index 11c1ac3346..c66b18a66b 100644
+> > --- a/docs/misc/efi.pandoc
+> > +++ b/docs/misc/efi.pandoc
+> > @@ -20,13 +20,7 @@ Xen to load the configuration file even if multiboot=
+ modules are found.
+> >  Once built, `make install-xen` will place the resulting binary directl=
+y into
+> >  the EFI boot partition, provided `EFI_VENDOR` is set in the environmen=
+t (and
+> >  `EFI_MOUNTPOINT` is overridden as needed, should the default of `/boot=
+/efi` not
+> > -match your system). When built with debug info, the binary can be quit=
+e large.
+> > -Setting `INSTALL_EFI_STRIP=3D1` in the environment will cause it to be=
+ stripped
+> > -of debug info in the process of installing. `INSTALL_EFI_STRIP` can al=
+so be set
+> > -to any combination of options suitable to pass to `strip`, in case the=
+ default
+> > -ones don't do. The xen.efi binary will also be installed in `/usr/lib6=
+4/efi/`,
+> > -unless `EFI_DIR` is set in the environment to override this default. T=
+his
+> > -binary will not be stripped in the process.
+> > +match your system).
+> > =20
+> >  The binary itself will require a configuration file (names with the `.=
+efi`
+> >  extension of the binary's name replaced by `.cfg`, and - until an exis=
+ting
+> > diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
+> > index d14093017e..cafbb1236c 100644
+> > --- a/xen/Kconfig.debug
+> > +++ b/xen/Kconfig.debug
+> > @@ -147,12 +147,7 @@ config DEBUG_INFO
+> >  	  Say Y here if you want to build Xen with debug information. This
+> >  	  information is needed e.g. for doing crash dump analysis of the
+> >  	  hypervisor via the "crash" tool.
+> > -	  Saying Y will increase the size of the xen-syms and xen.efi
+> > -	  binaries. In case the space on the EFI boot partition is rather
+> > -	  limited, you may want to install a stripped variant of xen.efi in
+> > -	  the EFI boot partition (look for "INSTALL_EFI_STRIP" in
+> > -	  docs/misc/efi.pandoc for more information - when not using
+> > -	  "make install-xen" for installing xen.efi, stripping needs to be
+> > -	  done outside the Xen build environment).
+> > +	  Saying Y will increase the size of the xen-syms and xen.efi.elf
+> > +	  binaries.
+> > =20
+> >  endmenu
+> > diff --git a/xen/Makefile b/xen/Makefile
+> > index 8fc4e042ff..664c4ea7b8 100644
+> > --- a/xen/Makefile
+> > +++ b/xen/Makefile
+> > @@ -488,22 +488,6 @@ endif
+> >  .PHONY: _build
+> >  _build: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
+> > =20
+> > -# Strip
+> > -#
+> > -# INSTALL_EFI_STRIP, if defined, will cause xen.efi to be stripped bef=
+ore it
+> > -# is installed. If INSTALL_EFI_STRIP is '1', then the default option(s=
+) below
+> > -# will be used. Otherwise, INSTALL_EFI_STRIP value will be used as the
+> > -# option(s) to the strip command.
+> > -ifdef INSTALL_EFI_STRIP
+> > -
+> > -ifeq ($(INSTALL_EFI_STRIP),1)
+> > -efi-strip-opt :=3D --strip-debug --keep-file-symbols
+> > -else
+> > -efi-strip-opt :=3D $(INSTALL_EFI_STRIP)
+> > -endif
+> > -
+> > -endif
+> > -
+> >  .PHONY: _install
+> >  _install: D=3D$(DESTDIR)
+> >  _install: T=3D$(notdir $(TARGET))
+> > @@ -530,9 +514,6 @@ _install: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
+> >  		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T)-$(XEN_VERSION=
+).efi; \
+> >  		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T).efi; \
+> >  		if [ -n '$(EFI_MOUNTPOINT)' -a -n '$(EFI_VENDOR)' ]; then \
+> > -			$(if $(efi-strip-opt), \
+> > -			     $(STRIP) $(efi-strip-opt) -p -o $(TARGET).efi.stripped $(TARGE=
+T).efi && \
+> > -			     $(INSTALL_DATA) $(TARGET).efi.stripped $(D)$(EFI_MOUNTPOINT)/e=
+fi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi ||) \
+> >  			$(INSTALL_DATA) $(TARGET).efi $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDO=
+R)/$(T)-$(XEN_FULLVERSION).efi; \
+> >  		elif [ "$(D)" =3D "$(patsubst $(shell cd $(XEN_ROOT) && pwd)/%,%,$(D=
+))" ]; then \
+> >  			echo 'EFI installation only partially done (EFI_VENDOR not set)' >&=
+2; \
+> > diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+> > index ce724a9daa..e0ebc8c73e 100644
+> > --- a/xen/arch/x86/Makefile
+> > +++ b/xen/arch/x86/Makefile
+> > @@ -232,14 +232,16 @@ endif
+> >  	$(MAKE) $(build)=3D$(@D) .$(@F).1r.o .$(@F).1s.o
+> >  	$(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T $(obj)/efi.lds $< \
+> >  	      $(dot-target).1r.o $(dot-target).1s.o $(orphan-handling-y) \
+> > -	      $(note_file_option) -o $@
+> > -	$(NM) -pa --format=3Dsysv $@ \
+> > +	      $(note_file_option) -o $@.tmp
+> > +	$(NM) -pa --format=3Dsysv $@.tmp \
+> >  		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+> >  		> $@.map
+> >  ifeq ($(CONFIG_DEBUG_INFO),y)
+> > -	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O e=
+lf64-x86-64 $@ $@.elf
+> > +	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O e=
+lf64-x86-64 $@.tmp $@.elf
+> > +	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(STRIP) $@.tmp
+> >  endif
+> >  	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
+> > +	mv -f $@.tmp $@
+> >  ifeq ($(CONFIG_XEN_IBT),y)
+> >  	$(SHELL) $(srctree)/tools/check-endbr.sh $@
+> >  endif
+>=20
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--Rs9xhYCy+l9bNsTA
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmjeh/EACgkQ24/THMrX
+1yySAwgAjoG/tbJBHiaJVpisgopJp5GkDI1fGtLIgDJijM6A8w9d3q4HFBDcR+YL
+AKGXQrhhsQgsgLKQbJeHleDqAWx5Ccg2RUI76OiSoAAvLs2yteLy6jr9E+xOVw1n
+kiAHHOeYCdroLjKKstmlyv3QU2arpkUVeKaQH9PMy0JhTiP5aAMbdiU7ErNb4dPV
+PNDPpo1t+TZ5tQcLt4Pwl66tW1BMyZOycjn7x9zm39HjJp9mKmdBdyhwQx2/tRI9
+Pjv1LJQyxhqGgViEMU0A/WPy5VWM23lRTMkz9PcoJB0FUF5tLhSlH68zCHscu9p9
+ce1e6GAcUcq2hS2q3DBNpNNK/SCmcw==
+=QjVL
+-----END PGP SIGNATURE-----
+
+--Rs9xhYCy+l9bNsTA--
 
