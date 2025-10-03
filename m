@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF56FBB636F
-	for <lists+xen-devel@lfdr.de>; Fri, 03 Oct 2025 10:09:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1136375.1472961 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED11ABB6399
+	for <lists+xen-devel@lfdr.de>; Fri, 03 Oct 2025 10:13:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1136385.1472970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4arH-0004w9-5M; Fri, 03 Oct 2025 08:09:43 +0000
+	id 1v4auR-0006RX-JI; Fri, 03 Oct 2025 08:12:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1136375.1472961; Fri, 03 Oct 2025 08:09:43 +0000
+Received: by outflank-mailman (output) from mailman id 1136385.1472970; Fri, 03 Oct 2025 08:12:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4arH-0004tv-2h; Fri, 03 Oct 2025 08:09:43 +0000
-Received: by outflank-mailman (input) for mailman id 1136375;
- Fri, 03 Oct 2025 08:09:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v4auR-0006PQ-GV; Fri, 03 Oct 2025 08:12:59 +0000
+Received: by outflank-mailman (input) for mailman id 1136385;
+ Fri, 03 Oct 2025 08:12:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=04fq=4M=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1v4arF-0004tl-W4
- for xen-devel@lists.xenproject.org; Fri, 03 Oct 2025 08:09:41 +0000
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazlp17011000f.outbound.protection.outlook.com
- [2a01:111:f403:c100::f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4ef2ff2a-a030-11f0-9809-7dc792cee155;
- Fri, 03 Oct 2025 10:09:40 +0200 (CEST)
-Received: from DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
- by PH7PR03MB7195.namprd03.prod.outlook.com (2603:10b6:510:244::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.17; Fri, 3 Oct
- 2025 08:09:35 +0000
-Received: from DM6PR03MB5227.namprd03.prod.outlook.com
- ([fe80::c9a0:563d:c344:aec2]) by DM6PR03MB5227.namprd03.prod.outlook.com
- ([fe80::c9a0:563d:c344:aec2%5]) with mapi id 15.20.9182.015; Fri, 3 Oct 2025
- 08:09:35 +0000
+ <SRS0=TaDF=4M=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1v4auP-0006PI-VI
+ for xen-devel@lists.xenproject.org; Fri, 03 Oct 2025 08:12:58 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c4a06510-a030-11f0-9d14-b5c5bf9af7f9;
+ Fri, 03 Oct 2025 10:12:56 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-afcb78ead12so369306766b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Oct 2025 01:12:56 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-67-38.play-internet.pl.
+ [109.243.67.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b486a177c9csm378896466b.89.2025.10.03.01.12.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 Oct 2025 01:12:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,192 +45,474 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ef2ff2a-a030-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xa7r6HykB3kj7w/UL4PjwC3J1zn+mAulptHiW3bINRsHMm2T8AV0Qr/EqwVyahrFdgHd541WG9e8A4SiVuCREGcKju7D8HYLU5gjO/ud8QOljso/bl/1XIivu90FxN82Lo6XiomMAVgI/SaZZFU0XwDB7SA4iWagunA6maGrFLhQfmdtbX+F4Nm3xwzmPSHxQlYFIBZYvpjVaCr9ZaNmoSO10j6xGXBSMU9tKwMa+310U6DtAPpWpT5z5s9i/XwCeg+PbdvaydVNtWs62eG5/uQi5uShO/O297nym8ZeDVvbCHUFQC/LSO+VyTrURaF40xnivz98pjAeshyQqfmJ+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ARIHJkXi1jXuLk4vHUS9FTN3qRxDN3QDgQ5nbC2j2gw=;
- b=m/uP7/sfrynWY1IUE36jojXAUFvmvGHHz5lmnAqB+nl6z7k43YyuIKndISUQlFl+s8tqRZ6ZajkG0mHIwQrDpDnm6jj4Lmzs7Sxt9kklQP95EOoALy0/IlJle3JxlX7vkqQgKvbpvBhubCXjLBmQgk0vgMMuRJvnX9zwDQJS/T9Q2/dDRQhxRHV+KnazqZeCRPdjQMhxrcb2IZ1jqmKMHgFu13tEGbZTRyHITF3XfpZZWyTJQAdjgYGy/n+sT6EX1vQu3xMU5jAaZqt0zD1fAlIpIomb7Gl++E71ThIQXMqfdFelzGQoBRbqvj5/PPjYDnYmsu42QCJkXLWMsQ4EJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ARIHJkXi1jXuLk4vHUS9FTN3qRxDN3QDgQ5nbC2j2gw=;
- b=i8yt1wsJ3CnMO1zm9yzWOlRZeaiXbW2iYebqdLXAoR5tmgoB4C81vwZ6ofy5Kew9YhKyYhP8T/ShehDy7vAmE6fmnrNdAJ+jsXpQN/eGIx7ylPjpTwpaNVHdRT8dWErnfXKvXsrf0aIjn00WCYEhK7KYWQrbJJv6CVf8V8T4agU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Fri, 3 Oct 2025 10:09:31 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] MAINTAINERS: Add myself as an AMD SVM & IOMMU reviewer
-Message-ID: <aN-EuzQ2AZ1oMN0K@Mac.lan>
-References: <20251002234311.10926-1-jason.andryuk@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20251002234311.10926-1-jason.andryuk@amd.com>
-X-ClientProxiedBy: PR3P189CA0068.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:102:b4::13) To DM6PR03MB5227.namprd03.prod.outlook.com
- (2603:10b6:5:247::22)
+X-Inumbo-ID: c4a06510-a030-11f0-9d14-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1759479176; x=1760083976; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=skKuIPY2BwIoWMDC1fVExexzwB2MkrdKJIr5P+Yftng=;
+        b=Nsql7wsmtZwTHcUgv2AdCRWjY/VoTqFrOR8afnebfNLHWNa7Mgx6nkjuLvL4swCVPU
+         QOOqPkugKLshjka0MZcCAWt6RtogWClYh0PHGVweEfnehHMVf6SQr+2cCsSn/8Y0T6Np
+         PJJvdlPqoJ3x05GrImz+7ropUI/2MpsM16IHP7vk5pEsqqNQIQvf7y62VoZ+YE9YTu9s
+         PaomSDqHHQ7yaLFDYqQFnU8oyfCAB/kDkXrjAi+0jYsjJabQmzI3E2sPtjrtx3vQnafr
+         01ZqUCZLtPSw+2BX6jaD6T8gRM717vDYs3EVTa4ukrUquZgIBrOJ5GrBXHWR66rBzaLA
+         Hy3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759479176; x=1760083976;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=skKuIPY2BwIoWMDC1fVExexzwB2MkrdKJIr5P+Yftng=;
+        b=xG06mDwYDwCyHXAELfMefIY7K+bedE1gVl3FUSmizkst99+G/y+dXSxFiHUUeM0EHk
+         9IxtPY3iq/nJJ1jOBpNi+J1K7F5FgLRuOmOiAqS1CJ31EdK0guQCmSUtVE4DXdpcr0+k
+         gJkj+zMSqSjoGMYwCZbovb/NvU8p/jqILsqMQnkFhGFb4CUmXXoDUWW0K8Jyjw8iDiDZ
+         iRobuW5sn8cRqJXdgOSCR6uXTCWhElAzCuckTgA5bd605lLS8lNyY55zSPrYy/3gn4tg
+         jTHFFuZdTNrVUn9aM7CQbsX/nrzxwpr3TiuCBUmbXNnw7qitJmhPD3Qghif9DKEdBPiR
+         0JCA==
+X-Forwarded-Encrypted: i=1; AJvYcCUzVfac2MyyyYD0io5p8zLRGJ3GjWN1aWesOmhrWK1ixWEJD9kZ2kgz9NjnkOc+YzgURN/UCOkMqgg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzEZTQelAH52LkmNTWJUHHFYXii6a2p9btZqz5m/tQU8xX2yddZ
+	7thWjIb38HdLNPM0gGXdAF3HU1RrkHYofA3NrvVfiNc548saMYndRZ6x
+X-Gm-Gg: ASbGnctsx+Ktdbay25/j6BtURAvrAVvhPFGfDCCPsnG4oJb6hIse1jmTSluqa1LDtMc
+	08Opd6yHyZs6cNnCGrqLP4xNHRJ9gxiclm4nEmnaILkv3jiMHiKsZaeS0Jn3T8yTw1ez9TtqNgY
+	GT+4W30Tw/FjgRcAXUZG5KSWyAnVmQO129xrt56J4rDpKo5ZFpurlkjIfTT/TvdQwW6rIeLwflx
+	7XJO+lkN8+xSWH48ZaqOjq8LpoOe6yS/D0ztIRSxWXWDS3Zkvk492vzoQTF2ojT9C0Q4P70oyV5
+	RKb3AYR8vcJiPn2foR82b3dI7SiXzqyxBCt/T3JexaZlH5jYkn+sLDv/UvOODBdrIwKEfzvTFy+
+	g6KQ+wCWrcNNpDptz93vVnMB9YR8k+lZGiyp+NFxtgPlSMbymniO5O3tTsZzrXHEb7FflfbYTyf
+	TzsipS4rEk/AQSJpQyBEN+wdRiGexZVPZLtJ0=
+X-Google-Smtp-Source: AGHT+IFf4KnZpzbEypEicCmdCmzrDw8Qx7It+XVb0t6afLDTeCS8/xgup/rrlKx6PjPpku8NfTxmYg==
+X-Received: by 2002:a17:907:9724:b0:b40:9156:1bf0 with SMTP id a640c23a62f3a-b49befd3051mr262782166b.0.1759479175624;
+        Fri, 03 Oct 2025 01:12:55 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------brhXKpSGIs4hevo20c4xq2xZ"
+Message-ID: <64ec79c3-a16d-481c-995c-96c187e62475@gmail.com>
+Date: Fri, 3 Oct 2025 10:12:54 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5227:EE_|PH7PR03MB7195:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5faa59d-6033-4b14-cffe-08de025430a1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dkN1V3REYkJ0YjkxMU94Tk5SVnhJemlwV2xhaHlvbU53VnJZU1RRbjV5aDFL?=
- =?utf-8?B?ZDg5cWVjSElKVE5oNDIwaXNCWkQ4T09QbmpyQStNdjJyUVc3aFMxWC8zUTl4?=
- =?utf-8?B?ZUFwNHRKbG1lM2VCdmw2STZBZWFFZzZIQWtZcms4enR5T0lYV0RGaVlNMis2?=
- =?utf-8?B?ZkRpS3FhS3VFT29SbUZsNVJURDluMTRieXF2eWFkYWdDWUhTMU53QXdnbWpj?=
- =?utf-8?B?UnE4aXZKODZqWk5EcnJDZll5V3cyQVl6T3prQWI5R2RpS1BLMEVpQU16QmVT?=
- =?utf-8?B?V09NcXgrU3dUaERnL3I1ejEvUG54NE9WMTBpeVVuY0R1aXJvQ0xRemlJdmtW?=
- =?utf-8?B?YlY3UUpselJFbWQvczRIT0pzSDVLNmt6M3I2VGNTcnJ0MndwSklvcnI5OVly?=
- =?utf-8?B?R25MclNKTURZTmpnMWg4ZTNkQW5Rd2F5K1RXeTRkVEZZb254NmpoTDhaaWly?=
- =?utf-8?B?UkYrZEZOM1JBa2lYaEFORnBvVU9zWDlSK1BxTVdFWHM0VXpqUXZjREttaWl6?=
- =?utf-8?B?RHhodXk2N3htU0o5cU0vdVhGRjFMZTRrdEcrUUg4ZXlGR1IvK2tpQXlISEZk?=
- =?utf-8?B?OTNuWTJNNGhkVmR0anlxLzZEdTh3SXlWVnExNTdQa2RYM1ZlVXdFRHVrZDhM?=
- =?utf-8?B?azFOVE1ZcjcrRHZFYXlzcFhyUlBvWStraDJGbEhtbEh4SmU3RkZlQnZPNWlz?=
- =?utf-8?B?d01wV2hNRFZ4aFl3dzAvNWRPZWord2NpSWF0Nm9PMzkvSFhkVTBzSzV0Zytr?=
- =?utf-8?B?eHBZVTNnTUc0R3JmcXc5Ukc2ZWkzbXNjRVBjZXNhbE42OE8ybnNPR0FsNS9q?=
- =?utf-8?B?cGdScGxhVFR0REhsN2tXenhvK3dBV3dUMC81R1ZOZ2FqdTBGeXN0TGFwQWdn?=
- =?utf-8?B?RUFWZFNrVWIxVlFVb1hQU2lJM1daN3pva2cxSDRhMUxOOVErUnROcitXdzV6?=
- =?utf-8?B?ZHdKRG1PaVl3TTRWaU5ka0FnNDRjanBsZlliaktoZUh4T0lCQXd4Z0RKZ0Nh?=
- =?utf-8?B?Q3p1ZFVZQ29scTkrR0RoUW9zUG5nd1VmMGdKWEp6R3FLOEdDcm1wVWJtYyty?=
- =?utf-8?B?UXowQ2t5dEJSYytPeWJyNkt4YWpZd3VpWXEyVEE3Ly9TS1VuT2hZYVFTdGNv?=
- =?utf-8?B?cDVDUkZxdy9KTXRXazYwYkl4K1hONlRSMDV6bUE1TTBNUnJFTXBKRmhFb3hw?=
- =?utf-8?B?SzJnQ0ZLNWRmTk9QN1JpbHRCOWdSMW5obHZIZmN0SGZoazBRcGQ1NlpRYXB6?=
- =?utf-8?B?NUY2V25YbTkyV0pNclZhV3I4azhVMno3R0JoWitNYVZSOTdyUkwwWXhPQnE4?=
- =?utf-8?B?blYzaURBbW42RkJRb09JVW1hdUNlN202L2E0MG1kR0xETlJRL0gvbFpTOXRr?=
- =?utf-8?B?YXlFMmFnYWZxaXBQUko4YXpJZGRUd1Qvb1piWERwMVhGZTBvMTdpYU1mS0dv?=
- =?utf-8?B?U29uYk1YVXpkbWN1MVE2OFFOZ2tMSFZjVURTWXVncGlXZnVmeUJTQXhTTG9n?=
- =?utf-8?B?M3JwV3gyekNIdGpQWFVFTHZ0WWtFM1hTVDJmVnM2U3daamlCVWJQSTVmUkRC?=
- =?utf-8?B?emEzZ1JLM1RCMTlWN3pvUTYyTlhKUkhNZ3JpdXFJNEVzUWhEWkZhYVFHQWJj?=
- =?utf-8?B?L0MzK1dZQjgvdzhPL3k5WG96WGVibVdJZ3FMZmk2ei9pNlFFM0o1dHJtOXo4?=
- =?utf-8?B?UTVpM2RKYmNHWjBDcjh3QzgvRjhiYWlDNVNSUTdaNDR1V1RxYThFays5aXU0?=
- =?utf-8?B?SXFvYzVJSzlIVFhPNmlqL1lYN3YyNGpxRFMwU21GcWEzSVVFdSsxVGxKWUpZ?=
- =?utf-8?B?YTZseW1tRlVTM2l6UkxxK2t0djd0bWdRaWpNVnM1SUx1dERPRnBybUwwNGZr?=
- =?utf-8?B?M2d1dk5rWlZzblFmTzV0ejNaSHo5dlRoQTI2b2tEeE81NTM3QldqS2daNkR2?=
- =?utf-8?Q?adz/PLIpeMUtH+aOBHiQc9cXJvztrk4s?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB5227.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?enhXVHlCZm82WlFoT1JveklHZDB5YTRoK010NjdYRWkwWGtZaVZDL0RDQ0ow?=
- =?utf-8?B?aWJ3TThSb0NPbkpmdFZodlBjdC84SDZzbS9JZTEzK0E3Zis5SEt0YlFHb3dF?=
- =?utf-8?B?WjZlWFNuTmMwTFZHaERRWTErMnRFRHFFTnY1MjEweHNEVXFIeXNRK252bS9T?=
- =?utf-8?B?ME1aVTRQN1htMnVvNkRZMk41aHN1QUZ1eUZ1Nkd3c2svek9PUWhYRjZ0RXdO?=
- =?utf-8?B?RkNzeFpvck9WeG81Mi95QlluRzJHcFlrWjI3dDNmMXFvai81SzlqUVYyRDVq?=
- =?utf-8?B?M3lWSTgzRk8wakNuRjVIVTQyRWtzcGJiT2dyeE1qV09BNm10c2xESk1HaUh1?=
- =?utf-8?B?akJtbWl6YjhOQkxGc290dlBJTERMbW8yYkp4azd0R3MxZFdkS3J5NEh1R0x2?=
- =?utf-8?B?SXdCMUphM3g4N090WmdHZ3hGOUhscE1rZ1FPK1NEVTYxcGgvb3NndFp2U2Mr?=
- =?utf-8?B?RitlQXFVQUVOUE9YUmEwTUxXak5DMGs3bWRZZjRId3NsQjY5U3p0TFNPbXlQ?=
- =?utf-8?B?WG5OVkRUQWhKanhOTWYzL2s5ZWJSOXBLNXlKRXh2ZVV6c0ExWmhVN2luc2xQ?=
- =?utf-8?B?ZFFLTksyYVl5TWRzYm1aNzZKcmlZOGdEakR6dnk2Y0twRnVmMWJoTTY5cnJi?=
- =?utf-8?B?SklueDBZRk51UUJDc3NId1RuZGM3VXV3SHE2aXpVZVRBb0UwdE1KdmhyWEVu?=
- =?utf-8?B?TWpaUnRXVVFWcDhDTjZzOUZYbXdzRHpET0NzK2QzVnBXVTNHRDMyUmZ4OXNk?=
- =?utf-8?B?Y1BEOGp5dVVYbC84c0VVcEhLTnJUMmlCbkFjS3ZpV05oRFI3OUpNS29YanZ5?=
- =?utf-8?B?Z1Yxc20yYlBQcEd6NWc5NzdTYjJMZjFqTUlLSUloOHFYTGlIVlNBRDlnVTJW?=
- =?utf-8?B?bU80TlBybUd0K1kyUWl5TEhkbzZxbnJlcUpMdGV2TFh1Y21PazZVT2tCYWVV?=
- =?utf-8?B?RXB0aEwvVUNaU3VyQkRVcHZ0MUkwVVU0TEVRU2pPOEZZeTYyU1psZVlLdDZK?=
- =?utf-8?B?WVRGMFRVSEgwOVRtcnNwRkd0VUs0S0JNWXdRM1p0Nnk4dHhzNXorNHRJNnFT?=
- =?utf-8?B?T3B3cnV3QjV4QjhZS3FEM29YajhEUVR4aW5LUXRQL2NvSllURXRYZit3MEsx?=
- =?utf-8?B?azh3bGtzKzBSa2FDR2pRZ1B2RDI4L1BLbmoxbUJaUTdJWmVzajBabDcrdElz?=
- =?utf-8?B?a1FEaEVaZmd4ZWF5OTlESGtvL1NwQTlLK3pKazM4WHc5QTQ1NUhTRk1aTGY1?=
- =?utf-8?B?U0g0cnFHN3ByWmtwN29hd2wxZlNBWUR0dGlrcEF4NG40aEJmNWMxaUpRQmZm?=
- =?utf-8?B?WXkyRnJKa3ZvcjFEUHhGQ0lJUHBmM0RvVWdTOXUrU1lsUGFXQ2g2OWxQS3c2?=
- =?utf-8?B?VGt4OFdLbnk3S2FhTEhBRFlNd3g2T1plSDVOc0dQU1hmRnRRWEJMVkZpK2U0?=
- =?utf-8?B?dXVZQmpBVUxKZnIrdkdGd1pVVm5GaHNPQ3dUdG10ZlRzVUFVZVZ5REdtYytL?=
- =?utf-8?B?T2VVaWluSHA4SnUwWWVLQ3RPbStpSkh4eWExdEZqUUh5VmFiNVltb3d6cGxm?=
- =?utf-8?B?MkNOcjMrZHJjSGZqekppUDJGbFdDR0dNYWxTOGlKQWNYM2dMczZnWmJmWU9a?=
- =?utf-8?B?WWpqMHRxSWVrWlZsVFprMy9yNjZpWTlLOXArUWhidklMWWpoUlNWNHBDU2pm?=
- =?utf-8?B?MWp3Wm1UZHlYZ29ZblFnSm0vSmwzNVZiYVJlOVMwSkZDYXpzUEtNaDFydmdK?=
- =?utf-8?B?Zi9WcVpmdm1zaWQ0MGNDZkpLajhSQVVwWkE5cXFuOEhXNTdrYzlvRDRya2pw?=
- =?utf-8?B?RFpLYVFBUTlVdUFqcjVDeEhQV1RHR3pPZ2I2d2Q3aENDT0tnYWsvbW9YbGtC?=
- =?utf-8?B?dDhQYitwNEt1cC92V1VTSlY5ZU1kMnhLbDA2Yis5WkI5TlVmcm9hSFFXZmtM?=
- =?utf-8?B?bzBFWU4xNlc4RmRSTHVOWlF6Wm5uWlNDaVB5c3FqazE0RWFHKzh3Z0g5bk1U?=
- =?utf-8?B?Z0tCV3Mwdy9HMWZEcldVVGpOZ0JzNnRRemxWNnp3dk5nbzFZNDQ2TVV5UnJ6?=
- =?utf-8?B?SXhPck5HMUJ1WUFYYjFlSEtpcFhpejNGQVhnNVM1dTB3SzZ6SFFjUzNGQ1RG?=
- =?utf-8?Q?zULvmoNF87bVup9WpI4oNDbok?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5faa59d-6033-4b14-cffe-08de025430a1
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5227.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2025 08:09:35.4475
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bBcfUr4qWLBhUf70mXoDs1SaQKjI/MuS1UZ6JmXkid/xUumgyuWF+YBmnEmr8HEvoePRQ+7Hlwmz0EU3wHvFNQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7195
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] Support LLVM raw profile versions 8, 9, and 10
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Saman Dehghan <samaan.dehghan@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <12f2f3bd9010422004c38c23f6758c87df8682a5.1757951300.git.samaan.dehghan@gmail.com>
+ <3dc1fe6ee55d973a25a0441d0f6b41e00a58227b.1759355762.git.samaan.dehghan@gmail.com>
+ <2c1c305b-a7c2-4da5-be96-3895e284032b@citrix.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <2c1c305b-a7c2-4da5-be96-3895e284032b@citrix.com>
 
-On Thu, Oct 02, 2025 at 07:42:38PM -0400, Jason Andryuk wrote:
-> Split out AMD SVM and AMD IOMMU, and add myself as a reviewer.  Jan,
-> Andrew and Roger are set as maintainers as they were for the X86 entry.
-> 
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+This is a multi-part message in MIME format.
+--------------brhXKpSGIs4hevo20c4xq2xZ
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thanks for adding yourself!
 
-I have on question below about the mechanics of MAINTAINERS parsing
-(but no objection at all with you becoming a reviewer).
+On 10/2/25 11:53 AM, Andrew Cooper wrote:
+> On 01/10/2025 11:09 pm, Saman Dehghan wrote:
+>> This change enables compatibility for measuring code coverage
+>> with Clang versions 14 through 20 by supporting their
+>> respective raw profile formats.
+>>
+>> 1- Add support for LLVM raw profile versions 8, 9, and 10
+>> 2- Initialized llvm_profile_header for all versions based on llvm source code in
+>>     `compiler-rt/include/profile/InstrProfData.inc` for each version.
+>> 3- We tested this patch for all clang versions from 14 through 20 on both ARM and X86 platform
+>>
+>> Signed-off-by: Saman Dehghan<samaan.dehghan@gmail.com>
+> CC-ing Oleksii.  This should be considered for 4.21 at this point.
+>
+> Coverage is an optional feature, off-by-default, but Xen does support
+> GCC and Clang (older Clang at least), and right now newer Clang simply
+> malfunctions.
 
-> ---
->  MAINTAINERS | 20 +++++++++++++++++++-
->  1 file changed, 19 insertions(+), 1 deletion(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 793561f63f..0139edd88b 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -220,6 +220,23 @@ F:	xen/drivers/acpi/
->  F:	xen/include/acpi/
->  F:	tools/libacpi/
->  
-> +AMD SVM
-> +M:	Jan Beulich <jbeulich@suse.com>
-> +M:	Andrew Cooper <andrew.cooper3@citrix.com>
-> +M:	Roger Pau Monné <roger.pau@citrix.com>
-> +R:	Jason Andryuk <jason.andryuk@amd.com>
-> +S:	Supported
-> +F:	xen/arch/x86/hvm/svm/
-> +F:	xen/arch/x86/cpu/vpmu_amd.c
-> +
-> +AMD IOMMU
-> +M:	Jan Beulich <jbeulich@suse.com>
-> +M:	Andrew Cooper <andrew.cooper3@citrix.com>
-> +M:	Roger Pau Monné <roger.pau@citrix.com>
-> +R:	Jason Andryuk <jason.andryuk@amd.com>
-> +S:	Supported
-> +F:	xen/drivers/passthrough/amd/
-> +
->  ARGO
->  M:	Christopher Clark <christopher.w.clark@gmail.com>
->  R:	Daniel P. Smith <dpsmith@apertussolutions.com>
-> @@ -601,7 +618,8 @@ M:	Roger Pau Monné <roger.pau@citrix.com>
->  S:	Supported
->  L:	xen-devel@lists.xenproject.org
->  F:	xen/arch/x86/
-> -F:	xen/drivers/passthrough/amd/
-> +X:	xen/arch/x86/hvm/svm/
-> +X:	xen/arch/x86/cpu/vpmu_amd.c
+In this case, I agree that it should be considered for 4.21:
+  Release-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-Would it be possible to not exclude the SVM related code here, and
-avoid having to duplicate the x86 maintainers on the AMD entries?
+Thanks.
 
-Or the parsing of the file doesn't deal with multiple entries possibly
-covering the same files?
+~ Oleksii
 
-Thanks, Roger.
+>
+> I guess I should update
+> https://xenbits.xen.org/docs/latest/hypervisor-guide/code-coverage.html
+> given the new toolchain baselines.
+>
+>> ---
+>>   xen/common/coverage/llvm.c | 78 +++++++++++++++++++++++++++-----------
+>>   xen/include/xen/types.h    |  1 +
+>>   2 files changed, 57 insertions(+), 22 deletions(-)
+>>
+>> diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
+>> index 517b2aa8c2..f92f10654c 100644
+>> --- a/xen/common/coverage/llvm.c
+>> +++ b/xen/common/coverage/llvm.c
+>> @@ -44,27 +44,55 @@
+>>       ((uint64_t)'f' << 16) | ((uint64_t)'R' << 8)  | ((uint64_t)129)
+>>   #endif
+>>   
+>> -#define LLVM_PROFILE_VERSION    4
+>> +#if __clang_major__ >= 19
+>> +#define LLVM_PROFILE_VERSION    10
+>> +#define LLVM_PROFILE_NUM_KINDS  3
+>> +#elif __clang_major__ == 18
+>> +#define LLVM_PROFILE_VERSION    9
+>>   #define LLVM_PROFILE_NUM_KINDS  2
+>> +#elif __clang_major__ >= 14
+>> +#define LLVM_PROFILE_VERSION    8
+>> +#define LLVM_PROFILE_NUM_KINDS  2
+>> +#else
+>> +#error "Unsupported Clang version"
+>> +#endif
+> Does this exclude Clang 13?
+>
+> Our baseline is 11 or later.  How hard would it be to support those too?
+>
+>>   
+>>   struct llvm_profile_data {
+>>       uint64_t name_ref;
+>>       uint64_t function_hash;
+>> -    void *counter;
+>> -    void *function;
+>> -    void *values;
+>> +    intptr_t *relative_counter;
+>> +#if __clang_major__ >= 18
+>> +    intptr_t *relative_bitmap;
+>> +#endif
+>> +    intptr_t *function;
+>> +    intptr_t *values;
+>>       uint32_t nr_counters;
+>>       uint16_t nr_value_sites[LLVM_PROFILE_NUM_KINDS];
+>> +#if __clang_major__ >= 18
+>> +    uint32_t numbitmap_bytes;
+>> +#endif
+>>   };
+>>   
+>>   struct llvm_profile_header {
+>>       uint64_t magic;
+>>       uint64_t version;
+>> -    uint64_t data_size;
+>> -    uint64_t counters_size;
+>> +    uint64_t binary_ids_size;
+>> +    uint64_t num_data;
+>> +    uint64_t padding_bytes_before_counters;
+>> +    uint64_t num_counters;
+>> +    uint64_t padding_bytes_after_counters;
+>> +    uint64_t num_bitmap_bytes;
+>> +    uint64_t padding_bytes_after_bitmap_bytes;
+>>       uint64_t names_size;
+>> +#if __clang_major__ >= 18
+>>       uint64_t counters_delta;
+>> +    uint64_t bitmap_delta;
+>> +#endif
+>>       uint64_t names_delta;
+>> +#if __clang_major__ >= 19
+>> +    uint64_t num_vtables;
+>> +    uint64_t vnames_size;
+>> +#endif
+>>       uint64_t value_kind_last;
+>>   };
+>>   
+>> @@ -76,19 +104,20 @@ struct llvm_profile_header {
+>>    */
+>>   int __llvm_profile_runtime;
+>>   
+>> -extern const struct llvm_profile_data __start___llvm_prf_data[];
+>> -extern const struct llvm_profile_data __stop___llvm_prf_data[];
+>> -extern const char __start___llvm_prf_names[];
+>> -extern const char __stop___llvm_prf_names[];
+>> -extern uint64_t __start___llvm_prf_cnts[];
+>> -extern uint64_t __stop___llvm_prf_cnts[];
+>> +extern char __start___llvm_prf_data[];
+>> +extern char __stop___llvm_prf_data[];
+>> +extern char __start___llvm_prf_names[];
+>> +extern char __stop___llvm_prf_names[];
+>> +extern char __start___llvm_prf_cnts[];
+>> +extern char __stop___llvm_prf_cnts[];
+>> +
+>> +#define START_DATA      ((const char *)__start___llvm_prf_data)
+>> +#define END_DATA        ((const char *)__stop___llvm_prf_data)
+>> +#define START_NAMES     ((const char *)__start___llvm_prf_names)
+>> +#define END_NAMES       ((const char *)__stop___llvm_prf_names)
+>> +#define START_COUNTERS  ((char *)__start___llvm_prf_cnts)
+>> +#define END_COUNTERS    ((char *)__stop___llvm_prf_cnts)
+>>   
+>> -#define START_DATA      ((const void *)__start___llvm_prf_data)
+>> -#define END_DATA        ((const void *)__stop___llvm_prf_data)
+>> -#define START_NAMES     ((const void *)__start___llvm_prf_names)
+>> -#define END_NAMES       ((const void *)__stop___llvm_prf_names)
+>> -#define START_COUNTERS  ((void *)__start___llvm_prf_cnts)
+>> -#define END_COUNTERS    ((void *)__stop___llvm_prf_cnts)
+> Why change these from char to void ?
+>
+>>   
+>>   static void cf_check reset_counters(void)
+>>   {
+>> @@ -107,10 +136,15 @@ static int cf_check dump(
+>>       struct llvm_profile_header header = {
+>>           .magic = LLVM_PROFILE_MAGIC,
+>>           .version = LLVM_PROFILE_VERSION,
+>> -        .data_size = (END_DATA - START_DATA) / sizeof(struct llvm_profile_data),
+>> -        .counters_size = (END_COUNTERS - START_COUNTERS) / sizeof(uint64_t),
+>> -        .names_size = END_NAMES - START_NAMES,
+>> -        .counters_delta = (uintptr_t)START_COUNTERS,
+>> +        .binary_ids_size = 0,
+>> +        .num_data = (((intptr_t)END_DATA + sizeof(struct llvm_profile_data) - 1)
+>> +                - (intptr_t)START_DATA) / sizeof(struct llvm_profile_data),
+> I can see why we might want to round-down END, but this doesn't need
+> casting to intptr_t irrespective of char vs void.
+>
+>> +        .padding_bytes_before_counters = 0,
+>> +        .num_counters = (((intptr_t)END_COUNTERS + sizeof(uint64_t) - 1)
+>> +                - (intptr_t)START_COUNTERS) / sizeof(uint64_t),
+>> +        .padding_bytes_after_counters = 0,
+>> +        .names_size = (END_NAMES - START_NAMES) * sizeof(char),
+> sizeof(char) is by definition 1.
+>
+>> +        .counters_delta = (uintptr_t)START_COUNTERS - (uintptr_t)START_DATA,
+>>           .names_delta = (uintptr_t)START_NAMES,
+>>           .value_kind_last = LLVM_PROFILE_NUM_KINDS - 1,
+>>       };
+>> diff --git a/xen/include/xen/types.h b/xen/include/xen/types.h
+>> index 73ddccbbd5..799bfe0b95 100644
+>> --- a/xen/include/xen/types.h
+>> +++ b/xen/include/xen/types.h
+>> @@ -18,6 +18,7 @@ typedef signed long ssize_t;
+>>   
+>>   typedef __PTRDIFF_TYPE__ ptrdiff_t;
+>>   typedef __UINTPTR_TYPE__ uintptr_t;
+>> +typedef __INTPTR_TYPE__ intptr_t;
+>>   
+>>   /*
+>>    * Users of this macro are expected to pass a positive value.
+--------------brhXKpSGIs4hevo20c4xq2xZ
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 10/2/25 11:53 AM, Andrew Cooper
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:2c1c305b-a7c2-4da5-be96-3895e284032b@citrix.com">
+      <pre wrap="" class="moz-quote-pre">On 01/10/2025 11:09 pm, Saman Dehghan wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">This change enables compatibility for measuring code coverage
+with Clang versions 14 through 20 by supporting their
+respective raw profile formats.
+
+1- Add support for LLVM raw profile versions 8, 9, and 10
+2- Initialized llvm_profile_header for all versions based on llvm source code in 
+   `compiler-rt/include/profile/InstrProfData.inc` for each version.
+3- We tested this patch for all clang versions from 14 through 20 on both ARM and X86 platform
+
+Signed-off-by: Saman Dehghan <a class="moz-txt-link-rfc2396E" href="mailto:samaan.dehghan@gmail.com">&lt;samaan.dehghan@gmail.com&gt;</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+CC-ing Oleksii.  This should be considered for 4.21 at this point.
+
+Coverage is an optional feature, off-by-default, but Xen does support
+GCC and Clang (older Clang at least), and right now newer Clang simply
+malfunctions.</pre>
+    </blockquote>
+    <pre>In this case, I agree that it should be considered for 4.21:
+ Release-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+Thanks.
+
+~ Oleksii
+</pre>
+    <blockquote type="cite"
+      cite="mid:2c1c305b-a7c2-4da5-be96-3895e284032b@citrix.com">
+      <pre wrap="" class="moz-quote-pre">
+
+I guess I should update
+<a class="moz-txt-link-freetext" href="https://xenbits.xen.org/docs/latest/hypervisor-guide/code-coverage.html">https://xenbits.xen.org/docs/latest/hypervisor-guide/code-coverage.html</a>
+given the new toolchain baselines.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">---
+ xen/common/coverage/llvm.c | 78 +++++++++++++++++++++++++++-----------
+ xen/include/xen/types.h    |  1 +
+ 2 files changed, 57 insertions(+), 22 deletions(-)
+
+diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
+index 517b2aa8c2..f92f10654c 100644
+--- a/xen/common/coverage/llvm.c
++++ b/xen/common/coverage/llvm.c
+@@ -44,27 +44,55 @@
+     ((uint64_t)'f' &lt;&lt; 16) | ((uint64_t)'R' &lt;&lt; 8)  | ((uint64_t)129)
+ #endif
+ 
+-#define LLVM_PROFILE_VERSION    4
++#if __clang_major__ &gt;= 19
++#define LLVM_PROFILE_VERSION    10
++#define LLVM_PROFILE_NUM_KINDS  3
++#elif __clang_major__ == 18
++#define LLVM_PROFILE_VERSION    9
+ #define LLVM_PROFILE_NUM_KINDS  2
++#elif __clang_major__ &gt;= 14
++#define LLVM_PROFILE_VERSION    8
++#define LLVM_PROFILE_NUM_KINDS  2
++#else
++#error "Unsupported Clang version"
++#endif
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Does this exclude Clang 13?
+
+Our baseline is 11 or later.  How hard would it be to support those too?
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre"> 
+ struct llvm_profile_data {
+     uint64_t name_ref;
+     uint64_t function_hash;
+-    void *counter;
+-    void *function;
+-    void *values;
++    intptr_t *relative_counter;
++#if __clang_major__ &gt;= 18
++    intptr_t *relative_bitmap;
++#endif
++    intptr_t *function;
++    intptr_t *values;
+     uint32_t nr_counters;
+     uint16_t nr_value_sites[LLVM_PROFILE_NUM_KINDS];
++#if __clang_major__ &gt;= 18
++    uint32_t numbitmap_bytes;
++#endif
+ };
+ 
+ struct llvm_profile_header {
+     uint64_t magic;
+     uint64_t version;
+-    uint64_t data_size;
+-    uint64_t counters_size;
++    uint64_t binary_ids_size;
++    uint64_t num_data;
++    uint64_t padding_bytes_before_counters;
++    uint64_t num_counters;
++    uint64_t padding_bytes_after_counters;
++    uint64_t num_bitmap_bytes;
++    uint64_t padding_bytes_after_bitmap_bytes;
+     uint64_t names_size;
++#if __clang_major__ &gt;= 18
+     uint64_t counters_delta;
++    uint64_t bitmap_delta;
++#endif
+     uint64_t names_delta;
++#if __clang_major__ &gt;= 19
++    uint64_t num_vtables;
++    uint64_t vnames_size;
++#endif
+     uint64_t value_kind_last;
+ };
+ 
+@@ -76,19 +104,20 @@ struct llvm_profile_header {
+  */
+ int __llvm_profile_runtime;
+ 
+-extern const struct llvm_profile_data __start___llvm_prf_data[];
+-extern const struct llvm_profile_data __stop___llvm_prf_data[];
+-extern const char __start___llvm_prf_names[];
+-extern const char __stop___llvm_prf_names[];
+-extern uint64_t __start___llvm_prf_cnts[];
+-extern uint64_t __stop___llvm_prf_cnts[];
++extern char __start___llvm_prf_data[];
++extern char __stop___llvm_prf_data[];
++extern char __start___llvm_prf_names[];
++extern char __stop___llvm_prf_names[];
++extern char __start___llvm_prf_cnts[];
++extern char __stop___llvm_prf_cnts[];
++
++#define START_DATA      ((const char *)__start___llvm_prf_data)
++#define END_DATA        ((const char *)__stop___llvm_prf_data)
++#define START_NAMES     ((const char *)__start___llvm_prf_names)
++#define END_NAMES       ((const char *)__stop___llvm_prf_names)
++#define START_COUNTERS  ((char *)__start___llvm_prf_cnts)
++#define END_COUNTERS    ((char *)__stop___llvm_prf_cnts)
+ 
+-#define START_DATA      ((const void *)__start___llvm_prf_data)
+-#define END_DATA        ((const void *)__stop___llvm_prf_data)
+-#define START_NAMES     ((const void *)__start___llvm_prf_names)
+-#define END_NAMES       ((const void *)__stop___llvm_prf_names)
+-#define START_COUNTERS  ((void *)__start___llvm_prf_cnts)
+-#define END_COUNTERS    ((void *)__stop___llvm_prf_cnts)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Why change these from char to void ?
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre"> 
+ static void cf_check reset_counters(void)
+ {
+@@ -107,10 +136,15 @@ static int cf_check dump(
+     struct llvm_profile_header header = {
+         .magic = LLVM_PROFILE_MAGIC,
+         .version = LLVM_PROFILE_VERSION,
+-        .data_size = (END_DATA - START_DATA) / sizeof(struct llvm_profile_data),
+-        .counters_size = (END_COUNTERS - START_COUNTERS) / sizeof(uint64_t),
+-        .names_size = END_NAMES - START_NAMES,
+-        .counters_delta = (uintptr_t)START_COUNTERS,
++        .binary_ids_size = 0,
++        .num_data = (((intptr_t)END_DATA + sizeof(struct llvm_profile_data) - 1)
++                - (intptr_t)START_DATA) / sizeof(struct llvm_profile_data),
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I can see why we might want to round-down END, but this doesn't need
+casting to intptr_t irrespective of char vs void.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+        .padding_bytes_before_counters = 0,
++        .num_counters = (((intptr_t)END_COUNTERS + sizeof(uint64_t) - 1)
++                - (intptr_t)START_COUNTERS) / sizeof(uint64_t),
++        .padding_bytes_after_counters = 0,
++        .names_size = (END_NAMES - START_NAMES) * sizeof(char),
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+sizeof(char) is by definition 1.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+        .counters_delta = (uintptr_t)START_COUNTERS - (uintptr_t)START_DATA,
+         .names_delta = (uintptr_t)START_NAMES,
+         .value_kind_last = LLVM_PROFILE_NUM_KINDS - 1,
+     };
+diff --git a/xen/include/xen/types.h b/xen/include/xen/types.h
+index 73ddccbbd5..799bfe0b95 100644
+--- a/xen/include/xen/types.h
++++ b/xen/include/xen/types.h
+@@ -18,6 +18,7 @@ typedef signed long ssize_t;
+ 
+ typedef __PTRDIFF_TYPE__ ptrdiff_t;
+ typedef __UINTPTR_TYPE__ uintptr_t;
++typedef __INTPTR_TYPE__ intptr_t;
+ 
+ /*
+  * Users of this macro are expected to pass a positive value.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------brhXKpSGIs4hevo20c4xq2xZ--
 
