@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FD28BB81BB
-	for <lists+xen-devel@lfdr.de>; Fri, 03 Oct 2025 22:31:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1136849.1473284 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDB15BB81F3
+	for <lists+xen-devel@lfdr.de>; Fri, 03 Oct 2025 22:42:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1136860.1473294 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4mPn-0004o2-OY; Fri, 03 Oct 2025 20:30:07 +0000
+	id 1v4mbN-0006UO-PA; Fri, 03 Oct 2025 20:42:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1136849.1473284; Fri, 03 Oct 2025 20:30:07 +0000
+Received: by outflank-mailman (output) from mailman id 1136860.1473294; Fri, 03 Oct 2025 20:42:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4mPn-0004lo-KS; Fri, 03 Oct 2025 20:30:07 +0000
-Received: by outflank-mailman (input) for mailman id 1136849;
- Fri, 03 Oct 2025 20:30:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4mzO=4M=bell.net=dave.anglin@srs-se1.protection.inumbo.net>)
- id 1v4mPl-0004dY-Rh
- for xen-devel@lists.xenproject.org; Fri, 03 Oct 2025 20:30:05 +0000
-Received: from cmx-mtlrgo001.bell.net (mta-mtl-007.bell.net [209.71.208.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bdb13c9a-a097-11f0-9d14-b5c5bf9af7f9;
- Fri, 03 Oct 2025 22:30:04 +0200 (CEST)
-Received: from [192.168.2.49] (142.126.189.246) by cmx-mtlrgo001.bell.net
- (authenticated as dave.anglin@bell.net)
- id 68C1701503F87783; Fri, 3 Oct 2025 16:28:45 -0400
+	id 1v4mbN-0006RI-MH; Fri, 03 Oct 2025 20:42:05 +0000
+Received: by outflank-mailman (input) for mailman id 1136860;
+ Fri, 03 Oct 2025 20:42:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FzWq=4M=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1v4mbM-0006RC-G4
+ for xen-devel@lists.xenproject.org; Fri, 03 Oct 2025 20:42:04 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6a0d2603-a099-11f0-9809-7dc792cee155;
+ Fri, 03 Oct 2025 22:42:02 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3ee130237a8so1926085f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Oct 2025 13:42:02 -0700 (PDT)
+Received: from [192.168.69.221] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-46e61a25dbcsm155655605e9.19.2025.10.03.13.42.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 Oct 2025 13:42:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,131 +45,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bdb13c9a-a097-11f0-9d14-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bell.net; s=selector1; t=1759523404; 
-        bh=ZSiozYL9av6/yqYZ1ojB886S7qQBNu1kIdF3OOFiSt4=;
-        h=Message-ID:Date:MIME-Version:Subject:To:References:From:In-Reply-To:Content-Type;
-        b=mTyB940Q0GfYnz21tXBKxSqulFOleIM8RqWAD1qt0T+IeVc/x7q7w2b5fRIOtNXDNYcWfwqOc1XE/8ZiQvYv9IUqrPAVyjdV9tzWazGdgV9waIoTwZuRGyJVXRyw3HdLAbMmaDwvX/DnZZMuOe/hYT2pUn/4G/pMadKa1vPmonyx06EQLMKqbIaYjm9Ywu7zbP+EeJdnUMOipDSFlERyd5QUTqvmNWXWgKC7rz71cvp5ysij7JS8K1uNHzu6XRQuvFEufyez+tkVwvh73Ft0PmeSGAn3ntwarU0fgPFWE5NCtZCcwHaDocyhTZNT6XB3+INlaDdgbnmii+pw1xYCcg==
-X-RG-SOPHOS: Clean
-X-RG-VADE-SC: 0
-X-RG-VADE: Clean
-X-Originating-IP: [142.126.189.246]
-X-RG-Env-Sender: dave.anglin@bell.net
-X-RG-Rigid: 68C1701503F87783
-X-RazorGate-Vade: dmFkZTFAVSVH3SiUOFRgEpdKbxkygZJRN+wjQ3+7JLA/aHxHSm5i7/PF4mTBT8WtBn7+lxiMRPYLKXtCf7iS9x+McIrTICRECzSEsBDDmX0g+rXi4ctSksWPFcfviRm+PotPodUreZwFE6frq9b/vZEWb9zohQp8N7b1TBIv581R6bMFc3aRYEoBuh6XFu7wQcCcbyctvLBQ9AekV97lK3DUxQ9tGcTDjh44Ei8XDzNWZYGLXru/OXuyyVa7U035NNK7XE/UT2nBkRYYlTzUefAExYdm5r1AjIdGXoCVmMdRppQMDACxagJbItn+DPkJkK1D0uasAZcsSUoBAyFDdObcd9rbrkK+4MlJQXN6niRN7ztkec65gQWM7JFKddfdKIVZMsOdle3RXVrmEbYnkuZw+ClrPLYlsCYCGLNnzy9/eHGWmdlSKWKykBjq3V3P/imMdsohjOWPsu3FAU7N961cqrCS6BAleJcJRZ7cZRqO1xwU6qJPWAk1eKkeK2KmEypOTyHDN/P+DrdGdY/zckiNfWcrY1QB9SoGB7IFYrdtE99hVyEjkzjAzm/yGBJlaP3J8IBYWqFZyPtHFt6E+Ch59FlmNbZ+3GPApsc7p/7XvSOS82tfG4hA2Bu9MDLbD+hvLd4FUqQUBf0W5NH3gX5MPaP17NoqnnFOR1XFqkNnFwFm0g
-X-RazorGate-Vade-Verdict: clean 0
-X-RazorGate-Vade-Classification: clean
-Message-ID: <45e1dff3-aff1-4a41-ab24-6eddf6171e3a@bell.net>
-Date: Fri, 3 Oct 2025 16:28:45 -0400
+X-Inumbo-ID: 6a0d2603-a099-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1759524121; x=1760128921; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PW5k2zL3fmegA2ZxrF2uAnfp4SXP4L2O5lee8nx3mSc=;
+        b=GAhJ+Sglr2yu+QluaFQoc7DA0tjuSVff8O6XQYedTUvr+fG7WophdNI0vu4A9UcQxK
+         oOAkpBi88QQcLypdtZCAiHA3NTuACP9l/3PC2FPHm4HUEdKtH2B2txg0+9uj14AnjZVJ
+         omak+cQgCxekvfRJ+vh/b76yACCpPuSaLNI+R2eLf1EPQm6MLb7qfzGlLq+/2sIqOcx/
+         bSeCw6hCmULiFRRwLoeguVRiyM15Ksq/h0nPB0KV54nBgQUI12MlV5dQNvdjsn+gz7Wv
+         2rxvmSMbj85yNCFRhG7qe2Ob+pHAlWvx6qotVD6zdqAeKnS3VPSGNBtk6+XF5SMsOmjO
+         e/6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759524121; x=1760128921;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=PW5k2zL3fmegA2ZxrF2uAnfp4SXP4L2O5lee8nx3mSc=;
+        b=Hr868lQrKED1R0zpvwvstX68o+PzWtvOn1eqmckNuxS8gjyALOkSr/w4XFd5QIsBNt
+         VI5Fkewn8KPzmta15XiUTo/zqyy8p+lI5l9kwkkOorZQ4l4qoN+5pmDzPqLu+tteDM58
+         yAFl8Owz/ieLO0Il/U9C/QgT5T1K5VycMzOfe9OarICpJdEcO6CYBKWibded2/3N6tPB
+         OHbZiuQknNau88hNwAz2mJg4sS4/QxwxGF6EVwUEVdHHjgzSIuBdFaC3XoQJnVDR4375
+         TFNX4rQO9YAlYPAc3isyJweWoNnuX7JEcWHUxtZb1o7oIKTYsaAD7iqtEtuJmc1V6p30
+         7VEw==
+X-Forwarded-Encrypted: i=1; AJvYcCU5SHeh0YxZ+tLOmviRT0v2c/AloXmpNVlHx5dNZI8+eaygrXSLXsDAQxjXvz+qJXWevx5ntGWljKI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwVWVRny/vKyw2AGwcv2lL6PYRLEJ+ZBZeb3nwMUkVR3Vjmu5X1
+	yB3GplmJj3ldcUV3BCYU7tsTH/JPRlB5T5ZD3eg6Aq4t28PbVmT0Kn6NIM+pmUyzm3o=
+X-Gm-Gg: ASbGncvx85CUqkUPD64dtc9GqwkDP+ztq+4CWfbQQnXgsm24ar6f9LphtZO+Vrd1aFU
+	BZOgpaFDUMmYEOgfnTgop6A2V8Kx8UydCfuXsLzNt8/haFRItCM2mkT7gKRT5nM+dI4vaDKbJ7G
+	9Im0hMVIB5Dv1adArb44xUmRnqXw9Ytt+nAouA3DOAbB6q2dir4xPnaDplhUprhoK3fnM8s52a5
+	eMHcKPRsfkwj+IElXai0eS+Xbs2HDytLDUDfnqQarKZk+PB96hIdLlmOchB0d3vZfdkcFoeSoYm
+	s8AqBdWkk/NDdOArSIebRxb5Vkti8Yy0w0ZrWJyUyys9AYZ0nSSKeSuoyZkD6iein1GTBnx8JmW
+	wMmNYcvUQyw49fA859IOrhXI4z0ojz8KsCLYgyVKcIraxNvYqIc47S0w52g3k5dfKTYIYWtYlGD
+	e+MdvJ2/1M/tPC+OP6keo5UlquRU0MeKCzrlzcI10=
+X-Google-Smtp-Source: AGHT+IHHpUVAOz/kW4FY5inemqoIDxzaObgtHSvRK94Nk1VfVB9QmYTxm3ZfXZPywnWOkC76eMfSUA==
+X-Received: by 2002:a05:6000:3111:b0:402:7afc:1cf5 with SMTP id ffacd0b85a97d-4256719e6cemr2721575f8f.35.1759524121296;
+        Fri, 03 Oct 2025 13:42:01 -0700 (PDT)
+Message-ID: <c80928c3-0a54-4cdc-858f-b2ac4670e38d@linaro.org>
+Date: Fri, 3 Oct 2025 22:42:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/9] parisc: Convert DMA map_page to map_phys interface
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Leon Romanovsky <leon@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Leon Romanovsky <leonro@nvidia.com>, Andreas Larsson <andreas@gaisler.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>, Geoff Levand <geoff@infradead.org>,
- Helge Deller <deller@gmx.de>, Ingo Molnar <mingo@redhat.com>,
- iommu@lists.linux.dev,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Jason Wang <jasowang@redhat.com>, Juergen Gross <jgross@suse.com>,
- linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Matt Turner <mattst88@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- sparclinux@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Thomas Gleixner <tglx@linutronix.de>, virtualization@lists.linux.dev,
- x86@kernel.org, xen-devel@lists.xenproject.org,
- Magnus Lindholm <linmag7@gmail.com>
-References: <cover.1759071169.git.leon@kernel.org>
- <333ec4dabec16d3d913a93780bc6e7ddb5240fcf.1759071169.git.leon@kernel.org>
- <20251003150144.GC3360665@nvidia.com>
- <610b10bc-1aa2-4fad-a40b-be5fcfa04430@bell.net>
- <20251003172618.GJ3360665@nvidia.com>
-From: John David Anglin <dave.anglin@bell.net>
+Subject: Re: [PATCH v4 00/17] system/physmem: Remove cpu_physical_memory
+ _is_io() and _rw()
 Content-Language: en-US
-Autocrypt: addr=dave.anglin@bell.net; keydata=
- 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
- T70V9SSrl2hiw38vRzsl
-In-Reply-To: <20251003172618.GJ3360665@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: qemu-devel@nongnu.org
+Cc: qemu-s390x@nongnu.org, kvm@vger.kernel.org, xen-devel@lists.xenproject.org
+References: <20251002084203.63899-1-philmd@linaro.org>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20251002084203.63899-1-philmd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 2025-10-03 1:26 p.m., Jason Gunthorpe wrote:
-> On Fri, Oct 03, 2025 at 01:18:32PM -0400, John David Anglin wrote:
->> On 2025-10-03 11:01 a.m., Jason Gunthorpe wrote:
->>> This doesn't actually use the virt at all:
->>>
->>> 	offset = ((unsigned long) addr) & ~IOVP_MASK;
->>> 	if((size % L1_CACHE_BYTES) || ((unsigned long)addr % L1_CACHE_BYTES))
->>> 		ccio_io_pdir_entry(pdir_start, KERNEL_SPACE, (unsigned long)addr, hint);
->>>
->>> And ccio_io_pdir_entry():
->>> 	pa = lpa(vba);
->>>
->>> Is a special instruction that uses virt but AI tells me that special
->>> LPA instruction is returning phys. Not sure if that is a different
->>> value than virt_to_phys()..
->>
->> ccio_io_pdir_entry currently only supports KERNEL_SPACE.  For KERNEL_SPACE, lpa() and
->> virt_to_phys() are equivalent if page is mapped.  lpa() returns 0 if a non-access data
->> TLB fault occurs (i.e., page isn't mapped).  Not sure if that
->> matters.
-> 
-> After unfolding everything the expression is
-> 
->   lpa(phys_to_virt(pa))
-> 
-> So if that is always equal to pa then lets just drop it.
+On 2/10/25 10:41, Philippe Mathieu-Daudé wrote:
 
-If lpa() was replaced by virt_to_phys(), the result would always be equal to pa.  So, I think it
-can be dropped.
+> Philippe Mathieu-Daudé (17):
+>    docs/devel/loads-stores: Stop mentioning
+>      cpu_physical_memory_write_rom()
+>    system/memory: Factor address_space_is_io() out
+>    target/i386/arch_memory_mapping: Use address_space_memory_is_io()
+>    hw/s390x/sclp: Use address_space_memory_is_io() in sclp_service_call()
+>    system/physmem: Remove cpu_physical_memory_is_io()
+>    system/physmem: Pass address space argument to
+>      cpu_flush_icache_range()
+>    hw/s390x/sclp: Replace [cpu_physical_memory -> address_space]_r/w()
+>    target/s390x/mmu: Replace [cpu_physical_memory -> address_space]_rw()
+>    target/i386/whpx: Replace legacy cpu_physical_memory_rw() call
+>    target/i386/kvm: Replace legacy cpu_physical_memory_rw() call
+>    target/i386/nvmm: Inline cpu_physical_memory_rw() in nvmm_mem_callback
+>    hw/xen/hvm: Inline cpu_physical_memory_rw() in rw_phys_req_item()
+>    system/physmem: Un-inline cpu_physical_memory_read/write()
+>    system/physmem: Avoid cpu_physical_memory_rw when is_write is constant
+>    system/physmem: Remove legacy cpu_physical_memory_rw()
+>    hw/virtio/vhost: Replace legacy cpu_physical_memory_*map() calls
+>    hw/virtio/virtio: Replace legacy cpu_physical_memory_map() call
 
-Dave
--- 
-John David Anglin  dave.anglin@bell.net
+Series queued, thanks.
 
