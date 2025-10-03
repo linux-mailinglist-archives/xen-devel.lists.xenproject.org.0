@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDB15BB81F3
-	for <lists+xen-devel@lfdr.de>; Fri, 03 Oct 2025 22:42:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1136860.1473294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DC27BB85A0
+	for <lists+xen-devel@lfdr.de>; Sat, 04 Oct 2025 00:54:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1136889.1473320 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4mbN-0006UO-PA; Fri, 03 Oct 2025 20:42:05 +0000
+	id 1v4oep-00054z-G5; Fri, 03 Oct 2025 22:53:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1136860.1473294; Fri, 03 Oct 2025 20:42:05 +0000
+Received: by outflank-mailman (output) from mailman id 1136889.1473320; Fri, 03 Oct 2025 22:53:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4mbN-0006RI-MH; Fri, 03 Oct 2025 20:42:05 +0000
-Received: by outflank-mailman (input) for mailman id 1136860;
- Fri, 03 Oct 2025 20:42:04 +0000
+	id 1v4oep-00051Z-8X; Fri, 03 Oct 2025 22:53:47 +0000
+Received: by outflank-mailman (input) for mailman id 1136889;
+ Fri, 03 Oct 2025 22:53:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FzWq=4M=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1v4mbM-0006RC-G4
- for xen-devel@lists.xenproject.org; Fri, 03 Oct 2025 20:42:04 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WVFT=4M=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1v4oeo-0004mK-0A
+ for xen-devel@lists.xenproject.org; Fri, 03 Oct 2025 22:53:46 +0000
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [2a00:1450:4864:20::442])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a0d2603-a099-11f0-9809-7dc792cee155;
- Fri, 03 Oct 2025 22:42:02 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3ee130237a8so1926085f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 03 Oct 2025 13:42:02 -0700 (PDT)
-Received: from [192.168.69.221] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46e61a25dbcsm155655605e9.19.2025.10.03.13.42.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Oct 2025 13:42:00 -0700 (PDT)
+ id cda653e9-a0ab-11f0-9809-7dc792cee155;
+ Sat, 04 Oct 2025 00:53:40 +0200 (CEST)
+Received: by mail-wr1-x442.google.com with SMTP id
+ ffacd0b85a97d-3ee15505cdeso2232836f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Oct 2025 15:53:40 -0700 (PDT)
+Received: from localhost.localdomain (host-92-22-57-86.as13285.net.
+ [92.22.57.86]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4255d8a6bbesm9616571f8f.12.2025.10.03.15.53.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Oct 2025 15:53:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,81 +45,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a0d2603-a099-11f0-9809-7dc792cee155
+X-Inumbo-ID: cda653e9-a0ab-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1759524121; x=1760128921; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=PW5k2zL3fmegA2ZxrF2uAnfp4SXP4L2O5lee8nx3mSc=;
-        b=GAhJ+Sglr2yu+QluaFQoc7DA0tjuSVff8O6XQYedTUvr+fG7WophdNI0vu4A9UcQxK
-         oOAkpBi88QQcLypdtZCAiHA3NTuACP9l/3PC2FPHm4HUEdKtH2B2txg0+9uj14AnjZVJ
-         omak+cQgCxekvfRJ+vh/b76yACCpPuSaLNI+R2eLf1EPQm6MLb7qfzGlLq+/2sIqOcx/
-         bSeCw6hCmULiFRRwLoeguVRiyM15Ksq/h0nPB0KV54nBgQUI12MlV5dQNvdjsn+gz7Wv
-         2rxvmSMbj85yNCFRhG7qe2Ob+pHAlWvx6qotVD6zdqAeKnS3VPSGNBtk6+XF5SMsOmjO
-         e/6A==
+        d=citrix.com; s=google; t=1759532019; x=1760136819; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=IXbXCT//JpG4DZDNCPX8AIKG+4YnmRnZVf3VPs504Jw=;
+        b=C+SQgQBzVUOQmYPJa4uaWotQ77ROJC6T8/WIn5l7OrTzjV30uVUZSi7s7TagUffBTJ
+         QZUN6PVGTONfe6mbKMP32pT4uyC6ArAiyrph2Ka9vRfSIdLOLNxm2Vc9ILa91PfMhUhN
+         fTn7ISD9dvPVyO3Cz3JRB/1niRv6UspIVH9Rs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759524121; x=1760128921;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PW5k2zL3fmegA2ZxrF2uAnfp4SXP4L2O5lee8nx3mSc=;
-        b=Hr868lQrKED1R0zpvwvstX68o+PzWtvOn1eqmckNuxS8gjyALOkSr/w4XFd5QIsBNt
-         VI5Fkewn8KPzmta15XiUTo/zqyy8p+lI5l9kwkkOorZQ4l4qoN+5pmDzPqLu+tteDM58
-         yAFl8Owz/ieLO0Il/U9C/QgT5T1K5VycMzOfe9OarICpJdEcO6CYBKWibded2/3N6tPB
-         OHbZiuQknNau88hNwAz2mJg4sS4/QxwxGF6EVwUEVdHHjgzSIuBdFaC3XoQJnVDR4375
-         TFNX4rQO9YAlYPAc3isyJweWoNnuX7JEcWHUxtZb1o7oIKTYsaAD7iqtEtuJmc1V6p30
-         7VEw==
-X-Forwarded-Encrypted: i=1; AJvYcCU5SHeh0YxZ+tLOmviRT0v2c/AloXmpNVlHx5dNZI8+eaygrXSLXsDAQxjXvz+qJXWevx5ntGWljKI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwVWVRny/vKyw2AGwcv2lL6PYRLEJ+ZBZeb3nwMUkVR3Vjmu5X1
-	yB3GplmJj3ldcUV3BCYU7tsTH/JPRlB5T5ZD3eg6Aq4t28PbVmT0Kn6NIM+pmUyzm3o=
-X-Gm-Gg: ASbGncvx85CUqkUPD64dtc9GqwkDP+ztq+4CWfbQQnXgsm24ar6f9LphtZO+Vrd1aFU
-	BZOgpaFDUMmYEOgfnTgop6A2V8Kx8UydCfuXsLzNt8/haFRItCM2mkT7gKRT5nM+dI4vaDKbJ7G
-	9Im0hMVIB5Dv1adArb44xUmRnqXw9Ytt+nAouA3DOAbB6q2dir4xPnaDplhUprhoK3fnM8s52a5
-	eMHcKPRsfkwj+IElXai0eS+Xbs2HDytLDUDfnqQarKZk+PB96hIdLlmOchB0d3vZfdkcFoeSoYm
-	s8AqBdWkk/NDdOArSIebRxb5Vkti8Yy0w0ZrWJyUyys9AYZ0nSSKeSuoyZkD6iein1GTBnx8JmW
-	wMmNYcvUQyw49fA859IOrhXI4z0ojz8KsCLYgyVKcIraxNvYqIc47S0w52g3k5dfKTYIYWtYlGD
-	e+MdvJ2/1M/tPC+OP6keo5UlquRU0MeKCzrlzcI10=
-X-Google-Smtp-Source: AGHT+IHHpUVAOz/kW4FY5inemqoIDxzaObgtHSvRK94Nk1VfVB9QmYTxm3ZfXZPywnWOkC76eMfSUA==
-X-Received: by 2002:a05:6000:3111:b0:402:7afc:1cf5 with SMTP id ffacd0b85a97d-4256719e6cemr2721575f8f.35.1759524121296;
-        Fri, 03 Oct 2025 13:42:01 -0700 (PDT)
-Message-ID: <c80928c3-0a54-4cdc-858f-b2ac4670e38d@linaro.org>
-Date: Fri, 3 Oct 2025 22:42:00 +0200
+        d=1e100.net; s=20230601; t=1759532019; x=1760136819;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=IXbXCT//JpG4DZDNCPX8AIKG+4YnmRnZVf3VPs504Jw=;
+        b=C5STH1uH37gaL9l9A2+RuWQ4hKkJN8ybukiVKLDUznHupvaT6l3yp13yem1vHJfPBf
+         LgjZ2C1rQm+WGzHp1UyUVFTimQpv66P0hESZLGt9bu/TkBJ3yrwyhxtfN7yUwoXbGNMJ
+         KbTgZHnMub/qSReud84f+ng0/hgJGzZoqsuJ7pJdVBF8klOXPYSBVHuqXZPLA8veIr/0
+         M1aJzpoHEfkBUoZ0q6+UPT2yufweN5QLC/TFEJ2iP39BO5xUOYNrh6/z7AIRvC3HNVGg
+         QSS0AxX5ATmqaHWFQJ1oyd7bw7IqFdHLcloqVshGVqyyNcqeh7ITNO3nvRrRlrVIe84Y
+         6GjQ==
+X-Gm-Message-State: AOJu0Yz4GkfE4IYl0whBzgAlL7ImHI1fQwLgjdHtiRxC55Z5ifAYV6dH
+	ektF4wE6mmjtOvBZRWYxMZMxwv5PwwOAKmwfJQCAEWKgZUKIw1uawSQ0Sw6Us0OOKG4gEVG7XUm
+	Zpau6p1oWg3t8
+X-Gm-Gg: ASbGnct2DaNQbOk5OP3XcnEF5eWejA37c3hFKAVwro3hzaCq6Tm+IiZfePimq+sbu4z
+	cC3oYYExht3fEWFHB0b2sxg89Jvu5gEW/lgv8VX1NBHrRhJpZ5ajXg4PEtPQVNx0H0IISYOpgwF
+	8HCIaPJYpAGsMdv3SYDELMT5u+kNYWSugFCvYoH/02EmnHvPvZvrS2OhlwIzQnjohEXY/KH14CR
+	odJ2SXRAzwbCGGvwcIdhBVpI0HDJiN3FlVkcCR0vdg7/Dzox7RJcyvisWYdM1nQ3OsXF2mRDPyO
+	EQBCZV4P+jClE5B9nd0blmjXLrLRw01KMd4Sz8WLokGPql2y/vXcD4lKsXHszq39+thon7clbW0
+	h0LM9GkceI+CL16A+gOAAAtYY+kwp+IWZ+UL4Ux/xlRhFsMhaJ07Nwr0mKtB7D9UjA0cKRER46p
+	vIYM51atJp2kKJJFMA7PHW
+X-Google-Smtp-Source: AGHT+IHt8Y4HD2gfh9eO9TrrCqFYjk+ME/K7TqWH5HSyVumtZcyTfGz24NEEQEDC10OjEBbB9aypcg==
+X-Received: by 2002:a05:6000:2890:b0:3ea:63d:44a8 with SMTP id ffacd0b85a97d-42566c38bdbmr3356568f8f.15.1759532019102;
+        Fri, 03 Oct 2025 15:53:39 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH v3 for-4.21 00/22] x86: FRED support
+Date: Fri,  3 Oct 2025 23:53:12 +0100
+Message-Id: <20251003225334.2123667-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/17] system/physmem: Remove cpu_physical_memory
- _is_io() and _rw()
-Content-Language: en-US
-To: qemu-devel@nongnu.org
-Cc: qemu-s390x@nongnu.org, kvm@vger.kernel.org, xen-devel@lists.xenproject.org
-References: <20251002084203.63899-1-philmd@linaro.org>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20251002084203.63899-1-philmd@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 2/10/25 10:41, Philippe Mathieu-Daudé wrote:
+This is the combined MSR cleanup and FRED series.  Some patches of both v2's
+have already been committed.
 
-> Philippe Mathieu-Daudé (17):
->    docs/devel/loads-stores: Stop mentioning
->      cpu_physical_memory_write_rom()
->    system/memory: Factor address_space_is_io() out
->    target/i386/arch_memory_mapping: Use address_space_memory_is_io()
->    hw/s390x/sclp: Use address_space_memory_is_io() in sclp_service_call()
->    system/physmem: Remove cpu_physical_memory_is_io()
->    system/physmem: Pass address space argument to
->      cpu_flush_icache_range()
->    hw/s390x/sclp: Replace [cpu_physical_memory -> address_space]_r/w()
->    target/s390x/mmu: Replace [cpu_physical_memory -> address_space]_rw()
->    target/i386/whpx: Replace legacy cpu_physical_memory_rw() call
->    target/i386/kvm: Replace legacy cpu_physical_memory_rw() call
->    target/i386/nvmm: Inline cpu_physical_memory_rw() in nvmm_mem_callback
->    hw/xen/hvm: Inline cpu_physical_memory_rw() in rw_phys_req_item()
->    system/physmem: Un-inline cpu_physical_memory_read/write()
->    system/physmem: Avoid cpu_physical_memory_rw when is_write is constant
->    system/physmem: Remove legacy cpu_physical_memory_rw()
->    hw/virtio/vhost: Replace legacy cpu_physical_memory_*map() calls
->    hw/virtio/virtio: Replace legacy cpu_physical_memory_map() call
+I have moved the MSR_IMM patch out.  It's not strictly needed for FRED, and
+really needs to go behind Jan's patch to use mergable sections for
+altinstructions which is definitely not making 4.21 at this point.
 
-Series queued, thanks.
+I almost got access to a piece of real hardware in time, but that fell through
+at the last minute.
+
+In terms of timing, I know we're getting very tight for 4.21, but there has
+been an awful lot of disruption with travel and holidays recently.  Half the
+patches are already acked/reviewed, but can't easily go in due to logical
+dependencies (I suspect patches 15-17 could be committed right away as they're
+pretty independent.)
+
+Therefore I'd like to ask Oleksii whether the nominal release ack still
+stands.
+
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2079705485
+
+Andrew Cooper (22):
+  x86/msr: Change rdmsr() to have normal API
+  x86/msr: Change wrmsr() to take a single parameter
+  x86/fsgsbase: Split out __{rd,wr}gs_shadow() helpers
+  x86/fsgsbase: Update fs/gs helpers to use wrmsrns()
+  x86/fsgsbase: Improve code generation in read_registers()
+  x86/boot: Use RSTORSSP to establish SSP
+  x86/traps: Alter switch_stack_and_jump() for FRED mode
+  x86/traps: Skip Supervisor Shadow Stack tokens in FRED mode
+  x86/traps: Make an IDT-specific #DB helper
+  x86/traps: Make an IDT-specific #PF helper
+  x86/fsgsbase: Make gskern accesses safe under FRED
+  x86/traps: Introduce FRED entrypoints
+  x86/traps: Enable FRED when requested
+  x86/pv: Deduplicate is_canonical_address() in do_set_segment_base()
+  x86/entry: Alter how IRET faults are recognised
+  x86/entry: Drop the pre exception table infrastructure
+  x86/entry: Rework the comment about SYSCALL and DF
+  x86/pv: Adjust GS handling for FRED mode
+  x86/pv: Guest exception handling in FRED mode
+  x86/pv: ERETU error handling
+  x86/pv: System call handling in FRED mode
+  x86: Clamp reserved bits in eflags more aggressively
+
+ xen/arch/x86/acpi/cpufreq/powernow.c    |  12 +-
+ xen/arch/x86/boot/x86_64.S              |  23 +-
+ xen/arch/x86/cpu/amd.c                  |   8 +-
+ xen/arch/x86/cpu/common.c               |  20 +-
+ xen/arch/x86/cpu/intel.c                |  30 +-
+ xen/arch/x86/domain.c                   |  34 +-
+ xen/arch/x86/extable.c                  |  14 -
+ xen/arch/x86/genapic/x2apic.c           |   5 +-
+ xen/arch/x86/hvm/domain.c               |   4 +-
+ xen/arch/x86/hvm/vmx/vmcs.c             |  32 +-
+ xen/arch/x86/hvm/vmx/vmx.c              |   4 +-
+ xen/arch/x86/include/asm/asm_defns.h    |  76 +++-
+ xen/arch/x86/include/asm/current.h      |   9 +-
+ xen/arch/x86/include/asm/domain.h       |   2 +
+ xen/arch/x86/include/asm/fsgsbase.h     |  66 +--
+ xen/arch/x86/include/asm/hypercall.h    |   2 -
+ xen/arch/x86/include/asm/msr.h          |  48 ++-
+ xen/arch/x86/include/asm/prot-key.h     |   6 +-
+ xen/arch/x86/include/asm/traps.h        |   2 +
+ xen/arch/x86/include/asm/uaccess.h      |   2 -
+ xen/arch/x86/include/asm/x86-defns.h    |   7 +
+ xen/arch/x86/mm.c                       |  12 +-
+ xen/arch/x86/nmi.c                      |  18 +-
+ xen/arch/x86/oprofile/op_model_athlon.c |   2 +-
+ xen/arch/x86/pv/dom0_build.c            |   2 +-
+ xen/arch/x86/pv/domain.c                |  22 +-
+ xen/arch/x86/pv/iret.c                  |   8 +-
+ xen/arch/x86/pv/misc-hypercalls.c       |  42 +-
+ xen/arch/x86/pv/traps.c                 |  39 ++
+ xen/arch/x86/setup.c                    |  33 +-
+ xen/arch/x86/traps-setup.c              |  83 +++-
+ xen/arch/x86/traps.c                    | 519 ++++++++++++++++++++++--
+ xen/arch/x86/tsx.c                      |  27 +-
+ xen/arch/x86/x86_64/Makefile            |   1 +
+ xen/arch/x86/x86_64/compat/entry.S      |   3 +-
+ xen/arch/x86/x86_64/entry-fred.S        |  57 +++
+ xen/arch/x86/x86_64/entry.S             |  46 ++-
+ xen/arch/x86/xen.lds.S                  |   5 -
+ 38 files changed, 1076 insertions(+), 249 deletions(-)
+ create mode 100644 xen/arch/x86/x86_64/entry-fred.S
+
+-- 
+2.39.5
+
 
