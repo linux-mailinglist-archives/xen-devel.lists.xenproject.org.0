@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EBC1BB8716
-	for <lists+xen-devel@lfdr.de>; Sat, 04 Oct 2025 02:12:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1137170.1473534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69179BB8719
+	for <lists+xen-devel@lfdr.de>; Sat, 04 Oct 2025 02:13:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1137182.1473543 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4psa-0001Lw-Sz; Sat, 04 Oct 2025 00:12:04 +0000
+	id 1v4pu3-0001v3-9U; Sat, 04 Oct 2025 00:13:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1137170.1473534; Sat, 04 Oct 2025 00:12:04 +0000
+Received: by outflank-mailman (output) from mailman id 1137182.1473543; Sat, 04 Oct 2025 00:13:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4psa-0001Ji-PZ; Sat, 04 Oct 2025 00:12:04 +0000
-Received: by outflank-mailman (input) for mailman id 1137170;
- Sat, 04 Oct 2025 00:12:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v4pu3-0001tO-6o; Sat, 04 Oct 2025 00:13:35 +0000
+Received: by outflank-mailman (input) for mailman id 1137182;
+ Sat, 04 Oct 2025 00:13:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nOMw=4N=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1v4psY-0001Jc-SC
- for xen-devel@lists.xenproject.org; Sat, 04 Oct 2025 00:12:03 +0000
-Received: from mail-yw1-x1135.google.com (mail-yw1-x1135.google.com
- [2607:f8b0:4864:20::1135])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bfa0d112-a0b6-11f0-9d14-b5c5bf9af7f9;
- Sat, 04 Oct 2025 02:12:01 +0200 (CEST)
-Received: by mail-yw1-x1135.google.com with SMTP id
- 00721157ae682-71d5fe46572so39818077b3.1
- for <xen-devel@lists.xenproject.org>; Fri, 03 Oct 2025 17:12:01 -0700 (PDT)
+ id 1v4pu2-0001cy-Er
+ for xen-devel@lists.xenproject.org; Sat, 04 Oct 2025 00:13:34 +0000
+Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
+ [2607:f8b0:4864:20::112c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f5f594e3-a0b6-11f0-9809-7dc792cee155;
+ Sat, 04 Oct 2025 02:13:32 +0200 (CEST)
+Received: by mail-yw1-x112c.google.com with SMTP id
+ 00721157ae682-71d60501806so32495807b3.2
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Oct 2025 17:13:32 -0700 (PDT)
 Received: from [10.138.34.110]
  (h96-60-249-169.cncrtn.broadband.dynamic.tds.net. [96.60.249.169])
  by smtp.gmail.com with ESMTPSA id
- 00721157ae682-77f81e3bf58sm22424327b3.58.2025.10.03.17.11.59
+ 00721157ae682-77f81c349acsm22250087b3.17.2025.10.03.17.13.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Oct 2025 17:11:59 -0700 (PDT)
+ Fri, 03 Oct 2025 17:13:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,56 +46,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfa0d112-a0b6-11f0-9d14-b5c5bf9af7f9
+X-Inumbo-ID: f5f594e3-a0b6-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1759536720; x=1760141520; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1759536811; x=1760141611; darn=lists.xenproject.org;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=gDMNou3YU4mY3NvENKciXzq0Q/gBiopuddgWQvvYINk=;
-        b=cvHAves2V8C7TgLSRHXDkSNyHdQI6qDbgMcydFHg17SjI6GZRHyHSCKi2nTxfncSsl
-         2Cs1JQevIhIEgZHrpeLUccgQFf1bm1KO3e4Z5SeU8zLTw01ZGJt8sOg47MVqUAPOdAo1
-         KpjB0A7JCy6PlH+PWOFbY1ALV2kufoE8HFzyJjj+69hIDJmQm4k2SRI5YUZtJnLQwtIs
-         8WYutxovXBcn2p2MsC6n73zxOBcxa4ysKdDvFtCQ5+IdLjLgEBWcaUiWNJRV+i5FPkR0
-         JmBt0kDiBJ4xJloEyXvUo+Q4AdTHZsQPwOQpzyaPaRb+Klu+dDZNxACXr+FqHDwBX9HV
-         TQXw==
+        bh=H5Q6TkieBhNip5okosZP1YyVL/RSptuGmUV4yTtmVTM=;
+        b=JqbyvKjzdSSVdPfvMf2cxSiAxttQJ1abflj7pGT4wPXvw+LxRrxLJDmt8CfNJoIxuf
+         WIu2VPJiuLLQ6frC171GlieadKXSC63A5giDTmfxtH0QczfM0b3ODF0WGx7VEZGwDcAd
+         nksp6Oa2Xga4aOD9x4G2NQoxr4Xn9X109BhvFHNH74H7jtAY012R5sfpUa5Li/RQSA5W
+         xi014pGPxpXA1XiJQzZTQ7O1vyDYXTI24Aq27GBb6ccaYxwtv8WUZUxNknMgAajw+qVe
+         4xeHSYC92WphzA3dBqUao6gyfCJze5k9Q9JmR/DG3uHzBGm832yk5HF6tIFzcHqOtBY6
+         GT0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759536720; x=1760141520;
+        d=1e100.net; s=20230601; t=1759536811; x=1760141611;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=gDMNou3YU4mY3NvENKciXzq0Q/gBiopuddgWQvvYINk=;
-        b=vA5NGBJMDYUqxeWJvfDWzDRaFRxkadm+qyo9VPAUimCNFouZPEX0B7mICy3Qim2NGR
-         WV0sBhlyuuTnPM+DBhtFJwyov1fyB1Q9H7mfYmwzjhlqk3WaYHCvknHir26ASFPEe8SB
-         3RwV833Zp9Kvd/o6r7zz/Bp+Zs69XhkYZgsl+AVwrIUdgN2wW5ilVtiW+vKykbWER41J
-         KmqhDuC6ZT4iiXbmjsx8ypxItKrlGBS5NjaeQ4FEq2GvL3Yrfd2INHVMmjHyoFBbQ7wk
-         0ZZFF3+MVY68C7pbeM97DeodrTdbHrLh2MMXXpyAJDilqRD2B00VDpngFZOl+3pzNYl4
-         9nYg==
-X-Forwarded-Encrypted: i=1; AJvYcCXJK1rORskPAV7MjgviqsTFzyl7dSoXoHK/ZgaPiuD9kXkc8qw6Qp6XO4cn77+I8qHTDsGHGrphdyo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzmDrqJY7/s49u0mCaKugcDumxdwbE4fZI9XwD0RhN4/G6+/2Tg
-	rlpKRv0Y19oTe4f3pWk/bNoWU01A/I93x6R5aL7P3HYtrGrsYzWVkxlw
-X-Gm-Gg: ASbGncv5/BGA9+NnsELiSvgPFd563w1o1600EbcdUCqb/FgpjwJjJTEYVoaQwOf0USO
-	7Ld2hX6ZI0N5b31UksdjKd53ignwdql0KTQrYGvMmJqcqRb2R3TbilCiMIdqlMdKdUTt/7x2DA0
-	1w4OJSv+kD2b7oswJRw+uQRlk9jpfm6ej8p9S8zvEBoFTNYci6AEe7lnAzDf+5X7/FsbQBJtBqv
-	LUw5rAyzA8V58vuBrmY+hXg7qggTuofMhktO0mByw49j/iz8T76mc+v1JMddbuIdl1+1GGZ5Pqc
-	piA4mlK8RNvD6UoeSyfSq4KBpJrjr5AAuC5d4C/BpfYhjdOyVHHqT0ZpoH5E/PEqxVLKt4rSIzX
-	qD6t92y+2Q+rx+WrEWOd9DA81byJj9FQHJ/0L6LTUEaOmJ5wFKSWn2hjmSRodWFAb3Ep915r1p2
-	Vsm3PYXmlSNSy554wt5ZZvskvstIi3zcEOaTi8MCZJhxGAr4pNMrUGKBtMmYAAChdMEr72EQ==
-X-Google-Smtp-Source: AGHT+IHDINXuPn93t6NHNJj9EJzEIOYa6T1aeQSFSreC5uu1a9RdVAWTJCzrDhbEfGvuV93ogmYdCQ==
-X-Received: by 2002:a05:690c:fca:b0:731:1bc7:782d with SMTP id 00721157ae682-77f94b6b414mr65413707b3.18.1759536720128;
-        Fri, 03 Oct 2025 17:12:00 -0700 (PDT)
-Message-ID: <753f726e-baa8-44ab-92ed-df3cf8e89db1@gmail.com>
-Date: Fri, 3 Oct 2025 20:11:55 -0400
+        bh=H5Q6TkieBhNip5okosZP1YyVL/RSptuGmUV4yTtmVTM=;
+        b=ixEw8HjWjkn6ZRK7+6Yr7KpRdxJCdpYsPazUR3pR6QN/BIhwHezorfeRR1FvgA7PKG
+         vPEMTFhiY8CAcFt5/y6mAJkmdvs5lGJhflfHtFp4+uYvTgYKiej+kcR97vtytoKZfjfy
+         onx6UhKyfdEc5CzkWhprITHMuH0SDxrBs5KpYI2nQ+p8ZKtn8qmBmnCzFBkeK6lcQWl+
+         JeoD70DZAAhEUuCbhriFyRua5jr+WAxwTd+5EIUTgRyeSJZD7McpYlCzkeeBGCYTsynm
+         qgIWEgtN67POW9w5AOUsZjjDu6VvY/mfqtE6f+huA80RcjHDcgQXgqsQ5jy8Vyti5rQn
+         PbpQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWq3MIog8rxhPxRwnarPR2aCdNfSSbfTPjt61TmoxQlAFhorIYD4xWpSm21NUM8GFh/pL3dtnlw4oI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxX0sgSEyJkjBnv0VjzdRzIqiYtxWKiODnkOFHYlm/HL3aphVwF
+	0x6Ur9kDPds80po1nKbNQAPln8Qro6ua1zIbJ+Ibs7QElbYofSGWpCvO
+X-Gm-Gg: ASbGncuIUyYeXokXb1hQQaOi+twk1lytSE4pY3hZDUA4HgOqO1dtONJbE2aqK3KxIOU
+	/v7/j8ixSlNFVMP+A9d5BrdnAG9lf0eERU6waEPZWAxUNe3ljXsG9vVa3LtO2wPdGnFGEaxqml3
+	Z/Z+Wv7fnHHQUsfGATToStK+d5s4nfaj7PF6Xi82fAaXrv295C5jqxp/XNzJiDB7v7asuHvbu9+
+	i1wAkwNrto95QJZbgifcGljt30feXPA42PuGAo+y6L7dspnFL/RyACoj2+K6WfaR92Mza46ULPh
+	s5P4dQ6MGyCvFG0e+AGGoBu/phxJF/b2f/b/BiOAxl5vMGrhnMNh1moLP24+YUgQBLjLu4WqJx7
+	KZVWA8gipxa5pxOgxglYshAHi6F5hVpMT6qdvK4/4Qfzhjtu/sY6SLB+QE7wxT7j8XWK3V3htYP
+	gwOSdnlYQILsVG0JYnM4NuRhSttyaq01/dm2kW2XmbdgC+N+cdl1gRMuNe5byuuBxJYuJ1Jw==
+X-Google-Smtp-Source: AGHT+IHcxykmZLPSmi4SCHpEM9LL/1BfTxDoU8F9vPRq994Fja7Dj8h4vMRBVzQAHqVntYqrk3a9WA==
+X-Received: by 2002:a05:690c:387:b0:772:3578:2eba with SMTP id 00721157ae682-77f942a25b9mr66519407b3.0.1759536811427;
+        Fri, 03 Oct 2025 17:13:31 -0700 (PDT)
+Message-ID: <e64f2529-9e39-47a4-949a-eacb07a2bb06@gmail.com>
+Date: Fri, 3 Oct 2025 20:13:26 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/22] x86/msr: Change wrmsr() to take a single
- parameter
+Subject: Re: [PATCH v3 05/22] x86/fsgsbase: Improve code generation in
+ read_registers()
 To: Andrew Cooper <andrew.cooper3@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
 References: <20251003225334.2123667-1-andrew.cooper3@citrix.com>
- <20251003225334.2123667-3-andrew.cooper3@citrix.com>
+ <20251003225334.2123667-6-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -141,258 +141,49 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20251003225334.2123667-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20251003225334.2123667-6-andrew.cooper3@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------gpJMwcgBI6i5BNzcvbYQVm50"
+ boundary="------------ZaLukMVjNT5cy681J27VyYk6"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------gpJMwcgBI6i5BNzcvbYQVm50
-Content-Type: multipart/mixed; boundary="------------OWbsGXA7JUj9X3NMPYhOqZD4";
+--------------ZaLukMVjNT5cy681J27VyYk6
+Content-Type: multipart/mixed; boundary="------------TqHwS85xSqfHM8FYb6Ni7Juw";
  protected-headers="v1"
 From: Demi Marie Obenour <demiobenour@gmail.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
-Message-ID: <753f726e-baa8-44ab-92ed-df3cf8e89db1@gmail.com>
-Subject: Re: [PATCH v3 02/22] x86/msr: Change wrmsr() to take a single
- parameter
+Message-ID: <e64f2529-9e39-47a4-949a-eacb07a2bb06@gmail.com>
+Subject: Re: [PATCH v3 05/22] x86/fsgsbase: Improve code generation in
+ read_registers()
 References: <20251003225334.2123667-1-andrew.cooper3@citrix.com>
- <20251003225334.2123667-3-andrew.cooper3@citrix.com>
-In-Reply-To: <20251003225334.2123667-3-andrew.cooper3@citrix.com>
+ <20251003225334.2123667-6-andrew.cooper3@citrix.com>
+In-Reply-To: <20251003225334.2123667-6-andrew.cooper3@citrix.com>
 
---------------OWbsGXA7JUj9X3NMPYhOqZD4
-Content-Type: multipart/mixed; boundary="------------e0EMJUM0jZZ2fClrue7wQcv9"
+--------------TqHwS85xSqfHM8FYb6Ni7Juw
+Content-Type: multipart/mixed; boundary="------------Q6qGdN0mH0cwLmvoAkBX7nor"
 
---------------e0EMJUM0jZZ2fClrue7wQcv9
+--------------Q6qGdN0mH0cwLmvoAkBX7nor
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 On 10/3/25 18:53, Andrew Cooper wrote:
-> Mirroring the cleanup to rdmsr(), do the same to wrmsr().  It now has t=
-he same
-> API as wrmsrl(), but we'll want to drop that wrapper in due course.
->=20
-> It's telling that almost all remaining users pass in 0.  Most are conve=
-rted
-> directly to WRMSRNS, but a few are not.
->=20
-> MSR_VIRT_SPEC_CTRL is unconditionally intercepted is orders of magnitud=
-e more
+> It turns out that using the higher level helpers adjacent like this lea=
+ds to
+> terrible code generation.  Due to -fno-strict-alising, the store into s=
+tate->
+> invalidates the read_cr4() address calculation (which is really cpu_inf=
+o->cr4
+> under the hood), meaning that it can't be hoisted.
 
-"is unconditionally intercepted is" is this a typo?
-
-> expensive than just serialising.  In disable_lapic_nmi_watchdog(), the =
-P4 case
-> won't run on hardware which has anything more than plain WRMSR.
->=20
-> For CTR_WRITE() in op_model_athlon.c there is a logical change in behav=
-iour,
-> but it's fixing a bug.  Peformance counters typically get written to -(=
-count)
-> as they generate an interrupt on overflow.  The performance counters ev=
-en in
-> the K8 were 48 bits wide, and this wrmsr() not being a wrmsrl() appears=
- to
-> have been an oversight in commit b5103d692aa7 ("x86 oprofile: use
-> rdmsrl/wrmsrl") which converted all other users, and appears to be the =
-last
-> time there was an attempt to unify the MSR APIs.
->=20
-> No practical change.
->=20
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->=20
-> v3:
->  * Swap to wrmsrns() in setup_k7_watchdog()
->  * Reinstate correct bracketing in op_model_athlon.c's CTR_WRITE(), dro=
-p
->    useless do{}while().
-> ---
->  xen/arch/x86/cpu/amd.c                  |  2 +-
->  xen/arch/x86/hvm/vmx/vmcs.c             |  2 +-
->  xen/arch/x86/include/asm/msr.h          | 20 ++++++++++----------
->  xen/arch/x86/nmi.c                      | 18 +++++++++---------
->  xen/arch/x86/oprofile/op_model_athlon.c |  2 +-
->  5 files changed, 22 insertions(+), 22 deletions(-)
->=20
-> diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-> index 43481daa8e26..9b02e1ba675c 100644
-> --- a/xen/arch/x86/cpu/amd.c
-> +++ b/xen/arch/x86/cpu/amd.c
-> @@ -934,7 +934,7 @@ void amd_set_legacy_ssbd(bool enable)
->  		return;
-> =20
->  	if (cpu_has_virt_ssbd)
-> -		wrmsr(MSR_VIRT_SPEC_CTRL, enable ? SPEC_CTRL_SSBD : 0, 0);
-> +		wrmsr(MSR_VIRT_SPEC_CTRL, enable ? SPEC_CTRL_SSBD : 0);
->  	else if (amd_legacy_ssbd)
->  		core_set_legacy_ssbd(enable);
->  	else
-> diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-> index b639818b6ea6..cd5ac8a5f0e3 100644
-> --- a/xen/arch/x86/hvm/vmx/vmcs.c
-> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-> @@ -754,7 +754,7 @@ static int _vmx_cpu_up(bool bsp)
->          eax |=3D IA32_FEATURE_CONTROL_ENABLE_VMXON_OUTSIDE_SMX;
->          if ( test_bit(X86_FEATURE_SMX, &boot_cpu_data.x86_capability) =
-)
->              eax |=3D IA32_FEATURE_CONTROL_ENABLE_VMXON_INSIDE_SMX;
-> -        wrmsr(MSR_IA32_FEATURE_CONTROL, eax, 0);
-> +        wrmsrns(MSR_IA32_FEATURE_CONTROL, eax);
->      }
-> =20
->      if ( (rc =3D vmx_init_vmcs_config(bsp)) !=3D 0 )
-> diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/=
-msr.h
-> index 188a50f9cea4..941a7612f4ba 100644
-> --- a/xen/arch/x86/include/asm/msr.h
-> +++ b/xen/arch/x86/include/asm/msr.h
-> @@ -15,13 +15,17 @@
->   *   uint64_t foo =3D rdmsr(MSR_BAR);
->   *   wrmsrns(MSR_BAR, foo);
->   *
-> + * and, if architectural serialisaition is necessary, or there are oth=
-er
-> + * reasons that WRMSRNS is inapplicable, then:
-> + *
-> + *   wrmsr(MSR_BAR, foo);
-> + *
->   * In addition, *_safe() wrappers exist to cope gracefully with a #GP.=
-
->   *
->   *
->   * All legacy forms are to be phased out:
->   *
->   *  rdmsrl(MSR_FOO, val);
-> - *  wrmsr(MSR_FOO, lo, hi);
->   *  wrmsrl(MSR_FOO, val);
->   */
-> =20
-> @@ -43,17 +47,13 @@ static always_inline uint64_t rdmsr(unsigned int ms=
-r)
->         val =3D a__ | ((u64)b__<<32); \
->  } while(0)
-> =20
-> -#define wrmsr(msr,val1,val2) \
-> -     __asm__ __volatile__("wrmsr" \
-> -			  : /* no outputs */ \
-> -			  : "c" (msr), "a" (val1), "d" (val2))
-> -
-> -static inline void wrmsrl(unsigned int msr, uint64_t val)
-> +static inline void wrmsr(unsigned int msr, uint64_t val)
->  {
-> -        uint32_t lo =3D val, hi =3D val >> 32;
-> +    uint32_t lo =3D val, hi =3D val >> 32;
-> =20
-> -        wrmsr(msr, lo, hi);
-> +    asm volatile ( "wrmsr" :: "a" (lo), "d" (hi), "c" (msr) );
->  }
-> +#define wrmsrl(msr, val) wrmsr(msr, val)
-> =20
->  /* Non-serialising WRMSR, when available.  Falls back to a serialising=
- WRMSR. */
->  static inline void wrmsrns(uint32_t msr, uint64_t val)
-> @@ -150,7 +150,7 @@ static inline void wrmsr_tsc_aux(uint32_t val)
-> =20
->      if ( *this_tsc_aux !=3D val )
->      {
-> -        wrmsr(MSR_TSC_AUX, val, 0);
-> +        wrmsrns(MSR_TSC_AUX, val);
->          *this_tsc_aux =3D val;
->      }
->  }
-> diff --git a/xen/arch/x86/nmi.c b/xen/arch/x86/nmi.c
-> index 9793fa23168d..a0c9194ff032 100644
-> --- a/xen/arch/x86/nmi.c
-> +++ b/xen/arch/x86/nmi.c
-> @@ -218,16 +218,16 @@ void disable_lapic_nmi_watchdog(void)
->          return;
->      switch (boot_cpu_data.x86_vendor) {
->      case X86_VENDOR_AMD:
-> -        wrmsr(MSR_K7_EVNTSEL0, 0, 0);
-> +        wrmsrns(MSR_K7_EVNTSEL0, 0);
->          break;
->      case X86_VENDOR_INTEL:
->          switch (boot_cpu_data.x86) {
->          case 6:
-> -            wrmsr(MSR_P6_EVNTSEL(0), 0, 0);
-> +            wrmsrns(MSR_P6_EVNTSEL(0), 0);
->              break;
->          case 15:
-> -            wrmsr(MSR_P4_IQ_CCCR0, 0, 0);
-> -            wrmsr(MSR_P4_CRU_ESCR0, 0, 0);
-> +            wrmsr(MSR_P4_IQ_CCCR0, 0);
-> +            wrmsr(MSR_P4_CRU_ESCR0, 0);
->              break;
->          }
->          break;
-> @@ -282,7 +282,7 @@ static void clear_msr_range(unsigned int base, unsi=
-gned int n)
->      unsigned int i;
-> =20
->      for (i =3D 0; i < n; i++)
-> -        wrmsr(base+i, 0, 0);
-> +        wrmsrns(base + i, 0);
->  }
-> =20
->  static inline void write_watchdog_counter(const char *descr)
-> @@ -308,11 +308,11 @@ static void setup_k7_watchdog(void)
->          | K7_EVNTSEL_USR
->          | K7_NMI_EVENT;
-> =20
-> -    wrmsr(MSR_K7_EVNTSEL0, evntsel, 0);
-> +    wrmsrns(MSR_K7_EVNTSEL0, evntsel);
->      write_watchdog_counter("K7_PERFCTR0");
->      apic_write(APIC_LVTPC, APIC_DM_NMI);
->      evntsel |=3D K7_EVNTSEL_ENABLE;
-> -    wrmsr(MSR_K7_EVNTSEL0, evntsel, 0);
-> +    wrmsrns(MSR_K7_EVNTSEL0, evntsel);
->  }
-> =20
->  static void setup_p6_watchdog(unsigned counter)
-> @@ -338,11 +338,11 @@ static void setup_p6_watchdog(unsigned counter)
->          | P6_EVNTSEL_USR
->          | counter;
-> =20
-> -    wrmsr(MSR_P6_EVNTSEL(0), evntsel, 0);
-> +    wrmsrns(MSR_P6_EVNTSEL(0), evntsel);
->      write_watchdog_counter("P6_PERFCTR0");
->      apic_write(APIC_LVTPC, APIC_DM_NMI);
->      evntsel |=3D P6_EVNTSEL0_ENABLE;
-> -    wrmsr(MSR_P6_EVNTSEL(0), evntsel, 0);
-> +    wrmsrns(MSR_P6_EVNTSEL(0), evntsel);
->  }
-> =20
->  static void setup_p4_watchdog(void)
-> diff --git a/xen/arch/x86/oprofile/op_model_athlon.c b/xen/arch/x86/opr=
-ofile/op_model_athlon.c
-> index bf897a4b6328..4c016624a69b 100644
-> --- a/xen/arch/x86/oprofile/op_model_athlon.c
-> +++ b/xen/arch/x86/oprofile/op_model_athlon.c
-> @@ -34,7 +34,7 @@
->  #define MAX_COUNTERS FAM15H_NUM_COUNTERS
-> =20
->  #define CTR_READ(msr_content,msrs,c) do {rdmsrl(msrs->counters[(c)].ad=
-dr, (msr_content));} while (0)
-> -#define CTR_WRITE(l,msrs,c) do {wrmsr(msrs->counters[(c)].addr, -(unsi=
-gned int)(l), -1);} while (0)
-> +#define CTR_WRITE(l,msrs,c) wrmsr(msrs->counters[(c)].addr, -(l))
->  #define CTR_OVERFLOWED(n) (!((n) & (1ULL<<31)))
-> =20
->  #define CTRL_READ(msr_content,msrs,c) do {rdmsrl(msrs->controls[(c)].a=
-ddr, (msr_content));} while (0)
-
-
+It would be nice if compilers could warn when they
+could not optimize because of something like this.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------e0EMJUM0jZZ2fClrue7wQcv9
+--------------Q6qGdN0mH0cwLmvoAkBX7nor
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -512,31 +303,31 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------e0EMJUM0jZZ2fClrue7wQcv9--
+--------------Q6qGdN0mH0cwLmvoAkBX7nor--
 
---------------OWbsGXA7JUj9X3NMPYhOqZD4--
+--------------TqHwS85xSqfHM8FYb6Ni7Juw--
 
---------------gpJMwcgBI6i5BNzcvbYQVm50
+--------------ZaLukMVjNT5cy681J27VyYk6
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmjgZkwACgkQszaHOrMp
-8lPzIRAAovkptIwxqfvHPxYaIut7GzqONnaFlPhlJuRbIkodbMrQKmdEDgdfExwl
-4GeUsfbhCorXSbemF3WUVh8CqaR6lAs0CM9VO6mzyYFDKmdsmji2lzQVnTQzNyPs
-9dooUuVmagLiLSu878wHDkR/F1xxP4jHakxLVIOkR4ifbjsR1X/BkMz1+nL98AVl
-IIVwzqU0Zq55PrSdPX4zubZdzHcNWvU6MemVtg+B4MTSRj02gJV2ENCM0MoY2i8M
-oTm2aSqlXQF+zVh8+nn2b1Jrx9Arsdnbxz7QPRM+FMSwyPpTU1gt/jqLL7SZQ2BX
-VtedZfmJScLs18lkirq2ZL5xbnzVoyN8AXVAR0kd7DH0QGXHdNGBEZT7cHyKGCf7
-uT5x71uCKpYxbdmasCtRutN1gNzN6cOdoZxAUXCyoIC/NRjCS79Sb7wclVu0G6xy
-O4b3Odu1IKVtiV6r9T2hFbWHBcb47s+WVnylSYybdR28y8SteBbXZJkBu6ousQSL
-lrd9huLlOsGnyN0VzslvJyhYlZHen/XSximoguvBi4a1FsWRpvuLwAL+/BrHJLiu
-nqhpw7zTn9PKktUnQzBAnqB1gspOXp/ObUHdPNkyopap66eoUH1mvcKU7wFft0wQ
-o7l2U4Zr/+HO9lxJY9Y/mLv27b9HCNKFqZ8Hi4n7U9NIJVe40pY=
-=uiBl
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmjgZqcACgkQszaHOrMp
+8lPCLg//QYud/gtDx3LNp45fvuyZYc5I/8GhQ8789qhfEnHNxdkupExo+BDKzRQW
+wpgOOs3o4Rys//mRpUD8N+kS1ZuuEQ+1yFNUmmkL2UGVQER4QK4DxQdxpINL6rjG
++j2VT6PUWpFmdyjf7TX/PC6TK+MZEe+sQHVbELw7t0IfNsaGIzl2mhMCJYUJuNV4
+86W+1KzZ0bpMfdavXF6Hhg3MdpeR8xXOhFoyp5DTHV5fkg7UuNdFm7Bi7OJaXSF3
+jrN8jdFmhgCiuZzQk1qH7xKfTqVUjA9eMF1DXlN7J1yVHl+2wtWaIhk5BEiIBYCd
+VJ/8tuAWG5VFRt9TAkBItzkKZRvApDhy4lWTAI416X6oo01ej1rWrc3TAB1M3gq+
+j8kMc1wDnYZMXUFD/zpi1W2PPKxmjUJrLjKpNmo/0GII6wJsNZ2q6oVGWoe3VjED
+D/v83+jIrfr6RjKMxG9diGI4Xu6OY9BwaFWajszQRqyC9TuBXNfgrDGHBjSndOwV
+59OM3v6SyAfwtOaEQiL8G4o1qpqE7D25xjdQihBgVKNUSccO2Mz/uZssK5big6kL
+LprDoNjmTJ0rlGoCjuhxluFSR5WZNv9w7/Q63Lm4y57sLnDv5UF03bgQLZ8cWqLX
+66cfUPGEHRhlxixTGlSG3mWOXGAP0IqTGl+IHStKe3XdlO1UVnU=
+=nsQ2
 -----END PGP SIGNATURE-----
 
---------------gpJMwcgBI6i5BNzcvbYQVm50--
+--------------ZaLukMVjNT5cy681J27VyYk6--
 
