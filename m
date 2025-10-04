@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33C09BB871C
-	for <lists+xen-devel@lfdr.de>; Sat, 04 Oct 2025 02:14:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1137190.1473554 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20866BB88F6
+	for <lists+xen-devel@lfdr.de>; Sat, 04 Oct 2025 05:30:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1137230.1473563 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4pua-0002P8-Gk; Sat, 04 Oct 2025 00:14:08 +0000
+	id 1v4sy4-0000LU-OE; Sat, 04 Oct 2025 03:29:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1137190.1473554; Sat, 04 Oct 2025 00:14:08 +0000
+Received: by outflank-mailman (output) from mailman id 1137230.1473563; Sat, 04 Oct 2025 03:29:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v4pua-0002NH-E7; Sat, 04 Oct 2025 00:14:08 +0000
-Received: by outflank-mailman (input) for mailman id 1137190;
- Sat, 04 Oct 2025 00:14:07 +0000
+	id 1v4sy4-0000Jc-L4; Sat, 04 Oct 2025 03:29:56 +0000
+Received: by outflank-mailman (input) for mailman id 1137230;
+ Sat, 04 Oct 2025 03:29:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZMDu=4N=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1v4puZ-0002Az-H8
- for xen-devel@lists.xenproject.org; Sat, 04 Oct 2025 00:14:07 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ <SRS0=q86o=4N=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1v4sy2-0000JW-Or
+ for xen-devel@lists.xenproject.org; Sat, 04 Oct 2025 03:29:55 +0000
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazlp170120002.outbound.protection.outlook.com
+ [2a01:111:f403:c001::2])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0aa52da6-a0b7-11f0-9d14-b5c5bf9af7f9;
- Sat, 04 Oct 2025 02:14:06 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3ee13baf2e1so1846620f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 03 Oct 2025 17:14:06 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-22-57-86.as13285.net. [92.22.57.86])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4255d8abf0bsm9767363f8f.17.2025.10.03.17.14.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Oct 2025 17:14:05 -0700 (PDT)
+ id 6301783e-a0d2-11f0-9d15-b5c5bf9af7f9;
+ Sat, 04 Oct 2025 05:29:52 +0200 (CEST)
+Received: from MN2PR12CA0005.namprd12.prod.outlook.com (2603:10b6:208:a8::18)
+ by BL3PR12MB6380.namprd12.prod.outlook.com (2603:10b6:208:38d::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.18; Sat, 4 Oct
+ 2025 03:29:42 +0000
+Received: from BN1PEPF0000468C.namprd05.prod.outlook.com
+ (2603:10b6:208:a8:cafe::aa) by MN2PR12CA0005.outlook.office365.com
+ (2603:10b6:208:a8::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.16 via Frontend Transport; Sat,
+ 4 Oct 2025 03:29:42 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF0000468C.mail.protection.outlook.com (10.167.243.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9182.15 via Frontend Transport; Sat, 4 Oct 2025 03:29:41 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 3 Oct
+ 2025 20:29:41 -0700
+Received: from [172.21.123.104] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 3 Oct 2025 20:29:41 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +59,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0aa52da6-a0b7-11f0-9d14-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1759536846; x=1760141646; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+szExrSazi5rx3Z4qSH5w6eplcDuAouOOMxCHFN5cnQ=;
-        b=Nbv+pMPornJkbAnSgCpKaCgHxH+W+64ANIY60dQlh+I0BIufH12HSGx0/mVMrmmkkI
-         xbTAmN+Hvb+V0yaQm0HU+zefNkcC8rmjnTeitv8IJtrzf7/h+Mga/UvfLItwVT3ny5Iv
-         KZ8e2+jV1pbi2JLu7RgmtwKvoXc9kJNup3hXw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759536846; x=1760141646;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+szExrSazi5rx3Z4qSH5w6eplcDuAouOOMxCHFN5cnQ=;
-        b=nRqjkwL6VZiVia/vuAPT3DN5qLP9Xl7ssu+9cQT/pyrs6Sz3L45cq5XRMUNEr0/qWh
-         dHEhA+h3R2nHMRryPdOTvHj/GNUSywxiNtSbiab/2DYjsCYUQQvjlX4BT2RYlsMBxJ57
-         jFya7yFyGyIJGliGG/AHS5y8m4KWwodUS0dJuAlO0Dt0asC7MFjbCgenLx5FM/lc1f20
-         nvzDyu9+TBDul9Hqcc+ixBYeEkkxnJdUn2qyX2oDFNvlkzBrJeUl4SaMWDHqLpdwm/HQ
-         GpFbR4THvIWWfTkAZ97eKYL6pgNyWCPGp2wUhPb3nK8MRLcXaLXdlO97Ymo0ru5L0iHD
-         NesA==
-X-Forwarded-Encrypted: i=1; AJvYcCVIZnqP91Bx7Owv3+3lPY5Nc8weTDDDbt3+mAyk/dMsOdAODo6Pg5bzL89g+6HigtBGPEv7gUb+bFc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxtge4rWUvQyJicN4n10DNJxQVUsp8b7p5eHqY4v9uW4Dyi2/UK
-	/5vhF2VVlhy1PNrFAJynkxfuJeovOXkyVI4pGR1za1popg27XqugIY9L8R+fHh8rj6I=
-X-Gm-Gg: ASbGncuM994h5v3/95/C+QABJztnTiqrFHI2iDvMyAvcqvwSVya0ml8Veaw+fnHw+GG
-	PDWa4nNhXuG9CwnjytJV023y1btHgWQjkKJYGnCns1BVJXJ7mYQS3u04aDGJ9vOFZYN3+l+xYyw
-	lAKwn1KHRPLHdeuOagLrv9hkEax8UoKmvPaxkMh/Wdq0m2MPUZU/yUisyaxl+ks8B6j6dnRIupz
-	tkRaBDA9NWT3VYiv8dJJzKxJwSrmm3Vzys1pK+389G1q47u9Nu9h03MGGquHVaUgnXg9hKbIG13
-	AaciYkegk+1aZrdgio04d9WO8deau7IZmi5Gg+zw/MbNXDR/oDy521Oh4RK/u7NeMOzsj//0f6l
-	OB96s2OOqkgKyexvR3/f9OOfirU6piTGqcr29x4P+/aW6tI3f42yPi27lBeq1cfA346FW3p+wI/
-	nsQ5y80nNom1hVfKtEV9djA1L2RIIkSNOVNA==
-X-Google-Smtp-Source: AGHT+IE9xM+DjmIPHAHhwjDxoOTE12Qcr/H7INdQdE1eX1rc6ADmtIlZHiolNRZhrYsTdmmzcaYSrg==
-X-Received: by 2002:a05:6000:2dc5:b0:3e7:6418:247b with SMTP id ffacd0b85a97d-4256713a13fmr3093697f8f.10.1759536846194;
-        Fri, 03 Oct 2025 17:14:06 -0700 (PDT)
-Message-ID: <deedfb23-496f-41aa-818f-f8d648b50648@citrix.com>
-Date: Sat, 4 Oct 2025 01:14:04 +0100
+X-Inumbo-ID: 6301783e-a0d2-11f0-9d15-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i33zKxQwn33BsmFVbZVRsdPcwe4sCP9bsyOXXk3GSaOyiON9Xd98TIpJ9bexTyqYzRcnwHE81lE4P8840HJON/iYTsHOPgOP5Z5vxDDghrLprGhUT8Ldi1/uBu2A89yilXk1HI/nxQoobyvWxG47VSlgsdQKH48Dg9QDzEVZWBn+5odpx3ES8JZQB3LI8ZWv42FBfV+/NzAMi6f1zILfCIxNuJ9JoglK2ks0wtuwztzOjWRe1XYDiI/ysnpDX/Mqtdn97XeNMzNL7asPM0J+q9Dx7J0yep4eyGBPRH8roNjv/LIOPln/rs/LiO/3TVVJ1WHVFvDUtQMEWoRQvKosrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8R1YFRXigT95lPv8yoX+NsZsTTWqclC+QUC8jHW5fdE=;
+ b=kltMcIpiEjqW+VQqiKiud1MIlZohYnwUqBbyofz8R4Ce1q/uvOF3Zzlx/CtoVCC7eOMw6n3rRbUQklRakTFSrhnOAIczxVAzA0tz7AtFJf8oVsGC1ctWiXBnxnua+ZSFiyGDRar6zQSxUMmkhUERrWYu7efqWc9ZtR0Lm7AS3Ui1ozOfhl8bqY1bZTuZkes9o1+p3bWk8z/+Sk5pRKofxQ+c6MJyYlHEGVWf1wQhcA0prq/nw53D9NTsGs7KE/LGnW4vHgCK2wXLNKgW1NSOAidiYAh7NvGoNmBkw6BePxDyGv9+JJmX2XfG2ZLpD6xIS+SiDcXEftCNBR6Iglvlrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8R1YFRXigT95lPv8yoX+NsZsTTWqclC+QUC8jHW5fdE=;
+ b=Vx9+ORlcW+3DZL+y28Xjdc2vMiFidONOTsIy8M8A+ZeTC/PMoPS2xIdCY1u/Ggqkes5qk8Y2UNv/GhfdV+ufxNmivvxUiuJfH4cAjZP8m0k72DilBVBVbE8TEbN2hjhqyMhIuM1zCtBdjhik9BYUMVHvJmAsMAE9kpxIw8P5xrY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <2d1737a7-58e3-48e3-ac16-1bda3947c929@amd.com>
+Date: Fri, 3 Oct 2025 23:29:40 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/22] x86/msr: Change wrmsr() to take a single
- parameter
-To: Demi Marie Obenour <demiobenour@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20251003225334.2123667-1-andrew.cooper3@citrix.com>
- <20251003225334.2123667-3-andrew.cooper3@citrix.com>
- <753f726e-baa8-44ab-92ed-df3cf8e89db1@gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <753f726e-baa8-44ab-92ed-df3cf8e89db1@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH for-4.21] vpci/msix: improve handling of bogus MSI-X
+ capabilities
+To: Roger Pau Monne <roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Oleksii Kurochko
+	<oleksii.kurochko@gmail.com>
+References: <20250929084149.70560-1-roger.pau@citrix.com>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <20250929084149.70560-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468C:EE_|BL3PR12MB6380:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0f5bf36-4ccc-49e8-c5ea-08de02f641a0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|30052699003|376014|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?QTBjREhPMi9VVk1wZjEwUGN0SEFjS2FMQi9pWk5LTVVhMGNEVnUyS05yL3Zw?=
+ =?utf-8?B?dkx4R2tua0JEck01REdNV0h4clIzMThOaStzOUlCank0Uy9hZ2ZRWTBNWkox?=
+ =?utf-8?B?Z2lSYWFqMWxQY0dheStIb3VjMDdkaFhPZzNCemR0bjNSM2lrNCtVQ3JkazZw?=
+ =?utf-8?B?QnFlbmI1WFVYN2lwOWhONTJ3WkxFbU1mVXVwUVpFV0g5N3FqRWZkNUhTS0V3?=
+ =?utf-8?B?RzZsb2N5Mmx4bjB3UVJZNjhic2JGN3RQTkhTOWVwMWYvV085K2N5bXdyV3Ez?=
+ =?utf-8?B?dWFwTU1PMmVBMUNvTUxnbEdBeld1cU5QRGFVTGlMQ0hsQ3EwRW5qM21lVHpo?=
+ =?utf-8?B?Nm5GUjFHR2VzNlN4Wm10LzVPZjY3d084cHA5Y212WGdOV3d1dk5QLzN1UEIw?=
+ =?utf-8?B?dVd5bm5jMEdrSHFKZDNmbWRDQm9wcit0bGhWdVZlRTVqS0hVVkd6Q0M1N1F6?=
+ =?utf-8?B?YUFMclNVUkxCbkVxVjhWUHk1RVhDbW01b0tkUDgvbXZId2RQNWNNQjJMYkdW?=
+ =?utf-8?B?NGNuby9GRmErcVV5c2lIeHM1cDZTYjFoMDdHbVp4cnZacjREbjZRbHlYZUNR?=
+ =?utf-8?B?QzhvUXFaVzlSUHhlbjB0MXg1RnFRZ0VnTlRJYTFDMTFVT3hmbWJUeUFsZGE1?=
+ =?utf-8?B?d0NXeHgyNFRzbTBMUzdQWVlSLzVTWmZYUXFIcUNDMVFxbEdVakFUUHBUSW1h?=
+ =?utf-8?B?b05RdVEyVitLbTdGQTFTbFJ4cFpaa0hIVjNnYS96ekxEWklzRTBMYTlmS0c0?=
+ =?utf-8?B?WHlyMVh5MnhwQWF5Q0tvN2twdVRJQW44L1dTaHNCbU9JTDV4aW5VQ2VLUTVh?=
+ =?utf-8?B?VUdNSHU2RFBLZDJJc21Ga256UUdzUllzRGJ0a3pSSnRaaXh0V3VEajExdGdh?=
+ =?utf-8?B?a1VzZFlBM0E2T0ltV3hZOWJ6NEpteE03RDNqYU5BMTRBaUlhVDdPUXBtZjNF?=
+ =?utf-8?B?RU9YWmJyNVdlNDNIclBjeDVjZmVFZ1JEd1paUCtyd0hTQ1VZUURwVmVOT05P?=
+ =?utf-8?B?eGhOK1VweG9KeXE0MWxPTnBKbFNicE12NjM1cjVrSHFpUTBIaUpqeWp2bmRH?=
+ =?utf-8?B?VEJtTWpUODVBRXAyZUZyc0VIUWNRM2liczNEMlYxY1hxTUFTdzEwWi9HZ09R?=
+ =?utf-8?B?SzJsVGhqSFgxLzBUWDEyVEVIUkRLWGQzeHhqb0U0NzkxVFZ1cHJsbmw5QWpT?=
+ =?utf-8?B?dHBYUFlnMWtNcWNvVHNkNHlPcmk3aThoTTBxYmJLaE1ubXZpNmJSaE52R2V5?=
+ =?utf-8?B?WkZaL1o3VXdQbG9MV2pENTIxTUJ2d2pjZWZMdXJlRmk3aVhLRktVL0tFWlFN?=
+ =?utf-8?B?aDFFeHJIRVNzS2VlcVBJYVl2SHJQSVpqQnRzbHFEemRSUTcycmpxcHhESFMv?=
+ =?utf-8?B?a0U0dXI2OFRUWGZ0QWNGN0diWXdJVFFHOTVqUURjQ1RnbDRDMFlORzBtU0E3?=
+ =?utf-8?B?Wkd1Sy9PTWpVUUo3YzVyM1ZYMnI4N3ZPNVBtQlcxZTZMV0cyWEJXRXp3Y09H?=
+ =?utf-8?B?WnZMNzc4Y2JGdSs1MUxscGRnbmNtMFhGeXp1NHNmSitqNS9kMko2eFExUVFH?=
+ =?utf-8?B?UDJMTi93WGVsUURFMGl5Y3VuMG5LZGpQRVhSR3lXVVZVaUdBVWxkSThMMmpP?=
+ =?utf-8?B?NzlianNRbDFXcDlQcXZpVzY3akJ0WU1IekRTTTNla3QvOUNXdlhZWTM1UE9S?=
+ =?utf-8?B?VlJKY3dQUm1NYXZsUDRxU0lQbWVnMmljUzZCb1B3K2ppNXRLRjNiRjNwMS9U?=
+ =?utf-8?B?VmNqV2J1K0oyK2VMY3FMeXEzQm1DUmRnZVV0alVzRStudzd3cDRmSWhPSUNj?=
+ =?utf-8?B?YW1GdnBTamxjTkc4TC96dEVleHVFWXpsUmFZZUNaeWRYNXV2b3dCbVpKWUcx?=
+ =?utf-8?B?czdoa1hTSUt0VGJ2YjFrM2Z4NHlPa1NpVm1nbktyQjlQS1ZLWFI5QmFHVjJx?=
+ =?utf-8?B?Z1RLY0hsQzY3MWxneXFuSHZLSU84Zmx1NDlYNSsvNmVsc1RidEF3bGNGODdX?=
+ =?utf-8?B?S2VQYU81RFdWenJpQk5VNHVjeHMreWRSdUUycnhWYkpYemtPNndORUs0WVg2?=
+ =?utf-8?B?c3EzL3Ezb3pMWkNzc0hoVGs3VGZFRzRRWHdXaXUxY3U4SEpFSmhLWVVwc0lX?=
+ =?utf-8?Q?aTgU=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(30052699003)(376014)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2025 03:29:41.9011
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0f5bf36-4ccc-49e8-c5ea-08de02f641a0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF0000468C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6380
 
-On 04/10/2025 1:11 am, Demi Marie Obenour wrote:
-> On 10/3/25 18:53, Andrew Cooper wrote:
->> Mirroring the cleanup to rdmsr(), do the same to wrmsr().  It now has the same
->> API as wrmsrl(), but we'll want to drop that wrapper in due course.
->>
->> It's telling that almost all remaining users pass in 0.  Most are converted
->> directly to WRMSRNS, but a few are not.
->>
->> MSR_VIRT_SPEC_CTRL is unconditionally intercepted is orders of magnitude more
-> "is unconditionally intercepted is" is this a typo?
+On 9/29/25 04:41, Roger Pau Monne wrote:
+> I've had the luck to come across a PCI card that exposes a MSI-X capability
+> where the BIR of the vector and PBA tables points at a BAR that has 0 size.
+> 
+> This doesn't play nice with the code in vpci_make_msix_hole(), as it would
+> still use the address of such empty BAR (0) and attempt to crave a hole in
 
-There should be an 'and' in there.  Fixed locally.
+s/crave/carve/
 
-~Andrew
+> the p2m.  This leads to errors like the one below being reported by Xen:
+> 
+> d0v0 0000:22:00.0: existing mapping (mfn: 181c4300 type: 0) at 0 clobbers MSIX MMIO area
+> 
+> And the device left unable to enable memory decoding due to the failure
+> reported by vpci_make_msix_hole().
+> 
+> Introduce checking in init_msix() to ensure the BARs containing the MSI-X
+> tables are usable.  This requires checking that the BIR points to a
+> non-empty BAR, and the offset and size of the MSI-X tables can fit in the
+> target BAR.
+> 
+> This fixes booting PVH dom0 on Supermicro AS -2126HS-TN severs with AMD
+> EPYC 9965 processors.  The broken device is:
+> 
+> 22:00.0 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SATA Controller [AHCI mode] (rev 93)
+> 
+> There are multiple of those integrated controllers in the system, all
+> broken in the same way.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> 
+> While not strictly a bugfix, I consider this a worthy improvement so that
+> PVH dom0 has a chance to boot on hardware that exposes such broken MSI-X
+> capabilities.  Hence I think this change should be considered for inclusion
+> into 4.21.  There a risk of regressing on hardware that was already working
+> with PVH, but given enough testing that should be minimal.
+> ---
+>  xen/drivers/vpci/msix.c | 50 ++++++++++++++++++++++++++++++++++++-----
+>  1 file changed, 45 insertions(+), 5 deletions(-)
+> 
+> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+> index 54a5070733aa..8458955d5bbb 100644
+> --- a/xen/drivers/vpci/msix.c
+> +++ b/xen/drivers/vpci/msix.c
+> @@ -675,6 +675,51 @@ static int cf_check init_msix(struct pci_dev *pdev)
+>      if ( !msix )
+>          return -ENOMEM;
+>  
+> +    msix->tables[VPCI_MSIX_TABLE] =
+> +        pci_conf_read32(pdev->sbdf, msix_table_offset_reg(msix_offset));
+> +    msix->tables[VPCI_MSIX_PBA] =
+> +        pci_conf_read32(pdev->sbdf, msix_pba_offset_reg(msix_offset));
+> +
+> +    /* Check that the provided BAR is valid. */
+> +    for ( i = 0; i < ARRAY_SIZE(msix->tables); i++ )
+> +    {
+> +        const char *name = (i == VPCI_MSIX_TABLE) ? "vector" : "PBA";
+> +        const struct vpci_bar *bars = pdev->vpci->header.bars;
+> +        unsigned int bir = msix->tables[i] & PCI_MSIX_BIRMASK;
+> +        unsigned int type;
+> +        unsigned int offset = msix->tables[i] & ~PCI_MSIX_BIRMASK;
+> +        unsigned int size =
+> +            (i == VPCI_MSIX_TABLE) ? max_entries * PCI_MSIX_ENTRY_SIZE
+> +                                   : ROUNDUP(DIV_ROUND_UP(max_entries, 8), 8);
+> +
+> +        if ( bir >= ARRAY_SIZE(pdev->vpci->header.bars) )
 
->> expensive than just serialising.  In disable_lapic_nmi_watchdog(), the P4 case
->> won't run on hardware which has anything more than plain WRMSR.
->>
+This assumes a type 0 header. For type 1 headers, bir values 2 and up are
+also reserved.
+
+> +        {
+> +            printk(XENLOG_ERR "%pp: MSI-X %s table with out of range BIR %u\n",
+> +                   &pdev->sbdf, name, bir);
+
+Nit: placing the cleanup label at the end of the function and using 'rc' would
+make it more amenable to future uses.
+
+> + invalid:
+> +            xfree(msix);
+> +            return -ENODEV;
+> +
+
+Extraneous newline.
+
+> +        }
+> +
+> +        type = bars[bir].type;
+> +        if ( type != VPCI_BAR_MEM32 && type != VPCI_BAR_MEM64_LO )
+> +        {
+> +            printk(XENLOG_ERR
+> +                   "%pp: MSI-X %s table at invalid BAR%u with type %u\n",
+> +                   &pdev->sbdf, name, bir, type);
+> +            goto invalid;
+> +        }
+> +
+> +        if ( (uint64_t)offset + size > bars[bir].size )
+> +        {
+> +            printk(XENLOG_ERR
+> +                   "%pp: MSI-X %s table offset %#x size %#x outside of BAR%u size %#lx\n",
+> +                   &pdev->sbdf, name, offset, size, bir, bars[bir].size);
+> +            goto invalid;
+> +        }
+> +    }
+> +
+>      rc = vpci_add_register(pdev->vpci, control_read, control_write,
+>                             msix_control_reg(msix_offset), 2, msix);
+>      if ( rc )
+> @@ -686,11 +731,6 @@ static int cf_check init_msix(struct pci_dev *pdev)
+>      msix->max_entries = max_entries;
+>      msix->pdev = pdev;
+>  
+> -    msix->tables[VPCI_MSIX_TABLE] =
+> -        pci_conf_read32(pdev->sbdf, msix_table_offset_reg(msix_offset));
+> -    msix->tables[VPCI_MSIX_PBA] =
+> -        pci_conf_read32(pdev->sbdf, msix_pba_offset_reg(msix_offset));
+> -
+>      for ( i = 0; i < max_entries; i++)
+>      {
+>          msix->entries[i].masked = true;
 
 
