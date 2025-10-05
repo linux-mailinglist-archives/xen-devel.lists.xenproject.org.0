@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16E2FBB95B3
-	for <lists+xen-devel@lfdr.de>; Sun, 05 Oct 2025 13:05:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1137588.1473605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B15DBB977F
+	for <lists+xen-devel@lfdr.de>; Sun, 05 Oct 2025 15:24:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1137623.1473614 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v5MXS-0001RG-AN; Sun, 05 Oct 2025 11:04:26 +0000
+	id 1v5Ohk-0000Rg-Om; Sun, 05 Oct 2025 13:23:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1137588.1473605; Sun, 05 Oct 2025 11:04:26 +0000
+Received: by outflank-mailman (output) from mailman id 1137623.1473614; Sun, 05 Oct 2025 13:23:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v5MXS-0001OQ-6d; Sun, 05 Oct 2025 11:04:26 +0000
-Received: by outflank-mailman (input) for mailman id 1137588;
- Sun, 05 Oct 2025 11:04:25 +0000
+	id 1v5Ohk-0000Ob-Lj; Sun, 05 Oct 2025 13:23:12 +0000
+Received: by outflank-mailman (input) for mailman id 1137623;
+ Sun, 05 Oct 2025 13:23:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dr0i=4O=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1v5MXR-0001OK-3L
- for xen-devel@lists.xenproject.org; Sun, 05 Oct 2025 11:04:25 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ewCA=4O=kernel.org=leon@srs-se1.protection.inumbo.net>)
+ id 1v5Ohj-0000OV-HA
+ for xen-devel@lists.xenproject.org; Sun, 05 Oct 2025 13:23:11 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0c5625a6-a1db-11f0-9809-7dc792cee155;
- Sun, 05 Oct 2025 13:04:22 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3ecde0be34eso2565129f8f.1
- for <xen-devel@lists.xenproject.org>; Sun, 05 Oct 2025 04:04:22 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-22-57-86.as13285.net. [92.22.57.86])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4255d8f017esm16408913f8f.47.2025.10.05.04.04.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 05 Oct 2025 04:04:21 -0700 (PDT)
+ id 6e504889-a1ee-11f0-9809-7dc792cee155;
+ Sun, 05 Oct 2025 15:23:08 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7859B6013A;
+ Sun,  5 Oct 2025 13:23:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0842BC4CEF4;
+ Sun,  5 Oct 2025 13:23:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,121 +41,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c5625a6-a1db-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1759662262; x=1760267062; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fYCEMSjHOTLgoFEpibhiw4BWGlHfLgPbNWAgu1n2jjw=;
-        b=F1iSeGV6GavJyQIS+T8Iu83hvnXbSGrodeekdP1P48H5lNtzgcPWL7j5BhS3ubegrY
-         fCcZ0T3Fi5a0nYoRZWFCkhdgROcVdOrnU5Br7TIY7a5iP65I16dEAA88Yd4rL9s9gYPw
-         iNzeQA+txegZB9eH8jeg0H0N8oQb3HUbCjTxo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759662262; x=1760267062;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fYCEMSjHOTLgoFEpibhiw4BWGlHfLgPbNWAgu1n2jjw=;
-        b=CUGcq7HCfOownrD9jUKAKq6yXiOdu5u6m0fDgHUc6uQlQELvcU5LIhFuBskb0U68Ge
-         dcOMR2Z7QvByWpEDA1V9ZHXybbHJtzYJF2hrBuqbH0V9O7jJYr1Se1mJNIaK/45Raypp
-         +UCVQinxpEjRVG8n7RzR/d7WMGeqpWv3vi2XODQdGwkAwmIYVUkrhXU3yMeKgjPPsx4z
-         UD8SzxYllTrCsiD7fxh9DrWwKMQ3miOx6w2rjYXh93c9pD+H1H6aN8H1uXFocjbtMK5L
-         6BQfVogItyeYGrAMyoLqLNp1StYDzrP6oORjOp9JWs6fE7yU0egqyygsDaElLYjRPuwx
-         DtXQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWKb+l1jP8OIhlMsYGIixRylglnKuFSRfTmrSIGw0TY8W1m3+6WMjZySKtSHWHMnlyviaDJob53hPY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw9DQQN3UUBWckUg8Fgxk65X/kfMVan3DT4OES53nI3tsFg67jy
-	ztcoDWlrrU7Zwp+cjM4G4FE6zHt9SrO4sOLJBYpR/l0d1ed/oFPUm1a2UcLY2b6fY0U=
-X-Gm-Gg: ASbGncvzvGo4ztSh9kM0b6wBLJP1nwk+7507hTEbHm+2PUecyqSkRoKxMZXmnze+gYF
-	epyR8KpFbDcGw3twImJKbqGC6kA56zV1Sq9irbzLTjDLEYJITXaqZeiJtFNlCaQEo4Y3hngBHzE
-	prYa65BPf2DlG74CAK76/DrETortERqKUrtNk9mFV/S0Gu7BEMLWWtUST5PcNmYsjJDD0QIs7pm
-	xQpqXktQZ/TpPo2EaE01djWagJ+FbbQYhAh2F0jTwZ8aKeCwbcqRlUIMsuFkQIbTCpzq7JyL4q8
-	c1n7Y29qx9F28r6WN6blzivLVXcTqFlWXpHR/vztWIQIns9Agv9HJGNSHRh8Uv4me/0xJxVr3aY
-	Mo+iPumr4O7YHQgNE7/FCXghXE/XlKMVt1tmoQNLHmBXMudGz644RaRLizTXeN90u8QRqaow+CW
-	lKteKXKBn5WV1KQz3ehgaBIFI=
-X-Google-Smtp-Source: AGHT+IFGJvgg9b8K6cXmfkz50e0hbFIpYJAJSpAUw6LA2fV1y+2cjYeOk9iPuwDF6xnPaxIbrtvRGQ==
-X-Received: by 2002:a5d:5f83:0:b0:3ec:d9a8:3700 with SMTP id ffacd0b85a97d-42566c4b928mr6089724f8f.23.1759662262082;
-        Sun, 05 Oct 2025 04:04:22 -0700 (PDT)
-Message-ID: <9c5c6748-84c4-4be3-859c-929b3ded5afd@citrix.com>
-Date: Sun, 5 Oct 2025 12:04:20 +0100
+X-Inumbo-ID: 6e504889-a1ee-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1759670585;
+	bh=6+uRFKM+xw8rM4uHQwSSsX/I531L8PAvk6zEHoLHg8M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=eQI8MBWMG4tLc46rpbyggEqPm4RA0GD3UaTk7eYqkbWnOP1BLMQA8Bd0FFRadaCjl
+	 rAIwUkukGk1MYrK6xzB125V9hLaAp82BATfNmpxYK900245SXx6HbOfKm5BRC0dbrv
+	 5QIWkPRwZti2En9ftBy6nIGiRtg+huCzDNWJ5bjY2f8oES07rhnV70hSDpOBxrTa9X
+	 YnSL7jBydSFF3hFNjyz3N+OAncXZLI72rMKNLj2nG6j611VESyMRDTNgD+W7pQflQI
+	 0zasEU6xrBWNYwhvzi4ZbeidMKDY3niw7/pdc6/NWMpg9zZU2H3pgYKg6oaItVMxpH
+	 /iMYZdttll/xg==
+Date: Sun, 5 Oct 2025 16:22:59 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Andreas Larsson <andreas@gaisler.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Geoff Levand <geoff@infradead.org>, Helge Deller <deller@gmx.de>,
+	Ingo Molnar <mingo@redhat.com>, iommu@lists.linux.dev,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	Jason Wang <jasowang@redhat.com>, Juergen Gross <jgross@suse.com>,
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Matt Turner <mattst88@gmail.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	sparclinux@vger.kernel.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	virtualization@lists.linux.dev, x86@kernel.org,
+	xen-devel@lists.xenproject.org, Magnus Lindholm <linmag7@gmail.com>
+Subject: Re: [PATCH v1 3/9] parisc: Convert DMA map_page to map_phys interface
+Message-ID: <20251005132259.GA21221@unreal>
+References: <cover.1759071169.git.leon@kernel.org>
+ <333ec4dabec16d3d913a93780bc6e7ddb5240fcf.1759071169.git.leon@kernel.org>
+ <20251003150144.GC3360665@nvidia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] libs/guest: don't use unsigned long as type for PFNs
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Jason Andryuk <jason.andryuk@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Luca Fancellu <luca.fancellu@arm.com>
-References: <20251005091845.3725-1-jgross@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20251005091845.3725-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251003150144.GC3360665@nvidia.com>
 
-On 05/10/2025 10:18 am, Juergen Gross wrote:
-> Declarations of xc_dom_console_init() and
-> xc_dom_console_set_disconnected() in libxenguest.h don't match their
-> implementation in the library.
+On Fri, Oct 03, 2025 at 12:01:44PM -0300, Jason Gunthorpe wrote:
+> On Sun, Sep 28, 2025 at 06:02:23PM +0300, Leon Romanovsky wrote:
+> > +ccio_map_phys(struct device *dev, phys_addr_t phys, size_t size,
+> > +	      enum dma_data_direction direction, unsigned long attrs)
+> >  {
+> > -	return ccio_map_single(dev, page_address(page) + offset, size,
+> > -			direction);
+> > +	if (attrs & DMA_ATTR_MMIO)
+> > +		return DMA_MAPPING_ERROR;
+> > +
+> > +	return ccio_map_single(dev, phys_to_virt(phys), size, direction);
+> 
+> This doesn't actually use the virt at all:
+> 
+> 	offset = ((unsigned long) addr) & ~IOVP_MASK;
+> 	if((size % L1_CACHE_BYTES) || ((unsigned long)addr % L1_CACHE_BYTES))
+> 		ccio_io_pdir_entry(pdir_start, KERNEL_SPACE, (unsigned long)addr, hint);
+> 
+> And ccio_io_pdir_entry():
+> 	pa = lpa(vba);
+> 
+> Is a special instruction that uses virt but AI tells me that special
+> LPA instruction is returning phys. Not sure if that is a different
+> value than virt_to_phys()..
+> 
+> IDK, I'm not feeling brave enough to drop the LPA but maybe include
+> this note in the commit message.
+> 
+It looks like I was chosen as a volunteer to do so. WDYT?
 
-"Under arm32, xen_pfn_t is a uint64_t and wider than unsigned long."
+diff --git a/drivers/parisc/ccio-dma.c b/drivers/parisc/ccio-dma.c
+index b00f6fc49063..4d73e67fbd54 100644
+--- a/drivers/parisc/ccio-dma.c
++++ b/drivers/parisc/ccio-dma.c
+@@ -517,10 +517,10 @@ static u32 hint_lookup[] = {
+  * ccio_io_pdir_entry - Initialize an I/O Pdir.
+  * @pdir_ptr: A pointer into I/O Pdir.
+  * @sid: The Space Identifier.
+- * @vba: The virtual address.
++ * @pba: The physical address.
+  * @hints: The DMA Hint.
+  *
+- * Given a virtual address (vba, arg2) and space id, (sid, arg1),
++ * Given a physical address (pba, arg2) and space id, (sid, arg1),
+  * load the I/O PDIR entry pointed to by pdir_ptr (arg0). Each IO Pdir
+  * entry consists of 8 bytes as shown below (MSB == bit 0):
+  *
+@@ -543,7 +543,7 @@ static u32 hint_lookup[] = {
+  * index are bits 12:19 of the value returned by LCI.
+  */
+ static void
+-ccio_io_pdir_entry(__le64 *pdir_ptr, space_t sid, unsigned long vba,
++ccio_io_pdir_entry(__le64 *pdir_ptr, space_t sid, phys_addr_t pba,
+                   unsigned long hints)
+ {
+        register unsigned long pa;
+@@ -557,7 +557,7 @@ ccio_io_pdir_entry(__le64 *pdir_ptr, space_t sid, unsigned long vba,
+        ** "hints" parm includes the VALID bit!
+        ** "dep" clobbers the physical address offset bits as well.
+        */
+-       pa = lpa(vba);
++       pa = pba;
+        asm volatile("depw  %1,31,12,%0" : "+r" (pa) : "r" (hints));
+        ((u32 *)pdir_ptr)[1] = (u32) pa;
 
->
-> Use xen_pfn_t for PFNs in the library to fix that.
->
-> Fixes: b6fc307b0b00 ("libs/guest: Set console as disconnected on resume")
-> Fixes: 971b7d5ecbcd ("libs/guest: Set console page to disconnected")
-> Reported-by: Luca Fancellu <luca.fancellu@arm.com>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+@@ -582,7 +582,7 @@ ccio_io_pdir_entry(__le64 *pdir_ptr, space_t sid, unsigned long vba,
+        ** Grab virtual index [0:11]
+        ** Deposit virt_idx bits into I/O PDIR word
+        */
+-       asm volatile ("lci %%r0(%1), %0" : "=r" (ci) : "r" (vba));
++       asm volatile ("lci %%r0(%1), %0" : "=r" (ci) : "r" (pba));
+        asm volatile ("extru %1,19,12,%0" : "+r" (ci) : "r" (ci));
+        asm volatile ("depw  %1,15,12,%0" : "+r" (pa) : "r" (ci));
 
-For this patch, Reveiwed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+@@ -704,14 +704,14 @@ ccio_dma_supported(struct device *dev, u64 mask)
+ /**
+  * ccio_map_single - Map an address range into the IOMMU.
+  * @dev: The PCI device.
+- * @addr: The start address of the DMA region.
++ * @addr: The physical address of the DMA region.
+  * @size: The length of the DMA region.
+  * @direction: The direction of the DMA transaction (to/from device).
+  *
+  * This function implements the pci_map_single function.
+  */
+ static dma_addr_t 
+-ccio_map_single(struct device *dev, void *addr, size_t size,
++ccio_map_single(struct device *dev, phys_addr_t addr, size_t size,
+                enum dma_data_direction direction)
+ {
+        int idx;
+@@ -730,7 +730,7 @@ ccio_map_single(struct device *dev, void *addr, size_t size,
+        BUG_ON(size <= 0);
+ 
+        /* save offset bits */
+-       offset = ((unsigned long) addr) & ~IOVP_MASK;
++       offset = offset_in_page(addr);
+ 
+        /* round up to nearest IOVP_SIZE */
+        size = ALIGN(size + offset, IOVP_SIZE);
+@@ -746,15 +746,15 @@ ccio_map_single(struct device *dev, void *addr, size_t size,
+ 
+        pdir_start = &(ioc->pdir_base[idx]);
+ 
+-       DBG_RUN("%s() %px -> %#lx size: %zu\n",
+-               __func__, addr, (long)(iovp | offset), size);
++       DBG_RUN("%s() %pa -> %#lx size: %zu\n",
++               __func__, &addr, (long)(iovp | offset), size);
+ 
+        /* If not cacheline aligned, force SAFE_DMA on the whole mess */
+-       if((size % L1_CACHE_BYTES) || ((unsigned long)addr % L1_CACHE_BYTES))
++       if((size % L1_CACHE_BYTES) || (addr % L1_CACHE_BYTES))
+                hint |= HINT_SAFE_DMA;
+ 
+        while(size > 0) {
+-               ccio_io_pdir_entry(pdir_start, KERNEL_SPACE, (unsigned long)addr, hint);
++               ccio_io_pdir_entry(pdir_start, KERNEL_SPACE, addr, hint);
+ 
+                DBG_RUN(" pdir %p %08x%08x\n",
+                        pdir_start,
+@@ -779,7 +779,7 @@ ccio_map_phys(struct device *dev, phys_addr_t phys, size_t size,
+        if (unlikely(attrs & DMA_ATTR_MMIO))
+                return DMA_MAPPING_ERROR;
+ 
+-       return ccio_map_single(dev, phys_to_virt(phys), size, direction);
++       return ccio_map_single(dev, phys, size, direction);
+ }
+ 
+ 
+@@ -854,7 +854,8 @@ ccio_alloc(struct device *dev, size_t size, dma_addr_t *dma_handle, gfp_t flag,
+ 
+        if (ret) {
+                memset(ret, 0, size);
+-               *dma_handle = ccio_map_single(dev, ret, size, DMA_BIDIRECTIONAL);
++               *dma_handle = ccio_map_single(dev, virt_to_phys(ret), size,
++                                             DMA_BIDIRECTIONAL);
+        }
+ 
+        return ret;
+@@ -921,7 +922,7 @@ ccio_map_sg(struct device *dev, struct scatterlist *sglist, int nents,
+        /* Fast path single entry scatterlists. */
+        if (nents == 1) {
+                sg_dma_address(sglist) = ccio_map_single(dev,
+-                               sg_virt(sglist), sglist->length,
++                               sg_phys(sglist), sglist->length,
+                                direction);
+                sg_dma_len(sglist) = sglist->length;
+                return 1;
 
-However, another bug in these patches is the use of pfn.  gfn is the
-correct term to be using.
-
-~Andrew
+> 
+> Jason
+> 
 
