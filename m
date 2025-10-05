@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AED7BB9826
-	for <lists+xen-devel@lfdr.de>; Sun, 05 Oct 2025 16:23:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1137648.1473623 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A78ABB9843
+	for <lists+xen-devel@lfdr.de>; Sun, 05 Oct 2025 16:30:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1137660.1473634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v5Pdg-0007pc-Ub; Sun, 05 Oct 2025 14:23:04 +0000
+	id 1v5Pjq-0008Qe-JS; Sun, 05 Oct 2025 14:29:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1137648.1473623; Sun, 05 Oct 2025 14:23:04 +0000
+Received: by outflank-mailman (output) from mailman id 1137660.1473634; Sun, 05 Oct 2025 14:29:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v5Pdg-0007mw-Rg; Sun, 05 Oct 2025 14:23:04 +0000
-Received: by outflank-mailman (input) for mailman id 1137648;
- Sun, 05 Oct 2025 14:23:02 +0000
+	id 1v5Pjq-0008O9-Fl; Sun, 05 Oct 2025 14:29:26 +0000
+Received: by outflank-mailman (input) for mailman id 1137660;
+ Sun, 05 Oct 2025 14:29:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=unmS=4O=hansenpartnership.com=James.Bottomley@srs-se1.protection.inumbo.net>)
- id 1v5Pde-0007mX-5d
- for xen-devel@lists.xenproject.org; Sun, 05 Oct 2025 14:23:02 +0000
+ id 1v5Pjo-0008O3-BR
+ for xen-devel@lists.xenproject.org; Sun, 05 Oct 2025 14:29:24 +0000
 Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com
  [198.37.111.173]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c9e89a5e-a1f6-11f0-9809-7dc792cee155;
- Sun, 05 Oct 2025 16:22:58 +0200 (CEST)
+ id af1253ae-a1f7-11f0-9809-7dc792cee155;
+ Sun, 05 Oct 2025 16:29:22 +0200 (CEST)
 Received: from lingrow.int.hansenpartnership.com (unknown
  [IPv6:2601:5c4:4302:c21::a774])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id 33EB71C0014;
- Sun, 05 Oct 2025 10:22:55 -0400 (EDT)
+ key-exchange x25519) (No client certificate requested)
+ by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id A7B691C0096;
+ Sun, 05 Oct 2025 10:29:19 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,19 +42,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9e89a5e-a1f6-11f0-9809-7dc792cee155
+X-Inumbo-ID: af1253ae-a1f7-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=hansenpartnership.com; s=20151216; t=1759674176;
-	bh=h8/0VfnLYGz2U7csWzqwHZseTDljgEdp48luuBTRQD0=;
+	d=hansenpartnership.com; s=20151216; t=1759674560;
+	bh=hrsv2YDzWLNG7Ngtd7/6UjmmDS9vVj1AT8usgE7qgQI=;
 	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
-	b=dCWCKQasDDmqK86YFHFQ06W4cUGxZdmuJQrtlZTwnNAcPEgK5AX1S/RG1yah/ME4B
-	 4ebSHYdCfn1lQa6cKNMnNG7E7Uhi4QcETyWOUnWc05NIdbLWDBSKArRXntDtwJ5mol
-	 DZoaJC/udVyI3wt1O8PjwADf3RJ8EaBAdgp2DZZM=
-Message-ID: <abe81a02173f0520145e15127da0b3d3f2ff244b.camel@HansenPartnership.com>
+	b=Xjfl0yNWvNlgfTU8/EAtoWEJVM/U3ViTlMzofQd5PTmLzm6zW9WheCJfZQBWMf/Sx
+	 PS4SvfONhUji+BpjFDo64XZP9T6ZIhKXhywCfLN/UQS3ZvwBWm/hIyqdey/rZSYGFE
+	 L93/5IM0KbGEcCMPzv6xPzkYlBejcfGaIgzTmGwQ=
+Message-ID: <ce05d6629571eba0a2f0a104fb5584021806addc.camel@HansenPartnership.com>
 Subject: Re: [PATCH v1 3/9] parisc: Convert DMA map_page to map_phys
  interface
 From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leon@kernel.org>
+To: John David Anglin <dave.anglin@bell.net>, Jason Gunthorpe
+ <jgg@nvidia.com>,  Leon Romanovsky <leon@kernel.org>
 Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Leon Romanovsky
  <leonro@nvidia.com>, Andreas Larsson <andreas@gaisler.com>, Borislav Petkov
  <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "David S.
@@ -72,11 +72,12 @@ Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Leon Romanovsky
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,  Thomas Gleixner
  <tglx@linutronix.de>, virtualization@lists.linux.dev, x86@kernel.org, 
  xen-devel@lists.xenproject.org, Magnus Lindholm <linmag7@gmail.com>
-Date: Sun, 05 Oct 2025 10:22:54 -0400
-In-Reply-To: <20251003150144.GC3360665@nvidia.com>
+Date: Sun, 05 Oct 2025 10:29:19 -0400
+In-Reply-To: <610b10bc-1aa2-4fad-a40b-be5fcfa04430@bell.net>
 References: <cover.1759071169.git.leon@kernel.org>
 	 <333ec4dabec16d3d913a93780bc6e7ddb5240fcf.1759071169.git.leon@kernel.org>
 	 <20251003150144.GC3360665@nvidia.com>
+	 <610b10bc-1aa2-4fad-a40b-be5fcfa04430@bell.net>
 Autocrypt: addr=James.Bottomley@HansenPartnership.com;
  prefer-encrypt=mutual;
  keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNElecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHURfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvdHRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmBLmY0FCRs1hL0ACgkQgUrkfCFIVNaEiQgAg18F4G7PGWQ68xqnIrccke7Reh5thjUz6kQIii6Dh64BDW6/UvXn20UxK2uSs/0TBLO81k1mV4c6rNE+H8b7IEjieGR9frBsp/+Q01JpToJfzzMUY7ZTDV1IXQZ+AY9L7vRzyimnJHx0Ba4JTlAyHB+Ly5i4Ab2+uZcnNfBXquWrG3oPWz+qPK88LJLya5Jxse1m1QT6R/isDuPivBzntLOooxPk+Cwf5sFAAJND+idTAzWzslexr9j7rtQ1UW6FjO4CvK9yVNz7dgG6FvEZl6J/HOr1rivtGgpCZTBzKNF8jg034n49zGfKkkzWLuXbPUOp3/oGfsKv8pnEu1c2GbQpSmFtZXMgQm90dG9tbGV5IDxqZWpiQGxpbnV4LnZuZXQuaWJtLmNvbT6JAVYEEwEIAEACGwMHCwkIBwMCAQYVC
@@ -92,54 +93,38 @@ Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.50.3 
 MIME-Version: 1.0
 
-On Fri, 2025-10-03 at 12:01 -0300, Jason Gunthorpe wrote:
-> On Sun, Sep 28, 2025 at 06:02:23PM +0300, Leon Romanovsky wrote:
-> > +ccio_map_phys(struct device *dev, phys_addr_t phys, size_t size,
-> > +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum dma_data_direction direction, uns=
-igned long
-> > attrs)
-> > =C2=A0{
-> > -	return ccio_map_single(dev, page_address(page) + offset,
-> > size,
-> > -			direction);
-> > +	if (attrs & DMA_ATTR_MMIO)
-> > +		return DMA_MAPPING_ERROR;
-> > +
-> > +	return ccio_map_single(dev, phys_to_virt(phys), size,
-> > direction);
+On Fri, 2025-10-03 at 13:18 -0400, John David Anglin wrote:
+> On 2025-10-03 11:01 a.m., Jason Gunthorpe wrote:
+> > This doesn't actually use the virt at all:
+> >=20
+> > 	offset =3D ((unsigned long) addr) & ~IOVP_MASK;
+> > 	if((size % L1_CACHE_BYTES) || ((unsigned long)addr %
+> > L1_CACHE_BYTES))
+> > 		ccio_io_pdir_entry(pdir_start, KERNEL_SPACE,
+> > (unsigned long)addr, hint);
+> >=20
+> > And ccio_io_pdir_entry():
+> > 	pa =3D lpa(vba);
+> >=20
+> > Is a special instruction that uses virt but AI tells me that
+> > special LPA instruction is returning phys. Not sure if that is a
+> > different value than virt_to_phys()..
 >=20
-> This doesn't actually use the virt at all:
->=20
-> 	offset =3D ((unsigned long) addr) & ~IOVP_MASK;
-> 	if((size % L1_CACHE_BYTES) || ((unsigned long)addr %
-> L1_CACHE_BYTES))
-> 		ccio_io_pdir_entry(pdir_start, KERNEL_SPACE,
-> (unsigned long)addr, hint);
+> ccio_io_pdir_entry currently only supports KERNEL_SPACE.
 
-Actually, it does: it has to; parisc caches are VIPT.  The iommu needs
-to know both the physical address and the virtual tag (also called the
-coherence index) to instruct the CPU to flush its cache.  The sole use
-of the vba is in ccio_io_pdir_entry() which programs the IOMMU page
-table.  The coherence index is pretty small because the largest VIPT
-cache stride parisc has is 4MB and obviously the lower 12 bits (page
-offset) are the same for both physical and virtual, so it's only the 10
-bits between 4k and 4M that the iommu needs (the entry is 12 bits
-because architecturally there were chips with a 16M stride planned for
-but never produced).
-
->=20
-> And ccio_io_pdir_entry():
-> 	pa =3D lpa(vba);
->=20
-> Is a special instruction that uses virt but AI tells me that special
-> LPA instruction is returning phys. Not sure if that is a different
-> value than virt_to_phys()..
-
-That's right, so if you want to pass both phys and virt addresses to
-the function, this could be dropped.
+Actually there's a bit more nuance to it than that.  Obviously DMA has
+to support user pages otherwise I/O wouldn't work.  The way it does  is
+that all physical pages are mapped in the kernel and we try to make
+sure all user mappings are on cache stride (4MB) boundaries so the
+coherence index of the kernel virtual address and the user virtual
+address are the same, so we can solely use the kernel virtual address
+to calculate the coherence index for the IOMMU.  If that's not true, we
+flush the user virtual address range in gup and the kernel virtual
+address range before sending the I/O completion.
 
 Regards,
 
 James
+
 
 
