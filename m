@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ABB2BBF14D
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Oct 2025 21:15:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1138388.1474105 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD1A4BBF157
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Oct 2025 21:18:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1138401.1474117 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v5qgQ-0005U4-9x; Mon, 06 Oct 2025 19:15:42 +0000
+	id 1v5qin-00069f-M0; Mon, 06 Oct 2025 19:18:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1138388.1474105; Mon, 06 Oct 2025 19:15:42 +0000
+Received: by outflank-mailman (output) from mailman id 1138401.1474117; Mon, 06 Oct 2025 19:18:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v5qgQ-0005Rc-6t; Mon, 06 Oct 2025 19:15:42 +0000
-Received: by outflank-mailman (input) for mailman id 1138388;
- Mon, 06 Oct 2025 19:15:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v5qin-00067L-I1; Mon, 06 Oct 2025 19:18:09 +0000
+Received: by outflank-mailman (input) for mailman id 1138401;
+ Mon, 06 Oct 2025 19:18:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=iNYA=4P=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1v5qgO-0005RW-DP
- for xen-devel@lists.xenproject.org; Mon, 06 Oct 2025 19:15:40 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d796633c-a2e8-11f0-9809-7dc792cee155;
- Mon, 06 Oct 2025 21:15:38 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-46e52279279so35851005e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Oct 2025 12:15:38 -0700 (PDT)
+ id 1v5qil-00067E-EL
+ for xen-devel@lists.xenproject.org; Mon, 06 Oct 2025 19:18:07 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2ff99857-a2e9-11f0-9d15-b5c5bf9af7f9;
+ Mon, 06 Oct 2025 21:18:06 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-46e2c3b6d4cso43561175e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Oct 2025 12:18:06 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-22-57-86.as13285.net. [92.22.57.86])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46e619b8343sm272008455e9.2.2025.10.06.12.15.36
+ 5b1f17b1804b1-46e619c396esm267838705e9.8.2025.10.06.12.18.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Oct 2025 12:15:37 -0700 (PDT)
+ Mon, 06 Oct 2025 12:18:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d796633c-a2e8-11f0-9809-7dc792cee155
+X-Inumbo-ID: 2ff99857-a2e9-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1759778138; x=1760382938; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1759778286; x=1760383086; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7BMck18dPJN2ugednENxj2gmtTIzkXlkwy4arTW3SXg=;
-        b=sdE2GKexPotPCgZsCxCnCTFEDB8PY527g9jm0TCw4PpL6QVYjkkzOj6giECDoI1cb4
-         VYZKOuPmDfl/q+TA7OQOdwQWgeubeeSNFQFaCrPQy9PvxNnGra0pFp8qIqhm2kAOOI0n
-         QX83db8M33c/aI8tW3ak+3eOurc/NBTbD0hp8=
+        bh=8btNnX20vjg+LKdQCPqANK5RWG8t7FQDAXuBlbTyXGk=;
+        b=mwbhcHiX7+jK9auqLrkJeiVNTyIyin812Fn34E06vpKNOvYra1OUgs9ZrC7YbGkNa7
+         VBaCLAwqTPbEugqqGw37WdsoX9U2CotaIcwyJg9HgIyaY6+6M8LbPY91gvw8ppcWCoRq
+         9JegOkhQRQn8/uXdWTPWATcHaE+0BB9u8xe1k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759778138; x=1760382938;
+        d=1e100.net; s=20230601; t=1759778286; x=1760383086;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7BMck18dPJN2ugednENxj2gmtTIzkXlkwy4arTW3SXg=;
-        b=qIjLMtNYogR7PffJgYkGl5x6NbqaD6D8/WgU1pYJwD+0wJDe4IPqIKREzlJ+o0OUwN
-         3YtUncZVL06Xxo5wCD7FEkr/F/AW6kZvGGg8EwmzN9HNmfGE3/DBkny6but89E/C5KWV
-         N/u7g9U+Cz4qnlPJWZOG69cenBc+1I9DQdCaGu1mPisXeiF+Ug7yTvj06IqH/LYOiwZr
-         aPCHHLwkGXn/5NThhAuD4YwwE80PV4LvgJaiQ1VVdm9DAdQ4Fi0Oiom2CwKCl8xellGe
-         I7xqlMCGrg1GEkaGveYQI7P7sf5RzxO9YwpRXaIL0cg3NgWthtU9L7YBBa/LuTcedXJY
-         mZLQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV2qQ7BlTHlSBrPbLcEFFJ7jggYrJVF8sRITfVyoJITi5LuAJ/GXuNwO/9/+bg56CSXYQIBLqFBfTI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx886sOGVQXJlaJWi0LRAG7tj0gGvWNS0P1snNcAFjDSkYQhqJm
-	RSBV9HCMXEhwIbePPTvBZOg5p7svlgEFiMwJ+9FC1fL7nQFVM6idKxjRmQS8zwOdO+U=
-X-Gm-Gg: ASbGncutMn2XqglFEZhu9R8psR/LEpeES8NqcFMABetP3UsSspYkPoX4FIAUBY5ddaY
-	C6Dr3Zr0Tn89IgodpsKKJ/Rg2JAuCP21lOEIYgNJmccgO6dzPgoAzIEZcFm6E5bAMcQ7LnF3laS
-	mOc2VaZACINRnG1cWLomPLW0Qj7AX6eGuLINgSmkaobalGFccCgiGCXMR8rIoiXKEWtPXQfrIDf
-	ZYOKYdVmEE1/FCbfo9C+cV+K3lHWMVmPXcl8zB2vsR/zpqbN+SAx1NchLxN71yiwiuUHbOQFoZS
-	rh9qQ73zHt2n66nFo9TDFJ4VsPmxWVJUcDZY13xJh3HyKMUVtkFU3e6ib5TrV9QO7urKaES+XHE
-	IZTRXV54XpmmdbA5nKaPMIPPmKc9WXxbzoiRwsZzCwFnrlkAQH62DIKXVatDRyQYZnp4fNhyQgZ
-	WmdepAKlW75SvT9VRGyVFTPLA=
-X-Google-Smtp-Source: AGHT+IHjWGpYxXxiOaKE6vMtTAz8YjTGbQbHIKm9kCDnnCYpGIZ9PjL6fxeRni7FOu+JKrqcKFmtWw==
-X-Received: by 2002:a05:600c:6094:b0:46e:39e1:fc3c with SMTP id 5b1f17b1804b1-46e710fff73mr102994665e9.5.1759778137634;
-        Mon, 06 Oct 2025 12:15:37 -0700 (PDT)
-Message-ID: <258f5150-59b5-4371-b18b-26ed33ffd0fa@citrix.com>
-Date: Mon, 6 Oct 2025 20:15:36 +0100
+        bh=8btNnX20vjg+LKdQCPqANK5RWG8t7FQDAXuBlbTyXGk=;
+        b=q6MQ0KRC3Cf97q6maK9ibeF24Rw2rfD1NCq7Nh1ps01QyEhWDknpwwFWhn4d4iyCUh
+         o0mfNwk47BgJSI91JNNYKztWdSqx4J5n+BrNSaSASbugD3vr/IHPuFJ9mJ0M8sgc8J/d
+         m/RqxMEpHBsm9FNKPaRUJiaeaJHAHL8O9IEPqG8HSzgzD1X2gf3O7cP7l/YlppVjte6f
+         TfYq1f78aSQTuAfc/7SDK0ZQCKGvikawmuKlFeyFKlYR8thwXEEwvNVzoMaRkC3EicJW
+         In8/3iWQXUYxBaGGs1JoucTjeUEz80scCfTgEgECEgKJ6eMvmuxD0tbei1ADebqCgXPh
+         IiCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUC8laBwfBgXDw0M/SRnXaplmLt6nxxQyyXNvMLTSIcMXRuNKnP+pLzx5zotYEC4NClhhVsuedSWKU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxsd4ya6n9n3eTby4JjmBS7ZS0OA2lWvMfGjaGcDHNOy6kdusPv
+	8RjY7g+z7FqLeOPvZ0mFEBSGCiWb8p6x9fHQBPQF01Jn7CbI2joihUrpvu/WRdEtgFU=
+X-Gm-Gg: ASbGnctS7PwIU07hr042i6AbziEwFeBlA1cB8/FPbiSnTe1FVH6Fme+7+hUqt3tnbuN
+	XFYWOXz1xeNr3+N6vDp5XpAYcrJt3k21daX/+ymQnAPH0L0fO02V7gLjTunLOVNsGNgK0kJq5+S
+	A0nVZrOEU5cX3DqwHMwUnvxPGkytSBl1JVWHTJDdgtTBcCH3ljC6Xx0rUrroYkyN/b8F5IT6S/E
+	UGbZaxFS4zNSAB09Nk8n3zubdSQ2P0jEQC5yznqoKPDRf6q6F3NlGF71D47I+0TJ8G9iHDYj6ak
+	57k/FtAXRH9405/Gh+TxVZhrQkMFNfw3dL2dLTDds2a4t3mB6O2TjAdNSXattIILgNgnVOhHHy/
+	a7g8Lf9lnblASElxgiS6WKsVpzHvbAAXoJ/mZn3en6taeSqoJYzsungY82vb82FiJw1PxML12dJ
+	t+lcnQ5MR/ZDUwJuZ3y3bHmmQ=
+X-Google-Smtp-Source: AGHT+IFVngXmOJ0PaDYeaOQRInIg1sOtkYHgAs0BKeDnAo8Q0eu8vgxk2GffX3sG+J/Ex7myjOY0xA==
+X-Received: by 2002:a05:600c:64c7:b0:46e:42fa:ffce with SMTP id 5b1f17b1804b1-46fa2d3b26emr2361365e9.2.1759778286019;
+        Mon, 06 Oct 2025 12:18:06 -0700 (PDT)
+Message-ID: <edbad73d-c525-41b3-8ee9-ae8458a7bd32@citrix.com>
+Date: Mon, 6 Oct 2025 20:18:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21 1/2] cirrus-ci: install libinotify for FreeBSD
+Subject: Re: [PATCH for-4.21 2/2] cirrus-ci: fix bashism in the test_script
+ code
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 Cc: oleksii.kurochko@gmail.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
 References: <20251006190757.72757-1-roger.pau@citrix.com>
- <20251006190757.72757-2-roger.pau@citrix.com>
+ <20251006190757.72757-3-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -138,61 +139,26 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20251006190757.72757-2-roger.pau@citrix.com>
+In-Reply-To: <20251006190757.72757-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 06/10/2025 8:07 pm, Roger Pau Monne wrote:
-> FreeBSD QEMU build requires libinotify, otherwise the build fails with:
+> The default shell in FreeBSD is plain sh, which doesn't support the usage
+> of the '|&' operator:
 >
-> ./qemu-xen-dir-remote/meson.build:2535:15: ERROR: C shared or static library 'inotify' not found
+> ./automation/scripts/console.exp |& sed 's/\r\+$//'
+> /tmp/scripts34c427adc6599db29cb91221a0939d85.sh: 16: Syntax error: "&" unexpected
 >
-> Install the package and add the /usr/local include and libs paths
-> explicitly as QEMU configure options.
+> Fix this by using a redirection of stderr into stdout, and then a pipe.
 >
+> Fixes: a406195c15dd ("automation: call expect script with redirected standard error")
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-> ---
->  .cirrus.yml | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/.cirrus.yml b/.cirrus.yml
-> index f295c8cb0a02..55dc9b39092a 100644
-> --- a/.cirrus.yml
-> +++ b/.cirrus.yml
-> @@ -11,6 +11,8 @@ freebsd_template: &FREEBSD_ENV
->    environment:
->      APPEND_LIB: /usr/local/lib
->      APPEND_INCLUDES: /usr/local/include
-> +    CONFIG_QEMUU_EXTRA_ARGS: --extra-ldflags=-L${APPEND_LIB}
-> +                             --extra-cflags=-I${APPEND_INCLUDES}
->      CIRRUS_CLONE_DEPTH: 1
->      CIRRUS_LOG_TIMESTAMP: true
->  
-> @@ -51,11 +53,12 @@ task:
->    install_script: pkg install -y seabios gmake ninja bash
->                                   pkgconf bison perl5
->                                   yajl lzo2 pixman argp-standalone
-> -                                 libxml2 glib git python3
-> +                                 libxml2 glib git python3 libinotify
-
-I presume this is good on FreeBSD 13 and later ?
-
->  
->    configure_script:
->      - cc --version
->      - ./configure --with-system-seabios=/usr/local/share/seabios/bios.bin
-> +                  --with-extra-qemuu-configure-args="--extra-ldflags=-L${APPEND_LIB} --extra-cflags=-I${APPEND_INCLUDES}"
->      - gmake -j`sysctl -n hw.ncpu` -C xen clang=y defconfig
->  
->    << : *FREEBSD_CONFIGURE_ARTIFACTS
-
-Do we really need both the ENV variable and the --configure parts?
-
-I could believe we need both, but that also feels like something we
-ought to fix.
+It's sad that this slipped in because the CirrusCI runs were reliably
+broken by the libinotify issue.
 
 ~Andrew
 
