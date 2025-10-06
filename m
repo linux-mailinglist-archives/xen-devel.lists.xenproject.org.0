@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EBCCBBDD39
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Oct 2025 13:04:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1138094.1473863 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64639BBDDDF
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Oct 2025 13:29:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1138109.1473874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v5j10-0000i0-KE; Mon, 06 Oct 2025 11:04:26 +0000
+	id 1v5jOM-0003kP-JW; Mon, 06 Oct 2025 11:28:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1138094.1473863; Mon, 06 Oct 2025 11:04:26 +0000
+Received: by outflank-mailman (output) from mailman id 1138109.1473874; Mon, 06 Oct 2025 11:28:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v5j10-0000fu-HA; Mon, 06 Oct 2025 11:04:26 +0000
-Received: by outflank-mailman (input) for mailman id 1138094;
- Mon, 06 Oct 2025 11:04:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iNYA=4P=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1v5j0z-0000fo-L1
- for xen-devel@lists.xenproject.org; Mon, 06 Oct 2025 11:04:25 +0000
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [2a00:1450:4864:20::341])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 37be06a3-a2a4-11f0-9d15-b5c5bf9af7f9;
- Mon, 06 Oct 2025 13:04:24 +0200 (CEST)
-Received: by mail-wm1-x341.google.com with SMTP id
- 5b1f17b1804b1-46e2c3b6d4cso38444625e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Oct 2025 04:04:24 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-22-57-86.as13285.net. [92.22.57.86])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46e5b576badsm147640845e9.0.2025.10.06.04.04.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Oct 2025 04:04:23 -0700 (PDT)
+	id 1v5jOM-0003hv-F6; Mon, 06 Oct 2025 11:28:34 +0000
+Received: by outflank-mailman (input) for mailman id 1138109;
+ Mon, 06 Oct 2025 11:28:32 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1v5jOK-0003hp-KT
+ for xen-devel@lists.xenproject.org; Mon, 06 Oct 2025 11:28:32 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1v5jOJ-00BmRu-1W;
+ Mon, 06 Oct 2025 11:28:31 +0000
+Received: from [2a02:8012:3a1:0:9161:fb0:fcdd:7172]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1v5jOJ-005miM-1o;
+ Mon, 06 Oct 2025 11:28:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,132 +39,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37be06a3-a2a4-11f0-9d15-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1759748664; x=1760353464; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JG5TEP47cMTZhSnafkYKf9RJ51a0V63zBeKJ9b7lnG4=;
-        b=tDadyNP4f9IsuLNR/uzWa2fL0TMtwRSmo16Lgh27CliWqQJMINlxQCZlwLV2oQ1/EM
-         ZPwDB1HxruP8nV0UFeVPos83BZDrCQc7ELSb8TJVyNwSbX+kQKspp1telqtRWiQimno+
-         8AgxgyaauL4nMaBDcSQkfhO44jJ4KNNVcTdiE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759748664; x=1760353464;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JG5TEP47cMTZhSnafkYKf9RJ51a0V63zBeKJ9b7lnG4=;
-        b=C44PVUHgiX5/jP4XBVNizBKRC8yrxl3Y9NbBEIEoffoiyy+mh2pgCpb8YvCZrTMy2q
-         LGPVdFTdYdjNWFdmpNN3sMrNbDhsULKkGWcq7a8q30Eo/l8WCXVDDAlq9R25a92+1Y5q
-         hEFE8yunAg+j6WIV9SqXyLs3dH2br99X88cfskLrBWkaJ5wA9KI2XZAXDBwroN91z5Go
-         N33gLk3qW+O+Rzr8EVMCOjH436VyINzDP4xIr4D1fT32n+WRn0KDfUR8/Vz2/Sg9vI+C
-         GTV6O2YuOPdA8J29CpCbjmgQwckNEG6Ha4HoNnybInkOvJHYSuQyqljq29Vi5EhTrHLX
-         mnqw==
-X-Forwarded-Encrypted: i=1; AJvYcCW3LNAsboCc7BNKQA7o0g0evDkmYbovRi+ZDMORb8orsraR3gO4ikls4ImaDnsLIljsCWEGTSSCoNA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwTDBWp22fKBiB5cR6M+Y516ArCBdTkjyrvmWuMS11HrWAEKbKX
-	t1syoeYybvDHKK+Ip4Sfi5ueKGZWSAI8sV5h8QgrV/b5E94GaGcjM29sQFvwnARV5ug=
-X-Gm-Gg: ASbGncs8YbAntBInEjkETLN4eA6TFkEpc4Q7TTjz9Dm23bZzIw//FXJufUaVkxNZwOs
-	me56w8AN6dhwIOzQ7FiqjDyQ+LORQNHGhAYK7accpAHBpaYyXQwTlwFX5jqquJohXG6iqLOLliG
-	38mT/0IkTDrQKEqN9Fj7WNU5PCFiyJ9hUbvtNOUBKHC/kkWAFLKuTxe++llERVY3UXzR9hciIVq
-	NOzM9TT8xwa3dzSUFZb+bM14MfWUlv8zzDH5NSSk2VVa+L2N1BPT5CtWZFGtsuvctqPW7dAqoa4
-	2ZH2oOD/wBiaUAXXETr60Q9e/To0UDFnAmTKpHS4jM0uEZgRwa+WxrTlkMHJYiZTmMJH1rQ1Qqd
-	jSaBGvaEWV0UIdClyUNc7oqajUM68oYUezn6SPAgc0NwZjb4HiMS2krYkvw4TN6+Xx5X3oXFpFX
-	4mdP+QqUUwNtdp
-X-Google-Smtp-Source: AGHT+IHUoXUWr9AbQ1fmd8XPAQKEKSVq7jR+hnfsMZ3xAokwyPI6mbipWC6fYl4uA7VLfNfGJQlHNw==
-X-Received: by 2002:a05:6000:659:20b0:425:75a0:36e2 with SMTP id ffacd0b85a97d-42575a03755mr2752306f8f.7.1759748663648;
-        Mon, 06 Oct 2025 04:04:23 -0700 (PDT)
-Message-ID: <588656ba-dabf-42f2-941f-6cc017961271@citrix.com>
-Date: Mon, 6 Oct 2025 12:04:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=sEWTnY6dDxmOdfsd9kUnUee2zj+Uu2FTYX6+5Nnz4VI=; b=LtnMff3ED+g/S8dM5eqaJh9znv
+	CkJd7JrlEIlnxDfsb+0RsCzLucdjRDn6jssBcO7z/S5JjhX11AIVWaB7SBuhkjH3J5PZZIXkyzKG6
+	3EZLvzZF1NsSZ7XrmE5jzJTlzJkyEWa5ejb21QdILukvvMsi7BMIIvCZUWgLB+Kdd2dw=;
+Message-ID: <22b118f4-febc-4134-8049-ae258c7571a6@xen.org>
+Date: Mon, 6 Oct 2025 12:28:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: Add missing forward declaration and include to
- hvm/svm/vmcb.h
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20251006104608.12149-1-alejandro.garciavallejo@amd.com>
+Subject: Re: [PATCH] xen/arm: XEN_DOMCTL_get_address_size hypercall support
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20251006104608.12149-1-alejandro.garciavallejo@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Demi Marie Obenour <demiobenour@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Milan Djokic <milan_djokic@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ alejandro.garciavallejo@amd.com
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <39511522aae7dab5766ef2ebfed1d13abec8610e.1759324344.git.milan_djokic@epam.com>
+ <bf042eea-ed2d-431e-b1f0-7be0c09194ef@citrix.com>
+ <967b62ca-8aed-4abf-8fa5-30769f46a5ff@gmail.com>
+ <55d156c9-5a05-4cb7-9b29-93adaaede5d0@xen.org>
+ <b77c44c3-b348-423d-b197-c719db6ec386@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <b77c44c3-b348-423d-b197-c719db6ec386@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 06/10/2025 11:46 am, Alejandro Vallejo wrote:
-> "struct segment_register" requires a prior inclusion of x86_emulate.h,
-> and it's missing a forward declaration of "struct vcpu" too.
->
-> Sort these out so the header can be included by itself.
->
-> Not a functional change.
->
-> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Hi Demi,
 
-I have a pending series for 4.22 which does substantially more
-rearranging of this file and others.  See
-https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=shortlog;h=refs/heads/xen-svm-hdrs
+On 03/10/2025 17:03, Demi Marie Obenour wrote:
+> On 10/3/25 06:14, Julien Grall wrote:
+>> Hi Demi,
+>>
+>> On 02/10/2025 19:27, Demi Marie Obenour wrote:
+>>> On 10/2/25 06:10, Andrew Cooper wrote:
+>>>> On 01/10/2025 9:01 pm, Milan Djokic wrote:
+>>>>> Signed-off-by: Milan Djokic <milan_djokic@epam.com>
+>>>>>
+>>>>> ---
+>>>>> XEN_DOMCTL_get_address_size hypercall is not implemented for arm (only for x86)
+>>>>> It would be useful to have this hypercall supported for arm64, in order to get
+>>>>> current guest addressing mode and also to verify that XEN_DOMCTL_set_address_size
+>>>>> performs switch to target addressing mode (instead of relying on its returned error code only).
+>>>>
+>>>> Please don't copy this misfeature of x86 PV guests into ARM.
+>>>>
+>>>> Letting domains be of variable bitness after domain create leads to a
+>>>> whole lot of bugs, many security relevant.
+>>>>
+>>>> 32bit vs 64bit should be an input to domain_create(), not something that
+>>>> is edited after the domain has been constructed.
+>>>
+>>> Does this mean that Xen guests cannot support multiarch?
+>>
+>> I can't speak for x86. But for Arm, the endianess of EL1 (OS) is fixed
+>> when the vCPU is booting. You could in theory have a domain with a mix
+>> of 64-bit and 32-bit vCPUs. But that's not supported by Xen (all vCPUs
+>> should have the same bitness) and also I am not aware of any mainstream
+>> OS able to deal with multiple bitness. Most likely, you will need to run
+>> two OSes and create your custom OS.
+>>
+>> Also, I believe XEN_DOMCTL_get_address_size would not be suitable for
+>> such setup.
+> 
+> I meant multiarch in userspace.  Running a 32-bit kernel makes no sense.
 
-I'd found the need for struct vcpu, but not for segment_register.  How
-did you find it?
+I think some people may disagree :). We are in process of adding support 
+for 32-bit MPU in Xen.
 
-> ---
-> This dependency already exists today. I'm just making it explicit.
->
-> "segment_register" is weird. It naturally belongs in vmcb.h, but the
-> emulator makes use of it and must be compilable outside of Xen.
->
-> I don't like having vmcb.h depending on the emulator header, but I see
-> no way of breaking that dependency without breaking the emulator unit
-> tests.
+> If that is something Arm OSs just don't support that's fine too.
 
-Pulling it into a new header is fine.  The emulator can include anything
-(free-enough standing) in arch/x86/include/asm/
+HCR_EL2.RW is only forcing 64-bit in EL1 (kernel mode). It is still 
+possible to run 32-bit applicate in userland as long as the process 
+supports it.
 
-~Andrew
+Cheers,
+
+-- 
+Julien Grall
+
 
