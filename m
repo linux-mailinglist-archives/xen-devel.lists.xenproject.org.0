@@ -2,44 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 910CDBBD492
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Oct 2025 09:56:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1137908.1473734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0CCCBBD536
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Oct 2025 10:22:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1137990.1473793 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v5g4p-0003c5-Hm; Mon, 06 Oct 2025 07:56:11 +0000
+	id 1v5gTD-00031F-42; Mon, 06 Oct 2025 08:21:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1137908.1473734; Mon, 06 Oct 2025 07:56:11 +0000
+Received: by outflank-mailman (output) from mailman id 1137990.1473793; Mon, 06 Oct 2025 08:21:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v5g4p-0003a2-E7; Mon, 06 Oct 2025 07:56:11 +0000
-Received: by outflank-mailman (input) for mailman id 1137908;
- Mon, 06 Oct 2025 07:56:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kU4J=4P=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1v5fxC-0000J4-3j
- for xen-devel@lists.xenproject.org; Mon, 06 Oct 2025 07:48:18 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d1e221d4-a288-11f0-9d15-b5c5bf9af7f9;
- Mon, 06 Oct 2025 09:48:17 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B3D56336EF;
- Mon,  6 Oct 2025 07:48:16 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E5D9613A7E;
- Mon,  6 Oct 2025 07:48:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Zux3Nj9042jVHgAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 06 Oct 2025 07:48:15 +0000
+	id 1v5gTD-0002zW-1L; Mon, 06 Oct 2025 08:21:23 +0000
+Received: by outflank-mailman (input) for mailman id 1137990;
+ Mon, 06 Oct 2025 08:21:21 +0000
+Received: from [94.247.172.50] (helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3dSL=4P=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1v5gTB-0002z7-12
+ for xen-devel@lists.xenproject.org; Mon, 06 Oct 2025 08:21:21 +0000
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c112::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 61d4de61-a28d-11f0-9809-7dc792cee155;
+ Mon, 06 Oct 2025 10:20:57 +0200 (CEST)
+Received: from DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
+ by PH0PR03MB5829.namprd03.prod.outlook.com (2603:10b6:510:35::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.20; Mon, 6 Oct
+ 2025 08:20:50 +0000
+Received: from DM6PR03MB5227.namprd03.prod.outlook.com
+ ([fe80::c9a0:563d:c344:aec2]) by DM6PR03MB5227.namprd03.prod.outlook.com
+ ([fe80::c9a0:563d:c344:aec2%5]) with mapi id 15.20.9182.017; Mon, 6 Oct 2025
+ 08:20:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,702 +46,245 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1e221d4-a288-11f0-9d15-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1759736896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T0c04Jlc2P7bj0wPLklEw9CjtwTNDKTIGSbBD+J/9mY=;
-	b=RCizrom4TfJCbWb/vpFokxdPpBDEnyGk03HeymKSviJEe1CxtF6CzsE+YlZRmtYxsBexLY
-	osiS47qU9SQttP+9OOBBwbi1Ob5itxo9PMyPKti1B+aw2pyDlzH7TL3Gee/JX6jx/Mh2jc
-	88T3TjllHG99xJsvy6o3CGpnIWzRPOg=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1759736896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T0c04Jlc2P7bj0wPLklEw9CjtwTNDKTIGSbBD+J/9mY=;
-	b=RCizrom4TfJCbWb/vpFokxdPpBDEnyGk03HeymKSviJEe1CxtF6CzsE+YlZRmtYxsBexLY
-	osiS47qU9SQttP+9OOBBwbi1Ob5itxo9PMyPKti1B+aw2pyDlzH7TL3Gee/JX6jx/Mh2jc
-	88T3TjllHG99xJsvy6o3CGpnIWzRPOg=
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	linux-hyperv@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH v3 21/21] x86/pvlocks: Move paravirt spinlock functions into own header
-Date: Mon,  6 Oct 2025 09:46:06 +0200
-Message-ID: <20251006074606.1266-22-jgross@suse.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251006074606.1266-1-jgross@suse.com>
-References: <20251006074606.1266-1-jgross@suse.com>
-MIME-Version: 1.0
+X-Inumbo-ID: 61d4de61-a28d-11f0-9809-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QHPjvY/jpTdajeGPGPbjzE69PZkwhaLDsIrxH/3MjMW865pXs50rNlADUVwwXQWUAVN7lITazu9tblgKHGXNjLqR9oY4K5PcQJRvqaiEL+yUTwASP1UC6GUSpF2W6yG9sF/i9rzhmrenApJeIET9XQLmC+nOBqItdYkgx9IuqG2Kx/u65MgxzKyh907rBxiM0sltgfuc+olyk8jO0O5Nch7mZJ5fYypSEhj1XzLIgBq9o7nDCteQrZTFAvQfcefxIUsMm9rIA0nT6cMomvy7dZhIPe0cj0SfnOaTXJYVxCpSKK8zCA+5o/aT8b9Xn7SO7A++iYk4UE26AcTXtuWjCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HfrRewX2ZDUGv1nUjrpUqpxE8LQwco3eS0bA6FGwP8M=;
+ b=wzrHfEDZe1aJmV5/AkQlLfUiQru3/DOh+7iwq31tVcv50UZ4oLixQzmZK/twVnPdAU3f/dqPWiGV6Ik8EYbbCIIk0S9McNBet04k73y/s7H01g11eUtgo12oYKSWDtb0h9IgHvHJ1vZfYXOSRAVWl/7jFa/iwEHLvFLm46ym8NXdOXfCNC1BTpR5Hd4AgW7F15X5eTrhpVSh9u9tN8S1OY0nR/Y3xkWaZqm/t89htrYMKnY8XFVZe1ENEbwe+UOG4bTW67FoEmdvakPU2rwGNxbkWuod1E32RZb628jGPMPWNL7piUiNWGNk9mQ3mKte3YktvogGH3Gh37NYzuttYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HfrRewX2ZDUGv1nUjrpUqpxE8LQwco3eS0bA6FGwP8M=;
+ b=onlj88HB6yLPfJNj/7qB/cno6ZOyOaYNOgXysCOnqopQTqJz1AzEgz3936gGwcaJ/vtfVJnx/K/uR+ZWeMlp1f8cZaibIJmUdqCRL2pvCmISudujglZurOtnZpXyrHE+SJjMelMeFbVFRb5Nz11oZ8FrL7fpU8Y1z+xPjcS15dE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Mon, 6 Oct 2025 10:20:41 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH for-4.21] vpci/msix: improve handling of bogus MSI-X
+ capabilities
+Message-ID: <aON72Sq6ZJ6y95DI@Mac.lan>
+References: <20250929084149.70560-1-roger.pau@citrix.com>
+ <2d1737a7-58e3-48e3-ac16-1bda3947c929@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[24];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLfdszjqhz8kzzb9uwpzdm8png)];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:mid,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spam-Score: -2.80
+In-Reply-To: <2d1737a7-58e3-48e3-ac16-1bda3947c929@amd.com>
+X-ClientProxiedBy: MA2P292CA0018.ESPP292.PROD.OUTLOOK.COM (2603:10a6:250::8)
+ To DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR03MB5227:EE_|PH0PR03MB5829:EE_
+X-MS-Office365-Filtering-Correlation-Id: e9cfec42-f631-479b-2e9d-08de04b13f27
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dlBLWC9RdFhPUnFCT0loTE9XSmF3aXdwZkwwalBkUVhhWnpHam1WME0zdGZD?=
+ =?utf-8?B?VFFwTGpCYTdGMHNsKzR3WlhBZ2U1azRMYkNVMjI1NHp2bDBOMDduejhPc01P?=
+ =?utf-8?B?TGozaFl5M1hGYTFiM3BhL2RhRjhDKzZPNWczY1lIeGp6N25zQmhiMDJ5WUJM?=
+ =?utf-8?B?cHNRUS9EVGRWKzY4UG5neWZFQnEvOXB1S1ZlUVAyV05WU2l0c1VKK3p5c3BD?=
+ =?utf-8?B?bEFoVlFGZXd2MzlyUGFMRVJ3RDQwNU5FdjZjMUdlRlpsREJ3a3hBMGw4TVdw?=
+ =?utf-8?B?ZnN5VFBVTWdsbmF2cGU1MWJZVWEvTmFKY2NZYzlqbFdHaE1hNGZFa25RVWxt?=
+ =?utf-8?B?ME9XTFJ6MlFlZGcxM3RseHlwVno4dGR1M2tLNjBmUnprMVljaFVFNnovUmlI?=
+ =?utf-8?B?T1o3cWJxY0szQmlaaGppRzBpdmlOeWhmUE95K1U0ZHdlMk5HMGJpajBVVytX?=
+ =?utf-8?B?SVNPM1NESTBHS2twZWo2dlVWN2NXRnIwQVJsK3dvTXRVcnptNUQybVp0elp2?=
+ =?utf-8?B?d3Rac3czLzVPUXI3akRyYmZmc1hKbXp0NnNhRC9Vcmh5MFpmVGpFS3NWME1l?=
+ =?utf-8?B?b0ZzdlNkTTlFbkdOVTFHMXV5Mi9oSHgvVXpYZGFJamIwSm5pZ0tsVGxhbjBz?=
+ =?utf-8?B?ejFPdHhOeHdEOVlhSlhHL0RsNEFNTCtyb084b2FmcVU4MlJDY3RGYVlPUUlK?=
+ =?utf-8?B?eHRHcUFMdW43MWlLNkJRMFBCOWhZd1dUZ2E4RFd5alpFU2tJdGp2d01uY1hJ?=
+ =?utf-8?B?Y3dkRjFBNEwvRGhiVVM2dEtSanN0aWpZNU00cXJBODNLbmxwYTcvbVNPa0to?=
+ =?utf-8?B?eWR1Y1E0bTJjUUJQOEhmMlJRK1JaM2lJc3VTcDBsekdIQmJYSFduWlZpeXJs?=
+ =?utf-8?B?ZTVFTkxNVWlRbWFvd0FmUnpHaUJZWHJKeEdyYzBVQ2g5OXo1Njd1KzRJbDBM?=
+ =?utf-8?B?b0FvWTFkTmFpL0VYaXZJdkdxQlpjYmRVTHd2VkJjQWhWZm13YXlnd2tGcUw3?=
+ =?utf-8?B?VkpkdDd3QlBoK3l2MGFWcmc0cnQyTHRiWE4rQVYra2tnc2FwLzhaMVIxc1ZX?=
+ =?utf-8?B?M1hKT1h5Rll6QUsxZk1KVGw1em5JeDVXK0RHaGpUUUdudDBzKzF0REpLY0x1?=
+ =?utf-8?B?QUIwa0pFbVFBNlBBMHJqTnZoWXlUV0RtZEFzLzVSc3UxeTg5TVBNYld5Y2VT?=
+ =?utf-8?B?WndLckt0Z1FCbG9BZjRWMTlFQm1VREN4SzcrL25vSTBvRmxrenRHNWRWRDdN?=
+ =?utf-8?B?MHc1SExjZTBxUWE5UjZsSnhHUlBhRW83b3Eza1F0bi80d2o3YkhpTHRkaW9i?=
+ =?utf-8?B?dzQwdks2cnhNMEk2R3pQeU43Tlp5UDJwVkU5T2d5VEt5WUxyajVNKzQ2OWdH?=
+ =?utf-8?B?ckVrLzc5NUJWN1p6ME9rSi8zYnlZSlVZOERHM0NpM2F6T2FacEcvV0FqVFdy?=
+ =?utf-8?B?YkwyeEZ1UzhaN3V2dVoxOHZGMXN0dmFYTjVqUUJWMWppU1ZJTUd1aFFTSm1l?=
+ =?utf-8?B?Q0pVM0RrUHZIR0FReE9QeVltYzhvWDNJc3h0angvK0RDWFFDWCtVQ29xRzZB?=
+ =?utf-8?B?am9xZjRVNWlUcVdYQmdNSzRiN1RtT2JDK2xta1h2WCtkVlN2Y2x3cWZWQUtE?=
+ =?utf-8?B?V2wvYStKSmlEMXVuQjgwbU5KUE4wVjZUM21GOGxLQWI5TWNsUlVIS3F1eTE3?=
+ =?utf-8?B?YXd0bElST3Y1YnJrRExYTHdMNDhPK0owa2plcGNrUWF5RXZyUXdPK2ExS3Bj?=
+ =?utf-8?B?cGE4ZnpyQytyQWtWcDJrcTFTc2l3NDBIWFpzNUtjUlc4Y1dQTWtuTWpJR2ZQ?=
+ =?utf-8?B?TnQxY1c5M213MHVEQ2cvVlo5WW9WTTFxZlE4b1o4djMyRFpMM2Z2elZGVlhs?=
+ =?utf-8?B?cXlEUTRiekNMdXY3ZG5aUFZNb2svWDU2aDBka1dRYkxnMSt3eVBNVVlONXc3?=
+ =?utf-8?Q?SHypEr7rke2Gr8TTfK+EeFzYooUTHkfN?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB5227.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aUN4aUpBczd2YmlZa2JkWjEreU0zSXYwV29xdXAwbzhacUh0WkgxTmlEL2ts?=
+ =?utf-8?B?MWRFYjZadGxZdkNSM05qaWlCMzRGMTJqampRY0pDM1pjV1R0Q1QzbnAvZDE0?=
+ =?utf-8?B?bWR5c0k3KzRkUUFpT3ZVRHU0WUdrOXFTRnBLU2oyNGtHOU1SaFNYV0lMRGYx?=
+ =?utf-8?B?aDVNbStidXdFR3NIVEMyRlh3Kzd2S2hYM2t4SFVtcWZDWUdwanViRkcrSkZL?=
+ =?utf-8?B?U1hyZ2k0SlgyNTN0UnpoclFBd3h4TFUxSERoOGFWbWg0blduNm9CSU1lK1Rm?=
+ =?utf-8?B?NEtCaTZ4bEExRnNYdHpGbUd0anVZemdwdHl5MysvMEExYjRmelMrbWdKblo3?=
+ =?utf-8?B?OFhid0Q3SEorQzBuVVhHWkN6WThnWTVZSGFUeWk4a243bGNaZysySnBUOHdE?=
+ =?utf-8?B?aUVDU1FUUUlhQ01zL0VOb1hNNVIvWWJZQzlSNzJNN0JqY0N1djQ2REZiOGp2?=
+ =?utf-8?B?Z2I5Zk5sR1kySkVrRkJ0dWNjT1VyaUlnRXc0QXIxMk5FS2MwdGVneHozZmpP?=
+ =?utf-8?B?WXVjNkJIL29zcWYrNDdyMGhZMUpYUVRObkZVbUljL0FXU3BiY0d2anlXeFJo?=
+ =?utf-8?B?R2N3Z093THIyWkNUS1M4emw2QTRkaDlwU1pLa2lDY3p2MGxEWHM4UHhtVk9j?=
+ =?utf-8?B?Q1N5aTJWSGJTaFJ0d0x4YUxwYjdVQXRORXVlYStoQmRJOFpvdzE4ZWVHUGV3?=
+ =?utf-8?B?K28raHgwQU0rL1BXZVRxcUE4eWhJWWF0KzZsNXNOclZ3U1g3Njhub1J5YjZu?=
+ =?utf-8?B?QU02cXVmc2JmWkdTUkN6TmplUFJBT2hwazluR2hGK0FBVERTYm9WdzBFT1Ft?=
+ =?utf-8?B?ZldTaDJjRlNBNG9aaUpLLzZISlJHZGs3ZC9mcGE1MytkNkkreThpSXZJQzRl?=
+ =?utf-8?B?WFppSHV3NVhaWlZPaFlYclJTdjB3bkRCaURMUTFOY05pdDV0ZXV5dGlrUVF5?=
+ =?utf-8?B?QVFYZTdWL0FPMFF3UXRrZUV4alJ6a0pCNThtaE1RN0tlcUM4czBVenEzNEt1?=
+ =?utf-8?B?cTNVZzNyYTBxVFRRR0l0dUtLVTMzWTk1WGxROC9JQ2hUVkN2YzRuNUhTYlhQ?=
+ =?utf-8?B?dlIyVkFZZVJ4bFRFa2kyZUN5YVU0WFdROUd6NzE2aldDakM0Ly9NRWRCbXZV?=
+ =?utf-8?B?STRuWnJxWWVSRHFKTURQYWY2aUVUcnpDbkVSY1dCTG1nUGJySFZBdUJSUUFm?=
+ =?utf-8?B?NkdHZ2VDdDNrUEo4TEpWSzFHSlN4SXQzZXhmU2tBUDg5SVRaMHpXb0N0T3U1?=
+ =?utf-8?B?dHNlNnlGaytOTWFMWjl5MDlyU01RMnhPOFN6VHJpTSt0VU1jMGFxMDJRcUJT?=
+ =?utf-8?B?OVFxUkpzSW93clRLTFZvalY0NHU3MW4vNHlCa3UzNVBRVnV1WU40bXVaNk1s?=
+ =?utf-8?B?Z3BaNmZPTXRoWDlxOGVlcnNBUGFVV2hJTXdKVld0azNyYXQzc0s0L3BkYUxu?=
+ =?utf-8?B?Q1NCS2lBekJ6S3hVTUJzajVhT2pNUVd0MURjVEIxbFZ6cXozYnhxbmRCUG9T?=
+ =?utf-8?B?TzdyVFZjUk5nNWE2QlpuM0poL1dnbWlLWDZCQ09TaXdzZStrcWI2alZYVHVH?=
+ =?utf-8?B?RlFJUVJJR2pPd21DZ0pLenA0RDNEclhYZjcrckFQZGhMbFlSVWVsNGxzVHZM?=
+ =?utf-8?B?RDJmbkplaExEa0YyTnRGQmxVTGx5WWcweXBvV281clJBWEhVSzJKdE5kTXJF?=
+ =?utf-8?B?b3h0UjB5NXo1SUVoSHN6TGRMMUUvRFlveDVTLytqbmlOV3dNRUJoOWJSYk9I?=
+ =?utf-8?B?c0Jrc0lPeDBOSkJZMTQ5NDAyOTliY3plTC9VT0RHblc1WlJPVTVjT0JkYjlR?=
+ =?utf-8?B?aDBHQUhFSG1Jb0EvbTFaaGkzT1FNUUp3OXMvV2Y0UmQwMWxHdjNldE1oa09C?=
+ =?utf-8?B?WEhiT1p1ajl2MEtUSkQxS2R3ZUppRkFzVE5nZnVJb1lSOWRwcXNlUHEveWZQ?=
+ =?utf-8?B?emdWby91WWJNTDQvbTQ2WFI1NzA0akpta0w2VUJPeGpXMWYyQm80ZXB6cVlV?=
+ =?utf-8?B?MnZNSExsZVNoc1lBY0srOGVqWVpRZndoYzVTOElKSitCU04wa2JTbEdoYlBY?=
+ =?utf-8?B?VDliS2tyZDBGMUlwcXgwcWtYL3o0Yis3NmNJWWdyS3RrLzczRE1RN0laMUtv?=
+ =?utf-8?Q?TB9yQcND4ixRL31CFbWkAx6IB?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9cfec42-f631-479b-2e9d-08de04b13f27
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5227.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2025 08:20:50.3020
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: a3o/EzXLMcal5Hhfc8Djr8l37xRmvBdgg22OLGZA1Z9hGTxzO8IHUYsyG3UpQh2o5nLPK9WOI7TzNbGKrjM7/A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB5829
 
-Instead of having the pv spinlock function definitions in paravirt.h,
-move them into the new header paravirt-spinlock.h.
+On Fri, Oct 03, 2025 at 11:29:40PM -0400, Stewart Hildebrand wrote:
+> On 9/29/25 04:41, Roger Pau Monne wrote:
+> > I've had the luck to come across a PCI card that exposes a MSI-X capability
+> > where the BIR of the vector and PBA tables points at a BAR that has 0 size.
+> > 
+> > This doesn't play nice with the code in vpci_make_msix_hole(), as it would
+> > still use the address of such empty BAR (0) and attempt to crave a hole in
+> 
+> s/crave/carve/
+> 
+> > the p2m.  This leads to errors like the one below being reported by Xen:
+> > 
+> > d0v0 0000:22:00.0: existing mapping (mfn: 181c4300 type: 0) at 0 clobbers MSIX MMIO area
+> > 
+> > And the device left unable to enable memory decoding due to the failure
+> > reported by vpci_make_msix_hole().
+> > 
+> > Introduce checking in init_msix() to ensure the BARs containing the MSI-X
+> > tables are usable.  This requires checking that the BIR points to a
+> > non-empty BAR, and the offset and size of the MSI-X tables can fit in the
+> > target BAR.
+> > 
+> > This fixes booting PVH dom0 on Supermicro AS -2126HS-TN severs with AMD
+> > EPYC 9965 processors.  The broken device is:
+> > 
+> > 22:00.0 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SATA Controller [AHCI mode] (rev 93)
+> > 
+> > There are multiple of those integrated controllers in the system, all
+> > broken in the same way.
+> > 
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> > Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> > Cc: Jan Beulich <jbeulich@suse.com>
+> > Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > 
+> > While not strictly a bugfix, I consider this a worthy improvement so that
+> > PVH dom0 has a chance to boot on hardware that exposes such broken MSI-X
+> > capabilities.  Hence I think this change should be considered for inclusion
+> > into 4.21.  There a risk of regressing on hardware that was already working
+> > with PVH, but given enough testing that should be minimal.
+> > ---
+> >  xen/drivers/vpci/msix.c | 50 ++++++++++++++++++++++++++++++++++++-----
+> >  1 file changed, 45 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+> > index 54a5070733aa..8458955d5bbb 100644
+> > --- a/xen/drivers/vpci/msix.c
+> > +++ b/xen/drivers/vpci/msix.c
+> > @@ -675,6 +675,51 @@ static int cf_check init_msix(struct pci_dev *pdev)
+> >      if ( !msix )
+> >          return -ENOMEM;
+> >  
+> > +    msix->tables[VPCI_MSIX_TABLE] =
+> > +        pci_conf_read32(pdev->sbdf, msix_table_offset_reg(msix_offset));
+> > +    msix->tables[VPCI_MSIX_PBA] =
+> > +        pci_conf_read32(pdev->sbdf, msix_pba_offset_reg(msix_offset));
+> > +
+> > +    /* Check that the provided BAR is valid. */
+> > +    for ( i = 0; i < ARRAY_SIZE(msix->tables); i++ )
+> > +    {
+> > +        const char *name = (i == VPCI_MSIX_TABLE) ? "vector" : "PBA";
+> > +        const struct vpci_bar *bars = pdev->vpci->header.bars;
+> > +        unsigned int bir = msix->tables[i] & PCI_MSIX_BIRMASK;
+> > +        unsigned int type;
+> > +        unsigned int offset = msix->tables[i] & ~PCI_MSIX_BIRMASK;
+> > +        unsigned int size =
+> > +            (i == VPCI_MSIX_TABLE) ? max_entries * PCI_MSIX_ENTRY_SIZE
+> > +                                   : ROUNDUP(DIV_ROUND_UP(max_entries, 8), 8);
+> > +
+> > +        if ( bir >= ARRAY_SIZE(pdev->vpci->header.bars) )
+> 
+> This assumes a type 0 header. For type 1 headers, bir values 2 and up are
+> also reserved.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- use new header instead of qspinlock.h
-- use dedicated pv_ops_lock array
-- move more paravirt related lock code
-V3:
-- hide native_pv_lock_init() with CONFIG_SMP (kernel test robot)
----
- arch/x86/hyperv/hv_spinlock.c            |  10 +-
- arch/x86/include/asm/paravirt-spinlock.h | 146 +++++++++++++++++++++++
- arch/x86/include/asm/paravirt.h          |  61 ----------
- arch/x86/include/asm/paravirt_types.h    |  17 ---
- arch/x86/include/asm/qspinlock.h         |  89 ++------------
- arch/x86/kernel/Makefile                 |   2 +-
- arch/x86/kernel/kvm.c                    |  10 +-
- arch/x86/kernel/paravirt-spinlocks.c     |  26 +++-
- arch/x86/kernel/paravirt.c               |  21 ----
- arch/x86/xen/spinlock.c                  |  10 +-
- tools/objtool/check.c                    |   1 +
- 11 files changed, 194 insertions(+), 199 deletions(-)
- create mode 100644 arch/x86/include/asm/paravirt-spinlock.h
+Right, but those BARs will be set as VPCI_BAR_EMPTY for type 1 headers.
+The check here is to avoid doing an out of bounds array access, the
+check for validity of the pointed BAR is done below.
 
-diff --git a/arch/x86/hyperv/hv_spinlock.c b/arch/x86/hyperv/hv_spinlock.c
-index 2a3c2afb0154..210b494e4de0 100644
---- a/arch/x86/hyperv/hv_spinlock.c
-+++ b/arch/x86/hyperv/hv_spinlock.c
-@@ -78,11 +78,11 @@ void __init hv_init_spinlocks(void)
- 	pr_info("PV spinlocks enabled\n");
- 
- 	__pv_init_lock_hash();
--	pv_ops.lock.queued_spin_lock_slowpath = __pv_queued_spin_lock_slowpath;
--	pv_ops.lock.queued_spin_unlock = PV_CALLEE_SAVE(__pv_queued_spin_unlock);
--	pv_ops.lock.wait = hv_qlock_wait;
--	pv_ops.lock.kick = hv_qlock_kick;
--	pv_ops.lock.vcpu_is_preempted = PV_CALLEE_SAVE(hv_vcpu_is_preempted);
-+	pv_ops_lock.queued_spin_lock_slowpath = __pv_queued_spin_lock_slowpath;
-+	pv_ops_lock.queued_spin_unlock = PV_CALLEE_SAVE(__pv_queued_spin_unlock);
-+	pv_ops_lock.wait = hv_qlock_wait;
-+	pv_ops_lock.kick = hv_qlock_kick;
-+	pv_ops_lock.vcpu_is_preempted = PV_CALLEE_SAVE(hv_vcpu_is_preempted);
- }
- 
- static __init int hv_parse_nopvspin(char *arg)
-diff --git a/arch/x86/include/asm/paravirt-spinlock.h b/arch/x86/include/asm/paravirt-spinlock.h
-new file mode 100644
-index 000000000000..ed3ed343903d
---- /dev/null
-+++ b/arch/x86/include/asm/paravirt-spinlock.h
-@@ -0,0 +1,146 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef _ASM_X86_PARAVIRT_SPINLOCK_H
-+#define _ASM_X86_PARAVIRT_SPINLOCK_H
-+
-+#include <asm/paravirt_types.h>
-+
-+#ifdef CONFIG_SMP
-+#include <asm/spinlock_types.h>
-+#endif
-+
-+struct qspinlock;
-+
-+struct pv_lock_ops {
-+	void (*queued_spin_lock_slowpath)(struct qspinlock *lock, u32 val);
-+	struct paravirt_callee_save queued_spin_unlock;
-+
-+	void (*wait)(u8 *ptr, u8 val);
-+	void (*kick)(int cpu);
-+
-+	struct paravirt_callee_save vcpu_is_preempted;
-+} __no_randomize_layout;
-+
-+extern struct pv_lock_ops pv_ops_lock;
-+
-+#ifdef CONFIG_PARAVIRT_SPINLOCKS
-+void __init paravirt_set_cap(void);
-+extern void native_queued_spin_lock_slowpath(struct qspinlock *lock, u32 val);
-+extern void __pv_init_lock_hash(void);
-+extern void __pv_queued_spin_lock_slowpath(struct qspinlock *lock, u32 val);
-+extern void __raw_callee_save___pv_queued_spin_unlock(struct qspinlock *lock);
-+extern bool nopvspin;
-+
-+static __always_inline void pv_queued_spin_lock_slowpath(struct qspinlock *lock,
-+							 u32 val)
-+{
-+	PVOP_VCALL2(pv_ops_lock, queued_spin_lock_slowpath, lock, val);
-+}
-+
-+static __always_inline void pv_queued_spin_unlock(struct qspinlock *lock)
-+{
-+	PVOP_ALT_VCALLEE1(pv_ops_lock, queued_spin_unlock, lock,
-+			  "movb $0, (%%" _ASM_ARG1 ");",
-+			  ALT_NOT(X86_FEATURE_PVUNLOCK));
-+}
-+
-+static __always_inline bool pv_vcpu_is_preempted(long cpu)
-+{
-+	return PVOP_ALT_CALLEE1(bool, pv_ops_lock, vcpu_is_preempted, cpu,
-+				"xor %%" _ASM_AX ", %%" _ASM_AX ";",
-+				ALT_NOT(X86_FEATURE_VCPUPREEMPT));
-+}
-+
-+#define queued_spin_unlock queued_spin_unlock
-+/**
-+ * queued_spin_unlock - release a queued spinlock
-+ * @lock : Pointer to queued spinlock structure
-+ *
-+ * A smp_store_release() on the least-significant byte.
-+ */
-+static inline void native_queued_spin_unlock(struct qspinlock *lock)
-+{
-+	smp_store_release(&lock->locked, 0);
-+}
-+
-+static inline void queued_spin_lock_slowpath(struct qspinlock *lock, u32 val)
-+{
-+	pv_queued_spin_lock_slowpath(lock, val);
-+}
-+
-+static inline void queued_spin_unlock(struct qspinlock *lock)
-+{
-+	kcsan_release();
-+	pv_queued_spin_unlock(lock);
-+}
-+
-+#define vcpu_is_preempted vcpu_is_preempted
-+static inline bool vcpu_is_preempted(long cpu)
-+{
-+	return pv_vcpu_is_preempted(cpu);
-+}
-+
-+static __always_inline void pv_wait(u8 *ptr, u8 val)
-+{
-+	PVOP_VCALL2(pv_ops_lock, wait, ptr, val);
-+}
-+
-+static __always_inline void pv_kick(int cpu)
-+{
-+	PVOP_VCALL1(pv_ops_lock, kick, cpu);
-+}
-+
-+void __raw_callee_save___native_queued_spin_unlock(struct qspinlock *lock);
-+bool __raw_callee_save___native_vcpu_is_preempted(long cpu);
-+#endif /* CONFIG_PARAVIRT_SPINLOCKS */
-+
-+void __init native_pv_lock_init(void);
-+__visible void __native_queued_spin_unlock(struct qspinlock *lock);
-+bool pv_is_native_spin_unlock(void);
-+__visible bool __native_vcpu_is_preempted(long cpu);
-+bool pv_is_native_vcpu_is_preempted(void);
-+
-+/*
-+ * virt_spin_lock_key - disables by default the virt_spin_lock() hijack.
-+ *
-+ * Native (and PV wanting native due to vCPU pinning) should keep this key
-+ * disabled. Native does not touch the key.
-+ *
-+ * When in a guest then native_pv_lock_init() enables the key first and
-+ * KVM/XEN might conditionally disable it later in the boot process again.
-+ */
-+DECLARE_STATIC_KEY_FALSE(virt_spin_lock_key);
-+
-+/*
-+ * Shortcut for the queued_spin_lock_slowpath() function that allows
-+ * virt to hijack it.
-+ *
-+ * Returns:
-+ *   true - lock has been negotiated, all done;
-+ *   false - queued_spin_lock_slowpath() will do its thing.
-+ */
-+#define virt_spin_lock virt_spin_lock
-+static inline bool virt_spin_lock(struct qspinlock *lock)
-+{
-+	int val;
-+
-+	if (!static_branch_likely(&virt_spin_lock_key))
-+		return false;
-+
-+	/*
-+	 * On hypervisors without PARAVIRT_SPINLOCKS support we fall
-+	 * back to a Test-and-Set spinlock, because fair locks have
-+	 * horrible lock 'holder' preemption issues.
-+	 */
-+
-+ __retry:
-+	val = atomic_read(&lock->val);
-+
-+	if (val || !atomic_try_cmpxchg(&lock->val, &val, _Q_LOCKED_VAL)) {
-+		cpu_relax();
-+		goto __retry;
-+	}
-+
-+	return true;
-+}
-+
-+#endif /* _ASM_X86_PARAVIRT_SPINLOCK_H */
-diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-index ec274d13bae0..b21072af731d 100644
---- a/arch/x86/include/asm/paravirt.h
-+++ b/arch/x86/include/asm/paravirt.h
-@@ -19,15 +19,6 @@
- #include <linux/cpumask.h>
- #include <asm/frame.h>
- 
--__visible void __native_queued_spin_unlock(struct qspinlock *lock);
--bool pv_is_native_spin_unlock(void);
--__visible bool __native_vcpu_is_preempted(long cpu);
--bool pv_is_native_vcpu_is_preempted(void);
--
--#ifdef CONFIG_PARAVIRT_SPINLOCKS
--void __init paravirt_set_cap(void);
--#endif
--
- /* The paravirtualized I/O functions */
- static inline void slow_down_io(void)
- {
-@@ -522,46 +513,7 @@ static inline void __set_fixmap(unsigned /* enum fixed_addresses */ idx,
- {
- 	pv_ops.mmu.set_fixmap(idx, phys, flags);
- }
--#endif
--
--#if defined(CONFIG_SMP) && defined(CONFIG_PARAVIRT_SPINLOCKS)
--
--static __always_inline void pv_queued_spin_lock_slowpath(struct qspinlock *lock,
--							u32 val)
--{
--	PVOP_VCALL2(pv_ops, lock.queued_spin_lock_slowpath, lock, val);
--}
--
--static __always_inline void pv_queued_spin_unlock(struct qspinlock *lock)
--{
--	PVOP_ALT_VCALLEE1(pv_ops, lock.queued_spin_unlock, lock,
--			  "movb $0, (%%" _ASM_ARG1 ");",
--			  ALT_NOT(X86_FEATURE_PVUNLOCK));
--}
--
--static __always_inline void pv_wait(u8 *ptr, u8 val)
--{
--	PVOP_VCALL2(pv_ops, lock.wait, ptr, val);
--}
--
--static __always_inline void pv_kick(int cpu)
--{
--	PVOP_VCALL1(pv_ops, lock.kick, cpu);
--}
--
--static __always_inline bool pv_vcpu_is_preempted(long cpu)
--{
--	return PVOP_ALT_CALLEE1(bool, pv_ops, lock.vcpu_is_preempted, cpu,
--				"xor %%" _ASM_AX ", %%" _ASM_AX ";",
--				ALT_NOT(X86_FEATURE_VCPUPREEMPT));
--}
- 
--void __raw_callee_save___native_queued_spin_unlock(struct qspinlock *lock);
--bool __raw_callee_save___native_vcpu_is_preempted(long cpu);
--
--#endif /* SMP && PARAVIRT_SPINLOCKS */
--
--#ifdef CONFIG_PARAVIRT_XXL
- static __always_inline unsigned long arch_local_save_flags(void)
- {
- 	return PVOP_ALT_CALLEE0(unsigned long, pv_ops, irq.save_fl, "pushf; pop %%rax;",
-@@ -588,8 +540,6 @@ static __always_inline unsigned long arch_local_irq_save(void)
- }
- #endif
- 
--void native_pv_lock_init(void) __init;
--
- #else  /* __ASSEMBLER__ */
- 
- #ifdef CONFIG_X86_64
-@@ -613,12 +563,6 @@ void native_pv_lock_init(void) __init;
- #endif /* __ASSEMBLER__ */
- #else  /* CONFIG_PARAVIRT */
- # define default_banner x86_init_noop
--
--#ifndef __ASSEMBLER__
--static inline void native_pv_lock_init(void)
--{
--}
--#endif
- #endif /* !CONFIG_PARAVIRT */
- 
- #ifndef __ASSEMBLER__
-@@ -634,10 +578,5 @@ static inline void paravirt_arch_exit_mmap(struct mm_struct *mm)
- }
- #endif
- 
--#ifndef CONFIG_PARAVIRT_SPINLOCKS
--static inline void paravirt_set_cap(void)
--{
--}
--#endif
- #endif /* __ASSEMBLER__ */
- #endif /* _ASM_X86_PARAVIRT_H */
-diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
-index 01a485f1a7f1..e2b487d35d14 100644
---- a/arch/x86/include/asm/paravirt_types.h
-+++ b/arch/x86/include/asm/paravirt_types.h
-@@ -184,22 +184,6 @@ struct pv_mmu_ops {
- #endif
- } __no_randomize_layout;
- 
--#ifdef CONFIG_SMP
--#include <asm/spinlock_types.h>
--#endif
--
--struct qspinlock;
--
--struct pv_lock_ops {
--	void (*queued_spin_lock_slowpath)(struct qspinlock *lock, u32 val);
--	struct paravirt_callee_save queued_spin_unlock;
--
--	void (*wait)(u8 *ptr, u8 val);
--	void (*kick)(int cpu);
--
--	struct paravirt_callee_save vcpu_is_preempted;
--} __no_randomize_layout;
--
- /* This contains all the paravirt structures: we get a convenient
-  * number for each function using the offset which we use to indicate
-  * what to patch. */
-@@ -207,7 +191,6 @@ struct paravirt_patch_template {
- 	struct pv_cpu_ops	cpu;
- 	struct pv_irq_ops	irq;
- 	struct pv_mmu_ops	mmu;
--	struct pv_lock_ops	lock;
- } __no_randomize_layout;
- 
- extern struct paravirt_patch_template pv_ops;
-diff --git a/arch/x86/include/asm/qspinlock.h b/arch/x86/include/asm/qspinlock.h
-index 68da67df304d..a2668bdf4c84 100644
---- a/arch/x86/include/asm/qspinlock.h
-+++ b/arch/x86/include/asm/qspinlock.h
-@@ -7,6 +7,9 @@
- #include <asm-generic/qspinlock_types.h>
- #include <asm/paravirt.h>
- #include <asm/rmwcc.h>
-+#ifdef CONFIG_PARAVIRT
-+#include <asm/paravirt-spinlock.h>
-+#endif
- 
- #define _Q_PENDING_LOOPS	(1 << 9)
- 
-@@ -27,89 +30,13 @@ static __always_inline u32 queued_fetch_set_pending_acquire(struct qspinlock *lo
- 	return val;
- }
- 
--#ifdef CONFIG_PARAVIRT_SPINLOCKS
--extern void native_queued_spin_lock_slowpath(struct qspinlock *lock, u32 val);
--extern void __pv_init_lock_hash(void);
--extern void __pv_queued_spin_lock_slowpath(struct qspinlock *lock, u32 val);
--extern void __raw_callee_save___pv_queued_spin_unlock(struct qspinlock *lock);
--extern bool nopvspin;
--
--#define	queued_spin_unlock queued_spin_unlock
--/**
-- * queued_spin_unlock - release a queued spinlock
-- * @lock : Pointer to queued spinlock structure
-- *
-- * A smp_store_release() on the least-significant byte.
-- */
--static inline void native_queued_spin_unlock(struct qspinlock *lock)
--{
--	smp_store_release(&lock->locked, 0);
--}
--
--static inline void queued_spin_lock_slowpath(struct qspinlock *lock, u32 val)
--{
--	pv_queued_spin_lock_slowpath(lock, val);
--}
--
--static inline void queued_spin_unlock(struct qspinlock *lock)
--{
--	kcsan_release();
--	pv_queued_spin_unlock(lock);
--}
--
--#define vcpu_is_preempted vcpu_is_preempted
--static inline bool vcpu_is_preempted(long cpu)
--{
--	return pv_vcpu_is_preempted(cpu);
--}
-+#ifndef CONFIG_PARAVIRT_SPINLOCKS
-+static inline void paravirt_set_cap(void) { }
- #endif
- 
--#ifdef CONFIG_PARAVIRT
--/*
-- * virt_spin_lock_key - disables by default the virt_spin_lock() hijack.
-- *
-- * Native (and PV wanting native due to vCPU pinning) should keep this key
-- * disabled. Native does not touch the key.
-- *
-- * When in a guest then native_pv_lock_init() enables the key first and
-- * KVM/XEN might conditionally disable it later in the boot process again.
-- */
--DECLARE_STATIC_KEY_FALSE(virt_spin_lock_key);
--
--/*
-- * Shortcut for the queued_spin_lock_slowpath() function that allows
-- * virt to hijack it.
-- *
-- * Returns:
-- *   true - lock has been negotiated, all done;
-- *   false - queued_spin_lock_slowpath() will do its thing.
-- */
--#define virt_spin_lock virt_spin_lock
--static inline bool virt_spin_lock(struct qspinlock *lock)
--{
--	int val;
--
--	if (!static_branch_likely(&virt_spin_lock_key))
--		return false;
--
--	/*
--	 * On hypervisors without PARAVIRT_SPINLOCKS support we fall
--	 * back to a Test-and-Set spinlock, because fair locks have
--	 * horrible lock 'holder' preemption issues.
--	 */
--
-- __retry:
--	val = atomic_read(&lock->val);
--
--	if (val || !atomic_try_cmpxchg(&lock->val, &val, _Q_LOCKED_VAL)) {
--		cpu_relax();
--		goto __retry;
--	}
--
--	return true;
--}
--
--#endif /* CONFIG_PARAVIRT */
-+#ifndef CONFIG_PARAVIRT
-+static inline void native_pv_lock_init(void) { }
-+#endif
- 
- #include <asm-generic/qspinlock.h>
- 
-diff --git a/arch/x86/kernel/Makefile b/arch/x86/kernel/Makefile
-index bc184dd38d99..e9aeeeafad17 100644
---- a/arch/x86/kernel/Makefile
-+++ b/arch/x86/kernel/Makefile
-@@ -126,7 +126,7 @@ obj-$(CONFIG_DEBUG_NMI_SELFTEST) += nmi_selftest.o
- 
- obj-$(CONFIG_KVM_GUEST)		+= kvm.o kvmclock.o
- obj-$(CONFIG_PARAVIRT)		+= paravirt.o
--obj-$(CONFIG_PARAVIRT_SPINLOCKS)+= paravirt-spinlocks.o
-+obj-$(CONFIG_PARAVIRT)		+= paravirt-spinlocks.o
- obj-$(CONFIG_PARAVIRT_CLOCK)	+= pvclock.o
- obj-$(CONFIG_X86_PMEM_LEGACY_DEVICE) += pmem.o
- 
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index d54fd2bc0402..47426538b579 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -824,7 +824,7 @@ static void __init kvm_guest_init(void)
- 		has_steal_clock = 1;
- 		static_call_update(pv_steal_clock, kvm_steal_clock);
- 
--		pv_ops.lock.vcpu_is_preempted =
-+		pv_ops_lock.vcpu_is_preempted =
- 			PV_CALLEE_SAVE(__kvm_vcpu_is_preempted);
- 	}
- 
-@@ -1121,11 +1121,11 @@ void __init kvm_spinlock_init(void)
- 	pr_info("PV spinlocks enabled\n");
- 
- 	__pv_init_lock_hash();
--	pv_ops.lock.queued_spin_lock_slowpath = __pv_queued_spin_lock_slowpath;
--	pv_ops.lock.queued_spin_unlock =
-+	pv_ops_lock.queued_spin_lock_slowpath = __pv_queued_spin_lock_slowpath;
-+	pv_ops_lock.queued_spin_unlock =
- 		PV_CALLEE_SAVE(__pv_queued_spin_unlock);
--	pv_ops.lock.wait = kvm_wait;
--	pv_ops.lock.kick = kvm_kick_cpu;
-+	pv_ops_lock.wait = kvm_wait;
-+	pv_ops_lock.kick = kvm_kick_cpu;
- 
- 	/*
- 	 * When PV spinlock is enabled which is preferred over
-diff --git a/arch/x86/kernel/paravirt-spinlocks.c b/arch/x86/kernel/paravirt-spinlocks.c
-index 9e1ea99ad9df..95452444868f 100644
---- a/arch/x86/kernel/paravirt-spinlocks.c
-+++ b/arch/x86/kernel/paravirt-spinlocks.c
-@@ -3,12 +3,22 @@
-  * Split spinlock implementation out into its own file, so it can be
-  * compiled in a FTRACE-compatible way.
-  */
-+#include <linux/static_call.h>
- #include <linux/spinlock.h>
- #include <linux/export.h>
- #include <linux/jump_label.h>
- 
--#include <asm/paravirt.h>
-+DEFINE_STATIC_KEY_FALSE(virt_spin_lock_key);
- 
-+#ifdef CONFIG_SMP
-+void __init native_pv_lock_init(void)
-+{
-+	if (boot_cpu_has(X86_FEATURE_HYPERVISOR))
-+		static_branch_enable(&virt_spin_lock_key);
-+}
-+#endif
-+
-+#ifdef CONFIG_PARAVIRT_SPINLOCKS
- __visible void __native_queued_spin_unlock(struct qspinlock *lock)
- {
- 	native_queued_spin_unlock(lock);
-@@ -17,7 +27,7 @@ PV_CALLEE_SAVE_REGS_THUNK(__native_queued_spin_unlock);
- 
- bool pv_is_native_spin_unlock(void)
- {
--	return pv_ops.lock.queued_spin_unlock.func ==
-+	return pv_ops_lock.queued_spin_unlock.func ==
- 		__raw_callee_save___native_queued_spin_unlock;
- }
- 
-@@ -29,7 +39,7 @@ PV_CALLEE_SAVE_REGS_THUNK(__native_vcpu_is_preempted);
- 
- bool pv_is_native_vcpu_is_preempted(void)
- {
--	return pv_ops.lock.vcpu_is_preempted.func ==
-+	return pv_ops_lock.vcpu_is_preempted.func ==
- 		__raw_callee_save___native_vcpu_is_preempted;
- }
- 
-@@ -41,3 +51,13 @@ void __init paravirt_set_cap(void)
- 	if (!pv_is_native_vcpu_is_preempted())
- 		setup_force_cpu_cap(X86_FEATURE_VCPUPREEMPT);
- }
-+
-+struct pv_lock_ops pv_ops_lock = {
-+	.queued_spin_lock_slowpath	= native_queued_spin_lock_slowpath,
-+	.queued_spin_unlock		= PV_CALLEE_SAVE(__native_queued_spin_unlock),
-+	.wait				= paravirt_nop,
-+	.kick				= paravirt_nop,
-+	.vcpu_is_preempted		= PV_CALLEE_SAVE(__native_vcpu_is_preempted),
-+};
-+EXPORT_SYMBOL(pv_ops_lock);
-+#endif
-diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
-index 5dfbd3f55792..a6ed52cae003 100644
---- a/arch/x86/kernel/paravirt.c
-+++ b/arch/x86/kernel/paravirt.c
-@@ -57,14 +57,6 @@ DEFINE_ASM_FUNC(pv_native_irq_enable, "sti", .noinstr.text);
- DEFINE_ASM_FUNC(pv_native_read_cr2, "mov %cr2, %rax", .noinstr.text);
- #endif
- 
--DEFINE_STATIC_KEY_FALSE(virt_spin_lock_key);
--
--void __init native_pv_lock_init(void)
--{
--	if (boot_cpu_has(X86_FEATURE_HYPERVISOR))
--		static_branch_enable(&virt_spin_lock_key);
--}
--
- static noinstr void pv_native_safe_halt(void)
- {
- 	native_safe_halt();
-@@ -221,19 +213,6 @@ struct paravirt_patch_template pv_ops = {
- 
- 	.mmu.set_fixmap		= native_set_fixmap,
- #endif /* CONFIG_PARAVIRT_XXL */
--
--#if defined(CONFIG_PARAVIRT_SPINLOCKS)
--	/* Lock ops. */
--#ifdef CONFIG_SMP
--	.lock.queued_spin_lock_slowpath	= native_queued_spin_lock_slowpath,
--	.lock.queued_spin_unlock	=
--				PV_CALLEE_SAVE(__native_queued_spin_unlock),
--	.lock.wait			= paravirt_nop,
--	.lock.kick			= paravirt_nop,
--	.lock.vcpu_is_preempted		=
--				PV_CALLEE_SAVE(__native_vcpu_is_preempted),
--#endif /* SMP */
--#endif
- };
- 
- #ifdef CONFIG_PARAVIRT_XXL
-diff --git a/arch/x86/xen/spinlock.c b/arch/x86/xen/spinlock.c
-index fe56646d6919..83ac24ead289 100644
---- a/arch/x86/xen/spinlock.c
-+++ b/arch/x86/xen/spinlock.c
-@@ -134,10 +134,10 @@ void __init xen_init_spinlocks(void)
- 	printk(KERN_DEBUG "xen: PV spinlocks enabled\n");
- 
- 	__pv_init_lock_hash();
--	pv_ops.lock.queued_spin_lock_slowpath = __pv_queued_spin_lock_slowpath;
--	pv_ops.lock.queued_spin_unlock =
-+	pv_ops_lock.queued_spin_lock_slowpath = __pv_queued_spin_lock_slowpath;
-+	pv_ops_lock.queued_spin_unlock =
- 		PV_CALLEE_SAVE(__pv_queued_spin_unlock);
--	pv_ops.lock.wait = xen_qlock_wait;
--	pv_ops.lock.kick = xen_qlock_kick;
--	pv_ops.lock.vcpu_is_preempted = PV_CALLEE_SAVE(xen_vcpu_stolen);
-+	pv_ops_lock.wait = xen_qlock_wait;
-+	pv_ops_lock.kick = xen_qlock_kick;
-+	pv_ops_lock.vcpu_is_preempted = PV_CALLEE_SAVE(xen_vcpu_stolen);
- }
-diff --git a/tools/objtool/check.c b/tools/objtool/check.c
-index 1675c16c3793..663fa5f281bd 100644
---- a/tools/objtool/check.c
-+++ b/tools/objtool/check.c
-@@ -549,6 +549,7 @@ static struct {
- 	int idx_off;
- } pv_ops_tables[] = {
- 	{ .name = "pv_ops", },
-+	{ .name = "pv_ops_lock", },
- 	{ .name = NULL, .idx_off = -1 }
- };
- 
--- 
-2.51.0
+> 
+> > +        {
+> > +            printk(XENLOG_ERR "%pp: MSI-X %s table with out of range BIR %u\n",
+> > +                   &pdev->sbdf, name, bir);
+> 
+> Nit: placing the cleanup label at the end of the function and using 'rc' would
+> make it more amenable to future uses.
 
+The issue with that is that we then end up with a structure like:
+
+    return vpci_make_msix_hole();
+
+ error:
+    xfree();
+    return rc;
+
+Which I don't like much because of the double usage of return (it's a
+taste issue TBH).
+
+My motivation for using a goto is that they are conceptually the same
+error path, but we provide different log messages to aid in debugging
+the issue.  Otherwise all checks will be done in a single condition.
+
+Let me know how strong you feel about the usage of a label here vs one
+at the tail of the function.
+
+> 
+> > + invalid:
+> > +            xfree(msix);
+> > +            return -ENODEV;
+> > +
+> 
+> Extraneous newline.
+
+Thanks, Roger.
 
