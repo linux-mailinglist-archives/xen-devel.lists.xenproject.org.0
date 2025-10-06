@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15BA6BBE344
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Oct 2025 15:44:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1138214.1473974 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20F10BBE3F2
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Oct 2025 15:56:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1138229.1473984 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v5lVS-0005Zd-DE; Mon, 06 Oct 2025 13:44:02 +0000
+	id 1v5lhD-0007Dz-Dv; Mon, 06 Oct 2025 13:56:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1138214.1473974; Mon, 06 Oct 2025 13:44:02 +0000
+Received: by outflank-mailman (output) from mailman id 1138229.1473984; Mon, 06 Oct 2025 13:56:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v5lVS-0005XF-AA; Mon, 06 Oct 2025 13:44:02 +0000
-Received: by outflank-mailman (input) for mailman id 1138214;
- Mon, 06 Oct 2025 13:44:00 +0000
+	id 1v5lhD-0007CY-Ar; Mon, 06 Oct 2025 13:56:11 +0000
+Received: by outflank-mailman (input) for mailman id 1138229;
+ Mon, 06 Oct 2025 13:56:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hel7=4P=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1v5lVQ-0005X9-3C
- for xen-devel@lists.xenproject.org; Mon, 06 Oct 2025 13:44:00 +0000
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azlp170120002.outbound.protection.outlook.com
- [2a01:111:f403:c007::2])
+ id 1v5lhC-0007CN-AT
+ for xen-devel@lists.xenproject.org; Mon, 06 Oct 2025 13:56:10 +0000
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazlp170130001.outbound.protection.outlook.com
+ [2a01:111:f403:c10c::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 81d94ea2-a2ba-11f0-9d15-b5c5bf9af7f9;
- Mon, 06 Oct 2025 15:43:58 +0200 (CEST)
-Received: from MW4PR04CA0110.namprd04.prod.outlook.com (2603:10b6:303:83::25)
- by MN0PR12MB5835.namprd12.prod.outlook.com (2603:10b6:208:37a::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.20; Mon, 6 Oct
- 2025 13:43:45 +0000
-Received: from SJ1PEPF000023CC.namprd02.prod.outlook.com
- (2603:10b6:303:83:cafe::cd) by MW4PR04CA0110.outlook.office365.com
- (2603:10b6:303:83::25) with Microsoft SMTP Server (version=TLS1_3,
+ id 343cdb88-a2bc-11f0-9d15-b5c5bf9af7f9;
+ Mon, 06 Oct 2025 15:56:07 +0200 (CEST)
+Received: from MW4PR04CA0062.namprd04.prod.outlook.com (2603:10b6:303:6b::7)
+ by CH3PR12MB7689.namprd12.prod.outlook.com (2603:10b6:610:14d::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.18; Mon, 6 Oct
+ 2025 13:55:57 +0000
+Received: from SJ1PEPF000023D1.namprd02.prod.outlook.com
+ (2603:10b6:303:6b:cafe::9f) by MW4PR04CA0062.outlook.office365.com
+ (2603:10b6:303:6b::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.20 via Frontend Transport; Mon,
- 6 Oct 2025 13:43:44 +0000
+ 6 Oct 2025 13:55:57 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000023CC.mail.protection.outlook.com (10.167.244.6) with Microsoft
+ SJ1PEPF000023D1.mail.protection.outlook.com (10.167.244.7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9182.15 via Frontend Transport; Mon, 6 Oct 2025 13:43:44 +0000
+ 15.20.9182.15 via Frontend Transport; Mon, 6 Oct 2025 13:55:57 +0000
 Received: from localhost (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 6 Oct
- 2025 06:43:42 -0700
+ 2025 06:55:55 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81d94ea2-a2ba-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 343cdb88-a2bc-11f0-9d15-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XOqyPIujB+To52aByxasRmFG7OmGFLeasaFmDdRYDq2MRzj0jzPIH4gsBYvv7uCCPCEZLJitV+kPGrVyPY5ewtPx8vRRfBMFOHHhvVEqAlkXe623CRqXtAelvyD5EZflMc498h5OvWPguZx6soZ2m2vkeZuG6T2JM4RP6uAs0TXhty34hFoaPo7OnlVY9VIoaJoc5BnJMgIr/iJ6sYM6atq+S1Ym8P2tqZ5+lo8kX7iqW0kDXpXkGkvhI+PCBcxKM9z8QeCwM/ozwdFQ/tPXAFEiq+ZkI7iNl0rHmMhNKJR5vdH0aLxEaOFPYfUNm2SV3nGOxD+PcsrChvSmFsW49g==
+ b=OmklaY8xU/sOqilV9XwDCG8M1t5dywBc3N/FcaRpUfADc1hj8pW/9S4o75/Zw8k0Q1m/0gdU6aTrETl5eQrwd4RWMlOCDE6wOsp4dv0sihjMMskyXKvLBmvdYdvlRNxHyir+BbC7wlAcd/Z8QzpFvSkb+wQGC2FZmxMS6H9OeRpjN0SHEI6d0TOrG/TZN3uB62CGmJOqKC/pzy5y1YF1828lrXOi8LV76u2Xctuncq5afkkk65HseMMhx7QAhfTbQgo39AkTVHfFciY9qqySts4Mwayg0ccKbWwgWh5XQ5kkopd8zdMPcT5rTa/IOCyY/nQddcfryylmF8dHN6SVmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sm3AHVNzPhBzgSsS/8lHiFefr28bb43KQhcCezuVZhU=;
- b=guvY9CBX8Qbbc9KWvWH40YI3CUifWyRTAiRkuK0o6em28wVPzCkWwlsVqSIP+bJWupyhY0+snmn2eWKRhAghtLD4gnbfWxMunT0seT0Xg8dgrxF2q514G7gnazUKdY7X+yzQmljjXSRFdan1u3DZQ0YEq1ok57AyOJGvX68PCsFPLKfaGuDVqAvKV/FfcStmSuP0/wfukzmG40sEZY5vsPVuyrfakfA9sWLiKbVdpU7cd3B8aPv7yVz0m3xmYL4dFza9SPQtSBQ4CJoRJgrUBMJXTV3cjOQplRuYDFu7znM3OE7tZl6wchaIbPUOcIuUIqtNevquDLMwicCR79YD0w==
+ bh=dSpxngmid82N1+Q7DvU9+LBUUBFrnEtHp23hcckNy0I=;
+ b=g/mnWpGX4JTMwMgNCMh/ybyDWx01zngXUtUprG/wda8SRvncE9nxlLzTs6IQaexeBjbrswI/qFygNYUqlIlZjxTT5tFPzQd3fBYDJKybq42rvRsbkTmcdaf237Dodv6A9mHsPMClM4MtrxhbAeeoGTG0EinlmbvHffGw3NfxqasI9in3M5Z8Qj3c9P2GfobOWIccdEpI5sWzzWxwg/iesCXI1EQlM4dor6YYYC/9F8nEzOCA2ADl7cmeySE0WJEHxaZeFMqELzcTx0gAn2YkcUOH5798aDA+X/qC/V2tVmW3UMRIVnJPcyd1+4T3TPM8nb5xKmOHuMfEE3ojAq9xdQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sm3AHVNzPhBzgSsS/8lHiFefr28bb43KQhcCezuVZhU=;
- b=3zoB0D4JZwj199Z2HIjnu1zgmW9JUw1+JpbZdOK3pFP2XRdn0ygOSQPBMY5z2q4PDFL8DtbbiDDGcSpAxRpmzb4mFzWR/i5o4saKtimJFaXZ7bZpA1lGbQWlFvS5ubu/mSHPsy7FiFJwc34NBVsL2zVX+Ot/ft1e0OidpfusXbQ=
+ bh=dSpxngmid82N1+Q7DvU9+LBUUBFrnEtHp23hcckNy0I=;
+ b=T6u2gCvm9rNrmBLo/yT/ZSU1JWd8+J8Cg5ttoHq4bPWjR7C/7r+3wrl6LwUdbzBgWBh8boOVcGcjTb+912yvUS3Gy2Xy2sgKVLq/be8wmbb10mTXx93KD4zuBBR9RlQqbXNajYk5uCZDZWlU0aaDwsbxKC2t/SNzwrYgHQfB8jA=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -81,127 +81,223 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 6 Oct 2025 15:43:41 +0200
-Message-ID: <DDBA86O3QEZA.UN09CPMA1L1D@amd.com>
-CC: Jan Beulich <jbeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>
-Subject: Re: [PATCH] x86: Add missing forward declaration and include to
- hvm/svm/vmcb.h
+Date: Mon, 6 Oct 2025 15:55:54 +0200
+Message-ID: <DDBAHJDFXN5L.2U4TFNVR6NLZ@amd.com>
+CC: <xen-devel@lists.xenproject.org>, Stewart Hildebrand
+	<stewart.hildebrand@amd.com>, Jan Beulich <jbeulich@suse.com>, "Oleksii
+ Kurochko" <oleksii.kurochko@gmail.com>, Xen-devel
+	<xen-devel-bounces@lists.xenproject.org>
+Subject: Re: [PATCH for-4.21] vpci/msix: improve handling of bogus MSI-X
+ capabilities
 From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
-	<xen-devel@lists.xenproject.org>
+To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 X-Mailer: aerc 0.20.1
-References: <20251006104608.12149-1-alejandro.garciavallejo@amd.com>
- <588656ba-dabf-42f2-941f-6cc017961271@citrix.com>
- <DDB7DOIV02H0.3P4Y4VQVY1HWZ@amd.com>
- <cc4c4e18-e242-46a6-a176-4d65c7b0527a@citrix.com>
-In-Reply-To: <cc4c4e18-e242-46a6-a176-4d65c7b0527a@citrix.com>
+References: <20250929084149.70560-1-roger.pau@citrix.com>
+ <DD60R7HDKJ23.1BYEORZH67NOS@amd.com> <aNvTwrcHsja65ndP@Mac.lan>
+In-Reply-To: <aNvTwrcHsja65ndP@Mac.lan>
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CC:EE_|MN0PR12MB5835:EE_
-X-MS-Office365-Filtering-Correlation-Id: dbcc40e5-9142-4e7d-7a89-08de04de5e51
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D1:EE_|CH3PR12MB7689:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7fb0761f-ee63-43ff-1cf5-08de04e0132f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
+	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?U1FMS2Zia0E3WEZIcGEwRWNEeTB3OTEzWm5DcjRNREZnenN4Ri9JS2U0ZkRW?=
- =?utf-8?B?eUNHSEVEeWMydEs4MFNnbW5VNUdPb1FqTzFqNVdxM0QxR1FFVDIwYTVKSzBq?=
- =?utf-8?B?eTNqUXJvRDFPVDQwdGRFcUdiWGdWN2NqeG8rbXNQZEc0dzI5NGZQdm45Z2FZ?=
- =?utf-8?B?czVZcURGSTNjeWkxK1IyVjh0am9Ta2REMnRyTFJCZW9hR0VnZkZrNmEwOWQ2?=
- =?utf-8?B?WTFuT0JhRjlSZVljSVNBTEd5ZFk2cXN2dGszMGxTd2QyTW1lci8wb3ozYStL?=
- =?utf-8?B?WjFKOG1YNnl3RXF6aitPYkhSdWdvVTNyTTRmYUxIRXR3TU05NkdwTjdRZ3o0?=
- =?utf-8?B?eU5sVTJwRmVFeUxnQ0RXaHVOK2RUdWZTVHphVWxkR2VpSnpCVFdCVUI0UEpC?=
- =?utf-8?B?TjQyS21pWXBDb1dtc0Q0TTIxQzIra0lxWVQxWDlQOENabjB4OC9BcXZjVXBL?=
- =?utf-8?B?RTZrRks0TURTWnZtRy85VHJrQ0RHU3FjcTZ1OWFMOXVuRlkzODY0S0hKSkN5?=
- =?utf-8?B?WWl4amlqVndGYW5rTlhwc2RjYkNSQ1RMa20zZUcwOVg5ODkvbGJLUmdkZmRj?=
- =?utf-8?B?WXY4VUNlQVJkOXlKaWxtUkFDenRVWGNjWW0zcHovUExRQWVMa3BVRlVkc1p4?=
- =?utf-8?B?YXBMR0F1RHh1OS9wNVUxRy9HTHM5OUFHKzltTmtNUndIRk9SekN0UXlCK1Ja?=
- =?utf-8?B?K014NmI0cElXa2JSU01IbnpYaEEyWUNrMEM1cFJaOEcxN3lJV0FIajNDTUl5?=
- =?utf-8?B?WDNRWjBPL2drQkw3VEtyT0VzaWZuZlROK2NkZm53cDg1Mks2Q3VUM1FhbDRt?=
- =?utf-8?B?d0N4NW85am1Dbm1mQzhJelFqWHp2ZDJTNk5hak01ZUFEdE10Szh3czI1TkV3?=
- =?utf-8?B?QzdlSjBnN3l4Mmp3UnpzdGhGL2h1UlJHYXF0c0RxRjJNT0l2RHUyWC90azFk?=
- =?utf-8?B?K2ZWRzJwTVNnMi9DODFZNE1yRHRwMzZmQkZZbFVlanlSU24vc2JhODBVcnZJ?=
- =?utf-8?B?eHVIeGZzK3pzUkdyaW9reE82QnNJVkdEMFJjbk1qcVEweXk2Y2JJN3p6UTE0?=
- =?utf-8?B?bzhuWGhlekI2Z1I4T1VsSXVYeis3T3ZjcXNsaTFDUlpHUmZOTFRDUDJ3bTBC?=
- =?utf-8?B?Vnd6YkN6R1RDUjNBZXNiSyt3UjFqWUJBRlpqNk9ITTlKSElscitPT2RNQTNx?=
- =?utf-8?B?dDAyWWd1WDFzdUlPeFFvdE9WMWxZQ00zTERkK09pN1ZNc3grdzBTblBYZTBp?=
- =?utf-8?B?dXA2a1BzNGw4aDh5M3pzMTgwVWp1eFNqdFJTR1Y4L05LRkR1T1Y1TFZ3eTNw?=
- =?utf-8?B?OUNZM1YvVEVhSmY4UDF2bzJoUXBUZldMWVFKMmJTTURHNk45cGNzSi9wWkps?=
- =?utf-8?B?Q09ZRFltVEQvTG82NWxtaFZmbXd0aU0zeGl4UXVkaUNaSEJZQU1vT29pYk91?=
- =?utf-8?B?UU5UNk5ScFN5NkVtUWVSKyt3N2VxdFdzbXRNTnc1cHNlWTNadHNveEJ6VGVK?=
- =?utf-8?B?elNaWjJjbE83R2tNN3JndUVobHp3NUZvd1lNT1VJaUQ4eU5mYXZKRE85Q1Vm?=
- =?utf-8?B?enJ5cncxNGY1b0d4MU1HdlFTN1Z0Ykw5NEs3ckEwY2tzRXh2K2FPbWVzRGFS?=
- =?utf-8?B?aDZTQXJ0WkFjNzMzb0htYzJYK3JQdUNqb1l2U1MrbDI1Y29zZFJNZWJjMkh4?=
- =?utf-8?B?Y3ZPWjl3MTVkNWF6SG1RVHdEOEhraGpoNG1KZm5BYWVoN3M3TXdpeTgzeTlW?=
- =?utf-8?B?b2tYczk3cjVZYlpUTkdFQmF4OVhPWDNyNU9EV0F0ejV5ME1SR1FoTWtlMHRS?=
- =?utf-8?B?MVNSQ20vL2hYbEYvRXJyVGRWbk9uQlphTlNMVjRWdHlFNnlJZjF2ZStvYTU0?=
- =?utf-8?B?U2dPMjl4SkFVR3hZSURIR1doaG1ZSWMwUUpTSlQ1aC9yRFNTTXRtSmY4VG9E?=
- =?utf-8?B?WXdtYmh4RXBuTW5hY3dDczRDYzFLcXNsVmlQOFVHM2VpNTRDUGJBT1FnUlpt?=
- =?utf-8?B?MmFFSVkvcEJFTXFDd2xsWUtNQ090REtmY1pFeUI4SlpZYmN5TlVkQjFrdDhs?=
- =?utf-8?B?SVc0aE9OcFJVRkw4U1RmNmVTQzJoelU5aGo4cTAzc2JLN2dXNUhpZ3p1S2FU?=
- =?utf-8?Q?5jx8=3D?=
+	=?utf-8?B?cFBNRXI3ZE1ET0hIRUdOZU1pTkI1NFpMRUlRZVBJVFZheGF2dCsvTGZYdEh6?=
+ =?utf-8?B?VTFBWVBRcnAyTGIyUjBNb1ppc0lDVC9GRXdnT2dyRG9LTkw4R3R2eE5GQnYw?=
+ =?utf-8?B?WTM3MnhaemJwTmk2blgveGRxMVRwby9OMjFQNldIRFZwM1hsaWdrR2ZwenU0?=
+ =?utf-8?B?a1VHMi85VVlQbnlhSFZyUit3VS9yOElsUnZNM1BtQWRkTTAybTVpSTlhK0hL?=
+ =?utf-8?B?ZXV5L2RuaWFoYW5lVnhZVnAvTXMzTFJQSjh2V2xpUkUxemE2ZGJSeHpKQnF0?=
+ =?utf-8?B?cnF2aG1HMmZia1llTnA2UU5HTmxGSWNFM2xoanJDYmR0TElVN1BxWTRuaWF1?=
+ =?utf-8?B?eDZ1ZzBJYlVnK0dqdDVaYk5ZT3B6RVdOZ3B6NmhHaUlhMkthZjZ5dVBQRDJE?=
+ =?utf-8?B?K0hUTDE3dnd0WUlVNk14aXNTZERVbmFxRGxLZ2luT013Uk9IelRGV0xFd2sr?=
+ =?utf-8?B?dS9lZHM2dWJMLy9qakZYaFdhL0lueDNRN2hPVi9OR2RORTlZbWIvNFg4Skhs?=
+ =?utf-8?B?ZnE3TjZQZXV3MnVuKytocjdXL0xRNkgxUm1uOUJqSWZ0NFVra0YzU1JacTdG?=
+ =?utf-8?B?cjB4NXlpaVRIMmI2WnRydTN2d1R4M3FaNjkyL3pQSzFSZlJvMGY3cU5sOGpV?=
+ =?utf-8?B?SXlhbUR5SllMbUpGUnh6VW9CN3RHSEl0K0JXMjBMM09tbEtubUpZelFJc2xv?=
+ =?utf-8?B?VmJwV2RSNGxDZjI0OXhBdlAzQ25Fc1AxV254RWJRcXlxeW1LWUl0ZlRwWlMv?=
+ =?utf-8?B?eDVNTGt1cmdqZlJRM3hWQi9FTDZ1eFZyRmx2QllTZDEvOXhvUUlCMGJpN3Nx?=
+ =?utf-8?B?NzlEelVMR0Y4QmlmQ1lDVDRqcUJkd1FrUzFRMlZveFJ5MzR0RmR0NjNLQ3BR?=
+ =?utf-8?B?eEZYckVLNnAzWWI2bTRkYXhNRlZ1OUE2NDg4TkhMV3Z4ZE1sUHpEQlREU0tQ?=
+ =?utf-8?B?NEYzOHl3QTlzMnY0b1hOMUlPL3lkL1dEQ1F0NllFS3NYQkVSdWV3L29ZUHkr?=
+ =?utf-8?B?MnJiaDlkZFFxREEva25Nc2ZUTTFEUDZCOUZKNzVLZC9JL01LVkh4OW1hYlNq?=
+ =?utf-8?B?dTl4NjNHTHFqM2Z1QmFDWHJjbDJkNlBwNFlTZ212VWx2NWNjc0FWSjg5Ulh5?=
+ =?utf-8?B?VUVJRFdWdEhvYnVkN0RSdUZrdS9SOW9JK3pzVERheWM2SkIzOWRPRTlBVVM2?=
+ =?utf-8?B?RHBWYjQyM0pHOTh1YTQ4dVFFM0IyNEtNTlJ0QkJsdUN2MENVd01PMjRFeEhq?=
+ =?utf-8?B?Smhzd2RqZEY1cHRJUWVpK0R3clljdmF1dE42dHEvT3JpQTk2cFhFYjE4eWxn?=
+ =?utf-8?B?RVJDZjlUNk1EOVltbU1UeFhGdnpWbVJZYVJObWpMME5zampCZkZCSk9ndU94?=
+ =?utf-8?B?WFphdFNTY0lWRDFWUVJENHJVUE1mMzZQZlBZeW5TOGZuWDRWUEIzUWFyaENs?=
+ =?utf-8?B?OER2enRSZHZSVEovRGxrYWFicmFUUVpqdS8rZll2clJrK2FpeW40Q1BLQmJX?=
+ =?utf-8?B?SGFUaktZY1NuUTIvSzhTTm9HSkdnM3lRUW43N0lxN2xteDV5WGR0dmtkTGh4?=
+ =?utf-8?B?Y2F6elE4UnlHNUpnT3JKR05sUUJENjdKL1ZXQjJxejdNVEljb0hQcTk3TTRL?=
+ =?utf-8?B?R01FQmFDamhHQVpJSDJmbFRFNnhwS29KcHl4WjlTSEYzRzBJdW1TNnY1KzU0?=
+ =?utf-8?B?Y1FHZzZZLzUxd0Uwd2ZXMUZ5b1VOUlhTeUd0eTdsbUNQbHV0NlJtQVBUWGdn?=
+ =?utf-8?B?M3BIcERXZ0p3dXhicUQ3UmRVaGt6b3ZNVUcyaWtWZWk5N0s5Um9JYTMrZUdG?=
+ =?utf-8?B?YnpRTGNFNTNrNjM3Q0p6UGRqdEFIMEZjTlVhcllSd0JpZ1NIYTlEdENLM1Y3?=
+ =?utf-8?B?TkFsR1d3L0g5cENjSGtpaTl5TGw4VkVjalB6dmlKbjhNWmdWVjdGbW1EZ21u?=
+ =?utf-8?B?enUvWThPdlBNMXlnSVo2SEQyT01TNkpUaXJCTzQrMW1xL3hQa0FXU2F1c2Fz?=
+ =?utf-8?B?NldHS3F3M2lrYmtYaFRRNEpEamhESzRyZHpDZTBCMFJNMy96MUthTUlaZFZD?=
+ =?utf-8?B?aSs4MkRkczlGRklDc3BTU0VqTnVZT3p6c3NNZ2VuOFNDNS9SdDQ4VU83ZzB6?=
+ =?utf-8?Q?LMoI=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024)(7053199007);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2025 13:43:44.3499
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2025 13:55:57.2896
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbcc40e5-9142-4e7d-7a89-08de04de5e51
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7fb0761f-ee63-43ff-1cf5-08de04e0132f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023CC.namprd02.prod.outlook.com
+	SJ1PEPF000023D1.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5835
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7689
 
-On Mon Oct 6, 2025 at 3:09 PM CEST, Andrew Cooper wrote:
-> On 06/10/2025 12:29 pm, Alejandro Vallejo wrote:
->> On Mon Oct 6, 2025 at 1:04 PM CEST, Andrew Cooper wrote:
->>> On 06/10/2025 11:46 am, Alejandro Vallejo wrote:
->>>> ---
->>>> This dependency already exists today. I'm just making it explicit.
->>>>
->>>> "segment_register" is weird. It naturally belongs in vmcb.h, but the
->>>> emulator makes use of it and must be compilable outside of Xen.
->>>>
->>>> I don't like having vmcb.h depending on the emulator header, but I see
->>>> no way of breaking that dependency without breaking the emulator unit
->>>> tests.
->>> Pulling it into a new header is fine.=C2=A0 The emulator can include an=
-ything
->>> (free-enough standing) in arch/x86/include/asm/
->> I thought it didn't, if so I'm at a loss at to why segment_register is w=
-here
->> it is.
+On Tue Sep 30, 2025 at 2:57 PM CEST, Roger Pau Monn=C3=A9 wrote:
+> On Tue, Sep 30, 2025 at 11:15:01AM +0200, Alejandro Vallejo wrote:
+>> On Mon Sep 29, 2025 at 10:41 AM CEST, Roger Pau Monne wrote:
+>> > I've had the luck to come across a PCI card that exposes a MSI-X capab=
+ility
+>> > where the BIR of the vector and PBA tables points at a BAR that has 0 =
+size.
+>> >
+>> > This doesn't play nice with the code in vpci_make_msix_hole(), as it w=
+ould
+>> > still use the address of such empty BAR (0) and attempt to crave a hol=
+e in
+>> > the p2m.  This leads to errors like the one below being reported by Xe=
+n:
+>> >
+>> > d0v0 0000:22:00.0: existing mapping (mfn: 181c4300 type: 0) at 0 clobb=
+ers MSIX MMIO area
+>> >
+>> > And the device left unable to enable memory decoding due to the failur=
+e
+>> > reported by vpci_make_msix_hole().
+>> >
+>> > Introduce checking in init_msix() to ensure the BARs containing the MS=
+I-X
+>> > tables are usable.  This requires checking that the BIR points to a
+>> > non-empty BAR, and the offset and size of the MSI-X tables can fit in =
+the
+>> > target BAR.
+>> >
+>> > This fixes booting PVH dom0 on Supermicro AS -2126HS-TN severs with AM=
+D
+>> > EPYC 9965 processors.  The broken device is:
+>> >
+>> > 22:00.0 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SATA C=
+ontroller [AHCI mode] (rev 93)
+>> >
+>> > There are multiple of those integrated controllers in the system, all
+>> > broken in the same way.
+>> >
+>> > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+>> > ---
+>> > Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>> > Cc: Jan Beulich <jbeulich@suse.com>
+>> > Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> >
+>> > While not strictly a bugfix, I consider this a worthy improvement so t=
+hat
+>> > PVH dom0 has a chance to boot on hardware that exposes such broken MSI=
+-X
+>> > capabilities.  Hence I think this change should be considered for incl=
+usion
+>> > into 4.21.  There a risk of regressing on hardware that was already wo=
+rking
+>> > with PVH, but given enough testing that should be minimal.
+>> > ---
+>> >  xen/drivers/vpci/msix.c | 50 ++++++++++++++++++++++++++++++++++++----=
+-
+>> >  1 file changed, 45 insertions(+), 5 deletions(-)
+>> >
+>> > diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+>> > index 54a5070733aa..8458955d5bbb 100644
+>> > --- a/xen/drivers/vpci/msix.c
+>> > +++ b/xen/drivers/vpci/msix.c
+>> > @@ -675,6 +675,51 @@ static int cf_check init_msix(struct pci_dev *pde=
+v)
+>> >      if ( !msix )
+>> >          return -ENOMEM;
+>> > =20
+>> > +    msix->tables[VPCI_MSIX_TABLE] =3D
+>> > +        pci_conf_read32(pdev->sbdf, msix_table_offset_reg(msix_offset=
+));
+>> > +    msix->tables[VPCI_MSIX_PBA] =3D
+>> > +        pci_conf_read32(pdev->sbdf, msix_pba_offset_reg(msix_offset))=
+;
+>> > +
+>> > +    /* Check that the provided BAR is valid. */
+>> > +    for ( i =3D 0; i < ARRAY_SIZE(msix->tables); i++ )
+>> > +    {
+>> > +        const char *name =3D (i =3D=3D VPCI_MSIX_TABLE) ? "vector" : =
+"PBA";
+>> > +        const struct vpci_bar *bars =3D pdev->vpci->header.bars;
+>> > +        unsigned int bir =3D msix->tables[i] & PCI_MSIX_BIRMASK;
+>> > +        unsigned int type;
+>> > +        unsigned int offset =3D msix->tables[i] & ~PCI_MSIX_BIRMASK;
+>> > +        unsigned int size =3D
+>> > +            (i =3D=3D VPCI_MSIX_TABLE) ? max_entries * PCI_MSIX_ENTRY=
+_SIZE
+>> > +                                   : ROUNDUP(DIV_ROUND_UP(max_entries=
+, 8), 8);
+>> > +
+>> > +        if ( bir >=3D ARRAY_SIZE(pdev->vpci->header.bars) )
+>> > +        {
+>> > +            printk(XENLOG_ERR "%pp: MSI-X %s table with out of range =
+BIR %u\n",
+>> > +                   &pdev->sbdf, name, bir);
+>>=20
+>> Would it be worth adding something here such that a device vendor testin=
+g their
+>> hardware under Xen can trivially grep for device bugs?
+>>=20
+>> Something akin to "[Firmware bug]" on Linux, like "[Device bug]" or some=
+ such.
+>>=20
+>> It would also let anyone not very knowledgeable about PCI know that a de=
+vice
+>> they own is being unreasonable. Same below in the other XENLOG_ERR messa=
+ges.
 >
-> Well - it's needed by the emulator as well as SVM.
+> We could add indeed.  I don't think we haven't done so in the past.
+> If we go that route I would suggest that I add a:
+>
+> #define DEVICE_BUG_PREFIX "[Device bug] "
+>
+> in lib.h or similar, to make sure we use the same prefix uniformly.
+> TBH
 
-I meant that it's an SVM-specific description of segments, which is then
-conveniently reused on the emulator. It's a bit shocking for an SVM struct =
-to
-be described by the emulator.
+That works. As would DEV_BUG_PREFIX, XENLOG_DEV_BUG or even just DEV_BUG.
 
-I'd have expected the dependency to go the other way around, if it were pos=
-sible
-to have it that way.
+LGTM in any form or shape that makes it patently clear the admin is running
+on buggy hardware.
+
+> I think vendors care little about the output of Xen, as long as it boots.
+
+They might care more once they realise they can "grep" lines of interest. T=
+hat's
+what happened on Linux, after all.
+
+Also, it's not just for vendors. Users and developers alike might be intere=
+sted
+in using these message as a "taint" to know when they bought known-bad hard=
+ware.
+
+Maybe to avoid buying it twice.
 
 >
->>
->> Be that as it may, your series conflicts with this patch and it makes no=
- sense
->> to keep both around (when none of them are going in for until 4.22).
->>
->> Will you be including a fix for the segment register in your series also=
-? If so,
->> I'll just drop this one.
->
-> I've folded the extra include into my first patch.
+> The downside of this is that it makes those messages longer, which
+> will require more time to print if using a slow UART.
 
-Ta.
+Only the reporting of known bugs. Which isn't a high throughput operation.
+
+Hopefully.
 
 Cheers,
 Alejandro
