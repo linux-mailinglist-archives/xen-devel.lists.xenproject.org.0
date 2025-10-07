@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84993BC1DD2
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Oct 2025 17:07:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1138975.1474545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08014BC1EFF
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Oct 2025 17:35:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1138992.1474555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v69HN-0003tF-Tl; Tue, 07 Oct 2025 15:07:05 +0000
+	id 1v69ik-0007zE-1s; Tue, 07 Oct 2025 15:35:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1138975.1474545; Tue, 07 Oct 2025 15:07:05 +0000
+Received: by outflank-mailman (output) from mailman id 1138992.1474555; Tue, 07 Oct 2025 15:35:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v69HN-0003ql-Q7; Tue, 07 Oct 2025 15:07:05 +0000
-Received: by outflank-mailman (input) for mailman id 1138975;
- Tue, 07 Oct 2025 15:07:05 +0000
+	id 1v69ij-0007we-Uz; Tue, 07 Oct 2025 15:35:21 +0000
+Received: by outflank-mailman (input) for mailman id 1138992;
+ Tue, 07 Oct 2025 15:35:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ixXp=4Q=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1v69HN-0003qf-0b
- for xen-devel@lists.xenproject.org; Tue, 07 Oct 2025 15:07:05 +0000
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c005::5])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=F9pE=4Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1v69ij-0007wY-8h
+ for xen-devel@lists.xenproject.org; Tue, 07 Oct 2025 15:35:21 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4723298a-a38f-11f0-9809-7dc792cee155;
- Tue, 07 Oct 2025 17:07:02 +0200 (CEST)
-Received: from BL6PEPF0001641E.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:22e:400:0:1004:0:e) by CH3PR12MB9283.namprd12.prod.outlook.com
- (2603:10b6:610:1cd::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.9; Tue, 7 Oct
- 2025 15:06:58 +0000
-Received: from BL02EPF00021F6E.namprd02.prod.outlook.com
- (2a01:111:f403:f901::8) by BL6PEPF0001641E.outlook.office365.com
- (2603:1036:903:4::a) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.20 via Frontend Transport; Tue,
- 7 Oct 2025 15:06:58 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF00021F6E.mail.protection.outlook.com (10.167.249.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9203.9 via Frontend Transport; Tue, 7 Oct 2025 15:06:58 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 7 Oct
- 2025 08:06:57 -0700
-Received: from [172.21.123.104] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 7 Oct 2025 08:06:56 -0700
+ id 3a55ed52-a393-11f0-9809-7dc792cee155;
+ Tue, 07 Oct 2025 17:35:18 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-b50645ecfbbso80181366b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Oct 2025 08:35:18 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b4865a7ee4esm1407046066b.28.2025.10.07.08.35.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Oct 2025 08:35:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,215 +45,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4723298a-a38f-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NXXi70D4wqEKApsFnQC8ZTMSMgCmw9huwObfJ72i0jR372lm+CYJLbvfwgCtDSyS2gQLQ9wqQKgN0R4hkwk/j4t52oAUQU6khESoQtvHixn8B4fXAhPbWfpLDzbeG2NnMpn1ckg2bqxjTEnTJlkS/cFQCdlKmnKnaGxih7NGcwzm0ZMG+0mTGksFYNnl/jjAGCJ1hY3TB8uR9bqlyTEqrWXvZl0G5J26FeY71FlDFjqx+kEzLeQwqXsUa0iukXCGnRr3rL/4TqaYzMVv0k0CVPoc/fUvmvJDQjEowNttxABV43EqU+AGaIONw/DTJ8aFMozmUK6LrgURLMmv2tdh1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/sXg70Q/UxkdV1eGcFwuz1yUz0L6lIA2PnZMvtSSfTk=;
- b=TOVaPcLfCbjcc5YENfzjz6+LD9GPWPbtleIM1IzO1jNYe86GuP+5lX/Sg/XqfuE1jMBLwEeLcNveiwmtPRm/RxiRM66WJy4rKjUwICLPR/9FXGwKO6UPn2GOocKh4O7fEosSUZxKujR6XancGZ5YP+hjkX68Rem/irgME5z2Q/0a/1BOlyO6xmKWedEDSshiaYQtM1kAqRi26jU8V2Wwjqk7b58KtevG2HgloCwyXsbyoWvpfbbNLP8vFteeOwM9M0n2uujFjg7I3irpC6WnLYMOmOZrcLBvEtv73jhH58yRKBPPLso3v3F33WI231TYsCKRHRCsL61fiyISzloc2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/sXg70Q/UxkdV1eGcFwuz1yUz0L6lIA2PnZMvtSSfTk=;
- b=WcjIYUBeqRTwq6vG9ljJa98PxZCfzQz8wlLh7KLYoD6BfOblixwKa2fx+J5WINYc9N+yLvcpV0lc9EDPTwoWTOWYjhe/53uBGPzcZHSZDzCL1keMFXJcLw5Vh7Fiv6nvDjgotnVA8xjfTNI30NB0cMyTS0iyVxCspxXt3Q4WV/M=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <b3ef3442-574e-41b2-9381-deba0f61dd60@amd.com>
-Date: Tue, 7 Oct 2025 11:06:51 -0400
+X-Inumbo-ID: 3a55ed52-a393-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1759851318; x=1760456118; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=i6GrCEmaiNm2zARysXA35YmhVTkBx+1kdZRk9bH5v0o=;
+        b=SRpARsSI8PAhccl/2bIz/bHVUtGfc9jWTndHhpwR2SrZ5pIsg2+SJlailRjHfBvHR9
+         B8kBx2bNo5RlXCr42wO/e6ZjwLtefBZBRVYM2TidvboH/WnA1XUGxD3MRha5jaVNgaM2
+         Lk2c/fqy/Bq61ZYTHWMugTfAvjxnmmXLwoeTg04S523NhxJRwjfdprjFoeBKimT8cphT
+         mDwalQ1QOVGWTTA9ZX+2bQdQVqtmSTlJFiG0CLwceq1bWUlvtra/wtSOvbXn9xpf2NnY
+         WZoi+wVtsJjd5mwxX261v61xOFjYs/IZ+JFC2W7/ZprP+9rMO5QLMSAeESsiE1i7HEJc
+         jT2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759851318; x=1760456118;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=i6GrCEmaiNm2zARysXA35YmhVTkBx+1kdZRk9bH5v0o=;
+        b=tWmamcbyc4EmizE/lZgnkCFC/Kh1GsVcIfnpS4T7IqzjljoO4nO37eZEHcvQ5NN13B
+         YU389G7GgHHZ1IAjD4x43rglv8FDyts5ZXHvZBgsR3PlFlJboUaGosI+0fCOL99ysp3P
+         GpAL8SspjuCvUYUb6kQx3BkDP8nHhyd5C67WUCgFV4BPxxKsjjCbg7KlCFqFgmY323MR
+         rvRjfiunuAhnZ42QZLuHyjv+VwfmXiqtggQgMXU+OsknTiJWEwGJikHF5Xu7ciiFnSNA
+         Ke9UlsSyTncXsXacab/Ur+tbxKtXis+mat3fMxQNn1YTJ42/Re/lQ3SWtpFobvm/e7M+
+         FxWw==
+X-Forwarded-Encrypted: i=1; AJvYcCXkGhLHYG/G2j+bzzBfBtH2qGOiI5QbWdhvyzWN3uvggqVGoNJEvnU08LPxVnb0bWN6a6lzE4AEMvg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx4tJ8qwOwORMbthyf2eOgVxRwQxu/ZgxdQOdWvhf2vWdt6uF+F
+	Jqakc6v/SqexL5iHKJ2UjiOqcuDlIpQvYH7jNek7qENHaBgJ5FmxwNp7lt5pV7QjOA==
+X-Gm-Gg: ASbGnctCtrJWr6+ABtzCrMxJAwe4GUypdBhk3VruAbMM+jCRq1ngmixO/tredDrj0nG
+	Csbb+CN2WtuTbe+VANAgIGU7z17keharT09Fgd0hN5fhiXBNynJbTxwOhcLMHwC2cZxxaNsB6q4
+	A6Tz73VGOaAD3cY5wMFI3bEsvGVuNC5hIt7mhCkcHSkpRvis+riTmQz5c5nImq1Jh3KUf/A3KfE
+	sW7T89cl28em7/UE9BYvnOzh0CL3EtJ8qtdtX6xEL+D+5dSTizb4Gks8vy558EPiZaG/SgDmxzm
+	CUjbznkt5FKDt+vNsjv8kbA0stRiqWkFk5vSZhl0ZMB6XSKufVoGQtkw+IpM7toeqWMnNjx738G
+	j2rSFoBJ0qozX6AxuebTRM9QZrAHANSAqqa+TsgeAbnF5+IdySBJ/HZ0PDTYXy6nM4au0nAoiWO
+	Mg3V/OIrsVsoUVnM/dcMZu3loHn0p8KgA=
+X-Google-Smtp-Source: AGHT+IGrpEPIiRGS93W+g7hMjeAgNj9Yk/XkE5Uehyu5cQ+gV9gH/hpLaCyzUzyncEJtodAZ0iuXmA==
+X-Received: by 2002:a17:907:934d:b0:b32:8943:7884 with SMTP id a640c23a62f3a-b50abfd6a1fmr4088966b.45.1759851317695;
+        Tue, 07 Oct 2025 08:35:17 -0700 (PDT)
+Message-ID: <ad2818bd-bf36-46b9-89f3-ffa8b9dd364a@suse.com>
+Date: Tue, 7 Oct 2025 17:35:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21] vpci/msix: improve handling of bogus MSI-X
- capabilities
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, Oleksii Kurochko
-	<oleksii.kurochko@gmail.com>
-References: <20250929084149.70560-1-roger.pau@citrix.com>
- <2d1737a7-58e3-48e3-ac16-1bda3947c929@amd.com> <aON72Sq6ZJ6y95DI@Mac.lan>
- <b5cdb1e8-0543-4025-b95a-eb57ac51caa8@suse.com>
+Subject: Re: [PATCH v2] x86/hvm: vlapic: fix RO bits emulation in LVTx regs
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20250930190550.1166875-1-grygorii_strashko@epam.com>
+ <DD733UWP8JVK.SSX8U5ENELIE@amd.com>
+ <3715a68a-dc35-42f4-99e2-e1a45ebd1b16@epam.com>
 Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <b5cdb1e8-0543-4025-b95a-eb57ac51caa8@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6E:EE_|CH3PR12MB9283:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7ba90796-4432-4985-357e-08de05b32923
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700013|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TVJ2SlNyV1BqUHRoelc1R2laYUI0cDZtVTZ5Y0laYUE5NmdoR2Vad29FM3cr?=
- =?utf-8?B?Vk50ejRJeFhLMjNHYzgwV2RwVk5IMFVtNzZOOEdTblF6emJIa1hWS0Z1WXJR?=
- =?utf-8?B?T01TWlR6bmtQZk1nQXdlaHRDSVRLb0c3UjVxZFE2Q3orN2NiZmVZT20ycGpV?=
- =?utf-8?B?RFdpdU81Zkl6SlNOaGUrQ093eksvYzJKL2M2dEMvak5CTmxML1RqK1RNRm9E?=
- =?utf-8?B?cGEzUlFoZDJtaEdVSDFvbEdGbmFhV1RCK2tTSUFlSVpJWFlZTHE2ckdWaTll?=
- =?utf-8?B?THpQeklCMGdDYmVNaC9Gc0p6cXV1aFN4YVdONG1FUlpDL2owdGVMWm1RWEtt?=
- =?utf-8?B?NUVvYnF4cjFaUWFncDBrYVJseHpNaVpCNlowSEYxdlVOR0dPUHpOYUZ1ek1M?=
- =?utf-8?B?SVRLWksrS2E2a2t6UndqczlpOXNlaFo1TW5WVDBvUWhBdTZQcjFoSU9GeTl3?=
- =?utf-8?B?N2tBSTgyNWE1RE93blhGZW92emx1ZnJhR2JTUEFUN3lPdXZVaTZZbVdSMHRL?=
- =?utf-8?B?YkdGbnFoWDdKeVJ1eGEzTTluajJpSDJibUpLSTl0cU1RRlhxeGR1VDFzaVcv?=
- =?utf-8?B?bTNGNXNYTlVEdlR6dFhRbVhXYWRUMEJvZWg5VXJXOUoxOUdzSWlIYm9ScEor?=
- =?utf-8?B?YlUzdVdnTGx5ZXUxcWpsYnErWXJlUlBad0VBRVJlODkzODU3VG4wNkNQcUkv?=
- =?utf-8?B?d012eENqTTl0bnlBTDZvV3RXWXA3RmYzZE02WVFDOUxKZGYyU3V2TzlyVzlw?=
- =?utf-8?B?VFVRTjhyeHRDbzMwa2hvMERTVjdtYkRWRm1XMjhvM2o4dDFzbUxpb25OR3p2?=
- =?utf-8?B?b3lsUVRoUkdVWDF3VThoeWNoWXc4a0tTYnlKS3ZyN2JqNlNNcmUwVzhIa0Mr?=
- =?utf-8?B?U0pmelRGUkptN3QxaG83eE4zQjAvNHhWUWloTVJoUm9aQ3BMQWp6dml4aWo0?=
- =?utf-8?B?VWFOWG9Ba3N4akhCZEg5cUhBNjdlYmZpS2lxQnlPVTdZUS9OV3V4bXZqanRw?=
- =?utf-8?B?T2JuYWRtNjcwOXB3dllTTHRUTUVMRnBHcWh4d0RiVm5sNEVSb3IrTDdrL0Mz?=
- =?utf-8?B?QjAzOVkzTEdrb1pzUUVaZjd1SVgveFVxOHd0YTAzMzhTV2UyelF6QlpCUFRD?=
- =?utf-8?B?QU9xSGxibjlzYWN3NU8xWW9rbEYySS9STkpNczhzZno5c2dnWTgvTi9rYXV2?=
- =?utf-8?B?YUhvd21DamViWlZvYzlUem1FWGs2a24ydkJIMmxHSXhsbjlrVHdqSDlObGhF?=
- =?utf-8?B?ZW52TmhtOVMvZEZUK0ZXdVh3Umt1L1Y5aTYrK0N3WWp1TlZHN3ZMemRyMklV?=
- =?utf-8?B?cGs5ZTBnZ1ZRamJUaVo1QXBpZDFJa0ZERlN6RFdFREhSN2Iyc0h1bDJQSWdv?=
- =?utf-8?B?N3BvTG43SDYvSGdsek5NZkhWcFFaSG9tYjRJWDdvRjNCTFlUdUxtMkFlbmZ3?=
- =?utf-8?B?RmdkUjN6aDhMRS9ZK3oyMkpBYzlzODJ3ekF3ZElCSGpFeEw1Q21OdEh3NHJk?=
- =?utf-8?B?c3orUWs3UmNTQ05VdEZ4UFZDdFhEbXJjZHcwalRXT3NDcTJ0SHBKVXBnMnlo?=
- =?utf-8?B?Nm5sRlRKOUZBM0k1Q1hqUVlZNG5HV21PdVlUWkxDK1NHa2lISnp1b3dFRHV5?=
- =?utf-8?B?RFBpand2RDVRTnJ5eHB1cjFPZ2h2MnNNcGZaUll5ZmU3ak5iOWJPb3JBWkRU?=
- =?utf-8?B?TnB0bFcvYjRWK2g1MEw0RXZYaWlCL2hjM3JBTFE0OWthczFVM3NwcnVGUlhG?=
- =?utf-8?B?SWlaMkRPZlZXUUVaWnU1cnc2THZMTktVbmY3UjdvNGV3R2JRWk82elJKU0dw?=
- =?utf-8?B?NkRNdzVhY0pUN2puNXdTR0FrSU50N0ltdFhmVDkxU3dqMEFIOEc5Um50TFFP?=
- =?utf-8?B?dVcrRWdyaVJpWWJDbU52K1hrUytQYklrVFlTUnUwc1dVVUNRa3BOZ2ZqMWV2?=
- =?utf-8?B?RjdQT01WaHBNb203cXJpTmVVQVB3eDRLTXNxLytnTHlYaVh2VEtGOHIzQk4r?=
- =?utf-8?B?UUtVRUFGZXlWSjJOUkNSaGFTRkVkMHFhTlZDUWRkQXd5M0NibzhZYVpnSDgw?=
- =?utf-8?B?MlBhUTVxRkJWbDd3dVl3SjZ2Y0FmNyszMUR1WU5UbFprK0dIejJ6TDMwcDVR?=
- =?utf-8?Q?0ezc=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2025 15:06:58.0200
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ba90796-4432-4985-357e-08de05b32923
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00021F6E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9283
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <3715a68a-dc35-42f4-99e2-e1a45ebd1b16@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 10/7/25 10:56, Jan Beulich wrote:
-> On 06.10.2025 10:20, Roger Pau Monné wrote:
->> On Fri, Oct 03, 2025 at 11:29:40PM -0400, Stewart Hildebrand wrote:
->>> On 9/29/25 04:41, Roger Pau Monne wrote:
->>>> I've had the luck to come across a PCI card that exposes a MSI-X capability
->>>> where the BIR of the vector and PBA tables points at a BAR that has 0 size.
->>>>
->>>> This doesn't play nice with the code in vpci_make_msix_hole(), as it would
->>>> still use the address of such empty BAR (0) and attempt to crave a hole in
->>>
->>> s/crave/carve/
->>>
->>>> the p2m.  This leads to errors like the one below being reported by Xen:
->>>>
->>>> d0v0 0000:22:00.0: existing mapping (mfn: 181c4300 type: 0) at 0 clobbers MSIX MMIO area
->>>>
->>>> And the device left unable to enable memory decoding due to the failure
->>>> reported by vpci_make_msix_hole().
->>>>
->>>> Introduce checking in init_msix() to ensure the BARs containing the MSI-X
->>>> tables are usable.  This requires checking that the BIR points to a
->>>> non-empty BAR, and the offset and size of the MSI-X tables can fit in the
->>>> target BAR.
->>>>
->>>> This fixes booting PVH dom0 on Supermicro AS -2126HS-TN severs with AMD
->>>> EPYC 9965 processors.  The broken device is:
->>>>
->>>> 22:00.0 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SATA Controller [AHCI mode] (rev 93)
->>>>
->>>> There are multiple of those integrated controllers in the system, all
->>>> broken in the same way.
->>>>
->>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>> ---
->>>> Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>
->>>> Cc: Jan Beulich <jbeulich@suse.com>
->>>> Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>>>
->>>> While not strictly a bugfix, I consider this a worthy improvement so that
->>>> PVH dom0 has a chance to boot on hardware that exposes such broken MSI-X
->>>> capabilities.  Hence I think this change should be considered for inclusion
->>>> into 4.21.  There a risk of regressing on hardware that was already working
->>>> with PVH, but given enough testing that should be minimal.
->>>> ---
->>>>  xen/drivers/vpci/msix.c | 50 ++++++++++++++++++++++++++++++++++++-----
->>>>  1 file changed, 45 insertions(+), 5 deletions(-)
->>>>
->>>> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
->>>> index 54a5070733aa..8458955d5bbb 100644
->>>> --- a/xen/drivers/vpci/msix.c
->>>> +++ b/xen/drivers/vpci/msix.c
->>>> @@ -675,6 +675,51 @@ static int cf_check init_msix(struct pci_dev *pdev)
->>>>      if ( !msix )
->>>>          return -ENOMEM;
->>>>  
->>>> +    msix->tables[VPCI_MSIX_TABLE] =
->>>> +        pci_conf_read32(pdev->sbdf, msix_table_offset_reg(msix_offset));
->>>> +    msix->tables[VPCI_MSIX_PBA] =
->>>> +        pci_conf_read32(pdev->sbdf, msix_pba_offset_reg(msix_offset));
->>>> +
->>>> +    /* Check that the provided BAR is valid. */
->>>> +    for ( i = 0; i < ARRAY_SIZE(msix->tables); i++ )
->>>> +    {
->>>> +        const char *name = (i == VPCI_MSIX_TABLE) ? "vector" : "PBA";
->>>> +        const struct vpci_bar *bars = pdev->vpci->header.bars;
->>>> +        unsigned int bir = msix->tables[i] & PCI_MSIX_BIRMASK;
->>>> +        unsigned int type;
->>>> +        unsigned int offset = msix->tables[i] & ~PCI_MSIX_BIRMASK;
->>>> +        unsigned int size =
->>>> +            (i == VPCI_MSIX_TABLE) ? max_entries * PCI_MSIX_ENTRY_SIZE
->>>> +                                   : ROUNDUP(DIV_ROUND_UP(max_entries, 8), 8);
->>>> +
->>>> +        if ( bir >= ARRAY_SIZE(pdev->vpci->header.bars) )
->>>
->>> This assumes a type 0 header. For type 1 headers, bir values 2 and up are
->>> also reserved.
->>
->> Right, but those BARs will be set as VPCI_BAR_EMPTY for type 1 headers.
->> The check here is to avoid doing an out of bounds array access, the
->> check for validity of the pointed BAR is done below.
->>
->>>
->>>> +        {
->>>> +            printk(XENLOG_ERR "%pp: MSI-X %s table with out of range BIR %u\n",
->>>> +                   &pdev->sbdf, name, bir);
->>>
->>> Nit: placing the cleanup label at the end of the function and using 'rc' would
->>> make it more amenable to future uses.
->>
->> The issue with that is that we then end up with a structure like:
->>
->>     return vpci_make_msix_hole();
->>
->>  error:
->>     xfree();
->>     return rc;
->>
->> Which I don't like much because of the double usage of return (it's a
->> taste issue TBH).
->>
->> My motivation for using a goto is that they are conceptually the same
->> error path, but we provide different log messages to aid in debugging
->> the issue.  Otherwise all checks will be done in a single condition.
+On 03.10.2025 16:04, Grygorii Strashko wrote:
 > 
-> I agree here, yet I'd like to point out that (iirc) Misra wants us to use
-> only forward goto-s (which imo is a mistake, but I don't expect they're
-> going to change their minds). So flipping where the label and goto are
-> may be desirable.
+> 
+> On 01.10.25 18:18, Alejandro Vallejo wrote:
+>> On Tue Sep 30, 2025 at 9:05 PM CEST, Grygorii Strashko wrote:
+>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>
+>>> The LAPIC LVTx registers have two RO bits:
+>>> - all: Delivery Status (DS) bit 12
+>>> - LINT0/LINT1: Remote IRR Flag (RIR) bit 14.
+>>>
+>>> The Delivery Status (DS) is not emulated by Xen - there is no IRQ msg bus,
+>>> and the IRQ is:
+>>> - or accepted at destination and appears as pending
+>>>    (vLAPIC Interrupt Request Register (IRR))
+>>> - or get rejected immediately.
+>>>
+>>> The Remote IRR Flag (RIR) behavior emulation is not implemented for
+>>> LINT0/LINT1 in Xen for now.
+>>>
+>>> The current vLAPIC implementations allows guest to write to these RO bits.
+>>>
+>>> The vLAPIC LVTx registers write happens in vlapic_reg_write() which expect
+>>> to implement "Write ignore" access type for RO bits by applying masks from
+>>> vlapic_lvt_mask[], but vlapic_lvt_mask[] contains incorrect masks which
+>>> allows writing to RO fields.
+>>>
+>>> Hence it is definitely wrong to allow guest to write to LVTx regs RO bits,
+>>> fix it by fixing LVTx registers masks in vlapic_lvt_mask[].
+>>>
+>>> In case of WRMSR (guest_wrmsr_x2apic()) access to LVTx registers, the SDM
+>>> clearly defines access type for "Reserved" bits as RsvdZ (Non-zero writes
+>>> to reserved bits should cause #GP exception), but contains no statements
+>>> for RO bits except that they are not "Reserved". So, guest_wrmsr_x2apic()
+>>> now uses different masks (than vlapic_reg_write()) for checking LVTx
+>>> registers values for "Reserved" bit settings, which include RO bits and
+>>> do not cause #GP exception.
+>>>
+>>> Fixes: d1bd157fbc9b ("Big merge the HVM full-virtualisation abstractions.")
+>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>>> ---
+>>> Changes in v2:
+>>> - masks fixed in vlapic_lvt_mask[]
+>>> - commit msg reworded
+>>>
+>>> v1: https://patchwork.kernel.org/project/xen-devel/patch/20250925195558.519568-1-grygorii_strashko@epam.com/
+>>>   xen/arch/x86/hvm/vlapic.c | 14 ++++++++------
+>>>   1 file changed, 8 insertions(+), 6 deletions(-)
+>>>
+>>> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+>>> index 79697487ba90..2ecba8163f48 100644
+>>> --- a/xen/arch/x86/hvm/vlapic.c
+>>> +++ b/xen/arch/x86/hvm/vlapic.c
+>>> @@ -44,15 +44,17 @@
+>>>   static const unsigned int vlapic_lvt_mask[VLAPIC_LVT_NUM] =
+>>>   {
+>>>        /* LVTT */
+>>> -     LVT_MASK | APIC_TIMER_MODE_MASK,
+>>> +     (LVT_MASK | APIC_TIMER_MODE_MASK) & ~APIC_SEND_PENDING,
+>>>        /* LVTTHMR */
+>>> -     LVT_MASK | APIC_DM_MASK,
+>>> +     (LVT_MASK | APIC_DM_MASK) & ~APIC_SEND_PENDING,
+>>>        /* LVTPC */
+>>> -     LVT_MASK | APIC_DM_MASK,
+>>> -     /* LVT0-1 */
+>>> -     LINT_MASK, LINT_MASK,
+>>> +     (LVT_MASK | APIC_DM_MASK) & ~APIC_SEND_PENDING,
+>>> +     /* LVT0 */
+>>> +     LINT_MASK & ~(APIC_LVT_REMOTE_IRR | APIC_SEND_PENDING),
+>>> +     /* LVT1 */
+>>> +     LINT_MASK & ~(APIC_LVT_REMOTE_IRR | APIC_SEND_PENDING),
+>>>        /* LVTERR */
+>>> -     LVT_MASK
+>>> +     LVT_MASK & ~APIC_SEND_PENDING,
+>>>   };
+>>
+>> This is a bit messy. Why not have 2 masks? One for rsvdZ bits, and one
+>> for RO?
+>>
+>> That ought to simplify the logic in both the MSR and MMIO cases.
+>>
+>> MMIO would do RAZ/WI on the OR of both, while the MSR interface would gate
+>> #GP(0) on the mask for rsvd bits only and ensure all RO bits are preserved on
+>> writes.
+>>
+>> Thoughts?
+> 
+> I've been thinking about the same and It can be done, np.
+> I always trying to make "fix" with as small diff as possible
+> considering back-porting.
+> 
+> How about "follow up" patch if there is an agreement to proceed this way on the Top level?
 
-Aren't we planning to deviate rule 15.2? See [1]
+Doing it in two steps would be okay with me (I expected it to go that way
+anyway), but then it would still be nice to limit churn some. Specifically,
+taking LINT_MASK as example, can't we do
 
-[1] https://lore.kernel.org/xen-devel/7e2993c68fda95d1eda6fd136750fcba@bugseng.com/
+#define LINT_RO_MASK (LVT_RO_MASK | APIC_LVT_REMOTE_IRR)
+
+#define LINT_WR_MASK \
+    (LVT_WR_MASK | APIC_DM_MASK | APIC_INPUT_POLARITY | \
+    APIC_LVT_LEVEL_TRIGGER)
+
+#define LINT_MASK (LINT_WR_MASK | LINT_RO_MASK)
+
+or some such, and then use *_WR_MASK in the table initializer?
+
+Jan
 
