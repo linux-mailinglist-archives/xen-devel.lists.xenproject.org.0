@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A491ABC170F
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Oct 2025 15:10:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1138761.1474379 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C13A4BC172A
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Oct 2025 15:15:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1138778.1474388 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v67Ry-0005Jo-Q9; Tue, 07 Oct 2025 13:09:54 +0000
+	id 1v67Wi-0006qk-9V; Tue, 07 Oct 2025 13:14:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1138761.1474379; Tue, 07 Oct 2025 13:09:54 +0000
+Received: by outflank-mailman (output) from mailman id 1138778.1474388; Tue, 07 Oct 2025 13:14:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v67Ry-0005IN-MD; Tue, 07 Oct 2025 13:09:54 +0000
-Received: by outflank-mailman (input) for mailman id 1138761;
- Tue, 07 Oct 2025 13:09:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v67Wi-0006pJ-6j; Tue, 07 Oct 2025 13:14:48 +0000
+Received: by outflank-mailman (input) for mailman id 1138778;
+ Tue, 07 Oct 2025 13:14:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=F9pE=4Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v67Rx-0005IG-Ea
- for xen-devel@lists.xenproject.org; Tue, 07 Oct 2025 13:09:53 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e856faa1-a37e-11f0-9809-7dc792cee155;
- Tue, 07 Oct 2025 15:09:51 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-b3da3b34950so802732066b.3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Oct 2025 06:09:50 -0700 (PDT)
+ id 1v67Wg-0006pD-Hg
+ for xen-devel@lists.xenproject.org; Tue, 07 Oct 2025 13:14:46 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 97df86ad-a37f-11f0-9d15-b5c5bf9af7f9;
+ Tue, 07 Oct 2025 15:14:45 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-62fca01f0d9so13368a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Oct 2025 06:14:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b4865e77427sm1418385366b.36.2025.10.07.06.09.48
+ 4fb4d7f45d1cf-63788110080sm12599755a12.34.2025.10.07.06.14.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Oct 2025 06:09:49 -0700 (PDT)
+ Tue, 07 Oct 2025 06:14:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e856faa1-a37e-11f0-9809-7dc792cee155
+X-Inumbo-ID: 97df86ad-a37f-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1759842590; x=1760447390; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1759842885; x=1760447685; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3ftJmllaYyjfanSuNvIzs0yck2YaqXyq6e4LsoEKAzY=;
-        b=MIv+Vdlro9gVJihGpw+ZRFp5NKChySaXs4rCwPDbEYHlxxHLO5KgIVv+4b6Dk0wOu7
-         i8esVJdZqz8mOWO6lM5o9nUhvCZ0YyEld4pK4LBY4fsYyWaLPBtQUA0i5Mp8yxyZk8Ci
-         +Ym6J+pYeA41MEZ4zrXZu1opcOv1e7qRF7FhMM8/kERDx4RvNUy0KREmTNUdX9nwkrKG
-         Xj4EjUGgEDq0MvQ4w7hg1sq0EqLizp0BxonUc/ShXgMbsgKVH4hDDTY+O+x63Gl4sj7Z
-         MJejWOHHZYI+D94yhPoYJ6coHgSSxhF6tvC6qkVyjWjGUkVotovRV7jCbKmtq+anRWef
-         pnvg==
+        bh=Wf4j2zj6I0qw4hINHm+PiTHsExFcolPo27zdm46bvJ8=;
+        b=ZapVK9FmOuR/RIHY+xlBTqt5Yuu6TXJAv/m0h2tP0lBiC0HzubdqsucwtL6RBKu9Ky
+         cKuaPj0nGIr6gnbs/2wzFNA8MYeJw/zH1bk8n4yO7rASGysQjxe/aBtCJt6Qvpmf6YJI
+         1BCAagejQz4MsCy1deBxKPGOjvoErpAyx4NrAeAzQr8T00pvb4UGUxgL9/O/HjuUqLMo
+         O07l+tIzja/Yv5I5Q1OT2I/aEPd56Cmj4SpR8JrZb+Jz28EJXUJM6iLYfH0RWCqFe2Zz
+         2VxsllTQ+n9j051K2M4HUUETsKUioyNxdErHi3Yy7OhuAhc8VK8Daoc4nFq8Uc5c9EWF
+         Eoag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759842590; x=1760447390;
+        d=1e100.net; s=20230601; t=1759842885; x=1760447685;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3ftJmllaYyjfanSuNvIzs0yck2YaqXyq6e4LsoEKAzY=;
-        b=XBDPk3QnL/v9C+OUVbEao86SntD3mrhBaxCbGhmuAd+0CYWfj2VSFPmZoBEJ9/CFkS
-         99YjlGfBuFmRmjgX5h6AcRnfEgf0keftZvtP9i3gnLTzeGml2+oGH/POvj1rm5LyxS+2
-         lBHMXKVzaP3TcCFnXa92HgUk9EBdPfjceSjamZqSc6uF9tEeVgCQAYehGpIO8WU7RIF0
-         Z4w2zVccQ+3isZzTVS2BoPAm4C25uSKkqpc+jYdUw9D5BTKuJd1lF4WTdhaAQjLVmoKX
-         +q2Q7CrHfN8TSvP9+Rv4pJ2Mhp7TU4wdIgm64tSiVmZ9a7JjLAe9DNMy/VBmfKiAKSgD
-         5o/Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVUPugCEpNRTxGAoxFTN0S1fFcfw7pVkCG89WZZGCVOndr4FL9Mz6LCVHcgSw2hpZBvwAQqPUdAD5Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxWXNOnKzDe3LyDFFl7AZJRpl+HIV1qEKYQOMg4Kkpf/JmdN9eE
-	W4pFdqIRxmJDumlwj18e6Jz2tYMtiJkDF6yql1Az78o6PQirat/RDzpmQ5hGHd9uMA==
-X-Gm-Gg: ASbGncuNW5Hk7syys/qUTgduqvpn4HE9aECrNe1hoG0Q9q/IL3J3c6tu+qvL76YTnKf
-	U9v+Ddo1RSzj380FEfetK36A6m9ITYZoEd90dKXDBzE7yt84dt99ZNGZEMgDOv4vLDFnkRUXCsm
-	CXG/TK4VDvj4P+Qz22MUga9pP4VcAXI9gr/iJ4cc12Mxd1Zf3fc56WRacEohTGrqaR0pANoQVol
-	XHi3vqBDHMKaDhRsjdrVg4HqhmTSPT9CXoIrT/9WHvUK0Qy68OOlDniqSoC3sSCjFxE4J4jYhCQ
-	RnulCPPEhr/HpQevIAvO70p03U1buVtZA/DX2qxmgglP7UcKUn4THZsQ6HSzDmEoWYQMjIpxmuK
-	1vFkbj2Fu7bJnOpVp4d4GTlF6IWKwX1FOyYNzRJi4oznuFlp9fcwt+qiiRBony0P+9tvWM4WgFK
-	2/HWw/O0GGK+JHWZ4CzbFsYd/LxJFboNo=
-X-Google-Smtp-Source: AGHT+IEudusrr09UGIZsTokdUZrTZWCy1hPiLQ+ihGatC8tHOjgczbTz/vhcXOoN5BFXBTFdLSdYlg==
-X-Received: by 2002:a17:907:3f9d:b0:b2b:3481:93c8 with SMTP id a640c23a62f3a-b49c08981c4mr2083987466b.19.1759842590218;
-        Tue, 07 Oct 2025 06:09:50 -0700 (PDT)
-Message-ID: <7fe4f483-ef3c-4954-9030-2c364673c9db@suse.com>
-Date: Tue, 7 Oct 2025 15:09:57 +0200
+        bh=Wf4j2zj6I0qw4hINHm+PiTHsExFcolPo27zdm46bvJ8=;
+        b=CKnuunDZSpnD8Q9uA/7/L09x+e8Dn8gADgyOqOQ/3L78MG3K8lOc2WSvKADJl1FupK
+         TolUELXsgLgiZ3ggTZboirMd2b7b818bSbegHAVBhf7POrQnbPhMnv8CZnDGYsZQjYCG
+         cWDu2QHAZv+lOWOt5J9UyD9HKXE7fhg/InYd00iCrvOUEYyYayMoQnrftvL9J4rdL/0K
+         KgQIzWduZ5nTQZCJ2sBHiUb3MQvBFd6vcNyUB20DDHRUDWdbyr+Oei4O/TQf5a4j8GQz
+         P385ryTwI5E1Zl+SVlGVsReZOwpKWbH7YAT1eQhLcFWxPPKY5i53F8qoWUrWcxy3v+GZ
+         ibNw==
+X-Forwarded-Encrypted: i=1; AJvYcCXx9LBKeNlOGndzGMAwEcIcgAE3+D4HOVsVfM4M6aPhYLqj4yB+xL9RC0118GE9fUDf+H5VFdG863k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzJfepfMi7/Wx9Fd5Jt6GHoicrFAsMJCV0pXJXRNEsEMvA8jlRs
+	nnLQjYCScud50ROZtE5Jb1jPvGGCvRLLtObbPEwdgp6UCnuPgQF+6Tr/atkUXkVgCQ==
+X-Gm-Gg: ASbGncuMpLDQrprG6CZAHqUgM+bM2C4XG/esfr7ATSZAncoTKfN1jS79nnzqGo1xh25
+	HNsDx36WD1n+Ii9pcqANWuZuZdL9ZJjSqW/VdsPnorZp9z/+2b+5Lm/OJvkPHV3iSb/Gj5o/ZY0
+	KSOH6qhiC5vukLWbZde2KLCfAGeNzmRNnL7N5tVGhdil2ZAY1lEelfmBSegjNiJklf+3l4Skt0U
+	T/xN6yxNCKoxkRDuD+9BSuZfLbu7lcG/kaVlZqavFE4pO773LFMN8s/rMvBjdWR7B/5uiAerZNT
+	JFodb0dITZrF8Gu68FGOzC65Y2oA+/n117OlPcuEz6aaxezaJzT0kQ3y6MjF3g07nFB50QJDIfs
+	iUZ/YEeo+Hoh83DrvGeSR7vijZ7nswl4xyZcuTB21j0zE3NpOUeAs1oiNzvJWMaO5775PTNbOCN
+	EQwWzmLbDa4M1NsZqVjkdSVDdg8SDNlkY=
+X-Google-Smtp-Source: AGHT+IHAIneMBlKRhDuiweCyQSlwb37bYtFEQ0XAorWoFWfXgUriEvJV5yNtZn+400fudHPxVleZ1g==
+X-Received: by 2002:a05:6402:26d1:b0:633:7017:fcc1 with SMTP id 4fb4d7f45d1cf-639348de8f0mr17762107a12.14.1759842884696;
+        Tue, 07 Oct 2025 06:14:44 -0700 (PDT)
+Message-ID: <cd6f65cb-d2f7-48bd-81db-eb67b3c20d36@suse.com>
+Date: Tue, 7 Oct 2025 15:14:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/18] xen/riscv: Implement p2m_pte_from_mfn() and
- support PBMT configuration
+Subject: Re: [PATCH v4 17/18] xen/riscv: add support of page lookup by GFN
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -99,9 +98,9 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1758145428.git.oleksii.kurochko@gmail.com>
- <4495c8103548447f9a11963574a4cb9e01090e7a.1758145428.git.oleksii.kurochko@gmail.com>
- <7b51f40d-7ac7-460a-891d-afe1d9ab8991@suse.com>
- <6902c46e-c805-43aa-8753-7b6dc09716ae@gmail.com>
+ <5065d9f1552fd940cc19087d8e00a0fa3519e66c.1758145428.git.oleksii.kurochko@gmail.com>
+ <854ff53f-5af0-43bf-83b0-8e1e1e0deefc@suse.com>
+ <577daeb5-d43f-4172-9a3b-2062c01b8d45@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,64 +126,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6902c46e-c805-43aa-8753-7b6dc09716ae@gmail.com>
+In-Reply-To: <577daeb5-d43f-4172-9a3b-2062c01b8d45@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 29.09.2025 15:30, Oleksii Kurochko wrote:
-> 
-> On 9/22/25 6:28 PM, Jan Beulich wrote:
+On 30.09.2025 17:37, Oleksii Kurochko wrote:
+> On 9/22/25 10:46 PM, Jan Beulich wrote:
 >> On 17.09.2025 23:55, Oleksii Kurochko wrote:
->>> @@ -318,11 +331,87 @@ static inline void p2m_clean_pte(pte_t *p, bool clean_pte)
->>>       p2m_write_pte(p, pte, clean_pte);
->>>   }
->>>   
->>> -static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t)
->>> +static void p2m_set_permission(pte_t *e, p2m_type_t t)
->>>   {
->>> -    panic("%s: hasn't been implemented yet\n", __func__);
->>> +    e->pte &= ~PTE_ACCESS_MASK;
+>>> +        if ( rc != P2M_TABLE_NORMAL )
+>>> +            break;
+>>> +    }
 >>> +
->>> +    e->pte |= PTE_USER;
+>>> +    entry = table[offsets[level]];
 >>> +
->>> +    /*
->>> +     * Two schemes to manage the A and D bits are defined:
->>> +     *   • The Svade extension: when a virtual page is accessed and the A bit
->>> +     *     is clear, or is written and the D bit is clear, a page-fault
->>> +     *     exception is raised.
->>> +     *   • When the Svade extension is not implemented, the following scheme
->>> +     *     applies.
->>> +     *     When a virtual page is accessed and the A bit is clear, the PTE is
->>> +     *     updated to set the A bit. When the virtual page is written and the
->>> +     *     D bit is clear, the PTE is updated to set the D bit. When G-stage
->>> +     *     address translation is in use and is not Bare, the G-stage virtual
->>> +     *     pages may be accessed or written by implicit accesses to VS-level
->>> +     *     memory management data structures, such as page tables.
->>> +     * Thereby to avoid a page-fault in case of Svade is available, it is
->>> +     * necesssary to set A and D bits.
->>> +     */
->>> +    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_svade) )
->>> +        e->pte |= PTE_ACCESSED | PTE_DIRTY;
->> All of this depending on menvcfg.ADUE anyway, is this really needed? Isn't
->> machine mode software responsible for dealing with this kind of page faults
->> (just like the hypervisor is reponsible for dealing with ones resulting
->> from henvcfg.ADUE being clear)?
+>>> +    if ( pte_is_valid(entry) )
+>>> +    {
+>>> +        if ( t )
+>>> +            *t = p2m_get_type(entry);
+>>> +
+>>> +        mfn = pte_get_mfn(entry);
+>>> +        /*
+>>> +         * The entry may point to a superpage. Find the MFN associated
+>>> +         * to the GFN.
+>>> +         */
+>>> +        mfn = mfn_add(mfn,
+>>> +                      gfn_x(gfn) & (BIT(P2M_LEVEL_ORDER(level), UL) - 1));
+>> May want to assert that the respective bits of "mfn" are actually clear
+>> before this calculation.
 > 
-> In general, I think you are right.
-> 
-> In this case, though, I just wanted to avoid unnecessary page faults for now.
-> My understanding is that having such faults handled by the hypervisor can indeed
-> be useful, for example to track which pages are being accessed. However, since we
-> currently don’t track page usage, handling these traps would only result in
-> setting the A and D bits and then returning control to the guest.
+> ASSERT(!(mfn & (BIT(P2M_LEVEL_ORDER(level), UL) - 1)));
+> Do you mean something like that?
 
-Yet that still be be machine-mode software aiui. By always setting the bits we'd
-undermine whatever purpose _they_ have enabled the extension for, wouldn't we?
+Yes.
 
-> To avoid this overhead, I chose to set the bits up front.
+> I am not 100% sure that there is really need for that as page-fault exception
+> is raised if the PA is insufficienlty aligned:
+>   Any level of PTE may be a leaf PTE, so in addition to 4 KiB pages, Sv39 supports
+>   2 MiB megapages and 1 GiB gigapages, each of which must be virtually and
+>   physically aligned to a boundary equal to its size. A page-fault exception is
+>   raised if the physical address is insufficiently aligned.
 
-Irrespective to the answer to the question above, if you mean to do so, I think
-all of this needs explaining better in the comment.
+But that would be raised only when a page walk encounters such a PTE. You may
+be altering a PTE here which never was involved in a page walk, though.
 
 Jan
 
