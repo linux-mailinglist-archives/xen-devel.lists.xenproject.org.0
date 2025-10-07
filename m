@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7649FBC13AD
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Oct 2025 13:35:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1138700.1474328 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 588E2BC1594
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Oct 2025 14:20:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1138717.1474340 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v65yV-0000Xs-Fl; Tue, 07 Oct 2025 11:35:23 +0000
+	id 1v66fM-0005kw-Lg; Tue, 07 Oct 2025 12:19:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1138700.1474328; Tue, 07 Oct 2025 11:35:23 +0000
+Received: by outflank-mailman (output) from mailman id 1138717.1474340; Tue, 07 Oct 2025 12:19:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v65yV-0000VX-D5; Tue, 07 Oct 2025 11:35:23 +0000
-Received: by outflank-mailman (input) for mailman id 1138700;
- Tue, 07 Oct 2025 11:35:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1v66fM-0005hw-I4; Tue, 07 Oct 2025 12:19:40 +0000
+Received: by outflank-mailman (input) for mailman id 1138717;
+ Tue, 07 Oct 2025 12:19:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1v65yT-0000VR-SG
- for xen-devel@lists.xenproject.org; Tue, 07 Oct 2025 11:35:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1v65yT-00DS9Q-1b;
- Tue, 07 Oct 2025 11:35:21 +0000
-Received: from [2a02:8012:3a1:0:e89d:4c04:6995:ad43]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1v65yT-008Qox-1Z;
- Tue, 07 Oct 2025 11:35:21 +0000
+ (envelope-from <SRS0=F9pE=4Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1v66fL-0005hq-84
+ for xen-devel@lists.xenproject.org; Tue, 07 Oct 2025 12:19:39 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e463470d-a377-11f0-9d15-b5c5bf9af7f9;
+ Tue, 07 Oct 2025 14:19:37 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-b3e234fcd4bso1013873566b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Oct 2025 05:19:37 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b4869c4e5d8sm1366770566b.82.2025.10.07.05.19.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Oct 2025 05:19:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,124 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=KmrIabJMHnM18Osm5vA/k2kiC8sUWR6wVZskoIGGQKU=; b=f970tyATkcv3KX5+bM/90pDwQB
-	7D/utx96nPjGtTJAMpufy7RjxAwdbyzPw5Iz7nHYzdtEluEosJc7tE4lOBop6TZOo5ayDpbU53X7b
-	7O9nQR/mBfeAyNtvR1+CB+TumKviDSWRq1b0ARkztlithyIChdjmM894NXW38C+ID8vM=;
-Message-ID: <242da3ca-f892-436a-96b5-2fb9187d0429@xen.org>
-Date: Tue, 7 Oct 2025 12:35:19 +0100
+X-Inumbo-ID: e463470d-a377-11f0-9d15-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1759839577; x=1760444377; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=MyGCnyaH+rXkx1GnILXiMMd8m5H1XydXJJTx/sNuaU8=;
+        b=eQcPtjOvMm64UO1vVTYmi3K474HeQ+oSrkzh9ic0sR/Y2Jx3IuCgmva+oAt0MBgStb
+         sYBTz7qteaNBykKBxobeVBV8/wTTW6Gkpr+5uZ3J6PNf/lGbbr5SKoIWqq2K+AR1+3wm
+         QqoAoP0xZ2guswGfz//w4dndiPaR43p25OkOzNz7mcTaoRVMQemu1/eyl14XQ1Z64rv5
+         fJEhTrBswTml/BRQpHceCoRaB8r+SwavEKNbm89n/Mb61UVJyCAt/Q1WdGtVXV25r2Mq
+         VcBVGylJULbKZ0YxAAL2pkHNm7oNsV1x6pBvwj2n5VBA1AzeAKpoPV5oIba1YKcYSFuF
+         ETqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1759839577; x=1760444377;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MyGCnyaH+rXkx1GnILXiMMd8m5H1XydXJJTx/sNuaU8=;
+        b=coQ0ie53giX0d3XY1gULJe9d7Uy6fNKAuaozkKTbPvqNnq0DOLz+xfeRgW3Qk2ZsrB
+         MNW5WT9fzBOTaLQgNAckJj5j2lT28kqLj86cQS1Wa62etFGi43f6tJp1AFACzhRbTcin
+         yDMzpGVGVp46e3L7ZD4TQxeP71vlPcO7AaP67B7o715TYUQbKb3dOHybK/IbNymsFz/M
+         rNOaRESnfSxg1NMYNeD7gk6xL2/TCHZqvT3hyYm78BCxqJyIepUtEpRxJKwuMgOhkoWm
+         OXyySrRKDhG0/kl40QTsVg7USrFB0WcWbwizaa1sJqrXhHoomG/uG2yFLhFsRIL+70Nq
+         tfvg==
+X-Forwarded-Encrypted: i=1; AJvYcCXmK3bQokOVcw9eie3u+6rbUtjWi5kMGI7aXWxan+8lWGw1940yo57z6Ee1nhRwjNOK9HiI5Dip1TQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwzZReHHxBeTkflhiVBzIDOxevPVl8M1kMtbPEn9cxBOSYzzhLu
+	zxtggrrq1i17JjYGzW62V9vAQ1ClqDORGaBcJ+YudzRDU4UxpGS9fEK6XmTamOTuHWR4G+sZ/9g
+	YqWk=
+X-Gm-Gg: ASbGncsHdm6Kl15JQ/Riyhl4uc4X9q3tLz8TNLY8SohSGTeEfAPII4GfyT7DTPK7U3Z
+	cHMbnqHDjxMtaFhnkDCdmmMrnsyy9ckmI7kj+ddoWS4xHnCdKNiX89dll2A7hLPWQaBwymhEIJe
+	hoPIIO+Dk5R0I7ewUShyXyihJlxPn1COm6IDD+d4lCarPZueRfz4FagNwKmSxpnXGM1IPws0ska
+	0C+6QPXcZ1Ibhilm9yu2yiqeRQLi0NECdgiv9ShvLTgAqF6/jGRH/L4nPN0bA6wpEGl5dIi8XSF
+	Ai3WaOHMDzbCKAkL/3C5GCP35CPjQSE2l/psV7ZkN1oYcJSwp721heenlcfjkQFTXB8aBky0RxU
+	HDimfAvXKzwIjYLyDN0ZKClOuCF9ymdmh31PqTMjshaomk7tFLQYH5ooHkB9DlMcESuSEjR0pwy
+	mUaP5tUYhE3BJVf/iGM3G54DCwIp+rCbI=
+X-Google-Smtp-Source: AGHT+IGt6DVldt1Yl50skXeJqHcWpfGfcAUIdyJiA+VKBvhnMRQPHDmzzGGcIZRuAt0vahJaBAl0uA==
+X-Received: by 2002:a17:907:25cb:b0:b49:b3ca:52b4 with SMTP id a640c23a62f3a-b49c1d60aefmr1897005966b.23.1759839577173;
+        Tue, 07 Oct 2025 05:19:37 -0700 (PDT)
+Message-ID: <16d3dc29-5028-417e-9c13-6f617276dbac@suse.com>
+Date: Tue, 7 Oct 2025 14:19:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] Update Xen version to 4.21.0-rc1
-Content-Language: en-GB
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20251006200840.2171113-1-andrew.cooper3@citrix.com>
- <20251006200840.2171113-3-andrew.cooper3@citrix.com>
- <aOS5O2h767J1QPxs@Mac.lan> <dab0d59a-4a72-454d-aa3d-3bebe9caf146@citrix.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <dab0d59a-4a72-454d-aa3d-3bebe9caf146@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH for-4.21 1/2] x86/AMD: avoid REP MOVSB for Zen3/4
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+References: <8ecbf8b7-91fe-4f9e-9542-7ec22b6a47bb@suse.com>
+ <6bcaa5b7-4e34-40c9-85e6-48a0a5869b86@suse.com>
+ <485889ed-2820-4bb3-b450-88553dbb719e@vates.tech>
+ <446909d8-f446-42f0-a236-47d5d64ea908@suse.com>
+ <6f211ab0-b671-4ea6-88e9-f5cf7fe27a63@vates.tech>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6f211ab0-b671-4ea6-88e9-f5cf7fe27a63@vates.tech>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Andrew,
-
-On 07/10/2025 09:28, Andrew Cooper wrote:
-> On 07/10/2025 7:54 am, Roger Pau Monné wrote:
->> On Mon, Oct 06, 2025 at 09:08:40PM +0100, Andrew Cooper wrote:
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>> CC: Anthony PERARD <anthony.perard@vates.tech>
->>> CC: Michal Orzel <michal.orzel@amd.com>
->>> CC: Jan Beulich <jbeulich@suse.com>
->>> CC: Julien Grall <julien@xen.org>
->>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>> CC: Stefano Stabellini <sstabellini@kernel.org>
->>> ---
->>>   README       | 10 +++++-----
->>>   SUPPORT.md   |  2 +-
->>>   xen/Makefile |  2 +-
->>>   3 files changed, 7 insertions(+), 7 deletions(-)
+On 30.09.2025 15:03, Teddy Astie wrote:
+> Le 25/09/2025 à 15:02, Jan Beulich a écrit :
+>> On 25.09.2025 14:18, Teddy Astie wrote:
+>>> Le 25/09/2025 à 12:48, Jan Beulich a écrit :
+>>>> Along with Zen2 (which doesn't expose ERMS), both families reportedly
+>>>> suffer from sub-optimal aliasing detection when deciding whether REP MOVSB
+>>>> can actually be carried out the accelerated way. Therefore we want to
+>>>> avoid its use in the common case (memset(), copy_page_hot()).
 >>>
->>> diff --git a/README b/README
->>> index 9329f30e1366..eaee78bd7375 100644
->>> --- a/README
->>> +++ b/README
->>> @@ -1,9 +1,9 @@
->>>   ############################################################
->>> -__  __                                _        _     _
->>> -\ \/ /___ _ __        _   _ _ __  ___| |_ __ _| |__ | | ___
->>> - \  // _ \ '_ \ _____| | | | '_ \/ __| __/ _` | '_ \| |/ _ \
->>> - /  \  __/ | | |_____| |_| | | | \__ \ || (_| | |_) | |  __/
->>> -/_/\_\___|_| |_|      \__,_|_| |_|___/\__\__,_|_.__/|_|\___|
->>> + __  __            _  _    ____  _
->>> + \ \/ /___ _ __   | || |  |___ \/ |   _ __ ___
->>> +  \  // _ \ '_ \  | || |_   __) | |__| '__/ __|
->>> +  /  \  __/ | | | |__   _| / __/| |__| | | (__
->>> + /_/\_\___|_| |_|    |_|(_)_____|_|  |_|  \___|
->>>   
->>>   ############################################################
->>>   
->>> diff --git a/SUPPORT.md b/SUPPORT.md
->>> index eb44ee85fd12..491f9ecd1bbb 100644
->>> --- a/SUPPORT.md
->>> +++ b/SUPPORT.md
->>> @@ -9,7 +9,7 @@ for the definitions of the support status levels etc.
->>>   
->>>   # Release Support
->>>   
->>> -    Xen-Version: 4.21-unstable
->>> +    Xen-Version: 4.21-rc
->>>       Initial-Release: n/a
->>>       Supported-Until: TBD
->>>       Security-Support-Until: Unreleased - not yet security-supported
->>> diff --git a/xen/Makefile b/xen/Makefile
->>> index 49da79e10fb4..ba8c7147a2f6 100644
->>> --- a/xen/Makefile
->>> +++ b/xen/Makefile
->>> @@ -6,7 +6,7 @@ this-makefile := $(call lastword,$(MAKEFILE_LIST))
->>>   # All other places this is stored (eg. compile.h) should be autogenerated.
->>>   export XEN_VERSION       = 4
->>>   export XEN_SUBVERSION    = 21
->>> -export XEN_EXTRAVERSION ?= -unstable$(XEN_VENDORVERSION)
->>> +export XEN_EXTRAVERSION ?= .0-rc1$(XEN_VENDORVERSION)
->> In previous switches to start cutting RC's we didn't add the 1 to the
->> XEN_EXTRAVERSION, see 19730dbb3fd8078743d5196bd7fc32f3765557ad for
->> example.
+>>> s/memset/memcpy (memset probably uses rep stosb which is not affected IIUC)
+>>
+>> Oops, yes.
+>>
+>>>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>> ---
+>>>> Question is whether merely avoiding REP MOVSB (but not REP MOVSQ) is going
+>>>> to be good enough.
+>>>
+>>> This probably wants to be checked with benchmarks of rep movsb vs rep
+>>> movsq+b (current non-ERMS algorithm). If the issue also occurs with rep
+>>> movsq, it may be preferable to keep rep movsb even considering this issue.
+>>
+>> Why? Then REP MOVSB is 8 times slower than REP MOVSQ.
+>>
 > 
-> Correct.  That was also buggy and complained about.
+> It doesn't match my observations while quickly benching rep movsb vs rep 
+> movsq+b (fallback) with varying alignments/sizes on Zen3/4 (Ryzen and EPYC).
 > 
->>    If we do add the rc number we need to remember to bump it
->> each time and RC is released.
-> 
-> Last time we had truly buggy early rc tarballs, the middle ones were
-> bodged somewhat (incompletely, and not a straight git archive), and by
-> RC5 we had a commit with the correct XEN_EXTRAVERSION to make the
-> tarball correct.
+> It's very sensitive to size and aligment, but in many (but not all) 
+> cases, rep movsb is significantly faster than rep movsq+b. The worst 
+> cases (mentioned bug) are much slower in both cases, though rep movsq+b 
+> tend to perform better in these cases.
 
-docs/process/release-technician-checklist.txt says:
+Which is what the patch here is trying to address.
 
-#      `.0-rc$(XEN_VENDORVERSION)'       during freeze, first rc onwards 
-(including staging, before branching)
+> So unfortunately it's not as simple as rep movsb being (almost) always 
+> slower, especially with the varied copy sizes and aligments that does 
+> grant_copy. That's what I would prefer having more data to have a better 
+> picture.
 
-I don't have any strong preference on whether we should also update it 
-with the RC number. But the doc should at least be updated to reflect 
-the decision. Can you send an update?
+Well, what I would have preferred is some actual written down description
+of the aliasing issue. I'm unaware of such; the patch is solely based on
+what Andrew has been telling me verbally (piecemeal). I've tried to reflect
+this in how the description is written.
 
-I think we also have a few updates to the checklist which would be good 
-to merge as well. (one is from you).
+What you suggest would, aiui, entail more complicated decision logic in
+the memcpy() implementation, which (at least for now) we'd like to avoid.
 
-Cheers,
-
--- 
-Julien Grall
-
+Jan
 
