@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B28BBC0A1B
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Oct 2025 10:29:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1138591.1474256 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 505C0BC0D20
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Oct 2025 11:10:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1138616.1474266 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v633v-0000q7-Ip; Tue, 07 Oct 2025 08:28:47 +0000
+	id 1v63hE-0005sg-M5; Tue, 07 Oct 2025 09:09:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1138591.1474256; Tue, 07 Oct 2025 08:28:47 +0000
+Received: by outflank-mailman (output) from mailman id 1138616.1474266; Tue, 07 Oct 2025 09:09:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v633v-0000na-G5; Tue, 07 Oct 2025 08:28:47 +0000
-Received: by outflank-mailman (input) for mailman id 1138591;
- Tue, 07 Oct 2025 08:28:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v63hE-0005qc-IP; Tue, 07 Oct 2025 09:09:24 +0000
+Received: by outflank-mailman (input) for mailman id 1138616;
+ Tue, 07 Oct 2025 09:09:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sa46=4Q=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1v633u-0000nU-9T
- for xen-devel@lists.xenproject.org; Tue, 07 Oct 2025 08:28:46 +0000
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [2a00:1450:4864:20::343])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c352789-a357-11f0-9809-7dc792cee155;
- Tue, 07 Oct 2025 10:28:32 +0200 (CEST)
-Received: by mail-wm1-x343.google.com with SMTP id
- 5b1f17b1804b1-46e542196c7so38579105e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 07 Oct 2025 01:28:32 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-22-57-86.as13285.net. [92.22.57.86])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46e61a0241bsm283868045e9.11.2025.10.07.01.28.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Oct 2025 01:28:31 -0700 (PDT)
+ <SRS0=qVcl=4Q=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1v63hC-0005qP-Ue
+ for xen-devel@lists.xenproject.org; Tue, 07 Oct 2025 09:09:23 +0000
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c000::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4eb3cf94-a35d-11f0-9d15-b5c5bf9af7f9;
+ Tue, 07 Oct 2025 11:09:21 +0200 (CEST)
+Received: from SA0PR11CA0205.namprd11.prod.outlook.com (2603:10b6:806:1bc::30)
+ by LV8PR12MB9270.namprd12.prod.outlook.com (2603:10b6:408:205::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.20; Tue, 7 Oct
+ 2025 09:09:15 +0000
+Received: from SA2PEPF00001508.namprd04.prod.outlook.com
+ (2603:10b6:806:1bc:cafe::37) by SA0PR11CA0205.outlook.office365.com
+ (2603:10b6:806:1bc::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.20 via Frontend Transport; Tue,
+ 7 Oct 2025 09:09:15 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00001508.mail.protection.outlook.com (10.167.242.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9203.9 via Frontend Transport; Tue, 7 Oct 2025 09:09:15 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 7 Oct
+ 2025 02:09:13 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,179 +56,290 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c352789-a357-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1759825712; x=1760430512; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ODhrzQLj25vh/uhcf/FdIY0GqzxijxAuYvmzOB+piUU=;
-        b=kYs3br8rsAKTZ0sM+I3A48TzBCzjnjEHA78YS9KoujST+M+nONNjPsWL9TVKm1mDUh
-         xqQVhtZX5bpvzMKaetAgVfn0vcpQQC1ZAv9oHF+Agjtp1CrBoQkAKxZgQLdRV7phgAK1
-         xpj1OF2HGdOm4pK5TEthPjt0gz6AF7lYOM9eY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759825712; x=1760430512;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ODhrzQLj25vh/uhcf/FdIY0GqzxijxAuYvmzOB+piUU=;
-        b=kOPti8GXdCxe+E1tRijzIxfdk4qf1ko7iBF3p3iytFbfbuzN/ai8WPHlfsj+mfv3IV
-         BEsKTyAkoonDMPUC9sUJBbNP9VAwtlH1fJYCBHCjv5FNvc74jiGQhJpgUcBKaIbNqkta
-         WpLzmpBHTVL56+SDAnOeXe3XmCscS/Gh2lEkD6Ys7R7nDmcERFR2yGwjzSgD2wH5kCRD
-         noZrUGoZoEwoAMS/tBuJaMi85WFI7jeLjRrwDnVJ8RKcPsB+tdQNA2WBFs2reHSA90Ch
-         dRF0ePpugBTSTtFhQBgryqKebY+ADY7TQbaIc+qYin1lZ3LerBmsHKU2xazIcQ0Dtd6t
-         ma3g==
-X-Gm-Message-State: AOJu0YxSw2QgozGTQjPMWgkAn/D5YkhMd5ge8+jIO8evhwsrzVKdeUx/
-	AZxNS0hMQ1iapg+B1ksug8lIlzvUhubXaB1Bzl/IvqVqwiZSVr7tbI/OzjavZEhO6uY=
-X-Gm-Gg: ASbGncvPtVT9nMgSArcUaJklCyVLoJr+AEXsrJVncA3BOk80qRn+YS1CZqTHEwvinMZ
-	TNT/AzbgbjkhStaQFOV3pB4UhdXzD5v2Dsg6cNDXeF28rP3CmXWbRZ+xtwWSliOosjvKhBR9Gwr
-	eOZMpy65YMDLpr6urIN8V29fY98o8uGXumciY2OxJ1ewZLM2FKSJfSGnUC7IjeZJ9Pdsi0Pr6DX
-	ICflodxFGPpIBSeOBxCyUjDSUrvHqGMheycVi8kbQSPKI2bbngayw7mNtWUfp4kRbmjIXaZ7B8t
-	Zq6jYo3DvwqI8V8ngWtSz6H/uMpbimYZg8rBk0noP8ohR2JpdS6Tz4hSEqQOl/AGoed4Lv6W2rR
-	WRJX4iqYJzYGLHRrNGoB41PzuE5AiVv3GMrQwYFvf4FsQ6cDnIf5YNO68NfiAkjiYLiFps4QR5j
-	DUM/Dl+MVicIQc
-X-Google-Smtp-Source: AGHT+IFSWLSzCE8LO4nPxygffLIEnmu44uzzLupemstwbSlDOA1aXuWMcb6AabO2lLKwWzKtqEgA6w==
-X-Received: by 2002:a05:600c:528d:b0:46e:6339:79c5 with SMTP id 5b1f17b1804b1-46fa298df05mr16801275e9.5.1759825712191;
-        Tue, 07 Oct 2025 01:28:32 -0700 (PDT)
-Message-ID: <dab0d59a-4a72-454d-aa3d-3bebe9caf146@citrix.com>
-Date: Tue, 7 Oct 2025 09:28:31 +0100
+X-Inumbo-ID: 4eb3cf94-a35d-11f0-9d15-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vleI9z69FQKCXED9kn1KxSjKg1KUVrySUIjW7jzpEX2WqT4iEeUC3iOPPKdUou47fY1ciRBD9PkDm7rbnibVMBES3XMUaNzFAAeOaIyw1PA9qAKfBmStUQjigytnnce6zJOnRGPDknPpp3SH5PzZAZc1tr1cI478Ml/gQJ3l1/YvpNXY4zsNNzrlPVRO/K+YJrJ1OLW40u63/DbX8xJcDXMzkNxEvbhdV5b2/ZgRxtat9ETQgWAvuBMYAckDq4acbpJhluzjXR7n58tnC8m4NGDFn6Ab+uwXyRkBgM1+O0bbu1Q160U8NwUODSUJOvHRhBoIs291fZJZ4Fb74z9DRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y53R7dXIzSmchTXCzCHM+0ZEYQXLf4vm5J5ZVf/Pk0E=;
+ b=DnD2q+5vYYwNZ5Madb4HihTKMSoN47sfSLyT5Rnj6jutkgae7ZgHCvKpcyLZAxJHLJHCawmmCLTfqcItdfr0xDKNifK02+WT+CnYf0pbgz43Un6HPiYiS8mss5M1FfxUp8ym3Cq9bxmsrCssf8Ka/w2/8zWvucEQA/v38aCTRpQUbn9+bKSpbrVCNfY0SKmeuj0xdhWseisYe20WPesdBZ93IbpHC68vbcmqjDyOX83Okt1zt0E4Q0JaF+/9cpVtUgmIDD2ydDdm/Tdm5YKOkZow3W5G/+LlnIBD6AAI8VDfbPHWemhjP18Ws1QxsRQX+DsBE4l0P9V9U3mk34N0kg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y53R7dXIzSmchTXCzCHM+0ZEYQXLf4vm5J5ZVf/Pk0E=;
+ b=QUF8M9BQBkvqWZAdWhlV39X2Ei2VW6/YQ+qmhztpbjrp/kmCp5tSJteLZC/ngSjQ824P6dDLAHyTjdLTFJ5RX4ruWtM6oAnat7av4YXMj9a43a+2XmbX4lTAbC10vmwBLJWuhOGPGfCtLosrFsJOu7yoYHGpWnAVKm0TVbIWPMM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] Update Xen version to 4.21.0-rc1
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20251006200840.2171113-1-andrew.cooper3@citrix.com>
- <20251006200840.2171113-3-andrew.cooper3@citrix.com>
- <aOS5O2h767J1QPxs@Mac.lan>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <aOS5O2h767J1QPxs@Mac.lan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Tue, 7 Oct 2025 11:09:12 +0200
+Message-ID: <DDBZ0KEAQ90J.2ZXI8B95H2RV7@amd.com>
+To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, Stewart Hildebrand
+	<stewart.hildebrand@amd.com>, Jan Beulich <jbeulich@suse.com>, "Oleksii
+ Kurochko" <oleksii.kurochko@gmail.com>, Xen-devel
+	<xen-devel-bounces@lists.xenproject.org>
+Subject: Re: [PATCH for-4.21] vpci/msix: improve handling of bogus MSI-X
+ capabilities
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+X-Mailer: aerc 0.20.1
+References: <20250929084149.70560-1-roger.pau@citrix.com>
+ <DD60R7HDKJ23.1BYEORZH67NOS@amd.com> <aNvTwrcHsja65ndP@Mac.lan>
+ <DDBAHJDFXN5L.2U4TFNVR6NLZ@amd.com>
+ <7bb14669-f8c2-47d5-a3ba-048c0e45458e@citrix.com>
+ <aOS-T-LcuFsmdCOs@Mac.lan>
+In-Reply-To: <aOS-T-LcuFsmdCOs@Mac.lan>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001508:EE_|LV8PR12MB9270:EE_
+X-MS-Office365-Filtering-Correlation-Id: a600fa0c-08ba-4981-b164-08de05813075
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|376014|30052699003|82310400026|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?bFpEcUt4OTVZN1lHTE5jOEJ4YW13OVhzZ3ZDTGc3VHZkU2hqYkVWcmdZY2lp?=
+ =?utf-8?B?bEh6R2szYnYyTkNFeWhNT0hXcXp6QmhnektoMWxKVW15ejBRQURYc1l1Nk1J?=
+ =?utf-8?B?b3JDdGltTklFZkxCelZGeno1Y255TlBaSjZQY3pRTEwyTUo3SVdhZ3lQWVh6?=
+ =?utf-8?B?OGpxNUN2UTAzWldDZzFQVDR4YzdJQ2cyVUpZR09zTSt0TFpSRXhEQ1ZlejYz?=
+ =?utf-8?B?TVREZC9qeFdady9lSWFNM1h4SmM0SU4zMTZWOW1CblhUZVdickdGSkdVWm93?=
+ =?utf-8?B?SHlyR2d3K3FnNFdSRjRTTjBBaWxTeWx1cjRWTDRsQmhEUHFtRkhnYmQ0eGVS?=
+ =?utf-8?B?NVg3ZTlLTkFaYzJnTERlMVJoSG5CdXUrTmxsdExVSmI1MmpGRHFvMXlneC81?=
+ =?utf-8?B?cUY5dEZiR3h6aFFPL2ZSM0xhcU5NejhhUDRyc1JDUzNqMHM5K1labUZJd3Ry?=
+ =?utf-8?B?eFpMWkNGZVBYYmEzdW5QRllCSnFTKys0c2xGQkRSa1hTZlg1ZGNrT1paRnRS?=
+ =?utf-8?B?UHRTMjJmdW5GNWgyRWRFMU84b2tFRlRtaUhydEZCekVmbElBR2hoRytOQzZC?=
+ =?utf-8?B?eldJQmFmRmhhalRaUjZ1MjZ1QWU0anI0eVZBVFN4MTZoVlZCNUpxcFA3ZzJr?=
+ =?utf-8?B?S3N3bkpEdElOL1NidlFYdCtublkyQU1ZWHc3MUk4R3RQR2g1Tk1XMGV3Y1RR?=
+ =?utf-8?B?UHF2Y3NGMFdTWFpoR1dxSEI3WUljUDNCYVQrTkpmR2RYaTZTWW1heEZnRlpk?=
+ =?utf-8?B?VzVORE9UcUJYUlppT2JxS0lMQlRJWnVJRGVBUE5JZURGNzJWMkdNQnVmZUU0?=
+ =?utf-8?B?NmRsQWpFQ1I1NGpjQ0ZYZjFTcGJ3OHEwNmV0U1NUNlVLZTVrWWtkS0MzUmRO?=
+ =?utf-8?B?ZTZLZEVLQm9rTTRRRm9pSHcyTUZUVzVGL2sxaFhDdlZlZGh5c3BBdjV5cHdo?=
+ =?utf-8?B?UU5Damk5N3NLdjREMHRBWjhTOHJJOXc2S1pidmdTbWtQdi9hTTVGajIyejdm?=
+ =?utf-8?B?b1ByL3RQUHhmcFVjNm4vaEwzUzV3ZDZsbWFDSWhZZDd5cU1MQmFGZXpsWDVQ?=
+ =?utf-8?B?QmpZWTBKaFF4VGNhYjY2VnBSZjJWdHRGbjFsNVJJWEdkNXFYa3FXWTR0SlJ2?=
+ =?utf-8?B?NzBtZGNyYjNJNkpweWpUbFkxcG5zN3pEdEVheEpCd3EwU1lxNWNsZUErYUdX?=
+ =?utf-8?B?N0E1UDc2OXlrdFNkNm9YRExiZnRUV3E2RjdxVHpldzBTaTZqY2FSUkpBaWNY?=
+ =?utf-8?B?ZDdDdkhCNkw2Rm9oSXNXd0VselA0VGp4NUgrMEttZ0Qra21BSnFrRXpjRlh6?=
+ =?utf-8?B?RU1OcEFGSFZxYXJmODcyZlRBZUJjbUUwMEZ4eTdtVXRhaVpRV0N2TURsWFdJ?=
+ =?utf-8?B?eTlPYVB1K1lmZE9xWFBVWEhJT1JmbE5Qc3JXVXB1ZGgvOXU3VFkzRmdTbk1L?=
+ =?utf-8?B?Znp6S1k3aDBPVDFhcU8vZG9Ldjl5b3ZicXBna082cUlzVmtWQTlPS3o1K0NF?=
+ =?utf-8?B?Zk9OUE1xUG13NVpBeVJYSlVreVRKOFF2UWx5TU9mS2EvRTNtOFNuODZCN2Iw?=
+ =?utf-8?B?aHVHTWczRjJVMWVHV3luczZKeXVueFMxU0s3SWZveXBZUWYxM0VFRFNGd3lI?=
+ =?utf-8?B?MjFzS3hBemZvaTdpM0VaR2lNaytkckV6c1ZtZ25mQnJSQVpGRDZLRWVBYnQr?=
+ =?utf-8?B?WWpPWkdtVlVsWjJJY0RKZDVuSmtRbUE0bkloeGVQSWYzMDdtRGdpOUFRNml2?=
+ =?utf-8?B?b1hLKzlJbXlacHRrbVIvd1ZjRCt0aklpWDFjUktuTmRDY1FZMjVQWi83Q0JI?=
+ =?utf-8?B?YkRRdFdQUHpITkhWSlF2VDA2NFlXOW5wYkhSY1FDYXZRQnhPMGNVZkRWZmdo?=
+ =?utf-8?B?clVjRFlyME00VzdxZkh2U2NyemlJUjVHYW1LL29IMnhHSExUdUZNRjJoTjJY?=
+ =?utf-8?B?cFhuNTJqT25hQmpPMS8xdkowUkJaM3F2R2QzNk4wQVdnN0Z2a2xnNkh6TWJt?=
+ =?utf-8?B?bmNUU2R3VTBmN2NhWHlHekxiUnV2MEhFZlZjQjBzNUUrYXBla0gxMCtQWXBE?=
+ =?utf-8?B?dEFvU1BIekI1ZXdFeFcrMi80RFBPemVIWFVha2UzelBoUHU4Y1l1YjlKU0Rn?=
+ =?utf-8?Q?vomI=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(30052699003)(82310400026)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2025 09:09:15.4469
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a600fa0c-08ba-4981-b164-08de05813075
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00001508.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9270
 
-On 07/10/2025 7:54 am, Roger Pau Monné wrote:
-> On Mon, Oct 06, 2025 at 09:08:40PM +0100, Andrew Cooper wrote:
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> CC: Anthony PERARD <anthony.perard@vates.tech>
->> CC: Michal Orzel <michal.orzel@amd.com>
->> CC: Jan Beulich <jbeulich@suse.com>
->> CC: Julien Grall <julien@xen.org>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> ---
->>  README       | 10 +++++-----
->>  SUPPORT.md   |  2 +-
->>  xen/Makefile |  2 +-
->>  3 files changed, 7 insertions(+), 7 deletions(-)
->>
->> diff --git a/README b/README
->> index 9329f30e1366..eaee78bd7375 100644
->> --- a/README
->> +++ b/README
->> @@ -1,9 +1,9 @@
->>  ############################################################
->> -__  __                                _        _     _
->> -\ \/ /___ _ __        _   _ _ __  ___| |_ __ _| |__ | | ___
->> - \  // _ \ '_ \ _____| | | | '_ \/ __| __/ _` | '_ \| |/ _ \
->> - /  \  __/ | | |_____| |_| | | | \__ \ || (_| | |_) | |  __/
->> -/_/\_\___|_| |_|      \__,_|_| |_|___/\__\__,_|_.__/|_|\___|
->> + __  __            _  _    ____  _
->> + \ \/ /___ _ __   | || |  |___ \/ |   _ __ ___
->> +  \  // _ \ '_ \  | || |_   __) | |__| '__/ __|
->> +  /  \  __/ | | | |__   _| / __/| |__| | | (__
->> + /_/\_\___|_| |_|    |_|(_)_____|_|  |_|  \___|
->>  
->>  ############################################################
->>  
->> diff --git a/SUPPORT.md b/SUPPORT.md
->> index eb44ee85fd12..491f9ecd1bbb 100644
->> --- a/SUPPORT.md
->> +++ b/SUPPORT.md
->> @@ -9,7 +9,7 @@ for the definitions of the support status levels etc.
->>  
->>  # Release Support
->>  
->> -    Xen-Version: 4.21-unstable
->> +    Xen-Version: 4.21-rc
->>      Initial-Release: n/a
->>      Supported-Until: TBD
->>      Security-Support-Until: Unreleased - not yet security-supported
->> diff --git a/xen/Makefile b/xen/Makefile
->> index 49da79e10fb4..ba8c7147a2f6 100644
->> --- a/xen/Makefile
->> +++ b/xen/Makefile
->> @@ -6,7 +6,7 @@ this-makefile := $(call lastword,$(MAKEFILE_LIST))
->>  # All other places this is stored (eg. compile.h) should be autogenerated.
->>  export XEN_VERSION       = 4
->>  export XEN_SUBVERSION    = 21
->> -export XEN_EXTRAVERSION ?= -unstable$(XEN_VENDORVERSION)
->> +export XEN_EXTRAVERSION ?= .0-rc1$(XEN_VENDORVERSION)
-> In previous switches to start cutting RC's we didn't add the 1 to the
-> XEN_EXTRAVERSION, see 19730dbb3fd8078743d5196bd7fc32f3765557ad for
-> example.
+On Tue Oct 7, 2025 at 9:16 AM CEST, Roger Pau Monn=C3=A9 wrote:
+> On Mon, Oct 06, 2025 at 03:29:11PM +0100, Andrew Cooper wrote:
+>> On 06/10/2025 2:55 pm, Alejandro Vallejo wrote:
+>> > On Tue Sep 30, 2025 at 2:57 PM CEST, Roger Pau Monn=C3=A9 wrote:
+>> >> On Tue, Sep 30, 2025 at 11:15:01AM +0200, Alejandro Vallejo wrote:
+>> >>> On Mon Sep 29, 2025 at 10:41 AM CEST, Roger Pau Monne wrote:
+>> >>>> I've had the luck to come across a PCI card that exposes a MSI-X ca=
+pability
+>> >>>> where the BIR of the vector and PBA tables points at a BAR that has=
+ 0 size.
+>> >>>>
+>> >>>> This doesn't play nice with the code in vpci_make_msix_hole(), as i=
+t would
+>> >>>> still use the address of such empty BAR (0) and attempt to crave a =
+hole in
+>> >>>> the p2m.  This leads to errors like the one below being reported by=
+ Xen:
+>> >>>>
+>> >>>> d0v0 0000:22:00.0: existing mapping (mfn: 181c4300 type: 0) at 0 cl=
+obbers MSIX MMIO area
+>> >>>>
+>> >>>> And the device left unable to enable memory decoding due to the fai=
+lure
+>> >>>> reported by vpci_make_msix_hole().
+>> >>>>
+>> >>>> Introduce checking in init_msix() to ensure the BARs containing the=
+ MSI-X
+>> >>>> tables are usable.  This requires checking that the BIR points to a
+>> >>>> non-empty BAR, and the offset and size of the MSI-X tables can fit =
+in the
+>> >>>> target BAR.
+>> >>>>
+>> >>>> This fixes booting PVH dom0 on Supermicro AS -2126HS-TN severs with=
+ AMD
+>> >>>> EPYC 9965 processors.  The broken device is:
+>> >>>>
+>> >>>> 22:00.0 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SAT=
+A Controller [AHCI mode] (rev 93)
+>> >>>>
+>> >>>> There are multiple of those integrated controllers in the system, a=
+ll
+>> >>>> broken in the same way.
+>> >>>>
+>> >>>> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+>> >>>> ---
+>> >>>> Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>> >>>> Cc: Jan Beulich <jbeulich@suse.com>
+>> >>>> Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> >>>>
+>> >>>> While not strictly a bugfix, I consider this a worthy improvement s=
+o that
+>> >>>> PVH dom0 has a chance to boot on hardware that exposes such broken =
+MSI-X
+>> >>>> capabilities.  Hence I think this change should be considered for i=
+nclusion
+>> >>>> into 4.21.  There a risk of regressing on hardware that was already=
+ working
+>> >>>> with PVH, but given enough testing that should be minimal.
+>> >>>> ---
+>> >>>>  xen/drivers/vpci/msix.c | 50 ++++++++++++++++++++++++++++++++++++-=
+----
+>> >>>>  1 file changed, 45 insertions(+), 5 deletions(-)
+>> >>>>
+>> >>>> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+>> >>>> index 54a5070733aa..8458955d5bbb 100644
+>> >>>> --- a/xen/drivers/vpci/msix.c
+>> >>>> +++ b/xen/drivers/vpci/msix.c
+>> >>>> @@ -675,6 +675,51 @@ static int cf_check init_msix(struct pci_dev *=
+pdev)
+>> >>>>      if ( !msix )
+>> >>>>          return -ENOMEM;
+>> >>>> =20
+>> >>>> +    msix->tables[VPCI_MSIX_TABLE] =3D
+>> >>>> +        pci_conf_read32(pdev->sbdf, msix_table_offset_reg(msix_off=
+set));
+>> >>>> +    msix->tables[VPCI_MSIX_PBA] =3D
+>> >>>> +        pci_conf_read32(pdev->sbdf, msix_pba_offset_reg(msix_offse=
+t));
+>> >>>> +
+>> >>>> +    /* Check that the provided BAR is valid. */
+>> >>>> +    for ( i =3D 0; i < ARRAY_SIZE(msix->tables); i++ )
+>> >>>> +    {
+>> >>>> +        const char *name =3D (i =3D=3D VPCI_MSIX_TABLE) ? "vector"=
+ : "PBA";
+>> >>>> +        const struct vpci_bar *bars =3D pdev->vpci->header.bars;
+>> >>>> +        unsigned int bir =3D msix->tables[i] & PCI_MSIX_BIRMASK;
+>> >>>> +        unsigned int type;
+>> >>>> +        unsigned int offset =3D msix->tables[i] & ~PCI_MSIX_BIRMAS=
+K;
+>> >>>> +        unsigned int size =3D
+>> >>>> +            (i =3D=3D VPCI_MSIX_TABLE) ? max_entries * PCI_MSIX_EN=
+TRY_SIZE
+>> >>>> +                                   : ROUNDUP(DIV_ROUND_UP(max_entr=
+ies, 8), 8);
+>> >>>> +
+>> >>>> +        if ( bir >=3D ARRAY_SIZE(pdev->vpci->header.bars) )
+>> >>>> +        {
+>> >>>> +            printk(XENLOG_ERR "%pp: MSI-X %s table with out of ran=
+ge BIR %u\n",
+>> >>>> +                   &pdev->sbdf, name, bir);
+>> >>> Would it be worth adding something here such that a device vendor te=
+sting their
+>> >>> hardware under Xen can trivially grep for device bugs?
+>> >>>
+>> >>> Something akin to "[Firmware bug]" on Linux, like "[Device bug]" or =
+some such.
+>> >>>
+>> >>> It would also let anyone not very knowledgeable about PCI know that =
+a device
+>> >>> they own is being unreasonable. Same below in the other XENLOG_ERR m=
+essages.
+>> >> We could add indeed.  I don't think we haven't done so in the past.
+>> >> If we go that route I would suggest that I add a:
+>> >>
+>> >> #define DEVICE_BUG_PREFIX "[Device bug] "
+>> >>
+>> >> in lib.h or similar, to make sure we use the same prefix uniformly.
+>> >> TBH
+>>=20
+>> We have several FIRMWARE BUG's in Xen already, and several more that
+>> ought to move to this pattern.
+>>=20
+>> Given that Linux has definitely been booted on this hardware, we should
+>> match whichever prefix they use for messages about this.
+>
+> I don't think Linux prints any message about this, it simply ignores
+> the capability.
+>
+> We have another instance of having to support buggy devices in vPCI:
+> when a device places registers in the same 4K page as the MSI-X vector
+> or PBA tables.  In that case the offending device was an Intel
+> Wireless card.
+>
+> I'm happy to use "[Device Bug]", will adjust the patch this afternoon.
+>
 
-Correct.  That was also buggy and complained about.
+In Linux's printk.h
 
->   If we do add the rc number we need to remember to bump it
-> each time and RC is released.
+	/*
+	 * FW_BUG
+	 * Add this to a message where you are sure the firmware is buggy or behav=
+es
+	 * really stupid or out of spec. Be aware that the responsible BIOS develo=
+per
+	 * should be able to fix this issue or at least get a concrete idea of the
+	 * problem by reading your message without the need of looking at the kern=
+el
+	 * code.
+	 *
+	 * Use it for definite and high priority BIOS bugs.
+	 *
+	 * FW_WARN
+	 * Use it for not that clear (e.g. could the kernel messed up things alrea=
+dy?)
+	 * and medium priority BIOS bugs.
+	 *
+	 * FW_INFO
+	 * Use this one if you want to tell the user or vendor about something
+	 * suspicious, but generally harmless related to the firmware.
+	 *
+	 * Use it for information or very low priority BIOS bugs.
+	 */
+	#define FW_BUG		"[Firmware Bug]: "
+	#define FW_WARN		"[Firmware Warn]: "
+	#define FW_INFO		"[Firmware Info]: "
 
-Last time we had truly buggy early rc tarballs, the middle ones were
-bodged somewhat (incompletely, and not a straight git archive), and by
-RC5 we had a commit with the correct XEN_EXTRAVERSION to make the
-tarball correct.
+	/*
+	 * HW_ERR
+	 * Add this to a message for hardware errors, so that user can report
+	 * it to hardware vendor instead of LKML or software vendor.
+	 */
+	#define HW_ERR		"[Hardware Error]: "
 
-See 4.20.0-rc5
+HW_ERR seems wired to MCEs and the like rather than everything covered by
+quirks.c in Linux, but using [Hardware Error] might help grep scripts by
+matching existing messages in Linux's dmesg.
 
-~Andrew
+Otherwise, "[Devive Bug]" works just as well.
+
+Cheers,
+Alejandro
 
