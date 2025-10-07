@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F684BC1AAD
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Oct 2025 16:14:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1138901.1474475 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AE74BC1B53
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Oct 2025 16:23:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1138923.1474504 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v68S7-0002YN-7O; Tue, 07 Oct 2025 14:14:07 +0000
+	id 1v68b6-0004eJ-7N; Tue, 07 Oct 2025 14:23:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1138901.1474475; Tue, 07 Oct 2025 14:14:07 +0000
+Received: by outflank-mailman (output) from mailman id 1138923.1474504; Tue, 07 Oct 2025 14:23:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v68S7-0002Vq-4j; Tue, 07 Oct 2025 14:14:07 +0000
-Received: by outflank-mailman (input) for mailman id 1138901;
- Tue, 07 Oct 2025 14:14:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=F9pE=4Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v68S6-0002Vi-Br
- for xen-devel@lists.xenproject.org; Tue, 07 Oct 2025 14:14:06 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e0e081b6-a387-11f0-9809-7dc792cee155;
- Tue, 07 Oct 2025 16:14:04 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-62fca216e4aso1441961a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 07 Oct 2025 07:14:03 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-63788110530sm12672054a12.38.2025.10.07.07.14.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Oct 2025 07:14:02 -0700 (PDT)
+	id 1v68b6-0004cR-4n; Tue, 07 Oct 2025 14:23:24 +0000
+Received: by outflank-mailman (input) for mailman id 1138923;
+ Tue, 07 Oct 2025 14:23:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BI6X=4Q=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1v68b5-0004cB-6r
+ for xen-devel@lists.xenproject.org; Tue, 07 Oct 2025 14:23:23 +0000
+Received: from fout-a7-smtp.messagingengine.com
+ (fout-a7-smtp.messagingengine.com [103.168.172.150])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2ceadff6-a389-11f0-9d15-b5c5bf9af7f9;
+ Tue, 07 Oct 2025 16:23:22 +0200 (CEST)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfout.phl.internal (Postfix) with ESMTP id 60F53EC000B;
+ Tue,  7 Oct 2025 10:23:20 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Tue, 07 Oct 2025 10:23:20 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 7 Oct 2025 10:23:17 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +44,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0e081b6-a387-11f0-9809-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1759846443; x=1760451243; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5bkrGUAnE5bhZDPT0e0uGrQL4CthNNIXeH5BoN8gZhU=;
-        b=gTWozEVn3DVMYx09fpGrwz2izJDYcn/fXDQ72ILBBoeh/3o5ysb8Fgx0FXHcCp9LJ4
-         dcPLhmIOjE3spGAYAUV2Opg07lmzkbcWzlIaNiEjOneAlrbulLVkoUecDQjDYlRDlwMR
-         BuAyP9yGzgfOvccvgquxspOs6/OcUwWozaHd5N9l4nxptrxWNopgb+cRM1g+RgmDF9EE
-         zShG+Botxak8nlNa2DLT+pHvBbqQRLBony7uG/aNIuqfyp+ur5XbBs5hny+AxSg7PkAX
-         Fr0l4YEyxFTGmoQ+dNTqFD5kq7YKM9pu4abNG8FKYNtghMZDRy3XqP1D9Um9JTAHNE0Y
-         mSow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759846443; x=1760451243;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5bkrGUAnE5bhZDPT0e0uGrQL4CthNNIXeH5BoN8gZhU=;
-        b=deADJ6cgevlAngYKiC9I0fTxNfYzTgp0Qyr1PA1VhW6Ci5qA3vRPu1c002Lh9q9sYL
-         Wx9X6aP5M1Zx0vQB5hRBl4xzHzdiMVeS4hTTKXQK333jiXmtz7pMH0jj5tqlzBYXi5oK
-         jZAP8kmfuMBbPR1EFweVeBUnFhWl5omb/zywGYYMFfxIsoV4ll8nXaS+DdScUH4mNxhR
-         AD2rCdGdQ4/b11tP0ZjiLQRwd978m8GY8JPBsS43Fa6eH/D0iPdAz/P7hbIOaUppqJDD
-         ExfQuUPCgcVIcJiBjd9IO4XRogGvGXs3udoksswgmLMW6xcu9l/fzSFYSo1DEkScuM1o
-         EY3g==
-X-Forwarded-Encrypted: i=1; AJvYcCUlKnRp6vLWjNBaimPLHDKPTvFF+WsWBbsxRxqXb1NIlRjWUl4EKEKfcjlE29pbhWQS7ippsMjBjEY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy9nzurrxkwukDooBjvaeQr2r4YgX86EzwpqvoAhRKixMCcm20b
-	qktv5qgRWJZ+3Z9nSiX6eHndinIkrjF4OVTVfIwVdGY8/SXcgLV4xBIf/SZrgywtzA==
-X-Gm-Gg: ASbGnctn1olNcoO6K3KKMbzfZS0+x5jyk9b9oHm62V+vB4g/Y5uGNJM9QBywm2uJEIB
-	0HtxmuC6aGRaKi+bE/IZ99t8EC0OfPUzjgEqZhC2oeNvsxLv97javosf1B0qQgo0E5zCUiT12D9
-	t9t9+IY5+I4JoLtnrRCEgmwYoPUO9U8yq7ZbdqwcQ/XIGLfCrmTF4pdRvAsC0uFLq2AbYQCcJFg
-	oz91V0JNd8HiiZgZtYLC/h555LMevHy5C/rRgA7Uv/MfHRDCaEnTSlQAEQGzUxRkZnnjm7bA3Z9
-	Umkw+t7HX/rUOsJs0fUmh1mcVVUlVNn3OkDHjcXA6aKVxwnjqJrhEaD7QdvzLAWhTrZcF32LSXw
-	hHjL/HiMYY059jsaBbW9xpopYFAB3jFTdvJBMuY4POTyspOeY0gkTssf8Df5na2ICnwI4baDVcg
-	zcKDmMbcqwl3Vxn2sXe9OtH51v1NkBzRI=
-X-Google-Smtp-Source: AGHT+IHWrzKBY8vgznVF68S3aQnzIUR3GGsTRJoLx9TZac4PWkRM3ckUVi0BvPqYfXzyaE6PsIJNow==
-X-Received: by 2002:a05:6402:1e8a:b0:636:6e11:2fd1 with SMTP id 4fb4d7f45d1cf-639baf0c898mr4772093a12.4.1759846443313;
-        Tue, 07 Oct 2025 07:14:03 -0700 (PDT)
-Message-ID: <4dd83906-1985-4af4-8b61-980390fa31a0@suse.com>
-Date: Tue, 7 Oct 2025 16:14:10 +0200
+X-Inumbo-ID: 2ceadff6-a389-11f0-9d15-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1759847000;
+	 x=1759933400; bh=TW0txoT92THJ3DxWFRItDbicDK8F7sbGOTApIccrsdc=; b=
+	UCXmGP/pR/c9/DWaJoEi2kWQoh65EYYnSptNk/SrsHqe54rkkl/voJRHasnlKhly
+	e2l3ECmiQ2pSV+UEO4OV3S/F3smNhd+65m/11ifkCjng9Go6ZxSJyCxDdHs5wB/l
+	tnTQYLATSslRo+XGcyC+I6BcIdmEEhD472JUMnhHejL02+FWb0QhICRu8H3DUpmv
+	mgO1oz8+T5dqSEBeEhbf0by+iYecAIK3nCv526tQNxeIjP5oxyLGmUsN5KNg5wYb
+	wCMKy0b1jY1fPkXy1NRodaEqq99XoARVderQevRZFO6efH2WwnjFA9X6xvwQ74yc
+	noxSbo5YdTwl+PglQNHq0g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1759847000; x=1759933400; bh=TW0txoT92THJ3DxWFRItDbicDK8F7sbGOTA
+	pIccrsdc=; b=ThxY/Akk1mdd63s+gdqUMbko8K5Y34dG/MfvgcJqs4rLawhTRTx
+	S+4/sfLtuQNlflgzoL2DHy7A3F5C716qB//OXxTNSqMdZ3K2NdIxM7G0XNoeCerC
+	v5MBfNJ9iaJ+Symp6AxuQssetElJrk+XtstisXBIB3N7qEvOo22qQkDyyHaL5+cE
+	2cgaJALC5VdEAJct1rjlagN1ivZXlS0s13M8G3al/rBAMwCskbbFmJtDR4iU8oh8
+	DwIQOGUJ9c9tNkduTSIpdZ9mMOSjBvqjsTyXzjxcN1UG1YktxgBGMeESCH/hsca0
+	lCjUNgBbTFhiTk7g81wT4CAGtCwXQvGm2mQ==
+X-ME-Sender: <xms:VyLlaNdMVXMgnQ9vi2gPXGO9GXAUksILViWIfBiYT94pX4egiwKyzg>
+    <xme:VyLlaHBMwMNLV6AHTmIZdPmYKsSQH3ilpBBUT7lIyIB1D1RIz8HNbM0a14D8WXpDN
+    jPb4IRBP4nTkGeKFjzFsZjVIeTvJGdcylTvVTkaNsqdSk3F>
+X-ME-Received: <xmr:VyLlaB5lHn2QbF__JqX-7go66HDIhTIbtV_IO8c1OZKhnkJwm4USXS8t10Nd4Kfc0-MfWddPj_j_-eMa_sDCHNkkFs2IC8FdVK4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddutddtieegucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleet
+    feevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsth
+    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
+    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepuddvpd
+    hmohguvgepshhmthhpohhuthdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgt
+    ohhmpdhrtghpthhtohepfhhrvgguihgrnhhordiiihhglhhiohestghlohhuugdrtghomh
+    dprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdr
+    ohhrghdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrugesvhgrthgvshdrthgvtg
+    hhpdhrtghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgurdgtohhmpdhrtghpthht
+    ohepjhhulhhivghnseigvghnrdhorhhgpdhrtghpthhtoheprhhoghgvrhdrphgruhestg
+    hithhrihigrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghl
+    rdhorhhgpdhrtghpthhtohepughpshhmihhthhesrghpvghrthhushhsohhluhhtihhonh
+    hsrdgtohhm
+X-ME-Proxy: <xmx:VyLlaAc_IAOdfJzjgIraCitxRpEo7DbOaY1GxgLgOTG4Bvnpz9ckrw>
+    <xmx:VyLlaHu2WcC-BpQJObOCu45epO0NpY_tk7_AN9Lfh-iO64To4eZnAg>
+    <xmx:VyLlaAkGiI7zt58qhEq_g4McH4SBpdi1BKUzEwy7pjBQEp7f8u5C9Q>
+    <xmx:VyLlaKS1Ow0-W4qG6UCnnb6O9QWWtGU0w6LMC3bmNiZIljToyYxHGA>
+    <xmx:WCLlaNh8888X6AsTEP39OXtLTVnC6AoYw4Oed4_1XWN9VsiTXLH7-I86>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 7 Oct 2025 16:23:15 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	xen-devel@lists.xenproject.org,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Daniel Smith <dpsmith@apertussolutions.com>,
+	"michal.zygowski@3mdeb.com" <michal.zygowski@3mdeb.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2] xen: Strip xen.efi by default
+Message-ID: <aOUiU86LtvsVFukW@mail-itl>
+References: <20250612100705.21988-1-frediano.ziglio@cloud.com>
+ <586a66e5-4b11-485e-955a-da5fc3183737@citrix.com>
+ <aN6H8dOlea2Um8y8@mail-itl>
+ <1708c939-4b06-4d09-acb8-6965383d91f4@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Add myself as an AMD SVM & IOMMU reviewer
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20251002234311.10926-1-jason.andryuk@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251002234311.10926-1-jason.andryuk@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="YzRCS1DOCly72NWx"
+Content-Disposition: inline
+In-Reply-To: <1708c939-4b06-4d09-acb8-6965383d91f4@suse.com>
 
-On 03.10.2025 01:42, Jason Andryuk wrote:
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -220,6 +220,23 @@ F:	xen/drivers/acpi/
->  F:	xen/include/acpi/
->  F:	tools/libacpi/
->  
-> +AMD SVM
-> +M:	Jan Beulich <jbeulich@suse.com>
-> +M:	Andrew Cooper <andrew.cooper3@citrix.com>
-> +M:	Roger Pau Monné <roger.pau@citrix.com>
-> +R:	Jason Andryuk <jason.andryuk@amd.com>
-> +S:	Supported
-> +F:	xen/arch/x86/hvm/svm/
-> +F:	xen/arch/x86/cpu/vpmu_amd.c
-> +
-> +AMD IOMMU
-> +M:	Jan Beulich <jbeulich@suse.com>
-> +M:	Andrew Cooper <andrew.cooper3@citrix.com>
-> +M:	Roger Pau Monné <roger.pau@citrix.com>
-> +R:	Jason Andryuk <jason.andryuk@amd.com>
-> +S:	Supported
-> +F:	xen/drivers/passthrough/amd/
 
-Nit: These are the wrong way round, violating alphabetical sorting.
+--YzRCS1DOCly72NWx
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 7 Oct 2025 16:23:15 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	xen-devel@lists.xenproject.org,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Daniel Smith <dpsmith@apertussolutions.com>,
+	"michal.zygowski@3mdeb.com" <michal.zygowski@3mdeb.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2] xen: Strip xen.efi by default
 
-Jan
+On Tue, Oct 07, 2025 at 04:12:13PM +0200, Jan Beulich wrote:
+> On 02.10.2025 16:10, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Thu, Oct 02, 2025 at 02:05:56PM +0100, Andrew Cooper wrote:
+> >> On 12/06/2025 11:07 am, Frediano Ziglio wrote:
+> >>> For xen.gz file we strip all symbols and have an additional
+> >>> xen-syms file version with all symbols.
+> >>> Make xen.efi more coherent stripping all symbols too.
+> >>> xen.efi.elf can be used for debugging.
+> >>>
+> >>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> >=20
+> > Generally,
+> > Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
+ab.com>
+>=20
+> Just to double check: You offer this after having read (and discarded) my
+> comments on v1, which v2 left largely unaddressed?=20
+
+You mean the one about objcopy result used for debugging? I didn't see
+that before, since I wasn't in cc on v1...=20
+
+Anyway, are you aware of some specific objcopy issue. Or in other words:
+would xen.efi.elf _currently_ be broken (as in - unusable for
+debugging/disassembly)? If not, then I take that relevant part of your
+objection is mostly about inconsistent naming (xen.gz -> xen-syms, vs
+xen.efi -> xen.efi.elf). Would xen-syms.efi.elf be better?
+
+> IOW I continue to
+> consider this a wrong move, and Andrew's remark towards "bootable vs not
+> bootable" isn't quite relevant, seeing that prior to this patch we already
+> had a way to strip the binary put onto the EFI partition (i.e. the one to
+> be used for actual booting).
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--YzRCS1DOCly72NWx
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmjlIlMACgkQ24/THMrX
+1ywYJAf+P/4hhKVznSsxZXXLP5F6jetLxgSEGnULOFY+1YnYbf/QxsD7qVBFD+Rg
+HFKw+U20PLSbPj/QlBvz5ur+N2tWT1kO/DPOUTb69QYjDeI0FtpFLUnk6LHCgspr
+/0Bq2c19aJmeHY+tzvWXUiy3wfpRGsuLVSAFfud5v5dwLYoZbrfZaA660zUCzDYa
+DBKiWlG61zj5hzWI5K0lczS9BMZdIVRBu2MeelOtpjZ2hwgOtbfmtXok0F4lsGH4
+igWeZ/DKpFuL4hegc6mktIV9fhe0lfrhr7yOo9gGyzUgCqTS0eC+JzBVXCbJDkUU
+GbW1sbiKeVJHuc56KEzBawPyOXYzmQ==
+=0rv0
+-----END PGP SIGNATURE-----
+
+--YzRCS1DOCly72NWx--
 
