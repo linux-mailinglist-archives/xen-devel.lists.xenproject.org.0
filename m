@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D277ABC5EF8
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Oct 2025 18:04:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1139978.1475147 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFFE8BC5F19
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Oct 2025 18:06:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1139992.1475158 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6Wea-00061l-Dz; Wed, 08 Oct 2025 16:04:36 +0000
+	id 1v6WgK-0006kD-UN; Wed, 08 Oct 2025 16:06:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1139978.1475147; Wed, 08 Oct 2025 16:04:36 +0000
+Received: by outflank-mailman (output) from mailman id 1139992.1475158; Wed, 08 Oct 2025 16:06:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6Wea-0005z6-98; Wed, 08 Oct 2025 16:04:36 +0000
-Received: by outflank-mailman (input) for mailman id 1139978;
- Wed, 08 Oct 2025 16:04:35 +0000
+	id 1v6WgK-0006hC-R9; Wed, 08 Oct 2025 16:06:24 +0000
+Received: by outflank-mailman (input) for mailman id 1139992;
+ Wed, 08 Oct 2025 16:06:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=eGu8=4R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v6WeZ-0005z0-88
- for xen-devel@lists.xenproject.org; Wed, 08 Oct 2025 16:04:35 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1v6WgI-0006h4-UZ
+ for xen-devel@lists.xenproject.org; Wed, 08 Oct 2025 16:06:22 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7a24de92-a460-11f0-9d15-b5c5bf9af7f9;
- Wed, 08 Oct 2025 18:04:32 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-421b93ee372so49388f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 08 Oct 2025 09:04:32 -0700 (PDT)
+ id bb978f39-a460-11f0-9d15-b5c5bf9af7f9;
+ Wed, 08 Oct 2025 18:06:22 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-b41870fef44so1489575766b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Oct 2025 09:06:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b48652ad839sm1685547766b.1.2025.10.08.09.04.30
+ a640c23a62f3a-b48652ade6esm1632305066b.18.2025.10.08.09.06.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Oct 2025 09:04:31 -0700 (PDT)
+ Wed, 08 Oct 2025 09:06:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a24de92-a460-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: bb978f39-a460-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1759939472; x=1760544272; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1759939581; x=1760544381; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MR+IwM0TNK+OJaN/TxLDLmqN4bJqeT8TJo4rcx3EOyQ=;
-        b=JdgIb1fjmFBCJl3Ax+AEG6c1TjFmlLHo6ZvrQ69OeVbkLhNuPquNF4sSVml99eLF75
-         Caabkex8T5Ys4rHrC3mdF1YeQa2ohsxWpz9FTZLERXGKWhOjJPEj8xTGEkWcaigy7I9g
-         GfISQXKHYBRxl23+ys27ZRcstIBtoUdEEGPD2zsCk08AFAZNWi8fV6v/xU2eBo7YMtOl
-         Uj3CZNs7O9BjmfnTINhCtR2kxAWn7K20xVfIfbwQPs51HdJaJfxDKO6JQRjFrVdLFene
-         TSWqraKLBmB2FxDGeOj47zbvJMjs83lR/OCxgsyZO/D/F2sjg3uRCxXXtHjv2w/bybcJ
-         iJ2A==
+        bh=3X3GNsYuEt5SpapBddjvclxzYNOZ0wAYDKfIl86e9aI=;
+        b=gyyC6hEnrZeV0rJvsnPG7GbdFtYeRkF+jXP8CWwiDzdE8by9N7NMTStW4B/AW9+IFh
+         nSKWiQOrPJybtnhHlOPW1a2EFAkjav2WjYHYqRDRcUeqzNwYCSZG93PDhmPxxmMNPiPH
+         hLoVRePmgpAlcVGANYbU+tQuGMWsHmUY6ZRfTaMjTo8FFiyP2wewTGOGl104RxpNYRXA
+         Kv536aUJE7tS8i8u0Y4UXpwmYv/oEvR1yViboVG2GKb8iw0H56OpKADx+RyBe6hn5E43
+         FVipBXM0nNCulbF5emDL/1/DD1wLu0NfuetI4YewUPlbVk4NI5fLNMUcj2SQMrZfeyAQ
+         aVqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759939472; x=1760544272;
+        d=1e100.net; s=20230601; t=1759939581; x=1760544381;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MR+IwM0TNK+OJaN/TxLDLmqN4bJqeT8TJo4rcx3EOyQ=;
-        b=d2DzClJFiZp7dVbqRLzZ7SIO0wZoaja3yJHNASiJmiYYRi+ZYD35VvynDaQ7SWKUK9
-         /FDxYuYMof+pGpBtmcLujgVju8g3IrOOBZ8CFBF5KF2eVEvI/k3k0VGERNOx7vRHUJzv
-         MlJdInmwQdoAsaxu+0iwz3KGZON1QcvfSZKIX+wPpkmo3zaUf1ps54eN1dQyTvM5OWrG
-         qP9m/ighKwkUKsv9BwDcdsC5N3vdscv8Lvi/coQDJBPXYGuyI8hcwTJhNKBfci0fSdz2
-         7CcrflDLFy9UuP8ZrXpwiyo2FfZB1jTmB8Ap2+JnqyO78FOM2G41ZL+WaC6zl+zwxCEm
-         AXgw==
-X-Forwarded-Encrypted: i=1; AJvYcCV4X7FImm8uB0eN07wrzDJQaWOlvIbIWlu/EsiJ7UrGKKb9OnMs/huQTufTIo9ZbOE78Dgr03CRyDY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzHB+X1ZYkp6ePctgntf2eDIzWcC7NE9wemJSAgQYgUGClNBAqO
-	C6IfHRI+OaW80mjlZzXMXL4baeuEO0auv1H6E6LuOVCn5iY1+jzGiF01YZlfYm3oBw==
-X-Gm-Gg: ASbGncuWDNQJsLGIYh1GmCb0uw/ZXJ75SQ22N/gaAYRDCEIK/m+e4ufWvPgJv2Pk3Ud
-	IC0YHhmHVNyeT7c5uyMC79rdT4A6GvEKxRKdPqYJ8CmBuBOaxCZfO9lUQe+Y6+KE8STl0Y1EXAr
-	FLlRfAdK9BhJaM7neA0ohSSwphW6lGxCumAbhejEr38kervZl5di6fFkrKC0xTpsHdZrG75ck8L
-	WHgKCHWATYJddISFIL4cIpimJTyT7sJENLBhW662ajiNdcM03dwUBzVCEB4Ya7BmrdSxN06cwDg
-	RGMhl8wl32ch3SR2p4ZUWUKKnh6s9EFvsGIcwc7kkjnjbtdq6ngRgu8echyTi6LykzAbPXGUkiu
-	/+Uh5t+Wl8Gd1KMD033Njmlrvuf1ybaMEYztXrC4iXpeY90teQZxqflLNiz8cgws04WD3XyMKtb
-	qx5SAAIoTz4KCBeZRmL9mwXCQZU6fw63s10Eyv2p6iWQ==
-X-Google-Smtp-Source: AGHT+IElZJNS9XNJiITX3lgrOT/8bCHSHKApfcH8iEZ0vzeYdA86JW2vLRMwC/P9Wlz7WPO5MZlkGw==
-X-Received: by 2002:a5d:5d03:0:b0:3d1:6d7a:ab24 with SMTP id ffacd0b85a97d-42667177c28mr2828438f8f.17.1759939471584;
-        Wed, 08 Oct 2025 09:04:31 -0700 (PDT)
-Message-ID: <3e4e4bc5-aa47-4357-9327-df2a9b9c9a1b@suse.com>
-Date: Wed, 8 Oct 2025 18:04:30 +0200
+        bh=3X3GNsYuEt5SpapBddjvclxzYNOZ0wAYDKfIl86e9aI=;
+        b=pc8CKi0kSCotj8mFq1KaFd27emrVS8E7D85PHIRuKBxeQ3cDNuAb+ER3CG2lePrD6i
+         ZazdOjkZ87XrSnfTnxEks9yxbtjh3BNsojmYVeSnv4SqeSHqB534RrWuGHKaudfxQ4DO
+         ITcdJHii2rd2PY32TPbhjWkYUMteKczc5W9ZHhPQhRQz61cYu8N/Tf+O+/Olgququd27
+         cq4cd7oMMg9pjetK1uCxKurLLEBFykmWqh4VcJ92KHPDDl3ZGVuyi0liofnITxTAXkni
+         Piji31bvdrjx4mlgpTpilwen/pUnkos+KKLi5wEKyNd5KcsP+WiZvAKv5hNOZPx3i5RQ
+         44yw==
+X-Gm-Message-State: AOJu0YwR7+ECzKxF9l2TutJ6irwXahCb7D322Fxaw/Q4wtzf+KRAdZWB
+	Wle8a07Iu6FW3fC9l5W4e53HVYkBDQ9iy0mxFMaZPm8l6cpJVHBy4MKD5u7S6opg6Q==
+X-Gm-Gg: ASbGncuTppPdW42NE98n+dbUJaZQ4gGf4Fbvl/fGSOq0qI43TUDw4+zNZTpqvh0hG4O
+	/+Mt7C3tIq5gWVPpes8PjHLSM04KeefUzlA6tnjXF5OXqESGSCbSoeYXMDJZr0LY4GrmoXTgG95
+	8AzKTADsrcK+OtIgzTGyuBfbCuZlr2dNbh85W7mfsV/fAebICsS+XJgctHTLdMg4wnHy43yRF4V
+	Vzk3oKXHQJON5jyfwsBu3qWVcpXI2ZLI+o9eg9fZWxl+CNCRu7GRTp1hIXRC7SHN2/k0WSPayXj
+	SGL+7y1jwmkB6QRLag624TOXiCG6HpMDQcJ1CKJS3J6Cr1TtRA6Ss6EcP7olJfNS3MOA5shfMs5
+	BIT207k8YSljSmM0bWv4EfGaxOCSIIe7h1ISw91H0IGMB44eaNU+5zLRRdPKR91fEnIah8CWa2P
+	YZ13NagePjTnh7wGURknAVOt8bW4nQqT0=
+X-Google-Smtp-Source: AGHT+IEkoojJsrzQGT6aLoZGR3tF6k4+W1exvfQH+J/5zoM9lyE9jSpfyLLj3mTlbzSo6x65yai3qw==
+X-Received: by 2002:a17:906:f599:b0:b18:63b8:c508 with SMTP id a640c23a62f3a-b50ac5d079cmr392183066b.44.1759939581392;
+        Wed, 08 Oct 2025 09:06:21 -0700 (PDT)
+Message-ID: <7c403caf-192a-413b-9b17-d8e02c066727@suse.com>
+Date: Wed, 8 Oct 2025 18:06:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] x86: make Viridian support optional
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250930125215.1087214-1-grygorii_strashko@epam.com>
+Subject: Re: [PATCH for-4.21 1/2] x86/AMD: avoid REP MOVSB for Zen3/4
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Jason Andryuk <jason.andryuk@amd.com>,
+ Teddy Astie <teddy.astie@vates.tech>
+References: <8ecbf8b7-91fe-4f9e-9542-7ec22b6a47bb@suse.com>
+ <6bcaa5b7-4e34-40c9-85e6-48a0a5869b86@suse.com>
+ <485889ed-2820-4bb3-b450-88553dbb719e@vates.tech>
+ <f42bb989-c9e5-43d5-82e2-9b6f95c008fa@amd.com> <aOZJDh9vwbcTwBIy@Mac.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,56 +122,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250930125215.1087214-1-grygorii_strashko@epam.com>
+In-Reply-To: <aOZJDh9vwbcTwBIy@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30.09.2025 14:52, Grygorii Strashko wrote:
-> --- a/xen/arch/x86/hvm/Kconfig
-> +++ b/xen/arch/x86/hvm/Kconfig
-> @@ -62,6 +62,16 @@ config ALTP2M
->  
->  	  If unsure, stay with defaults.
->  
-> +config VIRIDIAN
-> +	bool "Hyper-V enlightenments for guests" if EXPERT
-> +	default y
-> +	help
-> +	  Support optimizations for Hyper-V guests such as faster hypercalls,
-> +	  efficient timer and interrupt handling, and enhanced paravirtualized
-> +	  I/O. This is to improve performance and compatibility of Windows VMs.
+On 08.10.2025 13:20, Roger Pau Monné wrote:
+> On Mon, Sep 29, 2025 at 07:35:53PM -0400, Jason Andryuk wrote:
+>> On 2025-09-25 08:18, Teddy Astie wrote:
+>>> Le 25/09/2025 à 12:48, Jan Beulich a écrit :
+>>>> Along with Zen2 (which doesn't expose ERMS), both families reportedly
+>>>> suffer from sub-optimal aliasing detection when deciding whether REP MOVSB
+>>>> can actually be carried out the accelerated way. Therefore we want to
+>>>> avoid its use in the common case (memset(), copy_page_hot()).
+>>>
+>>> s/memset/memcpy (memset probably uses rep stosb which is not affected IIUC)
+>>>
+>>>>
+>>>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> With Teddy's suggested change:
+>>
+>> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+> 
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-What is "paravirtualized I/O" about in this context?
-
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -701,9 +701,12 @@ int hvm_domain_initialise(struct domain *d,
->      if ( hvm_tsc_scaling_supported )
->          d->arch.hvm.tsc_scaling_ratio = hvm_default_tsc_scaling_ratio;
->  
-> -    rc = viridian_domain_init(d);
-> -    if ( rc )
-> -        goto fail2;
-> +    if ( is_viridian_domain(d) )
-> +    {
-> +        rc = viridian_domain_init(d);
-> +        if ( rc )
-> +            goto fail2;
-> +    }
-
-While this looks okay to me, ...
-
-> @@ -739,7 +742,8 @@ void hvm_domain_relinquish_resources(struct domain *d)
->      if ( hvm_funcs.nhvm_domain_relinquish_resources )
->          alternative_vcall(hvm_funcs.nhvm_domain_relinquish_resources, d);
->  
-> -    viridian_domain_deinit(d);
-> +    if ( is_viridian_domain(d) )
-> +        viridian_domain_deinit(d);
-
-... I wonder if viridian_{domain,vcpu}_deinit() better wouldn't be tolerant
-to be called anyway, thus avoiding the need for conditionals here and below
-(and perhaps being a little more robust overall). Thoughts?
+May I ask for a release-ack here, seeing that it alters behavior that went in
+close before the freeze?
 
 Jan
 
