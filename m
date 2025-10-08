@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C05FBBC3F73
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Oct 2025 10:54:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1139406.1474777 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97F77BC42FB
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Oct 2025 11:47:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1139418.1474788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6Pw9-0001Kw-AT; Wed, 08 Oct 2025 08:54:17 +0000
+	id 1v6QlL-0007g4-1t; Wed, 08 Oct 2025 09:47:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1139406.1474777; Wed, 08 Oct 2025 08:54:17 +0000
+Received: by outflank-mailman (output) from mailman id 1139418.1474788; Wed, 08 Oct 2025 09:47:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6Pw9-0001I8-6J; Wed, 08 Oct 2025 08:54:17 +0000
-Received: by outflank-mailman (input) for mailman id 1139406;
- Wed, 08 Oct 2025 08:54:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v6QlK-0007fF-Sy; Wed, 08 Oct 2025 09:47:10 +0000
+Received: by outflank-mailman (input) for mailman id 1139418;
+ Wed, 08 Oct 2025 09:47:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=eGu8=4R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v6Pw7-0001I2-Ck
- for xen-devel@lists.xenproject.org; Wed, 08 Oct 2025 08:54:15 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5ce493be-a424-11f0-9809-7dc792cee155;
- Wed, 08 Oct 2025 10:54:13 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-62fc89cd68bso15106829a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 08 Oct 2025 01:54:13 -0700 (PDT)
+ id 1v6QlJ-0007f9-JZ
+ for xen-devel@lists.xenproject.org; Wed, 08 Oct 2025 09:47:09 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c11e4254-a42b-11f0-9d15-b5c5bf9af7f9;
+ Wed, 08 Oct 2025 11:47:08 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-afcb7ae6ed0so1194860966b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Oct 2025 02:47:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b48652a9bf1sm1590871266b.13.2025.10.08.01.54.12
+ a640c23a62f3a-b486a174a6dsm1621730566b.90.2025.10.08.02.47.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Oct 2025 01:54:12 -0700 (PDT)
+ Wed, 08 Oct 2025 02:47:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ce493be-a424-11f0-9809-7dc792cee155
+X-Inumbo-ID: c11e4254-a42b-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1759913653; x=1760518453; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tGUOWlooVM6ju6kF0MZQsxSBmAp5YoVHWUCm0BnJM34=;
-        b=I1pi4+akaPjYxMciiaUu1KikQ4zeVc45Oa05n7NNPWFbDwWXaRFacuTFLfOgOm3g4z
-         7mnX1qlHag6+0B2HKAbyjBEH0SpICeZrV/pGS5JjJ0MiGo/PryJyRk7Kktw6FRHZGD1a
-         hFkEfSRhnM0+y4cOjm6i87I7RCwZ5OmJYIh5C1dbsyqN9pun4hIGJEwzbcyyxuArn0RF
-         P1VToksRP6YdDJZST3J6unaSLHQ50iIoMNWVoCSLAzAdTNsXkQqY5jvR+XEjgckCkiGt
-         Ook8tWV+nAmbhzDoJ5h4aN/kUTv6JAOR+bxWLzWTEcNv7SE3yAl6Zt7NrBbe9U2pbp4A
-         ZMQA==
+        d=suse.com; s=google; t=1759916827; x=1760521627; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=8R14+hIPaV9qvThetEOUX9zsCmgblhPeAQ+hTiFoQMo=;
+        b=Wlfj8vhG4J2W0nv68o4GpSQckdIOfgFX5Ki36/78B48HS9OrUiATemqZAi8/dhiMJY
+         hLcUJJ3RMMXepRPHPCShG8lNupe4Zs1dri+TkAHjUCTYCOjeNqGa4WhDHvWNrJog99dp
+         huJKGtXp2MhWqG/7FYKn1vBtlGjsY8V7SBMCub6VObov01eTpdpoQrgb0IQCvFDtv7Fz
+         8hPdFFKNd9Pjc0d0p1YdJQ58Ecrr7yUcZfKUjZG2vX1av3pYdzWM5xIVXAuDWGdD4+dQ
+         HdBbmaI3QJgJs/WVn53gYnPrYjE2U5ozyjWzT1VDhvDEk4edVe64KWifhlOnZAJo9zBh
+         BZIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759913653; x=1760518453;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tGUOWlooVM6ju6kF0MZQsxSBmAp5YoVHWUCm0BnJM34=;
-        b=isT5P3zs/Gy/jFQUrj/afPuBYSk2XARcfD4GuqbOWRUzzwPx3yohqUogrfHv6bic/7
-         go+39OrcQVYAayTjrZf28oH0vuq7dqH5a1ml7lTf4xRj9kVzXqSHSfj/DbrCHqahrqtx
-         dwjUDrfIZO6WT30lvAJ+JlvCmjJQ3Uf0KdTrY6gcWJfvzZMlP/VF879YdtI7ZAipsAQC
-         CdC2OklUk3/iJp9b6eRwTkfN0NNAi7JtxsLW/Zgx5GZBiWP+jxryyMf1q1lsHFdjuPD4
-         GZeau19xChAXzNWsK4dYhxC6gKF9VsoVhiQeJJp/q3kRfhio0KKKotpgB3K/wKAlUMCA
-         QGbQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWpP7N2elaB/3vrHF9upjTnHafl2jzB2XWKAva3CJOYz+4r8nEyTKrINlniN1Y6+BpM+woEOa1UUOg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzdtrgjE6GArrBHU2AqIApDz46ruhYCYtvUO6dTB8oPUMEGjMit
-	Vo9Fxa4pvl8Y7Q3AjSFrqIyzIvQTkAZJr7RtPwvGl1THj+bLmpokfjkR13Px7zzqig==
-X-Gm-Gg: ASbGncsqPtsgeIJuwh5RWUWFTJHT8EsMl9Uq1BcuugugkECeBe9WHVAO+oDjipjGB+K
-	CUBS1zgDA9DpJHSF2HLh0hbpRC1lZUTIDvVHuDWIofd2Gy1BwpxymnYNoGwVfBbHx2UBJU+p2KV
-	TZTZEZzQv5upoX8/GHKmzJhtpFiSZ7lU1QkC9Qd9oKG4g79vztrGFiDpxnf9FPFmMgbpCdtYzYr
-	XoadtsRq9yy5G6P887Hsl+EGJGEvQIXTm5vaG8kBkJcOaaMnTTYb6Sx1TKOE34XN0lsPuNo40cX
-	wvU5qYs1cKaXDwKvSDsv8JEX3ibFY+14R+kpdbPOLhdD6FC028Inbr6MPVAtlKfcMAa/2l66LFP
-	k9jj++ZejYEP7CCR9j1tUD04NEnkIXCXT1xDSqtvKItLZBTJamh0+qmnPFYB5UKhV6iDSN5nurX
-	CDv055OzsgBdFJqGVgEVyUVyXBWACenkujefk4A9yM0g==
-X-Google-Smtp-Source: AGHT+IGVrYjgMtlQ91x2itJB+rssp2avrEPVDKb8zPLsVTsmtANywrdR30F91s57nC3rWIK0V71TJw==
-X-Received: by 2002:a17:907:7b9d:b0:b42:f820:b7c with SMTP id a640c23a62f3a-b50abab5c0bmr294564966b.41.1759913652893;
-        Wed, 08 Oct 2025 01:54:12 -0700 (PDT)
-Message-ID: <bcd01902-421d-48c2-94c7-a8c0db1a8b48@suse.com>
-Date: Wed, 8 Oct 2025 10:54:12 +0200
+        d=1e100.net; s=20230601; t=1759916827; x=1760521627;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=8R14+hIPaV9qvThetEOUX9zsCmgblhPeAQ+hTiFoQMo=;
+        b=HqzfITuL7XUJTl2AvoRJWxlIlYOctuyz1D1NMplFVNVlWpAxuJmknZ5kCJZ/1ygmIs
+         hfn6jcO7pGitCM8ZnJvDdkx+ink+iN6clukZU4dc2oxearUD3ANnw+E3N8H9HIW3SgiW
+         vzSRx2klJZbHaQ0+cICK85cnKS9awP3nCj0mFmKzsbO+0vs3uu0wA6cxnmWsfyJOlIlD
+         44us+u7VEKa4Uhtpt+If7Lh0emTn2xAHDgmTF0Qcf5gE03A2DaNZhM1hLFLDKqT0owT5
+         Eu1usU8dPQtcma3EJRmIOy2DbSBoIrGtbYrHd56kcmqnTOIzyto3t8u4U2PoWnSxu7xY
+         LupA==
+X-Gm-Message-State: AOJu0YxRkptU25kbqF+AaHOOHdZmbVE3F98j4Ou8IoV+v75IgkOjn5pV
+	NecbkGFpyod4dIoFmHBVvJWXWgb+bKFszzrkAI9Bhw7i0o4wRr1HuZPCxSuf0dD5+EQL+d6Y5gw
+	1v5g=
+X-Gm-Gg: ASbGncuZFzjyMGXHTSdduP9kZECosYjgva8O5+HLs9RIRxh0pZ9CbIn85y+i1Hm0tCw
+	K88aj7+DJeh07xXj5TncFH4nzARC+P/6KPLtTgcY3QlKamBwpfLgiINONnUgHPufYguQZnx5/WE
+	YAVvJPE5MHxDAekRQTzhaAZhLLjTNXzJOmfL0icpaBZSLLF1IaS4enyZ0x2txT7nmuKDURzbrn/
+	2ivpmLPWA2ZJQT3XqcT3y3bK6eYu+61abyUY8HWuz8WdEN5qQewBcwyry5FQwIS+YD1rJvKxA9r
+	4h3304NrTbu/5YDt05hNEwQeGSGsqhMf4NtCWVM0wC4y7ca5xFYcaGPEobxLR2908s05bz5OVJN
+	LzIbVWA0Gfik/R+jiHtPnGY/vyqYzLZ5QQyIQHro+DTz3KywoXLqKCIRFB2IigANq2u5RSDEXh0
+	ZR0EVBUbqWAPTsU4z/Obe3T8zNC4ouUgg=
+X-Google-Smtp-Source: AGHT+IFQnKJwELUHbHxcThMndDBljkERWF+t/+TbZHsYfoB/7bYTt/a5P35UDKnBAOy69+zrn9NxgQ==
+X-Received: by 2002:a17:907:d1c:b0:b2d:d7ba:8e7b with SMTP id a640c23a62f3a-b50aaa9ea3dmr311288866b.23.1759916827452;
+        Wed, 08 Oct 2025 02:47:07 -0700 (PDT)
+Message-ID: <4d985a6f-59e2-45ea-bc3d-ecd2da032a17@suse.com>
+Date: Wed, 8 Oct 2025 11:47:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 13/22] x86/traps: Enable FRED when requested
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251003225334.2123667-1-andrew.cooper3@citrix.com>
- <20251003225334.2123667-14-andrew.cooper3@citrix.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH for-4.21] tools/tests: don't pass -E to sed
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -119,33 +117,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251003225334.2123667-14-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04.10.2025 00:53, Andrew Cooper wrote:
-> With the shadow stack and exception handling adjustements in place, we can now
-> activate FRED when appropriate.  Note that opt_fred is still disabled by
-> default.
-> 
-> Introduce init_fred() to set up all the MSRs relevant for FRED.  FRED uses
-> MSR_STAR (entries from Ring3 only), and MSR_FRED_SSP_SL0 aliases MSR_PL0_SSP
-> when CET-SS is active.  Otherwise, they're all new MSRs.
-> 
-> With init_fred() existing, load_system_tables() and legacy_syscall_init()
-> should only be used when setting up IDT delivery.  Insert ASSERT()s to this
-> effect, and adjust the various *_init() functions to make this property true.
-> 
-> Per the documentation, percpu_early_traps_init() is responsible for switching
-> off the boot GDT, which needs doing even in FRED mode.
-> 
-> Finally, set CR4.FRED in traps_init()/percpu_early_traps_init().
-> 
-> Xen can now boot in FRED mode up until starting a PV guest, where it faults
-> because IRET is not permitted to change privilege.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Even the 2018 edition of The Open Group Base Specifications Issue 7 [1]
+doesn't name -E as a standard option; only Issue 8 [2] does. As there's
+nothing "extended" about the expression used, simply drop the -E.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+[1] https://pubs.opengroup.org/onlinepubs/9699919799/
+[2] https://pubs.opengroup.org/onlinepubs/9799919799/
 
+Fixes: cb50e4033717 ("test/pdx: add PDX compression unit tests")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+In principle the -e could be dropped too, for being redundant.
+
+Hitting the problem with an older sed pointed out another problem here as
+well: The failed invocation left a 0-byte pdx.h, which upon re-invocation
+of make was (obviously) deemed up-to-date, thus causing the build to fail
+again (until the bad file was actually removed).
+
+--- a/tools/tests/pdx/Makefile
++++ b/tools/tests/pdx/Makefile
+@@ -35,7 +35,7 @@ uninstall:
+ 	$(RM) -- $(patsubst %,$(DESTDIR)$(LIBEXEC)/tests/%,$(TARGETS))
+ 
+ pdx.h: $(XEN_ROOT)/xen/include/xen/pdx.h
+-	sed -E -e '/^#[[:space:]]*include/d' <$< >$@
++	sed -e '/^#[[:space:]]*include/d' <$< >$@
+ 
+ CFLAGS += -D__XEN_TOOLS__
+ CFLAGS += $(APPEND_CFLAGS)
 
