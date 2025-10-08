@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1B6CBC552A
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Oct 2025 15:54:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1139722.1474971 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC26EBC5560
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Oct 2025 16:01:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1139733.1474982 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6Ucx-0004b5-2g; Wed, 08 Oct 2025 13:54:47 +0000
+	id 1v6UjJ-0006SR-O0; Wed, 08 Oct 2025 14:01:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1139722.1474971; Wed, 08 Oct 2025 13:54:47 +0000
+Received: by outflank-mailman (output) from mailman id 1139733.1474982; Wed, 08 Oct 2025 14:01:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6Ucw-0004Z5-Vz; Wed, 08 Oct 2025 13:54:46 +0000
-Received: by outflank-mailman (input) for mailman id 1139722;
- Wed, 08 Oct 2025 13:54:45 +0000
+	id 1v6UjJ-0006Px-Kh; Wed, 08 Oct 2025 14:01:21 +0000
+Received: by outflank-mailman (input) for mailman id 1139733;
+ Wed, 08 Oct 2025 14:01:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eGu8=4R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v6Ucv-0004Yx-Mj
- for xen-devel@lists.xenproject.org; Wed, 08 Oct 2025 13:54:45 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bWZK=4R=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1v6UjI-0006Pr-Qe
+ for xen-devel@lists.xenproject.org; Wed, 08 Oct 2025 14:01:20 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 57b6316e-a44e-11f0-9809-7dc792cee155;
- Wed, 08 Oct 2025 15:54:43 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-b3d5088259eso1098194266b.1
- for <xen-devel@lists.xenproject.org>; Wed, 08 Oct 2025 06:54:43 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b53bd62addbsm90176366b.4.2025.10.08.06.54.42
+ id 43069139-a44f-11f0-9809-7dc792cee155;
+ Wed, 08 Oct 2025 16:01:18 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-46e6674caa5so5297285e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Oct 2025 07:01:18 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-22-57-86.as13285.net. [92.22.57.86])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-46fa9d6fb41sm38449805e9.17.2025.10.08.07.01.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Oct 2025 06:54:42 -0700 (PDT)
+ Wed, 08 Oct 2025 07:01:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,161 +45,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57b6316e-a44e-11f0-9809-7dc792cee155
+X-Inumbo-ID: 43069139-a44f-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1759931683; x=1760536483; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=y3zhpDd9JB42w8UnTwlcel1LJbIxZwUeRRRKBqZnVgw=;
-        b=Eodi5wdnvRTrdfpvRMdBJUc8mTcJni6ECeIXYMEFPlQtDZhSXoGAGp1K4/4IaH+65+
-         Ar14ywSok6gdjfgMFzTk27j9lS97wPut2JRN0d8xQzvsvAwxBUOafRE3HTy/4v5ObskT
-         pFrb1QgcNh468olucCfnDNkDAZIZL0pZKdAVzF8au3uXhA6UXJfWkY+SVRFW0FFVbmu9
-         TqB8YheUpqvFpBUvrwz9luDGuyG0huP9PPU7Dtml7dTAr9CvBhb4m/4eqf3Urdd0kVmt
-         IrMqCFuWRXMZ+JMQBi8zaOSiYPhXQCevFW3hUuCuFZmOHOF/+MCwgKZshXrixLGMLnR2
-         O0rg==
+        d=citrix.com; s=google; t=1759932077; x=1760536877; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=as7YynNUqYOKVsY68tcQnayHTPJ8Racq9v2i8OOoUrQ=;
+        b=cWst1cKGs8r+OXL5sDvrgs8lOnmxhcAKaIM6hJKc/lUjNmRavCLkfyVGAwHfiup3Zq
+         echkBGDofQHz2N1MpJr3qdOYmL50Lhmd6O04pt20cOmqZOaw1SNtVeVYL5oYdWeUDVIw
+         JVxejcx9ZOPBiFW6qI79oypbTORmyXkdyDfKU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759931683; x=1760536483;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=y3zhpDd9JB42w8UnTwlcel1LJbIxZwUeRRRKBqZnVgw=;
-        b=FIEATV0UZJzfCwo4VSTDTgd1YCHynNF4wG4eztQ9KqDbfe/+hM8LezrDPIm1mqUa6p
-         j9vBiBABAlMXsTouJx5ZU7HfyEkM5FvJM/qjFbxKUDzcXQWZKDCSm2m4FMqQgShhHCfB
-         EdxjnzDGu1+bky4hyHPcEO0/2V/k0G7BwKPc+jIOZrvxVtWzbByUX1pR1G2tU4Apkb4M
-         e0yndF2Q/1cMrxseCU4n7rzO7AQe1acuwwFzIap5P3Rnas5rnn4l9+A1yCytzK1Hd4Yy
-         kRmCIOuIy6E1BGnuzAjyU1s8Y9ErV1DqLiWxnC+aR3TLQ8nqDYpH8f4It3VWmpwvjKfx
-         rMKA==
-X-Forwarded-Encrypted: i=1; AJvYcCWUPkWgTBnK96gKA1f9SmzycGl8ikRLWWFxMw7tvYGfNDRhGEXJnTG03hNjH2J1OMYMpFJml4f38e4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzI/g2mAR3mIfZqfs/oa2d4kT6p2ycqGAVZoCQ5upuLVAPikumz
-	sjYOJn0ylZ9ESWUAOpdDMSKQIWtJyX573CMgQEPQzGYRPaESFEOo/cxyGIEmeDFWww==
-X-Gm-Gg: ASbGnctWE/QUnIs4nTurodrJgND2PGtfoVs7RnYGqfmu/UhDzhSBhKVH843G4JkDaa8
-	3pCMjzP/qo5AuzEpeDQIVVC0ZTZAQR6LwBJ6ir15h1CMccU2wPNORslPb4gNMuOPxXER0DQy+1p
-	Uk8ah5VorgYVKSlq+Cq17ffqSwee4jRm6F6uqDx9qFDkJo7zG5bwO4jnsgc2+bfQLDIKvGm1gtN
-	h3UdByOkRBC2oFXP586Iena0XKZQUc4hBQ6cPfgt9LfGB145Ly5nINuTHM6tq1FCHqCEPLT83n9
-	Sdjpx2xjziLoKG7qbPOMnR7YCUXPI8wgon43xgarb2vTNo/jYJbivYZHUrGHYh6qQZ9/oA6/n4/
-	/pWuGWcFw3IT3PtjVfSUXad+GE+SDNjRiJCERU32nm4FacHnDKtngfapUtW3QVoN+W4LQZBUruw
-	E7WU9iAH9SprF0vvntejMJoGdWBMAQGlQ=
-X-Google-Smtp-Source: AGHT+IFMwW6NTQ/LN1aI0c/rTnM+s+H/t4XCJ6zm1dZjfrAb2JhYwucHZ1W/249l7N7kYpdmFUfcbA==
-X-Received: by 2002:a17:907:608b:b0:b40:e2d5:ce28 with SMTP id a640c23a62f3a-b50ac6d2735mr421366166b.53.1759931682623;
-        Wed, 08 Oct 2025 06:54:42 -0700 (PDT)
-Message-ID: <4b7b99ea-00e0-4967-98a3-90e876e5cf3c@suse.com>
-Date: Wed, 8 Oct 2025 15:54:41 +0200
+        d=1e100.net; s=20230601; t=1759932077; x=1760536877;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=as7YynNUqYOKVsY68tcQnayHTPJ8Racq9v2i8OOoUrQ=;
+        b=ZrkEbbh/UgcTtHotAQw+ODPaya6ThFDCdclikUKiei1Rhubqhd3ts66rmxTr+y4jFv
+         YNPvICLGvXDX+ncpYFI3o5iuClpcZmyuJwERreZlzgklDuRtTmO7W17zEasWw8qhz42h
+         pt3Rnj9u2AL7cE8kmIVO8BC5QYFyZpFOivVs4JW+S72dKdhKj4owIAF9UtHeI7RlOOnl
+         Di4sM58LkNiDwZ7szJokxitk/pqrjr87raHqXsgn3iAlDo2INj/zLTob2v1RS3O/HTcY
+         YAZaBJ85U/zM0/Zq+4z6ilW4/52PvEZ/cAPX6tmINragCwmqj59YIvoiCGt6zeJGb1Yw
+         d/eA==
+X-Gm-Message-State: AOJu0Yw0B23ESZE3YPia9Epgdzxw/Z5ZJk17xjWZE0iRj616jUzyA0sb
+	H6+Gy7E/yTfiTaeoLeY2GLvDMI4FWphb+QSNMVxLRDOlMvwyaK49rD5ZLUKprI0QfN6UKSjMo1M
+	XAwvOW2H/3w==
+X-Gm-Gg: ASbGnctty5E6aUeJUoN68z98fSHadw87+FVMPX7Z7vD5YWQ/1BxdcJAArOb5ajPmcQa
+	EJC9oLAGxN9WPUa8sgTVx3sDANfDnId5B7ZKsorBH+nBPnW68a8IBTb0mA1Y0J+wt1lnzEdRnve
+	JlTCqhm2TuTkiGySXUUdHQQ6Y3O4vHqNJtuBtLYUXSDW1Qtfm8DqCqFx2i06pDEhRDV/Zg00gBG
+	3upx0HZ9dTc/cfjLqfHWF4vkC6itdWIRBiUGTXMWjU7y2gskQcz4QV0xYVdFj5VYk+hm7+P93SD
+	YK5hvMTJnqfGRdlUt/Ihv+kMZO5t5eHQBFxj3a2DPiSF9Lya0+QFijXp2bmEmGMW8D20AKvjh8q
+	WFmvfuoFj3ozCQH3ysG1rD40rbT0jeb8FDvjUxYNfYQY/B1xCOfdQGsBUUzsdo7mBUaTjbaHIZ3
+	1xv0X9yR1LecrK
+X-Google-Smtp-Source: AGHT+IFFfI3Fv2xNGRS9TOlZyEy4/dR0zNmF+2Av+v1J1ez045Ru1WnGrfpog4lMl1JPSfXW8eaG+Q==
+X-Received: by 2002:a05:600c:b96:b0:46e:59bd:f7e2 with SMTP id 5b1f17b1804b1-46fa9ebe245mr29483645e9.11.1759932077269;
+        Wed, 08 Oct 2025 07:01:17 -0700 (PDT)
+Message-ID: <402547a4-5a0c-4966-b7ec-4d5a6b2cd0cc@citrix.com>
+Date: Wed, 8 Oct 2025 15:01:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Linux xenfs vs privcmd
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Juergen Gross <jgross@suse.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <e1627855-e7f4-4fe7-8079-68c3a0d488fb@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e1627855-e7f4-4fe7-8079-68c3a0d488fb@citrix.com>
+Subject: More configure [was: ./configure default for systemd]
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>
+References: <d2974179-0d3b-4bc7-a034-dd6f865e4ea1@citrix.com>
+Content-Language: en-GB
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <d2974179-0d3b-4bc7-a034-dd6f865e4ea1@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 08.10.2025 15:33, Andrew Cooper wrote:
+On 08/10/2025 2:51 pm, Andrew Cooper wrote:
 > Hello,
-> 
-> I'm doing a deployment of Xen on a remote system provisioned with Ubuntu
-> 24.04, and I've found what I'm pretty sure is a bug.
-> 
-> In dom0, to start with:
-> 
-> user@host:~$ ls -la /dev/xen/
-> total 0
-> drwxr-xr-x  2 root root     140 Oct  8 20:04 .
-> drwxr-xr-x 18 root root    4620 Oct  8 20:04 ..
-> crw-------  1 root root 10, 120 Oct  8 20:04 evtchn
-> crw-------  1 root root 10, 118 Oct  8 20:04 gntalloc
-> crw-------  1 root root 10, 119 Oct  8 20:04 gntdev
-> crw-------  1 root root 10, 124 Oct  8 20:04 xenbus
-> crw-------  1 root root 10, 123 Oct  8 20:04 xenbus_backend
-> user@host:~$ ls -la /proc/xen/
-> total 0
-> dr-xr-xr-x   2 root root 0 Oct  8 20:04 .
-> dr-xr-xr-x 326 root root 0 Oct  8 20:04 ..
-> 
-> i.e. no /dev/xen/privcmd.
-> 
-> It turns out that mounting xenfs causes it to appear:
-> 
-> user@host:~$ sudo systemctl start proc-xen.mount
-> user@host:~$ ls -la /dev/xen/
-> total 0
-> drwxr-xr-x  2 root root     180 Oct  8 20:05 .
-> drwxr-xr-x 18 root root    4620 Oct  8 20:04 ..
-> crw-------  1 root root 10, 120 Oct  8 20:04 evtchn
-> crw-------  1 root root 10, 118 Oct  8 20:04 gntalloc
-> crw-------  1 root root 10, 119 Oct  8 20:04 gntdev
-> crw-------  1 root root 10, 115 Oct  8 20:05 hypercall
-> crw-------  1 root root 10, 116 Oct  8 20:05 privcmd
-> crw-------  1 root root 10, 124 Oct  8 20:04 xenbus
-> crw-------  1 root root 10, 123 Oct  8 20:04 xenbus_backend
-> user@host:~$ ls -la /proc/xen/
-> total 0
-> drwxr-xr-x   2 root root 0 Oct  8 20:05 .
-> dr-xr-xr-x 315 root root 0 Oct  8 20:04 ..
-> -r--r--r--   1 root root 0 Oct  8 20:05 capabilities
-> -rw-------   1 root root 0 Oct  8 20:05 privcmd
-> -rw-------   1 root root 0 Oct  8 20:05 xenbus
-> -r--------   1 root root 0 Oct  8 20:05 xensyms
-> -rw-------   1 root root 0 Oct  8 20:05 xsd_kva
-> -rw-------   1 root root 0 Oct  8 20:05 xsd_port
-> 
-> For good measure, I checked unmounting xenfs:
-> 
-> user@host:~$ sudo umount /proc/xen
-> user@host:~$ ls -la /dev/xen/
-> total 0
-> drwxr-xr-x  2 root root     180 Oct  8 20:05 .
-> drwxr-xr-x 18 root root    4620 Oct  8 20:04 ..
-> crw-------  1 root root 10, 120 Oct  8 20:04 evtchn
-> crw-------  1 root root 10, 118 Oct  8 20:04 gntalloc
-> crw-------  1 root root 10, 119 Oct  8 20:04 gntdev
-> crw-------  1 root root 10, 115 Oct  8 20:05 hypercall
-> crw-------  1 root root 10, 116 Oct  8 20:05 privcmd
-> crw-------  1 root root 10, 124 Oct  8 20:04 xenbus
-> crw-------  1 root root 10, 123 Oct  8 20:04 xenbus_backend
-> user@host:~$ ls -la /proc/xen/
-> total 0
-> dr-xr-xr-x   2 root root 0 Oct  8 20:04 .
-> dr-xr-xr-x 291 root root 0 Oct  8 20:04 ..
-> 
-> and /dev/xen/privcmd stayed.
-> 
-> 
-> Anyway - /dev/xen/privcmd (and /hypercall) shouldn't be tied to xenfs. 
-> They should be SIF_PRIVILEGED alone, should they not?
+>
+> (Related to my "Linux xenfs vs privcmd" email, if anyone was wondering
+> why I ended up playing with systemd manually)
+>
+> It turns out that when you build on a systemd-enabled system, you still
+> need to explicitly --enable-systemd to get a working debball.
+>
+> This is contrary to most other behaviours which are active by default if
+> the preconditions are met.  In this case there are no preconditions -
+> it's just a bunch of text files being processed and written out into the
+> proper directory structure.
+>
+> I think we want to do something better by default here.
 
-Why would you want to restrict e.g. a Linux stubdom usermode from making
-hypercalls? Aiui this would break e.g. qemu running there. (Whether the
-tying to xenfs makes sense I can't really judge. Without that something
-else would need to make the two entries appear.)
+Actually there's more wonky stuff here.
 
-Jan
+Despite using --prefix=/usr, I've ended up with the Ocaml and Python
+content being put in /usr/local/lib rather than /usr/lib/.  I think this
+means we've got a logical error deriving the other values.
+
+We're still producing:
+
+/usr/include/xenstore-compat
+/usr/include/xenstore-compat/xs.h
+/usr/include/xenstore-compat/xs_lib.h
+/usr/include/xs.h
+/usr/include/xs_lib.h
+
+which are long overdue being deleted.  I'll trim them when 4.22 opens.
+
+The contents of /etc/xen are dubious to say the least:
+
+/etc/xen
+/etc/xen/auto
+/etc/xen/cpupool
+/etc/xen/oxenstored.conf
+/etc/xen/README
+/etc/xen/scripts
+/etc/xen/scripts/block
+/etc/xen/scripts/block-common.sh
+/etc/xen/scripts/block-drbd-probe
+/etc/xen/scripts/block-dummy
+/etc/xen/scripts/block-enbd
+/etc/xen/scripts/block-iscsi
+/etc/xen/scripts/block-nbd
+/etc/xen/scripts/block-tap
+/etc/xen/scripts/colo-proxy-setup
+/etc/xen/scripts/external-device-migrate
+/etc/xen/scripts/hotplugpath.sh
+/etc/xen/scripts/launch-xenstore
+/etc/xen/scripts/locking.sh
+/etc/xen/scripts/logging.sh
+/etc/xen/scripts/vif-bridge
+/etc/xen/scripts/vif-common.sh
+/etc/xen/scripts/vif-nat
+/etc/xen/scripts/vif-openvswitch
+/etc/xen/scripts/vif-route
+/etc/xen/scripts/vif-setup
+/etc/xen/scripts/vscsi
+/etc/xen/scripts/xen-hotplug-common.sh
+/etc/xen/scripts/xen-network-common.sh
+/etc/xen/scripts/xen-script-common.sh
+/etc/xen/xl.conf
+/etc/xen/xlexample.hvm
+/etc/xen/xlexample.pvhlinux
+/etc/xen/xlexample.pvlinux
+
+The mix of file extensions notwithstanding, they ought to be in
+/usr/lib/xen/ not in /etc, I think?
+
+~Andrew
 
