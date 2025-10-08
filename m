@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DE0CBC5B08
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Oct 2025 17:37:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1139943.1475128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 939E3BC5E21
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Oct 2025 17:54:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1139955.1475138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6WDT-0000x8-0u; Wed, 08 Oct 2025 15:36:35 +0000
+	id 1v6WTl-0003hS-BL; Wed, 08 Oct 2025 15:53:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1139943.1475128; Wed, 08 Oct 2025 15:36:34 +0000
+Received: by outflank-mailman (output) from mailman id 1139955.1475138; Wed, 08 Oct 2025 15:53:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6WDS-0000ur-UV; Wed, 08 Oct 2025 15:36:34 +0000
-Received: by outflank-mailman (input) for mailman id 1139943;
- Wed, 08 Oct 2025 15:36:33 +0000
+	id 1v6WTl-0003fN-7x; Wed, 08 Oct 2025 15:53:25 +0000
+Received: by outflank-mailman (input) for mailman id 1139955;
+ Wed, 08 Oct 2025 15:53:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=eGu8=4R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v6WDR-0000ul-CR
- for xen-devel@lists.xenproject.org; Wed, 08 Oct 2025 15:36:33 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1v6WTj-0003fE-8q
+ for xen-devel@lists.xenproject.org; Wed, 08 Oct 2025 15:53:23 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90926fa7-a45c-11f0-9d15-b5c5bf9af7f9;
- Wed, 08 Oct 2025 17:36:31 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-b3e7cc84b82so1316779266b.0
- for <xen-devel@lists.xenproject.org>; Wed, 08 Oct 2025 08:36:31 -0700 (PDT)
+ id eaa10ece-a45e-11f0-9d15-b5c5bf9af7f9;
+ Wed, 08 Oct 2025 17:53:22 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-b4736e043f9so28378566b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Oct 2025 08:53:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-639f30ceaaasm253067a12.10.2025.10.08.08.36.30
+ a640c23a62f3a-b48652a9ff0sm1683399766b.5.2025.10.08.08.53.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Oct 2025 08:36:30 -0700 (PDT)
+ Wed, 08 Oct 2025 08:53:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90926fa7-a45c-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: eaa10ece-a45e-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1759937791; x=1760542591; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1759938801; x=1760543601; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JA1EhhERvokDdE+jUmbn5V/7w40H0FPAGo6FtVmfcSI=;
-        b=cxFMkEwVvm3LV3ZRSYR/Ad893Q7+hRNmtMOjbK3vI9/M19L9yFvHUyjbtWT6uoKsq+
-         G9K3gNU6vrmSx8sY3GcnpcWEN8C2vH2Pwm2d8ceqGavE9gDlpOFaeMUpzgfGg4fNgNss
-         YHrbVRyc0mjG4V2GdM3Y/VlTyXUebf7KC8CxP7n858cimiE6nuPK5RHedj1loqEiiI9Q
-         dObVLXvkQZyEkd70DzP4Rb6+/ygWEEMU5FKrcFxHvCC67ABkcvMl5UmD5lQgCmpaY5zl
-         fWKSKIrBfFxDjCk+dT2WgdngvJwRjIL/LJZL0kCGQ+WmYiuK1hNvsvKvX/EFPsrcFM+0
-         YzEw==
+        bh=WjihOiG01b3doXNVia7/ldfLICaj1ok9ctXzdnsvNeM=;
+        b=f3A4Rj1W9366/EDdg/21VKkDCjopGif53qXGbrNoN4kQSUWen2JCZGpkNkei9map/G
+         KQjB/BmE6VWHCwUlpbUfmc99X1Z3LZ10NVKcKxRFtX/31cs9BLQjP4hOPhX7J6wN2pUg
+         GGCMoMJ7YGlyEEzZ1zhW5+DaEPDeZsQ6nCqBZArxKInNDZy9C8nIIyH4oAtLU3RXmOCi
+         ok6xf/lZOgri97c1mU5G/2g++Z2+n3dktcrU7fhV68dA3t+Uf81skna3zvPS7gK3A9xd
+         44i213KaGwuWpd0JNlNy7bYydYooAAB3G/y+JR666gJY+vF7xl/1MIJpO1DhSl5PFss6
+         ihqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759937791; x=1760542591;
+        d=1e100.net; s=20230601; t=1759938801; x=1760543601;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JA1EhhERvokDdE+jUmbn5V/7w40H0FPAGo6FtVmfcSI=;
-        b=iwwbqdUehhZxEzFKH4wQwrWaArJw06rdfyCV2ZSAQRANGr1xPnup3JVJ+gLcXtrz4J
-         1hFCBFJKZTWXR42NJet+u2+Rm1cecr1wArl77WM+03BNABlnyRdjpQaD+TGaBpqTEExB
-         mRgz1FmAU6+4knL0X5taSC7dcDoD9CE1jc+Llrxcc85iQo+Foj1lU/Ct8/A0y/nhn5Ps
-         peR8WEirBk7bi1rvvDy4AHXYksoRN+/385gnfk8TWzCD71FEntE8s11TPCl0vRH57Tzd
-         WFxpKLSKf+XglBdpAzK7aC8DcYfrYGr5ln88YdACtpY92EwtQF+M67SAhPHoT4fdHCT5
-         UU0g==
-X-Gm-Message-State: AOJu0YzkoQK11zG22Zu/vgxQGfCvndAmZ09S7XNJnE3s2C22RoSJ5m5p
-	pg/d6y9zBkirbth4eZ/aR77xhOXcDtiiUswabP3yWTRUX40+9HahJi/8Fz8Ya9qxBw==
-X-Gm-Gg: ASbGncuHZ81Dgep89fG5bm04majv852a4eO4QWAJz/+O6KNuU+5lyZRs1KcEoPXJ1Hl
-	4OJ6nmdzK+vpZC1SNhoSpXmFVTTVO3NM0kVpSrJQ5HUgTbhnqtZ7fOo2VvKm5t2/J2E8xUUzikO
-	sUi2K02r2CXTYOThxuuWq/nr4+B/ZN9AGirxLazFjp9SK2ld6VNx7Dlb+iN6P620Y32vYtlCHjv
-	5+NhYXycJ5t0a/NRSWozRQyn2R4ett2Dsh5dhU0tTlZb9IkOE465OZU9ZYjHmKTC5gcoaKt5hac
-	QYWagJJME7HddRzPNFOcYW5cHnfurmKAtpMbYNx8d4Iz3qs1hGcrK4WVtu5xK+w6KUXW/ahyyy/
-	vAraPVl1Eui1GM+fu+fVNzEOk9ly4ESOZCdmGIdsZRmKysfS+WTeT3yJqbSapqQZuxdMh5nxBiA
-	wofpMPQ+5Qkjf4Hi/VTo2xvauy6q+ln9+Jn8Q+oOscYg==
-X-Google-Smtp-Source: AGHT+IGBn/d5Mi1h5Rii3tGqDQ5UDFq6NDE9OpMm+/pTqzuJhEbAClWa0/XWFGgJCEelM6YyGXJqmA==
-X-Received: by 2002:a17:907:7fa7:b0:b3d:c3ee:406b with SMTP id a640c23a62f3a-b50aca012dbmr401336266b.61.1759937791159;
-        Wed, 08 Oct 2025 08:36:31 -0700 (PDT)
-Message-ID: <9b2ad27a-ffaf-46fc-890f-b5d94ff6a08a@suse.com>
-Date: Wed, 8 Oct 2025 17:36:30 +0200
+        bh=WjihOiG01b3doXNVia7/ldfLICaj1ok9ctXzdnsvNeM=;
+        b=daouXlD//YCxtCxoqWqk7Qfsn+VZsDtNcCztN1ghdyffqfQSAOf9CTMj3t+9LRQgb/
+         FD+iP3FdbMhs1UoeyO2n8oxMn4lmZUTZC6DWdcdPxBHgTNgRrdxdVQlW9WmR+ZcKZrwU
+         ncvSNlrohtcbTpV8ITg1Tx5Fe5YDF/nU37VQV+LYNWvtv/DCD+TPNXuyHgI3+04tXW5B
+         tG4vUTo1AJ2GdPg8x697xWjOl3sOc+WXwq7KWj0JIMegRRaIRcxaPGB6MlOcNTeb5yMm
+         U0sM6O4VGoXvw8JNkOsE9K5O/Rus5eSR/rM2LwG8n8gXa0tsmaG4ZyROLihnNVR4jNnq
+         n1qg==
+X-Forwarded-Encrypted: i=1; AJvYcCXnp5OnCi4D5XSMC+PuxGsHSPIuHDWgeeTBIDPLOZlnLcn3nuruX7ZJgSkMuOSIxL74Nm1zu6UXjpg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyaYNdMJ1SW6J5sYyuxbccM/TD2rSIWYNUIO9u+XDsOdsfqMIhC
+	DJVD755CRSRbtJFLP4CBvNhcnSTqFPyqfpaw17nYFAT++rs9KIOCSLmWkd8FB1yRSw==
+X-Gm-Gg: ASbGncvPkTU16F4eCfXwBSJM1kcy7msM6yX8SVwitQ1k05xsdFdJ04PLjH4c5bZi3my
+	+LlQ7VpxVWNZjzhFOZ6GBovM1EDyf0L8SwbMuDuLTyQTfEAQjGgcvxapxj+nyjfpyQGzZW1mSuR
+	hq9khxbPAzLiuwaV15Hc4Cw8+X3ILBCS5YPRRFVeSVIBLlLrG1VnOGna3iRn9T2FgIa/mFVWkyA
+	kHTxw48KAz1tzTv1zjQyuXiADeYxpLw6+gG6KaW7ZsOU9lXVQhlrlRqow1OaEL0c5LDid6CvLN4
+	LOL05a/hEuecBGF3DC+66hBpadwEuC2B2nmxgkqrnanpNV0eKP+KZhyino+sesRlT0QaWa4Wc1b
+	tGa095JjuoLnJmA3oEd+798tg/QRUyL6CWLI7kJjoX93scGvs46eflpxupk2fH20a2agjQ3RhxT
+	ojDeYeE8uIDfA1U8nJHA3mLuFtc5nyXoDdetQU3j48BA==
+X-Google-Smtp-Source: AGHT+IG+vDGCwBnyrjzJExqH+z/bNb+4jjwXW6gVEhCgPLTHUyZS8dJFLEnPNkGomu2MN5KOc+7VNQ==
+X-Received: by 2002:a17:907:971b:b0:afe:d590:b6af with SMTP id a640c23a62f3a-b50aaa96bb0mr492183366b.20.1759938801301;
+        Wed, 08 Oct 2025 08:53:21 -0700 (PDT)
+Message-ID: <bc7f343b-b5cb-4276-a7fe-a9b599046cc3@suse.com>
+Date: Wed, 8 Oct 2025 17:53:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21] tools/tests: don't pass -E to sed
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <4d985a6f-59e2-45ea-bc3d-ecd2da032a17@suse.com>
- <aOZ1nneO_4-KvvVK@Mac.lan> <dd1f9a5f-fc45-4ffe-b541-6f250b74dfb6@suse.com>
- <aOZ-MY8jP6R1I9Uf@Mac.lan>
+Subject: Re: [XEN][PATCH] x86/hvm: revise "cpu_has_vmx" usage for
+ !CONFIG_INTEL_VMX case
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250924101417.229108-1-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,71 +121,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aOZ-MY8jP6R1I9Uf@Mac.lan>
+In-Reply-To: <20250924101417.229108-1-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 08.10.2025 17:07, Roger Pau Monné wrote:
-> On Wed, Oct 08, 2025 at 04:42:13PM +0200, Jan Beulich wrote:
->> On 08.10.2025 16:30, Roger Pau Monné wrote:
->>> On Wed, Oct 08, 2025 at 11:47:05AM +0200, Jan Beulich wrote:
->>>> Even the 2018 edition of The Open Group Base Specifications Issue 7 [1]
->>>> doesn't name -E as a standard option; only Issue 8 [2] does. As there's
->>>> nothing "extended" about the expression used, simply drop the -E.
->>>>
->>>> [1] https://pubs.opengroup.org/onlinepubs/9699919799/
->>>> [2] https://pubs.opengroup.org/onlinepubs/9799919799/
->>>>
->>>> Fixes: cb50e4033717 ("test/pdx: add PDX compression unit tests")
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
->>
->> Thanks.
->>
->>>> ---
->>>> In principle the -e could be dropped too, for being redundant.
->>>>
->>>> Hitting the problem with an older sed pointed out another problem here as
->>>> well: The failed invocation left a 0-byte pdx.h, which upon re-invocation
->>>> of make was (obviously) deemed up-to-date, thus causing the build to fail
->>>> again (until the bad file was actually removed).
->>>
->>> Hm, we could do something like:
->>>
->>> sed -e '/^#[[:space:]]*include/d' <$< >$@ || $(RM) $@
->>
->> As is that would hide failure of the sed invocation from make. I was first
->> thinking to sed into a temporary file, to then rename that file. But this
->> won't cover the more general case of the issue either.
+On 24.09.2025 12:14, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
 > 
-> Well, it would work if the sed into temporary file is a FORCE target,
-> and then the move to the final file is only done if there are
-> differences?
-
-Yes, splitting like this ought to do.
-
->> Meanwhile I think
->> that the Makefile itself should become a dependency of the of the target
->> header. That way, if the sed expression changes, the file will be rebuilt.
->> (Of course this still builds on an assumption, specifically that any
->> failure here would be dealt with by an adjustment to the rule. So possibly
->> we need a combination of both.)
+> Since commit b99227347230 ("x86: Fix AMD_SVM and INTEL_VMX dependency") the
+> HVM Intel VT-x support can be disabled, but it still keeps VMX
+> code partially built-in. Particularly in HVM code there are two places:
 > 
-> It feels weird to me that a Makefile depends on itself, but yes, it
-> might solve the issue you pointed out in a simpler way.  Doesn't
-> makefile consider all make generated targets as obsolete if the
-> makefile itself changes?
+> 1) hvm/dom0_build.c
+>  dom0_construct_pvh()->pvh_populate_p2m()
+>     ...
+>     if ( cpu_has_vmx && paging_mode_hap(d) && !vmx_unrestricted_guest(v) )
+>     {
+>         ...
+>         [unreachable for !cpu_has_vmx case]
+>         rc = pvh_setup_vmx_realmode_helpers(d);
+> 
+> pvh_setup_vmx_realmode_helpers() allocates memory and configures
+>  HVM_PARAM_VM86_TSS_SIZED
+>  HVM_PARAM_IDENT_PT
+> 
+> 2) hvm/hvm.c
+>  hvm_set_param()
+>     ...
+>     case HVM_PARAM_IDENT_PT:
+> 
+>         if ( !paging_mode_hap(d) || !cpu_has_vmx )
+>         {
+>             d->arch.hvm.params[index] = value;
+>             break;
+>         }
+>         [unreachable for !cpu_has_vmx case]
+>         ...
+> 
+> Hence HVM_PARAM_IDENT_PT/HVM_PARAM_VM86_TSS_SIZED are used only by VMX code
+> above code become unreachable in !cpu_has_vmx case and can be optimazed
+> when !CONFIG_INTEL_VMX.
+> 
+> Replace "cpu_has_vmx" with using_vmx() to account !CONFIG_INTEL_VMX and allow
+> compiler DCE to optimize code.
+> 
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
 
-I don't think so, no. What it feels a little as if you may be thinking of
-is that if a Makefile itself is a target, make will re-invoke itself once
-it was updated.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
->  The pdx.h generation is a clear example
-> here, but the same could apply to runes used to build object files?
-
-Well, yes. That's why we have the .*.cmd files in the hypervisor build
-system. That's less coarse than using the full Makefile-s as dependencies.
-
-Jan
 
