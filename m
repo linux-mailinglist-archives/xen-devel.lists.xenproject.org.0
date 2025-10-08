@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E238BC51E1
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Oct 2025 15:05:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1139641.1474911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56981BC53AB
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Oct 2025 15:34:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1139660.1474922 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6Tqa-0004CL-Cc; Wed, 08 Oct 2025 13:04:48 +0000
+	id 1v6UIm-0008Aj-J5; Wed, 08 Oct 2025 13:33:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1139641.1474911; Wed, 08 Oct 2025 13:04:48 +0000
+Received: by outflank-mailman (output) from mailman id 1139660.1474922; Wed, 08 Oct 2025 13:33:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6Tqa-0004AN-A2; Wed, 08 Oct 2025 13:04:48 +0000
-Received: by outflank-mailman (input) for mailman id 1139641;
- Wed, 08 Oct 2025 13:04:46 +0000
+	id 1v6UIm-000880-Fe; Wed, 08 Oct 2025 13:33:56 +0000
+Received: by outflank-mailman (input) for mailman id 1139660;
+ Wed, 08 Oct 2025 13:33:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bWZK=4R=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1v6TqY-0004AF-5x
- for xen-devel@lists.xenproject.org; Wed, 08 Oct 2025 13:04:46 +0000
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [2a00:1450:4864:20::342])
+ id 1v6UIl-00087u-5D
+ for xen-devel@lists.xenproject.org; Wed, 08 Oct 2025 13:33:55 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 59fead68-a447-11f0-9809-7dc792cee155;
- Wed, 08 Oct 2025 15:04:41 +0200 (CEST)
-Received: by mail-wm1-x342.google.com with SMTP id
- 5b1f17b1804b1-46e491a5b96so42091245e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 08 Oct 2025 06:04:40 -0700 (PDT)
+ id 6e577c2c-a44b-11f0-9809-7dc792cee155;
+ Wed, 08 Oct 2025 15:33:53 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-46e6a689bd0so58038955e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Oct 2025 06:33:53 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-22-57-86.as13285.net. [92.22.57.86])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4255d8f011bsm30390433f8f.46.2025.10.08.06.04.38
+ 5b1f17b1804b1-46fa9d6fb41sm37330325e9.17.2025.10.08.06.33.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Oct 2025 06:04:39 -0700 (PDT)
+ Wed, 08 Oct 2025 06:33:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59fead68-a447-11f0-9809-7dc792cee155
+X-Inumbo-ID: 6e577c2c-a44b-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1759928680; x=1760533480; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9pnjQV8/IKyJ19meyrA4ftenJqRkmyUX9Yqv/Bp8oOU=;
-        b=gOFtkO0XjXfFzy4WAzrBzpXmYKLAuyoRoXqg1hn7tsX+iO+VyLXdPOHuogkO0sHBUY
-         nrRhZnJWnUreXVtdAprmivzJ0CEU/NeiHVFegn7HvaHzeaiDZEPD/sOrZkpcQ/Zi3Ujj
-         e3EImBD+MxNv9H2Ow8MZsypAUWQwvHr2cyTjI=
+        d=citrix.com; s=google; t=1759930432; x=1760535232; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=l2Kq0ecbrcDKxmZ86GMz8w/l5BGzueOC+AYBMCkW07s=;
+        b=pwR6MIYR4kAlGMMJIseVMidHBJaq/YapwVumMeLnfMkqI6rQtCo1sF310kD+9uk53w
+         bkvTDcw9xNdjUw9XDwBmwf1p8+yjzOSkhmQwWnWwAdq/AjYoI/Xct+cw1YBeyjxSzsqF
+         zEuR1JaAfv+hN5P4zuCiEGKz95XjsBEkuPChE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759928680; x=1760533480;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9pnjQV8/IKyJ19meyrA4ftenJqRkmyUX9Yqv/Bp8oOU=;
-        b=TCzWBSTpzTfKTcy5dvTwnGhhvvXaByhTs7TQnVQ6zfoWIASs1H/tbYoXKH+dep8Uvq
-         h5JUHnZysMoWr6s4AzPocOGYnfc5Rb9REM3qccrOjwL2ihNlyWUB02qOuT0j7w5WeIJO
-         hbq+tmu4U7DmNyqfXSZ8DybQCupNedc0necy9GWqauB3OPMBmgLMbiXJ0I0ez/GqqbS3
-         KO+E8LsSOzPlMSiDzYzmwldn26m3Is4jGbSgRKzCkvxDi009xVUkVqsPAgZj/GUAmOiw
-         xKD+mq5s3OeRFNaZLYpp/8YMmEJ+s8bt72Tpc/ubiGzVZZlWd9vQcsEVAIt466bMzZXN
-         euyA==
-X-Forwarded-Encrypted: i=1; AJvYcCVOndXok1oXVbQ0tbFmy4750B8I5zXq9iIeTfhaoioflkco9yJEdSGwgJHBm02r3weCloAtESF+Z0c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxbp7QTUfC/8cesBxs3YafkBuNz3sPGtVYbEtyy5UjGNbhsSss8
-	R5TPQL7phMF0DlMiy+bvqru3TxiT1wW3viD1KZR/rIZetIGfQGELu1LEtpw3K8dIaI8=
-X-Gm-Gg: ASbGncufvSzP54/MZlSLNasEH2Kk1nRXvsdXg6XcffHXTYF7cIF/flBTFBWSXIu4SIt
-	eoEnj7sKfq2OtZtDvBI+FhIdA10NAjzQ9iEi0BJ5tI3H+sSZNTLdPM4v+xtpjeUhxU3z/pHD0Kr
-	a3qo4rkBq5+Uy65EkwR+zW2ARkM2mpLr0zgkP/khDwbE4P6IUq2C8q3df+qhVT7hgiOvJeZqyLx
-	bdopBgXJPB3vUljl9FJUbhhQLWdSsN0GuCaC63id4EQSvUDYfAXULwpui6xb6ymYe38HYXcXLVr
-	7NkNQv/pTxZlhlG1k1y/3RmP745uMPpLsYYGtncPBGimvUjKnUio0Ad7VcTnqY+snpAnSZNWR6w
-	9vvaix9T9ewHfCdWVygohiTApLOanfX9FNYkdiZjRWyCtI7BfnMY1YErgnE/njZ1WzMrpxro+xO
-	HS7GLj/DJ6awlp
-X-Google-Smtp-Source: AGHT+IFZy2zy1D307JjwVJvbXY2QoSBNXHFFNRrCw051AiLUA5dsLWef4M9xisOJmieIvodM++b9bg==
-X-Received: by 2002:a05:600c:a41c:b0:46f:aac5:daf with SMTP id 5b1f17b1804b1-46faac50ea8mr13861305e9.35.1759928680250;
-        Wed, 08 Oct 2025 06:04:40 -0700 (PDT)
-Message-ID: <e8fa4e2e-d788-4dcc-b1b5-9a3e0a70ef49@citrix.com>
-Date: Wed, 8 Oct 2025 14:04:38 +0100
+        d=1e100.net; s=20230601; t=1759930432; x=1760535232;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=l2Kq0ecbrcDKxmZ86GMz8w/l5BGzueOC+AYBMCkW07s=;
+        b=oaZvyKwAsqZzgzCueuiw1TTyBPoiP1q9g+xjQsFXrFpvVDnCFUjPbei5ZpL7bFverL
+         fa5N+igECFp8KFcYFHbCF6GtyfID+/FLPsznTWtUbaipRhgUuU7BNVM+uEc9u6IQluEk
+         V5EKbaQjyzLenFwTEDoXw6V+tmJj5g3A1fY3twj7CokVT68J8BKw5C1lMVcCMcfw2l70
+         7KRskPw4v80DfzxooCXiUP/LnU6rxOGT8z3gZAcPpQRAKsIm330m7ln88MB8Pe5Bap4B
+         DdzzDi+qiCikrvZbPjjk7SoAy2zDUbKhSB1oy1wJXdKLtq4R1g6kQDrFcqGjwtuZ+q8z
+         sfpw==
+X-Gm-Message-State: AOJu0YxhNv2WGCGntzrYvuSx58jAVnf5kRWjWkxGkl3EePlpkwDW+z7x
+	YOwDatWgBIhtRUbU+DLcJXieldPw4wRac2tRCWjlFeL0bo9Mdr6iutxkpUsr0yFzZR2cn+625dy
+	8G6H9V5pAMA==
+X-Gm-Gg: ASbGncvLSvi2B55Ppyue4w4oGuVxXzVCKvE5NLalSySCelHqu328KkQuzjQB+6+J9KS
+	0k74wArZWsE5vTL+Q15eUjojcIablQgOa7lD3Nn56/gP1KvveHcgv366ur7tooEVWFlWCaeefmw
+	+EEWn02NJeTQdSyoqiTBojmKYexWgCpdoy6FBEIKbgy17GECVo36yv/uZosD8e6+OB+AmDufkin
+	6JcedEVGb7q1vvKyN3cTj5knI6EH2wWTCh484a1vKJOJOCd8oEDpape0W8pXWTsI3q6Wg/P3Ldf
+	hDll8ePVa9EKaR08fr4WO1I5FTX4pXewUkCu4/8/zyoDbGAdMDJ4ZA4Pnotjhiqt5Xj45x766Jc
+	Tpvsv+QxlXUowAfc1t3HQj7ybU4aEiaxI53FS0HJ7hEvsPGQ9NlFsxNnELrZE/c+2/1owPPIKcJ
+	8BPUg4nud2bItv
+X-Google-Smtp-Source: AGHT+IFx1D1kSArHE9FUJm4IPCRI96naK0Hg0LmH2LGHIzfGkvhFz3Th0Epg2dTaKYYUi9UYocTzjA==
+X-Received: by 2002:a05:6000:2003:b0:3eb:5e99:cbb9 with SMTP id ffacd0b85a97d-42666ac410emr2144250f8f.10.1759930432178;
+        Wed, 08 Oct 2025 06:33:52 -0700 (PDT)
+Message-ID: <e1627855-e7f4-4fe7-8079-68c3a0d488fb@citrix.com>
+Date: Wed, 8 Oct 2025 14:33:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21??? 1/3] x86/vLAPIC: add indirection to LVT
- handling
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>
-References: <265d5053-af61-42cb-a3b9-ef60df39c21b@suse.com>
- <dd6b46f8-76f7-46d3-b3be-083b58781f32@suse.com>
 Content-Language: en-GB
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Juergen Gross <jgross@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Linux xenfs vs privcmd
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -140,33 +132,81 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <dd6b46f8-76f7-46d3-b3be-083b58781f32@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 08/10/2025 1:08 pm, Jan Beulich wrote:
-> In preparation to add support for the CMCI LVT, which is discontiguous to
-> the other LVTs, add a level of indirection.
+Hello,
 
-It's not the only extra LVT.
+I'm doing a deployment of Xen on a remote system provisioned with Ubuntu
+24.04, and I've found what I'm pretty sure is a bug.
 
-AMD have Extended LVTs, which are necessary if we want to get virt-PMU
-working.
+In dom0, to start with:
 
-https://sandpile.org/x86/apic.htm is a recent addition which covers all
-of this.
+user@host:~$ ls -la /dev/xen/
+total 0
+drwxr-xr-x  2 root root     140 Oct  8 20:04 .
+drwxr-xr-x 18 root root    4620 Oct  8 20:04 ..
+crw-------  1 root root 10, 120 Oct  8 20:04 evtchn
+crw-------  1 root root 10, 118 Oct  8 20:04 gntalloc
+crw-------  1 root root 10, 119 Oct  8 20:04 gntdev
+crw-------  1 root root 10, 124 Oct  8 20:04 xenbus
+crw-------  1 root root 10, 123 Oct  8 20:04 xenbus_backend
+user@host:~$ ls -la /proc/xen/
+total 0
+dr-xr-xr-x   2 root root 0 Oct  8 20:04 .
+dr-xr-xr-x 326 root root 0 Oct  8 20:04 ..
 
->  Rename the prior
-> vlapic_lvt_mask[] while doing so (as subsequently a 2nd array will want
-> adding, for use by guest_wrmsr_x2apic()).
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+i.e. no /dev/xen/privcmd.
 
-I'm afraid this introduces a vulnerability.
+It turns out that mounting xenfs causes it to appear:
 
-APIC_LVR is a toolstack-provided value.  Nothing bounds checks the
-MAX_LVT value in it AFAICT, and previously this did not matter (from a
-security point of view at least) because the loop bounds were constant.
+user@host:~$ sudo systemctl start proc-xen.mount
+user@host:~$ ls -la /dev/xen/
+total 0
+drwxr-xr-x  2 root root     180 Oct  8 20:05 .
+drwxr-xr-x 18 root root    4620 Oct  8 20:04 ..
+crw-------  1 root root 10, 120 Oct  8 20:04 evtchn
+crw-------  1 root root 10, 118 Oct  8 20:04 gntalloc
+crw-------  1 root root 10, 119 Oct  8 20:04 gntdev
+crw-------  1 root root 10, 115 Oct  8 20:05 hypercall
+crw-------  1 root root 10, 116 Oct  8 20:05 privcmd
+crw-------  1 root root 10, 124 Oct  8 20:04 xenbus
+crw-------  1 root root 10, 123 Oct  8 20:04 xenbus_backend
+user@host:~$ ls -la /proc/xen/
+total 0
+drwxr-xr-x   2 root root 0 Oct  8 20:05 .
+dr-xr-xr-x 315 root root 0 Oct  8 20:04 ..
+-r--r--r--   1 root root 0 Oct  8 20:05 capabilities
+-rw-------   1 root root 0 Oct  8 20:05 privcmd
+-rw-------   1 root root 0 Oct  8 20:05 xenbus
+-r--------   1 root root 0 Oct  8 20:05 xensyms
+-rw-------   1 root root 0 Oct  8 20:05 xsd_kva
+-rw-------   1 root root 0 Oct  8 20:05 xsd_port
+
+For good measure, I checked unmounting xenfs:
+
+user@host:~$ sudo umount /proc/xen
+user@host:~$ ls -la /dev/xen/
+total 0
+drwxr-xr-x  2 root root     180 Oct  8 20:05 .
+drwxr-xr-x 18 root root    4620 Oct  8 20:04 ..
+crw-------  1 root root 10, 120 Oct  8 20:04 evtchn
+crw-------  1 root root 10, 118 Oct  8 20:04 gntalloc
+crw-------  1 root root 10, 119 Oct  8 20:04 gntdev
+crw-------  1 root root 10, 115 Oct  8 20:05 hypercall
+crw-------  1 root root 10, 116 Oct  8 20:05 privcmd
+crw-------  1 root root 10, 124 Oct  8 20:04 xenbus
+crw-------  1 root root 10, 123 Oct  8 20:04 xenbus_backend
+user@host:~$ ls -la /proc/xen/
+total 0
+dr-xr-xr-x   2 root root 0 Oct  8 20:04 .
+dr-xr-xr-x 291 root root 0 Oct  8 20:04 ..
+
+and /dev/xen/privcmd stayed.
+
+
+Anyway - /dev/xen/privcmd (and /hypercall) shouldn't be tied to xenfs. 
+They should be SIF_PRIVILEGED alone, should they not?
 
 ~Andrew
 
