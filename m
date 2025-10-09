@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AD3BBC7CA2
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 09:52:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1140367.1475274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8C8CBC81FF
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 10:51:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1140390.1475284 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6lRL-00031R-MM; Thu, 09 Oct 2025 07:51:55 +0000
+	id 1v6mMK-0002hN-26; Thu, 09 Oct 2025 08:50:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1140367.1475274; Thu, 09 Oct 2025 07:51:55 +0000
+Received: by outflank-mailman (output) from mailman id 1140390.1475284; Thu, 09 Oct 2025 08:50:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6lRL-0002zg-JI; Thu, 09 Oct 2025 07:51:55 +0000
-Received: by outflank-mailman (input) for mailman id 1140367;
- Thu, 09 Oct 2025 07:51:53 +0000
+	id 1v6mMJ-0002eJ-Us; Thu, 09 Oct 2025 08:50:47 +0000
+Received: by outflank-mailman (input) for mailman id 1140390;
+ Thu, 09 Oct 2025 08:50:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=I7dU=4S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v6lRJ-0002za-P4
- for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 07:51:53 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1v6mMI-0002e9-VW
+ for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 08:50:46 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d0dd1ee0-a4e4-11f0-9809-7dc792cee155;
- Thu, 09 Oct 2025 09:51:51 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3ecde0be34eso925283f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Oct 2025 00:51:51 -0700 (PDT)
+ id 0af182ef-a4ed-11f0-9809-7dc792cee155;
+ Thu, 09 Oct 2025 10:50:44 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-42421b1514fso344419f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Oct 2025 01:50:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46faf4210d2sm32549975e9.1.2025.10.09.00.51.50
+ ffacd0b85a97d-4255d8e9890sm33950654f8f.32.2025.10.09.01.50.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Oct 2025 00:51:50 -0700 (PDT)
+ Thu, 09 Oct 2025 01:50:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0dd1ee0-a4e4-11f0-9809-7dc792cee155
+X-Inumbo-ID: 0af182ef-a4ed-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1759996311; x=1760601111; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9lsah7bqeRTmWwDQipjs94/f6hLwWES6iK98Kkrh3HE=;
-        b=J0WTimt19f4sF40/7ba2T547uCoyVoJIwKtujUIKUapNkuLehhU2ztiJek93RmaW+r
-         VBSiffW+CGoOxteKGWb0YHUxunHVaXA0twMFPjQy4mDEw2uHv3yOTgIl0jsp3Vy0UJca
-         Xzk4BXtIkd/QabYBPtAtQ/KG4sSFwGhB4N66jtc6rJVDrcO3mRRRNKtYMTzwsvaN2Fxm
-         XAL2bMR5rP0JBwmjOgeBtcD2JwMXKu4xCxQpXtcR0yZSupuu5bBAfAmhnGJCFS4nFgvW
-         dL0cNF6GpkhtZ+NYIwmtupfxWuQw9REtnf5R7yILCrvzI7TOOTQjEokRc9Y6HkcOzzoP
-         9eAA==
+        d=suse.com; s=google; t=1759999844; x=1760604644; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=fcC/mELzdbZN5dcKOHgzDUC1hdbIHnIT3gt/r9UxGkM=;
+        b=Uyz8dEbGh95l6anT0Dw8fUgH2HPOQzDu5lw0YzQa7nh4omd+2BuS3nVl1UDKVPZRNd
+         ZqUC9tbAaxz6Ez5jjqOvu7n7CnoceXSo04YsuId/dLhGLGwADy2eUjz2O8wBiPPhSK3Y
+         YhIS7bZlu7N4bpYokLngev9zhj0EVj8+mzzDRIpLVSa+hJ/avZmybd5gZhGtaer3PcUu
+         WdbrrGen9V8QbM1aA5VpGmbDxnENIO61Az3LHAFp2gra8OX0B6wLm4AS8vjX5bCMznI5
+         7bc5Ww10Iu/L08B6c/ZyPe79h+DUHJfWN9449nEFrMXOLBMXr8ay67BVpmv7nqy5zQGQ
+         LaMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759996311; x=1760601111;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9lsah7bqeRTmWwDQipjs94/f6hLwWES6iK98Kkrh3HE=;
-        b=xUjRANAkONdWluDWBBgKj0geGcCNhXYW9YBpsuGGmDv5L9oogL3ixiUvg+GYOQiBP/
-         6oSbeY8c9B3yiKp+UTvroNfdHJ9+leQPDqREV5yyheKOjRbk2TdYha/SnjOaYJuXT2rQ
-         HTc4T9mFCi08NGJoGAEguH2dAWDo9OMx/TquBrEer1PCtyZFtjopMDWb8BZYmxRJx/ve
-         Z7ynHDJeE3yHM4h6qelbMDXcrDaWBvPSZ/FeOsWv5k7nbE0eAHB0c3/IH/WcGg3z6ZUA
-         zK4hA8K2bMQ7AkDS8tWEyhLySCdXHHooiD3cwMmsVPq+0Vz8aInE/UdbNRcUXlFsp4yh
-         oFTQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVTep7Nz84yEHBqCS8y1PEaoJtBYd9jrv1paW6itGEQiJ/t9zAKERCqrsjWH59HM4cHNdlRz1e+X04=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YywS2xQkoQUpz8hQGEV3k9UlN1xXjkStsJZdD99sCdXLxJXJF89
-	iJTgw8LCAjhH0aY3/yjFaBXUlJQp4doHeLn8idDAPxsDweLhPjljZbKnA/AwvRH55g==
-X-Gm-Gg: ASbGncvcFWJqkqrgRsN0+Es2X7xICY0BHqWvr6aJMAlvPth1CiojI6/6D6fVQYbrul5
-	+XsdAHATQNRhaly6dqGG3LR7uPfTct22w75C1z5ZG1BC9A5wC7MBrTQf4jKf97owlNw+P3rRsgl
-	kWyrylq/7/u0Lpf6KiHQXzqRdIKcGl2TMtlqrib+Poi8kOcrCdY5We01fnh01J62wuTkjgo3aJP
-	bjDBCJS9hUV9PZhHpMfOTzvikF6G+xHjKlqbQOAzvdwfzPIn4RLVKg/60sgrs8r/Up+6QRd4tvd
-	1ipQF4ClUcL81i+0oU+LMztcjgRnmSmzCFoQxTxRDmRXE36/a5bpOF3pqdweodSz/B03pup248i
-	P1seCDpmY0mo3FVA9xwG6HHyAKeMzF8DoEqeoD+ltl81dpGOJEToZrdtSeHHHoGXWWww0p/fP8b
-	Vr2dY8ZkkSbKn1oSqTIW+Ut4YOfESO9MMBsOD/20Uwww==
-X-Google-Smtp-Source: AGHT+IEkuK6REC0Y6s/V+z8l0IsrVwLnEOjUQNPcDm2BFeZeIdzPfm9VPA1AbNAEZT51Jk9sTN59Ow==
-X-Received: by 2002:a05:6000:40c8:b0:410:f600:c35e with SMTP id ffacd0b85a97d-425829b0561mr5974079f8f.8.1759996310720;
-        Thu, 09 Oct 2025 00:51:50 -0700 (PDT)
-Message-ID: <b3a2701c-5954-4bde-a4a3-859d9a7a40e3@suse.com>
-Date: Thu, 9 Oct 2025 09:51:49 +0200
+        d=1e100.net; s=20230601; t=1759999844; x=1760604644;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fcC/mELzdbZN5dcKOHgzDUC1hdbIHnIT3gt/r9UxGkM=;
+        b=Sqs/v7c22JYSoGMTrecqX53hrCP2UOlxHNVQ2pzhP1/TX6Kdlk0FJNncmKxG+sFVlz
+         +f8yfFsjW62xTh7VzWNX6r8rXa6NeSyD/bgB10U2mMsRuWb7U+SD4j7hR1Z+AshKCAO6
+         SszHXGog72pC5Gp8+QqwbyXNMXiRw6NipLz3B+i+Wk1NDal2g3vL7UJ0mQGogFbR9VMO
+         CAlBtfhtmqUQk5m0soxSvhE7XbR7Q21Yq8bnR+G8r6nZsLGYOklj5ovENzqaTKEqoxZD
+         jMWnR2Wo5SV3APHm4loFTjwQ55OkKo12GteDgclfXhXW+ggqgDNM5vXpPLXT+Ywx1BAz
+         negw==
+X-Gm-Message-State: AOJu0YyVZ40ldWnLVVrrZz4n0fXzHQmQFa/NLVQ+d0YOwiHUCIP5H2qd
+	W8yDwRev3fITdF2vjj4xLOt19oqZyzlOpLMmBe0nYyJ0sFB2J0PNg0vDJGg/5uqy1mFzzOSToLL
+	3j9A=
+X-Gm-Gg: ASbGncuIiAbjgj7DWf8ryap2c9vWETVfQ2YK5imwOVgnwVAJb6ddG84MpKo1vo1gUcp
+	husJObBGmbhtiXIxTQD5V0O6apx5bsDrExjCvffvxC2Ijv8SlXzvfuLAUswTrY6iX68xVzISVu6
+	PzEqd0JEKYPmusfqvp1TEbw/aCTKMafVP6S9l0A7IkvogjTxOyFt8iPTUekledQJG8lXnnT0/o1
+	guPACqq56/gXnqK8wx1Mchrx6q+f8UF0UmYNqk4342Mk0IV8CN0k1roTs8ea9NYaM7tvMzuGOYq
+	ypBliitjktbvmEoRX55JCnioU6PiPsKeJSm+Xz6Nz3I0x5g6Jqkz5PR78rDBNtYLVev4j5Jkwb+
+	V4beV4h/BaiFFnLwBvlBb1pWgXWJmeHbSknS7MVc9UdMboMTACrMix6ba6gDQBOvu6druerKo/I
+	RCSEmgC4a4y8Te+vrK0yfFF2rsryoa5KVUoKF92T51YQ==
+X-Google-Smtp-Source: AGHT+IHR37Rm77jNSf7FYLimYLBjwmrw68aoni/TFbQOXzY4zkWWZ1xJlZF7dTp8sauuarddtPiOpw==
+X-Received: by 2002:a05:6000:288c:b0:40f:288e:996f with SMTP id ffacd0b85a97d-4266e8db40bmr3819637f8f.63.1759999844194;
+        Thu, 09 Oct 2025 01:50:44 -0700 (PDT)
+Message-ID: <2622f83a-e67b-479c-8027-5578eb066ff3@suse.com>
+Date: Thu, 9 Oct 2025 10:50:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86: guard synthetic feature and bug enumerators
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <8ecbf8b7-91fe-4f9e-9542-7ec22b6a47bb@suse.com>
- <48dcc0e0-2772-49b9-9383-5bf69f922053@suse.com>
- <3601abf2-c556-4126-9e42-1c08803e2613@citrix.com>
- <60f4c0b0-de20-40ce-bf61-e8ec6fa54460@suse.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Jason Andryuk <jason.andryuk@amd.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/HWP: adjust feature_hdc's section annotation
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -121,48 +118,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <60f4c0b0-de20-40ce-bf61-e8ec6fa54460@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 09.10.2025 09:45, Jan Beulich wrote:
-> On 08.10.2025 19:19, Andrew Cooper wrote:
->> On 25/09/2025 11:48 am, Jan Beulich wrote:
->>> --- a/xen/arch/x86/include/asm/pdx.h
->>> +++ b/xen/arch/x86/include/asm/pdx.h
->>> @@ -13,9 +13,9 @@
->>>      asm_inline goto (                               \
->>>          ALTERNATIVE(                                \
->>>              "",                                     \
->>> -            "jmp %l0",                              \
->>> -            ALT_NOT(X86_FEATURE_PDX_COMPRESSION))   \
->>> -        : : : : label )
->>> +            "jmp %l1",                              \
->>> +            [feat])                                 \
->>> +        : : [feat] "i" (ALT_NOT(X86_FEATURE_PDX_COMPRESSION)) : : label )
->>
->> Not a bug in this change, but the pre-existing use of positional labels
->> is something I was expecting not to introduce at all seeing as we
->> started cleanly with named labels.
->>
->> The jmp wants to be:
->>
->>   "jmp %l" #label
->>
->> to cope with the fact it's a macro parameter too.
-> 
-> Unrelated change? I can of course do the adjustment in a separate prereq
-> patch, but then it would have been nice if you had commented along these
-> lines before that code actually had gone in.
-> 
-> That said, isn't it at least bad practice to not expose the label use to
-> the compiler? To avoid using positional operands, shouldn't we rather
-> name the operand, and then use "jmp %l[whatever_the_name]"? That's a
-> change I could see as being justified to do right here, rather than in a
-> separate patch.
+The variable can be cleared (set to false) by a non-init function's error
+path (hwp_init_msrs()).
 
-Hmm, no, labels can't be named; they are their own names. I.e. what I think
-we want here is "jmp %l[" #label "]".
+Fixes: 99c4570f8209 ("cpufreq: Add Hardware P-State (HWP) driver")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+--- a/xen/arch/x86/acpi/cpufreq/hwp.c
++++ b/xen/arch/x86/acpi/cpufreq/hwp.c
+@@ -21,7 +21,7 @@ static bool __ro_after_init hwp_in_use;
+ static bool __ro_after_init feature_hwp_notification;
+ static bool __ro_after_init feature_hwp_activity_window;
+ 
+-static bool __ro_after_init feature_hdc;
++static bool __read_mostly feature_hdc;
+ 
+ static bool __ro_after_init opt_cpufreq_hdc = true;
+ 
 
