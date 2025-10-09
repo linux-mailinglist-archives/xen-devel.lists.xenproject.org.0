@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02567BC8E40
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 13:48:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1140501.1475369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E9D4BC8EFB
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 14:02:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1140526.1475379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6p7w-0000oe-HV; Thu, 09 Oct 2025 11:48:08 +0000
+	id 1v6pLC-0003qD-W2; Thu, 09 Oct 2025 12:01:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1140501.1475369; Thu, 09 Oct 2025 11:48:08 +0000
+Received: by outflank-mailman (output) from mailman id 1140526.1475379; Thu, 09 Oct 2025 12:01:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6p7w-0000mc-Eh; Thu, 09 Oct 2025 11:48:08 +0000
-Received: by outflank-mailman (input) for mailman id 1140501;
- Thu, 09 Oct 2025 11:48:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v6pLC-0003nu-TK; Thu, 09 Oct 2025 12:01:50 +0000
+Received: by outflank-mailman (input) for mailman id 1140526;
+ Thu, 09 Oct 2025 12:01:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=I7dU=4S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v6p7v-0000mU-FB
- for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 11:48:07 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d00369af-a505-11f0-9809-7dc792cee155;
- Thu, 09 Oct 2025 13:48:03 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-46e42fa08e4so8746165e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Oct 2025 04:48:03 -0700 (PDT)
+ id 1v6pLB-0003if-Aa
+ for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 12:01:49 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bba59c7c-a507-11f0-9d15-b5c5bf9af7f9;
+ Thu, 09 Oct 2025 14:01:48 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3f0308469a4so577373f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Oct 2025 05:01:48 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46faf183b6dsm43674855e9.17.2025.10.09.04.48.01
+ 5b1f17b1804b1-46fa9d6fb41sm80752225e9.17.2025.10.09.05.01.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Oct 2025 04:48:02 -0700 (PDT)
+ Thu, 09 Oct 2025 05:01:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d00369af-a505-11f0-9809-7dc792cee155
+X-Inumbo-ID: bba59c7c-a507-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760010483; x=1760615283; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760011307; x=1760616107; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LFt9bnF6a5MWzpdPvVGbuwaQt/figOKrt6eplTNjfBM=;
-        b=QpawV9pdSvOW7oCIu/56rJVRDsJwAQgLLNORwLRwO8m+fSK0kLzwJC0M+hmhHFqf9L
-         kJOsabP91Ov8SqHk1pu91hJ7uz/0pqcFW56Z9jIuyNWOkqGk+iyCQ702v0ykSOzLZuTU
-         3DqzlSKV+JCmQZAG47+MsVCdrLLbqbgbJkS3CfdsD16hD2XwaFgMerQFTsHmh6C050No
-         fGCkW7Z0KBRqIQMhCnWw4HRC6Wbhhii5wPSv8wUi71CWgXYefrgJOTbcsdENixuco/nk
-         7H1fmfrrZEaeRTFvSYv4+a58IT4UD9MUojyVLCANeiNbvejnelG5/licsv92s9a9zzCx
-         /MRQ==
+        bh=La8FiX+CY8bsMqSR9+VGygD6K2rBY98SILCfVOTJvQE=;
+        b=ZlvFgz30WMlr0hY3aqQotbOnQKius5EhMYczP1M4Wn7RMFBHDOe/vuZUNo/f9918Hk
+         6XpRurRAhbGL96uGrqVWkavJSvyFyvYxPCVrSZLcvYZ9nuNCr7KzaTG5b9XthGhMOEt2
+         P37mqfuCCW9cPmOWohqsF/l/LAzc4Y8jRzdnLbbMqrpcA/2b+ouV4MU4LP9Vz18YQW8s
+         qUbg2w+R8rZRTE1kCg1DCg45DQpAfiu3pzy9NrjqU6sHVk4V5apUBvzAX6xOEYrplCO5
+         dOcoWJQoTUTkpi4k72YOOZMinnriEjUt65z34093hZAPtsJzzj7dryv9fuyEedIaQF+z
+         rWMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760010483; x=1760615283;
+        d=1e100.net; s=20230601; t=1760011307; x=1760616107;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LFt9bnF6a5MWzpdPvVGbuwaQt/figOKrt6eplTNjfBM=;
-        b=Iqj0qOiSqu1PJ9dDZ4X3mcxNh1vL9+oiiCtsrsu5FWZU0jqFeLGTVJiI4srZgQc6IP
-         ZC/SFDoW/TptN1kObzrEAy9KSJQtNBaC03KUm/nRk3k2613OYLbATgDIiGz2q+NbSm2y
-         Cr3PD49OLsWnjTg584Th9hWar7YBSim8k9Njwbf7Najl9cUniHNepuWI/C17CyJZCjbc
-         TlcEf3W6OGEtUno7DzIfemDHKaK6CaiTVk4laMgVJpqmLBsOIfMk/g7K3KftWrUVmRpl
-         /muVSa/wZ3oxtX3iDuvQPm3oOthygZuLaXK+3sFILUskmFQ66IShIIpNtG9U60IUh261
-         dC/w==
-X-Forwarded-Encrypted: i=1; AJvYcCUp22OHimAsntVBfoTYPRgoHubwyhGyzHiGU94/DvwTo6F7PgzwrvGWnHYgyGhOX7LrNhLzuUxUJVc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzaYoIPICDsYUUtMbBp9K22q1mEC84+9K67hu1AvErApqdjyWdj
-	fDRWiexQhfLDzJnWqVjudlNrWiIDPpW5AFV7kkScC7YFRB6o41YQbdVErvHRU7u1TA==
-X-Gm-Gg: ASbGncuolFjqfRPAuLVTkwPn1mbAf8eSmB/2zzu+WkxPumd1LU5OpUMtGwPJR/rawJv
-	vg9dPGfKUph5R/HBbrZkJbdNVhOBI3Zhurv1/AGTZsesWH26eRO82U5SnCc9C0RsRWolnxg3FIB
-	i3SPk2EMa+lKVQXdRWsqMkFZYHFcVcP2dpobzhU9Jbf6FVoTEClmpkQStSsuMal/Jpo6lcSrtEs
-	UDC5Znh9FQS3FvDLGyKtVX1T7pGFiXUNCyAcvow9DYNS7phM6KSHtrQQ0rrK6QEJPuuZqm6sW61
-	xbPgIjGcafigBpwwEQSvSgXI51b6e8seDyKOCy2MGx5QzUKPTXlmo0WUK4JqdGTClKiYOtkI+Os
-	lzb3cVtVEXGmU52hU3iBxJj3PczW0TIUv3gdrG0Dtdb9ISmwLYoYigvjAYLNewgS8GchXURq4MF
-	c/v5r3eMWFyq6V69+713Wf097Twl8OALebhTgzXJB3Nw==
-X-Google-Smtp-Source: AGHT+IEM/SzNUrWRfi0VtMigiZzmg11lrRy6Z3tHd6BweNtxluF2DUy5u/3ukW1d73gFLkCtCNabQQ==
-X-Received: by 2002:a05:600c:1d12:b0:468:9798:2043 with SMTP id 5b1f17b1804b1-46fa9b05607mr51034045e9.26.1760010482686;
-        Thu, 09 Oct 2025 04:48:02 -0700 (PDT)
-Message-ID: <bc4df23e-58b2-4cba-b25f-e8ba2da222eb@suse.com>
-Date: Thu, 9 Oct 2025 13:48:01 +0200
+        bh=La8FiX+CY8bsMqSR9+VGygD6K2rBY98SILCfVOTJvQE=;
+        b=Wpvn8e+WE7IoSEPpOgWNhAZcXU9wFjjt1eTI66TC3vvwpxEmoIVkjAd1yq34qlmkmo
+         4e8tRnx9dV1vNKNYU42ws7bv78YfB2zNGQsli0hPATiNl7GKLhgBQMjloAiFUVOwdA+/
+         1+tKmRMhbIk9dclXZyY1KParCKnfuD2f5keTVnus7hvEzlc0B86rs2lfEd69iy2FCNNn
+         8X7ZFKdQWfJJX2BbDIeOFBvX/L67g4bvr+zCiPoIjjjn8oDcuXX+TAFsp3oUlXZMSSzH
+         jysXnauuhwj45GKQ5oCc1ojXhk5eCtvKS1x9FO9ybnrmr+MDYFZ8EDLVIf3o6JEsN/aI
+         2ZvQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUtuQj8BHe9JesgLgPUj24lLsHWCT3lX77c97CoY6scbuM1hwBgu/fiR9qNu9thPr0WZuuFmX323ok=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyAshJeFQdY4SsRLOq+oyht3zVKAwT9Fb5u4cJzbh/RU7Fyv2mf
+	bVbDxn1bkEn7D+dJgoQxSWc4s4gaSJ5Bfmx9HqWSIFrQHsdBEPgZfpoAzln9ici5CQ==
+X-Gm-Gg: ASbGncvLuaD8jo9OuL2wN38gn+dnabfagXDbTWvKFQYpF7doM3p7NZV1mIVmHwwqWO3
+	1viWmXi8WjMqFnXS+0zDhSBPZst1Lygg9WNk2Cb8oos7hiWkPnygbCjN5VhD6p0BWuViu5MQgq6
+	CyZXAtaQYg5VD6ewQ8Lx0yqB4m4CiuytAs5YuJeLd+03s7F33ExXFoW4neN5rddYolsU3BX75OZ
+	J93TQIvBak/1oi8KKOl0ZYgrVvPcN6/mYB0IysTBdE34EzsUUyI/xS6sVZSZ8kzP2AuKKgniWTH
+	0MGerQTOkx0sVsvFMZ6+WINmHJbmcipdOoqvg8Y0KFFKdwJFHrpRfr5lA8lBpbD9J3t4ClNr4qo
+	iU6xNZpNfslu4vtn8A7qQRelqqIYtmTbLzvJ4BKuSIQh1nhVcA10omh42CNz3tm1qM5s5WOeKOa
+	OzF8u3ncRi4QWy/krTV79L6WOmeLA7vhAYCsKYBNpbYw==
+X-Google-Smtp-Source: AGHT+IE5VqTcv+MJyqao0z/KfPXChaZHz/xk9gRkpv6hqsFkvTu2K/FrvAvfinIeGP8u/8Zzq09D+g==
+X-Received: by 2002:a05:6000:2c0e:b0:3df:c5e3:55fe with SMTP id ffacd0b85a97d-4266e7dff05mr4736090f8f.29.1760011307518;
+        Thu, 09 Oct 2025 05:01:47 -0700 (PDT)
+Message-ID: <693b0730-b541-4d24-a83e-64f9b09705c1@suse.com>
+Date: Thu, 9 Oct 2025 14:01:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen: Strip xen.efi by default
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
- xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [XEN][PATCH] x86: hvm: vlapic: rework WR/rsvdz masks for LVTx
+ regs
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Daniel Smith <dpsmith@apertussolutions.com>,
- "michal.zygowski@3mdeb.com" <michal.zygowski@3mdeb.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20250612100705.21988-1-frediano.ziglio@cloud.com>
- <586a66e5-4b11-485e-955a-da5fc3183737@citrix.com> <aN6H8dOlea2Um8y8@mail-itl>
- <1708c939-4b06-4d09-acb8-6965383d91f4@suse.com> <aOUiU86LtvsVFukW@mail-itl>
- <e3db4a71-336c-4039-a2fc-7997fadc81b3@suse.com> <aOeeMtiJEhdEiadg@mail-itl>
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ Jason Andryuk <jason.andryuk@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251009114249.1964387-1-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,78 +122,82 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aOeeMtiJEhdEiadg@mail-itl>
+In-Reply-To: <20251009114249.1964387-1-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 09.10.2025 13:36, Marek Marczykowski-Górecki wrote:
-> On Tue, Oct 07, 2025 at 04:46:17PM +0200, Jan Beulich wrote:
->> On 07.10.2025 16:23, Marek Marczykowski-Górecki wrote:
->>> On Tue, Oct 07, 2025 at 04:12:13PM +0200, Jan Beulich wrote:
->>>> On 02.10.2025 16:10, Marek Marczykowski-Górecki wrote:
->>>>> On Thu, Oct 02, 2025 at 02:05:56PM +0100, Andrew Cooper wrote:
->>>>>> On 12/06/2025 11:07 am, Frediano Ziglio wrote:
->>>>>>> For xen.gz file we strip all symbols and have an additional
->>>>>>> xen-syms file version with all symbols.
->>>>>>> Make xen.efi more coherent stripping all symbols too.
->>>>>>> xen.efi.elf can be used for debugging.
->>>>>>>
->>>>>>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
->>>>>
->>>>> Generally,
->>>>> Reviewed-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->>>>
->>>> Just to double check: You offer this after having read (and discarded) my
->>>> comments on v1, which v2 left largely unaddressed? 
->>>
->>> You mean the one about objcopy result used for debugging? I didn't see
->>> that before, since I wasn't in cc on v1... 
->>>
->>> Anyway, are you aware of some specific objcopy issue. Or in other words:
->>> would xen.efi.elf _currently_ be broken (as in - unusable for
->>> debugging/disassembly)?
->>
->> I can't tell. I've seen fair parts of the code in the course of addressing
->> various issues, and I would be very surprised if all of that was working
->> correctly.
->>
->>> If not, then I take that relevant part of your
->>> objection is mostly about inconsistent naming (xen.gz -> xen-syms, vs
->>> xen.efi -> xen.efi.elf). Would xen-syms.efi.elf be better?
->>
->> Plus the one asking to strip only debug info, but not the symbol table.
->> (And no, none of the suggested names look really nice to me.)
->>
->> Plus the one indicating that the change better wouldn't be made in the
->> first place. As said, to deal with size issues we already have machinery
->> in place. Not very nice machinery, but it's apparently functioning.
+On 09.10.2025 13:42, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
 > 
-> I'm of the opinion that defaults matter. Just having ability to build a
-> binary that works on more systems is not sufficient, if you'd need to
-> spend a day (or more...) on debugging obscure error message to figure
-> out which hidden option to use to get there. And while one could argue
-> that CONFIG_DEBUG=y builds are only for people familiar with details to
-> deal with such issues, IMO just CONFIG_DEBUG_INFO=y shouldn't need
-> arcane knowledge to get it working... And since that's a common option
-> to enable in distribution packages, person hitting the issue might not
-> even be the one doing the build (and thus controlling the build
-> options).
+> Rework LVTx registers masks usage in MMIO/WRMSR write emulation code:
 > 
-> As for the details how to get there, I'm more flexible. Based on earlier
-> comments, it seems that (not stripped) xen.efi isn't very useful for
-> debugging directly, an ELF version of it is. So IMO it makes sense to
-> have the debug binary already converted. But if you say you have use for
-> xen.efi with all debug info too, I'm okay with keeping it too, maybe as
-> xen-syms.efi. It's a bit of more space (to have both efi and elf version
-> with debug info), but since it doesn't apply to the installed version,
-> only the one kept in the build directory, not a big issue IMO.
+> - do LVTx masks renaming and rearranging to x_WR_MASK/x_RO_MASK
+> 
+> - rename "vlapic_lvt_mask[]" to "lvt_wr_masks[]" to indicate they define
+> writable LVTx regs bits
+> 
+> - add lvt_rsvdz_masks[] and use it in guest_wrmsr_x2apic() for "Reserved"
+> bits checking (RsvdZ, Non-zero writes to reserved bits should cause #GP
+> exception)
 
-Hmm, yes, having xen-syms.efi (unstripped) plus xen.efi (with debug info
-stripped but symbol table retained, including file symbols) might indeed
-be a reasonable approach. (And then no xen-syms.efi at all when we pass
---strip-debug to the linker anyway. For this to result in somewhat
-manageable Makefile logic, we may need to first split the linking rule
-into multiple steps, as iirc has been the plan for quite some time.)
+Didn't we agree that this may better be done in two steps?
+
+> - add LVT_REG_IDX() macro to avoid open coding calculation of LVTx regs
+> indexes for lvt_wr_masks[]/lvt_rsvdz_masks[] in many places
+> 
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> ---
+> Hi
+> 
+> Patch created according to discussion [1] and based on [1].
+> 
+> I've seen patches from Jan [2] a bit late, so sending
+> it as is for now.
+
+Just wanted to ask, not the least because I'm increasingly of the opinion
+that putting your fix on top of that series might end up being better.
+For example, the special treatment of APIC_CMCI then shouldn't be needed
+anymore.
+
+> @@ -881,7 +898,7 @@ void vlapic_reg_write(struct vcpu *v, unsigned int reg, uint32_t val)
+>      case APIC_LVTERR:       /* LVT Error Reg */
+>          if ( vlapic_sw_disabled(vlapic) )
+>              val |= APIC_LVT_MASKED;
+> -        val &= array_access_nospec(vlapic_lvt_mask, (reg - APIC_LVTT) >> 4);
+> +        val &= array_access_nospec(lvt_wr_masks, LVT_REG_IDX(reg));
+
+Just like it's here, ...
+
+> @@ -1013,26 +1030,18 @@ int guest_wrmsr_x2apic(struct vcpu *v, uint32_t msr, uint64_t val)
+>              return X86EMUL_EXCEPTION;
+>          break;
+>  
+> -    case APIC_LVTT:
+> -        if ( val & ~(LVT_MASK | APIC_TIMER_MODE_MASK) )
+> +    case APIC_CMCI:
+> +        if ( val & ~(LVT_WR_MASK | LVT_RO_MASK | APIC_DM_MASK) )
+>              return X86EMUL_EXCEPTION;
+>          break;
+>  
+> +    case APIC_LVTT:
+>      case APIC_LVTTHMR:
+>      case APIC_LVTPC:
+> -    case APIC_CMCI:
+> -        if ( val & ~(LVT_MASK | APIC_DM_MASK) )
+> -            return X86EMUL_EXCEPTION;
+> -        break;
+> -
+>      case APIC_LVT0:
+>      case APIC_LVT1:
+> -        if ( val & ~LINT_MASK )
+> -            return X86EMUL_EXCEPTION;
+> -        break;
+> -
+>      case APIC_LVTERR:
+> -        if ( val & ~LVT_MASK )
+> +        if ( val & lvt_rsvdz_masks[LVT_REG_IDX(offset)] )
+
+... array_access_nospec() also needs using here.
 
 Jan
 
