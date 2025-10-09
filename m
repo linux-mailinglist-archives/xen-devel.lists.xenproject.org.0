@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2D62BCA1C0
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 18:18:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1140796.1475570 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64142BCA333
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 18:34:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1140809.1475580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6tKD-0002bI-B6; Thu, 09 Oct 2025 16:17:05 +0000
+	id 1v6tae-0005K9-N0; Thu, 09 Oct 2025 16:34:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1140796.1475570; Thu, 09 Oct 2025 16:17:05 +0000
+Received: by outflank-mailman (output) from mailman id 1140809.1475580; Thu, 09 Oct 2025 16:34:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6tKD-0002YB-7i; Thu, 09 Oct 2025 16:17:05 +0000
-Received: by outflank-mailman (input) for mailman id 1140796;
- Thu, 09 Oct 2025 16:17:04 +0000
+	id 1v6tae-0005H5-JV; Thu, 09 Oct 2025 16:34:04 +0000
+Received: by outflank-mailman (input) for mailman id 1140809;
+ Thu, 09 Oct 2025 16:34:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VZ0Z=4S=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1v6tKC-0002Y5-17
- for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 16:17:04 +0000
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c200::3])
+ id 1v6tad-0005Gz-C0
+ for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 16:34:03 +0000
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c200::5])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6156eae8-a52b-11f0-9809-7dc792cee155;
- Thu, 09 Oct 2025 18:16:58 +0200 (CEST)
+ id c1a16493-a52d-11f0-9809-7dc792cee155;
+ Thu, 09 Oct 2025 18:33:59 +0200 (CEST)
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by AM9PR03MB7929.eurprd03.prod.outlook.com (2603:10a6:20b:438::18)
+ by PAXPR03MB8251.eurprd03.prod.outlook.com (2603:10a6:102:23d::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.10; Thu, 9 Oct
- 2025 16:16:56 +0000
+ 2025 16:33:56 +0000
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9203.007; Thu, 9 Oct 2025
- 16:16:56 +0000
+ 16:33:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,266 +47,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6156eae8-a52b-11f0-9809-7dc792cee155
+X-Inumbo-ID: c1a16493-a52d-11f0-9809-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ezlv6yic8xQuHrVM+xMwKgKvhIehS1jLqm879UMZQuRDbeephd9NUspz8Gi1+fbjikugFt1r3r6gOL4PBB+hF8OQ0dZUKriWhGybX/ZgOvtV0jCSwbV+377FRsjVZh6wXKmO18fZQBGEp4kxuy4TVjFHA7Ki3fZ6xlBgtxtcHgoxg+8fBorotvvqaV7S/gERiEX79FSDz8KY3zthuNvc2PKo2LzqqhS1U5oc810jyunjLi49vY8x44Xj/hwy1xsf5eiy8JzFFJ1S9/ndKBO4InHtUFZRmiYE2C31pbB1BMtZyShqtLmWBKmwJrPhBGRFvwrqIEeGg5HN3aVRTGkUaw==
+ b=d1XkAsj1ubDCdtfGjsjzWk02VMHrbOibNKJ0IYK0ivbKdenWiLxqszoWdGXlPT8RMotrbd7WP/3NvkYHuatwPYtlsFgZ5USagThnYoGE5pmEnbZvL4GExocPxfw/ByWJRTSB1tPVc8VFJChbEFa46F+W+8Pfck3d0nHwZ4tp4dJgUO3T7HghkemAYlYFqFKitYBqomvtCU/GUMcwA75ouYQoWr4BhwY8Div1pdtqS+FMoUs+hQez2zQNPmuoBjBD3YLdge+P3iq66LGW8r5FyJVLToQdsEOnWpG8kaWpOhT1CNCej39X2LwSHx69Hcij9PzTR27qVPsoMbIAjLyHlA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hydw63ReTdg0aiMVp/2bSqcGoDRu8X0sidBBd6kBVrU=;
- b=RzATH1DyBojxCynEh3br3g3O1X5oRhpdWeQSGuM+vKmxPbQjdH54PFzcFGOOqxV57w6sz2aavKuwP/qhUxdE22N0qLgYzYhJ6MBGyP+nB7+bozAU70bBoPepCd0TOgZiWhvL8cwE16tUMErkEdOYDKCdc7fh69V+cYNpPd1FrqxPZyC8dpFf+XeIh7tXZc4InWO0OCIVqEnWTgWlZ+DR0BITYZAQeGnEw36voSBuktOMqfC4C5TIFo8XOm6IVyHeiwtYTOLP5ogcV7yIXrKaOpJ1XuW5lHM6XxllGOUokF34+OxqkXxwOWVG+qcfkzEYRG5HWzgDr9cAuCFlHBsNYg==
+ bh=H8hUAPdMt8LeEXvyjXzf+ru/B10BfoHbRgXUTt7HCbM=;
+ b=exK6r8GNgYGXlUnXER4DmRcNrnjs7iyVYs94FtrnLPZGDlgSFj1Rd720BvPjzmP6xEBQ5AIEUlovyfhRriwpfAQLAMxRvCkKuoKf6jLfUZgpZeUf34O+qag84vHzUz9KeaywdmMWSEB7PPaxZZW8iTEdO6q3nAkpf4lZX7I2OeFWzCzvhXzSWe4n5ngpyAA78gFgB1Dt2MMdaTeC3Tv2cP+T1FXDnfoC+17ZukFtoTwx6EILoyIyPu/BwJwgnK0Y+VaLzCB+USAJJL/39ak/iv1jk5/+wwTcGTE7thQjGKUmtZj40iXpOOnBl4sGtzq4SnDI7ps5BufbAgH8MQ5OlA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hydw63ReTdg0aiMVp/2bSqcGoDRu8X0sidBBd6kBVrU=;
- b=KQTOsqmKxduHNKa348eB2NaGDnVTDLQ6SwTZDKBuRhDpPZdN74Unnn2GFCtOYOjEXkq1PhK3NbF9Q8ntQSs9pdvsjHe4q+MZtjOkFoWlurH9VNdWqpnjuoyj3HJWa3JthQZrQMZdZ3qJ2t7/hhvJTnUWy/34akG4FIdUYx1S1mZoG6+vPnRlWMzl/31noaF9tKjtTTgRADfPMIPAb8HXZJDmnSDB9jNL2IwOaiY22JFQAM6KJE2bXcDgT3OUql0XK6uL0ev3WjaG+q5Vsjk7YN0La9CeBIa4gvIL5YA7RweBVXeQ3AiACkmtCiO6biWza+twx81SjgtrA4epKn6X9w==
+ bh=H8hUAPdMt8LeEXvyjXzf+ru/B10BfoHbRgXUTt7HCbM=;
+ b=kgkNst5SBQjQsSYP0uCCg3NTOzmsrxq1S6uXOtKkfdXiALpYieb6IHSkiwabYI2xkmNDKj1MUEtGxi5L2P5J+M7S91e+FK+wnca6dFu96iQFDJSdGYMG6BhexI3F5XttvzB4CVdoPJ0ESAzNBJwRz6rDfUDw/Lfh2EKiS1FQIPTUtv7EE/WXaRGUsZtSldAaNZdDIrCvMn+aaGNQ4rQIWtiOE7gDV24Dks93TYRlaeeHPes4T/ldyAp8p5/D+VbIH9Usw2wf7DMOlCM57oyzjH3TssjlFNZdjmXgRedO2jRR8PaRxi6yop1692PTG6t/ClPuc5H3nHvDO7/vmSXArw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <a35ca989-e199-4072-bf73-c9d135f7c2e7@epam.com>
-Date: Thu, 9 Oct 2025 19:16:55 +0300
+Message-ID: <cb76b42b-e686-4b70-a831-65ec69985a8a@epam.com>
+Date: Thu, 9 Oct 2025 19:33:55 +0300
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21??? 1/3] x86/vLAPIC: add indirection to LVT
- handling
+Subject: Re: [PATCH v5] x86: make Viridian support optional
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <amc96@srcf.net>, Oleksii Kurochko
- <oleksii.kurochko@gmail.com>,
+ Paul Durrant <paul@xen.org>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <265d5053-af61-42cb-a3b9-ef60df39c21b@suse.com>
- <dd6b46f8-76f7-46d3-b3be-083b58781f32@suse.com>
- <6a3494af-96a7-4092-a8fe-39aee85fc983@epam.com>
- <f5ae9852-4fa8-4441-9ad9-491e1d1143b9@suse.com>
+References: <20250930125215.1087214-1-grygorii_strashko@epam.com>
+ <3e4e4bc5-aa47-4357-9327-df2a9b9c9a1b@suse.com>
 Content-Language: en-US
 From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <f5ae9852-4fa8-4441-9ad9-491e1d1143b9@suse.com>
+In-Reply-To: <3e4e4bc5-aa47-4357-9327-df2a9b9c9a1b@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0091.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::10) To AS2PR03MB8907.eurprd03.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0043.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4a::15) To AS2PR03MB8907.eurprd03.prod.outlook.com
  (2603:10a6:20b:5e4::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|AM9PR03MB7929:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5a97342-52e6-4a9d-641a-08de074f4439
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|PAXPR03MB8251:EE_
+X-MS-Office365-Filtering-Correlation-Id: 449b8e68-88d6-482c-be89-08de0751a474
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?VGcraTdCTll2WTJncWxFM1lEMC96QVJrVG9kMG11TFRUYytxMkhBTnZiWXNX?=
- =?utf-8?B?TkZiSGQzZjRKa3RDcXp5eExLYUI5R0xKbHpBL0xtOTNtMFJIZXo4bURHdENQ?=
- =?utf-8?B?SW10WEhFUkx5YjJsMWYrdzNuaHpuSjdaN1hpWDQyNk1Idml0dHhhM3ZTbVJw?=
- =?utf-8?B?Zk5GYWhsci8reFcyd3FLV1UxMUtldkJFQTVHYURXLzNKRG5VMThuUVdNLzA3?=
- =?utf-8?B?QzZHejMxZzNuNDR5TVZDamZQeUFVYjVxNFNYd0ltWnZRSmNwQWhQRHhmWEZ3?=
- =?utf-8?B?RXloQkF2bWtHbml5UkhXa0gzN05EQUxWTXhONnBrUnBWZ2JBcnBldmoxRjU0?=
- =?utf-8?B?M2UxL2J3R0dBZ1NvdXdMNXpYRUNoT1R2eXNWLzZWUTlJUjBJYTJ3Zi9jSnlx?=
- =?utf-8?B?NzdQQjdJSmozbFd6anc1dkVWVzlxMmVKbElJaVVpNjdxZjdKVkdWMmJtbUtq?=
- =?utf-8?B?U0JGNmJYNkYvcWZpSVBxdzJRcy9IeTk4QlBhWGNaZFlwaXBZWHdrQ2hub040?=
- =?utf-8?B?eG5UYmJTQlk5cmo3VkxMOTdJMDJiTlJhRnhVZndDSzFGQVBaT3JzQmVTb2VB?=
- =?utf-8?B?WkluNEhnNW5GZnVCeGh6T2xGU1F5MXV2RkRZZHIwZjduOHMzaDR6TmFwQ1hx?=
- =?utf-8?B?bHoyL050bnhqakJPWTM1WUplNzhvR3hhanVGNFdwUzM0a2xmRG1uMzhaVjhv?=
- =?utf-8?B?aitERjVWcXJDbFdJTDRBb2R5SjByanorUWlRZDdaZDZaUUo1V2s3clF6TVVV?=
- =?utf-8?B?RlJQdmRPYTdWcHluYm1KRDJVb1VEdjZYNUlvVWdTYXhGMnQ3eGNJcTNHVTRH?=
- =?utf-8?B?c2xZZElORzR6MW42Mm5ZUG14RjVWU0VFN3I1OWE2d0s0dXVWR0hKUmtxUFE4?=
- =?utf-8?B?SFJ3TVRud1czREs5RlpTMi9OU0FHLy9xQitoeWtvMWM5N3BaUmo5OXlveXMr?=
- =?utf-8?B?eVF2ZlZHejN1VnZma1FvaFp4Q1ZJTHFVcnZzK1JBaTZMQ2hyRmQrMktGQ3NS?=
- =?utf-8?B?dzBXQU15QWZEMkJuT1FiY1JKUDNEYnNwWVU2cDNRaHgwN1hWR28xRHI0S1My?=
- =?utf-8?B?ZU1NZXF1TWhuUEd3OFRoTnpKc0Fscy93NVlBVVR5QTJxR3F1dHRnTEs1RUJ5?=
- =?utf-8?B?aC9IcUdlREVZOWYvTWVzcjJxM1AyZHhNQUVnVFhaaHJuanQvSi81SnhBdFND?=
- =?utf-8?B?VmpUb3hacXRwd2pDQVljVnlJdDZzL0xqRVBNTU02WURrbXI4Z1V1OEkybEV6?=
- =?utf-8?B?cU9NN3BYanE1MWdSRisxQzU3aXpKdjh1ZlVobUlHOXcxMTFDd21yMVZZamR2?=
- =?utf-8?B?YVJtOHZWMnRqVFIwK29sTEUrZnpYWEpYNVdEV05hV29CQytQQ013UG1RcHM0?=
- =?utf-8?B?bS9UZFpOQkVDQndoSENjbWNJckVsdHN4T2REdUN2bkJGY3A5RXUrMXYwcGdm?=
- =?utf-8?B?aGdKWG9VbmZGSzFrUEdVUlRCSnlyUm90S1ppZWhiMXowWnBBOVhPNUV2eDhV?=
- =?utf-8?B?Nk1hYy8wOVRVemlMK3FZNkVzN2NwQXg3OVN1bnpNczJKODQ2MDdRZkhrY3RP?=
- =?utf-8?B?Rnk4eVFnRGk0QlVNUnVVT3dDRnBIekZWM0VlS2EzdTlWMTNyM3VPSHpvNm9J?=
- =?utf-8?B?dHJTS3FqSUdRRHY4VU9xSFV0eDNVWSszMnRpOFFwQmEzZTQ0Z3FJaVJlbFFj?=
- =?utf-8?B?dmorNkQ1OVhDUVNQbWdzUUs2RWlqcGNWamg3TzVQZERyYlNvbTJqRUJpejB3?=
- =?utf-8?B?S2VSZklLN0ZFbHdIOEF0Q2hMT0g0VjdwUTkvUzd3cUMwLzFkRHhocmgzYzlF?=
- =?utf-8?B?WUExWE10elFkQjdTQy9sTVptVXhuTk9mc294TEZVMkxJYlBDOHNick9SREE1?=
- =?utf-8?B?RW5aUHdkbmo5SldGbW5WVEJTYlhQM1lLaWgwcm5BYlFsUjY5OGdTMnMxS3Z6?=
- =?utf-8?Q?bfTRWdSe8BzW6IP6nmTWvzs9AgGCm0NR?=
+	=?utf-8?B?aFhOMEJPU0lRLzlmc1dvOHJQZU5XSkpTQXVNbDYzaWQrbWdiU0tOMjYzTjV4?=
+ =?utf-8?B?SFpLczc4eVdrN0lnZHdrcWZHNEN0SjIycG9IMjdWb29oaWIrYUlLWWZqdVIx?=
+ =?utf-8?B?ZDdDRGV2bkJkTGN0Wko3dkljUmtPei9WOUcxUlA1cG1idldXMlVyUzRwMWZZ?=
+ =?utf-8?B?ZXZRWEJEeURrdUJPVU1nWEhBWkRUdlozRWJtdWkxUDFWMTUvUDR1VEgwYlZK?=
+ =?utf-8?B?Y3MxTjRkelBPTHprWUQ5WFlMVlM2S1pJcXpNSXE2aDI4cEFjdEtSQXJrZmRS?=
+ =?utf-8?B?bkFRc2R1MGpOZEdxUEVFWFNoQ0FhV3c1cUNDTlM5WjJuMDh6VkJ6WEFjVnNI?=
+ =?utf-8?B?UUZkVzJQSy81bEtMTUtKUThrZm0ydjJGMkd1RHJCKzZMbHpBM0xmY040cFFT?=
+ =?utf-8?B?djJseUhDdVJIZko4Skl6U0h4NVZhVHlqb21vUk5uN0pmbmNBOHJ1MHFpQ08z?=
+ =?utf-8?B?YmhPV0ptVjc0enl0RVdwMVFmRFFXclcwRWUxc1RkY2dRQ2VhTktFTzNVWm56?=
+ =?utf-8?B?UGtEbG01ZS9EYTE3bTB6K1UwRnlER2NUeUpKYTdWTUJpdnc3bXZXWUkwSENG?=
+ =?utf-8?B?cWxqOTJTM2owNCt4eGE5eW5SbGtxWDcyMFd1M0tpOEQwMnZ2OVFUdHM0NWoz?=
+ =?utf-8?B?Q1dmMTduT1AwQ3Byb1hrenBscDdyeE5wVG9DeUwvbGhWdVhXeE1tVWQwT3Y0?=
+ =?utf-8?B?bmNxZEowc2JLWURuK3F0SkEwNmNRbDdSVmJUYlF0N1RCYm5RdzEwVFJXcHBZ?=
+ =?utf-8?B?VkxJdlBFOG14d2RYUUVLUmcrOTlnUTZJb0FMTkRSQURRa0ZkcmNNdkc1VTlV?=
+ =?utf-8?B?ejV4OGQzRmZOWDRmQU1vZWo2b0xoVHVHS3psQU1rdFE3YjcrZjZLNk5HeFVO?=
+ =?utf-8?B?dzRVOG1IWmhTN092YWFnUTJGVVdpWjk2bVhIaUV6ckRUSHRZeHEzM0FHeXNi?=
+ =?utf-8?B?ODYyTzJRSFFGM1JNU1pXZHRhbHhQcTNjSitBL09Sd08razA4Z1c2NjBVVnc5?=
+ =?utf-8?B?ckl1bXJxcThZU2IvM0FGck1oL0NDcy9VdzhnY0U5eVBzUDQydWx5cm1USWVy?=
+ =?utf-8?B?Z1hEdForeUJhYlNHQzgvNnpRa3lzL0ZSRnBSS1UrTVlxTDJ1TnZoLzI5ZENF?=
+ =?utf-8?B?bW1hcWRGSzJBaU5mZ1BoMlk2MWtxVUtHUGtHMG5OaVI4dnRYWDJaK3ZhR0Fy?=
+ =?utf-8?B?NjNkdHhNYWlvSi9EbFMwY2J2NjB5Zzh6elVRNEVMMEczclZmUXZoS3pxNlNw?=
+ =?utf-8?B?RXA2Mk9TY2YyaFZxTVFGRnpsc1lXM3JvZzJ5MzVKQXYvNWk2R3JHY1pSbklt?=
+ =?utf-8?B?ZGt5cHdTcHNpb0d0L25ldGJTcUNkNjFpeEJodTZ4NXJPeXRZeU1BZHlGeEcw?=
+ =?utf-8?B?dUdSNUFUNjRxdVJTK1VUQzRDQSszSXRWekt5MW1icEVNaEErWnMrbUlOWDdk?=
+ =?utf-8?B?aWpvMnVHWU10d0Z3Rzdua256OWxHVS9MZFJwbitGZjAzd3NZeWF0TklPWFFx?=
+ =?utf-8?B?RjVhUFR0U2xIS0J5ZnlDWDhOTitzcFZWdWE2VHBCdWhzWmJFNGN4V3RCeFJK?=
+ =?utf-8?B?d0FZcUJFQjJtcVlOZlBnR0xvL2R3dWExcGw2L0lZcnRMc1h3TFlhOU0zWDlx?=
+ =?utf-8?B?NENKVXF2ZGM0RkZ1N3NySjVYcy90TnlZVi96ckErUmN2b3VJZGZSREpDQmZt?=
+ =?utf-8?B?bDdEeVUrdTh5dS84MmJJV2hPejd6akcvQ2RZNFl2YkVLS2IrZlk2UFVVUytO?=
+ =?utf-8?B?WklSaE9pZUl4cE5aYmVPZEpNZlE1cFJlVjF6QTQ4Zi92bEhvWDRxakVROGNW?=
+ =?utf-8?B?N1djVWdsZlgzZG9iVWR1MU5temNFZjl1NkV0Wm9zSzVRYmZOeXVOaTh5dnAw?=
+ =?utf-8?B?NTEyaVZweDBOSHlkM2xpRk0rQkVET1VkSVJ0OW9qS2crTlE9PQ==?=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RUw0SWhQVXRLd0xQZDhwdDhiZFFKa1B2ME5Malk4K2E4VlVoaDJOTjVFUlNJ?=
- =?utf-8?B?Sy9aSjdpc0lzM0Frc29xdHZsRmFFalQyWVJYT1pUVUdoR2MxQmRzVWJZWWF0?=
- =?utf-8?B?MFpGck0rRlFZUm1OOVhWTlViamxiQ2s1ZEZIQTdiNWZON2ptU1drek9KaXJS?=
- =?utf-8?B?Y2E1Z2xjZWFpdm93aWF6Z01HV0lZWFpiNmFEdFZWZ0ZiTzBKQUUzK1FycmdD?=
- =?utf-8?B?LzZHYXZlcjZOOTYyZ3JzazZLeURpK1E5RGtBMkd4TGkzWG1zNlFubHpJZ3ZC?=
- =?utf-8?B?L2NmRExUL242bmJyakpGT0F4eXhTQjNrRW1oMjRXT3lvdmdDM1dJK1ZvUmMv?=
- =?utf-8?B?KzlCUHFncGFQVWNrOUJFNGhaKzNHMHpXell6SjZNcEEwNEhUS2s0cjRQdGtF?=
- =?utf-8?B?d1ZXMWZrZzdta3Q4NUIrUC9LT0dUY3UyRXI5S29vTFR3YjJaSDVUbzhKY2V0?=
- =?utf-8?B?VHVwNlR4VWZZS3FtMjBvRVk5SndSRTN3ZDM2Tmd4VkNHZGJ6OHlQQUtQYlk0?=
- =?utf-8?B?NzRPNFRuRGRSdTNNTFRhYUg1UzZoMXpkVmNzY3Z0Z1lqa0diSW5RY0hFN0Zj?=
- =?utf-8?B?bFdnTVdyeTVmdTRETXZSUDRwVlVQUUhIUVRSeGxMeGZLalFRQkJwUFBPeTI1?=
- =?utf-8?B?MWdpd1gzVDNpQWUzeUJiZXZRZWdTdWdOUVVudDF1ZyswR3hrRmhoYmtmWWEw?=
- =?utf-8?B?bCthYTQwYmE2djBBcmM4dngyRXhrcnl6Tmw2K3hheTRNQVBQRVppNzhSWjIz?=
- =?utf-8?B?VUhMVHVXbkJHQ1FYVW42eG1HZVdWNjIrZGVJMk1rclpsQWJmdkNrbFlETmxJ?=
- =?utf-8?B?cFFQNjhBMmlRWHZNb3UrVndEeVp6TGxQdXpKdVBMWmQwbCsrSFMyRkxQaFJM?=
- =?utf-8?B?NDBPOHhac1h4Y1NkM20vQmR5WFRuTFV5bkVESXNFZ1U5SFBicjhOelJIMTZ1?=
- =?utf-8?B?MWlPMkUyU2ZBdTNvMVhyWlFGT3hmNGVlRWZZM3F4eWM5MndqODRvSzNwczR4?=
- =?utf-8?B?a3pzV0srRGtMMW1wcFFTYk1VcjQ1QThJVUVFVHg1azRLVFN5MW1OcGJXL1B3?=
- =?utf-8?B?RlhlZXpIQjF5aUZtaVg0dWdITGVqZzc4UkVzV2ZSUmdBOVRFbGc0Nlc4TlBI?=
- =?utf-8?B?OURMZHBTWTlheTRjaVpEZ2N2ZXo2elVac0NQWjJyMGpXaVJIRDZPSGtsdjZE?=
- =?utf-8?B?ZldqalBJdElqbDE0V1Q1ZDZBOEc1ZmNQdTJ2RkVlbmUzVjk5aUxpNmdtUWpk?=
- =?utf-8?B?cE1ZTUVJb2JiN1A0VUhwektpTy9DVTc1TFBrMzNrTU1XQlFMb21helFmNkww?=
- =?utf-8?B?YVpWUzJoWUc4Z2tFYXdDWFRuSWR0bStyQjh6RWhIaGFpcldsdHBLcDE1ZDNR?=
- =?utf-8?B?TU5xTXRiREpLSERIM083TU9sNGJJMGduUzk1Tm1DQm5mQkt2bytxdUdRY1dj?=
- =?utf-8?B?bUp5YnAwWlBpUkVGak9OdHpscGtyMmhvV1lrbXBIdUwrUzVZZVZlZHdkakJy?=
- =?utf-8?B?LytVV1JLOXhGdmRYMG9kS2lYSzlrbG91Nkx2dkkvTmY4SDZjREdPd0F1K0pB?=
- =?utf-8?B?TEpSellKa0Q3eDYwQS8rbUUvTzJJNmMvN2dpUzhuRkhobTNkdjhzMW9WbXZs?=
- =?utf-8?B?MXZtbjg5Y3RFbkk4TXBnYlZvYm1GTFlSYjNSWFNBTm9kRGZMelVaSmRMWGxN?=
- =?utf-8?B?RmJ4UFl6alltWTJ4bUtSeCtBVm9oUWFZaDBscDQzaDNJekZ6aWVicnRqNGYy?=
- =?utf-8?B?NHhRTVVSNDhaODh6NUErdGh3U3hYNnlaTTJhZjVCc09lczNhMXI0T0FmbCt4?=
- =?utf-8?B?eDZBZ2lnWlFVaVE2MGg0bnJwR0V6YU9zOFRYOXhyWHh2SkgzQVhnT0VONFRM?=
- =?utf-8?B?aThMbndkZVUwWDRHeGVIVk1abDJXTnM4TlRiTFpmWHRhaXJOMThrMWg1bFNO?=
- =?utf-8?B?SEQzZ3BwaitET2hrM3VkVmVXYjNNdXp6YmVCVlpxMUIxMXJrVW9JdzlpWW5X?=
- =?utf-8?B?VXJGMWFod2NMYlZiOHJjbnhMSUxCbnVDNmIrM0dPckVpdWwwNSs2eGJ5VXl6?=
- =?utf-8?B?M2tuWUpxOUc3OUlwZ1R0YlFldmhwaVp4aUtibHNRb0o1dnhxOXdkQkgyd3Bs?=
- =?utf-8?B?TW5tVnJ0bGx5aktLclBxRmVwMUJocFlDVTd1S3hidW9JZFJiVWQyZUQ1WXZ5?=
- =?utf-8?B?ZlE9PQ==?=
+	=?utf-8?B?b1FyZWltT2NzRE5weVRuRzNIYWhsM2VNK0JqK2dubW1HbHlaM0ZuK1NUVFpp?=
+ =?utf-8?B?UkNHZW8xVWREZVYyQnhxMTVSQlVjTFQxRUtzZjVoajhGdU54aGRCU2ZVS2kw?=
+ =?utf-8?B?d1ZOWlhmV2tWZGdZU0dGRHBic2N2RmUzZTBWZHcrYkxucUxTYkhtWVFUUUtp?=
+ =?utf-8?B?Uk9wRWlVcVpJR0VTRGJqdldGK2YwcEFtMWNESzFQdUpML09FUG5ZZTVXTkxy?=
+ =?utf-8?B?TzRXdFM3eDlocjBoSE9SKzNjSnJzZlNOL3c1ay9QSk01V3VHaTB5bEFwV3M5?=
+ =?utf-8?B?eGJ5NnZGWmc0ZlZXMlR0ZVRrVEpwb1YxdUVyaDl6VXVJU3o1aG5KQmFGZm5C?=
+ =?utf-8?B?TmlYUTZTeFZiS0xvZTd3aVRnd21kTTNoWGdZeks4dmk3U1UxNmRWS0Z2RCtl?=
+ =?utf-8?B?Z1VLVUN3Z3R4UlRGMERvZ2owajFHRkFRUXdKbTdMck40ZW1Ya3Z6a1d3RzBV?=
+ =?utf-8?B?aHptOW51Q0dMWHV1a2NkZ0o0OFFUUjgrNmE5akxNWUYzaFJ0VVp0aFlYRVpY?=
+ =?utf-8?B?V3pCc2haMjRYUkR1am5LTXhwOTI3bnZlWmdyNldlZGswZWJJaTlIcmhSU2JB?=
+ =?utf-8?B?bUhtTi9uRllLSklweFJIUnk2S2ptdThSL01DTXhjT3ltVUhGSlVmWGtkSmtY?=
+ =?utf-8?B?L1NxQTliUHRLR2RYcXN6REhnbXE0UVl1ZHA2UmRLTE5jTG05YjRzWkxoQUJU?=
+ =?utf-8?B?M3VnNXpZVkFBQnFmL2laM2hlQll2TE43Nno4Tzh2UDhkOWRlSzdtNnFJWGtV?=
+ =?utf-8?B?N0U1Ty85WFpCc1daL3IySWF0dU55UjFtbGdDenhwUms1TkZnclArdndKVnRx?=
+ =?utf-8?B?NEJoSi9yR1psejF2a2tLNFd5dmhVWXhHOVNaMlQxeis2U1AzV1BuQjk0R00w?=
+ =?utf-8?B?OWRtUXRwb1Z1c2NEeFl1aG91aGwzbHRFdlJlZVpkRVdKRHIza0ZJcVRuN2JG?=
+ =?utf-8?B?RnVPMjB1R0VCR1pTVFM5blVic3ROcFYwcllNVkZUN2x2T3ZuaFByM0pmUFdy?=
+ =?utf-8?B?V0QrT1YrMDY4WFJsR1U1QVJsUzVuVVdtSkNDUjl0M3FVRHlIZ3g3bkJUVlBz?=
+ =?utf-8?B?SjEveVFFYWZLN09sZHZRUFNrNlE3NlYwUlFJa3I3U2k2dEtvRUxVcm9wbjVM?=
+ =?utf-8?B?QVpkamFTbldIYXBQa0VWbVVWL0lqMmFUY0pyeDh1Y09oMkhTN1Y5TzNCQUxC?=
+ =?utf-8?B?aUJQMXpPZloyMkRTZ2Z3RVh3cWMydGYxcGgxbzZjZTIyci9VZm9YRmx2aXA0?=
+ =?utf-8?B?K1pEU0pRTHJQYmkrSEh3cG1KT3AyMzNIYys4V2dON2UxSG9uUzBpbW5lb2R3?=
+ =?utf-8?B?L2F5eVUxYVBpM2xkb014MUc4Q0xmSGh2MzMvTmREWmdHNW02RWZQZy9mRFdY?=
+ =?utf-8?B?M0xCRHhtUDdjKy9CTFQyNWVJQlA4blRoS3h6SU1nNXNVSlczam9tOWl5UklK?=
+ =?utf-8?B?am1tTHlKSW96dE1DN0dCUm85MUJWcE45Rk04NGhHMXM3VUJJMXlMVzZSaC9P?=
+ =?utf-8?B?UzlJV0R3R1A0NE5RSjJPVFMxVTQzb3QvU3N4ckVyVzg0MkRFYlNoTnlvcXBp?=
+ =?utf-8?B?Q3Q1TG9qWGhjczEwNDRha0k4cGZoS01TWWNYTjhyVVNnUkM3Q0NCR1ZYTTVZ?=
+ =?utf-8?B?VXozZEhjK29oU0hxb2FGTWtDaHBKdStHOUNCVTJMb1pGSFQyNUdIY0lEZDBt?=
+ =?utf-8?B?UW5ZbEJTT0FvUkZLTmhQb1J6aUxKOEFhRzZrVUtOZjUyaURFV0dtakxmZUR0?=
+ =?utf-8?B?VHpTSTB1RXhJTHdvS2JaRTJMTXQ3VlMwQ0JISFc3VmRaMExqVWRmU0hkZ1Y3?=
+ =?utf-8?B?eHVZdlIrbjdsWVlrWHBKTlRpYk1kLzl6TjNPVUpUd1p4djVDSWx3VVNsRjdD?=
+ =?utf-8?B?MFg1MEI5MEFaRDhkL2FBZklJUG5MZHdEcjFPanc2WTArSFJETmpHK1ZwbDM3?=
+ =?utf-8?B?alRQVVA2YVA1TUJNTEUydWlmVzZTb0ZlRGJwZHR0STFRVlMzU3FocTFUK01G?=
+ =?utf-8?B?Wk1zS2hPUHZXNm5QdUJEYStUOENCalpGM09ENHlIeHk5UEc1VmJ3YTBiZmNp?=
+ =?utf-8?B?UENGMHFHWUhmZzdwYmh0Y1lTbXF5cFJwNzZCMlViQjEzb1AxcENVUEVPc2xq?=
+ =?utf-8?B?SDZWd1lNS1VaalpZZDVwWnpYSGsxZUV2enh1ZkxlVjA5aWhJRkdESnZ4N2Jq?=
+ =?utf-8?B?QVE9PQ==?=
 X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5a97342-52e6-4a9d-641a-08de074f4439
+X-MS-Exchange-CrossTenant-Network-Message-Id: 449b8e68-88d6-482c-be89-08de0751a474
 X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2025 16:16:56.3401
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2025 16:33:56.7420
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: motA1icz225MgWDSAeoSxOctJeP/G4bhtv/9eRKaH/4LpKsf/XH1NLS5Gp+dvG4+ThdNg9s8KC30aEVmwcv9KExueNUk+7Dm3av1N9gVdUk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7929
+X-MS-Exchange-CrossTenant-UserPrincipalName: vw8ntQv5Crj+YghNh/Rq6onDtc1K85TId/RoSetZh5z1OP4ZtKdJ2KtWaCidYDEC2zh2UO2u1OINte0M3Kseh20zs2gXX64VdmX7slvvLsA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR03MB8251
 
 
 
-On 09.10.25 18:31, Jan Beulich wrote:
-> On 09.10.2025 16:56, Grygorii Strashko wrote:
->> On 08.10.25 15:08, Jan Beulich wrote:
->>> --- a/xen/arch/x86/hvm/vlapic.c
->>> +++ b/xen/arch/x86/hvm/vlapic.c
->>> @@ -32,7 +32,16 @@
->>>    #include <public/hvm/params.h>
->>>    
->>>    #define VLAPIC_VERSION                  0x00050014
->>> -#define VLAPIC_LVT_NUM                  6
->>> +#define LVT_BIAS(reg)                   (((reg) - APIC_LVTT) >> 4)
->>
->> LVT_REG_IDX is more meaningful.
+On 08.10.25 19:04, Jan Beulich wrote:
+> On 30.09.2025 14:52, Grygorii Strashko wrote:
+>> --- a/xen/arch/x86/hvm/Kconfig
+>> +++ b/xen/arch/x86/hvm/Kconfig
+>> @@ -62,6 +62,16 @@ config ALTP2M
+>>   
+>>   	  If unsure, stay with defaults.
+>>   
+>> +config VIRIDIAN
+>> +	bool "Hyper-V enlightenments for guests" if EXPERT
+>> +	default y
+>> +	help
+>> +	  Support optimizations for Hyper-V guests such as faster hypercalls,
+>> +	  efficient timer and interrupt handling, and enhanced paravirtualized
+>> +	  I/O. This is to improve performance and compatibility of Windows VMs.
 > 
-> Not to me. I don't like LVT_BIAS() very much as a name, but if anything I'd
-> want to replace it by something clearly better (and unambiguous).
-> 
->>> +
->>> +#define LVTS \
->>> +    LVT(LVTT), LVT(LVTTHMR), LVT(LVTPC), LVT(LVT0), LVT(LVT1), LVT(LVTERR),
->>> +
->>> +static const unsigned int lvt_reg[] = {
->>
->> this is going to be used by vlapic_get_reg()/vlapic_set_reg()
->> which both accept "uint32_t reg", so wouldn't it be reasonable
->> to use "uint32_t" here too.
-> 
-> Possible, but against ./CODING_STYLE (applies to your other uint32_t remarks,
-> too).
-> 
->>> @@ -41,20 +50,21 @@
->>>        (LVT_MASK | APIC_DM_MASK | APIC_INPUT_POLARITY |\
->>>        APIC_LVT_REMOTE_IRR | APIC_LVT_LEVEL_TRIGGER)
->>>    
->>> -static const unsigned int vlapic_lvt_mask[VLAPIC_LVT_NUM] =
->>> +static const unsigned int lvt_valid[] =
->>>    {
->>> -     /* LVTT */
->>> -     LVT_MASK | APIC_TIMER_MODE_MASK,
->>> -     /* LVTTHMR */
->>> -     LVT_MASK | APIC_DM_MASK,
->>> -     /* LVTPC */
->>> -     LVT_MASK | APIC_DM_MASK,
->>> -     /* LVT0-1 */
->>> -     LINT_MASK, LINT_MASK,
->>> -     /* LVTERR */
->>> -     LVT_MASK
->>> +#define LVTT_VALID    (LVT_MASK | APIC_TIMER_MODE_MASK)
->>> +#define LVTTHMR_VALID (LVT_MASK | APIC_DM_MASK)
->>> +#define LVTPC_VALID   (LVT_MASK | APIC_DM_MASK)
->>> +#define LVT0_VALID    LINT_MASK
->>> +#define LVT1_VALID    LINT_MASK
->>> +#define LVTERR_VALID  LVT_MASK
->>> +#define LVT(which)    [LVT_BIAS(APIC_ ## which)] = which ## _VALID
->>> +    LVTS
->>> +#undef LVT
->>>    };
->>>    
->>> +#undef LVTS
->>> +
->>
->> I know people have different coding style/approaches...
->> But using self expanding macro-magic in this particular case is over-kill
->> - it breaks grep (grep APIC_LVTT will not give all occurrences)
->> - it complicates code analyzes and readability
->>      - What is array size?
->>      - Which array elements actually initialized?
->>      - what is the actual element's values?
->> - in this particular case - no benefits in terms of code lines.
->>
->> It might be reasonable if there would be few dozen of regs (or more),
->> but there are only 6(7) and HW spec is old and stable.
->>
->> So could there just be:
->> static const unsigned int lvt_reg[] = {
->>    APIC_LVTT,
->>    APIC_LVTTHMR
->>    ...
->>
->> and
->>
->> static const unsigned int lvt_valid[] = {
->>    [LVT_REG_IDX(APIC_LVTT)] = (LVT_MASK | APIC_TIMER_MODE_MASK),
->>    [LVT_REG_IDX(APIC_LVTTHMR)] = (LVT_MASK | APIC_DM_MASK),
->>    ..
->>
->> Just fast look at above code gives all info without need to parse all
->> these recursive macro.
-> 
-> And with no guarantee at all that the order of entries remains in sync
-> between all (two now, three later) uses.
+> What is "paravirtualized I/O" about in this context?
 
-The order in lvt_x_masks[] arrays are guaranteed by "[x] = y,".
+It was phrased this way and agreed upon from the very beginning [1]
 
-Comparing or syncing lvt_reg[] array with with lvt_x_masks[]
-would not be exactly correct as they are used in a different way and
-have different sizes (after patch 3).
-
-if somebody decide to add AMD Extended LVTs which have offsets 500-530h
-then lvt_x_masks[] will grow even more and will contain more unused wholes.
+[1] https://patchwork.kernel.org/project/xen-devel/patch/20250317071919.3766976-1-Sergiy_Kibrik@epam.com/#26305207
 
 > 
->>>    #define vlapic_lvtt_period(vlapic)                              \
->>>        ((vlapic_get_reg(vlapic, APIC_LVTT) & APIC_TIMER_MODE_MASK) \
->>>         == APIC_TIMER_MODE_PERIODIC)
->>> @@ -827,16 +837,16 @@ void vlapic_reg_write(struct vcpu *v, un
->>>    
->>>            if ( !(val & APIC_SPIV_APIC_ENABLED) )
->>>            {
->>> -            int i;
->>> +            unsigned int i,
->>
->> uint32_t?
->>
->>> +                nr = GET_APIC_MAXLVT(vlapic_get_reg(vlapic, APIC_LVR)) + 1;
->>
->> This deserves wrapper (may be static inline)
->> Defining multiple vars on the same line makes code less readable as for me.
+>> --- a/xen/arch/x86/hvm/hvm.c
+>> +++ b/xen/arch/x86/hvm/hvm.c
+>> @@ -701,9 +701,12 @@ int hvm_domain_initialise(struct domain *d,
+>>       if ( hvm_tsc_scaling_supported )
+>>           d->arch.hvm.tsc_scaling_ratio = hvm_default_tsc_scaling_ratio;
+>>   
+>> -    rc = viridian_domain_init(d);
+>> -    if ( rc )
+>> -        goto fail2;
+>> +    if ( is_viridian_domain(d) )
+>> +    {
+>> +        rc = viridian_domain_init(d);
+>> +        if ( rc )
+>> +            goto fail2;
+>> +    }
 > 
-> I don't see multiple variables being defined on this line.
+> While this looks okay to me, ...
+> 
+>> @@ -739,7 +742,8 @@ void hvm_domain_relinquish_resources(struct domain *d)
+>>       if ( hvm_funcs.nhvm_domain_relinquish_resources )
+>>           alternative_vcall(hvm_funcs.nhvm_domain_relinquish_resources, d);
+>>   
+>> -    viridian_domain_deinit(d);
+>> +    if ( is_viridian_domain(d) )
+>> +        viridian_domain_deinit(d);
+> 
+> ... I wonder if viridian_{domain,vcpu}_deinit() better wouldn't be tolerant
+> to be called anyway, thus avoiding the need for conditionals here and below
+> (and perhaps being a little more robust overall). Thoughts?
 
-     unsigned int i;
-     unsigned int nr = GET_APIC_MAXLVT(vlapic_get_reg(vlapic, APIC_LVR)) + 1;
+I think There are no limits for perfection. But at some point - need to stop.
 
+Hence Viridian code will be removed from build when !VIRIDIAN - changing above code will
+require to add stubs for viridian_{domain,vcpu}_deinit().
+
+FYI: Xen pipeline for this patch
+https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/2090362213
 
 -- 
 Best regards,
