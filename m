@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20B28BC9218
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 14:53:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1140626.1475459 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75EA7BC8F22
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 14:06:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1140537.1475390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6q9K-00065N-Bi; Thu, 09 Oct 2025 12:53:38 +0000
+	id 1v6pPg-0004YN-EO; Thu, 09 Oct 2025 12:06:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1140626.1475459; Thu, 09 Oct 2025 12:53:38 +0000
+Received: by outflank-mailman (output) from mailman id 1140537.1475390; Thu, 09 Oct 2025 12:06:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6q9K-00063w-8n; Thu, 09 Oct 2025 12:53:38 +0000
-Received: by outflank-mailman (input) for mailman id 1140626;
- Thu, 09 Oct 2025 12:53:37 +0000
+	id 1v6pPg-0004Ww-Be; Thu, 09 Oct 2025 12:06:28 +0000
+Received: by outflank-mailman (input) for mailman id 1140537;
+ Thu, 09 Oct 2025 12:06:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zQ7T=4S=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1v6q9J-00063q-D6
- for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 12:53:37 +0000
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c112::5])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=I7dU=4S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1v6pPf-0004Wq-29
+ for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 12:06:27 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f6f67120-a50e-11f0-9809-7dc792cee155;
- Thu, 09 Oct 2025 14:53:35 +0200 (CEST)
-Received: from BY3PR03CA0021.namprd03.prod.outlook.com (2603:10b6:a03:39a::26)
- by LV3PR12MB9143.namprd12.prod.outlook.com (2603:10b6:408:19e::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.10; Thu, 9 Oct
- 2025 12:53:31 +0000
-Received: from MWH0EPF000A6732.namprd04.prod.outlook.com
- (2603:10b6:a03:39a:cafe::8d) by BY3PR03CA0021.outlook.office365.com
- (2603:10b6:a03:39a::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.9 via Frontend Transport; Thu, 9
- Oct 2025 12:53:30 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000A6732.mail.protection.outlook.com (10.167.249.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9203.9 via Frontend Transport; Thu, 9 Oct 2025 12:53:30 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 9 Oct
- 2025 05:53:29 -0700
-Received: from [172.28.217.164] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 9 Oct 2025 05:53:28 -0700
+ id 5eb45ea2-a508-11f0-9809-7dc792cee155;
+ Thu, 09 Oct 2025 14:06:21 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-46e2c3b6d4cso6160385e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Oct 2025 05:06:21 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4255d8abe49sm34918261f8f.21.2025.10.09.05.06.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Oct 2025 05:06:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,163 +45,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6f67120-a50e-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CE8r3R8NoOUNlU/ozII1zIhMyrh0h1ChG96nCRRIUKhZqRaOPkCptb4lhFkWXoVz+ETdpF1yvlnojNi2xTLTCEwEvExbvtILOhXO1KlU2stOclksLPMBKZCZehrs5MoLayt55R/jPa6mJ+wcIbgG82kNOXxQg+gkl7JMKE02ce0reS85JGJpIsTfO0YhagkELBNHCfafR2beCAloVf569n13KZ9awnE/hVasyCt2PI0Jgf/rVukvWpA1yrpF5O6k56aaE70dgpSe7qYNlcwym7uGE/4o1jPnCr1fNrlLPBpu5WrFX6s1yyeR3thoTZKQR/u3EH9QIzrJUgibN0LGZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y4xIl5OdSlkig+e6ZpoL8aGvzZkMHBQ0pJ1JXmPemjQ=;
- b=EeEkQXUyz7gsEhR+0vmwz19mc1IHdF3a0eNP7oggTZjsueSFoRYKUNINvOGNC03RdA/2xXP+hFSO+q5OHt8UOi3sMXj+NEJ5OMU/LDKtpgzyIN0vZiyNf6bG4MrW6pz+Z/Urgy/UihY4XpA1MYpx/fTXWqinj7XGotq8vScfdeBXFgZRXl8BMsssddmYLM1Iql0rc4HLgcLmpd5bf9jMseVmmnmtozZa/uJRwcY8exwrl6IPVKAW10yEiBR4A42CZIbFCmm64lb14qJxONrIRPOlZIUGD6GzByMu4gjBJdWcvrsJq9j4si4SZ1MGQoU+kyVg8xwqHVsYiOgrfkMBEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y4xIl5OdSlkig+e6ZpoL8aGvzZkMHBQ0pJ1JXmPemjQ=;
- b=nZScX4RWGoU24xy3GBBKZYGcUZn4vFsm7zD9l/88yvJJUHLnNcjs+VAF6kpwVTUXJWlz8hXn8vuBW3uribBAJJBUsdGKUjqvtMfOsGAOJOmx9tmLjF9UnJ4OJg67DvpXqKF8/xBD9DYsoyhcS6g0KEB/JA8NoUdQ5QTpTTZ+OH8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <0923545c-ea7d-4b57-af37-351ede01d5e4@amd.com>
-Date: Thu, 9 Oct 2025 04:19:19 -0400
+X-Inumbo-ID: 5eb45ea2-a508-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1760011581; x=1760616381; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=yq8+oZ8sCpaPnU7ewuf6krsrOkpu1Vs7QMFLUjRalKE=;
+        b=OqKT5fzFUda3zD/pcfnCX82jSVsKJSr448ZS7EgeScqHUgUgtcojtAmtJrz/uIzqB4
+         KBbPOO/CKCCLZW9VFVAxQiqeIS3YKiNPU8ysuwZ4vCfwD35zR9SsYUBSGmngNwP3TJqE
+         vm+77uTfSMQj1ZcEVzNIUoYiCK25BlNsSiZ7inOAY4ZrOrfZrY0qCbkOSHL2ltmrFYQb
+         qjPbimQtRlMcQeNupGomCSN5i4OzGSXXSrM6sjJ0y5/preRdMMm1buGNosAbmV1Cow+/
+         2A58JwLlJ1zGYQyJMKJrM8d5TGiER9t6VMxgDTbV+4IxTkR5hHm3S7t2VG2MUJqBwrRh
+         iY1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760011581; x=1760616381;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yq8+oZ8sCpaPnU7ewuf6krsrOkpu1Vs7QMFLUjRalKE=;
+        b=K462jQYdpKomNA7GRBUteH2LyzxZHR/r5fwEqUJDv9kmXaOwcOFeZyMXpAqO6nxuW3
+         5YZ0ZMlTx1f07cilp/Ti8adz3R8N9dpL8V+kaxoWV5taknq7595d1L50FCTgAUzSGe94
+         2HT++K3RkWN+5Dh8cuAfEhO6uCHax8GlIzZ8+j9yqG9odvlD994F3RNHNGg+PftWcZaq
+         KL9rQaEcAKugVFopUgxarKXQoq46JV00HEJFMM7iPO6LSNYA6Bg1uND7rPQW17qYUI6k
+         M/nM0QAtwj8hr9VYY4zXUFfbfdh2FNaglKB4NA9gUfXjb25xx9HxSQ51WvNNFLCkSYuj
+         9t1g==
+X-Forwarded-Encrypted: i=1; AJvYcCXxkCFyxxn6oCI4VhD96H0BxcsMlfAROFGzEOcz4ZGFZo+dySGM/8voYsxhZgEXYhkQsZYT1JvJtgI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy7Rq1HmsBMTCbHJpsMt++f2xGSi0Rtad9hP8b+pTrsY4sKlACi
+	Brm+J4Kv4Z3a9TzXnDzOlcYHQiu1pWLoASKZPSZNPFK7+EXQBsrQPvu9RAmPzGg7mA==
+X-Gm-Gg: ASbGncuh+7ACaiq2MaUD0pBtLFPasoF83gz/nLlQ8Z1VlrcoltOzM/EkKgJ5LFRETXC
+	OxFPxEjB8f0rrfPc5cTMow4J/6WBZtdlPF7COxFEBbd9jgvI6EoQc051m4YWv+SbDnqSJOZHpU3
+	hXacUm1k+t7XGhKOnsuwt96DzopySDqxhx94phSPh4WpG+X8GLPrUEf+ia6n9qycqVf1TVXh3Hw
+	x+MSp3GNmmmoSR/hy5UeAcU/XLZCDIidIIlENvV528epITB7lMZ/tHTpXDhztjlSWxvT+6Uy8F1
+	nNzFmW6n1nGnICxlYkPN6KKf1hutmkqSjBk/CscPJFDBY3jR6iBuAX9AzvVJhNnwEa6zOUT3n+6
+	BE4T4gH1/GWLxskaxrB9s7tFpmIEmo2ewe25yGTw/VwUaBLAdGtYxBvq+aik3hZmm98CeKfBzsR
+	CiRZ4R7N1xDujo24Fwk6Plm4hcx1S1yAfh43H2RROCxw==
+X-Google-Smtp-Source: AGHT+IHECNvjmo7jkwIKG5p4/kCfX3LRmeEuYC184HERGcJWIKJPy5J008k+qHX4RNHG3nWmgeIOkg==
+X-Received: by 2002:a05:600c:4687:b0:45d:e5ff:e38c with SMTP id 5b1f17b1804b1-46fa9b02000mr48641675e9.32.1760011581093;
+        Thu, 09 Oct 2025 05:06:21 -0700 (PDT)
+Message-ID: <4b873422-a8be-4afe-b973-020690b0ff8e@suse.com>
+Date: Thu, 9 Oct 2025 14:06:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] MAINTAINERS: Add myself as an AMD SVM & IOMMU reviewer
-To: Jan Beulich <jbeulich@suse.com>, Oleksii Kurochko
-	<oleksii.kurochko@gmail.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	<xen-devel@lists.xenproject.org>
-References: <20251008201106.36204-1-jason.andryuk@amd.com>
- <cf852476-8a51-4623-b4aa-d9fc42622b1c@suse.com>
+Subject: Re: [PATCH v4 12/18] xen/riscv: Implement p2m_pte_from_mfn() and
+ support PBMT configuration
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1758145428.git.oleksii.kurochko@gmail.com>
+ <4495c8103548447f9a11963574a4cb9e01090e7a.1758145428.git.oleksii.kurochko@gmail.com>
+ <7b51f40d-7ac7-460a-891d-afe1d9ab8991@suse.com>
+ <6902c46e-c805-43aa-8753-7b6dc09716ae@gmail.com>
+ <7fe4f483-ef3c-4954-9030-2c364673c9db@suse.com>
+ <08f2b98c-928e-44eb-96ee-f8566330aed5@gmail.com>
 Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <cf852476-8a51-4623-b4aa-d9fc42622b1c@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <08f2b98c-928e-44eb-96ee-f8566330aed5@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A6732:EE_|LV3PR12MB9143:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd470e05-14d4-4d1c-366e-08de0732d90b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700013|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?QzFCVGhsbit0aWZBUjd0VlIxeHZVZlZKUnRKWGczYlN0QTB5VTE4aGRLZHkx?=
- =?utf-8?B?c2tMZGxsYkFWMW0rVXdybFpub29ZelFOY1NjUjlxNGZsZHpYNlRhRmZhTnRK?=
- =?utf-8?B?WENpR3BUZCsrYWtDVFBpcWJtVFJxa0tyNmF3cmZ1YXM1V0tMQWR0S2VNN3Q1?=
- =?utf-8?B?a3pFSlVKSElVcGdaOVliTnQ2Y2RvQVF5WkFtbTQ1QzByL053RGlHYXdWVC9N?=
- =?utf-8?B?cUF0MnpQY0ZFWlJMQmExMDYyYm84V2JXVm9kanVVeGZOaTJHNjlDQnExc2xQ?=
- =?utf-8?B?T0NvcGZOaDdqSGNZQnB1OHcrdXN3NFV6QTJDaG5rT0ZEbVVjMFlsbTZUQ0N6?=
- =?utf-8?B?aE9CS3I5Sy9pTlo1ZVRUNnRkYlorSDEzT0dtcnFsVjZ2QWdFSTJiVWh6dmFy?=
- =?utf-8?B?ME9nemE0UUFPaldjZDdyRWJod3gzOHVoaTUyYUpIRnc2cDkvYWZLbzY1ekNL?=
- =?utf-8?B?VE1Cd09mUC9HZDZEOFhBVDVHdll6Qm9uRnhhaWV2Q2JNbjI2VFR0S3FUTG1Q?=
- =?utf-8?B?bUMvWEVJbzVITW5FeG1UMTdZbzVDTndkekhSbjJiTlQ0VEMwQ2FaWWRUZVVH?=
- =?utf-8?B?VlJQMnAvWVcvUlBhdzZWZmh4bnk2a2NzcUpnVStlSE1GUVdoTVY4WE80VS80?=
- =?utf-8?B?K3JyUVM5TUluYWdEdzdEalB2cysvWFFBbUpWQk83MjgxZjlQVmF0ZXVqbDJU?=
- =?utf-8?B?U2RtQ1hKZ0hSNlFpd2d5Mlp4bU9oeFBESXFEUEtXL01UV0Q2MFpsZnA2TXBY?=
- =?utf-8?B?ZFcvcWd1SzgzMm1lRmdEN0poeU9SRWFIS3JkLzVKd3Mzb2NQVm8wdC91Z0gr?=
- =?utf-8?B?Y2d0L0hrc3VUQldKWk1QbkZhWTZjZmxqSmgydWJoQUNDcTQ1LzhLNFdxT29k?=
- =?utf-8?B?VjFhb0lmeWRUclRWbk9NcHNTNHpYVjNLMmd5dnZsb0dpcWlMRlVyOTZxdDJP?=
- =?utf-8?B?bDRhTTZuUzJjV2pxQjdwUjNCV01OdllPZWJEZStEd1FWc3JDMi9mR1ZkbytM?=
- =?utf-8?B?UWFqNXJvaXUrRk1ycGFtTEVSY2N3d2ZEbjkweGtkOHd4OEZtNWhHZ3pXNEpE?=
- =?utf-8?B?T2xpL1BwY3NQd0I2UUhBUTVUZHNmbWNPR1BXeWdGQVhhYmtpSVNhV0srenZ3?=
- =?utf-8?B?TS9XOXg4ZytOY0ZySmNiT0sxTXdhL1dCa0dXZ2x0QVFCS3pyY3BqN1RMOFlC?=
- =?utf-8?B?YVEydmFtWXpIWkxSMThiRzliMkdDd0VlSWJvRXZUV0Mzd3pYajJIN0dMUHpF?=
- =?utf-8?B?c1hHSTNkbkwxNk5xNkRtbDhkR1JHMnU1SS8rN1BzRnNjOTFac0RONW1aQ05l?=
- =?utf-8?B?bmpWaVc0RDlKMTFDWCs2Z0dsSWZNT2xHcjh2bnNUOWVLUG1GWEJ1MVJka3Ar?=
- =?utf-8?B?aisyRnVUci9mdVpJa3locHdxOWxDYmJxTDIwdnAwMUk0cUp0b3N3SDNzcDNp?=
- =?utf-8?B?aEFPd2F0K1hsTXI3U2FvalFYRVNmWEdGK2Z0bFdSL1VDWEw5ZTI2ZllCUWdR?=
- =?utf-8?B?eElwTUhwN2U1ZW0rVG4vcXFiaWpWOXdaZkN5bnNPQml6VzJURzlsUmZvNkRE?=
- =?utf-8?B?TitvYWVNT1B0MEE3Wmt6ZDZSYktkNjRSRHA2UGZud3ZETm1xU1FIbEwyOUwy?=
- =?utf-8?B?UDltbnBtYXJjMjZPN3BRQUswTWs0VjVOM0JZYytrMVpaQUJVWFFiVU9MU0h0?=
- =?utf-8?B?V0RhZVREL2RqVlRqSnlsemVQZDd6VU9odFRrTXRxeCsrVUhvbE1NNE1IRFJh?=
- =?utf-8?B?NUkwYlV6dU9HYVNRbkZXTGhMamVYd3hpTEVLWWtGNmZiVlVxREZuZDEycG9z?=
- =?utf-8?B?UkplNDBUK1pOanhJUG9vUnhVcHlQZ2dFQ0hRWmNiZlYyWU93MmN3N1ZObkt0?=
- =?utf-8?B?cS9uSllucC9jSUV0ckI3MS9tQWp3MGlZQ3dSRGs4N1ZqZHNuVTJYdHJzOFFt?=
- =?utf-8?B?VUhXNi9zQmFHR3RSa2IwZjZ1T0ZRN2xGeTFWTmRlY0h1UTJOVVBhNHhMd1gr?=
- =?utf-8?B?VVVtQm42SkxVdmtHaDhXOWY2cURObUV3TjYvYTJpRkJFdTI2Q0RMalFaR0xO?=
- =?utf-8?B?aitnRVlZd05zSHpJSlR6ZUViblhMajFKVXBzcHEzVXhndjlHblhXeGduSmFO?=
- =?utf-8?Q?2SCw=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2025 12:53:30.3001
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd470e05-14d4-4d1c-366e-08de0732d90b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000A6732.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9143
 
-On 2025-10-09 08:36, Jan Beulich wrote:
-> On 08.10.2025 22:11, Jason Andryuk wrote:
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -220,6 +220,23 @@ F:	xen/drivers/acpi/
->>   F:	xen/include/acpi/
->>   F:	tools/libacpi/
->>   
->> +AMD IOMMU
->> +M:	Jan Beulich <jbeulich@suse.com>
->> +M:	Andrew Cooper <andrew.cooper3@citrix.com>
->> +M:	Roger Pau Monné <roger.pau@citrix.com>
->> +R:	Jason Andryuk <jason.andryuk@amd.com>
->> +S:	Supported
->> +F:	xen/drivers/passthrough/amd/
->> +
->> +AMD SVM
->> +M:	Jan Beulich <jbeulich@suse.com>
->> +M:	Andrew Cooper <andrew.cooper3@citrix.com>
->> +M:	Roger Pau Monné <roger.pau@citrix.com>
->> +R:	Jason Andryuk <jason.andryuk@amd.com>
->> +S:	Supported
->> +F:	xen/arch/x86/hvm/svm/
->> +F:	xen/arch/x86/cpu/vpmu_amd.c
+On 09.10.2025 11:21, Oleksii Kurochko wrote:
 > 
-> What about xen/arch/x86/include/asm/hvm/svm/ ? It didn't need specific
-> mentioning on the X86 entry, but it would now. Also F: entries generally
-> want sorting alphabetically as well.
-
-Yes, that all sounds good.  I based this on a revert of 
-8395f275ebd11b4cacb12da09911e7918ccc7518 and alphabetization was 
-incorrect there.  Sorry about that.
-
->> @@ -601,7 +618,8 @@ M:	Roger Pau Monné <roger.pau@citrix.com>
->>   S:	Supported
->>   L:	xen-devel@lists.xenproject.org
->>   F:	xen/arch/x86/
->> -F:	xen/drivers/passthrough/amd/
->> +X:	xen/arch/x86/hvm/svm/
->> +X:	xen/arch/x86/cpu/vpmu_amd.c
+> On 10/7/25 3:09 PM, Jan Beulich wrote:
+>> On 29.09.2025 15:30, Oleksii Kurochko wrote:
+>>> On 9/22/25 6:28 PM, Jan Beulich wrote:
+>>>> On 17.09.2025 23:55, Oleksii Kurochko wrote:
+>>>>> @@ -318,11 +331,87 @@ static inline void p2m_clean_pte(pte_t *p, bool clean_pte)
+>>>>>        p2m_write_pte(p, pte, clean_pte);
+>>>>>    }
+>>>>>    
+>>>>> -static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t)
+>>>>> +static void p2m_set_permission(pte_t *e, p2m_type_t t)
+>>>>>    {
+>>>>> -    panic("%s: hasn't been implemented yet\n", __func__);
+>>>>> +    e->pte &= ~PTE_ACCESS_MASK;
+>>>>> +
+>>>>> +    e->pte |= PTE_USER;
+>>>>> +
+>>>>> +    /*
+>>>>> +     * Two schemes to manage the A and D bits are defined:
+>>>>> +     *   • The Svade extension: when a virtual page is accessed and the A bit
+>>>>> +     *     is clear, or is written and the D bit is clear, a page-fault
+>>>>> +     *     exception is raised.
+>>>>> +     *   • When the Svade extension is not implemented, the following scheme
+>>>>> +     *     applies.
+>>>>> +     *     When a virtual page is accessed and the A bit is clear, the PTE is
+>>>>> +     *     updated to set the A bit. When the virtual page is written and the
+>>>>> +     *     D bit is clear, the PTE is updated to set the D bit. When G-stage
+>>>>> +     *     address translation is in use and is not Bare, the G-stage virtual
+>>>>> +     *     pages may be accessed or written by implicit accesses to VS-level
+>>>>> +     *     memory management data structures, such as page tables.
+>>>>> +     * Thereby to avoid a page-fault in case of Svade is available, it is
+>>>>> +     * necesssary to set A and D bits.
+>>>>> +     */
+>>>>> +    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_svade) )
+>>>>> +        e->pte |= PTE_ACCESSED | PTE_DIRTY;
+>>>> All of this depending on menvcfg.ADUE anyway, is this really needed? Isn't
+>>>> machine mode software responsible for dealing with this kind of page faults
+>>>> (just like the hypervisor is reponsible for dealing with ones resulting
+>>>> from henvcfg.ADUE being clear)?
+>>> In general, I think you are right.
+>>>
+>>> In this case, though, I just wanted to avoid unnecessary page faults for now.
+>>> My understanding is that having such faults handled by the hypervisor can indeed
+>>> be useful, for example to track which pages are being accessed. However, since we
+>>> currently don’t track page usage, handling these traps would only result in
+>>> setting the A and D bits and then returning control to the guest.
+>> Yet that still be be machine-mode software aiui. By always setting the bits we'd
+>> undermine whatever purpose _they_ have enabled the extension for, wouldn't we?
 > 
-> Didn't the v1 discussion result in there being no need for these X:
-> entries?
+> It’s a good point, and from an architectural perspective, it’s possible that
+> machine-mode software might want to handle page faults.
+> However, looking at OpenSBI, it delegates (otherwise all traps/interrupts by
+> default are going to machine-mode) page faults [1] to lower modes, and I expect
+> that other machine-mode software does the same (but of course there is no such
+> guarantee).
+> 
+> Therefore, considering that OpenSBI delegates page faults to lower modes and
+> does not set the A and D bits for p2m (guest) PTEs, this will result in a page
+> fault being handled by the hypervisor. As a result, we don’t affect the behavior
+> of machine-mode software at all.
+> 
+> If we want to avoid depending on how OpenSBI or other machine-mode software is
+> implemented, we might instead want to have our own page fault handler in Xen,
+> and then set the A and D bits within this handler.
 
-I thought Anthony said they should be split out for proper nesting:
+Won't Xen need its own page fault handler anyway?
 
- >The exclusion is likely unnecessary, and ./get_maintainer.pl will just
- >get the information (email, ...) from every sections that a file match.
- >But the duplication is necessary due to the "The meaning of nesting"
- >described in the MAINTAINERS file.
+> Do you think it would be better to do in this way from the start? If yes, then
+> we also want drop setting of A and D bits for Xen's PTEs [3] to allow M-mode to
+> handle S/HS-mode page faults.
 
-I took the second sentence to mean they should remain.
+What I don't really understand is what the intended use of that extension is.
+Surely every entity should be responsible for its own A/D bits, with lower
+layers coming into play only when certain things need e.g. emulating. This
+lack of understanding on my part extends to ...
 
-> As long as there's agreement, I'd be happy to make adjustments while
-> committing. Oleksii - I take it that ./MAINTAINERS changes can still go
-> in pretty freely?
+> Interestingly, OpenSBI doesn’t allow hypervisor mode to decide whether to
+> support Svade or not [2]. By doing so, we can’t set|henvcfg.adue = 1| to disable
+> it as menvcfg.adue=0 has more power, which is not very flexible.
 
-Thanks,
-Jason
+... this point, which I was also wondering about before.
+
+Jan
 
