@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A2F4BC9B48
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 17:09:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1140727.1475521 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61391BC9BCA
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 17:21:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1140740.1475530 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6sGO-0007xO-Fx; Thu, 09 Oct 2025 15:09:04 +0000
+	id 1v6sSO-0002Dp-Kw; Thu, 09 Oct 2025 15:21:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1140727.1475521; Thu, 09 Oct 2025 15:09:04 +0000
+Received: by outflank-mailman (output) from mailman id 1140740.1475530; Thu, 09 Oct 2025 15:21:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6sGO-0007uH-CL; Thu, 09 Oct 2025 15:09:04 +0000
-Received: by outflank-mailman (input) for mailman id 1140727;
- Thu, 09 Oct 2025 15:09:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v6sSO-0002BA-Hs; Thu, 09 Oct 2025 15:21:28 +0000
+Received: by outflank-mailman (input) for mailman id 1140740;
+ Thu, 09 Oct 2025 15:21:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VZ0Z=4S=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1v6sGM-0007uB-Tu
- for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 15:09:03 +0000
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c200::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e11a34c7-a521-11f0-9809-7dc792cee155;
- Thu, 09 Oct 2025 17:08:57 +0200 (CEST)
+ id 1v6sSM-0002B4-JM
+ for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 15:21:26 +0000
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c201::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9e5c210c-a523-11f0-9d15-b5c5bf9af7f9;
+ Thu, 09 Oct 2025 17:21:25 +0200 (CEST)
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by AM7PR03MB6264.eurprd03.prod.outlook.com (2603:10a6:20b:13d::8)
+ by DU0PR03MB9006.eurprd03.prod.outlook.com (2603:10a6:10:47c::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.10; Thu, 9 Oct
- 2025 15:08:54 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.18; Thu, 9 Oct
+ 2025 15:21:22 +0000
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9203.007; Thu, 9 Oct 2025
- 15:08:54 +0000
+ 15:21:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,268 +47,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e11a34c7-a521-11f0-9809-7dc792cee155
+X-Inumbo-ID: 9e5c210c-a523-11f0-9d15-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lwXgqWwmlTo+90fCUr2BpyBvC6nZqUM8k5SyPsXsX92rRCZnf6dT62PBCJADmAn71PGVcQ5SHUWbWLfYtfDPfV9RmPEV09s76p+Ep9c1pVxMHkqyVpZ60hBxohj/iZK69eklVoVO7Yldpaze8yX0+MNTgZQ9SxGOtY4vDHVk/IiQ+P9JVmmvTyyW9otJxZWSMGl2RT7ZLh2qZad35VgmtrxHI63esWUwAyHOMvdRPu/R1gS0NR+0OLANTN6CzFQP9iLUVuuDH70/BnvkiwyR4XqxuOK5fU6PbIuyYqkvp6cct3RzaaMihIEpjeSu9LOInAYcG8Aul7U11n0y/9RkhQ==
+ b=FHiq5x/qavxRGiSJqHYMbxJBpV35ggnbR2gHBRA+YUaoRRdWqPRQVhPhtMDeTEAXFLWETzXt1Ayr7pzCetJXufsyQ+9Pxh/qXtSZKc+UsDuuvyFPHM7M4vcdG9Ec39OryWeqToFYc5Lt0iouukMyeT5xQKVzVxQfmFhj5SF5DMhQ9Nbx6w6I74ofqTQ/o0oI1cKZrCCgfsThna3lKdQbYIOKjfS+3HMkHkPjluPIdoE7yOFpq6UR9wWjoV3hgT21pj2wmMPcGsKXyEzWWe2Mui7WnTSsknPS5fyeEYip7DDMvd27AjnJmnP8PSFKlMBmral2MLL5EnL/fk2IOWbYJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A+ZnWhBnPhoaERxLlSoey1UrdzaQnPrdVH0KYsdMm2w=;
- b=tk11aFrlag+/BLqTMKN9FV+rCM+dTmsiCqWNcEq6kP6MD24YlXAHPdPqn8vqF4LpE9iRn3KDwnQJObL3ZB0Jj3eL/bVvPFV8rDWQsnF6CwS/XOdH3dVZgXiEDC/PvHYf7RrhKFs7iHQ4j/BsWHifkqhF5rtAUKFLyZaMtsZU42wJ6XVTGf1vY8VDSaoExtbc6sAPw0rhJWuTtlQatkqIeqOxowJbv0Kpw251T3hve5M1U579WGZqrqZWpA8K+bnpfM9EIa1S2nalwPZrN4Y+g9De3nn9CqPrqv53VCAa2zm5bYNIk3ugPZwzZtIUezEqq23oNPWPPb4DHN3DuEA7PA==
+ bh=mdDy8jsC70QrUES5frGDpRuKUOU90x3l6nrHViWL/fU=;
+ b=tmv/WgLobA9Kp6qSBPAG8VQAwafZcd8YuOs8jROgee8UqS7uNEjg0fBfPV1ETz1CsDfx+xlQIhRxV/UA2hkgwMH/wy0yCVA8ESiWjqMhuQ6EkUgL1ySW2JxUJsFqwu1+yMxEBaTt8mQvaB8NVyf3HpDrAUkKfUQ4gzx1L1Su3+2qtjmlzDkEEAs+bVs25vO0zPjulaIagvuVL6OCm6QvCNf2X2mPA8RgnDO+ZHkWDR/SjNC8ISfhPfN88SVQPNXUPmCUWAQID59ynfR3gIN3Qs8ShOFJwRIEqmWJj/k9vm3eEBY8Pv5Q2XW0o7HqjSUkOhwf/fiV6lLBEPOrJXI2CA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A+ZnWhBnPhoaERxLlSoey1UrdzaQnPrdVH0KYsdMm2w=;
- b=ndXSUL0UL9rZcpPTppPp+RqCClRg5Rq+J4mrb/wyEtDVaZDqBf2JLL5K1EkhsQEReuyS8uQ0/ZS8SnaYHiXGiOMe896e3UvbxE/Qmc8ZbdGK4XcOp7w6C3NWskbPJac40P1UazFR4Oa3wHHT89e2UguoaPklzqw9s1nfyuY3Em7gFX2noBwfMw5lAlPdW3Z55F+6l1JZiQxrVBhm6Ww/klRfzc8qrw9QBenUe5YdEsHaUJcdMDOc6B8andMU/HHX/86Do4LC0TxHeRUDQHdvk7qL1DAohnurHujo8krFQnAiS2eRgkkzjIyjyf680HJbqv7pIxo9e0Ec50NeNLDhAw==
+ bh=mdDy8jsC70QrUES5frGDpRuKUOU90x3l6nrHViWL/fU=;
+ b=kxFERzsDIprClir3Fpe8U4HMl0ToQa7mlEEBMRopZXzQ5DqGSLoJCxBrWC13hIjIjOuaAfFpwznj2wUCntiFCQUVwO8fCfXRPa5UDv9h8hPBpbfThtmPt/2lyWs12PN4ZJkDZFGduyyaF/Au1JRTL6oO6gTkApt5GMmgH3znRNLH4K8HTT8oA8+LV4rZfD2yOofoQ1UH+qtlucOh7/s2ArpnG8V/6UdpcPHNASPXUTII+/6I/bYlCGQbxDQFCrBgvkWzr2r6Bip8nGJAzP84HcPCCD9QNkN6ham5X8jf1N2s5uooidzfAiigDAYvPcKXsxwl8xq2DXd2lfLOSkTStQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <4477b803-4941-4032-be83-85cc126ceacb@epam.com>
-Date: Thu, 9 Oct 2025 18:08:53 +0300
+Message-ID: <16727e5c-4a0e-4c2e-91c5-bccaaf9a3205@epam.com>
+Date: Thu, 9 Oct 2025 18:21:21 +0300
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21??? 3/3] x86/vLAPIC: properly support the CMCI LVT
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [XEN][PATCH] x86: hvm: vlapic: rework WR/rsvdz masks for LVTx
+ regs
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <amc96@srcf.net>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <265d5053-af61-42cb-a3b9-ef60df39c21b@suse.com>
- <61a05ec1-aca7-4c3f-be6f-1bb053b2cd00@suse.com>
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ Jason Andryuk <jason.andryuk@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251009114249.1964387-1-grygorii_strashko@epam.com>
+ <693b0730-b541-4d24-a83e-64f9b09705c1@suse.com>
 Content-Language: en-US
 From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <61a05ec1-aca7-4c3f-be6f-1bb053b2cd00@suse.com>
+In-Reply-To: <693b0730-b541-4d24-a83e-64f9b09705c1@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0041.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c7::11) To AS2PR03MB8907.eurprd03.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0166.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a0::9) To AS2PR03MB8907.eurprd03.prod.outlook.com
  (2603:10a6:20b:5e4::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|AM7PR03MB6264:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff663ce3-5a0f-44f3-47a8-08de0745c34d
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|DU0PR03MB9006:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b775ed5-fe34-48dd-ba53-08de0747813f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MmdBU1NwaE9jYXloM1FlUkVrQmY5WmkrQ3NaU1RhWGNlSEpWTDdERjZoWUlT?=
- =?utf-8?B?blYwWWZhL1pkNXZTay9wSzhuaHlHSnVvVWZwelgrMGlsbnJMd29lK1JuRlRX?=
- =?utf-8?B?WmxDL2ZsMGU3cG9OTGhHZFQ4TnFaNU1xdkgrZ1dVWTh4ZU9XVFY3dUFqemZV?=
- =?utf-8?B?K1RCbEZIdk10ZVAzVjBWSHEwQVZYVW1STXNQRnVSZ0RmMGxlL1VwRWJ1aTVM?=
- =?utf-8?B?bldpNTUzQnJNUTRZQU9aNFkxVGVITHdvOTJXRDRhZ1Q2SVBrSVZFZGJNa2Q5?=
- =?utf-8?B?bmRFUklqSmJFYXVyUE9MTVdTNXFYZm84KzI1U3d1Z2lNTlRKYnpWODlDektU?=
- =?utf-8?B?UE90cVdxbnNSV0pIbEpEdXNwbVBxc0tXM3d4UkYzbmM3ZHoyVlBCbnZkdGxR?=
- =?utf-8?B?cnZwMzFvNHVSaDBMMGhNeUorMzhLZk1HK0Y4OUdoOHAvZ05UdVhTU2JxQUI3?=
- =?utf-8?B?SmZNaEJ1Q3FlbFc1dnhUSFBZT1E4Q3VHeFVXeGwzejlhWmk1cmRLdkJQc010?=
- =?utf-8?B?dlliUEJOMW9LeU0zT3R4M21qMkhXMUVPTWdmSSt6aGxzSHd0aVZmUVM5UC9H?=
- =?utf-8?B?RUdsSHdpOGpmMzkzUUhjblF6ZEJUd1QvNEdHcWRBTEZjV05qbkJpNURzV1dG?=
- =?utf-8?B?SDNHOEtWTzhUdHRYSEdFZElkQWsxYXl6KzZoYkU3WWtvV0lmOW5Xbk5lSFBv?=
- =?utf-8?B?ZUhHT3pEcWxnc1FXNkNOZmZUYXR0SXJ4YWVZUFBGUXhyd2dZcXduNGZ3bnNV?=
- =?utf-8?B?d1pvNlNheGNvQ2IrV2MwNlphWFNXUWRrcXY0RVFDVE5xNW9wbnlmTm42SVdS?=
- =?utf-8?B?OURIYm5SUU9kRHQrZHhmcWF2Q0VqWWpua0h3cWF0c1JGNXFiZS95SDV1ckdJ?=
- =?utf-8?B?R3JpRkgvZ2lxOGU4bFpKN2hMU2FTYUk3VEczVVF2cFpLQmM3N015aWF1WEZT?=
- =?utf-8?B?MWsxODJDY1lZTzdyZUtIZE9zTmRCNmkvWkhGOXJzNjQ3aWR4eXRWRDBEVnpL?=
- =?utf-8?B?UTV6dzZqcXZuZUJXbnNtVjI1S1lRb3YzWDUvQmtVM0E5VWtkaml2MUhaLzdh?=
- =?utf-8?B?UGxPTEovdy91dVJRRUNKUis1QitFS25SOFBTOHJuM093VjIxWGRVbk52NjB5?=
- =?utf-8?B?NUxmYW1sbWZNUWZES0N4cEZyTzBITVlab1dybGRBUU5BOVdLVGhaQTh4bnhJ?=
- =?utf-8?B?MUx4NE1xRkJUR3F5UUhPWDVORjUyYTdCQzgvaWVWZGRXZU9iVnhHQldrdzVF?=
- =?utf-8?B?SWQ2T3hXMDBlUVBGWDVDU3JIdjczUWFxVTIwTzhPVzhQeDB0YVRXYjNwWjEz?=
- =?utf-8?B?Z1ZYc2lRL2t6Tjh2RkpqdUJyd2NFdms5WmtzNEV1UVU4WlAwbUdqU2pRWGt2?=
- =?utf-8?B?RG10cUVuYTI3Y21NeDhKaFVLOWpZMmwwQjJJenI5N2VMZ3lLeVloRk55TUk0?=
- =?utf-8?B?Ujl6WGRNS2YwNHZBZUgyZzdsQk5IeXdCV0V4U3lZTFFCN3paZVcrRW95aHJk?=
- =?utf-8?B?L1pmdEtzb2lOQ0FuSEt1YW5qdGtiQWRTRWpNK2JaWGR2WHN6NGdtSE5EcHRn?=
- =?utf-8?B?SXBiNG9PUjJ2ajNFQ1VUaGcwdzlNQk9EVVdLbTMzb1o2S1dvMWdQOEJFRFB2?=
- =?utf-8?B?SUlmVkk5a3k0blU1MGRTa3hvWDU2MTZhOVM1eEh4VWcrWUlILzVtTXpvSEEv?=
- =?utf-8?B?N3lXb2pxa1Vsb3hXZlhMSmdjcWNsYzlrVllHQUt4NlFhQzBxYzVNYlA2RU1U?=
- =?utf-8?B?dnJWVHBPY1duVmpQOTJMcWN5ajNhcVdLNkpYamNDYXlOeHBEYlIzdjFrOWYv?=
- =?utf-8?B?MnJudGVUYTVlcUlLK1o2UjFGVkZWV2c5THlyRTFDdnQ2emJFQlJZS2xQUU55?=
- =?utf-8?B?YjlpMC9rcVhxNDNPeDVIWU1XQWtJc2sweE5Pci94ZmdVdHMwVnVaeHBucmMv?=
- =?utf-8?Q?bxamJ1dqd5W6dUipbyp+Qmnc+UkPUF+Q?=
+	=?utf-8?B?TXFsWm1BRE50SGdEYWt5K2tMNXBtZDdrM1hRVlkrSzV2WGVWSWw4V3dWa2Rw?=
+ =?utf-8?B?NlFweFdsUTlqZ1QveTc1a3hRZVFZK2dTQnVQd3ByelNWampweU1WcHNNOGM0?=
+ =?utf-8?B?V1dLaUcyT01hbzl2bCtoVzZXT3poenNsanozMmNnU2NPUTlCUkVtM0ZlYnNN?=
+ =?utf-8?B?aW1JeU5WU0JtOUsrdjMwU1JWb1ZmY2NhNXBLZmRkWW5JcVAvOVEwZ0JjYjdq?=
+ =?utf-8?B?cmNDNVlrcys1RXN2Y0tUK3czcitiMGNIaDhkRGQzd1Fxb1pxUkszZ0VYRUZM?=
+ =?utf-8?B?WlV4ZXd5T1I4L3g2OTVMQ01aK25PNTJ4UlplNjF2UW5uUWsvUXVCVWJwWWhI?=
+ =?utf-8?B?NGVYYVRiZUYxMm4xNDY4RXNrb0svT2RWWEVSMUxXbk5ZVkxGR29QaXlJTDRZ?=
+ =?utf-8?B?cnVzNys4WC9tMWdlNUl5MDVIeUsvT2dnVDNpSTE0WHh4R2Jrd0habnBHbXpi?=
+ =?utf-8?B?aDN0eHFpbWZGMXh3MWVSeTcxLzh0NWFXRGxqeTRJZjExUm8zbnhMMDZSUXJE?=
+ =?utf-8?B?eFZRU2xPVlM5dWZOSlJyQVdDcU96WTZJY0JqVEMzN0RkdTdNQXRGbHVjbk1G?=
+ =?utf-8?B?S3g2Rlloak40ZlJINzM4NFIrWEVPdFozRmovc0VIZXpzM2Y5MzZiUWJlTU9r?=
+ =?utf-8?B?c0piK3dZNmJFMW9Ba1BkTjhiK2I5cUxIemphSGZWZkdML2Z2dmdrRkRyZXpv?=
+ =?utf-8?B?Z21Vb0Fic2RTYlBXOXVwSjFKUXNuUHNXM0MrcWljWUEvMVhrQ2ZZTjlIcEV6?=
+ =?utf-8?B?U1ZISzFuTTdWM2JLdUpTTTZFRDJqVksvTzRRVTlpemdTaVlLQkJ4M2dxWG1X?=
+ =?utf-8?B?aDRFUzN3THBSbURhRm9QMkgzVTZDVGlKMjBubWp6TnFJVVNTeVBlOUlKZlpR?=
+ =?utf-8?B?ejFXZFd0MUtKVzFjaXhqLzcvc1E3amJZVDFPLzVFQVdqYTFYZ0xtQ2hReVM1?=
+ =?utf-8?B?SjBPRTIrVDlRN2R0MlBDZ2lub1NmL1lxTHNHZktDZFdiVnNnNHVja1BaUjNk?=
+ =?utf-8?B?d2VWRjlOeTJFRzZxQ3FGR2Qrb1BIdUNUOUNmUEFBYUFhNUdSZWg4VUNNNGpr?=
+ =?utf-8?B?K0cxM0s4WDBSckFqdWZGQ25ZbkdVNldacndjMW5zclRTdS9rSTFucGxaelJx?=
+ =?utf-8?B?V0l0UU5wMGFneXB1cnlIazlFS1ZlTnREODZKeDhZUG5pcEhNWWFwMk1ISXps?=
+ =?utf-8?B?V2k1MmtGaURZYko3SlcrM1pVQS9zbjNJMVhQVHA4eVh2RHlyZXlndklWaWsr?=
+ =?utf-8?B?eUNEaGhSQnkrT2tpcGRVYmd5bSs1M2dibUZwajhYemhlZEk3ZHhXaFl5czNr?=
+ =?utf-8?B?ZzBjVHd1TXdyU1JRRlhOODVTamZRcFMrdlFJd0JadjlHbnQwekRCYTN6S0Zt?=
+ =?utf-8?B?RUxha0lQQlhLUUxSQStNWmJPcmlKeW00WWVMdGdOL2kwR0d3NHRJVE4zS1c2?=
+ =?utf-8?B?MDBVOUh0ZWhJN3o4TWZBL0QzblhaWkJSVnVSTVVFeElGUzl0dUVaU081Q1ZM?=
+ =?utf-8?B?Y2ZScHBDZ3RoY2pxV0grRllQeXFja2RDbUNJbnp1QUphOHF3UW80WGJ3UENw?=
+ =?utf-8?B?WDB3Z1lDbXpPM0lsdTFIQW9XTU92emNra2lhdGRoQnRhTTVnNS9CNnF0dHpa?=
+ =?utf-8?B?anNidmRRSzViSlNhZUpVQmQ3OC8vVTN5QWFyb0E1UEtjMlAvVy9EU2gra3VY?=
+ =?utf-8?B?NWJxeHJVRGNBOTRPSVQ4ZUFLYTFNK1RBY29WQWVwcHN6dUp6SFl0ckFmSGR4?=
+ =?utf-8?B?U2x1Q2o0TXhOUFlZSk1VU3kwTEp2SlZETE9FeENLdlgwc0JyY3lwUmpKclQ4?=
+ =?utf-8?B?R1pKUXJKbXJoYjJWWGdUM2lSVFoxblFYUVlhUmpYVHFYNC9ySXFaNEJkSWlW?=
+ =?utf-8?B?K2JhSUVtSXBZbm05K3U0VlV6WSs3clB1Q0FpaEVLYWY2cWEzTzRSMmkxQSs4?=
+ =?utf-8?Q?m9wzpk9xzKCpLif+qcIStCge9gDs7QhM?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7053199007);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y1dQT3VjN09xZThLZWtsRnNnUkJRdVRkU2toTXpVWVc5Z2hJTUR4ZE5iUFNi?=
- =?utf-8?B?YU1oeGJpemdRalJZeitETnhFYUQzZkpzVHNQU203Wml2d2xtU3FaYmt6K1NT?=
- =?utf-8?B?T1NXUzI5R1prZWdYVWNkZFBNQ0pvWngyYXNHWkZHL0czSFA1RTlNakZ2aWxy?=
- =?utf-8?B?UU12d2UvRy9OYWNZMURrUzUzQW9VL1VRdG1ueEl6dUNib2pXY3I4VHBYY1I3?=
- =?utf-8?B?T0xXR2h0MVFWV0I0S243UXNvNkk3OUtJTVBnbjJBWk5DRGxrc1JDWnJRS2hR?=
- =?utf-8?B?dFcwaWlZcnkzdUhneDd5Qk9LdXlZTTV3T3d2SHJtRnA3aXQyTVR5UHYzRUxD?=
- =?utf-8?B?WlBSR1pNM0M0YjFJcGtjYW8wVDJGMUh4ZnB6UkRUNFJaMTdHM0NnYzZ1a3hG?=
- =?utf-8?B?cllQWC9yMExQOXppMDYzejhJYjZVZHY1Q3JXbVczTHNrSjgrMkhrMzN1bktE?=
- =?utf-8?B?VGpteVVrZ3kxTHVwMzN4K0F3ejBpdUY2b1JLd2Yxay9aa2JtenJHS3pHT1pN?=
- =?utf-8?B?M3ZTVy8zZEtKalVFbW0vYmdYeTk5OGFLeTZEMStkYjIwWHpUL2V1SkJ1Nit1?=
- =?utf-8?B?VTBsQTd1WG5vWS91UzQ0UEtaZlpuL1R3U1pBbndXWkZpODF1eFV6Q04yTzN1?=
- =?utf-8?B?YXd1eGhwOGNaRFJENXBPTlNja2hiSnNZM29oSGx4ZU1tdm5GcU1ZZm0vZmFK?=
- =?utf-8?B?S3ZsRng1SVN6Y0FBME1QcTgzZ3YzWlVHNk96K3UxR29YSk41SVNSVXdFdkxF?=
- =?utf-8?B?SU5UY3UzSGhlTjVNZ2lBemIxY0x4OVNTMkFxQWNndEVtMVFyczQzOG0xVU4v?=
- =?utf-8?B?NkhHYUg3ckpLL0F2NlcwRTlNdUJJbG5NZVcwdWk3bzV6TGxYWWtIYmxGODdU?=
- =?utf-8?B?Y2I5Z1lQdFJsaWVWMzBETFlzcWxqWXgwOUo0WjRQdFRmaG85eHdNZ3ZaTTE3?=
- =?utf-8?B?V251Y3ErMTRWZHNNVlhHVVh2bU41QWM5TEVJaU96TUJoZ3l1bjN1VUhGd1Vo?=
- =?utf-8?B?UnYrVVFvbmRqdnFZWVZucDdBZUdiUGUzTXJXc2NOZXJ2YVRMcmt3S3pTMG5H?=
- =?utf-8?B?Z3NOeWpGb1IxTXBZOTIvTWFGVCtGd3Nhb0h0T2VNWVhIVEVDZTdaVk93dXdV?=
- =?utf-8?B?VnRJUWxnVTJYTE5ZQVgyNVF2Z003QnF4eE00UDdhQlIvWVZtdE9CMVhXY210?=
- =?utf-8?B?cURMbzBrMzl2cG5zSW1PaHJEVUVNOFN2QnZTU0EyVWtXWUt4Rk9FZkVKcXdC?=
- =?utf-8?B?c1RCVHYvN1pKbDhRbSt6TkFTK2s1UVRDaTFMU2tzSU5xZllhRVI5Nk1zU0cw?=
- =?utf-8?B?RmRYbUJpc3YyR3NtSFl6U1N1c0VNTmYxSmZvbjVWell1bUZoeDdWcDNxdy9t?=
- =?utf-8?B?RVhZTWEwSVh0d21LYTlpMjRRNEVBTmIwdXRvRkRHbFQzTUZtOUI0UHhKbnVa?=
- =?utf-8?B?T0hXV0swVVNzS1phYjhudnd2VWJDc0NIamVUL2w5V2Q2RGZ5VitIMCtBdm1r?=
- =?utf-8?B?cmdtMEpJVitJL3N6TXZ1cllLTFM5VTNlTi9vNVBVbVpnVHJxaUdaa2h5U01J?=
- =?utf-8?B?aEtuaEd1UnduMzU4bVNjVEJVdGlGZGtZcTd4VjFCZW4raEZEZUFkRW9kOTUx?=
- =?utf-8?B?NG1rUlpEbXN0cEJwZ3U1M3kyRmZ1Q3h1YlRKOXNxcjF1VjJvVTh3RE9lRHp3?=
- =?utf-8?B?NzR6eHpmTnpFUitpL0J4VmJLK21TL096QVZ0bUplNEFmVEdKWjZaRFB0S2Zh?=
- =?utf-8?B?N2JXT1hKb2xZVERWVzY3VFI2SFdWVSszUDhSWkV1WnpKak9oQ2xPcVd6ZFlM?=
- =?utf-8?B?eE8wcWJxUUFCeWZYK0F2dnNlUSt4dU1ja1Baa0IyMWxYMVA0dHpHWHlBNWVh?=
- =?utf-8?B?R21hb0xiZ2RldnZnNWI5Ym1uVGJNMXE0aE9qUXRSUTFKS3dLNGw0N05ZMXRs?=
- =?utf-8?B?b3lRL2pSQ1J5Ri9LV0FOTnZlYVJEM2grUnZTbzRzZUkvaUZHS0R0eERzclQ2?=
- =?utf-8?B?UEtneVN6WTZ3MWYwV2pENkNsSTVmUGh6U3lNZ1NNMTFhZDI3eCttNVdtRWRN?=
- =?utf-8?B?YjZ5bkFKNXZPd1YrMFhERnZmRWhLSW5QWTQ0NjJmeHY2b2JUOXR4UGNTV2k3?=
- =?utf-8?B?ZG1ORnVIazc0dmFMS2tsTkxkbVZYbzdYcGp5R3lxU1JQL1VPVGpGbDdDam9x?=
- =?utf-8?B?ZGc9PQ==?=
+	=?utf-8?B?N2QzK1daaTN2VzVDZzcvbVZ1TVplYWRhaFM2aXEyVHllVWJMVlVkWEtvV05L?=
+ =?utf-8?B?dXdRVFhIK1BUT0pKd0t3NkZibzV4LzhEdlF5NVhuc0JQMXJuR1h6aTNETE1S?=
+ =?utf-8?B?aHBmRkxGTkt6WkY2VnpCTjdCNGswOVFzNUF4b3dWdnJZMTJiNXFjS21IMHRn?=
+ =?utf-8?B?cFRMcXAyQ0hIM1hrVlB0QTJuQkIwNUdPaWpvek9kT0xlNnhNZFhkbERFTHIx?=
+ =?utf-8?B?UUxCdVBCMUVzSWZyUjM1TGd3eU5uUEc1bDJOVVIyZW94SHVkNGpjZ2l4UTll?=
+ =?utf-8?B?K0lQN0ZpbWMzMVROa1NIampBcTJiVWFlRnYxc0pZWWVuRHFCbUJmOE5wSkRs?=
+ =?utf-8?B?b3N6YmxQVTR1QTZFZDFuKzR6U1IrWFpjQnExemlrcUNOOWhaekxzTGhicmt0?=
+ =?utf-8?B?R3hLZ3pCbXU3dVkxMnBVRTA3SVB0ZjhTWmxNT1NDVHE0WjloK1FXVCsyVnha?=
+ =?utf-8?B?ZDNEN0Z2Z2k3MFhwa0pKYkpaQlZERDc0aFFPTm04ZmtvdnROc3M5OWhYU1BC?=
+ =?utf-8?B?Y1NrVjZCTGh5RTRnSjdkYU5IQ2lPc082OEkzQWk2aDZZS2pROEV3NERnYVR3?=
+ =?utf-8?B?RmpIN0pSK3FYNzNGMk1kU1dQVFRtZ292NTY5czh0VnBhNnhOalg1Q25QMlNN?=
+ =?utf-8?B?aG9rMTZ0ZG5LeUxja25hMDBQQ2I2TW5HVTBEaC95RmsyUXJBSm0wQVU0RGRu?=
+ =?utf-8?B?dE1Dc1JxazM2czZoSGJ1RWF5aXZ6QnIrY09SY2g2d0lnVjBsTFR0OEd4Ykdq?=
+ =?utf-8?B?VXEyZHNUdmVuaVVTSERiMGVTNjZkdTNPTVNrSndxa2o2Rm5jeFd4YnhyUE5z?=
+ =?utf-8?B?ejAzSTZBS2YvUDR0Nm9mQ2svbzBmNS9GcXRPUGNBRlhZUjUvaHVseWoxVk5X?=
+ =?utf-8?B?WUZienFwM05Wa25YZ1UzVEsrak4wUEpXRXB4clF4M05NUHB2MW1DaXpiY0xo?=
+ =?utf-8?B?c0k5RTV1S3ZPWkJXSFpqSmY2YzB4M3FDQ2FLVTlKS2FrQkNjOEliUkVnYnEy?=
+ =?utf-8?B?dnk1YmNCNUl0aXVvY2tjaDN6dlBjRUd6blRhb3pJVEIvR0VjV0IrRXNRZ0Jh?=
+ =?utf-8?B?TktHbEZHeWQ4d3cxeE5UUzJ4blZnZEdHOW81TUIyOXFFcTdMa3F3UW00RmhZ?=
+ =?utf-8?B?VlJBUDlqbU56MEp1OFE4TWw3Rm5VcEU3UHc1TzRYdTcyK2ZsNnNFSVphTEQw?=
+ =?utf-8?B?eU1uUk5LU0V6MHJVc0xHQ0lTTW5QOFU0dnhHSHVuYWFIVzdSTUhkdHorN1ls?=
+ =?utf-8?B?Tjl5dmdvY0ZKT1c4S3FiNDZ3R2tmVTRPQnQ4Z0NXaEZ0TWxZYzRwUDJFeFk4?=
+ =?utf-8?B?ejAvbzNnbTl5eVJjQ1lkK3lEejNxL1A2NXd5NnlDU3cvMGtnNjJLYnlFWkt0?=
+ =?utf-8?B?ZkZVTTBaRW9mK2dDdEpGUHRIOTEwOXlEVTMxWEhCQzc5K3VLK3Jaelk3Wm0r?=
+ =?utf-8?B?QndTNDlSQldVRThQdTNJR3gzOGxkMVhrSFR3M1dsbmMwZkVpckRaeHMrWWJt?=
+ =?utf-8?B?WlNlajM0L1luTU1DNnlYU3NYTFpQT2FBd3JmWlQ5SlJkRG56bmVsRUFQVXFF?=
+ =?utf-8?B?N3puNVdpdzJWd09FNFBISU42TlN6WmJTNmhnZ1dxdWN2Q0lvS21Ga2dWaFRa?=
+ =?utf-8?B?bi9QZGNROUt5bVBXNHVBRU1uZTFHVXJtUkZhaWZQN2ZQMWNhbXZYMmhyMmJS?=
+ =?utf-8?B?cmZlbHVFK1NucklaZm5sUXF3U0ErQUMzaHBFRjlUSTg3anREUGVtSGdPd2p0?=
+ =?utf-8?B?aTluZXBIQVdvOVNEQkhZZzJUb3Jack9nNk1mVUtMTWRDZFM1amxsN2xHTFZN?=
+ =?utf-8?B?MW8wVXhrR1lYYUFIbThEUU9mT1FBSjR6czVvUHRjWG1xQmd3cWkwVlpFUHpU?=
+ =?utf-8?B?bndPM3licnBLYzFidUJFdmJ2L05xZ0tCV0xTQnpoL3dURkZiam5jQk1sN3pp?=
+ =?utf-8?B?Qk85MzRHRlM5RkxTSE1RbWc4aGR0SURLUnBiVWVtanF6cmZHM2V3YlJXVXhi?=
+ =?utf-8?B?OXB2dEtxaDRPd3BmNUF4aUk3OEtyaEp0LytZZjU1S214TmxoZ0c4WER3b3o5?=
+ =?utf-8?B?ZENUMDFYaWtTRkRtN3lMWjZrL3QreHNOMEVPakh3ZEFmRXgya1ZpY0VvcjJS?=
+ =?utf-8?B?NTUvYlRiS0F0VEZidnZteEVuT09KcFdYWE56VVVRMG1yTzRrQmQ1Y010Ykdq?=
+ =?utf-8?B?Wmc9PQ==?=
 X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff663ce3-5a0f-44f3-47a8-08de0745c34d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b775ed5-fe34-48dd-ba53-08de0747813f
 X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2025 15:08:54.5017
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2025 15:21:22.6686
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 19qvGu+bVBLxUg1XEdNlQyrjameiI/JMiAlkQG41AFcGHyPsk+JxnMFdVGbp38WL5BbvZIo7fPFQjuDu5kFDYDt2+8v0MQIhgr6kcUCvMFI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR03MB6264
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ky3zY7gzqWtTBXjFR/Q44ZCHcUstu52v9Dr+SoZjjcydJsZZKEY6Mc8adOUF4t/SW10ppVxTeRqqA590BYTQPJumQx06Khzp1KP4KP0KWJU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB9006
 
-Hi Jan
+Hi Jan,
 
-On 08.10.25 15:09, Jan Beulich wrote:
-> Rather than unconditionally accepting reads and writes while discarding
-> the value written, make accesses properly conditional upon CMCI being
-> exposed via MCG_CAP, and arrange to actually retain the value written.
-> Also reflect the extra LVT in LVR.
+On 09.10.25 15:01, Jan Beulich wrote:
+> On 09.10.2025 13:42, Grygorii Strashko wrote:
+>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>>
+>> Rework LVTx registers masks usage in MMIO/WRMSR write emulation code:
+>>
+>> - do LVTx masks renaming and rearranging to x_WR_MASK/x_RO_MASK
+>>
+>> - rename "vlapic_lvt_mask[]" to "lvt_wr_masks[]" to indicate they define
+>> writable LVTx regs bits
+>>
+>> - add lvt_rsvdz_masks[] and use it in guest_wrmsr_x2apic() for "Reserved"
+>> bits checking (RsvdZ, Non-zero writes to reserved bits should cause #GP
+>> exception)
 > 
-> Note that this doesn't change the status quo of us never delivering any
-> interrupt through this LVT.
+> Didn't we agree that this may better be done in two steps?
+
+Huh, sorry for misunderstanding.
+
 > 
-> Fixes: 70173dbb9948 ("x86/HVM: fix miscellaneous aspects of x2APIC emulation")
-> Fixes: 8d0a20587e4e ("x86/hvm: further restrict access to x2apic MSRs")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> The Fixes: tags are referencing where the explicit mentioning of APIC_CMCI
-> in what are now guest_{rd,wr}msr_x2apic() was introduced; the mis-handling
-> really pre-dates that, though.
+>> - add LVT_REG_IDX() macro to avoid open coding calculation of LVTx regs
+>> indexes for lvt_wr_masks[]/lvt_rsvdz_masks[] in many places
+>>
+>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>> ---
+>> Hi
+>>
+>> Patch created according to discussion [1] and based on [1].
+>>
+>> I've seen patches from Jan [2] a bit late, so sending
+>> it as is for now.
 > 
-> In principle the later assignment to "nr" in vlapic_do_init() could now be
-> dropped again. I wasn't quite sure though whether that's a good idea.
+> Just wanted to ask, not the least because I'm increasingly of the opinion
+> that putting your fix on top of that series might end up being better.
+> For example, the special treatment of APIC_CMCI then shouldn't be needed
+> anymore.
+
+not sure what to answer here
+
 > 
-> --- a/xen/arch/x86/hvm/vlapic.c
-> +++ b/xen/arch/x86/hvm/vlapic.c
-> @@ -31,10 +31,13 @@
->   #include <public/hvm/ioreq.h>
->   #include <public/hvm/params.h>
->   
-> -#define LVT_BIAS(reg)                   (((reg) - APIC_LVTT) >> 4)
-> +#include <../cpu/mcheck/x86_mca.h> /* MCG_CMCI_P */
-
-This include... You probably do not like it also
-It is dependency outside HVM code.
-
-I've been thinking about something like vlapic->caps which can be filed before vlapic_init()
-or passed as parameter, but seems x86 toolstack is considered to be able overwrite anything,
-including v->arch.vmce.
-
-Seems, no better options here.
-
-> +
-> +#define LVT_BIAS(reg)                   (((reg) - APIC_CMCI) >> 4)
->   
->   #define LVTS \
-> -    LVT(LVTT), LVT(LVTTHMR), LVT(LVTPC), LVT(LVT0), LVT(LVT1), LVT(LVTERR),
-> +    LVT(LVTT), LVT(LVTTHMR), LVT(LVTPC), LVT(LVT0), LVT(LVT1), LVT(LVTERR), \
-> +    LVT(CMCI),
->   
->   static const unsigned int lvt_reg[] = {
->   #define LVT(which) APIC_ ## which
-> @@ -57,6 +60,7 @@ static const unsigned int lvt_valid[] =
->   #define LVT0_VALID    LINT_MASK
->   #define LVT1_VALID    LINT_MASK
->   #define LVTERR_VALID  LVT_MASK
-> +#define CMCI_VALID    (LVT_MASK | APIC_DM_MASK)
->   #define LVT(which)    [LVT_BIAS(APIC_ ## which)] = which ## _VALID
->       LVTS
->   #undef LVT
-> @@ -697,8 +701,17 @@ int guest_rdmsr_x2apic(const struct vcpu
->           return X86EMUL_EXCEPTION;
->   
->       offset = reg << 4;
-> -    if ( offset == APIC_ICR )
-> +    switch ( offset )
-> +    {
-> +    case APIC_ICR:
->           high = (uint64_t)vlapic_read_aligned(vlapic, APIC_ICR2) << 32;
-> +        break;
-> +
-> +    case APIC_CMCI:
-> +        if ( !(v->arch.vmce.mcg_cap & MCG_CMCI_P) )
-
-Could it be done using wrapper, like vmce_has_cmci()?
-As this is Intel specific it's candidate to be opt-out eventually.
-
-> +            return X86EMUL_EXCEPTION;
-> +        break;
-> +    }
->   
->       *val = high | vlapic_read_aligned(vlapic, offset);
->   
-> @@ -868,6 +881,10 @@ void vlapic_reg_write(struct vcpu *v, un
->           vlapic_set_reg(vlapic, APIC_ICR2, val & 0xff000000U);
->           break;
->   
-> +    case APIC_CMCI:         /* LVT CMCI */
-> +        if ( !(v->arch.vmce.mcg_cap & MCG_CMCI_P) )
-> +            break;
-> +        fallthrough;
->       case APIC_LVTT:         /* LVT Timer Reg */
->           if ( vlapic_lvtt_tdt(vlapic) !=
->                ((val & APIC_TIMER_MODE_MASK) == APIC_TIMER_MODE_TSC_DEADLINE) )
-> @@ -1024,9 +1041,12 @@ int guest_wrmsr_x2apic(struct vcpu *v, u
->               return X86EMUL_EXCEPTION;
->           break;
->   
-> +    case APIC_CMCI:
-> +        if ( !(v->arch.vmce.mcg_cap & MCG_CMCI_P) )
-> +            return X86EMUL_EXCEPTION;
-> +        fallthrough;
->       case APIC_LVTTHMR:
->       case APIC_LVTPC:
-> -    case APIC_CMCI:
->           if ( val & ~(LVT_MASK | APIC_DM_MASK) )
->               return X86EMUL_EXCEPTION;
->           break;
-> @@ -1438,7 +1458,9 @@ static void vlapic_do_init(struct vlapic
->       if ( !has_vlapic(vlapic_vcpu(vlapic)->domain) )
->           return;
->   
-> -    vlapic_set_reg(vlapic, APIC_LVR, 0x00050014);
-> +    nr = 6 + !!(vlapic_vcpu(vlapic)->arch.vmce.mcg_cap & MCG_CMCI_P);
-> +    vlapic_set_reg(vlapic, APIC_LVR,
-> +                   0x00000014 | MASK_INSR(nr - 1, APIC_LVR_MAXLVT_MASK));
->   
->       for ( i = 0; i < 8; i++ )
->       {
-> --- a/xen/arch/x86/include/asm/apicdef.h
-> +++ b/xen/arch/x86/include/asm/apicdef.h
-> @@ -15,7 +15,10 @@
->   #define			GET_xAPIC_ID(x)		(((x)>>24)&0xFFu)
->   #define			SET_xAPIC_ID(x)		(((x)<<24))
->   #define		APIC_LVR	0x30
-> -#define			APIC_LVR_MASK		0xFF00FF
-> +#define			APIC_LVR_VERSION_MASK	0xff
-> +#define			APIC_LVR_MAXLVT_MASK	0xff0000
-> +#define			APIC_LVR_MASK		(APIC_LVR_VERSION_MASK | \
-> +						 APIC_LVR_MAXLVT_MASK)
->   #define			APIC_LVR_DIRECTED_EOI	(1 << 24)
->   #define			GET_APIC_VERSION(x)	((x)&0xFF)
->   #define			GET_APIC_MAXLVT(x)	(((x)>>16)&0xFF)
+>> @@ -881,7 +898,7 @@ void vlapic_reg_write(struct vcpu *v, unsigned int reg, uint32_t val)
+>>       case APIC_LVTERR:       /* LVT Error Reg */
+>>           if ( vlapic_sw_disabled(vlapic) )
+>>               val |= APIC_LVT_MASKED;
+>> -        val &= array_access_nospec(vlapic_lvt_mask, (reg - APIC_LVTT) >> 4);
+>> +        val &= array_access_nospec(lvt_wr_masks, LVT_REG_IDX(reg));
 > 
+> Just like it's here, ...
+> 
+>> @@ -1013,26 +1030,18 @@ int guest_wrmsr_x2apic(struct vcpu *v, uint32_t msr, uint64_t val)
+>>               return X86EMUL_EXCEPTION;
+>>           break;
+>>   
+>> -    case APIC_LVTT:
+>> -        if ( val & ~(LVT_MASK | APIC_TIMER_MODE_MASK) )
+>> +    case APIC_CMCI:
+>> +        if ( val & ~(LVT_WR_MASK | LVT_RO_MASK | APIC_DM_MASK) )
+>>               return X86EMUL_EXCEPTION;
+>>           break;
+>>   
+>> +    case APIC_LVTT:
+>>       case APIC_LVTTHMR:
+>>       case APIC_LVTPC:
+>> -    case APIC_CMCI:
+>> -        if ( val & ~(LVT_MASK | APIC_DM_MASK) )
+>> -            return X86EMUL_EXCEPTION;
+>> -        break;
+>> -
+>>       case APIC_LVT0:
+>>       case APIC_LVT1:
+>> -        if ( val & ~LINT_MASK )
+>> -            return X86EMUL_EXCEPTION;
+>> -        break;
+>> -
+>>       case APIC_LVTERR:
+>> -        if ( val & ~LVT_MASK )
+>> +        if ( val & lvt_rsvdz_masks[LVT_REG_IDX(offset)] )
+> 
+> ... array_access_nospec() also needs using here.
+
+ok
+
 
 -- 
 Best regards,
