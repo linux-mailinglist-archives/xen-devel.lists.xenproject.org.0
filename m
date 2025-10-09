@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BAEDBC8F63
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 14:10:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1140546.1475399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A7D2BC90E7
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 14:37:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1140585.1475429 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6pTE-00065r-TB; Thu, 09 Oct 2025 12:10:08 +0000
+	id 1v6psx-00026h-EE; Thu, 09 Oct 2025 12:36:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1140546.1475399; Thu, 09 Oct 2025 12:10:08 +0000
+Received: by outflank-mailman (output) from mailman id 1140585.1475429; Thu, 09 Oct 2025 12:36:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6pTE-00063b-Q6; Thu, 09 Oct 2025 12:10:08 +0000
-Received: by outflank-mailman (input) for mailman id 1140546;
- Thu, 09 Oct 2025 12:10:07 +0000
+	id 1v6psx-000252-BV; Thu, 09 Oct 2025 12:36:43 +0000
+Received: by outflank-mailman (input) for mailman id 1140585;
+ Thu, 09 Oct 2025 12:36:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=I7dU=4S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v6pTD-0005xr-4C
- for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 12:10:07 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1v6psv-00024w-HK
+ for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 12:36:41 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e471c28f-a508-11f0-9d15-b5c5bf9af7f9;
- Thu, 09 Oct 2025 14:10:06 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-46e4ad36541so9843335e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 09 Oct 2025 05:10:06 -0700 (PDT)
+ id 9a9e0abb-a50c-11f0-9d15-b5c5bf9af7f9;
+ Thu, 09 Oct 2025 14:36:40 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-46e2c3b6d4cso6406855e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Oct 2025 05:36:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46fa9d4caa4sm82405685e9.12.2025.10.09.05.10.04
+ 5b1f17b1804b1-46faf105648sm46490645e9.2.2025.10.09.05.36.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Oct 2025 05:10:05 -0700 (PDT)
+ Thu, 09 Oct 2025 05:36:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e471c28f-a508-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 9a9e0abb-a50c-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760011805; x=1760616605; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760013400; x=1760618200; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BTyPoVhOlecL5F0GEeDUlRjaCSfL2lX6QJCafF7dvLA=;
-        b=GCMP6xNGhyGpX8+vS8rgCc9PePM9alu87n7zs6WCriNLfHqqp2y7eQnL5zinhKdtEp
-         DLqdANyMEaSXtznJJThPMbMWOF7oTDEv5b6SbdRQVjbeq7OibckFqsQrZCgLMTd1bDZE
-         N1zEAEAJZsfB7lAsVgqNnceB0R+qCoSrcMjsF0N1hb3OVHfCt24LI16HauBaGLf9nj/D
-         iFNJWN+atqzaqrycocY7DHerUXcF4SoZZhVtkieYLblqVoVSKYSH0RD/SnmJ/+iKYIk4
-         V7nIHsnnae/FJyDNfljtUiXDSuCG7eV0YVUMH0dGgHAC/yUyAJgwE3e85i/hy6Q6uIvH
-         5XNg==
+        bh=MmXB6mapz29wo1ttiS30gTWIB5c9u0EFJH7vM7zwpsA=;
+        b=J2BBMzXYIaCyU9TsTVgMskHUWhoYTMrxA9Z6J+xapTEqEC8cLBn1YKbhy+XW+wVBq2
+         F5bmhQRKi6jPPX6CHsLoN9MDe1CPC0bowUkDWOG9gVNdVPVGH9IgzFIC5Fog+Lms+Q7k
+         aMrnyq9sxkODZCg/wu+tFUVFj22UKmqVIoCgoKnXs1vn3cS5DuXMh4wPDyJDSGVrtmno
+         LEH3N0/VlBdx7Z+iL/nn9igI4m82JTZQnFyHLIlxaRZVQU22maWnFRquRfx51g2/6c6/
+         PYxccYZPtVtKDLKuqvpo4FwDmE4dADBBDrtAaJ8V1o/FRIqdDLujjzwwe8Yplbw8tFJs
+         /bXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760011805; x=1760616605;
+        d=1e100.net; s=20230601; t=1760013400; x=1760618200;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BTyPoVhOlecL5F0GEeDUlRjaCSfL2lX6QJCafF7dvLA=;
-        b=m80Ll0R6Hm0t4eSnCeTkT9QFBIo/daznQQYc+pNOse/zLyLDEMkBlE2h57LMc8QddV
-         N0+1+fCsZFgUPgx8k73AIYjxtf4q77SS1PHzfUODbMd7r/mi30xQacJ3FuLeHoY3GtYG
-         bWwZ8DfgqbQeRyaPCTYhobDY3EF6cCQ0BMH7yYuB22EpU2q0U4wsEGG4jvsGGcafhL3V
-         2U07ryf3OBh0r1tNAfTRCHFld4CZlrIq84HHzjZQucwjw7U1hLy6lyEsuUDmqWyPgrtA
-         1To5GWHAyl6vE95Vyrzoo+hu0IPht5NICbr23+xpVP4PjroJooJoGf+cY9gKJXgoRjku
-         HA8A==
-X-Forwarded-Encrypted: i=1; AJvYcCVRG6C7wpAslngXnK4Lsw6KYh1bP1nnCaD/YtBhX26zWXlMCRtkH4w28aqROCb7DQmfDWec3KvqIUE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy70StceArzwHSbIr3h2NMdOGRG9mT+rQs7+SdZavo87vJD0P43
-	pa9/Pn89fPVlN9rmx3hNzaYollP5rI/qZT4ypLnLfyNw//pWw1iMmXbw+fQ62hghWA==
-X-Gm-Gg: ASbGncvZ7aXvF/8ihPAu3rPqB4ugMWigvsjnssd+bi4/Gn9uK0gpDz6igW/k6lISaXE
-	00SeAMqgH+QoKCCOk/ndupzZJXSAAR+XZXIlidYUq+4Y2Q9EEpREdFQfEnJG6N6dxkz5RiaBJjo
-	GKJ+5/Z5dNIzjK1rGX3OxcKN9XO1+IXi4M4P3lH8aULFZ3158pVDigAA2cUDNBlUEcXDUPIwQS6
-	Y3tTRg1cEExMkxMPzmeANp2bVrLLJ4vn5HzFSkH25d/cAA8+LKxQxm/N7LaWT96PZEuG0y68EgX
-	QVocwBowvi0G0d6QmLmfEMPsALftRbGErNz2IqsVc2+YzPDsA/y/VdPTNvd2wyhFAcTFR0NhclI
-	9fOXraZPZmu6w3QUNDVQGDp7z5z1FlUeJeTQi+X8UT1I7Da4Y/n2kYkir/C8N0W6wUla37gsAVg
-	deVjB7SzfmQ5XFDzM1t+d1FCxCuS2lSRs=
-X-Google-Smtp-Source: AGHT+IH0bc3ZiBvMxkow6bsZZGu2FSKqFT0EfFlWgViqdSQtcoBqu8kVQnN8ipRNMhJRXOcPkEFH2A==
-X-Received: by 2002:a05:600c:8206:b0:46c:d476:52f3 with SMTP id 5b1f17b1804b1-46fa9b021abmr49935745e9.26.1760011805485;
-        Thu, 09 Oct 2025 05:10:05 -0700 (PDT)
-Message-ID: <fb6debfa-cdc2-491c-a488-6a4bf64ca7ad@suse.com>
-Date: Thu, 9 Oct 2025 14:10:04 +0200
+        bh=MmXB6mapz29wo1ttiS30gTWIB5c9u0EFJH7vM7zwpsA=;
+        b=kHvsZCId+5DMAZlsH2oUB22yIeAUndmMeaTm+NzIKlp7QfMbeIOXC8Nu5eEYF+cLxT
+         KGOTNvsW/IWac8ipueTN0SBe05SQkKA420IAmkQu2uRX9B8ggn4KuVNsCdaZFdJsdMd2
+         hEhP8dc//UTaigwgjU3QZQR+89m8fQpnnTiKwQntdty0nbAbY2otsf8MIRzttJ39n5il
+         7hsvXjxr8pvFLfPNa8QsKl+Ywk2YLpOhP/DeZRTbP7gFesQgM6BnY0eN1R6EDJsDZYgf
+         b3t8V6Akb4gwaw0jYeROO1gl8ItsfXFga4gGjXFHMftKWGk4UoMsCWK+DyO474cxlbKX
+         PL1A==
+X-Forwarded-Encrypted: i=1; AJvYcCWMToJyfFLZS8hqs6R7DRT1Vcb5Q0R0lv/LRgDFR1s/IOgsWjgtJKsR1hZTT1rPd4R9w4kWdB8yPtM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxXsNt4ALxQVYDjhs1jA7OFbR0Z5cHgu0SE2wxCh2xrx3TgbEdE
+	NUKetHZfNB9Yb1zNUgheC+h1oOa/y/RPTEHJpSheVNrr4SEZk0T3QjsN96SSfyXN+g==
+X-Gm-Gg: ASbGnctXoWfc7/B9bSa2Qb42Tjwng18U+8Wlkl+7y9eqgJ4nSuXcyoXW5BvyMy035js
+	+WXvQSNfEa9h73ddY/QrjjlcAUonElg7VMAfMud4Gz+B2fhvn3hWvxxRN9TcQx6CeEwvaAqXqHw
+	ofIOD4Yonx42MF2WRbJZPy/qZ9OitHgAFpDvJjKdLEioHvJM3zzS0uk3W3MUhvL2Ae1vILORu1n
+	yRP9F+jdBCX7ywXviUTRQ0RwKXjKj7Bww04XpwYVTl/HSHLc5AwLgF0WdvWKzY3P4K86sEfu7mn
+	oc75XDGxgznW6I/9QgFZ+4XTwl260BXo58zGiQSOpaCgHq5lNkX+WuohyjOY6MdFvgA3efx3LUl
+	9tQ+vBm78Gcn1aJONTYkRCCcsF3zR4nR1kgILOnVfv0aXZIItxxuNd2Qh3qieHLaiAyVvUnWbPq
+	RytAC0JnaDL7+AQDmmS+DwkRg1WCBSGfs=
+X-Google-Smtp-Source: AGHT+IFCcchPVBFv582m3PLp/RPRBY4cGpeQAGKDot6rqkzYyVobI7v/OK+g9gHhiuqa/nTumzXmoQ==
+X-Received: by 2002:a05:600c:a401:b0:46f:b43a:aef3 with SMTP id 5b1f17b1804b1-46fb43aaf75mr958765e9.39.1760013399630;
+        Thu, 09 Oct 2025 05:36:39 -0700 (PDT)
+Message-ID: <cf852476-8a51-4623-b4aa-d9fc42622b1c@suse.com>
+Date: Thu, 9 Oct 2025 14:36:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 18/18] xen/riscv: introduce metadata table to store P2M
- type
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2] MAINTAINERS: Add myself as an AMD SVM & IOMMU reviewer
+To: Jason Andryuk <jason.andryuk@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1758145428.git.oleksii.kurochko@gmail.com>
- <f1e346b228ea76eb5bd988e8aab0062cbea58c9d.1758145428.git.oleksii.kurochko@gmail.com>
- <4c2eb99b-3e88-4364-8c3f-7c70d4064ef4@suse.com>
- <5142b7c4-ab2e-4f73-a60d-3d23fe255ca7@gmail.com>
- <4232140b-e44a-4d8b-8178-b583a2f4fabc@suse.com>
- <e875ffa9-28c5-4733-b079-babad3734a9c@gmail.com>
+References: <20251008201106.36204-1-jason.andryuk@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,50 +122,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e875ffa9-28c5-4733-b079-babad3734a9c@gmail.com>
+In-Reply-To: <20251008201106.36204-1-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 09.10.2025 13:34, Oleksii Kurochko wrote:
-> On 10/7/25 3:25 PM, Jan Beulich wrote:
->> On 01.10.2025 18:00, Oleksii Kurochko wrote:
->>> On 9/23/25 12:41 AM, Jan Beulich wrote:
->>>> On 17.09.2025 23:55, Oleksii Kurochko wrote:
->>>>> +    if ( *md_pg )
->>>>> +        metadata = __map_domain_page(*md_pg);
->> Not this conditional assignment for ...
->>
->>>>> +    if ( t < p2m_first_external )
->>>>> +    {
->>>>>            pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
->>>>>    
->>>>> -    return rc;
->>>>> +        if ( metadata )
->>>>> +            metadata[ctx->index].pte = p2m_invalid;
->>>>> +    }
->>>>> +    else
->>>>> +    {
->>>>> +        pte->pte |= MASK_INSR(p2m_ext_storage, P2M_TYPE_PTE_BITS_MASK);
->>>>> +
->>>>> +        metadata[ctx->index].pte = t;
->>>> Afaict metadata can still be NULL when you get here.
->>> It shouldn't be, because when this line is executed, the metadata page already
->>> exists or was allocated at the start of p2m_set_type().
->> ... this reply of yours. And the condition there can be false, in case you
->> took the domain_crash() path.
-> 
-> Oh, right, for some reason, I thought we didn’t return from|domain_crash()|.
-> I’m curious whether calling|domain_crash()| might break something, as some useful
-> data could be freed and negatively affect the internals of|map_regions_p2mt()|.
-> 
-> It might make more sense to use|panic()| here instead.
-> Do you have any thoughts or suggestions on this?
+On 08.10.2025 22:11, Jason Andryuk wrote:
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -220,6 +220,23 @@ F:	xen/drivers/acpi/
+>  F:	xen/include/acpi/
+>  F:	tools/libacpi/
+>  
+> +AMD IOMMU
+> +M:	Jan Beulich <jbeulich@suse.com>
+> +M:	Andrew Cooper <andrew.cooper3@citrix.com>
+> +M:	Roger Pau Monné <roger.pau@citrix.com>
+> +R:	Jason Andryuk <jason.andryuk@amd.com>
+> +S:	Supported
+> +F:	xen/drivers/passthrough/amd/
+> +
+> +AMD SVM
+> +M:	Jan Beulich <jbeulich@suse.com>
+> +M:	Andrew Cooper <andrew.cooper3@citrix.com>
+> +M:	Roger Pau Monné <roger.pau@citrix.com>
+> +R:	Jason Andryuk <jason.andryuk@amd.com>
+> +S:	Supported
+> +F:	xen/arch/x86/hvm/svm/
+> +F:	xen/arch/x86/cpu/vpmu_amd.c
 
-domain_crash() is generally preferable over crashing the system as a whole.
-I don't follow what negative effects you're alluding to. Did you look at
-what domain_crash() does? It doesn't start tearing down the domain, that'll
-still need invoking from the toolstack. A crashed domain will stay around
-with all its resources allocated.
+What about xen/arch/x86/include/asm/hvm/svm/ ? It didn't need specific
+mentioning on the X86 entry, but it would now. Also F: entries generally
+want sorting alphabetically as well.
+
+> @@ -601,7 +618,8 @@ M:	Roger Pau Monné <roger.pau@citrix.com>
+>  S:	Supported
+>  L:	xen-devel@lists.xenproject.org
+>  F:	xen/arch/x86/
+> -F:	xen/drivers/passthrough/amd/
+> +X:	xen/arch/x86/hvm/svm/
+> +X:	xen/arch/x86/cpu/vpmu_amd.c
+
+Didn't the v1 discussion result in there being no need for these X:
+entries?
+
+As long as there's agreement, I'd be happy to make adjustments while
+committing. Oleksii - I take it that ./MAINTAINERS changes can still go
+in pretty freely?
 
 Jan
 
