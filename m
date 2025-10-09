@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71EE1BC8DEC
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 13:43:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1140492.1475359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02567BC8E40
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 13:48:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1140501.1475369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6p2x-0008Vo-VP; Thu, 09 Oct 2025 11:42:59 +0000
+	id 1v6p7w-0000oe-HV; Thu, 09 Oct 2025 11:48:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1140492.1475359; Thu, 09 Oct 2025 11:42:59 +0000
+Received: by outflank-mailman (output) from mailman id 1140501.1475369; Thu, 09 Oct 2025 11:48:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6p2x-0008Tm-Sh; Thu, 09 Oct 2025 11:42:59 +0000
-Received: by outflank-mailman (input) for mailman id 1140492;
- Thu, 09 Oct 2025 11:42:58 +0000
+	id 1v6p7w-0000mc-Eh; Thu, 09 Oct 2025 11:48:08 +0000
+Received: by outflank-mailman (input) for mailman id 1140501;
+ Thu, 09 Oct 2025 11:48:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VZ0Z=4S=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1v6p2w-0008Tb-E7
- for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 11:42:58 +0000
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazlp170120005.outbound.protection.outlook.com
- [2a01:111:f403:c200::5])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=I7dU=4S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1v6p7v-0000mU-FB
+ for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 11:48:07 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 16f1c59c-a505-11f0-9809-7dc792cee155;
- Thu, 09 Oct 2025 13:42:53 +0200 (CEST)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by AS4PR03MB8722.eurprd03.prod.outlook.com (2603:10a6:20b:58d::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.9; Thu, 9 Oct
- 2025 11:42:50 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9203.007; Thu, 9 Oct 2025
- 11:42:50 +0000
+ id d00369af-a505-11f0-9809-7dc792cee155;
+ Thu, 09 Oct 2025 13:48:03 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-46e42fa08e4so8746165e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Oct 2025 04:48:03 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-46faf183b6dsm43674855e9.17.2025.10.09.04.48.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Oct 2025 04:48:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,268 +45,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16f1c59c-a505-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=axYUKkAomB7XY7EH6Yw74Rf9x0ghRVsCF0ist365b9odOrCqzDZ7uRZXMe73J6q4YjU5DihXz+jvrbxNjyWQwUhMvlK46MSpVKSnszvp/3c2/ur2sML0fcO+QCu/9SWCZk1zKZHhvsHPxmRbiBJnMWoBJKmg5ZtgnfROB9dCjP0sCqzIJsBCkKTWT0/bEeu2IDPfMwwI8L6T3o+JHKna8l88E9jcvtt2YIYwClP4n5FqvVLsYK/wZkljF/uMMVfSHBOCjlQem8CqaZcfYya6eqBysFck73x68Pi+hBzLij57POcgMZPE6xUcZ+dCERkBoA+G4SU/vBtN5rSua8nM+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iUvgBglGeeyR9NbGi5nY79T2XXUeGYL1phu0//2Hv6k=;
- b=MRvrBL7qlz5ZZXFcnkMMbBiC7Lp2qH9Fwd/un6hNi05IbiCRbgh9vOdPpMwWug5GVqOvCVdd0kIFo86WP2i4NOdzCJDjqtQMFXEeoEGurcz+y+LmVtP9zxS63BrTmdSS0E9hfMGBiGHJDdHV1hORymyk1h1zZxz5erw4Q10PC4OcVhua4qs5hYDAYGQSjT+C/cS5nXKt6X6W8YYoxL/U5RWEwjICYMBBql/GR+ko8SiPLhtN6RnZ8Kb4sabpyiVtCiLmGtOvej79zbp/E49GeyBQ2GpMVVPnw6KHI0i75s83/KyLnigCkU2c8hkG2f2gkY6LgHskUrHE3ZTzy+i2dQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iUvgBglGeeyR9NbGi5nY79T2XXUeGYL1phu0//2Hv6k=;
- b=fx0ZNospNRiR+ex61ZlfeY8HcktwqtDNonzXb3T5gZvPe+PmzWpanaAIqrBeyhE3mW0I0VD6AuNZe6Jmgx3PsUAXHORaOUfG00bXEKgGtzzxgy5bvDoomcreASlk+ZBLSavc000bDWWXfztyRLm1RFSZDhY8C8vA2wk3950uUatzCsUnFnsRi8b3qEyzh8uMLCkncySx+N/toI5LmERvLsvOxHpZi47yNJqc06nNjW9Cxx8TmQazcjS/A73n2JAZlygz6zLZakj4u4WHZAXw/s7M/xXjs6zjReAabN9DMAzQa3iGVlUv1Wpgmb1pbyeEYBhlfH7p7umnH/cR5Xc6Xw==
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Grygorii Strashko <grygorii_strashko@epam.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Alejandro Vallejo
-	<alejandro.garciavallejo@amd.com>, Jason Andryuk <jason.andryuk@amd.com>
-Subject: [XEN][PATCH] x86: hvm: vlapic: rework WR/rsvdz masks for LVTx regs
-Thread-Topic: [XEN][PATCH] x86: hvm: vlapic: rework WR/rsvdz masks for LVTx
- regs
-Thread-Index: AQHcORHXhYFVkRUALkuaMd5pXZySsA==
-Date: Thu, 9 Oct 2025 11:42:50 +0000
-Message-ID: <20251009114249.1964387-1-grygorii_strashko@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS2PR03MB8907:EE_|AS4PR03MB8722:EE_
-x-ms-office365-filtering-correlation-id: 8cc56a83-fd2d-4ce9-7136-08de0728f9c6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700021;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?ZfLyEGWBuiZbcgk5wYpjqtzV8G36WGrd4MnIuqT+wm0qYbdwh4mU4VPmNp?=
- =?iso-8859-1?Q?D6ApXubwUb7RUOTlPlzPvT5qGnsPnRtIpaqPUJtzeL497SlWE7cWZTK7ZX?=
- =?iso-8859-1?Q?OI7b4NWytXMRLUjS14cLP/AdRV9EF1bLxVkveo9uMi2m1UVREu83sWrCf5?=
- =?iso-8859-1?Q?ZC9ZHsd8v5Yh/oWUa4PEA6YWBPxI/oi1WJP6hcKpSkZgcbVgN9lRu3DIlp?=
- =?iso-8859-1?Q?Ms6hcci+QoXiwqrGa+4bRa+z6QWx2E9gwEBozEo/tujrLeBmIqV/sN5odC?=
- =?iso-8859-1?Q?dbUAZDyoG/md+eA3+rotgkr0FKmHK3TpW2X0M8kW0A4mO0Liieg8JmsoVh?=
- =?iso-8859-1?Q?BMfa+ge2EtO1IudRoC+iJIBWlvsxGZcTz6kAIyfFBTisjBaYDFfW5u4h4T?=
- =?iso-8859-1?Q?Ccn8Y2N9I/oIEl5SIPMmEVlZCdobWjFojpvq77TevNpMKm6ChJZxd2cuOx?=
- =?iso-8859-1?Q?uGrvE5h+ks44Zz6L5lFBkfrDesZAYuN7VC04Zq5GXlJO72T870atkDhHvV?=
- =?iso-8859-1?Q?YMRkDKwAZ7JlmhDa1UOoaleOqsx4xOntbmKJdwHZTxnYPTnZ2zD1zMBsIj?=
- =?iso-8859-1?Q?Mj1vwaODRU9j8cZz+4fcD9FTSkDZepbbRrvzN+lhUbSwnjDyYN8lgtE1JI?=
- =?iso-8859-1?Q?821467slsHIeooZuUef+PP56YAwnMoyakMOT4SfwcmxraynDmTds3hf0Oe?=
- =?iso-8859-1?Q?X6effx0o74SDsjRzfa0XHkeyckvch67migfD6OHtjrtjkxMZfYHdzMjok7?=
- =?iso-8859-1?Q?BjMmOC6fRVLmsMXEYDdR+RAkpQYTTkfpCWC/s2+A690e5jpoIIG+b9lpK0?=
- =?iso-8859-1?Q?PcIzu1w+MFElS7KSUl0xNJzPw7cZv6vPpvKQmB7IuOMivgHG/DF+mN7N4A?=
- =?iso-8859-1?Q?8Vj8fYUm8v0O8nQiDdqPs6Waba7nPYmYDwcPa7ImS8n4PBcU6hx+H7OT3D?=
- =?iso-8859-1?Q?gId/8UBpm8vYtAKmW1TCmWAStlnJoZCC7YCz9vfUCdHTNLz8c5eVV4gtoL?=
- =?iso-8859-1?Q?xGTIPEnBa1gNb2+lbtAcgbe1yd2MIxE/74SQAzfLjyiv/UnSaNvl91Hao0?=
- =?iso-8859-1?Q?jzf1y3yE42BuBa7qQGyBDO48afzis+xreilNVh2wKxsgofkVh6H38cbC75?=
- =?iso-8859-1?Q?duuvqKCHIJiLA3Y1PwEMR48L3Q7TxoBgF+W7a/LqHNU5W+3vGd8lD8GWXF?=
- =?iso-8859-1?Q?/sxjOwBAbqr6l5Im/I2Fp6ysKKoadwUMuGcrfyMQZHLf5QMktmpKmSPnea?=
- =?iso-8859-1?Q?RE1a27Ic+QkBmMw0DlaujBC4jXxX0AlmVefdBOJMDeLwdNDik1INv0slkx?=
- =?iso-8859-1?Q?UIjnbFshPenAyKKTqyC7pT+Fo9DWejBhQVaM9jtS+26q1sHh6a835rItdu?=
- =?iso-8859-1?Q?y/2YgUVy7dKJYpxwlwdP3d5380hiZkY7X/+e8unphzupgeb9v7lj46PIWN?=
- =?iso-8859-1?Q?isI2UvC6qgc/TURwl2cUsn96WtHdOEka9qcAg7q/np8qlv46e2aPt7S7rR?=
- =?iso-8859-1?Q?6vLcOju7ATA4ZNcmxqOZVJXB3riqYIBI/QQubyZrdtcjmD+w0Sz5mMUNf4?=
- =?iso-8859-1?Q?DrTR3asz/unH/tMbDSojrCeTemE6?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?mLwTZTy9+HiinCFh8r34INUEwMzz44R8Ip8Pt6EtdIPKHLDDlSzsMz15V7?=
- =?iso-8859-1?Q?q92ZUwAAWnEGMNlCrWGjU19Tqr8gNwdv2g/dHVABkkJkdk5bHzWwjokOUU?=
- =?iso-8859-1?Q?WINv7D8rrN/zpufjBXJzX/fUpGbzPsMGmqUMeZYnc1rUyytBbolIPjLVap?=
- =?iso-8859-1?Q?1EZpB99/i3jZDNHtVBG+cdNvRCvN45BS7S/ayZifbQqPl/xOK54oP29n/Y?=
- =?iso-8859-1?Q?sNc30Wjap7TXwDe3XBL3ckczky2dw6QNwucF/fNuGYiyUrtkM62Z81079P?=
- =?iso-8859-1?Q?KLyEX2bGscqM94Xm2D/a3L4B5jOPmGbxTLgB3gyzK7gUuQITf/OeISKb7J?=
- =?iso-8859-1?Q?16TIN+Mp0D1IpwDVRbVS/5PGOtodnerqIwU1Mb5BQgwUXopgwM+57U9gyc?=
- =?iso-8859-1?Q?n0lOR3Pcb3hoSEMgDRe9pmSj1eQR3ZayNhBYGQnDtsmmrpgIEBCy/Gxu5A?=
- =?iso-8859-1?Q?R35STcag1IK+0/x+JM8Ax2VeM0KJaAca5IsfCG9UATYeKzV3R2NIcEBW5b?=
- =?iso-8859-1?Q?GaDO+/frwcc8BboFMg2d75kntSC2oTtFcJmnlFIm96nIBXM+zmhLocqgmY?=
- =?iso-8859-1?Q?pcjgYhgpUKHxDcABJbqO8ob0ZnfQXGj55AwRkX3mYFyEPPp0nYZmVzAmRl?=
- =?iso-8859-1?Q?qn1fiyA9L6mev06huHuFPkXuV6o0ajTiKMjiSQA7qhtQcGWE+pRzOfsD9r?=
- =?iso-8859-1?Q?0cQjJo9STmWFWnwC691Fx+XapuufDGf7UsFAOO12f7qJ/VRr4soSMaL/aK?=
- =?iso-8859-1?Q?uOI7PBSKVYj0u6fzW+xCyAu2ZpRJls9y0Gg2f8R5PlGUraiOHwtMWw9xM2?=
- =?iso-8859-1?Q?qmbHFe/+vveV5lEKoz0ByO2b1JbXln4O196zjuWq4QGVctHhCcEV4r10Fl?=
- =?iso-8859-1?Q?+2Xq0e7fObkI5irznuW1yhBHga+L8EBgSwbTMZGezRmKnUNCwukSwzzj3l?=
- =?iso-8859-1?Q?a3apYqJPIHGWWehsdgDbHG5/23rtUdEkeZKEXGXO+O7Sqhi2YdihfGEfoV?=
- =?iso-8859-1?Q?M+RJCxrAMNI3MOocjiUD6SVikSwwWCAk1gcEa230JJhF8X/OpvdCWEKgBE?=
- =?iso-8859-1?Q?MMwVfg1TuHW4H7WrqRIkBc7eIvmzWbhgdQNRsXB5jfHL1+XMVQM+KMwCq5?=
- =?iso-8859-1?Q?g/89V/yo7vx1jjkVmIcYRUgM36rMDGbsrChytuqC0Lzh0CUB6zqlgEaw+V?=
- =?iso-8859-1?Q?5HyVgdpa8JXS4cBcycP5dZNXUB1U02kVB2fuj2mnST1xj6ejOyY8XUZnOY?=
- =?iso-8859-1?Q?fNSXsiT2nz2t4CFms1XIJwi4sRqomGS2os0jDiIs4GVAG5DlkEi5qTZmZe?=
- =?iso-8859-1?Q?SD4HnNZvYATyc7IVIywAmnFNaobqXugm4VoMSS5a4Ty9vhidT2109uqUBi?=
- =?iso-8859-1?Q?/284TdTuwkpi4gy9MBf6q4NOaLuJ5lzX/YuR6JjSKjozQk6fQ3e+aifbQo?=
- =?iso-8859-1?Q?91tXT/rMZa79KOojNCDp+C8SGiS0QYN5SVtUK6WgCxiXLgyuCwuhkdECEd?=
- =?iso-8859-1?Q?b8bWhCBjtRV+GqTeqDFEKOr9SBkORLqEGsBtiY92p6j0RXtv6fBeuAuFv2?=
- =?iso-8859-1?Q?T2Wuo88VTv7p0ZtGQYAvqSDzSnOdhklxR/fH9IWCraToUVGL34LkAmLirW?=
- =?iso-8859-1?Q?O6kStMJ7Md732jQoqHs8TluVFd20ncok5W4PrdLKdIbNvXMqc1FqI/1Q?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: d00369af-a505-11f0-9809-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1760010483; x=1760615283; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=LFt9bnF6a5MWzpdPvVGbuwaQt/figOKrt6eplTNjfBM=;
+        b=QpawV9pdSvOW7oCIu/56rJVRDsJwAQgLLNORwLRwO8m+fSK0kLzwJC0M+hmhHFqf9L
+         kJOsabP91Ov8SqHk1pu91hJ7uz/0pqcFW56Z9jIuyNWOkqGk+iyCQ702v0ykSOzLZuTU
+         3DqzlSKV+JCmQZAG47+MsVCdrLLbqbgbJkS3CfdsD16hD2XwaFgMerQFTsHmh6C050No
+         fGCkW7Z0KBRqIQMhCnWw4HRC6Wbhhii5wPSv8wUi71CWgXYefrgJOTbcsdENixuco/nk
+         7H1fmfrrZEaeRTFvSYv4+a58IT4UD9MUojyVLCANeiNbvejnelG5/licsv92s9a9zzCx
+         /MRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760010483; x=1760615283;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LFt9bnF6a5MWzpdPvVGbuwaQt/figOKrt6eplTNjfBM=;
+        b=Iqj0qOiSqu1PJ9dDZ4X3mcxNh1vL9+oiiCtsrsu5FWZU0jqFeLGTVJiI4srZgQc6IP
+         ZC/SFDoW/TptN1kObzrEAy9KSJQtNBaC03KUm/nRk3k2613OYLbATgDIiGz2q+NbSm2y
+         Cr3PD49OLsWnjTg584Th9hWar7YBSim8k9Njwbf7Najl9cUniHNepuWI/C17CyJZCjbc
+         TlcEf3W6OGEtUno7DzIfemDHKaK6CaiTVk4laMgVJpqmLBsOIfMk/g7K3KftWrUVmRpl
+         /muVSa/wZ3oxtX3iDuvQPm3oOthygZuLaXK+3sFILUskmFQ66IShIIpNtG9U60IUh261
+         dC/w==
+X-Forwarded-Encrypted: i=1; AJvYcCUp22OHimAsntVBfoTYPRgoHubwyhGyzHiGU94/DvwTo6F7PgzwrvGWnHYgyGhOX7LrNhLzuUxUJVc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzaYoIPICDsYUUtMbBp9K22q1mEC84+9K67hu1AvErApqdjyWdj
+	fDRWiexQhfLDzJnWqVjudlNrWiIDPpW5AFV7kkScC7YFRB6o41YQbdVErvHRU7u1TA==
+X-Gm-Gg: ASbGncuolFjqfRPAuLVTkwPn1mbAf8eSmB/2zzu+WkxPumd1LU5OpUMtGwPJR/rawJv
+	vg9dPGfKUph5R/HBbrZkJbdNVhOBI3Zhurv1/AGTZsesWH26eRO82U5SnCc9C0RsRWolnxg3FIB
+	i3SPk2EMa+lKVQXdRWsqMkFZYHFcVcP2dpobzhU9Jbf6FVoTEClmpkQStSsuMal/Jpo6lcSrtEs
+	UDC5Znh9FQS3FvDLGyKtVX1T7pGFiXUNCyAcvow9DYNS7phM6KSHtrQQ0rrK6QEJPuuZqm6sW61
+	xbPgIjGcafigBpwwEQSvSgXI51b6e8seDyKOCy2MGx5QzUKPTXlmo0WUK4JqdGTClKiYOtkI+Os
+	lzb3cVtVEXGmU52hU3iBxJj3PczW0TIUv3gdrG0Dtdb9ISmwLYoYigvjAYLNewgS8GchXURq4MF
+	c/v5r3eMWFyq6V69+713Wf097Twl8OALebhTgzXJB3Nw==
+X-Google-Smtp-Source: AGHT+IEM/SzNUrWRfi0VtMigiZzmg11lrRy6Z3tHd6BweNtxluF2DUy5u/3ukW1d73gFLkCtCNabQQ==
+X-Received: by 2002:a05:600c:1d12:b0:468:9798:2043 with SMTP id 5b1f17b1804b1-46fa9b05607mr51034045e9.26.1760010482686;
+        Thu, 09 Oct 2025 04:48:02 -0700 (PDT)
+Message-ID: <bc4df23e-58b2-4cba-b25f-e8ba2da222eb@suse.com>
+Date: Thu, 9 Oct 2025 13:48:01 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8cc56a83-fd2d-4ce9-7136-08de0728f9c6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2025 11:42:50.3322
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: B2YYanJMCRSxHAv0G6T4MZ4LyRGWRdghUtcTsSjFqS4cO4CxfiJyT/2DOiKaVmIFL+ueSQ1Ik0kdsHJp+XtR3jRqC/BRFIXaC1ZOTxYde1Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR03MB8722
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] xen: Strip xen.efi by default
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Daniel Smith <dpsmith@apertussolutions.com>,
+ "michal.zygowski@3mdeb.com" <michal.zygowski@3mdeb.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20250612100705.21988-1-frediano.ziglio@cloud.com>
+ <586a66e5-4b11-485e-955a-da5fc3183737@citrix.com> <aN6H8dOlea2Um8y8@mail-itl>
+ <1708c939-4b06-4d09-acb8-6965383d91f4@suse.com> <aOUiU86LtvsVFukW@mail-itl>
+ <e3db4a71-336c-4039-a2fc-7997fadc81b3@suse.com> <aOeeMtiJEhdEiadg@mail-itl>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aOeeMtiJEhdEiadg@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Grygorii Strashko <grygorii_strashko@epam.com>
+On 09.10.2025 13:36, Marek Marczykowski-Górecki wrote:
+> On Tue, Oct 07, 2025 at 04:46:17PM +0200, Jan Beulich wrote:
+>> On 07.10.2025 16:23, Marek Marczykowski-Górecki wrote:
+>>> On Tue, Oct 07, 2025 at 04:12:13PM +0200, Jan Beulich wrote:
+>>>> On 02.10.2025 16:10, Marek Marczykowski-Górecki wrote:
+>>>>> On Thu, Oct 02, 2025 at 02:05:56PM +0100, Andrew Cooper wrote:
+>>>>>> On 12/06/2025 11:07 am, Frediano Ziglio wrote:
+>>>>>>> For xen.gz file we strip all symbols and have an additional
+>>>>>>> xen-syms file version with all symbols.
+>>>>>>> Make xen.efi more coherent stripping all symbols too.
+>>>>>>> xen.efi.elf can be used for debugging.
+>>>>>>>
+>>>>>>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+>>>>>
+>>>>> Generally,
+>>>>> Reviewed-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>>>>
+>>>> Just to double check: You offer this after having read (and discarded) my
+>>>> comments on v1, which v2 left largely unaddressed? 
+>>>
+>>> You mean the one about objcopy result used for debugging? I didn't see
+>>> that before, since I wasn't in cc on v1... 
+>>>
+>>> Anyway, are you aware of some specific objcopy issue. Or in other words:
+>>> would xen.efi.elf _currently_ be broken (as in - unusable for
+>>> debugging/disassembly)?
+>>
+>> I can't tell. I've seen fair parts of the code in the course of addressing
+>> various issues, and I would be very surprised if all of that was working
+>> correctly.
+>>
+>>> If not, then I take that relevant part of your
+>>> objection is mostly about inconsistent naming (xen.gz -> xen-syms, vs
+>>> xen.efi -> xen.efi.elf). Would xen-syms.efi.elf be better?
+>>
+>> Plus the one asking to strip only debug info, but not the symbol table.
+>> (And no, none of the suggested names look really nice to me.)
+>>
+>> Plus the one indicating that the change better wouldn't be made in the
+>> first place. As said, to deal with size issues we already have machinery
+>> in place. Not very nice machinery, but it's apparently functioning.
+> 
+> I'm of the opinion that defaults matter. Just having ability to build a
+> binary that works on more systems is not sufficient, if you'd need to
+> spend a day (or more...) on debugging obscure error message to figure
+> out which hidden option to use to get there. And while one could argue
+> that CONFIG_DEBUG=y builds are only for people familiar with details to
+> deal with such issues, IMO just CONFIG_DEBUG_INFO=y shouldn't need
+> arcane knowledge to get it working... And since that's a common option
+> to enable in distribution packages, person hitting the issue might not
+> even be the one doing the build (and thus controlling the build
+> options).
+> 
+> As for the details how to get there, I'm more flexible. Based on earlier
+> comments, it seems that (not stripped) xen.efi isn't very useful for
+> debugging directly, an ELF version of it is. So IMO it makes sense to
+> have the debug binary already converted. But if you say you have use for
+> xen.efi with all debug info too, I'm okay with keeping it too, maybe as
+> xen-syms.efi. It's a bit of more space (to have both efi and elf version
+> with debug info), but since it doesn't apply to the installed version,
+> only the one kept in the build directory, not a big issue IMO.
 
-Rework LVTx registers masks usage in MMIO/WRMSR write emulation code:
+Hmm, yes, having xen-syms.efi (unstripped) plus xen.efi (with debug info
+stripped but symbol table retained, including file symbols) might indeed
+be a reasonable approach. (And then no xen-syms.efi at all when we pass
+--strip-debug to the linker anyway. For this to result in somewhat
+manageable Makefile logic, we may need to first split the linking rule
+into multiple steps, as iirc has been the plan for quite some time.)
 
-- do LVTx masks renaming and rearranging to x_WR_MASK/x_RO_MASK
-
-- rename "vlapic_lvt_mask[]" to "lvt_wr_masks[]" to indicate they define
-writable LVTx regs bits
-
-- add lvt_rsvdz_masks[] and use it in guest_wrmsr_x2apic() for "Reserved"
-bits checking (RsvdZ, Non-zero writes to reserved bits should cause #GP
-exception)
-
-- add LVT_REG_IDX() macro to avoid open coding calculation of LVTx regs
-indexes for lvt_wr_masks[]/lvt_rsvdz_masks[] in many places
-
-Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
----
-Hi
-
-Patch created according to discussion [1] and based on [1].
-
-I've seen patches from Jan [2] a bit late, so sending
-it as is for now.
-
-[1] https://patchwork.kernel.org/project/xen-devel/patch/20250930190550.116=
-6875-1-grygorii_strashko@epam.com/
-[2] https://patchwork.kernel.org/project/xen-devel/cover/265d5053-af61-42cb=
--a3b9-ef60df39c21b@suse.com/
-
- xen/arch/x86/hvm/vlapic.c | 75 ++++++++++++++++++++++-----------------
- 1 file changed, 42 insertions(+), 33 deletions(-)
-
-diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index 2ecba8163f48..1a00b224e033 100644
---- a/xen/arch/x86/hvm/vlapic.c
-+++ b/xen/arch/x86/hvm/vlapic.c
-@@ -34,27 +34,44 @@
- #define VLAPIC_VERSION                  0x00050014
- #define VLAPIC_LVT_NUM                  6
-=20
--#define LVT_MASK \
--    (APIC_LVT_MASKED | APIC_SEND_PENDING | APIC_VECTOR_MASK)
--
--#define LINT_MASK   \
--    (LVT_MASK | APIC_DM_MASK | APIC_INPUT_POLARITY |\
--    APIC_LVT_REMOTE_IRR | APIC_LVT_LEVEL_TRIGGER)
-+#define LVT_REG_IDX(reg) (((reg) - APIC_LVTT) >> 4)
-+
-+#define LVT_WR_MASK (APIC_LVT_MASKED | APIC_VECTOR_MASK)
-+#define LVT_RO_MASK (APIC_SEND_PENDING)
-+
-+#define LINT_RW_MASK                                                      =
-     \
-+    (LVT_WR_MASK | APIC_DM_MASK | APIC_INPUT_POLARITY | APIC_LVT_LEVEL_TRI=
-GGER)
-+#define LINT_RO_MASK (LVT_RO_MASK | APIC_LVT_REMOTE_IRR)
-+
-+static const unsigned int lvt_wr_masks[VLAPIC_LVT_NUM] =3D {
-+    /* LVTT */
-+    LVT_WR_MASK | APIC_TIMER_MODE_MASK,
-+    /* LVTTHMR */
-+    LVT_WR_MASK | APIC_DM_MASK,
-+    /* LVTPC */
-+    LVT_WR_MASK | APIC_DM_MASK,
-+    /* LVT0 */
-+    LINT_RW_MASK,
-+    /* LVT1 */
-+    LINT_RW_MASK,
-+    /* LVTERR */
-+    LVT_WR_MASK,
-+};
-=20
--static const unsigned int vlapic_lvt_mask[VLAPIC_LVT_NUM] =3D
--{
--     /* LVTT */
--     (LVT_MASK | APIC_TIMER_MODE_MASK) & ~APIC_SEND_PENDING,
--     /* LVTTHMR */
--     (LVT_MASK | APIC_DM_MASK) & ~APIC_SEND_PENDING,
--     /* LVTPC */
--     (LVT_MASK | APIC_DM_MASK) & ~APIC_SEND_PENDING,
--     /* LVT0 */
--     LINT_MASK & ~(APIC_LVT_REMOTE_IRR | APIC_SEND_PENDING),
--     /* LVT1 */
--     LINT_MASK & ~(APIC_LVT_REMOTE_IRR | APIC_SEND_PENDING),
--     /* LVTERR */
--     LVT_MASK & ~APIC_SEND_PENDING,
-+/* LVTx reserved (rsvdZ) bits masks */
-+static const unsigned int lvt_rsvdz_masks[VLAPIC_LVT_NUM] =3D {
-+    /* LVTT */
-+    ~(LVT_WR_MASK | APIC_TIMER_MODE_MASK | LVT_RO_MASK),
-+    /* LVTTHMR */
-+    ~(LVT_WR_MASK | APIC_DM_MASK | LVT_RO_MASK),
-+    /* LVTPC */
-+    ~(LVT_WR_MASK | APIC_DM_MASK | LVT_RO_MASK),
-+    /* LVT0 */
-+    ~(LINT_RW_MASK | LINT_RO_MASK),
-+    /* LVT1 */
-+    ~(LINT_RW_MASK | LINT_RO_MASK),
-+    /* LVTERR */
-+    ~(LVT_WR_MASK | LVT_RO_MASK),
- };
-=20
- #define vlapic_lvtt_period(vlapic)                              \
-@@ -881,7 +898,7 @@ void vlapic_reg_write(struct vcpu *v, unsigned int reg,=
- uint32_t val)
-     case APIC_LVTERR:       /* LVT Error Reg */
-         if ( vlapic_sw_disabled(vlapic) )
-             val |=3D APIC_LVT_MASKED;
--        val &=3D array_access_nospec(vlapic_lvt_mask, (reg - APIC_LVTT) >>=
- 4);
-+        val &=3D array_access_nospec(lvt_wr_masks, LVT_REG_IDX(reg));
-         vlapic_set_reg(vlapic, reg, val);
-         if ( reg =3D=3D APIC_LVT0 )
-         {
-@@ -1013,26 +1030,18 @@ int guest_wrmsr_x2apic(struct vcpu *v, uint32_t msr=
-, uint64_t val)
-             return X86EMUL_EXCEPTION;
-         break;
-=20
--    case APIC_LVTT:
--        if ( val & ~(LVT_MASK | APIC_TIMER_MODE_MASK) )
-+    case APIC_CMCI:
-+        if ( val & ~(LVT_WR_MASK | LVT_RO_MASK | APIC_DM_MASK) )
-             return X86EMUL_EXCEPTION;
-         break;
-=20
-+    case APIC_LVTT:
-     case APIC_LVTTHMR:
-     case APIC_LVTPC:
--    case APIC_CMCI:
--        if ( val & ~(LVT_MASK | APIC_DM_MASK) )
--            return X86EMUL_EXCEPTION;
--        break;
--
-     case APIC_LVT0:
-     case APIC_LVT1:
--        if ( val & ~LINT_MASK )
--            return X86EMUL_EXCEPTION;
--        break;
--
-     case APIC_LVTERR:
--        if ( val & ~LVT_MASK )
-+        if ( val & lvt_rsvdz_masks[LVT_REG_IDX(offset)] )
-             return X86EMUL_EXCEPTION;
-         break;
-=20
---=20
-2.34.1
+Jan
 
