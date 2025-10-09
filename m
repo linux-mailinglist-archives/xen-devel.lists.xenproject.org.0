@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02E5DBC7ACE
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 09:22:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1140299.1475223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59AF5BC7AD1
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 09:22:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1140307.1475234 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6kxS-00052f-8e; Thu, 09 Oct 2025 07:21:02 +0000
+	id 1v6ky6-0005TZ-H5; Thu, 09 Oct 2025 07:21:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1140299.1475223; Thu, 09 Oct 2025 07:21:02 +0000
+Received: by outflank-mailman (output) from mailman id 1140307.1475234; Thu, 09 Oct 2025 07:21:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6kxS-0004zx-5r; Thu, 09 Oct 2025 07:21:02 +0000
-Received: by outflank-mailman (input) for mailman id 1140299;
- Thu, 09 Oct 2025 07:21:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tDLD=4S=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1v6kxQ-0004zb-2G
- for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 07:21:00 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8083191a-a4e0-11f0-9d15-b5c5bf9af7f9;
- Thu, 09 Oct 2025 09:20:58 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-b457d93c155so92919166b.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Oct 2025 00:20:58 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-146-38.play-internet.pl.
- [109.243.146.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b4869c4f93esm1851477866b.83.2025.10.09.00.20.56
+	id 1v6ky6-0005S3-DU; Thu, 09 Oct 2025 07:21:42 +0000
+Received: by outflank-mailman (input) for mailman id 1140307;
+ Thu, 09 Oct 2025 07:21:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=I7dU=4S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1v6ky4-0005Gd-CU
+ for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 07:21:40 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 95e9cee2-a4e0-11f0-9809-7dc792cee155;
+ Thu, 09 Oct 2025 09:21:34 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-634b774f135so912823a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Oct 2025 00:21:34 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-639f3d03662sm1704899a12.29.2025.10.09.00.21.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Oct 2025 00:20:57 -0700 (PDT)
+ Thu, 09 Oct 2025 00:21:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,158 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8083191a-a4e0-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 95e9cee2-a4e0-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1759994458; x=1760599258; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dRhPB+SBv+gVf3IoqV9gY0z8jXaR6voQ7qNuqH58cJQ=;
-        b=ZElhXaTUBug8gy0PYzZoBvM6umwj3VDB4PAiyd9v7qw3GlUDhYGF5Jl0zkjV4qrOEr
-         CO7/eBNp+gBVW/ji1ite8jQ5B5whwWdIySnYTDeInzqpW/IEGtlpWLpRfHRis42rMNkE
-         WNWJtP3RSlhHfYR+iOCpu0sOSBV+O3ggHGJk1ta4nVog08O7sY3b30jEC+11kO7XcSCJ
-         tGG5MmqOLJO3VSGw8haWPIKGoOmxqcy9LaM6Zkv6zf1Zq5fGHZizUUt/oJ0i2UkTQ391
-         Lu2Hr/JDJpbrFHx+vpRu562WLmtmU0SNgxrrs3IFVOoPCKtQlODgpFcSNsY+Zp1tGFbu
-         RxFQ==
+        d=suse.com; s=google; t=1759994494; x=1760599294; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=6plADGUh2WROebleK/tkWwO3jXZhRsEWIgYlQ6am2vY=;
+        b=Ch+K7H+5n8vCbQV9zVYzC4zq32GyhWEzyh9/XRxPy0nr423Hl56sWbET/bCyZb22DE
+         tGbdwurYYMjxT4YfgKWzykfqKS9Q+qQDg9uA/T5dmpsphj1va/YoNJZqgGN+xLIGcXuL
+         ynDYM1ryOofiGUAn8i1cCb//74u+rOtw110NoikeqmzJIK8yK56lO21LpFdVn2ZuySst
+         UkrZAdkBXRyT0pHCepXw4ineKSYp2m/VLSjEr4Ff+hUqP8jO3MNjkcA9LOJXe8P18cix
+         fYhSUWEV8lfi34QNncJOIcMVqORow/nwfA0O5UzJh8/G/Bi+EqvxpePjzynLcX0hlOMP
+         tFuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759994458; x=1760599258;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=dRhPB+SBv+gVf3IoqV9gY0z8jXaR6voQ7qNuqH58cJQ=;
-        b=Gc5OW8kOjTLguMEL3lHeXA9GaldN81Ep+hxIM2byVp6eAPW63i4o9q2d1hQIGAUG8w
-         M3ZzFsaL8hWt4/92ZTaxvxxYpOjj2DqeLttbp6JDDjDxv3wfPqmfLzBbsygYQyFtJEVT
-         s6jA187h9v8px5JNdaSsaU8XTjQqZbPAIHDTHxYyTUaJfG1iwavOVMj89tWs69l1l6PF
-         EeBRwoW0c45140rIHa0bKEtRtmlazhGtGHX1IODwY4HMouACEUhfjsAmstZrzJEVMKUA
-         dDfpeutYayPHxjF3A7Me44hoNHL0QyLm+OiX5w9UyHG26Lcu6pdJr5MFS7DLx2Y6cJzk
-         UhMA==
-X-Gm-Message-State: AOJu0YytLL4CcQRwCGKxCYBphppBXn2sKpL+oKY2NIQtTqlzDLFbFl1Y
-	1Ab9PMWm/gmYxWFWzHdminBn7EO++7K47/sK0nohj+j7dJQZ+JW17GJA
-X-Gm-Gg: ASbGncvwYG7mTZc+8tBzOUnUbVh9x0C10FxwEmiRSJEB8ardKALvw1P19BE31O5ltdF
-	y20UsLb/Sf2CaGkQiNfx9aIW/+NNO2PzU6uqbmhtHLSu1t/7JjirSE8ppLB00jpqqroiSgEg0Nk
-	erJfacc8uM6Bg9vrCWwthhEPPPdDQpHq7NeAdjAdTezW1sD2XJtp6sTvZHHggHDrqJ5e/dzhxLg
-	X7AIZsZjcvDLs5g45HqGV9+XvSGnVHMtPCA0/+bpOPrUb3orY4zbjwgPfKlLJBCseoKcLAACx1X
-	qxk6dMZUc9gQzWyQ3QPKgH/3gMmxbMaVdQJKeJzD2oPM9M7YCAR1CNuEjx5XYCmd+D685H/sZEj
-	cmqONckqFIg0fmAPXUrwqv0ATfbpmy7r06NkgMQCB12fpEjgM8M1f+sLkQZ5IphtTkc9un/CorD
-	sLvw4op038CJ6mDddArLOq+AeEN8G2UR+rqtHdGw==
-X-Google-Smtp-Source: AGHT+IGkzVao23veRHXKB1kn9GyD/R4JNbCJ3h7Kv1N4zc8e6hdilu0zsLKlIUNU7Fi2SD0uPHRqrg==
-X-Received: by 2002:a17:907:7e82:b0:b45:66f6:6a21 with SMTP id a640c23a62f3a-b50abfcd081mr706116866b.46.1759994457674;
-        Thu, 09 Oct 2025 00:20:57 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------9O0KnNKyInfmwlzblJbKGynO"
-Message-ID: <ecdbcf8e-16b2-476f-b586-e022fdfda560@gmail.com>
-Date: Thu, 9 Oct 2025 09:20:56 +0200
+        d=1e100.net; s=20230601; t=1759994494; x=1760599294;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6plADGUh2WROebleK/tkWwO3jXZhRsEWIgYlQ6am2vY=;
+        b=PisTXJz7PwDkI2FfX3FfEuJASuKgoSJE38O8bwkNRNducDHaN3XUQ5IXc4mwRh5o5o
+         CRFpM7TOfGCyF0Qq01KrZ/CuoCbyJaIa+5jtFAHnTckM+HzUc50JAA9NbYHvLbTT1od+
+         IHon8uI7Ttt2KqvT9QtjmMoE5C17NUjsbU1Yt7gEV+Lep9FY/vWIddfTn3eMX7Rimw6U
+         ixVVx+j8/32abI5CmAgQAK6KyXrwvMvBZ/sHscE9v7T99SKos+zkIGu7XrHcCCnKErwo
+         MsU8q8nmnGlWPihV8eOLe+BveYiAsWL1alSVBBilSzbAiSst6uiwEW3gCULA5b+T/tRy
+         h20w==
+X-Gm-Message-State: AOJu0YxfR0glLAj0JqiNiVzVYSpuVIpaTRIXujc7fUkF0pHiApuckHxt
+	SUjKmUSA/fcMOZvrVGHsbNYzAbt3mDZUt16UUJvf0QIdlU8UD8Tpcrw9ruhyczE4bw==
+X-Gm-Gg: ASbGncuA2pWGTRUxogs438XARlE2Y/a/qEVv4Bnc1HT8YHR5UDh4bXQRXNMyRPNAkKZ
+	e/QJyUjesOA8iYb4QK+JQNr1mv8QFWRcHFwrCS0VgaYuU+E9MrDnVeXXlXYPJum1K2g1+7rcmNv
+	+0yUxGeHVq3e2TjmnYuq2Rs7BRjICF/VLta76kz0v1y7WrM7Mj2SPNoYsg+/NoyLCc+h4MsgJQN
+	CgcIcaJU5+RcVJoRtUNbB/CD+NDyU9PFryzDmL2hqM44GPgKNIKRB5O5PB6p8URzcc3NWt6FYkQ
+	ycagzUFdUVBU07tq4lS/AZVfEPZhTYY6yntH3QhDYkMqP3IvrJu9wFv+jhjFhJUn8xRTNVq+NLW
+	ZEP1s2V86eQkWwEvrI1gs8RbZfa6m3CZU9zVVkh89ruZyZtNIaGyezWtj+tTSrpXZLDbbt9pGjY
+	/b4ozf14xAKNGSOumjQbHAYlt05bNAQdQ=
+X-Google-Smtp-Source: AGHT+IE+wlzApnrMXErS2R0UELMoLhpzFfnDfRGCXzCzN0CRfoKyPRWjQ8DPtZajrb//KKYWfbOH0g==
+X-Received: by 2002:aa7:df92:0:b0:637:d2d6:dddd with SMTP id 4fb4d7f45d1cf-639d5c6f393mr4125454a12.36.1759994493866;
+        Thu, 09 Oct 2025 00:21:33 -0700 (PDT)
+Message-ID: <4523206c-7e0f-4197-acaf-4a1a08dad929@suse.com>
+Date: Thu, 9 Oct 2025 09:21:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21 1/2] x86/AMD: avoid REP MOVSB for Zen3/4
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Jason Andryuk <jason.andryuk@amd.com>,
- Teddy Astie <teddy.astie@vates.tech>
-References: <8ecbf8b7-91fe-4f9e-9542-7ec22b6a47bb@suse.com>
- <6bcaa5b7-4e34-40c9-85e6-48a0a5869b86@suse.com>
- <485889ed-2820-4bb3-b450-88553dbb719e@vates.tech>
- <f42bb989-c9e5-43d5-82e2-9b6f95c008fa@amd.com> <aOZJDh9vwbcTwBIy@Mac.lan>
- <7c403caf-192a-413b-9b17-d8e02c066727@suse.com>
+Subject: Re: [PATCH for-4.21??? 2/3] x86/vLAPIC: drop VLAPIC_VERSION
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Andrew Cooper <amc96@srcf.net>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
+References: <265d5053-af61-42cb-a3b9-ef60df39c21b@suse.com>
+ <feb47fa6-27a0-4cf7-8fc6-bf5f29f467c1@suse.com> <aOaP54CZw8lgLLUv@Mac.lan>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <7c403caf-192a-413b-9b17-d8e02c066727@suse.com>
-
-This is a multi-part message in MIME format.
---------------9O0KnNKyInfmwlzblJbKGynO
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aOaP54CZw8lgLLUv@Mac.lan>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+On 08.10.2025 18:23, Roger Pau Monné wrote:
+> On Wed, Oct 08, 2025 at 02:08:48PM +0200, Jan Beulich wrote:
+>> @@ -1439,7 +1438,7 @@ static void vlapic_do_init(struct vlapic
+>>      if ( !has_vlapic(vlapic_vcpu(vlapic)->domain) )
+>>          return;
+>>  
+>> -    vlapic_set_reg(vlapic, APIC_LVR, VLAPIC_VERSION);
+>> +    vlapic_set_reg(vlapic, APIC_LVR, 0x00050014);
+> 
+> (Maybe I'm getting ahead of patch 3, as I haven't looked yet)
+> 
+> Don't we want to use some kind of macros to build this in a more
+> friendly way?
+> 
+> We could have a pair of SET_APIC_{VERSION,MAXLVT}()?
 
-On 10/8/25 6:06 PM, Jan Beulich wrote:
-> On 08.10.2025 13:20, Roger Pau Monné wrote:
->> On Mon, Sep 29, 2025 at 07:35:53PM -0400, Jason Andryuk wrote:
->>> On 2025-09-25 08:18, Teddy Astie wrote:
->>>> Le 25/09/2025 à 12:48, Jan Beulich a écrit :
->>>>> Along with Zen2 (which doesn't expose ERMS), both families reportedly
->>>>> suffer from sub-optimal aliasing detection when deciding whether REP MOVSB
->>>>> can actually be carried out the accelerated way. Therefore we want to
->>>>> avoid its use in the common case (memset(), copy_page_hot()).
->>>> s/memset/memcpy (memset probably uses rep stosb which is not affected IIUC)
->>>>
->>>>> Reported-by: Andrew Cooper<andrew.cooper3@citrix.com>
->>>>> Signed-off-by: Jan Beulich<jbeulich@suse.com>
->>> With Teddy's suggested change:
->>>
->>> Reviewed-by: Jason Andryuk<jason.andryuk@amd.com>
->> Acked-by: Roger Pau Monné<roger.pau@citrix.com>
-> May I ask for a release-ack here, seeing that it alters behavior that went in
-> close before the freeze?
+With what patch 3 does to apicdef.h, I was rather wondering whether to simply
+use two MASK_INSR() here (patch 3 already uses one right now).
 
-Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-
-~ Oleksii
-
---------------9O0KnNKyInfmwlzblJbKGynO
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 10/8/25 6:06 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:7c403caf-192a-413b-9b17-d8e02c066727@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 08.10.2025 13:20, Roger Pau Monné wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On Mon, Sep 29, 2025 at 07:35:53PM -0400, Jason Andryuk wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 2025-09-25 08:18, Teddy Astie wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">Le 25/09/2025 à 12:48, Jan Beulich a écrit :
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">Along with Zen2 (which doesn't expose ERMS), both families reportedly
-suffer from sub-optimal aliasing detection when deciding whether REP MOVSB
-can actually be carried out the accelerated way. Therefore we want to
-avoid its use in the common case (memset(), copy_page_hot()).
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">
-s/memset/memcpy (memset probably uses rep stosb which is not affected IIUC)
-
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">
-Reported-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
-Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
-</pre>
-            </blockquote>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">
-With Teddy's suggested change:
-
-Reviewed-by: Jason Andryuk <a class="moz-txt-link-rfc2396E" href="mailto:jason.andryuk@amd.com">&lt;jason.andryuk@amd.com&gt;</a>
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Acked-by: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-May I ask for a release-ack here, seeing that it alters behavior that went in
-close before the freeze?</pre>
-    </blockquote>
-    <pre>Release-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------9O0KnNKyInfmwlzblJbKGynO--
+Jan
 
