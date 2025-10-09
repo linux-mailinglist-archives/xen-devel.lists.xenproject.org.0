@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 083A9BC8343
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 11:09:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1140409.1475304 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8E56BC8479
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Oct 2025 11:22:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1140423.1475315 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6meb-0004zM-Ov; Thu, 09 Oct 2025 09:09:41 +0000
+	id 1v6mqK-0007kS-TQ; Thu, 09 Oct 2025 09:21:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1140409.1475304; Thu, 09 Oct 2025 09:09:41 +0000
+Received: by outflank-mailman (output) from mailman id 1140423.1475315; Thu, 09 Oct 2025 09:21:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v6meb-0004yK-Kc; Thu, 09 Oct 2025 09:09:41 +0000
-Received: by outflank-mailman (input) for mailman id 1140409;
- Thu, 09 Oct 2025 09:09:40 +0000
+	id 1v6mqK-0007hS-QA; Thu, 09 Oct 2025 09:21:48 +0000
+Received: by outflank-mailman (input) for mailman id 1140423;
+ Thu, 09 Oct 2025 09:21:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=I7dU=4S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v6mea-0004yE-AF
- for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 09:09:40 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tDLD=4S=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1v6mqJ-0007hM-Nw
+ for xen-devel@lists.xenproject.org; Thu, 09 Oct 2025 09:21:47 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ae9e581d-a4ef-11f0-9809-7dc792cee155;
- Thu, 09 Oct 2025 11:09:38 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-46e491a5b96so3671775e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 09 Oct 2025 02:09:38 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46faf16abf6sm37954945e9.12.2025.10.09.02.09.37
+ id 5b0ae581-a4f1-11f0-9809-7dc792cee155;
+ Thu, 09 Oct 2025 11:21:37 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-636de696e18so1450450a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Oct 2025 02:21:37 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-146-38.play-internet.pl.
+ [109.243.146.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b4865a83f6csm1896851266b.31.2025.10.09.02.21.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Oct 2025 02:09:37 -0700 (PDT)
+ Thu, 09 Oct 2025 02:21:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,99 +45,281 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae9e581d-a4ef-11f0-9809-7dc792cee155
+X-Inumbo-ID: 5b0ae581-a4f1-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760000978; x=1760605778; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=v9/Zkcqv2SvE5SKy83+xhxQFybJY5yxsugWKCnkpDC4=;
-        b=ErldNZEx3s3+8qTacZdqnyK4sydinXW3jz1Ks2JVmIsZCC2MhdM0MJaAMtON8ZRKFM
-         QN81Hod+vmBH5SMJ/UL29uo5uJKs1GKRlshyx+gwPxsPeiZ+t+6zFDNBh9BlGT9wvpPz
-         cgx7mrt7c2yFXwAbyeq69CnitObFkiF17Fgp+Oeu3jhSqLO3HUKYTIngZL7x0v4apkLA
-         n6XFAj8Qcy/AfL05aeh6QzZ9oj+TEo5VrWCX0RY7U3jsWLYW+nHckbnhk/fkdPB0JZ01
-         a/xX9aq1fCdA/STzJ8cWMFdrEHYLyjBHHBLNxxVs7AveOLlhr5zYQkiFQ3GeYIWbV4dP
-         9KZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760000978; x=1760605778;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1760001696; x=1760606496; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=v9/Zkcqv2SvE5SKy83+xhxQFybJY5yxsugWKCnkpDC4=;
-        b=ZOVM6sjBECRezQ2EDbfSh88n1b2dIwB6/ttCkWrUjSkQrVfBJr4Z6b8SJZ3wir1IoS
-         QRu3K5WfN+wUrZygP0Oy6EnlJmeZ2R7vO5shIZGbzrIwiHXA+Ij0NVFDystY4BEWHTsu
-         pcxAVyMa1/t1krJGLv+3Qo5Ts2bqOaQAQwEQ81E3SgWg+AVwvXX+j2eHz9/ZwUxWvWXO
-         hSuDJGHt98ajsnL1f5Gsin0esx/USwYJP67v/9RQda8RUbpX/9WXYn0BVUV4zkY1CDc6
-         2uro0+m23aSP79yN7acffNtCzORBmPZKoNCHltJ6qkX48qfOolZhF6luBWsNJKGHsUxM
-         pm2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUT1SkwcdJ9pNf/JVn1m/rpUbv1CUha7R9KH/OMeG9qmmy1538eUuWs6jibWt/1tNGYVTIrmXzRg3k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzEeuer9f4ODmnlWABktRtAdDeowwEUhr4Y5bvLR1YLrCKQc/OX
-	IwjhZhOsbuWkEKKU5pYeQrpCL+NmuHic+lytKPaClyQbTnmPMC7WdO58az4XAirjMw==
-X-Gm-Gg: ASbGnct8LuIeIjLNI3pXSJk+znbuOyeqXeMPVJWkpaOnlx2JrLV2oAILLMyktO67TNQ
-	j7PR/J21blvTAHdGuPjZc/61mZ6l9AQv3TI6H7tZ4YqMqkC2+8DrIzSXPI0i5fM7+pgkIUuX+xV
-	WCLN7S7/T91e1u2RNDQM8ldnj+9jc4WRs2ONHJC87TPoL3LrED1pCAaxF25+bbJKBTnDKXiQ175
-	UglINpkPEMHiDIapTibzautQVG1q053LZVPLNt08qeAYobwbXebUNLKMii+qEmYBVZbdz3wi93R
-	/hMMSO76w5Out3yZEtDFkuiKTiKMjqAcqz65jzoylvmldw9gshS7YOXREwrmpD3sKZu5pG5I9XR
-	INFBSd2CX81+blkHF9vK3U31IWKOzfRqjVU4cfRTHtva/Ln6dvzGYnADDdRX8TzaWQKcLFKnB4q
-	sjjqscCwRzux+2aExF6aXbB4Apoqy4t7O3GJSzenEkqw==
-X-Google-Smtp-Source: AGHT+IHF3ZQb2bQOuvjhiQhVQZPGq4lzKHVk0V+awRKj4i5hejxVV0cs7n8NVVScpGr81uV6g05IfA==
-X-Received: by 2002:a05:600c:1e8c:b0:468:7a5a:1494 with SMTP id 5b1f17b1804b1-46fa9a8ef84mr49947505e9.1.1760000977684;
-        Thu, 09 Oct 2025 02:09:37 -0700 (PDT)
-Message-ID: <6c4c89d5-cb17-4655-9c45-25cda9c4c6bb@suse.com>
-Date: Thu, 9 Oct 2025 11:09:36 +0200
+        bh=Ff4dO5G2nnGSM4lPvVgeqpIYqHJNKvnaYz1OSG26nII=;
+        b=UBWLmyLQUv6yyu27faRfUZaM1WU3F34DmA8RaD1aeukSiwJV3OH+3LP79ykk/wOWOL
+         JsciH/Pt5AceErulN6BW9f4nMkXg0zCXgTwD17ls6p7aYUG74sSKfYh9AVsTF2wun9V2
+         ZSFVnecCG7kUf8nZnNS6ChgHO1FmGbHSmFo4kjqmbD5PiV4qlJIxgSjHQyNlIyfjo2D2
+         rNtH3GYAAwv8riS3ojSM+ej9YXK63wK9NQxYa8ftlttD3MBtcFfkPRKie09LtyEBOlK7
+         Rvipi++9Xod1Ub0u2sLXE8EIo7Fzr0F8/sELX1eo9LMkgUmWuyNpn0kAjz1hCuUvuZ1G
+         nt+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760001696; x=1760606496;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Ff4dO5G2nnGSM4lPvVgeqpIYqHJNKvnaYz1OSG26nII=;
+        b=BBnhvrqVG2ZxoAV48RoT+xhABdaiphZf02iq/ZOKGet5I4smbGrnuzBY47BJmKgI8a
+         OHTFndxODEOboMt7AZiwRtVAm1n7YTUIhqmjLszDjMf3AqbmHNj86ch6BbxP8FUfvPyS
+         7O/Xb2jppQiUi0f7M2ZgOhWo5MpT42pxu3e+iUgeAjyzI5GgfQf2Hg8SksUk3vEF8ZhA
+         AbC0avK0GJFNsv8P0Xrn975bxi5zEOqXZRq0Kzpd3M+dfZGZd6fqArt6EqIsdeZlHI3T
+         DvBmP70HmjTANSmAPLVO4xZIpnI8TDeRxJhTXrFs2tauJ6O0Ip2L7OrtXx7xsvkVcpNk
+         2Dhg==
+X-Forwarded-Encrypted: i=1; AJvYcCXVT6FqW964mdwfITixz7PC2kD23D1q8d9/Z2WB0+9KoWe653ozJoRM3QjwLASDmTkSQsbNbbU6v9Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwIJJKMFV5IKgUCyv2BXhiU/s5O+5vE9/IqSFm4CrotPf+sOBPf
+	EPk98g/h2SDS6Eo60+ZH9NlwWAscO341PB3GK51Un52Zv/7PcJY5Ra4q
+X-Gm-Gg: ASbGncsVzdM3ZrvMILzwhvtZs03SpdfOMYZZtwWgD6OwxMcy3FtsTCQpUQo/qjFltUQ
+	fZlMoO5Cgqgr2tKVt3bbrJmTFomkjufcc5G3lxpPtxPDbqZ0v6dTGABQxjUnoPjkUhu/CVFtES9
+	1NScZc4m3LOBbfrNwOWHpzSrYCwWc83lqIk2L2LxSdr2tYW9tv4S4Kj6ZXB/eDKCjZkwEPr2K5w
+	Q+OHhR3n3+I93fDHQRNgUmsaQlBuQ1AY/UQLXwTKo/6xiBzlHrtmrcTDaQX16BiDs1jpMhk6/qD
+	KWYt/i0H/ktQWtjsopN1Wlyk9Vrd+BrkDxjRWO43/l6rAkNYDEq3XfqwzJz57dEklc15S/6Qgu9
+	rDi735EHszsQMYNg9eZQGspNQv3oVwjgH29GZR8MQLH17eD3nKVtAhErqeBuHIpSBFWb6PS1xMv
+	Xy0/dSsrtEX3G9gkCjI7Uvh12jMFk=
+X-Google-Smtp-Source: AGHT+IHA86AaObrRcz0ydT3b4uAB9zl9B3JJJICm+SF/RNxFbEVuE9NEpD1C8pEJwa3tdcKEiImKsQ==
+X-Received: by 2002:a17:907:3daa:b0:b46:31be:e8f0 with SMTP id a640c23a62f3a-b50a9c5b3c8mr816696766b.3.1760001696163;
+        Thu, 09 Oct 2025 02:21:36 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------moUjmcIwiTyaV3D0Z4WEk0Dw"
+Message-ID: <08f2b98c-928e-44eb-96ee-f8566330aed5@gmail.com>
+Date: Thu, 9 Oct 2025 11:21:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21] x86/HWP: adjust feature_hdc's section annotation
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Jason Andryuk <jason.andryuk@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <2622f83a-e67b-479c-8027-5578eb066ff3@suse.com>
- <d445b2c2-0278-4ade-a14b-178a0ee0f5c5@citrix.com>
+Subject: Re: [PATCH v4 12/18] xen/riscv: Implement p2m_pte_from_mfn() and
+ support PBMT configuration
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1758145428.git.oleksii.kurochko@gmail.com>
+ <4495c8103548447f9a11963574a4cb9e01090e7a.1758145428.git.oleksii.kurochko@gmail.com>
+ <7b51f40d-7ac7-460a-891d-afe1d9ab8991@suse.com>
+ <6902c46e-c805-43aa-8753-7b6dc09716ae@gmail.com>
+ <7fe4f483-ef3c-4954-9030-2c364673c9db@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d445b2c2-0278-4ade-a14b-178a0ee0f5c5@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <7fe4f483-ef3c-4954-9030-2c364673c9db@suse.com>
 
-On 09.10.2025 11:07, Andrew Cooper wrote:
-> On 09/10/2025 9:50 am, Jan Beulich wrote:
->> The variable can be cleared (set to false) by a non-init function's error
->> path (hwp_init_msrs()).
+This is a multi-part message in MIME format.
+--------------moUjmcIwiTyaV3D0Z4WEk0Dw
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+On 10/7/25 3:09 PM, Jan Beulich wrote:
+> On 29.09.2025 15:30, Oleksii Kurochko wrote:
+>> On 9/22/25 6:28 PM, Jan Beulich wrote:
+>>> On 17.09.2025 23:55, Oleksii Kurochko wrote:
+>>>> @@ -318,11 +331,87 @@ static inline void p2m_clean_pte(pte_t *p, bool clean_pte)
+>>>>        p2m_write_pte(p, pte, clean_pte);
+>>>>    }
+>>>>    
+>>>> -static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t)
+>>>> +static void p2m_set_permission(pte_t *e, p2m_type_t t)
+>>>>    {
+>>>> -    panic("%s: hasn't been implemented yet\n", __func__);
+>>>> +    e->pte &= ~PTE_ACCESS_MASK;
+>>>> +
+>>>> +    e->pte |= PTE_USER;
+>>>> +
+>>>> +    /*
+>>>> +     * Two schemes to manage the A and D bits are defined:
+>>>> +     *   • The Svade extension: when a virtual page is accessed and the A bit
+>>>> +     *     is clear, or is written and the D bit is clear, a page-fault
+>>>> +     *     exception is raised.
+>>>> +     *   • When the Svade extension is not implemented, the following scheme
+>>>> +     *     applies.
+>>>> +     *     When a virtual page is accessed and the A bit is clear, the PTE is
+>>>> +     *     updated to set the A bit. When the virtual page is written and the
+>>>> +     *     D bit is clear, the PTE is updated to set the D bit. When G-stage
+>>>> +     *     address translation is in use and is not Bare, the G-stage virtual
+>>>> +     *     pages may be accessed or written by implicit accesses to VS-level
+>>>> +     *     memory management data structures, such as page tables.
+>>>> +     * Thereby to avoid a page-fault in case of Svade is available, it is
+>>>> +     * necesssary to set A and D bits.
+>>>> +     */
+>>>> +    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_svade) )
+>>>> +        e->pte |= PTE_ACCESSED | PTE_DIRTY;
+>>> All of this depending on menvcfg.ADUE anyway, is this really needed? Isn't
+>>> machine mode software responsible for dealing with this kind of page faults
+>>> (just like the hypervisor is reponsible for dealing with ones resulting
+>>> from henvcfg.ADUE being clear)?
+>> In general, I think you are right.
 >>
->> Fixes: 99c4570f8209 ("cpufreq: Add Hardware P-State (HWP) driver")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> 
-> For 4.21, surely?
+>> In this case, though, I just wanted to avoid unnecessary page faults for now.
+>> My understanding is that having such faults handled by the hypervisor can indeed
+>> be useful, for example to track which pages are being accessed. However, since we
+>> currently don’t track page usage, handling these traps would only result in
+>> setting the A and D bits and then returning control to the guest.
+> Yet that still be be machine-mode software aiui. By always setting the bits we'd
+> undermine whatever purpose _they_ have enabled the extension for, wouldn't we?
 
-Definitely, forgot to tag it accordingly, but Cc-ed Oleksii be this reason.
+It’s a good point, and from an architectural perspective, it’s possible that
+machine-mode software might want to handle page faults.
+However, looking at OpenSBI, it delegates (otherwise all traps/interrupts by
+default are going to machine-mode) page faults [1] to lower modes, and I expect
+that other machine-mode software does the same (but of course there is no such
+guarantee).
 
-Jan
+Therefore, considering that OpenSBI delegates page faults to lower modes and
+does not set the A and D bits for p2m (guest) PTEs, this will result in a page
+fault being handled by the hypervisor. As a result, we don’t affect the behavior
+of machine-mode software at all.
+
+If we want to avoid depending on how OpenSBI or other machine-mode software is
+implemented, we might instead want to have our own page fault handler in Xen,
+and then set the A and D bits within this handler.
+Do you think it would be better to do in this way from the start? If yes, then
+we also want drop setting of A and D bits for Xen's PTEs [3] to allow M-mode to
+handle S/HS-mode page faults.
+
+Interestingly, OpenSBI doesn’t allow hypervisor mode to decide whether to
+support Svade or not [2]. By doing so, we can’t set|henvcfg.adue = 1| to disable
+it as menvcfg.adue=0 has more power, which is not very flexible.
+
+[1]https://github.com/riscv-software-src/opensbi/blob/master/lib/sbi/sbi_hart.c#L209
+[2]https://github.com/riscv-software-src/opensbi/blob/master/lib/sbi/sbi_hart.c#L168
+[3]https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/riscv/pt.c?ref_type=heads#L343
+
+>> To avoid this overhead, I chose to set the bits up front.
+> Irrespective to the answer to the question above, if you mean to do so, I think
+> all of this needs explaining better in the comment.
+
+Sure, I will add the comment if the current one approach of setting A and D bits
+will be chosen.
+
+~ Oleksii
+
+--------------moUjmcIwiTyaV3D0Z4WEk0Dw
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 10/7/25 3:09 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:7fe4f483-ef3c-4954-9030-2c364673c9db@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 29.09.2025 15:30, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 9/22/25 6:28 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 17.09.2025 23:55, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">@@ -318,11 +331,87 @@ static inline void p2m_clean_pte(pte_t *p, bool clean_pte)
+      p2m_write_pte(p, pte, clean_pte);
+  }
+  
+-static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t)
++static void p2m_set_permission(pte_t *e, p2m_type_t t)
+  {
+-    panic("%s: hasn't been implemented yet\n", __func__);
++    e-&gt;pte &amp;= ~PTE_ACCESS_MASK;
++
++    e-&gt;pte |= PTE_USER;
++
++    /*
++     * Two schemes to manage the A and D bits are defined:
++     *   • The Svade extension: when a virtual page is accessed and the A bit
++     *     is clear, or is written and the D bit is clear, a page-fault
++     *     exception is raised.
++     *   • When the Svade extension is not implemented, the following scheme
++     *     applies.
++     *     When a virtual page is accessed and the A bit is clear, the PTE is
++     *     updated to set the A bit. When the virtual page is written and the
++     *     D bit is clear, the PTE is updated to set the D bit. When G-stage
++     *     address translation is in use and is not Bare, the G-stage virtual
++     *     pages may be accessed or written by implicit accesses to VS-level
++     *     memory management data structures, such as page tables.
++     * Thereby to avoid a page-fault in case of Svade is available, it is
++     * necesssary to set A and D bits.
++     */
++    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_svade) )
++        e-&gt;pte |= PTE_ACCESSED | PTE_DIRTY;
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">All of this depending on menvcfg.ADUE anyway, is this really needed? Isn't
+machine mode software responsible for dealing with this kind of page faults
+(just like the hypervisor is reponsible for dealing with ones resulting
+from henvcfg.ADUE being clear)?
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+In general, I think you are right.
+
+In this case, though, I just wanted to avoid unnecessary page faults for now.
+My understanding is that having such faults handled by the hypervisor can indeed
+be useful, for example to track which pages are being accessed. However, since we
+currently don’t track page usage, handling these traps would only result in
+setting the A and D bits and then returning control to the guest.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Yet that still be be machine-mode software aiui. By always setting the bits we'd
+undermine whatever purpose _they_ have enabled the extension for, wouldn't we?</pre>
+    </blockquote>
+    <pre data-start="177" data-end="444">It’s a good point, and from an architectural perspective, it’s possible that
+machine-mode software might want to handle page faults.
+However, looking at OpenSBI, it delegates (otherwise all traps/interrupts by
+default are going to machine-mode) page faults [1] to lower modes, and I expect
+that other machine-mode software does the same (but of course there is no such
+guarantee).</pre>
+    <pre data-start="446" data-end="717">Therefore, considering that OpenSBI delegates page faults to lower modes and
+does not set the A and D bits for p2m (guest) PTEs, this will result in a page
+fault being handled by the hypervisor. As a result, we don’t affect the behavior
+of machine-mode software at all.</pre>
+    <pre data-start="719" data-end="928">If we want to avoid depending on how OpenSBI or other machine-mode software is
+implemented, we might instead want to have our own page fault handler in Xen,
+and then set the A and D bits within this handler.
+Do you think it would be better to do in this way from the start? If yes, then
+we also want drop setting of A and D bits for Xen's PTEs [3] to allow M-mode to
+handle S/HS-mode page faults.</pre>
+    <pre data-start="930" data-end="1119">Interestingly, OpenSBI doesn’t allow hypervisor mode to decide whether to
+support Svade or not [2]. By doing so, we can’t set <code
+    data-start="1056" data-end="1074">henvcfg.adue = 1</code> to disable
+it as menvcfg.adue=0 has more power, which is not very flexible.
+
+[1] <a class="moz-txt-link-freetext" href="https://github.com/riscv-software-src/opensbi/blob/master/lib/sbi/sbi_hart.c#L209">https://github.com/riscv-software-src/opensbi/blob/master/lib/sbi/sbi_hart.c#L209</a>
+[2] <a class="moz-txt-link-freetext" href="https://github.com/riscv-software-src/opensbi/blob/master/lib/sbi/sbi_hart.c#L168">https://github.com/riscv-software-src/opensbi/blob/master/lib/sbi/sbi_hart.c#L168</a>
+[3] <a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/riscv/pt.c?ref_type=heads#L343">https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/riscv/pt.c?ref_type=heads#L343</a>
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:7fe4f483-ef3c-4954-9030-2c364673c9db@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">To avoid this overhead, I chose to set the bits up front.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Irrespective to the answer to the question above, if you mean to do so, I think
+all of this needs explaining better in the comment.</pre>
+    </blockquote>
+    <pre>Sure, I will add the comment if the current one approach of setting A and D bits
+will be chosen.
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------moUjmcIwiTyaV3D0Z4WEk0Dw--
 
