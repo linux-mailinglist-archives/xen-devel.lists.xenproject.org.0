@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BDD3BCC234
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Oct 2025 10:30:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1141037.1475640 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AFB3BCC2ED
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Oct 2025 10:43:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1141050.1475651 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v78Vd-0005sd-MK; Fri, 10 Oct 2025 08:29:53 +0000
+	id 1v78ho-0000CY-Ru; Fri, 10 Oct 2025 08:42:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1141037.1475640; Fri, 10 Oct 2025 08:29:53 +0000
+Received: by outflank-mailman (output) from mailman id 1141050.1475651; Fri, 10 Oct 2025 08:42:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v78Vd-0005rA-Jd; Fri, 10 Oct 2025 08:29:53 +0000
-Received: by outflank-mailman (input) for mailman id 1141037;
- Fri, 10 Oct 2025 08:29:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v78ho-000095-Od; Fri, 10 Oct 2025 08:42:28 +0000
+Received: by outflank-mailman (input) for mailman id 1141050;
+ Fri, 10 Oct 2025 08:42:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LP+B=4T=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1v78Vc-0005r4-MT
- for xen-devel@lists.xenproject.org; Fri, 10 Oct 2025 08:29:52 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 49fb3071-a5b3-11f0-9d15-b5c5bf9af7f9;
- Fri, 10 Oct 2025 10:29:50 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-62ecd3c21d3so2957578a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 10 Oct 2025 01:29:51 -0700 (PDT)
+ id 1v78hn-00008z-Qr
+ for xen-devel@lists.xenproject.org; Fri, 10 Oct 2025 08:42:27 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0b9f26dd-a5b5-11f0-9809-7dc792cee155;
+ Fri, 10 Oct 2025 10:42:25 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-b00a9989633so250341966b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Oct 2025 01:42:25 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-146-38.play-internet.pl.
  [109.243.146.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-63a52b0f3aasm1736032a12.13.2025.10.10.01.29.49
+ a640c23a62f3a-b55d8c12a62sm180705966b.58.2025.10.10.01.42.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Oct 2025 01:29:49 -0700 (PDT)
+ Fri, 10 Oct 2025 01:42:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49fb3071-a5b3-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 0b9f26dd-a5b5-11f0-9809-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1760084990; x=1760689790; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1760085745; x=1760690545; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yHN8sEnwYmpaUMEmwrSUuRk+evBGnH06D8gKFSnXvII=;
-        b=ZY023NeUWdCul06ebTsTFKxGkieZYxb6gJwwWzGFw9NMbeXfDRZWknFfmy3b5dBnIz
-         NL3EREmtOtb6Zd3dKwjmIBm84YzSy/5AkqKTp2fOuWhrDWNDscLl9Q9uaF8oMQBVQGKc
-         NOuK7J7io5kY3EzK2iZvTA6DLd5EJWWkgG1f4gdsaF7LEHvmwFVANaZE/c7YmPHUjZmn
-         0DqWsFNo8yFpIfL+wKS+hTVkRYNduo6YpIMx4UCsFggUc+87goK/Vr7o2Mztmsig6BYg
-         jfXYyk8YbZLuIwjCse2Ah2otsunzo98SsEKphepEUe4WBVK4v3jubXil0REzWWBG3dlq
-         ++SA==
+        bh=NBK2HJaszjawCeXdIsnPH18eNfldQcmshXEmSq62Iec=;
+        b=B4ll1LcQrEYVd8JbtZUs+0QZTmI8NXg8xVdtfg7Lvvjnp5LYaJydDBluehXxXZtAZ7
+         BF3UhyIRTD9Pil5i3yb74obVx5nYu6yJ4DXngBc5bbsw3VBha0JKPUZd0oGzul+nBz7s
+         uT38nNFvzzHDjk0gRwNWcqSuGIhnQus06fkGnUZ8S+1c+/geHhA5DoiVCVLmHb8L5+La
+         lsVYSCWH+wvYPTPYkDbvuMYXBJXm6k8Xve4Znb6IwqlPGJbcOOW17RA/NTnRwMCalLC9
+         uYbtKqHC9+we2SXge6yi3OHCQmqRncw60tzKuoKhDX3PkUWpC7LLlUSPfEG3VlQ6KV0J
+         IzfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760084990; x=1760689790;
+        d=1e100.net; s=20230601; t=1760085745; x=1760690545;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=yHN8sEnwYmpaUMEmwrSUuRk+evBGnH06D8gKFSnXvII=;
-        b=DzysSANQ3hQUgH2ylN/Nagn8aTGmpA6oewtAHNk75d6queINmltEhxqPUqKF5V0FvZ
-         lq0dzMyin5r7V6waiLHEi2B5F+P3hKgqgZzHzffDSEZoRvTnwgG3aD/wO1Kc366UmxOg
-         VbtcGdZ1wg4vzgHTD/t3dLNB8+Z7oZvwUByt9K2nh8NF0mfDVi1GmVU1Vx+xwB+lRr10
-         XzZNhiVnXNZlvSJAD6dJTERMJ/rWwIhN0LQ57q4bXmuDq7kDG7LmSspEjUhtLmb2JAgr
-         N5JaSp8ih90/TuaEfh+F0ZirfYNQurgtagPC+ttuMTvhruQ6eLBE89nqUGIu4nU49/Xx
-         K2GQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW1HgfsnecX3u7SRxiMIxouZ/cFfBqvUcWHYm5Bdz9I48xEN8oEx7Y4TTnKf1/i9sBwJCqQRTzkGTY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxDzzFLKI/bDgNAPGqvcFDp2vF+nHe58eZgXEJql5Ctc8O4BbKI
-	+7b96L4lDhw0K3peo9gM/0XvvlFm3r5FcKOnL9laJjOiP7ZRuMA2eqI9
-X-Gm-Gg: ASbGncugzLXu2SOcoaUyn1kqkowiGmr0Binao63S4vGPmx+ido4uJYjGZOPu8ggvdpN
-	zh1kjVpSdhbHgGxpYWN0UgYBUA6ftMeaq/EwyfMHhnXdyMt9m/oIFtX6RGeflBWiTLFmBpDUl/t
-	vUqQo8dRcGS9lWomCRMSvlXWMe2xrKkZ8Ls0ekNyomu2NlGl1CkK5+WacvCuzjji1kB/MA5ZaLR
-	Norzx8kmbRK2Nq7PvWY78k4Pg2LqMYvp5Uma1bsLx+fE839sZFAZLGVfVKTMLx2YyMYEewYtO33
-	bqAYzqsKItCNopEuAmG7AE7vP+AzadaVAFP6q4lbmstMKPf5/twGTZ9TMAOlnPwgrYl6iH9KSqf
-	AGCCIJQTXv0CiUdmbQp9RI/m6xtFod6gT2RiK79ac54grRzj00dVXPpjzjo1MTMxRIYrum+iWEx
-	k2xs1IR6+GHaWf4ef+VatVog==
-X-Google-Smtp-Source: AGHT+IFRflsMCPZsD8IOkwQT5OPySXYVJuq3kyRyLPKV7J+4Rr1fabVvgnsaRSQ9gqM7yxdZY/mlEA==
-X-Received: by 2002:a05:6402:518c:b0:62f:67e0:55 with SMTP id 4fb4d7f45d1cf-639d5c371demr9604394a12.24.1760084990158;
-        Fri, 10 Oct 2025 01:29:50 -0700 (PDT)
+        bh=NBK2HJaszjawCeXdIsnPH18eNfldQcmshXEmSq62Iec=;
+        b=JoSMWIY/ivUKJqj6Q9uRq43XOWv1ByDDih9V7xtWWJhQcEjq5KOmNEzlzr46kzAz3k
+         Xoby4x64qVa+5BgUdIHCFZAFIuA1wIA8f0e2LEQL3M5ddmXKR75g2PEYCY1PRB1dzUee
+         gAC7ciNWSClJLi+jLgPKOLfse346MMPD8VCYZrnAaSHy0x2kB2+LBWXYYheqv2VbxJRm
+         af8ZZ9wW3GdJwn2N3ZVLOwfHpvyCdA1r4ARBnN67WM6nMewFrIEmwuQzVA1bWf4Kfxix
+         1m/QQMeANJZoxAvqnCegN66ZazIcR/dKihDAPWk6zdlnC5ZWWI+RcmUoZFThYa5B0rhg
+         tfGw==
+X-Forwarded-Encrypted: i=1; AJvYcCVknfOELppLTnIAw2LS9ue5o6ctnNQaKJ/HiI4rL39/YOX7+POATasmzgDu/hbfvJVsWJrXMh7Y3bU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzQn1QarbPW30F97VCkbYARdROPp2e2qp+IzXc5OGLXHWj6ZCxG
+	kawAvUB0F7Ab/JQ6XagJ7OwkE+Ne7d8GeVvlI9mBdUTRCb/sIjhauR4v
+X-Gm-Gg: ASbGnctcmKzEnbD/Mjo4Fg63TUA1l4USBI2/unlQGyYZLf9qI028Oq2KtQSpkMmHPzg
+	4mC7BbZUjiLEQNvz1NUNASoaJkzFlRxxNMWewdijYoPAeZSHdjFKG8iZlxfK333gd13CyCh1+3y
+	K+0jLVQlyx8axfUch1ibG1bgfgO77qo2D3cQDL3nu6QELxYs3+IgQzbiPBWo2shJNWWf3RdABor
+	T5G5afnwXmoMmOULW6m3UCK8sitCZxZiOXqQt9Z461Kg6hgnqX4SSNJgJ/x1fXdQ+vb+7+/hlgB
+	h7d5q+smNNDH09VD8675RNi9wvWZsvXgvriYOp4R6AWdtau54hlEyNdexoxT/mYfbVUDdmn2u8h
+	nQoHbm+gaNQ02LP377Il/SMoLkARrsk+uEFbU8YI9xjJrYZOKilFz+jPApGvJc9SBXwrFalO+lQ
+	8ism+7SDZ8+wN+NHchANsSraSY+GPhe2Yi
+X-Google-Smtp-Source: AGHT+IGChQoOeCYnpt9j7a1RS94hb0hC6bSODYyz8tBcjOZbNxpVy6H7SL41wMItlKVy17Zg5efGrQ==
+X-Received: by 2002:a17:907:3f95:b0:b41:c602:c75d with SMTP id a640c23a62f3a-b50bf7f13d2mr1369328866b.31.1760085744296;
+        Fri, 10 Oct 2025 01:42:24 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------Cb0orVteTALmg07Z3wPX2tl0"
-Message-ID: <45062a62-9076-4620-b316-6c8d093e4fbb@gmail.com>
-Date: Fri, 10 Oct 2025 10:29:48 +0200
+ boundary="------------U3ORGlMOPwXwOdCUdHQys1CG"
+Message-ID: <a4c674cf-045d-4bf1-b66f-96b6be933bca@gmail.com>
+Date: Fri, 10 Oct 2025 10:42:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/18] xen/riscv: Implement p2m_pte_from_mfn() and
- support PBMT configuration
+Subject: Re: [PATCH v4 18/18] xen/riscv: introduce metadata table to store P2M
+ type
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -100,130 +100,82 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1758145428.git.oleksii.kurochko@gmail.com>
- <4495c8103548447f9a11963574a4cb9e01090e7a.1758145428.git.oleksii.kurochko@gmail.com>
- <7b51f40d-7ac7-460a-891d-afe1d9ab8991@suse.com>
- <6902c46e-c805-43aa-8753-7b6dc09716ae@gmail.com>
- <7fe4f483-ef3c-4954-9030-2c364673c9db@suse.com>
- <08f2b98c-928e-44eb-96ee-f8566330aed5@gmail.com>
- <4b873422-a8be-4afe-b973-020690b0ff8e@suse.com>
+ <f1e346b228ea76eb5bd988e8aab0062cbea58c9d.1758145428.git.oleksii.kurochko@gmail.com>
+ <4c2eb99b-3e88-4364-8c3f-7c70d4064ef4@suse.com>
+ <5142b7c4-ab2e-4f73-a60d-3d23fe255ca7@gmail.com>
+ <4232140b-e44a-4d8b-8178-b583a2f4fabc@suse.com>
+ <e875ffa9-28c5-4733-b079-babad3734a9c@gmail.com>
+ <fb6debfa-cdc2-491c-a488-6a4bf64ca7ad@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <4b873422-a8be-4afe-b973-020690b0ff8e@suse.com>
+In-Reply-To: <fb6debfa-cdc2-491c-a488-6a4bf64ca7ad@suse.com>
 
 This is a multi-part message in MIME format.
---------------Cb0orVteTALmg07Z3wPX2tl0
+--------------U3ORGlMOPwXwOdCUdHQys1CG
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
-On 10/9/25 2:06 PM, Jan Beulich wrote:
-> On 09.10.2025 11:21, Oleksii Kurochko wrote:
->> On 10/7/25 3:09 PM, Jan Beulich wrote:
->>> On 29.09.2025 15:30, Oleksii Kurochko wrote:
->>>> On 9/22/25 6:28 PM, Jan Beulich wrote:
+On 10/9/25 2:10 PM, Jan Beulich wrote:
+> On 09.10.2025 13:34, Oleksii Kurochko wrote:
+>> On 10/7/25 3:25 PM, Jan Beulich wrote:
+>>> On 01.10.2025 18:00, Oleksii Kurochko wrote:
+>>>> On 9/23/25 12:41 AM, Jan Beulich wrote:
 >>>>> On 17.09.2025 23:55, Oleksii Kurochko wrote:
->>>>>> @@ -318,11 +331,87 @@ static inline void p2m_clean_pte(pte_t *p, bool clean_pte)
->>>>>>         p2m_write_pte(p, pte, clean_pte);
->>>>>>     }
+>>>>>> +    if ( *md_pg )
+>>>>>> +        metadata = __map_domain_page(*md_pg);
+>>> Not this conditional assignment for ...
+>>>
+>>>>>> +    if ( t < p2m_first_external )
+>>>>>> +    {
+>>>>>>             pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
 >>>>>>     
->>>>>> -static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t)
->>>>>> +static void p2m_set_permission(pte_t *e, p2m_type_t t)
->>>>>>     {
->>>>>> -    panic("%s: hasn't been implemented yet\n", __func__);
->>>>>> +    e->pte &= ~PTE_ACCESS_MASK;
+>>>>>> -    return rc;
+>>>>>> +        if ( metadata )
+>>>>>> +            metadata[ctx->index].pte = p2m_invalid;
+>>>>>> +    }
+>>>>>> +    else
+>>>>>> +    {
+>>>>>> +        pte->pte |= MASK_INSR(p2m_ext_storage, P2M_TYPE_PTE_BITS_MASK);
 >>>>>> +
->>>>>> +    e->pte |= PTE_USER;
->>>>>> +
->>>>>> +    /*
->>>>>> +     * Two schemes to manage the A and D bits are defined:
->>>>>> +     *   • The Svade extension: when a virtual page is accessed and the A bit
->>>>>> +     *     is clear, or is written and the D bit is clear, a page-fault
->>>>>> +     *     exception is raised.
->>>>>> +     *   • When the Svade extension is not implemented, the following scheme
->>>>>> +     *     applies.
->>>>>> +     *     When a virtual page is accessed and the A bit is clear, the PTE is
->>>>>> +     *     updated to set the A bit. When the virtual page is written and the
->>>>>> +     *     D bit is clear, the PTE is updated to set the D bit. When G-stage
->>>>>> +     *     address translation is in use and is not Bare, the G-stage virtual
->>>>>> +     *     pages may be accessed or written by implicit accesses to VS-level
->>>>>> +     *     memory management data structures, such as page tables.
->>>>>> +     * Thereby to avoid a page-fault in case of Svade is available, it is
->>>>>> +     * necesssary to set A and D bits.
->>>>>> +     */
->>>>>> +    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_svade) )
->>>>>> +        e->pte |= PTE_ACCESSED | PTE_DIRTY;
->>>>> All of this depending on menvcfg.ADUE anyway, is this really needed? Isn't
->>>>> machine mode software responsible for dealing with this kind of page faults
->>>>> (just like the hypervisor is reponsible for dealing with ones resulting
->>>>> from henvcfg.ADUE being clear)?
->>>> In general, I think you are right.
->>>>
->>>> In this case, though, I just wanted to avoid unnecessary page faults for now.
->>>> My understanding is that having such faults handled by the hypervisor can indeed
->>>> be useful, for example to track which pages are being accessed. However, since we
->>>> currently don’t track page usage, handling these traps would only result in
->>>> setting the A and D bits and then returning control to the guest.
->>> Yet that still be be machine-mode software aiui. By always setting the bits we'd
->>> undermine whatever purpose _they_ have enabled the extension for, wouldn't we?
->> It’s a good point, and from an architectural perspective, it’s possible that
->> machine-mode software might want to handle page faults.
->> However, looking at OpenSBI, it delegates (otherwise all traps/interrupts by
->> default are going to machine-mode) page faults [1] to lower modes, and I expect
->> that other machine-mode software does the same (but of course there is no such
->> guarantee).
+>>>>>> +        metadata[ctx->index].pte = t;
+>>>>> Afaict metadata can still be NULL when you get here.
+>>>> It shouldn't be, because when this line is executed, the metadata page already
+>>>> exists or was allocated at the start of p2m_set_type().
+>>> ... this reply of yours. And the condition there can be false, in case you
+>>> took the domain_crash() path.
+>> Oh, right, for some reason, I thought we didn’t return from|domain_crash()|.
+>> I’m curious whether calling|domain_crash()| might break something, as some useful
+>> data could be freed and negatively affect the internals of|map_regions_p2mt()|.
 >>
->> Therefore, considering that OpenSBI delegates page faults to lower modes and
->> does not set the A and D bits for p2m (guest) PTEs, this will result in a page
->> fault being handled by the hypervisor. As a result, we don’t affect the behavior
->> of machine-mode software at all.
->>
->> If we want to avoid depending on how OpenSBI or other machine-mode software is
->> implemented, we might instead want to have our own page fault handler in Xen,
->> and then set the A and D bits within this handler.
-> Won't Xen need its own page fault handler anyway?
+>> It might make more sense to use|panic()| here instead.
+>> Do you have any thoughts or suggestions on this?
+> domain_crash() is generally preferable over crashing the system as a whole.
+> I don't follow what negative effects you're alluding to. Did you look at
+> what domain_crash() does? It doesn't start tearing down the domain, that'll
+> still need invoking from the toolstack. A crashed domain will stay around
+> with all its resources allocated.
 
-Of course, it will.
-I just meant that it won’t need it solely for the purpose of setting the A and
-D bits.
+I was confused by|arch_domain_shutdown()|, which is called somewhere inside
+|domain_crash()|, since the function name suggests that some resource cleanup
+might happen there. There’s also no comment explaining what
+|arch_domain_shutdown()| is expected to do or not to do.
 
-Considering that Svade is mandatory for RVAxx profiles, and that at some point
-we may want to implement certain optimizations (mentioned below), it would make
-sense to handle the A/D bits in the page fault handler.
-However, for now, for the sake of simplicity and given that none of the
-optimizations mentioned below are currently implemented and OpenSBI delegates
-page fault handling to hypervisor so OpenSBI isn't planning to deal with A/D
-bits, I think we can set the A/D bits during PTE creation with a comment
-explaining why it’s done this way, as suggested before.
-Later, when additional optimizations that rely on A/D bits are needed, we can
-remove this initial setting and add proper A/D handling in the page fault
-handler.
+However, since it’s an architecture-specific function, we can control its
+behavior for a given architecture.
 
->
->> Do you think it would be better to do in this way from the start? If yes, then
->> we also want drop setting of A and D bits for Xen's PTEs [3] to allow M-mode to
->> handle S/HS-mode page faults.
-> What I don't really understand is what the intended use of that extension is.
+So, if it doesn’t actually start tearing down the domain, I don’t see any
+other negative effects.
 
-I think this is mainly for software-managed PTE A/D bit updates, which could be
-useful for several use cases such as demand paging, cache flushing optimizations,
-and memory access tracking.
+Anyway, if|domain_crash()| is called, I’m not really sure we need to set
+PTE type afterward. We could simply add a|return;| right after the
+|domain_crash()| call and so we won't have NULL pointer deference.
 
-Also, from a hardware perspective, it’s probably simpler to let software manage
-the PTE A/D bits (using the Svade extension) rather than implementing the
-Svadu extension for hardware-managed updates.
-
+Thanks.
 
 ~ Oleksii
 
-> Surely every entity should be responsible for its own A/D bits, with lower
-> layers coming into play only when certain things need e.g. emulating. This
-> lack of understanding on my part extends to ...
->
->> Interestingly, OpenSBI doesn’t allow hypervisor mode to decide whether to
->> support Svade or not [2]. By doing so, we can’t set|henvcfg.adue = 1| to disable
->> it as menvcfg.adue=0 has more power, which is not very flexible.
-> ... this point, which I was also wondering about before.
---------------Cb0orVteTALmg07Z3wPX2tl0
+--------------U3ORGlMOPwXwOdCUdHQys1CG
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -235,159 +187,99 @@ Content-Transfer-Encoding: 8bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 10/9/25 2:06 PM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 10/9/25 2:10 PM, Jan Beulich wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:4b873422-a8be-4afe-b973-020690b0ff8e@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 09.10.2025 11:21, Oleksii Kurochko wrote:
+      cite="mid:fb6debfa-cdc2-491c-a488-6a4bf64ca7ad@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 09.10.2025 13:34, Oleksii Kurochko wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-On 10/7/25 3:09 PM, Jan Beulich wrote:
+        <pre wrap="" class="moz-quote-pre">On 10/7/25 3:25 PM, Jan Beulich wrote:
 </pre>
         <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 29.09.2025 15:30, Oleksii Kurochko wrote:
+          <pre wrap="" class="moz-quote-pre">On 01.10.2025 18:00, Oleksii Kurochko wrote:
 </pre>
           <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">On 9/22/25 6:28 PM, Jan Beulich wrote:
+            <pre wrap="" class="moz-quote-pre">On 9/23/25 12:41 AM, Jan Beulich wrote:
 </pre>
             <blockquote type="cite">
               <pre wrap="" class="moz-quote-pre">On 17.09.2025 23:55, Oleksii Kurochko wrote:
 </pre>
               <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">@@ -318,11 +331,87 @@ static inline void p2m_clean_pte(pte_t *p, bool clean_pte)
-       p2m_write_pte(p, pte, clean_pte);
-   }
-   
--static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t)
-+static void p2m_set_permission(pte_t *e, p2m_type_t t)
-   {
--    panic("%s: hasn't been implemented yet\n", __func__);
-+    e-&gt;pte &amp;= ~PTE_ACCESS_MASK;
-+
-+    e-&gt;pte |= PTE_USER;
-+
-+    /*
-+     * Two schemes to manage the A and D bits are defined:
-+     *   • The Svade extension: when a virtual page is accessed and the A bit
-+     *     is clear, or is written and the D bit is clear, a page-fault
-+     *     exception is raised.
-+     *   • When the Svade extension is not implemented, the following scheme
-+     *     applies.
-+     *     When a virtual page is accessed and the A bit is clear, the PTE is
-+     *     updated to set the A bit. When the virtual page is written and the
-+     *     D bit is clear, the PTE is updated to set the D bit. When G-stage
-+     *     address translation is in use and is not Bare, the G-stage virtual
-+     *     pages may be accessed or written by implicit accesses to VS-level
-+     *     memory management data structures, such as page tables.
-+     * Thereby to avoid a page-fault in case of Svade is available, it is
-+     * necesssary to set A and D bits.
-+     */
-+    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_svade) )
-+        e-&gt;pte |= PTE_ACCESSED | PTE_DIRTY;
+                <pre wrap="" class="moz-quote-pre">+    if ( *md_pg )
++        metadata = __map_domain_page(*md_pg);
 </pre>
               </blockquote>
-              <pre wrap="" class="moz-quote-pre">All of this depending on menvcfg.ADUE anyway, is this really needed? Isn't
-machine mode software responsible for dealing with this kind of page faults
-(just like the hypervisor is reponsible for dealing with ones resulting
-from henvcfg.ADUE being clear)?
+            </blockquote>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Not this conditional assignment for ...
+
+</pre>
+          <blockquote type="cite">
+            <blockquote type="cite">
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">+    if ( t &lt; p2m_first_external )
++    {
+           pte-&gt;pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
+   
+-    return rc;
++        if ( metadata )
++            metadata[ctx-&gt;index].pte = p2m_invalid;
++    }
++    else
++    {
++        pte-&gt;pte |= MASK_INSR(p2m_ext_storage, P2M_TYPE_PTE_BITS_MASK);
++
++        metadata[ctx-&gt;index].pte = t;
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">Afaict metadata can still be NULL when you get here.
 </pre>
             </blockquote>
-            <pre wrap="" class="moz-quote-pre">In general, I think you are right.
-
-In this case, though, I just wanted to avoid unnecessary page faults for now.
-My understanding is that having such faults handled by the hypervisor can indeed
-be useful, for example to track which pages are being accessed. However, since we
-currently don’t track page usage, handling these traps would only result in
-setting the A and D bits and then returning control to the guest.
+            <pre wrap="" class="moz-quote-pre">It shouldn't be, because when this line is executed, the metadata page already
+exists or was allocated at the start of p2m_set_type().
 </pre>
           </blockquote>
-          <pre wrap="" class="moz-quote-pre">Yet that still be be machine-mode software aiui. By always setting the bits we'd
-undermine whatever purpose _they_ have enabled the extension for, wouldn't we?
+          <pre wrap="" class="moz-quote-pre">... this reply of yours. And the condition there can be false, in case you
+took the domain_crash() path.
 </pre>
         </blockquote>
         <pre wrap="" class="moz-quote-pre">
-It’s a good point, and from an architectural perspective, it’s possible that
-machine-mode software might want to handle page faults.
-However, looking at OpenSBI, it delegates (otherwise all traps/interrupts by
-default are going to machine-mode) page faults [1] to lower modes, and I expect
-that other machine-mode software does the same (but of course there is no such
-guarantee).
+Oh, right, for some reason, I thought we didn’t return from|domain_crash()|.
+I’m curious whether calling|domain_crash()| might break something, as some useful
+data could be freed and negatively affect the internals of|map_regions_p2mt()|.
 
-Therefore, considering that OpenSBI delegates page faults to lower modes and
-does not set the A and D bits for p2m (guest) PTEs, this will result in a page
-fault being handled by the hypervisor. As a result, we don’t affect the behavior
-of machine-mode software at all.
-
-If we want to avoid depending on how OpenSBI or other machine-mode software is
-implemented, we might instead want to have our own page fault handler in Xen,
-and then set the A and D bits within this handler.
+It might make more sense to use|panic()| here instead.
+Do you have any thoughts or suggestions on this?
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-Won't Xen need its own page fault handler anyway?</pre>
+domain_crash() is generally preferable over crashing the system as a whole.
+I don't follow what negative effects you're alluding to. Did you look at
+what domain_crash() does? It doesn't start tearing down the domain, that'll
+still need invoking from the toolstack. A crashed domain will stay around
+with all its resources allocated.</pre>
     </blockquote>
-    <pre>Of course, it will.
-I just meant that it won’t need it solely for the purpose of setting the A and
-D bits.
+    <pre data-start="92" data-end="391">I was confused by <code
+    data-start="136" data-end="160">arch_domain_shutdown()</code>, which is called somewhere inside
+<code data-start="195" data-end="211">domain_crash()</code>, since the function name suggests that some resource cleanup
+might happen there. There’s also no comment explaining what
+<code data-start="333" data-end="357">arch_domain_shutdown()</code> is expected to do or not to do.</pre>
+    <pre data-start="393" data-end="503">However, since it’s an architecture-specific function, we can control its
+behavior for a given architecture.</pre>
+    <pre data-start="505" data-end="605">So, if it doesn’t actually start tearing down the domain, I don’t see any
+other negative effects.
 
-Considering that Svade is mandatory for RVAxx profiles, and that at some point
-we may want to implement certain optimizations (mentioned below), it would make
-sense to handle the A/D bits in the page fault handler.
-However, for now, for the sake of simplicity and given that none of the
-optimizations mentioned below are currently implemented and OpenSBI delegates
-page fault handling to hypervisor so OpenSBI isn't planning to deal with A/D
-bits, I think we can set the A/D bits during PTE creation with a comment
-explaining why it’s done this way, as suggested before.
-Later, when additional optimizations that rely on A/D bits are needed, we can
-remove this initial setting and add proper A/D handling in the page fault
-handler.</pre>
-    <pre>
-</pre>
-    <blockquote type="cite"
-      cite="mid:4b873422-a8be-4afe-b973-020690b0ff8e@suse.com">
-      <pre wrap="" class="moz-quote-pre">
+Anyway, if <code data-start="99" data-end="115">domain_crash()</code> is called, I’m not really sure we need to set
+PTE type afterward. We could simply add a <code data-start="208"
+    data-end="217">return;</code> right after the
+<code data-start="234" data-end="250" data-is-only-node="">domain_crash()</code> call and so we won't have NULL pointer deference.
 
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Do you think it would be better to do in this way from the start? If yes, then
-we also want drop setting of A and D bits for Xen's PTEs [3] to allow M-mode to
-handle S/HS-mode page faults.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-What I don't really understand is what the intended use of that extension is.</pre>
-    </blockquote>
-    <pre>I think this is mainly for software-managed PTE A/D bit updates, which could be
-useful for several use cases such as demand paging, cache flushing optimizations,
-and memory access tracking.
-
-Also, from a hardware perspective, it’s probably simpler to let software manage
-the PTE A/D bits (using the Svade extension) rather than implementing the
-Svadu extension for hardware-managed updates.
-
+Thanks.
 
 ~ Oleksii</pre>
-    <blockquote type="cite"
-      cite="mid:4b873422-a8be-4afe-b973-020690b0ff8e@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-Surely every entity should be responsible for its own A/D bits, with lower
-layers coming into play only when certain things need e.g. emulating. This
-lack of understanding on my part extends to ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Interestingly, OpenSBI doesn’t allow hypervisor mode to decide whether to
-support Svade or not [2]. By doing so, we can’t set|henvcfg.adue = 1| to disable
-it as menvcfg.adue=0 has more power, which is not very flexible.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... this point, which I was also wondering about before.
-</pre>
-    </blockquote>
   </body>
 </html>
 
---------------Cb0orVteTALmg07Z3wPX2tl0--
+--------------U3ORGlMOPwXwOdCUdHQys1CG--
 
