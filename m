@@ -2,40 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 590D9BCBB90
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Oct 2025 07:32:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1140960.1475599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BD18BCC044
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Oct 2025 10:02:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1140998.1475611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v75jy-0000kC-Hr; Fri, 10 Oct 2025 05:32:30 +0000
+	id 1v783d-0001mW-0v; Fri, 10 Oct 2025 08:00:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1140960.1475599; Fri, 10 Oct 2025 05:32:30 +0000
+Received: by outflank-mailman (output) from mailman id 1140998.1475611; Fri, 10 Oct 2025 08:00:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v75jy-0000iN-F1; Fri, 10 Oct 2025 05:32:30 +0000
-Received: by outflank-mailman (input) for mailman id 1140960;
- Fri, 10 Oct 2025 05:32:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GA0H=4T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v75jw-0000iH-Rt
- for xen-devel@lists.xenproject.org; Fri, 10 Oct 2025 05:32:28 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 81dbe9c1-a59a-11f0-9d15-b5c5bf9af7f9;
- Fri, 10 Oct 2025 07:32:27 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3f2cf786abeso1461952f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Oct 2025 22:32:27 -0700 (PDT)
-Received: from ?IPV6:2003:ca:b74b:a84d:5516:3900:45b8:340e?
- (p200300cab74ba84d5516390045b8340e.dip0.t-ipconnect.de.
- [2003:ca:b74b:a84d:5516:3900:45b8:340e])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-426ce5e0a03sm2298977f8f.37.2025.10.09.22.32.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Oct 2025 22:32:26 -0700 (PDT)
+	id 1v783c-0001jQ-UC; Fri, 10 Oct 2025 08:00:56 +0000
+Received: by outflank-mailman (input) for mailman id 1140998;
+ Fri, 10 Oct 2025 08:00:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=93a2=4T=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
+ id 1v783b-0001jK-6q
+ for xen-devel@lists.xenproject.org; Fri, 10 Oct 2025 08:00:55 +0000
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c110::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3d6c39f5-a5af-11f0-9809-7dc792cee155;
+ Fri, 10 Oct 2025 10:00:52 +0200 (CEST)
+Received: from BL6PEPF00013DFC.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:22e:400:0:1001:0:21) by CH3PR12MB7763.namprd12.prod.outlook.com
+ (2603:10b6:610:145::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.9; Fri, 10 Oct
+ 2025 08:00:47 +0000
+Received: from MN1PEPF0000ECD4.namprd02.prod.outlook.com
+ (2a01:111:f403:f902::3) by BL6PEPF00013DFC.outlook.office365.com
+ (2603:1036:903:4::4) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.10 via Frontend Transport; Fri,
+ 10 Oct 2025 08:00:47 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MN1PEPF0000ECD4.mail.protection.outlook.com (10.167.242.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9203.9 via Frontend Transport; Fri, 10 Oct 2025 08:00:46 +0000
+Received: from cjq-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 10 Oct
+ 2025 01:00:44 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,198 +56,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81dbe9c1-a59a-11f0-9d15-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760074346; x=1760679146; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yhBsvNpa2DehMZyFpLlWZXZfQZmOhiCse3L/IQd4yPU=;
-        b=POLfhoATsiVXBYewILQ3mGIniA+DaDuTblXHTdv3yTbnGbPwrEweFM84AZDd1HB4Yy
-         o/ptID14SbyqfT27D9WR6NMveoUaKADsLbcp762p/5kxaMy/5Pd5JHfA5Pf7LxnED/P0
-         c3J//1SumzYpJU0Mak1Cfgt9OsU/DTPwbtFgNIXw+9A/HG7ZuEOxoNrXbFD18I2xOMS6
-         hSO5DzdVdz7nuVNuISh4mby7O98WPr871Li/9Y3wvdeFEVoXggOcQY5hdSeUZPcdn9+M
-         M8ebKOLILTx3tYJoQfFtj3z/ux6tAikAzPW3FCl0poeWQ/OOqLHJrVfw2F4SkWCT0kAD
-         Z6hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760074346; x=1760679146;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yhBsvNpa2DehMZyFpLlWZXZfQZmOhiCse3L/IQd4yPU=;
-        b=L9lB/qFWKBFMokGiInDXteEYc/Ot5oVeyQ/TLCQFGuvyjOHcuVSJiDO8pSwRUyXp+x
-         acF0W1d7QVT5KOpqdDZN/YFfat9QEihJ+QRKCxU1W5x1J62Jq3hiVPFrJjjaufTAmwlF
-         l7WJ+wSyzQL7qAyirz6X4SIFhvH6Q2iqmKcWj5qJVdCT8s/mKr6lSPLw2JJdZn48pMU2
-         jOBdFviIruR1nooBo7RoqSoVmhqMoZ7uugUEi7E3Rn0Und8lew7NDDYzhU8kaMpAlOLl
-         9asldSsQ/CAm36zm0LmTmkCfp2HJTPSZ6pXW1kWbDBdD3xDkNPDDo4gNPXqQxQlg8FME
-         88nQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV5cUt69xeqI8H3tOR9CUfMYY3fl2jl19z8AaSD+opKpj76/DHt9P+/wGB5HbwX9rv+vYdRC+eeVOk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz4gj06g+/A6kAHziFLzWxqjIvw/zZEBcZWCZiJp66VWITUyjB0
-	W102ZAgt1HwoVUmuy9+puZWj+lU+XHhbMj1SVBgz6SJN5qvG/a7dZD77DfjIEzUqRQ==
-X-Gm-Gg: ASbGncs19NSuXZ2mVsLeWQVQl15vhbHIlYDsgY4+bHvJVDOpYqzu1oc1mI0tFf8Plkd
-	+pwXQhf8Ns7TSRZ4oWIOMZ9a10TUwrJSueBn/Ic/uUDQxbvyyJ1rM/4N3rU626U5m6C7gAMK9Sn
-	8Z5V0sH7LqYrTaYw/SSnMCtQs63CbjeCa2hw52+pVYaeYYuUUaZ3QUBPHCaFKozsohs0DWvEYSC
-	/7e0pAtUc+kVLCHHv66jzIqCyegLIn4ZPTXEnRY6viK3WKG7LOe8wDs30kQBbOFwojeNg1nyM98
-	hxqHI39pGpMFSUGoBP0oJakMnGe9cLQAkPfIEUH1r3UQ7iyaCuisSTryLtHt6rzZoXgqRVNi+uV
-	Oyaxe0pNhH7T/Q/65MKJsi2q9YF1aZuR/detsnNH+4V6osybHzWTbBWC54QxwaptApPZ1rzDLIJ
-	R93TADZIMOecOWWrk7IOqbxwtp1y8pYZIgFp23+LbA83rQNlwERm4yNavEHGL1uAYP0WsUtT3CQ
-	g8=
-X-Google-Smtp-Source: AGHT+IHTfRr+z6wjsrMt+jpRSblrLM01SFm+puA4of9UmzhweZA+V0XYp7ttJre+KLdyejR6c6R6tA==
-X-Received: by 2002:a05:6000:4308:b0:3ee:3dce:f672 with SMTP id ffacd0b85a97d-42666ac625emr5727195f8f.4.1760074346536;
-        Thu, 09 Oct 2025 22:32:26 -0700 (PDT)
-Message-ID: <afe1d9c5-f399-4b52-ad24-ec52aa755fbf@suse.com>
-Date: Fri, 10 Oct 2025 07:32:24 +0200
+X-Inumbo-ID: 3d6c39f5-a5af-11f0-9809-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KBH0aGdONFqZq2xeyGfG9SwRe822Y4MOEecIdym0B5RMn3aYD8PTvKzZfEP8dO4W5LVWRRm8O05Fr8bN4GE2hQVe1HKlrHrSc+/z1JJXhnYmRM8Ozr5c5psevTzIleqH27abQWme4HE2UITUaMO1kCmxj0mdLVg0mr6Qb4kyObaFYRxzWJaVix/dSI+iwoRswUKz/XSwrePQWZ6Do31UfolH6yEi5TIKTVa4CNi8Yx9C8fjoThO0qQ8Bek9fIXhmIRAcmI1PfjVvJHbZRJ1G3MF/zxr5nlvnhISMgCS2wNNJcW2uvWGWgTXuJatIiobU+TuA6AIx8es5voFTloDOLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I4X1/7P+8VcqxUR9Kb4zK033MtKsJ1/alb1zAlA3PB8=;
+ b=uZMX3B0C6mfa/RvgmiAtOI3aRTekJwhC6m2iAi82Ls0/tuT3uM4gnQHIA9AVeaKm9Uut+DXMuHtSCIP+49OAxAMcrqjznMWdq14dnEbtq2N3OwwGhpmPQyqwTj+hY2j0q411dK+xhh1zdXLRsOzBde6hRN2S7hCEBJVoumJiXSYi0/ysKJR7Szd2Wv0qSGWX/tTO+r0okqMGV9jefT1LVJZQi470zrd1m2T5Yn/X307LRJujeue6VKxOLXsUF+IkIu/QNMioBI/oZXUuUThaAyTq1qdlAOVHWZzdyEptsVLwwxAM+fflumOJ+AagxTgiAiaW2PPDHL+jvvU8B4rqtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I4X1/7P+8VcqxUR9Kb4zK033MtKsJ1/alb1zAlA3PB8=;
+ b=nrwdvg8ziSugw8OQLlTaP9AM+A5qOe3LBJXJisn9KYD3lDVb1OeAoMZ3jtWuH4gGX6S/gA1B7hgNn4iS9np07wYAE8PSaO2I9yuFOcaud7Ga/idHMF/N+tNR+nfgSW3XgAwAoA3IjdGT+gxYyEuVD12swnBx8AskqA1Gnfu9ebk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+From: Jiqian Chen <Jiqian.Chen@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>, "Anthony
+ PERARD" <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
+	"Oleksii Kurochko" <oleksii.kurochko@gmail.com>
+Subject: [PATCH 1/1] tools/libs/light: fix BAR memory address truncation
+Date: Fri, 10 Oct 2025 16:00:29 +0800
+Message-ID: <20251010080029.29328-1-Jiqian.Chen@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21??? 1/3] x86/vLAPIC: add indirection to LVT
- handling
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <amc96@srcf.net>, Oleksii Kurochko
- <oleksii.kurochko@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <265d5053-af61-42cb-a3b9-ef60df39c21b@suse.com>
- <dd6b46f8-76f7-46d3-b3be-083b58781f32@suse.com>
- <6a3494af-96a7-4092-a8fe-39aee85fc983@epam.com>
- <f5ae9852-4fa8-4441-9ad9-491e1d1143b9@suse.com>
- <a35ca989-e199-4072-bf73-c9d135f7c2e7@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a35ca989-e199-4072-bf73-c9d135f7c2e7@epam.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD4:EE_|CH3PR12MB7763:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41d247e4-2cf5-42c5-3e97-08de07d31ea7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?NYTYumR1jwongTuatuHMEZOzIdthHYWQHU4sudRDRffpcumOSozSSsKWwE/U?=
+ =?us-ascii?Q?9wLHE6erqbjiFup1+PZr/WsIepLx+UfxKWFc871h+rMUA+LqMcicGU1oWYT8?=
+ =?us-ascii?Q?CLD3gCqPjbn8TU1g9bldylG6+bk0nVfG/oOVzbPQO2iH+DpjmgilfDwuuBaH?=
+ =?us-ascii?Q?YalBaAwOLU57phqcTVK7xqS0wGzuNs1USsPji6ZbOe8YDsimZ2L7djuQIVVG?=
+ =?us-ascii?Q?Lxs15dEru1gyuQDQcVdBMCTKJUeo0z9JiKHCwLcM6sfvlfpfsHbeGlHcE37G?=
+ =?us-ascii?Q?ODz33frGXfwRJWmwYxg/bwFKjOOQaBsjjVRWY3RiEb9NKWAT1t9Is5USUwlc?=
+ =?us-ascii?Q?VThWgEndCgxGe4zX2K6DvhXyZOBfy2oBuUoiQGP2f+KrIyaH4NY8Tidiu+xx?=
+ =?us-ascii?Q?Y4LSmx5mngwVZka+XD6loQDdxascrXjOmWNMHRqjzeTXuw2/pByCnn3/8cJ0?=
+ =?us-ascii?Q?tfcpR2biBWrsHdiY5lAIUDsS2V/jWARnjWi5fpU/3WrDtSPcSOE8mSUXO8AT?=
+ =?us-ascii?Q?74jdhFS81gJUYiBALIffi5JaKOwkaEyiyMz7CopfFRd7eps65VLoux+D2Z6j?=
+ =?us-ascii?Q?/H7bHWg3YEdu1nLZiqdc+HbuNNQaRuIKULPeKWfu59BqPn6jQ0lnv9teNmZp?=
+ =?us-ascii?Q?CwKBHs2hl9bxEslPHl+nZ5zzXHs1bbR8nRYL//LhZf8CwpkyecPJR7rckAlw?=
+ =?us-ascii?Q?3Hyxpe6QcP86ez4Z70rWwv0NMqw5n7UWMPiMb3G3EcBeCKtG6cffnvfJQBBV?=
+ =?us-ascii?Q?MuhJx/mc3mTAD4m9vxwCfjfW/JM5KY+xejCI+vIup2ac0nXNW0gjETs2X4Hb?=
+ =?us-ascii?Q?FJxCKteCeKgKfKB88016cGUrM84ZYia6qjp370mt2XS/XeizI1VniWwIoom7?=
+ =?us-ascii?Q?fGxKHUDRtKAnrw0lBLuUN7/42458QchSeR8H5KOO+590nww38n/BXek748S8?=
+ =?us-ascii?Q?RWf13PQCA6oBida0QbgdR3vAg9PR4XN7dzd+kGvqqx8d0DhURCzyBu7xrC/t?=
+ =?us-ascii?Q?31k9RAV0jI4igXtUmCWD/vgwUp0zVfGBdIMh6l6pLBe7k/KIhLGx6tTBHZj8?=
+ =?us-ascii?Q?+V6DnxATKSyGY3LXPIaQOX07m7gSzgeFLIGpCrZWQ9TU4Y8Ob3ss4/YMiXhn?=
+ =?us-ascii?Q?BSJNz9X0Z/kGN4HliiBl1gZxvakP/7yRB/zbzqwJXdfZMa37LYdluB2qcHv/?=
+ =?us-ascii?Q?4JFNvzcJkbpN9Wmaq6RmATmi5T1OXYas+Ln654F5ptZ+VHYBlIlaD/flEfpA?=
+ =?us-ascii?Q?YUI0Www6rm5pRtMCYl6LnEAOs+4yaWkDnIWVGKZWvRx/51Tdb9ElnS6ObnHP?=
+ =?us-ascii?Q?ggoSz+o2YDVQXP6rkEjzrh0jzgyCplAUYbkWU4VRgEH6CFXV2xY7i9Jp9FnT?=
+ =?us-ascii?Q?FZKsxj0F+oSltTln2SXOqlZ87KYfZUVdM94jMdpn19g65/jYGyLvvFAIxw2m?=
+ =?us-ascii?Q?ABW2pux/I8KinszxS84FDrwGEu8NJGv0BHkEdjg1wPTxexQ3N1DPsIKyLihl?=
+ =?us-ascii?Q?LV3/3cSN7k5vyCxhV3Q7ndM9cO/pC2kRrxYo4xsaiC2zB85ohlej2LGcVa01?=
+ =?us-ascii?Q?ndqoCExJgIfWqsMKbOs=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2025 08:00:46.6483
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41d247e4-2cf5-42c5-3e97-08de07d31ea7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000ECD4.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7763
 
-On 09.10.2025 18:16, Grygorii Strashko wrote:
-> On 09.10.25 18:31, Jan Beulich wrote:
->> On 09.10.2025 16:56, Grygorii Strashko wrote:
->>> On 08.10.25 15:08, Jan Beulich wrote:
->>>> @@ -41,20 +50,21 @@
->>>>        (LVT_MASK | APIC_DM_MASK | APIC_INPUT_POLARITY |\
->>>>        APIC_LVT_REMOTE_IRR | APIC_LVT_LEVEL_TRIGGER)
->>>>    -static const unsigned int vlapic_lvt_mask[VLAPIC_LVT_NUM] =
->>>> +static const unsigned int lvt_valid[] =
->>>>    {
->>>> -     /* LVTT */
->>>> -     LVT_MASK | APIC_TIMER_MODE_MASK,
->>>> -     /* LVTTHMR */
->>>> -     LVT_MASK | APIC_DM_MASK,
->>>> -     /* LVTPC */
->>>> -     LVT_MASK | APIC_DM_MASK,
->>>> -     /* LVT0-1 */
->>>> -     LINT_MASK, LINT_MASK,
->>>> -     /* LVTERR */
->>>> -     LVT_MASK
->>>> +#define LVTT_VALID    (LVT_MASK | APIC_TIMER_MODE_MASK)
->>>> +#define LVTTHMR_VALID (LVT_MASK | APIC_DM_MASK)
->>>> +#define LVTPC_VALID   (LVT_MASK | APIC_DM_MASK)
->>>> +#define LVT0_VALID    LINT_MASK
->>>> +#define LVT1_VALID    LINT_MASK
->>>> +#define LVTERR_VALID  LVT_MASK
->>>> +#define LVT(which)    [LVT_BIAS(APIC_ ## which)] = which ## _VALID
->>>> +    LVTS
->>>> +#undef LVT
->>>>    };
->>>>    +#undef LVTS
->>>> +
->>>
->>> I know people have different coding style/approaches...
->>> But using self expanding macro-magic in this particular case is over-kill
->>> - it breaks grep (grep APIC_LVTT will not give all occurrences)
->>> - it complicates code analyzes and readability
->>>      - What is array size?
->>>      - Which array elements actually initialized?
->>>      - what is the actual element's values?
->>> - in this particular case - no benefits in terms of code lines.
->>>
->>> It might be reasonable if there would be few dozen of regs (or more),
->>> but there are only 6(7) and HW spec is old and stable.
->>>
->>> So could there just be:
->>> static const unsigned int lvt_reg[] = {
->>>    APIC_LVTT,
->>>    APIC_LVTTHMR
->>>    ...
->>>
->>> and
->>>
->>> static const unsigned int lvt_valid[] = {
->>>    [LVT_REG_IDX(APIC_LVTT)] = (LVT_MASK | APIC_TIMER_MODE_MASK),
->>>    [LVT_REG_IDX(APIC_LVTTHMR)] = (LVT_MASK | APIC_DM_MASK),
->>>    ..
->>>
->>> Just fast look at above code gives all info without need to parse all
->>> these recursive macro.
->>
->> And with no guarantee at all that the order of entries remains in sync
->> between all (two now, three later) uses.
-> 
-> The order in lvt_x_masks[] arrays are guaranteed by "[x] = y,".
+64-bit BAR memory address is truncated when removing a passthrough pci
+device from guest since it uses "unsigned int".
 
-Hmm, yes, sorry - not sure what I was thinking. What then remains is a
-readability concern towards the longish lines you propose. I'll have to
-think about it some more.
+So, change to use "unsigned long long" to fix this problem.
 
-> Comparing or syncing lvt_reg[] array with with lvt_x_masks[]
-> would not be exactly correct as they are used in a different way and
-> have different sizes (after patch 3).
-> 
-> if somebody decide to add AMD Extended LVTs which have offsets 500-530h
-> then lvt_x_masks[] will grow even more and will contain more unused wholes.
+Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+---
+cc: Anthony PERARD <anthony.perard@vates.tech>
+cc: Juergen Gross <jgross@suse.com>
+cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+ tools/libs/light/libxl_pci.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-Yes, but (a) what do you do (of course a solution can be found, but
-likely at the expense of adding yet another layer of indirection) and
-(b) there are other (harder?) problems to be sorted for supporting
-them.
+diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
+index 2ea2caeb6624..88ffbbf08abe 100644
+--- a/tools/libs/light/libxl_pci.c
++++ b/tools/libs/light/libxl_pci.c
+@@ -2001,7 +2001,8 @@ static void pci_remove_detached(libxl__egc *egc,
+ {
+     STATE_AO_GC(prs->aodev->ao);
+     libxl_ctx *ctx = libxl__gc_owner(gc);
+-    unsigned int start = 0, end = 0, flags = 0, size = 0, irq = 0;
++    unsigned long long start = 0, end = 0, flags = 0, size = 0;
++    unsigned int irq = 0;
+     int i, stubdomid = 0;
+     const char *sysfs_path;
+     FILE *f;
+@@ -2031,7 +2032,7 @@ static void pci_remove_detached(libxl__egc *egc,
+     }
+ 
+     for (i = 0; i < PROC_PCI_NUM_RESOURCES; i++) {
+-        if (fscanf(f, "0x%x 0x%x 0x%x\n", &start, &end, &flags) != 3)
++        if (fscanf(f, "0x%llx 0x%llx 0x%llx\n", &start, &end, &flags) != 3)
+             continue;
+         size = end - start + 1;
+         if (start) {
+@@ -2040,7 +2041,7 @@ static void pci_remove_detached(libxl__egc *egc,
+                                                  size, 0);
+                 if (rc < 0)
+                     LOGED(ERROR, domid,
+-                          "xc_domain_ioport_permission error 0x%x/0x%x",
++                          "xc_domain_ioport_permission error 0x%llx/0x%llx",
+                           start,
+                           size);
+             } else {
+@@ -2050,7 +2051,7 @@ static void pci_remove_detached(libxl__egc *egc,
+                                                 0);
+                 if (rc < 0)
+                     LOGED(ERROR, domid,
+-                          "xc_domain_iomem_permission error 0x%x/0x%x",
++                          "xc_domain_iomem_permission error 0x%llx/0x%llx",
+                           start,
+                           size);
+             }
+-- 
+2.34.1
 
->>>>    #define vlapic_lvtt_period(vlapic)                              \
->>>>        ((vlapic_get_reg(vlapic, APIC_LVTT) & APIC_TIMER_MODE_MASK) \
->>>>         == APIC_TIMER_MODE_PERIODIC)
->>>> @@ -827,16 +837,16 @@ void vlapic_reg_write(struct vcpu *v, un
->>>>               if ( !(val & APIC_SPIV_APIC_ENABLED) )
->>>>            {
->>>> -            int i;
->>>> +            unsigned int i,
->>>
->>> uint32_t?
->>>
->>>> +                nr = GET_APIC_MAXLVT(vlapic_get_reg(vlapic, APIC_LVR)) + 1;
->>>
->>> This deserves wrapper (may be static inline)
->>> Defining multiple vars on the same line makes code less readable as for me.
->>
->> I don't see multiple variables being defined on this line.
-> 
->     unsigned int i;
->     unsigned int nr = GET_APIC_MAXLVT(vlapic_get_reg(vlapic, APIC_LVR)) + 1;
-
-Hmm, I see now what you mean, but then my take is that your variant is
-less readable (and too long a line afaict; once properly line-wrapped
-it'll become more similar to what I had, I think).
-
-Jan
 
