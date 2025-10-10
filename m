@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71349BCC189
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Oct 2025 10:19:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1141021.1475621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1490BCC1A4
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Oct 2025 10:21:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1141028.1475630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v78LK-0003hE-Ip; Fri, 10 Oct 2025 08:19:14 +0000
+	id 1v78NL-000589-UB; Fri, 10 Oct 2025 08:21:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1141021.1475621; Fri, 10 Oct 2025 08:19:14 +0000
+Received: by outflank-mailman (output) from mailman id 1141028.1475630; Fri, 10 Oct 2025 08:21:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v78LK-0003e9-Fv; Fri, 10 Oct 2025 08:19:14 +0000
-Received: by outflank-mailman (input) for mailman id 1141021;
- Fri, 10 Oct 2025 08:19:13 +0000
+	id 1v78NL-00056M-Q8; Fri, 10 Oct 2025 08:21:19 +0000
+Received: by outflank-mailman (input) for mailman id 1141028;
+ Fri, 10 Oct 2025 08:21:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GA0H=4T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v78LJ-0003e3-8b
- for xen-devel@lists.xenproject.org; Fri, 10 Oct 2025 08:19:13 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1v78NJ-00055s-Q6
+ for xen-devel@lists.xenproject.org; Fri, 10 Oct 2025 08:21:17 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cd0a29e5-a5b1-11f0-9d15-b5c5bf9af7f9;
- Fri, 10 Oct 2025 10:19:11 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-46e2826d5c6so11456365e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 10 Oct 2025 01:19:11 -0700 (PDT)
+ id 178822c6-a5b2-11f0-9d15-b5c5bf9af7f9;
+ Fri, 10 Oct 2025 10:21:16 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-46e4473d7f6so11355625e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Oct 2025 01:21:16 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46fb482b9absm39128285e9.2.2025.10.10.01.19.10
+ 5b1f17b1804b1-46fb489ac60sm35015485e9.16.2025.10.10.01.21.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Oct 2025 01:19:10 -0700 (PDT)
+ Fri, 10 Oct 2025 01:21:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd0a29e5-a5b1-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 178822c6-a5b2-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760084351; x=1760689151; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760084476; x=1760689276; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=61k9FqBm2QIbYt/1eNTiPOZeVqhkkBonfFUAcQOoxhg=;
-        b=FOXK/SLs7Y/ExwYVBtdp8deYLtDTeO2WdUWzUm/U2nJ2yzu3q9gr0goC448bElD3tu
-         crZmHIY4M1Sf16a1EJ0ODQWlJNuemG8diM/ZxavbNrswt8bg4LxlomjEY+YB+4A4uScL
-         35tU1/FwYrl8K815VdP2dEWzy2KKWzCXpt+6qOpbNsOk0/sbsLK7/eqmQeOQEthssBR+
-         dnoCrTMcmH0/G/spk1ZTNalfgIod2dfjr6vkSfhcP0AJpavDhJtdoXWACHKB3BSqh0ZF
-         JU8sQH74U6nm+LoSoyyEZiXsATYrlulADABvUu9jxwTxUSgJx7G54Fce1M9/hxs3AR5O
-         Yj/A==
+        bh=rhjmOqIgu8aItGBfLYrD9RBPv3rXfAt1Nu0jPh8bEd0=;
+        b=EMP1nyk8//MYpv0nTH3IW4h95Jua/iECr1Au9fQ7t4sGYdMrtE9NQKtuueDtOfBbS/
+         gos7NfHtUG5A4DVwFhZHY2Rn3TjqAlASk7o+f+9gSHMtvriI9uUw9bj5u2axDtFesad7
+         8KOriWnfyFZ1Y0Tz15NFvdb/SwycwiBVcP/pL2EP0kPtuKWiN/B6+LLTwb9WggehjF6x
+         8B6xUeKv9dYzTDSX0Dwfz2SC6/SSWBNUI+Hm3cY1MB/4zW3HU5DntG6LMbioVzF08te8
+         dKJ8Oqqi23UTTgWe+FVde4qoAVwh07d0KiffcfXzrbN59NL7UwNwl8D1lzxwmqi3cxNo
+         2l8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760084351; x=1760689151;
+        d=1e100.net; s=20230601; t=1760084476; x=1760689276;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=61k9FqBm2QIbYt/1eNTiPOZeVqhkkBonfFUAcQOoxhg=;
-        b=IXMsOEgtRBSUzwHZC+xB4SSy18bsa9nRa9Drxx5ER1RDEvnTeitUhVYNvvpyTJ8NGp
-         VfAvUaM7olSfrSJaOLhQpoy5dNIFd7KPNdFwext+3C+g6wQwg4c63C+i6GIduRVmrVFY
-         pkqvZm6HDLEIWIVoAJz15c9bOeD9wSz+irrPp2Yhz0970do/RCJ/WWIXEvrnNniC0amP
-         Pw74Bog1449KVum25OayxaJfcNAPb4+PFoG39vxyxrKxrZDzSt7LiKfvBuCH736bOTCC
-         LdeG/XckaNy5XcVZBKGuGnzDwzusttx62AwFZ0V83AhR0octbsL65/h/CBTbcx6rrYgd
-         3XCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXwXOfHhHWY+lz+VfT7rkUgONaPeDxe7iL1AEmjIxbAc5J/nlIXnvWfbE4eJy/8jGHB5ZT1DGyhKFA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yygij1UStAUYGOK2qY44XgRmME/8/oi+g5XnXV/xBRrESPQI3Cx
-	s68uOJp+4eqtWopkf9H7glBXTcaeJZ4BPJbXLwURmxcdF9LajuJ2qXXuacEoQgrHAQ==
-X-Gm-Gg: ASbGncttzSBPGpPsoMBOcTB+9XZ9KPL0uRxpdIhPfn7liUbP/gyxaWXu88gw4NpWgHz
-	m66pWOI4N/P+0uO8cq8V8Xq2g8PtaSFzqi/G0HuWQtPsM/oWzrKnoN13KizRTggWOTpbhQ8/Dzg
-	E2lH8ztx+QnFJwD1XaaXRluCW6VGBffhDovv6OXVtw4LsoxlLXxkvl48FcroCFKkcHLq3gfqh3S
-	TzS09wfoGZAFxJ9w8GQNPVTUkQMOJcFdKjxu/WpxL1EpBOMWKd3/syBln2sFLqLLzb/q8UhOakd
-	Yw6Pr8fZigtRBRYcXXgAjvynShoF7GOPOt1B20WMimSZLr8A8dumwkQo0kohCRVWNMM3kg4fWUA
-	pyu/IQQT4hclwB8XN5JWp2ykeJgTbrAm8Brzk/DpD9Nf98SzdTvgdopPd44xGS4N2a60ijTRQsT
-	p6U2z5Pgzb17plJsHwuZQkuGlbeOsH1RhV8t2UG3Ukzf6CrnI=
-X-Google-Smtp-Source: AGHT+IHaHM7FeLXmhvinHiDawG+OuQ3lgV7ndGrUXyR6z4u9y7d1X7G3bBWhExu6NytEh5CNb7W8fw==
-X-Received: by 2002:a05:600d:4301:b0:46f:aa8a:d2e7 with SMTP id 5b1f17b1804b1-46faa8ad4bamr45918615e9.4.1760084351233;
-        Fri, 10 Oct 2025 01:19:11 -0700 (PDT)
-Message-ID: <f7fd633b-486d-4b8e-969e-1e944bf62884@suse.com>
-Date: Fri, 10 Oct 2025 10:19:09 +0200
+        bh=rhjmOqIgu8aItGBfLYrD9RBPv3rXfAt1Nu0jPh8bEd0=;
+        b=OA83HzGlh4whaBdhsKeG/Gi6T7k2Tzaap8qB7uoEcJTn871m27/3M2TQx6RrM61nk0
+         HPrFIvIJPWb9YzetUBJlFPrWBd/Pv3QNVIJCMr7X3bEPoS0wixz4xqclpVbCrIehqblU
+         TNyjqq38tSkbZfSEsBdx+NmWtg/927eN6thu5GEQ18yRXKqwXutGHfqziAutoGrZXh0C
+         lLrRxNbrpL4qiAI9vZGqktLx1j9w353OGoniC8O7qg4X6IwUi7WW9KBm5b1Sd5o7X183
+         upp8gTQkvm2Jf/iDHVopzCpKW3a+q+GFtTG8ZPPnXP5DBtFB0xZox0mUNcEVeE1Voa/B
+         FMVA==
+X-Forwarded-Encrypted: i=1; AJvYcCXuOfnDfm0LJa/djyteISzZ9SxebMeAG6rOlhotAo48MnqXdZFOA+59UotzAWLUxs+lp7GLF8TD57g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwtvMR6xvzk5SgKo04oqo3jQK5fsonWRxn1Y+g0C0zg2kv173xA
+	DyAxLyi/O1CyTeTtqL8FJvNgszVMzFlhjLpapkhOJyXFBJaPJvshxmKKxUGhNrbpqg==
+X-Gm-Gg: ASbGncvXkm03ZfWEOIustW1+d6NKr8z1Cidbf74Z47RJdKHF1eyzTcB+XPkj7c8aLeX
+	f5+4FgJdNrxeOKeQ1B+6ILTczOr7tB3b5Dhew0bQeLCRmxvszWkwy+VFepJxLsFBXID0RaqP1FR
+	j38WCtPxjjaW+2w8UAkafirvn0pHBGaO91WRcfPKwwK6JmN23OP+UftDVSsx3HNreGDrTs5yb8Y
+	muhw9q+C00F9BcnrlwWFSJKC6JmM0zn+EEK0ao3rYsz/aDMiKEzCCRjP7sVBW7sY6+i1x0/lgSu
+	B7IKWo+MrR2hlb73MjRl43z1KE9tHMtGS7Rd59DgxiiaUBq/iw77Xp8gMIkJh81nAIAQmiv1r+N
+	+r+qP8p2gG2/vtcs2SrWe0JUwb+Smos5oM6gSm4Dct2IQqLVq3je6cgTixKAuNhockgN0VeSRYA
+	UQj8AyFSvXS5Rao/jFomuyT6ONfmSwf0BZs5F9
+X-Google-Smtp-Source: AGHT+IFEFw2FgjIpIGvC9Wv/6UGmrCUJDpGT9KYtCPq2O7RweyQp1xIUeeMxKq2UP2J69KLhnbV1vw==
+X-Received: by 2002:a05:600c:4688:b0:45c:b540:763d with SMTP id 5b1f17b1804b1-46fa9b18258mr75018035e9.33.1760084476254;
+        Fri, 10 Oct 2025 01:21:16 -0700 (PDT)
+Message-ID: <cca4f19e-c72c-496e-8a17-db413d837b21@suse.com>
+Date: Fri, 10 Oct 2025 10:21:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/1] tools/libs/light: fix BAR memory address truncation
@@ -126,49 +126,12 @@ Content-Transfer-Encoding: 7bit
 On 10.10.2025 10:00, Jiqian Chen wrote:
 > 64-bit BAR memory address is truncated when removing a passthrough pci
 > device from guest since it uses "unsigned int".
+> 
+> So, change to use "unsigned long long" to fix this problem.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 
-You talking of address truncation only here, ...
-
-> --- a/tools/libs/light/libxl_pci.c
-> +++ b/tools/libs/light/libxl_pci.c
-> @@ -2001,7 +2001,8 @@ static void pci_remove_detached(libxl__egc *egc,
->  {
->      STATE_AO_GC(prs->aodev->ao);
->      libxl_ctx *ctx = libxl__gc_owner(gc);
-> -    unsigned int start = 0, end = 0, flags = 0, size = 0, irq = 0;
-> +    unsigned long long start = 0, end = 0, flags = 0, size = 0;
-> +    unsigned int irq = 0;
-
-... does "flags" really need widening, too?
-
-> @@ -2031,7 +2032,7 @@ static void pci_remove_detached(libxl__egc *egc,
->      }
->  
->      for (i = 0; i < PROC_PCI_NUM_RESOURCES; i++) {
-> -        if (fscanf(f, "0x%x 0x%x 0x%x\n", &start, &end, &flags) != 3)
-> +        if (fscanf(f, "0x%llx 0x%llx 0x%llx\n", &start, &end, &flags) != 3)
-
-While touching this, don't we want to drop the stray 0x in here? Their
-presence causes bogus input like 0x0x0 to be accepted, afaict.
-
-> @@ -2040,7 +2041,7 @@ static void pci_remove_detached(libxl__egc *egc,
->                                                   size, 0);
->                  if (rc < 0)
->                      LOGED(ERROR, domid,
-> -                          "xc_domain_ioport_permission error 0x%x/0x%x",
-> +                          "xc_domain_ioport_permission error 0x%llx/0x%llx",
->                            start,
->                            size);
->              } else {
-> @@ -2050,7 +2051,7 @@ static void pci_remove_detached(libxl__egc *egc,
->                                                  0);
->                  if (rc < 0)
->                      LOGED(ERROR, domid,
-> -                          "xc_domain_iomem_permission error 0x%x/0x%x",
-> +                          "xc_domain_iomem_permission error 0x%llx/0x%llx",
-
-In the hypervisor I would request use of %#llx here; not sure what the
-toolstack's take on this is.
+Oh, and - please add a Fixes: tag when addressing bugs.
 
 Jan
 
