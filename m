@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63654BCDCCB
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Oct 2025 17:29:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1141253.1475798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2C79BCED0C
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Oct 2025 02:32:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1141339.1475808 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v7F2g-0002iJ-W2; Fri, 10 Oct 2025 15:28:26 +0000
+	id 1v7NVf-0006pX-TW; Sat, 11 Oct 2025 00:30:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1141253.1475798; Fri, 10 Oct 2025 15:28:26 +0000
+Received: by outflank-mailman (output) from mailman id 1141339.1475808; Sat, 11 Oct 2025 00:30:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v7F2g-0002gP-Sj; Fri, 10 Oct 2025 15:28:26 +0000
-Received: by outflank-mailman (input) for mailman id 1141253;
- Fri, 10 Oct 2025 15:28:25 +0000
+	id 1v7NVf-0006mR-Pn; Sat, 11 Oct 2025 00:30:55 +0000
+Received: by outflank-mailman (input) for mailman id 1141339;
+ Sat, 11 Oct 2025 00:30:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1vPy=4T=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1v7F2f-0002gJ-KK
- for xen-devel@lists.xenproject.org; Fri, 10 Oct 2025 15:28:25 +0000
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azlp170120001.outbound.protection.outlook.com
- [2a01:111:f403:c107::1])
+ <SRS0=BWuz=4U=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1v7NVe-0006mL-Pd
+ for xen-devel@lists.xenproject.org; Sat, 11 Oct 2025 00:30:54 +0000
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazlp170130001.outbound.protection.outlook.com
+ [2a01:111:f403:c10c::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1ae45c1-a5ed-11f0-9d15-b5c5bf9af7f9;
- Fri, 10 Oct 2025 17:28:23 +0200 (CEST)
-Received: from DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
- by MN2PR03MB5358.namprd03.prod.outlook.com (2603:10b6:208:1ea::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.10; Fri, 10 Oct
- 2025 15:28:20 +0000
-Received: from DM6PR03MB5227.namprd03.prod.outlook.com
- ([fe80::c9a0:563d:c344:aec2]) by DM6PR03MB5227.namprd03.prod.outlook.com
- ([fe80::c9a0:563d:c344:aec2%5]) with mapi id 15.20.9203.009; Fri, 10 Oct 2025
- 15:28:19 +0000
+ id 8a33a7fe-a639-11f0-9d15-b5c5bf9af7f9;
+ Sat, 11 Oct 2025 02:30:52 +0200 (CEST)
+Received: from SJ0PR05CA0063.namprd05.prod.outlook.com (2603:10b6:a03:332::8)
+ by BL3PR12MB6425.namprd12.prod.outlook.com (2603:10b6:208:3b4::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.20; Sat, 11 Oct
+ 2025 00:30:44 +0000
+Received: from SJ1PEPF0000231C.namprd03.prod.outlook.com
+ (2603:10b6:a03:332:cafe::3d) by SJ0PR05CA0063.outlook.office365.com
+ (2603:10b6:a03:332::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9228.6 via Frontend Transport; Sat,
+ 11 Oct 2025 00:30:44 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF0000231C.mail.protection.outlook.com (10.167.242.233) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9228.7 via Frontend Transport; Sat, 11 Oct 2025 00:30:43 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 10 Oct
+ 2025 17:30:43 -0700
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 10 Oct
+ 2025 17:30:42 -0700
+Received: from [172.28.217.164] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 10 Oct 2025 17:30:42 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,303 +63,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1ae45c1-a5ed-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 8a33a7fe-a639-11f0-9d15-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jAhCLUSCBcwB9dGurkjZ13J+Sl/PTti7qJLK8PxQRl9cfTMWNQgwU8Eg5gRwTIOaeuJDeNz/9dJ51TbURLPWCJogLuweM35Y+a66UbbNLYPkwOQGvSMwh6mWnk8BOlv4fnwXQPY7TtcwtUdRwzyMEbx05+sYy7aTFvgAOFnfZDKIOXzBMyKH0sIlfnjqzY1kzjSULRtCeH71K4OXYqx9v1QNVdJBA1mqb3LCgZCLBWTzJBGaks4dg69721aG3gawWhUskw+gM3hQ9eSc/LURUynM8FPRiC6LGSHF+EDOrAeYXpDHrwfUCVjVNrWS2S9Xz0tRoEd73PSHfB45f7R4aA==
+ b=ew0WLqiJdLAGZ2+urJojDChHEO/Ep3+1orDnJNJD74fmblnV+PiGeWtGOVLnLNzW+5pGEyc1tWqqMLLCABSbQ8vwk7Tz/5oaZP806Wkhdcj2K3SKe0ZinqaKOBXAyrQFphy2JoOMFF+OptbP/JQFdD1fam2TmwEtU3tb8SV+Zjpwm5eeo1C1/ro8+Svu8v/1clUIHWjooTWeLiE0TOjW+/YCsFJlY8xc4guRy5an4AnnNPCg29gKIFP1GHkprdzX3r5PZaQo30ILD04uFuZj2+4YK05LKzZvdcnSsnVtZ8utAXLcxMwLSFoSGpDViVp9aXgwSdSlwWAAjf0EQIEeUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q+UdOyKUf753zj9Sp4iy1yJwvoCATUX+ffAq4+hFdGE=;
- b=t6WUw9GPWZkbLQHAJ3DPO0icS8i6Xr5AI5YCnAm4vW7N3q/j+sAR/n611uDI7sll2Enp+7Ba7uVk3Ft0bqxulSe/Qk1v2aSCIIU2Ocd7FzxQZwqKkWYpdNYBEobtOm4e3WL1MhObGgMD6i1ce3LF6VGqtA4oeSvzGru5TGs+RwP1H6hV5CA4zfnS47/sWJ6HJZWXdrg5/u+OpuBrCy4PjpmxfJSTPE3wAan44nk50VRIXUtER3oJqAH3J0uJSUx8CAwvzM3CLCzd3umc3Yk8pBV/wj6eclTtiLI8fftacgxFdXu3O5D5xqxKHcJNtCaEZ0Ntlgl6nXms+y8WXsL+Fg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ bh=uHPTNJkGoogf4KZ3qDka5bjf+WbdE69cYaeQ2wBDJYY=;
+ b=MmrXGvWpUW8RiHI4Y2W4Kh3AprtAtjroww07tWLF7bLQ///+kNxSB1G8AQ2Y3dCube4P+Np1tB7h1W5bejYYlyK2+QGIbQYSuYfyaQ6jR4El0iLCFiZgAs6BNBfboOiSSlQcGp7FH98Ucm3iOGAYlsDJq14W4uLKMxKU46971W0LU/mtOCqhDlF+JGi9LVFmttxZ61r2oBeTnqxG+Gyg+F4BDjuDoywCmXjMbB0z7aYvIUd90ug1X0W1R3RtTuSK0oGU/N7n05AF3pNPrFN89SqXpbGC8MaDHcqoWn8M5mKip239ZJ1+nx+samXpsyQKi7tyasawh30q+vdDtGeQJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q+UdOyKUf753zj9Sp4iy1yJwvoCATUX+ffAq4+hFdGE=;
- b=F+aBuY6+wX3x9uCd4aSsulSOKfUFfg0DQaKSdYtSoKHW/7TbRFh3GkQ1tiGyWFiwZvXFZ3psVhwRPZ2xc9KSxUPN8HwCwgZJyMkEoWUUzn7oIcjBqDacUOfiOFCEul8Im4nsQubTq0D8aSoTPVFjINm3UGZI8vr/h02J/wDp3lM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Fri, 10 Oct 2025 17:28:15 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Saman Dehghan <samaan.dehghan@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v2] Support LLVM raw profile versions 8, 9, and 10
-Message-ID: <aOkmD59fmPu6l5Kw@Mac.lan>
-References: <12f2f3bd9010422004c38c23f6758c87df8682a5.1757951300.git.samaan.dehghan@gmail.com>
- <3dc1fe6ee55d973a25a0441d0f6b41e00a58227b.1759355762.git.samaan.dehghan@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <3dc1fe6ee55d973a25a0441d0f6b41e00a58227b.1759355762.git.samaan.dehghan@gmail.com>
-X-ClientProxiedBy: MA3P292CA0002.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:2c::17) To DM6PR03MB5227.namprd03.prod.outlook.com
- (2603:10b6:5:247::22)
+ bh=uHPTNJkGoogf4KZ3qDka5bjf+WbdE69cYaeQ2wBDJYY=;
+ b=TWv2gFXkOXdg9BJKuRkQBjRXJ7DFQBZlAACYQ78r7IOZvNDcyYfprJlTJJCO8wgTBoBMsqKBfufbaMjAjguMYD6cIbW4E9Hh1DgGL6nSQ6fRZ4MKbQSJZNq/7i+feYrSEdBxNBgjt2Sq6M47bmNz/M3U2NoVAzyqtihRh2XvKxo=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <6a546de3-0e1d-4de2-b25c-acab646bc270@amd.com>
+Date: Fri, 10 Oct 2025 20:30:42 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] x86: guard synthetic feature and bug enumerators
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <8ecbf8b7-91fe-4f9e-9542-7ec22b6a47bb@suse.com>
+ <48dcc0e0-2772-49b9-9383-5bf69f922053@suse.com>
+ <1439ec29-4319-43d0-b4ff-0eb5bfe9405b@amd.com>
+ <c9d04edf-4801-46c7-ae6d-8479ef985972@suse.com>
+ <057c91eb-c6c3-4e00-bf2f-6611181ebfd7@amd.com>
+ <b241871b-0b86-497b-afb5-86a0aa9813ce@suse.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <b241871b-0b86-497b-afb5-86a0aa9813ce@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5227:EE_|MN2PR03MB5358:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e02080c-dca1-4631-e5cf-08de0811a419
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231C:EE_|BL3PR12MB6425:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96ff2941-03b2-45c6-89ba-08de085d6a34
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?cjVrREhDbDJMd2VhZWxvVmNiR2RDOElhMG55TzF6bGRwZGl2Njhrb1FqTHVm?=
- =?utf-8?B?alVLamdXNGZiZTQrT1g3SUJlZGJIUmdqbWltMEMycTEyank3dC9jdEk3VVY3?=
- =?utf-8?B?SEtjb1lZSjVIQm8xZ3YwbUsvQnRuS3BFZjVQTmh1Y3FHUmk3Yi9yZ3RueTBG?=
- =?utf-8?B?bUhjMVFKMHo2RjFaNjhWbXNCVEZFcjNxek9TSnNFVStWcWFKZ3JmYk10S096?=
- =?utf-8?B?ZFdDbU1LWDM0dkxHL0IwT0ZydHp6K0NVejRia09WamxSNDZPVThOWmtrTnIv?=
- =?utf-8?B?QTAyUFNReXBUQ3JnWUMrOWxrSlZJRmhyOFhrRW9RRWpValF2TEdhY0F4dGdJ?=
- =?utf-8?B?ZHhQQ1VCWDZUTnBPZUd5QXhkYTRGSnM3QnNkdGpYTmJjT0RjNnh0bEF5M2dI?=
- =?utf-8?B?WUM1K2NrTGZTNk5FelZ4QXRmUDV6ZnFiSEtOdnJlZHVDSGxIeDNNdGl0SWFL?=
- =?utf-8?B?M3h3OTAyS1lWakhZL1lPWVJDM0tncjVCdG8yc2R0V2RkRi80M3ArOWd4WURm?=
- =?utf-8?B?bXRFZUhrTHpXZzBrdUxiQzJsenB3RURwTk1MWnNrV082NDQyczVMVXJGdjRZ?=
- =?utf-8?B?WVBMTC82N1ljMzRFUTJzdGxxbE1aZUZ4TEw4QlNiTlg2NUpZaEh2VmRPSHNV?=
- =?utf-8?B?dkt3WU4yUU92eXhycjlHazQrY2VxMDFFOW5qUG03SGVCYWRpWDNHK0dLb0xk?=
- =?utf-8?B?SVdjOFZpS21sdlBDd2NuRmM4alFGKzN2bGZ5Q2w0YnlwdHhMZjZrTjdnMzNH?=
- =?utf-8?B?SnYvcFdvVE1WZ3dvVU90OEZpZHZCdHdvZkNRYVBQM2I1WmlSNDNiWkV2OTN6?=
- =?utf-8?B?aHd4YkVpNDhtakJ3WTRXbGZpOVhZUEdEVEswUTFWVDIvZzFDOGJFcGd3S3da?=
- =?utf-8?B?cm9ERnFNWHZSWTBTcjRGcTgzOHNFdFQ0cU42ekM4THRBb2F0QlA1VzdJcVFq?=
- =?utf-8?B?dkdDNXR1c3p5SzQxRWExU0NYU3FwOHQrQWNMd0tWVXZ4alo1My9WRkdKeDRR?=
- =?utf-8?B?dHNGRnczR1JWQStFMHlwZ2FHZkMreC82TVJVcDZhQ2lMRCsydU9sRnhyQ2Nn?=
- =?utf-8?B?RWdLUGZaU05ub0pKTEgxWU1oT3dSZi9VOCs0eXJ4ekkzUW1EU0hxcXRTQUs5?=
- =?utf-8?B?UkRBK2k1dnJZZm1oSjdDcmdzTVpKNUVHb2I4eVNwbVcrSmV3TGduR05QOXpF?=
- =?utf-8?B?SnNhNzRoWkx1c24vd3hvQmdNaFYzT2xNMHluL2h1dVluUTh4ajZTZTRPWmVi?=
- =?utf-8?B?Q1FSdHREc2FtMG9YYjlsb2U3OG44RkxCM2dTOU5FcVJ2cVhuYWxpYUFob0Zp?=
- =?utf-8?B?M1V4OGkzVHZpak8xNFA3VnFpdkNjYkZ5WEdsZlQweVRiZFViZXBjRFYrTXFi?=
- =?utf-8?B?Yzg1N0o1Y2U4cmpHeGV0ZFlPSGwvMysxVEZVK2VBamx1Y3lDTDdLSkdXRzQ3?=
- =?utf-8?B?OG5OTTJDVkpUb3dOK0R3cG44SVR0c2lLVWw3ZnZEMjV5NXg2b21QRjJobHQ4?=
- =?utf-8?B?SU9Cb3BzUjArYUlSMjcwNXp5c1U4c2h3T05oc3NLeVpXMDV3K2V5a3hnODZh?=
- =?utf-8?B?ajNoU3pqNElFNFYzbkJHMDB3ZW4vMTR3S3hMTDZ2ZjNtV0tWT2E1OXF4L3BR?=
- =?utf-8?B?WjdEMklNc2dQWTZtMW5Pd0hsdWVheTZSYnRTK2JBWFJzVkw3ckFDNTNLaXpF?=
- =?utf-8?B?bXZBeURPQitOMHBWTHZMaE9IL1RtM2tzdUpLSTQ5d0xuK3g2RG14VTF5UEdT?=
- =?utf-8?B?amZVSUNhb3NZRU1WWU5mZE94L2VGZGtIVldZUVI5QzNwS2JlMXBZZC9lN2xt?=
- =?utf-8?B?R2ZLcXB2NWxuLzBScjRRdXJYMlM1VFJjc0FUZm92VkczQmgwaG1UNERiRlVk?=
- =?utf-8?B?TkZ6NFZmYy9GZDNaYWwzSTJleEhwY2FNSEUrKzFMTWpUUTBFeFNkRzJSNjlH?=
- =?utf-8?Q?Mk1jQYbVayEX5n2Wbp8FXXJo0Bs60P8e?=
+	=?utf-8?B?UjVtSlBia2ZnQm9uVkV2a3h1R3RtWnNJOThlVVFDc29ObzhYTzdaYWV1MTdm?=
+ =?utf-8?B?c0xZNXc5d29aMC9Eek1KQlcxYzRkdjNJc2QvTnBGT21WeGIyVVF6UkVra1hY?=
+ =?utf-8?B?WDFGbVBLeElzSnhrYnp1NlRRV3k1bHhFTGVYWERCeVR4K3oxUlZwT3VDcmt6?=
+ =?utf-8?B?aTM2eDZTTjFOTnJTbzA5WnZaRE9mMmhnWmNKNUgrTmpqeEFOQUlIYzFIUncy?=
+ =?utf-8?B?Umg2S2loTytKYktYbUFrdUtsdHhoOTc2WllxRExFN0Q5MHViQWpmREV5Uitk?=
+ =?utf-8?B?cnRpTmd5NVIzQUoxeGRtd041ZjE5WDBPWjJPQlNtVlp5VUNkYmJjb2dtV2dk?=
+ =?utf-8?B?SWd5eXV2U21BZWlBZFozdDk5MjI1eDYxd3B2ZU5hNU1jVTlrMTFLdFhSNmJ3?=
+ =?utf-8?B?SzVuS2lZQnpwVHZqdjY5T1JHaTEzWWFJUXBKVG1zaTdYZ1R6Q21jVEtnSm1D?=
+ =?utf-8?B?OEdsRmdSMk5UdENiUFRUOWZHb2xmODRiL1lkOHgrWGtPVVhnK2JlcDVraWVn?=
+ =?utf-8?B?T0lDUXpRM3hFZUtzd1JmaDAwR0J0NFV2dXlKNWdmUzBFMWxaSlM0M01aSmk3?=
+ =?utf-8?B?UzB6L2hZMktuRXFmTWZOZ2Z5NFo0RTdJWDlaYW5BbjZuQTVZNTdESjhNL0NC?=
+ =?utf-8?B?N1JGUlVwRVJsdG11QXMzRDVmREErVUFVd1J6SUZRNkJldDZoaXc1YVVwQTVW?=
+ =?utf-8?B?S0pQaGFWbE1QWHZLRHY1ZmhNbTFQcFlZMHZtWjcrTXVjMkVPaVBNSmg4bHdn?=
+ =?utf-8?B?eWVaamtoc0tXTTdXRXE3d09peVdMbEFtYnRmZE9rMDU0OUNTMm5hdGwzWTc5?=
+ =?utf-8?B?bk41ejlCRU1QKzIvS0habThYbUhlcTRJL2xuVzEwa3ZhMWRxbndGbk0yZlk2?=
+ =?utf-8?B?ejk0enRWUkx0RUk1N2VVbVdQKzBmR3VTc2lrMVlwcFB3ZXV3NXNVMFgrUkdI?=
+ =?utf-8?B?dFlMeDhVR3NZYjNFMStJdktaUEg5bzJZazBSVjB0ci9xQVU1bE9UeDJTYlJl?=
+ =?utf-8?B?YU9iVGEzQlR5MDBpVEFORlozTCtSK2dLbVZDSVgzTTBuY1MyR2RMU1A5eUtk?=
+ =?utf-8?B?bEVnTjdhN0R6VEZZTkw4UitUVExYVm4yNm9VQ3BHVHNrajAra2Rld1JvUnZh?=
+ =?utf-8?B?NVlicUlyZlgyY2hLYjh4dHNabHdIY2hPa3EzQVF1NVVML051bCtoS2RpM2xU?=
+ =?utf-8?B?TitoNlpsOHNRbWNRVWRFZ1hvRDJNUVNOWW5YVjFyM2FDN0g0SHBBRFREYUVr?=
+ =?utf-8?B?bDR0cDhSRUQzcDFleE9CSEN5dXlEMUpZOFVuOXBjM2pqRlcrMFlLMzM3UHR3?=
+ =?utf-8?B?SFBHTUVyOU0yRjJ1cis5bVN0UWgvNEg4UElqVnhIQ3JjbGlMZzhSVHNDVU5Y?=
+ =?utf-8?B?VVoranZNSEc1bU9TeGJOZ3VkeFdvVEoxclZCNmdmaEdFaU42V1puajRSQldX?=
+ =?utf-8?B?RG1tTnNyMnVXSTV5d3BjN2RKS1pvNEN6M1FlbS81QjMxT1BwZDRjZEFwNDVR?=
+ =?utf-8?B?WFY4K2oyRHV5WVNvQ1MxVWYrMGpsVVdWNTdXbklUTzVtcGhqUGQrdW9YbE1h?=
+ =?utf-8?B?QTdRSFpLaU0wc0JITEo5WjRUNHZvZFFWdWhrbkhlQVhMM0J4U1FjS3JCN0hI?=
+ =?utf-8?B?T1dGOEkyTk9rM295ZVhtR1ZENjllaG03OVJnZmErU3M3SkQ5dytCcDBOamFS?=
+ =?utf-8?B?ek9qai84OTh6V3VYSmZYRFlHc0kzSmM0QVlmbWkySDFsaU5RRlZEUWJzYlp0?=
+ =?utf-8?B?VFlGVXNiZHloaDNoamg4VmxtUzZSMEhNUzAvendkMTNrcmg0WkNGa2dFNmxk?=
+ =?utf-8?B?UGdvaVJUSEdOdi9tdkVSYnZlSTQzclJWQ283SEUzVTYwdTM2V05zOVk0YS9M?=
+ =?utf-8?B?Zy9zTFR6dzcyZFplYmVIU0hpVWI4OGE5dmkvVHpqR2tuUUdacjM3T3hWR2lC?=
+ =?utf-8?B?c2NxdkNtRHg1blBDZmM2TkxtSHVGVC9HMi85QnlKWFc5eTg2M1l4cjlrdFJE?=
+ =?utf-8?B?OGRXemFRK3dYbDBMbE1IdFIrdXdLVE1qMGx3MERhN2ZlMjkvMWZBQjJUb2Rq?=
+ =?utf-8?B?akh1YVJiS2dsdlcxVExDeVE4SVlLSGFKTXl1YU5vSS9Wc2tMeUNNOTRIQlNU?=
+ =?utf-8?Q?jFck=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB5227.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dStwMGx5OW8rYjM1dGM4MmNZYXEvWUNyS3BaYTJSZjFTTFlkZGRUT0Vkc24z?=
- =?utf-8?B?cU5Tb3pYaFY5MWYxY2lycUR6YTdHTnJiT0JsNUZobjFyMy9sWXd5a204T1Nh?=
- =?utf-8?B?WnU5UXA3TUk5RU1rODJFZkZCVlZOazFOWCt3VzJMTzJaUStkZ2Eyc0pLR1lu?=
- =?utf-8?B?WDVaNUtiUElDN0xNTXlJcndhYzNNL1JHTHNJMGs4Z0xTaDZIR1hWckx2TGhM?=
- =?utf-8?B?ejBoNnROOEtWZVdaSE5CKzJKckUxaW1XdlFnK29uRUhaaGFIQVVSeUl2NHYr?=
- =?utf-8?B?NUdQeGVNVk5qdytUVWRQS0tVMFZRMFUxQms4YlJ6VjQwM2hrNVJIM0hCOUVK?=
- =?utf-8?B?OFFjOXZBalpKVExlRjFTdEVLbnRUcTh6d1JZNFk4YlV4KzNpdWVIRzU5dTFL?=
- =?utf-8?B?V2YrMU9sWlRhazNrR21TbXh3cThyTUFwTzNHV1draHZLc3FOeGZPQlBJNFc4?=
- =?utf-8?B?RytoUWUzYml6cVlwK01MWkZtVnZPZk5aMk42YUxiRUVBMm9ZeFVNazVqM2tw?=
- =?utf-8?B?dXdOZGk4SXdJcXFsZ0xRS1pGRjlNa2E0alphODB4VVJtVVNTaFJmejNrbmtn?=
- =?utf-8?B?a1BmR1VXWUg3bTBseGJFUk8xOUI3NGZJa01JUEJ0TVZKTTB5blkwZTBrVUFQ?=
- =?utf-8?B?UytmWXdTM2pmbDlMWUZrNjdsb1p6RkQrL2NMcm80MHF0UFYwbTFQYkJudmd0?=
- =?utf-8?B?bnRERWlqWTc2aGpLY1NWbFpMekZDMkd5VjY1Nk00NHNHWFZnQlFtNlluZEFi?=
- =?utf-8?B?SURIaDIyeHkzZnJRYUx0UUphbDdTT0w5aWprZGdkYWVjc3ArbWg3VjFCK09h?=
- =?utf-8?B?RExmc1lyOEZWbFV0bnc5SzBkQU1OYUEyVHh2ZXJsN0diNFZlR1hONFREck96?=
- =?utf-8?B?Ly9zOFJ2aUNBNlpCWjRqcEc1TytDZGRucDBPdExYQzVGT0pxU2F4MTAwMVVL?=
- =?utf-8?B?V0UyV3Zwd1JWc2R1UW9MbjRxMzBjb0wxaThRZFcvOExPM1NxbzhjcEQ5Z1J3?=
- =?utf-8?B?L3l0Mk40ajFGa3hkd1ZDV1ZCUlo1RnFIdE9VdlhKdUgrVTZHTUtmVXpqNjIv?=
- =?utf-8?B?SG9qbHN2WUlDTWo4WWlGSmQvcnFiWUNzTmxMSUo4TzROa2RsNTk1eEhaQ0ww?=
- =?utf-8?B?Y3U5NVZraTFiVmk1NXdlUHVzYWlpV3J3ZVN4TzNsdGNWVTBQZnlVeGNzVXRy?=
- =?utf-8?B?ZjJJeENQSXI2SnB5dFNvRXRiZ2ZpRlRHVkpJVlZPUGhEdFdIdzd2ZHJkQW1F?=
- =?utf-8?B?aWxldlcwSUtocks4N3ptNkNUYmV2RFdIcXh4MVpXWE9SOWVUV2hrb0RDajIr?=
- =?utf-8?B?WjFaODRvNnRoUktxU1JQa2lsN3lZZWZ6ZVdWYklXV0FWbFlsZE5KZ2NBdDRD?=
- =?utf-8?B?WTZOcjNlQXdDcXFlN0tEaEk3QlhrVjNiS09OVHlCYVpwV2w4dWIrcEswemJq?=
- =?utf-8?B?K1dhNjNDTU5LL29pZGpSbGZNaFhkZDk5NG1DbkI0MXIvRms5KzF1RkVVOTRy?=
- =?utf-8?B?TlY1dkpEbi9MRUMwUldrVm9aWWVjOUlabGhjY1ljVm5zTlJZWXp3dFBCSjVs?=
- =?utf-8?B?V3NuWUVKNUR5SXJJYUZvOWxQdkxJc3EyMm93OFpRT3lkMjNNOUtpUU5jVVcw?=
- =?utf-8?B?c1k0YW5MYXJLOHdRdVpwYThDNzYzSHkyaGhybFR5QWlHMzVjNnZaLzZjQ3dr?=
- =?utf-8?B?cStQMVkyOUgzeWdHL2QzRkN5TEt6TEUycXY2SzZBY0V4MTNQWGsySUtQLzNh?=
- =?utf-8?B?Q2tRMytZRFVRcEo1eEZlNVFaQlNPd0oyWk8xY09NMnkwb3ZxOWM2UndTVGZN?=
- =?utf-8?B?V0RFRThJVk05SUdCdmlhZjVpYU9mVW11bzBwb3NLZVVzeVJBZEc0cXJRNEJ1?=
- =?utf-8?B?QkhjQmFFSGhzcUpTcmJMTEdjbEtYL3gxdDN0OEd3bTM1TUZXbXc4V1Nra04z?=
- =?utf-8?B?YTdmZi9oYmg2MTlXOGo5MnFaNUtEMFBWSmxqL0NDcWczbzFRY3VvVjF3R2tJ?=
- =?utf-8?B?anlVNUxSTHRFSWhhSnRkNnJnbGdsbHJ6SnNTcUNFQUxOWlQwT24xRENpNTFx?=
- =?utf-8?B?alFpYTlCcGhWTTZHYUtXalZYOHlYUTBoZ29YRXc4Uk9ZbWxqeVQ5aXoyU1RU?=
- =?utf-8?Q?/DKZubd/LGuey1zVJZrWsmPSy?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e02080c-dca1-4631-e5cf-08de0811a419
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5227.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2025 15:28:19.8666
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2025 00:30:43.8652
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WOZXwViAsz/k/MGjOtrV8T92HhfuSA9alXPUHRjfXYJF3ZyeOKJ9aPq28Rnd1VHQHCqtadqfXTQ7WE0CmRxBRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB5358
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96ff2941-03b2-45c6-89ba-08de085d6a34
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231C.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6425
 
-On Wed, Oct 01, 2025 at 05:09:52PM -0500, Saman Dehghan wrote:
-> This change enables compatibility for measuring code coverage
-> with Clang versions 14 through 20 by supporting their
-> respective raw profile formats.
+On 2025-10-08 01:56, Jan Beulich wrote:
+> On 07.10.2025 21:38, Jason Andryuk wrote:
+>> On 2025-10-07 08:22, Jan Beulich wrote:
+>>> On 30.09.2025 01:36, Jason Andryuk wrote:
+>>>> On 2025-09-25 06:48, Jan Beulich wrote:
+>>>>> --- a/xen/arch/x86/include/asm/spec_ctrl.h
+>>>>> +++ b/xen/arch/x86/include/asm/spec_ctrl.h
+>>>>> @@ -73,7 +73,7 @@ static always_inline void spec_ctrl_new_
+>>>>>     
+>>>>>         /* (ab)use alternative_input() to specify clobbers. */
+>>>>>         alternative_input("", "DO_OVERWRITE_RSB xu=%=", X86_BUG_IBPB_NO_RET,
+>>>>> -                      : "rax", "rcx");
+>>>>> +                      "i" (0) : "rax", "rcx");
+>>>>
+>>>> "i" (0) is to work around the trailing comma in alternative_input() and
+>>>> does nothing?
+>>>
+>>> Yes. If more such "uses" appeared, we may want to introduce some kind of
+>>> abstraction.
+>>
+>> Thanks for confirming.
+>>
+>> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 > 
-> 1- Add support for LLVM raw profile versions 8, 9, and 10
-> 2- Initialized llvm_profile_header for all versions based on llvm source code in 
->    `compiler-rt/include/profile/InstrProfData.inc` for each version.
-> 3- We tested this patch for all clang versions from 14 through 20 on both ARM and X86 platform
+> Thanks.
 > 
-> Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
-> ---
->  xen/common/coverage/llvm.c | 78 +++++++++++++++++++++++++++-----------
->  xen/include/xen/types.h    |  1 +
->  2 files changed, 57 insertions(+), 22 deletions(-)
+>> Though I also wondered if just #define X86_BUG_MAX/X86_SYNTH_MAX
+>> combined with a BUILD_BUG_ON might be good enough.  Your approach avoids
+>> the extra define but is more complicated.  Anyway, just a thought.
 > 
-> diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
-> index 517b2aa8c2..f92f10654c 100644
-> --- a/xen/common/coverage/llvm.c
-> +++ b/xen/common/coverage/llvm.c
-> @@ -44,27 +44,55 @@
->      ((uint64_t)'f' << 16) | ((uint64_t)'R' << 8)  | ((uint64_t)129)
->  #endif
->  
-> -#define LLVM_PROFILE_VERSION    4
-> +#if __clang_major__ >= 19
-> +#define LLVM_PROFILE_VERSION    10
-> +#define LLVM_PROFILE_NUM_KINDS  3
-> +#elif __clang_major__ == 18
-> +#define LLVM_PROFILE_VERSION    9
->  #define LLVM_PROFILE_NUM_KINDS  2
-> +#elif __clang_major__ >= 14
-> +#define LLVM_PROFILE_VERSION    8
-> +#define LLVM_PROFILE_NUM_KINDS  2
-> +#else
-> +#error "Unsupported Clang version"
+> How would that end up simplifying things? IOW what would the BUILD_BUG_ON()
+> look like that you're thinking about? After all X86_{SYNTH,BUG}_MAX aren't
+> meaningfully different from X86_NR_{SYNTH,BUG}.
 
-No strong opinion, but it would be nice if we could support all
-profiles from clang >= 11, as that's the minimum stated clang version.
-Again I don't know how much work this will involve, so not going to
-insist.
+Originally, I was thinking something like
+  XEN_CPUFEATURE(PDX_COMPRESSION,   X86_SYNTH(31)) /* PDX compression */
++#define X86_SYNTH_MAX 31 /* Bump when adding flags */
 
-It would be extremely helpful if clang could provide a set of builtin
-functions for freestanding environments to handle the performance data
-in an opaque way:
+and:
+BUILD_BUG_ON( ((X86_SYNTH_MAX / 32) + 1) > X86_NR_SYNTH )
 
-https://github.com/llvm/llvm-project/issues/123034
+Not automated, but adding a new flag should make it obvious 
+X86_SYNTH_MAX should increase.
 
-At a minimum it would be good if the compiler exported a define
-signaling the profiling version it's using, as we could then fail the
-build nicely if coverage support is enabled against a version of clang
-we don't support.  Right now anything >= 19 will assume to be using
-profiling version 10, but that will go stale sooner or later.
+But as you point out the redundancy of X86_{SYNTH,BUG}_MAX and 
+X86_NR_{SYNTH,BUG}.  But we could re-arrange to make X86_NR_{SYNTH,BUG} 
+calculated from X86_{SYNTH,BUG}_MAX like below.
 
-> +#endif
->  
->  struct llvm_profile_data {
->      uint64_t name_ref;
->      uint64_t function_hash;
-> -    void *counter;
-> -    void *function;
-> -    void *values;
-> +    intptr_t *relative_counter;
-> +#if __clang_major__ >= 18
-> +    intptr_t *relative_bitmap;
-> +#endif
+Again, it's not automated, but it should make it harder to miss 
+increasing the value.
 
-I would prefer if this was done based on LLVM_PROFILE_VERSION rather
-than __clang_major__ (same for the instances below).  The field are
-related to the profile version implemented by the compiler, so it's
-clearer if the check is against the profile version.
+Regards,
+Jason
 
-> +    intptr_t *function;
-> +    intptr_t *values;
->      uint32_t nr_counters;
->      uint16_t nr_value_sites[LLVM_PROFILE_NUM_KINDS];
-> +#if __clang_major__ >= 18
-> +    uint32_t numbitmap_bytes;
-> +#endif
->  };
->  
->  struct llvm_profile_header {
->      uint64_t magic;
->      uint64_t version;
-> -    uint64_t data_size;
-> -    uint64_t counters_size;
-> +    uint64_t binary_ids_size;
-> +    uint64_t num_data;
-> +    uint64_t padding_bytes_before_counters;
-> +    uint64_t num_counters;
-> +    uint64_t padding_bytes_after_counters;
-> +    uint64_t num_bitmap_bytes;
-> +    uint64_t padding_bytes_after_bitmap_bytes;
->      uint64_t names_size;
-> +#if __clang_major__ >= 18
->      uint64_t counters_delta;
-> +    uint64_t bitmap_delta;
-> +#endif
->      uint64_t names_delta;
-> +#if __clang_major__ >= 19
-> +    uint64_t num_vtables;
-> +    uint64_t vnames_size;
-> +#endif
->      uint64_t value_kind_last;
->  };
->  
-> @@ -76,19 +104,20 @@ struct llvm_profile_header {
->   */
->  int __llvm_profile_runtime;
->  
-> -extern const struct llvm_profile_data __start___llvm_prf_data[];
-> -extern const struct llvm_profile_data __stop___llvm_prf_data[];
-> -extern const char __start___llvm_prf_names[];
-> -extern const char __stop___llvm_prf_names[];
-> -extern uint64_t __start___llvm_prf_cnts[];
-> -extern uint64_t __stop___llvm_prf_cnts[];
-> +extern char __start___llvm_prf_data[];
-> +extern char __stop___llvm_prf_data[];
-> +extern char __start___llvm_prf_names[];
-> +extern char __stop___llvm_prf_names[];
-> +extern char __start___llvm_prf_cnts[];
-> +extern char __stop___llvm_prf_cnts[];
+diff --git i/xen/arch/x86/include/asm/cpufeatures.h 
+w/xen/arch/x86/include/asm/cpufeatures.h
+index 0a98676c16..724eb1599f 100644
+--- i/xen/arch/x86/include/asm/cpufeatures.h
++++ w/xen/arch/x86/include/asm/cpufeatures.h
+@@ -7,7 +7,6 @@
+  #define FSCAPINTS FEATURESET_NR_ENTRIES
 
-What's the point of defining those uniformly as char instead of the
-more accurate types used previously?
+  /* Synthetic words follow the featureset words. */
+-#define X86_NR_SYNTH 1
+  #define X86_SYNTH(x) (FSCAPINTS * 32 + (x))
 
-> +#define START_DATA      ((const char *)__start___llvm_prf_data)
-> +#define END_DATA        ((const char *)__stop___llvm_prf_data)
-> +#define START_NAMES     ((const char *)__start___llvm_prf_names)
-> +#define END_NAMES       ((const char *)__stop___llvm_prf_names)
-> +#define START_COUNTERS  ((char *)__start___llvm_prf_cnts)
-> +#define END_COUNTERS    ((char *)__stop___llvm_prf_cnts)
->  
-> -#define START_DATA      ((const void *)__start___llvm_prf_data)
-> -#define END_DATA        ((const void *)__stop___llvm_prf_data)
-> -#define START_NAMES     ((const void *)__start___llvm_prf_names)
-> -#define END_NAMES       ((const void *)__stop___llvm_prf_names)
-> -#define START_COUNTERS  ((void *)__start___llvm_prf_cnts)
-> -#define END_COUNTERS    ((void *)__stop___llvm_prf_cnts)
+  /* Synthetic features */
+@@ -43,9 +42,10 @@ XEN_CPUFEATURE(IBPB_ENTRY_PV,     X86_SYNTH(28)) /* 
+MSR_PRED_CMD used by Xen for
+  XEN_CPUFEATURE(IBPB_ENTRY_HVM,    X86_SYNTH(29)) /* MSR_PRED_CMD used 
+by Xen for HVM */
+  XEN_CPUFEATURE(USE_VMCALL,        X86_SYNTH(30)) /* Use VMCALL instead 
+of VMMCALL */
+  XEN_CPUFEATURE(PDX_COMPRESSION,   X86_SYNTH(31)) /* PDX compression */
++#define X86_SYNTH_MAX             31 /* Bump when adding new flags. */
++#define X86_NR_SYNTH              ((X86_SYNTH_MAX / 32) + 1)
 
-Kind of similar question here, what's the benefit of using char *
-instead of void *?
+  /* Bug words follow the synthetic words. */
+-#define X86_NR_BUG 1
+  #define X86_BUG(x) ((FSCAPINTS + X86_NR_SYNTH) * 32 + (x))
 
->  static void cf_check reset_counters(void)
->  {
-> @@ -107,10 +136,15 @@ static int cf_check dump(
->      struct llvm_profile_header header = {
->          .magic = LLVM_PROFILE_MAGIC,
->          .version = LLVM_PROFILE_VERSION,
-> -        .data_size = (END_DATA - START_DATA) / sizeof(struct llvm_profile_data),
-> -        .counters_size = (END_COUNTERS - START_COUNTERS) / sizeof(uint64_t),
-> -        .names_size = END_NAMES - START_NAMES,
-> -        .counters_delta = (uintptr_t)START_COUNTERS,
-> +        .binary_ids_size = 0,
+  #define X86_BUG_FPU_PTRS          X86_BUG( 0) /* (F)X{SAVE,RSTOR} 
+doesn't save/restore FOP/FIP/FDP. */
+@@ -62,6 +62,8 @@ XEN_CPUFEATURE(PDX_COMPRESSION,   X86_SYNTH(31)) /* 
+PDX compression */
+  #define X86_SPEC_BHB_TSX          X86_BUG(19) /* Use clear_bhb_tsx for 
+BHI mitigation. */
+  #define X86_SPEC_BHB_LOOPS        X86_BUG(20) /* Use clear_bhb_loops 
+for BHI mitigation.*/
+  #define X86_SPEC_BHB_LOOPS_LONG   X86_BUG(21) /* Upgrade 
+clear_bhb_loops to the "long" sequence. */
++#define X86_BUX_MAX               21 /* Bump when adding new flags. */
++#define X86_NR_BUG                ((X86_BUG_MAX / 32) + 1)
 
-We don't usually explicitly initialize fields to 0, as that's the
-default already.
+  /* Total number of capability words, inc synth and bug words. */
+  #define NCAPINTS (FSCAPINTS + X86_NR_SYNTH + X86_NR_BUG) /* N 32-bit 
+words worth of info */
 
-> +        .num_data = (((intptr_t)END_DATA + sizeof(struct llvm_profile_data) - 1)
-> +                - (intptr_t)START_DATA) / sizeof(struct llvm_profile_data),
-> +        .padding_bytes_before_counters = 0,
-> +        .num_counters = (((intptr_t)END_COUNTERS + sizeof(uint64_t) - 1)
-> +                - (intptr_t)START_COUNTERS) / sizeof(uint64_t),
-> +        .padding_bytes_after_counters = 0,
-> +        .names_size = (END_NAMES - START_NAMES) * sizeof(char),
-> +        .counters_delta = (uintptr_t)START_COUNTERS - (uintptr_t)START_DATA,
-
-The casting here seems not uniform.  Why is intptr_t used in some
-instances while others use uintptr_t?
-
-I also think you could just use void *, as Xen uses the GCC extension
-that allows arithmetic on void pointers.
-
-Thanks, Roger.
 
