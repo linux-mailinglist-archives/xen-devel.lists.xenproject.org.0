@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 513CABCF0A4
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Oct 2025 08:46:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1141387.1475817 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D219BD0D01
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 00:21:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1141653.1475827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v7TLm-0006Ub-AS; Sat, 11 Oct 2025 06:45:06 +0000
+	id 1v84Pz-00014W-Mw; Sun, 12 Oct 2025 22:19:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1141387.1475817; Sat, 11 Oct 2025 06:45:06 +0000
+Received: by outflank-mailman (output) from mailman id 1141653.1475827; Sun, 12 Oct 2025 22:19:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v7TLm-0006SH-75; Sat, 11 Oct 2025 06:45:06 +0000
-Received: by outflank-mailman (input) for mailman id 1141387;
- Sat, 11 Oct 2025 06:45:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1Aqd=4U=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1v7TLk-0006SB-G3
- for xen-devel@lists.xenproject.org; Sat, 11 Oct 2025 06:45:04 +0000
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazlp170120005.outbound.protection.outlook.com
- [2a01:111:f403:c105::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cf64b14d-a66d-11f0-9809-7dc792cee155;
- Sat, 11 Oct 2025 08:45:01 +0200 (CEST)
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
- DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9203.10; Sat, 11 Oct 2025 06:44:56 +0000
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::6d8e:2499:8a0a:7eb2]) by DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::6d8e:2499:8a0a:7eb2%3]) with mapi id 15.20.9203.009; Sat, 11 Oct 2025
- 06:44:56 +0000
+	id 1v84Pz-00012Y-HE; Sun, 12 Oct 2025 22:19:55 +0000
+Received: by outflank-mailman (input) for mailman id 1141653;
+ Sun, 12 Oct 2025 22:19:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=//GD=4V=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
+ id 1v84Py-00012S-S7
+ for xen-devel@lists.xenproject.org; Sun, 12 Oct 2025 22:19:54 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 91c030d7-a7b9-11f0-9d15-b5c5bf9af7f9;
+ Mon, 13 Oct 2025 00:19:53 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-46f9d1b186dso3609335e9.3
+ for <xen-devel@lists.xenproject.org>; Sun, 12 Oct 2025 15:19:50 -0700 (PDT)
+Received: from lab.home
+ (dynamic-2a00-1028-83a4-4bca-c0bb-96ff-feed-9d50.ipv6.o2.cz.
+ [2a00:1028:83a4:4bca:c0bb:96ff:feed:9d50])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-46fb482b9absm174770605e9.2.2025.10.12.15.19.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 12 Oct 2025 15:19:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,174 +47,220 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf64b14d-a66d-11f0-9809-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VZum0C5rBqQ1A2UE+JPI6ye8WJmlKzj0KBj1aSFiX5907Z17VsA8W30fniC8o9TYROjv2lqy8RdXdrXbzSWwGx4qPGhrYD7gf93WH3iziTGBguUTMuAjTM0awwC+OENzwMblGgBnCboGkOr7kmWuK9K8o+m2XQFWmEE3ume16kHj5uqXbhfgodInA2nt8hJbKTBxukuThJy9A6ZRvvhzn1qVc1MZ7ml1YNHywIWhdmT5KOTbECqdCNiVK1CJ251OfXbL/Q06hjCuWmL5S973fV+2cRCGNTSuiPK8NEqDEAoZeSQeAZfaxzNeT1JzxFTIpqbNml17XJcW3rD+HyiTiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Afz391nsnA4VwQeebJ/eQISZMTKzPV8PBOyAXsjYIvo=;
- b=VZ6vQb9hKOz0beKh5VplQsIqgJYgfTwdQ2/qLW753d9WDmJj5YECaINVLCidantkO5vgAHXwvmbaFjV/XRaekdCTL1Py3qBvUjgDUS1ame0ZmtDUzthvDoY57LpL00wisFti9zkTV1tiZGRuz9Od8oSfagcgzqdjsYjN1mKJXcl1Mfm3AMNkq+yiUIr8SKaEVMZWxXz1shGB+C1t/p5v0JlMmPSZMeoNbXVA/hf/qluDFcl9N1a8yX3ghm8jW1D0Mun2nE9sWDTyLkvfhKwGFAaMyIdQSQjfrhe9HfLLsI8vqubHEiPZBE8Ah9HoTamIeSFY6pSVYBFZOMxK+LfriA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Afz391nsnA4VwQeebJ/eQISZMTKzPV8PBOyAXsjYIvo=;
- b=1M9EXGk81WWpDb6TTKwtG7q97xO2HBHWyvesaa299O6Bd0kN1h4+14XqVMWqwkpvBB6x24WtHKd+feSIUihONiNHBBuXTXxrcIgf3vqq80jW+mfpYO0q6FyjiJcyWCLcqSPF3hIEDaqPMvz8j8pNqLtfWYZ+QDuVpgaO4BQo1pI=
-From: "Penny, Zheng" <penny.zheng@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "Huang, Ray" <Ray.Huang@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	"Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Tamas K Lengyel <tamas@tklengyel.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: RE: [PATCH v2 24/26] xen/domctl: wrap arch-specific domctl-op with
- CONFIG_MGMT_HYPERCALLS
-Thread-Topic: [PATCH v2 24/26] xen/domctl: wrap arch-specific domctl-op with
- CONFIG_MGMT_HYPERCALLS
-Thread-Index: AQHcIiYjKV/PcPIAQEuJ6TZ/Q8rQNrSN9F6AgC6RCYA=
-Date: Sat, 11 Oct 2025 06:44:56 +0000
-Message-ID:
- <DM4PR12MB845153811FA7748CA058EB9AE1ECA@DM4PR12MB8451.namprd12.prod.outlook.com>
-References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
- <20250910073827.3622177-25-Penny.Zheng@amd.com>
- <56024eb0-b30f-43fd-84b7-6070a1d79cf0@suse.com>
-In-Reply-To: <56024eb0-b30f-43fd-84b7-6070a1d79cf0@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-10-11T06:44:33.0000000Z;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|DS0PR12MB6413:EE_
-x-ms-office365-filtering-correlation-id: 27b6bc8b-9f23-4189-0351-08de0891b0fe
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|1800799024|366016|38070700021;
-x-microsoft-antispam-message-info:
- =?utf-8?B?dE1ZL2p1U0xGMFAyWlNKZXdXaS9EcjB1VVYyaWVKZ1dYcm5BNjRUdjI4Q1dy?=
- =?utf-8?B?NGluOTh1a3NHcmNMMTNxbE5BdDJxc0RlQnBiampKQTVHaUMyOEx6UlZER2Nk?=
- =?utf-8?B?cURmemI2N21NNHZWeE5ramFyamRrL0M2MUhKNWlHSXpOcGhPOWp2QUNGQTh5?=
- =?utf-8?B?dDlacHJKbnNIR2FLb1haZ3pveks3b1pleDJyam51MXdVV3M5WmlRNm5RdEdS?=
- =?utf-8?B?UEFxMlFVWEF6amZTNkJMMU9YejRaNmhPcGVHVDMwYUNnS1dzZEJCNFV3TWJD?=
- =?utf-8?B?VGZuUHVFcTBmYlF1T3NpRytzcGlSNzdYQzdkTW9ERTE3YW4xQUhBWVlMUnVC?=
- =?utf-8?B?OFJZMTF5emVrbTM3d05TQ1BodG05UzlObGVWY1lFMmdST3I4Z2U5RFB4YWww?=
- =?utf-8?B?ODRPUlNHMm1LeUwrbFhhOFpPTDMvQjRFRlAybmd0SXJKY2pkd1VkMFVHQWph?=
- =?utf-8?B?c2xhYkpvYVRSWi9RK3lZUWdMMHlUZ1RvSDNUZjdWbEZzazYzUnVINS8ra01T?=
- =?utf-8?B?S1dkZS9ZRllCaS83bk9aMU1WejhMeUkxQ0RsbGtBSE9FVTVZaHlzV3BzOVVl?=
- =?utf-8?B?bkg5SjNBdENlaGp5MCtuUHlpZ2N1UHpibHUzNGhmS0ZDTklORWRMUXdrWTI0?=
- =?utf-8?B?S3R6Ujd2c21aS2tIcVZpNUo4ajl5bGlseHB3bkhNV0RrMS9LeW8yUEhzQ3Vs?=
- =?utf-8?B?TzBPTmdiVEJDUU9CVWZsMUo4RVkrLzF0UllWcHFlQ1ROTTVjQzVCQ0FVRFRJ?=
- =?utf-8?B?c2NCcFExM0x0SW5vYW9VMGRrTVFDVDJzc1hZRFZTNnkxOVFnVmNIUWRxYnd3?=
- =?utf-8?B?Zk00d1k0ZE9uZlY2S0dwZzFmcXJKN3JCYUpUMm5jeHlkWnhsdW5IQ00xMytn?=
- =?utf-8?B?UTcxTG43YkVkMGpoNHR6NDIvTUcxeXdnRHBGSzRsM0RjRUx1YjFEeER0aFU5?=
- =?utf-8?B?dVZBbUFHVlhvK2R6bm9XVWVKMmI2ZkVoSlhOYlNHUmxGZmt6d2tHMWlnZDBq?=
- =?utf-8?B?c3ZEMndDajBGNUJkU0w2VVU1ekFsT0VNNmlnVVJmd2ZnbnRyTXhGWklVZ0l3?=
- =?utf-8?B?cnJhS3RGcDB4dFNENks3QkwydWNXcW5IUi80Mi83dVhWT0ZXR0ZTZi9TbnNh?=
- =?utf-8?B?REkzSEh3YnhnOUFzUFVaN2J2ZzRYeWpxR0QrOVVnQ2MrZFNhVm8yK0JERklq?=
- =?utf-8?B?R2dHeGVnS3ZaMzVJMXduaEE0SHdNejhWNnlIY3RJeE5zY3YzTDdReDNiaDdY?=
- =?utf-8?B?cXRsejljSjNQRFI0bG0raEd3UndSNWlKeHE4a3VHUmE3Q3dtckMyRFV3WVZE?=
- =?utf-8?B?MW1WV1VyTmY3Yzc2OWZOaTNGMEZmbUY5aElKSFhDRFczc1UrQk5kWm9UNFJt?=
- =?utf-8?B?a1JGaFNySDZ2bzkwQjVRbVlKRE5MTDBEYlJxMHROM0MrUTdZQWpSK0g0VzBk?=
- =?utf-8?B?L1NubzJTeEk2YWE0aEpNNDJKYTdMUDkrK3o5ZnV4a2w1N1hmcUdGeTUxeUNS?=
- =?utf-8?B?SEc4SmtKTy9UUk5OVE9ROHVuenRSVkZ3MDliVlBmZ0luenpTdkRXZkZqU0hu?=
- =?utf-8?B?YWF4T2pBRHhJdUp3dytWWG9zaThhNUNVRFJPa2VodmJNNHFqaDNNZnplZU5W?=
- =?utf-8?B?d1FtNnMzOE1wVnhVMStwR2lRVSs0RlBsYmVxL1hBTVRUS3EwYXp5MldmRUtY?=
- =?utf-8?B?YWNiUThwbGQwbUZoZE4zalBKWFVjbFFmNnczQ1pueUxKOXB5R3JLYzhGTEl3?=
- =?utf-8?B?NnE5RS93UmJDS3B0Z01HUDFid0Z1aWZnWVJSbXp6dkVhb1RkMlo1TkRRU1ZW?=
- =?utf-8?B?L1VDZExTR3liWmEwTXNlK1JVYms1YjBPTmRPOUVqY2RkUXFXMmY4YmQ1em4v?=
- =?utf-8?B?R2tKeWZhaDNsbU41RGo1SXAydVIrVStDU1hMUVh2S21kRnVRLzA3M0doeE9T?=
- =?utf-8?B?bWswS2NiNW1nYjRFTUFRcTFJcC9sOUpoNWYzaFlhd0FpWHQxeFg3OW12MTVk?=
- =?utf-8?B?eWc3aFpEUXNzbG1oM1NvZS9LWE9UYXVFY2lRekVqbFA3UHoxK3dUcEs0NHFO?=
- =?utf-8?Q?ZxQ41v?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?K1BMeU05OHp6anFMYmp5VE9HMGtVQnJxMHR4WGNacFFielNCZzVVWXFCbzNl?=
- =?utf-8?B?S3hJd1BCN1VyUWdsYTkzYk1HNFc4Nk9CRTNrTDJ3SXBVc2tuZGpFVDVEb0JC?=
- =?utf-8?B?SjMwYUt1SzRHTWYvZ0swVnp2M1F0RUZ0K3ZBME9YYjduT1AwMUh0OWpZT2U0?=
- =?utf-8?B?OVlVaHFmcFBkWVFtaXVVVW9tbW1leFZvY1JsWldmbCtSeFhtcGQySzFwM21x?=
- =?utf-8?B?cTludmNuOWhLSEdYclZFMytDMkJoZGI0TGZ1ZFdCVmUwY3ppY0dMTlczWDZu?=
- =?utf-8?B?QVFaZTlCOWtad3lvS0hneldhNlR5T0thOVVZT1RyVjlFbHEzUjRBRXJSbDJu?=
- =?utf-8?B?UmEwN3NvR2JPQ0dyRGY2cUpqdS8yQUQwcG92VTROQ1BZTEhSbDBrYTJuS3Bs?=
- =?utf-8?B?YldZVHd0T0xhWVI0amZUalpXWnRkb3lHTDlPcGZTd0RvcGRBUkV0Mmp3OTdl?=
- =?utf-8?B?WC9qclJtTGpVNWdxOUp3aGE2bXdxMUtDMGpPTWxsTWovZ3ZaNStQbWg0aGw5?=
- =?utf-8?B?STREbGJYTVVBZnAyMk0zYjBWUGl0N3ZwcTdPMEJEc3J5QStnZlU4YjhZV29I?=
- =?utf-8?B?cVJuSERiVTMrNjV4S2x2bVBNR1ExN1Zyd3hVZUYxRDYzN3NhdVBmWEFlM3lU?=
- =?utf-8?B?citwT2tOenpFSHZEcUdodWtNRXIvd3RqY2svYlJSaDVHOXBGTDYxdGRtVFZv?=
- =?utf-8?B?c2ZHelhBVTJieUZUeHlIT2xCUjBQUk5PL2FpSHNKdnhnRnZKN2dacjdwU0tx?=
- =?utf-8?B?UTl2ZGQrbkpKWnBQVzdoeXlBbTFGSzNnUEhRejdqejJDelVxbzR6VXdmQzhZ?=
- =?utf-8?B?N05VWXBCcUNIMEtHRjFqdlhkQUE4OURRenE4dm1UNDIyUnpuM21NOVg0YWZ2?=
- =?utf-8?B?WjJDakZBV0I5dHpDNjVrazhnOHp5cW1Mb3ZrYS80ZURsY21sd2RHTDVPa3lB?=
- =?utf-8?B?NzRHUmRYcm5qRkhoMUU4bDR0d1h5M0szaW9VbVlpMHNVZy8wdUpyZEdFUFZ0?=
- =?utf-8?B?am11SHBWeUlrY1o5L0RVOURQeXZFNVlEbkE0bW5pT1VCcGF6Wks5T3A5RFh0?=
- =?utf-8?B?b2RVQlVnT2Vrc3pFSGZta0dZQU1oRTMyWU5FYktIZFM1c0kzQ2Y4N3NJWmpm?=
- =?utf-8?B?Si9Qb1F5QlltY2wzTjJzRmgwcUJIc1V1dE9GeW1IMWNXVDlzQmt2TUlKNXVV?=
- =?utf-8?B?eFkzZzBsd1RBNVZXM2JDcDcvR3VwTWl6aXpOeHZyZjNJSVhSTEJKdmFNcU05?=
- =?utf-8?B?Ykpzc0JkTlR5LzBVeHBleXVqem04RndpRTZmK2pmREk2aFJNblFGWEsvampk?=
- =?utf-8?B?UjEvemMxOFh3TlhoNitiU09EbkNyWEFBS3gxYU5Bb1NYNnlyb09OZHdQMWhk?=
- =?utf-8?B?UTlzRWtyWXlLSmpqR1NOa0d6UkhpM3lFelZLWjEzZ2d4aG5ONEpXTWYwL0Y5?=
- =?utf-8?B?M3gvYkZMOXFLVEtrTldUZzM2VWZpRTVsTmlpcmRlbXQyOW5QUm85R1NBZzEz?=
- =?utf-8?B?MHl6aTQ3UllLN1paTGt6QzdWU2tVeVFLSWt4cVY1VEFvdW8zUWdKM2ZxWlVV?=
- =?utf-8?B?cTd0anl5NkZLdXQ5eVZPaVErbnYvR2lYSDZOR3hNeTlJNVhUeVV2MzJQTGtv?=
- =?utf-8?B?YnZQVGZBRVNTOUpxTWp6a1JLU2ZBMWZHOW54bms1Tm1neW1oenpOSUs1RVlH?=
- =?utf-8?B?UGVTdDdFbXB3NHBhTWZZc0szWnpPN1dobWNCdy9FbHZ0c2NwVmFCaGUyVXBD?=
- =?utf-8?B?d2JFQnFLNldUdzRvUk8yY3o2bkZsOWl3eDl4MjFySS81QzBuRll3TFRnMmVD?=
- =?utf-8?B?djNac3RvMGMyUGwzVGwwWXF2dkYxZzhGUHdoZUQ1SktEM081RSsvNWljNy90?=
- =?utf-8?B?RmFZMWNvSDNBMHZYUk1MSHd2ZjgrOW5pcVJjN05YR0VtUmNlcGRHWEpPSlB3?=
- =?utf-8?B?TkFLb1VIQmtVNW1SMHhMSDYzZHVQL3dwT0s1TG1wQ0xybk9pc3dFbWR2MWRD?=
- =?utf-8?B?YytTd0JGZVBHeFBNODF2RUVYVlFYQWtHRkJ2WURUK0tyOFNkOWg2WG93UkIx?=
- =?utf-8?B?N1RiNWlPWTFvR3VraFY0czdiV3RCcmZKTFpNY3UweGx6Q3pqY1ZtSEx2Zm5U?=
- =?utf-8?Q?IiXE=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 91c030d7-a7b9-11f0-9d15-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1760307590; x=1760912390; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=CsJNxUuSl4LuFWIkY3r/r8GkJM+W7X9q9hvMbyMhgl0=;
+        b=clPa87PdqlMeWsiXliAh6ZdSknyyjyf9E4292WMceWWOmedtCy2qwiDVAxuFLFu3+y
+         dBrhkVd1ossdVBNlhN+a/GGZioSQeHmd1tgnbMweTAT4t81u8RQKy1NrW8U7Vn+nkKu5
+         7lg9sICw7D+kMVXBSwnE+/cr+0Nwps/utMucNa9cANxLlTTO2pDM1+EZq/T0J35zXHX9
+         HYgYDU72c0tiAfKW3IMNFIyCfENq7h6oOCoKIMCp8wPynoWVTcLMaF/H/rd/5zt6DsfA
+         Vx4kdTOluqxIeR/QQLlfv21NCK2KuUongG4K7QbbTY1jwKvbTczqw7WbSILWEuHpwJVQ
+         CRUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760307590; x=1760912390;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=CsJNxUuSl4LuFWIkY3r/r8GkJM+W7X9q9hvMbyMhgl0=;
+        b=ffTlH2NrOlMrRacDKjVQWgjt85BGwu9t4VpZ+FrnbpcXohYvMoMMB1zrAhtjVVxrXb
+         KM/dzkrE/SLh9uedRSir7vPujLK5UyzOvvjUzTTmE7Mg/p84MayYkC9AXtFqLFllhBd9
+         yKipMKCokCXZ/ud8qpOVRtHymVCXp1gYoUuBXrBv7YRCgwkcjtXidH3fhiuzgJ9okrCS
+         aMrD1ZdilV5jPjUyjfnsHQp7ZH0ts/OOENCJ1rKEW/JwlNBqGC+2hlvXuVUY/zhWoSFo
+         TUqrCEuObvUwpvRy0WpJsglQ+YmhtGoPaYG5bWdZtU/sy5j/SE60hwDyKiIh7U+xfLND
+         yU7g==
+X-Gm-Message-State: AOJu0YySwoJVf8RfSCJA3+aM0Y0zBILTA6npyNCIdfgHRCja7W5b/Sqe
+	z3r/CVOH4y3J03hsao9y4CfDyBTVCmIrUJVVmQpBP/hHddLuZzE6FLtX8tY4Ew==
+X-Gm-Gg: ASbGncvVKiT7hVnl5IzKHzR04D6aeIt/i9YTHlSZ0HlR//n0d9UsAzshpmEwE6AWeZl
+	Zvb0C42X0ohhoMt+OO43tkyHTyWQ664qLQZB6pY3wBTWmz1TmIHrl4IRE9W9EMRNg8psmAKgOoV
+	bfZ7SNJWPxV0qtmf1uXeCiiH9GLrk8JLnIeJ/29Y75usSbh8cgU/Gs2QoI9KILdMeSg5rnm/pWI
+	GkSqzcfnwSLT1NwNUPKKQukXdtK+hxCz7cbGoPNZfHmg8Zlwr5Tsq3tiY0XJy0Ay+HqAYTot1Pz
+	1iwfJ2yymtJV14BVnJWbABDPg2Y/Qq0p1SPN3INe4DyDVhaX5foyR0Vab0+bEhoao4NnzPfLufv
+	+0o58NaHhfwSpXM/WjcYGjnAscq4ceVqGdmHYtjxQI4DqGuS6smaR0+IUvmpKEPfzkI0BUXH+FF
+	CpOV9Or31ZVKQ9by4ENmb51J/IGkEX7NopyLC4Kdgs6shQS6k2y1+PpZn5WN4uZnI=
+X-Google-Smtp-Source: AGHT+IGrXBQhGMWxigmIVSzHFXo35rUtOp4ToRJ2k9lOMB15KsOtUEyrB3fZqG+p8UymsRbJf0YHqQ==
+X-Received: by 2002:a05:600c:4510:b0:46e:4337:f68e with SMTP id 5b1f17b1804b1-46fa9af8523mr74251605e9.4.1760307589486;
+        Sun, 12 Oct 2025 15:19:49 -0700 (PDT)
+From: "=?UTF-8?q?Petr=20Bene=C5=A1?=" <w1benny@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Petr=20Bene=C5=A1?= <petr.benes@gendigital.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Petr=20Bene=C5=A1?= <w1benny@gmail.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	teddy.astie@vates.tech
+Subject: [PATCH for-4.21] hvmloader: change constants to hex format in size checks
+Date: Sun, 12 Oct 2025 22:19:40 +0000
+Message-Id: <87399e2646ea89eeb0550bd08a408dbff5706540.1760307495.git.w1benny@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27b6bc8b-9f23-4189-0351-08de0891b0fe
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Oct 2025 06:44:56.5127
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rcRTj7da5AL7ZtPtV0n2ZMX3oKE0HYoATtO36Mf1P5rTAbswSaJTe2LxcPOHtIzGCNmugkCsIUFjhH3vHGymgQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6413
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-W1B1YmxpY10NCg0KSGksDQoNClNvcnJ5IGZvciB0aGUgbGF0ZSByZXBseS4gSnVzdCBjb21lIGJh
-Y2sgZnJvbSBuYXRpb25hbCBob2xpZGF5Lg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0t
-DQo+IEZyb206IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCj4gU2VudDogVGh1cnNk
-YXksIFNlcHRlbWJlciAxMSwgMjAyNSA5OjAzIFBNDQo+IFRvOiBQZW5ueSwgWmhlbmcgPHBlbm55
-LnpoZW5nQGFtZC5jb20+DQo+IENjOiBIdWFuZywgUmF5IDxSYXkuSHVhbmdAYW1kLmNvbT47IEFu
-ZHJldyBDb29wZXINCj4gPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+OyBBbnRob255IFBFUkFS
-RCA8YW50aG9ueS5wZXJhcmRAdmF0ZXMudGVjaD47DQo+IE9yemVsLCBNaWNoYWwgPE1pY2hhbC5P
-cnplbEBhbWQuY29tPjsgSnVsaWVuIEdyYWxsIDxqdWxpZW5AeGVuLm9yZz47IFJvZ2VyDQo+IFBh
-dSBNb25uw6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPjsgU3RlZmFubyBTdGFiZWxsaW5pIDxzc3Rh
-YmVsbGluaUBrZXJuZWwub3JnPjsNCj4gQmVydHJhbmQgTWFycXVpcyA8YmVydHJhbmQubWFycXVp
-c0Bhcm0uY29tPjsgVm9sb2R5bXlyIEJhYmNodWsNCj4gPFZvbG9keW15cl9CYWJjaHVrQGVwYW0u
-Y29tPjsgVGFtYXMgSyBMZW5neWVsIDx0YW1hc0B0a2xlbmd5ZWwuY29tPjsNCj4gRGFuaWVsIFAu
-IFNtaXRoIDxkcHNtaXRoQGFwZXJ0dXNzb2x1dGlvbnMuY29tPjsgeGVuLQ0KPiBkZXZlbEBsaXN0
-cy54ZW5wcm9qZWN0Lm9yZw0KPiBTdWJqZWN0OiBSZTogW1BBVENIIHYyIDI0LzI2XSB4ZW4vZG9t
-Y3RsOiB3cmFwIGFyY2gtc3BlY2lmaWMgZG9tY3RsLW9wIHdpdGgNCj4gQ09ORklHX01HTVRfSFlQ
-RVJDQUxMUw0KPg0KPiA+IC0tLSBhL3hlbi9saWIveDg2L01ha2VmaWxlDQo+ID4gKysrIGIveGVu
-L2xpYi94ODYvTWFrZWZpbGUNCj4gPiBAQCAtMSwzICsxLDMgQEANCj4gPiAgb2JqLXkgKz0gY3B1
-aWQubw0KPiA+ICBvYmoteSArPSBtc3Iubw0KPiA+IC1vYmoteSArPSBwb2xpY3kubw0KPiA+ICtv
-YmotJChDT05GSUdfTUdNVF9IWVBFUkNBTExTKSArPSBwb2xpY3kubw0KPg0KPiBGYWlyIHBhcnRz
-IG9mIGNwdWlkLmMgYWxzbyBiZWNvbWUgdW5yZWFjaGFibGUuIEFuZCBhbGwgb2YgbXNyLmMgYWZh
-aWNzLg0KPg0KDQpJIGp1c3QgZm91bmQgdGhhdCB0aGUgZnVuY3Rpb25zIGRlZmluZWQgaGVyZSwg
-YXMgaGVscGVycy9saWJyYXJpZXMsIGFyZSB1c2VkIGluIHRvb2xzL2xpYnMvZ3Vlc3QveGdfY3B1
-aWRfeDg2LmMgdG9vLiBFbW1tLCB0byBtYWtlIGNvbXBpbGVyIGhhcHB5LCBJIHN0aWxsIG5lZWQg
-dG8gcHJvdmlkZSBzdHVicyBmb3IgdGhlbSB3aGVuIE1HTVRfSFlQRVJDQUxMUz1uLiBPciBhbnkg
-YmV0dGVyIHN1Z2dlc3Rpb24/DQoNCj4gSmFuDQo=
+From: Petr Beneš <w1benny@gmail.com>
+
+Match the number format the specification gives.
+
+No functional change.
+
+Signed-off-by: Petr Beneš <w1benny@gmail.com>
+Suggested-By: <teddy.astie@vates.tech>
+---
+ tools/firmware/hvmloader/smbios.c | 32 +++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
+
+diff --git a/tools/firmware/hvmloader/smbios.c b/tools/firmware/hvmloader/smbios.c
+index 76c7090d16..33ac2eee1a 100644
+--- a/tools/firmware/hvmloader/smbios.c
++++ b/tools/firmware/hvmloader/smbios.c
+@@ -647,7 +647,7 @@ smbios_type_3_init(void *start)
+      * which corresponds with the end of the "Security Status" field.
+      */
+ 
+-    BUILD_BUG_ON(endof_field(struct smbios_type_3, security_status) != 13);
++    BUILD_BUG_ON(endof_field(struct smbios_type_3, security_status) != 0x0d);
+ 
+     next = smbios_pt_copy(start, 3, SMBIOS_HANDLE_TYPE3,
+                           offsetof(struct smbios_type_3, security_status));
+@@ -706,7 +706,7 @@ smbios_type_4_init(
+     uint32_t eax, ebx, ecx, edx;
+ 
+     /* Specification says Type 4 table has length of 23h for v2.3+. */
+-    BUILD_BUG_ON(sizeof(*p) != 35);
++    BUILD_BUG_ON(sizeof(*p) != 0x23);
+ 
+     memset(p, 0, sizeof(*p));
+ 
+@@ -757,7 +757,7 @@ static void *
+ smbios_type_7_init(void *start)
+ {
+     /* Specification says Type 7 table has length of 13h for v2.1+. */
+-    BUILD_BUG_ON(sizeof(struct smbios_type_7) != 19);
++    BUILD_BUG_ON(sizeof(struct smbios_type_7) != 0x13);
+ 
+     /* Only present when passed in. */
+     return smbios_pt_copy(start, 7, SMBIOS_HANDLE_TYPE7,
+@@ -769,7 +769,7 @@ static void *
+ smbios_type_8_init(void *start)
+ {
+     /* Specification says Type 8 table has length of 09h. */
+-    BUILD_BUG_ON(sizeof(struct smbios_type_8) != 9);
++    BUILD_BUG_ON(sizeof(struct smbios_type_8) != 0x09);
+ 
+     /* Only present when passed in. */
+     return smbios_pt_copy(start, 8, SMBIOS_HANDLE_TYPE8,
+@@ -781,7 +781,7 @@ static void *
+ smbios_type_9_init(void *start)
+ {
+     /* Specification says Type 9 table has length of 0Dh for v2.1-2.5. */
+-    BUILD_BUG_ON(sizeof(struct smbios_type_9) != 13);
++    BUILD_BUG_ON(sizeof(struct smbios_type_9) != 0x0d);
+ 
+     /* Only present when passed in. */
+     return smbios_pt_copy(start, 9, SMBIOS_HANDLE_TYPE9,
+@@ -799,7 +799,7 @@ smbios_type_11_init(void *start)
+     int i;
+ 
+     /* Specification says Type 11 table has length of 05h. */
+-    BUILD_BUG_ON(sizeof(*p) != 5);
++    BUILD_BUG_ON(sizeof(*p) != 0x05);
+     
+     next = smbios_pt_copy(start, 11, SMBIOS_HANDLE_TYPE11, sizeof(*p));
+     if ( next != start )
+@@ -843,7 +843,7 @@ smbios_type_16_init(void *start, uint32_t memsize, int nr_mem_devs)
+     struct smbios_type_16 *p = start;
+ 
+     /* Specification says Type 16 table has length of 0Fh for v2.1-2.7. */
+-    BUILD_BUG_ON(sizeof(*p) != 15);
++    BUILD_BUG_ON(sizeof(*p) != 0x0f);
+ 
+     memset(p, 0, sizeof(*p));
+ 
+@@ -871,7 +871,7 @@ smbios_type_17_init(void *start, uint32_t memory_size_mb, int instance)
+     struct smbios_type_17 *p = start;
+ 
+     /* Specification says Type 17 table has length of 1Bh for v2.3-2.6. */
+-    BUILD_BUG_ON(sizeof(*p) != 27);
++    BUILD_BUG_ON(sizeof(*p) != 0x1b);
+ 
+     memset(p, 0, sizeof(*p));
+ 
+@@ -909,7 +909,7 @@ smbios_type_19_init(void *start, uint32_t memory_size_mb, int instance)
+     struct smbios_type_19 *p = start;
+ 
+     /* Specification says Type 19 table has length of 0Fh for v2.1-2.7. */
+-    BUILD_BUG_ON(sizeof(*p) != 15);
++    BUILD_BUG_ON(sizeof(*p) != 0x0f);
+ 
+     memset(p, 0, sizeof(*p));
+ 
+@@ -934,7 +934,7 @@ smbios_type_20_init(void *start, uint32_t memory_size_mb, int instance)
+     struct smbios_type_20 *p = start;
+ 
+     /* Specification says Type 20 table has length of 13h for v2.1-2.7. */
+-    BUILD_BUG_ON(sizeof(*p) != 19);
++    BUILD_BUG_ON(sizeof(*p) != 0x13);
+ 
+     memset(p, 0, sizeof(*p));
+ 
+@@ -966,7 +966,7 @@ smbios_type_22_init(void *start)
+     void *next;
+ 
+     /* Specification says Type 22 table has length of 1Ah. */
+-    BUILD_BUG_ON(sizeof(*p) != 26);
++    BUILD_BUG_ON(sizeof(*p) != 0x1a);
+ 
+     next = smbios_pt_copy(start, 22, SMBIOS_HANDLE_TYPE22, sizeof(*p));
+     if ( next != start )
+@@ -1030,7 +1030,7 @@ smbios_type_26_init(void *start)
+      * Only present when passed in.
+      */
+ 
+-    BUILD_BUG_ON(endof_field(struct smbios_type_26, oem_defined) != 20);
++    BUILD_BUG_ON(endof_field(struct smbios_type_26, oem_defined) != 0x14);
+ 
+     return smbios_pt_copy(start, 26, SMBIOS_HANDLE_TYPE26,
+                           endof_field(struct smbios_type_26, oem_defined));
+@@ -1047,7 +1047,7 @@ smbios_type_27_init(void *start)
+      * Only present when passed in.
+      */
+ 
+-    BUILD_BUG_ON(endof_field(struct smbios_type_27, oem_defined) != 12);
++    BUILD_BUG_ON(endof_field(struct smbios_type_27, oem_defined) != 0x0c);
+  
+     return smbios_pt_copy(start, 27, SMBIOS_HANDLE_TYPE27,
+                           endof_field(struct smbios_type_27, oem_defined));
+@@ -1064,7 +1064,7 @@ smbios_type_28_init(void *start)
+      * Only present when passed in.
+      */
+ 
+-    BUILD_BUG_ON(endof_field(struct smbios_type_28, oem_defined) != 20);
++    BUILD_BUG_ON(endof_field(struct smbios_type_28, oem_defined) != 0x14);
+ 
+     return smbios_pt_copy(start, 28, SMBIOS_HANDLE_TYPE28,
+                           endof_field(struct smbios_type_28, oem_defined));
+@@ -1077,7 +1077,7 @@ smbios_type_32_init(void *start)
+     struct smbios_type_32 *p = start;
+ 
+     /* Specification says Type 32 table has length of at least 0Bh. */
+-    BUILD_BUG_ON(sizeof(*p) != 11);
++    BUILD_BUG_ON(sizeof(*p) != 0x0b);
+ 
+     memset(p, 0, sizeof(*p));
+ 
+@@ -1103,7 +1103,7 @@ smbios_type_39_init(void *start)
+      * Only present when passed in.
+      */
+ 
+-    BUILD_BUG_ON(endof_field(struct smbios_type_39, characteristics) != 16);
++    BUILD_BUG_ON(endof_field(struct smbios_type_39, characteristics) != 0x10);
+ 
+     return smbios_pt_copy(start, 39, SMBIOS_HANDLE_TYPE39,
+                           endof_field(struct smbios_type_39, characteristics));
+-- 
+2.34.1
+
 
