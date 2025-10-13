@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EB42BD2800
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 12:16:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1141905.1476093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11D25BD280F
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 12:16:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1141904.1476087 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8Fbd-0004bR-KS; Mon, 13 Oct 2025 10:16:41 +0000
+	id 1v8Fbd-0004Xj-9G; Mon, 13 Oct 2025 10:16:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1141905.1476093; Mon, 13 Oct 2025 10:16:41 +0000
+Received: by outflank-mailman (output) from mailman id 1141904.1476087; Mon, 13 Oct 2025 10:16:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8Fbd-0004XQ-CN; Mon, 13 Oct 2025 10:16:41 +0000
-Received: by outflank-mailman (input) for mailman id 1141905;
+	id 1v8Fbd-0004Va-3x; Mon, 13 Oct 2025 10:16:41 +0000
+Received: by outflank-mailman (input) for mailman id 1141904;
  Mon, 13 Oct 2025 10:16:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gL+L=4W=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1v8Fbb-0004Rd-Ps
+ id 1v8Fbb-0004Hi-Ng
  for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 10:16:39 +0000
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c105::7])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b1905fcf-a81d-11f0-980a-7dc792cee155;
- Mon, 13 Oct 2025 12:16:34 +0200 (CEST)
-Received: from BY3PR03CA0018.namprd03.prod.outlook.com (2603:10b6:a03:39a::23)
- by MN0PR12MB6222.namprd12.prod.outlook.com (2603:10b6:208:3c2::19)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c000::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b23a25f4-a81d-11f0-9d15-b5c5bf9af7f9;
+ Mon, 13 Oct 2025 12:16:35 +0200 (CEST)
+Received: from BY3PR03CA0020.namprd03.prod.outlook.com (2603:10b6:a03:39a::25)
+ by SJ2PR12MB9239.namprd12.prod.outlook.com (2603:10b6:a03:55e::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.10; Mon, 13 Oct
- 2025 10:16:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.13; Mon, 13 Oct
+ 2025 10:16:30 +0000
 Received: from SJ1PEPF00001CE5.namprd03.prod.outlook.com
- (2603:10b6:a03:39a:cafe::79) by BY3PR03CA0018.outlook.office365.com
- (2603:10b6:a03:39a::23) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:39a:cafe::33) by BY3PR03CA0020.outlook.office365.com
+ (2603:10b6:a03:39a::25) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.12 via Frontend Transport; Mon,
- 13 Oct 2025 10:16:27 +0000
+ 13 Oct 2025 10:16:07 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ1PEPF00001CE5.mail.protection.outlook.com (10.167.242.21) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9228.7 via Frontend Transport; Mon, 13 Oct 2025 10:16:26 +0000
+ 15.20.9228.7 via Frontend Transport; Mon, 13 Oct 2025 10:16:30 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 13 Oct 2025 03:16:19 -0700
+ 15.2.2562.17; Mon, 13 Oct 2025 03:16:25 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1905fcf-a81d-11f0-980a-7dc792cee155
+X-Inumbo-ID: b23a25f4-a81d-11f0-9d15-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LB+Glpvaz8j/5LgT54CfEe1JoG5gOMO628yBGZCdk6BLG2kqioNvFZhm5Dh0b9d2U7vXarjOtwPTwwBf/YUxRq11TH5OGXX5GeRuQVgYiV/i01CSlVTaMnZ+6YmqNnaoF9mopIoMrnpCTxoRGnhkY2wNzz2ewpPWKKVr0/itwzO2/f9eoFfqTfdu8jRRt89ilThQt1zV/q2ZD9nOIrlcZ9kZrWd0b68zTEMs538b+KqwnvZZmQ3laAH6FzKW5/nHskMQuoRG7unqd61nAzVind5FZKvedCAbuDFXeU6dUhDB62ZDBptAudvDzGP5k3kkrctgjiRo5MMe8JIpW7lz4w==
+ b=IMIZtyYhZpSlc8SA1Nl0WrBvhGE6bpDxAx/u6nhX9O/NT1tp53rjYY6dilZNQhCqv0yyeIVhk67nc2z+22YbcFsx+zr3DBfMG3jvqHnsxxTxppY4Guqhktk10V/wL+N/P6Rx5gfjHewdkiTD2j7/29o+Q7rg4c0/nDh2vbTPDzeOjHGzy1NMHDEvvEOSFwx9dmMZgH1cU363haQKtK6+G6L8RhtjB9SgpOgp08QIKtABKvWp+mgVvJ5CyEbDW7UoqjCcfYQos2WUEmrlxWfaFIXLOPhxI1h+it8OtO4K8+S/u1I3IXLNjRZlnR7xRBlt1kSrOdRadPU2t9suTpLbYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S+5AW20V7RtR9dVUbX/WTQLNzCzr9zOZDFXOjm6Y8QI=;
- b=cmUTKGlOZsF7T2inoXN7RuYKlz4/S9HO3HjfIJGJJ9NPPCQnkq5GcD8Ftjdqp96u4Vycz+Gj2cByveX9KqOJJqW2JIm7PFoiYVDwI1i1C8gZdPnhMgap51RYjCARBqeGO8NNdC5XRAISRUtJeIuozTatPtNHQzOSGWv49e4ojmMAk5+cSV7qY99h1ZSsIp22Rp9ZX2APwahRC5l4t7W3wMQfBPkeggHuuW4RT+oYnQmSF8lGi3SLuTXA2LzQlRSF4jhQs0DtSbP4vgdSGe1JNC8sASGXVEFDed/cWvtRuVugChJPmWjAdPquQHWedtAjNc0Jvmc0vqDqB/ubU2iBIg==
+ bh=ORH8EP+CphvCO9xfmoZ1RhH5ktFOjdvuVwnEn+eXJWw=;
+ b=dNQQftBMOA7jc4wMtBjjO8BEW48iXXMXh8br3Mg8VCv0JyFlq3lMzXnuE+p/e4sGJuyhk4DZ10eOLSJ6jSKj8T+OGxRbmIdrwcs8tZz9WRhe4+3VE/l3urT4MHethJ62G7vdEhgR+vDlsCAfE45w49a9JTvzqEU28O92IF9IKXeIAsLyG3wyK0sZCVsRg2sxqq2rXA8HrxG3K/PGmAlyrttjZzimMz8YPq5Qh09ns9EprpkvP0JxxMLz6NxaN8enmYAN5UyLbkeUvbQNtWLGJZOPIemhdeUjqjBWgsklsMCQrUkC+5BcIn9iFTOpHjHW+7Zj70Tg9Vz1yV0Mo7cqtg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S+5AW20V7RtR9dVUbX/WTQLNzCzr9zOZDFXOjm6Y8QI=;
- b=BbUhlI5RZl3z4i0AOYq2FPyJ3c5/DArnGbX07rUiENYI1DE0sRQ17PFm1l4ycXd3etpK476JIPoCv9ARkf/Yp/AJwABV7p0qBkYIsgxTBkPbYNdFryEnOyDwpLYXaoCHHZbbuvT30+bLpDusZ9EovBHBtZDPpqZW6K60H10gdXM=
+ bh=ORH8EP+CphvCO9xfmoZ1RhH5ktFOjdvuVwnEn+eXJWw=;
+ b=TKj4FjCDahYzK5MoHLlq6485vuoHvz5Kk8n6lvIzL9N6nCmLvRj3QvxoAcsNS3+mT/g8djOc/+JoNpy824sosZV2h8/luLfuNzPaMvbif2kPFaUlitjjMmmS8Y32ZFotI7R1Y78QF2r0F0F5C2Ye46YwRv/yRI5mt+ZI5wCnoKc=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -79,7 +79,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 From: Penny Zheng <Penny.Zheng@amd.com>
-To: <xen-devel@lists.xenproject.org>, <xen-devel@dornerworks.com>
+To: <xen-devel@lists.xenproject.org>
 CC: <ray.huang@amd.com>, <oleksii.kurochko@gmail.com>, Penny Zheng
 	<Penny.Zheng@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Anthony
  PERARD" <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
@@ -87,21 +87,13 @@ CC: <ray.huang@amd.com>, <oleksii.kurochko@gmail.com>, Penny Zheng
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
  Stabellini" <sstabellini@kernel.org>, Stewart Hildebrand
 	<stewart.hildebrand@amd.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>, Dario Faggioli <dfaggioli@suse.com>, "Juergen
- Gross" <jgross@suse.com>, George Dunlap <gwd@xenproject.org>, Bertrand
- Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>,
-	"Nathan Studer" <nathan.studer@dornerworks.com>, Stewart Hildebrand
-	<stewart@stew.dk>, Tamas K Lengyel <tamas@tklengyel.com>, Alexandru Isaila
-	<aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>, Christopher Clark
-	<christopher.w.clark@gmail.com>, Meng Xu <mengxu@cis.upenn.edu>, Rahul Singh
-	<rahul.singh@arm.com>
-Subject: [PATCH v3 00/28] Disable domctl-op via CONFIG_MGMT_HYPERCALLS
-Date: Mon, 13 Oct 2025 18:15:12 +0800
-Message-ID: <20251013101540.3502842-1-Penny.Zheng@amd.com>
+	<dpsmith@apertussolutions.com>
+Subject: [PATCH v3 01/28] xen/xsm: remove redundant xsm_iomem_mapping()
+Date: Mon, 13 Oct 2025 18:15:13 +0800
+Message-ID: <20251013101540.3502842-2-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20251013101540.3502842-1-Penny.Zheng@amd.com>
+References: <20251013101540.3502842-1-Penny.Zheng@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -110,195 +102,179 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE5:EE_|MN0PR12MB6222:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7baa987b-d320-4805-33f9-08de0a4191b6
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE5:EE_|SJ2PR12MB9239:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9debf36-eba8-4a48-78ef-08de0a419406
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|376014|7416014|1800799024;
+	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?+XkBkhC8sl13/gbCb9fx+rKpy80od3clX1q9B3fhr9FFaLd49jc2/uJ8fekk?=
- =?us-ascii?Q?jNE2OlzdG/9U4Am4AAih5ikHDlBc/7sPTnBsBmlU+78LIMeO9Lz/nccKad/s?=
- =?us-ascii?Q?VSSTGDSROoKC96GiMlYjTwNfTqJRgh73rBx3Hw2FOkApfR2gjylItUcS1ggJ?=
- =?us-ascii?Q?Cq0LyufXBkugUAIKXkWzNkDcx5KQgpsx/HA4jzHmYvEgCoAV/hmi2Al0WjOz?=
- =?us-ascii?Q?WTObKQX9WXGqBagI1ctAKsiLBq1blqmNeqT+zNlGbC/DGwxZ48rB5ceBzN3H?=
- =?us-ascii?Q?7fhd+D9+zZ6t7ipwUf+6Qaq+QDCV8o2kEK8eq3+0/mc2/uBmalIH+h6npsDR?=
- =?us-ascii?Q?YKRo8yp3iQYaeGd1GpW8S3/Q2IkyY5hr3jku645/bUKnMQWY0Fr2Olr7D3Sp?=
- =?us-ascii?Q?FZw2rMxAGDoxUidyKvE8Am9H2ExbpTSmGW6pxi/jCg/b7xDXG5t4a4jnuY4o?=
- =?us-ascii?Q?KfyufVx3n9JP/wHEgmf5dXFey3sKF6gaN1NCJWZT+81YdIUVpf3JfVP5gqS6?=
- =?us-ascii?Q?sZutSX7tYgG1dZJ6VYfvp3vzGMiYIS+YooBfZuUacw2B9+jSl1mry+sai13R?=
- =?us-ascii?Q?e+DcD166NrzhMtadyAPjAk333gLrEQ/v3UhbL54ZLeB1c9KeeFnlctxjGzMu?=
- =?us-ascii?Q?17umuzEleyjR99soiBVQbjuDt9GDyXHUJwzCyAG63d87Bf99nbBusbitrJCG?=
- =?us-ascii?Q?9KZLzdZYGLB7DwI09MbAYlq03KaOKGGYiJUWrmanTs3mTmkPp69wwU/QB9L5?=
- =?us-ascii?Q?wKlKUSDIiPOTewFODFXPjL5Lcy1v8I17l5esqhat6CrZGd20UFugN8BSGKW/?=
- =?us-ascii?Q?9/vLYzUgqJ1b5Puo+YqBSQOGV6/xuSsq7JS+9ThNJWJCbZONKrIZpCDXweXF?=
- =?us-ascii?Q?Q3VSuVcMZGvo2zZ+ImZKuqpLwl484fWEJ8hVzL1z1xFmQBi00cqkPT21/9oV?=
- =?us-ascii?Q?l/tdJfLoE8U1Qt03pbBDhI3oAPdOnNMquFe+iDKOOpin63zK7zLm/+JTVN/0?=
- =?us-ascii?Q?JSMgEKNWjSMjUbhYw64El6fd9a9Igo74m9TeXBOIpN48182+3cGsstZgptzg?=
- =?us-ascii?Q?m05ST+FXbqZGQd4Uo8n95Q3UoPMXQklX0MFEgoXiHmjuTxUvI53Jfuu2rphv?=
- =?us-ascii?Q?p/pRdzrMRjTbn/qTptcNQRufHhoPLdCvL1n1loeR6yayi/yd/VxghdTKBypO?=
- =?us-ascii?Q?BVFtbjGaCFMTcDbJ/NUOQbRDGMUMgDJoCIIK6f3Jg/unVZBiZ1rcdHMnNmsX?=
- =?us-ascii?Q?oy44ZQSaLwfHL5c6BG6mSyzLxm4h2qI8T+Jj0D3M4/Dtho4hGoktX6duoSuT?=
- =?us-ascii?Q?C0JBqFRQmIbP+IcECwO/r+GDRKiWmwTgbyiLjhUCu0bIIvmPnBLWw0gMC81w?=
- =?us-ascii?Q?YktFVixrwXFVa8Lp+LnDW+YXZgp1vE0bZeyCBd1w+9mr2fHRgWX2ZZ0Lv4s1?=
- =?us-ascii?Q?y+LTlKLuVln/B2OlOCwSMZ+7+4aqcJSt3NhUBprP2Djtq/NAlb1oI/Um3mzf?=
- =?us-ascii?Q?mO2b1u6WkMt+JAsWc6ruNshwTt8rwzy9y4dr0kbbsNh6FzezXYo8PsxekTAL?=
- =?us-ascii?Q?1gBluEmPqihrUXQxqUCt1OPmJ1CG2G8/qhOl6VmS?=
+	=?us-ascii?Q?iIzMBOKieQ+lL3w1WTvRi5kuS4sZlqUvKLw376n2k67JeXdawZ1UWzmxfhtC?=
+ =?us-ascii?Q?TH+ROCrKA4jBmbR0hgK4J4QU9Y2Z7YeEUQAK/yq9nDPySIc9gQ5bdUa5K+ku?=
+ =?us-ascii?Q?jUbAPEIw+o7bZWjon/WfXZe7G4Ju2QGXlZZe752i/CK4CXQn5ADCintW9JbO?=
+ =?us-ascii?Q?ZDgVJd5l98A3i76Of/R5V6SA0woaVFm0KBKTLMyT+24i1j+KdXQr5LkiA2JB?=
+ =?us-ascii?Q?uQ1KlEHARb2PaPuacbEGTIgzZnRm4vx62kUZtopzhTKN79iLpt39pCqvVmh2?=
+ =?us-ascii?Q?47bSMtf3yqkmYSTiCEgdRAmZYWPa67RMJeC33oRFwIkGSdZjf2UA+B4vkOjj?=
+ =?us-ascii?Q?MBWzAG4xUZnV2x/B0TbhPH/npTY5Ka2s5suvk7986MHv+msZmLwBvc6I01kA?=
+ =?us-ascii?Q?NTv8cUo9QcVweUvp27/TKXtz2rByF7CfJJ+WZmXKsXvK3OojbW1zLxFe9c8k?=
+ =?us-ascii?Q?eJyvCBhzz/bsiHyPPMyXFqLfPZPCgzrZvnwAQtqnVP6yDl1eraS0AJjo7Zht?=
+ =?us-ascii?Q?4DtvWTKNd/IMt+vykhMbqEvRT2e0u4mBAO0UCSEymuQonVWWlIO1QeNOKE0l?=
+ =?us-ascii?Q?L609D2HYi7i9Nu89dEkIP5UnuT1H1fSdUBYlTod4kJEr0C8bRalPde7GLRxE?=
+ =?us-ascii?Q?b7nLCaN8NrYXfJ/ZWdpiV4JhsqcJQnLnFnlEVy/myj6eQvsuJ+w/K5ndlLkB?=
+ =?us-ascii?Q?aNzAqhrOq7kTRScvZ09/PMjuKQBrxocjdmpRw7D9dpdonJBW/WVU7N94e29Q?=
+ =?us-ascii?Q?JcI9/QclqD9hbBK2/VyiyvG8XIffhP5H8RXZDWpH/Ggd6dVhWrVJY4KK5buD?=
+ =?us-ascii?Q?fq8uKbJQxVMTAwnsgbPH4HIHd3C+Xr2Oo9suT1wjt0nhNdnjh/DBttF6TTZy?=
+ =?us-ascii?Q?uOOIOQ5HOFITo6om4zZTtAzyzfxNAnY4QT7/p/z5KBnqet1VMvWTFYMVaNZo?=
+ =?us-ascii?Q?y4Dy5FcJ4uwKH4lFjJXThru6MXPNNpbQT2L9YgdTHXIYuEhKeJHpogCu9Nex?=
+ =?us-ascii?Q?jLsKsSCbArWsEZr4RaMdwFqTcX4gzE2H3T3+4GVjrH6pbk68Y+AOMJ4q4B4/?=
+ =?us-ascii?Q?CghGCkvoJqP+BcYkUpgdQGxXV2m2soU6JX/bKdQRcU4nSi6M9v2oyk6gIGu9?=
+ =?us-ascii?Q?RMslI76nFHt+7bNsHCYEu2Y8AMutqhqcWQQ96VZ2tJ598fjkQ6/zd+eTH9Xd?=
+ =?us-ascii?Q?Ydp10TkjxFTn2QRTZqqJdM42N8cdQbXG3CsOAIUi6QvsiuINqzvauttQOsIe?=
+ =?us-ascii?Q?Qzf93w7y+oFE5Ah4usrRfl0CCRlEsBTyP/OI6d0LmqTY6cCVMsuSbimr5e+a?=
+ =?us-ascii?Q?y11oMpJ0ef3VcVUV1ubgxxS/BBYEoj/dNOAly1Q9q5DlGDmMW4KOjemykgYq?=
+ =?us-ascii?Q?PL8BpjPmYnexkzWjagDkLzPjDMAQFsLlLuNAgHgT1WEPO+ROwafRzTw3dBua?=
+ =?us-ascii?Q?E5b1kVEX570RgPC0NxRr1bXqbZZ82+6feMg80/EeDywhK+DYhRAKCCVQA4ya?=
+ =?us-ascii?Q?Lx6euCUU7J+wCLQDxRS2rcEWga6izvcvKg8Ty7wpsMcEjqo4fU0AsdVJCUqw?=
+ =?us-ascii?Q?MiadqvRSzI5XaScQnAk=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(7416014)(1800799024);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2025 10:16:26.5727
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2025 10:16:30.4529
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7baa987b-d320-4805-33f9-08de0a4191b6
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9debf36-eba8-4a48-78ef-08de0a419406
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	SJ1PEPF00001CE5.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6222
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9239
 
-It can be beneficial for some dom0less systems to further reduce Xen footprint
-via disabling some hypercalls handling code, which may not to be used &
-required in such systems.
-We are introducing a new single Kconfig CONFIG_MGMT_HYPERCALLS to manage
-such hypercalls.
+Function xsm_iomem_mapping() seems redundant, and in flask policy, it just
+directly calls xsm_iomem_permission().
+Remove it and use xsm_iomem_permission() instead, with the benefit of a
+cf_check disappearing too.
 
-We are trying to disable hypercalls in the following aspects:
-- sysctl
-- domctl
-- hvm
-- physdev
-- platform
-This patch serie is only focusing on domctl-op. Different aspects will be
-covered in different patch serie.
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+---
+v2 -> v3:
+- new commit
+---
+ xen/common/domctl.c       | 2 +-
+ xen/drivers/vpci/header.c | 2 +-
+ xen/include/xsm/dummy.h   | 7 -------
+ xen/include/xsm/xsm.h     | 8 --------
+ xen/xsm/dummy.c           | 1 -
+ xen/xsm/flask/hooks.c     | 6 ------
+ 6 files changed, 2 insertions(+), 24 deletions(-)
 
-Features, like VM event, or paging log-dirty support, which fully rely on
-domctl-op, will be wrapped with CONFIG_MGMT_HYPERCALLS, to reduce Xen
-footprint as much as possible.
-
-It is derived from Stefano Stabellini's commit "xen: introduce kconfig options
-to disable hypercalls"(
-https://lore.kernel.org/xen-devel/20241219092917.3006174-1-Sergiy_Kibrik@epam.com)
-
-Penny Zheng (28):
-  xen/xsm: remove redundant xsm_iomem_mapping()
-  xen/mem_sharing: wrap hvm_copy_context_and_params() with
-    CONFIG_MEM_SHARING
-  xen/altp2m: move p2m_set_suppress_ve_multi() forward
-  xen/sched: remove vcpu_set_soft_affinity()
-  xen/sysctl: replace CONFIG_SYSCTL with CONFIG_MGMT_DOMCTL
-  xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
-  xen/domctl: make MGMT_HYPERCALLS transiently def_bool
-  xen/vm_event: introduce vm_event_is_enabled()
-  xen/vm_event: consolidate CONFIG_VM_EVENT
-  xen/vm_event: make VM_EVENT depend on CONFIG_MGMT_HYPERCALLS
-  xen/xsm: wrap xsm_vm_event_control() with CONFIG_VM_EVENT
-  xen/domctl: wrap domain_pause_by_systemcontroller() with
-    MGMT_HYPERCALLS
-  xen/domctl: wrap domain_soft_reset() with CONFIG_MGMT_HYPERCALLS
-  xen/domctl: wrap domain_resume() with CONFIG_MGMT_HYPERCALLS
-  xen/domctl: wrap domain_kill() with CONFIG_MGMT_HYPERCALLS
-  xen/domctl: wrap domain_set_node_affinity() with
-    CONFIG_MGMT_HYPERCALLS
-  xen/domctl: wrap vcpu_affinity_domctl() with CONFIG_MGMT_HYPERCALLS
-  xen/domctl: wrap sched_adjust() with CONFIG_MGMT_HYPERCALLS
-  xen/domctl: wrap xsm_irq_permission with CONFIG_MGMT_HYPERCALLS
-  xen/domctl: wrap arch-specific domain_set_time_offset() with
-    CONFIG_MGMT_HYPERCALLS
-  xen/domctl: wrap xsm_set_target() with CONFIG_MGMT_HYPERCALLS
-  xen/domctl: wrap iommu-related domctl op with CONFIG_MGMT_HYPERCALLS
-  xen/domctl: wrap arch_{get,set}_paging_mempool_size() with
-    CONFIG_MGMT_HYPERCALLS
-  xen/domctl: make CONFIG_X86_PSR depend on CONFIG_MGMT_HYPERCALLS
-  xen/domctl: avoid unreachable codes when both MGMT_HYPERCALLS and
-    MEM_SHARING unset
-  xen/domctl: wrap arch-specific domctl-op with CONFIG_MGMT_HYPERCALLS
-  xen/domctl: make HVM_PARAM_IDENT_PT conditional upon
-    CONFIG_MGMT_HYPERCALLS
-  xen/domctl: wrap common/domctl.c with CONFIG_MGMT_HYPERCALLS
-
- xen/Kconfig.debug                           |   4 +-
- xen/arch/arm/Kconfig                        |   2 +-
- xen/arch/arm/Makefile                       |   4 +-
- xen/arch/arm/arm32/Makefile                 |   2 +-
- xen/arch/arm/arm64/Makefile                 |   2 +-
- xen/arch/arm/domain.c                       |   5 +
- xen/arch/arm/include/asm/tee/tee.h          |   2 +
- xen/arch/arm/mmu/p2m.c                      |   8 +
- xen/arch/arm/mpu/p2m.c                      |   2 +
- xen/arch/arm/tee/ffa.c                      |   4 +
- xen/arch/arm/tee/optee.c                    |   4 +
- xen/arch/arm/tee/tee.c                      |   2 +
- xen/arch/arm/time.c                         |   2 +
- xen/arch/ppc/stubs.c                        |   4 +
- xen/arch/riscv/stubs.c                      |  10 +-
- xen/arch/x86/Kconfig                        |   1 +
- xen/arch/x86/Makefile                       |   6 +-
- xen/arch/x86/configs/pvshim_defconfig       |   2 +-
- xen/arch/x86/domain.c                       |   4 +
- xen/arch/x86/emul-i8254.c                   |   2 +
- xen/arch/x86/hvm/Kconfig                    |   1 -
- xen/arch/x86/hvm/Makefile                   |   4 +-
- xen/arch/x86/hvm/emulate.c                  |  67 +++++----
- xen/arch/x86/hvm/hvm.c                      |  57 +++++++-
- xen/arch/x86/hvm/pmtimer.c                  |   2 +
- xen/arch/x86/hvm/save.c                     | 154 ++++++++++----------
- xen/arch/x86/hvm/svm/intr.c                 |   2 +-
- xen/arch/x86/hvm/svm/svm.c                  |  66 +++++----
- xen/arch/x86/hvm/vmx/intr.c                 |   2 +-
- xen/arch/x86/hvm/vmx/vmx.c                  |  80 ++++++----
- xen/arch/x86/include/asm/hvm/hvm.h          |  17 ++-
- xen/arch/x86/include/asm/mem_access.h       |   9 ++
- xen/arch/x86/include/asm/monitor.h          |   9 ++
- xen/arch/x86/include/asm/p2m.h              |   2 +-
- xen/arch/x86/include/asm/paging.h           |   2 +-
- xen/arch/x86/include/asm/vm_event.h         |   9 ++
- xen/arch/x86/mm/altp2m.c                    |  34 ++---
- xen/arch/x86/mm/mem_sharing.c               |   7 +
- xen/arch/x86/mm/p2m-pod.c                   |   2 +
- xen/arch/x86/mm/p2m.c                       |   2 +
- xen/arch/x86/mm/paging.c                    |   4 +
- xen/arch/x86/psr.c                          |  18 ---
- xen/arch/x86/time.c                         |   2 +
- xen/common/Kconfig                          |  32 ++--
- xen/common/Makefile                         |   7 +-
- xen/common/argo.c                           |   2 +
- xen/common/device-tree/device-tree.c        |   2 +
- xen/common/domain.c                         |  10 ++
- xen/common/domctl.c                         |   2 +-
- xen/common/grant_table.c                    |   2 +
- xen/common/page_alloc.c                     |   8 +-
- xen/common/perfc.c                          |   4 +-
- xen/common/sched/arinc653.c                 |  11 +-
- xen/common/sched/core.c                     |  18 +--
- xen/common/sched/cpupool.c                  |  16 +-
- xen/common/sched/credit.c                   |  10 +-
- xen/common/sched/credit2.c                  |  10 +-
- xen/common/sched/private.h                  |  10 +-
- xen/common/sched/rt.c                       |   4 +
- xen/common/spinlock.c                       |   4 +-
- xen/drivers/char/console.c                  |   4 +-
- xen/drivers/passthrough/amd/pci_amd_iommu.c |   8 +
- xen/drivers/passthrough/arm/ipmmu-vmsa.c    |   8 +
- xen/drivers/passthrough/arm/smmu-v3.c       |   4 +
- xen/drivers/passthrough/arm/smmu.c          |  10 ++
- xen/drivers/passthrough/device_tree.c       |   8 +
- xen/drivers/passthrough/iommu.c             |   2 +
- xen/drivers/passthrough/pci.c               |   6 +
- xen/drivers/passthrough/vtd/iommu.c         |   6 +
- xen/drivers/vpci/header.c                   |   2 +-
- xen/include/hypercall-defs.c                |  12 +-
- xen/include/xen/domain.h                    |   4 -
- xen/include/xen/mem_access.h                |  10 ++
- xen/include/xen/vm_event.h                  |   7 +
- xen/include/xsm/dummy.h                     |  33 +++--
- xen/include/xsm/xsm.h                       |  65 ++++-----
- xen/lib/x86/Makefile                        |   4 +-
- xen/xsm/dummy.c                             |  23 +--
- xen/xsm/flask/hooks.c                       |  58 ++++----
- 79 files changed, 655 insertions(+), 395 deletions(-)
-
+diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+index 954d790226..71ebeff494 100644
+--- a/xen/common/domctl.c
++++ b/xen/common/domctl.c
+@@ -701,7 +701,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+              !iomem_access_permitted(d, mfn, mfn_end) )
+             break;
+ 
+-        ret = xsm_iomem_mapping(XSM_HOOK, d, mfn, mfn_end, add);
++        ret = xsm_iomem_permission(XSM_HOOK, d, mfn, mfn_end, add);
+         if ( ret )
+             break;
+ 
+diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+index 469f497744..1ff6c63f4d 100644
+--- a/xen/drivers/vpci/header.c
++++ b/xen/drivers/vpci/header.c
+@@ -67,7 +67,7 @@ static int cf_check map_range(
+             return -EPERM;
+         }
+ 
+-        rc = xsm_iomem_mapping(XSM_HOOK, map->d, map_mfn, m_end, map->map);
++        rc = xsm_iomem_permission(XSM_HOOK, map->d, map_mfn, m_end, map->map);
+         if ( rc )
+         {
+             printk(XENLOG_G_WARNING
+diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
+index 12792c3a43..5e29165763 100644
+--- a/xen/include/xsm/dummy.h
++++ b/xen/include/xsm/dummy.h
+@@ -570,13 +570,6 @@ static XSM_INLINE int cf_check xsm_iomem_permission(
+     return xsm_default_action(action, current->domain, d);
+ }
+ 
+-static XSM_INLINE int cf_check xsm_iomem_mapping(
+-    XSM_DEFAULT_ARG struct domain *d, uint64_t s, uint64_t e, uint8_t allow)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+ static XSM_INLINE int cf_check xsm_pci_config_permission(
+     XSM_DEFAULT_ARG struct domain *d, uint32_t machine_bdf, uint16_t start,
+     uint16_t end, uint8_t access)
+diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
+index 9a23d2827c..34caad2f7e 100644
+--- a/xen/include/xsm/xsm.h
++++ b/xen/include/xsm/xsm.h
+@@ -116,8 +116,6 @@ struct xsm_ops {
+     int (*irq_permission)(struct domain *d, int pirq, uint8_t allow);
+     int (*iomem_permission)(struct domain *d, uint64_t s, uint64_t e,
+                             uint8_t allow);
+-    int (*iomem_mapping)(struct domain *d, uint64_t s, uint64_t e,
+-                         uint8_t allow);
+     int (*pci_config_permission)(struct domain *d, uint32_t machine_bdf,
+                                  uint16_t start, uint16_t end, uint8_t access);
+ 
+@@ -517,12 +515,6 @@ static inline int xsm_iomem_permission(
+     return alternative_call(xsm_ops.iomem_permission, d, s, e, allow);
+ }
+ 
+-static inline int xsm_iomem_mapping(
+-    xsm_default_t def, struct domain *d, uint64_t s, uint64_t e, uint8_t allow)
+-{
+-    return alternative_call(xsm_ops.iomem_mapping, d, s, e, allow);
+-}
+-
+ static inline int xsm_pci_config_permission(
+     xsm_default_t def, struct domain *d, uint32_t machine_bdf, uint16_t start,
+     uint16_t end, uint8_t access)
+diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
+index 8b7e01b506..86daca3e89 100644
+--- a/xen/xsm/dummy.c
++++ b/xen/xsm/dummy.c
+@@ -75,7 +75,6 @@ static const struct xsm_ops __initconst_cf_clobber dummy_ops = {
+     .unbind_pt_irq                 = xsm_unbind_pt_irq,
+     .irq_permission                = xsm_irq_permission,
+     .iomem_permission              = xsm_iomem_permission,
+-    .iomem_mapping                 = xsm_iomem_mapping,
+     .pci_config_permission         = xsm_pci_config_permission,
+     .get_vnumainfo                 = xsm_get_vnumainfo,
+ 
+diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+index b0308e1b26..e98920dd52 100644
+--- a/xen/xsm/flask/hooks.c
++++ b/xen/xsm/flask/hooks.c
+@@ -1167,11 +1167,6 @@ static int cf_check flask_iomem_permission(
+     return security_iterate_iomem_sids(start, end, _iomem_has_perm, &data);
+ }
+ 
+-static int cf_check flask_iomem_mapping(struct domain *d, uint64_t start, uint64_t end, uint8_t access)
+-{
+-    return flask_iomem_permission(d, start, end, access);
+-}
+-
+ static int cf_check flask_pci_config_permission(
+     struct domain *d, uint32_t machine_bdf, uint16_t start, uint16_t end,
+     uint8_t access)
+@@ -1945,7 +1940,6 @@ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
+     .unbind_pt_irq = flask_unbind_pt_irq,
+     .irq_permission = flask_irq_permission,
+     .iomem_permission = flask_iomem_permission,
+-    .iomem_mapping = flask_iomem_mapping,
+     .pci_config_permission = flask_pci_config_permission,
+ 
+     .resource_plug_core = flask_resource_plug_core,
 -- 
 2.34.1
 
