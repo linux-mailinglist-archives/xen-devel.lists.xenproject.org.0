@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D869BD28E2
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 12:26:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1141981.1476196 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D62B9BD28ED
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 12:27:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1141995.1476223 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8FlK-00032l-JZ; Mon, 13 Oct 2025 10:26:42 +0000
+	id 1v8FlU-00044A-Sk; Mon, 13 Oct 2025 10:26:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1141981.1476196; Mon, 13 Oct 2025 10:26:42 +0000
+Received: by outflank-mailman (output) from mailman id 1141995.1476223; Mon, 13 Oct 2025 10:26:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8FlK-00031t-EZ; Mon, 13 Oct 2025 10:26:42 +0000
-Received: by outflank-mailman (input) for mailman id 1141981;
- Mon, 13 Oct 2025 10:26:40 +0000
+	id 1v8FlU-0003z6-J5; Mon, 13 Oct 2025 10:26:52 +0000
+Received: by outflank-mailman (input) for mailman id 1141995;
+ Mon, 13 Oct 2025 10:26:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gL+L=4W=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1v8Fck-0004Rd-Rn
- for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 10:17:50 +0000
+ id 1v8Fcm-0004Rd-Ry
+ for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 10:17:52 +0000
 Received: from CY7PR03CU001.outbound.protection.outlook.com
  (mail-westcentralusazlp170100005.outbound.protection.outlook.com
  [2a01:111:f403:c112::5])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id de160eba-a81d-11f0-980a-7dc792cee155;
- Mon, 13 Oct 2025 12:17:49 +0200 (CEST)
-Received: from MN2PR11CA0024.namprd11.prod.outlook.com (2603:10b6:208:23b::29)
- by IA1PR12MB7495.namprd12.prod.outlook.com (2603:10b6:208:419::11)
- with Microsoft SMTP Server (version=TLS1_2,
+ id df28e40f-a81d-11f0-980a-7dc792cee155;
+ Mon, 13 Oct 2025 12:17:51 +0200 (CEST)
+Received: from MN2PR11CA0030.namprd11.prod.outlook.com (2603:10b6:208:23b::35)
+ by DM4PR12MB6039.namprd12.prod.outlook.com (2603:10b6:8:aa::12) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.12; Mon, 13 Oct
- 2025 10:17:45 +0000
+ 2025 10:17:48 +0000
 Received: from BN2PEPF000055E0.namprd21.prod.outlook.com
- (2603:10b6:208:23b:cafe::d3) by MN2PR11CA0024.outlook.office365.com
- (2603:10b6:208:23b::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.12 via Frontend Transport; Mon,
- 13 Oct 2025 10:17:42 +0000
+ (2603:10b6:208:23b:cafe::f8) by MN2PR11CA0030.outlook.office365.com
+ (2603:10b6:208:23b::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.13 via Frontend Transport; Mon,
+ 13 Oct 2025 10:17:45 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN2PEPF000055E0.mail.protection.outlook.com (10.167.245.10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9253.0 via Frontend Transport; Mon, 13 Oct 2025 10:17:44 +0000
+ 15.20.9253.0 via Frontend Transport; Mon, 13 Oct 2025 10:17:47 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 13 Oct 2025 03:17:42 -0700
+ 15.2.2562.17; Mon, 13 Oct 2025 03:17:44 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de160eba-a81d-11f0-980a-7dc792cee155
+X-Inumbo-ID: df28e40f-a81d-11f0-980a-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NZ0m0b7/D/JbRmHeWJboF5hPDt/lqGtRAJFEIxCSYWcDbEvE1xkWIqH3KegcZkTJlQ/nFzOp6om8qQCCcWf61TbjZ9hfqqnFLRAGbx9EF1VvqJhQI10EeTVjENRwPYkdWsiGrBkU16klUxYskZFyHQbVzX40rQ9XkMr7/OBPjdKVwbn8YuFdJ46/Agu1ARuYLjeRx9FtFz1+9qexfaql/c2UXfFDJUt0l+LD/LPASLwMn547J0riMZififgQHeGxH5EWKn89aS0mr5dZLPHEz8DSqhl42BOC6n1lsfoytRTe4Z+bfnuEdCttb1qRWYLrhMYPt6gFUksSIK+OzWp+bQ==
+ b=Jb0SN2xp7vNHSMh0x4rv7zCmYonyyWrGsBDD7HodkKKFlAOZ6eEbO4p83J5iLO/lGrQ36r5AuUnlxJrI0HUILXnUFBs/rhXklKbCG2SXbfdtZ0wdhXd5tgVj4Xzw5AljJUg60FRsLYKYmcLtvTSts6Byoai4EpdNOEkplnir3Lt8muasyBSqJKvZe/x2icJnJxE4G3b0S/T2tuR85XVTxUcdkugPzKmvqWpQbTSTn/uTMMpNLjPFJsMuVhv7tZ/TakAM1ob5mwateh3b5aVkb8WCgZfnkiiHhWdgHcA+Wg38rDcuwUhn6p1SnDd0+QoXMhwbRz5PCHv2UG+JnkngMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q3Cmxthn8zKCI7zPLmf0c0nfCoguIWJcBZmYje0buDI=;
- b=R9Jjit4voB4/fCqRqmj+QMd3Vnd4D2DDqqnqiMtTX5vCRlBcHBKVcGhdJPiKM9/I9th21csTcwhz33a7qyWTQbgiwwBZoXjEuilsRg0aT68woqdqOx2PzXhfgylnmv9ZMVhDduCZL9ehbvKfgPADBBx6eJit/cyl9AH8FUL2jsOh5pUyQdndhKMIuoFu3VDUMz6cKRzZ0ezme594os3pIRRRpnV1RGT4JjYPmcI0R6jyAVVtl2zcyUnKRbIDIys4Jcr1ulWUFqlQwzeOFI6U6dFWQeIu/B3cFEMaq8+JuM80Os+lHZVcl8psb5l4Cfmotjop8WoSMpqQLpgNUTkGqw==
+ bh=N2aSf4g6NxpM8zBIw6QU7YTARrV403WNSPl9azppxQs=;
+ b=HqWfdoWR5A28I570WIqg1AlJ288IbF7iY8DG+1NlalKzG7/XK2VGbgr9hSYYnS8sMo+HyWCEKhvHjD3pvDtgp2py2XAS4lhvepuyhSxXXmfT0CEi/VK32uUdJSz1ItfGbB49q1dQtUxNIpxgd1LVrcqFIEc8YZs1EuNXUPUGZ23bKTDlHQ+l7GSouVFqwyhnMJxEBPx3a8yNNOyUEyKEjqRQ3LNRbv4yeApESFKoLEPTNRs17zizPvXvXCo/lsvwrnq3U6vljAf7KfzCYqaEwd3WwNGuFG7rY9zdKlM0MgkEqABGvN5KMsEpduNV1tSYh8utuPApSw6r+mFmMk5g6g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q3Cmxthn8zKCI7zPLmf0c0nfCoguIWJcBZmYje0buDI=;
- b=IdTqfm6/aJW18KY2B+qIlZxaWUXkuj0jQnyrwwqaHwyWajM5k3+PpkB1xjycndzG1tnVMeqAlzeysR5MzcfPfea31Pi/kLEh1IYVeI+Pdo/LsavfQP6IKSwOCwRWmv0sk7Uf6bsM+5i6EvhAi7wz86F7ozMn1mcY8GAM5AbLwEY=
+ bh=N2aSf4g6NxpM8zBIw6QU7YTARrV403WNSPl9azppxQs=;
+ b=HX+jtnvvtB5CPxFSFY4/6dQzeaK0/twO2m4DT39X2gjdHNnVmChsFyRAPdUxSHGeatbMCJleNlnUUa4e6i8ku8DKInefGAUijuEQU26r1794z76IYPf/9Agn+gfOpbop9cLQB99mshXdUxMTU5qGGGVtWQAQKDitvROjr2XDxuY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -81,12 +81,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 From: Penny Zheng <Penny.Zheng@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <ray.huang@amd.com>, <oleksii.kurochko@gmail.com>, Penny Zheng
-	<Penny.Zheng@amd.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>
-Subject: [PATCH v3 27/28] xen/domctl: make HVM_PARAM_IDENT_PT conditional upon CONFIG_MGMT_HYPERCALLS
-Date: Mon, 13 Oct 2025 18:15:39 +0800
-Message-ID: <20251013101540.3502842-28-Penny.Zheng@amd.com>
+	<Penny.Zheng@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Anthony
+ PERARD" <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
+	"Jan Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>
+Subject: [PATCH v3 28/28] xen/domctl: wrap common/domctl.c with CONFIG_MGMT_HYPERCALLS
+Date: Mon, 13 Oct 2025 18:15:40 +0800
+Message-ID: <20251013101540.3502842-29-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251013101540.3502842-1-Penny.Zheng@amd.com>
 References: <20251013101540.3502842-1-Penny.Zheng@amd.com>
@@ -98,103 +100,132 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055E0:EE_|IA1PR12MB7495:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5f4911fd-f188-471f-5ffd-08de0a41c044
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055E0:EE_|DM4PR12MB6039:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3139284e-e966-4924-5fc7-08de0a41c210
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?/ALbZrAfOY4509IcK/qZqfVKmKZtEm1OCHL2/ctDcsL7YA7jv1LJSrjNRhEQ?=
- =?us-ascii?Q?+vE9s64QOoAJMkmvCkHralusEgildP4i9SFsrwG0a9Uo5BnKJHnLgWIkI4Hi?=
- =?us-ascii?Q?7TePGcuZwc8liQ7a8fl1gTdr7mSwwSP3xRwNcGdd97s8KbyhbsXWrEhTLtUr?=
- =?us-ascii?Q?l6DVfDoCQTlJDx1H3mjOug3ATomDarBCUA8BuUgCkghdMfbqeezrz49HNx1E?=
- =?us-ascii?Q?B2sGTOiCb7h7vZAcUvtPmgPzwqCMUcEA6YNOdR9Xn3aD3aLfoBswzXkdgcAZ?=
- =?us-ascii?Q?t03cikj9NiryN6f+Q43U0PmjUU4kDzZHY/5TpJQNOpbi604Qbl9xZoV8JzWb?=
- =?us-ascii?Q?ZT6qvg6/h3B8H6ccGp6jpVA5fDTC1k8xTqmy70sslPXuNMfyItkEi78fLiAU?=
- =?us-ascii?Q?RxyDQDNQwDegXhapdOd3DqgyPnSSjkpBEB9ZzR6VzEqxBUStUXgNbH8wkO8q?=
- =?us-ascii?Q?5wkCnw5IAkA53mgnk2GDax3EPsWhR6ZrFXdS+G6Znb3Tc6uGjcRSVHI6l/Px?=
- =?us-ascii?Q?beqkOxP91Y2BubzM40b9EupofxuTfRiDna2Ok0Mts/XaKPMuC+Ed67gAz9yG?=
- =?us-ascii?Q?YxT7/sYpaWJ59iagcb4B4nQkDp3HWhy9UsYhApyXlepF25hh/edfvUqBUyDp?=
- =?us-ascii?Q?vzWEcLcFkG8b7TZQ5Xz0+0Jiefw1mr2ejbGubDJ1b+V76i8AwFY+tdc4Fx5S?=
- =?us-ascii?Q?PicgRETp1Mpos1CZqOVw5Ee/GYgTJv2Mu4Prybyd8MBFFFGIWGteeGMk+fX2?=
- =?us-ascii?Q?8Cyqux2XypZbB7zFkhTDfzC1gHiP5rOhqn2eFOUHASVTcs+rop9dfHmDqUa5?=
- =?us-ascii?Q?JIPTQ0CX4seTcPbeuuj9HDa0/WVCE8MBdryuLGUswKIMjMumW0kovM1nQFV7?=
- =?us-ascii?Q?D6HEWKj0AdIq+Vq9ccv/zjvtExzYLCkkPFgriwrXNfI5fWsg5FyyHemEpvu5?=
- =?us-ascii?Q?VJoVPQ63V5qnrPFnycdr/jmtd628amOQsxZ+rFe04LN0hL99wK7Elh0jg4TC?=
- =?us-ascii?Q?1B2Cm6QA+f4kTnqlh4mMMoVCmZvvGaTjFrCJisK6M2WReJaxpPlYQWvhKDrW?=
- =?us-ascii?Q?BM08+XgHvuNaOTLEH48+d7jPt9AjF7jDVM8xX2rORD266XYJxHflf0fqX95+?=
- =?us-ascii?Q?AYc16ymtEomcGiHeJSX8XumMY1czqsYyfihkT6EHd7WrX2HSLNcKxo62hESQ?=
- =?us-ascii?Q?MZV7ljCUTZpoRE7zny7cz55sACHasC4LqTH1OeBH9pUEfbtZ9Dp5w2PYpLto?=
- =?us-ascii?Q?sJaHTlcIznpQmadRccMYR7gUmyPx3hX7VxpaPEJ/8lWoBBvlO4hLj/gYWgx8?=
- =?us-ascii?Q?fVjkg7AzQqH/4AvTzDfe9DRvs8UiUHBJ4FuyXGjzB2CzzFlDliNwzUt/Hbk1?=
- =?us-ascii?Q?tzNF40FVrhb2ucJOcD9nJ6lzFxbmSSObCq9nrXhgyS5z2Nn8NaJ0FFmwOUpk?=
- =?us-ascii?Q?QGCstZLTBEpqLR/OpkBKDnxFm4du7Yqh5WfCyL8RERjbpSLsxm9DwgmzsBpP?=
- =?us-ascii?Q?HFmeBKcEcylpceZ5TD93DqhZz10k9c1aqk0uWwdT4mysF1XXxWBUtNs0OuNu?=
- =?us-ascii?Q?8qP6R+8AksINHZqSx2U=3D?=
+	=?us-ascii?Q?0jd0Mpd9oed2JAo19u2Remo43wktyhwirzGMv19OF4W7oMx6YBP3176EblMH?=
+ =?us-ascii?Q?X996wjD40CsFm1tU83KMr9iOgqtpYL+ptNcvV8V/3UGPQxqx/AZAaWpxpPR7?=
+ =?us-ascii?Q?6a5LNDwOh5tDAm8ZF+f/6qcHvXvDgLsM7DECiHHg/7rQteYZ33rH0NEpNcWb?=
+ =?us-ascii?Q?84MmLFPh6y7paoF7UVl0N1L6S3Ssq8gmtlqmIirgrJTZAoPICilivTMdcIMJ?=
+ =?us-ascii?Q?UH4b8gJFOJ7l/958JESwzz8kKRKD0U2+1zZfwIsj1bMc1lAj1R5Yy/M/ukGl?=
+ =?us-ascii?Q?6lRru4xtUgGODwHbHeTxehfL0xzsynXpLNAlWZ/S1yWT5Xv2XXVn1H/1uICF?=
+ =?us-ascii?Q?2vam3VkEezh82ttqOhbYwpZNZhenEsEsgPJ4BJtVErNPO0sXzP6YCM+qNTVk?=
+ =?us-ascii?Q?tM+iB3lhEFjPjaUUuFYPFYRRMw/Zc6/ZtWnIS95FZxzVqlnPaJir7DinuIkC?=
+ =?us-ascii?Q?R/Md2iyo9qA04wiGVH8OjZDetLocfF40micH4cFRuc09EpAlh/a4bC9xBD3G?=
+ =?us-ascii?Q?q/gBzXgSDv6a3WSbUdKfyufIHIUbxuwJdQoubmvgmfZxUEMivROMOHHzBhXY?=
+ =?us-ascii?Q?OH4J2lLovI6b5WcambwRRD4ROB4XGExG9kCHO65kGCuIZA/rQe6QhiY+3AkS?=
+ =?us-ascii?Q?kvB03iGYVSFFKpH+7T3Y4O12Eh+654piz+lWEYgaytIBW4iiT+dPIL7/NkUp?=
+ =?us-ascii?Q?XOghzQ9c09+m+z6lTVuCn7l6pgRibaID05so6F2HY5b7eWgKI+QTPG6ptp78?=
+ =?us-ascii?Q?QSMzYWH3FT+rdR+7xSD94owQiHWhxUU0RK/pTV8ee7fDByOJbtmnuzn+bfJX?=
+ =?us-ascii?Q?XoRhEKFKPzzvJUZ2ccpb/UU/JVIH+trpqHjdaL2BEp0J/pMhRe85I81opq9a?=
+ =?us-ascii?Q?7a7wTf3Ak8kHnDuvxohOcJjRtCuBeE2h1E2hje4W0JkBMzi45Cqc71yoADxQ?=
+ =?us-ascii?Q?v8zymnfNiwjpmxpdzDUmP/at5gbRTBrI/xro6TjbG5i8b3RRrgeVKVPJp9Bw?=
+ =?us-ascii?Q?ZYaYp57KD9aXd8MInjXDW/brOcI3GD4xexPCaGFRX/+z/+2J0PejJjmM/VTU?=
+ =?us-ascii?Q?snQrWpqh97/LJzJeOwHGnlrb7qu/S5F3B6EqUKQp8EzMwdLgYgJOcgX6u5h6?=
+ =?us-ascii?Q?Nfg9+C7nxoHhT08vi1NfRQBZS48H0sfRgUP3DjQaElJG+jlxu5tbG2yBmW10?=
+ =?us-ascii?Q?cjn6I4CNHjZzWyOSP3qR5b9qhgSNSl1L2JkTHSbWY6MG3j4pZcTKhGsFHrPq?=
+ =?us-ascii?Q?tnUmaNdYpKJ0RCpGuCBW2ZAKE8ZY5zDZ2yuiY36MHCYNTIWNWoiUj47Bz0Jh?=
+ =?us-ascii?Q?qprNj69pvyNsJBpohxplDj7hrRyWfv46qrB3r+Aa6ymyYGTvwTR2HN7jBcJF?=
+ =?us-ascii?Q?8JdhQuiMwKrmFPAfI9oO/O0q2VaUtzPKzHpW1FJlAn/WzL0iiyGQ1lntcEc/?=
+ =?us-ascii?Q?jJkbpY7VaQn6BamoCLgT5Le4Hkp2/7DozaUesfit9kNqEJ80Zni/b9pNXBCe?=
+ =?us-ascii?Q?aHE1Q7Au5DljWj+Zci2Z3J3HYIFtyOWLdSkMPst/ZzEHNYNu3cZfX9m7l+Qe?=
+ =?us-ascii?Q?c0cuHAEM8uFiGMEJyNw=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2025 10:17:44.7623
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2025 10:17:47.7777
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f4911fd-f188-471f-5ffd-08de0a41c044
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3139284e-e966-4924-5fc7-08de0a41c210
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	BN2PEPF000055E0.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7495
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6039
 
-Helper domctl_lock_{acquire,release} is domctl_lock, which HVM_PARAM_IDENT_PT
-uses to ensure synchronization and hence being a toolstack-only operation.
-So we shall make HVM_PARAM_IDENT_PT conditional upon CONFIG_MGMT_HYPERCALLS,
-returning -EOPNOTSUPP when MGMT_HYPERCALLS=n.
+Wrap domctl hypercall def and domctl.o with CONFIG_MGMT_HYPERCALLS.
 
-Suggested-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 ---
-v2 -> v3:
-- new commit
+v1 -> v2:
+- remove stub in common/domctl.c
+- combine the original commit of "xen/domctl: provide stub for
+ domctl_lock_{acquire,release}"
+- adapt to changes of "unify DOMCTL to MGMT_HYPERCALLS"
 ---
- xen/arch/x86/hvm/hvm.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+v2 -> v3:
+- add pitfall warnning in Kconfig help
+---
+ xen/common/Kconfig           | 6 ++++--
+ xen/common/Makefile          | 2 +-
+ xen/include/hypercall-defs.c | 4 ++--
+ 3 files changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index e77b0c03ed..e7d630af95 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -4281,7 +4281,6 @@ static int hvm_allow_set_param(struct domain *d,
- static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
- {
-     struct domain *curr_d = current->domain;
--    struct vcpu *v;
-     int rc;
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 309d262386..efbe97c54a 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -646,11 +646,13 @@ config SYSTEM_SUSPEND
+ 	  If unsure, say N.
  
-     rc = hvm_allow_set_param(d, index, value);
-@@ -4307,6 +4306,10 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
-             rc = -EINVAL;
-         break;
-     case HVM_PARAM_IDENT_PT:
-+    {
-+#ifdef CONFIG_MGMT_HYPERCALLS
-+        struct vcpu *v;
-+
-         /*
-          * Only actually required for VT-x lacking unrestricted_guest
-          * capabilities.  Short circuit the pause if possible.
-@@ -4334,7 +4337,11 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
-         domain_unpause(d);
+ config MGMT_HYPERCALLS
+-	def_bool y
++	bool "Enable privileged hypercalls for system management"
+ 	help
+ 	  This option shall only be disabled on some dom0less systems, or
+ 	  PV shim on x86, to reduce Xen footprint via managing unnessary
+-	  hypercalls, like sysctl, etc.
++	  hypercalls, like sysctl, domctl, etc.
++	  Be cautious to disable it, as users will face missing a few basic
++	  hypercalls like listdomains, getdomaininfo, etc.
  
-         domctl_lock_release();
-+#else
-+        rc = -EOPNOTSUPP;
-+#endif /* CONFIG_MGMT_HYPERCALLS */
-         break;
-+    }
-     case HVM_PARAM_DM_DOMAIN:
-         /* The only value this should ever be set to is DOMID_SELF */
-         if ( value != DOMID_SELF )
+ config PM_OP
+ 	bool "Enable Performance Management Operation"
+diff --git a/xen/common/Makefile b/xen/common/Makefile
+index fdf826f218..45c0bda000 100644
+--- a/xen/common/Makefile
++++ b/xen/common/Makefile
+@@ -11,7 +11,7 @@ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
+ obj-$(CONFIG_DEVICE_TREE_PARSE) += device-tree/
+ obj-$(CONFIG_IOREQ_SERVER) += dm.o
+ obj-y += domain.o
+-obj-y += domctl.o
++obj-$(CONFIG_MGMT_HYPERCALLS) += domctl.o
+ obj-y += domid.o
+ obj-y += event_2l.o
+ obj-y += event_channel.o
+diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
+index 02d7b93e80..c243edc460 100644
+--- a/xen/include/hypercall-defs.c
++++ b/xen/include/hypercall-defs.c
+@@ -196,11 +196,11 @@ dm_op(domid_t domid, unsigned int nr_bufs, xen_dm_op_buf_t *bufs)
+ #endif
+ #ifdef CONFIG_MGMT_HYPERCALLS
+ sysctl(xen_sysctl_t *u_sysctl)
++domctl(xen_domctl_t *u_domctl)
+ #endif
+ #if defined(CONFIG_X86) && defined(CONFIG_PAGING) && defined(CONFIG_MGMT_HYPERCALLS)
+ paging_domctl_cont(xen_domctl_t *u_domctl)
+ #endif
+-domctl(xen_domctl_t *u_domctl)
+ #ifndef CONFIG_PV_SHIM_EXCLUSIVE
+ platform_op(xen_platform_op_t *u_xenpf_op)
+ #endif
+@@ -279,8 +279,8 @@ hvm_op                             do       do       do       do       do
+ #endif
+ #ifdef CONFIG_MGMT_HYPERCALLS
+ sysctl                             do       do       do       do       do
+-#endif
+ domctl                             do       do       do       do       do
++#endif
+ #ifdef CONFIG_KEXEC
+ kexec_op                           compat   do       -        -        -
+ #endif
 -- 
 2.34.1
 
