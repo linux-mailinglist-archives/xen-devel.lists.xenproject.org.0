@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97886BD322D
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 15:07:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1142339.1476527 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED009BD3251
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 15:12:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1142348.1476537 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8IG8-0003P6-7x; Mon, 13 Oct 2025 13:06:40 +0000
+	id 1v8ILN-0004vG-Qe; Mon, 13 Oct 2025 13:12:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1142339.1476527; Mon, 13 Oct 2025 13:06:40 +0000
+Received: by outflank-mailman (output) from mailman id 1142348.1476537; Mon, 13 Oct 2025 13:12:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8IG8-0003ND-4f; Mon, 13 Oct 2025 13:06:40 +0000
-Received: by outflank-mailman (input) for mailman id 1142339;
- Mon, 13 Oct 2025 13:06:38 +0000
+	id 1v8ILN-0004to-Mk; Mon, 13 Oct 2025 13:12:05 +0000
+Received: by outflank-mailman (input) for mailman id 1142348;
+ Mon, 13 Oct 2025 13:12:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9ybd=4W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v8IG6-0003N6-3W
- for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 13:06:38 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1v8ILM-0004ti-ED
+ for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 13:12:04 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 726b8560-a835-11f0-9d15-b5c5bf9af7f9;
- Mon, 13 Oct 2025 15:06:36 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3f0134ccc0cso3187326f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 13 Oct 2025 06:06:35 -0700 (PDT)
+ id 35a1ea2a-a836-11f0-9d15-b5c5bf9af7f9;
+ Mon, 13 Oct 2025 15:12:03 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-46e48d6b95fso37701415e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Oct 2025 06:12:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-426ce5e8b31sm18346804f8f.54.2025.10.13.06.06.34
+ 5b1f17b1804b1-46fb492e6ddsm206326905e9.0.2025.10.13.06.12.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Oct 2025 06:06:34 -0700 (PDT)
+ Mon, 13 Oct 2025 06:12:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 726b8560-a835-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 35a1ea2a-a836-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760360795; x=1760965595; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
+        d=suse.com; s=google; t=1760361122; x=1760965922; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PTDT/IVcDjOHO7b5s7iseOWwfbD5DgrsVmlRzu81Gzc=;
-        b=FhFhliO0DelhvmnTJlH02+s+nqT/PRG4gDZ8MWK8tc8h7ijAXNAW7saP+6XOBql/9y
-         4C+BEQ9STC2rpsRW607ZpjLnpn+cgQTfJvWyp1TS1x1iWKVNbTom/1lPnzBHNw4Z6Jth
-         k3Y2LJz7bS+fmIbOXlsja1AxJAFLC2ogciTC+9Qbpy0jQHUlHtU7OHJdG/aSyCSUqu5j
-         lzlHRUg37l6ukqvOVdlh937ezZCrbMxaA3f1ZfkSZzlIqFZEsL7/ptjObCmSaU48WSsT
-         qVAI0AtlSAdl4oYpRjjo3sYHWPRz/VMCcS3ZbWHHYmbIutqOGb/amhlfTyd/C20/ICDJ
-         M63w==
+        bh=sxal7fX4bhmJwFz4Nq3sC3uVgNOALK7xg8Vn5uxAsMA=;
+        b=GxYnXH8yQXK7z0IcihbEPU51Vz47EDApvRfZ8nTwZyIqMiwAmzVSNpxPXsFFxdLL98
+         Wl0pVbWhG7rHp+PNy9S34SZyaPcvrAhJ1mqaNVm4GqlX+jLil5uDL0FYK/GgkBp3OuB/
+         Z8kRTTerwBPe2Vuao0ee93dZeDNvcsX9Z000ePMqAVGA3sBqngcPkzwZ4opkBIgctQ2b
+         19eRORIbPoJNhKcH6ugaKTZLifD+5rO028ybrJnZnd37Q6KhDzpCSlxoGmyQsm89vFTr
+         JzmfEthdLS2BsV3LcQkX2SRqzFIKCE949wo2ZOjhsz+ZFkrxH607pNvUBNHWbuUqoQ6x
+         Gatw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760360795; x=1760965595;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
+        d=1e100.net; s=20230601; t=1760361122; x=1760965922;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=PTDT/IVcDjOHO7b5s7iseOWwfbD5DgrsVmlRzu81Gzc=;
-        b=V4jRjU0YAcza8/P4GDBV0MO2E3RLLJbf70c08Xol0PHUdun8rnFneFACOZyrj6txL9
-         swmj9YAOXqIZMXxYSQrWhjxW55IxuEIWDCao9hcVEJnJOGO/FZkOHa1Kw1YDoLEYZxtR
-         +NWTqi/7L6ohp1nJXzhhpM6JTyxEQQVHBauF3wFQCEbrLnPvY+O2cTvfWTPWAYNsGZi7
-         g55bb/TzKh46/0wisSMoVtndbdKu1TFlpkGhifThiEycbo7OtgxEPz7IlcB8eNH9t7Q4
-         8sdE2NDo9yrgayQSR4708jU9UqhOloYa4aO43WMCqvSZAy0fL89BYxGAJzol8fm0GdTb
-         XhLQ==
-X-Gm-Message-State: AOJu0YwFNU/qNYsvvjPhHIW5Jq0Ir9jTYWJy/+MYq46eXb+68tiFKyuz
-	OmEHvSN7zLTug1qv9Rr4Bb90ElknIbIwD3twQrqi9KDSELsrtzRGWptjERea48uEhHdTwVzKSKJ
-	rQWc=
-X-Gm-Gg: ASbGncsIC3jIDAdcPkIi3lAO3lfMTo2MU38Wb7ykibXmgSkeOubE57r35GvKIrMYc28
-	O5p9iXfvmZYSsG8Rrv1T8FTeQqKYfKE9uEfr28HiHQ6fs2yg4+mL2XzF5VUfJO93VUeqJ8fHipF
-	CWKDspVX9i5JlKJMUMyXJIE+rr56Nw0Dq4kB/ShUvQhta9HgvqweCfVFf4dy3YC3H7vL7WYtGJm
-	rW+ESOaNFT1icIArV0NCithmP41lw16kPrc1sTy9G6NRUcjDiSA8xGzsY/3k+iy1VUngrldr03o
-	Spo3/jeAv9Okf5tO9aNv5q2DKvdczPDT4v9oKle0IPER8RZ/tD7Sj80TlT3YI8yaNJBDWh2yuAh
-	FjcBguI/Z6a9qKhB33mBBRX4BXUm0hgSPw7lWc/GUlK544Zg/xCz1vRy2WwsxxPJXuh2GUmf/LZ
-	x0aomdHvgVhBAcDs76QETuyBW7RgERN0v0MhO+
-X-Google-Smtp-Source: AGHT+IF5HQXsfdWfMsQHoGd0ZBK0BjVjR6KLSXTHcLNIhkNIxlpzMPrVGI6Cqx4/UNnlT1UpJ4seDA==
-X-Received: by 2002:a05:6000:2f83:b0:3ee:1461:1659 with SMTP id ffacd0b85a97d-4266e7e01cfmr12613997f8f.31.1760360795011;
-        Mon, 13 Oct 2025 06:06:35 -0700 (PDT)
-Message-ID: <2e5698e1-a21b-489f-863e-9e77e5dfaa13@suse.com>
-Date: Mon, 13 Oct 2025 15:06:36 +0200
+        bh=sxal7fX4bhmJwFz4Nq3sC3uVgNOALK7xg8Vn5uxAsMA=;
+        b=jdpTaAEGhdDItfUSx+mYHV1h3INngdpHpBvgXloyl3xAcY1l37O197Auhz2z+ds3tZ
+         sf4YuUGUngIyY7DlO3TVYNUbbc5IGF7MmGf1PP+9N2GsjKMZh5tQLfuVKBaX0BmwoJvd
+         +Gb7VwmJHOYtE+5kGZn6B1wKRIr8U9UmbVAAHQ5eiiOZHJszjpotMJC5vOdNlL3d9n6M
+         uX1mg4hV5F7Nm5MM8cGJ2v79QZAuWcNVlRQmMz1dtpj+X/RI8WWaDwkgTIipFTEdOhJn
+         LSUHLr8zm85soiGkqbhrHbbF2LA+4a+0ihRiqUkffpnWXYj3UHNCkxWY9MDFMjOufLFn
+         MMHA==
+X-Gm-Message-State: AOJu0YxeswhVn0zzmP4ISn71F5RmZBaXAXyDZkeTbk/S1bQcLwYxn3DC
+	kujmOUUaq7+nIaosHu05mC/Pb9yHTVYMOGBNnicdc3juLvnvpaQrm39pJ6FLw5VnQQ==
+X-Gm-Gg: ASbGncse0sDen8n/y8CprIYM130cc53fM4KuQq+yUU2pWXi1vrPwgZ9n00T5UmoARjZ
+	O1An78MSwT0mlFxymwcMBq4sIuOr5ZhmNOZLrShdMroK3OKvQmkMg3Cj5N7w0zdDDVPJrDq7BGW
+	sH77eLcmnYKN5xglHAr94rS2LdKtTsyDXE06+WYaku8QLiMTRBQ2kVS0HDsjC1NDENHDJ3TzLas
+	HUvQN2d4uA68AmgPGVIQ4qsqF263yXs1ywDU7pv7V/53jkxiDbMlBNDYP8yp0eYqWegdO4XFWwm
+	BDPnOFWhMMO4ahL5nNpJKtJjmu/XPC16BUlDZ3s7IOswoCRBzgseF0IJYLL0gF8JGKJf6Vcb2CM
+	0r3DECSk9kmtPuyCvEsVl6xBw2R3Q52/ySXyP1avx48Yi8awaPMOpQnMHWI8zGxHywXkEK+I+Rj
+	vzvV4ADLRotiexn6Uy7u9+1MlKXQ==
+X-Google-Smtp-Source: AGHT+IFZQW1Z0Untu/+PzeEwBrRKtUev7rc5x8SegMmZzoRGiISNF4p+V8v4evkH4KoDN7bJGP6mGA==
+X-Received: by 2002:a05:600c:1548:b0:46f:b42e:ed87 with SMTP id 5b1f17b1804b1-46fb42eee16mr87933625e9.40.1760361122485;
+        Mon, 13 Oct 2025 06:12:02 -0700 (PDT)
+Message-ID: <a7e71598-fefc-4906-a241-08fdaba78614@suse.com>
+Date: Mon, 13 Oct 2025 15:12:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH for-4.21 v2] x86/AMD: avoid REP MOVSB for Zen3/4
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH] VT-d: check bus_to_context_maddr()'s return value
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <8ecbf8b7-91fe-4f9e-9542-7ec22b6a47bb@suse.com>
+References: <4f449e23-107b-4fa3-b131-a8134763609a@suse.com>
+ <f7aa9bef-f83c-4a10-a005-1acb78e16e67@citrix.com>
 Content-Language: en-US
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -119,81 +118,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8ecbf8b7-91fe-4f9e-9542-7ec22b6a47bb@suse.com>
+In-Reply-To: <f7aa9bef-f83c-4a10-a005-1acb78e16e67@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Along with Zen2 (which doesn't expose ERMS), both families reportedly
-suffer from sub-optimal aliasing detection when deciding whether REP MOVSB
-can actually be carried out the accelerated way. Therefore we want to
-avoid its use in the common case of memcpy(); copy_page_hot() is fine, as
-its two pointers are always going to be having the same low 5 bits.
+On 13.10.2025 14:22, Andrew Cooper wrote:
+> On 29/07/2025 7:35 am, Jan Beulich wrote:
+>> The function returning zero is an error indication; we shouldn't try to
+>> map MFN 0 and then treat that page as a context table.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
----
-Trying to amend the comment in cpufeatures.h (e.g. "..., i.e. ERMS minus
-the Zen3/4 pointer aliasing issue") makes it get longish, so I kept it at
-the shortened form.
----
-v2: Leave page copying alone.
+Thanks (albeit you sent this in reply to the older security@ posting, not
+the later public one [1]).
 
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -1386,6 +1386,10 @@ static void cf_check init_amd(struct cpu
- 
- 	check_syscfg_dram_mod_en();
- 
-+	if (c == &boot_cpu_data && cpu_has(c, X86_FEATURE_ERMS)
-+	    && c->family != 0x19 /* Zen3/4 */)
-+		setup_force_cpu_cap(X86_FEATURE_XEN_REP_MOVSB);
-+
- 	amd_log_freq(c);
- }
- 
---- a/xen/arch/x86/cpu/intel.c
-+++ b/xen/arch/x86/cpu/intel.c
-@@ -684,6 +684,9 @@ static void cf_check init_intel(struct c
- 	 */
- 	if (c == &boot_cpu_data && c->vfm == INTEL_SKYLAKE_X)
- 		setup_clear_cpu_cap(X86_FEATURE_CLWB);
-+
-+	if (c == &boot_cpu_data && cpu_has(c, X86_FEATURE_ERMS))
-+		setup_force_cpu_cap(X86_FEATURE_XEN_REP_MOVSB);
- }
- 
- const struct cpu_dev __initconst_cf_clobber intel_cpu_dev = {
---- a/xen/arch/x86/include/asm/cpufeatures.h
-+++ b/xen/arch/x86/include/asm/cpufeatures.h
-@@ -7,7 +7,7 @@
- #define FSCAPINTS FEATURESET_NR_ENTRIES
- 
- /* Synthetic words follow the featureset words. */
--#define X86_NR_SYNTH 1
-+#define X86_NR_SYNTH 2
- #define X86_SYNTH(x) (FSCAPINTS * 32 + (x))
- 
- /* Synthetic features */
-@@ -43,6 +43,7 @@ XEN_CPUFEATURE(IBPB_ENTRY_PV,     X86_SY
- XEN_CPUFEATURE(IBPB_ENTRY_HVM,    X86_SYNTH(29)) /* MSR_PRED_CMD used by Xen for HVM */
- XEN_CPUFEATURE(USE_VMCALL,        X86_SYNTH(30)) /* Use VMCALL instead of VMMCALL */
- XEN_CPUFEATURE(PDX_COMPRESSION,   X86_SYNTH(31)) /* PDX compression */
-+XEN_CPUFEATURE(XEN_REP_MOVSB,     X86_SYNTH(32)) /* REP MOVSB used for memcpy() */
- 
- /* Bug words follow the synthetic words. */
- #define X86_NR_BUG 1
---- a/xen/arch/x86/memcpy.S
-+++ b/xen/arch/x86/memcpy.S
-@@ -10,7 +10,7 @@ FUNC(memcpy)
-          * precautions were taken).
-          */
-         ALTERNATIVE "and $7, %edx; shr $3, %rcx", \
--                    STR(rep movsb; RET), X86_FEATURE_ERMS
-+                    STR(rep movsb; RET), X86_FEATURE_XEN_REP_MOVSB
-         rep movsq
-         or      %edx, %ecx
-         jz      1f
+Oleksii, may I ask for a release-ack here please, seeing that the issue
+was considered on the edge of another security issue?
+
+Jan
+
+[1] https://lists.xen.org/archives/html/xen-devel/2025-08/msg00387.html
 
