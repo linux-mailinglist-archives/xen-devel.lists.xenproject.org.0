@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81DEFBD2BDC
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 13:13:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1142240.1476427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94756BD2C0D
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 13:18:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1142252.1476437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8GUa-0002vM-0c; Mon, 13 Oct 2025 11:13:28 +0000
+	id 1v8GZM-0004Y9-Li; Mon, 13 Oct 2025 11:18:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1142240.1476427; Mon, 13 Oct 2025 11:13:27 +0000
+Received: by outflank-mailman (output) from mailman id 1142252.1476437; Mon, 13 Oct 2025 11:18:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8GUZ-0002t4-TQ; Mon, 13 Oct 2025 11:13:27 +0000
-Received: by outflank-mailman (input) for mailman id 1142240;
- Mon, 13 Oct 2025 11:13:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v8GZM-0004VV-IU; Mon, 13 Oct 2025 11:18:24 +0000
+Received: by outflank-mailman (input) for mailman id 1142252;
+ Mon, 13 Oct 2025 11:18:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9ybd=4W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v8GUY-0002sy-AG
- for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 11:13:26 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a30f9a63-a825-11f0-9d15-b5c5bf9af7f9;
- Mon, 13 Oct 2025 13:13:25 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-46e6674caa5so20690915e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 13 Oct 2025 04:13:25 -0700 (PDT)
+ id 1v8GZK-0004VM-Uv
+ for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 11:18:22 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5341ccb3-a826-11f0-980a-7dc792cee155;
+ Mon, 13 Oct 2025 13:18:20 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-46e6a689bd0so29247105e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Oct 2025 04:18:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46fb489ac60sm183778285e9.16.2025.10.13.04.13.23
+ ffacd0b85a97d-426ce57d4bbsm18036528f8f.2.2025.10.13.04.18.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Oct 2025 04:13:24 -0700 (PDT)
+ Mon, 13 Oct 2025 04:18:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a30f9a63-a825-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 5341ccb3-a826-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760354005; x=1760958805; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760354300; x=1760959100; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qQl/jd0GQ5pTzcyZShWKq5cyJHVF7veVFgrmOkqscsI=;
-        b=XFvQC0EYOejC2WcS7IzQtaglbLscY095EReHKrkSWBJVKq/sqG86uTXFkyYfwjhsj7
-         uvCYfJiv4Ff0hHUNhzW+Jgs/lDLmyD7i1zqypbgtYvqUrxNUrO07/h9Srn8JiiUfgian
-         CIwUCcSDDfoW0Vj5AmPDSoumsKB64vBPTgugWHYdCs6UZVf9q1xjxR8Eg38j816A1K3q
-         ZB4nkWdvc1JmBahIfrTtoU0GJuG4SVxSfZ9mvvkvYFhuY1LGuKaGsxzTBlfP1WwRAADD
-         DImQ5q01LaEc7Q/9zWgXMC8SxlR5wtI+v9JB+WpxovE0o4Y5sI1ApzfzMxF/T7P3udlo
-         M2hw==
+        bh=0AAbDVWnF9Q2J4tjw4+4K607E9Io12wwzb98sCA2cGc=;
+        b=Lg+/unttXoYsgFrY8YK7kO+I7W/FUPc/sVA93MinwuKe0jIUQEopLtNQUSYisTW+a5
+         Eu9LjrPoGZhbysMW9B0b0dK7WP8Vy+GSWDjdegRy/y50BxGQkDHgIHKqK3h5GpinTwEe
+         QoBYei67zk4yPW8H8bCjHjS7FozRYrmOyZTke3zDlpJYNBLEqPOm0Og0JE/OLtN7Dut4
+         sSq0490PYgwHg6eyUu1UTWavNmx/HHHM6JSl0+cpSLGnXhFLBRZnTFqN5naqYNdwocpF
+         2FBfIp2lZ4/fBZpV41ZFSa+coDM2MkUS9IFKqwvS4HnJv7/RgDRqPF3np9u9nWTiSq3M
+         H8GQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760354005; x=1760958805;
+        d=1e100.net; s=20230601; t=1760354300; x=1760959100;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qQl/jd0GQ5pTzcyZShWKq5cyJHVF7veVFgrmOkqscsI=;
-        b=qo05RUk8EHBcRMJITKH7zByvvLfpAmPYLcqbT+9EcPp1ydsXv/hLnqssKQuKKUwCmq
-         o3wVxKg8b2MKXgfpj4XV31vDY5WwYS0FEx5V0kKh0SUAoS+l8SFaoBrAHZL/VHB7KhkF
-         2GAhnyvJ8AenWSMgSzUqWucGodZSrfPoGmcIihQXJzcU7WtlY77Rh32bw+vIUlTyVOaY
-         WCA9d/z/LzFFSr4/TYoqHBRDVJ3eHzBp1++IdMo9v1KRSU+iN4TNY50CxeqEcp6vZqTN
-         Yx8Fz7d927kGSg+yGOtVmE2CVw++q0kM52op0LZo602qAiOqu7po1LoF8SIFqS6oQfee
-         g4Bw==
-X-Forwarded-Encrypted: i=1; AJvYcCXIUvsH/SK2V7Ve9yW6MFxjy5uqdlT8WWnWoPoScFo5G81cDlQQxV5dcSjInO3k7Bn0ATagbAqfO8o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyOgk21RGrjzkYU0MmmcYOJfAMSTw5mKKj+IgS7Z1JlxqLn0P7B
-	qYijYqeQrlG9yLsp9EPej/d+65NaoHJ73ktvABYm140npJO2T2HuTznUBvm/3uDcSA==
-X-Gm-Gg: ASbGncvFBR065vddfk9IMp8EH9tCB2UoSov/7f356KmgonvHtGvGMfFWkdQzNS4I7Ly
-	1E/qBM4IjsDxscjZE12oaSYFne39yBvxYDifp1mv0rLy00+LpmvWd69V0AYipVPtcIyni4K0zBn
-	+T6+Y1gcYtQCGBKDc8z5u32QRKj7GxIuCkznWKOanorQohbnKQ1/QGs06RBFRXNlTC7fVsqU98T
-	dh10o5rQx5geiFXMqls25pwtcEk258w2d7hqcp6QGcfTM9+YM4rXaENM2fhivEeXLt8isLvzEqm
-	6isguIdoKNu9O1v8x9SJlcEybq0PeakvAWoHyngbB3hQBb3nvWMZQMHW/x6aQYU75355lAygPHq
-	GYgCuv05T5ExBLBrTNTEnOO9Ddgdj466kLn4Pvsojs+z/14tDXHtP8Za7EqU9zzzoV/LapnBr2L
-	WjonS7SxiWv2d+iii2kprrT2kLVQ==
-X-Google-Smtp-Source: AGHT+IHsG2ewrxQe/Zu0D+nEM/lwb/aUP9vpx0MRzDvmOg65d9GVzbB2oCuBuT9o/qJyHACEPDk91w==
-X-Received: by 2002:a05:600c:2e4b:b0:46f:b42e:e362 with SMTP id 5b1f17b1804b1-46fb42ee3d5mr65359955e9.19.1760354004563;
-        Mon, 13 Oct 2025 04:13:24 -0700 (PDT)
-Message-ID: <e7cbc215-04c5-4b2a-a40a-48c0ca70ea99@suse.com>
-Date: Mon, 13 Oct 2025 13:13:26 +0200
+        bh=0AAbDVWnF9Q2J4tjw4+4K607E9Io12wwzb98sCA2cGc=;
+        b=lHUaPUmNr6EXCw5x75AHN+TfE2SJb9ditCcz1ULuE4iR5jF1f4b1JJZkSmZDe2sjWT
+         T1ekGCrhDe4p/nPQ2gEaLBXg4JQgB0DBkDPX6oKCEZIOUPF+2Ag3vfTL8E8uotjPMzUf
+         eIpWBUcFgL+MRji7xqD66X8G/2NjObN3f+PBAgdJ4nkr1Pblu/Y+OxASykkL5Zk4Dn9l
+         nWFaBtCc1M8dvCDum1But2d0qHx0ED9GIQ9yNjorDu2d4G0l1cTu8sfMp8kuB1Y2jIQ5
+         lKjf5Llyum18ammDs5i9wWCXmg5jach9kFeHPCp4NntoSH0b5MZvhGK0RqAw8duHC3CW
+         MbZg==
+X-Forwarded-Encrypted: i=1; AJvYcCWQix2KF4Ra3/qYb+v6bjZIbABI3S7bwSzW/fYPfSEOw5NWzdzRG+E+XWBbzSKPcNQG58nRFNUGNm4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzoIAcDGwnsBQTLxzxAL54KlUrj38wVxpAd+lsK9f3RpMz41Bkj
+	JV/H4LriDweSRgiGMedK4nwPB3MU693Ebgxh2IvZUwwNHKRtYEsk3XPsx2oc8m64gw==
+X-Gm-Gg: ASbGncsiQLcWubUGrk5pwkRFa4UIbYpEqUE+Osm4ifUbnDf9k6jAE+itbDA6evACd74
+	UkIeBi71JIATU9n+/bujCfp9fEQBYMq2qzVnDGUSeuChXvTJLKCQpNS2f3CdeSuFysvy7nqKhLu
+	9sitn4Qi1fYw57+JBBTJ6UdH+FUs2/u3a69A/7m06m2keqN3SMJltGqR0xV9JDnGyhu0GsM/FWJ
+	gyKGiUBGYA/86tm8bZw1DuHlpjvXmGZa/Yqph0Cixvn5SJi87UxcrArjPJ02qahUg+ytfEKJ1VO
+	9NcPIq0DZIU7dh+mL/XqvySN8uY738Hl/gfy4YYPaz9dqAFk9VHqSEKZTp9ZUEOTUjoD3f4rVOG
+	J9kHlYlDRczaejVLYDU7S5esH5ysdXLhT3bM+Sn0VOiSwkWpIXFoH/ukl7pLjULLmT6xy8rq4WA
+	ixot/F8/zL6cjDVqk48JNeDKAtItKYRd0t/Ekz
+X-Google-Smtp-Source: AGHT+IH0N3BUDo6WKLNu1L5lUfyvPBz6+6CHAfxfDKsp48Pwp01yKmQqpkRi5jwe8tcb1eAfqW5FIg==
+X-Received: by 2002:a05:600c:3acb:b0:46e:2801:84aa with SMTP id 5b1f17b1804b1-46fa9a21caamr123272625e9.0.1760354300297;
+        Mon, 13 Oct 2025 04:18:20 -0700 (PDT)
+Message-ID: <4ad6e833-02b8-4227-ab63-d9b2ae74ceb3@suse.com>
+Date: Mon, 13 Oct 2025 13:18:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 18/28] xen/domctl: wrap sched_adjust() with
- CONFIG_MGMT_HYPERCALLS
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: Re: [PATCH v3 01/28] xen/xsm: remove redundant xsm_iomem_mapping()
+To: Penny Zheng <Penny.Zheng@amd.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: ray.huang@amd.com, oleksii.kurochko@gmail.com,
- Nathan Studer <nathan.studer@dornerworks.com>,
- Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
- George Dunlap <gwd@xenproject.org>, Meng Xu <mengxu@cis.upenn.edu>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org,
- xen-devel@dornerworks.com
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ xen-devel@lists.xenproject.org
 References: <20251013101540.3502842-1-Penny.Zheng@amd.com>
- <20251013101540.3502842-19-Penny.Zheng@amd.com>
- <b2910a80-5dc0-475b-b49e-7d95560a2550@suse.com>
+ <20251013101540.3502842-2-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,47 +126,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b2910a80-5dc0-475b-b49e-7d95560a2550@suse.com>
+In-Reply-To: <20251013101540.3502842-2-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 13.10.2025 13:03, Jürgen Groß wrote:
-> On 13.10.25 12:15, Penny Zheng wrote:
->> Function sched_adjust() is responsible for XEN_DOMCTL_scheduler_op domctl-op,
->> so it could be wrapped with CONFIG_MGMT_HYPERCALLS.
->> Tracing its calling chain, the following functions shall be wrapped with
->> CONFIG_MGMT_HYPERCALLS too:
->> - sched_adjust_dom()
->> - scheduler-specific .adjust() callback
->> - xsm_sysctl_scheduler_op()
->> Otherwise all these functions will become unreachable when MGMT_HYPERCALLS=n,
->> and hence violating Misra rule 2.1.
->>
->> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
->> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+On 13.10.2025 12:15, Penny Zheng wrote:
+> Function xsm_iomem_mapping() seems redundant, and in flask policy, it just
+> directly calls xsm_iomem_permission().
+> Remove it and use xsm_iomem_permission() instead, with the benefit of a
+> cf_check disappearing too.
 > 
-> Reviewed-by: Juergen Gross <jgross@suse.com>
-> 
-> Just one further remark below (not for this patch).
-> 
->> diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
->> index 4c6e0dc0f9..9dd485646a 100644
->> --- a/xen/include/xsm/xsm.h
->> +++ b/xen/include/xsm/xsm.h
->> @@ -56,8 +56,8 @@ struct xsm_ops {
->>                                   struct xen_domctl_getdomaininfo *info);
->>       int (*domain_create)(struct domain *d, uint32_t ssidref);
->>       int (*getdomaininfo)(struct domain *d);
-> 
-> As visible in this context .getdomaininfo() is not hidden yet, which
-> I think is still true at the end of the series, while I believe it
-> should be used by systl/domctl code only.
-> 
-> Or did I miss something?
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
-As was discussed, getdomaininfo and a few others may need to remain
-accessible even with MGMT_HYPERCALLS=n, to be able to at least obtain
-and report system state.
+No, this is definitely not what I had suggested. What I did suggest was
+to get rid of just ...
+
+> --- a/xen/xsm/flask/hooks.c
+> +++ b/xen/xsm/flask/hooks.c
+> @@ -1167,11 +1167,6 @@ static int cf_check flask_iomem_permission(
+>      return security_iterate_iomem_sids(start, end, _iomem_has_perm, &data);
+>  }
+>  
+> -static int cf_check flask_iomem_mapping(struct domain *d, uint64_t start, uint64_t end, uint8_t access)
+> -{
+> -    return flask_iomem_permission(d, start, end, access);
+> -}
+
+... the extra call layer here, by using ...
+
+> @@ -1945,7 +1940,6 @@ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
+>      .unbind_pt_irq = flask_unbind_pt_irq,
+>      .irq_permission = flask_irq_permission,
+>      .iomem_permission = flask_iomem_permission,
+> -    .iomem_mapping = flask_iomem_mapping,
+
+... flask_iomem_permission() a 2nd time here (and perhaps with a suitable
+comment).
+
+That said, if Daniel was okay with the wider folding, so be it.
 
 Jan
 
