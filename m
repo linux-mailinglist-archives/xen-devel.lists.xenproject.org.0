@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7488FBD203E
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 10:23:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1141831.1475991 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1D52BD20F0
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 10:30:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1141840.1476001 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8Dpa-0003Nb-L6; Mon, 13 Oct 2025 08:22:58 +0000
+	id 1v8Dwj-00057z-Ax; Mon, 13 Oct 2025 08:30:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1141831.1475991; Mon, 13 Oct 2025 08:22:58 +0000
+Received: by outflank-mailman (output) from mailman id 1141840.1476001; Mon, 13 Oct 2025 08:30:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8Dpa-0003Kq-HW; Mon, 13 Oct 2025 08:22:58 +0000
-Received: by outflank-mailman (input) for mailman id 1141831;
- Mon, 13 Oct 2025 08:22:57 +0000
+	id 1v8Dwj-000567-7b; Mon, 13 Oct 2025 08:30:21 +0000
+Received: by outflank-mailman (input) for mailman id 1141840;
+ Mon, 13 Oct 2025 08:30:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9ybd=4W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v8DpZ-0003Kk-QG
- for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 08:22:57 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1v8Dwi-000561-52
+ for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 08:30:20 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2406527-a80d-11f0-9d15-b5c5bf9af7f9;
- Mon, 13 Oct 2025 10:22:56 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-46e491a5b96so20741085e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 13 Oct 2025 01:22:56 -0700 (PDT)
+ id d5cf46b4-a80e-11f0-9d15-b5c5bf9af7f9;
+ Mon, 13 Oct 2025 10:30:12 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-46e2c3b6d4cso28514465e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Oct 2025 01:30:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46fb489197dsm177963985e9.10.2025.10.13.01.22.55
+ 5b1f17b1804b1-46fb4982b30sm172715355e9.6.2025.10.13.01.30.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Oct 2025 01:22:55 -0700 (PDT)
+ Mon, 13 Oct 2025 01:30:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2406527-a80d-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: d5cf46b4-a80e-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760343776; x=1760948576; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760344211; x=1760949011; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dEHYiQm5SufHmglUw98qam1ZxeS9M37DvQYw/3sx3ZI=;
-        b=fk9/lL2bl4WiNVA3DgtvixdE8GqJ0dd5Q4JASkjqGXcHdzFovBPhHMww0AA6v5QeOE
-         MoTm8zxc14q1FLrETYtL84co5KnpIr2PXGJ5dm+EQxZ31hHWdIHjzJ141bAbCSINta2k
-         JpAhI5jIGwb5SOIvVfnVhfCYH7wHomJEXi3xhgNiy9Se/2wWl5QuJXnCGEbMx2WUlO1K
-         T+4xYxvSIvbik2P+TDGXFoNAR45R7ol6pRnQ8qYTXrk8YXHjJdw8V6GZVIgSZPQeubIo
-         Af0wJk9cXn8j5/fGJB6eBJmi72/X+9sWlFwPzIQRzDlLqITxcxARNu9HcSuuWVHSOaag
-         Ik/A==
+        bh=Pz6KC/Rn87+HnHxT5y8QCxEDmgy1wHJGbT9l6fnqoBE=;
+        b=AnDD8Ngyv+TEOhfTzgjSjmgfCUUYi6P2fJlgX3Q8/12RpllnT87Uc/XbxpbNQFQkS+
+         NARZRvGywW/gVRs8BCf0MS8LA4Ohwiumn93XlbjMQI4NLKe5uawQJroQ6Gn041ecoy3I
+         JLB+dFiTM6hTCW4GmjwPsVr4BeYvJebDlZue9dD3YCzZJMPQx3IWPc9BrAVU/LZoMQMo
+         6dJ2Um9yMLbeTvz+MfT9p1MHGhsh/XQ70Yj5MOHf4ZaTX6ln5Fn+9nNhltSjO/z9koIW
+         1QW/49o1KxyfQgT/5g7Q8JSKkLZP2zcIcTyse8oLTNdQBJMzPkS24rYi3ofu68LZmOjE
+         KRig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760343776; x=1760948576;
+        d=1e100.net; s=20230601; t=1760344211; x=1760949011;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dEHYiQm5SufHmglUw98qam1ZxeS9M37DvQYw/3sx3ZI=;
-        b=U893JtRqte7v3DrvH39PNo8C/04J73ciLkypivpRtmv2jN8Qi/PmUKiLMnEP9QA3Aa
-         0DZZJazsx+5LzOAkIVNQXZIWMj+1do9SImjjYPdp6rmEMLfv3ve87nHNdtkm1dkreVQR
-         Tf95Qvo82gDoVl58E0SmBlors3vOTeEnwaFyqQN9eKH5PkrEz6C8nKK7aVxdpm44vRBQ
-         lXrzTlclmy8wWW8CTo8LpYejvlPLMkuSLcHKybD10fMl+q5Aue5Jm4b/AHnBUDD1mdqw
-         mgW0qbjCsHoe4NEzySt7zMsGnIq/Mz6jXXvnnuWId9Fe7X/neJFa20uJqiPEDkj3Iqo1
-         s4HA==
-X-Forwarded-Encrypted: i=1; AJvYcCXjxCnnuzOL9sfhMApBI4liWwJadvs1IEqElA72pkvM+llxq4okHjzDQGfP9okqUHgnVPS2/AvGnF8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywhoyd6uj/OvcBom0i4kN4i92m/zCYpP+6ALmFoCRybGxv1HpT3
-	R/AJJ6ssC9s5vk4PPcjEpjwEKQSyOwR0wrzFJP8UXAHYI6GkIUQsC58vFWFSddkggA==
-X-Gm-Gg: ASbGnctHWlC7nvYP6HxRLg9scsHowQ035I/ZqNIUQwnKp6KllueqnO6pWQ4LBrcUIud
-	LBZwgLM6rsfu94UJIFjQnBCXV1hBPGWC6OZGwy4+lIIY3lWL/Q2cQdE1W3ycBE3H/pXRR5Cvjmu
-	c4701IZonXoOvEX+EbtyLV2eBmJfPtMcrgthGusPOc/cfH9RfcocYE6YUu50AptJvKSnKuZ1v/c
-	9TuJ//5JVfV/qZXeTNGSzAKRNFSzO0fBSrrT4ZHMDvCp+MoHHF58F+cfW0fRLazcSj144koUarv
-	TOfMYiwWXEoJLxjp2eHFPGwvp5MRYp7JpsIgrNaKg/2u108sHIL0L9KODMiPFTXWmUJZncEedXE
-	P4CzetzmjGR+OQFkjK4ayJtrnv4ejnTngvQZx950UYwFL073ndUnjgwlFgMeI+2cuU/fkaAXUue
-	AW2DSajuP6nGEXF0W5N5S7L4bY5KxSq8NrxCFy
-X-Google-Smtp-Source: AGHT+IHVl/cWr/IqalH/uVoeRFf3vc3mRN7QYao9WHRxI8lIT7f8+C/nPvoSQG6krLfu/alSF1z8Wg==
-X-Received: by 2002:a05:600c:3e1a:b0:46e:1d8d:cfa2 with SMTP id 5b1f17b1804b1-46fa9af9842mr124450175e9.20.1760343775915;
-        Mon, 13 Oct 2025 01:22:55 -0700 (PDT)
-Message-ID: <13cbd826-540e-4352-8e0d-ae0c9fbd2faa@suse.com>
-Date: Mon, 13 Oct 2025 10:22:57 +0200
+        bh=Pz6KC/Rn87+HnHxT5y8QCxEDmgy1wHJGbT9l6fnqoBE=;
+        b=cqJCtCnQGi+ZCuSg+X2/trJKAikKeqXb0lyvpTyY9Ike85rgdOkZWKT7EaeRwIlvt2
+         8JfZh9gAPDiSrvrZ7xZITZ3XKb6Wmcd9da3MGSjGfGTg6c4LFZ3L42iPjtX8hQQzFWBb
+         TojIBaRsigDtQWaGkhy6tDq3dDeOkJOdKZDvcdsbZFS2SsFvMivsU6ODkruUwhKlz8Cy
+         cMXm6jlPkYWXMgoSPzuUaup2m3pTNBEMzUQWL6mnZsftxTEDxk2l0toPmtZhiQGGAAb9
+         h8jRp5Zw43eqwEU/FiLXy0y9d1sRa3/MAFMx4PeV88JZKh53t0dshMosqLvI7KYBDlnE
+         EBIg==
+X-Forwarded-Encrypted: i=1; AJvYcCWscOKVWasZwkJQOMPA6WDUX3gBs4+eesjAIukj3syIiLMm72d+NpR6xZbY+ASpgCIo0lkrSfUa/a8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzKgX1k1wC0DTb38QFdpD/bxcjiqFtcsbYFSGdiI+QxCCWWbEAJ
+	5OXaQjlApsFby1KCdNngEBkodgKS1LivP5ojBuAQVyfCWNDInrvPToKOTWVnGYcQCQ==
+X-Gm-Gg: ASbGnctrrSeRUNTKVVZ1F05iB7J3oOynuQscFql+lnGtb1dYMV9QBx8fTSGtvWGLNoW
+	J/TH6DZ4qhCbN8MmP5GRuZZm/BS7tKS8m8cusqxTmbBhoNiim5fl+SBwGwTYDMPiXIZ3GT9sOnh
+	dZSnA5aeFH89hMEc6sZ0fYNx4NnAwJLYx+3EnVIZDFUPHw3IWqC4r4at/kcZ6JgIyxQo34Xhsus
+	v06vnD7oKQRZ6lmsnrxYhvKdRHV4Z5HlsuEjddGr4FZV3X2bQ9/WtMgWh2cCnxtSMKeRdLp6iDT
+	HhCP3OOrTr4O2YdHrjf94TUe7FrCng2w+HOFaSROaziads+51ot/zQz8zlvKTf1U7ZlnP8gtq2m
+	Fvog1NcLtFQveVEA6r7TucI/tZzKj4cbRbBprWEbngj3+DURJ2n+CyeiKKru3yvVZvtkIxzRo5h
+	YJRpufon7G3V510Prk6DIbKj9AYg==
+X-Google-Smtp-Source: AGHT+IHMp1tHYdmVa5+RzD0QHKwTD3rZ9NI3nP/OP2ITz3ePdUSlVOk9lRAMdbro1EWxZk97a3fFsw==
+X-Received: by 2002:a05:600c:1d11:b0:46e:3d50:360e with SMTP id 5b1f17b1804b1-46fa9aeff01mr144283685e9.18.1760344211206;
+        Mon, 13 Oct 2025 01:30:11 -0700 (PDT)
+Message-ID: <b24ca9a0-f388-4e02-b998-d0f9cbb9c5e1@suse.com>
+Date: Mon, 13 Oct 2025 10:30:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drivers/xen/xenbus: Replace deprecated strcpy in
- xenbus_transaction_end
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: linux-hardening@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jason Andryuk <jason.andryuk@amd.com>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Thorsten Blum <thorsten.blum@linux.dev>
-References: <20251012195514.39003-2-thorsten.blum@linux.dev>
- <ebee3406-d515-4e29-9d7c-f54bdb143080@suse.com>
- <65bad926-22fc-41da-b9c4-5857a002b377@suse.com>
+Subject: Re: [PATCH v2 24/26] xen/domctl: wrap arch-specific domctl-op with
+ CONFIG_MGMT_HYPERCALLS
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250910073827.3622177-1-Penny.Zheng@amd.com>
+ <20250910073827.3622177-25-Penny.Zheng@amd.com>
+ <56024eb0-b30f-43fd-84b7-6070a1d79cf0@suse.com>
+ <DM4PR12MB845153811FA7748CA058EB9AE1ECA@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <fa709d35-8c7b-4c27-9bac-52a48f5b3fb3@suse.com>
+ <DM4PR12MB8451A7C97D812B25A553985DE1EAA@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,67 +133,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <65bad926-22fc-41da-b9c4-5857a002b377@suse.com>
+In-Reply-To: <DM4PR12MB8451A7C97D812B25A553985DE1EAA@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 13.10.2025 09:36, Jürgen Groß wrote:
-> On 13.10.25 08:59, Jan Beulich wrote:
->> On 12.10.2025 21:55, Thorsten Blum wrote:
->>> --- a/drivers/xen/xenbus/xenbus_xs.c
->>> +++ b/drivers/xen/xenbus/xenbus_xs.c
->>> @@ -546,16 +546,13 @@ int xenbus_transaction_start(struct xenbus_transaction *t)
->>>   EXPORT_SYMBOL_GPL(xenbus_transaction_start);
->>>   
->>>   /* End a transaction.
->>> - * If abandon is true, transaction is discarded instead of committed.
->>> + * If abort is true, transaction is discarded instead of committed.
->>>    */
->>> -int xenbus_transaction_end(struct xenbus_transaction t, int abort)
->>> +int xenbus_transaction_end(struct xenbus_transaction t, bool abort)
->>>   {
->>>   	char abortstr[2];
->>>   
->>> -	if (abort)
->>> -		strcpy(abortstr, "F");
->>> -	else
->>> -		strcpy(abortstr, "T");
+On 13.10.2025 09:18, Penny, Zheng wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Monday, October 13, 2025 2:41 PM
 >>
->> While at least in principle a compiler might be able to transform this into
->> code not using any library function at all, ...
+>> On 11.10.2025 08:44, Penny, Zheng wrote:
+>>>> -----Original Message-----
+>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>> Sent: Thursday, September 11, 2025 9:03 PM
+>>>>
+>>>>> --- a/xen/lib/x86/Makefile
+>>>>> +++ b/xen/lib/x86/Makefile
+>>>>> @@ -1,3 +1,3 @@
+>>>>>  obj-y += cpuid.o
+>>>>>  obj-y += msr.o
+>>>>> -obj-y += policy.o
+>>>>> +obj-$(CONFIG_MGMT_HYPERCALLS) += policy.o
+>>>>
+>>>> Fair parts of cpuid.c also become unreachable. And all of msr.c afaics.
+>>>>
+>>>
+>>> I just found that the functions defined here, as helpers/libraries, are used in
+>> tools/libs/guest/xg_cpuid_x86.c too. Emmm, to make compiler happy, I still need to
+>> provide stubs for them when MGMT_HYPERCALLS=n. Or any better suggestion?
 >>
->>> +	strscpy(abortstr, abort ? "F" : "T");
+>> How does the Makefile change here affect tools/libs/guest/? What would you need
+>> stubs for there?
 >>
->> ... the use of a n on-standard function (without equivalent compiler builtin)
->> doesn't permit this. IOW why not simply switch to e.g.
->>
->>      char abortstr[2] = { [0] = abort ? 'F' : 'T' };
 > 
-> I would even go further and drop abortstr[] completely:
-> 
-> diff --git a/drivers/xen/xenbus/xenbus_xs.c b/drivers/xen/xenbus/xenbus_xs.c
-> index 528682bf0c7f..c891af7165f5 100644
-> --- a/drivers/xen/xenbus/xenbus_xs.c
-> +++ b/drivers/xen/xenbus/xenbus_xs.c
-> @@ -550,14 +550,8 @@ EXPORT_SYMBOL_GPL(xenbus_transaction_start);
->    */
->   int xenbus_transaction_end(struct xenbus_transaction t, int abort)
->   {
-> -       char abortstr[2];
-> -
-> -       if (abort)
-> -               strcpy(abortstr, "F");
-> -       else
-> -               strcpy(abortstr, "T");
-> -
-> -       return xs_error(xs_single(t, XS_TRANSACTION_END, abortstr, NULL));
-> +       return xs_error(xs_single(t, XS_TRANSACTION_END, abort ? "F" : "T",
-> +                       NULL));
->   }
->   EXPORT_SYMBOL_GPL(xenbus_transaction_end);
+> Like Function xc_cpu_policy_is_compatible() in tools/libs/guest/xg_cpuid_x86.c is also using x86_cpu_policies_are_compatible() to do the comparison between host and guest. If making xen/lib/x86/plocy.o guarded by MGMT_HYPERCALLS, we will have "undefined reference " error. Imo, it is not suitable to guard files tools/libs/guest/xg_cpuid_x86.o with MGMT_HYPERCALLS.
 
-Hmm, which xs_single() indeed takes a const char *, it then casts away const-
-ness before handing to xs_talkv().
+Correct, but I still don't see what you're getting at. This Makefile is used in
+the hypervisor build only. In tools/libs/guest/Makefile.common we have
+
+ifeq ($(CONFIG_X86),y) # Add libx86 to the build
+vpath %.c ../../../xen/lib/x86
+
+OBJS-y                 += cpuid.o msr.o policy.o
+endif
 
 Jan
 
