@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED009BD3251
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 15:12:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1142348.1476537 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA8E6BD3272
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 15:15:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1142356.1476547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8ILN-0004vG-Qe; Mon, 13 Oct 2025 13:12:05 +0000
+	id 1v8IOp-0005VC-7k; Mon, 13 Oct 2025 13:15:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1142348.1476537; Mon, 13 Oct 2025 13:12:05 +0000
+Received: by outflank-mailman (output) from mailman id 1142356.1476547; Mon, 13 Oct 2025 13:15:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8ILN-0004to-Mk; Mon, 13 Oct 2025 13:12:05 +0000
-Received: by outflank-mailman (input) for mailman id 1142348;
- Mon, 13 Oct 2025 13:12:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9ybd=4W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v8ILM-0004ti-ED
- for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 13:12:04 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 35a1ea2a-a836-11f0-9d15-b5c5bf9af7f9;
- Mon, 13 Oct 2025 15:12:03 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-46e48d6b95fso37701415e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 13 Oct 2025 06:12:03 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46fb492e6ddsm206326905e9.0.2025.10.13.06.12.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Oct 2025 06:12:02 -0700 (PDT)
+	id 1v8IOp-0005So-4V; Mon, 13 Oct 2025 13:15:39 +0000
+Received: by outflank-mailman (input) for mailman id 1142356;
+ Mon, 13 Oct 2025 13:15:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rMZy=4W=gmail.com=randomdude@srs-se1.protection.inumbo.net>)
+ id 1v8IOn-0005Si-Hr
+ for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 13:15:37 +0000
+Received: from mail-vk1-xa36.google.com (mail-vk1-xa36.google.com
+ [2607:f8b0:4864:20::a36])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b342d8a3-a836-11f0-980a-7dc792cee155;
+ Mon, 13 Oct 2025 15:15:34 +0200 (CEST)
+Received: by mail-vk1-xa36.google.com with SMTP id
+ 71dfb90a1353d-54a9852eb65so207081e0c.3
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Oct 2025 06:15:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,99 +40,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35a1ea2a-a836-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: b342d8a3-a836-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760361122; x=1760965922; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sxal7fX4bhmJwFz4Nq3sC3uVgNOALK7xg8Vn5uxAsMA=;
-        b=GxYnXH8yQXK7z0IcihbEPU51Vz47EDApvRfZ8nTwZyIqMiwAmzVSNpxPXsFFxdLL98
-         Wl0pVbWhG7rHp+PNy9S34SZyaPcvrAhJ1mqaNVm4GqlX+jLil5uDL0FYK/GgkBp3OuB/
-         Z8kRTTerwBPe2Vuao0ee93dZeDNvcsX9Z000ePMqAVGA3sBqngcPkzwZ4opkBIgctQ2b
-         19eRORIbPoJNhKcH6ugaKTZLifD+5rO028ybrJnZnd37Q6KhDzpCSlxoGmyQsm89vFTr
-         JzmfEthdLS2BsV3LcQkX2SRqzFIKCE949wo2ZOjhsz+ZFkrxH607pNvUBNHWbuUqoQ6x
-         Gatw==
+        d=gmail.com; s=20230601; t=1760361333; x=1760966133; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=E6KAvPCzoS6dErcsErznmNYP9kFi+nq+O7uNahpRfqo=;
+        b=N7cR4vDvsA61UKXlqaKZJVpMrqZfBx2fjGLiZbOQmyeOq3JRTjwHyuGmPiH+Rs4niw
+         uXnTNAhX30WQGF1MQ56chXbIEBDXrau8vA29ywCQGuyvDr8vhv4V8HALW+e5ZydNLfFO
+         k6YLDIPu3u8CXJTv4W9orY3XizlmSwgfe6YH83UXL/XKCIzItQsWwSTQD+WsJ0bVWoku
+         Whw456oPmHvAKGty7z9cT2CTwW/ISO1MU0otjnltbKoIObZ8YikUvT/R07OlVGbbgp7A
+         Y0LA1xjjn73GFkd57Ov6Dlq6ByIOC2EcTCJObVjwvE7FvlcQIGcO4Xv4DBKX/bldb6SD
+         sL6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760361122; x=1760965922;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=sxal7fX4bhmJwFz4Nq3sC3uVgNOALK7xg8Vn5uxAsMA=;
-        b=jdpTaAEGhdDItfUSx+mYHV1h3INngdpHpBvgXloyl3xAcY1l37O197Auhz2z+ds3tZ
-         sf4YuUGUngIyY7DlO3TVYNUbbc5IGF7MmGf1PP+9N2GsjKMZh5tQLfuVKBaX0BmwoJvd
-         +Gb7VwmJHOYtE+5kGZn6B1wKRIr8U9UmbVAAHQ5eiiOZHJszjpotMJC5vOdNlL3d9n6M
-         uX1mg4hV5F7Nm5MM8cGJ2v79QZAuWcNVlRQmMz1dtpj+X/RI8WWaDwkgTIipFTEdOhJn
-         LSUHLr8zm85soiGkqbhrHbbF2LA+4a+0ihRiqUkffpnWXYj3UHNCkxWY9MDFMjOufLFn
-         MMHA==
-X-Gm-Message-State: AOJu0YxeswhVn0zzmP4ISn71F5RmZBaXAXyDZkeTbk/S1bQcLwYxn3DC
-	kujmOUUaq7+nIaosHu05mC/Pb9yHTVYMOGBNnicdc3juLvnvpaQrm39pJ6FLw5VnQQ==
-X-Gm-Gg: ASbGncse0sDen8n/y8CprIYM130cc53fM4KuQq+yUU2pWXi1vrPwgZ9n00T5UmoARjZ
-	O1An78MSwT0mlFxymwcMBq4sIuOr5ZhmNOZLrShdMroK3OKvQmkMg3Cj5N7w0zdDDVPJrDq7BGW
-	sH77eLcmnYKN5xglHAr94rS2LdKtTsyDXE06+WYaku8QLiMTRBQ2kVS0HDsjC1NDENHDJ3TzLas
-	HUvQN2d4uA68AmgPGVIQ4qsqF263yXs1ywDU7pv7V/53jkxiDbMlBNDYP8yp0eYqWegdO4XFWwm
-	BDPnOFWhMMO4ahL5nNpJKtJjmu/XPC16BUlDZ3s7IOswoCRBzgseF0IJYLL0gF8JGKJf6Vcb2CM
-	0r3DECSk9kmtPuyCvEsVl6xBw2R3Q52/ySXyP1avx48Yi8awaPMOpQnMHWI8zGxHywXkEK+I+Rj
-	vzvV4ADLRotiexn6Uy7u9+1MlKXQ==
-X-Google-Smtp-Source: AGHT+IFZQW1Z0Untu/+PzeEwBrRKtUev7rc5x8SegMmZzoRGiISNF4p+V8v4evkH4KoDN7bJGP6mGA==
-X-Received: by 2002:a05:600c:1548:b0:46f:b42e:ed87 with SMTP id 5b1f17b1804b1-46fb42eee16mr87933625e9.40.1760361122485;
-        Mon, 13 Oct 2025 06:12:02 -0700 (PDT)
-Message-ID: <a7e71598-fefc-4906-a241-08fdaba78614@suse.com>
-Date: Mon, 13 Oct 2025 15:12:04 +0200
+        d=1e100.net; s=20230601; t=1760361333; x=1760966133;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=E6KAvPCzoS6dErcsErznmNYP9kFi+nq+O7uNahpRfqo=;
+        b=VIlC5mcUFW+222Cas2Ub2FJ/cmwgfLB4N33mq3LmlDov4RFOmIeJiStvsKaLyw0QPB
+         6tVQDhAJzqg2p2EeCi2Q+0jGks2ej40mIXTb7xsnUXmMIplZzspn0YuwAR9++tkkdbTv
+         TcjTiFABgIORKdY5vsYOP2kaCTrThuJGtfzxfC/f/H3elu3Otro0LRrfQam+wJsPTw8y
+         MFwD/zykRUOX7tghe7cSLaweXso4GXH04+hlyrDSm+lTompAeYhEs4uozLEalcsH6KnX
+         fr+p7VByecTCFZI62RUaZxwbMz/CvJATg5ATlc1PLnPQdXbblhG0LXkygp6lQxyLCFgq
+         WsCA==
+X-Gm-Message-State: AOJu0YzQE3JN/kbH/75Y+5QbQnztJLxS1TnzV+Xyh1cE+Wzrgt+Vbmqs
+	o5triGDWzAUo3o9XrswLNeJg3TShS9iDonaXzGyooOC20NuYwpn/f3wQJ9Yd4UoFto5xq2t7GUI
+	NETQMdJ2rkiTsNAXfKBH3Xb2mlLSrtYLmkeHA
+X-Gm-Gg: ASbGncs5YT7a7auvxq1kzyK3mOZwM+8zQbN0A0lUZHZ9j2YomvlwVwlZCqhJhle0c4m
+	3yZMD8LOZ0+OJauBidijL5D+97m/2+plxCyXx9DQe8tXNqZWLP7T9XwVD8s3mHMpmFSSTkOsvEE
+	+HM4cJmi1Yi067FKwlqtGh8yOB1kuFkZiKys/0fLBiVgX8qN/Q0F81rLNvblvGBiVd7wjGZx6oz
+	Rt5Vzvt4Mt7p/Hg7S/V1ezx8P6d957/QdI=
+X-Google-Smtp-Source: AGHT+IFnOsLmdnF+epSPLe1YNgYIME44ahTw81+xVd1ILDIMIGt+NsPiaMUmbpaeHNG4ftjbv0X2qkN82rUJc+ZOpJg=
+X-Received: by 2002:a05:6122:1698:b0:552:2c6f:d9a3 with SMTP id
+ 71dfb90a1353d-554b8909fcfmr3165847e0c.0.1760361332706; Mon, 13 Oct 2025
+ 06:15:32 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] VT-d: check bus_to_context_maddr()'s return value
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <4f449e23-107b-4fa3-b131-a8134763609a@suse.com>
- <f7aa9bef-f83c-4a10-a005-1acb78e16e67@citrix.com>
-Content-Language: en-US
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f7aa9bef-f83c-4a10-a005-1acb78e16e67@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: "Aliz 'Randomdude'" <randomdude@gmail.com>
+Date: Mon, 13 Oct 2025 21:15:21 +0800
+X-Gm-Features: AS18NWALZ-6L9SKPbGvVoe9UGUepw4tIx_llMRlI4xNo2nxGQd-_qzSEZv9wU6Q
+Message-ID: <CAEMXWCDS37Bd87SA=d3bSEVOzJsM_+TJoT0kO4ZUT0ShgNiA5A@mail.gmail.com>
+Subject: [BUG] XHCI_NO_64BIT_SUPPORT on ASM1042A USB controller breaks PCIE passthrough
+To: xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 13.10.2025 14:22, Andrew Cooper wrote:
-> On 29/07/2025 7:35 am, Jan Beulich wrote:
->> The function returning zero is an error indication; we shouldn't try to
->> map MFN 0 and then treat that page as a context table.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hi all. Many thanks for Xen.
 
-Thanks (albeit you sent this in reply to the older security@ posting, not
-the later public one [1]).
+I'm attempting to perform PCI passthrough of my RocketU 1144D USB
+controller from an XCP-ng host (XCP-ng 8.3.0, kernel 4.19.0+1) to a
+Linux guest. This card uses a PLX PCIe switch IC and four ASM1042A USB
+controller ICs, of which I forward a single ASM1042A.
 
-Oleksii, may I ask for a release-ack here please, seeing that the issue
-was considered on the edge of another security issue?
+The ASM1042A is detected in the guest VM and initially appears to work
+OK, but after I dd some gigabytes to an attached USB disk device, the
+controller appears to go away:
 
-Jan
+[   81.076381] xhci_hcd 0000:00:09.0: xHCI host not responding to stop
+endpoint command
+[   81.079319] xhci_hcd 0000:00:09.0: xHCI host controller not
+responding, assume dead
+[   81.081503] xhci_hcd 0000:00:09.0: HC died; cleaning up
+[   81.083388] usb 5-1: USB disconnect, device number 2
 
-[1] https://lists.xen.org/archives/html/xen-devel/2025-08/msg00387.html
+At this point, the controller is unusable until I reset it (via
+/sys/bus/pci/devices/../remove and /sys/bus/pci/rescan). I am able to
+trigger this behavior reliably, although sometimes some 30GB must be
+transferred before symptoms appear.
+
+The guest is running a 6.12.50 kernel I built from vanilla sources.
+
+After much head-scratching, I discovered that some older guest kernels
+function correctly, and do not exhibit the bug, allowing sustained use
+of the controller.
+
+I then proceeded to bisect my way to the following Linux kernel patch
+(see https://lists-ec2.96boards.org/archives/list/linux-stable-mirror@lists.linaro.org/thread/WEVQDDJC72LMLPQY37JOZZNKMJ7OHHFL/):
+
+> I've confirmed that both the ASMedia ASM1042A and ASM3242 have the same
+> problem as the ASM1142 and ASM2142/ASM3142, where they lose some of the
+> upper bits of 64-bit DMA addresses. As with the other chips, this can
+> cause problems on systems where the upper bits matter, and adding the
+> XHCI_NO_64BIT_SUPPORT quirk completely fixes the issue.
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Forest Crossman cyrozap@gmail.com
+> Signed-off-by: Mathias Nyman mathias.nyman@linux.intel.com
+> ---
+>  drivers/usb/host/xhci-pci.c | 8 ++++++--
+> 1 file changed, 6 insertions(+), 2 deletions(-)
+>
+>
+> diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
+> index 1f989a49c8c6..5bbccc9a0179 100644
+> --- a/drivers/usb/host/xhci-pci.c
+> +++ b/drivers/usb/host/xhci-pci.c
+> @@ -66,6 +66,7 @@
+> #define PCI_DEVICE_ID_ASMEDIA_1042A_XHCI 0x1142
+>  #define PCI_DEVICE_ID_ASMEDIA_1142_XHCI 0x1242
+>  #define PCI_DEVICE_ID_ASMEDIA_2142_XHCI 0x2142
+> +#define PCI_DEVICE_ID_ASMEDIA_3242_XHCI 0x3242
+>
+>
+> static const char hcd_name[] = "xhci_hcd";
+>
+>
+> @@ -276,11 +277,14 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
+>      pdev->device == PCI_DEVICE_ID_ASMEDIA_1042_XHCI)
+>      xhci->quirks |= XHCI_BROKEN_STREAMS;
+>     if (pdev->vendor == PCI_VENDOR_ID_ASMEDIA &&
+> - pdev->device == PCI_DEVICE_ID_ASMEDIA_1042A_XHCI)
+> + pdev->device == PCI_DEVICE_ID_ASMEDIA_1042A_XHCI) {
+>      xhci->quirks |= XHCI_TRUST_TX_LENGTH;
+> + xhci->quirks |= XHCI_NO_64BIT_SUPPORT;
+> + }
+>     if (pdev->vendor == PCI_VENDOR_ID_ASMEDIA &&
+>         (pdev->device == PCI_DEVICE_ID_ASMEDIA_1142_XHCI ||
+> -      pdev->device == PCI_DEVICE_ID_ASMEDIA_2142_XHCI))
+> +      pdev->device == PCI_DEVICE_ID_ASMEDIA_2142_XHCI ||
+> +      pdev->device == PCI_DEVICE_ID_ASMEDIA_3242_XHCI))
+>      xhci->quirks |= XHCI_NO_64BIT_SUPPORT;
+>
+>
+> if (pdev->vendor == PCI_VENDOR_ID_ASMEDIA &&
+
+Reverting this patch fixes my immediate issue - the USB controller now
+functions as expected. However, I am way out of my depth here and
+strongly suspect that doing so will break things in subtle ways, and
+so this is where I hand off to the experts for proper analysis. In
+particular, I'd be interested to learn under which circumstances
+reverting this patch is dangerous - does 'systems where the upper bits
+matter' apply only to something relatively exotic? I ask in order to
+determine if it is safe to revert this patch in my homelab-grade
+setup.
+
+In case it is useful, here are further details of my set-up:
+
+* Dell R710 with BIOS 6.0.0
+* 2x E5630 CPU and 64GB RAM
+* XCP-ng 8.3.0 on the host
+* Guest OS is Linux 6.12.0, built from vanilla kernel.org sources
+* Guest runs in PVHVM mode
+* PCI controller is the RocketU 1144D, which uses a PLX PEX8609 PCIe
+switch IC connected to four ASM1042A controllers (allowing me to
+forward each controller to a seperate VM)
+* The firmware on the ASM1042A is up-to-date AFAICT
+* The forwarded PCI device is connected to a JMS578-based disk array
+containing three mechanical disks
+* The problem exhibits in the guest VM after I run 'dd if=/dev/urandom
+of=/dev/<disk> bs=1M count=10240 conv=sync', although it sometimes
+needs up to three invokations
+* After reverting the patch, I can run the above command without
+problems ten times
+* The same hardware works OK in ESXi.
+
+I'm happy to provide further details, and please accept my apologies
+in advance for any breach of etiquette - I don't report this kind of
+bug very often.
 
