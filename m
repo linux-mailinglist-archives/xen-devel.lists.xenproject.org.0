@@ -2,49 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 226DBBD298E
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 12:44:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1142194.1476376 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1D21BD2997
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 12:45:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1142203.1476386 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8G25-0000Tc-U8; Mon, 13 Oct 2025 10:44:01 +0000
+	id 1v8G2x-0000xi-7N; Mon, 13 Oct 2025 10:44:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1142194.1476376; Mon, 13 Oct 2025 10:44:01 +0000
+Received: by outflank-mailman (output) from mailman id 1142203.1476386; Mon, 13 Oct 2025 10:44:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8G25-0000Rt-RP; Mon, 13 Oct 2025 10:44:01 +0000
-Received: by outflank-mailman (input) for mailman id 1142194;
- Mon, 13 Oct 2025 10:43:59 +0000
+	id 1v8G2x-0000vq-3p; Mon, 13 Oct 2025 10:44:55 +0000
+Received: by outflank-mailman (input) for mailman id 1142203;
+ Mon, 13 Oct 2025 10:44:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bZn2=4W=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1v8G23-0000Rh-PY
- for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 10:43:59 +0000
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazlp170130001.outbound.protection.outlook.com
- [2a01:111:f403:c10c::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=eGB2=4W=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1v8G2v-0000Rh-Pq
+ for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 10:44:53 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 82f536e3-a821-11f0-980a-7dc792cee155;
- Mon, 13 Oct 2025 12:43:53 +0200 (CEST)
-Received: from CH2PR11CA0011.namprd11.prod.outlook.com (2603:10b6:610:54::21)
- by CY5PR12MB6202.namprd12.prod.outlook.com (2603:10b6:930:25::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.12; Mon, 13 Oct
- 2025 10:43:49 +0000
-Received: from CH1PEPF0000A345.namprd04.prod.outlook.com
- (2603:10b6:610:54:cafe::91) by CH2PR11CA0011.outlook.office365.com
- (2603:10b6:610:54::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.13 via Frontend Transport; Mon,
- 13 Oct 2025 10:43:49 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000A345.mail.protection.outlook.com (10.167.244.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9228.7 via Frontend Transport; Mon, 13 Oct 2025 10:43:49 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 13 Oct
- 2025 03:43:46 -0700
+ id a610a624-a821-11f0-980a-7dc792cee155;
+ Mon, 13 Oct 2025 12:44:52 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-63b6dfd85d4so3747031a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Oct 2025 03:44:52 -0700 (PDT)
+Received: from ?IPV6:2003:e5:873f:400:7b4f:e512:a417:5a86?
+ (p200300e5873f04007b4fe512a4175a86.dip0.t-ipconnect.de.
+ [2003:e5:873f:400:7b4f:e512:a417:5a86])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b55d8c129c4sm913508566b.41.2025.10.13.03.44.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Oct 2025 03:44:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,180 +47,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82f536e3-a821-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f28le4UyXclV6DRDNk1CY4pTeaDDtUphCdDlaOWzQhumsGEGA8LZhREK4UW7RFUzSp8koBFaPQ21St3PhXpqEuIznCjP4Yft+TXjznq86Fuiczw1XGj1WDGcBPXBt8sS9qwYEbo/r0sXuYEIEPVNh0FO8KdhU4ro8Vswo2JoBNEFs22LRUAOJiB/VouO2tOvzV6vYzZONGrKi/XcS8hn3xbUASdIcd9Nmo5ruPgvdD3GdlfjsH7TKq7rUNb3fisdTNDFemakyxgjmR4wGX4McpriBcreUmnMiCaOGGcmXK0TCYLE2qoHFuhm8HyLVYKIU5BceMObGcoFPuTVaL2B1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y3hyAGuYKXHdIyltTIG0zCrXJWunGtE8jaDPWRrTg5M=;
- b=ALlDhj/beekt6koksfgrt/+euw3LRuH1G/y9N7zpp/dphffSYTAo+z7rDufdiiX6yiwyf7ARNNaVln19tZmnOgY3pUDX3aKp69NmDCboWwhOirO+9x8pbfJ8/RQAWYbRZNmMg4wlarjddfafTAe7MbNlpE8IEL9JiugziH5VCt9iABimgdq2lfKpHggZQJqDLu+MEGiUv8wJ7H/SqhStW0e0WeJWAO1MjeAkITk4sKA+QU/BOX6Ua0ngjmRKFvXzijTiGCXfQmoOoA0qoko9W0svmtDjLnCRt9/Tq3q+Ykf2MZ6JfhsZV1w2naLgodWcO4uwwKUBHF6fNhDBorIZ8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y3hyAGuYKXHdIyltTIG0zCrXJWunGtE8jaDPWRrTg5M=;
- b=xKLFmp9Zdb5892v3FYP9SjzkM3TAv+a/ykb/L8qXDzKF1rWmYop+XRqYV9FD3KXYUCalPP/ACmXMq6GvnOjaypxHWxQiSGxQ/pnDGeEX7uvS0MrCy5Wy/w22fcvFCtCZPTSOcu5QNu0xMeo5iWidqUnuugCrmmNpVAreHrAvH1M=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+X-Inumbo-ID: a610a624-a821-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1760352292; x=1760957092; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=+R/X78jm2Irj2eaN3Go6NwIYBw+jEsyYTK+w1HGhScs=;
+        b=XWUq+1E877iobWsdY9RqGDsqc8uQlQdW7c5mlSymwCzJDUbyPlAvU1tR0RgfCA/vNQ
+         FgO+sjIeL0dIC/s+83GzpOd/L0wRvQydbP1v5vFftylezm8ZUkKMFdetKG4jZCz/rdLl
+         R8Qz4j7lQRITmRXaneRp0hU2+tQaZGYy3CrJVUCz5CtN5ydx4FMvocB5OM4+mTxQIsrA
+         SXQg/GgDAfOwM6tzAsdpqRgyp1hvzLSpKQ2r8QUctS16143J0GF2LdbSKTXYpFkNAgah
+         BGfRZ3oOY8sSjmg3wbcpCXgS9iA52YaMT68N2XI2stF5E03aV4iRbPK6BPkNJxjZB8Jq
+         J+iQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760352292; x=1760957092;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+R/X78jm2Irj2eaN3Go6NwIYBw+jEsyYTK+w1HGhScs=;
+        b=wxc+IjxPjRoOKjIV1IItDB69EqcqqfWBus6Qj/0M9MvTFpG4eWXsM3UwNFTUBYCoWH
+         uBiDd/K6c69DclAdtugcylu/+TBRvgcY6QPq5ub5/UZoC89GgO5efCALZLhTkZ233w7l
+         F5yEu2buLzQf//fr44O1u4VqcJir1uJYlKitYoevHFCJSaAIAac8ouRKuQgo/Zjj41uC
+         zVeVHWAm+k0EGogFY2hxO4vP2z9uqDyrRJ7ZRqhqaroeBojkoPmjfawgq0qUgOucsSsP
+         fG+4WIPkerOPHvpKLgGOyqRgd6k81tHZlxMTKSl7VZXMraNoZIUnXHheC26i4szDic1I
+         FfVA==
+X-Forwarded-Encrypted: i=1; AJvYcCUyBvqI/kD05zk38bQwJet5n9PmYaIWUjjoVmqhJ5et32RPGeYcwwAHMbeesuUdFdyBdH+6wXQQfZY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywn2Kyb10dfGVjUvFkJC7Kixd7AfbfKNY56HwVdiak3E4uCJHtb
+	EJCuckEOZWMJd++8X/YXo9AMuZp1YCXXkJb/xff3hMJL/5I3QjJpYbxYR8FZ7gwjVVk=
+X-Gm-Gg: ASbGnct6STyBUdXaZvoZq2bn9IFb2CCnl0r9zkLcgvtXeXEq9gi02z20jSXzK7hYeHz
+	AGYeB/Rm4Dt6bR9WPKAVeEpsidTNNKlN2pWfee0gHxU4eVx1qqyMp2o+kPfZTOTKwefhkdk6wTK
+	GLHc+nG51Wt60F4zLXFXyfIB+wMxm6VH3YXZYw6RH3jdSoXuw0fTGQmt5RR0r7syp+iaXfqYrQa
+	GP6cT/vPU51CsLWg4a219Iwu8oH/PNKSS43lsXBT9WIm4RX8k9NTX9MZj/mUtT3ch5IdevutMKS
+	8vQCALjJKZTtEBNfHNxV/Owspy4lELW7kpPmugNyniY2ijsJnV+nAWGvF6/W+rEcqPVNvzhhr8U
+	YeH0XJJbgllr5mOCTjTpbL7CTal/SLfgu8/tGv7s+LToXc4g0ObV45OLWqepw4XvABXvcIHoqs+
+	Hjx63x1Aj4XEau4h3XEc/KXHiniWgRSJKvmGe6nPbP3ecVrFE/uSQnSTWXcoqVS8m3lqJ3UXyDA
+	w==
+X-Google-Smtp-Source: AGHT+IGl9boHafIzMWS+m4y2BY26uOS33v09kMz/36hXU09JSgcCj7Ok+Mi4qehgfm96eeKyCwzC/w==
+X-Received: by 2002:a17:907:94c8:b0:b2d:e514:5348 with SMTP id a640c23a62f3a-b50abaafd5bmr2202165466b.33.1760352289526;
+        Mon, 13 Oct 2025 03:44:49 -0700 (PDT)
+Message-ID: <c31e2679-2326-4205-b72a-deeb27c19000@suse.com>
+Date: Mon, 13 Oct 2025 12:44:48 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 17/28] xen/domctl: wrap vcpu_affinity_domctl() with
+ CONFIG_MGMT_HYPERCALLS
+To: Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org
+Cc: ray.huang@amd.com, oleksii.kurochko@gmail.com,
+ Dario Faggioli <dfaggioli@suse.com>, George Dunlap <gwd@xenproject.org>
+References: <20251013101540.3502842-1-Penny.Zheng@amd.com>
+ <20251013101540.3502842-18-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20251013101540.3502842-18-Penny.Zheng@amd.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------1ozWhP367BguysgfWOwoS4dg"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------1ozWhP367BguysgfWOwoS4dg
+Content-Type: multipart/mixed; boundary="------------IKxh0LSag7VkRYnihYAlSCOP";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org
+Cc: ray.huang@amd.com, oleksii.kurochko@gmail.com,
+ Dario Faggioli <dfaggioli@suse.com>, George Dunlap <gwd@xenproject.org>
+Message-ID: <c31e2679-2326-4205-b72a-deeb27c19000@suse.com>
+Subject: Re: [PATCH v3 17/28] xen/domctl: wrap vcpu_affinity_domctl() with
+ CONFIG_MGMT_HYPERCALLS
+References: <20251013101540.3502842-1-Penny.Zheng@amd.com>
+ <20251013101540.3502842-18-Penny.Zheng@amd.com>
+In-Reply-To: <20251013101540.3502842-18-Penny.Zheng@amd.com>
+
+--------------IKxh0LSag7VkRYnihYAlSCOP
+Content-Type: multipart/mixed; boundary="------------di2clyy8FUHResRLnwky7i9s"
+
+--------------di2clyy8FUHResRLnwky7i9s
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMTMuMTAuMjUgMTI6MTUsIFBlbm55IFpoZW5nIHdyb3RlOg0KPiBGdW5jdGlvbiB2Y3B1
+X2FmZmluaXR5X2RvbWN0bCgpIGlzIHJlc3BvbnNpYmxlIGZvcg0KPiBYRU5fRE9NQ1RMX3tn
+ZXR2Y3B1YWZmaW5pdHksc2V0dmNwdWFmZmluaXR5fSBkb21jdGwtb3AsIGFuZCBzaGFsbCBi
+ZQ0KPiB3cmFwcGVkIHdpdGggQ09ORklHX01HTVRfSFlQRVJDQUxMUy4gT3RoZXJ3aXNlIGl0
+IHdpbGwgYmVjb21lIHVucmVhY2hhYmxlDQo+IGNvZGVzIHdoZW4gTUdNVF9IWVBFUkNBTExT
+PW4sIGFuZCBoZW5jZSB2aW9sYXRpbmcgTWlzcmEgcnVsZSAyLjEuDQo+IA0KPiBTaWduZWQt
+b2ZmLWJ5OiBQZW5ueSBaaGVuZyA8UGVubnkuWmhlbmdAYW1kLmNvbT4NCj4gLS0tDQo+IHYx
+IC0+IHYyOg0KPiAtIGFkYXB0IHRvIGNoYW5nZXMgb2YgInVuaWZ5IERPTUNUTCB0byBNR01U
+X0hZUEVSQ0FMTFMiDQo+IC0gd3JhcCBYRU5fRE9NQ1RMX3tnZXR2Y3B1YWZmaW5pdHksc2V0
+dmNwdWFmZmluaXR5fS1jYXNlIHRyYW5zaWVudGx5DQo+IC0tLQ0KPiB2MiAtPiB2MzoNCj4g
+LSBhZGFwdCB0byBjaGFuZ2VzIG9mICJyZW1vdmUgdmNwdV9zZXRfc29mdF9hZmZpbml0eSgp
+Ig0KPiAtIGFkZHJlc3MgInZpb2xhdGluZyBNaXNyYSBydWxlIDIuMSIgaW4gY29tbWl0IG1l
+c3NhZ2UNCj4gLSByZW1vdmUgdHJhbnNpZW50IHdyYXBwaW5nIGFyb3VuZCBYRU5fRE9NQ1RM
+X3tnZXR2Y3B1YWZmaW5pdHksc2V0dmNwdWFmZmluaXR5fS1jYXNlDQo+IC0tLQ0KPiAgIHhl
+bi9jb21tb24vc2NoZWQvY29yZS5jIHwgMiArKw0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGlu
+c2VydGlvbnMoKykNCj4gDQo+IGRpZmYgLS1naXQgYS94ZW4vY29tbW9uL3NjaGVkL2NvcmUu
+YyBiL3hlbi9jb21tb24vc2NoZWQvY29yZS5jDQo+IGluZGV4IDg4MTUwNDMyYzMuLjE4MGRl
+Nzg0ZmEgMTAwNjQ0DQo+IC0tLSBhL3hlbi9jb21tb24vc2NoZWQvY29yZS5jDQo+ICsrKyBi
+L3hlbi9jb21tb24vc2NoZWQvY29yZS5jDQo+IEBAIC0xNjg4LDYgKzE2ODgsNyBAQCBpbnQg
+dmNwdWFmZmluaXR5X3BhcmFtc19pbnZhbGlkKGNvbnN0IHN0cnVjdCB4ZW5fZG9tY3RsX3Zj
+cHVhZmZpbml0eSAqdmNwdWFmZikNCj4gICAgICAgICAgICAgICBndWVzdF9oYW5kbGVfaXNf
+bnVsbCh2Y3B1YWZmLT5jcHVtYXBfc29mdC5iaXRtYXApKTsNCj4gICB9DQo+ICAgDQo+ICsj
+aWZkZWYgQ09ORklHX01HTVRfSFlQRVJDQUxMUw0KDQpJIHN1Z2dlc3QgdG8gbW92ZSB0aGlz
+ICNpZmRlZiBhYm92ZSB2Y3B1YWZmaW5pdHlfcGFyYW1zX2ludmFsaWQoKSwgd2hpY2ggaXMN
+CnVzZWQgYnkgdmNwdV9hZmZpbml0eV9kb21jdGwoKSBvbmx5Lg0KDQo+ICAgaW50IHZjcHVf
+YWZmaW5pdHlfZG9tY3RsKHN0cnVjdCBkb21haW4gKmQsIHVpbnQzMl90IGNtZCwNCj4gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHhlbl9kb21jdGxfdmNwdWFmZmluaXR5
+ICp2Y3B1YWZmKQ0KPiAgIHsNCj4gQEAgLTE3OTgsNiArMTc5OSw3IEBAIGludCB2Y3B1X2Fm
+ZmluaXR5X2RvbWN0bChzdHJ1Y3QgZG9tYWluICpkLCB1aW50MzJfdCBjbWQsDQo+ICAgDQo+
+ICAgICAgIHJldHVybiByZXQ7DQo+ICAgfQ0KPiArI2VuZGlmIC8qIENPTkZJR19NR01UX0hZ
+UEVSQ0FMTFMgKi8NCj4gICANCj4gICBib29sIGFsbG9jX2FmZmluaXR5X21hc2tzKHN0cnVj
+dCBhZmZpbml0eV9tYXNrcyAqYWZmaW5pdHkpDQo+ICAgew0KDQoNCkp1ZXJnZW4NCg==
+--------------di2clyy8FUHResRLnwky7i9s
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 13 Oct 2025 12:43:45 +0200
-Message-ID: <DDH4S89FCPOF.2JQM7OUYX3YH6@amd.com>
-CC: Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel
-	<michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Xen-devel
-	<xen-devel-bounces@lists.xenproject.org>
-Subject: Re: [PATCH] xen/domctl: Fix double domid_free in
- XEN_DOMCTL_createdomain error path
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Oleksii Moisieiev
-	<Oleksii_Moisieiev@epam.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.20.1
-References: <37561a9a3b6000502bb1a43651f6ddc49cd9149c.1757759941.git.oleksii_moisieiev@epam.com> <3ba29020-3a9b-4e10-8523-82bfb63482f6@citrix.com>
-In-Reply-To: <3ba29020-3a9b-4e10-8523-82bfb63482f6@citrix.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A345:EE_|CY5PR12MB6202:EE_
-X-MS-Office365-Filtering-Correlation-Id: a686552a-4f9a-4eee-1536-08de0a4564ca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UWpmbHZyL3RuY2poL2FTSXl3eE5jSEJab3JJZVNkSkV3NVRFWnV0T3M0QTF5?=
- =?utf-8?B?U28yOXRSNGdBaXdkRFNTVHN1c0dhYmZLcFFJRkJzQ2xEa1VyV2NTQXBTTG43?=
- =?utf-8?B?WTRQTU0zT1NOTTFpNGpSWXhidElQa0hIaEo4NzJITkVmMXhDQ1RZNXRicFFx?=
- =?utf-8?B?YkUrK0xmV1Y2QzNBNmY1Y3ErWTFaM21XY2FvbU5XSUpqcUY3b1FzRFhndS9u?=
- =?utf-8?B?M01DSE90YWhYMS9QcWJya3ArU2ljbURQbDNFNEZVQ3hTYWFiMXl4c0VtTTlj?=
- =?utf-8?B?cWs5S1FvQUkxcGwxbW9KcDRhM0pQMUVtK1d3Vm9yQUNYeHBTWDlyS1p0Zk04?=
- =?utf-8?B?NStxSEhEUUZSVEg2ZFE5MW9JcW8rbnFqK1lyOUJqYWVScmYxWEdCb1lOdEgr?=
- =?utf-8?B?TDIyOG9maW5MQlB4UHI4RXMwUjQ0QlBhaExFNzU4bzRuM2xiNisrWkwyODhN?=
- =?utf-8?B?T1MwVjFZUmVCNzN4c3RkWmdaNGlQNVZ5dnFrVFNrN3o1d1lTSHRRVXRqd0tk?=
- =?utf-8?B?MzdoSzNhTHJnZkhkWTVqMEFxNHVZRVdWY1ZMQmFKRGNBa2FPbXBrc0ZnTmpQ?=
- =?utf-8?B?cGd5L3FqOXRia3NRNDVYdExOalE2amQ0cnBIRWRCUFJRa1JsdUdRSkcyY1o3?=
- =?utf-8?B?SHFSUHZxTVV0bklnZHg2ckplU1RRTmpiMjBGUVNRZjZ3bGR2alVKcFFCc0M2?=
- =?utf-8?B?dkpFd0M2aGZWeE96aXVDeXE3dkMwd3pPdmtUSUdqdGJrMFZDNkU5ci9sUStB?=
- =?utf-8?B?Q2hqbHRldElsRnhLU3FiQWNLWUQrSEx3OGcycDdvM2h3aHQvR1BaeURzSzg1?=
- =?utf-8?B?bGdkVm1ZOXhHNDNhVzJkcnAydkdvZExlSTNFSnplT2YvV1JZZm95MmFxRjJn?=
- =?utf-8?B?eDFrbWZ5SHdXazFTTHdLZ2xBT0lmRmxiODErOXN5eW1IY0FqYmdkRlMrYXgv?=
- =?utf-8?B?NEFCMmZBRGk4eDZoVjl5M052QmozQ2VRR1ZsN2tmaW5YK2RlQittZ0tXMVNE?=
- =?utf-8?B?bzBHeWExaTdWMVN6WU0wQjdTQnVseVRNbXppOGVNTVlhUUxVYXhkZHMzMnNN?=
- =?utf-8?B?SytRQ2VkamdQRGxiNXpBOEh4dDVYeGdYOXc5MkxCY3ZPMGFiUHFCTTNYN1ZZ?=
- =?utf-8?B?VDFnYk4wTkZCVXNrOTVqOEthd3JsSWFhMnhIeGRDUUxLcGkrcUk4cEdlT3NH?=
- =?utf-8?B?dXRqNlYwWm9EVnhVa3g4dUF5cTNKNGMxbXR2aXFqYkhrZitIV3kyY3p3SzNP?=
- =?utf-8?B?V1B0cTdVbmRIUmFrN3lTdXRmNU1OUFNWcUVLcnRVQ29UcUpwdmdMT2wreVZC?=
- =?utf-8?B?cUliTXExbTdMT2tUQ0dudmdjQlVWNjZlOGdOQ2NBcjhUbDJnTjVtSHRDdkF5?=
- =?utf-8?B?aTJCT2g3anl1MThFR1FaMnM0T2tJSzJiRk52Z3JaTmZBZ29hc3haNzUwSWkz?=
- =?utf-8?B?N0U1dy9LamhibEFCVEVYSERvdXJBQnpNQ2dCMTVUcU81eWJpclN5UjRsaHBD?=
- =?utf-8?B?SzVWNmJncDlubDFoUlJKamtvTnhxRmRMVEthZUdFUUlJa1pzWGYwS0hBeW1h?=
- =?utf-8?B?bC95SFpXNld2dkdOS0d1T2lVeFZ6c2hyNktBWlJmQWpWNGJqaGVSK0xibUJW?=
- =?utf-8?B?dWk5eWRMeXovOTRtV21FNHZiMU55S0gvekYxYVNQbjNVQUtVNWVCWHlVWW8r?=
- =?utf-8?B?OGZHVUdTWXE3RHRLWUdoSlBzcnl0NEZsMU9kYnNrRjVTdjdWejY4Mk1POFhV?=
- =?utf-8?B?aDRXaDVmVDVzUUs4dUlzWXZtaEdwNkRRQkhvYXF2SXNkMWYyb25TUjdLcHpi?=
- =?utf-8?B?cFNGdEMycWFjdlFFcDhjV3M2Uyt4czkvSWVsZTlNZkZxckEyVDM5U0daelFx?=
- =?utf-8?B?cVZISDZDMkZ5NkNJVjVERFYvOTdEWU5oTWg3WWtpMU8rUlNsZ2REZVhvUmJU?=
- =?utf-8?B?ejJSVEdiVnp4aHZrVFpKTkF5M0U3WDBvOEE4MkNmczVxVEpnbzBtaDVuV1BU?=
- =?utf-8?B?V0k2THluZW43WVM5Q01VZTA0ZGZ3TXhKOFkrUEhyNGhHTVJBMzhNSStxZnha?=
- =?utf-8?B?NjFEWDRSUzJWSHAwSG15eXNYOElKNm8rLzFNc1lzakE5Y1ZSS0hqeHArWnly?=
- =?utf-8?Q?voOk=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2025 10:43:49.2641
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a686552a-4f9a-4eee-1536-08de0a4564ca
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000A345.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6202
 
-On Sat Sep 13, 2025 at 1:56 PM CEST, Andrew Cooper wrote:
-> On 13/09/2025 11:44 am, Oleksii Moisieiev wrote:
->> Remove redundant domid_free() call in the XEN_DOMCTL_createdomain error
->> handling path to prevent a double-free condition.
->>
->> When domain_create() fails, it internally calls _domain_destroy() during
->> its cleanup routine, which already invokes domid_free() to release the
->> allocated domain ID. The additional domid_free() call in the domctl erro=
-r
->> path creates a double-free scenario, triggering an assertion failure in
->> domid.c:
->>
->>     Assertion 'rc' failed at common/domid.c:84
->>
->> The domain creation flow is:
->> 1. domid_alloc() allocates a domain ID
->> 2. domain_create() is called with the allocated ID
->> 3. If domain_create() fails:
->>    a) domain_create() calls _domain_destroy() internally
->>    b) _domain_destroy() calls domid_free() to release the ID
->>    c) domctl incorrectly calls domid_free() again
->>
->> This double-free violates the domain ID management invariants and causes
->> system instability. The fix ensures domid_free() is called exactly once
->> per allocated domain ID, maintaining proper resource cleanup
->> semantics.
->
-> Fixes: 2d5065060710 ("xen/domain: unify domain ID allocation")
->
->> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
->
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
->
-> the tl;dr is that domain_create() either inserts the domain into the
-> domlist, or cleans up after itself.
->
-> The domid alloc infrastructure is problematic in multiple ways, not
-> least because it now means there are two sources of truth for which
-> domain's exist, and they are not interlocked.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-The source of truth of existing domains is the domlist. The source of truth
-of domids is the domid bitmap; and they need not match.
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-A domid being allocated doesn't mean the domain exists. Merely that the dom=
-id
-is unavailable for allocation.
+--------------di2clyy8FUHResRLnwky7i9s--
 
-This is fairly important to allow fallible boots, where some boot-domains a=
-re
-allowed to fail construction for one reason or another while preventing the=
-ir
-domids from being hijacked by a later domain, and thus prevent some resourc=
-es
-granted to those domains that failed construction from being usable by othe=
-rs.
+--------------IKxh0LSag7VkRYnihYAlSCOP--
 
-The actual problem is that the lifetime of certain resources assigned to do=
-mains
-extends past the lifetime of the domain, and the mere possesion of a domid
-grants authority over resources assigned to the domid, even after its assoc=
-iated
-domain died. This is wrong and bad, and has been wrong and bad since before=
- the
-time_t was 0.
+--------------1ozWhP367BguysgfWOwoS4dg
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-If it wasn't for this messed up means of resource management we wouldn't ha=
-ve a
-need for preventing certain domids from being used. We need saner semantics=
- with
-the lifetimes of event channels and grants. And possibly more resources.
+-----BEGIN PGP SIGNATURE-----
 
-Cheers,
-Alejandro
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmjs2CAFAwAAAAAACgkQsN6d1ii/Ey+L
+KAgAk4kb4PJdDinP8hLrEoIyCFrSykeg1fUo7rLffPLVC7Ih6pb9woYLmRph3w8QnLnJUJB7u5kQ
+wbNkr5UWz8wAAWbJNH7ClFgQI4q6Ui1597n8fdzENPq5xGXqzZb6NeGuQ9xElehEbltCWTkqI8pg
+Xum3Qyg25lXxXm2jIKHrnI0d8smMSB9+VvHl+loTljJT+Zqh0OWHGYK0ymhpjLmCO/Y0pfB2JHtQ
+9IHxE7UR6NjBxkLnKcIm3dlG220gAdZCO3FVAiEVKUBz26wlIOR1pWiZO5CgyZzOXO3b0Qc7GjDh
+fict3RdDM60S2Gf5fWnpkyKGMFTGzT6mBWJYv/Kxpw==
+=oCzH
+-----END PGP SIGNATURE-----
+
+--------------1ozWhP367BguysgfWOwoS4dg--
 
