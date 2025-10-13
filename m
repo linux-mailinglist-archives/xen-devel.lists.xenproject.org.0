@@ -2,38 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2C63BD2B7F
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 13:07:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1142223.1476406 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B419CBD2BBE
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Oct 2025 13:11:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1142231.1476417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8GOR-0008Md-6F; Mon, 13 Oct 2025 11:07:07 +0000
+	id 1v8GSC-0002OQ-K9; Mon, 13 Oct 2025 11:11:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1142223.1476406; Mon, 13 Oct 2025 11:07:07 +0000
+Received: by outflank-mailman (output) from mailman id 1142231.1476417; Mon, 13 Oct 2025 11:11:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8GOR-0008Ko-3b; Mon, 13 Oct 2025 11:07:07 +0000
-Received: by outflank-mailman (input) for mailman id 1142223;
- Mon, 13 Oct 2025 11:07:05 +0000
+	id 1v8GSC-0002Mc-Gb; Mon, 13 Oct 2025 11:11:00 +0000
+Received: by outflank-mailman (input) for mailman id 1142231;
+ Mon, 13 Oct 2025 11:10:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9ybd=4W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v8GOP-0008KO-UX
- for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 11:07:05 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ (envelope-from <SRS0=7+wn=4W=redhat.com=armbru@srs-se1.protection.inumbo.net>)
+ id 1v8GSA-0002MU-UG
+ for xen-devel@lists.xenproject.org; Mon, 13 Oct 2025 11:10:58 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id baf46327-a824-11f0-980a-7dc792cee155;
- Mon, 13 Oct 2025 13:06:56 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3ee64bc6b85so4542322f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 13 Oct 2025 04:06:55 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46fab3d92c0sm125521415e9.3.2025.10.13.04.06.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Oct 2025 04:06:54 -0700 (PDT)
+ id 47ea89d6-a825-11f0-980a-7dc792cee155;
+ Mon, 13 Oct 2025 13:10:53 +0200 (CEST)
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-252-Qnji2KRmPtGMliE5tch9Hg-1; Mon,
+ 13 Oct 2025 07:10:50 -0400
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id B1B6D180028C; Mon, 13 Oct 2025 11:10:48 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.19])
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 4D16D1954102; Mon, 13 Oct 2025 11:10:48 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id E2B7E21E6A27; Mon, 13 Oct 2025 13:10:45 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +54,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: baf46327-a824-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760353615; x=1760958415; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=a/YdBvRX28BqV3OQfORPtZ5aSVXzY/g1uxG1vL3gvI8=;
-        b=d3GOZoWDuFkJF303sZdDGyHsdPHfdsnaxjLt9Hkk3hpsZkJylRelMOv6Lr++h3/kpT
-         AXI85H+O3M395QWtX347s+cUm5oR2FMz5FPcZvIY/5CNVJB/TByIXFudSGkFkY9p56pW
-         G4nkdCKlodwe8zkXol0e8d7w5iuzJE7+3c+PnSuFxQ98pw8BmK8cKKHTtao8zwe7N6o4
-         iQoNLeFdpaBdMqe28tQ/hICWYaq0qfSlfHdfPtltF8jmvFzPqah1utD155OEbdmMX6BO
-         4vDWMFGm1S/MyKeRJW3sUnA1AjaQvIBi/5A1ggPVUJskpCCSvO8nwUbTW/wFVoN+uTvd
-         zAFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760353615; x=1760958415;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=a/YdBvRX28BqV3OQfORPtZ5aSVXzY/g1uxG1vL3gvI8=;
-        b=hV84vgUTRZPl4HD+B0OHh0vCdQge9WtS5rWNF13is+/LImyCA1aDiE0Ll5rcXteAQK
-         WSnDln6UbfMj5IQ2wCalmZAdppb6WiU6tx2vkTUoY4izQGxWE9i5EbyRdtZ9iIT2AKQv
-         5wwEMql/dPnDiGeXlvoPYR3Ta8xZCzXgBlxpLvGv9DfcoEzCaT818FJdKmVrgZkN3ptF
-         K+H3C6YIthVUcko4kyM8iduodxEZRK689vHLgIZkl36mEMHTXOJ+Y/cJfijnPWwbN7c3
-         yYhA0Qb9tg82qpDLFHHHYT11a114hlAucsgGH9/0MqIkyWKE6EL7PDS/NFCNwyeT8ivk
-         ezBA==
-X-Forwarded-Encrypted: i=1; AJvYcCUkDTfF952LSC+DBSlGakBCPnJ6m5MBnds6JCTHv+MHkJHvdTL0ddwjWk9Z2Pj4hCTeTqt8DpcHrqo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyx+aJs8Kkm0t8up9QT53cC5C3x+vdcAEo3zDSnFl6h44Mrb/SV
-	69WOprUffTYh6TU8JXBvjDR8TC4U0Wkz+d0RcFIjcUGc+fk90oHNG4IUQYdWfo9KLQ==
-X-Gm-Gg: ASbGnctFaUpCPlBHXjwBiYOFs6TysOHD0WqTqHdI+kqJhpHz/sKEnXrISNKC72wyexM
-	DqpmTDfTvx4wAAtYNTkZe1q3dmhuUjcoqIle5WEXtvMVJemxcywo1sQqNazcmo0uO3iD3KBFD5Z
-	X1XPNTr7PQpFl9hKEEBAfLMLkNTpSYCOBknFYqf3apHBQPiF9LrEtM4vShQxWkwjyPbTHwu2UpT
-	m6jgfnQyy5xDhBfgicTsTJQQIzD33sbnwXd+KPtEI8xzv85AyXWCcgYkmA3skO6g4bavi34M/0M
-	Qx1lJAWovaYYexnco0ZymoqFEYDXYzivqWU4NYBrcsAz0tOLrA1AeK9lG3h+0doZxounYyX93ST
-	lS0brxNfRVEQ8ZNqpi8VPPebHSziOyUE3MeHKsFxbPbvv6R0Q+tQA3i0cti9WrN3oAPj1eVLEbu
-	+b14J6XrohU6rjQ1wjzOek0i/73yzm2wxRd24a
-X-Google-Smtp-Source: AGHT+IF3RJJxqKGWcekJrRi/nbXOD3f7sgXQfbuVT9Cf5raitH6bDZXYtnDpdDZ2jF00K8LvkiyOHw==
-X-Received: by 2002:a05:6000:310b:b0:3e7:45c7:828e with SMTP id ffacd0b85a97d-4266e7e1843mr12687054f8f.33.1760353615239;
-        Mon, 13 Oct 2025 04:06:55 -0700 (PDT)
-Message-ID: <65ce9388-bd51-474e-8d9d-8ae00fc3e397@suse.com>
-Date: Mon, 13 Oct 2025 13:06:57 +0200
+X-Inumbo-ID: 47ea89d6-a825-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1760353852;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wTXHtL7x9n8pBFTn/HV8u3bXuDvcA7YfgwtGE1bNnJQ=;
+	b=OhC0QsDa2KmgQiabwidiVHKxzfbENNVzZaSc3lPqWPOqng1K9GenyHoQq12qSOQox4uG70
+	vhvP0A3PfsW5MKB0hEWkuCP364SCpLgH+vufqhiWcdMqLNjdkXBNIvvQS/xC1ZM2NzLnuE
+	eN5ZalvOb6p0HQYkD/xmWqy4jDaMIiU=
+X-MC-Unique: Qnji2KRmPtGMliE5tch9Hg-1
+X-Mimecast-MFC-AGG-ID: Qnji2KRmPtGMliE5tch9Hg_1760353849
+From: Markus Armbruster <armbru@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: sstabellini@kernel.org,  anthony@xenproject.org,  paul@xen.org,
+  edgar.iglesias@gmail.com,  xen-devel@lists.xenproject.org,
+  qemu-trivial@nongnu.org
+Subject: Re: [PATCH] hw/display/xenfb: Replace unreachable code by abort()
+In-Reply-To: <20250729111226.3627499-1-armbru@redhat.com> (Markus Armbruster's
+	message of "Tue, 29 Jul 2025 13:12:26 +0200")
+References: <20250729111226.3627499-1-armbru@redhat.com>
+Date: Mon, 13 Oct 2025 13:10:45 +0200
+Message-ID: <877bwz6oqy.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] x86: make Viridian support optional
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250930125215.1087214-1-grygorii_strashko@epam.com>
- <3e4e4bc5-aa47-4357-9327-df2a9b9c9a1b@suse.com>
- <DDH3W3VM2ZDJ.PMFSGBWBTS0S@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DDH3W3VM2ZDJ.PMFSGBWBTS0S@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On 13.10.2025 12:01, Alejandro Vallejo wrote:
-> On Wed Oct 8, 2025 at 6:04 PM CEST, Jan Beulich wrote:
->> On 30.09.2025 14:52, Grygorii Strashko wrote:
->>> --- a/xen/arch/x86/hvm/Kconfig
->>> +++ b/xen/arch/x86/hvm/Kconfig
->>> @@ -62,6 +62,16 @@ config ALTP2M
->>>  
->>>  	  If unsure, stay with defaults.
->>>  
->>> +config VIRIDIAN
->>> +	bool "Hyper-V enlightenments for guests" if EXPERT
->>> +	default y
->>> +	help
->>> +	  Support optimizations for Hyper-V guests such as faster hypercalls,
->>> +	  efficient timer and interrupt handling, and enhanced paravirtualized
->>> +	  I/O. This is to improve performance and compatibility of Windows VMs.
->>
->> What is "paravirtualized I/O" about in this context?
-> 
-> Hypervisor-assisted IPIs, TLB flushes, etc. Or so I understood back when I said
-> that looked ok.
+Ping?
 
-Just to clarify my take: IPIs fall under "interrupt handling", and TLB flushes
-to me fall under memory management, not I/O.
+Markus Armbruster <armbru@redhat.com> writes:
 
-> I see there could be confusion with Xen PV device protocols,
-> but as far as the user of the help message is concerned it makes no difference.
+> xenfb_mouse_event() has a switch statement whose controlling
+> expression move->axis is an enum InputAxis.  The enum values are
+> INPUT_AXIS_X and INPUT_AXIS_Y, encoded as 0 and 1.  The switch has a
+> case for both axes.  In addition, it has an unreachable default label.
+> This convinces Coverity that move->axis can be greater than 1.  It
+> duly reports a buffer overrun when it is used to subscript an array
+> with two elements.
+>
+> Replace the unreachable code by abort().
+>
+> Resolves: Coverity CID 1613906
+> Signed-off-by: Markus Armbruster <armbru@redhat.com>
+> ---
+>  hw/display/xenfb.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/hw/display/xenfb.c b/hw/display/xenfb.c
+> index 22822fecea..5e6c691779 100644
+> --- a/hw/display/xenfb.c
+> +++ b/hw/display/xenfb.c
+> @@ -283,8 +283,7 @@ static void xenfb_mouse_event(DeviceState *dev, QemuConsole *src,
+>                  scale = surface_height(surface) - 1;
+>                  break;
+>              default:
+> -                scale = 0x8000;
+> -                break;
+> +                abort();
+>              }
+>              xenfb->axis[move->axis] = move->value * scale / 0x7fff;
+>          }
 
-Does it not? To me it does.
-
-> One could even remove the examples and leave it as "... for Hyper-V guests. This
-> is to...". They are truly inconsequential.
-> 
-> All that matters is that (modern) Windows won't run without it, and that it
-> provides some indeterminate hypervisor-provided assists to try to reduce some
-> virtualization overheads.
-
-I think I'm happy for the other examples to stay, as they provide some extra
-context for less aware users.
-
-Jan
 
