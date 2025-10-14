@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9400BD9EA6
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Oct 2025 16:12:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1142851.1476765 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B358BDA114
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Oct 2025 16:39:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1142863.1476775 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8fl9-0000Gj-6Z; Tue, 14 Oct 2025 14:12:15 +0000
+	id 1v8gB0-00037k-8K; Tue, 14 Oct 2025 14:38:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1142851.1476765; Tue, 14 Oct 2025 14:12:15 +0000
+Received: by outflank-mailman (output) from mailman id 1142863.1476775; Tue, 14 Oct 2025 14:38:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8fl9-0000F0-3n; Tue, 14 Oct 2025 14:12:15 +0000
-Received: by outflank-mailman (input) for mailman id 1142851;
- Tue, 14 Oct 2025 14:12:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v8gB0-00035y-4W; Tue, 14 Oct 2025 14:38:58 +0000
+Received: by outflank-mailman (input) for mailman id 1142863;
+ Tue, 14 Oct 2025 14:38:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BBX0=4X=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1v8fl7-0000Eu-6J
- for xen-devel@lists.xenproject.org; Tue, 14 Oct 2025 14:12:13 +0000
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c202::7])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c4898c57-a907-11f0-980a-7dc792cee155;
- Tue, 14 Oct 2025 16:12:07 +0200 (CEST)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by VI1PR03MB10064.eurprd03.prod.outlook.com (2603:10a6:800:1cb::18)
- with Microsoft SMTP Server (version=TLS1_2,
+ <SRS0=ME2R=4X=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1v8gAy-00035q-Sa
+ for xen-devel@lists.xenproject.org; Tue, 14 Oct 2025 14:38:57 +0000
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c111::5])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 81a82e8f-a90b-11f0-9d15-b5c5bf9af7f9;
+ Tue, 14 Oct 2025 16:38:54 +0200 (CEST)
+Received: from DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
+ by SA3PR03MB7418.namprd03.prod.outlook.com (2603:10b6:806:396::22) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.12; Tue, 14 Oct
- 2025 14:12:04 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9203.009; Tue, 14 Oct 2025
- 14:12:04 +0000
+ 2025 14:38:50 +0000
+Received: from DM6PR03MB5227.namprd03.prod.outlook.com
+ ([fe80::c9a0:563d:c344:aec2]) by DM6PR03MB5227.namprd03.prod.outlook.com
+ ([fe80::c9a0:563d:c344:aec2%5]) with mapi id 15.20.9228.009; Tue, 14 Oct 2025
+ 14:38:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,196 +47,312 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4898c57-a907-11f0-980a-7dc792cee155
+X-Inumbo-ID: 81a82e8f-a90b-11f0-9d15-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SkbO89gnUgUV8HYeZmrDe+jaQldmvoTRNZsMedfH1ZNKkL/MHqSHDZKk3bvQbyAAuDSxvszU1qCMByrRTgMMIVNFgmKwPaBLwq4oYTKIzaVmMl1mcTbYav1B/3HkGhi5F+blDQ71U0Ogre8w+6XOqdchhK7kov7yohuXpreg432nTJBhxbD09N9VszerfwKQgPrtyFO8EcdZo3SouxlHRswDTgPe/agYL5diwvzm10BNZ+ZI/g8zfeUyijLCD8S/GESyvcczLmBCSt05Glak79l8WOWPlpuZTKL3xSNKfBmknfLWyqkCPGiOanPi+h0iMeN4SY+CLTyTmAanBYiBhw==
+ b=neRA9XpyApMYLn9gCoBRnLqrS+yliGNihznfBmYrEevF2ogWMSBBtYcSNtXsfjtkswnhTyJ6vJKGUCmkGtWK4pvDYKYiACdsUQ/+Rvn/IYmH+hitkwtaAZ2D8olO0cHCHN6r7ngN8JCwKXTayMQf6NSfKEe095PPp5/K1xHJ7voHUtOOOpU93pN1GJfxVd//iIQDVfpODhLoB+AXtchM/FJ8CEkDK6QBkBqZw3RvT/YAt/JLQhJtHWS0+bSBcZ4lJBTtMBgYRb7bNWEEoQHjG1vtXA+RYTaFHFlpxYmvdMPh/bPl47sejgoHS8j88F3p4R9SnUL2Wkjo8lV1pOMn+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fAT6IUttfd7V6Wbp2R8ttI0tk79mm5RZ9yChfc42N5Q=;
- b=pFFMdqjMWLnPENKrSVjPK87xqRRyUO1SKy4kqkiqq1W8VaS2Xg9v123JfyVmBo4J9Ed3yqQ+aaRDt53wjDTYHgbI1We4OOiLTEKMNVHjgg0jh3m1iY+BkM2uV29jps00RseJKohJRH/+HbKpMF1m2rbqftEv114mVHW+SQAZSkFo3NpqyBlJDZSBdBP6if7Fi2VcZ/WiDuoRNZysKzlNoHVJ/6kiBgEf3DaaoD9YdVJf2/YY9UNU98TL7djv8EAeXm6j7IZMHwY07d3WRs3dkZtLupKHHaCKb+Z7YMe6HYvwLZfoXcI3kg6ksOWsP539b5TY2XvZISbK7fyW7iI6tw==
+ bh=swWCo/RIGwSFSNoPmIIHz/090AnswRvfsSs4t7bK/z4=;
+ b=FzjJTf3vf+Z3NSfFzjDXhezi7SdlgoUiXWtQqBuFJ7bvULLriopukWWC3P8yDmXPGwqq+ncI/b4ziIgJqeYHxzp56wrizTY5mW0yedltH7L2/FEwobAkUAZXXv0b9WxLgqDMFpb/flW/j7tuVE+SQ7FQ4y2tYO4Vb3PIZSvlp53PUjpmqWJd3Mmz33R8MMTRb1npKHAAnq0MiS/zBmDnRMx+Vu72sqrhkD0vLvZpCHY3KTQnCQnW78bQp0jBTrlg/t8MtWnBJjv19DtLOSgRZyzfvWXVIhKhzJczNSG2qsBpT/QSkeFwxTgLN5uU/PiXCEW/d0/BPY8iPOXMI2JLpw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fAT6IUttfd7V6Wbp2R8ttI0tk79mm5RZ9yChfc42N5Q=;
- b=eL6lE9JO2XA0CSost7co2zGPMd/MWNtzzD7JHU0tS+RWrrFAkP+NlJfiOeG8NkXIXbkN9RyKbUtqWWm3VpYcTI4DwsKyMan4pn9Q3jmiAMIJIo9x3LFbMaqCM8erQ6aDbCiMFQJ/XfzVUG7rLCmmEXpSf5gPVfOHUEiesBEUSQI7mnOjQQsutjrlj1rAS3AURihZBW+Zqx5cqaqUqTUmvB9uFaiMmjCToJZFO0uC7f8XcMzqBdyC/MDw6qQv34qc9SihYlFIjDjFNcW52d20+01/ngLZ1ktShvJbwP2yHGqCCcUxBBKV6d23u7Q+XtKDZxHstlOpPvHROEZE8Be68g==
+ bh=swWCo/RIGwSFSNoPmIIHz/090AnswRvfsSs4t7bK/z4=;
+ b=vAT6PWH4xD77TuUCrl9WiVCvDXNeaGE4ij6iHjYhiw1s5hppw3o85k6wDmqxX1D9VAsUWAH0iW1ixP7EAkKC8jEvLAgSDi9tGzjCe+E4WYiqnRQy6KsV/HfBfQG0D80/dUXraPOI5tNv34dkwyOCjS3X8zj6IxuuH7GQlK0IWWM=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <2c9297b8-d4a7-4391-8e39-82a2c0245e0c@epam.com>
-Date: Tue, 14 Oct 2025 17:12:03 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21??? 3/3] x86/vLAPIC: properly support the CMCI LVT
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <amc96@srcf.net>, Oleksii Kurochko
- <oleksii.kurochko@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <265d5053-af61-42cb-a3b9-ef60df39c21b@suse.com>
- <61a05ec1-aca7-4c3f-be6f-1bb053b2cd00@suse.com>
- <4477b803-4941-4032-be83-85cc126ceacb@epam.com>
- <8161d5b7-cc0e-41c3-8664-620988bc399e@suse.com>
-Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <8161d5b7-cc0e-41c3-8664-620988bc399e@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0439.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c6::20) To AS2PR03MB8907.eurprd03.prod.outlook.com
- (2603:10a6:20b:5e4::22)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Tue, 14 Oct 2025 16:38:46 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Subject: Re: [PATCH v5] x86: make Viridian support optional
+Message-ID: <aO5gdh6C_uQoFHPH@Mac.lan>
+References: <20250930125215.1087214-1-grygorii_strashko@epam.com>
+ <aOzt8gfxkdQXZ6O1@Mac.lan>
+ <e6972ea5-2139-4f4d-8d2c-2979fe2fad99@epam.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e6972ea5-2139-4f4d-8d2c-2979fe2fad99@epam.com>
+X-ClientProxiedBy: BN9PR03CA0499.namprd03.prod.outlook.com
+ (2603:10b6:408:130::24) To DM6PR03MB5227.namprd03.prod.outlook.com
+ (2603:10b6:5:247::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|VI1PR03MB10064:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce01aaba-30bc-4efd-5963-08de0b2ba70d
+X-MS-TrafficTypeDiagnostic: DM6PR03MB5227:EE_|SA3PR03MB7418:EE_
+X-MS-Office365-Filtering-Correlation-Id: f06a4a36-1220-4388-3808-08de0b2f63b5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|3122999009;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?QXQvZWpwWkZWYVhiUWJWeWZackF5WE5sOG93cG56MnV4UzgzSzAyaGpGVkQr?=
- =?utf-8?B?YWE1czArSDMrNEx1T0s0bS9TdDZuNzRydlZXU1BzNm1QaHpvTEVQNmZzUml6?=
- =?utf-8?B?NmFLTVJPTmlIVHk4UGd0TFIyTjZoVldwWXZWckRzOVVCbmxYbXJOY25DeTdP?=
- =?utf-8?B?d0tWU1dEYzE2bGdUMjdET2h0RTNMelc5MHY5T3dKYm9vV3dxUFczMEt3aldq?=
- =?utf-8?B?SVJKVklXbHRUM2F1TDRGQWtWZTdmWFJMYU1lL0t2eS9sODN0RVhLOUp6Zmlv?=
- =?utf-8?B?UmJlbDNOWFQwUk93RUtsQS9qS0xlcURLWW95WEtyUUlpcCtoNmRyT2ZzWWg1?=
- =?utf-8?B?RU54MUhHakNJNlZkb3VFa3RXUHF5aTlseHpDcHduTGRFZkJpRjRPb1lpcEVZ?=
- =?utf-8?B?clhySXFXbWpQdTlTZ3Z5VEdIYmRRdGo4SmphNXI4QVpzcXZFVkpldDAzRSt1?=
- =?utf-8?B?OGgzOE5OeDRscU9PbnJyQ1M2SDlmcGdCYkRCbEcyTlZ3UHVrUUpHNmMrdFJG?=
- =?utf-8?B?RVBVaGRRa3c0MG5EZ2JPREsyeWZUZHFQdVhuVkdRZkJtZUpUTW9wR0p2d3ZC?=
- =?utf-8?B?SnAwSGJSblZPekl3ejV2bXMxazNQZGUweTFFT2dXL2trMEpaQWlwdkdnNzBh?=
- =?utf-8?B?SnhDeXNXV2Q0OVc3K1FjSGdXaFd6M1pZL3hObkN4Z1ZEbm1DWGhiSVFkR2o4?=
- =?utf-8?B?NW1ncEd1RmRRWFJGNUs0dHRsV1ZoZmhPYktqUUxnc0NZbEhPSytXWVRmYXBM?=
- =?utf-8?B?L2RUSHZBWVNrTHlTOG16WEdNUWxMcjB2T3luNlBPV1BmOU9vc2tuZm41UHZ0?=
- =?utf-8?B?SkxmWFVhTzlEYTd3czBNUzlrVmI0UnRPa2taSkw3aGRmVHRmT3laaW9TSm1s?=
- =?utf-8?B?dVZjaTR5QlZKNWJQcFJaNHVyTEJCVW9QUFdTNGc3UUxkTU9vY2NRTkh2QmZz?=
- =?utf-8?B?Q01SVnN5MjBoVzV0dnF1dmpGa2hGb28xdEZ4K0JXaWcvdWdtSWZ0bERQa1dP?=
- =?utf-8?B?TFJUVk0wZm1BTnZJcFNvQUZZUHpDMnc0MVJFR0ZtWXZoTTBOa3lvb2dJTlo2?=
- =?utf-8?B?VU5iSGY5SWpWVld0N216NzJ2ekRkL2Z2NU5DTjJVbjNEVndrQ3NoenJ3MzBk?=
- =?utf-8?B?S21KOFhGdTk1T1AxeXBESjg0U0JMRlFkR3plOS9vQXNtTHVCTUltL2N6R25P?=
- =?utf-8?B?TGRST0xvU21OK0t5bzFWSmdVNThVUVpUc2ozTGhkRlllTjFEUUNlRGtlNndq?=
- =?utf-8?B?Z21jL1lTdGw4MVlvZ2MzYXpuUkphY0ZRL25wcDJGUUU3NmpuaWdTdTFhZlNC?=
- =?utf-8?B?R0FqRW5BaWU0em5FUzJKRU13aURhL21Xd3BNVjhzNmZMOUdsTUx1elh1MC9y?=
- =?utf-8?B?eFY0N1NFQkZueDA5N3p3eTNUQlRIRXlrZG5SU1ZOdTJmU3o3ZWpwTDNsSStq?=
- =?utf-8?B?b3JDZlhxMitHdjh0T0JsMzlsdWN4VGxjdU9QMjNiaVRxOXNKZkkzcDJPTXR5?=
- =?utf-8?B?VUxrVVBMZnlJQTh4K1FjK1ZXRHh4Y1JsWjliMjA0bUFDZUZ1SW83dnMwTnhK?=
- =?utf-8?B?RjljZzUrZWMwaEhxMEtIUmJ5cDYyQlZFNVV2NVlBdFNBbHlVS2x5TlJDZnpV?=
- =?utf-8?B?Q0E1aEtwcFRueEc0L0M2VDYvbnlpUXZldzh0OThPaThpM0pWdHNoWjZDSENP?=
- =?utf-8?B?SmhhVnhkS25wSElrby9MeFRocDI0ZmVNTmpZeWE3WFA1T0orOU1FNWRuWFZD?=
- =?utf-8?B?eFNML2pFY0xtZzlSU2tpZUppREFXRkMrSCtyYmFuRTJxaEduUnJWRE1SV2Iy?=
- =?utf-8?B?R1hIVHJQeG5qL1VNLzNPYVBsQXRRb1hUcTBVaytvZE1PeFpxNzJIR3IwZVVh?=
- =?utf-8?B?OXhYY1FVR0dVcnRHR1d2TVJOdEttcVAyaXJEK0FVV2syODVIbVZrelA5ZmFr?=
- =?utf-8?Q?jWjlbOkyU2hqAEcQFuFtmxpxns/+OamS?=
+	=?utf-8?B?TEUzbXZDYk02d09VcmlPTCtNWEk5VVA4c0NzZjV6dThJRkxsTER4S1lhL2dB?=
+ =?utf-8?B?Tm41cWpDa0gwNHMyc3hZTS9VcWl6ZFlVT3VUYTFhUXZGZXhlNGRpMk1jeks1?=
+ =?utf-8?B?RVhiUGJKQjZZU243dHNTZlRiSXowb0lNRjNtZTJjSzNtOC8ybHNUeXBPUlRL?=
+ =?utf-8?B?WTQrUmQydVovdys5Qy9EUHJldWRSc3BzL1pKZFIyT002KzN1WW0zcmdvUW1V?=
+ =?utf-8?B?ZXc2ZWpDUFpWY0pqRU1ZSlNJRXp0d0tmYVRVTklPbEFlYjlIaS9XY1ZmNXBT?=
+ =?utf-8?B?c21HMVdqL0FhZ0xlNTFsSGt3VUhnM3hWRDhRN3hhcXdsY0JVRzBaKy90VTBy?=
+ =?utf-8?B?VFpBTHRxcFc1UlBuWlJBMDZvUzZaZXo4WTZBYkNaRTRYYkNVaitZL0w4OFhi?=
+ =?utf-8?B?Qm83YVBENnFNQzFudm5mRW81MC9iMUh1ZjhXUE5MNGRFbXdjeUZpQnljeVA5?=
+ =?utf-8?B?K1hQUFhRNU9tNmFjZ0dTZUptTnFySnFVNm80UGNUaGlpczV0dDlSdlhrWjdD?=
+ =?utf-8?B?VDh6SU9KVWhERTZqSS96Z2lUUEs1bCtoZm1naXBqaGhtRkdwU0xleCtya2tx?=
+ =?utf-8?B?bm1kK0xOek50RGtrem8zRUhybnJTZURsRWhFSGxIV3IxUjl4RlVLVzMwV1E2?=
+ =?utf-8?B?MjBJVWhLNWE4eFpqVHp3eVdhQXA5VzVqdFh5aVlrd0ZrdGdMVEIycjNNQ1ps?=
+ =?utf-8?B?RGZsbnBaUUMzOFFzanlHTzBVRHJFNmJ4d1lrY1g1bFR3SCt2akNmeFRaaWhp?=
+ =?utf-8?B?b2RXZGMxMUN4cmVjejFFZWpucmNjVEJnYk5HRWJTY2kwV3QxSlgrSWRBN21y?=
+ =?utf-8?B?cE9PRGdIV3kvY0ludVYzbzU0ZDUyTnE2ZWJ3YXpZWXlrbXFnb2lxcVZmMFFi?=
+ =?utf-8?B?VENBY1JkTjFKRFJmQ3pMcG40THB4ckM4WHlVY1BnalpMaVNRRmZKNFBIUGF3?=
+ =?utf-8?B?STgxWGJ6RFlTS2FpVU5nVHRPUHBUQ0VrQlNFWlllUEdXc3A1M3loZjQ0SWRS?=
+ =?utf-8?B?RnhPTHdvclluY0dhNDdTbytpUDhoRmtHMkZtMnphaHhLMDYyUlZwNmhuaXRj?=
+ =?utf-8?B?Q3R2c1hPem9IbzZKQUpVZFV2eVRmUzllL3B6ei9GZGdTc0FDSldSYkMxUzBW?=
+ =?utf-8?B?NzBLUCt5Y0tWWE1hd2F0OGZUTWlpTE5vZk02eXNPM21xOTd3VDRTM0hLL0lS?=
+ =?utf-8?B?dUpoRGw2Mzg1a2t0eGEzZ0o4VUZtcFNKSHI5TktiVUpQUjdMV0E1N0hSNG52?=
+ =?utf-8?B?QUpiZjgwUThtcVRDemgyWUdiL1QzUWhYQzU0VitHWGdCKzR6WjNTWmx0MHp5?=
+ =?utf-8?B?bDV2YlRTcFlYUy9JMkoyb2NLMVVPUHRkK3dFbzRCWnpiMmFXNUo4V3NLcnRK?=
+ =?utf-8?B?ZGxTaUJHNWM1bkx4TlpjcTZlcDY3REhTTnFYY2JtTEtoSXZJNXVWRFhwU2R3?=
+ =?utf-8?B?cG0yNDJlN0dncm45MG1meUMzamVCUWNyZ3RGa1loZXFKVnVFOUlYTEErTU9I?=
+ =?utf-8?B?ZTMrbHpsRUJxZjdrajljYkEvejhMQTFhZzNQZDk0WnQ1WFBrSFNWdlRGZXVr?=
+ =?utf-8?B?bEdFejcvN0d4NUswaS9HbHA5c1pHNzRZUkt5M0ZXMisxdlh2clR2dVdNTFE5?=
+ =?utf-8?B?Y1MwZUJ2Z3FvZG5jMFNpbWZFSkZzaDYzMkU0bDJvR2JBVHZRSk9LM3B5SFR0?=
+ =?utf-8?B?RG14Nzc2SExwazlrT3ppaW8yTFVUK0g5L1hvYW96aUFWNnRqcWRoRWFzS1RQ?=
+ =?utf-8?B?MTFOMHFpUUxEN1BxYWw0VDRnMVJGU0dLUWlOOWx1bDc3akVlS0NwVHQrL2tv?=
+ =?utf-8?B?YURtUitKVGdNdjAxR0Z5ekZueEVua0Nhak5DM29ZSFlndjUxaFd3WnlQV3Bz?=
+ =?utf-8?B?bkxRSXZYNHlRNGRQVlJUZ1B4UWczc3R3VDNRV0xkSmY3QXFDNk8rUVN2Ymly?=
+ =?utf-8?Q?497Lf8SEU9h+ltpykR+inJfifF2gkDRZ?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(3122999009);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB5227.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ejErWEpyUk50dk5NcDJYQUdvYnVjVWZrcjliNlFrbzBvdkowV1d2UFJuV3pn?=
- =?utf-8?B?MEJHRm5MOElCY29TUytHemprUDdxMTkwbEN2LzRYdm93Z3orVXNHVE8zS005?=
- =?utf-8?B?M1ZJUnFrMUNEWjFrNHVUSjVoRytSc3VmV3pVMEdHWnhvczJ3UUVQYnc1SDVt?=
- =?utf-8?B?STVXNlY3c3F6cU0vY0ovZGo2am9XSEtYU21rQjcxckNYSG1MQ21OWE1vNkZi?=
- =?utf-8?B?azNhV3ZuOGgydGh6OXJMbGtieGtRd3pRcEdqN1RRSHhWaFBZTkxnSjE0c1BI?=
- =?utf-8?B?b0NtNUJZbGZyWW12clBqaUV5WUxiMDVmekRvRndqdnRqQXNVbHdCK0hPM2xy?=
- =?utf-8?B?VUhHTHZtU2wvcC9od3VVUzRTSXRDcWJBOVJxUFVZOVlxQkFXRDZmcWZHUFV3?=
- =?utf-8?B?aHpMSmNXTzNPeUZ2UWhRNnB3cndDelQ0d3pJZjhMVDBpaFNyYllVSHhqbVF6?=
- =?utf-8?B?L3oyVWYxa0ZTUlBMd2k4T1FYWGN2bEIyZHdKTEJFTGVkTEdHRkQ0cGhtMDFP?=
- =?utf-8?B?Z1JZN2I5K2ZQR2V4SWI1WS9qaDZDSnY3Vjk1R0tIY1Rnc3g4azJKYUlWUzBB?=
- =?utf-8?B?Rlg0YXRiVG9LaUtKNWhSRVhVYldMa0ViM252NFowY3hWS2lmdHNQbzdGVFFh?=
- =?utf-8?B?S0FrMk1qK1NJeDhqd3hTRkpKUHNrenZlUHU5bkQ4L1RxcU4xUUwxejk5NmY4?=
- =?utf-8?B?U2NFVnR0a2k2NFVrSnB5Qk43TWVUU0d1NjI4MkFJWkNBclNWMExQa3BGejF4?=
- =?utf-8?B?Ym1sU2dTNUd2SHExV2lPZk8yWmdPcEtDbnNvRFpEZDh1NDJMQ2s0V3JmYVhq?=
- =?utf-8?B?Q2t5R0dvSFhNWDBDT0hLZmdjSDRMSExCN0NleGJ2VThqWHgxNm1jaG5mb2dp?=
- =?utf-8?B?RTg0d1hTUFBTcmNTNi9IOXNJRFNWMHptRGp5VmtHOVFCVG5ITHdReFRrUDhO?=
- =?utf-8?B?dGNSWWZEVWtnSkw2NFVOaG51UWFyd25zQ1hhWFVadTJ0VEdaQ0xhTlFtc1pt?=
- =?utf-8?B?M2tFSGM3MUtnd3ZjV3Z3WDU4Tm9yKzR1VWZBV2FRVmI2RnF3MHRBbm9FSFNx?=
- =?utf-8?B?ODJVWE01bGVtK25MRE5aeXNiQ0R3b05pbnRycXlUY2srT1lZL1RUR3krdFJm?=
- =?utf-8?B?Y2RNeHFVQlViOXdNREFVV1VmcWFxZmM2RjhDeE5ndkEzNUl1WUVJa2Y4cGJo?=
- =?utf-8?B?c2NaeVoya1o1M2wxbFJ3MWtubUx6aUFERmp5dDBCOEx5ZEpiYmJzZDR3TDYx?=
- =?utf-8?B?Q2JiNks1TEJMSWd4WEt5UkcwNXlPcW1IMXVETzFhTkt5N3IrQnZZUWRFb21R?=
- =?utf-8?B?QkpqR3F1ZGptSHRySmhUbnloRCt6OXdsUFpCcGZaQ205V216WXFxYzVYejFW?=
- =?utf-8?B?bDhvNmtzam9QNHJYZlp1eWJPNEp5bis5dVdYeWhTV1BVeWh5UFNQK0xoSXFw?=
- =?utf-8?B?R0dYZ3E4VzVzV3NpNnU1ejFCRTBIb1ZmM2RaN0FGbXM1ZjVWNzBNeml3ZFpN?=
- =?utf-8?B?ZHhEeW1QMVNnVERHdWZIZVVWeVM0MVNXY2pZMWNGL0VzMmY2WVJPOU9jVG8z?=
- =?utf-8?B?TVhGOFdhK1VRUHVCQ3Rwb0Y1MU43b0ZVVzZRU2hGZzF3OVBvcHdlV1hYNDFX?=
- =?utf-8?B?eGw1UzFjVW42WGQyUUgwMEt2bGdoNUJDaUJ6YjM4QkdwRk02RzBVb2JWY2g4?=
- =?utf-8?B?R0szVHdSK0wwOE5ZOVlIRkNVQXJRcnJISjdnZFVQZTFmeWpDelNBbU05VWNC?=
- =?utf-8?B?NFJnWDNReVhJdUxneGRRYTM0aFQwd3E1Q0JHTFdxNFN1TVh1SzRhYVcvZ1gw?=
- =?utf-8?B?NkY3R0JQK0o0dDgwQzUvNjNWNjNaN0ZMVDJYOEdsdCtsR1k4U2c4cHhwWDJk?=
- =?utf-8?B?amJCNEdpTlBMUnZWNVcwVUliWlk5a081ZlNOY2NBY2RMckVHM205aGNLZUw2?=
- =?utf-8?B?WkVRR2xjZGxkYnVEOXg3VytkWXEyMTFYaURYcEszRkt6eHdKb0E2L1crYVYr?=
- =?utf-8?B?c2lhMVRsbTFiamUwZjQwanhnT2YyUjR6L1h4ZDdUdkhKb1ZBa1VoeDk2WXFC?=
- =?utf-8?B?QnRYdWh0dzU4OHMrd2dDNXZ6NUR5aUdMbFc3bnB0eEJ0bzdEaUxRbVpwNTRT?=
- =?utf-8?B?OE8xOGpGMEo0ZllpbUlzQXNaV1F6S2F3Q2hsanh1RjgvV2ZZS2lBRmNmdzdW?=
- =?utf-8?B?ZHc9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce01aaba-30bc-4efd-5963-08de0b2ba70d
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+	=?utf-8?B?OURyeUVMYzVCdUdLWGpLZUdBSTJwWkl6ZGV4SVA4empMeS9XSXVseXZKMldx?=
+ =?utf-8?B?SkI0ckZxYmExdXJvam50TlV6VXJPTHIxNFg5blBjK3dEUytlSmt4dVA1elRk?=
+ =?utf-8?B?MGh1Y1hGQVFFN3g1UEVLUldHRjREd2drdnNYb1V6cUZ6ZEFKYVdyR1RqaHpv?=
+ =?utf-8?B?VU00SnJHWUYwbGYzNk5IUlJrU2xNbnljN0RiWDZHRWpKcnBGaFc5TFN4L0NP?=
+ =?utf-8?B?RmV6SmRhQTJzam1jQU4rRy9jZUU5WXczNE1laUptQjc5MXJXcW0wUm96MDJw?=
+ =?utf-8?B?dGlma2pnaSt2cVdWNmx0MUsyUVJ1bHZ2ZVpRL3o1T0QyKzZNYmhQL0V0a2Ra?=
+ =?utf-8?B?czZJVEtobzV0SzZueDV4S1RFOUZwampPM0E2UE5aZFN5aG42Rzl0R3ZIWEpa?=
+ =?utf-8?B?QUJZa0QvMWI5NGJTS0RDTitIMitRZnZHdHB0Mit6aUMwZm40eDJ1UWNrdkQw?=
+ =?utf-8?B?b05BL2NiaHBFblVEc3YzVnZKaTNWT1hoaDJnZk10TkhhSDVTNTl6OXhrdzFX?=
+ =?utf-8?B?MVRtaU5udzBYSklhZFFrcDJqd0RMcHhqS2RkRTlqQnVlS0VUb0R3TzZ5bldX?=
+ =?utf-8?B?WHhzT3Y1VDViREVBNUJDUEVkMWltQlYybW01a2QzaTRXT3Q4UmVtejV5eURp?=
+ =?utf-8?B?a0F5UStwMlBRT2t0VjdZR0NHdFlsT1FGR1VzcDRoNy95UzBvbVlqTG1xRjZh?=
+ =?utf-8?B?WU1DVkVFR1N5STVHcG8wSGNXWHE5VkJBM2FlRnBQSHJYb205cU1ROG5xLy91?=
+ =?utf-8?B?TUdsalNrd0w4YVNhVWhDcCt2WmlCYXY2SXRrL2loYzh5cXlaMjdmOWpNSVNn?=
+ =?utf-8?B?SWhWNG92TXFTSlVKN2lpeHc0VXZjQzJxUlFrZE44aUhNcDNqZ0ZFZUxvOS9Z?=
+ =?utf-8?B?RlZQQlNscE05R0VMR295WUZnM21IY0YvaVFoa21tQkdUT3FLT01sVEYvM0lN?=
+ =?utf-8?B?V3ZWbHg3aDgxZDduKzBEU2t6OE4rTFRVZzlPVy9nTkN4bC85Sk50cXNmSDly?=
+ =?utf-8?B?RVFWVlkxMEFJYVlrV3RFV2J2NnBJSW90eXpmTVFzemhpK21IRXJjTGVEeFM1?=
+ =?utf-8?B?VWhqMEQxWVNuMnJhVlhOdmYwZDI4b0JhSEhDenBHK3BnRnJWVEpyZWl6blJj?=
+ =?utf-8?B?TnVMSkJUWEU5YWlacFM2SmNBVE1oR1pXV285cFFpcTE5YkZMZUl1V2owbmtO?=
+ =?utf-8?B?TVA4ay9FWGRKTXh5Um1lYTRHWEswUXZRa1ZtejYyNVJxWFZSTU9lSjR1aVRI?=
+ =?utf-8?B?VkZTTHFSc1pjaisxNUpDcGRKc3hRY2VldDRpQ1ViOFJIS043MVZSemEvcFFC?=
+ =?utf-8?B?RXN5bVZKdjFkNFcyUngySkV1SzQwT0FTZU83Wmg1Zk96eTJrT3djaGkzTFFV?=
+ =?utf-8?B?N2JpOWNQaFRkVUhINDVReUxtanNMeWNHTkNPLzk4ai9vVG1OV1VDelRUYklq?=
+ =?utf-8?B?c2hPYkhWbnM0RExxeDZYSVpCTC82THRMMjlGajZHQjJ3RVdOM2tQczQwSTVl?=
+ =?utf-8?B?ZGtqN0JJTG0wampOZlB0MVhBdUR0Uzlaa2x2NzUyNnZua2VDL1BveTBEM0Ex?=
+ =?utf-8?B?ZTU2aFJjY3l1enhlRXd1OWhKYi9hc1B3YnB2OXFtLytHL0E0SWE3Q3I2R3BZ?=
+ =?utf-8?B?NlNEK1V2L3gxZWYrdFRpdVV0c09ibmdOekp4NVBRUTdtWUxPeDJqUThMSjhW?=
+ =?utf-8?B?eGlFSmNSSzI4cjRJVGJ6UU8yWXFVcTZGZUk4QUZGbTBLdkxsL1FmRGhaVXBP?=
+ =?utf-8?B?ZndXM0dHS2hMd01LeFhOY3pNS1hScEtOczJaTXM1S29VZ0RXVjFZK3Y4Wmky?=
+ =?utf-8?B?ZVVkamlxdG1haDJ1UGRuZ3EveDJrTmlwcEJCMkwzSlpvYWVIaklmN05pS0pF?=
+ =?utf-8?B?M09SNFpPYVpkNkVocThuRjRiN0dkQ1NxUFRiYVNBUW5oZEZzMUlUUENJUGRT?=
+ =?utf-8?B?bTRJYTlwNlRia1c1NXc4bWpTNm42N05JQklXbmVXek1VNnZ6aWIrYTloMlpU?=
+ =?utf-8?B?NE5EbHd4MXozREhaM014V29oVnIzc29mcktpQkJ4cUNSS2pxVXJZdXRmK1dU?=
+ =?utf-8?B?bFJSM2ZOZVd4OHNmZ0JpOHpUM1VjTFNXYmZVTnhINXdVNm14QVE1Vk5uZnZh?=
+ =?utf-8?Q?3X3/63+f8Z+OCXtaZPbRxHOOo?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f06a4a36-1220-4388-3808-08de0b2f63b5
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5227.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2025 14:12:04.8522
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2025 14:38:50.1570
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WDSYOwvSLIX36lmZU5U8LI9Olcdh50YaaLjTTlUz8Ma6dCzqWnXwwlJEAI/XwHbQxTTNzTbAIRU91WwAxc6ozsckLU84Opl71E32FNZ8b8k=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB10064
+X-MS-Exchange-CrossTenant-UserPrincipalName: DEN9Zp3kVjHjFuSKu8J/LNTpTXGxD+AXZK5w0qmPP8IvWf6N6eVzANMoPsfrSiHnJraEALnPBP7Xk1aq8EUW9A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR03MB7418
 
-
-
-On 09.10.25 18:37, Jan Beulich wrote:
-> On 09.10.2025 17:08, Grygorii Strashko wrote:
->> On 08.10.25 15:09, Jan Beulich wrote:
->>> --- a/xen/arch/x86/hvm/vlapic.c
->>> +++ b/xen/arch/x86/hvm/vlapic.c
->>> @@ -31,10 +31,13 @@
->>>    #include <public/hvm/ioreq.h>
->>>    #include <public/hvm/params.h>
->>>    
->>> -#define LVT_BIAS(reg)                   (((reg) - APIC_LVTT) >> 4)
->>> +#include <../cpu/mcheck/x86_mca.h> /* MCG_CMCI_P */
->>
->> This include... You probably do not like it also
->> It is dependency outside HVM code.
->>
->> I've been thinking about something like vlapic->caps which can be filed before vlapic_init()
->> or passed as parameter, but seems x86 toolstack is considered to be able overwrite anything,
->> including v->arch.vmce.
->>
->> Seems, no better options here.
+On Tue, Oct 14, 2025 at 04:24:53PM +0300, Grygorii Strashko wrote:
+> On 13.10.25 15:17, Roger Pau Monné wrote:
+> > On Tue, Sep 30, 2025 at 12:52:16PM +0000, Grygorii Strashko wrote:
+> > > From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> > > +
+> > > +	  If unsure, say Y.
+> > > +
+> > >   config MEM_PAGING
+> > >   	bool "Xen memory paging support (UNSUPPORTED)" if UNSUPPORTED
+> > >   	depends on VM_EVENT
+> > > diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
+> > > index 6ec2c8f2db56..736eb3f966e9 100644
+> > > --- a/xen/arch/x86/hvm/Makefile
+> > > +++ b/xen/arch/x86/hvm/Makefile
+> > > @@ -1,6 +1,6 @@
+> > >   obj-$(CONFIG_AMD_SVM) += svm/
+> > >   obj-$(CONFIG_INTEL_VMX) += vmx/
+> > > -obj-y += viridian/
+> > > +obj-$(CONFIG_VIRIDIAN) += viridian/
+> > >   obj-y += asid.o
+> > >   obj-y += dm.o
+> > > diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> > > index 23bd7f078a1d..95a80369b9b8 100644
+> > > --- a/xen/arch/x86/hvm/hvm.c
+> > > +++ b/xen/arch/x86/hvm/hvm.c
+> > > @@ -701,9 +701,12 @@ int hvm_domain_initialise(struct domain *d,
+> > >       if ( hvm_tsc_scaling_supported )
+> > >           d->arch.hvm.tsc_scaling_ratio = hvm_default_tsc_scaling_ratio;
+> > > -    rc = viridian_domain_init(d);
+> > > -    if ( rc )
+> > > -        goto fail2;
+> > > +    if ( is_viridian_domain(d) )
+> > > +    {
+> > > +        rc = viridian_domain_init(d);
+> > > +        if ( rc )
+> > > +            goto fail2;
+> > > +    }
+> > 
+> > Are you sure this works as expected?
+> > 
+> > The viridian_feature_mask() check is implemented using an HVM param,
+> > and hence can only be possibly set after the domain object is created.
+> > AFAICT is_viridian_domain(d) will unconditionally return false when
+> > called from domain_create() context, because the HVM params cannot
+> > possibly be set ahead of the domain being created.
 > 
-> Same here, hence why I used it despite not liking it.
+> You are right. Thanks for the this catch.
 > 
->>> @@ -697,8 +701,17 @@ int guest_rdmsr_x2apic(const struct vcpu
->>>            return X86EMUL_EXCEPTION;
->>>    
->>>        offset = reg << 4;
->>> -    if ( offset == APIC_ICR )
->>> +    switch ( offset )
->>> +    {
->>> +    case APIC_ICR:
->>>            high = (uint64_t)vlapic_read_aligned(vlapic, APIC_ICR2) << 32;
->>> +        break;
->>> +
->>> +    case APIC_CMCI:
->>> +        if ( !(v->arch.vmce.mcg_cap & MCG_CMCI_P) )
->>
->> Could it be done using wrapper, like vmce_has_cmci()?
->> As this is Intel specific it's candidate to be opt-out eventually.
+> Taking above into account above, it seems Jan's proposal to convert below
+> viridian APIs into wrappers for VIRIDIAN=n case is right way to move forward:
 > 
-> Possible. I wanted to limit the churn, hence why I preferred not to introduce
-> a wrapper. Such an abstraction I wouldn't like to be a function taking a vCPU;
-> really this should be a domain property imo.
+> int viridian_vcpu_init(struct vcpu *v);
+> int viridian_domain_init(struct domain *d);
+> void viridian_vcpu_deinit(struct vcpu *v);
+> void viridian_domain_deinit(struct domain *d);
+> 
+> Right?
 
-My intention was to limit spreading direct access to "vmce" data over vlapic code:
+Possibly. If you don't want to introduce a XEN_DOMCTL_createdomain
+flag you need to exclusively use the Kconfig option to decide whether
+the Viridian related structs must be allocated.  IOW: you could also
+solve it by using IS_ENABLED(CONFIG_VIRIDIAN) instead of
+is_viridian_domain() for most of the calls here.
 
-static bool vlapic_has_cmci(const struct vcpu *v)
-{
-	return v->arch.vmce.mcg_cap & MCG_CMCI_P;
-}
+The wrapper option might be better IMO, rather than adding
+IS_ENABLED(CONFIG_VIRIDIAN) around.
 
-Just expressing opinion.
+> [1] https://patchwork.kernel.org/comment/26595213/
+> 
+> > 
+> > If you want to do anything like this you will possibly need to
+> > introduce a new flag to XEN_DOMCTL_createdomain to signal whether the
+> > domain has Viridian extensions are enabled or not, so that it's know
+> > in the context where domain_create() gets called.
+> 
+> In my opinion, it might be good not to go so far within this submission.
+> - It's not intended  to change existing behavior of neither Xen nor toolstack
+>   for VIRIDIAN=y (default)
+> - just optout Viridian support when not needed.
 
--- 
-Best regards,
--grygorii
+OK, that's fine.
 
+On further request though: if Viridian is build-time disabled in
+Kconfig, setting or fetching HVM_PARAM_VIRIDIAN should return -ENODEV
+or similar error.  I don't think this is done as part of this patch.
+
+> > 
+> > Given that HyperV is available on arm64 also it should be a global
+> > flag, as opposed to a per-arch one in xen_arch_domainconfig IMO.
+> > >       rc = alternative_call(hvm_funcs.domain_initialise, d);
+> > >       if ( rc != 0 )
+> > > @@ -739,7 +742,8 @@ void hvm_domain_relinquish_resources(struct domain *d)
+> > >       if ( hvm_funcs.nhvm_domain_relinquish_resources )
+> > >           alternative_vcall(hvm_funcs.nhvm_domain_relinquish_resources, d);
+> > > -    viridian_domain_deinit(d);
+> > > +    if ( is_viridian_domain(d) )
+> > > +        viridian_domain_deinit(d);
+> > >       ioreq_server_destroy_all(d);
+> > > @@ -1643,9 +1647,12 @@ int hvm_vcpu_initialise(struct vcpu *v)
+> > >            && (rc = nestedhvm_vcpu_initialise(v)) < 0 ) /* teardown: nestedhvm_vcpu_destroy */
+> > >           goto fail5;
+> > > -    rc = viridian_vcpu_init(v);
+> > > -    if ( rc )
+> > > -        goto fail6;
+> > > +    if ( is_viridian_domain(d) )
+> > > +    {
+> > > +        rc = viridian_vcpu_init(v);
+> > > +        if ( rc )
+> > > +            goto fail6;
+> > > +    }
+> > >       rc = ioreq_server_add_vcpu_all(d, v);
+> > >       if ( rc != 0 )
+> > > @@ -1675,13 +1682,15 @@ int hvm_vcpu_initialise(struct vcpu *v)
+> > >    fail2:
+> > >       hvm_vcpu_cacheattr_destroy(v);
+> > >    fail1:
+> > > -    viridian_vcpu_deinit(v);
+> > > +    if ( is_viridian_domain(d) )
+> > > +        viridian_vcpu_deinit(v);
+> > >       return rc;
+> > >   }
+> > >   void hvm_vcpu_destroy(struct vcpu *v)
+> > >   {
+> > > -    viridian_vcpu_deinit(v);
+> > > +    if ( is_viridian_domain(v->domain) )
+> > > +        viridian_vcpu_deinit(v);
+> > >       ioreq_server_remove_vcpu_all(v->domain, v);
+> > > diff --git a/xen/arch/x86/hvm/viridian/viridian.c b/xen/arch/x86/hvm/viridian/viridian.c
+> > > index c0be24bd2210..1212cc418728 100644
+> > > --- a/xen/arch/x86/hvm/viridian/viridian.c
+> > > +++ b/xen/arch/x86/hvm/viridian/viridian.c
+> > > @@ -1116,14 +1116,14 @@ static int cf_check viridian_save_domain_ctxt(
+> > >   {
+> > >       const struct domain *d = v->domain;
+> > >       const struct viridian_domain *vd = d->arch.hvm.viridian;
+> > > -    struct hvm_viridian_domain_context ctxt = {
+> > > -        .hypercall_gpa = vd->hypercall_gpa.raw,
+> > > -        .guest_os_id = vd->guest_os_id.raw,
+> > > -    };
+> > > +    struct hvm_viridian_domain_context ctxt = {};
+> > >       if ( !is_viridian_domain(d) )
+> > >           return 0;
+> > > +    ctxt.hypercall_gpa = vd->hypercall_gpa.raw;
+> > > +    ctxt.guest_os_id = vd->guest_os_id.raw,
+> > > +
+> > >       viridian_time_save_domain_ctxt(d, &ctxt);
+> > >       viridian_synic_save_domain_ctxt(d, &ctxt);
+> > > @@ -1136,6 +1136,9 @@ static int cf_check viridian_load_domain_ctxt(
+> > >       struct viridian_domain *vd = d->arch.hvm.viridian;
+> > >       struct hvm_viridian_domain_context ctxt;
+> > > +    if ( !is_viridian_domain(d) )
+> > > +        return -EILSEQ;
+> > > +
+> > >       if ( hvm_load_entry_zeroextend(VIRIDIAN_DOMAIN, h, &ctxt) != 0 )
+> > >           return -EINVAL;
+> > > @@ -1172,6 +1175,9 @@ static int cf_check viridian_load_vcpu_ctxt(
+> > >       struct vcpu *v;
+> > >       struct hvm_viridian_vcpu_context ctxt;
+> > > +    if ( !is_viridian_domain(d) )
+> > > +        return -EILSEQ;
+> > 
+> > Nit: we usually use EILSEQ for unreachable conditions, but here it's a
+> > toolstack controlled input.  Maybe we could instead use ENODEV here?
+> > 
+> > As it's not really an illegal restore stream, but the selected guest
+> > configuration doesn't match what's then loaded.
+> 
+> I'm a "working bee" here and can change it once again her to -ENODEV here.
+> But It will be really cool if it will be agreed on Maintainers level somehow.
+> 
+> EILSEQ was used as per [2]
+
+Didn't know it was explicitly requested, then leave it like that and
+ignore this comment.
+
+Thanks, Roger.
 
