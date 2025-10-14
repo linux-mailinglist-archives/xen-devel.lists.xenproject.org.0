@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 148B6BD9B72
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Oct 2025 15:29:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1142815.1476735 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3326BD9B75
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Oct 2025 15:29:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1142819.1476745 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8f5l-0001Te-Im; Tue, 14 Oct 2025 13:29:29 +0000
+	id 1v8f62-0001pc-Pz; Tue, 14 Oct 2025 13:29:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1142815.1476735; Tue, 14 Oct 2025 13:29:29 +0000
+Received: by outflank-mailman (output) from mailman id 1142819.1476745; Tue, 14 Oct 2025 13:29:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8f5l-0001SD-Eg; Tue, 14 Oct 2025 13:29:29 +0000
-Received: by outflank-mailman (input) for mailman id 1142815;
- Tue, 14 Oct 2025 13:29:28 +0000
+	id 1v8f62-0001lJ-Ma; Tue, 14 Oct 2025 13:29:46 +0000
+Received: by outflank-mailman (input) for mailman id 1142819;
+ Tue, 14 Oct 2025 13:29:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=U7Gn=4X=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1v8f5k-0001S7-C7
- for xen-devel@lists.xenproject.org; Tue, 14 Oct 2025 13:29:28 +0000
-Received: from fout-a5-smtp.messagingengine.com
- (fout-a5-smtp.messagingengine.com [103.168.172.148])
+ <SRS0=QInk=4X=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1v8f62-0001S7-0C
+ for xen-devel@lists.xenproject.org; Tue, 14 Oct 2025 13:29:46 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ccd149f7-a901-11f0-9d15-b5c5bf9af7f9;
- Tue, 14 Oct 2025 15:29:25 +0200 (CEST)
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
- by mailfout.phl.internal (Postfix) with ESMTP id EA464EC0218;
- Tue, 14 Oct 2025 09:29:23 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-09.internal (MEProxy); Tue, 14 Oct 2025 09:29:23 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 14 Oct 2025 09:29:21 -0400 (EDT)
+ id d92f16e4-a901-11f0-9d15-b5c5bf9af7f9;
+ Tue, 14 Oct 2025 15:29:45 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-6399706fd3cso7917083a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Oct 2025 06:29:45 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-146-38.play-internet.pl.
+ [109.243.146.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b55d951cfe7sm1162940466b.73.2025.10.14.06.29.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Oct 2025 06:29:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,196 +45,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ccd149f7-a901-11f0-9d15-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1760448563;
-	 x=1760534963; bh=S0UisJWKx31O02UEdK/ERm0rmgx+IS7J3ZsinuNzZp8=; b=
-	j5bygdnoNt9UzxpX46qhfzFOWzxyYjFQVeqDE4CqJ2pjx7HDlIONyDuj+VzKDBn8
-	2CbJ5E+huA3wn8puFk6iAvvjj73SykwWDC6ePq6pZc1KWvaaBWJEDcF37KZzKpOh
-	OSecNXaezxXeG4EQv5r2C+2aKilG0ee0ioMqnxRQyvc11z7dm0EulPbSq3UaEM+a
-	KrGRP4Kh2WUb7DIBFMWlPRGmr0pB3O4LpE90D6+N/tcK5lNbykvljLAvRjSZuqty
-	5EjSUOHdGKcitUdlmPMEK/euD3mc/OtK/ckjTGl86PPHshFeGILli6v3kbBZ7EmQ
-	LwJBhJgQWlrpgT2Oboz7xA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1760448563; x=1760534963; bh=S0UisJWKx31O02UEdK/ERm0rmgx+IS7J3Zs
-	inuNzZp8=; b=IdG/PPm+q4WfQDgCJPfJQOMBm2h/5l092VPkZI1iUXSFd4w4YJt
-	A0+dathr3Z/rQ6TVrmRQTeX3fLcWXP3Waa8qOiDMcLfYsrMVFAGnLLn9UdGMqsyr
-	sK5NYIgpCH3WEhsw2RwjTHzbRaeB9AAyXdyaiZyUc2tIYMQkud1/EOYe8+mrEUPt
-	ZfPM3yWSN3dGeJJlYh6da4sYCvu/VjpCh0f4DjqzUTjAIo423zEg6zVPosonADeC
-	TmifKoZPo+DI+T8rn/YRaUYA1cWlV3LCvPleCQiAS0+5LLTfhYMT5LC/h3p3bIbb
-	1jxJ8qdCG0Ykh5+puc6KZm4Whp7TlAJCBLQ==
-X-ME-Sender: <xms:M1DuaAswB6F5kd9x-1bksy_SUw_eafzQbsVT1jeArZmRco2oKw2OCQ>
-    <xme:M1DuaEU9ivQ7J2uWkXjPyRseblznpg_Tmbc7P0kQbTWi-ZYdyE2r3R-4nOZL3qU8l
-    bYIgvgdGQCd5-B0KaGeDaK2iL9ravlv_OHM81dXpBSRbd8_>
-X-ME-Received: <xmr:M1DuaEGnlkYivcQbjGaFFv1q2Pdx3CbI6Q8Si1zXYNYLOcG_S21WuRvE3w>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdduvddtieeiucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleet
-    feevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
-    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohephedpmh
-    houggvpehsmhhtphhouhhtpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegt
-    ihhtrhhigidrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvg
-    hnphhrohhjvggtthdrohhrghdprhgtphhtthhopehgvghrrghlugdrvghluggvrhdqvhgr
-    shhssegtlhhouhgurdgtohhmpdhrtghpthhtohepughpshhmihhthhesrghpvghrthhush
-    hsohhluhhtihhonhhsrdgtohhmpdhrtghpthhtohepohhlvghkshhiihdrkhhurhhotghh
-    khhosehgmhgrihhlrdgtohhm
-X-ME-Proxy: <xmx:M1DuaO3G9ntrE9MQF69mWXnlWXhtE04GMZpRyII2eYek9HYlNPmvMw>
-    <xmx:M1DuaONdXZyuE0BXW5GyC3PuVilRGRghK2CeV-j9i6p3z-I5ekuoCQ>
-    <xmx:M1DuaF5FW-HRlvbRGVhoUbqitiFFvbpjIY8pyi3hi1afh_IeQo5Psw>
-    <xmx:M1DuaA1FEMFcMSr3XgTuAhAc6HrVkWS_gxit0El3ex8Lmvkct0O2Hw>
-    <xmx:M1DuaFrAKrhIOxseWSa-IjN3JKHxPIVqhv6tMSxygP8IgTjKxKp1AYMA>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 14 Oct 2025 15:29:20 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH for-4.21 v2] efi: Protect against unnecessary image
- unloading
-Message-ID: <aO5QMFtLpC819kbZ@mail-itl>
-References: <20251014130648.2540082-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: d92f16e4-a901-11f0-9d15-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1760448585; x=1761053385; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Zi+Lbw40+IKRRaPLAGKsWkBnluseHyKM0vAd4i2nrCo=;
+        b=lB14P8dLrI/jIE7EuXQBb217Wz2xnyKYZFPdEIyU/YFYuIbPAaF4wID/vEWw3+qaS9
+         81tlP5uK8rw5da2f+cZjtwQvGWO2jQVtdFGzKgFW3DDqFDkYLpaZ2SK7Lby4yVg2zsMc
+         spmR1RHo71PwykcyEfNshNOUgW/sG7LZC3NohiospvjYhPv71rv+/DWS6XT42TvQtTTq
+         ub+ObJQQgkrbt4zDM9ei9VeNHORsgmP04EXTqXOf8w7HfSBswVm4taxbCDJvE9evrqpB
+         stEkxcuZ7WHsYVzhOLXms9Kk1IqP9TeEBvxteCr8/VqVpa7Xn86Os2UEmYCwMTOWspGQ
+         o7dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760448585; x=1761053385;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Zi+Lbw40+IKRRaPLAGKsWkBnluseHyKM0vAd4i2nrCo=;
+        b=ZPAzUBxBVX8OtL/m3dWDrFTF2t4Gs4RMztatUv2RyIoZfE+g6Pp4Uzzth6B3p+qlUa
+         MRQY4UaN2YPPPjWsfMJmPnp29mktSksP3ky5NWzxd83kPaGgmvxB4O4uSLisTP9ljSxM
+         EcRTyhZldUycKy6Ij8V0sByJGsfKZjifsemOS5rUHet8zGTfVcffpqxsydavsF1coC6o
+         w5iNmqv2EGtSLc5Gb8W/Q58/CaDo3cbZGNCH5apiefA3cHBUuTGfRgp4YHveLWXjaxXP
+         ipraR9OYvA5Xby18vyizOFCxcu2pMHbKwHkiVdoLUw2b2A2fFsZpwHoINNwVR41JqdDB
+         DCfw==
+X-Forwarded-Encrypted: i=1; AJvYcCU0AyX9XeTNRnWjzJejXTNAfF//r5aBXGcv//zLojvdtZXtULDA/pCxaG+5dysbmYP9lkw0QOOejyE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz6VBrrfxygEhs1YasvE4+TRvr9Tp3QXRBQMcp2jv4s13lkrqaB
+	75lc7eFN88uUGYTscQlG3lTZaGIaLo3rf56QGR9Ao9LOgO1pH9CPXPdv
+X-Gm-Gg: ASbGncvsldPT0DC3GPk2gsAob1JH8qOGtsb4aM+HRzmWUaeGtJ+Usg3MMQEsDe0G/0d
+	3XQRKT7h3ASM42hjQ8fC9LBOt+fvfQICT+RHI3B84v01ESIFqT86o+k2t9YpQQ9ys+ZpoGHHVqk
+	Lx8IZM5YD5qNIodDn6AiYQaOrBiDLOO+SdfrrLPTy3cCpci1GGuj/kXaobQ0SfCTtkie/Fmw/rk
+	40JeJFoT7/fxFN4HJuXIFqHkAksNxOQrpC9GehSzP3iR/jDQZKwjezmLCeB2HGwU9afS8Vq7925
+	njER0FHXhkYJ/tEghSmhwBmy2yyoRJD39ON8cpSMMXOIsZVFoiUe5EuzXKMpf2ZxksQq45Gf/0m
+	tosmUW0KG0g5X3PtPy3p15k2DFoy/XhUL+w390PyPdXKsmzIG9Mhl3XfX+3St8EogBVx1rsF22v
+	JQvwykP99R+1gkIxvL5B7+Ww==
+X-Google-Smtp-Source: AGHT+IEI0TCUWnWZJJcbUmTaLwZY2dM9x74qMGq//AzqQ+mG5UGFIOdzW/x6t7cg73Q/XTY7JBmuEg==
+X-Received: by 2002:a17:907:d1d:b0:b41:873d:e226 with SMTP id a640c23a62f3a-b50aa48cabdmr2279861166b.1.1760448584415;
+        Tue, 14 Oct 2025 06:29:44 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------Sx1080vPSXFABen7ZFCZzeIC"
+Message-ID: <942c8e1d-ea1e-4573-972d-d64144da98c0@gmail.com>
+Date: Tue, 14 Oct 2025 15:29:43 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="37Ncevye+cVhnF8+"
-Content-Disposition: inline
-In-Reply-To: <20251014130648.2540082-1-andrew.cooper3@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86/apic: Avoid infinite loop in
+ io_apic_level_ack_pending()
+To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20251013211106.8720-1-jason.andryuk@amd.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20251013211106.8720-1-jason.andryuk@amd.com>
+
+This is a multi-part message in MIME format.
+--------------Sx1080vPSXFABen7ZFCZzeIC
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
---37Ncevye+cVhnF8+
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Oct 2025 15:29:20 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH for-4.21 v2] efi: Protect against unnecessary image
- unloading
+On 10/13/25 11:11 PM, Jason Andryuk wrote:
+> io_apic_level_ack_pending() will end up in an infinite loop if
+> entry->pin == -1.  entry does not change, so it will keep reading -1.
+>
+> Convert to a proper for loop so that continue works.  Add a new helper,
+> next_entry(), to handle advancing to the next irq_pin_list entry.
+>
+> Fixes: f821102450a1 ("x86: IRQ Migration logic enhancement.")
+> Signed-off-by: Jason Andryuk<jason.andryuk@amd.com>
 
-On Tue, Oct 14, 2025 at 02:06:48PM +0100, Andrew Cooper wrote:
-> From: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
->=20
-> Commit 59a1d6d3ea1e introduced Shim's LoadImage protocol and unloads the
-> image after loading it (for verification purposes) regardless of the
-> returned status. The protocol API implies this is the correct behaviour
-> but we should add a check to protect against the unlikely case this
-> frees any memory in use.
->=20
-> Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
-om>
-with one comment below (I'm okay with the patch either way)
+Thanks.
+
+~ Oleksii
 
 > ---
-> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
-> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->=20
-> Gerald is OoO and time is tight on Xen 4.21, so I've picked the patch up.
->=20
-> Oleksii: This addresses follow-on feedback for a new feature in Xen 4.21,=
- so
-> really does want fixing before the release.  I forgot to put it on the
-> tracking list, sorry.
->=20
 > v2:
->  * Apply feedback as Marek wants it.
+> continue (not break) for pin == -1.
+>
+> I added the next_entry() helper since putting the expression in the for
+> loop is a little cluttered.  The helper can also be re-used for other
+> instances within the file.
 > ---
->  xen/common/efi/boot.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
->=20
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index 5b84dbf26e5e..3a78e7571a5e 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -1062,7 +1062,7 @@ static void __init efi_verify_kernel(EFI_HANDLE Ima=
-geHandle)
->      static EFI_GUID __initdata shim_image_guid =3D SHIM_IMAGE_LOADER_GUI=
-D;
->      static EFI_GUID __initdata shim_lock_guid =3D SHIM_LOCK_PROTOCOL_GUI=
-D;
->      SHIM_IMAGE_LOADER *shim_loader;
-> -    EFI_HANDLE loaded_kernel;
-> +    EFI_HANDLE loaded_kernel =3D NULL;
+>   xen/arch/x86/io_apic.c | 14 +++++++++-----
+>   1 file changed, 9 insertions(+), 5 deletions(-)
+>
+> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+> index c384f10c1b..7b58345c96 100644
+> --- a/xen/arch/x86/io_apic.c
+> +++ b/xen/arch/x86/io_apic.c
+> @@ -1586,14 +1586,21 @@ static int __init cf_check setup_ioapic_ack(const char *s)
+>   }
+>   custom_param("ioapic_ack", setup_ioapic_ack);
+>   
+> +static struct irq_pin_list *next_entry(struct irq_pin_list *entry)
+> +{
+> +    if ( !entry->next )
+> +        return NULL;
+> +
+> +    return irq_2_pin + entry->next;
+> +}
+> +
+>   static bool io_apic_level_ack_pending(unsigned int irq)
+>   {
+>       struct irq_pin_list *entry;
+>       unsigned long flags;
+>   
+>       spin_lock_irqsave(&ioapic_lock, flags);
+> -    entry = &irq_2_pin[irq];
+> -    for (;;) {
+> +    for ( entry = &irq_2_pin[irq]; entry ; entry = next_entry(entry) ) {
+>           unsigned int reg;
+>           int pin;
+>   
+> @@ -1609,9 +1616,6 @@ static bool io_apic_level_ack_pending(unsigned int irq)
+>               spin_unlock_irqrestore(&ioapic_lock, flags);
+>               return 1;
+>           }
+> -        if (!entry->next)
+> -            break;
+> -        entry = irq_2_pin + entry->next;
+>       }
+>       spin_unlock_irqrestore(&ioapic_lock, flags);
+>   
+--------------Sx1080vPSXFABen7ZFCZzeIC
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-While this isn't strictly necessary now (assuming correct firmware
-implementation), it helps just a bit with buggy firmware (that would
-leave loaded_kernel unset in case of EFI_SECURITY_VIOLATION, possibly
-leaking some memory). It still assumes UnloadImage() verifies its
-parameter in that case (spec suggests it should, but doesn't spell it
-out explicitly).
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 10/13/25 11:11 PM, Jason Andryuk
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20251013211106.8720-1-jason.andryuk@amd.com">
+      <pre wrap="" class="moz-quote-pre">io_apic_level_ack_pending() will end up in an infinite loop if
+entry-&gt;pin == -1.  entry does not change, so it will keep reading -1.
 
->      EFI_SHIM_LOCK_PROTOCOL *shim_lock;
->      EFI_STATUS status;
->      bool verified =3D false;
-> @@ -1078,11 +1078,12 @@ static void __init efi_verify_kernel(EFI_HANDLE I=
-mageHandle)
->              verified =3D true;
-> =20
->          /*
-> -         * Always unload the image.  We only needed LoadImage() to perfo=
-rm
-> -         * verification anyway, and in the case of a failure there may s=
-till
-> -         * be cleanup needing to be performed.
-> +         * If the kernel was loaded, unload it. We only needed LoadImage=
-() to
-> +         * perform verification anyway, and in the case of a failure the=
-re may
-> +         * still be cleanup needing to be performed.
->           */
-> -        shim_loader->UnloadImage(loaded_kernel);
-> +        if ( !EFI_ERROR(status) || (status =3D=3D EFI_SECURITY_VIOLATION=
-) )
+Convert to a proper for loop so that continue works.  Add a new helper,
+next_entry(), to handle advancing to the next irq_pin_list entry.
 
-So, just in case of double-buggy firmware, check loaded_kernel here too?
+Fixes: f821102450a1 ("x86: IRQ Migration logic enhancement.")
+Signed-off-by: Jason Andryuk <a class="moz-txt-link-rfc2396E" href="mailto:jason.andryuk@amd.com">&lt;jason.andryuk@amd.com&gt;</a></pre>
+    </blockquote>
+    <pre>Release-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
 
-> +            shim_loader->UnloadImage(loaded_kernel);
->      }
-> =20
->      /* Otherwise, fall back to SHIM_LOCK. */
->=20
-> base-commit: 53859596c0d34dbca776ec1e47bac8dd90552530
-> --=20
-> 2.39.5
->=20
+Thanks.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+~ Oleksii</pre>
+    <blockquote type="cite"
+      cite="mid:20251013211106.8720-1-jason.andryuk@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+---
+v2:
+continue (not break) for pin == -1.
 
---37Ncevye+cVhnF8+
-Content-Type: application/pgp-signature; name=signature.asc
+I added the next_entry() helper since putting the expression in the for
+loop is a little cluttered.  The helper can also be re-used for other
+instances within the file.
+---
+ xen/arch/x86/io_apic.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+index c384f10c1b..7b58345c96 100644
+--- a/xen/arch/x86/io_apic.c
++++ b/xen/arch/x86/io_apic.c
+@@ -1586,14 +1586,21 @@ static int __init cf_check setup_ioapic_ack(const char *s)
+ }
+ custom_param("ioapic_ack", setup_ioapic_ack);
+ 
++static struct irq_pin_list *next_entry(struct irq_pin_list *entry)
++{
++    if ( !entry-&gt;next )
++        return NULL;
++
++    return irq_2_pin + entry-&gt;next;
++}
++
+ static bool io_apic_level_ack_pending(unsigned int irq)
+ {
+     struct irq_pin_list *entry;
+     unsigned long flags;
+ 
+     spin_lock_irqsave(&amp;ioapic_lock, flags);
+-    entry = &amp;irq_2_pin[irq];
+-    for (;;) {
++    for ( entry = &amp;irq_2_pin[irq]; entry ; entry = next_entry(entry) ) {
+         unsigned int reg;
+         int pin;
+ 
+@@ -1609,9 +1616,6 @@ static bool io_apic_level_ack_pending(unsigned int irq)
+             spin_unlock_irqrestore(&amp;ioapic_lock, flags);
+             return 1;
+         }
+-        if (!entry-&gt;next)
+-            break;
+-        entry = irq_2_pin + entry-&gt;next;
+     }
+     spin_unlock_irqrestore(&amp;ioapic_lock, flags);
+ 
+</pre>
+    </blockquote>
+  </body>
+</html>
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmjuUDAACgkQ24/THMrX
-1ywAqgf/dr9m9Wwh/0asR1uc1cBeOWADFSTCo88Md2mzDMsq0/3UW/Nqrrlsjnw/
-NB5QoALVuznRDwjhVn7Vw7GS3HGfdvqdWalqKINTzQ3/FOrFAYDudeuDdYzb8ny+
-vN5PO4bigsUAMzNBfrvxR1IXI7SfwyS2bg4niJgvHluzGMOWYwRDe9R9xAx9RVzM
-Rj4YGYmL/U1cP815pu71pMgX1qDgQWbKzO9HZwDPJCdTRH0ErFAI9r3gluj1Qocv
-qTvZbR0khk6AKgC8eGI3p6/9RSvQ3+pyr1jL6TK57AbqOBmbAWHdj2DY6HR5hMRY
-yyMInLzRjA50I/sScT3OGNLLMi63gw==
-=6b4t
------END PGP SIGNATURE-----
-
---37Ncevye+cVhnF8+--
+--------------Sx1080vPSXFABen7ZFCZzeIC--
 
