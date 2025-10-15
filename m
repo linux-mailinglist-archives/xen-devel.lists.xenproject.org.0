@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94026BDFDD2
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Oct 2025 19:30:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1143843.1477443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC972BDFDD8
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Oct 2025 19:31:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1143853.1477452 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v95KZ-0004TM-N5; Wed, 15 Oct 2025 17:30:31 +0000
+	id 1v95LQ-0004yH-0f; Wed, 15 Oct 2025 17:31:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1143843.1477443; Wed, 15 Oct 2025 17:30:31 +0000
+Received: by outflank-mailman (output) from mailman id 1143853.1477452; Wed, 15 Oct 2025 17:31:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v95KZ-0004Rz-KM; Wed, 15 Oct 2025 17:30:31 +0000
-Received: by outflank-mailman (input) for mailman id 1143843;
- Wed, 15 Oct 2025 17:30:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v95LP-0004vf-Ti; Wed, 15 Oct 2025 17:31:23 +0000
+Received: by outflank-mailman (input) for mailman id 1143853;
+ Wed, 15 Oct 2025 17:31:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wenR=4Y=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1v95KY-0004Rt-2t
- for xen-devel@lists.xenproject.org; Wed, 15 Oct 2025 17:30:30 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a4388dae-a9ec-11f0-980a-7dc792cee155;
- Wed, 15 Oct 2025 19:30:28 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-5818de29d15so8540849e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 15 Oct 2025 10:30:28 -0700 (PDT)
+ id 1v95LP-0004vX-DX
+ for xen-devel@lists.xenproject.org; Wed, 15 Oct 2025 17:31:23 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c499161c-a9ec-11f0-9d15-b5c5bf9af7f9;
+ Wed, 15 Oct 2025 19:31:22 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-57e36125e8aso2984069e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Oct 2025 10:31:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,134 +40,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4388dae-a9ec-11f0-980a-7dc792cee155
+X-Inumbo-ID: c499161c-a9ec-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1760549427; x=1761154227; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1760549482; x=1761154282; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SoUQQ4/8tu4aH9GKihsHY7cZFIXUjJL4wPcovrSb3Ro=;
-        b=IaYol2iWCWSVwuq399I2PQ1yaSDoZg5vtUvMTL0Sjyo7s95pKW7DlqHqfkSiJYUaNu
-         oB58Hze0pg6M924dyCgQCjdnLw08ko7x/J5fQHiPUjin90bvLlganXiR2Z0FL4Z33Z/Y
-         Gs25eTL+SxdFop9+xtw+bJ4zqAuvSezXPJFyCd3M0NnDpBUnRlDLvmyEORljJaIbl1kO
-         5VlFWQVcQKDAowjchhzSYJh1PcJLuzxXVbN6A91CVVIvmc9DHugHBBaMbFwa6CVebrNq
-         a8E4tXDxx8qft02TUyZvDY9MHEyr5AGZ2aQicGadpHD5eW/gfHl0YPEl1TyJczaBARrO
-         pqpg==
+        bh=gE76BkH4GZQ4fS7qoTNXoLhC1V6HX9wpiQEVi5CYbxE=;
+        b=JLRrwoMAdP6qJ1nkRJuoKxCcHTYNwJrJhVwYirbSYikJqrPNCYFR+Fzo83kXe9NeZG
+         csw7rZitoBSISE46cb3rGryh1qdKnLTxmJuBR0HscPlRDcuxdqh8wWD6EWQBKkaYsUaY
+         dXCr1mMd4h6jqmNcbLWK788rSgng1bYTtbkeesJB/pcQjvd5RxIVy8haZRwESPtzwdvO
+         vZL4OR/FUt43F8fSRMGmqdeMOzJCNqCgTyiWRS59OOjGpW7jOnSTxi25rYy7RJ4gxvHS
+         577f8HpEJi9SQnM4+SuOdAoXmd/mYh0kM39uFSxucozTGsgFCSlprPKghvuqSA7ffuvW
+         k9uA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760549427; x=1761154227;
+        d=1e100.net; s=20230601; t=1760549482; x=1761154282;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=SoUQQ4/8tu4aH9GKihsHY7cZFIXUjJL4wPcovrSb3Ro=;
-        b=XnNWbD2fdhaaIHaEXRKTy4rM586TBMrGrwT2UdXbaSKBe0P7TFwB7Df0miXMr5XMx5
-         zEmVqWBri4lHZvCfWR5tNqRur1T+yYacFMLJKqIOVGVrWlD76Dd2Sfp9Cflm63NTYNqG
-         1zg6B1t8O5d4zCsxG5zjf8IRjlCZIroXOe8wie3qsIkomwSWGpUytHZC+YHYxSbIr0NT
-         1Qbtr4fnS+kXH/qwUDjvJ4+Ce1pmla5KFQ9itR6b9N/9LDye257IN4yKqO0x/K9Gdc9Q
-         Ehv97aJUgn3qmskPpCpvKMh3p1GxfMANb1zOUW/23QJ3RC0TR2cWktHznzYsvUnKFQ6t
-         PPMQ==
-X-Gm-Message-State: AOJu0Yzl7+YBDLptXZ3JHm1kNSiyLwVd6uPBokOayc1x+J7JSvA5g/68
-	FXUtHewcINmOmikaprp0UWPOqifnsqNC8lChcdf7ywX70GcffS9ZuMOFv42vPHaNNuyY5VfZbuR
-	+PYQUGYXzxVAfJ4fmqZuIpl3ZvmXUlZs=
-X-Gm-Gg: ASbGncudMFEQHsxasoZm36RkrmrTi7gF3AtJMQqNt5eM3eafpUKetVldOMJshQZgRYI
-	Bg3Kp1Kzi9wmHCS1NjtuivIXkU2OigLAteFQiEO/vTSd2eLHYiQloRTd+VmR9t3imCQ06VYrIHe
-	exOYNNUqfUZTt7BOGsA4DJl/XvzW8JMpFEi6THy7ymOE0e3HznvhvMr32JMIbLSE0O6tETdvXbP
-	WPNhE8sZxwYBCPgsKX4MwaW
-X-Google-Smtp-Source: AGHT+IHjhQWz1AgIFI9fPVSU+mnBsLw+lDuNf0LiNlK7wcFZNbzfh88olSrKcKRuvHEVMB8gJ/SxsXvd0UYblIGlCMM=
-X-Received: by 2002:a05:6512:3a8e:b0:586:883e:b7c6 with SMTP id
- 2adb3069b0e04-5906dd6f97amr8544473e87.30.1760549427205; Wed, 15 Oct 2025
- 10:30:27 -0700 (PDT)
+        bh=gE76BkH4GZQ4fS7qoTNXoLhC1V6HX9wpiQEVi5CYbxE=;
+        b=qk+D2YXe/hNYzYXJ9Zi4E9gdsbZjmxES85zusVksrPZHtlRkcA/sc+EOtRGtcT0Rpw
+         594oNeEUiWHXrP5es9hNbn0KvTDOiyCgBWUuwipCYJBU4JQveq10KSMDRahGygSHJSV8
+         ML6V8jaGQN7fx32ZF0RVRYel0bdZBTk4RMaajL+Y9IVjAa2jyymGi5hhvkGBgWRMwUK6
+         /7bOT98/ps1vkWknZnvmMmffdFBAm34ls1GdUnBCOsuPxvxZ6nXDbLIKnBY3kCQZCFvB
+         q7hWmsVrHPcBp6SRkNGe93r09SHBGR7/llaw6OIdGbx7nxLDe6m1ZIjmDfU/7I6pMsxo
+         DMAg==
+X-Gm-Message-State: AOJu0YwVdEzdB1dEDwSkGyVH/4CxFvNNa9ZNXbTVooRSs8Ez+dQ4OPQq
+	RmCnKOySQuqsH4L9vRqzWz/59yPd/lrr0VOaY/nUedEL23U+KbjuvPPdGzQG3QO+XPbkkuOU3L3
+	TpMCKzNxdkp+Iwn3H/Y7YA90a/E4ggQycbIVp
+X-Gm-Gg: ASbGncu5FlxHP4CMlg6e1wga3PVIuOvjoo3ElqC0VnGXmgLS/OVVaROMxGHrXUSDir6
+	rblRrEWcCs4t8YuDcBPDsGvuxqHgnDIcLHFrsTsKevr8hFXXXo1iCHirkEIONOa4j3sS4mLipxr
+	4dTBoKUdc+n3zAgVN3FfiT59K28QlTJFbaTGxyGz0YJvOsaPC443iidA6mCnaUtplTttjyp0x/6
+	Su79oOswNLPbMqXBl0GERV553Udo8OB4Pw=
+X-Google-Smtp-Source: AGHT+IEBP0ld7KXIGNEMcrCAFqf/A8BakJYMP5BpG1UxupqecVwJXbmx1tdDKQimO4oHl4DQD8Qg+QuUbkquTJ87pIM=
+X-Received: by 2002:a05:6512:10d4:b0:58b:2b:ac7b with SMTP id
+ 2adb3069b0e04-5906de8dbd1mr8799742e87.57.1760549481681; Wed, 15 Oct 2025
+ 10:31:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1760083684.git.mykyta_poturai@epam.com> <af333b9ef3b79f4b0cfafb1f09da5b7bea04cfaa.1760083684.git.mykyta_poturai@epam.com>
-In-Reply-To: <af333b9ef3b79f4b0cfafb1f09da5b7bea04cfaa.1760083684.git.mykyta_poturai@epam.com>
+References: <cover.1760083684.git.mykyta_poturai@epam.com>
+In-Reply-To: <cover.1760083684.git.mykyta_poturai@epam.com>
 From: Mykola Kvach <xakep.amatop@gmail.com>
 Date: Wed, 15 Oct 2025 20:30:00 +0300
-X-Gm-Features: AS18NWDmzxoGK2nKKUZNsOnGqO6q13aluJLFomfPZDkHoXtWBgGVZTx5rAKJKfM
-Message-ID: <CAGeoDV9WFSXbNmeCw002aNMSscL01dVvYzUYxg-a28QqXi2onA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/5] arm/time: Use static irqaction
+X-Gm-Features: AS18NWBbnmcZGwHh8lD5hVahKPcMQYGUmShzImQMSwFiCQa4eIyHmoK4v2F4LEk
+Message-ID: <CAGeoDV-=ON+WSvCQnjaa9zU_74RuFHXrqa5+p8dAjM9fxpomxw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/5] Implement CPU hotplug on Arm
 To: Mykyta Poturai <Mykyta_Poturai@epam.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
 	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
 	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi Mykyta,
 
-On Fri, Oct 10, 2025 at 12:22=E2=80=AFPM Mykyta Poturai <Mykyta_Poturai@epa=
+Thanks for the series.
+
+It seems there might be issues here -- please take a look and let me
+know if my concerns are valid:
+
+1. FF-A notification IRQ: after a CPU down->up cycle the IRQ
+configuration may be lost.
+
+2. GICv3 LPIs: a CPU may fail to come back up unless its LPI pending
+table exists (is allocated) on bring-up. See
+gicv3_lpi_allocate_pendtable() and its call chain.
+
+3. IRQ migration on CPU down: if an IRQ targets a CPU being offlined,
+its affinity should be moved to an online CPU before completing the
+offlining.
+
+4. Race between the new hypercalls and disable/enable_nonboot_cpus():
+disable_nonboot_cpus is called, enable_nonboot_cpus() reads
+frozen_cpus, and before it calls cpu_up() a hypercall onlines the CPU.
+cpu_up() then fails as "already online", but the CPU_RESUME_FAILED
+path may still run for an already-online CPU, risking use-after-free
+of per-CPU state (e.g. via free_percpu_area()) and other issues
+related to CPU_RESUME_FAILED notification.
+
+
+
+On Fri, Oct 10, 2025 at 12:36=E2=80=AFPM Mykyta Poturai <Mykyta_Poturai@epa=
 m.com> wrote:
 >
-> When stopping a core deinit_timer_interrupt is called in non-alloc
-> context, which causes xfree in release_irq to fail an assert.
+> This series implements support for CPU hotplug/unplug on Arm. To achieve =
+this,
+> several things need to be done:
 >
-> To fix this, switch to a statically allocated irqaction that does not
-> need to be freed in release_irq.
+> 1. XEN_SYSCTL_CPU_HOTPLUG_* calls implemented.
+> 2. timer and GIC maintenance interrupts switched to static irqactions to =
+remove
+> the need for freeing them during release_irq.
+> 3. Enabled the build of xen-hptool on Arm.
 >
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> Tested on QEMU.
 >
 > v2->v3:
-> * no changes
+> * add docs
 >
 > v1->v2:
-> * Use percpu actions
-> ---
->  xen/arch/arm/time.c | 21 +++++++++++++++++----
->  1 file changed, 17 insertions(+), 4 deletions(-)
+> * see individual patches
 >
-> diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-> index e74d30d258..59349467de 100644
-> --- a/xen/arch/arm/time.c
-> +++ b/xen/arch/arm/time.c
-> @@ -303,9 +303,15 @@ static void check_timer_irq_cfg(unsigned int irq, co=
-nst char *which)
->             "WARNING: %s-timer IRQ%u is not level triggered.\n", which, i=
-rq);
->  }
+> Mykyta Poturai (5):
+>   arm/time: Use static irqaction
+>   arm/gic: Use static irqaction
+>   arm/sysctl: Implement cpu hotplug ops
+>   tools: Allow building xen-hptool without CONFIG_MIGRATE
+>   docs: Document CPU hotplug
 >
-> +DEFINE_PER_CPU_READ_MOSTLY(struct irqaction, irq_hyp);
-> +DEFINE_PER_CPU_READ_MOSTLY(struct irqaction, irq_virt);
-
-Scope nit (MISRA C:2012 R8.8):
-if irq_hyp and irq_virt are only used in this TU, give it internal linkage.
-
-> +
->  /* Set up the timer interrupt on this CPU */
->  void init_timer_interrupt(void)
->  {
-> +    struct irqaction *hyp_action =3D &this_cpu(irq_hyp);
-> +    struct irqaction *virt_action =3D &this_cpu(irq_virt);
-> +
->      /* Sensible defaults */
->      WRITE_SYSREG64(0, CNTVOFF_EL2);     /* No VM-specific offset */
->      /* Do not let the VMs program the physical timer, only read the phys=
-ical counter */
-> @@ -314,10 +320,17 @@ void init_timer_interrupt(void)
->      WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled */
->      isb();
+>  config/Tools.mk.in               |  1 +
+>  docs/misc/cpu-hotplug.txt        | 51 ++++++++++++++++++++++++++++++++
+>  tools/configure                  | 30 +++++++++++++++++++
+>  tools/configure.ac               |  1 +
+>  tools/libs/guest/Makefile.common |  4 +++
+>  tools/misc/Makefile              |  2 +-
+>  xen/arch/arm/gic.c               | 11 +++++--
+>  xen/arch/arm/sysctl.c            | 45 ++++++++++++++++++++++++++++
+>  xen/arch/arm/time.c              | 21 ++++++++++---
+>  9 files changed, 159 insertions(+), 7 deletions(-)
+>  create mode 100644 docs/misc/cpu-hotplug.txt
+>  mode change 100755 =3D> 100644 tools/configure
 >
-> -    request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
-> -                "hyptimer", NULL);
-> -    request_irq(timer_irq[TIMER_VIRT_PPI], 0, vtimer_interrupt,
-> -                   "virtimer", NULL);
-> +    hyp_action->name =3D "hyptimer";
-> +    hyp_action->handler =3D htimer_interrupt;
-> +    hyp_action->dev_id =3D NULL;
-> +    hyp_action->free_on_release =3D 0;
-> +    setup_irq(timer_irq[TIMER_HYP_PPI], 0, hyp_action);
-> +
-> +    virt_action->name =3D "virtimer";
-> +    virt_action->handler =3D vtimer_interrupt;
-> +    virt_action->dev_id =3D NULL;
-> +    virt_action->free_on_release =3D 0;
-> +    setup_irq(timer_irq[TIMER_VIRT_PPI], 0, virt_action);
->
->      check_timer_irq_cfg(timer_irq[TIMER_HYP_PPI], "hypervisor");
->      check_timer_irq_cfg(timer_irq[TIMER_VIRT_PPI], "virtual");
 > --
 > 2.34.1
 >
-
-Reviewed-by: Mykola Kvach <mykola_kvach@epam.com>
 
 Best regards,
 Mykola
