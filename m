@@ -2,36 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73DFEBDFC1D
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Oct 2025 18:52:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1143816.1477422 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AF8FBDFD29
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Oct 2025 19:15:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1143829.1477433 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v94jg-0007L8-OF; Wed, 15 Oct 2025 16:52:24 +0000
+	id 1v9556-0001kK-EG; Wed, 15 Oct 2025 17:14:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1143816.1477422; Wed, 15 Oct 2025 16:52:24 +0000
+Received: by outflank-mailman (output) from mailman id 1143829.1477433; Wed, 15 Oct 2025 17:14:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v94jg-0007IN-LJ; Wed, 15 Oct 2025 16:52:24 +0000
-Received: by outflank-mailman (input) for mailman id 1143816;
- Wed, 15 Oct 2025 16:52:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v9556-0001it-BE; Wed, 15 Oct 2025 17:14:32 +0000
+Received: by outflank-mailman (input) for mailman id 1143829;
+ Wed, 15 Oct 2025 17:14:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+Ngc=4Y=intel.com=dave.hansen@srs-se1.protection.inumbo.net>)
- id 1v94jf-0007Gt-EX
- for xen-devel@lists.xenproject.org; Wed, 15 Oct 2025 16:52:23 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4ed26d9b-a9e7-11f0-980a-7dc792cee155;
- Wed, 15 Oct 2025 18:52:20 +0200 (CEST)
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2025 09:52:15 -0700
-Received: from ldmartin-desk2.corp.intel.com (HELO [10.125.111.202])
- ([10.125.111.202])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2025 09:52:14 -0700
+ <SRS0=nzz5=4Y=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1v9554-0001in-Th
+ for xen-devel@lists.xenproject.org; Wed, 15 Oct 2025 17:14:31 +0000
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazlp170120007.outbound.protection.outlook.com
+ [2a01:111:f403:c101::7])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 67d06bfb-a9ea-11f0-9d15-b5c5bf9af7f9;
+ Wed, 15 Oct 2025 19:14:28 +0200 (CEST)
+Received: from SJ0PR03CA0215.namprd03.prod.outlook.com (2603:10b6:a03:39f::10)
+ by CH3PR12MB8902.namprd12.prod.outlook.com (2603:10b6:610:17d::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.10; Wed, 15 Oct
+ 2025 17:14:25 +0000
+Received: from SJ5PEPF00000204.namprd05.prod.outlook.com
+ (2603:10b6:a03:39f:cafe::24) by SJ0PR03CA0215.outlook.office365.com
+ (2603:10b6:a03:39f::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9228.11 via Frontend Transport; Wed,
+ 15 Oct 2025 17:14:25 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF00000204.mail.protection.outlook.com (10.167.244.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9228.7 via Frontend Transport; Wed, 15 Oct 2025 17:14:24 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 15 Oct
+ 2025 10:14:24 -0700
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 15 Oct
+ 2025 12:14:24 -0500
+Received: from [172.18.10.234] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 15 Oct 2025 10:14:23 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,130 +63,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ed26d9b-a9e7-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1760547141; x=1792083141;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=S0KxPqiw5HwIE1K7rWHuBlrawAOZSzzBrpSoYH3rAds=;
-  b=VRy2PK4nDrIcJGNqgYoBKDmyfvhue09uuaT1VxotHvlf/joQtA6AJrLJ
-   xSU2Z3gRX7VusogVPRJzO3Csw3qnIgIb6RKBuaAL82bCynA8ybU72N99u
-   1Z2wjvINQQIudIcRfp8lOCUuB986hUGlBVyTs9Snw9AvDqcX7D1n3Votk
-   SO9hFw+qw4nCbE9ASx+4NQpPbH+uGr7ky+igioYk9j0HLbGJxa3VmyEh5
-   91YwTtnECe9UFIjQDjQ+Q3dEQbmQ3UEpOMDaQwNpuMufB9Hqs3TUK8Ns0
-   BWeEQDskLKfeGb2fTR3fp07GLe3muxPChcJjfud2har5AItNH0wErGYoX
-   w==;
-X-CSE-ConnectionGUID: 4ejbnI42Smepx/QWspwXnA==
-X-CSE-MsgGUID: nwQHktILSzWGy8gU+CgdPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11583"; a="73006770"
-X-IronPort-AV: E=Sophos;i="6.19,231,1754982000"; 
-   d="scan'208";a="73006770"
-X-CSE-ConnectionGUID: uTxFJgGnRdqZXhWgFrdjDA==
-X-CSE-MsgGUID: u7QBuV7aSXy5YlMObe7+LA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,231,1754982000"; 
-   d="scan'208";a="181439319"
-Message-ID: <35d9cf4f-135e-4786-a4e3-fd3a4a18b800@intel.com>
-Date: Wed, 15 Oct 2025 09:52:13 -0700
+X-Inumbo-ID: 67d06bfb-a9ea-11f0-9d15-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xzWRwPC31Si1FPMxD0WZUC0EF2Wc26USVs0+kYAq/95fjX/d5+697QqAtnp74j2pUfSRahz3isOEFfgwOBdUrti9Uo9Sn0Qd7RxxWW4sD8RmyUz8ZX9kANrmJPUS0pmalAcXyb8L1HFs3oyuf/d38ywQkeIiOqgS1ozTXOuRfCocPjfRgwA6HgrE9pqHJkUWRgKjMU2q/0/cUuaVtQ4DOTpQACp1nRqbqvpbofh1733ZO9uqum6IyL3wR0NihD6r+hjZ4EzNN+TqQ/lOPrgW9nNzVcbY6VILS/i2/TADtTpJmDcqLXvvMY+jYOkqW4DCI7CFDTa09cWG6OYKOC/Mew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q+fHBwsUsHRxHxzb+whFumPY0A6HjUkQ3B5uEWEf6E4=;
+ b=l+6l5DsDoQARh3TUZWMs7Ta21IQCzvkJwrF+aMTDDbYXNPGnRApT9nYa8/4jrEgVKHiwD6a8hhyKLGAioVLJB5YNTp+eVDdprBPBvy7MAUivwwhfaSsq1s3IwUIcsSm7VicmtNtueBz+bYRMHPJmtvvrPi9lfYHMUr6bMUHW3yB5bnR1NoDrNzGnddeuNY6DgyEIY7E+SaVzHJDALPSMm4tdSPzxJO3WdQq9SO6uLR1JL7uQvRYvDMJs3L/69YTCghUjXO3RAGInAM6s71E0edWa3h64v0W/gaya/a9o88sYF5S33bqh/ouYoacr6oN5GFsYcrepFBjhwqRuRMHdfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q+fHBwsUsHRxHxzb+whFumPY0A6HjUkQ3B5uEWEf6E4=;
+ b=WwayfMDkUcu3tvLGYIO4LenHDHlgLB3XDtsB49otggv9bDP+Qkafq0gdMtghOLXyvZ4K5ERoUzV2PsZnW+deWsSOBVkNAVDsJsyIBHfyyKuiODi3lBsiWH484o0Qq2dfq+ggO11kcdlA8S9/HT3cOTSFdiITSIoIv2TDkMx39AA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <a4ee443a-cf65-420f-9508-d7f34393316b@amd.com>
+Date: Wed, 15 Oct 2025 13:14:20 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/13] x86/xen: simplify flush_lazy_mmu()
-To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
- Andreas Larsson <andreas@gaisler.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- David Hildenbrand <david@redhat.com>, "David S. Miller"
- <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
- Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
- Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
- <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
- Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
-References: <20251015082727.2395128-1-kevin.brodsky@arm.com>
- <20251015082727.2395128-3-kevin.brodsky@arm.com>
-From: Dave Hansen <dave.hansen@intel.com>
+Subject: Re: [PATCH v2] x86/apic: Avoid infinite loop in
+ io_apic_level_ack_pending()
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, Oleksii Kurochko
+	<oleksii.kurochko@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20251013211106.8720-1-jason.andryuk@amd.com>
+ <aO39pb3L42ktBol_@Mac.lan> <d8cb0b5b-fbf6-4db0-ba70-f5a612e63cb4@suse.com>
 Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- xsFNBE6HMP0BEADIMA3XYkQfF3dwHlj58Yjsc4E5y5G67cfbt8dvaUq2fx1lR0K9h1bOI6fC
- oAiUXvGAOxPDsB/P6UEOISPpLl5IuYsSwAeZGkdQ5g6m1xq7AlDJQZddhr/1DC/nMVa/2BoY
- 2UnKuZuSBu7lgOE193+7Uks3416N2hTkyKUSNkduyoZ9F5twiBhxPJwPtn/wnch6n5RsoXsb
- ygOEDxLEsSk/7eyFycjE+btUtAWZtx+HseyaGfqkZK0Z9bT1lsaHecmB203xShwCPT49Blxz
- VOab8668QpaEOdLGhtvrVYVK7x4skyT3nGWcgDCl5/Vp3TWA4K+IofwvXzX2ON/Mj7aQwf5W
- iC+3nWC7q0uxKwwsddJ0Nu+dpA/UORQWa1NiAftEoSpk5+nUUi0WE+5DRm0H+TXKBWMGNCFn
- c6+EKg5zQaa8KqymHcOrSXNPmzJuXvDQ8uj2J8XuzCZfK4uy1+YdIr0yyEMI7mdh4KX50LO1
- pmowEqDh7dLShTOif/7UtQYrzYq9cPnjU2ZW4qd5Qz2joSGTG9eCXLz5PRe5SqHxv6ljk8mb
- ApNuY7bOXO/A7T2j5RwXIlcmssqIjBcxsRRoIbpCwWWGjkYjzYCjgsNFL6rt4OL11OUF37wL
- QcTl7fbCGv53KfKPdYD5hcbguLKi/aCccJK18ZwNjFhqr4MliQARAQABzUVEYXZpZCBDaHJp
- c3RvcGhlciBIYW5zZW4gKEludGVsIFdvcmsgQWRkcmVzcykgPGRhdmUuaGFuc2VuQGludGVs
- LmNvbT7CwXgEEwECACIFAlQ+9J0CGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEGg1
- lTBwyZKwLZUP/0dnbhDc229u2u6WtK1s1cSd9WsflGXGagkR6liJ4um3XCfYWDHvIdkHYC1t
- MNcVHFBwmQkawxsYvgO8kXT3SaFZe4ISfB4K4CL2qp4JO+nJdlFUbZI7cz/Td9z8nHjMcWYF
- IQuTsWOLs/LBMTs+ANumibtw6UkiGVD3dfHJAOPNApjVr+M0P/lVmTeP8w0uVcd2syiaU5jB
- aht9CYATn+ytFGWZnBEEQFnqcibIaOrmoBLu2b3fKJEd8Jp7NHDSIdrvrMjYynmc6sZKUqH2
- I1qOevaa8jUg7wlLJAWGfIqnu85kkqrVOkbNbk4TPub7VOqA6qG5GCNEIv6ZY7HLYd/vAkVY
- E8Plzq/NwLAuOWxvGrOl7OPuwVeR4hBDfcrNb990MFPpjGgACzAZyjdmYoMu8j3/MAEW4P0z
- F5+EYJAOZ+z212y1pchNNauehORXgjrNKsZwxwKpPY9qb84E3O9KYpwfATsqOoQ6tTgr+1BR
- CCwP712H+E9U5HJ0iibN/CDZFVPL1bRerHziuwuQuvE0qWg0+0SChFe9oq0KAwEkVs6ZDMB2
- P16MieEEQ6StQRlvy2YBv80L1TMl3T90Bo1UUn6ARXEpcbFE0/aORH/jEXcRteb+vuik5UGY
- 5TsyLYdPur3TXm7XDBdmmyQVJjnJKYK9AQxj95KlXLVO38lczsFNBFRjzmoBEACyAxbvUEhd
- GDGNg0JhDdezyTdN8C9BFsdxyTLnSH31NRiyp1QtuxvcqGZjb2trDVuCbIzRrgMZLVgo3upr
- MIOx1CXEgmn23Zhh0EpdVHM8IKx9Z7V0r+rrpRWFE8/wQZngKYVi49PGoZj50ZEifEJ5qn/H
- Nsp2+Y+bTUjDdgWMATg9DiFMyv8fvoqgNsNyrrZTnSgoLzdxr89FGHZCoSoAK8gfgFHuO54B
- lI8QOfPDG9WDPJ66HCodjTlBEr/Cwq6GruxS5i2Y33YVqxvFvDa1tUtl+iJ2SWKS9kCai2DR
- 3BwVONJEYSDQaven/EHMlY1q8Vln3lGPsS11vSUK3QcNJjmrgYxH5KsVsf6PNRj9mp8Z1kIG
- qjRx08+nnyStWC0gZH6NrYyS9rpqH3j+hA2WcI7De51L4Rv9pFwzp161mvtc6eC/GxaiUGuH
- BNAVP0PY0fqvIC68p3rLIAW3f97uv4ce2RSQ7LbsPsimOeCo/5vgS6YQsj83E+AipPr09Caj
- 0hloj+hFoqiticNpmsxdWKoOsV0PftcQvBCCYuhKbZV9s5hjt9qn8CE86A5g5KqDf83Fxqm/
- vXKgHNFHE5zgXGZnrmaf6resQzbvJHO0Fb0CcIohzrpPaL3YepcLDoCCgElGMGQjdCcSQ+Ci
- FCRl0Bvyj1YZUql+ZkptgGjikQARAQABwsFfBBgBAgAJBQJUY85qAhsMAAoJEGg1lTBwyZKw
- l4IQAIKHs/9po4spZDFyfDjunimEhVHqlUt7ggR1Hsl/tkvTSze8pI1P6dGp2XW6AnH1iayn
- yRcoyT0ZJ+Zmm4xAH1zqKjWplzqdb/dO28qk0bPso8+1oPO8oDhLm1+tY+cOvufXkBTm+whm
- +AyNTjaCRt6aSMnA/QHVGSJ8grrTJCoACVNhnXg/R0g90g8iV8Q+IBZyDkG0tBThaDdw1B2l
- asInUTeb9EiVfL/Zjdg5VWiF9LL7iS+9hTeVdR09vThQ/DhVbCNxVk+DtyBHsjOKifrVsYep
- WpRGBIAu3bK8eXtyvrw1igWTNs2wazJ71+0z2jMzbclKAyRHKU9JdN6Hkkgr2nPb561yjcB8
- sIq1pFXKyO+nKy6SZYxOvHxCcjk2fkw6UmPU6/j/nQlj2lfOAgNVKuDLothIxzi8pndB8Jju
- KktE5HJqUUMXePkAYIxEQ0mMc8Po7tuXdejgPMwgP7x65xtfEqI0RuzbUioFltsp1jUaRwQZ
- MTsCeQDdjpgHsj+P2ZDeEKCbma4m6Ez/YWs4+zDm1X8uZDkZcfQlD9NldbKDJEXLIjYWo1PH
- hYepSffIWPyvBMBTW2W5FRjJ4vLRrJSUoEfJuPQ3vW9Y73foyo/qFoURHO48AinGPZ7PC7TF
- vUaNOTjKedrqHkaOcqB185ahG2had0xnFsDPlx5y
-In-Reply-To: <20251015082727.2395128-3-kevin.brodsky@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <d8cb0b5b-fbf6-4db0-ba70-f5a612e63cb4@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000204:EE_|CH3PR12MB8902:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91ac317b-5e5c-4ee5-b902-08de0c0e4a71
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Z0JjQTJyWXhLbGhrTDZCZDJ1QjRIUWswYk51WEM2WVJNTVV6QTl3NGtaRVQv?=
+ =?utf-8?B?YmxmaW40U1dSYmdrWDFmYUtQdDY0K2JBR0oyWEhNREJJZjlYRUdodG12UnY4?=
+ =?utf-8?B?NmtRU2V1d0k5K1RJNVNaV0U2czYwdVpmSnQ4aVl0Y1BSbFp1NGNueE84b09I?=
+ =?utf-8?B?eFpGRUY4VnUrRzdmWW5vSGtwOS81OS9hbERFMUdDZXpPVzJJeXVyVUEycmE4?=
+ =?utf-8?B?M1g2bGwvY3BqdkNObFV1OC9hN1ExTE96eWlQQlZ0N0RXcDdkemQvdHlPK0Vj?=
+ =?utf-8?B?ZVR1V0ZoditjWFp0b29oZmZqdWVjTzR5bVRQM0xFYlNQelNFNVlmVWc2TEZF?=
+ =?utf-8?B?VUN2clpqWFY2aDJiaVBQMStwN2hIU1MvZ3QxcXpvZ1RxbFAvbk5uVDFONHBy?=
+ =?utf-8?B?WUtkZ2k1TkhVS1JsWWVBY3dva25yVXhnQXdzMlZ1K0I4cVNhMGV4dzNFdkRO?=
+ =?utf-8?B?YmdHZnBoMnEyUitrTTB5L0JXMFBYd3d1bzhOaEFGUmJUazhZR094WURYaklp?=
+ =?utf-8?B?VkJhNXIrb3B2S0VsREg0cXllNTBjeDY5aGhVaVFyb3JCakQ0VmpTSHVnR3d0?=
+ =?utf-8?B?SUhiK1BxK094bHRKRkhDbTRHTm9hdmdTdmM5T1lQYnVna0l3Y1hBYytRYnk0?=
+ =?utf-8?B?eFY1bGo3UWNzazJSeS9GM0w1YUsyNm1lWmR2d1VDYVRrZzdvNW5LUlJiVHlK?=
+ =?utf-8?B?MHVDZThVUGw0cmZjdlNONVN3czN4SkFwZWUwR1F6akRGUVgzYXdFR0s3aGJi?=
+ =?utf-8?B?UVhhc3J0R3JpZGJ6U0MweTFPR2QvRDJ5MGZwQXFRYjVvSXoxakJ6MUJzSGdG?=
+ =?utf-8?B?NXV5aE4rZmY4dE1lMGFXSTFMSHprczMwMHFQY1N3ZTVoTTdIUS9aQURrNHNW?=
+ =?utf-8?B?cVdGVXFmTGhZWXlhWkphNUpieWI1N2RsdGFCRThZRU5PTmd1Vi9QZkd4bXZO?=
+ =?utf-8?B?UHp2aEd2V29LbHA5dHdwU0hydDFpeHg0RXlFM0hGY290Z3p4eEJNclk0dVZl?=
+ =?utf-8?B?VU54dTdDN2F0L0JoOFVFa0tscGRmMU9UcHhvMm0yWEtiTWovaWIzMDZvRXJZ?=
+ =?utf-8?B?dFNTNXJ6M0FuNEtGMDVWMCt1endvdG1MNXRXZlRLWDVrODhONEptSzJhK25h?=
+ =?utf-8?B?UmJVdzFhcDNQV2lWM0c5NUdUSzErekp2T2NPdUhUREJXNHN1Z0M2WEVYTHJl?=
+ =?utf-8?B?WWFWQk1KTWxCZ0VyazYzMjZLSFBkSE8zNDhKN1FlbmRkVVcyUzE4blZCTXFx?=
+ =?utf-8?B?RmJEZTNVaVc1VmQxaldMYjdtYXpGNUxHazQ2eENQMXM4c08xd2h2SkFPL0Ni?=
+ =?utf-8?B?MGxEM1R6N3M1NjY0cWthZDcyT1lyYjRJMFhUZjBhVU9ObGFtS0tzY2EvT0Fy?=
+ =?utf-8?B?clZWS1BvTmVaMzNUTi9HRDc1V0Rsais2VjA1TDZERzhKRVZ6R09RR0Nmdkli?=
+ =?utf-8?B?MU1jSkJxdFV3THN2QUN5VlBxS3Zrelkyd2YwTFhwSUF4NGJkNXZZMFRrSS8x?=
+ =?utf-8?B?VGRWNytLK2VscVJGL2JIckxsVm5GYUxqSkdVL0ZQK05VdGQvUWNuR3UwMDJm?=
+ =?utf-8?B?bkl5S2lBQm5uZkpXdG9ocTdPUlltQTRETGxzQUh6b1dJMit2TjcwM2pyaDlz?=
+ =?utf-8?B?U1JWMkpNdUoxeUhWcDRLbDhoWnZOU2pPc1F3SFltcGhicUlqYXBLKzlXM2lj?=
+ =?utf-8?B?cWZJMjh5SjlZS3g2K0NvUlpLS2ozY09tNkFtejlST1ZtV1Z3Z1NWMzFXWGgx?=
+ =?utf-8?B?MU9kRk96VzllME1IdVFSNk5FR3RyakduZjFaZUl1M21UNEhYS1l6dXkvQUN4?=
+ =?utf-8?B?eTdzTDNrTktpVXd5dnl4YW5tVXBQY2xSczM1czlHMzl1VVIwcEdUU0R3VGZI?=
+ =?utf-8?B?a3I0UU9xRk4xdEJiYUJVanlKK25VREdaZ0ExU3ZLa3FsekFxRUR3eWRTaEY5?=
+ =?utf-8?B?WmRQZUwvcXRlVWd3eEtKQ2RFQmJiVlZidlNGcTFaRm5vNTkrRytHdERZVmdD?=
+ =?utf-8?B?TjQ4akRhMzlVTG9ubU0ycGxITFNXaGl2ejk0WU9URmdvOGhZM0pxRjZRWWxM?=
+ =?utf-8?B?ZitIMzNubEtoc2pOSGI3MStxaGw0emZPNXAwaE5IRzI0ZTVLaGtLZmFBNVNU?=
+ =?utf-8?Q?EzxU=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2025 17:14:24.9885
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91ac317b-5e5c-4ee5-b902-08de0c0e4a71
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF00000204.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8902
 
-On 10/15/25 01:27, Kevin Brodsky wrote:
-> While at it, we can also avoid preempt_disable() if we are not
-> in lazy MMU mode - xen_get_lazy_mode() should tolerate preemption.
-...
->  static void xen_flush_lazy_mmu(void)
->  {
-> -	preempt_disable();
-> -
->  	if (xen_get_lazy_mode() == XEN_LAZY_MMU) {
-> -		arch_leave_lazy_mmu_mode();
-> -		arch_enter_lazy_mmu_mode();
-> +		preempt_disable();
-> +		xen_mc_flush();
-> +		preempt_enable();
->  	}
+On 2025-10-15 08:59, Jan Beulich wrote:
+> On 14.10.2025 09:37, Roger Pau Monné wrote:
+>> On Mon, Oct 13, 2025 at 05:11:06PM -0400, Jason Andryuk wrote:
+>>> io_apic_level_ack_pending() will end up in an infinite loop if
+>>> entry->pin == -1.  entry does not change, so it will keep reading -1.
+>>
+>> Do you know how you end up with an entry with pin == -1 on the
+>> irq_pin_list? Are there systems with gaps in the GSI space between
+>> IO-APICs?  So far everything I saw had the IO-APIC in contiguous GSI
+>> space.
+>>
+>>> Convert to a proper for loop so that continue works.  Add a new helper,
+>>> next_entry(), to handle advancing to the next irq_pin_list entry.
+>>>
+>>> Fixes: f821102450a1 ("x86: IRQ Migration logic enhancement.")
+>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>>> ---
+>>> v2:
+>>> continue (not break) for pin == -1.
+>>>
+>>> I added the next_entry() helper since putting the expression in the for
+>>> loop is a little cluttered.  The helper can also be re-used for other
+>>> instances within the file.
+> 
+> Would this intention ...
+> 
+>>> --- a/xen/arch/x86/io_apic.c
+>>> +++ b/xen/arch/x86/io_apic.c
+>>> @@ -1586,14 +1586,21 @@ static int __init cf_check setup_ioapic_ack(const char *s)
+>>>   }
+>>>   custom_param("ioapic_ack", setup_ioapic_ack);
+>>>   
+>>> +static struct irq_pin_list *next_entry(struct irq_pin_list *entry)
+>>
+>> I think you can make the entry parameter const?
+> 
+> ... possibly conflict with such a change?
 
-But xen_get_lazy_mode() does:
+I changed only the parameter to const, and the return value is still 
+non-const.  So I think that will be re-usable.
 
-	this_cpu_read(xen_lazy_mode);
+I placed next_entry() immediately before its use in 
+io_apic_level_ack_pending().  It would need to be earlier in the file to 
+be used more.  Should I move its addition earlier?
 
-Couldn't preemption end up doing the 'xen_lazy_mode' read and the
-xen_mc_flush() on different CPUs?
+And another Minor question.  Roger asked for ~Linux style in the for 
+loop.  But in next_entry() I have Xen style:
+     if ( !entry->next )
 
-That seems like a problem. Is there a reason it's safe?
+Should I switch to:
+     if (!entry->next)
+
+?
+
+Thanks,
+Jason
 
