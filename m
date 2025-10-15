@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CB2DBDCB0B
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Oct 2025 08:20:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1143131.1476913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40B0ABDCBE9
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Oct 2025 08:31:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1143145.1476923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8urk-00067u-U4; Wed, 15 Oct 2025 06:20:04 +0000
+	id 1v8v2I-0008DQ-Vq; Wed, 15 Oct 2025 06:30:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1143131.1476913; Wed, 15 Oct 2025 06:20:04 +0000
+Received: by outflank-mailman (output) from mailman id 1143145.1476923; Wed, 15 Oct 2025 06:30:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v8urk-00064C-Qm; Wed, 15 Oct 2025 06:20:04 +0000
-Received: by outflank-mailman (input) for mailman id 1143131;
- Wed, 15 Oct 2025 06:20:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v8v2I-0008BI-T8; Wed, 15 Oct 2025 06:30:58 +0000
+Received: by outflank-mailman (input) for mailman id 1143145;
+ Wed, 15 Oct 2025 06:30:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oFce=4Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v8urj-0005ky-Iy
- for xen-devel@lists.xenproject.org; Wed, 15 Oct 2025 06:20:03 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb9f8af5-a98e-11f0-9d15-b5c5bf9af7f9;
- Wed, 15 Oct 2025 08:20:02 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-46fcf9f63b6so11777695e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 14 Oct 2025 23:20:02 -0700 (PDT)
+ id 1v8v2H-0008BB-AE
+ for xen-devel@lists.xenproject.org; Wed, 15 Oct 2025 06:30:57 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7fea18eb-a990-11f0-980a-7dc792cee155;
+ Wed, 15 Oct 2025 08:30:53 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-46b303f7469so41240265e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Oct 2025 23:30:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-426ce5d015esm27929329f8f.33.2025.10.14.23.20.00
+ ffacd0b85a97d-426ce582b44sm27527042f8f.16.2025.10.14.23.30.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Oct 2025 23:20:01 -0700 (PDT)
+ Tue, 14 Oct 2025 23:30:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb9f8af5-a98e-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 7fea18eb-a990-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760509201; x=1761114001; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760509853; x=1761114653; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EWpfYIfQiO4iEKPhFjFn7elMDmnN1GcrNstL/ykWifo=;
-        b=JPloFKpgVc2jvxPsw2elQ2yUkWLQ2oyri+jK75/BbKpyCIqhuCAsTnvtJEhuqWVYDF
-         f8Euo5whcBPOgyXuIwZJ8jDLY8PcVLnhUKm9ffSLG4hkZ6DGr0sxUqINpLVNGLIYTE9g
-         Vac1qivHfDEDg/rzvHWLexkkqu9glJnoIKOcF7O0utIUTnGUHUt5OnQ4UN6F2ootJghD
-         +pty7Ob+Ejaz3HdhuyxBqdQ9Es7b3jkPcfAyUhSQBoikxekoNYArt1X1z2h+R0r1UoHX
-         7FJmTH3I5YL0Sl2PEvDw7vV/fDLsIJCvuOkmZYWdYSmw0+G463AP/gGm2I4GIaTzv611
-         0Zig==
+        bh=N2lk3IwiyXhY86G35TNA/Wk+0tqfkse1DcY9+BBibyM=;
+        b=co8ovcAbn64adpO2gOxoO9xXRa0+swszG5juw3HWVPW8zjOwlcap7QiX+VDhutNp/y
+         DqYo9nWG1+dqfrdqrjxTlK2eXFqVMg83eKRlvybymt4WJwb7uUk5EulO0fKnCAMdOSg1
+         Q76Aoq72wXupg1JblKLHojOo/+N+8VmJyEhHsAIumjFg9YozupKumdeCVzsBItVVmd4g
+         x0TCVMMuuTDqEPJvub/GrL/DqikHiyz566FwYkiCTi3s+nQFzYrCyNM9zoXH8lEfFje6
+         gENKq41a8ZD9HjBRCegu8hQRxRkZvN6U3GZhEE+KEFNNfnadl5Trfi6oSlNrl69vNGkT
+         d03A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760509201; x=1761114001;
+        d=1e100.net; s=20230601; t=1760509853; x=1761114653;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EWpfYIfQiO4iEKPhFjFn7elMDmnN1GcrNstL/ykWifo=;
-        b=QyWWHfb07OzwkBKaBcQ099Ipgba6lbHz/RH4KCK8FrqNH2IqL+4B3/CkpZJiwy/vC9
-         vkdkPTgC63gsV28a24sdp/tSbGvyQunnOm7wNoqdI/ndB55TkSDacs6sX1bw7FNWTp+N
-         oiPnaeYDKEUbgxBA+QD8g8TmP+UqwhVphd8q1AfmckzgXzFAUTAmutpwLQbCa/ei+S6H
-         jtwLx66SesmahP3f/W6ETacGsXCS5zHzgL5MrBiZu0cfjcvmxaAPQ4Q5I2lVEivWm14h
-         BpIX7GymTOENCA0CDbf8r/o5gA1nFXWgUHretW26s9k0B9iHAhbsoLxiahDx/LpxgLS9
-         4xsg==
-X-Forwarded-Encrypted: i=1; AJvYcCV/rnFv0ixyZAh8HSSfAvPiTDmN/3Rvcp006R/a+ByYyiSY1PXy/QZSv12HA05iEAbTjRYwD3ZfiVQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwxRbltCEVtJwNqyyx/wZ1gbC2M8X241axP/eVDFosMHvf7rVzA
-	qN3wo8Mje3TDWNAXqUvbEweyD02SeX68DE/AFg7EhrXuJcGrM/rvW8/Gt7uMX/wcUA==
-X-Gm-Gg: ASbGnctfXm7MhIm14jvrtAIfz7hEt7Nj0AukKefP8tO/x32k6k61Jsau9Y0PkPTQheS
-	ECQX/KzPj783JmmpAUWrLAo1rILuv23ai+3nJNyIQsG5w8Bx7SQwG2VtWZRffpKDa46npmAHK++
-	/f8/Kzk+FcQlBeiUFQNohCGuajP/xkMC2Zf+ErQgvUdHazeIIu/OZRivMQ7k2+ET/lYtITCOEUc
-	W86sVKAx6l4Y2NLr8eAQrG9NxMLd+WPePw22k4ffOVM+gONz62+Mmm39ADJiZRbI0Tkr1N6Ulpi
-	MH0FyG/31xnQndPxeCIGHQwp6sctFtz0FTm4AYAJvBP7kmZvpdfnG6dmo3UB13Z8IunhaNJ6izw
-	3hSfMFWZvXFjxWIlbYBYVjUTpfkRMFZ3BvsWkRoupLA4PU4VdtoIkZeJR8jql9A0gGxE0GHrVLg
-	MVLuBIbqYKQNJ2fXn9ewBPngabtX41EzDftVML
-X-Google-Smtp-Source: AGHT+IEwffKWWQdtm1s2DX3N3fG9OvquoMUatTvh7F/DEHE3VOpG/zEraYvJVRoli3bWkHOunFkaPg==
-X-Received: by 2002:a05:600c:19c6:b0:46e:3d17:b614 with SMTP id 5b1f17b1804b1-46fa9a9440emr211237275e9.6.1760509201493;
-        Tue, 14 Oct 2025 23:20:01 -0700 (PDT)
-Message-ID: <ceedeefa-c506-41ca-9dfc-76937979caa9@suse.com>
-Date: Wed, 15 Oct 2025 08:20:00 +0200
+        bh=N2lk3IwiyXhY86G35TNA/Wk+0tqfkse1DcY9+BBibyM=;
+        b=sKPEyi//mehpwuUpV3DGqqNilhkx5StqBrgymzgRJDluxh4i/SW67rhpI1uHjQD6ue
+         fO7Z3pibpLhBElj0WZ7xCrqWW5uNGxPmXvnUOykYLFAydDDXN+0IX2yq7chxWasEuztO
+         0Oj9Q1sS+qJvN8upkdmR8G4QJMjnoOEbVsG8+m0oGYQvpfzCXSD5HFk3eajiiYu+zLGF
+         kDlVs2qUffZRHh17hv6kcPZtjuRgFrNFoL9e0GwcrK47alD03+jBOIs2bPaSv9KcIrwp
+         DLYo8x7vMkF68vPf2c0JgrChRU5HLJPzjgJ0pdT+DF8bad0BdF3QjUPp4WjqKzUA9aX2
+         NeuQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUnUnAycJ2ZJ7Hx6PK0d4xAC3X7kNAiUAgQcDp7Ef2yuJ3gP3aEQtro7wGJfIDLKw+q633Sy6leRuk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwK342Pf/A/bSMvsE7i3ai7VvwdFt+PY/fZDyarojjHcNeJwh2H
+	XCMnid1HFJF0zQFGpX4fwCuGKzXAIfkM+jRxiHshrfX/u4NetkCl4gV6sCUmZufmRA==
+X-Gm-Gg: ASbGncsW+nbV9mjOeWWqdEb9Tk7V8uHT7TETm571CWRAh6m3fZBXZZGibRx4LeQ+Op9
+	SwWv82RmA3qfMyvkOt8gbjQiQF3VyRCwPQoG3V6e1WW8GuQlThK8gSPtT2Mf/a9lxBfCVrKuQLA
+	VyvuxlvktYhx3rPTdAxsrb139du/1LX5Kku/NeTpKzhPyBDE0dMuIrDmc64mT/KDXyNqgcaYGly
+	AOg5zEUfauY3V1F/q20soOb2u/EvpiRdGlcl0qJ0JYE14Mphou8KQ5BH4gtd5j8am8Zwdbly59E
+	gvqdeIRfTkj1Y8JlujQs8DZT8QkJ33YIYZzBROj0UqT6NgqCHZirJ0XOxN6WtiexhO3EnhjeNYp
+	CFGQZwYEJDXgObUOtz5ub5KkO02DgFAH6nGpcItRltgdw6u1bbivzWnUbNXDn74WYO94QRqCEE/
+	Jb6na7PoQ4lC0c+NnrgQfDvuEwy3HWeXXd/OEfzvJysrMXVdA=
+X-Google-Smtp-Source: AGHT+IHpJ5zoad1XolKS3VZ7TDk9q89LIewqqCvGhgwuQsfzDXZhjS14M6DLEBf9WbcsLR5wnatEiA==
+X-Received: by 2002:a05:600d:41c4:b0:471:7a:7922 with SMTP id 5b1f17b1804b1-471007a7aa1mr6620045e9.6.1760509852974;
+        Tue, 14 Oct 2025 23:30:52 -0700 (PDT)
+Message-ID: <6ef29e64-56e9-4180-a6f3-411ecbe7dca5@suse.com>
+Date: Wed, 15 Oct 2025 08:30:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] misra: consider conversion from UL or (void*) to
- function pointer as safe
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH for-4.21??? 3/3] x86/vLAPIC: properly support the CMCI LVT
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <0e72c83102668dfa6f14c4e8f9839b4a73d30b3d.1760458094.git.dmytro_prokopchuk1@epam.com>
+References: <265d5053-af61-42cb-a3b9-ef60df39c21b@suse.com>
+ <61a05ec1-aca7-4c3f-be6f-1bb053b2cd00@suse.com>
+ <bb9dba9c-3011-4c1a-917d-9d83fcc2c967@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,46 +122,86 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0e72c83102668dfa6f14c4e8f9839b4a73d30b3d.1760458094.git.dmytro_prokopchuk1@epam.com>
+In-Reply-To: <bb9dba9c-3011-4c1a-917d-9d83fcc2c967@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.10.2025 18:16, Dmytro Prokopchuk1 wrote:
-> --- a/xen/common/version.c
-> +++ b/xen/common/version.c
-> @@ -217,6 +217,20 @@ void __init xen_build_init(void)
->  #endif /* CONFIG_X86 */
->  }
->  #endif /* BUILD_ID */
-> +
-> +#if defined(__i386__) || defined(__x86_64__) || defined(__arm__) || defined(__aarch64__)
+On 14.10.2025 21:36, Andrew Cooper wrote:
+> On 08/10/2025 1:09 pm, Jan Beulich wrote:
+>> --- a/xen/arch/x86/hvm/vlapic.c
+>> +++ b/xen/arch/x86/hvm/vlapic.c
+>> @@ -697,8 +701,17 @@ int guest_rdmsr_x2apic(const struct vcpu
+>>          return X86EMUL_EXCEPTION;
+>>  
+>>      offset = reg << 4;
+>> -    if ( offset == APIC_ICR )
+>> +    switch ( offset )
+>> +    {
+>> +    case APIC_ICR:
+>>          high = (uint64_t)vlapic_read_aligned(vlapic, APIC_ICR2) << 32;
+>> +        break;
+>> +
+>> +    case APIC_CMCI:
+>> +        if ( !(v->arch.vmce.mcg_cap & MCG_CMCI_P) )
+>> +            return X86EMUL_EXCEPTION;
+>> +        break;
+>> +    }
+>>  
+>>      *val = high | vlapic_read_aligned(vlapic, offset);
+>>  
+>> @@ -868,6 +881,10 @@ void vlapic_reg_write(struct vcpu *v, un
+>>          vlapic_set_reg(vlapic, APIC_ICR2, val & 0xff000000U);
+>>          break;
+>>  
+>> +    case APIC_CMCI:         /* LVT CMCI */
+>> +        if ( !(v->arch.vmce.mcg_cap & MCG_CMCI_P) )
+>> +            break;
+>> +        fallthrough;
+>>      case APIC_LVTT:         /* LVT Timer Reg */
+>>          if ( vlapic_lvtt_tdt(vlapic) !=
+>>               ((val & APIC_TIMER_MODE_MASK) == APIC_TIMER_MODE_TSC_DEADLINE) )
+>> @@ -1024,9 +1041,12 @@ int guest_wrmsr_x2apic(struct vcpu *v, u
+>>              return X86EMUL_EXCEPTION;
+>>          break;
+>>  
+>> +    case APIC_CMCI:
+>> +        if ( !(v->arch.vmce.mcg_cap & MCG_CMCI_P) )
+>> +            return X86EMUL_EXCEPTION;
+>> +        fallthrough;
+>>      case APIC_LVTTHMR:
+>>      case APIC_LVTPC:
+>> -    case APIC_CMCI:
+>>          if ( val & ~(LVT_MASK | APIC_DM_MASK) )
+>>              return X86EMUL_EXCEPTION;
+>>          break;
+> 
+> This is almost certainly not how real hardware behaves.
+> 
+> The APIC is a discrete block of logic, whether it's integrated into the
+> core or not.  A new LVT is "just" another interrupt source, and if
+> nothing is wired into that pin, then it's just a register which never
+> produces an interrupt.
+> 
+> Accessibility of LVT_CMCI will depend on MAXLVT and nothing else.  In
+> silicon, I'm pretty sure it will be hardcoded as fully absent or
+> present, because I can't see any reason to make this configurable.
+> 
+> At this point, things get more complicated.
+> 
+> On Intel, there's no such thing as x2APIC capable (irrespective of
+> x2APIC enabled) without LVT_CMCI which is why there are no additional
+> access constraints on the register.
+> 
+> On AMD, there's no LVT_CMCI even on systems which support x2APIC. 
+> Instead, ELVTs are used and it is MCE-configuration based which ELVT the
+> interrupt is delivered through.
+> 
+> Choosing a default MAXLVT based on MCG_CMCI_P is probably fine (although
+> it certainly is ugly to tie APIC and vMCE together), but controls on the
+> access to APIC_CMCI should be based on MAXLVT.
 
-Why __i386__? Also (nit): Line too long.
-
-And why this restriction without any comment here or ...
-
-> +static void __init __maybe_unused build_assertions(void)
-> +{
-> +    /*
-> +     * To confirm conversion compatibility between unsigned long, (void *)
-> +     * and function pointers for X86 and ARM architectures only.
-
-... explanation here? More generally - how would people know to update
-the condition if another port was to be certified?
-
-Finally, with the v3 addition here, is Nicola's R-b really still applicable?
+As you ask for it, I can certainly do so. I didn't because the way it's
+done now the checks are cheaper overall.
 
 Jan
-
-> +     */
-> +
-> +    BUILD_BUG_ON(sizeof(unsigned long) != sizeof(void (*)(void)));
-> +    BUILD_BUG_ON(sizeof(void *) != sizeof(void (*)(void)));
-> +}
-> +#endif
-> +
->  /*
->   * Local variables:
->   * mode: C
-
 
