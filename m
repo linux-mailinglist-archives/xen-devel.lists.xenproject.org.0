@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 602EABDE8E9
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Oct 2025 14:56:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1143578.1477252 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B09BEBDE93D
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Oct 2025 14:59:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1143588.1477263 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v912b-00046W-Mu; Wed, 15 Oct 2025 12:55:41 +0000
+	id 1v916X-0004el-6q; Wed, 15 Oct 2025 12:59:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1143578.1477252; Wed, 15 Oct 2025 12:55:41 +0000
+Received: by outflank-mailman (output) from mailman id 1143588.1477263; Wed, 15 Oct 2025 12:59:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v912b-00043n-KC; Wed, 15 Oct 2025 12:55:41 +0000
-Received: by outflank-mailman (input) for mailman id 1143578;
- Wed, 15 Oct 2025 12:55:40 +0000
+	id 1v916X-0004bu-3r; Wed, 15 Oct 2025 12:59:45 +0000
+Received: by outflank-mailman (input) for mailman id 1143588;
+ Wed, 15 Oct 2025 12:59:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oFce=4Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v912a-00043M-2B
- for xen-devel@lists.xenproject.org; Wed, 15 Oct 2025 12:55:40 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1v916V-0004bm-Mp
+ for xen-devel@lists.xenproject.org; Wed, 15 Oct 2025 12:59:43 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3eab9542-a9c6-11f0-980a-7dc792cee155;
- Wed, 15 Oct 2025 14:55:37 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-46e37d6c21eso37379205e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 15 Oct 2025 05:55:37 -0700 (PDT)
+ id d0905f96-a9c6-11f0-980a-7dc792cee155;
+ Wed, 15 Oct 2025 14:59:41 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3f0ae439bc3so2935606f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Oct 2025 05:59:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47101c23a52sm25828755e9.12.2025.10.15.05.55.35
+ ffacd0b85a97d-426fb279857sm444934f8f.20.2025.10.15.05.59.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Oct 2025 05:55:36 -0700 (PDT)
+ Wed, 15 Oct 2025 05:59:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3eab9542-a9c6-11f0-980a-7dc792cee155
+X-Inumbo-ID: d0905f96-a9c6-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760532936; x=1761137736; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760533181; x=1761137981; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+tTkmQbguyAZurbfIpXiurrZx7dYHAtj77ye3eCrqgQ=;
-        b=cFJQePpIASawzyLz0vY9cHempKkeBrH3doO/E9A4JeByWisimWHSwq6y0nyyMBGiFZ
-         RpPGIWApI16S7R9B/hKmGRCWhT4z/tzLwKWtszqFjO7Dsz3AQUNlyU7Zj1A1YI/E99df
-         wL38Drkq2hT2+0DijU6zkYf/IERJf3fIc1e/kQmNW2IlUlLxe0YAVxxwDmUKRLAX7kAc
-         RfcZi6xZvYAoHOv9wLDHzwQH0jXhS1CkDAeBI9iFPe9i9fbLa8jKKz2sT8+pQf81ujQl
-         XGcd+jgPsjv6uHZ2RnWo0u6cP0xGxbBbAW+M8o7u+DB5Tmp+YZ0SdvRuPjQgKJaXBdXi
-         /MCQ==
+        bh=35Z1GoZg4+XJhyRholCIRR5mCpnyANAns2Yp4nBSbsg=;
+        b=U6aRbLSaqbbpTohBwcy6zj1cBz2SoBHVPd7yNxHXCLd6o3SWQpPWgjlZYG1ZVsDgZ2
+         B9+7ywjN6RBSEyBEuf5EokMioMeJvmW22w/TwIXnjnz2EFu2whk3gUhtQlTaaFNBBdEF
+         xz9EfWsDf4L1aqMQfVx8iTLll+BeCT48sb7cqdFkosFPf8R49iT84nX+vD8nLrVEBalF
+         7XzZMX351Kn3FSx7eMSeTXHU4P3G/FY8r1qz9yI3b/K0H2Zzncw2sH0OGGqtbd2ktn30
+         GkC20hoCcXSIjkEXjE340RTj3DQilNfii5q45moDQjlm17Gohxybj7JpC4fDw7qL0Ec0
+         kAAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760532936; x=1761137736;
+        d=1e100.net; s=20230601; t=1760533181; x=1761137981;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+tTkmQbguyAZurbfIpXiurrZx7dYHAtj77ye3eCrqgQ=;
-        b=PAVhcieedpq32j0nIFn775tQMhRPKo59jRId1ngcLoQn2yqjogHiACx/vxQEo8wftl
-         QbdGRH1mI2OZnYdNiHXTTezeyJozhgpoupx48s5j8eOefJ/t1YIH2XvTwBHcJCUjgxIp
-         wjeVD4a+Wru9DpdiU9xlZmAMhEHZ8CE/Q/WjP+d0UyrwTE+mnpRJDYYd5ynv7aVgkuhw
-         BOtr0bXQ8BP32nn0eD/XESWZA2V55k76PpB64Lh93Q+TFkG+XJzAsCIdd1Ak1lFSQixH
-         zdfK/s9LQDmvTSRUpIF08uXWYXSvbXAJN8PpBrfjheLmj6FgA4w49A/SHPDHoQn55NZL
-         C3oQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX4D4jApYE7qZIJzU16Eim6dtkuBfVUADLPDHpy3B/iKdrXSMaOKxjKxIGFGKAH1ZI84tzpfReOWOI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwPZ5NMOC6XZIAdwExW+uMngWV4czcZYdNrneuRKkTJ7xeGzaMP
-	ZsaO4BFT3T03jVwQqOtsYEdv4pQmFmOGxZaqsnvqAccYvSwoWhWhUwvmXS11uE8S8Q==
-X-Gm-Gg: ASbGncsLtNTlR05SXxAoK9HMaibEZctPYDWz9pU3UjTRWMHO7f/8KbNkEiWXPddNUFn
-	fawxsQOLsUcZmfndHtDx7l2+bA1Sgo3btPUxZ5W8HTGkIxiS1KFz8JecEUbH7qpzCWZVHoeoOAP
-	HiSMgGJh4wOhmK8v2VsrS36ajIjvicT1CcLmBJKbDpSOp5YMDwFkuHejM5pMQ8kiKzDLYns7c6f
-	GW7lV5p8iiVDRsqC7BIU/n2oPXRzrUu0PT9xebh8qJjNJ+voNshsD9YYNtLP3sae/QEARFLY5nL
-	I9XeDRmByKs5qblu3E7OJjWOeFsLstrdk6RqseRWDGvSjO+OAWEr52zcRr+tIXt9JGq/+aVXtRy
-	9dQj+KLJZ13HTTz/6xCH5UzwRqYfytcCNelpkTg6nMgRiGbuHjix7IzNH6OTdUN8KmmSXmX8Zjl
-	k9p3r1FrxSmWB8E/k3Wz5sk4vU1pNSJjmp+kHOkTPcUnzugnw=
-X-Google-Smtp-Source: AGHT+IGVf6DSGg82CeXNzzewQ3K/TAB6cUKiz580Z9bst09LLduyMuvWWRQHOFv/m4K+qAWwRw2j9g==
-X-Received: by 2002:a05:600c:888d:b0:468:9e79:bee0 with SMTP id 5b1f17b1804b1-46fa9b939e4mr147824395e9.0.1760532936424;
-        Wed, 15 Oct 2025 05:55:36 -0700 (PDT)
-Message-ID: <7173311d-0afc-4e4f-93e1-b47770b8225e@suse.com>
-Date: Wed, 15 Oct 2025 14:55:35 +0200
+        bh=35Z1GoZg4+XJhyRholCIRR5mCpnyANAns2Yp4nBSbsg=;
+        b=S4RU/riviwNo6n9RJvRbsruiAvauT8dmMXTPdJA7LfDeI4YpLjX4dDabQt84U7rUbY
+         N3iP6eIGIjoFp9MHJWZ8c/7FVP1NmX3j0/wlZQVJieCoAiJKM3ILRSf8n7GmPtP2kNAd
+         sgAyvQ7PzGeC3U5qCEx3De7dOm7F50OvrY9HwSraXfRUubL6WVPIQGwvAuKuSubQXQK7
+         ubasYYe2ZsF8avFSZE3XPlmwXDA1hdf/rcTw+0oJJnHQ15ip+6mWC0qZ9u4zbhKR7WVq
+         luCL2h2mQH20GFBnIXvC0oO+zxb2Ys1GZVpcolwFPaNkNVFgY15Ua47dmRWQdGCBMHb5
+         d9OA==
+X-Gm-Message-State: AOJu0Yyj503IudSVsFwH198zBOjcTQm9KoZgPEnt4W77CfCZSLHrF20j
+	Zr0pd25JFw3vdUfl0v0Y//zS+yGaGEZrufvohqF9b20O2bzmKYaP7X0FzrEDhBXbcA==
+X-Gm-Gg: ASbGncu/AHiFCBtZpCC6TplPv0NLahpzgXUWa0OT2V1Kdu5QtnzFMBsJgNwBmnk56Tm
+	SbvETO6wfS5NEnn/fR2sEkVOM8fnGsZkhN6tehQp/7d2xnRMb7zi3mPN6nLW2Wfz8JucJJ+UxdJ
+	sVPLD9vX/Uhdt+jUPcWdWFjfQuDWoAo5q5sHUXGKY/kzis7aKJw+y8Q4HjNq5INEgxB0hMfpnLW
+	/R+IXz9V7uYI4qAR5kIPGDNYXzZPRDSTYVJfn/gW20xFxrL4lfFm+LYfDOT7AGnGT//chv/vl6j
+	cvOpfey+vzJIK18Rjk943WBYnXAW+Js3zEOlCqVS+mGpoNTF8C+sIRJNcBTCvJ8o2tQN3TDhlNx
+	p9aSRtHyutP3+wjCOdDFKIKwGPhlR3pzmKupsNPZNwxV4j5qB7Big2hEsTmU8pFdYXroD8n5PsO
+	gjyj4G8NI9JuQ0rP43BPlSCIFj5w==
+X-Google-Smtp-Source: AGHT+IFGOzJU/nVZ9HA4zWidKDdLqItblWjkZ3ko9P3xALo4IXoOcxgtfQUErhxALpXC6iHLtefkIg==
+X-Received: by 2002:a05:6000:248a:b0:3e4:b44d:c586 with SMTP id ffacd0b85a97d-4266e7d4575mr16169025f8f.34.1760533181069;
+        Wed, 15 Oct 2025 05:59:41 -0700 (PDT)
+Message-ID: <d8cb0b5b-fbf6-4db0-ba70-f5a612e63cb4@suse.com>
+Date: Wed, 15 Oct 2025 14:59:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Fix edd=off to skip mbr
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20251013211139.8750-1-jason.andryuk@amd.com>
+Subject: Re: [PATCH v2] x86/apic: Avoid infinite loop in
+ io_apic_level_ack_pending()
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20251013211106.8720-1-jason.andryuk@amd.com>
+ <aO39pb3L42ktBol_@Mac.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,26 +121,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251013211139.8750-1-jason.andryuk@amd.com>
+In-Reply-To: <aO39pb3L42ktBol_@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13.10.2025 23:11, Jason Andryuk wrote:
-> When the fixes commit re-arranged the code, it made edd=off jump to the
-> mbr code instead of returning from the function.  Previously edd_done
-> was immediately before ret and skipped the MBR check.
-
-Hmm, bad me.
-
-> Replace edd_done with .Ledd_mbr_sig for the start of the MBR checking,
-> and replace .Ledd_mbr_sig_skip with .Ledd_done to exit from the function.
+On 14.10.2025 09:37, Roger Pau Monné wrote:
+> On Mon, Oct 13, 2025 at 05:11:06PM -0400, Jason Andryuk wrote:
+>> io_apic_level_ack_pending() will end up in an infinite loop if
+>> entry->pin == -1.  entry does not change, so it will keep reading -1.
 > 
-> edd=off jumps to .Ledd_done to return from the function, and internal
-> jumps go to .Ledd_mbr_sig to check edd=skipmbr.
+> Do you know how you end up with an entry with pin == -1 on the
+> irq_pin_list? Are there systems with gaps in the GSI space between
+> IO-APICs?  So far everything I saw had the IO-APIC in contiguous GSI
+> space.
 > 
-> Fixes: 5ec164fd61bd ("x86/boot: re-arrange how/when we do disk I/O")
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>> Convert to a proper for loop so that continue works.  Add a new helper,
+>> next_entry(), to handle advancing to the next irq_pin_list entry.
+>>
+>> Fixes: f821102450a1 ("x86: IRQ Migration logic enhancement.")
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>> ---
+>> v2:
+>> continue (not break) for pin == -1.
+>>
+>> I added the next_entry() helper since putting the expression in the for
+>> loop is a little cluttered.  The helper can also be re-used for other
+>> instances within the file.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Would this intention ...
 
+>> --- a/xen/arch/x86/io_apic.c
+>> +++ b/xen/arch/x86/io_apic.c
+>> @@ -1586,14 +1586,21 @@ static int __init cf_check setup_ioapic_ack(const char *s)
+>>  }
+>>  custom_param("ioapic_ack", setup_ioapic_ack);
+>>  
+>> +static struct irq_pin_list *next_entry(struct irq_pin_list *entry)
+> 
+> I think you can make the entry parameter const?
+
+... possibly conflict with such a change?
+
+Jan
 
