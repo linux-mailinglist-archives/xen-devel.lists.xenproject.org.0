@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 713CABE1F06
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 09:35:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1144219.1477676 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12C8BBE20DE
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 09:58:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1144284.1477727 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9IVy-0001bH-Qv; Thu, 16 Oct 2025 07:35:10 +0000
+	id 1v9Irx-0007Xg-KH; Thu, 16 Oct 2025 07:57:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1144219.1477676; Thu, 16 Oct 2025 07:35:10 +0000
+Received: by outflank-mailman (output) from mailman id 1144284.1477727; Thu, 16 Oct 2025 07:57:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9IVy-0001Yx-Nx; Thu, 16 Oct 2025 07:35:10 +0000
-Received: by outflank-mailman (input) for mailman id 1144219;
- Thu, 16 Oct 2025 07:35:10 +0000
+	id 1v9Irx-0007Uy-Gh; Thu, 16 Oct 2025 07:57:53 +0000
+Received: by outflank-mailman (input) for mailman id 1144284;
+ Thu, 16 Oct 2025 07:57:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CbFY=4Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v9IVy-0000bW-30
- for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 07:35:10 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1v9Irw-0007Us-SW
+ for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 07:57:52 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a413d601-aa62-11f0-980a-7dc792cee155;
- Thu, 16 Oct 2025 09:35:08 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-42557c5cedcso204964f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 00:35:08 -0700 (PDT)
+ id cff0de83-aa65-11f0-980a-7dc792cee155;
+ Thu, 16 Oct 2025 09:57:50 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-46e6c8bc46eso2312085e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 00:57:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4711441f66dsm9766545e9.2.2025.10.16.00.35.07
+ 5b1f17b1804b1-4710cdb9d4dsm13828835e9.5.2025.10.16.00.57.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Oct 2025 00:35:07 -0700 (PDT)
+ Thu, 16 Oct 2025 00:57:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a413d601-aa62-11f0-980a-7dc792cee155
+X-Inumbo-ID: cff0de83-aa65-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760600108; x=1761204908; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8UhliWPP1d1VfGO2jV5xKVQfFmJDT7e9Ve586LI2VOY=;
-        b=dDQcrGPFhGLZT6XT7/P35zRL5ctMxUAf6nB/5tbUI1D2buf4r1e53sliesr4AQAHpN
-         7HSdR+lq9Wu3sz6SZEksgynDHibqfioBIEiQsQGYdcnTHagqwPJkpmDrxnwxbTRWZNES
-         9QUL5IDZDvW4EzQYzRVaK2MhmkYGYSZUF8L381DAa7DdAYq1fJt9BKw6QzKYDorqX70g
-         iQyvfmVRziI/Y7gmGBpvqLKdlmP5PrYsQbgfpRuxffeuzTkyu3T7H8wr3meD+RK3WpSr
-         MvgXFHPYp9Ci7RMMWbXa8MRWaKtAoBnSv06n0RRSN4Nc0drEAup5BrXVkuniT2brHtfj
-         a9lw==
+        d=suse.com; s=google; t=1760601470; x=1761206270; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=qmVyPPHO6tDn29Kac7C6g8xPh1rX+1+sRYbc+nO12lo=;
+        b=NfCTJTvCiG7kdDtkiSJjn9V52OyqbtTxjZ0diN8clLe63loH85ShPqRmHNa9DTmHJ8
+         Z7EQjtBV7TkV/uF7f4r9oVtGJjV9XczDpjZnLmF3WFLATtoprvce+jLzrsD3ObppAzOt
+         UKo1A/GIxN4EP+sC8yN4xId2lPv7ODYcu1qH0uqxg9+Gsk9sCuQRZIZye0JboygAuEqF
+         lwaI7G5hpjQzun+DZGjsiW88xplFwRA+4TXrRSgrcZx9KoDYHMtnhJiMC1YElCWZEdkp
+         pLLGP9TI/YW0TaWJElR6VzwviAswJRhyKhXcE1mAA9KikZooUupxbgTZzNlBxe9PqlJz
+         R93w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760600108; x=1761204908;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=8UhliWPP1d1VfGO2jV5xKVQfFmJDT7e9Ve586LI2VOY=;
-        b=oJuw4xNQoydbGCXiZEhfIrh6DqgOIozcHSMQfMJgfxNZFU8CDvcYt2y0LNhyN9mvs3
-         qL0FRLADfTeNTfR3pI/eqfvpb2pzo61g8JhWzhnsuvJEMRVhwQr/yNcJdN9EPH4UON6M
-         d2ykA4eHytyt7ej0KrNFBFZHZEKKcNKlNe4qLs1S9+RNpkxWL+K3hTHI3LDqPUsMxf9y
-         svNKXMyMIKHQ4CGXUs5hMYpraZsv8XB7aaFciYi++lPXQT1bNBiTt5gtZ5DVS6EsiOab
-         pa3xS4jQ0acqpNG/9gNV7oFBKiJFh6krK+4LySeH/2HRjRO16Eky7E6xH8Ru6f4afVeH
-         hhoA==
-X-Gm-Message-State: AOJu0YziTepDVluu2lKivHYdMrWyUHNCJVLONEX2GjZ/fAV3RKzv3VgV
-	UIizmtJJDbZVtEPCG0jOv5bAuhSaQaBIJ5kFZARdaKeJpBQ360qK/2vqneQGs1KSPwT/iRECzyL
-	gB9k=
-X-Gm-Gg: ASbGncsCfmS7BE6HLhD+7wcmBJECJBeDIeAG6+Yhn7cDNY5sSJg2wLTFmMP1TrX/KBS
-	k94VY2O06/I+yRckcpJ87IU39VlxWaWh/2otejVg3GpD6OOUVQcz7ZsUnXF5K96aAKQ5fIbIg/j
-	n27ubp/qnSajdbcGDzVKKeAXhQ+mKHOAwFClF2cgkRDkJgHTImVZPKrZ58WTVrqvLfY8msp5m8m
-	sq2XEalIzjfEXc8LmWwL07B/KatQNWhRQEy+sJmoaLsmrNZEli9IQEDZpFKaJVAfs2+9Y3Ppszh
-	1weh++D0OXYLN7u4Nfe1tH5hUZm7Aj/I2RbMaSTIGov9eXiOQ4CJOWlQAU80x1ocGzgi27/Q6z8
-	1fv73fRqibWlBHxzisDKjbVLr/wchOMj9pcJZ7dS2reL9SZWwftzEGecnm3v6AlSUnfnjJqnUZO
-	PoiIeL60xYsKcxQDHCQwpwYBiNIpkA1LVM0nNLjfakNV1ZNX7TpYYGZLZD4lPBNnpFkSj/J1I=
-X-Google-Smtp-Source: AGHT+IEnhkFuLpDYeHjniqZKqq/rQ5QPlGFYuWKsL3SOUnkifAeba8gszd1ibTeYVQBB2ns2RCnDpw==
-X-Received: by 2002:a05:6000:41d1:b0:400:6e06:e0ae with SMTP id ffacd0b85a97d-4266e8ddf1bmr21667340f8f.47.1760600107945;
-        Thu, 16 Oct 2025 00:35:07 -0700 (PDT)
-Message-ID: <8368780e-9c8b-4996-a78f-265007081f42@suse.com>
-Date: Thu, 16 Oct 2025 09:35:06 +0200
+        d=1e100.net; s=20230601; t=1760601470; x=1761206270;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qmVyPPHO6tDn29Kac7C6g8xPh1rX+1+sRYbc+nO12lo=;
+        b=hV5U/bdJasKdVHgW7SwxbY7Wq0CrBbrAKKBaiivSqKie18JXpF8fFtHztpuVaV5hDc
+         cWEspAwu9Za0Uxxs1xQt2SVvG76lMkkGKl1d7zAgFslftZalWDN6gtyoD2OXfMVQpvYh
+         DzmFVPYCd56DuaIhAm15BxsUmLNkCvzd+RLcvN1w7SU8GSc0FTewi5gpX7IvWlFoDq5/
+         Pqimgn238hXCrWz3HEOuIVWvcMg943jkP9xwoeGaCy9oveCGgF+rQcdovYx54PIfbsuH
+         pJDGJSrEuUvXB6ADuGtNfZORZOBs82udtUeMBQ+r7ieSPbQFFO/ClUT08AboHCS2s1sW
+         cUAA==
+X-Gm-Message-State: AOJu0YzlbHRMLNQ2T7kj7lKENKBdAjJBP0dLFGhV55wWLrSf7ikkQGEV
+	YpV7OFX0O9JgJKV/UUOyljM0hUGkgbbia5NImjF0iy/SOrg8mf/97EEXvkV5P+JcIhtrWvxzuxe
+	xe5I=
+X-Gm-Gg: ASbGncsC49dZNmAIvBWIDeXue1D5ghlndtEn9TXa/NhT8iGeFITv/XfYANVubHGmBxs
+	e982MFcUupb1VrOR03zfyMfnrm3JGKrId428nXxZzRFHKBcf2yPYT4NbMvfPkx+Z+8AlEOodKm1
+	yNvDCQXgFA97dqdQlr1iENIrJchVzx17oyhIDCwhfng79kcMdfc3jb+c8BHsTHDbPxxiZXtU6Up
+	Byxf66u0z+FEI5gXi03YUaWgDUpCwYuuxWlIiCe7llMDV7tamHtCWvxtHS7hzyju/9/Q9x8nIP4
+	E+sA7SGI6ycHizREmOo9QZogXc5iLG+2imxIxPFnuabd1eur6FnQJCOgGDM2m7EIaaIhzT8vvja
+	WYkXW9LgWc2+1e45RiPVNNHXN16QgESvDu4PdBfkHyS0bEZsH7bsGtMHl2VZPjx6hu7axTbu8af
+	YMhgCw/oncfZp4+8pxLUXI54HiVh5W/azWaYQh/Ki2lDQEWnX748BAKZfJmR1t
+X-Google-Smtp-Source: AGHT+IGzCVWRIES305SV7J8HlziDpqryi38iIB4eIl7wKSbB2xoExhx7gvy4P8lGordgJuudQYvvJw==
+X-Received: by 2002:a05:600c:8409:b0:46e:442c:f5e1 with SMTP id 5b1f17b1804b1-46fa9b1a048mr234592205e9.35.1760601470116;
+        Thu, 16 Oct 2025 00:57:50 -0700 (PDT)
+Message-ID: <37ba42d2-c89a-4c19-a1d8-b4a9c32f677a@suse.com>
+Date: Thu, 16 Oct 2025 09:57:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 10/10] x86/HPET: don't use hardcoded 0 for "long timeout"
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2 0/3] x86/vLAPIC: CMCI LVT handling
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <8d94abf8-70d1-478c-885e-ff9a960ac72d@suse.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <amc96@srcf.net>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,28 +118,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8d94abf8-70d1-478c-885e-ff9a960ac72d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-With 32-bit counters, writing 0 means on average half the wrapping period
-until an interrupt would be raised. Yet of course in extreme cases an
-interrupt would be raised almost right away. Write the present counter
-value instead, to make the timeout predicatbly a full wrapping period.
+1: add indirection to LVT handling
+2: drop VLAPIC_VERSION
+3: properly support the CMCI LVT
 
-Fixes: e862b83e8433 ("CPUIDLE: Avoid remnant HPET intr while force hpetbroadcast")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
---- a/xen/arch/x86/hpet.c
-+++ b/xen/arch/x86/hpet.c
-@@ -165,7 +165,7 @@ static int reprogram_hpet_evt_channel(
-     if ( expire == STIME_MAX )
-     {
-         /* We assume it will take a long time for the timer to wrap. */
--        hpet_write32(0, HPET_Tn_CMP(ch->idx));
-+        hpet_write32(hpet_read32(HPET_COUNTER), HPET_Tn_CMP(ch->idx));
-         return 0;
-     }
- 
-
+Jan
 
