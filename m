@@ -2,52 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E06E7BE5AC3
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Oct 2025 00:26:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1144770.1478036 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06A12BE5B42
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Oct 2025 00:38:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1144780.1478046 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9WPc-0004Wa-FH; Thu, 16 Oct 2025 22:25:32 +0000
+	id 1v9WcE-0006B4-JJ; Thu, 16 Oct 2025 22:38:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1144770.1478036; Thu, 16 Oct 2025 22:25:32 +0000
+Received: by outflank-mailman (output) from mailman id 1144780.1478046; Thu, 16 Oct 2025 22:38:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9WPc-0004Ta-CE; Thu, 16 Oct 2025 22:25:32 +0000
-Received: by outflank-mailman (input) for mailman id 1144770;
- Thu, 16 Oct 2025 22:25:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v9WcE-00069c-FP; Thu, 16 Oct 2025 22:38:34 +0000
+Received: by outflank-mailman (input) for mailman id 1144780;
+ Thu, 16 Oct 2025 22:38:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V46/=4Z=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1v9WPb-0004TU-1U
- for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 22:25:31 +0000
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazlp17011000f.outbound.protection.outlook.com
- [2a01:111:f403:c100::f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 049dcf9e-aadf-11f0-9d15-b5c5bf9af7f9;
- Fri, 17 Oct 2025 00:25:28 +0200 (CEST)
-Received: from BLAPR05CA0008.namprd05.prod.outlook.com (2603:10b6:208:36e::11)
- by CH2PR12MB4216.namprd12.prod.outlook.com (2603:10b6:610:a8::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.13; Thu, 16 Oct
- 2025 22:25:25 +0000
-Received: from BL6PEPF00022572.namprd02.prod.outlook.com
- (2603:10b6:208:36e:cafe::35) by BLAPR05CA0008.outlook.office365.com
- (2603:10b6:208:36e::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9253.6 via Frontend Transport; Thu,
- 16 Oct 2025 22:25:23 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF00022572.mail.protection.outlook.com (10.167.249.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9228.7 via Frontend Transport; Thu, 16 Oct 2025 22:25:25 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 16 Oct
- 2025 15:25:22 -0700
-Received: from [172.29.145.48] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 16 Oct 2025 15:25:22 -0700
+ <SRS0=O3fM=4Z=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1v9WcD-00069W-D2
+ for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 22:38:33 +0000
+Received: from fout-b3-smtp.messagingengine.com
+ (fout-b3-smtp.messagingengine.com [202.12.124.146])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d648b018-aae0-11f0-980a-7dc792cee155;
+ Fri, 17 Oct 2025 00:38:31 +0200 (CEST)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfout.stl.internal (Postfix) with ESMTP id B51FC1D0009E;
+ Thu, 16 Oct 2025 18:38:28 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-04.internal (MEProxy); Thu, 16 Oct 2025 18:38:28 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 16 Oct 2025 18:38:26 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,158 +44,278 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 049dcf9e-aadf-11f0-9d15-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R5cHVpO22PQvEbPkxIS6QiN0eluB7mwKbsARimUF9d5xmOxl7nwPIda1Qs0X7FcOBKE3Phtow4L4A27/UxHupDWsHiw3fYg8uuL3b0nmQ7qL+8lRabZSrunTrzJvZHLzKD+/fQjNBS1zAiDPfyK6eBjLVhnpp9AtWLoRUgCkRhXMSjl/fAQK8pdq/dya8t+FRpIW4GqJs/SFpmLLq/SDwUhVF95VKfzBWJS2ANT8COjvCxq2kRJR6ZqhVItv+JSip5IyAgg3F5b28/7vSez5m4Ur7mgtoT1hIe7yiN3gjdVpiJ491gHhPlJrn3tQ47IzaYjqpTrsEC0QOwit+7OQ/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C3FMdvvl/y5XmTzmFHQ41vnWtANseuZf6tRbUKhBp9Y=;
- b=a7ewpoPH/lTe5igtzF1afiqwbDsjAVSDpCjhk/tNeE2CChHLhWyw6OoRVuvdCZkJuXNZESO4dKhCKz0fyBLpHKRlWc89PDFUqZW5LYK/1t6LaFWHr/gpHiY/M0R4QUTIojZcip90bTWBgyFYWIGzNrw8SguemwNXeEaucKR1R414b0/EgN4H/L9/FOPxc4Y1ZPTKU+6C0b3akTydZEyq2qKfzNkJD9BKTfXPNWJwn+A9yndWisbQYI1cAwn/J8x4z45g8eYH9FG23PEpRQ6SZ/PHbE0wGnqAlcGilF6aHgCO5vBMmjQ0NdlyEW8jfgSXKF09/GtC6Nrti+h5Ow9ENQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C3FMdvvl/y5XmTzmFHQ41vnWtANseuZf6tRbUKhBp9Y=;
- b=vXj/1zL2u4YDgbH5bHCyZJaVqAj4EBxsm++RrGswCVuPafoJB9cLHXxfirsiLepGFwBg1N/k1tW/T/8EVcoBbfL8A2YfTGTneSwxnPKcU60q3rABSW/kpR4HXyCRRLLWSXqYeg/hfB3PWIN8KOmyk6bKR8Sa85GM6z6OYFd+rPE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <72ed3dd7-8476-42a0-adab-726925b4df28@amd.com>
-Date: Thu, 16 Oct 2025 18:07:52 -0400
+X-Inumbo-ID: d648b018-aae0-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1760654308;
+	 x=1760740708; bh=O/Rg+Ccc1LMiHMvV97DbeIubNm1nBluA7EsucdJkBYc=; b=
+	0QC5/i4uC3cq2i1y0j1hDJ/suuF7lM/ZLTDrWIQSoVW+shYz4uaD9GSh0beIv/rI
+	0xm3GpzoiQf5wNy58eAlCFB5FgwqJfoX9h5oPPDg+3q4GyJQGqZMyhFeKiByOhW8
+	2SMRfHrCj5lEcHwzk3WOgC7UDPnHICKaoSLvapkRa16nn2h8V+Fc3qQnCXMGs430
+	Dzkt+Hd7q9djyiXcRnzpBEXu/s20X97tANyxRyr4rqCC2R6STLMBJCc6yAHqNlif
+	P1R+DU3kcAj6x8Ebosw29Cm3g5qtKEKAt3QqSwp+jw0gvLca+lG6RNlYGiuDSPIh
+	NLZ71OTISyK3JJNz/YdFuQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1760654308; x=1760740708; bh=O/Rg+Ccc1LMiHMvV97DbeIubNm1nBluA7Es
+	ucdJkBYc=; b=KsyZKvxg/qrjFTmiXV7Ks/4AVgVqdogYQLWTl/VRWi+z5M9thse
+	5QYInUp2y5LIwIc3zgmnqj4DiWwLw50eoeLvgxfAWi5nV7cr8keN/Tp8h716n4+o
+	RPqGB7pxiLEoLjHHy0qlABOBHbHuAIGo7XNphSsedJadeAwASD6iVxsXZSSrsVAy
+	a0zo6bE6xijvZRUYWtt6YirW76PSnrGxtD7EG5FwoGnq6NA3en4yKEUATv0+IE7L
+	Zqs6AP9B7vjhimDBBzgi1CEFHNmBfCMErmGmKvFTgDP9ddQCj/a/hbArX1CgpquQ
+	vb/AjfmlG6ar+0iPzXc/FylzO0ZH2jXAWUw==
+X-ME-Sender: <xms:5HPxaA84lxWQrq5rHbYcy1qTrd_6xukRgEudku2nXtj3m-sNgv1b_Q>
+    <xme:5HPxaHxT_UuboUn92-XBxkrKyTfHjMddh7pmmnUfpVOqO9qlVSnRzr50RibRP_lF9
+    x3RhiP4zOK5ZKWrsBg5-FDaMZ6Hid9q0rIY3wXvxTabJv1xVP0>
+X-ME-Received: <xmr:5HPxaMOxugUQD6FxgQBry6pQyl-JMdx7ZVGmxG7HlQ1lDr8mY1_60yozxg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdduvdejheduucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepieeluddv
+    keejueekhfffteegfeeiffefjeejvdeijedvgfejheetuddvkeffudeinecuffhomhgrih
+    hnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
+    mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
+    gsrdgtohhmpdhnsggprhgtphhtthhopeekpdhmohguvgepshhmthhpohhuthdprhgtphht
+    thhopehgrhihghhorhhiihgpshhtrhgrshhhkhhosegvphgrmhdrtghomhdprhgtphhtth
+    hopehrohhgvghrrdhprghusegtihhtrhhigidrtghomhdprhgtphhtthhopehjsggvuhhl
+    ihgthhesshhushgvrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtsh
+    drgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtohepshgvrhhgihihpghkihgsrhhi
+    khesvghprghmrdgtohhmpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegtih
+    htrhhigidrtghomhdprhgtphhtthhopehprghulhesgigvnhdrohhrghdprhgtphhtthho
+    pegrlhgvjhgrnhgurhhordhgrghrtghirghvrghllhgvjhhosegrmhgurdgtohhm
+X-ME-Proxy: <xmx:5HPxaM__35oZfFBMeSfgpyGKr5H2BamYjAhBZmU6K00QKstERMZHxA>
+    <xmx:5HPxaJ5zRq57OEFyWfyxpgeIJSsqqDPKQAjsbTzrtBm2_7tmdDB-Mg>
+    <xmx:5HPxaC4sP_qfIFcgLJjmkI5zmBww_k5mJ8Irx0HVghK8q2XWb7ef2w>
+    <xmx:5HPxaCp0wm_Va6tGXTU6ELyg2EAJmcltrks0w3D4Pii2TSFpSfT5vg>
+    <xmx:5HPxaLC2r8Kk88OUp2PyZRaJ9LUY_JoggFhMxGOPIYbw1JFkTQHIeF9x>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 17 Oct 2025 00:38:23 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Subject: Re: [PATCH v5] x86: make Viridian support optional
+Message-ID: <aPFz3-RjsG-VGRLU@mail-itl>
+References: <20250930125215.1087214-1-grygorii_strashko@epam.com>
+ <aOzt8gfxkdQXZ6O1@Mac.lan>
+ <e6972ea5-2139-4f4d-8d2c-2979fe2fad99@epam.com>
+ <aO5gdh6C_uQoFHPH@Mac.lan>
+ <afe544d3-575c-44e8-9068-8c79f69d6175@epam.com>
+ <aO9UgQ3J27hVgGIa@Mac.lan>
+ <06d540f0-38e6-46fd-b94d-58ac2797657f@epam.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21 v3 1/2] x86/apic: Avoid infinite loop in
- io_apic_level_ack_pending()
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Oleksii Kurochko
-	<oleksii.kurochko@gmail.com>, <xen-devel@lists.xenproject.org>
-References: <20251015210454.95381-1-jason.andryuk@amd.com>
- <20251015210454.95381-2-jason.andryuk@amd.com>
- <6cf0b252-05ef-409f-876d-2016f0cdc088@suse.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <6cf0b252-05ef-409f-876d-2016f0cdc088@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022572:EE_|CH2PR12MB4216:EE_
-X-MS-Office365-Filtering-Correlation-Id: 478ba9a2-e1ac-4893-b5e3-08de0d02e70a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Mm1YVlB1aWR4NFlhaHZVL0pMRHRiOFZHL3FaU09YZWJIMndhL3VRaEFTcnd0?=
- =?utf-8?B?cjkvdXFSS3Y1eE9oYnp5azFYWTFXMk95bjJQaEJNd3R4U3VEZUh1bFNKa3Vk?=
- =?utf-8?B?RkN6bEZRcEUzR0cxdDJUaTVRallPS0ZBK1d3Ukx1MldRYUhFSlduQWlOMUpi?=
- =?utf-8?B?dEVwTzlxUkNTc2IwVkUxUkQwbGswVWlDUjZPSGNYL0YyUjNGd0hzdVdNZ0lk?=
- =?utf-8?B?VW94WjlCZDU4THFIVkdNMFE1YjNMUE8vRGpzU3F1NGRobUhQOEJLano3VFo0?=
- =?utf-8?B?aHkzdmdITFVaeUpZYWdkUTF6Tkl5OUdweUFBV3U4VU9VMEpyd2QzSmdxcFVo?=
- =?utf-8?B?ZjlOQUZNWm0zbHhxU09WcFhHdzRvRTMrM3dSam9ya3NVWkVCMVBmZmRoTXJD?=
- =?utf-8?B?SW5KZTFYUUJXWUEyU2FrNDB3N2FUam9RM3JHcmp0ZUZTaHRkMVBsaldHYUJE?=
- =?utf-8?B?eFNjOTNncWxRTVJWbTRtT2p5V1pPQVcyS1VvZkhvSnZEK0dlQXlkVzdEQlpo?=
- =?utf-8?B?UW1WT01lK0JTWXQzaHNUTTBQaVkrYU9nc3RXSEVJM2NVMmFOL2hsaTdXcFA5?=
- =?utf-8?B?ZkprMXRkOERTa0IwdVpIdFJvZkY3SVZPVzR5bkRvM0lKQ2YrQUJIMVVyZjRr?=
- =?utf-8?B?TWJ4TFBBd2Z6TTA0aU1WWkdWRVRxVlJtWFBYSmF4RHFJRXNGQzJJakFiTjJk?=
- =?utf-8?B?dUhubTU4UVA5V3A0MWhRSjVNZ25sN0lCamtIQ0FJaVpzV2labHlTUElGekJC?=
- =?utf-8?B?QjhTSXMvK0tCaXhERlJ0L0IzV0FOQ0NlcDZTR3QvRWEyMXczSThXbzdDUGJn?=
- =?utf-8?B?NjJibXdpSEJsUnJQUVN6OWxjaVYvcmE2WVNuekxaTitlUXB5N2V3d3NBdnhJ?=
- =?utf-8?B?NmNPTis1bFRBUk0zUG1RZ0pMUEpockEwa3NGdmlQMFpJaFZvQWhuUjdLMlYw?=
- =?utf-8?B?OVczb3YxaXc2Mkw2M1ExbzVFNFV2cTVMeENGaG1tR04zRFBEZUhEVCtnS1Ra?=
- =?utf-8?B?RUVQTUcwU3FuNWpHa09Yd0dLOGV2MUl4RGlncnJFYzVPc0ZRajNQeHY1dWdD?=
- =?utf-8?B?N2V1dCtqQjl2TU4yNWJyRXlGSnVFdmVZSjAvc0s3NUt3R3FHZnFTMGJHMG9h?=
- =?utf-8?B?SHhqbEhWR2QrM01UUEJYUGQ1ci9WSTZRWWJGeVE1c3k5ZnR4aUx4UzkvQllX?=
- =?utf-8?B?N1ZEZ05JaC9GQmVHaTdzdkYxclRJR0dEbkdGTU5uUXpCR1dldFdqa3VqcHN2?=
- =?utf-8?B?MGx6R045QWVkWi80QVk2dklrbFBKL2pUekpISldsc2p0c29WNWYrVS9Fd1Nm?=
- =?utf-8?B?VmhqM1B2TEVicG02U3ZPcTA1K0s2TVFEcWM5MzNFK2djN2ltQ3cvTmtkRnZX?=
- =?utf-8?B?Z3VmMWs3Zkw1OHBkWnJsNGREcHdlR0lGbUhobUkzRkNQSUNhVENhZWQxZm00?=
- =?utf-8?B?WGZmVTdCNnZNUVhLYXNHQUYvSVgzRmU4eDZxSnY1VnpxekdMYTQvYTZrelkw?=
- =?utf-8?B?bGY0aTd6WmVtTWZiU1VURFg1Z21wZi9UbXNzMXFsZmlOUFp4M1JLM1czKy90?=
- =?utf-8?B?NTBJOEMwOUZycE52NDMrb3hCMWF2ZkwrYVNSMTkrRDBZTXM4WUZ6L3QwVEFr?=
- =?utf-8?B?dFFyVmRkUCs3YXdpb01JTWlSK1FtZEVKTFZtRXZMNTlvOC9qQTVWcHFSMTNl?=
- =?utf-8?B?N0cwVlhlVHl4VFF1M0RIUm9yMzlodXJQTmJXcEhrcThZcEFTazNxSG5TUGp1?=
- =?utf-8?B?NW5qdlBBS2YwZE4rdEpGUDNNZUgyRkV6ZWp1VXRFR3lUanVpbERjMUJ6VmhP?=
- =?utf-8?B?TzRaQlkzN0tsQnBkcXhNZmg2MTdNZVo0akRPdjZoRzhLZFk5c1JUUDN4SDZX?=
- =?utf-8?B?SFVTSXU0OVRsTW9IeG9yajAxNm9BSVBTSzI4MU9BZ2Ftbi9jL2pHNWV0UGQ5?=
- =?utf-8?B?YjVHVWZLTmkrazQ3RDNrcmEwWXhRU1pUL0dkQmtIaUFxd2FDUmxVOHNlM2RU?=
- =?utf-8?B?eWlLbDhJVkcrMVp6OTlSbVAzQkxzZTNmMS81eEcwbisrenlSbnBremQ2bitC?=
- =?utf-8?B?ZVA0Z0FOdEp5VEZ3dUZyVkE3UnpCYWFmbHdkTlVpTUFPdW85cUJ1SVB0ZjBY?=
- =?utf-8?Q?DDEA=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2025 22:25:25.0081
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 478ba9a2-e1ac-4893-b5e3-08de0d02e70a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00022572.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4216
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="tzVi6kEDw/P8mlKg"
+Content-Disposition: inline
+In-Reply-To: <06d540f0-38e6-46fd-b94d-58ac2797657f@epam.com>
 
-On 2025-10-16 02:47, Jan Beulich wrote:
-> On 15.10.2025 23:04, Jason Andryuk wrote:
->> io_apic_level_ack_pending() will end up in an infinite loop if
->> entry->pin == -1.  entry does not change, so it will keep reading -1.
->>
->> Convert to a proper for loop so that continue works.  Add a new helper,
->> next_entry(), to handle advancing to the next irq_pin_list entry.
->>
->> Noticed during code inspection.  The infinite loop was not observed.
->>
->> Fixes: f821102450a1 ("x86: IRQ Migration logic enhancement.")
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->> Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> ---
->> v3:
->> const on next_entry() parameter
->> Remove spaces inside for loop braces
->> Remove inner if (!entry) check
->> Expand commit message to state noticed during code inspection
->>
->> v2:
->> continue (not break) for pin == -1.
->>
->> I added the next_entry() helper since putting the expression in the for
->> loop is a little cluttered.  The helper can also be re-used for other
->> instances within the file.
->> ---
->>   xen/arch/x86/io_apic.c | 17 +++++++++--------
->>   1 file changed, 9 insertions(+), 8 deletions(-)
->>
->> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
->> index c384f10c1b..c35d611ecf 100644
->> --- a/xen/arch/x86/io_apic.c
->> +++ b/xen/arch/x86/io_apic.c
->> @@ -1586,20 +1586,24 @@ static int __init cf_check setup_ioapic_ack(const char *s)
->>   }
->>   custom_param("ioapic_ack", setup_ioapic_ack);
->>   
->> +static struct irq_pin_list *next_entry(const struct irq_pin_list *entry)
->> +{
->> +    if ( !entry->next )
->> +        return NULL;
->> +
->> +    return irq_2_pin + entry->next;
->> +}
-> 
-> When replying to the v2 thread I hadn't spotted yet that a v3 was already
-> posted. As indicated, imo this name to too generic (now). I'd be happy to
-> make adjustments while committing, as long as we can agree on some less
-> generic name.
 
-pin_list_next() works for me.
+--tzVi6kEDw/P8mlKg
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Oct 2025 00:38:23 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Subject: Re: [PATCH v5] x86: make Viridian support optional
 
-Thanks,
-Jason
+On Fri, Oct 17, 2025 at 12:40:33AM +0300, Grygorii Strashko wrote:
+>=20
+>=20
+> On 15.10.25 11:00, Roger Pau Monn=C3=A9 wrote:
+> > On Tue, Oct 14, 2025 at 06:48:23PM +0300, Grygorii Strashko wrote:
+> > >=20
+> > >=20
+> > > On 14.10.25 17:38, Roger Pau Monn=C3=A9 wrote:
+> > > > On Tue, Oct 14, 2025 at 04:24:53PM +0300, Grygorii Strashko wrote:
+> > > > > On 13.10.25 15:17, Roger Pau Monn=C3=A9 wrote:
+> > > > > > On Tue, Sep 30, 2025 at 12:52:16PM +0000, Grygorii Strashko wro=
+te:
+> > > > > > > From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> > > > > > > +
+> > > > > > > +	  If unsure, say Y.
+> > > > > > > +
+> > > > > > >     config MEM_PAGING
+> > > > > > >     	bool "Xen memory paging support (UNSUPPORTED)" if UNSUPP=
+ORTED
+> > > > > > >     	depends on VM_EVENT
+> > > > > > > diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Mak=
+efile
+> > > > > > > index 6ec2c8f2db56..736eb3f966e9 100644
+> > > > > > > --- a/xen/arch/x86/hvm/Makefile
+> > > > > > > +++ b/xen/arch/x86/hvm/Makefile
+> > > > > > > @@ -1,6 +1,6 @@
+> > > > > > >     obj-$(CONFIG_AMD_SVM) +=3D svm/
+> > > > > > >     obj-$(CONFIG_INTEL_VMX) +=3D vmx/
+> > > > > > > -obj-y +=3D viridian/
+> > > > > > > +obj-$(CONFIG_VIRIDIAN) +=3D viridian/
+> > > > > > >     obj-y +=3D asid.o
+> > > > > > >     obj-y +=3D dm.o
+> > > > > > > diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> > > > > > > index 23bd7f078a1d..95a80369b9b8 100644
+> > > > > > > --- a/xen/arch/x86/hvm/hvm.c
+> > > > > > > +++ b/xen/arch/x86/hvm/hvm.c
+> > > > > > > @@ -701,9 +701,12 @@ int hvm_domain_initialise(struct domain =
+*d,
+> > > > > > >         if ( hvm_tsc_scaling_supported )
+> > > > > > >             d->arch.hvm.tsc_scaling_ratio =3D hvm_default_tsc=
+_scaling_ratio;
+> > > > > > > -    rc =3D viridian_domain_init(d);
+> > > > > > > -    if ( rc )
+> > > > > > > -        goto fail2;
+> > > > > > > +    if ( is_viridian_domain(d) )
+> > > > > > > +    {
+> > > > > > > +        rc =3D viridian_domain_init(d);
+> > > > > > > +        if ( rc )
+> > > > > > > +            goto fail2;
+> > > > > > > +    }
+> > > > > >=20
+> > > > > > Are you sure this works as expected?
+> > > > > >=20
+> > > > > > The viridian_feature_mask() check is implemented using an HVM p=
+aram,
+> > > > > > and hence can only be possibly set after the domain object is c=
+reated.
+> > > > > > AFAICT is_viridian_domain(d) will unconditionally return false =
+when
+> > > > > > called from domain_create() context, because the HVM params can=
+not
+> > > > > > possibly be set ahead of the domain being created.
+> > > > >=20
+> > > > > You are right. Thanks for the this catch.
+> > > > >=20
+> > > > > Taking above into account above, it seems Jan's proposal to conve=
+rt below
+> > > > > viridian APIs into wrappers for VIRIDIAN=3Dn case is right way to=
+ move forward:
+> > > > >=20
+> > > > > int viridian_vcpu_init(struct vcpu *v);
+> > > > > int viridian_domain_init(struct domain *d);
+> > > > > void viridian_vcpu_deinit(struct vcpu *v);
+> > > > > void viridian_domain_deinit(struct domain *d);
+> > > > >=20
+> > > > > Right?
+> > > >=20
+> > > > Possibly. If you don't want to introduce a XEN_DOMCTL_createdomain
+> > > > flag you need to exclusively use the Kconfig option to decide wheth=
+er
+> > > > the Viridian related structs must be allocated.  IOW: you could also
+> > > > solve it by using IS_ENABLED(CONFIG_VIRIDIAN) instead of
+> > > > is_viridian_domain() for most of the calls here.
+> > > >=20
+> > > > The wrapper option might be better IMO, rather than adding
+> > > > IS_ENABLED(CONFIG_VIRIDIAN) around.
+> > >=20
+> > > I'll do wrappers - less if(s) in common HVM code.
+> > >=20
+> > > >=20
+> > > > > [1] https://patchwork.kernel.org/comment/26595213/
+> > > > >=20
+> > > > > >=20
+> > > > > > If you want to do anything like this you will possibly need to
+> > > > > > introduce a new flag to XEN_DOMCTL_createdomain to signal wheth=
+er the
+> > > > > > domain has Viridian extensions are enabled or not, so that it's=
+ know
+> > > > > > in the context where domain_create() gets called.
+> > > > >=20
+> > > > > In my opinion, it might be good not to go so far within this subm=
+ission.
+> > > > > - It's not intended  to change existing behavior of neither Xen n=
+or toolstack
+> > > > >     for VIRIDIAN=3Dy (default)
+>=20
+> [1]
+>=20
+> > > > > - just optout Viridian support when not needed.
+> > > >=20
+> > > > OK, that's fine.
+> > > >=20
+> > > > On further request though: if Viridian is build-time disabled in
+> > > > Kconfig, setting or fetching HVM_PARAM_VIRIDIAN should return -ENOD=
+EV
+> > > > or similar error.  I don't think this is done as part of this patch.
+> >=20
+> > Another bit I've noticed, you will need to adjust write_hvm_params()
+> > so it can tolerate xc_hvm_param_get() returning an error when
+> > HVM_PARAM_VIRIDIAN is not implemented by the hypervisor.
+> >=20
+> > Implementing the Viridian features using an HVM parameter was a bad
+> > approach probably.
+>=20
+> I've just realized how toolstack need to be modified and all consequences=
+=2E..
+> Have to try to push back a little bit:
+>=20
+> VIRIDIAN=3Dn: Now HVM_PARAM_VIRIDIAN will be R/W with functionality NOP.
+>=20
+> I'd prefer avoid modifying toolstack if possible.
+
+IMHO trying to start a domain with Viridian enabled, while it's compiled
+out of the hypervisor, should fail. Not silently be ignored.
+
+> How about sanitizing HVM_PARAM_VIRIDIAN to be RAZ/WI for VIRIDIAN=3Dn?
+> Or may be produce Xen XENLOG_WARNING"Viridian is disabled" if value!=3D0?
+>=20
+> This an EXPERT option and end-user can get Xen with VIRIDIAN=3Dn only by
+> manually re-configuring and re-compiling Xen. In other words, the user
+> is an expert and knows what he is doing.
+>=20
+> Another point, assume change like this is to be done for HVM_PARAM_VIRIDI=
+AN
+> - there are another HVM_PARAM_x which depend on build-time disabled featu=
+res, like:
+>  HVM_PARAM_VM86_TSS_SIZED
+>  HVM_PARAM_PAGING_RING_PFN,
+>  HVM_PARAM_MONITOR_RING_PFN,
+>  HVM_PARAM_SHARING_RING_PFN,
+>  HVM_PARAM_IDENT_PT
+>  ...
+>=20
+> if corresponding features are build-time disabled, above HVM_PARAM_x
+> become R/W with functionality NOP now.
+
+Are you sure? For me it looks like setting build-time disabled feature
+returns -ENOSYS. Or do you mean some other interface than
+xc_hvm_param_set().
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--tzVi6kEDw/P8mlKg
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmjxc98ACgkQ24/THMrX
+1yyRiQgAk/3mggbVFMcCFDMrHTAmCBYOLbUOk2iP7sxE53cVz8VsYr7dCOGoKbTn
+iHrqwLOml69lggHwnDpmD1GpmypQeK5d+JgN/yF5y04oFcmNkwtkkDxNlnGrsPof
+YYPGAj8kz5gTOAXvJb6/fUc+G2hTGDTF1nRq77CCa5IgP0BWbXT5PS6fw6VdjCZ5
+kn1Br4QteAsP8FO8bnec+9bdtayycACPjRxY/vrajddeiyMjPtuxbtQ7nBIMfeak
+w4YKFI12BnUIGb9Liha1gvVLAVcaloKE3v1HsccTr+I15ep6Icv196zli8h8fr8U
+7GyQz7sVp1JEHv5/fjXQNTmf6V2U5Q==
+=lzzM
+-----END PGP SIGNATURE-----
+
+--tzVi6kEDw/P8mlKg--
 
