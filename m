@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA8CEBE1EEE
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 09:32:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1144184.1477636 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E990BE1F12
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 09:36:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1144232.1477696 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9ITR-00082Z-L3; Thu, 16 Oct 2025 07:32:33 +0000
+	id 1v9IWx-0002bO-D9; Thu, 16 Oct 2025 07:36:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1144184.1477636; Thu, 16 Oct 2025 07:32:33 +0000
+Received: by outflank-mailman (output) from mailman id 1144232.1477696; Thu, 16 Oct 2025 07:36:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9ITR-000803-Ha; Thu, 16 Oct 2025 07:32:33 +0000
-Received: by outflank-mailman (input) for mailman id 1144184;
- Thu, 16 Oct 2025 07:32:32 +0000
+	id 1v9IWx-0002Yp-89; Thu, 16 Oct 2025 07:36:11 +0000
+Received: by outflank-mailman (input) for mailman id 1144232;
+ Thu, 16 Oct 2025 07:36:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CbFY=4Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v9ITQ-0006T6-Pb
- for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 07:32:32 +0000
+ id 1v9ITr-0006T6-1N
+ for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 07:32:59 +0000
 Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
  [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 460d1b93-aa62-11f0-980a-7dc792cee155;
- Thu, 16 Oct 2025 09:32:31 +0200 (CEST)
+ id 55e0c517-aa62-11f0-980a-7dc792cee155;
+ Thu, 16 Oct 2025 09:32:57 +0200 (CEST)
 Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-46e42fa08e4so3356175e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 00:32:31 -0700 (PDT)
+ 5b1f17b1804b1-4710022571cso2744345e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 00:32:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4711444d919sm9776065e9.14.2025.10.16.00.32.29
+ 5b1f17b1804b1-4710cda4ecasm13066995e9.4.2025.10.16.00.32.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Oct 2025 00:32:30 -0700 (PDT)
+ Thu, 16 Oct 2025 00:32:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 460d1b93-aa62-11f0-980a-7dc792cee155
+X-Inumbo-ID: 55e0c517-aa62-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760599950; x=1761204750; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760599977; x=1761204777; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=V65ZkZ395fafRCHZS/zrJWqELR8Nj+iaElKK9I3wBLM=;
-        b=ZMzlL3hjqVjYh8SIdlb6J4aekfZErVr7KZu0qUqV+Z0DcfY8J1BjOkWflhVEKQpz71
-         0ImLx4ghLgXIs3wYPCEbjJKkILNNO0KPHhnQuw6yzP3NQDFi6WUJmEiSQWTj6rV6a0hc
-         lq/wBEzOaNeWdVZFlUHx1eEzrAeaUC2iMAi4LYDAwrzEr112CIK2kFjJveyfRDbpe4up
-         RbtdWPUtebpJGLhEKDwo5Ocpl3aG1dLxgHW/ia6Xp26usjnj0ziv2jecdpvVxxgOcCFd
-         Gg1OJWtBWswqNx7/wIowEopHSB66uoedfrRHcGO4fBCH6EQ/aWWD+We5iMUVrCqGfT1c
-         gRFQ==
+        bh=DjE8gka2JkJuiym43SgnPm2cUSuJ0d65kAjd/ktU954=;
+        b=d6bhth1Y3QfpUjMOMz3xMLcYW4R9Ks5zSYv68Ep7NxXGvGrxQFNSaIVgeq7iVEgMRl
+         EbXB180+Wpldmu/zxxveXFm5F1V0U/mPsX+t0Qd4M1CE0uqBCTIldm0fsZZSivoYjFWt
+         X6Wu/v2YnnZBtHngYVT9g/tmyBQeWuxjmmlHr3WMU/zNLgUAtBe5HssgUxhWwA+YPCeA
+         B4N+a80JXJcLFjnJPPc+1RLro6vHolRo5+cCwwMylHciAUno3Z8cgkE1ctK0IPaQTbN1
+         stzR403rygyCQN7Nd03C1bw9DwIO7M0WNgdoUiLmv9NKjXeSUWB7QT0CSDUb8BgF8VdC
+         TR2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760599950; x=1761204750;
+        d=1e100.net; s=20230601; t=1760599977; x=1761204777;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=V65ZkZ395fafRCHZS/zrJWqELR8Nj+iaElKK9I3wBLM=;
-        b=JKTHr/K2uNKVbdo6E4eN5CltZn/+wuyDrowhPgaaioPxkO9JIgJrw03nsoGniyjG69
-         B3VEXZTC2iuJBAdmslRKchboI7H7Etj/MCEPMC00RCyWaZswwwzCo17InalYLeG1VMfH
-         J6GPcXpYwgTCSehoKLsaMQyk/PprJAhajY0lA0gcRlnvWpzKVw/USZDZaCEun3NlM/St
-         nAcJBaBH0wTn/zWfTSCYtqIaOGnorcmgh64g4ABL5yJimjsHrya5NZx2QGQMtw1j93cv
-         sPaBP2adgSy3yhh+0aAlwCzGNMnXggxWn1yRdxqGtN3FhBk1UWx8uCdSExis+5BlcMFb
-         1zCg==
-X-Gm-Message-State: AOJu0YxemibZUB4IEG6kzt1bnYX/lvtCJtYrg8/r1lMoOnxz5vG1Gyvf
-	ku43lFGtLVxE0XjgpxFv8J2secB4PMHrUouTeh9PGTh2nyHXkZP4XhUAlXks8cNQdQM9C8jxCl9
-	eFvs=
-X-Gm-Gg: ASbGncscng08u9C8qW+HmT0MZMpYeVS+LLyoLHYYWms/MLecbrFhZh1L+zwUiFsLZ4I
-	bfSvRg9WDlBzkXkB0YWJfks5JQh62D8TUplvfFW3t0rlXhA2iYXNxhHW5HveAjHfxmRlMDMgxhs
-	dEkZ0Uv8weoDgHVpJRy34BKdwK6KAOEhHIT1XpWU27VCYMki40g+Xgwp84nBumTdtMGboRIteZO
-	6Thi9ZAQFjoLRtmpM1CnNaZRWkqxiQsTPaCOYs1TYIux6k/inUVt3N/RBPSjj/Ov7mLOtEzJyGp
-	g0y5WATbwNadqREpkuIiMbCEXHbqzijmk3rugmlsN74e94U5DhkgKsOW0m7tUy5d0tkTRTkcY/E
-	ZklZ341frBN+PBFKmchRSVp/wN0yjf4btq5w5+7ZaAGT5kpRnVn2iQjBrGsaIj7d3yyysf93iur
-	uPdBI2at/81mdJO6keCEpbfnkcWucLz8X1djh+m9ucbSJ2Sp0Z53e+0MD1BqoezTvkWXVawoeU+
-	2csnCZxgw==
-X-Google-Smtp-Source: AGHT+IGExuecQHMcMThBN04NXiCdhbFFiy3hh6zBX5FNGlfL2Vu5MipJ5VxAO0rkDJmfFxcTc+cS7Q==
-X-Received: by 2002:a05:600d:416a:b0:46e:6339:79d1 with SMTP id 5b1f17b1804b1-46fa9a8b3cbmr212337515e9.5.1760599950240;
-        Thu, 16 Oct 2025 00:32:30 -0700 (PDT)
-Message-ID: <e16e2b62-9c2b-4534-8279-daf986cf438b@suse.com>
-Date: Thu, 16 Oct 2025 09:32:29 +0200
+        bh=DjE8gka2JkJuiym43SgnPm2cUSuJ0d65kAjd/ktU954=;
+        b=hdxNV52GTkFlEUeGqw51QaMj2P/+wIgneLElkwhNps4ACDvuUfq9QkuxniaIgCQYRm
+         7l659OyMXCi/KlaPFGaXWc1sgItcjaCImr1Ry6ab+3fiuSEbbpxMz+NxKQd1aI88W8si
+         a8vgmw8/1LClwux98VkpNdGefFQGrEu1v40fOMJyQ1CK8veNWe0WWQRttAgJIxL20Brp
+         kl9592LC4a+RgOhlM09Q+TZPN+I3vkitEt49TZf3hQ3G+qY/GB+qDAmmc+sPLX3EkK6y
+         hJEdYONA57GcnUCuUVS2tsscoV/OIsTfbjBH/eZ0Djp+VuR29DSZ5WYTJYQQdwxELZqV
+         17Fw==
+X-Gm-Message-State: AOJu0YwNoWhFLOYkHXrEBzy2eAlPPvu/mKxGGYkNMbx+cpybrlPbop4s
+	SCjKtckBAeFTqFrU9ge48Q9ue3p9VatMziWBHqkQuupv6AXobsUCKzsS8EIfr2y8ugq4FWKCy3O
+	oMfs=
+X-Gm-Gg: ASbGncs0NWeA1yAwZMB0m6Fas3HZ7cbD3xP9bG5fuN1RzND0twi8w7AbbwHXACT+8Un
+	IQzkU+fpVcq61biNYk2KakCEbr8aIDjws5lrwZSycZ4JMEXvtXIyhXeogxw1p4zH7hUw6GsbcgX
+	P8brvKCWgeHjog0kT5VdTEWNMMhaYbJZG10i+/dN854Yuw9gmmdGnUP2TeUlFGHztOWWgSjoaKi
+	sl81JHDUR4/J72Gu1uiWhKk1h1xRDZNXaOuhzQg0E6TdnQbYQr21k+VhvjD4sbkJpI/R1lEYcvN
+	P588FCrQSkOahRfV5S/jps9rseUVlWgWxDORcFVpOBMTm5GGkHLNC5DCK6BASz6T0TRqRJERbi6
+	lV6xGVsrM+q72slok46eIqVJnya1G9wVm4MkRa4b2NhyC9zr9tuaSgWxYace0SEnVOFxk2YN5Tg
+	la5ZkmiPjjc+7gT8a3EIvxrXdB9UmqZp3BG0Xbng8d/uLg3kk1+MysqHSO4081FibgHBYQNNI=
+X-Google-Smtp-Source: AGHT+IGanN6vEl768wvh1OFIaksRzZKkRi1RkoP8MrA3NSYqwISK0JR5AqInqjhmFTslkWtI+bItdw==
+X-Received: by 2002:a05:600c:83c3:b0:471:11a3:a6a9 with SMTP id 5b1f17b1804b1-47111a3a6e9mr8877025e9.37.1760599976754;
+        Thu, 16 Oct 2025 00:32:56 -0700 (PDT)
+Message-ID: <a1baa567-6901-48d1-ba9d-f0a688de7eaf@suse.com>
+Date: Thu, 16 Oct 2025 09:32:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH for-4.21 04/10] x86/HPET: ignore "stale" IRQs
+Subject: [PATCH 05/10] x86/HPET: avoid indirect call to event handler
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <8d94abf8-70d1-478c-885e-ff9a960ac72d@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,41 +122,68 @@ In-Reply-To: <8d94abf8-70d1-478c-885e-ff9a960ac72d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Following hpet_detach_channel(), IRQs may still occur: Ones may already
-be in flight (both from before and after the last IRQ migration, i.e. on
-possibly two distinct vectors targeting two different CPUs), and new ones
-may still be raised as long as the channel is enabled.
+It's only ever handle_hpet_broadcast() that's used. While we now don't
+enable IRQs right away, still play safe and convert the function pointer
+to a boolean, to make sure no calls occur too early.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-RFC: Previously, when we still used "normal" IRQs, this would only work
-     correctly if there's no shortage of vectors, i.e. if the original
-     hpet_msi_set_affinity()'s call to set_desc_affinity() would succeed.
-     With that changed the patch may not actually be of much help anymore
-     (hence I've also dropped the Fixes: tag again); it was pretty useful
-     prior to that.
 
 --- a/xen/arch/x86/hpet.c
 +++ b/xen/arch/x86/hpet.c
-@@ -241,8 +241,9 @@ again:
- static void cf_check hpet_interrupt_handler(int irq, void *data)
+@@ -40,7 +40,7 @@ struct hpet_event_channel
+     s_time_t      next_event;
+     cpumask_var_t cpumask;
+     spinlock_t    lock;
+-    void          (*event_handler)(struct hpet_event_channel *ch);
++    bool          event_handler;
+ 
+     unsigned int idx;   /* physical channel idx */
+     unsigned int cpu;   /* msi target */
+@@ -194,7 +194,7 @@ static void evt_do_broadcast(cpumask_t *
+        cpumask_raise_softirq(mask, TIMER_SOFTIRQ);
+ }
+ 
+-static void cf_check handle_hpet_broadcast(struct hpet_event_channel *ch)
++static void handle_hpet_broadcast(struct hpet_event_channel *ch)
  {
-     struct hpet_event_channel *ch = data;
-+    unsigned int cpu = smp_processor_id();
- 
--    this_cpu(irq_count)--;
-+    per_cpu(irq_count, cpu)--;
- 
-     if ( !ch->event_handler )
-     {
-@@ -250,6 +251,9 @@ static void cf_check hpet_interrupt_hand
+     cpumask_t mask;
+     s_time_t now, next_event;
+@@ -254,7 +254,7 @@ static void cf_check hpet_interrupt_hand
+     if ( ch->cpu != cpu )
          return;
-     }
  
-+    if ( ch->cpu != cpu )
-+        return;
+-    ch->event_handler(ch);
++    handle_hpet_broadcast(ch);
+ }
+ 
+ static void cf_check hpet_msi_unmask(struct irq_desc *desc)
+@@ -515,7 +515,7 @@ static void set_channel_irq_affinity(str
+ 
+     /* We may have missed an interrupt due to the temporary masking. */
+     if ( ch->event_handler && ch->next_event < NOW() )
+-        ch->event_handler(ch);
++        handle_hpet_broadcast(ch);
+ }
+ 
+ static void hpet_attach_channel(unsigned int cpu,
+@@ -643,7 +643,7 @@ void __init hpet_broadcast_init(void)
+         hpet_events[i].next_event = STIME_MAX;
+         spin_lock_init(&hpet_events[i].lock);
+         smp_wmb();
+-        hpet_events[i].event_handler = handle_hpet_broadcast;
++        hpet_events[i].event_handler = true;
+ 
+         hpet_events[i].msi.msi_attrib.maskbit = 1;
+         hpet_events[i].msi.msi_attrib.pos = MSI_TYPE_HPET;
+@@ -794,7 +794,9 @@ int hpet_legacy_irq_tick(void)
+          (hpet_events->flags & (HPET_EVT_DISABLE|HPET_EVT_LEGACY)) !=
+          HPET_EVT_LEGACY )
+         return 0;
+-    hpet_events->event_handler(hpet_events);
 +
-     ch->event_handler(ch);
++    handle_hpet_broadcast(hpet_events);
++
+     return 1;
  }
  
 
