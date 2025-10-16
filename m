@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8109DBE1C8C
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 08:41:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1144107.1477575 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 073B8BE1CD1
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 08:47:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1144117.1477586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9HfB-0007hg-MM; Thu, 16 Oct 2025 06:40:37 +0000
+	id 1v9Hlz-0008L0-AQ; Thu, 16 Oct 2025 06:47:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1144107.1477575; Thu, 16 Oct 2025 06:40:37 +0000
+Received: by outflank-mailman (output) from mailman id 1144117.1477586; Thu, 16 Oct 2025 06:47:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9HfB-0007fs-I7; Thu, 16 Oct 2025 06:40:37 +0000
-Received: by outflank-mailman (input) for mailman id 1144107;
- Thu, 16 Oct 2025 06:40:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v9Hlz-0008J3-7g; Thu, 16 Oct 2025 06:47:39 +0000
+Received: by outflank-mailman (input) for mailman id 1144117;
+ Thu, 16 Oct 2025 06:47:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CbFY=4Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v9HfA-0007fm-Ru
- for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 06:40:36 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 04764e61-aa5b-11f0-980a-7dc792cee155;
- Thu, 16 Oct 2025 08:40:34 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-426f1574a14so165148f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 15 Oct 2025 23:40:34 -0700 (PDT)
+ id 1v9Hly-0008Ix-HP
+ for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 06:47:38 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0069b281-aa5c-11f0-9d15-b5c5bf9af7f9;
+ Thu, 16 Oct 2025 08:47:37 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-471075c0a18so3784155e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Oct 2025 23:47:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47114423862sm7277085e9.1.2025.10.15.23.40.32
+ 5b1f17b1804b1-47114428dedsm7620435e9.7.2025.10.15.23.47.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Oct 2025 23:40:32 -0700 (PDT)
+ Wed, 15 Oct 2025 23:47:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04764e61-aa5b-11f0-980a-7dc792cee155
+X-Inumbo-ID: 0069b281-aa5c-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760596834; x=1761201634; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760597257; x=1761202057; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iW/qEpx6yh7S5wMwdqHfKgEyIDn2vFR8Zdt/L2ESZ5Q=;
-        b=NMahAtGGRQix8ocScbKozexP+l8z7te8qvwNoxjVJdd5YJxzR9jCcz9AHcPpKj6UwC
-         GxM7UktwMe6M2pSh3s/mCimg2w8v6qH7aet3KJ8wBrjKMZgxjrCirGWovvWBF8bo0xQX
-         urHBnGz1khQZjJy2veusgm7CHpYMD+ahGh+KYByOSahN9eBUh8JK4Swd48VMYeavvYjl
-         NucwTGxuqLVqwUEIOzY0hRG0F8G3vMpGtx/j/kDQw2Ahlhj8OD1S8GWdlJu/iIaI34JN
-         tsqTkVwzxuIxJ+ZMDF8Z4CgaDWMWaC5+SPSkdig5/INJhoNRBMQT1iOOZVP555eovf/h
-         guGQ==
+        bh=Uu+0Q7jlwk+RFBoViCKV+e3BvDmOsAcry3upwlvr4Uo=;
+        b=fqxz28BYgfF66gu1/Z2TZ22V5dtw2km5a050ZM+IVc0pOUWb+vmQZrz1Z45ZzbksX+
+         nu6sb9Xf3S+av+vTw5yWUJ92utGqmssfz1zFYzLTUmYrAsKT+K6uFfSkpVhTUvyqS9yv
+         4RKsqkH/YPecS7DR+tsTQfc7BbX5Zym5PgG6v9BDYl4FjFAqn6IInNtQGjeDX33Sxo2B
+         cTU3DGgwSoErm+y3ETJw7OiWMFH7eZJ//V9AVkfDKaPC8qI/B5Bj4DqQEVmD1GKqPPWN
+         WCcLeY8VMicTVEK2jiNhPeMQAHrOvOpxG/o3yUqi0T5dQtcHciuKvs2XJrLAAoBu7EUy
+         wenQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760596834; x=1761201634;
+        d=1e100.net; s=20230601; t=1760597257; x=1761202057;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iW/qEpx6yh7S5wMwdqHfKgEyIDn2vFR8Zdt/L2ESZ5Q=;
-        b=iTxSzW40x+lndVKZD+FEPBTGn9uoRveqoLK4i8MvzsxK3r6H3UX2T4RQrb631HXdKZ
-         Ph8vE5yMgF80XNN3wfLSGDTX5xTcfO3iyHB0Yq0e70xefDUmyPdpstdv2minTGwfH3TD
-         IER3RjxuBMBRaqWEFrpkTh9Wql36iii+cqvgqZmsNczsqTXCSRPG4/yoF/CfD1GO/uBg
-         3GTTB/g0XrZc7A9V3s4BLIvCYUykBnmjGU31tXC5meofKgfHFJ5lo5fcOZMVFDV9YmbX
-         XpWsdKAyXGLskyp2VfW/jwaIj5lqiecGCdHdbs5R2rwOkhbna3FMvw/Pu6FH2lUumejn
-         DJEw==
-X-Gm-Message-State: AOJu0YwIwN7KP+UR6RPZ5Bu8qLFf/aNIAeefd3OyhG28UxIMkAcMSIFc
-	m6Z2eE3Wy/MA8oGf/LrbJNqDhebwi/rbyRS+yFaGBQL/cSVasxAoGvI0tVOz1t5JYA==
-X-Gm-Gg: ASbGncslnrK3Q/detElnFtUdRdxbjemnz6OndNi72Q5LTdUwVtH5tsH680RQE39FSAe
-	2mqmAO6haW3PXFSK0OQf4JTTANLlO0RxbeUd0EQlw/WoAa34/5Cs0edbGQ6JiNHyo6oEkRfmTjf
-	+V7Shit/MBX9QqxCrLGvXgCzFUZkJGnNQZrqy3t2SQ1Apr91OpCfrqTUXrH7ZP2YoYXGNb2LkZa
-	KxuXgSZ0+MRXMEWUywFXtIW/3DPUmYUZBcJpF6OnNzO1nTd8lxor9si0Q/WIN/1uivZRvPlHfz+
-	tcNS6qOtWnUn4KEgA/BFJstUCXHpETvyzR6+jf0iaz/+O95BnXlPIMOIYacZ+sKepIf3k87P1Z5
-	PY44986/CpdyOf/F0S/nkh+QpLSerbtlWuHiNxzFNdytWrvkQNtXg9J1Q8RagtDkjolOEWnJJJ6
-	r3P/i+u3OFoOvbo1EW8gpQ1RY1O08iNQdLedi1uGYZBg4uflwaC08Oulb9NTXujXViSVYL/vDpf
-	NSyy3xABw==
-X-Google-Smtp-Source: AGHT+IGNrLKOXqVAgqtMJWG1EV2G9j6beQW1ac2XzsMSg8PsqmXCex8qi0qjf/xvusoiL3egPHwOTw==
-X-Received: by 2002:a05:6000:25fc:b0:426:d301:a501 with SMTP id ffacd0b85a97d-426d301a83bmr13415583f8f.62.1760596833710;
-        Wed, 15 Oct 2025 23:40:33 -0700 (PDT)
-Message-ID: <84756684-6dbd-40cd-88fc-79cda7d83017@suse.com>
-Date: Thu, 16 Oct 2025 08:40:31 +0200
+        bh=Uu+0Q7jlwk+RFBoViCKV+e3BvDmOsAcry3upwlvr4Uo=;
+        b=tTFzmgb3cL1k0XK6kim1dCLBbs6FFO7HvrOvC8qm/r2Sggqt2XLEqIeEXtF7MC+kmS
+         S5RRpqTVPRquFa2YYHEkaUNE+PEBTKca1YPHt7RzbHY+8eA6HQzG26F1VgS1dHd3uB+V
+         Rpe7JCFk65DmpbjbEl0nwpxQQ2X+2FHhGDXRw0dWrM+gN3s3dxMoAVr1VNAWMupmFJkJ
+         CN5Lh2e4P7uFT5KmOdjX6zn9orkR/0xSQScolwsfy/xl4w8EoMvvOHBTJPIOb+Tj7YyU
+         C4KorbnH2DQzFtP3fIGKHaIMFKNE022vuD762Zbpfh/KYjYSIWPWLx7gct59gGMmoK9c
+         MksQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXFd00Wos99aF7HlT45KQVQbd+g6wX22NJP8O5J+ppFQuKcRC//9RxK2QKcKtjCt4EcY6cxE7dmfy4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzuETO/wy/3t4L1Hwli3cup0FQv0vAvk/TNE2+pPkuywmK7Q8eu
+	+H829Af6Qit+VdTcmDTLyfmVNyEmSYX24v84apffQDmTb+nW15DlzcGzFNn9K4yLNQ==
+X-Gm-Gg: ASbGncsyN9G079fPAOnSWQ94hktmPjSAjfdlETBGL7OW6GOTan25ut38vHt4tov8QH8
+	5c5Lc2vcULmTkLKUKYZpxT5SdRYEqEpr4lpLWWX8qENiYGqDNNLSUMrJ8YJ2mxrgbq2cNdh7wU1
+	Eo9keB1y8VYwZi8gUWJVOCZXMVFgV6BvAt9ySboaXXNfXA4c2aFPPXM7kKPvFAj/lM4jGi4GAI9
+	27lJA+k9CnaVLZJCQQF81kmh0wvFG4l4WGqQ8MpaPou/dxKh567JCaUn51dQm8za2Qq19fF5ykh
+	K9o0mquif0qWm+bwuVjhNgMoQbcCcpI1oubBD7BhUYbE2WDdSICmSYWVhc5ddJva6deu+hzFpQW
+	ec93yPzirg9aXIKIiw+zIn1aJPW78+6ZZgb90mpqpF4oTDE1SJBV7etOQO/47dodjy/pR74lfNH
+	SyVSRJ4zZMisAcM2cMx8uAobd8jxnSi9JQPsOZOhp93oRcxl6ZG2OV6PMtjoNqUzo8xYfDJLc=
+X-Google-Smtp-Source: AGHT+IEksz1QzuqxSSRGMweFznQE7YQq7qWLxIQhtKytn5QanlR9VnlEji7dGG+c+2oSr1zxWa2Jiw==
+X-Received: by 2002:a05:600c:6487:b0:46e:4783:1a7a with SMTP id 5b1f17b1804b1-46fa9a8f37emr219325785e9.3.1760597256590;
+        Wed, 15 Oct 2025 23:47:36 -0700 (PDT)
+Message-ID: <6cf0b252-05ef-409f-876d-2016f0cdc088@suse.com>
+Date: Thu, 16 Oct 2025 08:47:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/apic: Avoid infinite loop in
+Subject: Re: [PATCH for-4.21 v3 1/2] x86/apic: Avoid infinite loop in
  io_apic_level_ack_pending()
 To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20251013211106.8720-1-jason.andryuk@amd.com>
- <aO39pb3L42ktBol_@Mac.lan> <d8cb0b5b-fbf6-4db0-ba70-f5a612e63cb4@suse.com>
- <a4ee443a-cf65-420f-9508-d7f34393316b@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+References: <20251015210454.95381-1-jason.andryuk@amd.com>
+ <20251015210454.95381-2-jason.andryuk@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,70 +121,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a4ee443a-cf65-420f-9508-d7f34393316b@amd.com>
+In-Reply-To: <20251015210454.95381-2-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15.10.2025 19:14, Jason Andryuk wrote:
-> On 2025-10-15 08:59, Jan Beulich wrote:
->> On 14.10.2025 09:37, Roger Pau Monné wrote:
->>> On Mon, Oct 13, 2025 at 05:11:06PM -0400, Jason Andryuk wrote:
->>>> io_apic_level_ack_pending() will end up in an infinite loop if
->>>> entry->pin == -1.  entry does not change, so it will keep reading -1.
->>>
->>> Do you know how you end up with an entry with pin == -1 on the
->>> irq_pin_list? Are there systems with gaps in the GSI space between
->>> IO-APICs?  So far everything I saw had the IO-APIC in contiguous GSI
->>> space.
->>>
->>>> Convert to a proper for loop so that continue works.  Add a new helper,
->>>> next_entry(), to handle advancing to the next irq_pin_list entry.
->>>>
->>>> Fixes: f821102450a1 ("x86: IRQ Migration logic enhancement.")
->>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->>>> ---
->>>> v2:
->>>> continue (not break) for pin == -1.
->>>>
->>>> I added the next_entry() helper since putting the expression in the for
->>>> loop is a little cluttered.  The helper can also be re-used for other
->>>> instances within the file.
->>
->> Would this intention ...
->>
->>>> --- a/xen/arch/x86/io_apic.c
->>>> +++ b/xen/arch/x86/io_apic.c
->>>> @@ -1586,14 +1586,21 @@ static int __init cf_check setup_ioapic_ack(const char *s)
->>>>   }
->>>>   custom_param("ioapic_ack", setup_ioapic_ack);
->>>>   
->>>> +static struct irq_pin_list *next_entry(struct irq_pin_list *entry)
->>>
->>> I think you can make the entry parameter const?
->>
->> ... possibly conflict with such a change?
+On 15.10.2025 23:04, Jason Andryuk wrote:
+> io_apic_level_ack_pending() will end up in an infinite loop if
+> entry->pin == -1.  entry does not change, so it will keep reading -1.
 > 
-> I changed only the parameter to const, and the return value is still 
-> non-const.  So I think that will be re-usable.
+> Convert to a proper for loop so that continue works.  Add a new helper,
+> next_entry(), to handle advancing to the next irq_pin_list entry.
 > 
-> I placed next_entry() immediately before its use in 
-> io_apic_level_ack_pending().  It would need to be earlier in the file to 
-> be used more.  Should I move its addition earlier?
+> Noticed during code inspection.  The infinite loop was not observed.
+> 
+> Fixes: f821102450a1 ("x86: IRQ Migration logic enhancement.")
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> v3:
+> const on next_entry() parameter
+> Remove spaces inside for loop braces
+> Remove inner if (!entry) check
+> Expand commit message to state noticed during code inspection
+> 
+> v2:
+> continue (not break) for pin == -1.
+> 
+> I added the next_entry() helper since putting the expression in the for
+> loop is a little cluttered.  The helper can also be re-used for other
+> instances within the file.
+> ---
+>  xen/arch/x86/io_apic.c | 17 +++++++++--------
+>  1 file changed, 9 insertions(+), 8 deletions(-)
+> 
+> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+> index c384f10c1b..c35d611ecf 100644
+> --- a/xen/arch/x86/io_apic.c
+> +++ b/xen/arch/x86/io_apic.c
+> @@ -1586,20 +1586,24 @@ static int __init cf_check setup_ioapic_ack(const char *s)
+>  }
+>  custom_param("ioapic_ack", setup_ioapic_ack);
+>  
+> +static struct irq_pin_list *next_entry(const struct irq_pin_list *entry)
+> +{
+> +    if ( !entry->next )
+> +        return NULL;
+> +
+> +    return irq_2_pin + entry->next;
+> +}
 
-I think so. One other thing which came to mind only after sending the earlier
-reply: "next_entry()" is overly generic a name when it's to be moved away
-from its only user. "next_pin_list_entry()" maybe? Or "pin_list_next()"?
-
-> And another Minor question.  Roger asked for ~Linux style in the for 
-> loop.  But in next_entry() I have Xen style:
->      if ( !entry->next )
-> 
-> Should I switch to:
->      if (!entry->next)
-> 
-> ?
-
-I'd say no.
+When replying to the v2 thread I hadn't spotted yet that a v3 was already
+posted. As indicated, imo this name to too generic (now). I'd be happy to
+make adjustments while committing, as long as we can agree on some less
+generic name.
 
 Jan
 
