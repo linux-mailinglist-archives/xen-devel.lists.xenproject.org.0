@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93FF8BE326F
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 13:47:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1144494.1477883 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C48A9BE32E4
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 13:51:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1144504.1477893 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9MSN-0008Q2-Co; Thu, 16 Oct 2025 11:47:43 +0000
+	id 1v9MVs-0001Vd-S3; Thu, 16 Oct 2025 11:51:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1144494.1477883; Thu, 16 Oct 2025 11:47:43 +0000
+Received: by outflank-mailman (output) from mailman id 1144504.1477893; Thu, 16 Oct 2025 11:51:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9MSN-0008Nw-A6; Thu, 16 Oct 2025 11:47:43 +0000
-Received: by outflank-mailman (input) for mailman id 1144494;
- Thu, 16 Oct 2025 11:47:42 +0000
+	id 1v9MVs-0001SZ-PP; Thu, 16 Oct 2025 11:51:20 +0000
+Received: by outflank-mailman (input) for mailman id 1144504;
+ Thu, 16 Oct 2025 11:51:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CbFY=4Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v9MSM-0008Nq-Cz
- for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 11:47:42 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1v9MVr-0001ST-1v
+ for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 11:51:19 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb350ed8-aa85-11f0-980a-7dc792cee155;
- Thu, 16 Oct 2025 13:47:40 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-426fc536b5dso329957f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 04:47:40 -0700 (PDT)
+ id 6c5604d6-aa86-11f0-980a-7dc792cee155;
+ Thu, 16 Oct 2025 13:51:17 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3f99ac9acc4so498157f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 04:51:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-426ce5e1024sm34001713f8f.42.2025.10.16.04.47.39
+ ffacd0b85a97d-426ce57d49bsm35873285f8f.10.2025.10.16.04.51.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Oct 2025 04:47:39 -0700 (PDT)
+ Thu, 16 Oct 2025 04:51:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb350ed8-aa85-11f0-980a-7dc792cee155
+X-Inumbo-ID: 6c5604d6-aa86-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760615260; x=1761220060; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760615476; x=1761220276; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KckZCI76O27tUokk9V5SlMMsz7F0X6x76XUX6diCJx8=;
-        b=P1xncKM/tTWoobv+hyoI090e5dyTVvfmYn0nF/HN8SGRdJvnDuJf5GgUILU1NOuos+
-         qd/X4am3fqRfgUd/o/hEfLAxE83h5mJZGr0I5qDsUD3JgKL0dayjnsfEq6y1qeLinp9w
-         5P4gZxbZahNMzQT7fwiBEiSoemjRyo/503hPhn2Ax5u/SVixKNKhu4ta7RDhsK5mYBC2
-         emu/h4Xs7Im3y/a9kNZCT6MiGX0Cl+8TXYDtVAgJrA/59+SFZOwmWU7uwXfVZ48aA4nH
-         1EsKRqeR2w4AurX0Bp36DK0OZ4eQT542kR1j1irnEW59YFkMtgYoyMmQIc/trG4dQkqR
-         NzjQ==
+        bh=hIYyQfW0hjADQt2GaKTqFZOuaCC1G2JFdW9A7ayegYE=;
+        b=PnbzZ7JaqbWSNNjVJ/7jNviQ3NYy+hlt1SkNhh7cV0kcVabxheCa/RrM9gYw1uPNKU
+         WGZhgVXZxiNzoYr0AVHliAeAq+AEiRddJ6r+zP1pmgv5glpoecdD5qKpUMBrpnxJuiJA
+         2T++99f0g1cLE20YIhzXD840qjWpyjscSV4ocwzVxPtuqSO8nnEzsO6XP37tkDge3kq0
+         zexroWHg8VGOX9h6fHrqlW9ndeNWkNraKJhV0lkd+6U6ZAPLBrpsVJ9lrmDJKM9sV1TL
+         QpxLlzq9gSEAoQUg2a0j6Sp6hMi5KA2N06d4XR3cYOQdQnM7+IWc9k0W/q4KYQWmxdJc
+         8f2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760615260; x=1761220060;
+        d=1e100.net; s=20230601; t=1760615476; x=1761220276;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KckZCI76O27tUokk9V5SlMMsz7F0X6x76XUX6diCJx8=;
-        b=HIlsZoqga4vqUCINofZmlBg6ervzEW0kNA4gtFLv3MAk8CxEtekzlWEsTeA3B+NuwJ
-         KzgwzdNFurjFmuAJX6skpZGU0Qh4hYxXoQKti5qY1iFPvjBW6ubnli2EJY8BByHa/Wl3
-         GyfidrG++W4tSNyTQbBI65MarSBeLUnlWI4cvIivHhOk7yMeKND5g3P6opkDc1HMvR1K
-         qni0BgEs6bpUPExOQO3X7s1Qb7v3aVZX6H3fjhpu8ob0RoxjWD44vxJFM9/kLd8lu5xw
-         AFC3XXeX2cfGq6S8PhBxoAegxLOoFvCTOvBmdbwhGmnzOrahLeDPZ4V6k0kZdxXR/Klv
-         rRgw==
-X-Gm-Message-State: AOJu0Yyddbfz0YapGVFvKoB0YVxo2ZQHiqLFXV0IV6/UT9nXzS1Xx14m
-	mmdDYd2sIEbyu0CwMSgqE6/iYl8WE/OCdkNhYiC5ewiAtb4/rSb+Krus7wZzOBmiPw==
-X-Gm-Gg: ASbGnctwbPD4NuUOx+Ytt+fZ8FEhhWjMEiJr7Ube7h98fUI0ivY8C8NuGK5aRDyrz6o
-	moTmoJB0ghkh+6I7NY0MAKn7IFo235aQ4dpkXWz2/SkRTYRdGPzgXnERLDFxqMEXrbcxtqdSFZd
-	eoc2yTFnaQYPWhnLTNvTxQimmgSNjg75beZsphm0/AI4uBqy72N7I+ij4nnHJCFxnzvG8QrN98X
-	nRttyYSRN566tJVruyYQj0klCQ30Y9Ru0zbiBbybWLQYWmBfdRnke2gTXRuBqGcsr3ZCUVxtNpj
-	yC3pYB5xpcgK60m2oBjg5aHlEirOAudO76tOI8EPmbawOxBnZF0oJ9R8A0fCOyfxUZEecsokNS+
-	Vd2gjhaEUtmV7TTYnALVQSsvGiH23b9oOAb+yeMjntUX0NqXtqjvLjeptwvay4ZXKQPNn2knTz9
-	ykuG+4dPPy31fFYaOQs0YivWJNJDfpYtzONV9rqpyoPFe8p0HE7P4x8u166Wcz
-X-Google-Smtp-Source: AGHT+IFdwOld0UFHFKr4ncMFX7tqMmdBqc0rHuq3xXleXGR+vD2K9pI5SryslDxB/3UkWTeHuGYhZw==
-X-Received: by 2002:a05:6000:4b0e:b0:427:45f:ee21 with SMTP id ffacd0b85a97d-427045ff248mr259457f8f.27.1760615259743;
-        Thu, 16 Oct 2025 04:47:39 -0700 (PDT)
-Message-ID: <14bb12b2-1a01-49a8-be9a-6a32c3729e9e@suse.com>
-Date: Thu, 16 Oct 2025 13:47:38 +0200
+        bh=hIYyQfW0hjADQt2GaKTqFZOuaCC1G2JFdW9A7ayegYE=;
+        b=u83qK/tRPJgzzPtZUjJjMLud83Rzu4VdRQ9WPZf5vBzV6bxYa2xjinqb9TMng9KWeB
+         4EqH4DmqD6o5ta2vckpte0UmDPoUeHwYDSeBgiNa3Y15e7cTom2rUa8MH2YdtXGOFts2
+         mDNk3m9kd6TmZkRs70Z6QSocq07kMto1yuO4hfiDKMD21QsYK9jRe8F2o950NYmKbUzD
+         fBLwUFUkh/zeEouTDwamUVH7US6oMRHrTV5lNEaWN2fzttYm2cispeEWUrNUJPZHaY2P
+         XmiJ8z2/KcL9WDh5DEdGzlT+XVeD6RZM+1V0WG+6T4KRAF6ZN4Kfvdqo9HoKb4TeeZ6d
+         UHIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW0/0Xwdm3SkTbF8/7kpz9n22iXIQFnb8wVnCm3378ZWnkvXSOJlPI/RzT1T89w+c6LaiPfUi6May8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzeibDFSy0ussCy8yHRgz6iPfgGeeEgD6GlN8dpZUQ70vDTW4N3
+	cu32/F3YBG3sadZ1sjcMIFmymG4CC/tzbOdRT7rGVnWNh7Xl0TVd39PKOf5TQ6WRKw==
+X-Gm-Gg: ASbGncvGv8BuZxzZHDHiwPFvqk0NLruKSISuir5VkLrkup8kkgdXRegC7sjolCL+/jk
+	dFykyWXuGR+5CVr8epQKA8HsdrhLSLY6EdImbUz6Z/UgHLaEUO+Rlw0fOXEt4tnu8C/qU+BoKFd
+	W/c1i8H2BAJqNGW98FTIxyxdznQYFc8y59ZPWZ/Glbn3LSCZdxY10r6sN4mwDBTarF1XGzBYGoT
+	IBeXHZlp6lJH85pZ/K+MMnU3f5YN88j+VGlKEbXZf+GKFXefzndjniP5T5VaWsoja7q+PvXvPjv
+	hc8lXPr86XHvo4uwMFadSI/ZBdQUFNPjAnYfa+7rDp3Vb+Fj9SR5F78ala9KPJ24QU+faNWMm7G
+	pg9gMarsbc0T4K8fV4xh1/6YMlczyb3Bp8yWfr/Kb5JxqjY5iRdn30/Pg5zr884jtDrutUmBHDD
+	5W5gFNj96b0yAgFFENtKPJxfMSfM6x7exznwAO7smfdo2feP6644u8fht7T2wRcAdzbG/ODIo=
+X-Google-Smtp-Source: AGHT+IF4e6N+sq27wDRbftssM26SbbP6YQo7PueenXhfvQCJFI1c3mB+LIUeH0UdqmgxuDNdBfUVyQ==
+X-Received: by 2002:a5d:5d13:0:b0:425:7313:b561 with SMTP id ffacd0b85a97d-4266e8e5115mr20596418f8f.63.1760615476289;
+        Thu, 16 Oct 2025 04:51:16 -0700 (PDT)
+Message-ID: <81c56c9c-882e-4433-b41a-6952315efa25@suse.com>
+Date: Thu, 16 Oct 2025 13:51:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21 01/10] x86/HPET: limit channel changes
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <8d94abf8-70d1-478c-885e-ff9a960ac72d@suse.com>
- <494c897c-a138-4d16-93b2-67e3aa8d41e7@suse.com> <aPDH4-ZEfJ9LGc9J@Mac.lan>
+Subject: Re: [PATCH for-4.21] libxl: make gentypes.py compatible with Python
+ older than 3.9
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <751bb140-3f00-47f1-9492-464c01ea1429@suse.com>
+ <ce0bc10e-cef2-4c74-9fd2-9301416754b1@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,76 +122,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aPDH4-ZEfJ9LGc9J@Mac.lan>
+In-Reply-To: <ce0bc10e-cef2-4c74-9fd2-9301416754b1@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 16.10.2025 12:24, Roger Pau Monné wrote:
-> On Thu, Oct 16, 2025 at 09:31:21AM +0200, Jan Beulich wrote:
->> Despite 1db7829e5657 ("x86/hpet: do local APIC EOI after interrupt
->> processing") we can still observe nested invocations of
->> hpet_interrupt_handler(). This is, afaict, a result of previously used
->> channels retaining their IRQ affinity until some other CPU re-uses them.
+On 16.10.2025 13:45, Andrew Cooper wrote:
+> On 16/10/2025 12:22 pm, Jan Beulich wrote:
+>> removeprefix() was added only in 3.9. As long as the "jso_sub_" prefix is
+>> always going to be there anyway, switch to a less specific but more
+>> compatible construct.
+>>
+>> Fixes: f6c6f2679d49 ("libxl: libxl__object_to_json() to json-c")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Sadly this is only the tip of the iceberg. Some minimum version of the
+>> json-c library is apparently needed for the toolstack to build, but no
+>> minimum version is being checked for.
 > 
-> But the underlying problem here is not so much the affinity itself,
-> but the fact that the channel is not stopped after firing?
-
-(when being detached, that is) That's the main problem here, yes. A minor
-benefit is to avoid the MMIO write in hpet_msi_set_affinity(). See also
-below.
-
-Further, even when mask while detaching, the issue would re-surface after
-unmasking; it's just that the window then is smaller.
-
->> @@ -454,9 +456,21 @@ static struct hpet_event_channel *hpet_g
->>      if ( num_hpets_used >= nr_cpu_ids )
->>          return &hpet_events[cpu];
->>  
->> +    /*
->> +     * Try the least recently used channel first.  It may still have its IRQ's
->> +     * affinity set to the desired CPU.  This way we also limit having multiple
->> +     * of our IRQs raised on the same CPU, in possibly a nested manner.
->> +     */
->> +    ch = per_cpu(lru_channel, cpu);
->> +    if ( ch && !test_and_set_bit(HPET_EVT_USED_BIT, &ch->flags) )
->> +    {
->> +        ch->cpu = cpu;
->> +        return ch;
->> +    }
->> +
->> +    /* Then look for an unused channel. */
->>      next = arch_fetch_and_add(&next_channel, 1) % num_hpets_used;
->>  
->> -    /* try unused channel first */
->>      for ( i = next; i < next + num_hpets_used; i++ )
->>      {
->>          ch = &hpet_events[i % num_hpets_used];
->> @@ -479,6 +493,8 @@ static void set_channel_irq_affinity(str
->>  {
->>      struct irq_desc *desc = irq_to_desc(ch->msi.irq);
->>  
->> +    per_cpu(lru_channel, ch->cpu) = ch;
->> +
->>      ASSERT(!local_irq_is_enabled());
->>      spin_lock(&desc->lock);
->>      hpet_msi_mask(desc);
+> Well, this is why we have release candidates, and a bug queue.
 > 
-> Maybe I'm missing the point here, but you are resetting the MSI
-> affinity anyway here, so there isn't much point in attempting to
-> re-use the same channel when Xen still unconditionally goes through the
-> process of setting the affinity anyway?
+>>
+>> --- a/tools/libs/light/gentypes.py
+>> +++ b/tools/libs/light/gentypes.py
+>> @@ -384,7 +384,7 @@ def libxl_C_type_gen_jso(ty, v, indent =
+>>          s += "int rc;\n"
+>>          sub_scope_object = "jso_sub_1"
+>>      else:
+>> -        sub_scope_object = "jso_sub_%d" % (1+int(scope_object.removeprefix("jso_sub_")))
+>> +        sub_scope_object = "jso_sub_%d" % (1+int(scope_object[8:]))
+> 
+> This isn't quite an equivalent change.
 
-While still using normal IRQs, there's still a benefit: We can re-use the
-same vector (as staying on the same CPU), and hence we save an IRQ
-migration (being the main source of nested IRQs according to my
-observations).
+Yes, as said in the description.
 
-We could actually do even better, by avoiding the mask/unmask pair there,
-which would avoid triggering the "immediate" IRQ that I (for now) see as
-the only explanation of the large amount of "early" IRQs that I observe
-on (at least) Intel hardware. That would require doing the msg.dest32
-check earlier, but otherwise looks feasible. (Actually, the unmask would
-still be necessary, in case we're called with the channel already masked.)
+>  You want:
+> 
+> def removeprefix(s, p): # Py < 3.9 compat
+>     if s.startswith(p):
+>         return s[len(p):]
+>     return s
+> 
+> at the top level somewhere, and to call removeprefix(scope_object,
+> "jso_sub_") here.
+
+I first thought of doing something like this, but then didn't really see why
+we would need such. If the prefix is anything else, the original construct
+wouldn't work anyway (I expect an exception would be raised unless the incoming
+string was itself consisting of only digits).
 
 Jan
 
