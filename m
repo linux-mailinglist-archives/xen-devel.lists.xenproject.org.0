@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26699BE1EFD
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 09:34:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1144204.1477656 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EA65BE1F03
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 09:34:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1144214.1477665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9IVE-0000g9-CZ; Thu, 16 Oct 2025 07:34:24 +0000
+	id 1v9IVe-0001B1-Jr; Thu, 16 Oct 2025 07:34:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1144204.1477656; Thu, 16 Oct 2025 07:34:24 +0000
+Received: by outflank-mailman (output) from mailman id 1144214.1477665; Thu, 16 Oct 2025 07:34:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9IVE-0000dx-9b; Thu, 16 Oct 2025 07:34:24 +0000
-Received: by outflank-mailman (input) for mailman id 1144204;
- Thu, 16 Oct 2025 07:34:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v9IVe-00019E-Gy; Thu, 16 Oct 2025 07:34:50 +0000
+Received: by outflank-mailman (input) for mailman id 1144214;
+ Thu, 16 Oct 2025 07:34:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CbFY=4Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v9IVC-0008Vq-Mk
- for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 07:34:22 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 88558019-aa62-11f0-9d15-b5c5bf9af7f9;
- Thu, 16 Oct 2025 09:34:22 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-46e29d65728so2614415e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 00:34:22 -0700 (PDT)
+ id 1v9IVd-0000bW-ID
+ for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 07:34:49 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 97c98d3f-aa62-11f0-980a-7dc792cee155;
+ Thu, 16 Oct 2025 09:34:48 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-426ff4f3ad4so152866f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 00:34:48 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-426fc54b32dsm3303972f8f.30.2025.10.16.00.34.21
+ ffacd0b85a97d-426ce57cce5sm33886179f8f.1.2025.10.16.00.34.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Oct 2025 00:34:21 -0700 (PDT)
+ Thu, 16 Oct 2025 00:34:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88558019-aa62-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 97c98d3f-aa62-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760600062; x=1761204862; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760600087; x=1761204887; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=b98JIROgwUj5ZMl5roEfulit62hiDPJ/taq9DPUq3y4=;
-        b=YNb7yEgry5NUZg0rqAwzHGzDad78C+Wck5hDoCAuaTdXl6nxl4jWkxtwuC/GS26xyc
-         0au1szNS44euFBJFtKnXcaboglDSSAfnEbOE4+FVR7I25VWuDAsj9cs5vwm2gkvP3NZn
-         WJcspILsvmA9tA4Q5V+vrwf7CLTXAf3dgUumUfKJJrs10jO9CfMw7Zg7YTp35iuQuw7k
-         uk4CuhR2T9x0bP9gyS9duyduQr0pSXCHE8DAG6EAL3mF0y8k7Fm/Rcm6MX/+OIieSPzN
-         BAhrdqhVsWiRjDjrE6ddJ3kcE8b7DYEovxcO5Lgr0UIeC5YqjP8lFmWXHFU6t4eSSgba
-         /zNQ==
+        bh=rds4jnnN9NVrTZyuc+q65+QBQEjCAV7rC8oJIxMqDF8=;
+        b=L9lvu6vg8jYqbEn9WOOlK9go84Sqvd3xEE1XoLx9XNUtQ0S6b9OIBkfJh/+UEWfqa2
+         FxWSPDxFAzWXr824e5bEjSPW8XTrwxNCCzP3UaQUT5ZAfH/BBHbUzvhLqq8c6yyqLEXm
+         sMiEkN6GNuZxL0nd+NziI9A4htZ/M/cfMzNMUxZioDUHmipxpmaR1drHf3Mnoe1ZWXAA
+         aZilTwsbyliqbZbiGmrAFTo0wTCzXmdmwJs26vxa3Vg/3I7BixYt2t933T8lkJmKsi9B
+         fzuUymJQQPHUG1TsjxjL4x8DSVk4IOjP1MaL9j07s0zI0wSgNzghsSgJD9a47hYGuSU+
+         hHcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760600062; x=1761204862;
+        d=1e100.net; s=20230601; t=1760600087; x=1761204887;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=b98JIROgwUj5ZMl5roEfulit62hiDPJ/taq9DPUq3y4=;
-        b=ElYZul8DII8+ekjiLYb6dnAAKIw9zFMYZFssQY4WzIFThZCndQ7SnedQOpmdJdUwZF
-         TfNNQ9Id1e2Omvgf4fhzj88++6jQ96n5ox/fKfgy7neQNyAL2fUbFTve/I6Xola22aDV
-         HTGV4HgDDBNkSTKmGcTEZgGQxJ/RP6nDQYfbgHtw+VCICmLhMrBjn1FjSG3hWSBUescJ
-         ACwR4UvcVG8AMozzdhl4uhlqf3ny1DAeBzXp7exc947Ggv3u+fPBhHuw/awojloe1E7u
-         8DySBqJKLTry33wFGaGTAiXXadS2NxaaccUwNAV0j6v+dkNi8ANMCHLEhU9rtQ9laCTE
-         RKJA==
-X-Gm-Message-State: AOJu0Yzv7+vQ+1FlfZxGYDGZK2Fszm5PD9flLDmKA+OWSQbb63cVmlqt
-	1dxQtmzQE37UiqJAko+GI9JWQUXjBYnplTwPo7eK7ikyGB2Mg9yYE0xDaN0T8JcmFLitRi7Muew
-	OWQs=
-X-Gm-Gg: ASbGnctoZUoQl2WfTiKQ/9TmowsZZGrXNFqhErpz89/cDSeYdhEqTJjV8V7QlYgpHAl
-	ISseJyThpT0inLJYFxRBqoK3GCdG2tbSfDG3Ggj8jg6s7578kdLjZYhK1GyE9fXFfJzbIA0cI30
-	xTMffJQi8Add7dLMzE7DoCrrNnXsdU6yED4WXlwFRp8vyXHkraFTkGmrNVXvCuVKhZzG+tTMBD2
-	09VHt8ZL/sPBv6o2X/EBsoXfJujCCAkiTSBFro/hjnCDW9iNOn38u493Y2LEhCBrvjx7HWYyYPS
-	xQbL7n0+ki9gHdsFLv7kvrPhiVlHS9SCTrWWlXrNUpYlr7v791neErO1H6eFuaSzUKwXw9imQ1l
-	aJKboiylTK+ubPjdv5zBuiFsmFck82YSwmsytE8t2XiYP+GHPh7rQLAgsutw7Gu1j0aSdPveAkK
-	9TjCurzLaGecTV3s0+osknAWYfxRydjRkgf/dWMbRSfq5AKk9mSmeZx8MPpHbN
-X-Google-Smtp-Source: AGHT+IHBJoFFNnxl50Z7RtmwkNLGNDv/iNsf/4KK2R4Qkrl8Owflzb73RZ9ZgklP09hJQe5HPR33qw==
-X-Received: by 2002:a05:600c:818d:b0:471:1306:aa14 with SMTP id 5b1f17b1804b1-4711306ab29mr6180695e9.40.1760600061648;
-        Thu, 16 Oct 2025 00:34:21 -0700 (PDT)
-Message-ID: <069956ea-68bc-47cd-a2b1-e2058f8f8954@suse.com>
-Date: Thu, 16 Oct 2025 09:34:20 +0200
+        bh=rds4jnnN9NVrTZyuc+q65+QBQEjCAV7rC8oJIxMqDF8=;
+        b=xNplEj4m9vJJVeAks+WEd5YeGK4kNf7e5XIxbaPGf/nZK15ci6tYQV5PD2yHE6KCXu
+         0hXddEa1Mg/lVlj5EHoJsn7mYU0nJfVlQ7rN5GOmzcKZTpMTxc4zVVbW9ecEXmLATjHf
+         rIf2mJKFN8Bdw6D8pHn1z9F1IxBVTaVBCQryMepg9F6K2sMpGRPlp77Qn1sgOiASZcFk
+         kTvflrofdpTlhe8oqb60cpFRd65FuWrIyVrVHS5fMWOjqXv+Z+FALjeeu2yhqSNDklpP
+         1pC0ZT+T2PUftg5vjHHHdLLxxrSJ4Jm1pT2TXvGPOTsscAS/kR3Y2LIyXpd+3a0aNfKC
+         fSQQ==
+X-Gm-Message-State: AOJu0YwCkdUj1t8hOzyXf+kEowcDSGahjIRnILWDcf3HtUjc03q4asDX
+	KS6ULCKlvPK2v6el46WPdnGRSUeOZvvC6Bdb50QzZkxL7BWStipd1FPpme//BFYkrPq/VH3BSJa
+	Arbo=
+X-Gm-Gg: ASbGncvBA+vNclnIt/4xdjlLly9EBJGVFoGGbfU7tSMTZ8kOrIWvX9dyMnVRurzlGVL
+	lzlINDrApRBPFA5UTL/TlvQgKuGKj9S7CKe7qEVcSleeKyJCsrjZBaknKl6sDPPXDdzHaGRB8K0
+	9gslb/GDaJOQHgp9iN+O2H2tNGSuCoSi0E3nTx0e9+pwsv22SFYybxM6QfIM8g5vL6vSAiIqoFe
+	XPsEBgiPJ/ICV75TwCJmXFFMldTInz8Yj2nm1t2wQCVp6LaW1O9cIy6ytYhv1/wT8yVaetj2nbx
+	Eb4Gjvta9KLcWFPADyfBltewmDs+KAeM9z/6oi2XYtm5vXG6vOrO0D40LtMZdX85thLrmMXBwq5
+	SYRKvtBe5FIeWDC+q6jgi/ZaFErGiWlesUqE1XKRnvWiv/96GgvCpcgSWe4dhpSCgMGuCESb6Mn
+	bOZq53ksp+rcocex3XtDX1Bs7+8EroTtKubZJeXA+Pt8UbU00DOfHCTm/dpt63+uyS1NJZT/0=
+X-Google-Smtp-Source: AGHT+IHbWfxCeB92DEinkCFVFn2vaI7p32jdJDTPBZ3i4c4v8Lz3q06nTPiMY+F7Z4IPweriMP7F7A==
+X-Received: by 2002:a05:6000:2401:b0:3e7:46bf:f89d with SMTP id ffacd0b85a97d-4266e8de2c2mr22285084f8f.44.1760600087392;
+        Thu, 16 Oct 2025 00:34:47 -0700 (PDT)
+Message-ID: <2c077da2-0b12-4138-9778-87397537bd16@suse.com>
+Date: Thu, 16 Oct 2025 09:34:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 08/10] x86/HPET: shrink IRQ-descriptor locked region in
- set_channel_irq_affinity()
+Subject: [PATCH 09/10] x86/HPET: reduce hpet_next_event() call sites
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -123,54 +122,46 @@ In-Reply-To: <8d94abf8-70d1-478c-885e-ff9a960ac72d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Along the lines of hpet_disable_channel(), split out hpet_enable_channel()
-as well, to then use both functions from set_channel_irq_affinity().
+I'm surprised gcc doesn't manage to do that: At least in debug builds two
+call sites exist, just like source code has it. That's not necessary
+though - by using do/while we can reduce this to a single call site. Then
+the function will be inlined.
+
+While improving code gen, also switch the function's 2nd parameter to
+unsigned.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Oddly enough the CDQE is replaced by an entirely unnecessary 32-bit MOV of
+a register to itself (i.e. zero-extending to 64 bits), as that's
+immediately preceded by a 32-bit ADD targeting the same register.
 
 --- a/xen/arch/x86/hpet.c
 +++ b/xen/arch/x86/hpet.c
-@@ -257,10 +257,9 @@ static void cf_check hpet_interrupt_hand
-     handle_hpet_broadcast(ch);
+@@ -124,7 +124,7 @@ static inline unsigned long ns2ticks(uns
+     return (unsigned long) tmp;
  }
  
--static void cf_check hpet_msi_unmask(struct irq_desc *desc)
-+static void hpet_enable_channel(struct hpet_event_channel *ch)
+-static int hpet_next_event(unsigned long delta, int timer)
++static int hpet_next_event(unsigned long delta, unsigned int timer)
  {
-     u32 cfg;
--    struct hpet_event_channel *ch = desc->action->dev_id;
+     uint32_t cnt, cmp;
+     unsigned long flags;
+@@ -173,12 +173,10 @@ static int reprogram_hpet_evt_channel(
+     delta = max_t(int64_t, delta, MIN_DELTA_NS);
+     delta = ns2ticks(delta, ch->shift, ch->mult);
  
-     cfg = hpet_read32(HPET_Tn_CFG(ch->idx));
-     cfg |= HPET_TN_ENABLE;
-@@ -268,6 +267,11 @@ static void cf_check hpet_msi_unmask(str
-     ch->msi.msi_attrib.host_masked = 0;
+-    ret = hpet_next_event(delta, ch->idx);
+-    while ( ret && force )
+-    {
+-        delta += delta;
++    do {
+         ret = hpet_next_event(delta, ch->idx);
+-    }
++        delta += delta;
++    } while ( ret && force );
+ 
+     return ret;
  }
- 
-+static void cf_check hpet_msi_unmask(struct irq_desc *desc)
-+{
-+    hpet_enable_channel(desc->action->dev_id);
-+}
-+
- static void hpet_disable_channel(struct hpet_event_channel *ch)
- {
-     u32 cfg;
-@@ -503,14 +507,15 @@ static void set_channel_irq_affinity(str
- 
-     per_cpu(lru_channel, ch->cpu) = ch;
- 
-+    hpet_disable_channel(ch);
-+
-     ASSERT(!local_irq_is_enabled());
-     spin_lock(&desc->lock);
--    hpet_msi_mask(desc);
-     hpet_msi_set_affinity(desc, cpumask_of(ch->cpu));
-     per_cpu(vector_irq, ch->cpu)[HPET_BROADCAST_VECTOR] = ch->msi.irq;
--    hpet_msi_unmask(desc);
-     spin_unlock(&desc->lock);
- 
-+    hpet_enable_channel(ch);
-     spin_unlock(&ch->lock);
- 
-     /* We may have missed an interrupt due to the temporary masking. */
 
 
