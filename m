@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19800BE3206
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 13:43:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1144472.1477862 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3457EBE3245
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 13:45:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1144481.1477872 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9MNU-0007Ag-Gg; Thu, 16 Oct 2025 11:42:40 +0000
+	id 1v9MQU-0007kj-UQ; Thu, 16 Oct 2025 11:45:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1144472.1477862; Thu, 16 Oct 2025 11:42:40 +0000
+Received: by outflank-mailman (output) from mailman id 1144481.1477872; Thu, 16 Oct 2025 11:45:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9MNU-00078V-E7; Thu, 16 Oct 2025 11:42:40 +0000
-Received: by outflank-mailman (input) for mailman id 1144472;
- Thu, 16 Oct 2025 11:42:38 +0000
+	id 1v9MQU-0007ig-RR; Thu, 16 Oct 2025 11:45:46 +0000
+Received: by outflank-mailman (input) for mailman id 1144481;
+ Thu, 16 Oct 2025 11:45:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NIav=4Z=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1v9MNS-00078G-9H
- for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 11:42:38 +0000
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c111::5])
+ <SRS0=CCbN=4Z=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1v9MQT-0007iY-En
+ for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 11:45:45 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 35e4761f-aa85-11f0-9d15-b5c5bf9af7f9;
- Thu, 16 Oct 2025 13:42:37 +0200 (CEST)
-Received: from DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
- by DM6PR03MB5163.namprd03.prod.outlook.com (2603:10b6:5:22b::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.12; Thu, 16 Oct
- 2025 11:42:32 +0000
-Received: from DM6PR03MB5227.namprd03.prod.outlook.com
- ([fe80::c9a0:563d:c344:aec2]) by DM6PR03MB5227.namprd03.prod.outlook.com
- ([fe80::c9a0:563d:c344:aec2%5]) with mapi id 15.20.9228.012; Thu, 16 Oct 2025
- 11:42:32 +0000
+ id a634b2f3-aa85-11f0-9d15-b5c5bf9af7f9;
+ Thu, 16 Oct 2025 13:45:44 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-46e33b260b9so7153865e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 04:45:44 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-22-57-86.as13285.net. [92.22.57.86])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4710cd833ebsm19427425e9.3.2025.10.16.04.45.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 Oct 2025 04:45:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,237 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35e4761f-aa85-11f0-9d15-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HsOguVFh3RGcwveneXBX8xObwUf8ZtS+haBfmUBrf7s1Kd1oW0WxnWA58ZSaESrDv68scPba2nxUELQuEv37baudclvoq2vZdSlicx90MJLIEKRAZ7OZPDk43WTfnbqYsSufVTkF4FccX2Vxnh4KOfmP1eNFX29rV7lyh+BHOC5MV2d6pIZsjBIFx4SEKNsRis2coLtKsdJnZY36BXo+fdvIX7RCY2fKfXpLZyximhbx1GwOwTce9Gvfa94kR/AaJbEYIp3y8okKDVsSXNjDEoh9Umy08ivavy2wv+8y8H2CtAz7ezk0LDdRxvvyiZxnnO2fayAhzvqI96dzwySgNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KQTRCyFqq75d3Ak+pfY1aL9k/GP4dLpmN1yAqIWm7vw=;
- b=Q5VCKg4P9Z5D7Nd43jNdow2YXDAru/nQcnduA+KEk8imoxvYRGvvMcH+gvDMOsoHzwD9mDi1BJHNfoGBwGaAUwXmnJLrfUiRleguayH5XWZrmLblDs+4YkhktjlVrTfMrTS62HqYKDjIoh1djo4u4J0WLr51ToyNTAOPts7sQoJSwLQrPprQgqT66w+spYigdukmN1JYN5Bv8Ed/qU4BNEfcKLaHNtOn2IW7wS8aoi7QB0iyWqXwNvMoVAFxm6sKNgi89iHalKGk/WVvPg0PBpiBKQxRgvmTnaBACTV26U8ZVzEBmBRAEklcLODRUxsQSGrQ4XHiMmD7oMSWXAljpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KQTRCyFqq75d3Ak+pfY1aL9k/GP4dLpmN1yAqIWm7vw=;
- b=jRGjVJwv9F43CTATHa/83lGj6kQ/wWtkXMBdNdNbuBoTw33n+uVWPTQv3eDCaqwzP+1TaWCyXjCw6OJ6O3mZXBSTfUW4ca1YImBEjftBu58mmWaAfQOOQxBxa34+0/neu3zJA4jOdKIWz7U6XiORlcNca6XZkQmPny06J3zxXac=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 16 Oct 2025 13:42:26 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH for-4.21 02/10] x86/HPET: disable unused channels
-Message-ID: <aPDaIssJOFh00-W7@Mac.lan>
-References: <8d94abf8-70d1-478c-885e-ff9a960ac72d@suse.com>
- <8913e64b-d172-43f9-9c4d-447ba4984c9a@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <8913e64b-d172-43f9-9c4d-447ba4984c9a@suse.com>
-X-ClientProxiedBy: MA3P292CA0014.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:2c::15) To DM6PR03MB5227.namprd03.prod.outlook.com
- (2603:10b6:5:247::22)
+X-Inumbo-ID: a634b2f3-aa85-11f0-9d15-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1760615144; x=1761219944; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QBSVAVuQOjviGf6IDJyd5Pj0bW/bQ+trKuyvDHY/wj8=;
+        b=IHWRYbyhx8jRf8zqN+inbnQfGqDPyDB6CVd6tA7m98dHo3T03KhQ2F89CudeWYnufX
+         7Fm4SzIZTjqRgLGuxMbMQ2gG+quisyGvws0Ez2zAUVFO0L1C1Q+BiFQGNlf+zdXk7U2G
+         iXSM3+KB7cuXCLcTr4bOfel325Bee3TbsEQv0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760615144; x=1761219944;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QBSVAVuQOjviGf6IDJyd5Pj0bW/bQ+trKuyvDHY/wj8=;
+        b=hfpDH3I9IncqaHPdAmb5+BCfcV8GRqrGwcIn27jyZ9PwhYZ8Celw0/8ufF3AaMtiTm
+         RfMwq+kAxjfv56IDoQbXb2gYQDhfdfLlQJgO1aLt5Rx7sFFFO2AquX+8Iu52Fho84+b0
+         vtyD6vIBbZMD9EiiWPMRcT0A4gdhM34P29bQRL5x9ga9g0SQycuHJchaCu76vEUhqFJD
+         LfqGwWpC0Z3RLwViSGhFscBYZsI9NIbdapEtf2bCCibNofgqBj5G1MCakb9DutHjce8i
+         hI6DAe+Nv0NjwVJz8eWK0ZPn04KSmdnw/MkZcV5HvRf9PE9lMpuBrFdtF59ZUBNWSdbv
+         xovw==
+X-Forwarded-Encrypted: i=1; AJvYcCVoFFYE5jXCmcUe0lyBvMK3CSCRrVLSdK/2r1RCFS3ozEPApPGHN59W9jCrtwjWLgn4r0ZIQavcF4E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyhvSNmF8RqZgNvEdCww5hepukElo4shoR2NobnauQIqDYmFLXq
+	uVcFieQqTp15e3JYWtHCaUJUQQ+2vk6qhgvUfP8ZPssD7F5B3pc+7ByCxkTecB9VCkM=
+X-Gm-Gg: ASbGnctHG7njTseXrLL/61eYW5mdh88iIHZ5Ts0R5T+9nSX99LVuz0LtQUyj0WHqbVb
+	VURqTC8HtP7rgPVGK3+D6Vd4thUCZEloMTb+3OFOcS4v8Y5Bwc0f9mu0NSs2A+6fCg/pz5azC29
+	xkOxuIJLgvz/DzEPe8qOil9XvnIwwtvuNVer35rMAKLjw5weYOTQ5Tn6B4oqSKLm3MihBCb6Na5
+	U/liS6ZkZDjIhSi6HVQuyE46mCmE3oDW/wRrjkLtfT3xJKPyNX9HRFwfe9bsK32VfzOBwuCNWHW
+	RKbCRA65aYrkaG6CrdXAcBc2A4/FWClRGkCqtbuZ7P0nUyFO21P1t1uH8Bx2Jb6uqHXqPVUFME/
+	mLFQ7bJs508IE3iIYdD+53IHU3tM1LHLCXuEry7qwEEbgifq9IxPQq/IfrQPI6i1lfREATZJOFL
+	suSY9rp8FOqjXYzvpgXzh2cRWeHu/+Us+bY89S3c5JwXB1b69W
+X-Google-Smtp-Source: AGHT+IE9BWmmykwORLn0e4KXPEWPxgSZa511j85Carbf0L/Jf0mqRZiGVRYUcNuNYgZsfc4OQmZrDw==
+X-Received: by 2002:a05:600c:c110:b0:46f:b42e:e3a0 with SMTP id 5b1f17b1804b1-46fb42ee4d2mr133439275e9.41.1760615143965;
+        Thu, 16 Oct 2025 04:45:43 -0700 (PDT)
+Message-ID: <ce0bc10e-cef2-4c74-9fd2-9301416754b1@citrix.com>
+Date: Thu, 16 Oct 2025 12:45:40 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5227:EE_|DM6PR03MB5163:EE_
-X-MS-Office365-Filtering-Correlation-Id: c27414df-f130-416f-6e89-08de0ca9163e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?YVN4NklWbWF2bDZ4OGNZSXU3ZDF5Zll2OHVUY0I2OExYZnJVeFhQR3hvRUdq?=
- =?utf-8?B?c1F6UGh2eS9WT1pzbGNZV1c1R2ZVTG5aTlF4KzUvZWdBeEhTNmxaa3dYald0?=
- =?utf-8?B?SzhwV3Z2TEROTVpKM0E1Slp1dVFrdzBlbXN4RXc4MFRvKzkrWVZBcjVjZzU1?=
- =?utf-8?B?cHRkNmo5VHRNU0NUR0NiSURyMjhZU0pYci8wYW0zQzNjSDRIdTI2NEZTa1Nn?=
- =?utf-8?B?cGRjOGtkY2E5Y3F0SERsU0xsT2M5M2hzK1NaekNVY2RBcEJ6ajQvQ2owMzRp?=
- =?utf-8?B?RWdrMk8rdG55K3AvcDVHaXg0MFpMTDVOejVWeC93RHptTEdEVFhJYVAvZHh0?=
- =?utf-8?B?NFZ5VXNFWFp4VW5zWHM0bm9xUnpmS2hzK1R6UHIrZkpUUzhLWEJWSFh1akUy?=
- =?utf-8?B?QXl0TlRHU3hWYWduMVZzUXNEdTIzT20rSnhxOXhuWlZkb3pPSDViZTYvY2dt?=
- =?utf-8?B?REkrYTBzV2hWMDI2SFhLMUtybEc5K2Uwdzhvc3VpQUwyYm5nZ3lyWTZQWkdG?=
- =?utf-8?B?d1NhRUVZQ1JsWExoWEkxU3lhTUZZNUI1SCtZM2tBU1ovUVdkdmRYeGkrdER4?=
- =?utf-8?B?ZVJZbENUQnBtVldQK3B0d3pqUXJnQVBKMFJSTElOR3RYTXFnYjJORWFjMFBo?=
- =?utf-8?B?eEhiYWNRbWo5SjdTOVgrYktndEQrUHk5Zkk3UG9TSFJVbEhnY0pjYVJTUFhC?=
- =?utf-8?B?TFhHNTg5MUNUczFLdmcrY3ZhRDFQYXZEZGlxTDB1bFBoVmtDblNRL3pYUi9G?=
- =?utf-8?B?cGg5YUtHVXdTWmJUNGkzYktzdlZxY3BsNW0wd3dwU2g5OWlwK3kxc3c4YkVS?=
- =?utf-8?B?T1I3VjRXdHJPQllTVm55N2oyMmo4QXV4bDc4SlJvcllTZTNkdU51NzE2R3RO?=
- =?utf-8?B?VThFWkk0S3RhN21oSDBqRjFJcDVQM1JITFNnQzV0UlRtQzE1bVhOUjZEdVhz?=
- =?utf-8?B?aHgyWWtvaW5jTTlQaXlaQTVNWDBuKysvWHMyMG9ZMlVXY1FUK1BHZnp3Mkhk?=
- =?utf-8?B?cDV6UnZxbXVRU2s2cW1UK2xlR1dhMWQzT1dIcmNmYktESkh5M0xkMmEzblVt?=
- =?utf-8?B?Y01mNXVXMmJBOFB3endaZWpsb0lCUkgyN282d0ZxeWJaTnUxODdHaTJaWFJW?=
- =?utf-8?B?N05CNGcxMENocVFhdEdZbTJHWjBEbCtDMFpPZmtQdmkwaUE1Rkk1aExKNEtY?=
- =?utf-8?B?bmJtTnlRTDRNc1hYbVVETExqQjl0Y29KSEhicjlIM1Z2YWNhMnF0TVZHZzhG?=
- =?utf-8?B?bHU0Y3JxNEtFT3Q2N01ZZWhEdnZDUlNWNXA3azVtaTl6bjZGVXJSd3JTdkti?=
- =?utf-8?B?OElLb2wzQXRjaE0vTXh3dmo0MzM2QmJ6MjFWVGp0SUJmb0hVRWJabUJTMnov?=
- =?utf-8?B?aTNqOExkbml3T0xBY1BNU1lKSUVnb1p1UE10cElUUDFsUDY1dlBQS0V1aVVU?=
- =?utf-8?B?UmpFV3oza0s5Mk1sK0FSMHBqdWpaNDdQbUR3TkxqUCtGV2p5T1BKS3dHeG94?=
- =?utf-8?B?alc1VUFZc2t4ekhPTVhxSHdsdWxKUDNXNjd6SllnZ3VQaFlRb0dXQmwwQllp?=
- =?utf-8?B?Vi9Wa2dmRlg2cVI2Ymo1eDd1Q0U5eVRHQlZwOU9MSTFGQU5YbXZ6ektaMFRq?=
- =?utf-8?B?YTZNRjBaemF1aTF5bkZ1S214a1JtSDh3a0ZyVzE4ZDR0WTFJZ05LaUE3Q3Vm?=
- =?utf-8?B?akQ0VFM4dzh4ditCbzFlY005TGgwandrMXlicEo0WUppYm15MTdEZHRZK01X?=
- =?utf-8?B?N0l6N0puR2ZNaE9lbzNBR0NESEFHY1hOOUlPWGxTK1hEQmxCTk9BallacGlh?=
- =?utf-8?B?MG5zNExwMlFYQkZ3bENDZXhwclkrRDFwUWh0bE1McXIxcEgySk1zRUJGaWN0?=
- =?utf-8?B?Z0NTZ3EyWndhSC9ydnVJak55cWdVUXpodnc2MFNGQlV0aVJycndrVDVNYjln?=
- =?utf-8?Q?hmCQtCECJy6oVavy1bzZmLGDw09cA9zk?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB5227.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VkVHb3ExMXpObEZNK3Q1RjlqR2VTaFhDYStaTnZZbWJuQU1kUW50WUFHckVv?=
- =?utf-8?B?RUJVSW5yZkRlSGhwK0lMTVduVTZtY3o5cGNiUExDUGcwWWdQQ3EwRHpON085?=
- =?utf-8?B?dTRSSklMa1c1QlNONGp3MytXQnR3MjZoVXQ1Zk1Qdzd6b3FOT2tYZkRWMjkz?=
- =?utf-8?B?bUtsZFhxY0lFa0J5K1N2MU15a3BMTDhXVVZTN1htSkM5aEVOY0RuRlpQRjNi?=
- =?utf-8?B?bjRGeE1JUHdrbGtIZWlzZDBrWE5nRVpJNWNnbi9nMXJnY1FWQ1hZOWJoQ00x?=
- =?utf-8?B?RWQ5VVlpdG95TnllL1ZjR3p0WGYrckswTXUxdXViWE5XOW1ZMDhJNnk3Si9T?=
- =?utf-8?B?ajloZHNvbDNSZ2VrazVkWStsK01nRm91UWFxb2NHczZ4czZ6QkJjaW1ER1Z6?=
- =?utf-8?B?dzVKUVpNYURzcjVvMU45dkwxYWd0WXZGUGVXcHVYd3NCZXFRcE5hZ3FPR3Z2?=
- =?utf-8?B?dDd6RmtMZzFCY1pJSEs1NGp5ejN3MEVSMERMZFR0LzVrMVpPL1FFOWJqb25I?=
- =?utf-8?B?S2ZNejZHZUJSNjRCelBRZ0x4Q3F5UlNibTNIaWFvc05LejVWSzNlUEk5alB3?=
- =?utf-8?B?RHh2MWtVeUkwOUd1VkNyYkN4dCtzcHdCNkNXeCtzZmtIb3lVS2pJZlI1Z0R6?=
- =?utf-8?B?VjVGMHZ3bnFZc3hlNEhrTTkvYVM4cW84UHR5UFhBUHNKOWhZejRUNG5WQUta?=
- =?utf-8?B?NzVqMzhaQy9PNHZPbGxQTzNnbjFya2FMdjZrVW1FK0xsb0ROWnFmRGUyK2pZ?=
- =?utf-8?B?M0ZPUTFjelBiQ3RPbkxJdmVaS2dITTQvSHVyV0hjOWxac0luRHl4NFRUSEdi?=
- =?utf-8?B?U0JzM01SL3FyL2VlTHc1Um1hZHczM3RETldKbjJZZDFwNVFDSkFXVmIxaGgx?=
- =?utf-8?B?dDcwVWtyUm9OOTk0SjNTVWtST1FJYUE1NDVialNrZEJKUlYxdmg2MklzWU84?=
- =?utf-8?B?bkJtbitGR0VxcGNVNzlMUFZpbUNzOWVOZkpzdzZhMkx2V0pqKy9IVmduSlJU?=
- =?utf-8?B?aHVLYXhwd3pvdTZjRWlPZXdIQ1JMYUZtOHFUL1pZckRVV2h4WUFYT016Z3Jv?=
- =?utf-8?B?WUNiQTlwM0d4QndoRzhGc0srSVF3S2FFVkRFS0tKUW5TaTF6ZFhVNzZtdGcr?=
- =?utf-8?B?eGhaOGFKdXd3QnN6R2ZVTmVNcjhwbWhpbi9YVCsrb0pzZ0hvQW5ScFlaelFv?=
- =?utf-8?B?RnMrZCtsMmdub09xQmhhckpJQ0JvMjh0c3VyQkhXTVJWYkpmQjZVN1p2Y2Mz?=
- =?utf-8?B?eUV1bWxMYmYzMzZaVVJhNTBiUU5OcllDL3RDZFh1SEJUV1ZzRWFUUFI2bEtz?=
- =?utf-8?B?OTRLd3E3a1picjUydWlVUGNTM3ZWVmZNQUdCNXFERnRpbXhzQzJ0SGxCcU9L?=
- =?utf-8?B?dHZjRjBvU3RXMkFVWFNPeHRiT1dsQlg3R0JJUmpmU2JzWERtbHBxWW9oRzg0?=
- =?utf-8?B?NERJZWJSRUNyWW1DUE5ocmtnNUNZaEVidDRRU1FvV2dGOVdoa3NHUExacnVS?=
- =?utf-8?B?VEoxVzZMMnJIbFlUYXE0THpxaS85OUFoRHVDZ0w4V3Uwbm9OaXB3VWI0c2pZ?=
- =?utf-8?B?WXdnYk9XOWZVcDl6RVVzNmtDUkFCZTgxbjZTejN3Nng4SEVxYUxvMTdJelVG?=
- =?utf-8?B?UVgyUkdXRFRHWDBGVUp6SDMxTGNDSmduK3ZQUWVPQWY4RzlHSk5tbENpWis3?=
- =?utf-8?B?L0FFcTRyZG9aSnNKRXpJTFFVS0xBeWFEZjJNaGk1SDhrWjV0L0hER1BBb2Zw?=
- =?utf-8?B?S3lscW96R3RRY3BaQWRMWlBRNVhvOXJtZEhBaWVjbnhIc1kvL1JoeEdoekZt?=
- =?utf-8?B?WHFjemcydHRqbTJYUjdhSlpxM1JaYlFWRmYzUlBzamJlbmFJN2U0NmwxYlJ0?=
- =?utf-8?B?SmpKSFdjeFUyZytHb25DK0taYzBXSWgyR0hsM1cwWFI0WUYwcGxkd3RySENL?=
- =?utf-8?B?SGhuSytWQktLRWpMUWV5VVFUTmVWd3E2aWpnSHJ0bkt5UGYyN1kyZFJ4Q2d3?=
- =?utf-8?B?eUR4U2pHWVA3S0RrVThyWnZxMXZGRy9lMk1MajVJd1dsZSsxR1NlUlpzTHFH?=
- =?utf-8?B?UWlzc2d6YzZxVUZ3bmJITGtjMVV5cWpHN09jSzRyTU83N2grZCsyYVhHMEwv?=
- =?utf-8?Q?MlyiblQin+TakjUnhCMvbwyLc?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c27414df-f130-416f-6e89-08de0ca9163e
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5227.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2025 11:42:31.8105
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: To9gMTFRo+BvtKdTyA/b1usTYVLdFXxxEWiDE0mMQvf12a3xQnpFFCCuvc4/F5Th3S7rI9ZXHSlszIddTVX4qQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5163
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.21] libxl: make gentypes.py compatible with Python
+ older than 3.9
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <751bb140-3f00-47f1-9492-464c01ea1429@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <751bb140-3f00-47f1-9492-464c01ea1429@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 16, 2025 at 09:31:42AM +0200, Jan Beulich wrote:
-> Keeping channels enabled when they're unused is only causing problems:
-> Extra interrupts harm performance, and extra nested interrupts could even
-> have caused worse problems.
-> 
-> Note that no explicit "enable" is necessary - that's implicitly done by
-> set_channel_irq_affinity() once the channel goes into use again.
-> 
-> Along with disabling the counter, also "clear" the channel's "next event",
-> for it to be properly written by whatever the next user is going to want
-> (possibly avoiding too early an IRQ).
-> 
-> Further, along the same lines, don't enable channels early when starting
-> up an IRQ. This similarly should happen no earlier than from
-> set_channel_irq_affinity() (here: once a channel goes into use the very
-> first time). This eliminates a single instance of
-> 
-> (XEN) [VT-D]INTR-REMAP: Request device [0000:00:1f.0] fault index 0
-> (XEN) [VT-D]INTR-REMAP: reason 25 - Blocked a compatibility format interrupt request
-> 
-> during boot. (Why exactly there's only one instance, when we use multiple
-> counters and hence multiple IRQs, I can't tell. My understanding would be
-> that this was due to __hpet_setup_msi_irq() being called only after
-> request_irq() [and hence the .startup handler], yet that should have
-> affected all channels.)
-> 
-> Fixes: 3ba523ff957c ("CPUIDLE: enable MSI capable HPET for timer broadcast")
+On 16/10/2025 12:22 pm, Jan Beulich wrote:
+> removeprefix() was added only in 3.9. As long as the "jso_sub_" prefix is
+> always going to be there anyway, switch to a less specific but more
+> compatible construct.
+>
+> Fixes: f6c6f2679d49 ("libxl: libxl__object_to_json() to json-c")
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> A window still remains for IRQs to be caused by stale comparator values:
-> hpet_attach_channel() is called ahead of reprogram_hpet_evt_channel().
-> Should we also write the comparator to "far into the future"?
+> Sadly this is only the tip of the iceberg. Some minimum version of the
+> json-c library is apparently needed for the toolstack to build, but no
+> minimum version is being checked for.
 
-It might be helpful to reprogram the comparator as far ahead as
-possible in hpet_attach_channel() ahead of enabling it, or
-alternatively in hpet_detach_channel().
+Well, this is why we have release candidates, and a bug queue.
 
-> Furthermore this prolongues the window until "old" vectors may be released
-> again, as this way we potentially (and intentionally) delay the ocurrence
-> of the next IRQ for the channel in question. (This issue will disappear
-> once we switch to a fixed, global vector.)
-> 
-> --- a/xen/arch/x86/hpet.c
-> +++ b/xen/arch/x86/hpet.c
-> @@ -262,10 +262,9 @@ static void cf_check hpet_msi_unmask(str
->      ch->msi.msi_attrib.host_masked = 0;
->  }
->  
-> -static void cf_check hpet_msi_mask(struct irq_desc *desc)
-> +static void hpet_disable_channel(struct hpet_event_channel *ch)
->  {
->      u32 cfg;
-> -    struct hpet_event_channel *ch = desc->action->dev_id;
->  
->      cfg = hpet_read32(HPET_Tn_CFG(ch->idx));
->      cfg &= ~HPET_TN_ENABLE;
-> @@ -273,6 +272,11 @@ static void cf_check hpet_msi_mask(struc
->      ch->msi.msi_attrib.host_masked = 1;
->  }
->  
-> +static void cf_check hpet_msi_mask(struct irq_desc *desc)
-> +{
-> +    hpet_disable_channel(desc->action->dev_id);
-> +}
-> +
->  static int hpet_msi_write(struct hpet_event_channel *ch, struct msi_msg *msg)
->  {
->      ch->msi.msg = *msg;
-> @@ -295,12 +299,6 @@ static int hpet_msi_write(struct hpet_ev
->      return 0;
->  }
->  
-> -static unsigned int cf_check hpet_msi_startup(struct irq_desc *desc)
-> -{
-> -    hpet_msi_unmask(desc);
-> -    return 0;
-> -}
-> -
->  #define hpet_msi_shutdown hpet_msi_mask
->  
->  static void cf_check hpet_msi_set_affinity(
-> @@ -326,7 +324,7 @@ static void cf_check hpet_msi_set_affini
->   */
->  static hw_irq_controller hpet_msi_type = {
->      .typename   = "HPET-MSI",
-> -    .startup    = hpet_msi_startup,
-> +    .startup    = irq_startup_none,
->      .shutdown   = hpet_msi_shutdown,
->      .enable	    = hpet_msi_unmask,
->      .disable    = hpet_msi_mask,
-> @@ -542,6 +540,8 @@ static void hpet_detach_channel(unsigned
->          spin_unlock_irq(&ch->lock);
->      else if ( (next = cpumask_first(ch->cpumask)) >= nr_cpu_ids )
->      {
-> +        hpet_disable_channel(ch);
-> +        ch->next_event = STIME_MAX;
->          ch->cpu = -1;
->          clear_bit(HPET_EVT_USED_BIT, &ch->flags);
->          spin_unlock_irq(&ch->lock);
+>
+> --- a/tools/libs/light/gentypes.py
+> +++ b/tools/libs/light/gentypes.py
+> @@ -384,7 +384,7 @@ def libxl_C_type_gen_jso(ty, v, indent =
+>          s += "int rc;\n"
+>          sub_scope_object = "jso_sub_1"
+>      else:
+> -        sub_scope_object = "jso_sub_%d" % (1+int(scope_object.removeprefix("jso_sub_")))
+> +        sub_scope_object = "jso_sub_%d" % (1+int(scope_object[8:]))
 
-I'm a bit confused with what the HPET code does here (don't know
-enough about it, and there are no comments).  Why is the timer rotated
-to a CPU in ch->cpumask once disabled, instead of just being plain
-disabled?
+This isn't quite an equivalent change.  You want:
 
-Thanks, Roger.
+def removeprefix(s, p): # Py < 3.9 compat
+    if s.startswith(p):
+        return s[len(p):]
+    return s
+
+at the top level somewhere, and to call removeprefix(scope_object,
+"jso_sub_") here.
+
+Sadly, because string is a builtin type, you can't make the 3.9 syntax
+work on older versions of python by extending the string type.
+
+~Andrew
 
