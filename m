@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DDE2BE334A
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 13:58:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1144513.1477903 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDC9ABE408C
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 16:55:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1144550.1477915 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9Mc6-0002Ac-GP; Thu, 16 Oct 2025 11:57:46 +0000
+	id 1v9PNW-0006Is-HF; Thu, 16 Oct 2025 14:54:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1144513.1477903; Thu, 16 Oct 2025 11:57:46 +0000
+Received: by outflank-mailman (output) from mailman id 1144550.1477915; Thu, 16 Oct 2025 14:54:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9Mc6-00028d-Da; Thu, 16 Oct 2025 11:57:46 +0000
-Received: by outflank-mailman (input) for mailman id 1144513;
- Thu, 16 Oct 2025 11:57:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v9PNW-0006Gf-Ec; Thu, 16 Oct 2025 14:54:54 +0000
+Received: by outflank-mailman (input) for mailman id 1144550;
+ Thu, 16 Oct 2025 14:54:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CbFY=4Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v9Mc4-00028X-QN
- for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 11:57:44 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 52a4eeb9-aa87-11f0-9d15-b5c5bf9af7f9;
- Thu, 16 Oct 2025 13:57:43 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-46e6ba26c50so4676995e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 04:57:43 -0700 (PDT)
+ id 1v9PNU-0006GZ-JA
+ for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 14:54:52 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0ecd8810-aaa0-11f0-980a-7dc792cee155;
+ Thu, 16 Oct 2025 16:54:47 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-46e5980471eso7047355e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 07:54:47 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-471144c900asm22262685e9.16.2025.10.16.04.57.42
+ ffacd0b85a97d-426feeb7441sm4682627f8f.43.2025.10.16.07.54.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Oct 2025 04:57:42 -0700 (PDT)
+ Thu, 16 Oct 2025 07:54:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52a4eeb9-aa87-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 0ecd8810-aaa0-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760615863; x=1761220663; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760626486; x=1761231286; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xfs+dXSZnStKUCqs2PMOqAywh/wEG7zYNoghKzAAufI=;
-        b=LKMLfZbu2Cna458WhdxWUjK22Er+04xOyEOAbAviJ4A+ga7WJl51pFJ/HCiNh6MMe7
-         DyOA+QH4D7fveko+GOPN60gQgLl+zaYQ5g1DrtN3bffRfqgZO1d0Rfp00rKiFs3oq5Oc
-         s332/m4Y5E09iPVSg6SFxB8X+0qFZvXn6poZdkaQ7sBesNHCMl4drLZbFsucuxJ9AgNv
-         j07Vj3Af2DehqNDyWU5zjeunEQhHAIrlvIHRIjZ0PDXUuAS2qn9hoQ5sNiguklsusGhk
-         odhTHMw/YZZ8RF64byXdASYe6yoedjzx/mq88xHGc0S3wHoWndatSz5z+8APrLjPg6Gp
-         brTw==
+        bh=9eBdTmKsmwLUXo2wo+GgjjgvZUHK8lSBHQL0560hrzU=;
+        b=MHHUWClvglAn7TWx2P9Q2kGJaoBjIi96DNfytEie+wcBIOb8Ju7MFGnEuaPpYTkb/z
+         X6rBtnWbYe0ENqb/Y1AkQmdvCzeJvaFj/MSpiPzRqFzl6PID2upRrjmseBUa5qwW56FP
+         RfALH3HZyoMvqbYrNmDuR0nFkQOhfZJLwlevnl+qDQnQv2ro8sfTBJTIptotKsqt2HyW
+         +QIBPAc+pRcyhwqJd8utkn3w50tPMIn2jIrLIbs5rS7qgggs+WN+7oDiIL5WsKgjIvru
+         2xi1eGdUqp6/BF1VHbqcMcq6c+mZB125727QlUf4X1P92l2KTzv17KFvJbo8yaFN+zzE
+         wBjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760615863; x=1761220663;
+        d=1e100.net; s=20230601; t=1760626486; x=1761231286;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xfs+dXSZnStKUCqs2PMOqAywh/wEG7zYNoghKzAAufI=;
-        b=C/8yx6L/n+Z4CQYMdmaLwQEU2R5nFPpjXoqykeWkBC81UQvOUYE/peZq38MBZO67Df
-         16ssrDDDHu026rkSBWzsnNn2Xzb5NqylV5VkUscGFH0cqBoeQQx3wQBFa/f7HnGRreKd
-         zqLDXBvA5O+HGmH47TRzxs82CIP+fpT01YY5uhIuQS0vB6/63McAx+LOl06LrujtXHmL
-         HQz93Hq2UUV/Py2yjpM7Tk312CGglo5RRMhG7tJQIbhveziLU44xgMs+7EFevL6NLGGj
-         wqmN++f/K8xTzzpmFqyGxLLvNBAvuaZVbCG2rbATf3SjEUJRVEmXUD5Q27sWFv6+ZoDb
-         haTQ==
-X-Gm-Message-State: AOJu0YzHMET5kdX4qW5vroYG7AT3lAdRu7/1V6ig8V/Ditnzv2QSGpyq
-	8d/bN1BdDjcLVHfrvHRYL1iirkUY1j1vV7TbQ1JHuWLWkHmq0pZm5dgGw/JGtJydEQ==
-X-Gm-Gg: ASbGncvSy5Ftpo1UAnSfikZ7cNTiXx3bRf+FTVoGC5rOG/Qxh5AZyqN4hWXccE+CMiE
-	AoFVjJa50y+02jYM/tzzldVAXYmVrT8Dtx+xZXkystRUQwXi0ujeBv/c0yT4miqwhVFQQSwhlu9
-	00xIRzKlcR5BlRqaGni270fojMyVkc999o7WlKmz0XgcOLSW/hIEID+HGVnAFz7KbIUU9ego1Vf
-	j5hMcz2ih2hbJFT7rJYOhvALVPGc43NNsAflCZp+EhJhZ+Cbkow8c0WF5lysbZ5VsvphSpVgJc2
-	WEVtpP7fsu9pcgBQ6QEvCs4bmlS7fo8IEh8SrcXLlRs8GgOum4j5safQih5gVGJrFLyzKCYwrMW
-	L+qfHk/oKQ5SCS3vveKEOTe4niojtHgZZJGrbCzbNVJxK8ZJstDi6YR535yP3ka8s9ct9Fyg/vT
-	/+ZeJuq37tZUV+B/my2zVD0MFlcHe8/Yd/iU7ZV4+JJrtctER+vpQErrLiCF8OhuCiW8BpLy4=
-X-Google-Smtp-Source: AGHT+IF2XZc3R8xEaoVVSgFuJfUKCCS6NBQIOnaIC/ncHBX5NEfKS0OERgLwo7YdbPQ7v9QminqtSA==
-X-Received: by 2002:a05:600c:a4a:b0:471:672:3486 with SMTP id 5b1f17b1804b1-471067234b4mr42019985e9.15.1760615862827;
-        Thu, 16 Oct 2025 04:57:42 -0700 (PDT)
-Message-ID: <bc7467ca-ba06-417c-8583-8de3782a1d83@suse.com>
-Date: Thu, 16 Oct 2025 13:57:41 +0200
+        bh=9eBdTmKsmwLUXo2wo+GgjjgvZUHK8lSBHQL0560hrzU=;
+        b=CRQdbSHJdndZNb0digxtSfsCYgqmdcuzwGtpD+IE0bZSByg7roOF7X/iXZcx5vgtLT
+         sOSco7wsOLOaoclsoNm1adbwke2t1PwcBmtgVxt2cEcoJfbKvq3t9psPCmQ8ZDRQHfMX
+         BjhASomRgJ3LcBLhrPq4EuTmqaTgCrdraWIsf53z0JXw2uQ27diTgUtlMcttoDwrwyjE
+         kPw1HW1lPp8I+iFtP38EMtFulpvrY9nXK8rS8BgCayLHWPA7Jm9J18A8k+1sOHIGr1Xb
+         G642rdtHBA8nGSBCtUMpu6F36X28UdyaFgVU7zoribI3/JMq5ugaB+73b51v4xVNvEhZ
+         jxcg==
+X-Forwarded-Encrypted: i=1; AJvYcCVxFYcakRi6tDXwoKoJbygF1VKq+DXQELu8PuPOf2QiXhcsswqjMYxYHOEMRDElbzjPAUEhBtw1sIQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyrJ5Z8WJMMkqKCdrZfzx4gH1/Z4gvy8fMPcZ3fOKaZ8/fuaiz9
+	BhRj7lCUW+p2zYCPTJSpURfUlUb6rJlbFQ+21ASKTEHpaFu4soSgwMK1Us2cEmGJVg==
+X-Gm-Gg: ASbGncs98mMdvLX2TaeKwconVqrKwMNzuvFuzoETcLNwQog89r3Cp/ojzC9vf6eq9RE
+	7X3ROLL82IMm3CCaFMpocrz4XsI393dGqtrl1ugYAqiSmfhEX2GnXqpA421H8xsP3k25tasX/NI
+	lxX7LZMQC0etkogOgUARK3hlcquTy07dBpc0TfgGwtERNLdUg1o3Out0VRt7lcDJhueTv3IrICT
+	9iTmTd7rRvbrA72EkUdCCrEiNwoD0F6BCp3qPZ0nZcHEMFxNY05OA4NfxRRFoPk0wZmHuZJXbIf
+	ciHRPm4pTkHjaEAPNd84C1YMziPyOvuSSiWUiPx8UT6rB5CWbOjJowWXj3qtAXp2fZEMLpDgqW3
+	Do0yexSxUDWq2N4nxNO8SNQvVqoS6t0rVEHvdTGReoBjRa2I7ZBgWlOYgUpNkJbMiCSWIAXhzPE
+	LgyNsj4L2HXzNzv133sdTl3Eap4OBhNty4zF1fsWrrjsk8l4pg4NnNq47UJkAB
+X-Google-Smtp-Source: AGHT+IF4k/RkfOmUhgYe7FVDpf9ks1g+cj94xRjb2wR4nYY6zyy/JRFUX//zdaClZm94scJWzrnSjA==
+X-Received: by 2002:a05:600c:4fc2:b0:471:1765:839c with SMTP id 5b1f17b1804b1-4711791299amr1711675e9.20.1760626486341;
+        Thu, 16 Oct 2025 07:54:46 -0700 (PDT)
+Message-ID: <5e75d176-60f2-4cd1-adfa-d799f2756dbd@suse.com>
+Date: Thu, 16 Oct 2025 16:54:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21 02/10] x86/HPET: disable unused channels
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <8d94abf8-70d1-478c-885e-ff9a960ac72d@suse.com>
- <8913e64b-d172-43f9-9c4d-447ba4984c9a@suse.com> <aPDaIssJOFh00-W7@Mac.lan>
+Subject: Re: [PATCH v3 12/22] x86/traps: Introduce FRED entrypoints
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251003225334.2123667-1-andrew.cooper3@citrix.com>
+ <20251003225334.2123667-13-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,70 +119,82 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aPDaIssJOFh00-W7@Mac.lan>
+In-Reply-To: <20251003225334.2123667-13-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 16.10.2025 13:42, Roger Pau Monné wrote:
-> On Thu, Oct 16, 2025 at 09:31:42AM +0200, Jan Beulich wrote:
->> Keeping channels enabled when they're unused is only causing problems:
->> Extra interrupts harm performance, and extra nested interrupts could even
->> have caused worse problems.
->>
->> Note that no explicit "enable" is necessary - that's implicitly done by
->> set_channel_irq_affinity() once the channel goes into use again.
->>
->> Along with disabling the counter, also "clear" the channel's "next event",
->> for it to be properly written by whatever the next user is going to want
->> (possibly avoiding too early an IRQ).
->>
->> Further, along the same lines, don't enable channels early when starting
->> up an IRQ. This similarly should happen no earlier than from
->> set_channel_irq_affinity() (here: once a channel goes into use the very
->> first time). This eliminates a single instance of
->>
->> (XEN) [VT-D]INTR-REMAP: Request device [0000:00:1f.0] fault index 0
->> (XEN) [VT-D]INTR-REMAP: reason 25 - Blocked a compatibility format interrupt request
->>
->> during boot. (Why exactly there's only one instance, when we use multiple
->> counters and hence multiple IRQs, I can't tell. My understanding would be
->> that this was due to __hpet_setup_msi_irq() being called only after
->> request_irq() [and hence the .startup handler], yet that should have
->> affected all channels.)
->>
->> Fixes: 3ba523ff957c ("CPUIDLE: enable MSI capable HPET for timer broadcast")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> A window still remains for IRQs to be caused by stale comparator values:
->> hpet_attach_channel() is called ahead of reprogram_hpet_evt_channel().
->> Should we also write the comparator to "far into the future"?
-> 
-> It might be helpful to reprogram the comparator as far ahead as
-> possible in hpet_attach_channel() ahead of enabling it, or
-> alternatively in hpet_detach_channel().
+On 04.10.2025 00:53, Andrew Cooper wrote:
+> --- a/xen/arch/x86/include/asm/asm_defns.h
+> +++ b/xen/arch/x86/include/asm/asm_defns.h
+> @@ -315,6 +315,71 @@ static always_inline void stac(void)
+>          subq  $-(UREGS_error_code-UREGS_r15+\adj), %rsp
+>  .endm
+>  
+> +/*
+> + * Push and clear GPRs
+> + */
+> +.macro PUSH_AND_CLEAR_GPRS
+> +        push  %rdi
+> +        xor   %edi, %edi
+> +        push  %rsi
+> +        xor   %esi, %esi
+> +        push  %rdx
+> +        xor   %edx, %edx
+> +        push  %rcx
+> +        xor   %ecx, %ecx
+> +        push  %rax
+> +        xor   %eax, %eax
+> +        push  %r8
+> +        xor   %r8d, %r8d
+> +        push  %r9
+> +        xor   %r9d, %r9d
+> +        push  %r10
+> +        xor   %r10d, %r10d
+> +        push  %r11
+> +        xor   %r11d, %r11d
+> +        push  %rbx
+> +        xor   %ebx, %ebx
+> +        push  %rbp
+> +#ifdef CONFIG_FRAME_POINTER
+> +/* Indicate special exception stack frame by inverting the frame pointer. */
+> +        mov   %rsp, %rbp
+> +        notq  %rbp
+> +#else
+> +        xor   %ebp, %ebp
+> +#endif
+> +        push  %r12
+> +        xor   %r12d, %r12d
+> +        push  %r13
+> +        xor   %r13d, %r13d
+> +        push  %r14
+> +        xor   %r14d, %r14d
+> +        push  %r15
+> +        xor   %r15d, %r15d
+> +.endm
+> +
+> +/*
+> + * POP GPRs from a UREGS_* frame on the stack.  Does not modify flags.
+> + *
+> + * @rax: Alternative destination for the %rax value on the stack.
+> + */
+> +.macro POP_GPRS rax=%rax
+> +        pop   %r15
+> +        pop   %r14
+> +        pop   %r13
+> +        pop   %r12
+> +        pop   %rbp
+> +        pop   %rbx
+> +        pop   %r11
+> +        pop   %r10
+> +        pop   %r9
+> +        pop   %r8
+> +        pop   \rax
 
-The downside is yet another (slow) MMIO access. Hence why I didn't make
-such a change right away. Plus I wasn't quite sure about the locking there:
-Imo if we did so, it would be better if the lock wasn't dropped
-intermediately.
-
->> @@ -542,6 +540,8 @@ static void hpet_detach_channel(unsigned
->>          spin_unlock_irq(&ch->lock);
->>      else if ( (next = cpumask_first(ch->cpumask)) >= nr_cpu_ids )
->>      {
->> +        hpet_disable_channel(ch);
->> +        ch->next_event = STIME_MAX;
->>          ch->cpu = -1;
->>          clear_bit(HPET_EVT_USED_BIT, &ch->flags);
->>          spin_unlock_irq(&ch->lock);
-> 
-> I'm a bit confused with what the HPET code does here (don't know
-> enough about it, and there are no comments).  Why is the timer rotated
-> to a CPU in ch->cpumask once disabled, instead of just being plain
-> disabled?
-
-Because it will still be needed by the other CPUs that the channel is
-shared with.
+For placing the entry_ssp field I came back looking here. I notice there
+was a v2 comment regarding the rax macro parameter. Besides there being
+a limitation on which registers may be used, a %rsp-relative memory
+operand can't be (cleanly) used either. I think if you really want to
+retain that parameter, some warning needs adding to the comment.
 
 Jan
 
