@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 203F4BE20E7
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 09:59:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1144296.1477745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46878BE20EA
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Oct 2025 09:59:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1144311.1477755 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9Isw-0008Nm-8V; Thu, 16 Oct 2025 07:58:54 +0000
+	id 1v9ItD-0000Xy-GW; Thu, 16 Oct 2025 07:59:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1144296.1477745; Thu, 16 Oct 2025 07:58:54 +0000
+Received: by outflank-mailman (output) from mailman id 1144311.1477755; Thu, 16 Oct 2025 07:59:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9Isw-0008Lk-5M; Thu, 16 Oct 2025 07:58:54 +0000
-Received: by outflank-mailman (input) for mailman id 1144296;
- Thu, 16 Oct 2025 07:58:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v9ItD-0000VC-DW; Thu, 16 Oct 2025 07:59:11 +0000
+Received: by outflank-mailman (input) for mailman id 1144311;
+ Thu, 16 Oct 2025 07:59:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CbFY=4Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1v9Isu-0007Us-Rt
- for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 07:58:52 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f3fb4046-aa65-11f0-980a-7dc792cee155;
- Thu, 16 Oct 2025 09:58:51 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-426fd699c21so157050f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 00:58:51 -0700 (PDT)
+ id 1v9ItB-0007pw-Ma
+ for xen-devel@lists.xenproject.org; Thu, 16 Oct 2025 07:59:09 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fe7bd6d2-aa65-11f0-9d15-b5c5bf9af7f9;
+ Thu, 16 Oct 2025 09:59:08 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-47114a40161so1689375e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 00:59:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-426ce5e0e70sm32738788f8f.40.2025.10.16.00.58.50
+ 5b1f17b1804b1-4711442d9e8sm10793715e9.7.2025.10.16.00.59.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Oct 2025 00:58:50 -0700 (PDT)
+ Thu, 16 Oct 2025 00:59:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3fb4046-aa65-11f0-980a-7dc792cee155
+X-Inumbo-ID: fe7bd6d2-aa65-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760601530; x=1761206330; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760601548; x=1761206348; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tDSXv59rmnY3eFBJLiKKPItBMr1pT4qTxAqiGpWveBs=;
-        b=R4md+T6VMyZBgaS2w7Omfau5G1l7svoBZEjTAMlX4tLXBl72zxyzmB7HbphmZ51nRA
-         OVf2IeOQigRSzfh4A+kdFrCACYlc5hJEluxtwvB7ub23AWsgYtPfzSwwAhOSdYnvEh8O
-         AqCr9O8WwKS8+Zg6BAAwNA3n6YiFvBbkDHV9IXtnhaqJihbb1YiBpGWrcee9sjnaFKa7
-         K/vUpSbvgkb7tOX9AOV8UnzL3xkeouXmPyah6Hx79xmZcnobSFskgh9hmL1kwQ5t/GRN
-         QkBSikrAMhKHf9+OjUVBm3uhV0cje+tRiAlnf0bDsi1JWTfnDtEjllzKCRm38NzeamMi
-         dt8Q==
+        bh=mDniou9WYZld/SO0uxKyVzlKGg8gcbQ1JbEW9khtE74=;
+        b=W1xaO/clhiI+Wd3YSoVzR8GViJVe+QK0F2P9YE21bblm0j5wlX/Wt5i9mtO/yHEZWX
+         rmmsdCX4VGsesUB33OCzitlJrlo8lSwhikfAYCmDF0EVIxlk7fx7Yqg85NM+eTBdPXj0
+         80DbpQx0YD3aD/LZ+a81+wqCihf+QWMtmylSv5TCXznjLvowF+1Ng3Ky+duNc7PhjYJ7
+         2ajWhipyznZS0QnzrnXpwo/jkF4v6SmjdcLpjargbsyx/d2m2UlA4gRQxpM7WMBceGLB
+         GtGpwr7FIX8270m3yw9JLmJy01gJ3DiFPagVQy3QSHAIkydssld9wel6t7qeAUOrJeAu
+         azkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760601530; x=1761206330;
+        d=1e100.net; s=20230601; t=1760601548; x=1761206348;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=tDSXv59rmnY3eFBJLiKKPItBMr1pT4qTxAqiGpWveBs=;
-        b=PYzfVrpC80JaUj3CeRRqEUtQhuBm7+nqS7XyusQuUEtIsEZR9CgoG8CkuB6gnRitUn
-         8wHG5t0yGRl9p8tlNV1iyPshRjXyX0K2Nf2SuCHAFbNv4fiA+UcgScnL3iYn+v6dCqvL
-         GsybzWWm0HRIACSINUv0DD21W/977jZN4mVAX0j2j/iOmg4Nr9wjO9ZsEQsb9nFqYvaj
-         4n2nl83wJXqlDTVLjc0vzpWraNYhKcmcxw2bt3w7BIY8s8ncDKcAFuv2Dp3J/s+Fe+z1
-         XHhIkD9PwuwF79hxAyBSEszqrDn8CzXRgpEGyybaeWfjCtW1RL+mmThemDKDfF3K8L2h
-         Sm2w==
-X-Gm-Message-State: AOJu0YyzTedj9keVS30jsxaJjLao6581OOQ706nGjE2mVnABj4gOCZw5
-	Yo7YXzrz9PSCmz3a/l89nLwUW2+vQMhe7Yz1WPhjRx3DTugoOsFPNJ8VGJp8KmGcsg+qMHQpYma
-	Y08U=
-X-Gm-Gg: ASbGnctUh8Hvv1RU6EtektL6LKCm6x93NeIbApo9LN14lszdX7twl0qeJXvCL+sO6o1
-	0DEd8dq+BRleLo4xUaEFryCo2Z33+s2dop6YS/lIpOyaVcT9xWFHyEgS2Jn6l6o94ziXDPNHgWK
-	NAwStJmLF0Gogiq/SQrzx6VZDZn2vaJ0BOhdf2E4jKsKCo+2I6Hg39ELZTFvZKUn0sRlJSBH07k
-	1+624p+fDNT3wqbUUqdAa23KhLPPXKtMp81kJCMWidSWwnKD2D3Dp1B/Qz7huBriw/wfWZ5GtuS
-	dPaZWMVqSrmWW9agxuQy6MgjxI7xS1kpUt3nE7c8H9tv+1HBfFOEszfZkDGUJlF96ltTrAo1lwD
-	AY4BdNdZ07BNxziMUt3/rzil1+oWcYd2iiDXD2NO8F8KbAoFFQ0CWFiQTCEieWv3ulpjulgyFsG
-	GPe+Pg9qFhrwVjwLWIjgglytKjC9AlhYYb5gAKVrRdWoo5VDhkWzBvho/n3Vrt
-X-Google-Smtp-Source: AGHT+IGcRBu76B6Wg223k3baLc6M+EgVt6AtOXLOFBFTSXc/7pYD9COKGaG7j/HYvw4hsdhXspGm3Q==
-X-Received: by 2002:a05:6000:1887:b0:3eb:8395:e2e0 with SMTP id ffacd0b85a97d-4266e8de16amr19822072f8f.51.1760601530592;
-        Thu, 16 Oct 2025 00:58:50 -0700 (PDT)
-Message-ID: <0f9f55eb-ebf5-4f4e-a989-132a2066ad14@suse.com>
-Date: Thu, 16 Oct 2025 09:58:49 +0200
+        bh=mDniou9WYZld/SO0uxKyVzlKGg8gcbQ1JbEW9khtE74=;
+        b=Z4Wdb4PYe6xe38953xVTpLAHr8Xy4plNj9ouU6NREWN7yoe4fD9brkSQaN45A0qZKk
+         CIomi+T9n560ON+WUgijEe2QEJqK9l7pxvfla1or1RYzmZvC8kvVsOgNz9dlPz+fd+LP
+         w6KYkt5oQm89Ygc1Cv274za0fWJy3SW7g+n1gVPtSiJh8qx7FiqncGJO8AKrI1ayGQDe
+         sOtSC9hX6AR3aF0WTFB6uDfoxf4J+K7j4jcq7F85WcVyYnAN/LCiPqHpWk/nJkQMInLf
+         2VpVUHJgDvpcKW0WX7+KOc1bsbfQYglbnlKDMX6jhqj1riCnuvQOQxm9kgeztOViPryH
+         ASag==
+X-Gm-Message-State: AOJu0Yzn3Z6n1uqvgI6uQRqhQjN8ocxfvVYn+C7vmygyaUCRtIb13lZJ
+	I5ICrOicznp/rPUD7PcNz5JQ2+A7z/rFKL1LACv/7PJuDKl3oYfwXcuiwq3d3vM2p7iQUlINx8h
+	oGiU=
+X-Gm-Gg: ASbGncujSgfXqY+5ouAt5Fx90XgMuwj9MrWI/KDfYq1AsWcHktfdMwLUU8k9ktfOf4s
+	LgSZLVsGVjLfRGD0VuLfJm6kXSMTJSFX1GYyflTfMeQfrJSsWv11pELOoTZRzEjPf6vmzgWQl11
+	+ipAE+6wp/O+UtA2HngVBXAsL/CCcOL9eAeG6Hl1KA0VSP/UAvphd3IalULGvcdBYu7AkH9geiO
+	vKZ6nrZHld7RHabGrsJvCX7wk1k7DIX909Tc37tKfLRC67FAY9JFleVdwizs1TGrAYAmWOplGep
+	BzX9VtIr3dr+SdyvKr5fd9OErhgx+j0niS6UUz2tOruHY4PzqAIBOhpnic2Lwf4lUO7ZADnQonK
+	VDs7GRClKVzKkL05ijdv81Vo/k/FpLnVB0BEv0kxtJhtQNQh2UC110sRa/OGQoKabkFCQkXVnM1
+	w0Kjm71LIYuatThBFMVNIUiZ+ki9EGNmPGV5wcambgj06ZTs4fsvWPFwSU5xXE
+X-Google-Smtp-Source: AGHT+IGY7JyWdhKpgajqR9Tbd8baVb8qFGtetsoqLljI1e5CZifGPT8r4QF8+bS7K8lmPVKC4Ks1NQ==
+X-Received: by 2002:a05:600d:41c4:b0:471:7a:7905 with SMTP id 5b1f17b1804b1-471007a7a8bmr46415245e9.34.1760601548125;
+        Thu, 16 Oct 2025 00:59:08 -0700 (PDT)
+Message-ID: <22e7ed27-0bd3-4735-aa2f-f3b31b5a03e4@suse.com>
+Date: Thu, 16 Oct 2025 09:59:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 2/3] x86/vLAPIC: drop VLAPIC_VERSION
+Subject: [PATCH v2 3/3] x86/vLAPIC: properly support the CMCI LVT
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -124,57 +124,127 @@ In-Reply-To: <37ba42d2-c89a-4c19-a1d8-b4a9c32f677a@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-In preparation of making the value somewhat dynamic drop the constant.
-Replace its use in guest_wrmsr_x2apic() by actually fetching the LVR
-value.
+Rather than unconditionally accepting reads and writes while discarding
+the value written, make accesses properly conditional upon CMCI being
+exposed via MCG_CAP, and arrange to actually retain the value written.
+Also reflect the extra LVT in LVR.
 
+Note that this doesn't change the status quo of us never delivering any
+interrupt through this LVT.
+
+Fixes: 70173dbb9948 ("x86/HVM: fix miscellaneous aspects of x2APIC emulation")
+Fixes: 8d0a20587e4e ("x86/hvm: further restrict access to x2apic MSRs")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2: Use MASK_INSR() right here.
+The Fixes: tags are referencing where the explicit mentioning of APIC_CMCI
+in what are now guest_{rd,wr}msr_x2apic() was introduced; the mis-handling
+really pre-dates that, though.
+
+In principle the later assignment to "nr" in vlapic_do_init() could now be
+dropped again. I wasn't quite sure though whether that's a good idea.
+---
+v2: Introduce vlapic_has_cmci(). Re-base over change to earlier patch.
 
 --- a/xen/arch/x86/hvm/vlapic.c
 +++ b/xen/arch/x86/hvm/vlapic.c
-@@ -31,7 +31,6 @@
+@@ -31,10 +31,19 @@
  #include <public/hvm/ioreq.h>
  #include <public/hvm/params.h>
  
--#define VLAPIC_VERSION                  0x00050014
- #define LVT_BIAS(reg)                   (((reg) - APIC_LVTT) >> 4)
+-#define LVT_BIAS(reg)                   (((reg) - APIC_LVTT) >> 4)
++#include <../cpu/mcheck/x86_mca.h> /* MCG_CMCI_P */
++
++#define LVT_BIAS(reg)                   (((reg) - APIC_CMCI) >> 4)
  
  #define LVTS \
-@@ -1015,7 +1014,7 @@ int guest_wrmsr_x2apic(struct vcpu *v, u
-     case APIC_SPIV:
-         if ( val & ~(APIC_VECTOR_MASK | APIC_SPIV_APIC_ENABLED |
-                      APIC_SPIV_FOCUS_DISABLED |
--                     (VLAPIC_VERSION & APIC_LVR_DIRECTED_EOI
-+                     (vlapic_get_reg(vlapic, APIC_LVR) & APIC_LVR_DIRECTED_EOI
-                       ? APIC_SPIV_DIRECTED_EOI : 0)) )
+-    LVT(LVTT), LVT(LVTTHMR), LVT(LVTPC), LVT(LVT0), LVT(LVT1), LVT(LVTERR),
++    LVT(LVTT), LVT(LVTTHMR), LVT(LVTPC), LVT(LVT0), LVT(LVT1), LVT(LVTERR), \
++    LVT(CMCI),
++
++enum {
++#define LVT(which) VLAPIC_LVT_ ## which
++    LVTS
++#undef LVT
++};
+ 
+ static const unsigned int lvt_reg[] = {
+ #define LVT(which) APIC_ ## which
+@@ -57,6 +66,7 @@ static const unsigned int lvt_valid[] =
+ #define LVT0_VALID    LINT_MASK
+ #define LVT1_VALID    LINT_MASK
+ #define LVTERR_VALID  LVT_MASK
++#define CMCI_VALID    (LVT_MASK | APIC_DM_MASK)
+ #define LVT(which)    [LVT_BIAS(APIC_ ## which)] = which ## _VALID
+     LVTS
+ #undef LVT
+@@ -78,6 +88,11 @@ static const unsigned int lvt_valid[] =
+ 
+ static void vlapic_do_init(struct vlapic *vlapic);
+ 
++static bool vlapic_has_cmci(const struct vlapic *vlapic)
++{
++    return GET_APIC_MAXLVT(vlapic_get_reg(vlapic, APIC_LVR)) >= VLAPIC_LVT_CMCI;
++}
++
+ static int vlapic_find_highest_vector(const void *bitmap)
+ {
+     const uint32_t *word = bitmap;
+@@ -697,8 +712,17 @@ int guest_rdmsr_x2apic(const struct vcpu
+         return X86EMUL_EXCEPTION;
+ 
+     offset = reg << 4;
+-    if ( offset == APIC_ICR )
++    switch ( offset )
++    {
++    case APIC_ICR:
+         high = (uint64_t)vlapic_read_aligned(vlapic, APIC_ICR2) << 32;
++        break;
++
++    case APIC_CMCI:
++        if ( !vlapic_has_cmci(vlapic) )
++            return X86EMUL_EXCEPTION;
++        break;
++    }
+ 
+     *val = high | vlapic_read_aligned(vlapic, offset);
+ 
+@@ -868,6 +892,10 @@ void vlapic_reg_write(struct vcpu *v, un
+         vlapic_set_reg(vlapic, APIC_ICR2, val & 0xff000000U);
+         break;
+ 
++    case APIC_CMCI:         /* LVT CMCI */
++        if ( !vlapic_has_cmci(vlapic) )
++            break;
++        fallthrough;
+     case APIC_LVTT:         /* LVT Timer Reg */
+         if ( vlapic_lvtt_tdt(vlapic) !=
+              ((val & APIC_TIMER_MODE_MASK) == APIC_TIMER_MODE_TSC_DEADLINE) )
+@@ -1024,9 +1052,12 @@ int guest_wrmsr_x2apic(struct vcpu *v, u
              return X86EMUL_EXCEPTION;
          break;
-@@ -1439,7 +1438,9 @@ static void vlapic_do_init(struct vlapic
+ 
++    case APIC_CMCI:
++        if ( !vlapic_has_cmci(vlapic) )
++            return X86EMUL_EXCEPTION;
++        fallthrough;
+     case APIC_LVTTHMR:
+     case APIC_LVTPC:
+-    case APIC_CMCI:
+         if ( val & ~(LVT_MASK | APIC_DM_MASK) )
+             return X86EMUL_EXCEPTION;
+         break;
+@@ -1438,9 +1469,11 @@ static void vlapic_do_init(struct vlapic
      if ( !has_vlapic(vlapic_vcpu(vlapic)->domain) )
          return;
  
--    vlapic_set_reg(vlapic, APIC_LVR, VLAPIC_VERSION);
-+    vlapic_set_reg(vlapic, APIC_LVR,
-+                   MASK_INSR(0x14, APIC_LVR_VERSION_MASK) |
-+                   MASK_INSR(ARRAY_SIZE(lvt_reg) - 1, APIC_LVR_MAXLVT_MASK));
++    nr = ARRAY_SIZE(lvt_reg) -
++         !(vlapic_vcpu(vlapic)->arch.vmce.mcg_cap & MCG_CMCI_P);
+     vlapic_set_reg(vlapic, APIC_LVR,
+                    MASK_INSR(0x14, APIC_LVR_VERSION_MASK) |
+-                   MASK_INSR(ARRAY_SIZE(lvt_reg) - 1, APIC_LVR_MAXLVT_MASK));
++                   MASK_INSR(nr - 1, APIC_LVR_MAXLVT_MASK));
  
      for ( i = 0; i < 8; i++ )
      {
---- a/xen/arch/x86/include/asm/apicdef.h
-+++ b/xen/arch/x86/include/asm/apicdef.h
-@@ -15,7 +15,10 @@
- #define			GET_xAPIC_ID(x)		(((x)>>24)&0xFFu)
- #define			SET_xAPIC_ID(x)		(((x)<<24))
- #define		APIC_LVR	0x30
--#define			APIC_LVR_MASK		0xFF00FF
-+#define			APIC_LVR_VERSION_MASK	0xff
-+#define			APIC_LVR_MAXLVT_MASK	0xff0000
-+#define			APIC_LVR_MASK		(APIC_LVR_VERSION_MASK | \
-+						 APIC_LVR_MAXLVT_MASK)
- #define			APIC_LVR_DIRECTED_EOI	(1 << 24)
- #define			GET_APIC_VERSION(x)	((x)&0xFF)
- #define			GET_APIC_MAXLVT(x)	(((x)>>16)&0xFF)
 
 
