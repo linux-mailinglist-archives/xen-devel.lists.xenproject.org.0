@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FF1BBE8D46
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Oct 2025 15:26:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1145199.1478313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DFD2BE9202
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Oct 2025 16:15:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1145221.1478324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9kT0-00012y-0a; Fri, 17 Oct 2025 13:25:58 +0000
+	id 1v9lEP-0007Cz-LC; Fri, 17 Oct 2025 14:14:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1145199.1478313; Fri, 17 Oct 2025 13:25:57 +0000
+Received: by outflank-mailman (output) from mailman id 1145221.1478324; Fri, 17 Oct 2025 14:14:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9kSz-00011S-UF; Fri, 17 Oct 2025 13:25:57 +0000
-Received: by outflank-mailman (input) for mailman id 1145199;
- Fri, 17 Oct 2025 13:25:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1v9lEP-0007At-IH; Fri, 17 Oct 2025 14:14:57 +0000
+Received: by outflank-mailman (input) for mailman id 1145221;
+ Fri, 17 Oct 2025 14:14:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vay5=42=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1v9kSy-00011G-UH
- for xen-devel@lists.xenproject.org; Fri, 17 Oct 2025 13:25:56 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cfc34a48-ab5c-11f0-9d15-b5c5bf9af7f9;
- Fri, 17 Oct 2025 15:25:56 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-63c444fe704so245705a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 17 Oct 2025 06:25:56 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-146-38.play-internet.pl.
- [109.243.146.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-63a5c134141sm19045054a12.34.2025.10.17.06.25.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Oct 2025 06:25:55 -0700 (PDT)
+ <SRS0=rDIu=42=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1v9lEN-0007Ak-H2
+ for xen-devel@lists.xenproject.org; Fri, 17 Oct 2025 14:14:55 +0000
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c105::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a5e64b7a-ab63-11f0-980a-7dc792cee155;
+ Fri, 17 Oct 2025 16:14:53 +0200 (CEST)
+Received: from DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
+ by DS0PR03MB8200.namprd03.prod.outlook.com (2603:10b6:8:293::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.11; Fri, 17 Oct
+ 2025 14:14:50 +0000
+Received: from DM6PR03MB5227.namprd03.prod.outlook.com
+ ([fe80::c9a0:563d:c344:aec2]) by DM6PR03MB5227.namprd03.prod.outlook.com
+ ([fe80::c9a0:563d:c344:aec2%5]) with mapi id 15.20.9228.011; Fri, 17 Oct 2025
+ 14:14:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,161 +47,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cfc34a48-ab5c-11f0-9d15-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1760707555; x=1761312355; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jgS9zmI+/7b9FcLYt9Iza8f/bxKDs83ZeWeGjzjEzZU=;
-        b=HB+JQFC7QI51ga0qwjJf6pM5ZHcdlAQUtcLjW0+lTjPYsD6kqWeyCQtrggezB+XhP6
-         ohpMLuppFobVlQHMmbCDlBVGpYy3UHUge6IZQVMJArEW/qjGgj3n3zwoVk6wsd1rRQoC
-         Lqi5IlogMRt6mZZ4BdJryk83d5mMzg4OamPSgGLOkbho7IZzS2E8RlgY/uDp2wTGMkuF
-         r8Rsv1rqrSU6t0X8amOSHGBUXF7zLXLhASSXSXMR8HupHts4vVS63uq9ksPP4Uyup15K
-         Ed76hv1Scni8QgYzwmJ/Wl08srq3smVdh08CMTfoXG+xYl59hLNesz3GhskeP0DoojnJ
-         +1qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760707555; x=1761312355;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=jgS9zmI+/7b9FcLYt9Iza8f/bxKDs83ZeWeGjzjEzZU=;
-        b=abiZanTqRKcXvfIie3SdrAvgs3rKEQkNT//BAfnk/NJ6JOUxSi3HGJm1xxTwxWyVnn
-         3BseBjkudSEveCjtp3kZIK6LVqtPbZaUm5pYHdjLukKJum2D2ss3slVoP/v5yDsXfodN
-         dEpLtfVtFq/hXVZGzuM4X6U7XZkAXJdj9inJWVybQkzSyERI2AndN0elBFIkIn/Fy+6I
-         jAU7OgWScmPxmTPPcTQrzMUg2jT9zNfAcUxfiY3ROLf5l6hcv4xrfKneZWSjsmwTDu9d
-         G0diniYNwms1k/DvPQqbQjaV6RnjQWZckVqLsK7D5gaT+dsfuOpElZ/aKDHmYuFJw/kv
-         PYvg==
-X-Forwarded-Encrypted: i=1; AJvYcCXaP20NvixKjmO0dAujR7yrYWb89a/3AZyx8hfYU4hxkRTpc3z4sEnGVwi7HKgmjD7qcgwQ4ZPV0WA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzqfPk6azhwP56P7B0lGDQCuZZ6qVGqJV0JMRS00XFiwdMqGGPj
-	CQKDSkBLqmFnGYxIuFrNfuiAY0EnzREWblhZOA6tmn3yVER3k77LdWlDD3rubQ==
-X-Gm-Gg: ASbGncv2WVpOZYSCn39NQwh/kSK+c/MTmFzsNDd6jOwnoL/9zi2M4PAsFd+Id/koq30
-	NX2+XS55fzS2S6itXcnHrXZ+05csLDbw6NauE/tztS7ss7nleLnR9d+NC5FCWe6MG1SvOJosBlH
-	3zztiN+iAfeBWXUJ3YvmSZ5YU2vJze2P6nCKFwrJMHmosZQ7DKy/WJvagr7rJuG7GBpZJvpVExg
-	b1z890/fxoyutCvG/kUTFEZLtVVVBf9o9jci9LKjHp8xPlbg3EBzf/+TVO7Ag0wDDHax9uWFDpJ
-	+vIG0dwRfcO+8g/hrGiU1yj6l9Q6/QM+Nqjbzk1AuPartyF5+P4SSsbCqAL/0xIAhFf2vTgn3e/
-	f8HXsdLOXsUK3NApT0TRNSUQj1/E2zVHke7AQHKHjvpTorxsaXNEIIZ20ACYQswkWE+nQazRo6n
-	z6Tckpw3GW9XntRGbKAMXp5Aqmx50HkoKIrXDl3lGZdtZSm5+mYlx7Ze+OIniKgTvbLu4=
-X-Google-Smtp-Source: AGHT+IFdadC86EyeO7qYW1fQkHG2Zz5/1L6LUcB2GLghwevzPPu7ihPazNP/U4zirwSgru32xfbuyg==
-X-Received: by 2002:a05:6402:1471:b0:63b:69e1:7a53 with SMTP id 4fb4d7f45d1cf-63c1f6b4d1cmr3371987a12.21.1760707555348;
-        Fri, 17 Oct 2025 06:25:55 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------NcLsiwYpvCVyv4aFyxDKepn8"
-Message-ID: <805ce5a2-afeb-4fbb-b070-9b662b462c7e@gmail.com>
-Date: Fri, 17 Oct 2025 15:25:54 +0200
+X-Inumbo-ID: a5e64b7a-ab63-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cvke+1iwVeq2SVODEsoXdlgtn6EOmFNsxeNMlQlyOxl8IwTqiIlpSFzTd9y7o+Y39YeV1WjSyApHdII5/SwboYO6SQwtYF21/x8qKqgW2fPeIlIKzL4iKexE0S61EkV4OuE97urEqEgtrROR8dPisQZS/oOuOLrJ3+ZwTqMkrUq7cdo9oLWs3XaSsxSBb3pyYMsd+RNcFlDRgFD00BXk6AGRoKWDXMacN87dE7uMNN3u1rAh+xSK6igYBShN3L/f7iP6FG4x9YFYTSIXtDM2kKjOG99MQqw5S1Drvy7OcmYvSlr/2fqHcBOiVt8wJwaWaqeceidw8t6hzlphWh9O9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0gQj1pMsmb7+ZVEz8JVRpOUrAauqwu3sRsy1uxzpjAw=;
+ b=FF1JorMKLzR9XODvpoyysiCsw1ja4vTLGNhuukajlSlAy9ISQO7TJfSFxFVYhEa1Zdw4zdEhxoi8stZhRGYFMtYZsRwzA4YB+DAfO4HWSgdGPPOTD2TFKrq9gXZtirPnv5iDA1i3YKCxH8qJlJ5X8tvxnrlUXRRxPQC+7d7ENgRPToKX+zmocO9/w1GYEosBAw/QcoIywR2pVzkq2Dv4mWayS9xKMaAcHI4BRVNGSkGD/IFPuP/xLS5Jjj0E69JwFxCVMUWZkPjbxo5MZrC7Abd4XwdAZQv36S/ykoTWtHAg13gjy7dZdBF2yy15zTdc0uyLBUGrW8XrwauyT5pKPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0gQj1pMsmb7+ZVEz8JVRpOUrAauqwu3sRsy1uxzpjAw=;
+ b=SvIxsEG69gO10qldD+EVEV2QAqTOhNYMmQRXi/vzih2Zmg6N9Cd/mUBmv+3pGVJQc+0Ai6If/wR4Br2QfGWrU5VTY1wnyhIIbsHkvgfM0g0/0vjesaH6zaiF2czDHKUMkTBLSbSyic9iGwcqtm86nQ5i7m3+Lg7ri7ak6bBhyJA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: oleksii.kurochko@gmail.com,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH for-4.21] tools/libxc: fix xc_physdev_map_pirq_msi() with PCI segments != 0
+Date: Fri, 17 Oct 2025 16:14:34 +0200
+Message-ID: <20251017141434.15205-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.51.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PAZP264CA0008.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:21::13) To DM6PR03MB5227.namprd03.prod.outlook.com
+ (2603:10b6:5:247::22)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21] x86/ucode: Fix missing printk() newline in
- ucode_probe_amd()
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20251016232646.2688404-1-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <20251016232646.2688404-1-andrew.cooper3@citrix.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR03MB5227:EE_|DS0PR03MB8200:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73ed0ed6-a978-49f7-c86b-08de0d8788f9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?YUc0NmNWM1IrOWlobTR6R0RwK0hSTnlCZ1R3TzRUcFlWMjllNXF5MDBLa1ha?=
+ =?utf-8?B?UjVPSFBJVGhLNmZoZjUxVElha3RtZndzUW9mdlM5NFhCWXZtY0g0cjBpZWR6?=
+ =?utf-8?B?Rk5aZGo1Sjd4UjlFRkhKMEEvZHg1N01vb3RlZmxLK1ROazJzYzBPR3h0eERR?=
+ =?utf-8?B?anRDUTJpTlFmYjJraStUV2lDRnFpZ3Y0dVJYV3VtS3M5QXc5bmhablVTZGx5?=
+ =?utf-8?B?dGJZK0VPbHAvRzE3aHorbENrbCtMUVl4WitqMzl0NFFLWE5OTDZkVVNudGJM?=
+ =?utf-8?B?UGFFZG5uMTlZQjBnRWYrNG1RTkFsNHl5azFxZDg4T1U4TllTTVkrOUZiN0lj?=
+ =?utf-8?B?aGNtbUNQVmFwdDYyREI1VDRZeGd0K2Q0aEZoRXZqaVNCU092Y0Q1anViM2Zp?=
+ =?utf-8?B?bTdWYnlHeW5lT3Uvd05haEFHTG5Kd25UN3ErN1N0MnhmQ0k2SDRwUkdQTUl2?=
+ =?utf-8?B?ZU10c1NCZjZaQW5PZ1VCUkpqU1BZWmhvaHJOM1RkNTIvaDNObmUydEJWcjZy?=
+ =?utf-8?B?Sm5Hd1JQTzVyeUNUOHVDWnhaRXBtRm9pZWVHc01oYjM5cHZjVThmd1hhd0pO?=
+ =?utf-8?B?UGVpVC9SY2ZsNGNXMytIVzNUVTJTZlNJWnNhN0dhdnl2a3VzOW5nWHNrS2g1?=
+ =?utf-8?B?UW9Kb1RmUmh6b0VGOXBIdnNqQ1NlR011WmprNzA0SEdENkUrS0VYQWZhamtG?=
+ =?utf-8?B?LzZaYXFxUGp2MENZUzZZT2Y0bTJXTkZZWGpCNEZ5eGhwQ2U3SEhvcTFYSk5w?=
+ =?utf-8?B?eFFNSFVORGhiOVZtZE4ycnJ3L3ZvcTMwTnpNSE0veis3RXF6RyttN0o0Y29v?=
+ =?utf-8?B?Q1VHQnp2eENxTWtndFZKRDF6dWMwVjQ5bjlEbCtYSWUyWitGTmY0QllNYXJZ?=
+ =?utf-8?B?K05URnAxdVNqM3ZpUnZPRkl6U1lMeCtPZ2l0YnlGb044OWVzRVZoeXFiQWRT?=
+ =?utf-8?B?UmljWUJIWEUxQVFNK1grOGNqcW4yVGEvaGZzUzhTcEVyMTdweEhlQnlkbVY3?=
+ =?utf-8?B?dWwwZnpXNW9VakxhcXJZODl6Y1gxZTIyUndOUjE4d2hTZUp5cXo4b0NoTnds?=
+ =?utf-8?B?SlI5V2NtZWhxdWVweFBqSlFrYTZCYjZyczNmWWdQT1RsU2JnQWpPL3lUY2Fa?=
+ =?utf-8?B?bWFtMThGNitIQXVnM1BjdE16RlFmNUNVMnhmSllrWm55UWoydVA2Q3kydmJU?=
+ =?utf-8?B?RGVQYUE4VlQzdnJvM3ZOTThxTWFaQnY3ajVZeVZ3Z0VreWdzYkY5bjBlYzkr?=
+ =?utf-8?B?c0RremV5SU0wMmF4S2F2OFNwVS9QakVEYUhSNzNCeDFYSWtHSlVibGxSS3Vu?=
+ =?utf-8?B?WW5ma2puUmJKd1Zra3l0TzlwR0QyMDBNQnpSam5uOERZMmlGeFFobmVldi9r?=
+ =?utf-8?B?eVNBcDlxMDBUbzNlaHNhYWpOVFZaMW5CV21TRTAyUUJkODE4blZ4QmV3OUF3?=
+ =?utf-8?B?allyNWduY2tFK2oxODF4NThOc1g2WnBSMkEzN1IydXdLVi9IY0NCeS9KT0sr?=
+ =?utf-8?B?alhvdmJ4NGhCTXJEckl2YUgzMHNKbmtXMWprMWJOSFN6WlJvbGF2aVZKTzlG?=
+ =?utf-8?B?VTlPVG5PZGZWZlpHaFlkenIza1p5K0xxeHNqVXQ1QVh6Qm43cUxvVHcxemlE?=
+ =?utf-8?B?ZTd4WkRKUURFK3pUZ1RGZ1hSOUl1VlNrd2dUZVlsWklDM2llRVF1VTRwckFq?=
+ =?utf-8?B?VDRtUjR3a20rTlluLzQrdFNoa0FnbnJDVU5iczFRSFNXY0M0RHV1Yi9BZGlP?=
+ =?utf-8?B?N2JNb0tLVTk3Sk9zOFlJd2pYdi9jWGROSmxVT0x3ZkQzTDh5eEo5ZHAwUTcw?=
+ =?utf-8?B?TVNlbEJMZklhSXA5Mmt4TzdLbk5rcFNxeDA4WGUrLzFOWE5BZWlTQ01MQmZB?=
+ =?utf-8?B?VEtsWUFrV3M0b29QeWkxczd2enJIY2lQVDlRWkhiWjBKT1hDQ1FuR2I2WU4v?=
+ =?utf-8?Q?QtLrWk/YRwhu5GJVjquHIzpTNr69kv9d?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB5227.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R1NISUZOUkYzNi85VzZHS1pBZmFXaCtpaEY2NGh0L3FwMDlRM0w5dnZyYkt1?=
+ =?utf-8?B?WEV6ZDhyUUdrNEsvamFoalpaZjRXWDFzTFRJQ1ZGdSszcmRhV1h6b0RLcThh?=
+ =?utf-8?B?enk2QXZROFNqa2haaXlmb0hYZ1J2RldhZmNWQTJ5cE1kdUoxalJZaEkzaG9j?=
+ =?utf-8?B?cy9oRFVxS1BmZnRNcWZ2eGVyR250QWhPQ1hGWTN1OCtpbEdkQmt3WDd2ZVpx?=
+ =?utf-8?B?UnVNUzBCVFNsWE1ZT21KbElQRk1PVktQMVVqNXR5cUtiZUgvN2hIRzM2Q1hs?=
+ =?utf-8?B?U3lQMy8vdGtmWkRIWU1vWW9LNWpjTnJtRXV4YVdaVTRrenJhazdTRVc5cEhO?=
+ =?utf-8?B?cjMwczRMQnVzQld5QXBndDFaelBydVdsbkJmTndTbDVVbzVuUXo2bnZTMnVY?=
+ =?utf-8?B?UnFpZEZWdk11ZmtBQXkyOTJ4TFFlWXZ3dW16US9XRnN6eUFoOWVBbXNJR0xD?=
+ =?utf-8?B?S0hzWVN1OEgvMksvdHU3NHYvd3RPTHNtTzQybE9KM0o0L2RldXhvYW1hakhi?=
+ =?utf-8?B?cVdoRmkxRnVkT05RblNBY0pFbjV5MG41TW9VMmVQTzhtdVQrTVEzOHZHVWcy?=
+ =?utf-8?B?U2M1ZDFYZmcrQzdoc3ZnczhTbmprZjc0UUxhQUd1akpqSmR2a25vYmZHeUVz?=
+ =?utf-8?B?ekxPMzBDWENCMjlxOHY4SWtZNWdsTkZkYkRiRE1RMnZlKzZqTEFxMlFKZmFK?=
+ =?utf-8?B?YUgwVXlKRlVPWDBMbzhPK09naVZacXVxS0FESTA2SXdWUndiR1Y3WGZWSEFX?=
+ =?utf-8?B?TktRaXFqZGVuL1l3Z2RVZjM2ZXJSK0FNdGlGS243VHBXN1MzSFdqdjIxSWds?=
+ =?utf-8?B?cUxZRGpRT2RUUXJ1K3NCWjMxY1FFbWI3REJzcVNBcGxDOWRHUEVJZjZFMnhu?=
+ =?utf-8?B?SVRKNGZPemxQeXBHV1hOVW80akE3SVlhbWFxOW9FZXIydXMvMjY1c1dXUkhr?=
+ =?utf-8?B?bXk3REFkTEFkcVZHQWR3YmM1Z0NteHFEY2lGa210cDFzeEV3R25vZHQ3WTFm?=
+ =?utf-8?B?emY0Y2pmUTk0L2c2cnJZUVBnYzluam9pR3VKNWFZeGJoYm1hcmdjUUFyY3Fw?=
+ =?utf-8?B?MTNlUDZEWXFaSnpzMTJHajkxZ0VWOElGMmEvaVpLNWhvTlF1QUZPR3Z3aWtY?=
+ =?utf-8?B?VzQzUVlqRHJrTFJodjhGWmxnd2c4ZzA1T2g3Rit0UFFOcGF1WFMzVUxhTUlP?=
+ =?utf-8?B?anczUTFrblJoSEtlTjhxbWhSc1c0K1FPUHJMUXV5NGRka0VUUm45aDJYcFlF?=
+ =?utf-8?B?VmZRZmJGWm05cS9SNHFTWlZBTzc1SlZGbUl3dnd3SkhWNlpUaUlvWGNEVldV?=
+ =?utf-8?B?TVM2eDc5NnJRRncyd01kOER1SU9SREpNd0lIV0tST2NybmVlVVdvTzRaQzZB?=
+ =?utf-8?B?dklTL0VVeS92U2FRQlN6dlgwdithcnpkb243cFluT0xSU1BLVktHRm5JYXpG?=
+ =?utf-8?B?VXhicTBzdmpUd0ptcHdoaWF3NDhXUmtrMjQ2RlhqQU5USXJUV09hbDAwTytF?=
+ =?utf-8?B?cmErMVhxREM3SERIUHUvZnE3ZlA0bnNVVmpKWVlDdHUxaTZ5SkUvUTkrdVdV?=
+ =?utf-8?B?NmlIdUQ5UzRVSWFMQzVHbm5td0VyVCtIbnVzclFIc1VNeXNqcEI4bGZxWG5x?=
+ =?utf-8?B?RlVnZnFWRTdua0FHemFzTW1sVTNDMmJFUDRIRkJ4R2tvdzZOVkdham5tYlFH?=
+ =?utf-8?B?RVhBNWJEZHJCZDlzaDhjZUtMbkY3STE5a1lFZkRPL04vaThaVittU1FCUzdy?=
+ =?utf-8?B?WFB5MkNyQWVHUXhuMzNYdmMwTzRIeExwN3BZR1pHelR3UjFNNWo5Q3A2RDdZ?=
+ =?utf-8?B?aGVpQ3NGRTlWZWFBV3hzWDdBSk01RzdhZFM4UzRwR2tvSTFxbDBSTlAwTEZu?=
+ =?utf-8?B?cnc2NlJkT1gyRGFicmFWVlBLWVpCUVJuUkFWNEVWUUswQkxEckc1WUhxeE9I?=
+ =?utf-8?B?aDVBMTVodHhKQmwzOURhYVFNaUJqSWs0aW40UXhjVER1bS9QQW50SmZ6dzJW?=
+ =?utf-8?B?Z203ZkMwdG1KK2hONEk0YjhKQWdvZERyU3dnMUp4amEvVlM1dUtEMHZObXZV?=
+ =?utf-8?B?QXhtUUhrNUk5Uzh3WmkyWXQ0UDlUN1hFdDRLZTJmMjFjZW5kRFRZVEduanp2?=
+ =?utf-8?Q?lnXYoH1XQKRNw05IQ7INHJ6Bu?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73ed0ed6-a978-49f7-c86b-08de0d8788f9
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5227.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2025 14:14:50.3713
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cchmitaVasJgGwOIOw8grKdokPUMKA/UbFeC90XVl4wYsUyrXPit7Nww6IhRECqtHQaf3QBcGGHC58qBTc9wEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR03MB8200
 
-This is a multi-part message in MIME format.
---------------NcLsiwYpvCVyv4aFyxDKepn8
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Otherwise it's not possible for device models to map IRQs of devices on
+segments different than 0.  Keep the same function prototype and pass the
+segment in the high 16bits of the bus parameter, like it's done for the
+hypercall itself.
 
-
-On 10/17/25 1:26 AM, Andrew Cooper wrote:
-> Fixes: 630e8875ab36 ("x86/ucode: Perform extra SHA2 checks on AMD Fam17h/19h microcode")
-> Signed-off-by: Andrew Cooper<andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich<JBeulich@suse.com>
-> CC: Roger Pau Monné<roger.pau@citrix.com>
-> CC: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->
-> For 4.21.  This is a formatting fix with basically 0 risk.
->
-> It is encouraging that no-one has reported this bug so far, because it
-> suggests that no-one has turned off digest checking and then looked at dmesg.
-
-Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-
-Thanks.
-
-~ Oleksii
-
-> ---
->   xen/arch/x86/cpu/microcode/amd.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
-> index a5729229a403..59332da2b827 100644
-> --- a/xen/arch/x86/cpu/microcode/amd.c
-> +++ b/xen/arch/x86/cpu/microcode/amd.c
-> @@ -519,7 +519,7 @@ void __init ucode_probe_amd(struct microcode_ops *ops)
->       if ( !opt_digest_check && boot_cpu_data.family >= 0x17 )
->       {
->           printk(XENLOG_WARNING
-> -               "Microcode patch additional digest checks disabled");
-> +               "Microcode patch additional digest checks disabled\n");
->           add_taint(TAINT_CPU_OUT_OF_SPEC);
->       }
->   
---------------NcLsiwYpvCVyv4aFyxDKepn8
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 10/17/25 1:26 AM, Andrew Cooper
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20251016232646.2688404-1-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">Fixes: 630e8875ab36 ("x86/ucode: Perform extra SHA2 checks on AMD Fam17h/19h microcode")
-Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
+Fixes: 7620c0cf9a4d ("PCI multi-seg: add new physdevop-s")
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-CC: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:JBeulich@suse.com">&lt;JBeulich@suse.com&gt;</a>
-CC: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
-CC: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-For 4.21.  This is a formatting fix with basically 0 risk.
-
-It is encouraging that no-one has reported this bug so far, because it
-suggests that no-one has turned off digest checking and then looked at dmesg.</pre>
-    </blockquote>
-    <pre>Release-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-Thanks.
-
-~ Oleksii</pre>
-    <blockquote type="cite"
-      cite="mid:20251016232646.2688404-1-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
+I think it's 4.21 material, as otherwise it's not possible to passthrough
+PCI devices on segments != 0.
 ---
- xen/arch/x86/cpu/microcode/amd.c | 2 +-
+ tools/libs/ctrl/xc_physdev.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
-index a5729229a403..59332da2b827 100644
---- a/xen/arch/x86/cpu/microcode/amd.c
-+++ b/xen/arch/x86/cpu/microcode/amd.c
-@@ -519,7 +519,7 @@ void __init ucode_probe_amd(struct microcode_ops *ops)
-     if ( !opt_digest_check &amp;&amp; boot_cpu_data.family &gt;= 0x17 )
-     {
-         printk(XENLOG_WARNING
--               "Microcode patch additional digest checks disabled");
-+               "Microcode patch additional digest checks disabled\n");
-         add_taint(TAINT_CPU_OUT_OF_SPEC);
+diff --git a/tools/libs/ctrl/xc_physdev.c b/tools/libs/ctrl/xc_physdev.c
+index 25e686d7b389..1307d6836d72 100644
+--- a/tools/libs/ctrl/xc_physdev.c
++++ b/tools/libs/ctrl/xc_physdev.c
+@@ -79,7 +79,7 @@ int xc_physdev_map_pirq_msi(xc_interface *xch,
      }
- 
-</pre>
-    </blockquote>
-  </body>
-</html>
+     memset(&map, 0, sizeof(struct physdev_map_pirq));
+     map.domid = domid;
+-    map.type = MAP_PIRQ_TYPE_MSI;
++    map.type = MAP_PIRQ_TYPE_MSI_SEG;
+     map.index = index;
+     map.pirq = *pirq;
+     map.bus = bus;
+-- 
+2.51.0
 
---------------NcLsiwYpvCVyv4aFyxDKepn8--
 
