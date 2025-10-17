@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 262F8BE7C85
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Oct 2025 11:34:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1145097.1478264 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0568BE7E80
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Oct 2025 11:55:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1145114.1478273 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9grC-0006Tf-HS; Fri, 17 Oct 2025 09:34:42 +0000
+	id 1v9hB3-0000w6-8y; Fri, 17 Oct 2025 09:55:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1145097.1478264; Fri, 17 Oct 2025 09:34:42 +0000
+Received: by outflank-mailman (output) from mailman id 1145114.1478273; Fri, 17 Oct 2025 09:55:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9grC-0006SE-EV; Fri, 17 Oct 2025 09:34:42 +0000
-Received: by outflank-mailman (input) for mailman id 1145097;
- Fri, 17 Oct 2025 09:34:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YhSQ=42=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1v9gr9-0006S8-Ry
- for xen-devel@lists.xenproject.org; Fri, 17 Oct 2025 09:34:40 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7fdab025-ab3c-11f0-9d15-b5c5bf9af7f9;
- Fri, 17 Oct 2025 11:34:38 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id EE26F4EEBC65;
- Fri, 17 Oct 2025 11:34:36 +0200 (CEST)
+	id 1v9hB3-0000tl-6D; Fri, 17 Oct 2025 09:55:13 +0000
+Received: by outflank-mailman (input) for mailman id 1145114;
+ Fri, 17 Oct 2025 09:55:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=k1Ob=42=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1v9hB2-0000tf-5c
+ for xen-devel@lists.xenproject.org; Fri, 17 Oct 2025 09:55:12 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5dd3c13b-ab3f-11f0-980a-7dc792cee155;
+ Fri, 17 Oct 2025 11:55:09 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-46e3a50bc0fso12977015e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Oct 2025 02:55:09 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4711442d9e8sm74996385e9.7.2025.10.17.02.55.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Oct 2025 02:55:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,172 +45,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7fdab025-ab3c-11f0-9d15-b5c5bf9af7f9
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1760693677;
-	b=qIvqJUjXdp+Ac5mT7biKLpmV30r/KEgsO80CGJfx8uUyqp7cjPbcfeCfphaHaHLtOzvc
-	 o2ewnldi3/H0Y7Jgcd3tt19sWvx37J3sAfXPuUaAi/uuVrrVpmZEWnysHY7aTPWSyLMhB
-	 rftN8YY7ARiL5oayXb8RU5BGDh1eJd/d3TSkL7DDEZ9CYtUlD82UFTBI25cx1DTgwr5lN
-	 0ZipUsBNkx1RoTnpYGRXCzlWjndCtXJ2WCVL/DJQuXHFKQuLeuOoBhyQTGrlekaX6ZC9Z
-	 vr/OuVLr4u12JEJwpA4mspKIavqtUXQGFSW+Xr8F0oYhKz3OgTSehK4sonCK2WKq18kUY
-	 KrYLdKSlqIHeVYbIRU6OEdbqKCQ+FlXJiJ9PlGHvdoASmcvQiUCBA8gZDuUq91f7oEKOT
-	 L/I2ZgWTmEzXuR7uPQp4vpeh6qX+N3sVVOtei1QCfPtKjQkN8GBAmqVdAdmPjtS9iRt4s
-	 efq/GzxVJ6+iNsCrw08xfDQQZfFVF/hL68JMrUAYG9YLGwkV8qp1uks0XuAdDXXZY58GY
-	 hkjyWpz+vzJvikBEt5dmShiBV8XJHGUHvTcqSgSWoGKrE1Daw6Ao8PDEkhLnYaxCxGZXk
-	 frLROMyy+ovxn8e0gYD2WtXP2cDlmK+ArNSjAI+weddtOm0l0tWtlZbENF458Ng=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1760693677;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8Dob8iM2aHXfbBl911tqjtAcDC5iDNRSRymFWrDdxoE=;
-	b=jCewZDLNKIxlwq080BobSwR2Hx5b+97EpiEtxibpdDFUX+cnAiZmK8SnmrC+scwDxiPz
-	 Pn8XWDuxo+TeArCPctyQ/Cv+vLvOLAcMVq7run5ottfFbpTHjPPGvBZM6uvpKUTca5z8H
-	 jkmsh8Q4m+9tmGbmGkFR7+EDkDxxRMTWH3F396ZUDxzo9bFZbZ34DOMr+l57Fejz6VBb2
-	 oANYJFbZTgzZbbVzUUN9FI0renpLBiKRTM1gKFVfu8LiXLF3eLZ0fXFFO6eVcEY71+Wkr
-	 wRvwvJ3SsfMLObJxlw3WC+mP8sgbYeUGfO7aAoVeWMEpPwmSrGHAqLiZQmYjbFhM2KBUG
-	 9Df+sSsSO25IuoKJVFc2DI4/En2sIiQEKeNBqgj8GLc5lcniJQ5DKJUc/3EyPL9lijIcK
-	 lxtGKWAiHC+AE71ro4qcib5YoSvmWLRU6GHqv15Kmxo+ZNo5UettQDfEEwwM5i+2ikGyV
-	 X4sdC8JYqEXQN34G/6MKpBt61Ewy2IMKNtITlIH1Dco50dHBGM1C6cqCYfGTZa8MZuq/k
-	 G6S0SEFeCxubFKejMJCx9uj4J60uLS0HKlZfb+pMjOyhQmsGhAL+WQsSVUzheHFxO4n5O
-	 Y+eIC8nu7jpKN1oaNGaabnB8mQmgffMnbbWodyxmsq9M3o3LtiTivgA0e8u4gS8=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1760693677; bh=2ldG8JCSdbKXFxu9jFZ/g3aH/dmvLGXIYiExH2g/NRg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=pzUjOzF4ryJgOEcHiSQzjDrcIlNisyUS78cFfRYovPXc7EuaYWIakAtBkVt+NWUjO
-	 ZaUBIyfchRd59FjYFHJ0EpxMoRX7NqigRv63tBGTGF7aAVbg8AQNXbXacvhHqX37Jq
-	 gNX2LCyIG6ap0+t5ZUWEAykkMcRF8vGBiH94RUh6AqKyEJrPApVzeO7CyAGjg8QPxg
-	 L0QQdFOBoZLHiuSONVmVQDA8a60OiKHVXdDTJ1yhdoPUGK/NBr6lu1sCNrjU8nxWLN
-	 KJErrMSm+5O9LSdVXyjZkTE4flo+ZiRn/26rV9hbHStkLUxdTw1PCawgGu7fJdiezB
-	 O+GtJ4zH2HTzw==
+X-Inumbo-ID: 5dd3c13b-ab3f-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1760694909; x=1761299709; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=xa86NOsetCb4HvBrnwhfwJ6TA3wmFEX7AIDAWzCLU0c=;
+        b=BtS8xbZfEw+VyM02k7sOco/romx3FELVFkSuAQ/kzdbdcGJzLhgfSJ8iCqcI1THSG+
+         NJnwzYF5ZLN/NTOYTFukChbBIANMQ6NgEXPNcP8xK3c1errTb9lWpPiJHB17IqXrP3qq
+         BboIOH3NkypeCzpOPyXy5uqOrJ5JeKCGPpxIdNuQMlPlUNmSCh/D/Oe0tVqzy4tvj9lR
+         UkEIR/gyQTfNIPh0tIVzTCkrGrIDeATV3Pohw2dUl89amG+fIXFRxviDT5TfoXjZ/Zfr
+         Z0LFELbmuAvOKbNyvtxWnKLcYGdtDeS6nNxCVh/hcC1fZGIHMmJsQS1mRwCxZ+NuvzGC
+         KSFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760694909; x=1761299709;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xa86NOsetCb4HvBrnwhfwJ6TA3wmFEX7AIDAWzCLU0c=;
+        b=lE6ukSzuOtA2VWqsV/qWsbLM4j8c7yqzzbc11xcigCzOKGegxiOhtlRGM1mtMfSuLW
+         u/0zy1N04Ez8gcNINGAw5eO2q10jmnbaHN6ow2JoHZPYso6M7AQ86dIv8Ot4O0zHaWBP
+         Nm/dEUbROiYogjEx+qJcPOfsFpmXj33KU8bzHOGdZ80a/1bbwOd990Ey8/M93/H7XrUR
+         Ot2or1FQL5BHSGaYMmM+f1xBg7LKkdHnDoNg1bvRAEPds7y59GQScNjQ5aznyzUkGqsx
+         HSYY8tFM15PhNYbO3XrAQPcKZwMKB5ygC67Xwhj1mOWEDwdD5o93WMcHjreeLhziX1tP
+         ZyEw==
+X-Gm-Message-State: AOJu0YzCn3d07LnrbbywRwfLAnXTMJUgjZjvUvN7fg9Bltv9eNEhbadE
+	lwKWWv1Znby4rWS7Xnqo3nX70LxkKA6lOj7B+cgtLZ6a4a3nF6v+bxI6KWsyHdvsBA==
+X-Gm-Gg: ASbGncv0JJpg4RuaBgFSEu51M5H9Z4JKSBrQADlg6Eu2stIM7uHzGte7DbUs/+NEVCS
+	utIuPpmQbQtDxA62OAWZrTT0LlVkUXDBgUCb7TMI7tYuE4tb97QoVKx44N3K6qwRRVz1xPXkq7c
+	PxMqkrPmMzzIysjlz6zaQuJ2uMx6Z5DazYmFuw7VMb49mg6zkJrjBnrkyo/0kRJ+ZTZRfQWeYl7
+	ZzCw/7kpWQU5QMxH+x4/HM8jCAKBWc7MYovv0j2WEjs2gDLQm6gLd0gRKo7a2kxxjAuZPJjrn9B
+	q4i5mVLGT9fq0k0PIeR4Ng6smtFd1Wfa+VVvD07N3iW4JJq5DsQimDMEkaFHJ/VAL09mpQmw/PQ
+	yCyEjd3j+rQMRHPMvjSvX4xgXkCvkaOmRu4FTTnj5YWHFQludczXnSLeA20iZaFBAgYjYtdb1wi
+	zoltv0iRE0whVH7n/qYYPjVJ1RwrCn1rajldztImhC4Q/hucx6Gt/2EhtuHwUgbKgJVdiSgAw=
+X-Google-Smtp-Source: AGHT+IGVNZO2zGDoOWOgIeBt/0TJ5M24B8T9sB8mvEJa2ZfEUhE5Uo6ol2p6Lqjryt2R9qIGR1oVUg==
+X-Received: by 2002:a05:600c:8b0d:b0:46e:39e1:fc27 with SMTP id 5b1f17b1804b1-4711787442amr22972575e9.5.1760694908957;
+        Fri, 17 Oct 2025 02:55:08 -0700 (PDT)
+Message-ID: <5b85e4f4-4091-4531-90b3-f735550cfc42@suse.com>
+Date: Fri, 17 Oct 2025 11:55:07 +0200
 MIME-Version: 1.0
-Date: Fri, 17 Oct 2025 11:34:36 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, consulting@bugseng.com, Doug Goldstein
- <cardoe@cardoe.com>
-Subject: [Ping] Re: [XEN PATCH] automation/eclair: add new analysis jobs with
- differing configurations
-In-Reply-To: <d4a0924c84e78b3f677b0d987c2f8e4b3f6b80a5.1758226234.git.nicola.vetrini@bugseng.com>
-References: <d4a0924c84e78b3f677b0d987c2f8e4b3f6b80a5.1758226234.git.nicola.vetrini@bugseng.com>
-Message-ID: <adf715553750d344517f8818233af41e@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.21 01/10] x86/HPET: limit channel changes
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <8d94abf8-70d1-478c-885e-ff9a960ac72d@suse.com>
+ <494c897c-a138-4d16-93b2-67e3aa8d41e7@suse.com> <aPILKoTwmUYK5p8H@Mac.lan>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aPILKoTwmUYK5p8H@Mac.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2025-09-18 22:16, Nicola Vetrini wrote:
-> The following analysis jobs are performed:
-> - eclair-{x86_64,ARM64}: analyze Xen using the default configuration 
-> for
->   that architecture; runs on runners tagged `eclair-analysis'.
+On 17.10.2025 11:23, Roger Pau Monné wrote:
+> On Thu, Oct 16, 2025 at 09:31:21AM +0200, Jan Beulich wrote:
+>> Despite 1db7829e5657 ("x86/hpet: do local APIC EOI after interrupt
+>> processing") we can still observe nested invocations of
+>> hpet_interrupt_handler(). This is, afaict, a result of previously used
+>> channels retaining their IRQ affinity until some other CPU re-uses them.
+>> Such nesting is increasingly problematic with higher CPU counts, as both
+>> handle_hpet_broadcast() and cpumask_raise_softirq() have a cpumask_t local
+>> variable. IOW already a single level of nesting may require more stack
+>> space (2 times above 4k) than we have available (8k), when NR_CPUS=16383
+>> (the maximum value presently possible).
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Whether this is still worthwhile with "x86/HPET: use single, global, low-
+>> priority vector for broadcast IRQ" isn't quite clear to me.
 > 
-> - eclair-{x86-64,ARM64}-safety: analyze Xen using the configuration for
->   safety, which is more restricted; runs on runners tagged
->   `eclair-analysis-safety`.
-> 
-> - eclair-{x86_64,ARM64}-testing: analyze Xen using the default
->   configuration for the purposes of testing new runner updates; runs on
->   runners tagged `eclair-analysis-testing`.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
-> Naturally the right tags to the runners should be set beforehand for
-> this to work as intended:
-> 
-> xen-eclair-runner -> eclair-analysis-testing
-> xen-eclair-runner2 -> eclair-analysis, eclair-analysis-safety
-> TBD -> eclair-analysis-safety
-> 
-> The last runner is not set up yet, but due to the redundancy can be
-> brought up anytime.
+> Seeing the rest of the series, I don't think this is necessary
+> anymore?  Also the comment you here is made stale by the patch that
+> uses a global vector.
 
-This runner has been brought up, it just needs the correct tags to be 
-set up. Can I get some feedback on the overall architecture?
+Right now I'm not quite sure, hence the remark and the patch being part of
+the series. If I re-work patch 3 to avoid the mask/unmask upon affinity
+changes, I think the one here can indeed be dropped.
 
-> ---
->  automation/gitlab-ci/analyze.yaml | 38 +++++++++++++++++++++++++++++++
->  1 file changed, 38 insertions(+)
-> 
-> diff --git a/automation/gitlab-ci/analyze.yaml 
-> b/automation/gitlab-ci/analyze.yaml
-> index d50721006740..a4cca00fd100 100644
-> --- a/automation/gitlab-ci/analyze.yaml
-> +++ b/automation/gitlab-ci/analyze.yaml
-> @@ -45,6 +45,21 @@ eclair-x86_64:
->      LOGFILE: "eclair-x86_64.log"
->      VARIANT: "X86_64"
->      RULESET: "monitored"
-> +
-> +eclair-x86_64-testing:
-> +  extends: eclair-x86_64
-> +  tags:
-> +    - eclair-analysis-testing
-> +  rules:
-> +    - if: $CI_PROJECT_PATH =~ /^xen-project\/people\/bugseng.*$/
-> +      when: always
-> +    - !reference [.eclair-analysis:triggered, rules]
-> +
-> +eclair-x86_64-safety:
-> +  extends: eclair-x86_64
-> +  tags:
-> +    - eclair-analysis-safety
-> +  variables:
->      EXTRA_XEN_CONFIG: |
->        CONFIG_AMD=y
->        CONFIG_INTEL=n
-> @@ -75,6 +90,10 @@ eclair-x86_64:
->        CONFIG_DEBUG_LOCKS=n
->        CONFIG_SCRUB_DEBUG=n
->        CONFIG_XMEM_POOL_POISON=n
-> +  rules:
-> +    - if: $CI_PROJECT_PATH =~ /^xen-project\/hardware\/xen$/ && 
-> /$CI_COMMIT_BRANCH =~ /^staging$/
-> +      when: always
-> +    - !reference [.eclair-analysis:triggered, rules]
-> 
->  eclair-ARM64:
->    extends: .eclair-analysis:triggered
-> @@ -82,6 +101,21 @@ eclair-ARM64:
->      LOGFILE: "eclair-ARM64.log"
->      VARIANT: "ARM64"
->      RULESET: "monitored"
-> +
-> +eclair-ARM64-testing:
-> +  extends: eclair-ARM64
-> +  tags:
-> +    - eclair-analysis-testing
-> +  rules:
-> +    - if: $CI_PROJECT_PATH =~ /^xen-project\/people\/bugseng.*$/
-> +      when: always
-> +    - !reference [.eclair-analysis:triggered, rules]
-> +
-> +eclair-ARM64-safety:
-> +  extends: eclair-ARM64
-> +  tags:
-> +    - eclair-analysis-safety
-> +  variables:
->      EXTRA_XEN_CONFIG: |
->        CONFIG_NR_CPUS=16
->        CONFIG_GICV2=n
-> @@ -120,6 +154,10 @@ eclair-ARM64:
->        CONFIG_DEBUG_LOCKS=n
->        CONFIG_SCRUB_DEBUG=n
->        CONFIG_XMEM_POOL_POISON=n
-> +  rules:
-> +    - if: $CI_PROJECT_PATH =~ /^xen-project\/hardware\/xen$/ && 
-> /$CI_COMMIT_BRANCH =~ /^staging$/
-> +      when: always
-> +    - !reference [.eclair-analysis, rules]
-> 
->  .eclair-analysis:on-schedule:
->    extends: .eclair-analysis
-
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+Jan
 
