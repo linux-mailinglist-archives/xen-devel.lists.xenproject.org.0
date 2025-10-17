@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6ED1BE6142
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Oct 2025 04:07:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1144843.1478075 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F744BE67E4
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Oct 2025 07:53:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1144884.1478085 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9ZrN-00064U-09; Fri, 17 Oct 2025 02:06:25 +0000
+	id 1v9dOX-00073E-Cg; Fri, 17 Oct 2025 05:52:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1144843.1478075; Fri, 17 Oct 2025 02:06:24 +0000
+Received: by outflank-mailman (output) from mailman id 1144884.1478085; Fri, 17 Oct 2025 05:52:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9ZrM-000634-TX; Fri, 17 Oct 2025 02:06:24 +0000
-Received: by outflank-mailman (input) for mailman id 1144843;
- Fri, 17 Oct 2025 02:06:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=E5B7=42=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1v9ZrL-00062y-8G
- for xen-devel@lists.xenproject.org; Fri, 17 Oct 2025 02:06:23 +0000
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazlp170120002.outbound.protection.outlook.com
- [2a01:111:f403:c001::2])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dec8375f-aafd-11f0-9d15-b5c5bf9af7f9;
- Fri, 17 Oct 2025 04:06:20 +0200 (CEST)
-Received: from SJ0PR05CA0182.namprd05.prod.outlook.com (2603:10b6:a03:330::7)
- by DS0PR12MB7993.namprd12.prod.outlook.com (2603:10b6:8:14b::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.11; Fri, 17 Oct
- 2025 02:06:15 +0000
-Received: from SJ1PEPF00002325.namprd03.prod.outlook.com
- (2603:10b6:a03:330:cafe::b9) by SJ0PR05CA0182.outlook.office365.com
- (2603:10b6:a03:330::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9253.6 via Frontend Transport; Fri,
- 17 Oct 2025 02:06:15 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00002325.mail.protection.outlook.com (10.167.242.88) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9228.7 via Frontend Transport; Fri, 17 Oct 2025 02:06:15 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Thu, 16 Oct
- 2025 19:06:15 -0700
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 16 Oct
- 2025 21:06:14 -0500
-Received: from fedora.mshome.net (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 16 Oct 2025 19:06:14 -0700
+	id 1v9dOX-00070h-9z; Fri, 17 Oct 2025 05:52:53 +0000
+Received: by outflank-mailman (input) for mailman id 1144884;
+ Fri, 17 Oct 2025 05:52:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=k1Ob=42=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1v9dOW-00070b-9W
+ for xen-devel@lists.xenproject.org; Fri, 17 Oct 2025 05:52:52 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 83adea99-ab1d-11f0-980a-7dc792cee155;
+ Fri, 17 Oct 2025 07:52:50 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-47103b6058fso10860675e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Oct 2025 22:52:50 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-426ce5833dcsm38253322f8f.19.2025.10.16.22.52.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 Oct 2025 22:52:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,181 +45,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dec8375f-aafd-11f0-9d15-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TOan3pdaA3JLa5TW3wY6NzXlzZzZWvQUzMTggOj5FNuEZtX7xT69Rv/XVTtx/dhBhBVqrWjg7Um3ihwyB41REvcPF2zlKhym56796x+avTMaJJk1bbrFZq7bY5TWMlThyUWLbbXbsoTDaKd35REcoUvcCteHw79xiPE7UrsLFVPiT8GaQWXLAhE6/tWOWYmIl6pMUvIqYcFPNMsT0VQZdlupcID7XuUDBAkMtDLiiEywu9BNxs/X1hRbKjcq1mOIljtErYHyuXCHUsPaNKTJDKV3MolYeEPNLOg4HHaw0yPqkECFAdgMX34E0gNUg7xRprzy0RUbljAwPnSxnNhENg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DxI9lOxDCuyTUAzAL7oPKcrGR+xyO4sju64Gbv2QO7g=;
- b=yci0z1d8yDxlL/x3Kdc0slPsZsgCLyr/0/qlPC5vNEQWSJ9GjL8NU6TwnbbGb3/KnNlcJ5h+zH/fDIRXF0hDwmleYUi3ttHSNAU7NtW03SYfUOQn3WSovbw+v+RjGReN6HWCnL1S3yI1pyUZQfR4dEPqCUznyQU8S1TWfJL31ZBhosTGgT9aoOyF2cnGm/crsNamelaKFyaKR0jxb6Ef+AxLGCM9c8v7fmQ406+4pyvUqiwBLTyv4g1BmyUoSX5QCIBzAsFHizsrzznmFAUeQ628U4Rj5bbow169e3FZP//CTyeniA6SlLI5FQ9YgWp0McS6T0G2hCRGcvqJ0BzblA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DxI9lOxDCuyTUAzAL7oPKcrGR+xyO4sju64Gbv2QO7g=;
- b=VaevSgv/LCfj8htExiNzV1BepTKya10rU+zq9ACN+Pyb6pp8IBNPhtcJ8JOcOEV+SfHqYYvNHNXPQhgdu6AwuGdoWwulPS4eNqu5DY3Qkzy2no4oYjZBMC7BYZNvf+mCm0Bd5vLEiF/4fD9uzk5UhPtgM3rWMjP+H6gAJJj0KBI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: <jbeulich@suse.com>
-CC: <andrew.cooper3@citrix.com>, <anthony.perard@vates.tech>,
-	<jgross@suse.com>, <oleksii.kurochko@gmail.com>,
-	<xen-devel@lists.xenproject.org>, Jason Andryuk <jason.andryuk@amd.com>
-Subject: [PATCH] tools/libxl: Make gentypes.py compatible with older Python
-Date: Thu, 16 Oct 2025 22:06:13 -0400
-Message-ID: <20251017020613.79855-1-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <81c56c9c-882e-4433-b41a-6952315efa25@suse.com>
-References: <81c56c9c-882e-4433-b41a-6952315efa25@suse.com>
+X-Inumbo-ID: 83adea99-ab1d-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1760680369; x=1761285169; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=NTetatIyzY9cEtxrSgAMjEmaS7y/8Tr6wbXzJx+Dhlo=;
+        b=DrY1s0jD5Y8RoUBffpChFp8cCxkY5R9KIxtikt/Wr9ZG1J7vavzFCE+5ji8cRr07jX
+         a3JbAy1gFREhF/o7x2EqLX0Bbcbh11g7MQnjAegcQL9b2MM1gSMVvaDQaQchBONPZhfK
+         B02/5l2HqmipxX5ZDt7pEGa5cnxjZQnsjIuSlCUfMRzxzFxXFI4fXU7XGWQLGhbQkWiw
+         ibgFRc/7Al5SQieOOtCuVBA+ZQ8WRGBfVgMJob8ZGrNP4HYp9F7QpgIvUi72V8vCjGbB
+         xdY6N7kCbWTbrUGB6KF7ToW/LMgyI3fktZ6xPYOeez1rnV9GWI8la9x7EJ6fW8zRnCdZ
+         AJ4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760680369; x=1761285169;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NTetatIyzY9cEtxrSgAMjEmaS7y/8Tr6wbXzJx+Dhlo=;
+        b=XpR6YBpg3Dje0AwBeEWYGzbHDY4chYqhmziJrVTrlWtT6pvH0w8w7NYG++pz5P621z
+         NWGrWZwbQFzZTqbS/Whfo+e1aL45zzSk363k2TlkbJDu7/S2zsWAJtDE4VXh2HqxqoE+
+         IJQ3R0zaQhZzzhtikIbQhdMzXiFlKaGBe3E6anhqD9xO1KfnrLJog20hDU4WtLHTctpM
+         GBFxpkY3xEgK1Reu5qR3629sBmeR8waoQAaRKqlDhf2GW0GalMyjLpnROPKsd8FwLLv4
+         2C8rYFcaEcNCYX36wLybUplvMOPmLTH+IRHIyLk/BCZIbKybVAnPlnTzhi6/7ai6zA00
+         kz4g==
+X-Forwarded-Encrypted: i=1; AJvYcCW+sxz7cIhOIXktaJyLeUs13KKO2/+M7AESrgGXAaFreuSZ/QoylenCSCnOJUDGIefhj3HGJQzcImE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyJnKrxFUp5+vEAm0nbo5lDKfyJPeNlp8wodrmCr9RkbrXWbIWH
+	q5VUF1Aug8EJbiP/g9yDWiiTyMY1T/pjU5nMebsR13hQmENGP0XnMqouRsDQjh0VhA==
+X-Gm-Gg: ASbGncuLYG27pLBEcSX7zikZae+GIumc7lZOvl9dnY7nx0JNfBQSn27AyxkRI+JrQKX
+	P5zFMydXxUFMKIS4jSIlWs6QWcVJTN++QmqccCxz7lazCn7FEKOGfx32+/W5bqc6zgSI7gPUD06
+	Ub/xW2e3rgX8ZljnzDTz7v4wYVjL+RdYig1MMOIKIPGXEJGO7/GGNABtJnR1q8LE1hmu6guMBpn
+	WB90PTBlNyotTgt6OmDSi+1FgBILJAGGUHlR3x7Cuel7Nf5k9yoWdQxmR+ouXdp488p7fiu/9hx
+	mpcYCqALI65WqlPTL1rqNYYGcbpZL60jd7YIA7XSE14geMMOlY3y/TtAo76d4m/3AHuh6igrN90
+	bSb0T9VfOH6OMeIniuWow0hSqYC/2GUEOEyZ+K6WU6OsMBsEVo4cWsL3N89B5CwkZea7Rzs7mny
+	J74HaZ4r7ielydmWeOSUyz2f16clZQKdPFBbQuZM6plpNbQcZxqqu5iMwvMpXoZBY5Ao6tsVI=
+X-Google-Smtp-Source: AGHT+IGMxz8kkh0Om07JgP7MPQ+oJZEvSlMhyft/C28h1hNcRK98uMbLfWvDkD/7M5Hgu08kuxuaQA==
+X-Received: by 2002:a05:600c:8183:b0:45f:29eb:2148 with SMTP id 5b1f17b1804b1-4711724e5bcmr19362475e9.7.1760680369510;
+        Thu, 16 Oct 2025 22:52:49 -0700 (PDT)
+Message-ID: <a9c6e131-95a4-4ee2-8f2c-c6748d5adeb7@suse.com>
+Date: Fri, 17 Oct 2025 07:52:47 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002325:EE_|DS0PR12MB7993:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3fc39fec-efe6-4bd7-0c41-08de0d21c0e8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?fIxncNScOHVW0Xa7KBWRbn7xRa6zIAgzDg2XXB1Eb+EvFPRzxMyFVXv3oAnw?=
- =?us-ascii?Q?zTeOC05yWt/VeS2/x3t4Q3WP848WibodY2s78u1Cy7+t6/1j3x8q+5r3hU2H?=
- =?us-ascii?Q?lDJ7P36dnmgNupjC/bbQtGVBmRKLhFhZ6+cFdDHIbeeJ4Dikm8JUBemwxoI8?=
- =?us-ascii?Q?uTMqDAIeIgtXnJMPxMt802lU+m7miL09O8WAw2DWtypOs2VtL/40OhB8nKAH?=
- =?us-ascii?Q?4ppJWG/EOp5HcDrccigqz+4LgUi0v26OP1HX40BTrBZdlfSa9wkLeH5MIKvR?=
- =?us-ascii?Q?KM6YppqYeQNqkjmnC0yvVv0ziIu9O5F9UOARkOToqGLvRghMvKmjzDjytJkb?=
- =?us-ascii?Q?ei/3eoacj+r2ouztsJgotctrqKMfYkjliMYm+qK7ipyMgzwN42qGXr3zwyLc?=
- =?us-ascii?Q?eG/GBjfaSY3xn8h0eFg55jkcJxo2TeYlX4njNgt2QaJykvHVAlFPdnMFQmfe?=
- =?us-ascii?Q?RMLhxqjW3wwwbmLkoS89/h7d2nVFPym/u+1dScJ+fQ+ZcuC7KUiQbefQlgnA?=
- =?us-ascii?Q?y8DGAJN6IKJ4rwBiamGlifJxWPY3s3kZY6K0PP4eFGSwEWGug6ANWj+Ltby5?=
- =?us-ascii?Q?gwrEi2Ix/e2tAVd3HpKJy7vqEh+vbrnsc64chB56wulze8y6Xrjj0fZ9NNhC?=
- =?us-ascii?Q?MH7NenXdLHwaSewT9/SD3Ifr57DwYYlZBCR9ML0yJ6cMmfNdd/no/KY5KMlF?=
- =?us-ascii?Q?ZLR68ETZNZ+xETdpvD1EokwjSc8vyXNWfB00pIWmwXtUxGvghkYOC50R7/Et?=
- =?us-ascii?Q?o7eIyYjlnU/9lPtm4fTbp7y5a8PKhKjqYNbg1DbKoScRNfsX5+viSpfNHVL4?=
- =?us-ascii?Q?/2/gq8lP2R/p25Phx5LSNnJJcPSAfKvaAVIQ2t7P/u1FP7htqoRV4pmJUnMv?=
- =?us-ascii?Q?j86nEhU5/3nVYm6XJ/rXdxN+y15IbhSoopkXFdyQZSNB16RGyfCXCnsJpEQV?=
- =?us-ascii?Q?CfFldOJ/8STOcq3E3sa+BY02F3GbwO0Xyn5SSa1vKyTnza8CEdV9YEdrErOF?=
- =?us-ascii?Q?v5g1Awyw1sgRENpZfy/ygpYD6acas4wrfxB8ec4LvhF1Ha53sbGaLe+/9uli?=
- =?us-ascii?Q?TCA9qDsmMKtWivVXosxHjmxHJMd8WHkdpKiaAoydn3OpBGTK+eIh6MsFfnpG?=
- =?us-ascii?Q?o7ZYLMzm4I0/jSYWg2Sjm3Ep2ie4gWZEizKCuMIohGlntYdHiczqIJ040ZL0?=
- =?us-ascii?Q?63aAm6tp4Sg5gbPh+bLr1xoSWX2veIQ8O6EWQRtei9zS2RrvfxOLE3rAeaGC?=
- =?us-ascii?Q?8MF1U3luY/pSzLY90bY68cNBOYW+IjPb5G9vteqXiVY2K9459iOD0bGeVz6j?=
- =?us-ascii?Q?n8DaocGYaTm/uy03nMjEs/1TnIjwqF9H6qWCZ54u7r9NrKHJkNuUPHKTwC1X?=
- =?us-ascii?Q?yIVDbQhOxIiIdvCRxwWsMOnIP3xyIGo5S83Cz71de2Y0JXdWMLFQmkO1HDwV?=
- =?us-ascii?Q?P2H7Py/1oQRzDlBClbLCwivKCuj7pP5l3p29Y6ZS/qYsjqeN2KGV1c5AXijl?=
- =?us-ascii?Q?2ge5OhrSEdV4ZN4TUB/BbvL2F/myOQ85WjIRhsOBxILzr7cKXtNklaWB/h4z?=
- =?us-ascii?Q?fMGd9/TERsAosuML0f4=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2025 02:06:15.3369
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3fc39fec-efe6-4bd7-0c41-08de0d21c0e8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002325.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7993
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.21] x86/ucode: Fix missing printk() newline in
+ ucode_probe_amd()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251016232646.2688404-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251016232646.2688404-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-removeprefix is only added in Python 3.9.
+On 17.10.2025 01:26, Andrew Cooper wrote:
+> Fixes: 630e8875ab36 ("x86/ucode: Perform extra SHA2 checks on AMD Fam17h/19h microcode")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Instead of the prefix removal, switch to passing in a "depth" parameter,
-and incrementing it for each level.
-
-There is a slight change in the generated _libxl_types.c.  instances of
-KeyedUnion increment depth without outputing any code.  The net result
-is some cases where jso_sub_1 is followed by jso_sub_3.  As an example:
-
-_libxl_types.c
-_libxl_types.c
-@@ -5535,12 +5535,12 @@
-                 if (!jso_sub_1)
-                     goto out;
-                 if (!libxl__string_is_default(&p->u.pty.path)) {
--                    json_object *jso_sub_2 = NULL;
--                    rc = libxl__string_gen_jso(&jso_sub_2, p->u.pty.path);
-+                    json_object *jso_sub_3 = NULL;
-+                    rc = libxl__string_gen_jso(&jso_sub_3, p->u.pty.path);
-                     if (rc)
-                         goto out;
--                    if (json_object_object_add(jso_sub_1, "path", jso_sub_2)) {
--                        json_object_put(jso_sub_2);
-+                    if (json_object_object_add(jso_sub_1, "path", jso_sub_3)) {
-+                        json_object_put(jso_sub_3);
-                         goto out;
-                     }
-                 }
-
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
----
-Here's an alternative approach to workaround removeprefix.
-
- tools/libs/light/gentypes.py | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
-
-diff --git a/tools/libs/light/gentypes.py b/tools/libs/light/gentypes.py
-index 006bea170a..0e45c04f49 100644
---- a/tools/libs/light/gentypes.py
-+++ b/tools/libs/light/gentypes.py
-@@ -377,15 +377,16 @@ def get_default_expr(f, nparent, fexpr):
-     return "%s" % fexpr
- 
- # For json-c gen_json functions
--def libxl_C_type_gen_jso(ty, v, indent = "    ", parent = None, scope_object = "jso"):
-+def libxl_C_type_gen_jso(ty, v, indent = "    ", parent = None, scope_object = "jso", depth = 0):
-     s = ""
-     if parent is None:
-         s += "json_object *jso;\n"
-         s += "int rc;\n"
--        sub_scope_object = "jso_sub_1"
-+        depth = 1
-     else:
--        sub_scope_object = "jso_sub_%d" % (1+int(scope_object.removeprefix("jso_sub_")))
-+        depth += 1
- 
-+    sub_scope_object = "jso_sub_%d" % depth
-     if isinstance(ty, idl.Array):
-         if parent is None:
-             raise Exception("Array type must have a parent")
-@@ -398,7 +399,8 @@ def libxl_C_type_gen_jso(ty, v, indent = "    ", parent = None, scope_object = "
-         s += "        json_object *%s;\n" % (sub_scope_object)
-         # remove some indent, it's over indented at least in one case libxl_vcpu_sched_params_gen_json
-         s += libxl_C_type_gen_jso(ty.elem_type, v+"[i]",
--                                   indent + "    ", parent, sub_scope_object)
-+                                  indent + "    ", parent, sub_scope_object,
-+                                  depth)
-         s += "        if (json_object_array_add(%s, %s)) {\n" % (scope_object, sub_scope_object)
-         s += "            json_object_put(%s);\n" % (sub_scope_object)
-         s += "            goto out;\n"
-@@ -417,7 +419,7 @@ def libxl_C_type_gen_jso(ty, v, indent = "    ", parent = None, scope_object = "
-             (nparent,fexpr) = ty.member(v, f, parent is None)
-             s += "case %s:\n" % f.enumname
-             if f.type is not None:
--                s += libxl_C_type_gen_jso(f.type, fexpr, indent + "    ", nparent, scope_object)
-+                s += libxl_C_type_gen_jso(f.type, fexpr, indent + "    ", nparent, scope_object, depth)
-             else:
-                 s += "    %s = json_object_new_object();\n" % (scope_object)
-                 s += "    if (!%s)\n" % (scope_object)
-@@ -433,7 +435,7 @@ def libxl_C_type_gen_jso(ty, v, indent = "    ", parent = None, scope_object = "
-             default_expr = get_default_expr(f, nparent, fexpr)
-             s += "if (%s) {\n" % default_expr
-             s += "    json_object *%s = NULL;\n" % (sub_scope_object)
--            s += libxl_C_type_gen_jso(f.type, fexpr, "    ", nparent, sub_scope_object)
-+            s += libxl_C_type_gen_jso(f.type, fexpr, "    ", nparent, sub_scope_object, depth)
-             s += libxl_C_type_gen_jso_map_key(f, nparent, "    ", scope_object, sub_scope_object)
- 
-             s += "}\n"
--- 
-2.51.0
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 
