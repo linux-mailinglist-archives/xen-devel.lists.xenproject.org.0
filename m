@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 680DEBE8892
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Oct 2025 14:15:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1145167.1478294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D990CBE8D3D
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Oct 2025 15:25:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1145190.1478303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9jLS-0000lE-SR; Fri, 17 Oct 2025 12:14:06 +0000
+	id 1v9kRo-0000Zv-O3; Fri, 17 Oct 2025 13:24:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1145167.1478294; Fri, 17 Oct 2025 12:14:06 +0000
+Received: by outflank-mailman (output) from mailman id 1145190.1478303; Fri, 17 Oct 2025 13:24:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9jLS-0000jk-P7; Fri, 17 Oct 2025 12:14:06 +0000
-Received: by outflank-mailman (input) for mailman id 1145167;
- Fri, 17 Oct 2025 12:14:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1v9kRo-0000XM-LH; Fri, 17 Oct 2025 13:24:44 +0000
+Received: by outflank-mailman (input) for mailman id 1145190;
+ Fri, 17 Oct 2025 13:24:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rDIu=42=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1v9jLQ-0000je-Lq
- for xen-devel@lists.xenproject.org; Fri, 17 Oct 2025 12:14:04 +0000
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c000::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1ab410a-ab52-11f0-980a-7dc792cee155;
- Fri, 17 Oct 2025 14:13:59 +0200 (CEST)
-Received: from DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
- by LV3PR03MB7381.namprd03.prod.outlook.com (2603:10b6:408:195::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.10; Fri, 17 Oct
- 2025 12:13:53 +0000
-Received: from DM6PR03MB5227.namprd03.prod.outlook.com
- ([fe80::c9a0:563d:c344:aec2]) by DM6PR03MB5227.namprd03.prod.outlook.com
- ([fe80::c9a0:563d:c344:aec2%5]) with mapi id 15.20.9228.011; Fri, 17 Oct 2025
- 12:13:53 +0000
+ <SRS0=vay5=42=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1v9kRm-0000XG-Qr
+ for xen-devel@lists.xenproject.org; Fri, 17 Oct 2025 13:24:42 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a3622f4f-ab5c-11f0-9d15-b5c5bf9af7f9;
+ Fri, 17 Oct 2025 15:24:41 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-634a3327ff7so3613262a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Oct 2025 06:24:41 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-146-38.play-internet.pl.
+ [109.243.146.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b5cb965d7d8sm826044766b.18.2025.10.17.06.24.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Oct 2025 06:24:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,160 +45,288 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1ab410a-ab52-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ysYngEHnL2R/YuXJf/+QCQNYmofcAsDoCMlBpaqFzrCx2J5k7y2t75EG4Cbgeng72Dbfjw6TEeId/bOUuiVPcBYF/mfUnSshfLxUl2EkOrROSPQlym5GKLU3IDpNxo0+aH0ovvAIy158XL+LH/vYz4A5oQrhE/AK9z13x7O1jcAMrOG7cy0gsIj+Tv5bTyeQVKcx+KtPPUK+vMZz/c6ZsLVRe4ryaovm/LMXpmsp6Qy2Pb5GWyVEOniH7D8NG7FqdZHTMmc4JT2DYkzPvzg3BhGUJAjWNGVe4A7JtHruiNBL4kfkITSB7w6QqQJGK/pMEOXSCxJb72lZJICliSbkCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eqdVnM9UB/NU7VlYk/QtKZ96CjsOV5qDJup6Au8WHGk=;
- b=GnbmSA2r7HhJ/YuB8tchNdO719cmW9+7XlNv728uCtbKrSBmvOPlBJk4Jj5e2jKWCj+G91xpumyyb4rpzqKPMYBQ3awlKUS2MBZt+i+Rid9QsHpLoaX5Xqj+IjQpVx7rk1M4Zw+vhUO9Rxg2gIZkgvaB8ffK3ISebvFy5JQR9M8QuMg021UWlyTeLKS0WYS5J5Seg2mH7IwI97ZdDXK4pBwHk4eoxWpvslekTDjLa1iDMo5VQeoc/crVB3WKuARLlwtm8JunJzZDjMmUVqDPhtDhObJFuVeItYUc5VApt/p+AAwuRdWxuu8Q7dm2tMyurJxluDRVvlZRx3fxh7ZLpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eqdVnM9UB/NU7VlYk/QtKZ96CjsOV5qDJup6Au8WHGk=;
- b=L+dJ/LnnqoW7vZqbXFfDXBhEevdVJjhe34uVaHVeIM6ZOAx5aA43mteb8u0XGMdJnlX+fhhxW24VmS7SyVncUXajGeE6TUQdfArmwXewCj7nB6UCcBs8vb1mu8ODqmBU2Gl/hLVxgFSSNlPrJR3OKAhYM6Sd72Z869qPMz1esfI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Fri, 17 Oct 2025 14:13:49 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH for-4.21 04/10] x86/HPET: ignore "stale" IRQs
-Message-ID: <aPIy_ZW8uRu76iFo@Mac.lan>
-References: <8d94abf8-70d1-478c-885e-ff9a960ac72d@suse.com>
- <e16e2b62-9c2b-4534-8279-daf986cf438b@suse.com>
- <aPIKJw6I8pUFngC1@Mac.lan>
- <ace51087-38f3-4cec-bc41-9fe0813ed947@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ace51087-38f3-4cec-bc41-9fe0813ed947@suse.com>
-X-ClientProxiedBy: MA2P292CA0019.ESPP292.PROD.OUTLOOK.COM (2603:10a6:250::17)
- To DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
+X-Inumbo-ID: a3622f4f-ab5c-11f0-9d15-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1760707481; x=1761312281; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=a2zcZjyQUhkAxzl5BhQ8Wm5EqbJdanVG18YFXfLDoRs=;
+        b=egQIca1TQCF2omOlQGfmq3HTQ1Z19pn6aG1vl7diFreyRB+St3sNvJ9861fdjvNOtV
+         YwtEjOmfBNFd5FCZ4+oH/k0oRSH9ZxT49BDrKu3CCGK1RFfacmXXpBsYGojC5cECH56E
+         CnzmOXQbP6tnZ3QYmaI3nAbfj+Y1lcRe3MtLZ78RYfJX0u9NhYYtE61dHMYb7GxYbN40
+         FRimhZIVD8b4Qc57RoYD3Na8FsnSglptJk0NlXZGThPzUeXRKBzTKGhsmRUznIPU8DdM
+         ar4t5gICkuqGY02jViBTY5trJ9cpJsz0FW7QX6sxsndrVUr1FGBgiIy4h4Gg/cg6ZcvZ
+         /Skw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760707481; x=1761312281;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=a2zcZjyQUhkAxzl5BhQ8Wm5EqbJdanVG18YFXfLDoRs=;
+        b=XI502P+9WzX6qmMKkOOUqdmnCDDC9PF1XWPzFTFkkzUJAoURSIJTi45KVuU+ZyJErQ
+         npO86Axvxhwds4OopeOEpEDNxr1lKR1M+MAnwmlH/eCx1O0nKeZpL+jlxcBgd5fwMEuC
+         rqy6GFLTMudLd9WuBA1EbJV1p8EGJsD9+IFGJ6Ji7mgxhnqZFZkjprTXhPElr7AaqKjT
+         TSY+c1+P/U1vFt3+4Pf/WkdN7ufd7iGlLFbp0+gO4P615Jn41w9zdvqYEKcP4b00s9Rc
+         K4MlTpxBARmoTnjYW8v0m8LHL8J3y0OKj1+Rkb5+NQ6CK4RYrgqC7FKyYEkTJoQG1KJi
+         g7Ww==
+X-Forwarded-Encrypted: i=1; AJvYcCUSUoBhhblTeQerZTXRZ9NYBFCh4ZZ5DUmjlvC2Iubo+6gsnzRXdybSLR+NgN0rrL9MDbSa7twoImQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyQZ9VtVWaZuZaVOCGjq6Rf1xP0+L6bK+8EBoTdxjWR71Kqw+RG
+	RdExZ178+TeeWGjjdFsZ1HmneW1PbyWfz+hqge4Xq+y8x34K5R8Gp4uc
+X-Gm-Gg: ASbGncv5daLhfdEeOUBE0Av+MlYnFVvcPn5IZYC00QTLN2DJR0pABya/JNkzqXJAOGU
+	Ey5+17u+I3GsHRpBizDtRICt2jC/PethWXf0lJH227vwUevT5nlNJE8DIEjbvF0WHgOSe4QzbAX
+	E+luJiKUuH+GPca6eqFt09OLuBiZXPSCo+Z5xZQ2ki7ZtwsXLwaaj8tj/yL1c/vlHeyV9w5u0pg
+	b8N0tMVaUJ2FtygtIHQ/Wqo5631d1LIhoCkazBvSVC4iIBpY7Rh2uJKADEsbPnZA05enyA3hhNn
+	ffPX9ayI/LkhKOAstItPRQo9PlTCV7pYj3abtunehWgZQpd6/bW3b9ahijPdaQY92M9iavf19LA
+	6mz+2JifxLD4q2j1lj8rNVMaIOHFi2pkxGhutVYOK+QwPt1JK1JQp7uFvJ/vJon2RlyIucGqHuw
+	0VzeptEn4NFF9mQS1dhLPXpndyVOMdQGUhdM3AQd2Fu4N3MSszJDbPgtl+SsQa+jmQNJM=
+X-Google-Smtp-Source: AGHT+IF44VPIo9f2fNuffFyZDCvz6pw1pWwenGxkCKZJGxMcrxPrvNxeOlG+qwSojm+gc2JrkFdHqQ==
+X-Received: by 2002:a17:906:a44d:b0:b65:8f09:ee35 with SMTP id a640c23a62f3a-b658f193194mr86098266b.44.1760707480650;
+        Fri, 17 Oct 2025 06:24:40 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------6NelGKQmckhJ4Hy25AWljPV0"
+Message-ID: <33a9716e-d721-48c7-b8a0-6fe9d44e31d6@gmail.com>
+Date: Fri, 17 Oct 2025 15:24:39 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5227:EE_|LV3PR03MB7381:EE_
-X-MS-Office365-Filtering-Correlation-Id: 295bad35-19c3-45c1-0b9c-08de0d76a363
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Z1pNQ2h3MGZZL2RhYmNjMWFpMVBmVWRUOVFZNS8vclVYYXVrMk1oT3lkL2VV?=
- =?utf-8?B?WGpmRmc1eGJnRm12dEI5M0xKMitwUjA0cWJtcFVjRFp3ZWZwSVNFVWJldlZC?=
- =?utf-8?B?MjBVV2dBU0xXdXhEaDR4dFhPVDd6eDdkMU5PUGduakNxdmxKZ2IyRmhYanlP?=
- =?utf-8?B?YXI0K2gxdmg3d3pOdndoUDRoRkVzV0tTNExaM1JISHVOeW8vN2JPWkZEcjJX?=
- =?utf-8?B?ekJNS0JaT095ZEMyU2pMUUVPUTJqRXhFN1cxTXBueFY4L1ZFRVl0b3VvcE9G?=
- =?utf-8?B?WkVzRlc3dGM5SHg4OG5PNG5tVWg2cGhOM2lJUjZKRjBWRlBSQms1b1EyNzY4?=
- =?utf-8?B?b1htRFEwd3RKV2NxRU5xUVU4QWVnVTJPcGZaRXJJOEJjS2pwZ095ZlZENmNn?=
- =?utf-8?B?d2NzdVg3MW9uLytoU1pJdEhKbmQ3R1hFUVZPMkdQeHcxdHV5NmM0Vnkwb0lM?=
- =?utf-8?B?SU5WOE1mMjFZZXFLSWswaHExQXcvaUI1K0NKY09SVTBBWUNiWGR4TDJJZVo5?=
- =?utf-8?B?WkVlalVSL080aC96MHZmY2NuenVpajVjTmJnOGtoUHJYU200bS9OcFZsMVRs?=
- =?utf-8?B?di9jcStWbWNrWHZtVDBiVE9NMjEvakVCcnpVN0t1VE55b1dWbnAzQkdOcTBH?=
- =?utf-8?B?cE9hUnZteDZXZFhGNDB3MmdZczQxZlJORHY3a2xMYXFRdUE5ZXdLMXRjOGVY?=
- =?utf-8?B?TXFuR1ZZTnZwUzdNaGZXZ3paWXUvNnlSbjZZcDVacnVaV1BEZk5QTDBhamIz?=
- =?utf-8?B?RFpwa0ZmSUgyK0dTUWZ6cktGMjM4azdISjRwRnEyTWpXSFZjOUR0T2Y5TUls?=
- =?utf-8?B?c0JhaG1hZzdNcExCQ3drOW1JcTUzTGYvQlBYcldJS2laakRtMy9TeisvNUlQ?=
- =?utf-8?B?N1pldWZxbVV5c09BUXhYMm84dG9qWlhDWSt0YlRsRFVCZUNtZ1NmeklFclVH?=
- =?utf-8?B?Z3dRdmFqb1FnT1JPS2Z3enFpSjlwTVl0L2xtQlYyYlRhWi9LWDFlcldZNTVE?=
- =?utf-8?B?Q3hBckViK0lieEFDVFJmRkFkR0NLaVBKeThHdllYcm1aanRvTnVnQVgwMEZL?=
- =?utf-8?B?YnBjaWZJWVNESUpYbHl3anA3UC94MDVsaGdTZ3lqaXZVQzgvbXRjNkFQcCtN?=
- =?utf-8?B?MTNiNGFKcUhVZjdTWlhKamtLU2F6bk1sL0VWZnhnZnNhK0ZYOFBoVHRyOVJB?=
- =?utf-8?B?QmdKYXNjWTc3bTVvdCtQaDNUV1ZoaDBoRTJka3BDbzVlNTM0R1JiVkgySmNO?=
- =?utf-8?B?MW11cW5lQmZWT1RGWmFUWjhzRDFQbHg3VmlmNTFGQkF2Wnk0eEV0YncwMW8w?=
- =?utf-8?B?Rlhrc25wNVRXbTNKU1R4bnp2a1c0SFlQVUNzZDZiUTNuQURHcXp4MndUT0cx?=
- =?utf-8?B?UzFISzNldHhxTGwvSkplZnRPdklUUlZRWHlsdlRzUXpqelVFZ2JPbjBHcm1B?=
- =?utf-8?B?TlVIRE4rNXpqMllCMkZzV0xxS3ZUdnhCNjJHRER6TUN1M21NTVEzZjJHK2RK?=
- =?utf-8?B?aVBSREhKRlVpcUJwRGcycFY2eG1GeS9wTEo0UlNja0ZJckpjbUdvM0NnYWwy?=
- =?utf-8?B?cUxkK1c2ZXp3UzBjSGR2TTFNOGlhRk9ZRGtzNzVTOVVQNkl3NmJhVnVZbXAy?=
- =?utf-8?B?aUlybDQ2ZUpPaGFLRTdpQlpJL21jRXZXNHRFUUdLbzZhVWk4OHBzRVhSMDRh?=
- =?utf-8?B?L0pNNmFMN1RaZmhraVdyci9DUGJiS0R4dVIrRWpOMHQ0aGt1SktRandhbDdY?=
- =?utf-8?B?QzVYSFAvcGIyZHZwVkdwK2gxYmlSUW5lVTRadlRxYkVBLzFwSythSEhsT2t0?=
- =?utf-8?B?UVpvS2dhMWwyUExVYlFpQ2hObVR4RElIeHljT3YzMXVZNUhBL01pUDVBbUh2?=
- =?utf-8?B?a0tIZHpyQ2xBWVpFaWJXdWhFMHlmVVplNTAvTTlQMVNCY1M3K2JvcU1kc0l4?=
- =?utf-8?Q?6+Y4LfdSYYfkhV+b0+cT+lh3TXTyc7Vx?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB5227.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Sk9qZDQ3LzVjQ3k0YlF0NTZzNGFidWJybFJrK2NhSG5TL1hxeVFDZmwrRWVG?=
- =?utf-8?B?RkxEdWxQbkZaMjBCSGFZbFVxcVBmZGdhVWhwVS8xK3FsTU4zOTJNeWFxeU1m?=
- =?utf-8?B?L3dsblhjY21aR0Y4d3FXbHNXcnRjeDdSWDV4Wm16MmxCeUlQcjU5RXZ4SGhK?=
- =?utf-8?B?dXZKNnVuSnhwQUQ1MzhlM3p6VmdDNkJaZENLQThZMStka3Rxdng5aW5obmp0?=
- =?utf-8?B?SXZERnpNMFlIbk5WRWt4dmZYdDRIeDFWZmJzUFA3WllDMDQxTWFmdVh6Smd3?=
- =?utf-8?B?MVFNRDhoa0hpZ2ZJb1VDakZKU0pkMWFpWlllVyszQUZ5cmdHYXVQenlGbVNB?=
- =?utf-8?B?VHZML3NzL3AvYVRRRy9DbSsxQUEydGZmT2xYQjhMS0NxdjJLK2lEdEFXRXUy?=
- =?utf-8?B?dUtZNDdlL2FDY0ZGdVB4bGdDZGNMc1ZYelRiZW90UjVLVmVhS2QwRXlOclVP?=
- =?utf-8?B?U0JDSzdLV0xNcHFRcjVVcHdxUTB2VkNtTUoxZjIxMkdjSW9IcVorSklVMUZS?=
- =?utf-8?B?RjZSbGNtSXpHZ3kzc0lMMTFIeWFwR3JzemNSTWthNTU4YTBLdXhoT1ZYTGE2?=
- =?utf-8?B?d2VONWFaUXZGUVRaRElvZWJ3RGdmWTBlVEIxN3RYT3NibmloNThIeXRZN0NR?=
- =?utf-8?B?UjlQUyt3TmhTcXZmOXRMUlBPaTc5b2t3Sk9SVFNUWndqc2I4cUdxbjNCTXZQ?=
- =?utf-8?B?VlNSb2xDSEM3QXVUb3JKS0ZGR0F2VXVoOXpxSHpYOTRjeUdPUzk1QkpaZzBD?=
- =?utf-8?B?NHNVK3FEZ2dXNy9FUWUyaVBmWHRNenhtMytYcERvMFpkMEZkRElHaEIwS01X?=
- =?utf-8?B?NEFwVlZXSVVyTU5yNVZhWnhXMmFQbHBTQlc0bXpWWkU3dUZzQjFlaXBxSkYv?=
- =?utf-8?B?enI3Zkh5SHZaUnJwdm95dHoxSUhTenF1ZEorT0V0RjJSZlIyS0p6bkRlRDgv?=
- =?utf-8?B?ck5CdlM2Njg0dTJmOGY0T3EvcE9kc242ZWxkWmEvTmFaZWFoNmt1WkRvZzlr?=
- =?utf-8?B?dEw3UUFTbmVCSS84OUpnYUtKczk5cFZtbGtWYjFOV1ZJZDAxUjJaSDJGMGNF?=
- =?utf-8?B?OTQ4TlRlRVl0ME9IUnNUaWhVSDZXL1ErR2t3aldDbGhzWS8zb3c3M1hqYlpK?=
- =?utf-8?B?aWFzMG83bW01T1hwNGkyTG00UUxOVE53V0t2eCtPTjM4OGFkd1dxMTBULzRD?=
- =?utf-8?B?WUxGOW9ObWRLK2FIbWxPMmZLMDlPeXVtRHRGczAwekZibnN1eitUcXFEcjlF?=
- =?utf-8?B?VmRPREJaem1XK2t1QVJaa3puK3ZySm5TY21lSWc4MVh0ZzBsdngvRmdjNFhE?=
- =?utf-8?B?M2NHRGtYYTBZUmFnSmprSlBiU2hKVkFtUXlBUHFiM2tiZENRZXJBTUZOdWpW?=
- =?utf-8?B?RFBTb2E3cHBZTjh2MCsvNy9JNUJBM05TN2JFVUFxaWRuNGViSmZKL2swazY2?=
- =?utf-8?B?SSttZVJ6UEswbXYxbHBzTmtSV2JCa2pVZHdueWlraGFhWksvVXlsT1ZaMmti?=
- =?utf-8?B?ZW16dWtRVTVDR3hwZUREUnVhbHEzbnVVaG1WRkVieDRaR05oTmF5TE1hNUlQ?=
- =?utf-8?B?aHFyNU5qZGtUUmlPNTRiZUUxVWlmbk9KdEhEVDY1MDJQbU5kVFhoOUFERVgx?=
- =?utf-8?B?UmVCeXZRUWdIR3NiMGt1Tnl0ZW5LSGJpWWhCYVZHRmx0d20rRFBNNzRxdzBY?=
- =?utf-8?B?a2JiYXZySTVraFZvdXVyZ1FUbm16ckVaRU1KZGRVdjUwRnhnT21aVEpSbUw5?=
- =?utf-8?B?ZUsvWXlhTjZCaTFoSW1CQnNjMHg5ZEJnV3hsQjBXRzFWckFtS2ZjeG81TFdZ?=
- =?utf-8?B?dHhsTmN6VWhJa2dma1Vta2MvYThsRXFrS2NEU1E3Mlh2WVF3b0d1TzZwdjUz?=
- =?utf-8?B?cjdFanN4cjkyOUlHNXNETzZrTnRmN2F0ai9PU1hGN2FkWStEbzNONlE5eTRh?=
- =?utf-8?B?U1FoUGYvT1AyZ3FteDBVWFZBSVF6NzdPUm1SWnlRVTR6cGxGU3IvMGhHZjVw?=
- =?utf-8?B?b1RLZGxZenpxeE9Jc2p3VWVtV2dQaTI3ckVHVGpzeVByajQ5T2hDOFZiVXBD?=
- =?utf-8?B?RzZXa09ZNUthS0Q4empmR1cyMGcvc2kzdzJBQVpKZ3RDbHR6dUQ4SzZha3cv?=
- =?utf-8?Q?lmhqU4kmptGFW96My06sILiWJ?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 295bad35-19c3-45c1-0b9c-08de0d76a363
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5227.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2025 12:13:53.5587
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aGqTZsVrgMAilYUjOrivHyG7DhCBimAfrCbwbVjwgq9hgTQZ5SgbaxrfVfYZ274PKgZTBjG//vNIxuZHFJ8n4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR03MB7381
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 for-4.21 00/22] x86: FRED support
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20251003225334.2123667-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20251003225334.2123667-1-andrew.cooper3@citrix.com>
 
-On Fri, Oct 17, 2025 at 11:57:28AM +0200, Jan Beulich wrote:
-> On 17.10.2025 11:19, Roger Pau Monné wrote:
-> > On Thu, Oct 16, 2025 at 09:32:29AM +0200, Jan Beulich wrote:
-> >> Following hpet_detach_channel(), IRQs may still occur: Ones may already
-> >> be in flight (both from before and after the last IRQ migration, i.e. on
-> >> possibly two distinct vectors targeting two different CPUs), and new ones
-> >> may still be raised as long as the channel is enabled.
-> > 
-> > Description would need to be adjusted if nothing else, as it speaks
-> > about two distinct vectors which is no longer possible after patch 3.
-> 
-> Oh, right - dropping the parenthesized part.
-> 
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > 
-> > With the above adjusted:
-> > 
-> > Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Thanks, but as per the RFC remark: Do you then think this is actually
-> worthwhile despite what patch 3 does?
+This is a multi-part message in MIME format.
+--------------6NelGKQmckhJ4Hy25AWljPV0
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-I don't think it will hurt, but I also think this can possibly wait
-after the code freeze, I don't see much win from doing it, and there's
-a risk we might get it wrong.
 
-Thanks, Roger.
+On 10/4/25 12:53 AM, Andrew Cooper wrote:
+> This is the combined MSR cleanup and FRED series.  Some patches of both v2's
+> have already been committed.
+>
+> I have moved the MSR_IMM patch out.  It's not strictly needed for FRED, and
+> really needs to go behind Jan's patch to use mergable sections for
+> altinstructions which is definitely not making 4.21 at this point.
+>
+> I almost got access to a piece of real hardware in time, but that fell through
+> at the last minute.
+>
+> In terms of timing, I know we're getting very tight for 4.21, but there has
+> been an awful lot of disruption with travel and holidays recently.  Half the
+> patches are already acked/reviewed, but can't easily go in due to logical
+> dependencies (I suspect patches 15-17 could be committed right away as they're
+> pretty independent.)
+>
+> Therefore I'd like to ask Oleksii whether the nominal release ack still
+> stands.
+
+If you're asking about patch 15-17, then it could be still merged now:
+  Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+
+>
+> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2079705485
+
+Btw, is it expected that some tests failed?
+
+Thanks.
+
+~ Oleksii
+
+>
+> Andrew Cooper (22):
+>    x86/msr: Change rdmsr() to have normal API
+>    x86/msr: Change wrmsr() to take a single parameter
+>    x86/fsgsbase: Split out __{rd,wr}gs_shadow() helpers
+>    x86/fsgsbase: Update fs/gs helpers to use wrmsrns()
+>    x86/fsgsbase: Improve code generation in read_registers()
+>    x86/boot: Use RSTORSSP to establish SSP
+>    x86/traps: Alter switch_stack_and_jump() for FRED mode
+>    x86/traps: Skip Supervisor Shadow Stack tokens in FRED mode
+>    x86/traps: Make an IDT-specific #DB helper
+>    x86/traps: Make an IDT-specific #PF helper
+>    x86/fsgsbase: Make gskern accesses safe under FRED
+>    x86/traps: Introduce FRED entrypoints
+>    x86/traps: Enable FRED when requested
+>    x86/pv: Deduplicate is_canonical_address() in do_set_segment_base()
+>    x86/entry: Alter how IRET faults are recognised
+>    x86/entry: Drop the pre exception table infrastructure
+>    x86/entry: Rework the comment about SYSCALL and DF
+>    x86/pv: Adjust GS handling for FRED mode
+>    x86/pv: Guest exception handling in FRED mode
+>    x86/pv: ERETU error handling
+>    x86/pv: System call handling in FRED mode
+>    x86: Clamp reserved bits in eflags more aggressively
+>
+>   xen/arch/x86/acpi/cpufreq/powernow.c    |  12 +-
+>   xen/arch/x86/boot/x86_64.S              |  23 +-
+>   xen/arch/x86/cpu/amd.c                  |   8 +-
+>   xen/arch/x86/cpu/common.c               |  20 +-
+>   xen/arch/x86/cpu/intel.c                |  30 +-
+>   xen/arch/x86/domain.c                   |  34 +-
+>   xen/arch/x86/extable.c                  |  14 -
+>   xen/arch/x86/genapic/x2apic.c           |   5 +-
+>   xen/arch/x86/hvm/domain.c               |   4 +-
+>   xen/arch/x86/hvm/vmx/vmcs.c             |  32 +-
+>   xen/arch/x86/hvm/vmx/vmx.c              |   4 +-
+>   xen/arch/x86/include/asm/asm_defns.h    |  76 +++-
+>   xen/arch/x86/include/asm/current.h      |   9 +-
+>   xen/arch/x86/include/asm/domain.h       |   2 +
+>   xen/arch/x86/include/asm/fsgsbase.h     |  66 +--
+>   xen/arch/x86/include/asm/hypercall.h    |   2 -
+>   xen/arch/x86/include/asm/msr.h          |  48 ++-
+>   xen/arch/x86/include/asm/prot-key.h     |   6 +-
+>   xen/arch/x86/include/asm/traps.h        |   2 +
+>   xen/arch/x86/include/asm/uaccess.h      |   2 -
+>   xen/arch/x86/include/asm/x86-defns.h    |   7 +
+>   xen/arch/x86/mm.c                       |  12 +-
+>   xen/arch/x86/nmi.c                      |  18 +-
+>   xen/arch/x86/oprofile/op_model_athlon.c |   2 +-
+>   xen/arch/x86/pv/dom0_build.c            |   2 +-
+>   xen/arch/x86/pv/domain.c                |  22 +-
+>   xen/arch/x86/pv/iret.c                  |   8 +-
+>   xen/arch/x86/pv/misc-hypercalls.c       |  42 +-
+>   xen/arch/x86/pv/traps.c                 |  39 ++
+>   xen/arch/x86/setup.c                    |  33 +-
+>   xen/arch/x86/traps-setup.c              |  83 +++-
+>   xen/arch/x86/traps.c                    | 519 ++++++++++++++++++++++--
+>   xen/arch/x86/tsx.c                      |  27 +-
+>   xen/arch/x86/x86_64/Makefile            |   1 +
+>   xen/arch/x86/x86_64/compat/entry.S      |   3 +-
+>   xen/arch/x86/x86_64/entry-fred.S        |  57 +++
+>   xen/arch/x86/x86_64/entry.S             |  46 ++-
+>   xen/arch/x86/xen.lds.S                  |   5 -
+>   38 files changed, 1076 insertions(+), 249 deletions(-)
+>   create mode 100644 xen/arch/x86/x86_64/entry-fred.S
+>
+--------------6NelGKQmckhJ4Hy25AWljPV0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 10/4/25 12:53 AM, Andrew Cooper
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20251003225334.2123667-1-andrew.cooper3@citrix.com">
+      <pre wrap="" class="moz-quote-pre">This is the combined MSR cleanup and FRED series.  Some patches of both v2's
+have already been committed.
+
+I have moved the MSR_IMM patch out.  It's not strictly needed for FRED, and
+really needs to go behind Jan's patch to use mergable sections for
+altinstructions which is definitely not making 4.21 at this point.
+
+I almost got access to a piece of real hardware in time, but that fell through
+at the last minute.
+
+In terms of timing, I know we're getting very tight for 4.21, but there has
+been an awful lot of disruption with travel and holidays recently.  Half the
+patches are already acked/reviewed, but can't easily go in due to logical
+dependencies (I suspect patches 15-17 could be committed right away as they're
+pretty independent.)
+
+Therefore I'd like to ask Oleksii whether the nominal release ack still
+stands.</pre>
+    </blockquote>
+    <pre>If you're asking about patch 15-17, then it could be still merged now:
+ Release-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:20251003225334.2123667-1-andrew.cooper3@citrix.com">
+      <pre wrap="" class="moz-quote-pre">
+
+<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2079705485">https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2079705485</a></pre>
+    </blockquote>
+    <pre>Btw, is it expected that some tests failed?
+
+Thanks.
+
+~ Oleksii</pre>
+    <blockquote type="cite"
+      cite="mid:20251003225334.2123667-1-andrew.cooper3@citrix.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Andrew Cooper (22):
+  x86/msr: Change rdmsr() to have normal API
+  x86/msr: Change wrmsr() to take a single parameter
+  x86/fsgsbase: Split out __{rd,wr}gs_shadow() helpers
+  x86/fsgsbase: Update fs/gs helpers to use wrmsrns()
+  x86/fsgsbase: Improve code generation in read_registers()
+  x86/boot: Use RSTORSSP to establish SSP
+  x86/traps: Alter switch_stack_and_jump() for FRED mode
+  x86/traps: Skip Supervisor Shadow Stack tokens in FRED mode
+  x86/traps: Make an IDT-specific #DB helper
+  x86/traps: Make an IDT-specific #PF helper
+  x86/fsgsbase: Make gskern accesses safe under FRED
+  x86/traps: Introduce FRED entrypoints
+  x86/traps: Enable FRED when requested
+  x86/pv: Deduplicate is_canonical_address() in do_set_segment_base()
+  x86/entry: Alter how IRET faults are recognised
+  x86/entry: Drop the pre exception table infrastructure
+  x86/entry: Rework the comment about SYSCALL and DF
+  x86/pv: Adjust GS handling for FRED mode
+  x86/pv: Guest exception handling in FRED mode
+  x86/pv: ERETU error handling
+  x86/pv: System call handling in FRED mode
+  x86: Clamp reserved bits in eflags more aggressively
+
+ xen/arch/x86/acpi/cpufreq/powernow.c    |  12 +-
+ xen/arch/x86/boot/x86_64.S              |  23 +-
+ xen/arch/x86/cpu/amd.c                  |   8 +-
+ xen/arch/x86/cpu/common.c               |  20 +-
+ xen/arch/x86/cpu/intel.c                |  30 +-
+ xen/arch/x86/domain.c                   |  34 +-
+ xen/arch/x86/extable.c                  |  14 -
+ xen/arch/x86/genapic/x2apic.c           |   5 +-
+ xen/arch/x86/hvm/domain.c               |   4 +-
+ xen/arch/x86/hvm/vmx/vmcs.c             |  32 +-
+ xen/arch/x86/hvm/vmx/vmx.c              |   4 +-
+ xen/arch/x86/include/asm/asm_defns.h    |  76 +++-
+ xen/arch/x86/include/asm/current.h      |   9 +-
+ xen/arch/x86/include/asm/domain.h       |   2 +
+ xen/arch/x86/include/asm/fsgsbase.h     |  66 +--
+ xen/arch/x86/include/asm/hypercall.h    |   2 -
+ xen/arch/x86/include/asm/msr.h          |  48 ++-
+ xen/arch/x86/include/asm/prot-key.h     |   6 +-
+ xen/arch/x86/include/asm/traps.h        |   2 +
+ xen/arch/x86/include/asm/uaccess.h      |   2 -
+ xen/arch/x86/include/asm/x86-defns.h    |   7 +
+ xen/arch/x86/mm.c                       |  12 +-
+ xen/arch/x86/nmi.c                      |  18 +-
+ xen/arch/x86/oprofile/op_model_athlon.c |   2 +-
+ xen/arch/x86/pv/dom0_build.c            |   2 +-
+ xen/arch/x86/pv/domain.c                |  22 +-
+ xen/arch/x86/pv/iret.c                  |   8 +-
+ xen/arch/x86/pv/misc-hypercalls.c       |  42 +-
+ xen/arch/x86/pv/traps.c                 |  39 ++
+ xen/arch/x86/setup.c                    |  33 +-
+ xen/arch/x86/traps-setup.c              |  83 +++-
+ xen/arch/x86/traps.c                    | 519 ++++++++++++++++++++++--
+ xen/arch/x86/tsx.c                      |  27 +-
+ xen/arch/x86/x86_64/Makefile            |   1 +
+ xen/arch/x86/x86_64/compat/entry.S      |   3 +-
+ xen/arch/x86/x86_64/entry-fred.S        |  57 +++
+ xen/arch/x86/x86_64/entry.S             |  46 ++-
+ xen/arch/x86/xen.lds.S                  |   5 -
+ 38 files changed, 1076 insertions(+), 249 deletions(-)
+ create mode 100644 xen/arch/x86/x86_64/entry-fred.S
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------6NelGKQmckhJ4Hy25AWljPV0--
 
