@@ -2,49 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1E4DBEA3FE
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Oct 2025 17:53:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1145278.1478353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D912ABEA4BE
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Oct 2025 17:55:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1145290.1478364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9mlL-0002mA-Uy; Fri, 17 Oct 2025 15:53:03 +0000
+	id 1v9mnc-0003L2-Af; Fri, 17 Oct 2025 15:55:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1145278.1478353; Fri, 17 Oct 2025 15:53:03 +0000
+Received: by outflank-mailman (output) from mailman id 1145290.1478364; Fri, 17 Oct 2025 15:55:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1v9mlL-0002jl-S8; Fri, 17 Oct 2025 15:53:03 +0000
-Received: by outflank-mailman (input) for mailman id 1145278;
- Fri, 17 Oct 2025 15:53:02 +0000
+	id 1v9mnc-0003IR-74; Fri, 17 Oct 2025 15:55:24 +0000
+Received: by outflank-mailman (input) for mailman id 1145290;
+ Fri, 17 Oct 2025 15:55:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9pBh=42=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1v9mlK-0002Ua-E0
- for xen-devel@lists.xenproject.org; Fri, 17 Oct 2025 15:53:02 +0000
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c105::7])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5792bd3f-ab71-11f0-9d15-b5c5bf9af7f9;
- Fri, 17 Oct 2025 17:52:54 +0200 (CEST)
-Received: from DS7PR03CA0313.namprd03.prod.outlook.com (2603:10b6:8:2b::18) by
- SN7PR12MB7129.namprd12.prod.outlook.com (2603:10b6:806:2a1::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.11; Fri, 17 Oct
- 2025 15:52:49 +0000
-Received: from DS1PEPF0001709D.namprd05.prod.outlook.com
- (2603:10b6:8:2b:cafe::b5) by DS7PR03CA0313.outlook.office365.com
- (2603:10b6:8:2b::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9228.13 via Frontend Transport; Fri,
- 17 Oct 2025 15:52:48 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS1PEPF0001709D.mail.protection.outlook.com (10.167.18.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9253.7 via Frontend Transport; Fri, 17 Oct 2025 15:52:47 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 17 Oct
- 2025 08:52:46 -0700
+ <SRS0=Ye4i=42=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
+ id 1v9mna-0003IJ-Ln
+ for xen-devel@lists.xenproject.org; Fri, 17 Oct 2025 15:55:22 +0000
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ae9cf407-ab71-11f0-9d15-b5c5bf9af7f9;
+ Fri, 17 Oct 2025 17:55:21 +0200 (CEST)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59HEGCDs001269;
+ Fri, 17 Oct 2025 15:54:20 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 49rfp8em13-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 17 Oct 2025 15:54:20 +0000 (GMT)
+Received: from m0360083.ppops.net (m0360083.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 59HFmLFW024554;
+ Fri, 17 Oct 2025 15:54:19 GMT
+Received: from ppma13.dal12v.mail.ibm.com
+ (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 49rfp8em10-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 17 Oct 2025 15:54:19 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 59HFlK7X015010;
+ Fri, 17 Oct 2025 15:54:18 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+ by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 49r3sjwvr0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 17 Oct 2025 15:54:18 +0000
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com
+ [10.20.54.105])
+ by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 59HFsGL659048250
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 17 Oct 2025 15:54:16 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 503512004B;
+ Fri, 17 Oct 2025 15:54:16 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 980F420049;
+ Fri, 17 Oct 2025 15:54:15 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.155.204.135])
+ by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Fri, 17 Oct 2025 15:54:15 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,160 +74,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5792bd3f-ab71-11f0-9d15-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FwsO8/4VVesGHWumvjGSRTfKge0tl83Nj53m2/MQ9uh8iUeKgq8Pj+1vnt+Ag1R+6Ejkw+aBzJcslI00Ujbw9xKUgFos3T/bQmr8xEMzJ2plbN4afz61JAt1fjJxGK01azVtqtuINhZblC4oaewCN+3QdefAHjbcIpwXxkKPAqlpum9FKDlWub3fCP1/WisXB5vJb5crQ4zQuac9030ljk0uqQ9rJYbY+X0P64DtZoKKe2qcxuGMW2WckD+nUAZer0X44VJHD2kjpe58+TYw+Uxl5HgPzEG59FrABx/sBZLzswXbZFOd+pvbKiw2JOZvUQUaCn9H2GJXP0MDs5l0Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cFLwtmkAbVm8lHlRmdgUQhQ19QIEqDTNcq/B0nh31qo=;
- b=gR7mzUkDpvtEXxVU8QciPxKz5m+ntG2kpx5I2u2fuRmmheA2Q542L06CADhVdR1gm7FfsNkzSaN6Xjg2AjcH3NZg7YX0AKf86+FzOZs2UFK1RLurduXrDtMaqoczm3gs4o3W8jBkfWs+01z3ITkcXZ4ugu5fVrDONe1IJiwpxO5iekuZ4lEEodg1SLjEUAIhEQ2fHbsMZfycx3E5OsLvOvUcrIhyNXFkYc7czahya+RdN9UplCkPEqdHKg64ok62xIU4SljuFX8Cn603xymO5nyI8Qp9cDcah9bEqJimub25Pswhw4Mzo5lCREVa+9LNS0fYVvpS+/wUTtRMT0r+2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
- is 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com;
- dmarc=temperror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cFLwtmkAbVm8lHlRmdgUQhQ19QIEqDTNcq/B0nh31qo=;
- b=uBA3p1tVJC8gmazjn3ltKSIaNlHpbqozpNgToJYXVppXvNUh39NHyMRCqzJyykO3a0X1omsHkI8pvglQKNV+sH/8G6zrYqkcXCTWb42ks7ECC22qTPsvpHrhtxJtMA34EoW4xCDxABdjSUZawBlJl6TW73iYCBBpV51oQAlwVf4=
-X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=temperror action=none header.from=amd.com;
-Received-SPF: TempError (protection.outlook.com: error in processing during
- lookup of amd.com: DNS Timeout)
+X-Inumbo-ID: ae9cf407-ab71-11f0-9d15-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=ZQ1TtLHokmslhzFjee4cGuD5m+V7qM
+	5aPPie4zC6OAs=; b=Law6VkvY0ICKNKchLEppxjum8vOcIanSKnBL7OT7PTmQg0
+	/6qxbBVReHS20QCrAw8Mw10mAM94rLvvh5tD8wbUb+e/utZivGuGVMyuc5GqkixP
+	9WWXmRLKv6pzkRAEKw2FfWsg1p5GZVTfuvuxnFm6T98IRMQAUQ+8yc/rD5Z5b3uH
+	X8d0zz6VYhOyCbAzuvtAz8NrnXH38xtQ7MCVtxDrzdSoscnaYPFy05mStbIeDDtp
+	SKaXWeccmeQ4KD9PLzrxCjVQVpjNf13uY8Trn2RjdAn/nkDZsccyOmP07vNlXyJ4
+	AsYtlADdQJJL2sQy3nsR9lxvDfusEAX4XJPoEovw==
+Date: Fri, 17 Oct 2025 17:54:14 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        Andreas Larsson <andreas@gaisler.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        David Hildenbrand <david@redhat.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Ryan Roberts <ryan.roberts@arm.com>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+        Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+        linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
+        x86@kernel.org
+Subject: Re: [PATCH v3 06/13] mm: introduce generic lazy_mmu helpers
+Message-ID: <55f8b155-5468-43fc-b6fc-f509f4becd5b-agordeev@linux.ibm.com>
+References: <20251015082727.2395128-1-kevin.brodsky@arm.com>
+ <20251015082727.2395128-7-kevin.brodsky@arm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Fri, 17 Oct 2025 17:52:44 +0200
-Message-ID: <DDKPUZKA0UHL.2WRO9M23R4G3E@amd.com>
-CC: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Paul Durrant <paul@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v5] x86: make Viridian support optional
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Demi Marie Obenour <demiobenour@gmail.com>, Jan Beulich
-	<jbeulich@suse.com>, Grygorii Strashko <grygorii_strashko@epam.com>
-X-Mailer: aerc 0.20.1
-References: <20250930125215.1087214-1-grygorii_strashko@epam.com>
- <3e4e4bc5-aa47-4357-9327-df2a9b9c9a1b@suse.com>
- <DDH3W3VM2ZDJ.PMFSGBWBTS0S@amd.com>
- <9248eda6-cf9b-4fdf-ab32-66e777585f65@gmail.com>
-In-Reply-To: <9248eda6-cf9b-4fdf-ab32-66e777585f65@gmail.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001709D:EE_|SN7PR12MB7129:EE_
-X-MS-Office365-Filtering-Correlation-Id: f2e7b33b-1144-4b81-0563-08de0d953863
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?amVKTnlFSWFKbHlGK2pUU3czSDdmT1BQRm1hN25RZDJCRi9OMHFQSGFJVHZG?=
- =?utf-8?B?SzhvOE9SMXZpRE1YM29SRWlKbnV2MzN5ZWp1SnBFSG9MZ3I4VnRScFIyM0x4?=
- =?utf-8?B?bFFWcXMrRlc0eU4waEFGaGcvd2VzbjBwRzNBNTJVdG9Dc0hEK05ac251SVBs?=
- =?utf-8?B?QitnbmRvMnZSVDVsU3JrMzZET1RtUnhoQi9nczZrdXB5UndtTTdSMnFKbk1X?=
- =?utf-8?B?aEMwRUR5RFVKT2gyNmlYSmlRZmxtUGNUSVA2UTFtUFpUVjJDbDJ5WkJGeGQw?=
- =?utf-8?B?NzBrWlRyYVJTMm5JKzAwRXpKdjhKV05taVRTdUpzWkt3MHlyeGl2RzZXdlg2?=
- =?utf-8?B?VFR6SnI1Zm1YWmdJL1E0dnVoYkMzb1UrYWp0SHZhbW5hUWZRaEk4ZFUrMnlS?=
- =?utf-8?B?RzZVZzY3ZjJkdWVvTldhMWxWR3BjaWJ3S2RDQk5OeGluMEdrdWpwWEZiZjVm?=
- =?utf-8?B?dlhTQjZ4MDBGZW1KMjdIVUFEa2JNbkNzc3MvM2J5MUdmU1lBOHozUW5IMVE3?=
- =?utf-8?B?QW1zdEI3akFJTyszdXBBVGFyL3JuczRUcFJRNGY5SGxTYkJGd0pMcnl0QklJ?=
- =?utf-8?B?MFJWUVY1dWgzTERqQ2h4WXpXSGhMY25oU3l4VHBKR0Z0b25PdUhvcXM3RWcw?=
- =?utf-8?B?WXIyT0piVmpLOSs0TVhhbXA2M2xIVXJLVW5mOTQyWitiRXZlaSszbGRlSXJU?=
- =?utf-8?B?MGdtTHlvNlM5eGZxdGNWUXQ3RHlSVm92U1ZVV005a0pTT1ZyUjk5SVZGYzAz?=
- =?utf-8?B?dU15Z0M4cFN2aVNIUE5BdUtzQXV5OFNxamhKYnJtYWFNd25kUCtZZWl6V2Zw?=
- =?utf-8?B?ejQwRHhoNGc5UVFieTN5dkFNTTlIaXRMbnRSSGJxUjBwYXdDVW05S3k0Y1dG?=
- =?utf-8?B?UkE3REdPRnNSZzUvSkhCWFNIazJYTEdZb0ZkVVN6cC9Sc2QrS1hJZk9jRXR4?=
- =?utf-8?B?bW1RR1A4SEtzNHYzTWxkOENHMUFiNk1kaExZcHBxc0IrVzZWb0NtT2RCV1Ay?=
- =?utf-8?B?a2J4dGVYQmdDRzRSYkkyekxMU1RLSzNYMVpOZFBPVHZjdldZY21xR0ZCaStD?=
- =?utf-8?B?YjNjd0pGUXdObzJ0VUV2QzZHZThWNDlJaEhTMXEyZjZtVmp2VlBYZko3QlFr?=
- =?utf-8?B?OE91R3BxaWR1N3BONTk1Q2pKTFVEWHJYdEFFNGJmSndIWjhpZTlRT1NBd1hU?=
- =?utf-8?B?SFV3TDhBS3ViUndWV0gwbklrQVFCcS9hbGFhUG1uQm1RQXZ6LzRPaWZsQ1Ni?=
- =?utf-8?B?cDZSNmVoVDEzbVZYeEMyVGZSMGNWT0JaSEpIUllJR1FnTGRueGVzdjVuT2ta?=
- =?utf-8?B?bU04VjBvWVNQdm05ODRtN1F6bFhCSjFQbll1Ti84MzVXOEo5SWJObWg5WUYy?=
- =?utf-8?B?UFhyejNRWnkvT3lYNzErak56RS9JME1talV6Q2J0eFBvZjg2SHM1bzFkMXVM?=
- =?utf-8?B?RUNwZksyUmlidVREZStoSFowczFndlE5UWZhT3k2S0VuNkQreXdmY2VOamlR?=
- =?utf-8?B?eHVDZXRvUkNLNHBxaVpRT1VmRGkxYkRqdVRBS1lNRkV3dSthRS9sbGxXRE83?=
- =?utf-8?B?dUlwaVRIMS9qSWlLSnpmOVVva3NoWUR1UmZ3dDVvQjAvbzJEditSckpDc0hD?=
- =?utf-8?B?cFk4d3luSEc0cVRVNmxxSG9zUWFHNHRqWkxHZ1JsVmRQOWVJdGxocHprYjZo?=
- =?utf-8?B?V3ZMeC9FU1B6NWRmaC9BeHZ5c2VWZS9QLzVsbkNtOGpjYTBuSVh6aFFvVXZZ?=
- =?utf-8?B?amtqbWJ6NmFZMlpkVmlMK2xaYUU5YlFIdU1OSUVacDRzbXo3ZWp0K2JFVDAr?=
- =?utf-8?B?cGwzalgxYnZtNXR3dU81TmJIamJPay96TXUveWNnMlk3UkVOQWRkOTdVTUdG?=
- =?utf-8?B?WHE1dXZvQnNFNm1pK3ZuNVdvRy8rWG5zcFdZUng0Y0dtaG9qVUVPczB1dmNv?=
- =?utf-8?B?bVlsL0h5ZzdWVW1rVlVnT3BkSkk0a2llN3Q0SzVOeklZUXZuSllueWdKTll6?=
- =?utf-8?B?d3lpbTVEY0QwdlFXeFgrRVNzY0FVUldzd01VMjY5anBWdXlDM0J0b1JxWWlu?=
- =?utf-8?B?amJ3QXo4Yzhhc1NLU1pNR3p2SzVFU1RiWFoydGk3Q20vZ0s0bnRSRVRaQno4?=
- =?utf-8?Q?peGg=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2025 15:52:47.9691
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2e7b33b-1144-4b81-0563-08de0d953863
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF0001709D.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7129
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251015082727.2395128-7-kevin.brodsky@arm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: 2uFWZ81CE4CiNc9aZu2A8JlAcBwqq-tc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDEyMDA4NCBTYWx0ZWRfX2Zriy77SuQpm
+ /GHNuVH/UFB6mOfHOC2AuP5g7c+urTyXE81dQ6L6B0AwkiPLgihig9dwBQiKw0AYwvyn2/UBXXe
+ VcGvFB11D3W4lhURudq3zaSM9GHtCo5XdEsYeLbFUmnzVB67HZP20B2Uxwsqr/DnC0GUNt8pn+Q
+ lYbw9Nsugz7aigNaGXWz8mjQ5H0X7sXZm5KLMDqasP/WlwVPUM+i7GhB70V9ACBzBfu/gATiLsp
+ HWtKR/YcgMc3XVsjOXDXb6rwcyJoPiLdVPL4d9Uovyfy1Y+6KXUtJGTOvjrlEvC+BEx9y22ul4M
+ iyiO9mTSInwQOYOlHV2G1yBHcLyrhGstPiwazxXG+Q1pEZlUKx7CHtMC4Sa0JzAFx3fiGUVZ0Ll
+ LSljgWznsRluu1F2sKhweaOdRoS3mQ==
+X-Proofpoint-GUID: B3M2xirfIqNJrZzR03DBgN9gZToY0y4x
+X-Authority-Analysis: v=2.4 cv=af5sXBot c=1 sm=1 tr=0 ts=68f266ac cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=x6icFKpwvdMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=1KDjgaeL6VvqQMJ9c2UA:9
+ a=NqO74GWdXPXpGKcKHaDJD/ajO6k=:19 a=CjuIK1q_8ugA:10 a=a-qgeE7W1pNrGK8U0ZQC:22
+ a=DXsff8QfwkrTrK3sU8N1:22 a=Z5ABNNGmrOfJ6cZ5bIyy:22 a=bWyr8ysk75zN3GCy5bjg:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-10-17_05,2025-10-13_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0 suspectscore=0
+ bulkscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510120084
 
-On Wed Oct 15, 2025 at 7:58 AM CEST, Demi Marie Obenour wrote:
-> On 10/13/25 06:01, Alejandro Vallejo wrote:
->> On Wed Oct 8, 2025 at 6:04 PM CEST, Jan Beulich wrote:
->>> On 30.09.2025 14:52, Grygorii Strashko wrote:
->>>> --- a/xen/arch/x86/hvm/Kconfig
->>>> +++ b/xen/arch/x86/hvm/Kconfig
->>>> @@ -62,6 +62,16 @@ config ALTP2M
->>>> =20
->>>>  	  If unsure, stay with defaults.
->>>> =20
->>>> +config VIRIDIAN
->>>> +	bool "Hyper-V enlightenments for guests" if EXPERT
->>>> +	default y
->>>> +	help
->>>> +	  Support optimizations for Hyper-V guests such as faster hypercalls=
-,
->>>> +	  efficient timer and interrupt handling, and enhanced paravirtualiz=
-ed
->>>> +	  I/O. This is to improve performance and compatibility of Windows V=
-Ms.
->>>
->>> What is "paravirtualized I/O" about in this context?
->>=20
->> Hypervisor-assisted IPIs, TLB flushes, etc. Or so I understood back when=
- I said
->> that looked ok. I see there could be confusion with Xen PV device protoc=
-ols,
->> but as far as the user of the help message is concerned it makes no diff=
-erence.
->>=20
->> One could even remove the examples and leave it as "... for Hyper-V gues=
-ts. This
->> is to...". They are truly inconsequential.
->>=20
->> All that matters is that (modern) Windows won't run without it, and that=
- it
->> provides some indeterminate hypervisor-provided assists to try to reduce=
- some
->> virtualization overheads.
->
-> Qubes OS doesn't expose Viridian at all, which is why it wasn't
-> vulnerable to XSA-472.  It still runs Windows guests just fine.
+On Wed, Oct 15, 2025 at 09:27:20AM +0100, Kevin Brodsky wrote:
 
-Can you run Windows 11?
+Hi Kevin,
 
-I don't remember which, but I do know some versions of Windows refuse to bo=
-ot
-if they determine they are virtualised and don't see the mandatory parts of
-the TLFS.
+...
+> * lazy_mmu_mode_pause() ... lazy_mmu_mode_resume()
+>     This is for situations where the mode is temporarily disabled
+>     by first calling pause() and then resume() (e.g. to prevent any
+>     batching from occurring in a critical section).
+...
+> +static inline void lazy_mmu_mode_pause(void)
+> +{
+> +	arch_leave_lazy_mmu_mode();
 
-If 11 works, maybe Windows Server?
+I think it should have been arch_pause_lazy_mmu_mode(), wich defaults
+to  arch_leave_lazy_mmu_mode(), as we discussed in v2:
 
-Cheers,
-Alejandro
+https://lore.kernel.org/linux-mm/d407a381-099b-4ec6-a20e-aeff4f3d750f@arm.com/#t
+
+> +}
+> +
+> +static inline void lazy_mmu_mode_resume(void)
+> +{
+> +	arch_enter_lazy_mmu_mode();
+> +}
+
+Thanks!
 
