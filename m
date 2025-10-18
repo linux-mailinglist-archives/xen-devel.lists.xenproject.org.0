@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9FFBBECCBC
-	for <lists+xen-devel@lfdr.de>; Sat, 18 Oct 2025 11:37:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1145542.1478416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F889BECCE9
+	for <lists+xen-devel@lfdr.de>; Sat, 18 Oct 2025 11:53:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1145559.1478426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vA3Ls-000793-Hi; Sat, 18 Oct 2025 09:35:52 +0000
+	id 1vA3cg-0001Mq-Q3; Sat, 18 Oct 2025 09:53:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1145542.1478416; Sat, 18 Oct 2025 09:35:52 +0000
+Received: by outflank-mailman (output) from mailman id 1145559.1478426; Sat, 18 Oct 2025 09:53:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vA3Ls-00076A-Ap; Sat, 18 Oct 2025 09:35:52 +0000
-Received: by outflank-mailman (input) for mailman id 1145542;
- Sat, 18 Oct 2025 09:35:50 +0000
+	id 1vA3cg-0001KP-N9; Sat, 18 Oct 2025 09:53:14 +0000
+Received: by outflank-mailman (input) for mailman id 1145559;
+ Sat, 18 Oct 2025 09:53:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PxYo=43=gmail.com=freddy77@srs-se1.protection.inumbo.net>)
- id 1vA3Lq-00075v-Pe
- for xen-devel@lists.xenproject.org; Sat, 18 Oct 2025 09:35:50 +0000
-Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
- [2607:f8b0:4864:20::1134])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5sd8=43=kernel.org=rppt@srs-se1.protection.inumbo.net>)
+ id 1vA3cg-0001KJ-5o
+ for xen-devel@lists.xenproject.org; Sat, 18 Oct 2025 09:53:14 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d4be4e06-ac05-11f0-9d15-b5c5bf9af7f9;
- Sat, 18 Oct 2025 11:35:50 +0200 (CEST)
-Received: by mail-yw1-x1134.google.com with SMTP id
- 00721157ae682-783fa3aa582so12802577b3.3
- for <xen-devel@lists.xenproject.org>; Sat, 18 Oct 2025 02:35:50 -0700 (PDT)
+ id 421bb110-ac08-11f0-9d15-b5c5bf9af7f9;
+ Sat, 18 Oct 2025 11:53:12 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id A913045000;
+ Sat, 18 Oct 2025 09:53:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A979DC113D0;
+ Sat, 18 Oct 2025 09:52:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,150 +41,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4be4e06-ac05-11f0-9d15-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1760780148; x=1761384948; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=RW+I+33Ql2he7tob3Olq7Ib97t5xvt8Xh7P8ba7KoXo=;
-        b=YutKY/rJbacsA+119CyI2yd5fYZrd7zhBtJVUfsLWHjJN+KmF4PtQMWdpCX7p7N9s4
-         Wn4uypsX/C1gM4ZDy/2g8nFzhcBtSTMwVOU8liYF/jPa7sOCfIhtThzmvPqgtoYLJOlu
-         KHcrzA7GP/S9hhSa/WxZX0zHBc0iY8NqIZ5ALZF+x3iAF3KLhAbZoFuML4QBUhSjU5wO
-         FyAbANRO8cxJk2i9hu2u/63nQkDe844EWUvHNWd0Z8UR34qbvxBNe+k2PzWPZB8XkcXr
-         KF/oRA207mem/3NTjZ1CCyFWmaiZRx4wKoHAgtdRjOpO51/fG/nws40RAH2OZhlq/3nC
-         fKcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760780148; x=1761384948;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=RW+I+33Ql2he7tob3Olq7Ib97t5xvt8Xh7P8ba7KoXo=;
-        b=ITIM7YnCnpchYedzM+YS8sMU/G1tOVB2Hyl1+w5gcEu+wXB4+ezNnJ/9jTjiZul6Gd
-         hp09rBhkiq+qmZuiwwKUvr8uqXJbsoJYtdHcADEfO9r3JNaj1eYfiR5ljcFL2Xrv0lPm
-         RVc99f6PRS/8nE4m29TYfmfexNeMnw9hU0RYPFnKjf74OrSDct6ChKYTGhfKwxsvG2cn
-         2BuisJEuoWUaG9A42UPbZJWiYO1Qeo8uRdxh1C3EgCthwdB/ZmzOfCNYx1rGq/xrwmEI
-         0wF23lLoCVE9TH8gXsKVtMtR9qtHeGx1XZD5PropBOpm06FG3T4y05iEwVf0qWt1XT8H
-         jXkg==
-X-Gm-Message-State: AOJu0Yw2Ym6coakt2Jjbzz5mWsZIz84H6OU1k/BEgy6+BdrYX1hoeuZ2
-	Oaaeo6rgEvpJtUOiLkskz//FvA7GN+wT0erKCrg8cYocrtvr99J24U4ZBv6QAkqmVT/uD9PJ7b8
-	aU+Yh9TVBhu/xWZJ0DDPws4jcZ3tsMxE=
-X-Gm-Gg: ASbGncstJ8Ohd2r3kn7eQcGSn/to9bPQKzzSMnDbt9d0ejeZl0WoNf0B6vy5GNc3KoS
-	g+r12W3zL2JUS/AMigN//1ZIpk3YgTGtf2pIauZ/X2uu9CL7WZEnsnW4P4a2yXLvPu8luoaEkTj
-	UiCbyeMP6f0sl57zhC6Dh2wI/cK2xcGL4HRSdyUiOjVbpFyEGEAwCMbSVGHW+i/UAtkb76I5Kpb
-	f11RwRgdsGSMmmslpTfJiGLTxUc/Vp+T1Ot9LExUR2J8vOg76X3prU72IPywXAIJXwJIpI=
-X-Google-Smtp-Source: AGHT+IHYJL5xMsX+BgYBHxoEWqbbwEC42Y8gtQSyT/RUtdCtAjkDqe7AhrupqcENFtkHT0YgvVHx/p/jcWh3E9Uk1tE=
-X-Received: by 2002:a05:690e:d2:b0:633:abda:fce3 with SMTP id
- 956f58d0204a3-63e161c6211mr4015034d50.36.1760780148554; Sat, 18 Oct 2025
- 02:35:48 -0700 (PDT)
+X-Inumbo-ID: 421bb110-ac08-11f0-9d15-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1760781190;
+	bh=bOSmYzha9caq7PhodKTKcCoPiLt+2LlIcLfZyClR6tI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PVM7dGcEYXCuz8kq+FQlif5GkokSxvCHTzAFAGwTnR8/6weD/vKEUQASmePsYFC3h
+	 +euqjGf0PMyAFk0ZJUt5YM7wZxnuKR0UvscN4IWjm71nso3T24TfhImRIqQfyI4ss6
+	 cv+7XmuLUObCGPTep6i88M7y6u+ifbhyfVbe1BHS4zD5ALzPNDk/kx15zhKRwL0t27
+	 dMmFhLM5KTioGdUJieNshqGCPzeMSFbHvJviFEJxzNeYiuG1A5BFkxDb8ilKL2vLrA
+	 8jv3n05kf1if0vj2NPnC/QhhCj3HuD1WtyN73Zhx+EyOOZxPqW3faoSHxWvYSohg6r
+	 KlyEFQZJR/qhA==
+Date: Sat, 18 Oct 2025 12:52:55 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andreas Larsson <andreas@gaisler.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	David Hildenbrand <david@redhat.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+	Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Michal Hocko <mhocko@suse.com>, Nicholas Piggin <npiggin@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+	sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
+	x86@kernel.org
+Subject: Re: [PATCH v3 05/13] mm: introduce CONFIG_ARCH_LAZY_MMU
+Message-ID: <aPNjd2dg3YN-TZKH@kernel.org>
+References: <20251015082727.2395128-1-kevin.brodsky@arm.com>
+ <20251015082727.2395128-6-kevin.brodsky@arm.com>
 MIME-Version: 1.0
-References: <bdead1be-cd8f-4cca-ae70-e9744ae8b556@citrix.com>
-In-Reply-To: <bdead1be-cd8f-4cca-ae70-e9744ae8b556@citrix.com>
-From: Frediano Ziglio <freddy77@gmail.com>
-Date: Sat, 18 Oct 2025 10:35:37 +0100
-X-Gm-Features: AS18NWD_oC4YxC2w5uLMXgtCdrP2EUBFHUAzjzsM07uRAELgF5Ptyz38CPIJVF8
-Message-ID: <CAHt6W4dFp_No7O+gLsM1a=xL4fGKbzwN2hP24rV2TtAkDO6kCw@mail.gmail.com>
-Subject: Re: lost serial characters on boot
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Denis Mukhin <dmkhn@proton.me>
-Content-Type: multipart/alternative; boundary="00000000000048414f06416b934f"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251015082727.2395128-6-kevin.brodsky@arm.com>
 
---00000000000048414f06416b934f
-Content-Type: text/plain; charset="UTF-8"
+On Wed, Oct 15, 2025 at 09:27:19AM +0100, Kevin Brodsky wrote:
+> Architectures currently opt in for implementing lazy_mmu helpers by
+> defining __HAVE_ARCH_ENTER_LAZY_MMU_MODE.
+> 
+> In preparation for introducing a generic lazy_mmu layer that will
+> require storage in task_struct, let's switch to a cleaner approach:
+> instead of defining a macro, select a CONFIG option.
+> 
+> This patch introduces CONFIG_ARCH_LAZY_MMU and has each arch select
+> it when it implements lazy_mmu helpers.
+> __HAVE_ARCH_ENTER_LAZY_MMU_MODE is removed and <linux/pgtable.h>
+> relies on the new CONFIG instead.
+> 
+> On x86, lazy_mmu helpers are only implemented if PARAVIRT_XXL is
+> selected. This creates some complications in arch/x86/boot/, because
+> a few files manually undefine PARAVIRT* options. As a result
+> <asm/paravirt.h> does not define the lazy_mmu helpers, but this
+> breaks the build as <linux/pgtable.h> only defines them if
+> !CONFIG_ARCH_LAZY_MMU. There does not seem to be a clean way out of
+> this - let's just undefine that new CONFIG too.
+> 
+> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
+> ---
 
-On Fri, 17 Oct 2025, 18:16 Andrew Cooper, <andrew.cooper3@citrix.com> wrote:
+...
 
-> Hi,
->
-> I think we've got a bug with the serial console.  I'm reliably loosing a
-> small part of the boot message. e.g.:
->
-> (XEN) Latest ChangeSet: Fri Oct 17 17:24:59 2025 git:5e79cfcd2100
-> (XEN) build-id: d1536ff6698b3e3ba307d551abf
->  Family 25 (0x19 Stepping 1 (raw 00a00f11)
-> (XEN) BSP microcode revision: 0x0a001137
->
-> whereas from xl dmesg after the system boots, we see things correctly:
->
-> (XEN) Latest ChangeSet: Fri Oct 17 17:24:59 2025 git:5e79cfcd2100
-> (XEN) build-id: d1536ff6698b3b8968e883fc39e3ba307d551abf
-> (XEN) CPU Vendor: AMD, Family 25 (0x19), Model 1 (0x1), Stepping 1 (raw
-> 00a00f11)
-> (XEN) BSP microcode revision: 0x0a001137
->
->
-> The lost bit of text differs even when rebooting the same Xen binary,
-> but it's always around this area, very early on boot.
->
-> I've been seeing this for a little while, but one of my common dev
-> machines is showing it fairly reliably at the moment.
->
-> Checking a transcript of the terminal, we're missing characters, rather
-> than having additional control characters causing the corruption.
->
-> I suppose I need to stare at console_init_preirq() some more, but if
-> anyone has ideas, I'm all ears.
->
-> ~Andrew
->
-Hi,
-   I would guess the code for early boot is different and is not waiting
-correctly if the serial is able to accept new characters so the hardware
-buffer is overwritten.
+> @@ -231,7 +231,7 @@ static inline int pmd_dirty(pmd_t pmd)
+>   * held, but for kernel PTE updates, no lock is held). Nesting is not permitted
+>   * and the mode cannot be used in interrupt context.
+>   */
+> -#ifndef __HAVE_ARCH_ENTER_LAZY_MMU_MODE
+> +#ifndef CONFIG_ARCH_LAZY_MMU
+>  static inline void arch_enter_lazy_mmu_mode(void) {}
+>  static inline void arch_leave_lazy_mmu_mode(void) {}
+>  static inline void arch_flush_lazy_mmu_mode(void) {}
+> diff --git a/mm/Kconfig b/mm/Kconfig
+> index 0e26f4fc8717..2fdcb42ca1a1 100644
+> --- a/mm/Kconfig
+> +++ b/mm/Kconfig
+> @@ -1372,6 +1372,9 @@ config PT_RECLAIM
+>  config FIND_NORMAL_PAGE
+>  	def_bool n
+>  
+> +config ARCH_LAZY_MMU
+> +	bool
+> +
 
-Frediano
+I think a better name would be ARCH_HAS_LAZY_MMU and the config option fits
+better to arch/Kconfig.
 
->
+>  source "mm/damon/Kconfig"
+>  
+>  endmenu
+> -- 
+> 2.47.0
+> 
 
---00000000000048414f06416b934f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div dir=3D"auto">On Fri, 17 Oct 2025, 18:16 Andrew Coope=
-r, &lt;<a href=3D"mailto:andrew.cooper3@citrix.com">andrew.cooper3@citrix.c=
-om</a>&gt; wrote:</div><div class=3D"gmail_quote gmail_quote_container" dir=
-=3D"auto"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
-er-left:1px #ccc solid;padding-left:1ex">Hi,<br>
-<br>
-I think we&#39;ve got a bug with the serial console.=C2=A0 I&#39;m reliably=
- loosing a<br>
-small part of the boot message. e.g.:<br>
-<br>
-(XEN) Latest ChangeSet: Fri Oct 17 17:24:59 2025 git:5e79cfcd2100<br>
-(XEN) build-id: d1536ff6698b3e3ba307d551abf<br>
-=C2=A0Family 25 (0x19 Stepping 1 (raw 00a00f11)<br>
-(XEN) BSP microcode revision: 0x0a001137<br>
-<br>
-whereas from xl dmesg after the system boots, we see things correctly:<br>
-<br>
-(XEN) Latest ChangeSet: Fri Oct 17 17:24:59 2025 git:5e79cfcd2100<br>
-(XEN) build-id: d1536ff6698b3b8968e883fc39e3ba307d551abf<br>
-(XEN) CPU Vendor: AMD, Family 25 (0x19), Model 1 (0x1), Stepping 1 (raw<br>
-00a00f11)<br>
-(XEN) BSP microcode revision: 0x0a001137<br>
-<br>
-<br>
-The lost bit of text differs even when rebooting the same Xen binary,<br>
-but it&#39;s always around this area, very early on boot.<br>
-<br>
-I&#39;ve been seeing this for a little while, but one of my common dev<br>
-machines is showing it fairly reliably at the moment.<br>
-<br>
-Checking a transcript of the terminal, we&#39;re missing characters, rather=
-<br>
-than having additional control characters causing the corruption.<br>
-<br>
-I suppose I need to stare at console_init_preirq() some more, but if<br>
-anyone has ideas, I&#39;m all ears.<br>
-<br>
-~Andrew<br></blockquote></div><div dir=3D"auto">Hi,</div><div dir=3D"auto">=
-=C2=A0 =C2=A0I would guess the code for early boot is different and is not =
-waiting correctly if the serial is able to accept new characters so the har=
-dware buffer is overwritten.</div><div dir=3D"auto"><br></div><div dir=3D"a=
-uto">Frediano</div><div class=3D"gmail_quote gmail_quote_container" dir=3D"=
-auto"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-l=
-eft:1px #ccc solid;padding-left:1ex"></blockquote></div></div>
-
---00000000000048414f06416b934f--
+-- 
+Sincerely yours,
+Mike.
 
