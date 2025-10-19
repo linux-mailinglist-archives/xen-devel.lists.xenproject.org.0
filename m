@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42B85BEDD6C
-	for <lists+xen-devel@lfdr.de>; Sun, 19 Oct 2025 02:43:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1145751.1478446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7270CBEDD84
+	for <lists+xen-devel@lfdr.de>; Sun, 19 Oct 2025 03:07:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1145765.1478457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAHUz-0007tt-Kr; Sun, 19 Oct 2025 00:42:13 +0000
+	id 1vAHtC-0001jT-DG; Sun, 19 Oct 2025 01:07:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1145751.1478446; Sun, 19 Oct 2025 00:42:13 +0000
+Received: by outflank-mailman (output) from mailman id 1145765.1478457; Sun, 19 Oct 2025 01:07:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAHUz-0007rg-Dq; Sun, 19 Oct 2025 00:42:13 +0000
-Received: by outflank-mailman (input) for mailman id 1145751;
- Sun, 19 Oct 2025 00:42:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vAHtC-0001hk-9r; Sun, 19 Oct 2025 01:07:14 +0000
+Received: by outflank-mailman (input) for mailman id 1145765;
+ Sun, 19 Oct 2025 01:07:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2urB=44=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1vAHUw-0007ra-W4
- for xen-devel@lists.xenproject.org; Sun, 19 Oct 2025 00:42:11 +0000
-Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
- [2607:f8b0:4864:20::1134])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7114302a-ac84-11f0-980a-7dc792cee155;
- Sun, 19 Oct 2025 02:42:08 +0200 (CEST)
-Received: by mail-yw1-x1134.google.com with SMTP id
- 00721157ae682-7817c2d909cso35160707b3.1
- for <xen-devel@lists.xenproject.org>; Sat, 18 Oct 2025 17:42:08 -0700 (PDT)
+ id 1vAHtB-0001hb-6A
+ for xen-devel@lists.xenproject.org; Sun, 19 Oct 2025 01:07:13 +0000
+Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
+ [2607:f8b0:4864:20::1132])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f0a07f33-ac87-11f0-9d15-b5c5bf9af7f9;
+ Sun, 19 Oct 2025 03:07:11 +0200 (CEST)
+Received: by mail-yw1-x1132.google.com with SMTP id
+ 00721157ae682-7817c2d909cso35271507b3.1
+ for <xen-devel@lists.xenproject.org>; Sat, 18 Oct 2025 18:07:11 -0700 (PDT)
 Received: from [10.138.34.110]
  (h96-60-249-169.cncrtn.broadband.dynamic.tds.net. [96.60.249.169])
  by smtp.gmail.com with ESMTPSA id
- 00721157ae682-7846a6cdc14sm10414107b3.63.2025.10.18.17.42.06
+ 956f58d0204a3-63e2669092bsm1201389d50.7.2025.10.18.18.07.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 18 Oct 2025 17:42:06 -0700 (PDT)
+ Sat, 18 Oct 2025 18:07:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,57 +46,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7114302a-ac84-11f0-980a-7dc792cee155
+X-Inumbo-ID: f0a07f33-ac87-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1760834527; x=1761439327; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:subject:references:cc
-         :to:user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=S8duc+cWDN1/ElvlGD2v+WLKlO3YpQZeX9MsX9Ne+tg=;
-        b=lc4CNYqWI9AgfXyTZmJJxxrWls/23eoU00jf8RXfSvj3h4C5vPxwunke9fNdtNqkrJ
-         NGHXni/a26XSAFFU0mF2ZL3MyfGiCnk3bJ+QRAZ1k1gAtfxDUktnPsbX2KkIPwY87RAZ
-         akSQa+oC+lp3z09LmAWH5rqR7LVO8yTobzfORoQp0ahiSAxCg9fT4jMaBx+QZjqKOaKS
-         TGvreBNxtr+/SUBmd6lLyExssuIgG4ZlZYIbMBmGlTdHpmyiPGjDrA+earTIVLY0TrOq
-         hk1O6S/PzEakqRJ2jWheEcvxqhFMO0JyfUyhXFw7QwhzlQjpK7pXhkp3Cfr/maMZW5MG
-         jP4g==
+        d=gmail.com; s=20230601; t=1760836030; x=1761440830; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:content-language:references:cc:to:from
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=HLdJyur/qGd/jav85xALqM/Vu3f+RmW2aTP0olZO4pE=;
+        b=Y3pD7oJlnaIGhpWxm8+fhnVpDWh3T8BRMOu370+i9UatT8GNCfDbKUg97a1/zIE1e7
+         nQiPxQrE16s0nDERgAse/uF94a7WOni/+yRirUvOZouTrjDYwIUUgB8HwJ07hYGNfzvX
+         ekWz1gPRS1Ka9XZLi+94+37FSWQX3atrdMnSByHSEwuIXJaPaPPYdoFJ89JsqSs8VW4a
+         cgf6Vj3fX6zdMKeMiktciQMjBMitQ3l3MnqC2yfcxYq77hKgDB7Qwr8Vm8/3x22oiW+M
+         edPoUUETOMCKMPBP3eVAd1+llLbw53fxEPC/GDknNe15/3Kw/E/K0n9X4CrgU17AwXdv
+         lpJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760834527; x=1761439327;
-        h=in-reply-to:autocrypt:from:content-language:subject:references:cc
-         :to:user-agent:mime-version:date:message-id:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=S8duc+cWDN1/ElvlGD2v+WLKlO3YpQZeX9MsX9Ne+tg=;
-        b=kDzj9Nr1DYDevCgOgGuAfjqi/qBPqHTkHTarUqIDkcVrpwd4efn2IAmO9ZQ0shlV/8
-         Ut3D8kZRXOhpGMdRHJRhKDXWVbTCAAVRowhaCThXzotz7kJo1hRaYyHbznJuxu0aw0BD
-         l+dldfGLSDDaUIE9ZN9BL9zo/uN4CzY4K+b3rKjCM0l7KFFRa9LXAk2tQC89nG/FTPOY
-         dn+DXhL6ZtHIAJILDvB1QfFax3OQTSeRwWSfz7nIlHnmJnW9qJHKA9b1kI3MJca5RNRH
-         JWx1DXs0PvStGfTqb8kEsIo2OwU1X1DcBOwa3y3bD3JvqCI+r0y3dAtUzkR+Kw5SogBw
-         1Y1w==
-X-Forwarded-Encrypted: i=1; AJvYcCU73s9a/9F+4IkRLVSJhpuq+kt9XGiWtvOniDiZYLatgXY8LnmirFp0pjJe2A5XYVv7MpiMQWCpc7I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YybPSONiu3foz1+WhI2bn4P6EbRn57l6uwUW9p3mJvLnYKXiXWX
-	h9zo/oUu6pX8hwMkQGe6aVCA8LWTQ8euSRdgMsNrX8kfPTuv2BxGvw9k
-X-Gm-Gg: ASbGncsI/c4Vmjd05ojXfA3WLP+HGF2VizT0Mp0qfL2i5MZWZ2X+FOi4iHURX1wZRHN
-	QdQCOJoXd4WAJMWB2mmN+ECS0n1PDP+4jYsIRnpCSRJ43uhXq1n2vRq1wyRgPHUvWe7BYsRYmhS
-	+sriQKipn8enS/52LvWOjFSCKYIcbwcRgEvCY26oTaBv4bpIPokaqKHWqtdm4Lm1vcS4J66OEXy
-	hfE7wCepc38D5H7f2ses8ABIvs0J4kmcIwCoVd0OfzGISDGdFq3ufQl5z6XcPeiu7xQBDsPgyua
-	X2RqPcgp71toG7PM7KWZZM7aBPx5mT2swZnFkn03nZOK2cR4Sglcs1JtzWY4gZE3hGMiJI4lSga
-	FiZTt+Dhk1r4lXWznzaKkgidHI95yh/XpUUxy/2HUdTa6W+ys4pPVpFN7Y9WCj3+NnJd/RhBI9D
-	cRfruoXZ3+MBCjY4uvPE6gU/++8NyL4cIfpq6LS2Z2Z8uQrcl+0kxbkyUk52zo7KMfw/X+1FkWP
-	zUp7jDEGYifFnRxoIm7Q+yrBFE=
-X-Google-Smtp-Source: AGHT+IHVzMzW4ntcY5RtD1izruWfUjj9dfa/esLHe0znaWdZnVHY1DGiC+HdFk+IdXYw9BuNhDlrUg==
-X-Received: by 2002:a05:690c:d91:b0:770:bb4:860b with SMTP id 00721157ae682-7836d168608mr136701427b3.11.1760834527546;
-        Sat, 18 Oct 2025 17:42:07 -0700 (PDT)
-Message-ID: <1dc70410-310a-4a00-8c47-0eebdb023267@gmail.com>
-Date: Sat, 18 Oct 2025 20:42:02 -0400
+        d=1e100.net; s=20230601; t=1760836030; x=1761440830;
+        h=in-reply-to:autocrypt:content-language:references:cc:to:from
+         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=HLdJyur/qGd/jav85xALqM/Vu3f+RmW2aTP0olZO4pE=;
+        b=Ayn58JqHe0BW0JQVF9pDzh8y98mxR7MCgb/ZC/WFxqO6TAoA90IrnQ/8W98So6CJ+P
+         N8JmT69mY8Zt8me1I4drpGP/kXBH3Mfq2CjLxEwTpeaHF/PnvMBvHLL8IF8+fE0XQkEg
+         GcpSEidWRZQnAxYzuISrmFUYdxW9FJNdCn6sbxjvWsihSekjeApXXqSVbb/qNgydJes+
+         k5wYvjQHTY0fdggtBk31aifdQjoxCcRBOhVGTlDl098njYNWAVxO4HAZNQ8pbgCX82mU
+         GOL2G4g6j+Uj3TN0MJqmgOZZ2DV3aQHaAlKoxmWuR2HQkUGuM7aFFh+EQx++powJiMtf
+         stKg==
+X-Forwarded-Encrypted: i=1; AJvYcCXxKohcSrPy60PZQ7wh3I3X6txaWM57nb5tTedbwNvnAlmecQqD3TtGFbDBQm1S/rCDxvBt3dIn9D4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz4Vx/JOKIjvwqa3kGfaHRw4hy8gYhrM2Z/IgdpROBtwgY2DhTH
+	F02v4NYbtjHQUkwt/VFppsQtH/adpj5f/Sh1OGmpu3X5XPN7xLlBvMuN
+X-Gm-Gg: ASbGncv6yHX+5fdHcSNmfilZzGEZupaNJyad5lmxZVnPXrXGbJlkC7UNdxXbom3VcN8
+	FJ26XpG4PMQudzyNZr5crEbht6Xw3Bc4Rbl8KDFQWoEtZkLoo1Fv7vZ6BnMztLsTCHCcbbnMxDc
+	cyVV0m+DVNK/hgY/iAbTQyGotyMB2Dd9UfooyOy1kjhwUs7a4iZ0PBfNaEa/Hsw3FeDKT5svYdx
+	UjQh42OPsxz5JYmriiAtFgR4DduaNW9fu3bKrcb2Xvbjo081BMmlItRbZVM7ITPYimdOpjkT5R1
+	RuLVIJUOQDEhnS48AHKxRRxdbEq6KD8cQigFQuPquqW7B0JOHTc4PBOEmPtWe+zJ5QuQFpXVNgl
+	qLQOdufU0YXDq3eN6gwk4kMTShwAD8I9NIH/6DCs3npBLPuNwIRa340In6q6Wi9sYoenl6U1J0t
+	KD7zPAuZkAyuXebKKoMUr9nnXmIDvW2hNgGgRknorlOXYmtTgQwoFU/cb9tTc/hcOK55HlgwW/V
+	s9LJWXhbtGiQRCv
+X-Google-Smtp-Source: AGHT+IFx27vZKjvo9j7c4fgvvBQe/vZ4S7mmAxrI5ogZckNXeZSfq++UtiW3Xayn/bn+UH7B9esVVw==
+X-Received: by 2002:a05:690c:8d04:b0:766:6507:686b with SMTP id 00721157ae682-7836d1691e7mr124721947b3.8.1760836030140;
+        Sat, 18 Oct 2025 18:07:10 -0700 (PDT)
+Message-ID: <b12612a9-8593-4e0d-b5fa-14b30eaf2647@gmail.com>
+Date: Sat, 18 Oct 2025 21:07:05 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] xen: privcmd: fix ioeventfd/ioreq crashing PV domain
+From: Demi Marie Obenour <demiobenour@gmail.com>
 To: val@invisiblethingslab.com
 Cc: jgross@suse.com, linux-kernel@vger.kernel.org,
  oleksandr_tyshchenko@epam.com, sstabellini@kernel.org,
  xen-devel@lists.xenproject.org
 References: <20251015195713.6500-1-val@invisiblethingslab.com>
-Subject: Re: [RFC PATCH] xen: privcmd: fix ioeventfd/ioreq crashing PV domain
+ <1dc70410-310a-4a00-8c47-0eebdb023267@gmail.com>
 Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
  xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
  aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
@@ -140,24 +141,25 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20251015195713.6500-1-val@invisiblethingslab.com>
+In-Reply-To: <1dc70410-310a-4a00-8c47-0eebdb023267@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------quNxPaB9CAuxhoxkkYvxxQpU"
+ boundary="------------tBfbITYFYUR6bimc05njRVKT"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------quNxPaB9CAuxhoxkkYvxxQpU
-Content-Type: multipart/mixed; boundary="------------n0xgZe3LVgFupR9Oe5ssaXsO";
+--------------tBfbITYFYUR6bimc05njRVKT
+Content-Type: multipart/mixed; boundary="------------0JJp0SIU0rSQjv1kukS6chTZ";
  protected-headers="v1"
 From: Demi Marie Obenour <demiobenour@gmail.com>
 To: val@invisiblethingslab.com
 Cc: jgross@suse.com, linux-kernel@vger.kernel.org,
  oleksandr_tyshchenko@epam.com, sstabellini@kernel.org,
  xen-devel@lists.xenproject.org
-Message-ID: <1dc70410-310a-4a00-8c47-0eebdb023267@gmail.com>
+Message-ID: <b12612a9-8593-4e0d-b5fa-14b30eaf2647@gmail.com>
 Subject: Re: [RFC PATCH] xen: privcmd: fix ioeventfd/ioreq crashing PV domain
 References: <20251015195713.6500-1-val@invisiblethingslab.com>
-In-Reply-To: <20251015195713.6500-1-val@invisiblethingslab.com>
+ <1dc70410-310a-4a00-8c47-0eebdb023267@gmail.com>
+In-Reply-To: <1dc70410-310a-4a00-8c47-0eebdb023267@gmail.com>
 Autocrypt-Gossip: addr=jgross@suse.com; keydata=
  xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
  ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
@@ -182,28 +184,31 @@ Autocrypt-Gossip: addr=jgross@suse.com; keydata=
  QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
  ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
 
---------------n0xgZe3LVgFupR9Oe5ssaXsO
-Content-Type: multipart/mixed; boundary="------------k9JfLHwSkrqygCithmZ6ZVZV"
+--------------0JJp0SIU0rSQjv1kukS6chTZ
+Content-Type: multipart/mixed; boundary="------------0PDy05uDcN6xuhPo4kUdy0sv"
 
---------------k9JfLHwSkrqygCithmZ6ZVZV
+--------------0PDy05uDcN6xuhPo4kUdy0sv
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-I'm pretty sure Xen doesn't support ioeventfd at all yet.  There are
-two options:
+On 10/18/25 20:42, Demi Marie Obenour wrote:
+> I'm pretty sure Xen doesn't support ioeventfd at all yet.  There are
+> two options:
+>=20
+> 1. Port the backend to use an ioreq server instead of ioeventfd.
+> 2. Modify Linux (and possibly Xen) to support ioeventfd.
+>=20
+> Which virtio device are you trying to implement?  virtio-GPU will need
+> a lot of additional work and it would probably be best to discuss
+> this privately (over a call or similar).  Others are likely to be
+> significantly easier.
 
-1. Port the backend to use an ioreq server instead of ioeventfd.
-2. Modify Linux (and possibly Xen) to support ioeventfd.
-
-Which virtio device are you trying to implement?  virtio-GPU will need
-a lot of additional work and it would probably be best to discuss
-this privately (over a call or similar).  Others are likely to be
-significantly easier.
+Whoops, I got confused and didn't see you were using a Xen-native
+frontend.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
-
---------------k9JfLHwSkrqygCithmZ6ZVZV
+--------------0PDy05uDcN6xuhPo4kUdy0sv
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -323,31 +328,31 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------k9JfLHwSkrqygCithmZ6ZVZV--
+--------------0PDy05uDcN6xuhPo4kUdy0sv--
 
---------------n0xgZe3LVgFupR9Oe5ssaXsO--
+--------------0JJp0SIU0rSQjv1kukS6chTZ--
 
---------------quNxPaB9CAuxhoxkkYvxxQpU
+--------------tBfbITYFYUR6bimc05njRVKT
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmj0M9sACgkQszaHOrMp
-8lOKbw/+NxjKfDApktJj8jyfyzcA+8wy0nBNjeD4Rycpl4Mj2laMrLWU/STefTyf
-kHul7Q41/AVTCPzq/FUdjincEdpIUXqLwE/RSG44NeQ3CNXqbEj8CRAIWxASMOLG
-V5BH1S/kU37XTAFnov++qPc4m8klqg6j3bc+KWR+RifyneFqzcziOxTPxFV5uVWx
-u6u3YsV6B/FDRp/xkfvfPWvixLWnXrInU1RqKDS0szT3NAai2oJib7URyV5hycZi
-1lvrnyIOFwix9EOR4C+N4frF2YrMOTy5Gk3m/P+6lD42A0GJSDPMaGprTSPB4fyP
-oPEdedpUSreYmHetnoEw1cJ6zHI0vLZBDntGsyGvsk2IaNplD5MFJtlAj5xuena9
-MmnY+7V40x6DEl2FB5G/2EWg2v21WfdtD3cH5HKkhNeJb0V+h2bvf1VsaY5vIRY0
-aD3xmhNyAUWArJttkbuVpGVMd4BaDZhUxPE5ocz3pzGJvGu4kL0vH94bcvtbV/ki
-0ZTZdegQkSlvE1XqclnplsV+922k39J7YCrFsTrKQUjWpQeCuaTB1Md1a3RO3s7V
-MXwRuDQIx9nZldODIeCEOOp9C0gzSo/Rk99LhiApX1NtHt3RqBVxUpUKcGcIbw3z
-42XIcduj/7TMXPROA+2vWPmSDAgNuFdg7gh4IYoKXVRzm64zjtY=
-=DeET
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmj0OboACgkQszaHOrMp
+8lNmbRAAopSVaXKHCttdWchcJOAV29YZl+xjUW5QnPmbUdCH+IZ7nkUyUYxsKqr7
+yt+JcdYIF/1MISUT+42Hpj9W3krTOhX0e6wmC12f8o3Y0dc3Xg4f+cQQo9RrWVUT
+q+bGW3cMJ+TMR8XqYom6RonGlZ3uVYgpm2dEo4gjkBDZRSzyyawFtuFq/CDlVyNA
+tCiLzhgaPE8hQA9y71cqe3FhvDTQ3UuEiqCYSKSGYg0gnaIqa2j9H4kEGWM4/SEQ
+y+Nejs3FHlm0qzfJr3jk9fXP02iaoyZq1DeR2XgcZcCDSgLGCnJcC4+QyDrOWVJc
+zZNPnrsaHZmtF73qPh/ehLMe0Sgs5NSdHWzjR1iwtd764b2ij+KPWYjYzzZzrduM
+cKARVIVdRZMea8jDMORGt8HJ9io41mklpPpGYhI/5oyf9a5AIWzH/woozsPDTzFO
+RO8pjl4tZi/CLZbOWiimUinoZCAtKAyXTghMSclQzp33aRdAK/6Wp8R+WM5dw6pD
+XynJVg6x90AsMxygchq344klnxWqaVd7bBcM85voMaDv0+DVny+pkRo/7QH0fYyf
+Q+uqlAco3pTZDQd7GCmRCsDk7EYDxy26W6DfH6++cJWpgA45Xd1qN4pLCNeIGBCD
+hxyDnLMTNE+KuKBAwDjYNENRJYRhPgc4ReESJuI380EzvQAU564=
+=PXnu
 -----END PGP SIGNATURE-----
 
---------------quNxPaB9CAuxhoxkkYvxxQpU--
+--------------tBfbITYFYUR6bimc05njRVKT--
 
