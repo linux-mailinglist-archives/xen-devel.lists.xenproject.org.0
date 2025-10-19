@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7270CBEDD84
-	for <lists+xen-devel@lfdr.de>; Sun, 19 Oct 2025 03:07:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1145765.1478457 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD29BBEDD95
+	for <lists+xen-devel@lfdr.de>; Sun, 19 Oct 2025 03:22:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1145789.1478466 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAHtC-0001jT-DG; Sun, 19 Oct 2025 01:07:14 +0000
+	id 1vAI7I-0004n9-Oc; Sun, 19 Oct 2025 01:21:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1145765.1478457; Sun, 19 Oct 2025 01:07:14 +0000
+Received: by outflank-mailman (output) from mailman id 1145789.1478466; Sun, 19 Oct 2025 01:21:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAHtC-0001hk-9r; Sun, 19 Oct 2025 01:07:14 +0000
-Received: by outflank-mailman (input) for mailman id 1145765;
- Sun, 19 Oct 2025 01:07:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vAI7I-0004lE-Lu; Sun, 19 Oct 2025 01:21:48 +0000
+Received: by outflank-mailman (input) for mailman id 1145789;
+ Sun, 19 Oct 2025 01:21:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2urB=44=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1vAHtB-0001hb-6A
- for xen-devel@lists.xenproject.org; Sun, 19 Oct 2025 01:07:13 +0000
-Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
- [2607:f8b0:4864:20::1132])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f0a07f33-ac87-11f0-9d15-b5c5bf9af7f9;
- Sun, 19 Oct 2025 03:07:11 +0200 (CEST)
-Received: by mail-yw1-x1132.google.com with SMTP id
- 00721157ae682-7817c2d909cso35271507b3.1
- for <xen-devel@lists.xenproject.org>; Sat, 18 Oct 2025 18:07:11 -0700 (PDT)
+ id 1vAI7G-0004l8-TU
+ for xen-devel@lists.xenproject.org; Sun, 19 Oct 2025 01:21:47 +0000
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [2607:f8b0:4864:20::1136])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f8c7eeb9-ac89-11f0-980a-7dc792cee155;
+ Sun, 19 Oct 2025 03:21:44 +0200 (CEST)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-78485c4146bso6140487b3.2
+ for <xen-devel@lists.xenproject.org>; Sat, 18 Oct 2025 18:21:44 -0700 (PDT)
 Received: from [10.138.34.110]
  (h96-60-249-169.cncrtn.broadband.dynamic.tds.net. [96.60.249.169])
  by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-63e2669092bsm1201389d50.7.2025.10.18.18.07.08
+ 00721157ae682-784673c3069sm10751687b3.23.2025.10.18.18.21.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 18 Oct 2025 18:07:09 -0700 (PDT)
+ Sat, 18 Oct 2025 18:21:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,58 +46,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0a07f33-ac87-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: f8c7eeb9-ac89-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1760836030; x=1761440830; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:content-language:references:cc:to:from
+        d=gmail.com; s=20230601; t=1760836903; x=1761441703; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=HLdJyur/qGd/jav85xALqM/Vu3f+RmW2aTP0olZO4pE=;
-        b=Y3pD7oJlnaIGhpWxm8+fhnVpDWh3T8BRMOu370+i9UatT8GNCfDbKUg97a1/zIE1e7
-         nQiPxQrE16s0nDERgAse/uF94a7WOni/+yRirUvOZouTrjDYwIUUgB8HwJ07hYGNfzvX
-         ekWz1gPRS1Ka9XZLi+94+37FSWQX3atrdMnSByHSEwuIXJaPaPPYdoFJ89JsqSs8VW4a
-         cgf6Vj3fX6zdMKeMiktciQMjBMitQ3l3MnqC2yfcxYq77hKgDB7Qwr8Vm8/3x22oiW+M
-         edPoUUETOMCKMPBP3eVAd1+llLbw53fxEPC/GDknNe15/3Kw/E/K0n9X4CrgU17AwXdv
-         lpJQ==
+        bh=3tat2wgIoR6s7G1OvgJTvF8hhfRKWzusbBtJOy/2V94=;
+        b=CixMesOWxYf6CsAYJ7m50lKJSACowBYvDiLnwH6agmV1WVr3IACxygaS9HXWlfqHzq
+         tzaH7xNQIQR9FlK84j8rAO8VDVhJnW3h0oc8RDscWxu3kdukVMS49vNit8qmZMN84Sif
+         znNtOCfKsyugy2eaD9PvaBkWw3DU7H5j7J08LdMc0uaphJLx8VLe++5CNbsoU+ZrcjZz
+         Pb67b/Ub8UsdDxXsimgnjRntBTqunZzpznFBN88MntOuz0HUdm7AUsibAFvScRPb5xGs
+         Wdgj1dKg5bS65cIzKCfSEPKdcbQUeqI/Mrp6fFJ7tIGgF+8Uh+J7vMwStcE4bGxbV7mV
+         bu/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760836030; x=1761440830;
-        h=in-reply-to:autocrypt:content-language:references:cc:to:from
+        d=1e100.net; s=20230601; t=1760836903; x=1761441703;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=HLdJyur/qGd/jav85xALqM/Vu3f+RmW2aTP0olZO4pE=;
-        b=Ayn58JqHe0BW0JQVF9pDzh8y98mxR7MCgb/ZC/WFxqO6TAoA90IrnQ/8W98So6CJ+P
-         N8JmT69mY8Zt8me1I4drpGP/kXBH3Mfq2CjLxEwTpeaHF/PnvMBvHLL8IF8+fE0XQkEg
-         GcpSEidWRZQnAxYzuISrmFUYdxW9FJNdCn6sbxjvWsihSekjeApXXqSVbb/qNgydJes+
-         k5wYvjQHTY0fdggtBk31aifdQjoxCcRBOhVGTlDl098njYNWAVxO4HAZNQ8pbgCX82mU
-         GOL2G4g6j+Uj3TN0MJqmgOZZ2DV3aQHaAlKoxmWuR2HQkUGuM7aFFh+EQx++powJiMtf
-         stKg==
-X-Forwarded-Encrypted: i=1; AJvYcCXxKohcSrPy60PZQ7wh3I3X6txaWM57nb5tTedbwNvnAlmecQqD3TtGFbDBQm1S/rCDxvBt3dIn9D4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz4Vx/JOKIjvwqa3kGfaHRw4hy8gYhrM2Z/IgdpROBtwgY2DhTH
-	F02v4NYbtjHQUkwt/VFppsQtH/adpj5f/Sh1OGmpu3X5XPN7xLlBvMuN
-X-Gm-Gg: ASbGncv6yHX+5fdHcSNmfilZzGEZupaNJyad5lmxZVnPXrXGbJlkC7UNdxXbom3VcN8
-	FJ26XpG4PMQudzyNZr5crEbht6Xw3Bc4Rbl8KDFQWoEtZkLoo1Fv7vZ6BnMztLsTCHCcbbnMxDc
-	cyVV0m+DVNK/hgY/iAbTQyGotyMB2Dd9UfooyOy1kjhwUs7a4iZ0PBfNaEa/Hsw3FeDKT5svYdx
-	UjQh42OPsxz5JYmriiAtFgR4DduaNW9fu3bKrcb2Xvbjo081BMmlItRbZVM7ITPYimdOpjkT5R1
-	RuLVIJUOQDEhnS48AHKxRRxdbEq6KD8cQigFQuPquqW7B0JOHTc4PBOEmPtWe+zJ5QuQFpXVNgl
-	qLQOdufU0YXDq3eN6gwk4kMTShwAD8I9NIH/6DCs3npBLPuNwIRa340In6q6Wi9sYoenl6U1J0t
-	KD7zPAuZkAyuXebKKoMUr9nnXmIDvW2hNgGgRknorlOXYmtTgQwoFU/cb9tTc/hcOK55HlgwW/V
-	s9LJWXhbtGiQRCv
-X-Google-Smtp-Source: AGHT+IFx27vZKjvo9j7c4fgvvBQe/vZ4S7mmAxrI5ogZckNXeZSfq++UtiW3Xayn/bn+UH7B9esVVw==
-X-Received: by 2002:a05:690c:8d04:b0:766:6507:686b with SMTP id 00721157ae682-7836d1691e7mr124721947b3.8.1760836030140;
-        Sat, 18 Oct 2025 18:07:10 -0700 (PDT)
-Message-ID: <b12612a9-8593-4e0d-b5fa-14b30eaf2647@gmail.com>
-Date: Sat, 18 Oct 2025 21:07:05 -0400
+        bh=3tat2wgIoR6s7G1OvgJTvF8hhfRKWzusbBtJOy/2V94=;
+        b=slZAAS5KPGmfe+QyYVYAuPbzYmDHoKAmZgoDeAqp02t0hiiCZY6rDzDFrpcZVauLcL
+         FH23Fvq3idjfQu4nDRgbgec7hXFL24ajbK/6Ca6fVSbdwBxjObMzokPZuTDEhhsvjbZ1
+         ObekSQ+YNWZGmQB4S8Q2ue/EaACWRWEVH1tWfH/YKe+RrK1SZnQXtCqA0rJA0LFoBqXC
+         yUxm758bfTbpA0BjWFcOgJh7g/LLjtquSruEpHNp0vTCW5wvUgLTUWp3W/olH1s0wLXG
+         +wo3FTDPtUGm4BSCMQTHqu3P9nzzNGkgI26kZ/IDdfgKS9IKQ+3ApSElC3bSYS6nxTk6
+         hnhA==
+X-Forwarded-Encrypted: i=1; AJvYcCVAmV3TSxRmQD0tZ+Gmk+ZgzfjJsnPQb6CQojUdd2rp4hH/rmURy2O6E87mNUzGvMtVYEThzzR9hfg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyEeLA1kPBpntajt38IffZuHsDJ4e8V0vGn90Alg4F6xU9PT0oC
+	MYh1/WLONNJ215Cytfcj45SdsCjJsiNrYru5fgzDK00LxsMx2Al9gYcB
+X-Gm-Gg: ASbGncsUwX8J3TkcueQdq7+i3J6i97fHWw9fdo3/jYc2yZaC3GyoA9bXeenbLmXXB/u
+	d6SiRslnaghlSoOD96kqk1Z4SrFcQMC2Fn6PwjSRdoz/gPb77UeEMdb+8M2N7Rf78rDPqhZYY7n
+	xdZMw+4JeeABPpRKMCM4z4ZkWvnruc0LTJ969nOFGSsXktRzSlCnclS5J8dl6UCbf/7PAXr3FeZ
+	14O6WjbDgGcXvTv26s2EIDPfS5zbfmZiv7PCpxdDEn1AEJrJtEGPHnC1khC8H1kgHxSCRlvFiPc
+	mlYO9RwWVjMjG2CReWYqZFFfXkEjS5JDUoWz22p5sZ0aCdUhDzt3Q9GG1h80X70dtuyWDfg79uC
+	AgjkQJySeXCRzcIrU3gK7NlF+f5dP9gn4giCx0Tp4Hcy0O/J7T8LqnPehb/lA4gdnPm70sqFcB2
+	LB+pvr9hww5bhq9oy3SgxNV1+FxKtiZEy577mnmq4aEGgoOv3q0y5rqWZak584vfD8Vf2bzq0+u
+	6a/QowbhnWOhcZf
+X-Google-Smtp-Source: AGHT+IECcMT0tdBUoruwaFyFe5cRnAPQnUhpNJoHH/eOGFlzNJkvnzBAieZIqYznC24BLXeTXn5k7g==
+X-Received: by 2002:a05:690c:b13:b0:780:be5b:3435 with SMTP id 00721157ae682-7836d665f84mr73223057b3.44.1760836902608;
+        Sat, 18 Oct 2025 18:21:42 -0700 (PDT)
+Message-ID: <a7a2b126-489b-4bdc-ba0c-d0c92f8df822@gmail.com>
+Date: Sat, 18 Oct 2025 21:21:37 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen: privcmd: fix ioeventfd/ioreq crashing PV domain
-From: Demi Marie Obenour <demiobenour@gmail.com>
-To: val@invisiblethingslab.com
-Cc: jgross@suse.com, linux-kernel@vger.kernel.org,
- oleksandr_tyshchenko@epam.com, sstabellini@kernel.org,
- xen-devel@lists.xenproject.org
-References: <20251015195713.6500-1-val@invisiblethingslab.com>
- <1dc70410-310a-4a00-8c47-0eebdb023267@gmail.com>
+Subject: Re: [PATCH v5] x86: make Viridian support optional
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ Jan Beulich <jbeulich@suse.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Paul Durrant <paul@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250930125215.1087214-1-grygorii_strashko@epam.com>
+ <3e4e4bc5-aa47-4357-9327-df2a9b9c9a1b@suse.com>
+ <DDH3W3VM2ZDJ.PMFSGBWBTS0S@amd.com>
+ <9248eda6-cf9b-4fdf-ab32-66e777585f65@gmail.com>
+ <DDKPUZKA0UHL.2WRO9M23R4G3E@amd.com>
 Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
  xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
  aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
@@ -141,74 +148,101 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <1dc70410-310a-4a00-8c47-0eebdb023267@gmail.com>
+In-Reply-To: <DDKPUZKA0UHL.2WRO9M23R4G3E@amd.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------tBfbITYFYUR6bimc05njRVKT"
+ boundary="------------0kfV0gzEPwgDUbm1IibRV4W0"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------tBfbITYFYUR6bimc05njRVKT
-Content-Type: multipart/mixed; boundary="------------0JJp0SIU0rSQjv1kukS6chTZ";
+--------------0kfV0gzEPwgDUbm1IibRV4W0
+Content-Type: multipart/mixed; boundary="------------BCSXnPJT0JDtHb0caqd0JhdV";
  protected-headers="v1"
 From: Demi Marie Obenour <demiobenour@gmail.com>
-To: val@invisiblethingslab.com
-Cc: jgross@suse.com, linux-kernel@vger.kernel.org,
- oleksandr_tyshchenko@epam.com, sstabellini@kernel.org,
- xen-devel@lists.xenproject.org
-Message-ID: <b12612a9-8593-4e0d-b5fa-14b30eaf2647@gmail.com>
-Subject: Re: [RFC PATCH] xen: privcmd: fix ioeventfd/ioreq crashing PV domain
-References: <20251015195713.6500-1-val@invisiblethingslab.com>
- <1dc70410-310a-4a00-8c47-0eebdb023267@gmail.com>
-In-Reply-To: <1dc70410-310a-4a00-8c47-0eebdb023267@gmail.com>
-Autocrypt-Gossip: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ Jan Beulich <jbeulich@suse.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Paul Durrant <paul@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <a7a2b126-489b-4bdc-ba0c-d0c92f8df822@gmail.com>
+Subject: Re: [PATCH v5] x86: make Viridian support optional
+References: <20250930125215.1087214-1-grygorii_strashko@epam.com>
+ <3e4e4bc5-aa47-4357-9327-df2a9b9c9a1b@suse.com>
+ <DDH3W3VM2ZDJ.PMFSGBWBTS0S@amd.com>
+ <9248eda6-cf9b-4fdf-ab32-66e777585f65@gmail.com>
+ <DDKPUZKA0UHL.2WRO9M23R4G3E@amd.com>
+In-Reply-To: <DDKPUZKA0UHL.2WRO9M23R4G3E@amd.com>
 
---------------0JJp0SIU0rSQjv1kukS6chTZ
-Content-Type: multipart/mixed; boundary="------------0PDy05uDcN6xuhPo4kUdy0sv"
+--------------BCSXnPJT0JDtHb0caqd0JhdV
+Content-Type: multipart/mixed; boundary="------------FDnph8dZOE8tGRxZQEtoTMta"
 
---------------0PDy05uDcN6xuhPo4kUdy0sv
+--------------FDnph8dZOE8tGRxZQEtoTMta
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 10/18/25 20:42, Demi Marie Obenour wrote:
-> I'm pretty sure Xen doesn't support ioeventfd at all yet.  There are
-> two options:
+On 10/17/25 11:52, Alejandro Vallejo wrote:
+> On Wed Oct 15, 2025 at 7:58 AM CEST, Demi Marie Obenour wrote:
+>> On 10/13/25 06:01, Alejandro Vallejo wrote:
+>>> On Wed Oct 8, 2025 at 6:04 PM CEST, Jan Beulich wrote:
+>>>> On 30.09.2025 14:52, Grygorii Strashko wrote:
+>>>>> --- a/xen/arch/x86/hvm/Kconfig
+>>>>> +++ b/xen/arch/x86/hvm/Kconfig
+>>>>> @@ -62,6 +62,16 @@ config ALTP2M
+>>>>> =20
+>>>>>  	  If unsure, stay with defaults.
+>>>>> =20
+>>>>> +config VIRIDIAN
+>>>>> +	bool "Hyper-V enlightenments for guests" if EXPERT
+>>>>> +	default y
+>>>>> +	help
+>>>>> +	  Support optimizations for Hyper-V guests such as faster hyperca=
+lls,
+>>>>> +	  efficient timer and interrupt handling, and enhanced paravirtua=
+lized
+>>>>> +	  I/O. This is to improve performance and compatibility of Window=
+s VMs.
+>>>>
+>>>> What is "paravirtualized I/O" about in this context?
+>>>
+>>> Hypervisor-assisted IPIs, TLB flushes, etc. Or so I understood back w=
+hen I said
+>>> that looked ok. I see there could be confusion with Xen PV device pro=
+tocols,
+>>> but as far as the user of the help message is concerned it makes no d=
+ifference.
+>>>
+>>> One could even remove the examples and leave it as "... for Hyper-V g=
+uests. This
+>>> is to...". They are truly inconsequential.
+>>>
+>>> All that matters is that (modern) Windows won't run without it, and t=
+hat it
+>>> provides some indeterminate hypervisor-provided assists to try to red=
+uce some
+>>> virtualization overheads.
+>>
+>> Qubes OS doesn't expose Viridian at all, which is why it wasn't
+>> vulnerable to XSA-472.  It still runs Windows guests just fine.
 >=20
-> 1. Port the backend to use an ioreq server instead of ioeventfd.
-> 2. Modify Linux (and possibly Xen) to support ioeventfd.
->=20
-> Which virtio device are you trying to implement?  virtio-GPU will need
-> a lot of additional work and it would probably be best to discuss
-> this privately (over a call or similar).  Others are likely to be
-> significantly easier.
+> Can you run Windows 11?
 
-Whoops, I got confused and didn't see you were using a Xen-native
-frontend.
+I haven't tried it, but it is documented as working.
+
+> I don't remember which, but I do know some versions of Windows refuse t=
+o boot
+> if they determine they are virtualised and don't see the mandatory part=
+s of
+> the TLFS.
+>=20
+> If 11 works, maybe Windows Server?
+
+Windows Server is more likely.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------0PDy05uDcN6xuhPo4kUdy0sv
+--------------FDnph8dZOE8tGRxZQEtoTMta
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -328,31 +362,31 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------0PDy05uDcN6xuhPo4kUdy0sv--
+--------------FDnph8dZOE8tGRxZQEtoTMta--
 
---------------0JJp0SIU0rSQjv1kukS6chTZ--
+--------------BCSXnPJT0JDtHb0caqd0JhdV--
 
---------------tBfbITYFYUR6bimc05njRVKT
+--------------0kfV0gzEPwgDUbm1IibRV4W0
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmj0OboACgkQszaHOrMp
-8lNmbRAAopSVaXKHCttdWchcJOAV29YZl+xjUW5QnPmbUdCH+IZ7nkUyUYxsKqr7
-yt+JcdYIF/1MISUT+42Hpj9W3krTOhX0e6wmC12f8o3Y0dc3Xg4f+cQQo9RrWVUT
-q+bGW3cMJ+TMR8XqYom6RonGlZ3uVYgpm2dEo4gjkBDZRSzyyawFtuFq/CDlVyNA
-tCiLzhgaPE8hQA9y71cqe3FhvDTQ3UuEiqCYSKSGYg0gnaIqa2j9H4kEGWM4/SEQ
-y+Nejs3FHlm0qzfJr3jk9fXP02iaoyZq1DeR2XgcZcCDSgLGCnJcC4+QyDrOWVJc
-zZNPnrsaHZmtF73qPh/ehLMe0Sgs5NSdHWzjR1iwtd764b2ij+KPWYjYzzZzrduM
-cKARVIVdRZMea8jDMORGt8HJ9io41mklpPpGYhI/5oyf9a5AIWzH/woozsPDTzFO
-RO8pjl4tZi/CLZbOWiimUinoZCAtKAyXTghMSclQzp33aRdAK/6Wp8R+WM5dw6pD
-XynJVg6x90AsMxygchq344klnxWqaVd7bBcM85voMaDv0+DVny+pkRo/7QH0fYyf
-Q+uqlAco3pTZDQd7GCmRCsDk7EYDxy26W6DfH6++cJWpgA45Xd1qN4pLCNeIGBCD
-hxyDnLMTNE+KuKBAwDjYNENRJYRhPgc4ReESJuI380EzvQAU564=
-=PXnu
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmj0PSEACgkQszaHOrMp
+8lPnSg//eNYOmcap+fcEmdgNhjOtPEb66+mn7JtcIMi1qwrd/m88K2UwxkiXe6Vd
+lxh1IS/jnxyfAnjhGqLNEotBvcRBVbl6dCo96bAWfDaTgYt5e88yjsawO2cmOiOw
+dpj3/QfCvfCp5kI03BRo/QZ29wpZK5U6c96meBOapf6dEVVnOZAprflmCKwxwV9Y
+uwnizJP49023cjZOGADTnH1EK0J0ylMu4mbXLbOjYIjY6+1C2MxUIUa3YkC0uaCe
+FY79JNLYp0hvCU8wWG2qZXxV0d26oddVPMkeHe6F1wucgRhYQ4/NyeEnBrDajEUy
+NKwtM0Cx43e4fI6WKwhF7nRSaMw2vCEdPGfkOHJBHq3sLLFBHlWpJJrLVjgqKZ0c
+ksHXXze6G7FzDzSmd8nzEed5GYdxaDUMK356erJgoyiPpoo3cDq8r2x9Wgpc3qn/
+jidzj/H61xKj6K/hAKRVxjg5ZF0Do0QT/rQh3tHzt52RBnG22KGPZImHowWySMxI
+swyjZDMFHR59vnHb5vehGXEtCnzEuldLmjHGj5/LbXV9FsHtgfbe5nHZF1Bu5UlC
+XWwLqKBcBbRmO2sgteVs1IMb+fglEg4Cek9qMNhvI86dbkbUnBKUXW7t0T9D6J17
+puoiMN8PmGAybh29v+QG21A0QP0v5/COvlkh6b7MsXhQhRylgBw=
+=8NP9
 -----END PGP SIGNATURE-----
 
---------------tBfbITYFYUR6bimc05njRVKT--
+--------------0kfV0gzEPwgDUbm1IibRV4W0--
 
