@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C252FBEFBBA
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Oct 2025 09:47:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1146001.1478496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 546F9BEFBD2
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Oct 2025 09:50:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1146012.1478506 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAkbO-0006U4-A7; Mon, 20 Oct 2025 07:46:46 +0000
+	id 1vAkez-0007z5-Pi; Mon, 20 Oct 2025 07:50:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1146001.1478496; Mon, 20 Oct 2025 07:46:46 +0000
+Received: by outflank-mailman (output) from mailman id 1146012.1478506; Mon, 20 Oct 2025 07:50:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAkbO-0006Se-7M; Mon, 20 Oct 2025 07:46:46 +0000
-Received: by outflank-mailman (input) for mailman id 1146001;
- Mon, 20 Oct 2025 07:46:44 +0000
+	id 1vAkez-0007xf-Mf; Mon, 20 Oct 2025 07:50:29 +0000
+Received: by outflank-mailman (input) for mailman id 1146012;
+ Mon, 20 Oct 2025 07:50:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7iz2=45=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vAkbM-0006SX-Hq
- for xen-devel@lists.xenproject.org; Mon, 20 Oct 2025 07:46:44 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1vAkey-0007xX-CZ
+ for xen-devel@lists.xenproject.org; Mon, 20 Oct 2025 07:50:28 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb3e6f5e-ad88-11f0-980a-7dc792cee155;
- Mon, 20 Oct 2025 09:46:42 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-471131d6121so32021865e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 20 Oct 2025 00:46:42 -0700 (PDT)
+ id 707ea979-ad89-11f0-980a-7dc792cee155;
+ Mon, 20 Oct 2025 09:50:26 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3f0ae439b56so2970467f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Oct 2025 00:50:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-471144d17cdsm214764755e9.18.2025.10.20.00.46.41
+ ffacd0b85a97d-427ea5bab52sm13811498f8f.22.2025.10.20.00.50.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Oct 2025 00:46:41 -0700 (PDT)
+ Mon, 20 Oct 2025 00:50:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb3e6f5e-ad88-11f0-980a-7dc792cee155
+X-Inumbo-ID: 707ea979-ad89-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760946402; x=1761551202; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760946625; x=1761551425; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=B1HadU0t8k4JN7ZRq6l7r8ZkLRgJxDZMIeBI0AtYhIA=;
-        b=L9DYYjH0CiTJ9BbD/xSVAJUtaFHu6xvoDvhu1Q+i8IMoYeN+GTWmEMmsR9V3tq1fqM
-         83cFOzk2dj3EHKrqqc3yfOS7w4gVuS81rPQhwkMZ8XlYT8i3PchDcM4pveZqCXeUN01D
-         LOFrc+6hXILbFrSVgozYpLCKT29Bz7dlLFWGJbDp4e9gqK2JmyamLedZGEMRIpllwF0M
-         JcDFARz7bjqbMXNLhrl2WsEoczd9p0ol2LQx0GiiHH1FJiZNAw7OXV+doTAZHmCsr9Uk
-         6oHuAnz+7FLIyOa67jqvTHvovhKcpv7lQo96qxSRn8JZu1G4QjrEUD4RH7+aP5QKLSv6
-         MHtQ==
+        bh=2AVMTbuE9hXKs1hVmKfa47hih711OJ9ionbspIQ+ilc=;
+        b=gKZmnUW7lDzazBrJ/MX9/GSmatwtVZIOcJSEuSo9Y3fcxoHGkCMzez6KbkPbz+D5hs
+         VKBWCeMAULzHu7ojR8Z1i1Gb3NQG6hMskOg28zuTmzoRh9QR3bFQXqKRE+iiBOUwxb+i
+         93NnZMV7O4gGIEXj3PzQ8n3ZWssOpiuCbAVBBtBHCrTX7u95rHdBui0TwXUfm4K2wuDq
+         7AhCE3JaNibQObB8/KeCcTr6zQmMxArlh2AwRUUu+h0abFtuKMaeNJvSF8IinH++0OGe
+         CfW+XBM7Hj7YTn/b99jRp4XuJF7mS3lR66GzfWTBqp3yUpdK401nnWeSpgyNXE4110Us
+         lTRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760946402; x=1761551202;
+        d=1e100.net; s=20230601; t=1760946625; x=1761551425;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=B1HadU0t8k4JN7ZRq6l7r8ZkLRgJxDZMIeBI0AtYhIA=;
-        b=LphLR8c59qNdCWr5htzJVoYFhp9ptYnAJbTgqJPPE/cjr/WMzXAXAbnbYG1w1cyM4Y
-         M2Od087LDztI+BJAddcS7l2mNgcZRnGIxECoU/eyRGAnogO15qlwZcF2wPuyGRJkEBDa
-         PWmwD6I0ZvNtofL9RKsQMb4v3NZ8+fD5LIxbeSuEsIj5kHYQ1NuCey4KD+lwRH8PXD2V
-         u9YEU4izM9Ilx36sTtW0HDkjEQkaV9zJC3eWzrlBd83FYlRdR2PIIdrafvvYRKFgkYqL
-         sBmP24pk4r8kr1HxLIFOGo4dxS/0gf9Mi9yxYsGt/QjbE6i6LD0Iv8FriPxNcbeTSl2U
-         MDqg==
-X-Forwarded-Encrypted: i=1; AJvYcCXKsMS84wPSCDsZzsvvkjD4qEWyYX8BCgHE2yCzeHqqD3BmoDepGsbySQrHNEsz6esZqjreZRrAh80=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx1CR4nyPboz/VM62osv8RwzPVycnEdCx8bPfhiQ4o4Zg+Gxy3G
-	9luEJdVGQzftbq0djNXROOBbW6P9ukXcDOSgj6wbAP+PSeJgAasvudaGPqtM5Ar9nQ==
-X-Gm-Gg: ASbGncuUjXXTMK62xhP1gcbn8ZVqkL4X5A+HJGJiQJ6h1o1c28sw654Ufngjewkr87m
-	QLY2Luv7pO+UaJGvcBYzRR5VwInJgjuso52PXbETJUizTviwxSAC8H1/mFzz89+uYml6fa74KcC
-	of3UzLBfkEptg5fc49sxWrGBeH1sgE8Za0F0Atd6zxaFGM1TlyEdHTHs+5J432P6lNrXN8IbNLZ
-	lWdEWKPRkTWk64m+LEzP00B5cH4IArmpA/mHD/wcUvufLTvd5JWzqcVpb+uC9ZWiVJtN6adJVjC
-	7PfgZaexNOmwLHvH+G5zmTrdZ+Hllt5YZs0l6PBzHISwfECLcz0k06tikWKIfKpOQA4kkih41kJ
-	PtRB0xN0x00ENyY+UEapLvPf7jlJ/uw/hV2bH4Uq7VDbg0HzKk1+kCDYOKLqwmZXYyIhd1kVtnc
-	A/6kAzCQvC1nexs2x0SxLDG2dMoW0ZT6CVsXFHunQpW3B0Csn2/1t4YEqlWFmI
-X-Google-Smtp-Source: AGHT+IHd6HETIH55DBmeOw9uKWSCE2czgfajJ+6IOmLC/7qhsU/lcidBkFkqHiFFx+WVYuGMhIOTEw==
-X-Received: by 2002:a05:600c:670a:b0:45d:d97c:236c with SMTP id 5b1f17b1804b1-471179017f3mr74140645e9.21.1760946401750;
-        Mon, 20 Oct 2025 00:46:41 -0700 (PDT)
-Message-ID: <706663d2-61dd-4fb0-b278-d3282dc7b5ca@suse.com>
-Date: Mon, 20 Oct 2025 09:46:42 +0200
+        bh=2AVMTbuE9hXKs1hVmKfa47hih711OJ9ionbspIQ+ilc=;
+        b=nFfPIIZ9WkuK58UqEYGYz4zvg936ifI/Qs/yUqtCWXXaAeuqXKE3ZgnCcYzm/9MOKx
+         WxJAR0LBnEBwGgyRx2K1axTzTdxP+iSONe204EKKt4v713Lqs8eQ3zxjuBVJFR4VFQ4W
+         pikG1HFjiWK2w29gZEmnT+ZMWAcdplOIdg5LM7ysdNKUjuM+y1b4qIpr1yJUDbwfepfp
+         su8Nus5QsC25Sibm2ipC/MOx3cDW+lCPDW1S1lg8hDObofdENfxuDmn7xl92rTnwZFYh
+         PNro12MWWj1zVmQpYcToUkIC0WfJPR6ChsPHspLZzCjLgX2U13Qefhj/W76Lb38be1Ph
+         pI5A==
+X-Gm-Message-State: AOJu0YwGAwQYsWoWl1Va3xvv4bjcBWN4NxXr5MnlxwgM3Am/NFDBIyV3
+	bc+DKtwx23OFhVQnWhb1XE61oExX7Z06jAGBT2t6YSkD6RLhc+D9/E3z3H9GMOWpFQ==
+X-Gm-Gg: ASbGnctBIslVyyPc94z2Asbr+etqEQxw5Ca5YwceFDRDevM3aly6rQvKLEEkuLfDQZW
+	mOksJLDP4XV9ZaulPzQ0IccGUjioi1fTxa21F59u3VhIPXPZQW3urpkqJ1bL9fKOJmA1Q+CPeUv
+	aoyizpvEfZgymnSHYkgASuEBykp+1V5d/d8jUsX8m4hKLji9PvXViiy3lRBuPlbEMfxcvOtgAmX
+	SO4tN0KkhbWsIwQPz8vgoOjPIAZeLzWVOTI20fTwa8iMJoRCCuaRRK7Lzv09HqtxkAwyQpTgpmD
+	vUauaIHD/eLXCYG048RM55K4Rhp+EwzmOlkPcCQEQaP/6rYWAyLD+jYztXzhVnseL8UI7EGlCeI
+	CLFmiWOnu70eNsgn8uQNV64rjDCQDtAOqZPIhx58aAhiKCj/d4uWIaSgthK+HlqCsqGO+HOYQ74
+	0Vss6IDakNLyAVLhY0qE1rXnAdlNuZOydSv/elGZR8339bs9rXluhl82xHrP4M
+X-Google-Smtp-Source: AGHT+IF3kNNuFWb7kNd9lmeCnDuXmdnmUTMdsxQpAXAE3F0UP3oM5LRLMFnLfhFDZf1pQCztzTZDaw==
+X-Received: by 2002:a05:6000:2dc3:b0:426:d54d:224d with SMTP id ffacd0b85a97d-42704d7ebbamr9134942f8f.27.1760946625330;
+        Mon, 20 Oct 2025 00:50:25 -0700 (PDT)
+Message-ID: <d41d4d43-de76-4454-a198-6463feb9df8b@suse.com>
+Date: Mon, 20 Oct 2025 09:50:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH for-4.21] tools/libxc: fix xc_physdev_map_pirq_msi() with
  PCI segments != 0
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: oleksii.kurochko@gmail.com, Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+To: Frediano Ziglio <freddy77@gmail.com>
+Cc: xen-devel@lists.xenproject.org, oleksii.kurochko@gmail.com,
+ Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
 References: <20251017141434.15205-1-roger.pau@citrix.com>
+ <CAHt6W4dAEBH_9EF4nXB6_W0ehpawKpz+bMpZ__vN29OdVZxGQw@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,22 +120,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251017141434.15205-1-roger.pau@citrix.com>
+In-Reply-To: <CAHt6W4dAEBH_9EF4nXB6_W0ehpawKpz+bMpZ__vN29OdVZxGQw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17.10.2025 16:14, Roger Pau Monne wrote:
-> Otherwise it's not possible for device models to map IRQs of devices on
-> segments different than 0.  Keep the same function prototype and pass the
-> segment in the high 16bits of the bus parameter, like it's done for the
-> hypercall itself.
+On 18.10.2025 06:46, Frediano Ziglio wrote:
+> On Fri, Oct 17, 2025 at 3:26 PM Roger Pau Monne <roger.pau@citrix.com> wrote:
+>>
+>> Otherwise it's not possible for device models to map IRQs of devices on
+>> segments different than 0.  Keep the same function prototype and pass the
+>> segment in the high 16bits of the bus parameter, like it's done for the
+>> hypercall itself.
+>>
+>> Fixes: 7620c0cf9a4d ("PCI multi-seg: add new physdevop-s")
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> ---
+>> I think it's 4.21 material, as otherwise it's not possible to passthrough
+>> PCI devices on segments != 0.
+>> ---
+>>  tools/libs/ctrl/xc_physdev.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/tools/libs/ctrl/xc_physdev.c b/tools/libs/ctrl/xc_physdev.c
+>> index 25e686d7b389..1307d6836d72 100644
+>> --- a/tools/libs/ctrl/xc_physdev.c
+>> +++ b/tools/libs/ctrl/xc_physdev.c
+>> @@ -79,7 +79,7 @@ int xc_physdev_map_pirq_msi(xc_interface *xch,
+>>      }
+>>      memset(&map, 0, sizeof(struct physdev_map_pirq));
+>>      map.domid = domid;
+>> -    map.type = MAP_PIRQ_TYPE_MSI;
+>> +    map.type = MAP_PIRQ_TYPE_MSI_SEG;
+>>      map.index = index;
+>>      map.pirq = *pirq;
+>>      map.bus = bus;
+> 
+> Reviewed-by: Frediano Ziglio <frediano.ziglio@citrx.com>
+> 
+> This was tested on a real machine.
+> 
+> About MAP_PIRQ_TYPE_MSI and MAP_PIRQ_TYPE_MSI_SEG, do we need to keep
+> ABI compatibility or we should just remove MAP_PIRQ_TYPE_MSI_SEG and
+> make MAP_PIRQ_TYPE_MSI consider the segment ?
 
-While easiest, that's an odd interface, though. Should, at the very least the
-function parameter then be named e.g. "segbus", along the lines of "devfn"?
-
-> Fixes: 7620c0cf9a4d ("PCI multi-seg: add new physdevop-s")
-
-This commit wasn't about tool stack uses of the interfaces at all.
+Assuming you talk about the hypervisor interface, could you explain how
+you see breaking ABI compatibility to not break anything? These aren't
+tools-only interfaces, after all.
 
 Jan
 
