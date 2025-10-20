@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 547D0BF23CC
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Oct 2025 17:56:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1146511.1478930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E61CBF23F3
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Oct 2025 17:58:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1146527.1478951 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAsFH-0003fl-2j; Mon, 20 Oct 2025 15:56:27 +0000
+	id 1vAsGz-0004bF-M4; Mon, 20 Oct 2025 15:58:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1146511.1478930; Mon, 20 Oct 2025 15:56:27 +0000
+Received: by outflank-mailman (output) from mailman id 1146527.1478951; Mon, 20 Oct 2025 15:58:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAsFG-0003dn-VX; Mon, 20 Oct 2025 15:56:26 +0000
-Received: by outflank-mailman (input) for mailman id 1146511;
- Mon, 20 Oct 2025 15:56:26 +0000
+	id 1vAsGz-0004Za-Go; Mon, 20 Oct 2025 15:58:13 +0000
+Received: by outflank-mailman (input) for mailman id 1146527;
+ Mon, 20 Oct 2025 15:58:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Li3P=45=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vAsFF-0002lN-Vu
- for xen-devel@lists.xenproject.org; Mon, 20 Oct 2025 15:56:25 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1vAsGy-0004DQ-79
+ for xen-devel@lists.xenproject.org; Mon, 20 Oct 2025 15:58:12 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 54d6ab8b-adcd-11f0-9d15-b5c5bf9af7f9;
- Mon, 20 Oct 2025 17:56:25 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-b3c2c748bc8so575554966b.2
- for <xen-devel@lists.xenproject.org>; Mon, 20 Oct 2025 08:56:25 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-146-38.play-internet.pl.
- [109.243.146.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b65eb725f3fsm822375366b.68.2025.10.20.08.56.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Oct 2025 08:56:24 -0700 (PDT)
+ id 9422407f-adcd-11f0-9d15-b5c5bf9af7f9;
+ Mon, 20 Oct 2025 17:58:11 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-b403bb7843eso837228166b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Oct 2025 08:58:11 -0700 (PDT)
+Received: from fedora (user-109-243-146-38.play-internet.pl. [109.243.146.38])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-63c48ab560esm6966067a12.12.2025.10.20.08.58.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Oct 2025 08:58:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,146 +45,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54d6ab8b-adcd-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 9422407f-adcd-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1760975785; x=1761580585; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=W/QUp5p47LDDd9qx96BTBl6dTboIUsi/SViHEUGHmlU=;
-        b=cCe/NWp16CCm1zD6tmDjjpa8xh9CkeVARdlEDQgNY174dtC7qVmOzpJOnvi4YaA4mR
-         JBGUEgNn+NFG7OvCEO8NOMtuGAvFCVf2aQzZk2N/Z/ayOVeIlnNZv1Pqw3UWpHPCjFSk
-         EcOU/l7I8kueEnDrZMt3g/WLs5s/W7Ra3ke8Yn2KTMCtVWn4HvWG4pVYn1VsgRs8b+GA
-         qF3H+v76RvhSe3YnbRmV8JTgTMQnfX6IbrmFF/j/CXAfnqK09agPG0uzAPnt5u0NiZ5S
-         8xAjSCkUaNs8pdZNjdVRiQRkXIK9VpYdSrM7fKPQ9dyHnK+kZPu1xl3n/MoKnSTc9HLM
-         auKA==
+        d=gmail.com; s=20230601; t=1760975891; x=1761580691; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=AAAAcMWBhBxylKcZtSq/DZF9jlzUAjaFiUSj3AuRmhc=;
+        b=Ncy0H+2ksP0S0kcwbyiHHTygc8nVWRirQAZQJwPXtOyeQf6RW2Iqp7AzsfWCzHoPcz
+         5+FQ0v/EEffls9m3uJCkkcMK28yPNe13xSeYj8l88kNrxC/fLBWvWyB91ISvz2PMvGyS
+         Qd1g1PaX0R70SU8I7WQLr7BQT0RK6jHew10xMADF4XHION25fXSp16UrlAD2slxQvMk9
+         ErLNkuGs1YDEdUVdMt8RMocOR58fMqb6D9bH5tVaWmIy4O9TfGdSS9I1fQoGhAjJ/qgZ
+         5REAMc0LhzghZ7QirZdta/xI4TWB3XmLeZxxabTzk/gt5ttxgBc/uUHGnYAoYAHbiWXu
+         OmRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760975785; x=1761580585;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=W/QUp5p47LDDd9qx96BTBl6dTboIUsi/SViHEUGHmlU=;
-        b=e/zdnwAvEJ3iNzpZjpk2jQHxdQ79sSM5scxpaihkE9e7dXAXNSU6vMGwYOznyD2cnY
-         3B5b35VE2EAh0lFS000s7WRjo609KuqsxBQt8mdB9gUvYEH2kS2cIZf1wJQ10yiUfhfd
-         f4u2JwBsePb5fD/5Wamv6UEFzfJ37us6vsEI/FxGMr03OGuodln3WZKYW8CCOeuevaN9
-         c+A2LS1YtAc9J6XJh2JXpp6cVvE3tnrbz18Z8+SAR2+aDqXDc7z/Z5QWfTk+cMxMC1Ec
-         OUrBuxGqdHfYwZA2xiJ4CtXuE7Rti1ar3HcJbMmrhUcrc1DpU69b/lggmESB3qMgP3Vz
-         DslQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWQoUqhY9SpmzoCDTKmm2LvIiYHfPgZW/Ke7S2UrUkQp/NByLyLOWIpgag5yVJZlJbt4p4b7ViMVLo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwXsWPNMJ+30pR2FQ5wPAMeZyTwSOoyPMVITKyvjNS7vrqPhhoM
-	sJh4pxGdqlA93LpNog5YSfTAWJ/tWEhpSKD4ZL9QTnrzZbxzbB7Tqk3y
-X-Gm-Gg: ASbGncv2EyVAdlQhMLYMoyW19CxZkX5NAwMSjKhg3mBz1Ou1IA9j6CO8I3w3wJjFPxU
-	MeX1EqxsQftFi2lXnDlcebmbbGIoMnflQnXoi0SnsQJ8p6TkYz4q3gFGGJ7GmDU7Hhs5QZiX7l1
-	buGJs8fSJJ/9MbzrADFXx3qJDfc0A5X8pE7tVjhoq7YNcIyHSvnFi+euYOORtddRt6iEX7WAX4B
-	FTktJuSLcMohJ29MfY3wQfwYEQ3JNzW3ZyHkyl/cyozgwv0sBrKTODDYuEhV/ATVyKYEqZZ8IIu
-	MLgmRVdBHtCB7yNvI9l7g4eAdYaymIxqMYTSBSbMXPHD8x7cvQw49eUdK4veqTRULPCjildX7z7
-	MGwK7rtkGQ6VGiZYuDzhPHMlSvLd9s+URqU9Z7J0MNCJcWE1dcYQhndOWpXXYVWz+CuwuN6sj+6
-	Pk8B48PMTcpxxSt8PZzO+qydS/eRQj1FRG8f8CVnb/GRps7Rn4EhUyPORFFCW5iQUihHY=
-X-Google-Smtp-Source: AGHT+IFz4sH4WCAOKJiUXdLRLVEuOnDhhnUQhj8E3LyU2gv896qyq8WQJ08Wi7OTO/T2SbtyjmLM0w==
-X-Received: by 2002:a17:907:6d02:b0:b40:fba8:4491 with SMTP id a640c23a62f3a-b647463a1d1mr1527340366b.17.1760975784352;
-        Mon, 20 Oct 2025 08:56:24 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------Ul3Vo0XrvlJLDHaGWJkS6c2X"
-Message-ID: <3f98f469-7da1-4356-916c-a4523f887001@gmail.com>
-Date: Mon, 20 Oct 2025 17:56:22 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21?] xl: drop redundant return value check from
- list_domains_details()
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <13d8a3ff-ed58-4b35-ae3c-0411cd34f7b8@suse.com>
-Content-Language: en-US
+        d=1e100.net; s=20230601; t=1760975891; x=1761580691;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=AAAAcMWBhBxylKcZtSq/DZF9jlzUAjaFiUSj3AuRmhc=;
+        b=pY3upC81/d/lY2uK84Qc11tTQbt4wxoVDSdyyEdVDcmk1B3pnIoTrhSGeFsUZjuTkM
+         2yoz7P3dYqihbYawhzktGcCDJ7Duhla5GD+XsmDVaZ1cDbP14w2RX4v39WDuPdvnrc4R
+         96cmoITpiug8XhRVrQThLMBCrk5NaJ2VzS7UddMzPR5xxyRU9QIYzZLNx4E2HPEmAge0
+         XCOLnhJlGcph6FA6maeoHmxaaS8GWWPqwzh96PzAAya6vOt3R29PeYRI0dYMDzx4wTjK
+         SXF/Ays9nTEkQRqmuK4CA5LsdGLE9GNIH1o1DGpw0tpHHdDHv0snp4iEdMHxGZ0T8NlG
+         zkhA==
+X-Gm-Message-State: AOJu0YzdlZJcRXPAw0SsgXmG9QyMFOLzt3e0FnaNK6TN55PM4qqLmiuO
+	kdY6c9MNmwpL5FHYwGEYWArybH+TzGctUrm7uNGr0d/9YMk+cYQumN4AH7HIig==
+X-Gm-Gg: ASbGncvER3Jcq+/U42moQS+2apjcLLHF994EdleyI5DUFqDYgItI9AyuQdGvQKgGJTi
+	QEpLHZ2RKpr5rBOxSZmwqd9DYxRr503mkn29wDKuZMMAkQ/x/EOYrJ2Ftyw6kUp9ibhzBDkaI4X
+	KaTY0rg0h9Vf/GTcqb2UQp3Yos28MQ3gj8iW6VIZ2Om860mjShvchnO02d+vuFBUzLohQosaVIY
+	JkhSl3TJ6A9R/fkM3OPOzv0FTxlLB0GHmYY3vs7zKPbtzXUiwtk8rDOUzxumQGhS7jheUUfiPIN
+	1k/oLqI6fXHCPaK4XDfTf4DwQApDEQ+Psz4ge1bqP0wW/kFObBP438E0CgdiYHVpD68k9/ap2tG
+	Y6vU8T0NhtiVQ3OEUYiaghGqqgwOq95OsuL2qjqaajA0kh4KPBPcPwzuw3kwyA1d64pEWtEhlJa
+	Dn6g3hg7mVsGJyTVnK+C2m0omeJANUzoKuYmwQrJy1C2TBqzQ/pS/fvlG28A==
+X-Google-Smtp-Source: AGHT+IERGa9Gycy/DAA1FGoWTbukcN1BQpnNIDAzNa4GlHAeBF+BUoerkI8EHIoW0RL9P/ugXfaXFg==
+X-Received: by 2002:a17:907:6d0f:b0:b0c:b51b:81f6 with SMTP id a640c23a62f3a-b647423c403mr1718978666b.43.1760975890637;
+        Mon, 20 Oct 2025 08:58:10 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <13d8a3ff-ed58-4b35-ae3c-0411cd34f7b8@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [for 4.22 v5 00/18] xen/riscv: introduce p2m functionality
+Date: Mon, 20 Oct 2025 17:57:43 +0200
+Message-ID: <cover.1760974017.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.51.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------Ul3Vo0XrvlJLDHaGWJkS6c2X
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In this patch series are introduced necessary functions to build and manage
+RISC-V guest page tables and MMIO/RAM mappings.
 
+---
+Changes in V5:
+ - Addressed comments for v4.
+ - The following patches were Acked-by:
+   - [v5 16/18] xen/riscv: implement mfn_valid() and page
+   - [v5 15/18] xen/riscv: implement put_page()
+   - [v5 14/18] xen/riscv: Implement superpage splitting for p2m mappings
+   - [v5 09/18] xen/riscv: implement function to map memory in guest p2m
+   - [v5 07/18] xen/riscv: add new p2m types and helper macros for type classification
+   - [v5 03/18] xen/riscv: introduce things necessary for p2m initialization
+---
+Changes in V4:
+ - Merged to staging:
+   - xen/riscv: introduce sbi_remote_hfence_gvma()
+   - xen/riscv: introduce sbi_remote_hfence_gvma_vmid()
+ - Drop "xen/riscv: introduce page_{get,set}_xenheap_gfn()" as grant tables aren't going to be introduced for the moment. Also, drops other parts connected to grant tables support.
+ - All other changes are patch specific.
+---
+Changes in V3:
+ - Introduce metadata table to store P2M types.
+ - Use x86's way to allocate VMID.
+ - Abstract Arm-specific p2m type name for device MMIO mappings.
+ - All other updates please look at specific patch.
+---
+Changes in V2:
+ - Merged to staging:
+   - [PATCH v1 1/6] xen/riscv: add inclusion of xen/bitops.h to asm/cmpxchg.h
+ - New patches:
+   - xen/riscv: implement sbi_remote_hfence_gvma{_vmid}().
+ - Split patch "xen/riscv: implement p2m mapping functionality" into smaller
+   one patches:
+   - xen/riscv: introduce page_set_xenheap_gfn()
+   - xen/riscv: implement guest_physmap_add_entry() for mapping GFNs to MFNs
+   - xen/riscv: implement p2m_set_entry() and __p2m_set_entry()
+   - xen/riscv: Implement p2m_free_entry() and related helpers
+   - xen/riscv: Implement superpage splitting for p2m mappings
+   - xen/riscv: implement p2m_next_level()
+   - xen/riscv: Implement p2m_entry_from_mfn() and support PBMT configuration
+ - Move root p2m table allocation to separate patch:
+   xen/riscv: add root page table allocation
+ - Drop dependency of this patch series from the patch witn an introduction of
+   SvPBMT as it was merged.
+ - Patch "[PATCH v1 4/6] xen/riscv: define pt_t and pt_walk_t structures" was
+   renamed to xen/riscv: introduce pte_{set,get}_mfn() as after dropping of
+   bitfields for PTE structure, this patch introduce only pte_{set,get}_mfn().
+ - Rename "xen/riscv: define pt_t and pt_walk_t structures" to
+   "xen/riscv: introduce pte_{set,get}_mfn()" as pt_t and pt_walk_t were
+   dropped.
+ - Introduce guest domain's VMID allocation and manegement.
+ - Add patches necessary to implement p2m lookup:
+   - xen/riscv: implement mfn_valid() and page reference, ownership handling helpers
+   - xen/riscv: add support of page lookup by GFN
+ - Re-sort patch series.
+ - All other changes are patch-specific. Please check them.
+---
 
-On 10/20/25 1:33 PM, Jan Beulich wrote:
-> The check that was added to address a Coverity report renderned another,
-> later check dead, which Coverity again complains about.
->
-> Fixes: d0193c6d6716 ("tools/xl: check return value of printf_info_one_json() in list_domains_details()")
-> Coverity ID: 1667251
-> Signed-off-by: Jan Beulich<jbeulich@suse.com>
+Oleksii Kurochko (18):
+  xen/riscv: detect and initialize G-stage mode
+  xen/riscv: introduce VMID allocation and manegement
+  xen/riscv: introduce things necessary for p2m initialization
+  xen/riscv: construct the P2M pages pool for guests
+  xen/riscv: add root page table allocation
+  xen/riscv: introduce pte_{set,get}_mfn()
+  xen/riscv: add new p2m types and helper macros for type classification
+  xen/dom0less: abstract Arm-specific p2m type name for device MMIO
+    mappings
+  xen/riscv: implement function to map memory in guest p2m
+  xen/riscv: implement p2m_set_range()
+  xen/riscv: Implement p2m_free_subtree() and related helpers
+  xen/riscv: Implement p2m_pte_from_mfn() and support PBMT configuration
+  xen/riscv: implement p2m_next_level()
+  xen/riscv: Implement superpage splitting for p2m mappings
+  xen/riscv: implement put_page()
+  xen/riscv: implement mfn_valid() and page reference, ownership
+    handling helpers
+  xen/riscv: add support of page lookup by GFN
+  xen/riscv: introduce metadata table to store P2M type
 
-Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+ xen/arch/arm/include/asm/p2m.h              |    5 +
+ xen/arch/riscv/Makefile                     |    3 +
+ xen/arch/riscv/cpufeature.c                 |    1 +
+ xen/arch/riscv/include/asm/Makefile         |    1 -
+ xen/arch/riscv/include/asm/cpufeature.h     |    1 +
+ xen/arch/riscv/include/asm/domain.h         |   23 +
+ xen/arch/riscv/include/asm/flushtlb.h       |   13 +-
+ xen/arch/riscv/include/asm/mm.h             |   29 +-
+ xen/arch/riscv/include/asm/p2m.h            |  182 ++-
+ xen/arch/riscv/include/asm/page.h           |   37 +
+ xen/arch/riscv/include/asm/paging.h         |   20 +
+ xen/arch/riscv/include/asm/riscv_encoding.h |    7 +
+ xen/arch/riscv/include/asm/vmid.h           |   14 +
+ xen/arch/riscv/mm.c                         |   69 +-
+ xen/arch/riscv/p2m.c                        | 1381 +++++++++++++++++++
+ xen/arch/riscv/paging.c                     |  139 ++
+ xen/arch/riscv/setup.c                      |    3 +
+ xen/arch/riscv/stubs.c                      |    5 -
+ xen/arch/riscv/vmid.c                       |  193 +++
+ xen/common/device-tree/dom0less-build.c     |    2 +-
+ 20 files changed, 2103 insertions(+), 25 deletions(-)
+ create mode 100644 xen/arch/riscv/include/asm/paging.h
+ create mode 100644 xen/arch/riscv/include/asm/vmid.h
+ create mode 100644 xen/arch/riscv/p2m.c
+ create mode 100644 xen/arch/riscv/paging.c
+ create mode 100644 xen/arch/riscv/vmid.c
 
-Thanks.
+-- 
+2.51.0
 
-~ Oleksii
-
->
-> --- a/tools/xl/xl_info.c
-> +++ b/tools/xl/xl_info.c
-> @@ -593,10 +593,7 @@ static void list_domains_details(const l
->           } else
->               printf_info_sexp(info[i].domid, &d_config, stdout);
->           libxl_domain_config_dispose(&d_config);
-> -#ifdef HAVE_LIBJSONC
-> -        if (rc)
-> -            goto out;
-> -#elif defined(HAVE_LIBYAJL)
-> +#ifdef HAVE_LIBYAJL
->           if (s != yajl_gen_status_ok)
->               goto out;
->   #endif
---------------Ul3Vo0XrvlJLDHaGWJkS6c2X
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 10/20/25 1:33 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:13d8a3ff-ed58-4b35-ae3c-0411cd34f7b8@suse.com">
-      <pre wrap="" class="moz-quote-pre">The check that was added to address a Coverity report renderned another,
-later check dead, which Coverity again complains about.
-
-Fixes: d0193c6d6716 ("tools/xl: check return value of printf_info_one_json() in list_domains_details()")
-Coverity ID: 1667251
-Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a></pre>
-    </blockquote>
-    <pre>Release-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-Thanks.
-
-~ Oleksii</pre>
-    <blockquote type="cite"
-      cite="mid:13d8a3ff-ed58-4b35-ae3c-0411cd34f7b8@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
---- a/tools/xl/xl_info.c
-+++ b/tools/xl/xl_info.c
-@@ -593,10 +593,7 @@ static void list_domains_details(const l
-         } else
-             printf_info_sexp(info[i].domid, &amp;d_config, stdout);
-         libxl_domain_config_dispose(&amp;d_config);
--#ifdef HAVE_LIBJSONC
--        if (rc)
--            goto out;
--#elif defined(HAVE_LIBYAJL)
-+#ifdef HAVE_LIBYAJL
-         if (s != yajl_gen_status_ok)
-             goto out;
- #endif
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------Ul3Vo0XrvlJLDHaGWJkS6c2X--
 
