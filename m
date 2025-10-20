@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F350BF2411
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Oct 2025 17:58:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1146537.1479013 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0EFCBF240B
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Oct 2025 17:58:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1146539.1479026 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAsH7-0006Av-Bo; Mon, 20 Oct 2025 15:58:21 +0000
+	id 1vAsH8-0006Wz-L7; Mon, 20 Oct 2025 15:58:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1146537.1479013; Mon, 20 Oct 2025 15:58:21 +0000
+Received: by outflank-mailman (output) from mailman id 1146539.1479026; Mon, 20 Oct 2025 15:58:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAsH7-000606-2n; Mon, 20 Oct 2025 15:58:21 +0000
-Received: by outflank-mailman (input) for mailman id 1146537;
- Mon, 20 Oct 2025 15:58:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vAsH8-0006St-E8; Mon, 20 Oct 2025 15:58:22 +0000
+Received: by outflank-mailman (input) for mailman id 1146539;
+ Mon, 20 Oct 2025 15:58:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Li3P=45=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vAsH5-0004DQ-2V
- for xen-devel@lists.xenproject.org; Mon, 20 Oct 2025 15:58:19 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 982e4fa1-adcd-11f0-9d15-b5c5bf9af7f9;
- Mon, 20 Oct 2025 17:58:18 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-63c31c20b64so5172609a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 20 Oct 2025 08:58:18 -0700 (PDT)
+ id 1vAsH6-0004nC-P8
+ for xen-devel@lists.xenproject.org; Mon, 20 Oct 2025 15:58:20 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 98c24f20-adcd-11f0-980a-7dc792cee155;
+ Mon, 20 Oct 2025 17:58:19 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-634cef434beso9263516a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Oct 2025 08:58:19 -0700 (PDT)
 Received: from fedora (user-109-243-146-38.play-internet.pl. [109.243.146.38])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-63c48ab560esm6966067a12.12.2025.10.20.08.58.16
+ 4fb4d7f45d1cf-63c48ab560esm6966067a12.12.2025.10.20.08.58.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Oct 2025 08:58:17 -0700 (PDT)
+ Mon, 20 Oct 2025 08:58:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 982e4fa1-adcd-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 98c24f20-adcd-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1760975897; x=1761580697; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1760975898; x=1761580698; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Z6BAq3H0KqE2yjNiry0QdQgxMPMOFJPPmMH3FkExtuw=;
-        b=Vt37kjDVBC7ac+59ZZRb+k9OR+3aT46+U+XMVfRZKEt09wIcUUR8j1Q6OYkc2isU0f
-         bI9oTR5PexfONaRbTcyh85isa18kY2ZU5e+zqta9ae3UzIR7ZaNDTq9Ua6glHYJtOL5A
-         +rP4tSY2h9oyvpUun6cXBLICHx3cB1PzGvSiRZS9kyFO1xh7rkDUCakWruYWAy8NTwA2
-         9zmVF1pe4d62UfAXC0lhfuviQa2M0NOUrQCoevA1AEScLyPulUOGuImbjG59zoUtFTtR
-         GfPOsJIp/3siohdxBYFK4Wog3ojrkZ85yNpd45ynr3Dz1nlktJ5T+LSSL0475l1JU3Do
-         1VHw==
+        bh=4bBWp0cZZfbhFMln+pmHCUN44UHPmvo/arXunhT5jKE=;
+        b=TzdxuHks/JptFCI0GTpHHjlb8Pw+IxBip8LxvSDziFwQuqGxnE9JgzWI8lzzOtkC4v
+         J9+8eP3pb3tCFfmBpbwDJ2lvy71Pz0cr7eRpyk0Rt+K6vj6u6vZbrGnzs1HrNzFV/1dw
+         9yYbfK96RCoRO8iGk+CuRseHKpkXmZ4G6A9pjrqTKtgff9W8ibKBOodjFYa7yi5A0KAQ
+         MQ494ET/TztiofIM3gd4WYKcMCkdavc3PcdJIIDQyALthlMmIAyHieNQ4v2DRlYOUxQL
+         VyRw7GHQkuX0TGTiJwa3yeQVzObj7/e0QnZirNRyb9tqHqr0K1kgulIcGLOZJJLVLt2M
+         61BQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760975897; x=1761580697;
+        d=1e100.net; s=20230601; t=1760975898; x=1761580698;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Z6BAq3H0KqE2yjNiry0QdQgxMPMOFJPPmMH3FkExtuw=;
-        b=PKEQ33ypcX0lkJ7WTsJmLMJx/xzY2cvLgRgM4ydBpTf9S36gqxswy6EVjvxKwDXqeN
-         S962qhVzS0WSZa/GY3h3bEtlJhTSd4RwMoKejCXw8vcD/piNZWzKTYjLs+PndktRXAP0
-         rAsKT+V11i2mLCtuJiVn4PjbqfrIle3FrUQgRzOs5j3F+A9FwAziCTurx8l/K/ZxnwvS
-         +mgp40/wdux6HIhbSQ35bvo2MWV18LY9NvqEs48fwzu9AZtVKTd29hPZrhvVFVQB1E96
-         rnymaWnP5vq6B4oIZAGAIrGRGfShVVAnC9GMFxk+zt6k5UNzjaN+zfy5A6F0cGeqhcux
-         +VZg==
-X-Gm-Message-State: AOJu0YwVs+loHGqfVa5rXYC0ru+kycetvuATHLuCqwo/H496ZUPolZeT
-	iZAL6xLbHfZq3mkJlA1C4/Y3opvCla446EO5gytVjh2xcxk7XSrcSrvvgdu1fQ==
-X-Gm-Gg: ASbGncufpInSw/hfH56PV9Gs1zceOWtb7vfisQFrldCXQ9hq6hXP+8DGwnUDifiKB10
-	kxcrI5B67JvxGGxxacZ/st1NdOUkTg7YX+Ti0de5nJvVPTDwjbzS46PuJ56SVON8OoW+Udv4tkC
-	v+/JYbVHd56av3v3Sn23uR8NsXDTYtgZHQQN1Coqa0jHqpfctCHQe9UPTrAdDO3VAGmNg+tmEEI
-	oRU2Se3ujwfV+/c3s5ECtFa6WpyRlVA6KckOv5EMd7Y4cczIiqLXzZTeLAtpgtffccqCGNinsgN
-	X59dolVJfHx/zhTqYJIMnmV811XuZ0bKYWFMLV//BSwk+8eRzl62FHVEhQSDXIwUNm+Q0RS//nl
-	decynkAuVrP8BqeEMV0mOkm7HQtNEtTePDU2lxbKw7FHzmRSdQtRiducfZ8tO4Hplw+UEDBDNN+
-	tjQ/3iXxXIdBThmolPevSnUbReya+5KVE5721Y+D4M8NiAcow=
-X-Google-Smtp-Source: AGHT+IFiZ7nj4wU6MknH+3QUfh/hnhNU+QAzJrXYZzJn1FzMXfELhNoZQK66Qe7EBad08EhJquSbBg==
-X-Received: by 2002:a05:6402:144e:b0:63c:2d6:f471 with SMTP id 4fb4d7f45d1cf-63c1f6e047cmr14844618a12.26.1760975897467;
-        Mon, 20 Oct 2025 08:58:17 -0700 (PDT)
+        bh=4bBWp0cZZfbhFMln+pmHCUN44UHPmvo/arXunhT5jKE=;
+        b=DhDTDA1DWyiqgnG3PtR1jwhrdjM9uz+oGF3UsnpQKbpUaHpBp34xSs4WobnBtyxFsg
+         h6Yz0zQJdSRVxQN8toPVwU20LS8V2EZ+Vg03UKM47+M7tEKDn9qtmOhQV0b65zEd5psM
+         33DkZWJ15kaTqYn8jh8bpHbjkax+O6f1sq2rtY1zWwiCsTNHm/39Fd7sDRUcT8L8Az6G
+         K6Il25W5sd0R5dD9K5Mh23k0ZUluOPCDBHnyeWr6int8X9trj1ng0wAM/AJjmB/tJayT
+         K2cdwLHRKIS9nmooSKIqg11LgHprfe41FwGtz9vDIrgenx6dDhSnHt8X+Y6XPhqRRAeK
+         uBKw==
+X-Gm-Message-State: AOJu0YziQDlWEkL11OVDciSrDgTqAe0E2cxrnH5hwsb4lZ6mwNFkjJBI
+	C/Qg7JLd9TC8yczdbv0XodcrvpON3onHIS+viTtSnXoPyK6zJgS+z3b8wwoI9A==
+X-Gm-Gg: ASbGncscUcSXgEgmVDnNNb2nFRmR/UhKiW7xAvjgMVs06pJHMZsI6J1yAmq4msvTksU
+	rCUjJjGdX5/Sg249wOsxaxpQJslFtb9Eha25kE5MJM+OSs19xFJG9wdlEak6Ch2xOPRqUoyDl4V
+	WGwA9bLlzqSPP6TdneSwD+KqVbNXkyI4JotCb5LXT7qxIJEm/ylvJ8kkpHhBB7kLcrcdtHLiPdg
+	tzGCFxoLlaDsxfuxOVo6acNdTkfvDubM+PKTM7Icdkc7S7CXcYCKZ05GTE0oRMzx3R2KbgVtOf9
+	Xt0XNzoP1OX8Qbkw+x4hxh8CN2wHtQ3gsiq86ChaUgFU2RI8CSYDMo7RaRVlMuTgnfvS/wdpzsy
+	glNUqW/AUQ8uOhab3gN+eeCevvogbNubFt5veHIJhYdVfvi7XXF8XCJHIkPc4d5fuNwrZOf2xR6
+	i5oMhPF/KvfqWQuaSRfWSxtsulN+Das+uT5lZS0H3iPWrJrA4=
+X-Google-Smtp-Source: AGHT+IHKzfgKW4bZ1DeL5o8aeZFWZ/+PF8Y+PPAhdeMS/8XKyHNiU4gsFiCPZ1uP6C2Xem5giTelUw==
+X-Received: by 2002:aa7:d698:0:b0:631:6acd:fa3a with SMTP id 4fb4d7f45d1cf-63bfcdd5015mr13393417a12.4.1760975898483;
+        Mon, 20 Oct 2025 08:58:18 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [for 4.22 v5 07/18] xen/riscv: add new p2m types and helper macros for type classification
-Date: Mon, 20 Oct 2025 17:57:50 +0200
-Message-ID: <ece4dc97a40a8da06f46242ae7dcc1ce6bc20947.1760974017.git.oleksii.kurochko@gmail.com>
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [for 4.22 v5 08/18] xen/dom0less: abstract Arm-specific p2m type name for device MMIO mappings
+Date: Mon, 20 Oct 2025 17:57:51 +0200
+Message-ID: <4cd92470b044ea63ebfb2170734ca2a68e0bf420.1760974017.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <cover.1760974017.git.oleksii.kurochko@gmail.com>
 References: <cover.1760974017.git.oleksii.kurochko@gmail.com>
@@ -105,73 +101,62 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-- Extended p2m_type_t with additional types: p2m_mmio_direct,
-  p2m_ext_storage.
-- Added macros to classify memory types: P2M_RAM_TYPES.
-- Introduced helper predicates: p2m_is_ram(), p2m_is_any_ram().
-- Introduce arch_dt_passthrough() to tell handle_passthrough_prop()
-  from common code how to map device memory.
-- Introduce p2m_first_external for detection for relational operations
-  with p2m type which is stored outside P2M's PTE bits.
+Introduce arch_dt_passthrough_p2m_type() and use it instead of
+`p2m_mmio_direct_dev` to avoid leaking Arm-specific naming into
+common Xen code, such as dom0less passthrough property handling.
 
+This helps reduce platform-specific terminology in shared logic and
+improves clarity for future non-Arm ports (e.g. RISC-V or PowerPC).
+
+No functional changes — the definition is preserved via a static inline
+function for Arm.
+
+Suggested-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
+---
+Changes in V5:
+ - Nothing changed. Only rebase.
 ---
 Changes in V4:
- - Drop underscores for argumets of p2m_is_ram() and p2m_is_any_ram().
- - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
----
-Changes in V4:
- - Drop underscode in p2m_to_mask()'s argument and for other similar helpers.
- - Introduce arch_dt_passthrough_p2m_type() instead of p2m_mmio_direct.
- - Drop for the moment grant tables related stuff as it isn't going to be used in the nearest future.
+ - Introduce arch_dt_passthrough_p2m_type() instead of re-defining of
+   p2m_mmio_direct.
 ---
 Changes in V3:
- - Drop p2m_ram_ro.
- - Rename p2m_mmio_direct_dev to p2m_mmio_direct_io to make it more RISC-V specicific.
- - s/p2m_mmio_direct_dev/p2m_mmio_direct_io.
+ - New patch.
 ---
-Changes in V2:
- - Drop stuff connected to foreign mapping as it isn't necessary for RISC-V
-   right now.
----
- xen/arch/riscv/include/asm/p2m.h | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ xen/arch/arm/include/asm/p2m.h          | 5 +++++
+ xen/common/device-tree/dom0less-build.c | 2 +-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
-index 85e67516c4..46ee0b93f2 100644
---- a/xen/arch/riscv/include/asm/p2m.h
-+++ b/xen/arch/riscv/include/asm/p2m.h
-@@ -64,8 +64,29 @@ struct p2m_domain {
- typedef enum {
-     p2m_invalid = 0,    /* Nothing mapped here */
-     p2m_ram_rw,         /* Normal read/write domain RAM */
-+    p2m_mmio_direct_io, /* Read/write mapping of genuine Device MMIO area,
-+                           PTE_PBMT_IO will be used for such mappings */
-+    p2m_ext_storage,    /* Following types'll be stored outsude PTE bits: */
-+
-+    /* Sentinel — not a real type, just a marker for comparison */
-+    p2m_first_external = p2m_ext_storage,
+diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+index ef98bc5f4d..010ce8c9eb 100644
+--- a/xen/arch/arm/include/asm/p2m.h
++++ b/xen/arch/arm/include/asm/p2m.h
+@@ -137,6 +137,11 @@ typedef enum {
+     p2m_max_real_type,  /* Types after this won't be store in the p2m */
  } p2m_type_t;
  
 +static inline p2m_type_t arch_dt_passthrough_p2m_type(void)
 +{
-+    return p2m_mmio_direct_io;
++    return p2m_mmio_direct_dev;
 +}
 +
-+/* We use bitmaps and mask to handle groups of types */
-+#define p2m_to_mask(t) BIT(t, UL)
-+
-+/* RAM types, which map to real machine frames */
-+#define P2M_RAM_TYPES (p2m_to_mask(p2m_ram_rw))
-+
-+/* Useful predicates */
-+#define p2m_is_ram(t) (p2m_to_mask(t) & P2M_RAM_TYPES)
-+#define p2m_is_any_ram(t) (p2m_to_mask(t) & P2M_RAM_TYPES)
-+
- #include <xen/p2m-common.h>
+ /* We use bitmaps and mask to handle groups of types */
+ #define p2m_to_mask(_t) (1UL << (_t))
  
- static inline int get_page_and_type(struct page_info *page,
+diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+index 9fd004c42a..8214a6639f 100644
+--- a/xen/common/device-tree/dom0less-build.c
++++ b/xen/common/device-tree/dom0less-build.c
+@@ -185,7 +185,7 @@ static int __init handle_passthrough_prop(struct kernel_info *kinfo,
+                                gaddr_to_gfn(gstart),
+                                PFN_DOWN(size),
+                                maddr_to_mfn(mstart),
+-                               p2m_mmio_direct_dev);
++                               arch_dt_passthrough_p2m_type());
+         if ( res < 0 )
+         {
+             printk(XENLOG_ERR
 -- 
 2.51.0
 
