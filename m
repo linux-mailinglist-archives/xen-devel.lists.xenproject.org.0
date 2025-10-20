@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A79E8BF0D2C
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Oct 2025 13:26:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1146197.1478667 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CF8FBF0D35
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Oct 2025 13:26:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1146229.1478687 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAo1q-00079G-5v; Mon, 20 Oct 2025 11:26:18 +0000
+	id 1vAo2H-0008PP-Rg; Mon, 20 Oct 2025 11:26:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1146197.1478667; Mon, 20 Oct 2025 11:26:18 +0000
+Received: by outflank-mailman (output) from mailman id 1146229.1478687; Mon, 20 Oct 2025 11:26:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAo1q-00077a-0Y; Mon, 20 Oct 2025 11:26:18 +0000
-Received: by outflank-mailman (input) for mailman id 1146197;
- Mon, 20 Oct 2025 11:26:16 +0000
+	id 1vAo2H-0008Ns-NK; Mon, 20 Oct 2025 11:26:45 +0000
+Received: by outflank-mailman (input) for mailman id 1146229;
+ Mon, 20 Oct 2025 11:26:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7iz2=45=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vAnwI-0001y1-2l
- for xen-devel@lists.xenproject.org; Mon, 20 Oct 2025 11:20:34 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1vAnwg-0001y1-S1
+ for xen-devel@lists.xenproject.org; Mon, 20 Oct 2025 11:20:58 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cb3dacea-ada6-11f0-9d15-b5c5bf9af7f9;
- Mon, 20 Oct 2025 13:20:33 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-471191ac79dso34219125e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Oct 2025 04:20:33 -0700 (PDT)
+ id d9fd58f3-ada6-11f0-9d15-b5c5bf9af7f9;
+ Mon, 20 Oct 2025 13:20:58 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-46fcf9f63b6so22311905e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Oct 2025 04:20:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4714fb1b668sm160551465e9.0.2025.10.20.04.20.32
+ 5b1f17b1804b1-47154d38309sm142168915e9.9.2025.10.20.04.20.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Oct 2025 04:20:32 -0700 (PDT)
+ Mon, 20 Oct 2025 04:20:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb3dacea-ada6-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: d9fd58f3-ada6-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760959233; x=1761564033; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760959258; x=1761564058; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gZ3R8cULpQMQwOc+UqUj9nrwmmhaEMKCYifki/vLVNU=;
-        b=DceKL+9YLPjkm+el3qQR0zM0kdrAAILTW7+s99QFuTdkECgcvCUqCnXuOS1YKFmAPz
-         yVODD3cuJutIbU4IOBXUpF4qVJ0dSDLxslOvxFdsXOd6POfFx2KQwRraFRXghJlNKrOI
-         RT5Zck581EgKzeK6uFCDHVzmtC9blw5PeWqKN+pX+AsBSBgUXQFBMKDaRi7kVscKTS5m
-         WeLUUe2wWn91Flqh83DicYEh7TXyFs7AMf1b8Sekbfw8mZurZ/pUk8v9B6V7DUEwPmMm
-         RActOaAw1Oym0yFJqOVafdYxFHdnvEkWjIYDX5k7hBhYsJQWuq3L7vCND2+UVOP6v9u5
-         XHwg==
+        bh=rds4jnnN9NVrTZyuc+q65+QBQEjCAV7rC8oJIxMqDF8=;
+        b=DvtaxUr3fc0WHOImWZeiK+H6ToJPY9jRlhe5DyKLGXpsTfurc0yvR/3pEatQsaBg7v
+         Jzlwqzwv0NrBJ5Kk+KbmTaelbXiC1uZKMRIQQULlIhfM5nkec8hAGgO9+5IYUf5G9tja
+         XWyt8T64Iy8pZGjJZkCs+dQNG0KKpk9tMDAXSisogRHhWU7y/s3/Kca/+cke6WBuxykN
+         1XWpuBFH95MIsDHzVncHH09a2c3OwUYtQ11xH8kKVFy/lCqq7/zIVq3aEN7mVSCra7ii
+         MiRPnTHjWX66jsiySarVIF2ppdP9oLpBUtn3a03X38to4k8t+5eeEGwFQ2Uj44400Wmr
+         Nb2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760959233; x=1761564033;
+        d=1e100.net; s=20230601; t=1760959258; x=1761564058;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=gZ3R8cULpQMQwOc+UqUj9nrwmmhaEMKCYifki/vLVNU=;
-        b=FBuFaqSTZeiGy5kNFYIO1oqSxMI7rzGh3Q65M1yfKvV+kxmH7Quyno36AGeog5V6Lm
-         k8ONaylJFIlmHJMTWeSZ307DfKZunBhHlCwbGbJkdH76VXnlOsIPhlPOSuLRlYDJnKT2
-         gQX4itjCfTZMf7y8FxfXS9ZrK0U/7TIxl4rtJN2JHovwnn6Eh2qT7E3yihanUN3fAIpn
-         Bq4Y5CR80/vhcpF+S2vxtA7yPUCczhEjgR9OE1K/WZcEOTY3NioF3vGrsm5t62aTNTYW
-         pmoCDRmoqpz+FWT/3cfocOdnKUxvq6zNiJriIyt5noI3YvZLHesDA+8a0yxxfkr1iPMY
-         tDiA==
-X-Gm-Message-State: AOJu0YwcAJrx2STC82MfxipS8Qt8cHCSDCOzI60NtIVlRHTWONW/Rx7y
-	Me3mtAL36q9UIFoEpFYKE3CdK93VImSzSDk7kjJBoPFmlIKOhacsoHlSWoM9XSo7AkGfJN5z9TS
-	Acng=
-X-Gm-Gg: ASbGncvNiFe0mFBECcDOlRDYxzAkqAp3Ai/lDizyV+w5zKRA/l50HpToyvqsofzfXuV
-	sbxZfL3LkmFmcpD8uWZn2gkPb/IanlEzR+CfIRQGM1BjGh1ckWfnp0oxQ/XmR3hyQKdY0eNJGfV
-	kIaKRIhLvS2Wx/0U9nJ7ZW48EmQPcd7a50Qfbg4/HAYo0d01OKa4OaMQcvqe+6EhEBC4jAJ+FEm
-	4Ee6hvZqsJoSENkfv5yJ1CthkyJkopARGuHrKFEK5tYx9xONr+DeNMTYoeM3Nsntp3Xn9RpYK9S
-	ssrJeh2N+KQo5d4GlrJRzPsDJJ2fczefTjDGS9vbTOwdnqfzUBK394SDrwvEPgoPi6sqhLiCHvM
-	1PYohOXKT5PxfvHMWBLX7b0yvI1dEffVwZ+P4aJ4V0H6EjFmUmeF0iCGOBkLyYFqfxcQqYNzhms
-	A6BZD/O2NXbZrHRTCMDS9nrnpJgjAW0eADXRu4/Zr7vqJjQ3EMAE7bYhvPwvIF5JK6NZz+z5g=
-X-Google-Smtp-Source: AGHT+IEi0i5z6/lAoElAu4dVvd6h16qlzj2i2NBbrigFv4RURjPUaGqDEzcD3w8BLdN8pnmTaMGhjw==
-X-Received: by 2002:a05:600c:3b0a:b0:46e:4499:ba30 with SMTP id 5b1f17b1804b1-47117917a33mr109948755e9.30.1760959233050;
-        Mon, 20 Oct 2025 04:20:33 -0700 (PDT)
-Message-ID: <4cdeac0d-8f73-44cf-a78e-8e3490047dd6@suse.com>
-Date: Mon, 20 Oct 2025 13:20:33 +0200
+        bh=rds4jnnN9NVrTZyuc+q65+QBQEjCAV7rC8oJIxMqDF8=;
+        b=qg8m1RMzcaEQvWBt7nzBW/lc7jj63GYMvq/PAAi70lZRlXRtGotbnLlbVp9LThTdVR
+         C2Mki77hXYtewVBPa+r4eR6vbUxSkunG3W9CZfoUNvOxSkq2j17mGy9CROpd68Ux/eTQ
+         0iMYrk3c69m21UwaGJUnJUYFXGN8xmVRq4RgsNHPmgH5heRyxMR/bpHf1eZ43t+H0qAw
+         xIuJWw7qJ5O4Mm+o6DAJv9hMoD0UNU65J2Vl/cx3ujnWCyLl8QavczP1YJ7uGclOeNMF
+         JUhtNd1EzrCWP64Q8jGZTE0Z98ha+IVR3QW24JZWGMwTOQjwfTuYrhuMuyo+wu/bumEy
+         tXrg==
+X-Gm-Message-State: AOJu0Yz4MDQR7EB6maWUsV/rxs4i92EbuBhgOjkwUPYJCg2Oby1HJmja
+	/i1gkvmlpXXxxyRh/bukA9Lsl/Uxt9LX/Fl0sx8DnVsgBsSHrnDYAzfyMsNp1uLWElvGrTVe38C
+	2EMU=
+X-Gm-Gg: ASbGncvXnkp1TFWRV/R3BKVKmsrh26Sii7YqHfW2/yWTVAvX+lc/4BaPfkUYKlFCxQq
+	guDr7q/48VSTmBC1nJNnYgwhzelN7IuCdzueiGlYsnJZj/z0r9OW0PrsBZTQ5UBapbK+5SJ2L9p
+	3oTB8xANYCbYV5lCBR92zu4LdC2UmoHUUrTa8FGsYnJeJjBZwX/fPHvx6x1hNGtbysLhPUkzSf4
+	62VSKcQ/4DZQ/8QB75svI1zQhMihNP1WGUBJhMl3Vi9BAidFQ+Hzao+SPnKiuzoiex/HCuWYQXA
+	7DVQeo5gBXTTyUZOvqlXapTyx2QeyyBAoOGAvfp0OdoBA2ef2Ao5oUjQCqxKX5pktYE1UVdYilM
+	unBdMUHMleoooPAVsPEC0Bl8pBbE9VfGsAtZcrnxUG8xrUvt6T2XjTcthCgBONPY4j9XDjtb0nB
+	I7zFHiwUTOfWDhAcZOxmLToIVXGAvLnHCyp8nVuZbhq/CoYxheHN3ObjupFXKqC+yU2OHFWayYr
+	Yv2hMpBgg==
+X-Google-Smtp-Source: AGHT+IFxeSoKZVTafA7dqmByPVATZl0pltbsEYB4cctuuaQSYVLfZrncYc3yd+dH+OjUjxxC/ofeWQ==
+X-Received: by 2002:a05:600c:6385:b0:458:a7fa:211d with SMTP id 5b1f17b1804b1-47117912365mr94081455e9.29.1760959257809;
+        Mon, 20 Oct 2025 04:20:57 -0700 (PDT)
+Message-ID: <7e376968-1eb6-4f0d-a9eb-167b26d90786@suse.com>
+Date: Mon, 20 Oct 2025 13:20:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 6/9] x86/HPET: move legacy tick IRQ count adjustment
+Subject: [PATCH v2 7/9] x86/HPET: reduce hpet_next_event() call sites
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -122,32 +123,46 @@ In-Reply-To: <b66ea488-2d47-472c-9520-8590fdf89e0e@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-If already we play with the IRQ count, we should do so only if we actually
-"consume" the interrupt; normal timer IRQs should not have any adjustment
-done.
+I'm surprised gcc doesn't manage to do that: At least in debug builds two
+call sites exist, just like source code has it. That's not necessary
+though - by using do/while we can reduce this to a single call site. Then
+the function will be inlined.
 
-Fixes: 353533232730 ("cpuidle: fix the menu governor to enhance IO performance")
+While improving code gen, also switch the function's 2nd parameter to
+unsigned.
+
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-_Why_ we do these adjustments (also elsewhere) I don't reeally know.
+Oddly enough the CDQE is replaced by an entirely unnecessary 32-bit MOV of
+a register to itself (i.e. zero-extending to 64 bits), as that's
+immediately preceded by a 32-bit ADD targeting the same register.
 
 --- a/xen/arch/x86/hpet.c
 +++ b/xen/arch/x86/hpet.c
-@@ -802,13 +802,13 @@ int hpet_broadcast_is_available(void)
+@@ -124,7 +124,7 @@ static inline unsigned long ns2ticks(uns
+     return (unsigned long) tmp;
+ }
  
- int hpet_legacy_irq_tick(void)
+-static int hpet_next_event(unsigned long delta, int timer)
++static int hpet_next_event(unsigned long delta, unsigned int timer)
  {
--    this_cpu(irq_count)--;
--
-     if ( !hpet_events ||
-          (hpet_events->flags & (HPET_EVT_DISABLE|HPET_EVT_LEGACY)) !=
-          HPET_EVT_LEGACY )
-         return 0;
+     uint32_t cnt, cmp;
+     unsigned long flags;
+@@ -173,12 +173,10 @@ static int reprogram_hpet_evt_channel(
+     delta = max_t(int64_t, delta, MIN_DELTA_NS);
+     delta = ns2ticks(delta, ch->shift, ch->mult);
  
-+    this_cpu(irq_count)--;
-+
-     handle_hpet_broadcast(hpet_events);
+-    ret = hpet_next_event(delta, ch->idx);
+-    while ( ret && force )
+-    {
+-        delta += delta;
++    do {
+         ret = hpet_next_event(delta, ch->idx);
+-    }
++        delta += delta;
++    } while ( ret && force );
  
-     return 1;
+     return ret;
+ }
 
 
