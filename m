@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CF8FBF0D35
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Oct 2025 13:26:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1146229.1478687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E4ADBF0D26
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Oct 2025 13:26:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1146193.1478657 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAo2H-0008PP-Rg; Mon, 20 Oct 2025 11:26:45 +0000
+	id 1vAo1g-0006oH-TE; Mon, 20 Oct 2025 11:26:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1146229.1478687; Mon, 20 Oct 2025 11:26:45 +0000
+Received: by outflank-mailman (output) from mailman id 1146193.1478657; Mon, 20 Oct 2025 11:26:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAo2H-0008Ns-NK; Mon, 20 Oct 2025 11:26:45 +0000
-Received: by outflank-mailman (input) for mailman id 1146229;
- Mon, 20 Oct 2025 11:26:44 +0000
+	id 1vAo1g-0006me-PR; Mon, 20 Oct 2025 11:26:08 +0000
+Received: by outflank-mailman (input) for mailman id 1146193;
+ Mon, 20 Oct 2025 11:26:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7iz2=45=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vAnwg-0001y1-S1
- for xen-devel@lists.xenproject.org; Mon, 20 Oct 2025 11:20:58 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1vAnx1-0001y1-9g
+ for xen-devel@lists.xenproject.org; Mon, 20 Oct 2025 11:21:19 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d9fd58f3-ada6-11f0-9d15-b5c5bf9af7f9;
- Mon, 20 Oct 2025 13:20:58 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-46fcf9f63b6so22311905e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 20 Oct 2025 04:20:58 -0700 (PDT)
+ id e6213609-ada6-11f0-9d15-b5c5bf9af7f9;
+ Mon, 20 Oct 2025 13:21:18 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4711f156326so28740375e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Oct 2025 04:21:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47154d38309sm142168915e9.9.2025.10.20.04.20.57
+ ffacd0b85a97d-427f00b9f9dsm14822154f8f.39.2025.10.20.04.21.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Oct 2025 04:20:57 -0700 (PDT)
+ Mon, 20 Oct 2025 04:21:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9fd58f3-ada6-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: e6213609-ada6-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1760959258; x=1761564058; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1760959278; x=1761564078; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rds4jnnN9NVrTZyuc+q65+QBQEjCAV7rC8oJIxMqDF8=;
-        b=DvtaxUr3fc0WHOImWZeiK+H6ToJPY9jRlhe5DyKLGXpsTfurc0yvR/3pEatQsaBg7v
-         Jzlwqzwv0NrBJ5Kk+KbmTaelbXiC1uZKMRIQQULlIhfM5nkec8hAGgO9+5IYUf5G9tja
-         XWyt8T64Iy8pZGjJZkCs+dQNG0KKpk9tMDAXSisogRHhWU7y/s3/Kca/+cke6WBuxykN
-         1XWpuBFH95MIsDHzVncHH09a2c3OwUYtQ11xH8kKVFy/lCqq7/zIVq3aEN7mVSCra7ii
-         MiRPnTHjWX66jsiySarVIF2ppdP9oLpBUtn3a03X38to4k8t+5eeEGwFQ2Uj44400Wmr
-         Nb2Q==
+        bh=/bovBnMZlpdcR5xnSOmFdCORNaMff19Gz4ZDC+SsaVo=;
+        b=Jwm/qoTpS3+DoZnfu86ydyF6w/oTxnqUmDQB5AMCzMjW2wC0zPt+s50TZo4/N6HrTY
+         3OVcPFUAjOacGiJVuOJHELNgITz4QMKl0SOuvPcWVFGRE6acvwMdfBnxNtf0CHH971PG
+         j4caC0/fHjoJ50Q8nbJ9lEA/NXtJWig9xIczh7YhU1prRZ1Yk/h6coYiFplNpkV7BLWk
+         5biM0TEG2uY8Tq665if81DqRbgvd9cFjMhH9CSUSmTi3vujDMh4YerWxBTCNST1rjiUa
+         bxQG+0c64uNaVJ1zCuYrooOznVsV2wYpbA2r3/eCPbKc91gigms2s2YMzwB+TygOK7u6
+         HSyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760959258; x=1761564058;
+        d=1e100.net; s=20230601; t=1760959278; x=1761564078;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=rds4jnnN9NVrTZyuc+q65+QBQEjCAV7rC8oJIxMqDF8=;
-        b=qg8m1RMzcaEQvWBt7nzBW/lc7jj63GYMvq/PAAi70lZRlXRtGotbnLlbVp9LThTdVR
-         C2Mki77hXYtewVBPa+r4eR6vbUxSkunG3W9CZfoUNvOxSkq2j17mGy9CROpd68Ux/eTQ
-         0iMYrk3c69m21UwaGJUnJUYFXGN8xmVRq4RgsNHPmgH5heRyxMR/bpHf1eZ43t+H0qAw
-         xIuJWw7qJ5O4Mm+o6DAJv9hMoD0UNU65J2Vl/cx3ujnWCyLl8QavczP1YJ7uGclOeNMF
-         JUhtNd1EzrCWP64Q8jGZTE0Z98ha+IVR3QW24JZWGMwTOQjwfTuYrhuMuyo+wu/bumEy
-         tXrg==
-X-Gm-Message-State: AOJu0Yz4MDQR7EB6maWUsV/rxs4i92EbuBhgOjkwUPYJCg2Oby1HJmja
-	/i1gkvmlpXXxxyRh/bukA9Lsl/Uxt9LX/Fl0sx8DnVsgBsSHrnDYAzfyMsNp1uLWElvGrTVe38C
-	2EMU=
-X-Gm-Gg: ASbGncvXnkp1TFWRV/R3BKVKmsrh26Sii7YqHfW2/yWTVAvX+lc/4BaPfkUYKlFCxQq
-	guDr7q/48VSTmBC1nJNnYgwhzelN7IuCdzueiGlYsnJZj/z0r9OW0PrsBZTQ5UBapbK+5SJ2L9p
-	3oTB8xANYCbYV5lCBR92zu4LdC2UmoHUUrTa8FGsYnJeJjBZwX/fPHvx6x1hNGtbysLhPUkzSf4
-	62VSKcQ/4DZQ/8QB75svI1zQhMihNP1WGUBJhMl3Vi9BAidFQ+Hzao+SPnKiuzoiex/HCuWYQXA
-	7DVQeo5gBXTTyUZOvqlXapTyx2QeyyBAoOGAvfp0OdoBA2ef2Ao5oUjQCqxKX5pktYE1UVdYilM
-	unBdMUHMleoooPAVsPEC0Bl8pBbE9VfGsAtZcrnxUG8xrUvt6T2XjTcthCgBONPY4j9XDjtb0nB
-	I7zFHiwUTOfWDhAcZOxmLToIVXGAvLnHCyp8nVuZbhq/CoYxheHN3ObjupFXKqC+yU2OHFWayYr
-	Yv2hMpBgg==
-X-Google-Smtp-Source: AGHT+IFxeSoKZVTafA7dqmByPVATZl0pltbsEYB4cctuuaQSYVLfZrncYc3yd+dH+OjUjxxC/ofeWQ==
-X-Received: by 2002:a05:600c:6385:b0:458:a7fa:211d with SMTP id 5b1f17b1804b1-47117912365mr94081455e9.29.1760959257809;
-        Mon, 20 Oct 2025 04:20:57 -0700 (PDT)
-Message-ID: <7e376968-1eb6-4f0d-a9eb-167b26d90786@suse.com>
-Date: Mon, 20 Oct 2025 13:20:58 +0200
+        bh=/bovBnMZlpdcR5xnSOmFdCORNaMff19Gz4ZDC+SsaVo=;
+        b=t8JUjwcoDKaKcSRpzV0T5Qs5ghD6eudIo5KROzYrrf9QOTm2serACO8RBu4uZQxxxE
+         CnA9RN/n/0oVKmFfdtbrt23wfRa/3OPEh+20MNSlakq3jXg1QNwi/qVaaBWRL2BUDDDN
+         molrHaJRgH8b0wIO7YfF7c2xJKgoxwV6K3RsD8yFOs08rhqtVcX1FFdPuHxY3RBrXfjZ
+         jh7Z3yRV3xcLuFfI5rbpjwk9NeQrsrsoK6OLgKO2K3lhG09tNpNfyFwhh9j8WUyOhKzQ
+         lEB/ht1GkvPMaTcWbZ/J8MVOFphKWasJAJ9qBZwyq16k7nNblBYF/4Ac4l7X+1B7PiDS
+         npfA==
+X-Gm-Message-State: AOJu0YxRRD7XtSvIQVxQh5d7+MkryB0S4oHLLri1xAEftohGi6oVhazl
+	4HAqH3AdAfXtq/LRPhn684RNlFWMbbnZi6YRQphlvpX9uIBxTMgBgCm6PXgI0I8Oow5u+7KmTRf
+	jvSE=
+X-Gm-Gg: ASbGncvfpxBy4aQ6XwSUHQNhWzTyMFqie7tFSFiul3uQcGH7F2GWmxcwrpCnQMjJ1oL
+	IGc4nqTdX1IrFABtHpF7Od/gz8hzwUJvDCiimEOCYvS0TKfzljPKT1BkS2zEDa+ObiQ8T46Gvsu
+	z1IUQgnuYeS1r9ebGdrtocKp9GHgtLOOSy++c7JBTVuMXz+Ut381TvXB0iHLbUEqxfMZ4fdj5m6
+	on7G1LYghDgnBohnJbpDupeHG4gn4LlmctjlyeOPhaYSNjXfLVj6sT0fqdUkkNe8qWM0ZXL8QjD
+	wg6nDuwXnZKgIYZFMZm9CEBaPWhd9cwSkXmB8mvAXumt/1XfASudCAGvyIjJkpTrT2HnmVcxRxV
+	V1/KsQ0Ba1wcaHFz3C/ZzQAKcVcxLHpYAcOe0RS0cghiEg2AQqN0PUZacaDmUhcg6qK9eiHnD1r
+	/q+DsVaskij7GZj2e6Q/VKskg1MouWhQMcSeCH/3VdEl20RyziWSiBdfcb8cziFjFIoIqQY9M=
+X-Google-Smtp-Source: AGHT+IGZVHllDvy8xBuSDysKAU/0iFJ7N0bKLzv76WL3TZeTF1MU7jcqslieCUYBzpX92bNpmmdgUg==
+X-Received: by 2002:a05:6000:22c5:b0:427:492:79e5 with SMTP id ffacd0b85a97d-42704d7504emr7602131f8f.21.1760959278154;
+        Mon, 20 Oct 2025 04:21:18 -0700 (PDT)
+Message-ID: <2e140536-6e24-4de7-a5f6-0c0e19951f13@suse.com>
+Date: Mon, 20 Oct 2025 13:21:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 7/9] x86/HPET: reduce hpet_next_event() call sites
+Subject: [PATCH v2 for-4.21 8/9] x86/HPET: don't use hardcoded 0 for "long
+ timeout"
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
 References: <b66ea488-2d47-472c-9520-8590fdf89e0e@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,46 +124,28 @@ In-Reply-To: <b66ea488-2d47-472c-9520-8590fdf89e0e@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-I'm surprised gcc doesn't manage to do that: At least in debug builds two
-call sites exist, just like source code has it. That's not necessary
-though - by using do/while we can reduce this to a single call site. Then
-the function will be inlined.
+With 32-bit counters, writing 0 means on average half the wrapping period
+until an interrupt would be raised. Yet of course in extreme cases an
+interrupt would be raised almost right away. Write the present counter
+value instead, to make the timeout predicatbly a full wrapping period.
 
-While improving code gen, also switch the function's 2nd parameter to
-unsigned.
-
+Fixes: e862b83e8433 ("CPUIDLE: Avoid remnant HPET intr while force hpetbroadcast")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-Oddly enough the CDQE is replaced by an entirely unnecessary 32-bit MOV of
-a register to itself (i.e. zero-extending to 64 bits), as that's
-immediately preceded by a 32-bit ADD targeting the same register.
+Actually - can't we just disable the channel instead of setting a "long"
+timeout? Of course we'd then also need to enable it a few lines down. Yet
+in turn we could then remove the enabling from set_channel_irq_affinity().
 
 --- a/xen/arch/x86/hpet.c
 +++ b/xen/arch/x86/hpet.c
-@@ -124,7 +124,7 @@ static inline unsigned long ns2ticks(uns
-     return (unsigned long) tmp;
- }
+@@ -165,7 +165,7 @@ static int reprogram_hpet_evt_channel(
+     if ( expire == STIME_MAX )
+     {
+         /* We assume it will take a long time for the timer to wrap. */
+-        hpet_write32(0, HPET_Tn_CMP(ch->idx));
++        hpet_write32(hpet_read32(HPET_COUNTER), HPET_Tn_CMP(ch->idx));
+         return 0;
+     }
  
--static int hpet_next_event(unsigned long delta, int timer)
-+static int hpet_next_event(unsigned long delta, unsigned int timer)
- {
-     uint32_t cnt, cmp;
-     unsigned long flags;
-@@ -173,12 +173,10 @@ static int reprogram_hpet_evt_channel(
-     delta = max_t(int64_t, delta, MIN_DELTA_NS);
-     delta = ns2ticks(delta, ch->shift, ch->mult);
- 
--    ret = hpet_next_event(delta, ch->idx);
--    while ( ret && force )
--    {
--        delta += delta;
-+    do {
-         ret = hpet_next_event(delta, ch->idx);
--    }
-+        delta += delta;
-+    } while ( ret && force );
- 
-     return ret;
- }
 
 
