@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD29BBEDD95
-	for <lists+xen-devel@lfdr.de>; Sun, 19 Oct 2025 03:22:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1145789.1478466 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 042C9BEF60E
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Oct 2025 07:55:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1145973.1478476 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAI7I-0004n9-Oc; Sun, 19 Oct 2025 01:21:48 +0000
+	id 1vAiqG-0001Nw-G3; Mon, 20 Oct 2025 05:54:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1145789.1478466; Sun, 19 Oct 2025 01:21:48 +0000
+Received: by outflank-mailman (output) from mailman id 1145973.1478476; Mon, 20 Oct 2025 05:54:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAI7I-0004lE-Lu; Sun, 19 Oct 2025 01:21:48 +0000
-Received: by outflank-mailman (input) for mailman id 1145789;
- Sun, 19 Oct 2025 01:21:47 +0000
+	id 1vAiqG-0001Kw-9c; Mon, 20 Oct 2025 05:54:00 +0000
+Received: by outflank-mailman (input) for mailman id 1145973;
+ Mon, 20 Oct 2025 05:53:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2urB=44=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1vAI7G-0004l8-TU
- for xen-devel@lists.xenproject.org; Sun, 19 Oct 2025 01:21:47 +0000
-Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
- [2607:f8b0:4864:20::1136])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7iz2=45=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vAiqE-0001Kn-Kl
+ for xen-devel@lists.xenproject.org; Mon, 20 Oct 2025 05:53:58 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f8c7eeb9-ac89-11f0-980a-7dc792cee155;
- Sun, 19 Oct 2025 03:21:44 +0200 (CEST)
-Received: by mail-yw1-x1136.google.com with SMTP id
- 00721157ae682-78485c4146bso6140487b3.2
- for <xen-devel@lists.xenproject.org>; Sat, 18 Oct 2025 18:21:44 -0700 (PDT)
-Received: from [10.138.34.110]
- (h96-60-249-169.cncrtn.broadband.dynamic.tds.net. [96.60.249.169])
+ id 287a8863-ad79-11f0-980a-7dc792cee155;
+ Mon, 20 Oct 2025 07:53:53 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-47103b6058fso27626225e9.1
+ for <xen-devel@lists.xenproject.org>; Sun, 19 Oct 2025 22:53:53 -0700 (PDT)
+Received: from ?IPV6:2003:ca:b70c:6a14:d8fb:347b:52d3:727d?
+ (p200300cab70c6a14d8fb347b52d3727d.dip0.t-ipconnect.de.
+ [2003:ca:b70c:6a14:d8fb:347b:52d3:727d])
  by smtp.gmail.com with ESMTPSA id
- 00721157ae682-784673c3069sm10751687b3.23.2025.10.18.18.21.40
+ 5b1f17b1804b1-47114423862sm215881545e9.1.2025.10.19.22.53.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 18 Oct 2025 18:21:41 -0700 (PDT)
+ Sun, 19 Oct 2025 22:53:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,347 +47,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8c7eeb9-ac89-11f0-980a-7dc792cee155
+X-Inumbo-ID: 287a8863-ad79-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1760836903; x=1761441703; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=3tat2wgIoR6s7G1OvgJTvF8hhfRKWzusbBtJOy/2V94=;
-        b=CixMesOWxYf6CsAYJ7m50lKJSACowBYvDiLnwH6agmV1WVr3IACxygaS9HXWlfqHzq
-         tzaH7xNQIQR9FlK84j8rAO8VDVhJnW3h0oc8RDscWxu3kdukVMS49vNit8qmZMN84Sif
-         znNtOCfKsyugy2eaD9PvaBkWw3DU7H5j7J08LdMc0uaphJLx8VLe++5CNbsoU+ZrcjZz
-         Pb67b/Ub8UsdDxXsimgnjRntBTqunZzpznFBN88MntOuz0HUdm7AUsibAFvScRPb5xGs
-         Wdgj1dKg5bS65cIzKCfSEPKdcbQUeqI/Mrp6fFJ7tIGgF+8Uh+J7vMwStcE4bGxbV7mV
-         bu/w==
+        d=suse.com; s=google; t=1760939632; x=1761544432; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=SWNUGj0NiD3hC9NE4Xx5P4ljV476HfXn2ly5pkw26og=;
+        b=VRIzMQfjr2hyZTbwOcAokF/Po0dPzwM9SGLU2OqFs2ZpBNt0HNxEIPFzbcOwT3mUNF
+         nrjKAhoqrdsjc1lXOCYyEUSZhzCRzM0qAFSl9JxHuuP2cuI4mqSo6zdmpA/d3dyvj3So
+         1JsLg3dWSDy5pRSdC18ADYpa7Sb6fTBfnHuqqlW3fBUiTiVqUCqAUobspZmffaVSqMjs
+         KKv0YRPr3olpluUGYOvg8Ag9skt1GGfyE7qYerLM5mDfINooqTs2bA7Y2s+jbRHrt4EG
+         8UlwaUAbQCiGEG8+1B+dCH76sILuhUEwbAq5KYfBasdZld8IhwuW6niW8XlHFsA7QqxW
+         GBCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760836903; x=1761441703;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=3tat2wgIoR6s7G1OvgJTvF8hhfRKWzusbBtJOy/2V94=;
-        b=slZAAS5KPGmfe+QyYVYAuPbzYmDHoKAmZgoDeAqp02t0hiiCZY6rDzDFrpcZVauLcL
-         FH23Fvq3idjfQu4nDRgbgec7hXFL24ajbK/6Ca6fVSbdwBxjObMzokPZuTDEhhsvjbZ1
-         ObekSQ+YNWZGmQB4S8Q2ue/EaACWRWEVH1tWfH/YKe+RrK1SZnQXtCqA0rJA0LFoBqXC
-         yUxm758bfTbpA0BjWFcOgJh7g/LLjtquSruEpHNp0vTCW5wvUgLTUWp3W/olH1s0wLXG
-         +wo3FTDPtUGm4BSCMQTHqu3P9nzzNGkgI26kZ/IDdfgKS9IKQ+3ApSElC3bSYS6nxTk6
-         hnhA==
-X-Forwarded-Encrypted: i=1; AJvYcCVAmV3TSxRmQD0tZ+Gmk+ZgzfjJsnPQb6CQojUdd2rp4hH/rmURy2O6E87mNUzGvMtVYEThzzR9hfg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyEeLA1kPBpntajt38IffZuHsDJ4e8V0vGn90Alg4F6xU9PT0oC
-	MYh1/WLONNJ215Cytfcj45SdsCjJsiNrYru5fgzDK00LxsMx2Al9gYcB
-X-Gm-Gg: ASbGncsUwX8J3TkcueQdq7+i3J6i97fHWw9fdo3/jYc2yZaC3GyoA9bXeenbLmXXB/u
-	d6SiRslnaghlSoOD96kqk1Z4SrFcQMC2Fn6PwjSRdoz/gPb77UeEMdb+8M2N7Rf78rDPqhZYY7n
-	xdZMw+4JeeABPpRKMCM4z4ZkWvnruc0LTJ969nOFGSsXktRzSlCnclS5J8dl6UCbf/7PAXr3FeZ
-	14O6WjbDgGcXvTv26s2EIDPfS5zbfmZiv7PCpxdDEn1AEJrJtEGPHnC1khC8H1kgHxSCRlvFiPc
-	mlYO9RwWVjMjG2CReWYqZFFfXkEjS5JDUoWz22p5sZ0aCdUhDzt3Q9GG1h80X70dtuyWDfg79uC
-	AgjkQJySeXCRzcIrU3gK7NlF+f5dP9gn4giCx0Tp4Hcy0O/J7T8LqnPehb/lA4gdnPm70sqFcB2
-	LB+pvr9hww5bhq9oy3SgxNV1+FxKtiZEy577mnmq4aEGgoOv3q0y5rqWZak584vfD8Vf2bzq0+u
-	6a/QowbhnWOhcZf
-X-Google-Smtp-Source: AGHT+IECcMT0tdBUoruwaFyFe5cRnAPQnUhpNJoHH/eOGFlzNJkvnzBAieZIqYznC24BLXeTXn5k7g==
-X-Received: by 2002:a05:690c:b13:b0:780:be5b:3435 with SMTP id 00721157ae682-7836d665f84mr73223057b3.44.1760836902608;
-        Sat, 18 Oct 2025 18:21:42 -0700 (PDT)
-Message-ID: <a7a2b126-489b-4bdc-ba0c-d0c92f8df822@gmail.com>
-Date: Sat, 18 Oct 2025 21:21:37 -0400
+        d=1e100.net; s=20230601; t=1760939632; x=1761544432;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SWNUGj0NiD3hC9NE4Xx5P4ljV476HfXn2ly5pkw26og=;
+        b=RgSvxZUbHqH0/uziLNp39TijdSShHpuyAGt6X28MtWKgm+U+nuNjQq11zDRBxtDBqQ
+         HNzIUWZvRLAiQVfvAHcaqZ1qg9+W16HzoC6m2YIcQpqGIrvKsvpWZKcIFMOt6RqNOHLl
+         Y9fLVop+l6ad52hFqymd7xaHxTP+cS2hmls19my5q6Ms9LuAA5GpT+fM/u5t2LpE3POv
+         EIhRwbMdsNILdx1S9rUtPiYlRcW4BRofXE+oUrrj5fBs45vyCGVnNaXB10tj5gxJmYl0
+         lOPMA2zEoZaz5zQKpiQR0VifZ2fSVXzQ6NizXO4dafYsGFbxx6G1NSjjD7188M/HQhj5
+         bFhw==
+X-Gm-Message-State: AOJu0YxyK5G3Z98jS6/q9ENot6xXJCV8xLeMu2PooSi6XbOwQNqF44mv
+	6X1u4YSxP/gQNSGfmGLVo+xcSpDRQZ8ljEexsrJ01hAytbtczj5P+ugUmsapEnILOg==
+X-Gm-Gg: ASbGncuIwNfB35JV8SwTw3KxfthgdEHoteYjLSk5ATyIM9+KHnXNlcoTerdiOjlljE/
+	iTWD2CfGairLWOSpiAub+/WLksomWdi+mIT2HkOw87w9COoVte1TkpoTt0rds9tLDNccNtrw2ar
+	/eyY6rQdOjV0I0NyMxgNn6o4UAtwhtQu6dGPFODdRj6hqGvWELJX5n04ElGMJGTFU3PcrYDbchS
+	+moIycws44VuTdQLL0sjC8+VsNeNyQIiIK356+VHVoYg3tpsXal05Ha3vwOZ+BEXoNURuEbcG9E
+	fB7Xl/pEQfou7UYHLoVKRrPysTNSm3PvLRTduoDXYGrbBuH9k9LgJ0oIRhY/hxh+ckUmyvAShqj
+	VmgKjjRB0zdlH2GVrucjB9in6Qa52Uj1FK39qCNKTMDNboy7syTQ64HCzlxjgF03R3Y5ui1ui3G
+	pZO9Q/v8IduF1tsrDrNBp7M5ymVbe3FA37+a9kAXW2UX4HL0d43gOyreO/2CaMyLNyjTq4o2gw5
+	bv0ISKyRuqE4/pOBxo1JiB3lQ4n1pGDgCxU5w==
+X-Google-Smtp-Source: AGHT+IHzlfj6wsgPJg2MuueUtINxTxfgAo4RlUIEShzS5NfUGjP3s3uI0rFfOfo9lKJp4xI2Xpjevg==
+X-Received: by 2002:a05:600c:8a16:10b0:46e:24a4:c247 with SMTP id 5b1f17b1804b1-471099254f6mr93066515e9.5.1760939632548;
+        Sun, 19 Oct 2025 22:53:52 -0700 (PDT)
+Message-ID: <1e14d71a-4c23-46d9-a123-475a22bdc856@suse.com>
+Date: Mon, 20 Oct 2025 07:53:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] x86: make Viridian support optional
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Jan Beulich <jbeulich@suse.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+Subject: Re: [PATCH for-4.21 03/10] x86/HPET: use single, global, low-priority
+ vector for broadcast IRQ
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250930125215.1087214-1-grygorii_strashko@epam.com>
- <3e4e4bc5-aa47-4357-9327-df2a9b9c9a1b@suse.com>
- <DDH3W3VM2ZDJ.PMFSGBWBTS0S@amd.com>
- <9248eda6-cf9b-4fdf-ab32-66e777585f65@gmail.com>
- <DDKPUZKA0UHL.2WRO9M23R4G3E@amd.com>
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <8d94abf8-70d1-478c-885e-ff9a960ac72d@suse.com>
+ <64d52793-be70-4ae8-9bae-ad88f6379395@suse.com> <aPEc3VWLI0ofq22f@Mac.lan>
+ <39f00b12-a3f7-4185-a8fa-2c99c43695d9@suse.com> <aPH8Waqi5hJyCuzO@Mac.lan>
 Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <DDKPUZKA0UHL.2WRO9M23R4G3E@amd.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------0kfV0gzEPwgDUbm1IibRV4W0"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0kfV0gzEPwgDUbm1IibRV4W0
-Content-Type: multipart/mixed; boundary="------------BCSXnPJT0JDtHb0caqd0JhdV";
- protected-headers="v1"
-From: Demi Marie Obenour <demiobenour@gmail.com>
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Jan Beulich <jbeulich@suse.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <a7a2b126-489b-4bdc-ba0c-d0c92f8df822@gmail.com>
-Subject: Re: [PATCH v5] x86: make Viridian support optional
-References: <20250930125215.1087214-1-grygorii_strashko@epam.com>
- <3e4e4bc5-aa47-4357-9327-df2a9b9c9a1b@suse.com>
- <DDH3W3VM2ZDJ.PMFSGBWBTS0S@amd.com>
- <9248eda6-cf9b-4fdf-ab32-66e777585f65@gmail.com>
- <DDKPUZKA0UHL.2WRO9M23R4G3E@amd.com>
-In-Reply-To: <DDKPUZKA0UHL.2WRO9M23R4G3E@amd.com>
-
---------------BCSXnPJT0JDtHb0caqd0JhdV
-Content-Type: multipart/mixed; boundary="------------FDnph8dZOE8tGRxZQEtoTMta"
-
---------------FDnph8dZOE8tGRxZQEtoTMta
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aPH8Waqi5hJyCuzO@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On 10/17/25 11:52, Alejandro Vallejo wrote:
-> On Wed Oct 15, 2025 at 7:58 AM CEST, Demi Marie Obenour wrote:
->> On 10/13/25 06:01, Alejandro Vallejo wrote:
->>> On Wed Oct 8, 2025 at 6:04 PM CEST, Jan Beulich wrote:
->>>> On 30.09.2025 14:52, Grygorii Strashko wrote:
->>>>> --- a/xen/arch/x86/hvm/Kconfig
->>>>> +++ b/xen/arch/x86/hvm/Kconfig
->>>>> @@ -62,6 +62,16 @@ config ALTP2M
->>>>> =20
->>>>>  	  If unsure, stay with defaults.
->>>>> =20
->>>>> +config VIRIDIAN
->>>>> +	bool "Hyper-V enlightenments for guests" if EXPERT
->>>>> +	default y
->>>>> +	help
->>>>> +	  Support optimizations for Hyper-V guests such as faster hyperca=
-lls,
->>>>> +	  efficient timer and interrupt handling, and enhanced paravirtua=
-lized
->>>>> +	  I/O. This is to improve performance and compatibility of Window=
-s VMs.
->>>>
->>>> What is "paravirtualized I/O" about in this context?
+On 17.10.2025 10:20, Roger Pau Monné wrote:
+> On Fri, Oct 17, 2025 at 09:15:08AM +0200, Jan Beulich wrote:
+>> On 16.10.2025 18:27, Roger Pau Monné wrote:
+>>> On Thu, Oct 16, 2025 at 09:32:04AM +0200, Jan Beulich wrote:
+>>>> @@ -497,6 +503,7 @@ static void set_channel_irq_affinity(str
+>>>>      spin_lock(&desc->lock);
+>>>>      hpet_msi_mask(desc);
+>>>>      hpet_msi_set_affinity(desc, cpumask_of(ch->cpu));
+>>>> +    per_cpu(vector_irq, ch->cpu)[HPET_BROADCAST_VECTOR] = ch->msi.irq;
 >>>
->>> Hypervisor-assisted IPIs, TLB flushes, etc. Or so I understood back w=
-hen I said
->>> that looked ok. I see there could be confusion with Xen PV device pro=
-tocols,
->>> but as far as the user of the help message is concerned it makes no d=
-ifference.
->>>
->>> One could even remove the examples and leave it as "... for Hyper-V g=
-uests. This
->>> is to...". They are truly inconsequential.
->>>
->>> All that matters is that (modern) Windows won't run without it, and t=
-hat it
->>> provides some indeterminate hypervisor-provided assists to try to red=
-uce some
->>> virtualization overheads.
+>>> I would set the vector table ahead of setting the affinity, in case we
+>>> can drop the mask calls around this block of code.
 >>
->> Qubes OS doesn't expose Viridian at all, which is why it wasn't
->> vulnerable to XSA-472.  It still runs Windows guests just fine.
->=20
-> Can you run Windows 11?
+>> Isn't there a problematic window either way round? I can make the change,
+>> but I don't see that addressing anything. The new comparator value will
+>> be written later anyway, and interrupts up to that point aren't of any
+>> interest anyway. I.e. it doesn't matter which of the CPUs gets to handle
+>> them.
+> 
+> It's preferable to get a silent stray interrupt (if the per-cpu vector
+> table is correctly setup), rather than to get a message from Xen that
+> an unknown vector has been received?
+> 
+> If a vector is injected ahead of vector_irq being set Xen would
+> complain in do_IRQ() that that's no handler for such vector.
 
-I haven't tried it, but it is documented as working.
+As of now, setup_vector_irq() makes sure the field isn't uninitialized
+(i.e. left at INT_MIN). With that change dropped (see below), there
+would indeed be such a risk (on the first instance on each CPU).
 
-> I don't remember which, but I do know some versions of Windows refuse t=
-o boot
-> if they determine they are virtualised and don't see the mandatory part=
-s of
-> the TLFS.
->=20
-> If 11 works, maybe Windows Server?
+>>>> --- a/xen/arch/x86/include/asm/irq-vectors.h
+>>>> +++ b/xen/arch/x86/include/asm/irq-vectors.h
+>>>> @@ -18,6 +18,15 @@
+>>>>  /* IRQ0 (timer) is statically allocated but must be high priority. */
+>>>>  #define IRQ0_VECTOR             0xf0
+>>>>  
+>>>> +/*
+>>>> + * Low-priority (for now statically allocated) vectors, sharing entry
+>>>> + * points with exceptions in the 0x10 ... 0x1f range, as long as the
+>>>> + * respective exception has an error code.
+>>>> + */
+>>>> +#define FIRST_LOPRIORITY_VECTOR 0x10
+>>>> +#define HPET_BROADCAST_VECTOR   X86_EXC_AC
+>>>> +#define LAST_LOPRIORITY_VECTOR  0x1f
+>>>
+>>> I wonder if it won't be clearer to simply reserve a vector if the HPET
+>>> is used, instead of hijacking the AC one.  It's one vector less, but
+>>> arguably now that we unconditionally use physical destination mode our
+>>> pool of vectors has expanded considerably.
+>>
+>> Well, I'd really like to avoid consuming an otherwise usable vector, if
+>> at all possible (as per Andrew's FRED plans, that won't be possible
+>> there anymore then).
+> 
+> If re-using the AC vector is not possible with FRED we might want to
+> do this uniformly and always consume a vector then?
 
-Windows Server is more likely.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
---------------FDnph8dZOE8tGRxZQEtoTMta
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Right now it saves us a vector. I'd leave the FRED side for when that's
+going to be implemented. Which - aiui - isn't going to be straightforward
+anyway, due to (at least) requirements around IRQ_MOVE_CLEANUP_VECTOR.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+>>>> --- a/xen/arch/x86/irq.c
+>>>> +++ b/xen/arch/x86/irq.c
+>>>> @@ -755,8 +755,9 @@ void setup_vector_irq(unsigned int cpu)
+>>>>          if ( !irq_desc_initialized(desc) )
+>>>>              continue;
+>>>>          vector = irq_to_vector(irq);
+>>>> -        if ( vector >= FIRST_HIPRIORITY_VECTOR &&
+>>>> -             vector <= LAST_HIPRIORITY_VECTOR )
+>>>> +        if ( vector <= (vector >= FIRST_HIPRIORITY_VECTOR
+>>>> +                        ? LAST_HIPRIORITY_VECTOR
+>>>> +                        : LAST_LOPRIORITY_VECTOR) )
+>>>>              cpumask_set_cpu(cpu, desc->arch.cpu_mask);
+>>>
+>>> I think this is wrong.  The low priority vector used by the HPET will
+>>> only target a single CPU at a time, and hence adding extra CPUs to
+>>> that mask as part of AP bringup is not correct.
+>>
+>> I'm not sure about "wrong". It's not strictly necessary for the HPET one,
+>> I expect, but it's generally what would be necessary. For the HPET one,
+>> hpet_msi_set_affinity() replaces the value anyway. (I can add a sentence
+>> to this effect to the description, if that helps.)
+> 
+> I do think it's wrong, it's just not harmful per-se apart from showing
+> up in the output of dump_irqs().  The value in desc->arch.cpu_mask
+> should be the CPU that's the destination of the interrupt.  In this
+> case, the HPET interrupt does have a single destination at a give
+> time, and adding another one will make the output of dump_irqs() show
+> two destinations, when the interrupt will target a single interrupt.
 
-xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
-B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
-bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
-UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
-MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
-zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
-T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
-BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
-6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
-9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
-m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
-zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
-dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
-X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
-R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
-oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
-zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
-rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
-Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
-/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
-ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
-Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
-xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
-fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
-AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
-b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
-BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
-/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
-/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
-sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
-xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
-VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
-hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
-I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
-xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
-ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
-7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
-UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
-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
-EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
-=3Dx94R
------END PGP PUBLIC KEY BLOCK-----
+Just that as soon as the interrupt is actually in use, what is done
+here doesn't matter anymore.
 
---------------FDnph8dZOE8tGRxZQEtoTMta--
+I continue to think the change is correct for the general case: I'd
+expect these special vectors to normally (just not here) be used as
+"direct APIC vectors", in which case the IRQ does have multiple
+destinations.
 
---------------BCSXnPJT0JDtHb0caqd0JhdV--
+Problem is - if I don't make this change, I still expect I ought to
+make _some_ change here, as the following "else if()" might be getting
+in the way. Then again the vector_irq[] assignment also isn't strictly
+needed this early, as set_channel_irq_affinity() deals with that
+anyway.
 
---------------0kfV0gzEPwgDUbm1IibRV4W0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Bottom line - I guess I'll drop this change, realizing that adding
+something here later on may then be harder to understand.
 
------BEGIN PGP SIGNATURE-----
+> If anything you should add the CPU to the affinity set
+> (desc->affinity), but that's not needed since you already init the
+> affinity mask with cpumask_setall().
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmj0PSEACgkQszaHOrMp
-8lPnSg//eNYOmcap+fcEmdgNhjOtPEb66+mn7JtcIMi1qwrd/m88K2UwxkiXe6Vd
-lxh1IS/jnxyfAnjhGqLNEotBvcRBVbl6dCo96bAWfDaTgYt5e88yjsawO2cmOiOw
-dpj3/QfCvfCp5kI03BRo/QZ29wpZK5U6c96meBOapf6dEVVnOZAprflmCKwxwV9Y
-uwnizJP49023cjZOGADTnH1EK0J0ylMu4mbXLbOjYIjY6+1C2MxUIUa3YkC0uaCe
-FY79JNLYp0hvCU8wWG2qZXxV0d26oddVPMkeHe6F1wucgRhYQ4/NyeEnBrDajEUy
-NKwtM0Cx43e4fI6WKwhF7nRSaMw2vCEdPGfkOHJBHq3sLLFBHlWpJJrLVjgqKZ0c
-ksHXXze6G7FzDzSmd8nzEed5GYdxaDUMK356erJgoyiPpoo3cDq8r2x9Wgpc3qn/
-jidzj/H61xKj6K/hAKRVxjg5ZF0Do0QT/rQh3tHzt52RBnG22KGPZImHowWySMxI
-swyjZDMFHR59vnHb5vehGXEtCnzEuldLmjHGj5/LbXV9FsHtgfbe5nHZF1Bu5UlC
-XWwLqKBcBbRmO2sgteVs1IMb+fglEg4Cek9qMNhvI86dbkbUnBKUXW7t0T9D6J17
-puoiMN8PmGAybh29v+QG21A0QP0v5/COvlkh6b7MsXhQhRylgBw=
-=8NP9
------END PGP SIGNATURE-----
+Indeed.
 
---------------0kfV0gzEPwgDUbm1IibRV4W0--
+> FWIW, I'm working on tentatively getting rid of the
+> desc->arch.{cpu,old_cpu,pending}_mask fields and converting them to
+> plain unsigned ints after we have dropped logical interrupt delivery
+> for external interrupts.
+
+I'm aware, yes. And I realize this change - for the HPET case - would
+be getting in the way (to some degree).
+
+Jan
 
