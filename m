@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 778EFBF2405
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Oct 2025 17:58:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1146534.1478992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFCABBF23FF
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Oct 2025 17:58:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1146531.1478979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAsH5-0005fs-Fy; Mon, 20 Oct 2025 15:58:19 +0000
+	id 1vAsH4-0005Kp-19; Mon, 20 Oct 2025 15:58:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1146534.1478992; Mon, 20 Oct 2025 15:58:19 +0000
+Received: by outflank-mailman (output) from mailman id 1146531.1478979; Mon, 20 Oct 2025 15:58:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vAsH5-0005bV-6Q; Mon, 20 Oct 2025 15:58:19 +0000
-Received: by outflank-mailman (input) for mailman id 1146534;
- Mon, 20 Oct 2025 15:58:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vAsH3-0005ER-RT; Mon, 20 Oct 2025 15:58:17 +0000
+Received: by outflank-mailman (input) for mailman id 1146531;
+ Mon, 20 Oct 2025 15:58:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Li3P=45=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vAsH3-0004nC-7n
- for xen-devel@lists.xenproject.org; Mon, 20 Oct 2025 15:58:17 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95ea76c2-adcd-11f0-980a-7dc792cee155;
- Mon, 20 Oct 2025 17:58:14 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-b3ee18913c0so870538066b.3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Oct 2025 08:58:14 -0700 (PDT)
+ id 1vAsH2-0004DQ-1W
+ for xen-devel@lists.xenproject.org; Mon, 20 Oct 2025 15:58:16 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 96753a5a-adcd-11f0-9d15-b5c5bf9af7f9;
+ Mon, 20 Oct 2025 17:58:15 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-63bf76fc9faso8302567a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Oct 2025 08:58:15 -0700 (PDT)
 Received: from fedora (user-109-243-146-38.play-internet.pl. [109.243.146.38])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-63c48ab560esm6966067a12.12.2025.10.20.08.58.12
+ 4fb4d7f45d1cf-63c48ab560esm6966067a12.12.2025.10.20.08.58.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Oct 2025 08:58:13 -0700 (PDT)
+ Mon, 20 Oct 2025 08:58:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95ea76c2-adcd-11f0-980a-7dc792cee155
+X-Inumbo-ID: 96753a5a-adcd-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1760975894; x=1761580694; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1760975895; x=1761580695; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wecPnZFJv0wnMS4ig6zr3MGm5VBHMau7nZwYYP2IRvA=;
-        b=J+JGg8e06sxdtJoZZzHvJnio8X767UEvYyWTUF4K7gmGH6QLbGrM4YP59/3dmYNzMe
-         V/l3djYvKtYO6c2fP8iHFaWrhPMCcQ+BpGlM1NWH9GoAbVSL9fd2PBHpzAOTmCHMlXt9
-         9YaQ9b5a2EOt0qo6pxbLRlolX/eumHJ7rKn2Lj/jgMosrsxVo0QV01L4iC3LwdMfXLTX
-         DM5tf+qL1f/22IxOhrDr6Zn0f965YPJYwV90JPjr1yUgXWElfs8oUz4Qsow6z+j0cqyc
-         wKnxuTQRUzT+bHSifRIQhkNywPNboQcgOfszAi8coG8ORYhlN+yEjciQiqgh+ZhFKrSM
-         14sA==
+        bh=xwDKzNBkEuRF0ZdPhrZFeDoixfetRhPSzH8aOqVCTKk=;
+        b=Az5YSpuSkFEsODa2pwj0oG85ysGEUab0+Bd6PDkeafdv+TWBR6EzjLA7dMxGIBGj3E
+         KpaAhx6odOT6Q+7/cyDGi+QQZcTaTSpiEqZjiSVwL9aQ4+pjwx5qLL02NOWBEyBChTlW
+         aUlFrF2c1Y7cfnrCTpAAJ5R12A+qgDovN2CqAg19T0ZBFEKMmXPo9LIylXX6+LnEgt7v
+         mNLSmwH0xPykvsKuJxKmgBeOAXOiaN2NoRA9F8itG9JsO7xfoApj6ZRBViuKOfKGvJ3g
+         0pCqi8spjhJjRaHxYDC9LyRZwTkVdX1PeI4igdOaKbmKmYnSsRdbyBxhcqKMObnKY05Q
+         o6TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760975894; x=1761580694;
+        d=1e100.net; s=20230601; t=1760975895; x=1761580695;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=wecPnZFJv0wnMS4ig6zr3MGm5VBHMau7nZwYYP2IRvA=;
-        b=evr2GY/xZFn6TYwu6kKtQ63efRWiA4YZ5lejsENiRT6l8tSyOtWM2i78ZARmBqn8gE
-         /OxBxiEPB5/T3je7CZmprjYuN/pZWUXxvPt4j96zMWLTswvyC/u6BLD/hVLF/VKye8dr
-         DqBnPhjf5Hm52nnIDVbXYZJUpOWHBqnWuDRuh0qWoRKCnr7f1grnwDzBB5ji9xQiOy1F
-         UQZigjvEqjWzzeozJmdzBlIObUD50Mj7PDAKh0Rxvs/m27fhO1v3RWmAJ2qWbsHGTgeX
-         oks8hG7YATb2P71wtn3xeHSTR/LJAGZ7jf9UDJm5qRNzk61E5PojwV/QQSkHnnqw5jIo
-         2I1Q==
-X-Gm-Message-State: AOJu0YxYi2paf94Bv12wj20mr5vdEUJPobqt5J2a1jw8sdtr+8jZh+PP
-	NemvTVm8Iq7QQCAW6yYdHGvSX8BudLX+DvQbZXz44LKxXYf3zl4WTDmU3zPy+A==
-X-Gm-Gg: ASbGncs16fbepDdCZ6V78oTOpcgSNreuPIBtJCz/4r7wSsOYhFFgdPiTy48bxn+re5x
-	5DR1NOK1pG/YBcEyja8DY+mA2Kge7oEmPRHAaY7rJ31cRcc9fSgjhecinu9+hOetOHOBqGQk+k9
-	uGxK64e7rqNPtcl/9UpKZZyXZUlwhlFpsITVVMsqd2m9CEN4aYVJsuMxlgIiUgGVa5/bqxzUgWQ
-	w8B6D8//onW0+dXQssFlWZbyLwgMogz+RHtgEbcZDCdE3H2cLYYBJPLskZhXpoVT6bjhQO4Pvqf
-	ziNCEIeFlLbuHKGa7R1lhlJImtbiViB6e8M9p8MBDRW89bjM7Q3uFMjthRg/hpzJkI7+fvJpGld
-	SF7B5YNpjSwTMTynJbnsiNRknkvUSwYY8mgI4dYvQrOdRDD9vxFTZWxUtdTBCteEHG6rCIeDlpE
-	OaH/Doq5ldW4TvPYnSn4pwhzDqw6kqAI89ght+a8BFSybC9Y4bRpMaCl4cpA==
-X-Google-Smtp-Source: AGHT+IG1rAVrZN6lyAO+M3rLhzh4FyxcVFnr6yzjtfxJw4qj0QErTQbCo7BJhuzhFlm7zXj9egTUew==
-X-Received: by 2002:a17:907:6d02:b0:b4a:d0cf:8748 with SMTP id a640c23a62f3a-b647254f6a7mr1485479566b.13.1760975893464;
-        Mon, 20 Oct 2025 08:58:13 -0700 (PDT)
+        bh=xwDKzNBkEuRF0ZdPhrZFeDoixfetRhPSzH8aOqVCTKk=;
+        b=J8c/eil00v6TUdwrRNxfpJV1/kpM0L1Gg8xtgmB9TMdvLCgxXk0gTzqvPGjPusht/K
+         ePMIr/ejDrO+CgQkSpbKKGXA7Lrwk04CxezYoVWLG0CjBY6VhJUj30X2dOrNbntS6wDR
+         7hS6+bMc+muCA9yTUwdCpmfsbV0+3V6AMw54EnPU4Z3hJBjhweL46ToHcWuTvei48IaT
+         bRj2CQPpAQ8EBUfkXrNPB1I4/sIvOaR5QxH0+rGfNZntY87s/nxXDK/qXfiyrlIjoqqd
+         KQS+9OH1/+H27XRNXdi259z5iWHIfJ2JOoexTaoCr4IIniDanSF9INiL4r4F8Dq5oJ5O
+         08Qw==
+X-Gm-Message-State: AOJu0Yz/6ZgNAENRq4hU2LQ0F0cDLflvysM4N8BAatRGsnBvVaF52Lr3
+	IVPwmnezIzHFoqCB2F52zwsNFaWNj/X5XXQGYnKM08tk1bvF2lj32sbvCGXlmA==
+X-Gm-Gg: ASbGncsW28PG4reKyhOv9MLo7g3ZfGWcECqev7HjN7C0ChwHtPJSzh3t31rLWDydAoV
+	/NT5afD/ZDz37rMYQwBqvg6bFew5nXH+OYI/6sO8qGpOynukgG21vGWGctQgnVbTcdLUhxJKszd
+	t/6YiXcEsVZ5rdY2ia8PABfwxnE6bEjzKj2XrkjXY70oqTDdeIbZ+nQcCHbYuESWLsTwk7wwD4p
+	LXd7gG/vLROqyndz2L6c/lBN5yS0bqY9eiFL8LdAn9b7HrUqvSz3n1dNGbVo543jYTodeFa1SB6
+	cZW0FyLdZrAwLchbEznj/imkZm77yBYburrk1lrGRd+6Xm8Z6EZQ/sucZ1zpbUZISZIjZx8EoPh
+	9OKUyp2BtzbmLsGXY6knQhBajh41VZRq3torAk4aygtkOi/IGgfL+fbfcHrq7fQtKcnmJGC0Mo5
+	QjUwHxZsDIUU+go4SgoBsFuiRyBez7Z0s0vQEYXrzl9HXNzBo=
+X-Google-Smtp-Source: AGHT+IGl4ntJ2yzEV41chreIWSts04kN3vEIg0tLJQTkQG3AV3/i81AYKX2trmATKDRQtdj0FhAuHA==
+X-Received: by 2002:a05:6402:3585:b0:636:240f:9ece with SMTP id 4fb4d7f45d1cf-63c1f6d90d0mr13129399a12.34.1760975894485;
+        Mon, 20 Oct 2025 08:58:14 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -95,185 +95,246 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [for 4.22 v5 03/18] xen/riscv: introduce things necessary for p2m initialization
-Date: Mon, 20 Oct 2025 17:57:46 +0200
-Message-ID: <661ae486683d1ea9846c9a2ade39037f220c2ee0.1760974017.git.oleksii.kurochko@gmail.com>
+Subject: [for 4.22 v5 04/18] xen/riscv: construct the P2M pages pool for guests
+Date: Mon, 20 Oct 2025 17:57:47 +0200
+Message-ID: <4e0449c9c337f64df5251dd0aa089171a4847d4e.1760974017.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <cover.1760974017.git.oleksii.kurochko@gmail.com>
 References: <cover.1760974017.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce the following things:
-- Update p2m_domain structure, which describe per p2m-table state, with:
-  - lock to protect updates to p2m.
-  - pool with pages used to construct p2m.
-  - back pointer to domain structure.
-- p2m_init() to initalize members introduced in p2m_domain structure.
+Implement p2m_set_allocation() to construct p2m pages pool for guests
+based on required number of pages.
+
+This is implemented by:
+- Adding a `struct paging_domain` which contains a freelist, a
+  counter variable and a spinlock to `struct arch_domain` to
+  indicate the free p2m pages and the number of p2m total pages in
+  the p2m pages pool.
+- Adding a helper `p2m_set_allocation` to set the p2m pages pool
+  size. This helper should be called before allocating memory for
+  a guest and is called from domain_p2m_set_allocation(), the latter
+  is a part of common dom0less code.
+- Adding implementation of paging_freelist_adjust() and
+  paging_domain_init().
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in V5:
- - Acked-by: Jan Beulich <jbeulich@suse.com>.
+ - Nothing changed. Only rebase.
 ---
 Changes in V4:
- - Move an introduction of clean_pte member of p2m_domain structure to the
-   patch where it is started to be used:
-     xen/riscv: add root page table allocation
- - Add prototype of p2m_init() to asm/p2m.h.
+ - s/paging_freelist_init/paging_freelist_adjust.
+ - Add empty line between definiton of paging_freelist_adjust()
+   and paging_domain_init().
+ - Update commit message.
+ - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
 ---
-Changes in V3:
- - s/p2m_type/p2m_types.
- - Drop init. of p2m->clean_pte in p2m_init() as CONFIG_HAS_PASSTHROUGH is
-   going to be selected unconditionaly. Plus CONFIG_HAS_PASSTHROUGH isn't
-   ready to be used for RISC-V.
-   Add compilation error to not forget to init p2m->clean_pte.
- - Move defintion of p2m->domain up in p2m_init().
- - Add iommu_use_hap_pt() when p2m->clean_pte is initialized.
- - Add the comment above p2m_types member of p2m_domain struct.
- - Add need_flush member to p2m_domain structure.
- - Move introduction of p2m_write_(un)lock() and p2m_tlb_flush_sync()
-   to the patch where they are really used:
-     xen/riscv: implement guest_physmap_add_entry() for mapping GFNs to MFN
- - Add p2m member to arch_domain structure.
- - Drop p2m_types from struct p2m_domain as P2M type for PTE will be stored
-   differently.
- - Drop default_access as it isn't going to be used for now.
- - Move defintion of p2m_is_write_locked() to "implement function to map memory
-   in guest p2m"  where it is really used.
+Changes in v3:
+ - Drop usage of p2m_ prefix inside struct paging_domain().
+ - Introduce paging_domain_init() to init paging struct.
 ---
-Changes in V2:
- - Use introduced erlier sbi_remote_hfence_gvma_vmid() for proper implementation
-   of p2m_force_tlb_flush_sync() as TLB flushing needs to happen for each pCPU
-   which potentially has cached a mapping, what is tracked by d->dirty_cpumask.
- - Drop unnecessary blanks.
- - Fix code style for # of pre-processor directive.
- - Drop max_mapped_gfn and lowest_mapped_gfn as they aren't used now.
- - [p2m_init()] Set p2m->clean_pte=false if CONFIG_HAS_PASSTHROUGH=n.
- - [p2m_init()] Update the comment above p2m->domain = d;
- - Drop p2m->need_flush as it seems to be always true for RISC-V and as a
-   consequence drop p2m_tlb_flush_sync().
- - Move to separate patch an introduction of root page table allocation.
+Changes in v2:
+ - Drop the comment above inclusion of <xen/event.h> in riscv/p2m.c.
+ - Use ACCESS_ONCE() for lhs and rhs for the expressions in
+   p2m_set_allocation().
 ---
- xen/arch/riscv/include/asm/domain.h |  5 +++++
- xen/arch/riscv/include/asm/p2m.h    | 33 +++++++++++++++++++++++++++++
- xen/arch/riscv/p2m.c                | 20 +++++++++++++++++
- 3 files changed, 58 insertions(+)
+ xen/arch/riscv/Makefile             |  1 +
+ xen/arch/riscv/include/asm/Makefile |  1 -
+ xen/arch/riscv/include/asm/domain.h | 12 ++++++
+ xen/arch/riscv/include/asm/paging.h | 13 ++++++
+ xen/arch/riscv/p2m.c                | 18 ++++++++
+ xen/arch/riscv/paging.c             | 65 +++++++++++++++++++++++++++++
+ 6 files changed, 109 insertions(+), 1 deletion(-)
+ create mode 100644 xen/arch/riscv/include/asm/paging.h
+ create mode 100644 xen/arch/riscv/paging.c
 
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index e2499210c8..6b912465b9 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -6,6 +6,7 @@ obj-y += imsic.o
+ obj-y += intc.o
+ obj-y += irq.o
+ obj-y += mm.o
++obj-y += paging.o
+ obj-y += pt.o
+ obj-y += p2m.o
+ obj-$(CONFIG_RISCV_64) += riscv64/
+diff --git a/xen/arch/riscv/include/asm/Makefile b/xen/arch/riscv/include/asm/Makefile
+index bfdf186c68..3824f31c39 100644
+--- a/xen/arch/riscv/include/asm/Makefile
++++ b/xen/arch/riscv/include/asm/Makefile
+@@ -6,7 +6,6 @@ generic-y += hardirq.h
+ generic-y += hypercall.h
+ generic-y += iocap.h
+ generic-y += irq-dt.h
+-generic-y += paging.h
+ generic-y += percpu.h
+ generic-y += perfc_defn.h
+ generic-y += random.h
 diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
-index aac1040658..e688980efa 100644
+index e688980efa..316e7c6c84 100644
 --- a/xen/arch/riscv/include/asm/domain.h
 +++ b/xen/arch/riscv/include/asm/domain.h
-@@ -5,6 +5,8 @@
+@@ -2,6 +2,8 @@
+ #ifndef ASM__RISCV__DOMAIN_H
+ #define ASM__RISCV__DOMAIN_H
+ 
++#include <xen/mm.h>
++#include <xen/spinlock.h>
  #include <xen/xmalloc.h>
  #include <public/hvm/params.h>
  
-+#include <asm/p2m.h>
-+
- struct vcpu_vmid {
-     uint64_t generation;
-     uint16_t vmid;
-@@ -24,6 +26,9 @@ struct arch_vcpu {
+@@ -24,11 +26,21 @@ struct arch_vcpu {
+     struct vcpu_vmid vmid;
+ };
  
++struct paging_domain {
++    spinlock_t lock;
++    /* Free pages from the pre-allocated pool */
++    struct page_list_head freelist;
++    /* Number of pages from the pre-allocated pool */
++    unsigned long total_pages;
++};
++
  struct arch_domain {
      struct hvm_domain hvm;
+ 
+     /* Virtual MMU */
+     struct p2m_domain p2m;
 +
-+    /* Virtual MMU */
-+    struct p2m_domain p2m;
++    struct paging_domain paging;
  };
  
  #include <xen/sched.h>
-diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
-index 3a5066f360..a129ed8392 100644
---- a/xen/arch/riscv/include/asm/p2m.h
-+++ b/xen/arch/riscv/include/asm/p2m.h
-@@ -3,6 +3,9 @@
- #define ASM__RISCV__P2M_H
- 
- #include <xen/errno.h>
-+#include <xen/mm.h>
-+#include <xen/rwlock.h>
-+#include <xen/types.h>
- 
- #include <asm/page-bits.h>
- 
-@@ -10,6 +13,34 @@ extern unsigned char gstage_mode;
- 
- #define paddr_bits PADDR_BITS
- 
-+/* Get host p2m table */
-+#define p2m_get_hostp2m(d) (&(d)->arch.p2m)
+diff --git a/xen/arch/riscv/include/asm/paging.h b/xen/arch/riscv/include/asm/paging.h
+new file mode 100644
+index 0000000000..98d8b06d45
+--- /dev/null
++++ b/xen/arch/riscv/include/asm/paging.h
+@@ -0,0 +1,13 @@
++#ifndef ASM_RISCV_PAGING_H
++#define ASM_RISCV_PAGING_H
 +
-+/* Per-p2m-table state */
-+struct p2m_domain {
-+    /*
-+     * Lock that protects updates to the p2m.
-+     */
-+    rwlock_t lock;
++#include <asm-generic/paging.h>
 +
-+    /* Pages used to construct the p2m */
-+    struct page_list_head pages;
++struct domain;
 +
-+    /* Back pointer to domain */
-+    struct domain *domain;
++int paging_domain_init(struct domain *d);
 +
-+    /*
-+     * P2M updates may required TLBs to be flushed (invalidated).
-+     *
-+     * Flushes may be deferred by setting 'need_flush' and then flushing
-+     * when the p2m write lock is released.
-+     *
-+     * If an immediate flush is required (e.g, if a super page is
-+     * shattered), call p2m_tlb_flush_sync().
-+     */
-+    bool need_flush;
-+};
++int paging_freelist_adjust(struct domain *d, unsigned long pages,
++                           bool *preempted);
 +
- /*
-  * List of possible type for each page in the p2m entry.
-  * The number of available bit per page in the pte for this purpose is 2 bits.
-@@ -92,6 +123,8 @@ static inline bool arch_acquire_resource_check(struct domain *d)
- 
- void pre_gstage_init(void);
- 
-+int p2m_init(struct domain *d);
-+
- #endif /* ASM__RISCV__P2M_H */
- 
- /*
++#endif /* ASM_RISCV_PAGING_H */
 diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
-index d8027a270f..1b5fc7ffff 100644
+index 1b5fc7ffff..d670e7612a 100644
 --- a/xen/arch/riscv/p2m.c
 +++ b/xen/arch/riscv/p2m.c
-@@ -3,6 +3,10 @@
- #include <xen/init.h>
- #include <xen/lib.h>
- #include <xen/macros.h>
-+#include <xen/mm.h>
-+#include <xen/paging.h>
-+#include <xen/rwlock.h>
-+#include <xen/sched.h>
- #include <xen/sections.h>
+@@ -11,6 +11,7 @@
  
  #include <asm/csr.h>
-@@ -97,3 +101,19 @@ void __init pre_gstage_init(void)
+ #include <asm/flushtlb.h>
++#include <asm/paging.h>
+ #include <asm/riscv_encoding.h>
+ #include <asm/vmid.h>
  
-     vmid_init();
+@@ -112,8 +113,25 @@ int p2m_init(struct domain *d)
+      */
+     p2m->domain = d;
+ 
++    paging_domain_init(d);
++
+     rwlock_init(&p2m->lock);
+     INIT_PAGE_LIST_HEAD(&p2m->pages);
+ 
+     return 0;
  }
 +
-+int p2m_init(struct domain *d)
++/*
++ * Set the pool of pages to the required number of pages.
++ * Returns 0 for success, non-zero for failure.
++ * Call with d->arch.paging.lock held.
++ */
++int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
 +{
-+    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++    int rc;
 +
-+    /*
-+     * "Trivial" initialisation is now complete.  Set the backpointer so the
-+     * users of p2m could get an access to domain structure.
-+     */
-+    p2m->domain = d;
++    if ( (rc = paging_freelist_adjust(d, pages, preempted)) )
++        return rc;
 +
-+    rwlock_init(&p2m->lock);
-+    INIT_PAGE_LIST_HEAD(&p2m->pages);
++    return 0;
++}
+diff --git a/xen/arch/riscv/paging.c b/xen/arch/riscv/paging.c
+new file mode 100644
+index 0000000000..2df8de033b
+--- /dev/null
++++ b/xen/arch/riscv/paging.c
+@@ -0,0 +1,65 @@
++#include <xen/event.h>
++#include <xen/lib.h>
++#include <xen/mm.h>
++#include <xen/sched.h>
++#include <xen/spinlock.h>
++
++int paging_freelist_adjust(struct domain *d, unsigned long pages,
++                           bool *preempted)
++{
++    struct page_info *pg;
++
++    ASSERT(spin_is_locked(&d->arch.paging.lock));
++
++    for ( ; ; )
++    {
++        if ( d->arch.paging.total_pages < pages )
++        {
++            /* Need to allocate more memory from domheap */
++            pg = alloc_domheap_page(d, MEMF_no_owner);
++            if ( pg == NULL )
++            {
++                printk(XENLOG_ERR "Failed to allocate pages.\n");
++                return -ENOMEM;
++            }
++            ACCESS_ONCE(d->arch.paging.total_pages)++;
++            page_list_add_tail(pg, &d->arch.paging.freelist);
++        }
++        else if ( d->arch.paging.total_pages > pages )
++        {
++            /* Need to return memory to domheap */
++            pg = page_list_remove_head(&d->arch.paging.freelist);
++            if ( pg )
++            {
++                ACCESS_ONCE(d->arch.paging.total_pages)--;
++                free_domheap_page(pg);
++            }
++            else
++            {
++                printk(XENLOG_ERR
++                       "Failed to free pages, freelist is empty.\n");
++                return -ENOMEM;
++            }
++        }
++        else
++            break;
++
++        /* Check to see if we need to yield and try again */
++        if ( preempted && general_preempt_check() )
++        {
++            *preempted = true;
++            return -ERESTART;
++        }
++    }
++
++    return 0;
++}
++
++/* Domain paging struct initialization. */
++int paging_domain_init(struct domain *d)
++{
++    spin_lock_init(&d->arch.paging.lock);
++    INIT_PAGE_LIST_HEAD(&d->arch.paging.freelist);
 +
 +    return 0;
 +}
