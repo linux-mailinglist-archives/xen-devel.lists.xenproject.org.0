@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8FA8BF5AB4
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Oct 2025 11:59:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1146965.1479299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EFE1BF5AD0
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Oct 2025 12:02:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1146975.1479310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vB992-0004sw-Ky; Tue, 21 Oct 2025 09:59:08 +0000
+	id 1vB9CS-0006SN-5U; Tue, 21 Oct 2025 10:02:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1146965.1479299; Tue, 21 Oct 2025 09:59:08 +0000
+Received: by outflank-mailman (output) from mailman id 1146975.1479310; Tue, 21 Oct 2025 10:02:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vB992-0004q7-Hl; Tue, 21 Oct 2025 09:59:08 +0000
-Received: by outflank-mailman (input) for mailman id 1146965;
- Tue, 21 Oct 2025 09:59:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vB9CS-0006PN-12; Tue, 21 Oct 2025 10:02:40 +0000
+Received: by outflank-mailman (input) for mailman id 1146975;
+ Tue, 21 Oct 2025 10:02:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9TpK=46=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vB991-0004pz-5f
- for xen-devel@lists.xenproject.org; Tue, 21 Oct 2025 09:59:07 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9496cc6f-ae64-11f0-9d15-b5c5bf9af7f9;
- Tue, 21 Oct 2025 11:59:06 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-47495477241so5869705e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 21 Oct 2025 02:59:06 -0700 (PDT)
+ id 1vB9CQ-0006PG-3s
+ for xen-devel@lists.xenproject.org; Tue, 21 Oct 2025 10:02:38 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 117c8e90-ae65-11f0-980a-7dc792cee155;
+ Tue, 21 Oct 2025 12:02:36 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-46fcf9f63b6so29612095e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Oct 2025 03:02:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-427ea5a0f7dsm19271386f8f.4.2025.10.21.02.59.05
+ 5b1f17b1804b1-47494a91c47sm15476155e9.1.2025.10.21.03.02.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Oct 2025 02:59:05 -0700 (PDT)
+ Tue, 21 Oct 2025 03:02:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9496cc6f-ae64-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 117c8e90-ae65-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761040746; x=1761645546; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QZbqOoTIxWA7VAksPbBFHi9ACZ/PYH/YoqygEpm6rDM=;
-        b=F7St/lgT/8uRwsKPJOOQKP/yj+HZEZCyKQS9YlnwxQRtUHqsfAAiAmvJ2AMNv+VPCd
-         H21TCUypLX+Bl0wVkvaw42pWgBmPsdpPvYSEkrVbb/o1fVxZkgDfTpP3GOMI9OUODg4Z
-         ydm4BgCrBZF/qX5WjchBN385l9ind30muq2FDIrusJXZvLgz8Y+DfCjfV8czTacUxf+Q
-         Fy5MSNSctjS59rdIdWkysC73TSSOTAVEQDZMBxnYct/gNmkurMd4Au6rvxvbO1uyo2MR
-         IFvDlqGkjYhKdALAreHG2Q4SU0fZVAG1ZaC9zd5nHHj7cmmSsdHoUwt5JK1aOM2SskVr
-         d+QQ==
+        d=suse.com; s=google; t=1761040955; x=1761645755; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=CN10TbGqcRdEPaJIFMAwTedsuIkuHG9llWs0il6133g=;
+        b=J+dWVM9JilkT5k7eVSgN52Iw0clxznSpwekpAvel5dzfMkpAK+rKs0J/vMhKQI8PTu
+         JKXTTvodZRddls+RzheiJEYB+pM+pvBE3H0UtMIFqo04mz6aBk+9sncWaQe07Ag4NNoj
+         h06Twpzdx21q7RYHapeVBPlfUh0fdm8EQmwRdIib4M4bo2Kb2nUApLDZdEERDOxS9TW9
+         tznb9LqTTrzjAaqfWon3rZYmBk1mVL4flX4OUh1KbQLCxincolo+g9kbDOIcDVqaVUU6
+         Zvsco/lmM9RegAZR/T8s6GCb5bHh8bYZ8ggF2TUrJ6LwWkBHvW0KnL+gSDviWSiISbTd
+         Xkvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761040746; x=1761645546;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QZbqOoTIxWA7VAksPbBFHi9ACZ/PYH/YoqygEpm6rDM=;
-        b=jlybqVHNflGJV8YcZr2IuSeNd8XcPr0jivbiEdejWRJNhQ0VzvFW0iFWZJy4X00J+3
-         fvQPmO4nEyi6vjJD8iB9gR1CbTnIdufXhNRvSuPfSub79kCVSyUALVlvCw0c3zQiKKLf
-         L1CzIr32ViKCkgLmQj+apfOBW5IAVHdxlMOuCAgFiRXIGpWh6J1O73bM0gWgD1wWK8Bp
-         FfJGT948CGvIBtA6hhyBvPVLmKyEbEHJRF9ImcjwBv4IC3O9yaGPt6xpUqQWSbrE7sSP
-         GKAtbBytRWS+cSMztwm6F052CirTpdP/F1IxF4s2W5JRMasplBmMMK+9A+EQFJEorDgR
-         vSIw==
-X-Gm-Message-State: AOJu0Yzr2R0az1eecTkTVcELWswFfMBV/p0NngmDaQ/Tm7YkYQem8rlc
-	BS/6omio8uAR6lsN4Ux/DSDfm8cdrDAABo4hpFmRhFhw4P3eySKQtq6l97BqbwuhzA==
-X-Gm-Gg: ASbGncs7x+uZrZxty9/6xwCK/7fcA4ddYJBHzp3ovPxTqHlEvbQOugInByvg0GjAcjo
-	1O4r5Rw/MnoQ41voZknO8yd2OQ2yJcKS+DeRnF19Uzz7obK+LesDCm6Ink440VBjNqxyvcwIW91
-	i70kJw9epQGqI3ZIdh8ob7uQcqIRBbOwjKp8/tHGFhbpDRfWKmswBhFuXhMKX6FU9rDSHauqX3E
-	RU3HDcBNCYCLcrNallghK9X+z84lRXcmu7LlKX2A6fw7X+FLVw5O8cq6Kmkm8mHDezZ+e1eFWO7
-	PpobuZKcXEsiSYa0bIQPXKISmuSoN6oDh1viS2XP9NxJQfL53/wG9TWVlmw0tZI6IzoZMA9QdVo
-	RMJVDFaBq25IOztnHMowijxqVncBLczxbGZH0NuCPNehMPl59VkMoqjGN94UmihDfEeX7DCHyE6
-	V0F4qM8xFhxzmpphjkNyZzfMvHIC/Xn7tQS15bGIlkr+sinpL7GT3iUJurHeTqZbP20cmMnUk=
-X-Google-Smtp-Source: AGHT+IHbExcTMZ02DgoZTE8/XYP0KdJQTGvqnXUpL5h+DpaMhQZSbE49EufdLN9g0eMbLduPMxZRTA==
-X-Received: by 2002:a05:600c:8b30:b0:45d:f88f:9304 with SMTP id 5b1f17b1804b1-4711791cbcbmr123457725e9.30.1761040745669;
-        Tue, 21 Oct 2025 02:59:05 -0700 (PDT)
-Message-ID: <5b98c3a7-c3eb-41c5-af60-2ade0556085a@suse.com>
-Date: Tue, 21 Oct 2025 11:59:04 +0200
+        d=1e100.net; s=20230601; t=1761040955; x=1761645755;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=CN10TbGqcRdEPaJIFMAwTedsuIkuHG9llWs0il6133g=;
+        b=jticGCORZkSazI8VCJS8W1jNDKhH2CfJ7U/+JmS3fKoj4VvIxsnx2gYjXS1rUAnppq
+         flhJbIob/bs+/2yVl8HRWstbs8HyHKqGZviZpssufkCls1DxyweuV699JymzM9413NbH
+         9R9+ISynN+VYELSLrtbHX3f6l8VRS6VIWjAtE2WtTCUfqpVh6VMLNZxiWmF1ljlEHqlE
+         4GfaVjuH5AohRn1cf3zQ338uda32lFqRaFa5KweE5/4rG54z11L6GA0g38feecTxZvUS
+         KSKfSTNhZelZAAeYCK5s9Fcm6l+/P9ubp4YtW78eRJb39+P5+HvYMu5pORIOHswMz8/z
+         joiw==
+X-Gm-Message-State: AOJu0YyJxsIWNHz1nQ3LrCvy6oULMTGSx1vQhOXjaX2gKGB8wNOvGZEW
+	QruYNZa9+Ubzzu/Gpybyt7ze5X6Qj2AODi+9dugogVk5Gbz0d1P54napEaH3FqL8Gw==
+X-Gm-Gg: ASbGncvwOFVQBodjZmz6gNalDueD+BBZGkdi0Kxy19gl5NLcEqw4MOpdzTW76KitEbg
+	hLvSc/gvtI2IQuzysxaBXQ0WlWOq6gKMEHpfqobd4bXtE5BFJUOQJB39pnUBTrsOU99koLtbVZ7
+	O0wLCIvOL5QfoEFemxMoZfBGs7pohbLl2C2ZB4169/l5juKdIu+aBpx4HnOSeCHJw4hJhvd3plN
+	T9ewmxcL8vjwMZ7HywMsqy2pYcHUSOAApSijZFJoEpfjT9neLax+WlNl5lTuGRFQk+tcDkGSjVM
+	UOpW22XZ0La8WsgicQzzwDmnKSUKPfrWKamxehAEMU9VORBn3nZtYNwB8FL3snBwosa0wlBlwf6
+	8gOBdC7TR5wYHYrrLZU5RSSfRCYIXpO4jzvGMdG+sYqt8/XkOD3VuX5ebA0ajr1vA0wSm+gKIFi
+	cmcj+YIfMFB5zMp9JZBYwL5vtDRu7tVdprlPB3RYfRKw6GvIag7+1mr34oHXWk
+X-Google-Smtp-Source: AGHT+IGzCRu54PK1C2JKVlEeenAE9Zd1KXtiLJ/NP+4KRPksGpEApozLymKLUJ11J4I9Hxut54tn1g==
+X-Received: by 2002:a05:600c:450a:b0:46e:442c:f5e1 with SMTP id 5b1f17b1804b1-4711791cb1fmr123629665e9.35.1761040955060;
+        Tue, 21 Oct 2025 03:02:35 -0700 (PDT)
+Message-ID: <434fd92e-911f-41f5-99c3-706122631960@suse.com>
+Date: Tue, 21 Oct 2025 12:02:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH for-4.21?] AMD/IOMMU: unshare IRQ .ack and .disable
  handlers
+From: Jan Beulich <jbeulich@suse.com>
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Jason Andryuk <jason.andryuk@amd.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
 References: <3cfa136c-3689-4d47-8a69-ce7af12ed9d0@suse.com>
- <aPdXCTvrcUHv2uQM@Mac.lan>
+ <aPdXCTvrcUHv2uQM@Mac.lan> <5b98c3a7-c3eb-41c5-af60-2ade0556085a@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -121,61 +121,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aPdXCTvrcUHv2uQM@Mac.lan>
+In-Reply-To: <5b98c3a7-c3eb-41c5-af60-2ade0556085a@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21.10.2025 11:48, Roger Pau Monné wrote:
-> On Mon, Oct 20, 2025 at 04:16:13PM +0200, Jan Beulich wrote:
->> A .disable handler can't typically be re-used for .ack: The latter needs
->> to deal with IRQ migration, while the former shouldn't. Furthermore
->> invoking just irq_complete_move() isn't enough; one of
->> move_{native,masked}_irq() also need invoking.
+On 21.10.2025 11:59, Jan Beulich wrote:
+> On 21.10.2025 11:48, Roger Pau Monné wrote:
+>> On Mon, Oct 20, 2025 at 04:16:13PM +0200, Jan Beulich wrote:
+>>> @@ -442,6 +440,13 @@ static unsigned int cf_check iommu_msi_s
+>>>      return 0;
+>>>  }
+>>>  
+>>> +static void cf_check iommu_msi_ack(struct irq_desc *desc)
+>>> +{
+>>> +    irq_complete_move(desc);
+>>> +    iommu_msi_mask(desc);
+>>> +    move_masked_irq(desc);
 >>
->> Fixes: 487a1cffd71a ("x86: Implement per-cpu vector for xen hypervisor")
->> Fixes: f821102450a1 ("x86: IRQ Migration logic enhancement")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>
->> --- a/xen/drivers/passthrough/amd/iommu_init.c
->> +++ b/xen/drivers/passthrough/amd/iommu_init.c
->> @@ -428,8 +428,6 @@ static void cf_check iommu_msi_mask(stru
->>      unsigned long flags;
->>      struct amd_iommu *iommu = desc->action->dev_id;
->>  
->> -    irq_complete_move(desc);
->> -
->>      spin_lock_irqsave(&iommu->lock, flags);
->>      amd_iommu_msi_enable(iommu, IOMMU_CONTROL_DISABLED);
->>      spin_unlock_irqrestore(&iommu->lock, flags);
->> @@ -442,6 +440,13 @@ static unsigned int cf_check iommu_msi_s
->>      return 0;
->>  }
->>  
->> +static void cf_check iommu_msi_ack(struct irq_desc *desc)
->> +{
->> +    irq_complete_move(desc);
->> +    iommu_msi_mask(desc);
->> +    move_masked_irq(desc);
+>> Not sure it matters much, as I don't expect IOMMU interrupts to move
+>> around frequently, but do we really need to mask the source?  The
+>> update of the interrupt would be done atomically, as we know IOMMU is
+>> available.
 > 
-> Not sure it matters much, as I don't expect IOMMU interrupts to move
-> around frequently, but do we really need to mask the source?  The
-> update of the interrupt would be done atomically, as we know IOMMU is
-> available.
+> First I wanted to keep things in sync with other, similar functions. Then
+> the masking here may be not only about the moving, but also about this
+> actually being the .ack handler. In fact, when taking into account the
+> combination of both aspects, don't we need to deal with the case of this
+> being the last IRQ on the "old" vector, with us wanting to prevent another
+> IRQ on the "new" vector until we actually handled the IRQ? The LAPIC ack
+> (only done in the .end handler) wouldn't guard against that, if the "new"
+> vector is a higher priority one than the "old" one.
 
-First I wanted to keep things in sync with other, similar functions. Then
-the masking here may be not only about the moving, but also about this
-actually being the .ack handler. In fact, when taking into account the
-combination of both aspects, don't we need to deal with the case of this
-being the last IRQ on the "old" vector, with us wanting to prevent another
-IRQ on the "new" vector until we actually handled the IRQ? The LAPIC ack
-(only done in the .end handler) wouldn't guard against that, if the "new"
-vector is a higher priority one than the "old" one.
+... or on a different CPU.
 
->  Anyway this can be done later, so:
-> 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Thanks.
+Then again such nesting is avoided by generic logic, in particular via the
+IRQ_INPROGRESS flag (in combination with the IRQ_PENDING one). So perhaps
+you're right and the masking could be avoided (not just here).
 
 Jan
 
