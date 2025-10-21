@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 680D8BF7120
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Oct 2025 16:28:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1147351.1479672 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73686BF7238
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Oct 2025 16:44:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1147363.1479683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBDLS-0000ft-5Z; Tue, 21 Oct 2025 14:28:14 +0000
+	id 1vBDaY-0003RW-AL; Tue, 21 Oct 2025 14:43:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1147351.1479672; Tue, 21 Oct 2025 14:28:14 +0000
+Received: by outflank-mailman (output) from mailman id 1147363.1479683; Tue, 21 Oct 2025 14:43:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBDLS-0000d4-2M; Tue, 21 Oct 2025 14:28:14 +0000
-Received: by outflank-mailman (input) for mailman id 1147351;
- Tue, 21 Oct 2025 14:28:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ych8=46=gmail.com=marcandre.lureau@srs-se1.protection.inumbo.net>)
- id 1vBDLQ-0000cy-Kj
- for xen-devel@lists.xenproject.org; Tue, 21 Oct 2025 14:28:12 +0000
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [2607:f8b0:4864:20::734])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b3a9eb7-ae8a-11f0-9d15-b5c5bf9af7f9;
- Tue, 21 Oct 2025 16:28:10 +0200 (CEST)
-Received: by mail-qk1-x734.google.com with SMTP id
- af79cd13be357-890deb84f95so635552685a.1
- for <xen-devel@lists.xenproject.org>; Tue, 21 Oct 2025 07:28:10 -0700 (PDT)
+	id 1vBDaY-0003OQ-6M; Tue, 21 Oct 2025 14:43:50 +0000
+Received: by outflank-mailman (input) for mailman id 1147363;
+ Tue, 21 Oct 2025 14:43:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9TpK=46=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vBDaV-0003OK-Rd
+ for xen-devel@lists.xenproject.org; Tue, 21 Oct 2025 14:43:47 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5700220d-ae8c-11f0-980a-7dc792cee155;
+ Tue, 21 Oct 2025 16:43:42 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-47114a40161so14201715e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Oct 2025 07:43:42 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4711c487dfesm281106825e9.17.2025.10.21.07.43.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Oct 2025 07:43:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,144 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b3a9eb7-ae8a-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 5700220d-ae8c-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761056890; x=1761661690; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fOkDZIYP624hXJ84QvSPoENvTgmCF83wfkY593GGoOU=;
-        b=HFUf07gI8lsToZui/9DZ1QvAKPOkaoMV4fY6XW8PE0hF+XN5CS5LzayQeUPHjQBvT7
-         y69svkphRvK1fXN+ciri1Anit7ju2Ird5UR+HMW4opj7q5/pd/XOB4K2FSkuQv7VQ9pS
-         QU50Hxe95x/NVrl5GaHeMkF1i3zGSwf6PJh++da6DClYxslXc443oZQjKXrLlEqX78Gf
-         fOEf4m7rfE6Fl2cPeDgaJZKA3Io1C4421zQnS6CaA+g8jaKky1qTd++ckBPJEg1VQXui
-         jkRaEuikEWbuwFjSdvDczqgkmPjxfXlGz1KSg2lKjZPXOJoyr0Zpy6DtxWzmB/sAlN8e
-         eZiA==
+        d=suse.com; s=google; t=1761057822; x=1761662622; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=NCiRVNIwSQKY4xt0nueDodWSjVCFFmNSTZCQgicPUZQ=;
+        b=XaI886lWvQiZ7qF7b/1dHSoAZ6wyc91FaWp/sYC3YVb2WalWMKAmZfjegDrUP38Ckd
+         4Mg8KNkoTTSczPifBEU/NtW4yBaejukd/piw0UZejzKwE2ek8cjxwQwEfSIePlpsRoBt
+         BWNpQCAD2CQR94buWEhQLH6ZbHdf5TBIBHbED6wu4DuHdeFaSueg0Ua/p07PQ1X/Rh2w
+         llLcUSF2aDPaFc4nyQAwtk+VFJKKF0LULF4N9tX4clRtxCWSaBfReBhy7tVem6FmOA+x
+         LCwpxd3S/qHcbQjGdbmZpcyXv1yovzfHE3lrKru2r0bXI3wTuuyInQg8sLGwMJ8KArZZ
+         u9gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761056890; x=1761661690;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fOkDZIYP624hXJ84QvSPoENvTgmCF83wfkY593GGoOU=;
-        b=sUvvqG/3Tt9/REyBAIyrsZBRSWaC2b3xelThn7xgz3pSK80W/7hGKMpFaFFnljbBVi
-         hV5uncMaieSThgoDj8EVcNb3qwr6xRUyf7JimHMI8I6cCjLeMymwCVoB1E+7I/TXlCBg
-         ihHyxzKwIYV+R4NiGIP2MsEnoc65Vchcb2W0o2PafT8GBeZxTjcciitJIflQQy3WvDUc
-         PWACYjT4S5GuhK7hiNcNZ0/SxsUh2HH3LRGibu2QBVgBuIhid/I+B80XADfQ8CZ1q+UD
-         CfgWMYDS0XQB/+TTkL53JLy+eapjP81+F8Ix+ekZMRAWjRraCB1DtXl/c1TIDwIzk1Jg
-         Eurw==
-X-Forwarded-Encrypted: i=1; AJvYcCUVmjt6r3/CudaWDr92BUTz5/yu3kjNHT3JxwaTSUUK8bqOJ9yumippJK2MPqL4gNzKi/Ue0s0GU64=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwnCbTpKKOQEGrzlW39OgDlyRzTghwFpiZ3QpD4Dxw9FThsLo/h
-	+ETUtfBfeb3a54O+peu4Ec3O1Mp3DiO+QUdopO8mzg5+uDh3PUdxENlRlJaMVkSiC4X05nfb3VN
-	00Bw9WdllFPR6azKrh2UoqSukpoo1IKg=
-X-Gm-Gg: ASbGncv0Oyno8zvEqvichNvKHkja7HyZnNYyZQx0r9bIPKLnAQ0v9QED78XR5FcENnf
-	9SWlwl9Y7jNeFoS4rPZVnpfsCbNAHeMYuONXrK/zxhxmUm1+/vRneHnwmSn8PNPPiap/556zfF6
-	cOPcp+U6cuum8SHpNwFt2yftUK2gPRr3gzXiJSqPzHxhKf1461RkhJUL8qkwSlgOA+K9sEwg2Ui
-	k2rfiSoLzdSh+VyAocfD7a0xdd/R3fl2BRsq3+KcR64FHH5Mo8Q2z+5D1YTdpfP6Av22iko6Mez
-	OZ4pYB/cnxYoknDq
-X-Google-Smtp-Source: AGHT+IGp+zf0u9SIF08iLE3a5Asq68ZbyrbibcTK8YXdD3xNkn5pXcBzDMuiMfZHuV9n++d97YerVbPf0S+nqo2EBIc=
-X-Received: by 2002:a05:622a:310:b0:4d9:dea6:4ff0 with SMTP id
- d75a77b69052e-4e89d3d5924mr245955091cf.56.1761056889597; Tue, 21 Oct 2025
- 07:28:09 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1761057822; x=1761662622;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NCiRVNIwSQKY4xt0nueDodWSjVCFFmNSTZCQgicPUZQ=;
+        b=K9gFY+yE7ozjnw9019VkEIPIHXQhh9qT2xno7xSoWRTQpeajkQJ/Gu/385QFmkyJ6G
+         /a5lmvF89xy9D1izPW9naJ5Stku5JmFG802/Ey6+4zKECvWKCBRW4gD1hRFzgBasQqYP
+         P6OEzxhQVtPN1+a443pqtvHmRre1umZuw/BNmZbphXmwyahLsXwGoZMduyAGhv2tZknB
+         5ymO5KCP/p7D4VosenRJ+zQLJbEp247FAaBySlk5tll+v2JYuukPdalarFjIweVXjcFT
+         U5cOeErxqYkFziVcbEuyFd3pMB/iEsdtArXIJK5lJxCN5iZP8q8sF8gYBcCYytCNlcpm
+         yMOg==
+X-Gm-Message-State: AOJu0YwSPBbn6ASUykA+vRlY7anFLixIZNni/+JLbOSRhzz3xI0o25OF
+	h0rSHTPlvl+ESMuwB7cdAf2xeAHpQCqzcxVNz6TWP+BbamujNyQGyef6p/0vSlMN9Q==
+X-Gm-Gg: ASbGncu6ZkqeJWnjCMIi7BskQsjmbgN5i9LzuDK+/71CbHJaP1tiIWYL4/1+I/3z+Vm
+	JYZsAB0YN4+4KS56UZvc6UUgNPGlIYBZiYDDRXyla9r/s6ZmhETTrE3wrRYO1kpOuZqVopCbaRp
+	0VLxCg+T15vl2sTlHk8BDs6qhmMQqbAsBz+ES+cVpCVvHn1IYZcf4x5crlM8vAl0h7jKglmZbdz
+	3cFJs7hJuMHInqEhj/pVokOlZZSQ5w22ecnGMbPP0eFJJMpBcbtMnoIML4jna2Bg3trEcBLYGnM
+	12PGssA1+H3S2CVbsQlg1Fqe2U6kOq1ByKW+qZIlNkM0n32ZaUggVOOkxX/xGP/1oaXfRt58Kn5
+	iL2cN+92teTiWTNkyolZLRTfwHlPVUZ4KGOkQcenZeiQIz2EuYjx9gOHq8RltOdjs2sCOzTz+fY
+	+HcSo4djeul6SYQnbwEAh+VlFZSQDBD+4g3WKdaW4dSvO1dTsBWEhTbMcsp6ndJbgdgN/j8YM=
+X-Google-Smtp-Source: AGHT+IGnA36etHLkNOjfRYhU58FFNFx0d+Bm7xAyUKWUB6sg+Nk3aBuc/h4kn32ov/AL+gj2R6+q4Q==
+X-Received: by 2002:a05:600c:354a:b0:46e:59bd:f7d3 with SMTP id 5b1f17b1804b1-47117903f24mr115967415e9.20.1761057822227;
+        Tue, 21 Oct 2025 07:43:42 -0700 (PDT)
+Message-ID: <e63e2953-27aa-43d7-93d5-6042fd12f8ac@suse.com>
+Date: Tue, 21 Oct 2025 16:43:40 +0200
 MIME-Version: 1.0
-References: <20251021122533.721467-1-marcandre.lureau@redhat.com>
- <CAFEAcA-jPE_onLYLMxgcAOB7dWRXOLJrWcGPnR0NUdjYytPDVA@mail.gmail.com>
- <aPePcTKl6s4FoLCL@gallifrey> <CAJ+F1C+bGKtY6nf3LCXrwhZ2aEdu2npXJ9FapmsqgX0uLL5TUw@mail.gmail.com>
- <f764e4cf-d134-4c4d-a313-a5b7dd6620d0@linaro.org>
-In-Reply-To: <f764e4cf-d134-4c4d-a313-a5b7dd6620d0@linaro.org>
-From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>
-Date: Tue, 21 Oct 2025 18:27:58 +0400
-X-Gm-Features: AS18NWCtKDmDRRz11NBqNv3KECG8ofxt09PdE7ub3r-ykIF5WUP85WNT3b3fqdE
-Message-ID: <CAJ+F1CKG1G=5o+bDBXmLm6ywWDD19z1OFBwQQnDMxMFytFQ2SQ@mail.gmail.com>
-Subject: Re: [PATCH] char: rename CharBackend->CharFrontend
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>
-Cc: "Dr. David Alan Gilbert" <dave@treblig.org>, Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org, 
-	pbonzini@redhat.com, "Michael S. Tsirkin" <mst@redhat.com>, 
-	Stefano Garzarella <sgarzare@redhat.com>, "Gonglei (Arei)" <arei.gonglei@huawei.com>, 
-	Zhenwei Pi <pizhenwei@bytedance.com>, Laurent Vivier <lvivier@redhat.com>, 
-	Amit Shah <amit@kernel.org>, Stefan Berger <stefanb@linux.vnet.ibm.com>, 
-	=?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
-	Igor Mitsyanko <i.mitsyanko@gmail.com>, =?UTF-8?Q?Cl=C3=A9ment_Chigot?= <chigot@adacore.com>, 
-	Frederic Konrad <konrad.frederic@yahoo.fr>, Alberto Garcia <berto@igalia.com>, 
-	Thomas Huth <huth@tuxfamily.org>, Halil Pasic <pasic@linux.ibm.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>, 
-	Yoshinori Sato <yoshinori.sato@nifty.com>, Magnus Damm <magnus.damm@gmail.com>, 
-	Nicholas Piggin <npiggin@gmail.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
-	"Collin L. Walling" <walling@linux.ibm.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>, 
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>, Alistair Francis <alistair@alistair23.me>, 
-	=?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
-	Eduardo Habkost <eduardo@habkost.net>, Corey Minyard <minyard@acm.org>, 
-	Paul Burton <paulburton@kernel.org>, Aleksandar Rikalo <arikalo@gmail.com>, 
-	Aurelien Jarno <aurelien@aurel32.net>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Weiwei Li <liwei1518@gmail.com>, Daniel Henrique Barboza <dbarboza@ventanamicro.com>, 
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
-	Samuel Thibault <samuel.thibault@ens-lyon.org>, Michael Rolnik <mrolnik@gmail.com>, 
-	Antony Pavlov <antonynpavlov@gmail.com>, Joel Stanley <joel@jms.id.au>, 
-	Vijai Kumar K <vijai@behindbytes.com>, Samuel Tardieu <sam@rfc1149.net>, 
-	Gustavo Romero <gustavo.romero@linaro.org>, Raphael Norwitz <raphael@enfabrica.net>, 
-	Stefan Hajnoczi <stefanha@redhat.com>, "reviewer:vhost-user-scmi" <mzamazal@redhat.com>, 
-	Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, 
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>, Fabiano Rosas <farosas@suse.de>, 
-	Markus Armbruster <armbru@redhat.com>, Zhang Chen <zhangckid@gmail.com>, 
-	Li Zhijian <lizhijian@fujitsu.com>, Jason Wang <jasowang@redhat.com>, 
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
-	Richard Henderson <richard.henderson@linaro.org>, Helge Deller <deller@gmx.de>, 
-	Max Filippov <jcmvbkbc@gmail.com>, Lukas Straub <lukasstraub2@web.de>, 
-	"open list:Sharp SL-5500 Co..." <qemu-arm@nongnu.org>, 
-	"open list:S390 SCLP-backed..." <qemu-s390x@nongnu.org>, "open list:sPAPR (pseries)" <qemu-ppc@nongnu.org>, 
-	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>, 
-	"open list:RISC-V TCG CPUs" <qemu-riscv@nongnu.org>, "open list:virtiofs" <virtio-fs@lists.linux.dev>, 
-	"open list:Rust-related patc..." <qemu-rust@nongnu.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 for-4.21 3/9] x86/HPET: replace
+ handle_hpet_broadcast()'s on-stack cpumask_t
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <b66ea488-2d47-472c-9520-8590fdf89e0e@suse.com>
+ <c357cb79-a10d-4d81-9695-9d16a4080595@suse.com> <aPeT0h-S7FVgk3TZ@Mac.lan>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aPeT0h-S7FVgk3TZ@Mac.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi
+On 21.10.2025 16:08, Roger Pau Monné wrote:
+> On Mon, Oct 20, 2025 at 01:19:20PM +0200, Jan Beulich wrote:
+>> With large NR_CPUS on-stack cpumask_t variables are problematic. Now that
+>> the IRQ handler can't be invoked in a nested manner anymore, we can
+>> instead use a per-CPU variable. While we can't use scratch_cpumask in code
+>> invoked from IRQ handlers, simply amend that one with a HPET-special form.
+>> (Note that only one of the two IRQ handling functions can come into play
+>> at any one time.)
+>>
+>> Fixes: 996576b965cc ("xen: allow up to 16383 cpus")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-On Tue, Oct 21, 2025 at 6:23=E2=80=AFPM Philippe Mathieu-Daud=C3=A9
-<philmd@linaro.org> wrote:
->
-> On 21/10/25 15:58, Marc-Andr=C3=A9 Lureau wrote:
-> > Hi
-> >
-> > On Tue, Oct 21, 2025 at 5:52=E2=80=AFPM Dr. David Alan Gilbert <dave@tr=
-eblig.org> wrote:
-> >>
-> >> * Peter Maydell (peter.maydell@linaro.org) wrote:
-> >>> Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com> wrote:
-> >>>> The actual backend is "Chardev", CharBackend is the frontend side of=
- it,
-> >>>> let's rename it for readability.
-> >>>
-> >>> I always thought the "frontend" was the device the guest
-> >>> saw (the 16650 UART or whatever). invocation.html has bits
-> >>> talking about "virtio hvc console frontend device" which
-> >>> seem like they also use that terminology.
-> >>>
-> >>> If we want to clean up the naming it might be helpful to have
-> >>> a comment somewhere documenting the different components and
-> >>> what names we give them and how they fit together (or even
-> >>> better, something in docs/devel/...)
-> >>
-> >> Or something more descriptive like 'CharGuestSide'
-> >
-> > If we are talking about the Chardev frontend or user, that's too
-> > restrictive. We have generic stream handling code (think
-> > mux/hub/tests/client/server etc) that do not fit that usage naming.
->
-> Isn't it
->
-> - backend -> host adapter
-> - frontend -> implementation used by guest
->
+Thanks.
 
-Sort of, but I think it's too restrictive to name them after "host"
-and "guest", as they also have different purposes than strictly VM
-components/side usage.
+>> --- a/xen/arch/x86/include/asm/smp.h
+>> +++ b/xen/arch/x86/include/asm/smp.h
+>> @@ -22,6 +22,7 @@
+>>  DECLARE_PER_CPU(cpumask_var_t, cpu_sibling_mask);
+>>  DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
+>>  DECLARE_PER_CPU(cpumask_var_t, scratch_cpumask);
+>> +DECLARE_PER_CPU(cpumask_var_t, hpet_scratch_cpumask);
+> 
+> Should this be declared in the hpet.h header?
 
-I believe talking about backend and frontend is usually the preferred
-convention.
+Imo not without also ...
 
+>> --- a/xen/arch/x86/smpboot.c
+>> +++ b/xen/arch/x86/smpboot.c
+>> @@ -55,6 +55,9 @@ DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t
+>>  DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, scratch_cpumask);
+>>  static cpumask_t scratch_cpu0mask;
+>>  
+>> +DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, hpet_scratch_cpumask);
+>> +static cpumask_t hpet_scratch_cpu0mask;
+> 
+> And then this defined in hpet.c.
 
---=20
-Marc-Andr=C3=A9 Lureau
+... moving this. Which in turn I specifically avoided putting in hpet.c,
+as otherwise the change would further grow, as would the risk of things
+going out of sync.
+
+Jan
 
