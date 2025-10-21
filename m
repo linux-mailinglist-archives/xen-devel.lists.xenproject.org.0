@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1AD3BF6E12
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Oct 2025 15:50:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1147252.1479592 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E5E8BF6E6C
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Oct 2025 15:54:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1147263.1479602 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBCl3-0000gN-TK; Tue, 21 Oct 2025 13:50:37 +0000
+	id 1vBCoZ-0001QC-DF; Tue, 21 Oct 2025 13:54:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1147252.1479592; Tue, 21 Oct 2025 13:50:37 +0000
+Received: by outflank-mailman (output) from mailman id 1147263.1479602; Tue, 21 Oct 2025 13:54:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBCl3-0000ec-QS; Tue, 21 Oct 2025 13:50:37 +0000
-Received: by outflank-mailman (input) for mailman id 1147252;
- Tue, 21 Oct 2025 13:50:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=z7Ey=46=linux.dev=thorsten.blum@srs-se1.protection.inumbo.net>)
- id 1vBCl1-0007Ct-NJ
- for xen-devel@lists.xenproject.org; Tue, 21 Oct 2025 13:50:36 +0000
-Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com
- [95.215.58.186]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ea52ca24-ae84-11f0-9d15-b5c5bf9af7f9;
- Tue, 21 Oct 2025 15:50:34 +0200 (CEST)
+	id 1vBCoZ-0001Ok-8A; Tue, 21 Oct 2025 13:54:15 +0000
+Received: by outflank-mailman (input) for mailman id 1147263;
+ Tue, 21 Oct 2025 13:54:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <anthony@xenproject.org>) id 1vBCoX-0001OO-Dq
+ for xen-devel@lists.xenproject.org; Tue, 21 Oct 2025 13:54:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <anthony@xenproject.org>) id 1vBCoW-00CjtE-2k;
+ Tue, 21 Oct 2025 13:54:13 +0000
+Received: from [2a01:e0a:1da:8420:b77:bd5:6e45:7633] (helo=l14)
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <anthony@xenproject.org>) id 1vBCoW-005snB-2W;
+ Tue, 21 Oct 2025 13:54:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,54 +39,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea52ca24-ae84-11f0-9d15-b5c5bf9af7f9
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1761054633;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=xNqnht/v7r+E+ltgWbTdV/aRGJGim2ZUKdxu9dFf+lI=;
-	b=pDg8Arzpu3AtNFSqHOUAcGfvodbeXkuXnFX6VcvHp47TmBb/4LwlLAYyIl8+JtUBi0ij1B
-	JiCiRe57bYeHRRyIn6OUPhK8Gs0UcKKiPclQt6PijkFhHIuCBwwOHVCJ/edPrtDJaJCd6r
-	V/EoUPlP0ds6CqUeKvf9WCHFnQlYK3M=
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Jason Andryuk <jason.andryuk@amd.com>,
-	"Dr. David Alan Gilbert" <linux@treblig.org>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drivers/xen/xenbus: Simplify return statement in join()
-Date: Tue, 21 Oct 2025 15:49:58 +0200
-Message-ID: <20251021135002.1228-2-thorsten.blum@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
+	bh=l2IVI7vUwLs4FZ1p4ZwhBuBVdK4Anyz5K0UIMWO+32w=; b=cRDEWvambPTr29Bw8Z6j2ziMnE
+	od55XYyguG4nGTSYFfcQp4UgAkthhDGtpeD84+czBKLKheoS3kH5Qz6XteTVuuF9B1U2cGXdcR4y5
+	hjgKobucG/XSJW10H+XfeOCwGrYSp/qaTatbMzDbbq8KTqw7epzV4r1JwuZ9fbM+545E=;
+Date: Tue, 21 Oct 2025 15:54:10 +0200
+From: Anthony PERARD <anthony@xenproject.org>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, oleksii.kurochko@gmail.com,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH for-4.21 v2] tools/libxc: fix xc_physdev_map_pirq_msi()
+ with PCI segments != 0
+Message-ID: <aPeQgsShSIWNDEEI@l14>
+References: <20251020105613.53636-1-roger.pau@citrix.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+In-Reply-To: <20251020105613.53636-1-roger.pau@citrix.com>
 
-Don't unnecessarily negate 'buffer' and simplify the return statement.
+On Mon, Oct 20, 2025 at 11:56:13AM +0100, Roger Pau Monne wrote:
+> Otherwise it's not possible for device models to map IRQs of devices on
+> segments different than 0.  Keep the same function prototype and pass the
+> segment in the high 16bits of the bus parameter, like it's done for the
+> hypercall itself.
+> 
+> Amends: 7620c0cf9a4d ("PCI multi-seg: add new physdevop-s")
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
----
- drivers/xen/xenbus/xenbus_xs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
-diff --git a/drivers/xen/xenbus/xenbus_xs.c b/drivers/xen/xenbus/xenbus_xs.c
-index 528682bf0c7f..7c6c12925326 100644
---- a/drivers/xen/xenbus/xenbus_xs.c
-+++ b/drivers/xen/xenbus/xenbus_xs.c
-@@ -407,7 +407,7 @@ static char *join(const char *dir, const char *name)
- 		buffer = kasprintf(GFP_NOIO | __GFP_HIGH, "%s", dir);
- 	else
- 		buffer = kasprintf(GFP_NOIO | __GFP_HIGH, "%s/%s", dir, name);
--	return (!buffer) ? ERR_PTR(-ENOMEM) : buffer;
-+	return buffer ?: ERR_PTR(-ENOMEM);
- }
- 
- static char **split(char *strings, unsigned int len, unsigned int *num)
+Thanks,
+
 -- 
-2.51.0
-
+Anthony PERARD
 
