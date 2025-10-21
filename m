@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3F0CBF5B8A
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Oct 2025 12:13:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1146992.1479319 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF355BF5DBD
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Oct 2025 12:44:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1147003.1479329 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vB9Mc-0008G3-5S; Tue, 21 Oct 2025 10:13:10 +0000
+	id 1vB9qJ-0003rn-Db; Tue, 21 Oct 2025 10:43:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1146992.1479319; Tue, 21 Oct 2025 10:13:10 +0000
+Received: by outflank-mailman (output) from mailman id 1147003.1479329; Tue, 21 Oct 2025 10:43:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vB9Mc-0008Ec-2R; Tue, 21 Oct 2025 10:13:10 +0000
-Received: by outflank-mailman (input) for mailman id 1146992;
- Tue, 21 Oct 2025 10:13:08 +0000
+	id 1vB9qJ-0003pv-AO; Tue, 21 Oct 2025 10:43:51 +0000
+Received: by outflank-mailman (input) for mailman id 1147003;
+ Tue, 21 Oct 2025 10:43:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9TpK=46=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vB9MZ-0008EV-Vb
- for xen-devel@lists.xenproject.org; Tue, 21 Oct 2025 10:13:07 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=End2=46=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vB9qH-0003pp-RZ
+ for xen-devel@lists.xenproject.org; Tue, 21 Oct 2025 10:43:50 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 890e90ae-ae66-11f0-980a-7dc792cee155;
- Tue, 21 Oct 2025 12:13:05 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-46b303f7469so43029725e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 21 Oct 2025 03:13:05 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4715520d747sm212143205e9.14.2025.10.21.03.13.04
+ id d1d91ff1-ae6a-11f0-980a-7dc792cee155;
+ Tue, 21 Oct 2025 12:43:46 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-63c4f1e7243so4629569a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Oct 2025 03:43:46 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-146-38.play-internet.pl.
+ [109.243.146.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-63c48a91e93sm9117147a12.6.2025.10.21.03.43.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Oct 2025 03:13:04 -0700 (PDT)
+ Tue, 21 Oct 2025 03:43:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +45,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 890e90ae-ae66-11f0-980a-7dc792cee155
+X-Inumbo-ID: d1d91ff1-ae6a-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761041585; x=1761646385; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wutynFZBcXRcMsIAmsA+KnDB/8GTv+QOo1vcX6g8QPI=;
-        b=YBaPLuf0gV+O2Ep73BlG2C3+nyvyejbO9Yi3aT4mpC4IginlKYuNojLAc+1brgU9Ly
-         YL3ArQDpnN5javG7R89VitYAnkCfXQhvIMEEc3+sibG2i1PE+EjEQxpXGBkbBVAJdUUA
-         RZPC9J2QHVW0v9qUO5eIn91ZbUuqtsunC9DPX1DN9VIEAfy7aWO7hOO7P6ySP6GwjTyQ
-         1J0AB9L+VKH0UpKP74RWA0M2OZO+NCYzrBy8flPDO+uxuHBf66GWkWHcLOD9ohh+EmfR
-         kr5RrzBqwLojha2LiOa4nSnBI9kW42I32EWUETeiXEWCqp1jnEmCthxxFQfj29iop1DT
-         hmgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761041585; x=1761646385;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1761043425; x=1761648225; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wutynFZBcXRcMsIAmsA+KnDB/8GTv+QOo1vcX6g8QPI=;
-        b=e3EQs+QPH6k+YWUrvMOpaVaayEA3AjVon7xx2RgVkZNTR+gWOjNnEc8kxycl3/gYtt
-         t6+As9tL88BZLJ5lMu63Rjq0kfcQGXaijT9V9Xk4gnGnSMZXRSAZ+0AcAYY1FqisGkm8
-         hoIXO0u3l+nTMiZQIRGsClmcs00D4Mw9SdXNxqfiFVr5FbjVJXGGAyxa32lEsylN6o7F
-         NUmz5yZAmf2C0XCNIEGm11goDhZDj19FMA86ZMJZLJ3d+o+jQ3CUG6Qvj56VtH9/8x5g
-         /t+hxSWaoBIPC/neVuezbqSy0yBQpffvsudBibTEu7wuNxRSvlIs5gaHmnCN+XG7Mfnu
-         iwAQ==
-X-Gm-Message-State: AOJu0YyQWUNf7rgfuqUmjxzrFkyMBX/spj4YpWjGnkvPZlPvfsEbYwMt
-	n27JRND8P924a7amx2IuTApS2MKm0qAuSgpiLmQJnMXR+ox/8VANVy7BuaU5Imayeg==
-X-Gm-Gg: ASbGncugu9HeA3gAQywSYMoCdfWZ0+iorzVHOYjN7B7DqlEBxVoCqtEN0o15Mbq1HoQ
-	mS+TWlFMiNbPMkhjJ/24yjpJnnEy5a/N/WeaMUDSI4lWkLS7sKuYYfmwt3r+GtAiqoA1LmP6vS6
-	/vwWulii3mPpNeeVQgOXym4PGiY1GloBNAnzh93inParkK5tysAvFqThBcDzWxthk9EGpRuCpd7
-	7MK3vgGO20m5ch12fLdU25KRqNm+MwNbieD2n5Ji6NeQiHs/eLDQN4qwEpIoUi7P1THdrP3ykrO
-	yd4MkfAG0RV/qSXrVqyetsu1xIOH8RgPRe554o1rkVuKONwrcYnCjmBa+sJGzMvii3aiRln80NP
-	F60StkLYDm3TkYo3p3QPKBkBX89zwmlpv1zsTUlEBrWWoHU5tsvCJ5wyln160QpgiX72GQf18g6
-	XKrqJlrF/iXzV0TapABgocxgiw1zEEYFJ2yLvzdlV7NgQWsz7a/JZ5rJ3EFg+w
-X-Google-Smtp-Source: AGHT+IFjAfE/tbjSn66SHZHYE340ofswlzb7dEFCALaqncPFDpi1BFZLwh3rgSQqNQTv2IkrBtYPyw==
-X-Received: by 2002:a05:600c:34d0:b0:470:fe41:a93d with SMTP id 5b1f17b1804b1-47117874cffmr119000645e9.4.1761041585342;
-        Tue, 21 Oct 2025 03:13:05 -0700 (PDT)
-Message-ID: <9e0053b8-d4dd-41e2-ba4f-d57464009512@suse.com>
-Date: Tue, 21 Oct 2025 12:13:03 +0200
+        bh=54zEdGo/N/tkR8qg833ClVdCVpczJjRqXLjYtVkiHoc=;
+        b=MHa0u14SpFllysnTWN5DOQ2CROH50qGFZqPlSetkYUc7jzCIXYpfT1bet1s/tGGiwl
+         pXvyEs3Uxf6yGMFKRuRVZiVTfKSUjvlPyLpUWfwFJm2zQtvG140ulBJZ30sV4VWWrtF1
+         xKVrtC0ynniyw3LhPjyvD/DvwnUsqRL0RCHZkblTv4VM6yWLEC2GeSSp7K3AOldjAfvb
+         YAORmgMR17q5qf6BBq41Jxs207e+VcvDmmQYLAEzHiWJGZ5h7jNjU6Mgnm0YTmCK6xNp
+         P36F57H1hlOuNWAbng2d1JY5DI9ErtJifxKwI8H7G+zbXgE+FICZ/jmt/JHzLqFUb2UJ
+         kqPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1761043425; x=1761648225;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=54zEdGo/N/tkR8qg833ClVdCVpczJjRqXLjYtVkiHoc=;
+        b=r1c27c33de/Q6MZ7rHzQQMRiQEv6KnOnAh6+dMv72OWyTTLEifoSPY6M/c/EKUqn1q
+         pMMCwV6aye0HardaRNnyVGA0bzOGla4oLG6e/g7QhfIK6KT68g1yRJQux1MrfWosGAEA
+         TD1W294NPvqVYqrFc9kd+BwiD+JPJSfmHKLVUhgSYG9MpX+C9mgufu6irUC/Q5nPV6Sa
+         l2Q9iDIZNp/78kVoPBKr20JS9Rs87ec0jNHdZGIIaT5UALJad2Exq+5/gn+GxPzDd0I0
+         A9Eg/99hix3fWeTQMrLIinF6zviM+Wkv/4mghqIeUgMQq2Evx/JXpV+A4H2eNAU6afyv
+         gf3w==
+X-Forwarded-Encrypted: i=1; AJvYcCXx+uWFS6o6ls7vdA3RGc+PxC7Rt0LDz0ibaO2UgCfnCzbtzIVE/6IHra6WrVSkgk0SGJVn1Wa03u0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwpaXabZGxA2jkv4H2Dc4m9mgtjE5+jNJBQMhYW2OGtdYmIuclm
+	UZJDs5l0SoYcIWEiz/W4nN/OoTPMDndgMIOBpax+FkUEufAnVLX8bzbj
+X-Gm-Gg: ASbGncsnwv2FJ0vdM6ipZxRj5YM0+i/b3QpUb+biAyDCUbKNV4kane/YRzOb2s1qwTH
+	Yia6+MzXdwyybNgBlbiyHshDsV5qTSsdAxkrszcgAzn5KkDbW4qbT9jv1jpRB+4gNOf1lYY0d4h
+	na7aorj+NoGGGjIbK1Och+OWJf1pxOM5/a+Nhcrqk2lVBYq4IUjWsz1/NvJilL/nUUzsak62VUH
+	Tu9PFzFPWonC3m6AHK9jeSqoeNPEL8p+cdz7D26HsYpYJY6aiiw3x5yUYs1l0Nag7dEWiWr+WjA
+	aRKB+jXev82+UkJUcLUW+hSUi3KM4v4maFbX9sC5rvE7b8MUXgT07NphIIgD9VUEjeeosIr+/c+
+	zI6fa7YrMPuulhZSDOcrNk/dGUOTTCpZMWaOsMJ9sNPP5q/Y41Me1NvlOkkpxAjvhO/7kFAJJJc
+	sj481b8R7sfaR8OQwYJAcWZgiEfSv0pnnqRpWDy73dzEzfrNutlBdiphkb
+X-Google-Smtp-Source: AGHT+IHH4eepg5IwdHWjo9384H2bYDtRz5x/EI7O5AjXUa2XH++pKAG483IIjOp4V0R5EkVVLWCNDA==
+X-Received: by 2002:a05:6402:510b:b0:63b:f157:bc2d with SMTP id 4fb4d7f45d1cf-63c1f62af3emr16004077a12.1.1761043425201;
+        Tue, 21 Oct 2025 03:43:45 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------ZIyejUv1SEd5ycsgR7xZfFzn"
+Message-ID: <2b49df90-ac99-4bf7-bf60-fc8358b63eb2@gmail.com>
+Date: Tue, 21 Oct 2025 12:43:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] symbols: discard stray file symbols
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>
-References: <2412a7a0-bdcd-4647-8ea2-8d2a927dcde3@suse.com>
- <aPdYzDVniMV6-bHd@Mac.lan>
+Subject: Re: [PATCH for-4.21?] AMD/IOMMU: unshare IRQ .ack and .disable
+ handlers
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>
+References: <3cfa136c-3689-4d47-8a69-ce7af12ed9d0@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aPdYzDVniMV6-bHd@Mac.lan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <3cfa136c-3689-4d47-8a69-ce7af12ed9d0@suse.com>
 
-On 21.10.2025 11:56, Roger Pau Monné wrote:
-> On Wed, Apr 16, 2025 at 11:00:57AM +0200, Jan Beulich wrote:
->> By observation GNU ld 2.25 may emit file symbols for .data.read_mostly
->> when linking xen.efi. Due to the nature of file symbols in COFF symbol
->> tables (see the code comment) the symbols_offsets[] entries for such
->> symbols would cause assembler warnings regarding value truncation. Of
->> course the resulting entries would also be both meaningless and useless.
->> Add a heuristic to get rid of them, really taking effect only when
->> --all-symbols is specified (otherwise these symbols are discarded
->> anyway).
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+This is a multi-part message in MIME format.
+--------------ZIyejUv1SEd5ycsgR7xZfFzn
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thanks.
 
->> --- a/xen/tools/symbols.c
->> +++ b/xen/tools/symbols.c
->> @@ -213,6 +213,16 @@ static int symbol_valid(struct sym_entry
->>  	if (strstr((char *)s->sym + offset, "_compiled."))
->>  		return 0;
->>  
->> +	/* At least GNU ld 2.25 may emit bogus file symbols referencing a
->> +	 * section name while linking xen.efi. In COFF symbol tables the
->> +	 * "value" of file symbols is a link (symbol table index) to the next
->> +	 * file symbol. Since file (and other) symbols (can) come with one
->> +	 * (or in principle more) auxiliary symbol table entries, the value in
->> +	 * this heuristic is bounded to twice the number of symbols we have
->> +	 * found. See also read_symbol() as to the '?' checked for here. */
->> +	if (s->sym[0] == '?' && s->sym[1] == '.' && s->addr < table_cnt * 2)
-> 
-> Maybe a naive question, but couldn't you drop everything below
-> __XEN_VIRT_START, as we shouldn't have any symbols below that
-> address?
+On 10/20/25 4:16 PM, Jan Beulich wrote:
+> A .disable handler can't typically be re-used for .ack: The latter needs
+> to deal with IRQ migration, while the former shouldn't. Furthermore
+> invoking just irq_complete_move() isn't enough; one of
+> move_{native,masked}_irq() also need invoking.
+>
+> Fixes: 487a1cffd71a ("x86: Implement per-cpu vector for xen hypervisor")
+> Fixes: f821102450a1 ("x86: IRQ Migration logic enhancement")
+> Signed-off-by: Jan Beulich<jbeulich@suse.com>
 
-If we assumed so, then that might be an option. Such an assumption doesn't
-look safe to me, though. See how e.g. hv_hcall_page is outside of the Xen
-image (albeit still within __XEN_VIRT_{START,END}). I wouldn't want to
-preclude architectures playing "interesting" games with symbols, in
-particular when - unlike x86 - they have the entire VA space for their use.
+Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-Jan
+~ Oleksii
+
+>
+> --- a/xen/drivers/passthrough/amd/iommu_init.c
+> +++ b/xen/drivers/passthrough/amd/iommu_init.c
+> @@ -428,8 +428,6 @@ static void cf_check iommu_msi_mask(stru
+>       unsigned long flags;
+>       struct amd_iommu *iommu = desc->action->dev_id;
+>   
+> -    irq_complete_move(desc);
+> -
+>       spin_lock_irqsave(&iommu->lock, flags);
+>       amd_iommu_msi_enable(iommu, IOMMU_CONTROL_DISABLED);
+>       spin_unlock_irqrestore(&iommu->lock, flags);
+> @@ -442,6 +440,13 @@ static unsigned int cf_check iommu_msi_s
+>       return 0;
+>   }
+>   
+> +static void cf_check iommu_msi_ack(struct irq_desc *desc)
+> +{
+> +    irq_complete_move(desc);
+> +    iommu_msi_mask(desc);
+> +    move_masked_irq(desc);
+> +}
+> +
+>   static void cf_check iommu_msi_end(struct irq_desc *desc, u8 vector)
+>   {
+>       iommu_msi_unmask(desc);
+> @@ -455,7 +460,7 @@ static hw_irq_controller iommu_msi_type
+>       .shutdown = iommu_msi_mask,
+>       .enable = iommu_msi_unmask,
+>       .disable = iommu_msi_mask,
+> -    .ack = iommu_msi_mask,
+> +    .ack = iommu_msi_ack,
+>       .end = iommu_msi_end,
+>       .set_affinity = set_msi_affinity,
+>   };
+--------------ZIyejUv1SEd5ycsgR7xZfFzn
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 10/20/25 4:16 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:3cfa136c-3689-4d47-8a69-ce7af12ed9d0@suse.com">
+      <pre class="moz-quote-pre" wrap="">A .disable handler can't typically be re-used for .ack: The latter needs
+to deal with IRQ migration, while the former shouldn't. Furthermore
+invoking just irq_complete_move() isn't enough; one of
+move_{native,masked}_irq() also need invoking.
+
+Fixes: 487a1cffd71a ("x86: Implement per-cpu vector for xen hypervisor")
+Fixes: f821102450a1 ("x86: IRQ Migration logic enhancement")
+Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E"
+      href="mailto:jbeulich@suse.com" moz-do-not-send="true">&lt;jbeulich@suse.com&gt;</a></pre>
+    </blockquote>
+    <pre>Release-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+~ Oleksii</pre>
+    <blockquote type="cite"
+      cite="mid:3cfa136c-3689-4d47-8a69-ce7af12ed9d0@suse.com">
+      <pre class="moz-quote-pre" wrap="">
+
+--- a/xen/drivers/passthrough/amd/iommu_init.c
++++ b/xen/drivers/passthrough/amd/iommu_init.c
+@@ -428,8 +428,6 @@ static void cf_check iommu_msi_mask(stru
+     unsigned long flags;
+     struct amd_iommu *iommu = desc-&gt;action-&gt;dev_id;
+ 
+-    irq_complete_move(desc);
+-
+     spin_lock_irqsave(&amp;iommu-&gt;lock, flags);
+     amd_iommu_msi_enable(iommu, IOMMU_CONTROL_DISABLED);
+     spin_unlock_irqrestore(&amp;iommu-&gt;lock, flags);
+@@ -442,6 +440,13 @@ static unsigned int cf_check iommu_msi_s
+     return 0;
+ }
+ 
++static void cf_check iommu_msi_ack(struct irq_desc *desc)
++{
++    irq_complete_move(desc);
++    iommu_msi_mask(desc);
++    move_masked_irq(desc);
++}
++
+ static void cf_check iommu_msi_end(struct irq_desc *desc, u8 vector)
+ {
+     iommu_msi_unmask(desc);
+@@ -455,7 +460,7 @@ static hw_irq_controller iommu_msi_type
+     .shutdown = iommu_msi_mask,
+     .enable = iommu_msi_unmask,
+     .disable = iommu_msi_mask,
+-    .ack = iommu_msi_mask,
++    .ack = iommu_msi_ack,
+     .end = iommu_msi_end,
+     .set_affinity = set_msi_affinity,
+ };</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------ZIyejUv1SEd5ycsgR7xZfFzn--
 
