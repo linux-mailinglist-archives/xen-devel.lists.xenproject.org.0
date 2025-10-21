@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA83FBF6EDB
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Oct 2025 15:58:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1147288.1479621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5380BBF6EE1
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Oct 2025 15:58:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1147295.1479631 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBCse-0002Y4-4K; Tue, 21 Oct 2025 13:58:28 +0000
+	id 1vBCt0-0002y7-BG; Tue, 21 Oct 2025 13:58:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1147288.1479621; Tue, 21 Oct 2025 13:58:28 +0000
+Received: by outflank-mailman (output) from mailman id 1147295.1479631; Tue, 21 Oct 2025 13:58:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBCse-0002We-1d; Tue, 21 Oct 2025 13:58:28 +0000
-Received: by outflank-mailman (input) for mailman id 1147288;
- Tue, 21 Oct 2025 13:58:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vBCt0-0002w8-8W; Tue, 21 Oct 2025 13:58:50 +0000
+Received: by outflank-mailman (input) for mailman id 1147295;
+ Tue, 21 Oct 2025 13:58:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tGWz=46=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1vBCsc-0002WY-KL
- for xen-devel@lists.xenproject.org; Tue, 21 Oct 2025 13:58:26 +0000
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [2607:f8b0:4864:20::52c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 02789dfc-ae86-11f0-980a-7dc792cee155;
- Tue, 21 Oct 2025 15:58:24 +0200 (CEST)
-Received: by mail-pg1-x52c.google.com with SMTP id
- 41be03b00d2f7-b550eff972eso3825929a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 21 Oct 2025 06:58:24 -0700 (PDT)
+ <SRS0=Ych8=46=gmail.com=marcandre.lureau@srs-se1.protection.inumbo.net>)
+ id 1vBCsz-0002nm-3w
+ for xen-devel@lists.xenproject.org; Tue, 21 Oct 2025 13:58:49 +0000
+Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
+ [2607:f8b0:4864:20::f34])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 10d11f9b-ae86-11f0-9d15-b5c5bf9af7f9;
+ Tue, 21 Oct 2025 15:58:48 +0200 (CEST)
+Received: by mail-qv1-xf34.google.com with SMTP id
+ 6a1803df08f44-7ea50f94045so96039986d6.1
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Oct 2025 06:58:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,110 +40,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02789dfc-ae86-11f0-980a-7dc792cee155
+X-Inumbo-ID: 10d11f9b-ae86-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761055103; x=1761659903; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=pPdygudXA5Lxli1F/++PwS4Z3c1EOK1lIXgoZ6EeQsQ=;
-        b=EQ4hWbW0KOWQSaV+VbSZtQJTTRkhsWi52UTMaWYx2NKnISeT2CM2A2n5QqPhuYqHCY
-         EX1/cd9CZ0yTtdWufM4Cevpf88t+kxu9MuBtneoZLsG/z4witUdFHnnfjAQxgbmeJYZP
-         +gGTclpC5YCUt/o+O7XZTQuH9WBFnOB1T2jU0bR4rVDJ0HssEKaSzOijMG7i2Yh9aMEk
-         dt2VTw+k+Im6EZQuboFcWmm8Rpmt+1UyT8exHHH3pvjAxXdiAbpfV/Gje8nvjMR2UGBH
-         /9ULuBTJAQ8MfMj+gZX3X00aD08E7QbDDx391/BiQAh8voXqOdgsLrV72462NIfuX7qb
-         LPlQ==
+        d=gmail.com; s=20230601; t=1761055127; x=1761659927; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=a9xo5iRU2UaVqUYhP+NOFPTLpT/CvAzz5jgCqB0Tc9s=;
+        b=KLBo+UFtQNyuru6s+Ki0FjXwWM8MVlRKKKQcrVRb7ybIDkg3kbhvkK1cievOsw+gMu
+         6Pj1RMYC6vcJOihhN7BrbvtxlHlESHIOUxT8wumj9HzT4AuHlNUbbYC87KRFsjX6g40Z
+         /k0FStNGHB3JESdYaXncSW/Z3lE+QUjtLdAiu+9rBTLQzt66Bl1yLQ4US18DlzDgn1cW
+         ktir1iiw7F83vBeDiHiD9Oak299noxYNmi0hr2euHWUCj1L+v2yDxw4ges4U+ZJHW22S
+         QgsnSyK6pAg6qnrxLb9M5sh7Ja2l6CrxbgDxjDtpDeiEO3dnfQNjqaGSNHvBQ+7T2vBz
+         q6Hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761055103; x=1761659903;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pPdygudXA5Lxli1F/++PwS4Z3c1EOK1lIXgoZ6EeQsQ=;
-        b=hdpAnl+tDTCB2cgKU0FCGy3WGci9xdxFmRTldzPNV+zCdKDakFxT2O3ukUb3QLcQvZ
-         VdU5CAuCvG6eS2jpayZd2TDu0VAXunw7WvNBBo/maRX4LegUf9824EUS6nJ4O8FR4Rh9
-         HlxsDx5N/dE1VV9wK42tQeyy2IkjHY++O6vRcHevRamiGjgun6Sq0YIDpYbrShzBc6NO
-         mjVsfcPcEFZ8IEP1Jbwi41UTeWlsg3JVf0e4zk+91jeDVwXe26eZ3N/ktsCXVGcPbGSN
-         O7EkJTbHMDgjY4VGpbpx2I1jOzSLl6r5m7d4ED2jXPKk/jHkr5H3gMcyEMbQ7AgrQ9Dp
-         AYFA==
-X-Forwarded-Encrypted: i=1; AJvYcCUCIbYeXZAh7fQQrYbILNsa9j2EieAJtiPJSTuedlMIXwRKvieByvRHPB+hS6xYBtmdso8H+9FWT9A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw4WrbbVTnFnfY0lZUPGFrFEm1xylFhD/MoCSVuWBl3F02dfigb
-	7Hy0kOLxRZLeEt5OAuh8ED04D4q9qFxzooLNU6uh6Aw+t78MmyxEgg6gH6q/s4yD5Q+D5LitLkF
-	2DFiuFKBRqV+uPfDoUTGkuZTzZvETYpg=
-X-Gm-Gg: ASbGnctCKF0F4SpyKfJLaUj30q6pWNgevIGgtWuabQhm/jP6Y+Nt6z0BSR3HjENceOD
-	VaARyJkNaY4W8gG6nn+D/aeIMGaQAg9ZHY+VZwfoc+wwzXG66jJ/gfVU4frxvvcyG5X4E/25ZaT
-	VaQmKqOS5wYDPAmhaabnsxXqAwL5t69CMJk4rHU9JSl/OBQx3k8oOAdT9caEN10I6LZNoHu6C2G
-	bFrARphfAJhIcoSA4eVbemzh5HTeLtUAAsCzrAk9XwLgA4ndYKHki4Z7ecAX6aH8kQkTQ==
-X-Google-Smtp-Source: AGHT+IE0+jvJP+jHgFuOGd7AG/ldZHoV3AfhKDbcZoT/QZC6z/r+l4UHVkiL0/gXj0woSudmdvCYrWf6uSTZqfAxvCw=
-X-Received: by 2002:a17:903:94e:b0:290:533b:25c9 with SMTP id
- d9443c01a7336-290c9c8ae4dmr192613605ad.2.1761055103171; Tue, 21 Oct 2025
- 06:58:23 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1761055127; x=1761659927;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=a9xo5iRU2UaVqUYhP+NOFPTLpT/CvAzz5jgCqB0Tc9s=;
+        b=VVLuNUFFK53fR8E9b5T1Gx0a78KDQQpSECV9CBkFfuNK4mcsQ3N1RpoWefCpPs4hT6
+         M31RqqoWHGMpEux35+05BMuNPbVIlY69Px/wHXor6VkKXgVEC5C35BY47N0JNwCrwqpw
+         iblcpVyfE2OocN+P5WIn2FMdJh/K2tt6WpN7k9gAUgwlILuOeLY6CWKfTyLfZ7kg2XF4
+         vYbCknzGcXEqrn6XI28/4tgAv0MtU4a9rCgZKNCG+hFkQSlUORGUKwEK5nel/nl/HR+6
+         F9UqJCzr4L94NSvh/1K6sShBR8x1TvKZZcKFXTDVh18gKl8noCVqNB/xur9FQCu+KoVq
+         DFCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWdXldgAcC2YIk6x9wbL18WEP7M+Bd+jxgkz17fYLyLpe9J8p9vmJaGNMaYK49xv5+697z/cBe1bOs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwYKeortY9Cvs5k7BDPaEz2F/UGAwBKubTW4+zzi57fvyu+Ode0
+	R94PU/ncIV2IAp98PmUATzuj30HhZc7wpJEP2+E0RJWciYP0IIYDB6OklLfYIg5qmySnP3uLir3
+	4CeEHQX+GLI7r7Iha3bGL70sz5F1Ag+M=
+X-Gm-Gg: ASbGncvywNX5Qze1G6ANH1kg3iK+nUdI85kcnE+RTwEo3I/x2uZ7G5XNa3BCg+eMEw8
+	lQaVaF33m1PVa1PKA9If09qs6cttRMA6DckJAel6fL4+1rbQFKk4ngfW5334gOsChTJB0ac5TN1
+	BnkRFkd00b752JJvExnSYdhufpoYAJZ3c4+bQdLgHD5DHmdZFQ4/3bUfd2FyM2U1PQUWEv6zure
+	ZSVzWJSv6EVovVBbd5PVR/3bPG9ChT/go49U94xk62sjmfClm92T4nVIcIQ9/ACWhrHm3n9UW9E
+	WPBwnTBZUNuRSAjALvN9wkbE0ow=
+X-Google-Smtp-Source: AGHT+IEASm5PEMuHtKd5e+Rzj4N98EYCKZGb9xbtNELXIkGVXPi9KMyBQu4pgO6iWCx6Ob5On+OEkhJoPBQQfEnXOkg=
+X-Received: by 2002:ac8:6692:0:b0:4e8:9151:b743 with SMTP id
+ d75a77b69052e-4e89151baaemr171529791cf.10.1761055127377; Tue, 21 Oct 2025
+ 06:58:47 -0700 (PDT)
 MIME-Version: 1.0
-References: <20251017155136.16540-1-roger.pau@citrix.com>
-In-Reply-To: <20251017155136.16540-1-roger.pau@citrix.com>
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Date: Tue, 21 Oct 2025 15:58:09 +0200
-X-Gm-Features: AS18NWA58CeS14FdkkCNsTOZQHqLAPZdt-7l1MEooVrAG7tg9H44TnVA3_KoSpQ
-Message-ID: <CAJy5ezpoN0mdSWStgF_RjtrnkbfkaMMsnrHHGuiQqNd4aNp0nQ@mail.gmail.com>
-Subject: Re: [PATCH] hw/xen: pass PCI domain to xc_physdev_map_pirq_msi()
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>, 
-	Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000dabea70641ab9724"
-
---000000000000dabea70641ab9724
+References: <20251021122533.721467-1-marcandre.lureau@redhat.com>
+ <CAFEAcA-jPE_onLYLMxgcAOB7dWRXOLJrWcGPnR0NUdjYytPDVA@mail.gmail.com> <aPePcTKl6s4FoLCL@gallifrey>
+In-Reply-To: <aPePcTKl6s4FoLCL@gallifrey>
+From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>
+Date: Tue, 21 Oct 2025 17:58:34 +0400
+X-Gm-Features: AS18NWDhwyu6RSAqqb6h7ri3_0htqQRas44BMuTIvGK_fnZ9NOk0aSqeN68Q1lo
+Message-ID: <CAJ+F1C+bGKtY6nf3LCXrwhZ2aEdu2npXJ9FapmsqgX0uLL5TUw@mail.gmail.com>
+Subject: Re: [PATCH] char: rename CharBackend->CharFrontend
+To: "Dr. David Alan Gilbert" <dave@treblig.org>
+Cc: Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org, pbonzini@redhat.com, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, 
+	"Gonglei (Arei)" <arei.gonglei@huawei.com>, Zhenwei Pi <pizhenwei@bytedance.com>, 
+	Laurent Vivier <lvivier@redhat.com>, Amit Shah <amit@kernel.org>, 
+	Stefan Berger <stefanb@linux.vnet.ibm.com>, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+	=?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+	Igor Mitsyanko <i.mitsyanko@gmail.com>, =?UTF-8?Q?Cl=C3=A9ment_Chigot?= <chigot@adacore.com>, 
+	Frederic Konrad <konrad.frederic@yahoo.fr>, Alberto Garcia <berto@igalia.com>, 
+	Thomas Huth <huth@tuxfamily.org>, Halil Pasic <pasic@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>, 
+	Yoshinori Sato <yoshinori.sato@nifty.com>, Magnus Damm <magnus.damm@gmail.com>, 
+	Nicholas Piggin <npiggin@gmail.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
+	"Collin L. Walling" <walling@linux.ibm.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>, 
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>, Alistair Francis <alistair@alistair23.me>, 
+	=?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
+	Eduardo Habkost <eduardo@habkost.net>, Corey Minyard <minyard@acm.org>, 
+	Paul Burton <paulburton@kernel.org>, Aleksandar Rikalo <arikalo@gmail.com>, 
+	Aurelien Jarno <aurelien@aurel32.net>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Weiwei Li <liwei1518@gmail.com>, Daniel Henrique Barboza <dbarboza@ventanamicro.com>, 
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
+	Samuel Thibault <samuel.thibault@ens-lyon.org>, Michael Rolnik <mrolnik@gmail.com>, 
+	Antony Pavlov <antonynpavlov@gmail.com>, Joel Stanley <joel@jms.id.au>, 
+	Vijai Kumar K <vijai@behindbytes.com>, Samuel Tardieu <sam@rfc1149.net>, 
+	Gustavo Romero <gustavo.romero@linaro.org>, Raphael Norwitz <raphael@enfabrica.net>, 
+	Stefan Hajnoczi <stefanha@redhat.com>, "reviewer:vhost-user-scmi" <mzamazal@redhat.com>, 
+	Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, 
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>, Fabiano Rosas <farosas@suse.de>, 
+	Markus Armbruster <armbru@redhat.com>, Zhang Chen <zhangckid@gmail.com>, 
+	Li Zhijian <lizhijian@fujitsu.com>, Jason Wang <jasowang@redhat.com>, 
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
+	Richard Henderson <richard.henderson@linaro.org>, Helge Deller <deller@gmx.de>, 
+	Max Filippov <jcmvbkbc@gmail.com>, Lukas Straub <lukasstraub2@web.de>, 
+	"open list:Sharp SL-5500 Co..." <qemu-arm@nongnu.org>, 
+	"open list:S390 SCLP-backed..." <qemu-s390x@nongnu.org>, "open list:sPAPR (pseries)" <qemu-ppc@nongnu.org>, 
+	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>, 
+	"open list:RISC-V TCG CPUs" <qemu-riscv@nongnu.org>, "open list:virtiofs" <virtio-fs@lists.linux.dev>, 
+	"open list:Rust-related patc..." <qemu-rust@nongnu.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 17, 2025 at 5:51=E2=80=AFPM Roger Pau Monne <roger.pau@citrix.c=
-om>
-wrote:
+Hi
 
-> It's currently impossible for passthrough devices on segment different th=
-an
-> 0 to work correctly, as the PCI domain is not provided to
-> xc_physdev_map_pirq_msi(), and hence it's unconditionally assumed that al=
-l
-> devices are on segment 0.
+On Tue, Oct 21, 2025 at 5:52=E2=80=AFPM Dr. David Alan Gilbert <dave@trebli=
+g.org> wrote:
 >
-> Adjust the call to xc_physdev_map_pirq_msi() to pass the PCI domain in th=
-e
-> high 16bits of the bus parameter.  On versions of Xen where this is not
-> supported the passed segment will be ignored and assume to be 0, no worse
-> than the current state.
+> * Peter Maydell (peter.maydell@linaro.org) wrote:
+> > Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com> wrote:
+> > > The actual backend is "Chardev", CharBackend is the frontend side of =
+it,
+> > > let's rename it for readability.
+> >
+> > I always thought the "frontend" was the device the guest
+> > saw (the 16650 UART or whatever). invocation.html has bits
+> > talking about "virtio hvc console frontend device" which
+> > seem like they also use that terminology.
+> >
+> > If we want to clean up the naming it might be helpful to have
+> > a comment somewhere documenting the different components and
+> > what names we give them and how they fit together (or even
+> > better, something in docs/devel/...)
 >
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->
+> Or something more descriptive like 'CharGuestSide'
 
-Reviewed-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+If we are talking about the Chardev frontend or user, that's too
+restrictive. We have generic stream handling code (think
+mux/hub/tests/client/server etc) that do not fit that usage naming.
 
---000000000000dabea70641ab9724
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
-mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Oct 17,=
- 2025 at 5:51=E2=80=AFPM Roger Pau Monne &lt;<a href=3D"mailto:roger.pau@ci=
-trix.com">roger.pau@citrix.com</a>&gt; wrote:<br></div><blockquote class=3D=
-"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
-04,204,204);padding-left:1ex">It&#39;s currently impossible for passthrough=
- devices on segment different than<br>
-0 to work correctly, as the PCI domain is not provided to<br>
-xc_physdev_map_pirq_msi(), and hence it&#39;s unconditionally assumed that =
-all<br>
-devices are on segment 0.<br>
-<br>
-Adjust the call to xc_physdev_map_pirq_msi() to pass the PCI domain in the<=
-br>
-high 16bits of the bus parameter.=C2=A0 On versions of Xen where this is no=
-t<br>
-supported the passed segment will be ignored and assume to be 0, no worse<b=
-r>
-than the current state.<br>
-<br>
-Signed-off-by: Roger Pau Monn=C3=A9 &lt;<a href=3D"mailto:roger.pau@citrix.=
-com" target=3D"_blank">roger.pau@citrix.com</a>&gt;<br></blockquote><div><b=
-r></div><div>Reviewed-by: Edgar E. Iglesias &lt;<a href=3D"mailto:edgar.igl=
-esias@amd.com">edgar.iglesias@amd.com</a>&gt;</div><div><br></div></div></d=
-iv>
-
---000000000000dabea70641ab9724--
+--=20
+Marc-Andr=C3=A9 Lureau
 
