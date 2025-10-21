@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5380BBF6EE1
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Oct 2025 15:58:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1147295.1479631 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BB0FBF6F7F
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Oct 2025 16:08:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1147313.1479642 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBCt0-0002y7-BG; Tue, 21 Oct 2025 13:58:50 +0000
+	id 1vBD2R-0004u7-46; Tue, 21 Oct 2025 14:08:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1147295.1479631; Tue, 21 Oct 2025 13:58:50 +0000
+Received: by outflank-mailman (output) from mailman id 1147313.1479642; Tue, 21 Oct 2025 14:08:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBCt0-0002w8-8W; Tue, 21 Oct 2025 13:58:50 +0000
-Received: by outflank-mailman (input) for mailman id 1147295;
- Tue, 21 Oct 2025 13:58:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vBD2R-0004sh-0Z; Tue, 21 Oct 2025 14:08:35 +0000
+Received: by outflank-mailman (input) for mailman id 1147313;
+ Tue, 21 Oct 2025 14:08:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ych8=46=gmail.com=marcandre.lureau@srs-se1.protection.inumbo.net>)
- id 1vBCsz-0002nm-3w
- for xen-devel@lists.xenproject.org; Tue, 21 Oct 2025 13:58:49 +0000
-Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
- [2607:f8b0:4864:20::f34])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 10d11f9b-ae86-11f0-9d15-b5c5bf9af7f9;
- Tue, 21 Oct 2025 15:58:48 +0200 (CEST)
-Received: by mail-qv1-xf34.google.com with SMTP id
- 6a1803df08f44-7ea50f94045so96039986d6.1
- for <xen-devel@lists.xenproject.org>; Tue, 21 Oct 2025 06:58:48 -0700 (PDT)
+ <SRS0=M5X6=46=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1vBD2Q-0004sa-5R
+ for xen-devel@lists.xenproject.org; Tue, 21 Oct 2025 14:08:34 +0000
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazlp170120007.outbound.protection.outlook.com
+ [2a01:111:f403:c101::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6b1a6380-ae87-11f0-980a-7dc792cee155;
+ Tue, 21 Oct 2025 16:08:29 +0200 (CEST)
+Received: from DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
+ by CH5PR03MB7984.namprd03.prod.outlook.com (2603:10b6:610:215::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.12; Tue, 21 Oct
+ 2025 14:08:23 +0000
+Received: from DM6PR03MB5227.namprd03.prod.outlook.com
+ ([fe80::c9a0:563d:c344:aec2]) by DM6PR03MB5227.namprd03.prod.outlook.com
+ ([fe80::c9a0:563d:c344:aec2%5]) with mapi id 15.20.9253.011; Tue, 21 Oct 2025
+ 14:08:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,123 +47,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10d11f9b-ae86-11f0-9d15-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761055127; x=1761659927; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=a9xo5iRU2UaVqUYhP+NOFPTLpT/CvAzz5jgCqB0Tc9s=;
-        b=KLBo+UFtQNyuru6s+Ki0FjXwWM8MVlRKKKQcrVRb7ybIDkg3kbhvkK1cievOsw+gMu
-         6Pj1RMYC6vcJOihhN7BrbvtxlHlESHIOUxT8wumj9HzT4AuHlNUbbYC87KRFsjX6g40Z
-         /k0FStNGHB3JESdYaXncSW/Z3lE+QUjtLdAiu+9rBTLQzt66Bl1yLQ4US18DlzDgn1cW
-         ktir1iiw7F83vBeDiHiD9Oak299noxYNmi0hr2euHWUCj1L+v2yDxw4ges4U+ZJHW22S
-         QgsnSyK6pAg6qnrxLb9M5sh7Ja2l6CrxbgDxjDtpDeiEO3dnfQNjqaGSNHvBQ+7T2vBz
-         q6Hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761055127; x=1761659927;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=a9xo5iRU2UaVqUYhP+NOFPTLpT/CvAzz5jgCqB0Tc9s=;
-        b=VVLuNUFFK53fR8E9b5T1Gx0a78KDQQpSECV9CBkFfuNK4mcsQ3N1RpoWefCpPs4hT6
-         M31RqqoWHGMpEux35+05BMuNPbVIlY69Px/wHXor6VkKXgVEC5C35BY47N0JNwCrwqpw
-         iblcpVyfE2OocN+P5WIn2FMdJh/K2tt6WpN7k9gAUgwlILuOeLY6CWKfTyLfZ7kg2XF4
-         vYbCknzGcXEqrn6XI28/4tgAv0MtU4a9rCgZKNCG+hFkQSlUORGUKwEK5nel/nl/HR+6
-         F9UqJCzr4L94NSvh/1K6sShBR8x1TvKZZcKFXTDVh18gKl8noCVqNB/xur9FQCu+KoVq
-         DFCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWdXldgAcC2YIk6x9wbL18WEP7M+Bd+jxgkz17fYLyLpe9J8p9vmJaGNMaYK49xv5+697z/cBe1bOs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwYKeortY9Cvs5k7BDPaEz2F/UGAwBKubTW4+zzi57fvyu+Ode0
-	R94PU/ncIV2IAp98PmUATzuj30HhZc7wpJEP2+E0RJWciYP0IIYDB6OklLfYIg5qmySnP3uLir3
-	4CeEHQX+GLI7r7Iha3bGL70sz5F1Ag+M=
-X-Gm-Gg: ASbGncvywNX5Qze1G6ANH1kg3iK+nUdI85kcnE+RTwEo3I/x2uZ7G5XNa3BCg+eMEw8
-	lQaVaF33m1PVa1PKA9If09qs6cttRMA6DckJAel6fL4+1rbQFKk4ngfW5334gOsChTJB0ac5TN1
-	BnkRFkd00b752JJvExnSYdhufpoYAJZ3c4+bQdLgHD5DHmdZFQ4/3bUfd2FyM2U1PQUWEv6zure
-	ZSVzWJSv6EVovVBbd5PVR/3bPG9ChT/go49U94xk62sjmfClm92T4nVIcIQ9/ACWhrHm3n9UW9E
-	WPBwnTBZUNuRSAjALvN9wkbE0ow=
-X-Google-Smtp-Source: AGHT+IEASm5PEMuHtKd5e+Rzj4N98EYCKZGb9xbtNELXIkGVXPi9KMyBQu4pgO6iWCx6Ob5On+OEkhJoPBQQfEnXOkg=
-X-Received: by 2002:ac8:6692:0:b0:4e8:9151:b743 with SMTP id
- d75a77b69052e-4e89151baaemr171529791cf.10.1761055127377; Tue, 21 Oct 2025
- 06:58:47 -0700 (PDT)
+X-Inumbo-ID: 6b1a6380-ae87-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S2NDB0BBUou1FlDeRl0oB9qIhj4AafKB1B75jw7k6nIwPoywF7e4pIWTLstcyj11z1Ok1K4xogobqJt+vkOStCg0iHEjvJWoeiG9iN9NysKU9xVjRBcSMLtkE9CPyb0WrSGeGzRkxFe+2r5FsHE5f97rTzdkwon/C9obX0XMVlSR3NduDIw/fHXZ9obUQt9zciTPYo6TLibYjpV+X8S7/a2IOI6yKq76jt68Jj5Z9HuStEnjuQRiIRQB21YVyN6LwvQbZntlWH9iBKhNDihLiuq8qmRVvnLCtMKqVkznGpm+5FOvLfbyiqUW1JjL5o8BxV9pbFt7MOvtZnF6rNtiTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VtkUEkELIOA3Q/vj/pSp+bGE2mQzeFFvzy5eb0dweg0=;
+ b=m3V0edd5/b9XI8ORZ5VSqFOU514MyPWsjLTNPJygjHsH6a3IN6RjRutk6AxlUNGGPU6tKmGf/u1s8kOUPbcmq9+1+KtHhn1+8sFwlOBIcOkJkanaJ9gAfVaV/qgd283xljkl1b2yGh3Dffkmu3DfUve5bRGxzrlCqJReNx07MBCaWusuXwczflPAfcpg4SRgOpoY6tmlWvluknFej67eNJJUJwjeZH0JVC5pt6Jqs0pNwKaSYWDCufkaUE1FHG91nPIVg1Ft4Y+JdH/1IjCeg0//u6zJm9v8Gt9lHV2joWUg+Ionw7/YGmJ+ByrWPc/bezxxGaB37Na8vn7cT05eIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VtkUEkELIOA3Q/vj/pSp+bGE2mQzeFFvzy5eb0dweg0=;
+ b=hhZjgh6GMCjF69+XDzOUEopUXrImDIvkWq6+NSFzIP1TJML7pVlKrNIB0sT0VxHLcRrIp/8LHXEvoFx3eUEWGGIlqSJk1hTCZjBx8PtXyfEetz2lj7my0ru1UBHKeQjJxxJVWcLMlTBAHn7h92PZ3N7e4nNUZBQXQornwfH1NSY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Tue, 21 Oct 2025 15:08:18 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v2 for-4.21 3/9] x86/HPET: replace
+ handle_hpet_broadcast()'s on-stack cpumask_t
+Message-ID: <aPeT0h-S7FVgk3TZ@Mac.lan>
+References: <b66ea488-2d47-472c-9520-8590fdf89e0e@suse.com>
+ <c357cb79-a10d-4d81-9695-9d16a4080595@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c357cb79-a10d-4d81-9695-9d16a4080595@suse.com>
+X-ClientProxiedBy: PR1P264CA0196.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:34d::7) To DM6PR03MB5227.namprd03.prod.outlook.com
+ (2603:10b6:5:247::22)
 MIME-Version: 1.0
-References: <20251021122533.721467-1-marcandre.lureau@redhat.com>
- <CAFEAcA-jPE_onLYLMxgcAOB7dWRXOLJrWcGPnR0NUdjYytPDVA@mail.gmail.com> <aPePcTKl6s4FoLCL@gallifrey>
-In-Reply-To: <aPePcTKl6s4FoLCL@gallifrey>
-From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>
-Date: Tue, 21 Oct 2025 17:58:34 +0400
-X-Gm-Features: AS18NWDhwyu6RSAqqb6h7ri3_0htqQRas44BMuTIvGK_fnZ9NOk0aSqeN68Q1lo
-Message-ID: <CAJ+F1C+bGKtY6nf3LCXrwhZ2aEdu2npXJ9FapmsqgX0uLL5TUw@mail.gmail.com>
-Subject: Re: [PATCH] char: rename CharBackend->CharFrontend
-To: "Dr. David Alan Gilbert" <dave@treblig.org>
-Cc: Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org, pbonzini@redhat.com, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, 
-	"Gonglei (Arei)" <arei.gonglei@huawei.com>, Zhenwei Pi <pizhenwei@bytedance.com>, 
-	Laurent Vivier <lvivier@redhat.com>, Amit Shah <amit@kernel.org>, 
-	Stefan Berger <stefanb@linux.vnet.ibm.com>, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
-	=?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
-	Igor Mitsyanko <i.mitsyanko@gmail.com>, =?UTF-8?Q?Cl=C3=A9ment_Chigot?= <chigot@adacore.com>, 
-	Frederic Konrad <konrad.frederic@yahoo.fr>, Alberto Garcia <berto@igalia.com>, 
-	Thomas Huth <huth@tuxfamily.org>, Halil Pasic <pasic@linux.ibm.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>, 
-	Yoshinori Sato <yoshinori.sato@nifty.com>, Magnus Damm <magnus.damm@gmail.com>, 
-	Nicholas Piggin <npiggin@gmail.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
-	"Collin L. Walling" <walling@linux.ibm.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>, 
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>, Alistair Francis <alistair@alistair23.me>, 
-	=?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
-	Eduardo Habkost <eduardo@habkost.net>, Corey Minyard <minyard@acm.org>, 
-	Paul Burton <paulburton@kernel.org>, Aleksandar Rikalo <arikalo@gmail.com>, 
-	Aurelien Jarno <aurelien@aurel32.net>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Weiwei Li <liwei1518@gmail.com>, Daniel Henrique Barboza <dbarboza@ventanamicro.com>, 
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
-	Samuel Thibault <samuel.thibault@ens-lyon.org>, Michael Rolnik <mrolnik@gmail.com>, 
-	Antony Pavlov <antonynpavlov@gmail.com>, Joel Stanley <joel@jms.id.au>, 
-	Vijai Kumar K <vijai@behindbytes.com>, Samuel Tardieu <sam@rfc1149.net>, 
-	Gustavo Romero <gustavo.romero@linaro.org>, Raphael Norwitz <raphael@enfabrica.net>, 
-	Stefan Hajnoczi <stefanha@redhat.com>, "reviewer:vhost-user-scmi" <mzamazal@redhat.com>, 
-	Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, 
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>, Fabiano Rosas <farosas@suse.de>, 
-	Markus Armbruster <armbru@redhat.com>, Zhang Chen <zhangckid@gmail.com>, 
-	Li Zhijian <lizhijian@fujitsu.com>, Jason Wang <jasowang@redhat.com>, 
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
-	Richard Henderson <richard.henderson@linaro.org>, Helge Deller <deller@gmx.de>, 
-	Max Filippov <jcmvbkbc@gmail.com>, Lukas Straub <lukasstraub2@web.de>, 
-	"open list:Sharp SL-5500 Co..." <qemu-arm@nongnu.org>, 
-	"open list:S390 SCLP-backed..." <qemu-s390x@nongnu.org>, "open list:sPAPR (pseries)" <qemu-ppc@nongnu.org>, 
-	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>, 
-	"open list:RISC-V TCG CPUs" <qemu-riscv@nongnu.org>, "open list:virtiofs" <virtio-fs@lists.linux.dev>, 
-	"open list:Rust-related patc..." <qemu-rust@nongnu.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR03MB5227:EE_|CH5PR03MB7984:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28e954ef-d926-4a4e-8284-08de10ab4beb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?WjNNWW1tbUJQL1ZQUEhYQ0o4SEVoZjhrYk9Ncjd5dWo4SWxmaHkweTV3RkZZ?=
+ =?utf-8?B?bUJ6YUZUb1JkVlpTcEZmTGtLcW55M1lPdFNIMGxGcWtYc0dVVFBsbWFvcC81?=
+ =?utf-8?B?Mko3T2FkQjZGWUFkY3RHMW11UDNvQnU5KzkxR01pVkRoYVl1TTAxL3hUZklW?=
+ =?utf-8?B?WHlRd2JQQkVnYjBvZnE0R2J2QjNSZktqcUxtWmdxTUt0VzQrdEU1QW9nK2p5?=
+ =?utf-8?B?S2g3NXFWS2xIM0NHZUxyamVkdTB4MTBqVkQyclE2cEw1S0dBcGw5NzJjelM3?=
+ =?utf-8?B?SHpnRTVManlmTURvSG1LeGQ4OHhUbXh1NkFsMUFPazVpcTNyUk5WZi9ydzda?=
+ =?utf-8?B?bnlHSzZsUDBaTkNoOHA0bHQ4c01FS0FPNkg5bnNSUXFCYXovSERsbWxWZkVj?=
+ =?utf-8?B?SUdDRlk3VXpOeXpUT05uWDlURWliNDdPcjZVc3BpZW43MkxBYXNSN25PcUJL?=
+ =?utf-8?B?QXZwcEdiYkZ3YlRCcTBGYnFpdVB3NzdGZGlXYnhiTzE0MjVkakx5UWFMOXdl?=
+ =?utf-8?B?NDVNQTVnTGUyZkdickdLZGxzYmpoTmdPRysxcTB6UXcwemhyaWpLbks3Qmlu?=
+ =?utf-8?B?ZFZKTzdUVmdVYlpzeVhKbCt5STFpdStKVjZVOVBVQWVhTlVESXBPY28wTEV0?=
+ =?utf-8?B?dmNvK1MxSUFtWFVFaGRCc0lMNE9pbzZEWTNVb25TY3dmYXR1K0hDeWZBdDh2?=
+ =?utf-8?B?VHBPcXhOVjVPSGVtc2NqMmJXbHJjWWpRT2pNb3JpNC9SSWlHQXFBY2pGVm1K?=
+ =?utf-8?B?K1RkOEVpaVVSOUtSY21MeTE5ZTFmQ0FzS3cyMU1TS2NjNmh3ci9FdGNyL2lt?=
+ =?utf-8?B?dUpWbXdJTHMvZy85WXdWaG9Hd29JMEdrVkFTTUJRclc2Uk5SdVFTbkphRmZk?=
+ =?utf-8?B?QTh6cjE4amJIS0Z3dkw3RnNLblBxbHZpTVd0ZnVja0pVdSt0N3lLcjNoUG1P?=
+ =?utf-8?B?SnJFZElQYjYzY0ttQkF6VEg1bm1NR1lvbFBQTzN2S3FIb2oySDNrTVBGV25s?=
+ =?utf-8?B?ZU9uNVhBaGtRM1dXZFVHSDRzN2tUZG5jeFBObmU5YjcxNS8rNXIzcmhabDJl?=
+ =?utf-8?B?TjgrMmI4UlhMU2pvcXorTUg5elIzWWdSVVloYm45V3pHU0hkWVRrVWtUUHFS?=
+ =?utf-8?B?cm42VFY0WldIRUZaR0h0TlZ3K0tvbGlVa1kwVUQ5ODBBMU9tOW85a0hqNENY?=
+ =?utf-8?B?NitvNThwc2xoa3ExTDZIZ29DeGxtWU9KNEZkUkRrVFBJQUxpRFZGVUUweUNw?=
+ =?utf-8?B?MDFURUdDWlc0ZlZXMUZpeThvbXAzTW0xVExhS1V2clJwb1p6RVlDM01CR1Fq?=
+ =?utf-8?B?ajJHdkFQZXhqL2NaRWtQUU5Tc3BpOWFnSkZDaXlqVllxUlQvVG52bDFvWkdk?=
+ =?utf-8?B?dUZzQ3loeGNQUE90RlJndEEyZTNBL3UvRjE4QWZtVWI5RUpOUkdRQVBESFJI?=
+ =?utf-8?B?RExTcGR0aEdlbVE1VHIxZnZKRmdHZXFBcGo0UmxFUWtsenkwVkFJZUFWY3N1?=
+ =?utf-8?B?K0ZzNG8wWExKVVhNVW5QTU9hZWVqYUNJSVlJemlzVXdvUTc5OEE2aW1Xdmpk?=
+ =?utf-8?B?V2FyV21ISmxHdDRTdlZqY3ltbm1saktFWmdDRHhQWXRZRlJ5U1AyNWZ1Y2Jy?=
+ =?utf-8?B?TXhTNjdNMko1T2JIWnI3TktpVGdObVAwVUQ3dStwWVllcWtsbCt0M1JZRmwy?=
+ =?utf-8?B?TTlBeXZGcGJSSkxyY3ZmYjVWQ1dHZVFaNnVpRnloK25YWlVHS29ySEljbEI5?=
+ =?utf-8?B?Z2hpQ0dkRFE3Wk5pc0Y3VTlLaDlsZFJKVW84NFB2MmtDbGRlTStBRmx1cnQ2?=
+ =?utf-8?B?WmlxVFRRanZuSjVLT28vVXFtdHVXL2RSNnpLUnQwRGt1bytmZzVNQnRvMVJh?=
+ =?utf-8?B?SkZYakNRWm1rTnZMRmt2NkxFUS84VXJGcC9IRGQzVGNRdjN2dzNxQzRsV0ZQ?=
+ =?utf-8?Q?T6Eutkr1oru1rIoYWjC/C3oZA7xoZ/DL?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB5227.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a2p5aEYxWHNFdlNhZFJNZFFKNzZTY2RmTDJCUTBPRVE1bDE5ZnhHZXVjdUNY?=
+ =?utf-8?B?WHhsZ3BQNkg3YzNMVjgwY2NLcGIxTHdIMWRmcktjUFhhQUZnVHQ3cVhOK2F6?=
+ =?utf-8?B?ekVMSWVKSXozc3ZWQ1VNS2ZZMTdJWjNGN1BySjc0Z0JhQXdPL2RZTkZCV2Jh?=
+ =?utf-8?B?TUh1R3o0Q2FTYnBJVldmZ0crTU5QYVNsU2FPZEh3aVkvVWNmSXBvb0I5YlNL?=
+ =?utf-8?B?SC9tM08rMnFXZmhGNEZ3aUVrMlhhRDF0UWtRWWlxeXUvYWlzc2F4cEc2V2lr?=
+ =?utf-8?B?ZDF1V3I3M1UyODFkUGN3UjhyY0NVNy9ZbzNmWHpUZnlkckphdnJrcWQ0OTd4?=
+ =?utf-8?B?Q24rcE95WU1CT001cnFBQzlnUEd2d0JlWUwyeG9lTFNDN0VxeGNGSmFuNFB5?=
+ =?utf-8?B?cW1JQTlFMzlXaHEycGxOeTA3bkplWnhrZEMvUUpXMy9OMTNzV1p1MzBTSFdY?=
+ =?utf-8?B?dlQyQ0RTNzlDRC82TWlZSGI1b1ZrWVRSdE1BYzlzVTlRaXRWK2FPRmRFTTVs?=
+ =?utf-8?B?Zk9HUDVVUFF0Z2t5QWZLSFN1SnVDbjlMS3VMNmx1clVvY2RZYTJCNGVKY0Ro?=
+ =?utf-8?B?Ny9MUjM3c3NHdDhTS2pZUjlHbHNLTm5iNUFQc1BXUXFoWTF1TTNYbnFpN1p6?=
+ =?utf-8?B?dFExVS9EWXBYMTBKdzNrTmdmbk9jdGpjeVp3VFRHOEVORW1aSndkQy9ueU9D?=
+ =?utf-8?B?TUNUOTJOUFJqbGdVZTRzcDB2b2grMG81VFhlaGJjclpvWEVqcUY0Wlk2dlJ0?=
+ =?utf-8?B?WkMyVEV3cDdGWEg1T00zKzEwR2w1ZEU1TGZpRk1LM29XaHBSV3dRSUp4bi9y?=
+ =?utf-8?B?dzVLczQ1TGw3ckFNT2RDdUx2MzRMUU9BcFJsY1pqS3dBb1NzdUlEazVUYUxI?=
+ =?utf-8?B?bFN3VDh2a3hFM0VQQXVEL3UwV2ZZbWlzam1oTXZ6MHRZb0VBdTgvSG5jNWRB?=
+ =?utf-8?B?M3dwRlRPQmhWT2Q5UFNSektQU2x0QllmaEN5Qm1aVldpRDk3UkJPbnJyRFRV?=
+ =?utf-8?B?Zkx3S1kyL0EwaXp0UitkOTVGc3BIYTByQ29oVkdORFJxTndjQUpvc2h0elFM?=
+ =?utf-8?B?bUxMVCtUYjFzVENkNWRyN2FIa1h3aDczWWlNL3RHbXIwQlFCRS9WSW5YMktD?=
+ =?utf-8?B?YkQ5QU1MK1JtbjRKZzlxdVZOcmlrWEVnUmkwcmlSVmZXcWU5b0lJVXpZa0pW?=
+ =?utf-8?B?VXRXQW1XQUhhcEgwWHJqaHVRTEVWZjBTZy9vb3FIcEhiK29UK1Yyd3hqbzlX?=
+ =?utf-8?B?SkdMd2hwZTExOThZNUR1VjBPRW01Y2Vpelg3Vmw2dk1zU2lZa05NK1U5dnlj?=
+ =?utf-8?B?V3JvZU05Y29zTk5OVC9tQnVNZ0szTUNtYVNBQUdoRlBWRElpMzQ5eFBHdGJM?=
+ =?utf-8?B?aVF4RUtpdlViM3JEZTZjZzJEc3YrTk9YZ2VTVUpLeElkd0l2Ti9RSlJCd2NV?=
+ =?utf-8?B?d2NDOXdDVXhmblNVaityTlRjRGhJaWREWDFjaGVjK0hhQzZLRlBneThyaGJt?=
+ =?utf-8?B?cGpSeVpoSmQrRnRWWGtYTHJqaTE4a0F6TlhEblpWeGN4d0tLVUtKTlBmclAv?=
+ =?utf-8?B?Y2VaR1FrRVpDZFpSUys0YWthL3FiM1NKTGJSSnJLc1BsRlRROHZ2M0VIUnpY?=
+ =?utf-8?B?TDI0MUQ5c0lvRjA2ZnI1TjQyaDM5T1N0V0ZYMURPeVY2MWdGL3ZuNnlBU3VU?=
+ =?utf-8?B?ckp1Zzk2L2tsVE9pdkUyQ05vY3lCS2FodkdPVTVkczJwS2t6SE9JMkN3UWlM?=
+ =?utf-8?B?VktZSG9maCtwbFlMVTJJOWNMTnJDYkM5NW9CZHZTQmx6TmdONFlEMDZvcGh0?=
+ =?utf-8?B?OG9hQTRVK3ZmZFNkSW10Unc0ZzRwQ1lXcFE5azA0eHYzcDdMNm96OURLclRN?=
+ =?utf-8?B?dVJJOTJqaE9peGpBR0RtN0NJc2lRWkVFb3VHM3JPOTIzUDFpMW1BbHB6MFZi?=
+ =?utf-8?B?TGhwa1k3ZDdKb0tFUFFXd2wwbFhvSmZZNk5vY2hmV1hOUVZxMzRDcmdLZHdh?=
+ =?utf-8?B?bEtRU0dyekNIekF2a1QzVFVmRUFtKzJxdHl2YVV5K1VMVzBlMjBUQStOQitr?=
+ =?utf-8?B?MFc3MnIwTEpVNjdIYjNTR2l0T1JodHoyY2Y0a09OL0tsanppaWZzRUFYd0Qx?=
+ =?utf-8?Q?qDQAL3GQWxuFNUgwukE37QcVa?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28e954ef-d926-4a4e-8284-08de10ab4beb
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5227.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2025 14:08:23.4875
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iSe+FA3PPkdFZggVgPh/d0nntiARQFlvkMoyleIuSFvV4kb16TWiDuj8DqYj5UK0gfzoiyYBipC2SswoqXzb2Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH5PR03MB7984
 
-Hi
+On Mon, Oct 20, 2025 at 01:19:20PM +0200, Jan Beulich wrote:
+> With large NR_CPUS on-stack cpumask_t variables are problematic. Now that
+> the IRQ handler can't be invoked in a nested manner anymore, we can
+> instead use a per-CPU variable. While we can't use scratch_cpumask in code
+> invoked from IRQ handlers, simply amend that one with a HPET-special form.
+> (Note that only one of the two IRQ handling functions can come into play
+> at any one time.)
+> 
+> Fixes: 996576b965cc ("xen: allow up to 16383 cpus")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-On Tue, Oct 21, 2025 at 5:52=E2=80=AFPM Dr. David Alan Gilbert <dave@trebli=
-g.org> wrote:
->
-> * Peter Maydell (peter.maydell@linaro.org) wrote:
-> > Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com> wrote:
-> > > The actual backend is "Chardev", CharBackend is the frontend side of =
-it,
-> > > let's rename it for readability.
-> >
-> > I always thought the "frontend" was the device the guest
-> > saw (the 16650 UART or whatever). invocation.html has bits
-> > talking about "virtio hvc console frontend device" which
-> > seem like they also use that terminology.
-> >
-> > If we want to clean up the naming it might be helpful to have
-> > a comment somewhere documenting the different components and
-> > what names we give them and how they fit together (or even
-> > better, something in docs/devel/...)
->
-> Or something more descriptive like 'CharGuestSide'
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-If we are talking about the Chardev frontend or user, that's too
-restrictive. We have generic stream handling code (think
-mux/hub/tests/client/server etc) that do not fit that usage naming.
+> ---
+> While doing this I noticed that this and all pre-existing uses of
+> DEFINE_PER_CPU_READ_MOSTLY() aren't quite right: When the type is
+> cpumask_var_t, the variable is read-mostly only when NR_CPUS <=
+> 2 * BITS_PER_LONG. That'll want sorting separately, though.
+> 
+> It is important for this to not be moved ahead of "x86/HPET: use single,
+> global, low-priority vector for broadcast IRQ", as the original call here
+> from set_channel_irq_affinity() may not use the new variable (it would
+> need to use scratch_cpumask instead).
+> ---
+> v2: New.
+> 
+> --- a/xen/arch/x86/hpet.c
+> +++ b/xen/arch/x86/hpet.c
+> @@ -196,7 +196,7 @@ static void evt_do_broadcast(cpumask_t *
+>  
+>  static void cf_check handle_hpet_broadcast(struct hpet_event_channel *ch)
+>  {
+> -    cpumask_t mask;
+> +    cpumask_t *scratch = this_cpu(hpet_scratch_cpumask);
+>      s_time_t now, next_event;
+>      unsigned int cpu;
+>      unsigned long flags;
+> @@ -209,7 +209,7 @@ again:
+>      spin_unlock_irqrestore(&ch->lock, flags);
+>  
+>      next_event = STIME_MAX;
+> -    cpumask_clear(&mask);
+> +    cpumask_clear(scratch);
+>      now = NOW();
+>  
+>      /* find all expired events */
+> @@ -218,13 +218,13 @@ again:
+>          s_time_t deadline = ACCESS_ONCE(per_cpu(timer_deadline, cpu));
+>  
+>          if ( deadline <= now )
+> -            __cpumask_set_cpu(cpu, &mask);
+> +            __cpumask_set_cpu(cpu, scratch);
+>          else if ( deadline < next_event )
+>              next_event = deadline;
+>      }
+>  
+>      /* wakeup the cpus which have an expired event. */
+> -    evt_do_broadcast(&mask);
+> +    evt_do_broadcast(scratch);
+>  
+>      if ( next_event != STIME_MAX )
+>      {
+> --- a/xen/arch/x86/include/asm/smp.h
+> +++ b/xen/arch/x86/include/asm/smp.h
+> @@ -22,6 +22,7 @@
+>  DECLARE_PER_CPU(cpumask_var_t, cpu_sibling_mask);
+>  DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
+>  DECLARE_PER_CPU(cpumask_var_t, scratch_cpumask);
+> +DECLARE_PER_CPU(cpumask_var_t, hpet_scratch_cpumask);
 
+Should this be declared in the hpet.h header?
 
---=20
-Marc-Andr=C3=A9 Lureau
+>  DECLARE_PER_CPU(cpumask_var_t, send_ipi_cpumask);
+>  
+>  /*
+> --- a/xen/arch/x86/smpboot.c
+> +++ b/xen/arch/x86/smpboot.c
+> @@ -55,6 +55,9 @@ DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t
+>  DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, scratch_cpumask);
+>  static cpumask_t scratch_cpu0mask;
+>  
+> +DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, hpet_scratch_cpumask);
+> +static cpumask_t hpet_scratch_cpu0mask;
+
+And then this defined in hpet.c.
+
+Just thinking whether someone would like to introduce support for
+build time disabling HPET in the future.
+
+Can always be moved at a later time anyway.
+
+Thanks, Roger.
 
