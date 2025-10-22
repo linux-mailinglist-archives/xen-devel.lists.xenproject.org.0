@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5AB8BFC67E
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Oct 2025 16:12:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1148236.1480380 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 106AEBFC8A0
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Oct 2025 16:31:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1148259.1480389 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBZYu-0007aV-LT; Wed, 22 Oct 2025 14:11:36 +0000
+	id 1vBZrh-0002Un-At; Wed, 22 Oct 2025 14:31:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1148236.1480380; Wed, 22 Oct 2025 14:11:36 +0000
+Received: by outflank-mailman (output) from mailman id 1148259.1480389; Wed, 22 Oct 2025 14:31:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBZYu-0007YN-IP; Wed, 22 Oct 2025 14:11:36 +0000
-Received: by outflank-mailman (input) for mailman id 1148236;
- Wed, 22 Oct 2025 14:11:35 +0000
+	id 1vBZrh-0002SM-7y; Wed, 22 Oct 2025 14:31:01 +0000
+Received: by outflank-mailman (input) for mailman id 1148259;
+ Wed, 22 Oct 2025 14:30:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pHug=47=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vBZYt-0007YH-HA
- for xen-devel@lists.xenproject.org; Wed, 22 Oct 2025 14:11:35 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1vBZrf-0002SE-GB
+ for xen-devel@lists.xenproject.org; Wed, 22 Oct 2025 14:30:59 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 041270c3-af51-11f0-9d15-b5c5bf9af7f9;
- Wed, 22 Oct 2025 16:11:34 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-471076f819bso55105865e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 22 Oct 2025 07:11:34 -0700 (PDT)
+ id b4f715b4-af53-11f0-9d15-b5c5bf9af7f9;
+ Wed, 22 Oct 2025 16:30:50 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-47100eae3e5so24405085e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Oct 2025 07:30:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-475c42d828asm46794955e9.17.2025.10.22.07.11.32
+ 5b1f17b1804b1-47494b02475sm39690255e9.4.2025.10.22.07.30.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Oct 2025 07:11:32 -0700 (PDT)
+ Wed, 22 Oct 2025 07:30:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 041270c3-af51-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: b4f715b4-af53-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761142294; x=1761747094; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761143449; x=1761748249; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SjjTeIOCsVDildLnxJ8P1TiHlAeqOVpi7i093PH7SuA=;
-        b=IftySfWQN3Jv98QoAMDbKtDxpKSKXxiqGTfJMsJzffCnaYSbjs2rzFeCGwrCb0LsDt
-         +oL1MfnK0E1LMGbQVBcx6LHd0lfXaomBbMQ5x45yZHSEAAnvRUnvHX7kyo5ZIO/+jZrj
-         56DX75336if0oxQiNg7f480t+jQsIuczbkWVcTipgu7M5dCHT6WmIzPveevUJfGIUElM
-         iPKSrBBaQb6WYk5govD2FtcqiiEkL6Ga9tqLT9A1sIs6lMUXPZpomqP5JpuQ1toFr0g1
-         /zFEVvJ+I9bWNLbLoIFvQQuR9Rn6D8W16de5FxDKt42pRkO1Zxv960i72mfhjwv+BGK6
-         MKBg==
+        bh=FO5Vw28kFJsFl8Z0Dnz1r+91IPQsD9UzA+H6h+5FFvQ=;
+        b=U3sl4+JQYkEG5GyxhsNSu2A8hxTc6ZGWfZPfn9SgzEDfO8WIrKGMilZuG2mdvSDoP5
+         63x9/Y8nU3jAtURAyiNHO+jHY5hoXYWCquTIOWdKWI6kF9Yv23ipQak1vyxsTnM5Xvnt
+         6+3oouKMFOy85SxCDLSL/tzERqYfkGDXryE33q2gucarz3F+pabIGN5169sIl4spVknM
+         XabancuVKTiYUw2XOv2LnLiqct2CRHumq4vpkXsBZRv8ucNY+e6ECuXseDAsdRvUauaP
+         /+dxVOcTW3ymcuuh/q3DlxEajLOHQYyNL2k3tsVjOYoYRHUa07ad494dhPgenlp8ScXd
+         1Zdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761142294; x=1761747094;
+        d=1e100.net; s=20230601; t=1761143449; x=1761748249;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SjjTeIOCsVDildLnxJ8P1TiHlAeqOVpi7i093PH7SuA=;
-        b=pwHrQR+n0Z4yerlOHPmm6GasxmmZaj69VH9XVJluxLlk8PkKo7+cJUMRXL9tfpI1WW
-         noM8Jlk91EAS8gTiDF+tLJezMPPsxff3N3XB+2/FmyrwefmqRD9vV2KQ+M7LH2jDMkmh
-         OfH7anBndx5ewTW6Tr3UQSlfFs2i7y4OvkfGbC0pOfdqEjZP0/NIVcCPEXYu4ZFnlGOh
-         tL/AjDtXk36ebQI7gQrgAU9Yuv3jlacMjLclG3KGGPQiRcIvC7rMSzX1GEbgaoncaE/W
-         So6CM5l6bEkSUdnj+eIC1BtW8UAgAWQafbaXPZ/6Ji+KODEKdJMEaYNrLSnuVhLiaLcq
-         8irw==
-X-Forwarded-Encrypted: i=1; AJvYcCUDLFmunp0FaOTR/sjhA/HUReXwX+A5XIJC8qw+NMpFbuDA+BgmAFt8YVVKKDXISAqKxZtBnoocP8Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyVq2RGHHumr0QppD5i9vaxlc2yXvHeLUuKeZzpR5oPRR0A3MfZ
-	ZmwJs1U9ZIJnjPz5UBCC8rx1eYIGLEsjNnkThZ5Y/EFO04INdTh60Bk1L51mOiFSKAvUjk8ELRj
-	tgLg=
-X-Gm-Gg: ASbGncuG4DqUd0+dCKMqCl6QZWd/ULtsZgZO0ejOYifYJ855VJLs4VXbxvUbGi87+9T
-	eM6uMSFAlnPlU/hCGMECqh9Hufe8tX2hKrwO3GjOSRdq8Z7wm6Fp9QRHIew8k94PtNGNwmOOWSq
-	d3IxmzKPIeOi7Cx8RoW2OpNEzESswjnUiKJBpYlz48OmYT2zP854LZIVAF/q7E53qgD9IQipsPU
-	/uF7vzzRAipY2U88AI/Qwj0/oFm8S1osl2iCRsHAyEgqiBwjnODval594Q/+cTt1fPCA4DWp7oy
-	EKTtfviuNI//tmhQh2j1w4k3ls0/KMMO3Jqd6Cl2JhIvA+gsJDF+y+4jDhOmmMR6LWbN8Ex3hd/
-	U1xWFKD581SkDtnoHN1KiUbYFJtff17mZDLgVPJxJ89t399maSyRRck9m4I6fIThcKObrsKBNO6
-	6xNpHsWuYiTEk661H2z+rFrU7ypVpphS84hvwgx7Uljyip3QqPdCEE2uAMwpNqvdCLjCWohZc=
-X-Google-Smtp-Source: AGHT+IEEqo7OEB8PMqx9XuTR8jZGMlFu+QlTUZcqjHVo7J7rs8a6KcgBa2aiPlaJAMVn0IDUIOMwfA==
-X-Received: by 2002:a05:600c:3b8d:b0:471:60c:1501 with SMTP id 5b1f17b1804b1-47117918c0cmr176442575e9.28.1761142293814;
-        Wed, 22 Oct 2025 07:11:33 -0700 (PDT)
-Message-ID: <f3ca8744-38c5-4d29-a216-b5e810adeb05@suse.com>
-Date: Wed, 22 Oct 2025 16:11:31 +0200
+        bh=FO5Vw28kFJsFl8Z0Dnz1r+91IPQsD9UzA+H6h+5FFvQ=;
+        b=wjoN4PLMwjTMy2Ck8x5phWDFQyeTOvtk26Fy34O4n8ym5aDznJit3TnDhgxOoGEtfs
+         VLPKFqzuXsevffKoKD71Nc/r5cOj20kqJ38Ns0+jBjcmiVExuXI13EwxQgT5StQuEE01
+         3uTWCWS/+zuxK2xYmV5T0mnn/J5CFuXMuwLV2QeaF8Czn4FdassAAGzww7NYVl5/2jAM
+         b8rLqQ1R8a1oZi3RGCm+4JdEof4BqrfqcyxJc78VhvA8HqWDMu4Bi6b81PMzk2I2szlI
+         7IBiaXe4hFoDtow2eV+Yd37MfCWtIlNujGsuuZ5FPGtl5YVHWCSw6jolJFtjqoHpijvR
+         CQug==
+X-Forwarded-Encrypted: i=1; AJvYcCU8ETWgE8cI/U2UMHLivLBq0lUqjLafMP9XGUcm6uzcw+PP3ElT9mmep4uGmmhYYzaH3pKxPCqAKes=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxN49IDKrfJH72F2YEklNJMfgK5w/Cb+Qb0by/w0GqCfA7ANBjC
+	3vcfBduqWuBMNFtdB55koi+9VmcAWNljFIapFaUbZfXY3b8tTJDp23INpxSDGzQKHw==
+X-Gm-Gg: ASbGncsgTgJ4rbuNNu/uj3RkqkFxzV3vfm8yT2o6/K/v2vHd+pWORpM3m0Tf+MRPe6V
+	tivn69F5F++BP2+BoIK+Rmm+nsLSks3HstihRUJihLOZViHhjTN5wGJgPMQ2e6DwGBzTFHz4+AN
+	6DmzqSf7wpqXBzJrwMsTW80n0T5dsG0A3GSEDJd3d2Rgva2mfqnxlQSxTp+c/m/+Ph1L8YEwNtw
+	c78kKr52Q0Wkc3q1KeLhlj4i+dFHtONeDiKsL5lOajWXgLuP7p8xyo0rg/x2I0XfBcBdkAYO7Bi
+	Djp4GZ0KJkISAkaQJ9cfYZbe6g5MI5dfjyx6nbk6HDEOUhg8F2mlMp7kWKiDg8N9NCLbqlwLfci
+	6oB8/ZBcJN1VPwK2Su/GrxpTECTUa1Eamz4+S0GxTY7gx1BHVr+Zi/bKwOC9XXLvE0tw9KR/Y/y
+	Wt4xD1oPWjrdE+/2P8aB0EVBxoP1tWOkAdmLFHoj3CqnaKTzCY0D6c1Sfhz0Ee
+X-Google-Smtp-Source: AGHT+IFIgQKMj5AbJAC82TOrW8kT5snn560+n2wggUqxWeZZMEpThpFRnppnD6eqGTL96fJ/iS3jBA==
+X-Received: by 2002:a05:600c:3550:b0:471:14f5:126f with SMTP id 5b1f17b1804b1-471179141cfmr169645745e9.33.1761143449480;
+        Wed, 22 Oct 2025 07:30:49 -0700 (PDT)
+Message-ID: <a97160d0-bf01-4fa8-8dd8-f94b916e6253@suse.com>
+Date: Wed, 22 Oct 2025 16:30:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/7] xen/pci: introduce has_vpci_bridge
+Subject: Re: [PATCH v2 5/7] xen/pci: initialize BARs
 To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
+Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <cover.1761134829.git.mykyta_poturai@epam.com>
- <1695581f037a8361ef284a5e51bcbce9891b8110.1761134829.git.mykyta_poturai@epam.com>
+ <0abec6521491db737f2fa061ddc748eb70f259b3.1761134829.git.mykyta_poturai@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,44 +126,179 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1695581f037a8361ef284a5e51bcbce9891b8110.1761134829.git.mykyta_poturai@epam.com>
+In-Reply-To: <0abec6521491db737f2fa061ddc748eb70f259b3.1761134829.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 22.10.2025 15:56, Mykyta Poturai wrote:
-> From: Stefano Stabellini <stefano.stabellini@amd.com>
-> 
-> has_vpci_bridge is a macro to check if the domain is a domU or is dom0
-> with vPCI (pci-scan=yes) enabled.
-> 
-> Use the macro in drivers/vpci.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> ---
-> v1->v2:
-> * simplify definition
-> ---
->  xen/drivers/vpci/header.c | 14 +++++++-------
->  xen/drivers/vpci/vpci.c   |  4 ++--
->  xen/include/xen/vpci.h    |  8 ++++++++
->  3 files changed, 17 insertions(+), 9 deletions(-)
-
-With this diffstat, its the subject prefix missing a 'v' (xen/vpci:)?
-
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -230,7 +230,7 @@ bool vpci_process_pending(struct vcpu *v)
+> @@ -232,6 +233,21 @@ static int pci_bus_find_domain_nr(struct dt_device_node *dev)
+>      return domain;
+>  }
 >  
->              read_unlock(&v->domain->pci_lock);
->  
-> -            if ( !is_hardware_domain(v->domain) )
-> +            if ( has_vpci_bridge(v->domain) )
->                  domain_crash(v->domain);
+> +static int add_bar_range(const struct dt_device_node *dev, uint32_t flags,
+> +                         uint64_t addr, uint64_t len, void *data)
+> +{
+> +    struct pci_host_bridge *bridge = data;
+> +
+> +    if ( !(flags & IORESOURCE_MEM) )
+> +        return 0;
+> +
+> +    if ( flags & IORESOURCE_PREFETCH )
+> +        return rangeset_add_range(bridge->bar_ranges_prefetch, addr,
+> +                                  addr + len - 1);
+> +    else
+> +        return rangeset_add_range(bridge->bar_ranges, addr, addr + len - 1);
 
-Here and perhaps everywhere else I wonder: Is this really an appropriately
-named predicate for the purpose / context?
+Here and everywhere else you use rangesets: This loses significant bits on
+Arm32. Iirc the plan was to select HAS_PCI only for Arm64, but that's entirely
+invisible here. I think there want to be perhaps multiple BUILD_BUG_ON()s, at
+the very least.
+
+> --- a/xen/arch/x86/include/asm/pci.h
+> +++ b/xen/arch/x86/include/asm/pci.h
+> @@ -76,4 +76,24 @@ int pci_sanitize_bar_memory(struct rangeset *r);
+>  
+>  void pci_setup(void);
+>  
+> +/* Unlike ARM, HW domain alyways uses vpci for x86 */
+> +static inline bool hwdom_uses_vpci(void)
+> +{
+> +    return true;
+> +}
+
+What the comment says is not true. It is true for PVH Dom0. The sole use
+of the predicate therefore is questionable, too.
+
+> +static inline uint64_t pci_get_new_bar_addr(const struct pci_dev *pdev,
+> +                                            uint64_t size, bool is_64bit,
+> +                                            bool prefetch)
+> +{
+> +    return 0;
+> +}
+> +
+> +static inline int pci_reserve_bar_range(const struct pci_dev *pdev,
+> +                                        uint64_t addr, uint64_t size,
+> +                                        bool prefetch)
+> +{
+> +    return 0;
+> +}
+
+Neither here nor elsewhere is any word said on what these do, what a
+"new BAR range" is, or what "reserving" would mean.
+
+> --- a/xen/common/rangeset.c
+> +++ b/xen/common/rangeset.c
+> @@ -357,6 +357,41 @@ int rangeset_claim_range(struct rangeset *r, unsigned long size,
+>      return 0;
+>  }
+>  
+> +int rangeset_find_aligned_range(struct rangeset *r, unsigned long size,
+> +                                unsigned long min, unsigned long *s)
+> +{
+> +    struct range *x;
+> +
+> +    /* Power of 2 check */
+> +    if ( (size & (size - 1)) != 0 )
+> +    {
+> +        *s = 0;
+> +        return -EINVAL;
+> +    }
+> +
+> +    read_lock(&r->lock);
+> +
+> +    for ( x = first_range(r); x; x = next_range(r, x) )
+> +    {
+> +        /* Assumes size is a power of 2 */
+> +        unsigned long start_aligned = (x->s + size - 1) & ~(size - 1);
+> +
+> +        if ( x->e > start_aligned &&
+> +             (x->e - start_aligned) >= size &&
+> +             start_aligned >= min )
+> +        {
+> +            read_unlock(&r->lock);
+
+With this and ...
+
+> +            *s = start_aligned;
+> +            return 0;
+> +        }
+> +    }
+> +
+> +    read_unlock(&r->lock);
+
+... this, how can the caller be sure the result they receive is not stale by
+the time they get to look at and use it?
+
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -1172,6 +1172,80 @@ int __init scan_pci_devices(void)
+>      return ret;
+>  }
+>  
+> +static void __init cf_check reserve_bar_range(struct pci_dev *pdev, uint8_t reg,
+> +                                              uint64_t addr, uint64_t size,
+> +                                              bool is_64bit, bool prefetch)
+> +{
+> +    if ( pci_check_bar(pdev, maddr_to_mfn(addr),
+> +                       maddr_to_mfn(addr + size - 1)) )
+> +        pci_reserve_bar_range(pdev, addr, size, prefetch);
+> +}
+> +
+> +static void __init cf_check get_new_bar_addr(struct pci_dev *pdev, uint8_t reg,
+> +                                             uint64_t addr, uint64_t size,
+> +                                             bool is_64bit, bool prefetch)
+> +{
+> +    if ( !pci_check_bar(pdev, maddr_to_mfn(addr),
+> +                        maddr_to_mfn(addr + size - 1)) )
+> +    {
+> +        uint16_t cmd = pci_conf_read16(pdev->sbdf, PCI_COMMAND);
+> +
+> +        addr = pci_get_new_bar_addr(pdev, size, is_64bit, prefetch);
+> +
+> +        pci_conf_write16(pdev->sbdf, PCI_COMMAND,
+> +                         cmd & ~(PCI_COMMAND_MEMORY | PCI_COMMAND_IO));
+> +
+> +        pci_conf_write32(pdev->sbdf, reg,
+> +                         (addr & GENMASK(31, 0)) |
+> +                         (is_64bit ? PCI_BASE_ADDRESS_MEM_TYPE_64 : 0));
+> +
+> +        if ( is_64bit )
+> +            pci_conf_write32(pdev->sbdf, reg + 4, addr >> 32);
+> +
+> +        pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
+> +    }
+> +}
+> +
+> +static int __init cf_check bars_iterate(struct pci_seg *pseg, void *arg)
+> +{
+> +    struct pci_dev *pdev;
+> +    unsigned int i, ret, num_bars = PCI_HEADER_NORMAL_NR_BARS;
+> +    uint64_t addr, size;
+> +    void (*cb)(struct pci_dev *, uint8_t, uint64_t, uint64_t, bool, bool) = arg;
+
+There needs to be some build-time checking that this and the two callbacks
+above actually match in type. Likely by way of using a function typedef.
+
+> --- a/xen/include/xen/rangeset.h
+> +++ b/xen/include/xen/rangeset.h
+> @@ -56,11 +56,15 @@ void rangeset_limit(
+>  bool __must_check rangeset_is_empty(
+>      const struct rangeset *r);
+>  
+> -/* Add/claim/remove/query/purge a numeric range. */
+> +/* Add/claim/find/remove/query/purge a numeric range. */
+>  int __must_check rangeset_add_range(
+>      struct rangeset *r, unsigned long s, unsigned long e);
+>  int __must_check rangeset_claim_range(struct rangeset *r, unsigned long size,
+>                                        unsigned long *s);
+> +int __must_check rangeset_find_aligned_range(struct rangeset *r,
+> +                                             unsigned long size,
+> +                                             unsigned long min,
+> +                                             unsigned long *s);
+
+From these parameter names I'm unable to tell what the "aligned" part of
+the name is referring to. IOW it may be necessary to have an accompanying
+comment.
 
 Jan
 
