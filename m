@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B4EFC0212B
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 17:21:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1149306.1480979 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED5D2C02155
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 17:22:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1149316.1480989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBx7O-0005u7-OJ; Thu, 23 Oct 2025 15:20:46 +0000
+	id 1vBx9H-0006SV-32; Thu, 23 Oct 2025 15:22:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1149306.1480979; Thu, 23 Oct 2025 15:20:46 +0000
+Received: by outflank-mailman (output) from mailman id 1149316.1480989; Thu, 23 Oct 2025 15:22:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBx7O-0005sZ-LP; Thu, 23 Oct 2025 15:20:46 +0000
-Received: by outflank-mailman (input) for mailman id 1149306;
- Thu, 23 Oct 2025 15:20:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vBx9H-0006Q2-05; Thu, 23 Oct 2025 15:22:43 +0000
+Received: by outflank-mailman (input) for mailman id 1149316;
+ Thu, 23 Oct 2025 15:22:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5hDG=5A=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vBx7M-0005sQ-Ls
- for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 15:20:44 +0000
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c201::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d6fe73bf-b023-11f0-980a-7dc792cee155;
- Thu, 23 Oct 2025 17:20:42 +0200 (CEST)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by GV2PR03MB9521.eurprd03.prod.outlook.com (2603:10a6:150:d3::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.12; Thu, 23 Oct
- 2025 15:20:37 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9253.011; Thu, 23 Oct 2025
- 15:20:37 +0000
+ <SRS0=Pfyu=5A=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vBx9F-0006Pw-Va
+ for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 15:22:41 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1d633110-b024-11f0-9d15-b5c5bf9af7f9;
+ Thu, 23 Oct 2025 17:22:40 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-b5a8184144dso157933866b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 08:22:40 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b6d5130d570sm236629866b.10.2025.10.23.08.22.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 23 Oct 2025 08:22:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,172 +45,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6fe73bf-b023-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IWPxEH+MaBdKd1ofg5aFcCZ45DXnuYtafTPCrmrdGcyR55cJ8cIRSxxoSCuR1FCzUzZRurdoq8hUQBJ7zbHZDyA7GdSE4l1WV009fTV9ccz/Cn5hj99gcg1V0L3BRoFm4A16p6dI9e15bkpxMyR9UBs8e73FAmhQgUoXd3TusYHzG4JpU3vh9+o/eC1ZJBjx1r2MxxUvJm7fq07kuNOPg8q0ndxl8nfswniJ6KUkwcP0ViIzg0jWNANayIF85L0ri3QaF5WigMA8mO/AznXMV/XCbdnHPulc8mAO/S9HGBCBCRdICMkiY8IzDExZjyUBXAWv8K6CCYFOI43tJoMEsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=642h5+FniBCLD4l5vas8nhJnb+JNQoIG1lDR7i0oVtA=;
- b=piUOCqWkSNIcY7B95S55Mh4x35KokgIHKPBw11sA24lWjkP3ZcV4WgpzHDwlq5eAgHUMIpXbnjmWDcr2QQTC85FoA0ijmwqqa89+0n3H+j/NO9uBSS7ffhpYHzmdIfqsFetCf2IVcQafGn9cr49CwXTRA9jxWVwyqzwxTYkIA+PIzPAuqrYozoB8Bv8KYxKuQ2rfnsBBO0+Sa8PlPvMTfxBL9kgYeZHJnH70dGWNK3abkeGwfNWOFpWN0hDPe9fWqgwmgkS4Sbg4wjw+8culOeEkdP88NVlviX4DETPr7tb9P0GzObLzzCBrloZL4B2CddkchCEgySo3MbXr8WLbXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=642h5+FniBCLD4l5vas8nhJnb+JNQoIG1lDR7i0oVtA=;
- b=rrKRF3106G2HD1/oB/PZQIALt9Bh7FrdpSmgu6qIjSfDAgA9qN2HyI9K90bFMBNg1N9Az4TN1F/hZ7Zyr4dZ4sK88dUVB4hbfr00y/X5X5FJFZ8Gm7/xjuaY9nurt9gLWEhuOgZQahikI9cV2mVT08+AV+hVZFbgiv08LcM5HvoFAZb+FVa7EZVhheSJeGOJbm0Rx+Ap+KddSujeoYKW5e3ckKAgAjK9uKZwvGFes7PNNsXVAvZQQMwKMVURXEJ5Am/WCjOOHwgZynrbWnWxUJi8Y1yWPog0dhvALBMDeYOhdcngKsnfUZMrO//DNvKlpqXdrEqjnyUHjdYiB4wUpA==
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Grygorii Strashko <grygorii_strashko@epam.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>
-Subject: [XEN][PATCH] x86/hvm: vlapic: move vlapic_set_ppr/apicv_write() under
- CONFIG_INTEL_VMX
-Thread-Topic: [XEN][PATCH] x86/hvm: vlapic: move vlapic_set_ppr/apicv_write()
- under CONFIG_INTEL_VMX
-Thread-Index: AQHcRDCVvYQlUVcQfkOsfzQeJfAtOA==
-Date: Thu, 23 Oct 2025 15:20:37 +0000
-Message-ID: <20251023152036.561109-1-grygorii_strashko@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS2PR03MB8907:EE_|GV2PR03MB9521:EE_
-x-ms-office365-filtering-correlation-id: 4aaedbbf-c4b5-4d46-7613-08de1247b80f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700021;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?/TLic6CimKtB/2Z9wZcRzoUS+qXqDUgs2ZPqZC8K+36arjzX6yVW0jN2Hi?=
- =?iso-8859-1?Q?m2lWumMJVrL82NdSbWT49QG0m6xk35jUpNdAyvlZpYZeRkw8U/cG7tBtCB?=
- =?iso-8859-1?Q?KLROQ1bJUVyBTWMQclY/TWBWCAHAgTm03WBWrZUe4Y0ww40GMQzyCDMN3C?=
- =?iso-8859-1?Q?bLTRp5Qt3iqPR2q2mIbC/gqLJs6fD/9DfPBbj3vKp9aXYXtA73IXI+9nrO?=
- =?iso-8859-1?Q?zWvUWV404UfGTnaq0S46stiFIm9ZdB0v+QR2GDGiSXs7Kc+ev7BEGS4v/T?=
- =?iso-8859-1?Q?XsOD5bFlETyAWkHLWjFvggcuj7oME5ALJS7JEEuUaYy4uElx5k9B4LqlTV?=
- =?iso-8859-1?Q?iLAjG6UaA6iI2006aGuYUkmeIfoYHmVGdoEVlaQj6usE65yckOYJv6Hqte?=
- =?iso-8859-1?Q?ZaybhGKSxWKFOA2Z3TjHiNDtgZJZO2Sdc1nts2x71Gkihu85hYGlFViAFZ?=
- =?iso-8859-1?Q?k85xMDuHU/JO1QrhpFbW4QK6rssqfwuVk3A9V66Lf06CtiCl7ULUV4UTOO?=
- =?iso-8859-1?Q?+rijefI6v5wPFKw92//bR1HZcbvaRxXBCQ9U4ECVUjmG8GQgMoo4XjZ74D?=
- =?iso-8859-1?Q?gijk2oSNPA5tO8gCYlrREJHO+P0Z7TFOi31JDoaVTxL495pLumtHsbwbmk?=
- =?iso-8859-1?Q?ANwyDkzUW++DPxm+GdKNun1GmegJF3pp+EHyzs+78wuEPe28qpyQhCiEb8?=
- =?iso-8859-1?Q?yIVBd1yurFFDZxJYdszMU+0vxQ3mCMuKYPqjG2wLybIa2kU3VGUQSAMiyb?=
- =?iso-8859-1?Q?Vmjx2vKwF7DRfzL2lDNHU3b7ai7l91q58e4JQ0YobpUPwf2cFuQZ7ngHdm?=
- =?iso-8859-1?Q?EpHVUPXVmqgGNiducASQTQO8BkbBhh4ANLeuu3JIDMhQjq0rMnlhk65pIr?=
- =?iso-8859-1?Q?WDxf54AbyJXV198qPFXABXlcwaEduh5pxcK3COf0nzCI3rsl/FUs9h76Lv?=
- =?iso-8859-1?Q?Q4F16eBf1XjH2istRk5OfF1mFMVV0Y8LXVPlj5APxNy0QCI9r08E14ztB8?=
- =?iso-8859-1?Q?glChNh/nFeQXZBu5iV77Qijsve0ZzeL6NbGBMCDc+Hd07gAwGZWZYdECXZ?=
- =?iso-8859-1?Q?tR546+Eq86TU66Ai5VUwG7xexgC912ysQFvFvWT7orHdmFhJSJrrWfZNsJ?=
- =?iso-8859-1?Q?eEu15W+OrrbfXoEmqCSGK4Qb10roxCu4x9NcMHjHpRg2aXTNT3XcHUd+8c?=
- =?iso-8859-1?Q?lGGRHpaPlGCiNB/WSVAbMnrOlu0i5hprhmSP1rCKcaymI9z/CT7yTLyY1T?=
- =?iso-8859-1?Q?O136pSFPwBTja201HLYFztHUIGRMqBHwAM6ljBkM+jQzCk12Vwn/WlnsQC?=
- =?iso-8859-1?Q?2O4PFpaA14DiPEkySQk/P4TP3gQE40sTRG4VGkMwo7MbPTB6sX55vX7seM?=
- =?iso-8859-1?Q?+iDzaMWXEI1UVBMZbrv27fGwiwnlm8zGHBCDC0UiSu9iTGYzbMjirQ8FrY?=
- =?iso-8859-1?Q?4gtX7AY5uKPC2qaQU+b/kzDZceOy6a8WW7ZTfE9bi8e16zXx5BtZxutsHQ?=
- =?iso-8859-1?Q?cdiTluyzHLyY5RKmSx++odXhhsyz6IEGCYTK/L3eE38Y8s/ziLlV4bFUDr?=
- =?iso-8859-1?Q?lRX/Q6rxQ+yv5ZWMWvCvATxDQ8wC?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?iIcn+ZPHjX2xci34cq1JjOJp3VGl/5lMlrq3F4GXue+iV0GxEPHEa6n9Fv?=
- =?iso-8859-1?Q?TPUk1U+bdrMc8oPmIMK7eYhquApE0Cd76Y/AIH4FZSk31Z0pS2/JfV5VL5?=
- =?iso-8859-1?Q?xfz3U4L3G1r1oP9JDxiVVx6xaB044gh506KNju9zmncUb0Uj0K2qrsge4v?=
- =?iso-8859-1?Q?mk9gkp7GWbI88JGgUqGdsMRKAyWRwrVabZqjunbfv4e8lUHik4qXp1Sq9J?=
- =?iso-8859-1?Q?89fKB1/NMbw5RkwaS+n5r/WuUZuR37Lwm+9tp9/GqaF4PBPKnJAhiCSn8J?=
- =?iso-8859-1?Q?tglE+pqxP3ZYSjlv2IyleAAQG9OqTavlQcVkyorzuT/zkljydywOnhyCTH?=
- =?iso-8859-1?Q?5Ut+yc/Q35omEaBrIE5msptciu+ZR7K+D0ZnEKqyFvdzmSAqHED4ziCW1E?=
- =?iso-8859-1?Q?Qgqm3WDdl6DbdKBF5jJfZVnvC+Mphu9f0JziwEBoeO2zvUFRmkxnAB36UK?=
- =?iso-8859-1?Q?IksPTajeBw1C7ls+cF7yjaL4rddSdGXGfkzG+2Bjuqlj1Mpkv0nCVOPHAq?=
- =?iso-8859-1?Q?9bWeXjl54S1t2Q6nQjo73580Mr/9XdMSnD8AcRtDbkQOItUdpgTJpYEm5A?=
- =?iso-8859-1?Q?PU57Vh6i3JpsgK/R+o1fahGgquGzpyN2bNFUSRsRUqwiPtIhqeXAU6KR5V?=
- =?iso-8859-1?Q?qIHKYFEU4jflWtyNZvn48s/JOZ+rXaEVa9YC1ayvoXXxqlx7ntTdEEeYQP?=
- =?iso-8859-1?Q?QNTKGybqaKdiO5eH8H/lxooCRDniTW6i7QVvzi1WVSuezOccel7g++phOP?=
- =?iso-8859-1?Q?08N3LRr0cD05l4jISUn5HLDFFxaFu4Kts1UxhmqUiG9DYCh63F6mIe26rV?=
- =?iso-8859-1?Q?wGvGORcRFj0HY0MW6eZ4bo32zA6SUjwoG5qKYjB+QGb0WvzrtKDpL7BZUl?=
- =?iso-8859-1?Q?hq0YNRzlILIgdQZ51CoxdVcuEW9myPwACBC55bhY71FNOgNPyc9QWLSX0H?=
- =?iso-8859-1?Q?acZxWiugZkEhno1uYn2LLBwWuxyJCuvGF/80qlGyZQdBbe3cjn9Y/sKpoL?=
- =?iso-8859-1?Q?APGOGKoey4yAIqHI81TXdyR41r24cbFMhI+k7bcvRLztDPtZrYyo8J+Dkj?=
- =?iso-8859-1?Q?3ZevmXcZSPmke16rJggG5AicVCa4TDrc3z1q0e1wJvXVEnGxurf4c4jgyU?=
- =?iso-8859-1?Q?kYOTUf25KuWJTMbmUl0iHWw/iq8Fj7GveDuymNywsGd4kYmiNeN+Fc6Ll+?=
- =?iso-8859-1?Q?tbgmyipy3gTNESu4QFZhT/enLU6hEZSZE+lVnnZ/NnMLHZRErLFVpy4X22?=
- =?iso-8859-1?Q?1cuHOcGJOl8Qa1rjTkwKcQgphdXcZ0EADIL3ncntMsd1KOt92tSmm411B4?=
- =?iso-8859-1?Q?l/iRIqeNiR9hgsAk0goXI8SKFJ0NOAZFp6dJ3xVdFD3UfgbU4C6ARAzHOb?=
- =?iso-8859-1?Q?S9dJfsf/1zg8J29nm5yL2vmbuT5eu9hq6hKcb0dC/iht4ZRbkPXNTJpcA7?=
- =?iso-8859-1?Q?sWbeB1k43qeMVvRpXAWkxKx+P2wBUUPxQ8qx6lpPZnL9U19OXCa6y8zf6M?=
- =?iso-8859-1?Q?Ly9qZ6BUNq5N+JumQFd7ULyM9GGDzXu15Xz8qY2SR451LLmVTsA25dYVhn?=
- =?iso-8859-1?Q?JWuEhoFXIByBookCiYQs5zUjhGpIOe4334JuemcdVITKUS7Lvipy/PD5x9?=
- =?iso-8859-1?Q?Vkh1qSa2RW501mPiR4QV+nl627v5OnG1+EZ+gs7PPUIR0WL/sj925HuQ?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 1d633110-b024-11f0-9d15-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1761232960; x=1761837760; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uOqBEfEaONqTDbPzcyNxVdaTcrM3D1QJ3UqLDzuPDoY=;
+        b=MuKBBz/R8VWGpinhdMX8/x0OLT61ba8aV+XVyjWWRmxqGDcNMBEX2US9sbmJDG2avp
+         KrO8/QNyJei6lE6WYvFSc9jMPJj2dTOsjdJ32WA/1vVnyQd4HlBNSUcptLxE2cj1qAtS
+         3h0PD8/IuA+TGaBEF1Up+JED+vywmAauoMcpTw8fv96JtBzcQj3a/woKNydehwn1dMae
+         BnVcN2umncQRzLL0FZJGe4WXInBZ98fE91x/ZSFmLd9XB4JN489mofFl3TBjWmtSzalD
+         6keUFz1TVn00RNYD0/ZGlGMm8vP3gP7aI+qRcEeEhflbdTiYgzDAmyw2o9ivuqCrqcgw
+         7KPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1761232960; x=1761837760;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=uOqBEfEaONqTDbPzcyNxVdaTcrM3D1QJ3UqLDzuPDoY=;
+        b=KKa8RMlu2walMJFipR9pctsW7iY0lC8oPZnQWagvLdEOschaIPG1KWqoDOXJ7kM+TM
+         6d+eNQXVB6SaS75QTRupB+9E9I6rESWJqL464dH6fHx13vsnw4ZLCJLHOi4eetDFqpDn
+         ofHcrIIGAwjEVqVFWsxaNdlWGV/5PdUnVYvh/5BAi/xk3JJ23cFdGWtu4ytCO03oL7Mh
+         qHwQf6FCi9fU+sNERAwhjnMhQEtz9/eakLzHoPupN9OK4K23PVYtfOBFaqfWAxHIjtaf
+         XEw4kMm4I1M2RXVGdAjANxAfChqKqiVBc1u7UlsxbD6sVw48nCXx0+61LEhQGv1j1ur3
+         frDQ==
+X-Gm-Message-State: AOJu0Yxa9rcJh0er35aswHJSlDolbjBmpNlLOiYP+oLlvGtyf2g7seGn
+	2DE48hKZdl0hYKeoL6TuwhR22gjQ38WHk0iEF9jo73Q9XfD50L0NMC5v
+X-Gm-Gg: ASbGncv1ZD1wtEd675fslo82r9Oy06S1Xrw73jUJgETF5bBx8NvJIV4DEjWNE8/S7+c
+	7xyuajDmProcI0aT5d7T9NWVUa6lwqb+7762w/P/Yc1U4Bvk88jTFqCCoSus0Bt208Wek2N10ur
+	4x0mDqV+bjvSYmn5rxJXMuRcVLB7zhJxVL4+wTNgxt2Q4L4mIjwNtSPU3fTUkMRS7jt8wjDV/zP
+	816fkV6sguwK+eQhzyAjJqkczTZJk7M9X3ZC1WghoJznrwUV2ng8uhKw9Mn9znxhPxlOGQ8rfNS
+	/UQFos1CIHemqA7WIPVrcBJ9fXbT36ofibQ06vUbQx2s+MQU2KsgwbginFORe2oK4yHzVPKvu1R
+	+f/eJjKEPYHtcGMCYg82YbhOFdhsnPLBzVZHyXwZIeN9WQG1Ys4il7NWDal/KXq2ljzrhYkgAa5
+	svinN8TI3Bx0alVHORSL+v4JtD1hT5K0HJHqi6LVq7yXSyDQvewiTCDg==
+X-Google-Smtp-Source: AGHT+IHZNyWQ2v1/GJ5HLMe/HCSqR1+NZQ4hVy0/CACkQQWUTZRyBBl9FNlCx1mv+BozVZTgSZ9EHQ==
+X-Received: by 2002:a17:907:2d09:b0:b40:6e13:1a7f with SMTP id a640c23a62f3a-b6474b3140amr3165501566b.27.1761232959900;
+        Thu, 23 Oct 2025 08:22:39 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------Rl00sHTIiDyRHivOf9VZa0Zi"
+Message-ID: <d9924b94-36d0-4d7e-9a9b-bd4ea38f538d@gmail.com>
+Date: Thu, 23 Oct 2025 17:22:38 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4aaedbbf-c4b5-4d46-7613-08de1247b80f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2025 15:20:37.3112
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GAES3hbRSCJ2U3wDeYTUEMRUHPtaYwby1RIm9KHPMeJ+8Qtbyr2L8MS80yR5QtTggmaWyC0/BrYR6hyYCQq2sUTev52WN5g+wgLixrsNjmw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR03MB9521
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH for-4.21] tools: require at least json-c 0.15
+To: Anthony PERARD <anthony@xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@vates.tech>
+References: <20251023085730.36628-1-anthony@xenproject.org>
+ <bd6c0e3f-f2bc-4399-adf6-d2dc18b06982@citrix.com> <aPpD_G_oULdfeWbf@l14>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <aPpD_G_oULdfeWbf@l14>
 
-From: Grygorii Strashko <grygorii_strashko@epam.com>
+This is a multi-part message in MIME format.
+--------------Rl00sHTIiDyRHivOf9VZa0Zi
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Functions:
- - vlapic_apicv_write()
- - vlapic_set_ppr()
-are used by Intel VMX code only, so move them under CONFIG_INTEL_VMX ifdef.
 
-Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
----
- xen/arch/x86/hvm/vlapic.c | 4 ++++
- 1 file changed, 4 insertions(+)
+On 10/23/25 5:04 PM, Anthony PERARD wrote:
+> On Thu, Oct 23, 2025 at 03:45:55PM +0100, Andrew Cooper wrote:
+>> On 23/10/2025 9:57 am, Anthony PERARD wrote:
+>>> From: Anthony PERARD<anthony.perard@vates.tech>
+>>>
+>>> If not available, fallback to using YAJL.
+>>>
+>>> The code is using json_c_visit() which was introduced in 0.13.
+>>> json_object_new_null() and json_object_new_uint64() where added to
+>>> 0.14. And the last one json_object_new_array_ext() was introduced in
+>>> 0.15.
+>>>
+>>> Signed-off-by: Anthony PERARD<anthony.perard@vates.tech>
+>> Acked-by: Andrew Cooper<andrew.cooper3@citrix.com>
+>>
+>> However, you should adjust README and possibly Changelog.md to give this
+>> new minimum version.
+>
+> Will this do?
+>
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index 0cf9ad2d95..fc4f6d7c8a 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -14,8 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>    - Debian Trixie added to CI.  Debian Bullseye retired from CI for RISC-V due
+>      to the baseline change.
+>    - Linux based device model stubdomains are now fully supported.
+> - - New dependency on library json-c, the toolstack will prefer it to `YAJL`
+> -   when available.
+> + - New dependency on library json-c 0.15 or later, the toolstack will prefer it
+> +   to `YAJL` when available.
+>
+>    - On x86:
+>      - Restrict the cache flushing done as a result of guest physical memory map
+> diff --git a/README b/README
+> index eaee78bd73..53a4d5c2ae 100644
+> --- a/README
+> +++ b/README
+> @@ -53,7 +53,8 @@ provided by your OS distributor:
+>       * Development install of Python 2.7 or later (e.g., python-dev)
+>       * Development install of curses (e.g., libncurses-dev)
+>       * Development install of uuid (e.g. uuid-dev)
+> -    * Development install of json-c (e.g. libjson-c-dev) or yajl (e.g. libyajl-dev)
+> +    * Development install of json-c 0.15 or later (e.g. libjson-c-dev)
+> +      or yajl (e.g. libyajl-dev)
+>       * Development install of libaio (e.g. libaio-dev) version 0.3.107 or
+>         greater.
+>       * Development install of GLib v2.0 (e.g. libglib2.0-dev)
+>
+> Cheers,
 
-diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index 98a54efc7bdc..4121285daef8 100644
---- a/xen/arch/x86/hvm/vlapic.c
-+++ b/xen/arch/x86/hvm/vlapic.c
-@@ -215,6 +215,7 @@ static uint32_t vlapic_get_ppr(const struct vlapic *vla=
-pic)
-     return ppr;
- }
-=20
-+#ifdef CONFIG_INTEL_VMX
- uint32_t vlapic_set_ppr(struct vlapic *vlapic)
- {
-    uint32_t ppr =3D vlapic_get_ppr(vlapic);
-@@ -222,6 +223,7 @@ uint32_t vlapic_set_ppr(struct vlapic *vlapic)
-    vlapic_set_reg(vlapic, APIC_PROCPRI, ppr);
-    return ppr;
- }
-+#endif
-=20
- static bool vlapic_match_logical_addr(const struct vlapic *vlapic, uint32_=
-t mda)
- {
-@@ -984,6 +986,7 @@ static int cf_check vlapic_mmio_write(
-     return X86EMUL_OKAY;
- }
-=20
-+#ifdef CONFIG_INTEL_VMX
- int vlapic_apicv_write(struct vcpu *v, unsigned int offset)
- {
-     struct vlapic *vlapic =3D vcpu_vlapic(v);
-@@ -1002,6 +1005,7 @@ int vlapic_apicv_write(struct vcpu *v, unsigned int o=
-ffset)
-=20
-     return X86EMUL_OKAY;
- }
-+#endif
-=20
- int guest_wrmsr_x2apic(struct vcpu *v, uint32_t msr, uint64_t val)
- {
---=20
-2.34.1
+LGTM. Free to add my:
+
+  Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+
+~ Oleksii
+
+>
+--------------Rl00sHTIiDyRHivOf9VZa0Zi
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 10/23/25 5:04 PM, Anthony PERARD
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:aPpD_G_oULdfeWbf@l14">
+      <pre wrap="" class="moz-quote-pre">On Thu, Oct 23, 2025 at 03:45:55PM +0100, Andrew Cooper wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 23/10/2025 9:57 am, Anthony PERARD wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">From: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
+
+If not available, fallback to using YAJL.
+
+The code is using json_c_visit() which was introduced in 0.13.
+json_object_new_null() and json_object_new_uint64() where added to
+0.14. And the last one json_object_new_array_ext() was introduced in
+0.15.
+
+Signed-off-by: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Acked-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
+
+However, you should adjust README and possibly Changelog.md to give this
+new minimum version.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+
+Will this do?
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 0cf9ad2d95..fc4f6d7c8a 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -14,8 +14,8 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
+  - Debian Trixie added to CI.  Debian Bullseye retired from CI for RISC-V due
+    to the baseline change.
+  - Linux based device model stubdomains are now fully supported.
+- - New dependency on library json-c, the toolstack will prefer it to `YAJL`
+-   when available.
++ - New dependency on library json-c 0.15 or later, the toolstack will prefer it
++   to `YAJL` when available.
+
+  - On x86:
+    - Restrict the cache flushing done as a result of guest physical memory map
+diff --git a/README b/README
+index eaee78bd73..53a4d5c2ae 100644
+--- a/README
++++ b/README
+@@ -53,7 +53,8 @@ provided by your OS distributor:
+     * Development install of Python 2.7 or later (e.g., python-dev)
+     * Development install of curses (e.g., libncurses-dev)
+     * Development install of uuid (e.g. uuid-dev)
+-    * Development install of json-c (e.g. libjson-c-dev) or yajl (e.g. libyajl-dev)
++    * Development install of json-c 0.15 or later (e.g. libjson-c-dev)
++      or yajl (e.g. libyajl-dev)
+     * Development install of libaio (e.g. libaio-dev) version 0.3.107 or
+       greater.
+     * Development install of GLib v2.0 (e.g. libglib2.0-dev)
+
+Cheers,</pre>
+    </blockquote>
+    <pre>LGTM. Free to add my:
+
+ Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+~ Oleksii</pre>
+    <blockquote type="cite" cite="mid:aPpD_G_oULdfeWbf@l14">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------Rl00sHTIiDyRHivOf9VZa0Zi--
 
