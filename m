@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A5E0C01D84
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 16:41:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1149174.1480878 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81EDFC01DD5
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 16:44:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1149202.1480898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBwVK-0004Qr-Jb; Thu, 23 Oct 2025 14:41:26 +0000
+	id 1vBwYP-0005Kr-Gk; Thu, 23 Oct 2025 14:44:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1149174.1480878; Thu, 23 Oct 2025 14:41:26 +0000
+Received: by outflank-mailman (output) from mailman id 1149202.1480898; Thu, 23 Oct 2025 14:44:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBwVK-0004OM-Gv; Thu, 23 Oct 2025 14:41:26 +0000
-Received: by outflank-mailman (input) for mailman id 1149174;
- Thu, 23 Oct 2025 14:41:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=U0PU=5A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vBwVI-0004OG-M2
- for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 14:41:24 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 58b4d566-b01e-11f0-9d15-b5c5bf9af7f9;
- Thu, 23 Oct 2025 16:41:23 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-471b80b994bso12778065e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 07:41:23 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429897f57b7sm4316628f8f.16.2025.10.23.07.41.21
+	id 1vBwYP-0005Hd-DD; Thu, 23 Oct 2025 14:44:37 +0000
+Received: by outflank-mailman (input) for mailman id 1149202;
+ Thu, 23 Oct 2025 14:44:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Pfyu=5A=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vBwYO-0004uF-G1
+ for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 14:44:36 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c8edbdc6-b01e-11f0-980a-7dc792cee155;
+ Thu, 23 Oct 2025 16:44:31 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-b6d5e04e0d3so71562966b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 07:44:31 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b6d5130d570sm229073166b.10.2025.10.23.07.44.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Oct 2025 07:41:22 -0700 (PDT)
+ Thu, 23 Oct 2025 07:44:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,213 +45,255 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58b4d566-b01e-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: c8edbdc6-b01e-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761230483; x=1761835283; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8fgE/KC4SJltnCyi7haaayIMb3G7u7CuGUQ2LqtW354=;
-        b=N6lslltTVDsbEc9eydW29kmjsqehz1nzUnx6EHrPN5E2qQko1hn4tlOqBDcvsVE27O
-         5wFYGOtzGBCQ8J2u9rkwseHHwOItcpNZwP3qJo3DKWCz9ITfVJ3LG6zB99qqtq/y12rE
-         k1aSWfPF1ZQEQ6hd8IoOau22WDPBXfNJtFXnAYHJckpccNwLhCxYO39dezu1UnkicJkp
-         iFjbri7w4tTFGZ0HfvyWG6ceyE06IURPykJZC0fmbe429/JK9OViWraWsbO5uo0frYqv
-         TQ18y3h2VQrdE7hVob86s5z+dSWPdYR1XpH69zONA/oDZRfJyq6RAe8H0WtqIfx0O4bn
-         bsYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761230483; x=1761835283;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1761230671; x=1761835471; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8fgE/KC4SJltnCyi7haaayIMb3G7u7CuGUQ2LqtW354=;
-        b=sKxLk/xsFdhV9qw7MgoMKHMmSFd3YGS94Lohtb6Py9CgPjuyN3KljFcuBhSIhYfIrR
-         8DLj5iBrm1pfA/OimK/3pGX5IZ9dAEHA72AttYUHmn2lP40OKMPptI9TFdX9svfmEnTp
-         HbluIL8I7XEDgl1J93G5PZQFx/rQcOqjGYiBpcaUaLMVAy/CO1Mg9KFRhD7fLy8EddBU
-         rhR3YxBhF4MqJ/2BHETf5t9/N0BIi7W6V+R1rAqPeRQTxwipu/X6X6jMfPPZdqU6+E9e
-         MlZQIPBOtw51pyioLCV+ahzJBxkO2b+GITvz14c2sf8xMhvji8kD8WrgCcRPLj96FGV3
-         mjXA==
-X-Forwarded-Encrypted: i=1; AJvYcCWU608vizE098Vv0OFJueqxgBralzSy212J4r2G0A2ukQ+3dvOGVkcaTnr60vk7d8V+6Na961t8ASQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzD0t0W3p8zNeHtg4K+grmP6GERQQ1OXDLWUx4Eo0rESjjVWqst
-	GImMSSS13Be1IqR9nucXXUnvODxLWmzsi0V7PSZLmly/5WaPr6uOz7mpWxHKmq1xqA==
-X-Gm-Gg: ASbGncstfEFKkXUdCFRSwLgoU2ADxJY2vEZsUhwqc1IDvhxiXojw6SAJU4fqs7DESv2
-	kWL7WeD7HZ+4YLgc2z8sZXRhD9L4yUy1DkBXcw+x+PBnYQYy9JCLsAt4hb36F/qz7yItdqMuKkf
-	uZlwAaeWIRW7E+BetdwPnPEXXAuvxol5bNWvpKSyEpYh/Edvk9haZFI9PJiZ6z792KRM6b9VSg8
-	dZucS9WPV0y+Nvow0WEk5I5EaFwG/8Q/j1NbnodLDOP3F9JoUrKmJTfqrZ6B4TQvtQH1oG8HM18
-	rU+4BJh9sGuIg7xfPVsNMujBddQ/6ivagEPdRhQEtBId98nFSDc9np7uMv8Vnh/r7AqdzS8yAkE
-	7HHO/OSIxLD6dTIiCjz3HQpmc4QuiiZSsqxfJeQOb30t8ZRWPEridw8vdvGD4sgQdOPo4Tx4elF
-	CpKZVNDRQWP/+jLy30qXfRWbAD2m1OqYCevHVoSrnoifcRzXtKyFSyfmd/szooDEnKP25Hn9k=
-X-Google-Smtp-Source: AGHT+IExrqAjVHKujobi7mzXkEG7pQsvxwQR8KPboOwbDCqf1/uyAT9F2Aen+KP8O92hY6mPhh+SVg==
-X-Received: by 2002:a05:600c:4e86:b0:471:13fc:4ad3 with SMTP id 5b1f17b1804b1-4711787847bmr218143765e9.2.1761230482765;
-        Thu, 23 Oct 2025 07:41:22 -0700 (PDT)
-Message-ID: <5a6d1670-ce9e-4264-bbea-786df5cc5679@suse.com>
-Date: Thu, 23 Oct 2025 16:41:20 +0200
+        bh=OCl2HCRDV2i40PMplfn/hcDJ1SVM/uCEWPUsGMEipu8=;
+        b=Nr5LFobVD7uWl1xuulxDfZGhPD2zdEySg9GktiuSI4aJRjX3D0ONriWWHxKKtqTcWg
+         zhg/NUbA+uL3r3WyLWv1MJSTIrwsxHt35mNEUKXFRNlYuXrhmceBIWJiT16vmMMc6ezF
+         LwZ5CiB0sOdP9Rd95foHG28sC1B+hZP40hh3M4M/YfzA57539leFp2VNkJTMZyDxDO8G
+         PZ6N1BB3LC9tbXrZzSzuOJsT3R7znMEHeZdXlIdAC4vLzsodRNLY8WyO1ufufqznEfNk
+         cImmeO1pTRTys+LfAAfexTXB9UVywJ565acyGI3zAgGOmQ3Ol0PFnJTF2fSgbtrSiRAF
+         Kcww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1761230671; x=1761835471;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=OCl2HCRDV2i40PMplfn/hcDJ1SVM/uCEWPUsGMEipu8=;
+        b=kMnaWRVnLjSi+RwKM4pmHqYl6fbyy3xU3Z5SWz1RB8r33KttYlzXWEuwOe29HLxM92
+         ltjuZABBhGK8iwQTN3aexwMLDylUejfaX7nmwvhl1h8EE/nIwxGvlrc3Riwp9sblaJrh
+         JAoaoGkW6yFoNOW67bkPtyqWnlhNiOX0yW5voEzrbnmcd7DvPz6kVULlE2m2V2c11BMv
+         6pNsQbkIgOlOjGxifV4ggbFmdPtt0Ke8wUCmCTliCznB3efEvRFCgrR2OZx/PxGuwNDK
+         QxVV69+IsFLuls3C98eK4j2fv7aLpQovNe7C1rfKhqGroP4TaX30r6c7GoqKhMb21qDq
+         UAKw==
+X-Forwarded-Encrypted: i=1; AJvYcCVKz9ST4SKZoakwAGnCRmuhKmUXT8K2GvReiqjAZ60LE804CGJXMbXkWYP0VwlIhoF/99NOz81a0AE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzKo9tWTH1EVMkdglxobuIJisA5FV59ttA2utQBaj00vXcfMCzC
+	lUrNbM62t1mYVgeuA0cF2eLVp4WOj5sCBowTk/GJ/X13Uu3e+FRsjn1M
+X-Gm-Gg: ASbGncs5PObGn8KiW/9bcxb2spxDMjS1HrzF/DhnbPkgPj/E3D1A38j9/+3puOvBW62
+	DvXDbXRfpmPkqmBK1xIbPeN9Eo4DxpHt703PU7gmJ2A5+DvjrdIYNcXqpBU059grw8kV6B71AjI
+	hSML6lHq1dEqXumMUzAozDpRj6vYb6OOtKhN9HbsEGccJCntElOMFOeB5qmX7D56Fm5ho0K5caD
+	vpdGxu7Yxf0gbBcQHGbN7O0naPEpDWa+1tGy04z5RBGsINOupqmhTNq6RtTRRT6L4+m9Ks2bJhz
+	swQUNZ4nLUXiMG06DXonbAImXfCF9MAzjjtaHlM18s2vBJFmcpn5mjZjd8g8RXIWZxddu6C7Gbq
+	pTORNtdjd7OxbZYseLpqtbIq6QDIpbvDVz03jBd8IBtHqmH9jWT+Y1Ohrzeo/q0kGcXErFuUh2J
+	2wjkIK2lL4RuzP48VruAvXn/BsNj8OOcKyEOCumkowsXnwW4BKtQT4sX3+9ZUenmli
+X-Google-Smtp-Source: AGHT+IG3pHNIgJZev+8M+acscAebcHTNnZF0PAjtWoBycjKAnbmFmuZMxA9UcHZnRjfipDeYd2XS1Q==
+X-Received: by 2002:a17:906:81d9:b0:b6d:5b0c:289e with SMTP id a640c23a62f3a-b6d5b0c447fmr121756466b.0.1761230670848;
+        Thu, 23 Oct 2025 07:44:30 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------LQ5b6DOoQFRRaT8qcmI4FUv5"
+Message-ID: <1a1fd748-05d4-4400-bf42-41a848cfc317@gmail.com>
+Date: Thu, 23 Oct 2025 16:44:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] misra: consider conversion from UL or (void*) to
- function pointer as safe
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <0e72c83102668dfa6f14c4e8f9839b4a73d30b3d.1760458094.git.dmytro_prokopchuk1@epam.com>
- <ceedeefa-c506-41ca-9dfc-76937979caa9@suse.com>
- <321363444f9a3d3471bf1b3b2e020047@bugseng.com>
- <0767a5c4-6a2c-4ed0-92d3-f9f89313ad85@epam.com>
- <64411f5b-a826-48b6-9122-bf80ac377c7a@suse.com>
- <9a09cbab-851c-46f1-8026-603a7cb9d79b@epam.com>
+Subject: Re: [XEN PATCH for-4.21] tools: require at least json-c 0.15
+To: Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@vates.tech>
+References: <20251023085730.36628-1-anthony@xenproject.org>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9a09cbab-851c-46f1-8026-603a7cb9d79b@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20251023085730.36628-1-anthony@xenproject.org>
 
-On 23.10.2025 15:57, Dmytro Prokopchuk1 wrote:
-> 
-> 
-> On 10/23/25 13:23, Jan Beulich wrote:
->> On 23.10.2025 12:00, Dmytro Prokopchuk1 wrote:
->>> On 10/17/25 10:09, Nicola Vetrini wrote:
->>>> On 2025-10-15 08:20, Jan Beulich wrote:
->>>>> On 14.10.2025 18:16, Dmytro Prokopchuk1 wrote:
->>>>>> --- a/xen/common/version.c
->>>>>> +++ b/xen/common/version.c
->>>>>> @@ -217,6 +217,20 @@ void __init xen_build_init(void)
->>>>>>   #endif /* CONFIG_X86 */
->>>>>>   }
->>>>>>   #endif /* BUILD_ID */
->>>>>> +
->>>>>> +#if defined(__i386__) || defined(__x86_64__) || defined(__arm__) ||
->>>>>> defined(__aarch64__)
->>>>>
->>>>> Why __i386__? Also (nit): Line too long.
->>>
->>> Well, I copied this line from Xen codebase,
->>> but yeah, __i386__ is outdated now.
->>> I'll remove it.
->>>
->>>>>
->>>>> And why this restriction without any comment here or ...
->>>>>
->>>>>> +static void __init __maybe_unused build_assertions(void)
->>>>>> +{
->>>>>> +    /*
->>>>>> +     * To confirm conversion compatibility between unsigned long,
->>>>>> (void *)
->>>>>> +     * and function pointers for X86 and ARM architectures only.
->>>>>
->>>>> ... explanation here? More generally - how would people know to update
->>>>> the condition if another port was to be certified?
->>>>>
->>>>> Finally, with the v3 addition here, is Nicola's R-b really still
->>>>> applicable?
->>>>>
->>>>
->>>> I agree with the point you make about i386 (e.g., C-language-
->>>> toolchain.rst may be mentioned to provide some context about the
->>>> preprocessor guard); that said, my R-by can be retained
->>>>
->>>>> Jan
->>>>>
->>>>>> +     */
->>>>>> +
->>>>>> +    BUILD_BUG_ON(sizeof(unsigned long) != sizeof(void (*)(void)));
->>>>>> +    BUILD_BUG_ON(sizeof(void *) != sizeof(void (*)(void)));
->>>>>> +}
->>>>>> +#endif
->>>>>> +
->>>>>>   /*
->>>>>>    * Local variables:
->>>>>>    * mode: C
->>>>
->>>
->>> And probably v4 can have the following wording:
->>>
->>> /*
->>>    * This assertion checks compatibility between 'unsigned long', 'void *',
->>>    * and function pointers. This is true for X86 (x86_64) and ARM (arm,
->>> aarch64)
->>>    * architectures, which is why the check is restricted to these.
->>>    *
->>>    * For more context on architecture-specific preprocessor guards, see
->>>    * docs/misc/C-language-toolchain.rst.
->>>    *
->>>    * If Xen is ported to a new architecture, verify that this
->>> compatibility holds
->>>    * before adding its macro to the condition below. If the compatibility
->>> does not
->>>    * hold, this assertion may need to be revised or removed for that
->>> architecture.
->>>    */
->>
->> Except that this doesn't address my concern. Imo the checks want to be there
->> unconditionally, and ports where they're _not_ applicable would then need
->> excluding (with suitable commentary and/or alternative checks).
->>
->> Jan
-> 
-> Ok, below is the updated logic:
-> 
-> /*
->   * This assertion checks compatibility between 'unsigned long', 'void *',
->   * and function pointers. This is true for most supported architectures,
->   * including X86 (x86_64) and ARM (arm, aarch64).
->   *
->   * For more context on architecture-specific preprocessor guards, see
->   * docs/misc/C-language-toolchain.rst.
->   *
->   * If porting Xen to a new architecture where this compatibility does 
-> not hold,
->   * exclude that architecture from these checks and provide suitable 
-> commentary
->   * and/or alternative checks as appropriate.
->   */
-> static void __init __maybe_unused build_assertions(void)
-> {
->      /*
->       * Exclude architectures where function pointers are larger than 
-> data pointers:
->       * - IA-64: uses 'fat' function pointers (code address + global 
-> pointer)
->       */
-> #if !defined(__ia64__)
->      BUILD_BUG_ON(sizeof(unsigned long) != sizeof(void (*)(void)));
->      BUILD_BUG_ON(sizeof(void *) != sizeof(void (*)(void)));
-> #endif
-> }
+This is a multi-part message in MIME format.
+--------------LQ5b6DOoQFRRaT8qcmI4FUv5
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-I would omit architectures we don't support, though. I gave IA-64 as an
-example where things are more complicated (albeit iirc the checks would still
-succeed there). However, I didn't expect any trace of it to be added to the
-code base (again).
 
-Jan
+On 10/23/25 10:57 AM, Anthony PERARD wrote:
+> From: Anthony PERARD<anthony.perard@vates.tech>
+>
+> If not available, fallback to using YAJL.
+>
+> The code is using json_c_visit() which was introduced in 0.13.
+> json_object_new_null() and json_object_new_uint64() where added to
+> 0.14. And the last one json_object_new_array_ext() was introduced in
+> 0.15.
+>
+> Signed-off-by: Anthony PERARD<anthony.perard@vates.tech>
+
+Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+
+Thanks.
+
+~ Oleksii
+
+> ---
+>   tools/configure    | 16 ++++++++--------
+>   tools/configure.ac |  2 +-
+>   2 files changed, 9 insertions(+), 9 deletions(-)
+>
+> diff --git a/tools/configure b/tools/configure
+> index 0eb7a0ab6a..d460f25529 100755
+> --- a/tools/configure
+> +++ b/tools/configure
+> @@ -9642,12 +9642,12 @@ if test -n "$libjsonc_CFLAGS"; then
+>       pkg_cv_libjsonc_CFLAGS="$libjsonc_CFLAGS"
+>    elif test -n "$PKG_CONFIG"; then
+>       if test -n "$PKG_CONFIG" && \
+> -    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c\""; } >&5
+> -  ($PKG_CONFIG --exists --print-errors "json-c") 2>&5
+> +    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c >= 0.15\""; } >&5
+> +  ($PKG_CONFIG --exists --print-errors "json-c >= 0.15") 2>&5
+>     ac_status=$?
+>     printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+>     test $ac_status = 0; }; then
+> -  pkg_cv_libjsonc_CFLAGS=`$PKG_CONFIG --cflags "json-c" 2>/dev/null`
+> +  pkg_cv_libjsonc_CFLAGS=`$PKG_CONFIG --cflags "json-c >= 0.15" 2>/dev/null`
+>   		      test "x$?" != "x0" && pkg_failed=yes
+>   else
+>     pkg_failed=yes
+> @@ -9659,12 +9659,12 @@ if test -n "$libjsonc_LIBS"; then
+>       pkg_cv_libjsonc_LIBS="$libjsonc_LIBS"
+>    elif test -n "$PKG_CONFIG"; then
+>       if test -n "$PKG_CONFIG" && \
+> -    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c\""; } >&5
+> -  ($PKG_CONFIG --exists --print-errors "json-c") 2>&5
+> +    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c >= 0.15\""; } >&5
+> +  ($PKG_CONFIG --exists --print-errors "json-c >= 0.15") 2>&5
+>     ac_status=$?
+>     printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+>     test $ac_status = 0; }; then
+> -  pkg_cv_libjsonc_LIBS=`$PKG_CONFIG --libs "json-c" 2>/dev/null`
+> +  pkg_cv_libjsonc_LIBS=`$PKG_CONFIG --libs "json-c >= 0.15" 2>/dev/null`
+>   		      test "x$?" != "x0" && pkg_failed=yes
+>   else
+>     pkg_failed=yes
+> @@ -9685,9 +9685,9 @@ else
+>           _pkg_short_errors_supported=no
+>   fi
+>           if test $_pkg_short_errors_supported = yes; then
+> -	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "json-c" 2>&1`
+> +	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "json-c >= 0.15" 2>&1`
+>           else
+> -	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "json-c" 2>&1`
+> +	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "json-c >= 0.15" 2>&1`
+>           fi
+>   	# Put the nasty error message in config.log where it belongs
+>   	echo "$libjsonc_PKG_ERRORS" >&5
+> diff --git a/tools/configure.ac b/tools/configure.ac
+> index 7267d02a04..285b4ea128 100644
+> --- a/tools/configure.ac
+> +++ b/tools/configure.ac
+> @@ -424,7 +424,7 @@ AC_SUBST([ZLIB_CFLAGS])
+>   AC_SUBST([ZLIB_LIBS])
+>   AX_CHECK_EXTFS
+>   AX_CHECK_PTHREAD
+> -PKG_CHECK_MODULES([libjsonc], [json-c],
+> +PKG_CHECK_MODULES([libjsonc], [json-c >= 0.15],
+>       [AC_DEFINE([HAVE_LIBJSONC], [1], [Use library json-c])],
+>       [AC_CHECK_LIB([yajl], [yajl_alloc],
+>           [AC_SUBST([YAJL_LIBS],[-lyajl])
+--------------LQ5b6DOoQFRRaT8qcmI4FUv5
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 10/23/25 10:57 AM, Anthony PERARD
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20251023085730.36628-1-anthony@xenproject.org">
+      <pre wrap="" class="moz-quote-pre">From: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
+
+If not available, fallback to using YAJL.
+
+The code is using json_c_visit() which was introduced in 0.13.
+json_object_new_null() and json_object_new_uint64() where added to
+0.14. And the last one json_object_new_array_ext() was introduced in
+0.15.
+
+Signed-off-by: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a></pre>
+    </blockquote>
+    <pre>Release-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+Thanks.
+
+~ Oleksii</pre>
+    <blockquote type="cite"
+      cite="mid:20251023085730.36628-1-anthony@xenproject.org">
+      <pre wrap="" class="moz-quote-pre">
+---
+ tools/configure    | 16 ++++++++--------
+ tools/configure.ac |  2 +-
+ 2 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/tools/configure b/tools/configure
+index 0eb7a0ab6a..d460f25529 100755
+--- a/tools/configure
++++ b/tools/configure
+@@ -9642,12 +9642,12 @@ if test -n "$libjsonc_CFLAGS"; then
+     pkg_cv_libjsonc_CFLAGS="$libjsonc_CFLAGS"
+  elif test -n "$PKG_CONFIG"; then
+     if test -n "$PKG_CONFIG" &amp;&amp; \
+-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c\""; } &gt;&amp;5
+-  ($PKG_CONFIG --exists --print-errors "json-c") 2&gt;&amp;5
++    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c &gt;= 0.15\""; } &gt;&amp;5
++  ($PKG_CONFIG --exists --print-errors "json-c &gt;= 0.15") 2&gt;&amp;5
+   ac_status=$?
+   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" &gt;&amp;5
+   test $ac_status = 0; }; then
+-  pkg_cv_libjsonc_CFLAGS=`$PKG_CONFIG --cflags "json-c" 2&gt;/dev/null`
++  pkg_cv_libjsonc_CFLAGS=`$PKG_CONFIG --cflags "json-c &gt;= 0.15" 2&gt;/dev/null`
+ 		      test "x$?" != "x0" &amp;&amp; pkg_failed=yes
+ else
+   pkg_failed=yes
+@@ -9659,12 +9659,12 @@ if test -n "$libjsonc_LIBS"; then
+     pkg_cv_libjsonc_LIBS="$libjsonc_LIBS"
+  elif test -n "$PKG_CONFIG"; then
+     if test -n "$PKG_CONFIG" &amp;&amp; \
+-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c\""; } &gt;&amp;5
+-  ($PKG_CONFIG --exists --print-errors "json-c") 2&gt;&amp;5
++    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c &gt;= 0.15\""; } &gt;&amp;5
++  ($PKG_CONFIG --exists --print-errors "json-c &gt;= 0.15") 2&gt;&amp;5
+   ac_status=$?
+   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" &gt;&amp;5
+   test $ac_status = 0; }; then
+-  pkg_cv_libjsonc_LIBS=`$PKG_CONFIG --libs "json-c" 2&gt;/dev/null`
++  pkg_cv_libjsonc_LIBS=`$PKG_CONFIG --libs "json-c &gt;= 0.15" 2&gt;/dev/null`
+ 		      test "x$?" != "x0" &amp;&amp; pkg_failed=yes
+ else
+   pkg_failed=yes
+@@ -9685,9 +9685,9 @@ else
+         _pkg_short_errors_supported=no
+ fi
+         if test $_pkg_short_errors_supported = yes; then
+-	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "json-c" 2&gt;&amp;1`
++	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "json-c &gt;= 0.15" 2&gt;&amp;1`
+         else
+-	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "json-c" 2&gt;&amp;1`
++	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "json-c &gt;= 0.15" 2&gt;&amp;1`
+         fi
+ 	# Put the nasty error message in config.log where it belongs
+ 	echo "$libjsonc_PKG_ERRORS" &gt;&amp;5
+diff --git a/tools/configure.ac b/tools/configure.ac
+index 7267d02a04..285b4ea128 100644
+--- a/tools/configure.ac
++++ b/tools/configure.ac
+@@ -424,7 +424,7 @@ AC_SUBST([ZLIB_CFLAGS])
+ AC_SUBST([ZLIB_LIBS])
+ AX_CHECK_EXTFS
+ AX_CHECK_PTHREAD
+-PKG_CHECK_MODULES([libjsonc], [json-c],
++PKG_CHECK_MODULES([libjsonc], [json-c &gt;= 0.15],
+     [AC_DEFINE([HAVE_LIBJSONC], [1], [Use library json-c])],
+     [AC_CHECK_LIB([yajl], [yajl_alloc],
+         [AC_SUBST([YAJL_LIBS],[-lyajl])
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------LQ5b6DOoQFRRaT8qcmI4FUv5--
 
