@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94586C00717
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 12:23:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1149003.1480798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B7E0C0087F
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 12:37:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1149018.1480809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBsTg-0002tG-Gg; Thu, 23 Oct 2025 10:23:28 +0000
+	id 1vBshD-0004pg-KR; Thu, 23 Oct 2025 10:37:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1149003.1480798; Thu, 23 Oct 2025 10:23:28 +0000
+Received: by outflank-mailman (output) from mailman id 1149018.1480809; Thu, 23 Oct 2025 10:37:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBsTg-0002rD-E4; Thu, 23 Oct 2025 10:23:28 +0000
-Received: by outflank-mailman (input) for mailman id 1149003;
- Thu, 23 Oct 2025 10:23:27 +0000
+	id 1vBshD-0004nR-HL; Thu, 23 Oct 2025 10:37:27 +0000
+Received: by outflank-mailman (input) for mailman id 1149018;
+ Thu, 23 Oct 2025 10:37:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=U0PU=5A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vBsTf-0002r7-Oy
- for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 10:23:27 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1vBshC-0004nL-KJ
+ for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 10:37:26 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4bb68348-affa-11f0-9d15-b5c5bf9af7f9;
- Thu, 23 Oct 2025 12:23:19 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3ee64bc6b90so523209f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 03:23:19 -0700 (PDT)
+ id 43bdfd4d-affc-11f0-9d15-b5c5bf9af7f9;
+ Thu, 23 Oct 2025 12:37:25 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3ee130237a8so389372f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 03:37:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-475caf152absm34838685e9.9.2025.10.23.03.23.18
+ ffacd0b85a97d-429898add8bsm3121750f8f.23.2025.10.23.03.37.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Oct 2025 03:23:18 -0700 (PDT)
+ Thu, 23 Oct 2025 03:37:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4bb68348-affa-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 43bdfd4d-affc-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761214999; x=1761819799; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761215845; x=1761820645; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=e9pckMg9OLfO9T6ehFt7aH0wM/G15AH9tNKcWADy/tE=;
-        b=cvtZyTL7A2AxWAMBrOcWWww45nOyss/NmylSfOUxshIogzvIIK/SD1VK30BmlY31Zy
-         KG3S5ADlfEU50FPqlfUFrT2aXHIL7DOlAGTcHgmZnD4ckvnrWcuSLk2bGPtaSUqRi8E+
-         w+kUR2Z0wpb0A7z+jIhjlqtTqfsgwTsXvCQXIgFg8pVLIHKR6AdHVifqbR+ZdVdfFRac
-         F9S/lYCf/QqwqwF8vs1wTdrk8vLX8zoo1v+fYZI2o9NmlJLmS/kpTYdTu7X5Zdw88Ki8
-         E6jtKhumTj339vGL0m2SQ3a3wYoV8tbDFllkvdN1asqrCHjl+mUdF81IzqSd86LrE1AV
-         SuHw==
+        bh=6I3vE0DfaV1ZJBdjseuI+tY5tbGr8PllPuKgDjmX9E8=;
+        b=afHmBjSYuAFX3K9pRumTJB84UG7NHU7W7kGytsLCFkMMZWVnb1+EiaYoXgWwNWjFNo
+         Ck39goNUHN9yIQBZYTdZg06O2EPcYct6YeFABiTZK4kZ9z+gvYgT9CHlgJXN2zimnjsO
+         TQfKJeMIAuihYp8RpwFDSYsUDFgNIKkDqxYKrCA3GKp4EhgMf5/+t7Ta+eWazybo2ELZ
+         LgFRw/tfD4OmUABji20nlg93c0QVvYn7iFMc7NZ0pk84gwv+jDnSekuyQ4/EckZNOnZk
+         6wJHzvJy8+VEXAcnwTZHQrFLu363zB12UOdAhzBUmBeLwOdbymzEuDfVtOk+JQ1WTdjg
+         xJgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761214999; x=1761819799;
+        d=1e100.net; s=20230601; t=1761215845; x=1761820645;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=e9pckMg9OLfO9T6ehFt7aH0wM/G15AH9tNKcWADy/tE=;
-        b=tvSA35yIUZQkZhjnWuv/cidjt8YFdc7OE7GsRTwLa0oUbbMkZy6ohgAOEAjWCLpQ6V
-         cbFlWC3XRszDMP2GGPqxDAfU2dzrEHnxEBGF0Am4D3e2JB2iPzEBuXQqnoE6kOQn5ic0
-         Z+EiFP35s7lSvTMDo/UJS6kYNLkVa3Tx7OyIKjeXRj4zYy1wgHU9DtkQlC6A3p+mMNRD
-         VQaoNqALz32FuF4ZQgaoz1+fR6qjHNAj+sJAvHStcWlyeMJSjXu+XuA4+GY5TDwx62uM
-         Zc3fyR4iMn1CoZ9cRtmdvQM2q0ezEGmCArLlC5OlSrue1kAwnnZ3jNChjovmiBsPsLe9
-         Nc8w==
-X-Forwarded-Encrypted: i=1; AJvYcCVCz+kX8H5siQMPWf4+5SStSAoppJv+/3ZflMnz15/8ByQnAtMlpMdouud2N9h3zIU8dyIxZE6oJqU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw3bfqnWlf/Cj7v40WTQpNtFHijuKZKvE5Xyhzu9ct0GgwhR0IC
-	fuM6hoHktEuK6F2envvFJm0qzJQOBtyghDOhYRRrGI5hRZXmyRhgMctWiAoN+vN6Qg==
-X-Gm-Gg: ASbGncsUDyXlLiE3xcFpxg0QAo5umP2bNAh6BIaw+LyNOPz5uBfCD2Ub6X2zM0CQEn6
-	Gl/9/AdZhNXib2A/P9s1u6BO+XCRe17YsBtGq7Ai11lWD6Eiv8tVEQP0XTd924vrCB33uVhn5gd
-	w4tybG4pOTXK4TWQQwvyxqzYBR6UAQNPTPbWxqY+wGHk7j88j86r/fPeIaQ1T3OGooHYROpQs9O
-	u9YaqJWhfk9WKLiP3bKR2PR2A/9pwhMb53L8ongSPIP2ujjT2b6p5EfI7CNE3MaKdpDphM12ne4
-	MGghSS9vTuP9+ZTI7wY9AL1UrWP2J2WkRrcRFPHFwjANpThLiuGECZemSFnHK6SJRbz+7UuGfcW
-	3D+upeff3OWUswofBpTux7T4p5XtAZZgBb4qseDNo29ILRFdqBS5r60cboD2MIj8UVIRULy7k1m
-	AK1Ibt0VIOCeDvtrO4AUGGA10XdKmhJV8x2DnMQZ/XCi9nM4snlHI3GK0RVJNDHTo7zxyn4QI=
-X-Google-Smtp-Source: AGHT+IGmIUvEx5qWqSjDPImlrC3N7HxCLg3i1skhnlT7Rjvr9RK7k1MjLs4I7CfOyHPXmZ0FLAp6bg==
-X-Received: by 2002:a05:6000:1884:b0:3e9:ad34:2b2e with SMTP id ffacd0b85a97d-42704dc92bfmr16958373f8f.46.1761214999076;
-        Thu, 23 Oct 2025 03:23:19 -0700 (PDT)
-Message-ID: <64411f5b-a826-48b6-9122-bf80ac377c7a@suse.com>
-Date: Thu, 23 Oct 2025 12:23:17 +0200
+        bh=6I3vE0DfaV1ZJBdjseuI+tY5tbGr8PllPuKgDjmX9E8=;
+        b=Ut597SEeOgzdkUEBXABBQVgwtkLvG0V+QVeTAd8izJlPKx3Q3aHoWCa6Zr7mVoNNSS
+         iP+eEX257BbjDY35tDmbLL8pUpzYxJ3X8WQzZBEMr+/cGHV5zXZyuY10v9IvWmM5lTnC
+         /BaV56bRFytSBWHmWqPQvRtaTdamZV6c/P/GES9cWe3YPLW0KV5OLmftGUWrhxwgYfeJ
+         rpAbT7iBFyLmus3kuxyUbHo1hIVfiLewZTPVT/q3eBZAzlC++d3qALfGNCKv6j2TU1U1
+         QlXRh9CXisRUTpJmSPpdap7eJiE8tDbRzkS8mT56NWSLc7JbHQj5fUR208rCC++3T4QD
+         FSBQ==
+X-Gm-Message-State: AOJu0Yy6lpKMaA2oEXw0bGQfDXAEbRRhxFgYTV2AiE3J5JYnE24xn5TN
+	4pndG8c01aKIFEBd7viY9Zn8XIRG5EF6NaK9vzZjiUvVWhn2rR/oyK5c7kKNf7xBbw==
+X-Gm-Gg: ASbGnctGM/NZztMVRSr88QuvRbUu+TyC+LNc0G9L1TPUjHYi3h4iRn6fKj0IRJ7gNHq
+	YIX0mlqbC6iFMuTT3umbvcAE3jcE3SLC1sIddQmjfXfUBpjdK+bmfsGWZ8thnf65GlO89VzbYdW
+	3mNvwcSyZTfMjjAWXhMgzqgosR3q/QN9aUPlUxEs05gHX4WzCI+wkUeeMWgwVRcdRINQ4dTaJaK
+	zbn9KBe/zzrqx0R0coZwLM59Vw1iQYGsec6W3Ppn1L9vXwi88Mdg1l8Vuz3JspFfPWS7tXC4gZ3
+	FGOgN/EjyXfjb9+MsYh3x8XiRAnN/W0ehNAewpBrfnHmPJvPsTfegihjIdWrTSh6wV/dlToD9sk
+	YBiIkUSwGqj6LHjvxjXUnjstknWC5VY0tcBgllKMqoS0masGTfNIKSJT4oQ0HTSDzBx7xwpWsu2
+	WjAKFrxFxANxwNdgjLVUxjob5FKaXFe5/+fvwy/icOaUlgizsmH2zvHla+UMH4gZCXva85fG0=
+X-Google-Smtp-Source: AGHT+IFzD/HhXzJjhcOeevnQMVvIQuLiADeATMYqGpp6omX0fOF/F6TlFG+7HCH/LOoh2BrVPFngbQ==
+X-Received: by 2002:a5d:5f47:0:b0:428:3ef4:9a0f with SMTP id ffacd0b85a97d-4283ef49e24mr9707845f8f.6.1761215844694;
+        Thu, 23 Oct 2025 03:37:24 -0700 (PDT)
+Message-ID: <47c1fb5e-abd5-40a8-b581-be8494be3861@suse.com>
+Date: Thu, 23 Oct 2025 12:37:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] misra: consider conversion from UL or (void*) to
- function pointer as safe
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v2 for-4.21 2/9] x86/HPET: use single, global,
+ low-priority vector for broadcast IRQ
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <0e72c83102668dfa6f14c4e8f9839b4a73d30b3d.1760458094.git.dmytro_prokopchuk1@epam.com>
- <ceedeefa-c506-41ca-9dfc-76937979caa9@suse.com>
- <321363444f9a3d3471bf1b3b2e020047@bugseng.com>
- <0767a5c4-6a2c-4ed0-92d3-f9f89313ad85@epam.com>
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <b66ea488-2d47-472c-9520-8590fdf89e0e@suse.com>
+ <c8c124c4-71c5-41e7-8d84-fd45ffd6af14@suse.com> <aPZh3Y8W4QcV_oLs@Mac.lan>
+ <7128bbb5-d099-4584-8cd0-bfeec49b3e55@suse.com> <aPePepQk3t6gxMR1@Mac.lan>
+ <16d62ac6-6666-4bad-be59-324cec634a20@suse.com> <aPnpvtXOoYSXXsT-@Mac.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,87 +122,145 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0767a5c4-6a2c-4ed0-92d3-f9f89313ad85@epam.com>
+In-Reply-To: <aPnpvtXOoYSXXsT-@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 23.10.2025 12:00, Dmytro Prokopchuk1 wrote:
-> On 10/17/25 10:09, Nicola Vetrini wrote:
->> On 2025-10-15 08:20, Jan Beulich wrote:
->>> On 14.10.2025 18:16, Dmytro Prokopchuk1 wrote:
->>>> --- a/xen/common/version.c
->>>> +++ b/xen/common/version.c
->>>> @@ -217,6 +217,20 @@ void __init xen_build_init(void)
->>>>  #endif /* CONFIG_X86 */
->>>>  }
->>>>  #endif /* BUILD_ID */
->>>> +
->>>> +#if defined(__i386__) || defined(__x86_64__) || defined(__arm__) || 
->>>> defined(__aarch64__)
+On 23.10.2025 10:39, Roger Pau Monné wrote:
+> On Wed, Oct 22, 2025 at 11:21:15AM +0200, Jan Beulich wrote:
+>> On 21.10.2025 15:49, Roger Pau Monné wrote:
+>>> On Tue, Oct 21, 2025 at 08:42:13AM +0200, Jan Beulich wrote:
+>>>> On 20.10.2025 18:22, Roger Pau Monné wrote:
+>>>>> On Mon, Oct 20, 2025 at 01:18:34PM +0200, Jan Beulich wrote:
+>>>>>> @@ -476,19 +486,50 @@ static struct hpet_event_channel *hpet_g
+>>>>>>  static void set_channel_irq_affinity(struct hpet_event_channel *ch)
+>>>>>>  {
+>>>>>>      struct irq_desc *desc = irq_to_desc(ch->msi.irq);
+>>>>>> +    struct msi_msg msg = ch->msi.msg;
+>>>>>>  
+>>>>>>      ASSERT(!local_irq_is_enabled());
+>>>>>>      spin_lock(&desc->lock);
+>>>>>> -    hpet_msi_mask(desc);
+>>>>>> -    hpet_msi_set_affinity(desc, cpumask_of(ch->cpu));
+>>>>>> -    hpet_msi_unmask(desc);
+>>>>>> +
+>>>>>> +    per_cpu(vector_irq, ch->cpu)[HPET_BROADCAST_VECTOR] = ch->msi.irq;
+>>>>>> +
+>>>>>> +    /*
+>>>>>> +     * Open-coding a reduced form of hpet_msi_set_affinity() here.  With the
+>>>>>> +     * actual update below (either of the IRTE or of [just] message address;
+>>>>>> +     * with interrupt remapping message address/data don't change) now being
+>>>>>> +     * atomic, we can avoid masking the IRQ around the update.  As a result
+>>>>>> +     * we're no longer at risk of missing IRQs (provided hpet_broadcast_enter()
+>>>>>> +     * keeps setting the new deadline only afterwards).
+>>>>>> +     */
+>>>>>> +    cpumask_copy(desc->arch.cpu_mask, cpumask_of(ch->cpu));
+>>>>>> +
+>>>>>>      spin_unlock(&desc->lock);
+>>>>>>  
+>>>>>> -    spin_unlock(&ch->lock);
+>>>>>> +    msg.dest32 = cpu_physical_id(ch->cpu);
+>>>>>> +    msg.address_lo &= ~MSI_ADDR_DEST_ID_MASK;
+>>>>>> +    msg.address_lo |= MSI_ADDR_DEST_ID(msg.dest32);
+>>>>>> +    if ( msg.dest32 != ch->msi.msg.dest32 )
+>>>>>> +    {
+>>>>>> +        ch->msi.msg = msg;
+>>>>>> +
+>>>>>> +        if ( iommu_intremap != iommu_intremap_off )
+>>>>>> +        {
+>>>>>> +            int rc = iommu_update_ire_from_msi(&ch->msi, &msg);
+>>>>>>  
+>>>>>> -    /* We may have missed an interrupt due to the temporary masking. */
+>>>>>> -    if ( ch->event_handler && ch->next_event < NOW() )
+>>>>>> -        ch->event_handler(ch);
+>>>>>> +            ASSERT(rc <= 0);
+>>>>>> +            if ( rc > 0 )
+>>>>>> +            {
+>>>>>> +                ASSERT(msg.data == hpet_read32(HPET_Tn_ROUTE(ch->idx)));
+>>>>>> +                ASSERT(msg.address_lo ==
+>>>>>> +                       hpet_read32(HPET_Tn_ROUTE(ch->idx) + 4));
+>>>>>> +            }
+>>>>>
+>>>>> The sequence of asserts seem wrong here, the asserts inside of the rc
+>>>>>> 0 check will never trigger, because there's an ASSERT(rc <= 0)
+>>>>> ahead of them?
+>>>>
+>>>> Hmm. My way of thinking was that if we get back 1 (which we shouldn't),
+>>>> we ought to check (and presumably fail on) data or address having changed.
 >>>
->>> Why __i386__? Also (nit): Line too long.
-> 
-> Well, I copied this line from Xen codebase,
-> but yeah, __i386__ is outdated now.
-> I'll remove it.
-> 
->>>
->>> And why this restriction without any comment here or ...
->>>
->>>> +static void __init __maybe_unused build_assertions(void)
->>>> +{
->>>> +    /*
->>>> +     * To confirm conversion compatibility between unsigned long, 
->>>> (void *)
->>>> +     * and function pointers for X86 and ARM architectures only.
->>>
->>> ... explanation here? More generally - how would people know to update
->>> the condition if another port was to be certified?
->>>
->>> Finally, with the v3 addition here, is Nicola's R-b really still 
->>> applicable?
->>>
+>>> Right, but the ASSERT(rc <= 0) will prevent reaching any of the
+>>> followup ASSERTs if rc == 1?
 >>
->> I agree with the point you make about i386 (e.g., C-language- 
->> toolchain.rst may be mentioned to provide some context about the 
->> preprocessor guard); that said, my R-by can be retained
->>
->>> Jan
->>>
->>>> +     */
->>>> +
->>>> +    BUILD_BUG_ON(sizeof(unsigned long) != sizeof(void (*)(void)));
->>>> +    BUILD_BUG_ON(sizeof(void *) != sizeof(void (*)(void)));
->>>> +}
->>>> +#endif
->>>> +
->>>>  /*
->>>>   * Local variables:
->>>>   * mode: C
->>
+>> Which is no problem, as we'd be dead already anyway if the first assertion
+>> triggered. Nevertheless I've switched the if() to >= 0 (which then pointed
+>> out a necessary change in AMD IOMMU code).
 > 
-> And probably v4 can have the following wording:
-> 
-> /*
->   * This assertion checks compatibility between 'unsigned long', 'void *',
->   * and function pointers. This is true for X86 (x86_64) and ARM (arm, 
-> aarch64)
->   * architectures, which is why the check is restricted to these.
->   *
->   * For more context on architecture-specific preprocessor guards, see
->   * docs/misc/C-language-toolchain.rst.
->   *
->   * If Xen is ported to a new architecture, verify that this 
-> compatibility holds
->   * before adding its macro to the condition below. If the compatibility 
-> does not
->   * hold, this assertion may need to be revised or removed for that 
-> architecture.
->   */
+> Right, so and adjusted if condition plus an ASSERT_UNREACHABLE() at
+> the end of the if code block?
 
-Except that this doesn't address my concern. Imo the checks want to be there
-unconditionally, and ports where they're _not_ applicable would then need
-excluding (with suitable commentary and/or alternative checks).
+That is, instead of
+
+            ASSERT(rc <= 0);
+            if ( rc >= 0 )
+            {
+                ASSERT(msg.data == hpet_read32(HPET_Tn_ROUTE(ch->idx)));
+                ASSERT(msg.address_lo ==
+                       hpet_read32(HPET_Tn_ROUTE(ch->idx) + 4));
+            }
+
+you'd prefer
+
+            if ( rc >= 0 )
+            {
+                ASSERT(msg.data == hpet_read32(HPET_Tn_ROUTE(ch->idx)));
+                ASSERT(msg.address_lo ==
+                       hpet_read32(HPET_Tn_ROUTE(ch->idx) + 4));
+                ASSERT_UNREACHABLE();
+            }
+
+? That's wrong though (for rc == 0), i.e. I fear I don't see what you mean.
+
+>>>  IOW, we possibly want:
+>>>
+>>>             if ( rc > 0 )
+>>>             {
+>>>                 dprintk(XENLOG_ERR,
+>>>                         "Unexpected HPET MSI setup returned: data: %#x address: %#lx expected data %#x address %#lx\n",
+>>>                         msg.data, msg.address,
+>>>                         ch->msi.msg.data, ch->msi.msg.address);
+>>>                 ASSERT_UNREACHABLE();
+>>>                 hpet_msi_mask(desc);
+>>>                 hpet_write32(msg.data, HPET_Tn_ROUTE(ch->idx));
+>>>                 hpet_write32(msg.address_lo, HPET_Tn_ROUTE(ch->idx) + 4);
+>>>                 hpet_msi_unmask(desc);
+>>>             }
+>>>             ASSERT(!rc);
+>>
+>> To be honest, for my taste this goes too far as to what follows an
+>> ASSERT_UNREACHABLE().
+> 
+> I can understand that.  It's the best way I've come up with attempting
+> to recover from a possible error in the release case, but I don't
+> particularly like it either.
+> 
+>>> I'm unsure about attempting to propagate the returned values on release
+>>> builds, I guess it's slightly better than possibly using an outdated
+>>> RTE entry?  Albeit this should never happen.
+>>
+>> Yes to the last remark; I don't actually see what you would want to do
+>> with the propagated return value.
+> 
+> OK, I can this this not being clear.  By propagate here I mean
+> propagate to the hardware registers, not to the function caller.
+
+I.e. you still think adding the two hpet_write32() is going to be useful?
+The mask/unmask, as I did say in another reply to your comments, isn't
+useful here anyway (for already not being atomic), so I wouldn't see much
+sense in having them. Plus of course we'd want to avoid the writes on
+release builds if the values actually match, i.e. the construct would then
+rather end up as two if-mismatch-then-write-else-assert-unreachable ones.
+
+Just to mention - apart from this I have a working v3 ready to post.
 
 Jan
 
