@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 604E0C00475
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 11:36:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1148919.1480738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1E28C00520
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 11:42:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1148930.1480749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBrkL-0001vB-3f; Thu, 23 Oct 2025 09:36:37 +0000
+	id 1vBrpc-0003b6-MR; Thu, 23 Oct 2025 09:42:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1148919.1480738; Thu, 23 Oct 2025 09:36:37 +0000
+Received: by outflank-mailman (output) from mailman id 1148930.1480749; Thu, 23 Oct 2025 09:42:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBrkL-0001tG-0w; Thu, 23 Oct 2025 09:36:37 +0000
-Received: by outflank-mailman (input) for mailman id 1148919;
- Thu, 23 Oct 2025 09:36:35 +0000
+	id 1vBrpc-0003Ys-JY; Thu, 23 Oct 2025 09:42:04 +0000
+Received: by outflank-mailman (input) for mailman id 1148930;
+ Thu, 23 Oct 2025 09:42:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=U0PU=5A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vBrkJ-0001tA-Lt
- for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 09:36:35 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1vBrpb-0003Yk-GP
+ for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 09:42:03 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c14dedf4-aff3-11f0-980a-7dc792cee155;
- Thu, 23 Oct 2025 11:36:30 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4711f156326so5430895e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 02:36:30 -0700 (PDT)
+ id 86006c38-aff4-11f0-980a-7dc792cee155;
+ Thu, 23 Oct 2025 11:42:00 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-47112edf9f7so3548535e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 02:42:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-475c4342860sm86515375e9.11.2025.10.23.02.36.28
+ 5b1f17b1804b1-475cae9f8eesm27709675e9.6.2025.10.23.02.41.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Oct 2025 02:36:28 -0700 (PDT)
+ Thu, 23 Oct 2025 02:41:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c14dedf4-aff3-11f0-980a-7dc792cee155
+X-Inumbo-ID: 86006c38-aff4-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761212190; x=1761816990; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BH8U/IUuQiAyqBVk8sJPwecDI+OHVavSfIRaEjX7xO4=;
-        b=TjM6P3S0S2594o+OiTRQLjs7nnnxl4XMriu4Ruqp0XaBX/+gFpEDW24LSYhCsCMqGo
-         TqDpotqNSpR5B+wrXFqxrGMAk/j7Y+Y2G3FNZjOx4blW32RPUgN3M1r28PoQSR/HfnR9
-         11YAVHlvH33Dtlwh92+A2jbTeg0eAb0P/6gnAS8YI/ecMQCkDlyeJmGSSrlpnuABMAEN
-         R2CifpWHpkk3K5CqomrPkaPy7xowF4xmWxID1r5MOMSwcTqUVyeOiOoCaBd7asakHA6a
-         MM9sl4dkf8a/90yqdO/9wzqHaatVEaG1OP9/j+51ac5T1CJrl4tSlApjxhZhnhrqhMhI
-         wi4Q==
+        d=suse.com; s=google; t=1761212520; x=1761817320; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=BmZ0OHqn3bIAdqcpUVIWufPsgR7d8480d8zKVxKjUJ8=;
+        b=DgRiB5CsNQ230Jrg4ywIkxqnDW2tz8kq/PWAVC8DNKaSAqzR2LemeLG9QgRWYfcbWl
+         f6TPZ1X6/DEGSXXDZOWGZ3n09H9oMYePrW0UfEHW+BKKY+St7x3wTrcQg2ZefS0dHkVP
+         t/OxI8v2K/FqJ/EOY9UxxqVCWFn+0swdZVe3wJgjpDqylSRRCuARakoPVKsjoVrpQ+7s
+         UiI1J/DfCGjAZ2UuK02T5P7RFf98aUvDxPWFarBWg0oB1OFCDnvzNBp9Qacu0gk10QDf
+         pVr0SGGXRxCwCXgEyTjXvmXQp1sosqPe0bAbYp2ieIfyXUqkATLp679qjO21BspLWgyH
+         3dkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761212190; x=1761816990;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=BH8U/IUuQiAyqBVk8sJPwecDI+OHVavSfIRaEjX7xO4=;
-        b=aZrtho8E5j0UB+AzsJkEFUlMKnqMBTceIqUQFujQNdBgHwOpwn9lTqsAsFk40/ephd
-         HGOjKwNasS9F+IUR1zNboDNri2PuHrWoY6EXqSaiWLPPFkPUvqp0M1oT0Xf2POmRIiA6
-         AGgdlp2ZULx/CBAiOguhkBN1fNjVp/+WQ4qClgNFZ9ER8YsU9viesF0WZaLDOFZ1+1iM
-         aAtBbqW+lCd2Xh8/MiAisjgHpliI0qWU9LsM8qD1Evx0V0ThSwg5rWIY0Otc9jlWbwMY
-         S+4VyHiT9lHQlsjpb9vgqyHqdcdxPacXZ+oSVotqUKoSltCtnSFvkAYwNuipKAWBnk9M
-         7UEQ==
-X-Gm-Message-State: AOJu0Yzi82na0+7W3s3wjzbHifwxKnjHRHg4Tb+clKPqX1YKp4SJyvAp
-	MaT6L/6bxKugeCoRF/PV5B/3gWir61uh6jUb0rcS0e6clKCn6J38RGPtf6bNuAi31A==
-X-Gm-Gg: ASbGncuO+2gQAM9z9N1dwflJOcw8fEb9rYOvOENfGABXF67cwu1fg9XjWVikf2974Te
-	BjBXtF1IjxGrvZciBKNC707vXCLQd3EZa9PzAGq8smCms5i+3fQVtt8/Xo+3o9lilwQuWZUzDSm
-	f5brhgp9cfxmfMI96Ec0FXPUCbpXr12P9RyW2e9u4FL+HYSbHlmY/Nrs1onbFO7bbU/N+djNU10
-	7tt+U9Ya07s0aXxejsjusZZwjt1pH2HdmQMITttAEdGVpkDKnGAsjKigHe0AJyWcFS6X8qiWHCD
-	M2AUJPyNZtj+GeAwF6JRktCY4wDJy5AzNQ07UC9nRGGGqVIrh6xirDAnTaHjw6BxZMUobMaEhTb
-	gcIE9AbtdiDZp4Wz9Kw/XpDNNOubhIrdDFe4G4ahYLvhSrc5NQTLwn+KTneNo+wtYv1WPpSJQ0N
-	r7Sr35d7RtFoXdNQO1PTT45oMCfUKa2s6N5F0B6K1kUCtOugnr2LnXtEzPMAZb
-X-Google-Smtp-Source: AGHT+IGbo1XB5j1AZbc8YpaGjlVSAXhjYkffwA0Wy0pvZW57g06Q28pknjqN80rpdoFFXjaS85ZT1A==
-X-Received: by 2002:a05:600c:3b8d:b0:45d:f81d:eae7 with SMTP id 5b1f17b1804b1-471179176b9mr202388915e9.28.1761212189922;
-        Thu, 23 Oct 2025 02:36:29 -0700 (PDT)
-Message-ID: <b6016150-4df7-42f1-8f30-82ad214bdc87@suse.com>
-Date: Thu, 23 Oct 2025 11:36:27 +0200
+        d=1e100.net; s=20230601; t=1761212520; x=1761817320;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BmZ0OHqn3bIAdqcpUVIWufPsgR7d8480d8zKVxKjUJ8=;
+        b=DAnKlR5vSktD1u2rEGhrfS7TS9PwXWVf4YI6qKIbBj4euCyxBU/1mb1Cu16g0+akxy
+         SlsUzuWfbHd0QrJ0meB6nT8syYfQn92psqLhu8brQ7bgfWhvo48FVsX4WPN7+sCWGNbB
+         dzqQJ947YLmxwDEIqcULWaQWA8giRlLFDhkP+8aNU+D9HLd3eqyxdUsNyqExq0ls1xaR
+         P2i0Da8rnDHlcNqGWu0jETemcZ5NPni33JpPHDt+YS8CntrEAKJE5mbqTXZUBZbwcgnS
+         CL5LAc4HP9WbDEFXnR+dI4UXMsGxpd5FV3K/Tff/Rb9UEcgvmJn9HpyEkKmI0YSCK/Fw
+         CRyw==
+X-Forwarded-Encrypted: i=1; AJvYcCXyzVaweUXtkPiwZNyg54ZF0aRtZ1xWvjSWs1gkr206ZKOMiiJsKgMfxtt/7wyyStVCSso6FzFuiqE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw3aqz79hQMgnd1oBily45uMj3sZElVyH3kJHTNcevMQfc8qRen
+	ZvDKnVvL2xYxPzoeuiZEy9e4Gpb5IVKjV0oxI7KbDiUEeT03D4X1QQoRUb9M7K2w4lSLEmGVJcO
+	SVOo=
+X-Gm-Gg: ASbGnctcjx1c21qYDLAhDea5H33hyCOhULeecHDPTiTIhAokSCx4iLVhSi00QTA8ppn
+	DMu8/Z9Ulss3Dj48Fps2LqqT7okilrL3/UkWF+ZsN0ud1fp/mwopsAkrtTIWimbXdl877tpS6Aa
+	iBRABI3AubGOiJqU+2DihGW9UilBtxXgmcrjIo9uTsSSmk9QR3vUwIZdZ2F3MNjlxmKdaS2X/+y
+	RUka8TJwns9cf9ycDYTBSUMpuqnrPMajFW1xJgHCqvkWOHCCzsCzwUsEcgiN6/7tyDkb31YwMDF
+	PjBgN3zsYMuN2QWP773vR6IsT/9B/TkbLR7z22A15nEpApKSpQnFKOhg6Xb2z8PJ18OkvNmZkCl
+	Nagi9i2k7BY2lS9+dPWtOqFM1TJHZ1X5xW1hnL5VTZLxtDbsYkCL+m+B2jNb8X5U7G/3O56Pgqw
+	xrNWwaRC1ueg/4UTXidWD76hAxG+OPtRcJrV640Ts/OeijBdecTzfqvRqwkww8Yz4N8w96ujc=
+X-Google-Smtp-Source: AGHT+IFzLEGY09P9rggoZuWOVXyOHtIUFUFXvP+hiaX78GOl8//OPufXANrLkJqYhGuvb2VQQuiCVg==
+X-Received: by 2002:a05:600c:4e8b:b0:46f:b32e:5094 with SMTP id 5b1f17b1804b1-475cb0452e7mr15090205e9.32.1761212519876;
+        Thu, 23 Oct 2025 02:41:59 -0700 (PDT)
+Message-ID: <8f7addb4-04d1-4586-811b-8e77ff668274@suse.com>
+Date: Thu, 23 Oct 2025 11:41:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] vtd: Remove IO_xAPIC_route_entry macro
-To: Teddy Astie <teddy.astie@vates.tech>
-References: <cover.1761209564.git.teddy.astie@vates.tech>
- <5bd53445740ba85c8b49d9018b6600fd90eadb50.1761209564.git.teddy.astie@vates.tech>
+Subject: Re: [XEN PATCH for-4.21] tools: require at least json-c 0.15
+To: Anthony PERARD <anthony@xenproject.org>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <20251023085730.36628-1-anthony@xenproject.org>
 Content-Language: en-US
-Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,20 +119,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5bd53445740ba85c8b49d9018b6600fd90eadb50.1761209564.git.teddy.astie@vates.tech>
+In-Reply-To: <20251023085730.36628-1-anthony@xenproject.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.10.2025 11:12, Teddy Astie wrote:
-> This macro was introduced to abstract between IO-APIC and IO-SAPIC (ia64),
-> now that ia64 isn't supported anymore, this macro now only refers to IO-APIC.
+On 23.10.2025 10:57, Anthony PERARD wrote:
+> From: Anthony PERARD <anthony.perard@vates.tech>
 > 
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-> ---
-> v2:
->  - formatting changes
+> If not available, fallback to using YAJL.
+> 
+> The code is using json_c_visit() which was introduced in 0.13.
+> json_object_new_null() and json_object_new_uint64() where added to
+> 0.14. And the last one json_object_new_array_ext() was introduced in
+> 0.15.
+> 
+> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
 
-But you could have retained Andrew's ack, I suppose?
+Thanks for sorting this. I can't really offer R-b on this, and A-b would
+(at least formally) be meaningless. If you nevertheless want to apply the
+A-b, feel free to do so.
 
 Jan
 
