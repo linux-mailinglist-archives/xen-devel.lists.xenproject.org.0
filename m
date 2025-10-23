@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9213BC0244C
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 17:57:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1149445.1481109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0F2AC02419
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 17:53:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1149434.1481099 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBxh1-0000Dy-C3; Thu, 23 Oct 2025 15:57:35 +0000
+	id 1vBxd2-0007kN-TW; Thu, 23 Oct 2025 15:53:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1149445.1481109; Thu, 23 Oct 2025 15:57:35 +0000
+Received: by outflank-mailman (output) from mailman id 1149434.1481099; Thu, 23 Oct 2025 15:53:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBxh1-0000BP-8u; Thu, 23 Oct 2025 15:57:35 +0000
-Received: by outflank-mailman (input) for mailman id 1149445;
- Thu, 23 Oct 2025 15:57:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vBxd2-0007hZ-QK; Thu, 23 Oct 2025 15:53:28 +0000
+Received: by outflank-mailman (input) for mailman id 1149434;
+ Thu, 23 Oct 2025 15:53:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=U0PU=5A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vBxcX-0003ZG-G8
- for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 15:52:57 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 57481c2d-b028-11f0-980a-7dc792cee155;
- Thu, 23 Oct 2025 17:52:55 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-4270a3464caso470211f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 08:52:55 -0700 (PDT)
+ id 1vBxd1-0007hQ-BD
+ for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 15:53:27 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 696c909a-b028-11f0-9d15-b5c5bf9af7f9;
+ Thu, 23 Oct 2025 17:53:26 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-47117e75258so7729415e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 08:53:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429898eac60sm4517747f8f.39.2025.10.23.08.52.54
+ 5b1f17b1804b1-475c4281314sm103700925e9.4.2025.10.23.08.53.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Oct 2025 08:52:55 -0700 (PDT)
+ Thu, 23 Oct 2025 08:53:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57481c2d-b028-11f0-980a-7dc792cee155
+X-Inumbo-ID: 696c909a-b028-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761234775; x=1761839575; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761234806; x=1761839606; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PS7ucokoN9+hEjFZSIghu/GmWjPiHcD6tMlnYOR0lq8=;
-        b=WuLmgoDMlTfnp7crL3D29ifCTcFUeb0DBuMatdNj8e3XZWUZbAOttwxdqIuXmWvyO1
-         tksLcqURiXWYT2ALB83zhRpHBalHjZOOP23dPkFMRByUlvKqocEcViPJ+GgooPF/8+dW
-         61Ux5UDO89HJUY+l5q7u2xtUyWM8A5S7OAxNU41ZXh9TahAd0EYLYYgDfWXa317KlZCH
-         Hpl5gpFYEPDcZeyBnsmBmfCAgLlz+BzXRXxOvuK2+Lvnp26RKALCbe9GfK3jj6KXck5X
-         vg1WsFV1VqzG/s7DmCXI+UjJ6vc5ABbYdOD1DlX+RQswxOFGKnkeumSb6yNoM22f7qG7
-         gnkw==
+        bh=Yfju5TuSYr1gnKBFs17R38Pvw/Jb2fzNTTH63D/Pa3U=;
+        b=eBy4ZJit/ANNGxvUnlT9DNIEip8yiLFna+IZJKj0mS5k8gDU8I0FoBmQYAHN977b2c
+         qv1eqvRSvNbgxKZbIPtRGDsjv7xeIPfe0cF+Li89eHqx9ste80G4oc41jAH3RuxXzZEx
+         TZICiXIIGSwJzdhE7RZPcF6xD+9mMPie5kicm1PmNplg9EBYDMgD13H6KuNo/Y/4wqDL
+         6T0V2N5tUXajq1HCtQWz7esFWKeXgQEqVEbDaUgOI3tcaO5Adpefl/rwpAv+49nSIl/E
+         jssEEhbdu71e8FQPaQelp4RrTui41+1ffm/rrHUoYUeD+SIiI26F5QQZGjDNEJWPv6k3
+         bB0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761234775; x=1761839575;
+        d=1e100.net; s=20230601; t=1761234806; x=1761839606;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=PS7ucokoN9+hEjFZSIghu/GmWjPiHcD6tMlnYOR0lq8=;
-        b=HtJV+fs70Jj77cjXRpF5qs358Dprh6c7T99V2kJAUBqgyxrLUjr3+NSexzYD7u8l7V
-         6lHzl1xWG7ON0tTjB/jks8jJDHzReXjF2jR+zAs2jdhuYxYLNYCXc7WGFT0i0MUViGRO
-         Mus1fZH+kg9r5aaUGbHGsQP62WTxAFwKOybA3GO5RYeOCwD5hE70z8p1+JRgQg7nAo1P
-         +GwBIuYm2vRi7zoU0P5mfM+7eZRFfLsXtiKKXjMrU5Gx9T0rtPk3ozmiqd/OeMQP+fUQ
-         oSDOt9w+t8Os2eODoC5iD5FndwLjTdEaR0a+eSJ/oOuxkZrRpNxGfe220ov5YFzH3JKw
-         Vi/Q==
-X-Gm-Message-State: AOJu0YzI5Rs94RJ8ZUGOorHP4XHlu3QYct7VKEd4RbcQ1OU40o2isWEe
-	SDlLURdI7zIwEEcLlVKZp77dT+jSMQl2Cg3/HzW2o9u8E2/S9nLtAUJptobwXGDRebw1evLSjw6
-	x7eA=
-X-Gm-Gg: ASbGncueGt8SujS/h4k0+sZUygIOgO8Llp20UOY5IWFhjXLUAcf+HiCd501IBdq2oT1
-	2pKGEkHGjzM9bI4qQwoi64o8SaOahwIAESdjuxehfL2ZQaFJLkxXxrfIWL7zA92bhWDHWn00cOX
-	HJNdVENdZSj9S5U58uIyXgXFvylBVMxMqn2HHSwLpcexbN8vKvr+2he5ziB+vaV+nEypcmRgZ+/
-	YqomjGaPfbIp2EzcfEX5FuU+WdKWXJ+imECHs6ogaBRDQcKqoDeEC3nNEa94KBXlJTzk7s/XhO7
-	JZ4htuVKuKblnfYB2KQNcid2vc6FERYv5wMY6TWWxzb9GiQjbxZH3VzUPHGhSwqW66fN9fOZfW4
-	/4R1K2diAtpktvxLhoBtVksag2UC4p+yOZdC1D3Au95tpZPTdH8KrnRwsK5cSvpknqKtrpdifae
-	neBMWB3FUSYvWv605+L1fXfh2+gihk9TZh8NZ1+Eq5ydSITH+NzfAegz6AGAb1
-X-Google-Smtp-Source: AGHT+IEw5vr3sX4/p69hMs8HEEAiC3uG/ZgZS22kpenU9sT4/lr2eWLaAk4CkFjapBhq7Fp+0eTpSg==
-X-Received: by 2002:a5d:5f91:0:b0:428:3d14:7385 with SMTP id ffacd0b85a97d-4298a059f15mr1799694f8f.28.1761234775377;
-        Thu, 23 Oct 2025 08:52:55 -0700 (PDT)
-Message-ID: <b5cf4646-54aa-4d66-9475-b49068a7001f@suse.com>
-Date: Thu, 23 Oct 2025 17:52:53 +0200
+        bh=Yfju5TuSYr1gnKBFs17R38Pvw/Jb2fzNTTH63D/Pa3U=;
+        b=dgATLl03eYsTSizBivoOSpoCd7P8OiRlwaR0TURVzTi4weZ2XTRVgytfDIccvjteoD
+         9G7M6gT1IHN27MTynkBRPr6zuMMpJcEBqOF2gQ6iaDQnIsy0wytXqQEHPgm0BH6M6BG3
+         ShiqHVvog6EjY3ZsmlH+8ywJWfOilMWBzRnoiTU+oQUv5QYszb0CIXn+SYMDOUFgGXDb
+         YWilnzEJkDc6oX5pQW1INQkiIGZJYc1/BrL9gylUfrXw1R2oVMArP79n/CYVz6fdXvwi
+         knHw9hkjtRu3iLpPNyfancFAIPmrlzgG1fxSCdI3l4naZ/imDovkPxjyYxntnaPuNvjr
+         aI/Q==
+X-Gm-Message-State: AOJu0YzgMteBUGgjeRcMSBu6TqRZ1HTTW0cqkXywjvlFdnnssaPGaTTe
+	N86wJeOk1RL08qtSs0SL9rpA2z0a9+Ptc8ezbTm9UnFMG0hy/lYEZ5ONAA3N4KOAEdvlAwwNxof
+	jrpM=
+X-Gm-Gg: ASbGnctBhNRDb+bsBbE9QTgkq1oEh16R0IWoyezl/pUrbhB8Xz0Z3b52KAv3KPK3krE
+	2fFA/0NHZjSl1KAYH7F7KmzhjCKpkc4WGuXuvrGfGoreQTgdgy0vPH/5mVLsRtL9SvZUcFtevp6
+	QtXwJDG6kKgRyF5KlVEQXwzEHa6jlDiZItAgyhBhjoKLioxwLEbBAno9aK/5L8yNzMPgEUE85+K
+	RdLt41CwglLCZmErB3DPHRqAmlkwjAX+yYCYf2WraILEqGMbtQ9kQlHmrTkw2sPa6uIo+uAiD2M
+	bGgwp2JC2xHwnuWDVuWK4uxcB59S9E7AM+AB/3cjRGtc1chl4MtPxGq/9lKSjUqNFkjv/fIkzyM
+	mZJJbJ9RGW51RdAIf55YgVP5QIT1KgVU3p+GyTQHfshNrUfykCrj+ioVNsQSMhJmXw0BSCKP4Q3
+	VK7XDL3ua3KW8atIQkQmXCauzzzAHGuj1HmIOT+TN/tPJX+fEmwwaGXkz/stPT
+X-Google-Smtp-Source: AGHT+IHeklUfRModfDEmbNU6EzqivzIwOReNcO1R1E45nwegGH4IqjeeVfWLsrm4xTPEWX7N8fLelA==
+X-Received: by 2002:a05:600c:4695:b0:46e:32dd:1b1a with SMTP id 5b1f17b1804b1-475caf92922mr21227715e9.7.1761234805771;
+        Thu, 23 Oct 2025 08:53:25 -0700 (PDT)
+Message-ID: <f6783786-6cc1-4baf-bcdf-ab8d0a78266a@suse.com>
+Date: Thu, 23 Oct 2025 17:53:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 8/9] x86/HPET: drop "long timeout" handling from
+Subject: [PATCH v3 9/9] x86/HPET: simplify "expire" check a little in
  reprogram_hpet_evt_channel()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -123,33 +123,30 @@ In-Reply-To: <6a8a912c-7276-42bd-af2b-b94fc6ce4291@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Neither caller passes STIME_MAX, so (bogusly) handling the case isn't
-necessary.
+When this was added, the log message was updated correctly, but the zero
+case was needlessly checked separately: hpet_broadcast_enter() had a zero
+check added at the same time, while handle_hpet_broadcast() can't possibly
+pass 0 here anyway.
 
-"Bogusly" because with 32-bit counters, writing 0 means on average half
-the wrapping period until an interrupt would be raised, while of course
-in extreme cases an interrupt would be raised almost right away.
-
-Amends: aa42fc0e9cd9 ("cpuidle: remove hpet access in hpet_broadcast_exit")
+Fixes: 7145897cfb81 ("cpuidle: Fix for timer_deadline==0 case")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v3: Drop the code instead of adjusting it.
+v2: New.
 
 --- a/xen/arch/x86/hpet.c
 +++ b/xen/arch/x86/hpet.c
-@@ -162,13 +162,6 @@ static int reprogram_hpet_evt_channel(
+@@ -147,10 +147,10 @@ static int reprogram_hpet_evt_channel(
+     int64_t delta;
+     int ret;
  
-     ch->next_event = expire;
+-    if ( (ch->flags & HPET_EVT_DISABLE) || (expire == 0) )
++    if ( ch->flags & HPET_EVT_DISABLE )
+         return 0;
  
--    if ( expire == STIME_MAX )
--    {
--        /* We assume it will take a long time for the timer to wrap. */
--        hpet_write32(0, HPET_Tn_CMP(ch->idx));
--        return 0;
--    }
--
-     delta = min_t(int64_t, delta, MAX_DELTA_NS);
-     delta = max_t(int64_t, delta, MIN_DELTA_NS);
-     delta = ns2ticks(delta, ch->shift, ch->mult);
+-    if ( unlikely(expire < 0) )
++    if ( unlikely(expire <= 0) )
+     {
+         printk(KERN_DEBUG "reprogram: expire <= 0\n");
+         return -ETIME;
 
 
