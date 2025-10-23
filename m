@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81EDFC01DD5
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 16:44:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1149202.1480898 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D56AAC01DF4
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 16:46:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1149221.1480908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBwYP-0005Kr-Gk; Thu, 23 Oct 2025 14:44:37 +0000
+	id 1vBwa6-00062g-R3; Thu, 23 Oct 2025 14:46:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1149202.1480898; Thu, 23 Oct 2025 14:44:37 +0000
+Received: by outflank-mailman (output) from mailman id 1149221.1480908; Thu, 23 Oct 2025 14:46:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBwYP-0005Hd-DD; Thu, 23 Oct 2025 14:44:37 +0000
-Received: by outflank-mailman (input) for mailman id 1149202;
- Thu, 23 Oct 2025 14:44:36 +0000
+	id 1vBwa6-00061G-O0; Thu, 23 Oct 2025 14:46:22 +0000
+Received: by outflank-mailman (input) for mailman id 1149221;
+ Thu, 23 Oct 2025 14:46:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Pfyu=5A=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vBwYO-0004uF-G1
- for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 14:44:36 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ <SRS0=Ct/T=5A=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vBwa5-00060z-7x
+ for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 14:46:21 +0000
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170120001.outbound.protection.outlook.com
+ [2a01:111:f403:c107::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c8edbdc6-b01e-11f0-980a-7dc792cee155;
- Thu, 23 Oct 2025 16:44:31 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-b6d5e04e0d3so71562966b.2
- for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 07:44:31 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b6d5130d570sm229073166b.10.2025.10.23.07.44.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Oct 2025 07:44:30 -0700 (PDT)
+ id ff3fea25-b01e-11f0-980a-7dc792cee155;
+ Thu, 23 Oct 2025 16:46:03 +0200 (CEST)
+Received: from DM4PR03MB7015.namprd03.prod.outlook.com (2603:10b6:8:42::8) by
+ MN2PR03MB4990.namprd03.prod.outlook.com (2603:10b6:208:1a3::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.13; Thu, 23 Oct
+ 2025 14:45:59 +0000
+Received: from DM4PR03MB7015.namprd03.prod.outlook.com
+ ([fe80::e21:7aa4:b1ef:a1f9]) by DM4PR03MB7015.namprd03.prod.outlook.com
+ ([fe80::e21:7aa4:b1ef:a1f9%3]) with mapi id 15.20.9253.011; Thu, 23 Oct 2025
+ 14:45:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,67 +47,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8edbdc6-b01e-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761230671; x=1761835471; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OCl2HCRDV2i40PMplfn/hcDJ1SVM/uCEWPUsGMEipu8=;
-        b=Nr5LFobVD7uWl1xuulxDfZGhPD2zdEySg9GktiuSI4aJRjX3D0ONriWWHxKKtqTcWg
-         zhg/NUbA+uL3r3WyLWv1MJSTIrwsxHt35mNEUKXFRNlYuXrhmceBIWJiT16vmMMc6ezF
-         LwZ5CiB0sOdP9Rd95foHG28sC1B+hZP40hh3M4M/YfzA57539leFp2VNkJTMZyDxDO8G
-         PZ6N1BB3LC9tbXrZzSzuOJsT3R7znMEHeZdXlIdAC4vLzsodRNLY8WyO1ufufqznEfNk
-         cImmeO1pTRTys+LfAAfexTXB9UVywJ565acyGI3zAgGOmQ3Ol0PFnJTF2fSgbtrSiRAF
-         Kcww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761230671; x=1761835471;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=OCl2HCRDV2i40PMplfn/hcDJ1SVM/uCEWPUsGMEipu8=;
-        b=kMnaWRVnLjSi+RwKM4pmHqYl6fbyy3xU3Z5SWz1RB8r33KttYlzXWEuwOe29HLxM92
-         ltjuZABBhGK8iwQTN3aexwMLDylUejfaX7nmwvhl1h8EE/nIwxGvlrc3Riwp9sblaJrh
-         JAoaoGkW6yFoNOW67bkPtyqWnlhNiOX0yW5voEzrbnmcd7DvPz6kVULlE2m2V2c11BMv
-         6pNsQbkIgOlOjGxifV4ggbFmdPtt0Ke8wUCmCTliCznB3efEvRFCgrR2OZx/PxGuwNDK
-         QxVV69+IsFLuls3C98eK4j2fv7aLpQovNe7C1rfKhqGroP4TaX30r6c7GoqKhMb21qDq
-         UAKw==
-X-Forwarded-Encrypted: i=1; AJvYcCVKz9ST4SKZoakwAGnCRmuhKmUXT8K2GvReiqjAZ60LE804CGJXMbXkWYP0VwlIhoF/99NOz81a0AE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzKo9tWTH1EVMkdglxobuIJisA5FV59ttA2utQBaj00vXcfMCzC
-	lUrNbM62t1mYVgeuA0cF2eLVp4WOj5sCBowTk/GJ/X13Uu3e+FRsjn1M
-X-Gm-Gg: ASbGncs5PObGn8KiW/9bcxb2spxDMjS1HrzF/DhnbPkgPj/E3D1A38j9/+3puOvBW62
-	DvXDbXRfpmPkqmBK1xIbPeN9Eo4DxpHt703PU7gmJ2A5+DvjrdIYNcXqpBU059grw8kV6B71AjI
-	hSML6lHq1dEqXumMUzAozDpRj6vYb6OOtKhN9HbsEGccJCntElOMFOeB5qmX7D56Fm5ho0K5caD
-	vpdGxu7Yxf0gbBcQHGbN7O0naPEpDWa+1tGy04z5RBGsINOupqmhTNq6RtTRRT6L4+m9Ks2bJhz
-	swQUNZ4nLUXiMG06DXonbAImXfCF9MAzjjtaHlM18s2vBJFmcpn5mjZjd8g8RXIWZxddu6C7Gbq
-	pTORNtdjd7OxbZYseLpqtbIq6QDIpbvDVz03jBd8IBtHqmH9jWT+Y1Ohrzeo/q0kGcXErFuUh2J
-	2wjkIK2lL4RuzP48VruAvXn/BsNj8OOcKyEOCumkowsXnwW4BKtQT4sX3+9ZUenmli
-X-Google-Smtp-Source: AGHT+IG3pHNIgJZev+8M+acscAebcHTNnZF0PAjtWoBycjKAnbmFmuZMxA9UcHZnRjfipDeYd2XS1Q==
-X-Received: by 2002:a17:906:81d9:b0:b6d:5b0c:289e with SMTP id a640c23a62f3a-b6d5b0c447fmr121756466b.0.1761230670848;
-        Thu, 23 Oct 2025 07:44:30 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------LQ5b6DOoQFRRaT8qcmI4FUv5"
-Message-ID: <1a1fd748-05d4-4400-bf42-41a848cfc317@gmail.com>
-Date: Thu, 23 Oct 2025 16:44:29 +0200
-MIME-Version: 1.0
+X-Inumbo-ID: ff3fea25-b01e-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CIANcA9bjt6q2moQXZxQAgpfsREAjWICiH4u3TQ8WIXSOPw9nDXGGGOQjZ43t7P7tj69tXn2gOzzquTiHQUbhM7a1fRBzd4grZH99m9QNvkNMWS7bMu97278Ft9YRPbK9cXhcYP4YlEFJmEgmHZCUw61N2j2O416MsfNVx0rGqpXIaobdjCWZz2oGyNXPnBRi/1ykGqbtoHPk/mJKAD1IxL5eilAMnEhaYMPUGjjCfheZYD2ts4Utxv3mFDPJGMmh6EoLOE5PkaWjW8zx4yJXkVeSEVKuEg9tTx78fTKWxnG6YGzKbF3yE6fzk9U7zwBgvs0hXGCCu+nfZnZo0rR9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bgbAAT8EsTp2lBPovP/Xa9rB/J0cfCEbCaY3hrZjNDI=;
+ b=UDCoGn54ZlXbNRBN/1G6LZokv7Ui2MKgbMhWdRoRNZ8XA+HYEj8uQdgO9LkOo+lSpYdGK8LzXs6eI6ILQQ7kMQlpMlpTSb2H2HgkXn3Mya/wOHTq9UThMqwGDyTu5g4WP7KvaY8fYCD5wy4MCGDOBa/rBK0S+d3TOCEcDtkqTPa6OSgMnMN3LRSkinwwGxBBLE5U3MYnONYEDlcoKqE0wZe6I7IoMlZOwkR76au7g1hEMrjzpza+RrmvUuoNUCZFf9bGS8GivTwI9b63y+K5KHSNwQq/kZeSIl27gcVJInP8sTfJ8xqOyiCl3j+2U3c8XZyB65QRNc7yTHhR8ZnR3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bgbAAT8EsTp2lBPovP/Xa9rB/J0cfCEbCaY3hrZjNDI=;
+ b=Rgyism8ePjPPSFlkzdayBDTGzVCiKGyxCiu/wJOZblZbAchOaGpsJ8Ay5/1b402J1za7NdMI/XDW5cfigep1xv04b6k5ThXYp5EKz01BkADk1l1YluzO5tsYqUqdHosQQLT5i5eNFVrmP2YkLnsj0sUPcDBgET3eI6TxYB+Ol3A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <bd6c0e3f-f2bc-4399-adf6-d2dc18b06982@citrix.com>
+Date: Thu, 23 Oct 2025 15:45:55 +0100
 User-Agent: Mozilla Thunderbird
 Subject: Re: [XEN PATCH for-4.21] tools: require at least json-c 0.15
 To: Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Anthony PERARD <anthony.perard@vates.tech>
 References: <20251023085730.36628-1-anthony@xenproject.org>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 In-Reply-To: <20251023085730.36628-1-anthony@xenproject.org>
-
-This is a multi-part message in MIME format.
---------------LQ5b6DOoQFRRaT8qcmI4FUv5
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P302CA0037.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:317::9) To DM4PR03MB7015.namprd03.prod.outlook.com
+ (2603:10b6:8:42::8)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR03MB7015:EE_|MN2PR03MB4990:EE_
+X-MS-Office365-Filtering-Correlation-Id: 61587b5e-2131-44ca-306a-08de1242e133
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?YVdFQmllTVVoSE9VOVJsWkRHUjNudkc0VXNtTHJkV0p6QnQycW5oZFBDUFo3?=
+ =?utf-8?B?bHdtcHhaaFFyUDg5bFJsejBsR0Z2ZGhUbzUwWXR5SDNobXdub24zb09GYUI4?=
+ =?utf-8?B?R1pmalFvMFJQWjZDUWFkcUNNck1CYUxySUQvdVR6U1Nna2lsamdkVkU3QlRN?=
+ =?utf-8?B?SU05WUY2cWVHWitlTCtZb2tBeW1UNHBSdEg4bkh0Ym1yRXVMWC84Qkw4UmhJ?=
+ =?utf-8?B?Z3ZFeTI0RHNxazBsanBYVEpacmE5NW04ZW1ORWYraElLa2ZENHRFamtvTm5w?=
+ =?utf-8?B?dFJSY0ZWRlhZMXpPYVE4ZXdzUU45dmpkaUloVTJmaTMrRUIzQ3QvZEw3UkVP?=
+ =?utf-8?B?Tjh4b1J4cmp1alVNTTBpVitBTHpxbjhmUnV5ZmpJOXN3elhRYXFIY0xlbWJm?=
+ =?utf-8?B?Z1VzWUZPd21hTW1ENlEzejdDQ0VWazhIbDhvNTV0QTdzdzludHduYmNlR05V?=
+ =?utf-8?B?eTZMdXdCU05BZUFIa25SbVJSQmhBTzRxV2FwS24xUThZZy9BNXZFZktUb2Fj?=
+ =?utf-8?B?cHJub2E1cnpMYkRPNGx0UGVhR29CeWx0bXREcDVrc3ExQU42RjNzcklBTGVB?=
+ =?utf-8?B?WWdXckE1ZHhqNnlzUkRkTG5pRGNFcUdvYnBXV2NYRm9HQTZRYWFpQXZNSENE?=
+ =?utf-8?B?d2pPazhlTUJaYytuVTgzOW91ZnhiNEdVWmRlNlg3aWlGcEhFejd1bW9tVUw0?=
+ =?utf-8?B?dWttOHZRdCtjNGp1N1RlYVlPTmtDdHdhUnhoODFvTmxmeWt0OFVyOVZ1alo3?=
+ =?utf-8?B?SnlUNFhJZU1DSDdENTMzNGM0akh0eERDQmtQeFhvWW1Tdk53N0QyTGZ4amtX?=
+ =?utf-8?B?SUhpTTd0cGE0U01pYTAzU0FDSTVtRmtYZjBRWHVNYjR4S3cyMi9HYmZYTURz?=
+ =?utf-8?B?K2JNZnJBTklSY3FnNC93YVdBb1lMU3F4ZUUwTkhWTEc1OE1uem9Qb3BPM1Mz?=
+ =?utf-8?B?VjZNYkJYRUxad2E2YVM2cEp5VXVHUXJXc1JNQUFWNWY0Y2d4TDhsU0hVSDNB?=
+ =?utf-8?B?MUt4ZlR5M3VrZ0R3VFMxZGVCR1JieTRwZG4yWkJ4VFZ6VGVTbldqSTA2SGtV?=
+ =?utf-8?B?QVdXd3pzUzVwb0tCNVU1ZFJyTmhCMUwrZzZ3alhoUW15b21kd0N3dnd1dU8v?=
+ =?utf-8?B?ajl4Nmp1MmR0Zm9vYnFXVWNhZFI2UFRaSG5oakJLcVhNbXJYUGxtQzF0eEdP?=
+ =?utf-8?B?MXBodTBGTE54RithVVl1ZzJjcDRXNmpsaHVHT2NnTXRDaEtNY1grTVUydHVY?=
+ =?utf-8?B?ZEtnTUEyR3ZSVXNQcUFhYS9ETjZWMFo1VURnT3VCdklOSk9JWEVYbDhzb1B5?=
+ =?utf-8?B?bExvdDB3cFdQNnFSK3VOYklsVWJMTTZKMDB2cWZnVlFVZVZJcm5raTFkYnkv?=
+ =?utf-8?B?a2p5QjNMVEg2L1ZmWGJZSGxCUGtLOGxLSmZUM0xSdTBZeThUOGdiSFpQSlZa?=
+ =?utf-8?B?TmlzQTFEeFR2UklkRE1SR0tPK1VEbDNWOG5vSXRxdWNRVVVSQ3cvNklCRXNY?=
+ =?utf-8?B?amJCandvL29KRVpHT2YvSCtHMkdMT0hQc0Q1dW1rS3lQL3pocHU0VnFMS3dy?=
+ =?utf-8?B?Y09lZ3I0NVdzNUJEUHdrUGEySW5mTTBPVmdmekFXTkVIUjk1RExvcUpabCtC?=
+ =?utf-8?B?aHkwOVp4YlJaVzlhc3k2MDJRUjFTTFM4TCtNaU5WUnJnZjZ6RUFuU3RnNURU?=
+ =?utf-8?B?VEdZVkRDUUIwb1ROeU9ReWhheWUxWVVzUG44RnNaNlZHMGxiOHhqby8yajd4?=
+ =?utf-8?B?Y295aC9vS2xBMmtYY01jRU1HaEhLN2I1SjdFNTFaeU02bFM0Mkx2aEw4bWZD?=
+ =?utf-8?B?NnV6NU45MjdTbXJ2MDc0WTBlVmpZR2JDS0ZVQU9ySVIvYVBFZEoyT0xrUDRG?=
+ =?utf-8?B?eGFzR1NjZFQ1elArN3pXNWVWdVBLcmNsQkNyL0RGWG1zM216WUkwUjN5WUd0?=
+ =?utf-8?Q?XwBQzPQ2s0g2LCYYfzrEiK6KgwEhooyk?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB7015.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NHFka25sTUxqZURXRGQwVSt1RVVCQW5nUHYrOXh0Sm10b1JIWU9BQ2lhNTlG?=
+ =?utf-8?B?bVlaMHJJRjF0YVFvM3J5ZXNKYm8yU1h2NU81QkpvTkRYTjVqejlyc3JVbzM2?=
+ =?utf-8?B?eURFL3B2OTYrRFBXdm5yL3c4dDhTdWZxTUNvNjJnYk4wN094OHBsaG81UHJN?=
+ =?utf-8?B?RUFrMlpJdTlOZkpWbWdHQXo4QytGOVpZTkxWK0J6Z0gxTm92ZTIvY1h0SXJT?=
+ =?utf-8?B?d3VXTmF2dUw0bllvTlVlNTBQNmdPNjlNbGE1MGVVMk5NSVl1Mm9PMy9Xbm5H?=
+ =?utf-8?B?NnZzNG1PRThpQ0FkckYyblNCQVBYbEVkTER2eHBnWjkzYXFNcisvcU9PTml1?=
+ =?utf-8?B?SjZ2V1haNWlMa1ZGQmNNZUp5RksxWnBUZEsyYUtWNWdLcnpxMjNyZW0vdGlW?=
+ =?utf-8?B?Szg5enRSVVdUZUJodmlQSFltbXN3ajVQaVFXY2ljcExYK1huMnNqVG1VS2oy?=
+ =?utf-8?B?aG1EWWVhMzJRZm16Zk1XU1kyV01JcDkzY3dNY3h3K1B3RVQvbmJoaHdISFIv?=
+ =?utf-8?B?SFBOdFc3TFgzaEFMWjAxTE9sN2tScng1b21HUitEdVNrVXIvN3JNMDBuN3pV?=
+ =?utf-8?B?TndqRXhVQVovUTlBZFNORUIrQnlRRXJpVjR5UW9SVGNDVU90bkpkU0FiRHho?=
+ =?utf-8?B?dWNMYjFzS1c3T1RUNHplUk45bGhHQ0J6YWZWcldtamdMaGwwd2wyMkRldC9O?=
+ =?utf-8?B?RlhNK1FEZlVVUUhXWTZwcDB1SW9sY0FrS1U0UVRkd0YzK01VYkZERldpTDlE?=
+ =?utf-8?B?NnlmdlowME9KVVd1U3FVQVlVTDg1bll3YkEySWRtdkZ3Zk0rYVR0UVJXUlRD?=
+ =?utf-8?B?dUxHSEQycXlwYU1sa1daanZ0T0JSQ0FPTHFaQjhHZHVwN25obWEzTFpGazRN?=
+ =?utf-8?B?YzVLeFB5dlBCWmo3L1UyZzBJQVZhV3lzajZ5T2RXVWxSM1V2NUljekF1dEZK?=
+ =?utf-8?B?OU1Ebk9LV1NJR1U0ZFUzVmwzRUxudFBGZk1xZ3psR2hrM0dsbHc4Y0E1LzBo?=
+ =?utf-8?B?OHI1d1I2NXc3Unk0eWpZZlJMa0NDaDk1MlJ5c1N3bWhzYkRqaTFIalVMSFBn?=
+ =?utf-8?B?WjhPWHhJS1duQTRsNk9UbVJLMEF0N2l4akMvRXVnRk9UY2pIMjBvSXpBUjg0?=
+ =?utf-8?B?dit3d1VNYUxPeWY5ZDkwVG9ObnRwSUhVSklmdGNlWmd2YjRocm9ZaUNQRFVQ?=
+ =?utf-8?B?VlN3TG1OK0JDbVVRVzJvMVVidUxKVFhkaGp0dmUxSDBpdW9nNUZ2NlI3VnBw?=
+ =?utf-8?B?UXN3Sys4dHh4NWZkcy9sbWhyR2pJYW81N3hJMjQxRk42R3ZHZXAzR2xwRlZR?=
+ =?utf-8?B?bCs1QjlnSjZsM1NMUVdCR0Q4Q3dXcHJTaXNVWENveTZ1bDlkeVNCOXI3eVhF?=
+ =?utf-8?B?Vk40UXFuVkVxcHREMXN5R3ZsaEd1NGZ3QUl2MVp1TXZ3Z0hhVjFZVGlYQmdK?=
+ =?utf-8?B?RDBFRFBEcVJGNHJYdW1FWG5YQnRkM3MvZUxVT05lRDlHL2FCWEc0T09CZ29w?=
+ =?utf-8?B?V084TEJoMEJOYVphbDhhYmxUUDlwOXQvZlNMTkJuQWw5V3RLNlB1NlZvdU9v?=
+ =?utf-8?B?WW41aDB1RjVNRGdaaG4zRUhrTVNlM3pDenEzSit0YUZJUG5zZHVDV0xwQ2Ju?=
+ =?utf-8?B?b3Fmc3dJYTVITUNFb3JIK2xxbXJ0TkdkRkZlcUY2RWFsZG1tSTN0RFVkeEpS?=
+ =?utf-8?B?U2EwNjZxK3I2K3VKYy8xa2FRMS9Va3gwbkgxdEdJOFZBeDVZckhWUGw4bjJL?=
+ =?utf-8?B?cmZBRmpTN1BuOHF5NFl1U3REOWlPMjZPTFpDaEFiaDN6NFNSZXRMTktPVFpa?=
+ =?utf-8?B?bmVLanpHcm9IcE12K2J0Lzd2OGMyMzNHUFBxZFJWWitnNE1sa0tLQ1BqdXhk?=
+ =?utf-8?B?M01YVU00SXFZSExlcVRqT01YQm5EOWx1djhmTFdpc0NTbFZHNXdleEY2VVR6?=
+ =?utf-8?B?aG9YQnRDVGl2RENYbjhUL0YrRzg4RUNpK1NuZ0JFZFNGOWN5bzljTGJsSnRE?=
+ =?utf-8?B?ZVN1c1haN2FaTks5SFoxdUhpekszTVkrN0xSUzBvTnBuMTVPeWJiVFE5THhv?=
+ =?utf-8?B?eG9RQ1VOc3hPYUtLWkxDL2d5cjVPMkZJd1hjMENZUlJjZkdNZ1VyNmZqMlFz?=
+ =?utf-8?B?Wm1lcnJvVTZValBLam1xQi9lcnVPZHFwSWp2bnJ6Ti82eFRLdmdWc054SW14?=
+ =?utf-8?B?Z3c9PQ==?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61587b5e-2131-44ca-306a-08de1242e133
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB7015.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2025 14:45:59.2202
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UWZS9Vw8KcsNUN7NvZUEvxggTr9b+ZTwyesiP+KQ+IFPE40V/QM05HhE41cEMR+mPevp0xjVnKaN9NXyaL4Gt0ZHMzN1Y83no2gB5MBRS2o=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB4990
 
-
-On 10/23/25 10:57 AM, Anthony PERARD wrote:
-> From: Anthony PERARD<anthony.perard@vates.tech>
+On 23/10/2025 9:57 am, Anthony PERARD wrote:
+> From: Anthony PERARD <anthony.perard@vates.tech>
 >
 > If not available, fallback to using YAJL.
 >
@@ -114,186 +186,10 @@ On 10/23/25 10:57 AM, Anthony PERARD wrote:
 > 0.14. And the last one json_object_new_array_ext() was introduced in
 > 0.15.
 >
-> Signed-off-by: Anthony PERARD<anthony.perard@vates.tech>
+> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
 
-Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Thanks.
-
-~ Oleksii
-
-> ---
->   tools/configure    | 16 ++++++++--------
->   tools/configure.ac |  2 +-
->   2 files changed, 9 insertions(+), 9 deletions(-)
->
-> diff --git a/tools/configure b/tools/configure
-> index 0eb7a0ab6a..d460f25529 100755
-> --- a/tools/configure
-> +++ b/tools/configure
-> @@ -9642,12 +9642,12 @@ if test -n "$libjsonc_CFLAGS"; then
->       pkg_cv_libjsonc_CFLAGS="$libjsonc_CFLAGS"
->    elif test -n "$PKG_CONFIG"; then
->       if test -n "$PKG_CONFIG" && \
-> -    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c\""; } >&5
-> -  ($PKG_CONFIG --exists --print-errors "json-c") 2>&5
-> +    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c >= 0.15\""; } >&5
-> +  ($PKG_CONFIG --exists --print-errors "json-c >= 0.15") 2>&5
->     ac_status=$?
->     printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
->     test $ac_status = 0; }; then
-> -  pkg_cv_libjsonc_CFLAGS=`$PKG_CONFIG --cflags "json-c" 2>/dev/null`
-> +  pkg_cv_libjsonc_CFLAGS=`$PKG_CONFIG --cflags "json-c >= 0.15" 2>/dev/null`
->   		      test "x$?" != "x0" && pkg_failed=yes
->   else
->     pkg_failed=yes
-> @@ -9659,12 +9659,12 @@ if test -n "$libjsonc_LIBS"; then
->       pkg_cv_libjsonc_LIBS="$libjsonc_LIBS"
->    elif test -n "$PKG_CONFIG"; then
->       if test -n "$PKG_CONFIG" && \
-> -    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c\""; } >&5
-> -  ($PKG_CONFIG --exists --print-errors "json-c") 2>&5
-> +    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c >= 0.15\""; } >&5
-> +  ($PKG_CONFIG --exists --print-errors "json-c >= 0.15") 2>&5
->     ac_status=$?
->     printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
->     test $ac_status = 0; }; then
-> -  pkg_cv_libjsonc_LIBS=`$PKG_CONFIG --libs "json-c" 2>/dev/null`
-> +  pkg_cv_libjsonc_LIBS=`$PKG_CONFIG --libs "json-c >= 0.15" 2>/dev/null`
->   		      test "x$?" != "x0" && pkg_failed=yes
->   else
->     pkg_failed=yes
-> @@ -9685,9 +9685,9 @@ else
->           _pkg_short_errors_supported=no
->   fi
->           if test $_pkg_short_errors_supported = yes; then
-> -	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "json-c" 2>&1`
-> +	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "json-c >= 0.15" 2>&1`
->           else
-> -	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "json-c" 2>&1`
-> +	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "json-c >= 0.15" 2>&1`
->           fi
->   	# Put the nasty error message in config.log where it belongs
->   	echo "$libjsonc_PKG_ERRORS" >&5
-> diff --git a/tools/configure.ac b/tools/configure.ac
-> index 7267d02a04..285b4ea128 100644
-> --- a/tools/configure.ac
-> +++ b/tools/configure.ac
-> @@ -424,7 +424,7 @@ AC_SUBST([ZLIB_CFLAGS])
->   AC_SUBST([ZLIB_LIBS])
->   AX_CHECK_EXTFS
->   AX_CHECK_PTHREAD
-> -PKG_CHECK_MODULES([libjsonc], [json-c],
-> +PKG_CHECK_MODULES([libjsonc], [json-c >= 0.15],
->       [AC_DEFINE([HAVE_LIBJSONC], [1], [Use library json-c])],
->       [AC_CHECK_LIB([yajl], [yajl_alloc],
->           [AC_SUBST([YAJL_LIBS],[-lyajl])
---------------LQ5b6DOoQFRRaT8qcmI4FUv5
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 10/23/25 10:57 AM, Anthony PERARD
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20251023085730.36628-1-anthony@xenproject.org">
-      <pre wrap="" class="moz-quote-pre">From: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
-
-If not available, fallback to using YAJL.
-
-The code is using json_c_visit() which was introduced in 0.13.
-json_object_new_null() and json_object_new_uint64() where added to
-0.14. And the last one json_object_new_array_ext() was introduced in
-0.15.
-
-Signed-off-by: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a></pre>
-    </blockquote>
-    <pre>Release-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-Thanks.
-
-~ Oleksii</pre>
-    <blockquote type="cite"
-      cite="mid:20251023085730.36628-1-anthony@xenproject.org">
-      <pre wrap="" class="moz-quote-pre">
----
- tools/configure    | 16 ++++++++--------
- tools/configure.ac |  2 +-
- 2 files changed, 9 insertions(+), 9 deletions(-)
-
-diff --git a/tools/configure b/tools/configure
-index 0eb7a0ab6a..d460f25529 100755
---- a/tools/configure
-+++ b/tools/configure
-@@ -9642,12 +9642,12 @@ if test -n "$libjsonc_CFLAGS"; then
-     pkg_cv_libjsonc_CFLAGS="$libjsonc_CFLAGS"
-  elif test -n "$PKG_CONFIG"; then
-     if test -n "$PKG_CONFIG" &amp;&amp; \
--    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c\""; } &gt;&amp;5
--  ($PKG_CONFIG --exists --print-errors "json-c") 2&gt;&amp;5
-+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c &gt;= 0.15\""; } &gt;&amp;5
-+  ($PKG_CONFIG --exists --print-errors "json-c &gt;= 0.15") 2&gt;&amp;5
-   ac_status=$?
-   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" &gt;&amp;5
-   test $ac_status = 0; }; then
--  pkg_cv_libjsonc_CFLAGS=`$PKG_CONFIG --cflags "json-c" 2&gt;/dev/null`
-+  pkg_cv_libjsonc_CFLAGS=`$PKG_CONFIG --cflags "json-c &gt;= 0.15" 2&gt;/dev/null`
- 		      test "x$?" != "x0" &amp;&amp; pkg_failed=yes
- else
-   pkg_failed=yes
-@@ -9659,12 +9659,12 @@ if test -n "$libjsonc_LIBS"; then
-     pkg_cv_libjsonc_LIBS="$libjsonc_LIBS"
-  elif test -n "$PKG_CONFIG"; then
-     if test -n "$PKG_CONFIG" &amp;&amp; \
--    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c\""; } &gt;&amp;5
--  ($PKG_CONFIG --exists --print-errors "json-c") 2&gt;&amp;5
-+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"json-c &gt;= 0.15\""; } &gt;&amp;5
-+  ($PKG_CONFIG --exists --print-errors "json-c &gt;= 0.15") 2&gt;&amp;5
-   ac_status=$?
-   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" &gt;&amp;5
-   test $ac_status = 0; }; then
--  pkg_cv_libjsonc_LIBS=`$PKG_CONFIG --libs "json-c" 2&gt;/dev/null`
-+  pkg_cv_libjsonc_LIBS=`$PKG_CONFIG --libs "json-c &gt;= 0.15" 2&gt;/dev/null`
- 		      test "x$?" != "x0" &amp;&amp; pkg_failed=yes
- else
-   pkg_failed=yes
-@@ -9685,9 +9685,9 @@ else
-         _pkg_short_errors_supported=no
- fi
-         if test $_pkg_short_errors_supported = yes; then
--	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "json-c" 2&gt;&amp;1`
-+	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "json-c &gt;= 0.15" 2&gt;&amp;1`
-         else
--	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "json-c" 2&gt;&amp;1`
-+	        libjsonc_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "json-c &gt;= 0.15" 2&gt;&amp;1`
-         fi
- 	# Put the nasty error message in config.log where it belongs
- 	echo "$libjsonc_PKG_ERRORS" &gt;&amp;5
-diff --git a/tools/configure.ac b/tools/configure.ac
-index 7267d02a04..285b4ea128 100644
---- a/tools/configure.ac
-+++ b/tools/configure.ac
-@@ -424,7 +424,7 @@ AC_SUBST([ZLIB_CFLAGS])
- AC_SUBST([ZLIB_LIBS])
- AX_CHECK_EXTFS
- AX_CHECK_PTHREAD
--PKG_CHECK_MODULES([libjsonc], [json-c],
-+PKG_CHECK_MODULES([libjsonc], [json-c &gt;= 0.15],
-     [AC_DEFINE([HAVE_LIBJSONC], [1], [Use library json-c])],
-     [AC_CHECK_LIB([yajl], [yajl_alloc],
-         [AC_SUBST([YAJL_LIBS],[-lyajl])
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------LQ5b6DOoQFRRaT8qcmI4FUv5--
+However, you should adjust README and possibly Changelog.md to give this
+new minimum version.
 
