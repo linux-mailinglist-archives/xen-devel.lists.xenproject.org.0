@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55BF0C01CF8
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 16:36:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1149158.1480869 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A5E0C01D84
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 16:41:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1149174.1480878 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBwPH-0002mv-Qm; Thu, 23 Oct 2025 14:35:11 +0000
+	id 1vBwVK-0004Qr-Jb; Thu, 23 Oct 2025 14:41:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1149158.1480869; Thu, 23 Oct 2025 14:35:11 +0000
+Received: by outflank-mailman (output) from mailman id 1149174.1480878; Thu, 23 Oct 2025 14:41:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBwPH-0002kk-Nv; Thu, 23 Oct 2025 14:35:11 +0000
-Received: by outflank-mailman (input) for mailman id 1149158;
- Thu, 23 Oct 2025 14:35:10 +0000
+	id 1vBwVK-0004OM-Gv; Thu, 23 Oct 2025 14:41:26 +0000
+Received: by outflank-mailman (input) for mailman id 1149174;
+ Thu, 23 Oct 2025 14:41:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Pfyu=5A=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vBwPF-0002ke-V3
- for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 14:35:10 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=U0PU=5A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vBwVI-0004OG-M2
+ for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 14:41:24 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 79623778-b01d-11f0-9d15-b5c5bf9af7f9;
- Thu, 23 Oct 2025 16:35:08 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-b6d402422c2so218908966b.2
- for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 07:35:09 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b6d511f7027sm266002166b.25.2025.10.23.07.35.06
+ id 58b4d566-b01e-11f0-9d15-b5c5bf9af7f9;
+ Thu, 23 Oct 2025 16:41:23 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-471b80b994bso12778065e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 07:41:23 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-429897f57b7sm4316628f8f.16.2025.10.23.07.41.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Oct 2025 07:35:07 -0700 (PDT)
+ Thu, 23 Oct 2025 07:41:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,218 +45,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79623778-b01d-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 58b4d566-b01e-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761230108; x=1761834908; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pE5tdVzRZHDl+TZBRnh6M3Cd8JWffdiXRMrYC2G5zQY=;
-        b=KpWes+ZBLotCTTtP2WvHYjqTrLomatGcfW9aZXs03rJ+rJALZ3aLJUSoqDM8PvX9eW
-         RTiYsMASiIW9YkCV79xCxOkSe8/ENylJ4q0BuiyEgC+G5qybvaZDHs1y4owf743knu5R
-         YYsqI5RVBDhf9KUdH6o1NIELn4OoFZ0A9oKAvP46Iw44E8/BU5xYug88wAaDqtZPoLfQ
-         pRByv+J86TteZ/kKidohuOGgLt8UD4Kp0TlnVNpgIwiaE0WfcMVnfbw8WhO9q5dgftkx
-         7OuwrL0tzk49j/b99+/uNizGf6w15pYCZRNPU2pqRnjFwlXSEgeyLbxucR2ZTMX81lie
-         HLsQ==
+        d=suse.com; s=google; t=1761230483; x=1761835283; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=8fgE/KC4SJltnCyi7haaayIMb3G7u7CuGUQ2LqtW354=;
+        b=N6lslltTVDsbEc9eydW29kmjsqehz1nzUnx6EHrPN5E2qQko1hn4tlOqBDcvsVE27O
+         5wFYGOtzGBCQ8J2u9rkwseHHwOItcpNZwP3qJo3DKWCz9ITfVJ3LG6zB99qqtq/y12rE
+         k1aSWfPF1ZQEQ6hd8IoOau22WDPBXfNJtFXnAYHJckpccNwLhCxYO39dezu1UnkicJkp
+         iFjbri7w4tTFGZ0HfvyWG6ceyE06IURPykJZC0fmbe429/JK9OViWraWsbO5uo0frYqv
+         TQ18y3h2VQrdE7hVob86s5z+dSWPdYR1XpH69zONA/oDZRfJyq6RAe8H0WtqIfx0O4bn
+         bsYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761230108; x=1761834908;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=pE5tdVzRZHDl+TZBRnh6M3Cd8JWffdiXRMrYC2G5zQY=;
-        b=K0jiw50eAUBIyVCcCCjk4lRi/o/nIQW6WgROrTsuq2jB8KCG3i9ys4DEd0vAbvqMQ9
-         wIICodvjolqh8h5rO21EPwVsQEE91kZmVEnwPs/MBWFcIB3dier1tzA3UVUTJgy98u83
-         z9ejtuLYL1nMP2YMJu7IvEmN3kbsog2MrM3A7PiMUr0ByruWKbgdYky43wEUNkHvVDNR
-         JoeqzT8GiLQpwLaEJxbe5sfkGuWXGf4WXVe7NRdMqvkhTIypIDNxzc0HKFTMby1+f0hT
-         bR6+i5804have3nbuuztlvvkZT9X2Xs7XBablHoTVEwlF3pkv8GNXrKwrGNQvww6It+K
-         bonQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWOW0KCXc4frSl6xCll3BOrs4t81KdhRznrndBRYE8t0+qHjWkmtxrJ1NfTckTtqcrSO0LHlF0VzKY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwGqEuFz3NtPxOfARCriIMGyNpFnAnYLcOF9NUU8b+UJ2GbhLse
-	k7CcqRsRZIYBiqMoU8PuQN3BzcB2xo6FGtjCUMH8VCqGDPlh4M9DRfSv
-X-Gm-Gg: ASbGnctVf5iYIfko8FE7ncKCbEjhElyVt/vFDIQyjDVncyb5HHAcMsUmKP0VQ9fiuC5
-	TMnZBS24MOUl4dc3uMKEiBGfR+ba7eoCkI1IVl/M6C9gyWn8ZphFyn3uQQRieUgIsqjllAFzQVH
-	XIofJD3qihS/AsHK67XB0VAySiEbNDHqOefmBFsA+YiRZFTu/fJHX7KAXAkZ7w/mdfXsVeEiwEY
-	AmnHaLPY+G3x3yxdPKQbJVNrMLM3JwrEciHTFTYvB39kyuZBNXOThb5U7GEO3WpDur0DSzLwyvN
-	L3YQNm6t4JUOFy4p/SLFcEFlylWMNl3H1U4CrildugIr+WwOeWNSgoGce/6mZTea1zszBGKPNFc
-	DvGCY+vnPjBpOxWGLikRrvj560N+7bMNFxaP/kMZFWorLgM8NsCQonYZ+D/ETadQa58WR+q8ayU
-	R0s7KtkLEA2TC8nxG6LoAmOvqxUawIGg7sN7u/AhFW/yynhGjcQ5pK4A==
-X-Google-Smtp-Source: AGHT+IE2nYh95thbXiwUp4jgN67zcRjnXT8AVuiaxvtzaawGUqIzQQuxjSX0WykmLGBPU2A6AxDiDw==
-X-Received: by 2002:a17:906:c106:b0:b6d:5262:a615 with SMTP id a640c23a62f3a-b6d5262afc3mr369862766b.41.1761230107825;
-        Thu, 23 Oct 2025 07:35:07 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------CXGOxGRMdFHE9Zzozs5ZoitQ"
-Message-ID: <62a66123-ec8c-4458-a2d6-edacba36cb81@gmail.com>
-Date: Thu, 23 Oct 2025 16:35:06 +0200
+        d=1e100.net; s=20230601; t=1761230483; x=1761835283;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8fgE/KC4SJltnCyi7haaayIMb3G7u7CuGUQ2LqtW354=;
+        b=sKxLk/xsFdhV9qw7MgoMKHMmSFd3YGS94Lohtb6Py9CgPjuyN3KljFcuBhSIhYfIrR
+         8DLj5iBrm1pfA/OimK/3pGX5IZ9dAEHA72AttYUHmn2lP40OKMPptI9TFdX9svfmEnTp
+         HbluIL8I7XEDgl1J93G5PZQFx/rQcOqjGYiBpcaUaLMVAy/CO1Mg9KFRhD7fLy8EddBU
+         rhR3YxBhF4MqJ/2BHETf5t9/N0BIi7W6V+R1rAqPeRQTxwipu/X6X6jMfPPZdqU6+E9e
+         MlZQIPBOtw51pyioLCV+ahzJBxkO2b+GITvz14c2sf8xMhvji8kD8WrgCcRPLj96FGV3
+         mjXA==
+X-Forwarded-Encrypted: i=1; AJvYcCWU608vizE098Vv0OFJueqxgBralzSy212J4r2G0A2ukQ+3dvOGVkcaTnr60vk7d8V+6Na961t8ASQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzD0t0W3p8zNeHtg4K+grmP6GERQQ1OXDLWUx4Eo0rESjjVWqst
+	GImMSSS13Be1IqR9nucXXUnvODxLWmzsi0V7PSZLmly/5WaPr6uOz7mpWxHKmq1xqA==
+X-Gm-Gg: ASbGncstfEFKkXUdCFRSwLgoU2ADxJY2vEZsUhwqc1IDvhxiXojw6SAJU4fqs7DESv2
+	kWL7WeD7HZ+4YLgc2z8sZXRhD9L4yUy1DkBXcw+x+PBnYQYy9JCLsAt4hb36F/qz7yItdqMuKkf
+	uZlwAaeWIRW7E+BetdwPnPEXXAuvxol5bNWvpKSyEpYh/Edvk9haZFI9PJiZ6z792KRM6b9VSg8
+	dZucS9WPV0y+Nvow0WEk5I5EaFwG/8Q/j1NbnodLDOP3F9JoUrKmJTfqrZ6B4TQvtQH1oG8HM18
+	rU+4BJh9sGuIg7xfPVsNMujBddQ/6ivagEPdRhQEtBId98nFSDc9np7uMv8Vnh/r7AqdzS8yAkE
+	7HHO/OSIxLD6dTIiCjz3HQpmc4QuiiZSsqxfJeQOb30t8ZRWPEridw8vdvGD4sgQdOPo4Tx4elF
+	CpKZVNDRQWP/+jLy30qXfRWbAD2m1OqYCevHVoSrnoifcRzXtKyFSyfmd/szooDEnKP25Hn9k=
+X-Google-Smtp-Source: AGHT+IExrqAjVHKujobi7mzXkEG7pQsvxwQR8KPboOwbDCqf1/uyAT9F2Aen+KP8O92hY6mPhh+SVg==
+X-Received: by 2002:a05:600c:4e86:b0:471:13fc:4ad3 with SMTP id 5b1f17b1804b1-4711787847bmr218143765e9.2.1761230482765;
+        Thu, 23 Oct 2025 07:41:22 -0700 (PDT)
+Message-ID: <5a6d1670-ce9e-4264-bbea-786df5cc5679@suse.com>
+Date: Thu, 23 Oct 2025 16:41:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] Various IOMMU related simplifications
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Community Manager
- <community.manager@xenproject.org>,
+Subject: Re: [PATCH v3] misra: consider conversion from UL or (void*) to
+ function pointer as safe
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1761209564.git.teddy.astie@vates.tech>
- <b9baa995-da2c-49d9-844c-6b4c625721c0@vates.tech>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <0e72c83102668dfa6f14c4e8f9839b4a73d30b3d.1760458094.git.dmytro_prokopchuk1@epam.com>
+ <ceedeefa-c506-41ca-9dfc-76937979caa9@suse.com>
+ <321363444f9a3d3471bf1b3b2e020047@bugseng.com>
+ <0767a5c4-6a2c-4ed0-92d3-f9f89313ad85@epam.com>
+ <64411f5b-a826-48b6-9122-bf80ac377c7a@suse.com>
+ <9a09cbab-851c-46f1-8026-603a7cb9d79b@epam.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <b9baa995-da2c-49d9-844c-6b4c625721c0@vates.tech>
-
-This is a multi-part message in MIME format.
---------------CXGOxGRMdFHE9Zzozs5ZoitQ
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <9a09cbab-851c-46f1-8026-603a7cb9d79b@epam.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-
-On 10/23/25 11:15 AM, Teddy Astie wrote:
-> Le 23/10/2025 à 11:12, Teddy Astie a écrit :
->> Various simplifications in the VT-d and IO-APIC code (mostly related to legacy ia64 code).
-
-I think these changes isn't very critical for the current stage of release, so I suggest to
-have them in 4.22.
-
-Thanks.
-
-~ Oleksii
-
+On 23.10.2025 15:57, Dmytro Prokopchuk1 wrote:
+> 
+> 
+> On 10/23/25 13:23, Jan Beulich wrote:
+>> On 23.10.2025 12:00, Dmytro Prokopchuk1 wrote:
+>>> On 10/17/25 10:09, Nicola Vetrini wrote:
+>>>> On 2025-10-15 08:20, Jan Beulich wrote:
+>>>>> On 14.10.2025 18:16, Dmytro Prokopchuk1 wrote:
+>>>>>> --- a/xen/common/version.c
+>>>>>> +++ b/xen/common/version.c
+>>>>>> @@ -217,6 +217,20 @@ void __init xen_build_init(void)
+>>>>>>   #endif /* CONFIG_X86 */
+>>>>>>   }
+>>>>>>   #endif /* BUILD_ID */
+>>>>>> +
+>>>>>> +#if defined(__i386__) || defined(__x86_64__) || defined(__arm__) ||
+>>>>>> defined(__aarch64__)
+>>>>>
+>>>>> Why __i386__? Also (nit): Line too long.
+>>>
+>>> Well, I copied this line from Xen codebase,
+>>> but yeah, __i386__ is outdated now.
+>>> I'll remove it.
+>>>
+>>>>>
+>>>>> And why this restriction without any comment here or ...
+>>>>>
+>>>>>> +static void __init __maybe_unused build_assertions(void)
+>>>>>> +{
+>>>>>> +    /*
+>>>>>> +     * To confirm conversion compatibility between unsigned long,
+>>>>>> (void *)
+>>>>>> +     * and function pointers for X86 and ARM architectures only.
+>>>>>
+>>>>> ... explanation here? More generally - how would people know to update
+>>>>> the condition if another port was to be certified?
+>>>>>
+>>>>> Finally, with the v3 addition here, is Nicola's R-b really still
+>>>>> applicable?
+>>>>>
+>>>>
+>>>> I agree with the point you make about i386 (e.g., C-language-
+>>>> toolchain.rst may be mentioned to provide some context about the
+>>>> preprocessor guard); that said, my R-by can be retained
+>>>>
+>>>>> Jan
+>>>>>
+>>>>>> +     */
+>>>>>> +
+>>>>>> +    BUILD_BUG_ON(sizeof(unsigned long) != sizeof(void (*)(void)));
+>>>>>> +    BUILD_BUG_ON(sizeof(void *) != sizeof(void (*)(void)));
+>>>>>> +}
+>>>>>> +#endif
+>>>>>> +
+>>>>>>   /*
+>>>>>>    * Local variables:
+>>>>>>    * mode: C
+>>>>
+>>>
+>>> And probably v4 can have the following wording:
+>>>
+>>> /*
+>>>    * This assertion checks compatibility between 'unsigned long', 'void *',
+>>>    * and function pointers. This is true for X86 (x86_64) and ARM (arm,
+>>> aarch64)
+>>>    * architectures, which is why the check is restricted to these.
+>>>    *
+>>>    * For more context on architecture-specific preprocessor guards, see
+>>>    * docs/misc/C-language-toolchain.rst.
+>>>    *
+>>>    * If Xen is ported to a new architecture, verify that this
+>>> compatibility holds
+>>>    * before adding its macro to the condition below. If the compatibility
+>>> does not
+>>>    * hold, this assertion may need to be revised or removed for that
+>>> architecture.
+>>>    */
 >>
->> No functional change intended.
+>> Except that this doesn't address my concern. Imo the checks want to be there
+>> unconditionally, and ports where they're _not_ applicable would then need
+>> excluding (with suitable commentary and/or alternative checks).
 >>
->> Changed in v2 :
->>    - drop (un)map_vtd_domain_page wrapper instead of moving it
->>    - drop deprecated and Intel-exclusive iommu_inclusive_mapping=<boolean>
->>    - description and formatting changes
->>
->> Teddy Astie (5):
->>     vtd: Drop (un)map_vtd_domain_page wrapper
->>     vtd: Drop "iommu_inclusive_mapping" command-line option
->>     vtd: Collapse x86 subdirectory
->>     vtd: Remove IO_xAPIC_route_entry macro
->>     x86/ioapic: Don't open-code 32-bits rte reads
->>
->>    CHANGELOG.md                                |  2 +
->>    docs/misc/xen-command-line.pandoc           |  6 --
->>    xen/arch/x86/include/asm/io_apic.h          |  1 +
->>    xen/arch/x86/io_apic.c                      | 29 +++----
->>    xen/drivers/passthrough/vtd/Makefile        |  3 +-
->>    xen/drivers/passthrough/vtd/{x86 => }/ats.c | 21 ++---
->>    xen/drivers/passthrough/vtd/dmar.c          |  2 +-
->>    xen/drivers/passthrough/vtd/extern.h        |  3 -
->>    xen/drivers/passthrough/vtd/intremap.c      | 34 ++++----
->>    xen/drivers/passthrough/vtd/iommu.c         | 88 ++++++++++-----------
->>    xen/drivers/passthrough/vtd/iommu.h         |  7 +-
->>    xen/drivers/passthrough/vtd/qinval.c        | 13 +--
->>    xen/drivers/passthrough/vtd/utils.c         | 25 +++---
->>    xen/drivers/passthrough/vtd/vtd.h           |  3 -
->>    xen/drivers/passthrough/vtd/x86/Makefile    |  2 -
->>    xen/drivers/passthrough/vtd/x86/vtd.c       | 48 -----------
->>    16 files changed, 108 insertions(+), 179 deletions(-)
->>    rename xen/drivers/passthrough/vtd/{x86 => }/ats.c (92%)
->>    delete mode 100644 xen/drivers/passthrough/vtd/x86/Makefile
->>    delete mode 100644 xen/drivers/passthrough/vtd/x86/vtd.c
->>
-> I forgot to add the CC-ed people
->
->
-> --
-> Teddy Astie | Vates XCP-ng Developer
->
-> XCP-ng & Xen Orchestra - Vates solutions
->
-> web:https://vates.tech
->
->
---------------CXGOxGRMdFHE9Zzozs5ZoitQ
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+>> Jan
+> 
+> Ok, below is the updated logic:
+> 
+> /*
+>   * This assertion checks compatibility between 'unsigned long', 'void *',
+>   * and function pointers. This is true for most supported architectures,
+>   * including X86 (x86_64) and ARM (arm, aarch64).
+>   *
+>   * For more context on architecture-specific preprocessor guards, see
+>   * docs/misc/C-language-toolchain.rst.
+>   *
+>   * If porting Xen to a new architecture where this compatibility does 
+> not hold,
+>   * exclude that architecture from these checks and provide suitable 
+> commentary
+>   * and/or alternative checks as appropriate.
+>   */
+> static void __init __maybe_unused build_assertions(void)
+> {
+>      /*
+>       * Exclude architectures where function pointers are larger than 
+> data pointers:
+>       * - IA-64: uses 'fat' function pointers (code address + global 
+> pointer)
+>       */
+> #if !defined(__ia64__)
+>      BUILD_BUG_ON(sizeof(unsigned long) != sizeof(void (*)(void)));
+>      BUILD_BUG_ON(sizeof(void *) != sizeof(void (*)(void)));
+> #endif
+> }
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 10/23/25 11:15 AM, Teddy Astie
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:b9baa995-da2c-49d9-844c-6b4c625721c0@vates.tech">
-      <pre wrap="" class="moz-quote-pre">Le 23/10/2025 à 11:12, Teddy Astie a écrit :
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Various simplifications in the VT-d and IO-APIC code (mostly related to legacy ia64 code).</pre>
-      </blockquote>
-    </blockquote>
-    <pre>I think these changes isn't very critical for the current stage of release, so I suggest to
-have them in 4.22.
+I would omit architectures we don't support, though. I gave IA-64 as an
+example where things are more complicated (albeit iirc the checks would still
+succeed there). However, I didn't expect any trace of it to be added to the
+code base (again).
 
-Thanks.
-
-~ Oleksii
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:b9baa995-da2c-49d9-844c-6b4c625721c0@vates.tech">
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-
-No functional change intended.
-
-Changed in v2 :
-  - drop (un)map_vtd_domain_page wrapper instead of moving it
-  - drop deprecated and Intel-exclusive iommu_inclusive_mapping=&lt;boolean&gt;
-  - description and formatting changes
-
-Teddy Astie (5):
-   vtd: Drop (un)map_vtd_domain_page wrapper
-   vtd: Drop "iommu_inclusive_mapping" command-line option
-   vtd: Collapse x86 subdirectory
-   vtd: Remove IO_xAPIC_route_entry macro
-   x86/ioapic: Don't open-code 32-bits rte reads
-
-  CHANGELOG.md                                |  2 +
-  docs/misc/xen-command-line.pandoc           |  6 --
-  xen/arch/x86/include/asm/io_apic.h          |  1 +
-  xen/arch/x86/io_apic.c                      | 29 +++----
-  xen/drivers/passthrough/vtd/Makefile        |  3 +-
-  xen/drivers/passthrough/vtd/{x86 =&gt; }/ats.c | 21 ++---
-  xen/drivers/passthrough/vtd/dmar.c          |  2 +-
-  xen/drivers/passthrough/vtd/extern.h        |  3 -
-  xen/drivers/passthrough/vtd/intremap.c      | 34 ++++----
-  xen/drivers/passthrough/vtd/iommu.c         | 88 ++++++++++-----------
-  xen/drivers/passthrough/vtd/iommu.h         |  7 +-
-  xen/drivers/passthrough/vtd/qinval.c        | 13 +--
-  xen/drivers/passthrough/vtd/utils.c         | 25 +++---
-  xen/drivers/passthrough/vtd/vtd.h           |  3 -
-  xen/drivers/passthrough/vtd/x86/Makefile    |  2 -
-  xen/drivers/passthrough/vtd/x86/vtd.c       | 48 -----------
-  16 files changed, 108 insertions(+), 179 deletions(-)
-  rename xen/drivers/passthrough/vtd/{x86 =&gt; }/ats.c (92%)
-  delete mode 100644 xen/drivers/passthrough/vtd/x86/Makefile
-  delete mode 100644 xen/drivers/passthrough/vtd/x86/vtd.c
-
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I forgot to add the CC-ed people
-
-
---
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng &amp; Xen Orchestra - Vates solutions
-
-web: <a class="moz-txt-link-freetext" href="https://vates.tech">https://vates.tech</a>
-
-
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------CXGOxGRMdFHE9Zzozs5ZoitQ--
+Jan
 
