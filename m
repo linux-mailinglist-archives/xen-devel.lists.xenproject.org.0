@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8471C0067A
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 12:12:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1148972.1480779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 373E2C006CC
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 12:18:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1148983.1480789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBsIL-0000dH-CG; Thu, 23 Oct 2025 10:11:45 +0000
+	id 1vBsOO-0001N3-V6; Thu, 23 Oct 2025 10:18:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1148972.1480779; Thu, 23 Oct 2025 10:11:45 +0000
+Received: by outflank-mailman (output) from mailman id 1148983.1480789; Thu, 23 Oct 2025 10:18:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBsIL-0000bq-9R; Thu, 23 Oct 2025 10:11:45 +0000
-Received: by outflank-mailman (input) for mailman id 1148972;
- Thu, 23 Oct 2025 10:11:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vBsOO-0001KL-Ro; Thu, 23 Oct 2025 10:18:00 +0000
+Received: by outflank-mailman (input) for mailman id 1148983;
+ Thu, 23 Oct 2025 10:18:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=U0PU=5A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vBsIJ-0000bR-AY
- for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 10:11:43 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id abfe1fbd-aff8-11f0-9d15-b5c5bf9af7f9;
- Thu, 23 Oct 2025 12:11:42 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-475c696ab23so3405105e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 03:11:42 -0700 (PDT)
+ id 1vBsOO-0001KF-Bm
+ for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 10:18:00 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8b889017-aff9-11f0-980a-7dc792cee155;
+ Thu, 23 Oct 2025 12:17:57 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4710683a644so5035275e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 03:17:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429897e763csm3248114f8f.6.2025.10.23.03.11.41
+ 5b1f17b1804b1-475c428f709sm90203545e9.8.2025.10.23.03.17.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Oct 2025 03:11:41 -0700 (PDT)
+ Thu, 23 Oct 2025 03:17:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: abfe1fbd-aff8-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 8b889017-aff9-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761214302; x=1761819102; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761214677; x=1761819477; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=m8TRGbWHynltFqZ6ZIi0CGiF+grBouisrLonxmtCvpk=;
-        b=GFX1LR/7zV9UJ+Jm7debCCpulXspKMSmAMQAZ3MAg85sFUNgUkIKqUakUABpxS23Hc
-         FDQ1v+TFC0IEkASr7Jtpi5Vh9vQ1yM33QWT8WLGjfrIAs4INedSfoHql/HbruvpkIuhS
-         +NEy1iohKkU82d1o56vjMN8oEKhjnjNKHKZtm4KJ+/N31uD0qaEBdQJdiOZGOo/bZPi6
-         0wbc1cCQNSnKd5UP1FRhKvNlYxxfziPZ+OiLoXnEBpwQVWC+CpQG8jiT0CYSgNtC8y58
-         YPALH/7qGPzI2a0uHzxzRqzobAD0HZEddjRUhZRvCwufTuhZmN+yYXlGohkSSqGz1djy
-         5/9w==
+        bh=EZ2Z2qjOuEgvZPG/O2T9DgtWZV25EusHjsEAAMevAJY=;
+        b=XoX7aELpRg5rZ5jut4wmqfw6h2ktH/lfXxnnHHXNEs3ZDuEUotAwcqSsauPi1wRZ6k
+         pAyAyHorgZO26d6PYN8ctw3moqx9L3u/unaAJzHItfD77vsus0SYVqGaPbQ9m6JQKQWv
+         LiaOFTYnMI4NyM/Mxw9m1c1HF53077tKuLusAmBVzY6OjzZtIz0lfzSSnd1KEl6vHXN2
+         BLetWl6s02HGtX6X7GjiqOOLDyRylcBPh4kSQ1fZQrdzo0uNAW7mCxuGf0ZWQ/auamE0
+         v3xMCr2BkBNgnF+pj+e21MlimC34AixNr+V76B5ve6Bt5+QyGw6aYGBcmuElzhVX194s
+         hYJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761214302; x=1761819102;
+        d=1e100.net; s=20230601; t=1761214677; x=1761819477;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=m8TRGbWHynltFqZ6ZIi0CGiF+grBouisrLonxmtCvpk=;
-        b=C1Nvm6Er1qzfq1inQZixj06CGvDlzx2alH2pBrp7rrAig7lqszljSokdQ1Tk+rT8km
-         vcVOAS+fKViN1bckJddUGmPgaNnq8dvPnooXY/GRwgfaEgxAj0ns/wae1Z617jZCqJJj
-         56h+dik8FyPc1pMEDX1MlBpK0RYBX6015yh246GX6e88uZTbZhoKPw8htEDZ4PUu3zbi
-         DHqNygNBNt6akzGUPe/LWnX5VURR+rCXnRl57nM/ir745m9xYN9SAmnhT8tEWUw1kurv
-         xBagshV8UEjwhjwlJvmG60YLSr3kA6+1IuLgmmO5wg3JbFB30r8Q5dlSaFgqeA/RFhp+
-         RRaw==
-X-Gm-Message-State: AOJu0YwqobrZIAkFy8T0XI5aR7jIjf83+JFVO+9JPzfXrD+KZ3vr9U9c
-	efjM43C+idG0l5y2+xla5BC5TzZuejvOSmLQ35ZTcK8NFK99twHSREH1bNomsf2E0A==
-X-Gm-Gg: ASbGncvltrr4+9VeLBttGxrd/wmpCKSIa4ZD84zReB4B4V5f0TSdGv7B3fg/7hNeNCa
-	EIVJRElGXDGMszrMawyMRO1wbgH+EHyli3LM5WO/kGz8gywRU4B40F/KuE+q52BVu0g7ZBwAKTf
-	koh/2Hc9F1ADW8ersU6j1dggiCX7hucjiRf6GCBoH47fc64EZ0/FnF9mnywNuA7jPOQZAMt9O9G
-	PMWPsLgtlIyJZ9Aixqn09xhqJv0VLYrvuxtoP/pYq6Mnk5wxsMkdTciQ/UnVeSPIkshP5QGUE8M
-	hcOsP/yWNNeYEfUnij2v1EmepcXr/Y1TmAmVmYv9p6CQq4uWbZVjGyJaMFHDj9rHt0IB+hKLHJk
-	fTAxoOo22QO6n8wizDIcjGd0+w0LQV0Y3Cx4UfXhhA56IsptWJjFyomdi2H/UVYHXdWJUaF0+MO
-	sFRaslic9k1DyplhPUFF4LkrW4kedF1tRzfxbzQNdleafkTMWJpOdB/c6aah49
-X-Google-Smtp-Source: AGHT+IGXKqTPngiCJhQvWLhOfJ41W0c2WAgCv268+ce8QsOZnnwFoO3y9L/FJ8llXTeiz9VrzRJEjw==
-X-Received: by 2002:a05:600c:37c7:b0:46d:3a07:73cd with SMTP id 5b1f17b1804b1-4711790c31emr143642915e9.23.1761214301673;
-        Thu, 23 Oct 2025 03:11:41 -0700 (PDT)
-Message-ID: <3d58ba00-dc27-428f-972a-0c54815b6bc2@suse.com>
-Date: Thu, 23 Oct 2025 12:11:40 +0200
+        bh=EZ2Z2qjOuEgvZPG/O2T9DgtWZV25EusHjsEAAMevAJY=;
+        b=jpOiOHjqmd/+oZdj0mrAaHZfHuPOxZ5iKfRZUZuhxqLRAvrbzbkvVOPsWN3gLqchSY
+         1wm7rJaNZYifbAcGI9StQsrmvajjxvm7hGa2O8ZSbcbCyLRDqBFSVT/eYyUSijAQ3XEl
+         v7pZEPXJfML/qn3ra0CbDaE9/z3pXKO699hY5tvw2oUxj+co8ggnjewBFGxLyPK7ftal
+         IasYQmEOPxZ9Me+Ohrw6uI5O+wy3I8YtRB0NEbKn39CZ2RkLw45TwAnHx8X6Jq94tDDo
+         TA8GGAhb/19JE7APlKjfxW6l2FKJdaxxyxi+jkkWuyUCqflfonNFB1GtQ27A79f52QLJ
+         UNLQ==
+X-Gm-Message-State: AOJu0YwSBk1wHvY956HOXGImFJtZcWtMS9KupCPzBV1dubyHENapqEHE
+	zoekUak8J0ixqLH1R+ykAhs4QpPyKsmWlNj9zydv5pxvZlyFoBBcl4eY7QkA5qDtOQ==
+X-Gm-Gg: ASbGncsxx5M2o6ma5hqh2SAzD6HD2cw/m2bjy2DBP0IFx6wf3mtyhJhJHXqw3GHWPI0
+	ArFezS4ekFI0sCukCvk9J36wQ2pWeTz59xn1M80ZegDVaPXTcfLCF7U5tyVM27bD52g8pH/Ssf5
+	B6kZDuPJQNvMUPzevJJ5cVW7FLMFPmGTEFAtEZra3vut0QcA1T3OJ9QS0U3T7MiFsxPW0ru5MKD
+	jmgLQpLzqwnRcXup7Qzs1tXQj/glPXZKqxA58qoKYHBK+5iiouat6n2QLLZw2lVwVxgeSsimS6P
+	yw8QasSe/lUCNb4UYe7pf2GhMbyfmGD85GuMsV32icrHOhCpl5b/iMPjuPtKMm5s7QvITfBou8p
+	RzgwrPF4iMZQg1+inesWpwOjxgPIJFJFnicvuirkLZARU0yJGGXvKdk4YfmihjXzEmbkY1CKeTE
+	uypgyFWJvhEG6Y5+cnYsl9Rvrl9ilA3DTJKaxv993LvHNNS5haoNP1RZyE46iF
+X-Google-Smtp-Source: AGHT+IG1zN+uAQNPMwIykXAEgjpasQkCcp82c2UfP4X7BSIfAW9l7xbL+snCFFv06hDFOR5QOGKFTg==
+X-Received: by 2002:a05:600c:4f11:b0:46e:37d5:dbed with SMTP id 5b1f17b1804b1-475c3fd5befmr54472755e9.12.1761214676681;
+        Thu, 23 Oct 2025 03:17:56 -0700 (PDT)
+Message-ID: <63e5addb-d109-4c57-a94f-88968c6d9382@suse.com>
+Date: Thu, 23 Oct 2025 12:17:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] vtd: Drop "iommu_inclusive_mapping" command-line
- option
+Subject: Re: [PATCH v2 3/5] vtd: Collapse x86 subdirectory
 To: Teddy Astie <teddy.astie@vates.tech>
 References: <cover.1761209564.git.teddy.astie@vates.tech>
- <d12854b783c603aec99bbb9209b3b4be1769e5bd.1761209564.git.teddy.astie@vates.tech>
+ <3e9e5ea80bb534b69bd315099da6b5d049852823.1761209564.git.teddy.astie@vates.tech>
 Content-Language: en-US
 Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
@@ -118,25 +117,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d12854b783c603aec99bbb9209b3b4be1769e5bd.1761209564.git.teddy.astie@vates.tech>
+In-Reply-To: <3e9e5ea80bb534b69bd315099da6b5d049852823.1761209564.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 23.10.2025 11:12, Teddy Astie wrote:
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -50,6 +50,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->   - On x86:
->     - GNTTABOP_cache_flush: it's unused on x86 and the implementation is
->       broken.
-> +   - Intel-specific iommu_inclusive_mapping=<boolean> option: super-seeded
-> +     by dom0-iommu=map-inclusive since Xen 4.16.
->  
->   - Support of qemu-traditional has been removed.
+> The x86 subdirectory was originally meant to split x86-specific logic from
+> general VT-d code. Today, Xen only supports VT-d on x86 and the code actually
+> implemented in this subdirectory isn't x86-specific (e.g ATS code is not x86
+> specific).
+> 
+> As ats.c is the only remaining file in this directory, and isn't x86 specific,
+> move it up to vtd directory and remove the now empty x86 subdirectory.
+> 
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+> ---
+> v2:
+>  - reviewed commit description
+> 
+>  xen/drivers/passthrough/vtd/Makefile        |  3 +--
+>  xen/drivers/passthrough/vtd/{x86 => }/ats.c | 10 +++++-----
+>  xen/drivers/passthrough/vtd/x86/Makefile    |  1 -
+>  3 files changed, 6 insertions(+), 8 deletions(-)
+>  rename xen/drivers/passthrough/vtd/{x86 => }/ats.c (97%)
+>  delete mode 100644 xen/drivers/passthrough/vtd/x86/Makefile
 
-This is the kind of change that isn't very useful to post during the freeze period.
-The change to this file will need re-basing anyway after branching, when in fact it
-may then still (wrongly) apply cleanly.
+I should have remembered this when looking at v1 already: While some of your
+other changes go farther (and hence are likely preferable), this one I'd rather
+not see go in. I'd favor respective pieces of what's still pending from
+https://lists.xen.org/archives/html/xen-devel/2024-02/msg00983.html. First and
+foremost because ATS really is not only not x86-specific - it's not VT-d-
+specific either.
 
 Jan
 
