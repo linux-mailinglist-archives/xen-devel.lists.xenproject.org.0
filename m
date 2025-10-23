@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFCA7C0025E
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 11:12:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1148835.1480680 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BD2DC00262
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 11:12:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1148839.1480718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBrMr-0003oh-QR; Thu, 23 Oct 2025 09:12:21 +0000
+	id 1vBrMx-0004o1-3e; Thu, 23 Oct 2025 09:12:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1148835.1480680; Thu, 23 Oct 2025 09:12:21 +0000
+Received: by outflank-mailman (output) from mailman id 1148839.1480718; Thu, 23 Oct 2025 09:12:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBrMr-0003lb-N1; Thu, 23 Oct 2025 09:12:21 +0000
-Received: by outflank-mailman (input) for mailman id 1148835;
- Thu, 23 Oct 2025 09:12:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vBrMw-0004kt-Vj; Thu, 23 Oct 2025 09:12:26 +0000
+Received: by outflank-mailman (input) for mailman id 1148839;
+ Thu, 23 Oct 2025 09:12:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mvni=5A=bounce.vates.tech=bounce-md_30504962.68f9f171.v1-b988a4c6efea49f589ce491a220c8f88@srs-se1.protection.inumbo.net>)
- id 1vBrMq-0003Xf-2j
- for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 09:12:20 +0000
+ <SRS0=xdiZ=5A=bounce.vates.tech=bounce-md_30504962.68f9f171.v1-62ce87008b414352a437bdf9322b8903@srs-se1.protection.inumbo.net>)
+ id 1vBrMu-0004V7-Rw
+ for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 09:12:24 +0000
 Received: from mail187-3.suw11.mandrillapp.com
  (mail187-3.suw11.mandrillapp.com [198.2.187.3])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5f96bea7-aff0-11f0-9d15-b5c5bf9af7f9;
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5fb59c3d-aff0-11f0-980a-7dc792cee155;
  Thu, 23 Oct 2025 11:12:18 +0200 (CEST)
 Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail187-3.suw11.mandrillapp.com (Mailchimp) with ESMTP id 4csgKF26CBzDRJG7p
+ by mail187-3.suw11.mandrillapp.com (Mailchimp) with ESMTP id 4csgKF3cy7zDRJJTy
  for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 09:12:17 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- b988a4c6efea49f589ce491a220c8f88; Thu, 23 Oct 2025 09:12:17 +0000
+ 62ce87008b414352a437bdf9322b8903; Thu, 23 Oct 2025 09:12:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,44 +42,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f96bea7-aff0-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: 5fb59c3d-aff0-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
 	s=mte1; t=1761210737; x=1761480737;
-	bh=uphiyDgxiUqnnF1yei7nNrbThGF81zpHRyjV+sbeQH0=;
+	bh=ISwWHQVTQY5EpDzB9R3kRNbTEtx9jHYcJ14ZAaa+DSw=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=QnSxTE3OKLeQDJbkzIV7kdgNdgXZg54/VynYOdUFWCuHEUT2KqvD1kug2IvBpPh/t
-	 VXReO9Pqn1sao8S+ueo9Sp5CDfzqppk4lbE6/8Lc7lZ7A+SD83BUCZaI5bAHln8hO5
-	 SriND52KSTs8QXudeI/DeUvecfqeA/Rvv4XuEMZTbZGCvQFCaFwB5ZnLuxImV39m86
-	 eLSlKErCI7Pm6qKQe9wA4li2p1TXA6bHhIyKxii5azknQ5SH8xoAc2Y+jfFG9aJ44k
-	 2V6fN//hxvcBJWJxfDkPyUF5+9Hgqf3qEImwPlXnCvqmBl1fGv+0hl7krE+yI8Wgrd
-	 uWrI5Sou13xeg==
+	b=tt6hASuV80FoYEEbV9VtZmoCQRQXXnb7fmE7MPrLiiPZFZumiVWVrl/ge/F3ZKYca
+	 xtJJlhyJmCGFQyRk8BEKCdX+4rFZDpsoqft5dg2wHArN+InU325jlXs8NAZT3eloZe
+	 l2Q7oSCMYUNMpI8VVGFhLw0FS0ZAZOVDsO0p7oCLVq9o+ov6b7+Jn08ZH4Wjp/oHnP
+	 AAsfLiu7CCzVZHnbn5Bk/tugOMAFbpqTi08w+2jmaW0dE82/9Yb3YgetG00CVzRV7c
+	 BXQ4nTmOMxc+Cx8sRjw3MRGOkV3M/grhosyixhfQ3/RPL0kvQCRxDIBcpRqa1fmi+L
+	 trpQfOQ/txufQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
 	t=1761210737; x=1761471237; i=teddy.astie@vates.tech;
-	bh=uphiyDgxiUqnnF1yei7nNrbThGF81zpHRyjV+sbeQH0=;
+	bh=ISwWHQVTQY5EpDzB9R3kRNbTEtx9jHYcJ14ZAaa+DSw=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=cpNgC0oSI+AP8aIrLNViiUoXeCT09aeoGpowyV+lQo0pbmBzLQVQcgFMtKqqW11ho
-	 1IpYDwc3td+YN/GOGCl03OHd1tC6T1mvtnRc2f7uitFoXQtAXh7YqWxa3dJkxEMSLj
-	 2RP1AHxMQ3iir0EDC2V2peAI/CFHwdgw6tryf5sv0kAUBfLHOxG9JqPEWBZC4Rt77j
-	 5sPDjgg1AXW83HXesizhT2ij2l1Oo4vOL3CG99aA50CJ0LDUdoyxNMIpBUHXZOSOma
-	 vhcWeAIMq0fO7eoz9FXTmxC4ltnjYhyp6tA9bphameei2kaHK6T1tqywluD1i5D4dF
-	 vqgjocnUrFE3w==
+	b=WGI8GujYpaiADEOS4lxBEkSihptbwAXig2dMYUv72WYtGSWboqS3vugpdk819f2XU
+	 ECGFJhoRqEb5URsW4JKJx/9dTnVSbBpwApenC5HPpW/s+oB0UbjhfjGef2MbBbBULC
+	 QNJIlf6gMHArE/UdBZdp8pZFLnzGMfbVWWhgx4KYKjiL59tEmT4F6ZrPFitTagaEzg
+	 iC8j8apoRf+keFE/rn1NmsLzrFUH7ostC7rYnienzZsc3rynjWyjdqleIgxkN3CkAV
+	 sPoNbRK8enwUnf9kkuBZ/aKRLQ0Ll+OYHObJSD3/BK4pZufXQphNcgWuFkiolXmiS3
+	 MElP2BpxfGObA==
 From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[PATCH=20v2=202/5]=20vtd:=20Drop=20"iommu=5Finclusive=5Fmapping"=20command-line=20option?=
+Subject: =?utf-8?Q?[PATCH=20v2=204/5]=20vtd:=20Remove=20IO=5FxAPIC=5Froute=5Fentry=20macro?=
 X-Mailer: git-send-email 2.51.1
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1761210736644
+X-Bm-Transport-Timestamp: 1761210737079
 To: xen-devel@lists.xenproject.org
 Cc: "Teddy Astie" <teddy.astie@vates.tech>
-Message-Id: <d12854b783c603aec99bbb9209b3b4be1769e5bd.1761209564.git.teddy.astie@vates.tech>
+Message-Id: <5bd53445740ba85c8b49d9018b6600fd90eadb50.1761209564.git.teddy.astie@vates.tech>
 In-Reply-To: <cover.1761209564.git.teddy.astie@vates.tech>
 References: <cover.1761209564.git.teddy.astie@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.b988a4c6efea49f589ce491a220c8f88?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.62ce87008b414352a437bdf9322b8903?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20251023:md
 Date: Thu, 23 Oct 2025 09:12:17 +0000
@@ -87,105 +87,74 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-This command-line option is deprecated and super-seeded with
-dom0-iommu=map-inclusive. Drop this command-line parameter and
-delete vtd/x86/vtd.c which is now empty.
+This macro was introduced to abstract between IO-APIC and IO-SAPIC (ia64),
+now that ia64 isn't supported anymore, this macro now only refers to IO-APIC.
 
 Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
 ---
 v2:
- - new
+ - formatting changes
 
- CHANGELOG.md                             |  2 ++
- docs/misc/xen-command-line.pandoc        |  6 ----
- xen/drivers/passthrough/vtd/x86/Makefile |  3 +-
- xen/drivers/passthrough/vtd/x86/vtd.c    | 38 ------------------------
- 4 files changed, 3 insertions(+), 46 deletions(-)
- delete mode 100644 xen/drivers/passthrough/vtd/x86/vtd.c
+ xen/drivers/passthrough/vtd/intremap.c | 10 +++++-----
+ xen/drivers/passthrough/vtd/vtd.h      |  3 ---
+ 2 files changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 0cf9ad2d95..d4a22b8f8b 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -50,6 +50,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-  - On x86:
-    - GNTTABOP_cache_flush: it's unused on x86 and the implementation is
-      broken.
-+   - Intel-specific iommu_inclusive_mapping=<boolean> option: super-seeded
-+     by dom0-iommu=map-inclusive since Xen 4.16.
+diff --git a/xen/drivers/passthrough/vtd/intremap.c b/xen/drivers/passthrough/vtd/intremap.c
+index 6c779d476d..612e08bcec 100644
+--- a/xen/drivers/passthrough/vtd/intremap.c
++++ b/xen/drivers/passthrough/vtd/intremap.c
+@@ -269,7 +269,7 @@ static unsigned int alloc_remap_entry(struct vtd_iommu *iommu, unsigned int nr)
+ }
  
-  - Support of qemu-traditional has been removed.
+ static int remap_entry_to_ioapic_rte(
+-    struct vtd_iommu *iommu, int index, struct IO_xAPIC_route_entry *old_rte)
++    struct vtd_iommu *iommu, int index, struct IO_APIC_route_entry *old_rte)
+ {
+     struct iremap_entry *iremap_entry = NULL, *iremap_entries;
+     unsigned long flags;
+@@ -317,8 +317,8 @@ static int remap_entry_to_ioapic_rte(
+ }
  
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 28a98321c7..0af71e289a 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -1691,12 +1691,6 @@ Specify the timeout of the device IOTLB invalidation in milliseconds.
- By default, the timeout is 1000 ms. When you see error 'Queue invalidate
- wait descriptor timed out', try increasing this value.
+ static int ioapic_rte_to_remap_entry(struct vtd_iommu *iommu,
+-    int apic, unsigned int ioapic_pin, struct IO_xAPIC_route_entry *old_rte,
+-    struct IO_xAPIC_route_entry new_rte)
++    int apic, unsigned int ioapic_pin, struct IO_APIC_route_entry *old_rte,
++    struct IO_APIC_route_entry new_rte)
+ {
+     struct iremap_entry *iremap_entry = NULL, *iremap_entries;
+     struct iremap_entry new_ire;
+@@ -399,7 +399,7 @@ unsigned int cf_check io_apic_read_remap_rte(
+ {
+     unsigned int ioapic_pin = (reg - 0x10) / 2;
+     int index;
+-    struct IO_xAPIC_route_entry old_rte = { };
++    struct IO_APIC_route_entry old_rte = {};
+     int rte_upper = (reg & 1) ? 1 : 0;
+     struct vtd_iommu *iommu = ioapic_to_iommu(IO_APIC_ID(apic));
  
--### iommu_inclusive_mapping
--> `= <boolean>`
--
--**WARNING: This command line option is deprecated, and superseded by
--_dom0-iommu=map-inclusive_ - using both options in combination is undefined.**
--
- ### irq-max-guests (x86)
- > `= <integer>`
+@@ -421,7 +421,7 @@ unsigned int cf_check io_apic_read_remap_rte(
+ void cf_check io_apic_write_remap_rte(
+     unsigned int apic, unsigned int pin, uint64_t rte)
+ {
+-    struct IO_xAPIC_route_entry old_rte = {}, new_rte;
++    struct IO_APIC_route_entry old_rte = {}, new_rte;
+     struct vtd_iommu *iommu = ioapic_to_iommu(IO_APIC_ID(apic));
+     int rc;
  
-diff --git a/xen/drivers/passthrough/vtd/x86/Makefile b/xen/drivers/passthrough/vtd/x86/Makefile
-index fe20a0b019..82b3904a91 100644
---- a/xen/drivers/passthrough/vtd/x86/Makefile
-+++ b/xen/drivers/passthrough/vtd/x86/Makefile
-@@ -1,2 +1 @@
--obj-y += ats.o
--obj-y += vtd.o
-+obj-y += ats.o
-\ No newline at end of file
-diff --git a/xen/drivers/passthrough/vtd/x86/vtd.c b/xen/drivers/passthrough/vtd/x86/vtd.c
-deleted file mode 100644
-index b0798dc6a1..0000000000
---- a/xen/drivers/passthrough/vtd/x86/vtd.c
-+++ /dev/null
-@@ -1,38 +0,0 @@
--/*
-- * Copyright (c) 2008, Intel Corporation.
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms and conditions of the GNU General Public License,
-- * version 2, as published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope it will be useful, but WITHOUT
-- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-- * more details.
-- *
-- * You should have received a copy of the GNU General Public License along with
-- * this program; If not, see <http://www.gnu.org/licenses/>.
-- *
-- * Copyright (C) Allen Kay <allen.m.kay@intel.com>
-- * Copyright (C) Weidong Han <weidong.han@intel.com>
-- */
+diff --git a/xen/drivers/passthrough/vtd/vtd.h b/xen/drivers/passthrough/vtd/vtd.h
+index b95124517b..f0286b40c3 100644
+--- a/xen/drivers/passthrough/vtd/vtd.h
++++ b/xen/drivers/passthrough/vtd/vtd.h
+@@ -31,9 +31,6 @@
+ #define MAP_ERROR_RECOVERY    (1u << 2)
+ #define UNMAP_ME_PHANTOM_FUNC (1u << 3)
+ 
+-/* Allow for both IOAPIC and IOSAPIC. */
+-#define IO_xAPIC_route_entry IO_APIC_route_entry
 -
--#include <xen/param.h>
--#include <xen/sched.h>
--#include <xen/softirq.h>
--#include <xen/domain_page.h>
--#include <asm/paging.h>
--#include <xen/iommu.h>
--#include <xen/irq.h>
--#include <xen/numa.h>
--#include <asm/fixmap.h>
--#include "../iommu.h"
--#include "../dmar.h"
--#include "../vtd.h"
--#include "../extern.h"
--
--/*
-- * iommu_inclusive_mapping: when set, all memory below 4GB is included in dom0
-- * 1:1 iommu mappings except xen and unusable regions.
-- */
--boolean_param("iommu_inclusive_mapping", iommu_hwdom_inclusive);
+ struct IO_APIC_route_remap_entry {
+     union {
+         u64 val;
 -- 
 2.51.1
 
