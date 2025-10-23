@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A32B8C023B8
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 17:49:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1149367.1481028 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8375C023E1
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 17:50:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1149377.1481039 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBxYR-00033T-TJ; Thu, 23 Oct 2025 15:48:43 +0000
+	id 1vBxZj-0003rY-6v; Thu, 23 Oct 2025 15:50:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1149367.1481028; Thu, 23 Oct 2025 15:48:43 +0000
+Received: by outflank-mailman (output) from mailman id 1149377.1481039; Thu, 23 Oct 2025 15:50:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBxYR-00031h-Pq; Thu, 23 Oct 2025 15:48:43 +0000
-Received: by outflank-mailman (input) for mailman id 1149367;
- Thu, 23 Oct 2025 15:48:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vBxZj-0003pA-2q; Thu, 23 Oct 2025 15:50:03 +0000
+Received: by outflank-mailman (input) for mailman id 1149377;
+ Thu, 23 Oct 2025 15:50:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=U0PU=5A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vBxYQ-00031b-0Y
- for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 15:48:42 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bf4277f7-b027-11f0-9d15-b5c5bf9af7f9;
- Thu, 23 Oct 2025 17:48:40 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-42701b29a7eso556129f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 08:48:40 -0700 (PDT)
+ id 1vBxZh-0003ZG-QU
+ for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 15:50:01 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ee2c4cf3-b027-11f0-980a-7dc792cee155;
+ Thu, 23 Oct 2025 17:49:59 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4711825a02bso8183095e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 08:49:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4298bd78c69sm2793173f8f.4.2025.10.23.08.48.39
+ 5b1f17b1804b1-475c427f77bsm106482355e9.3.2025.10.23.08.49.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Oct 2025 08:48:40 -0700 (PDT)
+ Thu, 23 Oct 2025 08:49:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf4277f7-b027-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: ee2c4cf3-b027-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761234520; x=1761839320; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=gfPihCtXdL46vjX4tiPgS10Ir/uaij0i8pZE5giXkjA=;
-        b=YiVR5ssg/VWIiK/0C50gPCZ8NOzJhr6NOhC6tRsq04RWyzp79Ej/kYa5hj2kosE4iZ
-         caTvoiAEhtmf4O6p2pHDyRMO0hdcWEzAcLFAfq1q1J7RjBm0SdFKLvx6TlNCKx24C6Yx
-         5n6E5oIjIrYXviHOffi6DKydVsknZoPOjm6DLchZMpj91bDenvAeIWCQgI7fSCNCoXvt
-         8C2S1RI4tLfGesWqIKwOEEUxgueNrT8lWVA9hhzwGYHhFCh0M+nfAOQPfTwJTgTYFKkh
-         ysSXnPXV+dj+26Y3SQCzJumwq671OuNntGkFk1jtm9Fn4TI4C7TEbc7319FcYUr9YoTQ
-         5chg==
+        d=suse.com; s=google; t=1761234599; x=1761839399; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=xYN7wbVt5Z5S6tRDPU16XcW0H4EsCETtfXEP3dnQTa4=;
+        b=JwW6nP4hN1bumgl1fWHqCRmoWFo/KyU4ZBjyXUmJe+S4AjDDRcozdZDxIs1eBqbSb3
+         ozzV2C3ze7k8W5aXtfek16NUzkKq4h9Dp34TAqHcvGo60GDAiwek9a0I3IojjV9jZ5Ty
+         QVidZwqdx4E+c0rxYzS+4oqmhLVf5cMUA51Ze/CirFMTj99Thr9C1+3zyUpxAYSJ4RMc
+         VWZdVpiG6bdwJ7tjdYAV8+O4ape6j5QWnWlYjseHfrU5GsWMfKSi9eB2wdea9zFxEFB/
+         ogXhkOiWHM3tgcd8G5ekATsKT80TAVTzRNd9q859G6nKWcOY97zCPUw8f0I6bU3POpD6
+         gMOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761234520; x=1761839320;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gfPihCtXdL46vjX4tiPgS10Ir/uaij0i8pZE5giXkjA=;
-        b=Qe7f/X5zZIJ6FV0JIaw/lgHbTAXuk/3QVeZ7q4p9jGnGBx0hsIJfq3Zm2a4Cch4ido
-         EBcC+OIcb+0tbzYfdBoDBtjSIC/r13/UDH7lZjd3odTuce0Rwhityq+MFnucxV/VIS4x
-         5C+90VK5ogsdAaKp9LImkdYQoeb+yPfBcosoxFtJp+R3wIk+lJmizXoDKo7CPFnKi2Tr
-         md41A/W1axbS27yn9S8qjIJvwqC/lecsOme2Or9dxSdiWywCkSH+wN+ZVgCgSx37GulQ
-         gLTcab04MQjIwJOaKZDIu+oZhogfXRYka6k0a4m38ldx+PETvfxbXXG+V7sGTiixhnRQ
-         5raQ==
-X-Gm-Message-State: AOJu0YxuLmjPvRNhDD8mYgkRNV3dIKJlrVWG8Vz2HX5g8wrX1aZIoR+k
-	IMoxBEUmVwu713RkybS+iMJsCKbRE/ibEv+ovrr/Hfau2rLOu89xO1jDDdHxXirCz7Q+cFLENrh
-	eyjc=
-X-Gm-Gg: ASbGnctxK78WV2XtLXLJd0s6zffKWmpJbSKJDWoptdnXwTmcsQU8h+iwO6RLJXjN8sF
-	BwqZDWd1Sl4ix9uEqbGm81Xk9YN9e1xYbv7euBpAFfwSMOcVq+l4fG3Sbaux6sdUOmot+EuIeQb
-	+2ooCJY8q7PPitMpfSQ9ahXp64KDdQNMcmK8DDp0pshUnPQh3VSMdi2OSToAGQTsLBktWFbm3nr
-	4svBYtEK11lcSRtXeFLznRuudiCZuQ+RGe9lmouZwQLRvOIZ8X6tkLQwXwhl7bAOgoRsSkbc3Fe
-	SfHGzWIDVNdzvrJg9f1Ot8wP+/NxDmS/dlQU69zrI0EJuc5JGa83f992/cjOFsuvNZX8WUlcHha
-	sFjzSsv4dH9f624QhldHFHfEWDajI/1k6xW1vZuDCq3Xc2DqJwZbGd5hK3LCZTh+rCMRx6kpz83
-	BkMJD45KxNjASFw0YFRrJhJUjRophwxsuiGghftHUnOFZcG8r9uMaqrzguUk4a
-X-Google-Smtp-Source: AGHT+IHrSh/hYXSqvERqrQXNB04WxyfX29UWzd/FpT5aRDKW/RTGsyE/HDPRlcARKmI0A2InnaOSzg==
-X-Received: by 2002:a05:6000:26d1:b0:411:3c14:3ad9 with SMTP id ffacd0b85a97d-4285326f9b4mr5512048f8f.21.1761234520228;
-        Thu, 23 Oct 2025 08:48:40 -0700 (PDT)
-Message-ID: <6a8a912c-7276-42bd-af2b-b94fc6ce4291@suse.com>
-Date: Thu, 23 Oct 2025 17:48:38 +0200
+        d=1e100.net; s=20230601; t=1761234599; x=1761839399;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xYN7wbVt5Z5S6tRDPU16XcW0H4EsCETtfXEP3dnQTa4=;
+        b=BfI5l1v0/Uej+HRLLP6SwAjH9yAqsE7UsVUvnUY77OStDU88moahqckunibGWms54V
+         QIA5xDkIbz3itb6QmX5zzhd4O/0+UMOgv+6LRCYoKNzA4R4VuJ1fTj/597IT7PnujwkW
+         6f/mspe4iObKFAvBrUe7IHvKF89ZcDVKQjDmegMT4qCFS46FLLeytrcu078FMkPwznpl
+         jfuigASOl/LmlYvxhgrfKTI8YlvpCdHNSf7u5mwtL0kdRJ2uDck0BLBzF3cPUhTGVWPx
+         5YjqNZ0L4a9MPIxEjkJmy7IPYfTxkT3K+GvqlejExrMwnae8l+XBi4meGXMLtBIXThSa
+         OvZQ==
+X-Gm-Message-State: AOJu0YwvwqFfV0+3vbZOTcvrmM/lXd3o5Ju7P8tduR9Gn6x8FTYEDAwG
+	7SmB+dFewqMCjgRYI3bI1VUdjyw4VQjaSJrRf+Kmq33ln74uhBO6KP6hzG3Zyx5OJiaSPx76GsM
+	bUEE=
+X-Gm-Gg: ASbGncumya9CqolUuAmECIZJFr5iwBgAwe50/2ey82ac+Az1i/0C/3oK2UndamSTJQR
+	hcOOnT6ZtR/I+xPdNdlRjs4XQQiPZgQifnpgR8n2zG7IZc33VOhh9zSgQV1XmbNriZ0UkGJRnIJ
+	udLgKRtsoMQRKe2sd5g7bFMOvsAv2/GSXIio8O6OVC7ri8uyyiwj8xs6s0RUxOgZk68VqH6HVPz
+	fLBw/QCFV9LRqtbJ5R6eWjTmupnf9HCAmp1O+nydZrRq0aCQ/XeSdBJkjh4rFzKZX9VjbycZn4x
+	OiT67rvFV65SBTAI+wVMwSno5aIx5Ekl67O2FvD9RKrwm0nSHrSUZOq2AGs7QP6DFyFvJh8pP7R
+	o18vOA3hhJ+SyB7fOd+8tteTHXvLfFO8hU4bhuKHhuQpd63YVBmS5ZUy/s9G9+6nDmBOGzINTwa
+	c+hI1IGIOmB869njEf3A5/ohApvfqhGg1AlrOsye3GVO6zjvHaSmZKUUILkL0N
+X-Google-Smtp-Source: AGHT+IGnwDYxW5UufGMOiBlDPLZ2gPYdS3aIFPWYUR9OjKDI4sg/WJpI/GzVSBGD0n8f7kYKcmYcVw==
+X-Received: by 2002:a05:600d:6357:b0:46e:1a07:7bd5 with SMTP id 5b1f17b1804b1-47160987501mr108488445e9.29.1761234598886;
+        Thu, 23 Oct 2025 08:49:58 -0700 (PDT)
+Message-ID: <86001bc5-de05-4a5b-9683-54d09c5fa8a8@suse.com>
+Date: Thu, 23 Oct 2025 17:49:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: [PATCH v3 for-4.21 1/9] x86/HPET: deal with unused channels
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v3 for-4.21 0/9] x86/HPET: broadcast IRQ and other
- improvements
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <6a8a912c-7276-42bd-af2b-b94fc6ce4291@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,30 +119,82 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6a8a912c-7276-42bd-af2b-b94fc6ce4291@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-While 1db7829e5657 ("x86/hpet: do local APIC EOI after interrupt processing")
-helped quite a bit, nested interrupts could still occur. First and foremost
-as a result of IRQ migration (where we don't have any control over the vectors
-chosen). Hence besides reducing the number of IRQs that can be raised (first
-patch), the main goal here is to eliminate the potential for nested IRQs
-(patch 2). These patches are imo 4.21 candidates. Patches 3 and onwards likely
-aren't important enough anymore at this point of the release cycle, even if
-those with a Fixes: tag may end up being backported later on.
+Keeping channels enabled when they're unused is only causing problems:
+Extra interrupts harm performance, and extra nested interrupts could even
+have caused worse problems. However, on all Intel hardware I looked at
+closely, a 0->1 transition of the enable bit causes an immediate IRQ.
+Hence disabling channels isn't a good idea there. Set a "long" timeout
+instead.
 
-v3 has again a fair bit of rework of (not only) the "main" patch. See
-individual patches for details.
+Along with that also "clear" the channel's "next event", for it to be
+properly written by whatever the next user is going to want (possibly
+avoiding too early an IRQ).
 
-1: deal with unused channels
-2: use single, global, low-priority vector for broadcast IRQ
-3: replace handle_hpet_broadcast()'s on-stack cpumask_t
-4: avoid indirect call to event handler
-5: make another channel flags update atomic
-6: move legacy tick IRQ count adjustment
-7: reduce hpet_next_event() call sites
-8: drop "long timeout" handling from reprogram_hpet_evt_channel()
-9: simplify "expire" check a little in reprogram_hpet_evt_channel()
+Further, along the same lines, don't enable channels early when starting
+up an IRQ. This doesn't need to happen earlier than from
+set_channel_irq_affinity() (once a channel goes into use the very first
+time). This eliminates a single instance of
 
-Jan
+(XEN) [VT-D]INTR-REMAP: Request device [0000:00:1f.0] fault index 0
+(XEN) [VT-D]INTR-REMAP: reason 25 - Blocked a compatibility format interrupt request
+
+during boot. (Why exactly there's only one instance, when we use multiple
+counters and hence multiple IRQs, I can't tell. My understanding would be
+that this was due to __hpet_setup_msi_irq() being called only after
+request_irq() [and hence the .startup handler], yet that should have
+affected all channels.)
+
+Fixes: 3ba523ff957c ("CPUIDLE: enable MSI capable HPET for timer broadcast")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+---
+A window still remains for IRQs to be caused by stale comparator values:
+hpet_attach_channel() is called ahead of reprogram_hpet_evt_channel().
+Should we also write the comparator to "far into the future"?
+
+Furthermore this prolongues the window until "old" vectors may be released
+again, as this way we potentially (and intentionally) delay the ocurrence
+of the next IRQ for the channel in question. (This issue will disappear
+once we switch to a fixed, global vector.)
+---
+v3: Don't disable channels, only set long timeouts.
+
+--- a/xen/arch/x86/hpet.c
++++ b/xen/arch/x86/hpet.c
+@@ -295,12 +295,6 @@ static int hpet_msi_write(struct hpet_ev
+     return 0;
+ }
+ 
+-static unsigned int cf_check hpet_msi_startup(struct irq_desc *desc)
+-{
+-    hpet_msi_unmask(desc);
+-    return 0;
+-}
+-
+ #define hpet_msi_shutdown hpet_msi_mask
+ 
+ static void cf_check hpet_msi_set_affinity(
+@@ -326,7 +320,7 @@ static void cf_check hpet_msi_set_affini
+  */
+ static hw_irq_controller hpet_msi_type = {
+     .typename   = "HPET-MSI",
+-    .startup    = hpet_msi_startup,
++    .startup    = irq_startup_none,
+     .shutdown   = hpet_msi_shutdown,
+     .enable	    = hpet_msi_unmask,
+     .disable    = hpet_msi_mask,
+@@ -526,6 +520,8 @@ static void hpet_detach_channel(unsigned
+         spin_unlock_irq(&ch->lock);
+     else if ( (next = cpumask_first(ch->cpumask)) >= nr_cpu_ids )
+     {
++        hpet_write32(hpet_read32(HPET_COUNTER), HPET_Tn_CMP(ch->idx));
++        ch->next_event = STIME_MAX;
+         ch->cpu = -1;
+         clear_bit(HPET_EVT_USED_BIT, &ch->flags);
+         spin_unlock_irq(&ch->lock);
+
 
