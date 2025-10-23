@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0D74C0063E
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 12:04:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1148957.1480769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8471C0067A
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 12:12:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1148972.1480779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBsBV-0007Og-Nv; Thu, 23 Oct 2025 10:04:41 +0000
+	id 1vBsIL-0000dH-CG; Thu, 23 Oct 2025 10:11:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1148957.1480769; Thu, 23 Oct 2025 10:04:41 +0000
+Received: by outflank-mailman (output) from mailman id 1148972.1480779; Thu, 23 Oct 2025 10:11:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vBsBV-0007N1-LC; Thu, 23 Oct 2025 10:04:41 +0000
-Received: by outflank-mailman (input) for mailman id 1148957;
- Thu, 23 Oct 2025 10:04:39 +0000
+	id 1vBsIL-0000bq-9R; Thu, 23 Oct 2025 10:11:45 +0000
+Received: by outflank-mailman (input) for mailman id 1148972;
+ Thu, 23 Oct 2025 10:11:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=U0PU=5A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vBsBT-0007Mv-NE
- for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 10:04:39 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1vBsIJ-0000bR-AY
+ for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 10:11:43 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id af7c9085-aff7-11f0-9d15-b5c5bf9af7f9;
- Thu, 23 Oct 2025 12:04:38 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-47118259fd8so3840065e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 03:04:38 -0700 (PDT)
+ id abfe1fbd-aff8-11f0-9d15-b5c5bf9af7f9;
+ Thu, 23 Oct 2025 12:11:42 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-475c696ab23so3405105e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 03:11:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-474949e0a3csm58781295e9.0.2025.10.23.03.04.37
+ ffacd0b85a97d-429897e763csm3248114f8f.6.2025.10.23.03.11.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Oct 2025 03:04:37 -0700 (PDT)
+ Thu, 23 Oct 2025 03:11:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af7c9085-aff7-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: abfe1fbd-aff8-11f0-9d15-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761213878; x=1761818678; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761214302; x=1761819102; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6ULq0ASa9hjDy9wXxwtLZUd3OI6CEawZCURdqRYqyTw=;
-        b=bnHDE4g2C4oc3+H/+X1vnUMz+lc7aSvCOjjHGryedkXQJencczdL8VIuP/0TBQerNB
-         G52T7/xsIFvLW79vgHyelWZ2S2dlX96ZPHZfHx8fFiyxyYI+KSUsTvPWrSuuEc3RXGXW
-         1U1yJLq8msJIAzO5k4ZZyOC3306g2Tyv3AVTmbs1cdqQlIP7nVYbJpKeqj/mzOAmVxEa
-         25WRgBrsUHqTVPudSYpprYa6z4XHB+3bnfeufuJaOXR8CzqWZtwGBFH90fbfKnTfUcXQ
-         SDIHtuYS91Be93QyZhfi39ewLP7J1uh8zkJKT6Sdgfbv/M/2KAiQgGnircPNW2lF9/hw
-         vUqg==
+        bh=m8TRGbWHynltFqZ6ZIi0CGiF+grBouisrLonxmtCvpk=;
+        b=GFX1LR/7zV9UJ+Jm7debCCpulXspKMSmAMQAZ3MAg85sFUNgUkIKqUakUABpxS23Hc
+         FDQ1v+TFC0IEkASr7Jtpi5Vh9vQ1yM33QWT8WLGjfrIAs4INedSfoHql/HbruvpkIuhS
+         +NEy1iohKkU82d1o56vjMN8oEKhjnjNKHKZtm4KJ+/N31uD0qaEBdQJdiOZGOo/bZPi6
+         0wbc1cCQNSnKd5UP1FRhKvNlYxxfziPZ+OiLoXnEBpwQVWC+CpQG8jiT0CYSgNtC8y58
+         YPALH/7qGPzI2a0uHzxzRqzobAD0HZEddjRUhZRvCwufTuhZmN+yYXlGohkSSqGz1djy
+         5/9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761213878; x=1761818678;
+        d=1e100.net; s=20230601; t=1761214302; x=1761819102;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=6ULq0ASa9hjDy9wXxwtLZUd3OI6CEawZCURdqRYqyTw=;
-        b=aRl79QOGxKIIUuzPtTKeaXR4OEyWqwq8BOZ73PxyLogukjIYo48gfRmP1t8ScqZf2a
-         hmoUaOyFjUk3S+QA00XMEQmrnJ0lsJnpiu675zgwFihFJvvefjJgm8U6rtEdE8FJF6r6
-         rmZ8I2cYmRUiDAzMymbLEvkKMy93VfV9VVDnrtoX5WmOVP4wXvnEYznhnhWVvQKt3AGC
-         OdNTcV1uJnkFVbYFsbn2Mc8/TkgUz4D4GW6aad8nPPJgqmrnEGohU0/m7djEQRN0S0qJ
-         B+3U/0SyDqL1sZgWHnCXL8PTWslh1KnhNMuYfedpBev83Iwn5EBUBftKyWr7aZkIooLL
-         oURA==
-X-Gm-Message-State: AOJu0YzwR2F9geywhq7aWb98leVSVek+1bKl92h7u0JLPBPyIMeH5FfT
-	x3XUuAdZdSsnyznuaJtXc1dkn2pV7BX9XZPu+5ADqUDXWGo1uhj6WM0P/tyhSMFrSw==
-X-Gm-Gg: ASbGncuG+ZWF4DTyYmPVCTkxJMG1qmRXNMSq/ckao7suzGTeI7HorGqxGkrTve2vQe8
-	lY7C2StPhpNg3MajHK+Oksi25CpnpYqe58jfJqBePEgSP3Lssvsts/VZxd1nxrEa7C//S+MsJ4E
-	cTeXcxpb8K2sWcZQwKIiQ1RWXJFbELBiVGEab5WhH1BO5YbXo3DLoo2o/eHR3yWdluNmjkTCSOf
-	BdS+V/7nuiTRxSL9GmDEmyd9tyoZZ4CKbvoNHzPTT/W9OTvqn6i38P2wlCpIEyCtgHLKFDT3yLy
-	PS5BPCxFpe7o5GNgNFgm4YffWFs6HRhyW+Aict1NNGE2+pPqlN2avDLPmoapqKb9xyE/LDsWbyX
-	t2Twpd6Leg8tzFYD5pPw0uTGtR/tJTUvq5iLJcp0lavJ66udpjY3KLwjAdhwUYSNyqWIxTKycf7
-	O+im5pLN61yMD99/XLo6uBFtJbP5RAvQKFj15yfb1MhxtWQ/PMc7iOJAGhxxMN
-X-Google-Smtp-Source: AGHT+IG29kyt0dxHhJPHyqd5Lk1neZJlKjlI4wO1kVDCMgvVAFZa4ildmhvFQvGgg2gDZDR0xQhk0A==
-X-Received: by 2002:a05:600c:3e0f:b0:471:803:6a26 with SMTP id 5b1f17b1804b1-4711791d945mr186435345e9.37.1761213877925;
-        Thu, 23 Oct 2025 03:04:37 -0700 (PDT)
-Message-ID: <7c179c6a-1bf8-4d8a-846b-e8673bf07fa0@suse.com>
-Date: Thu, 23 Oct 2025 12:04:36 +0200
+        bh=m8TRGbWHynltFqZ6ZIi0CGiF+grBouisrLonxmtCvpk=;
+        b=C1Nvm6Er1qzfq1inQZixj06CGvDlzx2alH2pBrp7rrAig7lqszljSokdQ1Tk+rT8km
+         vcVOAS+fKViN1bckJddUGmPgaNnq8dvPnooXY/GRwgfaEgxAj0ns/wae1Z617jZCqJJj
+         56h+dik8FyPc1pMEDX1MlBpK0RYBX6015yh246GX6e88uZTbZhoKPw8htEDZ4PUu3zbi
+         DHqNygNBNt6akzGUPe/LWnX5VURR+rCXnRl57nM/ir745m9xYN9SAmnhT8tEWUw1kurv
+         xBagshV8UEjwhjwlJvmG60YLSr3kA6+1IuLgmmO5wg3JbFB30r8Q5dlSaFgqeA/RFhp+
+         RRaw==
+X-Gm-Message-State: AOJu0YwqobrZIAkFy8T0XI5aR7jIjf83+JFVO+9JPzfXrD+KZ3vr9U9c
+	efjM43C+idG0l5y2+xla5BC5TzZuejvOSmLQ35ZTcK8NFK99twHSREH1bNomsf2E0A==
+X-Gm-Gg: ASbGncvltrr4+9VeLBttGxrd/wmpCKSIa4ZD84zReB4B4V5f0TSdGv7B3fg/7hNeNCa
+	EIVJRElGXDGMszrMawyMRO1wbgH+EHyli3LM5WO/kGz8gywRU4B40F/KuE+q52BVu0g7ZBwAKTf
+	koh/2Hc9F1ADW8ersU6j1dggiCX7hucjiRf6GCBoH47fc64EZ0/FnF9mnywNuA7jPOQZAMt9O9G
+	PMWPsLgtlIyJZ9Aixqn09xhqJv0VLYrvuxtoP/pYq6Mnk5wxsMkdTciQ/UnVeSPIkshP5QGUE8M
+	hcOsP/yWNNeYEfUnij2v1EmepcXr/Y1TmAmVmYv9p6CQq4uWbZVjGyJaMFHDj9rHt0IB+hKLHJk
+	fTAxoOo22QO6n8wizDIcjGd0+w0LQV0Y3Cx4UfXhhA56IsptWJjFyomdi2H/UVYHXdWJUaF0+MO
+	sFRaslic9k1DyplhPUFF4LkrW4kedF1tRzfxbzQNdleafkTMWJpOdB/c6aah49
+X-Google-Smtp-Source: AGHT+IGXKqTPngiCJhQvWLhOfJ41W0c2WAgCv268+ce8QsOZnnwFoO3y9L/FJ8llXTeiz9VrzRJEjw==
+X-Received: by 2002:a05:600c:37c7:b0:46d:3a07:73cd with SMTP id 5b1f17b1804b1-4711790c31emr143642915e9.23.1761214301673;
+        Thu, 23 Oct 2025 03:11:41 -0700 (PDT)
+Message-ID: <3d58ba00-dc27-428f-972a-0c54815b6bc2@suse.com>
+Date: Thu, 23 Oct 2025 12:11:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] vtd: Drop (un)map_vtd_domain_page wrapper
+Subject: Re: [PATCH v2 2/5] vtd: Drop "iommu_inclusive_mapping" command-line
+ option
 To: Teddy Astie <teddy.astie@vates.tech>
 References: <cover.1761209564.git.teddy.astie@vates.tech>
- <a832488afe6eeb8dd83ccd1214dff87c5e6b4fc0.1761209564.git.teddy.astie@vates.tech>
+ <d12854b783c603aec99bbb9209b3b4be1769e5bd.1761209564.git.teddy.astie@vates.tech>
 Content-Language: en-US
 Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
@@ -117,71 +118,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a832488afe6eeb8dd83ccd1214dff87c5e6b4fc0.1761209564.git.teddy.astie@vates.tech>
+In-Reply-To: <d12854b783c603aec99bbb9209b3b4be1769e5bd.1761209564.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 23.10.2025 11:12, Teddy Astie wrote:
-> Replace use of (un)map_vtd_domain_page with its general
-> equivalents. Also take the opportunity to make iommu->root_page
-> (previously root_maddr) use struct page_info instead of u64.
-
-free_pgtable_maddr() also goes away as it seems.
-
-> @@ -244,7 +245,7 @@ static unsigned int alloc_remap_entry(struct vtd_iommu *iommu, unsigned int nr)
->          {
->              /* This entry across page boundry */
->              if ( iremap_entries )
-> -                unmap_vtd_domain_page(iremap_entries);
-> +                unmap_domain_page(iremap_entries);
-
-Please can you also drop such redundant conditionals then? unmap_domain_page()
-may validly be called with NULL. Overall it looks as if this patch could do
-with splitting, as the unmap_vtd_domain_page() replacement is an entirely
-mechanical one (and accounts for a fair part of the patch). I'm not going to
-insist, though.
-
-> @@ -366,8 +367,8 @@ struct iremap_entry {
->   */
->  #define GET_IREMAP_ENTRY(maddr, index, entries, entry)                        \
->  do {                                                                          \
-> -    entries = (struct iremap_entry *)map_vtd_domain_page(                     \
-> -              (maddr) + (( (index) >> IREMAP_ENTRY_ORDER ) << PAGE_SHIFT ) ); \
-> +    entries = (struct iremap_entry *)map_domain_page(maddr_to_mfn(            \
-> +              (maddr) + (( (index) >> IREMAP_ENTRY_ORDER ) << PAGE_SHIFT ) ));\
->      entry = &entries[(index) % (1 << IREMAP_ENTRY_ORDER)];                    \
->  } while(0)
-
-You drop casts elsewhere - why not here? Also, as you touch the 2nd of the lines,
-can you please also drop the excess blanks? And then, while only theoretically at
-risk of overflowing, the open-coded left shift may also want replacing by e.g.
-pfn_to_paddr(), i.e. something which incorporates a suitable cast to paddr_t.
-
-> --- a/xen/drivers/passthrough/vtd/qinval.c
-> +++ b/xen/drivers/passthrough/vtd/qinval.c
-> @@ -18,6 +18,7 @@
->   */
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -50,6 +50,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>   - On x86:
+>     - GNTTABOP_cache_flush: it's unused on x86 and the implementation is
+>       broken.
+> +   - Intel-specific iommu_inclusive_mapping=<boolean> option: super-seeded
+> +     by dom0-iommu=map-inclusive since Xen 4.16.
 >  
->  
-> +#include <xen/domain_page.h>
->  #include <xen/sched.h>
->  #include <xen/iommu.h>
->  #include <xen/time.h>
+>   - Support of qemu-traditional has been removed.
 
-Please could you take the opportunity and also get rid of one of the two blank
-lines?
-
-> @@ -99,38 +100,38 @@ void print_vtd_entries(struct vtd_iommu *iommu, int bus, int devfn, u64 gmfn)
->             iommu->index, &PCI_SBDF(iommu->drhd->segment, bus, devfn),
->             gmfn);
->  
-> -    if ( iommu->root_maddr == 0 )
-> +    if ( iommu->root_page == NULL )
->      {
-> -        printk("    iommu->root_maddr = 0\n");
-> +        printk("    iommu->root_maddr = NULL\n");
-
-root_page here then as well?
+This is the kind of change that isn't very useful to post during the freeze period.
+The change to this file will need re-basing anyway after branching, when in fact it
+may then still (wrongly) apply cleanly.
 
 Jan
 
