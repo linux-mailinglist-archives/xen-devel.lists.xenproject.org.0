@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28D22C03342
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 21:38:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1149598.1481189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C31EC033C6
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Oct 2025 21:53:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1149619.1481199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vC18e-0005Gz-3L; Thu, 23 Oct 2025 19:38:20 +0000
+	id 1vC1Mt-0008L1-9y; Thu, 23 Oct 2025 19:53:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1149598.1481189; Thu, 23 Oct 2025 19:38:20 +0000
+Received: by outflank-mailman (output) from mailman id 1149619.1481199; Thu, 23 Oct 2025 19:53:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vC18d-0005Dl-Vy; Thu, 23 Oct 2025 19:38:19 +0000
-Received: by outflank-mailman (input) for mailman id 1149598;
- Thu, 23 Oct 2025 19:38:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vC1Mt-0008IP-6s; Thu, 23 Oct 2025 19:53:03 +0000
+Received: by outflank-mailman (input) for mailman id 1149619;
+ Thu, 23 Oct 2025 19:53:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MccR=5A=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1vC18c-0004y7-Si
- for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 19:38:18 +0000
+ id 1vC1Ms-0008IJ-63
+ for xen-devel@lists.xenproject.org; Thu, 23 Oct 2025 19:53:02 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d21dd692-b047-11f0-9d15-b5c5bf9af7f9;
- Thu, 23 Oct 2025 21:38:17 +0200 (CEST)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dfb91cef-b049-11f0-980a-7dc792cee155;
+ Thu, 23 Oct 2025 21:52:59 +0200 (CEST)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-263-B-6kHokUMnKif1XAu_DuiA-1; Thu, 23 Oct 2025 15:38:14 -0400
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-47496b3c1dcso8857305e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 12:38:14 -0700 (PDT)
+ us-mta-176-OSjjeg1uPkOa7cfBaVXgqA-1; Thu, 23 Oct 2025 15:52:56 -0400
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-3ee888281c3so705819f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 12:52:56 -0700 (PDT)
 Received: from ?IPV6:2003:d8:2f4e:3200:c99d:a38b:3f3a:d4b3?
  (p200300d82f4e3200c99da38b3f3ad4b3.dip0.t-ipconnect.de.
  [2003:d8:2f4e:3200:c99d:a38b:3f3a:d4b3])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429898eb549sm5405252f8f.41.2025.10.23.12.38.11
+ ffacd0b85a97d-429897ff3f5sm5656361f8f.22.2025.10.23.12.52.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Oct 2025 12:38:12 -0700 (PDT)
+ Thu, 23 Oct 2025 12:52:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,56 +51,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d21dd692-b047-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: dfb91cef-b049-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1761248296;
+	s=mimecast20190719; t=1761249177;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=VQ7IyiPkbQDl/6FlpFFPP3SSIBn2cmNYnYEr3eJHlB0=;
-	b=QkjyFc65kpdNxryx1WPWWOCWXMaD8niycaI+HCyTEaWYS+WBVJK3umLwMSadZUCfgMs9io
-	crQIyv+ql1Q/DuslTukWBpiW5wAGnrp8sRgPgXtQ55o6DsXZrP1ND1M1GawZj+EduKunDT
-	wyGaaejFx1UlazlvjbKSOmYxDXdYuB0=
-X-MC-Unique: B-6kHokUMnKif1XAu_DuiA-1
-X-Mimecast-MFC-AGG-ID: B-6kHokUMnKif1XAu_DuiA_1761248293
+	bh=lu8DXyr9e+174zCCLKyjaz62dq3PQM0ss4FpqXHktAg=;
+	b=OrsR79zPxDTTcYjCpvym0L/LCuSjCZ19rXRX5x8xIg/IjiFD0Z+U1rgYVoQ52wuAFh3i5I
+	YkUuNoQ6KaveSHE0yExl6xi8FkrL/HMGvz6wRae/OZlTy3CdzMGbVEa5aAh/ukn/KOI3R2
+	71Fado/B76mpKrT7Vp34fQ9JgHCU1lQ=
+X-MC-Unique: OSjjeg1uPkOa7cfBaVXgqA-1
+X-Mimecast-MFC-AGG-ID: OSjjeg1uPkOa7cfBaVXgqA_1761249175
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761248293; x=1761853093;
+        d=1e100.net; s=20230601; t=1761249175; x=1761853975;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=VQ7IyiPkbQDl/6FlpFFPP3SSIBn2cmNYnYEr3eJHlB0=;
-        b=Dv0w66NF+/BRRMn7JpjvrpuLN2fdQ5XadgabWFI6edFst03NNknqr1sMCCepGD+P41
-         eupZTKPsGw0Sejj5F2KbILhv4xeUozmgtE81EAWMsPwxVuog+o/UPenWEg3SXbEOkv+d
-         lTVdopr2dSyaUJIPiosDp9ePVnIL0Z3hL0VAlHwvs1SaXA31jChmNavCBMD3Uy78Nx5S
-         RLO4It3eRCu1oRdtEdmxYJYFbpfI9pMGmmtjsKD6L8CqadvXKfaLID7q983xZcdqrH+/
-         k8gVrbIWlqpPPtTr8FMzpLRa2ipqyIBBv+3pO8LD0yYpoO061jIAmCmQ3z/HzowmvB9k
-         1rfA==
-X-Forwarded-Encrypted: i=1; AJvYcCWuyldQaUBhfWk3Sg0PkbB4Z8FTdoTr9PgqIgj1w2Dkxvkl+br0p/kV74XsXAcYdb3E+bVgROIucdc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxeYkv7SI1m8cXyND2ZSrElbVF8SHEl4PG1h3U1X+DJTmDvVgTD
-	+HOFthxx4CFOQX4wgym928F7uYivcbt08+GJ73caoxNRdgsw0sV2uShOkPzKWITMk4BnxO6QdwU
-	L+449YL6Uxuly5r+wr8xMq/YVpN0E4RQukqPbUKEXsr5E9cW/56KE6Tv1IHK8CU6w/Jim
-X-Gm-Gg: ASbGncvDa1ke5YFeXJzLdPKlZ3GtR4QMTNIgz2BuFM5NsgGDHg5Ph5Qz+Bi2eMh20Sb
-	Lg01RycLtHLfS40ZKAZ/oI/oL/mnc/cyd+hRsYj+6i+47Pd7Rq5k4beQx4yuye6lP71IlUlu6eo
-	ZTTXTHV2ZN4M56zblbd4x2yBU7pjSd+UOmmWEVk8csdTs0Jhmq2ofW75m7JKO2yS0h0a+kmxhGm
-	ZjFWaO48AVirOZIvKx+tlaC+AqbWvkJZ0UA/s9YuG4LIq2NUNSTc+oPp6Xtj3Xf6do9DPiL6t1f
-	zqmLuv4N/22mSc33gCMBQ1j5X0CUhKMVQilb9jrkUYP/vEDnhQwDhuOZUsVlUv3wNbENjopdmem
-	M0tcQVgpM6aF2d1wnyQ0IpLVSI2Yj+lTCL9ofuwpqZDSae220VsdqojGKtRaOGbxxm0G66fkMXv
-	Xaxu4rMnkWp8g32qg8bAw74bNrMMc=
-X-Received: by 2002:a05:600c:3145:b0:45d:e6b6:55fe with SMTP id 5b1f17b1804b1-4711791e7a4mr225365555e9.34.1761248293302;
-        Thu, 23 Oct 2025 12:38:13 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFK4kvb9VXDfRke79DTEDXEtAKVHmaVqzR/ZxHwP2FSjJo/KXXf7lv5KID4JKHr2iZrwUPcWA==
-X-Received: by 2002:a05:600c:3145:b0:45d:e6b6:55fe with SMTP id 5b1f17b1804b1-4711791e7a4mr225365155e9.34.1761248292920;
-        Thu, 23 Oct 2025 12:38:12 -0700 (PDT)
-Message-ID: <dd3011ec-23cc-4431-95a3-a0c2965e7062@redhat.com>
-Date: Thu, 23 Oct 2025 21:38:10 +0200
+        bh=lu8DXyr9e+174zCCLKyjaz62dq3PQM0ss4FpqXHktAg=;
+        b=lYXLVTQmaRTRUiSZCOJ9jnm+e7Bj9txCPtqE+vgmtrdwttnTGZvqNblGtiK7v4xL4U
+         i+TGIc6BTZeA6HJo0Fd+XYUBgov58Ss4ljMk+xgP6Aj7IZsjt1152pTL2vjyDIzf2HZ1
+         VUU/Kfg78OzfrnFBip0mnZXsrOdhdyUsBTrPIROs6IbvorEwgnTYASnhB6tJKvS7mLMo
+         iMBYhyvP91mzJ0RSfI8+oCaI5BofdDTCYdoWKUVK1/f9btRJ2t8k4neQNfoE8UifMV5Q
+         kgzG7XGfVMeQqfzZW592LVLZ2NOHtqld/qQsZJUZWhpNJZOxLZ13ARbUJ3NhSmtaP5/Q
+         Lvng==
+X-Forwarded-Encrypted: i=1; AJvYcCUISbyZ0E1jU1GYoX+qFdxzKQfaTRa3UsEKmOp3ktOpWKLtr0fxSCIiFoi0xq7P+fSCjPW9QJJ5pUU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzbZvqbqG64ctR0J2+QpvbJfyLj0/mlAZNiQ/y5JtN4ufsxNhtj
+	Cv4E8TH8RzZ3qPqir61nE5nmBaKsq5rBYyB2ujcSh64VYAuO2kugkE1vvnDCfKZ9i1qNxy+0oyb
+	CakzibOKvywcxi56xwhrJKHEtBIqZosjM5m9wMzmld4KBaoB2lhIFxMdFNdcM1ESNpVdm
+X-Gm-Gg: ASbGnctbIf+dG2ImAvSOqRC1DKpX/30QilU8/JKNfKIWSaqUc7PfDGSqWCKbzdwa1wp
+	H5fMPGKnyp3XZr52pRyqbqv9pCW5WGTu2BseAlmi7W4rVrDjt3sZ4JVe8PfEDUfhw9hkopzlkTC
+	uOxQHwAIFpdTaqMZdfzRShOBH57qIKdsqBhL3YqTL75OQb5Q1+F5UuCH5c+g8AkhXE6kUXmwwAC
+	UsMiTNMQNv29nzFq10/25F1Z6v6YLo5IXfMWLWE73klBWlYUEpraMHt7CObKjO1PRvQFm4P8BUT
+	hOVXqMHzDAj0OqZoPVtggwYMmBp1uouuJ6fG6hc4uCY3glLGU5Lx15g1ikJ4W/p7fc0l65f+cbr
+	/tYiv5AXGVn4SLgFcDSaqSSKDEG7Kfhn4wSBZRB07gJXx9OxFFNVdsXmCo20oMGXiEKa8+I+0M4
+	lzYwVBEKe0qDkyU/Id8GTQf6R5u2U=
+X-Received: by 2002:a05:6000:2911:b0:3eb:df84:62e with SMTP id ffacd0b85a97d-42704d7e9f9mr18404408f8f.3.1761249174914;
+        Thu, 23 Oct 2025 12:52:54 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF7U9VemhLNzul4GpnpOHuDDlV+F0CKxszXYKlJ5dnYJh0XFPFjlnxCdm5Nc2+v3zIM+vRJGA==
+X-Received: by 2002:a05:6000:2911:b0:3eb:df84:62e with SMTP id ffacd0b85a97d-42704d7e9f9mr18404377f8f.3.1761249174285;
+        Thu, 23 Oct 2025 12:52:54 -0700 (PDT)
+Message-ID: <73b274b7-f419-4e2e-8620-d557bac30dc2@redhat.com>
+Date: Thu, 23 Oct 2025 21:52:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 05/13] mm: introduce CONFIG_ARCH_LAZY_MMU
-To: Kevin Brodsky <kevin.brodsky@arm.com>, Mike Rapoport <rppt@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Alexander Gordeev <agordeev@linux.ibm.com>,
+Subject: Re: [PATCH v3 06/13] mm: introduce generic lazy_mmu helpers
+To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  Andreas Larsson <andreas@gaisler.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
@@ -113,15 +112,15 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
  Madhavan Srinivasan <maddy@linux.ibm.com>,
  Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Nicholas Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Ryan Roberts <ryan.roberts@arm.com>, Suren Baghdasaryan <surenb@google.com>,
- Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
  Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
  linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
 References: <20251015082727.2395128-1-kevin.brodsky@arm.com>
- <20251015082727.2395128-6-kevin.brodsky@arm.com>
- <aPNjd2dg3YN-TZKH@kernel.org> <3836a43f-809e-419d-a85d-74606d9daa0f@arm.com>
+ <20251015082727.2395128-7-kevin.brodsky@arm.com>
 From: David Hildenbrand <david@redhat.com>
 Autocrypt: addr=david@redhat.com; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -167,44 +166,114 @@ Autocrypt: addr=david@redhat.com; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <3836a43f-809e-419d-a85d-74606d9daa0f@arm.com>
+In-Reply-To: <20251015082727.2395128-7-kevin.brodsky@arm.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: iX0aaPrgzscP48RLsMPbxdbr3R0IkHxtqd-ZDoX-PsY_1761248293
+X-Mimecast-MFC-PROC-ID: wDQYzUZFsQCjwVIILfsZ_qoECcjhNw9-Sem3daf0hjo_1761249175
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 20.10.25 12:37, Kevin Brodsky wrote:
-> On 18/10/2025 11:52, Mike Rapoport wrote:
->>> @@ -231,7 +231,7 @@ static inline int pmd_dirty(pmd_t pmd)
->>>    * held, but for kernel PTE updates, no lock is held). Nesting is not permitted
->>>    * and the mode cannot be used in interrupt context.
->>>    */
->>> -#ifndef __HAVE_ARCH_ENTER_LAZY_MMU_MODE
->>> +#ifndef CONFIG_ARCH_LAZY_MMU
->>>   static inline void arch_enter_lazy_mmu_mode(void) {}
->>>   static inline void arch_leave_lazy_mmu_mode(void) {}
->>>   static inline void arch_flush_lazy_mmu_mode(void) {}
->>> diff --git a/mm/Kconfig b/mm/Kconfig
->>> index 0e26f4fc8717..2fdcb42ca1a1 100644
->>> --- a/mm/Kconfig
->>> +++ b/mm/Kconfig
->>> @@ -1372,6 +1372,9 @@ config PT_RECLAIM
->>>   config FIND_NORMAL_PAGE
->>>   	def_bool n
->>>   
->>> +config ARCH_LAZY_MMU
->>> +	bool
->>> +
->> I think a better name would be ARCH_HAS_LAZY_MMU and the config option fits
->> better to arch/Kconfig.
+On 15.10.25 10:27, Kevin Brodsky wrote:
+> The implementation of the lazy MMU mode is currently entirely
+> arch-specific; core code directly calls arch helpers:
+> arch_{enter,leave}_lazy_mmu_mode().
 > 
-> Sounds fine by me - I'm inclined to make it slightly longer still,
-> ARCH_HAS_LAZY_MMU_MODE, to avoid making "LAZY_MMU" sound like some HW
-> feature.
+> We are about to introduce support for nested lazy MMU sections.
+> As things stand we'd have to duplicate that logic in every arch
+> implementing lazy_mmu - adding to a fair amount of logic
+> already duplicated across lazy_mmu implementations.
+> 
+> This patch therefore introduces a new generic layer that calls the
+> existing arch_* helpers. Two pair of calls are introduced:
+> 
+> * lazy_mmu_mode_enable() ... lazy_mmu_mode_disable()
+>      This is the standard case where the mode is enabled for a given
+>      block of code by surrounding it with enable() and disable()
+>      calls.
+> 
+> * lazy_mmu_mode_pause() ... lazy_mmu_mode_resume()
+>      This is for situations where the mode is temporarily disabled
+>      by first calling pause() and then resume() (e.g. to prevent any
+>      batching from occurring in a critical section).
+> 
+> The documentation in <linux/pgtable.h> will be updated in a
+> subsequent patch.
+> 
+> No functional change should be introduced at this stage.
+> The implementation of enable()/resume() and disable()/pause() is
+> currently identical, but nesting support will change that.
+> 
+> Most of the call sites have been updated using the following
+> Coccinelle script:
+> 
+> @@
+> @@
+> {
+> ...
+> - arch_enter_lazy_mmu_mode();
+> + lazy_mmu_mode_enable();
+> ...
+> - arch_leave_lazy_mmu_mode();
+> + lazy_mmu_mode_disable();
+> ...
+> }
+> 
+> @@
+> @@
+> {
+> ...
+> - arch_leave_lazy_mmu_mode();
+> + lazy_mmu_mode_pause();
+> ...
+> - arch_enter_lazy_mmu_mode();
+> + lazy_mmu_mode_resume();
+> ...
+> }
+> 
+> A couple of cases are noteworthy:
+> 
+> * madvise_*_pte_range() call arch_leave() in multiple paths, some
+>    followed by an immediate exit/rescheduling and some followed by a
+>    conditional exit. These functions assume that they are called
+>    with lazy MMU disabled and we cannot simply use pause()/resume()
+>    to address that. This patch leaves the situation unchanged by
+>    calling enable()/disable() in all cases.
 
-LGTM.
+I'm confused, the function simply does
+
+(a) enables lazy mmu
+(b) does something on the page table
+(c) disables lazy mmu
+(d) does something expensive (split folio -> take sleepable locks,
+     flushes tlb)
+(e) go to (a)
+
+Why would we use enable/disable instead?
+
+> 
+> * x86/Xen is currently the only case where explicit handling is
+>    required for lazy MMU when context-switching. This is purely an
+>    implementation detail and using the generic lazy_mmu_mode_*
+>    functions would cause trouble when nesting support is introduced,
+>    because the generic functions must be called from the current task.
+>    For that reason we still use arch_leave() and arch_enter() there.
+
+How does this interact with patch #11?
+
+> 
+> Note: x86 calls arch_flush_lazy_mmu_mode() unconditionally in a few
+> places, but only defines it if PARAVIRT_XXL is selected, and we are
+> removing the fallback in <linux/pgtable.h>. Add a new fallback
+> definition to <asm/pgtable.h> to keep things building.
+
+I can see a call in __kernel_map_pages() and 
+arch_kmap_local_post_map()/arch_kmap_local_post_unmap().
+
+I guess that is ... harmless/irrelevant in the context of this series?
+
+[...]
+
 
 -- 
 Cheers
