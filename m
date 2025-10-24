@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4450C06E5A
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 17:14:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1150494.1481631 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34D2CC06EA3
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 17:17:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1150516.1481639 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCJUd-0007gw-FM; Fri, 24 Oct 2025 15:14:15 +0000
+	id 1vCJXO-0000GB-S0; Fri, 24 Oct 2025 15:17:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1150494.1481631; Fri, 24 Oct 2025 15:14:15 +0000
+Received: by outflank-mailman (output) from mailman id 1150516.1481639; Fri, 24 Oct 2025 15:17:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCJUd-0007dZ-Bs; Fri, 24 Oct 2025 15:14:15 +0000
-Received: by outflank-mailman (input) for mailman id 1150494;
- Fri, 24 Oct 2025 15:14:13 +0000
+	id 1vCJXO-0000Dn-PI; Fri, 24 Oct 2025 15:17:06 +0000
+Received: by outflank-mailman (input) for mailman id 1150516;
+ Fri, 24 Oct 2025 15:17:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a4Pi=5B=gmail.com=freddy77@srs-se1.protection.inumbo.net>)
- id 1vCJUb-0007d7-LC
- for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 15:14:13 +0000
-Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
- [2607:f8b0:4864:20::112a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7Ac/=5B=redhat.com=david@srs-se1.protection.inumbo.net>)
+ id 1vCJXN-0000Dh-6l
+ for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 15:17:05 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 185e386a-b0ec-11f0-9d16-b5c5bf9af7f9;
- Fri, 24 Oct 2025 17:14:12 +0200 (CEST)
-Received: by mail-yw1-x112a.google.com with SMTP id
- 00721157ae682-783fa3aa122so28300627b3.0
- for <xen-devel@lists.xenproject.org>; Fri, 24 Oct 2025 08:14:12 -0700 (PDT)
+ id 7e692667-b0ec-11f0-9d16-b5c5bf9af7f9;
+ Fri, 24 Oct 2025 17:17:03 +0200 (CEST)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-235-lHG87oVMMO-ftEz0Wt1rMQ-1; Fri, 24 Oct 2025 11:17:01 -0400
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-4256fae4b46so1249292f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Oct 2025 08:17:01 -0700 (PDT)
+Received: from ?IPV6:2003:d8:2f4e:3200:c99d:a38b:3f3a:d4b3?
+ (p200300d82f4e3200c99da38b3f3ad4b3.dip0.t-ipconnect.de.
+ [2003:d8:2f4e:3200:c99d:a38b:3f3a:d4b3])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-475caf15498sm112647435e9.12.2025.10.24.08.16.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 24 Oct 2025 08:16:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,72 +51,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 185e386a-b0ec-11f0-9d16-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761318851; x=1761923651; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=WJ0DlXsWB3lXn6qzkmhT6yfFmHsMvuMvv+LUU+rxDZ4=;
-        b=LEmTn1R+huN2Um+Xk7Pvxc/UhCouDv9DJEIWfhaK2MiJUv2x/X0b9VhLgmebsDnFDI
-         Qxp5AguOkIMze/cVXZ+LC3h2HfRHWlUnzH9i7jmt1uQbedpdCYmpUs9FoOUJe8Lo2Elq
-         +oMhYzH0HqcR7+GCegHe4QfdQiYFzkfwny5bvNVZ9QofCQ0l+r5fFJS9NpcekUlXGewJ
-         HLxyHiSB1YXlccq/UkFcgpHGy7JoPM5CUujFMVV4aITnEFG4kSDj4FHE7WJO3rWvXrN0
-         b7j2eNMhQNR4DY9rdu+sHGjP81Q1yz66GUWuD1DjlNEWl9eIw8su1cxBifVEtWclCnkJ
-         kKcw==
+X-Inumbo-ID: 7e692667-b0ec-11f0-9d16-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1761319022;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=GlFP+E/QMyxi4Ffg6P0msiZ7Co3+zXi/ANozyDYceBA=;
+	b=B2hxrNmkX1tinv3AhswyXyixPP47UBsF5UlILIncv5woVdvnn8RK41PZX0/P8py3gVuInU
+	7+tB7/eE5ctbvpTmakk+qzAFmL5jvYOlIkUiW+aA8zub1E8Nso7FIGEOzmXV6jHMXU09R4
+	eqA5XfM1bn4UXUt6J7+jqWNJllYzBIY=
+X-MC-Unique: lHG87oVMMO-ftEz0Wt1rMQ-1
+X-Mimecast-MFC-AGG-ID: lHG87oVMMO-ftEz0Wt1rMQ_1761319020
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761318851; x=1761923651;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WJ0DlXsWB3lXn6qzkmhT6yfFmHsMvuMvv+LUU+rxDZ4=;
-        b=TE/UcroNUVRfNywGxkucn3uyVbacIbJhHRS4u9h9NJJvrxixPoI5cp+DolS5O0l43O
-         wI2elaf599OpyPUVgnYTEkUzUM/AlMDG56O4yJqCnCCj6Pa1NlXFk1/3HXV2rMheizC9
-         BUQT+7+aE1JL/gJWhF0sTQyiRYrLOfQD6mlPuxrqrSCIjnvHs9uknp5AKfWQxHbKrqsL
-         26OFdcE60tscvqc+gQVOrU6AJra9eWP9DZpVRJDWofXI05RxltEOIxP70AFRSuLLAkt9
-         9cZqG62dre6UYTJTaXAViiNFccKa9Kp0py5Vwymg3uXlXXxLjFjwAhNC+FrqMjwkEv55
-         h8Hw==
-X-Gm-Message-State: AOJu0Yye+LewfCDQR6xHUtQjRItcBhshsH3HWhop7GSwJKt6vxA6q5ly
-	i8dzpaEoy+tO6QQ7alThs/PNsME00AHkmZObbaNZt8CoOI1jWcuRw2SuKfGsomLoxcdxj2MTGd7
-	cPoq0Xo2gg9xPrmMujt4Oqpe3xk5OXmu4Tz2A
-X-Gm-Gg: ASbGnctzRteIfLBbQe1xz1men2mqcocKGUVqDj0srwikqwCSo8l750qrlorZR+dIotE
-	NDrpCBXWqbp5E2TWZ2jyIuu0s+0ilfElke4Esy5RkeL64JM3wbwA/rgHIdPNVdnEVydGG5iraDf
-	MAmhF9dPzPDFm/vJuNUJ8b7bRcpFsUU/3TMlskYiI8CC4+REOjGvaeHSpAUE9zovDK4kbi0Ubyx
-	9m6DL65iQntNMcsSR0hD/YfpAa9mqcJKxGjflhEcsiFwDmyc2oSez7XWeqO/Lly5jOm3VU=
-X-Google-Smtp-Source: AGHT+IEzJCApxnoXZOIUwZ1yJTXIVESfMYa0RWxpbxL8/5UuCmUAHSGKBNfckZRTx3ylp6Tv+SaFmIr33SWAs66RtMQ=
-X-Received: by 2002:a05:690c:4681:b0:784:827c:1cd3 with SMTP id
- 00721157ae682-785dd678943mr27358177b3.31.1761318850708; Fri, 24 Oct 2025
- 08:14:10 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1761319020; x=1761923820;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GlFP+E/QMyxi4Ffg6P0msiZ7Co3+zXi/ANozyDYceBA=;
+        b=PxvmpGSnApo6oExpCXRgXhFFO0PN2w2X1dijHl7OWY+qHHcnEj4ptHnLlCLwlXgsmC
+         fB1Kfmvt2VCrX6Q1FpKQu8s9qK6KL0UqtXOjqlJpIr1Hs0YBw3mS6g4yVSY2Wt2suoPK
+         WjP4Yga3ypXlz0PjauP2vNnGg4RsuoRy6hApix6jJ6qPFkxBe4gTFPZ6IAKfdBXSDF2x
+         jjre/IxEDz/EofRINa5ziybdUjwMUmGfBzlhJr8vsk+N4S0gW6QJ1gmpgIHl/rCaafp4
+         ueKgxEoBpIJjm6SvCCB/Vb3wUisBZp28DaKpaCVhXLz4n0UP+3807LCFCiVjtLmDwIcv
+         k6Xw==
+X-Forwarded-Encrypted: i=1; AJvYcCVIQJxZzHAsl/ZM6Ca+8cPoxTAwJgaCqGlTMwvF67yT9B0ktLcm5HmDM3/HEJJpEqNf8FOpQwHK+bI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzZajE/5PWiqzDgL2EQiACo7WxpgnffInEnYJhEHZxfNqDYjSk7
+	UcM1wO9JBFTgS16x85W/mO1NgLCTuvvx3RyvV7NL/nu3QqXVU4VbohMa6eS5kieHbgJcyztM/u8
+	UV/nQssdKvZiYdm9bYDjWRxXupG1lUggYeADThvMEMFAXpvKepbksFeOFznCNroYMFOxu
+X-Gm-Gg: ASbGnct5BmnwnaUKfApx3rgoXbrbQQTVOzLs/YuGdECAZJdP/hklMa6pQedztcdr5Yn
+	cPGICMnvVZ7BAOPmX3L4sMbHuG3bllfzxk9mPKk2j7t1PbA7VHI/Lc+Cajk7C9MP2ejN44j3U/J
+	Pla1zQTeN8z165Hq47Qg50nN+8diAXP41iQ5oRsfZbSsiy4ydyAJS7dB7VIzcRLWB9Fx2kLGbyf
+	MR3xCStsEk2kaNI178ePdz6GXBoeyJkINEi+EsBe7j58LL+Hc5ZN2CcnYIhOIHTx7id27V7be/H
+	f4dglA/brPm4THm+YgDLeA9PBJtUhQ7A3Xmwqn2hKGJQFxEic8DMDf+aEBYELHVbh0Q//2Pq4sY
+	FMTkUl9fjyOfd3oQm42y3Nlrif0ndhySR6ZdFRf1S7jBFCqIsiLpyUbBYb0V387c8Q9tHZaLol0
+	9bXhGDxkftYahwVvGE9H/1knG1uhI=
+X-Received: by 2002:a05:6000:2383:b0:3eb:7f7d:aefb with SMTP id ffacd0b85a97d-42704dc3748mr22122798f8f.53.1761319020059;
+        Fri, 24 Oct 2025 08:17:00 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEtnwuBHyt8rK4Gm7hxH2zJL+lCurT6SdXrynTA2FlfcUyPVPmZWy8oSZeIJ0KwzcUvqy9foQ==
+X-Received: by 2002:a05:6000:2383:b0:3eb:7f7d:aefb with SMTP id ffacd0b85a97d-42704dc3748mr22122761f8f.53.1761319019571;
+        Fri, 24 Oct 2025 08:16:59 -0700 (PDT)
+Message-ID: <1f81548e-18f2-49bf-82bc-e0dc667b78fd@redhat.com>
+Date: Fri, 24 Oct 2025 17:16:56 +0200
 MIME-Version: 1.0
-From: Frediano Ziglio <freddy77@gmail.com>
-Date: Fri, 24 Oct 2025 16:13:59 +0100
-X-Gm-Features: AS18NWC6kts6ML4PoB1UbSIvaAjyE9HitqE8HXwWlW2I6g-WGKNUixJyq0aeLwU
-Message-ID: <CAHt6W4dnM1pLMnDVyywc_2d-6nry7pFCYomSvRjyuH7sRm0J4Q@mail.gmail.com>
-Subject: [PATCH] xen/pci: prevent infinite loop for faulty SR-IOV cards
-To: xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 11/13] x86/xen: use lazy_mmu_state when
+ context-switching
+To: David Woodhouse <dwmw2@infradead.org>,
+ Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
+ Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
+ <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+ Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
+References: <20251015082727.2395128-1-kevin.brodsky@arm.com>
+ <20251015082727.2395128-12-kevin.brodsky@arm.com>
+ <f0067f35-1048-4788-8401-f71d297f56f3@redhat.com>
+ <348e5f1c5a90e4ab0f14b4d997baf7169745bf04.camel@infradead.org>
+ <70723f4a-f42b-4d94-9344-5824e48bfad1@redhat.com>
+ <cbe0d305cce6d76e00b64e7209f15b4645c15033.camel@infradead.org>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <cbe0d305cce6d76e00b64e7209f15b4645c15033.camel@infradead.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: LbrCJtJl0UexWA_LwnW4Z0_uqDXxLuM7MW3-jJpGx5c_1761319020
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-If a SR-IOV card presents an I/O space inside a BAR the
-code will continue to loop on the same card.
-This is due to the missing increment of the cycle variable.
+On 24.10.25 17:13, David Woodhouse wrote:
+> On Fri, 2025-10-24 at 16:51 +0200, David Hildenbrand wrote:
+>> On 24.10.25 16:47, David Woodhouse wrote:
+>>> On Thu, 2025-10-23 at 22:06 +0200, David Hildenbrand wrote:
+>>>> On 15.10.25 10:27, Kevin Brodsky wrote:
+>>>>> We currently set a TIF flag when scheduling out a task that is in
+>>>>> lazy MMU mode, in order to restore it when the task is scheduled
+>>>>> again.
+>>>>>
+>>>>> The generic lazy_mmu layer now tracks whether a task is in lazy MMU
+>>>>> mode in task_struct::lazy_mmu_state. We can therefore check that
+>>>>> state when switching to the new task, instead of using a separate
+>>>>> TIF flag.
+>>>>>
+>>>>> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
+>>>>> ---
+>>>>
+>>>>
+>>>> Looks ok to me, but I hope we get some confirmation from x86 / xen
+>>>> folks.
+>>>
+>>>
+>>> I know tglx has shouted at me in the past for precisely this reminder,
+>>> but you know you can test Xen guests under QEMU/KVM now and don't need
+>>> to actually run Xen? Has this been boot tested?
+>>
+>> And after that, boot-testing sparc as well? :D
+> 
+> Also not that hard in QEMU, I believe. Although I do have some SPARC
+> boxes in the shed...
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
----
- xen/drivers/passthrough/pci.c | 1 +
- 1 file changed, 1 insertion(+)
+Yeah, I once went through the pain of getting a sparc64 system booting 
+in QEMU with a distro (was it debian?) that was 7 years old or so.
 
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index 3edcfa8a04..52c22fa50c 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -746,6 +746,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-                     printk(XENLOG_WARNING
-                            "SR-IOV device %pp with vf BAR%u in IO space\n",
-                            &pdev->sbdf, i);
-+                    ++i;
-                     continue;
-                 }
-                 ret = pci_size_mem_bar(pdev->sbdf, idx, NULL,
+Fantastic experience.
+
+Only took me 2 days IIRC. Absolutely worth it to not break upstream 
+kernels on a museum piece.
+
 -- 
-2.43.0
+Cheers
+
+David / dhildenb
+
 
