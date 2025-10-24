@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 984EAC06CE6
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 16:55:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1150462.1481597 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EFE6C06DD3
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 17:05:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1150476.1481606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCJBy-0003ZM-Dp; Fri, 24 Oct 2025 14:54:58 +0000
+	id 1vCJM2-0005T5-8R; Fri, 24 Oct 2025 15:05:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1150462.1481597; Fri, 24 Oct 2025 14:54:58 +0000
+Received: by outflank-mailman (output) from mailman id 1150476.1481606; Fri, 24 Oct 2025 15:05:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCJBy-0003Ws-AK; Fri, 24 Oct 2025 14:54:58 +0000
-Received: by outflank-mailman (input) for mailman id 1150462;
- Fri, 24 Oct 2025 14:54:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vCJM2-0005Rb-5N; Fri, 24 Oct 2025 15:05:22 +0000
+Received: by outflank-mailman (input) for mailman id 1150476;
+ Fri, 24 Oct 2025 15:05:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rNzd=5B=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1vCJBx-0003WX-D6
- for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 14:54:57 +0000
+ id 1vCJM1-0005RV-4x
+ for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 15:05:21 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 67762173-b0e9-11f0-9d16-b5c5bf9af7f9;
- Fri, 24 Oct 2025 16:54:56 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id daa34665-b0ea-11f0-980a-7dc792cee155;
+ Fri, 24 Oct 2025 17:05:18 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8AF2F1424;
- Fri, 24 Oct 2025 07:54:47 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 29D6E14BF;
+ Fri, 24 Oct 2025 08:05:10 -0700 (PDT)
 Received: from [10.57.67.38] (unknown [10.57.67.38])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 10A0E3F63F;
- Fri, 24 Oct 2025 07:54:47 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 519063F63F;
+ Fri, 24 Oct 2025 08:05:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,13 +42,15 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67762173-b0e9-11f0-9d16-b5c5bf9af7f9
-Message-ID: <1b658758-73dc-4e53-aa7f-696f59067067@arm.com>
-Date: Fri, 24 Oct 2025 16:54:44 +0200
+X-Inumbo-ID: daa34665-b0ea-11f0-980a-7dc792cee155
+Message-ID: <6ed9f404-9939-4e9f-b5aa-4253bef46df1@arm.com>
+Date: Fri, 24 Oct 2025 17:05:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/13] powerpc/mm: implement arch_flush_lazy_mmu_mode()
-To: David Hildenbrand <david@redhat.com>, linux-mm@kvack.org
+Subject: Re: [PATCH v3 11/13] x86/xen: use lazy_mmu_state when
+ context-switching
+To: David Woodhouse <dwmw2@infradead.org>,
+ David Hildenbrand <david@redhat.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  Andreas Larsson <andreas@gaisler.com>,
  Andrew Morton <akpm@linux-foundation.org>,
@@ -70,49 +72,40 @@ Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
 References: <20251015082727.2395128-1-kevin.brodsky@arm.com>
- <20251015082727.2395128-4-kevin.brodsky@arm.com>
- <60c55686-87dd-46d0-884e-80f7d423663b@redhat.com>
- <604f26cb-46c6-4533-8110-0b174eed821d@arm.com>
- <5d5a85ec-0213-4af3-92a9-c02bb13da073@redhat.com>
+ <20251015082727.2395128-12-kevin.brodsky@arm.com>
+ <f0067f35-1048-4788-8401-f71d297f56f3@redhat.com>
+ <348e5f1c5a90e4ab0f14b4d997baf7169745bf04.camel@infradead.org>
 Content-Language: en-GB
 From: Kevin Brodsky <kevin.brodsky@arm.com>
-In-Reply-To: <5d5a85ec-0213-4af3-92a9-c02bb13da073@redhat.com>
+In-Reply-To: <348e5f1c5a90e4ab0f14b4d997baf7169745bf04.camel@infradead.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 24/10/2025 16:42, David Hildenbrand wrote:
-> On 24.10.25 14:09, Kevin Brodsky wrote:
->> On 23/10/2025 21:36, David Hildenbrand wrote:
->>> On 15.10.25 10:27, Kevin Brodsky wrote:
->>>> [...]
->>>>
->>>> diff --git a/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h
->>>> b/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h
->>>> index 146287d9580f..7704dbe8e88d 100644
->>>> --- a/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h
->>>> +++ b/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h
->>>> @@ -41,6 +41,16 @@ static inline void arch_enter_lazy_mmu_mode(void)
->>>>        batch->active = 1;
->>>>    }
->>>>    +static inline void arch_flush_lazy_mmu_mode(void)
->>>> +{
->>>> +    struct ppc64_tlb_batch *batch;
->>>> +
->>>> +    batch = this_cpu_ptr(&ppc64_tlb_batch);
+On 24/10/2025 16:47, David Woodhouse wrote:
+> On Thu, 2025-10-23 at 22:06 +0200, David Hildenbrand wrote:
+>> On 15.10.25 10:27, Kevin Brodsky wrote:
+>>> We currently set a TIF flag when scheduling out a task that is in
+>>> lazy MMU mode, in order to restore it when the task is scheduled
+>>> again.
 >>>
->>> The downside is the double this_cpu_ptr() now on the
->>> arch_leave_lazy_mmu_mode() path.
+>>> The generic lazy_mmu layer now tracks whether a task is in lazy MMU
+>>> mode in task_struct::lazy_mmu_state. We can therefore check that
+>>> state when switching to the new task, instead of using a separate
+>>> TIF flag.
+>>>
+>>> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
+>>> ---
 >>
->> This is only temporary, patch 9 removes it from arch_enter(). I don't
->> think having a redundant this_cpu_ptr() for a few commits is really a
->> concern?
+>> Looks ok to me, but I hope we get some confirmation from x86 / xen
+>> folks.
 >
-> Oh, right. Consider mentioning in the patch description
->
-> "Note that follow-up patches will remove the double this_cpu_ptr() on
-> the arch_leave_lazy_mmu_mode() path again." 
+> I know tglx has shouted at me in the past for precisely this reminder,
+> but you know you can test Xen guests under QEMU/KVM now and don't need
+> to actually run Xen? Has this been boot tested?
 
-Sounds good, will do.
+I considered boot-testing a Xen guest (considering the Xen-specific
+changes in this series), but having no idea how to go about it I quickly
+gave up... Happy to follow instructions :)
 
 - Kevin
 
