@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26EACC04C08
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 09:37:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1149966.1481330 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85E6CC04CB9
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 09:43:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1149984.1481338 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCCM1-0005X7-Fh; Fri, 24 Oct 2025 07:36:53 +0000
+	id 1vCCSD-0007CV-22; Fri, 24 Oct 2025 07:43:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1149966.1481330; Fri, 24 Oct 2025 07:36:53 +0000
+Received: by outflank-mailman (output) from mailman id 1149984.1481338; Fri, 24 Oct 2025 07:43:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCCM1-0005U8-B6; Fri, 24 Oct 2025 07:36:53 +0000
-Received: by outflank-mailman (input) for mailman id 1149966;
- Fri, 24 Oct 2025 07:36:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vCCSC-0007AX-VU; Fri, 24 Oct 2025 07:43:16 +0000
+Received: by outflank-mailman (input) for mailman id 1149984;
+ Fri, 24 Oct 2025 07:43:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+XhT=5B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vCCLz-0005K0-NP
- for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 07:36:51 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 345b8c04-b0ac-11f0-9d16-b5c5bf9af7f9;
- Fri, 24 Oct 2025 09:36:51 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-47118259fd8so11248445e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 24 Oct 2025 00:36:51 -0700 (PDT)
+ id 1vCCSB-0007AR-KD
+ for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 07:43:15 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 18539af2-b0ad-11f0-980a-7dc792cee155;
+ Fri, 24 Oct 2025 09:43:13 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-4298bada5bdso1298237f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Oct 2025 00:43:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-475c4342368sm142242915e9.9.2025.10.24.00.36.49
+ ffacd0b85a97d-429898ccd70sm9658695f8f.35.2025.10.24.00.43.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Oct 2025 00:36:50 -0700 (PDT)
+ Fri, 24 Oct 2025 00:43:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 345b8c04-b0ac-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: 18539af2-b0ad-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761291410; x=1761896210; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761291793; x=1761896593; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+2Cykt8ADAlDg0LMzqT6da8IvfV3wQHi37+72mLk5wU=;
-        b=GRk+nd0h6yGgYyfzFqfv+sERte1cjxsdLaHAO95T9lAgMt7rcKc20ell7eMGEBGofs
-         T6Qr1Rgs0hC2Tfb+EW/mpY6ygIXnP/sMSHigyJ6Ni6rhjz76AI64qVG+QOq1+JNU3lV2
-         8WHjnnkMGNALPZm3qMaYEvWc+9j5h2pB2PaO2XI/BPk0sB1Ax1U1hYvRPK2IVJH7uxX6
-         Ap86xOkcuK1tN0UqppKDWx4+Thh6fuMtmkBYEV6TewXrskjGWQ48Q2RzdfEaAHDMM3gT
-         ICh3se23nHtCMU35HMdjp6y27KvJMvlN+umMsN+/edAHpLkIxM8zQYPIkTF++0iZ+YPT
-         N+4g==
+        bh=dj8/8WqA3zjtdSo4Vpgkj2IeFLmm4yVkTosgkKg6vbw=;
+        b=GpsxbR4+wINsAXA2Zz0LyECTSocETz42aalGkmjTEbJofwsuDLlxzARg9a6SZ+DnnR
+         VT+BBdG+0+yfPrE1LZ3pr4gABgL+VXZYCbykC0cCS7QB5iELDT0UwRJ3ZEM3qZVVBSl7
+         hUy4mg/0U2II6N8tbYJCUyWQqizBNsJBxYu761qcCSMS0nBbL6HZznk/9Z0dyGA9BMkc
+         OSdynmz4ZHsLasv5rFID4U1PPYh0THWVwIK5al77IpH+pS9XGRpFvbvhHEpOA/KzZVxr
+         A5jGMtLq6njioMFHKdBdKJJNQDGvMXO9IZvG5EOL7KnfVLj6rQiEWriD7PwxxgMg7if5
+         OGxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761291410; x=1761896210;
+        d=1e100.net; s=20230601; t=1761291793; x=1761896593;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+2Cykt8ADAlDg0LMzqT6da8IvfV3wQHi37+72mLk5wU=;
-        b=iTEJldNkoBqHEP/qy4bRkdPHSmL+7bNf/UEzLfYOkM56xrl7F4dfYZO42gb1i2ERIR
-         74yVhJ1W81chdiumqnBxh/Z010CWp9ELwQNoAwPmgBnZhhSjqihl2k4vh2ApUS+sn1Do
-         jTyLeFbQNL0GRCSUFGOinJguxQLZKJiU3U5mO+Sbl3EODFD8MuqM5Ete7STXrN6/2r9F
-         KlCW1XHG1Bxc3QBhcHJVVzoohPX2Tl/cMEP0dkmUgVvn/EfTKJEgwcPHPytY9EC/27WW
-         YSuUZst0SKCS/g8szYUZhtTLiv2hT74VLkBgSyWACc1XKI3aKKN56PjB5l1H/4xjrSWi
-         aC2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXXvXYrtJ7DWTWNxuzPVL9H6ha16OWzZoDk2pbFqeJDmvSTt1czi6fLvQQoGemfZkNUt/J4VynobHM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yytw8g7iFnWFAIiTdo0d1XXo4ZaJkJtXiNDgyp/BY6b38i9q1Df
-	6hGBAR2cYn5TDgSmXB38Sq62EU9hJJdpw3msB43yXyz1Gz5S+mZE04KpWO1eVwIlYQ==
-X-Gm-Gg: ASbGncs9PrvEwVyYHIW700fo3PJyBhED6NSnGRtct82G3zol6XyVoj0SfK9w5MdUwTD
-	s6/gW82u07FbQFPoTFGZDmQhzD7QoIJB9CeQTfQ8XA1totp7CqKcjJVTU1Varej8R8TuoenRafB
-	eyTZIrnyz4PQ3qWZgh7FB+B+b1vRONGc6+Bb5ts2cHp0jkR7Lv3V3gEG5x8Uy+0P1UqM/wNgg2v
-	5IjD371UDfwuFU45Uu+3ZsB//AiSjEH31CTwl3IWAB2XY+ajY2I1mz5c5aTTrK68eM2n9tGiBh0
-	a6/HaBpOe7+uJABivWH9UdFQELd7PA4nKKsi1oJKT2zGMjtILwjULAR52d1tvbCyFPw/tbXjwW3
-	Lw22Enp+yfnJvV1w8O7KSmAbCYtLoh9mRbRnVfh6Awqco2SuIbRMkuc6q/+ARwdZ3EQLfDSgHMd
-	BdDwEQm+petvWm6hfa82QoUKLuNn8AFuuxlWYkdkV7/2A5iNcdfLFjD7+56wO2
-X-Google-Smtp-Source: AGHT+IE9zPuGN9+xLD5cHm1aqPuTB1GAbtKtOS6F5iSybq50wNnc6rhrKBqzaFOkK8eXupMtYQ36Cg==
-X-Received: by 2002:a05:600d:62b1:b0:46f:b43a:aef4 with SMTP id 5b1f17b1804b1-471b5341411mr94463235e9.38.1761291410307;
-        Fri, 24 Oct 2025 00:36:50 -0700 (PDT)
-Message-ID: <0cdcf77a-5387-4447-a4fe-56c8ae7300de@suse.com>
-Date: Fri, 24 Oct 2025 09:36:48 +0200
+        bh=dj8/8WqA3zjtdSo4Vpgkj2IeFLmm4yVkTosgkKg6vbw=;
+        b=FZqAflNIG51+qHJx17yt9uwhauafi8uer7HDLOLVSfMD/PVsyEv9vredcw7SGLh21O
+         pdvJ4Hy3SGqhebfhLBxdYqp2wR2rLrx8gDtcVV5GFpd3iZNweVUeUX1gb1RvmpuQkN9l
+         MYi0ya3jqFElvCVw+37mlGF2WzYZgepArHPStME5jvPJzTBNY79R4pKMy5YcDXwU3lkb
+         zKXHr66SScWAdsaiJvIVR5l6yNv+IvQoGLu5YASNbiQjy4q3yDdoDKulbyCFtDktBsNg
+         dyhk5wkIgB2EdsotVMPIZHcE3mn6EdKXME5D1Uecozrm23vxAcDYaa8eWa33QuXzTl+R
+         cPpw==
+X-Forwarded-Encrypted: i=1; AJvYcCX/C3TCziOb217RZkutd3BtGynEmLvggsSlUTYdKiS3j/VGuBJDDM/l7PTolrbx5Wggb2bsPz0qy88=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzanPs0OmYGm5VcDHKJq1kY60DjyzGTrnA1O+TO4P8d9pKjbgvw
+	MiHLaZDe5Z1aIc+Sl/y4Vj2+MkAbKfIk4i3MIoOxEAA4utHT3OfbKtQUAVrbZ2plhA==
+X-Gm-Gg: ASbGnct2TAEGQa18eDLrQmFFdN4MHHbBghvUltlxfTY64SLhILt4h0l18QiLRgFK3et
+	gpih6vv+V2py/qg8c6WFQXZe/zFR0wRz4twpcbSQnpv322xju+4/8D+VNosD5UIUUEfyj1lCWyV
+	5bNMHBHmr5Zjg3B+OUrzY58355SlpG5ii3zEto9iIVi/Cf26SAXxlu4ImZbJi+SFWghEIVgWny4
+	6hVEEG7hhgvzR/diFWJmOsNeycJKXhnAHK8XuDdxpkmsPdygC3/EVDJeyqDsaJD+FzGZJTC0scu
+	jYkKXJgpHnEXj3Qm8gzzgCCv9sLUXa4rR9h6IyBw3tu7nEUZYQoT5X7GDTRE7VqrZQ3s+R3MvoR
+	HXkiIiwA9QWILcksOHvFBedcMC7MCrea63ipp0foNHu3AR3AqJsa2lQ9sgXnmGvQ7DOgZqxKsSF
+	59xLTrDwmpUkr9Fq6Y9Z70jGd2N8IzjMfHYGu6Y1n2ZL4xpv0DrHcNnnqzhkzP
+X-Google-Smtp-Source: AGHT+IEFZ+zhcRsf8lE4UgB8yh30+kO6p8wI9BEOkFjao9TzAMq8t1a4/+DEi7f+MiXjJWQ1s8lImA==
+X-Received: by 2002:a05:6000:40cf:b0:3e0:a5a2:ec9b with SMTP id ffacd0b85a97d-42704dc2b32mr19651559f8f.52.1761291792726;
+        Fri, 24 Oct 2025 00:43:12 -0700 (PDT)
+Message-ID: <309b29ce-2e32-4f9a-9436-051cf65c0780@suse.com>
+Date: Fri, 24 Oct 2025 09:43:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] Support LLVM raw profile versions 5, 6, 7, 8, 9, and
- 10
-To: Saman Dehghan <samaan.dehghan@gmail.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH] misra: address Rule 11.3 for NextMemoryDescriptor macro
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Wentao Zhang <wentaoz5@illinois.edu>,
- Matthew L Weber <matthew.l.weber3@boeing.com>, xen-devel@lists.xenproject.org
-References: <3dc1fe6ee55d973a25a0441d0f6b41e00a58227b.1759355762.git.samaan.dehghan@gmail.com>
- <06646f747f21c3f388cf6e9d59a20238a4a91170.1761263588.git.samaan.dehghan@gmail.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <78112778d6fd5f720f7102db7125c844b747a962.1761242341.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,68 +124,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <06646f747f21c3f388cf6e9d59a20238a4a91170.1761263588.git.samaan.dehghan@gmail.com>
+In-Reply-To: <78112778d6fd5f720f7102db7125c844b747a962.1761242341.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.10.2025 02:16, Saman Dehghan wrote:
-> This change enables compatibility for measuring code coverage
-> with Clang versions 14 through 20 by supporting their
-> respective raw profile formats.
-
-Isn't the 14 here stale now?
-
-> 1- Added support for LLVM raw profile versions 5, 6, 7, 8, 9, and 10.
-> 2- Initialized llvm_profile_header for all versions based on llvm source code in
->    compiler-rt/include/profile/InstrProfData.inc for each version.
-> 3- We tested this patch for all Clang versions from 11 through 20 on x86 platform.
-> 4- Fixed linking warnings related to coverage code in x86.
-> 
-> Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
-> ---
->  xen/arch/x86/xen.lds.S     |  6 ++++
->  xen/common/coverage/llvm.c | 73 ++++++++++++++++++++++++++++++++++----
->  xen/include/xen/xen.lds.h  | 18 ++++++++++
->  3 files changed, 91 insertions(+), 6 deletions(-)
-> 
-> diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-> index 966e514f20..5d02f83a40 100644
-> --- a/xen/arch/x86/xen.lds.S
-> +++ b/xen/arch/x86/xen.lds.S
-> @@ -186,6 +186,8 @@ SECTIONS
->    } PHDR(note) PHDR(text)
+On 23.10.2025 20:00, Dmytro Prokopchuk1 wrote:
+> --- a/xen/arch/arm/efi/efi-boot.h
+> +++ b/xen/arch/arm/efi/efi-boot.h
+> @@ -227,6 +227,7 @@ static EFI_STATUS __init efi_process_memory_map_bootinfo(EFI_MEMORY_DESCRIPTOR *
+>              }
+>          }
 >  #endif
+> +        /* SAF-15-safe casting a pointer */
+>          desc_ptr = NextMemoryDescriptor(desc_ptr, desc_size);
+>      }
 >  
-> +  LLVM_COV_RO_DATA
-> +
->    _erodata = .;
->  
->    . = ALIGN(SECTION_ALIGN);
-> @@ -323,6 +325,8 @@ SECTIONS
->         *(.data .data.*)
->    } PHDR(text)
->  
-> +  LLVM_COV_RW_DATA
-> +
->    DECL_SECTION(.bss) {
->         __bss_start = .;
->         *(.bss.page_aligned*)
-> @@ -357,6 +361,8 @@ SECTIONS
->  
->    DWARF2_DEBUG_SECTIONS
->  
-> +  LLVM_COV_DEBUG
-> +
->  #ifdef CONFIG_HYPERV_GUEST
->    hv_hcall_page = ABSOLUTE(HV_HCALL_PAGE - XEN_VIRT_START + __XEN_VIRT_START);
->  #endif
 
-Since only x86 is documented to support building with Clang, adding just to
-x86's linker script is likely fine.
-
-Oleksii, what's your thought towards still taking this for 4.21?
-
-In any event, a ChangeLog entry should likely be added.
+While at present we have only one use site, needing per-use-site comments
+isn't very nice. Putting it into the imported header isn't nice either.
+Could Arm perhaps get away without using the macro, just like x86 manages
+to?
 
 Jan
 
