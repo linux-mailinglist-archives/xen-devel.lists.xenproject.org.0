@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6937C07442
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 18:21:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1150704.1481761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72BD4C076B5
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 18:58:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1150721.1481770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCKXY-0007ox-9l; Fri, 24 Oct 2025 16:21:20 +0000
+	id 1vCL6t-00046l-0K; Fri, 24 Oct 2025 16:57:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1150704.1481761; Fri, 24 Oct 2025 16:21:20 +0000
+Received: by outflank-mailman (output) from mailman id 1150721.1481770; Fri, 24 Oct 2025 16:57:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCKXY-0007m2-6k; Fri, 24 Oct 2025 16:21:20 +0000
-Received: by outflank-mailman (input) for mailman id 1150704;
- Fri, 24 Oct 2025 16:21:18 +0000
+	id 1vCL6s-00044A-Sn; Fri, 24 Oct 2025 16:57:50 +0000
+Received: by outflank-mailman (input) for mailman id 1150721;
+ Fri, 24 Oct 2025 16:57:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h56G=5B=citrix.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1vCKXW-0007lw-N1
- for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 16:21:18 +0000
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazlp170110009.outbound.protection.outlook.com
- [2a01:111:f403:c111::9])
+ <SRS0=EH92=5B=gmail.com=samaan.dehghan@srs-se1.protection.inumbo.net>)
+ id 1vCL6q-000444-Ev
+ for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 16:57:48 +0000
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [2607:f8b0:4864:20::633])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 76a3be14-b0f5-11f0-980a-7dc792cee155;
- Fri, 24 Oct 2025 18:21:16 +0200 (CEST)
-Received: from DM6PR03MB4764.namprd03.prod.outlook.com (2603:10b6:5:183::31)
- by BL1PR03MB6055.namprd03.prod.outlook.com (2603:10b6:208:31b::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.12; Fri, 24 Oct
- 2025 16:21:13 +0000
-Received: from DM6PR03MB4764.namprd03.prod.outlook.com
- ([fe80::4f33:d9f5:18a2:28c7]) by DM6PR03MB4764.namprd03.prod.outlook.com
- ([fe80::4f33:d9f5:18a2:28c7%6]) with mapi id 15.20.9228.014; Fri, 24 Oct 2025
- 16:21:12 +0000
+ id 8d32145d-b0fa-11f0-980a-7dc792cee155;
+ Fri, 24 Oct 2025 18:57:41 +0200 (CEST)
+Received: by mail-pl1-x633.google.com with SMTP id
+ d9443c01a7336-27ee41e074dso23200355ad.1
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Oct 2025 09:57:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,198 +40,352 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76a3be14-b0f5-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N5Z+a/GvLsGYtSEf70jhHJ39g11C/XMxbI0APvaz7Xr7bzEyAIB2thAyOKy9qfXnv1FPGbmYLJtsREYai7sT46mjPpvmUy2bfjCD/CzACj6QcBAup1WmnoNMm/oIO/vCTLDpiWsDyJj6/BXG4uqmuIGUWrLQwd8+Bd4mLRmn3OGAlSTcoWOMUcYuPZSQnayvcto/BDJfoKe+bL5s26jemgih6d3lzK08s1JzVozoLigVB1lVA081ju5S+W+6AayblY1EEew3tEaEhN+Cl+6DGNfiXh3NN4BKnHS01CFl0ZSOl3V5lKwOJ7GHVgTK2LRdRZwSce1erZipyxrS8t/IJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6uUQTuet8fHMJ2w3FZTZuj/+41PlPOzUESjZXEwkEDA=;
- b=JuQgJwHboDcHXHZyT56hbHOwz6zCX2HkI/CRykevQdIZzpMVHChBPRn5kAJ0TgVyoU4Bn9fyJq0jMVVkMTfnP66yE6ZzEe5x3ul3uE1G1NbJSz0x75ru7xo4k2jNSnt1TRFWmw9+P3pA90CVEpoaVNgmDY8+GB0NF3VfUyH2l1kXXjNoWTTyrPbOfyMkD3pLW9ODWHmGhwja/vz8223fTTT2YagCwvPQAYvkFDZviGXbuUvIVDlGkBMy9dcj2uncCxFPP9UhrqnfTjidBiTskAD/n9Zc2DJdriQA0ohFkpRgyrPVxrMByenCVSSNJhhM2OVXE5IhHbIZzXp3hzD+Nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6uUQTuet8fHMJ2w3FZTZuj/+41PlPOzUESjZXEwkEDA=;
- b=tSNqYWPtP870WtBp9FZV85cU++YpaSi0qe9PhogR1Q4ot6PqFUW5ZVBlNZz6HxUk8NL3yPDLpWrkq7Y6xqX7zv93eZqhUxYDWQqWgDXSku7eGq8CtPLcJ4VJGnjv038pqaT247sL+9cQZMfL2/alPyNYDQuGaGyH7HlQFvCMxEk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] vVMX: Cleanup partial vCPU initialization
-Date: Fri, 24 Oct 2025 17:20:54 +0100
-Message-ID: <20251024162054.2610454-1-ross.lagerwall@citrix.com>
-X-Mailer: git-send-email 2.51.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P265CA0175.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:312::14) To DM6PR03MB4764.namprd03.prod.outlook.com
- (2603:10b6:5:183::31)
+X-Inumbo-ID: 8d32145d-b0fa-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1761325060; x=1761929860; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=KNJrqv1LdgGD9htqF+5iWwwnUHevdWmdVSMSUdoUNTA=;
+        b=B+Sta8PyJLebtsBbWphTiJgXwB4lFKPA7TBkGg+1TXY+3gbnqpojwF3MJmbAJmIzUL
+         6qnUz/2aH4I0ZWWh1CfSgDMdB4FvAMHPtDIBb9XLPBJAttHECIRVJp4UVdw1d0VbwnR3
+         cyxjkoWaiSl0lUZ1u+XZULJP574YcagE5oQK8TQQADRWWCt3kgA4V6wsMJt8dBGZMlV9
+         dPt0FSoxd8zYq0+He7OXe/xlw+YHKb/o2RXGS1hnOyNaFmrdxsE/FSDY+1OfFn+iZXDc
+         uoml48sQBhNuO8ddI+9FyNm2my5awEXbvhPpwfl66tQXUrivIzINbNGaaSt2aQ3OiQso
+         zphA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1761325060; x=1761929860;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=KNJrqv1LdgGD9htqF+5iWwwnUHevdWmdVSMSUdoUNTA=;
+        b=Txw5sdr3rR86E6JdRSMws8nsSpAX0Tcxf3ptA0mKcM7aeYdNy81zpbRFefudqDn9UY
+         6G5OMNVbQJRKVIxKuMm8HQTstZuooJQ+4XgkhlFQ8QC+dtfjSBZYyl/IjhViJuiHorWo
+         fD8J2ol6U4Ty7dbw/I7upzBR4O2NB7cknp3Kx4VupiR8ovQJqWFTauQybpyntnsum/BU
+         rjkK9ZW+EvBHChVCWoRmnSjKw7xBor6bvpMgsammWr61ZbfVuh2SPi2SRaQin+RlzD3N
+         NYuHyvlpDrKOQoTWaa2XhD+JgQYMxdEgBpehrMnhIZDzPviHiVHhFUNzLpr1xZ9X4KvU
+         3XxQ==
+X-Gm-Message-State: AOJu0Yzofsvj3/bxVo2xjhKx7AagfNZObAKLYpeIvV81srClvamGDepd
+	8xmfJ2P2RLeoBWw3idkhVPyx6JlS8PIWtUakCLOFnEUauVXlu5nkCA9XcMQ2NYS/sawYSY2gXBE
+	APg3MzNddrkm3pFytYKff8HNbO1sy7g==
+X-Gm-Gg: ASbGncuizaMaeszGSlmI9CYRpicu2wPM6IHRv3zN5/4ZV26sJe5sMDGCfSnl6vTEV82
+	N2rL+0cE9PyeED3Y8QbC6LcpLTa8z5Ja+5P3FWJpPNyx7caZbiPnTRkC0sUxrWKi2KTPItpLmMv
+	Nb1puNxHvJFdMeFsCYK9wWEniv+5rEFnfC0kkPcbPtlawlrKNpbALbo64J146opneA1+dKoNndx
+	yRGyN7ahxvHSxXRjAdQ1V9pAvZ8mmdqv/8NwJaOJc4jZOG3fGNEsbxTD0A27xM3tGm6
+X-Google-Smtp-Source: AGHT+IEhQga1Ro4sSWNWpbqx0MH6zTfvm1Ez8rZwiQl+qaWpv9DT1yHNb1nYiy03nR+Uh4kAb92gkg4xp7SuFSApmnA=
+X-Received: by 2002:a17:902:e80e:b0:293:623:3260 with SMTP id
+ d9443c01a7336-2930623372dmr106086055ad.57.1761325059637; Fri, 24 Oct 2025
+ 09:57:39 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR03MB4764:EE_|BL1PR03MB6055:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0a73758e-d087-4126-e0a3-08de13195947
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?VU9wAYZStRdBwggOFhT2uM6Rz/3uAueIBekLiNLpRHg0e3k9g80GCX2LHI8b?=
- =?us-ascii?Q?rjZDYoYhKOKMS102kjabJbDEtrholp2DH5QCHNEd1lWqMXnWLSNrua7Z050k?=
- =?us-ascii?Q?p2zG4f20UISpaeSWTDV2simTc67eGhzN0VjpSa0I3JM4fcLhSDYziisbGmFn?=
- =?us-ascii?Q?W5C+E8oLxn19JmL8g9cuRRMxyExj7y6JmDoBEGyCNHLw2v7caHtKfXeAt2Dj?=
- =?us-ascii?Q?6TDV8r4cCdr2UwCjhiLb+KGHBFbKFNF2ogJgZ6E6uwL4K9XD1VvXefYTb2Yu?=
- =?us-ascii?Q?+KqQqcD8A+Tdqc32zWcCzprIOfWKp7coaW7UNwr7I1vb//g6uXMqdU0mWBCS?=
- =?us-ascii?Q?As6yITipMAyrIuhCXXGwFpJkFNuCrp4/KBfs4uqDbRbiKkPfFgakGnQKICZk?=
- =?us-ascii?Q?cVbfdILCFLyB3tuyvgeyzBxi1gGyb0/vfEREk8+OoD/XvrqbprzlO7HGPjyV?=
- =?us-ascii?Q?n/NQM9eTPYSqu+Jd8QrWjGouXAMSHyVthlJ6SCi1OVlAcwwlXxUIyE8VkN/l?=
- =?us-ascii?Q?KMfiZn0aAdiF5FKPzGm1md5uLWyl0o2smAjXTC2+y+9PDPUkFw/TLQLLbe7P?=
- =?us-ascii?Q?wJfYTL1aVPxNbPEQJ+2RHISHQYJbjbjsNpKkh9bujGnNGOaqDmAciUtInJ4t?=
- =?us-ascii?Q?UfYkI29mvVk3GyqbFNWPoqlA2Vbm+Mj4wXbGxTqJLDO1mqK5dHWb9Sj/qWGl?=
- =?us-ascii?Q?9ewoUtLvKTqVJ+JqUB7AcbPtVC+lMLnhF9F5gYw9fgHRPgbF1jt7ceSg3slz?=
- =?us-ascii?Q?3+DDkB7Y8CSX7qURpk6pmHF9hy7JXC9uwxr8Rgol3HM0ywvtuYr7q8LE7Hj1?=
- =?us-ascii?Q?kCoWDDAL4C5ruLE4X64imTe3DW8KsgIC21ChpR2mcPPslqHbJHj0vhE3cpTf?=
- =?us-ascii?Q?qj4IIVZJ6EZfJlNoV3P2crMj7SiQk71pywMpKBmdoAi10kHTTy12NaxqJHO+?=
- =?us-ascii?Q?AXt6/y6H0Mpt1tAijJjksE681xpRGwMbTJVGEte9HRexpujCYfIU5aQRHPE+?=
- =?us-ascii?Q?0KLWBjB+b/5f5noLSZ7jRTxAGhUaefHJPfWZfKoz/ussYxBQKt1n+eHPL2S3?=
- =?us-ascii?Q?FtYpulUPm74EJeGShe4PTx8ueyhIunipb0paREx5Wu2no+CuE/viLihj8R3L?=
- =?us-ascii?Q?x+OfOxKd0RhuCoF+h8oyWcdItiVtInhhxpc9scsJiXo0IOR0CvPYA8Di/wIf?=
- =?us-ascii?Q?zmsJ8IhKzToG3ODjFS8bKWOwMwq+oISkF3xSBj4WbtuFgC8G8fcsOHjapPtr?=
- =?us-ascii?Q?sbWJ/TPJ2c/RhX/ZRZdGDUsiRY2ksVfgZ3Ub4FwQsg1I119UyvVP0h9WNsu7?=
- =?us-ascii?Q?OV5ILidAVO9Z5eWOXNBFuvlKAWxVHw0wgSLGgz5K0yPi7ewPupkL0SswdQLD?=
- =?us-ascii?Q?5GDDWKXMEMIMhvfD1ntvOpOXQ/spVZCKiLBD4BBenhyjveCDUdIN2M4H+I18?=
- =?us-ascii?Q?TP2aS4C6b3XPQ5RVDvD6MUWsCs94qPBu?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB4764.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?vpbic0iwPY0jv/ZXQwCZJjyXiVf2bhSjRQUbpTqv2hD2jCyhjD0isQ1T+3uX?=
- =?us-ascii?Q?AWnH8e0snsvIu7MwSkTvIC4vp3no7bWXyVptvZl3tO6o6A00bVyNr31pSGt4?=
- =?us-ascii?Q?KGOjQVi31r2Vscu5gJ2f3/6Jn3/OaBqtHXDPO5SvVgZCUJbqDs8PweKRuKLu?=
- =?us-ascii?Q?UUv+ZrI9WHPsTGoPPPqDCJB8jC5OfWyC9bZvoWkIp/xHoMotKfRgUpn4P6cp?=
- =?us-ascii?Q?4dofcQ3dPhNGjN/BjvvWWnCYdXu50AwYtm9iePUFR+GPW/EY845f+kUMLMGa?=
- =?us-ascii?Q?N+vLA4nPmgxLNcMXDjgZWJUqDhrICbTIJdDO7Hl3OI3o5wGwPMXnl1uQfoa8?=
- =?us-ascii?Q?DNQk6IwhmmcvSzcZ+ySxBK2ep5xuQlV04QpWbww3awTmKRGaUMs5r+SQJV/Z?=
- =?us-ascii?Q?JAq792J2KpR5pRl4gwWXZZTK/E9nKvMsWa0jTuzXvVOfCMj8NJePg8gsGP4p?=
- =?us-ascii?Q?amWTDrQ3aDeCkfhjcb/NPlshFm/oZkVWSw08dcjoFT+opOGR+HD47NFxLJRM?=
- =?us-ascii?Q?PtuvrA4gBT/jK9swNHnpdUsoRHeAKHqq3S/pEQ0LZIt6BYHjgo5ewlG3ws/w?=
- =?us-ascii?Q?ACnKeRXHoPf//sIGv0bLbIk1F3nc9mcaw47i5i4Zy5Uvvp5A+VZeYEdITpdW?=
- =?us-ascii?Q?ziPWCgV/HPotuowIiDWXldiQnwtc60BW7Sipbxla5eszHAXYTcfmWaf1z3o5?=
- =?us-ascii?Q?k835ooqXzZB8DsifIOdF/2Xr/xQJ6mtQQJmsL7pnpQLex7ef7eTiJE3HphPL?=
- =?us-ascii?Q?1R5bYCs/LQe6EcwOq9i7JFz7D8EvM3xGgW0bOXGELkA8cX9T8urhoMWqd+UL?=
- =?us-ascii?Q?yJjpugnij9XhMiFC85n00N7fmPIBhURvXzZfU9zDyM5wBOInSEhzmPyju1R9?=
- =?us-ascii?Q?3u+fo85QLIFGOx3ZGMhna9UeXckXXJlxlt0mQmz+ozEObett39RnlO6N/d/N?=
- =?us-ascii?Q?qB6paCdBed0ngssp5EIPUzX/fSzIv+JOkFikBW3go1MXux9r+uJ0IMAH9kNe?=
- =?us-ascii?Q?jSeD4VFryu+3ISN6i++OYFIWd+OcoyGOb5H+pCrankDjwyOXU2Zs8HjJ7YIk?=
- =?us-ascii?Q?Xv/mw8LNaEy+g8kBO8NNGBO1Npz7wNSU8r0EEKG1NXhmLaIrpFv4IBsWwbUk?=
- =?us-ascii?Q?7Ue/g5ob4bYxCa+hSuvr2fRXL0ukAzAe3tjXX3TdGaUimaJuzS0UPdZeHV8C?=
- =?us-ascii?Q?g2vNpQQ1K3xYK2vdPEoTqdGruNYG6Jv/r7Q0XfYC3RH7+iJOGZbj+ljHbTHv?=
- =?us-ascii?Q?InlA6KwufF4N1dPD9c0GIUz4R6ismRJN5qxqZtAASI6NjckjiRRxbPvjqWJz?=
- =?us-ascii?Q?drlQ63mYjDlgNI5Yle0JQfglva/UE9wBiJtNM8B9Cx3yEMHvO3u4DRAgnIae?=
- =?us-ascii?Q?3O3+7c6dVu70rSxfkbcslNsMTEku0g7BVTa8dzq7W1DAkw4CZ5zgYQkAWPCx?=
- =?us-ascii?Q?zXA+ddWfJRLlNjc1sBGwnRCKlg8nPLEouDzQsKat/Xaf8O8ZgANltR1cNHV7?=
- =?us-ascii?Q?JDXhT277FQUBB+zLqRHqXN/bVu6MbcrFc48ujByR1eRcsrt0imgfsj+Basta?=
- =?us-ascii?Q?v30pvQmL2GWskTbpTVamA6n2onADwHfeKg4DxvUzjEmsW7sI9RpacBSghCaG?=
- =?us-ascii?Q?fQ=3D=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a73758e-d087-4126-e0a3-08de13195947
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB4764.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2025 16:21:12.8377
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZgOXTWVuB6etFvhPt/fHmljod3ZmBw+PXnTz7FrjmOOEVP7MKKfZo8EVsrfKA2DxvqrOX6jbJxBoT3AVC1sBx339j7S/NiA0MuVrt8XQo8k=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR03MB6055
+References: <20251023233408.16245-1-samaan.dehghan@gmail.com> <f61d5a29-04f0-44cc-bef6-de05f240bbc8@citrix.com>
+In-Reply-To: <f61d5a29-04f0-44cc-bef6-de05f240bbc8@citrix.com>
+From: saman dehghan <samaan.dehghan@gmail.com>
+Date: Fri, 24 Oct 2025 11:57:28 -0500
+X-Gm-Features: AS18NWAX7C4t-jfUL_sa9Kd-MFxDlmLrnQ3bnN2FrQzfuupM8DPB9D6LHY6Fw5M
+Message-ID: <CAHFNDNg3TLo9vOiLcAXtMSwWVatrG5ObKqe5=zQboTG-XMY+0Q@mail.gmail.com>
+Subject: Re: Support of building Xen with Clang/LLVM on Arm?
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wentao Zhang <wentaoz5@illinois.edu>
+Content-Type: multipart/alternative; boundary="0000000000008384f20641ea7294"
 
-If nested vCPU initialization fails, cleanup the allocated memory since
-it is no longer handled by the caller.
+--0000000000008384f20641ea7294
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: c47984aabead ("nvmx: implement support for MSR bitmaps")
-Fixes: f5bdb4aaa165 ("x86/hvm: Obsolete the use of HVM_PARAM_NESTEDHVM")
-Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
----
- xen/arch/x86/hvm/vmx/vvmx.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+Thank you Andrew for your prompt clarification.
+We'll see what the best we can contribute while developing our coverage
+patch.
 
-diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
-index e4f3a5fe4c71..cf9aecb4c3e4 100644
---- a/xen/arch/x86/hvm/vmx/vvmx.c
-+++ b/xen/arch/x86/hvm/vmx/vvmx.c
-@@ -53,6 +53,13 @@ void nvmx_cpu_dead(unsigned int cpu)
-     XFREE(per_cpu(vvmcs_buf, cpu));
- }
- 
-+static void vcpu_relinquish_resources(struct vcpu *v)
-+{
-+    struct nestedvmx *nvmx = &vcpu_2_nvmx(v);
-+
-+    FREE_XENHEAP_PAGE(nvmx->msr_merged);
-+}
-+
- int cf_check nvmx_vcpu_initialise(struct vcpu *v)
- {
-     struct domain *d = v->domain;
-@@ -89,7 +96,7 @@ int cf_check nvmx_vcpu_initialise(struct vcpu *v)
-         if ( !vmread_bitmap )
-         {
-             gdprintk(XENLOG_ERR, "nest: allocation for vmread bitmap failed\n");
--            return -ENOMEM;
-+            goto err;
-         }
-         v->arch.hvm.vmx.vmread_bitmap = vmread_bitmap;
- 
-@@ -99,7 +106,7 @@ int cf_check nvmx_vcpu_initialise(struct vcpu *v)
-         if ( !vmwrite_bitmap )
-         {
-             gdprintk(XENLOG_ERR, "nest: allocation for vmwrite bitmap failed\n");
--            return -ENOMEM;
-+            goto err;
-         }
-         v->arch.hvm.vmx.vmwrite_bitmap = vmwrite_bitmap;
- 
-@@ -124,7 +131,7 @@ int cf_check nvmx_vcpu_initialise(struct vcpu *v)
-     {
-         nvmx->msr_merged = alloc_xenheap_page();
-         if ( !nvmx->msr_merged )
--            return -ENOMEM;
-+            goto err;
-     }
- 
-     nvmx->ept.enabled = 0;
-@@ -139,6 +146,11 @@ int cf_check nvmx_vcpu_initialise(struct vcpu *v)
-     nvmx->msrbitmap = NULL;
-     INIT_LIST_HEAD(&nvmx->launched_list);
-     return 0;
-+
-+ err:
-+    nvmx_vcpu_destroy(v);
-+    vcpu_relinquish_resources(v);
-+    return -ENOMEM;
- }
-  
- void cf_check nvmx_vcpu_destroy(struct vcpu *v)
-@@ -183,13 +195,6 @@ void cf_check nvmx_vcpu_destroy(struct vcpu *v)
-     }
- }
- 
--static void vcpu_relinquish_resources(struct vcpu *v)
--{
--    struct nestedvmx *nvmx = &vcpu_2_nvmx(v);
--
--    FREE_XENHEAP_PAGE(nvmx->msr_merged);
--}
--
- void cf_check nvmx_domain_relinquish_resources(struct domain *d)
- {
-     struct vcpu *v;
--- 
-2.51.0
+Thanks,
+Saman
 
+On Thu, Oct 23, 2025 at 6:45=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
+x.com>
+wrote:
+
+> On 24/10/2025 12:34 am, Saman Dehghan wrote:
+> > Hi xen-devel,
+> >
+> > When preparing and testing another of my patch for LLVM coverage [1], I
+> > encountered a few problems with Clang/LLVM build on ARM 64 platforms.
+> >
+> > The first two are clang errors.
+> >
+> > I observe the following errors when building the Xen master branch
+> > for ARM 64 with Clang 19 and 20. If I comment out
+> > "CFLAGS-$(CONFIG_ARM_64) +=3D -mgeneral-regs-only" in "xen/arch/arm/
+> arch.mk"
+> > the error is gone but the build fails during linking (see the third).
+> >
+> > Error message:
+> >
+> > arch/arm/arm64/vfp.c:9:18: error: instruction requires: fp-armv8
+> >     9 |     asm volatile("stp q0, q1, [%1, #16 * 0]\n\t"
+> >       |                  ^
+> > <inline asm>:1:2: note: instantiated into assembly here
+> >     1 |         stp q0, q1, [x8, #16 * 0]
+> >       |         ^
+> > arch/arm/arm64/vfp.c:9:46: error: instruction requires: fp-armv8
+>
+> >     9 |     asm volatile("stp q0, q1, [%1, #16 * 0]\n\t"
+> >       |                                              ^
+> > <inline asm>:2:2: note: instantiated into assembly here
+> >     2 |         stp q2, q3, [x8, #16 * 2]
+> >       |         ^
+> > arch/arm/arm64/vfp.c:10:46: error: instruction requires: fp-armv8
+> >    10 |                  "stp q2, q3, [%1, #16 * 2]\n\t"
+> >       |                                              ^
+> > <inline asm>:3:2: note: instantiated into assembly here
+> >     3 |         stp q4, q5, [x8, #16 * 4]
+> >       |         ^
+> > arch/arm/arm64/vfp.c:11:46: error: instruction requires: fp-armv8
+> >    11 |                  "stp q4, q5, [%1, #16 * 4]\n\t"
+> >       |                                              ^
+> > <inline asm>:4:2: note: instantiated into assembly here
+> >     4 |         stp q6, q7, [x8, #16 * 6]
+> >       |         ^
+> > arch/arm/arm64/vfp.c:12:46: error: instruction requires: fp-armv8
+> >    12 |                  "stp q6, q7, [%1, #16 * 6]\n\t"
+> >       |                                              ^
+> > <inline asm>:5:2: note: instantiated into assembly here
+> >     5 |         stp q8, q9, [x8, #16 * 8]
+> >       |         ^
+> > arch/arm/arm64/vfp.c:13:46: error: instruction requires: fp-armv8
+> >    13 |                  "stp q8, q9, [%1, #16 * 8]\n\t"
+> >       |                                              ^
+> > <inline asm>:6:2: note: instantiated into assembly here
+> >     6 |         stp q10, q11, [x8, #16 * 10]
+> >       |         ^
+> >
+> > Reprroduction steps:
+> >
+> > $ git clone https://xenbits.xen.org/git-http/xen
+> > $ cd xen
+> > $ git checkout eff32008be0d2718d32d60245650ff6f88fb3d13
+> > $ make -C xen menuconfig clang=3Dy
+> > $ make xen clang=3Dy
+> >
+> > Tested with the following setup:
+> >
+> > - Clang version: Ubuntu clang version 19.1.1 (1ubuntu1~24.04.2)
+> > - Host: Ubuntu 24.04.3 LTS /  aarch64
+> >
+> > Second, for Clang 18 or below there are another set of errors despite
+> > commenting out the "-mgeneral-regs-only" flag:
+> >
+> > arch/arm/arm64/mmu/head.S:288:13: error: expected writable system
+> register or pstate
+> >         msr TTBR0_EL2, x4
+> >             ^
+> > arch/arm/arm64/mmu/head.S:509:13: error: expected writable system
+> register or pstate
+> >         msr TTBR0_EL2, x0
+> >             ^
+> >
+> > Tested with:
+> >
+> > - Clang version: Ubuntu clang version 18.1.3 (1ubuntu1)
+> > - Host: Ubuntu 24.04.3 LTS /  aarch64
+> >
+> > This works with GCC. It also works with Clang on x86 builds.
+> >
+> > Third, if I specify "LD=3Dld.lld" with Clang 19 and 20 after commenting=
+ out
+> > the "-mgeneral-regs-only" flag. I got this linking error:
+> >
+> > ld.lld: error: common/device-tree/static-evtchn.init.o:(.rodata.str):
+> offset is outside the section
+> >
+> > As I read from the project README, under "C compiler and linker - For
+> ARM",
+> > only GCC is listed. So my general question is whether Xen supports
+> building
+> > with Clang/LLVM on ARM platforms.
+> >
+> > Let me know if you need more details or a patch attempt.
+>
+> Clang/LLVM is only supported for x86.
+>
+> Personally I think the other architectures would benefit from using both
+> compilers, but it's up to the relevant maintainers.
+>
+> ~Andrew
+>
+
+--0000000000008384f20641ea7294
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:georgia,=
+serif">Thank you Andrew for your prompt clarification.</div><div class=3D"g=
+mail_default" style=3D"font-family:georgia,serif">We&#39;ll see what the be=
+st we can contribute while developing our coverage patch.<br></div><div cla=
+ss=3D"gmail_default" style=3D"font-family:georgia,serif"><br></div><div cla=
+ss=3D"gmail_default" style=3D"font-family:georgia,serif">Thanks,</div><div =
+class=3D"gmail_default" style=3D"font-family:georgia,serif">Saman</div></di=
+v><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" cla=
+ss=3D"gmail_attr">On Thu, Oct 23, 2025 at 6:45=E2=80=AFPM Andrew Cooper &lt=
+;<a href=3D"mailto:andrew.cooper3@citrix.com">andrew.cooper3@citrix.com</a>=
+&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px =
+0px 0px 0.8ex;border-left-width:1px;border-left-style:solid;border-left-col=
+or:rgb(204,204,204);padding-left:1ex">On 24/10/2025 12:34 am, Saman Dehghan=
+ wrote:<br>
+&gt; Hi xen-devel,<br>
+&gt;<br>
+&gt; When preparing and testing another of my patch for LLVM coverage [1], =
+I<br>
+&gt; encountered a few problems with Clang/LLVM build on ARM 64 platforms.<=
+br>
+&gt;<br>
+&gt; The first two are clang errors.<br>
+&gt;<br>
+&gt; I observe the following errors when building the Xen master branch<br>
+&gt; for ARM 64 with Clang 19 and 20. If I comment out <br>
+&gt; &quot;CFLAGS-$(CONFIG_ARM_64) +=3D -mgeneral-regs-only&quot; in &quot;=
+xen/arch/arm/<a href=3D"http://arch.mk" rel=3D"noreferrer" target=3D"_blank=
+">arch.mk</a>&quot;<br>
+&gt; the error is gone but the build fails during linking (see the third). =
+<br>
+&gt;<br>
+&gt; Error message:<br>
+&gt;<br>
+&gt; arch/arm/arm64/vfp.c:9:18: error: instruction requires: fp-armv8=C2=A0=
+ <br>
+&gt;=C2=A0 =C2=A0 =C2=A09 |=C2=A0 =C2=A0 =C2=A0asm volatile(&quot;stp q0, q=
+1, [%1, #16 * 0]\n\t&quot;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 ^=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 <br>
+&gt; &lt;inline asm&gt;:1:2: note: instantiated into assembly here=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A01 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0stp q0, q1, [x=
+8, #16 * 0]=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0<br>
+&gt; arch/arm/arm64/vfp.c:9:46: error: instruction requires: fp-armv8=C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A09 |=C2=A0 =C2=A0 =C2=A0asm volatile(&quot;stp q0, q=
+1, [%1, #16 * 0]\n\t&quot;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 <br>
+&gt; &lt;inline asm&gt;:2:2: note: instantiated into assembly here=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A02 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0stp q2, q3, [x=
+8, #16 * 2]=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0<br>
+&gt; arch/arm/arm64/vfp.c:10:46: error: instruction requires: fp-armv8<br>
+&gt;=C2=A0 =C2=A0 10 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 &quot;stp q2, q3, [%1, #16 * 2]\n\t&quot;=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0<br>
+&gt; &lt;inline asm&gt;:3:2: note: instantiated into assembly here<br>
+&gt;=C2=A0 =C2=A0 =C2=A03 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0stp q4, q5, [x=
+8, #16 * 4]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
+&gt; arch/arm/arm64/vfp.c:11:46: error: instruction requires: fp-armv8<br>
+&gt;=C2=A0 =C2=A0 11 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 &quot;stp q4, q5, [%1, #16 * 4]\n\t&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^<br>
+&gt; &lt;inline asm&gt;:4:2: note: instantiated into assembly here<br>
+&gt;=C2=A0 =C2=A0 =C2=A04 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0stp q6, q7, [x=
+8, #16 * 6]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
+&gt; arch/arm/arm64/vfp.c:12:46: error: instruction requires: fp-armv8<br>
+&gt;=C2=A0 =C2=A0 12 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 &quot;stp q6, q7, [%1, #16 * 6]\n\t&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^<br>
+&gt; &lt;inline asm&gt;:5:2: note: instantiated into assembly here<br>
+&gt;=C2=A0 =C2=A0 =C2=A05 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0stp q8, q9, [x=
+8, #16 * 8]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
+&gt; arch/arm/arm64/vfp.c:13:46: error: instruction requires: fp-armv8<br>
+&gt;=C2=A0 =C2=A0 13 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 &quot;stp q8, q9, [%1, #16 * 8]\n\t&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^<br>
+&gt; &lt;inline asm&gt;:6:2: note: instantiated into assembly here<br>
+&gt;=C2=A0 =C2=A0 =C2=A06 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0stp q10, q11, =
+[x8, #16 * 10]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
+&gt;<br>
+&gt; Reprroduction steps:<br>
+&gt;<br>
+&gt; $ git clone <a href=3D"https://xenbits.xen.org/git-http/xen" rel=3D"no=
+referrer" target=3D"_blank">https://xenbits.xen.org/git-http/xen</a><br>
+&gt; $ cd xen<br>
+&gt; $ git checkout eff32008be0d2718d32d60245650ff6f88fb3d13<br>
+&gt; $ make -C xen menuconfig clang=3Dy<br>
+&gt; $ make xen clang=3Dy<br>
+&gt;<br>
+&gt; Tested with the following setup:<br>
+&gt;<br>
+&gt; - Clang version: Ubuntu clang version 19.1.1 (1ubuntu1~24.04.2)<br>
+&gt; - Host: Ubuntu 24.04.3 LTS /=C2=A0 aarch64<br>
+&gt;<br>
+&gt; Second, for Clang 18 or below there are another set of errors despite<=
+br>
+&gt; commenting out the &quot;-mgeneral-regs-only&quot; flag:<br>
+&gt;<br>
+&gt; arch/arm/arm64/mmu/head.S:288:13: error: expected writable system regi=
+ster or pstate<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0msr TTBR0_EL2, x4<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
+&gt; arch/arm/arm64/mmu/head.S:509:13: error: expected writable system regi=
+ster or pstate<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0msr TTBR0_EL2, x0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
+&gt;<br>
+&gt; Tested with:<br>
+&gt;<br>
+&gt; - Clang version: Ubuntu clang version 18.1.3 (1ubuntu1)<br>
+&gt; - Host: Ubuntu 24.04.3 LTS /=C2=A0 aarch64<br>
+&gt;<br>
+&gt; This works with GCC. It also works with Clang on x86 builds.<br>
+&gt;<br>
+&gt; Third, if I specify &quot;LD=3Dld.lld&quot; with Clang 19 and 20 after=
+ commenting out<br>
+&gt; the &quot;-mgeneral-regs-only&quot; flag. I got this linking error:<br=
+>
+&gt;<br>
+&gt; ld.lld: error: common/device-tree/static-evtchn.init.o:(.rodata.str): =
+offset is outside the section<br>
+&gt;<br>
+&gt; As I read from the project README, under &quot;C compiler and linker -=
+ For ARM&quot;,<br>
+&gt; only GCC is listed. So my general question is whether Xen supports bui=
+lding<br>
+&gt; with Clang/LLVM on ARM platforms.<br>
+&gt;<br>
+&gt; Let me know if you need more details or a patch attempt.<br>
+<br>
+Clang/LLVM is only supported for x86.<br>
+<br>
+Personally I think the other architectures would benefit from using both<br=
+>
+compilers, but it&#39;s up to the relevant maintainers.<br>
+<br>
+~Andrew<br>
+</blockquote></div>
+
+--0000000000008384f20641ea7294--
 
