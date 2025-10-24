@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 096FDC04147
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 04:06:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1149840.1481298 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 452D4C04930
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 08:52:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1149929.1481308 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vC7BZ-0000EB-NJ; Fri, 24 Oct 2025 02:05:45 +0000
+	id 1vCBeE-0008JC-TY; Fri, 24 Oct 2025 06:51:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1149840.1481298; Fri, 24 Oct 2025 02:05:45 +0000
+Received: by outflank-mailman (output) from mailman id 1149929.1481308; Fri, 24 Oct 2025 06:51:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vC7BZ-0000CT-Kl; Fri, 24 Oct 2025 02:05:45 +0000
-Received: by outflank-mailman (input) for mailman id 1149840;
- Fri, 24 Oct 2025 02:05:44 +0000
+	id 1vCBeE-0008HK-Qt; Fri, 24 Oct 2025 06:51:38 +0000
+Received: by outflank-mailman (input) for mailman id 1149929;
+ Fri, 24 Oct 2025 06:51:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=67mD=5B=illinois.edu=wentaoz5@srs-se1.protection.inumbo.net>)
- id 1vC7BX-0000CN-UY
- for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 02:05:44 +0000
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [2607:f8b0:4864:20::d2a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+XhT=5B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vCBeE-0008HE-5A
+ for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 06:51:38 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f0fc097e-b07d-11f0-9d15-b5c5bf9af7f9;
- Fri, 24 Oct 2025 04:05:41 +0200 (CEST)
-Received: by mail-io1-xd2a.google.com with SMTP id
- ca18e2360f4ac-92b92e4b078so64734839f.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 19:05:41 -0700 (PDT)
-Received: from localhost.localdomain
- (host-183-235.ilcmi2.champaign.il.us.clients.pavlovmedia.net.
- [66.253.183.235]) by smtp.gmail.com with ESMTPSA id
- 8926c6da1cb9f-5abb4e4c156sm1566064173.2.2025.10.23.19.05.39
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 23 Oct 2025 19:05:39 -0700 (PDT)
+ id e26bdb40-b0a5-11f0-9d16-b5c5bf9af7f9;
+ Fri, 24 Oct 2025 08:51:36 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-42966ce6dbdso1095681f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 23:51:36 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-429898add8bsm7472641f8f.23.2025.10.23.23.51.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 23 Oct 2025 23:51:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,160 +45,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0fc097e-b07d-11f0-9d15-b5c5bf9af7f9
+X-Inumbo-ID: e26bdb40-b0a5-11f0-9d16-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=illinois-edu.20230601.gappssmtp.com; s=20230601; t=1761271540; x=1761876340; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=toUcxKaTdf6XhP1RXsWOVnefPk5I1vVFbRnSeMcTxxU=;
-        b=aqR6Hzi+VQ1orV5EDCTZ5acA51M2Yve2AZGOSldRcT8yh+vYJgiSXV8qj8XwcQzbay
-         VdfKpvn33p3K4UTvMXX2di6Tbjd4OUON7nyhU8JF5eNhsQiHdIIJ7+cXulKetogaBigF
-         y17kl7Djt7zEqOhDkdlC5dxVn7QitDIdPFePmSjUE5/Irtzl3/y0moXr3/saRthGFasA
-         PmV50hfwPs5FpoIycl53aGJixTZNX5o0hfokHyF5mB7bD2ji1RWX6LTkIvOklp/wn4hx
-         8t0yqwLtv3XIN+Jh3y4CoVcPkqLUYT+4s2MJV8WwI1ryOUjaJmHLL+Z62fO55V3qieWF
-         emkg==
+        d=suse.com; s=google; t=1761288696; x=1761893496; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=/h4sGnBy5P+204SEtTP7BLrBaFVp0ezKagqLkinbr2I=;
+        b=Bzo+VfV7ZWdlkJDJ6q9J4ryp+uIqahCfZkDqXZ897sToUJQnOzdYgkP8M6yyn/p2HP
+         EfDeN0rUEnvmOv9JPRY13LxASJtrtITiBcKXf2EO/hed0zw3yjeFW4H5rbEqBGfBzSbu
+         cFpXSQMuw/GyjQ7nA8NLax5fqUqaBsFtxNizvafOcjVJGxbx6GJhgI9uXuN5sCOjySo9
+         Nv4fy2rYwmv459HI2t2PG2w7bqORWxBZtqDZhbpBCuvG0DhFRRdVGvxObro0ZwiwP/9F
+         uYluiitzYPtcoNTRIK1Azoikp3XnWYBLN8jxNlS43/8MoqADDxSADX43/XyWB4eRsxbn
+         DerQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761271540; x=1761876340;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=toUcxKaTdf6XhP1RXsWOVnefPk5I1vVFbRnSeMcTxxU=;
-        b=Rx8XdHC/WsyTadHLSQcJq5jW5m21Mm0TJCtbfm6aLTC6e/66X87Eef7EpXdUqTKl05
-         okGo/yi2xgU8XvD8/fe3kmM4bLsOnctxVU8zjPNFQBvsiNVnnRPQIztBCOKuwgxxU9AP
-         v5RWJaS0x9ktybtYwj1jm8Ebd5e+NPjMtptMxjPJPQoHm6t4r1jStUgD8owBwDJrtTg/
-         lNfklm/qWg4cM6aUBKbRu3qfD1nHw3asR3yGjp2dirxBq12LotWF4Pug0GpF7FZb5C/Q
-         j9lg4YjbOz3VSVSpDh6dX+ui8zofzGj3501P8iktwhWH0bpD/06zHWpOWJBnDUxqKLUD
-         8K5A==
-X-Gm-Message-State: AOJu0YzFn9wygO6/f5wysp/yVXSZh6cFj1E/NXjaU9xUD8E4hOSsSSzn
-	9THHlUO9QrhCGaLiqGu0cX/h4lDQApRrWJAz3n0FLS6trTFogvSp/AGCF82/P9pM9EZSa61lMIg
-	CQOs=
-X-Gm-Gg: ASbGncv4+8PolUVSbenrAk7O/rBKcLXny6DA9b86OEL9477PgRxsilRfwOC391IuF7L
-	/VcDuIO6Q/OBaLugrg/enjRRUamRJDGt5e44Wx7I/RfSawGb6w9FDwRD92IGl3x+NSmw5jVCxM4
-	cczSrUd94JIQeD7LqnLSyZqFU7A3OhIIabPfyssjA9b1d3S8eOcx/DOQfX0XYWMRZO4+3h8Wuei
-	y/+1F1qzlLZ5GZqGXsVQ7vRzykgYlKA6sHJGbSIPYZhVKuKrIFsh1kU+ml+aAgGcm2c+7SqXUUi
-	9WRFe187Nqof4GWwU3E0bvKotaIryBq0mcSP5OJN+gTRivs7se1Oems2u3ZtCnTBTP511jFmB18
-	T4flCFc5jtgYBfF7zwXmaRDqr6/G1w3yP1wBlRoWUak5OyX6UU9VYzJ2n6BMkfYFwmK4qSja/k9
-	Rj1HXSEJdz/+p+vNAxdv9AEcS4tDY9/kf1BfCmSzW/M46pBTDc8dyCVXhJZlqVO95wFJCs9yXL3
-	QIS5YjiQURkDJsMH9Y5HleX
-X-Google-Smtp-Source: AGHT+IFe7N7STSuo5JPlBs7roXn4Xrkrz8iUjqnTuNDzJMt08I+iQjDN0F5k5XlevheBWBVDuSK7WA==
-X-Received: by 2002:a05:6602:29d2:b0:93e:8557:5b07 with SMTP id ca18e2360f4ac-93e85575d4amr3900039439f.7.1761271540042;
-        Thu, 23 Oct 2025 19:05:40 -0700 (PDT)
-From: Wentao Zhang <wentaoz5@illinois.edu>
-To: xen-devel@lists.xenproject.org,
-	Saman Dehghan <samaan.dehghan@gmail.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Matthew L Weber <matthew.l.weber3@boeing.com>
-Subject: Re: [PATCH v3] Support LLVM raw profile versions 5, 6, 7, 8, 9, and 10
-Date: Thu, 23 Oct 2025 21:05:38 -0500
-Message-Id: <20251024020538.57764-1-wentaoz5@illinois.edu>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <06646f747f21c3f388cf6e9d59a20238a4a91170.1761263588.git.samaan.dehghan@gmail.com>
-References: <06646f747f21c3f388cf6e9d59a20238a4a91170.1761263588.git.samaan.dehghan@gmail.com>
+        d=1e100.net; s=20230601; t=1761288696; x=1761893496;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/h4sGnBy5P+204SEtTP7BLrBaFVp0ezKagqLkinbr2I=;
+        b=Jy/TY12Bji0LAaYkwhQuFbQh+4yTe8L9cISSwcY3SMutshZRKiVI4fIyZvaZK5+4BT
+         WLd+5d9mosr6XhSwae3F29zl/WvMi3aRPoAcZ9tkX5E7UuOe5kbUWx1oTIr4VcIPYatK
+         m9xxTPoStdTdiqJV/MeMx0W0Qsp8AFy9oPDNKqePeUmv2mT7wNlF54njfkGTSUD3Jp/i
+         N1qqO27oUBPvDu28+kCW47CNW0AAzO5C33W5vc9sMcMaJfFXp/Lx9raScHnluIDB1mie
+         6DD2H+X9bFOni4j5/mrNJCtp+vprfKbDNRi+WaW3osWoWakaGhS9+oCQBvS9RFhJuY1z
+         SENw==
+X-Forwarded-Encrypted: i=1; AJvYcCXb921V8DTI2XZwg0p8PQ7qAsA8RxG5Z2LPiZN0GqpB7NXy7bz4se0L/q8gAMiZ0+tSmno/elMNhgQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyeG3EOb2Pr8ih3OY7F0+vuSxLxHgmG5rD+3IHlXvC/63dLK87W
+	KiufBH1CVXqukvMCj94oCiPd824o6HobAVv19vMcSh+HaqGGhqtgFjJv0VXEN4Hu7Q==
+X-Gm-Gg: ASbGncskKKcVkZMAemkEZ1mJ6tbWnabSjiQex0JX3lCq7LPXCVh4TiNKVGzB1PREmJm
+	OUNdyCuCU19FDOkfLzOVW7GDjWo3O2GaeZ7LMb7TYai2hcuBrz/+LH5NBQYUztZOyrYdL6eztrX
+	fT78xOffdiPv4P7Gj+2SrLFrqaHpK4BUWW9nbzq+Y7ZV4eqZJ5YmxvO1TMfv6wBiDzFZvsL9MF9
+	uituAs3bKGtNcCBSbd1hgCWkPkMcUMZdqJf0SMJo0NJ7aLUADuDfNmhpfdoQkzBvW8lDiQ+v05J
+	VkiRjaKTwe3qR9Q+NJYcw0rO7YooomSbYA2DhHpNpb25nKgiDmSr1NqxBCpPPfZdyG3bBM2F12V
+	+hTYfaMCA+/zXzdC//kCotFzEHQCG26Ff0cW+Wjdsxp7HQshy84EPAaoGVK4KyrXkSUobxhVusr
+	kw8DadBSjBP4apmpv1ptaSYFwcLAqBV9s+rzXIw4ry/exVWqfUJD7WAMyLHkSz
+X-Google-Smtp-Source: AGHT+IFxYxxPqSA80BfjAf+Mbsemr4HP5Kkuatt8qMc55dWqgGKkMghT70p69uzE1ae7Yxtv2fKw/g==
+X-Received: by 2002:a05:6000:200f:b0:428:3e7f:88c3 with SMTP id ffacd0b85a97d-4283e7f8a82mr14252514f8f.50.1761288695857;
+        Thu, 23 Oct 2025 23:51:35 -0700 (PDT)
+Message-ID: <cf91ebe9-7753-4f38-af2d-00b7b35cf1a3@suse.com>
+Date: Fri, 24 Oct 2025 08:51:33 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] misra: consider conversion from UL or (void*) to
+ function pointer as safe
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <0e72c83102668dfa6f14c4e8f9839b4a73d30b3d.1760458094.git.dmytro_prokopchuk1@epam.com>
+ <ceedeefa-c506-41ca-9dfc-76937979caa9@suse.com>
+ <321363444f9a3d3471bf1b3b2e020047@bugseng.com>
+ <0767a5c4-6a2c-4ed0-92d3-f9f89313ad85@epam.com>
+ <64411f5b-a826-48b6-9122-bf80ac377c7a@suse.com>
+ <9a09cbab-851c-46f1-8026-603a7cb9d79b@epam.com>
+ <5a6d1670-ce9e-4264-bbea-786df5cc5679@suse.com>
+ <276064a9-619c-4d08-ac9e-0f92f01cef10@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <276064a9-619c-4d08-ac9e-0f92f01cef10@epam.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Tested with Clang 20.1.8 on Debian bookworm x86_64 and arm64.
+On 23.10.2025 18:01, Dmytro Prokopchuk1 wrote:
+> On 10/23/25 17:41, Jan Beulich wrote:
+>> On 23.10.2025 15:57, Dmytro Prokopchuk1 wrote:
+>>> On 10/23/25 13:23, Jan Beulich wrote:
+>>>> On 23.10.2025 12:00, Dmytro Prokopchuk1 wrote:
+>>>>> On 10/17/25 10:09, Nicola Vetrini wrote:
+>>>>>> On 2025-10-15 08:20, Jan Beulich wrote:
+>>>>>>> On 14.10.2025 18:16, Dmytro Prokopchuk1 wrote:
+>>>>>>>> --- a/xen/common/version.c
+>>>>>>>> +++ b/xen/common/version.c
+>>>>>>>> @@ -217,6 +217,20 @@ void __init xen_build_init(void)
+>>>>>>>>    #endif /* CONFIG_X86 */
+>>>>>>>>    }
+>>>>>>>>    #endif /* BUILD_ID */
+>>>>>>>> +
+>>>>>>>> +#if defined(__i386__) || defined(__x86_64__) || defined(__arm__) ||
+>>>>>>>> defined(__aarch64__)
+>>>>>>>
+>>>>>>> Why __i386__? Also (nit): Line too long.
+>>>>>
+>>>>> Well, I copied this line from Xen codebase,
+>>>>> but yeah, __i386__ is outdated now.
+>>>>> I'll remove it.
+>>>>>
+>>>>>>>
+>>>>>>> And why this restriction without any comment here or ...
+>>>>>>>
+>>>>>>>> +static void __init __maybe_unused build_assertions(void)
+>>>>>>>> +{
+>>>>>>>> +    /*
+>>>>>>>> +     * To confirm conversion compatibility between unsigned long,
+>>>>>>>> (void *)
+>>>>>>>> +     * and function pointers for X86 and ARM architectures only.
+>>>>>>>
+>>>>>>> ... explanation here? More generally - how would people know to update
+>>>>>>> the condition if another port was to be certified?
+>>>>>>>
+>>>>>>> Finally, with the v3 addition here, is Nicola's R-b really still
+>>>>>>> applicable?
+>>>>>>>
+>>>>>>
+>>>>>> I agree with the point you make about i386 (e.g., C-language-
+>>>>>> toolchain.rst may be mentioned to provide some context about the
+>>>>>> preprocessor guard); that said, my R-by can be retained
+>>>>>>>
+>>>>>>>> +     */
+>>>>>>>> +
+>>>>>>>> +    BUILD_BUG_ON(sizeof(unsigned long) != sizeof(void (*)(void)));
+>>>>>>>> +    BUILD_BUG_ON(sizeof(void *) != sizeof(void (*)(void)));
+>>>>>>>> +}
+>>>>>>>> +#endif
+>>>>>>>> +
+>>>>>>>>    /*
+>>>>>>>>     * Local variables:
+>>>>>>>>     * mode: C
+>>>>>>
+>>>>>
+>>>>> And probably v4 can have the following wording:
+>>>>>
+>>>>> /*
+>>>>>     * This assertion checks compatibility between 'unsigned long', 'void *',
+>>>>>     * and function pointers. This is true for X86 (x86_64) and ARM (arm,
+>>>>> aarch64)
+>>>>>     * architectures, which is why the check is restricted to these.
+>>>>>     *
+>>>>>     * For more context on architecture-specific preprocessor guards, see
+>>>>>     * docs/misc/C-language-toolchain.rst.
+>>>>>     *
+>>>>>     * If Xen is ported to a new architecture, verify that this
+>>>>> compatibility holds
+>>>>>     * before adding its macro to the condition below. If the compatibility
+>>>>> does not
+>>>>>     * hold, this assertion may need to be revised or removed for that
+>>>>> architecture.
+>>>>>     */
+>>>>
+>>>> Except that this doesn't address my concern. Imo the checks want to be there
+>>>> unconditionally, and ports where they're _not_ applicable would then need
+>>>> excluding (with suitable commentary and/or alternative checks).
+>>>
+>>> Ok, below is the updated logic:
+>>>
+>>> /*
+>>>    * This assertion checks compatibility between 'unsigned long', 'void *',
+>>>    * and function pointers. This is true for most supported architectures,
+>>>    * including X86 (x86_64) and ARM (arm, aarch64).
+>>>    *
+>>>    * For more context on architecture-specific preprocessor guards, see
+>>>    * docs/misc/C-language-toolchain.rst.
+>>>    *
+>>>    * If porting Xen to a new architecture where this compatibility does
+>>> not hold,
+>>>    * exclude that architecture from these checks and provide suitable
+>>> commentary
+>>>    * and/or alternative checks as appropriate.
+>>>    */
+>>> static void __init __maybe_unused build_assertions(void)
+>>> {
+>>>       /*
+>>>        * Exclude architectures where function pointers are larger than
+>>> data pointers:
+>>>        * - IA-64: uses 'fat' function pointers (code address + global
+>>> pointer)
+>>>        */
+>>> #if !defined(__ia64__)
+>>>       BUILD_BUG_ON(sizeof(unsigned long) != sizeof(void (*)(void)));
+>>>       BUILD_BUG_ON(sizeof(void *) != sizeof(void (*)(void)));
+>>> #endif
+>>> }
+>>
+>> I would omit architectures we don't support, though. I gave IA-64 as an
+>> example where things are more complicated (albeit iirc the checks would still
+>> succeed there). However, I didn't expect any trace of it to be added to the
+>> code base (again).
+> 
+> Well, looks like only __powerpc__ matches these criterias.
+> At least, I see it in 'xen/arch'.
+> 
+> But, this assertion didn't trigger build to fail, when I run CI:
+> https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/jobs/11822940884
+> because PPC64 pointer size is 64-bits (according to the 
+> C-language-toolchain.rst).
 
-Carry this if appropriate:
+Right, because like for ia64 what is being passed around aren't function
+pointers, but pointer to the function descriptors.
 
-Tested-by: Wentao Zhang <wentaoz5@illinois.edu>
+> In any case the __powerpc__ is out of scope of certification, so this 
+> architecture should be excluded.
 
-Steps for build:
+Not sure here.
 
-$ make CC=/lib/llvm-20/bin/clang -C xen defconfig
-$ pushd xen
-$ kconfig-tweak -d LIVEPATCH
-$ kconfig-tweak -e COVERAGE
-  # The below two are Arm only
-$ kconfig-tweak -e UNSUPPORTED
-$ kconfig-tweak -e ACPI
-$ popd
-$ make CC=/lib/llvm-20/bin/clang -C xen olddefconfig
-$ /usr/bin/time -v make CC=/lib/llvm-20/bin/clang -j$(nproc) efi-y= dist-xen
-$ sudo make CC=/lib/llvm-20/bin/clang -j$(nproc) efi-y= install-xen
-$ sudo update-grub
-
-Steps after reinstall:
-
-$ COVERAGE_REPORT_DIR=`mktemp -d`
-$ XEN_BUILD=$HOME/v4
-$ sudo xencov read | tee >/dev/null default.profraw
-$ file default.profraw
-$ /lib/llvm-20/bin/llvm-profdata merge default.profraw -o default.profdata
-$ file default.profdata
-$ /lib/llvm-20/bin/llvm-cov show \
-    -instr-profile default.profdata \
-    -output-dir $COVERAGE_REPORT_DIR \
-    -show-directory-coverage \
-    -show-branches=count \
-    -use-color=false \
-    $XEN_BUILD/xen/xen-syms
-
-Example reports:
-
-$ less $COVERAGE_REPORT_DIR/index.txt
-$ less $COVERAGE_REPORT_DIR/coverage/$XEN_BUILD/xen/common/coverage/llvm.c.txt
-
-Notes:
-
-1. On x86_64, LD=ld.lld also works (in fact, faster). On arm64, the build
-   would fail.
-2. On arm64, a workaround is needed regardless of the linker:
-
-diff --git a/xen/arch/arm/arm64/vfp.c b/xen/arch/arm/arm64/vfp.c
-index c4f89c7b0e..dbe87f3f34 100644
---- a/xen/arch/arm/arm64/vfp.c
-+++ b/xen/arch/arm/arm64/vfp.c
-@@ -4,6 +4,7 @@
- #include <asm/vfp.h>
- #include <asm/arm64/sve.h>
-
-+__attribute__((target("+fp+simd")))
- static inline void save_state(uint64_t *fpregs)
- {
-     asm volatile("stp q0, q1, [%1, #16 * 0]\n\t"
-@@ -25,6 +26,7 @@ static inline void save_state(uint64_t *fpregs)
-                  : "=Q" (*fpregs) : "r" (fpregs));
- }
-
-+__attribute__((target("+fp+simd")))
- static inline void restore_state(const uint64_t *fpregs)
- {
-     asm volatile("ldp q0, q1, [%1, #16 * 0]\n\t"
-@@ -46,6 +48,7 @@ static inline void restore_state(const uint64_t *fpregs)
-                  : : "Q" (*fpregs), "r" (fpregs));
- }
-
-+__attribute__((target("+fp+simd")))
- void vfp_save_state(struct vcpu *v)
- {
-     if ( !cpu_has_fp )
-@@ -62,6 +65,7 @@ void vfp_save_state(struct vcpu *v)
-         v->arch.vfp.fpexc32_el2 = READ_SYSREG(FPEXC32_EL2);
- }
-
-+__attribute__((target("+fp+simd")))
- void vfp_restore_state(struct vcpu *v)
- {
-     if ( !cpu_has_fp )
-
-For the above two issues, see the report in [1].
-
-Once this patch gets in, we can help update [2] with Andrew Cooper and
-send a follow-up supporting llvm-cov MC/DC [3].
-
-[1] https://lists.xenproject.org/archives/html/xen-devel/2025-10/msg00805.html
-[2] https://xenbits.xen.org/docs/latest/hypervisor-guide/code-coverage.html
-[3] https://clang.llvm.org/docs/SourceBasedCodeCoverage.html#mc-dc-instrumentation
-
-Thanks,
-Wentao
+Jan
 
