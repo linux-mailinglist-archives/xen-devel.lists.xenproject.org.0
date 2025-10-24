@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 452D4C04930
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 08:52:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1149929.1481308 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C605C04BF6
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 09:36:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1149959.1481319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCBeE-0008JC-TY; Fri, 24 Oct 2025 06:51:38 +0000
+	id 1vCCLE-00054c-5h; Fri, 24 Oct 2025 07:36:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1149929.1481308; Fri, 24 Oct 2025 06:51:38 +0000
+Received: by outflank-mailman (output) from mailman id 1149959.1481319; Fri, 24 Oct 2025 07:36:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCBeE-0008HK-Qt; Fri, 24 Oct 2025 06:51:38 +0000
-Received: by outflank-mailman (input) for mailman id 1149929;
- Fri, 24 Oct 2025 06:51:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+XhT=5B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vCBeE-0008HE-5A
- for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 06:51:38 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e26bdb40-b0a5-11f0-9d16-b5c5bf9af7f9;
- Fri, 24 Oct 2025 08:51:36 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-42966ce6dbdso1095681f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 Oct 2025 23:51:36 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429898add8bsm7472641f8f.23.2025.10.23.23.51.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Oct 2025 23:51:35 -0700 (PDT)
+	id 1vCCLE-000523-2C; Fri, 24 Oct 2025 07:36:04 +0000
+Received: by outflank-mailman (input) for mailman id 1149959;
+ Fri, 24 Oct 2025 07:36:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=66m1=5B=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1vCCLC-00051x-2P
+ for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 07:36:02 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 13d7af00-b0ac-11f0-980a-7dc792cee155;
+ Fri, 24 Oct 2025 09:35:56 +0200 (CEST)
+Received: from nico.lan (93-47-230-150.ip115.fastwebnet.it [93.47.230.150])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPSA id F0BFA4EEBC5A;
+ Fri, 24 Oct 2025 09:35:53 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,227 +40,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e26bdb40-b0a5-11f0-9d16-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761288696; x=1761893496; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/h4sGnBy5P+204SEtTP7BLrBaFVp0ezKagqLkinbr2I=;
-        b=Bzo+VfV7ZWdlkJDJ6q9J4ryp+uIqahCfZkDqXZ897sToUJQnOzdYgkP8M6yyn/p2HP
-         EfDeN0rUEnvmOv9JPRY13LxASJtrtITiBcKXf2EO/hed0zw3yjeFW4H5rbEqBGfBzSbu
-         cFpXSQMuw/GyjQ7nA8NLax5fqUqaBsFtxNizvafOcjVJGxbx6GJhgI9uXuN5sCOjySo9
-         Nv4fy2rYwmv459HI2t2PG2w7bqORWxBZtqDZhbpBCuvG0DhFRRdVGvxObro0ZwiwP/9F
-         uYluiitzYPtcoNTRIK1Azoikp3XnWYBLN8jxNlS43/8MoqADDxSADX43/XyWB4eRsxbn
-         DerQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761288696; x=1761893496;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/h4sGnBy5P+204SEtTP7BLrBaFVp0ezKagqLkinbr2I=;
-        b=Jy/TY12Bji0LAaYkwhQuFbQh+4yTe8L9cISSwcY3SMutshZRKiVI4fIyZvaZK5+4BT
-         WLd+5d9mosr6XhSwae3F29zl/WvMi3aRPoAcZ9tkX5E7UuOe5kbUWx1oTIr4VcIPYatK
-         m9xxTPoStdTdiqJV/MeMx0W0Qsp8AFy9oPDNKqePeUmv2mT7wNlF54njfkGTSUD3Jp/i
-         N1qqO27oUBPvDu28+kCW47CNW0AAzO5C33W5vc9sMcMaJfFXp/Lx9raScHnluIDB1mie
-         6DD2H+X9bFOni4j5/mrNJCtp+vprfKbDNRi+WaW3osWoWakaGhS9+oCQBvS9RFhJuY1z
-         SENw==
-X-Forwarded-Encrypted: i=1; AJvYcCXb921V8DTI2XZwg0p8PQ7qAsA8RxG5Z2LPiZN0GqpB7NXy7bz4se0L/q8gAMiZ0+tSmno/elMNhgQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyeG3EOb2Pr8ih3OY7F0+vuSxLxHgmG5rD+3IHlXvC/63dLK87W
-	KiufBH1CVXqukvMCj94oCiPd824o6HobAVv19vMcSh+HaqGGhqtgFjJv0VXEN4Hu7Q==
-X-Gm-Gg: ASbGncskKKcVkZMAemkEZ1mJ6tbWnabSjiQex0JX3lCq7LPXCVh4TiNKVGzB1PREmJm
-	OUNdyCuCU19FDOkfLzOVW7GDjWo3O2GaeZ7LMb7TYai2hcuBrz/+LH5NBQYUztZOyrYdL6eztrX
-	fT78xOffdiPv4P7Gj+2SrLFrqaHpK4BUWW9nbzq+Y7ZV4eqZJ5YmxvO1TMfv6wBiDzFZvsL9MF9
-	uituAs3bKGtNcCBSbd1hgCWkPkMcUMZdqJf0SMJo0NJ7aLUADuDfNmhpfdoQkzBvW8lDiQ+v05J
-	VkiRjaKTwe3qR9Q+NJYcw0rO7YooomSbYA2DhHpNpb25nKgiDmSr1NqxBCpPPfZdyG3bBM2F12V
-	+hTYfaMCA+/zXzdC//kCotFzEHQCG26Ff0cW+Wjdsxp7HQshy84EPAaoGVK4KyrXkSUobxhVusr
-	kw8DadBSjBP4apmpv1ptaSYFwcLAqBV9s+rzXIw4ry/exVWqfUJD7WAMyLHkSz
-X-Google-Smtp-Source: AGHT+IFxYxxPqSA80BfjAf+Mbsemr4HP5Kkuatt8qMc55dWqgGKkMghT70p69uzE1ae7Yxtv2fKw/g==
-X-Received: by 2002:a05:6000:200f:b0:428:3e7f:88c3 with SMTP id ffacd0b85a97d-4283e7f8a82mr14252514f8f.50.1761288695857;
-        Thu, 23 Oct 2025 23:51:35 -0700 (PDT)
-Message-ID: <cf91ebe9-7753-4f38-af2d-00b7b35cf1a3@suse.com>
-Date: Fri, 24 Oct 2025 08:51:33 +0200
+X-Inumbo-ID: 13d7af00-b0ac-11f0-980a-7dc792cee155
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=93.47.230.150
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1761291355;
+	b=gECyHvzPvHH9Mm/5GniWMF1jCUe3PZ+VpD8RFlk0gvMNQaEI4je40X5YHdquxaZs7IuQ
+	 ootzGnkZ3Bk1cETVD38uU2QWi4yI15DEN7DXd/yzvsW0HBsogBTaatpzhq7m8ahkZcKCA
+	 PS7kiJ7p7M9zIluD4fwNRWF4jSAImZzSbWkAaeclZjDJ0PJP+B5I0Udj/ti9elI/+/nwX
+	 mgsXaw1OLLcSrNPpIOhBOEBUTsdotEIbHJsbvEtbBjRVqanYfnNQ8oOS4rHM74YjnzUTz
+	 wHjHfBvyjVCQhZC/+EAUTk9QmRttl/BhtfhLdVwii1kbNY3NXTNq07gz6hWDgNPxSBYGi
+	 EEnZAEeCA8h4AB5/YK4Z56BzhtNHfHUI2RD8Xc7xD1gJKqcDUU6qYtyZKAZtW/Wc/tE60
+	 kYYKbSxwAMaZIzj6EMAKSS/D2yfNAquuXjPTnCIgYx0GBbEe0IZEnG4LSmK2SaH1DJCxK
+	 mNscpfi5g2X+1llX/qzR9+tfUVdFOfMCKcqP3eGOWJtjbw7za0fSNL/+aJm2P7iFBYe8b
+	 LTleariyV//daN56uo1mgYAq9GfBvENWUleDDOO3GP+O+fnhseAN5TNTIK0zZbYdCY6UU
+	 CQu9Q4u9kwfaof798UGzsAmWCWSES4LKNkQIE/OIoxiTL5gX31AS7wIE9W59hnY=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1761291355;
+	h=DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=k47XGGcI1tgMdIHAXpNsDfUaNH+qQL8siZGHBgpYaEg=;
+	b=f3RCFznSCBd1QzsEbvnkUudzggBKknCLx8PMEsBm2AlpQiiCkpSs5uy5iraBqaDGE3F/
+	 jjEzDhgbBqwVUTERdjNIDKvxwFZKuHgSop/ggQKbAjICMZC/6xymjWBmPK3sFiZPKENtd
+	 9U1FM1dHtIfmcILBN2YKpVqtxM/+mK448F/yXtXsDC+J03Xx9NWAZTaj3wnMWHruuJb5l
+	 W5fGPbSVnGakYYDzZ6ir+PEOuY6X3Q+pLQgHTuNG8DUQHslZnEmIwan7WC0t0eB9T5WL1
+	 V3gaoceQVGzFc//xBuwHzPeITFyWH9tFK9wjhCPlvPfUAKngxb3sq5dnMY5cJOKyMQNAG
+	 zk/u0efRj5wZgMVRtLULq4mnyrscVfvijIh2r4nnNjzVEUIPMhNQXF4MpelBU6SM/212B
+	 M42MmIQCaL1IhxHyoGhogVdK24wixPsbrlkS4clojdj4u4Q3RuTei3d8XILv7MhK90+cX
+	 CKZ74v3XxqrDsxPMF0zqwxREMxbCwvg+gm/npEiXCSWWc4YHjs5ROUOssKIAPRH/vH1Dr
+	 lTQZ/+6W9N9EWPoeIWderrfRatJAuzi4USucGnLfdYPA1RODfv+GRxniGSIQVUwATb07z
+	 njKsiFjauSrq+9nIbL1DmhtEWL/Yk2vTwNYx/cDFf5MDR7tpJ0ykR26LambGuQ4=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=93.47.230.150
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1761291355; bh=6YytjT5w7M/Sjkgqzf7fCX2zPkVFUTx6aC7wbOe9n4w=;
+	h=From:To:Cc:Subject:Date:From;
+	b=SoalW89+G4oFy3ttoapptw4mjCL1vEvEA4QXKWG/s+mONhluUm2PaUvkuAXzMHzck
+	 nhopm+zavFbnC6xknj98BntK3TM5gJwMeW4ftMLd3Bcv9bRuzSRAdeFkd9YMlMVjoT
+	 C63vCsaAkdkW5xUBYM1LjNy6nRYN5Z158tdofQjZ7BHmdHK4xYvOTi/sUkpRL//LI/
+	 +RDVQgVwllXRgHHlHfRAudPCMTwyJ0bkY19t+KzCZTK8LdJZoR0wkZE+JIbE32BPoQ
+	 o0rRksEUGj4UIYtKCa2kq65iFkNuubu3saIWTSBfGFP5KOVY+JccsfmTAmPpq63FTO
+	 XPaiz0HVzrJ0g==
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Victor Lira <victorm.lira@amd.com>
+Subject: [XEN PATCH v2] automation/eclair: add new analysis jobs with differing configurations
+Date: Fri, 24 Oct 2025 09:35:27 +0200
+Message-ID: <1591f6a0c0f3524c4c613328293ed4e03cfc93ef.1761291003.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] misra: consider conversion from UL or (void*) to
- function pointer as safe
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <0e72c83102668dfa6f14c4e8f9839b4a73d30b3d.1760458094.git.dmytro_prokopchuk1@epam.com>
- <ceedeefa-c506-41ca-9dfc-76937979caa9@suse.com>
- <321363444f9a3d3471bf1b3b2e020047@bugseng.com>
- <0767a5c4-6a2c-4ed0-92d3-f9f89313ad85@epam.com>
- <64411f5b-a826-48b6-9122-bf80ac377c7a@suse.com>
- <9a09cbab-851c-46f1-8026-603a7cb9d79b@epam.com>
- <5a6d1670-ce9e-4264-bbea-786df5cc5679@suse.com>
- <276064a9-619c-4d08-ac9e-0f92f01cef10@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <276064a9-619c-4d08-ac9e-0f92f01cef10@epam.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 23.10.2025 18:01, Dmytro Prokopchuk1 wrote:
-> On 10/23/25 17:41, Jan Beulich wrote:
->> On 23.10.2025 15:57, Dmytro Prokopchuk1 wrote:
->>> On 10/23/25 13:23, Jan Beulich wrote:
->>>> On 23.10.2025 12:00, Dmytro Prokopchuk1 wrote:
->>>>> On 10/17/25 10:09, Nicola Vetrini wrote:
->>>>>> On 2025-10-15 08:20, Jan Beulich wrote:
->>>>>>> On 14.10.2025 18:16, Dmytro Prokopchuk1 wrote:
->>>>>>>> --- a/xen/common/version.c
->>>>>>>> +++ b/xen/common/version.c
->>>>>>>> @@ -217,6 +217,20 @@ void __init xen_build_init(void)
->>>>>>>>    #endif /* CONFIG_X86 */
->>>>>>>>    }
->>>>>>>>    #endif /* BUILD_ID */
->>>>>>>> +
->>>>>>>> +#if defined(__i386__) || defined(__x86_64__) || defined(__arm__) ||
->>>>>>>> defined(__aarch64__)
->>>>>>>
->>>>>>> Why __i386__? Also (nit): Line too long.
->>>>>
->>>>> Well, I copied this line from Xen codebase,
->>>>> but yeah, __i386__ is outdated now.
->>>>> I'll remove it.
->>>>>
->>>>>>>
->>>>>>> And why this restriction without any comment here or ...
->>>>>>>
->>>>>>>> +static void __init __maybe_unused build_assertions(void)
->>>>>>>> +{
->>>>>>>> +    /*
->>>>>>>> +     * To confirm conversion compatibility between unsigned long,
->>>>>>>> (void *)
->>>>>>>> +     * and function pointers for X86 and ARM architectures only.
->>>>>>>
->>>>>>> ... explanation here? More generally - how would people know to update
->>>>>>> the condition if another port was to be certified?
->>>>>>>
->>>>>>> Finally, with the v3 addition here, is Nicola's R-b really still
->>>>>>> applicable?
->>>>>>>
->>>>>>
->>>>>> I agree with the point you make about i386 (e.g., C-language-
->>>>>> toolchain.rst may be mentioned to provide some context about the
->>>>>> preprocessor guard); that said, my R-by can be retained
->>>>>>>
->>>>>>>> +     */
->>>>>>>> +
->>>>>>>> +    BUILD_BUG_ON(sizeof(unsigned long) != sizeof(void (*)(void)));
->>>>>>>> +    BUILD_BUG_ON(sizeof(void *) != sizeof(void (*)(void)));
->>>>>>>> +}
->>>>>>>> +#endif
->>>>>>>> +
->>>>>>>>    /*
->>>>>>>>     * Local variables:
->>>>>>>>     * mode: C
->>>>>>
->>>>>
->>>>> And probably v4 can have the following wording:
->>>>>
->>>>> /*
->>>>>     * This assertion checks compatibility between 'unsigned long', 'void *',
->>>>>     * and function pointers. This is true for X86 (x86_64) and ARM (arm,
->>>>> aarch64)
->>>>>     * architectures, which is why the check is restricted to these.
->>>>>     *
->>>>>     * For more context on architecture-specific preprocessor guards, see
->>>>>     * docs/misc/C-language-toolchain.rst.
->>>>>     *
->>>>>     * If Xen is ported to a new architecture, verify that this
->>>>> compatibility holds
->>>>>     * before adding its macro to the condition below. If the compatibility
->>>>> does not
->>>>>     * hold, this assertion may need to be revised or removed for that
->>>>> architecture.
->>>>>     */
->>>>
->>>> Except that this doesn't address my concern. Imo the checks want to be there
->>>> unconditionally, and ports where they're _not_ applicable would then need
->>>> excluding (with suitable commentary and/or alternative checks).
->>>
->>> Ok, below is the updated logic:
->>>
->>> /*
->>>    * This assertion checks compatibility between 'unsigned long', 'void *',
->>>    * and function pointers. This is true for most supported architectures,
->>>    * including X86 (x86_64) and ARM (arm, aarch64).
->>>    *
->>>    * For more context on architecture-specific preprocessor guards, see
->>>    * docs/misc/C-language-toolchain.rst.
->>>    *
->>>    * If porting Xen to a new architecture where this compatibility does
->>> not hold,
->>>    * exclude that architecture from these checks and provide suitable
->>> commentary
->>>    * and/or alternative checks as appropriate.
->>>    */
->>> static void __init __maybe_unused build_assertions(void)
->>> {
->>>       /*
->>>        * Exclude architectures where function pointers are larger than
->>> data pointers:
->>>        * - IA-64: uses 'fat' function pointers (code address + global
->>> pointer)
->>>        */
->>> #if !defined(__ia64__)
->>>       BUILD_BUG_ON(sizeof(unsigned long) != sizeof(void (*)(void)));
->>>       BUILD_BUG_ON(sizeof(void *) != sizeof(void (*)(void)));
->>> #endif
->>> }
->>
->> I would omit architectures we don't support, though. I gave IA-64 as an
->> example where things are more complicated (albeit iirc the checks would still
->> succeed there). However, I didn't expect any trace of it to be added to the
->> code base (again).
-> 
-> Well, looks like only __powerpc__ matches these criterias.
-> At least, I see it in 'xen/arch'.
-> 
-> But, this assertion didn't trigger build to fail, when I run CI:
-> https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/jobs/11822940884
-> because PPC64 pointer size is 64-bits (according to the 
-> C-language-toolchain.rst).
+The following analysis jobs are performed:
+- eclair-{x86_64,ARM64}: analyze Xen using the default configuration for
+  that architecture; runs on runners tagged `eclair-analysis'.
 
-Right, because like for ia64 what is being passed around aren't function
-pointers, but pointer to the function descriptors.
+- eclair-{x86-64,ARM64}-safety: analyze Xen using the configuration for
+  safety, which is more restricted; runs on runners tagged
+  `eclair-analysis-safety`.
 
-> In any case the __powerpc__ is out of scope of certification, so this 
-> architecture should be excluded.
+- eclair-{x86_64,ARM64}-testing: analyze Xen using the default
+  configuration for the purposes of testing new runner updates; runs on
+  runners tagged `eclair-analysis-testing`.
 
-Not sure here.
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+Changes in v2:
+- rebased to current staging;
+- fixed regex path issue.
+---
+ automation/gitlab-ci/analyze.yaml | 38 +++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
-Jan
+diff --git a/automation/gitlab-ci/analyze.yaml b/automation/gitlab-ci/analyze.yaml
+index d50721006740..7bd644d75074 100644
+--- a/automation/gitlab-ci/analyze.yaml
++++ b/automation/gitlab-ci/analyze.yaml
+@@ -45,6 +45,21 @@ eclair-x86_64:
+     LOGFILE: "eclair-x86_64.log"
+     VARIANT: "X86_64"
+     RULESET: "monitored"
++
++eclair-x86_64-testing:
++  extends: eclair-x86_64
++  tags:
++    - eclair-analysis-testing
++  rules:
++    - if: $CI_PROJECT_PATH =~ /^xen-project\/people\/bugseng.*$/
++      when: always
++    - !reference [.eclair-analysis:triggered, rules]
++
++eclair-x86_64-safety:
++  extends: eclair-x86_64
++  tags:
++    - eclair-analysis-safety
++  variables:
+     EXTRA_XEN_CONFIG: |
+       CONFIG_AMD=y
+       CONFIG_INTEL=n
+@@ -75,6 +90,10 @@ eclair-x86_64:
+       CONFIG_DEBUG_LOCKS=n
+       CONFIG_SCRUB_DEBUG=n
+       CONFIG_XMEM_POOL_POISON=n
++  rules:
++    - if: $CI_PROJECT_PATH =~ /^xen-project\/hardware\/xen$/ && $CI_COMMIT_BRANCH =~ /^staging$/
++      when: always
++    - !reference [.eclair-analysis:triggered, rules]
+ 
+ eclair-ARM64:
+   extends: .eclair-analysis:triggered
+@@ -82,6 +101,21 @@ eclair-ARM64:
+     LOGFILE: "eclair-ARM64.log"
+     VARIANT: "ARM64"
+     RULESET: "monitored"
++
++eclair-ARM64-testing:
++  extends: eclair-ARM64
++  tags:
++    - eclair-analysis-testing
++  rules:
++    - if: $CI_PROJECT_PATH =~ /^xen-project\/people\/bugseng.*$/
++      when: always
++    - !reference [.eclair-analysis:triggered, rules]
++
++eclair-ARM64-safety:
++  extends: eclair-ARM64
++  tags:
++    - eclair-analysis-safety
++  variables:
+     EXTRA_XEN_CONFIG: |
+       CONFIG_NR_CPUS=16
+       CONFIG_GICV2=n
+@@ -120,6 +154,10 @@ eclair-ARM64:
+       CONFIG_DEBUG_LOCKS=n
+       CONFIG_SCRUB_DEBUG=n
+       CONFIG_XMEM_POOL_POISON=n
++  rules:
++    - if: $CI_PROJECT_PATH =~ /^xen-project\/hardware\/xen$/ && $CI_COMMIT_BRANCH =~ /^staging$/
++      when: always
++    - !reference [.eclair-analysis, rules]
+ 
+ .eclair-analysis:on-schedule:
+   extends: .eclair-analysis
+-- 
+2.43.0
+
 
