@@ -2,39 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A45C9C08447
-	for <lists+xen-devel@lfdr.de>; Sat, 25 Oct 2025 00:54:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1150934.1481858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DCAEC08544
+	for <lists+xen-devel@lfdr.de>; Sat, 25 Oct 2025 01:39:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1150951.1481867 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCQeg-0000Nu-SD; Fri, 24 Oct 2025 22:53:06 +0000
+	id 1vCRNB-0005kG-86; Fri, 24 Oct 2025 23:39:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1150934.1481858; Fri, 24 Oct 2025 22:53:06 +0000
+Received: by outflank-mailman (output) from mailman id 1150951.1481867; Fri, 24 Oct 2025 23:39:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCQeg-0000LY-OU; Fri, 24 Oct 2025 22:53:06 +0000
-Received: by outflank-mailman (input) for mailman id 1150934;
- Fri, 24 Oct 2025 22:53:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vCRNB-0005he-5C; Fri, 24 Oct 2025 23:39:05 +0000
+Received: by outflank-mailman (input) for mailman id 1150951;
+ Fri, 24 Oct 2025 23:39:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NQRg=5B=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1vCQef-0000LS-Ep
- for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 22:53:05 +0000
-Received: from mail-yx1-xb132.google.com (mail-yx1-xb132.google.com
- [2607:f8b0:4864:20::b132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 31887fac-b12c-11f0-980a-7dc792cee155;
- Sat, 25 Oct 2025 00:53:02 +0200 (CEST)
-Received: by mail-yx1-xb132.google.com with SMTP id
- 956f58d0204a3-63d8788b18dso2945445d50.2
- for <xen-devel@lists.xenproject.org>; Fri, 24 Oct 2025 15:53:02 -0700 (PDT)
-Received: from [10.138.34.110]
- (h96-60-249-169.cncrtn.broadband.dynamic.tds.net. [96.60.249.169])
- by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-63f4c471b31sm115469d50.25.2025.10.24.15.52.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Oct 2025 15:53:00 -0700 (PDT)
+ <SRS0=EH92=5B=gmail.com=samaan.dehghan@srs-se1.protection.inumbo.net>)
+ id 1vCRN9-0005hY-0t
+ for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 23:39:03 +0000
+Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
+ [2607:f8b0:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9dde1073-b132-11f0-9d16-b5c5bf9af7f9;
+ Sat, 25 Oct 2025 01:39:01 +0200 (CEST)
+Received: by mail-pf1-x42e.google.com with SMTP id
+ d2e1a72fcca58-7811a02316bso1967686b3a.3
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Oct 2025 16:39:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,379 +40,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31887fac-b12c-11f0-980a-7dc792cee155
+X-Inumbo-ID: 9dde1073-b132-11f0-9d16-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761346381; x=1761951181; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=/mmyfUlxIO9G+mnEZZtfRPMoHw8LWeBFeTEO3Heos1A=;
-        b=QyKOJbXQ6j+lrMlwFhuxUGdjazefdFoIw6l12zg7+u4TEigD0/CHBRt7TvIsWU+4sz
-         VOT7eoRKx5t5W3dtOIrRwMLYACwNbedmnHj/DaH/X5I6PMu1YxwPALgPFuXxM5sfg4dE
-         f8+y6BeR5Rf4Xpz+pD2fL0BstPw1DkjgF5zfAbE7zcHUREHV59pzgOjLurLcjOFYmgLp
-         cRBGT56iYJVv0308i5G2cWcfogRHLY1dFXUlPBdOY2sy0y/3CtyUEFU8qRS6CLDQ90VQ
-         8gYJlBkoDoRGWp8YfEi8TlUmRo5LInVAahi6JL/aG/OY0LfgM+2AKk4kVDlygh2mHDGR
-         MZbQ==
+        d=gmail.com; s=20230601; t=1761349140; x=1761953940; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/BzBb5BmwK5xm3uHZKtiITHLjGhguS3/7go288IiswA=;
+        b=fnpWe8vT6HipPqad8d0U0tBF7WkQBvmm0rKCgZmtLRvEHTwnkmz9v3nmytFGNXgEkl
+         wSvxGS/YNfBsCNuajtXk3g1w/PKmJSyP5gmo0xRJXz7/bunVDl4A6hSLOZy2wgDmhX1Q
+         50JtYl1sRUcZZyvM0sJC4SgwE+96sZoCDPXH9Zzz1FhRdD/41e31MnsWM2QVahdKmYuR
+         8GkUO13fC1Gl9bcJPTsi1d0ackBM1BwNf5Xn+MlNrsGvILjHIettjB/EHaQNjh5cn1Dr
+         RLbO8z3EY81Dv/j0vVzXoui78WsTD+HqOh+cICc8fEO5XqZPXFN1n8TRNffm4ICnme3/
+         v7ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761346381; x=1761951181;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=/mmyfUlxIO9G+mnEZZtfRPMoHw8LWeBFeTEO3Heos1A=;
-        b=Vlgkbs/ScsxJH5LySaRwqXKGfQCB64GcIDInPy+6KFCuQc1bKOnRQd+1KDMLU87M1X
-         a0dSHfPcVW38J7dRMKv0cd8rqwHfV/Xh5wA5JicsnNa/0xis3/QsBxpb39WJq3vDMB+t
-         eY437R1cypX2kORfCo18wHJp/KzuoPfmP0AXKUA3uxnekwLT+TMmnlXdTZyfYELm1nAU
-         HzwMx0LsSk6NPGeWi1r9hY0BvoQ+nIEONBppG43kMJglQChZ4iwe339KK1qNENESf8v4
-         yXxYAb94Gdlog2LaILizACT56SxSsToJSJMKLEHpq9yk/AKgUw8RSLLLBkqqosMZAzdD
-         IIkw==
-X-Forwarded-Encrypted: i=1; AJvYcCVcvs9WavQBoR54cRNkjEdVbppSjfnno8Z76InJeKprU26LEX1fg613GceERYh/nR+83xeWOoD2xI8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzreodtoQxw9fHAYJRMZZNQkdDBHrQezCxCGlx77GUNYpTEnb5y
-	qNSI8pD4QHehXeEfHTksIlpU4bJrDANGVX+DiP7G+lx9Q+zdb2+NRA7q
-X-Gm-Gg: ASbGncvZWWgevGV2AcxDVYTHC6BowvG6V6cU9qEcYdiKwWGBNCUncHfWJe1o3DHDn04
-	SA6dcxKz1loYDdt+osObGVRUE8yzY5TyX5+M+eqezl8U51qsBeU/NPXdRBNIVo/TWUfKLRQMYRh
-	vz7sNiwDkRF45M7hgF2CGf0hwxRAMRFQVCiaLil9bi8h6MibtBvNtpCA4NhyQuKMi5X6sC6UFMd
-	qaUa6cfGrJhRsP5Rx+uUb1SgTh+sZhGg9s7l3XOufZXKxyMs1JuElaLYdtcU3tlC0KHP2Bo+TKY
-	f/s96FucoT338/iZOuj73a8FyEgk17d1oWEbJ0VGqypfvyT2tE9bYY9H5tbvYjOIn8ig85ZyHOE
-	exxbt6u8qNI10jgWhP6Ix8Up6/oK0BVXjJ/KSUNxqJGO9mJEUyYH0eLYYjNhkB+NojSG7ChBIs2
-	YEuI7KcQc9FyEIA3P7N6ZUu65orKU3iZGZqQJMchuu79BiYndNfherR8SOBGDro9DfMsoeqbZCB
-	bLfsB/y8zrUlG38N4rtOwj73Pk=
-X-Google-Smtp-Source: AGHT+IGWAvoqHmVALDLkkW4Nv74dFC4bxZqcncsjw3cv6YCeH3p7CQGTYcT90n3c9hPTMMA9o7Hw5g==
-X-Received: by 2002:a05:690e:11cc:b0:63e:1943:ce46 with SMTP id 956f58d0204a3-63e1943d20cmr24087137d50.38.1761346380903;
-        Fri, 24 Oct 2025 15:53:00 -0700 (PDT)
-Message-ID: <3ff4aaeb-61ce-4b72-ba90-1b66374b1b95@gmail.com>
-Date: Fri, 24 Oct 2025 18:52:50 -0400
+        d=1e100.net; s=20230601; t=1761349140; x=1761953940;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/BzBb5BmwK5xm3uHZKtiITHLjGhguS3/7go288IiswA=;
+        b=PQnbaCGa8QHVBSaShhy+REpgQ4iqda4xc3B4iQfD0kqHa5Bw8pm+/cTvDY2Tii7rma
+         L1MB/jm2KR/YkyWXxHQNwVi+0r8D883MIwKslZJM9/8ajPvGyr4tBTnDVSBW708d5q4e
+         t10KYWn80IQZN7VKsdSHG6nqf+j3tLv4BI3M3IofZuN0ZO1OeO5kp0HxwAmeujkIp1A/
+         E5gMHrR+5I3vnvid8S5RNwp53W8LsHY1pkD+3rdKQW9b1dQO1slpfYxe6NGVeZUVNd5o
+         4Gfu7Lo4cf8ihVVhWpCpyGH3+HW6pyaEuoUy9E1fq+88YUl2mWJyEr5zjsXVWQVz0tIs
+         ZjvA==
+X-Gm-Message-State: AOJu0YzRUcsSU6vp2gTQcp53D08ytYJ9CvWbFvBdts0mu4egBJZzTNEc
+	MsXpkFxvmtT55xLhHutcc845Occxj3LbC4ROClZUb8wE6Hy0hkNTE9Gz/UY8ktR4wC9aCK709ho
+	APO8JxQwtTkr0WzAMAnClNcmjCbw8Dw==
+X-Gm-Gg: ASbGnctRu14LRIWB2PpPD4ZWQbbaWTt4q5L/xaXw5YNP87RZjivojuFk8uSCMbwuEq9
+	0okXuG2oMxx1v4MO+Tyey9CGRWqXQWiCG4tgBtr+87mpT71wIABaxWgYKq+E0q8Ota1WX6Sz/aG
+	l38JLlSwZ07UWbTgQEdIlmTjSHXikotvV4ncn/667RDvlp1StOPB70P5bJIekCErghFWi6eVcGE
+	s//45FNLCusf9E6E9LtoBvEM1NHSimTn3a5izyYG5j41vHIJ9fwaarV5w==
+X-Google-Smtp-Source: AGHT+IETFcs6e7jVZ8dcgrjXaY3Cbsx5t0PRZZZY52X7+Fsw0EI9//i8csZbQZRCnb/FXapCYAusRN/z7qDzYKd+6qA=
+X-Received: by 2002:a05:6a21:999e:b0:340:ecf3:5fc1 with SMTP id
+ adf61e73a8af0-340ecf361dfmr1374818637.43.1761349139999; Fri, 24 Oct 2025
+ 16:38:59 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/13] x86/xen: use lazy_mmu_state when
- context-switching
-To: David Hildenbrand <david@redhat.com>,
- David Woodhouse <dwmw2@infradead.org>, Kevin Brodsky
- <kevin.brodsky@arm.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
- Andreas Larsson <andreas@gaisler.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
- Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
- Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
- <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
- Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
-References: <20251015082727.2395128-1-kevin.brodsky@arm.com>
- <20251015082727.2395128-12-kevin.brodsky@arm.com>
- <f0067f35-1048-4788-8401-f71d297f56f3@redhat.com>
- <348e5f1c5a90e4ab0f14b4d997baf7169745bf04.camel@infradead.org>
- <70723f4a-f42b-4d94-9344-5824e48bfad1@redhat.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <70723f4a-f42b-4d94-9344-5824e48bfad1@redhat.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------fVWE7l0lJ0S6BZqVtKd8YErV"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------fVWE7l0lJ0S6BZqVtKd8YErV
-Content-Type: multipart/mixed; boundary="------------7Vdm9KUmuSRGLGKvKHtq4xxx";
- protected-headers="v1"
-From: Demi Marie Obenour <demiobenour@gmail.com>
-To: David Hildenbrand <david@redhat.com>,
- David Woodhouse <dwmw2@infradead.org>, Kevin Brodsky
- <kevin.brodsky@arm.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
- Andreas Larsson <andreas@gaisler.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
- Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
- Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
- <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
- Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
-Message-ID: <3ff4aaeb-61ce-4b72-ba90-1b66374b1b95@gmail.com>
-Subject: Re: [PATCH v3 11/13] x86/xen: use lazy_mmu_state when
- context-switching
-References: <20251015082727.2395128-1-kevin.brodsky@arm.com>
- <20251015082727.2395128-12-kevin.brodsky@arm.com>
- <f0067f35-1048-4788-8401-f71d297f56f3@redhat.com>
- <348e5f1c5a90e4ab0f14b4d997baf7169745bf04.camel@infradead.org>
- <70723f4a-f42b-4d94-9344-5824e48bfad1@redhat.com>
-In-Reply-To: <70723f4a-f42b-4d94-9344-5824e48bfad1@redhat.com>
-Autocrypt-Gossip: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-
---------------7Vdm9KUmuSRGLGKvKHtq4xxx
-Content-Type: multipart/mixed; boundary="------------uG9jzKpwHHYZUrEKmkQI4i0A"
-
---------------uG9jzKpwHHYZUrEKmkQI4i0A
-Content-Type: text/plain; charset=UTF-8
+References: <3dc1fe6ee55d973a25a0441d0f6b41e00a58227b.1759355762.git.samaan.dehghan@gmail.com>
+ <06646f747f21c3f388cf6e9d59a20238a4a91170.1761263588.git.samaan.dehghan@gmail.com>
+ <c7397bc5-574d-444a-a8cf-e76e95ec20fd@citrix.com>
+In-Reply-To: <c7397bc5-574d-444a-a8cf-e76e95ec20fd@citrix.com>
+From: Saman Dehghan <samaan.dehghan@gmail.com>
+Date: Fri, 24 Oct 2025 18:38:49 -0500
+X-Gm-Features: AS18NWA1O0HP1cPKqOZAJGQZp4TD6m0fkHgd09cHpk4Ws7evkSQpfa2tkM2JOjA
+Message-ID: <CAHFNDNhMCe--4z9CL49Yk8Rf4FA+G7-7VozJfhLcVESaByU7qg@mail.gmail.com>
+Subject: Re: [PATCH v3] Support LLVM raw profile versions 5, 6, 7, 8, 9, and 10
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>, Wentao Zhang <wentaoz5@illinois.edu>, 
+	Matthew L Weber <matthew.l.weber3@boeing.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On 10/24/25 10:51, David Hildenbrand wrote:
-> On 24.10.25 16:47, David Woodhouse wrote:
->> On Thu, 2025-10-23 at 22:06 +0200, David Hildenbrand wrote:
->>> On 15.10.25 10:27, Kevin Brodsky wrote:
->>>> We currently set a TIF flag when scheduling out a task that is in
->>>> lazy MMU mode, in order to restore it when the task is scheduled
->>>> again.
->>>>
->>>> The generic lazy_mmu layer now tracks whether a task is in lazy MMU
->>>> mode in task_struct::lazy_mmu_state. We can therefore check that
->>>> state when switching to the new task, instead of using a separate
->>>> TIF flag.
->>>>
->>>> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
->>>> ---
->>>
->>>
->>> Looks ok to me, but I hope we get some confirmation from x86 / xen
->>> folks.
->>
->>
->> I know tglx has shouted at me in the past for precisely this reminder,=
+On Fri, Oct 24, 2025 at 4:33=E2=80=AFAM Andrew Cooper <andrew.cooper3@citri=
+x.com> wrote:
+>
+> The subject should have a "xen: " prefix, as this applies to the
+> hypervisor and not other
+>
+> On 24/10/2025 1:16 am, Saman Dehghan wrote:
+> > This change enables compatibility for measuring code coverage
+> > with Clang versions 14 through 20 by supporting their
+>
+> Stale 14?  It looks to be 11 now.
 
->> but you know you can test Xen guests under QEMU/KVM now and don't need=
+Sorry for the mistake. I meant "with Clang versions 11 through 20 by
+supporting their...".
 
->> to actually run Xen? Has this been boot tested?
->=20
-> And after that, boot-testing sparc as well? :D
->=20
-> If it's easy, why not. But other people should not suffer for all the=20
-> XEN hacks we keep dragging along.
+>
+> > respective raw profile formats.
+> >
+> > 1- Added support for LLVM raw profile versions 5, 6, 7, 8, 9, and 10.
+> > 2- Initialized llvm_profile_header for all versions based on llvm sourc=
+e code in
+> >    compiler-rt/include/profile/InstrProfData.inc for each version.
+> > 3- We tested this patch for all Clang versions from 11 through 20 on x8=
+6 platform.
+> > 4- Fixed linking warnings related to coverage code in x86.
+> >
+> > Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
+> > ---
+>
+> When sending multiple revisions, it's customary to put a short list here
+> if what you've changed from the previous revision.
 
-Which hacks?  Serious question.  Is this just for Xen PV or is HVM
-also affected?
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
---------------uG9jzKpwHHYZUrEKmkQI4i0A
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Changes since version 2:
+  1- Additionally support raw profile version 5, 6, 7 in clang 11, 12, 13.
+  2- Fix coverage related linking warnings in x86.
+  3- Revert unnecessary type changes, casting, etc.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+>
+> Also, you didn't accumulate your release ack from v2.
+>
+> Release-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
-B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
-bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
-UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
-MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
-zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
-T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
-BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
-6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
-9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
-m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
-zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
-dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
-X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
-R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
-oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
-zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
-rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
-Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
-/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
-ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
-Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
-xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
-fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
-AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
-b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
-BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
-/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
-/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
-sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
-xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
-VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
-hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
-I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
-xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
-ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
-7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
-UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
-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
-EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
-=3Dx94R
------END PGP PUBLIC KEY BLOCK-----
+Sorry we missed this. Thanks for reminding us.
 
---------------uG9jzKpwHHYZUrEKmkQI4i0A--
+>
+> >  xen/arch/x86/xen.lds.S     |  6 ++++
+> >  xen/common/coverage/llvm.c | 73 ++++++++++++++++++++++++++++++++++----
+> >  xen/include/xen/xen.lds.h  | 18 ++++++++++
+> >  3 files changed, 91 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
+> > index 517b2aa8c2..e3272a546f 100644
+> > --- a/xen/common/coverage/llvm.c
+> > +++ b/xen/common/coverage/llvm.c
+> > @@ -107,11 +145,34 @@ static int cf_check dump(
+> >      struct llvm_profile_header header =3D {
+> >          .magic =3D LLVM_PROFILE_MAGIC,
+> >          .version =3D LLVM_PROFILE_VERSION,
+> > -        .data_size =3D (END_DATA - START_DATA) / sizeof(struct llvm_pr=
+ofile_data),
+> > -        .counters_size =3D (END_COUNTERS - START_COUNTERS) / sizeof(ui=
+nt64_t),
+> > +#if __clang_major__ >=3D 13
+> > +        .binary_ids_size =3D 0,
+> > +#endif
+> > +        .num_data =3D ((END_DATA + sizeof(struct llvm_profile_data) - =
+1)
+> > +                - START_DATA) / sizeof(struct llvm_profile_data),
+>
+> There's a helper for this expression.
+>
+> DIV_ROUND_UP(END_DATA - START_DATA, sizeof(llvm_profile_data))
+>
+> > +        .padding_bytes_before_counters =3D 0,
+> > +        .num_counters =3D ((END_COUNTERS + sizeof(uint64_t) - 1)
+> > +                - START_COUNTERS) / sizeof(uint64_t),
+>
+> DIV_ROUND_UP(END_COUNTERS - START_COUNTERS, sizeof(uint64_t))
+>
+>
+> > +        .padding_bytes_after_counters =3D 0,
+> > +#if __clang_major__ >=3D 18
+> > +        .num_bitmap_bytes =3D 0,
+> > +        .padding_bytes_after_bitmap_bytes =3D 0,
+> > +#endif
+> >          .names_size =3D END_NAMES - START_NAMES,
+> > +#if __clang_major__ >=3D 14
+> > +        .counters_delta =3D START_COUNTERS - START_DATA,
+> > +#else
+> >          .counters_delta =3D (uintptr_t)START_COUNTERS,
+> > +#endif
+> > +
+> > +#if __clang_major__ >=3D 18
+> > +        .bitmap_delta =3D 0,
+> > +#endif
+> >          .names_delta =3D (uintptr_t)START_NAMES,
+> > +#if __clang_major__ >=3D 19 && __clang_major__ <=3D 20
+> > +        .num_vtables =3D 0,
+> > +        .vnames_size =3D 0,
+> > +#endif
+>
+> Because this is a structure initialiser, everything set explicitly to 0
+> can be omitted.  This removes all #ifdef-ary except the .counters_delta
+> I believe, as well as the .padding_byte_* fields.
+>
 
---------------7Vdm9KUmuSRGLGKvKHtq4xxx--
+Is it undefined behaviour to leave struct members uninitialized for
+local variables?
 
---------------fVWE7l0lJ0S6BZqVtKd8YErV
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+> The resulting diff is far smaller.
+>
+> >          .value_kind_last =3D LLVM_PROFILE_NUM_KINDS - 1,
+> >      };
+> >      unsigned int off =3D 0;
+> > diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
+> > index b126dfe887..42550a85a2 100644
+> > --- a/xen/include/xen/xen.lds.h
+> > +++ b/xen/include/xen/xen.lds.h
+> > @@ -81,6 +81,24 @@
+> >    .stab.index 0 : { *(.stab.index) }         \
+> >    .stab.indexstr 0 : { *(.stab.indexstr) }
+> >
+> > +#if defined(CONFIG_COVERAGE) && defined(CONFIG_CC_IS_CLANG)
+> > +
+> > +#define LLVM_COV_RW_DATA                                   \
+> > +    DECL_SECTION(__llvm_prf_cnts) { *(__llvm_prf_cnts) }   \
+> > +    DECL_SECTION(__llvm_prf_data) { *(__llvm_prf_data) }   \
+> > +    DECL_SECTION(__llvm_prf_bits) { *(__llvm_prf_bits) }
+> > +
+> > +#define LLVM_COV_RO_DATA                                   \
+> > +    DECL_SECTION(__llvm_prf_names) { *(__llvm_prf_names) }
+> > +
+> > +#define LLVM_COV_DEBUG                                     \
+> > +    DECL_DEBUG(__llvm_covfun, 8)                           \
+> > +    DECL_DEBUG(__llvm_covmap, 8)
+> > +#else
+> > +#define LLVM_COV_RW_DATA
+> > +#define LLVM_COV_RO_DATA
+> > +#define LLVM_COV_DEBUG
+> > +#endif
+>
+> Newline here.
+>
+> But, there's no problem stating sections which are unused.  I think the
+> outer #if/#else can be dropped.
+>
+> Otherwise, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>
+> I can fix these all up on commit, seeing as it's release acked for 4.21
 
------BEGIN PGP SIGNATURE-----
+Thank you for offering to fix them up. Let me know how I can help or
+if I need to send another version.
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmj8A0MACgkQszaHOrMp
-8lML0hAAigIfQ+XuV1xY2lVweZbTOXQw4gbWwhzVyP5xYwcJ9cNpopsO8QhCpx+l
-CD051fg3GGh9GbWDiXJaF0OuflawLIQruAU58oGe3FGMJu5FQ6lt3h0U4YHX13hy
-XrZY6Y780Rb6BIhcQFP1hLNZ2xWiYi1jORBEsIiNe5B+wKhV4eEz8jaJuqmnnG5i
-i660PErOwV5kmXYGn/r/nBwTtPTGUSmqOZwiY7YkpVFmPT+qiA3+RN5fsRvKu8sY
-AI+sEbqdGDfYtzp2lKYDpKtme2lOAVONjzlJa6TAKa6Vmi8roDfCLCZ2yWxXviAo
-FVhfUH+hEsP2Q8i/vCtT/iJ2ErSRrijlH9x+bMV/YaS/ZYpvHmM/MbAGl0+1//6B
-3p6Y9nNSGk+CegsiOExJ/bGAFLKUU0CQxCXVw1AiaRNW6DtvIK35tkUhWWXflRik
-9dW8T/OoFJE3hknF5zoa6nhlKYiZWc2OsXp64Q4KMwRuthqW+c23mTXuQO10NZvi
-5eEDTPW1vN6hldCnAh5kwurHM/apb7KU4df/6oZkhER/I9LERfeURsayC6G2r7+l
-kEytsJtUNMlh5yDMkUUPz9diUvqLEcJWq7oHHFT+eeLRnxa4uml9vV9buKCs7/DV
-Ph6CGtySx1Gy494nr/xHj3MGjiIE90cASt1hOR7x1CKivw3/384=
-=wFBt
------END PGP SIGNATURE-----
+Thanks,
+Saman
 
---------------fVWE7l0lJ0S6BZqVtKd8YErV--
+>
+> ~Andrew
 
