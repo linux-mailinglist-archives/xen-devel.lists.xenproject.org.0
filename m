@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC42DC06312
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 14:14:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1150109.1481371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6624AC0631E
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 14:14:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1150122.1481391 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCGg2-0006DR-Od; Fri, 24 Oct 2025 12:13:50 +0000
+	id 1vCGgl-0006oZ-E9; Fri, 24 Oct 2025 12:14:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1150109.1481371; Fri, 24 Oct 2025 12:13:50 +0000
+Received: by outflank-mailman (output) from mailman id 1150122.1481391; Fri, 24 Oct 2025 12:14:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCGg2-0006BI-Li; Fri, 24 Oct 2025 12:13:50 +0000
-Received: by outflank-mailman (input) for mailman id 1150109;
- Fri, 24 Oct 2025 12:13:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vCGgl-0006ky-7s; Fri, 24 Oct 2025 12:14:35 +0000
+Received: by outflank-mailman (input) for mailman id 1150122;
+ Fri, 24 Oct 2025 12:14:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rNzd=5B=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1vCGg1-0006BC-7B
- for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 12:13:49 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id e43b3c96-b0d2-11f0-9d16-b5c5bf9af7f9;
- Fri, 24 Oct 2025 14:13:47 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5EA231515;
- Fri, 24 Oct 2025 05:13:38 -0700 (PDT)
-Received: from [10.44.160.74] (e126510-lin.lund.arm.com [10.44.160.74])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6C2833F66E;
- Fri, 24 Oct 2025 05:13:38 -0700 (PDT)
+ <SRS0=CZgC=5B=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
+ id 1vCGgj-0006Wk-W4
+ for xen-devel@lists.xen.org; Fri, 24 Oct 2025 12:14:34 +0000
+Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f6d9b689-b0d2-11f0-980a-7dc792cee155;
+ Fri, 24 Oct 2025 14:14:19 +0200 (CEST)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1vCGgP-00HRHW-0s;
+ Fri, 24 Oct 2025 12:14:13 +0000
+Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.96)
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1vCGgP-00EOqt-1K;
+ Fri, 24 Oct 2025 12:14:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,110 +43,300 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e43b3c96-b0d2-11f0-9d16-b5c5bf9af7f9
-Message-ID: <390e41ae-4b66-40c1-935f-7a1794ba0b71@arm.com>
-Date: Fri, 24 Oct 2025 14:13:35 +0200
+X-Inumbo-ID: f6d9b689-b0d2-11f0-980a-7dc792cee155
+Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
+Content-Transfer-Encoding: binary
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/13] mm: introduce generic lazy_mmu helpers
-To: David Hildenbrand <david@redhat.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
- Andreas Larsson <andreas@gaisler.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
- Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
- Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
- <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
- Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
-References: <20251015082727.2395128-1-kevin.brodsky@arm.com>
- <20251015082727.2395128-7-kevin.brodsky@arm.com>
- <73b274b7-f419-4e2e-8620-d557bac30dc2@redhat.com>
-Content-Language: en-GB
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-In-Reply-To: <73b274b7-f419-4e2e-8620-d557bac30dc2@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Mailer: MIME-tools 5.510 (Entity 5.510)
+To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
+ xen-users@lists.xen.org, oss-security@lists.openwall.com
+From: Xen.org security team <security@xen.org>
+CC: Xen.org security team <security-team-members@xen.org>
+Subject: Xen Security Advisory 476 v1 (CVE-2025-58149) - Incorrect removal
+ of permissions on PCI device unplug
+Message-Id: <E1vCGgP-00EOqt-1K@xenbits.xenproject.org>
+Date: Fri, 24 Oct 2025 12:14:13 +0000
 
-On 23/10/2025 21:52, David Hildenbrand wrote:
-> On 15.10.25 10:27, Kevin Brodsky wrote:
->> [...]
->>
->> * madvise_*_pte_range() call arch_leave() in multiple paths, some
->>    followed by an immediate exit/rescheduling and some followed by a
->>    conditional exit. These functions assume that they are called
->>    with lazy MMU disabled and we cannot simply use pause()/resume()
->>    to address that. This patch leaves the situation unchanged by
->>    calling enable()/disable() in all cases.
->
-> I'm confused, the function simply does
->
-> (a) enables lazy mmu
-> (b) does something on the page table
-> (c) disables lazy mmu
-> (d) does something expensive (split folio -> take sleepable locks,
->     flushes tlb)
-> (e) go to (a)
+--=separator
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
 
-That step is conditional: we exit right away if pte_offset_map_lock()
-fails. The fundamental issue is that pause() must always be matched with
-resume(), but as those functions look today there is no situation where
-a pause() would always be matched with a resume().
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
 
-Alternatively it should be possible to pause(), unconditionally resume()
-after the expensive operations are done and then leave() right away in
-case of failure. It requires restructuring and might look a bit strange,
-but can be done if you think it's justified.
+            Xen Security Advisory CVE-2025-58149 / XSA-476
 
->
-> Why would we use enable/disable instead?
->
->>
->> * x86/Xen is currently the only case where explicit handling is
->>    required for lazy MMU when context-switching. This is purely an
->>    implementation detail and using the generic lazy_mmu_mode_*
->>    functions would cause trouble when nesting support is introduced,
->>    because the generic functions must be called from the current task.
->>    For that reason we still use arch_leave() and arch_enter() there.
->
-> How does this interact with patch #11? 
+         Incorrect removal of permissions on PCI device unplug
 
-It is a requirement for patch 11, in fact. If we called disable() when
-switching out a task, then lazy_mmu_state.enabled would (most likely) be
-false when scheduling it again.
+ISSUE DESCRIPTION
+=================
 
-By calling the arch_* helpers when context-switching, we ensure
-lazy_mmu_state remains unchanged. This is consistent with what happens
-on all other architectures (which don't do anything about lazy_mmu when
-context-switching). lazy_mmu_state is the lazy MMU status *when the task
-is scheduled*, and should be preserved on a context-switch.
+When passing through PCI devices, the detach logic in libxl won't remove
+access permissions to any 64bit memory BARs the device might have.  As a
+result a domain can still have access any 64bit memory BAR when such
+device is no longer assigned to the domain.
 
->
->>
->> Note: x86 calls arch_flush_lazy_mmu_mode() unconditionally in a few
->> places, but only defines it if PARAVIRT_XXL is selected, and we are
->> removing the fallback in <linux/pgtable.h>. Add a new fallback
->> definition to <asm/pgtable.h> to keep things building.
->
-> I can see a call in __kernel_map_pages() and
-> arch_kmap_local_post_map()/arch_kmap_local_post_unmap().
->
-> I guess that is ... harmless/irrelevant in the context of this series?
+For PV domains the permission leak allows the domain itself to map the memory
+in the page-tables.  For HVM it would require a compromised device model or
+stubdomain to map the leaked memory into the HVM domain p2m.
 
-It should be. arch_flush_lazy_mmu_mode() was only used by x86 before
-this series; we're adding new calls to it from the generic layer, but
-existing x86 calls shouldn't be affected.
+IMPACT
+======
 
-- Kevin
+A buggy or malicious PV guest can access memory of PCI devices no longer
+assigned to it.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen versions 4.0 and newer are vulnerable.
+
+Only PV guests with PCI passthrough devices can leverage the vulnerability.
+
+Only domains whose PCI devices are managed by the libxl library are affected.
+This includes the xl toolstack and xapi, which uses the xl toolstack when
+dealing with PCI devices.
+
+HVM guests are also affected, but accessing the leaked memory requires an
+additional compromised component on the system.
+
+MITIGATION
+==========
+
+Not doing hot unplug of PCI devices will avoid the vulnerability.
+
+Passing through PCI devices to HVM domains only will also limit the impact, as
+an attacker would require another compromised component to exploit it.
+
+CREDITS
+=======
+
+This issue was discovered by Jiqian Chen of AMD and diagnosed as a
+security issue by Roger Pau Monné of XenServer.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+Note that patches for released versions are generally prepared to
+apply to the stable branches, and may not apply cleanly to the most
+recent release tarball.  Downstreams are encouraged to update to the
+tip of the stable branch before applying these patches.
+
+xsa476.patch           xen-unstable
+xsa476-4.20.patch      Xen 4.20.x - Xen 4.18.x
+xsa476-4.17.patch      Xen 4.17.x
+
+$ sha256sum xsa476*
+ee4c2fa73d38c5c699006b6317ba53f20343af0593ff9a8c38e7e59b69a0beca  xsa476.patch
+3b921545f023dc7d9d943d0d661e677711458a917630de14f0871b03db0f2148  xsa476-4.17.patch
+5babfaa3680de9950d3391a78e4956b5c18d54eaac9938c6cde2433a2ad3f27d  xsa476-4.20.patch
+$
+
+NOTE REGARDING LACK OF EMBARGO
+==============================
+
+This issue was discussed in public already.
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmj7bXYMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZEIEH/ApNvYmMcqqEyOMgGV/VVmEMcXsAy1Ps3rMdDe9U
+YLsa7ugJLQ/kMI70y0qzws8Uc/kVftl6Z3NbvhpnBMdpurEbZnVuuPtV5I08BF7G
+23Qij+NNXSFdUzZVtgqz+POuhpVmrZgEwmg2HXsL1h2KgirUgwh5Nbs4ZuAlbz/f
+05tiljIdv4ntqz8sczUxUmtw3XuzcTu0GS8EtPSoAEC5paK72X+5i496qDKpgtqv
+gdnxqDL2s5ue3G029e9JA3pscVQTMYa3InNiHK28GAM2BW10op1JaxVl/JLN1zzL
+igpd+u6Fs73qNzcClXQ48YEBkCoTTIdhIrl0mSp4zTfN9dk=
+=MBxa
+-----END PGP SIGNATURE-----
+
+--=separator
+Content-Type: application/octet-stream; name="xsa476.patch"
+Content-Disposition: attachment; filename="xsa476.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbTogSmlxaWFuIENoZW4gPEppcWlhbi5DaGVuQGFtZC5jb20+ClN1Ympl
+Y3Q6IHRvb2xzL2xpYnMvbGlnaHQ6IGZpeCBCQVIgbWVtb3J5IGFkZHJlc3Mg
+dHJ1bmNhdGlvbgoKNjQtYml0IEJBUiBtZW1vcnkgYWRkcmVzcyBpcyB0cnVu
+Y2F0ZWQgd2hlbiByZW1vdmluZyBhIHBhc3N0aHJvdWdoCnBjaSBkZXZpY2Ug
+ZnJvbSBndWVzdCBzaW5jZSBpdCB1c2VzICJ1bnNpZ25lZCBpbnQiLgoKU28s
+IGNoYW5nZSB0byB1c2UgNjQtYml0IHR5cGUgdG8gZml4IHRoaXMgcHJvYmxl
+bS4KClRoaXMgaXMgWFNBLTQ3NiAvIENWRS0yMDI1LTU4MTQ5LgoKRml4ZXM6
+IGIwYTFhZjYxNjc4YiAoImxpYnhlbmxpZ2h0OiBpbXBsZW1lbnQgcGNpIHBh
+c3N0aHJvdWdoIikKU2lnbmVkLW9mZi1ieTogSmlxaWFuIENoZW4gPEppcWlh
+bi5DaGVuQGFtZC5jb20+ClJlbGVhc2UtQWNrZWQtYnk6IE9sZWtzaWkgS3Vy
+b2Noa28gPG9sZWtzaWkua3Vyb2Noa29AZ21haWwuY29tPgpSZXZpZXdlZC1i
+eTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgpBY2tlZC1ieTog
+QW50aG9ueSBQRVJBUkQgPGFudGhvbnkucGVyYXJkQHZhdGVzLnRlY2g+Cgpk
+aWZmIC0tZ2l0IGEvdG9vbHMvbGlicy9saWdodC9saWJ4bF9wY2kuYyBiL3Rv
+b2xzL2xpYnMvbGlnaHQvbGlieGxfcGNpLmMKaW5kZXggMmVhMmNhZWI2NjI0
+Li40OWQyNzJkMGRlNjUgMTAwNjQ0Ci0tLSBhL3Rvb2xzL2xpYnMvbGlnaHQv
+bGlieGxfcGNpLmMKKysrIGIvdG9vbHMvbGlicy9saWdodC9saWJ4bF9wY2ku
+YwpAQCAtMjAwMSw3ICsyMDAxLDggQEAgc3RhdGljIHZvaWQgcGNpX3JlbW92
+ZV9kZXRhY2hlZChsaWJ4bF9fZWdjICplZ2MsCiB7CiAgICAgU1RBVEVfQU9f
+R0MocHJzLT5hb2Rldi0+YW8pOwogICAgIGxpYnhsX2N0eCAqY3R4ID0gbGli
+eGxfX2djX293bmVyKGdjKTsKLSAgICB1bnNpZ25lZCBpbnQgc3RhcnQgPSAw
+LCBlbmQgPSAwLCBmbGFncyA9IDAsIHNpemUgPSAwLCBpcnEgPSAwOworICAg
+IHVpbnQ2NF90IHN0YXJ0ID0gMCwgZW5kID0gMCwgZmxhZ3MgPSAwLCBzaXpl
+ID0gMDsKKyAgICB1bnNpZ25lZCBpbnQgaXJxID0gMDsKICAgICBpbnQgaSwg
+c3R1YmRvbWlkID0gMDsKICAgICBjb25zdCBjaGFyICpzeXNmc19wYXRoOwog
+ICAgIEZJTEUgKmY7CkBAIC0yMDMxLDcgKzIwMzIsOCBAQCBzdGF0aWMgdm9p
+ZCBwY2lfcmVtb3ZlX2RldGFjaGVkKGxpYnhsX19lZ2MgKmVnYywKICAgICB9
+CiAKICAgICBmb3IgKGkgPSAwOyBpIDwgUFJPQ19QQ0lfTlVNX1JFU09VUkNF
+UzsgaSsrKSB7Ci0gICAgICAgIGlmIChmc2NhbmYoZiwgIjB4JXggMHgleCAw
+eCV4XG4iLCAmc3RhcnQsICZlbmQsICZmbGFncykgIT0gMykKKyAgICAgICAg
+aWYgKGZzY2FuZihmLCAiMHglIlNDTng2NCIgMHglIlNDTng2NCIgMHglIlND
+Tng2NCJcbiIsCisgICAgICAgICAgICAgICAgICAgJnN0YXJ0LCAmZW5kLCAm
+ZmxhZ3MpICE9IDMpCiAgICAgICAgICAgICBjb250aW51ZTsKICAgICAgICAg
+c2l6ZSA9IGVuZCAtIHN0YXJ0ICsgMTsKICAgICAgICAgaWYgKHN0YXJ0KSB7
+CkBAIC0yMDQwLDcgKzIwNDIsNyBAQCBzdGF0aWMgdm9pZCBwY2lfcmVtb3Zl
+X2RldGFjaGVkKGxpYnhsX19lZ2MgKmVnYywKICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzaXplLCAwKTsKICAg
+ICAgICAgICAgICAgICBpZiAocmMgPCAwKQogICAgICAgICAgICAgICAgICAg
+ICBMT0dFRChFUlJPUiwgZG9taWQsCi0gICAgICAgICAgICAgICAgICAgICAg
+ICAgICJ4Y19kb21haW5faW9wb3J0X3Blcm1pc3Npb24gZXJyb3IgMHgleC8w
+eCV4IiwKKyAgICAgICAgICAgICAgICAgICAgICAgICAgInhjX2RvbWFpbl9p
+b3BvcnRfcGVybWlzc2lvbiBlcnJvciAlIyJQUkl4NjQiLyUjIlBSSXg2NCwK
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RhcnQsCiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHNpemUpOwogICAgICAgICAgICAgfSBlbHNlIHsK
+QEAgLTIwNTAsNyArMjA1Miw3IEBAIHN0YXRpYyB2b2lkIHBjaV9yZW1vdmVf
+ZGV0YWNoZWQobGlieGxfX2VnYyAqZWdjLAogICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMCk7CiAgICAgICAgICAg
+ICAgICAgaWYgKHJjIDwgMCkKICAgICAgICAgICAgICAgICAgICAgTE9HRUQo
+RVJST1IsIGRvbWlkLAotICAgICAgICAgICAgICAgICAgICAgICAgICAieGNf
+ZG9tYWluX2lvbWVtX3Blcm1pc3Npb24gZXJyb3IgMHgleC8weCV4IiwKKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgInhjX2RvbWFpbl9pb21lbV9wZXJt
+aXNzaW9uIGVycm9yICUjIlBSSXg2NCIvJSMiUFJJeDY0LAogICAgICAgICAg
+ICAgICAgICAgICAgICAgICBzdGFydCwKICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgc2l6ZSk7CiAgICAgICAgICAgICB9Cg==
+
+--=separator
+Content-Type: application/octet-stream; name="xsa476-4.17.patch"
+Content-Disposition: attachment; filename="xsa476-4.17.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbTogSmlxaWFuIENoZW4gPEppcWlhbi5DaGVuQGFtZC5jb20+ClN1Ympl
+Y3Q6IHRvb2xzL2xpYnMvbGlnaHQ6IGZpeCBCQVIgbWVtb3J5IGFkZHJlc3Mg
+dHJ1bmNhdGlvbgoKNjQtYml0IEJBUiBtZW1vcnkgYWRkcmVzcyBpcyB0cnVu
+Y2F0ZWQgd2hlbiByZW1vdmluZyBhIHBhc3N0aHJvdWdoCnBjaSBkZXZpY2Ug
+ZnJvbSBndWVzdCBzaW5jZSBpdCB1c2VzICJ1bnNpZ25lZCBpbnQiLgoKU28s
+IGNoYW5nZSB0byB1c2UgNjQtYml0IHR5cGUgdG8gZml4IHRoaXMgcHJvYmxl
+bS4KClRoaXMgaXMgWFNBLTQ3NiAvIENWRS0yMDI1LTU4MTQ5LgoKRml4ZXM6
+IGIwYTFhZjYxNjc4YiAoImxpYnhlbmxpZ2h0OiBpbXBsZW1lbnQgcGNpIHBh
+c3N0aHJvdWdoIikKU2lnbmVkLW9mZi1ieTogSmlxaWFuIENoZW4gPEppcWlh
+bi5DaGVuQGFtZC5jb20+ClJlbGVhc2UtQWNrZWQtYnk6IE9sZWtzaWkgS3Vy
+b2Noa28gPG9sZWtzaWkua3Vyb2Noa29AZ21haWwuY29tPgpSZXZpZXdlZC1i
+eTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgpBY2tlZC1ieTog
+QW50aG9ueSBQRVJBUkQgPGFudGhvbnkucGVyYXJkQHZhdGVzLnRlY2g+Cgpk
+aWZmIC0tZ2l0IGEvdG9vbHMvbGlicy9saWdodC9saWJ4bF9wY2kuYyBiL3Rv
+b2xzL2xpYnMvbGlnaHQvbGlieGxfcGNpLmMKaW5kZXggZjRjNGYxNzU0NTRk
+Li4zN2UyZTI2MjQ3N2UgMTAwNjQ0Ci0tLSBhL3Rvb2xzL2xpYnMvbGlnaHQv
+bGlieGxfcGNpLmMKKysrIGIvdG9vbHMvbGlicy9saWdodC9saWJ4bF9wY2ku
+YwpAQCAtMTk5NSw3ICsxOTk1LDcgQEAgc3RhdGljIHZvaWQgZG9fcGNpX3Jl
+bW92ZShsaWJ4bF9fZWdjICplZ2MsIHBjaV9yZW1vdmVfc3RhdGUgKnBycykK
+ICAgICAgICAgY2hhciAqc3lzZnNfcGF0aCA9IEdDU1BSSU5URihTWVNGU19Q
+Q0lfREVWIi8iUENJX0JERiIvcmVzb3VyY2UiLCBwY2ktPmRvbWFpbiwKICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwY2ktPmJ1cywg
+cGNpLT5kZXYsIHBjaS0+ZnVuYyk7CiAgICAgICAgIEZJTEUgKmYgPSBmb3Bl
+bihzeXNmc19wYXRoLCAiciIpOwotICAgICAgICB1bnNpZ25lZCBpbnQgc3Rh
+cnQgPSAwLCBlbmQgPSAwLCBmbGFncyA9IDAsIHNpemUgPSAwOworICAgICAg
+ICB1aW50NjRfdCBzdGFydCA9IDAsIGVuZCA9IDAsIGZsYWdzID0gMCwgc2l6
+ZSA9IDA7CiAgICAgICAgIGludCBpcnEgPSAwOwogICAgICAgICBpbnQgaTsK
+IApAQCAtMjAwNCw3ICsyMDA0LDggQEAgc3RhdGljIHZvaWQgZG9fcGNpX3Jl
+bW92ZShsaWJ4bF9fZWdjICplZ2MsIHBjaV9yZW1vdmVfc3RhdGUgKnBycykK
+ICAgICAgICAgICAgIGdvdG8gc2tpcDE7CiAgICAgICAgIH0KICAgICAgICAg
+Zm9yIChpID0gMDsgaSA8IFBST0NfUENJX05VTV9SRVNPVVJDRVM7IGkrKykg
+ewotICAgICAgICAgICAgaWYgKGZzY2FuZihmLCAiMHgleCAweCV4IDB4JXhc
+biIsICZzdGFydCwgJmVuZCwgJmZsYWdzKSAhPSAzKQorICAgICAgICAgICAg
+aWYgKGZzY2FuZihmLCAiMHglIlNDTng2NCIgMHglIlNDTng2NCIgMHglIlND
+Tng2NCJcbiIsCisgICAgICAgICAgICAgICAgICAgICAgICZzdGFydCwgJmVu
+ZCwgJmZsYWdzKSAhPSAzKQogICAgICAgICAgICAgICAgIGNvbnRpbnVlOwog
+ICAgICAgICAgICAgc2l6ZSA9IGVuZCAtIHN0YXJ0ICsgMTsKICAgICAgICAg
+ICAgIGlmIChzdGFydCkgewpAQCAtMjAxMiw3ICsyMDEzLDcgQEAgc3RhdGlj
+IHZvaWQgZG9fcGNpX3JlbW92ZShsaWJ4bF9fZWdjICplZ2MsIHBjaV9yZW1v
+dmVfc3RhdGUgKnBycykKICAgICAgICAgICAgICAgICAgICAgcmMgPSB4Y19k
+b21haW5faW9wb3J0X3Blcm1pc3Npb24oY3R4LT54Y2gsIGRvbWlkLCBzdGFy
+dCwgc2l6ZSwgMCk7CiAgICAgICAgICAgICAgICAgICAgIGlmIChyYyA8IDAp
+CiAgICAgICAgICAgICAgICAgICAgICAgICBMT0dFRChFUlJPUiwgZG9tYWlu
+aWQsCi0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAieGNfZG9tYWlu
+X2lvcG9ydF9wZXJtaXNzaW9uIGVycm9yIDB4JXgvMHgleCIsCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAieGNfZG9tYWluX2lvcG9ydF9wZXJt
+aXNzaW9uIGVycm9yICUjIlBSSXg2NCIvJSMiUFJJeDY0LAogICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgc3RhcnQsCiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBzaXplKTsKICAgICAgICAgICAgICAgICB9IGVsc2Ug
+ewpAQCAtMjAyMCw3ICsyMDIxLDcgQEAgc3RhdGljIHZvaWQgZG9fcGNpX3Jl
+bW92ZShsaWJ4bF9fZWdjICplZ2MsIHBjaV9yZW1vdmVfc3RhdGUgKnBycykK
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAoc2l6ZSsoWENfUEFHRV9TSVpFLTEpKT4+WENfUEFHRV9TSElG
+VCwgMCk7CiAgICAgICAgICAgICAgICAgICAgIGlmIChyYyA8IDApCiAgICAg
+ICAgICAgICAgICAgICAgICAgICBMT0dFRChFUlJPUiwgZG9tYWluaWQsCi0g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAieGNfZG9tYWluX2lvbWVt
+X3Blcm1pc3Npb24gZXJyb3IgMHgleC8weCV4IiwKKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICJ4Y19kb21haW5faW9tZW1fcGVybWlzc2lvbiBl
+cnJvciAlIyJQUkl4NjQiLyUjIlBSSXg2NCwKICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHN0YXJ0LAogICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgc2l6ZSk7CiAgICAgICAgICAgICAgICAgfQo=
+
+--=separator
+Content-Type: application/octet-stream; name="xsa476-4.20.patch"
+Content-Disposition: attachment; filename="xsa476-4.20.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbTogSmlxaWFuIENoZW4gPEppcWlhbi5DaGVuQGFtZC5jb20+ClN1Ympl
+Y3Q6IHRvb2xzL2xpYnMvbGlnaHQ6IGZpeCBCQVIgbWVtb3J5IGFkZHJlc3Mg
+dHJ1bmNhdGlvbgoKNjQtYml0IEJBUiBtZW1vcnkgYWRkcmVzcyBpcyB0cnVu
+Y2F0ZWQgd2hlbiByZW1vdmluZyBhIHBhc3N0aHJvdWdoCnBjaSBkZXZpY2Ug
+ZnJvbSBndWVzdCBzaW5jZSBpdCB1c2VzICJ1bnNpZ25lZCBpbnQiLgoKU28s
+IGNoYW5nZSB0byB1c2UgNjQtYml0IHR5cGUgdG8gZml4IHRoaXMgcHJvYmxl
+bS4KClRoaXMgaXMgWFNBLTQ3NiAvIENWRS0yMDI1LTU4MTQ5LgoKRml4ZXM6
+IGIwYTFhZjYxNjc4YiAoImxpYnhlbmxpZ2h0OiBpbXBsZW1lbnQgcGNpIHBh
+c3N0aHJvdWdoIikKU2lnbmVkLW9mZi1ieTogSmlxaWFuIENoZW4gPEppcWlh
+bi5DaGVuQGFtZC5jb20+ClJlbGVhc2UtQWNrZWQtYnk6IE9sZWtzaWkgS3Vy
+b2Noa28gPG9sZWtzaWkua3Vyb2Noa29AZ21haWwuY29tPgpSZXZpZXdlZC1i
+eTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgpBY2tlZC1ieTog
+QW50aG9ueSBQRVJBUkQgPGFudGhvbnkucGVyYXJkQHZhdGVzLnRlY2g+Cgpk
+aWZmIC0tZ2l0IGEvdG9vbHMvbGlicy9saWdodC9saWJ4bF9wY2kuYyBiL3Rv
+b2xzL2xpYnMvbGlnaHQvbGlieGxfcGNpLmMKaW5kZXggMTY0N2ZkNmY0NzU2
+Li43YWY2MDIyMjRhYmEgMTAwNjQ0Ci0tLSBhL3Rvb2xzL2xpYnMvbGlnaHQv
+bGlieGxfcGNpLmMKKysrIGIvdG9vbHMvbGlicy9saWdodC9saWJ4bF9wY2ku
+YwpAQCAtMjE3OSw3ICsyMTc5LDcgQEAgc3RhdGljIHZvaWQgcGNpX3JlbW92
+ZV9kZXRhY2hlZChsaWJ4bF9fZWdjICplZ2MsCiB7CiAgICAgU1RBVEVfQU9f
+R0MocHJzLT5hb2Rldi0+YW8pOwogICAgIGxpYnhsX2N0eCAqY3R4ID0gbGli
+eGxfX2djX293bmVyKGdjKTsKLSAgICB1bnNpZ25lZCBpbnQgc3RhcnQgPSAw
+LCBlbmQgPSAwLCBmbGFncyA9IDAsIHNpemUgPSAwOworICAgIHVpbnQ2NF90
+IHN0YXJ0ID0gMCwgZW5kID0gMCwgZmxhZ3MgPSAwLCBzaXplID0gMDsKICAg
+ICBpbnQgIGlycSA9IDAsIGksIHN0dWJkb21pZCA9IDA7CiAgICAgY29uc3Qg
+Y2hhciAqc3lzZnNfcGF0aDsKICAgICBGSUxFICpmOwpAQCAtMjIwOSw3ICsy
+MjA5LDggQEAgc3RhdGljIHZvaWQgcGNpX3JlbW92ZV9kZXRhY2hlZChsaWJ4
+bF9fZWdjICplZ2MsCiAgICAgfQogCiAgICAgZm9yIChpID0gMDsgaSA8IFBS
+T0NfUENJX05VTV9SRVNPVVJDRVM7IGkrKykgewotICAgICAgICBpZiAoZnNj
+YW5mKGYsICIweCV4IDB4JXggMHgleFxuIiwgJnN0YXJ0LCAmZW5kLCAmZmxh
+Z3MpICE9IDMpCisgICAgICAgIGlmIChmc2NhbmYoZiwgIjB4JSJTQ054NjQi
+IDB4JSJTQ054NjQiIDB4JSJTQ054NjQiXG4iLAorICAgICAgICAgICAgICAg
+ICAgICZzdGFydCwgJmVuZCwgJmZsYWdzKSAhPSAzKQogICAgICAgICAgICAg
+Y29udGludWU7CiAgICAgICAgIHNpemUgPSBlbmQgLSBzdGFydCArIDE7CiAg
+ICAgICAgIGlmIChzdGFydCkgewpAQCAtMjIxOCw3ICsyMjE5LDcgQEAgc3Rh
+dGljIHZvaWQgcGNpX3JlbW92ZV9kZXRhY2hlZChsaWJ4bF9fZWdjICplZ2Ms
+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgc2l6ZSwgMCk7CiAgICAgICAgICAgICAgICAgaWYgKHJjIDwgMCkK
+ICAgICAgICAgICAgICAgICAgICAgTE9HRUQoRVJST1IsIGRvbWlkLAotICAg
+ICAgICAgICAgICAgICAgICAgICAgICAieGNfZG9tYWluX2lvcG9ydF9wZXJt
+aXNzaW9uIGVycm9yIDB4JXgvMHgleCIsCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICJ4Y19kb21haW5faW9wb3J0X3Blcm1pc3Npb24gZXJyb3IgJSMi
+UFJJeDY0Ii8lIyJQUkl4NjQsCiAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHN0YXJ0LAogICAgICAgICAgICAgICAgICAgICAgICAgICBzaXplKTsKICAg
+ICAgICAgICAgIH0gZWxzZSB7CkBAIC0yMjI4LDcgKzIyMjksNyBAQCBzdGF0
+aWMgdm9pZCBwY2lfcmVtb3ZlX2RldGFjaGVkKGxpYnhsX19lZ2MgKmVnYywK
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDApOwogICAgICAgICAgICAgICAgIGlmIChyYyA8IDApCiAgICAgICAg
+ICAgICAgICAgICAgIExPR0VEKEVSUk9SLCBkb21pZCwKLSAgICAgICAgICAg
+ICAgICAgICAgICAgICAgInhjX2RvbWFpbl9pb21lbV9wZXJtaXNzaW9uIGVy
+cm9yIDB4JXgvMHgleCIsCisgICAgICAgICAgICAgICAgICAgICAgICAgICJ4
+Y19kb21haW5faW9tZW1fcGVybWlzc2lvbiBlcnJvciAlIyJQUkl4NjQiLyUj
+IlBSSXg2NCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RhcnQsCiAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHNpemUpOwogICAgICAgICAgICAg
+fQo=
+
+--=separator--
 
