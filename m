@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73404C07170
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 17:52:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1150658.1481730 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F301C071E8
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 17:59:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1150671.1481740 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCK5P-0001Rg-I2; Fri, 24 Oct 2025 15:52:15 +0000
+	id 1vCKBv-0002Rk-8J; Fri, 24 Oct 2025 15:58:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1150658.1481730; Fri, 24 Oct 2025 15:52:15 +0000
+Received: by outflank-mailman (output) from mailman id 1150671.1481740; Fri, 24 Oct 2025 15:58:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCK5P-0001QF-FL; Fri, 24 Oct 2025 15:52:15 +0000
-Received: by outflank-mailman (input) for mailman id 1150658;
- Fri, 24 Oct 2025 15:52:13 +0000
+	id 1vCKBv-0002Od-4E; Fri, 24 Oct 2025 15:58:59 +0000
+Received: by outflank-mailman (input) for mailman id 1150671;
+ Fri, 24 Oct 2025 15:58:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pSNC=5B=zedat.fu-berlin.de=glaubitz@srs-se1.protection.inumbo.net>)
- id 1vCK5N-0001Q9-P3
- for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 15:52:13 +0000
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
- [130.133.4.66]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 670f1972-b0f1-11f0-980a-7dc792cee155;
- Fri, 24 Oct 2025 17:52:11 +0200 (CEST)
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
- by outpost.zedat.fu-berlin.de (Exim 4.98) with esmtps (TLS1.3)
- tls TLS_AES_256_GCM_SHA384
- (envelope-from <glaubitz@zedat.fu-berlin.de>)
- id 1vCK55-00000000R61-3t7w; Fri, 24 Oct 2025 17:51:55 +0200
-Received: from p5b13aa34.dip0.t-ipconnect.de ([91.19.170.52]
- helo=suse-laptop.fritz.box) by inpost2.zedat.fu-berlin.de (Exim 4.98)
- with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (envelope-from <glaubitz@physik.fu-berlin.de>)
- id 1vCK55-00000000Lvz-2RRr; Fri, 24 Oct 2025 17:51:55 +0200
+ <SRS0=0w6I=5B=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vCKBt-0002OX-V6
+ for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 15:58:58 +0000
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazlp170110009.outbound.protection.outlook.com
+ [2a01:111:f403:c111::9])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 55ba3032-b0f2-11f0-980a-7dc792cee155;
+ Fri, 24 Oct 2025 17:58:52 +0200 (CEST)
+Received: from DM4PR03MB7015.namprd03.prod.outlook.com (2603:10b6:8:42::8) by
+ SJ0PR03MB6534.namprd03.prod.outlook.com (2603:10b6:a03:38e::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.13; Fri, 24 Oct
+ 2025 15:58:48 +0000
+Received: from DM4PR03MB7015.namprd03.prod.outlook.com
+ ([fe80::e21:7aa4:b1ef:a1f9]) by DM4PR03MB7015.namprd03.prod.outlook.com
+ ([fe80::e21:7aa4:b1ef:a1f9%3]) with mapi id 15.20.9253.011; Fri, 24 Oct 2025
+ 15:58:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,107 +47,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 670f1972-b0f1-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=+WGt0cv6lLjP7TTTzKdDcUwT/Nmru/ATJlKONEKntac=; t=1761321131;
-	x=1761925931; b=O2mOHgwo/WUCiZK1qMkmx8dampv7DUQlqOnq3UZRS+Cw5n1AQQyRf+xCL61of
-	R6z6az40uN1o3oBYO+uIxaYmiz5rx1xz3RRN+RHTSnkI3AS2gAGYpIuNIAOG7m0Lon7CtNfS/10ej
-	sftCAHTcZJ9utyWCBINLeMTgeJJvl7W4AsAtEoLOp0fYv2ERFTJvvuDTSuER99u42oY5pH1Jecmi6
-	sSKhi6NJm+go4aiFds8UITtCpYHw263uK6OygylxTAtuAAO+6PjnwFP+eqiT/xSqatoUTgmOzd8Ii
-	TfrJJv9N78PxEaSglTji4T7XzX4ZXmiy/kQJTk7QJX6sKo4T4g==;
-Message-ID: <1d9f416fd3665faf27841b6305b1e8d661427125.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH v3 11/13] x86/xen: use lazy_mmu_state when
- context-switching
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: David Hildenbrand <david@redhat.com>, David Woodhouse
- <dwmw2@infradead.org>,  Kevin Brodsky <kevin.brodsky@arm.com>,
- linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Alexander Gordeev
- <agordeev@linux.ibm.com>,  Andreas Larsson <andreas@gaisler.com>, Andrew
- Morton <akpm@linux-foundation.org>, Boris Ostrovsky	
- <boris.ostrovsky@oracle.com>, Borislav Petkov <bp@alien8.de>, Catalin
- Marinas	 <catalin.marinas@arm.com>, Christophe Leroy
- <christophe.leroy@csgroup.eu>,  Dave Hansen <dave.hansen@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin"	 <hpa@zytor.com>,
- Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,  Juergen
- Gross <jgross@suse.com>, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Lorenzo Stoakes	 <lorenzo.stoakes@oracle.com>, Madhavan Srinivasan
- <maddy@linux.ibm.com>,  Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko
- <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, Nicholas Piggin
- <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, Ryan Roberts	
- <ryan.roberts@arm.com>, Suren Baghdasaryan <surenb@google.com>, Thomas
- Gleixner	 <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>, Will
- Deacon	 <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>, 
-	linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, 
-	sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
-Date: Fri, 24 Oct 2025 17:51:54 +0200
-In-Reply-To: <9faf750e-2369-4fae-b58a-ed9052cfd6f6@redhat.com>
-References: <20251015082727.2395128-1-kevin.brodsky@arm.com>
-	 <20251015082727.2395128-12-kevin.brodsky@arm.com>
-	 <f0067f35-1048-4788-8401-f71d297f56f3@redhat.com>
-	 <348e5f1c5a90e4ab0f14b4d997baf7169745bf04.camel@infradead.org>
-	 <70723f4a-f42b-4d94-9344-5824e48bfad1@redhat.com>
-	 <cbe0d305cce6d76e00b64e7209f15b4645c15033.camel@infradead.org>
-	 <fcd7b731d38b256e59edd532e792a00efa4e144e.camel@physik.fu-berlin.de>
-	 <9faf750e-2369-4fae-b58a-ed9052cfd6f6@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 
+X-Inumbo-ID: 55ba3032-b0f2-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RCDjiUCmyLTqsIihqq/1MmpbauffOy9XF5A/+oGlzmyh4VvFeSlW8LAhoCqWhDP+ZYlnHxR1DAR71BhZeakPENbdib+TA6Wkyq40ROJJEA78tee4cWZLZNudAelhJAnP1HXybBVrd+a6Kiug0sp7U7OlsxkiwMInAxPFni1rauk7lgN7AeUUa8J13RO+RjE78+cLjnaVn/klqFgofcNpKLHsy9pU/63XyR+BXVAg8Ah4HxqDSIOsE+VuU259UR8L3xX8mCA9B9QIvJQEu/+px3erQPSX/ge10O5sSxnJuozzhsGt19QnUYmDrZ7YJz8DiypNfEO53pc5PfjuuKUmyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AQ4jZiYa1mFI+v3PreJeAKEmTZm5Gv6M8P2JfTG2QUs=;
+ b=c0Mz0lDlGhMnxGETya94gpSrg/QGo080cv6YIRuzWxC+zGkEX2NHBtprMM32yTfmdsrmE8yx3jV7SfXdf2gq4DV/UARH1/jBCSO1vTv2A5M9bXdBZ6b8XWJ07jNPB0ymnwSs8LQcbqhPQ2/UbH2G7HLYGjYltnyw4PaTeCCtebyx1tblczjVoApkW7cjkQPEGMt+ne5eus79O7wBk5Jryg81qajpd1+lwYRmNjt/uwnS9tqNrI7VF2tvjEqmrnamX11EA5ijqDSoi5tW1ga9ihcbQDwx8Ht1mKjNveQQ8WmuhRt0+YRENxgXEby+x7VteFN8NQKsq8ohKRPvwwC0Bg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AQ4jZiYa1mFI+v3PreJeAKEmTZm5Gv6M8P2JfTG2QUs=;
+ b=m6EoAY/fsZhYqg6s16YBHukB5PoFQeMMIzkyWCBccrJACy4PESuI4es2UdfIeVtgnD4zTubMp0segf49k1FoJyfQ90QZcNMN2meJ04dXvW1VF6c8hdfDzLKR9TQJgA+5/rV0W3DZ6LxvlSpxcMr9PxKiepkLRFpRDLnxUWEKAk4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <72a2f002-23fd-4d06-8c44-3e535533bec2@citrix.com>
+Date: Fri, 24 Oct 2025 16:58:44 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/pci: prevent infinite loop for faulty SR-IOV cards
+To: Frediano Ziglio <freddy77@gmail.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <CAHt6W4dnM1pLMnDVyywc_2d-6nry7pFCYomSvRjyuH7sRm0J4Q@mail.gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <CAHt6W4dnM1pLMnDVyywc_2d-6nry7pFCYomSvRjyuH7sRm0J4Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0093.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2bc::18) To DM4PR03MB7015.namprd03.prod.outlook.com
+ (2603:10b6:8:42::8)
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-Originating-IP: 91.19.170.52
-X-ZEDAT-Hint: PO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR03MB7015:EE_|SJ0PR03MB6534:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d512a16-77a8-4f82-f22e-08de13163782
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?T1NFSjJRWlVPOTFrdUZxQWdoeGZ1MENaUjcrdWlnQVJ3L3hSNm85ZFZvNEdI?=
+ =?utf-8?B?amhCVC9wN0J1R01zRlVIeXBKUXhsYlp0K0dQRFZxM09Nd0hpTXZrM1liaGpH?=
+ =?utf-8?B?aDRheEtycHpxeVlENXk2UCtQMloxOW90WGJBdmJFUU1UVmE1bS9paDYxUlZq?=
+ =?utf-8?B?UTlNalZBdWtFUW5lUkRuc25ORWF4OFBhQ1pkV3dBVGVEbERQblNxeWljeWJz?=
+ =?utf-8?B?VmNEQ0lNQ1RYS0JLNm90WTc2V2hsZXZGZjlVdEE1YzVjUHd4dnRpd3l4K3hn?=
+ =?utf-8?B?Wi9EcFo4SEV4KzE1M3h5ams0cTNjbEg3cC9XMm9BZUgvYVlmMWtDV2NRRmVO?=
+ =?utf-8?B?NWpSMWMweGU4MXBvNmkyYUNjUWhFSVlaNGtFcHdvcE96ekJkMVJMZWtuOEdT?=
+ =?utf-8?B?elQ3aDBLbjFhUkh4YURFY09QM2xPcjR6Ri9XQ0QvdzRxcFlhMEJNMGdDL0o4?=
+ =?utf-8?B?UEFsVEgyT2NmVFV5a3VtWEZOSGxIQmJEYk14TGZYc3AwRGhzVlJ2UnNHY2t2?=
+ =?utf-8?B?cUhNNnY3eFpIbENUemgyaTN3UlRMS0owWEtWWHFBTzBhMTFlUEtFTUtmVzZN?=
+ =?utf-8?B?L3grVUZuejRrMmdDc0QvelI0Y0taVmhwQTk3eS94cFp6K3NWN05uclVGVzM3?=
+ =?utf-8?B?NW5vQ3FQNytVUmEwYU4wYTBJQXNSSnYxQXM3TjNjc3BPT3hkQUlCNHhWakRr?=
+ =?utf-8?B?SlNZOG5uSURWYkxENitLQW9GdTVDeEhOZWVyTmRWUHdVcHFMdW5MbDM4ZGZQ?=
+ =?utf-8?B?WDlLTFJMNkVRK3lmckNESkljaUFkSVBlMDNwYjVVUzFoZC9oeDd0UWQwNEtn?=
+ =?utf-8?B?R0lNdFN1b3p6elJ5YkFUajdFbVB2L1VjNjdzaXEvV3NtUTI3WjMvR2FIM0Vn?=
+ =?utf-8?B?eDBkdVNUcyt4cGp6VVhLaXZsM09ucUg3MmNiYlZYTEdVajAwL1BHcU9WYU1a?=
+ =?utf-8?B?ZC9aUG9oQWtyVFhad1BIb2xQZE45Q1BBc1RnVWoxY1BOY2dvU2RkVnpXSFdR?=
+ =?utf-8?B?clA4akhQV3FydFZ4aUppSWl2NmFab3FyY2NjY3N1eUFPeU52OGFSV0pRQ2tl?=
+ =?utf-8?B?SnUxbytVekw1TEhFMmFEWWNEdEwrUjVtc25OMFZLbG5QZnRxUWNWZ3l6RitZ?=
+ =?utf-8?B?Y3BsRlVMOUZrcEE1d0dOVHJqMm9KMDI5TzJna3dLVjlzUU9BTUJjejM0REo3?=
+ =?utf-8?B?MkJXYVFjSW5QVTNBdHJOa2RrbmVBbmY4OFZIbzk4SVZub0hRdTQzNnBMdHdU?=
+ =?utf-8?B?N2dFTUc3a3pRazJzM24rRkhaMEdWanplVVY3YjR2RWVKTXlUdXNVVXV4UVBZ?=
+ =?utf-8?B?RjBnNHFOVmpaWEdHb1BNVkg3OC8xTkVaTVI2RStQVmg0enpqUmd3Z2FSQ2N6?=
+ =?utf-8?B?V3NUSWQxVnowSi9kS1c1ZlIxay83cnFFK2RsMThlQkxDdTZCUUFHTXBsb2Rj?=
+ =?utf-8?B?a0ZXdDVjNFBkbWhDMytOc3JmOVpnKzJzZUpQY2dBOVFVOTdteHVCY1NsV04x?=
+ =?utf-8?B?ZDJtYWJhdktwdUc2bjY3ZDlaLytjaEdQK3k5RUxQTFhFMzBGKy9NNlRZZ0li?=
+ =?utf-8?B?bENWWml6ajU1L1lMbTg5SXUzSER2U1dGbWFrZzgrSDlBMlRVMnVTUzVlb3gw?=
+ =?utf-8?B?a3cvOHdITlpPdXdER3Y2bmdGTHgxbzJqTzZxWWZKU3dha2FabDllZGpzRHp1?=
+ =?utf-8?B?OVFDaDNKeTU4ekZlZlFoUDBLUWs0NWZnRVNLQVlZUENPOHdIK1V3OUdGbThI?=
+ =?utf-8?B?QkQvYjRDUHM3TGlOa0sxa0xRS3dmQWVIRnZwRlRPUi8zWDl0U3Y4M0lmREhV?=
+ =?utf-8?B?bGd2MjFZTmREeGVYbGdkTXB6cmhmSm1RbWlhZHdBOWsyRWtlWDdZUFJwVCtW?=
+ =?utf-8?B?eXRtM1hXdzBXNkZjNUlGb0VMbldaOVRWQnV0UjVhQTIzVnNUSEhJZTBGYTVC?=
+ =?utf-8?Q?aws3Ml/81dGObadJa3xkfBCogKZ2F9AY?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB7015.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?M2FrNnVoWWFlV1A2a3l0cHFJeFhiSWdZaXdqdTFYU3EycmJscXFDdW9XMDhY?=
+ =?utf-8?B?ZTdBcWtnWWtIUkZwQTF6NUxUelgvUmhPbXYwNUtWQnlGRDM1MTJDRzBXcjRQ?=
+ =?utf-8?B?dUNDWlBRL2JDSjNKSFlhT3ptU0NmWGVBa1JiaEZRVytTQmlKZi9VVHl5TC9u?=
+ =?utf-8?B?aTg1dU1GSFRyekY2eXBmVndGNzZEdFVYeCtxV05JV0VtMFlqTVJpenNiaGVM?=
+ =?utf-8?B?NnplTDJWRjZCT2pVNExTeVpTSUlvV0tKQW9DczNIRzNLZDQ2RkJpS0RkVDQy?=
+ =?utf-8?B?dEcyYWFaT2d0Z0FoYVhBSENBOENOdnRSRk8ySVpuc0tielh6dHlML3NHRWlr?=
+ =?utf-8?B?Z0NkNEgvZ2xReDIxNmlJc3BmUmZ5Z05Pbk1rbUdjWVArOVp2aEIzditUOW5n?=
+ =?utf-8?B?Y3RwdGhEN3dhbnNlc2FFTThvUGdibjhpYSsvMFQxa0RSOEl6QVdWZ1dtSzdX?=
+ =?utf-8?B?VENJU20rWHRSR0tXZE1qMzFMc3RrRy9nMGU1RlRpWWRubDcrM205OFJQRVNr?=
+ =?utf-8?B?TEQxL1VsMWtwMFpoemhnd2J4RWZKbWcwYVErVCs3TVc0UXVHUjlGcHdER0xB?=
+ =?utf-8?B?c3VrSGo2b3A4V2hud2Q5RUZ0dWlRMWs4ZTkvRDVGdUwvbzlZaWlTcmttcEpn?=
+ =?utf-8?B?UTEvaU80b1FSZ0ZHQWpOT2JXTjR1NmovcTVkdFpUemhPT2pWR1hSd01TSnB4?=
+ =?utf-8?B?NjJiakwyQTI5Q0lUM0JLTC9YNWFDNU9jZThpZlRzYytZbklvMzVQckRzc2Jr?=
+ =?utf-8?B?S3NTSlRFa1JXaWZmRFljNTNiVVZXVGlHN1ZRdk1yUit2ZmNwZ0dPOW9zdy80?=
+ =?utf-8?B?ekNRTFBwYjhCdjJOSFVHcG1VeDJCWjlEY3lEWFNwV0V2cHZsb24vRkNYaU1N?=
+ =?utf-8?B?SnhXNUxudHlZT2xlZkxyZnVhSDlvMUorK1VqbVd1S3I4b2E0WlN6MFVlUGlZ?=
+ =?utf-8?B?RndVMTllM3AwQkltdTdMUVF2UmZwWFhhMFA0V3RZMERWS29XTDhTaDBDdEEr?=
+ =?utf-8?B?cEp2eS9UZktsVy9NMExsYnZlZDVqeDI4L1BoaW83WnROUUR2ZzllRTJ1T3hS?=
+ =?utf-8?B?ZEdjWXRrZW56VlNQUDNCcjU5c2JhZWlyeFhlNVVqOS9VM0hHV0QwVXZHWHNG?=
+ =?utf-8?B?bjlZZmhxemJVYzN5bTlGUTA3Q1h6Y0ZsWHEwS3dYVC9DZ1FtRzJiR2Ywbk1W?=
+ =?utf-8?B?UVFNMU9QdzFDaThwWW5tYktvRzg0NWNCYkU0Q2ZKc3BQS3ZVQ3FWbWdSd2l3?=
+ =?utf-8?B?NFVncTNLNmdkNFZoQmVFN1NUbjAxbU1UcVNYVHVmVXloQjFTRmZXdmlBcUxE?=
+ =?utf-8?B?a1J6a0Rodk5qTTdxNElvaEFrN1JxSmZBdXRGMElJcTBpSEJiVDBvMCtwSkV3?=
+ =?utf-8?B?dDdDYlRaekRTcDQ0ck8wZnlDUjRZT3krZUthVXp2cElXQWVpR3dmY2ZHb2lG?=
+ =?utf-8?B?QVVaNkNvMXR5UGxkSXlGRjJLaldsL1I1eC9vOUV5NnNJeHVqWlRLVkFCVlA2?=
+ =?utf-8?B?cGxUQm15RUUyemU3aGZPb2t5M3pOazYyQmo5WGU2enU2ZGRzYzZZZk55Mnl4?=
+ =?utf-8?B?RkI4dkNBVnJYckZHSHlUZGdhVUNNNjJ2d04zRlZoTFZldVMvamdkakd2S09s?=
+ =?utf-8?B?SzNDSGZJT25rTTJwRC93NE5BTGpRZVljTUYwcFE1ZXBNYkpMdjRmMWVpbVBV?=
+ =?utf-8?B?NTJkdjFOZ1dMY0QveG0zS1h1OFh1cEhyRi96OFBSNXYvazYycGF6TXpHdTlH?=
+ =?utf-8?B?L045NjVabEhERUxkOVhxamJEYTBMNk1qb0lDTmFPMUdqK3l1Q3VMdXZjVnpK?=
+ =?utf-8?B?R2RvWVZQWlU1cE9iUGhmTDBQbUZUOCtTOFJGUzJBTWRiWkxNaEFtNWVMUFV3?=
+ =?utf-8?B?Q2JFOUljRnpQbDB4Z0FvWUo1dnlIUklPQzArNEdnajh1a1FEeTh2KytKeXhK?=
+ =?utf-8?B?akVLUCtENjRpYjZQcytuMyttSkhXem9tWlBqK3VZUGtzUHdEU01yS25QektP?=
+ =?utf-8?B?R2xDRmt6N0wxRmdhR00xTGp3ZEVFaXdFZWxsRVNJWHduQTU0WDJxbGw1R2Rk?=
+ =?utf-8?B?M1FxL3EzSmJuTDQ3aGxjWlQybUJVUVpmeVpjNXkwM1V1MXF5WFdqSERvdVQ5?=
+ =?utf-8?B?dEpiMGZ3MjJoZjhkZEtZVmNYY0ZFcWxERWV6N25PcGkzQVVsY0I5cjFUelMy?=
+ =?utf-8?B?c3c9PQ==?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d512a16-77a8-4f82-f22e-08de13163782
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB7015.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2025 15:58:47.8543
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: X5L2NbJbTZK4zlN864fmm1cBCviKb0DwD82c3oizUxcdyra2M65Ut8X33hCyMDByD4nxVF2GSwMGn/jr/n+qUQRFsejJwtB+riKgsO0aTek=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6534
 
-Hi David,
+On 24/10/2025 4:13 pm, Frediano Ziglio wrote:
+> If a SR-IOV card presents an I/O space inside a BAR the
+> code will continue to loop on the same card.
+> This is due to the missing increment of the cycle variable.
+>
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-On Fri, 2025-10-24 at 17:47 +0200, David Hildenbrand wrote:
-> > Please have people test kernel changes on SPARC on real hardware. QEMU =
-does not
-> > emulate sun4v, for example, and therefore testing in QEMU does not cove=
-r all
-> > of SPARC hardware.
-> >=20
-> > There are plenty of people on the debian-sparc, gentoo-sparc and sparcl=
-inux
-> > LKML mailing lists that can test kernel patches for SPARC. If SPARC-rel=
-evant
-> > changes need to be tested, please ask there and don't bury such things =
-in a
-> > deeply nested thread in a discussion which doesn't even have SPARC in t=
-he
-> > mail subject.
->=20
-> out of curiosity, do people monitor sparclinux@ for changes to actively=
-=20
-> offer testing when required -- like would it be sufficient to CC=20
-> relevant maintainers+list (like done here) and raise in the cover letter=
-=20
-> that some testing help would be appreciated?
+Yes, that's buggy.  Was this from a real card, or just code inspection?
 
-Yes, that's definitely the case. But it should be obvious that from the sub=
-ject
-of the mail that the change affects SPARC as not everyone can read every ma=
-il
-they're receiving through mailing lists.
-
-I'm trying to keep up, but since I'm on mailing lists for many different ar=
-chitectures,
-mails can slip through the cracks.
-
-For people that want to test changes on SPARC regularly, I can also offer a=
-ccounts
-on SPARC test machines running on a Solaris LDOM (logical domain) on a SPAR=
-C T4.
-
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+~Andrew
 
