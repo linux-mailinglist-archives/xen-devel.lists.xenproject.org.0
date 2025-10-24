@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6624AC0631E
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 14:14:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1150122.1481391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04BC0C063E5
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Oct 2025 14:26:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1150212.1481423 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCGgl-0006oZ-E9; Fri, 24 Oct 2025 12:14:35 +0000
+	id 1vCGru-0001mo-RX; Fri, 24 Oct 2025 12:26:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1150122.1481391; Fri, 24 Oct 2025 12:14:35 +0000
+Received: by outflank-mailman (output) from mailman id 1150212.1481423; Fri, 24 Oct 2025 12:26:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCGgl-0006ky-7s; Fri, 24 Oct 2025 12:14:35 +0000
-Received: by outflank-mailman (input) for mailman id 1150122;
- Fri, 24 Oct 2025 12:14:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vCGru-0001lH-M7; Fri, 24 Oct 2025 12:26:06 +0000
+Received: by outflank-mailman (input) for mailman id 1150212;
+ Fri, 24 Oct 2025 12:26:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CZgC=5B=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
- id 1vCGgj-0006Wk-W4
- for xen-devel@lists.xen.org; Fri, 24 Oct 2025 12:14:34 +0000
-Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f6d9b689-b0d2-11f0-980a-7dc792cee155;
- Fri, 24 Oct 2025 14:14:19 +0200 (CEST)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <andrewcoop@xenbits.xen.org>) id 1vCGgP-00HRHW-0s;
- Fri, 24 Oct 2025 12:14:13 +0000
-Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.96)
- (envelope-from <andrewcoop@xenbits.xen.org>) id 1vCGgP-00EOqt-1K;
- Fri, 24 Oct 2025 12:14:13 +0000
+ <SRS0=rNzd=5B=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
+ id 1vCGis-0006dK-4W
+ for xen-devel@lists.xenproject.org; Fri, 24 Oct 2025 12:16:46 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 4e63f4c9-b0d3-11f0-9d16-b5c5bf9af7f9;
+ Fri, 24 Oct 2025 14:16:45 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 73CC91515;
+ Fri, 24 Oct 2025 05:16:36 -0700 (PDT)
+Received: from [10.44.160.74] (e126510-lin.lund.arm.com [10.44.160.74])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E88963F66E;
+ Fri, 24 Oct 2025 05:16:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,300 +42,269 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6d9b689-b0d2-11f0-980a-7dc792cee155
-Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
-Content-Transfer-Encoding: binary
+X-Inumbo-ID: 4e63f4c9-b0d3-11f0-9d16-b5c5bf9af7f9
+Message-ID: <7a4e136b-66a5-4244-ab07-f0bcc3a26a83@arm.com>
+Date: Fri, 24 Oct 2025 14:16:34 +0200
 MIME-Version: 1.0
-X-Mailer: MIME-tools 5.510 (Entity 5.510)
-To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
- xen-users@lists.xen.org, oss-security@lists.openwall.com
-From: Xen.org security team <security@xen.org>
-CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 476 v1 (CVE-2025-58149) - Incorrect removal
- of permissions on PCI device unplug
-Message-Id: <E1vCGgP-00EOqt-1K@xenbits.xenproject.org>
-Date: Fri, 24 Oct 2025 12:14:13 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/13] mm: enable lazy_mmu sections to nest
+To: David Hildenbrand <david@redhat.com>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
+ Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
+ <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+ Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
+References: <20251015082727.2395128-1-kevin.brodsky@arm.com>
+ <20251015082727.2395128-8-kevin.brodsky@arm.com>
+ <2073294c-8003-451a-93e0-9aab81de4d22@redhat.com>
+Content-Language: en-GB
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+In-Reply-To: <2073294c-8003-451a-93e0-9aab81de4d22@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---=separator
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
+On 23/10/2025 22:00, David Hildenbrand wrote:
+> [...]
+>
+>
+>>
+>> In summary (count/enabled represent the values *after* the call):
+>>
+>> lazy_mmu_mode_enable()        -> arch_enter()        count=1 enabled=1
+>>      lazy_mmu_mode_enable()    -> ø            count=2 enabled=1
+>>     lazy_mmu_mode_pause()    -> arch_leave()     count=2 enabled=0
+>
+> The arch_leave..() is expected to do a flush itself, correct?
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Correct, that's unchanged.
 
-            Xen Security Advisory CVE-2025-58149 / XSA-476
+>
+>>     lazy_mmu_mode_resume()    -> arch_enter()     count=2 enabled=1
+>>      lazy_mmu_mode_disable()    -> arch_flush()     count=1 enabled=1
+>> lazy_mmu_mode_disable()        -> arch_leave()     count=0 enabled=0
+>>
+>> Note: in_lazy_mmu_mode() is added to <linux/sched.h> to allow arch
+>> headers included by <linux/pgtable.h> to use it.
+>>
+>> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
+>> ---
+>> Alexander Gordeev suggested that a future optimisation may need
+>> lazy_mmu_mode_{pause,resume}() to call distinct arch callbacks [1]. For
+>> now arch_{leave,enter}() are called directly, but introducing new arch
+>> callbacks should be straightforward.
+>>
+>> [1]
+>> https://lore.kernel.org/all/5a0818bb-75d4-47df-925c-0102f7d598f4-agordeev@linux.ibm.com/
+>> ---
+>
+> [...]
+>
+>>   +struct lazy_mmu_state {
+>> +    u8 count;
+>
+> I would have called this "enabled_count" or "nesting_level".
 
-         Incorrect removal of permissions on PCI device unplug
+Might as well be explicit and say nesting_level, yes :)
 
-ISSUE DESCRIPTION
-=================
+>
+>> +    bool enabled;
+>
+> "enabled" is a bit confusing when we have lazy_mmu_mode_enable().
 
-When passing through PCI devices, the detach logic in libxl won't remove
-access permissions to any 64bit memory BARs the device might have.  As a
-result a domain can still have access any 64bit memory BAR when such
-device is no longer assigned to the domain.
+Agreed, hadn't realised that.
 
-For PV domains the permission leak allows the domain itself to map the memory
-in the page-tables.  For HVM it would require a compromised device model or
-stubdomain to map the leaked memory into the HVM domain p2m.
+> I'd have called this "active".
 
-IMPACT
-======
+Sounds good, that also matches batch->active on powerpc/sparc.
 
-A buggy or malicious PV guest can access memory of PCI devices no longer
-assigned to it.
+>
+>> +};
+>> +
+>>   #endif /* _LINUX_MM_TYPES_TASK_H */
+>> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+>> index 194b2c3e7576..269225a733de 100644
+>> --- a/include/linux/pgtable.h
+>> +++ b/include/linux/pgtable.h
+>> @@ -228,28 +228,89 @@ static inline int pmd_dirty(pmd_t pmd)
+>>    * of the lazy mode. So the implementation must assume preemption
+>> may be enabled
+>>    * and cpu migration is possible; it must take steps to be robust
+>> against this.
+>>    * (In practice, for user PTE updates, the appropriate page table
+>> lock(s) are
+>> - * held, but for kernel PTE updates, no lock is held). Nesting is
+>> not permitted
+>> - * and the mode cannot be used in interrupt context.
+>> + * held, but for kernel PTE updates, no lock is held). The mode
+>> cannot be used
+>> + * in interrupt context.
+>> + *
+>> + * The lazy MMU mode is enabled for a given block of code using:
+>> + *
+>> + *   lazy_mmu_mode_enable();
+>> + *   <code>
+>> + *   lazy_mmu_mode_disable();
+>> + *
+>> + * Nesting is permitted: <code> may itself use an enable()/disable()
+>> pair.
+>> + * A nested call to enable() has no functional effect; however
+>> disable() causes
+>> + * any batched architectural state to be flushed regardless of
+>> nesting. After a
+>> + * call to disable(), the caller can therefore rely on all previous
+>> page table
+>> + * modifications to have taken effect, but the lazy MMU mode may
+>> still be
+>> + * enabled.
+>> + *
+>> + * In certain cases, it may be desirable to temporarily pause the
+>> lazy MMU mode.
+>> + * This can be done using:
+>> + *
+>> + *   lazy_mmu_mode_pause();
+>> + *   <code>
+>> + *   lazy_mmu_mode_resume();
+>> + *
+>> + * This sequence must only be used if the lazy MMU mode is already
+>> enabled.
+>> + * pause() ensures that the mode is exited regardless of the nesting
+>> level;
+>> + * resume() re-enters the mode at the same nesting level. <code>
+>> must not modify
+>> + * the lazy MMU state (i.e. it must not call any of the lazy_mmu_mode_*
+>> + * helpers).
+>> + *
+>> + * in_lazy_mmu_mode() can be used to check whether the lazy MMU mode is
+>> + * currently enabled.
+>>    */
+>>   #ifdef CONFIG_ARCH_LAZY_MMU
+>>   static inline void lazy_mmu_mode_enable(void)
+>>   {
+>> -    arch_enter_lazy_mmu_mode();
+>> +    struct lazy_mmu_state *state = &current->lazy_mmu_state;
+>> +
+>> +    VM_BUG_ON(state->count == U8_MAX);
+>
+> No VM_BUG_ON() please.
 
-VULNERABLE SYSTEMS
-==================
+I did wonder if this would be acceptable!
 
-Xen versions 4.0 and newer are vulnerable.
+What should we do in case of underflow/overflow then? Saturate or just
+let it wrap around? If an overflow occurs we're probably in some
+infinite recursion and we'll crash anyway, but an underflow is likely
+due to a double disable() and saturating would probably allow to recover.
 
-Only PV guests with PCI passthrough devices can leverage the vulnerability.
+>
+>> +    /* enable() must not be called while paused */
+>> +    VM_WARN_ON(state->count > 0 && !state->enabled);
+>> +
+>> +    if (state->count == 0) {
+>> +        arch_enter_lazy_mmu_mode();
+>> +        state->enabled = true;
+>> +    }
+>> +    ++state->count;
+>
+> Can do
+>
+> if (state->count++ == 0) {
 
-Only domains whose PCI devices are managed by the libxl library are affected.
-This includes the xl toolstack and xapi, which uses the xl toolstack when
-dealing with PCI devices.
+My idea here was to have exactly the reverse order between enable() and
+disable(), so that arch_enter() is called before lazy_mmu_state is
+updated, and arch_leave() afterwards. arch_* probably shouldn't rely on
+this (or care), but I liked the symmetry.
 
-HVM guests are also affected, but accessing the leaked memory requires an
-additional compromised component on the system.
+>
+>>   }
+>>     static inline void lazy_mmu_mode_disable(void)
+>>   {
+>> -    arch_leave_lazy_mmu_mode();
+>> +    struct lazy_mmu_state *state = &current->lazy_mmu_state;
+>> +
+>> +    VM_BUG_ON(state->count == 0);
+>
+> Dito.
+>
+>> +    VM_WARN_ON(!state->enabled);
+>> +
+>> +    --state->count;
+>> +    if (state->count == 0) {
+>
+> Can do
+>
+> if (--state->count == 0) {
+>
+>> +        state->enabled = false;
+>> +        arch_leave_lazy_mmu_mode();
+>> +    } else {
+>> +        /* Exiting a nested section */
+>> +        arch_flush_lazy_mmu_mode();
+>> +    }
+>>   }
+>>     static inline void lazy_mmu_mode_pause(void)
+>>   {
+>> +    struct lazy_mmu_state *state = &current->lazy_mmu_state;
+>> +
+>> +    VM_WARN_ON(state->count == 0 || !state->enabled);
+>> +
+>> +    state->enabled = false;
+>>       arch_leave_lazy_mmu_mode();
+>>   }
+>>     static inline void lazy_mmu_mode_resume(void)
+>>   {
+>> +    struct lazy_mmu_state *state = &current->lazy_mmu_state;
+>> +
+>> +    VM_WARN_ON(state->count == 0 || state->enabled);
+>> +
+>>       arch_enter_lazy_mmu_mode();
+>> +    state->enabled = true;
+>>   }
+>>   #else
+>>   static inline void lazy_mmu_mode_enable(void) {}
+>> diff --git a/include/linux/sched.h b/include/linux/sched.h
+>> index cbb7340c5866..2862d8bf2160 100644
+>> --- a/include/linux/sched.h
+>> +++ b/include/linux/sched.h
+>> @@ -1441,6 +1441,10 @@ struct task_struct {
+>>         struct page_frag        task_frag;
+>>   +#ifdef CONFIG_ARCH_LAZY_MMU
+>> +    struct lazy_mmu_state        lazy_mmu_state;
+>> +#endif
+>> +
+>>   #ifdef CONFIG_TASK_DELAY_ACCT
+>>       struct task_delay_info        *delays;
+>>   #endif
+>> @@ -1724,6 +1728,18 @@ static inline char task_state_to_char(struct
+>> task_struct *tsk)
+>>       return task_index_to_char(task_state_index(tsk));
+>>   }
+>>   +#ifdef CONFIG_ARCH_LAZY_MMU
+>> +static inline bool in_lazy_mmu_mode(void)
+>
+> So these functions will reveal the actual arch state, not whether
+> _enabled() was called.
+>
+> As I can see in later patches, in interrupt context they are also
+> return "not in lazy mmu mode". 
 
-MITIGATION
-==========
+Yes - the idea is that a task is in lazy MMU mode if it enabled it and
+is in process context. The mode is never enabled in interrupt context.
+This has always been the intention, but it wasn't formalised until patch
+12 (except on arm64).
 
-Not doing hot unplug of PCI devices will avoid the vulnerability.
-
-Passing through PCI devices to HVM domains only will also limit the impact, as
-an attacker would require another compromised component to exploit it.
-
-CREDITS
-=======
-
-This issue was discovered by Jiqian Chen of AMD and diagnosed as a
-security issue by Roger Pau Monné of XenServer.
-
-RESOLUTION
-==========
-
-Applying the attached patch resolves this issue.
-
-Note that patches for released versions are generally prepared to
-apply to the stable branches, and may not apply cleanly to the most
-recent release tarball.  Downstreams are encouraged to update to the
-tip of the stable branch before applying these patches.
-
-xsa476.patch           xen-unstable
-xsa476-4.20.patch      Xen 4.20.x - Xen 4.18.x
-xsa476-4.17.patch      Xen 4.17.x
-
-$ sha256sum xsa476*
-ee4c2fa73d38c5c699006b6317ba53f20343af0593ff9a8c38e7e59b69a0beca  xsa476.patch
-3b921545f023dc7d9d943d0d661e677711458a917630de14f0871b03db0f2148  xsa476-4.17.patch
-5babfaa3680de9950d3391a78e4956b5c18d54eaac9938c6cde2433a2ad3f27d  xsa476-4.20.patch
-$
-
-NOTE REGARDING LACK OF EMBARGO
-==============================
-
-This issue was discussed in public already.
------BEGIN PGP SIGNATURE-----
-
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmj7bXYMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZEIEH/ApNvYmMcqqEyOMgGV/VVmEMcXsAy1Ps3rMdDe9U
-YLsa7ugJLQ/kMI70y0qzws8Uc/kVftl6Z3NbvhpnBMdpurEbZnVuuPtV5I08BF7G
-23Qij+NNXSFdUzZVtgqz+POuhpVmrZgEwmg2HXsL1h2KgirUgwh5Nbs4ZuAlbz/f
-05tiljIdv4ntqz8sczUxUmtw3XuzcTu0GS8EtPSoAEC5paK72X+5i496qDKpgtqv
-gdnxqDL2s5ue3G029e9JA3pscVQTMYa3InNiHK28GAM2BW10op1JaxVl/JLN1zzL
-igpd+u6Fs73qNzcClXQ48YEBkCoTTIdhIrl0mSp4zTfN9dk=
-=MBxa
------END PGP SIGNATURE-----
-
---=separator
-Content-Type: application/octet-stream; name="xsa476.patch"
-Content-Disposition: attachment; filename="xsa476.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbTogSmlxaWFuIENoZW4gPEppcWlhbi5DaGVuQGFtZC5jb20+ClN1Ympl
-Y3Q6IHRvb2xzL2xpYnMvbGlnaHQ6IGZpeCBCQVIgbWVtb3J5IGFkZHJlc3Mg
-dHJ1bmNhdGlvbgoKNjQtYml0IEJBUiBtZW1vcnkgYWRkcmVzcyBpcyB0cnVu
-Y2F0ZWQgd2hlbiByZW1vdmluZyBhIHBhc3N0aHJvdWdoCnBjaSBkZXZpY2Ug
-ZnJvbSBndWVzdCBzaW5jZSBpdCB1c2VzICJ1bnNpZ25lZCBpbnQiLgoKU28s
-IGNoYW5nZSB0byB1c2UgNjQtYml0IHR5cGUgdG8gZml4IHRoaXMgcHJvYmxl
-bS4KClRoaXMgaXMgWFNBLTQ3NiAvIENWRS0yMDI1LTU4MTQ5LgoKRml4ZXM6
-IGIwYTFhZjYxNjc4YiAoImxpYnhlbmxpZ2h0OiBpbXBsZW1lbnQgcGNpIHBh
-c3N0aHJvdWdoIikKU2lnbmVkLW9mZi1ieTogSmlxaWFuIENoZW4gPEppcWlh
-bi5DaGVuQGFtZC5jb20+ClJlbGVhc2UtQWNrZWQtYnk6IE9sZWtzaWkgS3Vy
-b2Noa28gPG9sZWtzaWkua3Vyb2Noa29AZ21haWwuY29tPgpSZXZpZXdlZC1i
-eTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgpBY2tlZC1ieTog
-QW50aG9ueSBQRVJBUkQgPGFudGhvbnkucGVyYXJkQHZhdGVzLnRlY2g+Cgpk
-aWZmIC0tZ2l0IGEvdG9vbHMvbGlicy9saWdodC9saWJ4bF9wY2kuYyBiL3Rv
-b2xzL2xpYnMvbGlnaHQvbGlieGxfcGNpLmMKaW5kZXggMmVhMmNhZWI2NjI0
-Li40OWQyNzJkMGRlNjUgMTAwNjQ0Ci0tLSBhL3Rvb2xzL2xpYnMvbGlnaHQv
-bGlieGxfcGNpLmMKKysrIGIvdG9vbHMvbGlicy9saWdodC9saWJ4bF9wY2ku
-YwpAQCAtMjAwMSw3ICsyMDAxLDggQEAgc3RhdGljIHZvaWQgcGNpX3JlbW92
-ZV9kZXRhY2hlZChsaWJ4bF9fZWdjICplZ2MsCiB7CiAgICAgU1RBVEVfQU9f
-R0MocHJzLT5hb2Rldi0+YW8pOwogICAgIGxpYnhsX2N0eCAqY3R4ID0gbGli
-eGxfX2djX293bmVyKGdjKTsKLSAgICB1bnNpZ25lZCBpbnQgc3RhcnQgPSAw
-LCBlbmQgPSAwLCBmbGFncyA9IDAsIHNpemUgPSAwLCBpcnEgPSAwOworICAg
-IHVpbnQ2NF90IHN0YXJ0ID0gMCwgZW5kID0gMCwgZmxhZ3MgPSAwLCBzaXpl
-ID0gMDsKKyAgICB1bnNpZ25lZCBpbnQgaXJxID0gMDsKICAgICBpbnQgaSwg
-c3R1YmRvbWlkID0gMDsKICAgICBjb25zdCBjaGFyICpzeXNmc19wYXRoOwog
-ICAgIEZJTEUgKmY7CkBAIC0yMDMxLDcgKzIwMzIsOCBAQCBzdGF0aWMgdm9p
-ZCBwY2lfcmVtb3ZlX2RldGFjaGVkKGxpYnhsX19lZ2MgKmVnYywKICAgICB9
-CiAKICAgICBmb3IgKGkgPSAwOyBpIDwgUFJPQ19QQ0lfTlVNX1JFU09VUkNF
-UzsgaSsrKSB7Ci0gICAgICAgIGlmIChmc2NhbmYoZiwgIjB4JXggMHgleCAw
-eCV4XG4iLCAmc3RhcnQsICZlbmQsICZmbGFncykgIT0gMykKKyAgICAgICAg
-aWYgKGZzY2FuZihmLCAiMHglIlNDTng2NCIgMHglIlNDTng2NCIgMHglIlND
-Tng2NCJcbiIsCisgICAgICAgICAgICAgICAgICAgJnN0YXJ0LCAmZW5kLCAm
-ZmxhZ3MpICE9IDMpCiAgICAgICAgICAgICBjb250aW51ZTsKICAgICAgICAg
-c2l6ZSA9IGVuZCAtIHN0YXJ0ICsgMTsKICAgICAgICAgaWYgKHN0YXJ0KSB7
-CkBAIC0yMDQwLDcgKzIwNDIsNyBAQCBzdGF0aWMgdm9pZCBwY2lfcmVtb3Zl
-X2RldGFjaGVkKGxpYnhsX19lZ2MgKmVnYywKICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzaXplLCAwKTsKICAg
-ICAgICAgICAgICAgICBpZiAocmMgPCAwKQogICAgICAgICAgICAgICAgICAg
-ICBMT0dFRChFUlJPUiwgZG9taWQsCi0gICAgICAgICAgICAgICAgICAgICAg
-ICAgICJ4Y19kb21haW5faW9wb3J0X3Blcm1pc3Npb24gZXJyb3IgMHgleC8w
-eCV4IiwKKyAgICAgICAgICAgICAgICAgICAgICAgICAgInhjX2RvbWFpbl9p
-b3BvcnRfcGVybWlzc2lvbiBlcnJvciAlIyJQUkl4NjQiLyUjIlBSSXg2NCwK
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RhcnQsCiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHNpemUpOwogICAgICAgICAgICAgfSBlbHNlIHsK
-QEAgLTIwNTAsNyArMjA1Miw3IEBAIHN0YXRpYyB2b2lkIHBjaV9yZW1vdmVf
-ZGV0YWNoZWQobGlieGxfX2VnYyAqZWdjLAogICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMCk7CiAgICAgICAgICAg
-ICAgICAgaWYgKHJjIDwgMCkKICAgICAgICAgICAgICAgICAgICAgTE9HRUQo
-RVJST1IsIGRvbWlkLAotICAgICAgICAgICAgICAgICAgICAgICAgICAieGNf
-ZG9tYWluX2lvbWVtX3Blcm1pc3Npb24gZXJyb3IgMHgleC8weCV4IiwKKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgInhjX2RvbWFpbl9pb21lbV9wZXJt
-aXNzaW9uIGVycm9yICUjIlBSSXg2NCIvJSMiUFJJeDY0LAogICAgICAgICAg
-ICAgICAgICAgICAgICAgICBzdGFydCwKICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgc2l6ZSk7CiAgICAgICAgICAgICB9Cg==
-
---=separator
-Content-Type: application/octet-stream; name="xsa476-4.17.patch"
-Content-Disposition: attachment; filename="xsa476-4.17.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbTogSmlxaWFuIENoZW4gPEppcWlhbi5DaGVuQGFtZC5jb20+ClN1Ympl
-Y3Q6IHRvb2xzL2xpYnMvbGlnaHQ6IGZpeCBCQVIgbWVtb3J5IGFkZHJlc3Mg
-dHJ1bmNhdGlvbgoKNjQtYml0IEJBUiBtZW1vcnkgYWRkcmVzcyBpcyB0cnVu
-Y2F0ZWQgd2hlbiByZW1vdmluZyBhIHBhc3N0aHJvdWdoCnBjaSBkZXZpY2Ug
-ZnJvbSBndWVzdCBzaW5jZSBpdCB1c2VzICJ1bnNpZ25lZCBpbnQiLgoKU28s
-IGNoYW5nZSB0byB1c2UgNjQtYml0IHR5cGUgdG8gZml4IHRoaXMgcHJvYmxl
-bS4KClRoaXMgaXMgWFNBLTQ3NiAvIENWRS0yMDI1LTU4MTQ5LgoKRml4ZXM6
-IGIwYTFhZjYxNjc4YiAoImxpYnhlbmxpZ2h0OiBpbXBsZW1lbnQgcGNpIHBh
-c3N0aHJvdWdoIikKU2lnbmVkLW9mZi1ieTogSmlxaWFuIENoZW4gPEppcWlh
-bi5DaGVuQGFtZC5jb20+ClJlbGVhc2UtQWNrZWQtYnk6IE9sZWtzaWkgS3Vy
-b2Noa28gPG9sZWtzaWkua3Vyb2Noa29AZ21haWwuY29tPgpSZXZpZXdlZC1i
-eTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgpBY2tlZC1ieTog
-QW50aG9ueSBQRVJBUkQgPGFudGhvbnkucGVyYXJkQHZhdGVzLnRlY2g+Cgpk
-aWZmIC0tZ2l0IGEvdG9vbHMvbGlicy9saWdodC9saWJ4bF9wY2kuYyBiL3Rv
-b2xzL2xpYnMvbGlnaHQvbGlieGxfcGNpLmMKaW5kZXggZjRjNGYxNzU0NTRk
-Li4zN2UyZTI2MjQ3N2UgMTAwNjQ0Ci0tLSBhL3Rvb2xzL2xpYnMvbGlnaHQv
-bGlieGxfcGNpLmMKKysrIGIvdG9vbHMvbGlicy9saWdodC9saWJ4bF9wY2ku
-YwpAQCAtMTk5NSw3ICsxOTk1LDcgQEAgc3RhdGljIHZvaWQgZG9fcGNpX3Jl
-bW92ZShsaWJ4bF9fZWdjICplZ2MsIHBjaV9yZW1vdmVfc3RhdGUgKnBycykK
-ICAgICAgICAgY2hhciAqc3lzZnNfcGF0aCA9IEdDU1BSSU5URihTWVNGU19Q
-Q0lfREVWIi8iUENJX0JERiIvcmVzb3VyY2UiLCBwY2ktPmRvbWFpbiwKICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwY2ktPmJ1cywg
-cGNpLT5kZXYsIHBjaS0+ZnVuYyk7CiAgICAgICAgIEZJTEUgKmYgPSBmb3Bl
-bihzeXNmc19wYXRoLCAiciIpOwotICAgICAgICB1bnNpZ25lZCBpbnQgc3Rh
-cnQgPSAwLCBlbmQgPSAwLCBmbGFncyA9IDAsIHNpemUgPSAwOworICAgICAg
-ICB1aW50NjRfdCBzdGFydCA9IDAsIGVuZCA9IDAsIGZsYWdzID0gMCwgc2l6
-ZSA9IDA7CiAgICAgICAgIGludCBpcnEgPSAwOwogICAgICAgICBpbnQgaTsK
-IApAQCAtMjAwNCw3ICsyMDA0LDggQEAgc3RhdGljIHZvaWQgZG9fcGNpX3Jl
-bW92ZShsaWJ4bF9fZWdjICplZ2MsIHBjaV9yZW1vdmVfc3RhdGUgKnBycykK
-ICAgICAgICAgICAgIGdvdG8gc2tpcDE7CiAgICAgICAgIH0KICAgICAgICAg
-Zm9yIChpID0gMDsgaSA8IFBST0NfUENJX05VTV9SRVNPVVJDRVM7IGkrKykg
-ewotICAgICAgICAgICAgaWYgKGZzY2FuZihmLCAiMHgleCAweCV4IDB4JXhc
-biIsICZzdGFydCwgJmVuZCwgJmZsYWdzKSAhPSAzKQorICAgICAgICAgICAg
-aWYgKGZzY2FuZihmLCAiMHglIlNDTng2NCIgMHglIlNDTng2NCIgMHglIlND
-Tng2NCJcbiIsCisgICAgICAgICAgICAgICAgICAgICAgICZzdGFydCwgJmVu
-ZCwgJmZsYWdzKSAhPSAzKQogICAgICAgICAgICAgICAgIGNvbnRpbnVlOwog
-ICAgICAgICAgICAgc2l6ZSA9IGVuZCAtIHN0YXJ0ICsgMTsKICAgICAgICAg
-ICAgIGlmIChzdGFydCkgewpAQCAtMjAxMiw3ICsyMDEzLDcgQEAgc3RhdGlj
-IHZvaWQgZG9fcGNpX3JlbW92ZShsaWJ4bF9fZWdjICplZ2MsIHBjaV9yZW1v
-dmVfc3RhdGUgKnBycykKICAgICAgICAgICAgICAgICAgICAgcmMgPSB4Y19k
-b21haW5faW9wb3J0X3Blcm1pc3Npb24oY3R4LT54Y2gsIGRvbWlkLCBzdGFy
-dCwgc2l6ZSwgMCk7CiAgICAgICAgICAgICAgICAgICAgIGlmIChyYyA8IDAp
-CiAgICAgICAgICAgICAgICAgICAgICAgICBMT0dFRChFUlJPUiwgZG9tYWlu
-aWQsCi0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAieGNfZG9tYWlu
-X2lvcG9ydF9wZXJtaXNzaW9uIGVycm9yIDB4JXgvMHgleCIsCisgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAieGNfZG9tYWluX2lvcG9ydF9wZXJt
-aXNzaW9uIGVycm9yICUjIlBSSXg2NCIvJSMiUFJJeDY0LAogICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgc3RhcnQsCiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBzaXplKTsKICAgICAgICAgICAgICAgICB9IGVsc2Ug
-ewpAQCAtMjAyMCw3ICsyMDIxLDcgQEAgc3RhdGljIHZvaWQgZG9fcGNpX3Jl
-bW92ZShsaWJ4bF9fZWdjICplZ2MsIHBjaV9yZW1vdmVfc3RhdGUgKnBycykK
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAoc2l6ZSsoWENfUEFHRV9TSVpFLTEpKT4+WENfUEFHRV9TSElG
-VCwgMCk7CiAgICAgICAgICAgICAgICAgICAgIGlmIChyYyA8IDApCiAgICAg
-ICAgICAgICAgICAgICAgICAgICBMT0dFRChFUlJPUiwgZG9tYWluaWQsCi0g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAieGNfZG9tYWluX2lvbWVt
-X3Blcm1pc3Npb24gZXJyb3IgMHgleC8weCV4IiwKKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICJ4Y19kb21haW5faW9tZW1fcGVybWlzc2lvbiBl
-cnJvciAlIyJQUkl4NjQiLyUjIlBSSXg2NCwKICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHN0YXJ0LAogICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgc2l6ZSk7CiAgICAgICAgICAgICAgICAgfQo=
-
---=separator
-Content-Type: application/octet-stream; name="xsa476-4.20.patch"
-Content-Disposition: attachment; filename="xsa476-4.20.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbTogSmlxaWFuIENoZW4gPEppcWlhbi5DaGVuQGFtZC5jb20+ClN1Ympl
-Y3Q6IHRvb2xzL2xpYnMvbGlnaHQ6IGZpeCBCQVIgbWVtb3J5IGFkZHJlc3Mg
-dHJ1bmNhdGlvbgoKNjQtYml0IEJBUiBtZW1vcnkgYWRkcmVzcyBpcyB0cnVu
-Y2F0ZWQgd2hlbiByZW1vdmluZyBhIHBhc3N0aHJvdWdoCnBjaSBkZXZpY2Ug
-ZnJvbSBndWVzdCBzaW5jZSBpdCB1c2VzICJ1bnNpZ25lZCBpbnQiLgoKU28s
-IGNoYW5nZSB0byB1c2UgNjQtYml0IHR5cGUgdG8gZml4IHRoaXMgcHJvYmxl
-bS4KClRoaXMgaXMgWFNBLTQ3NiAvIENWRS0yMDI1LTU4MTQ5LgoKRml4ZXM6
-IGIwYTFhZjYxNjc4YiAoImxpYnhlbmxpZ2h0OiBpbXBsZW1lbnQgcGNpIHBh
-c3N0aHJvdWdoIikKU2lnbmVkLW9mZi1ieTogSmlxaWFuIENoZW4gPEppcWlh
-bi5DaGVuQGFtZC5jb20+ClJlbGVhc2UtQWNrZWQtYnk6IE9sZWtzaWkgS3Vy
-b2Noa28gPG9sZWtzaWkua3Vyb2Noa29AZ21haWwuY29tPgpSZXZpZXdlZC1i
-eTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgpBY2tlZC1ieTog
-QW50aG9ueSBQRVJBUkQgPGFudGhvbnkucGVyYXJkQHZhdGVzLnRlY2g+Cgpk
-aWZmIC0tZ2l0IGEvdG9vbHMvbGlicy9saWdodC9saWJ4bF9wY2kuYyBiL3Rv
-b2xzL2xpYnMvbGlnaHQvbGlieGxfcGNpLmMKaW5kZXggMTY0N2ZkNmY0NzU2
-Li43YWY2MDIyMjRhYmEgMTAwNjQ0Ci0tLSBhL3Rvb2xzL2xpYnMvbGlnaHQv
-bGlieGxfcGNpLmMKKysrIGIvdG9vbHMvbGlicy9saWdodC9saWJ4bF9wY2ku
-YwpAQCAtMjE3OSw3ICsyMTc5LDcgQEAgc3RhdGljIHZvaWQgcGNpX3JlbW92
-ZV9kZXRhY2hlZChsaWJ4bF9fZWdjICplZ2MsCiB7CiAgICAgU1RBVEVfQU9f
-R0MocHJzLT5hb2Rldi0+YW8pOwogICAgIGxpYnhsX2N0eCAqY3R4ID0gbGli
-eGxfX2djX293bmVyKGdjKTsKLSAgICB1bnNpZ25lZCBpbnQgc3RhcnQgPSAw
-LCBlbmQgPSAwLCBmbGFncyA9IDAsIHNpemUgPSAwOworICAgIHVpbnQ2NF90
-IHN0YXJ0ID0gMCwgZW5kID0gMCwgZmxhZ3MgPSAwLCBzaXplID0gMDsKICAg
-ICBpbnQgIGlycSA9IDAsIGksIHN0dWJkb21pZCA9IDA7CiAgICAgY29uc3Qg
-Y2hhciAqc3lzZnNfcGF0aDsKICAgICBGSUxFICpmOwpAQCAtMjIwOSw3ICsy
-MjA5LDggQEAgc3RhdGljIHZvaWQgcGNpX3JlbW92ZV9kZXRhY2hlZChsaWJ4
-bF9fZWdjICplZ2MsCiAgICAgfQogCiAgICAgZm9yIChpID0gMDsgaSA8IFBS
-T0NfUENJX05VTV9SRVNPVVJDRVM7IGkrKykgewotICAgICAgICBpZiAoZnNj
-YW5mKGYsICIweCV4IDB4JXggMHgleFxuIiwgJnN0YXJ0LCAmZW5kLCAmZmxh
-Z3MpICE9IDMpCisgICAgICAgIGlmIChmc2NhbmYoZiwgIjB4JSJTQ054NjQi
-IDB4JSJTQ054NjQiIDB4JSJTQ054NjQiXG4iLAorICAgICAgICAgICAgICAg
-ICAgICZzdGFydCwgJmVuZCwgJmZsYWdzKSAhPSAzKQogICAgICAgICAgICAg
-Y29udGludWU7CiAgICAgICAgIHNpemUgPSBlbmQgLSBzdGFydCArIDE7CiAg
-ICAgICAgIGlmIChzdGFydCkgewpAQCAtMjIxOCw3ICsyMjE5LDcgQEAgc3Rh
-dGljIHZvaWQgcGNpX3JlbW92ZV9kZXRhY2hlZChsaWJ4bF9fZWdjICplZ2Ms
-CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgc2l6ZSwgMCk7CiAgICAgICAgICAgICAgICAgaWYgKHJjIDwgMCkK
-ICAgICAgICAgICAgICAgICAgICAgTE9HRUQoRVJST1IsIGRvbWlkLAotICAg
-ICAgICAgICAgICAgICAgICAgICAgICAieGNfZG9tYWluX2lvcG9ydF9wZXJt
-aXNzaW9uIGVycm9yIDB4JXgvMHgleCIsCisgICAgICAgICAgICAgICAgICAg
-ICAgICAgICJ4Y19kb21haW5faW9wb3J0X3Blcm1pc3Npb24gZXJyb3IgJSMi
-UFJJeDY0Ii8lIyJQUkl4NjQsCiAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHN0YXJ0LAogICAgICAgICAgICAgICAgICAgICAgICAgICBzaXplKTsKICAg
-ICAgICAgICAgIH0gZWxzZSB7CkBAIC0yMjI4LDcgKzIyMjksNyBAQCBzdGF0
-aWMgdm9pZCBwY2lfcmVtb3ZlX2RldGFjaGVkKGxpYnhsX19lZ2MgKmVnYywK
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIDApOwogICAgICAgICAgICAgICAgIGlmIChyYyA8IDApCiAgICAgICAg
-ICAgICAgICAgICAgIExPR0VEKEVSUk9SLCBkb21pZCwKLSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgInhjX2RvbWFpbl9pb21lbV9wZXJtaXNzaW9uIGVy
-cm9yIDB4JXgvMHgleCIsCisgICAgICAgICAgICAgICAgICAgICAgICAgICJ4
-Y19kb21haW5faW9tZW1fcGVybWlzc2lvbiBlcnJvciAlIyJQUkl4NjQiLyUj
-IlBSSXg2NCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RhcnQsCiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHNpemUpOwogICAgICAgICAgICAg
-fQo=
-
---=separator--
+- Kevin
 
