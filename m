@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A45F5C0A436
-	for <lists+xen-devel@lfdr.de>; Sun, 26 Oct 2025 08:39:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1151312.1481938 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A01A3C0A64C
+	for <lists+xen-devel@lfdr.de>; Sun, 26 Oct 2025 11:54:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1151341.1481948 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCvKp-0006Og-Sd; Sun, 26 Oct 2025 07:38:39 +0000
+	id 1vCyNG-0004Ni-Bx; Sun, 26 Oct 2025 10:53:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1151312.1481938; Sun, 26 Oct 2025 07:38:39 +0000
+Received: by outflank-mailman (output) from mailman id 1151341.1481948; Sun, 26 Oct 2025 10:53:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vCvKp-0006MH-PP; Sun, 26 Oct 2025 07:38:39 +0000
-Received: by outflank-mailman (input) for mailman id 1151312;
- Sun, 26 Oct 2025 07:38:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=W+PR=5D=kernel.org=leon@srs-se1.protection.inumbo.net>)
- id 1vCvKo-0006MB-Km
- for xen-devel@lists.xenproject.org; Sun, 26 Oct 2025 07:38:38 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org
- [2600:3c04:e001:324:0:1991:8:25])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c6eca9b4-b23e-11f0-9d16-b5c5bf9af7f9;
- Sun, 26 Oct 2025 08:38:35 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 10582602B6;
- Sun, 26 Oct 2025 07:38:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBEC0C4CEE7;
- Sun, 26 Oct 2025 07:38:31 +0000 (UTC)
+	id 1vCyNG-0004MH-92; Sun, 26 Oct 2025 10:53:22 +0000
+Received: by outflank-mailman (input) for mailman id 1151341;
+ Sun, 26 Oct 2025 10:53:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1QZq=5D=wanadoo.fr=christophe.jaillet@srs-se1.protection.inumbo.net>)
+ id 1vCyND-0004M9-IX
+ for xen-devel@lists.xenproject.org; Sun, 26 Oct 2025 10:53:20 +0000
+Received: from smtp.smtpout.orange.fr (smtp-74.smtpout.orange.fr
+ [80.12.242.74]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f7cee1de-b259-11f0-980a-7dc792cee155;
+ Sun, 26 Oct 2025 11:53:13 +0100 (CET)
+Received: from fedora.home ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
+ by smtp.orange.fr with ESMTPA
+ id CyN1vAKxM7TjyCyN1vOFVf; Sun, 26 Oct 2025 11:53:11 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,79 +39,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6eca9b4-b23e-11f0-9d16-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1761464312;
-	bh=tE6duDWkMhf/izPfcVJAu0QGF5RniuWMZJNurHMPV4k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=m+Fmvy/TkbKsHE/ly3nNuV5cMvplX6wPfLQ8hDaDmyX3wLacnUE7JOG/nZvuUxvmv
-	 CczVISfw5M2fl/jL4dxMpQZjR+1heTwgUYiFF7wTs743d7UeCv0GILFXzjGlxgVBC0
-	 oE76qdMbU/6QmYSolZLhh/1ehXnuAH4Wfx1TxENucSoXAohh6TFciSEQZaKMP7NYm1
-	 JNqz8+TYhassoC4ST69Mi5FA0Qr+hRmr+2UhbjR5EKFyOegX19oAs4ZZ/0v57u0VQ0
-	 /l9R6yk8RlGVj+rmA/30TcaUiEVUwLELSxYEgJrK1wn3ZV8WITcnHNlOkzodvgsSHW
-	 uuxeQvWuJFb7A==
-Date: Sun, 26 Oct 2025 09:38:28 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Robin Murphy <robin.murphy@arm.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Matt Turner <mattst88@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Geoff Levand <geoff@infradead.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	xen-devel@lists.xenproject.org, linux-alpha@vger.kernel.org,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
-	Magnus Lindholm <linmag7@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v5 00/14] Remove DMA map_page/map_resource and their
- unmap callbacks
-Message-ID: <20251026073828.GC12554@unreal>
-References: <CGME20251015091313eucas1p2426ae40b579d7f3b4f29b46e0e788c0d@eucas1p2.samsung.com>
- <20251015-remove-map-page-v5-0-3bbfe3a25cdf@kernel.org>
- <4a47088d-6542-45f2-917b-c91f7dd1eb1a@samsung.com>
+X-Inumbo-ID: f7cee1de-b259-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1761475991;
+	bh=nLTWNBJbJPgxe0pVePlYQcmuPVBtcUlK4ki+WghVXJE=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=dN663kkOmoL1Yqtgf9bVfvFh8G1TTPKem18dWi4I2911mqyC5iut+ymVsKal1toGP
+	 GK2J+gdGuZka/JHwzkIIsdZqTBFkb0js8kNl5iB3pR50ziH/u1rNduIQ4sO0mvhz+h
+	 r0haMKkGv2xttG7+CRbFMzhDseidaiRZA0//eHz8jxK7n7Q2LEpT7ZFzk9UhGDS2vQ
+	 hs7S09rfKLv1agePW2zPKkANzCpOxohm204s/HZ6MMIfoxg7+caSI+oC8vej2XXr2W
+	 bFem56uVJRHEESHx87OXSlVcO7/2+dZYhcXcm0zf3u7Wkrklk7P+L1lzkkfi5Myktc
+	 +gIqKDc6ftgpA==
+X-ME-Helo: fedora.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sun, 26 Oct 2025 11:53:11 +0100
+X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Juergen Gross <jgross@suse.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	xen-devel@lists.xenproject.org,
+	linux-usb@vger.kernel.org
+Subject: [PATCH] xen/usb: Constify struct hc_driver
+Date: Sun, 26 Oct 2025 11:51:04 +0100
+Message-ID: <63241c9e857646d895ce615b998d41ee4829f9e3.1761475831.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4a47088d-6542-45f2-917b-c91f7dd1eb1a@samsung.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 20, 2025 at 06:27:32PM +0200, Marek Szyprowski wrote:
-> Dear All,
-> 
-> On 15.10.2025 11:12, Leon Romanovsky wrote:
-> > This series is a combination of previous two steps [1, 2] to reduce
-> > number of accesses to struct page in the code "below" DMA layer.
-> >
-> > In this series, the DMA .map_page/.map_resource/.unmap_page/.unmap_resource
-> > callbacks are converted to newly introduced .map_phys/.unmap_phys interfaces.
-> 
-> I would like to have some acks from respective arch maintainers before 
-> applying this patchset.
+'struct hc_driver' is not modified in this driver.
 
-If to judge by git log and lore for some of these arch (didn't check all),
-you won't get any response and will need to make a call by yourself.
+Constifying this structure moves some data to a read-only section, so
+increases overall security, especially when the structure holds some
+function pointers.
 
-Thanks
+On a x86_64, with allmodconfig, as an example:
+Before:
+======
+   text	   data	    bss	    dec	    hex	filename
+  52065	  23176	    256	  75497	  126e9	drivers/usb/host/xen-hcd.o
 
-> 
-> Best regards
-> -- 
-> Marek Szyprowski, PhD
-> Samsung R&D Institute Poland
-> 
+After:
+=====
+   text	   data	    bss	    dec	    hex	filename
+  52897	  22344	    256	  75497	  126e9	drivers/usb/host/xen-hcd.o
+
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+ drivers/usb/host/xen-hcd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/host/xen-hcd.c b/drivers/usb/host/xen-hcd.c
+index 1c2a95fe41e5..0a94d302911a 100644
+--- a/drivers/usb/host/xen-hcd.c
++++ b/drivers/usb/host/xen-hcd.c
+@@ -1388,7 +1388,7 @@ static int xenhcd_get_frame(struct usb_hcd *hcd)
+ 	return 0;
+ }
+ 
+-static struct hc_driver xenhcd_usb20_hc_driver = {
++static const struct hc_driver xenhcd_usb20_hc_driver = {
+ 	.description = "xen-hcd",
+ 	.product_desc = "Xen USB2.0 Virtual Host Controller",
+ 	.hcd_priv_size = sizeof(struct xenhcd_info),
+@@ -1413,7 +1413,7 @@ static struct hc_driver xenhcd_usb20_hc_driver = {
+ #endif
+ };
+ 
+-static struct hc_driver xenhcd_usb11_hc_driver = {
++static const struct hc_driver xenhcd_usb11_hc_driver = {
+ 	.description = "xen-hcd",
+ 	.product_desc = "Xen USB1.1 Virtual Host Controller",
+ 	.hcd_priv_size = sizeof(struct xenhcd_info),
+-- 
+2.51.0
+
 
