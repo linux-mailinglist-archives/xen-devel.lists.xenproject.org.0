@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59BF6C0E6E7
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Oct 2025 15:31:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1151639.1482161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D565C0EE96
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Oct 2025 16:21:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1151660.1482188 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDOFY-0005Iv-JY; Mon, 27 Oct 2025 14:31:08 +0000
+	id 1vDP1j-0003R0-A8; Mon, 27 Oct 2025 15:20:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1151639.1482161; Mon, 27 Oct 2025 14:31:08 +0000
+Received: by outflank-mailman (output) from mailman id 1151660.1482188; Mon, 27 Oct 2025 15:20:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDOFY-0005Gr-Gw; Mon, 27 Oct 2025 14:31:08 +0000
-Received: by outflank-mailman (input) for mailman id 1151639;
- Mon, 27 Oct 2025 14:31:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vDP1j-0003Oq-5r; Mon, 27 Oct 2025 15:20:55 +0000
+Received: by outflank-mailman (input) for mailman id 1151660;
+ Mon, 27 Oct 2025 15:20:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=G4SB=5E=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vDOFX-0005Gl-4E
- for xen-devel@lists.xenproject.org; Mon, 27 Oct 2025 14:31:07 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 91ee561e-b341-11f0-980a-7dc792cee155;
- Mon, 27 Oct 2025 15:31:05 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-b4539dddd99so1008428466b.1
- for <xen-devel@lists.xenproject.org>; Mon, 27 Oct 2025 07:31:05 -0700 (PDT)
+ id 1vDP1h-0003Ok-6E
+ for xen-devel@lists.xenproject.org; Mon, 27 Oct 2025 15:20:53 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 866cda65-b348-11f0-9d16-b5c5bf9af7f9;
+ Mon, 27 Oct 2025 16:20:52 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-b4aed12cea3so553059466b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Oct 2025 08:20:52 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-71-38.play-internet.pl.
  [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b6d85369675sm778799266b.28.2025.10.27.07.31.03
+ a640c23a62f3a-b6d8548ed9asm803431166b.74.2025.10.27.08.20.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Oct 2025 07:31:04 -0700 (PDT)
+ Mon, 27 Oct 2025 08:20:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +45,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91ee561e-b341-11f0-980a-7dc792cee155
+X-Inumbo-ID: 866cda65-b348-11f0-9d16-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761575465; x=1762180265; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1761578452; x=1762183252; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iWsQYdmSEA3AYPPNF1u/HnsB2NQEgzlOOS+xrBhNF4A=;
-        b=HT5PE04Nlll7rHhDI5yZz19ykikM6tQsxHr01RtfRrVLkdzv8XgVlutvt9Qml20jrZ
-         AXYsQSkCb7PsjGqV4rdXU/gPEEvpHbVDUX9+4AmtrJXCRe7dDyXIOgxiXZqt6RRt8Nbx
-         Kjp3Kt7qWyXWsCw73DO6JU+3lY2WQyMlXN3E0mqhm7uGPO46WtycSWjokTg9Y2Y52ejC
-         YGaazENCppJliXnCYm6PVmSg8pVVJD7zYPw0NOh1Ams1iABaQH5Tzqvl9EjDlh0q7pu/
-         SM9VX87H41RVgQVA2mcs7J+Dhs85azCNrP+ec0PoxiTsXPijK2ZIYrms8XxnENKTjsrW
-         h40g==
+        bh=TAaz6eSVpPT4hNFpdPas/PK6GnS38dbcX7vbAZdguI4=;
+        b=Rk/AxT15wuoeiV1100ZXk24oEQysg2SeERFv1xVkPy6nkZkWJrtzTplDiUq73XNxmA
+         FWlzpwzzCE6SnH6BKzfzAeDZYuQIy0qgElPVp5cL+PmXjNf0zU4zPgdnO7dNb/ew2Abr
+         uL9dGQJbN2YuQR5nfL1ONfr2v0VdVdaHY22SpOX3yKUr/MHheZEICDNPzJtyOWx1GQbU
+         a0feEwVQ7ji0BOuR18XY9JRgaAVlgEj2/7o2azgCsTk1a3Qe97Gk9+tX+nJO7xjz/DWt
+         qbFX5C8YbJ76AVeKkosOUV0e9f9qjHGN2xtphTgvGcgx9wVPwCnGqWACguBmJ1wMUzks
+         CK2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761575465; x=1762180265;
+        d=1e100.net; s=20230601; t=1761578452; x=1762183252;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=iWsQYdmSEA3AYPPNF1u/HnsB2NQEgzlOOS+xrBhNF4A=;
-        b=qTUdO7jpK71R25K7cLWDJAbYnU94gqWdKzeuf3evzR9lp3b/J+vxiGCfB8V2V89Syn
-         UZCImhuQk+xh1kY0ubBp6AwbEsHaCht5S977DZRd4eLWw3/ZmJcEo2WjnsJur4pxKmeT
-         CEmuUQfitnDxAIgWcZszh3biSq/6L3TVwC6qM8ILMlSx8mQGrKxgihSvBra7KHNsQlv4
-         wptjVo6Bc3JkDAAoRL+rU/7GJc+IuEbTI0Yyj/N5PzrDTglFftoY6XuZ1+8rjWwYddhd
-         Mywf03RE6y8CsuRHTqgLPzIR1SaTkgLasQcpzWVdv/E/jKhtErsgPcZKzOIwSOmUmfyw
-         9V3Q==
-X-Gm-Message-State: AOJu0YyctRsza6bFNZtLVY+8I43QbdkpZbWqweTfNiLM75O5ji8RxpO7
-	cbfkXMbEU3NeUPV4Iz7mncW86gV6C8JTtFbLWknhJc1FVPun4B5qB+BO
-X-Gm-Gg: ASbGncvWCBChk3P0LIn6CML8y2e5kT08f7P8NlyamilflGpU65m8SIscm3Zx77lx+XA
-	Wlz+DxD6VBP1ih4yN8xrgZGnpYg/eFV1kFUIVKS4k6224f1YbJkJkKevbZMk0erqKsdBfqaYTsZ
-	QFl16iwrz3IcyToKII7FgcincGikIomyvqyGS+9Fzf+xxeZqlS/j3yD9q3ZtMy6eiERiuH1JqU/
-	ZisTseL5nbyc3Sh7WSPdyHn1Vd7Chwb+Q88HYZqjHRmwQ4AnYuslFUQdtR/1MWSSiMw6RKm75+6
-	lu/a+06p3TfNE2hQPWIUfkMmvU5c/wYHSu0IjtZYOYBPrizzscbXZadtazjxCY6WxYehZQ3euCH
-	mCOZnqI3RvLo6DmbsxbtSn6OR3s3qxAYwJu5dl6PBBwDl4+HB1B5Qoms5qhgE0P9y/5zpi1W7nZ
-	55yC/+b7yVWkKuSFsU547xmMRYnRAAkzAJ1upifIvLNyWupzcaBhS5CSaN7FxR
-X-Google-Smtp-Source: AGHT+IGqzEU8NfhfhawBx9/p4FVKFX3kG51rKMutNy1tpwEf0DRYXtjw9R2yDzefiW/BDTB2MPgo+Q==
-X-Received: by 2002:a17:907:3c89:b0:b04:32ff:5d3a with SMTP id a640c23a62f3a-b6dba1d92fbmr17752766b.0.1761575464382;
-        Mon, 27 Oct 2025 07:31:04 -0700 (PDT)
+        bh=TAaz6eSVpPT4hNFpdPas/PK6GnS38dbcX7vbAZdguI4=;
+        b=A/y1APt9mJ0qFPf1fRYhuPtr0YHB674DM0pTzJIhio8foJINm/Td6IYAkJ4qyevSDO
+         ltp0TouxaOeyOcc2VTYTYVBvjMmTiUBPnFacaCMsaNhz/GGzjJEysaL+zC0yR1+Nji8k
+         WMHB5SNOkY2jfWMfsNwKc5jM+H1rq2OeB17Eux8dfeyEpyYABjtziw1NfJEeFzOOI24J
+         SCFNGamlcN7jy9t45CWmSsU7eKF+rYCOYfrZj4SQSCH6K6nI4T+VIPFhVvVDQKHsIHqH
+         mAtprSzoHHGUvjmuYwXFGCGmlWAti/0AjgMIS7nQnoRA5jlLobHv3MlqFLmobCIJouvK
+         9I5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXxq9nb7VIduOrBu2HzTl1bzH2DNi42ItSnBZZrFaxO7CmBU6mc/4S1t93jkO6c91v+Tx0UQOqMEcU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwezLJy+p4t3sMeS8sqUOaagvclvWEs2eSxUZVoVZMzuZdP3mCz
+	tbxdeMdqiNdL5piKT3Jx2VWBgi2Ay+fHhstPhj5l43uXCLzsIsyRKPUF
+X-Gm-Gg: ASbGncshJUpKZ1KLaFo+FIrcPT/zo+zZK3OlzlvwxRrI0yC/y93Q+i40RgLw+1QiQmv
+	tKXJjzR1r5jlvB3e0M4JMquRe+M7DYrZkmEF752cZFFGJOrH6IE+AeuicvAbccDNJbcN882gPVv
+	KuAWdcyCfSLwmgbIUZIqiTusLftslCYppzGuLE74Q68bx5Z0bpwtkMej8Wdx6ImswrP7VQMQgRO
+	P1i7BPzikrWDf9TtViVAsLXFLv7mBgDbPiju5SZ/VgojAIXn8r7sQEz0Dv+VI9fOyfnzDDeCBLc
+	y7grtCvtybe5zdJyBrRQn3Z0qwA3EXttrF9TmpN3fG9iSCa9FYpwUI4+/cIrJcJWcpHVFb7Sk2E
+	tUVtqCea9T/ZVS4D8O2nYBrMlba0hLNQugxv/JLIBtyf2mgaNtrNSz9I/OVgmD+d2u+Xq7A/Gxr
+	BPCjhE7Msw+DAKGhgjjD1Obhys6l/RwVVGhJnxfVrYJZAIXFmv1g==
+X-Google-Smtp-Source: AGHT+IGv6ymCC5PAp5yVwSLqfFzNPVvh9X7DSPDZLpSVnspjcNK2EyEevtn34Jv+Ffpvs0z8j6SUBw==
+X-Received: by 2002:a17:907:3d4c:b0:b2e:6b3b:fbe7 with SMTP id a640c23a62f3a-b6dba1d8281mr32401066b.0.1761578451555;
+        Mon, 27 Oct 2025 08:20:51 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------IcZUoRiqwiT8kiWUm8eoTfFW"
-Message-ID: <90670a5b-49e9-4463-9169-f1f4ac6028d5@gmail.com>
-Date: Mon, 27 Oct 2025 15:31:03 +0100
+ boundary="------------04L3DWwv1Y96bY50wSKtZ6dg"
+Message-ID: <3939c358-5274-49a6-83f3-1d7aa947bfa6@gmail.com>
+Date: Mon, 27 Oct 2025 16:20:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] xen: randconfig fixes
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, jbeulich@suse.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com
-References: <alpine.DEB.2.22.394.2510221616570.495094@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2510231051270.495094@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v3 for-4.21 3/9] x86/HPET: replace
+ handle_hpet_broadcast()'s on-stack cpumask_t
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <6a8a912c-7276-42bd-af2b-b94fc6ce4291@suse.com>
+ <dcea0975-8642-46b6-ad79-ec76cb8a76f1@suse.com>
+ <b10cd3de-0449-483e-bc84-791ddda59c53@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <alpine.DEB.2.22.394.2510231051270.495094@ubuntu-linux-20-04-desktop>
+In-Reply-To: <b10cd3de-0449-483e-bc84-791ddda59c53@suse.com>
 
 This is a multi-part message in MIME format.
---------------IcZUoRiqwiT8kiWUm8eoTfFW
+--------------04L3DWwv1Y96bY50wSKtZ6dg
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hello Stefano,
 
+On 10/27/25 1:25 PM, Jan Beulich wrote:
+> On 23.10.2025 17:51, Jan Beulich wrote:
+>> With large NR_CPUS on-stack cpumask_t variables are problematic. Now that
+>> the IRQ handler can't be invoked in a nested manner anymore, we can
+>> instead use a per-CPU variable. While we can't use scratch_cpumask in code
+>> invoked from IRQ handlers, simply amend that one with a HPET-special form.
+>> (Note that only one of the two IRQ handling functions can come into play
+>> at any one time.)
+>>
+>> Fixes: 996576b965cc ("xen: allow up to 16383 cpus")
+>> Signed-off-by: Jan Beulich<jbeulich@suse.com>
+>> Reviewed-by: Roger Pau Monné<roger.pau@citrix.com>
+> Views towards 4.21?
 
-On 10/23/25 7:51 PM, Stefano Stabellini wrote:
-> Hi Oleksii,
->
-> The two patches solved the problem and survived 1000 iterations on
-> gitlab. They are reviewed and acked.
+Release-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-Good to hear that the solution has been found, so ...
-
->
-> Can I go ahead and commit them to staging so that they will be in RC3?
-
-... lets go with this solution:
-
-Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-
-Thanks!
+Thanks.
 
 ~ Oleksii
 
-> On Wed, 22 Oct 2025, Stefano Stabellini wrote:
->> Hi all,
->>
->> I tested the two fixes together for 1000 randconfig build tests here:
->> https://gitlab.com/xen-project/people/sstabellini/xen/-/pipelines/2114931367
->>
->> And also locally on my workstation for a full day successfully.
->>
->>
->> Jan Beulich (1):
->>        x86/mm: correct PG_log_dirty definition again
->>
->> Stefano Stabellini (1):
->>        xen: fix randconfig build problems after introducing SYSCTL
->>
->>   xen/arch/x86/hvm/Kconfig          | 1 +
->>   xen/arch/x86/include/asm/paging.h | 2 +-
->>   xen/common/Kconfig                | 1 +
->>   xen/include/hypercall-defs.c      | 4 ++--
->>   4 files changed, 5 insertions(+), 3 deletions(-)
->>
---------------IcZUoRiqwiT8kiWUm8eoTfFW
+--------------04L3DWwv1Y96bY50wSKtZ6dg
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -156,64 +138,37 @@ Content-Transfer-Encoding: 8bit
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   </head>
   <body>
-    <pre>Hello Stefano,</pre>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 10/23/25 7:51 PM, Stefano Stabellini
-      wrote:<br>
+    <div class="moz-cite-prefix">On 10/27/25 1:25 PM, Jan Beulich wrote:<br>
     </div>
     <blockquote type="cite"
-cite="mid:alpine.DEB.2.22.394.2510231051270.495094@ubuntu-linux-20-04-desktop">
-      <pre wrap="" class="moz-quote-pre">Hi Oleksii,
-
-The two patches solved the problem and survived 1000 iterations on
-gitlab. They are reviewed and acked.</pre>
-    </blockquote>
-    <pre>Good to hear that the solution has been found, so ...</pre>
-    <blockquote type="cite"
-cite="mid:alpine.DEB.2.22.394.2510231051270.495094@ubuntu-linux-20-04-desktop">
-      <pre wrap="" class="moz-quote-pre">
-
-Can I go ahead and commit them to staging so that they will be in RC3?</pre>
-    </blockquote>
-    <pre>... lets go with this solution:
-
-Release-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-Thanks!
-
-~ Oleksii</pre>
-    <blockquote type="cite"
-cite="mid:alpine.DEB.2.22.394.2510231051270.495094@ubuntu-linux-20-04-desktop">
-      <pre wrap="" class="moz-quote-pre">
-On Wed, 22 Oct 2025, Stefano Stabellini wrote:
+      cite="mid:b10cd3de-0449-483e-bc84-791ddda59c53@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 23.10.2025 17:51, Jan Beulich wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Hi all,
+        <pre wrap="" class="moz-quote-pre">With large NR_CPUS on-stack cpumask_t variables are problematic. Now that
+the IRQ handler can't be invoked in a nested manner anymore, we can
+instead use a per-CPU variable. While we can't use scratch_cpumask in code
+invoked from IRQ handlers, simply amend that one with a HPET-special form.
+(Note that only one of the two IRQ handling functions can come into play
+at any one time.)
 
-I tested the two fixes together for 1000 randconfig build tests here:
-<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/sstabellini/xen/-/pipelines/2114931367">https://gitlab.com/xen-project/people/sstabellini/xen/-/pipelines/2114931367</a>
-
-And also locally on my workstation for a full day successfully.
-
-
-Jan Beulich (1):
-      x86/mm: correct PG_log_dirty definition again
-
-Stefano Stabellini (1):
-      xen: fix randconfig build problems after introducing SYSCTL
-
- xen/arch/x86/hvm/Kconfig          | 1 +
- xen/arch/x86/include/asm/paging.h | 2 +-
- xen/common/Kconfig                | 1 +
- xen/include/hypercall-defs.c      | 4 ++--
- 4 files changed, 5 insertions(+), 3 deletions(-)
-
+Fixes: 996576b965cc ("xen: allow up to 16383 cpus")
+Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+Reviewed-by: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
 </pre>
       </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Views towards 4.21?</pre>
     </blockquote>
+    <pre>Release-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+Thanks.
+
+~ Oleksii</pre>
   </body>
 </html>
 
---------------IcZUoRiqwiT8kiWUm8eoTfFW--
+--------------04L3DWwv1Y96bY50wSKtZ6dg--
 
