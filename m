@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55C61C0CC54
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Oct 2025 10:54:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1151485.1482017 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 203EAC0CF19
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Oct 2025 11:24:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1151496.1482026 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDJur-0004bv-Q3; Mon, 27 Oct 2025 09:53:29 +0000
+	id 1vDKOR-0001MV-1c; Mon, 27 Oct 2025 10:24:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1151485.1482017; Mon, 27 Oct 2025 09:53:29 +0000
+Received: by outflank-mailman (output) from mailman id 1151496.1482026; Mon, 27 Oct 2025 10:24:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDJur-0004aS-Lx; Mon, 27 Oct 2025 09:53:29 +0000
-Received: by outflank-mailman (input) for mailman id 1151485;
- Mon, 27 Oct 2025 09:53:28 +0000
+	id 1vDKOQ-0001K3-VA; Mon, 27 Oct 2025 10:24:02 +0000
+Received: by outflank-mailman (input) for mailman id 1151496;
+ Mon, 27 Oct 2025 10:24:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=psOz=5E=citrix.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1vDJuq-0004aE-0D
- for xen-devel@lists.xenproject.org; Mon, 27 Oct 2025 09:53:28 +0000
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c112::5])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=UVx/=5E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vDKOP-0001Ju-EV
+ for xen-devel@lists.xenproject.org; Mon, 27 Oct 2025 10:24:01 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c72734c5-b31a-11f0-980a-7dc792cee155;
- Mon, 27 Oct 2025 10:53:25 +0100 (CET)
-Received: from DM6PR03MB4764.namprd03.prod.outlook.com (2603:10b6:5:183::31)
- by IA1PR03MB8061.namprd03.prod.outlook.com (2603:10b6:208:593::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.19; Mon, 27 Oct
- 2025 09:53:21 +0000
-Received: from DM6PR03MB4764.namprd03.prod.outlook.com
- ([fe80::4f33:d9f5:18a2:28c7]) by DM6PR03MB4764.namprd03.prod.outlook.com
- ([fe80::4f33:d9f5:18a2:28c7%6]) with mapi id 15.20.9253.017; Mon, 27 Oct 2025
- 09:53:21 +0000
+ id 0c791d0a-b31f-11f0-980a-7dc792cee155;
+ Mon, 27 Oct 2025 11:23:58 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-47112edf9f7so27392005e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Oct 2025 03:23:58 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-475dd4a5cc4sm126784805e9.11.2025.10.27.03.23.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Oct 2025 03:23:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,158 +45,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c72734c5-b31a-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CeARPfWDNDh5DjZ++6lFJJuzyES0pVYS3OqHjqQwcGFVNoweLQKVb338mvNn1R2x+FkD4V3s1jho3HCNHU37lWKq5/w0vyY5USg/Lprt1h/5v9K5UEZOGWNfMtvGi3yMS4O/N2T1sh80Cmw+/FWmV6rbSs1I1Rw9kkSYCUOm05S2Y6cgQswHi5ldoLzKH8FeZ+LZhpUDXDVIYMI/it+utx95tT/TWg9uGdvM7FU4/7YqWxf8FpL+QeeI6zKJDBiOqah+kdUEY5/g01jP8KevY6RnBu1UmVfn4T/NnbZxKpDieLDIgTYMxqEX4qxVk7rIvN9S5zVBWi5FI7i7QS657A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UtgKoyOCh6PYcXV+V7eu72pNy1m714ueBTbxQkipoEY=;
- b=eHUIxy4JxyuSrXc6RD/ELvx3JhHYZ8XWz8MKnn4+Xc3OSETDpKiqGSFG3iXjSmt4/RV8HhaH+us88xC3hAxn0QmuhM71TB1USb5WRR2g2H5yOsPQB3LKiJ9qH2UYpJEWwUqCwQwfmlDDojx0ar2T/2FnwhGagGaI7axhFlGvCgiG50WX/2u7ofzM1TV+MTj9TO96Tx5xUhiRb4LCnGFiDi+YjTYhbkAUC2lOolsdFaG6Ho0eQFc8BXWKR1TgXhLEsKOnmqmnj+/d0Ea7BJ2sRjhMb2711iY0IXquVp5VYoSVo2ECbsuZKlum2fjR3idw2e70aRIeV76KCMvoTUmM+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UtgKoyOCh6PYcXV+V7eu72pNy1m714ueBTbxQkipoEY=;
- b=iWKm09+BZJfYHWjPk+4iYlYRXmgfd7Y7eU02hBIYxPpxKTZwfS/hWTtk6HHanIqoxs9gdAkdvUgXaY5wno61aksk7DPzKrFa0YtjWfijxYyzwIVa3xa0xEiqxhEjmgO7Cm6bRAFbTdSAapZI3xnPoiTf3dCg3n/SoVWfIJCMKMU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <d289cbb1-33e4-4c03-b032-ec943cda8723@citrix.com>
-Date: Mon, 27 Oct 2025 09:53:15 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vVMX: Cleanup partial vCPU initialization
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20251024162054.2610454-1-ross.lagerwall@citrix.com>
- <213b6d6a-9d97-4ce6-a4b1-e41e8380656a@citrix.com>
-Content-Language: en-US
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-In-Reply-To: <213b6d6a-9d97-4ce6-a4b1-e41e8380656a@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P265CA0276.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:37a::16) To DM6PR03MB4764.namprd03.prod.outlook.com
- (2603:10b6:5:183::31)
+X-Inumbo-ID: 0c791d0a-b31f-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1761560638; x=1762165438; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QOacaics3LEeVvEn8gBiaP/TnigQQ9ZBTQK3ngtkuMg=;
+        b=fAqsk8syw5SzV9dfYB7qMY/Y9X+Szf4IWcRy1X63mzc41w7q0b9k0WS2Boo3HwUr+7
+         gxe0J1pydq/2CR+Qq47doehpIT33UtTQyhGRz25NqESonNhxGx1MoNUtXRwB6ULMJKjs
+         fDv/5VE46VnmfXYiBLqppDE4wcpv/Q6JrrAAQvQC4LYzp4YWBMSM23pkxE93bRW5sFMk
+         zeHhyBnpbyLTA8qnTtCrKLNNTNyH0ikq1GYKM14JsIQLN5o6cLmOU2lRsxv0ZAmePoBt
+         ocAR28AiwVdMTbhQiIR/sY+Q63P3hgDcdJL3QbRGlFVVNkP7Bcuw3oVy9RJs9XcCGyGL
+         HVBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1761560638; x=1762165438;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QOacaics3LEeVvEn8gBiaP/TnigQQ9ZBTQK3ngtkuMg=;
+        b=Stno8VHVpDJAJsuz0T2gzuBVCGAdv1MCViQCFSL+7AifglQVXT307q/gNCdIg6A+O/
+         0lOpAGXG6B3tJfzvOjxZE8iUe8K8zc61lQIN27FYYN5GFdP615kcxTILn+kwYNfjFvRJ
+         QJBO7ZwtDZBEvkxwvAu6NGyT0Q/EtgxZTj4UWrRaG21ecfF13NaoqOtk2eVdTrCLU+nW
+         ctgiaQTxBbuHcJ9uUOWJdPqMjRIbbfDyoc8njgoPikrhFlJl7rEDJnwVCltuhIsIGQQM
+         hXP7Hf1H9gdQqUhyyoEtwLVy5Oxi1oAUnGJjSgf3g49y3ih8GIWLGEB3XpzX6lShtgug
+         O3Ug==
+X-Gm-Message-State: AOJu0YwPfWzcUbkaxad+vTHrOMMfEdVRL40JmVLYZo0Op5Uaur5Bl+F5
+	Jj84PE/Dwqrf1AIusskYtRNcwbzXrjN3cCL1EtXAWF2W0VhdPEbtGXSOCcw1wDO6HQ==
+X-Gm-Gg: ASbGncuLWGvjxy2A+koWiRlDZvBCREw7gJYRtxksgcM8LT6njUfswA4T5IeAJpOmbVF
+	Eo2u10GlDQocqWs1eCmlwXr8qFeXhE2tvWHIo3S10QH2E+UsT4jhVyR8SG4iUZp6dNuNWsD/tVy
+	J9/SVvsn6IyInt9vi/d/Jx92vQQ5spoxKsaNIUyV74sSOk/32ILxcpK7QnBconJ2pPUqQhzYcxg
+	eib53wsZJfSZgCgNDtU2AmMmME8CBUUgs2MVJ2u5IS2QFBzTfqGsOA/eBBuYwKP+dGaF0yof1fJ
+	StMLU7yOEp36X51bh9W8a2yQ/muRju2mA9dwAvG1WEORoKso+LLyaewb/isPWxnUgWoIOea8PVC
+	CaKJcgYupxDYbUD30be+juVqZ4eRax3LSXjmfiBAQ7wU0s5QGXy04QlebuIkHjxhyZGPLCusPpJ
+	JOg0wLr86KuqxsZTPYLZanqmycbZgHfsf+jvt1h+WcG/CfhUtIXt8jqtbcDEKdHnE/1PK6Mxg=
+X-Google-Smtp-Source: AGHT+IFdeTz2fmCyuoV7xx1BtbLfsFs8H2lxpb2Jy7HcXmbpXz6autG5gGzWvlPxrvAxH/xoYRJ5zA==
+X-Received: by 2002:a05:600c:3b0a:b0:477:b93:a7af with SMTP id 5b1f17b1804b1-4770b93a9d9mr39276015e9.0.1761560637619;
+        Mon, 27 Oct 2025 03:23:57 -0700 (PDT)
+Message-ID: <6428217d-b5f6-4948-aff2-b007a6cfcfc0@suse.com>
+Date: Mon, 27 Oct 2025 11:23:58 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR03MB4764:EE_|IA1PR03MB8061:EE_
-X-MS-Office365-Filtering-Correlation-Id: f12cd5da-8a9c-4d17-7bdf-08de153ea992
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?b0JFempwcFJYYTZOTUxUdkhQVXpZYjUxakRQK2xCaGtqTmZublVVdENEUGpi?=
- =?utf-8?B?NEFYRm5OaFZmQnhzalZ6WGJvVy9rcmQ1N01hM3ZHczJmaEpkWHZXdnBhZU93?=
- =?utf-8?B?WXJlSUc3L1FUZ2JrWWRvNU5udUpvMlh2Q3RURjNlcHF4YldlV08xNkJGZGZI?=
- =?utf-8?B?M1RkVU4rc0tEVlNiSVZUVWUvbERiQ0g3VkcwemVtTGhkcEF3REE4OTBLU2E1?=
- =?utf-8?B?eWorQUthU2pKc3cvODY0RGZmZ043MXFUdHpjMHlGWWFUS0xvaVFrdHlQUTgr?=
- =?utf-8?B?YlgxdUZJdUp0TmIvbWEwNjk1VVl6dkx1cm1OMGdPby9UMzVackNaa2J2RFhr?=
- =?utf-8?B?cGgxdzdlbStEYkRzSzJEOTZRcExwQWxNV1pSdVova3loZHNyN3B6Y252ZDhI?=
- =?utf-8?B?a3l5NUFGaFhWa09LaEQyUll6MGFHMlVVVTFNZlVpNDNvZUE3bjN5YnMwdHRz?=
- =?utf-8?B?S1RCV1VSUlAxMmMwYm9vZmtxL3dMQjJsTWtrYVNBZkZyd3FPeThna3lHa2VC?=
- =?utf-8?B?U3c0MTRmL2FBQUp2N2Nnd0U5K3JVUERzdTVaQlY3SFVveHVVZjZlWkdKZGVN?=
- =?utf-8?B?KzlUc2psamlEcFc1OXpRZjNqUG5MZEVrYS9RRkk2cytjbWpZRU9iMGJPWDVD?=
- =?utf-8?B?MWVodE1Sd2hhbWRoaHY5aGJyUngySTZzNXA5b3VIS3pZbmJjdjZoQkVsUGhD?=
- =?utf-8?B?ZnIzUzB3SmU4TWV5SVpPRU8rTzNhaG5xNjZPUGJDbHEzanFhWldkYzZBTkR2?=
- =?utf-8?B?RFk0YjBJUUpWd0dlQkF1TkVXK3lQKzZhSFAxRVVBTEMvZzE2L3JYaWJnaWgv?=
- =?utf-8?B?WjF1ZG5WcnR5YU0zem8xRWtmL0pUZTIwRFR6cFNaUy9KU1cyeHVYMDhJWUo5?=
- =?utf-8?B?d0dOc3JKWk5FMnVod3UrV2F2WmE4MWpPemRRQUNBZ0tzRU5kV0k1alFEeUdl?=
- =?utf-8?B?WjJ4OEZEVS9lcm00YTVaYW9raE94ZG5HZU5pOUQvdnQwaUNCZ3B6SkloUjdF?=
- =?utf-8?B?YzF4VDJ2Qk13T3hVQ0lGa0tkbmtoMFI1NnNnVGNvTm5vNnZMRENhSHI5OUFD?=
- =?utf-8?B?eWczdUNQbVVUcml1cXE5d1YxMzBDdW12akk0dGdVeThqZWtMNDBWTndnM01T?=
- =?utf-8?B?S3VZQWRvaDNLN2MxVm4zQ1BoK0JqSWVoak5wWTBaLzRTbnZGaE40N25zbkJu?=
- =?utf-8?B?eXYwMlVwYXNIdDlDNlhmZWJJemFlT2FFeE56dmZuT3VCSlgxSTltSU1ucVpl?=
- =?utf-8?B?TWphdDRvbE5UbGxKTER2RGpRY2R1enh6MjVyTjkrQy93c2ErVGUrMkEzNDg0?=
- =?utf-8?B?U2R2NGpYbFdEZzhHNlRaNkl3N0VPVk5sbDZielhGeUFPQnBEOWl3TFM5dElB?=
- =?utf-8?B?TnFEMDNvQmUrbDlhOXlqbzdTNXpZeTJtZDZwc3F4RWlOVWZyR3BzS044L2dt?=
- =?utf-8?B?Q3VtU2tkYklIWGFubHFKcURaOGMrVzNHSEsrMDREeDBKc0RNejI5RG1PdjdQ?=
- =?utf-8?B?d1RtYXE5M05Ud2tlQ0RGb0YydlBRM09FT2M3MkkvUStkcndhV1M4QkhJbzVI?=
- =?utf-8?B?dWVrbG10MkVjb2pXWjFqRU9KdWxvY0lwcmJSbVgzNlo2eEo0NVJlYXpKMU9i?=
- =?utf-8?B?TTNkZFh4ZnY4MWtQNTFFZWhhNkJJeFZ1TUttVkdYN0NkbW1KWDdjelFDK3dy?=
- =?utf-8?B?cDEzbGF6bUNrRXJaYW0vejhqQ0k2N0F4WndRbUpnckEwcHEzYUFocVM4RU5D?=
- =?utf-8?B?VXdnZEdvTVIwR1VDcjBxdTMxS2dxWW5FTzU2ZVROY25iZ3R0cis1VCt2NUwz?=
- =?utf-8?B?OVJ1V2VXR2xYWTgySDNLSU0rVUdyTGUwdFk0U3RlREQrOEs0aDRQSmRZMXN2?=
- =?utf-8?B?eWt5NGxlRi9tR0dHVUhMQU1sdFNKSnpVdDI4ejJISTc1RlptV3JqVVIvT05w?=
- =?utf-8?Q?C7Y8yXMfcyvzh92kV3Q9LuyUFjmwyHhD?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB4764.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OXVVeU5lR1R1NVhGRE1zM1N0QzB0WjdGR0krY3I0VE5pSGdTMW8yNUk2MmVX?=
- =?utf-8?B?RVFqaHI0Mm5qRDJocGJnbldxa2paVm9SelJwWVdBblZpbUU0b05yWkgwVVUy?=
- =?utf-8?B?WWtLdUUycjJZcXlza0hjR3lNR0NhVlRpWERORmgwb2pFRmVOYXV1Uk41VjJU?=
- =?utf-8?B?ajFjYmZ6T3JyeTRhMitJM2tzMjVWWnFKWEkrZFNGY1k3ajdvK2RnZ1J0bnZG?=
- =?utf-8?B?MVlwRC9CTUdGbEM5VEJsMXh3Z0Z3ZiszWFcyOFhsTmo1WE9VZ093K04yY1cv?=
- =?utf-8?B?WUZlZWhleXlodkVZT1FZVGFHa3dGeDRJQUFPSklNaGpSSEsvSFp4b09icW8w?=
- =?utf-8?B?Si9KeVF0R1NlUlQ5RkNMdDVYMXZuQ3JSY1FoN1pqTWFBWWZyR1BlL2Qvdzlj?=
- =?utf-8?B?cXdiUFBBcHM1V1dHWU1aRCtOMlZnSE9xQ2JpTHI5NW1MbjdsM2pCWlcxMWpW?=
- =?utf-8?B?c1VYZTBTZWZaQ0c0MHhjWGNBdDEveHNybCs0U2U4eTZ5cXRVcTFiSjNDU3hq?=
- =?utf-8?B?OGQ2aDFZdHhsS0hiWkN4TTlaRk9kM2tQSEtualBuUWVVUVRSV1BaaDQzQW03?=
- =?utf-8?B?MXE2RUhyMU9tbG1QYUJqNmt0eTcwaVQxNWtUYnF3Vm0vVmhVNm85cmpzUnJl?=
- =?utf-8?B?V0IwSmFteld2WnpsSjhkTytac1poQzUvbk5ZdHgvTC8yOExQZ0xUVGtqc1Zn?=
- =?utf-8?B?emhHb1J2WGppVGdOUXp1RUg3ejRHTEFUYjF1SlRMT3dsU1lwb0drdHBnc0cw?=
- =?utf-8?B?VnVvQWxHeWRKdDRLYWVHS1pVdk1yRmhoZmwvdFJVWFhWSWxvRTNxYU9Xaktz?=
- =?utf-8?B?eHhvdExpZ3RXWXZtSndBSWhsWWdSQXZzcGlRWlhzSzc0S1lpeW5nMGlSWm9V?=
- =?utf-8?B?ZXRma1h1ZUV2bFNXbkJDWEplYkxEMllGMDRreVlGNGMwT1RRUCtCeE5xNUpl?=
- =?utf-8?B?cmVRVTBldkdmREpNdEs2eHk4WW4vWG4zWUhzbjJMclFReFBVV0NrMjBhU3Z5?=
- =?utf-8?B?Y082TmFyTG40TngwQ2pNUktLdnZQeFhXQzE0MHVrSUxGTG1Ubk5EdEdCWmNv?=
- =?utf-8?B?Z3UvdUJyL0ZQRjhlTDhJT0syRTNzQjAvV0NMQ1o2cUprZU41ci96MUJablhM?=
- =?utf-8?B?azR3SXhkaUZ6ZUhPNDFqTVBUd01hSGF0SnN0RVc0UHFHcnIzZTNhQ241RzVr?=
- =?utf-8?B?SUhHRUNIcExESTdYMHdzSkhDNXpweVdTWHQzWXQzcTM4d2xDQjNQZUNXZUQ1?=
- =?utf-8?B?eWpJOXpVS3BSemVNY05HTGt5cmVCbUs4Y3J6WFRiYmQwUlNVTXkrUDFDM1M5?=
- =?utf-8?B?aEg2bmVxS0xuNjJ5T3QxSHFadXVwb2J3OUNpZVI5anhEelo3UVNPaWR5dlU0?=
- =?utf-8?B?NnN4U2s1bDZKQnYyUjRYSHRVZUcyUnozTFJ2eEFlQzdiQWRDamdLeUduRzh6?=
- =?utf-8?B?OXl6ci95UTFSTERhSUtyM3c4bDhzWHpLa05ZemhVVFJ2MytsSDZDYW1YQXJB?=
- =?utf-8?B?R094cHd6STdBNXI4di9oUFA3NVFWR1l5QnR5cTZvSGcyMktqOG12dVdObkZu?=
- =?utf-8?B?N1hUL2x2dXhGd3gzTWtGU3JCdWxkL2RuTkR1Rnd2cVhPcTJUQjFaVUUwd01K?=
- =?utf-8?B?eWpMUDByd2o5N09EM3RxSlVwS0ZaL01FdEVDL0VNYzBmaGhJZUNiQ2V1SzFV?=
- =?utf-8?B?QVE0R1cwelp4OENSc0NOdFlPZGIyWFdCdUN1SldIMjQ4NjRkMnp0bTRvV2JP?=
- =?utf-8?B?SmZoTjU2RXhGLzBBY3BSVHc3Wk1NNXpxSXVIMmNIL09CaU5Fbzl2L05pbHl5?=
- =?utf-8?B?OE9BWXpqU25hVko3amdXUkVWaUtwOU1SQWwrcUUreTJaYnZiczZJazVEN3Jq?=
- =?utf-8?B?VzhoQVJzY2ZOR2lVSEVyaGhpR3ZVK09peW9uSGNUUU1XT2RWamdXbURiOXRU?=
- =?utf-8?B?VWl6V05OZW5iT0lZMWJqbEx3dlREL3pkOVBGRFpkV3p2bkxWd0FiWlRVVlAz?=
- =?utf-8?B?bW96Ni9nMEwwNmc0eG5qU2FMWVZTZTkzMTFBbW1hKzM1ZHpwVC9aRXIvQVJK?=
- =?utf-8?B?UVVUSGFqUDlQQVExUWtucUxjUzVmSFRGWHRDVmpJcFRoSzAxcjN4Si9IaEM3?=
- =?utf-8?B?NHBHZVJxUnp6eWxiRDluYnZjWU95ckJaS2VYZW11Y1pqaUZqWjJWZnR6ZnlF?=
- =?utf-8?B?ZWc9PQ==?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f12cd5da-8a9c-4d17-7bdf-08de153ea992
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB4764.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2025 09:53:21.2313
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dCH+BxWMtVQp6xZNUBQZMRXWmIW+rJOuLIyLZBAuELTIQ7U1IG8RTZiOl/Rbl31gwA6eU1idaqzt2x1eM9TvDfnebMXip9ICvECbeYTO8NU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR03MB8061
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 for-4.21 2/9] x86/HPET: use single, global,
+ low-priority vector for broadcast IRQ
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <6a8a912c-7276-42bd-af2b-b94fc6ce4291@suse.com>
+ <545d98e0-755d-471b-84c5-54f129a5aece@suse.com> <aPt-B5R-FwJpQbZR@Mac.lan>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aPt-B5R-FwJpQbZR@Mac.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 10/24/25 7:08 PM, Andrew Cooper wrote:
-> On 24/10/2025 5:20 pm, Ross Lagerwall wrote:
->> If nested vCPU initialization fails, cleanup the allocated memory since
->> it is no longer handled by the caller.
+On 24.10.2025 15:24, Roger Pau Monné wrote:
+> On Thu, Oct 23, 2025 at 05:50:17PM +0200, Jan Beulich wrote:
+>> Using dynamically allocated / maintained vectors has several downsides:
+>> - possible nesting of IRQs due to the effects of IRQ migration,
+>> - reduction of vectors available for devices,
+>> - IRQs not moving as intended if there's shortage of vectors,
+>> - higher runtime overhead.
 >>
->> Fixes: c47984aabead ("nvmx: implement support for MSR bitmaps")
->> Fixes: f5bdb4aaa165 ("x86/hvm: Obsolete the use of HVM_PARAM_NESTEDHVM")
->> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> 
-> AFAICT, this is because of hvm_vcpu_initialise() not calling
-> nestedhvm_vcpu_destroy() if nestedhvm_vcpu_initialise() fails?
-> 
-> I think this is an improvement in the short term, but we really need to
-> fix our object lifecycle.  Relatedly, I should dust off the fault-ttl
-> series because it would be able to find this failure automatically.
-> 
-> ~Andrew
+>> As the vector also doesn't need to be of any priority (first and foremost
+>> it really shouldn't be of higher or same priority as the timer IRQ, as
+>> that raises TIMER_SOFTIRQ anyway), simply use the lowest one above the
+>> legacy range. The vector needs reserving early, until it is known whether
+>> it actually is used. If it isn't, it's made available for general use.
+>>
+>> With a fixed vector, less updating is now necessary in
+>> set_channel_irq_affinity(); in particular channels don't need transiently
+>> masking anymore, as the necessary update is now atomic. To fully leverage
+>> this, however, we want to stop using hpet_msi_set_affinity() there. With
+>> the transient masking dropped, we're no longer at risk of missing events.
+>>
+>> Fixes: 996576b965cc ("xen: allow up to 16383 cpus")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>                                     ^ space?
 
-Having hvm_vcpu_initialise() call nestedhvm_vcpu_destroy() would be one 
-way of fixing it (albeit it is complicated because some cleanup is also 
-done in vcpu_relinquish_resources()). But IMO generally a partial 
-failure of an initialization function should be handled up internally 
-rather than expecting the caller to deal with it.
+Looks like I simply took what was provided; I've added the blank now (also
+in patch 1).
 
-Ross
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks.
+
+>> @@ -303,15 +309,13 @@ static void cf_check hpet_msi_set_affini
+>>      struct hpet_event_channel *ch = desc->action->dev_id;
+>>      struct msi_msg msg = ch->msi.msg;
+>>  
+>> -    msg.dest32 = set_desc_affinity(desc, mask);
+>> -    if ( msg.dest32 == BAD_APICID )
+>> -        return;
+>> +    /* This really is only for dump_irqs(). */
+>> +    cpumask_copy(desc->arch.cpu_mask, mask);
+> 
+> To add some extra checks here for correctness, do you think it would
+> be helpful to add:
+> 
+> ASSERT(cpumask_weight(mask) == 1);
+> ASSERT(cpumask_intersects(mask, &cpu_online_mask));
+> 
+> Or that's too pedantic?
+
+Imo that would be pretty pointless in particular since the function is to go
+away anyway.
+
+>> @@ -343,6 +347,12 @@ static int __init hpet_setup_msi_irq(str
+>>      u32 cfg = hpet_read32(HPET_Tn_CFG(ch->idx));
+>>      irq_desc_t *desc = irq_to_desc(ch->msi.irq);
+>>  
+>> +    clear_irq_vector(ch->msi.irq);
+>> +    ret = bind_irq_vector(ch->msi.irq, HPET_BROADCAST_VECTOR, &cpu_online_map);
+> 
+> By passing cpu_online_map here, it leads to _bind_irq_vector() doing:
+> 
+> cpumask_copy(desc->arch.cpu_mask, &cpu_online_map);
+> 
+> Which strictly speaking is wrong.  However this is just a cosmetic
+> issue until the irq is used for the first time, at which point it will
+> be assigned to a concrete CPU.
+> 
+> You could do:
+> 
+> cpumask_clear(desc->arch.cpu_mask);
+> cpumask_set_cpu(cpumask_any(&cpu_online_map), desc->arch.cpu_mask);
+> 
+> (Or equivalent)
+> 
+> To assign the interrupt to a concrete CPU and reflex it on the
+> cpu_mask after the bind_irq_vector() call, but I can live with it
+> being like this.  I have patches to adjust _bind_irq_vector() myself,
+> which I hope I will be able to post soon.
+
+Hmm, I wrongly memorized hpet_broadcast_init() as being pre-SMP-init only.
+It has three call sites:
+- mwait_idle_init(), called from cpuidle_presmp_init(),
+- amd_cpuidle_init(), calling in only when invoked the very first time,
+  which is again from cpuidle_presmp_init(),
+- _disable_pit_irq(), called from the regular initcall disable_pit_irq().
+I.e. for the latter you're right that the CPU mask is too broad (in only a
+cosmetic way though). Would be you okay if I used cpumask_of(0) in place
+of &cpu_online_map?
+
+>> @@ -472,19 +482,50 @@ static struct hpet_event_channel *hpet_g
+>>  static void set_channel_irq_affinity(struct hpet_event_channel *ch)
+>>  {
+>>      struct irq_desc *desc = irq_to_desc(ch->msi.irq);
+>> +    struct msi_msg msg = ch->msi.msg;
+>>  
+>>      ASSERT(!local_irq_is_enabled());
+>>      spin_lock(&desc->lock);
+>> -    hpet_msi_mask(desc);
+>> -    hpet_msi_set_affinity(desc, cpumask_of(ch->cpu));
+>> -    hpet_msi_unmask(desc);
+>> +
+>> +    per_cpu(vector_irq, ch->cpu)[HPET_BROADCAST_VECTOR] = ch->msi.irq;
+>> +
+>> +    /*
+>> +     * Open-coding a reduced form of hpet_msi_set_affinity() here.  With the
+>> +     * actual update below (either of the IRTE or of [just] message address;
+>> +     * with interrupt remapping message address/data don't change) now being
+>> +     * atomic, we can avoid masking the IRQ around the update.  As a result
+>> +     * we're no longer at risk of missing IRQs (provided hpet_broadcast_enter()
+>> +     * keeps setting the new deadline only afterwards).
+>> +     */
+>> +    cpumask_copy(desc->arch.cpu_mask, cpumask_of(ch->cpu));
+>> +
+>>      spin_unlock(&desc->lock);
+>>  
+>> -    spin_unlock(&ch->lock);
+>> +    msg.dest32 = cpu_physical_id(ch->cpu);
+>> +    msg.address_lo &= ~MSI_ADDR_DEST_ID_MASK;
+>> +    msg.address_lo |= MSI_ADDR_DEST_ID(msg.dest32);
+>> +    if ( msg.dest32 != ch->msi.msg.dest32 )
+>> +    {
+>> +        ch->msi.msg = msg;
+>>  
+>> -    /* We may have missed an interrupt due to the temporary masking. */
+>> -    if ( ch->event_handler && ch->next_event < NOW() )
+>> -        ch->event_handler(ch);
+>> +        if ( iommu_intremap != iommu_intremap_off )
+>> +        {
+>> +            int rc = iommu_update_ire_from_msi(&ch->msi, &msg);
+>> +
+>> +            ASSERT(rc <= 0);
+>> +            if ( rc >= 0 )
+> 
+> I don't think the rc > 0 part of this check is meaningful, as any rc
+> value > 0 will trigger the ASSERT(rc <= 0) ahead of it.  The code
+> inside of the if block itself only contains ASSERTs, so it's only
+> relevant for debug=y builds that will also have the rc <= 0 ASSERT.
+> 
+> You could possibly use:
+> 
+> ASSERT(rc <= 0);
+> if ( !rc )
+> {
+>     ASSERT(...
+> 
+> And achieve the same result?
+
+Yes, except that I'd like to keep the >= to cover the case if the first
+assertion was dropped / commented out, as well as to have a doc effect.
+
+>> @@ -991,6 +997,13 @@ void alloc_direct_apic_vector(uint8_t *v
+>>      spin_unlock(&lock);
+>>  }
+>>  
+>> +/* This could free any vectors, but is needed only for low-prio ones. */
+>> +void __init free_lopriority_vector(uint8_t vector)
+>> +{
+>> +    ASSERT(vector < FIRST_HIPRIORITY_VECTOR);
+>> +    clear_bit(vector, used_vectors);
+>> +}
+> 
+> I'm undecided whether we want to have such helper.  This is all very
+> specific to the single use by the HPET vector, and hence might be best
+> to simply put the clear_bit() inside of hpet_broadcast_late_init()
+> itself.
+
+I wanted to avoid making used_vectors non-static.
+
+> I could see for example other callers wanting to use this also
+> requiring cleanup of the per cpu vector_irq arrays.  Given it's (so
+> far) very limited usage it might be clearer to open-code the
+> clear_bit().
+
+Dealing with vector_irq[] is a separate thing, though, isn't it?
+
+>> --- a/xen/drivers/passthrough/amd/iommu_intr.c
+>> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
+>> @@ -551,6 +551,13 @@ int cf_check amd_iommu_msi_msg_update_ir
+>>          for ( i = 1; i < nr; ++i )
+>>              msi_desc[i].remap_index = msi_desc->remap_index + i;
+>>          msg->data = data;
+>> +        /*
+>> +         * While the low address bits don't matter, "canonicalize" the address
+>> +         * by zapping the bits that were transferred to the IRTE.  This way
+>> +         * callers can check for there actually needing to be an update to
+>> +         * wherever the address is put.
+>> +         */
+>> +        msg->address_lo &= ~(MSI_ADDR_DESTMODE_MASK | MSI_ADDR_DEST_ID_MASK);
+> 
+> You might want to mention this change on the commit message also, as
+> it could look unrelated to the rest of the code?
+
+I thought the comment here provided enough context and detail. I've added
+"AMD interrupt remapping code so far didn't "return" a consistent MSI
+ address when translating an MSI message. Clear respective fields there, to
+ keep the respective assertion in set_channel_irq_affinity() from
+ triggering."
+
+Jan
 
