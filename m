@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B705CC0D4DC
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Oct 2025 12:53:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1151530.1482063 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA53AC0D57E
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Oct 2025 12:58:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1151540.1482073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDLn5-0005aN-PV; Mon, 27 Oct 2025 11:53:35 +0000
+	id 1vDLrG-0006F4-9G; Mon, 27 Oct 2025 11:57:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1151530.1482063; Mon, 27 Oct 2025 11:53:35 +0000
+Received: by outflank-mailman (output) from mailman id 1151540.1482073; Mon, 27 Oct 2025 11:57:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDLn5-0005Yy-Mm; Mon, 27 Oct 2025 11:53:35 +0000
-Received: by outflank-mailman (input) for mailman id 1151530;
- Mon, 27 Oct 2025 11:53:34 +0000
+	id 1vDLrG-0006DJ-5t; Mon, 27 Oct 2025 11:57:54 +0000
+Received: by outflank-mailman (input) for mailman id 1151540;
+ Mon, 27 Oct 2025 11:57:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UVx/=5E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vDLn4-0005Yq-Ri
- for xen-devel@lists.xenproject.org; Mon, 27 Oct 2025 11:53:34 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1vDLrF-0006DB-7d
+ for xen-devel@lists.xenproject.org; Mon, 27 Oct 2025 11:57:53 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 905a4a72-b32b-11f0-9d16-b5c5bf9af7f9;
- Mon, 27 Oct 2025 12:53:33 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-475ca9237c2so25337825e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 27 Oct 2025 04:53:33 -0700 (PDT)
+ id 2a7736b5-b32c-11f0-9d16-b5c5bf9af7f9;
+ Mon, 27 Oct 2025 12:57:52 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-471b80b994bso64821345e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Oct 2025 04:57:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-475dd4924a4sm134556335e9.7.2025.10.27.04.53.32
+ 5b1f17b1804b1-475dd494d5csm134704095e9.9.2025.10.27.04.57.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Oct 2025 04:53:32 -0700 (PDT)
+ Mon, 27 Oct 2025 04:57:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 905a4a72-b32b-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: 2a7736b5-b32c-11f0-9d16-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761566013; x=1762170813; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0hkePjppX1XIU6ikWgg8zRVcODJECRudaAgSviJjimA=;
-        b=GyWol96Ra7MAv6+m61ndadGZkl8OTl+fNPGfW4G5nXTHMmU+/lY8XTJRauo2KxYvZr
-         wb0AtTfEBotyJ6kzktvXUaK9a7y0Fmmrx8IJLuhx7pW9d33HPU5/jSl4zYuqdA2XWJal
-         0byz7La/DgmrM9ls6f+GTFADcatDxHWM15WaUj+JPQLmGzzt0tQ4V5zyqVfGfkXhybjs
-         bO1iWY/mrMWONnBhhsI92YnlTExTZ+dZokZ215ao7r7edhjxz0Y7vj+ib4bOOcD3+Fx/
-         qpc9anyNtdabKxG2vu0kfhhaHwhKoyxkS2hglZj1aSMdEZO8gkmVp1WMF30nH0MHsKUV
-         rDYA==
+        d=suse.com; s=google; t=1761566271; x=1762171071; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=czRsJIkeIQyDickI5ZiW35dj4RlYbVgngh7L36yZgVo=;
+        b=ESc9ZkhdqoCf74/B5JPdL578SZ4odlH33XYuU3EHqI8QM2fNSVo7OJF7hPpEPEcJ7o
+         znCbCXCvNOXJmVHJcJOtxoTGk3WiQgp0yrJgpxwt9ZOsRw9YuwY4oGA4HnMInMh/pO26
+         KZvmPsFHdqmGwhpd5d/15kD2sZwacbwBFdtCsoWn058YGKQtO9E5np/MUJqu0jBeU3YC
+         6jzfYeSkdh3FjG3PB3Ihwj74UDveI0AZwUmyxLx+6TgUd31Z/pmXaon3Br/t7fdA93Hj
+         oOKZYbzjQbggmA/qCcrqyl+gx+dG9ZEkt+XXVpL9qhC/2uaFr4BDziCHErxWr/RD2BJm
+         WoIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761566013; x=1762170813;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0hkePjppX1XIU6ikWgg8zRVcODJECRudaAgSviJjimA=;
-        b=Zu+PF6MG5GATl2s7+dvEm+kviRc0/49dbdHr/fzsUD/GqvfOOk3qnBYiymUAcys6KO
-         TYPGJYBfesxrrfsK67bVUi8sBFxbuUSbK1NJj0tSZjtNCmIWexhlb1DEu5pwOxD08gH+
-         CIyirJRadY2qD7v/f3g+tvZUcrySxxixgxrtSwuxflGvIwc1+iI0Lhs0aUrUXfMGub6P
-         35NVSibOMNENr0szgrejp7Pe+WxO6fsOo/hR7o/dV/GAbW3vKyFNoJBQ18h5v9dbLSgt
-         VuEyWNbayNW5HVx+3zs/UFfsPex4tcClzfVqd7e0T4mmLq5jhgsLVRs0/+qOCj+l0FXy
-         glrw==
-X-Gm-Message-State: AOJu0YzVRmPtzSmj0eCqurmPCpC6wXmXeDberbkWkVHBJCRZ3p7S/Ztm
-	88YFX7r76Zn6rKxlF+PAUvjnljM3s5WX0mVa5XWn5IyetKV6KH3LzTQIz2sszq8Ejw==
-X-Gm-Gg: ASbGncspcXDj2HmHgL/u2EMk63LRCPPzLVIQy8eJYafOFTsZNhUEoKUhrZzzWsETnbe
-	BTg88PIqPqTDauLM0BOhjTA7ivqV7DFM02Sl0q+TqVQMNLSnuMvVlaH1EuPZ3fr9V0I6EsVjtp1
-	kjWHIiDQcwZSmufNG/JWgoxhrDs15kPjWkWEkOeySsS5LAcjDTmw7/rKkt1tx6jmAjInr6B2f+H
-	zHn34PdpDU7VIBejvkSCztev0NGrjOnC6vhvgIJ2fOh4DyybxnsIJ+nLzIKpKtjJDFupLJ34wz1
-	J6bN+w6mXxhf++d7QQE/HXZYA3+rETiR+xjdREbPPUvUYWWCGV7xh8U2U14Y8HG11x07yxSoksp
-	wjDK8TYXfSsMgEZGd8VkAS6sMKkH4rlQg4tqVAHwuSRyjCBkqHPo2tP6iqvpbsUe8W6wD4KXr/L
-	lcF4qR2T4Tpty1AZgI3aJRxftUdcZG4fgo3/0MtSxl9exNy/hGQbnHi4Cre1R2xAxf2jV8ov757
-	vhohqWeCw==
-X-Google-Smtp-Source: AGHT+IHJT/zOrXI4Z1S8JJ4uAmoe1sEdEDEyeLV1PSHzs1xbPwlo+O9+/8l5MedMa6LnSADEPY72ng==
-X-Received: by 2002:a05:600c:4446:b0:471:1717:421 with SMTP id 5b1f17b1804b1-475d2ebf3e0mr95683925e9.19.1761566012911;
-        Mon, 27 Oct 2025 04:53:32 -0700 (PDT)
-Message-ID: <536c4e25-1e32-4adf-865d-7750f08a2922@suse.com>
-Date: Mon, 27 Oct 2025 12:53:34 +0100
+        d=1e100.net; s=20230601; t=1761566271; x=1762171071;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=czRsJIkeIQyDickI5ZiW35dj4RlYbVgngh7L36yZgVo=;
+        b=fr9W83soH/48mm04yzkCBhawt1j7dqVQBjKFBKnJUUifeF4ZqTlm+5/kheWdK1BEok
+         cL/jdmrYoImN/9i2b63OzggQWlbuL0dzEm/IOXuBAeVBL1qDzS6w8UlASw9X10ATjWqL
+         c2lNdoP0zU0zUHu/BM8Ok8TJXLXgaF6rIDJi4xrrMtzKyy3/nvqYYf3dTgUlGHLmekEs
+         qOg4w17UgQ5LhNDOwHG5+EQId7Y3/etpKU82P6qUqpEa/d40vS63aMzxddaT+kcYV4Kf
+         aB7ZknB64PMEzlR6dqqg4VdL/4fR/CWAC6JYwfAT0PiI9o6s/Zge5c0zFcw+iyGG/KPw
+         mlFg==
+X-Gm-Message-State: AOJu0YwkHUD9RzWM5RFL8gsXbZ2HMoY5PB5uvWbeUjKkjASz2g+cJQGL
+	+4x/vOd8IUJi9YLOXjilczjKWXnEAM3r6lDgOVLAFLF9AgKtffCTpMHrMK9Q5cNOnrM9mYcsJJM
+	ddl8=
+X-Gm-Gg: ASbGncs4dT8OQn6PpRSMZlIZhj5/H7nPctHL7RPWUoKitXyV4cPO7dHpy1C7FFbTp1+
+	SchcpOdnEakLp8jYwMuJCFtjvzVQdkW+ehj/vi2mdkt6nOktE0tCu1kXXBplwa28qW5e/tqpWaV
+	GWAEkYvUVloX5dH5wwkNeL7/17aD5hQNXYoxo6OWfR4e3yhRv17h3mcmPiADB9BJNhEF7CL9t4j
+	X9t2RHurUojZCpZ9WTW5C9Dl+BH1ww2AcDC2k3YFoAbU7BIL1iP6iNJ0LI4XQVKQc06tIe+ArOX
+	ocz2xLS7hGmGICYxqzv6nW1ev74dNjHrlpRIQAoRHSnYfOqsNssz3uV72zwQXpamBARdkxLe6kM
+	M2UF2vxiqxbOsdAhP71oid+IP/dLoX7pv6om9xS03cYppnbfiiNqcXHdfzmWq7SACG+bQ67XGCd
+	+vQJnMjJfJdL2RCdDbrTW7g9MwygHgY7cOQmvmynq3Evqg1vBNf1vpJwTvSKzSx85H4EVibQ8=
+X-Google-Smtp-Source: AGHT+IGX91LqigwF59GuTZwo94JcPcMRNw6IwY1xq0l/DF0p3H5km1ooN7GscEhqJhMRu+2A0PTkgA==
+X-Received: by 2002:a05:600c:3e12:b0:45b:7d77:b592 with SMTP id 5b1f17b1804b1-471178a74demr270805175e9.12.1761566271530;
+        Mon, 27 Oct 2025 04:57:51 -0700 (PDT)
+Message-ID: <53fe0d0e-54a5-4ac0-8243-0199587a6d19@suse.com>
+Date: Mon, 27 Oct 2025 12:57:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 for-4.21 2/9] x86/HPET: use single, global,
  low-priority vector for broadcast IRQ
+From: Jan Beulich <jbeulich@suse.com>
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -97,8 +98,8 @@ Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 References: <6a8a912c-7276-42bd-af2b-b94fc6ce4291@suse.com>
  <545d98e0-755d-471b-84c5-54f129a5aece@suse.com> <aPt-B5R-FwJpQbZR@Mac.lan>
  <6428217d-b5f6-4948-aff2-b007a6cfcfc0@suse.com> <aP9YkLo782XbfMQM@Mac.lan>
+ <536c4e25-1e32-4adf-865d-7750f08a2922@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -122,91 +123,65 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aP9YkLo782XbfMQM@Mac.lan>
+In-Reply-To: <536c4e25-1e32-4adf-865d-7750f08a2922@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 27.10.2025 12:33, Roger Pau Monné wrote:
-> On Mon, Oct 27, 2025 at 11:23:58AM +0100, Jan Beulich wrote:
->> On 24.10.2025 15:24, Roger Pau Monné wrote:
->>> On Thu, Oct 23, 2025 at 05:50:17PM +0200, Jan Beulich wrote:
->>>> @@ -343,6 +347,12 @@ static int __init hpet_setup_msi_irq(str
->>>>      u32 cfg = hpet_read32(HPET_Tn_CFG(ch->idx));
->>>>      irq_desc_t *desc = irq_to_desc(ch->msi.irq);
->>>>  
->>>> +    clear_irq_vector(ch->msi.irq);
->>>> +    ret = bind_irq_vector(ch->msi.irq, HPET_BROADCAST_VECTOR, &cpu_online_map);
+On 27.10.2025 12:53, Jan Beulich wrote:
+> On 27.10.2025 12:33, Roger Pau Monné wrote:
+>> On Mon, Oct 27, 2025 at 11:23:58AM +0100, Jan Beulich wrote:
+>>> On 24.10.2025 15:24, Roger Pau Monné wrote:
+>>>> On Thu, Oct 23, 2025 at 05:50:17PM +0200, Jan Beulich wrote:
+>>>>> @@ -343,6 +347,12 @@ static int __init hpet_setup_msi_irq(str
+>>>>>      u32 cfg = hpet_read32(HPET_Tn_CFG(ch->idx));
+>>>>>      irq_desc_t *desc = irq_to_desc(ch->msi.irq);
+>>>>>  
+>>>>> +    clear_irq_vector(ch->msi.irq);
+>>>>> +    ret = bind_irq_vector(ch->msi.irq, HPET_BROADCAST_VECTOR, &cpu_online_map);
+>>>>
+>>>> By passing cpu_online_map here, it leads to _bind_irq_vector() doing:
+>>>>
+>>>> cpumask_copy(desc->arch.cpu_mask, &cpu_online_map);
+>>>>
+>>>> Which strictly speaking is wrong.  However this is just a cosmetic
+>>>> issue until the irq is used for the first time, at which point it will
+>>>> be assigned to a concrete CPU.
+>>>>
+>>>> You could do:
+>>>>
+>>>> cpumask_clear(desc->arch.cpu_mask);
+>>>> cpumask_set_cpu(cpumask_any(&cpu_online_map), desc->arch.cpu_mask);
+>>>>
+>>>> (Or equivalent)
+>>>>
+>>>> To assign the interrupt to a concrete CPU and reflex it on the
+>>>> cpu_mask after the bind_irq_vector() call, but I can live with it
+>>>> being like this.  I have patches to adjust _bind_irq_vector() myself,
+>>>> which I hope I will be able to post soon.
 >>>
->>> By passing cpu_online_map here, it leads to _bind_irq_vector() doing:
->>>
->>> cpumask_copy(desc->arch.cpu_mask, &cpu_online_map);
->>>
->>> Which strictly speaking is wrong.  However this is just a cosmetic
->>> issue until the irq is used for the first time, at which point it will
->>> be assigned to a concrete CPU.
->>>
->>> You could do:
->>>
->>> cpumask_clear(desc->arch.cpu_mask);
->>> cpumask_set_cpu(cpumask_any(&cpu_online_map), desc->arch.cpu_mask);
->>>
->>> (Or equivalent)
->>>
->>> To assign the interrupt to a concrete CPU and reflex it on the
->>> cpu_mask after the bind_irq_vector() call, but I can live with it
->>> being like this.  I have patches to adjust _bind_irq_vector() myself,
->>> which I hope I will be able to post soon.
+>>> Hmm, I wrongly memorized hpet_broadcast_init() as being pre-SMP-init only.
+>>> It has three call sites:
+>>> - mwait_idle_init(), called from cpuidle_presmp_init(),
+>>> - amd_cpuidle_init(), calling in only when invoked the very first time,
+>>>   which is again from cpuidle_presmp_init(),
+>>> - _disable_pit_irq(), called from the regular initcall disable_pit_irq().
+>>> I.e. for the latter you're right that the CPU mask is too broad (in only a
+>>> cosmetic way though). Would be you okay if I used cpumask_of(0) in place
+>>> of &cpu_online_map?
 >>
->> Hmm, I wrongly memorized hpet_broadcast_init() as being pre-SMP-init only.
->> It has three call sites:
->> - mwait_idle_init(), called from cpuidle_presmp_init(),
->> - amd_cpuidle_init(), calling in only when invoked the very first time,
->>   which is again from cpuidle_presmp_init(),
->> - _disable_pit_irq(), called from the regular initcall disable_pit_irq().
->> I.e. for the latter you're right that the CPU mask is too broad (in only a
->> cosmetic way though). Would be you okay if I used cpumask_of(0) in place
->> of &cpu_online_map?
-> 
-> Using cpumask_of(0) would be OK, as the per-cpu vector_irq array will
-> be updated ahead of assigning the interrupt to a CPU, and hence it
-> doesn't need to be done for all possible online CPUs in
-> _bind_irq_vector().
-> 
-> In the context here it would be more accurate to provide an empty CPU
-> mask, as the interrupt is not yet targeting any CPU.  Using CPU 0
-> would be a placeholder, which seems fine for the purpose.
-
-Putting an empty mask there, while indeed logically correct, would (I fear)
-again put us at risk with other code making various assumptions. I'll go
-with cpumask_of(0).
-
->>>> --- a/xen/drivers/passthrough/amd/iommu_intr.c
->>>> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
->>>> @@ -551,6 +551,13 @@ int cf_check amd_iommu_msi_msg_update_ir
->>>>          for ( i = 1; i < nr; ++i )
->>>>              msi_desc[i].remap_index = msi_desc->remap_index + i;
->>>>          msg->data = data;
->>>> +        /*
->>>> +         * While the low address bits don't matter, "canonicalize" the address
->>>> +         * by zapping the bits that were transferred to the IRTE.  This way
->>>> +         * callers can check for there actually needing to be an update to
->>>> +         * wherever the address is put.
->>>> +         */
->>>> +        msg->address_lo &= ~(MSI_ADDR_DESTMODE_MASK | MSI_ADDR_DEST_ID_MASK);
->>>
->>> You might want to mention this change on the commit message also, as
->>> it could look unrelated to the rest of the code?
+>> Using cpumask_of(0) would be OK, as the per-cpu vector_irq array will
+>> be updated ahead of assigning the interrupt to a CPU, and hence it
+>> doesn't need to be done for all possible online CPUs in
+>> _bind_irq_vector().
 >>
->> I thought the comment here provided enough context and detail. I've added
->> "AMD interrupt remapping code so far didn't "return" a consistent MSI
->>  address when translating an MSI message. Clear respective fields there, to
->>  keep the respective assertion in set_channel_irq_affinity() from
->>  triggering."
+>> In the context here it would be more accurate to provide an empty CPU
+>> mask, as the interrupt is not yet targeting any CPU.  Using CPU 0
+>> would be a placeholder, which seems fine for the purpose.
 > 
-> LGTM, I would possibly remove the last "respective" for being
-> repetitive given the previous one in the sentence.
+> Putting an empty mask there, while indeed logically correct, would (I fear)
+> again put us at risk with other code making various assumptions.
 
-Oh, indeed. Replaced it by "related" rather than dropping it completely.
+And indeed: _bind_irq_vector() would reject an empty mask.
 
 Jan
 
