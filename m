@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4719C0E0F8
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Oct 2025 14:33:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1151608.1482123 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16787C0E185
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Oct 2025 14:38:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1151617.1482133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDNLF-00055n-Vz; Mon, 27 Oct 2025 13:32:57 +0000
+	id 1vDNQP-0005pr-Id; Mon, 27 Oct 2025 13:38:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1151608.1482123; Mon, 27 Oct 2025 13:32:57 +0000
+Received: by outflank-mailman (output) from mailman id 1151617.1482133; Mon, 27 Oct 2025 13:38:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDNLF-00053d-TN; Mon, 27 Oct 2025 13:32:57 +0000
-Received: by outflank-mailman (input) for mailman id 1151608;
- Mon, 27 Oct 2025 13:32:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vDNQP-0005nN-Fv; Mon, 27 Oct 2025 13:38:17 +0000
+Received: by outflank-mailman (input) for mailman id 1151617;
+ Mon, 27 Oct 2025 13:38:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KmjG=5E=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1vDNLE-00053X-8N
- for xen-devel@lists.xenproject.org; Mon, 27 Oct 2025 13:32:56 +0000
+ id 1vDNQO-0005nH-QY
+ for xen-devel@lists.xenproject.org; Mon, 27 Oct 2025 13:38:16 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 709152d2-b339-11f0-9d16-b5c5bf9af7f9;
- Mon, 27 Oct 2025 14:32:53 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 2dcb7ca6-b33a-11f0-980a-7dc792cee155;
+ Mon, 27 Oct 2025 14:38:11 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A1A07175D;
- Mon, 27 Oct 2025 06:32:44 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 593A4175D;
+ Mon, 27 Oct 2025 06:38:02 -0700 (PDT)
 Received: from [10.57.68.196] (unknown [10.57.68.196])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AF5AF3F673;
- Mon, 27 Oct 2025 06:32:45 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0FD233F673;
+ Mon, 27 Oct 2025 06:38:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,16 +42,15 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 709152d2-b339-11f0-9d16-b5c5bf9af7f9
-Message-ID: <2be0732d-d8fb-424d-bc4e-443cc49d0092@arm.com>
-Date: Mon, 27 Oct 2025 14:32:42 +0100
+X-Inumbo-ID: 2dcb7ca6-b33a-11f0-980a-7dc792cee155
+Message-ID: <1db69026-199c-4cee-bb3b-1217f8a3afad@arm.com>
+Date: Mon, 27 Oct 2025 14:38:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 11/13] x86/xen: use lazy_mmu_state when
  context-switching
-To: David Hildenbrand <david@redhat.com>,
- Demi Marie Obenour <demiobenour@gmail.com>,
- David Woodhouse <dwmw2@infradead.org>, linux-mm@kvack.org
+To: David Woodhouse <dwmw2@infradead.org>,
+ David Hildenbrand <david@redhat.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  Andreas Larsson <andreas@gaisler.com>,
  Andrew Morton <akpm@linux-foundation.org>,
@@ -76,62 +75,53 @@ References: <20251015082727.2395128-1-kevin.brodsky@arm.com>
  <20251015082727.2395128-12-kevin.brodsky@arm.com>
  <f0067f35-1048-4788-8401-f71d297f56f3@redhat.com>
  <348e5f1c5a90e4ab0f14b4d997baf7169745bf04.camel@infradead.org>
- <70723f4a-f42b-4d94-9344-5824e48bfad1@redhat.com>
- <3ff4aaeb-61ce-4b72-ba90-1b66374b1b95@gmail.com>
- <6c9bd0c6-0968-41ac-b0b4-53c881748cfb@redhat.com>
+ <6ed9f404-9939-4e9f-b5aa-4253bef46df1@arm.com>
+ <7324616a8d2631aa8132f725f9f6551e3e6b21dd.camel@infradead.org>
 Content-Language: en-GB
 From: Kevin Brodsky <kevin.brodsky@arm.com>
-In-Reply-To: <6c9bd0c6-0968-41ac-b0b4-53c881748cfb@redhat.com>
+In-Reply-To: <7324616a8d2631aa8132f725f9f6551e3e6b21dd.camel@infradead.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27/10/2025 13:29, David Hildenbrand wrote:
-> On 25.10.25 00:52, Demi Marie Obenour wrote:
->> On 10/24/25 10:51, David Hildenbrand wrote:
->>> On 24.10.25 16:47, David Woodhouse wrote:
->>>> On Thu, 2025-10-23 at 22:06 +0200, David Hildenbrand wrote:
->>>>> On 15.10.25 10:27, Kevin Brodsky wrote:
->>>>>> We currently set a TIF flag when scheduling out a task that is in
->>>>>> lazy MMU mode, in order to restore it when the task is scheduled
->>>>>> again.
->>>>>>
->>>>>> The generic lazy_mmu layer now tracks whether a task is in lazy MMU
->>>>>> mode in task_struct::lazy_mmu_state. We can therefore check that
->>>>>> state when switching to the new task, instead of using a separate
->>>>>> TIF flag.
->>>>>>
->>>>>> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
->>>>>> ---
+On 24/10/2025 17:17, David Woodhouse wrote:
+> On Fri, 2025-10-24 at 17:05 +0200, Kevin Brodsky wrote:
+>> On 24/10/2025 16:47, David Woodhouse wrote:
+>>> On Thu, 2025-10-23 at 22:06 +0200, David Hildenbrand wrote:
+>>>> On 15.10.25 10:27, Kevin Brodsky wrote:
+>>>>> We currently set a TIF flag when scheduling out a task that is in
+>>>>> lazy MMU mode, in order to restore it when the task is scheduled
+>>>>> again.
 >>>>>
+>>>>> The generic lazy_mmu layer now tracks whether a task is in lazy MMU
+>>>>> mode in task_struct::lazy_mmu_state. We can therefore check that
+>>>>> state when switching to the new task, instead of using a separate
+>>>>> TIF flag.
 >>>>>
->>>>> Looks ok to me, but I hope we get some confirmation from x86 / xen
->>>>> folks.
->>>>
->>>>
->>>> I know tglx has shouted at me in the past for precisely this reminder,
->>>> but you know you can test Xen guests under QEMU/KVM now and don't need
->>>> to actually run Xen? Has this been boot tested?
->>>
->>> And after that, boot-testing sparc as well? :D
->>>
->>> If it's easy, why not. But other people should not suffer for all the
->>> XEN hacks we keep dragging along.
->>
->> Which hacks?  Serious question.  Is this just for Xen PV or is HVM
->> also affected?
+>>>>> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
+>>>>> ---
+>>>> Looks ok to me, but I hope we get some confirmation from x86 / xen
+>>>> folks.
+>>> I know tglx has shouted at me in the past for precisely this reminder,
+>>> but you know you can test Xen guests under QEMU/KVM now and don't need
+>>> to actually run Xen? Has this been boot tested?
+>> I considered boot-testing a Xen guest (considering the Xen-specific
+>> changes in this series), but having no idea how to go about it I quickly
+>> gave up... Happy to follow instructions :)
+> https://qemu-project.gitlab.io/qemu/system/i386/xen.html covers booting
+> Xen HVM guests, and near the bottom PV guests too (for which you do
+> need a copy of Xen to run in QEMU with '--kernel xen', and your
+> distro's build should suffice for that).
 >
-> In the context of this series, XEN_LAZY_MMU.
+> Let me know if you have any trouble. Here's a sample command line which
+> works here...
+>
+> qemu-system-x86_64 -display none --accel kvm,xen-version=0x40011,kernel-irqchip=split -drive file=/var/lib/libvirt/images/fedora28.qcow2,if=xen -kernel ~/git/linux-2.6/arch/x86/boot/bzImage -append "root=/dev/xvda1 console=ttyS0" -serial mon:stdio
 
-FWIW in that particular case it's relatively easy to tell this is
-specific to Xen PV (this is only used in mmu_pv.c and enlighten_pv.c).
-Knowing what to test is certainly not obvious in general, though.
+Thanks this is helpful! Unfortunately lazy_mmu is only used in the PV
+case, so I'd need to run a PV guest. And the distro I'm using (Arch
+Linux) does not have a Xen package :/ It can be built from source from
+the AUR but that looks rather involved. Are there some prebuilt binaries
+I could grab and just point QEMU to?
 
 - Kevin
-
->
-> Your question regarding PV/HVM emphasizes my point: how is a submitter
-> supposed to know which XEN combinations to test (and how to test
-> them), to not confidentially break something here.
->
-> We really need guidance+help from the XEN folks here.
 
