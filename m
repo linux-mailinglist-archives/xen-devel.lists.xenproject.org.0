@@ -2,44 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA10CC0D852
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Oct 2025 13:29:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1151586.1482103 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE427C0D984
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Oct 2025 13:39:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1151596.1482115 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDMLw-0003j7-D4; Mon, 27 Oct 2025 12:29:36 +0000
+	id 1vDMUr-0005Zz-8o; Mon, 27 Oct 2025 12:38:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1151586.1482103; Mon, 27 Oct 2025 12:29:36 +0000
+Received: by outflank-mailman (output) from mailman id 1151596.1482115; Mon, 27 Oct 2025 12:38:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDMLw-0003gp-AD; Mon, 27 Oct 2025 12:29:36 +0000
-Received: by outflank-mailman (input) for mailman id 1151586;
- Mon, 27 Oct 2025 12:29:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vDMUr-0005Wr-57; Mon, 27 Oct 2025 12:38:49 +0000
+Received: by outflank-mailman (input) for mailman id 1151596;
+ Mon, 27 Oct 2025 12:38:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=v/7+=5E=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1vDMLv-0003gh-30
- for xen-devel@lists.xenproject.org; Mon, 27 Oct 2025 12:29:35 +0000
+ id 1vDMUp-0005Wl-RI
+ for xen-devel@lists.xenproject.org; Mon, 27 Oct 2025 12:38:47 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 94dab937-b330-11f0-980a-7dc792cee155;
- Mon, 27 Oct 2025 13:29:29 +0100 (CET)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id df92ace5-b331-11f0-9d16-b5c5bf9af7f9;
+ Mon, 27 Oct 2025 13:38:44 +0100 (CET)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-554-Znzyrz1qN2OBa2YMfguy-Q-1; Mon, 27 Oct 2025 08:29:26 -0400
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-47496b3c1dcso33871425e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 27 Oct 2025 05:29:26 -0700 (PDT)
-Received: from ?IPV6:2003:d8:2f3f:4b00:ee13:8c22:5cc5:d169?
- (p200300d82f3f4b00ee138c225cc5d169.dip0.t-ipconnect.de.
- [2003:d8:2f3f:4b00:ee13:8c22:5cc5:d169])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429952db99asm14109118f8f.32.2025.10.27.05.29.23
+ us-mta-685-SrQ0UeErOUqunzsoolkAgw-1; Mon, 27 Oct 2025 08:38:42 -0400
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-4711899ab0aso31755145e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Oct 2025 05:38:41 -0700 (PDT)
+Received: from [192.168.3.141] (p4ff1f1cf.dip0.t-ipconnect.de.
+ [79.241.241.207]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-475dd489e6dsm133581265e9.6.2025.10.27.05.38.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Oct 2025 05:29:24 -0700 (PDT)
+ Mon, 27 Oct 2025 05:38:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,55 +49,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94dab937-b330-11f0-980a-7dc792cee155
+X-Inumbo-ID: df92ace5-b331-11f0-9d16-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1761568168;
+	s=mimecast20190719; t=1761568723;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=MxqhGs+kErj9QojSUYfqhMME1C+HzYz58U9mBz2oLoo=;
-	b=GjzL7CDj0S0BLc5W69u1/FuWZP+xXmM0qsQ+oWjgr07ChdsV2F/b3jTNxuBUL6QHHgCelZ
-	VLDaz/WWXZURQtMj2RN7LzIXgDso00pMrUat2qCbJ5oxy6Fs0IuzdP7yXHugMpLoCclouv
-	QKCKBey16vgVRZWgmpx9u/rIram8z1E=
-X-MC-Unique: Znzyrz1qN2OBa2YMfguy-Q-1
-X-Mimecast-MFC-AGG-ID: Znzyrz1qN2OBa2YMfguy-Q_1761568166
+	bh=4cvIQRmqmBNV8P6YdgjJbon9LLe8l/9b6yM7q+yxHTQ=;
+	b=c6eRaNEn3DkmXxywCs1O2CdnP4uVd0uKWqn8MuLxzrLgdAQolpaobJhMWi8VS0JUkr8Qpt
+	UoFYqTVUzS8EijmomEI0MjvaTYvZTvy+27EVmx2ybQTMKgs7VXXc9dEDafQ6364giwt3kH
+	IA01NMC0f0p6dCq3j974ufLpu/lOgF4=
+X-MC-Unique: SrQ0UeErOUqunzsoolkAgw-1
+X-Mimecast-MFC-AGG-ID: SrQ0UeErOUqunzsoolkAgw_1761568721
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761568165; x=1762172965;
+        d=1e100.net; s=20230601; t=1761568721; x=1762173521;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=MxqhGs+kErj9QojSUYfqhMME1C+HzYz58U9mBz2oLoo=;
-        b=BvLbNY6Z63XTwYWhK5SXf6Zq1TEb3C6KouaAqIsRKBi08l1WFma/yW9FHeGrpmafIn
-         s88iyXQ6t2xUcZePOP94owmKzulVR3bpq94dvLjRY3ybF7bbQsSrDvjXuT1JJhZ0iipL
-         01Ce9mgMiXL9eGB5JOKBv3nko4emHI6FCdUnuPPKM4uPY0JmE0KLPV/qtU8/r7t+iyDe
-         zDsrivmp1ff6eztROlBZTgGUPgNAMQMeEbwqBxyWEMdFFJqaKdet5bzDylj2Cid0yMbE
-         FJzZiMnN7HNwhWO9c/pahHG6MNFjdIcpAB8zznnuWzPPYm4ashbJKYRqjFM3U3Y0AvT4
-         RFxA==
-X-Forwarded-Encrypted: i=1; AJvYcCUAMncNnSkXufx6Y52iGiiVVS69tzrh0cuFrzdlrFWdw//VCIVAbeewQ2pRi+gaFAGiy8oejSFu2A4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxHNmU5phDF+gEI9zq5WZGG/vBi2iRmlR9bMqKpYIYXYcBq7t22
-	2tzv+8gtb8pf6tZ//T8T+Z6WNfLFZ4HUvusHyElHeje2oVC9oX4FQvu6/VYb4u4WhAwh5Dt1N7t
-	8Fx/VbRjdvfcdVDxqLy8RFSOI0vy8p0H9anlKnGniF+e2/7YmQZvTUggu1MAmwP15YgRK
-X-Gm-Gg: ASbGncuMhpmWhNtXvuTiVXxPKDOSRvS6lWyfQxXR6ER6J4gua2K3Cy9z6wq5JTK2Mz9
-	Lh6sVHHRinsdlOUyz8gpiLQp5kJjmlyOZcJjL3Rz+JavI12wSodOnQPEqPl0Dxbvw/5lJ0F9l5b
-	jC6ZVjKeKrixFP4TGI9riibU09g3oeQC52tv2tFmH9IBte4xKDouVMeWNcsP7dt52F0Ds9WIk0o
-	XqpejVmbN2SSPRZ4rlQwP8IGfd3c8810vreeQEtNUwMcQZAP2zqGyUMv7dMXMc1SPsb5qcrZh3N
-	PoWAxlD1u2QYf4ioHZlHAIqyBvFyk0AFhkoa8PFB/IrGgGYnjaiDORtocnWqMGZTbrVw2jpGWds
-	lKRICzfG0t54HhW2vgV8zq1OYvcIKbvzPMZoMGFoyR3lAKnjmC7fpHpHHtkOxnoVYVGb0ITYdQ2
-	I6q4McV69WEt5SiDK2eqEaJvp1kxs=
-X-Received: by 2002:a05:600c:6814:b0:46d:b665:1d95 with SMTP id 5b1f17b1804b1-475d2ed2703mr122459175e9.32.1761568165610;
-        Mon, 27 Oct 2025 05:29:25 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IERhDOSgpdu7IOhGUhd5vG2oGfH+FtLLHQ8h3X53cAF/bER/zOT53Nw9I8J5TYzsbcubMUbyA==
-X-Received: by 2002:a05:600c:6814:b0:46d:b665:1d95 with SMTP id 5b1f17b1804b1-475d2ed2703mr122458775e9.32.1761568165180;
-        Mon, 27 Oct 2025 05:29:25 -0700 (PDT)
-Message-ID: <6c9bd0c6-0968-41ac-b0b4-53c881748cfb@redhat.com>
-Date: Mon, 27 Oct 2025 13:29:22 +0100
+        bh=4cvIQRmqmBNV8P6YdgjJbon9LLe8l/9b6yM7q+yxHTQ=;
+        b=bHvbcHJZBFyfoAygmzGGmox+ZpNKHPA5PYQ7VO6XfA4KA/zLfq/ozi7yEQUD/R+0Wu
+         SyktH8sutwVKRTEMmUlQ8E9R0esd/+z9+P1CsDSSh4ViPhEcoD3TpNNP297MKtauEPJQ
+         Rf1uh7AiebMS7iv4EGAzkRKqf8dq93QO/CopCV/G0AVUU9KNZY8Lc58NIUF6nzEIMoYs
+         ouJt9DKXnL8Ieah3ETThK6D8v0q4hg4G2qxqxdVfef3PX/VH1jB/1s+dCQF/lVM18M3i
+         mw82l5M+EJFyERE9RvCtLjZii06c+ZCB+DklWOZjn02WqEk/kgo6j6VRPuK+RtCP658V
+         1GJQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW6dwKmxW8cgOrz9CAcdDJ9jpC/8hTDCzWKf9Yg/VN0bjTSliCR90gHuiDjS8fjgGj2Egs4vro+2Ug=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzD91rCcDqyivZnrgeOKUgeuPJQU7QYcsyF2Fnpg2kvn5x8L8jO
+	mA/cyj3fIaGJ5edJE3Ny6tSGOfoZfFm8qQAO4TOXl129hXgdQ8b6CWdb6WWznHUdOjhWT4z2pX4
+	l/4DMDL+Q3YEmZuXB+A4Rwkllw46rgWB13CPD1Mr3ORImImMrTTlEHm32FqC6GT4GQxq9
+X-Gm-Gg: ASbGncvzFiWXeaC/2uUjiHNMr1v/Bo6FCdLbpacOOcW1vwRjDELnB/R8De2WhXx6Rv2
+	zEKkaeZ2pvfiqeKBLC2bJ4fb1OlvJzro7UVRCEWOfb3mo+K4YLsqw7ubsEgzZtwG3u7jhC3wEp3
+	gxJtDvMDLzWchjQoDZySD1c57iiKHK7aGVmJ7bFrC6vYKudwb442mwZWz8bkWTp5OM92k1l6JUd
+	GiEqoAVDBVwP+xDwAMYtPAq3hgQl6UMaO3V3qsAhwPFa4QVW4cp0JgbAg6ljLGcSeEKEr5Mq/rr
+	PxLDkHCJE3C+6Sbab8/4uKrfnJTeMvwOZaUuokk1r9Z4XE3eq9owvvOJzU6B1mL0LbweGdz/7Fh
+	z+XvdOeiqb9hOFRofWrmZ28qZwmZgl4g=
+X-Received: by 2002:a05:600c:3b03:b0:46e:53cb:9e7f with SMTP id 5b1f17b1804b1-471178a3ff6mr279997785e9.18.1761568720552;
+        Mon, 27 Oct 2025 05:38:40 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH9bbdh4PWkc2jU/rl4KkAQD2PqCSpwK7SfjvxDRuSE3bTT/1W5umiWwesFjMbMJkHNKlChlg==
+X-Received: by 2002:a05:600c:3b03:b0:46e:53cb:9e7f with SMTP id 5b1f17b1804b1-471178a3ff6mr279997395e9.18.1761568720112;
+        Mon, 27 Oct 2025 05:38:40 -0700 (PDT)
+Message-ID: <7df81ee0-1161-49f4-a93f-4d9245d48e1d@redhat.com>
+Date: Mon, 27 Oct 2025 13:38:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 11/13] x86/xen: use lazy_mmu_state when
  context-switching
-To: Demi Marie Obenour <demiobenour@gmail.com>,
+To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
  David Woodhouse <dwmw2@infradead.org>, Kevin Brodsky
  <kevin.brodsky@arm.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
@@ -127,7 +124,10 @@ References: <20251015082727.2395128-1-kevin.brodsky@arm.com>
  <f0067f35-1048-4788-8401-f71d297f56f3@redhat.com>
  <348e5f1c5a90e4ab0f14b4d997baf7169745bf04.camel@infradead.org>
  <70723f4a-f42b-4d94-9344-5824e48bfad1@redhat.com>
- <3ff4aaeb-61ce-4b72-ba90-1b66374b1b95@gmail.com>
+ <cbe0d305cce6d76e00b64e7209f15b4645c15033.camel@infradead.org>
+ <fcd7b731d38b256e59edd532e792a00efa4e144e.camel@physik.fu-berlin.de>
+ <9faf750e-2369-4fae-b58a-ed9052cfd6f6@redhat.com>
+ <1d9f416fd3665faf27841b6305b1e8d661427125.camel@physik.fu-berlin.de>
 From: David Hildenbrand <david@redhat.com>
 Autocrypt: addr=david@redhat.com; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -173,55 +173,70 @@ Autocrypt: addr=david@redhat.com; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <3ff4aaeb-61ce-4b72-ba90-1b66374b1b95@gmail.com>
+In-Reply-To: <1d9f416fd3665faf27841b6305b1e8d661427125.camel@physik.fu-berlin.de>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: jUcsipX9gdz5L_CX9KytUejwCd-w-RVWi_2j7Am57FM_1761568166
+X-Mimecast-MFC-PROC-ID: h2l2rt6-6euKfBuBV5GYnAsFCqk_iFu53OW9-4gWXEM_1761568721
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 25.10.25 00:52, Demi Marie Obenour wrote:
-> On 10/24/25 10:51, David Hildenbrand wrote:
->> On 24.10.25 16:47, David Woodhouse wrote:
->>> On Thu, 2025-10-23 at 22:06 +0200, David Hildenbrand wrote:
->>>> On 15.10.25 10:27, Kevin Brodsky wrote:
->>>>> We currently set a TIF flag when scheduling out a task that is in
->>>>> lazy MMU mode, in order to restore it when the task is scheduled
->>>>> again.
->>>>>
->>>>> The generic lazy_mmu layer now tracks whether a task is in lazy MMU
->>>>> mode in task_struct::lazy_mmu_state. We can therefore check that
->>>>> state when switching to the new task, instead of using a separate
->>>>> TIF flag.
->>>>>
->>>>> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
->>>>> ---
->>>>
->>>>
->>>> Looks ok to me, but I hope we get some confirmation from x86 / xen
->>>> folks.
->>>
->>>
->>> I know tglx has shouted at me in the past for precisely this reminder,
->>> but you know you can test Xen guests under QEMU/KVM now and don't need
->>> to actually run Xen? Has this been boot tested?
->>
->> And after that, boot-testing sparc as well? :D
->>
->> If it's easy, why not. But other people should not suffer for all the
->> XEN hacks we keep dragging along.
+On 24.10.25 17:51, John Paul Adrian Glaubitz wrote:
+> Hi David,
+
+Hi,
+
 > 
-> Which hacks?  Serious question.  Is this just for Xen PV or is HVM
-> also affected?
+> On Fri, 2025-10-24 at 17:47 +0200, David Hildenbrand wrote:
+>>> Please have people test kernel changes on SPARC on real hardware. QEMU does not
+>>> emulate sun4v, for example, and therefore testing in QEMU does not cover all
+>>> of SPARC hardware.
+>>>
+>>> There are plenty of people on the debian-sparc, gentoo-sparc and sparclinux
+>>> LKML mailing lists that can test kernel patches for SPARC. If SPARC-relevant
+>>> changes need to be tested, please ask there and don't bury such things in a
+>>> deeply nested thread in a discussion which doesn't even have SPARC in the
+>>> mail subject.
+>>
+>> out of curiosity, do people monitor sparclinux@ for changes to actively
+>> offer testing when required -- like would it be sufficient to CC
+>> relevant maintainers+list (like done here) and raise in the cover letter
+>> that some testing help would be appreciated?
+> 
+> Yes, that's definitely the case. But it should be obvious that from the subject
+> of the mail that the change affects SPARC as not everyone can read every mail
+> they're receiving through mailing lists.
 
-In the context of this series, XEN_LAZY_MMU.
+Agreed. One would hope that people only CC the sparc mailing list + 
+maintainers when there is actually something relevant in there.
 
-Your question regarding PV/HVM emphasizes my point: how is a submitter 
-supposed to know which XEN combinations to test (and how to test them), 
-to not confidentially break something here.
+Also, it would be nice if someone (e.g., the maintainer or reviewers) 
+could monitor the list to spot that there is testing demand to CC the 
+right people.
 
-We really need guidance+help from the XEN folks here.
+I guess one problem might be that nobody is getting paid to work on 
+sparc I guess (I'm happy to be wrong on that one :) ).
+
+Regarding sparc, I'll keep in mind that we might have to write a 
+separate mail to the list to get some help with testing.
+
+> 
+> I'm trying to keep up, but since I'm on mailing lists for many different architectures,
+> mails can slip through the cracks.
+
+Yeah, that's understandable.
+
+> 
+> For people that want to test changes on SPARC regularly, I can also offer accounts
+> on SPARC test machines running on a Solaris LDOM (logical domain) on a SPARC T4.
+
+For example, I do have a s390x machine in an IBM cloud where I can test 
+stuff. But I worked on s390x before, so I know how to test and what to 
+test, and how to troubleshoot.
+
+On sparc I'd unfortunately have a hard time even understanding whether a 
+simple boot test on some machine will actually trigger what I wanted to 
+test :(
 
 -- 
 Cheers
