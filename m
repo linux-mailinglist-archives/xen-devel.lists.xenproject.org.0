@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 203EAC0CF19
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Oct 2025 11:24:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1151496.1482026 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71850C0D245
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Oct 2025 12:24:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1151507.1482044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDKOR-0001MV-1c; Mon, 27 Oct 2025 10:24:03 +0000
+	id 1vDLJz-0000l4-AK; Mon, 27 Oct 2025 11:23:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1151496.1482026; Mon, 27 Oct 2025 10:24:03 +0000
+Received: by outflank-mailman (output) from mailman id 1151507.1482044; Mon, 27 Oct 2025 11:23:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDKOQ-0001K3-VA; Mon, 27 Oct 2025 10:24:02 +0000
-Received: by outflank-mailman (input) for mailman id 1151496;
- Mon, 27 Oct 2025 10:24:01 +0000
+	id 1vDLJz-0000ic-6K; Mon, 27 Oct 2025 11:23:31 +0000
+Received: by outflank-mailman (input) for mailman id 1151507;
+ Mon, 27 Oct 2025 11:23:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UVx/=5E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vDKOP-0001Ju-EV
- for xen-devel@lists.xenproject.org; Mon, 27 Oct 2025 10:24:01 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1vDLJx-0000iW-Ff
+ for xen-devel@lists.xenproject.org; Mon, 27 Oct 2025 11:23:29 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0c791d0a-b31f-11f0-980a-7dc792cee155;
- Mon, 27 Oct 2025 11:23:58 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-47112edf9f7so27392005e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 27 Oct 2025 03:23:58 -0700 (PDT)
+ id 5b89d6a6-b327-11f0-980a-7dc792cee155;
+ Mon, 27 Oct 2025 12:23:27 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-4285169c005so2089233f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Oct 2025 04:23:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-475dd4a5cc4sm126784805e9.11.2025.10.27.03.23.56
+ ffacd0b85a97d-429952d5773sm14607684f8f.27.2025.10.27.04.23.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Oct 2025 03:23:57 -0700 (PDT)
+ Mon, 27 Oct 2025 04:23:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c791d0a-b31f-11f0-980a-7dc792cee155
+X-Inumbo-ID: 5b89d6a6-b327-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761560638; x=1762165438; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761564206; x=1762169006; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QOacaics3LEeVvEn8gBiaP/TnigQQ9ZBTQK3ngtkuMg=;
-        b=fAqsk8syw5SzV9dfYB7qMY/Y9X+Szf4IWcRy1X63mzc41w7q0b9k0WS2Boo3HwUr+7
-         gxe0J1pydq/2CR+Qq47doehpIT33UtTQyhGRz25NqESonNhxGx1MoNUtXRwB6ULMJKjs
-         fDv/5VE46VnmfXYiBLqppDE4wcpv/Q6JrrAAQvQC4LYzp4YWBMSM23pkxE93bRW5sFMk
-         zeHhyBnpbyLTA8qnTtCrKLNNTNyH0ikq1GYKM14JsIQLN5o6cLmOU2lRsxv0ZAmePoBt
-         ocAR28AiwVdMTbhQiIR/sY+Q63P3hgDcdJL3QbRGlFVVNkP7Bcuw3oVy9RJs9XcCGyGL
-         HVBA==
+        bh=BkwsnQODftF4uCX0TVyMWbqOUknjJKQ7lA5pGWE3VHA=;
+        b=Pf7V/SSZB9Zy0kaOBnjD5J1RKbHwnZabdOSIIgZyIOtiQIlXz3TukK4uZRjT+I4jmG
+         evwsORco1lUDlXQDpEhpioydz8I6Bos9UqaBZhXQ14eDDorGefzx6xpBhF6jio95r01L
+         B8DRPeBqkYNgobuklzxst6mbADStB+tZBR4iz9H4D52wFyR/+eeRbBypa3Dd7flzK18j
+         D5JQQhnyCJ6dKK3ngN2zhuEaWy3dAYyFOyJM0w/CS1uT2S1nJii6sk7PJH2PAcEZ8Gg1
+         4RAqWvzY8o+E6OKO/6pxeirzdK2VRRYYfQ7md5Hk6JZL4woJhgUIZs22Dp5ly4aNahjS
+         CsiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761560638; x=1762165438;
+        d=1e100.net; s=20230601; t=1761564206; x=1762169006;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QOacaics3LEeVvEn8gBiaP/TnigQQ9ZBTQK3ngtkuMg=;
-        b=Stno8VHVpDJAJsuz0T2gzuBVCGAdv1MCViQCFSL+7AifglQVXT307q/gNCdIg6A+O/
-         0lOpAGXG6B3tJfzvOjxZE8iUe8K8zc61lQIN27FYYN5GFdP615kcxTILn+kwYNfjFvRJ
-         QJBO7ZwtDZBEvkxwvAu6NGyT0Q/EtgxZTj4UWrRaG21ecfF13NaoqOtk2eVdTrCLU+nW
-         ctgiaQTxBbuHcJ9uUOWJdPqMjRIbbfDyoc8njgoPikrhFlJl7rEDJnwVCltuhIsIGQQM
-         hXP7Hf1H9gdQqUhyyoEtwLVy5Oxi1oAUnGJjSgf3g49y3ih8GIWLGEB3XpzX6lShtgug
-         O3Ug==
-X-Gm-Message-State: AOJu0YwPfWzcUbkaxad+vTHrOMMfEdVRL40JmVLYZo0Op5Uaur5Bl+F5
-	Jj84PE/Dwqrf1AIusskYtRNcwbzXrjN3cCL1EtXAWF2W0VhdPEbtGXSOCcw1wDO6HQ==
-X-Gm-Gg: ASbGncuLWGvjxy2A+koWiRlDZvBCREw7gJYRtxksgcM8LT6njUfswA4T5IeAJpOmbVF
-	Eo2u10GlDQocqWs1eCmlwXr8qFeXhE2tvWHIo3S10QH2E+UsT4jhVyR8SG4iUZp6dNuNWsD/tVy
-	J9/SVvsn6IyInt9vi/d/Jx92vQQ5spoxKsaNIUyV74sSOk/32ILxcpK7QnBconJ2pPUqQhzYcxg
-	eib53wsZJfSZgCgNDtU2AmMmME8CBUUgs2MVJ2u5IS2QFBzTfqGsOA/eBBuYwKP+dGaF0yof1fJ
-	StMLU7yOEp36X51bh9W8a2yQ/muRju2mA9dwAvG1WEORoKso+LLyaewb/isPWxnUgWoIOea8PVC
-	CaKJcgYupxDYbUD30be+juVqZ4eRax3LSXjmfiBAQ7wU0s5QGXy04QlebuIkHjxhyZGPLCusPpJ
-	JOg0wLr86KuqxsZTPYLZanqmycbZgHfsf+jvt1h+WcG/CfhUtIXt8jqtbcDEKdHnE/1PK6Mxg=
-X-Google-Smtp-Source: AGHT+IFdeTz2fmCyuoV7xx1BtbLfsFs8H2lxpb2Jy7HcXmbpXz6autG5gGzWvlPxrvAxH/xoYRJ5zA==
-X-Received: by 2002:a05:600c:3b0a:b0:477:b93:a7af with SMTP id 5b1f17b1804b1-4770b93a9d9mr39276015e9.0.1761560637619;
-        Mon, 27 Oct 2025 03:23:57 -0700 (PDT)
-Message-ID: <6428217d-b5f6-4948-aff2-b007a6cfcfc0@suse.com>
-Date: Mon, 27 Oct 2025 11:23:58 +0100
+        bh=BkwsnQODftF4uCX0TVyMWbqOUknjJKQ7lA5pGWE3VHA=;
+        b=Kq5b9haLVZYtl6m8SBTboR7vqOwtX+ZLtE3f7sCFB03mK9xRhchPgA/iDu1rGqIFnr
+         oTRcMmU8DY5tlH+ZZ/az6DVLYa6ZvN2c8oY1GzD4A0PTuO49y6FZeCgawpIyHyVfYmtk
+         FBmUoBqO8C6XgCyp4RKYZA+AxpU2zmjVhPj0nuEGAEKrLQQ6m+ov32oozUkV8wwjE8jR
+         7Edo9fq3Y0jNePzNI7B7eAZtrMUY82E1so5gUsyPHft45iU62DH3GdjE7JJoLArSewbU
+         hZ1O/YDBWkie9vIk6RRwlNFF+t3xaq8UNaEPq+SqQZj+eord/J59Y0X/nMfMMOaz3EH0
+         mk+g==
+X-Forwarded-Encrypted: i=1; AJvYcCUgM3ZTBS7l3J6Ue9FUZDMTdcioAB89nnd6Bb9QPm/a5cf2cduaUwjmcX5APLKHH3Uum0BQQsWtOKo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxRei6PjE/tN7MFcm2zr22FNChFy1NQAXkuCfdEM/7xSbWTn0ch
+	d458l1sV7ozsJxXYkrIYi6zGWBpClOiYX1qF/DINYSZCFZESZQma4+qnSn2yzuZgbg==
+X-Gm-Gg: ASbGnctS8ZsKwtigX7tbY5eSYCmXK1G+V/s9XjDiuJYv+lMNQrhZ6+ZWd0b7ykjHo7u
+	T7rekuE5iaBralK8ceSI3yjjquc2gMhIKEt8LtDj1+E9xx1lPpkiyf+FJ75knGb8gh19XrpwYAu
+	qoV6Ek2b2o+Htj8+0YLNlpefUIjdobeR0OQ/CsoAilE2ROsU0V6GnaCenoHLkiUpDr/0aE97PB8
+	va72mht2zigvBgpEUz7h3qypmf1YP1hz0i5Lp00KHqRAH850rwMNTFSi3VMCp/ldmEdI5RdyMr+
+	PY+mBzLmFVeradfY5OFBFt9ScRSem+jgQbELZKHNHYM71ZGAB3aNY0TUOAXDLNikiYMFZSpThkN
+	WE7uzUUY50rrRHiVmWS9fDBUG04a8TE/iEqCGC8G3bbGBJ8FQ9MSSIi4H1w4bre8AMIx+Ezstfc
+	+7i4sThA+fu9rGsqK09mvGn54D78R5iKP6oJY4q8AhrA8dCjKSibKyXLIdmjTpWxt665bT9wQ=
+X-Google-Smtp-Source: AGHT+IE2Y82AeaV5oSbXpvnEYhiWxKJU3Wuu1S3Hx8z73zucAE+K63bW1gUL9Yshm9sXYTKbmlVC5Q==
+X-Received: by 2002:a05:6000:1848:b0:428:4354:aa27 with SMTP id ffacd0b85a97d-4284354abc4mr19933932f8f.46.1761564206418;
+        Mon, 27 Oct 2025 04:23:26 -0700 (PDT)
+Message-ID: <39bad1c0-d134-4766-a051-273740caab14@suse.com>
+Date: Mon, 27 Oct 2025 12:23:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 for-4.21 2/9] x86/HPET: use single, global,
- low-priority vector for broadcast IRQ
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <6a8a912c-7276-42bd-af2b-b94fc6ce4291@suse.com>
- <545d98e0-755d-471b-84c5-54f129a5aece@suse.com> <aPt-B5R-FwJpQbZR@Mac.lan>
+Subject: Re: [PATCH v2 06/12] VT-d: respect ACPI SATC's ATC_REQUIRED flag
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
+ <e98daa41-c6b6-4f4e-b41d-84006011068d@suse.com>
+ <61df4103-7969-4f06-ad0f-374c17195653@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,208 +120,90 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aPt-B5R-FwJpQbZR@Mac.lan>
+In-Reply-To: <61df4103-7969-4f06-ad0f-374c17195653@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 24.10.2025 15:24, Roger Pau Monné wrote:
-> On Thu, Oct 23, 2025 at 05:50:17PM +0200, Jan Beulich wrote:
->> Using dynamically allocated / maintained vectors has several downsides:
->> - possible nesting of IRQs due to the effects of IRQ migration,
->> - reduction of vectors available for devices,
->> - IRQs not moving as intended if there's shortage of vectors,
->> - higher runtime overhead.
+On 23.10.2025 15:30, Teddy Astie wrote:
+> Le 23/10/2025 à 15:14, Jan Beulich a écrit :
+>> When the flag is set, permit Dom0 to control the device (no worse than
+>> what we had before and in line with other "best effort" behavior we use
+>> when it comes to Dom0), but suppress passing through to DomU-s unless
+>> ATS can actually be enabled for such devices (and was explicitly enabled
+>> on the command line).
 >>
->> As the vector also doesn't need to be of any priority (first and foremost
->> it really shouldn't be of higher or same priority as the timer IRQ, as
->> that raises TIMER_SOFTIRQ anyway), simply use the lowest one above the
->> legacy range. The vector needs reserving early, until it is known whether
->> it actually is used. If it isn't, it's made available for general use.
->>
->> With a fixed vector, less updating is now necessary in
->> set_channel_irq_affinity(); in particular channels don't need transiently
->> masking anymore, as the necessary update is now atomic. To fully leverage
->> this, however, we want to stop using hpet_msi_set_affinity() there. With
->> the transient masking dropped, we're no longer at risk of missing events.
->>
->> Fixes: 996576b965cc ("xen: allow up to 16383 cpus")
 >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->                                     ^ space?
+>> ---
+>> v2: Re-base over new earlier patches.
+>>
+>> --- a/docs/misc/xen-command-line.pandoc
+>> +++ b/docs/misc/xen-command-line.pandoc
+>> @@ -225,7 +225,11 @@ exceptions (watchdog NMIs and unexpected
+>>   > Default: `false`
+>>   
+>>   Permits Xen to set up and use PCI Address Translation Services.  This is a
+>> -performance optimisation for PCI Passthrough.
+>> +performance optimisation for PCI Passthrough.  Note that firmware may indicate
+>> +that certain devices need to have ATS enabled for proper operation. For such
+>> +devices ATS will be enabled by default, unless the option is used in its
+>> +negative form.  Such devices will still not be eligible for passing through to
+>> +guests, unless the option is used in its positive form.
+>>   
+>>   **WARNING: Xen cannot currently safely use ATS because of its synchronous wait
+>>   loops for Queued Invalidation completions.**
+> 
+> Do we want to address the warning before attempting to unconditionnaly 
+> enable ATS in these scenarios ? A unstable hypervisor is likely worse 
+> than a non-functionning device to me.
 
-Looks like I simply took what was provided; I've added the blank now (also
-in patch 1).
+Addressing this requires, afaict, lots of changes. Such devices also can still
+only be used by Dom0 unless ATS is explicitly enabled from the command line.
+Whether a non-functioning device is worse than a (only possibly) "unstable"
+hypervisor is also hard to tell. Dom0 may fail to boot if the "right" device is
+affected. ("Possibly" because the synchronous wait loops of course are of
+concern only if they end up taking long.)
 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> Or at least log a warning that ATS is enabled due to a device requiring it.
 
-Thanks.
+This would need to be a per-device message, which may not scale very well.
 
->> @@ -303,15 +309,13 @@ static void cf_check hpet_msi_set_affini
->>      struct hpet_event_channel *ch = desc->action->dev_id;
->>      struct msi_msg msg = ch->msi.msg;
->>  
->> -    msg.dest32 = set_desc_affinity(desc, mask);
->> -    if ( msg.dest32 == BAD_APICID )
->> -        return;
->> +    /* This really is only for dump_irqs(). */
->> +    cpumask_copy(desc->arch.cpu_mask, mask);
-> 
-> To add some extra checks here for correctness, do you think it would
-> be helpful to add:
-> 
-> ASSERT(cpumask_weight(mask) == 1);
-> ASSERT(cpumask_intersects(mask, &cpu_online_mask));
-> 
-> Or that's too pedantic?
-
-Imo that would be pretty pointless in particular since the function is to go
-away anyway.
-
->> @@ -343,6 +347,12 @@ static int __init hpet_setup_msi_irq(str
->>      u32 cfg = hpet_read32(HPET_Tn_CFG(ch->idx));
->>      irq_desc_t *desc = irq_to_desc(ch->msi.irq);
->>  
->> +    clear_irq_vector(ch->msi.irq);
->> +    ret = bind_irq_vector(ch->msi.irq, HPET_BROADCAST_VECTOR, &cpu_online_map);
-> 
-> By passing cpu_online_map here, it leads to _bind_irq_vector() doing:
-> 
-> cpumask_copy(desc->arch.cpu_mask, &cpu_online_map);
-> 
-> Which strictly speaking is wrong.  However this is just a cosmetic
-> issue until the irq is used for the first time, at which point it will
-> be assigned to a concrete CPU.
-> 
-> You could do:
-> 
-> cpumask_clear(desc->arch.cpu_mask);
-> cpumask_set_cpu(cpumask_any(&cpu_online_map), desc->arch.cpu_mask);
-> 
-> (Or equivalent)
-> 
-> To assign the interrupt to a concrete CPU and reflex it on the
-> cpu_mask after the bind_irq_vector() call, but I can live with it
-> being like this.  I have patches to adjust _bind_irq_vector() myself,
-> which I hope I will be able to post soon.
-
-Hmm, I wrongly memorized hpet_broadcast_init() as being pre-SMP-init only.
-It has three call sites:
-- mwait_idle_init(), called from cpuidle_presmp_init(),
-- amd_cpuidle_init(), calling in only when invoked the very first time,
-  which is again from cpuidle_presmp_init(),
-- _disable_pit_irq(), called from the regular initcall disable_pit_irq().
-I.e. for the latter you're right that the CPU mask is too broad (in only a
-cosmetic way though). Would be you okay if I used cpumask_of(0) in place
-of &cpu_online_map?
-
->> @@ -472,19 +482,50 @@ static struct hpet_event_channel *hpet_g
->>  static void set_channel_irq_affinity(struct hpet_event_channel *ch)
->>  {
->>      struct irq_desc *desc = irq_to_desc(ch->msi.irq);
->> +    struct msi_msg msg = ch->msi.msg;
->>  
->>      ASSERT(!local_irq_is_enabled());
->>      spin_lock(&desc->lock);
->> -    hpet_msi_mask(desc);
->> -    hpet_msi_set_affinity(desc, cpumask_of(ch->cpu));
->> -    hpet_msi_unmask(desc);
->> +
->> +    per_cpu(vector_irq, ch->cpu)[HPET_BROADCAST_VECTOR] = ch->msi.irq;
->> +
->> +    /*
->> +     * Open-coding a reduced form of hpet_msi_set_affinity() here.  With the
->> +     * actual update below (either of the IRTE or of [just] message address;
->> +     * with interrupt remapping message address/data don't change) now being
->> +     * atomic, we can avoid masking the IRQ around the update.  As a result
->> +     * we're no longer at risk of missing IRQs (provided hpet_broadcast_enter()
->> +     * keeps setting the new deadline only afterwards).
->> +     */
->> +    cpumask_copy(desc->arch.cpu_mask, cpumask_of(ch->cpu));
->> +
->>      spin_unlock(&desc->lock);
->>  
->> -    spin_unlock(&ch->lock);
->> +    msg.dest32 = cpu_physical_id(ch->cpu);
->> +    msg.address_lo &= ~MSI_ADDR_DEST_ID_MASK;
->> +    msg.address_lo |= MSI_ADDR_DEST_ID(msg.dest32);
->> +    if ( msg.dest32 != ch->msi.msg.dest32 )
+>> --- a/xen/drivers/passthrough/vtd/iommu.c
+>> +++ b/xen/drivers/passthrough/vtd/iommu.c
+>> @@ -2364,6 +2364,26 @@ static int cf_check intel_iommu_add_devi
+>>       if ( ret )
+>>           dprintk(XENLOG_ERR VTDPREFIX, "%pd: context mapping failed\n",
+>>                   pdev->domain);
+>> +    else if ( !pdev->broken )
 >> +    {
->> +        ch->msi.msg = msg;
->>  
->> -    /* We may have missed an interrupt due to the temporary masking. */
->> -    if ( ch->event_handler && ch->next_event < NOW() )
->> -        ch->event_handler(ch);
->> +        if ( iommu_intremap != iommu_intremap_off )
->> +        {
->> +            int rc = iommu_update_ire_from_msi(&ch->msi, &msg);
+>> +        const struct acpi_drhd_unit *drhd = acpi_find_matched_drhd_unit(pdev);
+>> +        const struct acpi_satc_unit *satc = acpi_find_matched_satc_unit(pdev);
 >> +
->> +            ASSERT(rc <= 0);
->> +            if ( rc >= 0 )
-> 
-> I don't think the rc > 0 part of this check is meaningful, as any rc
-> value > 0 will trigger the ASSERT(rc <= 0) ahead of it.  The code
-> inside of the if block itself only contains ASSERTs, so it's only
-> relevant for debug=y builds that will also have the rc <= 0 ASSERT.
-> 
-> You could possibly use:
-> 
-> ASSERT(rc <= 0);
-> if ( !rc )
-> {
->     ASSERT(...
-> 
-> And achieve the same result?
-
-Yes, except that I'd like to keep the >= to cover the case if the first
-assertion was dropped / commented out, as well as to have a doc effect.
-
->> @@ -991,6 +997,13 @@ void alloc_direct_apic_vector(uint8_t *v
->>      spin_unlock(&lock);
->>  }
->>  
->> +/* This could free any vectors, but is needed only for low-prio ones. */
->> +void __init free_lopriority_vector(uint8_t vector)
->> +{
->> +    ASSERT(vector < FIRST_HIPRIORITY_VECTOR);
->> +    clear_bit(vector, used_vectors);
->> +}
-> 
-> I'm undecided whether we want to have such helper.  This is all very
-> specific to the single use by the HPET vector, and hence might be best
-> to simply put the clear_bit() inside of hpet_broadcast_late_init()
-> itself.
-
-I wanted to avoid making used_vectors non-static.
-
-> I could see for example other callers wanting to use this also
-> requiring cleanup of the per cpu vector_irq arrays.  Given it's (so
-> far) very limited usage it might be clearer to open-code the
-> clear_bit().
-
-Dealing with vector_irq[] is a separate thing, though, isn't it?
-
->> --- a/xen/drivers/passthrough/amd/iommu_intr.c
->> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
->> @@ -551,6 +551,13 @@ int cf_check amd_iommu_msi_msg_update_ir
->>          for ( i = 1; i < nr; ++i )
->>              msi_desc[i].remap_index = msi_desc->remap_index + i;
->>          msg->data = data;
 >> +        /*
->> +         * While the low address bits don't matter, "canonicalize" the address
->> +         * by zapping the bits that were transferred to the IRTE.  This way
->> +         * callers can check for there actually needing to be an update to
->> +         * wherever the address is put.
+>> +         * Prevent the device from getting assigned to an unprivileged domain
+>> +         * when firmware indicates ATS is required, but ATS could not be enabled
+>> +         * or was not explicitly enabled via command line option.
 >> +         */
->> +        msg->address_lo &= ~(MSI_ADDR_DESTMODE_MASK | MSI_ADDR_DEST_ID_MASK);
+>> +        if ( satc && satc->atc_required &&
+>> +             (!drhd || ats_device(pdev, drhd) <= 0 ||
+>> +              !pci_ats_enabled(pdev->seg, pdev->bus, pdev->devfn) ||
+>> +              opt_ats < 0) )
+>> +        {
+>> +            printk(XENLOG_WARNING "ATS: %pp is not eligible for pass-through\n",
+>> +                   &pdev->sbdf);
+>> +            pdev->broken = true;
+>> +        }
+>> +    }
 > 
-> You might want to mention this change on the commit message also, as
-> it could look unrelated to the rest of the code?
+> I don't feel pdev->broken is the right way for signaling ineligibility 
+> for passthrough due to policy (ATS required).
+> Especially if we eventually consider in the future allowing on a 
+> per-domain basis the ability to use ATS (starting with Dom0).
 
-I thought the comment here provided enough context and detail. I've added
-"AMD interrupt remapping code so far didn't "return" a consistent MSI
- address when translating an MSI message. Clear respective fields there, to
- keep the respective assertion in set_channel_irq_affinity() from
- triggering."
+Well, pdev->broken is what we have available. Anything better can come later,
+imo. For now the goal has been to at least get in line with the spec. That said,
+while - afaik - not written down anywhere, back at the time I got indications
+that the "required" in ATC_REQUIRED may not be as strict an indication as the
+word may suggest.
 
 Jan
 
