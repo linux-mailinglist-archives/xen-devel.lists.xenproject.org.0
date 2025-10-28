@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75E65C14605
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Oct 2025 12:31:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1152082.1482619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFA3CC14AE6
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Oct 2025 13:46:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1152098.1482629 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDhuz-0007Bk-3a; Tue, 28 Oct 2025 11:31:13 +0000
+	id 1vDj5C-0007Pw-EI; Tue, 28 Oct 2025 12:45:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1152082.1482619; Tue, 28 Oct 2025 11:31:13 +0000
+Received: by outflank-mailman (output) from mailman id 1152098.1482629; Tue, 28 Oct 2025 12:45:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDhuz-00079M-09; Tue, 28 Oct 2025 11:31:13 +0000
-Received: by outflank-mailman (input) for mailman id 1152082;
- Tue, 28 Oct 2025 11:31:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vDj5C-0007Nq-Ab; Tue, 28 Oct 2025 12:45:50 +0000
+Received: by outflank-mailman (input) for mailman id 1152098;
+ Tue, 28 Oct 2025 12:45:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pDzw=5F=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vDhux-00079G-WB
- for xen-devel@lists.xenproject.org; Tue, 28 Oct 2025 11:31:12 +0000
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c000::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 99aab60c-b3f1-11f0-9d16-b5c5bf9af7f9;
- Tue, 28 Oct 2025 12:31:11 +0100 (CET)
-Received: from DM4PR03MB7015.namprd03.prod.outlook.com (2603:10b6:8:42::8) by
- SJ2PR03MB7449.namprd03.prod.outlook.com (2603:10b6:a03:558::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.13; Tue, 28 Oct
- 2025 11:31:07 +0000
-Received: from DM4PR03MB7015.namprd03.prod.outlook.com
- ([fe80::e21:7aa4:b1ef:a1f9]) by DM4PR03MB7015.namprd03.prod.outlook.com
- ([fe80::e21:7aa4:b1ef:a1f9%3]) with mapi id 15.20.9275.011; Tue, 28 Oct 2025
- 11:31:07 +0000
+ <SRS0=/ld8=5F=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1vDj5A-0007Nj-HF
+ for xen-devel@lists.xenproject.org; Tue, 28 Oct 2025 12:45:48 +0000
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20f::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 040c81d7-b3fc-11f0-980a-7dc792cee155;
+ Tue, 28 Oct 2025 13:45:43 +0100 (CET)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by GV1PR03MB11029.eurprd03.prod.outlook.com (2603:10a6:150:281::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.12; Tue, 28 Oct
+ 2025 12:45:36 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9253.017; Tue, 28 Oct 2025
+ 12:45:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,230 +47,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99aab60c-b3f1-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: 040c81d7-b3fc-11f0-980a-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uLB5p2v8aBA12v2U9D2tsFZ/XSD4Hhsd8RLbe5iSnPawbkejYz5Rq6/dFZwoRHrUVmGRr5OJLSE/QAT+K0FBbeiFvFZSM6gF9FZ+tkhbI5d0QgjSAvKFyqF0mN5I2DBmc/lgprd7e7KfrLocPvoTCcTKjZVXaTjsXb7Q39sVc11yt9pfFnezz+X1TfuwGmLOzP4iYJZqlY2eIe5gL1lYiqfs1/il227rDbZbZgszCuP83/g/7ARhW9ZiP7pFiZt+LmDoLVPSbPiy3kQSoTAuENowE8189QiqK7sFdrWeHYaxj05G+FqtZAV6llTe6H8i2LIyckyLBHj0TdKyttTqAA==
+ b=RYtZCIGUWjoqZOGAzplw9IHHRl7gyvW59rX0fZCq1pCVVghbNUByKIRfwae1eKaqvqmFYUUfSabyIkdYdcI7XsST5iGRPlx/dM4SCzmJibu4w3Ss8P0pbcERVUsgZsHwe1Q+xGIw15bCjFL+SFj2xW85ay6lV+8WsheTG0/v6U/WpTba9EnUpodTGMExNeYCtYXxsrVUsskWaPkas27zHgPlusy8de8lYkWdZXVtkzPFwCy2AW90mR/RHniWx3zGDBobXIq316XSulxEhpk5SryCBFIPa8EfqYtJSyucggm8lsooao5Rp6UiTDpJ1jV4u0lAnhYBnmibgAHMir+X+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OYz626zqTaA3grBmEjuJFI5Yw0/PBemhQmTa8z78L90=;
- b=LztNoh08VwsZH4pxpcDNmelT4N9p/e5XXhFsdx7UyIsmAZOb4mDdvr0jAjycqPbj9895SCKrc/ww3JgVHhXMjHZvqlRRmKljJyDnL12HDq20W9dZUKT6/ZTd8ALjMmbRRZdoKhVOZx5L4T0fgAST7Hps2JCIG+HW69FZrGGj1CieIs9haHXy75S5GxCIHHL0/lXa/B1y010ESbqXKNW9xEEPD775h8ibkcv+hy7h4CJqxwf2Bk+wquY4E122rwStN3Z4/D7HUkVv0owKN73lbqvPf4jsPcAWjiYmJ+QV/HsHfvTDzVdQDKHGd6PRP+BPBDi+d3/QfIaw6tY0Cy/UNQ==
+ bh=WTvnQvUBqwSqQJ7zORi1lY85P/9OGQ38YeFEP7zBOXE=;
+ b=pTJwWptQUzsuSwfEcECZp/ehPF7tt06qrb0gZv7gk1KgKzgGy4FYl33Po/aDKjpkd43xI+Bok7BtWkf96TL/Y/ftBaYFGjEadiKNLhyf0Ms2fcFSG4k8TQCA7Pc8sD8M5e+PCUgKVKaDvb1LhPFi0KW+0F5kEDJb+PPXag5aavEFxqrsghCC53IkN/MfS2KdcXmtI7jt5LyxjYzcz4HY+1i/62udIwhOwC/3Jcif4Gs58iZajMQw1UJyL31iaq5/DSrCI3YGrdjJdIMN1YMoMRFW0ft6NYRVbX5zjT+Tu8sDkXHrou9TBW4qiHuSHmUt89bVxqanLXULuynk/N+Mbg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OYz626zqTaA3grBmEjuJFI5Yw0/PBemhQmTa8z78L90=;
- b=qnVaTIM4Z82aDmfWZp2P8FxB3zUQZNAEjtGyziNsfgoltvXTt3B4iCiG7t+2zfF9jzVfV3Qmb573chZTlHUAabrcljMEyf5//xq0tlpuNeCkJm0UYOQdAdSCT8sEO22CRQCr5JFdYOcRsOgBFVAORaCi9LNUEcFKtAiQ5E9zv1c=
+ bh=WTvnQvUBqwSqQJ7zORi1lY85P/9OGQ38YeFEP7zBOXE=;
+ b=domevFh0ZNdAktB1UtQhbObIkrVEioUtGFnCe6X9I1MMGuD757VZi243/4MtmjLCDFeDsoWeaBUGoQuY4FeTXSxrgQulW2Y3sIdKmZZ6NkHN15v1Ty34hPwnFl3nqVJOzFyElQt1A2GzY1qK6+KphqSNxi1nTJ2hfWi4Q5brbt1cZFnVIJaxTanu8raeFyJrXAtNNsMinvyWq8q7gANUkikvz/zbxDDD6HleARQZfncuH59KDosdzRI1xGfPbicwfaYoSb1uGonGfEu6FvdT6Hd+likOVIXu3OvT5kpjXIO6+SKrYIz74TgBplUqehsgXheltQ4FK37iBMAVuFuEVA==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <ad5d59cb-6208-40be-8212-9dbddbe2a8b9@citrix.com>
-Date: Tue, 28 Oct 2025 11:31:03 +0000
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Message-ID: <4059d1dd-4e5a-429c-96dc-e7d81f4af7ab@epam.com>
+Date: Tue, 28 Oct 2025 14:43:24 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] x86/ucode: Relax digest check when Entrysign is
- fixed in firmware
-To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [XEN][PATCH] x86/hvm: move hvm_shadow_handle_cd() under
+ CONFIG_INTEL_VMX ifdef
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251027221702.3362552-1-andrew.cooper3@citrix.com>
- <20251027221702.3362552-6-andrew.cooper3@citrix.com>
- <61fcf602-4a4f-4936-a346-a650115e838d@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <61fcf602-4a4f-4936-a346-a650115e838d@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0101.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2bc::10) To DM4PR03MB7015.namprd03.prod.outlook.com
- (2603:10b6:8:42::8)
+ Jason Andryuk <Jason.Andryuk@amd.com>
+References: <20251023151903.560947-1-grygorii_strashko@epam.com>
+ <eaf5e6bd-e7b8-4a3d-8b5b-33d1a9630619@vates.tech>
+Content-Language: en-US
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+In-Reply-To: <eaf5e6bd-e7b8-4a3d-8b5b-33d1a9630619@vates.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0173.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b7::16) To AS2PR03MB8907.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5e4::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR03MB7015:EE_|SJ2PR03MB7449:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a4b5f5e-e66c-48e8-d965-08de16157c33
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|GV1PR03MB11029:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4911673-1cdd-467d-bb13-08de161fe3b8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZjN2d011Y2I0UVBzaUUycVJSeGg5dDNtcW1ueG5IRG9mRkpjRU5tSWp4dXVt?=
- =?utf-8?B?b2JCTGtQd0hJRWJOdFE1WFFyTWoyaDFRcGZIVEJ1T1lqbExmby9mOGFlUHpS?=
- =?utf-8?B?TTdnQUY4Y0NPbU9RNHRFVFl2b1ZSd1YvdzFUazNUbVIvY2N6SGNHL04zenZL?=
- =?utf-8?B?UFlnZzNLdTduc1BsYWdQWC84Z1Z0YnJqaHEyMzJnNm82cW1XYjBJcS94WVZD?=
- =?utf-8?B?WVJVMGFwSXZ0UUl1aTFxOXhMUE94TDNQbGZvNGx4YzM3Z090bDcvdml4Wkxh?=
- =?utf-8?B?ZmV4UHVBeW54RVBkVWd6VUtLczF5ckgvNE1FVFZibTl3cytWNnA2TVBLUE1j?=
- =?utf-8?B?ZThFZ3djeXpDUnVUK2h1UUtycXV1UndsdjU4YVhROFZyeFYzbFZTYTN3ZlBZ?=
- =?utf-8?B?Z3paY3ZoQU9mTGFkTjhNT3FxZWpWWFlCNkIvNHNpN3cyQmxrSVhLNG9zenM3?=
- =?utf-8?B?TStydHYxVFUrcXhHL01kdWJLaHV5VHNvVDBSWmdHUGUyQTlCYXgxbndKWEZP?=
- =?utf-8?B?UmFrOWsyM2VTb2ZnY0lzUGphOEZVK2tMU1FDM01Tam8reGxTbFk5bGRDcEVB?=
- =?utf-8?B?YlZKSWlWd084QXNsRlp0S3BKbktKQ0gzUUtiQVpGSlBOZWM3WDVpeXFia0sw?=
- =?utf-8?B?Mi9VQlRDN0hxL2lRL1o2Y0FCbTM2aFpRSHNnT0tsRzIzRzhjNTh6S21HZzdG?=
- =?utf-8?B?RWxYSXdDTzVydjhnTVlGS2E1dTF4VVdZWXdWeFZBVVIrZ3BydC9Wczk4b2di?=
- =?utf-8?B?ZE5CNDN5dWZTQjR1TEs2dkxQUFdvRzROdDd4MFZSKzBqVjdTYjZVY1ovaFVq?=
- =?utf-8?B?MEh2aUtZM2tvblV5NHN3TWhSUkl5R045UklvWnF5djlkRDNpY0pKZkNIOG9N?=
- =?utf-8?B?dC9PSUV6eXE1WDlxRDM1c29uSFhJZXNyUGwvVkw3eGpDaGpTeFY0V2tGWlg2?=
- =?utf-8?B?TWxyYlBwM2NtKzNMc2J4enZqUkRENHFyY2Y4dlBYN242dUZSM0t2VTE4QlBh?=
- =?utf-8?B?S0xLWFhPSUxucHJocmNLOWpwTGExZng1aTRWTXN1QVJPNWdQRlV1UjdJT1Q0?=
- =?utf-8?B?L014K2t2MG9GWlB1ck9rRnh6ejRLV2Rpa1ovdUttUkV6T2U0TEQ3WmxDY0ZD?=
- =?utf-8?B?UG1ETGZSNE1lalA4blViUWtaTUFLRGFaSm9GUVJiUnFqdS9IQStWelBUdEJ4?=
- =?utf-8?B?ZG9GL2lGMllLZ2NEa0xEMTVOaERFb1J5dlgyMTQrVXVTd0NmNTZaTG9HL1Ez?=
- =?utf-8?B?cVNiWDNBdi9HRmdhUnlkRWFRS25sa3NWWjk5ekhkRnNkV1FXeGJvOVdVclVI?=
- =?utf-8?B?WDVtL2xwRUpVVGs0dVZTUFRWTmxQVWNwYy94Z0JVYU5valFhUnRJYWhTdXp5?=
- =?utf-8?B?K0RaVDlUY0lNN0w5a1c1emNVRzNBTjhpeDFPTjFNVjluZytKU0QxUWxQSm5a?=
- =?utf-8?B?ZzJNNVJoUDYxNE1UUmNWQXl0eHV1MXUyVnR5cndSSWx5WEUxV25NNDA5Qld2?=
- =?utf-8?B?ZVlhd3pWbWs3d1hNdlc0RjhCdU9sYUEwOU1QdWk0RzZMckI5c3N6eWVuZ1JF?=
- =?utf-8?B?TnBRZndKaDgrK0VsNUtrUzZuVEk5Snk2dzRtRTF2QitnQXhhWG9uNHZ3MVBw?=
- =?utf-8?B?bHM3RG5oU1E5SDM1YjNqa1JkT1RNUnprNm11MWExR0ludnR5QUwrMndoL25o?=
- =?utf-8?B?Mm5zNW1aTmJtSytRQ0V4QzFjdW80S0wrTEpsRFJ3czZwRDF3czNMQnp2WnBl?=
- =?utf-8?B?OEpEVHVtUUtYWFpRVm0vSUorODg3K2wveUc0VzVMVnFkNEIvM1ZCSVdseTJo?=
- =?utf-8?B?MUdVYmkxcEVPVDRXbDBjUTlqUDdraGNxRHRsVk5TQXJXTzJRRnI3RWthVFJa?=
- =?utf-8?B?amxoTUNnUG8wazExM29VODVwYlY2MEVTZTIzeTNVeWwzdUE4dWhrcUtuakRE?=
- =?utf-8?Q?oZFkSt0EbjXLqf1/Na6iOHwfI7ReaGA3?=
+	=?utf-8?B?VEROOGQveVRwa1oyTjQ5UVBnbUMxNnM0UkN2WVRJNnVNZzRCdGVwTjhablFh?=
+ =?utf-8?B?d1JNWkN0NkFPNDFFWlFmc2phQ3NpbUJudG1DSWJtckdrRFhseHpvU3RKVHE0?=
+ =?utf-8?B?VWxjY0tFMnR3RGx3NDVNR3RvN3ZrTXVRWnRybXM4eEJBMkhUYXZtdmF1WHpr?=
+ =?utf-8?B?VkJzZ2VJZXJIUm1mUnN3aUJnY2dyMXA1blZ2dFBkdzZOMTc2bzFBWGJwY1JI?=
+ =?utf-8?B?N2o3L01nYU9JY1NZSXIzS3FiZmZJTFVyNlhtM0NJTVBLd1NVWFM0VmhzNU1s?=
+ =?utf-8?B?ZEw3eUpwM0dCSCtGK1JTNjBpSG5XcXMvVXlHUnlyd0JCdDZhY1JCRTlVM1h3?=
+ =?utf-8?B?UmVQMyt2YitaMHJxOGx5bWgxM0JCY1Qxc2VMRFlmU0VuU1VuMmZjdmRkbEJy?=
+ =?utf-8?B?OEtRWnJDZHhRaWMxZzhZbDIwSEwzUnpEa2V3N2dxRzNEV1FtdU1hNXJKYVN5?=
+ =?utf-8?B?dWI4VTNyZERValBPRnQ2Tmp5ZU5FUDd3aXdSK1o5QlNQVy9namQ0ODFGMFNa?=
+ =?utf-8?B?UFdXajFJeWlnSkd2K0tpYzhUVXUzR2N6Q1Y0clZZV3hnTWYwV29BQjNvYjRv?=
+ =?utf-8?B?SzBoSWY4b2ZvRXdkTzlmYXNBSXdXT0dJck5tSU9sdEc1Yzk3QVE1TEFIVTJZ?=
+ =?utf-8?B?ZE9ZUGRsaWJxaUtqZ3gyMHZYbm4ybE56MmQrMjZ5OW93aTlhVERXZU9LNmp3?=
+ =?utf-8?B?R0YvMERaYk9sRVJTYmtldnlOK1VoSGpBc0g5Tkw2cUlxKy9JdDZzaXNCUnVI?=
+ =?utf-8?B?Q0hHbUNYRlJHZUpyZ0JZdTBZWHVRZWg2bXU5dlMvcW0ycnYvdytCcTR3N29y?=
+ =?utf-8?B?NFpFeCtmNWhicEZ3QW95cVdsM2NxcGtEQlZneDRzQndLL2J4MXRkZmY2UVRC?=
+ =?utf-8?B?YkhjekRDeVRDajlBblFKb0pySnk0bDh3dmRTdGZ5K2laeWMvUUhIcTlCd3FK?=
+ =?utf-8?B?QkFpUkVMRW1lV3MyVGYwY05mWkllV3VVWlFlZG1FS2ZYcHk1b3kvd3QyWHhO?=
+ =?utf-8?B?OGtOL1lQRW9hTkxCZXhXN0JYTHRuVjJ4bERpdGFZYkZYcTEzK2JsLzlKcVRE?=
+ =?utf-8?B?ak92Nk16UjFKcG0wWFZTVFJFSlRmMWR2ckhOTmZoSWpIeTh3MlNEZld5M3JZ?=
+ =?utf-8?B?N25melpJREIxcTZqczhzMXV5UHZzNE9NZnJmU3ZyNWtEbnlOcHFpYUNVYzFl?=
+ =?utf-8?B?ekZNYkhiQkR4R1lRRGEvMnlVOXN5ZUk0eHBtckNGT21sV211UlBBc2FzbjAy?=
+ =?utf-8?B?YW4yWitEZWhGK3hGVStkdklPY3l2Q0dmZFVYamlpaFNxT3JmUG5IejgrVG1O?=
+ =?utf-8?B?aFgzSGxDK2FJM2JvZHpjRUFJcFZHcEhzNE5oaDE4NkNLNEplODZDdklKNUVj?=
+ =?utf-8?B?Ym5EWDlSbEk2NldkbTBIZFJrbm52VjdMTjUzOWhCcmxPbldvMzV3OThIQ043?=
+ =?utf-8?B?bEhEMVJ6cFpaYzlyWDZ1N0h2eFdTcUlDYm5pNXpDekNJczlDd0JiRU1YZkRC?=
+ =?utf-8?B?VFlDK0pVUVFXUFdOZ00vR3g4eTJLS0lXMGxXbU53Rnc5VWJ6YklnbGZ0d1Fn?=
+ =?utf-8?B?VDJNN3V2SEpEVitXNkllYlRsVTJROUtBNTgrTmp5K3Q5cnkyRi85dVlrazBv?=
+ =?utf-8?B?SGMxU2RJQzN5MWg2R1dqZjUzNURVaGRmQUpBbmhubk9pNGcvTEFWTWlQWTA5?=
+ =?utf-8?B?TjBVSHpaMjQrK1pWMEZEZjM1QVRWYkpkR1RuSUJJWmhXNnFnQmFPY1V1eUxU?=
+ =?utf-8?B?UlgzdkE3UWpjTnU5dGthREdyMFhxWTJsRUdNQUVsTmhhb0dFQS8rU29DZVVy?=
+ =?utf-8?B?TFBybEZTQWpvbnNVYUY2UkNjT0xTTERpRzFQZXFIbWJFS0oyd2svakdLeno2?=
+ =?utf-8?B?clJVbDJ3RVU4SEYwU2hlYlp5V1B2MjAyVEpGWmFBYVZWWE52MjlnR0NoMFZC?=
+ =?utf-8?Q?wdsYinfrVWoVYDgvzA97CLlxn3zVQDtq?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB7015.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SUNjM2NobFh6YWk5MzVIWmxJZGtrVkpVK1dsaW9OTWJHYzExQy9jeHp4UG1r?=
- =?utf-8?B?d29NeGlEM0pwOVVsTTk3dWhmOFcvRDYzZEJoRjQrNGo4RFFCVkg2eXIxc0oz?=
- =?utf-8?B?WGdmS3RnVUZ5dU5tZFJJejJUSWNoK0NPQVhyTjVOQUV2MlZWczc0T0wzL2xx?=
- =?utf-8?B?WEpLMzFQYmhDdzUzdW5hUjlEQ1E4c2c1VEszL2NRNWdvVnhlR2ptMEhZQ1h1?=
- =?utf-8?B?Qk5kaDFsSUhiZmpNYzdndzlCR2VjdVZIWHJSMC9jNFpTWllBM0wrOUw5Q0pa?=
- =?utf-8?B?QU5vVm0vSjFTdXQvaktjTkI1SG1QS2E5NWNBOWRmU3psNkdoQnNUekF1aVc1?=
- =?utf-8?B?bmJ6c2RtbjNsWXFTTlh2VFNvc3dya0hlVHQxVTlXOEY2ZENNcXljUm10UlU5?=
- =?utf-8?B?QWwxZ2U5a285UVQwN1pHTGFNNm9mdC9IY1I5UlBMcjlqYlVZK1JTWXlwRkZZ?=
- =?utf-8?B?Y2o1aVFKUTJGcjNGN2U2bjhZTDdUYkN2cXRmY1ZpRVlKVG5aemlCYy9ZaEdn?=
- =?utf-8?B?Z3B1YnpvWmpWcDZCM3JqdFNnUFZhMnBFKzhheUFqc05CUXdTMXozOUhGek0r?=
- =?utf-8?B?SzA0dFZNWk1kZmRLbVRPK0g1Tmg4bXVEcDVRZ2ZGNFhkKzVHb2llRUczRnIy?=
- =?utf-8?B?U0lUWC8xWnkrK2V0c1ZXaUQ1VkpXVEpDUTV5WWRQMnNnRzhaZTlwRHUyWmZD?=
- =?utf-8?B?R0JvWFdvNmI3UFlIUStrYTZNaFhtTVZNSElGNjBxL1hTLytodUR2MDFySW5p?=
- =?utf-8?B?Zy9FTlBwdFB1YzYvZmx1UjJGNzl1dTB4eEJyaUZsOTZwZjZqSmk4ZkFTTSth?=
- =?utf-8?B?V3dPUmdGbUQwOFdOMDUybjFNeFFIUTR0bU5XZC9uYVd0OTc2eEZveXdNK2dy?=
- =?utf-8?B?R0U5elp6a2ViemkzYk45YXlWOTV2eTgycld6WEFVcE1kWkVKRXg1RW96Y0g5?=
- =?utf-8?B?V1hLK1J6NFRnS0U3SDJKMEkzaTJudGpodWlPbjdydmVObENIQlh6ckVvdU9y?=
- =?utf-8?B?SnFFdHZBVVhJSmY5eUQrNUlCMERWb3hBQkRFUDViS04rT2NpWnF4QUJMSzNM?=
- =?utf-8?B?U3BTT2dkaVBKSUlNOXQ3bU12c3djVkdyY1daOXM5UEZDbHoremtWYnVhNmNK?=
- =?utf-8?B?UWl3NGZVMWN2MUFqbDVlZVJCeW5aTmIyV21TUVQxbjViS0dFaVRnYTBKMUR5?=
- =?utf-8?B?RUpmdG0yOW9GNU54b1ltYUdTL3hYTnBTK2doY0ZHUlBoYzE2VzB4ZTQxdy9C?=
- =?utf-8?B?QkRlVm9VOW1sZW5uVEJOODU4YzMveHJxMkVFeEVWcDc4ZDdLNk1uYXR5bmtv?=
- =?utf-8?B?VzVtNndJN2VlWHlZeFpHL0IyQW9Uck9hWHBwS05JNTAvekVxWE95aFhlOWg3?=
- =?utf-8?B?YzNOR2RBb2tEU0NISE9RM2s1QzhrWk1vbFU5K3NWcUJNcW16RVZ5UzJIUFhQ?=
- =?utf-8?B?MXorekNUZ1YxY3NmbkNZUmYvdFpEc2xrMlIxa1JlZlpybjNWSVRWTVhmSUVE?=
- =?utf-8?B?d3phdEFxRXdqM1pvSkZERVFndkhUcTE2WE5RVE54bHg4ZEQva0tlR3F0T3Vv?=
- =?utf-8?B?azc1aGRMWThSWXlDUUpTTFVONkdqZkZrZmo3KzN0dGlkc09FWDd5OUYyZVRJ?=
- =?utf-8?B?cW1yS0Q2RmtNQVUvanhFVjFhVlJxSU9ZSjA1UGJTOThKdGE1SWk4b2Evd2Fq?=
- =?utf-8?B?SCtNWnppSEdpNkJtaytYeUtZNk1mYlBDeTVJektwMHB0Tyt3cGJIREtudEMw?=
- =?utf-8?B?d0pXejFXZXlRekt3WE9JV1F1REEyU0tEK3Fuck9sUTN6c0xhU1Q0aEQxdXZX?=
- =?utf-8?B?OFlQYzdLYjcyZ2NVWlpTRmx5Zm1iOXRvK051bjBCMlhHT1dXdlJlMi8zVkxU?=
- =?utf-8?B?b0VnckViSit4K1B5QzQ2V1I5cUtDbVpseVdKNDdpNzV6d1A4TGNVU3pvTzBz?=
- =?utf-8?B?V2VDN3kwTEpYSVpHVTdmN2t3M1ZnVk9ZWWxCc0J4Y1J2b29GT3huZDJjRStR?=
- =?utf-8?B?MHI0Qm1ZczB6U2FlOXNpZmRJNGI0QW1JL3QyNDBTYzVoTi9vNnd4UkZwb3N0?=
- =?utf-8?B?SEJ1Z1dUVlF3MWdTY0JheTk3UmM5RTFSY0ppZVNEazlZalU0RGswL1lTT3Zp?=
- =?utf-8?B?cVduU2k1SGxySDZMWG5uZ3E5QjVqY1NrbTMvKy9OTjhLVThJUCtWRlFPWDNa?=
- =?utf-8?B?eEE9PQ==?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a4b5f5e-e66c-48e8-d965-08de16157c33
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB7015.namprd03.prod.outlook.com
+	=?utf-8?B?TERuNlBvUkJUdnVzelhLUVNxZWdMVFdMU0EvNjc1eC9TaXdwSUlWTTB3VnBO?=
+ =?utf-8?B?ajcvaTA0R0MrR2w0VldsemtuajM4djJzT2dnNEplZ0QxUCtubVVnd05TU1I5?=
+ =?utf-8?B?SVpNZXU3UXYxemN0OCtiSVZqQXUrQ0hXcmNEMEtCa000TmFxSmN6d0dGZFl5?=
+ =?utf-8?B?MWNHVHlDTVJ0TG01bFBMYnd0anMzZXpYODJxSFpaMW4xRXp0U25yM3lzbDkv?=
+ =?utf-8?B?MVJ5S1cwWm1ncEtLdXdrVlczOW1KMmJGRGJ4RkE1U1hqM3Y5andCdXphRUxP?=
+ =?utf-8?B?SWFHc2htOTZFd2RnNkVKMlhZWUtXcjlhRVArUkFPdmw4bjVZeHExZ0xDbGR6?=
+ =?utf-8?B?c1F3OWpiQ0dSc3h6MzE4aGIrWmtvVG04M1hiM1BMZU1vY3pFRzVzTEVvSEJB?=
+ =?utf-8?B?bUl2TnJyK1ZRZWJjWCt0QmIwdzVmM2dKaXVxMnFMZXN3THhHZVVINHlPVEFx?=
+ =?utf-8?B?SWdMRU53eTQ4bXE5WnM2TEs3M1Yyb0M2cXdrUk5DcnlNYktXd0gzWFJJQWkr?=
+ =?utf-8?B?eEtYN1AwTmxoRXRVUnluMk5DWTFHNVZnNVluVGljWndvVm40am1OTmNNNUh3?=
+ =?utf-8?B?ZlAyWEtoYnFsbHMwR01EbDZsM1FWUkNDU295aUp3R0J0UW1UOHZsWkZFVjlk?=
+ =?utf-8?B?cjFjV1BkeDFwUERsVWIwTHFiQlFWdjZtaE9jTzBuZVRwN0N6Wlc4QW9BYWRI?=
+ =?utf-8?B?TVFPQm9scG5TVnozWUNmbFRrVnNhTGhJK3JDZTBqYkNzOTc3WS9hOXZ4aDZs?=
+ =?utf-8?B?RU0ycUNvb25waWc3d1BRbXgzWVJhcnA3TUg2VmZyR1dRdS91OS9mRlNwNFFV?=
+ =?utf-8?B?OWFNK0tJc2lQQUxPSWNLTWNhSDBVU3ArNFRvK1FrMG9wV2dSR0U2QVhrajBG?=
+ =?utf-8?B?aC9qaGk5THptenQ2M296V0FLRzJOM0Z4VlVYOGFWeGlnSU41Yzl6R0wzVmti?=
+ =?utf-8?B?azBnZHV6MGxVTjJQVmk5S3RiTVVoZC9BMWU0bjZjT3FWSHV0dlNoTjVWNW01?=
+ =?utf-8?B?S3Z1Si9QbS9pV0wxVTZ1cXk4cWVSWnozRFhEeHlrdWxRWGlaVGV0aUgzMHVU?=
+ =?utf-8?B?S0FGRDJReHN2VEc3eFduc29UTmhwbjZQMG1ISU1nRnNTbzdhbVJYT3o5SjRu?=
+ =?utf-8?B?ZlhxaU9EWklpTEI1VVZHOTdOajJobVZybXFoQlFDbW1xTmU2aTBXY0o2clpT?=
+ =?utf-8?B?WG5IVnRDYklHTktySHVYT2xkaHUxYXlaRmpYSWZTandkTjVuS0Z0STBaUmZx?=
+ =?utf-8?B?NnEvOWRBemo3dnNybXhGM1B2ODRqL2I1eUVadS9INnR1YXVaUm45MEZocEFr?=
+ =?utf-8?B?ZVc3Sy9rVXBkeDhLWnFSbEVBaTdZYytsRVdkMEJvK0RZa2wyYndWV04ydFJI?=
+ =?utf-8?B?WEQ3dUxtdkQ5dHU0UXZKbzc3UStLWFdHY1ZUWEptRzBwQXJybkl4OXFwNGFv?=
+ =?utf-8?B?VGFIcVJ4VEhVZmhWdnErdmxxcDFKVitXcmJDUXlLWks2Unp5SlBGd3o4UGpw?=
+ =?utf-8?B?bGlOV2hKaEEvcFFxaC9SSzU1MzZyTDEzcHpWc3F3L25QSHRSYnZXU0tFZkRD?=
+ =?utf-8?B?WHJjdlNNK1ZCMU1Fd2JveVFXMXlpSGdGTERUbU5MVlVPUE13elBVcGo4MVJB?=
+ =?utf-8?B?WEhERUczSndWMGxzenF3TTg1NHpvWnUwQzNVNWxhMWxhckNZL3o5cms5MlJR?=
+ =?utf-8?B?K3ZLTVpnNll1Q1o5MC81akU3cTZ1M0hqVlJ6MWpBUERvNVhZYzhYQkdha3hj?=
+ =?utf-8?B?N0hwREk0VGNQQUIvYXNDQjBUbzhTYXp1QkdFeVczVEdrRjA0eVVXajE2QlhO?=
+ =?utf-8?B?V1lyaEtkaWhyS1FwMlRQL08rbWlGaTFMTVl3MFE5RC9pME9QTG9nekVaSEdE?=
+ =?utf-8?B?Nk1ZVUR1Y2tWY3MvaGE3bHZIY3lwWDJrSFJWRHAvcll2Q2RxNyt6Z2E1a2Vr?=
+ =?utf-8?B?Q1luejJvdGFVaU1TVGovTE1KU0tpVUxPeFVmTkhPd2JGejVFUUE4N1AwL0RR?=
+ =?utf-8?B?ZFdEQ1pRM2ZSeGJIbE1GcSt6WXlQL2ljQ2FlbHVjZ1pjN2ticFpGQ2svU2V4?=
+ =?utf-8?B?RFg1K0ZBeEpVYlIybnR1R3FUL0JlTkJNK0duMDFxa3h0OGpGRTBOUHBKM1A3?=
+ =?utf-8?B?VWFKOHB5ZXZHazVlK3VxMXJORTFzR0JmelZvM3VJU0ZmVXc2c1JNcGRWc0dv?=
+ =?utf-8?B?K0E9PQ==?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4911673-1cdd-467d-bb13-08de161fe3b8
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2025 11:31:06.9166
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2025 12:45:35.5587
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IDAu8X3FmNuy9j9GLYM8NK4YMl6LrcRVFcUy/MLvLNwlqVZGczY+EZqMFo0b+y1wf7VIQERgDE/tjSDuFZLGGp2lpTWv80BgmKMAeZic/j8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR03MB7449
+X-MS-Exchange-CrossTenant-UserPrincipalName: rNGfWylvaBpFxhF2HA+ye5aFus70Ku/6rWtzGN70wfOXZg+ZTHHOFynvg5BIrwz6js8m+Yo4yvBa1/VBAaRHuuFfyswzB34lu99KqDBc9SE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR03MB11029
 
-On 28/10/2025 9:47 am, Jan Beulich wrote:
-> On 27.10.2025 23:17, Andrew Cooper wrote:
->> When Entrysign has been mitigated in firwmare, it is believed to be safe to
->> rely on the CPU patchloader again.  This avoids us needing to maintain the
->> digest table for all new microcode indefinitely.
->>
->> Relax the digest check when firmware looks to be up to date, and leave behind
->> a clear message when not.
->>
->> This is best-effort only.  If a malicious microcode has been loaded prior to
->> Xen running, then all bets are off.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Like for patch 4, adjustments for Zen6 are then going to be needed here too,
-> aiui. May be worth repeating that statement here.
 
-Ok.
 
->
->> @@ -603,3 +604,82 @@ static void __init __constructor test_digests_sorted(void)
->>      }
->>  }
->>  #endif /* CONFIG_SELF_TESTS */
->> +
->> +/*
->> + * The Entrysign vulnerability affects all Zen1 thru Zen5 CPUs.  Firmware
->> + * fixes were produced from Nov 2024.  Zen3 thru Zen5 can continue to take
->> + * OS-loadable microcode updates using a new signature scheme, as long as
->> + * firmware has been updated first.
->> + */
->> +void __init amd_check_entrysign(void)
+On 25.10.25 21:10, Teddy Astie wrote:
+> Le 23/10/2025 à 17:22, Grygorii Strashko a écrit :
+>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>>
+>> Functions:
+>>    hvm_shadow_handle_cd()
+>>    hvm_set_uc_mode()
+>>    domain_exit_uc_mode()
+>> are used only by Intel VMX code, so move them under CONFIG_INTEL_VMX ifdef.
+>>
+> 
+> If they are actually Intel VMX specific, they should rather be moved to
+> VMX code (and named appropriately) rather than if-defed in shared hvm
+> code. If AMD code happens to need these functions in the future, it
+> would make things break pretty confusingly (as headers are not updated
+> consistently).
+
+I agree and like it even better. Can try if there is no objections?
+
+There is hvm_prepare_vm86_tss() also which is also used by VMX code only.
+
+> 
+>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>> ---
+>>    xen/arch/x86/hvm/hvm.c | 50 ++++++++++++++++++++++--------------------
+>>    1 file changed, 26 insertions(+), 24 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+>> index f1035fc9f645..3a30404d9940 100644
+>> --- a/xen/arch/x86/hvm/hvm.c
+>> +++ b/xen/arch/x86/hvm/hvm.c
+>> @@ -2168,30 +2168,6 @@ int hvm_set_efer(uint64_t value)
+>>        return X86EMUL_OKAY;
+>>    }
+>>    
+>> -/* Exit UC mode only if all VCPUs agree on MTRR/PAT and are not in no_fill. */
+>> -static bool domain_exit_uc_mode(struct vcpu *v)
+>> -{
+>> -    struct domain *d = v->domain;
+>> -    struct vcpu *vs;
+>> -
+>> -    for_each_vcpu ( d, vs )
+>> -    {
+>> -        if ( (vs == v) || !vs->is_initialised )
+>> -            continue;
+>> -        if ( (vs->arch.hvm.cache_mode == NO_FILL_CACHE_MODE) ||
+>> -             mtrr_pat_not_equal(vs, v) )
+>> -            return 0;
+>> -    }
+>> -
+>> -    return 1;
+>> -}
+>> -
+>> -static void hvm_set_uc_mode(struct vcpu *v, bool is_in_uc_mode)
+>> -{
+>> -    v->domain->arch.hvm.is_in_uc_mode = is_in_uc_mode;
+>> -    shadow_blow_tables_per_domain(v->domain);
+>> -}
+>> -
+>>    int hvm_mov_to_cr(unsigned int cr, unsigned int gpr)
+>>    {
+>>        struct vcpu *curr = current;
+>> @@ -2273,6 +2249,31 @@ int hvm_mov_from_cr(unsigned int cr, unsigned int gpr)
+>>        return X86EMUL_UNHANDLEABLE;
+>>    }
+>>    
+>> +#ifdef CONFIG_INTEL_VMX
+>> +/* Exit UC mode only if all VCPUs agree on MTRR/PAT and are not in no_fill. */
+>> +static bool domain_exit_uc_mode(struct vcpu *v)
 >> +{
->> +    unsigned int curr_rev;
->> +    uint8_t fixed_rev;
+>> +    struct domain *d = v->domain;
+>> +    struct vcpu *vs;
 >> +
->> +    if ( boot_cpu_data.vendor != X86_VENDOR_AMD ||
-> Given the function name, might this check better live at the call site?
-
-Possibly, but I really don't want to split the vendor check away from
-the family ranges.
-
-A family check without a vendor check in eyeshot is
-suspicious-going-on-buggy, and this is called once at init.
-
->
->> +         boot_cpu_data.family < 0x17 ||
->> +         boot_cpu_data.family > 0x1a )
->> +        return;
->> +
->> +    /*
->> +     * Table taken from Linux, which is the only known source of information
->> +     * about client revisions.  Note, Linux expresses "last-vulnerable-rev"
->> +     * while Xen wants "first-fixed-rev".
->> +     */
->> +    curr_rev = this_cpu(cpu_sig).rev;
->> +    switch ( curr_rev >> 8 )
+>> +    for_each_vcpu ( d, vs )
 >> +    {
->> +    case 0x080012: fixed_rev = 0x78; break;
->> +    case 0x080082: fixed_rev = 0x10; break;
->> +    case 0x083010: fixed_rev = 0x7d; break;
->> +    case 0x086001: fixed_rev = 0x0f; break;
->> +    case 0x086081: fixed_rev = 0x09; break;
->> +    case 0x087010: fixed_rev = 0x35; break;
->> +    case 0x08a000: fixed_rev = 0x0b; break;
->> +    case 0x0a0010: fixed_rev = 0x7b; break;
->> +    case 0x0a0011: fixed_rev = 0xdb; break;
->> +    case 0x0a0012: fixed_rev = 0x44; break;
->> +    case 0x0a0082: fixed_rev = 0x0f; break;
->> +    case 0x0a1011: fixed_rev = 0x54; break;
->> +    case 0x0a1012: fixed_rev = 0x4f; break;
->> +    case 0x0a1081: fixed_rev = 0x0a; break;
->> +    case 0x0a2010: fixed_rev = 0x30; break;
->> +    case 0x0a2012: fixed_rev = 0x13; break;
->> +    case 0x0a4041: fixed_rev = 0x0a; break;
->> +    case 0x0a5000: fixed_rev = 0x14; break;
->> +    case 0x0a6012: fixed_rev = 0x0b; break;
->> +    case 0x0a7041: fixed_rev = 0x0a; break;
->> +    case 0x0a7052: fixed_rev = 0x09; break;
->> +    case 0x0a7080: fixed_rev = 0x0a; break;
->> +    case 0x0a70c0: fixed_rev = 0x0a; break;
->> +    case 0x0aa001: fixed_rev = 0x17; break;
->> +    case 0x0aa002: fixed_rev = 0x19; break;
->> +    case 0x0b0021: fixed_rev = 0x47; break;
->> +    case 0x0b1010: fixed_rev = 0x47; break;
->> +    case 0x0b2040: fixed_rev = 0x32; break;
->> +    case 0x0b4040: fixed_rev = 0x32; break;
->> +    case 0x0b6000: fixed_rev = 0x32; break;
->> +    case 0x0b7000: fixed_rev = 0x32; break;
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> (after cross checking with up-to-date Linux, i.e. including your recent
-> correction there)
+>> +        if ( (vs == v) || !vs->is_initialised )
+>> +            continue;
+>> +        if ( (vs->arch.hvm.cache_mode == NO_FILL_CACHE_MODE) ||
+>> +             mtrr_pat_not_equal(vs, v) )
+>> +            return 0;
+>> +    }
+>> +
+>> +    return 1;
+>> +}
+>> +
+>> +static void hvm_set_uc_mode(struct vcpu *v, bool is_in_uc_mode)
+>> +{
+>> +    v->domain->arch.hvm.is_in_uc_mode = is_in_uc_mode;
+>> +    shadow_blow_tables_per_domain(v->domain);
+>> +}
+>> +
+>>    void hvm_shadow_handle_cd(struct vcpu *v, unsigned long value)
+>>    {
+>>        if ( value & X86_CR0_CD )
+>> @@ -2306,6 +2307,7 @@ void hvm_shadow_handle_cd(struct vcpu *v, unsigned long value)
+>>            spin_unlock(&v->domain->arch.hvm.uc_lock);
+>>        }
+>>    }
+>> +#endif
+>>    
+>>    static void hvm_update_cr(struct vcpu *v, unsigned int cr, unsigned long value)
+>>    {
 
-Thanks.
+-- 
+Best regards,
+-grygorii
 
-~Andrew
 
