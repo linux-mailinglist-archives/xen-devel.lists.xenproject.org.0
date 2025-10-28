@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFA3CC14AE6
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Oct 2025 13:46:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1152098.1482629 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 407B6C14B08
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Oct 2025 13:48:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1152107.1482640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDj5C-0007Pw-EI; Tue, 28 Oct 2025 12:45:50 +0000
+	id 1vDj7i-0007zi-Rg; Tue, 28 Oct 2025 12:48:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1152098.1482629; Tue, 28 Oct 2025 12:45:50 +0000
+Received: by outflank-mailman (output) from mailman id 1152107.1482640; Tue, 28 Oct 2025 12:48:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDj5C-0007Nq-Ab; Tue, 28 Oct 2025 12:45:50 +0000
-Received: by outflank-mailman (input) for mailman id 1152098;
- Tue, 28 Oct 2025 12:45:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vDj7i-0007wb-Os; Tue, 28 Oct 2025 12:48:26 +0000
+Received: by outflank-mailman (input) for mailman id 1152107;
+ Tue, 28 Oct 2025 12:48:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/ld8=5F=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vDj5A-0007Nj-HF
- for xen-devel@lists.xenproject.org; Tue, 28 Oct 2025 12:45:48 +0000
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20f::7])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 040c81d7-b3fc-11f0-980a-7dc792cee155;
- Tue, 28 Oct 2025 13:45:43 +0100 (CET)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by GV1PR03MB11029.eurprd03.prod.outlook.com (2603:10a6:150:281::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.12; Tue, 28 Oct
- 2025 12:45:36 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9253.017; Tue, 28 Oct 2025
- 12:45:35 +0000
+ <SRS0=nGJv=5F=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
+ id 1vDj7h-0007wT-Pz
+ for xen-devel@lists.xenproject.org; Tue, 28 Oct 2025 12:48:25 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 642027ef-b3fc-11f0-9d16-b5c5bf9af7f9;
+ Tue, 28 Oct 2025 13:48:24 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-592fa38fe60so7025214e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Oct 2025 05:48:24 -0700 (PDT)
+Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-59301f5098bsm3042698e87.40.2025.10.28.05.48.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Oct 2025 05:48:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,243 +45,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 040c81d7-b3fc-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RYtZCIGUWjoqZOGAzplw9IHHRl7gyvW59rX0fZCq1pCVVghbNUByKIRfwae1eKaqvqmFYUUfSabyIkdYdcI7XsST5iGRPlx/dM4SCzmJibu4w3Ss8P0pbcERVUsgZsHwe1Q+xGIw15bCjFL+SFj2xW85ay6lV+8WsheTG0/v6U/WpTba9EnUpodTGMExNeYCtYXxsrVUsskWaPkas27zHgPlusy8de8lYkWdZXVtkzPFwCy2AW90mR/RHniWx3zGDBobXIq316XSulxEhpk5SryCBFIPa8EfqYtJSyucggm8lsooao5Rp6UiTDpJ1jV4u0lAnhYBnmibgAHMir+X+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WTvnQvUBqwSqQJ7zORi1lY85P/9OGQ38YeFEP7zBOXE=;
- b=pTJwWptQUzsuSwfEcECZp/ehPF7tt06qrb0gZv7gk1KgKzgGy4FYl33Po/aDKjpkd43xI+Bok7BtWkf96TL/Y/ftBaYFGjEadiKNLhyf0Ms2fcFSG4k8TQCA7Pc8sD8M5e+PCUgKVKaDvb1LhPFi0KW+0F5kEDJb+PPXag5aavEFxqrsghCC53IkN/MfS2KdcXmtI7jt5LyxjYzcz4HY+1i/62udIwhOwC/3Jcif4Gs58iZajMQw1UJyL31iaq5/DSrCI3YGrdjJdIMN1YMoMRFW0ft6NYRVbX5zjT+Tu8sDkXHrou9TBW4qiHuSHmUt89bVxqanLXULuynk/N+Mbg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WTvnQvUBqwSqQJ7zORi1lY85P/9OGQ38YeFEP7zBOXE=;
- b=domevFh0ZNdAktB1UtQhbObIkrVEioUtGFnCe6X9I1MMGuD757VZi243/4MtmjLCDFeDsoWeaBUGoQuY4FeTXSxrgQulW2Y3sIdKmZZ6NkHN15v1Ty34hPwnFl3nqVJOzFyElQt1A2GzY1qK6+KphqSNxi1nTJ2hfWi4Q5brbt1cZFnVIJaxTanu8raeFyJrXAtNNsMinvyWq8q7gANUkikvz/zbxDDD6HleARQZfncuH59KDosdzRI1xGfPbicwfaYoSb1uGonGfEu6FvdT6Hd+likOVIXu3OvT5kpjXIO6+SKrYIz74TgBplUqehsgXheltQ4FK37iBMAVuFuEVA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <4059d1dd-4e5a-429c-96dc-e7d81f4af7ab@epam.com>
-Date: Tue, 28 Oct 2025 14:43:24 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] x86/hvm: move hvm_shadow_handle_cd() under
- CONFIG_INTEL_VMX ifdef
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <Jason.Andryuk@amd.com>
-References: <20251023151903.560947-1-grygorii_strashko@epam.com>
- <eaf5e6bd-e7b8-4a3d-8b5b-33d1a9630619@vates.tech>
-Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <eaf5e6bd-e7b8-4a3d-8b5b-33d1a9630619@vates.tech>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0173.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b7::16) To AS2PR03MB8907.eurprd03.prod.outlook.com
- (2603:10a6:20b:5e4::22)
+X-Inumbo-ID: 642027ef-b3fc-11f0-9d16-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1761655704; x=1762260504; darn=lists.xenproject.org;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:mime-version:references:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Pucb64fBJWr4+y9UVYKlttRFUeMCsZ8bQOysNcf5NkE=;
+        b=SWIQjghOTqzXCL+zMR7FMOEucGT6OY8GPYfhAkN0jX6Ew5WvpxckcyBW0++OzuOMzP
+         QXmw+8TnAfmfdYh1igbpZRT8gblKG+w1mwh1Tw4L/BM+mSNLGRT8035wCdicpZMjOGwJ
+         Eh2uxWp9+hXTuZzBj+l+Q0HNHsL0v5dFE2E34/oMaUh8gZcEp+FuDTjd1Mp8FQGxCszH
+         VsNwQ6RW+IEVpbufy69d3RJXKyworqymlumNvwzzoaADaYPPo5jaJeeHekHTNSb3QCK+
+         1NmxhQWVs3FbVDHnzuFTwHR+LVajzZrDThZfII6ueG08cmPGfcZDMfygVafHMdzaGGNI
+         ri5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1761655704; x=1762260504;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:mime-version:references:message-id:subject:cc
+         :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Pucb64fBJWr4+y9UVYKlttRFUeMCsZ8bQOysNcf5NkE=;
+        b=OlP3Hgq1V2sKZAmbCnNVglMzkor+WXrE/G0tyYYZbcgAYwVmdav/D1rDah2kSrK8Cw
+         5axHC60bR3TEB/srBIcsBrlkJTdhuU+VTTz4y7JjMONHyp+Jt8sHfsXN2EamBAgm4lHl
+         TetYMLQ81NfombWpBsqYvzDlrthYRKmmlP2k1pQHTJxoPuWTvXt9Hr5TDB2phHgDWPY/
+         xSn38uLXu2Fd19ro8iyAoEdHwsclpR/5xfENPIJamUwKlQYduTCCb6IJxEgoRVm0vDVM
+         z/Xyibx6wJRFi6FbJQEvmBJPSBk21NvROS+RQg6+I6bUNYljr0R39Pp0CeF7N+sCl93O
+         DcRA==
+X-Forwarded-Encrypted: i=1; AJvYcCX/7D77tS3OgEmYK6rgt8caen6sc3t1U/N8/ZjaUcx10csBckp+AcBpqVJLBAOiFS0WQu8vQWNXN2k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy4uN7Lbt4A6B+FaOTQNUzr7fAyyf8KADP0/4Nl+az91Lgohzox
+	uebaSMUM+uBeK6cNTspN61PsrvpXPvJ+7DyQATqw3MoN1yM+8NyGFPCs
+X-Gm-Gg: ASbGnctxBo66EXFef/CQt75Wd9anAmB1C4a/nBgtli22kX8D2hVC/RJF3jIiqAhh2yG
+	z39FHXsQnPksLe01SDxfXOE9i6Njq0+bSpodzMO/x7ezPm7CUbdZfHVS4Hbmcs+5GA7bHE84Vmk
+	8XVoqjV8i5wW4M2k347nje+Hh7XrSm4jm7FFEao7sC5LHcjFzhEZJIM8p2noCeNY/TEJ3iWD5aq
+	PgZMZOBmv/rbIx2a1VhtCvN5rr+xdbc2HS2PWW/bJocBtY6zBRJ0ebi5Rvy3Z0uGU31Wg1J/W2Q
+	2x82/QlsEB4YZoJl3F9J6A3JpgLlw2GYDQhFyQjoCf+F8qC+mey+pPMzAGjpxzmI4z/Dyp45rGd
+	965a749XcrW4GPGyyBN/vM0s9eByJe8AMVMoDgNzlE275LTB6/N3fZbf/ceHzJMj1r1MP1ABraX
+	16S15QJ0bRYjnSHebycVhgARhQokgACbYt/z/hMoCdwH5nCJM=
+X-Google-Smtp-Source: AGHT+IF6ccHGzuzxNm7+bHl7g/7fMJDKTL+xoHfyAW6ncH9aLVAwNW32+RfTkPnTLRjRK6Csu5NkiQ==
+X-Received: by 2002:a05:6512:238a:b0:592:fc21:bc15 with SMTP id 2adb3069b0e04-5930e9dd032mr1404878e87.45.1761655703317;
+        Tue, 28 Oct 2025 05:48:23 -0700 (PDT)
+Date: Tue, 28 Oct 2025 13:48:20 +0100
+From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
+Cc: qemu-devel@nongnu.org, Anthony PERARD <anthony@xenproject.org>,
+	xen-devel@lists.xenproject.org,
+	Pierrick Bouvier <pierrick.bouvier@linaro.org>,
+	Paul Durrant <paul@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anton Johansson <anjo@rev.ng>
+Subject: Re: [PATCH 1/3] hw/xen: Use BITS_PER_BYTE & MAKE_64BIT_MASK() in
+ req_size_bits()
+Message-ID: <aQC7lEwW9pSmCtIx@zapote>
+References: <20251022140114.72372-1-philmd@linaro.org>
+ <20251022140114.72372-2-philmd@linaro.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|GV1PR03MB11029:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4911673-1cdd-467d-bb13-08de161fe3b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?VEROOGQveVRwa1oyTjQ5UVBnbUMxNnM0UkN2WVRJNnVNZzRCdGVwTjhablFh?=
- =?utf-8?B?d1JNWkN0NkFPNDFFWlFmc2phQ3NpbUJudG1DSWJtckdrRFhseHpvU3RKVHE0?=
- =?utf-8?B?VWxjY0tFMnR3RGx3NDVNR3RvN3ZrTXVRWnRybXM4eEJBMkhUYXZtdmF1WHpr?=
- =?utf-8?B?VkJzZ2VJZXJIUm1mUnN3aUJnY2dyMXA1blZ2dFBkdzZOMTc2bzFBWGJwY1JI?=
- =?utf-8?B?N2o3L01nYU9JY1NZSXIzS3FiZmZJTFVyNlhtM0NJTVBLd1NVWFM0VmhzNU1s?=
- =?utf-8?B?ZEw3eUpwM0dCSCtGK1JTNjBpSG5XcXMvVXlHUnlyd0JCdDZhY1JCRTlVM1h3?=
- =?utf-8?B?UmVQMyt2YitaMHJxOGx5bWgxM0JCY1Qxc2VMRFlmU0VuU1VuMmZjdmRkbEJy?=
- =?utf-8?B?OEtRWnJDZHhRaWMxZzhZbDIwSEwzUnpEa2V3N2dxRzNEV1FtdU1hNXJKYVN5?=
- =?utf-8?B?dWI4VTNyZERValBPRnQ2Tmp5ZU5FUDd3aXdSK1o5QlNQVy9namQ0ODFGMFNa?=
- =?utf-8?B?UFdXajFJeWlnSkd2K0tpYzhUVXUzR2N6Q1Y0clZZV3hnTWYwV29BQjNvYjRv?=
- =?utf-8?B?SzBoSWY4b2ZvRXdkTzlmYXNBSXdXT0dJck5tSU9sdEc1Yzk3QVE1TEFIVTJZ?=
- =?utf-8?B?ZE9ZUGRsaWJxaUtqZ3gyMHZYbm4ybE56MmQrMjZ5OW93aTlhVERXZU9LNmp3?=
- =?utf-8?B?R0YvMERaYk9sRVJTYmtldnlOK1VoSGpBc0g5Tkw2cUlxKy9JdDZzaXNCUnVI?=
- =?utf-8?B?Q0hHbUNYRlJHZUpyZ0JZdTBZWHVRZWg2bXU5dlMvcW0ycnYvdytCcTR3N29y?=
- =?utf-8?B?NFpFeCtmNWhicEZ3QW95cVdsM2NxcGtEQlZneDRzQndLL2J4MXRkZmY2UVRC?=
- =?utf-8?B?YkhjekRDeVRDajlBblFKb0pySnk0bDh3dmRTdGZ5K2laeWMvUUhIcTlCd3FK?=
- =?utf-8?B?QkFpUkVMRW1lV3MyVGYwY05mWkllV3VVWlFlZG1FS2ZYcHk1b3kvd3QyWHhO?=
- =?utf-8?B?OGtOL1lQRW9hTkxCZXhXN0JYTHRuVjJ4bERpdGFZYkZYcTEzK2JsLzlKcVRE?=
- =?utf-8?B?ak92Nk16UjFKcG0wWFZTVFJFSlRmMWR2ckhOTmZoSWpIeTh3MlNEZld5M3JZ?=
- =?utf-8?B?N25melpJREIxcTZqczhzMXV5UHZzNE9NZnJmU3ZyNWtEbnlOcHFpYUNVYzFl?=
- =?utf-8?B?ekZNYkhiQkR4R1lRRGEvMnlVOXN5ZUk0eHBtckNGT21sV211UlBBc2FzbjAy?=
- =?utf-8?B?YW4yWitEZWhGK3hGVStkdklPY3l2Q0dmZFVYamlpaFNxT3JmUG5IejgrVG1O?=
- =?utf-8?B?aFgzSGxDK2FJM2JvZHpjRUFJcFZHcEhzNE5oaDE4NkNLNEplODZDdklKNUVj?=
- =?utf-8?B?Ym5EWDlSbEk2NldkbTBIZFJrbm52VjdMTjUzOWhCcmxPbldvMzV3OThIQ043?=
- =?utf-8?B?bEhEMVJ6cFpaYzlyWDZ1N0h2eFdTcUlDYm5pNXpDekNJczlDd0JiRU1YZkRC?=
- =?utf-8?B?VFlDK0pVUVFXUFdOZ00vR3g4eTJLS0lXMGxXbU53Rnc5VWJ6YklnbGZ0d1Fn?=
- =?utf-8?B?VDJNN3V2SEpEVitXNkllYlRsVTJROUtBNTgrTmp5K3Q5cnkyRi85dVlrazBv?=
- =?utf-8?B?SGMxU2RJQzN5MWg2R1dqZjUzNURVaGRmQUpBbmhubk9pNGcvTEFWTWlQWTA5?=
- =?utf-8?B?TjBVSHpaMjQrK1pWMEZEZjM1QVRWYkpkR1RuSUJJWmhXNnFnQmFPY1V1eUxU?=
- =?utf-8?B?UlgzdkE3UWpjTnU5dGthREdyMFhxWTJsRUdNQUVsTmhhb0dFQS8rU29DZVVy?=
- =?utf-8?B?TFBybEZTQWpvbnNVYUY2UkNjT0xTTERpRzFQZXFIbWJFS0oyd2svakdLeno2?=
- =?utf-8?B?clJVbDJ3RVU4SEYwU2hlYlp5V1B2MjAyVEpGWmFBYVZWWE52MjlnR0NoMFZC?=
- =?utf-8?Q?wdsYinfrVWoVYDgvzA97CLlxn3zVQDtq?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TERuNlBvUkJUdnVzelhLUVNxZWdMVFdMU0EvNjc1eC9TaXdwSUlWTTB3VnBO?=
- =?utf-8?B?ajcvaTA0R0MrR2w0VldsemtuajM4djJzT2dnNEplZ0QxUCtubVVnd05TU1I5?=
- =?utf-8?B?SVpNZXU3UXYxemN0OCtiSVZqQXUrQ0hXcmNEMEtCa000TmFxSmN6d0dGZFl5?=
- =?utf-8?B?MWNHVHlDTVJ0TG01bFBMYnd0anMzZXpYODJxSFpaMW4xRXp0U25yM3lzbDkv?=
- =?utf-8?B?MVJ5S1cwWm1ncEtLdXdrVlczOW1KMmJGRGJ4RkE1U1hqM3Y5andCdXphRUxP?=
- =?utf-8?B?SWFHc2htOTZFd2RnNkVKMlhZWUtXcjlhRVArUkFPdmw4bjVZeHExZ0xDbGR6?=
- =?utf-8?B?c1F3OWpiQ0dSc3h6MzE4aGIrWmtvVG04M1hiM1BMZU1vY3pFRzVzTEVvSEJB?=
- =?utf-8?B?bUl2TnJyK1ZRZWJjWCt0QmIwdzVmM2dKaXVxMnFMZXN3THhHZVVINHlPVEFx?=
- =?utf-8?B?SWdMRU53eTQ4bXE5WnM2TEs3M1Yyb0M2cXdrUk5DcnlNYktXd0gzWFJJQWkr?=
- =?utf-8?B?eEtYN1AwTmxoRXRVUnluMk5DWTFHNVZnNVluVGljWndvVm40am1OTmNNNUh3?=
- =?utf-8?B?ZlAyWEtoYnFsbHMwR01EbDZsM1FWUkNDU295aUp3R0J0UW1UOHZsWkZFVjlk?=
- =?utf-8?B?cjFjV1BkeDFwUERsVWIwTHFiQlFWdjZtaE9jTzBuZVRwN0N6Wlc4QW9BYWRI?=
- =?utf-8?B?TVFPQm9scG5TVnozWUNmbFRrVnNhTGhJK3JDZTBqYkNzOTc3WS9hOXZ4aDZs?=
- =?utf-8?B?RU0ycUNvb25waWc3d1BRbXgzWVJhcnA3TUg2VmZyR1dRdS91OS9mRlNwNFFV?=
- =?utf-8?B?OWFNK0tJc2lQQUxPSWNLTWNhSDBVU3ArNFRvK1FrMG9wV2dSR0U2QVhrajBG?=
- =?utf-8?B?aC9qaGk5THptenQ2M296V0FLRzJOM0Z4VlVYOGFWeGlnSU41Yzl6R0wzVmti?=
- =?utf-8?B?azBnZHV6MGxVTjJQVmk5S3RiTVVoZC9BMWU0bjZjT3FWSHV0dlNoTjVWNW01?=
- =?utf-8?B?S3Z1Si9QbS9pV0wxVTZ1cXk4cWVSWnozRFhEeHlrdWxRWGlaVGV0aUgzMHVU?=
- =?utf-8?B?S0FGRDJReHN2VEc3eFduc29UTmhwbjZQMG1ISU1nRnNTbzdhbVJYT3o5SjRu?=
- =?utf-8?B?ZlhxaU9EWklpTEI1VVZHOTdOajJobVZybXFoQlFDbW1xTmU2aTBXY0o2clpT?=
- =?utf-8?B?WG5IVnRDYklHTktySHVYT2xkaHUxYXlaRmpYSWZTandkTjVuS0Z0STBaUmZx?=
- =?utf-8?B?NnEvOWRBemo3dnNybXhGM1B2ODRqL2I1eUVadS9INnR1YXVaUm45MEZocEFr?=
- =?utf-8?B?ZVc3Sy9rVXBkeDhLWnFSbEVBaTdZYytsRVdkMEJvK0RZa2wyYndWV04ydFJI?=
- =?utf-8?B?WEQ3dUxtdkQ5dHU0UXZKbzc3UStLWFdHY1ZUWEptRzBwQXJybkl4OXFwNGFv?=
- =?utf-8?B?VGFIcVJ4VEhVZmhWdnErdmxxcDFKVitXcmJDUXlLWks2Unp5SlBGd3o4UGpw?=
- =?utf-8?B?bGlOV2hKaEEvcFFxaC9SSzU1MzZyTDEzcHpWc3F3L25QSHRSYnZXU0tFZkRD?=
- =?utf-8?B?WHJjdlNNK1ZCMU1Fd2JveVFXMXlpSGdGTERUbU5MVlVPUE13elBVcGo4MVJB?=
- =?utf-8?B?WEhERUczSndWMGxzenF3TTg1NHpvWnUwQzNVNWxhMWxhckNZL3o5cms5MlJR?=
- =?utf-8?B?K3ZLTVpnNll1Q1o5MC81akU3cTZ1M0hqVlJ6MWpBUERvNVhZYzhYQkdha3hj?=
- =?utf-8?B?N0hwREk0VGNQQUIvYXNDQjBUbzhTYXp1QkdFeVczVEdrRjA0eVVXajE2QlhO?=
- =?utf-8?B?V1lyaEtkaWhyS1FwMlRQL08rbWlGaTFMTVl3MFE5RC9pME9QTG9nekVaSEdE?=
- =?utf-8?B?Nk1ZVUR1Y2tWY3MvaGE3bHZIY3lwWDJrSFJWRHAvcll2Q2RxNyt6Z2E1a2Vr?=
- =?utf-8?B?Q1luejJvdGFVaU1TVGovTE1KU0tpVUxPeFVmTkhPd2JGejVFUUE4N1AwL0RR?=
- =?utf-8?B?ZFdEQ1pRM2ZSeGJIbE1GcSt6WXlQL2ljQ2FlbHVjZ1pjN2ticFpGQ2svU2V4?=
- =?utf-8?B?RFg1K0ZBeEpVYlIybnR1R3FUL0JlTkJNK0duMDFxa3h0OGpGRTBOUHBKM1A3?=
- =?utf-8?B?VWFKOHB5ZXZHazVlK3VxMXJORTFzR0JmelZvM3VJU0ZmVXc2c1JNcGRWc0dv?=
- =?utf-8?B?K0E9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4911673-1cdd-467d-bb13-08de161fe3b8
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2025 12:45:35.5587
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rNGfWylvaBpFxhF2HA+ye5aFus70Ku/6rWtzGN70wfOXZg+ZTHHOFynvg5BIrwz6js8m+Yo4yvBa1/VBAaRHuuFfyswzB34lu99KqDBc9SE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR03MB11029
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20251022140114.72372-2-philmd@linaro.org>
+User-Agent: Mutt/2.2.14+84 (2efcabc4) (2025-03-23)
 
-
-
-On 25.10.25 21:10, Teddy Astie wrote:
-> Le 23/10/2025 Ã  17:22, Grygorii Strashko a Ã©critÂ :
->> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>
->> Functions:
->>    hvm_shadow_handle_cd()
->>    hvm_set_uc_mode()
->>    domain_exit_uc_mode()
->> are used only by Intel VMX code, so move them under CONFIG_INTEL_VMX ifdef.
->>
+On Wed, Oct 22, 2025 at 04:01:11PM +0200, Philippe Mathieu-Daudé wrote:
+> Replace magic 8 by BITS_PER_BYTE, use MAKE_64BIT_MASK()
+> instead of open coding it.
 > 
-> If they are actually Intel VMX specific, they should rather be moved to
-> VMX code (and named appropriately) rather than if-defed in shared hvm
-> code. If AMD code happens to need these functions in the future, it
-> would make things break pretty confusingly (as headers are not updated
-> consistently).
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
-I agree and like it even better. Can try if there is no objections?
+Reviewed-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
 
-There is hvm_prepare_vm86_tss() also which is also used by VMX code only.
 
+
+> ---
+>  hw/xen/xen-hvm-common.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
->> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->> ---
->>    xen/arch/x86/hvm/hvm.c | 50 ++++++++++++++++++++++--------------------
->>    1 file changed, 26 insertions(+), 24 deletions(-)
->>
->> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
->> index f1035fc9f645..3a30404d9940 100644
->> --- a/xen/arch/x86/hvm/hvm.c
->> +++ b/xen/arch/x86/hvm/hvm.c
->> @@ -2168,30 +2168,6 @@ int hvm_set_efer(uint64_t value)
->>        return X86EMUL_OKAY;
->>    }
->>    
->> -/* Exit UC mode only if all VCPUs agree on MTRR/PAT and are not in no_fill. */
->> -static bool domain_exit_uc_mode(struct vcpu *v)
->> -{
->> -    struct domain *d = v->domain;
->> -    struct vcpu *vs;
->> -
->> -    for_each_vcpu ( d, vs )
->> -    {
->> -        if ( (vs == v) || !vs->is_initialised )
->> -            continue;
->> -        if ( (vs->arch.hvm.cache_mode == NO_FILL_CACHE_MODE) ||
->> -             mtrr_pat_not_equal(vs, v) )
->> -            return 0;
->> -    }
->> -
->> -    return 1;
->> -}
->> -
->> -static void hvm_set_uc_mode(struct vcpu *v, bool is_in_uc_mode)
->> -{
->> -    v->domain->arch.hvm.is_in_uc_mode = is_in_uc_mode;
->> -    shadow_blow_tables_per_domain(v->domain);
->> -}
->> -
->>    int hvm_mov_to_cr(unsigned int cr, unsigned int gpr)
->>    {
->>        struct vcpu *curr = current;
->> @@ -2273,6 +2249,31 @@ int hvm_mov_from_cr(unsigned int cr, unsigned int gpr)
->>        return X86EMUL_UNHANDLEABLE;
->>    }
->>    
->> +#ifdef CONFIG_INTEL_VMX
->> +/* Exit UC mode only if all VCPUs agree on MTRR/PAT and are not in no_fill. */
->> +static bool domain_exit_uc_mode(struct vcpu *v)
->> +{
->> +    struct domain *d = v->domain;
->> +    struct vcpu *vs;
->> +
->> +    for_each_vcpu ( d, vs )
->> +    {
->> +        if ( (vs == v) || !vs->is_initialised )
->> +            continue;
->> +        if ( (vs->arch.hvm.cache_mode == NO_FILL_CACHE_MODE) ||
->> +             mtrr_pat_not_equal(vs, v) )
->> +            return 0;
->> +    }
->> +
->> +    return 1;
->> +}
->> +
->> +static void hvm_set_uc_mode(struct vcpu *v, bool is_in_uc_mode)
->> +{
->> +    v->domain->arch.hvm.is_in_uc_mode = is_in_uc_mode;
->> +    shadow_blow_tables_per_domain(v->domain);
->> +}
->> +
->>    void hvm_shadow_handle_cd(struct vcpu *v, unsigned long value)
->>    {
->>        if ( value & X86_CR0_CD )
->> @@ -2306,6 +2307,7 @@ void hvm_shadow_handle_cd(struct vcpu *v, unsigned long value)
->>            spin_unlock(&v->domain->arch.hvm.uc_lock);
->>        }
->>    }
->> +#endif
->>    
->>    static void hvm_update_cr(struct vcpu *v, unsigned int cr, unsigned long value)
->>    {
-
--- 
-Best regards,
--grygorii
-
+> diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
+> index 52e2cce397a..258014370e1 100644
+> --- a/hw/xen/xen-hvm-common.c
+> +++ b/hw/xen/xen-hvm-common.c
+> @@ -1,5 +1,6 @@
+>  #include "qemu/osdep.h"
+>  #include "qemu/units.h"
+> +#include "qemu/bitops.h"
+>  #include "qemu/error-report.h"
+>  #include "qapi/error.h"
+>  #include "exec/target_long.h"
+> @@ -448,12 +449,14 @@ static void cpu_ioreq_config(XenIOState *state, ioreq_t *req)
+>  
+>  static void handle_ioreq(XenIOState *state, ioreq_t *req)
+>  {
+> +    size_t req_size_bits = req->size * BITS_PER_BYTE;
+> +
+>      trace_handle_ioreq(req, req->type, req->dir, req->df, req->data_is_ptr,
+>                         req->addr, req->data, req->count, req->size);
+>  
+>      if (!req->data_is_ptr && (req->dir == IOREQ_WRITE) &&
+>              (req->size < sizeof (target_ulong))) {
+> -        req->data &= ((target_ulong) 1 << (8 * req->size)) - 1;
+> +        req->data &= MAKE_64BIT_MASK(0, req_size_bits);
+>      }
+>  
+>      if (req->dir == IOREQ_WRITE)
+> -- 
+> 2.51.0
+> 
 
