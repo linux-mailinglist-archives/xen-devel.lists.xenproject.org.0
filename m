@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B850C15789
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Oct 2025 16:33:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1152218.1482734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C1C9C1578F
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Oct 2025 16:33:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1152227.1482744 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDlgO-00083a-Rf; Tue, 28 Oct 2025 15:32:24 +0000
+	id 1vDlhP-0008WI-4y; Tue, 28 Oct 2025 15:33:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1152218.1482734; Tue, 28 Oct 2025 15:32:24 +0000
+Received: by outflank-mailman (output) from mailman id 1152227.1482744; Tue, 28 Oct 2025 15:33:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDlgO-000818-OZ; Tue, 28 Oct 2025 15:32:24 +0000
-Received: by outflank-mailman (input) for mailman id 1152218;
- Tue, 28 Oct 2025 15:32:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vDlhP-0008Ul-1H; Tue, 28 Oct 2025 15:33:27 +0000
+Received: by outflank-mailman (input) for mailman id 1152227;
+ Tue, 28 Oct 2025 15:33:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LPue=5F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vDlgN-000812-Ce
- for xen-devel@lists.xenproject.org; Tue, 28 Oct 2025 15:32:23 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4ae0473a-b413-11f0-980a-7dc792cee155;
- Tue, 28 Oct 2025 16:32:20 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-471191ac79dso64688045e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 28 Oct 2025 08:32:20 -0700 (PDT)
+ id 1vDlhN-0008I1-Tw
+ for xen-devel@lists.xenproject.org; Tue, 28 Oct 2025 15:33:25 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 718e1912-b413-11f0-9d16-b5c5bf9af7f9;
+ Tue, 28 Oct 2025 16:33:25 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-421851bcb25so3824600f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Oct 2025 08:33:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-475dd03585esm201593405e9.6.2025.10.28.08.32.18
+ ffacd0b85a97d-429952cb55asm20970320f8f.17.2025.10.28.08.33.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Oct 2025 08:32:18 -0700 (PDT)
+ Tue, 28 Oct 2025 08:33:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ae0473a-b413-11f0-980a-7dc792cee155
+X-Inumbo-ID: 718e1912-b413-11f0-9d16-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761665540; x=1762270340; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=bUEXUS8f/CtUhZEF83/hQogPceIPkhRtyNCGz1YcQ/g=;
-        b=dgmd/taezpAxKY+llA6nJuNXb2TqkWabYZ2QvliTWq7apSTJFr3pKKLa2URhogaG2O
-         ejhIvrc1xUALMRKIFA+pzRVEWhpTJ+F8571EkUoQTth/prsHa8opkecu1QuyoXvHJDKY
-         GpEreOoJu47t8pHT0n6stqoxsfbLQslyxbUkFDq4eLKHi0CqCFqdKXVk5rwdh+XD0W/F
-         KnMaL+w6BcNNhAWs701kuDfDpj20WAJueuOtlB3X6h0A31j6PGctUeCqv43hL2SSVUU6
-         AKHbTdnynjRYOGJohgGQ74k72ZS0leNHPwb/DekqwP1DSuqcnOFe4/GLnxiP+5DNjNnS
-         j6tw==
+        d=suse.com; s=google; t=1761665605; x=1762270405; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z85qis9vgMeTegmX7okcikREeWqzsWQQfOD8abtYAGU=;
+        b=NCZ+YbWeJkHZ8TnkE3ZQah/AIMczsnZc/FpWI/ca+e32z3PIN3EFRUyGuoOHFM/YJr
+         b+lsVuiwF2XS0eNASs7LvU3A/S/N+y+93xP7buUhbHSmmsaZrE022maV7zm+PGO+QKJK
+         2eQQWeaAilCU4YxHdH/IRzPWhrUaV3+fMbmzKoQaGNhkbwrB4i5pW8xrzfVrDXWJh2wY
+         Dten3wlpURkMBJvKjTpQUIObXNGTYdPRttGyg0dKJ8YwspM+Lwg9nlA6eD2WCfWJsEML
+         fCOACR6SGVyjJXXtgTx/sSeb4vAapriuCfA0DKIvpVeK0D5SMykElGD5eA3gHt/oLg/f
+         VWCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761665540; x=1762270340;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bUEXUS8f/CtUhZEF83/hQogPceIPkhRtyNCGz1YcQ/g=;
-        b=Zlmx/BXqEGRe7K4Gpn2+9Zls5PBbbGen+onWYrt7tmzUFLdY+lhx1SqTgZdQt73V0E
-         EUZvNIgxsK5x1UGvL8/T23a1HHO9Y3bMz1zW1gv8dRwIRlVu4DuLvSAxcvWly7Ci2Sy9
-         3X5BtSWTCT7aPuB+bxg/eAlCED41hw98Q6snnrsMW2jHEyqj/QlwqbCucH4YqTkdCcO5
-         mI/GAeC74/3mm5+xhNIuK2ZoccX7WTiITAZb1zYCPab2I+dY35SlnbV8eSvyl/5hgqvI
-         a3DLggvyv300hfW8CsJkDUDmI6X6rtAuQ9hjpy4LBEjAJLibeO8cRsmPXIeLFHlmJfmG
-         gD6w==
-X-Gm-Message-State: AOJu0Ywzn42CArWF4vZ2PEVXG/GvbZm31Z9nrDd1dIHkY5jWBOg6T0Fi
-	W+YSoG2gcEGzPXuasp0vD5Wo9MhSO9lhIO5XTjkYgQy4cpad1bOCM0NAOI22z17GangB3HdLCI+
-	ATZM=
-X-Gm-Gg: ASbGncthdmbrXTfgaeh2IMxgesqWJjCHol/yR6BEsh4gdjEpQceEeOYetQcq9l9dp/H
-	Tm6tgXf6QHIRDmBFvkweoBSlNTWFXQ64mlXqia1VnFe0LKhUSyt+OPbGf1L4FJJ1Rc1Sj7DPlut
-	kHd9gXPV21IQpYmiV5oXMTHgpJzwP7K39trMtY6XIcvYRL0xKPnUdV7+LyFuY1CGf4/2szv014V
-	32P9pec8uM5yPSu29BRAuWIuP1clKwvu3hO2AnH/OYxA/lh++1c7RK9ntmaK9P3EbnjLEnWQCPk
-	c5cvBUFr9qog3fkAJykOBwYzsF+Bv2BLirC9o9drdhHsbVE4mgQ5RM/0BBO72ZwbzOmR0SLQIqP
-	G+HBLxwIB4Hwt2rdNgHaQ8WpTfXqip7CFfgMIHe6iqQIhZK8whzB7PndlecE6G3dlJv4H39WKH7
-	/dH+DojFYB4CS0cNVmPLV5lyo9odGW9kCoJeVkE9xLZ1LeEmxsZdm4owF3rtll
-X-Google-Smtp-Source: AGHT+IGoNMHgosAdDY4lYucD56q6gsCqeknxnc99YBxMltLebl9P6v8c3Dv0jUWGdyh6NeKSFoOB/g==
-X-Received: by 2002:a05:600c:528a:b0:471:21:554a with SMTP id 5b1f17b1804b1-47717e03784mr28953065e9.13.1761665539736;
-        Tue, 28 Oct 2025 08:32:19 -0700 (PDT)
-Message-ID: <272093dc-c97c-434a-9977-ad1c26e7e229@suse.com>
-Date: Tue, 28 Oct 2025 16:32:17 +0100
+        d=1e100.net; s=20230601; t=1761665605; x=1762270405;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Z85qis9vgMeTegmX7okcikREeWqzsWQQfOD8abtYAGU=;
+        b=KQGc3klfi4wzyHeGsPfUXR5Bs+rcoftvO8Re2qx8fvngf2na1kJevZ1n5Y7DFir0r2
+         WlPQ6p30zl4w7Ll5kmfZ9q/pS3J2qG9t4AkMKtaTv/gxQsNOQ5/C9FAwwbiw46m7hPJO
+         WGRb9QqFeIt4XcotNNp02u4UmlzpSX+Udjg4zDQcpJvpXPw0FlnBD5G3aZpaJAcKjylA
+         SCS1/G72V0EP8iszdFIg1Rj1XM+x7PP2k4DhmOuzuyCgLCbjszARqEC69JpEafICksQQ
+         XNw9oaGI+D3BfQh0Ocgkn/QhtNk/PBKTv+RoVj0Im0DF8+msC4Q/NJM8MWCmqoKXd6Wm
+         sQ5Q==
+X-Gm-Message-State: AOJu0Yx2GDBZG+h4BvjVtrmaZsdIAy3nfxYcyRcA2iBZZQyZTgr90iYY
+	1ynhBx4MLclWN2y6Kd9Sz42M1xQEzM6oqueJc0zosmMJMbASuK5ZVQ5ibK54gOuUkirNpDOv4dt
+	lP+g=
+X-Gm-Gg: ASbGncuIomskwQDQI4R5OUfJITsjky9tDnAboFQJTzBN/SY0AEMuIfpNnNpCnAdqwbe
+	1jFSXxMhRDqBOL7GxGRzmYhqA6q2/Y3ch0pk9uJko/G0t1C7/4EDey3+qH8ULQHvqbyZG8RF7hs
+	Jj0x+yLEgUAIuSuvsmM3jDAKhynIWgGUC+MCmMffQnj4y4ChrMv4p4bK4A+ncXB3omFn2qpwPlX
+	3ocR5+tnuA19ss0QioHQPy8jkCKpzwwSE2Q3xqHqWtk3hH8ZVRxopFqUTCmiUL4Q9ArbPWi/CQ5
+	OKOjzj29lltawQCaPdXvMhEIpZV5srupHPwBkvkv5MlX7pKdo8gn/JwVXgfQoL5WkNEEBr3d1zX
+	aD8d7ODLsCM+pZaGnjYtRXltTI6T5yAdbYJKB9UaKJoC2T7mGEN5BJKyoQH/uSN01z8N7n+RLoz
+	/8WTX05F3W6aFKwkjWhv1tzaHpyHgUttV+cJcBKd+SB9MfOjVuGls99CQNw9GE
+X-Google-Smtp-Source: AGHT+IFdHz/KOsiOfgTgdzLq2IeWArno2v5IbL6+6WUH6N4NFKj3YOMR/aRvtxYMRaQOhB3Hyg6uOw==
+X-Received: by 2002:a05:6000:290c:b0:427:7ad:466f with SMTP id ffacd0b85a97d-429a7e83a78mr3434976f8f.39.1761665604568;
+        Tue, 28 Oct 2025 08:33:24 -0700 (PDT)
+Message-ID: <b18027a5-d277-4274-b762-dd63e96b6d6c@suse.com>
+Date: Tue, 28 Oct 2025 16:33:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+Subject: [PATCH v2 for-4.21 1/2] x86/AMD: disable RDSEED on Fam17 model 47
+ stepping 0
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2 for-4.21 0/2] x86/AMD: deal with RDSEED issues
+References: <272093dc-c97c-434a-9977-ad1c26e7e229@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,14 +120,74 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <272093dc-c97c-434a-9977-ad1c26e7e229@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Both patches also want 'x86/CPU: extend is_forced_cpu_cap()'s "reach"' in
-place.
+This particular variant has an error that causes RDSEED to always return
+0xffffffff, while RDRAND works correctly.
 
-1: disable RDSEED on Fam17 model 47 stepping 0
-2: disable RDSEED on most of Zen5
+Inspired by Linux commit 5b937a1ed64ebeba8876e398110a5790ad77407c
+("x86/rdrand: Disable RDSEED on AMD Cyan Skillfish").
 
-Jan
+Like for RDRAND, permit a command line override to be used to keep
+RDSEED enabled.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Considering how it is described, I didn't think probing RDSEED (like we
+do for RDRAND) would be necessary.
+
+Am I going too far in also updating cpuidmask_defaults here, or is us
+not doing so for the RDRAND disabling actually an oversight?
+
+Using warning_add() may not be quite appropriate, as we don't really
+mean the admin to possibly override this with "cpuid=rdseed" (that's
+only a last resort, in case the issue is yet more limited in scope). But
+mere printk() would feel like hiding the information in the middle of
+lots of other output.
+---
+v2: Correctly check model, not (again) family.
+
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -1219,6 +1219,24 @@ static void cf_check init_amd(struct cpu
+ 		}
+ 		break;
+ 
++	case 0x17:
++		/*
++		 * Fam17 model 47 stepping 0 has an error that causes RDSEED to
++		 * always return 0xffffffff (while RDRAND works correctly).
++		 */
++		if (c == &boot_cpu_data &&
++		    c->model == 0x47 && c->stepping == 0 &&
++		    cpu_has(c, X86_FEATURE_RDSEED) &&
++		    !is_forced_cpu_cap(X86_FEATURE_RDSEED)) {
++			static const char __initconst text[] =
++				"RDSEED is unreliable on this hardware; disabling its exposure\n";
++
++			setup_clear_cpu_cap(X86_FEATURE_RDSEED);
++			cpuidmask_defaults._7ab0 &= ~cpufeat_mask(X86_FEATURE_RDSEED);
++			warning_add(text);
++		}
++		break;
++
+ 	case 0x19:
+ 		/*
+ 		 * Zen3 (Fam19h model < 0x10) parts are not susceptible to
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -123,6 +123,10 @@ static void __init cf_check _parse_xen_c
+     else if ( feat == X86_FEATURE_RDRAND &&
+               (cpuid_ecx(1) & cpufeat_mask(X86_FEATURE_RDRAND)) )
+         setup_force_cpu_cap(X86_FEATURE_RDRAND);
++    else if ( feat == X86_FEATURE_RDSEED &&
++              cpuid_eax(0) >= 7 &&
++              (cpuid_count_ebx(7, 0) & cpufeat_mask(X86_FEATURE_RDSEED)) )
++        setup_force_cpu_cap(X86_FEATURE_RDSEED);
+ }
+ 
+ static int __init cf_check parse_xen_cpuid(const char *s)
+
 
