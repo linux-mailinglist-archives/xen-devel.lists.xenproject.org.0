@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C7E1C1604B
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Oct 2025 18:01:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1152264.1482795 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25F33C16088
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Oct 2025 18:04:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1152273.1482804 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDn4R-0004cD-TG; Tue, 28 Oct 2025 17:01:19 +0000
+	id 1vDn6u-00059E-99; Tue, 28 Oct 2025 17:03:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1152264.1482795; Tue, 28 Oct 2025 17:01:19 +0000
+Received: by outflank-mailman (output) from mailman id 1152273.1482804; Tue, 28 Oct 2025 17:03:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDn4R-0004Zt-QW; Tue, 28 Oct 2025 17:01:19 +0000
-Received: by outflank-mailman (input) for mailman id 1152264;
- Tue, 28 Oct 2025 17:01:18 +0000
+	id 1vDn6u-00057A-6R; Tue, 28 Oct 2025 17:03:52 +0000
+Received: by outflank-mailman (input) for mailman id 1152273;
+ Tue, 28 Oct 2025 17:03:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LPue=5F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vDn4Q-0004Zn-Fp
- for xen-devel@lists.xenproject.org; Tue, 28 Oct 2025 17:01:18 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ id 1vDn6s-000573-T2
+ for xen-devel@lists.xenproject.org; Tue, 28 Oct 2025 17:03:50 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b811ba22-b41f-11f0-9d16-b5c5bf9af7f9;
- Tue, 28 Oct 2025 18:01:17 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3ecde0be34eso59712f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 28 Oct 2025 10:01:17 -0700 (PDT)
+ id 12e6caed-b420-11f0-9d16-b5c5bf9af7f9;
+ Tue, 28 Oct 2025 18:03:49 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-475c9881821so744785e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Oct 2025 10:03:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47718fe6382sm23721525e9.4.2025.10.28.10.01.15
+ ffacd0b85a97d-429952b7a7csm21482917f8f.8.2025.10.28.10.03.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Oct 2025 10:01:16 -0700 (PDT)
+ Tue, 28 Oct 2025 10:03:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b811ba22-b41f-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: 12e6caed-b420-11f0-9d16-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761670877; x=1762275677; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761671029; x=1762275829; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/UvbOvjBQOYoX0fPAjfJyDcRSsU7ePxkkpMQl82L5XM=;
-        b=Je41eo9a7jOtj4Kl/Aq0wHN9Bszt0mDqyyuJD03F95tw3BhCiglTDe2BgVpMcyCmXt
-         5IsP+2jkm9AXYQfS4wgh4bs3R6+nFKSGoizN36BzRZxctcGbJ5mENw+QVZtYf6awobci
-         rtS1IBStEZriEpX14VPtzOSjwMX+9Cl1W8QqRydDZ7QzEoIkhIk2CQFDogS9Os4KQTk8
-         3q+ZLgbS1bWkhD01krv6OJWzb9doxEym9xqh/6idrAz7Xu4Vj/pKz6Ef2pIplzi8y24k
-         j1HRbg4c9qfTKO9Bdhtlk0ea7kqLSWdLuuIowDZXNPYIJQXZgHiTlCBi1Q00DNZMdT3R
-         eKkw==
+        bh=5I6KpiJpQT1utCl3agCtZtX/eMflorVbrcYmy+6YtDs=;
+        b=QhEfK9LZm5kD02S7atn59gYidHNZEGpmxtmQUfc36NM2VFLW8CU8XHsmbv5NkEGzUb
+         CdGVYAHQvCbboS51WE/R58JfT1wkZ/NP5QYQBVf97S600nJct9DtZPkeRIIhJ22uBrpQ
+         9rjY2Chw86Js2dcvYPAe53r1upcrmhzNs2+GLVT9bGM41oFhyaDsBA1uo04bpNFN2BrP
+         okmQVxi4qTRtlG7IZOGP6ODa86k0bCFZF1k1TuhfyQJSA5wUknXsHH1eo9uOr/IQJ0t2
+         g4b61lFeqp6cl7DDsrt6LOm4thfcl3OnpNqa1jdW6lI0k1M1cF0F8Pn50iJxRh82GiwG
+         2KDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761670877; x=1762275677;
+        d=1e100.net; s=20230601; t=1761671029; x=1762275829;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/UvbOvjBQOYoX0fPAjfJyDcRSsU7ePxkkpMQl82L5XM=;
-        b=aiLLy0RZvivWYDQYmL9k7pBI5Qpt0vilMEvWmq39bPXW1LKCrGJH84aNrcvduOepLG
-         j8mpGJkybvCeZ3Iy+QPJNSzooK7bnQCX64gobd9jzuKEWG3xqud0zRHwvilkRrVrm/Lj
-         S5ckSlb1aQaGzBSua8tFOJ6OsENA2YWyWjHgd26oXOAXitkd0UIbtCRtAizl1Hhj5una
-         U+00pf3uB6+5XwEogySjOSH8FLgqP6UXTEaCXA/CkjbDax4lM8MqmgqaAQkQDYvtuWFa
-         s3U4blKgNPlMGILArfbWgy5DLt0fkZGeUSEJ2BiFFlzFfPNIA0DncG3xApeU64RHOGT7
-         fdlA==
-X-Forwarded-Encrypted: i=1; AJvYcCU84jfdxNKE2dZakA75JPc64j1Nre/owgDbRRz4gAd9WY2vEouVTdWuL+VAwKINydr9vRlJDdtNBis=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwVgfstH9SKBSPOaBFKA2/paB2jOPN57I8rHJVyiWuWvR8pgTYH
-	W+Ou8j8pkxJP6Zq0FC3r3OvXVJVglFKXCM57mNkQjUgFUQORR8Gz1JJdKw+xipykqw==
-X-Gm-Gg: ASbGncu4AaVidRhwKNeXynzVdKsvsjrzk1vhgTAn4slhh8+u+cQ9PGB+kERjUEdHrlt
-	rbxUm0dRVAyCOO26sHt4uht9otkAl4Gu+2xA0Np4v+yGrjjpatZWNcRkuZlNUUY8/eoWB1Qz143
-	vrsR5Is004I89uYS0+vM3vn/1QMfJlfM76P+8K1Blhg87pk2hh+Pe0eHlZT1ziPQFXRzhzzlvmA
-	f2d3O25p5RpCrBj5VDmGHr1pI9lowR0lMWtNptzCNP6Mp2VLVCjNBoIfPYhlV9nru9BMzSk7kDp
-	0b5ZLEYNCKspPBCl1bFsuFoJN1VWRdxHCHiJNyS2hD3/9KhZOJ/+etv9QFjjq/jxl+eUt1es2cb
-	8TPQkJzfaxOZ6fUeeByfxTwQ6Kmb/mcHYvz1Ydb0TqxCw+dvMrHeCqYfityg+W3e3YjngX5yA87
-	Vr63cyT1e/2r1b2UmTRYEt/Py9pgKcmNKuw/sHlCTeaSRfNvJFke1By8XLISac
-X-Google-Smtp-Source: AGHT+IEFd0QESdK1IkEj5RhBEftExp0+zZ8+wIRuOFIpaqu51HlcPblAg/1D/nOqi8JUaCfNloQeBw==
-X-Received: by 2002:a05:6000:258a:b0:3ee:11d1:2a1e with SMTP id ffacd0b85a97d-429a81b1151mr3674329f8f.10.1761670876918;
-        Tue, 28 Oct 2025 10:01:16 -0700 (PDT)
-Message-ID: <7c0ee0ac-294a-4de8-9e8e-26353ed65434@suse.com>
-Date: Tue, 28 Oct 2025 18:01:15 +0100
+        bh=5I6KpiJpQT1utCl3agCtZtX/eMflorVbrcYmy+6YtDs=;
+        b=n/3gXG6GNPNvtZxf2OtIOBoAIrkDks4aPGbtWJl5CgKk0Ax/ZxjcWIDrtorlZiVGcP
+         9gAGyrWNVcXLjCOS2gIUaB9w4r2sAoeIk5SrHDu9f7Aczj43rYv9cNfFX20d2rFnIbOj
+         7b0i1goK9q8k6vlpkSbrsrWBlequbloaTxPxLteQ/2yhBwzjGNgiGV5oHiIF//sX9JJ6
+         SHZHlCvcmkRFxmKdaElqfndjcXkgs9wxmO5W/+xszewJiXmHHHDLZH3Izmmr4SGOS1/5
+         LQ3UW7AI/l6NPX8nb30wkWiuoairHT5e03L7R8EmAu4RK/BdZ9dsr0LjnUYg90JFuEDA
+         QFHw==
+X-Forwarded-Encrypted: i=1; AJvYcCWi5BM7RORSpel2UaMwdv8felbePJtDZjntYQ/0GiFRTYqXoO6HobwuiAUPCCO/2Igtxn6ZA/T1Utc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwQt1ILfGXXsk3eEHc77thCZVFvLXPiJ4pO3Xltr+qDHPnCLSTR
+	E8oJjMkvlefPoLlzZ5Ry+q1bd0WdPJxfEniXGjiZg2tArlSaF9JN01aGJ6K7aLkl+g==
+X-Gm-Gg: ASbGncubVtRCC8hk5axlzoWqgA4loHQA3wc9nGOAhWgBKUTz1fSq8q1O/oMme8fIl61
+	38XEaVl3sIyvw+OR/g8xG4LFdzA/Skrg/Lzue0mCJYxQ/aFlFTFU2Jqn3Uw8KNH54D8mQ322BLe
+	IKPxfcQFlQAr8bOiBO8tatuNsRLTrVhy5qOZmWQtkYNpkOcEPj5rS2ugSmaDOB/KUHVN6eKl48p
+	qlr/WxUHQlaZ3yIgITKhy8dquklTa9KabSwNVvwWnUaEmgD490+icSlR8QScUS3VAJrRBS4nKIW
+	r+PgXLOcV8VtfKhrybXu+idfjcS87CcAZExofF3J4hHyzbh/xUJ5B2+LvQT1vvcl1lfzH3dr+T0
+	QNot3wCAZROoenYRNDy0Syh+q4Jvsv9aN/PrMhi5xFppNRBr0kPfXQepyle3OKq3WaeM/CY/kz7
+	O9jDMN0rJQhaA0ZqIA4J9ZJejgc7bmbjGnQJKep0LWyFf8ECUG+GyYbJM3Vr7g
+X-Google-Smtp-Source: AGHT+IFrf22L7NE3PNn1biCh91bj/NKUi9kHHZQPfkBozt7l02ePKN4cAb9nNYBvUWuMnYISXqLWog==
+X-Received: by 2002:a05:600c:c0d1:10b0:477:14ba:28da with SMTP id 5b1f17b1804b1-4771810a961mr30027765e9.5.1761671029235;
+        Tue, 28 Oct 2025 10:03:49 -0700 (PDT)
+Message-ID: <65b62723-97fa-484a-a0ea-885b61a571a5@suse.com>
+Date: Tue, 28 Oct 2025 18:03:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/28] xen/mem_sharing: wrap
- hvm_copy_context_and_params() with CONFIG_MEM_SHARING
+Subject: Re: [PATCH v3 03/28] xen/altp2m: move p2m_set_suppress_ve_multi()
+ forward
 To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: ray.huang@amd.com, oleksii.kurochko@gmail.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20251013101540.3502842-1-Penny.Zheng@amd.com>
- <20251013101540.3502842-3-Penny.Zheng@amd.com>
+ <20251013101540.3502842-4-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,18 +122,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251013101540.3502842-3-Penny.Zheng@amd.com>
+In-Reply-To: <20251013101540.3502842-4-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 13.10.2025 12:15, Penny Zheng wrote:
-> The only reference of hvm_copy_context_and_params() is in
-> arch/x86/mm/mem_sharing.c, so it shall be wrapped with CONFIG_MEM_SHARING.
-> Otherwise it will become unreachable when MEM_SHARING=n, and hence violating
-> Misra rule 2.1.
-> 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> The declaration of p2m_set_suppress_ve_multi() is in <asm/mem_access.h> and
+> hasn't been included on compiling altp2m.o when VM_EVENT=n, resulting in
+> undefined error.
+> To fix it, we could simply move p2m_set_suppress_ve_multi() forward.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+I don't mind the move, but a definition appearing without a prior declaration
+is a Misra violation as well, iirc. So the missing #include will need adding
+anyway, afaict.
 
+Jan
 
