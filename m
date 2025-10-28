@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EE7AC13C41
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Oct 2025 10:21:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1151996.1482539 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A916C13C59
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Oct 2025 10:23:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1152008.1482549 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDfsR-0003v1-D2; Tue, 28 Oct 2025 09:20:27 +0000
+	id 1vDfuk-0004V9-T8; Tue, 28 Oct 2025 09:22:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1151996.1482539; Tue, 28 Oct 2025 09:20:27 +0000
+Received: by outflank-mailman (output) from mailman id 1152008.1482549; Tue, 28 Oct 2025 09:22:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDfsR-0003sk-9E; Tue, 28 Oct 2025 09:20:27 +0000
-Received: by outflank-mailman (input) for mailman id 1151996;
- Tue, 28 Oct 2025 09:20:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vDfuk-0004Sl-Pv; Tue, 28 Oct 2025 09:22:50 +0000
+Received: by outflank-mailman (input) for mailman id 1152008;
+ Tue, 28 Oct 2025 09:22:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LPue=5F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vDfsQ-0003se-5M
- for xen-devel@lists.xenproject.org; Tue, 28 Oct 2025 09:20:26 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 559a1125-b3df-11f0-9d16-b5c5bf9af7f9;
- Tue, 28 Oct 2025 10:20:24 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-4298a028de6so3437372f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 28 Oct 2025 02:20:24 -0700 (PDT)
+ id 1vDfui-0004Sf-MA
+ for xen-devel@lists.xenproject.org; Tue, 28 Oct 2025 09:22:48 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aa334b12-b3df-11f0-980a-7dc792cee155;
+ Tue, 28 Oct 2025 10:22:46 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4711b95226dso71043895e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Oct 2025 02:22:46 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429952d5773sm20867626f8f.27.2025.10.28.02.20.23
+ ffacd0b85a97d-429952da12dsm19507772f8f.29.2025.10.28.02.22.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Oct 2025 02:20:23 -0700 (PDT)
+ Tue, 28 Oct 2025 02:22:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 559a1125-b3df-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: aa334b12-b3df-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761643224; x=1762248024; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761643366; x=1762248166; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WGJ2+y3VQKfBTfRfhAWVDI4GRenq2XY1xnL/M6cLGNk=;
-        b=aN1vgeu0apLDkyFUdMlXe7jreNF7/hTESqzOL3JWFRW+FF2+e3Ef/+AEGyba3sxZ9K
-         0pNUaIbGvTc7XiRa2oELfC0aLVGlF7+55TIfjWTeC5f4pZRO/E01cbNVMBXyXPTdse/i
-         eiUphHmr7au5EhWnzRzz5thfA7JstEgQCk3BPqeJiQHevlEOqZ7bApjmMWh6FBevFDPj
-         EfZOX78CEqrbPmd1cDO+Amg6AFZUhaq4lQHyMGDHSKs9FxJ9rj8MJuVfVMTWlktWzqT7
-         HU7ZeTjkaUt2GpVa8R7dEmHXhKAj4IVZTn/CKF/gAzMXgAS2H6EqnlFP1WqJWyXnQcKj
-         q/9w==
+        bh=Ruw/LQ2mFawwvVukuxuxFGTtixkuOI8AbP7IwzV6JjY=;
+        b=YzV3LwzBB1gq8PFNaFusN8Yi+iDvbWJyljgxO1frIhYHeQyF4mM7BA2zfPKKm5kxFK
+         BIO5WqZZksaAuA1kpTk2Ha1SJHgn+zGhrA8FMPXyJcRVBOtFif4h9BJo8p/yblYZNZ/G
+         irV2bPRrRBeqjXymxh35/wE4eE0XQuBKI0jPolfiVGk9YZ3t7auI45NS+E3YMdBA0Z1G
+         tmLO4O7/P4oGF+KRIsEoK/VcRHQfY1a+fh8iWekSQjUwyY6Yid7OPZv/tJStAhJmHw7Z
+         3xbY3hVmV0ow87dlDQ0oWzbWG2Kmg3HgHcmN5xDseZxiVpt/9ldk6jT1hkquQvuimbuN
+         +weg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761643224; x=1762248024;
+        d=1e100.net; s=20230601; t=1761643366; x=1762248166;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WGJ2+y3VQKfBTfRfhAWVDI4GRenq2XY1xnL/M6cLGNk=;
-        b=cD+VeN6z8NMz9honwTKbquRi76EU/OrBbuO3GcaLeuVKM1gBABPzXW5RS2mxUW86Es
-         JW3Cs8fguBERt1fPTj6NUdTvFgse8EGVFfygdyMR/kI7M1Lpw65B7e8TeYzWbfwmnwp9
-         cmF6mEkQxPg804l2HvDo/PyH2l+K651DCuyxZHTwKX5sm1yQXJMV/T92ExB1nlc4QJ7h
-         NgAtHgMagy2oF4NzRXtJ6FZL9Mg/cegmCDq+Ib3GTmbikxCcLrSY+tYVNcRhXnUInjkB
-         b771WhetGW9ijSFK6Mw8sSH2u/BoKeVgM4WSIV1SkrztbOO7aXP6IlzCBk3AiturNNBE
-         WneA==
-X-Forwarded-Encrypted: i=1; AJvYcCW3GaYEPkSVRchX9K3FQFuZRFo8tOL3jct1Cv1aHUKC9WsbcrPmPhsO1IOqaw2H1VLpDvB1cvA4R2U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz/alZiQcoXZ8Q65TQiJM+zsgIbKIIfP19dHpvjin1WnozfIbGh
-	mLvXNZd7a1wvKEGdNbQkaircm85tSpAl5JqsRRXWpsgQulG6rZ3VAQ33hv9IJaaMdQ==
-X-Gm-Gg: ASbGnctkmDAdcEYcGFVvbJoI2whx9NXvUJbFrPWXOLaVqmCn++Ok9nWXjqxaifuuSaw
-	Va7qwGJLDmYynhhn+3T47ltpFPvaAX+y6BKwd9tn9LUnu21LKcwO7rPeOrGI8qeUAkoMfTEOvKV
-	1BMkQqMOQf3vOTiDejnhHrlzvNPlRQ7cZT6h0zokiiPxq7oDH3+w0WZXLMSvsJwk5LJu0XdodeR
-	JrF3ocrkw2digvPJ76s0qMuFIvAkXc1tTeH7XI6rstNa/iVRNZMHGWoD7fi7RRrpyNCVBwf2B0t
-	JN2cc496jUBZaZz6JBcveLU3K6AA7MUikMaTQ3nkpL9lJFhNqfO1/n5VBb6dYcC5bnt0rO/yeJ0
-	7u3awGJWgAK8VvXQkQEbiFAvFOkRLnmKlrCP6kRTWe5ZlGG4Fub7e8fufdaJAoO2FKUsrXHZnF6
-	aBhiLNeUrZEL0YtwjztWoThoW13/WGh7gZzlj+FlLTPoqHpHJB/TqgCr2POFj2/NW8tzOUv34=
-X-Google-Smtp-Source: AGHT+IGasJjvzZelFOicmOtN9kpkKMDzBbFtAhZn7+GNJi8tv3dosO1w2czLmPDmeoFl+6ITid2S5A==
-X-Received: by 2002:a05:6000:2909:b0:414:fb6c:e369 with SMTP id ffacd0b85a97d-429a81b1f37mr1927442f8f.5.1761643223924;
-        Tue, 28 Oct 2025 02:20:23 -0700 (PDT)
-Message-ID: <78fe46d2-f21a-46d2-bcb5-a54d7cd86e91@suse.com>
-Date: Tue, 28 Oct 2025 10:20:22 +0100
+        bh=Ruw/LQ2mFawwvVukuxuxFGTtixkuOI8AbP7IwzV6JjY=;
+        b=NCXlWbMTdyPxhxWynKaNx1LZgybGBjiE9KSV1hKMVye8U+mTF1WGDxCUNjTwTzalXk
+         a2fz7bRo7mATUNU3C9kyoBX5Arv0RBecjD6vEY6zLirsdnyPYNUYNQ2IRf8qhZxYfsWG
+         Hg8jSJE4H5eZWRU/ex5JyT5VjRt4K9EKxFREGMIFCNdK75kFjPIMZ0TyCdzeedbGSGZ8
+         D5eyXcaT/hrUA0nA4a8BEQlsfmey5tV/PcvflsiAEOeCYSpHnyu0depyAw6jruLKO3f8
+         R31m+bAOsXRek5cv0kVv88OXVEFMXywwejhBbBcej91ALuG9PGHoqSisudAAGaLPXojI
+         /b5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWndwqY43yURxnOcRCfGlu1/0IwXDJhSpCzKQEcKNyR8YgUbQiWMD4IyUj6AY9o+h5pIMVUTCmIa2c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzXOmRxxqN4x12ejZcFI+0GDUfua25fyw95BgTXdc7/PULUi/J0
+	Wgv3UNTpVTVydf2sSAZ9B4l0aqvK6uW5edfRdCdIo+oycLglg2ETUUC40PsA6xpdsQ==
+X-Gm-Gg: ASbGnctJmKFpSJGoAS9Yyz2T1CL6395KVsHmpaGRGemsvPWyyqpy6MjzFOKwRcDhWcG
+	Qwe0XSDw/saNtbi8uMqgDW+60l17RNSr8HElxZHNQINf+J+ySJXRVd6sDKASARvKB3bIDHa6roJ
+	yzsICFENKy/YvMiEqOrs7dS2GPZ/LBvJ3dIf5px+mQbm9Vnd8+IG14ibEpGCm1E3Vspoi71G7gF
+	vLoSgcnIyVL+GEwD6Eq3QGHMh36DZGNN+GX3BHTbJJgpBJvRBsRSMGvXTHNf4iidXCxi+56OGv4
+	BNWJYdx/rgKi32JeuuRlOmmOtVUZ/9ExdFcgr1nuNzNk/xQFd12JMHun26WDdN5uePa58LLe+Wt
+	q3xH60Or/yp2iY5NBpjaWYGTXoYBfBpsOd9vmUa17+DIOiYHWK67gBuo9T+9Jb9BD22EgSH1612
+	BXC/2ADojpNPpefQeADLTGz6Yy5IRTYjpygrv9w2UqIiggysVRhzAzf+UCk6To
+X-Google-Smtp-Source: AGHT+IFqhK15hfJzpNL9PD83XJCsLFyVlenjJAQc2Fi7GJKGVUjfKRODYoD7PoQHQ+6kCdpFKN/BVg==
+X-Received: by 2002:a05:600c:190d:b0:477:e66:4077 with SMTP id 5b1f17b1804b1-47717e67befmr21866355e9.29.1761643365832;
+        Tue, 28 Oct 2025 02:22:45 -0700 (PDT)
+Message-ID: <30131a50-d4fb-4c42-915a-be44b62752fa@suse.com>
+Date: Tue, 28 Oct 2025 10:22:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [RFC PATCH for-4.22 1/2] x86/platform: Expose DTS sensors MSR
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Teddy Astie <teddy.astie@vates.tech>
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <cover.1761585640.git.teddy.astie@vates.tech>
  <48b15617f248852560a0e0674eea65d25330c605.1761585640.git.teddy.astie@vates.tech>
- <83712d12-08ec-46a4-b215-18f7ea1c1069@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,92 +120,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <83712d12-08ec-46a4-b215-18f7ea1c1069@citrix.com>
+In-Reply-To: <48b15617f248852560a0e0674eea65d25330c605.1761585640.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27.10.2025 20:38, Andrew Cooper wrote:
-> On 27/10/2025 5:26 pm, Teddy Astie wrote:
->> I'm not a fan of doing a inline cpuid check here, but I don't have a
->> better approach in mind.
+On 27.10.2025 18:26, Teddy Astie wrote:
+> Intel provide CPU sensors through "DTS" MSRs. As there MSR are core-specific
+> (or package-specific), we can't reliably fetch them from Dom0 directly.
+> Expose these MSR (if supported) through XENPF_resource_op so that it is
+> accessible through hypercall.
 > 
-> I'm not sure if there's enough information in leaf 6 to justify putting
-> it fully into the CPUID infrastructure.
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+> ---
+> I'm not a fan of doing a inline cpuid check here, but I don't have a
+> better approach in mind.
 > 
-> But, if you do something like this:
+>  xen/arch/x86/include/asm/msr-index.h | 2 ++
+>  xen/arch/x86/platform_hypercall.c    | 6 ++++++
+>  2 files changed, 8 insertions(+)
 > 
-> diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
-> index f94f23e159d2..d02fe4d22151 100644
-> --- a/xen/include/xen/lib/x86/cpu-policy.h
-> +++ b/xen/include/xen/lib/x86/cpu-policy.h
-> @@ -121,7 +121,13 @@ struct cpu_policy
->              uint64_t :64, :64; /* Leaf 0x3 - PSN. */
->              uint64_t :64, :64; /* Leaf 0x4 - Structured Cache. */
->              uint64_t :64, :64; /* Leaf 0x5 - MONITOR. */
-> -            uint64_t :64, :64; /* Leaf 0x6 - Therm/Perf. */
-> +
-> +            /* Leaf 0x6 - Thermal and Perf. */
-> +            struct {
-> +                bool /* a */ dts:1;
-> +                uint32_t /* b */:32, /* c */:32, /* d */:32;
-> +            };
-> +
->              uint64_t :64, :64; /* Leaf 0x7 - Structured Features. */
->              uint64_t :64, :64; /* Leaf 0x8 - rsvd */
->              uint64_t :64, :64; /* Leaf 0x9 - DCA */
+> diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
+> index df52587c85..98dda629e5 100644
+> --- a/xen/arch/x86/include/asm/msr-index.h
+> +++ b/xen/arch/x86/include/asm/msr-index.h
+> @@ -510,6 +510,8 @@
+>  #define MSR_IA32_THERM_INTERRUPT	0x0000019b
+>  #define MSR_IA32_THERM_STATUS		0x0000019c
+>  #define MSR_IA32_MISC_ENABLE		0x000001a0
+> +#define MSR_IA32_TEMPERATURE_TARGET   0x000001a2
+> +#define MSR_IA32_PACKAGE_THERM_STATUS 0x000001b1
+>  #define MSR_IA32_MISC_ENABLE_FAST_STRING  (1<<0)
+>  #define MSR_IA32_MISC_ENABLE_PERF_AVAIL   (1<<7)
+>  #define MSR_IA32_MISC_ENABLE_BTS_UNAVAIL  (1<<11)
 
-Just to mention, below a patch I have pending as part of a series to
-e.g. replace the various CPUID6_* values we presently use. As you did
-indicate when we talked about this, a prereq to then use respective
-bits from host_policy is an adjustment to cpu-policy.c, which is also
-part of that series. If we weren't in freeze right now, I would have
-posted the series already.
+Now new additions like this to this file please (and even less so ones
+disagreeing in padding with adjacent lines). Please go find this comment
+in the file:
+
+/*
+ * Legacy MSR constants in need of cleanup.  No new MSRs below this comment.
+ */
 
 Jan
-
-x86/cpu-policy: define bits of leaf 6
-
-... as far as we presently use them in the codebase.
-
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Or should we make both parts proper featureset elements? At least
-APERFMPERF could likely be made visible to guests (in principle).
-
---- a/xen/include/xen/lib/x86/cpu-policy.h
-+++ b/xen/include/xen/lib/x86/cpu-policy.h
-@@ -128,7 +128,31 @@ struct cpu_policy
-             uint64_t :64, :64; /* Leaf 0x3 - PSN. */
-             uint64_t :64, :64; /* Leaf 0x4 - Structured Cache. */
-             uint64_t :64, :64; /* Leaf 0x5 - MONITOR. */
--            uint64_t :64, :64; /* Leaf 0x6 - Therm/Perf. */
-+
-+            /* Leaf 0x6 - Therm/Perf. */
-+            struct {
-+                uint32_t /* a */:1,
-+                    turbo:1,
-+                    arat:1,
-+                    :4,
-+                    hwp:1,
-+                    hwp_notification:1,
-+                    hwp_activity_window:1,
-+                    hwp_epp:1,
-+                    hwp_plr:1,
-+                    :1,
-+                    hdc:1,
-+                    :2,
-+                    hwp_peci:1,
-+                    :2,
-+                    hw_feedback:1,
-+                    :12;
-+                uint32_t /* b */:32;
-+                uint32_t /* c */ aperfmperf:1,
-+                    :31;
-+                uint32_t /* d */:32;
-+            } pm;
-+
-             uint64_t :64, :64; /* Leaf 0x7 - Structured Features. */
-             uint64_t :64, :64; /* Leaf 0x8 - rsvd */
-             uint64_t :64, :64; /* Leaf 0x9 - DCA */
-
 
