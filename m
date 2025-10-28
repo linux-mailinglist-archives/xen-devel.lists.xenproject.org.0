@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62009C1603C
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Oct 2025 18:00:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1152255.1482784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C7E1C1604B
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Oct 2025 18:01:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1152264.1482795 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDn2i-00038m-Ir; Tue, 28 Oct 2025 16:59:32 +0000
+	id 1vDn4R-0004cD-TG; Tue, 28 Oct 2025 17:01:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1152255.1482784; Tue, 28 Oct 2025 16:59:32 +0000
+Received: by outflank-mailman (output) from mailman id 1152264.1482795; Tue, 28 Oct 2025 17:01:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDn2i-00036L-FY; Tue, 28 Oct 2025 16:59:32 +0000
-Received: by outflank-mailman (input) for mailman id 1152255;
- Tue, 28 Oct 2025 16:59:30 +0000
+	id 1vDn4R-0004Zt-QW; Tue, 28 Oct 2025 17:01:19 +0000
+Received: by outflank-mailman (input) for mailman id 1152264;
+ Tue, 28 Oct 2025 17:01:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LPue=5F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vDn2g-00036F-U0
- for xen-devel@lists.xenproject.org; Tue, 28 Oct 2025 16:59:30 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1vDn4Q-0004Zn-Fp
+ for xen-devel@lists.xenproject.org; Tue, 28 Oct 2025 17:01:18 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 776d0415-b41f-11f0-9d16-b5c5bf9af7f9;
- Tue, 28 Oct 2025 17:59:29 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3ed20bdfdffso6274876f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 28 Oct 2025 09:59:29 -0700 (PDT)
+ id b811ba22-b41f-11f0-9d16-b5c5bf9af7f9;
+ Tue, 28 Oct 2025 18:01:17 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3ecde0be34eso59712f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Oct 2025 10:01:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429952db80fsm20907256f8f.31.2025.10.28.09.59.27
+ 5b1f17b1804b1-47718fe6382sm23721525e9.4.2025.10.28.10.01.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Oct 2025 09:59:28 -0700 (PDT)
+ Tue, 28 Oct 2025 10:01:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 776d0415-b41f-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: b811ba22-b41f-11f0-9d16-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761670768; x=1762275568; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761670877; x=1762275677; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IHmJC05K6d4S/ovQulh/0EGJ5FYC/LvcPbB3TlFHtKs=;
-        b=H+Dn1LR5cRWB15ZCTAhO852uZffTKPu39JSDAfnckFGAkqmYwNPLcGffXuqgAGQivc
-         yBxtgFgBLu1s1zRK01clTFzSvet47yirxYS37lz2SZR7P+k9k4MKZ8z4O8L6+StpBkmQ
-         ON6Hwwlm1TeDEkULGDO22mjHKMu4+mgZYeFamliAylNZIQIDrrJUXJbu2di6ImUFb2/F
-         CoSlYgj0wRZviz9O2LmiVdUxXQLF9kLOnp/LJ69xx0foGEpnTWJet6Ar+f7AEq9xUQvv
-         I2P7nf9xo4ZfI9fr+Tv/0QrENh+R4Wq260Q2RMv6tcua0HwrjOYG0vNKaPV1eTppeaY9
-         0xgA==
+        bh=/UvbOvjBQOYoX0fPAjfJyDcRSsU7ePxkkpMQl82L5XM=;
+        b=Je41eo9a7jOtj4Kl/Aq0wHN9Bszt0mDqyyuJD03F95tw3BhCiglTDe2BgVpMcyCmXt
+         5IsP+2jkm9AXYQfS4wgh4bs3R6+nFKSGoizN36BzRZxctcGbJ5mENw+QVZtYf6awobci
+         rtS1IBStEZriEpX14VPtzOSjwMX+9Cl1W8QqRydDZ7QzEoIkhIk2CQFDogS9Os4KQTk8
+         3q+ZLgbS1bWkhD01krv6OJWzb9doxEym9xqh/6idrAz7Xu4Vj/pKz6Ef2pIplzi8y24k
+         j1HRbg4c9qfTKO9Bdhtlk0ea7kqLSWdLuuIowDZXNPYIJQXZgHiTlCBi1Q00DNZMdT3R
+         eKkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761670768; x=1762275568;
+        d=1e100.net; s=20230601; t=1761670877; x=1762275677;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IHmJC05K6d4S/ovQulh/0EGJ5FYC/LvcPbB3TlFHtKs=;
-        b=GGTI0Vuhuvs+gu5Dn67YcCQlOFyYPARFz4CmJ67VS1x0+aY0qtbVUlwAG/rSpMYf0Y
-         Sfg0Npwurs+cmy57GzldFD8W/wYpRlbiihzW1mSdps2tsDZvk7kukbLw5WCMMc3WolB8
-         FHlQSSlBKoRoKntB+3dwEd6HP0vYiKRSDRIaM7sVsrSCul/ph5LhDk2ntevMp7d1f4Yb
-         tA+wIFuTRbm2d01o9YaxEE0Ev2TcqUMUJTG5x/43Gbmo0wJbuUORiRhOFy9fmcLZWKT0
-         sqKv5HZYFqMrnelrR5mcTRm1eX/hJ5Vm9e1hg869GdDD6Op5OBaLZg0D/j4VF+NdReJ5
-         Sn+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCU0K8YJdAarmkPxg1Zjh8c4/yqXQT5/1KPKlCILyhUMz9/Gpm1WZ6x5CgZb0Cb0fMenuDFbE431k3c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx9vmw1aVc7Wh2ZZNU+DOfzgEYwpYELtzua+lKjHLZXIi+aPdmI
-	jx184uooySAbMf1TmGdUuI25z1GmnaHTt6WE4TmPRko9SrXvwo1LhUZuPHaHvS+M9w==
-X-Gm-Gg: ASbGncsZ2oBxTrUukLhYaQCkWCOqei4B0ctrbt0I0vcLkhkhsndLi6lj6GlBc2+shK4
-	r+31r00d4MU8+MsEKjm+X1a0wQWJhh9R+u5yh9acbObyqcmpUfTdY3sZafMANzFNkez3o9uykco
-	I+b4aptlC3W9KqcDolrAnWtwd3ASwsylaTSlMEYbd0t2hr0wS2yD1boxntCV6e2HuUDubacgj8V
-	rd7m2ef+8wZYjnQL3GBGTOh9evcLF+R0j0dw4d9AsQmZN5Wah9WnhEJKE9FdOXR8iG8oVkjVuiD
-	Wa3v1BbQlBD9fx7L0/gmNT/O0fvA47IDWpfyF3uhv1bB7AtuVyFp1TQL6nXZ4VJRDjEXDZYELLa
-	/oAdwmh8vf59TKCllMX4r/TvC9GTUeEt1KqcO26ZT4sJbopJIawC/PaYSIG0Yhsv9NPTMSr9CGn
-	4qA5XvZVJo2LykBN7GSLa87vCYQVnkHQbL/gCmWDTRiUEwhZFfgP9isWyA1Yf8
-X-Google-Smtp-Source: AGHT+IFCuMd5vDNxYykCCAdJXbh2xiAUSe5J0sN+dpYjEKEoY/hEFKOyfWPXGfqOPUDeJ7qdco+EBQ==
-X-Received: by 2002:a5d:5d12:0:b0:3e9:ad34:2b2e with SMTP id ffacd0b85a97d-429a7e7a764mr3490322f8f.46.1761670768420;
-        Tue, 28 Oct 2025 09:59:28 -0700 (PDT)
-Message-ID: <b68e74c6-2678-4670-996c-e7a05d61bc04@suse.com>
-Date: Tue, 28 Oct 2025 17:59:27 +0100
+        bh=/UvbOvjBQOYoX0fPAjfJyDcRSsU7ePxkkpMQl82L5XM=;
+        b=aiLLy0RZvivWYDQYmL9k7pBI5Qpt0vilMEvWmq39bPXW1LKCrGJH84aNrcvduOepLG
+         j8mpGJkybvCeZ3Iy+QPJNSzooK7bnQCX64gobd9jzuKEWG3xqud0zRHwvilkRrVrm/Lj
+         S5ckSlb1aQaGzBSua8tFOJ6OsENA2YWyWjHgd26oXOAXitkd0UIbtCRtAizl1Hhj5una
+         U+00pf3uB6+5XwEogySjOSH8FLgqP6UXTEaCXA/CkjbDax4lM8MqmgqaAQkQDYvtuWFa
+         s3U4blKgNPlMGILArfbWgy5DLt0fkZGeUSEJ2BiFFlzFfPNIA0DncG3xApeU64RHOGT7
+         fdlA==
+X-Forwarded-Encrypted: i=1; AJvYcCU84jfdxNKE2dZakA75JPc64j1Nre/owgDbRRz4gAd9WY2vEouVTdWuL+VAwKINydr9vRlJDdtNBis=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwVgfstH9SKBSPOaBFKA2/paB2jOPN57I8rHJVyiWuWvR8pgTYH
+	W+Ou8j8pkxJP6Zq0FC3r3OvXVJVglFKXCM57mNkQjUgFUQORR8Gz1JJdKw+xipykqw==
+X-Gm-Gg: ASbGncu4AaVidRhwKNeXynzVdKsvsjrzk1vhgTAn4slhh8+u+cQ9PGB+kERjUEdHrlt
+	rbxUm0dRVAyCOO26sHt4uht9otkAl4Gu+2xA0Np4v+yGrjjpatZWNcRkuZlNUUY8/eoWB1Qz143
+	vrsR5Is004I89uYS0+vM3vn/1QMfJlfM76P+8K1Blhg87pk2hh+Pe0eHlZT1ziPQFXRzhzzlvmA
+	f2d3O25p5RpCrBj5VDmGHr1pI9lowR0lMWtNptzCNP6Mp2VLVCjNBoIfPYhlV9nru9BMzSk7kDp
+	0b5ZLEYNCKspPBCl1bFsuFoJN1VWRdxHCHiJNyS2hD3/9KhZOJ/+etv9QFjjq/jxl+eUt1es2cb
+	8TPQkJzfaxOZ6fUeeByfxTwQ6Kmb/mcHYvz1Ydb0TqxCw+dvMrHeCqYfityg+W3e3YjngX5yA87
+	Vr63cyT1e/2r1b2UmTRYEt/Py9pgKcmNKuw/sHlCTeaSRfNvJFke1By8XLISac
+X-Google-Smtp-Source: AGHT+IEFd0QESdK1IkEj5RhBEftExp0+zZ8+wIRuOFIpaqu51HlcPblAg/1D/nOqi8JUaCfNloQeBw==
+X-Received: by 2002:a05:6000:258a:b0:3ee:11d1:2a1e with SMTP id ffacd0b85a97d-429a81b1151mr3674329f8f.10.1761670876918;
+        Tue, 28 Oct 2025 10:01:16 -0700 (PDT)
+Message-ID: <7c0ee0ac-294a-4de8-9e8e-26353ed65434@suse.com>
+Date: Tue, 28 Oct 2025 18:01:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] x86/hvm: move hvm_shadow_handle_cd() under
- CONFIG_INTEL_VMX ifdef
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v3 02/28] xen/mem_sharing: wrap
+ hvm_copy_context_and_params() with CONFIG_MEM_SHARING
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, oleksii.kurochko@gmail.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251023151903.560947-1-grygorii_strashko@epam.com>
+ xen-devel@lists.xenproject.org
+References: <20251013101540.3502842-1-Penny.Zheng@amd.com>
+ <20251013101540.3502842-3-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,79 +122,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251023151903.560947-1-grygorii_strashko@epam.com>
+In-Reply-To: <20251013101540.3502842-3-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.10.2025 17:19, Grygorii Strashko wrote:
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -2168,30 +2168,6 @@ int hvm_set_efer(uint64_t value)
->      return X86EMUL_OKAY;
->  }
->  
-> -/* Exit UC mode only if all VCPUs agree on MTRR/PAT and are not in no_fill. */
-> -static bool domain_exit_uc_mode(struct vcpu *v)
-> -{
-> -    struct domain *d = v->domain;
-> -    struct vcpu *vs;
-> -
-> -    for_each_vcpu ( d, vs )
-> -    {
-> -        if ( (vs == v) || !vs->is_initialised )
-> -            continue;
-> -        if ( (vs->arch.hvm.cache_mode == NO_FILL_CACHE_MODE) ||
-> -             mtrr_pat_not_equal(vs, v) )
-> -            return 0;
-> -    }
-> -
-> -    return 1;
-> -}
-> -
-> -static void hvm_set_uc_mode(struct vcpu *v, bool is_in_uc_mode)
-> -{
-> -    v->domain->arch.hvm.is_in_uc_mode = is_in_uc_mode;
-> -    shadow_blow_tables_per_domain(v->domain);
-> -}
-> -
->  int hvm_mov_to_cr(unsigned int cr, unsigned int gpr)
->  {
->      struct vcpu *curr = current;
-> @@ -2273,6 +2249,31 @@ int hvm_mov_from_cr(unsigned int cr, unsigned int gpr)
->      return X86EMUL_UNHANDLEABLE;
->  }
->  
-> +#ifdef CONFIG_INTEL_VMX
-> +/* Exit UC mode only if all VCPUs agree on MTRR/PAT and are not in no_fill. */
-> +static bool domain_exit_uc_mode(struct vcpu *v)
-> +{
-> +    struct domain *d = v->domain;
-> +    struct vcpu *vs;
-> +
-> +    for_each_vcpu ( d, vs )
-> +    {
-> +        if ( (vs == v) || !vs->is_initialised )
-> +            continue;
-> +        if ( (vs->arch.hvm.cache_mode == NO_FILL_CACHE_MODE) ||
-> +             mtrr_pat_not_equal(vs, v) )
-> +            return 0;
-> +    }
-> +
-> +    return 1;
-> +}
-> +
-> +static void hvm_set_uc_mode(struct vcpu *v, bool is_in_uc_mode)
-> +{
-> +    v->domain->arch.hvm.is_in_uc_mode = is_in_uc_mode;
-> +    shadow_blow_tables_per_domain(v->domain);
-> +}
-> +
->  void hvm_shadow_handle_cd(struct vcpu *v, unsigned long value)
+On 13.10.2025 12:15, Penny Zheng wrote:
+> The only reference of hvm_copy_context_and_params() is in
+> arch/x86/mm/mem_sharing.c, so it shall be wrapped with CONFIG_MEM_SHARING.
+> Otherwise it will become unreachable when MEM_SHARING=n, and hence violating
+> Misra rule 2.1.
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
-In addition to what others have said, as we're talking of unreachable code
-here: This function also is unreachable when SHADOW_PAGING=n. If already
-you make adjustments, I think you want to cover this other aspect at the
-same time.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
