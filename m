@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 027B4C1B04C
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Oct 2025 14:57:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1152781.1483288 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2090EC1B385
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Oct 2025 15:31:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1152791.1483299 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vE6g9-0001kn-EF; Wed, 29 Oct 2025 13:57:33 +0000
+	id 1vE7C7-0006q4-Tv; Wed, 29 Oct 2025 14:30:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1152781.1483288; Wed, 29 Oct 2025 13:57:33 +0000
+Received: by outflank-mailman (output) from mailman id 1152791.1483299; Wed, 29 Oct 2025 14:30:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vE6g9-0001iT-BL; Wed, 29 Oct 2025 13:57:33 +0000
-Received: by outflank-mailman (input) for mailman id 1152781;
- Wed, 29 Oct 2025 13:57:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vE7C7-0006ni-Qb; Wed, 29 Oct 2025 14:30:35 +0000
+Received: by outflank-mailman (input) for mailman id 1152791;
+ Wed, 29 Oct 2025 14:30:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=f6do=5G=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vE6g7-0001iN-GB
- for xen-devel@lists.xenproject.org; Wed, 29 Oct 2025 13:57:31 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 349792ff-b4cf-11f0-980a-7dc792cee155;
- Wed, 29 Oct 2025 14:57:28 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-475dbb524e4so30563175e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 29 Oct 2025 06:57:28 -0700 (PDT)
+ id 1vE7C6-0006nb-Mh
+ for xen-devel@lists.xenproject.org; Wed, 29 Oct 2025 14:30:34 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d3318148-b4d3-11f0-9d16-b5c5bf9af7f9;
+ Wed, 29 Oct 2025 15:30:32 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3ee12807d97so7039594f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 29 Oct 2025 07:30:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4771e3ace25sm50398605e9.9.2025.10.29.06.57.27
+ ffacd0b85a97d-429952b7b6fsm26801968f8f.1.2025.10.29.07.30.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Oct 2025 06:57:27 -0700 (PDT)
+ Wed, 29 Oct 2025 07:30:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 349792ff-b4cf-11f0-980a-7dc792cee155
+X-Inumbo-ID: d3318148-b4d3-11f0-9d16-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761746248; x=1762351048; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761748232; x=1762353032; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5E1rEKjUCDH5Wjk0NxuPTVgdssow/HBur47X3j0fDyY=;
-        b=X9a8fWCbz5ZkpsYxCxu6e2DYJE5rLD0wcarirYoG2mequwIxPznufJJXvXPcfgm7FJ
-         mgAGeFRDkq4AE6zP/cc5JuYGqPT73GTOEwbwCI2h9RMyXI5pAaqrEMuuJ7Xi9c0NPF1Z
-         4WN2e0T/+7/3isoO1NoSn3CzMiUPb9YNJr5F19BRFYMyFDQ7TuGR3xIhbsOirN0L/JhW
-         YDEAMvTTnqlRl80MJGFrmtsp/BcIEnbR417+U1GKBtlMS0pVaLQzRtxZ/GVwX645n5Lt
-         asjkO1G3Qe1Qvo64HbZf9drOpb8bHm6ABMpFGlvj5LWwXEk9vN61pO2sqmtjDJxU3tIq
-         fWEQ==
+        bh=nuEh6rSoksdm6ivLtSxjsQaMePIxS0YYs6/184djObE=;
+        b=ggXQNWc2EOOPAozEA1e5qRBjdTeGvrrekH4saYrDp5BSJFbzh/8shZcTcRSeeaj5hC
+         Npu/rtS6cyR90P0HV+56fuHl4amo1N33FDBnXcJe/B5Zf1xZ5PX0tjeIGLW0N4+A2IHX
+         OvMnCG5NeQ/lM8w6wsTcxV8JXG4awZiNNR33IMwftZ9YExmjCoDFu8sliMH9YzxkwVxc
+         kkbkB34Z0LLkWqeKHQY0wqjpPPPMwkGxxZwwX8FEVP0pZEv/VUu92fWaCqEP1hdcQr4L
+         PfuUKbd2WCuIhBGgNr+sKHlhwpPo8PeoqEQaHAB9ZLLvItrZnCE+WzDSZ9gaZ1MC5yOT
+         r7zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761746248; x=1762351048;
+        d=1e100.net; s=20230601; t=1761748232; x=1762353032;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5E1rEKjUCDH5Wjk0NxuPTVgdssow/HBur47X3j0fDyY=;
-        b=r+x/2TYgyOyWjXR7aq4UJxUGTV0hD7oCnyVUfEsWXqzd92cm5+WQnQeCKXpQ7YogRj
-         4Ojp6GxzzG5LZaab+HEX35xygzUg3Kzsol6dWBYs8+A96axuPG2eoPE/+ENd8ggFR3/c
-         KKiXhXyoeM177p8yLFpki3d6tYCY0JEdumgGWp7SYWGLKavWPQvBzArELGmpae3GjGUx
-         5AE1iYTUaxG81gLeU1VXWV5qbY8MUb1RMzyK3nMTFWQoLumjSUjsDBI2EXeWwzrB2DH1
-         68Wbf649IEMOWkB6U7+iLwci6QnT6pR4St+ntZo0KvH3aiRoy4T+RS/afPaFvP95njxT
-         ekuw==
-X-Forwarded-Encrypted: i=1; AJvYcCWmtmwGlEa3qJNQAc5e3tb657HLp14tGN+j6Tb+1UIyU+uWKruT2b8W7w4eIjAZDSfxpGZFd84ZsM4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxbF1gl6roR6H/CdN+UVIti2qwCHYHz3mBDqnXuhhF/1IcxFksM
-	zmMVzJhw0pkRD3LUbcEzJrFoGBnB82j2R+6d+wVCDfh9lLBUP/ffcYDouvoXgchxrw==
-X-Gm-Gg: ASbGncvXNI5tQKCsXIyeLCvgn0JlJcbMQyTOQjIIxhEhPu/30q1LSoPwO33yPCbuSfY
-	tINpwvhRe4Nqy5H8wWMfeueiiG3BNE1UsdI2fL3exgm47wdZN1k6t0eOR4mFoWqIDN6VpgqJEV9
-	5+wT7v1sxiGhTn7qH/P+tLe0prNmxjyT0OMyMt2LZkaQX/RiM9Q5dbMBAVlMkDu54N6lPAQdTNC
-	PaEPbBM6NTKzj0/kBMCWDJkrHU84lD65MNgT9r1u2DMTPc0VC20nai5GzGhF/ltrpKASzxZlNij
-	EnfzqEN9QoADEaHdC8T2QEx0pAI/Gl1C7GkF+4tBJjd/WvdTVYk/smJo3qWvP9UkjZDCYYo+I07
-	oqLwxFu4RK0nNO/gsKNkW47sdie5K7aOr3BYLWvJLbeTS8FYaNHlGDfVT52A0aNdDHp4yLJVn0g
-	Yg1+40Zbee21ZY/MAJ5tk8CyxBqAt0mW1FTqK8CdjPcw4jO6RIaWz8nN6oOS+k
-X-Google-Smtp-Source: AGHT+IHeVUcAurJ34ix6WX8yY2+g39ljNhraLhbOpQh4C4psFUgsoL8mu5Xs0fnqK9BC08lLWToVvg==
-X-Received: by 2002:a05:600c:4ed1:b0:456:1a69:94fa with SMTP id 5b1f17b1804b1-4771e177c4amr28434545e9.13.1761746248056;
-        Wed, 29 Oct 2025 06:57:28 -0700 (PDT)
-Message-ID: <9f264a58-9ca2-4323-8f79-edabe70a07a0@suse.com>
-Date: Wed, 29 Oct 2025 14:57:26 +0100
+        bh=nuEh6rSoksdm6ivLtSxjsQaMePIxS0YYs6/184djObE=;
+        b=KP3WDe1Q1x3iJn99vgCQiGlveFmHPgXoRQEfzMFIyNQ4DXMz/5W5lPzXq8IMQtdfEy
+         EHq9VLH0Uu0PL3hCuDrnUbNapQB32PTW4+X3DM0yE205CNRsgDtYSuCQIMfV5z+jdyxN
+         TZyeBu4rxIrjKe2EhVKqyyHIgglXLLZw7yX0k8nHbqjq2GO+TkcfUnF84p2JRQtuSORi
+         CBZEy0izpj5OoHr4c89GlQFzFvlgaSKmzTBF8tJiUFJeK3SI7G1BWJ/K6gzwhjOeUfws
+         n49PSmuJ3YsHJnw95Gd+EANuDu2ZQuHqLyxiLZgcpuLxRDu41M2ID7v4JVq5JwSDR3iZ
+         pUtw==
+X-Forwarded-Encrypted: i=1; AJvYcCW7m4kkvqxzuZ0AB5+tsCx13FylT6qT0iUQk+VdaWq0CniiAljvwkVvew3X+BmaoPvavSyAC+KyM2Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxf6Wn1DrRRJCKJh7tJb67AE+3fK6BVq7/0nv5rorECNVcsAYbT
+	MMpj5yKgR8TB9l8dNPJIJy9g0BW8K19Qm3ubtfJLU1KpDURnpm6+HSZ/kN1Bw94Cvg==
+X-Gm-Gg: ASbGncvZDVxP3rovrDiEt74kCWSmnksagMa2af4ajgGGv0zTH/dEyQq9rME/LbNy7i1
+	Be8fG/tayJdWousxu13Oc7hqJ1QrvJXXVsvZ1/byfWdZ3w4+UiLE3njVUHSupPBEAj68vtz6Kd6
+	kom2wUgf2xCk0mqLDePMJEVhu8MGuYIpX8e3V4p1IC5zb6kQBslQgSr63PMQxZpaWrM9TlzDE+J
+	mbkU8xYa7QG0OtvidgnCQVW85ifa/HMnIRZQdPFdCk6LFgnU6cSL/DvNPMLpeD4BduUIzrLXea/
+	moDVjnEs8/5+MmoK9/WMk6+Y/yApaGymtElHsKkCK30cVgl9boxt2vy8nf6cf70wW2ElN0wRiFX
+	xRkQ2gWof3Nn/Tv8F59QRgtgE86H6+0W7kw7a3nCFOY20inmy0bSfLu7siGErtvfHrgqxjuPWvY
+	Lm4u3Bxom/ezGCFOxUNfr2rHT+GJav5qdlFoU2jjn3KZsopSqdrVfyOlNVxm0iv9N1qdD7C90=
+X-Google-Smtp-Source: AGHT+IFelraYl7++xRPACnzzCwqpGuVFVblwDMFoVdjAQP85B2au4khCg8N0dMcKpj6xspLUUtEzYA==
+X-Received: by 2002:a05:6000:26ca:b0:429:8d0f:ebf with SMTP id ffacd0b85a97d-429aefcce70mr2777779f8f.42.1761748231946;
+        Wed, 29 Oct 2025 07:30:31 -0700 (PDT)
+Message-ID: <fc5af689-a46a-4f08-99d1-e568ee79a227@suse.com>
+Date: Wed, 29 Oct 2025 15:30:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] kconfig: remove references to
- docs/misc/kconfig{,-language}.txt files
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v3 05/28] xen/sysctl: replace CONFIG_SYSCTL with
+ CONFIG_MGMT_DOMCTL
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, oleksii.kurochko@gmail.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <6f72dcebf5dbb69e9496b7f0ef96198e9bb9f1e9.1761745058.git.dmytro_prokopchuk1@epam.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Nathan Studer <nathan.studer@dornerworks.com>,
+ Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
+ Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org, xen-devel@dornerworks.com
+References: <20251013101540.3502842-1-Penny.Zheng@amd.com>
+ <20251013101540.3502842-6-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,42 +133,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6f72dcebf5dbb69e9496b7f0ef96198e9bb9f1e9.1761745058.git.dmytro_prokopchuk1@epam.com>
+In-Reply-To: <20251013101540.3502842-6-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.10.2025 14:38, Dmytro Prokopchuk1 wrote:
-> These files 'docs/misc/kconfig{,-language}.txt' were deleted, but
-> references are still present in Xen. Remove them to clean-up.
+On 13.10.2025 12:15, Penny Zheng wrote:
+> Rename all the CONFIG_SYSCTL into CONFIG_MGMT_HYPERCALLS to help provide a
+> single option to manage all unnecessary hypercalls, including
+> sysctl, domctl, etc, in dom0less system and PV shim mode, which could also
+> make it easier to support randconfigs.
+> While doing the replacement, we fix some bugs on xsm system:
+> - wrap the whole xsm function to avoid bringing unreachable codes when
+> MGMT_DOMCTL=n
+> - add missing wrapping in include/xsm/dummy.h
 > 
-> Fixes: f80fe2b34f08 ("xen: Update Kconfig to Linux v5.4")
+> Suggested-by: Stefano Stabellini <sstabellini@kernel.org>
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Hmm, that commit replaced the .txt files with .rst ones, so maybe you want a
-2nd tag here referencing 044503f61c95 ("docs: Delete kconfig docs to fix
-licensing violation")?
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/INSTALL
-> +++ b/INSTALL
-> @@ -23,7 +23,7 @@ Xen Hypervisor
->  ==============
->  
->  Xen itself is configured via a `kconfig' system borrowed from Linux.
-> -See docs/misc/kconfig.txt.
-> +See https://www.kernel.org/doc/html/latest/kbuild/.
-
-Is linking to "latest" doc really appropriate, when we don't even try to stay
-up-to-date? That's what Andrew's commit suggests, but I dare to question this.
-
-> --- a/xen/Kconfig
-> +++ b/xen/Kconfig
-> @@ -1,6 +1,6 @@
->  #
->  # For a description of the syntax of this configuration file,
-> -# see docs/misc/kconfig-language.txt
-> +# see https://www.kernel.org/doc/html/latest/kbuild/
-
-Maybe more specifically https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html
-at least here (with latest possibly replaced as per above)?
+Quite a few more acks are going to be needed; please recall that it's on you to
+collect them all.
 
 Jan
 
