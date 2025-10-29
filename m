@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BFE9C186E0
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Oct 2025 07:22:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1152535.1483090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A352C18BC8
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Oct 2025 08:43:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1152545.1483101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDzYJ-0005Py-KG; Wed, 29 Oct 2025 06:20:59 +0000
+	id 1vE0pD-0006zf-A3; Wed, 29 Oct 2025 07:42:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1152535.1483090; Wed, 29 Oct 2025 06:20:59 +0000
+Received: by outflank-mailman (output) from mailman id 1152545.1483101; Wed, 29 Oct 2025 07:42:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vDzYJ-0005Nc-Eg; Wed, 29 Oct 2025 06:20:59 +0000
-Received: by outflank-mailman (input) for mailman id 1152535;
- Wed, 29 Oct 2025 06:20:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=reE9=5G=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1vDzYH-0005NW-Hp
- for xen-devel@lists.xenproject.org; Wed, 29 Oct 2025 06:20:58 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6d420539-b48f-11f0-9d16-b5c5bf9af7f9;
- Wed, 29 Oct 2025 07:20:55 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 94DC64EEBC3F;
- Wed, 29 Oct 2025 07:20:54 +0100 (CET)
+	id 1vE0pD-0006x8-6m; Wed, 29 Oct 2025 07:42:31 +0000
+Received: by outflank-mailman (input) for mailman id 1152545;
+ Wed, 29 Oct 2025 07:42:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=f6do=5G=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vE0pC-0006x2-F4
+ for xen-devel@lists.xenproject.org; Wed, 29 Oct 2025 07:42:30 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d0ff3175-b49a-11f0-980a-7dc792cee155;
+ Wed, 29 Oct 2025 08:42:27 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-47721743fd0so1399875e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 29 Oct 2025 00:42:27 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4771e18bd9dsm33959905e9.3.2025.10.29.00.42.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Oct 2025 00:42:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,235 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d420539-b48f-11f0-9d16-b5c5bf9af7f9
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1761718854;
-	b=VPOZ/IJBaNvc3rB9i5rYd0tAbLwM4J0b/YMa36Hzeom8I9cVMJaw+9yGjaOkh/gOfNYs
-	 LVvdNie6EZG/O4Z3VC9v9a4MkPucB1xRfvF8BomIp8GOZtTBSYGCcoDZ6MeVk/FKJCGAR
-	 sqlZdbdw0ciX+Ra/4FFc7AkZuinifxXZIqfv5/NWU0vexIM2WCiY1QVmSDbfa5qfmmrOA
-	 nFgnEOTzH5J4+cxYbn420725SWY2se0eU/fDp5IkFlW25kxZRHW10U3GhnTrCWAGxSeE5
-	 tgN2+qVeIGDXVvTX63ip4auTad+lznnExcFnq57NcpPjSTON2fThYFBaKO3smgkPSDlFO
-	 rMsNa4SB4SUDRQObRpmc6MbQ42DAXTF2nw7Fp15EgACxx0Msir9Wt7vCT1SRx/UtZONDm
-	 Jg3zhtBeWLlEtV5FoAghLybAZLL7qQcYCTmy8I8TBnM2gVFME1B1ttuwApvfQLnbQdh9F
-	 adqWfq2v1CdhdjTIGGO3gf2AlT8SEdl7M21QQ9n4+TB/lip+F6hbsepVhziRakAQE8ubm
-	 I4HqD7cNIQdB89+/u1kdlVjlvlsTVC3vWifkHuqAU/1vDiJUNQXm17PXy6z/A8pV5RBLn
-	 cU1Y8Ih+zS1QIUA9X0HjIcrOr0iRL/+3AUe/ptlubH/GvGctSW+xcbKkYSX3NyU=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1761718854;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lJamLYfGR7B5WnfmeAoHaaWcgHd+ROlUygkQf2eQeOU=;
-	b=AGL7hH4ONN3ij2Ffd1QN0unDyK2BNafmFIvPlqYgKAe2z1qx5G4rqthx4XykpfxljDZL
-	 MBAxItJOcGYCd5hP8he55Gx7wYUA9wxyn5Hxv39t/ocR+0+A+LvTbz6ZfytCgcS5drWz4
-	 B69t8V57aBml3D/pARoOj6RSWoYzOFFSIRMm3Yoo3V3LzaZWbuR/w2o3an8dV7zcuYbJO
-	 dXLVVkBpyvH0Al7qamzqDyr+kIQ/LMZk8mgOzW3Gm/+DQtFUlxh9gYrceBJEvd4IA5wMQ
-	 rGRgh/ic+Uzj9OaUL8whdGIiLFqxQpaliq6y2Bk7zgQ65IAXQL5nfDIg6lddhMzLjwoUd
-	 7wqMV0slS/qTElhanWMd9lujyiowOfWZNpiQmOJ/DbIvHBF/gqMAiVMjqUdKxJ3Wqk6qL
-	 YXGY8pmeJ34wZ3wc5k0RZ3GZpFIxg7SJ/rYdtHKpjm5hW7Rmi3AOcTEbO3Biba9lQDGYz
-	 t0kSftiTx3JjPGmHPh1TOgUJJ+dwTiAP1A6OIq+WuSMJ9q7S3/v1AXORR/DApUiKNYOlV
-	 jixgFopi+ErJBz0EqPnjjxXIvjUy6jt0ih5JHnkfdkDJad1+xT4oHok+tgeALDeros8I+
-	 8looGBkM3EDojzIWj9sTijhKQq8VfCgnxPYfRlZG2Od1y5TaCHgJtjOsUs5qTfQ=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1761718854; bh=VduphIrMAvyKSUZZLOQA0hOBx7BjGw8UOpNpqq2FaCs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=VSq/Vt2XvoWax0WVigOSqbO3+3bPYIPneo2s+dl6F7Vu1w/iVEWAWtWnLKbGaFVHM
-	 qMvTgXxolTNA1TOLc5Zgz89yqZzqeNwM5VKlBNLJ7GXnxMVSL/proTGrkaLxkm/0b7
-	 mUTF6Hv2mHwHO682DO8tyILj0J8ENn3ATEGYB9MdvjvBPAOHBAXf7iGYPU4URRYENz
-	 73yaOfFM67cFqGUEbiu6fWEFBmZBN2TAgbcIskGy4edIVc4V0PShYK3jEs+6REqYIW
-	 xcW7jjCuxVdte5Z6nJ4oCjY7CgeObUw/NRnCTxsWxpVyR7quxTn5cwSj9MGjjWdr8/
-	 v5rpRqVPuoqcQ==
+X-Inumbo-ID: d0ff3175-b49a-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1761723747; x=1762328547; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=W8VlNkGmoLqRloSGBLO+j7eIOOCYYkT9NfcPzxj1lWM=;
+        b=XW3AHG8ivf9RXqPmLinuMzo4tH2jsIPSQcWs524sE/2kMMsPGmHkQ30MLkS7eDGwM2
+         j+BXz4t0G5/stp4cYfkZlsb+/ODZqkHjNj4KGOkapw/nns3w1qsgHYlB/3gsdduGV8Af
+         gBqvIkbNMJSKgLoJTNMUg5cPsjGO7CjILdKl8QoNIWWMF5aguU+ab1vOT6Wb9PBhTizC
+         qOc1R+Gvm8615hTUVtDkAp1R8l7XY2Evn/DyGCi4t9dJKWKwS5VjejDIKMWfPN8ZzQN7
+         1RIxuvyNpmhmonqgMlNmtiBbDreKf6uLtr2KgYPQk26I8icIODDW6JKitUB5Qj8vY6bp
+         04PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1761723747; x=1762328547;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W8VlNkGmoLqRloSGBLO+j7eIOOCYYkT9NfcPzxj1lWM=;
+        b=pxf7DsB9ZdlmgurWlr9Lg6HhC3PnMesvFgsCkCv4XUJHnw4noSnRuy/l11SGnMO+dh
+         m7FcpxaNJ9UhYOOlckSXfnAOgM7oav5B/cB9uJBcB598Nkr+N8Xt65YkQJkbLwhodpXX
+         61qM8FUcnZMtzALBOrBRgPsbckFHA8hW61v6SUTgw6t7UrkbziluD8kEGn/9BMH961Kp
+         6ZfeE+YytUMU4pGffBdoC6iMDloIBNKm9SxX5iA7+Q3k6rAPpo7K2syPrwwPQAf5SfgA
+         u04zd9b641UxtN68aYSXkXfJ3RnGK413VDL/K5ICQETDPWZoJjpVSwbALGflR9HcRhDe
+         SePA==
+X-Forwarded-Encrypted: i=1; AJvYcCXuJduSY6+YqxqM1oAd6ehxAe1asQidZRcPJUnKbC0mEXT5oAVW5fSNc1Lzjs0hB1cUXQrJvvn/dws=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywi+gz95aVTlpLd3qUPs50vtLl3qex9xUSVldrCOFZgsECSJp4o
+	l5eeApzzzdp1+OmfMQW44EbTtC+7k8cmCVOHJBIPFSCkXKB9LXd+ETsCJ5fmW/rD7A==
+X-Gm-Gg: ASbGnctk1unpWRGaBlJaMdDmS3gUz2xhqdSk+Mu8+k+yduvo93dMWCfu8OiMO44G+7a
+	znfRmUm54tFKX+XRaDHYXpEJw6gDcRg2W6i+uWyx8NaCAGI46nwPW+2m/Li2pKFvsKt6su8cXsm
+	TZPMmb7+Sr7HPPwulio4xDcrhJZRhvrVgJlMGsSh6AwZMk0oUS+HHiso7CFY14bX3iOm694Bk6z
+	PYRqM/z/UDiLRpgRj0ngtz5Q7YE0VELHksVZ86zZFbWRhw+RClQ9AdB77y/nOebSpzbPaKh+roN
+	9kjvQ7xEK1dHPyxdf1jw2xodHIjy8f8dhBOQ79my6zwymsVUrjjahzQkRSX6AaYEgcrlvMx4aJ6
+	p97mWBScSZHQNL+SWTFORLpSpyMIXaeYSgdhUIm2ISSYy1FcvPVv/EkXFVEAgP5ZFg1FZ9y0ct3
+	m2mRT0uqQ+V6I4/+BCLfIFrvUUAzLeN0b+voSMcvyWpiPdpzDhHSVwaksrRUUj
+X-Google-Smtp-Source: AGHT+IHSPTO9nxGCQhPVoHpNdiJbs4ApV5B/Qd2LnkgbfjqKBlE4AVEvwCJkuhaiw3Ve5K85J4A7wg==
+X-Received: by 2002:a05:600c:529a:b0:46e:74cc:42b8 with SMTP id 5b1f17b1804b1-4771e1c9db3mr17281855e9.17.1761723746774;
+        Wed, 29 Oct 2025 00:42:26 -0700 (PDT)
+Message-ID: <956988d1-dd3b-49cb-8c2f-7af277fcdfed@suse.com>
+Date: Wed, 29 Oct 2025 08:42:25 +0100
 MIME-Version: 1.0
-Date: Wed, 29 Oct 2025 07:20:54 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, Doug Goldstein
- <cardoe@cardoe.com>, Victor Lira <victorm.lira@amd.com>
-Subject: Re: [XEN PATCH v2] automation/eclair: add new analysis jobs with
- differing configurations
-In-Reply-To: <alpine.DEB.2.22.394.2510281722540.495094@ubuntu-linux-20-04-desktop>
-References: <1591f6a0c0f3524c4c613328293ed4e03cfc93ef.1761291003.git.nicola.vetrini@bugseng.com>
- <alpine.DEB.2.22.394.2510271656380.495094@ubuntu-linux-20-04-desktop>
- <f6dbd7a74854cab064cf7ca76c68e44d@bugseng.com>
- <alpine.DEB.2.22.394.2510281722540.495094@ubuntu-linux-20-04-desktop>
-Message-ID: <f27279b79ca914a27c80532fefda8b27@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.20] CI: Fix microcode loading on Xen 4.20 and
+ earlier
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251028194539.3668470-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251028194539.3668470-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2025-10-29 01:22, Stefano Stabellini wrote:
-> On Tue, 28 Oct 2025, Nicola Vetrini wrote:
->> On 2025-10-28 00:58, Stefano Stabellini wrote:
->> > On Fri, 24 Oct 2025, Nicola Vetrini wrote:
->> > > The following analysis jobs are performed:
->> > > - eclair-{x86_64,ARM64}: analyze Xen using the default configuration for
->> > >   that architecture; runs on runners tagged `eclair-analysis'.
->> > >
->> > > - eclair-{x86-64,ARM64}-safety: analyze Xen using the configuration for
->> > >   safety, which is more restricted; runs on runners tagged
->> > >   `eclair-analysis-safety`.
->> > >
->> > > - eclair-{x86_64,ARM64}-testing: analyze Xen using the default
->> > >   configuration for the purposes of testing new runner updates; runs on
->> > >   runners tagged `eclair-analysis-testing`.
->> > >
->> > > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> >
->> > Do you have a link to a successful pipeline?
->> >
->> > Just making sure we are not breaking things.
->> >
->> 
->> No; not yet, at least [1]. Without the right tags the safety runner 
->> can't pick
->> up jobs.
->> 
->> [1] 
->> https://gitlab.com/xen-project/people/bugseng/xen/-/pipelines/2117835680
->> 
->> >
->> > > ---
->> > > Changes in v2:
->> > > - rebased to current staging;
->> > > - fixed regex path issue.
->> > > ---
->> > >  automation/gitlab-ci/analyze.yaml | 38 +++++++++++++++++++++++++++++++
->> > >  1 file changed, 38 insertions(+)
->> > >
->> > > diff --git a/automation/gitlab-ci/analyze.yaml
->> > > b/automation/gitlab-ci/analyze.yaml
->> > > index d50721006740..7bd644d75074 100644
->> > > --- a/automation/gitlab-ci/analyze.yaml
->> > > +++ b/automation/gitlab-ci/analyze.yaml
->> > > @@ -45,6 +45,21 @@ eclair-x86_64:
->> > >      LOGFILE: "eclair-x86_64.log"
->> > >      VARIANT: "X86_64"
->> > >      RULESET: "monitored"
->> > > +
->> > > +eclair-x86_64-testing:
->> > > +  extends: eclair-x86_64
->> > > +  tags:
->> > > +    - eclair-analysis-testing
->> > > +  rules:
->> > > +    - if: $CI_PROJECT_PATH =~ /^xen-project\/people\/bugseng.*$/
->> > > +      when: always
->> > > +    - !reference [.eclair-analysis:triggered, rules]
->> >
->> > given that everyone can change this yaml file when pushing to their own
->> > branch, I think we should remove this, or (probably better) use a
->> > separate env variable to set the default
->> >
->> > it is better not to use the path, I think
->> >
->> 
->> That is a fair concern. One option would be to just use a project 
->> runner
->> assigned to the people/bugseng/xen subproject, but that might be a bit
->> inconvenient if we want to swap runners around.
+On 28.10.2025 20:45, Andrew Cooper wrote:
+> CONFIG_UCODE_SCAN_DEFAULT only exists in Xen 4.21.  In older versions of xen,
+> use ucode=scan on the command line.
 > 
-> I think it is OK to register a project runner to people/bugseng/xen. I
-> am happy with this solution as well.
-> 
-> 
->> Another option, as you said,
->> is keeping the regex in a variable, but this wont't prevent rogue
->> modifications of the YAML.
-> 
-> I was thinking more of a simpler boolean variable like:
-> 
-> rules:
->   - if: $ECLAIR_TESTING
-> 
-> Yes, it wouldn't prevent modifications of the YAML, but it is probably
-> not an issue? Also, it is not less secure than the path, because the
-> YAML can be changed by anyone. At least the variable is more flexible
-> and feels more natural.
-> 
+> Fixes: 690655a511cd ("CI: Include microcode for x86 hardware jobs")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Ok, let's use the variable and then change if we see any problems. I'll 
-send a v3. If you could add the tags to the runners in the meantime, I 
-can validate the changes with a proper CI run.
+FWIW (changes look plausible and complete / consistent to me, but the CI stuff
+continues to be an area I'm not really fluent with):
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> 
->> I might have found something runner-side with [2],
->> but I need to dig deeper on that one.
->> 
->> [2] pre_build_script at
->> https://docs.gitlab.com/runner/configuration/advanced-configuration/#the-runners-section
->> 
->> > > +eclair-x86_64-safety:
->> > > +  extends: eclair-x86_64
->> > > +  tags:
->> > > +    - eclair-analysis-safety
->> > > +  variables:
->> > >      EXTRA_XEN_CONFIG: |
->> > >        CONFIG_AMD=y
->> > >        CONFIG_INTEL=n
->> > > @@ -75,6 +90,10 @@ eclair-x86_64:
->> > >        CONFIG_DEBUG_LOCKS=n
->> > >        CONFIG_SCRUB_DEBUG=n
->> > >        CONFIG_XMEM_POOL_POISON=n
->> > > +  rules:
->> > > +    - if: $CI_PROJECT_PATH =~ /^xen-project\/hardware\/xen$/ &&
->> > > $CI_COMMIT_BRANCH =~ /^staging$/
->> > > +      when: always
->> > > +    - !reference [.eclair-analysis:triggered, rules]
->> >
->> > same here
->> >
->> >
->> > >  eclair-ARM64:
->> > >    extends: .eclair-analysis:triggered
->> > > @@ -82,6 +101,21 @@ eclair-ARM64:
->> > >      LOGFILE: "eclair-ARM64.log"
->> > >      VARIANT: "ARM64"
->> > >      RULESET: "monitored"
->> > > +
->> > > +eclair-ARM64-testing:
->> > > +  extends: eclair-ARM64
->> > > +  tags:
->> > > +    - eclair-analysis-testing
->> > > +  rules:
->> > > +    - if: $CI_PROJECT_PATH =~ /^xen-project\/people\/bugseng.*$/
->> > > +      when: always
->> > > +    - !reference [.eclair-analysis:triggered, rules]
->> >
->> > and here
->> >
->> >
->> > > +eclair-ARM64-safety:
->> > > +  extends: eclair-ARM64
->> > > +  tags:
->> > > +    - eclair-analysis-safety
->> > > +  variables:
->> > >      EXTRA_XEN_CONFIG: |
->> > >        CONFIG_NR_CPUS=16
->> > >        CONFIG_GICV2=n
->> > > @@ -120,6 +154,10 @@ eclair-ARM64:
->> > >        CONFIG_DEBUG_LOCKS=n
->> > >        CONFIG_SCRUB_DEBUG=n
->> > >        CONFIG_XMEM_POOL_POISON=n
->> > > +  rules:
->> > > +    - if: $CI_PROJECT_PATH =~ /^xen-project\/hardware\/xen$/ &&
->> > > $CI_COMMIT_BRANCH =~ /^staging$/
->> > > +      when: always
->> > > +    - !reference [.eclair-analysis, rules]
->> >
->> > and here
->> 
->> --
->> Nicola Vetrini, B.Sc.
->> Software Engineer
->> BUGSENG (https://bugseng.com)
->> LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
->> 
-
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+Jan
 
