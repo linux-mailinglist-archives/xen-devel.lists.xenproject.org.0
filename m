@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAEDBC20EFB
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 16:30:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1153798.1484065 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32D07C20F04
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 16:31:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1153805.1484074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEUbs-0002FR-J9; Thu, 30 Oct 2025 15:30:44 +0000
+	id 1vEUcR-0002ht-Tf; Thu, 30 Oct 2025 15:31:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1153798.1484065; Thu, 30 Oct 2025 15:30:44 +0000
+Received: by outflank-mailman (output) from mailman id 1153805.1484074; Thu, 30 Oct 2025 15:31:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEUbs-0002DN-Fb; Thu, 30 Oct 2025 15:30:44 +0000
-Received: by outflank-mailman (input) for mailman id 1153798;
- Thu, 30 Oct 2025 15:30:42 +0000
+	id 1vEUcR-0002g5-Qb; Thu, 30 Oct 2025 15:31:19 +0000
+Received: by outflank-mailman (input) for mailman id 1153805;
+ Thu, 30 Oct 2025 15:31:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+HTt=5H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vEUbq-0002DF-OS
- for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 15:30:42 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 64e01494-b5a5-11f0-9d16-b5c5bf9af7f9;
- Thu, 30 Oct 2025 16:30:41 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-47117f92e32so10843695e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 08:30:41 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4772fcf6c05sm2029845e9.4.2025.10.30.08.30.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Oct 2025 08:30:40 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CzSz=5H=raptorengineering.com=tpearson@srs-se1.protection.inumbo.net>)
+ id 1vEUcP-0002DF-Jv
+ for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 15:31:17 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 798db97a-b5a5-11f0-9d16-b5c5bf9af7f9;
+ Thu, 30 Oct 2025 16:31:16 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id C2A807790720;
+ Thu, 30 Oct 2025 10:31:15 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id KH7UNZKx-TSS; Thu, 30 Oct 2025 10:31:13 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 806B077907D5;
+ Thu, 30 Oct 2025 10:31:13 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 8J74aGl5Q6-o; Thu, 30 Oct 2025 10:31:13 -0500 (CDT)
+Received: from vali.starlink.edu (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 596C37790720;
+ Thu, 30 Oct 2025 10:31:13 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +51,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64e01494-b5a5-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: 798db97a-b5a5-11f0-9d16-b5c5bf9af7f9
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 806B077907D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761838241; x=1762443041; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5mi6RYPflF/GzUCPR+nIu+n6TF2ygal3gWPTYF0f7DY=;
-        b=E7UW+lbmOhxcyU4lUlgiRnJRahrTR1cJkJ3feBXF66+MKyQ8X3Wao3VufdwiKvyrGJ
-         4PrYp/0hf0uM8JEazwJ1G3xU7jZzgs4ZxsH7E97qNyzcw8CLi6FqbLIphd6XCp6R9mdy
-         e+Lwh1kVJRU+3u4Vmv8ZlOUUV2UnWSU6eCIVbR2fPEP2yK3qJVnTWXhIc149qmPLdu87
-         k43PvuFxLeHSlDPR5l/fPtucUlChHTFL7NKgJ208vgYsS5+GWsaRM+s0l7neSQr///jp
-         uY3WzP/mYcKa8ShsdUU5bZDNimeslgHZ563reqcBPQcGsT4zc6EvjE6euGsFjtXxlOUM
-         mfmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761838241; x=1762443041;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5mi6RYPflF/GzUCPR+nIu+n6TF2ygal3gWPTYF0f7DY=;
-        b=oxUUMpRQJe6fthub6ieYY2Un58mQZ89uq9GGM7bcgi86GdR/eTNUHePTVh7XPz9gX1
-         rr4dK1raC/PpilL5J+apT1DdMPxM/+XBo3HqkJkByGPT0iLWybbJ1Q9Y6veMiSIBo4N6
-         LRIrVa1vtuz0z5cEhPLACOp5yD5qATFNhCleMuZVsPcBI94J4dsH1U+yxp6E6fPmsOoK
-         Pj92pbTM584BrH5qUeZIL8Lhlk+wORgU8GfV4wqAC9pGcAk8SP3fMY8a0LrOSeDfJHkD
-         IDSy3jaO1XjJmlvSV1ARdBzY5vuigCKJXHYwJPv3EELZEHDkQ4YqdRQsYkmB2eqAxw40
-         PQ9A==
-X-Gm-Message-State: AOJu0YzdKvxLohhMc4aqd8iRSmHgGJEyr5y7k4ZMlVZzNktzPMoVLBt6
-	PDcfSk8Bp4sckuv3zNbNfb3reS668hqha6EOVofFBavlCrdqOh62vsd1NsBq3oAvyA==
-X-Gm-Gg: ASbGncsS0fEktMe0uEYtRyXMOsfOHt6MJR0i+9fKsHdqvNUcCyqjrOWjwiyYx7AxCiw
-	iF3lTXnQNiV7N9Zx1Vv7wWlMq2rNJvr/wKK/xQUO0Jljr6Lrv9NFdGdJGwvAgcoQeZzfKULebLt
-	hXz+Vos3Fy7cphTVYJG0tgd384g1M96l5jR2cBy5OOZ55u9QbJkvXcuTn42Wmce7Mpse+4UVQCi
-	5clTEa48Q082NNp/yFx1MyV9Z6AWzD3Bf4bXw91g4+CBd7tPHMy3G7Y5vv/L6op432xMGUECo96
-	Ea+90WdIYr3JxOlmHS0wJ211gttB1ONscECHz6NUZaqKHzegnP/2Bkn3UgJ2tTMfJ9M/MrxxdIL
-	DJMpPp7tgjkJU+CT4koKCLdxWxWdUR+WEW50R4RDVX5NQ+p67UrDNLRSHbl+KJsY6v15vQojhG1
-	av420e5Mbd/2r1IBK5e+0pTbztFmXPohno4nszMZ/Ev9bUiz2am+3lbsqMN1GJxvpasDFd1Qc=
-X-Google-Smtp-Source: AGHT+IGBai+sKPd4UMns6f3gq2/tt/uY87PPxVfOgYKy3Qo0CKHnnjeMlz413ms+t9OEEOQ0E9p2Kw==
-X-Received: by 2002:a05:600c:3b0f:b0:46e:4a60:ea2c with SMTP id 5b1f17b1804b1-477308a897dmr942335e9.37.1761838240942;
-        Thu, 30 Oct 2025 08:30:40 -0700 (PDT)
-Message-ID: <fb391488-ea43-4565-9d1c-cdfd58602615@suse.com>
-Date: Thu, 30 Oct 2025 16:30:39 +0100
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1761838273; bh=Mv+eQteLoXb0EZbjhQUqhdX/VBBMfAJH1MxbFydzKjw=;
+	h=Date:From:To:Message-ID:MIME-Version;
+	b=Y1R3ESkvh33YSFMPaJ+abnog32Hcin9MiFxlxIKA3oDNs+HmnzzmmvAr0Jom0hPw5
+	 Sq5JIqk5rup+JWtb6NLHCb2H5fHox9LVet8/SggtWwE4i4GN3Wd3lmfYtannqfkphO
+	 ZIB8iL468w9rQKDjD94eOHX6Q8LQ+BvHF4pkqBmY=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Date: Thu, 30 Oct 2025 10:31:10 -0500 (CDT)
+From: Timothy Pearson <tpearson@raptorengineering.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, shawn <shawn@anastas.io>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, 
+	Anthony PERARD <anthony.perard@vates.tech>, 
+	Michal Orzel <michal.orzel@amd.com>, 
+	Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
+Message-ID: <927229739.6325.1761838270637.JavaMail.zimbra@raptorengineeringinc.com>
+In-Reply-To: <8b4b5561-af7f-4917-aea1-4ed65a0f3023@suse.com>
+References: <1794235010.4856.1761754917625.JavaMail.zimbra@raptorengineeringinc.com> <alpine.DEB.2.22.394.2510291238140.495094@ubuntu-linux-20-04-desktop> <35b2e61b-d1c1-47c0-90e2-7efa1f45243f@suse.com> <1788041210.6163.1761836977190.JavaMail.zimbra@raptorengineeringinc.com> <8b4b5561-af7f-4917-aea1-4ed65a0f3023@suse.com>
+Subject: Re: [PATCH v2] MAINTAINERS: Remove Shawn Anastasio as PPC64
+ maintainer
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/ppc: Fix tooling FTBFS due to missing definitions
- in public header
-To: Timothy Pearson <tpearson@raptorengineering.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <1066630274.4872.1761755029561.JavaMail.zimbra@raptorengineeringinc.com>
- <6744abf0-3326-4de2-a14b-70faf56e91e6@suse.com>
- <1147119844.6178.1761837030938.JavaMail.zimbra@raptorengineeringinc.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1147119844.6178.1761837030938.JavaMail.zimbra@raptorengineeringinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Zimbra 8.5.0_GA_3042 (ZimbraWebClient - GC141 (Linux)/8.5.0_GA_3042)
+Thread-Topic: MAINTAINERS: Remove Shawn Anastasio as PPC64 maintainer
+Thread-Index: tvOsLyDRQl/a3ABQf6kbLEICsniX1Q==
 
-On 30.10.2025 16:10, Timothy Pearson wrote:
-> ----- Original Message -----
->> From: "Jan Beulich" <jbeulich@suse.com>
->> To: "Timothy Pearson" <tpearson@raptorengineering.com>
-> 
->> On 29.10.2025 17:23, Timothy Pearson wrote:
->>> int64_aligned_t and uint64_aligned_t need to be exposed when the GNU C compiler
->>> is in use.
+
+
+----- Original Message -----
+> From: "Jan Beulich" <jbeulich@suse.com>
+> To: "Timothy Pearson" <tpearson@raptorengineering.com>
+> Cc: "xen-devel" <xen-devel@lists.xenproject.org>, "shawn" <shawn@anastas.=
+io>, "Andrew Cooper"
+> <andrew.cooper3@citrix.com>, "Julien Grall" <julien@xen.org>, "Stefano St=
+abellini" <sstabellini@kernel.org>, "Anthony
+> PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com=
+>, "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
+> Sent: Thursday, October 30, 2025 10:28:57 AM
+> Subject: Re: [PATCH v2] MAINTAINERS: Remove Shawn Anastasio as PPC64 main=
+tainer
+
+> On 30.10.2025 16:09, Timothy Pearson wrote:
+>> ----- Original Message -----
+>>> From: "Jan Beulich" <jbeulich@suse.com>
+>>> To: "Timothy Pearson" <tpearson@raptorengineering.com>
+>>=20
+>>> On 29.10.2025 20:38, Stefano Stabellini wrote:
+>>>> On Wed, 29 Oct 2025, Timothy Pearson wrote:
+>>>>> Shawn is no longer with Raptor Engineering.  For now, add myself as P=
+PC64
+>>>>> reviewer.
+>>>>>
+>>>>> Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
+>>>>> ---
+>>>>>  MAINTAINERS | 2 +-
+>>>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/MAINTAINERS b/MAINTAINERS
+>>>>> index ecd3f40df8..c8764a8c5f 100644
+>>>>> --- a/MAINTAINERS
+>>>>> +++ b/MAINTAINERS
+>>>>> @@ -472,7 +472,7 @@ F:=09xen/drivers/cpufreq/
+>>>>>  F:=09xen/include/acpi/cpufreq/
+>>>>> =20
+>>>>>  PPC64
+>>>>> -M:=09Shawn Anastasio <sanastasio@raptorengineering.com>
+>>>>> +M:=09Timothy Pearson <tpearson@raptorengineering.com>
+>>>>>  F:=09xen/arch/ppc/
+>>>>
+>>>> The "R" letter is used for reviewers. The change can be done while
+>>>> committing.
 >>>
->>> Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
->>
->> Thanks. However, you've lost my R-b, and the Cc list was again entirely empty.
-> 
-> Apologies again.  I had thought for a trivial patch the CC was not required, will keep that in mind in the future.  
+>>> And with that change:
+>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>>
+>>> Just to mention: I can't see what you used as basis to compose the Cc l=
+ist.
+>>> George's
+>>> email address has been out of use for quite a while, and he isn't with =
+the
+>>> project
+>>> anymore. Wei had turned to other activities yet longer ago. And with Sh=
+awn
+>>> having
+>>> left Raptor (as you indicated), I expect his email address there would =
+now also
+>>> bounce. I have, therefore, heavily edited the Cc list of this reply.
+>>=20
+>> I had pulled the CC list from the "Rest" in the MAINTAINERS file in the =
+root of
+>> the GIT tree.  Should I have been looking elsewhere?
+>=20
+> That's the right place, but did you perhaps look at a (very) stale versio=
+n?
 
-Just to clarify: However trivial a patch, it needs to be acked by a maintainer. Hence
-they will want Cc-ing (not everyone's subscribed to the list, and not everyone may be
-following each and every patch that's flowing in).
+Not that I know of...
 
-Jan
+commit 9db10d89c41e0272066a8547ec5ee2a642663baa
+Author: Jason Andryuk <jason.andryuk@amd.com>
+Date:   Mon Oct 13 10:41:01 2025 +0200
+
+    MAINTAINERS: Add myself as an AMD SVM & IOMMU reviewer
+
+    Split out AMD SVM and AMD IOMMU, and add myself as a reviewer.  Jan,
+    Andrew and Roger are set as maintainers as they were for the X86 entry.
+
+    Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+    Acked-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+
+commit ac58e34a0960bcc71583edfc6b4d6baa5e81c7d0
+Author: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Date:   Thu Sep 25 09:19:21 2025 +0200
+
+    MAINTAINERS: add myself as vPCI reviewer
+
+    I'd like to take a more active role in reviewing vPCI bits.
+
+    Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+
+Ends with:
+
+
+THE REST
+M:      Andrew Cooper <andrew.cooper3@citrix.com>
+M:      Anthony PERARD <anthony.perard@vates.tech>
+M:      Michal Orzel <michal.orzel@amd.com>
+M:      Jan Beulich <jbeulich@suse.com>
+M:      Julien Grall <julien@xen.org>
+M:      Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+M:      Stefano Stabellini <sstabellini@kernel.org>
+L:      xen-devel@lists.xenproject.org
+S:      Supported
+F:      *
+F:      */
+V:      xen-maintainers-1
 
