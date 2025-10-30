@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76DB5C1F777
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 11:11:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1153445.1483775 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3184AC1F8B7
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 11:29:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1153467.1483794 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEPbc-0003Y4-UU; Thu, 30 Oct 2025 10:10:08 +0000
+	id 1vEPu4-00069c-QA; Thu, 30 Oct 2025 10:29:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1153445.1483775; Thu, 30 Oct 2025 10:10:08 +0000
+Received: by outflank-mailman (output) from mailman id 1153467.1483794; Thu, 30 Oct 2025 10:29:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEPbc-0003VJ-RC; Thu, 30 Oct 2025 10:10:08 +0000
-Received: by outflank-mailman (input) for mailman id 1153445;
- Thu, 30 Oct 2025 10:10:07 +0000
+	id 1vEPu4-000684-Na; Thu, 30 Oct 2025 10:29:12 +0000
+Received: by outflank-mailman (input) for mailman id 1153467;
+ Thu, 30 Oct 2025 10:29:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cjXm=5H=bounce.vates.tech=bounce-md_30504962.69033978.v1-b29dce87efbd455d956221e9d52bfd0c@srs-se1.protection.inumbo.net>)
- id 1vEPbb-0003UE-Mo
- for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 10:10:07 +0000
-Received: from mail187-33.suw11.mandrillapp.com
- (mail187-33.suw11.mandrillapp.com [198.2.187.33])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 98b03314-b578-11f0-980a-7dc792cee155;
- Thu, 30 Oct 2025 11:10:01 +0100 (CET)
-Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail187-33.suw11.mandrillapp.com (Mailchimp) with ESMTP id
- 4cy0Gc3yxTzBsThgs
- for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 10:10:00 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- b29dce87efbd455d956221e9d52bfd0c; Thu, 30 Oct 2025 10:10:00 +0000
+ <SRS0=kfz6=5H=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
+ id 1vEPu3-00067y-Df
+ for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 10:29:11 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 429b8761-b57b-11f0-980a-7dc792cee155;
+ Thu, 30 Oct 2025 11:29:05 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E08BE1EDB;
+ Thu, 30 Oct 2025 03:28:56 -0700 (PDT)
+Received: from [10.57.69.77] (unknown [10.57.69.77])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A8D363F66E;
+ Thu, 30 Oct 2025 03:28:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,160 +42,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98b03314-b578-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1761819000; x=1762089000;
-	bh=Op07uysFkdxYKCi5iyDtoSrHdCyqvqDkUa4fwK+hB9M=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=R9jpaDLo+1NiwDl21FZmXauR3RTA7I+60Mjx0fCKhtURExaOvSpZHT9mV+gpI/+oh
-	 upLBnxDpHAUXZCX5nD/TGok1Pj7L7leiwQfQveT/hx7ZSQyqttfYpBl/kDRGhYWULc
-	 Zk34cxSElkEJGhYVpsp1CtIjJWVdjart4B3xSVEaBin+C/7v3YQSOq69aTCLh24AKy
-	 XzhRqy4msG13ybNT9tqOeLaJ1LTvW3q8pi3gI04/cGq6GbPD0mRAZ8qr4WuFBtbxgM
-	 /tymCxfBM2C/c4tkKLsMk/wIYB5URa09Y21R0r+/J9iGphkB0L83qvvUwaw32e+gjf
-	 GxZjvLYUnqTWA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1761819000; x=1762079500; i=teddy.astie@vates.tech;
-	bh=Op07uysFkdxYKCi5iyDtoSrHdCyqvqDkUa4fwK+hB9M=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=H1RLWZvrNlq9h9hEzR3udI8NRwH8NOXyYKgOKBU/P3Y9TYg2OH3Q22c9ZNj8Vbp0m
-	 1KGwPTd1OPsdr2NQYn07gQ+zq2f6r57J3TwyX5VCS5QOdYnCCPS5ZbJ5Gzh9Cq4zGu
-	 kieAuJt87S50vyTU+m4vOIaAVeFyxA/ig4MRt7XD6a5+d6yhPog8q/GMwLR19GhO7O
-	 Meyzd3hZbCrmy5qYzp8T2noOhQFgzPUhwaSre9AZI0x76EPHY+OhGIixgwQHdd0KAF
-	 H6hWKceHYstEv2BIvGbXQPoyJqewhXc7trhGdg3r4rLNID5EaMDpFvBKSVH/REa2zg
-	 kIu/vUzE6FqBQ==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RFC=20PATCH=20for-4.22=20v2=201/3]=20x86/cpu-policy:=20Infrastructure=20for=20CPUID=20leaf=200x6?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1761818999480
-Message-Id: <9f578a95-12ab-4e4d-a699-d6ad8a882ab8@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1761752801.git.teddy.astie@vates.tech> <3ad34c3e1de444798dcfe0e673375f28f1a654ec.1761752801.git.teddy.astie@vates.tech> <080c2780-2810-4ba8-8f9c-57c1fc4135f9@suse.com>
-In-Reply-To: <080c2780-2810-4ba8-8f9c-57c1fc4135f9@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.b29dce87efbd455d956221e9d52bfd0c?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251030:md
-Date: Thu, 30 Oct 2025 10:10:00 +0000
+X-Inumbo-ID: 429b8761-b57b-11f0-980a-7dc792cee155
+Message-ID: <d0767b70-5686-4f6e-8ca4-10b3f3ff3991@arm.com>
+Date: Thu, 30 Oct 2025 11:28:53 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 07/12] mm: enable lazy_mmu sections to nest
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ David Hildenbrand <david@redhat.com>, "David S. Miller"
+ <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+ Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+ Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
+References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
+ <20251029100909.3381140-8-kevin.brodsky@arm.com>
+ <ef0cd4bc-1a37-4755-8957-d8a7e5c4564e-agordeev@linux.ibm.com>
+Content-Language: en-GB
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+In-Reply-To: <ef0cd4bc-1a37-4755-8957-d8a7e5c4564e-agordeev@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Le 30/10/2025 =C3=A0 08:14, Jan Beulich a =C3=A9crit=C2=A0:
-> On 29.10.2025 16:59, Teddy Astie wrote:
->> From: Jan Beulich <jbeulich@suse.com>
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
->> ---
->> v2: introduced
-> 
-> This being a change of mine, I'm not happy for the title to have changed,=
- and
-> for the (little bit of) description to have been dropped.
-> 
->> --- a/xen/include/xen/lib/x86/cpu-policy.h
->> +++ b/xen/include/xen/lib/x86/cpu-policy.h
->> @@ -121,7 +121,32 @@ struct cpu_policy
->>               uint64_t :64, :64; /* Leaf 0x3 - PSN. */
->>               uint64_t :64, :64; /* Leaf 0x4 - Structured Cache. */
->>               uint64_t :64, :64; /* Leaf 0x5 - MONITOR. */
->> -            uint64_t :64, :64; /* Leaf 0x6 - Therm/Perf. */
->> +
->> +            /* Leaf 0x6 - Therm/Perf. */
->> +            struct {
->> +                uint32_t /* a */
->> +                    dts:1,
->> +                    turbo:1,
->> +                    arat:1,
->> +                    :4,
->> +                    hwp:1,
->> +                    hwp_notification:1,
->> +                    hwp_activity_window:1,
->> +                    hwp_epp:1,
->> +                    hwp_plr:1,
->> +                    :1,
->> +                    hdc:1,
->> +                    :2,
->> +                    hwp_peci:1,
->> +                    :2,
->> +                    hw_feedback:1,
->> +                    :12;
->> +                uint32_t /* b */:32;
->> +                uint32_t /* c */ aperfmperf:1,
->> +                    :31;
->> +                uint32_t /* d */:32;
->> +            } pm;
->> +
->>               uint64_t :64, :64; /* Leaf 0x7 - Structured Features. */
->>               uint64_t :64, :64; /* Leaf 0x8 - rsvd */
->>               uint64_t :64, :64; /* Leaf 0x9 - DCA */
-> 
-> As I had said, this (really: the use of these bits in the host policy) ac=
-tually
-> requires an adjustment to cpu-policy.c as well, which I'm carrying as a s=
-eparate,
-> prereq change (re-produced below). May I suggest that your work go on top=
- of mine
-> (which I'll post once we have branched 4.21 off)?
-> 
+On 29/10/2025 17:41, Alexander Gordeev wrote:
+> On Wed, Oct 29, 2025 at 10:09:04AM +0000, Kevin Brodsky wrote:
+>
+> Hi Kevin,
+>
+>> +#ifdef CONFIG_ARCH_HAS_LAZY_MMU_MODE
+>> +static inline bool in_lazy_mmu_mode(void)
+>> +{
+>> +	return current->lazy_mmu_state.active;
+> Whether (nesting_level > 0) is more correct check?
+> Otherwise, it returns false while in paused mode.
 
-I'm ok with it.
+That's exactly the intention. Lazy MMU is disabled while paused. The
+users of that helper want to know if lazy MMU is currently enabled (to
+decide whether to batch updates for instance); whether this is because
+we are paused or not in any lazy_mmu section (nesting_level == 0) makes
+no difference.
 
-> Jan
-> 
-> x86/cpu-policy: move invocation of recalculate_misc()
-> 
-> The function is about guest exposure of features / leaves. There's no nee=
-d
-> for it to be applied on the host policy. In fact doing so gets in the way
-> of using the host policy in certain places.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> --- a/xen/arch/x86/cpu-policy.c
-> +++ b/xen/arch/x86/cpu-policy.c
-> @@ -424,7 +424,6 @@ void __init calculate_host_policy(void)
->       x86_cpu_featureset_to_policy(boot_cpu_data.x86_capability, p);
->       recalculate_xstate(p);
->       recalculate_tile(p);
-> -    recalculate_misc(p);
->   
->       /* When vPMU is disabled, drop it from the host policy. */
->       if ( vpmu_mode =3D=3D XENPMU_MODE_OFF )
-> @@ -705,6 +704,7 @@ static void __init calculate_pv_max_poli
->       unsigned int i;
->   
->       *p =3D host_cpu_policy;
-> +    recalculate_misc(p);
->   
->       guest_common_max_leaves(p);
->   
-> @@ -809,6 +809,7 @@ static void __init calculate_hvm_max_pol
->       const uint32_t *mask;
->   
->       *p =3D host_cpu_policy;
-> +    recalculate_misc(p);
->   
->       guest_common_max_leaves(p);
->   
-> 
-> 
+> May be check both nesting_level and active and also introduce
+> in_lazy_mmu_paused_mode() right away to avoid any confusion?
 
-Teddy
+Can you think of any situation where a caller would specifically want to
+know that lazy MMU is paused?
 
-
---
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+- Kevin
 
