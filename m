@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D95FC1FEFA
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 13:07:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1153562.1483864 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E33D0C1FF1B
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 13:11:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1153571.1483875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vERQx-00065R-7s; Thu, 30 Oct 2025 12:07:15 +0000
+	id 1vERUc-0007ae-Mr; Thu, 30 Oct 2025 12:11:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1153562.1483864; Thu, 30 Oct 2025 12:07:15 +0000
+Received: by outflank-mailman (output) from mailman id 1153571.1483875; Thu, 30 Oct 2025 12:11:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vERQx-00063C-4t; Thu, 30 Oct 2025 12:07:15 +0000
-Received: by outflank-mailman (input) for mailman id 1153562;
- Thu, 30 Oct 2025 12:07:14 +0000
+	id 1vERUc-0007YG-JG; Thu, 30 Oct 2025 12:11:02 +0000
+Received: by outflank-mailman (input) for mailman id 1153571;
+ Thu, 30 Oct 2025 12:11:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5IGd=5H=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vERQv-000636-Vo
- for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 12:07:14 +0000
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c201::3])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+HTt=5H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vERUa-0007Y8-UX
+ for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 12:11:00 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f5670657-b588-11f0-980a-7dc792cee155;
- Thu, 30 Oct 2025 13:07:08 +0100 (CET)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by AS8PR03MB7522.eurprd03.prod.outlook.com (2603:10a6:20b:345::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.13; Thu, 30 Oct
- 2025 12:07:05 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9275.013; Thu, 30 Oct 2025
- 12:07:05 +0000
+ id 7da4c66b-b589-11f0-980a-7dc792cee155;
+ Thu, 30 Oct 2025 13:10:57 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-47112a73785so7406195e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 05:10:57 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47728aa6b0dsm35181115e9.14.2025.10.30.05.10.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 30 Oct 2025 05:10:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,178 +45,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5670657-b588-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MwuOBgCmrnrrtZRssw8xX5Yt9+R0OfUBxej7B5cr0Nrt9Ln9QQLET4XgN9G1ne4ELVLzTHH6KURAxGvI+XwhptTJ7JYCzUtSEr8JagRzRApVBOHzgBRgr/cPwc6yb7yLs8rVytq+1LDlsYy7v6eLxwvXxdiK6qrI753g1kO0kMpsxF+G6J1V4KAISZTI+7hT1JEgtVORjjw8MU0UUgs2bWxJYuI+KKMjh+AdQG8kudf2J2wcwJCKa1fNFBm9dqGC0fePVooVgNqHZZnLIPx5QK8FhlAXG1pzu4aiK+WlgSGL84z1ab2awF61yVf39w5VuSKdGEIK31eX8Ro4nuIFhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c4ZKgOXvu5t1egfSJku8xBaz7rejEbIdq0JMJZuYgT8=;
- b=fk2Bo7IBuGH8119Xvgt/s2mgz+GeMFFsEJhx2P+wZ0aAjaYiJyfrwKvUIP4ES5tfO5qisRS3U0ID7R9bJSD7QW7LytJMV8nRCEGbDGGpBGt3SFblsCPH+oCUgKOlzfslq02f8MScK6mThL0m15DeisTA90d09OO0z3XrAGaXqOhH/XlN3nLXSxYLwW/ALMxyGXFrCt7SZLAOqha5mBK6s0btlYqGsiYpxkodmqKZ9O6RUhVspyVfav6hYLgll/J49hD/eJMI5gQM/5WbyM65Vg1BfsZng0jFMxKIqMd1FdAy3eSI0LRwQVVIulIh7hY9ZFd5RFE5hkcARyB4Clr7UA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c4ZKgOXvu5t1egfSJku8xBaz7rejEbIdq0JMJZuYgT8=;
- b=Adaxb4UO0p7tOOnjO/7lHtPi4KC2cvnXP3XghHQC9rV2aMah+XQ8QxQfa4CFLSs2ehQpNt0Y+JwJEoJLGTyLqS78GeJWU3ooT1/+PSNKgsR+LJ3YZQjvZ7QOJTbA+pfzACUBlX+OMAZhNinWtr3r7XgyRHli3Wl8PwhhSywGmc2+4QIARbSmh8nSTRmpRsgDCchbnbJMCMAfAK99ddRFoO72WG261uKZiirLKrogzmdt4PT24T7KPqjJ4L8BDBh4AnRDh7iguMW2s86Atkzl1cabX6kuRB2iuhGsAQyLXwgigvMQqbidAOpXO2l6rp3rSq0U+uCcRwjRdv0mIKH4xQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <483bb615-addf-4038-995d-9babb79ba85c@epam.com>
-Date: Thu, 30 Oct 2025 14:07:04 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH 2/3] x86/hvm: vmx: account for SHADOW_PAGING when use
- hvm_shadow_handle_cd()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251029235448.602380-1-grygorii_strashko@epam.com>
- <20251029235448.602380-3-grygorii_strashko@epam.com>
- <32fd9825-45b7-470c-ad0e-f1941faa4d52@suse.com>
-Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <32fd9825-45b7-470c-ad0e-f1941faa4d52@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BE1P281CA0426.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:83::11) To AS2PR03MB8907.eurprd03.prod.outlook.com
- (2603:10a6:20b:5e4::22)
+X-Inumbo-ID: 7da4c66b-b589-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1761826257; x=1762431057; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=xPWcilGeVfl3WelYnKhDoEbw+O6Hxo/BoXkhvlcRfUo=;
+        b=XUrtJDHUaHliQMLd0IeIIR/fbymL70rD0/VtRaoNQSFLCpg5uox5lqnmU2Sq8CI8ub
+         6uzSaxV2bG2qGyVp9Kwnc46Bfoh/cUy6HPiooPKREeI/cMb1fP/HD3MX+EyRuZ+e6hoZ
+         W9J1cQExmrKojJTxAo2zth+msi2FHRVsaDVsetW6VL7q4IIlbaMlI/p8N62Bb7y+3IR3
+         s1YMjs7A6sJlsrWKv9Ale35ja9+m14h6EuBKRkkjwUIniE3BRSBBo456MOxO/zLkOAj4
+         tSaP+CO4hKl8mPSEB/5YnW70iQQJnFeacNqpmEiuQ0uFyUtuNgyBzeySWVw4ow9B+ivc
+         gd2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1761826257; x=1762431057;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=xPWcilGeVfl3WelYnKhDoEbw+O6Hxo/BoXkhvlcRfUo=;
+        b=kdIZ09EaaZdba/3Qtr3UtwZn0hQWrtIDv7Id584S0pjEnHHU0J7NK7bf2HvX/syduR
+         NLCZE1oxbCvt1B1AhypmeVPzudRxZao4zxUbQ+TzVvf8nqOeaQnMhwb1yWxSysTUlicN
+         Ux8QC8ZLBrQMFyRkY1eo0ITQlQ1TOdedn4I+Fkq9g3GTdch+trVv0NLEEHk7cy298ypT
+         UhPPjDJgqvAqc31Px3hgqSklY6YxfYMVSy5Hwb17jvHZGaYAlponDsrn/fI638v01+Wa
+         H6M+sqvQ5O6u8pKzHsLd/bBai7Erle2NvV1JT/ply/ZWwMR6Ckeb9Q6Fj8Hkda71DpXG
+         irWQ==
+X-Gm-Message-State: AOJu0Yx12qr2e/gt+II5dO1Tw3O+O2SHqF82jFrM/XoC6AbJmMvgB/e+
+	4zOPnq1HiPBR01VWK89LVP0fERCG9+sXa5r5vpt7uEDSs+SI4x5EYDz7gnSyZn/29+alDoel8TB
+	zVJk=
+X-Gm-Gg: ASbGncurE/sJ3s9DFS4bYc8xq8MNqQZBnJpMs/dNmXprLT6co9ujU5DpvxQ8gTv9Wpi
+	GhNX8iEAGPgJPRRCC68lwmlgOv98Ox51oVsABhLvotPPUYYxFLVtP/Jav01AU+LKbnZ0+tSs5vB
+	Z8MI1W0nMkUNefXfhzmnyFtYPpDyzO83NWWO3Lqw4h1ODh30tfCotdYxs4MTy0SmvxzOF2GzZJt
+	6nZ6hzNG5Lww7/MQ4t5MSVRsHuv8Ky22o7IuOG92FWsEojxtExR6mXdVEpOr62hRgZNwsaRWJsX
+	J9kUyNubW91M+ok7JbzP3XzcO2qYpbC83RQs/Ep83vb+POfyctT6fpx2RRyuFqP0f4qd6fxqHgT
+	5osj51Dix7gCpevHPUP19BBMwrw7yt9ljsveSsWHc6Yh8ZpM6CHySxFLWq9nx8uOHFm74XgVHmG
+	X4riJiIg4/fVTUlOzYQX4xDUBvdKNYtFyPylkj4aAHst0Qx0s8lXnoE+rt0SLP1RR0HskeVwg=
+X-Google-Smtp-Source: AGHT+IHc8DZGQw3tXFMVk+xQ1UTA13RrZ9z66HaFe5oMn2dqYE18XMZ/+z6CopJ9z7BsUYVdw+Iq/w==
+X-Received: by 2002:a05:600c:4e8f:b0:475:f16f:6f44 with SMTP id 5b1f17b1804b1-4771e3ac8eemr53416695e9.27.1761826256597;
+        Thu, 30 Oct 2025 05:10:56 -0700 (PDT)
+Message-ID: <c9c8c9c6-a155-4986-bf77-5766cdcd6024@suse.com>
+Date: Thu, 30 Oct 2025 13:10:54 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|AS8PR03MB7522:EE_
-X-MS-Office365-Filtering-Correlation-Id: c794ef0d-77f2-4053-d481-08de17acd7b4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?WFNObE9sZnVBRWdMejV6bzBvbzloSmtuMTUyS3VHcWoxYlUwVWx1Vk04aGFF?=
- =?utf-8?B?Qm5RYXVtbHl3N2h1N3VJMGlKMVlrL2prb2orUGw3a040QTExQTVET2RmQWI5?=
- =?utf-8?B?T1RXTlBZWWNNS0xHRVNHZFVTV3pVK2FucENPUkxFUkVxdkdwN0ZCdk8wUEdY?=
- =?utf-8?B?RUVLZVhNZ2J5aTN0RGJEaTdRNW9sWkRPcXByVVh5b1VWYS9lSjAwWEVwUlBZ?=
- =?utf-8?B?V1A5ZEhXT2xFbXVKajYyWWtwdjhFZ1FOWWxpZXphS0xwZURETTA1b1UwQnli?=
- =?utf-8?B?T3hOL0cxVWRncHcrS1pvbklHVEFvS3lqTXlUaEgzblNFMWorMXVZL21PNTA2?=
- =?utf-8?B?aHAvL1h2aUJHRWtnejlWTjJjeUhOM2FwMTVZRnI2T2RDMkNnZzVKbWFUWTgy?=
- =?utf-8?B?VWRieU5nRFluNGc0OHNyL1NuMUJ4NTYxVmF1WW1jL0FMOVdRakswQzBXZUZ6?=
- =?utf-8?B?Vi93N2xKUHNmZUlJOGJscG1FUUtlMGVaOGcxaUIyblVwdlFoMmVreXM0NEZB?=
- =?utf-8?B?dzJ2TTNpcFVlbU1EMXpGTldFaG5GckhjZTR0QUZEMm5TVHc3ekptVDNFVW9R?=
- =?utf-8?B?S21xK3ZQbk13SXI3ZnN6d01BV0JWU3hJdUFOK3c3eVo2d2hWV0FmY2IvbHZ6?=
- =?utf-8?B?dEZyQmZIU1o1VjRRTzd5VUdTaVBma09MSHAzQUYxYk5ZN2h0RXRmWDIzcjAy?=
- =?utf-8?B?RHM2b2UrTjB4ZDNWL2hTckswK2IyeXhIN2h2RDZjR284bkc3ZVFFL3FSNzd4?=
- =?utf-8?B?eUJkbHRScHhkeFd0dUtsM3pxUTcyWCtnTndVTlc2Q1ZYR3plZE5nUnFWODFP?=
- =?utf-8?B?RlgwSXhiRGVYT1JYS2I4aFFJTG14MFQvbGNUemQxWHZ4elVnMkhqSW5SMldV?=
- =?utf-8?B?aGY0aGhXYVM1SEFrNXRrS2RxSXJUUFBFNWVhTDBFeGkySHZ2T2wyL2RMOXVC?=
- =?utf-8?B?bE9jY1YvS2QzOFZGcURrQ2NuOVNFNzU3QmVKRnVWU1FwMzNieHVzRGp1dFY1?=
- =?utf-8?B?Y1c3OVpwY0czNXB2M2xHamsraW80bXlESkJMV2tWTDBSc2g0dDB5RWFyWFl5?=
- =?utf-8?B?Nk0yOGEvMUsrWGVxOXNDL3MrajE4Qm5GQ2YwL3JCVTlDOFZJUTE3Q3ppTEpv?=
- =?utf-8?B?Y0FqbnFyUGEyckFLaDU1N3doWVhsbi9Bc2hqRlVyK2tUVjZxa01WaXBIZzQx?=
- =?utf-8?B?akNJQjFTeUVmeEJ1ZXIxTys0c2tMNjFYbXNSSitucVo5NmxUQzkvU0hKaGcv?=
- =?utf-8?B?TkZNdFlDTjlTS3YwM3FnRTBUcWVaa0h1WTRWdUJVK1hKdkJlRTlNNitwd0ps?=
- =?utf-8?B?eDRQQlRFQ3lmak13T0NmSlBpZnVnMXZodFJJTDZ6cE45K1VBR3BHb1FRMWhm?=
- =?utf-8?B?Rlp1Yis2SkJlckV0OTRvdXhqeGFsWGRBTktkdDY3V0g2WnJFbnI5YyttbXR0?=
- =?utf-8?B?SE9nNWtFbStOWGZWSnhoZEg2cEYwQ2JuZGJhN0wxalkvMWVYTVNkbzcrODZr?=
- =?utf-8?B?TWdjblR2QUhLeVd4TXFOQlhlZ0UyeDNBcFE2Si9xRkhqdkFEbEl5d01nQjdi?=
- =?utf-8?B?cC94d01sY0VOQ3JqL2V4QUpvSnZwUGxXbmlCcUdENSs5eUtuVFdncklvUkVD?=
- =?utf-8?B?V2NiUVJDdEJwU3lrRGxVSUIvQzA4akFudHhZNXBjdU51a2VndTM4OFAyZkFU?=
- =?utf-8?B?ODlHa21uRmFEd0x4VklDeFZiUW5vNnA1ZEoyRDlQOW5hZDRDWUlSZ3FCbkpp?=
- =?utf-8?B?Z3EvTWdBdmRYUm9XMWxhMGVKU3lrekNjWVdla3FxbElDWHllRGlPSHZaVzhI?=
- =?utf-8?B?NDM2TnhmOVJqMnBWSXJsK1hJNkl1UXRDRnVkQy9mUUdyejBNaVR0RWd2RHBY?=
- =?utf-8?B?WkxZY1k2ZDI3czVqL1JjQ29GZENoMXZ5bzBKMU5QK0pZS1g3UFAvcHh5TXhS?=
- =?utf-8?Q?BPolxexKRG/8ria4s1Exgaf4cprXHa21?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z05wUkFoVFg3VTYrQ3lPZDFOUnpJMmFDQWdmZEtWVURJR0NHNnU3eVRXM2J5?=
- =?utf-8?B?RElPWXBBM3ZncGYyQ0YvU1BYV1JCT0FXQjFlcER0VEpqV09EdXNndFR3TnE2?=
- =?utf-8?B?SExIYU9CRDljN0F5am9mNkdrMVo0cWdUcy91KzlIWFUxd1FCUGdIamRpNUJq?=
- =?utf-8?B?V1FLekpvUlFNRlo5TFZReFh6N0xIUEI1c3NNanM3bUl3ejFORjhiZU80VjVr?=
- =?utf-8?B?WTFmMzRUUTAxeFM5amhTVllOdDU4WldVRmJlZ3VBVVYrdkxuc1pETkw0dC9p?=
- =?utf-8?B?Si9USTQzaUZZTU8xSW1CV0hoeWxUcGdCTEgrNjlaeG5uQlpldHFMVXpNTjdo?=
- =?utf-8?B?a3IxNUlKS0VmNjZpbHU1RXZpMDU4VmlzcnVyZE9DZG53YTJDM3MyNGhuWXZB?=
- =?utf-8?B?OUJ2eURycmMyY3hVbXljRVRtTlJuV2Z4elVBa1lqRHdZa2tmNG1XU0ZZQTNB?=
- =?utf-8?B?TzcyKzhYOWlXc3hvZTRPZTcvNlNrNlgwZnF5elVjWkJHaHAwSnFZZkIrTWZU?=
- =?utf-8?B?bWpLSGh6S3h6eklOTEFIbXBHbWw3d1lSRXBVWVgyblpzN2g3OGtOa1RGUnZR?=
- =?utf-8?B?eSt5NDBqanZXa0IwQlNOOFRJb3JRL0duZEJ0eU02ZDNEMU9NMHkyR1pJYVRn?=
- =?utf-8?B?YUZIN2cybXNINzlzallRSWZhNXc0REY1ZERRazNiZWI0elFvMHB3ZEZ2V3FF?=
- =?utf-8?B?WWVOUGpKZ21FQnpUa0RvRFRMbWhNREJUd2pJMm41SXlsZyt6WW5maGJsNVA1?=
- =?utf-8?B?bVlJNU9oRHd6SndPd1pQZ3owTGtRWHZVWk8zalhBUllmd0grZytWVlJNaXhj?=
- =?utf-8?B?SjJNU1pHc3JTMkFNd041RXYwSS94L0hrMWNCWGh6dUlRNnJ0bEs4blN5QmQ2?=
- =?utf-8?B?dkV4dTlNSDRUQ1AyVldaU3p1bGFpQkN6OUhUNTM4MVBrNjdnUzUwanJJa0JJ?=
- =?utf-8?B?L08xVUVaRmFuUlNDaUxtZnVuUkZHZHMwaEZONFBTUzAySFd5c3oyV2JIVytV?=
- =?utf-8?B?NTkwV3k2OE9uNmE0Y2YwWXo0bEpBVG1LQytHQThoUzFFL2YwWEhNb0dnOXVG?=
- =?utf-8?B?Qk94dExsUFdaTnlNSzFZUHVwakljNWJYcTY5QUxJOWJzd3BhdWxRcHFWSnBS?=
- =?utf-8?B?b28xMWFTNjM0ZUxNamFxTmFCUEFpdXd5U1Q4UitIS3hEQkFXQldIL3lvemJv?=
- =?utf-8?B?YnNWYkhFcGVibjVUaDBLMVFXcTNhdGZjTDVUdHZ2QVR5cHd1NUhRSngyZmEx?=
- =?utf-8?B?bmFxWVRWeGFhSHFjQm9JMzVOQVFqL2t6RUZiSllOeU5UR2FJWEFHSUJ6WVNG?=
- =?utf-8?B?NWRMb3lVNEJhNGZNQmtvSVkraDNRaGVab000WXFLRkp6cG9RbmxvNG5kT3Yz?=
- =?utf-8?B?R0RpQUhJR3RkQW5QSm4wRlpCa0NaV0VBVDZhaGFISkpXbFJZenhWNmJUZ3Fl?=
- =?utf-8?B?ZXIzWUp0RHBMY3ZuQk9UY1ZybHRiaWJha2RRZk8yL0RsbUVZVHZrTlFXbzRE?=
- =?utf-8?B?cXdRUDhkQzZxY3VGb1RuRW9tRzVIMkVYQVhZaG14VkRHVUdIRTVRY1NOeWcz?=
- =?utf-8?B?aUdHcWgwdE5mektrY2hQMzA1NjRTUzd1ak9IQmVDSEh4TEFMMVRYWHdPM0xB?=
- =?utf-8?B?OHNkeElOOC9EZUxaVld3Z0l0SktXUFBTR1hkQUQ1RmJBT1lTVWVQVGJlSXNP?=
- =?utf-8?B?YUpmd2RySDFCTFlsUXRVSmMxbWxyN3pMUEQwbHhJYW5Ca3VDN1JseEZ5Zi9k?=
- =?utf-8?B?cnIrWkppODNlOU0vb2QrUDBZVEdBaDkra2hUbE1TTkdxeWx4VzJGRk92VVpI?=
- =?utf-8?B?VVhxRWZYSjEzLzhFTjlKTjVRaG9WcWhYWjU1NmdUNnNTZ1ZFZ2gwOWVZODY4?=
- =?utf-8?B?WENSa2FVUXllbHB6VG93dTJtanNZblZ0MWZ3TXMvdU1hdGU0d2dmdFVWNVhp?=
- =?utf-8?B?QlBkQkVCVHpWMFRpZjNOUXQweDExYkVEdTcvVm41SnNXSXVsQVVNWEgxRkMz?=
- =?utf-8?B?NDV0NjZERDZQNUVrd1NnU2FKOCtwMFBxcjNLMmE5VXRaajVIV3YyNHh0VWkv?=
- =?utf-8?B?VmlZbGF6dFo0b3gxRUxMaVZFM2FlZlNiYmNCZkxoRDFqdy9DSUVUZmVsbjVM?=
- =?utf-8?B?eFMxQzRJMm5YRyt6OHd0aVIwYkdrWitjTXhodTZyeXh0bTJXamtIZXkrSHFN?=
- =?utf-8?B?elE9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c794ef0d-77f2-4053-d481-08de17acd7b4
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2025 12:07:05.5568
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4Ii7GqlXJSGBg3wHsoNFIkfQOH61Z+1L2Xq6dwer7SzUFiLKMmzaymKEcMAhEI1wyiSLitS9u/RL+aN9EBKsEdOYfyeW713rWoM+wePZvQc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB7522
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Penny Zheng <Penny.Zheng@amd.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Timothy Pearson <tpearson@raptorengineering.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] domain: adjust soft-reset arch dependency
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+Arm's arch_domain_soft_reset() returning -ENOSYS is quite unhelpful: This
+way a domain will be crashed if a tool stack mistakenly invokes
+XEN_DOMCTL_soft_reset on it. Instead the tool stack should be told of its
+mistake.
 
+Introduce HAS_SOFT_RESET, implied only by x86. "imply" rather than
+"select" such that HAS_SOFT_RESET can later gain a dependency on
+MGMT_HYPERCALLS. That way HAS_SOFT_RESET will go off when
+MGMT_HYPERCALLS is off.
 
-On 30.10.25 13:12, Jan Beulich wrote:
-> On 30.10.2025 00:54, Grygorii Strashko wrote:
->> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>
->> The hvm_shadow_handle_cd() can be used only with SHADOW_PAGING=y,
->> so guard hvm_shadow_handle_cd() call with IS_ENABLED(CONFIG_SHADOW_PAGING).
->>
->> bloat-o-meter
->>   add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-290 (-290)
->>
->> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-> 
-> Requested-by: <me> (or some other of the available tags)?
+Check the new setting early in domctl handling, and compile out the thus
+dead (when HAS_SOFT_RESET=n) domain_soft_reset() as well as its dedicated
+helpers.
 
-Will do. or Suggested-by:?
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-> 
->> --- a/xen/arch/x86/hvm/vmx/vmx.c
->> +++ b/xen/arch/x86/hvm/vmx/vmx.c
->> @@ -1506,7 +1506,7 @@ static int cf_check vmx_get_guest_pat(struct vcpu *v, u64 *gpat)
->>   
->>   static void cf_check vmx_handle_cd(struct vcpu *v, unsigned long value)
->>   {
->> -    if ( !paging_mode_hap(v->domain) )
->> +    if ( IS_ENABLED(CONFIG_SHADOW_PAGING) && !paging_mode_hap(v->domain) )
-> 
-> I don't think there's a need for IS_ENABLED() here - you can simply switch to
-> using paging_mode_shadow(). That would be more correct anyway, for the abstract
-> case of there being a 3rd paging mode. 
-
-Will do. I've seen it, but was not sure :(
-
->With the adjustment:
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-
--- 
-Best regards,
--grygorii
-
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -875,11 +875,6 @@ void arch_domain_unpause(struct domain *
+ {
+ }
+ 
+-int arch_domain_soft_reset(struct domain *d)
+-{
+-    return -ENOSYS;
+-}
+-
+ void arch_domain_creation_finished(struct domain *d)
+ {
+     p2m_domain_creation_finished(d);
+--- a/xen/arch/ppc/stubs.c
++++ b/xen/arch/ppc/stubs.c
+@@ -214,11 +214,6 @@ void arch_domain_unpause(struct domain *
+     BUG_ON("unimplemented");
+ }
+ 
+-int arch_domain_soft_reset(struct domain *d)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+ void arch_domain_creation_finished(struct domain *d)
+ {
+     BUG_ON("unimplemented");
+--- a/xen/arch/riscv/stubs.c
++++ b/xen/arch/riscv/stubs.c
+@@ -188,11 +188,6 @@ void arch_domain_unpause(struct domain *
+     BUG_ON("unimplemented");
+ }
+ 
+-int arch_domain_soft_reset(struct domain *d)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+ void arch_domain_creation_finished(struct domain *d)
+ {
+     BUG_ON("unimplemented");
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -29,6 +29,7 @@ config X86
+ 	select HAS_PCI_MSI
+ 	select HAS_PIRQ
+ 	select HAS_SCHED_GRANULARITY
++	imply HAS_SOFT_RESET
+ 	select HAS_UBSAN
+ 	select HAS_VMAP
+ 	select HAS_VPCI if HVM
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -1030,6 +1030,7 @@ void arch_domain_unpause(struct domain *
+         viridian_time_domain_thaw(d);
+ }
+ 
++#ifdef CONFIG_HAS_SOFT_RESET
+ int arch_domain_soft_reset(struct domain *d)
+ {
+     struct page_info *page = virt_to_page(d->shared_info), *new_page;
+@@ -1131,6 +1132,7 @@ int arch_domain_soft_reset(struct domain
+ 
+     return ret;
+ }
++#endif /* CONFIG_HAS_SOFT_RESET */
+ 
+ void arch_domain_creation_finished(struct domain *d)
+ {
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -155,6 +155,9 @@ config HAS_PMAP
+ config HAS_SCHED_GRANULARITY
+ 	bool
+ 
++config HAS_SOFT_RESET
++	bool
++
+ config HAS_STACK_PROTECTOR
+ 	bool
+ 
+--- a/xen/common/argo.c
++++ b/xen/common/argo.c
+@@ -2351,6 +2351,7 @@ argo_destroy(struct domain *d)
+     write_unlock(&L1_global_argo_rwlock);
+ }
+ 
++#ifdef CONFIG_HAS_SOFT_RESET
+ void
+ argo_soft_reset(struct domain *d)
+ {
+@@ -2374,3 +2375,4 @@ argo_soft_reset(struct domain *d)
+ 
+     write_unlock(&L1_global_argo_rwlock);
+ }
++#endif /* CONFIG_HAS_SOFT_RESET */
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -1687,6 +1687,7 @@ void domain_unpause_except_self(struct d
+         domain_unpause(d);
+ }
+ 
++#ifdef CONFIG_HAS_SOFT_RESET
+ int domain_soft_reset(struct domain *d, bool resuming)
+ {
+     struct vcpu *v;
+@@ -1724,6 +1725,7 @@ int domain_soft_reset(struct domain *d,
+ 
+     return rc;
+ }
++#endif /* CONFIG_HAS_SOFT_RESET */
+ 
+ int vcpu_reset(struct vcpu *v)
+ {
+--- a/xen/common/domctl.c
++++ b/xen/common/domctl.c
+@@ -466,6 +466,12 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
+ 
+     case XEN_DOMCTL_soft_reset:
+     case XEN_DOMCTL_soft_reset_cont:
++        if ( !IS_ENABLED(CONFIG_HAS_SOFT_RESET) )
++        {
++            ret = -EOPNOTSUPP;
++            break;
++        }
++
+         if ( d == current->domain ) /* no domain_pause() */
+         {
+             ret = -EINVAL;
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -3962,6 +3962,7 @@ int gnttab_release_mappings(struct domai
+     return 0;
+ }
+ 
++#ifdef CONFIG_HAS_SOFT_RESET
+ void grant_table_warn_active_grants(struct domain *d)
+ {
+     struct grant_table *gt = d->grant_table;
+@@ -4006,6 +4007,7 @@ void grant_table_warn_active_grants(stru
+ 
+ #undef WARN_GRANT_MAX
+ }
++#endif /* CONFIG_HAS_SOFT_RESET */
+ 
+ void
+ grant_table_destroy(
 
