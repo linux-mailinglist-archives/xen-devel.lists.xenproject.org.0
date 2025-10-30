@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E33D0C1FF1B
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 13:11:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1153571.1483875 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB3E9C1FF1E
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 13:12:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1153581.1483884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vERUc-0007ae-Mr; Thu, 30 Oct 2025 12:11:02 +0000
+	id 1vERVT-00083i-Vd; Thu, 30 Oct 2025 12:11:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1153571.1483875; Thu, 30 Oct 2025 12:11:02 +0000
+Received: by outflank-mailman (output) from mailman id 1153581.1483884; Thu, 30 Oct 2025 12:11:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vERUc-0007YG-JG; Thu, 30 Oct 2025 12:11:02 +0000
-Received: by outflank-mailman (input) for mailman id 1153571;
- Thu, 30 Oct 2025 12:11:00 +0000
+	id 1vERVT-00082B-S3; Thu, 30 Oct 2025 12:11:55 +0000
+Received: by outflank-mailman (input) for mailman id 1153581;
+ Thu, 30 Oct 2025 12:11:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+HTt=5H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vERUa-0007Y8-UX
- for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 12:11:00 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1vERVR-00081t-RI
+ for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 12:11:53 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7da4c66b-b589-11f0-980a-7dc792cee155;
- Thu, 30 Oct 2025 13:10:57 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-47112a73785so7406195e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 05:10:57 -0700 (PDT)
+ id 9e3ab59e-b589-11f0-980a-7dc792cee155;
+ Thu, 30 Oct 2025 13:11:52 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3ee64bc6b85so966683f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 05:11:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47728aa6b0dsm35181115e9.14.2025.10.30.05.10.55
+ ffacd0b85a97d-429952b79cbsm31797195f8f.4.2025.10.30.05.11.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Oct 2025 05:10:56 -0700 (PDT)
+ Thu, 30 Oct 2025 05:11:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7da4c66b-b589-11f0-980a-7dc792cee155
+X-Inumbo-ID: 9e3ab59e-b589-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761826257; x=1762431057; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xPWcilGeVfl3WelYnKhDoEbw+O6Hxo/BoXkhvlcRfUo=;
-        b=XUrtJDHUaHliQMLd0IeIIR/fbymL70rD0/VtRaoNQSFLCpg5uox5lqnmU2Sq8CI8ub
-         6uzSaxV2bG2qGyVp9Kwnc46Bfoh/cUy6HPiooPKREeI/cMb1fP/HD3MX+EyRuZ+e6hoZ
-         W9J1cQExmrKojJTxAo2zth+msi2FHRVsaDVsetW6VL7q4IIlbaMlI/p8N62Bb7y+3IR3
-         s1YMjs7A6sJlsrWKv9Ale35ja9+m14h6EuBKRkkjwUIniE3BRSBBo456MOxO/zLkOAj4
-         tSaP+CO4hKl8mPSEB/5YnW70iQQJnFeacNqpmEiuQ0uFyUtuNgyBzeySWVw4ow9B+ivc
-         gd2Q==
+        d=suse.com; s=google; t=1761826311; x=1762431111; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=lb+ITqz/osCli66h6LV6unEl/fCffaGx/xLxzW610ic=;
+        b=B5wC9BGln3FVvQ8Gp78Nv8X/fF6S9bLELmv4GLbdv7PYzfUnE2SlWM7ECIyBqrtGq9
+         oUvAk4OaVyIegPQ5Mylt1KKJU2BSsRwEgalDBsB+myYH1P5DeJ3q2xNBZr/lAFEpr1g5
+         pFpramadUnuZXh/eV7YGFhlLuS35vub99XdGAQIziY9VJCWXvb2wo0VO2NalL6f4O2sI
+         am7zgtUuncVFUbNelrUX5S0rp4N3A02qdQISp6dS6pvw1YkWVMj0bYLxh5CFNjeiwPUJ
+         cXAQ99Tqti97NobGCdZgV/tO9bkENwPKTqfNxwUba7hOqF75WEZlXRp7youLR6NhxG2N
+         glbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761826257; x=1762431057;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xPWcilGeVfl3WelYnKhDoEbw+O6Hxo/BoXkhvlcRfUo=;
-        b=kdIZ09EaaZdba/3Qtr3UtwZn0hQWrtIDv7Id584S0pjEnHHU0J7NK7bf2HvX/syduR
-         NLCZE1oxbCvt1B1AhypmeVPzudRxZao4zxUbQ+TzVvf8nqOeaQnMhwb1yWxSysTUlicN
-         Ux8QC8ZLBrQMFyRkY1eo0ITQlQ1TOdedn4I+Fkq9g3GTdch+trVv0NLEEHk7cy298ypT
-         UhPPjDJgqvAqc31Px3hgqSklY6YxfYMVSy5Hwb17jvHZGaYAlponDsrn/fI638v01+Wa
-         H6M+sqvQ5O6u8pKzHsLd/bBai7Erle2NvV1JT/ply/ZWwMR6Ckeb9Q6Fj8Hkda71DpXG
-         irWQ==
-X-Gm-Message-State: AOJu0Yx12qr2e/gt+II5dO1Tw3O+O2SHqF82jFrM/XoC6AbJmMvgB/e+
-	4zOPnq1HiPBR01VWK89LVP0fERCG9+sXa5r5vpt7uEDSs+SI4x5EYDz7gnSyZn/29+alDoel8TB
-	zVJk=
-X-Gm-Gg: ASbGncurE/sJ3s9DFS4bYc8xq8MNqQZBnJpMs/dNmXprLT6co9ujU5DpvxQ8gTv9Wpi
-	GhNX8iEAGPgJPRRCC68lwmlgOv98Ox51oVsABhLvotPPUYYxFLVtP/Jav01AU+LKbnZ0+tSs5vB
-	Z8MI1W0nMkUNefXfhzmnyFtYPpDyzO83NWWO3Lqw4h1ODh30tfCotdYxs4MTy0SmvxzOF2GzZJt
-	6nZ6hzNG5Lww7/MQ4t5MSVRsHuv8Ky22o7IuOG92FWsEojxtExR6mXdVEpOr62hRgZNwsaRWJsX
-	J9kUyNubW91M+ok7JbzP3XzcO2qYpbC83RQs/Ep83vb+POfyctT6fpx2RRyuFqP0f4qd6fxqHgT
-	5osj51Dix7gCpevHPUP19BBMwrw7yt9ljsveSsWHc6Yh8ZpM6CHySxFLWq9nx8uOHFm74XgVHmG
-	X4riJiIg4/fVTUlOzYQX4xDUBvdKNYtFyPylkj4aAHst0Qx0s8lXnoE+rt0SLP1RR0HskeVwg=
-X-Google-Smtp-Source: AGHT+IHc8DZGQw3tXFMVk+xQ1UTA13RrZ9z66HaFe5oMn2dqYE18XMZ/+z6CopJ9z7BsUYVdw+Iq/w==
-X-Received: by 2002:a05:600c:4e8f:b0:475:f16f:6f44 with SMTP id 5b1f17b1804b1-4771e3ac8eemr53416695e9.27.1761826256597;
-        Thu, 30 Oct 2025 05:10:56 -0700 (PDT)
-Message-ID: <c9c8c9c6-a155-4986-bf77-5766cdcd6024@suse.com>
-Date: Thu, 30 Oct 2025 13:10:54 +0100
+        d=1e100.net; s=20230601; t=1761826311; x=1762431111;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lb+ITqz/osCli66h6LV6unEl/fCffaGx/xLxzW610ic=;
+        b=RXA+uRJLfklKF6By911C9wurmFHHrCcun2lbRGgCNFVYoMaWqrQTsPvCjg+cCA94Ql
+         Om/KTDjR6xgRhF386jj1rXDSU9tr8feprZGusBZMV57e5osOsaX7WWJ73sE9IA1xq3BH
+         LT57znyZh36qz0CHfhUwseRi7kGOqFoqYU0amYXo5LSD+mmcjzk7/Of8Q1PQTT37KZqs
+         bbB6ymtQRfAivYLalNCrR2ayBJYbJSjj3inAz9T1HjfZiPR1Ixc9yP7MwpzfGp9UJZRR
+         qVGXXXykGmQqSWDUnB9eZLJ5EKA+DdspeRd0NX+O3HUXMZw2QNofcaVkuaFZDZSywexZ
+         MQ6A==
+X-Forwarded-Encrypted: i=1; AJvYcCVjdwMYcWvNUwrcZEandLbeJQQs9RZAnCY9/XLx3LiYjSNLH6999HaF8iqgRhVMQ3VthYF9XQNuwig=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzDg20+ZXZaA4A7fkfLvnS2Ciz9fAWhYHqKUtvTG1VfOVa+iXCA
+	SfiBOESfO7JqGbKdp3xP+jHWQs+Kne9dxSq1S9FWa851uvdgdbh4xW7nchF14QYbgQ==
+X-Gm-Gg: ASbGncsScftq4wsYXUUw8TwhtMLx1LFq8M/F8cYbk5F3wFfYi6k03FT8iBf0QT1tlbn
+	gKPypC9eQ9gupCVSlKuUBFkNsopLjFiSuyWcYydKStehxQxQv01n+u49a1+cNrSwSuvISOT0/Gg
+	TButch3/LR1xEiOE0tlORu/KOfoTDOhFnEWwu9L91TXP0buGW6XmXhxflpRaflVlidne4L8LiJl
+	78JEmC5GNnWR0ghgsCWxY9Xxa0y6hioNigf9f61mI5Orc5b724O9J/jkm9JJz5iSXlgJ73RVqHb
+	1oGqxAx+vQH14+lWWuyKYXh6avwYfFGngmS56yHd6PS0W4YXU347gpPmH294tfMsboTmk0B5kcP
+	UnQafmH/SF30DtREhUaNv5FhZ5sngXXDJh/D+xNUj42v6yrODxd3TMI2i+uAT3dsY75VPlCpnX0
+	ZQ/okFobUjhggdAUXvLLzaAb/hwyYxGKgQASiKf6l4bPnHGjwx02RKB7uolHeC7B1cEApPA0+cm
+	NLh9miH3Q==
+X-Google-Smtp-Source: AGHT+IH4GOD4md/A8Yfqy7mgMQjKWA+/4VdxWo4vilmgR4dnX9uFBzFHD1YqKoP2Jh30yIz57rXnkg==
+X-Received: by 2002:a05:6000:1885:b0:429:8afb:ed5e with SMTP id ffacd0b85a97d-429b4c7f885mr2312288f8f.8.1761826311325;
+        Thu, 30 Oct 2025 05:11:51 -0700 (PDT)
+Message-ID: <456e115b-19a4-4be2-81c7-39839ec8392d@suse.com>
+Date: Thu, 30 Oct 2025 13:11:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN][PATCH 2/3] x86/hvm: vmx: account for SHADOW_PAGING when use
+ hvm_shadow_handle_cd()
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251029235448.602380-1-grygorii_strashko@epam.com>
+ <20251029235448.602380-3-grygorii_strashko@epam.com>
+ <32fd9825-45b7-470c-ad0e-f1941faa4d52@suse.com>
+ <483bb615-addf-4038-995d-9babb79ba85c@epam.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Penny Zheng <Penny.Zheng@amd.com>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Timothy Pearson <tpearson@raptorengineering.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] domain: adjust soft-reset arch dependency
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -125,171 +125,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <483bb615-addf-4038-995d-9babb79ba85c@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Arm's arch_domain_soft_reset() returning -ENOSYS is quite unhelpful: This
-way a domain will be crashed if a tool stack mistakenly invokes
-XEN_DOMCTL_soft_reset on it. Instead the tool stack should be told of its
-mistake.
+On 30.10.2025 13:07, Grygorii Strashko wrote:
+> 
+> 
+> On 30.10.25 13:12, Jan Beulich wrote:
+>> On 30.10.2025 00:54, Grygorii Strashko wrote:
+>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>
+>>> The hvm_shadow_handle_cd() can be used only with SHADOW_PAGING=y,
+>>> so guard hvm_shadow_handle_cd() call with IS_ENABLED(CONFIG_SHADOW_PAGING).
+>>>
+>>> bloat-o-meter
+>>>   add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-290 (-290)
+>>>
+>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>>
+>> Requested-by: <me> (or some other of the available tags)?
+> 
+> Will do. or Suggested-by:?
 
-Introduce HAS_SOFT_RESET, implied only by x86. "imply" rather than
-"select" such that HAS_SOFT_RESET can later gain a dependency on
-MGMT_HYPERCALLS. That way HAS_SOFT_RESET will go off when
-MGMT_HYPERCALLS is off.
+Your choice.
 
-Check the new setting early in domctl handling, and compile out the thus
-dead (when HAS_SOFT_RESET=n) domain_soft_reset() as well as its dedicated
-helpers.
-
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -875,11 +875,6 @@ void arch_domain_unpause(struct domain *
- {
- }
- 
--int arch_domain_soft_reset(struct domain *d)
--{
--    return -ENOSYS;
--}
--
- void arch_domain_creation_finished(struct domain *d)
- {
-     p2m_domain_creation_finished(d);
---- a/xen/arch/ppc/stubs.c
-+++ b/xen/arch/ppc/stubs.c
-@@ -214,11 +214,6 @@ void arch_domain_unpause(struct domain *
-     BUG_ON("unimplemented");
- }
- 
--int arch_domain_soft_reset(struct domain *d)
--{
--    BUG_ON("unimplemented");
--}
--
- void arch_domain_creation_finished(struct domain *d)
- {
-     BUG_ON("unimplemented");
---- a/xen/arch/riscv/stubs.c
-+++ b/xen/arch/riscv/stubs.c
-@@ -188,11 +188,6 @@ void arch_domain_unpause(struct domain *
-     BUG_ON("unimplemented");
- }
- 
--int arch_domain_soft_reset(struct domain *d)
--{
--    BUG_ON("unimplemented");
--}
--
- void arch_domain_creation_finished(struct domain *d)
- {
-     BUG_ON("unimplemented");
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -29,6 +29,7 @@ config X86
- 	select HAS_PCI_MSI
- 	select HAS_PIRQ
- 	select HAS_SCHED_GRANULARITY
-+	imply HAS_SOFT_RESET
- 	select HAS_UBSAN
- 	select HAS_VMAP
- 	select HAS_VPCI if HVM
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -1030,6 +1030,7 @@ void arch_domain_unpause(struct domain *
-         viridian_time_domain_thaw(d);
- }
- 
-+#ifdef CONFIG_HAS_SOFT_RESET
- int arch_domain_soft_reset(struct domain *d)
- {
-     struct page_info *page = virt_to_page(d->shared_info), *new_page;
-@@ -1131,6 +1132,7 @@ int arch_domain_soft_reset(struct domain
- 
-     return ret;
- }
-+#endif /* CONFIG_HAS_SOFT_RESET */
- 
- void arch_domain_creation_finished(struct domain *d)
- {
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -155,6 +155,9 @@ config HAS_PMAP
- config HAS_SCHED_GRANULARITY
- 	bool
- 
-+config HAS_SOFT_RESET
-+	bool
-+
- config HAS_STACK_PROTECTOR
- 	bool
- 
---- a/xen/common/argo.c
-+++ b/xen/common/argo.c
-@@ -2351,6 +2351,7 @@ argo_destroy(struct domain *d)
-     write_unlock(&L1_global_argo_rwlock);
- }
- 
-+#ifdef CONFIG_HAS_SOFT_RESET
- void
- argo_soft_reset(struct domain *d)
- {
-@@ -2374,3 +2375,4 @@ argo_soft_reset(struct domain *d)
- 
-     write_unlock(&L1_global_argo_rwlock);
- }
-+#endif /* CONFIG_HAS_SOFT_RESET */
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -1687,6 +1687,7 @@ void domain_unpause_except_self(struct d
-         domain_unpause(d);
- }
- 
-+#ifdef CONFIG_HAS_SOFT_RESET
- int domain_soft_reset(struct domain *d, bool resuming)
- {
-     struct vcpu *v;
-@@ -1724,6 +1725,7 @@ int domain_soft_reset(struct domain *d,
- 
-     return rc;
- }
-+#endif /* CONFIG_HAS_SOFT_RESET */
- 
- int vcpu_reset(struct vcpu *v)
- {
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -466,6 +466,12 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
- 
-     case XEN_DOMCTL_soft_reset:
-     case XEN_DOMCTL_soft_reset_cont:
-+        if ( !IS_ENABLED(CONFIG_HAS_SOFT_RESET) )
-+        {
-+            ret = -EOPNOTSUPP;
-+            break;
-+        }
-+
-         if ( d == current->domain ) /* no domain_pause() */
-         {
-             ret = -EINVAL;
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -3962,6 +3962,7 @@ int gnttab_release_mappings(struct domai
-     return 0;
- }
- 
-+#ifdef CONFIG_HAS_SOFT_RESET
- void grant_table_warn_active_grants(struct domain *d)
- {
-     struct grant_table *gt = d->grant_table;
-@@ -4006,6 +4007,7 @@ void grant_table_warn_active_grants(stru
- 
- #undef WARN_GRANT_MAX
- }
-+#endif /* CONFIG_HAS_SOFT_RESET */
- 
- void
- grant_table_destroy(
+Jan
 
