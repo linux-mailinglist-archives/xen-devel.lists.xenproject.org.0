@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30DC6C1FA16
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 11:47:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1153482.1483805 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC15C1FB58
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 12:08:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1153494.1483815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEQB9-0000g5-6p; Thu, 30 Oct 2025 10:46:51 +0000
+	id 1vEQVz-0003ic-TK; Thu, 30 Oct 2025 11:08:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1153482.1483805; Thu, 30 Oct 2025 10:46:51 +0000
+Received: by outflank-mailman (output) from mailman id 1153494.1483815; Thu, 30 Oct 2025 11:08:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEQB9-0000dq-3W; Thu, 30 Oct 2025 10:46:51 +0000
-Received: by outflank-mailman (input) for mailman id 1153482;
- Thu, 30 Oct 2025 10:46:49 +0000
+	id 1vEQVz-0003gV-Pi; Thu, 30 Oct 2025 11:08:23 +0000
+Received: by outflank-mailman (input) for mailman id 1153494;
+ Thu, 30 Oct 2025 11:08:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+HTt=5H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vEQB7-0000dk-N0
- for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 10:46:49 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1vEQVy-0003gP-9V
+ for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 11:08:22 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6d9cebf-b57d-11f0-980a-7dc792cee155;
- Thu, 30 Oct 2025 11:46:39 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3f2cf786abeso614872f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 03:46:39 -0700 (PDT)
+ id be03ae51-b580-11f0-980a-7dc792cee155;
+ Thu, 30 Oct 2025 12:08:19 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-46e6a689bd0so9233865e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 04:08:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429952db9d1sm30913855f8f.35.2025.10.30.03.46.37
+ ffacd0b85a97d-429952d3532sm32304362f8f.20.2025.10.30.04.08.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Oct 2025 03:46:37 -0700 (PDT)
+ Thu, 30 Oct 2025 04:08:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6d9cebf-b57d-11f0-980a-7dc792cee155
+X-Inumbo-ID: be03ae51-b580-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761821199; x=1762425999; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=EIdfcQ7m+iCksx6XS4Zy/k7J2u9sMtddJCbPXsbZGMg=;
-        b=OMul7DwjA4iXSgmY2Tz9GKsmw2f+pGLLB6TdGwnoWJQvSAVjfvPQChjdVVZkEMYYlc
-         GTR/+kQIbzASn4+Dz2TC9uWlZ6FE2D5wi5dLXSWCAnDGTeuvURvCeTnOtg3t53A8uU/4
-         5HyMPI6iIIkuMAKYZQfvQ30Tgtk3KNVJz4UQKttm2CCcrOMMKaFp29/IFIILiI41Rz98
-         J0Qatb0TIwEEcPswqOVOKOoW/yGatqAl4pxXjdR+6exh1pzFQo4EDCZDtem45Xfp4h9X
-         TCmkBVlv97YaRT+LkE9xK9nhTm17bDKgIVDo1uMdmR6UPwaE+ANzG+UYJhBnQ8sLwdKZ
-         n4jw==
+        d=suse.com; s=google; t=1761822499; x=1762427299; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=KPVei3AC58lafOD+u4KMBRphnbJclXFl+81EB4IY++I=;
+        b=gKZJqvV05+2/tzLBm1J6x6zPbNYXILmRO4e8nPKP8Y+jS4dkwfkjtqEGVOjnqANYwO
+         P7OZTueobDCc0L40TNEj1sb3QC7DwMv6sRFXRzX5RhAJKvPhmCi+8DrZd2hj+Mxw0Rt9
+         Lk9oX34WhFqGmb38Rxmd6kw44Gl6/CV6T7Teb1o8nAaRyVQ5TrZvMm/h3ylsBPGUc0fm
+         Gq6ZKhLkRtU57VQyzOruwZNYG8J3jt04X8klasdhBMJ6Rf0ufxkgKHW0Y8YRJKYWMPz0
+         7oz6Ywf//yOp5lcgQcAF04icYpi8DBe2GkP0JOYIxXmdAolhmF6Xnhw8EKUuGuWG6EwF
+         VmwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761821199; x=1762425999;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EIdfcQ7m+iCksx6XS4Zy/k7J2u9sMtddJCbPXsbZGMg=;
-        b=vn69c5hbZbRnhDx5TX0x8kfJVea3oNs/GYy1fW+Q0P4DTgoNQOvJRFG9RffAc8d+fY
-         9SgoL+XqROQNLQ4314Q9aEVfTevzM8/zlo1ni9v98CZ3PibQpFB05bf1nCitlEFsQRwO
-         UZgm/YivJUbRJBRU6Gn1jep2uRf0MDRjT7xMrDekIn3kGCSRr0R15lM62aBcM/UlwJkI
-         q8BuspW0O3S40AKo++sfHfFqVipKsL3DBK1yCKyScaxfxVohAIgEr/aZSpOgW1JUwTM7
-         fPeCdYgVWdiecCPDFiLcoCoaIqNFejl+Uo+Q9Dr+jXwmc2O0GfRzod8fNLjNeijboylX
-         z8ew==
-X-Gm-Message-State: AOJu0Yz8xb7+NluX2h9GvZcDylYcBzuB7Jmh5EyWwipo9UlgMtvztK7E
-	ao3bSue39J8E4qhQ5RM5iT4J5YgFuhF2HIc7rEq5n3ENDGHTvEFPNHPiE3GJGq3/w6Gs/vyeoMY
-	Mwng=
-X-Gm-Gg: ASbGncvdcAwXxZSxNGcZ6UHndyE0zig2BwiITGZ4HWtkPOAZ+0psLd8beda9U/s+/uO
-	CjklAIIbyI074dhEjWp22tDHD221ZzHX/DnnZ6/6WwD9+18AMfP+zKQ+054l4TRQ6kl3p6Y2Fhp
-	gnF51Bi1wJ9sj7CyAxn9b3wBz6lHx3bLcqlISXs9jcG6sugAUwtaFhTTQKLBtdoo6D4t/80DyHn
-	1G0NF/Cy4wvy1wvfT2lfv9tbL/FwqRLb9M//o2SX8xU/IF/c9ICvvLobz8WMwo/W81tEAQe4IKs
-	CA+o7+riHz3pp68dH/+ewe8I3jpp974vD63LddmuR8ohekmAoJH7HwGKhkY56eURQwnALG011Jp
-	shHmPtCq+Av/+7Jo80RB1OLgPzuIvIJFvyezuu4KfKrwW67UxZzZUzie4d30QmUQ0kOjCetm0XP
-	ARO1uFCqZU8HJh66v33c/CXySKC79eGJxFfAdblBFPBRZzHLLsOpeLdWKHOak6Ob7K+XF9q4Y=
-X-Google-Smtp-Source: AGHT+IGuRWjiz7++m6WWVCnzcpjeEmvOCfIfgPkkI+5Zi1UR9Uxv7NvfdyegqX+67terXOdN6E7qqg==
-X-Received: by 2002:a05:6000:43c5:20b0:426:d619:cac7 with SMTP id ffacd0b85a97d-429b4c985aamr2225435f8f.36.1761821198614;
-        Thu, 30 Oct 2025 03:46:38 -0700 (PDT)
-Message-ID: <2a8bbf67-90f6-4114-9951-099ee72d6021@suse.com>
-Date: Thu, 30 Oct 2025 11:46:36 +0100
+        d=1e100.net; s=20230601; t=1761822499; x=1762427299;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KPVei3AC58lafOD+u4KMBRphnbJclXFl+81EB4IY++I=;
+        b=A4tOkdWWbT//qigXsxeXdDby1d9vriHAFY1MN3RC5LYrpuj2XH8e+waH2s6WXHVoRG
+         bS/U3Uw8+71HPxvI1n963Z2eKiUFPmhcmCDfsfcuPBBGWSi8MGUgZtV4dbTLW61ExWTI
+         wVhdDgFOogAzbGRs5wIQgtY14bs4vRfrnRgmX5UkaZOfalXmv9oyLL6DXwDh0Rl0y0UH
+         2Mzgi4BBETVjR5PB9e/CKwC2zLJdjTpgsZt6EnQ0CQN1gIyK5aGRupizOgK8SVmZPh2V
+         KjamPFegrMhGlQslUKkIDlj1tUvDYWf5BTjadBF9GE+WUuYWyx9FtqyqD1k1UwfixRh8
+         jw1A==
+X-Forwarded-Encrypted: i=1; AJvYcCXpMRv5DVrYXoWC0Mh30ECbQVoCdl95hZgPYOqDJjk/GzNop4L1c8nluYjyqlMFobjcy/kyst9iOX8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzueXDyJzcVCs3J0bDT6fdFHFtns0OJ3aUrjEkHhonQ5pF1HCQX
+	8mGgJ+EBtWzsat/UXphLVxyvAXfsrsYUQLsEG7LkTLx131Uz9si3jvt4DAvkz0iEIQ==
+X-Gm-Gg: ASbGncsw6Ad5nX11tfp2f49H/Ij2QnsbBlTj6SXP5rIsA/0ieysUQ6GPLo4M2B/VfTR
+	pC052wpHlGq/XOy8vjPmtEqoptMwcnPd3Pm0PYPIl6kJfwUEzquplE0PhKjdcgQJXmxiK9VfrFU
+	vg0bVNbKEDD3TxODu6q+d2TEyBm1IY3sWeJ73hZNbB/4YMwKS4O/9sSdpGSDcS7RWJCP8e/7QFq
+	BlBnNi9B/DdS0a3V0XKgfzQj9Lgn/V+a4bp40Yusj6QW2Wlgd1R17L9INM3TW3wBiQm0hdm6+g3
+	RT9tYFz4fmhxNKGh9FFQur/FLEWKsl9u7a8PmQKYEX2I+EOTNulB6Rrp60W33Zfk8fsH1+ntmYg
+	51R1FFXDlNwDQIoXiaxat95H2L8/PzhEsk5S9fr2MmOE+17+NMBzkG81BBS3G14g16lm8Q9YHNs
+	g9k+KHqv+d2tdt2cHzXWJ+LBVFVthGHgGXkysZzZVj8sEtXOlKS1KIrBXOIaxLkgSFX3HTO4Q=
+X-Google-Smtp-Source: AGHT+IHJSGnFXNW9+8W5pXnz7C6OMocJw9Y9PTH6rjCUYCi2bruqxJZ+iATCBFBv3FaLj2Yjwig9TA==
+X-Received: by 2002:a05:6000:2c04:b0:427:7ad:cdac with SMTP id ffacd0b85a97d-429b4c89fc8mr2499763f8f.20.1761822498971;
+        Thu, 30 Oct 2025 04:08:18 -0700 (PDT)
+Message-ID: <308ecf14-e831-47f4-8c64-4005bb4dc857@suse.com>
+Date: Thu, 30 Oct 2025 12:08:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN][PATCH 1/3] x86/hvm: move hvm_shadow_handle_cd() in vmx code
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251029235448.602380-1-grygorii_strashko@epam.com>
+ <20251029235448.602380-2-grygorii_strashko@epam.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH RFC] symbols: check table sizes don't change between linking
- passes 2 and 3
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -120,227 +121,113 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251029235448.602380-2-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-While sizes (and possibly positions) of the symbol table related symbols
-(and as a result other ones) are expected to change from linking pass 1
-to pass 2, no such change should happen anymore from pass 2 to pass 3, or
-else the internally recorded symbol table wouldn't represent the ELF or
-PE/COFF ones.
+On 30.10.2025 00:54, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
+> 
+> Functions:
+>  hvm_shadow_handle_cd()
+>  hvm_set_uc_mode()
+>  domain_exit_uc_mode()
+> are used only by Intel VMX code, so move them in VMX code.
 
-For comparing to be actually useful, i.e. most notably also covering the
-last of the arrays emitted, symbol sizes need establishing. Make use of
-the xen/linkage.h machinery to achieve that.
+Nit: I think both in the title and here you mean "to" or "into".
 
-Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Likely other ports also want to add such checking. Really it would be nice
-if we could properly abstract out shared parts of the linking steps.
+> While here:
+> - minor format change in domain_exit_uc_mode()
+> - s/(0/1)/(false/true) for bool types
+> 
+> No functional changes.
+> 
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
 
-RFC: Aiui this can't go in as is right now, or we would break building Xen
-     with lld. Further changes are first needed to help the situation
-     there.
+You did read Andrew's request to also move the involved structure field(s),
+didn't you? Oh, wait - maybe that's going to be the subject of patch 3. While
+often splitting steps helps, I'm not sure that's very useful here. You're
+touching again immediately what you just have moved, all to reach a single
+goal.
 
-RFC: I'm all ears towards improvement suggestions in the temporary helper
-     file handling of compare-symbol-tables. Or ideally some approach to
-     avoid the use of a helper file altogether.
+> @@ -1421,6 +1422,64 @@ static void cf_check vmx_set_segment_register(
+>      vmx_vmcs_exit(v);
+>  }
+>  
+> +/* Exit UC mode only if all VCPUs agree on MTRR/PAT and are not in no_fill. */
+> +static bool domain_exit_uc_mode(struct vcpu *v)
+> +{
+> +    struct domain *d = v->domain;
+> +    struct vcpu *vs;
+> +
+> +    for_each_vcpu(d, vs)
+> +    {
+> +        if ( (vs == v) || !vs->is_initialised )
+> +            continue;
+> +        if ( (vs->arch.hvm.cache_mode == NO_FILL_CACHE_MODE) ||
+> +             mtrr_pat_not_equal(vs, v) )
+> +            return false;
+> +    }
+> +
+> +    return true;
+> +}
+> +
+> +static void hvm_set_uc_mode(struct vcpu *v, bool is_in_uc_mode)
+> +{
+> +    v->domain->arch.hvm.is_in_uc_mode = is_in_uc_mode;
+> +    shadow_blow_tables_per_domain(v->domain);
+> +}
 
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -146,6 +146,7 @@ $(TARGET)-syms: $(objtree)/prelink.o $(o
- 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort $(syms-warn-dup-y) \
- 		> $(dot-target).1.S
- 	$(MAKE) $(build)=$(@D) $(dot-target).1.o
-+	$(call compare-symbol-tables, $(dot-target).0.o, $(dot-target).1.o)
- 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
- 	    $(orphan-handling-y) $(dot-target).1.o -o $@
- 	$(NM) -pa --format=sysv $@ \
-@@ -226,6 +227,8 @@ endif
- 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
- 		> $(dot-target).1s.S
- 	$(MAKE) $(build)=$(@D) .$(@F).1r.o .$(@F).1s.o
-+	$(call compare-symbol-tables, $(dot-target).0r.o, $(dot-target).1r.o)
-+	$(call compare-symbol-tables, $(dot-target).0s.o, $(dot-target).1s.o)
- 	$(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T $(obj)/efi.lds $< \
- 	      $(dot-target).1r.o $(dot-target).1s.o $(orphan-handling-y) \
- 	      $(note_file_option) -o $@
---- a/xen/scripts/Kbuild.include
-+++ b/xen/scripts/Kbuild.include
-@@ -56,6 +56,19 @@ define filechk
- 	fi
- endef
- 
-+###
-+# Compare the symbol tables of two object files.  As diff's -I option isn't
-+# standardized, the name difference of the two object files needs abstracting
-+# out.
-+define compare-symbol-tables
-+    ln -f $(1) $(@D)/.cst.$$$$; \
-+    $(OBJDUMP) -t $(@D)/.cst.$$$$ > $(1).sym; \
-+    ln -f $(1) $(@D)/.cst.$$$$; \
-+    $(OBJDUMP) -t $(@D)/.cst.$$$$ > $(2).sym; \
-+    rm -f $(@D)/.cst.$$$$
-+    diff -u $(1).sym $(2).sym
-+endef
-+
- # as-insn: Check whether assembler supports an instruction.
- # Usage: cflags-y += $(call as-insn,CC FLAGS,"insn",option-yes,option-no)
- as-insn = $(if $(shell echo 'void _(void) { asm volatile ( $(2) ); }' \
---- a/xen/tools/symbols.c
-+++ b/xen/tools/symbols.c
-@@ -253,17 +253,26 @@ static void read_map(FILE *in)
- 	}
- }
- 
--static void output_label(char *label)
-+static void output_label(const char *label, bool keep)
- {
--	if (symbol_prefix_char)
--		printf(".globl %c%s\n", symbol_prefix_char, label);
--	else
--		printf(".globl %s\n", label);
--	printf("\tALGN\n");
--	if (symbol_prefix_char)
--		printf("%c%s:\n", symbol_prefix_char, label);
--	else
--		printf("%s:\n", label);
-+	static bool pending;
-+
-+	if (pending && !keep) {
-+		printf("END(CURRENT)\n");
-+		printf("#undef CURRENT\n\n");
-+	}
-+
-+	pending = label;
-+	if (!label)
-+		return;
-+
-+	if (symbol_prefix_char) {
-+		printf("DATA(%c%s, ALGN)\n", symbol_prefix_char, label);
-+		printf("#define CURRENT %c%s\n", symbol_prefix_char, label);
-+	} else {
-+		printf("DATA(%s, ALGN)\n", label);
-+		printf("#define CURRENT %s\n", label);
-+	}
- }
- 
- /* uncompress a compressed symbol. When this function is called, the best table
-@@ -331,22 +340,22 @@ static void write_src(void)
- 
- 		return;
- 	}
--	printf("#include <xen/config.h>\n");
-+	printf("#include <xen/linkage.h>\n");
- 	printf("#if BITS_PER_LONG == 64 && !defined(SYMBOLS_ORIGIN)\n");
- 	printf("#define PTR .quad\n");
--	printf("#define ALGN .balign 8\n");
-+	printf("#define ALGN 8\n");
- 	printf("#else\n");
- 	printf("#define PTR .long\n");
--	printf("#define ALGN .balign 4\n");
-+	printf("#define ALGN 4\n");
- 	printf("#endif\n");
- 
- 	printf("\t.section .rodata, \"a\"\n");
- 
- 	printf("#ifndef SYMBOLS_ORIGIN\n");
- 	printf("#define SYMBOLS_ORIGIN 0\n");
--	output_label("symbols_addresses");
-+	output_label("symbols_addresses", false);
- 	printf("#else\n");
--	output_label("symbols_offsets");
-+	output_label("symbols_offsets", true);
- 	printf("#endif\n");
- 	for (i = 0, ends = 0; i < table_cnt; i++) {
- 		printf("\tPTR\t%#llx - SYMBOLS_ORIGIN\n", table[i].addr);
-@@ -370,17 +379,15 @@ static void write_src(void)
- 		printf("\tPTR\t%#llx - SYMBOLS_ORIGIN\n",
- 		       table[i].addr + table[i].size);
- 	}
--	printf("\n");
- 
--	output_label("symbols_num_addrs");
-+	output_label("symbols_num_addrs", false);
- 	printf("\t.long\t%d\n", table_cnt + ends);
--	printf("\n");
- 
- 	/* table of offset markers, that give the offset in the compressed stream
- 	 * every 256 symbols */
- 	markers = malloc(sizeof(*markers) * ((table_cnt + ends + 255) >> 8));
- 
--	output_label("symbols_names");
-+	output_label("symbols_names", false);
- 	for (i = 0, off = 0, ends = 0; i < table_cnt; i++) {
- 		if (((i + ends) & 0xFF) == 0)
- 			markers[(i + ends) >> 8] = off;
-@@ -404,15 +411,12 @@ static void write_src(void)
- 		printf("\t.byte 0\n");
- 		++off;
- 	}
--	printf("\n");
- 
--	output_label("symbols_markers");
-+	output_label("symbols_markers", false);
- 	for (i = 0; i < ((table_cnt + ends + 255) >> 8); i++)
- 		printf("\t.long\t%d\n", markers[i]);
--	printf("\n");
- 
--
--	output_label("symbols_token_table");
-+	output_label("symbols_token_table", false);
- 	off = 0;
- 	for (i = 0; i < 256; i++) {
- 		best_idx[i] = off;
-@@ -420,34 +424,27 @@ static void write_src(void)
- 		printf("\t.asciz\t\"%s\"\n", buf);
- 		off += strlen(buf) + 1;
- 	}
--	printf("\n");
- 
--	output_label("symbols_token_index");
-+	output_label("symbols_token_index", false);
- 	for (i = 0; i < 256; i++)
- 		printf("\t.short\t%d\n", best_idx[i]);
--	printf("\n");
- 
--	if (!sort_by_name) {
--		free(markers);
--		return;
--	}
--
--	output_label("symbols_num_names");
--	printf("\t.long\t%d\n", table_cnt);
--	printf("\n");
--
--	/* Sorted by original symbol names and type. */
--	qsort(table, table_cnt, sizeof(*table), compare_name_orig);
--
--	output_label("symbols_sorted_offsets");
--	/* A fixed sized array with two entries: offset in the
--	 * compressed stream (for symbol name), and offset in
--	 * symbols_addresses (or symbols_offset). */
--	for (i = 0; i < table_cnt; i++) {
--		printf("\t.long %u, %u\n", table[i].stream_offset, table[i].addr_idx);
-+	if (sort_by_name) {
-+		output_label("symbols_num_names", false);
-+		printf("\t.long\t%d\n", table_cnt);
-+
-+		/* Sorted by original symbol names and type. */
-+		qsort(table, table_cnt, sizeof(*table), compare_name_orig);
-+
-+		/* A fixed sized array with two entries: offset in the
-+		 * compressed stream (for symbol name), and offset in
-+		 * symbols_addresses (or symbols_offset). */
-+		output_label("symbols_sorted_offsets", false);
-+		for (i = 0; i < table_cnt; i++)
-+			printf("\t.long %u, %u\n", table[i].stream_offset, table[i].addr_idx);
- 	}
--	printf("\n");
- 
-+	output_label(NULL, false);
- 	free(markers);
- }
- 
+Similarly I wonder whether this function wouldn't better change to taking
+struct domain * right away. "v" itself is only ever used to get hold of
+its domain. At the call sites this will then make obvious that this is a
+domain-wide operation.
+
+> +static void hvm_shadow_handle_cd(struct vcpu *v, unsigned long value)
+> +{
+> +    if ( value & X86_CR0_CD )
+> +    {
+> +        /* Entering no fill cache mode. */
+> +        spin_lock(&v->domain->arch.hvm.uc_lock);
+> +        v->arch.hvm.cache_mode = NO_FILL_CACHE_MODE;
+> +
+> +        if ( !v->domain->arch.hvm.is_in_uc_mode )
+> +        {
+> +            domain_pause_nosync(v->domain);
+> +
+> +            /* Flush physical caches. */
+> +            flush_all(FLUSH_CACHE_EVICT);
+> +            hvm_set_uc_mode(v, true);
+> +
+> +            domain_unpause(v->domain);
+> +        }
+> +        spin_unlock(&v->domain->arch.hvm.uc_lock);
+> +    }
+> +    else if ( !(value & X86_CR0_CD) &&
+> +              (v->arch.hvm.cache_mode == NO_FILL_CACHE_MODE) )
+> +    {
+> +        /* Exit from no fill cache mode. */
+> +        spin_lock(&v->domain->arch.hvm.uc_lock);
+> +        v->arch.hvm.cache_mode = NORMAL_CACHE_MODE;
+> +
+> +        if ( domain_exit_uc_mode(v) )
+> +            hvm_set_uc_mode(v, false);
+> +
+> +        spin_unlock(&v->domain->arch.hvm.uc_lock);
+> +    }
+> +}
+
+This function, in turn, could do with a local struct domain *d.
+
+>  static int cf_check vmx_set_guest_pat(struct vcpu *v, u64 gpat)
+>  {
+>      if ( !paging_mode_hap(v->domain) ||
+
+Why did you put the code above this function? It's solely a helper of
+vmx_handle_cd(), so would imo best be placed immediately ahead of that one.
+
+Bottom line: The change could go in as is, but imo it would be nice if it
+was tidied some while moving.
+
+Jan
 
