@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC5ECC1FBC4
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 12:12:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1153513.1483835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C9B0C1FCBB
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 12:24:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1153528.1483845 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEQZl-0005ma-Nd; Thu, 30 Oct 2025 11:12:17 +0000
+	id 1vEQl7-0007fx-P0; Thu, 30 Oct 2025 11:24:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1153513.1483835; Thu, 30 Oct 2025 11:12:17 +0000
+Received: by outflank-mailman (output) from mailman id 1153528.1483845; Thu, 30 Oct 2025 11:24:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEQZl-0005k9-KE; Thu, 30 Oct 2025 11:12:17 +0000
-Received: by outflank-mailman (input) for mailman id 1153513;
- Thu, 30 Oct 2025 11:12:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vEQl7-0007dC-M8; Thu, 30 Oct 2025 11:24:01 +0000
+Received: by outflank-mailman (input) for mailman id 1153528;
+ Thu, 30 Oct 2025 11:24:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+HTt=5H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vEQZj-0005k1-IZ
- for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 11:12:15 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 49d07af0-b581-11f0-9d16-b5c5bf9af7f9;
- Thu, 30 Oct 2025 12:12:14 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-429b85c3880so628524f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 04:12:14 -0700 (PDT)
+ id 1vEQl7-0007d5-5e
+ for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 11:24:01 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id edb93d23-b582-11f0-980a-7dc792cee155;
+ Thu, 30 Oct 2025 12:23:58 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-471191ac79dso10366065e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 04:23:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429952cb55asm31617277f8f.17.2025.10.30.04.12.13
+ 5b1f17b1804b1-4771906af34sm63049965e9.14.2025.10.30.04.23.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Oct 2025 04:12:13 -0700 (PDT)
+ Thu, 30 Oct 2025 04:23:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49d07af0-b581-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: edb93d23-b582-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761822734; x=1762427534; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761823438; x=1762428238; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=t6pg0tkMpRg5zJ6c+s0afH5KumfJRk5TOLT72LUWPVM=;
-        b=Qm4eEhTiQWv5eSasSqgdBzSHm6P4AcsOwqlHJdRHaBYjI40RyT7mwNyXw44ylRQjPw
-         UafSpHT7SwiGZsyfmCPQyZf5oRY15hq6lEGgu6YkI/iNX4KAnTIrGYAtpS6NtcW56ckZ
-         eSKPyiisBau2wrid8Da3b0lo/epxD9KR/RuvVMNPdOY8+PGj88rXsIIVA/3SqA9eMNlb
-         mejrMWFlgU7AHpHtiUe/K/cfUjmttQgcHFsvDHb2nn6nE420mQ6SfEbaQzLZEMcHXjKs
-         GRmEZtiQf6oTLg5BDuvipwJ2np460sLCEhWf+hfdz+EDWmJBuTC7yduNvAlK/BSHmsOX
-         Nq+w==
+        bh=Un0AxXYf3WeD6i4MvWi8fdAtJo5uCn8b/Qq3EMnL41Y=;
+        b=UW7YQ9aZUGM4r0a+QF8Y19GED2TDjYkFrzFmhFQp5uH+48OEAAORNpQwt8O3RQ+fSK
+         hVcYZIRIqUBkJ4erDuldJnZjFFRIShDs6NT1FQd8GfekiMDe53KQzl2lJq4KTpWzIFGW
+         22lvWw6CQIgBPsJOmILQ8n8UIBZ1q+ZXmbSwasYBav6BtA64W3rmP+E79JeKO4E8F1aJ
+         yEhJZzufsUZcZx5HzLCdMJXsFR2ONBBikPepTYJGJXb3sE7+e01KHu0e+oNZwVUjR2IJ
+         FJTIP5w1DGkh0jDrct1IMpEhXrulSPg53c6sRR5iJJ9N2qk2T91CORUR/pth5mohIogo
+         q9ZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761822734; x=1762427534;
+        d=1e100.net; s=20230601; t=1761823438; x=1762428238;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=t6pg0tkMpRg5zJ6c+s0afH5KumfJRk5TOLT72LUWPVM=;
-        b=kecMBOPzqin2d2tsDpmM2NOiJA1QxXkFRViJezpqvb9c1FM1ndCWACOAxQnNTb0Pxi
-         mnZnSEUSw/ZxuWeGHd6cD97XoylmmFSonBZ83AoeaaRCuVJUjbBOQEKu+V3Y0C4aHskq
-         N1j8PgncKTjeBVpLcHQn/h2vNsJY/FfC7Y4mWtROx26X84foXv6v4O91DJgDfC6oTdQy
-         0rCcVcKAe6N4xVnSQJNn7rJ0DeClOADmSRlkpsUSNA5F0bXwSiz+VU+E1daUrH6U84w+
-         GC/Uv3odrnzQfbECJ99XGY8oAX8OE6QNdbg8xwagTmjh31Ho/I+Ji1S6tXjacDnuzDE3
-         d9jg==
-X-Forwarded-Encrypted: i=1; AJvYcCU/mUiDNzFjxRFHiEnK1KrFxN9BdV8qsnk+3OA+DLdfl/vERugSHhM5KP0X7Ut0Yy5KQcxoENkaPD4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx8Tn7OivfJ0la9ctc7hOwL1Ye8SeE5Gt22tMQNpGTVnJ9XI/rB
-	kQWyXtg288m4TyeEr+9GnBtgPBC7MO1JSAhiFXzjQ4cUZ2heTSq+AIflVUphH9R2cw==
-X-Gm-Gg: ASbGncvCfru/4aiG7ELTLsb3WW16FBOShg1XssYzwYTHSlPEhnjOPWZN1fkQz0wkZGD
-	htVXgh9XUi/uXUHHKZpMXnmsGTncTr9+54ic+bKsAipBdXs/q6j7n740WwhVDu3Sj9rXUH0syNJ
-	p1gyw/bPZotPm8KBKO2qKEWNpkJEODjhHFhcn9skmSg3JlHlj1MN3qehL7YYuQ8Xe1sSIPJ7f7J
-	eETUITgNm0WRhYQ4Lx67dA0FB67uUHIY6+mfpG0S+9jvRABtymtiYsh+5Rw2MKuar2pLrrRs/T0
-	1vkMuGYgQ0xf15NVgOQjXdTZpUapeChxNFJ4/CxCpqGjdsXVDSonDV0u4Yg0MrziEZIvJFQx5lP
-	/JOiF3DurUKCOfiwLCcMTseev+b/yzXeuXGGPQSkmrVrFgJdYmgaPs+cbWTbrQ4dY7y5nlKzrZw
-	TflJiAAUz4gJX5/QneJil/HG2WxKTSgU2fbp7aAQ6xmoejjnX8NWT7XUIvOlcl
-X-Google-Smtp-Source: AGHT+IEt0MiQ7zg/8DI8tgyNkMeuq1IzuaZlFaMPeEvdTw2AyOwpOx/geB7ed8WF5k5HO5aKurkO0Q==
-X-Received: by 2002:a05:6000:491c:b0:429:8bfe:d842 with SMTP id ffacd0b85a97d-429aef735c9mr5187353f8f.4.1761822733882;
-        Thu, 30 Oct 2025 04:12:13 -0700 (PDT)
-Message-ID: <32fd9825-45b7-470c-ad0e-f1941faa4d52@suse.com>
-Date: Thu, 30 Oct 2025 12:12:12 +0100
+        bh=Un0AxXYf3WeD6i4MvWi8fdAtJo5uCn8b/Qq3EMnL41Y=;
+        b=VHjiBcxCh6w4VKlBRtiCUnCenqHB/iLjP8QDTy06wJvIKHJiyU9cSdW15lErnLw5Ta
+         IuCjraLzL5zfujsl+RrvEWBwWz4xFHm2jCPoztuiCpR6jmUfaNj/lidCBAIGfoJvAcQg
+         Fn4IVBLBFui74ZWqJpCV+4LtsSO0hsb5bEOqi/gIH0rtavf9l6PTIxCdnn7fATVZ62br
+         TDgdOM8Eo+2gxs05EoAle4LZ5ko6bdpmS4UIU6FOiW8JVFp1h330h7foJFlQrfhAZGVq
+         mJgg1W1/iwAkhJ6N4BOMGUOGewU2NNdyKoOwo/Gh5afeE1Mc5J8dlIb1s4d841k0x6Kr
+         f4Vg==
+X-Forwarded-Encrypted: i=1; AJvYcCU0GO9Yzk5EoYR06ERjCS9FHz6OlbBUgMRBuVcbcjDlVBx++YhxxzH5K4gOI1LcnmhHw8SMev7tJPM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yys36AwautCLtA9ygxa22P/BD4jxbcsJMaSoYsbU+AOFM4MTmgW
+	F+ALLdQLgm1yX+bO5Sqwpw4jt9LVRXL6saTfCp9U8YWIqVGJvx6yLX0zyI9sWGOzPw==
+X-Gm-Gg: ASbGnct3hWRoPVi0bAE3tIqDxA01ym8XZ1tc/0k/tHHGKJsfG29BKTy68Ahc+Ged/KA
+	0EHF26RzQF+2xY70bEmGRao59r599h2VdZMBScYWZnyzT3jmwdHmXi3ClZ5N7+ooSbicl0YstWK
+	HL0X7jbkJ5HSDpHs+Udun+3iIUPcV02DHRd2t5kYUddMVZ2yxl9dIewOwWMs5Ny/oOE9spxEyRj
+	5cHczICkWhSv9WaZuNDqcZPYoBLtz+6b7mK9x7J3W6W987hDawGmrffv9X6fIDS+2MzxTPHF7Xi
+	keGWeXFf/9a5y9S1uTYN+g/CX/Ee+zM80vHHVehxzY2mAEEuHgYVAGMfGhMeZP5WWNAb/sCG/Op
+	HPBp9gelHcQDOqGKBqgZrwpSwru/w4/WO4rNQp3VjvyeMqzR36kvTCCU6YY3porDfF6cBD4QOe/
+	RNw5WxBe8HMvU4d4TJU/LR9EdM1ZDqOjDJbhAa1Ni8+YdZ8Tm+xxgqOmxDCwcK
+X-Google-Smtp-Source: AGHT+IH+nJvR7m+ccNulcSzuF5Oghtb52N1Ckogd8oR1sIgdhHnz0saiD+p83ticJeGF22qQL8vXDA==
+X-Received: by 2002:a05:600c:3509:b0:45f:2cb5:ecff with SMTP id 5b1f17b1804b1-4771e1edaa4mr62367795e9.31.1761823438198;
+        Thu, 30 Oct 2025 04:23:58 -0700 (PDT)
+Message-ID: <52395897-0e7f-4d24-8a28-0a303ff717b5@suse.com>
+Date: Thu, 30 Oct 2025 12:23:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH 2/3] x86/hvm: vmx: account for SHADOW_PAGING when use
- hvm_shadow_handle_cd()
+Subject: Re: [XEN][PATCH 3/3] x86/hvm: vmx: refactor cache disable mode data
 To: Grygorii Strashko <grygorii_strashko@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
+ Tim Deegan <tim@xen.org>, Jason Andryuk <jason.andryuk@amd.com>,
+ Teddy Astie <teddy.astie@vates.tech>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20251029235448.602380-1-grygorii_strashko@epam.com>
- <20251029235448.602380-3-grygorii_strashko@epam.com>
+ <20251029235448.602380-4-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,36 +122,94 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251029235448.602380-3-grygorii_strashko@epam.com>
+In-Reply-To: <20251029235448.602380-4-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 30.10.2025 00:54, Grygorii Strashko wrote:
 > From: Grygorii Strashko <grygorii_strashko@epam.com>
 > 
-> The hvm_shadow_handle_cd() can be used only with SHADOW_PAGING=y,
-> so guard hvm_shadow_handle_cd() call with IS_ENABLED(CONFIG_SHADOW_PAGING).
+> The Cache Disable mode data is used only by VMX code, so move it from
+> common HVM structures into VMX specific structures:
+> - move "uc_lock", "is_in_uc_mode" fields from struct hvm_domain to struct
+> vmx_domain;
+> - move "cache_mode" field from struct hvm_vcpu to struct vmx_vcpu.
 > 
-> bloat-o-meter
->  add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-290 (-290)
+> Hence, the "is_in_uc_mode" field is used directly in mm/shadow/multi.c
+> _sh_propagate(), introduce the hvm_is_in_uc_mode() macro to avoid direct
+> access to this field and account for INTEL_VMX configuration.
 > 
 > Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
 
-Requested-by: <me> (or some other of the available tags)?
+Requested-by: Andrew ?
 
 > --- a/xen/arch/x86/hvm/vmx/vmx.c
 > +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -1506,7 +1506,7 @@ static int cf_check vmx_get_guest_pat(struct vcpu *v, u64 *gpat)
+> @@ -583,6 +583,7 @@ static int cf_check vmx_domain_initialise(struct domain *d)
+>      int rc;
 >  
->  static void cf_check vmx_handle_cd(struct vcpu *v, unsigned long value)
->  {
-> -    if ( !paging_mode_hap(v->domain) )
-> +    if ( IS_ENABLED(CONFIG_SHADOW_PAGING) && !paging_mode_hap(v->domain) )
+>      d->arch.ctxt_switch = &csw;
+> +    spin_lock_init(&d->arch.hvm.vmx.uc_lock);
 
-I don't think there's a need for IS_ENABLED() here - you can simply switch to
-using paging_mode_shadow(). That would be more correct anyway, for the abstract
-case of there being a 3rd paging mode. With the adjustment:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I don't think this is the best place; in any event it wants to be separated from
+adjacent code by a blank line. I'd prefer if it was put ...
+
+>      /*
+>       * Work around CVE-2018-12207?  The hardware domain is already permitted
+
+... below this CVE workaround.
+
+> --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> @@ -46,7 +46,9 @@ struct ept_data {
+>  
+>  #define _VMX_DOMAIN_PML_ENABLED    0
+>  #define VMX_DOMAIN_PML_ENABLED     (1ul << _VMX_DOMAIN_PML_ENABLED)
+> +
+>  struct vmx_domain {
+> +    spinlock_t uc_lock;
+>      mfn_t apic_access_mfn;
+>      /* VMX_DOMAIN_* */
+>      unsigned int status;
+
+Any reason to make this the very first field of the struct? It might better
+live adjacent to the other field you move; there's going to be some padding
+anyway, afaict.
+
+> @@ -56,6 +58,12 @@ struct vmx_domain {
+>       * around CVE-2018-12207 as appropriate.
+>       */
+>      bool exec_sp;
+> +    /*
+> +     * If one of vcpus of this domain is in no_fill_mode or
+> +     * mtrr/pat between vcpus is not the same, set is_in_uc_mode.
+> +     * Protected by uc_lock.
+> +     */
+> +    bool is_in_uc_mode;
+
+Imo while moving, the is_ prefix could also be dropped. It doesn't convey any
+extra information on top of the in_, and I think we prefer is_*() also as
+typically function(-like) predicates. (I.e. in hvm_is_in_uc_mode() I'm fine
+with the name.)
+
+> @@ -93,6 +101,9 @@ struct pi_blocking_vcpu {
+>      spinlock_t           *lock;
+>  };
+>  
+> +#define NORMAL_CACHE_MODE          0
+> +#define NO_FILL_CACHE_MODE         2
+
+As you necessarily touch all use sites, could we switch to the more common
+CACHE_MODE_* at this occasion? Also imo these want to live ...
+
+> @@ -156,6 +167,9 @@ struct vmx_vcpu {
+>  
+>      uint8_t              lbr_flags;
+>  
+> +    /* Which cache mode is this VCPU in (CR0:CD/NW)? */
+> +    uint8_t              cache_mode;
+
+... right next to the field they belong to.
 
 Jan
 
