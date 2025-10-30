@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB3E9C1FF1E
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 13:12:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1153581.1483884 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E13FFC1FF45
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 13:15:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1153593.1483895 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vERVT-00083i-Vd; Thu, 30 Oct 2025 12:11:55 +0000
+	id 1vERYW-0000Hb-FW; Thu, 30 Oct 2025 12:15:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1153581.1483884; Thu, 30 Oct 2025 12:11:55 +0000
+Received: by outflank-mailman (output) from mailman id 1153593.1483895; Thu, 30 Oct 2025 12:15:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vERVT-00082B-S3; Thu, 30 Oct 2025 12:11:55 +0000
-Received: by outflank-mailman (input) for mailman id 1153581;
- Thu, 30 Oct 2025 12:11:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vERYW-0000FS-Cl; Thu, 30 Oct 2025 12:15:04 +0000
+Received: by outflank-mailman (input) for mailman id 1153593;
+ Thu, 30 Oct 2025 12:15:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+HTt=5H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vERVR-00081t-RI
- for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 12:11:53 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9e3ab59e-b589-11f0-980a-7dc792cee155;
- Thu, 30 Oct 2025 13:11:52 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3ee64bc6b85so966683f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 05:11:51 -0700 (PDT)
+ id 1vERYV-0000FM-6G
+ for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 12:15:03 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0c939538-b58a-11f0-9d16-b5c5bf9af7f9;
+ Thu, 30 Oct 2025 13:14:57 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3ee15b5435bso774147f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 05:14:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429952b79cbsm31797195f8f.4.2025.10.30.05.11.50
+ ffacd0b85a97d-429952d5773sm34019004f8f.27.2025.10.30.05.14.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Oct 2025 05:11:51 -0700 (PDT)
+ Thu, 30 Oct 2025 05:14:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e3ab59e-b589-11f0-980a-7dc792cee155
+X-Inumbo-ID: 0c939538-b58a-11f0-9d16-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761826311; x=1762431111; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761826496; x=1762431296; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lb+ITqz/osCli66h6LV6unEl/fCffaGx/xLxzW610ic=;
-        b=B5wC9BGln3FVvQ8Gp78Nv8X/fF6S9bLELmv4GLbdv7PYzfUnE2SlWM7ECIyBqrtGq9
-         oUvAk4OaVyIegPQ5Mylt1KKJU2BSsRwEgalDBsB+myYH1P5DeJ3q2xNBZr/lAFEpr1g5
-         pFpramadUnuZXh/eV7YGFhlLuS35vub99XdGAQIziY9VJCWXvb2wo0VO2NalL6f4O2sI
-         am7zgtUuncVFUbNelrUX5S0rp4N3A02qdQISp6dS6pvw1YkWVMj0bYLxh5CFNjeiwPUJ
-         cXAQ99Tqti97NobGCdZgV/tO9bkENwPKTqfNxwUba7hOqF75WEZlXRp7youLR6NhxG2N
-         glbA==
+        bh=KOPmQcZJzkMNEbMCIJ6xHun347MW+SWeXo76h3jWv58=;
+        b=A6r3mZVpEr6FL3VIXx7yNXX8UrJXSTPvSHYEwIjGk8852db8G3jnzgHtaHxKoLsm0T
+         RaCEVT2LIZq/vNRNE/hEKtNvOnQlJ94rO4sYwLDycx8EZglo2wsFpaMeVVmIp4sWfaSj
+         emXRcWvY5Sm0WZciR5hXJUqOzmW5oeZSTQsJYHxpqjp6o2NM+Ke2//9UmHE9Zd30ii2n
+         Z+gc848OLyL/aaI9W6qEHJqBkY9Z4EykYYKNe0cUY8Ab/R0hyHb72++rBF5xwn0ccJzW
+         JYl2Tfs+WPUUKIs+71o0LF/ntf1bZv+ebjgCTLdhgy8BRWDoH7Z4SNR9nwjQcOXIYbiF
+         1UwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761826311; x=1762431111;
+        d=1e100.net; s=20230601; t=1761826496; x=1762431296;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lb+ITqz/osCli66h6LV6unEl/fCffaGx/xLxzW610ic=;
-        b=RXA+uRJLfklKF6By911C9wurmFHHrCcun2lbRGgCNFVYoMaWqrQTsPvCjg+cCA94Ql
-         Om/KTDjR6xgRhF386jj1rXDSU9tr8feprZGusBZMV57e5osOsaX7WWJ73sE9IA1xq3BH
-         LT57znyZh36qz0CHfhUwseRi7kGOqFoqYU0amYXo5LSD+mmcjzk7/Of8Q1PQTT37KZqs
-         bbB6ymtQRfAivYLalNCrR2ayBJYbJSjj3inAz9T1HjfZiPR1Ixc9yP7MwpzfGp9UJZRR
-         qVGXXXykGmQqSWDUnB9eZLJ5EKA+DdspeRd0NX+O3HUXMZw2QNofcaVkuaFZDZSywexZ
-         MQ6A==
-X-Forwarded-Encrypted: i=1; AJvYcCVjdwMYcWvNUwrcZEandLbeJQQs9RZAnCY9/XLx3LiYjSNLH6999HaF8iqgRhVMQ3VthYF9XQNuwig=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzDg20+ZXZaA4A7fkfLvnS2Ciz9fAWhYHqKUtvTG1VfOVa+iXCA
-	SfiBOESfO7JqGbKdp3xP+jHWQs+Kne9dxSq1S9FWa851uvdgdbh4xW7nchF14QYbgQ==
-X-Gm-Gg: ASbGncsScftq4wsYXUUw8TwhtMLx1LFq8M/F8cYbk5F3wFfYi6k03FT8iBf0QT1tlbn
-	gKPypC9eQ9gupCVSlKuUBFkNsopLjFiSuyWcYydKStehxQxQv01n+u49a1+cNrSwSuvISOT0/Gg
-	TButch3/LR1xEiOE0tlORu/KOfoTDOhFnEWwu9L91TXP0buGW6XmXhxflpRaflVlidne4L8LiJl
-	78JEmC5GNnWR0ghgsCWxY9Xxa0y6hioNigf9f61mI5Orc5b724O9J/jkm9JJz5iSXlgJ73RVqHb
-	1oGqxAx+vQH14+lWWuyKYXh6avwYfFGngmS56yHd6PS0W4YXU347gpPmH294tfMsboTmk0B5kcP
-	UnQafmH/SF30DtREhUaNv5FhZ5sngXXDJh/D+xNUj42v6yrODxd3TMI2i+uAT3dsY75VPlCpnX0
-	ZQ/okFobUjhggdAUXvLLzaAb/hwyYxGKgQASiKf6l4bPnHGjwx02RKB7uolHeC7B1cEApPA0+cm
-	NLh9miH3Q==
-X-Google-Smtp-Source: AGHT+IH4GOD4md/A8Yfqy7mgMQjKWA+/4VdxWo4vilmgR4dnX9uFBzFHD1YqKoP2Jh30yIz57rXnkg==
-X-Received: by 2002:a05:6000:1885:b0:429:8afb:ed5e with SMTP id ffacd0b85a97d-429b4c7f885mr2312288f8f.8.1761826311325;
-        Thu, 30 Oct 2025 05:11:51 -0700 (PDT)
-Message-ID: <456e115b-19a4-4be2-81c7-39839ec8392d@suse.com>
-Date: Thu, 30 Oct 2025 13:11:49 +0100
+        bh=KOPmQcZJzkMNEbMCIJ6xHun347MW+SWeXo76h3jWv58=;
+        b=eoVwHUvNaaMgRUWI3waYGbR90ovuVrprgH9Np6uiphEDdJP4ByLlrtb0Bc5aAfF4MF
+         f7yMU98g1QcIt6fWSoqlUa1/q1vZnUu4cLW02n1h2mCUpE6xyyybvJaC9Dqj639VYb+x
+         OIXm9jndu5RE0F6XPp4MN0MunjI/pJDk8OM94KCVgHpdgVRv1mPwc0N+/btpnI7relOM
+         0OGsgyrffdIBS5LFCLxJqfOyjUhPNNnSH4w7mpqyri+Tn0ZMfAHoLQOoFSHK4+8rLCwk
+         nNbEemmRIF/plp0DBFhv3qQ9nqxXXVUorjAj+eK6W6n/yXY/aEuermVhyIwO1901iUVT
+         POxA==
+X-Forwarded-Encrypted: i=1; AJvYcCVF+sZlDx+y4k5DbYHdeaGiCK4e+s96zje43JQS3LpqONDakQYecbIsbU3jNP1cpy9righRWtaDXYg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwLilauK0g64nAXg0JoCw1KJ2EBqFj/IHcBqS0uVGzEM5r/OXdB
+	PJbgA4HJpZghmzz1Wa8747NHmAxeLm0dyu5MZ/oaPPTgcuCkXxgLYPIENVFqATNrwg==
+X-Gm-Gg: ASbGncvIXqdTYj14cubA4JAm1EHyqBE9K3ZxdGCGP57l5ySUUoH6i4MS85U/50xqnOm
+	xvoAjWVtjZ/haUGOWTTupuellTgGT56e7urxxVP0IzNZQcuAJg2qtB/kgfmGai5nirjRUKpAAvo
+	qmqTkjY1XpBMYczEJDa3msS1HKFNr8w8HQoyBGiOTcF5dKSTNB4pDMnT+SAyetwIhCV6LOENGK2
+	lj/TuATuG4LhrDg+t1MCA1TPQdTfSRKM7z6USDVvUa4c+7zTwoSwyWR8D12Fa/sf9nL87LeYtP9
+	S3Vj25YaJ3gHrvFJ1ruGk61wIu76Qm0GYSOkD7xb/XN7cMwl6eytZXTOctdNbafeZuYrGgLTAAX
+	k55422JnWdXMMkCgQ6VVCZc01faboOF5T3oJT+3BtcUfNdfO86cdkKQxCP8oOaDlQ13lfC15MQv
+	0Z8SV+Kdd+cgc+ZnoX3O4JDK7GYhhb5CWEM1MUEiigjPsVh7ZZ4+mQUxzDwePZ1We0IG/lPFQ=
+X-Google-Smtp-Source: AGHT+IEar9qLKH60P1kNdT9f2JtTKXPCs9A3ImN/hoRqoCq+NbPxpTqXev/HqB0DOzuvJJBr+yIxRA==
+X-Received: by 2002:a5d:5c89:0:b0:427:5ae:eb89 with SMTP id ffacd0b85a97d-429aefafcd4mr4902287f8f.34.1761826496519;
+        Thu, 30 Oct 2025 05:14:56 -0700 (PDT)
+Message-ID: <5bd47e4e-f255-41de-88c2-d7f11205643b@suse.com>
+Date: Thu, 30 Oct 2025 13:14:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH 2/3] x86/hvm: vmx: account for SHADOW_PAGING when use
- hvm_shadow_handle_cd()
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v3 13/28] xen/domctl: wrap domain_soft_reset() with
+ CONFIG_MGMT_HYPERCALLS
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, oleksii.kurochko@gmail.com,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251029235448.602380-1-grygorii_strashko@epam.com>
- <20251029235448.602380-3-grygorii_strashko@epam.com>
- <32fd9825-45b7-470c-ad0e-f1941faa4d52@suse.com>
- <483bb615-addf-4038-995d-9babb79ba85c@epam.com>
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Christopher Clark <christopher.w.clark@gmail.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20251013101540.3502842-1-Penny.Zheng@amd.com>
+ <20251013101540.3502842-14-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,30 +132,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <483bb615-addf-4038-995d-9babb79ba85c@epam.com>
+In-Reply-To: <20251013101540.3502842-14-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.10.2025 13:07, Grygorii Strashko wrote:
+On 13.10.2025 12:15, Penny Zheng wrote:
+> Function domain_soft_reset() is responsible for domain soft reset domctl-op,
+> and shall be wrapped with CONFIG_MGMT_HYPERCALLS
+> Tracking its calling chain, and the following functions shall also be wrapped
+> with CONFIG_MGMT_HYPERCALLS:
+> - grant_table_warn_active_grants()
+> - argo_soft_reset()
+> - arch_domain_soft_reset()
+> Otherwise they will become unreachable when MGMT_HYPERCALLS=n and hence
+> violating Misra rule 2.1.
 > 
-> 
-> On 30.10.25 13:12, Jan Beulich wrote:
->> On 30.10.2025 00:54, Grygorii Strashko wrote:
->>> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>>
->>> The hvm_shadow_handle_cd() can be used only with SHADOW_PAGING=y,
->>> so guard hvm_shadow_handle_cd() call with IS_ENABLED(CONFIG_SHADOW_PAGING).
->>>
->>> bloat-o-meter
->>>   add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-290 (-290)
->>>
->>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->>
->> Requested-by: <me> (or some other of the available tags)?
-> 
-> Will do. or Suggested-by:?
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
-Your choice.
+This imo wants doing differently, with all the per-arch stubs going away. I've sent
+a patch (with you Cc-ed), on top of which all that should remain for this series
+would be to add a dependency to the new HAS_SOFT_RESET. Possibly that could then
+even be folded into some other patch (doing something similar).
 
 Jan
 
