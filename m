@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1385C20FA3
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 16:39:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1153839.1484104 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5742C2114D
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 17:03:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1153854.1484115 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEUkQ-0004qj-4O; Thu, 30 Oct 2025 15:39:34 +0000
+	id 1vEV7C-0001Xg-1Z; Thu, 30 Oct 2025 16:03:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1153839.1484104; Thu, 30 Oct 2025 15:39:34 +0000
+Received: by outflank-mailman (output) from mailman id 1153854.1484115; Thu, 30 Oct 2025 16:03:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEUkQ-0004oD-1d; Thu, 30 Oct 2025 15:39:34 +0000
-Received: by outflank-mailman (input) for mailman id 1153839;
- Thu, 30 Oct 2025 15:39:33 +0000
+	id 1vEV7B-0001WF-Uj; Thu, 30 Oct 2025 16:03:05 +0000
+Received: by outflank-mailman (input) for mailman id 1153854;
+ Thu, 30 Oct 2025 16:03:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CzSz=5H=raptorengineering.com=tpearson@srs-se1.protection.inumbo.net>)
- id 1vEUkP-0004o7-5T
- for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 15:39:33 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9ffb930e-b5a6-11f0-980a-7dc792cee155;
- Thu, 30 Oct 2025 16:39:30 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id D895B77908EA;
- Thu, 30 Oct 2025 10:39:29 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id eorYMY11hG0D; Thu, 30 Oct 2025 10:39:29 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id DD98E77908F4;
- Thu, 30 Oct 2025 10:39:28 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 74JTIp6AG3wN; Thu, 30 Oct 2025 10:39:28 -0500 (CDT)
-Received: from vali.starlink.edu (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id B097C77908EA;
- Thu, 30 Oct 2025 10:39:28 -0500 (CDT)
+ <SRS0=Ek+I=5H=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vEV7A-0001W8-0X
+ for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 16:03:04 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e78ca313-b5a9-11f0-980a-7dc792cee155;
+ Thu, 30 Oct 2025 17:02:58 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-63e18829aa7so1716262a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 09:02:58 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-63e7ef6c129sm15306299a12.3.2025.10.30.09.02.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 30 Oct 2025 09:02:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,174 +45,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ffb930e-b5a6-11f0-980a-7dc792cee155
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com DD98E77908F4
+X-Inumbo-ID: e78ca313-b5a9-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1761838768; bh=G9E+BRV1KsxFbFHNEBqI/47V8VetK24k8GNC43VcDiU=;
-	h=Date:From:To:Message-ID:MIME-Version;
-	b=E6FIB7NtxPWnPpdch6cPc4R9fxSjbB3d/3bgESCGh+nfaOfQ3G2VmFO9qTdfICdjg
-	 yVr3cZdzw225P0tWgFkx3ByQeA/OOwxvUlPRr+46mUERG0hJB+kYNPvqMQjb5ZSG34
-	 EiPA4aL4KkqEvpJV2RQmSNyPx/MazFTEfaAfNTeI=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Date: Thu, 30 Oct 2025 10:39:28 -0500 (CDT)
-From: Timothy Pearson <tpearson@raptorengineering.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, shawn <shawn@anastas.io>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	Anthony PERARD <anthony.perard@vates.tech>, 
-	Michal Orzel <michal.orzel@amd.com>, 
-	Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
-Message-ID: <545054429.6351.1761838768580.JavaMail.zimbra@raptorengineeringinc.com>
-In-Reply-To: <0a03cfe0-680e-444c-a1d2-85b3a0f6e90d@suse.com>
-References: <1794235010.4856.1761754917625.JavaMail.zimbra@raptorengineeringinc.com> <alpine.DEB.2.22.394.2510291238140.495094@ubuntu-linux-20-04-desktop> <35b2e61b-d1c1-47c0-90e2-7efa1f45243f@suse.com> <1788041210.6163.1761836977190.JavaMail.zimbra@raptorengineeringinc.com> <8b4b5561-af7f-4917-aea1-4ed65a0f3023@suse.com> <927229739.6325.1761838270637.JavaMail.zimbra@raptorengineeringinc.com> <0a03cfe0-680e-444c-a1d2-85b3a0f6e90d@suse.com>
-Subject: Re: [PATCH v2] MAINTAINERS: Remove Shawn Anastasio as PPC64
- maintainer
+        d=gmail.com; s=20230601; t=1761840178; x=1762444978; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uTWYYeImcGjWZUiPWsuMRdZ0/0ySL8/qYM877Yoyssw=;
+        b=DTaKRiJxLNYBU9LL9o6sZCDgwL/g245vsloAP1979he+OMnljU1/EdKmTewZZNDi1g
+         g5jPYNfv5zUhIhuJmyUWlWpzt4aVEiM/OtjTEuEiDbM9ZkAH2noPT08n7EPnGaNxc7A4
+         9kRfcdc1N1muQPhFD59dcN06O3AZyqX5TAaN6jLaKzOodqzpqwDjLS+Q4uSvMVBbiZhz
+         ilIZQ0Iluybh77F6r5CX2Ptb+Z5gXiIK9rQfl96GJLZCHoBp0zrldT//zk5byTpfivht
+         /C7rvct8PVELv2GeQ9AqK8vDM7zpLlq9pxJz55AI83LpPoV2deGrMK9TL2jkth2shx/0
+         ksvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1761840178; x=1762444978;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=uTWYYeImcGjWZUiPWsuMRdZ0/0ySL8/qYM877Yoyssw=;
+        b=GKIdJ1hRvzZNZVreQNHuuTieqVWPFzqdz+LAO4SP0C11pXs4jeZoZzBgSmipilEqsC
+         8vn3dzjo5oR/lOWIdv6wAZSG8dxgl+cxjgH3/RB06llua2h3majRG43ebtfJo94LkX/G
+         odU39Fb7lDhf6mzWsWQ/3hD7WdTfVxG7D8AieAfYGS0P7bxH/FGLuZomkVMKichw/L3v
+         0Hep6r0mThXw94i6DJIlk6wbN/SjN66zG7LkcXo4eKfyWsCsMhlaPD5unDSfoasraS6A
+         3vt8y26FN2kXeDWAfGDSPcBQZTSTeejc4LMp1L9D1PKQLUGq3ycjo1B00Lm/pdgP5Bf2
+         h3Eg==
+X-Forwarded-Encrypted: i=1; AJvYcCVRsoV6jxJLUT3yoV0xdqpi5aWgVbnNWiIk7v7VG5ZLbXoBJ7JI9xKQKHpL1kxh92da6pqun2IXiTA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzswOP95uVeWUBWyp9ODkrSwSzvuVlPbXSUAvrHdUzB/iHTv3LC
+	fECuXV2hKtNaUEt7lYnhjObvRpitplM/OYej6K5WHb5Lu05o7tmWQyShL1bqwg==
+X-Gm-Gg: ASbGncsSbZkI1RBDsNpJx1gzRKunB33+8DwCRb8XBUjKFNnlTUluX9bgHkbH/WjBdqS
+	M2a3usalZ6mzgQqmgtTIDyC8e2bM73Etoy6PX2wcR5CPlnWA9GEDUCKsokmEoeg+K9pBjUZaMfK
+	Ndt5XRJYjG0/qQUSvPL9VWLEHrUL417fScPwZqB3Z3JhiVWpUSwIywkcYBBI3LGYPgdH+XqUN7w
+	WMnSEsoysRCeZ+4buUKs5cuZcnhr5MHjxuPknjCrsdl8ap8hNtEEmr6pAXWICbALqUxA7wi2J3Z
+	Ne5o8NfWD7xKKU1CJQxIaMf7q8PM/nyrY+f2k8HysCz/uwu2U5Wm/7iAhBjooJ8Q0GDIdUxnhFQ
+	uRH5Zfq4c+INFQOq3NAUljWZP71UAPDkacoiQA9uMvGgJasINdDnqhkbzkMmLBFwAUIc0YX/lx2
+	Rjys7dWMtV5nWDeFVwlOn+vnXy60PAAKsajyHB3lpJ4n23Om9IQh3VREO2fVuGO30b
+X-Google-Smtp-Source: AGHT+IHj9xgezx3kPQYXRPAmbLOPeSTedQacYpiOTswXgjoAD4W9FIv17b7OLOFE0j6yjz6D1VQBMg==
+X-Received: by 2002:a05:6402:d0b:b0:640:325d:3dba with SMTP id 4fb4d7f45d1cf-64061a83b71mr2914338a12.35.1761840177886;
+        Thu, 30 Oct 2025 09:02:57 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------fLVn3BV11kTRyC7YX7U5XosF"
+Message-ID: <a4a5f147-a2f7-4b00-954c-ca6b5e019bf1@gmail.com>
+Date: Thu, 30 Oct 2025 17:02:56 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Zimbra 8.5.0_GA_3042 (ZimbraWebClient - GC141 (Linux)/8.5.0_GA_3042)
-Thread-Topic: MAINTAINERS: Remove Shawn Anastasio as PPC64 maintainer
-Thread-Index: QDp8OG7RXnVvQeilJKibhvykLTlu6g==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.21] symbols: avoid emitting "end" symbols for data
+ items
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <6fdfd369-6c1e-48a5-8189-4999d566788a@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <6fdfd369-6c1e-48a5-8189-4999d566788a@suse.com>
+
+This is a multi-part message in MIME format.
+--------------fLVn3BV11kTRyC7YX7U5XosF
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
+On 10/29/25 2:34 PM, Jan Beulich wrote:
+> symbols-dummy.c and the generated .xen-syms.?.S may place their symbols in
+> different sections: Like for all C files, -fdata-sections may be in effect
+> there. As a result, besides moving these symbols may then also have
+> different amounts of "end" symbols inserted between them. While the
+> movement is likely not problematic, the change in table size is - linking
+> passes 2 and 3 want no address (and hence no size) changes between them.
+>
+> As, at least right now, the "end" symbols are useful only for code, limit
+> their emission accordingly. When data symbols are emitted (i.e. when
+> LIVEPATCH=y), this obviously also has a positive effect on overall table
+> size (I'm seeing almost 600 entries going away in the build I'm looking
+> at).
+>
+> Fixes: d3b637fba31b ("symbols: arrange to know where functions end")
+> Reported-by: Roger Pau Monné<roger.pau@citrix.com>
+> Signed-off-by: Jan Beulich<jbeulich@suse.com>
 
------ Original Message -----
-> From: "Jan Beulich" <jbeulich@suse.com>
-> To: "Timothy Pearson" <tpearson@raptorengineering.com>
-> Cc: "xen-devel" <xen-devel@lists.xenproject.org>, "shawn" <shawn@anastas.=
-io>, "Andrew Cooper"
-> <andrew.cooper3@citrix.com>, "Julien Grall" <julien@xen.org>, "Stefano St=
-abellini" <sstabellini@kernel.org>, "Anthony
-> PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com=
->, "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
-> Sent: Thursday, October 30, 2025 10:36:03 AM
-> Subject: Re: [PATCH v2] MAINTAINERS: Remove Shawn Anastasio as PPC64 main=
-tainer
+Release-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-> On 30.10.2025 16:31, Timothy Pearson wrote:
->>=20
->>=20
->> ----- Original Message -----
->>> From: "Jan Beulich" <jbeulich@suse.com>
->>> To: "Timothy Pearson" <tpearson@raptorengineering.com>
->>> Cc: "xen-devel" <xen-devel@lists.xenproject.org>, "shawn" <shawn@anasta=
-s.io>,
->>> "Andrew Cooper"
->>> <andrew.cooper3@citrix.com>, "Julien Grall" <julien@xen.org>, "Stefano
->>> Stabellini" <sstabellini@kernel.org>, "Anthony
->>> PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.c=
-om>,
->>> "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
->>> Sent: Thursday, October 30, 2025 10:28:57 AM
->>> Subject: Re: [PATCH v2] MAINTAINERS: Remove Shawn Anastasio as PPC64 ma=
-intainer
->>=20
->>> On 30.10.2025 16:09, Timothy Pearson wrote:
->>>> ----- Original Message -----
->>>>> From: "Jan Beulich" <jbeulich@suse.com>
->>>>> To: "Timothy Pearson" <tpearson@raptorengineering.com>
->>>>
->>>>> On 29.10.2025 20:38, Stefano Stabellini wrote:
->>>>>> On Wed, 29 Oct 2025, Timothy Pearson wrote:
->>>>>>> Shawn is no longer with Raptor Engineering.  For now, add myself as=
- PPC64
->>>>>>> reviewer.
->>>>>>>
->>>>>>> Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
->>>>>>> ---
->>>>>>>  MAINTAINERS | 2 +-
->>>>>>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>>>
->>>>>>> diff --git a/MAINTAINERS b/MAINTAINERS
->>>>>>> index ecd3f40df8..c8764a8c5f 100644
->>>>>>> --- a/MAINTAINERS
->>>>>>> +++ b/MAINTAINERS
->>>>>>> @@ -472,7 +472,7 @@ F:=09xen/drivers/cpufreq/
->>>>>>>  F:=09xen/include/acpi/cpufreq/
->>>>>>> =20
->>>>>>>  PPC64
->>>>>>> -M:=09Shawn Anastasio <sanastasio@raptorengineering.com>
->>>>>>> +M:=09Timothy Pearson <tpearson@raptorengineering.com>
->>>>>>>  F:=09xen/arch/ppc/
->>>>>>
->>>>>> The "R" letter is used for reviewers. The change can be done while
->>>>>> committing.
->>>>>
->>>>> And with that change:
->>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
->>>>>
->>>>> Just to mention: I can't see what you used as basis to compose the Cc=
- list.
->>>>> George's
->>>>> email address has been out of use for quite a while, and he isn't wit=
-h the
->>>>> project
->>>>> anymore. Wei had turned to other activities yet longer ago. And with =
-Shawn
->>>>> having
->>>>> left Raptor (as you indicated), I expect his email address there woul=
-d now also
->>>>> bounce. I have, therefore, heavily edited the Cc list of this reply.
->>>>
->>>> I had pulled the CC list from the "Rest" in the MAINTAINERS file in th=
-e root of
->>>> the GIT tree.  Should I have been looking elsewhere?
->>>
->>> That's the right place, but did you perhaps look at a (very) stale vers=
-ion?
->>=20
->> Not that I know of...
->>=20
->> commit 9db10d89c41e0272066a8547ec5ee2a642663baa
->> Author: Jason Andryuk <jason.andryuk@amd.com>
->> Date:   Mon Oct 13 10:41:01 2025 +0200
->>=20
->>     MAINTAINERS: Add myself as an AMD SVM & IOMMU reviewer
->>=20
->>     Split out AMD SVM and AMD IOMMU, and add myself as a reviewer.  Jan,
->>     Andrew and Roger are set as maintainers as they were for the X86 ent=
-ry.
->>=20
->>     Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->>     Acked-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->>=20
->> commit ac58e34a0960bcc71583edfc6b4d6baa5e81c7d0
->> Author: Stewart Hildebrand <stewart.hildebrand@amd.com>
->> Date:   Thu Sep 25 09:19:21 2025 +0200
->>=20
->>     MAINTAINERS: add myself as vPCI reviewer
->>=20
->>     I'd like to take a more active role in reviewing vPCI bits.
->>=20
->>     Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
->>     Acked-by: Stefano Stabellini <sstabellini@kernel.org>
->>=20
->> Ends with:
->>=20
->>=20
->> THE REST
->> M:      Andrew Cooper <andrew.cooper3@citrix.com>
->> M:      Anthony PERARD <anthony.perard@vates.tech>
->> M:      Michal Orzel <michal.orzel@amd.com>
->> M:      Jan Beulich <jbeulich@suse.com>
->> M:      Julien Grall <julien@xen.org>
->> M:      Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->> M:      Stefano Stabellini <sstabellini@kernel.org>
->> L:      xen-devel@lists.xenproject.org
->> S:      Supported
->> F:      *
->> F:      */
->> V:      xen-maintainers-1
->=20
-> And where did George and Wei come from then, while several of the people =
-above
-> were missing?
->=20
-> Jan
+Thanks.
 
-Huh.  Maybe I *was* on an old branch.  Will double check before sending any=
-thing else in.
+~ Oleskii
+
+
+> ---
+> Furthermore at least some gcc versions emit the (read-only) data there into
+> .bss.symbols_* rather than the expected (but still potentially problematic)
+> .rodata.symbols_*.
+>
+> --- a/xen/tools/symbols.c
+> +++ b/xen/tools/symbols.c
+> @@ -176,10 +176,9 @@ static int read_symbol(FILE *in, struct
+>   		*sym++ = '#';
+>   	}
+>   	strcpy(sym, str);
+> -	if (sort_by_name || map_only) {
+> +	if (sort_by_name || map_only)
+>   		s->orig_symbol = strdup(SYMBOL_NAME(s));
+> -		s->type = stype; /* As s->sym[0] ends mangled. */
+> -	}
+> +	s->type = stype; /* As s->sym[0] may end up mangled. */
+>   	s->sym[0] = stype;
+>   	s->typed = strcmp(type, "FUNC") == 0 ||
+>   	           strcmp(type, "OBJECT") == 0 ||
+> @@ -313,6 +312,7 @@ static int compare_name_orig(const void
+>   static bool want_symbol_end(unsigned int idx)
+>   {
+>   	return table[idx].size &&
+> +	       toupper(table[idx].type) == 'T' &&
+>   	       (idx + 1 == table_cnt ||
+>   	        table[idx].addr + table[idx].size < table[idx + 1].addr);
+>   }
+--------------fLVn3BV11kTRyC7YX7U5XosF
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 10/29/25 2:34 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:6fdfd369-6c1e-48a5-8189-4999d566788a@suse.com">
+      <pre wrap="" class="moz-quote-pre">symbols-dummy.c and the generated .xen-syms.?.S may place their symbols in
+different sections: Like for all C files, -fdata-sections may be in effect
+there. As a result, besides moving these symbols may then also have
+different amounts of "end" symbols inserted between them. While the
+movement is likely not problematic, the change in table size is - linking
+passes 2 and 3 want no address (and hence no size) changes between them.
+
+As, at least right now, the "end" symbols are useful only for code, limit
+their emission accordingly. When data symbols are emitted (i.e. when
+LIVEPATCH=y), this obviously also has a positive effect on overall table
+size (I'm seeing almost 600 entries going away in the build I'm looking
+at).
+
+Fixes: d3b637fba31b ("symbols: arrange to know where functions end")
+Reported-by: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
+Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a></pre>
+    </blockquote>
+    <pre>Release-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a></pre>
+    <pre>
+Thanks.
+
+~ Oleskii</pre>
+    <br>
+    <blockquote type="cite"
+      cite="mid:6fdfd369-6c1e-48a5-8189-4999d566788a@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+---
+Furthermore at least some gcc versions emit the (read-only) data there into
+.bss.symbols_* rather than the expected (but still potentially problematic)
+.rodata.symbols_*.
+
+--- a/xen/tools/symbols.c
++++ b/xen/tools/symbols.c
+@@ -176,10 +176,9 @@ static int read_symbol(FILE *in, struct
+ 		*sym++ = '#';
+ 	}
+ 	strcpy(sym, str);
+-	if (sort_by_name || map_only) {
++	if (sort_by_name || map_only)
+ 		s-&gt;orig_symbol = strdup(SYMBOL_NAME(s));
+-		s-&gt;type = stype; /* As s-&gt;sym[0] ends mangled. */
+-	}
++	s-&gt;type = stype; /* As s-&gt;sym[0] may end up mangled. */
+ 	s-&gt;sym[0] = stype;
+ 	s-&gt;typed = strcmp(type, "FUNC") == 0 ||
+ 	           strcmp(type, "OBJECT") == 0 ||
+@@ -313,6 +312,7 @@ static int compare_name_orig(const void
+ static bool want_symbol_end(unsigned int idx)
+ {
+ 	return table[idx].size &amp;&amp;
++	       toupper(table[idx].type) == 'T' &amp;&amp;
+ 	       (idx + 1 == table_cnt ||
+ 	        table[idx].addr + table[idx].size &lt; table[idx + 1].addr);
+ }
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------fLVn3BV11kTRyC7YX7U5XosF--
 
