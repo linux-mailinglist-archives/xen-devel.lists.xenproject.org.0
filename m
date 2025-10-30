@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCE7CC1EB3F
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 08:12:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1153318.1483685 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3187FC1ED08
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 08:41:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1153332.1483695 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEMpr-00017d-PV; Thu, 30 Oct 2025 07:12:39 +0000
+	id 1vENHG-0005Ge-Sy; Thu, 30 Oct 2025 07:40:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1153318.1483685; Thu, 30 Oct 2025 07:12:39 +0000
+Received: by outflank-mailman (output) from mailman id 1153332.1483695; Thu, 30 Oct 2025 07:40:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEMpr-00016C-MW; Thu, 30 Oct 2025 07:12:39 +0000
-Received: by outflank-mailman (input) for mailman id 1153318;
- Thu, 30 Oct 2025 07:12:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vENHG-0005Ep-Pw; Thu, 30 Oct 2025 07:40:58 +0000
+Received: by outflank-mailman (input) for mailman id 1153332;
+ Thu, 30 Oct 2025 07:40:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+HTt=5H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vEMpp-000166-VA
- for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 07:12:37 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cf996ddd-b55f-11f0-980a-7dc792cee155;
- Thu, 30 Oct 2025 08:12:35 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-47112edf9f7so5391665e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 00:12:35 -0700 (PDT)
+ id 1vENHF-0005Ej-JZ
+ for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 07:40:57 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c5018595-b563-11f0-9d16-b5c5bf9af7f9;
+ Thu, 30 Oct 2025 08:40:56 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-47112edf9f7so5602075e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 00:40:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4771902fa8dsm59327475e9.8.2025.10.30.00.12.34
+ 5b1f17b1804b1-477289b38f7sm24687855e9.9.2025.10.30.00.40.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Oct 2025 00:12:34 -0700 (PDT)
+ Thu, 30 Oct 2025 00:40:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf996ddd-b55f-11f0-980a-7dc792cee155
+X-Inumbo-ID: c5018595-b563-11f0-9d16-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761808355; x=1762413155; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1761810055; x=1762414855; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5eA2SJ2iidFxDm+lDsX4lAk0nSU1CGD4i+rmohqBTsw=;
-        b=eDVRSXfiu9+J1wremI+bIkm6TMOltZNgYNyN6Xz7GKcggF22/4E/oKEIAQHztvY+x3
-         7ZBq8gRy1PrTDsMEecfzJTo85nszxBjExTF25W8vseAH6F0W7I13pIn/5G9F+TC08BP3
-         zpjOgfCLVIJdb6F0/7zk7EgfDo/6FvsgF2Mz4MEjr9YPOQekW7mnlEmeoypd1qXyuXSc
-         +gmxPio7x04UXjxY+1WjNOVyFzBb5Akcxd/moxUuXurX5101yEBPEu7op2ZBo/hU1BrW
-         ZuwaAuUhVC3j8+xxEyvY5xLS81MroF72QxD4GaXiC9qN2MGVXbpdmJfMuiVKAF7ERSEc
-         MHpg==
+        bh=Sb4bTZep8HksQIFMsmAq4g75X3wIKg6Eh+FyDi5yM6c=;
+        b=Qe3OeC+Pp/3/aQQ9ltq1e5Sh6a+yqoGRj4jzFUjVtzJOXCXP8dVDn9ctK1/OT8vuos
+         cgRY1WW3RYDQLZsfelhtq7erckJJ3Daqzg8hJbfwArz304jegb7ysNRM1kbKPfts9SvF
+         Zyo8Oxi7bD89PeuuFdf9I7Ua+lg0ZSzUKdvQi/8webfyfaBAi2NL6SezQFi0Iz1W20fu
+         btuf5vm3DGwYZtbsy+LVjPlNir6d6tEQYyXVjAGZI70uxaE2b0YgwqauiKGoEyXxqNOL
+         egaSMld6sPgf+f1TUJ/AHgjQvsEICfJi9q9G2WltEso8yxPvMdR61fme/GHGk9VhQRwD
+         0JzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761808355; x=1762413155;
+        d=1e100.net; s=20230601; t=1761810055; x=1762414855;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5eA2SJ2iidFxDm+lDsX4lAk0nSU1CGD4i+rmohqBTsw=;
-        b=N4Pow8YImca8RTRPFk9AG7RTo7tPX6DTZ46jQjis8EJbPDR9c9GDAzF0WV+htU1XpY
-         P/sqllG/DQVqCTMMstwIbmUMSBqn9/gvl6WtI06AHfR5csPUYXqE0At/j+mvaiUM8qBI
-         Bl7ZKmeDHXJZXvBWZTd/qE/hkPOyZ0viMPVZijPY38tk+DQRQGPqaknR5/3s+BWQYZL8
-         YnJ6ALQqpkwLZ74rae1ZjaXTztLpR3r7NqrumNh0U18c1ReMlXv8uv+o4yOE6695wwg+
-         Laa1+I2sLgRkd7v1vuk8fv11NKW3TaCB6bsTzbXbefLTXRwe/+CHuFwr18Mc69e0c+ys
-         IoqQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUeJTlKqvr+vwIRUD6up8fBxkbsBPCoGOr5Gax/bIR2m4gZgH/CKnD4D/v4TURQhzF/SEbGcL7Xsfw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwHb3suVdNPL29vEGzTsT3i96t6+/arKTIfyadprEmvfDq9q87S
-	j4IaZCmwqbHTrW8/tdKWQgXtKznrffKM3Ia+JihHvGo2/0JgaN0zZaRp0kGX9kphtw==
-X-Gm-Gg: ASbGnctMWA2ITA2XxFK1vv5KnwuLz/SxestqYcYOXMmW+HZGBVaQxL/N78FYOPb/HJk
-	4GZWt1BFvpJ591pdB8b4Teixtrg/EKB43Lej+NbB3vFZfnDZ7AZWViCiXc+h2d+iozWpbmWDhLY
-	kjMevjR4aA0BSZyj9QQwRKZbuLz1CAqktxcJTmn37ANg5MgGACR0fq/gynNYDskxtHn/Af9HzoX
-	8gtEdyGGFeGjrCDn/+BmWmVrLWxlZ2v6AhQ8hKZEn0dEG0bGTsuuEk/36bQk/NJ33jKFk7WN6+K
-	+oTxaNu4y3Yg4Gov59CsDST72OiaQESj7tv9Cpb+UFXfzSIQQ9LKQRlwzjmjBgym2GMStJ8b/ER
-	+vlGDap16JovTZmwKTFiVVTmSSOuf/59UlPIPUs6ylzJAw6wVFZYNsYn2HSOCZ8JJ2R92XrRVCt
-	4h/iBdqfRzyawvu+2E2gqJtozNH8zWxmajKGSflE/hJRetcm7JYQUQTs7VDsOEQuXbzxRvvQB+4
-	gFwT0b98A==
-X-Google-Smtp-Source: AGHT+IGZfMZooilhYdBCxb32fYEb5g9U9A72kcTuUuKSB3zrX0HZ2Mur2oBVZKDZc1r7ICbUrkzTGw==
-X-Received: by 2002:a05:600c:46c3:b0:477:be4:7a52 with SMTP id 5b1f17b1804b1-4771e1f3bc7mr48974625e9.39.1761808355230;
-        Thu, 30 Oct 2025 00:12:35 -0700 (PDT)
-Message-ID: <080c2780-2810-4ba8-8f9c-57c1fc4135f9@suse.com>
-Date: Thu, 30 Oct 2025 08:12:33 +0100
+        bh=Sb4bTZep8HksQIFMsmAq4g75X3wIKg6Eh+FyDi5yM6c=;
+        b=IA9+L5eMq6t1mcDwQpnV3z+PhdWZX2s7jKzex4xTSgIeU2G28sofc7amVqQGa0KkST
+         EtxG8yKOnVmbRm1BB8600HPmlfkpzTZdLV+PEHTLoSuFzUyOKRTpOwaA/vo4JZo6rUmI
+         HmEKIwQQLDxb94S3I9iqoaVgUCS92jDQv2BWf8IPIkcS7NFYzVZBj0Mv3YynnQncvUGI
+         yAMMBajD4a24P6zpqs+z7B8Em7YFsRdSBqT9XeyYiQWUIeIN7gJWjIHS/ZplBgYHb3u3
+         +ExRNZjbaj5jxI9YZlfE0uv+OlXJGU7XaK9pX7JmWazbiM1GFniF+M7H0WNyRJW3zSsx
+         jHDw==
+X-Gm-Message-State: AOJu0YzkqfhuB5KvnI2zYcVlEd/jFELyNJ3cLN26Kfqb0ShbBlSkDflw
+	wLg9aKKt9ufaQ8QYLb9JGhaIxqhEChNj2aUstHbV1scLyzNhJAjOT3s1PLFw4iSKEQ==
+X-Gm-Gg: ASbGncvsQbi2NdMF+3CdNk1fS1EQ5v0t2e5kGGqhMgWQB2d8G46d56G77TGW4Ya3Rvb
+	+uu3SngG0OTCCfRop0gxLYq8mavIME/t80Rqhlc2ykHhS1FTYyqIga+OMTzBwBsIVILyagRoEh1
+	xU7KygpFA77D5fKV5JvJMuGDqLzkyKontP8CBnZtWEYre4zrkqk+hPlT+zEIPWGfqF+jttKZ0RL
+	raUhD5ieXnywXaIXYeyG43K5Qpx5AmTNfPcA6gihlSyBLtDDmBZytih+tL5Ue72ORqkf2x3v2UJ
+	Iy2gdq6mb5JkNCwYPKCBJVizUTzJKhtbNYBFm3seDWAM+Nt14x4bHTH/GBaG0EaoZXZEbW1lIgO
+	9UILryD/NFKw9CvD8BEfu67cTiXs9gEhQJkGJ+dnEnFDSxYRoCyGcX9Dgv2RceiefWNR0k0scGt
+	T1KseeFwW+ncc//hYmY67fnkWWlxa+8Vn3M8+8sHO1jMKiGFr2HQGEF4mimec/
+X-Google-Smtp-Source: AGHT+IENUBmaBXwG/FSD482fRlgDmaVRA4W0AX+Kk+L8/Dg93o4bXEA0FyRIQNi65ECUH5Prl0r5tQ==
+X-Received: by 2002:a05:600c:5494:b0:471:b5d:2db9 with SMTP id 5b1f17b1804b1-4771e1cac45mr48496225e9.21.1761810055537;
+        Thu, 30 Oct 2025 00:40:55 -0700 (PDT)
+Message-ID: <35b2e61b-d1c1-47c0-90e2-7efa1f45243f@suse.com>
+Date: Thu, 30 Oct 2025 08:40:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH for-4.22 v2 1/3] x86/cpu-policy: Infrastructure for
- CPUID leaf 0x6
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1761752801.git.teddy.astie@vates.tech>
- <3ad34c3e1de444798dcfe0e673375f28f1a654ec.1761752801.git.teddy.astie@vates.tech>
+Subject: Re: [PATCH v2] MAINTAINERS: Remove Shawn Anastasio as PPC64
+ maintainer
+To: Timothy Pearson <tpearson@raptorengineering.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, shawn <shawn@anastas.io>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <1794235010.4856.1761754917625.JavaMail.zimbra@raptorengineeringinc.com>
+ <alpine.DEB.2.22.394.2510291238140.495094@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,98 +123,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3ad34c3e1de444798dcfe0e673375f28f1a654ec.1761752801.git.teddy.astie@vates.tech>
+In-Reply-To: <alpine.DEB.2.22.394.2510291238140.495094@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.10.2025 16:59, Teddy Astie wrote:
-> From: Jan Beulich <jbeulich@suse.com>
+On 29.10.2025 20:38, Stefano Stabellini wrote:
+> On Wed, 29 Oct 2025, Timothy Pearson wrote:
+>> Shawn is no longer with Raptor Engineering.  For now, add myself as PPC64
+>> reviewer.
+>>
+>> Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
+>> ---
+>>  MAINTAINERS | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index ecd3f40df8..c8764a8c5f 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -472,7 +472,7 @@ F:	xen/drivers/cpufreq/
+>>  F:	xen/include/acpi/cpufreq/
+>>  
+>>  PPC64
+>> -M:	Shawn Anastasio <sanastasio@raptorengineering.com>
+>> +M:	Timothy Pearson <tpearson@raptorengineering.com>
+>>  F:	xen/arch/ppc/
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-> ---
-> v2: introduced
+> The "R" letter is used for reviewers. The change can be done while
+> committing.
 
-This being a change of mine, I'm not happy for the title to have changed, and
-for the (little bit of) description to have been dropped.
+And with that change:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/include/xen/lib/x86/cpu-policy.h
-> +++ b/xen/include/xen/lib/x86/cpu-policy.h
-> @@ -121,7 +121,32 @@ struct cpu_policy
->              uint64_t :64, :64; /* Leaf 0x3 - PSN. */
->              uint64_t :64, :64; /* Leaf 0x4 - Structured Cache. */
->              uint64_t :64, :64; /* Leaf 0x5 - MONITOR. */
-> -            uint64_t :64, :64; /* Leaf 0x6 - Therm/Perf. */
-> +
-> +            /* Leaf 0x6 - Therm/Perf. */
-> +            struct {
-> +                uint32_t /* a */
-> +                    dts:1,
-> +                    turbo:1,
-> +                    arat:1,
-> +                    :4,
-> +                    hwp:1,
-> +                    hwp_notification:1,
-> +                    hwp_activity_window:1,
-> +                    hwp_epp:1,
-> +                    hwp_plr:1,
-> +                    :1,
-> +                    hdc:1,
-> +                    :2,
-> +                    hwp_peci:1,
-> +                    :2,
-> +                    hw_feedback:1,
-> +                    :12;
-> +                uint32_t /* b */:32;
-> +                uint32_t /* c */ aperfmperf:1, 
-> +                    :31;
-> +                uint32_t /* d */:32;
-> +            } pm;
-> +
->              uint64_t :64, :64; /* Leaf 0x7 - Structured Features. */
->              uint64_t :64, :64; /* Leaf 0x8 - rsvd */
->              uint64_t :64, :64; /* Leaf 0x9 - DCA */
-
-As I had said, this (really: the use of these bits in the host policy) actually
-requires an adjustment to cpu-policy.c as well, which I'm carrying as a separate,
-prereq change (re-produced below). May I suggest that your work go on top of mine
-(which I'll post once we have branched 4.21 off)?
+Just to mention: I can't see what you used as basis to compose the Cc list. George's
+email address has been out of use for quite a while, and he isn't with the project
+anymore. Wei had turned to other activities yet longer ago. And with Shawn having
+left Raptor (as you indicated), I expect his email address there would now also
+bounce. I have, therefore, heavily edited the Cc list of this reply.
 
 Jan
-
-x86/cpu-policy: move invocation of recalculate_misc()
-
-The function is about guest exposure of features / leaves. There's no need
-for it to be applied on the host policy. In fact doing so gets in the way
-of using the host policy in certain places.
-
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -424,7 +424,6 @@ void __init calculate_host_policy(void)
-     x86_cpu_featureset_to_policy(boot_cpu_data.x86_capability, p);
-     recalculate_xstate(p);
-     recalculate_tile(p);
--    recalculate_misc(p);
- 
-     /* When vPMU is disabled, drop it from the host policy. */
-     if ( vpmu_mode == XENPMU_MODE_OFF )
-@@ -705,6 +704,7 @@ static void __init calculate_pv_max_poli
-     unsigned int i;
- 
-     *p = host_cpu_policy;
-+    recalculate_misc(p);
- 
-     guest_common_max_leaves(p);
- 
-@@ -809,6 +809,7 @@ static void __init calculate_hvm_max_pol
-     const uint32_t *mask;
- 
-     *p = host_cpu_policy;
-+    recalculate_misc(p);
- 
-     guest_common_max_leaves(p);
- 
-
 
