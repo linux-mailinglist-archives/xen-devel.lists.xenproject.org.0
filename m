@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3187FC1ED08
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 08:41:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1153332.1483695 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE150C1ED20
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 08:43:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1153342.1483705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vENHG-0005Ge-Sy; Thu, 30 Oct 2025 07:40:58 +0000
+	id 1vENJL-0005mw-7t; Thu, 30 Oct 2025 07:43:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1153332.1483695; Thu, 30 Oct 2025 07:40:58 +0000
+Received: by outflank-mailman (output) from mailman id 1153342.1483705; Thu, 30 Oct 2025 07:43:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vENHG-0005Ep-Pw; Thu, 30 Oct 2025 07:40:58 +0000
-Received: by outflank-mailman (input) for mailman id 1153332;
- Thu, 30 Oct 2025 07:40:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vENJL-0005ks-51; Thu, 30 Oct 2025 07:43:07 +0000
+Received: by outflank-mailman (input) for mailman id 1153342;
+ Thu, 30 Oct 2025 07:43:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+HTt=5H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vENHF-0005Ej-JZ
- for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 07:40:57 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c5018595-b563-11f0-9d16-b5c5bf9af7f9;
- Thu, 30 Oct 2025 08:40:56 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-47112edf9f7so5602075e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 00:40:56 -0700 (PDT)
+ id 1vENJI-0005kk-UV
+ for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 07:43:04 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 10ae30fe-b564-11f0-980a-7dc792cee155;
+ Thu, 30 Oct 2025 08:43:03 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4710022571cso8220245e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 00:43:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477289b38f7sm24687855e9.9.2025.10.30.00.40.54
+ 5b1f17b1804b1-477289998f3sm24941075e9.4.2025.10.30.00.43.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Oct 2025 00:40:55 -0700 (PDT)
+ Thu, 30 Oct 2025 00:43:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5018595-b563-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: 10ae30fe-b564-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761810055; x=1762414855; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Sb4bTZep8HksQIFMsmAq4g75X3wIKg6Eh+FyDi5yM6c=;
-        b=Qe3OeC+Pp/3/aQQ9ltq1e5Sh6a+yqoGRj4jzFUjVtzJOXCXP8dVDn9ctK1/OT8vuos
-         cgRY1WW3RYDQLZsfelhtq7erckJJ3Daqzg8hJbfwArz304jegb7ysNRM1kbKPfts9SvF
-         Zyo8Oxi7bD89PeuuFdf9I7Ua+lg0ZSzUKdvQi/8webfyfaBAi2NL6SezQFi0Iz1W20fu
-         btuf5vm3DGwYZtbsy+LVjPlNir6d6tEQYyXVjAGZI70uxaE2b0YgwqauiKGoEyXxqNOL
-         egaSMld6sPgf+f1TUJ/AHgjQvsEICfJi9q9G2WltEso8yxPvMdR61fme/GHGk9VhQRwD
-         0JzA==
+        d=suse.com; s=google; t=1761810182; x=1762414982; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ap9w7Iu7AlwJu3WYUKKN2SBlwMP3COki4sk7suezN4o=;
+        b=S3M9/elwipbpKO8TpQFGKTsn1PFIHRi9VZGww+w5M4ZcudRHP3SxIhkVgITp/XLFdk
+         NlpIn5QCcpvBH6mgJv94xzDtY44kbCtOOYLnwmBztSW0CImKy08P1Sg90Q8WMHQerVtq
+         MV55geKUyRD1T8u9kBU7MSoNDN/gXYkElTeVT/vvoi+zOzRXNLnbGgz4oyAwqFEIxKmO
+         +1jkPh4mfAD6FX7mVbGphQVtSU8SdzYkb2VRXbJi299ZQugpM1VRNoFQh7WX+tcMW/Zb
+         5eNw+UGff9WVp8mAx4LiAVrVQwY1PGczr2G4LqzRcI8OPeOdW8MHzoRIH/F7fdmF5bTr
+         7w/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761810055; x=1762414855;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Sb4bTZep8HksQIFMsmAq4g75X3wIKg6Eh+FyDi5yM6c=;
-        b=IA9+L5eMq6t1mcDwQpnV3z+PhdWZX2s7jKzex4xTSgIeU2G28sofc7amVqQGa0KkST
-         EtxG8yKOnVmbRm1BB8600HPmlfkpzTZdLV+PEHTLoSuFzUyOKRTpOwaA/vo4JZo6rUmI
-         HmEKIwQQLDxb94S3I9iqoaVgUCS92jDQv2BWf8IPIkcS7NFYzVZBj0Mv3YynnQncvUGI
-         yAMMBajD4a24P6zpqs+z7B8Em7YFsRdSBqT9XeyYiQWUIeIN7gJWjIHS/ZplBgYHb3u3
-         +ExRNZjbaj5jxI9YZlfE0uv+OlXJGU7XaK9pX7JmWazbiM1GFniF+M7H0WNyRJW3zSsx
-         jHDw==
-X-Gm-Message-State: AOJu0YzkqfhuB5KvnI2zYcVlEd/jFELyNJ3cLN26Kfqb0ShbBlSkDflw
-	wLg9aKKt9ufaQ8QYLb9JGhaIxqhEChNj2aUstHbV1scLyzNhJAjOT3s1PLFw4iSKEQ==
-X-Gm-Gg: ASbGncvsQbi2NdMF+3CdNk1fS1EQ5v0t2e5kGGqhMgWQB2d8G46d56G77TGW4Ya3Rvb
-	+uu3SngG0OTCCfRop0gxLYq8mavIME/t80Rqhlc2ykHhS1FTYyqIga+OMTzBwBsIVILyagRoEh1
-	xU7KygpFA77D5fKV5JvJMuGDqLzkyKontP8CBnZtWEYre4zrkqk+hPlT+zEIPWGfqF+jttKZ0RL
-	raUhD5ieXnywXaIXYeyG43K5Qpx5AmTNfPcA6gihlSyBLtDDmBZytih+tL5Ue72ORqkf2x3v2UJ
-	Iy2gdq6mb5JkNCwYPKCBJVizUTzJKhtbNYBFm3seDWAM+Nt14x4bHTH/GBaG0EaoZXZEbW1lIgO
-	9UILryD/NFKw9CvD8BEfu67cTiXs9gEhQJkGJ+dnEnFDSxYRoCyGcX9Dgv2RceiefWNR0k0scGt
-	T1KseeFwW+ncc//hYmY67fnkWWlxa+8Vn3M8+8sHO1jMKiGFr2HQGEF4mimec/
-X-Google-Smtp-Source: AGHT+IENUBmaBXwG/FSD482fRlgDmaVRA4W0AX+Kk+L8/Dg93o4bXEA0FyRIQNi65ECUH5Prl0r5tQ==
-X-Received: by 2002:a05:600c:5494:b0:471:b5d:2db9 with SMTP id 5b1f17b1804b1-4771e1cac45mr48496225e9.21.1761810055537;
-        Thu, 30 Oct 2025 00:40:55 -0700 (PDT)
-Message-ID: <35b2e61b-d1c1-47c0-90e2-7efa1f45243f@suse.com>
-Date: Thu, 30 Oct 2025 08:40:53 +0100
+        d=1e100.net; s=20230601; t=1761810182; x=1762414982;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Ap9w7Iu7AlwJu3WYUKKN2SBlwMP3COki4sk7suezN4o=;
+        b=L9/I5+XYnYZodcz5GCr5O0ruSZOk9L+wZcOA4CM2JERzbXZ3uNaQHe/AnDnRtGcq7S
+         Yhtm733+4Q+EkFqhQUWHot/PAEFRe3LUy8jolG/JkSmX7xkd3TDkGAxX0AD2xvhVw6o/
+         ckzcMuC3pq3LICKXC2yGV32bZSo+j/AS6XOTgPKho6o89wgomakQqBjwsm/IJx/2KtFj
+         bGGGjsT2uWqNZraZCU2lzNydADONJ2lI9mmISrBT9m5brOrNj6dPhudy6LqeqOe2dyMv
+         WaJMcq+CdGW0+YQm7hjOREeSDN2r/aciMzS+Omi7rirPj7B4nmp7KmHpxrLyRBYIocdi
+         lk+g==
+X-Gm-Message-State: AOJu0Yz6xFmLlYKoBnFpcC/aPERtQaLzxe2+ewwfzpoOE83apZxibXAG
+	xoMv2HirwbPP0UrxNVZOydUADb4fBS0Vgvi9nx+BhRyItDYxSKQxRJ7nfz+hVj1yeQ==
+X-Gm-Gg: ASbGnctCxpL74acoqo/HZVxsP4tcLOUVz9hmyRvuuj37DtjFq/GLUUEJWRcJrmt0OAq
+	gwuoJnloce15k4pZfG5emWBWnhs6oGXVOUVt7YM4+8nBBAeBvyRkKu3sLLmGs6Wcc4jzgnaDX4U
+	jRdqfUbnqkCZ+nNXyWYFQmTInAxB2+7KEMj4McJs45aMWQBrQ/IuUQd1sXJrt4FCthAdDwfGTo4
+	Onuk1Fw7UiEJAXxRRaYj7IdY80Lv6JEvbJID4wAut4zHNsqx/f5Atlb/tUPz1GDLdcqRJTuusi3
+	IReJpyl41t+iyYhWuebdtaCZEjX0cU2omprdrd6vo/5xvaj3Kpzj6A2mIPwmVJflV6y5hH28rTO
+	XnN94I+750u4hszaAL6HlcGkx455/Ltf/j0AMKbaA72D+hKwx093JZ6pkBCiZGc6ImIZtqaxK5K
+	P9E85sz8mOcdC8M7DTaDQIbUyNwDLs8Q9A3A8Za3p+SxZINV1jcOfNw58+i/oAD9C1abG3u0E=
+X-Google-Smtp-Source: AGHT+IE1SlBGBbSKp0VSJASQb4/2nu+vsbONY+0eaRGt2JU/b8lvC2UP/imAVEAnfkG+/V0qAoRkBg==
+X-Received: by 2002:a05:600c:1c9f:b0:477:f2c:2923 with SMTP id 5b1f17b1804b1-47726821c13mr21684015e9.30.1761810182522;
+        Thu, 30 Oct 2025 00:43:02 -0700 (PDT)
+Message-ID: <6744abf0-3326-4de2-a14b-70faf56e91e6@suse.com>
+Date: Thu, 30 Oct 2025 08:43:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] MAINTAINERS: Remove Shawn Anastasio as PPC64
- maintainer
+Subject: Re: [PATCH v2] xen/ppc: Fix tooling FTBFS due to missing definitions
+ in public header
 To: Timothy Pearson <tpearson@raptorengineering.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, shawn <shawn@anastas.io>,
+References: <1066630274.4872.1761755029561.JavaMail.zimbra@raptorengineeringinc.com>
+Content-Language: en-US
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
-References: <1794235010.4856.1761754917625.JavaMail.zimbra@raptorengineeringinc.com>
- <alpine.DEB.2.22.394.2510291238140.495094@ubuntu-linux-20-04-desktop>
-Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -123,43 +122,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2510291238140.495094@ubuntu-linux-20-04-desktop>
+In-Reply-To: <1066630274.4872.1761755029561.JavaMail.zimbra@raptorengineeringinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.10.2025 20:38, Stefano Stabellini wrote:
-> On Wed, 29 Oct 2025, Timothy Pearson wrote:
->> Shawn is no longer with Raptor Engineering.  For now, add myself as PPC64
->> reviewer.
->>
->> Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
->> ---
->>  MAINTAINERS | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index ecd3f40df8..c8764a8c5f 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -472,7 +472,7 @@ F:	xen/drivers/cpufreq/
->>  F:	xen/include/acpi/cpufreq/
->>  
->>  PPC64
->> -M:	Shawn Anastasio <sanastasio@raptorengineering.com>
->> +M:	Timothy Pearson <tpearson@raptorengineering.com>
->>  F:	xen/arch/ppc/
+On 29.10.2025 17:23, Timothy Pearson wrote:
+> int64_aligned_t and uint64_aligned_t need to be exposed when the GNU C compiler
+> is in use.
 > 
-> The "R" letter is used for reviewers. The change can be done while
-> committing.
+> Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
 
-And with that change:
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-Just to mention: I can't see what you used as basis to compose the Cc list. George's
-email address has been out of use for quite a while, and he isn't with the project
-anymore. Wei had turned to other activities yet longer ago. And with Shawn having
-left Raptor (as you indicated), I expect his email address there would now also
-bounce. I have, therefore, heavily edited the Cc list of this reply.
+Thanks. However, you've lost my R-b, and the Cc list was again entirely empty.
 
 Jan
 
