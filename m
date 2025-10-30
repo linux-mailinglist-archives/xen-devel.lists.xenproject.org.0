@@ -2,56 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88708C1F081
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 09:42:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1153423.1483764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84A5DC1F7C6
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 11:18:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1153294.1483784 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEOEP-0000UB-SQ; Thu, 30 Oct 2025 08:42:05 +0000
+	id 1vEPjS-0004Fy-NQ; Thu, 30 Oct 2025 10:18:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1153423.1483764; Thu, 30 Oct 2025 08:42:05 +0000
+Received: by outflank-mailman (output) from mailman id 1153294.1483784; Thu, 30 Oct 2025 10:18:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEOEP-0000RN-Pc; Thu, 30 Oct 2025 08:42:05 +0000
-Received: by outflank-mailman (input) for mailman id 1153423;
- Thu, 30 Oct 2025 08:42:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vEPjS-0004En-Jy; Thu, 30 Oct 2025 10:18:14 +0000
+Received: by outflank-mailman (input) for mailman id 1153294;
+ Thu, 30 Oct 2025 06:12:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EEwi=5H=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1vEOEO-0000RH-M9
- for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 08:42:04 +0000
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazlp170110009.outbound.protection.outlook.com
- [2a01:111:f403:c111::9])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4b7c5839-b56c-11f0-980a-7dc792cee155;
- Thu, 30 Oct 2025 09:41:58 +0100 (CET)
-Received: from CH2PR18CA0032.namprd18.prod.outlook.com (2603:10b6:610:55::12)
- by MW4PR12MB7336.namprd12.prod.outlook.com (2603:10b6:303:21a::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.18; Thu, 30 Oct
- 2025 08:41:52 +0000
-Received: from DS3PEPF0000C37F.namprd04.prod.outlook.com
- (2603:10b6:610:55:cafe::9d) by CH2PR18CA0032.outlook.office365.com
- (2603:10b6:610:55::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.14 via Frontend Transport; Thu,
- 30 Oct 2025 08:41:52 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DS3PEPF0000C37F.mail.protection.outlook.com (10.167.23.9) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9275.10 via Frontend Transport; Thu, 30 Oct 2025 08:41:52 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 30 Oct
- 2025 01:41:51 -0700
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 30 Oct
- 2025 01:41:50 -0700
-Received: from [10.71.194.215] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 30 Oct 2025 01:41:49 -0700
+ <SRS0=MAXf=5H=siemens.com=haseeb.ashraf@srs-se1.protection.inumbo.net>)
+ id 1vELu3-0001xf-0E
+ for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 06:12:55 +0000
+Received: from OS8PR02CU002.outbound.protection.outlook.com
+ (mail-japanwestazlp170120003.outbound.protection.outlook.com
+ [2a01:111:f403:c406::3])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 76313d7a-b557-11f0-9d16-b5c5bf9af7f9;
+ Thu, 30 Oct 2025 07:12:51 +0100 (CET)
+Received: from KL1PR0601MB4588.apcprd06.prod.outlook.com
+ (2603:1096:820:87::11) by SEZPR06MB5812.apcprd06.prod.outlook.com
+ (2603:1096:101:ac::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.13; Thu, 30 Oct
+ 2025 06:12:44 +0000
+Received: from KL1PR0601MB4588.apcprd06.prod.outlook.com
+ ([fe80::3f19:282d:5fe2:f523]) by KL1PR0601MB4588.apcprd06.prod.outlook.com
+ ([fe80::3f19:282d:5fe2:f523%3]) with mapi id 15.20.9275.013; Thu, 30 Oct 2025
+ 06:12:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,192 +47,431 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b7c5839-b56c-11f0-980a-7dc792cee155
+X-Inumbo-ID: 76313d7a-b557-11f0-9d16-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IOLXesMlH2MijGp3PSLpMTrkNOK30kv2Kf2b79ZWuX7RCSl5UNlFckYFgELpjY0C6lNlAGaFHwb9wmZCUnzah6WSTCRRfX5/LnwyzJj+gTsUKUYHIjpFem5qDdDoBl4Qp2v0vSbULlUVqEn0G5dY4R+qSHbHzryRP3Q7F+dYFJ98HsmnWmpYCfTuQBrgOUk9dXOjgCCNLzah1Jsc5lvBK9fUrH2oNLakXKLJtFXGusOgjNB7siTtACYKeZZbqvVR0V1wBhpaq4koLrvTPeczr1hT7PYYN2XxVwCNdHO4nYT9Hw2e1ft1nwjJ3IxES3JIk6i5pbueSGBduETTCemQ1g==
+ b=FTtinF2Y3B0uecTBG3RJTRFwqXT1rqzX2UNHrLVl6PYK9CLHNZ/cL5e7R3VW4qWL+rOR+ZDW45cdtD6mgdiOIn9ap0ia+Esd4giN++0gJHkkJWNQyE2KIwNUvqjE1x52/pCEQn5fgtW4ZLknrUwLRYVZ51fKJ6Vwd6l/s9chCA6qhqmCBkVrpNvQioDt4sDftFc/UAmtft/GrgVomX+6jUp2qzKH52Xo4c0gls4brFWzdt3phN38zvtDFWgHfy5YGnjV17rLO8omxyAQ0mI0T6yvgKXMWW58WZjxRgXQl5WVtajLCYOyJly7JY2/cH+K/cX4VgMKcM0+JhkVf25Bjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/y0o0RcELoKu8pbsP+8R9y5P9bLFXwib2yu9DI228oI=;
- b=Jx3uuL/ji6r4MTsUAl6n5ivB0f7OwDhfN810RopYIAW5uIwcg/04WWqchfmxyz9KpdkXGks+8kcwA4hC+XT0Erxxl3V1rcOfT+WWIFkYEIar1AbTKYYZIk5/2kuSfNeLWq32HxDjscYWwAav5TJ6zqapuMm1+4VCeJb/TSm+XlcusaEvka/uMOPKa3Ht/YubmVOJI4hD+eQMPuiPzXLDe4wj4f4MAvuF5Pzq8irDwtu83rff98s8yIh2vIXV4dM9tsYb9zakFZvfAuGdxsL4bzpqRnd8wNwrtS9Pdw91kjNQphwBnrB4JRehIMK/sg/aSABX0cpAV47aRyZ8GmTwQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=erp5B8/zWvKQdvr4nZo1K1MCyTHV4bScG8pvt06uSkY=;
+ b=t50F8+ZpMG5uFeHGPhgZkVovTGJ1Vk2MW8t2vGriltR+42mg2Avp6k+/ukDlBnf23TM1c0Qei82QUko2H7azZ7+Gx4FwNQDSWNXpBFy2DHgAXSvwaZs04mDgZgmHxqjI9aA0w4/QAzreH61Brt9PtiyMGnvpN38syG/SbcdTy4pELx2Fi3i4ZO0BANl4IkqYdQAZDmdxWXOhgelW3djW5dQkBdMPVX7zFCGhmF/oYM/nu0VuFuwlzq7Qb6I7tytVZbf5aruntUFcjdfQgaufTLdz675YbZsKwGz0a4aK6yJHCkSvl/dMEcl8yHE1RzBa7phSVqS0UgStnVA9WmflOg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
+ dkim=pass header.d=siemens.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siemens.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/y0o0RcELoKu8pbsP+8R9y5P9bLFXwib2yu9DI228oI=;
- b=CYX40KqGzxpN6qCi0N5HOU/2CN3TKxVD5qGo+0dpPSnJ/aeS+6HtgVieNjTkD7OtxWqo9a4rARaSZ6YYVT5vPM+2AcMnnKRrLrc6DRcqyBUj7JYhdpR0muDhqUAyCBEOL9ErC4cqo1keL4G+hp4E1usVXgHGrK02WfcOJRHNMmc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <5c1db85b-8733-47d5-b751-864cdb45aca4@amd.com>
-Date: Thu, 30 Oct 2025 09:41:44 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] xen/char: implement suspend/resume calls for SCIF
- driver
-To: Mykola Kvach <xakep.amatop@gmail.com>, <xen-devel@lists.xenproject.org>
-CC: Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Oleksandr Andrushchenko
-	<oleksandr_andrushchenko@epam.com>, Mykola Kvach <mykola_kvach@epam.com>
-References: <e57133182b9bcecb519911c8b3f0d871955d6fef.1754540991.git.mykola_kvach@epam.com>
- <CAGeoDV9ejB-6tg0eNK-6jD8zEZb1G0+AmJNaKVt50P4DiB6Kng@mail.gmail.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+ bh=erp5B8/zWvKQdvr4nZo1K1MCyTHV4bScG8pvt06uSkY=;
+ b=JhIVFAY58jDhtCFjgs2nag8MJNOCDXNRJDjALE6pGO47EKztdrE7sF5jVi6WURmcxSp48sGB27zIxk0OVS9wolP45D+4GibL5LU1/tUs+4sgyoXTH9I2oLviCJ5daTAUfJbUH008ztPxkOr+Rz5IawoGigf5MGLRgxvO0R7xpYfjRTULlx07Vy/N0+djvQGc1oKJhFLLiWJSQ2VM2EiD3lUUkfgb5/gpk5JF4EB2i/VoBo8OR8/1c5fAaia23n3kHzJlveQdubDN2CpzaK8Ye76krNsFBZT5VYyKcVblYWjzPa0HivuHvaYk3vI3wVvv4GIUnvocT73GM6wiPs03/g==
+From: "haseeb.ashraf@siemens.com" <haseeb.ashraf@siemens.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Limitations for Running Xen on KVM Arm64
+Thread-Topic: Limitations for Running Xen on KVM Arm64
+Thread-Index: AQHcSVi3paxtnyIgIkOf6jhuJCbvfg==
+Date: Thu, 30 Oct 2025 06:12:44 +0000
+Message-ID:
+ <KL1PR0601MB4588D25A95D680640A80F2CAE6FBA@KL1PR0601MB4588.apcprd06.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-In-Reply-To: <CAGeoDV9ejB-6tg0eNK-6jD8zEZb1G0+AmJNaKVt50P4DiB6Kng@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37F:EE_|MW4PR12MB7336:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d49915d-ee61-435a-c46f-08de17902ca6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dkR4b1RDRlk5S0h4aU4yVjdqMTlSMnJkY0oyZUYrY2FxSnpicFl3N2s4eUZU?=
- =?utf-8?B?VXVDRDc3djJ5WmM3R1JzbDNOSS9hWWhGdE9DUHVZaFlFcktjMGdxS2duV2di?=
- =?utf-8?B?NzM3Y0VTRGRhRkdtVWNBTGxlNUhDZ1JIbTdCWWk3Z1VqQm1XbUNEVFlIQWdk?=
- =?utf-8?B?T2xWWWpWQ3J3aGRRR1hMT0N5Tjh2bGZvaG9qTVFYS2t4a0t3djUyZi9YSHpa?=
- =?utf-8?B?M1UvemtmQkJFWUdKMjlZdHN1Y3NhODlJYUptcmdFaVlxaUo2TFdJbHQ5OW9R?=
- =?utf-8?B?Y01JY3NaYnk4NllHSXRQUmJXdS9kSjcrZVNPV2FvNkJzbGdFU1FqK0ErWkdS?=
- =?utf-8?B?MFVXQXBYSEVaQk1USTRubGdhY2QwNS9Eb21uSEVuaG14V3dOQnJRQVFKWElw?=
- =?utf-8?B?OG9lWEMyK3JvRmo4ZjRhN2llL2NZVlBrVFp0SXJ3UGhZV2hWc05xTnQxdm85?=
- =?utf-8?B?M0ZydjRzazRnQzJpcHoxaFlhME5YRk1PZ0N4V25RbXQzamduK3NUanlyOXVq?=
- =?utf-8?B?K3hYL0lteUExTU11YUZ4aHFqamZ0dzJRdVhhZmdiaTNYcEhibXBPaFZmSWtw?=
- =?utf-8?B?c2RsaC9FcENiRWFvc1hSY0xUck0vZ2NoVWFOZjdHT29MRTFFWUR1UUJkNDE5?=
- =?utf-8?B?VDAvMVROVFFEUWU1REtKeGk3Qkk5dkF2SHhURlR6N0NCcG9ZRjdGVmM5MG9L?=
- =?utf-8?B?VUthOTcrMGY5dnFic0x4ZzNiWW5DbmpRTGxlak9MNEZkWkQvS2szWkdGVmpJ?=
- =?utf-8?B?U3MzU3dKQm12OXJublRYeWl3U2Y4OHVnT0ExZTBlczJjd2dlaGxjZ1R5SzB4?=
- =?utf-8?B?czdndDkrajNTUnFZTFVJK1c1bUNxSWxGNll2WUpubFo5OGo4VEpBNWxGaVJG?=
- =?utf-8?B?ZFd3UTRCTWZaOW9oaklxdWdqQVU4a1dpUFVMY1VIc3pxUllRcU9CN2xJM29Q?=
- =?utf-8?B?b29jNFhTczdxZGRVRVlUZVJONDdvc05pd1ZOUjVVd3NDcHlRR21KZTZ1MDkr?=
- =?utf-8?B?TGlRNU9IekZ0elllbERKKzFmenF4YlB2VUREdWZYSURVYUxNK0EwVEt0TVNh?=
- =?utf-8?B?QldwRVBsZXVhR3Y0MmVXN2R0YUV4SURpK2JhR1JYRVFPOW5QaGdwYlljenZ3?=
- =?utf-8?B?ZHQ3Zm16aGRaWi92QjdRcmdZYnpnRlVzaW9HbG8zY2tSMFNOUXZuRXEvNTFx?=
- =?utf-8?B?WHVJK0V3WXowQzV2cXd2UlRmMW93ZFVHQ2g0d24zVUVzejBVYk5aeFFPZjFo?=
- =?utf-8?B?eTB0bmE1Q0FjbDRNY1hDelUzcmcrRk1ZM1FpVGh2QzY5VWdxTG5PQ1R5WVRC?=
- =?utf-8?B?alVxeW5Tdjk1Vll2Z3FyN1ZNRmhVem0zMGxpdnVoSFMxcEVtOEpYMnBlMS9I?=
- =?utf-8?B?bkhNVGp5YjZEYk1QUEIyaGtZQUlzNzJwanhmM0J2WDh6ZXRRdEpmVWxRVUhP?=
- =?utf-8?B?bm9uS3hkV2RseHlBVXVOTy9LZm1WMHlYMlBMN0pjMFBPT20zdEI5L1ZHZW9X?=
- =?utf-8?B?STdvbEZpRENjaUNONnI2MFdXUHRmT1VzOWdqeEZMVTVkYitMZ0grQWZ6em5w?=
- =?utf-8?B?TE9HckNOQXM0V1Btdjg1WklBZVZhcmZ4QmdEcEttQU1taW9KZ0k4Y2h6NWNO?=
- =?utf-8?B?bW8vUHpwRDFyaGNoaC9IQW9vRGVNVkZYeGhzTE9CaU5VUVpTKzVIejZvcHVQ?=
- =?utf-8?B?cFd1MVh1Y1dVeHdVcDZFWFpka3V2UkdpYkhyYXRXY3hZRzNzc1ZmZnVwOUFa?=
- =?utf-8?B?cG9ac2l2WmkzOFRZNGNQWmE4b0orT2pTOWZlMlNuelkrVXJaRmtsdkR3aHNv?=
- =?utf-8?B?ZERENWRjNFFIWXREKzY0RUhSOWZycHdDZ1pOMDlTTnR4NlkvY0xhdEJXYjl5?=
- =?utf-8?B?OGJmWGhtYjF4UjA2YVdVcUVveGVHaE53VDRPQjR5WkRnUFRyYTN0VFlPVGxT?=
- =?utf-8?B?Rk9GaytMbVN5VGVscEdSbHc1NEI4eHpnNC92L0IxYks5U3ZFcG1BZzJreFpj?=
- =?utf-8?B?UDhFekIvV0NRN3dSRUlYcURzLzJwRVcvdUZ0MmRzSldrcjFTRHZTaFlDSWg4?=
- =?utf-8?B?RmpHZ1RxNjVSOUNHbXgxM3JzRFkwQ1F1ZnlVSzJVWnhoM3Jmbzd6VmtjUVZV?=
- =?utf-8?Q?fNKU=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2025 08:41:52.4261
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_Enabled=True;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_SiteId=38ae3bcd-9579-4fd4-adda-b42e1495d55a;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_SetDate=2025-10-30T06:12:44.041Z;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_Name=C1
+ -
+ Restricted;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_ContentBits=1;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_Method=Standard;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siemens.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: KL1PR0601MB4588:EE_|SEZPR06MB5812:EE_
+x-ms-office365-filtering-correlation-id: a9b93fe5-d1ea-499b-2604-08de177b5731
+x-ms-exchange-atpmessageproperties: SA
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|1800799024|39142699007|31052699007|38070700021|8096899003;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?IIQl8w4SC5Jp9qLD4o0Pfcte7+11azpHZf09FTL10ul1lJAXPJurqTek0A?=
+ =?iso-8859-1?Q?fjJdKAd/4Vt79EqtbYe1o8ft0Hq16EE0YStxWeocYQ9TbYC/b38HT0ZcKD?=
+ =?iso-8859-1?Q?qVX193nX8refNvVvvx0bySYb7jy9eaUDwp9X6ksVIBZpq8/tWYaxUp426G?=
+ =?iso-8859-1?Q?7pKwn8bGz7054rvyumykPq6Mzhx4bd9G7pukxZ+7AkyAcLJOnXX2j75gaT?=
+ =?iso-8859-1?Q?0girYJp3xNF8I9bYu2gFa2YJRvS2tMZvdTiZyXS1EdN6gA1a48AR8pgvwp?=
+ =?iso-8859-1?Q?1SiywTlsB6tdKzT2MAgc/iMMjehzdviVQUiXwDRaMlpjo+HgKLF5WUtV96?=
+ =?iso-8859-1?Q?BMzaEUe/WQ15PMblkyEwsj7QnIFQrvgbKktLn4aHXI0wrJlZB4sxWC8Zs2?=
+ =?iso-8859-1?Q?WREqQW1hcs2rX/uSrkHfXyaQU8rPg8wgBVIEQhUncViUuQjgO1x+nzGzYB?=
+ =?iso-8859-1?Q?1pj3GQ+XE6AVTBVndjwngHlbslwVg2EEeGjnTUv8yIfq/gjXEOv773g+La?=
+ =?iso-8859-1?Q?FGH14VdQ+JjRjfOv/jguoL7/3j3RZ70m4HGCXytlpKdf3W0jK7Rm94NRrN?=
+ =?iso-8859-1?Q?FDRq8xaxv4Iw5QU8NVj+wrPUvRAstPCC5vRnDK7BFN+iiTlkKPlP9c3QCV?=
+ =?iso-8859-1?Q?ZNjJgGaEFSEBvLrDtni30njrnoLDz/qS0tSGR9duPdIcZek/hzGCuvu0yw?=
+ =?iso-8859-1?Q?zP89HzjhpmELobzvJ9HEjE2iVMIHErRQDbRYBNYrpPq8GaXgOWaEohakQy?=
+ =?iso-8859-1?Q?MAqcXay6DUgkB/V44dDRLEZLQligEvNDCQrXbQyRD7pfEkM+JkKOloqLfv?=
+ =?iso-8859-1?Q?Y5SBHW0OK6Au/Ngbad/j7OHbolHXLQSjlpxlwPNUAmsQ2fJzBfExjkQ0H7?=
+ =?iso-8859-1?Q?XlsAYvd0qV+vIRIXsyzXFbXjdVB8pCQg+xI/DnadjFvKc4imRB3nEimiUV?=
+ =?iso-8859-1?Q?Id6lEpfLpbCQaUL9fVs/rPjna0i5fkWO2bcOEkCPi9WeSycZyaz5vtmGPu?=
+ =?iso-8859-1?Q?ycO8ZW8sOWspxQi9ER/wrWLrGHhmmTUqWdSGIEGoutHW299wS+vNre0mRf?=
+ =?iso-8859-1?Q?fMwKnGwQCv+d6eTEomfjeY7iqqaQlMTfg3P3Rp7H1OPSw6qaGo6TQZU2Jy?=
+ =?iso-8859-1?Q?vAAfScyfvlaXsTkh14SllwBHJfPEUYUrTs4syS9qNBk6Ksoo3E/Olj0qG7?=
+ =?iso-8859-1?Q?lMgfQuOT9bDxAB42aGBzcUc3joRIBAHSCeon1IOhtyy+exmr5tH+0VL1ux?=
+ =?iso-8859-1?Q?pMXrU/LOocZ+C5ygWKkLpxW0R4dlRCbt0IktJZmgpau/yzqVHtpfkaf7+A?=
+ =?iso-8859-1?Q?JXctGKMjKz4sI683u6R5AuYsbpdBrztCL29T+b7FAPNVxbifmiaNrHCLLR?=
+ =?iso-8859-1?Q?DRxy9TI2SuFr9RwRe3Wv+KFmcG6qHFBjeIm4RCeJKCQcXA4ac+M5C2RH7N?=
+ =?iso-8859-1?Q?Bizc6ZKhka3lI6w7v8qIwbbYkSEY+BRYWfkvqYnQNEb26bLIYz+MnyvaXL?=
+ =?iso-8859-1?Q?6PGI2KUqK/2M+THclD2f416RaedoKM2yZ3OJdf4YxvFNExDHMdVQXT+j2A?=
+ =?iso-8859-1?Q?8H+ZsvIccDZTlzuwbYapEGkSkJHu?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR0601MB4588.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(39142699007)(31052699007)(38070700021)(8096899003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?5Sxllu5Ul/8U9Zoq+tGJcB2w+7FPOSNzF0WlgXBwcM3bXcUwBgbsd+7M2k?=
+ =?iso-8859-1?Q?miluEgJQ8YOv519c7Rw4RfGuWQQZkquKB8QM3eiDeXAJNYIepLKA8kgVwG?=
+ =?iso-8859-1?Q?6xpLI6SOUJc5uF84RV6E2waSFaMjws07J+0/HjPgoYK+MlzjCryfjh0fUx?=
+ =?iso-8859-1?Q?3Se2O8fi7qb9m2pfUqmp0EoBP+Nnd1nSzHUq7eZV9s+vQfytJE7ZBra2FC?=
+ =?iso-8859-1?Q?Vz1LzOijjHeTthHr2rMxiWZ9B+ByGcmAfuLnSRD9gKhFGLCOhx483JTWVe?=
+ =?iso-8859-1?Q?fRuR0mHU5f016K8G1etTPd1qUWzxetOD4VktNsdOo+NRMjl6Vk/dNVyyD6?=
+ =?iso-8859-1?Q?nkc+eC4+Zoq4D9MsbgdBR5t4UH7VsT4MExdrxnopp5Qx1U7tzoDn8LpQPE?=
+ =?iso-8859-1?Q?Zq14ksY83E1q8bLDCTtXHbn2Vpj+AhhtuqmGMDgi4dSRU5KXD3FBap9yyY?=
+ =?iso-8859-1?Q?hbILmk0K6IIRszrVArW+M/snNl0EXLXUDsHuhQ1lafAXOCgEJLxPmmGwKK?=
+ =?iso-8859-1?Q?Veveoi/6HoIBadaJyJfLVZI7sSsmIgKy5bnj4m/Z2y5UsqE0R5cSz9zaA2?=
+ =?iso-8859-1?Q?HQBi4IOIJxkCyXMWrh8K4raM6pT1dWG+c7H+gIDKaudimENkp2ZvKkaSL7?=
+ =?iso-8859-1?Q?6eGPOGnKn+JMB5O+zFhfottFd8hmZMw25nc/YoDxpNNCzheJjZd/YCDKvb?=
+ =?iso-8859-1?Q?R/xA8H+MeomEWcjQ9lWRlXHiVqjLRIRYgv620A1h2HUtRTfy5k3YOHuGEz?=
+ =?iso-8859-1?Q?7QMQwK0Hbbjimuy65zctVdqMLZj7q70rN8bu7a+3P8Ce26SndOFyuGRrPW?=
+ =?iso-8859-1?Q?k3IWtPy3RZdLEpxj0JllSu+Uw/5uKBys6HdgGNGYBByW9A/De5AVHkXhPT?=
+ =?iso-8859-1?Q?VJROw6t4GHtsL3inxiQcboEcgZfDhhyVOu+0L/tX4g+JwzhDqyN7ycwsWg?=
+ =?iso-8859-1?Q?kTvTx8+0+vC/7GqR2CmrZAwthsXKojT1pZi6MWmz5fW1DmpVbTtwRhMs2g?=
+ =?iso-8859-1?Q?9hF27wkR9L/AmZ/7/aWILyEOoX5HS3nNoHkOXr0ZVKUeuB6crXAA6k66h7?=
+ =?iso-8859-1?Q?L7dfXzg35xQHemvGE/2rEcJum9e3xQ16mP02moDfY6J9Ctco4t5Dy044Og?=
+ =?iso-8859-1?Q?j0+5dqfwOE4PkdJh4acJr8mdg4IukC9F3cG9o68Tqwm5B0zQ3hQWrCmyzX?=
+ =?iso-8859-1?Q?X+vWwr04yLhECmdF8sAkOf3jALQjJNR9Bq2TBXHzVXDB9m8nXOCHmo41Zf?=
+ =?iso-8859-1?Q?xYQbRy6ralwoBV8fmOCPZ4xNPUwrNcTf6dPENHb0Q/IxyaggvstOw51jmT?=
+ =?iso-8859-1?Q?qqYKXIWSc+AKZj2RKwtw7DSx8WTMZs0aIPLJiVVa/j7+Lkp/1L0Cs5Q514?=
+ =?iso-8859-1?Q?w2ZihnMEC+gZh/AkvcindaUgkkU+HfwFSvusetnjRGrhabhTdeo78KztWF?=
+ =?iso-8859-1?Q?sl6Bh4a8xYYOllvpctmL5GROWojHT9AIq8B7W5aUY7nJ02XEgcEfEFunmh?=
+ =?iso-8859-1?Q?JalXpW6fcYu0wJPl+JarOLvHy8ehwR92O6QPViIoH1wQCa1VseDZ5ofjWJ?=
+ =?iso-8859-1?Q?UN9xGAxHreYnU50rwUUbIke/5qN16wAEuC+ONGb2/khdGFYouSlCoHAD/m?=
+ =?iso-8859-1?Q?5tXDOiA7BbbYQRhDf0SEKo3OU8hmrjKzFK?=
+Content-Type: multipart/alternative;
+	boundary="_000_KL1PR0601MB4588D25A95D680640A80F2CAE6FBAKL1PR0601MB4588_"
+MIME-Version: 1.0
+X-OriginatorOrg: siemens.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR0601MB4588.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9b93fe5-d1ea-499b-2604-08de177b5731
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Oct 2025 06:12:44.3973
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d49915d-ee61-435a-c46f-08de17902ca6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF0000C37F.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7336
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CP9oVMkbjNSlUPQuHtIE0zzQJ2A8EFgyrL77rwDiQkpqggfK/ZXgfqWWKLoJH6afHvunQhyXlOomUZhzdxL15YfZ8nVrUlDP/z2TqtNHvvs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5812
+
+--_000_KL1PR0601MB4588D25A95D680640A80F2CAE6FBAKL1PR0601MB4588_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hello Xen development community,
+
+I wanted to discuss the limitations that I have faced while running Xen on =
+KVM on Arm64 machines. I hope I am using the right mailing list.
+
+The biggest limitation is the costly emulation of instruction tlbi vmalls12=
+e1is in KVM. The cost is exponentially proportional to the IPA size exposed=
+ by KVM for VM hosting Xen. If I reduce the IPA size to 40-bits in KVM, the=
+n this issue is not much observable but with the IPA size of 48-bits, it is=
+ 256x more costly than the former one. Xen uses this instruction too freque=
+ntly and this instruction is trapped and emulated by KVM, and performance i=
+s not as good as on bare-metal hardware. With 48-bit IPA, it can take up to=
+ 200 minutes for domu creation with just 128M RAM. I have identified two pl=
+aces in Xen which are problematic w.r.t the usage of this instruction and h=
+oping to reduce the frequency of this instruction or use a more relevant TL=
+BI instruction instead of invalidating whole stage-1 and stage-2 translatio=
+ns.
 
 
+  1.
+During the creation of domu, first the domu memory is mapped onto dom0 doma=
+in, images are copied into it, and it is then unmapped. During unmapping, t=
+he TLB translations are invalidated one by one for each page being unmapped=
+ in XENMEM_remove_from_physmap hypercall. Here is the code snippet where th=
+e decision to flush TLBs is being made during removal of mapping.
 
-On 30/10/2025 08:59, Mykola Kvach wrote:
-> @Stefano Stabellini @Michal Orzel @Julien Grall @Bertrand Marquis ping
-> 
-> On Thu, Aug 7, 2025 at 8:16 AM Mykola Kvach <xakep.amatop@gmail.com> wrote:
->>
->> From: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
->>
->> Implement suspend and resume callbacks for the SCIF UART driver,
->> enabled when CONFIG_SYSTEM_SUSPEND is set. This allows proper
->> handling of UART state across system suspend/resume cycles.
->>
->> Tested on Renesas R-Car H3 Starter Kit.
->>
->> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
->> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
->> ---
->> In patch v5, there are no changes at all;
->> it was done just to trigger a review.
->>
->> In patch v4, enhance commit message, no functional changes
->>
->> In patch v2, I just added a CONFIG_SYSTEM_SUSPEND check around
->> the suspend/resume functions in the SCIF driver.
->> ---
->>  xen/drivers/char/scif-uart.c | 40 ++++++++++++++++++++++++++++++++++--
->>  1 file changed, 38 insertions(+), 2 deletions(-)
->>
->> diff --git a/xen/drivers/char/scif-uart.c b/xen/drivers/char/scif-uart.c
->> index 757793ca45..888821a3b8 100644
->> --- a/xen/drivers/char/scif-uart.c
->> +++ b/xen/drivers/char/scif-uart.c
->> @@ -139,9 +139,8 @@ static void scif_uart_interrupt(int irq, void *data)
->>      }
->>  }
->>
->> -static void __init scif_uart_init_preirq(struct serial_port *port)
->> +static void scif_uart_disable(struct scif_uart *uart)
->>  {
->> -    struct scif_uart *uart = port->uart;
->>      const struct port_params *params = uart->params;
->>
->>      /*
->> @@ -155,6 +154,14 @@ static void __init scif_uart_init_preirq(struct serial_port *port)
->>
->>      /* Reset TX/RX FIFOs */
->>      scif_writew(uart, SCIF_SCFCR, SCFCR_RFRST | SCFCR_TFRST);
->> +}
->> +
->> +static void scif_uart_init_preirq(struct serial_port *port)
->> +{
->> +    struct scif_uart *uart = port->uart;
->> +    const struct port_params *params = uart->params;
->> +
->> +    scif_uart_disable(uart);
->>
->>      /* Clear all errors and flags */
->>      scif_readw(uart, params->status_reg);
->> @@ -271,6 +278,31 @@ static void scif_uart_stop_tx(struct serial_port *port)
->>      scif_writew(uart, SCIF_SCSCR, scif_readw(uart, SCIF_SCSCR) & ~SCSCR_TIE);
->>  }
->>
->> +#ifdef CONFIG_SYSTEM_SUSPEND
->> +
->> +static void scif_uart_suspend(struct serial_port *port)
->> +{
->> +    struct scif_uart *uart = port->uart;
->> +
->> +    scif_uart_stop_tx(port);
->> +    scif_uart_disable(uart);
->> +}
->> +
->> +static void scif_uart_resume(struct serial_port *port)
->> +{
->> +    struct scif_uart *uart = port->uart;
->> +    const struct port_params *params = uart->params;
->> +    uint16_t ctrl;
->> +
->> +    scif_uart_init_preirq(port);
-This will also call scif_uart_disable() that was already invoked during suspend.
-Why do we need to re-disable it when resuming?
+diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
+index 7642dbc7c5..e96ff92314 100644
+--- a/xen/arch/arm/mmu/p2m.c
++++ b/xen/arch/arm/mmu/p2m.c
+@@ -1103,7 +1103,8 @@ static int __p2m_set_entry(struct p2m_domain *p2m,
 
-Other than that:
-Acked-by: Michal Orzel <michal.orzel@amd.com>
+    if ( removing_mapping )
+        /* Flush can be deferred if the entry is removed */
+-        p2m->need_flush |=3D !!lpae_is_valid(orig_pte);
++        //p2m->need_flush |=3D !!lpae_is_valid(orig_pte);
++        p2m->need_flush |=3D false;
+    else
+    {
+        lpae_t pte =3D mfn_to_p2m_entry(smfn, t, a);
 
-~Michal
+  1.
+This can be optimized by either introducing a batch version of this hyperca=
+ll i.e., XENMEM_remove_from_physmap_batch and flushing TLBs only once for a=
+ll pages being removed
+OR
+by using a TLBI instruction that only invalidates the intended range of add=
+resses instead of the whole stage-1 and stage-2 translations. I understand =
+that a single TLBI instruction does not exist that can perform both stage-1=
+ and stage-2 invalidations for a given address range but maybe a combinatio=
+n of instructions can be used such as:
 
+; switch to current VMID
+tlbi rvae1, guest_vaddr ; first invalidate stage-1 TLB by guest VA for curr=
+ent VMID
+tlbi ripas2e1, guest_paddr ; then invalidate stage-2 TLB by IPA range for c=
+urrent VMID
+dsb ish
+isb
+; switch back the VMID
+
+  1.
+This is where I am not quite sure and I was hoping that if someone with Arm=
+ expertise could sign off on this so that I can work on its implementation =
+in Xen. This will be an optimization not only for virtualized hardware but =
+also in general for Xen on arm64 machines.
+
+
+  1.
+The second place in Xen where this is problematic is when multiple vCPUs of=
+ the same domain juggle on single pCPU, TLBs are invalidated everytime a di=
+fferent vCPU runs on a pCPU. I do not know how this can be optimized. Any s=
+upport on this is appreciated.
+
+diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
+index 7642dbc7c5..e96ff92314 100644
+--- a/xen/arch/arm/mmu/p2m.c
++++ b/xen/arch/arm/mmu/p2m.c
+@@ -247,7 +247,7 @@ void p2m_restore_state(struct vcpu *n)
+      * when running multiple vCPU of the same domain on a single pCPU.
+      */
+     if ( *last_vcpu_ran !=3D INVALID_VCPU_ID && *last_vcpu_ran !=3D n->vcp=
+u_id )
+-        flush_guest_tlb_local();
++        ; // flush_guest_tlb_local();
+
+     *last_vcpu_ran =3D n->vcpu_id;
+ }
+
+Thanks & Regards,
+Haseeb Ashraf
+
+--_000_KL1PR0601MB4588D25A95D680640A80F2CAE6FBAKL1PR0601MB4588_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+Hello Xen development community,</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+I wanted to discuss the limitations that I have faced while running Xen on =
+KVM on Arm64 machines. I hope I am using the right mailing list.</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+The biggest limitation is the costly emulation of instruction <code>tlbi vm=
+alls12e1is</code>&nbsp;in KVM. The cost is exponentially proportional to th=
+e IPA size exposed by KVM for VM hosting Xen. If I reduce the IPA size to 4=
+0-bits in KVM, then this issue is not
+ much observable but with the IPA size of 48-bits, it is 256x more costly t=
+han the former one. Xen uses this instruction too frequently and this instr=
+uction is trapped and emulated by KVM, and performance is not as good as on=
+ bare-metal hardware. With 48-bit
+ IPA, it can take up to 200 minutes for domu creation with just 128M RAM. I=
+ have identified two places in Xen which are problematic w.r.t the usage of=
+ this instruction and hoping to reduce the frequency of this instruction or=
+ use a more relevant TLBI instruction
+ instead of invalidating whole stage-1 and stage-2 translations.</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<ol style=3D"margin-top: 0px; margin-bottom: 0px; list-style-type: decimal;=
+" data-editing-info=3D"{&quot;applyListStyleFromLevel&quot;:false,&quot;ord=
+eredStyleType&quot;:1}" start=3D"1">
+<li style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; co=
+lor: rgb(0, 0, 0);">
+<div role=3D"presentation" class=3D"elementToProof">During the creation of =
+domu, first the domu memory is mapped onto dom0 domain, images are copied i=
+nto it, and it is then unmapped. During unmapping, the TLB translations are=
+ invalidated one by one for each page
+ being unmapped in <code>XENMEM_remove_from_physmap</code>&nbsp;hypercall. =
+Here is the code snippet where the decision to flush TLBs is being made dur=
+ing removal of mapping.&nbsp;</div>
+</li></ol>
+<blockquote style=3D"margin-left: 0.8ex; padding-left: 1ex; border-left: 3p=
+x solid rgb(200, 200, 200);">
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+index 7642dbc7c5..e96ff92314 100644</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+--- a/xen/arch/arm/mmu/p2m.c</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
++++ b/xen/arch/arm/mmu/p2m.c</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+@@ -1103,7 +1103,8 @@ static int __p2m_set_entry(struct p2m_domain *p2m,<br=
+>
+<br>
+&nbsp;&nbsp;&nbsp; if ( removing_mapping )<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Flush can be deferred if the =
+entry is removed */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p2m-&gt;need_flush |=3D !!lpae_=
+is_valid(orig_pte);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //p2m-&gt;need_flush |=3D !!lpa=
+e_is_valid(orig_pte);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p2m-&gt;need_flush |=3D false;<=
+br>
+&nbsp;&nbsp;&nbsp; else<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lpae_t pte =3D mfn_to_p2m_entry(=
+smfn, t, a);</div>
+</blockquote>
+<ol style=3D"margin-top: 0px; margin-bottom: 0px; list-style-type: decimal;=
+" data-editing-info=3D"{&quot;applyListStyleFromLevel&quot;:false,&quot;ord=
+eredStyleType&quot;:1}" start=3D"2">
+<li style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; co=
+lor: rgb(0, 0, 0); display: block;">
+<div role=3D"presentation" class=3D"elementToProof">This can be optimized b=
+y either introducing a batch version of this hypercall i.e.,
+<code>XENMEM_remove_from_physmap_batch</code>&nbsp;and flushing TLBs only o=
+nce for all pages being removed</div>
+<div role=3D"presentation" class=3D"elementToProof">OR<br>
+by using a TLBI instruction that only invalidates the intended range of add=
+resses instead of the whole stage-1 and stage-2 translations. I understand =
+that a single TLBI instruction does not exist that can perform both stage-1=
+ and stage-2 invalidations for a
+ given address range but maybe a combination of instructions can be used su=
+ch as:</div>
+</li></ol>
+<blockquote style=3D"margin-left: 0.8ex; padding-left: 1ex; border-left: 3p=
+x solid rgb(200, 200, 200);">
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+; switch to current VMID</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+tlbi rvae1, guest_vaddr ; first invalidate stage-1 TLB by guest VA for curr=
+ent VMID<br>
+tlbi ripas2e1, guest_paddr ; then invalidate stage-2 TLB by IPA range for c=
+urrent VMID</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+dsb ish</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+isb</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+; switch back the VMID</div>
+</blockquote>
+<ol style=3D"margin-top: 0px; margin-bottom: 0px; list-style-type: decimal;=
+" data-editing-info=3D"{&quot;applyListStyleFromLevel&quot;:false,&quot;ord=
+eredStyleType&quot;:1}" start=3D"3">
+<li style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; co=
+lor: rgb(0, 0, 0); display: block;">
+<div role=3D"presentation" class=3D"elementToProof">This is where I am not =
+quite sure and I was hoping that if someone with Arm expertise could sign o=
+ff on this so that I can work on its implementation in Xen. This will be an=
+ optimization not only for virtualized
+ hardware but also in general for Xen on arm64 machines.</div>
+</li></ol>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<ol style=3D"margin-top: 0px; margin-bottom: 0px; list-style-type: decimal;=
+" data-editing-info=3D"{&quot;applyListStyleFromLevel&quot;:false,&quot;ord=
+eredStyleType&quot;:1}" start=3D"2">
+<li style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; co=
+lor: rgb(0, 0, 0);">
+<div role=3D"presentation" class=3D"elementToProof">The second place in Xen=
+ where this is problematic is when multiple vCPUs of the same domain juggle=
+ on single pCPU, TLBs are invalidated everytime a different vCPU runs on a =
+pCPU. I do not know how this can be
+ optimized. Any support on this is appreciated.</div>
+</li></ol>
+<blockquote style=3D"margin-left: 0.8ex; padding-left: 1ex; border-left: 3p=
+x solid rgb(200, 200, 200);">
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+index 7642dbc7c5..e96ff92314 100644</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+--- a/xen/arch/arm/mmu/p2m.c</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
++++ b/xen/arch/arm/mmu/p2m.c</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+@@ -247,7 +247,7 @@ void p2m_restore_state(struct vcpu *n)</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+&nbsp; &nbsp; &nbsp; * when running multiple vCPU of the same domain on a s=
+ingle pCPU.</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+&nbsp; &nbsp; &nbsp; */</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+&nbsp; &nbsp; &nbsp;if ( *last_vcpu_ran !=3D INVALID_VCPU_ID &amp;&amp; *la=
+st_vcpu_ran !=3D n-&gt;vcpu_id )</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+- &nbsp; &nbsp; &nbsp; &nbsp;flush_guest_tlb_local();</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
++ &nbsp; &nbsp; &nbsp; &nbsp;; // flush_guest_tlb_local();</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+&nbsp;</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+&nbsp; &nbsp; &nbsp;*last_vcpu_ran =3D n-&gt;vcpu_id;</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+&nbsp;}&nbsp;</div>
+</blockquote>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+Thanks &amp; Regards,</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+Haseeb Ashraf</div>
+</body>
+</html>
+
+--_000_KL1PR0601MB4588D25A95D680640A80F2CAE6FBAKL1PR0601MB4588_--
 
