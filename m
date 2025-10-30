@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E751DC218A3
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 18:44:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1153898.1484135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79F0BC21CAC
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 19:34:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1153912.1484145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEWgh-0007Tg-6M; Thu, 30 Oct 2025 17:43:51 +0000
+	id 1vEXSt-0005qr-Nj; Thu, 30 Oct 2025 18:33:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1153898.1484135; Thu, 30 Oct 2025 17:43:51 +0000
+Received: by outflank-mailman (output) from mailman id 1153912.1484145; Thu, 30 Oct 2025 18:33:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEWgh-0007RM-3P; Thu, 30 Oct 2025 17:43:51 +0000
-Received: by outflank-mailman (input) for mailman id 1153898;
- Thu, 30 Oct 2025 17:43:50 +0000
+	id 1vEXSt-0005pC-Ke; Thu, 30 Oct 2025 18:33:39 +0000
+Received: by outflank-mailman (input) for mailman id 1153912;
+ Thu, 30 Oct 2025 18:33:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lE71=5H=bounce.vates.tech=bounce-md_30504962.6903a3d1.v1-187a43d2bf3c47e690d129f2def4c201@srs-se1.protection.inumbo.net>)
- id 1vEWgg-0007RG-DS
- for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 17:43:50 +0000
-Received: from mail132-29.atl131.mandrillapp.com
- (mail132-29.atl131.mandrillapp.com [198.2.132.29])
+ <SRS0=Us3E=5H=unpredictable.fr=mohamed@srs-se1.protection.inumbo.net>)
+ id 1vEXSs-0005p6-Eu
+ for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 18:33:38 +0000
+Received: from outbound.qs.icloud.com
+ (p-east3-cluster1-host9-snip4-10.eps.apple.com [57.103.87.93])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fc41f853-b5b7-11f0-9d16-b5c5bf9af7f9;
- Thu, 30 Oct 2025 18:43:47 +0100 (CET)
-Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail132-29.atl131.mandrillapp.com (Mailchimp) with ESMTP id
- 4cyBL94t8cz7lmCkC
- for <xen-devel@lists.xenproject.org>; Thu, 30 Oct 2025 17:43:45 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 187a43d2bf3c47e690d129f2def4c201; Thu, 30 Oct 2025 17:43:45 +0000
+ id eb0d144b-b5be-11f0-9d16-b5c5bf9af7f9;
+ Thu, 30 Oct 2025 19:33:24 +0100 (CET)
+Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
+ by p00-icloudmta-asmtp-us-east-2d-60-percent-7 (Postfix) with ESMTPS id
+ 93E5A1800215; Thu, 30 Oct 2025 18:33:21 +0000 (UTC)
+Received: from smtpclient.apple (unknown [17.57.155.37])
+ by p00-icloudmta-asmtp-us-east-2d-60-percent-7 (Postfix) with ESMTPSA id
+ BC8CE1800244; Thu, 30 Oct 2025 18:33:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,131 +43,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc41f853-b5b7-11f0-9d16-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1761846225; x=1762116225;
-	bh=cmG43eSdj//4sTwFfBTqyQmKleNXI2L5YH1aU7NWq+8=;
-	h=From:Subject:Message-Id:To:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=RM1fk+zPjGphBfrYgGZiqPa7/jZ5/HqL94POSFXC1FAtvW1qthYFwUbwELuPDtxss
-	 /w5dyGYChEbUEHS7ImnZFJ9B8E0zT7jk+T0+KExq4Noovz8tr6uEVSKzxMzjsYXbhh
-	 kFD6N4hi3qc+8GOOgIbwcejVzruXPBZ1dMxMSMRAZxJAt3dCDXDFjItGWwovKbT5Jy
-	 +mD5D38+OdIIzivuSSUu04pha3kO/kFNfdXHJLRo/tmoh0wk1XXeLQJ4oJdcynXYnG
-	 tmU1NE+T5m/A2ksOb+1vaIFTmm8wqvONweVfYi13N/9AMOVEpGk/lrkcvKj9JWaHmg
-	 yS+R+ujce9RSQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1761846225; x=1762106725; i=teddy.astie@vates.tech;
-	bh=cmG43eSdj//4sTwFfBTqyQmKleNXI2L5YH1aU7NWq+8=;
-	h=From:Subject:Message-Id:To:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=mn52DhgQBB2ulqVUlf9ox9K7iKeyMXl4n/AUYEHUl2RqffhlpdtZnmhBNayjTT2hl
-	 evmnol+XHxSGGK1eZt6txujIiBJklFXbY9q6p8f8j1U8moRcFO6AR8UyTqBBbrDggz
-	 gGgK6eqbdV2Q9nH2kV2oZrsJ3cJB3LJ5k4rQTRGErxWpFefXvGeCA5GWcqjZKtcZgk
-	 qe4GQTJQEI4/YZLBk3mCDnvdB0wEdadEcXZ2sVNsuuSxvsY8giSiASalJsuhqkLhKM
-	 vhLfFWpxf+cYVQnkwx5y5MfRhr1j0o++l5TbZ9Kk8VRlloRDSc4tNAypWKTOu9PEyY
-	 WLT0b1+pOOK5Q==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC]=20x86:=20Alternative=20AP=20bringup=20protocol=20(i.e=20SMP=20on=20SEV-ES)?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1761846224873
-Message-Id: <c68013da-dde4-4073-9031-67b9a1fd87f0@vates.tech>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.187a43d2bf3c47e690d129f2def4c201?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251030:md
-Date: Thu, 30 Oct 2025 17:43:45 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: eb0d144b-b5be-11f0-9d16-b5c5bf9af7f9
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=unpredictable.fr; s=sig1; bh=P4GlRS1Rnm2E407hmmpq3vBMV/UNrXgmFB3bhfYU8XY=; h=Content-Type:Mime-Version:Subject:From:Date:Message-Id:To:x-icloud-hme; b=NPFKCpptRTww7Y0f2A5/DW66xLABHlTZStDWO9FLQVNiIySpkuorI/UL2pAz75nVo54UGjj+kZAVjDh0qRwnUmHO4prMh0/SrKxfE7dSgM2prRivSpUeTVpX5cwUeiWDjuqTZ1+SU9XEla72IScIE0cF0hWe8XGavO3oNfgURqMhoUFTo4Dm5N7pk15F/1ozQ7vZju2IUBEtBVrYEax/MdSpROLbJF2NKXkzj0gbsTlxKuRqfBORLfIKqDM7rx109RECawJmRVxSCqHn0d/ijvYlsFLkKfPjcfsqTZ9GYrdXPfTHHarmlcK/C/LjEHtTgq6iJCt3UrGbK0zXv1hEaA==
+mail-alias-created-date: 1752046281608
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.100.1.1.5\))
+Subject: Re: Limitations for Running Xen on KVM Arm64
+From: Mohamed Mediouni <mohamed@unpredictable.fr>
+In-Reply-To: <KL1PR0601MB45885505ECBBE9262C2B25E0E6FBA@KL1PR0601MB4588.apcprd06.prod.outlook.com>
+Date: Thu, 30 Oct 2025 19:33:04 +0100
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "julien@xen.org" <julien@xen.org>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <FC5C66FD-8554-4F46-8546-B27DE76C8EEF@unpredictable.fr>
+References: <KL1PR0601MB4588D25A95D680640A80F2CAE6FBA@KL1PR0601MB4588.apcprd06.prod.outlook.com>
+ <KL1PR0601MB45885505ECBBE9262C2B25E0E6FBA@KL1PR0601MB4588.apcprd06.prod.outlook.com>
+To: haseeb.ashraf@siemens.com
+X-Mailer: Apple Mail (2.3864.100.1.1.5)
+X-Proofpoint-GUID: cJLmzDoEn0jP4NOWpC6hkNZAVJBMDjKO
+X-Proofpoint-ORIG-GUID: cJLmzDoEn0jP4NOWpC6hkNZAVJBMDjKO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDMwMDE1NSBTYWx0ZWRfX2nPkhAbRgmio
+ N1CXuu+uJlLYTR+t3SjLxSXi/Nu1timyghngj+YUlFjwBHk918Dgtfx4wan2WG7lSh/S/P1INmp
+ aCZNSbiFFt/G7av9R4TgTYfF03/hqy/R/+A6wIby5rFElwuqi8c70bmPmmRP8PAGYzOs7RzmS3r
+ QrbuZyUpbgQqN07uipuaoqtlr7kUgcz0rGR6TBWdmdud1V5U6qqSQ6nuZICSgkBxex7CVJ4S/7H
+ 59IKDoOiqhzYz4dSFNnJ4sXncGjGWmN4Byz/n7V0Aeju0UTQPfXDcgV4wqWrcglkWaxq5QQhs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-10-30_06,2025-10-29_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ spamscore=0 suspectscore=0 malwarescore=0 phishscore=0 mlxlogscore=996
+ bulkscore=0 clxscore=1030 mlxscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.22.0-2506270000 definitions=main-2510300155
+X-JNJ: AAAAAAAB35YTO1WDteZQ+P9mYkaLaCtnqHi3PDgevocWTD45rv3ZSLopx9DWZBSc624yb1qTfacBSN3zTaVJSQn1+3d1rl/HWljwMNleHgXud/3YsofvLvyYL48ThYu/ncQw70vMMhHGeVpvBIDxxmt5gcs2xvtyaM3cVMUF6pOBaFQhVl2jUHehLAletjv4QZBtEvY9EE9fCoQJGQZexsr+i8/NEnDvZiaVYcU9FjyWyqMXBIPRJiw88YLvDKuGzoznGd28V35myaw6awT8enZuitm2Q5Xlvt8QVgx4Iq565Mn7BMywX0t/uagzymMHAia5h4Hmy3GBOp192mwQIJrB5Lk1YxaMYSIsB/QhCw/hgICKuhkyI6t/azCEAtuirCwlwCyjLGxZnbsVTvh3QAk0yrb6ZrKnyqRL8XDlkUN8KI6tTTVZmH8wYdNGyjCXUarTR4QM6qLGcSvg751ntra4Fv9iSqkPA08lek0rduAWxD+SU+zVBSdiYyj5UWKO4B/o3G3gNU57fy27JHo5w2Z7zbPoppDTu2EyPv26MIL0tzJdDqtHMnbHcPcaestFQldnVCwT+tz9SaKXiZri1143qJnLcMbMGvbItPePSFvME8Hy6dDiSoUcu7UGuhuh4g==
+
+
+
+> On 30. Oct 2025, at 14:41, haseeb.ashraf@siemens.com wrote:
+>=20
+> Adding @julien@xen.org and replying to his questions he asked over =
+#XenDevel:matrix.org.
+>=20
+> can you add some details why the implementation cannot be optimized in =
+KVM? Asking because I have never seen such issue when running Xen on =
+QEMU (without nested virt enabled).
+> AFAIK when Xen is run on QEMU without virtualization, then =
+instructions are emulated in QEMU while with KVM, ideally the =
+instruction should run directly on hardware except in some special cases =
+(those trapped by FGT/CGT). Such as this one where KVM maintains shadow =
+page tables for each VM. It traps these instructions and emulates them =
+with callback such as handle_vmalls12e1is(). The way this callback is =
+implemented, it has to iterate over the whole address space and clean-up =
+the page tables which is a costly operation. Regardless of this, it =
+should still be optimized in Xen as invalidating a selective range would =
+be much better than invalidating a whole range of 48-bit address space.
+> Some details about your platform and use case would be helpful. I am =
+interested to know whether you are using all the features for nested =
+virt.
+> I am using AWS G4. My use case is to run Xen as guest hypervisor. Yes, =
+most of the features are enabled except VHE or those which are disabled =
+by KVM.
+
 
 Hello,
 
-In order to implement SMP support in SEV-ES, things quickly gets quite 
-complicated.
+You mean Graviton4 (for reference to others, from a bare metal =
+instance)? Interesting to see people caring about nested virt there :) - =
+and hopefully using it wasn=E2=80=99t too much of a pain for you to deal =
+with.
 
-As a PVH guest under Xen, we have 2 ways of initializing a vCPU (aside 
-BSP) :
-- VCPUOP_initialise
-- INIT-SIPI with vLAPIC
+>=20
+> ; switch to current VMID
+> tlbi rvae1, guest_vaddr ; first invalidate stage-1 TLB by guest VA for =
+current VMID
+> tlbi ripas2e1, guest_paddr ; then invalidate stage-2 TLB by IPA range =
+for current VMID
+> dsb ish
+> isb
+> ; switch back the VMID
+>     =E2=80=A2 This is where I am not quite sure and I was hoping that =
+if someone with Arm expertise could sign off on this so that I can work =
+on its implementation in Xen. This will be an optimization not only for =
+virtualized hardware but also in general for Xen on arm64 machines.
+>=20
 
-The first one is a hypercall that takes vcpu_hvm_context where provide 
-some initial state for the vCPU. The second one works by initializing 
-the vCPU at some cs.
+Note that the documentation says
 
-This works, but for instance under SEV-ES (*), the vCPUs state (VMSA) 
-must be measured then stays encrypted, which means that we can't set the 
-vCPU state once the VM is started; which prevent both of the methods to 
-work.
+> The invalidation is not required to apply to caching structures that =
+combine stage 1 and stage 2 translation table entries.
 
-IOW, all vCPUs state must be known before the guest actually starts 
-running (and ideally be defined as a part of boot ABI in order to be 
-able to reconstruct the VMSA for remote attestation).
-
-GHCB specification provide a way to deal with it ([1] SEV-ES GHCB 
-standardization 4.3 SMP Booting).
-It is mostly based on a "AP Jump Table" address that can be queried (and 
-also modified by inside-guest UEFI firmware) by the guest through a GHCB 
-operation to the hypervisor.
-This AP Jump Table is the address of a IP:CS combination that will be 
-used to initialize the vCPU (e.g as a part of a long jump instruction 
-that the vCPU is initially pointing to).
-
-But it's UEFI firmware centric, and is still relies on 
-hypervisor-specific behaviors. And it relies on the hypervisor to give a 
-proper "AP Jump Table" addresses (originally given by guest UEFI 
-firmware) which could be tampered (defeating some of the security 
-aspects of SEV-ES).
-Another issue is that the CPU initially starts in real mode, which 
-complicates the placement of such AP Jump Table.
-
-Here is a idea on a alternative functionally similar to SEV-ES 
-specification but more flexible and somewhat simpler to implement :
-
-Introduce a new special page "Alternative AP bring-up page" which 
-contains some header (similar to vcpu_hvm_x86_64) and some vcpu 
-initialization logic that sets up some control registers, EFER, GPR, 
-..., and then long jump to some guest-provided CS:EIP.
-
-All !BSP vCPUs start at the entry point with a CPU state similar to the 
-one defined in direct boot ABI, all vCPUs are initially stopped.
-
-In order to initialize a vCPU :
-- sets a appropriate vCPU state in bring-up page
-- calls VCPUOP_up on this vCPU
-- wait for vCPU initialization termination
-
-This is similar to the one proposed in GHCB specification with some 
-differences :
-- vCPU starts in protected mode (instead of real mode), which avoids 
-some of the AP Jump Table placement restrictions, as we now can put our 
-spacial page along the other ones (xenstore, pv console, ...)
-- we avoid potentially complicated initialization trampoline chains
-- we can start the vCPU directly in long mode (from guest PoV) if 
-appropriate EFER and control registers values are provided
-
-And the "AP Jump Table" protocol can still be implemented on top of this 
-proposal, given that the guest UEFI firmware supports it.
-
-Given that this expands some aspects of the "direct boot ABI", I would 
-like to gather some feedback on the idea.
-
-Thanks
-
-[1] 
-https://www.amd.com/content/dam/amd/en/documents/epyc-technical-docs/specifications/56421.pdf
-
-* regarding SEV-SNP, a different (simpler) method for vCPU 
-initialization is supported as the guest can directly provide a usable 
-VMSA with the entire encrypted state of the vCPU through
+for TLBIP RIPAS2E1
+>     =E2=80=A2 The second place in Xen where this is problematic is =
+when multiple vCPUs of the same domain juggle on single pCPU, TLBs are =
+invalidated everytime a different vCPU runs on a pCPU. I do not know how =
+this can be optimized. Any support on this is appreciated.
 
 
---
-Teddy Astie | Vates XCP-ng Developer
+One way to handle this is every invalidate within the VM a broadcast TLB =
+invalidate (HCR_EL2.FB is what you=E2=80=99re looking for) and then =
+forego that TLB maintenance as it=E2=80=99s no longer necessary. This =
+should not have a practical performance impact.
 
-XCP-ng & Xen Orchestra - Vates solutions
+Thank you,
+-Mohamed
+>=20
+>=20
+> diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
+> index 7642dbc7c5..e96ff92314 100644
+> --- a/xen/arch/arm/mmu/p2m.c
+> +++ b/xen/arch/arm/mmu/p2m.c
+> @@ -247,7 +247,7 @@ void p2m_restore_state(struct vcpu *n)
+>       * when running multiple vCPU of the same domain on a single =
+pCPU.
+>       */
+>      if ( *last_vcpu_ran !=3D INVALID_VCPU_ID && *last_vcpu_ran !=3D =
+n->vcpu_id )
+> -        flush_guest_tlb_local();
+> +        ; // flush_guest_tlb_local();
+>       *last_vcpu_ran =3D n->vcpu_id;
+>  }=20
+>=20
+> Thanks & Regards,
+> Haseeb Ashraf
 
-web: https://vates.tech
 
 
