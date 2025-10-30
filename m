@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F3E2C20008
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 13:27:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1153602.1483905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C7D2C20026
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Oct 2025 13:28:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1153610.1483914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vERk2-0002V3-Gc; Thu, 30 Oct 2025 12:26:58 +0000
+	id 1vERld-00030Z-Rm; Thu, 30 Oct 2025 12:28:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1153602.1483905; Thu, 30 Oct 2025 12:26:58 +0000
+Received: by outflank-mailman (output) from mailman id 1153610.1483914; Thu, 30 Oct 2025 12:28:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vERk2-0002Sk-DU; Thu, 30 Oct 2025 12:26:58 +0000
-Received: by outflank-mailman (input) for mailman id 1153602;
- Thu, 30 Oct 2025 12:26:57 +0000
+	id 1vERld-0002xv-OC; Thu, 30 Oct 2025 12:28:37 +0000
+Received: by outflank-mailman (input) for mailman id 1153610;
+ Thu, 30 Oct 2025 12:28:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5IGd=5H=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vERk1-0002Se-22
- for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 12:26:57 +0000
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c202::7])
+ id 1vERlc-0002xn-JH
+ for xen-devel@lists.xenproject.org; Thu, 30 Oct 2025 12:28:36 +0000
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c201::3])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6aa9ec4-b58b-11f0-980a-7dc792cee155;
- Thu, 30 Oct 2025 13:26:51 +0100 (CET)
+ id f3959449-b58b-11f0-980a-7dc792cee155;
+ Thu, 30 Oct 2025 13:28:34 +0100 (CET)
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by GV2PR03MB8653.eurprd03.prod.outlook.com (2603:10a6:150:75::20)
+ by PR3PR03MB6587.eurprd03.prod.outlook.com (2603:10a6:102:71::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.18; Thu, 30 Oct
- 2025 12:26:43 +0000
+ 2025 12:28:32 +0000
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9275.013; Thu, 30 Oct 2025
- 12:26:43 +0000
+ 12:28:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,268 +47,263 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6aa9ec4-b58b-11f0-980a-7dc792cee155
+X-Inumbo-ID: f3959449-b58b-11f0-980a-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=icCmXs8JP07XEQhOWn82gyKk1d77Sx6SZGsoACSRcdeoKKhqNA5ZiymL/j2DyGVJA9r8qVnBikebwo0FCLc1BkFcKtqMxPfClpfhstWLByk+PworQupoMCzKtvMTPAlZi+XrXnaQCt805bu1FKNpA7vuh9Qlk8bkxGQEqlRkCJwuRdLgEIi9vERrThixemVjBAKU+obokEkh7UL5nIvHuNaap5SQPh9fvcsKCK4RCPCRDPr837PMuKPxawQELc3XWR/zc0xX+5Q1rvPPrWSckwoCwZy5wE4xJ83JiRuWzbCbiKbZpdehX23WlGXk9jdE0aPBi9ytvJYBtzLE3gW/gg==
+ b=tuFog7yvIjV6Dy7baf+7rLtEjGSmEazA9URt0ZC1BYfY+ZeDgCWayxAjd05nLRwZLYvu6dPhDu008blGNLRW1qyfkXJHJQOBN3Ob45EqEcS4r/jdfRnR0v7YWALsMOf/Epv9MU575Aorf+H33X4VKIhoynVb3JUb0sIy3gjDRXqgtUnb/we7TitOzP36HLWCHLis3J1dwY0KBF14CtMs0mTR1Osx7+fSBd7yWG30J7ei87MWgShdHc3oEQ3Js9hk5GYHCEdQo3KbLcYi/r5LWkghrTbTTMgPDm94RPoBi7CN7reH2FG5taRjMLUHkkHCdF9PaSziYVvtMeAE6AoMXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vksVh06D3GYjpty2dbEQmNqF5w0G4jzayLz/+2Ebawg=;
- b=vp1XxlvpHTSnHR19UY6hjpFmNQ48u996VrbVCxlY9gL8/xzgEHseBXkILQX4GYdp5GdOyc/OfWaAuHW3wkZl+FkGprBfq2drkRtFv9YIF/s3SQMvwNE+HFMjdNUh1rkhvPi4Olvjci3zL/mwzRZmEUCB3cV+dUhz+sTEv0Dtyx4HQTBl1RtqCP/+Mw0Hmxrvau5cu3sskUh520w57CZWcyJINWcRgDT29qZEclW3u8K2v3U/hmAKUaADzvbPipJVJMWV3IJLGt9mRkqo5V0euabW2ApRo+GAtsr1jfZzrC9Wqx5ebtjnuUVkOn7PTowdcDL+1DHu0aWDoGuDHOPZMQ==
+ bh=sc8Wds2UavOFdVdE+qJU60sLRP7PXe8BQQSfiXJGjHw=;
+ b=I6UVFuQj8CjFsStVs12hhaLKC18AlfAYKqmkRSWn/pofZxjXGTmPWwYNOEn06ys8kbrQ3GAOCV5h6zA5Lxfl8LqglNlBasc16cmyvGOi4Sp1nMhFSUoaUSt11QHm8xqN8RmO7KPAgEFgGlN0SwUJjoXa6fXxo46tL7KcST8s0ZRfdQCEszsFGCBzK2dOKEjKdcna/KstPW/8BxKssgu2IgzKa/CgrqpijXRgVVzDMmiwwequxtJ9xlns9CMTXmgmWoaAQ2DV8NPZU0FwYwUan8nufvP9/7Ac9e7wkENLGRGgXB2bqTjgZAJIw1t0ylC9AhdUZ9XICQaFWIxGjbhiqQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vksVh06D3GYjpty2dbEQmNqF5w0G4jzayLz/+2Ebawg=;
- b=WGOTymMKru7yQKuDavH5+Om36dbUL/7KBcHkiQNiDsWTGmTF/R6tBX0EDedK4pqdDMaNUHajT2B5Kla4fLWIKbTzmT3hc483pHe4KfWY85RbA87jRzMKI0pOjxfuSMxGacYbffiEunT/xLJ22Px4w9UJepj1u38asXIoF7mcxrU7oTpShmT5Prroc4hx9V3U/+GbkFPTwj90nv7xjl41w4GdyJbPBgJKGkPYVexIMZBNgX1bF03yGFI6EaytG4uUtMVEemRIKxNmsvHpR/BRP/WcbusJfNeTbA3LWdompduvtBF1Nx/C4Jy3WZiCMSeNG3fUVS08txKrCuhwCGMBsQ==
+ bh=sc8Wds2UavOFdVdE+qJU60sLRP7PXe8BQQSfiXJGjHw=;
+ b=jYBbraVQy8y9p6pW8Zo54tWjgCE3QX83tgo5HJbB4yr4jFtcu7DVLnW54zpPF3Gn1QjHMbqk2BbRldAk51Yz6T8C0/sGQUxFDyJ8dB/kD+jJYQxfZmzCbguufWZ6k7EJQwBfudrjvDbFysXEDcrxdr4jOrt+RF9LQ36nFRx0NmrdKCo6sQU/MuPtznkfgVwH6YFRHLEX1QcZgBIMQhL1bNdq+pCOiQFJq1PIT7cEbC/6oG23bIkBd/rkoZF+k88UUVZKhYe4mH2mtXxsWyBdlkaIl7UZPMfFPDEsJpLZR7Cv/FKnKIQtYBnsuaKQOcZ/MUtC3h7R6tl1CnmttG0QUA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <1a8eb5fd-f52b-4cdf-8dc5-f07d07d0daf3@epam.com>
-Date: Thu, 30 Oct 2025 14:26:41 +0200
+Message-ID: <6373016f-9558-4d73-918e-4251d16643ef@epam.com>
+Date: Thu, 30 Oct 2025 14:28:30 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH 3/3] x86/hvm: vmx: refactor cache disable mode data
+Subject: Re: [XEN][PATCH 1/3] x86/hvm: move hvm_shadow_handle_cd() in vmx code
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Tim Deegan <tim@xen.org>, Jason Andryuk <jason.andryuk@amd.com>,
- Teddy Astie <teddy.astie@vates.tech>,
+ Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20251029235448.602380-1-grygorii_strashko@epam.com>
- <20251029235448.602380-4-grygorii_strashko@epam.com>
- <52395897-0e7f-4d24-8a28-0a303ff717b5@suse.com>
+ <20251029235448.602380-2-grygorii_strashko@epam.com>
+ <308ecf14-e831-47f4-8c64-4005bb4dc857@suse.com>
 Content-Language: en-US
 From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <52395897-0e7f-4d24-8a28-0a303ff717b5@suse.com>
+In-Reply-To: <308ecf14-e831-47f4-8c64-4005bb4dc857@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BE1P281CA0230.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:8c::15) To AS2PR03MB8907.eurprd03.prod.outlook.com
+X-ClientProxiedBy: BE1P281CA0233.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:8c::18) To AS2PR03MB8907.eurprd03.prod.outlook.com
  (2603:10a6:20b:5e4::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|GV2PR03MB8653:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6bdf10a9-7c55-47c9-25dd-08de17af95f6
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|PR3PR03MB6587:EE_
+X-MS-Office365-Filtering-Correlation-Id: 769ee19b-ac5c-493e-269f-08de17afd67d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?aVJjNjJRNXFDemFWUWp2c1R3QTRKRStyTXk2cGJRMmlkVm5YLzRPdnRVL1pN?=
- =?utf-8?B?WUt4UUN4MktkVmt1eGc0NVRubGdObTlZcFpYeW5FbmlNRXhHTzNCei84dGdW?=
- =?utf-8?B?M1lta01JUlZWWldqY1VKQ2lHTVl1REZXY2VLbDI4V1dzVkEwbTc3MXM4a0Vk?=
- =?utf-8?B?cFZobHpUWHEyOTU1anZxTU9FTy9NZXZuRjJWSEczNkFQazUxYjI1WHU3eGpF?=
- =?utf-8?B?WFN5NTZWSU15M3BibHRtbzdiQi9WQW5obmF0K3JLMHFtYTZUaVFFR2VDNHBG?=
- =?utf-8?B?VXNROEtGeExHb1Q0VlltZ25tSld6OUhsbVMyUU52akR4cU1NMU9Xa0VQa2Z1?=
- =?utf-8?B?dTBBRG9YL3NWYnZMdXV6c2c3czU4MWs1bCt4K0Z0dUR0SVlxV1oxWmZPYk0r?=
- =?utf-8?B?SDB6eXFvaXRwSnVHSXhEN1BvSUVQVzV0MnhDaWg4bEU2ZzZVZFg3cmlsQmFH?=
- =?utf-8?B?ZDk2WmV1czBWWlRrdHRHWEh6Z1Y3Rk4wWkV4NDExR2dFOHV4Y05icFhVM1Zl?=
- =?utf-8?B?RWRXL1QxQThVcjRZRVpVNVhzZUJwUThQY1RoQXN6ekNZaEdtTDYvVjFCTEdv?=
- =?utf-8?B?VFJyWHJ2bTVHUjVRWkFyRzZvV0YwdU5yalZVYXhWNXd4VHlNMndIMGdPaWw1?=
- =?utf-8?B?ZXA0bWNXMkJ0TjRJS2xqWHBqRTFiSVVMUnVaWENIUXN4VDRod3FlamFaOEtE?=
- =?utf-8?B?T2dMOUNQblAxc1c4NmtXeVF5dWRyU0RpTlF1VXUvMzg2MlZ1dU1RZS9pdm50?=
- =?utf-8?B?VjF0UTFackdGN0Z4VlZ3ejNHTzNncE0xazVyZXo0cUlpMW1yMzIyZzhIVHJR?=
- =?utf-8?B?TXRFcnUvWS90Nmdxcmo0SGlTVVlTRkcrT2s5MFo2WVl1dFh1YU10cndjem9J?=
- =?utf-8?B?eXcyZ0lodU1ZVlRtRURtT3Y3dDZ3VXc0U000WkpWYmtOV1JTY2xBSmRHQUlP?=
- =?utf-8?B?VTl1ZVIzU3hlY0JMNStNaFpaMVQ4SEpWZ2M2VE1QanZMVlFuOEY4K1RqK2hZ?=
- =?utf-8?B?eGFRM1JEaUhEeTU3b1pIR2N4M0NuRTZGOENuSkNCeEcwbTB0RWFpd1BEYlV2?=
- =?utf-8?B?YzkwNXdVekRyaUlPMDRQZjMvV3JQNCtyeFV2UzVReFdoZ2RkaDltV3M3ZFoz?=
- =?utf-8?B?ci90b0JHSWowdDQ1bDkyODBUS3l2ZlJjUTVqeGF2UHQwaE1VM1pPRkNMRHlz?=
- =?utf-8?B?VjduaFc4WHBsTUlBZXVXTllMRUowMCtQcjdLcDY3Njc3RVRsZjREM0lBaExD?=
- =?utf-8?B?N3NaY0tvRGlrYjNZd3Q0Y0YwUVUyeTNESzgrN1VFNjZqZGJtYWtrUGJQQVI4?=
- =?utf-8?B?K3gwUE1PcjZueE9keUFvQThnWTF5eGF0UzJ2Wk1aN3FSZHd2a2lDVktNRlVG?=
- =?utf-8?B?SU1TRk5pYTMzR0R6UTNnU2Q5M3IzMDN5SWsyUkd3Ulp2L25LNnU3YXE5R1Fx?=
- =?utf-8?B?MmNva3NScnJtWjdHSm9kNjY5aEpuUkg3K1ljamUzQVpOT3RKZkNlT3UzaHlQ?=
- =?utf-8?B?SDlLTlBIRnV0U0JvcFRrS3hQSW40aFA1T3QvaENpOTRXblJwQUlqSDFtTlBh?=
- =?utf-8?B?d3lWZjUxL2FscWtHdzA5RUdrc0oxSkp1OXRDekZvYk9FZW1zYlg1eGpnQ2RR?=
- =?utf-8?B?U0tSUlNMQ0IybXZYYysvOE9RZmU5ejRaMzdxbmhhZTZ2S2tROUdhRU5Qc0Zo?=
- =?utf-8?B?eWEzNWhjV1JhT3cxSDV3RU9pQWVPKzh2ajQ4aEV6eGtxcmNrNjdMb2Q1eEZi?=
- =?utf-8?B?NmpINllFZmt0MCtIV0NiSGNISGZkcnhYbUZiNFkxbjEyVjM1TzRtZnh0QkVk?=
- =?utf-8?B?OFVweklFQ3dEbUkweFNIQkU2d0RCb1Fkd1pyVUxhSEJEQVRDRFlhSzFIdytD?=
- =?utf-8?B?MS96b2dXUG00VnlMbkxXd1lHQ3R3dHJaNlZuN0R3VC9JeEZtbzdDeEdwWHJP?=
- =?utf-8?Q?0edaIhLWruIJYYJcqhPMyd3QGO+NQHx3?=
+	=?utf-8?B?S083dm1Mc2FGc0lsZ2JVTHpCaHZOSEpDUktEV0p4TTBtYVQvUHQyZWpKd3Fa?=
+ =?utf-8?B?TFJCMTJ4NjFFaXFCTHpuM2FzcGJwRENpeTVPVFpxazJROTU3a3orTVhkVkpB?=
+ =?utf-8?B?eUZLWWUrOWFIQ0cyYjhGb3dWUlQvTlpFR2lpcUhucDQxeGhFOTRNb2VaMzky?=
+ =?utf-8?B?YWduNTB3TDZLS01DYTVBakZROUlvRmliMm5YKzdnU3h2dzNIWngyT3lIbkpq?=
+ =?utf-8?B?THE0THZ5TkMxazVrRW1yakFUZTB3MTM4dlhnb1dxcFkrK1RRYWd4eHdFeUo3?=
+ =?utf-8?B?WlYyZjF3NVQ1cWVpanpROWdTNEJSYURVNUFoekw3WElUM2FOZUhOK3JYbkcy?=
+ =?utf-8?B?UFRlZWJPRlQ0cmk1RnhmSklSNVo3NUVTNG1kYmpKdTdubzNrd215Mlp5MXNN?=
+ =?utf-8?B?UkgxMzBKak1xT0F3SVJ5YmlvTUZraFdIV0p5UU83dVNlS3hHUVZ5YXpITUY4?=
+ =?utf-8?B?Z2xTaGxRWUd5dnpKNUZ1bWZJeGJPY2xlem95MnhWNndUNFMzMDlKYjBNeDdv?=
+ =?utf-8?B?R1RGQ2NrSTFYSDlUUnFhUkM2RkpuTWZRZjZqOXp5MGhnRE85a0hiUzBraFZY?=
+ =?utf-8?B?Um5Gb2N2bnozMWdjQ1dLcFhZeXVUKzdUZ3RlL00ybTdXTGZQQkluTFZJYXU1?=
+ =?utf-8?B?RVFjTVZOcXNjT3JmdjBjQnhHR3FNWlNrR0RQNFl2OGsxdzRhWGZaNG1oQzRF?=
+ =?utf-8?B?ZURwcVFDQTRxMVhaR29STjVheDdLSHFldVJUam85bkNHVDlMQ2IrcXNzMUF0?=
+ =?utf-8?B?aUVnNmlhTEI5Sm5KZHJabG0yR2hjU3BMTFhWZndJSVVhUlhycnd5emtHelVR?=
+ =?utf-8?B?Zk5haEZDS1hoNThmQVRjV0JEdWM5Yk1iMjlENVIzVittUHJCZTkrektZdkhH?=
+ =?utf-8?B?M1UrZ3lzSEJwV0xXNmszZmZGL01CQnc2OE5FalIyMnpwQmY0ZlFMVTlJMFY1?=
+ =?utf-8?B?TE5nQUltL25EN1MzZFFDeks4c21FVnJZODZZRmM3RE9xRlNUcDhhWHlqS1ZW?=
+ =?utf-8?B?LzBqR2N3aUgrYlZpbW5UREJpZmdzUDk2dmo5aVJ0WTU0K2FodDlYQVkvb3Nm?=
+ =?utf-8?B?eXFURG54NTZIdHE1aUFERDNmQzZ4b252cDVGMzlhbmxCNzVLVlNHR1lLelg4?=
+ =?utf-8?B?djArMlFQQWM0Y0xidmo3aTBrNTYwRG53VmNaQmxENHhFN3RzczdyTXQvVjNB?=
+ =?utf-8?B?VlNtYW91UFJ1R2ZNZXI2bVQ3a1ZJbllGRkFqMjg3UmVzWTcydGVQTmI0VDBk?=
+ =?utf-8?B?Yk9NWnNjdGV6aXFINkRRMXZyVDYrZncwTk0zeFdZNlNxRUpXUEd6UWVoYUNk?=
+ =?utf-8?B?SEtWSGoyWlh1dkxnUTJ0eEZnc3ZoVmZRY2xFcDVvb1NVTXI0TXJDd2o5Z25o?=
+ =?utf-8?B?bjBVUkV2ekR2L2M3OXRHWUtpRjY0eHRocThFNXd6eVBNTzlwbE0xMXpvWFNR?=
+ =?utf-8?B?VFBHTGowRXhaZkwxNDFXUmpnZGtOVXVMME4zY1EzSFRrTkM2eTc5VWJ2NEhY?=
+ =?utf-8?B?SDJOY1N6MHliczdmbTN6U2E1NUVkTzd4R2hIQlFVZzhhTGdveWtDd0JlVER1?=
+ =?utf-8?B?QStoejM3SFdROWltdUEwTVlmNGhHZWtvbGkyMGNHSnpzMlY5VzRROFYxK1Uw?=
+ =?utf-8?B?YUV2UURYWVNqM2dIL2pvUkRERTFKWlBqN2hBbW5HTVROVU5TSEQyRlpLY0ZE?=
+ =?utf-8?B?NnBualJFWi9SbVhYdHVadkF1VE5RU3V1aEtXbDhZR2pnQ2N5dWFuNVpqSjd6?=
+ =?utf-8?B?b1JGQVg4MzUvckF4ZTZlRmJia21QSUh4UEx4OCtYZUZuOUxPTUVIc1BrdHBl?=
+ =?utf-8?B?Q1NyU1ZEb0FwZUN6ZnFEMWhUTG5mTVYvUmR6VXh2YnMrOG40NzFkYVpJbEJU?=
+ =?utf-8?B?Z0FISm9oZFQ2bDJ2RCt3Wk9iYnpxenRRbERyY0xRcFFEUG5HWmRtdVEvWURm?=
+ =?utf-8?Q?BwkvWbEXyUgz+66NUtQU7OSA0d7qtCwO?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UmZqWVVucnd3cWgzV0FPck91OFZ1WDRjWUJrbzZzZ01BWWE3MytHd0JvVzVR?=
- =?utf-8?B?T3BEQVFBNngzR3lKbzRTeHRGZGlqdk5IVHNsK1A0RExsTEtEVGM5RVZXeUtx?=
- =?utf-8?B?L0VjbktwY044bFFkbU1yOHY2TUkydzhUdE9rV2NiRnZMeGxWZ3FGWklQMXVN?=
- =?utf-8?B?T3g1UW5HZHFybmtnU3RjM1RHSk5RYkNwUEhyY0F4Vk9HME9MdTk0dXN6Y0ZP?=
- =?utf-8?B?emE1bUR1Vk1PSDBtUjFLNG1jYWlyR0xmZGxLQnFxa1JJM2l2ZWRqaUhOWi9l?=
- =?utf-8?B?eFBxanZKV2RWR3duc0J6UzVYb2VaMmVxUzVaRjBGSk9iREgrNDdnQVdaaUhT?=
- =?utf-8?B?MW9EOHpqQ0RnU0lEQlZDNy9tQXZTTGlOTGxHWHhydkpwaHZwZ09DSlhFeUgy?=
- =?utf-8?B?Y2llQy93VlZPNEZrcUpXYlhCc3dXNVpKMFZuOEpOcFpvT0pKSzlQTDNRWVo2?=
- =?utf-8?B?TlFWSXl0YjRrOGdjNTRsa1g5akExWGJrNzNqQ2Y0b3BWYnZ2MlYzV0VzVTZk?=
- =?utf-8?B?T25jcXUrOVhkcmQvY1BxOHZUcTZLM2RoQ3dKOWFVbVFsZ1g5andkTUp1aTRG?=
- =?utf-8?B?S0llNjl5OXZUbVBoMFNSN2lxUjAyTEdHMC9nbGVJVGJvNThJa0pob2c2ZlVS?=
- =?utf-8?B?KzZmMmtkZWI2WFZFV2ovUVArSDJORjJLTU5pWHQ1VEFXN2cxRkJGZ2sxeUFF?=
- =?utf-8?B?cGk2VlorNnRSN0tjRTZ0UHZHMGdsUkdaSUZEVmI5UVFvN0phajBHNndRWHVK?=
- =?utf-8?B?UXlZUmhQK2JTME9nbG9pRkFBRWgvNkhtV2x2dkNmQXBPSTRwZFRtUGRCY0Vx?=
- =?utf-8?B?ODRUMlJieVB6ZDFtcEsrL0hjOG0zVUNLeGFNcDBsV2p0aWJTK2pFNGMreTZ2?=
- =?utf-8?B?MkFNWGZGMjArRlM3ZDVzYVNTYmpSanladExydHV6NFpPVmxva0VVWVZBUk9Q?=
- =?utf-8?B?RXVkdjQ0QnQ1TTlLYUFWTWpYb1ZuNitrOUxoQ0taR2NWNjBBQUtnZ1h6TEg3?=
- =?utf-8?B?eElIV2w4Wm1HeEVGWWVtTEwrak40V1dYSURWcGFvSzhxdDB3YnBadVFWSTJW?=
- =?utf-8?B?VlZBYnlMMU9YaFVDYVVNRGNWeDZERHIwRUlBc25pUEFMVm9OczduSG94cVRY?=
- =?utf-8?B?eVVEZ0NEdTBKZXRmQVhqNlkySDNZdUFYSG1WanFHTWptODBKQTN1SXdIUW5E?=
- =?utf-8?B?dzFIcUw0eFB2VzdjRTNBUVowbXhVR1NsUzRib1hycFpjMjl5THFaMWtDTHh1?=
- =?utf-8?B?OUxrcEFyQzZqVDdXVWZDVGpGZEdzZlpRdjNJRHExSDVQYUl3UWFyb3Y1WWtu?=
- =?utf-8?B?amZ6dEtFMi8vdXJEQnUybVF6dDNDb1pPeGIrQ3dpNEJZN1lZa29GR1JiNjla?=
- =?utf-8?B?OFJkZG9qV1dSenFTeFN6MjIwVElneURRSFJCd0I4SFZkak1FUEl4eEdkQ3g0?=
- =?utf-8?B?ZWxKcm14bEdOS0ZWUUsxcXpIY0cyLzExS3hTNjY5WUV3QjlQSERrTEYxcFJZ?=
- =?utf-8?B?Q0VNREVFdS9ORUI4NTBObUJOeWpFNko4THJhTWZvOGFFeGpxNFB1blAzeUI2?=
- =?utf-8?B?SVpCbXVxWFZadFhlMDV2TmNZMGVrRSs1MDRseHpUTEtFZlQzVGtoU21yWXcz?=
- =?utf-8?B?a2IyY0dEM2c0VlQ4MWFNeXJQcjNVMTBzRHZtQ2d4ejMwQURBcmZJR3pieXVu?=
- =?utf-8?B?WGtwdE9LK0FRd1VmNCsxRTlrOGVtOWJ3a1g0K1hyd3RCZlRtTzJVS3MrUllw?=
- =?utf-8?B?TEkvQVpBRHNXZWViMWtIZ1FPcHVGM2swY0xtK08wK0FEZ3Z3ZkJwcUhsWm9Z?=
- =?utf-8?B?SXN4V3Buc1lOa2RVRTdudHlVVGtVZ1l1aUpibk1FUm1kdmhsdVhNRDNlZ2Zl?=
- =?utf-8?B?dXcwWVYvL05za25mNTZoOEhEcVZybjZwdlFVaXdDQVhQSDA1bWFDSGJVMndJ?=
- =?utf-8?B?SWdFNVAvNHZHOTlPTFZuMXMrRkRrVnl5N0ZaVk9pS1c1YTN2SDFKc0FobVAz?=
- =?utf-8?B?c1pJb3RTSzlpVTI2SFNFUnhVUGgzMUkvdEx2dC9DdlpNS2JINVRiUU1ZaVRs?=
- =?utf-8?B?K0JZQ3Z2dTA0Q0FQcUMvT2h4VnBwMisydFh4WGF2UHk5LzdGNnhJSnJhVVFp?=
- =?utf-8?B?Ly9zNlNvdXVlN3psaCsrR0dwZHFVZW5Kc3hORmJkTDM1Vkt3RGpOcUtOSndm?=
- =?utf-8?B?Wnc9PQ==?=
+	=?utf-8?B?WkxnZmpoeGYvWm5hZkdtcC9lVUtWWFJ4WVlKbEQ0UlZ0MDUxN25tQ1FNTFB2?=
+ =?utf-8?B?TmtJS3cvR1lsSFhVT0tTNGtJdFBKUkZ4aHZWUGxlelliNzlDcllldGlHaUNO?=
+ =?utf-8?B?Ylg5U0xiNmd5MG96MmVxOHlCdmNzanJYNlNabVlEWkR3QytMTzJWejFFZWlO?=
+ =?utf-8?B?VENqWmtHc2hIQytpazNVYnZCMEJJempsOExFVU1kaEQyOGNhcmF2T0haOGZV?=
+ =?utf-8?B?aGp2MFRlWmMxOWl5YUIvVUVhYXlmM2dqNWlFcWRwWEdLNEZkS1kvR2NtSCt6?=
+ =?utf-8?B?RjcvcWhGbzN3K0JKWlhHWDVWUWlkV2NSeHptNUxURWhqTzRkZFNaemlOei9G?=
+ =?utf-8?B?ZE4xdEQvMkJiaGp0ZUZQWVhiVjh3YXNtNjN3Tm4xVWluMG9seW1MazM1d2V4?=
+ =?utf-8?B?eStkM2pKd1FnVXJFQnBnQXRiajZJdVZlZzAwSC9GQ3VGY0NQMmJIS3pVNVlD?=
+ =?utf-8?B?NmxTUUJ5eTZEdkNSN3RjdW40VzVDQUVrU0FReC9hYXB5bnFleVk0YzZoSjRy?=
+ =?utf-8?B?QjRDNTAxQUdmbVNMUUZNSWZMVUxpTFgrNU5pQk1uTlhHRy9sNmVUT1MvNEdC?=
+ =?utf-8?B?ZTI4MnZzUXFjVHd4TXVsZFYvVWxiYWpaak9qU2w0SVVnMkdpSDdHTjlRZ2du?=
+ =?utf-8?B?Vk1YaTExMVZENE9HRnRsWVhuSUdPWm1ORFJjSmpuSFZyWUZORnlOMWxqK3di?=
+ =?utf-8?B?eHZ5NmF5alp0YXk4UmdkcFRzM1Q0NGRYWDV0N1RDdGdJakpwd0RMSTBXSUNW?=
+ =?utf-8?B?bDYycjR1akt5Zm5WZ05qZzZ1aUlaOVV3QWFpZnJ3S3kxSFkwRHlJUEdNUG9w?=
+ =?utf-8?B?eUZKMWFhQ29lamVlOVl5TDdJYmp3RVRaOGhKUGNGcW9TeGNsT0FFbUxRUWpL?=
+ =?utf-8?B?RFo5WFQycDRtdFNxaTM2SDZsYmd3bjY3bGpDQi8xUkN4aW5MMXhKTTl2QmU4?=
+ =?utf-8?B?WGZWL01SbjN4bXBWQWw0b0ZQbGl1dkUzbkdDR01BU2VCODUwdWNJeWVSQm03?=
+ =?utf-8?B?aXg5cE5nKzFFNGpYR2JGZk4zcTVRanQ0RzJiZUVpZE9IRFZZWGk0YmRsd01P?=
+ =?utf-8?B?dUxmWTdhdTRmUnBaaWxzL2NJU2tDV2ZiOHhhZmYvNTNMRzhsK0dEZVlmQU5H?=
+ =?utf-8?B?MzlodUhBdkEwdXFrZVcrdHlVS0diUFFVYU9ZUnMrV2VrK0I2QlRoSFhFV3dr?=
+ =?utf-8?B?ZmhUTDRPSHFOYXcwME1VekFueit5ZEhXcXBQY3RZOG95REZUZEFCM0M0anJ3?=
+ =?utf-8?B?bWdVMUNNM1Y0SnZTaElWZFl5R0tZWnZOMVIveWpkTGgzWE5WU285eGR3UDlN?=
+ =?utf-8?B?QTdERFovM2ZGWEVSaGV6MS9HQU93QkV1cG9iUGhoMXFSOWQ1SnJKOGtnYmt3?=
+ =?utf-8?B?dVZ2VkQxUm9SZUtGMnNFM3loS1FZMWEvN1QyNDB6VFdodDlnajRFRzlaWkNx?=
+ =?utf-8?B?VnZpY2hPazN6d2xCenkwNHZaSzFJeUswMEN0bXFTSnVaQ0Q2UVp4R25KWlU0?=
+ =?utf-8?B?bzlCWC9Sbk94K0x2VmJoWDU3RVFiU0tYYTRyTnFkN0sycHNUL1N6Y0Zyc3BQ?=
+ =?utf-8?B?bGJJQWIydjFXcVBvNTQ0QUNVVndyK1ZkRmJ5Sm8zQmZReHRoNXlYaTFiWldO?=
+ =?utf-8?B?KzA0VGE1SlJ3Z2Zsdk1NY0lxTXUxN2xITjFEVGt1R1FTeklLdFF1OU1YajJQ?=
+ =?utf-8?B?OWY2UFZPZ2FscEFPTlNjTWcwdFdHOEZiRE9YblZOUDRLTWZNZ0x5RUJXMStY?=
+ =?utf-8?B?YkRzY3Z6d2tiakRkU2Fkem5QY0lQdE1rVUhnNnZGakFqcXRlVmdmQkNxdjJn?=
+ =?utf-8?B?cVl0R2xUcnZNb3JHcG1aQmZ3ZnlTajBxTnYxdW5uNGlNWGlGNkV0U0NXNmJG?=
+ =?utf-8?B?TXVISVVSYVJGSUExWnR6OFVSRnh3cUJmVWtmakJWcVdzdHpLWitMdTQ5SWll?=
+ =?utf-8?B?RlZuWWptS2V1cVo1bWdBY2JBUkFna09YZUN5Z1RmRWR6eUhBZVRwZmF3R1Za?=
+ =?utf-8?B?K0dhcy9yRURUSy8yQUJkUUpqdDVSMkFsRUVqc1J2ckpMM3Z5MHp5Nm85dmdw?=
+ =?utf-8?B?K2ZRUjlsRno0MlZXSENNcVdSMUwwdnNXUTV3VGg0Qms0Tk5lTXdldE53WHRX?=
+ =?utf-8?B?T0JmNEhqdjVNSzFsaVZFS0JkR0paekxYa0VTS1lnUDUxRWV5MjJCa0Rtczc4?=
+ =?utf-8?B?a3c9PQ==?=
 X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6bdf10a9-7c55-47c9-25dd-08de17af95f6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 769ee19b-ac5c-493e-269f-08de17afd67d
 X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2025 12:26:43.6862
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2025 12:28:32.0133
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qBK6F4q7qR9mtCIr0xv0SrVAlCYd/V9AX85pkS5I0ZqcCFrokAM9gX/TRa0jUX/PRBi8mBbi4y53BDsxZNrsnSlVed48T+N1Ol+Qkw7L4Nk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR03MB8653
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9/ZaH/c6kYO2k2qSAs7SEAycXHEgIDwGqAqmgee6+eE9gYUhbZb11zM4rLATR3NIcCZLRnb1+dMsSWtpkqOXsnCOaUyi6Nx1/EnaUc26ehg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR03MB6587
 
 Hi Jan,
 
-On 30.10.25 13:23, Jan Beulich wrote:
+On 30.10.25 13:08, Jan Beulich wrote:
 > On 30.10.2025 00:54, Grygorii Strashko wrote:
 >> From: Grygorii Strashko <grygorii_strashko@epam.com>
 >>
->> The Cache Disable mode data is used only by VMX code, so move it from
->> common HVM structures into VMX specific structures:
->> - move "uc_lock", "is_in_uc_mode" fields from struct hvm_domain to struct
->> vmx_domain;
->> - move "cache_mode" field from struct hvm_vcpu to struct vmx_vcpu.
+>> Functions:
+>>   hvm_shadow_handle_cd()
+>>   hvm_set_uc_mode()
+>>   domain_exit_uc_mode()
+>> are used only by Intel VMX code, so move them in VMX code.
+> 
+> Nit: I think both in the title and here you mean "to" or "into".
+> 
+>> While here:
+>> - minor format change in domain_exit_uc_mode()
+>> - s/(0/1)/(false/true) for bool types
 >>
->> Hence, the "is_in_uc_mode" field is used directly in mm/shadow/multi.c
->> _sh_propagate(), introduce the hvm_is_in_uc_mode() macro to avoid direct
->> access to this field and account for INTEL_VMX configuration.
+>> No functional changes.
 >>
 >> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
 > 
-> Requested-by: Andrew ?
+> You did read Andrew's request to also move the involved structure field(s),
+> didn't you? Oh, wait - maybe that's going to be the subject of patch 3. 
 
-ok
+yes. it is patch 3 - It is not small.
+And I really wanted this patch to contain as less modifications as possible on
+top of code moving.
 
+
+
+>While
+> often splitting steps helps, I'm not sure that's very useful here. You're
+> touching again immediately what you just have moved, all to reach a single
+> goal.
 > 
->> --- a/xen/arch/x86/hvm/vmx/vmx.c
->> +++ b/xen/arch/x86/hvm/vmx/vmx.c
->> @@ -583,6 +583,7 @@ static int cf_check vmx_domain_initialise(struct domain *d)
->>       int rc;
+>> @@ -1421,6 +1422,64 @@ static void cf_check vmx_set_segment_register(
+>>       vmx_vmcs_exit(v);
+>>   }
 >>   
->>       d->arch.ctxt_switch = &csw;
->> +    spin_lock_init(&d->arch.hvm.vmx.uc_lock);
-> 
-> I don't think this is the best place; in any event it wants to be separated from
-> adjacent code by a blank line. I'd prefer if it was put ...
-> 
->>       /*
->>        * Work around CVE-2018-12207?  The hardware domain is already permitted
-> 
-> ... below this CVE workaround.
-
-ok
-
-> 
->> --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
->> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
->> @@ -46,7 +46,9 @@ struct ept_data {
->>   
->>   #define _VMX_DOMAIN_PML_ENABLED    0
->>   #define VMX_DOMAIN_PML_ENABLED     (1ul << _VMX_DOMAIN_PML_ENABLED)
+>> +/* Exit UC mode only if all VCPUs agree on MTRR/PAT and are not in no_fill. */
+>> +static bool domain_exit_uc_mode(struct vcpu *v)
+>> +{
+>> +    struct domain *d = v->domain;
+>> +    struct vcpu *vs;
 >> +
->>   struct vmx_domain {
->> +    spinlock_t uc_lock;
->>       mfn_t apic_access_mfn;
->>       /* VMX_DOMAIN_* */
->>       unsigned int status;
+>> +    for_each_vcpu(d, vs)
+>> +    {
+>> +        if ( (vs == v) || !vs->is_initialised )
+>> +            continue;
+>> +        if ( (vs->arch.hvm.cache_mode == NO_FILL_CACHE_MODE) ||
+>> +             mtrr_pat_not_equal(vs, v) )
+>> +            return false;
+>> +    }
+>> +
+>> +    return true;
+>> +}
+>> +
+>> +static void hvm_set_uc_mode(struct vcpu *v, bool is_in_uc_mode)
+>> +{
+>> +    v->domain->arch.hvm.is_in_uc_mode = is_in_uc_mode;
+>> +    shadow_blow_tables_per_domain(v->domain);
+>> +}
 > 
-> Any reason to make this the very first field of the struct? It might better
-> live adjacent to the other field you move; there's going to be some padding
-> anyway, afaict.
+> Similarly I wonder whether this function wouldn't better change to taking
+> struct domain * right away. "v" itself is only ever used to get hold of
+> its domain. At the call sites this will then make obvious that this is a
+> domain-wide operation.
 
-I've tried to put fields in holes and checked with pahole.
+Agree. but..
+In this patch I wanted to minimize changes and do modifications step by step.
 
-With current change it is:
-struct vmx_domain {
-	spinlock_t                 uc_lock;              /*     0     8 */
-	mfn_t                      apic_access_mfn;      /*     8     8 */
-	unsigned int               status;               /*    16     4 */
-	_Bool                      exec_sp;              /*    20     1 */
-	_Bool                      is_in_uc_mode;        /*    21     1 */
-
-	/* size: 24, cachelines: 1, members: 5 */
-	/* padding: 2 */
-	/* last cacheline: 24 bytes */
-};
-
-It seems can be grouped like below?:
-struct vmx_domain {
-	mfn_t                      apic_access_mfn;      /*     0     8 */
-	unsigned int               status;               /*     8     4 */
-	_Bool                      exec_sp;              /*    12     1 */
-	_Bool                      is_in_uc_mode;        /*    13     1 */
-
-	/* XXX 2 bytes hole, try to pack */
-
-	spinlock_t                 uc_lock;              /*    16     8 */
-
-	/* size: 24, cachelines: 1, members: 5 */
-	/* sum members: 22, holes: 1, sum holes: 2 */
-	/* last cacheline: 24 bytes */
-};
+I can add additional patch such as "rework struct domain access in cache disable mode code".
+Will it work?
 
 > 
->> @@ -56,6 +58,12 @@ struct vmx_domain {
->>        * around CVE-2018-12207 as appropriate.
->>        */
->>       bool exec_sp;
->> +    /*
->> +     * If one of vcpus of this domain is in no_fill_mode or
->> +     * mtrr/pat between vcpus is not the same, set is_in_uc_mode.
->> +     * Protected by uc_lock.
->> +     */
->> +    bool is_in_uc_mode;
+>> +static void hvm_shadow_handle_cd(struct vcpu *v, unsigned long value)
+>> +{
+>> +    if ( value & X86_CR0_CD )
+>> +    {
+>> +        /* Entering no fill cache mode. */
+>> +        spin_lock(&v->domain->arch.hvm.uc_lock);
+>> +        v->arch.hvm.cache_mode = NO_FILL_CACHE_MODE;
+>> +
+>> +        if ( !v->domain->arch.hvm.is_in_uc_mode )
+>> +        {
+>> +            domain_pause_nosync(v->domain);
+>> +
+>> +            /* Flush physical caches. */
+>> +            flush_all(FLUSH_CACHE_EVICT);
+>> +            hvm_set_uc_mode(v, true);
+>> +
+>> +            domain_unpause(v->domain);
+>> +        }
+>> +        spin_unlock(&v->domain->arch.hvm.uc_lock);
+>> +    }
+>> +    else if ( !(value & X86_CR0_CD) &&
+>> +              (v->arch.hvm.cache_mode == NO_FILL_CACHE_MODE) )
+>> +    {
+>> +        /* Exit from no fill cache mode. */
+>> +        spin_lock(&v->domain->arch.hvm.uc_lock);
+>> +        v->arch.hvm.cache_mode = NORMAL_CACHE_MODE;
+>> +
+>> +        if ( domain_exit_uc_mode(v) )
+>> +            hvm_set_uc_mode(v, false);
+>> +
+>> +        spin_unlock(&v->domain->arch.hvm.uc_lock);
+>> +    }
+>> +}
 > 
-> Imo while moving, the is_ prefix could also be dropped. It doesn't convey any
-> extra information on top of the in_, and I think we prefer is_*() also as
-> typically function(-like) predicates. (I.e. in hvm_is_in_uc_mode() I'm fine
-> with the name.)
+> This function, in turn, could do with a local struct domain *d.
+> 
+>>   static int cf_check vmx_set_guest_pat(struct vcpu *v, u64 gpat)
+>>   {
+>>       if ( !paging_mode_hap(v->domain) ||
+> 
+> Why did you put the code above this function? It's solely a helper of
+> vmx_handle_cd(), so would imo best be placed immediately ahead of that one.
 
-ok
+Right. Hence vmx_x_guest_pat() are also used by vmx_handle_cd() I decided to put before them.
 
 > 
->> @@ -93,6 +101,9 @@ struct pi_blocking_vcpu {
->>       spinlock_t           *lock;
->>   };
->>   
->> +#define NORMAL_CACHE_MODE          0
->> +#define NO_FILL_CACHE_MODE         2
-> 
-> As you necessarily touch all use sites, could we switch to the more common
-> CACHE_MODE_* at this occasion? Also imo these want to live ...
-> 
->> @@ -156,6 +167,9 @@ struct vmx_vcpu {
->>   
->>       uint8_t              lbr_flags;
->>   
->> +    /* Which cache mode is this VCPU in (CR0:CD/NW)? */
->> +    uint8_t              cache_mode;
-> 
-> ... right next to the field they belong to.
+> Bottom line: The change could go in as is, but imo it would be nice if it
+> was tidied some while moving.
 
-ok.
+I'd be very much appreciated if this could happen.
 
 -- 
 Best regards,
