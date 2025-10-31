@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B4B3C24D51
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Oct 2025 12:48:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1154203.1484298 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB9DBC24DFF
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Oct 2025 12:55:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1154218.1484307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEnbp-0007gk-D2; Fri, 31 Oct 2025 11:47:57 +0000
+	id 1vEnig-0000sP-Aa; Fri, 31 Oct 2025 11:55:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1154203.1484298; Fri, 31 Oct 2025 11:47:57 +0000
+Received: by outflank-mailman (output) from mailman id 1154218.1484307; Fri, 31 Oct 2025 11:55:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEnbp-0007dn-9q; Fri, 31 Oct 2025 11:47:57 +0000
-Received: by outflank-mailman (input) for mailman id 1154203;
- Fri, 31 Oct 2025 11:47:56 +0000
+	id 1vEnig-0000qR-7x; Fri, 31 Oct 2025 11:55:02 +0000
+Received: by outflank-mailman (input) for mailman id 1154218;
+ Fri, 31 Oct 2025 11:55:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1UMm=5I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vEnbo-0007dh-3B
- for xen-devel@lists.xenproject.org; Fri, 31 Oct 2025 11:47:56 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Exqh=5I=unpredictable.fr=mohamed@srs-se1.protection.inumbo.net>)
+ id 1vEnif-0000qL-1w
+ for xen-devel@lists.xenproject.org; Fri, 31 Oct 2025 11:55:01 +0000
+Received: from outbound.qs.icloud.com
+ (p-east3-cluster7-host12-snip4-1.eps.apple.com [57.103.84.242])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6f6dac43-b64f-11f0-980a-7dc792cee155;
- Fri, 31 Oct 2025 12:47:53 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-47112edf9f7so17235975e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 31 Oct 2025 04:47:53 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47728a96897sm90865675e9.11.2025.10.31.04.47.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 Oct 2025 04:47:53 -0700 (PDT)
+ id 68565936-b650-11f0-980a-7dc792cee155;
+ Fri, 31 Oct 2025 12:54:51 +0100 (CET)
+Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
+ by p00-icloudmta-asmtp-us-east-2d-100-percent-1 (Postfix) with ESMTPS id
+ 31D24180011E; Fri, 31 Oct 2025 11:54:50 +0000 (UTC)
+Received: from smtpclient.apple (unknown [17.57.155.37])
+ by p00-icloudmta-asmtp-us-east-2d-100-percent-1 (Postfix) with ESMTPSA id
+ 400291800179; Fri, 31 Oct 2025 11:54:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +43,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f6dac43-b64f-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1761911273; x=1762516073; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wsRHN3UXXxYTcMMsTbcLOVn+1rcAHjuOv6n1k5sias4=;
-        b=csBTBENIS9ZkhgtIJiiCjBeALggEQOxy7Gl5/XJBhyT7bmYNT5AqIOsR5S+5UyT0ci
-         p7RZSNJTD/OpWrW8C1sXhC+qTe4TIGL540PkodbFR5UjgKYALl6VZE5n1MPG5kIX+cis
-         d492p7tfre0hJlNf78+0dgFAuxU6lJMqQ/SVlX/Pj3oD6NanNm3nhNWT9bBbJLygsgM4
-         fxsPfe/AFfZT+dtjjPvgtpLIpng5nr9KJI0TIBJiNK3xpLbpwhXl3BwxglWZQ51Hwxoe
-         hx12iklxsP4VuBwrYmQw/aAduSRTQ+T9MCFEiZDmlFQ1C3+JcwjQe82KzEi9zNUaJQMl
-         8Z3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761911273; x=1762516073;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wsRHN3UXXxYTcMMsTbcLOVn+1rcAHjuOv6n1k5sias4=;
-        b=flnFXxm3PxIvPsPMqDTiktiyvsoBN+GgwxxgAgJN403iIcLZ/VjqdvLunxjIgZbS9R
-         VoeIpYoKSzOZVsS3EECFjTyPK1/7bJsBIVJf+Zh5HyQGijYBvczqoL962JlNuWLYHMf3
-         4ARv7uBLdF+zRFDL3zmgTtVDirkWIsTb5L/F7j8JFZ47iq6TRYVSWalyhi2aXsQnq/x0
-         4Q3nV84WwaBn9kQgeXoOJzdt2A5g0PUgP1FdFF+XwcU4tkmyiRkKMFRxWBuzx1DPbDZk
-         tSaL+Bj1eiCPLmMjVBEEmTmpRHgIAF+rPKOYU8yUGA/DQw45BM4lvbtWN6ddO6876x+R
-         GRlQ==
-X-Gm-Message-State: AOJu0Yy4Q2A+uzLfF8laMf0qQn+GJOQsbN9g1+BrFqvyzYY8GDZgvbxM
-	ln6K9m0eGSQANz8nJOg4cqTjjx7ZTEZVWd3QhaVbWOkYy1fJ072s4bibmCmX3FlG4Q==
-X-Gm-Gg: ASbGncv4BPbL5BFtEz+RY1ULu/3cBVfEv88Ey4imY1pO9ZaGASXomEQi6QcD0MNKr50
-	RQIE1rAGU7t9w7RExQT/FYGEML1bpH88PYPH8GnpvpoZD0MYQkKy1v9X1kSA3osAw7uob11MAyu
-	3/JuesrR2Xd68O19HomFcDzWppjb8BXGBekjqVncKWRd9DzgYsmb674v1SAd4/IcVbCRJZWpvo3
-	/Mt7oDl5WTSx5DNjXc1xBPx4dWYJRL/IOaVGO3n+HLblbXLiQu8LGYTUCuH1xFGLXKTFSgCUThd
-	eLIiGrxB/aN1HltWuJrN1Do4JVHlO3Eh5rVknjqhpxBgiqtNRRNJFV/yIqmMenM6/EvIREHSpnY
-	juv3HmWsbLG+gpjmCykeN8sdRsm713CrSwTM1mdZHSRqJO7Lh7iN5u/YupLeDgoY49VB+jssevh
-	oUgsEzowiMuvQGz/RR2Qof4vDL6r9ee7uZtpO1Vts3eofpspx8TrqS/Q75bnnX5biBcrJJtzA=
-X-Google-Smtp-Source: AGHT+IH3MLjxhs32GE+ceKTPuzzCpSYrh3sRzV9P49X4wpWVPK/1obm1EtnnfmlDvyR7SkUBzjsk1g==
-X-Received: by 2002:a05:600c:3486:b0:46f:b32e:5094 with SMTP id 5b1f17b1804b1-477308c01cbmr33142635e9.32.1761911273256;
-        Fri, 31 Oct 2025 04:47:53 -0700 (PDT)
-Message-ID: <b7293f69-d9f8-4669-a1fd-eaa468445d68@suse.com>
-Date: Fri, 31 Oct 2025 12:47:51 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 for-4.21 0/2] x86/AMD: deal with RDSEED issues
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <272093dc-c97c-434a-9977-ad1c26e7e229@suse.com>
- <aQSN3MKxAa_cltld@Mac.lan> <68e28e41-e835-4985-80a3-6a99b3d7dc3e@suse.com>
- <aQSVTjh5xiib-u5D@Mac.lan>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aQSVTjh5xiib-u5D@Mac.lan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 68565936-b650-11f0-980a-7dc792cee155
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=unpredictable.fr; s=sig1; bh=kzMGTw6HxWn9qSJVsZtQqoT+HyWujkzxOdqXS37vWNE=; h=Content-Type:Mime-Version:Subject:From:Date:Message-Id:To:x-icloud-hme; b=cegB/QCsJ4dvUiPm3en5xjFDfxbAiivZczBVoVfqsFIRFw5UGTEUbYwHK8PxDNs9ImQqKnX7c9wkIZ2cSVTKWwZPWkRWZwVeqGvTq5ctJKPOd9shD/OmAapLt1qdVcR+RA3Gt9+Bh6o4SRruj4b1pgcsDMOqIeavbdEIANoaLs66Jz2NxHlMbAOFkQSkMwbS04E27vWMcLnwzK5i299Rp01gvgedrBuyhh/topSXhPzIQQS5MMFBoYLuTrGl7sAN1BOEkfONUmGrLg2/upK6hE7yVF96lZUgUrSO3J9mrc9FwiAFdKIbcH3bGr9ZGLRx1xMHSEippqEOXVg/DrDYvg==
+mail-alias-created-date: 1752046281608
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.100.1.1.5\))
+Subject: Re: Limitations for Running Xen on KVM Arm64
+From: Mohamed Mediouni <mohamed@unpredictable.fr>
+In-Reply-To: <fc181349-d743-4ef0-bcd2-01c04d2a463e@xen.org>
+Date: Fri, 31 Oct 2025 12:54:37 +0100
+Cc: haseeb.ashraf@siemens.com,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <0C76C261-783D-4503-B929-4B48CDEC8841@unpredictable.fr>
+References: <KL1PR0601MB4588D25A95D680640A80F2CAE6FBA@KL1PR0601MB4588.apcprd06.prod.outlook.com>
+ <KL1PR0601MB45885505ECBBE9262C2B25E0E6FBA@KL1PR0601MB4588.apcprd06.prod.outlook.com>
+ <FC5C66FD-8554-4F46-8546-B27DE76C8EEF@unpredictable.fr>
+ <2b00a98f-6fee-4341-92bd-25909ebb6e36@xen.org>
+ <CA753BD2-31FA-480D-B32A-2125F0F4981D@unpredictable.fr>
+ <fc181349-d743-4ef0-bcd2-01c04d2a463e@xen.org>
+To: Julien Grall <julien@xen.org>
+X-Mailer: Apple Mail (2.3864.100.1.1.5)
+X-Proofpoint-ORIG-GUID: 3Vb3l3yG2fumEGFr-sH1zVP9cM3Pk_Zg
+X-Proofpoint-GUID: 3Vb3l3yG2fumEGFr-sH1zVP9cM3Pk_Zg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDMxMDEwNyBTYWx0ZWRfX5urlLJQ4nOLq
+ +Ba9WTP5I484N4taXY+SFhxeqbbdRr1RfiYWf7lUiiyR7E2BysDamBCHXk2JXy1BtMXPCD789hi
+ e84Nlozld3w9FBOiVr5Cex42z9RrW6rPM4LlDdueSwnLgsbr/Wvbjvaqankf7Owjtn1f1///yWG
+ u6nTgEPvhachkCIWbaP0iFo/kPUYLhQu8ahEyiP90jku16DEDdyPAt4ZntpUpXCMEBx5adpDTjT
+ O0g4ugA6rydGIAvMLu5nV0gadZicfejoBfDSGeUsWOwMamZBfzDNaXPuijqyjtYULti9KQCv8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-10-31_03,2025-10-29_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ bulkscore=0 spamscore=0 mlxlogscore=968 malwarescore=0 adultscore=0
+ phishscore=0 clxscore=1030 mlxscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.22.0-2506270000 definitions=main-2510310107
+X-JNJ: AAAAAAAB6DdOImB7aF4CcUyVYjT0dtC6UWm7wrUOpGULkjJeVhLUHatN/3RnKQl1v3UQZXutf/xOQvjaMUwcligpDHcFCV0sfi41sIQVdcJRMFYfYubH5AigJXzIqywCS+uKwFLF6rXq6KN3esoj3NVZz+1a+JRHZXPUPgpQs+nzOwJDkL7etfGT8IJpWZE6Dn4JLbuYn0WhO/WEEVtGVV8UhrLX+QRI2tfDGyHnK6QGW8HklcMdWxsRhZhklBBalicydBbQA5HFSjelct6TPo3fYiOiOm8qbnvTJSAIsvyFsJw1sd+RcZ438I3CLMB7bLhPxr6lN8xI1Hs6EI15L/CejvDcuba2wUbrgagqWmAJuxgEODOmiu7Wtic51T5LgMH/8lGx0VtLFv7UdgLLk0I1GjL+bQW+xoykpp9G6fC6tfEfqloFWlaogJejFYcZAqozp9lwfOB8qgtbbt+/CTLda44fG4V96j+5Gp8Bh2x7a54xmTCIuW171LTHXtKL38dScAHAYXzFxGPEXUlZilcu/viJGBgr6WQnPvNuMnp2xAUFW6/ezKNTD15Frvm2Na7jnICztTf/ppBZkvcTU6ksPaApyiDfFq9Mn2nhqETGNedxhO/RdkzY+UWUQWEaKfFj25S2MZVdojyqMnw2mTv8RnStszzsxEsSq4Exqg==
 
-On 31.10.2025 11:54, Roger Pau Monné wrote:
-> On Fri, Oct 31, 2025 at 11:29:44AM +0100, Jan Beulich wrote:
->> On 31.10.2025 11:22, Roger Pau Monné wrote:
->>> On Tue, Oct 28, 2025 at 04:32:17PM +0100, Jan Beulich wrote:
->>>> Both patches also want 'x86/CPU: extend is_forced_cpu_cap()'s "reach"' in
->>>> place.
->>>>
->>>> 1: disable RDSEED on Fam17 model 47 stepping 0
->>>> 2: disable RDSEED on most of Zen5
->>>
->>> For both patches: don't we need to set the feature in the max policy
->>> to allow for incoming migrations of guests that have already seen the
->>> feature?
->>
->> No, such guests should not run on affected hosts (unless overrides are in place),
->> or else they'd face sudden malfunction of RDSEED. If an override was in place on
->> the source host, an override will also need to be put in place on the destination
->> one.
-> 
-> But they may be malfunctioning before already, if started on a
-> vulnerable hosts without this fix and having seen RDSEED?
 
-Yes. But there could also be ones coming from good hosts. Imo ...
 
-> IMO after this fix is applied you should do pool leveling, at which
-> point RDSEED shouldn't be advertised anymore.  Having the feature in
-> the max policy allows to evacuate running guests while updating the
-> pool.  Otherwise those existing guests would be stuck to run on
-> non-updated hosts.
+> On 31. Oct 2025, at 10:18, Julien Grall <julien@xen.org> wrote:
+>=20
+>=20
+>=20
+> On 31/10/2025 00:20, Mohamed Mediouni wrote:
+>>> On 31. Oct 2025, at 00:55, Julien Grall <julien@xen.org> wrote:
+>>>=20
+>>> Hi Mohamed,
+>>>=20
+>>> On 30/10/2025 18:33, Mohamed Mediouni wrote:
+>>>>> On 30. Oct 2025, at 14:41, haseeb.ashraf@siemens.com wrote:
+>>>>>=20
+>>>>> Adding @julien@xen.org and replying to his questions he asked over =
+#XenDevel:matrix.org.
+>>>>>=20
+>>>>> can you add some details why the implementation cannot be =
+optimized in KVM? Asking because I have never seen such issue when =
+running Xen on QEMU (without nested virt enabled).
+>>>>> AFAIK when Xen is run on QEMU without virtualization, then =
+instructions are emulated in QEMU while with KVM, ideally the =
+instruction should run directly on hardware except in some special cases =
+(those trapped by FGT/CGT). Such as this one where KVM maintains shadow =
+page tables for each VM. It traps these instructions and emulates them =
+with callback such as handle_vmalls12e1is(). The way this callback is =
+implemented, it has to iterate over the whole address space and clean-up =
+the page tables which is a costly operation. Regardless of this, it =
+should still be optimized in Xen as invalidating a selective range would =
+be much better than invalidating a whole range of 48-bit address space.
+>>>>> Some details about your platform and use case would be helpful. I =
+am interested to know whether you are using all the features for nested =
+virt.
+>>>>> I am using AWS G4. My use case is to run Xen as guest hypervisor. =
+Yes, most of the features are enabled except VHE or those which are =
+disabled by KVM.
+>>>> Hello,
+>>>> You mean Graviton4 (for reference to others, from a bare metal =
+instance)? Interesting to see people caring about nested virt there :) - =
+and hopefully using it wasn=E2=80=99t too much of a pain for you to deal =
+with.
+>>>>>=20
+>>>>> ; switch to current VMID
+>>>>> tlbi rvae1, guest_vaddr ; first invalidate stage-1 TLB by guest VA =
+for current VMID
+>>>>> tlbi ripas2e1, guest_paddr ; then invalidate stage-2 TLB by IPA =
+range for current VMID
+>>>>> dsb ish
+>>>>> isb
+>>>>> ; switch back the VMID
+>>>>>     =E2=80=A2 This is where I am not quite sure and I was hoping =
+that if someone with Arm expertise could sign off on this so that I can =
+work on its implementation in Xen. This will be an optimization not only =
+for virtualized hardware but also in general for Xen on arm64 machines.
+>>>>>=20
+>>>> Note that the documentation says
+>>>>> The invalidation is not required to apply to caching structures =
+that combine stage 1 and stage 2 translation table entries.
+>>>> for TLBIP RIPAS2E1
+>>>>>     =E2=80=A2 The second place in Xen where this is problematic is =
+when multiple vCPUs of the same domain juggle on single pCPU, TLBs are =
+invalidated everytime a different vCPU runs on a pCPU. I do not know how =
+this can be optimized. Any support on this is appreciated.
+>>>> One way to handle this is every invalidate within the VM a =
+broadcast TLB invalidate (HCR_EL2.FB is what you=E2=80=99re looking for) =
+and then forego that TLB maintenance as it=E2=80=99s no longer =
+necessary. This should not have a practical performance impact.
+>>>=20
+>>> To confirm my understanding, you are suggesting to rely on the L2 =
+guest to send the TLB flush. Did I understanding correctly? If so, =
+wouldn't this open a security hole because a misbehaving guest may never =
+send the TLB flush?
+>>>=20
+>> Hello,
+>> HCR_EL2.FB can be used to make every TLB invalidate the guest issues =
+(which is a stage1 one) a broadcast TLB invalidate.
+>=20
+> Xen already sets HCR_EL2.FB. But I believe this is only solving the =
+problem where the vCPU is moved to another pCPU. This doesn't solve the =
+problem where two vCPUs from the same VM is sharing the same pCPU.
+>=20
+> Per the Arm Arm each CPU have their own private TLBs. So we have to =
+flush between vCPU of the same domains to avoid translations from vCPU 1 =
+to "leak" to the vCPU 2 (they may have confliected page-tables).
+Hm=E2=80=A6 it varies on whether the VM uses CnP or not (and whether the =
+HW supports it)=E2=80=A6 (Linux does=E2=80=A6)
+> KVM has a similar logic see "last_vcpu_ran" and =
+"__kvm_flush_cpu_context()". That said... they are using "vmalle1" =
+whereas we are using "vmalls12e1". So maybe we can relax it. Not sure if =
+this would make any difference for the performance though.
+vmalle1 avoids the problem here (because it only invalidates stage-1 =
+translations).=20
+> Cheers,
+>=20
+> --=20
+> Julien Grall
+>=20
+>=20
 
-... we need to err on the side of caution.
-
-Jan
 
