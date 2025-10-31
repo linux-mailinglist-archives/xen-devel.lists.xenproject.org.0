@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A975C25247
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Oct 2025 14:02:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1154282.1484358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1C43C252F2
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Oct 2025 14:08:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1154295.1484368 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEokx-0004ox-8U; Fri, 31 Oct 2025 13:01:27 +0000
+	id 1vEorl-0005mm-0Y; Fri, 31 Oct 2025 13:08:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1154282.1484358; Fri, 31 Oct 2025 13:01:27 +0000
+Received: by outflank-mailman (output) from mailman id 1154295.1484368; Fri, 31 Oct 2025 13:08:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vEokx-0004m1-3x; Fri, 31 Oct 2025 13:01:27 +0000
-Received: by outflank-mailman (input) for mailman id 1154282;
- Fri, 31 Oct 2025 13:01:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vEork-0005kS-Tg; Fri, 31 Oct 2025 13:08:28 +0000
+Received: by outflank-mailman (input) for mailman id 1154295;
+ Fri, 31 Oct 2025 13:08:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ix4U=5I=siemens.com=haseeb.ashraf@srs-se1.protection.inumbo.net>)
- id 1vEokv-0004lu-Ex
- for xen-devel@lists.xenproject.org; Fri, 31 Oct 2025 13:01:25 +0000
-Received: from TYPPR03CU001.outbound.protection.outlook.com
- (mail-japaneastazlp170120005.outbound.protection.outlook.com
- [2a01:111:f403:c405::5])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b339e552-b659-11f0-9d16-b5c5bf9af7f9;
- Fri, 31 Oct 2025 14:01:22 +0100 (CET)
-Received: from KL1PR0601MB4588.apcprd06.prod.outlook.com
- (2603:1096:820:87::11) by TYUPR06MB6174.apcprd06.prod.outlook.com
- (2603:1096:400:350::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.14; Fri, 31 Oct
- 2025 13:01:15 +0000
-Received: from KL1PR0601MB4588.apcprd06.prod.outlook.com
- ([fe80::3f19:282d:5fe2:f523]) by KL1PR0601MB4588.apcprd06.prod.outlook.com
- ([fe80::3f19:282d:5fe2:f523%3]) with mapi id 15.20.9275.013; Fri, 31 Oct 2025
- 13:01:15 +0000
+ <SRS0=r2XW=5I=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1vEori-0005kK-Un
+ for xen-devel@lists.xenproject.org; Fri, 31 Oct 2025 13:08:26 +0000
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c201::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ace3d043-b65a-11f0-980a-7dc792cee155;
+ Fri, 31 Oct 2025 14:08:21 +0100 (CET)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by PR3PR03MB6489.eurprd03.prod.outlook.com (2603:10a6:102:7c::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.15; Fri, 31 Oct
+ 2025 13:08:19 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9275.013; Fri, 31 Oct 2025
+ 13:08:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,504 +47,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b339e552-b659-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: ace3d043-b65a-11f0-980a-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BFfXLDzMhyKgME5gH+4LDvCofxFdVtxXwEpwX29+ptcYcOiQENmurY42ZUMx65T0O/YDW/L0S2qts+ApR21aHeyqSeFnBwT5uBBmo5HuqrkYxf5fyUaehlSmxiQOxdd3xG09CeEgmdW8WicYrFLBlN526DbpiPahviwORN5tDAGghs3EWlUdQWE4XSIxwP0xdY/J1XpiZ8cOfUYyvUtXYJLnNCJ+a41JG5r/EA63hKGtwnzBc3Cb53NT4zmXEZkvruToFqP2B65zWuj4pGsfh5nhiVs2o/waLJ2rOk8xhK+r7oikXiOfTPm4TtpkN+xupBtjofB5uiAFUQreo/hNYg==
+ b=ygTKh8Ou2AmXIMY2tbz/iNvIrkJxkuCefTEHdS2toLYoiATak3O0wC8tKRoQHae2F4XG24h1Pmi2zqGi2sd7PrgVxDaQZGwwUapDSOwNu6gP1F7mmippK1XoAAO8AsWGwN/Xmgn4QcMw3q5sPycJgRIsrk9qnEW66W0HhahfQGPDh5Q7RmBoNQnHTuiwn4XEMXKHp7L838e2tiZK8Xow1tFg8VKkMxFFVefwy6DnWlSWycde3+iG2iypXfZo/rG1qsWdDo7FeJ1XtGhKFMqOwPAMnjsMQm9gTaGWh6zu6PPP7zz87UYnKHwz+GjkjPaYjFDPudyc0Y1FNFMX+s3xyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J/1Z5GDfgxPUdvJl42/unphW0EUmCkCNBb3VXSVYTww=;
- b=HgHiJRnmxc2QjkG+yyiXAuO21YrdLhiqEQiVqRAv6m9YlhQDLopyEj8RwHpDM2kmrfQQJvvSBstrV2dboDqKge2XaMA0jr70bCnrB+f+pjwjLMKxecxRNE9rYTXdeMGyazc68JSNGcEKscBw2d6mfsdIIQ2fjQHG5J+HH89ihdtaWzoYx7JyzvoByEX6wV6eSZNQxUcFefglyYFKgdJzZNmPvAnbp+fRVXy+A6EaD6CQTxbOieIg6x8vqgALCQfLBBWl6vo+J2qH+c+CgVTUskVwHccxOZDYEK8rUHk1GMP08fjKzKC+fcRGfwkYvm4WCxQhEDb5D4HyJd3JNql0mg==
+ bh=blHKH9R2+50ZKxBKclvV94XxnDSiT4M7TFNVeYbBiXY=;
+ b=YlqDWFo2A40E7BbY/qDkj+izno0hHzFqcmuD4LOfJ/nIuwRKGd9ygc9rskZcUn1VT3lOEmhLatcQXXQeWs6Jeb30cGZSbSpKDp3Nqo/BrGSgOTVyYR3jEDQ+o+IMv+GwUoZTep+W2/ZX9Nagc8CWJpw2gzmu5qaTnJl+PgY3TRm64BgwZbw5s6BrMyqeYmt67mN556tS/AVZP2uS1Pf9R65EUekCTnICEOPI2Ty1kgND+XbqaSIYjmNsRbFJgv/HKTO02Yurwd+jaCKBuMpO2TEN6KHQYtfvz4GXcuDiE7bZLY43lWQIqUFZpiqYLUGw1JpqlpPOqtJJEV0NpmqSLg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
- dkim=pass header.d=siemens.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siemens.com;
- s=selector2;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J/1Z5GDfgxPUdvJl42/unphW0EUmCkCNBb3VXSVYTww=;
- b=dOJgIiwRUPkAE9Lu+AMj0EQrzLco8hc/mElyLH8aFW/Vv196E8CQdyiy305F5rrMd5Qptur5lOd3noIBYeREQdJ7dfspfrzoN6rUQe7OcF4NbjN4knyLwwI1NeP/JL/7cT4bHAPlAhHz9lzWra2OB7FDh0gErxjsG8S8xsAJMtlFcuDVMQk798PGfojwEpqrlr0fBSXMTIKyMAhuqdBGE2Ip3nP+ES7BRu1GLpz3FBuqwLlVlnhHjlifCPr09L0CtPr1Nm12nu2FMY3voapB8HvJJQX2JYqyi0VM+3pI+BZH0rBMcLOHNb38RKR0GRxjN9K2+om+nsdfuekQss1oow==
-From: "haseeb.ashraf@siemens.com" <haseeb.ashraf@siemens.com>
-To: Julien Grall <julien@xen.org>, Mohamed Mediouni <mohamed@unpredictable.fr>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>, "Driscoll, Dan"
-	<dan.driscoll@siemens.com>, "Bachtel, Andrew" <andrew.bachtel@siemens.com>,
-	"fahad.arslan@siemens.com" <fahad.arslan@siemens.com>,
-	"noor.ahsan@siemens.com" <noor.ahsan@siemens.com>,
-	"brian.sheppard@siemens.com" <brian.sheppard@siemens.com>
-Subject: Re: Limitations for Running Xen on KVM Arm64
-Thread-Topic: Limitations for Running Xen on KVM Arm64
-Thread-Index:
- AQHcSVi3paxtnyIgIkOf6jhuJCbvfrTalv6cgABtkgCAAFoJgIAABxcAgACWJ4CAABonww==
-Date: Fri, 31 Oct 2025 13:01:15 +0000
-Message-ID:
- <TYZPR06MB4580126B98C6A38AA710F597E6F8A@TYZPR06MB4580.apcprd06.prod.outlook.com>
-References:
- <KL1PR0601MB4588D25A95D680640A80F2CAE6FBA@KL1PR0601MB4588.apcprd06.prod.outlook.com>
- <KL1PR0601MB45885505ECBBE9262C2B25E0E6FBA@KL1PR0601MB4588.apcprd06.prod.outlook.com>
- <FC5C66FD-8554-4F46-8546-B27DE76C8EEF@unpredictable.fr>
- <2b00a98f-6fee-4341-92bd-25909ebb6e36@xen.org>
- <CA753BD2-31FA-480D-B32A-2125F0F4981D@unpredictable.fr>
- <fc181349-d743-4ef0-bcd2-01c04d2a463e@xen.org>
-In-Reply-To: <fc181349-d743-4ef0-bcd2-01c04d2a463e@xen.org>
-Accept-Language: en-US
+ bh=blHKH9R2+50ZKxBKclvV94XxnDSiT4M7TFNVeYbBiXY=;
+ b=gAqsnXTMvnX5r4N9PizoRwBroMG/JgvzbXNm1HncHuzwhVjmSvx6e/h3UFWEJJ567/+PgMLs0binxku5Xeh7ASO3u4lw3gb0Pj0d/ZDPV3PrxbdecY33gI/C1YF1j+SjBd96CwnWZmopbMLQohEo78PJDUE2uujU133eI2cnfl4WX7hy7ershK1AY53Jvch3CTQEghfAC3conEArDWhK4rYdgWxp2odqncBozwe1RznbsVPHuAV/bjhuUFCa4EMxKZphpKhnaD2A+K97X/HX4Z+zVIXp/Gy8dN6G7tjvv+qRDOMEDt/5WHxIDFlkxzDiqtTi3o6UNSrOXmOYA5wmkA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Message-ID: <40609db8-ea7d-4866-b7b2-d9647c64d512@epam.com>
+Date: Fri, 31 Oct 2025 15:08:16 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] domain: adjust soft-reset arch dependency
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Penny Zheng <Penny.Zheng@amd.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Timothy Pearson <tpearson@raptorengineering.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, milan_djokic@epam.com,
+ Sergiy Kibrik <sergiy_kibrik@epam.com>
+References: <c9c8c9c6-a155-4986-bf77-5766cdcd6024@suse.com>
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_Enabled=True;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_SiteId=38ae3bcd-9579-4fd4-adda-b42e1495d55a;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_SetDate=2025-10-31T13:01:14.618Z;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_Name=C1
- -
- Restricted;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_ContentBits=1;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_Method=Standard;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siemens.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KL1PR0601MB4588:EE_|TYUPR06MB6174:EE_
-x-ms-office365-filtering-correlation-id: d6fcbee7-3de0-4533-1338-08de187d933b
-x-ms-exchange-atpmessageproperties: SA
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|39142699007|31052699007|366016|1800799024|38070700021|8096899003|7053199007;
-x-microsoft-antispam-message-info:
- =?Windows-1252?Q?w/3kTir0DyEDqq8RcVO4vMP69Zm3XSMnn2bwwFewUl8d5DHKwzKjT/H1?=
- =?Windows-1252?Q?dHP3f+F0sxNqlwdYEL9f/vn66Dlgo0RUAXPUDi8D/HwV3tUv5IdU2tej?=
- =?Windows-1252?Q?oXGiQE8zAVVFqBnxlXdtVADdX9sd60rrlDcOipLlKMMg3T/w4+zwqhGC?=
- =?Windows-1252?Q?wawoFLs4Bq5mXMq0YgKwsxHhGk70XNfjAleMlVHv6bEwn6rO+UHN8Q8j?=
- =?Windows-1252?Q?BcG5O4rNVNLN8V6isWlfkOmxOxhTF1kMc5P8y70YPvpgdYAIjyNy53+R?=
- =?Windows-1252?Q?2HGpJ4mbO6Co1vsN+zspp3YjGd++zdXQw19mxC2aVKSwV1lxRaSfoJDh?=
- =?Windows-1252?Q?N98Q1fq+ujdvymApQQgWgzxmoqB517I66WFWyhLuRXXOO86jxHiIfvpp?=
- =?Windows-1252?Q?sWfcl5+vE5uvJYenyYA1jWcRB3G/i1hNk5xaE98NZ/DVR3eOhY+lFBQF?=
- =?Windows-1252?Q?GelO/4oK21sow5kDQUy8nAFCPv7DI9VhYPxu9fgysvdOOmC6ldulJDLP?=
- =?Windows-1252?Q?VuM3tMkpHGzgEmUPks6F2LK2ZUaVhgc65hRVCzveFRn5yLsgTNRfonM5?=
- =?Windows-1252?Q?b+B1YVx7cS/wC8Z7tA2uMP/8Zo87QnBCWNV3AIGMRGbiVW/sg9QBdRA7?=
- =?Windows-1252?Q?3TKFbMPVdj3W4RSADyRSFDSNoD5KyoyE4xEe2N9kG7lUcpgegdWgwX4F?=
- =?Windows-1252?Q?ShcLYAbTgGjgQVp1HC83ZmUx7UAEH8Ad9IwZ+Z5zN3WWRiBhcV1gi10e?=
- =?Windows-1252?Q?ezc3Cc8blHfcusVACJogfOHmnFnkpfUQQmqrgAm5C8R263jQrQIq6i5f?=
- =?Windows-1252?Q?tORAy06JAu6fylxPPq29vlEcjjUaSNhg4YknEUNyO9z6l8eCM7Ve86Qt?=
- =?Windows-1252?Q?tJmHE79A0VMkepCgU1lU6fhf5HfW1q/AB/9eRZLEg9IkToesTn1TXHmm?=
- =?Windows-1252?Q?wVdM+nM5fhBC7AwxYKJZEkQ9xA5YrwwQmqC0i+CrxNxJ0hBlrJqQ/JaI?=
- =?Windows-1252?Q?rCNF2lGc0lGKsfuf6YhlUCSchT0hr76yKApQfTi8+SSSe0hlYrvAFmwk?=
- =?Windows-1252?Q?KBuU+dVvH19V19zZyuZ4ftxIOZN+elk1nfxvZUdn9yvbY661IQ+s57Fj?=
- =?Windows-1252?Q?IyvnWAc4jMHV/pazzAAhRb+/rvJ59QO0k2tAQFFKBTjMku8LV0803vhE?=
- =?Windows-1252?Q?tkfA/NiuEVx+aKZP7nENf/9n5a6/m9E+QHeQhYGuIV2Lb5rLA39XDE/Y?=
- =?Windows-1252?Q?NiOVmQWkCRFYUmC4pducnlYdjkoIvNQsbpMGqw61uUkF08xzZ06jZawu?=
- =?Windows-1252?Q?H35j2JCUn6wf7H44AuGaLZupfEX+iCBo2Yk9OQ24sdOxGc+0yzgi6vKx?=
- =?Windows-1252?Q?qa9vrFz0Xf8tJPm8ScWEQI2T5JzhWI/q4BrpuShhb2/N3PIYGqpUMKIK?=
- =?Windows-1252?Q?48w4Q8M2Rs9+oIDiCQGk2s4whLCb86zK6F/2RXrwDLTo8GdasKWFhJnL?=
- =?Windows-1252?Q?09VYNXJz/R1mBoIG9N1oxmpX3BbdfA69BlT5S3lpnnJ1oryO6gW4KA80?=
- =?Windows-1252?Q?3fQ62fri6LF3mvlD1tqw30BlP2MbQaQQfyh4eSErPi3IK8oVEmEZ7D+l?=
- =?Windows-1252?Q?2/8lF8KIg5DaZMl6XL6wxpXg?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR0601MB4588.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(39142699007)(31052699007)(366016)(1800799024)(38070700021)(8096899003)(7053199007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?Windows-1252?Q?ktEw2h9o+3FsxzEeP0xE3etnjfetYxCLqUr7fjvnJLyz+1H2BKj1rWmg?=
- =?Windows-1252?Q?cJf087nmgmWUOwbyo5sliEcQPV4QyxQpUzPUlhW5Ij9GNtsUhhgGHfmK?=
- =?Windows-1252?Q?teK9tpikrwx+AugsDGH558GAhBBcvpRyxl1EV3Ohf2CsfWoGr2MfjZvh?=
- =?Windows-1252?Q?kvdNZlubaYDGZCUOXhJ6txYxuXQ/5gcR9vVPN4/7l57rtA+HpDoT+suJ?=
- =?Windows-1252?Q?N2hcKXCwcBYuyw2eW96jrTl1FC5q2Wh0ewT6CT+GawiMcN1ZK4gq/OMA?=
- =?Windows-1252?Q?pesAwSvvJAssjQ/TbvOuvCTnx7wlPRhXHXxhS9R96ElwqndG+ldcuLfO?=
- =?Windows-1252?Q?1MNbzKSdtu/M36/Y4Cb46UEMKQS6KNBNIo3nZIqmS2GZXD5HdVGqXFNq?=
- =?Windows-1252?Q?maUx+0cyOKpeSVLs8mqbarnYu+Y25mYgkU5J5XvKha7eYdzb90oTN4eB?=
- =?Windows-1252?Q?NBbZWOMdVVS738LwG9qRH0mDAGRTlVTeQ0o+xiU0nrpZy+z784iJcuXn?=
- =?Windows-1252?Q?2R3ylDAO2ahJ3BjD552BwdRaDBz81GF1f/ivdFGkJJ/vmw1fbdabJD5d?=
- =?Windows-1252?Q?nMUy3f/k4IVWlnneL/EOqWVdyehoEyfRihxcn+lpd+c3uwTu/543RSga?=
- =?Windows-1252?Q?jQwapxWVO084F8pUQpVF61R68mRwbj83niZ4d42aYSyxyrVFo3v3CHL7?=
- =?Windows-1252?Q?SuFEJDuwGsq2FPhVS7hMLx108SSlSJ2BTLa9ApgZgNjvh1zGx10uU4FA?=
- =?Windows-1252?Q?NCkLdr5NO7VPIzxe9XCoc3c7DdLIR7UI6nNsmn/x6f8Yn0ktE4JbZHQ4?=
- =?Windows-1252?Q?o2CmqdPOJurgvfcA55Bcf2Hl0iqYqpqqmJMEL5qKhOCV9GMFxtIitJbS?=
- =?Windows-1252?Q?rnT8TWtRTW8Xl7YgLe1fytAuRHjHyv7b1q3qIOM4xkIMleAeJWiHJf6z?=
- =?Windows-1252?Q?925LJJhgz31oKOywXL8dvItnVbeZhEBLv6nNkPqKSkfX/Cn00evxQerd?=
- =?Windows-1252?Q?Sd02sNF9V67xy2WWAaYUJxgMKY4ccAhv1x93NYG8Yy+ldAkVAtpGuSor?=
- =?Windows-1252?Q?/cZ+SS5YBefgIkH+9hh4cpgvVyp1fX6uttTe7qqfVb6flzQD2Yn7zOOq?=
- =?Windows-1252?Q?xeZjEY8dydg65QHc5QZ+S7f9G7zPLRfZOcqGYa41ELc2AHISZiLk3n9w?=
- =?Windows-1252?Q?5qToyuM/6F0JU9bonotP6jS5rbk87jkiZVCAQXEWy3/J/b21CBp5R3yK?=
- =?Windows-1252?Q?dfPuUweDlciBXtV2OSWQkjiao34QKNVxz39ba1mA5N+6IhcI9eT4F7EV?=
- =?Windows-1252?Q?pfXPApfA9fpo0W5CXrnaDBXXHYj7Jmoksv4g5lmsVTCjtj3sI6bRSopj?=
- =?Windows-1252?Q?W2sbL5rFuQK30rq9g6mkEOo88xq5FmvGdNyeNt1bVzLNcK2wnvFwOLIm?=
- =?Windows-1252?Q?xyzDLWL3+0qQvn8wxKR7kc69rvUYUmBN6A65Oxm6R4/T+2IJHlKr9CPi?=
- =?Windows-1252?Q?yfuU7JNmc7CsN3iIernnJ1D00oHmuEZOOShAAd9sSNMZ1yBdkFYDTxpd?=
- =?Windows-1252?Q?GUtTn5luJ1VPru88j3eCw2El8GctLdhOSiJeEI9RlZeFBZi1cAq3fc9x?=
- =?Windows-1252?Q?TcLh8R25BJs5FHdoYh2lPpqqXfDY3R/3fQCNvCCh55qJPdMAFy8SFoCN?=
- =?Windows-1252?Q?LCTjAwJ1bMHhv7uOTz0SmY1z4hOYedD5?=
-Content-Type: multipart/alternative;
-	boundary="_000_TYZPR06MB4580126B98C6A38AA710F597E6F8ATYZPR06MB4580apcp_"
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+In-Reply-To: <c9c8c9c6-a155-4986-bf77-5766cdcd6024@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0137.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9e::12) To AS2PR03MB8907.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5e4::22)
 MIME-Version: 1.0
-X-OriginatorOrg: siemens.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|PR3PR03MB6489:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52f53260-232a-4a44-1c08-08de187e8f88
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZlM4QnJkbENOS2ZyWlBuMHlGRzdNMi9CZHlvcDd5dXVBWEJPVXM1WUJLb1l4?=
+ =?utf-8?B?Sm9SQ1g4bUhkZ3h6cWh0Z2dOc3Y3RXBKczU2cm1OT0ZwN3VGc2U2SHpKU0Z6?=
+ =?utf-8?B?NXdmZmRZd28vRDJuOHhNUUovVGVmSWI1bDhVZ20xZ3ltZ2RadWJ0T3hxS1po?=
+ =?utf-8?B?ZkhqMjBZQ3dvWTdxY3BTM29FaXJESGdRTXBaWkcrZUprRlNYcjBtRC9Eak1v?=
+ =?utf-8?B?bTRyb2FrU0ZTTkxyOW5Kci9EVkU3c2VPRURyeFFLQzNXZ3c0K3A2YWgwSXpV?=
+ =?utf-8?B?YUl2QlliNjNUQWdWSGNSbXExYXg1VWRobnZ0c0k1MHY5NUVTRUhrRHVRZldN?=
+ =?utf-8?B?Tld3QXlWcHZwMktGdWR6TWdUWURESFRDUmFCbllKTDJRZytPbjdZaVNLVkYz?=
+ =?utf-8?B?NDdJOXhycExOMk5VQ3NiMHlzYVA5MHlTVzdLNWZZWml6eHhYSWg5NHlCako2?=
+ =?utf-8?B?NC84MjBLNERINE1mSnRxVDEvVHF0M1F4cmc3bUFwamYwQ2haeHJqQUU0Ti95?=
+ =?utf-8?B?RWZvN1NzUVEyZVppZ3AxclZySG00ZytuMDdwcTNMQ0NqOU1abVRPY1lqbTNN?=
+ =?utf-8?B?cW5scWI4SDhEbXNERkNGenptQnUxZUFRaHVpeVZnVUM5czZRMVI4dnBSTTJa?=
+ =?utf-8?B?YnQzMk5GK2oxVHlLc3ZUTWNHSmwveFQ4SjVYTUVCUU1SMG1CbmFGVTlBMzFR?=
+ =?utf-8?B?ZUU3RkZQMWFTVHd3aUJLQ01BL043MjNOdVdVWTFQaGVkT1NoUDdVVERnZkVk?=
+ =?utf-8?B?UzhNOWV6UGR6ZFllTGFSNWoxdmcxaERrV2ZDcGExa0xiSHdyMytKaEt0K0ha?=
+ =?utf-8?B?WXNMcUlETkw3YWtZTHhDc0lWbHJhMHk0RHRMUlBmWmZuQWVBMUF3V25obXh4?=
+ =?utf-8?B?Q2FzTEt3aUt1WksvVmNpK01ZVlUyaE9Na2NlMGlNN3hXS3dsT2U1MHJFY1Z0?=
+ =?utf-8?B?djZVNXQ3KzN3VEVJbkFrMGJ2WU8xVWVHcStWa2JhemJLZGYzQUFaeWVWT1Z3?=
+ =?utf-8?B?NGZrcTVPMHgzcVBxTVRsV043RmlTcDNVZnVSYVZJWEFLbk1XQUp3WTg3blVz?=
+ =?utf-8?B?cUJRY2Fpb01uWS9PWjJVZE02RVczYjNucFZ2NmNiajBrVnp0YTFRbTdxY1Va?=
+ =?utf-8?B?Q2FDMnhFS1Z4VTVoaXVBaEhDb2xTYi80b0MxTTYzbEErVjI5NVBxRDd6ZlRP?=
+ =?utf-8?B?WE5EazZjOEY2VzI2NUExeU1NNmpMNE1ldHFCSysvZi93N2tpc1VZK0tzdW5w?=
+ =?utf-8?B?aVU1bzNXeTFrdW5mSGhxM1VmK2dmNFpHdERzRUJOTS9pcHdhTE5nUjVWNmNM?=
+ =?utf-8?B?TzVXTlQrNml2NjBVZGtJM25pbWg4eU4zZGN4TEtOSW5FR0dRNGVNSVBFa2hK?=
+ =?utf-8?B?Z1BlWE1CUXA2WGxiTlhubWJYVGZhcnZRNU4vRStWNHFGdEFZWUFadi93eWti?=
+ =?utf-8?B?MWJZNzZva3RMbjVIUmRuMEdGamdjL3RmUkswb1R3eVVjcEl2d1VIRkhvTVlx?=
+ =?utf-8?B?dzROVUFoUGxpeVR6b1hyMzFPSmZ0NUpZUEY4TVczL1FaSmhBbzU0ZWh3MzFJ?=
+ =?utf-8?B?Ti9kbkRhWkUySWZyM1hHcy96bUxyUHBPNWcwSGpLQVNHNFVkM0w3NXpiR0hr?=
+ =?utf-8?B?SFNqV1hoR3JqTjloODlobU1uWmZtU0pRY1JvYzZjTXZrcDdOTzNVV2RFYWZ5?=
+ =?utf-8?B?OTI0NDg4UXdzb0RTcUE3cHBzRERnWnF1b2wzYTFZNVlnRWNqeE5lRjRQNkR6?=
+ =?utf-8?B?UXdxMk5QU0VpZEs4SWpXWEtJQ3BiWlNJMlFQb21NTVVSbzVtdUJNa2I3ci90?=
+ =?utf-8?B?VzlTMXdyOFo5V0FrSWhxZlVqZVFUNm9OUUNrbDFEdlNFT25sSHRmaGtSeito?=
+ =?utf-8?B?UG11WGdhSHdZVGorTkNGbHA0cG0rL0V0c3ZweWtqYS9RWmk5amRJb29NSHha?=
+ =?utf-8?Q?BspBmfaCZeJ1ifdLGG093OJoONTgixee?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RmRsUDRKQUhEQUtIYnNvWGZOYzBUdXB2bzFzQTRYeFlWekFOUzQyVE8yMnl6?=
+ =?utf-8?B?TFAybExpL1M3RDBabVZhcXRrVDVFOFVPQ0t5LzJmSCtqY0dCRUNJVlMyR045?=
+ =?utf-8?B?UkkyYWdsWi9vdW9KcDdlZzB6VkN3blJQakt5WnY3L0F2dUU5bUpwTnZGUjRZ?=
+ =?utf-8?B?OUZEWDExQ1puMEdtQUsxWUVBSFBnQ2Mzd3pCQnluZnlPU2JBYzFETHgwN1pF?=
+ =?utf-8?B?Mnpxc3g5YU5SMzNhY1JZWlVVeVFWUFBHMkRYV2swd1BTSWZvU0QwUEY2UHdY?=
+ =?utf-8?B?VFVXQ055Y1BCek5aOWpuWXRpSklSVUZHd0wyVTc1cncxOXJ2SW9TOHh4cmNU?=
+ =?utf-8?B?VC8zNmVSY0VMSVpJMW9mMjVZYmJRY2pDNzVlZDhiblJHVlRMKy9UY0lBREQ2?=
+ =?utf-8?B?OHNqdFJrQytYOVRrSHR1djlBK0dLME93QnZDWEZnd3FhTGthQWFJdXljWk5x?=
+ =?utf-8?B?SitLdDM5YUtFMVRzWThYSGJEQ01zVTk0NndZT3NjaWljQ1pmaVhnalZHcDhw?=
+ =?utf-8?B?V0dCWDBKS3pJdWdQZnFtNm1nbWpqRmlrVGlHVFpHYmtMeWFCOWhkcWtFRCtR?=
+ =?utf-8?B?eTAzT25yY2M1cnpKdk5jTGoyTTNWQXdZRERiNzQxR3R0RWE2MGJpZ1YwdklJ?=
+ =?utf-8?B?L0w4ZTQvY2FFQjc3SVZoaUJHbnZtTUg2MUxudThrckFXU2w5Q2Y3MGVxSUgw?=
+ =?utf-8?B?ZnQ4YkFjcUtwUzVsRVFCNjJUM2JUV1BKUWpQdVM1NkUwajhxV2s2bzVDTEZF?=
+ =?utf-8?B?anBndmc2dng5N3RmK21xczc3akxIWi8xMWl2TURzMUVhRHpkWENnTndoWEdI?=
+ =?utf-8?B?dXBMYkM2R0Fla0Y5a3Y2TXNMQkdCU1ZoVHE2TEdwUUswOUVURDBwK2o4NE5s?=
+ =?utf-8?B?Wk1xL1pmM1ZxUXVIVHptVFlNcTVkazNNREhhSVN4RWpybTlZZVB4djN5amQ0?=
+ =?utf-8?B?b2hEbG94by9xeGVvbldKbWtIQVlOVFg4OHpDTjI3TTFhaGllLzNlRDF4b0pM?=
+ =?utf-8?B?NWZYREQxRW5va01TVDEwY2p1a0ZHbkZIZGdLaGY0bkluT2U4SXVPRVo2TVhF?=
+ =?utf-8?B?eGFoM0x5UzlvQ0ZuaGs1SzBaaFpYSFpFS2sySmxDSGprN0ZlMlhCQlhUUDJB?=
+ =?utf-8?B?RkkvMGJoRVFJSEcwaEI4Rnkyd1VXSVFQNkFPY3VXMzNxOCtUVnJWR1NXRXlO?=
+ =?utf-8?B?d0ZKNUIzeW0wYkhkaGhNZU81dU5BQTc4U21lSGx6amZCR3dtNUM5Tk9ZdlRj?=
+ =?utf-8?B?dFp1WGp6N25aZUthT0NSRnkwNjl1VC9lbTRBamlWSXZhU1dOVGlXclV0VVhN?=
+ =?utf-8?B?Q200aDVxbnBYNGhkTU9xblRyZ09CLzZWWUV5VG00c1diQ3hvOFkzckgyY2pl?=
+ =?utf-8?B?aEQra2NrcWJMelJMU0lubzRSb2NucllWYXJMNjdhb0oydGx2aE9CbEluVGNI?=
+ =?utf-8?B?aUN6VDlPTTZtbXM0TC82VGVuZ0VVaHIwc3M4N2toaC9HZ3kvUGdGSUx4cDdG?=
+ =?utf-8?B?ZmR1cFRJR3BGSGpoUy82dXRUWkRkOGU4dFczWG01MG5kZGJ2ZklMVkRDMDVj?=
+ =?utf-8?B?YVdDQ244WXJuOXgvdDMrMHlMVXlKeTdjOUZmR2MyNjI0b0wwSnoxT09vbFZM?=
+ =?utf-8?B?VVNhWjJ5R2l4WWQzdk9zRVZjZkg0RjREWUkzWHdHODNjRVE1UUdxZ2xVbjRC?=
+ =?utf-8?B?ajRGbmRjZ1p4N2hKMWU4bm5LVkpwL21rVFlKTFUyc0N5QXFNdkxkZmo0eUZn?=
+ =?utf-8?B?b1BIYm4zV2ZvZ1h5aGFXYzB0UjN6UHppUkdkMHNpcXY4aGpnR2p3Zi9zd2hP?=
+ =?utf-8?B?blAvY3NQeFl0d0lnNUE1UkZKL3dsNnBmYngyK25pbUtKT1RrRHdocFd1Vkhw?=
+ =?utf-8?B?NU01RWljNllrWEl4RDJqQ0xwc3d3RW83Q2N4QzhEQktONXhHRXlmdjh4R2lZ?=
+ =?utf-8?B?V2JoaVZRVUtkdENvRUZzN1hPWmlZT1NIUVlpeDB3azVCbEVQQkZoZENjdUo3?=
+ =?utf-8?B?dUdJOWl3NXZOMWZlN1R0bkxTS0svWjlBa01neUVqbHNkSjFGeTRFblEzSDNX?=
+ =?utf-8?B?b3U5S0xYL1hlMW4rcmhjUFJMOHdtRDRtT3ZSdnd6T2krWmdpSGNQMGE0Z1Rl?=
+ =?utf-8?B?SFVINmhTa3hBbXhROFMrWll2ZCtYRUFxS0dySDlWZzBvbldMeXNXMlBPRlIy?=
+ =?utf-8?B?TkE9PQ==?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52f53260-232a-4a44-1c08-08de187e8f88
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR0601MB4588.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6fcbee7-3de0-4533-1338-08de187d933b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Oct 2025 13:01:15.3237
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2025 13:08:18.7707
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: v0s0fsq/mR/7lddmsukuFmJA9c15+ortFkxIOLbFDSqZ0/kaD0wl3BfNfimeuJpS3kY5b0TfucxpGNBbxRT3wcqjtBXjusjQL3fgXDMZ4HE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYUPR06MB6174
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9em0rbOJVBEh97UqwTtlN7uHZeQMNLKLMfrI3F8CVlsg60cvXUci5A6hE8lTaQUNZR7LJ6cgPk+1XRhaq4NeHHAiMpVVaixXJofzA71E5R0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR03MB6489
 
---_000_TYZPR06MB4580126B98C6A38AA710F597E6F8ATYZPR06MB4580apcp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+Hi Jan,
 
-Hello,
+On 30.10.25 14:10, Jan Beulich wrote:
+> Arm's arch_domain_soft_reset() returning -ENOSYS is quite unhelpful: This
+> way a domain will be crashed if a tool stack mistakenly invokes
+> XEN_DOMCTL_soft_reset on it. Instead the tool stack should be told of its
+> mistake.
+> 
+> Introduce HAS_SOFT_RESET, implied only by x86. "imply" rather than
+> "select" such that HAS_SOFT_RESET can later gain a dependency on
+> MGMT_HYPERCALLS. That way HAS_SOFT_RESET will go off when
+> MGMT_HYPERCALLS is off.
+> 
+> Check the new setting early in domctl handling, and compile out the thus
+> dead (when HAS_SOFT_RESET=n) domain_soft_reset() as well as its dedicated
+> helpers.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
 
-Thanks for your reply.
+Thank you for your patch.
 
-You mean Graviton4 (for reference to others, from a bare metal instance)? I=
-nteresting to see people caring about nested virt there :) - and hopefully =
-using it wasn=92t too much of a pain for you to deal with.
-Yes, I am using Graviton4 (r8g.metal-24xl). Nope, it wasn't much of an issu=
-e to use G4.
-KVM has a similar logic see "last_vcpu_ran" and "__kvm_flush_cpu_context()"=
-. That said... they are using "vmalle1" whereas we are using "vmalls12e1". =
-So maybe we can relax it. Not sure if this would make any difference for th=
-e performance though.
-I have seen no such performance issue with nested KVM. For Xen, if this can=
- be relaxed from vmalls12e1 to vmalle1, this would still be a huge performa=
-nce improvement. I used Ftrace to get execution time of each of these handl=
-er functions:
-handle_vmalls12e1is() min-max =3D 1464441 - 9495486 us
-handle_tlbi_el1() min-max =3D 10 - 27 us
+Reviewed-by: Grygorii Strashko <grygorii_strashko@epam.com>
 
-So, to summarize using HCR_EL2.FB (which Xen already enables?) and then usi=
-ng vmalle1 instead of vmalls12e1 should resolve the issue-2 for vCPUs switc=
-hing on pCPUs.
+But one question - soft_reset is applicable for domain, so wouldn't it
+be better to note that in Kconfig option name:
 
-Coming back to issue-1, what do you think about creating a batch version of=
- hypercall XENMEM_remove_from_physmap (other batch versions exist such as f=
-or XENMEM_add_to_physmap) and doing the TLB invalidation only once per this=
- hypercall? I just realized that ripas2e1 is a range TLBI instruction which=
- is only supported after Armv8.4 indicated by ID_AA64ISAR0_EL1.TLB =3D=3D 2=
-. So, on older architectures, full stage-2 invalidation would be required. =
-For an architecture independent solution, creating a batch version seems to=
- be a better way.
+   HAS_DOMAIN_SOFT_RESET
 
-Regards,
-Haseeb
-________________________________
-From: Julien Grall <julien@xen.org>
-Sent: Friday, October 31, 2025 2:18 PM
-To: Mohamed Mediouni <mohamed@unpredictable.fr>
-Cc: Ashraf, Haseeb (DI SW EDA HAV SLS EPS RTOS LIN) <haseeb.ashraf@siemens.=
-com>; xen-devel@lists.xenproject.org <xen-devel@lists.xenproject.org>; Volo=
-dymyr_Babchuk@epam.com <Volodymyr_Babchuk@epam.com>
-Subject: Re: Limitations for Running Xen on KVM Arm64
+-- 
+Best regards,
+-grygorii
 
-
-
-On 31/10/2025 00:20, Mohamed Mediouni wrote:
->
->
->> On 31. Oct 2025, at 00:55, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Mohamed,
->>
->> On 30/10/2025 18:33, Mohamed Mediouni wrote:
->>>> On 30. Oct 2025, at 14:41, haseeb.ashraf@siemens.com wrote:
->>>>
->>>> Adding @julien@xen.org and replying to his questions he asked over #Xe=
-nDevel:matrix.org.
->>>>
->>>> can you add some details why the implementation cannot be optimized in=
- KVM? Asking because I have never seen such issue when running Xen on QEMU =
-(without nested virt enabled).
->>>> AFAIK when Xen is run on QEMU without virtualization, then instruction=
-s are emulated in QEMU while with KVM, ideally the instruction should run d=
-irectly on hardware except in some special cases (those trapped by FGT/CGT)=
-. Such as this one where KVM maintains shadow page tables for each VM. It t=
-raps these instructions and emulates them with callback such as handle_vmal=
-ls12e1is(). The way this callback is implemented, it has to iterate over th=
-e whole address space and clean-up the page tables which is a costly operat=
-ion. Regardless of this, it should still be optimized in Xen as invalidatin=
-g a selective range would be much better than invalidating a whole range of=
- 48-bit address space.
->>>> Some details about your platform and use case would be helpful. I am i=
-nterested to know whether you are using all the features for nested virt.
->>>> I am using AWS G4. My use case is to run Xen as guest hypervisor. Yes,=
- most of the features are enabled except VHE or those which are disabled by=
- KVM.
->>> Hello,
->>> You mean Graviton4 (for reference to others, from a bare metal instance=
-)? Interesting to see people caring about nested virt there :) - and hopefu=
-lly using it wasn=92t too much of a pain for you to deal with.
->>>>
->>>> ; switch to current VMID
->>>> tlbi rvae1, guest_vaddr ; first invalidate stage-1 TLB by guest VA for=
- current VMID
->>>> tlbi ripas2e1, guest_paddr ; then invalidate stage-2 TLB by IPA range =
-for current VMID
->>>> dsb ish
->>>> isb
->>>> ; switch back the VMID
->>>>      =95 This is where I am not quite sure and I was hoping that if so=
-meone with Arm expertise could sign off on this so that I can work on its i=
-mplementation in Xen. This will be an optimization not only for virtualized=
- hardware but also in general for Xen on arm64 machines.
->>>>
->>> Note that the documentation says
->>>> The invalidation is not required to apply to caching structures that c=
-ombine stage 1 and stage 2 translation table entries.
->>> for TLBIP RIPAS2E1
->>>>      =95 The second place in Xen where this is problematic is when mul=
-tiple vCPUs of the same domain juggle on single pCPU, TLBs are invalidated =
-everytime a different vCPU runs on a pCPU. I do not know how this can be op=
-timized. Any support on this is appreciated.
->>> One way to handle this is every invalidate within the VM a broadcast TL=
-B invalidate (HCR_EL2.FB is what you=92re looking for) and then forego that=
- TLB maintenance as it=92s no longer necessary. This should not have a prac=
-tical performance impact.
->>
->> To confirm my understanding, you are suggesting to rely on the L2 guest =
-to send the TLB flush. Did I understanding correctly? If so, wouldn't this =
-open a security hole because a misbehaving guest may never send the TLB flu=
-sh?
->>
-> Hello,
->
-> HCR_EL2.FB can be used to make every TLB invalidate the guest issues (whi=
-ch is a stage1 one) a broadcast TLB invalidate.
-
-Xen already sets HCR_EL2.FB. But I believe this is only solving the
-problem where the vCPU is moved to another pCPU. This doesn't solve the
-problem where two vCPUs from the same VM is sharing the same pCPU.
-
-Per the Arm Arm each CPU have their own private TLBs. So we have to
-flush between vCPU of the same domains to avoid translations from vCPU 1
-to "leak" to the vCPU 2 (they may have confliected page-tables).
-
-KVM has a similar logic see "last_vcpu_ran" and
-"__kvm_flush_cpu_context()". That said... they are using "vmalle1"
-whereas we are using "vmalls12e1". So maybe we can relax it. Not sure if
-this would make any difference for the performance though.
-
-Cheers,
-
---
-Julien Grall
-
-
---_000_TYZPR06MB4580126B98C6A38AA710F597E6F8ATYZPR06MB4580apcp_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
-olor: rgb(0, 0, 0);" class=3D"elementToProof">
-Hello,</div>
-<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
-olor: rgb(0, 0, 0);" class=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
-olor: rgb(0, 0, 0);" class=3D"elementToProof">
-Thanks for your reply.</div>
-<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
-olor: rgb(0, 0, 0);" class=3D"elementToProof">
-<br>
-</div>
-<blockquote style=3D"margin-left: 0.8ex; padding-left: 1ex; border-left: 3p=
-x solid rgb(200, 200, 200);">
-<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);" class=3D"elementToProof">
-You mean Graviton4 (for reference to others, from a bare metal instance)? I=
-nteresting to see people caring about nested virt there :) - and hopefully =
-using it wasn=92t too much of a pain for you to deal with.</div>
-</blockquote>
-<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
-olor: rgb(0, 0, 0);" class=3D"elementToProof">
-Yes, I am using Graviton4 (r8g.metal-24xl). Nope, it wasn't much of an issu=
-e to use G4.</div>
-<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
-olor: rgb(0, 0, 0);" class=3D"elementToProof">
-<tt class=3D"elementToProof">
-<blockquote style=3D"margin-left: 0.8ex; padding-left: 1ex; border-left: 3p=
-x solid rgb(200, 200, 200);" class=3D"elementToProof">
-<div class=3D"elementToProof"><span style=3D"color: rgb(102, 102, 102);">KV=
-M has a similar logic see &quot;last_vcpu_ran&quot; and&nbsp;&quot;__kvm_fl=
-ush_cpu_context()&quot;. That said... they are using &quot;vmalle1&quot;&nb=
-sp;whereas we are using &quot;vmalls12e1&quot;. So maybe we can relax it. N=
-ot sure if&nbsp;this
- would make any difference for the performance though.</span></div>
-</blockquote>
-<div class=3D"elementToProof"></div>
-<div class=3D"elementToProof"><span style=3D"font-family: Arial, Helvetica,=
- sans-serif;">I have seen no such performance issue with nested KVM. For Xe=
-n, if this can be relaxed from
-<code style=3D"font-family: Arial, Helvetica, sans-serif;">vmalls12e1</code=
-> to <code style=3D"font-family: Arial, Helvetica, sans-serif;">
-vmalle1</code>, this would still be a huge performance&nbsp;improvement. I =
-used Ftrace to get execution time of each of these handler functions:</span=
-></div>
-<div class=3D"elementToProof"></div>
-<div class=3D"elementToProof"></div>
-<div class=3D"elementToProof"><span style=3D"font-family: Arial, Helvetica,=
- sans-serif;">handle_vmalls12e1is()&nbsp;min-max =3D&nbsp;1464441 - 9495486=
- us</span></div>
-<div class=3D"elementToProof"><span style=3D"font-family: Arial, Helvetica,=
- sans-serif;">handle_tlbi_el1() min-max =3D 10 - 27 us</span></div>
-<div class=3D"elementToProof"><span style=3D"font-family: Arial, Helvetica,=
- sans-serif;"><br>
-</span></div>
-<div class=3D"elementToProof"><span style=3D"font-family: Arial, Helvetica,=
- sans-serif;">So, to summarize using HCR_EL2.FB (which Xen already enables?=
-) and then using vmalle1 instead of vmalls12e1&nbsp;should resolve the issu=
-e-2 for vCPUs switching on pCPUs.</span></div>
-<div class=3D"elementToProof"><span style=3D"font-family: Arial, Helvetica,=
- sans-serif;"><br>
-</span></div>
-<div class=3D"elementToProof"><span style=3D"font-family: Arial, Helvetica,=
- sans-serif;">Coming back to issue-1, what do you think about creating a ba=
-tch version of hypercall XENMEM_remove_from_physmap (other batch versions e=
-xist such as for
-</span><span style=3D"font-family: Arial, Helvetica, sans-serif; color: rgb=
-(0, 0, 0);">XENMEM_add_to_physmap</span><span style=3D"font-family: Arial, =
-Helvetica, sans-serif;">) and doing the TLB invalidation only once per this=
- hypercall? I just realized that&nbsp;ripas2e1
- is a range TLBI instruction which is only supported after Armv8.4 indicate=
-d by&nbsp;ID_AA64ISAR0_EL1.TLB =3D=3D 2. So, on older architectures, full s=
-tage-2 invalidation would be required.&nbsp;For an architecture independent=
- solution, creating a batch version seems&nbsp;to be
- a better way.</span></div>
-<div class=3D"elementToProof"><span style=3D"font-family: Arial, Helvetica,=
- sans-serif;"><br>
-</span></div>
-<div class=3D"elementToProof"><span style=3D"font-family: Arial, Helvetica,=
- sans-serif;">Regards,</span></div>
-<div class=3D"elementToProof"><span style=3D"font-family: Arial, Helvetica,=
- sans-serif;">Haseeb</span></div>
-<div class=3D"elementToProof"></div>
-<div class=3D"elementToProof"></div>
-<div class=3D"elementToProof"></div>
-</tt></div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Julien Grall &lt;juli=
-en@xen.org&gt;<br>
-<b>Sent:</b> Friday, October 31, 2025 2:18 PM<br>
-<b>To:</b> Mohamed Mediouni &lt;mohamed@unpredictable.fr&gt;<br>
-<b>Cc:</b> Ashraf, Haseeb (DI SW EDA HAV SLS EPS RTOS LIN) &lt;haseeb.ashra=
-f@siemens.com&gt;; xen-devel@lists.xenproject.org &lt;xen-devel@lists.xenpr=
-oject.org&gt;; Volodymyr_Babchuk@epam.com &lt;Volodymyr_Babchuk@epam.com&gt=
-;<br>
-<b>Subject:</b> Re: Limitations for Running Xen on KVM Arm64</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText"><br>
-<br>
-On 31/10/2025 00:20, Mohamed Mediouni wrote:<br>
-&gt; <br>
-&gt; <br>
-&gt;&gt; On 31. Oct 2025, at 00:55, Julien Grall &lt;julien@xen.org&gt; wro=
-te:<br>
-&gt;&gt;<br>
-&gt;&gt; Hi Mohamed,<br>
-&gt;&gt;<br>
-&gt;&gt; On 30/10/2025 18:33, Mohamed Mediouni wrote:<br>
-&gt;&gt;&gt;&gt; On 30. Oct 2025, at 14:41, haseeb.ashraf@siemens.com wrote=
-:<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt; Adding @julien@xen.org and replying to his questions he as=
-ked over #XenDevel:matrix.org.<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt; can you add some details why the implementation cannot be =
-optimized in KVM? Asking because I have never seen such issue when running =
-Xen on QEMU (without nested virt enabled).<br>
-&gt;&gt;&gt;&gt; AFAIK when Xen is run on QEMU without virtualization, then=
- instructions are emulated in QEMU while with KVM, ideally the instruction =
-should run directly on hardware except in some special cases (those trapped=
- by FGT/CGT). Such as this one where KVM maintains
- shadow page tables for each VM. It traps these instructions and emulates t=
-hem with callback such as handle_vmalls12e1is(). The way this callback is i=
-mplemented, it has to iterate over the whole address space and clean-up the=
- page tables which is a costly operation.
- Regardless of this, it should still be optimized in Xen as invalidating a =
-selective range would be much better than invalidating a whole range of 48-=
-bit address space.<br>
-&gt;&gt;&gt;&gt; Some details about your platform and use case would be hel=
-pful. I am interested to know whether you are using all the features for ne=
-sted virt.<br>
-&gt;&gt;&gt;&gt; I am using AWS G4. My use case is to run Xen as guest hype=
-rvisor. Yes, most of the features are enabled except VHE or those which are=
- disabled by KVM.<br>
-&gt;&gt;&gt; Hello,<br>
-&gt;&gt;&gt; You mean Graviton4 (for reference to others, from a bare metal=
- instance)? Interesting to see people caring about nested virt there :) - a=
-nd hopefully using it wasn=92t too much of a pain for you to deal with.<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt; ; switch to current VMID<br>
-&gt;&gt;&gt;&gt; tlbi rvae1, guest_vaddr ; first invalidate stage-1 TLB by =
-guest VA for current VMID<br>
-&gt;&gt;&gt;&gt; tlbi ripas2e1, guest_paddr ; then invalidate stage-2 TLB b=
-y IPA range for current VMID<br>
-&gt;&gt;&gt;&gt; dsb ish<br>
-&gt;&gt;&gt;&gt; isb<br>
-&gt;&gt;&gt;&gt; ; switch back the VMID<br>
-&gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =95 This is where I am not q=
-uite sure and I was hoping that if someone with Arm expertise could sign of=
-f on this so that I can work on its implementation in Xen. This will be an =
-optimization not only for virtualized hardware but also in general for
- Xen on arm64 machines.<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Note that the documentation says<br>
-&gt;&gt;&gt;&gt; The invalidation is not required to apply to caching struc=
-tures that combine stage 1 and stage 2 translation table entries.<br>
-&gt;&gt;&gt; for TLBIP RIPAS2E1<br>
-&gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =95 The second place in Xen =
-where this is problematic is when multiple vCPUs of the same domain juggle =
-on single pCPU, TLBs are invalidated everytime a different vCPU runs on a p=
-CPU. I do not know how this can be optimized. Any support on this is apprec=
-iated.<br>
-&gt;&gt;&gt; One way to handle this is every invalidate within the VM a bro=
-adcast TLB invalidate (HCR_EL2.FB is what you=92re looking for) and then fo=
-rego that TLB maintenance as it=92s no longer necessary. This should not ha=
-ve a practical performance impact.<br>
-&gt;&gt;<br>
-&gt;&gt; To confirm my understanding, you are suggesting to rely on the L2 =
-guest to send the TLB flush. Did I understanding correctly? If so, wouldn't=
- this open a security hole because a misbehaving guest may never send the T=
-LB flush?<br>
-&gt;&gt;<br>
-&gt; Hello,<br>
-&gt; <br>
-&gt; HCR_EL2.FB can be used to make every TLB invalidate the guest issues (=
-which is a stage1 one) a broadcast TLB invalidate.<br>
-<br>
-Xen already sets HCR_EL2.FB. But I believe this is only solving the <br>
-problem where the vCPU is moved to another pCPU. This doesn't solve the <br=
->
-problem where two vCPUs from the same VM is sharing the same pCPU.<br>
-<br>
-Per the Arm Arm each CPU have their own private TLBs. So we have to <br>
-flush between vCPU of the same domains to avoid translations from vCPU 1 <b=
-r>
-to &quot;leak&quot; to the vCPU 2 (they may have confliected page-tables).<=
-br>
-<br>
-KVM has a similar logic see &quot;last_vcpu_ran&quot; and <br>
-&quot;__kvm_flush_cpu_context()&quot;. That said... they are using &quot;vm=
-alle1&quot; <br>
-whereas we are using &quot;vmalls12e1&quot;. So maybe we can relax it. Not =
-sure if <br>
-this would make any difference for the performance though.<br>
-<br>
-Cheers,<br>
-<br>
--- <br>
-Julien Grall<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_TYZPR06MB4580126B98C6A38AA710F597E6F8ATYZPR06MB4580apcp_--
 
