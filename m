@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6425AC27DB3
-	for <lists+xen-devel@lfdr.de>; Sat, 01 Nov 2025 13:14:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1154997.1484613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D096C27DB9
+	for <lists+xen-devel@lfdr.de>; Sat, 01 Nov 2025 13:15:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1154999.1484622 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFAV8-0001Dj-Tc; Sat, 01 Nov 2025 12:14:34 +0000
+	id 1vFAVP-0001VU-6B; Sat, 01 Nov 2025 12:14:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1154997.1484613; Sat, 01 Nov 2025 12:14:34 +0000
+Received: by outflank-mailman (output) from mailman id 1154999.1484622; Sat, 01 Nov 2025 12:14:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFAV8-0001Ac-QK; Sat, 01 Nov 2025 12:14:34 +0000
-Received: by outflank-mailman (input) for mailman id 1154997;
- Sat, 01 Nov 2025 12:14:33 +0000
+	id 1vFAVP-0001TS-2U; Sat, 01 Nov 2025 12:14:51 +0000
+Received: by outflank-mailman (input) for mailman id 1154999;
+ Sat, 01 Nov 2025 12:14:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VYHd=5J=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1vFAV7-0001AW-17
- for xen-devel@lists.xenproject.org; Sat, 01 Nov 2025 12:14:33 +0000
+ id 1vFAVN-0001AW-S8
+ for xen-devel@lists.xenproject.org; Sat, 01 Nov 2025 12:14:49 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5132833d-b71c-11f0-9d16-b5c5bf9af7f9;
- Sat, 01 Nov 2025 13:14:30 +0100 (CET)
+ id 5c450cc1-b71c-11f0-9d16-b5c5bf9af7f9;
+ Sat, 01 Nov 2025 13:14:49 +0100 (CET)
 Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
  [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-384-j2sJ_wb0P3qQ-HsRoUj4Zg-1; Sat, 01 Nov 2025 08:14:26 -0400
+ us-mta-130-TuLVa_96PQOJAcDd3v7G4A-1; Sat, 01 Nov 2025 08:14:45 -0400
 Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-475dca91610so17204645e9.3
- for <xen-devel@lists.xenproject.org>; Sat, 01 Nov 2025 05:14:26 -0700 (PDT)
+ 5b1f17b1804b1-477171bbf51so13764415e9.3
+ for <xen-devel@lists.xenproject.org>; Sat, 01 Nov 2025 05:14:44 -0700 (PDT)
 Received: from ?IPV6:2003:d8:2f3f:4b00:ee13:8c22:5cc5:d169?
  (p200300d82f3f4b00ee138c225cc5d169.dip0.t-ipconnect.de.
  [2003:d8:2f3f:4b00:ee13:8c22:5cc5:d169])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429c10ff584sm9569867f8f.2.2025.11.01.05.14.22
+ ffacd0b85a97d-429c110037asm9428834f8f.3.2025.11.01.05.14.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 01 Nov 2025 05:14:24 -0700 (PDT)
+ Sat, 01 Nov 2025 05:14:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,53 +51,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5132833d-b71c-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: 5c450cc1-b71c-11f0-9d16-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1761999269;
+	s=mimecast20190719; t=1761999288;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=o048ati210LDdtQS+FOPO4jSMwtVqN57n5BUaVz6yTU=;
-	b=DSwOTGalgWiWoY6Sd70gYiI+Dx7Pdx4cRI3IpmLZgS6b4a0C2O5qmWJr8/uPyFS7WkAlQP
-	tHnAUj3TtStOrwecAD89zMcRjpSBI+pq2I+uGErPx8hpg6OpC2eX3SB+DpA2T3j6xqIkel
-	+Pb/pOfv6KlVkNWfCwxBYbvXMZigK7c=
-X-MC-Unique: j2sJ_wb0P3qQ-HsRoUj4Zg-1
-X-Mimecast-MFC-AGG-ID: j2sJ_wb0P3qQ-HsRoUj4Zg_1761999265
+	bh=Wcrewv7OssaEm3gyvMk1iF/ClvQjL5UKQAK3UbLbS48=;
+	b=Hjb65FPRL3UmUiIrv3e9flXkq0Mub9IHeKl8ANgiuYByWkdpnEEQx16aDevdKIqSvfp8gd
+	nfi9dILr4TRwAGc+eihcdBVvGD2Iv8H2j+4WrA6X+ijXQ3KS9QcwxOQfIjFojqHhF5dof8
+	QeJnDZJ+PT+OIQy8j8Fe8va5WlMGpXA=
+X-MC-Unique: TuLVa_96PQOJAcDd3v7G4A-1
+X-Mimecast-MFC-AGG-ID: TuLVa_96PQOJAcDd3v7G4A_1761999284
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761999265; x=1762604065;
+        d=1e100.net; s=20230601; t=1761999284; x=1762604084;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=o048ati210LDdtQS+FOPO4jSMwtVqN57n5BUaVz6yTU=;
-        b=Ncj7j611L56+1H2Xv/8wZSTyC1yC1XLflNPjxXL8bNRZR4watdu7rOh2l2Zhsxo4Rs
-         GZqyNxRMeGKBz0wosCZFmBpSL9Gw0fyX0zSVR+cPa4uFE1ODSZhQJ5jqfCOkY+usJ8fj
-         iLkOkayYb5/a4+tLV2mYjaOid0IwUVxrkRZepm9paiOe/uxFpIuOhvlOLQ+iVnutQPYx
-         DjuC7RIOMgexhXpxT946wDpggKfeANW3nBcrjWWjRBYreIk4urViU2pnbNN576WaLE1U
-         ZnPb4YTomFiMYg4IqZR6o0WTL43vhbgaMM1l+6I5nnA2Z5syYUl7M7XcNnVzN3RCeq1z
-         54cw==
-X-Forwarded-Encrypted: i=1; AJvYcCWdjJrSxXbO6mQZDT5KPuq0PZ3qMweQnaaDStYFK98fB4HIHrNWJCypsi3iINShH3i0wqsPfaICsBc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwTepWVKZ/5dMnewyap1CCuEaNpYb5LzpemI9uSt27ffmRzIz3j
-	RrMlNJ+sWnHA9owQA3dWPAD9LeNAzNiR7zXDJbKqau65N1lz6lRAfD6mJ/uxKy7xtvZ91YQkFlp
-	nRthleLoLuz7xeDB/APAJsa/7fqlsUp4MyXEl5Asjt2XxlGKluXZFuUIB+TfU/iuwaIn/
-X-Gm-Gg: ASbGncvRfEax45q6I/7F80Hs6kfengTINZwCAYEVc+U6ZdGesru5cZO7xDstfPTiqFI
-	FTfVHQnx6L+gFfefJztAJB0jqoPBx7h35cD936d1gzcHOcIm9Q3A4IRmMox9QH7GdF4nzw8SQFk
-	2RFo26v5ZOr2d2KdxxtDXByEbG6aSo6awaCjjn1mUN/YzIp8YgxFTTpSNDN/0zVtdG4oyDEIpet
-	lfJ/swmwYZhHmFyQnxv0pu5RDpnMv6ayu6lJ//qISY/DQeeu1Opigaqx4Km0fHncs7GiOBWkpTy
-	hotKpJ/6dJKQexCmjtjXVsTJOcThlObdOlBFUaYV/Fpj/ZHZs5gdcshfNGVcqURof0g8C+srdru
-	ctiS6tPW3fP+4k+iPI8E3ivBfZ0rAbe8JaUmlK1SHyRjn/4ND3XOGO0Dlu/psJqasm93Lumckj9
-	KNeyI0cykeDoS8XM5Ehs27HBP73HE=
-X-Received: by 2002:a05:6000:4006:b0:429:b1e4:1f79 with SMTP id ffacd0b85a97d-429bd6c1e9emr5632387f8f.58.1761999265118;
-        Sat, 01 Nov 2025 05:14:25 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHUnlqEI4i/IitGbkGmSb5mhRBlBddO47B8HgBUkc3NNZF05OsloV2rMzQDwADfEurYYBklUw==
-X-Received: by 2002:a05:6000:4006:b0:429:b1e4:1f79 with SMTP id ffacd0b85a97d-429bd6c1e9emr5632339f8f.58.1761999264653;
-        Sat, 01 Nov 2025 05:14:24 -0700 (PDT)
-Message-ID: <5a3ccb7e-9d36-4ac8-9634-c8dec3d6a47c@redhat.com>
-Date: Sat, 1 Nov 2025 13:14:21 +0100
+        bh=Wcrewv7OssaEm3gyvMk1iF/ClvQjL5UKQAK3UbLbS48=;
+        b=hewDu/xpzNIRFwYvSuN794BLipsfv4IjhUbRf5Ht31Di2ufe2lZLnngfbpeFdGscd3
+         YNpbvBl7Tes+FG+lk/WIBtDSzx70zi4O/2ZWLeDx/qNev5senhGPpKOhA8kw6HIwq3NL
+         LtHjihJffgn287fvCvbuzXEdFOv4h9cFCD9Af6Ghlw4OkD1XN+xhD4qnw/V8yolnaXEY
+         tboVTbJYRbXhJdLR8k33yOtUjfK1KNw8w76F4fdZ1+qPq4QTo0S4xEPxkuX/YPXPAehB
+         CR+tg86P3MffTj+yGMzJQVs88nQh9wCw/VFVDBz+LgXWbgiFwmD46okCMY67I+SX/rn9
+         ebPg==
+X-Forwarded-Encrypted: i=1; AJvYcCVihA1CUHDHbwjGrnB7NrrwuHqPLS9Z3LMNagzmJmBxxdrd0qcWA+qoHnhSqWrPQ2U79ohllPJ2yBU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyW4Onk/qYYn6jAEjFHuraVDWyAIbtQ1sLJYejH4Hoz/zsK45TN
+	dKdLgl1p3f8MK9xW6u840bYBRv8NO+TgFhl6/vheazafUxRBmxohXiE3hniNgRgXLoMtdeOnQWX
+	2qj0X58DKoZK63bxpvEDQ7DOqYlSieOrka5bRehytL2QK+QNJLUU9xi79iGhEzy6EUDL2
+X-Gm-Gg: ASbGncuOwFF5jcqGqeSDlvoWNfojY6gQrAj6Z2//LSsrrk1vlRytLw/vD402RmeFo26
+	QgwvReg8YlsPLKMIFZTn1lLyrlRX49cqCyWNZykVzjLf4yqGoC+jDhry6DMO9DNUwPrer6yw79+
+	0KmxQKLVCBnHJPVVydqAQZYgh0EAGXdDeHJgGzoHox6X7e/pFGoOyMqSwOjLp7AeR5ON+4TrBu8
+	maHg2GibZK2O7hp7SZqRv0iilyQcERl38T5qdQxlrw+F3J53UyCibETR+72JGYImgnjd7hrY8z8
+	99XdR35feCFW108k8o9yE3XernqptjEEVMa8a3N1Jld/cONsUlZCx95IznIKHyv+o2rs0Ewblhc
+	P/K7yHQKseP37ttTBXQ08/AGS5NXCNEMu/ds6kD/S+XHp0Hx2DJhy7vrY+Xp5TSo4MqD8V2dg9k
+	9v8NHKcVpva/LKwUH+HRlJcKTA7m0=
+X-Received: by 2002:a05:600c:a0b:b0:476:57b4:72b6 with SMTP id 5b1f17b1804b1-477305a6db5mr69965265e9.8.1761999283779;
+        Sat, 01 Nov 2025 05:14:43 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFFQqut/W+Hh2058Mo2KRwgSobvPqBB9YeSBGPmcQlX0YmXFdyt0oSxc1X9BsoNgscSeoohIA==
+X-Received: by 2002:a05:600c:a0b:b0:476:57b4:72b6 with SMTP id 5b1f17b1804b1-477305a6db5mr69964795e9.8.1761999283199;
+        Sat, 01 Nov 2025 05:14:43 -0700 (PDT)
+Message-ID: <c2859944-734f-4ba0-8b49-e0df23e1bdbf@redhat.com>
+Date: Sat, 1 Nov 2025 13:14:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/12] x86/xen: simplify flush_lazy_mmu()
+Subject: Re: [PATCH v4 03/12] powerpc/mm: implement arch_flush_lazy_mmu_mode()
 To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  Andreas Larsson <andreas@gaisler.com>,
@@ -121,7 +121,7 @@ Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
 References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
- <20251029100909.3381140-3-kevin.brodsky@arm.com>
+ <20251029100909.3381140-4-kevin.brodsky@arm.com>
 From: David Hildenbrand <david@redhat.com>
 Autocrypt: addr=david@redhat.com; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -167,73 +167,30 @@ Autocrypt: addr=david@redhat.com; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20251029100909.3381140-3-kevin.brodsky@arm.com>
+In-Reply-To: <20251029100909.3381140-4-kevin.brodsky@arm.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: lXk9cNcVmVsZLsGpx42alHLe7IuJ3tk1FQB6GIi99EY_1761999265
+X-Mimecast-MFC-PROC-ID: KWjH0owXk_nhOMkd5XWl6T-R4iBKdhTWtUm6k_DFpE4_1761999284
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 29.10.25 11:08, Kevin Brodsky wrote:
-> arch_flush_lazy_mmu_mode() is called when outstanding batched
-> pgtable operations must be completed immediately. There should
-> however be no need to leave and re-enter lazy MMU completely. The
-> only part of that sequence that we really need is xen_mc_flush();
-> call it directly.
+On 29.10.25 11:09, Kevin Brodsky wrote:
+> Upcoming changes to the lazy_mmu API will cause
+> arch_flush_lazy_mmu_mode() to be called when leaving a nested
+> lazy_mmu section.
+> 
+> Move the relevant logic from arch_leave_lazy_mmu_mode() to
+> arch_flush_lazy_mmu_mode() and have the former call the latter.
+> 
+> Note: the additional this_cpu_ptr() on the
+> arch_leave_lazy_mmu_mode() path will be removed in a subsequent
+> patch.
 > 
 > Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
 > ---
->   arch/x86/xen/mmu_pv.c | 6 ++----
->   1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
-> index 2a4a8deaf612..7a35c3393df4 100644
-> --- a/arch/x86/xen/mmu_pv.c
-> +++ b/arch/x86/xen/mmu_pv.c
-> @@ -2139,10 +2139,8 @@ static void xen_flush_lazy_mmu(void)
->   {
->   	preempt_disable();
->   
-> -	if (xen_get_lazy_mode() == XEN_LAZY_MMU) {
-> -		arch_leave_lazy_mmu_mode();
-> -		arch_enter_lazy_mmu_mode();
-> -	}
-> +	if (xen_get_lazy_mode() == XEN_LAZY_MMU)
-> +		xen_mc_flush();
->   
->   	preempt_enable();
->   }
 
-Looks like that was moved to XEN code in
-
-commit a4a7644c15096f57f92252dd6e1046bf269c87d8
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Sep 13 13:38:27 2023 +0200
-
-     x86/xen: move paravirt lazy code
-
-
-And essentially the previous implementation lived in 
-arch/x86/kernel/paravirt.c:paravirt_flush_lazy_mmu(void) in an 
-implementation-agnostic way:
-
-void paravirt_flush_lazy_mmu(void)
-{
-        preempt_disable();
-
-        if (paravirt_get_lazy_mode() == PARAVIRT_LAZY_MMU) {
-                arch_leave_lazy_mmu_mode();
-                arch_enter_lazy_mmu_mode();
-        }
-
-        preempt_enable();
-}
-
-
-So indeed, I assume just doing the flush here is sufficient.
-
-Reviewed-by: David Hildenbrand <david@redhat.com>
+Acked-by: David Hildenbrand <david@redhat.com>
 
 -- 
 Cheers
