@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08BF9C27DED
-	for <lists+xen-devel@lfdr.de>; Sat, 01 Nov 2025 13:23:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1155053.1484662 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1598C283CB
+	for <lists+xen-devel@lfdr.de>; Sat, 01 Nov 2025 18:22:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1155084.1484672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFAdD-0005YB-Pw; Sat, 01 Nov 2025 12:22:55 +0000
+	id 1vFFHh-0003b9-UD; Sat, 01 Nov 2025 17:21:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1155053.1484662; Sat, 01 Nov 2025 12:22:55 +0000
+Received: by outflank-mailman (output) from mailman id 1155084.1484672; Sat, 01 Nov 2025 17:21:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFAdD-0005Wk-N4; Sat, 01 Nov 2025 12:22:55 +0000
-Received: by outflank-mailman (input) for mailman id 1155053;
- Sat, 01 Nov 2025 12:22:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vFFHh-0003Yq-RJ; Sat, 01 Nov 2025 17:21:01 +0000
+Received: by outflank-mailman (input) for mailman id 1155084;
+ Sat, 01 Nov 2025 17:21:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VYHd=5J=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1vFAdC-0005We-6U
- for xen-devel@lists.xenproject.org; Sat, 01 Nov 2025 12:22:54 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7bc11e98-b71d-11f0-980a-7dc792cee155;
- Sat, 01 Nov 2025 13:22:51 +0100 (CET)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-370-VZV7Cif1P6-RNVG7fyOP5A-1; Sat, 01 Nov 2025 08:22:47 -0400
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-42855d6875fso2317768f8f.3
- for <xen-devel@lists.xenproject.org>; Sat, 01 Nov 2025 05:22:47 -0700 (PDT)
-Received: from ?IPV6:2003:d8:2f3f:4b00:ee13:8c22:5cc5:d169?
- (p200300d82f3f4b00ee138c225cc5d169.dip0.t-ipconnect.de.
- [2003:d8:2f3f:4b00:ee13:8c22:5cc5:d169])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429c110037asm9461926f8f.3.2025.11.01.05.22.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 01 Nov 2025 05:22:45 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1vFFHg-0003Yk-Hn
+ for xen-devel@lists.xenproject.org; Sat, 01 Nov 2025 17:21:00 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1vFFHe-00Djx9-18;
+ Sat, 01 Nov 2025 17:20:58 +0000
+Received: from [2a02:8012:3a1:0:2858:32e7:18b8:3bf]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1vFFHe-003gFL-0z;
+ Sat, 01 Nov 2025 17:20:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,157 +39,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7bc11e98-b71d-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1761999770;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=iR1r/3xhU7MVcJwVYZUltUXo3c7eUSFIQ+pGKdoQg2M=;
-	b=h1TsCHdfHNbbWJNllLpXnvY3sZ6viEZyBQ8eDdUeAZizsyA87pYajXmGxYVEQW2Za6C0Q3
-	ypVvNb/xyu+oL0fogETvX3PULdrqXQVz75Ctn4JmVqmDAQtDGGdRt9Dq+/z9gnK6YD/raZ
-	7D3wojThoJjzlpbZqmG73V8mMw39n2E=
-X-MC-Unique: VZV7Cif1P6-RNVG7fyOP5A-1
-X-Mimecast-MFC-AGG-ID: VZV7Cif1P6-RNVG7fyOP5A_1761999766
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761999766; x=1762604566;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=iR1r/3xhU7MVcJwVYZUltUXo3c7eUSFIQ+pGKdoQg2M=;
-        b=KNZ18/3/Z4D2hAUOpBcxuoqwN6dNBzWqfWaWMwM9kK/vnfFHKmSySPQr+jgeUnrIT1
-         GU67IXWnGiDKoee61hjKYamxJZSkys1V2NKIzYG2IYW9GXaZUJzBnaOig7dei62H86UN
-         zM8M2kMWJUgeNzMfID3Wo8ajS3oz7Ae4UqxxD5OHzgp59Fv0EojT5Gcf9X/NoUWKKHFM
-         Oz3A3gvubsvsvygELZEMzGJY5qhf3SQwWOGTbCCjCSwRM8YsRMU/C3/lkL5fOkaBiYB4
-         nsIv5RVl3WT69L0hIc4zfwCzlhXswf8/jxXDpQ0E5/S326nbPk8Bx4aK0tsANq/B9u+t
-         McqA==
-X-Forwarded-Encrypted: i=1; AJvYcCWE6DgW6HbVW+bBAuIlDnB317qTVf4y2mL5oOXUOmu5PSZRmO2pBqdQ+Ff4Ce8F3UDS9YJlAIZLUIU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyCo9UiBQxIIqbpj1T2xspHa/m/QZCNRzkW3T7LiI8p98MNQ21i
-	JK120W1hc+3ReWCKN+FjlxGwKPl/EgUmhWz32xGFF44pV6Km86QD5xh8CmnFcQEpsqhNmC4Q+/K
-	vmMuVB3ZOdfc2tXc1IiieFDNp2jLtMFOiZhdezAt1uKkOoHfKWHCHdx5BsIJsYS/ldZKK
-X-Gm-Gg: ASbGncsJ1VKXkQFtzkB+GvYemUu26S45DzXd6tgghK9A7aSLn1y1TBje9EtJ3Mx1YcG
-	6d/16szaJ9vO+FfnEwROqYiGq7y2XKuKWS0SzJJvI7+DptlJgYHRAwY+UBw8Tb+TIjDOkZbRBn3
-	9fPehz3euAdIbCkF+SrzYZnMOmqQKv4ASwDH43FeyV6N7HG8O7eG87CVFYaoMElcV3QEN+VtcNM
-	Xk4tILy9MmLpP9pVkbDjCd3Q+XlOLicdMgxZfceZGejT5/UihkFUiVdXsCiT4PMVv6+Wvp49Ig/
-	QTFBkISZt+LHVVfa+TEdjlpnlBmRsBHRFI5bkMVx2QEDkrgP2jUSb0Uxa0AaURizpHulJecaNzl
-	F6WxchJATPXDEAPxB8CjRMlNhI3OGYN8BeKJM0pzMbiQOsWdy1tzqNDF0i4ZMModlv2wubDVmEs
-	TAvLNB9huTBEKk/yFsWcOBmxqfnVo=
-X-Received: by 2002:a05:6000:2f86:b0:429:8daa:c6b4 with SMTP id ffacd0b85a97d-429bd6860d5mr4833021f8f.21.1761999765978;
-        Sat, 01 Nov 2025 05:22:45 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFJ+TTH/VeYpEYhd62jH/WbFLaTQZ/6xytSCDTH7QTl8AfN9d4nyTXPMxG2nY+bN2wOvpiPqw==
-X-Received: by 2002:a05:6000:2f86:b0:429:8daa:c6b4 with SMTP id ffacd0b85a97d-429bd6860d5mr4832980f8f.21.1761999765533;
-        Sat, 01 Nov 2025 05:22:45 -0700 (PDT)
-Message-ID: <ae1236da-2647-4d53-bf4d-ff8fc32eb734@redhat.com>
-Date: Sat, 1 Nov 2025 13:22:42 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ppN5spUnByiaotRnYsiz8W6Po7g08zwtVOPW0Jfjhdw=; b=PwyZPdIWhstUE0kXJZ0NnOJYAm
+	OJgXa+FFgTB7Znv5YKPDqmuyyepIAJycqomc5Jkxrrbb3Ctb8BwogMK4SAlWvmqUNSrDt1gIzqL8Y
+	3xV0+qehYL7DI7HPQ5n2lQw0wL25r0gski4nxRhp8JVrO/+x+nNgCtZzkRzRG3H56QxY=;
+Message-ID: <29c554de-2429-4c2e-bf87-a0e32fa461e0@xen.org>
+Date: Sat, 1 Nov 2025 17:20:56 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/12] mm: enable lazy_mmu sections to nest
-To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
- Andreas Larsson <andreas@gaisler.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>,
- David Woodhouse <dwmw2@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>,
- Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
- Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
- <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
- Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
-References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
- <20251029100909.3381140-8-kevin.brodsky@arm.com>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20251029100909.3381140-8-kevin.brodsky@arm.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: la1xJiisjadv-gB5TaWGW0VUmtGCVx7YMltVh1TK0_4_1761999766
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Subject: Re: Limitations for Running Xen on KVM Arm64
+Content-Language: en-GB
+To: Mohamed Mediouni <mohamed@unpredictable.fr>
+Cc: haseeb.ashraf@siemens.com,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
+References: <KL1PR0601MB4588D25A95D680640A80F2CAE6FBA@KL1PR0601MB4588.apcprd06.prod.outlook.com>
+ <KL1PR0601MB45885505ECBBE9262C2B25E0E6FBA@KL1PR0601MB4588.apcprd06.prod.outlook.com>
+ <FC5C66FD-8554-4F46-8546-B27DE76C8EEF@unpredictable.fr>
+ <2b00a98f-6fee-4341-92bd-25909ebb6e36@xen.org>
+ <CA753BD2-31FA-480D-B32A-2125F0F4981D@unpredictable.fr>
+ <fc181349-d743-4ef0-bcd2-01c04d2a463e@xen.org>
+ <0C76C261-783D-4503-B929-4B48CDEC8841@unpredictable.fr>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <0C76C261-783D-4503-B929-4B48CDEC8841@unpredictable.fr>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Hi,
 
->   static inline void lazy_mmu_mode_pause(void)
->   {
-> +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
-> +
-> +	VM_WARN_ON(state->nesting_level == 0 || !state->active);
-> +
-> +	state->active = false;
->   	arch_leave_lazy_mmu_mode();
+On 31/10/2025 11:54, Mohamed Mediouni wrote:
+>> Per the Arm Arm each CPU have their own private TLBs. So we have to flush between vCPU of the same domains to avoid translations from vCPU 1 to "leak" to the vCPU 2 (they may have confliected page-tables).
+> Hm… it varies on whether the VM uses CnP or not (and whether the HW supports it)… (Linux does…)
 
-Just one question:
+Skimming through the Arm Arm, it seems that CnP is a per page-table/ASID 
+decision. So I think it would be difficult to take advantage of this 
+knowlege in Xen unless we start trapping access to TTBRn_EL1 which is 
+likely going to be expensive.
 
-Don't we want to allow for pause/resume when not enabled? Would seem 
-valid to me, because pause/resume code should actually not worry about 
-that, right?
+Obviously, if someone trusts and knows their VM then they could rely
+on it. But that's not something I would want to accept in upstream
+Xen at the moment.
 
-if (!state->nesting_level) {
-	VM_WARN_ON(state->active);
-	return;
-}
-VM_WARN_ON(!state->active);
-state->active = false;
-arch_leave_lazy_mmu_mode();
+>> KVM has a similar logic see "last_vcpu_ran" and "__kvm_flush_cpu_context()". That said... they are using "vmalle1" whereas we are using "vmalls12e1". So maybe we can relax it. Not sure if this would make any difference for the performance though.
+> vmalle1 avoids the problem here (because it only invalidates stage-1 translations).
+
+I saw Haseeb provided some good numbers. I think switching to vmalle1 is 
+a no brainer.
+
+Cheers,
 
 -- 
-Cheers
-
-David / dhildenb
+Julien Grall
 
 
