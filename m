@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7C5DC2D069
-	for <lists+xen-devel@lfdr.de>; Mon, 03 Nov 2025 17:14:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1155425.1484920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DC83C2D08D
+	for <lists+xen-devel@lfdr.de>; Mon, 03 Nov 2025 17:15:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1155436.1484929 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFxCD-0002AZ-LX; Mon, 03 Nov 2025 16:14:17 +0000
+	id 1vFxDR-0002f0-V1; Mon, 03 Nov 2025 16:15:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1155425.1484920; Mon, 03 Nov 2025 16:14:17 +0000
+Received: by outflank-mailman (output) from mailman id 1155436.1484929; Mon, 03 Nov 2025 16:15:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFxCD-00027w-IS; Mon, 03 Nov 2025 16:14:17 +0000
-Received: by outflank-mailman (input) for mailman id 1155425;
- Mon, 03 Nov 2025 16:11:25 +0000
+	id 1vFxDR-0002ct-SD; Mon, 03 Nov 2025 16:15:33 +0000
+Received: by outflank-mailman (input) for mailman id 1155436;
+ Mon, 03 Nov 2025 16:15:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j3Hq=5L=kernel.org=david@srs-se1.protection.inumbo.net>)
- id 1vFx9R-00024e-6J
- for xen-devel@lists.xenproject.org; Mon, 03 Nov 2025 16:11:25 +0000
+ id 1vFxDQ-0002cU-HE
+ for xen-devel@lists.xenproject.org; Mon, 03 Nov 2025 16:15:32 +0000
 Received: from sea.source.kernel.org (sea.source.kernel.org
  [2600:3c0a:e001:78e:0:1991:8:25])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id babde6dd-b8cf-11f0-980a-7dc792cee155;
- Mon, 03 Nov 2025 17:11:19 +0100 (CET)
+ id 50d2a9e7-b8d0-11f0-980a-7dc792cee155;
+ Mon, 03 Nov 2025 17:15:30 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CF01A43237;
- Mon,  3 Nov 2025 16:11:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A46CC4CEE7;
- Mon,  3 Nov 2025 16:11:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3D68643BB2;
+ Mon,  3 Nov 2025 16:15:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22BE5C4CEE7;
+ Mon,  3 Nov 2025 16:15:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,23 +42,23 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: babde6dd-b8cf-11f0-980a-7dc792cee155
+X-Inumbo-ID: 50d2a9e7-b8d0-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1762186276;
-	bh=V1CU9ZdjaPBn/WuqIoDgCoBVzQIejoJ47+/3Iu7JZPI=;
+	s=k20201202; t=1762186529;
+	bh=S0YKJr0SoBmysmz8IMr3QugNjlhYpJzfR41WjPWBUB4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=npyBUuqjUIKg4InV+qpRD6OtpMB4/GHdS8B1NFF+Q9yYKiP+sb3TgKsbqJH8Sa1rZ
-	 IjmKf10sHhPZ9tJBExNMfKK9yT/VFR2YIZ9V/xn9DQdnHw+celZDegZhXdLQrF/SN5
-	 lUex3DQHMkchog6zMIgVbKEfsJTbKokiYZLXNK0+peJ+RcXLboT6AnCcS4v+iq0vdd
-	 UNq+DePKElJQaoqkKpkF65sYRbAzqC1oOL9GKK49eQoY+wljWRBdmHyv0D0R45C04e
-	 nEuXWJ5n/3CnJfkZVAWRCYTclKE+cKq52lFKq1tbquYMBGM5LejdtS3JnqVMyuKIJJ
-	 wBZRvG6pryrXw==
-Message-ID: <15381b5c-726f-4eda-8ffd-c95c0acd7635@kernel.org>
-Date: Mon, 3 Nov 2025 17:11:06 +0100
+	b=pMmG9L/wSj8xOcK/DzcO7x+pUKpbN+kaGWRhPKGT/hFa2p/Ay8Nl1Mzz1ZWUyScDa
+	 vucJ0XbF6T0spIoI3AD/0qxqWiVKMh+Mmks24qxQFDpKZf3Zexx64cDs61lCh6Efy6
+	 od0TqupiK1VEnDg7glIHKRlBc357kZIMtV/jM6SD3qxje1H7u2r4taFzH3oyOWmxWM
+	 hHnL2j3jQ8KEJexQD4wpbJBjPfYdQst+gwFFqah20VMhXD96dyPMbnm/scOYZnijeO
+	 WcP/Ww9iS8dXs6EdOUxwooqxO/I0VbjvAaMNzv31ZZN/WtGdcK9zJR5blHKdrg4t/9
+	 0WafEdG9rsGng==
+Message-ID: <c7c8a233-2103-4b48-b65e-ec81666d20e4@kernel.org>
+Date: Mon, 3 Nov 2025 17:15:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 10/12] sparc/mm: replace batch->active with
- in_lazy_mmu_mode()
+Subject: Re: [PATCH v4 11/12] x86/xen: use lazy_mmu_state when
+ context-switching
 To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  Andreas Larsson <andreas@gaisler.com>,
@@ -67,11 +67,12 @@ Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
  Christophe Leroy <christophe.leroy@csgroup.eu>,
  Dave Hansen <dave.hansen@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>,
- David Woodhouse <dwmw2@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>,
- Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
- Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
- <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ David Hildenbrand <david@redhat.com>, "David S. Miller"
+ <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+ Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
  Madhavan Srinivasan <maddy@linux.ibm.com>,
  Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
  Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
@@ -82,89 +83,77 @@ Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
 References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
- <20251029100909.3381140-11-kevin.brodsky@arm.com>
+ <20251029100909.3381140-12-kevin.brodsky@arm.com>
 From: "David Hildenbrand (Red Hat)" <david@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20251029100909.3381140-11-kevin.brodsky@arm.com>
+In-Reply-To: <20251029100909.3381140-12-kevin.brodsky@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 29.10.25 11:09, Kevin Brodsky wrote:
-> A per-CPU batch struct is activated when entering lazy MMU mode; its
-> lifetime is the same as the lazy MMU section (it is deactivated when
-> leaving the mode). Preemption is disabled in that interval to ensure
-> that the per-CPU reference remains valid.
+> We currently set a TIF flag when scheduling out a task that is in
+> lazy MMU mode, in order to restore it when the task is scheduled
+> again.
 > 
 > The generic lazy_mmu layer now tracks whether a task is in lazy MMU
-> mode. We can therefore use the generic helper in_lazy_mmu_mode()
-> to tell whether a batch struct is active instead of tracking it
-> explicitly.
+> mode in task_struct::lazy_mmu_state. We can therefore check that
+> state when switching to the new task, instead of using a separate
+> TIF flag.
 > 
 > Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
 > ---
->   arch/sparc/include/asm/tlbflush_64.h | 1 -
->   arch/sparc/mm/tlb.c                  | 9 +--------
->   2 files changed, 1 insertion(+), 9 deletions(-)
+>   arch/x86/include/asm/thread_info.h | 4 +---
+>   arch/x86/xen/enlighten_pv.c        | 3 +--
+>   2 files changed, 2 insertions(+), 5 deletions(-)
 > 
-> diff --git a/arch/sparc/include/asm/tlbflush_64.h b/arch/sparc/include/asm/tlbflush_64.h
-> index 4e1036728e2f..6133306ba59a 100644
-> --- a/arch/sparc/include/asm/tlbflush_64.h
-> +++ b/arch/sparc/include/asm/tlbflush_64.h
-> @@ -12,7 +12,6 @@ struct tlb_batch {
->   	unsigned int hugepage_shift;
->   	struct mm_struct *mm;
->   	unsigned long tlb_nr;
-> -	unsigned long active;
->   	unsigned long vaddrs[TLB_BATCH_NR];
->   };
+> diff --git a/arch/x86/include/asm/thread_info.h b/arch/x86/include/asm/thread_info.h
+> index e71e0e8362ed..0067684afb5b 100644
+> --- a/arch/x86/include/asm/thread_info.h
+> +++ b/arch/x86/include/asm/thread_info.h
+> @@ -100,8 +100,7 @@ struct thread_info {
+>   #define TIF_FORCED_TF		24	/* true if TF in eflags artificially */
+>   #define TIF_SINGLESTEP		25	/* reenable singlestep on user return*/
+>   #define TIF_BLOCKSTEP		26	/* set when we want DEBUGCTLMSR_BTF */
+> -#define TIF_LAZY_MMU_UPDATES	27	/* task is updating the mmu lazily */
+> -#define TIF_ADDR32		28	/* 32-bit address space on 64 bits */
+> +#define TIF_ADDR32		27	/* 32-bit address space on 64 bits */
 >   
-> diff --git a/arch/sparc/mm/tlb.c b/arch/sparc/mm/tlb.c
-> index 7b5dfcdb1243..879e22c86e5c 100644
-> --- a/arch/sparc/mm/tlb.c
-> +++ b/arch/sparc/mm/tlb.c
-> @@ -52,11 +52,7 @@ void flush_tlb_pending(void)
+>   #define _TIF_SSBD		BIT(TIF_SSBD)
+>   #define _TIF_SPEC_IB		BIT(TIF_SPEC_IB)
+> @@ -114,7 +113,6 @@ struct thread_info {
+>   #define _TIF_FORCED_TF		BIT(TIF_FORCED_TF)
+>   #define _TIF_BLOCKSTEP		BIT(TIF_BLOCKSTEP)
+>   #define _TIF_SINGLESTEP		BIT(TIF_SINGLESTEP)
+> -#define _TIF_LAZY_MMU_UPDATES	BIT(TIF_LAZY_MMU_UPDATES)
+>   #define _TIF_ADDR32		BIT(TIF_ADDR32)
 >   
->   void arch_enter_lazy_mmu_mode(void)
->   {
-> -	struct tlb_batch *tb;
-> -
->   	preempt_disable();
-> -	tb = this_cpu_ptr(&tlb_batch);
-> -	tb->active = 1;
->   }
+>   /* flags to check in __switch_to() */
+> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+> index 4806cc28d7ca..f40f5999352e 100644
+> --- a/arch/x86/xen/enlighten_pv.c
+> +++ b/arch/x86/xen/enlighten_pv.c
+> @@ -426,7 +426,6 @@ static void xen_start_context_switch(struct task_struct *prev)
 >   
->   void arch_flush_lazy_mmu_mode(void)
-> @@ -69,10 +65,7 @@ void arch_flush_lazy_mmu_mode(void)
->   
->   void arch_leave_lazy_mmu_mode(void)
->   {
-> -	struct tlb_batch *tb = this_cpu_ptr(&tlb_batch);
-> -
->   	arch_flush_lazy_mmu_mode();
-> -	tb->active = 0;
->   	preempt_enable();
->   }
->   
-> @@ -93,7 +86,7 @@ static void tlb_batch_add_one(struct mm_struct *mm, unsigned long vaddr,
->   		nr = 0;
+>   	if (this_cpu_read(xen_lazy_mode) == XEN_LAZY_MMU) {
+>   		arch_leave_lazy_mmu_mode();
+> -		set_ti_thread_flag(task_thread_info(prev), TIF_LAZY_MMU_UPDATES);
 >   	}
+>   	enter_lazy(XEN_LAZY_CPU);
+>   }
+> @@ -437,7 +436,7 @@ static void xen_end_context_switch(struct task_struct *next)
 >   
-> -	if (!tb->active) {
-> +	if (!in_lazy_mmu_mode()) {
->   		flush_tsb_user_page(mm, vaddr, hugepage_shift);
->   		global_flush_tlb_page(mm, vaddr);
->   		goto out;
+>   	xen_mc_flush();
+>   	leave_lazy(XEN_LAZY_CPU);
+> -	if (test_and_clear_ti_thread_flag(task_thread_info(next), TIF_LAZY_MMU_UPDATES))
+> +	if (next->lazy_mmu_state.active)
 
-(messing up my transition to the email address as Thunderbird defaults 
-to my old one still on mails received through RH servers)
+This is nasty. If in_lazy_mmu_mode() is not sufficient, we will want to 
+have a separate helper that makes it clear what the difference between 
+both variants is.
 
-Did we get this tested with some help from sparc64 folks?
-
-Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
 
 -- 
 Cheers
 
 David
-
 
