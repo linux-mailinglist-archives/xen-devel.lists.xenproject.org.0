@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B500DC2D97A
-	for <lists+xen-devel@lfdr.de>; Mon, 03 Nov 2025 19:08:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1155494.1484962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D858C2D989
+	for <lists+xen-devel@lfdr.de>; Mon, 03 Nov 2025 19:09:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1155505.1484972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFyx1-00019Q-9E; Mon, 03 Nov 2025 18:06:43 +0000
+	id 1vFyzH-0001gM-Js; Mon, 03 Nov 2025 18:09:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1155494.1484962; Mon, 03 Nov 2025 18:06:43 +0000
+Received: by outflank-mailman (output) from mailman id 1155505.1484972; Mon, 03 Nov 2025 18:09:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFyx1-00016y-5a; Mon, 03 Nov 2025 18:06:43 +0000
-Received: by outflank-mailman (input) for mailman id 1155494;
- Mon, 03 Nov 2025 18:06:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vFyzH-0001dm-H4; Mon, 03 Nov 2025 18:09:03 +0000
+Received: by outflank-mailman (input) for mailman id 1155505;
+ Mon, 03 Nov 2025 18:09:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=10XO=5L=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1vFywz-00016s-Tu
- for xen-devel@lists.xenproject.org; Mon, 03 Nov 2025 18:06:41 +0000
+ id 1vFyzF-0001de-V1
+ for xen-devel@lists.xenproject.org; Mon, 03 Nov 2025 18:09:01 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id d5e152b2-b8df-11f0-980a-7dc792cee155;
- Mon, 03 Nov 2025 19:06:36 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 2a154c50-b8e0-11f0-9d16-b5c5bf9af7f9;
+ Mon, 03 Nov 2025 19:08:57 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 183932A6B;
- Mon,  3 Nov 2025 10:06:27 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4DBAF2A6B;
+ Mon,  3 Nov 2025 10:08:48 -0800 (PST)
 Received: from [10.1.30.16] (unknown [10.1.30.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 67BAA3F694;
- Mon,  3 Nov 2025 10:06:27 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 463A43F694;
+ Mon,  3 Nov 2025 10:08:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,12 +42,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5e152b2-b8df-11f0-980a-7dc792cee155
-Message-ID: <bcc78ea0-5eca-49e5-bafd-84a16e06ab98@arm.com>
-Date: Mon, 3 Nov 2025 18:06:24 +0000
+X-Inumbo-ID: 2a154c50-b8e0-11f0-9d16-b5c5bf9af7f9
+Message-ID: <1965fe85-3734-45e9-af89-651c65845e8a@arm.com>
+Date: Mon, 3 Nov 2025 18:08:45 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/12] x86/xen: simplify flush_lazy_mmu()
+Subject: Re: [PATCH v4 07/12] mm: enable lazy_mmu sections to nest
 To: David Hildenbrand <david@redhat.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  Andreas Larsson <andreas@gaisler.com>,
@@ -71,78 +71,51 @@ Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
 References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
- <20251029100909.3381140-3-kevin.brodsky@arm.com>
- <5a3ccb7e-9d36-4ac8-9634-c8dec3d6a47c@redhat.com>
+ <20251029100909.3381140-8-kevin.brodsky@arm.com>
+ <ae1236da-2647-4d53-bf4d-ff8fc32eb734@redhat.com>
 Content-Language: en-GB
 From: Kevin Brodsky <kevin.brodsky@arm.com>
-In-Reply-To: <5a3ccb7e-9d36-4ac8-9634-c8dec3d6a47c@redhat.com>
+In-Reply-To: <ae1236da-2647-4d53-bf4d-ff8fc32eb734@redhat.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 01/11/2025 12:14, David Hildenbrand wrote:
-> On 29.10.25 11:08, Kevin Brodsky wrote:
->> arch_flush_lazy_mmu_mode() is called when outstanding batched
->> pgtable operations must be completed immediately. There should
->> however be no need to leave and re-enter lazy MMU completely. The
->> only part of that sequence that we really need is xen_mc_flush();
->> call it directly.
->>
->> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
->> ---
->>   arch/x86/xen/mmu_pv.c | 6 ++----
->>   1 file changed, 2 insertions(+), 4 deletions(-)
->>
->> diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
->> index 2a4a8deaf612..7a35c3393df4 100644
->> --- a/arch/x86/xen/mmu_pv.c
->> +++ b/arch/x86/xen/mmu_pv.c
->> @@ -2139,10 +2139,8 @@ static void xen_flush_lazy_mmu(void)
+On 01/11/2025 12:22, David Hildenbrand wrote:
+>
+>>   static inline void lazy_mmu_mode_pause(void)
 >>   {
->>       preempt_disable();
->>   -    if (xen_get_lazy_mode() == XEN_LAZY_MMU) {
->> -        arch_leave_lazy_mmu_mode();
->> -        arch_enter_lazy_mmu_mode();
->> -    }
->> +    if (xen_get_lazy_mode() == XEN_LAZY_MMU)
->> +        xen_mc_flush();
->>         preempt_enable();
->>   }
+>> +    struct lazy_mmu_state *state = &current->lazy_mmu_state;
+>> +
+>> +    VM_WARN_ON(state->nesting_level == 0 || !state->active);
+>> +
+>> +    state->active = false;
+>>       arch_leave_lazy_mmu_mode();
 >
-> Looks like that was moved to XEN code in
+> Just one question:
 >
-> commit a4a7644c15096f57f92252dd6e1046bf269c87d8
-> Author: Juergen Gross <jgross@suse.com>
-> Date:   Wed Sep 13 13:38:27 2023 +0200
->
->     x86/xen: move paravirt lazy code
->
->
-> And essentially the previous implementation lived in
-> arch/x86/kernel/paravirt.c:paravirt_flush_lazy_mmu(void) in an
-> implementation-agnostic way:
->
-> void paravirt_flush_lazy_mmu(void)
-> {
->        preempt_disable();
->
->        if (paravirt_get_lazy_mode() == PARAVIRT_LAZY_MMU) {
->                arch_leave_lazy_mmu_mode();
->                arch_enter_lazy_mmu_mode();
->        }
->
->        preempt_enable();
-> }
+> Don't we want to allow for pause/resume when not enabled? Would seem
+> valid to me, because pause/resume code should actually not worry about
+> that, right?
 
-Indeed, I saw that too. Calling the generic leave/enter functions made
-some sense at that point, but now that the implementation is
-Xen-specific we can directly call xen_mc_flush().
+This does sound sensible, thanks for the suggestion. The initial goal
+was to allow functions that know they're called with lazy MMU enabled to
+be able to pause it temporarily if they need batching disabled. But we
+could generalise this to: if you know batching would break things, then
+you can preemptively add a pause/resume pair, and it won't do anything
+unless you're called with lazy MMU enabled.
 
->
-> So indeed, I assume just doing the flush here is sufficient.
->
-> Reviewed-by: David Hildenbrand <david@redhat.com> 
-
-Thanks for the review!
+I also like this as this removes an invalid usage situation - now as
+long as you have balanced enable/disable and pause/resume calls, you're
+good. Will make that change in v5.
 
 - Kevin
+
+>
+> if (!state->nesting_level) {
+>     VM_WARN_ON(state->active);
+>     return;
+> }
+> VM_WARN_ON(!state->active);
+> state->active = false;
+> arch_leave_lazy_mmu_mode();
+>
 
