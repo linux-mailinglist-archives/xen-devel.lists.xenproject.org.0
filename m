@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88F6EC2D3B8
-	for <lists+xen-devel@lfdr.de>; Mon, 03 Nov 2025 17:48:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1155460.1484952 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B500DC2D97A
+	for <lists+xen-devel@lfdr.de>; Mon, 03 Nov 2025 19:08:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1155494.1484962 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFxjL-0007re-N4; Mon, 03 Nov 2025 16:48:31 +0000
+	id 1vFyx1-00019Q-9E; Mon, 03 Nov 2025 18:06:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1155460.1484952; Mon, 03 Nov 2025 16:48:31 +0000
+Received: by outflank-mailman (output) from mailman id 1155494.1484962; Mon, 03 Nov 2025 18:06:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFxjL-0007pU-JM; Mon, 03 Nov 2025 16:48:31 +0000
-Received: by outflank-mailman (input) for mailman id 1155460;
- Mon, 03 Nov 2025 16:48:30 +0000
+	id 1vFyx1-00016y-5a; Mon, 03 Nov 2025 18:06:43 +0000
+Received: by outflank-mailman (input) for mailman id 1155494;
+ Mon, 03 Nov 2025 18:06:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p5Dp=5L=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vFxjK-0007ix-72
- for xen-devel@lists.xenproject.org; Mon, 03 Nov 2025 16:48:30 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec45124b-b8d4-11f0-980a-7dc792cee155;
- Mon, 03 Nov 2025 17:48:28 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-640aa1445c3so2784753a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 03 Nov 2025 08:48:28 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b710709270bsm296837166b.21.2025.11.03.08.48.26
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Nov 2025 08:48:27 -0800 (PST)
+ <SRS0=10XO=5L=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
+ id 1vFywz-00016s-Tu
+ for xen-devel@lists.xenproject.org; Mon, 03 Nov 2025 18:06:41 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id d5e152b2-b8df-11f0-980a-7dc792cee155;
+ Mon, 03 Nov 2025 19:06:36 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 183932A6B;
+ Mon,  3 Nov 2025 10:06:27 -0800 (PST)
+Received: from [10.1.30.16] (unknown [10.1.30.16])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 67BAA3F694;
+ Mon,  3 Nov 2025 10:06:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,117 +42,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec45124b-b8d4-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1762188508; x=1762793308; darn=lists.xenproject.org;
-        h=subject:from:to:content-language:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=00l7RiZz8HXspLJB30M47vbkOxUg/EJS2mfYagz5+Vs=;
-        b=gT39pBfZS4MPOrf0mS5qfbnvLmhpAL1+S8AuHDNnokOQvGsMvukYDRqCQykWK3CGiB
-         VzoUWiEKYk0VLr9mIwbMwp3Zwxp4gmvU6rnp3fXXGlS5jtW3/J5euSE2UIozyM4L7RHg
-         WD02mXAmLgp3nb/FqdMtXz3qgxJXcwcrlivceNhJYv6WjheMsqhO6PUG565scp9LnqPf
-         FHVyqLNOOavq3RbWdeg2f9oyf2jKG7S9rMfTHQWeahIzaNe5b+im9PnC++x4qDfICQPI
-         NksFBLkRDVxnkxN2AsGi4cJBq0FsEkXz+MCGwgoX4J6tOuzgQ/fqSEL2f5PO78nZ5iQu
-         SQzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762188508; x=1762793308;
-        h=subject:from:to:content-language:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=00l7RiZz8HXspLJB30M47vbkOxUg/EJS2mfYagz5+Vs=;
-        b=FeX/PbQE7Tkcl5nWG6ahWEl+gR3H+89Dw7EXcv8Q/u/z7aPlRsDXSOkv2fCirnP3B3
-         2ydHl/VMwsNqhf3nNqyNhhJB8ze9XXXJE8CsGZo7jVJZifHQkueZvEf40EvajZHk5sSN
-         tn8dxK6UFiKhsr2FsgChMu+p7jsVBhf1qlAjz4fEpVYPGB1fvENh2Du7blC8Yna0dhla
-         tz9tKTg8UfF8myUn4TRUGOc5vVOYEG2Mswirr1hcTdyTbOqSl6xN9XCyMuiIReNCnUfc
-         lhnwRNDmziecs0yHiHVGHGfo3F/Lvrw82x8J+D1cBXOFmWzkni7q0GZgz20KV0juCi79
-         gGsA==
-X-Gm-Message-State: AOJu0Yx+rHryNy1KtBscsCMSIZjaI7fBPNNq8761HXsPU8pzJWhnMghr
-	RJfcsojxkj7NCV7l1/mqwr2LBYA4u+GgPZ205LcD7YdKwKWi9cp5oDxOy+kNKw==
-X-Gm-Gg: ASbGncvdiNn5t8gexnfYdWZNke436qfRgRplKupVDzvsuBnhHXVj5PTAcVLUsaxXAE0
-	N8pYE7S4cZcivudk+1zyT9GRfKHFarCB88hTCqLx1G7IJu2qaciDNpU5dZ/Vn9s1XWe9d+M1i1W
-	P01aizGGYk/61/3DsMOlLSXe2VsnE3xroTTCbgyZOi2eYN5rSheQxYMoxnhIsbpg7bMh7Phdi/h
-	m+R2gDJF7dQi+9hs1YmWhzmNnvyi7w2O4k7O1qHEiYloUc5RMIU6Heagqml1m0c/2JtpcHDHy0l
-	qzpwDv3SrL+4mEuL8nT2bARD+ykM260H2BrlOtCvCZeyw2kKF3qJJL5vmWdStUoTFDt+LxAe1al
-	LjqJ9vJw1so0TSvaPqJaWCcyp0d9CwP6Fr2p3ge8YdDvDUW4PYRtfHuVXofbi/avK6+rje4QuFP
-	mSkoN//B7CnOvSP/bJM2cpFi9vTZVuk4+gyzqPWPIeq2uIBbxgVyTCzTH6VltR
-X-Google-Smtp-Source: AGHT+IEj3w7tV4xHJEYJYjs5OVo8U0t5kTrm224lMMAc4jHEb8inXSUl3Pfn0gw4C1W+9BJbU5WEZQ==
-X-Received: by 2002:a17:907:7ba3:b0:b45:1063:fb62 with SMTP id a640c23a62f3a-b707019f735mr1303451866b.24.1762188507657;
-        Mon, 03 Nov 2025 08:48:27 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------tkvSb5RnYcYjlIEZ6XZlO2Rk"
-Message-ID: <2e6fbd4e-7285-4d03-8f30-c756fcc1547a@gmail.com>
-Date: Mon, 3 Nov 2025 17:48:26 +0100
+X-Inumbo-ID: d5e152b2-b8df-11f0-980a-7dc792cee155
+Message-ID: <bcc78ea0-5eca-49e5-bafd-84a16e06ab98@arm.com>
+Date: Mon, 3 Nov 2025 18:06:24 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Xen-devel <xen-devel@lists.xenproject.org>
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [ANNOUNCEMENT] Xen 4.21.0-rc3 is tagged
+Subject: Re: [PATCH v4 02/12] x86/xen: simplify flush_lazy_mmu()
+To: David Hildenbrand <david@redhat.com>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ David Woodhouse <dwmw2@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
+ Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
+ <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+ Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
+References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
+ <20251029100909.3381140-3-kevin.brodsky@arm.com>
+ <5a3ccb7e-9d36-4ac8-9634-c8dec3d6a47c@redhat.com>
+Content-Language: en-GB
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+In-Reply-To: <5a3ccb7e-9d36-4ac8-9634-c8dec3d6a47c@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------tkvSb5RnYcYjlIEZ6XZlO2Rk
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On 01/11/2025 12:14, David Hildenbrand wrote:
+> On 29.10.25 11:08, Kevin Brodsky wrote:
+>> arch_flush_lazy_mmu_mode() is called when outstanding batched
+>> pgtable operations must be completed immediately. There should
+>> however be no need to leave and re-enter lazy MMU completely. The
+>> only part of that sequence that we really need is xen_mc_flush();
+>> call it directly.
+>>
+>> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
+>> ---
+>>   arch/x86/xen/mmu_pv.c | 6 ++----
+>>   1 file changed, 2 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
+>> index 2a4a8deaf612..7a35c3393df4 100644
+>> --- a/arch/x86/xen/mmu_pv.c
+>> +++ b/arch/x86/xen/mmu_pv.c
+>> @@ -2139,10 +2139,8 @@ static void xen_flush_lazy_mmu(void)
+>>   {
+>>       preempt_disable();
+>>   -    if (xen_get_lazy_mode() == XEN_LAZY_MMU) {
+>> -        arch_leave_lazy_mmu_mode();
+>> -        arch_enter_lazy_mmu_mode();
+>> -    }
+>> +    if (xen_get_lazy_mode() == XEN_LAZY_MMU)
+>> +        xen_mc_flush();
+>>         preempt_enable();
+>>   }
+>
+> Looks like that was moved to XEN code in
+>
+> commit a4a7644c15096f57f92252dd6e1046bf269c87d8
+> Author: Juergen Gross <jgross@suse.com>
+> Date:   Wed Sep 13 13:38:27 2023 +0200
+>
+>     x86/xen: move paravirt lazy code
+>
+>
+> And essentially the previous implementation lived in
+> arch/x86/kernel/paravirt.c:paravirt_flush_lazy_mmu(void) in an
+> implementation-agnostic way:
+>
+> void paravirt_flush_lazy_mmu(void)
+> {
+>        preempt_disable();
+>
+>        if (paravirt_get_lazy_mode() == PARAVIRT_LAZY_MMU) {
+>                arch_leave_lazy_mmu_mode();
+>                arch_enter_lazy_mmu_mode();
+>        }
+>
+>        preempt_enable();
+> }
 
-Hello everyone,
+Indeed, I saw that too. Calling the generic leave/enter functions made
+some sense at that point, but now that the implementation is
+Xen-specific we can directly call xen_mc_flush().
 
-Xen 4.21 rc3 is tagged. You can check that out from xen.git: 
-git://xenbits.xen.org/xen.git <http://xenbits.xen.org/xen.git> 4.21.0-rc3
+>
+> So indeed, I assume just doing the flush here is sufficient.
+>
+> Reviewed-by: David Hildenbrand <david@redhat.com> 
 
-For your convenience there is also a tarball and the signature at:
-   https://downloads.xenproject.org/release/xen/4.21.0-rc3/xen-4.21.0-rc3.tar.gz <https://downloads.xenproject.org/release/xen/4.21.0-rc2/xen-4.21.0-rc2.tar.gz>
+Thanks for the review!
 
-And the signature is at:
-   https://downloads.xenproject.org/release/xen/4.21.0-rc3/xen-4.21.0-rc3.tar.gz.sig <https://downloads.xenproject.org/release/xen/4.21.0-rc2/xen-4.21.0-rc2.tar.gz.sig>
-
-Have a nice week!
-
-~ Oleksii
-
-
---------------tkvSb5RnYcYjlIEZ6XZlO2Rk
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <pre id="m_5618967425681729801b"
-style="white-space: pre-wrap; color: rgb(34, 34, 34); font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-family: monospace; background: rgb(255, 255, 255);">Hello everyone,
-
-<span
-style="font-size: 13px; font-family: monospace; background: rgb(255, 255, 255);">Xen 4.21 rc3 is tagged. You can check that out from xen.git:
-</span><span
-style="font-size: 13px; font-family: monospace; background: rgb(255, 255, 255);">  git://<a
-    href="http://xenbits.xen.org/xen.git" target="_blank"
-data-saferedirecturl="https://www.google.com/url?q=http://xenbits.xen.org/xen.git&amp;source=gmail&amp;ust=1762274889187000&amp;usg=AOvVaw13wgFl3zrhLM4YXGGqRUGg"
-    style="color: rgb(17, 85, 204);">xenbits.xen.org/xen.git</a> 4.21.0-rc3</span>
-
-For your convenience there is also a tarball and the signature at:
-  <a
-href="https://downloads.xenproject.org/release/xen/4.21.0-rc2/xen-4.21.0-rc2.tar.gz"
-    target="_blank"
-data-saferedirecturl="https://www.google.com/url?q=https://downloads.xenproject.org/release/xen/4.21.0-rc2/xen-4.21.0-rc2.tar.gz&amp;source=gmail&amp;ust=1762274889187000&amp;usg=AOvVaw1u4oaCcMXcEY33Fo9mgt47"
-    style="color: rgb(17, 85, 204);">https://downloads.xenproject.<wbr>org/release/xen/4.21.0-rc3/<wbr>xen-4.21.0-rc3.tar.gz</a>
-
-And the signature is at:
-  <a
-href="https://downloads.xenproject.org/release/xen/4.21.0-rc2/xen-4.21.0-rc2.tar.gz.sig"
-    target="_blank"
-data-saferedirecturl="https://www.google.com/url?q=https://downloads.xenproject.org/release/xen/4.21.0-rc2/xen-4.21.0-rc2.tar.gz.sig&amp;source=gmail&amp;ust=1762274889188000&amp;usg=AOvVaw271uBhxEJ7rgwu1nHkaCVv"
-    style="color: rgb(17, 85, 204);">https://downloads.xenproject.<wbr>org/release/xen/4.21.0-rc3/<wbr>xen-4.21.0-rc3.tar.gz.sig</a>
-
-Have a nice week!
-
-~ Oleksii</pre>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------tkvSb5RnYcYjlIEZ6XZlO2Rk--
+- Kevin
 
