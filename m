@@ -2,48 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D839C292F8
-	for <lists+xen-devel@lfdr.de>; Sun, 02 Nov 2025 17:55:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1155186.1484715 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52E9EC2AAEA
+	for <lists+xen-devel@lfdr.de>; Mon, 03 Nov 2025 10:06:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1155209.1484767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFbL4-0005c6-SZ; Sun, 02 Nov 2025 16:53:58 +0000
+	id 1vFqVm-00033z-7y; Mon, 03 Nov 2025 09:06:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1155186.1484715; Sun, 02 Nov 2025 16:53:58 +0000
+Received: by outflank-mailman (output) from mailman id 1155209.1484767; Mon, 03 Nov 2025 09:06:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFbL4-0005aU-Ox; Sun, 02 Nov 2025 16:53:58 +0000
-Received: by outflank-mailman (input) for mailman id 1155186;
- Sun, 02 Nov 2025 16:39:34 +0000
+	id 1vFqVm-00030r-4I; Mon, 03 Nov 2025 09:06:02 +0000
+Received: by outflank-mailman (input) for mailman id 1155209;
+ Mon, 03 Nov 2025 03:23:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gezY=5K=oss.qualcomm.com=dmitry.baryshkov@srs-se1.protection.inumbo.net>)
- id 1vFb78-0003OD-Hs
- for xen-devel@lists.xenproject.org; Sun, 02 Nov 2025 16:39:34 +0000
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8136aa0f-b80a-11f0-9d16-b5c5bf9af7f9;
- Sun, 02 Nov 2025 17:39:32 +0100 (CET)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5A2EeN6r377528
- for <xen-devel@lists.xenproject.org>; Sun, 2 Nov 2025 16:39:30 GMT
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a5bg9j8ev-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <xen-devel@lists.xenproject.org>; Sun, 02 Nov 2025 16:39:29 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4e8984d8833so79091941cf.0
- for <xen-devel@lists.xenproject.org>; Sun, 02 Nov 2025 08:39:29 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-594282be8adsm789469e87.51.2025.11.02.08.39.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 02 Nov 2025 08:39:27 -0800 (PST)
+ <SRS0=2xPw=5L=inspur.com=chuguangqing@srs-se1.protection.inumbo.net>)
+ id 1vFlA5-0001cN-Ja
+ for xen-devel@lists.xenproject.org; Mon, 03 Nov 2025 03:23:17 +0000
+Received: from ssh247.corpemail.net (ssh247.corpemail.net [210.51.61.247])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6c8ea768-b864-11f0-9d16-b5c5bf9af7f9;
+ Mon, 03 Nov 2025 04:23:13 +0100 (CET)
+Received: from Jtjnmail201615.home.langchao.com
+ by ssh247.corpemail.net ((D)) with ASMTP (SSL) id 202511031123089213;
+ Mon, 03 Nov 2025 11:23:08 +0800
+Received: from jtjnmailAR01.home.langchao.com (10.100.2.42) by
+ Jtjnmail201615.home.langchao.com (10.100.2.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Mon, 3 Nov 2025 11:23:06 +0800
+Received: from inspur.com (10.100.2.107) by jtjnmailAR01.home.langchao.com
+ (10.100.2.42) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Mon, 3 Nov 2025 11:23:06 +0800
+Received: from localhost.localdomain.com (unknown [10.94.13.117])
+ by app3 (Coremail) with SMTP id awJkCsDw3fgXIAhpPa8JAA--.11940S4;
+ Mon, 03 Nov 2025 11:23:06 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,132 +49,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8136aa0f-b80a-11f0-9d16-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Vsudp5PRE81p+UL97II9GrFo
-	Q82PxOzVdfpShaNANXY=; b=MofBD+FvgCKPFuq3/UZeyNcPO7m4lbnHivOxOn7h
-	/9eQpsVBicILU9Wyi7oVMysvN7k7Mw9FwfT4cK38MU7Xn9j/1v/0p6/Jf6+/PVhO
-	gWjMNLjyOeisd7CIbEtHAh3y7coy+AFabvbvPQNy5jnA6RaGEUMgR++iZmAmLSpe
-	FcF9U8T7xzAOGwsxol6eOhhJkNqSmZlDbcZrzrZiAZn9Ez/KyqbMLuBybNFobZGt
-	AKrAXmbeaQ/JJrjNAqJO71reaAmJEanyzsfP6lFJkKGi84AHIyY/ZHYgjIvjNIlD
-	VzG8fDkGWx/j74iJT8C/kUi3FZfSjsTjW7BgeK1e/d4lMA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1762101569; x=1762706369; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Vsudp5PRE81p+UL97II9GrFoQ82PxOzVdfpShaNANXY=;
-        b=e1kiyWwrcs9IZIN4yFCnbj7URBhs4dSiZ2l4mXOrSznOPuFvTTdELf6XCVzk02xyzT
-         CFaQY/FDtzdAy1+mp0d3e6Kx94+0tZMEJ0gEzkdZlQN1wTijKAPhUwnJ0xbnblYcemBB
-         vcdR3xkfCMAHfGeCGaMMsqNfyLF0Owl+Ugf3AA+ayHqAw0NFpINTKZ6q9AsOOPEwsxs8
-         qbdM94YWMCYRmQOzFCU2f94RoVFfRFYGMljagdWPU8S3HPW03Vcr3rv8zVyyzGqrLtxi
-         IxvVRgVJvfdWvk/x0Jwq9wfLExM4irX10Xk9vPsHcRzlOUQYJXncfd2/UcveRMPR5vY1
-         upmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762101569; x=1762706369;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Vsudp5PRE81p+UL97II9GrFoQ82PxOzVdfpShaNANXY=;
-        b=LCZH61YsHO2aapwZvPoacqICGYPKVn8Aa+ZIC4IrQOoySSN6noJTZlUmyrJIuquD5O
-         vnsCK82nGp8cQjldj4o/BOnOOrpPSGmSpzSNlv1LKI7On3+bhY/Lx7i8OKqiykWv5j0d
-         VXyCPHI+1smstZB1Znvl4YRU7T7T7jPPf7E0DDf1aFu7bSdzKwLzcllrkzZFVpx0eHDr
-         +ONxQ65+VYRR/2irvbxVSsxdtm53HZ/VrspgvHlqOZOr1Hl2/z5AH/fIiuHr9p7FleNf
-         20CBNIuQvT2M7lB/Z+d4/wpxoReC5K7Jnics7dLEVjvgAV1bYIFuEcGt7HEiWJtNHzrT
-         Y/3w==
-X-Forwarded-Encrypted: i=1; AJvYcCVedO7OBrgPoaXqzM9ouYI3ATNH88myrYarN7iRP9v2KV386uVCbIk0luVxOliWziLBmOt5HR/0Ujs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzga9mr8nft76R2EyohzG74VwtTYeogmrFEtxRcCj/jcKpj/eT0
-	14kj8kWf1gYuhU6vTTYWa5byvO9C6mkGcjDO4ukFwHw55sOpECgw7gBIujI77i907ozRpW7SrYP
-	c3YdSiShnNTkePFt/zNnFY88RzGH3pSKjPiGcZvHmPsFPa3Zb+aIzG93fkRwA0aZXpLWQxw==
-X-Gm-Gg: ASbGncvWF3j/cygSTDexraHgCWd2UMRS2DFYNN31c6IIbQuvMjCTBKNuDKTLQv2/NEL
-	w1A9gK/YQsuEH/SS2txyqB3t5nGs82W65DW+mlCl4jmClCG4XjIW5RjXQliMerwH9L9UPV1vNZE
-	+cwx85vrRhxZpD6Tvw9RRf5H6ZicxYPqYfv3cuL7xn7zMDP9Cq6244j8DJy205ps8B9kqMu+OYi
-	ExrlsBmBdCgQrr+y2qT+aee42L/bMMKlc3c5FMo5/hxudeSV0vnGEmcM5oGlpnRIGqcD7ixVakc
-	Q06yUzje0zH34UcAHUqJcPSABHY1fHx0J9iT2afDKLD6Nzg1ZE7gL75FIinCD0WDsJPgtsUBSl5
-	yLpYAccf4+ctYmokg9Jv096bzfNXn7GlfRnSwxc0yJW9FMDivZW2UXg9QGPoAtX2jdpnhwf9RnF
-	sIhSCqDdrBxIR5
-X-Received: by 2002:a05:622a:834f:b0:4ed:423d:48d4 with SMTP id d75a77b69052e-4ed423d4eccmr57411091cf.54.1762101568690;
-        Sun, 02 Nov 2025 08:39:28 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFBDCWJDKPzqxu7f2En5m/zHiJp5IOVrgHqGPH6qz1rOivQAZXaoWbSK0Fgiw9Mg8qUeB+6cA==
-X-Received: by 2002:a05:622a:834f:b0:4ed:423d:48d4 with SMTP id d75a77b69052e-4ed423d4eccmr57410861cf.54.1762101568242;
-        Sun, 02 Nov 2025 08:39:28 -0800 (PST)
-Date: Sun, 2 Nov 2025 18:39:25 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: simona@ffwll.ch, airlied@gmail.com, mripard@kernel.org,
-        maarten.lankhorst@linux.intel.com, geert@linux-m68k.org,
-        tomi.valkeinen@ideasonboard.com, dri-devel@lists.freedesktop.org,
-        linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org,
-        linux-arm-msm@vger.kernel.org, imx@lists.linux.dev,
-        linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
-        virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
-        linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
-        linux-tegra@vger.kernel.org, intel-xe@lists.freedesktop.org,
-        xen-devel@lists.xenproject.org,
-        Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
-        Rob Clark <robdclark@gmail.com>,
-        Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>
-Subject: Re: [PATCH v6 13/25] drm/msm: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-Message-ID: <vptw5tquup34e3jen62znnw26qe76f3pys4lpsal5g3czwev6y@2q724ibos7by>
-References: <20250821081918.79786-1-tzimmermann@suse.de>
- <20250821081918.79786-14-tzimmermann@suse.de>
+X-Inumbo-ID: 6c8ea768-b864-11f0-9d16-b5c5bf9af7f9
+From: Chu Guangqing <chuguangqing@inspur.com>
+To: <jgross@suse.com>, <sstabellini@kernel.org>,
+	<oleksandr_tyshchenko@epam.com>, <andrew+netdev@lunn.ch>,
+	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+	<pabeni@redhat.com>
+CC: <xen-devel@lists.xenproject.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Chu Guangqing <chuguangqing@inspur.com>
+Subject: [PATCH] xen/netfront: Comment Correction: Fix Spelling Error and Description of Queue Quantity Rules
+Date: Mon, 3 Nov 2025 11:22:12 +0800
+Message-ID: <20251103032212.2462-1-chuguangqing@inspur.com>
+X-Mailer: git-send-email 2.43.7
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250821081918.79786-14-tzimmermann@suse.de>
-X-Proofpoint-ORIG-GUID: cajfqfOLeswAMmPuhLRi3XM4KinP2bdI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTAyMDE1NCBTYWx0ZWRfXwV3LjpEJeYFW
- BHt8rtRfblKzmlXaGzSDcXYffMIGdrbJCKIz7TPB0HD4szi8C1YgUDWYftv3+pZm4syhmSlqVYg
- atL6TVZvmMGUDp0Rbd+w4xcD9bU9VpcaWScSzGStbDzCgrpm5e0gKNcOTwuktjTKEUHEXfGknyC
- HMTuWatKGRdcuq5Qch1iX8ECk1zRofRLZL5IH9JvkJDGzX6NbafeLs7Xf44y+OpbEis5KmLWoXP
- Gwi1F9UcHXCRcDwIzGqzE+E7FsOk6PeVnHMc0ecVU8oAhWYxnpG8h5k0ID37RiPcyGX2lB4AhnW
- nTK3WG2/Tz5N0AsNOD7bQ0lYFNZ/nSmmbFX7GJ5kuw7OcH9yGD1p8YAzFaVWVGgLK0mwbfEp6r1
- iTy9FSf92SCmdt80L90GGiFpKLzsrg==
-X-Proofpoint-GUID: cajfqfOLeswAMmPuhLRi3XM4KinP2bdI
-X-Authority-Analysis: v=2.4 cv=TaKbdBQh c=1 sm=1 tr=0 ts=69078941 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=KKAkSRfTAAAA:8 a=pGLkceISAAAA:8 a=COk6AnOGAAAA:8 a=tVI0ZWmoAAAA:8
- a=4vBwfh3hQKJL6CJddaEA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
- a=cvBusfyB2V15izCimMoJ:22 a=TjNXssC_j7lpFel5tvFf:22 a=-BPWgnxRz2uhmvdm1NTO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-02_02,2025-10-29_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 bulkscore=0 adultscore=0 clxscore=1011
- priorityscore=1501 spamscore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511020154
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: awJkCsDw3fgXIAhpPa8JAA--.11940S4
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFWfGw4fZr1DGFy3Xr4UCFg_yoW8Xw1Dpr
+	ZxWwsIvwn5XanFy3Wvy3WxurW5Xa18GFyDWrWfu3y3Xws8ZFyjqry3KFW5Xr18Jr4kGa1Y
+	yF4jqF9ruwn0v3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26rxl
+	6s0DM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
+X-CM-SenderInfo: 5fkxw35dqj1xlqj6x0hvsx2hhfrp/
+X-CM-DELIVERINFO: =?B?WZlWr5RRTeOiUs3aOqHZ50hzsfHKF9Ds6CbXmDm38RucXu3DYXJR7Zlh9zE0nt/Iac
+	D+Kd7qCoyzVvXU23E45gA/UozU+vTWs0UaMZjN3SDVnrRYOZ4d5fZaq5YsE8h+Y6TFhwys
+	rNxsp/VnNVvUSEPN9bo=
+Content-Type: text/plain
+tUid: 20251103112308691f091018264b888eb3e7c243b9f925
+X-Abuse-Reports-To: service@corp-email.com
+Abuse-Reports-To: service@corp-email.com
+X-Complaints-To: service@corp-email.com
+X-Report-Abuse-To: service@corp-email.com
 
-On Thu, Aug 21, 2025 at 10:17:20AM +0200, Thomas Zimmermann wrote:
-> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch
-> and buffer size. Alignment is specified in bytes, but the hardware
-> requires the scanline pitch to be a multiple of 32 pixels. Therefore
-> compute the byte size of 32 pixels in the given color mode and align
-> the pitch accordingly. This replaces the existing code in the driver's
-> align_pitch() helper.
-> 
-> v3:
-> - clarify pitch alignment in commit message (Dmitry)
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
->  drivers/gpu/drm/msm/msm_gem.c | 27 +++++++++++++++++++++++++--
->  1 file changed, 25 insertions(+), 2 deletions(-)
-> 
+The original comments contained spelling errors and incomplete logical
+descriptions, which could easily lead to misunderstandings of the code
+logic. The specific modifications are as follows:
 
-This broke kms_getfb@getfb-reject-nv12 and kms_getfb@getfb2-accept-nv12
-IGT tests. I'll submit a fix separately.
+Correct the spelling error by changing "inut max" to "but not exceed the
+maximum limit";
 
+Add the note "If the user has not specified a value, the default maximum
+limit is 8" to clarify the default value logic;
+
+Improve the coherence of the statement to make the queue quantity rules
+clearer.
+
+After the modification, the comments can accurately reflect the code
+behavior of "taking the smaller value between the number of CPUs and the
+default maximum limit of 8 for the number of queues", enhancing code
+maintainability.
+
+Signed-off-by: Chu Guangqing <chuguangqing@inspur.com>
+---
+ drivers/net/xen-netfront.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
+index a11a0e949400..7c2220366623 100644
+--- a/drivers/net/xen-netfront.c
++++ b/drivers/net/xen-netfront.c
+@@ -2696,8 +2696,9 @@ static int __init netif_init(void)
+ 
+ 	pr_info("Initialising Xen virtual ethernet driver\n");
+ 
+-	/* Allow as many queues as there are CPUs inut max. 8 if user has not
+-	 * specified a value.
++	/* Allow the number of queues to match the number of CPUs, but not exceed
++	 * the maximum limit. If the user has not specified a value, the default
++	 * maximum limit is 8.
+ 	 */
+ 	if (xennet_max_queues == 0)
+ 		xennet_max_queues = min_t(unsigned int, MAX_QUEUES_DEFAULT,
 -- 
-With best wishes
-Dmitry
+2.43.7
+
 
