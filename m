@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B020C2CF85
-	for <lists+xen-devel@lfdr.de>; Mon, 03 Nov 2025 17:05:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1155404.1484901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB21FC2CF97
+	for <lists+xen-devel@lfdr.de>; Mon, 03 Nov 2025 17:06:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1155414.1484910 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFx2k-0008Bk-Da; Mon, 03 Nov 2025 16:04:30 +0000
+	id 1vFx47-0000Ic-Rb; Mon, 03 Nov 2025 16:05:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1155404.1484901; Mon, 03 Nov 2025 16:04:30 +0000
+Received: by outflank-mailman (output) from mailman id 1155414.1484910; Mon, 03 Nov 2025 16:05:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vFx2k-00088d-AI; Mon, 03 Nov 2025 16:04:30 +0000
-Received: by outflank-mailman (input) for mailman id 1155404;
- Mon, 03 Nov 2025 16:04:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vFx47-0000Fb-Od; Mon, 03 Nov 2025 16:05:55 +0000
+Received: by outflank-mailman (input) for mailman id 1155414;
+ Mon, 03 Nov 2025 16:05:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFFD=5L=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1vFx2j-00088X-1X
- for xen-devel@lists.xenproject.org; Mon, 03 Nov 2025 16:04:29 +0000
+ id 1vFx46-00005O-Cy
+ for xen-devel@lists.xenproject.org; Mon, 03 Nov 2025 16:05:54 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c21c6348-b8ce-11f0-9d16-b5c5bf9af7f9;
- Mon, 03 Nov 2025 17:04:26 +0100 (CET)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f83877fc-b8ce-11f0-980a-7dc792cee155;
+ Mon, 03 Nov 2025 17:05:52 +0100 (CET)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-595-r3oPNyyuMOKPTp55RJ_C3Q-1; Mon, 03 Nov 2025 11:04:03 -0500
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-477171bbf51so24501495e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 03 Nov 2025 08:04:00 -0800 (PST)
+ us-mta-208-YUgkdxsgM6anXXIKvGO7Rw-1; Mon, 03 Nov 2025 11:05:50 -0500
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-429be5aeea2so1881280f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Nov 2025 08:05:49 -0800 (PST)
 Received: from ?IPV6:2003:d8:2f3f:4b00:ee13:8c22:5cc5:d169?
  (p200300d82f3f4b00ee138c225cc5d169.dip0.t-ipconnect.de.
  [2003:d8:2f3f:4b00:ee13:8c22:5cc5:d169])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4773c48daa0sm167032215e9.3.2025.11.03.08.03.43
+ ffacd0b85a97d-429c102dfd2sm21748638f8f.0.2025.11.03.08.05.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Nov 2025 08:03:44 -0800 (PST)
+ Mon, 03 Nov 2025 08:05:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,53 +51,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c21c6348-b8ce-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: f83877fc-b8ce-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1762185860;
+	s=mimecast20190719; t=1762185951;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=lAB1nRPhZgw2D2F/txfufevKSsNDcd09VLHZkiGFvSY=;
-	b=dZ6AuP8/2qAtpqlSlKRPID7Jlfi8b8H6CI6Al8Qtr88j53fY+IGjFc9rLyjSwgocHiQjlm
-	3Pgf0+RoCrs/uKAVs3kysFUpQ236UXTfTDBmG4Cj72DyXQjPV75pXxrnSZmDmWUvZbNYyh
-	a8EkEYmJFS/BaKG1+wlqMboBeNEhE2Q=
-X-MC-Unique: r3oPNyyuMOKPTp55RJ_C3Q-1
-X-Mimecast-MFC-AGG-ID: r3oPNyyuMOKPTp55RJ_C3Q_1762185830
+	bh=h7zqPFP4se4OIaFzLrGpOU2VTLQJoOSY+ZZS4O5etWY=;
+	b=GZ1YhI+0vheznP97r8VVrzWD/XaZaaakFGBt+o2PsIecgnOrNwAWioddfNdA/VcQQ8L1vl
+	Qk0mjyCAcgL4RiMUmDWieVRmz4gjDwX0ULMnpw+TLXRMIZxIZALdFNZ8ba2RLjl5y3hnmD
+	W1MxUGl5yoLtd5VwKSjJGZW9puOKBAo=
+X-MC-Unique: YUgkdxsgM6anXXIKvGO7Rw-1
+X-Mimecast-MFC-AGG-ID: YUgkdxsgM6anXXIKvGO7Rw_1762185949
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762185825; x=1762790625;
+        d=1e100.net; s=20230601; t=1762185949; x=1762790749;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=lAB1nRPhZgw2D2F/txfufevKSsNDcd09VLHZkiGFvSY=;
-        b=RdC9Et876Gu8PV2ff8k55oMcFTYHwz5XNT299BzahpvA/+PEFqll2jOT9Id28jWBD6
-         XKHw1wGY8OBDNYWDFVwaXHj6LySbnTGZt7spmRKEHKKPTWO1CVjW/RhZ6HT2TqnP+IOr
-         dMGVjlfddSb7JlR2J2eTLx9+0MErvgG4I+v+3fXlCfsWg+p4ghFGa6iEfeJnrF6MTvD2
-         BcQCl4qnAaCIbRxfZYh/f4h7FoO7Mv8Zc9ZziUPXDgX9a8SwSGKN4nfwEudOziJQphd5
-         VYwnwqVbxLblY47xfHpLMhCHT2g2PQ2PLpUnxfLk4wRsHL0i2C9os3454BNS+9nJHNJQ
-         EBHQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVWYFfBuUQdqHduH47kIAiQdo2Ykvlq/Zmob07Ei3/6DSTcr/RYlq2tQi3AxfFl3VqA+Uyv/dY8ark=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyrVKz3JIQlkM2FZU+Q3zOUUWJ1t5Y6qvwX9viyF9jBbR0Qx/T7
-	XRTbbOBlyuSj/y2GLVM5paWSH8VzJJAuD7YRDz1n+EJZ7sfvgLRlrgfvrknl24C3ZkYSKN1WkFr
-	gczz9A50LdnIpk9fl0bgOMVQ8h2dnsYZ/WZpCgos2h5N3+HuoBCzGJHJg4UFCTXRp30aP
-X-Gm-Gg: ASbGncsOf2U9DkcKQqonZum4f3/lviCuOVSCPy9IolJT3o6xgPHf/j5ciJD4TbuoPrq
-	A+1/ILCbZ5N85tE0wqLZYb1zJZoSiZC7KmVztxDe1aYGEPr0O8J8ZB1QeFNlWEnkVeORTGUUnm+
-	Cz6nl1lmWyQ3nAwXWUU7q1y2GWHOeK46fzcpuB9j3Mb2rkWLANCMbaTarJptOjqeVvsZ4OW0Gb3
-	ujVjEwQeTRCU9U59x2+pENb+HJ2oEO87C6WPDVC5I8k4J+5idV4t759WVYqEJdZlvI47v6Lq0oO
-	OOfkOrfDo7Js1FDC6gH5UKlNK3Nt5VrVgLTA/3lL24gZvmGB/5wbaHMRmPUcn7rm7XQEmnSgA08
-	ynQWrm4pw60/WgG1tAKlzBqxjyO8siIUZ8+NlpKdQLJdBs93nOrjj5y+UBepj1Lh9Sl508+q+23
-	VYg1r613fYh9v/6FGN7yP1xzdM/hc=
-X-Received: by 2002:a05:600d:831c:b0:477:542a:7ed1 with SMTP id 5b1f17b1804b1-477542a7ee4mr3985135e9.19.1762185825555;
-        Mon, 03 Nov 2025 08:03:45 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IE5tyJHb+sues0m+7ZNZilqyo2L9Cho1JQDhJMCuFOgAOZW6Lsc8SY3FhL38SgCM772181+5A==
-X-Received: by 2002:a05:600d:831c:b0:477:542a:7ed1 with SMTP id 5b1f17b1804b1-477542a7ee4mr3984625e9.19.1762185825048;
-        Mon, 03 Nov 2025 08:03:45 -0800 (PST)
-Message-ID: <b6f5b3cc-93a0-408a-b7e0-72462f3fd549@redhat.com>
-Date: Mon, 3 Nov 2025 17:03:42 +0100
+        bh=h7zqPFP4se4OIaFzLrGpOU2VTLQJoOSY+ZZS4O5etWY=;
+        b=PCTNtyL6++e9CwCg5CbAkbSd6QDKvS3dzGUB/egAdCbRQTX8FaLEkGVYuhJb9jmNMq
+         wFGIcYXNX8WZbOGb1jh8QsVZxeP28niXW01LokpL54saYnyBIA5Eb2BfvprF/hLRtswO
+         vbhFWEg8zhOlIEgW1g+gJ/HH6MgRKw9KHqeULBFfCWVaJrg+I4CZfW6okD4mHspwssui
+         OaeY2M9T2pQ26UWwox7NweSY6o7hct0O1XX/5fOxY49OHstRNOb5EgCRjKxIDwpb/Puw
+         qdq8DjWGD0bkDVhkuZMuRZVIGF6cia2uaeWSI/czQvhJdAuXAISwa62JjwI3SzbR6KWP
+         t8rg==
+X-Forwarded-Encrypted: i=1; AJvYcCX3GyNGRx5WoYreSQhsjBsGiKjWGvWxw3FXZHyDnJe+tI5PSjZkV3UphCfvIayhNi3SFkxECaPm3q0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YygAyZ6PyGKt1tEPGmwQshdAXydwEzksKnzPk88YKKz+hRQUTpS
+	jcLfymHUamooKy4qKoHxMRedb8if6HGb7PRPCcK0hxQPtfr0FCtSbtsVLq/s1QqZWHayJgzMJpy
+	+r1YenTJ2kxwP/tOzZzf6jagHpEAa3/k68RTicTacpAbizNBLfuLxE3h2TITL4BUkC+sV
+X-Gm-Gg: ASbGncsK6wvfuAKS7EPoWITmfHAm2tw4Llh6N9c9kCFDCLXI4EZxWieKvJ/BKpEVN06
+	l+hVEFD8GNTXWj/cGRDumtrDZh2Xk/kDJdjJ3tARt3SLC5jAkc7jAlCnc3g1eJ8JZYc6WIVzMVx
+	hHuARJZLlg1zsCf65Fz0ciQRFVzjMY/NfTGnlGW+3vbeXWjjANYDmlouDS8Dp4WG2iSPDR+6gCS
+	z731RgaHWXKYm5P2YAQvPsgykC83Bvq5pSZnERIDN9nBuSe9lZDxqP4km4EvrPQY69uAkgH6q7B
+	i6r13mHCvaROuGAkYTh6xMgHp10O4AlLew9QuPomGbsHGeBNbLOD9ss4ycnAvogjjYzCITsimMW
+	jFakF8vkFj/lSZonsDW5cpPzdcb/mlP0Wx6OElz/tm2PmFVL8VfEg2bUapPDw34heV9/IGpzq8a
+	QdotRRs3qmWZK1WpkHSaz745+asmo=
+X-Received: by 2002:a05:6000:2411:b0:427:928:789e with SMTP id ffacd0b85a97d-429bd6d583dmr11477178f8f.61.1762185948401;
+        Mon, 03 Nov 2025 08:05:48 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFc7QNXPV2goDccZBoudQ7Gvk8PWg7e8ZaWNXwQcsQ4X2jdmxCnoJTtoWX7k3mSPaCwOvUqEA==
+X-Received: by 2002:a05:6000:2411:b0:427:928:789e with SMTP id ffacd0b85a97d-429bd6d583dmr11477100f8f.61.1762185947708;
+        Mon, 03 Nov 2025 08:05:47 -0800 (PST)
+Message-ID: <05e2062c-1689-44e7-9cc6-697646ca075d@redhat.com>
+Date: Mon, 3 Nov 2025 17:05:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/12] arm64: mm: replace TIF_LAZY_MMU with
+Subject: Re: [PATCH v4 09/12] powerpc/mm: replace batch->active with
  in_lazy_mmu_mode()
 To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
@@ -122,7 +122,7 @@ Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
 References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
- <20251029100909.3381140-9-kevin.brodsky@arm.com>
+ <20251029100909.3381140-10-kevin.brodsky@arm.com>
 From: David Hildenbrand <david@redhat.com>
 Autocrypt: addr=david@redhat.com; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -168,60 +168,35 @@ Autocrypt: addr=david@redhat.com; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20251029100909.3381140-9-kevin.brodsky@arm.com>
+In-Reply-To: <20251029100909.3381140-10-kevin.brodsky@arm.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: oLJBq5WEohlje9fvKVf9kuj7n6Fzc9Ai0cPhk_jH5NU_1762185830
+X-Mimecast-MFC-PROC-ID: -2MwV6MVNpHE9pPizFv46-kj2KYETBLHKI8TDpjFDVY_1762185949
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 29.10.25 11:09, Kevin Brodsky wrote:
+> A per-CPU batch struct is activated when entering lazy MMU mode; its
+> lifetime is the same as the lazy MMU section (it is deactivated when
+> leaving the mode). Preemption is disabled in that interval to ensure
+> that the per-CPU reference remains valid.
+> 
 > The generic lazy_mmu layer now tracks whether a task is in lazy MMU
-> mode. As a result we no longer need a TIF flag for that purpose -
-> let's use the new in_lazy_mmu_mode() helper instead.
+> mode. We can therefore use the generic helper in_lazy_mmu_mode()
+> to tell whether a batch struct is active instead of tracking it
+> explicitly.
 > 
 > Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
 > ---
->   arch/arm64/include/asm/pgtable.h     | 16 +++-------------
->   arch/arm64/include/asm/thread_info.h |  3 +--
->   2 files changed, 4 insertions(+), 15 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> index 535435248923..61ca88f94551 100644
-> --- a/arch/arm64/include/asm/pgtable.h
-> +++ b/arch/arm64/include/asm/pgtable.h
-> @@ -62,30 +62,21 @@ static inline void emit_pte_barriers(void)
->   
->   static inline void queue_pte_barriers(void)
->   {
-> -	unsigned long flags;
-> -
->   	if (in_interrupt()) {
->   		emit_pte_barriers();
->   		return;
->   	}
->   
-> -	flags = read_thread_flags();
-> -
-> -	if (flags & BIT(TIF_LAZY_MMU)) {
-> -		/* Avoid the atomic op if already set. */
-> -		if (!(flags & BIT(TIF_LAZY_MMU_PENDING)))
-> -			set_thread_flag(TIF_LAZY_MMU_PENDING);
-> -	} else {
-> +	if (in_lazy_mmu_mode())
-> +		test_and_set_thread_flag(TIF_LAZY_MMU_PENDING);
 
-You likely don't want a test_and_set here, which would do a 
-test_and_set_bit() -- an atomic rmw.
+I suspect you were not able to test this on real HW. Some help from the 
+ppc folks would be appreciated.
 
-You only want to avoid the atomic write if already set.
+LGTM, but the interaction with pause/resume adds a bit of complication 
+on top.
 
-So keep the current
-
-	/* Avoid the atomic op if already set. */
-	if (!(flags & BIT(TIF_LAZY_MMU_PENDING)))
-		set_thread_flag(TIF_LAZY_MMU_PENDING);
+Acked-by: David Hildenbrand <david@redhat.com>
 
 -- 
 Cheers
