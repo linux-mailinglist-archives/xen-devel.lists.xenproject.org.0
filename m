@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64D66C305BC
-	for <lists+xen-devel@lfdr.de>; Tue, 04 Nov 2025 10:54:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1155587.1485042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 467C0C30793
+	for <lists+xen-devel@lfdr.de>; Tue, 04 Nov 2025 11:21:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1155600.1485052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGDjZ-0006vm-4p; Tue, 04 Nov 2025 09:53:49 +0000
+	id 1vGEAF-00030d-5o; Tue, 04 Nov 2025 10:21:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1155587.1485042; Tue, 04 Nov 2025 09:53:49 +0000
+Received: by outflank-mailman (output) from mailman id 1155600.1485052; Tue, 04 Nov 2025 10:21:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGDjY-0006t3-TB; Tue, 04 Nov 2025 09:53:48 +0000
-Received: by outflank-mailman (input) for mailman id 1155587;
- Tue, 04 Nov 2025 09:53:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vGEAF-0002yK-34; Tue, 04 Nov 2025 10:21:23 +0000
+Received: by outflank-mailman (input) for mailman id 1155600;
+ Tue, 04 Nov 2025 10:21:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=au44=5M=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1vGDjX-0006sx-1H
- for xen-devel@lists.xenproject.org; Tue, 04 Nov 2025 09:53:47 +0000
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c112::5])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 26f65d71-b964-11f0-9d16-b5c5bf9af7f9;
- Tue, 04 Nov 2025 10:53:45 +0100 (CET)
-Received: from PH8P222CA0018.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:2d7::13)
- by CY3PR12MB9655.namprd12.prod.outlook.com (2603:10b6:930:100::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.14; Tue, 4 Nov
- 2025 09:53:40 +0000
-Received: from SN1PEPF00036F3F.namprd05.prod.outlook.com
- (2603:10b6:510:2d7:cafe::cb) by PH8P222CA0018.outlook.office365.com
- (2603:10b6:510:2d7::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.8 via Frontend Transport; Tue, 4
- Nov 2025 09:53:39 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SN1PEPF00036F3F.mail.protection.outlook.com (10.167.248.23) with Microsoft
+ id 1vGEAD-0002yE-FF
+ for xen-devel@lists.xenproject.org; Tue, 04 Nov 2025 10:21:21 +0000
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azlp170120002.outbound.protection.outlook.com
+ [2a01:111:f403:c007::2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ffa28603-b967-11f0-980a-7dc792cee155;
+ Tue, 04 Nov 2025 11:21:18 +0100 (CET)
+Received: from SN6PR2101CA0007.namprd21.prod.outlook.com
+ (2603:10b6:805:106::17) by LV8PR12MB9135.namprd12.prod.outlook.com
+ (2603:10b6:408:18c::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.16; Tue, 4 Nov
+ 2025 10:21:13 +0000
+Received: from SA2PEPF0000150B.namprd04.prod.outlook.com
+ (2603:10b6:805:106:cafe::40) by SN6PR2101CA0007.outlook.office365.com
+ (2603:10b6:805:106::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.3 via Frontend Transport; Tue, 4
+ Nov 2025 10:21:12 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF0000150B.mail.protection.outlook.com (10.167.242.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9298.6 via Frontend Transport; Tue, 4 Nov 2025 09:53:39 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9298.6 via Frontend Transport; Tue, 4 Nov 2025 10:21:12 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 4 Nov
- 2025 01:53:39 -0800
+ 2025 02:21:12 -0800
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 4 Nov
+ 2025 02:21:12 -0800
 Received: from [10.252.147.171] (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 4 Nov 2025 01:53:37 -0800
+ Transport; Tue, 4 Nov 2025 02:21:11 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,331 +63,335 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26f65d71-b964-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: ffa28603-b967-11f0-980a-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RlA1mn7qHoQEExOvOGp8FMubTPeDJB3Z/WNH96BX7pEdWL/U95tC5US2UHxfkKE0620TXjgWyRyowaXShH9r2XRmz0dXySw7CRlCsQN6rbBaDT1tp2VZ4ja+xPg+TxZ4T1MZAuRxTduKgTNs/jXlXs0Gtahd8BftMBIJhcqu8w0PG2dWjsd8rqEJhb2z1LaM5cArR4N9yjhucEfEKgLfrZRAwCte2qM0LpnxvYSULc+rJmu/CKhi8ivtGEKPlH85tPImUnTJY4qpp0Fawm5Wg/rcgVTA4Ge9O7WUG6okUj07F1GyEjCJ2fzenHoWT7ITGka2paRMrWYHoLUAT2eHrw==
+ b=eN1V6ruZNwLaNV6OZh3RL9BIeS+xyArRC5hhRGtqBBhZ+m38gZLFlFv5GMgLOWI93PWslIanSITO2cz+nHue7C4+49QIkfy8KYhX696eyR632pSPGrw0ScfE0Ly0qLbO8bp+ILYafscCVcsDruWJRGxWwh7j6q01YnoUGUnZpMLZK+qdmIjvLj8W3e+/IkFzBS+jHF1vaO4rHHpf7j7b2ztWM7eyDZ9J+uUz/i6D7TKvWQF8nUOHltbhdOz0yH3OSWt7mxLGBTu2e+GVwvMZNEV+av2SZEIjWTmvscpkIeXwX7Yk1dJ04LSHhISS1shBSA9o6oQ6nkRa3ncolVHCzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rlwXJ/+nft5CPvYCLciFDs2CX9rZFvBKrO8pzoGX55U=;
- b=yo2tdmEE+HKEb/X8sZSUthcMV3EXVbzx6QNCaSdYoSsAWHQxoHDHjNNM3OUMvAGAUMTFvr4YeMgcB33ionL+KNKfb5I8FlmKKdKTMy1vZMauncHbo6CBUfgKlyVU2TGnM2ay9cGRH29KB3NiCQUrdA1qaD6TpItAsOf/be901rbJwAQIWzUdY7KJePR/Ry/sPvQAiAyQ8IRF35HNSOT6HU+H3PLVEF92vrnGO8CUfY+fESjYYmu6zv5z+yG13vUU8135TCZj9hvaYgksOb7Gs8IZCKxK6nGgq98KmgwWDhr98KMGeLswj1M3MRAyQ2z4ovOz5FtQvllCLWMPt0kwXQ==
+ bh=DpewHANC1hUXg8TygSfwRMguB/Rp6vSMk0yR6sLpd7Q=;
+ b=ckw8aMQX6c4RjXTsqsJToqvElGJr63Uy9TIPE/gN9E632pjIhOM2y3B7R3fplkN1+LNHk8GbceffvGA9yUxkIVWTRyyjIv4djHB5hbTynJP+1NbqDkmaKI7/hqONQGJe7e1UubJwEExDUI/QniKX917+u8464x91KddTV0Aip69G7Yamc7msJqF29omZ1heOYhXG/YMhnrJdn1NrJdJlJmt7hXxU3LygcaAAwyce9ZWEuOQjLj3wPpEGfXiWTO4JuNqYJ1CxalUKxwQhGAZ0ErJdko3DiIhwr3uOIJptcGzfB1TsD5jnIvIhqQpz6kw7YsvBh9/mlS7cD+6CMAGNYQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rlwXJ/+nft5CPvYCLciFDs2CX9rZFvBKrO8pzoGX55U=;
- b=uWDw9gp2kx8VI7/xmWlQIsixZpa3svS7q3uUBobb4TAA6OYn0aOso7gC1ttcvYAdJQpDRpb6bXfGS4YLtTNuxJgfZVw35zB2bm/F8hS36PftiTrhl5VIXTCiSArp4ZPhl+C+fbV0Ri836mY76StWupG39e4f184AVD5+W5rATHQ=
+ bh=DpewHANC1hUXg8TygSfwRMguB/Rp6vSMk0yR6sLpd7Q=;
+ b=jgRrp9YfUnTHRrBmlSswakt1bBKHBKSwe8zmbLQWji1UCMcxuMIC78pBlCYCliyH8nf/00uy3ELJGu5oQEDM5RxPAPd342nEIXWL3ZQFJFJkNHrmQNztXxMHoMeFU/u7RfPnTcW8CXgSeyPuX6lD69UKQ8I8jBbkaeweX9purIY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <079ac98e-b44c-48d3-b3fc-6bd92461827c@amd.com>
-Date: Tue, 4 Nov 2025 10:53:37 +0100
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <0e681f9f-a563-4ace-8f58-e80a050608ba@amd.com>
+Date: Tue, 4 Nov 2025 11:21:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] arm: Implement setup_mm for MPU systems
+Subject: Re: [PATCH 2/3] arm: Implement reference counting for overlapping
+ regions
 To: Harry Ramsey <harry.ramsey@arm.com>, <xen-devel@lists.xenproject.org>
-CC: <luca.fancellu@arm.com>, Harry Ramsey <yourmail@arm.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
- Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
+CC: <luca.fancellu@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20251024153719.408806-1-harry.ramsey@arm.com>
- <20251024153719.408806-2-harry.ramsey@arm.com>
+ <20251024153719.408806-3-harry.ramsey@arm.com>
 From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-In-Reply-To: <20251024153719.408806-2-harry.ramsey@arm.com>
+In-Reply-To: <20251024153719.408806-3-harry.ramsey@arm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3F:EE_|CY3PR12MB9655:EE_
-X-MS-Office365-Filtering-Correlation-Id: 41ba9ada-a6e5-4526-ebc7-08de1b880819
+X-MS-TrafficTypeDiagnostic: SA2PEPF0000150B:EE_|LV8PR12MB9135:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04565515-6be6-4e3a-0f4d-08de1b8be152
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700013|1800799024|7053199007;
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bkw2NjhvNWVneTV0djFJS3VoUVZKNVZ0YWpqbkdwZk0vbTZnMU9UWDh1bGR5?=
- =?utf-8?B?akRkMHJrVC82WXhWQTFpN0FnZVp5TWlCUHlEc1RuVlF2bTNDM0lYekVXQXFI?=
- =?utf-8?B?Yk85aDJEa0h3SGNzT25FWkIzbUxrbEJjRTJQZ2Z2ejJHMGRiK0pGMm0rZEs1?=
- =?utf-8?B?eVBjYTY4ZWJEMzRtT0ZVd2plL3daR1hDQ2FWU2hYZFlYbjlWTko3N2pKZ21z?=
- =?utf-8?B?eEd6MHlUeHExY2VIRWlTYmpZNWZKZzBwRm5CMHE4R2E2eWhXR3V3MVpPNFdP?=
- =?utf-8?B?a2RjR2hza21wSFQvYkxiTHJNR2N6L2hDenR5T1JoZlRGekZTWTFhUHp4STI1?=
- =?utf-8?B?N3MrM0xXdzY0aVY4eHE1L2lzQmpSdUJsNysycytvVkVSVEk3RUorbzBqQnVa?=
- =?utf-8?B?VlVyd3NUK1ZiRDh5V25uRTJtOHM1OGsvQWh3VTlCMjJ2UGlkUC85K1I2VVI0?=
- =?utf-8?B?R3ZqbHd0NnRWbExqVG1MNGxvWmdRc1VYZFE0WGdXNXJvZWdqSVdCSFQ4SzVv?=
- =?utf-8?B?N3g3S2R2ODE0b3cxZEppVnFCVlFkMkVwTHZ3T200ZXpEMGN3c3BTUXNZZXV3?=
- =?utf-8?B?SUxkMlI3a2xwMDEzQzg5bE5QZmxaYVJ4QlZqcHZHNE42ZHh2UHpFTkNqVUtv?=
- =?utf-8?B?UGVHVU5jN3ZxbTRWL0N5U0dDa3ZGVm9vVGUxL1hRbXdIVE1SUFZWWjlrYVVU?=
- =?utf-8?B?Q0VkMytZc1BEemJXNmJJZGFUS0J1WkxZZnNvenMyU1hua1IvdWxuUHlnZ3NE?=
- =?utf-8?B?MHV4bHUveU5KOUQ2Z1QvV2tjdVBFczlFc0xBMUhDR2swellVbkp5NHBQNlM1?=
- =?utf-8?B?SDQyYUFISHJFejdGTy8wbGdKY2dGQlRTZzVwNEhZL0VPWStFekJLOFc2Y0tD?=
- =?utf-8?B?UnYxMGdoQW8zTU5kaGJUdHVHWWVDZEt3YS9KT1plcndLalJpYkxGUWhnNHBD?=
- =?utf-8?B?bFZsdnJqb21pdWVjSk00T2V1SUVPd0dEaUZ5MWJwemYxVWhXRkV5eWtuSGYv?=
- =?utf-8?B?TDhxUDBCVnRtWWtuelJ5d001M05qVVBETXY2UWM1TjFnWTJ3bUMyTWE4VVpX?=
- =?utf-8?B?N1lJRlZCazJQYVJVUTA1ZCtYbkRLQ3BsTStEU0VSSFpTdmhFbHYzOWU0bEh5?=
- =?utf-8?B?SHVlMy93a3Mwck9aSUhLVTR6ZCtuUG55TUthQ2o0ZlFiMnZNb2QrdjhkQVVt?=
- =?utf-8?B?Qy90TzhVYndmQ3VkVkxQdmFhWU9hUlBOS0JYdTR1dmR1WEVZTnU3NVBvV0VC?=
- =?utf-8?B?dXRublBVV0ZHRXZxMzYvampQc3dXRWEyMHNJSUtZMUt4V3JVdWpNYVFsaThl?=
- =?utf-8?B?d01xWjhndnFMeEJvK0lxNnl1NVJ2WDc0c3VhUnQ2VjcrZVdJTUcrdEU4cEFF?=
- =?utf-8?B?eTFrdC93a3NuWXVtam1WYitISkRqa0s5UjU1R3pUamVaM1M4ZzJiRVh5bG9v?=
- =?utf-8?B?V1g0QXhTUGJaM09ocUUvclJnaXZaWk9KRkV5U3lYZmt0R2p2ZmMyODZtSWZC?=
- =?utf-8?B?eEVtTHRPWXFUMHdlR282Z3MrT21IWjltZVNLVTVCdDA2cW5RUks2c29TZmJk?=
- =?utf-8?B?bWRBazlxYUhPckZPNUtUMVlzQzByRXZVZllicVpVbFZ4QVErMlhrYWFod0FQ?=
- =?utf-8?B?RlVBSXNwRE1neHpvSlMzNEpnVm5xVXR3SWdCRVVHZVJNTDI1Mlp3cUxpQTVh?=
- =?utf-8?B?RElCS0syYjBRSDhUM3IwNG13QUp5ZyttZUE0TGc0eWM2MDRvc3FDazlIQXVU?=
- =?utf-8?B?THU3RlQ3dHJHckR5Rm9xclIzSHhqRzdyV2RrYzl5THNRWjFEb2N1MjR1KzJr?=
- =?utf-8?B?aHNaSkg2T044U2xaanFhMlFHZmRhUW5ZRU54bjV1OEwrVDNuV0VwdEZMS3hL?=
- =?utf-8?B?c3lsMjhtREwvQjBKUzd1RU1EUnhXQjRhUVNSNW9WMVVXQmVGaXJCUTZrdnVR?=
- =?utf-8?B?S013Ync3cDBJYzd5dzNsRWpIOGdFY1h5K0NrN3FkbXRNWG0yaFBFeHdNWTVQ?=
- =?utf-8?B?Q3dVTktuRUtVVGFuMzU2eHVNOG5pbFIvdkxyb0ZWeTFEYjhlRlRmbi9ybjFt?=
- =?utf-8?B?Q2dxMWtpZ2dZNC9sZWE2UC9LQ0hSZkFuRlRnYlZjNm94TlR1cUpyL2ZxaGZB?=
- =?utf-8?Q?ZfX0=3D?=
+	=?utf-8?B?YWhYY2EwNmJqeFhrR0FGb3lyWlJzSzczcXNiRFRlNFp5MkVVZkZsc1lsOHVI?=
+ =?utf-8?B?S3Joc1NkQjBFY2FXWkRabU1SNVVhbGhvOElOVjMzdWErQ3Z6VWlrK1VlV1o0?=
+ =?utf-8?B?ZXdrbnBwQTdwYVZBWFRvRWlHd1ZENmRja0JGYTVWeERFamFENUxoRUVtRWtW?=
+ =?utf-8?B?amlaTHUwR055cUpnb2dZT0cvS3pWam1sNlpsQjNCTHJHMnczTVZ0OWpxTjR3?=
+ =?utf-8?B?VWE4dlVTQ0UxNDFNbUlEcE5qUENqZVNBd3FJdTBhcnFQSkpGTStmS3pXMXBZ?=
+ =?utf-8?B?T0RpMVdURGVYNElyd1dseXN1VGM4SHlyYXovWWZwTlB2cDA4MkpQTUhYS2tW?=
+ =?utf-8?B?a2xhb1hVYkc2WE5RdzMwMXE3RW8wK1lVMUE0Tmo2Z05zTjJTNzhMV2hlVFNn?=
+ =?utf-8?B?TGxvUUQxeWVaSUdabzdaVk1RQjNBMjhhdEkvYWJsRGs5czZqQ0RNT1FsNkg3?=
+ =?utf-8?B?ZE9LQmV5SDFSYnZGN2ZKYXd1NmhQUDBHM1VWbXdKMGdkSkZiZXBwb2dzdTVO?=
+ =?utf-8?B?czJyVDBWSU9kK3V0RjRWR2QxQW1DTE92cHRTNFpDb2ZONlVmSHlzNERhemlD?=
+ =?utf-8?B?UVRGQkgreVlSeWF6YisvK1c1SHBNU2IzbnRFaHFwbkVBbjk4bzZXcFA3SER2?=
+ =?utf-8?B?Rllzc3hxbTVVdlRldUp1bnNFSVlYYXY2ejBSd0w0M2t3N3JWWW5DTTExY3hY?=
+ =?utf-8?B?d1FwRWlBT2Q3ZlozWTNReFRjQXlZVWd1VnlyN0F1V2dPV3V4aFU3S1J1VEMy?=
+ =?utf-8?B?amdTTHhTM0tyaFVEODI2WStqR2NBRlVpNlFZOWQvMnorM05oeXR0RllTVjFn?=
+ =?utf-8?B?OEFVMnFiVExBTmloRXhXMlh5UFZKeFNzTk1KOHdGSW5jVTlOZmdOejJEZmww?=
+ =?utf-8?B?TjZMaUlleHUxU1p2U0hOUEdmQ1lrVWFWRDNsNjI5NlY4MDFHNjFVOG5RUFpZ?=
+ =?utf-8?B?bktveCtXcDFmeGE1bFFGVlVaSWM3K0VQQit4WDZMa2N6VkxDQUJUS3NLc0pR?=
+ =?utf-8?B?V3h3VnV5QjBLb1FZMTBadVIrbFFhak5KbG1EeUIxaHhlaUQ0ZTE4RG9Hb0hQ?=
+ =?utf-8?B?d0RQMGtrWml5c3MwN1Z0ZzUraTRLS0d4RlN0NksrWHlTd2o4bmI2RkE2WWh4?=
+ =?utf-8?B?SUM1MVh3S2N3SGJScVB1R1JhdjJGVEpVQTBuWElBV3pqZUV0M0Rpd2FVWkVa?=
+ =?utf-8?B?OVozRENCRDZXWTdVdWR0cDIzR1ZKUnRRa2J3QWpWVS8wVU8rSFRmeTVHaHJV?=
+ =?utf-8?B?bEdhSzdVOHd5VlB4alJqQmJLcGFXQy9zMStyaCthMncrcExISlZjbXdlSzVj?=
+ =?utf-8?B?Vm12cVRPVUE3cEptZjhaK2xMd1BBRzYrK2gyNGZ0NDN0R0ZucS8zeER3cHJE?=
+ =?utf-8?B?YnhIUW9tMDJXd1NoVkJBUjhLN2htWEs0WmhRd2J2ZWRTUG1VUE5mNjZNT3Q5?=
+ =?utf-8?B?UHhSbWxWU2tvcFpTVHVZTWQzMEoxNEc2TmtZQlJ0eXFNcDNQZHRnTm1CMW51?=
+ =?utf-8?B?YldTbUYvdWtabGxPSjh6Y3pzK2FpRW43OW1QQzR4aGo0VDBJbExFMXhnVU0v?=
+ =?utf-8?B?M2VzN1kxcWMrQzNFam1wdWFlZFNFK3ZEUzEwY1lnZE8wbWZkNnNJL0RnL1lS?=
+ =?utf-8?B?aCtwb0s0dllmMWwzRVVtUWNVNGQ2Vmx1SmZtYm5WSDZqblNuT2NrOEtZVHhI?=
+ =?utf-8?B?aDQ3bWdsSHh2WWNiakxMTkdWRHpqS3dDZE1xQkFXU3VLamZaUE5PZXkvRTVJ?=
+ =?utf-8?B?YWZjcXFNaUIzWHloWUZOcVkxN1hUQ1hVZWtKdWZpRlB3NWhZN0dYZ0xqYVJr?=
+ =?utf-8?B?ZDR5b1FEZnJPb1pRdFowc0VPd2pTZFJsWG9GRW15bFBDM3g0S0hXTjQ5R2p6?=
+ =?utf-8?B?R3ZTRG1BQ1dKNXNoZ1JqazVtUzBoUHNXcHN0QUlrSmZLK1VyMlVTTTlkMXZw?=
+ =?utf-8?B?RE5nUUdFWnJMYm84TkVkYmJyTFZiTjA5OTMzYlBKY2pPeDIzM1kzUGhaeW5Y?=
+ =?utf-8?B?OFZxZWVlRm5iWnRxanQyanpqM1doSUk0WkdyZEwyMWZ6UjJ3STFkMmZDNlpX?=
+ =?utf-8?B?K2ptTkthTkFqb25hTjJCcno3QTJ3dXJMNWVtWGpoc0gxZW5lZU9mVDVWQnMv?=
+ =?utf-8?Q?y/1M=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013)(7053199007);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2025 09:53:39.7953
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2025 10:21:12.7203
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41ba9ada-a6e5-4526-ebc7-08de1b880819
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04565515-6be6-4e3a-0f4d-08de1b8be152
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF00036F3F.namprd05.prod.outlook.com
+	SA2PEPF0000150B.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9655
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9135
 
 
 
 On 24/10/2025 17:37, Harry Ramsey wrote:
-> From: Harry Ramsey <your mail@arm.com>
+> Implement reference counting to enable overlapping MPU regions.
+> References are incremented and decremented in xen_mpumap_update_entry.
+AFAICT, looking at the code, you would return -EINVAL early on overlap (i.e.
+mpumap_contains_region() returning MPUMAP_REGION_OVERLAP). If so, can you
+clearly explain what this change intend to do and why we need refcounting?
+
 > 
-> Implement `setup_mm` for MPU systems. This variant does not require
-> setting up a direct map.
+> A region will be destoryed if the reference count is 0 upon calling
+s/destoryed/destroyed/
+
+> destroy_xen_mappings and if the full region range is specified.
 > 
-> To reduce code duplication the common initalisation code for both MPU
-> and MMU Arm64 configurations is refactored into `setup_mm`. Platform-specific
-> setup steps are now handled by a new helper function `setup_mm_helper`.
+> Additionally XEN_MPUMAP_ENTRY_SHIFT and XEN_MPUMAP_ENTRY_SHIFT_ZERO are
+> no longer hardcoded and defined inside asm-offsets.c.
 > 
 > Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
 > ---
->  xen/arch/arm/arm64/mmu/mm.c   | 26 +-------------------
->  xen/arch/arm/include/asm/mm.h |  2 ++
->  xen/arch/arm/mm.c             | 45 +++++++++++++++++++++++++++++++++++
->  xen/arch/arm/mpu/mm.c         | 30 +++++++++++++++++++++--
->  4 files changed, 76 insertions(+), 27 deletions(-)
+>  xen/arch/arm/arm32/asm-offsets.c         |  2 +
+>  xen/arch/arm/arm64/asm-offsets.c         |  2 +
+>  xen/arch/arm/include/asm/arm32/mpu.h     |  2 +
+>  xen/arch/arm/include/asm/arm64/mpu.h     |  2 +
+>  xen/arch/arm/include/asm/mpu/regions.inc | 11 +++-
+>  xen/arch/arm/mpu/mm.c                    | 73 +++++++++++++++++++-----
+>  6 files changed, 77 insertions(+), 15 deletions(-)
 > 
-> diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
-> index 3e64be6ae6..70b53be032 100644
-> --- a/xen/arch/arm/arm64/mmu/mm.c
-> +++ b/xen/arch/arm/arm64/mmu/mm.c
-> @@ -4,8 +4,6 @@
->  #include <xen/llc-coloring.h>
->  #include <xen/mm.h>
->  #include <xen/pfn.h>
-> -#include <xen/static-memory.h>
-> -#include <xen/static-shmem.h>
->  
->  #include <asm/setup.h>
->  
-> @@ -240,33 +238,18 @@ static void __init setup_directmap_mappings(unsigned long base_mfn,
->          panic("Unable to setup the directmap mappings.\n");
+> diff --git a/xen/arch/arm/arm32/asm-offsets.c b/xen/arch/arm/arm32/asm-offsets.c
+> index c203ce269d..951f8d03f3 100644
+> --- a/xen/arch/arm/arm32/asm-offsets.c
+> +++ b/xen/arch/arm/arm32/asm-offsets.c
+> @@ -79,6 +79,8 @@ void __dummy__(void)
+>  #ifdef CONFIG_MPU
+>     DEFINE(XEN_MPUMAP_MASK_sizeof, sizeof(xen_mpumap_mask));
+>     DEFINE(XEN_MPUMAP_sizeof, sizeof(xen_mpumap));
+> +   DEFINE(XEN_MPUMAP_ENTRY_SHIFT, ilog2(sizeof(pr_t)));
+> +   DEFINE(XEN_MPUMAP_ENTRY_ZERO_OFFSET, sizeof(prbar_t) + sizeof(prlar_t));
+>     BLANK();
+>  #endif
 >  }
->  
-> -void __init setup_mm(void)
-> +void __init setup_mm_helper(void)
->  {
->      const struct membanks *banks = bootinfo_get_mem();
->      paddr_t ram_start = INVALID_PADDR;
->      paddr_t ram_end = 0;
-> -    paddr_t ram_size = 0;
->      unsigned int i;
->  
-> -    init_pdx();
-> -
-> -    /*
-> -     * We need some memory to allocate the page-tables used for the directmap
-> -     * mappings. But some regions may contain memory already allocated
-> -     * for other uses (e.g. modules, reserved-memory...).
-> -     *
-> -     * For simplicity, add all the free regions in the boot allocator.
-> -     */
-> -    populate_boot_allocator();
-> -
-> -    total_pages = 0;
-> -
->      for ( i = 0; i < banks->nr_banks; i++ )
->      {
->          const struct membank *bank = &banks->bank[i];
->          paddr_t bank_end = bank->start + bank->size;
->  
-> -        ram_size = ram_size + bank->size;
->          ram_start = min(ram_start, bank->start);
->          ram_end = max(ram_end, bank_end);
->  
-> @@ -274,16 +257,9 @@ void __init setup_mm(void)
->                                   PFN_DOWN(bank->size));
->      }
->  
-> -    total_pages += ram_size >> PAGE_SHIFT;
-> -
->      directmap_virt_end = XENHEAP_VIRT_START + ram_end - ram_start;
->      directmap_mfn_start = maddr_to_mfn(ram_start);
->      directmap_mfn_end = maddr_to_mfn(ram_end);
-> -
-> -    setup_frametable_mappings(ram_start, ram_end);
-> -
-> -    init_staticmem_pages();
-> -    init_sharedmem_pages();
+> diff --git a/xen/arch/arm/arm64/asm-offsets.c b/xen/arch/arm/arm64/asm-offsets.c
+> index 320289b281..38a3894a3b 100644
+> --- a/xen/arch/arm/arm64/asm-offsets.c
+> +++ b/xen/arch/arm/arm64/asm-offsets.c
+> @@ -73,6 +73,8 @@ void __dummy__(void)
+>  #ifdef CONFIG_MPU
+>     DEFINE(XEN_MPUMAP_MASK_sizeof, sizeof(xen_mpumap_mask));
+>     DEFINE(XEN_MPUMAP_sizeof, sizeof(xen_mpumap));
+> +   DEFINE(XEN_MPUMAP_ENTRY_SHIFT, ilog2(sizeof(pr_t)));
+> +   DEFINE(XEN_MPUMAP_ENTRY_ZERO_OFFSET, sizeof(prbar_t) + sizeof(prlar_t));
+>     BLANK();
+>  #endif
 >  }
+> diff --git a/xen/arch/arm/include/asm/arm32/mpu.h b/xen/arch/arm/include/asm/arm32/mpu.h
+> index 0a6930b3a0..137022d922 100644
+> --- a/xen/arch/arm/include/asm/arm32/mpu.h
+> +++ b/xen/arch/arm/include/asm/arm32/mpu.h
+> @@ -39,6 +39,8 @@ typedef union {
+>  typedef struct {
+>      prbar_t prbar;
+>      prlar_t prlar;
+> +    uint8_t refcount;
+> +    uint8_t pad[7];     /* Pad structure to 16 Bytes */
+>  } pr_t;
 >  
->  /*
-> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-> index 7a93dad2ed..1f5b41e602 100644
-> --- a/xen/arch/arm/include/asm/mm.h
-> +++ b/xen/arch/arm/include/asm/mm.h
-> @@ -202,6 +202,8 @@ extern void remove_early_mappings(void);
->  extern int prepare_secondary_mm(int cpu);
->  /* Map a frame table to cover physical addresses ps through pe */
->  extern void setup_frametable_mappings(paddr_t ps, paddr_t pe);
-> +/* Helper function to setup memory management */
-> +extern void setup_mm_helper(void);
-No extern for prototypes, please.
-
->  /* map a physical range in virtual memory */
->  void __iomem *ioremap_attr(paddr_t start, size_t len, unsigned int attributes);
+>  #endif /* __ASSEMBLY__ */
+> diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
+> index f0ce344e78..17f62ccaf6 100644
+> --- a/xen/arch/arm/include/asm/arm64/mpu.h
+> +++ b/xen/arch/arm/include/asm/arm64/mpu.h
+> @@ -38,6 +38,8 @@ typedef union {
+>  typedef struct {
+>      prbar_t prbar;
+>      prlar_t prlar;
+> +    uint8_t refcount;
+> +    uint8_t pad[15];    /* Pad structure to 32 Bytes */
+>  } pr_t;
 >  
-> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> index 3b05b46ee0..f26c28aaf5 100644
-> --- a/xen/arch/arm/mm.c
-> +++ b/xen/arch/arm/mm.c
-> @@ -12,8 +12,12 @@
->  #include <xen/grant_table.h>
->  #include <xen/guest_access.h>
->  #include <xen/mm.h>
-> +#include <xen/static-memory.h>
-> +#include <xen/static-shmem.h>
->  #include <xen/vmap.h>
+>  #endif /* __ASSEMBLY__ */
+> diff --git a/xen/arch/arm/include/asm/mpu/regions.inc b/xen/arch/arm/include/asm/mpu/regions.inc
+> index 23fead3b21..0cdbb17bc3 100644
+> --- a/xen/arch/arm/include/asm/mpu/regions.inc
+> +++ b/xen/arch/arm/include/asm/mpu/regions.inc
+> @@ -14,14 +14,12 @@
+>  #define PRLAR_ELx_EN            0x1
 >  
-> +#include <asm/setup.h>
-> +
->  #include <xsm/xsm.h>
+>  #ifdef CONFIG_ARM_64
+> -#define XEN_MPUMAP_ENTRY_SHIFT  0x4     /* 16 byte structure */
 >  
->  #include <public/memory.h>
-> @@ -24,6 +28,47 @@
+>  .macro store_pair reg1, reg2, dst
+>      stp \reg1, \reg2, [\dst]
+>  .endm
 >  
->  unsigned long frametable_base_pdx __read_mostly;
+>  #else
+> -#define XEN_MPUMAP_ENTRY_SHIFT  0x3     /* 8 byte structure */
 >  
-> +#if !defined(CONFIG_ARM_32) || defined(CONFIG_MPU)
-NIT: Why negation instead of CONFIG_ARM_64?
-
-> +void __init setup_mm(void)
-> +{
-> +    const struct membanks *banks = bootinfo_get_mem();
-> +    paddr_t ram_start = INVALID_PADDR;
-> +    paddr_t ram_end = 0;
-> +    paddr_t ram_size = 0;
-> +    unsigned int i;
-> +
-> +    init_pdx();
-> +
-> +    /*
-> +     * We need some memory to allocate the page-tables used for the directmap
-Isn't this comment here now a bit misleading in MPU case?
-
-> +     * mappings. But some regions may contain memory already allocated
-> +     * for other uses (e.g. modules, reserved-memory...).
-> +     *
-> +     * For simplicity, add all the free regions in the boot allocator.
-> +     */
-> +    populate_boot_allocator();
-NIT: I would suggest to move this right before setup_mm_helper() with a comment
-tweaked.
-
-> +
-> +    for ( i = 0; i < banks->nr_banks; i++ )
-> +    {
-> +        const struct membank *bank = &banks->bank[i];
-> +        paddr_t bank_end = bank->start + bank->size;
-> +
-> +        ram_size = ram_size + bank->size;
-> +        ram_start = min(ram_start, bank->start);
-> +        ram_end = max(ram_end, bank_end);
-> +    }
-> +
-> +    total_pages = ram_size >> PAGE_SHIFT;
-> +
-> +    setup_mm_helper();
-> +
-> +    setup_frametable_mappings(ram_start, ram_end);
-> +
-> +    init_staticmem_pages();
-> +    init_sharedmem_pages();
-> +}
+>  .macro store_pair reg1, reg2, dst
+>      strd  \reg1, \reg2, [\dst]
+> @@ -97,6 +95,15 @@
+>  
+>  3:
+>  
+> +    /* Clear the rest of the xen_mpumap entry. */
+> +#ifdef CONFIG_ARM_64
+> +    stp xzr, xzr, [\base, #XEN_MPUMAP_ENTRY_ZERO_OFFSET]
+> +#else
+> +    mov \prbar, #0
+> +    mov \prlar, #0
+> +    strd \prbar, \prlar, [\base, #XEN_MPUMAP_ENTRY_ZERO_OFFSET]
 > +#endif
 > +
->  bool flags_has_rwx(unsigned int flags)
->  {
->      /*
+>      add   \sel, \sel, #1
+>  
+>  1:
 > diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-> index 3f155b7db2..a058db19ef 100644
+> index a058db19ef..c5128244b7 100644
 > --- a/xen/arch/arm/mpu/mm.c
 > +++ b/xen/arch/arm/mpu/mm.c
-> @@ -8,9 +8,11 @@
->  #include <xen/sizes.h>
->  #include <xen/spinlock.h>
->  #include <xen/types.h>
-> +#include <xen/pfn.h>
-Alphabetic sorting, please.
-
->  #include <asm/mpu.h>
->  #include <asm/mpu/mm.h>
->  #include <asm/page.h>
-> +#include <asm/setup.h>
->  #include <asm/sysregs.h>
+> @@ -106,6 +106,7 @@ pr_t pr_of_addr(paddr_t base, paddr_t limit, unsigned int flags)
+>      region = (pr_t) {
+>          .prbar = prbar,
+>          .prlar = prlar,
+> +        .refcount = 0,
+>      };
 >  
->  struct page_info *frame_table;
-> @@ -378,9 +380,33 @@ int map_pages_to_xen(unsigned long virt, mfn_t mfn, unsigned long nr_mfns,
->      return xen_mpumap_update(virt, mfn_to_maddr(mfn_add(mfn, nr_mfns)), flags);
+>      /* Set base address and limit address. */
+> @@ -170,6 +171,37 @@ int mpumap_contains_region(pr_t *table, uint8_t nr_regions, paddr_t base,
+>      return MPUMAP_REGION_NOTFOUND;
 >  }
 >  
-> -void __init setup_mm(void)
-> +/*
-> + * Heap must be statically configured in Device Tree through "xen,static-heap"
-> + * on MPU systems, use setup_mm_helper() for that.
-> + */
-> +void __init setup_mm_helper(void)
->  {
-> -    BUG_ON("unimplemented");
-> +    const struct membanks *reserved_mem = bootinfo_get_reserved_mem();
-> +    unsigned int bank = 0;
+> +static bool is_mm_attr_match(pr_t *region, unsigned int attributes)
+> +{
+> +    bool ret = true;
 > +
-> +    for ( ; bank < reserved_mem->nr_banks; bank++ )
+> +    if ( region->prbar.reg.ro != PAGE_RO_MASK(attributes) )
 > +    {
-> +        if ( reserved_mem->bank[bank].type == MEMBANK_STATIC_HEAP )
-> +        {
-> +            paddr_t bank_start = round_pgup(reserved_mem->bank[bank].start);
-> +            paddr_t bank_size = round_pgdown(reserved_mem->bank[bank].size);
-> +            paddr_t bank_end = bank_start + bank_size;
-> +
-> +            /* Map static heap with one MPU protection region */
-> +            if ( xen_mpumap_update(bank_start, bank_end, PAGE_HYPERVISOR) )
-> +                panic("Failed to map static heap\n");
-> +
-> +            break;
-> +        }
+> +        printk(XENLOG_WARNING
+> +               "Mismatched Access Permission attributes (%#x0 instead of %#x0)\n",
+Why %#x0 and not %#x?
+
+> +               region->prbar.reg.ro, PAGE_RO_MASK(attributes));
+> +        ret = false;
 > +    }
 > +
-> +    if ( bank == reserved_mem->nr_banks )
-> +        panic("No static heap memory bank found\n");
->  }
+> +    if ( region->prbar.reg.xn != PAGE_XN_MASK(attributes) )
+> +    {
+> +        printk(XENLOG_WARNING
+> +               "Mismatched Execute Never attributes (%#x instead of %#x)\n",
+> +               region->prbar.reg.xn, PAGE_XN_MASK(attributes));
+> +        ret = false;
+> +    }
+> +
+> +    if ( region->prlar.reg.ai != PAGE_AI_MASK(attributes) )
+> +    {
+> +        printk(XENLOG_WARNING
+> +               "Mismatched Memory Attribute Index (%#x instead of %#x)\n",
+> +               region->prlar.reg.ai, PAGE_AI_MASK(attributes));
+> +        ret = false;
+> +    }
+What about shareability?
+> +
+> +    return ret;
+> +}
+> +
+>  /* Map a frame table to cover physical addresses ps through pe */
+>  void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+>  {
+> @@ -287,19 +319,19 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
+>      /* Currently we don't support modifying an existing entry. */
+>      if ( flags_has_page_present && (rc >= MPUMAP_REGION_FOUND) )
+>      {
+> -        printk("Modifying an existing entry is not supported\n");
+> -        return -EINVAL;
+> -    }
+> +        if ( !is_mm_attr_match(&xen_mpumap[idx], flags) )
+Do I understand correctly that this change (not mentioned in commit msg) is here
+so that when we call xen_mpumap_update_entry() with existing matching or
+inclusive region we will increment refcount only if the attributes match?
+
+> +        {
+> +            printk("Modifying an existing entry is not supported\n");
+> +            return -EINVAL;
+> +        }
 >  
->  int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-Apart from that, the changes LGTM.
+> -    /*
+> -     * Currently, we only support removing/modifying a *WHOLE* MPU memory
+> -     * region. Part-region removal/modification is not supported as in the worst
+> -     * case it will leave two/three fragments behind.
+> -     */
+Hmm, I think that we still don't support removing/modifying regions partially.
+Why is this comment removed?
+
+> -    if ( rc == MPUMAP_REGION_INCLUSIVE )
+> -    {
+> -        printk("Part-region removal/modification is not supported\n");
+> -        return -EINVAL;
+> +        /* Check for overflow of refcount before incrementing.  */
+> +        if ( xen_mpumap[idx].refcount == 0xFF )
+> +        {
+> +            printk("Cannot allocate region as it would cause reference overflow\n");
+> +            return -ENOENT;
+> +        }
+> +        xen_mpumap[idx].refcount += 1;
+>      }
+>  
+>      /* We are inserting a mapping => Create new region. */
+> @@ -323,7 +355,22 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
+>              return -EINVAL;
+>          }
+>  
+> -        disable_mpu_region_from_index(idx);
+> +        if ( xen_mpumap[idx].refcount == 0 )
+> +        {
+> +            if (MPUMAP_REGION_FOUND == rc)
+Missing spaces around ().
+
+> +            {
+No need for brackets for single instruction
+
+> +                disable_mpu_region_from_index(idx);
+> +            }
+> +            else
+> +            {
+> +                printk("Cannot remove a partial region\n");
+> +                return -EINVAL;
+> +            }
+> +        }
+> +        else
+> +        {
+Same here.
 
 ~Michal
 
