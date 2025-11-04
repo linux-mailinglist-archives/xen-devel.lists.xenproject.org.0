@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64D3CC30BB6
-	for <lists+xen-devel@lfdr.de>; Tue, 04 Nov 2025 12:27:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1155690.1485132 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF89DC30BC3
+	for <lists+xen-devel@lfdr.de>; Tue, 04 Nov 2025 12:29:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1155700.1485141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGFCM-00061X-D6; Tue, 04 Nov 2025 11:27:38 +0000
+	id 1vGFDg-0006XV-Me; Tue, 04 Nov 2025 11:29:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1155690.1485132; Tue, 04 Nov 2025 11:27:38 +0000
+Received: by outflank-mailman (output) from mailman id 1155700.1485141; Tue, 04 Nov 2025 11:29:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGFCM-0005yo-AK; Tue, 04 Nov 2025 11:27:38 +0000
-Received: by outflank-mailman (input) for mailman id 1155690;
- Tue, 04 Nov 2025 11:27:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1vGFCL-0005yi-KW
- for xen-devel@lists.xenproject.org; Tue, 04 Nov 2025 11:27:37 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vGFCK-000my3-2b;
- Tue, 04 Nov 2025 11:27:37 +0000
-Received: from [2a02:8012:3a1:0:2858:32e7:18b8:3bf]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vGFCK-00B9gR-2e;
- Tue, 04 Nov 2025 11:27:36 +0000
+	id 1vGFDg-0006Vn-K2; Tue, 04 Nov 2025 11:29:00 +0000
+Received: by outflank-mailman (input) for mailman id 1155700;
+ Tue, 04 Nov 2025 11:28:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pTF1=5M=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
+ id 1vGFDf-0006Vh-PM
+ for xen-devel@lists.xenproject.org; Tue, 04 Nov 2025 11:28:59 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 71490ee1-b971-11f0-980a-7dc792cee155;
+ Tue, 04 Nov 2025 12:28:53 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D54651C2B;
+ Tue,  4 Nov 2025 03:28:44 -0800 (PST)
+Received: from [10.1.38.100] (e126510-lin.cambridge.arm.com [10.1.38.100])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 15B213F63F;
+ Tue,  4 Nov 2025 03:28:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,122 +42,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=wb0BLB75HCUP59tThBssTD0jcy87um7ce8sT+eTJ+Hs=; b=T3KwFfEJImf5d3oN/EuNo4CvWN
-	R47IZz+1FU+wGckIkWDfadacqpJhhCYvczCeI21A2MZyLCshkqC/9e7kDNFyChAVfzDxOFmON9LUI
-	7KBzMvZLu//ss2LxQ1yqcGD9UNGs8vYrU7toC74bztbzvVTQjJr3a9NjqngNymvDzj7s=;
-Message-ID: <ad2e0fd6-a742-497c-88db-5d7c5704ec68@xen.org>
-Date: Tue, 4 Nov 2025 11:27:35 +0000
+X-Inumbo-ID: 71490ee1-b971-11f0-980a-7dc792cee155
+Message-ID: <216d54f1-334f-4600-9ecb-f7788b1abd7d@arm.com>
+Date: Tue, 4 Nov 2025 11:28:42 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/5] arm/sysctl: Implement cpu hotplug ops
+Subject: Re: [PATCH v4 11/12] x86/xen: use lazy_mmu_state when
+ context-switching
+To: "David Hildenbrand (Red Hat)" <david@kernel.org>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ David Hildenbrand <david@redhat.com>, "David S. Miller"
+ <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+ Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+ Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
+References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
+ <20251029100909.3381140-12-kevin.brodsky@arm.com>
+ <c7c8a233-2103-4b48-b65e-ec81666d20e4@kernel.org>
+ <285faae4-dab6-4819-847a-889bdf87d5d7@arm.com>
+ <a326d1eb-62f1-4add-8dc9-cea7d7e4ed3c@kernel.org>
 Content-Language: en-GB
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <cover.1760083684.git.mykyta_poturai@epam.com>
- <bbd7ebd07d80ead78106c160e4368116dae1e548.1760083684.git.mykyta_poturai@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <bbd7ebd07d80ead78106c160e4368116dae1e548.1760083684.git.mykyta_poturai@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+In-Reply-To: <a326d1eb-62f1-4add-8dc9-cea7d7e4ed3c@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
-
-On 10/10/2025 10:21, Mykyta Poturai wrote:
-> Implement XEN_SYSCTL_CPU_HOTPLUG_{ONLINE,OFFLINE} calls to allow for
-> enabling/disabling CPU cores in runtime.
-> 
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> 
-> v2->v3:
-> * no changes
-> 
-> v1->v2:
-> * remove SMT ops
-> * remove cpu == 0 checks
-> * add XSM hooks
-> * only implement for 64bit Arm
-
-Can you add some details in the commit message explaining why the 
-feature is only enabled for 32-bit Arm?
-
-> ---
->   xen/arch/arm/sysctl.c | 45 +++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 45 insertions(+)
-> 
-> diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
-> index 32cab4feff..fecd649db1 100644
-> --- a/xen/arch/arm/sysctl.c
-> +++ b/xen/arch/arm/sysctl.c
-> @@ -12,6 +12,8 @@
->   #include <xen/dt-overlay.h>
->   #include <xen/errno.h>
->   #include <xen/hypercall.h>
-> +#include <xen/cpu.h>
-> +#include <xsm/xsm.h>
->   #include <asm/arm64/sve.h>
->   #include <public/sysctl.h>
->   
-> @@ -23,6 +25,42 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
->                                          XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);
->   }
->   
-> +#ifdef CONFIG_ARM_64
-> +static long cpu_up_helper(void *data)
-> +{
-> +    unsigned long cpu = (unsigned long) data;
-> +    return cpu_up(cpu);
-> +}
+On 03/11/2025 19:23, David Hildenbrand (Red Hat) wrote:
+> On 03.11.25 19:29, Kevin Brodsky wrote:
+>> On 03/11/2025 16:15, David Hildenbrand (Red Hat) wrote:
+>>> On 29.10.25 11:09, Kevin Brodsky wrote:
+>>>> [...]
+>>>>
+>>>> @@ -437,7 +436,7 @@ static void xen_end_context_switch(struct
+>>>> task_struct *next)
+>>>>          xen_mc_flush();
+>>>>        leave_lazy(XEN_LAZY_CPU);
+>>>> -    if (test_and_clear_ti_thread_flag(task_thread_info(next),
+>>>> TIF_LAZY_MMU_UPDATES))
+>>>> +    if (next->lazy_mmu_state.active)
+>>>
+>>> This is nasty. If in_lazy_mmu_mode() is not sufficient, we will want
+>>> to have a separate helper that makes it clear what the difference
+>>> between both variants is.
+>>
+>> in_lazy_mmu_mode() operates on current, but here we're operating on a
+>> different task. The difference is more fundamental than just passing a
+>> task_struct * or not: in_lazy_mmu_mode() is about whether we're
+>> currently in lazy MMU mode, i.e. not paused and not in interrupt
+>> context. A task that isn't scheduled is never in lazy MMU mode -
+>> lazy_mmu_state.active is just the saved state to be restored when
+>> scheduled again.
+>>
+>> My point here is that we could have a helper for this use-case, but it
+>> should not be used in other situations (at least not on current). Maybe
+>> __task_lazy_mmu_active(task)? I do wonder if accessing lazy_mmu_state
+>> directly isn't expressing the intention well enough though (checking the
+>> saved state).
+>
+>
+> Likely there should be a
+>
+> /**
+>  * task_lazy_mmu_active - test whether the lazy-mmu mode is active for a
+>  *              task
+>  * @task: ...
+>  *
+>  * The lazy-mmu mode is active if a task has lazy-mmu mode enabled and
+>  * currently not paused.
+>  */
+> static inline bool task_lazy_mmu_active(struct task_struct *task)
+> {
+>     return task->lazy_mmu_state.active;
+> }
+>
+> /**
+>  * in_lazy_mmu_mode() - test whether current is in lazy-mmu mode
+>  *
+>  * Test whether the current task is in lazy-mmu mode: whether the
+>  * interrupts are enabled and the lazy-mmu mode is active for the
+>  * current task.
+>  */
+>  static inline bool in_lazy_mmu_mode(void)
+>  {
+> +    if (in_interrupt())
+> +        return false;
 > +
-> +static long cpu_down_helper(void *data)
-> +{
-> +    unsigned long cpu = (unsigned long) data;
-> +    return cpu_down(cpu);
-> +}
-> +
-> +static long cpu_hotplug_sysctl(struct xen_sysctl_cpu_hotplug *hotplug)
-> +{
-> +    int ret;
-> +
-> +    switch (hotplug->op) {
-> +        case XEN_SYSCTL_CPU_HOTPLUG_ONLINE:
-> +            ret = xsm_resource_plug_core(XSM_HOOK);
-> +            if ( ret )
-> +                return ret;
-> +            return continue_hypercall_on_cpu(0, cpu_up_helper, _p(hotplug->cpu));
-> +
-> +        case XEN_SYSCTL_CPU_HOTPLUG_OFFLINE:
-> +            ret = xsm_resource_unplug_core(XSM_HOOK);
-> +            if ( ret )
-> +                return ret;
-> +            return continue_hypercall_on_cpu(0, cpu_down_helper, _p(hotplug->cpu));
-> +
-> +        default:
-> +            return -EOPNOTSUPP;
-> +    }
-> +}
-> +#endif
+>      return task_lazy_mmu_active(current);
+>  }
+>
+>
+> Something like that. Maybe we can find better terminology.
 
-The logic seems to be very similar to the x86 code. There are some 
-slight differences in cpu_up_helper() and cpu_down_helper() but:
+That's probably the clearest yes, will make the change. I can't think of
+more self-documenting names, spelling out the difference in the comments
+is likely the best we can do.
 
-* For cpu_up_helper(), we could create an arch specific helper for the 
-second if check.
-* For cpu_down_helper(), it would be ok to call cpu_down() a second time 
-on Arm.
-
-Can you look at consolidating the code?
-
-Cheers,
-
--- 
-Julien Grall
-
+- Kevin
 
