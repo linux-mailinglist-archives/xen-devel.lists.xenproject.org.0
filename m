@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E300C31FE3
-	for <lists+xen-devel@lfdr.de>; Tue, 04 Nov 2025 17:13:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1155822.1485207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F402C322BD
+	for <lists+xen-devel@lfdr.de>; Tue, 04 Nov 2025 17:57:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1155837.1485218 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGJeF-0001V2-ER; Tue, 04 Nov 2025 16:12:43 +0000
+	id 1vGKL1-0006gs-PE; Tue, 04 Nov 2025 16:56:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1155822.1485207; Tue, 04 Nov 2025 16:12:43 +0000
+Received: by outflank-mailman (output) from mailman id 1155837.1485218; Tue, 04 Nov 2025 16:56:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGJeF-0001SX-B5; Tue, 04 Nov 2025 16:12:43 +0000
-Received: by outflank-mailman (input) for mailman id 1155822;
- Tue, 04 Nov 2025 16:12:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vGKL1-0006fD-Lz; Tue, 04 Nov 2025 16:56:55 +0000
+Received: by outflank-mailman (input) for mailman id 1155837;
+ Tue, 04 Nov 2025 16:56:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oRVh=5M=bounce.vates.tech=bounce-md_30504962.690a25f7.v1-aae3f4366e3e45698dcc63bfaf2be13e@srs-se1.protection.inumbo.net>)
- id 1vGJeE-0001SR-DY
- for xen-devel@lists.xenproject.org; Tue, 04 Nov 2025 16:12:42 +0000
-Received: from mail180-3.suw31.mandrillapp.com
- (mail180-3.suw31.mandrillapp.com [198.2.180.3])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 16307f2f-b999-11f0-9d16-b5c5bf9af7f9;
- Tue, 04 Nov 2025 17:12:40 +0100 (CET)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-3.suw31.mandrillapp.com (Mailchimp) with ESMTP id 4d1D4l3XvZzDRHxHy
- for <xen-devel@lists.xenproject.org>; Tue,  4 Nov 2025 16:12:39 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- aae3f4366e3e45698dcc63bfaf2be13e; Tue, 04 Nov 2025 16:12:39 +0000
+ <SRS0=o0RR=5M=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1vGKL0-0006f7-6Y
+ for xen-devel@lists.xenproject.org; Tue, 04 Nov 2025 16:56:54 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 403e6aae-b99f-11f0-980a-7dc792cee155;
+ Tue, 04 Nov 2025 17:56:48 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4775a52e045so1715265e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Nov 2025 08:56:48 -0800 (PST)
+Received: from localhost.localdomain (host-78-149-11-196.as13285.net.
+ [78.149.11.196]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-429dc1f5be4sm5372270f8f.31.2025.11.04.08.56.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Nov 2025 08:56:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,81 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16307f2f-b999-11f0-9d16-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1762272759; x=1762542759;
-	bh=JVtqe9pbf3JmbyY+Xaghsy9tjFWXb8JpV4OnFNchyo4=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=sn1n3hOcDLdr5MqGMZB1zJA0mhXxFfG2DtHFnx6R2PSLo7qf09P8aDjxMWfhKgS1z
-	 35khGb3BnRLAE74snChIn1I38i3FbbKVtBK0zvFadis5VbVxA9/cGC/DwAjlb89WbV
-	 Hfpq+sPdAkR6Pb5cMEORY86NznnW89ms2GnTpjkQxY/5J1ReVC/0bL+iXmZjjh5TGU
-	 eClCK/8W5ytPLU+sf0TrIgvAluIfjMR28Cp0sCnabldMZ3DrXexnMlEAR6vp/YpW77
-	 3PAi/vjY3/BpO9aoGzMjUF9JbdvcA3lmcJeqNiRhLvvvcKI+rJTXiRUc2MiuCnK9ZD
-	 cLwOz2YLfJMEA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1762272759; x=1762533259; i=ngoc-tu.dinh@vates.tech;
-	bh=JVtqe9pbf3JmbyY+Xaghsy9tjFWXb8JpV4OnFNchyo4=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=tRvrqlOLgMN48SVN5079d/sRJav3lgPcVWgv5EmwqslQHLEWn8uLb69CJ0nl6wnpw
-	 Gzuj9DWkrgZiQhTOEq5660EleOtuRkZTMuvIhnE2jsJ3bKdbdGUP76HDSthIsqIWGv
-	 OBqknpwme70HnOAE76AlfygxNRADhpknwK4oy55rY0hb091gPlFBiyjk0eZyWDagge
-	 Sp++fCfux3/U18NSQXuZJj3xArXpD/ZUuYB1u/YU/9+4GjgAn8oicqCRlY42DuaCyW
-	 /EnVRAf9+JqerpcCLQ3UH83XlLJqVBxM03sSjWpBuVW1woq9J0g03d2PHlxEePq23z
-	 g4sovjjyepxeA==
-From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
-Subject: =?utf-8?Q?[PATCH]=20acpi:=20Set=20TPM2=20LAML=20to=20actual=20log=20area=20size?=
-X-Mailer: git-send-email 2.43.0
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1762272758782
-To: xen-devel@lists.xenproject.org
-Cc: "Jan Beulich" <jbeulich@suse.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Tu Dinh" <ngoc-tu.dinh@vates.tech>
-Message-Id: <20251104161230.22789-1-ngoc-tu.dinh@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.aae3f4366e3e45698dcc63bfaf2be13e?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251104:md
-Date: Tue, 04 Nov 2025 16:12:39 +0000
+X-Inumbo-ID: 403e6aae-b99f-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1762275407; x=1762880207; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=PHL3jDnrijy5yRgmLMMloMQopIIQXeenL/hLlkisGwk=;
+        b=pnP5Zp3fCgxlVVnNcCLMtUXzO2UYEAY21PJtqBSMyyvVpPfPnFVOgvu2lABXOpKQpI
+         eBS2DyRPUluoOEDllA2TwSaBMyLQOcGt4R67DzBE/HBJimyZGYlFsg54bUohbXqAUekF
+         twdDbmYWk3+dBEvsLybVqsc/XK0j/nb0kuFK8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1762275407; x=1762880207;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PHL3jDnrijy5yRgmLMMloMQopIIQXeenL/hLlkisGwk=;
+        b=IvPI7FiArg98+hGaHcc2GVZlMaATSSbeDXBprDc3ogEqGeXhDPyOF+JyniH97jENFB
+         IFuS6id8HHbt74mRsNnWPmwHvQt5tSBO4eKCUlZ2uqZp0BKSkcBAtNrZoIYCApLcrZ90
+         FpkhcG2ihOdyoCfn5S/pmezSI+ye69H5BqMIo318rYe0k4ZVJLMQWdVZvfuW4UQmmJfl
+         IFZYnwK7u0SNaoIS2dbk1L23ncc7OjqGgDSKTESrtcpo7hwUnMH1p5/xOewfMUkwP+tK
+         eAntEvcNzKUxKq+4NsjfVPCGIERNRGhquvUBxp2FIHDmj574E94meU3Ei7WyLSaGicfC
+         NiQw==
+X-Gm-Message-State: AOJu0Yz9Yinx1c5TjUnLaXve01eC97YmC0P53KtLTMG24tRn3bOtALrF
+	+ch/4hCeNd4PBR4y3btwVT5ch7ofMaVFW+1bgHW8NoW7WcVu2Rd+fFdKuAOednpwkgfSULYyO0D
+	TuIcQDq4=
+X-Gm-Gg: ASbGncu/fz0QGkX2r+FRhXfVVOahZRezB+toiTdxQgLwOHQaMVvMKlxRioj4WAZGfNy
+	Bp0FNkIjHt82laLgJZCZuqeTT+BSsUG3hxlzwuB9bCFL9evirATpHW1lgW5qxg7we0Tre7qSS5k
+	vNPkQrVvOsYULkYXhxhz+HF0Wz8tkDE9fre7wyRcMBuBLJuhQ03eblNMXtidUXVxKeXdDZDxswt
+	EmFyZ1kwS/01hfi/Fsi16bKevH9Yp7sCSlqMxuBU3tJVPGZkk47pWOvth0LXVXTkQiG+54dA4QR
+	9kow19WOlA4nPMH2s6YtvIbGUp8wx8M4VvCLxciHH3MAm+NcdSeBaOGMez4CB2NLxki2/HsZxfr
+	OuZiB5sLV+IAblK0xq+vm3Oh6YbKZ5bRjohxaysVrfCFNDEHI2IBTvsu75ZuLSjhD79IfeKt4O7
+	ch1EDZZ8Kw6ApEcgVrybdUELZofOBqV8riqw0zFDipcGRPls0mtm8=
+X-Google-Smtp-Source: AGHT+IHocYewmJrm0tCGAGe5t63rHYN1yb9F9ouw3ks4g052K2chrbt580WbN7ehYhqXVuAX9e2oyQ==
+X-Received: by 2002:a05:600c:a00b:b0:46c:adf8:c845 with SMTP id 5b1f17b1804b1-4775cdc705amr107535e9.16.1762275406921;
+        Tue, 04 Nov 2025 08:56:46 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@citrix.com>,
+	Christian Lindig <christian.lindig@citrix.com>,
+	Rob Hoes <Rob.Hoes@citrix.com>,
+	Pau Ruiz Safont <pau.safont@vates.tech>,
+	Andrii Sultanov <andriy.sultanov@vates.tech>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH] ocaml/xsd_glue: Fix dynamic linking configuration
+Date: Tue,  4 Nov 2025 16:56:44 +0000
+Message-Id: <20251104165644.4011663-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The LAML field should follow the TCG PFP specification:
+The latest oxenstored from Xapi-project fails to start up:
 
-The TCG ACPI specification uses the field name "Log Area Minimum
-Length", but the field value is the actual log area length reserved by
-Platform Firmware, not a lower bound.
+  launch-xenstore[1201]: Starting /usr/sbin/oxenstored...
+  launch-xenstore[1222]: Fatal error: exception
+    Dynlink.Error (Dynlink.Cannot_open_dll "Dynlink.Error (Dynlink.Cannot_open_dll
+    \"Failure(\\\"/usr/libexec/xen//ocaml/xsd_glue/xenctrl_plugin/domain_getinfo_v1.cmxs:
+    undefined symbol: xc_domain_getinfo_single\\\")\")")
 
-Signed-off-by: Tu Dinh <ngoc-tu.dinh@vates.tech>
+This is because domain_getinfo_v1.cmxs isn't dynamically linked correctly.
+Fill in the correct variable, and remove the xen prefix from xenctrl.
+
+Reported-by: Edwin Török <edwin.torok@citrix.com>
+Suggested-by: Edwin Török <edwin.torok@citrix.com>
+Fixes: a6576011a4d2 ("ocaml/libs: Implement a dynamically-loaded plugin for Xenctrl.domain_getinfo")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
- tools/libacpi/build.c | 2 +-
+CC: Christian Lindig <christian.lindig@citrix.com>
+CC: Rob Hoes <Rob.Hoes@citrix.com>
+CC: Pau Ruiz Safont <pau.safont@vates.tech>
+CC: Andrii Sultanov <andriy.sultanov@vates.tech>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+
+For 4.21.  Without this, we can't proceed with deprecate oxenstored.
+
+This wants backporting to 4.20 too.
+
+Previously this was hidden by oxenstored unexpectedly statically linking
+libxenctrl via the ocaml-evtchn bindings, and became exposed when the bindings
+were moved to use libxenevtchn.
+---
+ tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/libacpi/build.c b/tools/libacpi/build.c
-index 2f29863db1..95188e217e 100644
---- a/tools/libacpi/build.c
-+++ b/tools/libacpi/build.c
-@@ -473,7 +473,7 @@ static int construct_secondary_tables(struct acpi_ctxt *ctxt,
-             tpm2->platform_class = TPM2_ACPI_CLASS_CLIENT;
-             tpm2->control_area_address = TPM_CRB_CTRL_REQ;
-             tpm2->start_method = TPM2_START_METHOD_CRB;
--            tpm2->log_area_minimum_length = TPM_LOG_AREA_MINIMUM_SIZE;
-+            tpm2->log_area_minimum_length = TPM_LOG_SIZE;
-             tpm2->log_area_start_address = TPM_LOG_AREA_ADDRESS;
+diff --git a/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile b/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile
+index 4be1feacfe24..6356159020c1 100644
+--- a/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile
++++ b/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile
+@@ -11,7 +11,7 @@ OBJS = domain_getinfo_v1
+ INTF = $(foreach obj, $(OBJS),$(obj).cmi)
+ LIBS = domain_getinfo_v1.cmxa domain_getinfo_v1.cmxs
  
-             set_checksum(tpm2,
+-LIBS_xsd_glue = $(call xenlibs-ldflags-ldlibs,xenctrl)
++LIBS_domain_getinfo_v1 = $(call xenlibs-ldflags-ldlibs,ctrl)
+ 
+ all: $(INTF) $(LIBS) $(PROGRAMS)
+ 
+
+base-commit: 9632ce6fe5b288244d2550cd2e619a55c5168bf8
 -- 
-2.43.0
-
-
-
---
-Ngoc Tu Dinh | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+2.39.5
 
 
