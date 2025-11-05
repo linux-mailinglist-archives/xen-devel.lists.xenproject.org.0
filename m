@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD377C33DD9
-	for <lists+xen-devel@lfdr.de>; Wed, 05 Nov 2025 04:42:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1156001.1485328 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB430C33F27
+	for <lists+xen-devel@lfdr.de>; Wed, 05 Nov 2025 05:49:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1156015.1485338 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGUPL-0001b8-GD; Wed, 05 Nov 2025 03:42:03 +0000
+	id 1vGVRx-0000xM-61; Wed, 05 Nov 2025 04:48:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1156001.1485328; Wed, 05 Nov 2025 03:42:03 +0000
+Received: by outflank-mailman (output) from mailman id 1156015.1485338; Wed, 05 Nov 2025 04:48:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGUPL-0001ZX-DQ; Wed, 05 Nov 2025 03:42:03 +0000
-Received: by outflank-mailman (input) for mailman id 1156001;
- Wed, 05 Nov 2025 03:42:02 +0000
+	id 1vGVRx-0000v4-3C; Wed, 05 Nov 2025 04:48:49 +0000
+Received: by outflank-mailman (input) for mailman id 1156015;
+ Wed, 05 Nov 2025 04:48:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gPfi=5N=gmail.com=ritesh.list@srs-se1.protection.inumbo.net>)
- id 1vGUPJ-0001ZB-Vd
- for xen-devel@lists.xenproject.org; Wed, 05 Nov 2025 03:42:01 +0000
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [2607:f8b0:4864:20::62a])
+ id 1vGVRv-0000uy-Lj
+ for xen-devel@lists.xenproject.org; Wed, 05 Nov 2025 04:48:47 +0000
+Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
+ [2607:f8b0:4864:20::530])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 610ea4a3-b9f9-11f0-980a-7dc792cee155;
- Wed, 05 Nov 2025 04:41:59 +0100 (CET)
-Received: by mail-pl1-x62a.google.com with SMTP id
- d9443c01a7336-2952048eb88so68096585ad.0
- for <xen-devel@lists.xenproject.org>; Tue, 04 Nov 2025 19:41:58 -0800 (PST)
+ id b4f13dd7-ba02-11f0-980a-7dc792cee155;
+ Wed, 05 Nov 2025 05:48:44 +0100 (CET)
+Received: by mail-pg1-x530.google.com with SMTP id
+ 41be03b00d2f7-b5a631b9c82so3882002a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Nov 2025 20:48:44 -0800 (PST)
 Received: from dw-tp ([171.76.85.117]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-29601a61418sm43663725ad.96.2025.11.04.19.41.45
+ d2e1a72fcca58-7acd6824811sm4742988b3a.64.2025.11.04.20.48.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Nov 2025 19:41:56 -0800 (PST)
+ Tue, 04 Nov 2025 20:48:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,41 +44,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 610ea4a3-b9f9-11f0-980a-7dc792cee155
+X-Inumbo-ID: b4f13dd7-ba02-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1762314117; x=1762918917; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1762318123; x=1762922923; darn=lists.xenproject.org;
         h=mime-version:references:message-id:date:in-reply-to:subject:cc:to
          :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9PpcYW9rXkka09Jy11m9xJQRt/n8jdZMdqOTeKYVeZk=;
-        b=ZFUrLFSIvJXzdpTEHmdcXuSeFp+EA45KB6SNtQliqQ7hnSo6E1DpazS2s8bUNasEII
-         0os5G0YfHX33X1C+bPhQxXjBf2e01b2pYiTRiYBc6NcCYC8JbqkdFG6LVr64OBjH4mox
-         Gmmq5NtuwHhMNx1sq8wE726zm1wE0pGRY3xevgThDU93ScsWQY7HQOQPl2Q/EuT7rlw9
-         a+VKRLpeLqN0k8in09MqZBydNpIe/pLMysyXXnwjAB8iEY/ERdPuD3HP5sG84TrA3xxX
-         k+jAMkvWavOcJgarrpveYZM8goNpy11SsRrGs7lIOclyQ/Q2s+1XyQVdpCMZhL2nmZ4r
-         hadw==
+        bh=YULlj58qL4zgqYnaxIvN0IRxkfnew4hxgBmocTGIAOg=;
+        b=LBddrOx3NLTYJwmhdouozW3UwxYHbP84iJvIwqpiGe8SisHKzplTTx7QdI6WnX+vw1
+         lbZtKAfRtSbUHVOMtJl6SCoO6kLG/Ei2Jyywo8hZggtCW/ThbxOuvTcK0lS1j9mEhsMP
+         nyGJ3s57jBYDduj3olDJYQdxCFSI6nXmhMo3cERZ+AwBXGRbcN9MAe7lOwOc3joHvQpu
+         FD+wNddKC9Q3smqLBGwUZEOzX917MDP1w6B2tkRB/9fZXB+/xmZa7AUkmCIUJKxqtWCF
+         +3mw8ciCYmfgikDJXAOc0dS+1H02R0pcUsvl1Pu06ra8vN1yhmUrkHw5IPqi16I9IHIA
+         ybUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762314117; x=1762918917;
+        d=1e100.net; s=20230601; t=1762318123; x=1762922923;
         h=mime-version:references:message-id:date:in-reply-to:subject:cc:to
          :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9PpcYW9rXkka09Jy11m9xJQRt/n8jdZMdqOTeKYVeZk=;
-        b=fPotHw5TNgAG1DvjKHeeNFw3mdbPW4KCVnVsLGzh8VKTanMkFlkiqWHLflZQOLxD8a
-         h4vqwXWWu8Q+/NNicI/DRI2KYvpI4qW4ELZXYzFswyOzF+rQBotKeObOGRZYR5ltmVhH
-         MjVU7QUakU6JyVVRbmarY0PPS9ryo/Dhc665IxRPlBfG+4/4lF3M7gnnwzUvBuYgEKJa
-         ml+M1Fo9MdwRJnJ7Kg86oak817hk/o83M+Eol7+CpiOJ9niX1+zbInT00VmT7hx1gZJi
-         pIsgiACPXHefFpEwDJGer61DEKuuvmIT9OTjZbSeHv/6zNk2y+TsN5uGw13i+DAfbzQT
-         TfNw==
-X-Forwarded-Encrypted: i=1; AJvYcCXW1g0w5srL7OqAoMzE+O/4UHpLldWWIgIgAqWewsUs19ZBmtjStcmWwenEb2rUk/8J7LFUilQSzJU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzfnPvpoL2ECEETEuUdmSCLavDO8QBTqVU7fiw9j0ftugVr6BGv
-	oh31smGwkGW0vGfQaEObenzrOdm29lt1uhFtKDK8a0PZtEXuOAhpzIFo
-X-Gm-Gg: ASbGncvvnOSK5Xxfk6uNQIoMIByNuMwkEesVODQpuQdrvuBqandhnj9IRFSuKC40COX
-	Gcg030dPpG1Tuc9csgTp+YmusiOO94nQQr+j4zcEWFa9jJjuYfsmkl8OdjvFjybQT5gle4cD2tl
-	pNPfwmKQHpoU1hMu7SmRqDePyyNUnm5bmDPqiHnBKg0+a+nT9ccS8a5DAL+A/6yENyesvJtPVmo
-	9BC7ihSnbgyCQtaddy+V620fRdsn7TRAE70i6FDd3oXKRGXJ3mZfCrU/onX7wc9V/8uPKqa1sl2
-	gFVsLIFuldOKDd4e3uyQJNRUsNAFFpCwWfRDGFFDXaFGfAwEBXYjchPFETFbgezXuM+O8TBaA2B
-	zHqOeRhb6BzcLMp2blonNbt4OJI1so24La/WiA5qoJoDU7LJYqA5IxS0Oq5E3bYZ390A/qQ==
-X-Google-Smtp-Source: AGHT+IHU+u4c4m70sp/Km2qphWV2GETQaiqBJlBLQ9oH8KuDbSRxjLHzXNgoB+GOOUcEEs7QOw2HMQ==
-X-Received: by 2002:a17:903:944:b0:295:7f1d:b02d with SMTP id d9443c01a7336-2962ad3340fmr26429125ad.22.1762314116721;
-        Tue, 04 Nov 2025 19:41:56 -0800 (PST)
+        bh=YULlj58qL4zgqYnaxIvN0IRxkfnew4hxgBmocTGIAOg=;
+        b=PwDPgNaUYY1mkDa4OUKLikmSR+l/IoEnlP5AEJV7k4wHl174LIc2y4h6OPN1gxm7Pl
+         iuomLMzAmw8LxCZh3P377zOisUtaHPGdH61NydQFS+WKUfa2e4IzrDwjQYXT2Y4DGbFB
+         G/3jwD1XMwHNSjhkBMLhl6albD1YmsY49rzkwGtdTLdvaTOzV3nVQ1qElMmv6bsFfnj4
+         LglSRqPurlO/zgyc09Xj8/nl1DG001TWh4neS2WJlNKdszsNqlHFWFMt++1aHAvCtIgN
+         aBZFfIDVbNHinhjC/ow8z+UUZsip2GrRK6qVcK93iPGiYFI3qXTcI9IWRNIXnhe4fOJf
+         /vuQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVgrs2xCGs+a4CGbUhW0ORZyI8XBwNqB0LU1cAXU4o/rUVxjXtIzN84OvlVnIddF+7LqrkHnDXWPf0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwXPTLk67N38XLpzEpQpCb7YNrRl0nTWcbXlBSABcyMo8o/afmg
+	UmZwjIk2snFyVQSsAixKaAD3zvRjAjH8MT01qzrdx8fnXKiNJ8+mJjDJ
+X-Gm-Gg: ASbGncv0zHtLyQhkLH2WfHsvx3UUGEQa1ZarE97YYuHTpifXSnYjyJ/+YxbyUn9hG0h
+	8CAEbxpI3D6iLkAMwCCwGrqinxltRcv4A4L6b8rMyzNLJ9apvG8uAG1GA0fjSQPkysUv7lGMdXa
+	/GbVeyi7N3p/GqGrNldNL/+BmzBHDHVhrwEnjUw+4Aa3rOhLI7KNZkV6dHNPMYl+/qrKUy8/K0F
+	mXd+sFday7ZdEkUXOJmiygrT2Z3V8zGMc4B5q/2Z/CKZSA0bcDD/wI0fcQ8Z9w36ktyGebRY1AK
+	3OBeBUqXk7pO83Kd+P0DF2gLrwJYcPjmaNnoZjtsG5kRTdnsjJb2eIR3lynBU1owydNlWewGraE
+	uanZZjMVWo7nbWUR6VZwBj0+/ftD7dcmL17vmX5QcPuF1IGAJ0D9gNggWCafl4Z3KsqDiPA==
+X-Google-Smtp-Source: AGHT+IEGT+eOgR9ydzqm23BJtuNpA3RB5HWaj5Ha9KjzqVJ/S6kqSTkQbIaWCHaOF+SdxbuTbYvUtA==
+X-Received: by 2002:a05:6a20:7483:b0:34e:63bd:81c1 with SMTP id adf61e73a8af0-34f839f5a57mr2604485637.3.1762318122822;
+        Tue, 04 Nov 2025 20:48:42 -0800 (PST)
 From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, 
@@ -97,90 +97,75 @@ Cc: linux-kernel@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>,
 	Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>, 
 	linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, 
 	sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
-Subject: Re: [PATCH v4 03/12] powerpc/mm: implement arch_flush_lazy_mmu_mode()
-In-Reply-To: <20251029100909.3381140-4-kevin.brodsky@arm.com>
-Date: Wed, 05 Nov 2025 08:45:06 +0530
-Message-ID: <87pl9x41c5.ritesh.list@gmail.com>
-References: <20251029100909.3381140-1-kevin.brodsky@arm.com> <20251029100909.3381140-4-kevin.brodsky@arm.com>
+Subject: Re: [PATCH v4 05/12] mm: introduce CONFIG_ARCH_HAS_LAZY_MMU_MODE
+In-Reply-To: <20251029100909.3381140-6-kevin.brodsky@arm.com>
+Date: Wed, 05 Nov 2025 10:10:33 +0530
+Message-ID: <87o6ph3xdq.ritesh.list@gmail.com>
+References: <20251029100909.3381140-1-kevin.brodsky@arm.com> <20251029100909.3381140-6-kevin.brodsky@arm.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 
 Kevin Brodsky <kevin.brodsky@arm.com> writes:
 
-> Upcoming changes to the lazy_mmu API will cause
-> arch_flush_lazy_mmu_mode() to be called when leaving a nested
-> lazy_mmu section.
+> Architectures currently opt in for implementing lazy_mmu helpers by
+> defining __HAVE_ARCH_ENTER_LAZY_MMU_MODE.
 >
-> Move the relevant logic from arch_leave_lazy_mmu_mode() to
-> arch_flush_lazy_mmu_mode() and have the former call the latter.
+> In preparation for introducing a generic lazy_mmu layer that will
+> require storage in task_struct, let's switch to a cleaner approach:
+> instead of defining a macro, select a CONFIG option.
 >
-> Note: the additional this_cpu_ptr() on the
-> arch_leave_lazy_mmu_mode() path will be removed in a subsequent
-> patch.
+> This patch introduces CONFIG_ARCH_HAS_LAZY_MMU_MODE and has each
+> arch select it when it implements lazy_mmu helpers.
+> __HAVE_ARCH_ENTER_LAZY_MMU_MODE is removed and <linux/pgtable.h>
+> relies on the new CONFIG instead.
+>
+> On x86, lazy_mmu helpers are only implemented if PARAVIRT_XXL is
+> selected. This creates some complications in arch/x86/boot/, because
+> a few files manually undefine PARAVIRT* options. As a result
+> <asm/paravirt.h> does not define the lazy_mmu helpers, but this
+> breaks the build as <linux/pgtable.h> only defines them if
+> !CONFIG_ARCH_HAS_LAZY_MMU_MODE. There does not seem to be a clean
+> way out of this - let's just undefine that new CONFIG too.
 >
 > Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
 > ---
->  .../powerpc/include/asm/book3s/64/tlbflush-hash.h | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
->
-> diff --git a/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h b/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h
-> index 146287d9580f..7704dbe8e88d 100644
-> --- a/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h
-> +++ b/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h
-> @@ -41,6 +41,16 @@ static inline void arch_enter_lazy_mmu_mode(void)
->  	batch->active = 1;
->  }
->  
-> +static inline void arch_flush_lazy_mmu_mode(void)
-> +{
-> +	struct ppc64_tlb_batch *batch;
-> +
-> +	batch = this_cpu_ptr(&ppc64_tlb_batch);
-> +
-> +	if (batch->index)
-> +		__flush_tlb_pending(batch);
-> +}
-> +
+>  arch/arm64/Kconfig                                 | 1 +
+>  arch/arm64/include/asm/pgtable.h                   | 1 -
+>  arch/powerpc/include/asm/book3s/64/tlbflush-hash.h | 2 --
+>  arch/powerpc/platforms/Kconfig.cputype             | 1 +
+>  arch/sparc/Kconfig                                 | 1 +
+>  arch/sparc/include/asm/tlbflush_64.h               | 2 --
+>  arch/x86/Kconfig                                   | 1 +
+>  arch/x86/boot/compressed/misc.h                    | 1 +
+>  arch/x86/boot/startup/sme.c                        | 1 +
+>  arch/x86/include/asm/paravirt.h                    | 1 -
+>  include/linux/pgtable.h                            | 2 +-
+>  mm/Kconfig                                         | 3 +++
+>  12 files changed, 10 insertions(+), 7 deletions(-)
 
-This looks a bit scary since arch_flush_lazy_mmu_mode() is getting
-called from several of the places in later patches(). 
+Maybe we can add this to ... ?
 
-Although I think arch_flush_lazy_mmu_mode() will only always be called
-in nested lazy mmu case right?
+Documentation/features/vm/lazy_mmu/arch-support.txt
 
-Do you think we can add a VM_BUG_ON(radix_enabled()); in above to make
-sure the above never gets called in radix_enabled() case. 
+#
+# Feature name:          lazy_mmu mode
+#         Kconfig:       ARCH_HAS_LAZY_MMU_MODE
+#         description:   arch supports arch_{enter|flush|leave}_lazy_mmu_mode()
+#
+    -----------------------
+    |         arch |status|
+    -----------------------
+    |       arm64: |  ok  |
+    |     powerpc: |  ok  |
+    |       sparc: |  ok  |
+    |         x86: |  ok  |
+    -----------------------
 
-I am still going over the patch series, but while reviewing this I
-wanted to take your opinion.
 
-Ohh wait.. There is no way of knowing the return value from
-arch_enter_lazy_mmu_mode().. I think you might need a similar check to
-return from arch_flush_lazy_mmu_mode() too, if radix_enabled() is true.
+As for this patch, the changes are mostly straight forward around the
+configs part. This looks good to me. Please feel free to add: 
 
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 
 -ritesh
-
-
->  static inline void arch_leave_lazy_mmu_mode(void)
->  {
->  	struct ppc64_tlb_batch *batch;
-> @@ -49,14 +59,11 @@ static inline void arch_leave_lazy_mmu_mode(void)
->  		return;
->  	batch = this_cpu_ptr(&ppc64_tlb_batch);
->  
-> -	if (batch->index)
-> -		__flush_tlb_pending(batch);
-> +	arch_flush_lazy_mmu_mode();
->  	batch->active = 0;
->  	preempt_enable();
->  }
->  
-> -#define arch_flush_lazy_mmu_mode()      do {} while (0)
-> -
->  extern void hash__tlbiel_all(unsigned int action);
->  
->  extern void flush_hash_page(unsigned long vpn, real_pte_t pte, int psize,
-> -- 
-> 2.47.0
 
