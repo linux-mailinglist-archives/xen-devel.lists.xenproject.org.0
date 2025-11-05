@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D625C35295
-	for <lists+xen-devel@lfdr.de>; Wed, 05 Nov 2025 11:44:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1156098.1485398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFB63C355D3
+	for <lists+xen-devel@lfdr.de>; Wed, 05 Nov 2025 12:31:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1156112.1485407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGazL-0005TG-Gy; Wed, 05 Nov 2025 10:43:39 +0000
+	id 1vGbiJ-0003Xg-N1; Wed, 05 Nov 2025 11:30:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1156098.1485398; Wed, 05 Nov 2025 10:43:39 +0000
+Received: by outflank-mailman (output) from mailman id 1156112.1485407; Wed, 05 Nov 2025 11:30:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGazL-0005Qg-E4; Wed, 05 Nov 2025 10:43:39 +0000
-Received: by outflank-mailman (input) for mailman id 1156098;
- Wed, 05 Nov 2025 10:43:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vGbiJ-0003Vr-K9; Wed, 05 Nov 2025 11:30:07 +0000
+Received: by outflank-mailman (input) for mailman id 1156112;
+ Wed, 05 Nov 2025 11:30:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kLci=5N=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vGazJ-0005Qa-Uw
- for xen-devel@lists.xenproject.org; Wed, 05 Nov 2025 10:43:38 +0000
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c201::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 47be7431-ba34-11f0-980a-7dc792cee155;
- Wed, 05 Nov 2025 11:43:35 +0100 (CET)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by AM9PR03MB7850.eurprd03.prod.outlook.com (2603:10a6:20b:431::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.8; Wed, 5 Nov
- 2025 10:43:33 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9298.006; Wed, 5 Nov 2025
- 10:43:33 +0000
+ <SRS0=fQBk=5N=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vGbiI-0003FY-35
+ for xen-devel@lists.xenproject.org; Wed, 05 Nov 2025 11:30:06 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c5dff474-ba3a-11f0-9d16-b5c5bf9af7f9;
+ Wed, 05 Nov 2025 12:30:04 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-b7277324204so25026566b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Nov 2025 03:30:04 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b723d3a2fe7sm488099866b.4.2025.11.05.03.29.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 05 Nov 2025 03:29:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,348 +45,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47be7431-ba34-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Fhc/ZhB1WIhBFHTaSDR9ElLDODt4hyqfG6dbY75IwTZeBp6FN35HSAsDt3wNRD+dxF8Wvzx8cY/Ouw4TNGHQMd21aErA27Qb69qSUZf1hyuumIn8yKGRu/VymNQait8O5ekpPNoM9rZy6rvHRqGidPnB9+hg37SEgRgKhHCDGdH1DqedDc0jxRMXr3k2rZi97/J21DI/Sb2zG5TEl85r04mz8XHNEE+7pD7jGvS6P64j2dQJ/C6vG3Ouug+PN3hk8goBDvZPdZh53xoV1mobC9HA7xiBQVRBh01dDsi5547gNqY0K0gvgQtpDTZqmAHZZvy1rpMJxbov90E/fNY4jQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SRGZMcfCwTi8UrNj8i4pmZkdfJpeanRI9kKk9JsV5CE=;
- b=s5oTlDtF44G/BKmRwemPhzLV5HnrvW1Z7+hwYkDe2oYgqQYAW6zkDUa0SuSdLCRetps/zv9mqPAgZU6QpPd+oCIrEQ/k/+e2UqlCt9lnPRCFBk8/yRO8PIh3M9vX7pWsfU0rrxS6cWt4akZcAfBtf14tnH9iLoLGzt9w/MCZXdF/XrTvgks8TELD+yhXrDTzGmgsDfnJxM6Xm1hfUS3rGWVXc76aN3cbb5XY3bZV/t2aEWT/dTSlb4a6Ku0A0uW9wDn/hk+vF7Rs/jpO9eobf7Ocf4l446jL6v8Te7DDqEleH5tizRT+LpzYaXGpLCMhS5kwszHDm2Mf6CJeScnhsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SRGZMcfCwTi8UrNj8i4pmZkdfJpeanRI9kKk9JsV5CE=;
- b=sC2VgcGptXZ1g+ML78Mzt6RO4NuUDQwVQRMSg/61UPlhf/yQuY+xdqf96SAFUlQ5OO/OcyhVXc5/UX0KmPPeIOpsdeNgFpuSXSdpYGQQtldLHhYpDKYKUKnJQovZvk6wMAofuBgf5odSGA3rPYKyrZAv5F4fnm79Q/2nl6TRiVFyL0MvNjeNWvkYAcFpmhs+QMm2BoquTK5i/HoBeMfuqxFliZIG8sSPDZ5+UcxQcnfYuP2Cm9BkIKJLqbFTghjm1nuW88hCnAbSh34+3M7uZw+pL3j5Kpn8lcUwI/kkAz3mMman96S30gl0z27/zTcWYbi/z2EYM7wTEMRPu7x//Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <e4f69cb4-6552-4e75-808e-af58b138522f@epam.com>
-Date: Wed, 5 Nov 2025 12:43:31 +0200
+X-Inumbo-ID: c5dff474-ba3a-11f0-9d16-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1762342203; x=1762947003; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dmCwwXku2+1/JMALc8pzifXhy1h2tHVWfXtnVGTLoBo=;
+        b=CplF72+NttaQOHVgE9H2sgHbQ+6/nos2cM1tamEdMWVnsXdKy1av72Un6wegTg3U63
+         jlem/RF6tIkC50Sm/4I87QxnbekgFikB96b3hOnhY0cguBFIR7R/U90kh3cwEOGPSfG9
+         jnGts8nEFonSPClEuWNK2f8FZs8bhXinBHyZ1OTO+cydrn2Bid1hH3DyrnJ6APoy6Ico
+         OFMQZCeXhA87fkK1FDQHtGjQ1wSt82IPTxS9sgtqBDFy9n/nBsmPrqMukQPj9G5YsJhp
+         DikERnSsfMSLZsDIsv+6YYmRdFS1tlkHuB88TvgnsATg30GmAGXPmuHyhRSGk0MNo4Dq
+         3hGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1762342203; x=1762947003;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=dmCwwXku2+1/JMALc8pzifXhy1h2tHVWfXtnVGTLoBo=;
+        b=CpRhV7Ih0EOevaLuXuCV70Q/iNdC0fQumr587hsjvp4I7FPRMEfEjv7pHaI0QU2Ayc
+         7dZMkyo1pEBnBm5qt0HubKezqZ9e1jMPASM6z5yV+Z9m/h+X+aNRMEBNpqiYHjzm2dVd
+         ZXtx74SsL9Yt+YW8x2k5HMEkK1qq+8Li+EwAX6ykxfGlCOBevL/xQdi0Zqv7V9NAusuG
+         N9ypKpEQglC53IyzRTM01P2ybZ6Jzo1hp2mLqDTVQ/vTaFRkKp2iYqlH6LO4tOw3JmmX
+         zQwAk1YGVm3lsT/q4cX0kkJUeHXaPQhKu20X4KIvvMi+tb3AAFMemTCxjmdO1YiPVwCZ
+         BMtA==
+X-Forwarded-Encrypted: i=1; AJvYcCUc98IWT9vE4hNPTN+1+kT8OO5YUr9jVFWC32UhyjfVJuyOrbzlA/EDetBSjSGGj0CLiOiHd32TBVU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yze7r3rCNpJNJT7ioIyHy3bDbK3cA20BIsjKDJt1EEuLrApQyQI
+	Tntxph4zHoy3T8Kd6I83OEdwyIbOj+6GOD31TPKdx8xrQLDIkbXUbTRB
+X-Gm-Gg: ASbGnctmY2cq09GQLjVLRVLJBOrUNpcOLWId2k0gD7bHTIgtK8RBD4czUdlvTSnIuvl
+	uhx+GWXjSvf8lopfiNUfm7QEP+5iol2V2UDuGn6//84JlsxnzHdzecji6Rbp4qHMZID9HFVhPWQ
+	3Ekb+GPbAB18d9aGOlS1GsNo1/lA4bh5hVKKWeCjR0qT5xvexY9ivtDFMFqvWyf+pfwnli+MiQR
+	z9Vn18kX3f2S8slv2HPfD87hOyU1Fs/rtVrNWbASIA/oVoCklpVOKuSM6QRGSwPrKGJeYeNu6Al
+	t+r6yJFSNi56dD1CoXdIEXTN29DkXnL77j7sOzDm+nWdVIYD/Ox42n7TX3A5/OsuICRL+0o5j4r
+	ZzcPEp3hM5RKukRCEL3ed9YIVLfaf1YDOgEtl/nAkJP+bmV+jhcI1JuXCyTFow6IGXo5g8YRIpD
+	Cmxv4XTTbathf0Yov+PsQuXjziRhGajdDoX9US/TcFRObGB+yMVA==
+X-Google-Smtp-Source: AGHT+IE2vG7r8CYho0CP/1z15TYNpuk9z/6rZteOwX/GNC9s2AJPnELYU5RlgqEuivo5gzmgzBeJrQ==
+X-Received: by 2002:a17:907:948c:b0:b70:df0d:e2f1 with SMTP id a640c23a62f3a-b72653ec470mr279791866b.28.1762342198724;
+        Wed, 05 Nov 2025 03:29:58 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------vymPjakhxxNLm3P05sF51UWp"
+Message-ID: <c64f865b-3a53-41f4-9800-9a85c3a6099b@gmail.com>
+Date: Wed, 5 Nov 2025 12:29:57 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] xen: make VMTRACE support optional
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Penny Zheng <Penny.Zheng@amd.com>
-References: <20251031212005.1338212-1-grygorii_strashko@epam.com>
- <aab7824b-4485-41f4-8ad6-572ffa0ca4f3@vates.tech>
+Subject: Re: [PATCH] ocaml/xsd_glue: Fix dynamic linking configuration
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@citrix.com>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ Rob Hoes <Rob.Hoes@citrix.com>, Pau Ruiz Safont <pau.safont@vates.tech>,
+ Andrii Sultanov <andriy.sultanov@vates.tech>
+References: <20251104165644.4011663-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <aab7824b-4485-41f4-8ad6-572ffa0ca4f3@vates.tech>
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20251104165644.4011663-1-andrew.cooper3@citrix.com>
+
+This is a multi-part message in MIME format.
+--------------vymPjakhxxNLm3P05sF51UWp
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: WA2P291CA0037.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1f::17) To AS2PR03MB8907.eurprd03.prod.outlook.com
- (2603:10a6:20b:5e4::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|AM9PR03MB7850:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ef3dcbf-5866-41cb-dc81-08de1c582a91
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RVF6OHVBYXdJTzJ3eTNEQWcycTVJRGlEVFJqemFmMmlTbklWK09sdGUrb2lJ?=
- =?utf-8?B?SU13TFVNdGd3Z2NZckVrMlRRZ3VGcENndCtsb001cVRERDZ2Q2FaY3BQcHFM?=
- =?utf-8?B?Q0doYmZiVGRIdytxbzhhNkpjV29oOW56REo5Yi9DRDdpcm9PTnRKWXFXWlNW?=
- =?utf-8?B?NDcxWUJYdG1DVHVHd3VSQjdlYncyc0hOSUhyYjlmeGFENkVLUzM5TlVZeGJk?=
- =?utf-8?B?S2ZpWUhjZFFvbWNPdEJDUWVwa0RXMFJpSjhRUVo2d1FwbGRnUi9Wc3BhZUVM?=
- =?utf-8?B?Z1RqelpYaHpSNXM0TGRwaU5BbGM3WE8xQkxjZDFxWHVCVWZXL2MvZjlybGgz?=
- =?utf-8?B?bHlkajNROXdSMHdqckNmVnpFUGJWd3E0cUl1dWRGMmU1ZnVGZVlNSTRyN1k5?=
- =?utf-8?B?SC96UzFGbytlVXdRUWY1MjFUMXpleDVUSXlSampaSkZZZkNEbE1KVW5pVVJy?=
- =?utf-8?B?RHR3aHczNkdlUjRab3JDd1pwSWd5cXFrekdCd1NULzNZNDkyeHhCTXk4VU94?=
- =?utf-8?B?Zk5ySXorTmZYaEh6aUJRdWtpNzFsZ1dGY1FCY3JoWEhEOGVTSFJ1UTdHT1JQ?=
- =?utf-8?B?T05DSW9OV1EyUUlVVlVuL3dLeVhsTjBwSUVQZExFbG04Z0Jac0xNVXFMY3g3?=
- =?utf-8?B?NW5EMUZ1TXcvc1BOaUphdXpwVlNNdHdOVDlUS0dBOTllWHY5M1UwVUxxSTNU?=
- =?utf-8?B?UkdLdTlFSjROSWYwVUdLS2lSMTE4dXA0VU40VCtRK2xXcTVKcFdUQTRDejNV?=
- =?utf-8?B?dVZROTRzZEU1L1o4K0VHNit6SWx2ZTVsZFZWbW93Nk40UVVydE42ZHN6Rncx?=
- =?utf-8?B?cFdhVmxZTkpOZ0Q3T0dTWEZJODUzM0tCanZGU0ppN3ZWSmwyVVBFZCtjbzBm?=
- =?utf-8?B?QlZGSmRDMmVxZjFqTERFbXpFMTk5WlZOTnUzRjNzRmZ5dDlBYzFIUHl2QXhU?=
- =?utf-8?B?OENLb0x5bzJuc3dpSy9GQitkV3ZJWStUbkdwd1REaFFjZ3Z0czVWL3o3bXg5?=
- =?utf-8?B?ZUZVdXhlb3NXakFKVVY3RzUrVndva3lHQ2ZXTlZLZ0dseC90ZGZxWUVzMWNL?=
- =?utf-8?B?dWZOWldqUXBPL1pOb1BWdm9oVGd6MmlnbVR6Vlh2VGZUVVZQaVl2NlNVb0dS?=
- =?utf-8?B?Q3dBMkE4RWNKSmNxcE9zL2pxdUlPaXNiNWtaeUJhOTBIUExaSjJsZUd3TEZ1?=
- =?utf-8?B?eVl3cUs2VDhwQjViSVdhV01MNFQzb0J0UlVKSFFOQVpxQUpFb201bEV2dUpV?=
- =?utf-8?B?VkduUEdtNEtERlNzYm81NlllKzF0UGd5MnNqMnZzdXNqcWF0eDRsMXdsSUdH?=
- =?utf-8?B?YUFMd1YvRDdHVG9EK0V2Y0dQMDdkYW51aTVTRWR4dFBJKzlSYTY1R3FCZW5X?=
- =?utf-8?B?OG8wa29TTXhBeWhGempydU95ckduMVpyNlg3ME5uUThQajJnSXo2OUN3NTFw?=
- =?utf-8?B?MzdNM2lLSm5GYnhJR2VPNDFtd2g3bEFBN05XcnhIYjkvU1JOL2UzNEc4RkEx?=
- =?utf-8?B?ZXhESkhjSFc5YVRyU0J1T1hOUExIVHRZTmdUNGhXU1R6ZTdIRFUyRTUyb255?=
- =?utf-8?B?bWRxRHNNZmc1ZGxpd3NuNG1uUUM1YlNPZDJsaG5FVkYwODJzalo2Qk10WExq?=
- =?utf-8?B?YWdyYVdXdVFJNDZKVisyQVM3ZGNmeGNGaDV2R0R3ZkpMalI4aFFHVGJRcXJw?=
- =?utf-8?B?eVYyK1NVcGxDcDk1cmZzbkFjaGUvS1ZhbnlJdkNlTU9FMWpVMVREcnFBeU5D?=
- =?utf-8?B?TGlKOWlBYlRIOTBNK3pUd242bUFYdG8zUzVLcS9ZQkNUT0VLeHdVWDNNaElR?=
- =?utf-8?B?RkEzNHgwV2RzU2JRZWVGTG10YlcwOGtjbXhxckZpWkhaMC8xYitvd3ppM290?=
- =?utf-8?B?T2Q5ZWw3cXdXN2hna2thOEhjUmZyZHhYaDdTTC9jT3NmSkk2bUFkdUorZlFn?=
- =?utf-8?Q?YNcaBDW0wHSHyqur2KA9k+bGvYaW8Gpy?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cGgzQXFiQUVNdHFxRlBPZFR6TnNLYzRON3N5OFg3WjZTT0czRDQyVjRFblE2?=
- =?utf-8?B?cEN6K3h4bkFzZWZUd0VLeU5wWitld2RVQmNtWU9sMGNLY0pQK3JJT1oxeGZ3?=
- =?utf-8?B?b0o3eEEzSVBITFlkWmdtclB2VSt0TThhMy9CRXM0Qi9Jd3VDdlBwQUxnNHdl?=
- =?utf-8?B?TEZSUFRtOUVXcEt2V1BVV0o2VXdhRklzRUk0d3gyUCtWYlJzclNXU1dpOE5O?=
- =?utf-8?B?ZWd4T1ZWR0RMTlNyc2JGSW9JUnExRkRuUmtEbSt2RjZGcFZORGlFSGFuNnlC?=
- =?utf-8?B?R01PVXAveEdCU0hJK2h6bnlsb2tFdXpubVJUUzRrN1lJWGJ5SG9aNEk3VS9O?=
- =?utf-8?B?SC9UOTJEbGZEejR4RGZFNUh2RVlhM1VMMXJ3TENPY3ZTb1NvVHE1Nmt5anda?=
- =?utf-8?B?MWNRYmg2V2Z1VDI1Uk9QTTk4TGE0bkFOellMNEY5bjhuL0VISDlwRzVOWHpm?=
- =?utf-8?B?KysxeVJSSWxwZnQ3cDFYU2VBY3BwU283dDJOeWp0Q3JwTldmSVIreVlPbFhM?=
- =?utf-8?B?NTBwRm9JNCtsdnBYMlJyMTdLNXFQSDJDVEJpR0luWVZmWmwwYm1CMWRFd1BE?=
- =?utf-8?B?VDZxRVhCV2tqMlVlUC81RndwMlRtU0pNZnA0cVg3bVhGaWN2YVlrREFZTnJM?=
- =?utf-8?B?dEFvdEFYeXdPWmpsRVFlRGFiWGJqQU43ZmNKMmRnb2VRSjJRQkRVdXdpaDNB?=
- =?utf-8?B?c3VIaHQxbFhSaTBacHJRNmYvOWtlYStVOVNCOVBCQ1NIb0h3L1c1MHlDQ3Bi?=
- =?utf-8?B?dW5NaEgrZmk2YXRTNWMzaDJGQ0hqNm80cHNPb1NlTXo5M3dxTUIxSWcrTllZ?=
- =?utf-8?B?Y2l1SFpGN1pxYmg5MDl1MGNocVYwdUErME51YUFCanpaNmFhMFdSVWU0Q2JO?=
- =?utf-8?B?SFdXOFhWMEdTM1pzUWVINkk3M3U2UG9wTGNLaWlCelhEOGlZMmRBem0rTG90?=
- =?utf-8?B?YjVYeUw3NG5qTEV1MmJSL0tBazdPb1o0VHF1WWp3TDBuYTFCMFo2bk1qWVdZ?=
- =?utf-8?B?MVJOdDI1T1FFZzM1djhGejlIU3pXeEpHeWs2Ulg0ZW5pWjg5U2FFbmFodDlM?=
- =?utf-8?B?dCtRRDhaZ21kaGtXc0QvajZaSTBDQ2ZWVk5yK0prVU11VVMzNUFYcGVRSkZR?=
- =?utf-8?B?NUlSQVRzTFB6WFpJZWRsS3F6Z2RieWcwZlY4Z2lkcU1VTXpCZ3NiNUlONzZQ?=
- =?utf-8?B?RTVQckZnVEJ6UEdzcEo2eGpQck12ZjJuZ1NYbzRJQ3daeE1neEVxMWZoTlhp?=
- =?utf-8?B?d1RLNmcya2tObWJjRlVvWkFkZUp1MGVKdjg5MXBhbTE0dnRXWGpjK2l5V2tR?=
- =?utf-8?B?dzkweEUxdUVFTTR2ZXVBaEZidGp4UmVReVdNUGFqRjRuVG9IcER1Mk5hT2Fp?=
- =?utf-8?B?WVZRYjhPRlZmRlZ0SnhFZGtBVzZhV3lLUGp6VS9pUkx4VE11ZVpFT2hYNDNn?=
- =?utf-8?B?cVVvd0oyVXB1ZVMxS2x3S2lrek1vRkV4MFp5U3dRbzBwZ1RYN1hPSmdFK2tB?=
- =?utf-8?B?bkErUHBaZ2JaL3loMkV6QzFJZk8zdlJjV2ovNFpoRDJWdDNiWU96WDRHRzUy?=
- =?utf-8?B?RURpTWxKVkE0amp2RHNtdHBCQ3huV2l4amw5M1JQaDE0NWZkVmZJMjVrbERa?=
- =?utf-8?B?ZnlvbXk2c1YxZllxckRlZG5BdnlIWUJmSk9kZ0EvU0hkUXNpNHlMWGl0azVN?=
- =?utf-8?B?MjNOVjJzQ2QxSzFZWSswUlkxRUlKdENHNytVU3FyRnlRR3N4SEkzd29TdHQr?=
- =?utf-8?B?VlhEUzliZnRNYVhRMUhobjJwV2pTclh0QjlzbXZWNVJqZFZyYlkyMTlTd1pp?=
- =?utf-8?B?UDNlaGlDSzVwTHRQWndBTk5SQ1lKZmo4aU5CSDEwVTB3NTQxS3Yxd2Q4bTNj?=
- =?utf-8?B?MUtDbDU4K0RaRlFIV3NZU0h4Wjl3RGJlWGRJM281aHcrVEV1VHFiNWxEUHZV?=
- =?utf-8?B?amRheGZDZ0lneGxzQUhHUG1ScVZidjBuMlNDNWtucnRlYytVV1B0Z3Zic0N4?=
- =?utf-8?B?ekxvdXBBL2xHdjJqcStNazhEN2poY0ZSUEZ3Wmp6S1oweEtVOUNtSTFLOXhV?=
- =?utf-8?B?RWZBS2V3Wkxid0lHeFg3WmtPbGlFVktNN2s4OEcvZnRCUS95WFFoMTNGMEJo?=
- =?utf-8?B?RFZTZWlRQkN3YUZsbkFjSlV3M3lLbkxWWkloNnowTGs4b3ZXTDlCQzN6U012?=
- =?utf-8?B?Nmc9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ef3dcbf-5866-41cb-dc81-08de1c582a91
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2025 10:43:33.1578
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w3h9acnDYCxUjWoKI4Ci/zFKyclZELP2lzfzqGVYfJ5pWySiQqAId8NhkQXpJCz30qkjzo5Wy8JSNO+NlAnCP0KZ2gItfJ5ViLuycA0fCiM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7850
 
 
+On 11/4/25 5:56 PM, Andrew Cooper wrote:
+> The latest oxenstored from Xapi-project fails to start up:
+>
+>    launch-xenstore[1201]: Starting /usr/sbin/oxenstored...
+>    launch-xenstore[1222]: Fatal error: exception
+>      Dynlink.Error (Dynlink.Cannot_open_dll "Dynlink.Error (Dynlink.Cannot_open_dll
+>      \"Failure(\\\"/usr/libexec/xen//ocaml/xsd_glue/xenctrl_plugin/domain_getinfo_v1.cmxs:
+>      undefined symbol: xc_domain_getinfo_single\\\")\")")
+>
+> This is because domain_getinfo_v1.cmxs isn't dynamically linked correctly.
+> Fill in the correct variable, and remove the xen prefix from xenctrl.
+>
+> Reported-by: Edwin Török<edwin.torok@citrix.com>
+> Suggested-by: Edwin Török<edwin.torok@citrix.com>
+> Fixes: a6576011a4d2 ("ocaml/libs: Implement a dynamically-loaded plugin for Xenctrl.domain_getinfo")
+> Signed-off-by: Andrew Cooper<andrew.cooper3@citrix.com>
+> ---
+> CC: Christian Lindig<christian.lindig@citrix.com>
+> CC: Rob Hoes<Rob.Hoes@citrix.com>
+> CC: Pau Ruiz Safont<pau.safont@vates.tech>
+> CC: Andrii Sultanov<andriy.sultanov@vates.tech>
+> CC: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>
+> For 4.21.  Without this, we can't proceed with deprecate oxenstored.
 
-On 03.11.25 11:47, Teddy Astie wrote:
-> Le 31/10/2025 à 22:24, Grygorii Strashko a écrit :
->> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>
->> The VMTRACE feature depends on Platform/Arch HW and code support and now
->> can be used only on x86 HVM with Intel VT-x (INTEL_VMX) enabled.
->> This makes VMTRACE support optional by introducing two Kconfig options:
->> - CONFIG_HAS_VMTRACE which allows Platform/Arch to advertise VMTRACE
->> support readiness
->> - CONFIG_VMTRACE to enable/disable the feature.
->>
-> 
-> I like the idea of making it optional since it's only used in specific
-> contexts.
-> 
->> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->> ---
->> Based on top of patch "domain: adjust soft-reset arch dependency" [1]
->>
->> [1] https://patchwork.kernel.org/project/xen-devel/patch/c9c8c9c6-a155-4986-bf77-5766cdcd6024@suse.com/
->>
->>    xen/Kconfig.debug                       | 15 +++++++++++++++
->>    xen/arch/x86/domctl.c                   |  4 ++++
->>    xen/arch/x86/hvm/Kconfig                |  1 +
->>    xen/arch/x86/hvm/vmx/vmcs.c             |  2 ++
->>    xen/arch/x86/hvm/vmx/vmx.c              | 10 ++++++++++
->>    xen/arch/x86/include/asm/guest-msr.h    |  2 ++
->>    xen/arch/x86/include/asm/hvm/hvm.h      |  9 +++++++++
->>    xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  2 ++
->>    xen/arch/x86/mm/mem_sharing.c           |  2 ++
->>    xen/arch/x86/vm_event.c                 |  6 ++++--
->>    xen/common/domain.c                     | 10 ++++++++++
->>    xen/common/memory.c                     |  6 ++++++
->>    xen/common/vm_event.c                   |  3 ++-
->>    xen/include/xen/domain.h                |  4 ++++
->>    xen/include/xen/sched.h                 |  4 ++++
->>    15 files changed, 77 insertions(+), 3 deletions(-)
->>
->> diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
->> index d900d926c555..70ec4f0d14a5 100644
->> --- a/xen/Kconfig.debug
->> +++ b/xen/Kconfig.debug
->> @@ -155,4 +155,19 @@ config DEBUG_INFO
->>    	  "make install-xen" for installing xen.efi, stripping needs to be
->>    	  done outside the Xen build environment).
->>    
->> +config HAS_VMTRACE
->> +    bool
->> +
->> +config VMTRACE
->> +    bool "HW VM tracing support"
->> +    depends on HAS_VMTRACE
->> +    default y
->> +    help
->> +      Enables HW VM tracing support which allows to configure HW processor
->> +      features (vmtrace_op) to enable capturing information about software
->> +      execution using dedicated hardware facilities with minimal interference
->> +      to the software being traced. The trace date can be retrieved using buffer
->> +      shared between Xen and domain
->> +      (see XENMEM_acquire_resource(XENMEM_resource_vmtrace_buf)).
->> +
->>    endmenu
+Release-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-[...]
+Thanks.
 
->>    
->> diff --git a/xen/arch/x86/vm_event.c b/xen/arch/x86/vm_event.c
->> index fc349270b9c5..f4c8696ce54e 100644
->> --- a/xen/arch/x86/vm_event.c
->> +++ b/xen/arch/x86/vm_event.c
->> @@ -253,7 +253,9 @@ void vm_event_fill_regs(vm_event_request_t *req)
->>        req->data.regs.x86.shadow_gs = ctxt.shadow_gs;
->>        req->data.regs.x86.dr6 = ctxt.dr6;
->>    
->> +#ifdef CONFIG_VMTRACE
->>        if ( hvm_vmtrace_output_position(curr, &req->data.regs.x86.vmtrace_pos) != 1 )
->> +#endif
->>            req->data.regs.x86.vmtrace_pos = ~0;
-> 
-> This if-def looks very oddly placed.
+~ Oleksii
 
-I assume you are asking for hvm_vmtrace_output_position() stub, Right?
+>
+> This wants backporting to 4.20 too.
+>
+> Previously this was hidden by oxenstored unexpectedly statically linking
+> libxenctrl via the ocaml-evtchn bindings, and became exposed when the bindings
+> were moved to use libxenevtchn.
+> ---
+>   tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile b/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile
+> index 4be1feacfe24..6356159020c1 100644
+> --- a/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile
+> +++ b/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile
+> @@ -11,7 +11,7 @@ OBJS = domain_getinfo_v1
+>   INTF = $(foreach obj, $(OBJS),$(obj).cmi)
+>   LIBS = domain_getinfo_v1.cmxa domain_getinfo_v1.cmxs
+>   
+> -LIBS_xsd_glue = $(call xenlibs-ldflags-ldlibs,xenctrl)
+> +LIBS_domain_getinfo_v1 = $(call xenlibs-ldflags-ldlibs,ctrl)
+>   
+>   all: $(INTF) $(LIBS) $(PROGRAMS)
+>   
+>
+> base-commit: 9632ce6fe5b288244d2550cd2e619a55c5168bf8
+--------------vymPjakhxxNLm3P05sF51UWp
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> 
->>    #endif
->>    }
->> @@ -303,12 +305,12 @@ void vm_event_emulate_check(struct vcpu *v, vm_event_response_t *rsp)
->>    #endif
->>    }
->>    
->> +#ifdef CONFIG_VMTRACE
->>    void vm_event_reset_vmtrace(struct vcpu *v)
->>    {
->> -#ifdef CONFIG_HVM
->>        hvm_vmtrace_reset(v);
->> -#endif
->>    }
->> +#endif
->>    
->>    /*
->>     * Local variables:
->> diff --git a/xen/common/domain.c b/xen/common/domain.c
->> index 7dcd466e5a12..2be6ee03d004 100644
->> --- a/xen/common/domain.c
->> +++ b/xen/common/domain.c
->> @@ -136,7 +136,9 @@ struct vcpu *idle_vcpu[NR_CPUS] __read_mostly;
->>    
->>    vcpu_info_t dummy_vcpu_info;
->>    
->> +#ifdef CONFIG_VMTRACE
->>    bool __read_mostly vmtrace_available;
->> +#endif
->>    
->>    bool __read_mostly vpmu_is_available;
->>    
->> @@ -318,6 +320,7 @@ static void vcpu_info_reset(struct vcpu *v)
->>    
->>    static void vmtrace_free_buffer(struct vcpu *v)
->>    {
->> +#ifdef CONFIG_VMTRACE
->>        const struct domain *d = v->domain;
->>        struct page_info *pg = v->vmtrace.pg;
->>        unsigned int i;
->> @@ -332,10 +335,12 @@ static void vmtrace_free_buffer(struct vcpu *v)
->>            put_page_alloc_ref(&pg[i]);
->>            put_page_and_type(&pg[i]);
->>        }
->> +#endif
->>    }
->>    
->>    static int vmtrace_alloc_buffer(struct vcpu *v)
->>    {
->> +#ifdef CONFIG_VMTRACE
->>        struct domain *d = v->domain;
->>        struct page_info *pg;
->>        unsigned int i;
->> @@ -377,6 +382,9 @@ static int vmtrace_alloc_buffer(struct vcpu *v)
->>        }
->>    
->>        return -ENODATA;
->> +#else
->> +    return 0;
->> +#endif
->>    }
->>    
->>    /*
->> @@ -825,7 +833,9 @@ struct domain *domain_create(domid_t domid,
->>            ASSERT(!config->altp2m.nr);
->>    #endif
->>    
->> +#ifdef CONFIG_VMTRACE
->>            d->vmtrace_size = config->vmtrace_size;
->> +#endif
->>        }
->>    
->>        /* Sort out our idea of is_control_domain(). */
->> diff --git a/xen/common/memory.c b/xen/common/memory.c
->> index 3688e6dd5032..66dc7f7a0a41 100644
->> --- a/xen/common/memory.c
->> +++ b/xen/common/memory.c
->> @@ -1155,8 +1155,10 @@ static unsigned int resource_max_frames(const struct domain *d,
->>        case XENMEM_resource_ioreq_server:
->>            return ioreq_server_max_frames(d);
->>    
->> +#ifdef CONFIG_VMTRACE
->>        case XENMEM_resource_vmtrace_buf:
->>            return d->vmtrace_size >> PAGE_SHIFT;
->> +#endif
->>    
->>        default:
->>            return 0;
->> @@ -1198,6 +1200,7 @@ static int acquire_ioreq_server(struct domain *d,
->>    #endif
->>    }
->>    
->> +#ifdef CONFIG_VMTRACE
->>    static int acquire_vmtrace_buf(
->>        struct domain *d, unsigned int id, unsigned int frame,
->>        unsigned int nr_frames, xen_pfn_t mfn_list[])
->> @@ -1220,6 +1223,7 @@ static int acquire_vmtrace_buf(
->>    
->>        return nr_frames;
->>    }
->> +#endif
->>    
-> 
-> Given that vmtrace feature is fairly isolated in VMX code, wouldn't it
-> be better to move all vmtrace related functions (including vmx_init_ipt)
-> in a separate vmtrace.c file and make such file gated behind
-> CONFIG_VMTRACE ?
-> 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 11/4/25 5:56 PM, Andrew Cooper
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20251104165644.4011663-1-andrew.cooper3@citrix.com">
+      <pre wrap="" class="moz-quote-pre">The latest oxenstored from Xapi-project fails to start up:
 
-Are you thinking about:
-  xen/common/
-  |- vmtrace.c
-  xen/arch/x86/hvm/vmx/
-  |- vmtrace.c
-?
+  launch-xenstore[1201]: Starting /usr/sbin/oxenstored...
+  launch-xenstore[1222]: Fatal error: exception
+    Dynlink.Error (Dynlink.Cannot_open_dll "Dynlink.Error (Dynlink.Cannot_open_dll
+    \"Failure(\\\"/usr/libexec/xen//ocaml/xsd_glue/xenctrl_plugin/domain_getinfo_v1.cmxs:
+    undefined symbol: xc_domain_getinfo_single\\\")\")")
 
-or smth else?
+This is because domain_getinfo_v1.cmxs isn't dynamically linked correctly.
+Fill in the correct variable, and remove the xen prefix from xenctrl.
 
-[...]
+Reported-by: Edwin Török <a class="moz-txt-link-rfc2396E" href="mailto:edwin.torok@citrix.com">&lt;edwin.torok@citrix.com&gt;</a>
+Suggested-by: Edwin Török <a class="moz-txt-link-rfc2396E" href="mailto:edwin.torok@citrix.com">&lt;edwin.torok@citrix.com&gt;</a>
+Fixes: a6576011a4d2 ("ocaml/libs: Implement a dynamically-loaded plugin for Xenctrl.domain_getinfo")
+Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
+---
+CC: Christian Lindig <a class="moz-txt-link-rfc2396E" href="mailto:christian.lindig@citrix.com">&lt;christian.lindig@citrix.com&gt;</a>
+CC: Rob Hoes <a class="moz-txt-link-rfc2396E" href="mailto:Rob.Hoes@citrix.com">&lt;Rob.Hoes@citrix.com&gt;</a>
+CC: Pau Ruiz Safont <a class="moz-txt-link-rfc2396E" href="mailto:pau.safont@vates.tech">&lt;pau.safont@vates.tech&gt;</a>
+CC: Andrii Sultanov <a class="moz-txt-link-rfc2396E" href="mailto:andriy.sultanov@vates.tech">&lt;andriy.sultanov@vates.tech&gt;</a>
+CC: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
 
--- 
-Best regards,
--grygorii
+For 4.21.  Without this, we can't proceed with deprecate oxenstored.</pre>
+    </blockquote>
+    <pre>Release-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
 
+Thanks.
+
+~ Oleksii</pre>
+    <blockquote type="cite"
+      cite="mid:20251104165644.4011663-1-andrew.cooper3@citrix.com">
+      <pre wrap="" class="moz-quote-pre">
+
+This wants backporting to 4.20 too.
+
+Previously this was hidden by oxenstored unexpectedly statically linking
+libxenctrl via the ocaml-evtchn bindings, and became exposed when the bindings
+were moved to use libxenevtchn.
+---
+ tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile b/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile
+index 4be1feacfe24..6356159020c1 100644
+--- a/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile
++++ b/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/Makefile
+@@ -11,7 +11,7 @@ OBJS = domain_getinfo_v1
+ INTF = $(foreach obj, $(OBJS),$(obj).cmi)
+ LIBS = domain_getinfo_v1.cmxa domain_getinfo_v1.cmxs
+ 
+-LIBS_xsd_glue = $(call xenlibs-ldflags-ldlibs,xenctrl)
++LIBS_domain_getinfo_v1 = $(call xenlibs-ldflags-ldlibs,ctrl)
+ 
+ all: $(INTF) $(LIBS) $(PROGRAMS)
+ 
+
+base-commit: 9632ce6fe5b288244d2550cd2e619a55c5168bf8
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------vymPjakhxxNLm3P05sF51UWp--
 
