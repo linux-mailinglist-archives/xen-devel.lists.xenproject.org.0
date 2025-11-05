@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DB9BC37BC5
-	for <lists+xen-devel@lfdr.de>; Wed, 05 Nov 2025 21:32:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1156380.1485535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29718C37C49
+	for <lists+xen-devel@lfdr.de>; Wed, 05 Nov 2025 21:42:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1156392.1485544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGkAh-000110-Mg; Wed, 05 Nov 2025 20:31:59 +0000
+	id 1vGkKk-0002fc-Ke; Wed, 05 Nov 2025 20:42:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1156380.1485535; Wed, 05 Nov 2025 20:31:59 +0000
+Received: by outflank-mailman (output) from mailman id 1156392.1485544; Wed, 05 Nov 2025 20:42:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGkAh-0000yV-JU; Wed, 05 Nov 2025 20:31:59 +0000
-Received: by outflank-mailman (input) for mailman id 1156380;
- Wed, 05 Nov 2025 20:31:58 +0000
+	id 1vGkKk-0002cx-Ht; Wed, 05 Nov 2025 20:42:22 +0000
+Received: by outflank-mailman (input) for mailman id 1156392;
+ Wed, 05 Nov 2025 20:42:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=N/Bd=5N=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1vGkAf-0000yP-QH
- for xen-devel@lists.xenproject.org; Wed, 05 Nov 2025 20:31:57 +0000
-Received: from mail-yx1-xb130.google.com (mail-yx1-xb130.google.com
- [2607:f8b0:4864:20::b130])
+ id 1vGkKj-0002cq-8l
+ for xen-devel@lists.xenproject.org; Wed, 05 Nov 2025 20:42:21 +0000
+Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
+ [2607:f8b0:4864:20::1129])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 73b6e430-ba86-11f0-9d16-b5c5bf9af7f9;
- Wed, 05 Nov 2025 21:31:48 +0100 (CET)
-Received: by mail-yx1-xb130.google.com with SMTP id
- 956f58d0204a3-63f95dc176fso292526d50.1
- for <xen-devel@lists.xenproject.org>; Wed, 05 Nov 2025 12:31:48 -0800 (PST)
+ id ebd29cbc-ba87-11f0-9d16-b5c5bf9af7f9;
+ Wed, 05 Nov 2025 21:42:19 +0100 (CET)
+Received: by mail-yw1-x1129.google.com with SMTP id
+ 00721157ae682-780fe76f457so2550607b3.0
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Nov 2025 12:42:19 -0800 (PST)
 Received: from [10.138.34.110]
  (h96-60-249-169.cncrtn.broadband.dynamic.tds.net. [96.60.249.169])
  by smtp.gmail.com with ESMTPSA id
- 00721157ae682-787b13df6d5sm1917727b3.14.2025.11.05.12.31.45
+ 00721157ae682-787b159c5a3sm1853647b3.35.2025.11.05.12.42.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Nov 2025 12:31:46 -0800 (PST)
+ Wed, 05 Nov 2025 12:42:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,60 +46,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73b6e430-ba86-11f0-9d16-b5c5bf9af7f9
+X-Inumbo-ID: ebd29cbc-ba87-11f0-9d16-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1762374707; x=1762979507; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1762375338; x=1762980138; darn=lists.xenproject.org;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=n4tr9DoLumWG5/dMzw0gRv3GzahH9Yl6o6b5lFLR/nw=;
-        b=WVHI3sV4v75o9b1VzcS/78mq2a7Q0W27Qd1OJb4M55ZQZpgzoAu1i02sBN+46NqV9+
-         8aJsa9Hw4J6FBuZFAQo2RgASqN61rU1L4SZ911nYM0G5DDY5UWzGOEq9TvBE3co5YDbi
-         fmuGGLLcsKb3Tk4O6Bhtbe0SEBMY2djw7I00oy6oMstNxKcuErHoIz2sOlQbViXwGtYJ
-         SVWE0RTqIGDcQHjlh97QrYtDN8t8cmh7mwFKjoSmgeqEaP2HAzmjEwccd5Iec7WnYt7L
-         OHgsakf2omL/1GvZY1uQuuvSR6EnWD36yHSNQKtcKIgrRsjjSLEE/PUHcoUk/UJfwXxX
-         tQfg==
+        bh=/jBXRvPVDzl9DoeGfK2L7DwQNS6SwHfuRTTZ6EGtk6Y=;
+        b=bUj5tpLOtbfNqZJhryvjagrnkaqN2aeif4NK2D308jtiWsFGe8k3ia+X+IAyuvg/eT
+         Gg7C3cmD7/kT8L9Xo+uZgEg4qAMfVaGSa9vbvhQi02P4JwqxkAv4+D5U/9Vb6oHITZSs
+         XQgpuNacdAlnUUXmA88fM7L3sHBANLX9bqiLtcI0CclpClmx/vL2o45yxU2gooOzdZZV
+         7/rVyYVRLjTl0CcuHWANphtoGtBV/s2jLt+/6O4srTivf9AUM2nZ1jdQiwMErwWQtptf
+         aYrT1e+uGeViZ2STj43MHbgXiKYzZ+EMIPdEdFBgFFHpRRF921NDvjWSTpG50QbUcVye
+         RwKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762374707; x=1762979507;
+        d=1e100.net; s=20230601; t=1762375338; x=1762980138;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=n4tr9DoLumWG5/dMzw0gRv3GzahH9Yl6o6b5lFLR/nw=;
-        b=PFYDvzN9mltqiDP02Ov0JJEQALRnndM9jaD/PP4cJ0tvZ6DSMri6qGebsfyREpnqcv
-         1Pr8pSNOPGDYZbhsqySkz5+Bw1hfthstG11qSJiw/mwunb6UBYct2DNBBrWx+A9L+nWx
-         M0qmxH3kt1qXJWOPE3iA8WVvyjKkbFz0b1w9x4AtrCO+p2wv9kjnkpXpppZoQsy9lloX
-         zGYFf6NgiYjQQKMCrz5GO3Y5vD1mnTl1Z12vAl0ubMIgTZgjm+Pzsp+d4FMROWDRySr8
-         dc21fx0OohqTDhdTEGtNdXWKa+aHb6KSnfZennY3Nm0dZ9KzqUJlKtFZV/qWS9ouiluw
-         wkYQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVQoIjKcIlRHu4DkNKtenqyZmfXcm6qQ9h8ePngJuGbNo4ONx5bXQ3PZb7F5BZAkOxsxys6PBZZDEU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyiFQlEarQtHsOIKrLYlsTfjRmx4A1wWJXuqMbSNtSYnNiSG6qW
-	tMSwVf1NbW876DrcmZ9fng/7qJXYnGTGuHLSfgTA+q7QvgZv4+EJQdre
-X-Gm-Gg: ASbGncvvwz+3cL8/EWa/sXgxD20aQhRZtxTYmAkDYJeiYujob2WLH15Rcd0QlM/vAlR
-	amBSEaAj3sRPY7I7PXf6Ul08gi8jtt8RqupuRXccIRDsMM8BYYUU82RSnggSwBqB4ORWC8BepQs
-	NIlvbVGlO2o5tpZ9EtR+QGW5ZqEoUaFgbx2ovZlGrT2Dqwl6Pl0wWo7gsMAAhUA6OA21Hf8aYS0
-	E6726thoGNCs0ooQcFoXZGASFbTURjpMIMNEWcbj7hdf5o8zj1peamNhXSG3sVGf5BzNJvZfVSM
-	84mq0ClX0oQK9w26VS901YUTg7kz+jqXpoD1Wy7Q70+ElJ7fvZojRCwbEWtHHMZXvcxmVHcCIrC
-	l1EhGM0k55scuNEY+GIitbIAKczT5/10ORRpkMAqBKej5Dv0vZ8O9mNeSZQKCEZsLnG+klnEOkH
-	W3xR82bxFYe5p6hCLgkHBQr76f4qOp3tiO/EZ8Qbnih3+cx+wom+zUEDTSc1fqgqU5/F1I4XfYC
-	EyAiZTnneSH6nZg
-X-Google-Smtp-Source: AGHT+IGT6+6O3FI5MPTdbIaH839JubL4Qa5bc5hIASu7L+QaYTXF89rUfdIIFTEuc29+s8oivguFJw==
-X-Received: by 2002:a05:690e:4182:b0:63f:bab4:fdcd with SMTP id 956f58d0204a3-63fd35a1ee0mr3178471d50.48.1762374706979;
-        Wed, 05 Nov 2025 12:31:46 -0800 (PST)
-Message-ID: <fdc9fd41-2224-4672-911e-3e17b428d32a@gmail.com>
-Date: Wed, 5 Nov 2025 15:31:21 -0500
+        bh=/jBXRvPVDzl9DoeGfK2L7DwQNS6SwHfuRTTZ6EGtk6Y=;
+        b=wb0R3HCE1TqHFFUo29Guyv2RF3P0ucVOn/Xskm0H5A2zXlDBYDGZFifXa1SvAJnqJ2
+         WfKwGOQhLIouT+B9RIcyTKeNXxLRAPllCOvO/mgLCxd7G9d9YFXA5d7s6EBpSLivzbdC
+         Zz6KJ4JrmBufKddxd50ciOSy67xnu6mg8iaBu+ZBJg19ZMhUkmnLtLRKYKn4ghgZkCsT
+         A2tQUZbDfa007Z0DEndTN9mg9Jha6doy2IjdZLB0xHDzDQR8lWzw+v4knDClJALI/f0a
+         2jmSURK4yO/9zQvehtj76H8nQ7X4gp3n7y6Gr+xjsn7qPoB3B7XkYB5m3emZJ/OYq65L
+         ZBhg==
+X-Gm-Message-State: AOJu0YyTzSlBfpZaG4oI9WLW224vWSZELx5VVNNsyV8Y3eJvdz13rBDC
+	0O9UnebYokxMOO3pfoB1T5yaYh+rLxxXvRYVYZC6WpmOlLSkxcxwlOan
+X-Gm-Gg: ASbGnctAZscs+Iu7V75KEbp2XiO11/xqlnybxNIbpTlzyXI8nhFtpC8n23Vdwtugnpv
+	/TKOCqUEMRiK3Sd9wTk6/0I6vphMFmAjCGH2EN5j3m3AVC0hu+jAqZUXQzcK2A2Vkx966zwrXLw
+	17eIUCtlmvYCMk/d/isZJrZPpLOcT7+tqSq+wl6RUp6DYSzKOUjw9tgLcPscBlfYrRH4yKwJ0L7
+	noFuvZSgEROR6BHmftyzXyuW0T0jXtxcy1OjlU9D/1csk8V0Q7EsCjxAHJOYyCpieTIUM+HkwVI
+	ynNt3R9MA9YGdEaeZu5HaPLY9GZyVOwpQoWu4CWgso/zlajN57537QcuJywiRh98F0B8o76ydEJ
+	q8ivBwFZNG/GdcphAQHI41tk2Rb1NyKbrL/Cp3IMFghRgiU00Cw9bhgNw36pO6QEJCv1xoWRgXM
+	IX+uXR8lUAY4XVOaMSBgvRL25st2aTik+Slh7CthT7asJS4b9gKlDBxb6KAAaEX3d+OJZAo3rgi
+	t/XS4vhBkWglfbo
+X-Google-Smtp-Source: AGHT+IE/wzedgF2aJUusKlp6WnXPjlZPSxny9Z6uZooWb1tyqZvj6qIw92pAygzMlT+R6egnw4DwqQ==
+X-Received: by 2002:a05:690c:1a:b0:787:abb8:628 with SMTP id 00721157ae682-787abb80b86mr31843197b3.27.1762375338065;
+        Wed, 05 Nov 2025 12:42:18 -0800 (PST)
+Message-ID: <eeff3f76-b5ba-4386-a8bf-7a987752802b@gmail.com>
+Date: Wed, 5 Nov 2025 15:42:14 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen: Strip xen.efi by default
-To: Frediano Ziglio <frediano.ziglio@citrix.com>,
- xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Frediano Ziglio <freddy77@gmail.com>
-References: <20251105153808.20278-1-frediano.ziglio@citrix.com>
+Subject: Re: [RFC PATCH] xen: privcmd: fix ioeventfd/ioreq crashing PV domain
+To: Val Packett <val@invisiblethingslab.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <20251015195713.6500-1-val@invisiblethingslab.com>
+ <5a3660c9-1b18-4d87-a1f7-efa8d68239d8@suse.com>
+ <7f73fdfa-2875-4349-9ef6-134e678ac691@invisiblethingslab.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -145,195 +141,167 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20251105153808.20278-1-frediano.ziglio@citrix.com>
+In-Reply-To: <7f73fdfa-2875-4349-9ef6-134e678ac691@invisiblethingslab.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------wR3uNGtKIpM00cl4EqK70PkG"
+ boundary="------------G30oE370V0qo6Xm1bdPT5v58"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------wR3uNGtKIpM00cl4EqK70PkG
-Content-Type: multipart/mixed; boundary="------------Laf3qgGfcASVhjDuzhGmlgxS";
+--------------G30oE370V0qo6Xm1bdPT5v58
+Content-Type: multipart/mixed; boundary="------------UVOZ4jXaoupmEQPrgEDndzIr";
  protected-headers="v1"
 From: Demi Marie Obenour <demiobenour@gmail.com>
-To: Frediano Ziglio <frediano.ziglio@citrix.com>,
- xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Frediano Ziglio <freddy77@gmail.com>
-Message-ID: <fdc9fd41-2224-4672-911e-3e17b428d32a@gmail.com>
-Subject: Re: [PATCH v3] xen: Strip xen.efi by default
-References: <20251105153808.20278-1-frediano.ziglio@citrix.com>
-In-Reply-To: <20251105153808.20278-1-frediano.ziglio@citrix.com>
+To: Val Packett <val@invisiblethingslab.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Message-ID: <eeff3f76-b5ba-4386-a8bf-7a987752802b@gmail.com>
+Subject: Re: [RFC PATCH] xen: privcmd: fix ioeventfd/ioreq crashing PV domain
+References: <20251015195713.6500-1-val@invisiblethingslab.com>
+ <5a3660c9-1b18-4d87-a1f7-efa8d68239d8@suse.com>
+ <7f73fdfa-2875-4349-9ef6-134e678ac691@invisiblethingslab.com>
+In-Reply-To: <7f73fdfa-2875-4349-9ef6-134e678ac691@invisiblethingslab.com>
+Autocrypt-Gossip: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
 
---------------Laf3qgGfcASVhjDuzhGmlgxS
-Content-Type: multipart/mixed; boundary="------------vcM0SfoOk10EZuEbrGl6yv6X"
+--------------UVOZ4jXaoupmEQPrgEDndzIr
+Content-Type: multipart/mixed; boundary="------------20sSEzjyop50utZCh8dFGMN0"
 
---------------vcM0SfoOk10EZuEbrGl6yv6X
+--------------20sSEzjyop50utZCh8dFGMN0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 11/5/25 10:38, Frediano Ziglio wrote:
-> From: Frediano Ziglio <frediano.ziglio@cloud.com>
+On 11/4/25 20:16, Val Packett wrote:
 >=20
-> For xen.gz file we strip all symbols and have an additional
-> xen-syms file version with all symbols.
-> Make xen.efi more coherent stripping all symbols too.
-> xen-syms.efi can be used for debugging.
->=20
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
-> Changes since v1:
-> - avoid leaving target if some command fails.
->=20
-> Changes since v2:
-> - do not convert type but retain PE format;
-> =3D use xen-syms.efi for new file name, more consistent with ELF.
-> ---
->  docs/misc/efi.pandoc  |  8 +-------
->  xen/Kconfig.debug     |  9 ++-------
->  xen/Makefile          | 19 -------------------
->  xen/arch/x86/Makefile |  9 ++++++---
->  4 files changed, 9 insertions(+), 36 deletions(-)
->=20
-> diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
-> index 11c1ac3346..c66b18a66b 100644
-> --- a/docs/misc/efi.pandoc
-> +++ b/docs/misc/efi.pandoc
-> @@ -20,13 +20,7 @@ Xen to load the configuration file even if multiboot=
- modules are found.
->  Once built, `make install-xen` will place the resulting binary directl=
-y into
->  the EFI boot partition, provided `EFI_VENDOR` is set in the environmen=
-t (and
->  `EFI_MOUNTPOINT` is overridden as needed, should the default of `/boot=
-/efi` not
-> -match your system). When built with debug info, the binary can be quit=
-e large.
-> -Setting `INSTALL_EFI_STRIP=3D1` in the environment will cause it to be=
- stripped
-> -of debug info in the process of installing. `INSTALL_EFI_STRIP` can al=
-so be set
-> -to any combination of options suitable to pass to `strip`, in case the=
- default
-> -ones don't do. The xen.efi binary will also be installed in `/usr/lib6=
-4/efi/`,
-> -unless `EFI_DIR` is set in the environment to override this default. T=
-his
-> -binary will not be stripped in the process.
-> +match your system).
-> =20
->  The binary itself will require a configuration file (names with the `.=
-efi`
->  extension of the binary's name replaced by `.cfg`, and - until an exis=
-ting
-> diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
-> index d900d926c5..58ee10ee3e 100644
-> --- a/xen/Kconfig.debug
-> +++ b/xen/Kconfig.debug
-> @@ -147,12 +147,7 @@ config DEBUG_INFO
->  	  Say Y here if you want to build Xen with debug information. This
->  	  information is needed e.g. for doing crash dump analysis of the
->  	  hypervisor via the "crash" tool.
-> -	  Saying Y will increase the size of the xen-syms and xen.efi
-> -	  binaries. In case the space on the EFI boot partition is rather
-> -	  limited, you may want to install a stripped variant of xen.efi in
-> -	  the EFI boot partition (look for "INSTALL_EFI_STRIP" in
-> -	  docs/misc/efi.pandoc for more information - when not using
-> -	  "make install-xen" for installing xen.efi, stripping needs to be
-> -	  done outside the Xen build environment).
-> +	  Saying Y will increase the size of the xen-syms and xen.efi.elf
-> +	  binaries.
-> =20
->  endmenu
-> diff --git a/xen/Makefile b/xen/Makefile
-> index ddcee8835c..605a26c181 100644
-> --- a/xen/Makefile
-> +++ b/xen/Makefile
-> @@ -493,22 +493,6 @@ endif
->  .PHONY: _build
->  _build: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
-> =20
-> -# Strip
-> -#
-> -# INSTALL_EFI_STRIP, if defined, will cause xen.efi to be stripped bef=
-ore it
-> -# is installed. If INSTALL_EFI_STRIP is '1', then the default option(s=
-) below
-> -# will be used. Otherwise, INSTALL_EFI_STRIP value will be used as the=
+> On 11/4/25 9:15 AM, J=C3=BCrgen Gro=C3=9F wrote:
+>> On 15.10.25 21:57, Val Packett wrote:
+>>> Starting a virtio backend in a PV domain would panic the kernel in
+>>> alloc_ioreq, trying to dereference vma->vm_private_data as a pages
+>>> pointer when in reality it stayed as PRIV_VMA_LOCKED.
+>>>
+>>> Fix by allocating a pages array in mmap_resource in the PV case,
+>>> filling it with page info converted from the pfn array. This allows
+>>> ioreq to function successfully with a backend provided by a PV dom0.
+>>>
+>>> Signed-off-by: Val Packett <val@invisiblethingslab.com>
+>>> ---
+>>> I've been porting the xen-vhost-frontend[1] to Qubes, which runs on=20
+>>> amd64
+>>> and we (still) use PV for dom0. The x86 part didn't give me much=20
+>>> trouble,
+>>> but the first thing I found was this crash due to using a PV domain=20
+>>> to host
+>>> the backend. alloc_ioreq was dereferencing the '1' constant and=20
+>>> panicking
+>>> the dom0 kernel.
+>>>
+>>> I figured out that I can make a pages array in the expected format=20
+>>> from the
+>>> pfn array where the actual memory mapping happens for the PV case,=20
+>>> and with
+>>> the fix, the ioreq part works: the vhost frontend replies to the prob=
+ing
+>>> sequence and the guest recognizes which virtio device is being provid=
+ed.
+>>>
+>>> I still have another thing to debug: the MMIO accesses from the inner=
+=20
+>>> driver
+>>> (e.g. virtio_rng) don't get through to the vhost provider (ioeventfd =
 
-> -# option(s) to the strip command.
-> -ifdef INSTALL_EFI_STRIP
-> -
-> -ifeq ($(INSTALL_EFI_STRIP),1)
-> -efi-strip-opt :=3D --strip-debug --keep-file-symbols
-> -else
-> -efi-strip-opt :=3D $(INSTALL_EFI_STRIP)
-> -endif
-> -
-> -endif
-> -
->  .PHONY: _install
->  _install: D=3D$(DESTDIR)
->  _install: T=3D$(notdir $(TARGET))
-> @@ -535,9 +519,6 @@ _install: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
->  		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T)-$(XEN_VERSION=
-).efi; \
->  		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T).efi; \
->  		if [ -n '$(EFI_MOUNTPOINT)' -a -n '$(EFI_VENDOR)' ]; then \
-> -			$(if $(efi-strip-opt), \
-> -			     $(STRIP) $(efi-strip-opt) -p -o $(TARGET).efi.stripped $(TARGE=
-T).efi && \
-> -			     $(INSTALL_DATA) $(TARGET).efi.stripped $(D)$(EFI_MOUNTPOINT)/e=
-fi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi ||) \
->  			$(INSTALL_DATA) $(TARGET).efi $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDO=
-R)/$(T)-$(XEN_FULLVERSION).efi; \
->  		elif [ "$(D)" =3D "$(patsubst $(shell cd $(XEN_ROOT) && pwd)/%,%,$(D=
-))" ]; then \
->  			echo 'EFI installation only partially done (EFI_VENDOR not set)' >&=
-2; \
-> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-> index 407571c510..c118ab7b7d 100644
-> --- a/xen/arch/x86/Makefile
-> +++ b/xen/arch/x86/Makefile
-> @@ -228,14 +228,17 @@ endif
->  	$(MAKE) $(build)=3D$(@D) .$(@F).1r.o .$(@F).1s.o
->  	$(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T $(obj)/efi.lds $< \
->  	      $(dot-target).1r.o $(dot-target).1s.o $(orphan-handling-y) \
-> -	      $(note_file_option) -o $@
-> -	$(NM) -pa --format=3Dsysv $@ \
-> +	      $(note_file_option) -o $@.tmp
-> +	$(NM) -pa --format=3Dsysv $@.tmp \
->  		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
->  		> $@.map
->  ifeq ($(CONFIG_DEBUG_INFO),y)
-> -	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O e=
-lf64-x86-64 $@ $@.elf
-> +	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))cp -f \
-> +        $@.tmp $(TARGET)-syms.efi
-> +	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(STRIP) $@.tmp=
+>>> does
+>>> not get notified), and manually kicking the eventfd from the frontend=
 
->  endif
->  	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
-> +	mv -f $@.tmp $@
->  ifeq ($(CONFIG_XEN_IBT),y)
->  	$(SHELL) $(srctree)/tools/check-endbr.sh $@
->  endif
+>>> seems to crash... Xen itself?? (no Linux panic on console, just a=20
+>>> freeze and
+>>> quick reboot - will try to set up a serial console now)
+>>
+>> IMHO for making the MMIO accesses work you'd need to implement=20
+>> ioreq-server
+>> support for PV-domains in the hypervisor. This will be a major=20
+>> endeavor, so
+>> before taking your Linux kernel patch I'd like to see this covered.
+>=20
+> Sorry, I wasn't clear enough.. it's *not* that MMIO accesses don't work=
+=2E
+>=20
+> I debugged this a bit more, and it turns out:
+>=20
+> 1. the reason why "ioeventfd does not get notified" is because accessin=
+g=20
+> the virtio page (allocated with this privcmd interface) from the kernel=
+=20
+> was failing. The exchange between the guest driver and the userspace=20
+> ioreq server has been working perfectly, but the *kernel* access (which=
+=20
+> is what needs this `struct page` allocation with the current code) was =
 
-Does this also strip the string table from xen.efi?  I'm concerned that
-signing xen.efi for secure boot won't work if there is a string table.
-In particular, it appears that EDK2 will miscalculate the file hash if
-the string table is before the signature.  Moving the string table after
-the signature invalidates the pointer to it.  The only exception is if
-the string table is itself in a section, but I don't know if that is the
-case.
+> returning nonsense and the check for the virtqueue readiness flag was=20
+> failing.
+>=20
+> I have noticed and fixed (locally) a bug in this patch: reusing the=20
+> `pfns` allocation for `errs` in=C2=A0`xen_remap_domain_mfn_array`=C2=A0=
+meant that=20
+> the actual pfn value was overwritten with a zero ("success" error code)=
+,=20
+> and that's the `pfn` I was using.
+>=20
+> Still, the memory visible in the dom0 kernel at that pfn is not the sam=
+e=20
+> allocation that's mapped into the process. Instead, it's some random=20
+> other memory. I've added a hexdump for it in the ioeventfd notifier and=
+=20
+> it was returning random stuff from other userspace programs such as "//=
+=20
+> SPDX-License-Identifier" from a text editor (haha). Actually, *once* it=
+=20
+> did just work and I've managed to attach a virtio-rng driver and have i=
+t=20
+> fully work.
+>=20
+> Clearly I'm just struggling with the way memory mappings work under PV.=
+=20
+> Do I need to specifically create a second mapping for the kernel using =
+
+> the same `xen_remap_domain_mfn_array` call?
+>=20
+> 2. the reason why "manually kicking the eventfd from the frontend seems=
+=20
+> to crash... Xen itself" was actually because that triggered the guest=20
+> interrupt and I was using the ISA interrupts that required the virtual =
+
+> (IO)APIC to exist, and it doesn't in PVH domains. For now I switched my=
+=20
+> test setup to HVM to get around that, but I'd need to.. figure out a=20
+> virq/pirq type setup to route XEN_DMOP_set_isa_irq_level calls over=20
+> event channels for PV(H) guests.
+
+Still, this should return an error rather than crashing the hypervisor.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------vcM0SfoOk10EZuEbrGl6yv6X
+--------------20sSEzjyop50utZCh8dFGMN0
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -453,31 +421,31 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------vcM0SfoOk10EZuEbrGl6yv6X--
+--------------20sSEzjyop50utZCh8dFGMN0--
 
---------------Laf3qgGfcASVhjDuzhGmlgxS--
+--------------UVOZ4jXaoupmEQPrgEDndzIr--
 
---------------wR3uNGtKIpM00cl4EqK70PkG
+--------------G30oE370V0qo6Xm1bdPT5v58
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmkLtCIACgkQszaHOrMp
-8lMagQ//YgNME5sj0oGNKhAzzrNVN+GTxNwRphY9N6uQBPoY6MISZ/Hd0BlbJIRb
-X1k9mXJWuXBajKRLz6h6JFrvlQxjr/WB5CBcG1IkCcOJKFYw8EKUZnMVcNiYicQd
-XzNL7YR5ybIti+dRuWR0EfSKEgFIsZBLCbUoV4xGUHJzjivIqGGjN6IqkG/nMmRp
-gfJXSH2ENIyFKapOajHxJV0dXLW4kGVwguk1cwVK6nDMJfaq0vH6t8ZcXFABgSqa
-vZnRCWgyegfTKjzwgqpjQ6jrBbLIcQdsObMVg4L2KChnNjqVwKul1L7uYUbLJaE6
-Rq1VINgYQFCis+lhJ1O0k9YUoX4FCYA85HG0aU5G4VGp+te0nbUbZICqRBuJedIG
-l+RK2uX8hh1Siz07n+9O5kXzSoIBl3koksjBli9dkW2IuxrTEOlT7XhvINmytdlh
-pM9xFWy64ITRIr1ZmBBKkph1J2IXaI7s405iLUwxlyyazSlMGVmCtypOz6cWAYDq
-QLWsa3yMkETWaX2IX4U1HlTSFrJYXS4ztIMMTVcqxw77Urbl06Hz0DXCjTj0zgBx
-Kkihlj3THb2Amwv4epplzBQzt3ZifnFPJuqs/eLc5VFKrVb74ZxOjHJA83fnKvGE
-UtRCfoLzidPhywlKfCFNMWhrxYbksThYbWgH0cf/TixwfXtqr1U=
-=d4tF
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmkLtqcACgkQszaHOrMp
+8lOWhw/+KwhreZmyNV1DfrbWvGklbYZ19zQDijnS6P1KwGTFVfBtQ8Jc58pmNdOo
+8fGVEM1q4nAgglTUL+Rch2m1TKitutv6VQ3L4WlKuiSKTwM7y42uZjAB/yBfUXGW
+UHINbApOr78W3mvkOLhyolpyXLOAnY6lnqZuCrbp82RTZ0vlN7orVbx3+X7sNgMJ
+Dz9ggRqzWDbV6JBANd3T3cMDPx470xtzWVLBksHchu7Pcu28ZyJCaPrr+RwRjPx4
+UGhDc9OOWjIUdPTqJEio3YpjvWFONXc4s7fg5pvMSKF3dAxph7vB30Dk6T+wn68l
+TgS4WvAtVDvuWhPFl9EINVAvI9FDcIdEbiZNLwA0pHn4wnFQK+/wSqlEmu5OV2Sb
+3NPeB98oNg1PwpEuTuUi9kNhZKKg9iefnjs232YRFDUMvad8b3str9jhYVwDd4Rm
+ABavcZGhBAcc6/XY8U/jlsaoI1N2wQkIuC783VzP28aBwHzHaf186h0Ch07mG0bJ
+XCOvKr0BJaeejOJX8/KJsT6WCNPLIlLkYT0t5meaudz/wmjIvdZN4y6UpHAxnf98
+mVcwmYJK9mm87eu0o2yXKkm1KQuKoIqOB8RMG1Q7jTrig8QZTskSIyjoowCTuoFv
+75G6cPepdF6nYGr0TQtWwGl8d7Fxt+vse9VtswVKGn+0CSCE0+0=
+=NBZJ
 -----END PGP SIGNATURE-----
 
---------------wR3uNGtKIpM00cl4EqK70PkG--
+--------------G30oE370V0qo6Xm1bdPT5v58--
 
