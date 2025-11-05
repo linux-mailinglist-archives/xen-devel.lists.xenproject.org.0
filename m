@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 831ACC34A4F
-	for <lists+xen-devel@lfdr.de>; Wed, 05 Nov 2025 10:01:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1156046.1485357 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30BF7C349DC
+	for <lists+xen-devel@lfdr.de>; Wed, 05 Nov 2025 09:57:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1156031.1485348 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGZOK-0007Z9-PT; Wed, 05 Nov 2025 09:01:20 +0000
+	id 1vGZJD-0005sH-3b; Wed, 05 Nov 2025 08:56:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1156046.1485357; Wed, 05 Nov 2025 09:01:20 +0000
+Received: by outflank-mailman (output) from mailman id 1156031.1485348; Wed, 05 Nov 2025 08:56:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGZOK-0007XQ-Ms; Wed, 05 Nov 2025 09:01:20 +0000
-Received: by outflank-mailman (input) for mailman id 1156046;
- Wed, 05 Nov 2025 09:01:19 +0000
+	id 1vGZJC-0005pw-VL; Wed, 05 Nov 2025 08:56:02 +0000
+Received: by outflank-mailman (input) for mailman id 1156031;
+ Wed, 05 Nov 2025 08:56:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gPfi=5N=gmail.com=ritesh.list@srs-se1.protection.inumbo.net>)
- id 1vGZOJ-0007XK-Lg
- for xen-devel@lists.xenproject.org; Wed, 05 Nov 2025 09:01:19 +0000
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [2607:f8b0:4864:20::102a])
+ <SRS0=Xfs8=5N=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1vGZJB-0005pq-T5
+ for xen-devel@lists.xenproject.org; Wed, 05 Nov 2025 08:56:02 +0000
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazlp170120007.outbound.protection.outlook.com
+ [2a01:111:f403:c101::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fd404c5a-ba25-11f0-9d16-b5c5bf9af7f9;
- Wed, 05 Nov 2025 10:01:18 +0100 (CET)
-Received: by mail-pj1-x102a.google.com with SMTP id
- 98e67ed59e1d1-3407f385dd0so4241102a91.1
- for <xen-devel@lists.xenproject.org>; Wed, 05 Nov 2025 01:01:18 -0800 (PST)
-Received: from dw-tp ([171.76.85.117]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-341a68c822dsm2153637a91.8.2025.11.05.01.01.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Nov 2025 01:01:15 -0800 (PST)
+ id 40526d00-ba25-11f0-9d16-b5c5bf9af7f9;
+ Wed, 05 Nov 2025 09:56:00 +0100 (CET)
+Received: from DM6PR03MB5227.namprd03.prod.outlook.com (2603:10b6:5:247::22)
+ by DS7PR03MB5496.namprd03.prod.outlook.com (2603:10b6:5:2c8::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.8; Wed, 5 Nov
+ 2025 08:55:57 +0000
+Received: from DM6PR03MB5227.namprd03.prod.outlook.com
+ ([fe80::c9a0:563d:c344:aec2]) by DM6PR03MB5227.namprd03.prod.outlook.com
+ ([fe80::c9a0:563d:c344:aec2%5]) with mapi id 15.20.9298.007; Wed, 5 Nov 2025
+ 08:55:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,345 +47,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd404c5a-ba25-11f0-9d16-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1762333277; x=1762938077; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:message-id:date
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=BqwAluvFQHR3rGs29bqhyFCcj3SAHqQXu+Y8BdSkuwM=;
-        b=Khg9v/IbaFHgrCKQnU59BQuLvjLGUp1rT5SRzGwxR9OHxaty0Jc5gBxHjsmXtpzKCQ
-         xSJc8QjStvN4MbuowwOchgN1Pkqj8XIs5op/kaBevJs2tQ+GYbINr5G5vySaxcfCJGMV
-         HY5IM/3i2z56XDxi2B8JsCwhT1liTiCKVnfY9fIN/OYsgvqw75UOzRoZPINJyJBQecOp
-         clVS3qePEFh4qB9H+GubujAfi8LDHLpF6lPrhSTSLjqR8E05PbPoXRU4TWr1UkhV4pLg
-         2nsusZf2NHe1QngNvm8t8kQYQGxk/F6DPPiJcOnuaCyno4KzMQ4WXO30piDtZzVsl7q/
-         hJQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762333277; x=1762938077;
-        h=content-transfer-encoding:mime-version:references:message-id:date
-         :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=BqwAluvFQHR3rGs29bqhyFCcj3SAHqQXu+Y8BdSkuwM=;
-        b=TfYfLCgTaH3sZGvUWakb5a3+x007rOTJ/rcUUlvfN3fZRqm8E7shEjtpnOzPMdHF6J
-         M5Qcz57UPigoPpK+QXbYovl9YXaBX/SSi71XI0ta0cq7kga0fFtG0pyyrqFyUzXWb64e
-         keUcqcpBpmSApux1KmycWUvkfOw58MYrdPZw1rRwXUlmc2ZAjOpQWU/qTEKr9U+EtDeN
-         sDnEQsTHBfRIVXirK6TUeoS8iKZvyN1vaWRee+160gnOOIVV3oCJw3Gf0v56YHPCQsm5
-         LZIFewbNWSCjKtnlA2tr6ChECTb3TnzH1ZZf5WZnU+M2//JUJUFStyYmXgBUScF2RdhM
-         mUPQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVcBRucgAQOaiCGNSNH6ETefc4CBezNY1uWHUc8d4xrTaI1LQzyC4h8nzyfSx1dnEcBPsiyRfy/hFw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyHpbYf+TJugpcP7mQsG5V4oU+QaXleaN3ZKWZ9Q2ovKPekOdjo
-	2V86izqeikhNFwZVOh1EBsXsdL/pcPfUfO6jxHrgaip9LNJCCxAqXJER
-X-Gm-Gg: ASbGncsNLzbH4QfOqMPEL8/b8ahXFixz5QKUuw2qsG2oafVsmY/LqBMNkkyOM+LJEM3
-	9SrahLLlHT5q58VPkA6sOfp75WKow9hrJA2qBl7v5Qh/nPxWVIWF7ahZIaptFQEBiyUEUgmhG++
-	VwK3AlZJWoRu9p1ZnlqZUxUjtQCsWg0iYzJSTP7hNnPwKh5p+2/jNRDJ5FSXRllKj6kUpDIAkwk
-	hC4y3RaHyvwjfzYNU4sw/5+D41qsRhAotU/86HbPMbzpLx3HJ/8dD2MctdBiK3n9T6VHtFrdHxy
-	kKv92TJxO+bcXOc2/o9ecBdq3/zO77m7utDCD8hrgvAeQlQoxAMevQd9Qp4t2g3v/YRISDg0Bl2
-	Yf8ZfR9xzzZ1eVGas61iukL0zBP171VTkkM78H7C0VVKq6rjLxrjkCvkC1dhoY41Zix5U5dRgLP
-	eiQOzR
-X-Google-Smtp-Source: AGHT+IHHv+LyuTSVYYYzkbgRnz7hULJzgzWM0oNnTXqbUlny/y0AGDg1tLVk5Pgi5QjOwQ4eknTvSQ==
-X-Received: by 2002:a17:90b:51c8:b0:340:f05a:3ed1 with SMTP id 98e67ed59e1d1-341a6dc8735mr2732523a91.21.1762333276313;
-        Wed, 05 Nov 2025 01:01:16 -0800 (PST)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Andreas Larsson <andreas@gaisler.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Borislav Petkov <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Christophe Leroy <christophe.leroy@csgroup.eu>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	David Hildenbrand <david@redhat.com>, "David S. Miller" <davem@davemloft.net>, 
-	David Woodhouse <dwmw2@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, 
-	Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>, 
-	"Liam R. Howlett" <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>, 
-	Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>, 
-	Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>, 
-	linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, 
-	sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
-Subject: Re: [PATCH v4 07/12] mm: enable lazy_mmu sections to nest
-In-Reply-To: <20251029100909.3381140-8-kevin.brodsky@arm.com>
-Date: Wed, 05 Nov 2025 14:19:03 +0530
-Message-ID: <87ms5050g0.ritesh.list@gmail.com>
-References: <20251029100909.3381140-1-kevin.brodsky@arm.com> <20251029100909.3381140-8-kevin.brodsky@arm.com>
-MIME-Version: 1.0
+X-Inumbo-ID: 40526d00-ba25-11f0-9d16-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZTh8/ACd1vnD5X6l+wGtBb47xmUhJwLrtgvGKOxferkBeZDz/kW8nYBO3CQy66HcA82N+9vYgP1TZJg5OXOtHv7JWsM6g+PKtDCFA6/rVo6QmbUazeWB3ANJLAvIHHPe96jENSqVI4kE432cFuM23pOMG1y36nN2Akr0zxBHYXhaW4in3uJWz0s9FtWdUgW3pZoUTjxJvEUryJepGMyHSXsB74A8GGirBSdrd+F4PpzRNBa4yyEsOWSsDfaxfFpgo+REsGwRqzaKZZqaU3xXVuhL0WwcNRL0tvA+koQXCPQtYKbDLrfSYl2yGMacAqbAiBzZFd+XtSXSB0tElp9lRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G+EJ7c46HuD7id4kyx3j+erdX5mIJyTZ4u+bn85hcs0=;
+ b=Afzl76AAvR8PjzxUakbMjsdi7PilTJaRsCy+8zZBG5g/2IkycYwGRl/mNBy0gm9epvWv0PmsN0aUu/u1sO2MBQFXZ3/hHmCLhz42BS1eL6R4gmRJ2eDutTKfo373WDYZa3TTblTn60TGLVBrfDqj3dOj8grcuFwns5gWZ2ABpJDedk4XgdxHxU1+chtQ+Kh8OnBMOwus8KNhVFomNJkk/D36kI8WJAu42lsPVeBJDOgqeQzAj3CoXvpp/r5ipHyq4Khg4BrswMQ5IzHPO8oDCLzGcu+8HHx+yfLPYrWyobtAhM40r3ojbebse+UJDO5v/q04YLWIif0Djbfx7xPaTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G+EJ7c46HuD7id4kyx3j+erdX5mIJyTZ4u+bn85hcs0=;
+ b=QiW/nv2Du6OSJIXRVggOoZMVg5Ia6n2HCLlqCJjQ1CkHHeJATVPOUgVBgxpuKm029e6lTr6IR6lnIXBD1R20cQUzIiCVM+xXcJwLDoVIDwFvyKbrquVGGi6VfWZjpNEwooZYs37HL+mKaDZOO7evsDcPpk5GXV1JJTbOayONA8E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Wed, 5 Nov 2025 09:55:50 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>,
+	Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Daniel Smith <dpsmith@apertussolutions.com>,
+	"michal.zygowski@3mdeb.com" <michal.zygowski@3mdeb.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2] xen: Strip xen.efi by default
+Message-ID: <aQsRFvjvnCTla0YB@Mac.lan>
+References: <20250612100705.21988-1-frediano.ziglio@cloud.com>
+ <586a66e5-4b11-485e-955a-da5fc3183737@citrix.com>
+ <aN6H8dOlea2Um8y8@mail-itl>
+ <1708c939-4b06-4d09-acb8-6965383d91f4@suse.com>
+ <aOUiU86LtvsVFukW@mail-itl>
+ <e3db4a71-336c-4039-a2fc-7997fadc81b3@suse.com>
+ <aOeeMtiJEhdEiadg@mail-itl>
+ <bc4df23e-58b2-4cba-b25f-e8ba2da222eb@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <bc4df23e-58b2-4cba-b25f-e8ba2da222eb@suse.com>
+X-ClientProxiedBy: MA3P292CA0017.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:47::8) To DM6PR03MB5227.namprd03.prod.outlook.com
+ (2603:10b6:5:247::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR03MB5227:EE_|DS7PR03MB5496:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8446ffae-785f-4e7d-9cd7-08de1c492098
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?NzU1SXZYdGZkSjRURXAveUUzSHBqYWdHNS9BOWZWOGIvd1ZndEFQUjJjazhW?=
+ =?utf-8?B?VVg0L0w1UFRURzFpTytKTWw5UHhHMXcrUG9UYnV6SVgyM2hEaVlkbktYWFdO?=
+ =?utf-8?B?Z3lCL2Fkd2NvMTZKbDcvQzhGWHpab1RIbEpjMmhWaHpFc21Uc214WEhRWHAw?=
+ =?utf-8?B?c1Q5cys4Z1ZsVWtHK1hjSHBGRlNmVjM0b2Z5d2k3ZGc0ZzhhMzFveFB1S2Jj?=
+ =?utf-8?B?VERaV0RYOTBrS1EzcVpOY2VPcW9lUG42NER6Ky9rNjRYZXE0V2NpZUJRenh4?=
+ =?utf-8?B?SmJGV3gwUjVOR1ErdTNhMmdaOC95cS84dFNIUXg1a3FtbVpFeWQxQTN2a3FD?=
+ =?utf-8?B?dHd2RlFnODFtTVNRcmd5ZDhYa255Zk1OTk9zNktBaUF4WUcyY0xob3lUVEFL?=
+ =?utf-8?B?aE5JZ0M1ZHNYMzZ5Sld5ZVVtMUl0OUVkVDhYbVQ0K09sT25nK09uemRHaVFO?=
+ =?utf-8?B?TDRKM2FrY1EyT2R1TGlpVjhlV0RVS2NuV3BkNldoS29HQ01MR085S05SKy95?=
+ =?utf-8?B?SDU1ZU14YVhQcXo0MnFIYXQwRWZWWW90ejFzeTZtOGIvMFdNQUdDcUNBamJM?=
+ =?utf-8?B?TzBJNzFkMXQ2YlFreWdIT2lhUlpUeDA5ZXRlZEphMHdSRTRacnUyUWgyTFVS?=
+ =?utf-8?B?dDlYNkUrS1hsbGpQamJtNDhCOVF1bUpJRVFyeG8vZ3gzSk9LSUpZU1AwT3Z2?=
+ =?utf-8?B?MEpmWWZhK2hnaVQzdW9tQzk1T1ZkbEIyUWtnNnVKRDNkQ1lSdHludzd4eU5W?=
+ =?utf-8?B?SzZUd2tqYnQ1NGgzcU5OVURBWHZNODN6c09RQ290MUlEV2FUYXFnVmc1N0hP?=
+ =?utf-8?B?S2pqZzY3blBHVEJDNklYTGtOS1FRWnlQS1hIRHJTL3ZzenNWckw4bWJxdVdy?=
+ =?utf-8?B?Nzk4K0RVOW5wNXpVUnhBZ01UcE1iNFdld2E4UXJOdGczbU1mM3haNVRKSm12?=
+ =?utf-8?B?V3huckg2WUQ1Qlllc2xlNzl4K3YyV3hHWjEvQ1h3MXBSR29wZmFUZ3M1WEM5?=
+ =?utf-8?B?QnF4eGxIc2c0ajhUVkV5WWRIWnlRZ2Y1bzFFS1Z6U1ZOSTBsanEwNnk5UGdI?=
+ =?utf-8?B?WThvcnV5WGhLUHdhSmFFMkZpT3FvTGIxZzBzU2htb21BT0U4bys0VU5UOHFi?=
+ =?utf-8?B?SEFSb2Q3Rit0QzQyZjhicXZYYld3Ym5wbVBRekc5MXhuQVc0b1RuczFFMzh2?=
+ =?utf-8?B?UlZscjZwWHRJQlM1NFhRRDFLR0Fla1JEMU9GUURiQlAzWGM2elI3TlNIcWNy?=
+ =?utf-8?B?dVpRNVJuL1BwQm41ZDVEN2ZkcS9wWCtwcERrb1ZJbkxUUUhBZkpuVUpWUjRI?=
+ =?utf-8?B?YmZLTlBaaUNneFNJbDBhWjVyN25oRmNQdU1NSUdmSFoyeTNNN3YrWjFVa3V5?=
+ =?utf-8?B?anF2bStwbU0wWGZMNU9sSHpEQzZ5eUNLMUZ4QmUwUjNLdEtmeGRFT2xVaWJL?=
+ =?utf-8?B?ODY0SVJDUldiaE9DUERyV1habWNtcmdHZmRuUkVjRzgxL25OK1ZyZ1lBREk1?=
+ =?utf-8?B?aEdRQXUvT1hDWUFoWERmVlhiemZNN2VvYUh6eFRZUW1DbEFOU1BDV3Z5UGhH?=
+ =?utf-8?B?RldVUjNBVnluZUgrWlpIdHY4YXBjSDM2ZzdyTm5OMzJXVklDdm5uSFVxQ2t4?=
+ =?utf-8?B?K2UrMTJ3UE50b0YxeWw3Sno5bWp1Tm51b1VCWStsR3ZSN09wUHBQSWxNMTVJ?=
+ =?utf-8?B?NldhdTZySjZadkZUcWwvaUZQeXFyVjRyMm4xdUNaKy9WUUtKNFFlMHhpODJw?=
+ =?utf-8?B?R2hhTlVJb2hpQi9UR0w2ZU82dHhPVVptRFp0RHNtcmF6T2g0UU53dG5aU21j?=
+ =?utf-8?B?b3RsRDBPYi9TemxYWWRoQlhsNU5ESU9UaWtKdERDOHYrN2wrcDhjVk1LZVBH?=
+ =?utf-8?B?TFIwTEpJamE0NEU3RTVaaE1RZ003c1RIMlF6cFZQZmEvemt4NW9XSjliSm02?=
+ =?utf-8?Q?awt9odaK5Te5SqGdkHqkhYWHHSVQP2eB?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB5227.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NUN1eHdTTFo4b3JBQUwrNVVhYWFNTmtMbjN2dDlwMysrcStDc2VqUXJva3Nk?=
+ =?utf-8?B?UWg2ZDVoQnAyVkdHajhObytJcVgyUEVucjV4UDNsUEl5UitlNnp6VE5jV3pz?=
+ =?utf-8?B?Z2JOeldNcSt4OVk5Vk00NEZDK09ITEhkWGVOaElxVERFbEgzWUZlSjN3MEI0?=
+ =?utf-8?B?Yk9GaDFuTVlyZnR0ajlXaUZnT25YZ3JmRWV4ZDZlWkFRQVBBaFdvUEx2RG5t?=
+ =?utf-8?B?amxjZ1hIQXNZQWc2TFgrays4NzJqVFMvUmVuVWJKdGNuenhOejJPNFkxSXpL?=
+ =?utf-8?B?QmRCVkx6SjBMbFpaVHlVSi9CUVZTZW9IMmJ3NWRBM1ZSZ01JTlEyWEJ4RXVS?=
+ =?utf-8?B?TDJQYUZGczhyM29EbmpBN0VkRjBCYVpBSlhBOEpWMzFScGRiMERyQ000cXBK?=
+ =?utf-8?B?cDlLMWdJbTRJR0QwQXpzNXZCdUN0cjVIWGgzVHB2bnhhVzJKdDVLS25kRS9T?=
+ =?utf-8?B?Z2dlYzZqOXRhTGFGcUR5aXJwSWY0SU9QV3Y5eTd1SC9sdjRtZ0s1aGZlTnc2?=
+ =?utf-8?B?bnZJRzl5NEpadWgxQUZwajA5TUpmelR4YU0vd2J4dDdoMHYzUmhhRm0xTlRq?=
+ =?utf-8?B?TzBUVERObHVCRnljdkVONTErOExZQnlWNjNSTWVQMmc3cVU1N0M0Y1dFQ0ZJ?=
+ =?utf-8?B?M0ZlZlE5clltdHFseUU5eGtFTXI0bnBNYk4vM3c5bUhFK0NXQ3d1SnM2L2g0?=
+ =?utf-8?B?N214T2ZJVEJwMy8yZ0xDeUpIWDBSQWZYVXNmUGV5dWZTdEY1T2FCejFxeGc1?=
+ =?utf-8?B?ZytmdmZmT05JUG9KR3h5aEp0RnkvY1J0UUk5cWkxZnlaZXRpZUo5blBXK09v?=
+ =?utf-8?B?SVdoZmRKeGtHOXF6Qmh6dnJkS0xlRWFWY25rSUZacE5sV2ZHaGptVFZ2ZnU3?=
+ =?utf-8?B?QWFIUzhmUUZYVjY3SEgwc29tUmErYnA3TE5KM3lwcjlWMkZaZEZwMkVJaEFy?=
+ =?utf-8?B?S0xLWDBvNlg5SkhIQUM1ak5Tc2RheWFjMkUzeXJaUzBjdjU5ZUZRb0RDQWU1?=
+ =?utf-8?B?WndJOHh1T1pTQ3lCRjlqQ2wwNnpLdDY1bHpzZ3RrcXpydTlkeTZOQnRYMHNw?=
+ =?utf-8?B?Y1k5cU9OazRuRFlab2dSZnA4MytrMDNnUi9ZQlNiK01sRDR3VEM3d0IvNFlw?=
+ =?utf-8?B?VndsUzB1eFd6NjlhaStyVGlmQ0Q2bUpsVWJFQnlJaFNnbklkeXgzaWhwOTFp?=
+ =?utf-8?B?eVNTUmo3VmdycXk4c2pIYlpIRHZvY2MyUWNUbUlLSS8wa0g3MXB3cHB5aUN2?=
+ =?utf-8?B?THdSMnF4Q29icTV3L21wSlI0aEFCRmlzTW1adG5tckJWdUxzWE1xZStQMnRT?=
+ =?utf-8?B?V3pUbkpjVWs2TlVpOWwyY2p6ZkNRRGFNWGlWQ09vOG5JYjhtbUtMRGJiQVRq?=
+ =?utf-8?B?WnRUZit0K01TMG1PbFJCRE9ndzVGVTQxd05NKzhYRGF2ZHlETFN6MFRZZmRh?=
+ =?utf-8?B?OXlKa3FRMUpnejRzNWdxcVVyRzVraU52ZnBnSmtrZUY4dVdpelh5NE9BV2xt?=
+ =?utf-8?B?Vm41Y3ZFeE5ESHhLSFVXQ1cwaTIwZWFvdGErTmIzakMrMmFMS1dtYjVFWE9v?=
+ =?utf-8?B?NnIwemhidng4M3ZCa2RmdUFBWnlMaitUcy82VGFyQUptcGJwT0U3LzlJd2tl?=
+ =?utf-8?B?ZDdFMm92aEZIQVBGYWtabjIxMWpJOExqUm9nZmN0RDRJeGo2dUpYRmZ4SFpU?=
+ =?utf-8?B?L3NXUE8xZXExK2l0OTdiRFNNOWd2dkkyRFBNbTRCYlUxR1Z1QnlYc2NQNklt?=
+ =?utf-8?B?NzlLRVgwREgwaHlYT2hLR0RMSkQvNXIvd3NmWjZKbk4xcExHSHBBK1pkcGI4?=
+ =?utf-8?B?WWJhMFpQb3gxQisyS1c5Y2pIYlVYL1ViWGdoZ01EV0pNT0NtWDIvMFkzMGU4?=
+ =?utf-8?B?ZUhkb1kzWDV3eUtjYy9JZ1JNUGo5QVVKb3JjRnNzYlcxQ2w1OWlGeDRpNUJt?=
+ =?utf-8?B?OHhIbHVPVG1sTDQ5aXVKd3VyQTRKL2FjenFTazRPNkQ0Sk0xbmY2cmsxQTkr?=
+ =?utf-8?B?WTN5Q1dwRzlBd2NPdUVWenJpbWJva2NUS0gvMGwrcjNEUXhLRERQZVliTFZY?=
+ =?utf-8?B?UXN1VDRXYVRiYWQxaW44TUxDNnBPK0REcUJaZzNwLy9UQS9GS3praHMvL1Qy?=
+ =?utf-8?Q?whDTaLjDxVx9W0suzCKfHxcdL?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8446ffae-785f-4e7d-9cd7-08de1c492098
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5227.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2025 08:55:57.3182
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gvTZd+5sAM7aYw+k/lsxFmaWZQBLSXe+KIcdCxW7lmLXx5BjWzukLAdcALxsn+g7/azo5RXrZslwA693lnsS1A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5496
 
-Kevin Brodsky <kevin.brodsky@arm.com> writes:
+On Thu, Oct 09, 2025 at 01:48:01PM +0200, Jan Beulich wrote:
+> On 09.10.2025 13:36, Marek Marczykowski-Górecki wrote:
+> > On Tue, Oct 07, 2025 at 04:46:17PM +0200, Jan Beulich wrote:
+> >> On 07.10.2025 16:23, Marek Marczykowski-Górecki wrote:
+> >>> On Tue, Oct 07, 2025 at 04:12:13PM +0200, Jan Beulich wrote:
+> >>>> On 02.10.2025 16:10, Marek Marczykowski-Górecki wrote:
+> >>>>> On Thu, Oct 02, 2025 at 02:05:56PM +0100, Andrew Cooper wrote:
+> >>>>>> On 12/06/2025 11:07 am, Frediano Ziglio wrote:
+> >>>>>>> For xen.gz file we strip all symbols and have an additional
+> >>>>>>> xen-syms file version with all symbols.
+> >>>>>>> Make xen.efi more coherent stripping all symbols too.
+> >>>>>>> xen.efi.elf can be used for debugging.
+> >>>>>>>
+> >>>>>>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> >>>>>
+> >>>>> Generally,
+> >>>>> Reviewed-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> >>>>
+> >>>> Just to double check: You offer this after having read (and discarded) my
+> >>>> comments on v1, which v2 left largely unaddressed? 
+> >>>
+> >>> You mean the one about objcopy result used for debugging? I didn't see
+> >>> that before, since I wasn't in cc on v1... 
+> >>>
+> >>> Anyway, are you aware of some specific objcopy issue. Or in other words:
+> >>> would xen.efi.elf _currently_ be broken (as in - unusable for
+> >>> debugging/disassembly)?
+> >>
+> >> I can't tell. I've seen fair parts of the code in the course of addressing
+> >> various issues, and I would be very surprised if all of that was working
+> >> correctly.
+> >>
+> >>> If not, then I take that relevant part of your
+> >>> objection is mostly about inconsistent naming (xen.gz -> xen-syms, vs
+> >>> xen.efi -> xen.efi.elf). Would xen-syms.efi.elf be better?
+> >>
+> >> Plus the one asking to strip only debug info, but not the symbol table.
+> >> (And no, none of the suggested names look really nice to me.)
+> >>
+> >> Plus the one indicating that the change better wouldn't be made in the
+> >> first place. As said, to deal with size issues we already have machinery
+> >> in place. Not very nice machinery, but it's apparently functioning.
+> > 
+> > I'm of the opinion that defaults matter. Just having ability to build a
+> > binary that works on more systems is not sufficient, if you'd need to
+> > spend a day (or more...) on debugging obscure error message to figure
+> > out which hidden option to use to get there. And while one could argue
+> > that CONFIG_DEBUG=y builds are only for people familiar with details to
+> > deal with such issues, IMO just CONFIG_DEBUG_INFO=y shouldn't need
+> > arcane knowledge to get it working... And since that's a common option
+> > to enable in distribution packages, person hitting the issue might not
+> > even be the one doing the build (and thus controlling the build
+> > options).
+> > 
+> > As for the details how to get there, I'm more flexible. Based on earlier
+> > comments, it seems that (not stripped) xen.efi isn't very useful for
+> > debugging directly, an ELF version of it is. So IMO it makes sense to
+> > have the debug binary already converted. But if you say you have use for
+> > xen.efi with all debug info too, I'm okay with keeping it too, maybe as
+> > xen-syms.efi. It's a bit of more space (to have both efi and elf version
+> > with debug info), but since it doesn't apply to the installed version,
+> > only the one kept in the build directory, not a big issue IMO.
+> 
+> Hmm, yes, having xen-syms.efi (unstripped) plus xen.efi (with debug info
+> stripped but symbol table retained, including file symbols) might indeed
+> be a reasonable approach. (And then no xen-syms.efi at all when we pass
+> --strip-debug to the linker anyway. For this to result in somewhat
+> manageable Makefile logic, we may need to first split the linking rule
+> into multiple steps, as iirc has been the plan for quite some time.)
 
-> Despite recent efforts to prevent lazy_mmu sections from nesting, it
-> remains difficult to ensure that it never occurs - and in fact it
-> does occur on arm64 in certain situations (CONFIG_DEBUG_PAGEALLOC).
-> Commit 1ef3095b1405 ("arm64/mm: Permit lazy_mmu_mode to be nested")
-> made nesting tolerable on arm64, but without truly supporting it:
-> the inner call to leave() disables the batching optimisation before
-> the outer section ends.
->
-> This patch actually enables lazy_mmu sections to nest by tracking
-> the nesting level in task_struct, in a similar fashion to e.g.
-> pagefault_{enable,disable}(). This is fully handled by the generic
-> lazy_mmu helpers that were recently introduced.
->
-> lazy_mmu sections were not initially intended to nest, so we need to
-> clarify the semantics w.r.t. the arch_*_lazy_mmu_mode() callbacks.
-> This patch takes the following approach:
->
-> * The outermost calls to lazy_mmu_mode_{enable,disable}() trigger
->   calls to arch_{enter,leave}_lazy_mmu_mode() - this is unchanged.
->
-> * Nested calls to lazy_mmu_mode_{enable,disable}() are not forwarded
->   to the arch via arch_{enter,leave} - lazy MMU remains enabled so
->   the assumption is that these callbacks are not relevant. However,
->   existing code may rely on a call to disable() to flush any batched
->   state, regardless of nesting. arch_flush_lazy_mmu_mode() is
->   therefore called in that situation.
->
-> A separate interface was recently introduced to temporarily pause
-> the lazy MMU mode: lazy_mmu_mode_{pause,resume}(). pause() fully
-> exits the mode *regardless of the nesting level*, and resume()
-> restores the mode at the same nesting level.
->
-> Whether the mode is actually enabled or not at any point is tracked
-> by a separate "active" field in task_struct; this makes it possible
-> to check invariants in the generic API, and to expose a new
-> in_lazy_mmu_mode() helper to replace the various ways arch's
-> currently track whether the mode is enabled (this will be done in
-> later patches).
->
-> In summary (nesting/active represent the values *after* the call):
->
-> lazy_mmu_mode_enable()		-> arch_enter()	    nesting=3D1 active=3D1
->     lazy_mmu_mode_enable()	-> =C3=B8		    nesting=3D2 active=3D1
-> 	lazy_mmu_mode_pause()	-> arch_leave()     nesting=3D2 active=3D0
-> 	lazy_mmu_mode_resume()	-> arch_enter()     nesting=3D2 active=3D1
->     lazy_mmu_mode_disable()	-> arch_flush()     nesting=3D1 active=3D1
-> lazy_mmu_mode_disable()		-> arch_leave()     nesting=3D0 active=3D0
->
-> Note: in_lazy_mmu_mode() is added to <linux/sched.h> to allow arch
-> headers included by <linux/pgtable.h> to use it.
->
-> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
-> ---
->  arch/arm64/include/asm/pgtable.h | 12 ------
->  include/linux/mm_types_task.h    |  5 +++
->  include/linux/pgtable.h          | 67 ++++++++++++++++++++++++++++++--
->  include/linux/sched.h            | 16 ++++++++
->  4 files changed, 84 insertions(+), 16 deletions(-)
->
-> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pg=
-table.h
-> index 54f8d6bb6f22..535435248923 100644
-> --- a/arch/arm64/include/asm/pgtable.h
-> +++ b/arch/arm64/include/asm/pgtable.h
-> @@ -82,18 +82,6 @@ static inline void queue_pte_barriers(void)
->=20=20
->  static inline void arch_enter_lazy_mmu_mode(void)
->  {
-> -	/*
-> -	 * lazy_mmu_mode is not supposed to permit nesting. But in practice this
-> -	 * does happen with CONFIG_DEBUG_PAGEALLOC, where a page allocation
-> -	 * inside a lazy_mmu_mode section (such as zap_pte_range()) will change
-> -	 * permissions on the linear map with apply_to_page_range(), which
-> -	 * re-enters lazy_mmu_mode. So we tolerate nesting in our
-> -	 * implementation. The first call to arch_leave_lazy_mmu_mode() will
-> -	 * flush and clear the flag such that the remainder of the work in the
-> -	 * outer nest behaves as if outside of lazy mmu mode. This is safe and
-> -	 * keeps tracking simple.
-> -	 */
-> -
->  	if (in_interrupt())
->  		return;
->=20=20
-> diff --git a/include/linux/mm_types_task.h b/include/linux/mm_types_task.h
-> index a82aa80c0ba4..632d404f8191 100644
-> --- a/include/linux/mm_types_task.h
-> +++ b/include/linux/mm_types_task.h
-> @@ -88,4 +88,9 @@ struct tlbflush_unmap_batch {
->  #endif
->  };
->=20=20
-> +struct lazy_mmu_state {
-> +	u8 nesting_level;
-> +	bool active;
-> +};
-> +
->  #endif /* _LINUX_MM_TYPES_TASK_H */
-> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> index b5fdf32c437f..e6064e00b22d 100644
-> --- a/include/linux/pgtable.h
-> +++ b/include/linux/pgtable.h
-> @@ -228,27 +228,86 @@ static inline int pmd_dirty(pmd_t pmd)
->   * of the lazy mode. So the implementation must assume preemption may be=
- enabled
->   * and cpu migration is possible; it must take steps to be robust agains=
-t this.
->   * (In practice, for user PTE updates, the appropriate page table lock(s=
-) are
-> - * held, but for kernel PTE updates, no lock is held). Nesting is not pe=
-rmitted
-> - * and the mode cannot be used in interrupt context.
-> + * held, but for kernel PTE updates, no lock is held). The mode cannot b=
-e used
-> + * in interrupt context.
-> + *
-> + * The lazy MMU mode is enabled for a given block of code using:
-> + *
-> + *   lazy_mmu_mode_enable();
-> + *   <code>
-> + *   lazy_mmu_mode_disable();
-> + *
-> + * Nesting is permitted: <code> may itself use an enable()/disable() pai=
-r.
-> + * A nested call to enable() has no functional effect; however disable()=
- causes
-> + * any batched architectural state to be flushed regardless of nesting. =
-After a
-> + * call to disable(), the caller can therefore rely on all previous page=
- table
-> + * modifications to have taken effect, but the lazy MMU mode may still be
-> + * enabled.
-> + *
-> + * In certain cases, it may be desirable to temporarily pause the lazy M=
-MU mode.
-> + * This can be done using:
-> + *
-> + *   lazy_mmu_mode_pause();
-> + *   <code>
-> + *   lazy_mmu_mode_resume();
-> + *
-> + * This sequence must only be used if the lazy MMU mode is already enabl=
-ed.
-> + * pause() ensures that the mode is exited regardless of the nesting lev=
-el;
-> + * resume() re-enters the mode at the same nesting level. <code> must no=
-t modify
-> + * the lazy MMU state (i.e. it must not call any of the lazy_mmu_mode_*
-> + * helpers).
-> + *
-> + * in_lazy_mmu_mode() can be used to check whether the lazy MMU mode is
-> + * currently enabled.
->   */
->  #ifdef CONFIG_ARCH_HAS_LAZY_MMU_MODE
->  static inline void lazy_mmu_mode_enable(void)
->  {
-> -	arch_enter_lazy_mmu_mode();
-> +	struct lazy_mmu_state *state =3D &current->lazy_mmu_state;
-> +
-> +	VM_WARN_ON_ONCE(state->nesting_level =3D=3D U8_MAX);
-> +	/* enable() must not be called while paused */
-> +	VM_WARN_ON(state->nesting_level > 0 && !state->active);
-> +
-> +	if (state->nesting_level++ =3D=3D 0) {
-> +		state->active =3D true;
-> +		arch_enter_lazy_mmu_mode();
-> +	}
->  }
+It's my understanding that there's consensus now between Marek and Jan
+about how to progress this forward, and it will require some changes
+to the original patch posted by Frediano.
 
-Some architectures disables preemption in their
-arch_enter_lazy_mmu_mode(). So shouldn't the state->active =3D true should
-happen after arch_enter_lazy_mmu_mode() has disabled preemption()? i.e.
+This has been marked as a blocker for 4.21, and hence needs to be
+progressed quickly or else it will miss the release.
 
-  static inline void lazy_mmu_mode_enable(void)
-  {
- -	arch_enter_lazy_mmu_mode();
- +	struct lazy_mmu_state *state =3D &current->lazy_mmu_state;
- +
- +	VM_WARN_ON_ONCE(state->nesting_level =3D=3D U8_MAX);
- +	/* enable() must not be called while paused */
- +	VM_WARN_ON(state->nesting_level > 0 && !state->active);
- +
- +	if (state->nesting_level++ =3D=3D 0) {
- +		arch_enter_lazy_mmu_mode();
- +		state->active =3D true;
- +	}
-  }
-
-... I think it make more sense to enable the state after the arch_**
-call right.
-
->=20=20
->  static inline void lazy_mmu_mode_disable(void)
->  {
-> -	arch_leave_lazy_mmu_mode();
-> +	struct lazy_mmu_state *state =3D &current->lazy_mmu_state;
-> +
-> +	VM_WARN_ON_ONCE(state->nesting_level =3D=3D 0);
-> +	VM_WARN_ON(!state->active);
-> +
-> +	if (--state->nesting_level =3D=3D 0) {
-> +		state->active =3D false;
-> +		arch_leave_lazy_mmu_mode();
-> +	} else {
-> +		/* Exiting a nested section */
-> +		arch_flush_lazy_mmu_mode();
-> +	}
->  }
-
-This looks ok though.
-
->=20=20
->  static inline void lazy_mmu_mode_pause(void)
->  {
-> +	struct lazy_mmu_state *state =3D &current->lazy_mmu_state;
-> +
-> +	VM_WARN_ON(state->nesting_level =3D=3D 0 || !state->active);
-> +
-> +	state->active =3D false;
->  	arch_leave_lazy_mmu_mode();
->  }
->=20=20
->  static inline void lazy_mmu_mode_resume(void)
->  {
-> +	struct lazy_mmu_state *state =3D &current->lazy_mmu_state;
-> +
-> +	VM_WARN_ON(state->nesting_level =3D=3D 0 || state->active);
-> +
-> +	state->active =3D true;
->  	arch_enter_lazy_mmu_mode();
->  }
-
-Ditto.
-
--ritesh
-
-
->  #else
-> diff --git a/include/linux/sched.h b/include/linux/sched.h
-> index cbb7340c5866..11566d973f42 100644
-> --- a/include/linux/sched.h
-> +++ b/include/linux/sched.h
-> @@ -1441,6 +1441,10 @@ struct task_struct {
->=20=20
->  	struct page_frag		task_frag;
->=20=20
-> +#ifdef CONFIG_ARCH_HAS_LAZY_MMU_MODE
-> +	struct lazy_mmu_state		lazy_mmu_state;
-> +#endif
-> +
->  #ifdef CONFIG_TASK_DELAY_ACCT
->  	struct task_delay_info		*delays;
->  #endif
-> @@ -1724,6 +1728,18 @@ static inline char task_state_to_char(struct task_=
-struct *tsk)
->  	return task_index_to_char(task_state_index(tsk));
->  }
->=20=20
-> +#ifdef CONFIG_ARCH_HAS_LAZY_MMU_MODE
-> +static inline bool in_lazy_mmu_mode(void)
-> +{
-> +	return current->lazy_mmu_state.active;
-> +}
-> +#else
-> +static inline bool in_lazy_mmu_mode(void)
-> +{
-> +	return false;
-> +}
-> +#endif
-> +
->  extern struct pid *cad_pid;
->=20=20
->  /*
-> --=20
-> 2.47.0
+Thanks, Roger.
 
