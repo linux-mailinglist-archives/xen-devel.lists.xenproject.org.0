@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ADD8C39F60
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 10:58:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1156644.1485674 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84F38C3A182
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 11:10:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1156675.1485694 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGwlS-0007HY-Ki; Thu, 06 Nov 2025 09:58:46 +0000
+	id 1vGwvv-0001Mw-Va; Thu, 06 Nov 2025 10:09:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1156644.1485674; Thu, 06 Nov 2025 09:58:46 +0000
+Received: by outflank-mailman (output) from mailman id 1156675.1485694; Thu, 06 Nov 2025 10:09:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGwlS-0007F4-HF; Thu, 06 Nov 2025 09:58:46 +0000
-Received: by outflank-mailman (input) for mailman id 1156644;
- Thu, 06 Nov 2025 09:58:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vGwvv-0001K8-Sk; Thu, 06 Nov 2025 10:09:35 +0000
+Received: by outflank-mailman (input) for mailman id 1156675;
+ Thu, 06 Nov 2025 10:09:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IWGa=5O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vGwlQ-0007Es-GP
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 09:58:44 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2da8028f-baf7-11f0-9d17-b5c5bf9af7f9;
- Thu, 06 Nov 2025 10:58:43 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-640bd9039fbso1268806a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 01:58:43 -0800 (PST)
+ id 1vGwvu-0001K2-QN
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 10:09:34 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b08a1bf0-baf8-11f0-980a-7dc792cee155;
+ Thu, 06 Nov 2025 11:09:32 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-b3d196b7eeeso106671766b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 02:09:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6411f86e12fsm1450849a12.34.2025.11.06.01.58.42
+ a640c23a62f3a-b728937d880sm183890866b.26.2025.11.06.02.09.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Nov 2025 01:58:42 -0800 (PST)
+ Thu, 06 Nov 2025 02:09:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2da8028f-baf7-11f0-9d17-b5c5bf9af7f9
+X-Inumbo-ID: b08a1bf0-baf8-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762423123; x=1763027923; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762423772; x=1763028572; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Rhfy11/guVwOWQYPdtOxX6VZ1SgjtOwJ5IhKiblhsPY=;
-        b=BlzhoIrHmZudP9qN9o7u9MIZLt829Hr/ArSlTHR0UyKzJFp+SMZ8o9Rc4uYqF/vt6Q
-         HNrouep880I15crRVpayqVTwrsijuS/0SUuFbZX7iAPAIIXhIhrzg1VKQ6x3SUtwvSht
-         hX3uaAMLk7qnJrmZTwxAGMkPpwNesWrTHQP9NDhlGbh195WSHr1Ox7HVGA7HYhcAJ/bd
-         DzR0sxlUM89RsF+BUBbjlJdmt8chnG5DSIrYHN/wbRMTgTWFvPXk+GJCrkWR4r3tw66m
-         SoRuG+mK3OLwbJ66b33w0Zo5EwF5BtgcGi8fFlqrEosX6giQGP9iDQisrr8rKQyg1Dx+
-         bvtQ==
+        bh=127p3U/4hov97C/SybP0XPQyeMPeKbvNc1aPkJZ+QUA=;
+        b=ZDxYfcOg/j9Bv8o/nXNp0nURKbHTpIbOYqyoxc7YjYSyP3/RgbQg5npnQ4V2Bn/iNY
+         yofw9Q48zQYXigYjVF7gUoHwWQZKJNafNJy3QoyJ0EFTQqD7xxLLiRI1XF78UHkqOvS2
+         QWhP06vrFjlZMGWWsn638tACeXCaYiD37cZlDA5MTGLvHLwt0Z6/y7mjyX9SPFKsvjfN
+         oHK53Y5bzKUI+oEBGYhJS0HnDcC4faXg6XVoC956BpaYx+cVMYLOuZlfZDeOeofgUITf
+         ffaYbLQkCA1iqFYX2E2CS+AJsZj9UhZbDguqzRyYo/cY6p0gdoCGtcygJjZC31wGqYJU
+         7Hzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762423123; x=1763027923;
+        d=1e100.net; s=20230601; t=1762423772; x=1763028572;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Rhfy11/guVwOWQYPdtOxX6VZ1SgjtOwJ5IhKiblhsPY=;
-        b=LrKHVjd24pOlqllGtM3o6ftfoEO6q84lrkRNnEP/gwILIPyyFX6wAp5GZVymzZi71H
-         HRLHvD5uGDW9nz6Dl0q3I+A8ChfnXLrxbSt+rPJRSPyCOluM5N6tC18SjTOIqkeEKmt/
-         vKJEX0dtiMAN0nKkxnJvyETj9hHf4vDvh9JsJJvbj1J0Hj79cQHNfZinHQ+lPhAzwMzg
-         BBnnavo/AanxvIKxCQmFfWs3ZNUpw2Lc6y3HuVp+ONID5YTev9RGlvVliCPWB+j5o+L6
-         nDyHi5oP774psKideJBi3aHfAB1P89yXB8+jzRVbLjJXcVqS0T2l/fwv/2FJ6/LhO9DB
-         AAHA==
-X-Forwarded-Encrypted: i=1; AJvYcCUKmlyrPD9IVQrU8doysn1s6ggUzGPPoDWsuC4SLBzrdHC8vB2he7yEgRltNILp5KMWHTHam4xkT7k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzxm53JrI9jz8yFb9CvNEHC01aPe3IzIHjzCauk9pHs3J4h9UeW
-	lWVY6v171dt+WixwP2GcJ5LafdiBnk18roFYv6Gb3as+pAegVewgIeCukBwb2oOuaQ==
-X-Gm-Gg: ASbGncsayLU/oZ1BB9uc40ZhT07KVXkqCnRREE5VljGW07xjtCypgyHRCVQ54sB7Phy
-	1V11bYj0ynzYLweDa/upIoHtxyXX3SuK1ICwDUP0FJQSYUyJ5vsrmFpR8vGc9x23W3SIuzk2DyQ
-	k8hFYgRaViuZjBrhxqekAtarDEMjitulzbafFMZOg+P7KZDZO7aK5wjz+4hN16Af/OEp6xe0VdW
-	9g9Ep8WWt35s/wvIhmNCe6pj/E9Jo8oEBXDX48DdnxZBs6bkL9SWZ1LFekRuhtUFGqyq6B2Xix9
-	8TuLq6lhdoH2vUAMqJ78UQDwU76Cy9ecXU/JWXEJuFtVF3uOV8Xc6sl+2Adv+t2cUOHUxBBUr1f
-	cecO18iw7C5VV7wqGnQNAemoqiB/SFmZN3XY4I0I10Y4+OBCJizzMuy8PGUoqp1WEN8kz9u1114
-	5cPUd0Sou3m22MMiQR0fGGliam+QdLpGZ373Iaty2e8SswfJjNhwOROYvvShes
-X-Google-Smtp-Source: AGHT+IHcLjJMU8ICjH35PQNPqkue1GotyAeT9ZIeySnFON4yVYZCTD/M+iEni5QVAmcnvyckm3eGxg==
-X-Received: by 2002:a05:6402:26cd:b0:640:ccb0:f4e9 with SMTP id 4fb4d7f45d1cf-64105a3ee29mr5445800a12.19.1762423122984;
-        Thu, 06 Nov 2025 01:58:42 -0800 (PST)
-Message-ID: <34c195a5-0e3c-4a19-bc92-374f2fbded34@suse.com>
-Date: Thu, 6 Nov 2025 10:58:46 +0100
+        bh=127p3U/4hov97C/SybP0XPQyeMPeKbvNc1aPkJZ+QUA=;
+        b=ft86t0TezZVVQ61pVDuyNe63/wsp2ryJ5EzKR3R8hTDkrzYgbN9lb+iKpj8cRMdnIJ
+         eXGlmu4g8Bp5zWuuGa/9Qm4arHiM5T7Arl5ahxOY6geLcDgBDq7A2CNNAziJJvj0KJuy
+         77tTH9GppwW0imfiasSSmGM/FLgXOyS12uiySpWsZ2QR5WFm6qKb93Y4mLHtaSlHhAFQ
+         gxTbVi2cOXRDWw7oT84181YdNy0+IhYpfI8ONcZXpIdLZMD9AZEqrr9JbnhRxOtEZ2+z
+         RRooB2kJKIGnlOhkKo8f/ZHPmtY0b369pFFEvAeuLq3izKxTQTOvTgjlpkTljZUkWjes
+         OYxQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWhpYsMqo7syAkaP9J2evd6SNv8Jn2HfiAE6fwSWAqdtJcinTSChiiB7bRgLk4NRGC5HSRsbpXxx9w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyNuNQvlFELC/v2yHH3SuuyZcwNxOUrlNzgtL+WaYYZt1iNhRjO
+	MAHF78l79iw1BblrEZAX3+IbUe9GvdtGowPwl+Py7aY24IYsJpGz7OkK0ujrkzcXXA==
+X-Gm-Gg: ASbGncs02JyqF3bucXVsHCRpMvo+it+1s3C1AVSutTp+YXdedp1OeGlBZu5fnW150Ph
+	57/9H9hLFXmYoc66G67XOdDIodAjWEwmY5br1U14M7kgZ4SUIbv7No3Njm0/GlUS5p/vSn4Bflc
+	FYFP+9TUOH28TNttOOA9kVSuK5Xn5nj+9q7v+PUSk7GCzfF9ZTMRr15PJ49De09pyS8vqo+/f61
+	Nuv+FxGTjS/lzrIkGSVN0xF7a7D4Eh8CZo/YhPwNo011PC2AKtwSI2eC6liCxMFE5BXH+q2duLL
+	1pb6xNZqLYdxvaaaID/yzAXWjk9lxIpJMvLkSdgHsccqtTLSB8a0RmRZhtCMHXnCPnG4SZom/SN
+	6aOpyBzvYsu7CYIvkQj8xDoGl/D/lqHExifbsmuElcoFkw2A10fFREtAnAA0gnD2dC7yO97SSsh
+	5LXUmHkG3j8w2t3qq7U07xR9tdxxib6nrzhT9QWN2f0IT4w5l3GBXKE15V3fBd
+X-Google-Smtp-Source: AGHT+IG0itRJdZ3NUS9r6OwFNb4MZ5S9WMv5lE8FVaL17wn0mUmCPFsTEaFLvj6YHLVpJXZ5g/1EIg==
+X-Received: by 2002:a17:907:1c0a:b0:b3f:f66b:268a with SMTP id a640c23a62f3a-b726529ee53mr624594366b.19.1762423771933;
+        Thu, 06 Nov 2025 02:09:31 -0800 (PST)
+Message-ID: <9598b2e2-7df8-40c5-82cb-c097121af763@suse.com>
+Date: Thu, 6 Nov 2025 11:09:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] xen/x86: guest_access: optimize raw_x_guest() for PV
- and HVM combinations
-To: Grygorii Strashko <grygorii_strashko@epam.com>
+Subject: Re: [PATCH v6 1/5] xen/domctl: extend XEN_DOMCTL_assign_device to
+ handle not only iommu
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Jason Andryuk <jason.andryuk@amd.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251031212058.1338332-1-grygorii_strashko@epam.com>
+References: <cover.1761998077.git.oleksii_moisieiev@epam.com>
+ <b0a72660d58608c80e7408eb8df32ec369d4e45b.1761998077.git.oleksii_moisieiev@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,20 +127,75 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251031212058.1338332-1-grygorii_strashko@epam.com>
+In-Reply-To: <b0a72660d58608c80e7408eb8df32ec369d4e45b.1761998077.git.oleksii_moisieiev@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 31.10.2025 22:20, Grygorii Strashko wrote:
-> @@ -34,6 +35,43 @@
->       copy_from_user_hvm((dst), (src), (len)) :  \
->       __copy_from_guest_pv(dst, src, len))
+On 01.11.2025 12:56, Oleksii Moisieiev wrote:
+> --- a/xen/common/domctl.c
+> +++ b/xen/common/domctl.c
+> @@ -29,6 +29,7 @@
+>  #include <xen/xvmalloc.h>
 >  
-> +#elif defined(CONFIG_HVM)
-> +#define raw_copy_to_guest(dst, src, len)        \
-> +     copy_to_user_hvm((dst), (src), (len))
+>  #include <asm/current.h>
+> +#include <asm/firmware/sci.h>
+>  #include <asm/irq.h>
+>  #include <asm/page.h>
+>  #include <asm/p2m.h>
 
-Oh, and: Please omit unnecessary parentheses - they only hamper readability.
+Does this build at all on non-Arm?
+
+> @@ -827,7 +828,32 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>      case XEN_DOMCTL_test_assign_device:
+>      case XEN_DOMCTL_deassign_device:
+>      case XEN_DOMCTL_get_device_group:
+> +        int ret1;
+> +        
+> +        /*
+> +         * Add chained handling of assigned DT devices to support
+> +         * access-controller functionality through SCI framework, so
+> +         * DT device assign request can be passed to FW for processing and
+> +         * enabling VM access to requested device.
+> +         * The access-controller DT device processing is chained before IOMMU
+> +         * processing preserving return code and expected to be executed for
+> +         * any DT device regardless if DT device is protected by IOMMU or
+> +         * not (or IOMMU is disabled).
+> +         */
+> +        ret1 = sci_do_domctl(op, d, u_domctl);
+
+Why would this not be the initializer of the new variable? (I also don't think
+that we've decided to permit variable declarations at other than the top of
+scopes or within e.g. a for() loop control construct.)
+
+>          ret = iommu_do_domctl(op, d, u_domctl);
+> +        if ( ret < 0 )
+> +            return ret;
+
+Why would you invoke both in all cases? If sci_do_domctl() handled the request,
+there isn't any point in also invoking iommu_do_domctl(), is there? Or else is
+there maybe some crucial aspect missing from the description (or not explicit
+enough there for a non-SCI person like me)?
+
+Also this doesn't look to fit the description saying "The SCI access-controller
+DT device processing is chained after IOMMU processing ..."
+
+> --- a/xen/drivers/passthrough/device_tree.c
+> +++ b/xen/drivers/passthrough/device_tree.c
+> @@ -379,6 +379,12 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
+>              break;
+>          }
+>  
+> +        if ( !dt_device_is_protected(dev) )
+> +        {
+> +            ret = 0;
+> +            break;
+> +        }
+> +
+>          ret = iommu_assign_dt_device(d, dev);
+>  
+>          if ( ret )
+
+How are DT and PCI different in this regard?
 
 Jan
 
