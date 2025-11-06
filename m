@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44A1CC3A9BE
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 12:36:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1156811.1485796 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B8BCC3ABFB
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 13:01:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1156830.1485805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGyHe-0000iA-AJ; Thu, 06 Nov 2025 11:36:06 +0000
+	id 1vGyfc-0004YU-9f; Thu, 06 Nov 2025 12:00:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1156811.1485796; Thu, 06 Nov 2025 11:36:06 +0000
+Received: by outflank-mailman (output) from mailman id 1156830.1485805; Thu, 06 Nov 2025 12:00:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGyHe-0000fM-6b; Thu, 06 Nov 2025 11:36:06 +0000
-Received: by outflank-mailman (input) for mailman id 1156811;
- Thu, 06 Nov 2025 11:36:04 +0000
+	id 1vGyfc-0004VZ-6p; Thu, 06 Nov 2025 12:00:52 +0000
+Received: by outflank-mailman (input) for mailman id 1156830;
+ Thu, 06 Nov 2025 12:00:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IWGa=5O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vGyHc-0000ei-IT
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 11:36:04 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1vGyfa-0004VK-P4
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 12:00:50 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c2600a71-bb04-11f0-9d17-b5c5bf9af7f9;
- Thu, 06 Nov 2025 12:35:56 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-b719ca8cb8dso179155466b.0
- for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 03:35:56 -0800 (PST)
+ id 38611bcb-bb08-11f0-9d17-b5c5bf9af7f9;
+ Thu, 06 Nov 2025 13:00:43 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-afcb7ae6ed0so144311466b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 04:00:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b728937d305sm198005766b.24.2025.11.06.03.35.55
+ a640c23a62f3a-b728937dd8csm195360866b.22.2025.11.06.04.00.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Nov 2025 03:35:55 -0800 (PST)
+ Thu, 06 Nov 2025 04:00:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2600a71-bb04-11f0-9d17-b5c5bf9af7f9
+X-Inumbo-ID: 38611bcb-bb08-11f0-9d17-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762428956; x=1763033756; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762430442; x=1763035242; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=26CQNjsr1hLzCIO63Cz9PrrOZQd1ql3hb2hWGWjj6co=;
-        b=EVLT3rfNt4qeszwYLSRMKAhNDqVAb3/NYlQYESMENyt0HtGC8TMFZAE9nEXh4hbtK2
-         gCMiAzaCUjJjbKXPRNhA92xWKKF3elLxEoRfcZpTkUmOdU+Soc1FK+uIfauronH+aohQ
-         Ji7hno/9sFXt3FHczNsOGh7gAguooOOCdmCXmMRQzX478II2LXJcwmc1nZKjNfF3k1dT
-         7yDnvMn8HBehLsmR8/r3dHJVqqdPZzLgPCshfLtR1zMdq0qFP61bKJExvFeI89/KYUIJ
-         BucExKff2aFqFz6fUMi1EnpHGlCcJQDlTQ6910YtHSjxWtn4CKV5Zmlkkhpsu1EG+yhc
-         wdEw==
+        bh=pz+yiaTdfoXoaJ4V9CeDHJFxA1Eb2ygwXtAa0EEBqpQ=;
+        b=QGm8OMQBOfI/s577EBqysyWkEqKxZcIJ1E1GtgRh2wIk8pS00XcHNee1RtbH3XHw+G
+         c9qDaxm31hGm6YfCCJ+J5A5rBmw/b/dkSlEZAEuC30XhYrun1YlwBjxElouZajTpb+cM
+         peLGKT+pkROBtUVoHUPU5kQmEfGtg9JtZfzifLEUmfOTVBscksPl/XZ1osRU1VSTJL8L
+         z8F09bY8QJ1ONqlnSfC8IjiqWQxvN/gqmU7IJ6tHOd1hm0N8ISdje/AUUBdZjnGu50F0
+         tk8XqDMPTTZO1zaNSj6rIybCCgY5+tnihqkI1T3r3JwWqnBlzBupAMcYv1TtFBZnkQ81
+         zclw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762428956; x=1763033756;
+        d=1e100.net; s=20230601; t=1762430442; x=1763035242;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=26CQNjsr1hLzCIO63Cz9PrrOZQd1ql3hb2hWGWjj6co=;
-        b=La188I2Tly3Pjo8nRTQ4rE7cF3OZW+aZKRjP3+CXvutPfTj2XkIBbMj6b+NJAuRhzZ
-         U0zFpfqhZ4z0Go8nHvzm5YA8ekAtR6xflekkCiTrqmTqd59JyOuMvMry9ntjIth70kCD
-         Yg9PsoHzToWGCPeV3mslBiqNlBrFy79fGC5PVsSCyE5OHVtF4+hoMoDbhLRjhsk0EIK7
-         toZ1FfzlPy1Jl03Wr/zf4Apc/pbxcN7r068x9wTdKHwX6auKwM0y1MNGnxU8o67+AtA3
-         wOkv8INVvrV0UCS2M6yJH2zAoP5GwIeE/XF7w1RtsxAkxrBO0Ow2HhTb/RH7DBKWcUtC
-         NPEQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXD8HZjVGOQZ4w8USAGKU4p0m2gY7IKpdbBEf7qY8sqgo62oP1Qpi3lHuKzrAQQMFQWs09jHj+YG7Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyLpWScIGdJrbWiUr+a7z3f8ZtlmNprrpLu7LsA1DY/jNRIAOs/
-	5dXu/Itj1e21ai2eJwVsmbQZjRHPXBGqlda+rRbb5H+s5PsHehM/Z2cWdqLn18Owvg==
-X-Gm-Gg: ASbGncvUfbi6x80MCxGP2d/+NZC3aaorZFr/ljJYpNu0QZX9fLc6u21Besl1jhg0sJ/
-	8C2u4Nps9H4rcmffrWtaOTuIemUnb6fvxcw+Kni86kJmCWFSC3kh6p7yUOp85SX/GPmLy3fwmsY
-	aJ4wPiyPJrryOErdB2Wr505DsXpHD0gyhZo0Y1sx+4KDbO4sXWuel9X9QGv9KqqOvAb62jr28fw
-	s6e6LYyLRzz75ziysEUTK+QJmTFa26WEyJTzFwUQdKKvbKh4YzEkC8SqRBQf3aAMHzv7Qe7VJyR
-	ckmA9J9e2lddcrnwogCqK3DXcfRwWgRf+xIvYuHlORqzRxxubPvJx5F+izUtXZ10GVI/movq69H
-	zXJ1NY4eBcdCJPowN/umka69Nfasd7qlOkfuJSUBWA0mqrQRwHSYLF0ogo7VFNENmPpxD8Bn8TW
-	rMVb69jrYCEn3hSgDMGDJ5kl7SGNpYM/d7fp2ia9BBo8iuT7TDntlQp6OAjnd7
-X-Google-Smtp-Source: AGHT+IGmuSyOm+ppv1cGSso+CB8aBeWNnLEewZn1+/PmiK33b0/7rYEShYhnhcfoFfKaIyUtOFpzhg==
-X-Received: by 2002:a17:906:d553:b0:b72:52c2:b8ca with SMTP id a640c23a62f3a-b726568767cmr696173866b.59.1762428955760;
-        Thu, 06 Nov 2025 03:35:55 -0800 (PST)
-Message-ID: <a4d3eb8d-17ea-4d3c-87ef-ba5c3477b8c3@suse.com>
-Date: Thu, 6 Nov 2025 12:35:58 +0100
+        bh=pz+yiaTdfoXoaJ4V9CeDHJFxA1Eb2ygwXtAa0EEBqpQ=;
+        b=txGx9hf9UY+x3mAGpwV4no6IFQlWcK+xcWELmfV4nKisVd+OKRU7xCd3ONPQW+YbAo
+         Vk/UwBgKHrVmRRzJPsgDBUfD4HUgu+TKs7WACY1HPbFwQR1UZeZ9biM23iFvVnvRD3jn
+         3Ivn/oxuyicD1G+fCyMnnGrFa5y9+oeMrVWJMel2gENJFZsaHy/GDUvBb/WfW00ZmM7u
+         qOA5t84CGeDx/Wmzvfw2jcVHzNzZvAGhSXrvQY53PdYX1DGcPoyv+eFvZtd7NgAl4A8W
+         jwXsvmcmCrXRKybdm5g/HbOTFeK0Dybbi3AqcrWJY0DrGt+Wwu/gWyWRKovVRMYx6M+I
+         cFTQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWshhGmgAdmHKMhBRnAflylDh2peLW9GdMAZ3+aE9kc8pK731S35M+B5A6EcEJd+DdP6jSktXqRDw4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzIaK3KQRuy/TOoSWqytiqh2ITZyTgycb7rgK9JbqnXgPuxlAyv
+	oWjhANmDXdWPiFKo8CReadqG1rq47Z7QV0+JuTE9KclHV90hAw1o3dPdB4rpPDjmeA==
+X-Gm-Gg: ASbGncs9rK0RVZugEukqmu3YtP2azkkvtLi78W/TluSetO3vW1v5z9PjSUhXnZGbO/p
+	7zztbqiB+jmNv/y0h8M71Ya/KERfmYoFufG75Upyw/Igau1Kn/mrFcfJLX8mO55opZKuC7xe1/2
+	q3SxX65kHTjYclZOSV9slhD7jQNijjeLfxcEW4YYiaQSlWEauId1+nIZhWgiZoFwEyWmoGZI8Xa
+	ZFiSDfhK3ucjOPBvLXgaqjmKMJ52/c/miVVICZTOvi/8iE+3b2t8FO2DLyZHNqXyikqr7IBICHW
+	/wMvjO91mcUfRO/BjskwzHqg7H232P7aoxIkzqtMk4qDVF7lSZdMqPsC48Ni7K+LlANRN5AbynQ
+	PnlbACA7O7T34MsQbViav2Ejh8NK/5FPjSI/PqHEIiFpXWH3MQV1+o4zOh4et+u2gSS9R+zWi2T
+	wHpBIdqbijcUifTDOL3fxvbOb0NuXdSwmizL5/QDHoDr1u4UWCWDb29Kf9acYMrakLFNmysEI=
+X-Google-Smtp-Source: AGHT+IG4Ga2Y+kRTTpa+vJu85Z8eL56sORslqu3z4jl8lynpnaO9C0DFVQP+GkLLUDDdLaXTPJMrDg==
+X-Received: by 2002:a17:907:9484:b0:b50:52a4:8f9a with SMTP id a640c23a62f3a-b7265539e48mr658671966b.45.1762430442312;
+        Thu, 06 Nov 2025 04:00:42 -0800 (PST)
+Message-ID: <b6337cb5-da85-492d-bba9-688e35695c46@suse.com>
+Date: Thu, 6 Nov 2025 13:00:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v7] x86: make Viridian support optional
+Subject: Re: [XEN][PATCH] xen: make VMTRACE support optional
 To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Jason Andryuk <jason.andryuk@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Penny Zheng <Penny.Zheng@amd.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251031161716.1222956-1-grygorii_strashko@epam.com>
+References: <20251031212005.1338212-1-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,38 +126,107 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251031161716.1222956-1-grygorii_strashko@epam.com>
+In-Reply-To: <20251031212005.1338212-1-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 31.10.2025 17:17, Grygorii Strashko wrote:
-> --- a/xen/arch/x86/hvm/Makefile
-> +++ b/xen/arch/x86/hvm/Makefile
-> @@ -1,6 +1,6 @@
->  obj-$(CONFIG_AMD_SVM) += svm/
->  obj-$(CONFIG_INTEL_VMX) += vmx/
-> -obj-y += viridian/
-> +obj-$(CONFIG_VIRIDIAN) += viridian/
+On 31.10.2025 22:20, Grygorii Strashko wrote:
+> --- a/xen/Kconfig.debug
+> +++ b/xen/Kconfig.debug
+> @@ -155,4 +155,19 @@ config DEBUG_INFO
+>  	  "make install-xen" for installing xen.efi, stripping needs to be
+>  	  done outside the Xen build environment).
+>  
+> +config HAS_VMTRACE
+> +    bool
+> +
+> +config VMTRACE
+> +    bool "HW VM tracing support"
+> +    depends on HAS_VMTRACE
+> +    default y
+> +    help
+> +      Enables HW VM tracing support which allows to configure HW processor
+> +      features (vmtrace_op) to enable capturing information about software
+> +      execution using dedicated hardware facilities with minimal interference
+> +      to the software being traced. The trace date can be retrieved using buffer
 
-With this, what is the point of the additions to viridian_load_{domain,vcpu}_ctxt()?
-You're adding dead code there, aren't you?
+Nit: s/date/data/
 
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -4231,8 +4231,9 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
->              rc = -EINVAL;
->          break;
->      case HVM_PARAM_VIRIDIAN:
-> -        if ( (value & ~HVMPV_feature_mask) ||
-> -             !(value & HVMPV_base_freq) )
-> +        if ( !IS_ENABLED(CONFIG_VIRIDIAN) && value )
-> +            rc = -ENODEV;
-> +        else if ( (value & ~HVMPV_feature_mask) || !(value & HVMPV_base_freq) )
->              rc = -EINVAL;
+> +      shared between Xen and domain
+> +      (see XENMEM_acquire_resource(XENMEM_resource_vmtrace_buf)).
+> +
 
-I find the check for value to be (non-)zero a little dubious here: If any caller
-passed in 0, it would get back -EINVAL anyway. Imo -ENODEV would be more suitable
-in that case as well. Things would be different if 0 was a valid value to pass in.
+I was actually meaning to ask that "VMX only" should somehow be mentioned here,
+but then I noticed this is an arch-independent location. I'm not quite sure we
+want it like this (just yet).
+
+> @@ -2940,11 +2948,13 @@ static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
+>      .altp2m_vcpu_emulate_ve = vmx_vcpu_emulate_ve,
+>      .altp2m_vcpu_emulate_vmfunc = vmx_vcpu_emulate_vmfunc,
+>  #endif
+> +#ifdef CONFIG_VMTRACE
+>      .vmtrace_control = vmtrace_control,
+>      .vmtrace_output_position = vmtrace_output_position,
+>      .vmtrace_set_option = vmtrace_set_option,
+>      .vmtrace_get_option = vmtrace_get_option,
+>      .vmtrace_reset = vmtrace_reset,
+> +#endif
+>  
+>      .get_reg = vmx_get_reg,
+>      .set_reg = vmx_set_reg,
+
+Blank line ahead of the new #ifdef?
+
+> @@ -738,6 +740,7 @@ static inline bool altp2m_vcpu_emulate_ve(struct vcpu *v)
+>  bool altp2m_vcpu_emulate_ve(struct vcpu *v);
+>  #endif /* CONFIG_ALTP2M */
+>  
+> +#ifdef CONFIG_VMTRACE
+>  static inline int hvm_vmtrace_control(struct vcpu *v, bool enable, bool reset)
+>  {
+>      if ( hvm_funcs.vmtrace_control )
+> @@ -780,6 +783,12 @@ static inline int hvm_vmtrace_reset(struct vcpu *v)
+>  
+>      return -EOPNOTSUPP;
+>  }
+> +#else
+> +static inline int hvm_vmtrace_reset(struct vcpu *v)
+> +{
+> +    return 0;
+> +}
+> +#endif
+
+#ifdef inside the function body please, to reduce redundancy and to reduce the
+risk of overlooking multiple places which need editing (when e.g. function
+parameters change).
+
+> --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> @@ -155,7 +155,9 @@ struct vmx_vcpu {
+>      bool                 ept_spurious_misconfig;
+>  
+>      /* Processor Trace configured and enabled for the vcpu. */
+> +#ifdef CONFIG_VMTRACE
+>      bool                 ipt_active;
+> +#endif
+
+Imo such an #ifdef would better enclose the comment as well.
+
+> --- a/xen/arch/x86/vm_event.c
+> +++ b/xen/arch/x86/vm_event.c
+> @@ -253,7 +253,9 @@ void vm_event_fill_regs(vm_event_request_t *req)
+>      req->data.regs.x86.shadow_gs = ctxt.shadow_gs;
+>      req->data.regs.x86.dr6 = ctxt.dr6;
+>  
+> +#ifdef CONFIG_VMTRACE
+>      if ( hvm_vmtrace_output_position(curr, &req->data.regs.x86.vmtrace_pos) != 1 )
+> +#endif
+>          req->data.regs.x86.vmtrace_pos = ~0;
+>  #endif
+>  }
+
+Use IS_ENABLED() together with a function declaration (but no definition) in the
+VMTRACE=n case?
 
 Jan
 
