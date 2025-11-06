@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66D63C3B90F
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 15:06:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1156989.1485925 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97781C3B94B
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 15:09:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1157002.1485935 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH0cV-00005S-Dc; Thu, 06 Nov 2025 14:05:47 +0000
+	id 1vH0gC-0000qG-0o; Thu, 06 Nov 2025 14:09:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1156989.1485925; Thu, 06 Nov 2025 14:05:47 +0000
+Received: by outflank-mailman (output) from mailman id 1157002.1485935; Thu, 06 Nov 2025 14:09:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH0cV-0008VV-Aj; Thu, 06 Nov 2025 14:05:47 +0000
-Received: by outflank-mailman (input) for mailman id 1156989;
- Thu, 06 Nov 2025 14:05:46 +0000
+	id 1vH0gB-0000op-UH; Thu, 06 Nov 2025 14:09:35 +0000
+Received: by outflank-mailman (input) for mailman id 1157002;
+ Thu, 06 Nov 2025 14:09:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IWGa=5O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vH0cU-0008VO-Mo
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 14:05:46 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1vH0gA-0000oj-Up
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 14:09:34 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id af7c6531-bb19-11f0-980a-7dc792cee155;
- Thu, 06 Nov 2025 15:05:44 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-b728a43e410so172754566b.1
- for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 06:05:44 -0800 (PST)
+ id 37cd3204-bb1a-11f0-980a-7dc792cee155;
+ Thu, 06 Nov 2025 15:09:32 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-b728a43e410so173495966b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 06:09:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b72896c7991sm222289566b.71.2025.11.06.06.05.42
+ a640c23a62f3a-b7289334264sm218096366b.12.2025.11.06.06.09.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Nov 2025 06:05:43 -0800 (PST)
+ Thu, 06 Nov 2025 06:09:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af7c6531-bb19-11f0-980a-7dc792cee155
+X-Inumbo-ID: 37cd3204-bb1a-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762437943; x=1763042743; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762438172; x=1763042972; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XGSSzUsukcbLeqmAgWDj27S8tDCZi8FIbqNAXoogc04=;
-        b=bT9FtivH+Sgu3+YF6uOy4BtV9rCHbXLtLNa75eksP1dkY58W5HLXAlY/nPR4ghfLe0
-         qUl5rArAPiD9ALpUzucqTAjUofnR5sH4W79AWwc5SmXAeaqm2//53gqPARhiwOugnpFj
-         584IpQKTycgOunQa+HiR4k2zy1NqRcYhGl2+ujFB3lyoxU/1QPMgjl9Sqj/qwwqrvvHZ
-         tH4zK7n78BXQyQ0T6G/2QxjY524FJaL3aCCQoQ6h1fuJ+Zf5s38YWmlwfxNCvY1X4j1Y
-         Kv/BJ8vugoukCrS3qLrqJcE2/CnZEH0zE3SmTPWWPDvYLI5miBaPMZfyLTGBnY4qRvVw
-         MWMw==
+        bh=3m7r7W+00piqcEHoeftA7E3rCc88l8s7FHXFLVjyRxw=;
+        b=ZJ0YDVh3jemU/hkIN9nG7GgOhwqyMavDje68KRtg8o3DoqMQoi0sb8S/S4oTFoXibr
+         7uCO/9nK564j6xbI4NDPjGf0JZTkkZ5YlfVYScZP3AJzGatZdWFSbgZxCOOolbSLUIKA
+         8kW6cznlGQDKmmF/7Tb7xuR1YTY0GV2szA+Q0aSfMZTkYYTf83s3+LIZhdm1SNNjtYOZ
+         URzLgQwNIA/lY4+Ybwecp+vezJDSQJDkUBRHFf+OHVfHyFYqx3bdOloanrqKYdLCnAgO
+         vG9DmTS+KPPDvDYrNiyIXAu3XMBuOaas334N1U+TOH3iPg6cQk53OJQWot0seUL/9MZk
+         qGeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762437944; x=1763042744;
+        d=1e100.net; s=20230601; t=1762438172; x=1763042972;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XGSSzUsukcbLeqmAgWDj27S8tDCZi8FIbqNAXoogc04=;
-        b=RlWjx1ETPeIQZ2vrsNQNplZuf/JAAu93QTkA7O/DfP4YpvhutdYMH6KV2OIuUHaU7I
-         Q/8Lq/K0L2IosL4q2TyxheCbZcByL/2+yFIVv8XfhyY7/Z7cI47bbIkwCPgKRXKGaOlR
-         53Ynvms0ks+4lx8+73FA8cld+kHCTTqqEwXhFVDW+PuaUQzZld3BInDMMznitKVigX9x
-         EEYIphCg868TbxSNrrtvBgDKQAcoyyV02IsswUB1Q958Ep6NyaTS94JbhSTiKM3z5O+2
-         WvYHUpOLc7vCPwVTxmlKKpB5B8jZssDz0EeMxCRf2+k5TSaHna+jOBzP4nDezEPTXkw7
-         qzPA==
-X-Forwarded-Encrypted: i=1; AJvYcCXUniVEeF0Hp4gGhWj5RFmvQvjUZiuBmVZBBME4mXBOqcbezUaquz2cgtpVY49hIcjIBsAhqOb3rMY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxt8uZXchcEXMqYuOks/gqKnpchwgt+as35o28sYMGfw5TNt/xt
-	uo9ag4ywrUCzG4OjLOrLDr65sXA6hNmRY90XOZnYtS2WGPo87kKHTYZMUBSlZUjd7Q==
-X-Gm-Gg: ASbGncuCmeukYhE1V9gE3Y82QLUJ0o8+lQfV8nKgOTmlh8mguhP+qHzeDEPVgW/pFvP
-	/iPPoA5gX6MXq4UKhzthWz1TNK0oNoimHwcP5HlM3dFKRMGP8eACnot0e/+L88cW2sg9AVWIS0k
-	bP15yeunbKfyh8cJRHiZFP0hJLRvq4zqytk5QebLoIKJhj/fUejwt9m6DF/wKw3fp3BMN4PSBP+
-	NG9Sc2tAgs6Q5KANSl6Tzq1TMS29HDaU0fZcnGW9NeG2Ywwv1reFY70qk5XGVjnkD1DZ1gZgnPu
-	P0PHELRpb/X/T1xw6fRPsdIpTfOmAknr2DrQck7vdau6xJianLagaXDQJ5NoPHs1UdbraP6bwwq
-	qNRJ8aRveaTxZraZh7uCkoXL/B0DLUJC8bonrdrdBAs669aRUnHWY15IarlJikCT0u0dFvXKyOZ
-	TX7M3YLWITvlAn+8IHhtcnVrqy5Z/w/s5L2UlazBUA8DnxDn4tv6vLPHAkZCw/tQCE+bDxjdyiB
-	2ygoYfAWg==
-X-Google-Smtp-Source: AGHT+IEJuhthSg+z2yegqLNG7hX6GmP3vz0DQuaIAhdH1orQzf+ZD07PVhpkU15MAVWP6wsIMqjMWw==
-X-Received: by 2002:a17:907:9815:b0:b71:854:4e49 with SMTP id a640c23a62f3a-b72655edfabmr791338666b.56.1762437943488;
-        Thu, 06 Nov 2025 06:05:43 -0800 (PST)
-Message-ID: <7e9671b3-6972-45b8-9cba-4447fa802fe2@suse.com>
-Date: Thu, 6 Nov 2025 15:05:42 +0100
+        bh=3m7r7W+00piqcEHoeftA7E3rCc88l8s7FHXFLVjyRxw=;
+        b=r0JA3mVSjpYr0Gi/rrTQDCFvxGqi7VlFkRXnEXjiE+GmuxZTT0ELth6Y57T6WDYaYa
+         lYtbLBgRslarwImZdt0GI3+wxlL9+CL7FG6rdg4bTrANCYKHfauV7UAcKb6HgAm81vXR
+         3/tJ4ZsKx2AQzPSL5kYZ+m8YmECCGzwaCNCAl6AxD5RnT9L7CnVE05y8We8jAzq3jGbH
+         vI2gu1uPCf3ummOjFMxKaNH9ybLNGbIaO/rXpdYA8EVsPZSBdo/lreMYIQEx2fPiPPBC
+         znyVDRkQpShywA8GA88Hn5mrHO7HJcayLbrlMJ/qdkdIXE/LnmiejNqg/xip49vVpydg
+         oSnQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVe1ovl1Y+pr5DaV2cnsWrwoDnNVZP2uyCNMITa96cttmx1bfyB/NwQYtyIku3eTPWufY1v8TVCtEk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxCbBkmbKIWmu1X2301Kaq6L8ydY6d3ng7W5n4scBYQCa+yZ9D0
+	1/VzDobkdoDkZOsA+P/rnsaCfrlzrIJZ1FNKCBidTtyZT8zsKhdQ3AcufYrOce6GPg==
+X-Gm-Gg: ASbGncvwSvh9ejDItz8pZkbkfmKKJDuA0Ll0PIi4Rrygydfe1D9dC1HpPL/aZ9DlQ/E
+	086epq0FKK7lKYnbJKWG545SsSrYupCOaCno7N/nnJfyK2cgm26Vbhtciei4osSy11Y59cBAm30
+	utjtmdOwiSqDyhg6DuQAOJaeCYaahPPfoaSi/avDr1C582kTP5d1Spix+ZlBC7kkTW0NL8a3rze
+	j62gAXYoBa2GBpXKqPOpivBC6KGENPvVs+9wfeH7jdQX8GcioxnA5uEcpGhLr4xW6Z4OsxxdpRI
+	4cGlHHmwtzw9+2RrsH3adMAEEbTI4e+DgQUdn7UZb/DK8Hj0qwF0OUsHTKCOiCQ3VBkpIi/iDn9
+	WjLsNpKNt1S10Dqqg6PvtavlF5Y2ciQbDEfNYTb/xJl066YZM6jeLLtPRM+vITooFC59QIkWTOO
+	QIM+0ZK2R4xPmV1f9l8O99hhEkOLKk9ETNxP2bhHj2kqMEAnEZ4cNRtjvF1SEBByA2RgDhByCyg
+	65l8FGGLw==
+X-Google-Smtp-Source: AGHT+IEfTpR471zZPAHEzzJiMTC+fUJMOJF8bhtifyU1LD07AEBTGEEloSAcz5AZ/fhMWf/oABOOHQ==
+X-Received: by 2002:a17:907:a0c9:b0:b29:b4ac:d2a8 with SMTP id a640c23a62f3a-b72655ee2e4mr829637966b.57.1762438172291;
+        Thu, 06 Nov 2025 06:09:32 -0800 (PST)
+Message-ID: <63525e6f-4e17-4155-87b2-47b9ac9ea474@suse.com>
+Date: Thu, 6 Nov 2025 15:09:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [for 4.22 v5 02/18] xen/riscv: introduce VMID allocation and
- manegement
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [XEN][PATCH] xen: make VMTRACE support optional
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1760974017.git.oleksii.kurochko@gmail.com>
- <bdbe6c13991c2d166614795d43db3f71d790c00f.1760974017.git.oleksii.kurochko@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Penny Zheng <Penny.Zheng@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251031212005.1338212-1-grygorii_strashko@epam.com>
+ <b6337cb5-da85-492d-bba9-688e35695c46@suse.com>
+ <e55f990a-1781-4651-a899-9d78bbbbdfd0@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,212 +129,92 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bdbe6c13991c2d166614795d43db3f71d790c00f.1760974017.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <e55f990a-1781-4651-a899-9d78bbbbdfd0@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.10.2025 17:57, Oleksii Kurochko wrote:
-> --- /dev/null
-> +++ b/xen/arch/riscv/vmid.c
-> @@ -0,0 +1,193 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#include <xen/domain.h>
-> +#include <xen/init.h>
-> +#include <xen/sections.h>
-> +#include <xen/lib.h>
-> +#include <xen/param.h>
-> +#include <xen/percpu.h>
-> +
-> +#include <asm/atomic.h>
-> +#include <asm/csr.h>
-> +#include <asm/flushtlb.h>
-> +#include <asm/p2m.h>
-> +
-> +/* Xen command-line option to enable VMIDs */
-> +static bool __ro_after_init opt_vmid = true;
-> +boolean_param("vmid", opt_vmid);
+On 06.11.2025 14:50, Grygorii Strashko wrote:
+> On 06.11.25 14:00, Jan Beulich wrote:
+>> On 31.10.2025 22:20, Grygorii Strashko wrote:
+>>> --- a/xen/Kconfig.debug
+>>> +++ b/xen/Kconfig.debug
+>>> @@ -155,4 +155,19 @@ config DEBUG_INFO
+>>>   	  "make install-xen" for installing xen.efi, stripping needs to be
+>>>   	  done outside the Xen build environment).
+>>>   
+>>> +config HAS_VMTRACE
+>>> +    bool
+>>> +
+>>> +config VMTRACE
+>>> +    bool "HW VM tracing support"
+>>> +    depends on HAS_VMTRACE
+>>> +    default y
+>>> +    help
+>>> +      Enables HW VM tracing support which allows to configure HW processor
+>>> +      features (vmtrace_op) to enable capturing information about software
+>>> +      execution using dedicated hardware facilities with minimal interference
+>>> +      to the software being traced. The trace date can be retrieved using buffer
+>>
+>> Nit: s/date/data/
+>>
+>>> +      shared between Xen and domain
+>>> +      (see XENMEM_acquire_resource(XENMEM_resource_vmtrace_buf)).
+>>> +
+>>
+>> I was actually meaning to ask that "VMX only" should somehow be mentioned here,
+>> but then I noticed this is an arch-independent location. 
+> 
+> Right, Arch code advertise VMTRACE support with HAS_VMTRACE.
+> In this particular case:
+> config INTEL_VMX
+> ...
+> 	select HAS_VMTRACE
+> 
+> 
+>> I'm not quite sure we want it like this (just yet).
+> 
+> ?
 
-Command line options, btw, want documenting in docs/misc/xen-command-line.pandoc.
+To rephrase the question: Are we expecting anything other than VMX to support
+VMTRACE any time soon?
 
-> +/*
-> + * VMIDs partition the physical TLB. In the current implementation VMIDs are
-> + * introduced to reduce the number of TLB flushes. Each time a guest-physical
-> + * address space changes, instead of flushing the TLB, a new VMID is
-> + * assigned. This reduces the number of TLB flushes to at most 1/#VMIDs.
-> + * The biggest advantage is that hot parts of the hypervisor's code and data
-> + * retain in the TLB.
-> + *
-> + * Sketch of the Implementation:
-> + *
-> + * VMIDs are a hart-local resource.  As preemption of VMIDs is not possible,
-> + * VMIDs are assigned in a round-robin scheme. To minimize the overhead of
-> + * VMID invalidation, at the time of a TLB flush, VMIDs are tagged with a
-> + * 64-bit generation. Only on a generation overflow the code needs to
-> + * invalidate all VMID information stored at the VCPUs with are run on the
-> + * specific physical processor. When this overflow appears VMID usage is
-> + * disabled to retain correctness.
-> + */
-> +
-> +/* Per-Hart VMID management. */
-> +struct vmid_data {
-> +   uint64_t generation;
-> +   uint16_t next_vmid;
-> +   uint16_t max_vmid;
-> +   bool used;
-> +};
-> +
-> +static DEFINE_PER_CPU(struct vmid_data, vmid_data);
-> +
-> +static unsigned int vmidlen_detect(void)
-> +{
-> +    unsigned int vmid_bits;
-> +
-> +    /*
-> +     * According to the RISC-V Privileged Architecture Spec:
-> +     *   When MODE=Bare, guest physical addresses are equal to supervisor
-> +     *   physical addresses, and there is no further memory protection
-> +     *   for a guest virtual machine beyond the physical memory protection
-> +     *   scheme described in Section "Physical Memory Protection".
-> +     *   In this case, the remaining fields in hgatp must be set to zeros.
-> +     * Thereby it is necessary to set gstage_mode not equal to Bare.
-> +     */
-> +    ASSERT(gstage_mode != HGATP_MODE_OFF);
-> +    csr_write(CSR_HGATP,
-> +              MASK_INSR(gstage_mode, HGATP_MODE_MASK) | HGATP_VMID_MASK);
-> +    vmid_bits = MASK_EXTR(csr_read(CSR_HGATP), HGATP_VMID_MASK);
-> +    vmid_bits = flsl(vmid_bits);
-> +    csr_write(CSR_HGATP, _AC(0, UL));
-> +
-> +    /*
-> +     * From RISC-V spec:
-> +     *   Speculative executions of the address-translation algorithm behave as
-> +     *   non-speculative executions of the algorithm do, except that they must
-> +     *   not set the dirty bit for a PTE, they must not trigger an exception,
-> +     *   and they must not create address-translation cache entries if those
-> +     *   entries would have been invalidated by any SFENCE.VMA instruction
-> +     *   executed by the hart since the speculative execution of the algorithm
-> +     *   began.
-> +     *
-> +     * Also, despite of the fact here it is mentioned that when V=0 two-stage
-> +     * address translation is inactivated:
-> +     *   The current virtualization mode, denoted V, indicates whether the hart
-> +     *   is currently executing in a guest. When V=1, the hart is either in
-> +     *   virtual S-mode (VS-mode), or in virtual U-mode (VU-mode) atop a guest
-> +     *   OS running in VS-mode. When V=0, the hart is either in M-mode, in
-> +     *   HS-mode, or in U-mode atop an OS running in HS-mode. The
-> +     *   virtualization mode also indicates whether two-stage address
-> +     *   translation is active (V=1) or inactive (V=0).
-> +     * But on the same side, writing to hgatp register activates it:
-> +     *   The hgatp register is considered active for the purposes of
-> +     *   the address-translation algorithm unless the effective privilege mode
-> +     *   is U and hstatus.HU=0.
-> +     *
-> +     * Thereby it leaves some room for speculation even in this stage of boot,
-> +     * so it could be that we polluted local TLB so flush all guest TLB.
-> +     */
-> +    local_hfence_gvma_all();
+>>> @@ -738,6 +740,7 @@ static inline bool altp2m_vcpu_emulate_ve(struct vcpu *v)
+>>>   bool altp2m_vcpu_emulate_ve(struct vcpu *v);
+>>>   #endif /* CONFIG_ALTP2M */
+>>>   
+>>> +#ifdef CONFIG_VMTRACE
+>>>   static inline int hvm_vmtrace_control(struct vcpu *v, bool enable, bool reset)
+>>>   {
+>>>       if ( hvm_funcs.vmtrace_control )
+>>> @@ -780,6 +783,12 @@ static inline int hvm_vmtrace_reset(struct vcpu *v)
+>>>   
+>>>       return -EOPNOTSUPP;
+>>>   }
+>>> +#else
+>>> +static inline int hvm_vmtrace_reset(struct vcpu *v)
+>>> +{
+>>> +    return 0;
+>>> +}
+>>> +#endif
+>>
+>> #ifdef inside the function body please, to reduce redundancy and to reduce the
+>> risk of overlooking multiple places which need editing (when e.g. function
+>> parameters change).
+> 
+> All hvm_vmtrace_x() functions are inline - do you mean like below for all of them?
+> 
+>   static inline int hvm_vmtrace_get_option(
+>       struct vcpu *v, uint64_t key, uint64_t *value)
+>   {
+> +#ifdef CONFIG_VMTRACE
+>       if ( hvm_funcs.vmtrace_get_option )
+>           return alternative_call(hvm_funcs.vmtrace_get_option, v, key, value);
+> +#endif
+>   
+>       return -EOPNOTSUPP;
+>   }
 
-That's a lot of redundancy with gstage_mode_detect(). The function call here
-actually renders the one there redundant, afaict. Did you consider putting a
-single instance at the end of it in pre_gstage_init()? Otherwise at least
-don't repeat the comment here, but merely point at the other one?
-
-> +    return vmid_bits;
-> +}
-> +
-> +void vmid_init(void)
-
-This (and its helper) isn't __init because you intend to also call it during
-bringup of secondary processors?
-
-> +{
-> +    static int8_t g_vmid_used = -1;
-
-Now that you're getting closer to the x86 original - __ro_after_init?
-
-> +    unsigned int vmid_len = vmidlen_detect();
-> +    struct vmid_data *data = &this_cpu(vmid_data);
-> +
-> +    BUILD_BUG_ON((HGATP_VMID_MASK >> HGATP_VMID_SHIFT) >
-> +                 (BIT((sizeof(data->max_vmid) * BITS_PER_BYTE), UL) - 1));
-> +
-> +    data->max_vmid = BIT(vmid_len, U) - 1;
-> +    data->used = opt_vmid && (vmid_len > 1);
-> +
-> +    if ( g_vmid_used < 0 )
-> +    {
-> +        g_vmid_used = data->used;
-> +        printk("VMIDs use is %sabled\n", data->used ? "en" : "dis");
-> +    }
-> +    else if ( g_vmid_used != data->used )
-> +        printk("CPU%u: VMIDs use is %sabled\n", smp_processor_id(),
-> +               data->used ? "en" : "dis");
-> +
-> +    /* Zero indicates 'invalid generation', so we start the count at one. */
-> +    data->generation = 1;
-> +
-> +    /* Zero indicates 'VMIDs use disabled', so we start the count at one. */
-> +    data->next_vmid = 1;
-> +}
-> +
-> +void vmid_flush_vcpu(struct vcpu *v)
-> +{
-> +    write_atomic(&v->arch.vmid.generation, 0);
-> +}
-> +
-> +void vmid_flush_hart(void)
-> +{
-> +    struct vmid_data *data = &this_cpu(vmid_data);
-> +
-> +    if ( !data->used )
-> +        return;
-> +
-> +    if ( likely(++data->generation != 0) )
-> +        return;
-> +
-> +    /*
-> +     * VMID generations are 64 bit.  Overflow of generations never happens.
-> +     * For safety, we simply disable ASIDs, so correctness is established; it
-> +     * only runs a bit slower.
-> +     */
-> +    printk("%s: VMID generation overrun. Disabling VMIDs.\n", __func__);
-
-Is logging of the function name of any value here? Also, despite the x86
-original havinbg it like this - generally no full stops please if log
-messages. "VMID generation overrun; disabling VMIDs\n" would do.
-
-> +bool vmid_handle_vmenter(struct vcpu_vmid *vmid)
-> +{
-> +    struct vmid_data *data = &this_cpu(vmid_data);
-> +
-> +    /* Test if VCPU has valid VMID. */
-
-x86 has a ->disabled check up from here; why do you not check ->used?
-
-> +    if ( read_atomic(&vmid->generation) == data->generation )
-> +        return 0;
-> +
-> +    /* If there are no free VMIDs, need to go to a new generation. */
-> +    if ( unlikely(data->next_vmid > data->max_vmid) )
-> +    {
-> +        vmid_flush_hart();
-> +        data->next_vmid = 1;
-> +        if ( !data->used )
-> +            goto disabled;
-> +    }
-> +
-> +    /* Now guaranteed to be a free VMID. */
-> +    vmid->vmid = data->next_vmid++;
-> +    write_atomic(&vmid->generation, data->generation);
-> +
-> +    /*
-> +     * When we assign VMID 1, flush all TLB entries as we are starting a new
-> +     * generation, and all old VMID allocations are now stale.
-> +     */
-> +    return (vmid->vmid == 1);
-
-Minor: Parentheses aren't really needed here.
+No, the request was for just the single function that you add a 2nd instance of.
 
 Jan
 
