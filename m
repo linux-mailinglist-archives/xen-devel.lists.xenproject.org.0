@@ -2,67 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC6E7C3C151
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 16:35:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1157039.1485971 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3162DC3C277
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 16:47:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1157059.1485980 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH20F-0003kX-6k; Thu, 06 Nov 2025 15:34:23 +0000
+	id 1vH2CQ-0005dT-Dr; Thu, 06 Nov 2025 15:46:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1157039.1485971; Thu, 06 Nov 2025 15:34:23 +0000
+Received: by outflank-mailman (output) from mailman id 1157059.1485980; Thu, 06 Nov 2025 15:46:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH20F-0003jV-3L; Thu, 06 Nov 2025 15:34:23 +0000
-Received: by outflank-mailman (input) for mailman id 1157039;
- Thu, 06 Nov 2025 15:34:22 +0000
+	id 1vH2CQ-0005aW-Ak; Thu, 06 Nov 2025 15:46:58 +0000
+Received: by outflank-mailman (input) for mailman id 1157059;
+ Thu, 06 Nov 2025 15:46:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hvFd=5O=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
- id 1vH20E-0003jN-Ge
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 15:34:22 +0000
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0fafd6f5-bb26-11f0-9d17-b5c5bf9af7f9;
- Thu, 06 Nov 2025 16:34:20 +0100 (CET)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5A673rWV004542;
- Thu, 6 Nov 2025 15:33:33 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4a59xc7x4v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 06 Nov 2025 15:33:33 +0000 (GMT)
-Received: from m0356517.ppops.net (m0356517.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5A6FXWW0020778;
- Thu, 6 Nov 2025 15:33:32 GMT
-Received: from ppma23.wdc07v.mail.ibm.com
- (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4a59xc7x4m-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 06 Nov 2025 15:33:32 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5A6FSEis009863;
- Thu, 6 Nov 2025 15:33:30 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
- by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4a5x1kp3cv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 06 Nov 2025 15:33:30 +0000
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
- [10.20.54.101])
- by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 5A6FXSer15008248
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 6 Nov 2025 15:33:28 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8439B20043;
- Thu,  6 Nov 2025 15:33:28 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 90CA520040;
- Thu,  6 Nov 2025 15:33:27 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.155.204.135])
- by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Thu,  6 Nov 2025 15:33:27 +0000 (GMT)
+ <SRS0=0oVY=5O=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1vH2CO-0005aQ-VE
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 15:46:57 +0000
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c200::5])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d10da985-bb27-11f0-9d17-b5c5bf9af7f9;
+ Thu, 06 Nov 2025 16:46:53 +0100 (CET)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by AS8PR03MB6760.eurprd03.prod.outlook.com (2603:10a6:20b:294::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.12; Thu, 6 Nov
+ 2025 15:46:51 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9298.006; Thu, 6 Nov 2025
+ 15:46:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,194 +47,287 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fafd6f5-bb26-11f0-9d17-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=USDQ8ElKabVeXvYmFW0YLq1tEPCwDR
-	9lnFGrXCv6r44=; b=Ud1ezlZulJ19pMoMC9cV2Puhpc6xfvY5kH8l9lzJzReHWw
-	mKEvGrCq+8tKTYQ2MxDxhIU69JV0pOnXy39LBfKHxozegDXvBfvTmpds52s5U6cE
-	/B8hVE2W8NjEjWAswsJNBdI1NjgMAEZpxAZmQ2gRLaUTDivnAluHG4qYTu7XsDwF
-	Vsk72wk+IJjAz3KWLN/C9Bbd92H7vh+BDHU0ZjrBqUI/zYCcM9fmOWIHGJocsLRR
-	RFqfscnpogqSAjX1viBd8MZh0c3dOnzgnvPYX0MV5maeP1AFCCwYIoJhH103h2O4
-	ttiB6tX1e7rVFmgT6CXyJjvDJ+Kc6/eoN7Ra3efQ==
-Date: Thu, 6 Nov 2025 16:33:26 +0100
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: Ritesh Harjani <ritesh.list@gmail.com>, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org, Andreas Larsson <andreas@gaisler.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        David Hildenbrand <david@redhat.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        David Woodhouse <dwmw2@infradead.org>,
-        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
-        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
-        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
-        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Ryan Roberts <ryan.roberts@arm.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
-        Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
-        linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
-        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
-        x86@kernel.org
-Subject: Re: [PATCH v4 07/12] mm: enable lazy_mmu sections to nest
-Message-ID: <d5435e75-036b-44a5-a989-722e13f94b3e-agordeev@linux.ibm.com>
-References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
- <20251029100909.3381140-8-kevin.brodsky@arm.com>
- <87ms5050g0.ritesh.list@gmail.com>
- <50d1b63a-88d7-4484-82c0-3bde96e3207d-agordeev@linux.ibm.com>
- <48a4ecb5-3412-4d3f-9e43-535f8bee505f@arm.com>
+X-Inumbo-ID: d10da985-bb27-11f0-9d17-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xh+te1VdcD0cb9l4u12ekF8PgYZSEyVOlhSK1+Tq7bvkeg5UmKDmZKl1GwdPuo5cW2f9B56NqeZy+No3Tzlb7edp5mepKe16bulu2DUAq38qBsxsKZBEbXiIBX6x4NW6hmH/SXJ7lBGzc6nSmZT6dZK8PVVjrYKp0M22xZJ+Kh8o4mjybvr7xq0VhhZcFcM80+Q1yV6/44IIbdjGQZPhEjgOOx0d/uX39rI5ekjfE6P8Ep9HGIY0XevefgdfjbAi92+WxNGDubmkThOlRGqNoFEWZ437y999B3m95Gb4Y57fK5yGWTmdTEgpIeNRFsVap8y+/fLfYNmX/XHXrDkvPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AxG1DiFa6djj21dc9zlgpnIR6yeIssmXx38CcV7BASQ=;
+ b=EYMmT4jcU4UaeDzAutX6xtRwo3L+yxdSuPZJC4B04P1+UIF+CF9d3BSFMfpm8ssQ6E1NNoMZe30G4ydqK7JUlj2T9Ag4AIJb8GOzDHoqER1Ze4i+C7nmJzsmBHVuao2C9ps5rLpsXquF/HsPlWd3vmirNGnP+hCaesPWhOtOe32D8euR6qjUbmT3C4IPDXMrTlZtxuQHeB1IkxFMvS6791uuOZ5E0G0K2TNWKLozn9D1IHfdpCR+1wDXhlRnjjil3Sdfq0bWtlD7250PK4YqXMdKfZ4M16DBivz4vbSj486KtpJoB3oLowEMDG3KVBKWKXp7qFv8T9aZNF+8Yu1PQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AxG1DiFa6djj21dc9zlgpnIR6yeIssmXx38CcV7BASQ=;
+ b=AR3b+peeZHyL1BXWcV4F0pHq2/iUm0fQPnFAmTQpJ+ge6EwIGHydmL9kAZyAI68d2hQaKSUleoBVTAv9DDkSOs65SdwdB6x7RmydC3ysX4zVtqZTIHqaFE/nBvv1i/hq5wFPDc6XZl+17IghPFaG3jX2SMqx0uxIgKsZHbpB/ivIxRbGTMtzP5VNm3rNdcrNQ3x4dzNu9g2PdQ6Ap8lgFOFe9V1mRSX2S89aO0u8P1iDpnUkqEi8qChI0D13bpJrkcqZo1phHvXgaCV+eRRMemqR6WNUIJ4qT7iXJ4heUEeLK90oCLNi8jQl2hIdx+lyhFQmwekhwAAygOGW8fcgwg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Message-ID: <8a2e96e4-90fa-4cbc-90db-931b98926842@epam.com>
+Date: Thu, 6 Nov 2025 17:46:50 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN][PATCH 1/3] x86/hvm: move hvm_shadow_handle_cd() in vmx code
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251029235448.602380-1-grygorii_strashko@epam.com>
+ <20251029235448.602380-2-grygorii_strashko@epam.com>
+ <308ecf14-e831-47f4-8c64-4005bb4dc857@suse.com>
+ <6373016f-9558-4d73-918e-4251d16643ef@epam.com>
+ <7f321809-5635-4993-b435-7707b21e6378@suse.com>
+Content-Language: en-US
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+In-Reply-To: <7f321809-5635-4993-b435-7707b21e6378@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0118.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a8::19) To AS2PR03MB8907.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5e4::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <48a4ecb5-3412-4d3f-9e43-535f8bee505f@arm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTAxMDAyMSBTYWx0ZWRfX/YZyxmYrnrJ9
- xCd4ujIZq7y0lim+YrboYNwl5TsRqk1oOoSjjpPrN2bdS3Yj8+BGw0eDwtF58nU1AxMxpNChFIt
- kjix63Qwyja0jEYGMpU1W2106lg0/CJxII5rA6IH8ca9YKwDy28POrrS/UliHt5WUxWiY4RvYvK
- KvjB7Q8W206gTc1ADhSmWj/G5k8ScNY8TzY3EvQXr/BVbxmytuyeX5wifFN5ALnc+chrAMwW/6j
- QnaXo4exfOcjHuuvP3Y/8qCuhkp//Cj/oqysiN8ehC/uU7vBozF7kWjRZh1pps/+U+PuMO1myX5
- CRiCQpqgahhrliHsenckRMbSmwXbtqSltJhRXk0UqsG5hBu7Va14xA+ZT8E/Z1xVt8mLCpJRj/v
- zoQNd/ElbUWMuQJeG/kbcYXCoAfCRQ==
-X-Proofpoint-GUID: TFOhjUGUwcHF-txd3JWs84wNA_RrcFJO
-X-Authority-Analysis: v=2.4 cv=OdCVzxTY c=1 sm=1 tr=0 ts=690cbfcd cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=kj9zAlcOel0A:10 a=6UeiqGixMTsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=20KFwNOVAAAA:8 a=ENMs_uJo8d3F8rUHHo4A:9 a=CjuIK1q_8ugA:10
- a=DXsff8QfwkrTrK3sU8N1:22 a=Z5ABNNGmrOfJ6cZ5bIyy:22 a=bWyr8ysk75zN3GCy5bjg:22
-X-Proofpoint-ORIG-GUID: 0GlCJX74XkrUHHpzFp_J9wLdkqJNwiej
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-06_03,2025-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 spamscore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 priorityscore=1501 clxscore=1015 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2511010021
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|AS8PR03MB6760:EE_
+X-MS-Office365-Filtering-Correlation-Id: a30c11a3-5d53-4750-4a85-08de1d4bb40f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?b3VETkZ2ZnVJdlQrSGNwNmV3cTJtRlFubVBYblVoMy9LVFZkdUV2T0xiblZ1?=
+ =?utf-8?B?SjVZa2dwbk1XUDh1Vmg0Y1pOWW9uakRwZVB2NlgwMWZqMHRJdlE4ZXQzMVFt?=
+ =?utf-8?B?N0xIaFFHcGdrNXNmTDdIYjFLU2V3bVlkLzF1VVdRWHJkNWNtdWZ5MHV0Y0RD?=
+ =?utf-8?B?T0lBNThkVldudlZjTDJnMWR6dlR4OW8xUnZwd1grSEVlTFJxV3U0WEM2S0ds?=
+ =?utf-8?B?QWtpdEQ0ZFpLZkpWc2kvU285V1V0M01USEN3U3dibnQ3Y1ZqRTFIeEM5WmxD?=
+ =?utf-8?B?V3BEbnIzTTdCODczakhNc09DRDIvM05xamVSbmx3U0lRaDd2czBUTTdFMG1r?=
+ =?utf-8?B?TXdsWmwrM25mcnArMExiek4yTnhKYklreCt2RFZIYkF4UkVsTU9zOEhrLzF5?=
+ =?utf-8?B?NG12V3MwaUJ4YWdHa0NNT3F2aDM3Y1o2WHdFQlc5c0g1YkpYakNRMHBYSlFG?=
+ =?utf-8?B?aHYvYjRUVHk0T1Y3bE1Wak9acmEvYmhYVC9tOUtFWlNKSUY4NUVKaHN5VEpz?=
+ =?utf-8?B?d0RQb2V6TXpWSHU4a3JHdDEzS0pVL1cwRGVESHZuU0xHUHlDek5rcHlzTkFk?=
+ =?utf-8?B?aFR6ME94eXd4bGxESE1UU25GM3JzcHZCWWdSTG9aQXBXSXcrUGlicVhFS0pq?=
+ =?utf-8?B?K0ZVKzNBL1BqUGZFU1pOTTlqUWZiRkozZVhSYTBZL1o0RFZwei9abnJOK0dS?=
+ =?utf-8?B?dndPTjBPU2RwRDBjTXMxcm9USVlTYzZIL3cwU2hBaUsraGQ5eTlVSDgrT1Jr?=
+ =?utf-8?B?OXM0K2xudklpUzhUQUdTYzN4UEN3aHNOcTB1NFRLMnNRL1RzRjFMNnMrNGp3?=
+ =?utf-8?B?d2QxWEZ4Q1BVcmJUcTRPOVZnZlMwK2gyL0NQcEhrclFScFZzYUt1VnBQbHFK?=
+ =?utf-8?B?RWlTT1A5Ty9zTnNZYTcwK05OME44NjVkeXYwNUgxQnl4K3VjcVdBNjNDZmx3?=
+ =?utf-8?B?bEhmR01oMWxwRjZuOExlMDExOHR0Q2FPMWp6Q1NWMVFtYWlJTmxQYmJReTlv?=
+ =?utf-8?B?eUxlNGxEeFdNZnNPR2FOYzlBOHpIQUZkWldQdzQxRkNaWUFLeVFra3FqZyt4?=
+ =?utf-8?B?ck5vaUZZMXlMTXJEMEhnWHU0cSs5K0c1bHVnMUJOVG92Z2o3MUJVK2dOSzFV?=
+ =?utf-8?B?T04wS1V3WFVSN2lpajJhK0pnSXpLMCs0ZDJWWllJWFBRWUwvd2k1Y3RkdzNk?=
+ =?utf-8?B?bldwMVBRTnB2aEVIWVcxczNPcm12SnFlSFlUSlpJb3RoZU1Ha2U3bU4rOVdR?=
+ =?utf-8?B?R2dOMnRkZTdYa3l6c1JvQ0dzWnRjSHlwWE1uTkRobkFTOUl1SUhNMHREYnRK?=
+ =?utf-8?B?NHRJSlNRU3h2TmRMaGtuY0xtL2pBMXpMc1Bya0VkUzZKazJYYkJzNnQ2VnpC?=
+ =?utf-8?B?VXk1cnlVd2Vwc2p5VlVybFdiVG5tSEZZcXM3TENvSDRkc1hzUjFhVGEvVGNY?=
+ =?utf-8?B?THBFdk5XSnJUMXljQzBJTHdIOGJINDkrV2xNSVRVc3NmcVZxYjFyRkFyTVYv?=
+ =?utf-8?B?S1lQZWZRR0NRMUEwVUZlSmZ4dmNaWG5HZFZKUUQ1QnhxVUxneFprdEJ5ZXpw?=
+ =?utf-8?B?S2xQSTdHcG5CVmI1Z2FxSjBYUmpjcWZwNGpHYVVOWDZoeVA5VGVpVWVjS0tI?=
+ =?utf-8?B?L20zMWVRL1Q2dWs0dkFTV0t0MDJ4ZjJtVWNOV0NNT3NSREZrSjZ3L3Z3Wk9V?=
+ =?utf-8?B?WXlYbTAxdVdpdEUvWUpuQ2NuZnNkYXBFcGhhSCs2VE9ab2hDQThyZk9JbkN6?=
+ =?utf-8?B?Wk93Q1g0cUN5RkY4ZGZQS2h6WEE1M2czR25DTVpFWEplZDl3KzlpUnR3ajVT?=
+ =?utf-8?B?b1ZIK0RDTzNiTERTMytIdHNnQVZ6NGtuSnI4dnFiQTZZOHhhM1NNMitnRTdO?=
+ =?utf-8?B?S1YvaUpWOUlBSFBMT21xc3BKRW5hOHpzeTFWbW53NGxXTjBhVlNZOUxqM08x?=
+ =?utf-8?Q?Vf4O+YmloYtJ1RXdW/HU9LSo60eqlwDJ?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UlVvR3p1djBaNnRuM0hyVCtEVGMzTFl1Q1dHbmd4WlFrRWxDZjlKK3BtNUR4?=
+ =?utf-8?B?VlZ1QnN2MEh2S3RPeDk4emRaOFRmRm5CSWlxbjV6RVlmVm9hd2pUTDAvNU0y?=
+ =?utf-8?B?d0xwSXpnN1JLUVhNZUpsRXMyZmxKMkhZTE1VV0syUklhOWFLaFY2aDY0b0p4?=
+ =?utf-8?B?SWplS2h1dG5WU1VPVElaWW55NW5DVitTRGt3ZW1xTnRrTnFuUDgxWDJaYk13?=
+ =?utf-8?B?NlpWcURZZWxwNHhsUXM1NXlsM2c1T3IwdFZndkhVUGlpcWtNU29tcFhmdHVH?=
+ =?utf-8?B?N0ZSTkV6YWpIVmN6NGR4N010TXBSNHRvV0VtZlBVYUswV0RDK2RlUDZqYlVl?=
+ =?utf-8?B?L1ZxQ0dxcWxDV0x4WVBraEhNZCtEZEx4bVB2akZaNmpQL1lpOVN1MnFqb0Jm?=
+ =?utf-8?B?UGJtUEV0blZCZXRIRWFXK2taSkxsOGFnREsyOXlnSXBqczlrUm1NNkxtMFor?=
+ =?utf-8?B?RFRkMDFKSjU0UWI0U00zbDYweXZSQlkzNXV6VWx0ZzFuY1A3N29pWWsxb1ZP?=
+ =?utf-8?B?S3ZZbDVTeGZlTk1IN0x4Z1lBLzEzYTcwaUczbE9vUmtHNjArOHZuNVBJSzZz?=
+ =?utf-8?B?U1dqT3Yva0Z1dXpVSC8wc1I2ellaVytkRk1KcFNpSSt2WDRuSG9ub3d3aU5P?=
+ =?utf-8?B?d1lWMlBuNENoUXo1UEFJNkJndEVEVFRPWFFMb25tcjFTTCtHT3A2ZGNqZTJl?=
+ =?utf-8?B?SzR1OG9hSXpLRUh6RFprMFBUUXRoT1d1R0lmV0dBQW1LZm8zUVUvOVZTZEV4?=
+ =?utf-8?B?UjdpM2NPVTRnaVFUbStFVFp1eGpQTmppMWhKQy9iWEcraU9VU1RLVGRsS2dC?=
+ =?utf-8?B?c1laTStoNWlsNk5FMGZYaXh4dVJMd3k1V0pOd0cyR0Y0Q0YvZDhnekdoYis5?=
+ =?utf-8?B?VUJMSGJVcGR5aFE1RWJBSUNDL1ZaV1pXcWFvamZ1U2hHQjBNdmgwQXdBTnF1?=
+ =?utf-8?B?bnNjNE5UQ1ZTNkl6YVRyMjlRZlZTMENiV0hsTy9EQTFzbjNTbVZUWWtuTGU2?=
+ =?utf-8?B?Zlpoc1lpWUZSQWpaWURxSWV3ZktqcVdLS21oc1VySXE4cnRSMEZrRjNkV3Uz?=
+ =?utf-8?B?bVpMYWY4QTBlZEtYYXVjL2k2MVBmN0JCWWJjN3lMN2xMR2dPMGFmNTEvTTNJ?=
+ =?utf-8?B?SmpGTG9TYWIyalhkUGRtR2hEeW4rMGozMVNpM0F3UU15VlV0cllZQ3dNTXVy?=
+ =?utf-8?B?UHFOTXI2R01DdkFaSjlGUm9jUEg5QlZISWd4WVdkUFVhaXluT0hLU2pXV0U1?=
+ =?utf-8?B?cjQ3eDd3U2xrMEdzUEp3ZXgxVDVQNnN6UmhWY05KbXN3QjFCQU4zblRSZ2s1?=
+ =?utf-8?B?aXMzNmV1Z01MbkhsdU01NlRRbjQ1OHp2VFJQYklNeEJueHBSM245Z3M5eHdG?=
+ =?utf-8?B?Y0V0WmU5WGZsZ2hJaTFBOHdCVzMrSjJudUNCbU83RkNRcFhqVnJoWjlKWE1F?=
+ =?utf-8?B?eVB2dDMyZzdYWkV1NHdNbDlaazh5VUN0VnVtc01qTjZZRmpiL2t2Mmt2eVl4?=
+ =?utf-8?B?Sy9xTjdPdFdzSW5XSXVzRk1Mek5vRHF1MUVSaldxMTdWdlZpbitXd1lDTkRo?=
+ =?utf-8?B?ZzhzZGxWWUtEMWp4dnZYeFFVRWJyVTBvdEpUQkhBNGZzUHBieER0TFFEeTFu?=
+ =?utf-8?B?N3pFNDdMdHRHK1kyMld2M0VkNWl3cFFuaDlWWlRQMFFMRUduaXdLTW5ZZ0Rj?=
+ =?utf-8?B?ekdJVHBEd3FwMTJJbm10NUM4cWh0Qng5VkpreW5tOXRSdUlHSjQrNitCRFl5?=
+ =?utf-8?B?Wi9jb3VROWJuN3l0RENuSU1BUU1LN0FtRHFNZW16SndjOXVWUDVKb0M0aXBE?=
+ =?utf-8?B?elFJekw1Y2hLSnhYeHV4SXZYWCswOTJ2VVlDVEY4ZkMxT2FUYW82VmdLeVRO?=
+ =?utf-8?B?a3RZOFZkZ1N3ZXRwNEhwZGt4M3lWTGJsNHBEMU5GWFpzZ29oRUVDZzdjTy9L?=
+ =?utf-8?B?cEdwcTJPWlBhUno3dkNBaWZjUXRJZFBSOXBDZ2lvRjM2K2QxMEZnMDZlUHJu?=
+ =?utf-8?B?VUZFS0NQRGdWeTNmdHhxQ3BjVHRkNTR0TTFqT29RL3lZOU1GdXpYOXJzRDdQ?=
+ =?utf-8?B?dktlOWlFeTNkbzAwV0VFMVJHNWhKWGRialN1U21oeXprNS8raFNIREhxdjE0?=
+ =?utf-8?B?T1dhZEx4WkczU1ZzdSs3aFdJVitSbzAzTlo2RjVZMFp4NGw3dnU4SURnKzd3?=
+ =?utf-8?B?OGc9PQ==?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a30c11a3-5d53-4750-4a85-08de1d4bb40f
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2025 15:46:51.5485
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MT3LzL6agc/CHC0STgASfRypU3KOOnT+nFxM4u86ZC9Q+2ha1ZrRKmfEScxKAvE6eX2l+pDY+Ionidr7ctMqkzZaGrvQRqhLe3dkPhFSl0U=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB6760
 
-On Thu, Nov 06, 2025 at 10:51:43AM +0000, Kevin Brodsky wrote:
-> On 05/11/2025 16:12, Alexander Gordeev wrote:
-> > On Wed, Nov 05, 2025 at 02:19:03PM +0530, Ritesh Harjani wrote:
-> >>> + * in_lazy_mmu_mode() can be used to check whether the lazy MMU mode is
-> >>> + * currently enabled.
-> >>>   */
-> >>>  #ifdef CONFIG_ARCH_HAS_LAZY_MMU_MODE
-> >>>  static inline void lazy_mmu_mode_enable(void)
-> >>>  {
-> >>> -	arch_enter_lazy_mmu_mode();
-> >>> +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
-> >>> +
-> >>> +	VM_WARN_ON_ONCE(state->nesting_level == U8_MAX);
-> >>> +	/* enable() must not be called while paused */
-> >>> +	VM_WARN_ON(state->nesting_level > 0 && !state->active);
-> >>> +
-> >>> +	if (state->nesting_level++ == 0) {
-> >>> +		state->active = true;
-> >>> +		arch_enter_lazy_mmu_mode();
-> >>> +	}
-> >>>  }
-> >> Some architectures disables preemption in their
-> >> arch_enter_lazy_mmu_mode(). So shouldn't the state->active = true should
-> >> happen after arch_enter_lazy_mmu_mode() has disabled preemption()? i.e.
-> > Do you have some scenario in mind that could cause an issue?
-> > IOW, what could go wrong if the process is scheduled to another
-> > CPU before preempt_disable() is called?
+Hi
+
+On 30.10.25 14:47, Jan Beulich wrote:
+> On 30.10.2025 13:28, Grygorii Strashko wrote:
+>> On 30.10.25 13:08, Jan Beulich wrote:
+>>> On 30.10.2025 00:54, Grygorii Strashko wrote:
+>>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>>
+>>>> Functions:
+>>>>    hvm_shadow_handle_cd()
+>>>>    hvm_set_uc_mode()
+>>>>    domain_exit_uc_mode()
+>>>> are used only by Intel VMX code, so move them in VMX code.
+>>>
+>>> Nit: I think both in the title and here you mean "to" or "into".
+>>>
+>>>> While here:
+>>>> - minor format change in domain_exit_uc_mode()
+>>>> - s/(0/1)/(false/true) for bool types
+>>>>
+>>>> No functional changes.
+>>>>
+>>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>
+>>> You did read Andrew's request to also move the involved structure field(s),
+>>> didn't you? Oh, wait - maybe that's going to be the subject of patch 3.
+>>
+>> yes. it is patch 3 - It is not small.
+>> And I really wanted this patch to contain as less modifications as possible on
+>> top of code moving.
 > 
-> I'm not sure I understand the issue either.
+> I wonder what other x86 maintainers think here.
 > 
-> >>   static inline void lazy_mmu_mode_enable(void)
-> >>   {
-> >>  -	arch_enter_lazy_mmu_mode();
-> >>  +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
-> >>  +
-> >>  +	VM_WARN_ON_ONCE(state->nesting_level == U8_MAX);
-> >>  +	/* enable() must not be called while paused */
-> >>  +	VM_WARN_ON(state->nesting_level > 0 && !state->active);
-> >>  +
-> >>  +	if (state->nesting_level++ == 0) {
-> >>  +		arch_enter_lazy_mmu_mode();
-> >>  +		state->active = true;
-> >>  +	}
-> >>   }
-> >>
-> >> ... I think it make more sense to enable the state after the arch_**
-> >> call right.
-> > But then in_lazy_mmu_mode() would return false if called from
-> > arch_enter_lazy_mmu_mode(). Not big problem, but still..
+>>> While
+>>> often splitting steps helps, I'm not sure that's very useful here. You're
+>>> touching again immediately what you just have moved, all to reach a single
+>>> goal.
+>>>
+>>>> @@ -1421,6 +1422,64 @@ static void cf_check vmx_set_segment_register(
+>>>>        vmx_vmcs_exit(v);
+>>>>    }
+>>>>    
+>>>> +/* Exit UC mode only if all VCPUs agree on MTRR/PAT and are not in no_fill. */
+>>>> +static bool domain_exit_uc_mode(struct vcpu *v)
+>>>> +{
+>>>> +    struct domain *d = v->domain;
+>>>> +    struct vcpu *vs;
+>>>> +
+>>>> +    for_each_vcpu(d, vs)
+>>>> +    {
+>>>> +        if ( (vs == v) || !vs->is_initialised )
+>>>> +            continue;
+>>>> +        if ( (vs->arch.hvm.cache_mode == NO_FILL_CACHE_MODE) ||
+>>>> +             mtrr_pat_not_equal(vs, v) )
+>>>> +            return false;
+>>>> +    }
+>>>> +
+>>>> +    return true;
+>>>> +}
+>>>> +
+>>>> +static void hvm_set_uc_mode(struct vcpu *v, bool is_in_uc_mode)
+>>>> +{
+>>>> +    v->domain->arch.hvm.is_in_uc_mode = is_in_uc_mode;
+>>>> +    shadow_blow_tables_per_domain(v->domain);
+>>>> +}
+>>>
+>>> Similarly I wonder whether this function wouldn't better change to taking
+>>> struct domain * right away. "v" itself is only ever used to get hold of
+>>> its domain. At the call sites this will then make obvious that this is a
+>>> domain-wide operation.
+>>
+>> Agree. but..
+>> In this patch I wanted to minimize changes and do modifications step by step.
+>>
+>> I can add additional patch such as "rework struct domain access in cache disable mode code".
+>> Will it work?
+
+I'm planning to resend with:
+- incorporating struct domain * as parameter in hvm_set_uc_mode()
+
+>>
+>>>
+>>>> +static void hvm_shadow_handle_cd(struct vcpu *v, unsigned long value)
+>>>> +{
+>>>> +    if ( value & X86_CR0_CD )
+>>>> +    {
+>>>> +        /* Entering no fill cache mode. */
+>>>> +        spin_lock(&v->domain->arch.hvm.uc_lock);
+>>>> +        v->arch.hvm.cache_mode = NO_FILL_CACHE_MODE;
+>>>> +
+>>>> +        if ( !v->domain->arch.hvm.is_in_uc_mode )
+>>>> +        {
+>>>> +            domain_pause_nosync(v->domain);
+>>>> +
+>>>> +            /* Flush physical caches. */
+>>>> +            flush_all(FLUSH_CACHE_EVICT);
+>>>> +            hvm_set_uc_mode(v, true);
+>>>> +
+>>>> +            domain_unpause(v->domain);
+>>>> +        }
+>>>> +        spin_unlock(&v->domain->arch.hvm.uc_lock);
+>>>> +    }
+>>>> +    else if ( !(value & X86_CR0_CD) &&
+>>>> +              (v->arch.hvm.cache_mode == NO_FILL_CACHE_MODE) )
+>>>> +    {
+>>>> +        /* Exit from no fill cache mode. */
+>>>> +        spin_lock(&v->domain->arch.hvm.uc_lock);
+>>>> +        v->arch.hvm.cache_mode = NORMAL_CACHE_MODE;
+>>>> +
+>>>> +        if ( domain_exit_uc_mode(v) )
+>>>> +            hvm_set_uc_mode(v, false);
+>>>> +
+>>>> +        spin_unlock(&v->domain->arch.hvm.uc_lock);
+>>>> +    }
+>>>> +}
+>>>
+>>> This function, in turn, could do with a local struct domain *d.
+
+- incorporating struct domain * as parameter local var
+
+>>>
+>>>>    static int cf_check vmx_set_guest_pat(struct vcpu *v, u64 gpat)
+>>>>    {
+>>>>        if ( !paging_mode_hap(v->domain) ||
+>>>
+>>> Why did you put the code above this function? It's solely a helper of
+>>> vmx_handle_cd(), so would imo best be placed immediately ahead of that one.
+>>
+>> Right. Hence vmx_x_guest_pat() are also used by vmx_handle_cd() I decided to put before them.
 > 
-> The ordering of nesting_level/active was the way you expected in v3, but
-> the conclusion of the discussion with David H [1] is that it doesn't
-> really matter so I simplified the ordering in v4 - the arch hooks
-> shouldn't call in_lazy_mmu_mode() or inspect lazy_mmu_state.
-> arch_enter()/arch_leave() shouldn't need it anyway since they're called
-> once per outer section (not in nested sections). arch_flush() could
-> potentially do something different when nested, but that seems unlikely.
+> The main purpose of vmx_set_guest_pat() is, however, its use as a hook function.
+> It's merely an optimization that the function is called directly by VMX code.
+
+- moving code before vmx_handle_cd().
+
 > 
-> - Kevin
+>>> Bottom line: The change could go in as is, but imo it would be nice if it
+>>> was tidied some while moving.
+>>
+>> I'd be very much appreciated if this could happen.
 > 
-> [1]
-> https://lore.kernel.org/all/af4414b6-617c-4dc8-bddc-3ea00d1f6f3b@redhat.com/
+> "this" being what out of the two or more possible options? (I take it you mean
+> "could go in as is", but that's guesswork.)
 
-I might be misunderstand this conversation, but it looked to me as a discussion
-about lazy_mmu_state::nesting_level value, not lazy_mmu_state::active.
+I'm not goint to squah rest of the series.
 
-I do use in_lazy_mmu_mode() (lazy_mmu_state::active) check from the arch-
-callbacks. Here is the example (and likely the only case so far) where it hits:
+-- 
+Best regards,
+-grygorii
 
-static int kasan_populate_vmalloc_pte(pte_t *ptep, unsigned long addr,
-				      void *_data)
-{
-	lazy_mmu_mode_pause();
-	...
-	if (likely(pte_none(ptep_get(ptep)))) {
-
-		/* Here set_pte() checks whether we are in lazy_mmu mode */
-		set_pte_at(&init_mm, addr, ptep, pte);	<--- calls set_pte()
-		data->pages[index] = NULL;
-	}
-	...
-	lazy_mmu_mode_resume();
-	...
-}
-
-So without in_lazy_mmu_mode() check above the arch-specific set_pte()
-implementation enters a wrong branch, which ends up in:
-
-[  394.503134] Call Trace:
-[  394.503137]  [<00007fffe01333f4>] dump_stack_lvl+0xbc/0xf0 
-[  394.503143]  [<00007fffe010298c>] vpanic+0x1cc/0x418 
-[  394.503149]  [<00007fffe0102c7a>] panic+0xa2/0xa8 
-[  394.503154]  [<00007fffe01e7a8a>] check_panic_on_warn+0x8a/0xb0 
-[  394.503160]  [<00007fffe082d122>] end_report+0x72/0x110 
-[  394.503166]  [<00007fffe082d3e6>] kasan_report+0xc6/0x100 
-[  394.503171]  [<00007fffe01b9556>] ipte_batch_ptep_get+0x146/0x150 
-[  394.503176]  [<00007fffe0830096>] kasan_populate_vmalloc_pte+0xe6/0x1e0 
-[  394.503183]  [<00007fffe0718050>] apply_to_pte_range+0x1a0/0x570 
-[  394.503189]  [<00007fffe07260fa>] __apply_to_page_range+0x3ca/0x8f0 
-[  394.503195]  [<00007fffe0726648>] apply_to_page_range+0x28/0x40 
-[  394.503201]  [<00007fffe082fe34>] __kasan_populate_vmalloc+0x324/0x340 
-[  394.503207]  [<00007fffe076954e>] alloc_vmap_area+0x31e/0xbf0 
-[  394.503213]  [<00007fffe0770106>] __get_vm_area_node+0x1a6/0x2d0 
-[  394.503218]  [<00007fffe07716fa>] __vmalloc_node_range_noprof+0xba/0x260 
-[  394.503224]  [<00007fffe0771970>] __vmalloc_node_noprof+0xd0/0x110 
-[  394.503229]  [<00007fffe0771a22>] vmalloc_noprof+0x32/0x40 
-[  394.503234]  [<00007fff604eaa42>] full_fit_alloc_test+0xb2/0x3e0 [test_vmalloc] 
-[  394.503241]  [<00007fff604eb478>] test_func+0x488/0x760 [test_vmalloc] 
-[  394.503247]  [<00007fffe025ad68>] kthread+0x368/0x630 
-[  394.503253]  [<00007fffe01391e0>] __ret_from_fork+0xd0/0x490 
-[  394.503259]  [<00007fffe24e468a>] ret_from_fork+0xa/0x30 
-
-I could have cached lazy_mmu_state::active as arch-specific data
-and check it, but then what is the point to have it generalized?
-
-Thanks!
 
