@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C3A6C3B58C
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 14:44:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1156949.1485894 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A009C3B666
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 14:47:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1156965.1485904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH0HM-0004VN-72; Thu, 06 Nov 2025 13:43:56 +0000
+	id 1vH0Ka-0005EQ-O3; Thu, 06 Nov 2025 13:47:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1156949.1485894; Thu, 06 Nov 2025 13:43:56 +0000
+Received: by outflank-mailman (output) from mailman id 1156965.1485904; Thu, 06 Nov 2025 13:47:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH0HM-0004TC-3u; Thu, 06 Nov 2025 13:43:56 +0000
-Received: by outflank-mailman (input) for mailman id 1156949;
- Thu, 06 Nov 2025 13:43:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vH0Ka-0005CF-L7; Thu, 06 Nov 2025 13:47:16 +0000
+Received: by outflank-mailman (input) for mailman id 1156965;
+ Thu, 06 Nov 2025 13:47:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IWGa=5O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vH0HL-0004R8-3I
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 13:43:55 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a1fe539a-bb16-11f0-980a-7dc792cee155;
- Thu, 06 Nov 2025 14:43:53 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-63bea08a326so882720a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 05:43:53 -0800 (PST)
+ id 1vH0KZ-0005C9-2T
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 13:47:15 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 19b413f8-bb17-11f0-9d17-b5c5bf9af7f9;
+ Thu, 06 Nov 2025 14:47:14 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-640c48b3b90so1077572a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 05:47:14 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b728964480esm211649766b.38.2025.11.06.05.43.51
+ 4fb4d7f45d1cf-6411f7139bdsm1868137a12.4.2025.11.06.05.47.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Nov 2025 05:43:52 -0800 (PST)
+ Thu, 06 Nov 2025 05:47:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1fe539a-bb16-11f0-980a-7dc792cee155
+X-Inumbo-ID: 19b413f8-bb17-11f0-9d17-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762436632; x=1763041432; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762436833; x=1763041633; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ig10tzCj2v0cij1uqORzajW9xoL4sM628AWRNL5jgIs=;
-        b=OXy466KspyRvb162PwQ+csNnzVXiJ8jirfD7izOkhx1ceoK1UveNjNVFrui8kd5Ycq
-         v54oRC52dWBan9Pn16Iz+3DJR3ou9kjLbhEm+24lSySeVyOlBj5iQnhqLd/BGDmTKF6q
-         v6qunkAom/zXhIrefbYlBQXT3XCeFLrZQo0jFdf7OO0Y9yYkxAkMcDwgEeDVZ2dpa5WD
-         vfMwq0//V9/dPla5/ITMSK4Ztx9kXgHgtxQLOJBE0y77nKszQ6azrWQLEccrbyeZF2A0
-         eQhUqyntYg5Fbs4uxP9Qsp3fj01LgZXu99Z7mQgO6kvnAnWOVDMOrW0ztTyCyVfszy6P
-         sYYw==
+        bh=L3AbpyYwSqCxvM/Tkgw+VkYmaSYN1ATWzlJnRnGy5lI=;
+        b=gUHDUGn1Z1kOlgueKpZNS3slL1lvdkCX7M85nN5XAUS8y+krJ15evP+Z9KkiRPgjGq
+         yXTHVi3aA8FK6p9rVtJCqGIW2xYg2N5JQuYSM7DnYJapteEeTbjx7r+NwyBNwdNLWuhy
+         Jtmd89O2/2kjXrB+pLPIk3s0e6sopsAOEmJEp39aGdRFjuvnJY1zHkcpQPc+CUd34vGD
+         RxdvrVFxsxoK4EwaKAqvTqSSBPtXxwuq+PE5+EiQZY4XRiVR+R6Fe8/816hCe6g3qggr
+         rQFuZFOeEu7QmZuD+hXpjk/wBrWn4CT4EENGov4siCxYjWIhMiUEPTtqW48qXINJ3Ywu
+         EzkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762436632; x=1763041432;
+        d=1e100.net; s=20230601; t=1762436833; x=1763041633;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ig10tzCj2v0cij1uqORzajW9xoL4sM628AWRNL5jgIs=;
-        b=ffnA/q4G2gb0sWtFDhzws1AqCJjzOGuC+vlwN/loR02qfF+gtiu7LPu+i/FYvBSF4/
-         ltU1dgBESTPynz+4u+FNlMSlEq8nvZeeZ+NljnTmTPWdeagYdDoHUzrt+Ykb+Tua+LP9
-         gIM0PwzweuQfksBLMEbN1at1vBE6+W/Dk1MFUbRauZ8yhsp90EwUO9Am102c3Uwn2/em
-         aSxtesWHaYMn/LOkquMe7f/8jMCyxUbko+4/Si3GS4MHJRVDLRLhuGqKc1nIt/Hw8HP9
-         7VfqtwFDsLRp3HNn7WzG0CneLTanDXxXIgpxZwVHeIuDKfuJrp5StW36Jft6IhrQ0Dw5
-         9j6A==
-X-Forwarded-Encrypted: i=1; AJvYcCW+GoLVdC6iAR8sQW/H6eciB3UmKx5GD0RRry7huCmjPJ5ZMAjatLkffrTAMShpdlJSq7z8aJDOlfs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxgw+atXvg+6yy81fNoqpF/5jQur6LERrfDrxxE3+VBDskKfVZF
-	CbzXprjtCAaVlc6hdw3dFRPPJBIFKOT9j792BH+FGoOy21iUCJjoVztboFS8PcQbJw==
-X-Gm-Gg: ASbGncuTlCGepDMVC9L9pvbUlZvW+44XzQqDZbXEwwEHsdS9VbDpt+ItY2DLwmZYyuj
-	xoJlAU038bqgwZcbeN8TbFs938WE+9LV2TQVKXoXDf0WVu0Fa9OVFLs0QlYW+ZdRrRltZoHjobY
-	wjgKCMJiXXhBejB4GcJmAwerTHPM6pTSoaYIqiTE9DgL8Fn9pZ9yE1RibqdsuQk8J8ohiFFynqQ
-	IpHpymYk9j145tT8Lqun3lrjMvOeFycFgIUFfogo7Yh17q+s71AgUGA64fq1zLxlGEEOXqeZYTx
-	BEyWcJ3LktsJgF9YYuaA3Oz/5zJX5MnDuxZL9KI8q73B43p6xdxNiBevCD0gP0qk4hfrEqOt9IY
-	LBiu+PCR2XjS8QOn06YMG2MEzt3Pxr/+IaRwoCRBAwUi9LYScRif6yWBUJ+LysLFfTYFGUNGiez
-	z/sBEaoZ/2qYtfSbfJCqhUi1wz+TH3VxyI28BY4W7PuTHLuP76UgPVM1YUPDT5cNdxKggq0b0=
-X-Google-Smtp-Source: AGHT+IGkt6HsJkwAlJrlsbzw0lA9tXESGB2K/GiIvjNawo3xTTc7fIpwQbbWVe+aLzUStfb/N2zEBw==
-X-Received: by 2002:a17:907:701:b0:b41:4e72:309f with SMTP id a640c23a62f3a-b726559ec17mr749081966b.50.1762436632342;
-        Thu, 06 Nov 2025 05:43:52 -0800 (PST)
-Message-ID: <8b204b21-80fb-408d-972e-8f183eb45dfc@suse.com>
-Date: Thu, 6 Nov 2025 14:43:51 +0100
+        bh=L3AbpyYwSqCxvM/Tkgw+VkYmaSYN1ATWzlJnRnGy5lI=;
+        b=Dv4lZdfWri8mkpRhu7jJDCF0YsZpSIF04kRg50GGF8UPZjUkudYKkTjukU/u6MNTUb
+         o0e9vJ5vp/qj5ZyXCqocE3YVZVFEV6sySdRwsVPQAfo82M/lNG/0p6qWsddTb5cHogpu
+         L+ZkB/tDaWAoCguI7tXPfrU81PpZxMxEgVGTq5ZJ6ZcqI6bXispClKDtdiLTx/XrGrks
+         FcxuKJK94/FxUEMgcD4r7X+gNzqE3UWWf986CkpZdzMm3ZcOK217mvyZHKR1mJQ1J46T
+         q7vc02Tbgxu3LziHBxfKCEhCQyh/WvUkvm0FN4Wg6k2eZTqNMNA+5dzaoa5sBuzw7pM0
+         CjWA==
+X-Forwarded-Encrypted: i=1; AJvYcCX7uP2Eafqnyn9fNnr7g1N2EbErMAHXDeh/YYUk3TerPrJa3LazxxQKKZ6djJzrJFW7mWQKx4VAzes=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyHQqZa9SXZKEo3OyJbMg3EiirITtucNjYQ3MNnAkZLzV7E6Xta
+	Mlbeiqo0MDyLOaINgCjIVxdV9IB25+SF1Zn/kUMIPVie+KlDQGIaBG9CiQE9Mv1mDA==
+X-Gm-Gg: ASbGncuvplCpvWOtUci0juPFFd4sOC75VEN8O/tFrKSxEXTeubkxkrHjOgzX4dgzlgO
+	85pexuOnjmUKiqwzUm890ujHLUQTKyl7ircirJDbVqHLR9c360IhHwEzRIwNtudxx/O0JaotzUx
+	wW6Ip0Br2Cwjy/a9mp94guJ7KLd2x6FVX922ix+xxVY4VWTUDh9AoK9GoPwnXqavxTqm7wBPXVn
+	gz7YnwkE0RWmDXeofTS2eRKdSjk0AJ8Zj/vci3fvALQ9iPJrctiG5Iq02llaQAIUOUs90gT+a1c
+	vWdMIhgiQ+O62tsM/QQgNASqXHU4bRENtRE92CY0E7f33I0oon1mv9Pax+L499dcbhIqSdVKXJe
+	R5aOUGYvwf9XetJSK3g7BW6Si5DjdTKDjXNQ5JMnPOEKjAsxnQsl60L0cjXdLipLo2GPGAfVi7C
+	2HgxW6X1pZPTSWSsa+2SiyUAbAMMeMHCVvLUhuQpQXc/qtb34zMw6JUWDviv/ibHLV6x+FN98q1
+	b0osdXwUA==
+X-Google-Smtp-Source: AGHT+IEfyYjThR7/ucQ+E4YT4/e1Y5ozQ7IIIxexYvfgVH74tWng8qDGXb6OXIPY692r3VwZ4sSS9w==
+X-Received: by 2002:a05:6402:909:b0:641:3189:a183 with SMTP id 4fb4d7f45d1cf-6413189a7femr813497a12.14.1762436833165;
+        Thu, 06 Nov 2025 05:47:13 -0800 (PST)
+Message-ID: <210edee7-8525-47a9-8191-ea7d94db5fce@suse.com>
+Date: Thu, 6 Nov 2025 14:47:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [for 4.22 v5 01/18] xen/riscv: detect and initialize G-stage mode
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [XEN][PATCH v7] x86: make Viridian support optional
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1760974017.git.oleksii.kurochko@gmail.com>
- <2b21348b3300c741b276a47d5942e71d306846eb.1760974017.git.oleksii.kurochko@gmail.com>
+ Jason Andryuk <jason.andryuk@amd.com>
+References: <20251031161716.1222956-1-grygorii_strashko@epam.com>
+ <a4d3eb8d-17ea-4d3c-87ef-ba5c3477b8c3@suse.com>
+ <edb590e4-340d-4a0f-9543-0dfdcc7b54b1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,142 +125,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2b21348b3300c741b276a47d5942e71d306846eb.1760974017.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <edb590e4-340d-4a0f-9543-0dfdcc7b54b1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.10.2025 17:57, Oleksii Kurochko wrote:
-> Changes in V5:
->  - Add static and __initconst for local variable modes[] in
->    gstage_mode_detect().
->  - Change type for gstage_mode from 'unsigned long' to 'unsigned char'.
->  - Update the comment inisde defintion if modes[] variable in
->    gstage_mode_detect():
->    - Add information about Bare mode.
->    - Drop "a paged virtual-memory scheme described in Section 10.3" as it isn't
->      relevant here.
->  - Drop printing of function name when chosen G-stage mode message is printed.
->  - Drop the call of gstage_mode_detect() from start_xen(). It will be added into
->    p2m_init() when the latter will be introduced.
+On 06.11.2025 14:42, Grygorii Strashko wrote:
+> On 06.11.25 13:35, Jan Beulich wrote:
+>> On 31.10.2025 17:17, Grygorii Strashko wrote:
+>>> --- a/xen/arch/x86/hvm/Makefile
+>>> +++ b/xen/arch/x86/hvm/Makefile
+>>> @@ -1,6 +1,6 @@
+>>>   obj-$(CONFIG_AMD_SVM) += svm/
+>>>   obj-$(CONFIG_INTEL_VMX) += vmx/
+>>> -obj-y += viridian/
+>>> +obj-$(CONFIG_VIRIDIAN) += viridian/
+>>
+>> With this, what is the point of the additions to viridian_load_{domain,vcpu}_ctxt()?
+>> You're adding dead code there, aren't you?
+> 
+> Hgrr. And we end up back to v3 regarding this part.
+> Check in viridian_load_{domain,vcpu}_ctxt() may/may not work depending on toolstack
+> behavior which is not strictly defined (loading HVM_PARAM_VIRIDIAN before/after
+> viridian_load_{domain,vcpu}_ctxt()).
+> 
+> So what's the conclusion here - drop this check?
 
-Well, thanks, but ...
+Well, Misra wants us to not have any dead code. Hence why would we add new
+instances of such?
 
->  - Introduce pre_gstage_init().
+>>> --- a/xen/arch/x86/hvm/hvm.c
+>>> +++ b/xen/arch/x86/hvm/hvm.c
+>>> @@ -4231,8 +4231,9 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
+>>>               rc = -EINVAL;
+>>>           break;
+>>>       case HVM_PARAM_VIRIDIAN:
+>>> -        if ( (value & ~HVMPV_feature_mask) ||
+>>> -             !(value & HVMPV_base_freq) )
+>>> +        if ( !IS_ENABLED(CONFIG_VIRIDIAN) && value )
+>>> +            rc = -ENODEV;
+>>> +        else if ( (value & ~HVMPV_feature_mask) || !(value & HVMPV_base_freq) )
+>>>               rc = -EINVAL;
+>>
+>> I find the check for value to be (non-)zero a little dubious here: If any caller
+>> passed in 0, it would get back -EINVAL anyway. Imo -ENODEV would be more suitable
+>> in that case as well. Things would be different if 0 was a valid value to pass in.
+> 
+> The idea was to distinguish between "Feature enabled, Invalid parameter" and "Feature disabled".
 
-... the same comment that I gave before now applies here: This doesn't look to
-belong directly in start_xen(). In x86'es terms I'd say this is a tiny part of
-paging_init().
-
-> --- a/xen/arch/riscv/Makefile
-> +++ b/xen/arch/riscv/Makefile
-> @@ -7,6 +7,7 @@ obj-y += intc.o
->  obj-y += irq.o
->  obj-y += mm.o
->  obj-y += pt.o
-> +obj-y += p2m.o
-
-Nit: Please keep things sorted (numbers sort before letters).
-
-> --- a/xen/arch/riscv/include/asm/p2m.h
-> +++ b/xen/arch/riscv/include/asm/p2m.h
-> @@ -6,6 +6,8 @@
->  
->  #include <asm/page-bits.h>
->  
-> +extern unsigned char gstage_mode;
-
-Better move down some, at the very least ...
-
->  #define paddr_bits PADDR_BITS
-
-... past more fundamental #define-s?
-
-> --- a/xen/arch/riscv/include/asm/riscv_encoding.h
-> +++ b/xen/arch/riscv/include/asm/riscv_encoding.h
-> @@ -131,13 +131,16 @@
->  #define HGATP_MODE_SV32X4		_UL(1)
->  #define HGATP_MODE_SV39X4		_UL(8)
->  #define HGATP_MODE_SV48X4		_UL(9)
-> +#define HGATP_MODE_SV57X4		_UL(10)
->  
->  #define HGATP32_MODE_SHIFT		31
-> +#define HGATP32_MODE_MASK		_UL(0x80000000)
-
-Please can we avoid redundant (and then not even connected) #define-s? I
-don't see why you would need HGATP32_MODE_SHIFT when you have
-HGATP32_MODE_MASK. Similarly ...
-
->  #define HGATP32_VMID_SHIFT		22
->  #define HGATP32_VMID_MASK		_UL(0x1FC00000)
-
-... here, while ...
-
->  #define HGATP32_PPN			_UL(0x003FFFFF)
-
-... here the constant isn't even suffixed with _MASK.
-
-> --- /dev/null
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -0,0 +1,96 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#include <xen/init.h>
-> +#include <xen/lib.h>
-> +#include <xen/macros.h>
-> +#include <xen/sections.h>
-> +
-> +#include <asm/csr.h>
-> +#include <asm/flushtlb.h>
-> +#include <asm/riscv_encoding.h>
-> +
-> +unsigned char __ro_after_init gstage_mode;
-> +
-> +static void __init gstage_mode_detect(void)
-> +{
-> +    static const struct {
-> +        unsigned char mode;
-> +        unsigned int paging_levels;
-> +        const char name[8];
-> +    } modes[] __initconst = {
-> +        /*
-> +         * Based on the RISC-V spec:
-> +         *   Bare mode is always supported, regardless of SXLEN.
-> +         *   When SXLEN=32, the only other valid setting for MODE is Sv32.
-> +         *   When SXLEN=64, three paged virtual-memory schemes are defined:
-> +         *   Sv39, Sv48, and Sv57.
-> +         */
-> +#ifdef CONFIG_RISCV_32
-> +        { HGATP_MODE_SV32X4, 2, "Sv32x4" }
-> +#else
-> +        { HGATP_MODE_SV39X4, 3, "Sv39x4" },
-> +        { HGATP_MODE_SV48X4, 4, "Sv48x4" },
-> +        { HGATP_MODE_SV57X4, 5, "Sv57x4" },
-> +#endif
-> +    };
-> +
-> +    unsigned int mode_idx;
-> +
-> +    gstage_mode = HGATP_MODE_OFF;
-
-Why is this not the variable's initializer?
-
-> +    for ( mode_idx = 0; mode_idx < ARRAY_SIZE(modes); mode_idx++ )
-> +    {
-> +        unsigned long mode = modes[mode_idx].mode;
-> +
-> +        csr_write(CSR_HGATP, MASK_INSR(mode, HGATP_MODE_MASK));
-> +
-> +        if ( MASK_EXTR(csr_read(CSR_HGATP), HGATP_MODE_MASK) == mode )
-> +        {
-> +            gstage_mode = mode;
-> +            break;
-> +        }
-> +    }
-
-I take it that using the first available mode is only transient. To support bigger
-guests, you may need to pick 48x4 or even 57x4 no matter that 39x4 is available.
-I wonder whether you wouldn't be better off recording all supported modes right
-away.
+But you don't, or else the addition would need to live after the -EINVAL checks.
+I also question the utility of knowing "parameter was invalid" when the feature
+isn't available anyway.
 
 Jan
 
