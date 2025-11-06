@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7856AC398C4
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 09:17:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1156551.1485605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80311C399BD
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 09:40:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1156569.1485614 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGvBi-00006x-5q; Thu, 06 Nov 2025 08:17:46 +0000
+	id 1vGvX4-00039H-0e; Thu, 06 Nov 2025 08:39:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1156551.1485605; Thu, 06 Nov 2025 08:17:46 +0000
+Received: by outflank-mailman (output) from mailman id 1156569.1485614; Thu, 06 Nov 2025 08:39:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGvBi-00005S-2k; Thu, 06 Nov 2025 08:17:46 +0000
-Received: by outflank-mailman (input) for mailman id 1156551;
- Thu, 06 Nov 2025 08:17:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vGvX3-00037O-U8; Thu, 06 Nov 2025 08:39:49 +0000
+Received: by outflank-mailman (input) for mailman id 1156569;
+ Thu, 06 Nov 2025 08:39:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IWGa=5O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vGvBh-00005M-7K
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 08:17:45 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 11718856-bae9-11f0-980a-7dc792cee155;
- Thu, 06 Nov 2025 09:17:43 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-b714b1290aeso51990066b.2
- for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 00:17:43 -0800 (PST)
+ id 1vGvX2-00037I-EA
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 08:39:48 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 26883456-baec-11f0-9d17-b5c5bf9af7f9;
+ Thu, 06 Nov 2025 09:39:47 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-640860f97b5so972878a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 00:39:47 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b72893cc6c5sm153641466b.31.2025.11.06.00.17.41
+ a640c23a62f3a-b72893cc6c5sm157537566b.31.2025.11.06.00.39.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Nov 2025 00:17:42 -0800 (PST)
+ Thu, 06 Nov 2025 00:39:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11718856-bae9-11f0-980a-7dc792cee155
+X-Inumbo-ID: 26883456-baec-11f0-9d17-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762417063; x=1763021863; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762418386; x=1763023186; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=71SB90NfEIoCPmTxGQuDlOuROF3EtSSAcP3iCmm2lwk=;
-        b=DdUaDwk+5bNXsB/v4JpzYLG1/oPERLjr1910i5CgDRxROtF3bACFvx6K6BG2ZCcMJL
-         F0iFrEINS+cKqJUCxJkac0H6QrjB01QJWRTiHbzt2cLGbS8h6eeZOKKghSPA/3OkPy0V
-         RgRBbwYjrtmWxfeb1oz4AlRmMLKgF36nnM9pIBPIpAcq+yMge8t2BZSjJJk+w5B5OaPN
-         oEr1sLQgvoY2j7wu/S0iYQRcYowhrOtVcOFl0fCYXSvm2rXv5VEYNAEoXZqBFQYHuyOW
-         EfdQmIdNAxUuvzxIyfSSQaldR3oCiFZRITpJ6slSkQ6/kn/Usv0bHAdMYKT/Na3e0K68
-         b6eQ==
+        bh=a3lKVaj5tvsPyTxl+xisc7FX2U8Vyxf/5JVA/vaGjmc=;
+        b=T1GfG+jWSNqXS5M1SIKJAd827CSKCRcKHWiEWGty9sSSRitNklfxFVPr0Mzoe3Dwdj
+         rRob7WsvDchE86RwifVQjbdawefzI8zcirAMsLkph8sX+07TigtspTbOlHL55Qe0DZ2f
+         E4USOGMk0EMNH6LeQ4STBbdWEdi2z46FHUxHlQQ7r2Q8zw1RKb29YniMMNrKXp9t+2hC
+         qvJ7fXBcc8HS2UgqjhkVz/kbvUOvMwNIst+ASf9aC8GurFqD/T15CphTiS8qqFbESG65
+         G3WXg/5ysDTnfGNJ5pW+i2da2Ub6pIon0ve5KMMqVisZWrAuuEiUWKrWgw7qqgZi6FOJ
+         Hqcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762417063; x=1763021863;
+        d=1e100.net; s=20230601; t=1762418386; x=1763023186;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=71SB90NfEIoCPmTxGQuDlOuROF3EtSSAcP3iCmm2lwk=;
-        b=DeEwkQLQtnSkuzvdZIhnhOV8s20oenK0iry9esjsZKRADZcRt07IjgTyxAcvzjODkH
-         BNj1MrV9MHOc8SgW/pCep36C0QeZ/nEWbhNEls1zguHKrrlWpyRDlDMucTSXJgSPz5IZ
-         qGXJiNtug58b/qBhfPoMtpEudQQPVjXKby/kxGpvtXI86Wrua25gnixtr0Q6857sT0bo
-         ksb1BguonVOZCCwlnf/xo7YpzsnnbvYBezbz9zw+fhMnf4zBxpPHFQNRqVRdLO4UrzFO
-         YqZc1EQfMBBsR7PMBvj4q0jDE4a8HO4zCabn9p1CwegwV4bLdvELa1UchK+03QUU5UzD
-         G0xg==
-X-Forwarded-Encrypted: i=1; AJvYcCUPlA/xAj9N3JqvG90suVtA1365o0x3a/Fc4IUQt52zFC8tw3I6uIYsqi3yTraTN56Z2wySRs3HoHg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwXzGss55hErg4OEIuloulwnjm9aXUdELDN4fIonvALBrLjJ2rL
-	ztFWuVnsOrLQwiaz4sTyCLTz4Ebp8oUiZW1uwlw7bVDxV5f3w4r9FRjOZOfHc4M8nQ==
-X-Gm-Gg: ASbGncsYMjyaz0brUtxz/v95nRD5MgDzrb8gSB8iuOdIOmMrZCAZKwCcDb/z+OanmIU
-	ivi4Opnbm6hTYhRqyusugV3kMKIvGOaORfRuYGbdkzRxUCylLYTZOBBz9IUK4i5hw6UGU0Ib7Zj
-	n6yRtpQlXmbiQQJuq7DqCyF9cVpF/lCTsOWNm5STVoRySPYnCcTzx12ZCcVlXSPN4Vjjrjaym1P
-	T75vFVaQeOCuWeZfX+zxkZJTMc9vXP53aumUwf04gmCBoABkzMxah8en2ZcOCBDtzfAG2KerhP3
-	+jBUabca0dalvUTbQkpre49eSHqShJrHkaBOJsIVdhRSQt9tRY9fkUYjArhoYjMBpgBnBHPc3TM
-	3LvUaaOQ+QciU1i9WIH4pBAVNsywbp9FGSr54KwaIsfsNmx3EY9gn8LkoiI4KHwjenqdzWCA9nj
-	nEgLZ/+DR4X+l1bY5yFOrcDsQ2kkQ56OfmjRK0/XdB1VDaNYJfPAT0eZiqsNtw
-X-Google-Smtp-Source: AGHT+IHerp5AOUCSGsxUXcidAvHeqCzoD3J0SNoABGlouC6QcO6aZ7TdxCWNb2F7zKT+8ZxmM7mC9A==
-X-Received: by 2002:a17:907:6096:b0:b6d:73f8:3168 with SMTP id a640c23a62f3a-b7265155843mr765808366b.3.1762417062676;
-        Thu, 06 Nov 2025 00:17:42 -0800 (PST)
-Message-ID: <d6efc21d-9943-4130-bad6-bee36149dbd4@suse.com>
-Date: Thu, 6 Nov 2025 09:17:45 +0100
+        bh=a3lKVaj5tvsPyTxl+xisc7FX2U8Vyxf/5JVA/vaGjmc=;
+        b=Tq7gF9ZsDIOOQvte9gu+8RGNTFTbhomu4ZkM3BHy1gJcOZGyAvyg/7j3OUufKkI3Yr
+         UB7bujyDrv4X114YErXrgSlQbEL1JGEI9v4rMmSlYG09gBzjgOpWm6PRCmlfZCZStxtA
+         peWSIcOWOD+Hn+m3UQvZPBbVoJ8zNRRuAlqkzhYH42s9M1CpSkaNXLRO0NEoMak0ThbC
+         bcpbwy4eiIyNeSSK3zAblNwo0BhZ7cencqT1GRPhzQPqRTOuKvEMNAXKrBKo5tz75uTS
+         OIOMaOaAzb48Uueh4XSu2arH30a3NHC7WSU03ImuDn+pfCPVWNMS/nkTI5NMlKlWT7cg
+         weZw==
+X-Gm-Message-State: AOJu0YxR4ggB+Ho9OurXuMJZbPD6c3V2czGqXqK6BsLgiZ5YWC2Kgdfy
+	uuUsMMIeQiLYQOnzTM1gPuZBgTAQ7UYeCYULEiyH0iEehrLQNmtdXCcx3cb4LK2uoQ==
+X-Gm-Gg: ASbGncvj2S/ysiescKFRX+GtP1MqQmuO6+9QSz+c1zXyuX2gUENJ6suHM1ggASkaPKM
+	xYk3TagX8I/zN5HuU8Z5u3JbN1wIldpvB+MEZ9ekZgSvUkPvKTdduKTo+b0GFURpUP1ApQQ58UY
+	nXOgdQOVwcAjP+uWSBW3qkjwy7eJiDqPdYe3HdjM2kFPZ2nUnoeBB/CSuLv/DyIbgUebmk54+BL
+	jrf6assV+OOIN9slOC25zYG+X9TtTU5yhnHHZPjtHsj6/YT6uPutEVaM1FGWlSghEoJT7hUux95
+	QGh6VNQ3y/iEVusR+JGvj9AXq/PVdDhzEZhd8/i6v4Wi4iTj6VfFDqx/+y+pODnQwdAn9x40dey
+	z/kFAEuyIk1YwG+5x4g5n7PJD4eRoU+oxgtSomG448omIf49TfAiMnOLStnDPzrAve1IMjaAU8b
+	cGtQ/Z7YI/llLHdYzwWG8W0MHE20g1rQcHddziZYK5UKSjBxHX6cqox22PEiShRqCEVH9yZmo=
+X-Google-Smtp-Source: AGHT+IH1nhEqv+xWaaR39hvdJBYeEueIxRa8v0YeEhMtvosnBLuik+AI7j4VK6KczUFc2CyARGr3Ag==
+X-Received: by 2002:a17:907:948c:b0:b70:df0d:e2f1 with SMTP id a640c23a62f3a-b72653ec470mr674225766b.28.1762418386506;
+        Thu, 06 Nov 2025 00:39:46 -0800 (PST)
+Message-ID: <37ac4dce-e61c-46a7-9e55-410fbda843e8@suse.com>
+Date: Thu, 6 Nov 2025 09:39:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH for-4.22] x86/hvm: Introduce force_x2apic flag
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-References: <d498a50f6187b362ac5da3c6a7a7c348f35dc4b3.1761761288.git.teddy.astie@vates.tech>
- <fa9a7720-5a90-41bd-8ebb-5fc5d4065d38@suse.com>
- <5f62bd09-5e3f-4db7-901e-eb8c8a3763f5@vates.tech>
+Subject: Re: [PATCH v2 for-4.21 0/2] x86/AMD: deal with RDSEED issues
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <272093dc-c97c-434a-9977-ad1c26e7e229@suse.com>
+ <aQSN3MKxAa_cltld@Mac.lan> <68e28e41-e835-4985-80a3-6a99b3d7dc3e@suse.com>
+ <aQSVTjh5xiib-u5D@Mac.lan> <b7293f69-d9f8-4669-a1fd-eaa468445d68@suse.com>
+ <aQSoE8ugCKdNWy9C@Mac.lan> <8c7881d9-5959-41b5-865d-d61199ac7a44@suse.com>
+ <aQS2arOWxEiHq1sj@Mac.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,46 +122,86 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5f62bd09-5e3f-4db7-901e-eb8c8a3763f5@vates.tech>
+In-Reply-To: <aQS2arOWxEiHq1sj@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 31.10.2025 15:33, Teddy Astie wrote:
-> Le 30/10/2025 à 08:56, Jan Beulich a écrit :
->> On 29.10.2025 19:26, Teddy Astie wrote:
->>> --- a/xen/arch/x86/hvm/vlapic.c
->>> +++ b/xen/arch/x86/hvm/vlapic.c
->>> @@ -1116,6 +1116,20 @@ int guest_wrmsr_apic_base(struct vcpu *v, uint64_t val)
->>>       if ( !has_vlapic(v->domain) )
->>>           return X86EMUL_EXCEPTION;
->>>   
->>> +    if ( has_force_x2apic(v->domain) )
->>> +    {
->>> +        /*
->>> +        * We implement the same semantics as MSR_IA32_XAPIC_DISABLE_STATUS:
->>> +        * LEGACY_XAPIC_DISABLED which rejects any attempt at clearing
->>> +        * IA32_APIC_BASE.EXTD, thus forcing the LAPIC in x2APIC mode.
->>> +        */
+On 31.10.2025 14:15, Roger Pau Monné wrote:
+> On Fri, Oct 31, 2025 at 01:34:55PM +0100, Jan Beulich wrote:
+>> On 31.10.2025 13:14, Roger Pau Monné wrote:
+>>> On Fri, Oct 31, 2025 at 12:47:51PM +0100, Jan Beulich wrote:
+>>>> On 31.10.2025 11:54, Roger Pau Monné wrote:
+>>>>> On Fri, Oct 31, 2025 at 11:29:44AM +0100, Jan Beulich wrote:
+>>>>>> On 31.10.2025 11:22, Roger Pau Monné wrote:
+>>>>>>> On Tue, Oct 28, 2025 at 04:32:17PM +0100, Jan Beulich wrote:
+>>>>>>>> Both patches also want 'x86/CPU: extend is_forced_cpu_cap()'s "reach"' in
+>>>>>>>> place.
+>>>>>>>>
+>>>>>>>> 1: disable RDSEED on Fam17 model 47 stepping 0
+>>>>>>>> 2: disable RDSEED on most of Zen5
+>>>>>>>
+>>>>>>> For both patches: don't we need to set the feature in the max policy
+>>>>>>> to allow for incoming migrations of guests that have already seen the
+>>>>>>> feature?
+>>>>>>
+>>>>>> No, such guests should not run on affected hosts (unless overrides are in place),
+>>>>>> or else they'd face sudden malfunction of RDSEED. If an override was in place on
+>>>>>> the source host, an override will also need to be put in place on the destination
+>>>>>> one.
+>>>>>
+>>>>> But they may be malfunctioning before already, if started on a
+>>>>> vulnerable hosts without this fix and having seen RDSEED?
+>>>>
+>>>> Yes. But there could also be ones coming from good hosts. Imo ...
+>>>>
+>>>>> IMO after this fix is applied you should do pool leveling, at which
+>>>>> point RDSEED shouldn't be advertised anymore.  Having the feature in
+>>>>> the max policy allows to evacuate running guests while updating the
+>>>>> pool.  Otherwise those existing guests would be stuck to run on
+>>>>> non-updated hosts.
+>>>>
+>>>> ... we need to err on the side of caution.
+>>>
+>>> While I understand your concerns, this would cause failures in the
+>>> upgrade and migration model used by both XCP-ng and XenServer at
+>>> least, as it could prevent eviction of running VMs to updated hosts.
+>>>
+>>> At a minimum we would need an option to allow the feature to be set on
+>>> the max policy.
 >>
->> The MSR aspect should be implemented by using the MSR. Beyond that imo our treatment
->> shouldn't be different from that when firmware pre-enables x2APIC: While not
->> advisable, aiui OSes could still switch back to xAPIC mode. At which point the guest
->> config level control may also want calling "pre-enable", not "force".
->>
+>> That's where the 3rd patch comes into play. "cpuid=rdseed" is the respective
+>> override. Just that it doesn't work correctly without that further patch.
 > 
-> One advantage of forcing x2APIC enabled is that it simplifies the 
-> support for LAPIC IDs over 255.
+> Won't using "cpuid=rdseed" in the Xen command line result in RDSEED
+> getting exposed in the default policy also, which we want to avoid?
 > 
-> While that could be a alternative to just pre-enable x2apic (in cases we 
-> don't want the OS to use xAPIC because it is there), things still gets 
-> tricky for supporting more vCPUs. We would need to clarify the behavior 
-> of enabling xAPIC on a vCPU that has LAPIC_ID > 254, Intel and AMD 
-> specification don't define anything aside for Intel :
->> If a BIOS transfers control to OS in xAPIC mode, then the BIOS must ensure that only logical processors with
->> CPUID.0BH.EDX value less than 255 are enabled.
+> Or am I getting confused on where "cpuid=rdseed" should be used?
 
-Well, this falls into the much wider topic of making more than 128 vCPU-s
-available for HVM / PVH, doesn't it?
+No, there's no way here to get max but not default.
+
+>>>  Overall I think safety of migration (in this specific
+>>> regard) should be enforced by the toolstack (or orchestration layer),
+>>> rather than the hypervisor itself.  The hypervisor can reject
+>>> incompatible policies, but should leave the rest of the decisions to
+>>> higher layers as it doesn't have enough knowledge.
+>>
+>> But without rendering guests vulnerable behind the admin's back.
+> 
+> I think that's part of the logic that should be implemented by the
+> orchestration layer, simply because it has all the data to make an
+> informed decision.  IMO it won't be behind the admin's back, or else
+> it's a bug in the higher layer toolstack.
+
+I fear I simply don't see aspects like this to be exposed to a toolstack.
+We didn't for RDRAND.
+
+> Not putting rdseed in the max policy completely blocks the upgrade
+> path, even when a toolstack is possibly making the right informed
+> decisions.
+> 
+> I guess I need to see that 3rd patch.
+
+https://lists.xen.org/archives/html/xen-devel/2025-08/msg00113.html
 
 Jan
 
