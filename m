@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97781C3B94B
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 15:09:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1157002.1485935 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A820C3BB79
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 15:26:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1157022.1485961 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH0gC-0000qG-0o; Thu, 06 Nov 2025 14:09:36 +0000
+	id 1vH0wB-0003pJ-En; Thu, 06 Nov 2025 14:26:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1157002.1485935; Thu, 06 Nov 2025 14:09:35 +0000
+Received: by outflank-mailman (output) from mailman id 1157022.1485961; Thu, 06 Nov 2025 14:26:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH0gB-0000op-UH; Thu, 06 Nov 2025 14:09:35 +0000
-Received: by outflank-mailman (input) for mailman id 1157002;
- Thu, 06 Nov 2025 14:09:35 +0000
+	id 1vH0wB-0003mK-Br; Thu, 06 Nov 2025 14:26:07 +0000
+Received: by outflank-mailman (input) for mailman id 1157022;
+ Thu, 06 Nov 2025 14:26:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IWGa=5O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vH0gA-0000oj-Up
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 14:09:34 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1vH0w9-0003kn-Kx
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 14:26:05 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 37cd3204-bb1a-11f0-980a-7dc792cee155;
- Thu, 06 Nov 2025 15:09:32 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-b728a43e410so173495966b.1
- for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 06:09:32 -0800 (PST)
+ id 84f3291f-bb1c-11f0-980a-7dc792cee155;
+ Thu, 06 Nov 2025 15:26:01 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-640ca678745so1876583a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 06:26:01 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b7289334264sm218096366b.12.2025.11.06.06.09.31
+ 4fb4d7f45d1cf-6411f866dd5sm1849709a12.32.2025.11.06.06.25.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Nov 2025 06:09:32 -0800 (PST)
+ Thu, 06 Nov 2025 06:26:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37cd3204-bb1a-11f0-980a-7dc792cee155
+X-Inumbo-ID: 84f3291f-bb1c-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762438172; x=1763042972; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762439161; x=1763043961; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3m7r7W+00piqcEHoeftA7E3rCc88l8s7FHXFLVjyRxw=;
-        b=ZJ0YDVh3jemU/hkIN9nG7GgOhwqyMavDje68KRtg8o3DoqMQoi0sb8S/S4oTFoXibr
-         7uCO/9nK564j6xbI4NDPjGf0JZTkkZ5YlfVYScZP3AJzGatZdWFSbgZxCOOolbSLUIKA
-         8kW6cznlGQDKmmF/7Tb7xuR1YTY0GV2szA+Q0aSfMZTkYYTf83s3+LIZhdm1SNNjtYOZ
-         URzLgQwNIA/lY4+Ybwecp+vezJDSQJDkUBRHFf+OHVfHyFYqx3bdOloanrqKYdLCnAgO
-         vG9DmTS+KPPDvDYrNiyIXAu3XMBuOaas334N1U+TOH3iPg6cQk53OJQWot0seUL/9MZk
-         qGeA==
+        bh=Eh790BDJdUDGA8lspaIvEJ7wUkfPCub/5bhXGPpdv9M=;
+        b=YYe3TuPr0BYr2Y84ux914V3FLC8W9fliwH4LYATfK0BacUmSssUg+Q895AsXG8e9Hd
+         YeLX0SjRUJjBXzdqtIG/V4dwFdb9tw7J4dmSVgSJwOVK01fumm/kT0K5nx8lsoExskO2
+         ABCA+AWTQ/QG97WxRZpk1xvEfpEBytGyvW1M4RCB70Cdaxr0l6a8fF6uYUZ2Ma0PQkFh
+         Eg4l2j8Jgvjo4EiQ4AeuMqqjWExoYfpEAAbYQAjWr8gcREygmCtI0qku1VOgGVGoRigm
+         ju0cXRqnS3lMTSiFOgleESXnG284BRn3Ee4Gnv0iqMrk2uqP5FExRMKdbyMD9FItTEI1
+         bQAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762438172; x=1763042972;
+        d=1e100.net; s=20230601; t=1762439161; x=1763043961;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3m7r7W+00piqcEHoeftA7E3rCc88l8s7FHXFLVjyRxw=;
-        b=r0JA3mVSjpYr0Gi/rrTQDCFvxGqi7VlFkRXnEXjiE+GmuxZTT0ELth6Y57T6WDYaYa
-         lYtbLBgRslarwImZdt0GI3+wxlL9+CL7FG6rdg4bTrANCYKHfauV7UAcKb6HgAm81vXR
-         3/tJ4ZsKx2AQzPSL5kYZ+m8YmECCGzwaCNCAl6AxD5RnT9L7CnVE05y8We8jAzq3jGbH
-         vI2gu1uPCf3ummOjFMxKaNH9ybLNGbIaO/rXpdYA8EVsPZSBdo/lreMYIQEx2fPiPPBC
-         znyVDRkQpShywA8GA88Hn5mrHO7HJcayLbrlMJ/qdkdIXE/LnmiejNqg/xip49vVpydg
-         oSnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVe1ovl1Y+pr5DaV2cnsWrwoDnNVZP2uyCNMITa96cttmx1bfyB/NwQYtyIku3eTPWufY1v8TVCtEk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxCbBkmbKIWmu1X2301Kaq6L8ydY6d3ng7W5n4scBYQCa+yZ9D0
-	1/VzDobkdoDkZOsA+P/rnsaCfrlzrIJZ1FNKCBidTtyZT8zsKhdQ3AcufYrOce6GPg==
-X-Gm-Gg: ASbGncvwSvh9ejDItz8pZkbkfmKKJDuA0Ll0PIi4Rrygydfe1D9dC1HpPL/aZ9DlQ/E
-	086epq0FKK7lKYnbJKWG545SsSrYupCOaCno7N/nnJfyK2cgm26Vbhtciei4osSy11Y59cBAm30
-	utjtmdOwiSqDyhg6DuQAOJaeCYaahPPfoaSi/avDr1C582kTP5d1Spix+ZlBC7kkTW0NL8a3rze
-	j62gAXYoBa2GBpXKqPOpivBC6KGENPvVs+9wfeH7jdQX8GcioxnA5uEcpGhLr4xW6Z4OsxxdpRI
-	4cGlHHmwtzw9+2RrsH3adMAEEbTI4e+DgQUdn7UZb/DK8Hj0qwF0OUsHTKCOiCQ3VBkpIi/iDn9
-	WjLsNpKNt1S10Dqqg6PvtavlF5Y2ciQbDEfNYTb/xJl066YZM6jeLLtPRM+vITooFC59QIkWTOO
-	QIM+0ZK2R4xPmV1f9l8O99hhEkOLKk9ETNxP2bhHj2kqMEAnEZ4cNRtjvF1SEBByA2RgDhByCyg
-	65l8FGGLw==
-X-Google-Smtp-Source: AGHT+IEfTpR471zZPAHEzzJiMTC+fUJMOJF8bhtifyU1LD07AEBTGEEloSAcz5AZ/fhMWf/oABOOHQ==
-X-Received: by 2002:a17:907:a0c9:b0:b29:b4ac:d2a8 with SMTP id a640c23a62f3a-b72655ee2e4mr829637966b.57.1762438172291;
-        Thu, 06 Nov 2025 06:09:32 -0800 (PST)
-Message-ID: <63525e6f-4e17-4155-87b2-47b9ac9ea474@suse.com>
-Date: Thu, 6 Nov 2025 15:09:31 +0100
+        bh=Eh790BDJdUDGA8lspaIvEJ7wUkfPCub/5bhXGPpdv9M=;
+        b=DH3SpBROWx6oJfnoxbEwI1VWuD+AJzqo0ckERVQ+RsXNqLaWx8zXY65hs3EENn6ALB
+         VvJdt6FpvALcP9MBITCbCuRamryFp14r/06uwHOa0fMlh5mxN+4gEKcrtJwpmq6X2QjG
+         RN9t4Y4/Lp2DGSKwybfspeH+lkvVKyCQGT5VPnCdkg9Cl6fHttvO3SiDTCs1uzgMhV8b
+         BJS1w36DljEzJ+CuPk52jaJOyGjYwhTgy0nfaSjhSoPTgoWBiy+xyo9z7qnkaLxa0uTk
+         NQ5tJ6RKIu2lHplNg/2vIubdAbygk+JR/+Ul9uCCX95g6/FxXRAMXhgW4heBgbRe/0Cw
+         vChA==
+X-Forwarded-Encrypted: i=1; AJvYcCUibkAtFf0MersgYYm4nEp5ZJ1QCm9c6z28JggXQKXl3KGDNgauqF6DTSdO/fv0Me1KZDsuiFS0FqI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwEcGaHJqOQexb8WAUrdAdxSjEXKJGGs3i1SPJacsRNFJcM6+Tj
+	DDEzntwui+HQLYk+4tKr70HX4IEksvrG4APv3+5ACCVpEs5s9qMwCAve2N6NaeGJdQ==
+X-Gm-Gg: ASbGnctNVU7XGfZ5a2FFbQZzJUq7oEu0qfpPnO6TDF+0+enVD0yIYeVpr0+wlwOYRX2
+	HikhiY3+OLQa+souEnSXw/IhHeaKsJT8gJGy0uBEHUP/J4UQIly8W6ibexWg5kwNQIZT6cHFnVE
+	iP1QlT9ssfgg6jcJGJOs80QMY/Jrrhv7VtBMlGrai5GqtpqFfhThkkTNdcsw+jv5c1IHpHXmKef
+	j5JUw0TSEeggGYo4rfbMsUoPr44YTZa1ZNDRj4AsnLYNVNIpZ8iiggov5Bucd8rH1DGtHxjNCK/
+	VgVnuDIJMbl5LjZbQkKQ9lEJ57125S2jnRbtfKlVp7G4lNRZIa9jnXPb7l7mD/XAKw4iXqHuaKx
+	DW4k07nFcwKbZiYkD7XF2fdRJSI2LIg/i4KeuecQRsAc7tZv2LUFA7XML8mxRueEp7/CI7fSjNj
+	Jywdcr5vVN1rfFieExTa5JCXToM0C3FKbaQO882Bc7tozt+1Gurw/ESJA04SwZ
+X-Google-Smtp-Source: AGHT+IE+yLlXVE6Ej5O+s2G7Up6FgTx1oABnGDC2XCxnfXAVd8QBQCHXwG8v+WAa2zE4DWlWvn7HdA==
+X-Received: by 2002:a05:6402:1465:b0:640:ea9b:503c with SMTP id 4fb4d7f45d1cf-64105ca6b96mr6449673a12.38.1762439160677;
+        Thu, 06 Nov 2025 06:26:00 -0800 (PST)
+Message-ID: <8e3b791c-22ca-43e2-a3bf-f440032ab1ed@suse.com>
+Date: Thu, 6 Nov 2025 15:25:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] xen: make VMTRACE support optional
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [for 4.22 v5 05/18] xen/riscv: add root page table allocation
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Penny Zheng <Penny.Zheng@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251031212005.1338212-1-grygorii_strashko@epam.com>
- <b6337cb5-da85-492d-bba9-688e35695c46@suse.com>
- <e55f990a-1781-4651-a899-9d78bbbbdfd0@epam.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1760974017.git.oleksii.kurochko@gmail.com>
+ <81d36dc5277d4756442f3ad5d64f37148787394a.1760974017.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,92 +124,119 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e55f990a-1781-4651-a899-9d78bbbbdfd0@epam.com>
+In-Reply-To: <81d36dc5277d4756442f3ad5d64f37148787394a.1760974017.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06.11.2025 14:50, Grygorii Strashko wrote:
-> On 06.11.25 14:00, Jan Beulich wrote:
->> On 31.10.2025 22:20, Grygorii Strashko wrote:
->>> --- a/xen/Kconfig.debug
->>> +++ b/xen/Kconfig.debug
->>> @@ -155,4 +155,19 @@ config DEBUG_INFO
->>>   	  "make install-xen" for installing xen.efi, stripping needs to be
->>>   	  done outside the Xen build environment).
->>>   
->>> +config HAS_VMTRACE
->>> +    bool
->>> +
->>> +config VMTRACE
->>> +    bool "HW VM tracing support"
->>> +    depends on HAS_VMTRACE
->>> +    default y
->>> +    help
->>> +      Enables HW VM tracing support which allows to configure HW processor
->>> +      features (vmtrace_op) to enable capturing information about software
->>> +      execution using dedicated hardware facilities with minimal interference
->>> +      to the software being traced. The trace date can be retrieved using buffer
->>
->> Nit: s/date/data/
->>
->>> +      shared between Xen and domain
->>> +      (see XENMEM_acquire_resource(XENMEM_resource_vmtrace_buf)).
->>> +
->>
->> I was actually meaning to ask that "VMX only" should somehow be mentioned here,
->> but then I noticed this is an arch-independent location. 
-> 
-> Right, Arch code advertise VMTRACE support with HAS_VMTRACE.
-> In this particular case:
-> config INTEL_VMX
-> ...
-> 	select HAS_VMTRACE
-> 
-> 
->> I'm not quite sure we want it like this (just yet).
-> 
-> ?
+On 20.10.2025 17:57, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/p2m.c
+> +++ b/xen/arch/riscv/p2m.c
+> @@ -3,6 +3,7 @@
+>  #include <xen/init.h>
+>  #include <xen/lib.h>
+>  #include <xen/macros.h>
+> +#include <xen/domain_page.h>
+>  #include <xen/mm.h>
+>  #include <xen/paging.h>
+>  #include <xen/rwlock.h>
+> @@ -103,6 +104,70 @@ void __init pre_gstage_init(void)
+>      vmid_init();
+>  }
+>  
+> +static void clear_and_clean_page(struct page_info *page, bool clean_dcache)
+> +{
+> +    clear_domain_page(page_to_mfn(page));
+> +
+> +    /*
+> +     * If the IOMMU doesn't support coherent walks and the p2m tables are
+> +     * shared between the CPU and IOMMU, it is necessary to clean the
+> +     * d-cache.
+> +     */
+> +    if ( clean_dcache )
+> +        clean_dcache_va_range(page, PAGE_SIZE);
 
-To rephrase the question: Are we expecting anything other than VMX to support
-VMTRACE any time soon?
+This cleans part of frame_table[], but not the memory page in question.
 
->>> @@ -738,6 +740,7 @@ static inline bool altp2m_vcpu_emulate_ve(struct vcpu *v)
->>>   bool altp2m_vcpu_emulate_ve(struct vcpu *v);
->>>   #endif /* CONFIG_ALTP2M */
->>>   
->>> +#ifdef CONFIG_VMTRACE
->>>   static inline int hvm_vmtrace_control(struct vcpu *v, bool enable, bool reset)
->>>   {
->>>       if ( hvm_funcs.vmtrace_control )
->>> @@ -780,6 +783,12 @@ static inline int hvm_vmtrace_reset(struct vcpu *v)
->>>   
->>>       return -EOPNOTSUPP;
->>>   }
->>> +#else
->>> +static inline int hvm_vmtrace_reset(struct vcpu *v)
->>> +{
->>> +    return 0;
->>> +}
->>> +#endif
->>
->> #ifdef inside the function body please, to reduce redundancy and to reduce the
->> risk of overlooking multiple places which need editing (when e.g. function
->> parameters change).
-> 
-> All hvm_vmtrace_x() functions are inline - do you mean like below for all of them?
-> 
->   static inline int hvm_vmtrace_get_option(
->       struct vcpu *v, uint64_t key, uint64_t *value)
->   {
-> +#ifdef CONFIG_VMTRACE
->       if ( hvm_funcs.vmtrace_get_option )
->           return alternative_call(hvm_funcs.vmtrace_get_option, v, key, value);
-> +#endif
->   
->       return -EOPNOTSUPP;
->   }
+> --- a/xen/arch/riscv/paging.c
+> +++ b/xen/arch/riscv/paging.c
+> @@ -4,46 +4,67 @@
+>  #include <xen/sched.h>
+>  #include <xen/spinlock.h>
+>  
+> +static int paging_ret_page_to_domheap(struct domain *d)
+> +{
+> +    struct page_info *page;
+> +
+> +    ASSERT(spin_is_locked(&d->arch.paging.lock));
+> +
+> +    /* Return memory to domheap. */
+> +    page = page_list_remove_head(&d->arch.paging.freelist);
+> +    if( page )
+> +    {
+> +        d->arch.paging.total_pages--;
+> +        free_domheap_page(page);
+> +    }
+> +    else
+> +    {
+> +        printk(XENLOG_ERR
+> +                "Failed to free P2M pages, P2M freelist is empty.\n");
 
-No, the request was for just the single function that you add a 2nd instance of.
+Nit: See earlier remark regarding full stops in log messages. The double
+"P2M" also looks unnecessary to me.
+
+> +static int paging_add_page_to_freelist(struct domain *d)
+> +{
+> +    struct page_info *page;
+> +
+> +    ASSERT(spin_is_locked(&d->arch.paging.lock));
+> +
+> +    /* Need to allocate more memory from domheap */
+> +    page = alloc_domheap_page(d, MEMF_no_owner);
+> +    if ( page == NULL )
+> +    {
+> +        printk(XENLOG_ERR "Failed to allocate pages.\n");
+
+Again. (Also log messages typically wouldn't start with a capital letter,
+unless of course it's e.g. an acronym.)
+
+> @@ -55,6 +76,39 @@ int paging_freelist_adjust(struct domain *d, unsigned long pages,
+>      return 0;
+>  }
+>  
+> +int paging_refill_from_domheap(struct domain *d, unsigned int nr_pages)
+> +{
+> +    ASSERT(spin_is_locked(&d->arch.paging.lock));
+> +
+> +    for ( unsigned int i = 0; i < nr_pages; i++ )
+> +    {
+> +        int rc = paging_add_page_to_freelist(d);
+
+The anomaly is more pronounced here, with the other function name in context:
+paging_refill_from_domheap() doesn't suggest there's a page (or several) being
+handed to it. paging_add_page_to_freelist() suggests one of its parameter
+would want to be struct page_info *. Within the naming model you chose, maybe
+paging_refill_from_domheap_one() or paging_refill_one_from_domheap()? Or
+simply _paging_refill_from_domheap()?
+
+> +        if ( rc )
+> +            return rc;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +int paging_ret_to_domheap(struct domain *d, unsigned int nr_pages)
+> +{
+> +    ASSERT(spin_is_locked(&d->arch.paging.lock));
+> +
+> +    if ( d->arch.paging.total_pages < nr_pages )
+> +        return false;
+> +
+> +    for ( unsigned int i = 0; i < nr_pages; i++ )
+> +    {
+> +        int rc = paging_ret_page_to_domheap(d);
+
+Somewhat similarly here. Maybe simply insert "one" in the name?
 
 Jan
 
