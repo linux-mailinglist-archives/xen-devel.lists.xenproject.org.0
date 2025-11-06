@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9583C3CA84
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 17:59:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1157178.1486070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C2B2C3C74C
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 17:33:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1157136.1486041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH3K0-0002cp-OU; Thu, 06 Nov 2025 16:58:52 +0000
+	id 1vH2vl-0006lv-61; Thu, 06 Nov 2025 16:33:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1157178.1486070; Thu, 06 Nov 2025 16:58:52 +0000
+Received: by outflank-mailman (output) from mailman id 1157136.1486041; Thu, 06 Nov 2025 16:33:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH3K0-0002b2-Lm; Thu, 06 Nov 2025 16:58:52 +0000
-Received: by outflank-mailman (input) for mailman id 1157178;
- Thu, 06 Nov 2025 16:58:51 +0000
+	id 1vH2vl-0006kN-2t; Thu, 06 Nov 2025 16:33:49 +0000
+Received: by outflank-mailman (input) for mailman id 1157136;
+ Thu, 06 Nov 2025 16:33:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DBCD=5O=gmail.com=ritesh.list@srs-se1.protection.inumbo.net>)
- id 1vH3Jz-0002aw-Iu
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 16:58:51 +0000
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [2607:f8b0:4864:20::630])
+ <SRS0=0oVY=5O=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1vH2vk-0006F5-5n
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 16:33:48 +0000
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c200::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dda7d854-bb31-11f0-9d17-b5c5bf9af7f9;
- Thu, 06 Nov 2025 17:58:50 +0100 (CET)
-Received: by mail-pl1-x630.google.com with SMTP id
- d9443c01a7336-2957850c63bso13823485ad.0
- for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 08:58:50 -0800 (PST)
-Received: from dw-tp ([171.76.85.117]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-ba8f8c880c5sm3013244a12.6.2025.11.06.08.58.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Nov 2025 08:58:47 -0800 (PST)
+ id 5734fc78-bb2e-11f0-9d17-b5c5bf9af7f9;
+ Thu, 06 Nov 2025 17:33:35 +0100 (CET)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by AS2PR03MB8929.eurprd03.prod.outlook.com (2603:10a6:20b:5e5::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.12; Thu, 6 Nov
+ 2025 16:33:32 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9298.006; Thu, 6 Nov 2025
+ 16:33:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,123 +47,312 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dda7d854-bb31-11f0-9d17-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1762448329; x=1763053129; darn=lists.xenproject.org;
-        h=mime-version:references:message-id:date:in-reply-to:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+mwdpEtZUkKLd4HieJ0n4xeeNKNrAgrCllkk+QdYNeo=;
-        b=EXFAq5FC6EiJdyXngOQGFtEqWhqQHAxEp+L8+TzFOp/Gfbx48kEDRrmGlc10gkennq
-         tIpqr7UNa5cUW818kSEk5Waw/QOIpAqwdsZHsjk9sPVEVAEllP9eDeIabNI+rsRAkE2L
-         26DS+jpXKjam5OEYuEZK7UgCMrtVB8v9XD1mCYZSWeQyaLUwbPUOTj6VDILdaTRPy1lJ
-         bvf2rdymeA/2LwYpq8wFrGGugB9mQK+4CWM3WOlQuVZnjvdwomZdePSVemgObkuLyjvO
-         dU4BhyS7X9nrrD78p4cAYRP3DZT2yG0Nwyhi0XFlLwEnnxaLx0HUkjOh9reHEmGiJMGo
-         RyKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762448329; x=1763053129;
-        h=mime-version:references:message-id:date:in-reply-to:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+mwdpEtZUkKLd4HieJ0n4xeeNKNrAgrCllkk+QdYNeo=;
-        b=trcFTDK32mAYi2kDHyDEZ+QJ6C48wFlHGLE77/+wHlGM3FT0l9/vkRGm+zw42HKU06
-         yzSFgO4S7PkA9AUHedZq/h67OpxRn+VwlP0s1FtUDYryBpB9YfAoA1nYAiIvNLT7wrR+
-         bqvFrCLHS9l2ZnuI4YC+mpi/nIzgQvvkfxJeltZXLWc3HINrSDD02Dzt0FfqWXUQCXNE
-         pxYFqc336HuAq43qH3kqmrldhhQRf6OHnvyEzCFUPhp2BdCZW0+8Sezso/SkkIxni9ME
-         MpFhVm5J5i0PDnFr+SNB3Xy75PkgxS4/1uTlG7g9r/9qhDxMIeZdItDynJXNRzt43yGk
-         oDMA==
-X-Forwarded-Encrypted: i=1; AJvYcCWsPACbMlPdnGNsFVi1I3LyWLlEDPDW3AtvZurAusZkKQXwzcjlNBX0+xfrs65aMOk6WeC2JWLiD34=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzbEwAHWmDS0+4lPyXdnnszQhaRp5YhG2sFTxExkxhCUDJIq7CK
-	/wlSWjiJjrj1C+NHqafNg3CK0uFIFcAybybSmKX1+k0VKaYvFC2Hv2B1
-X-Gm-Gg: ASbGncuHandJ6Y7aaKktKaimlpumxt6wmZICkV+RBFdVDyyzZLSAIXftZc9YFmMGFpL
-	12JV9VIGExHFlJj4APuEOV7dyPtsNrA61aT2bsZG+fI0Ays7nGnkwF9EgJilv+nITQHj85kby2q
-	Tk197KA+aE3XAmvWdijVQovsfPvl9tKf8WDzG71ZLnXdLk1In+kdPB+flNk9fxMowhkhFs02w+v
-	xANcqWp0T3wzXCZpBI48Qm916/64lIVs5izjZmzvrx0RXH7hr5Wvqqa0yFjZ7giNrGoCe642SMh
-	CbEFpS727lR3S/NHbbZxO+RtMQhvJIoH4yMkSoM97bUAYf/dNcIhCruBUifOPZd2NGqT0mLtTq3
-	hnTsQGMklHLfwOQVm5G2uGUaAQyZvpTZCexYOEQCEfiW/oVzeDwFeK19/2O5nCRXX4i9z5g==
-X-Google-Smtp-Source: AGHT+IEmGC1fJcE4OAtV0Owu2fNKpRqQY3VzTeskRzxNQPbLVeyWOXOzToL4xIfj+nPDKGb1lmA/VA==
-X-Received: by 2002:a17:902:ce07:b0:295:50f5:c0e3 with SMTP id d9443c01a7336-297c00b9141mr3517035ad.14.1762448328641;
-        Thu, 06 Nov 2025 08:58:48 -0800 (PST)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Andreas Larsson <andreas@gaisler.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov <bp@alien8.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Christophe Leroy <christophe.leroy@csgroup.eu>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, David Hildenbrand <david@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>, 
-	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>, 
-	Juergen Gross <jgross@suse.com>, "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, 
-	Nicholas Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Suren Baghdasaryan <surenb@google.com>, 
-	Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>, 
-	Yeoreum Yun <yeoreum.yun@arm.com>, linux-arm-kernel@lists.infradead.org, 
-	linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, x86@kernel.org
-Subject: Re: [PATCH v4 07/12] mm: enable lazy_mmu sections to nest
-In-Reply-To: <50d1b63a-88d7-4484-82c0-3bde96e3207d-agordeev@linux.ibm.com>
-Date: Thu, 06 Nov 2025 22:02:39 +0530
-Message-ID: <87ikfn3yvs.ritesh.list@gmail.com>
-References: <20251029100909.3381140-1-kevin.brodsky@arm.com> <20251029100909.3381140-8-kevin.brodsky@arm.com> <87ms5050g0.ritesh.list@gmail.com> <50d1b63a-88d7-4484-82c0-3bde96e3207d-agordeev@linux.ibm.com>
+X-Inumbo-ID: 5734fc78-bb2e-11f0-9d17-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GwUoCVZl/08I50x6U9PQyV13vt98lHQ7aC21pEBN6kNI2Q8HIEe+4SVQCiwX25O6Wqeh5Mlv3HVxfiv95eYmQGGlUNsnL23U+/ehyVmPEaym5AKV1y6agRJAROapeVy7t402MHYeld//NGD+gTGFajEn2jA6v5vs0TEbJ9mhY+I52EkGo0B/9Z36P7o6MgkcZRLExKiF79hrEgD9txayuX+6oQpWV3UGebA6SIjh0OBCxLEzLixnIXdGkU91KPW0rlDB+Alul74I2CDd6czVevoAhK+f6E0WHIYrLwkesg2kq66P9OG3ANr8swsQyVnGFAoU2OPUBCtuxo4Fm/DmdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VVPqj5q9UbtWaoRouyUelUFaGv0lx7vbxPctgZixcR8=;
+ b=K2/4rcAy14c2bfb5EsEk9NTpeo8e+qS6PhZXArWajE7jpVxBZRvF1QxIpWLmvt5VfpMaaaHV+wS6NnhISV1GS/EdpfFIaGh5TFTdcDQSPa42qz3BMkpvNFA/APqO+/AUP32OOilyKX8+974BgWkLb9npgrZpBzRArQnhlDZOTj6tBBFOsOPAW/691MRf7elk7VJMgVb27hwpKHs/mHZeyXmsStEZhznqn85wSrC6U3qA1StOeAtBYDD6caJcs6gFV4t9u6kx02E3G9hlB8Uiirr8j1QGO4uwg/zBOiCnQNAt0dEobeCilmoVaOnd+Ci/kU5SgIQEE2wUctbWcqAAcw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VVPqj5q9UbtWaoRouyUelUFaGv0lx7vbxPctgZixcR8=;
+ b=qrNyu/zZPCHtaHSU44WtZmLHHNGUQ3P7ViSK6hKbdYl3J92xRGwx1i3cXPuNBj+j242tuEaFFuL3KCOBYjPZ9EhuQoLRXH3MbS08BMTAgO03BzOy+Ooh7UxNRL0tedkXsGA+pKlZQwmQAzR6V9eUUvyRkw6WbgGu3c0Ueg0vVcUymwdftsxoSQi/7+8/SiL6M7Ccf9CRXG6FNLbC8reF85ecM0Fh30AgdrbT2XjFIPhN4TUB3GC/y/scH1csNoSs7TAHnUcAzZMbqY9VcKw9O1OrWK0e/Se53KHzNrIAHh1PQp4S55e4U2S8+714So/yHK/fASQ87FeQ3E/+YEbtBA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Message-ID: <b012c6c3-fb8d-4336-922f-f40bc43eb2b5@epam.com>
+Date: Thu, 6 Nov 2025 18:33:30 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN][PATCH] xen/x86: guest_access: optimize raw_x_guest() for PV
+ and HVM combinations
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org,
+ Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ Jason Andryuk <jason.andryuk@amd.com>
+References: <20251031212058.1338332-1-grygorii_strashko@epam.com>
+ <434d9ce4-e5e1-453d-84b7-e21e66d0c5a3@vates.tech>
+Content-Language: en-US
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+In-Reply-To: <434d9ce4-e5e1-453d-84b7-e21e66d0c5a3@vates.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0186.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::20) To AS2PR03MB8907.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5e4::22)
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|AS2PR03MB8929:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2563d124-09de-4175-ba12-08de1d52394c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?NWRrSjM1TTRFQzdGRXdFbitabmErbXMzV1ZkQWhRRXkrMU5memJLbTdGSjlJ?=
+ =?utf-8?B?MTlPenN3emE1Y1VnTGQ4bzFuUEFLc1V5RXNYaWZZekpEMXhTWVJ2ZkROR1A4?=
+ =?utf-8?B?YTljR0J2eFYzVldJbWsxeGxTRkFVUkRnTGJHWjNEY1UxR1ZxZGpkdmhCMkpY?=
+ =?utf-8?B?TElKVC9xOUU3RzFReXF3MEc4cTdDQmxTbkxNM21BN2NrWFVjMTE2bHB2S2Zh?=
+ =?utf-8?B?ckZkb1E3WTJaa3ZURnZDU0lJblJ2K2s0QjRKU1BOcUZ4bjA2K0hFR0V5SkpB?=
+ =?utf-8?B?ZDV0dk5hNTRzUlZ5Y2l1eXloUElXODAzZ3F6UCtETDAzV2xqV2FSenZLTVlZ?=
+ =?utf-8?B?YjV1STRISitMQ1Y2WklTTUFCbWMyVVZWUFpNVG0wdmJ3NlBPWUJSNDd6cHZB?=
+ =?utf-8?B?Y2NYSUg0SmFGdEE0alN5SVRTMkF0bzFlUFVBdkpLZ21BUDU4K09iQUYwY0lN?=
+ =?utf-8?B?eWtPeGJXLzZzQ1RjV1N1a29MVmxqUnRSTE9yc0VHODZSUUI2MzJTaTZHWGpm?=
+ =?utf-8?B?RnMzZWFtWmRvM1NRNkJ2Tms5UXNFNm9laFQ3SHd3OFc4d2FUNUN6ZEpXUmha?=
+ =?utf-8?B?aGN6S1NaeFo3YWNmKzk0emEyN3BCRmhGdTYrM1VLN2U3WE56SGdMOWt6Yjdm?=
+ =?utf-8?B?MzZFSXQ5ZVNvbWEvZnJQT3IvTVJ5UUJrZkNPaFNxbjY4OTdzUHVwOGNqRWNy?=
+ =?utf-8?B?WjNDaldzU1RQOEp1cGdWY21LWVUrbWxGTWorWWZHWUFFZmZ2ZHE2Tnk3dUMr?=
+ =?utf-8?B?djJ4Nk8yZzl6ck1kMGloRWIrcGdXKzdxeGlKU1ZaN0dQQ1g3OGs5ekVPVFRT?=
+ =?utf-8?B?Y2VLcGd5YXJhRGxOR2N4dFJSU1F4dU5qUUphSVZ1MC9ra0FVdXBCVE04M296?=
+ =?utf-8?B?d3RvVmMzWE8yRUhRYVRCRVNhcTRmb3ZNeEsyUERwS0s2QWpQSjgwUlFtd0tl?=
+ =?utf-8?B?RVhjWTN3dm5SSnozV21aN0pucVRiaGgwWGpydFB3cm95Mm5OS01QWlF5L3dP?=
+ =?utf-8?B?dGxIZHRWQnE3aTdyYTFoUlFveUhwY1BNVFd0ZDd6eHAzMGRYcWZxKytiOVBF?=
+ =?utf-8?B?S2g1NE5ueUtIb3BUV2dkQkE1SGhFMWg5RjkvWFFhUllCeUc5emNpbTZEdFkx?=
+ =?utf-8?B?MzVHWlJKb2ZkL09yUjJCQzl2UTdreHdIa1hiemphVXViQmV6ajhoeWpyMVhY?=
+ =?utf-8?B?czlOU1VVYWFjbzlSOVR4ams1SUZuN3hab3AwcnVGRFNDOHo5TzlhNEpDV1Uw?=
+ =?utf-8?B?cG9PUFZrNHVLOWpJaTZYc1NWMloxTllQVWx0bWxwZDEyLzZOWmVWVnBRcUhW?=
+ =?utf-8?B?VlllUm9tUGd3UXhjcTFqa0h6S3VIVGZ5b2RtZmRseFR5N3pGaWJkdjVXejR1?=
+ =?utf-8?B?Q2tocmp4dGZFbDRzSVM3VHcvR3hHZG1LYVhsbldMVjJ5alJ4NmtYWWNrUm5H?=
+ =?utf-8?B?ZXc2MWZydysyK040dFdXTkdOOTBxajNaSy82YWl0MVMyWWpHK1ZxOTNaZm4r?=
+ =?utf-8?B?Rm15QlJyNUdKaGN3dFhjSWpnVzhPZkF1cTFFb2dQTXlaa2I5Mmp4cGUxM1Nq?=
+ =?utf-8?B?d3orN1podEorTVRQUll6Q1d0VE5WMkQyTjNTbEprdThxOHNYVTZsTFhPbm1O?=
+ =?utf-8?B?elc2dHV2Z3RJMXNLNFNzZlB3Z2lkUWZMVnFxTWc1QTdyNmNOQ3dGQmIycUNC?=
+ =?utf-8?B?T0ZpcnlZU2lGRjRGWTNGOTE5K2lhVkF5NlBpOHppVTdySFA3ZVhraVo0Q3Bw?=
+ =?utf-8?B?bnN2TWZsQ0k5OHFKTGxsMVZ0Zy9YamRVa2JySjZsK2tsZlNMd1BvYzd4VU56?=
+ =?utf-8?B?MFo0Z2tZdGV6b2lSZGVSTytpVGQ4UzhsS3NsVEZEUENPR2xyVmN5YlFpYm1R?=
+ =?utf-8?B?aURmUEpTUWxvdFNGZVRSMmNJL1IxZGZMYy9iZ0JjcmpaU3hMaGx1cFBnaWJX?=
+ =?utf-8?Q?0LVCz7aF7P8K4+x32su4IrLnrWa99AQ3?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U0FQMElmd3pxbnhnK3RnWFZmeHJJbFdCTHUzemlpNHpIdnIwOTdOZE9GNUI5?=
+ =?utf-8?B?a2FDYlQvUnBvRXlkYitrc29CdThtV3VCckVDb1RER2FRRHFqL0h3K2pHdWJD?=
+ =?utf-8?B?SzBVTUhZczJvZXpTdGh1MmFUaFdGaC9aNWRFTzQwNjhlbHJBb05ySE80N0My?=
+ =?utf-8?B?aldKVVcyWWFkZzh2WDF4cXBpSjcyQlpMUVBCQVlSMmhjTno0QmI5WGs4dXBN?=
+ =?utf-8?B?V0VmdmxvLzNtVEkyWWRCOUU3dThSUTN3OGQyRlI1bjJSbldKajhtbzBZTkNV?=
+ =?utf-8?B?RllYVFFsQzV6bmtOWmNsMUswbUN1dXFrZ3hXNmwvTHlmQStVaVZjN2kvRk1T?=
+ =?utf-8?B?L1YxanZxeXh0NGJROEhZRmtpaDA3R3RUZUdlTE9MbU8zTldJUWdtaUdzWENz?=
+ =?utf-8?B?cHMrNkJlOWRuZDd0NHVoWnVtZkg5ajk5U28xVHQ2QjRtUUVnb2tia25oWGd2?=
+ =?utf-8?B?dVJjQlNId2Z2QWNqMCtscHFHM2RZSElIM1FvQUl5NituazVkSzRPejZPS2NV?=
+ =?utf-8?B?YTBuSTJKRmhROFNncGxaakRYWXYvdVdiNFp5aGxlOGdrT3JvdTJPdERqRkpw?=
+ =?utf-8?B?eU03dk5WMUY0RW92S0x4UWRwUmJpUG9iUUg4VzcxOUVLdk5PK1BOOFpKT0ZB?=
+ =?utf-8?B?ZlBSWWd3ZnVjOHU3cGx1TmRqbTltLzBXd2diM3lZZk40U0dpMVgybzUxQkda?=
+ =?utf-8?B?WVdrbytZenk1Mm92Y1Fvdy9iZVNjcXo5dndHbEorQzVKTS9zdlN4dmFWZUVC?=
+ =?utf-8?B?WS9OZ2R3RGNwRWpmU0ExTnl5ZkY2SlBRdTRodEdEeStJUTBVSlRKbyt2MllC?=
+ =?utf-8?B?SWwwcVJhZHJhTjZWR2xBYiswZjA1RUhDVVJ4Vit5Z1hWN0liaWIzZ3EyMUk3?=
+ =?utf-8?B?TURpUjMvcnR2eWRNMEpLYmVpYzhhQktjZlhhSFk2S2pIV2dmVkdNVDlkdUdI?=
+ =?utf-8?B?R2NOUENsMW9LeThrN2I2UXVOckFMczlzTFVxbVRZVEZ3Z2lIRXNoa3FDU09D?=
+ =?utf-8?B?VUl1SDQzNmV6WVBTcGlQeWNlc2JKd3lTV3dGTjU1c1ZNL1ZLN2Y2V0t3LzEy?=
+ =?utf-8?B?QVhNbTQ0VmpRYmN2dmIvVCtqMVhPeE9HSkJVM2lUSGVkeDE5Z2FHUW5NelM5?=
+ =?utf-8?B?ai9kQlRvSnk2aFVJM0piWjl0S0tFdXZ2NFJmb1lMcFh1ZytQQjkyQXFJZzFR?=
+ =?utf-8?B?RWlKcDVVVnZIOG9qMHhXR0tBK2FKcUZyS21lUjJCK2RYWUVTSWN4c3d0c1Mr?=
+ =?utf-8?B?R2JPR2wxaHFMZ1pYWjlTVU5xTGFDRnVoNHA3M0hiVnphczFUbWRqTDQ1cjVI?=
+ =?utf-8?B?Mlh3S3dqZzhnWmYxM0V2Mm1JMVJBbWlPZ2xOMnREanNYQzdWR3dDcTVNMXdn?=
+ =?utf-8?B?bitiUktycEkrSWtLeERtdHdCb1V2cnR2REZIYkVmUlZqWWZVYzJVZUs2ektl?=
+ =?utf-8?B?ZmYyMzkvSldrSjl0VzI4WGhqSFZ0VzYxeXM0R0U3UVZvQlhJMFM0dEY4WmRQ?=
+ =?utf-8?B?K1llRG8zcWs3Q1BrcVhPNE9JVkM4TDZ4TlJ5bk9tYkp6Y0o5U05LTGdobURs?=
+ =?utf-8?B?WXp6eUVXekFsM3dXL09rZnRxc2Z6ZE44R2MyTzhEU2s3V3BiVC92a3FaMlF0?=
+ =?utf-8?B?Zm1NQkRiWW80QUNScjZDRWdXWCtEK0xDQVZmUkZHT253dnRuRGRraDJ6anBT?=
+ =?utf-8?B?QUVjTEh2a2dwcjErK1Y4OXpZUWppOUlxQ1I2OFZHTXQ0dlVUdGJzSTRKR0Ey?=
+ =?utf-8?B?N2R1M2NqVUpFQ3pOTnYwbTdWSHpIbW5Da043Y1lOM2NCUFg5RGdGU0U5NTBR?=
+ =?utf-8?B?UDJheUcvY3hQdWJmZXdCaWxWNnppcHFiMjJOR2hvTnpwQkNveENWeU5LY3VM?=
+ =?utf-8?B?NlFmVUpGK1RZdlEvYWFGUkdvdldSTkdsWkxpbjRaeUNUZkVneVk0ZjM4Uk9M?=
+ =?utf-8?B?SGVrTFhZUUdOWHdvbzRwRnVkaHJudHpVU005cjA2M01UcmxLYUxsbGMvbXNZ?=
+ =?utf-8?B?cGUyWi84TVgvaXpNMVJkV3ZoUW96NjFvSGc3c3E5R2ZrRXFhSmlaN0xzQ0lm?=
+ =?utf-8?B?N0kzUXNBbmE1aVgySFBkSzZvY0RuR1JHSTFqbVo0aHZPOHg1b2N0YlBtWGVw?=
+ =?utf-8?B?WURPWGtGUGdYeHN0SlhXamhBbHBFOUpsbDNYY3oxSTNXNytxbnY2VnEzWXNO?=
+ =?utf-8?B?MlE9PQ==?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2563d124-09de-4175-ba12-08de1d52394c
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2025 16:33:32.0284
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: H6AIliBKX/PhR+KCdSbiV0IRo9D36dpgytNgGT1+d+c7A2TKd6WdqoncCBEjDVEuSBswhIhLQ6PF51zb1BAz5TAB3Lp8pIEOucaz8bVrwFY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB8929
 
-Alexander Gordeev <agordeev@linux.ibm.com> writes:
+Hi Teddy, Jan,
 
-> On Wed, Nov 05, 2025 at 02:19:03PM +0530, Ritesh Harjani wrote:
->> > + * in_lazy_mmu_mode() can be used to check whether the lazy MMU mode is
->> > + * currently enabled.
->> >   */
->> >  #ifdef CONFIG_ARCH_HAS_LAZY_MMU_MODE
->> >  static inline void lazy_mmu_mode_enable(void)
->> >  {
->> > -	arch_enter_lazy_mmu_mode();
->> > +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
->> > +
->> > +	VM_WARN_ON_ONCE(state->nesting_level == U8_MAX);
->> > +	/* enable() must not be called while paused */
->> > +	VM_WARN_ON(state->nesting_level > 0 && !state->active);
->> > +
->> > +	if (state->nesting_level++ == 0) {
->> > +		state->active = true;
->> > +		arch_enter_lazy_mmu_mode();
->> > +	}
->> >  }
->> 
->> Some architectures disables preemption in their
->> arch_enter_lazy_mmu_mode(). So shouldn't the state->active = true should
->> happen after arch_enter_lazy_mmu_mode() has disabled preemption()? i.e.
->
-> Do you have some scenario in mind that could cause an issue?
->
-No not really. But that's a deviation from what previous arch hooks were
-expecting. Although thinking this through - I don't have any usecase
-where this can be a problem. 
+On 06.11.25 17:57, Teddy Astie wrote:
+> Le 31/10/2025 à 22:25, Grygorii Strashko a écrit :
+>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>>
+>> Xen uses below pattern for raw_x_guest() functions:
+>>
+>> define raw_copy_to_guest(dst, src, len)        \
+>>       (is_hvm_vcpu(current) ?                     \
+>>        copy_to_user_hvm((dst), (src), (len)) :    \
+>>        copy_to_guest_pv(dst, src, len))
+>>
+>> How this pattern is working depends on CONFIG_PV/CONFIG_HVM as:
+>> - PV=y and HVM=y
+>>     Proper guest access function is selected depending on domain type.
+>> - PV=y and HVM=n
+>>     Only PV domains are possible. is_hvm_domain/vcpu() will constify to "false"
+>>     and compiler will optimize code and skip HVM specific part.
+>> - PV=n and HVM=y
+>>     Only HVM domains are possible. is_hvm_domain/vcpu() will not be constified.
+>>     No PV specific code will be optimized by compiler.
+>> - PV=n and HVM=n
+>>     No guests should possible. The code will still follow PV path.
+>>
+>> Rework raw_x_guest() code to use required functions explicitly for each
+>> combination of CONFIG_PV/CONFIG_HVM with main intention to optimize code for
+>> (PV=n and HVM=y) case.
+>>
+>> For the case (PV=n and HVM=n) empty stubs are created which return (1)
+>> indicating failure. Hence, no guests should possible in this case -
+>> which means no access to guest memory  should ever happen.
+>> The two calls of __raw_copy_to_guest() in common/domain.c->update_runstate_area()
+>> are fixed for this case by explicitly cast the return value to void
+>> (MISRA C Rule 17.7).
+>>
+>> Finally build arch/x86/usercopy.c only for PV=y.
+>>
+>> The measured (bloat-o-meter) improvement for (PV=n and HVM=y) case is:
+>>     add/remove: 0/10 grow/shrink: 2/90 up/down: 163/-30932 (-30769)
+>>     Total: Before=1937113, After=1906344, chg -1.59%
+>>
+>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>> ---
+>>    xen/arch/x86/Makefile                   |  2 +-
+>>    xen/arch/x86/include/asm/guest_access.h | 38 +++++++++++++++++++++++++
+>>    xen/common/domain.c                     | 10 ++++---
+>>    3 files changed, 45 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+>> index 407571c510e1..27f131ffeb61 100644
+>> --- a/xen/arch/x86/Makefile
+>> +++ b/xen/arch/x86/Makefile
+>> @@ -71,7 +71,7 @@ obj-y += time.o
+>>    obj-y += traps-setup.o
+>>    obj-y += traps.o
+>>    obj-$(CONFIG_INTEL) += tsx.o
+>> -obj-y += usercopy.o
+>> +obj-$(CONFIG_PV) += usercopy.o
+>>    obj-y += x86_emulate.o
+>>    obj-$(CONFIG_TBOOT) += tboot.o
+>>    obj-y += hpet.o
+>> diff --git a/xen/arch/x86/include/asm/guest_access.h b/xen/arch/x86/include/asm/guest_access.h
+>> index 69716c8b41bb..36aeb89524ab 100644
+>> --- a/xen/arch/x86/include/asm/guest_access.h
+>> +++ b/xen/arch/x86/include/asm/guest_access.h
+>> @@ -13,6 +13,7 @@
+>>    #include <asm/hvm/guest_access.h>
+>>    
+>>    /* Raw access functions: no type checking. */
+>> +#if defined(CONFIG_PV) && defined(CONFIG_HVM)
+>>    #define raw_copy_to_guest(dst, src, len)        \
+>>        (is_hvm_vcpu(current) ?                     \
+>>         copy_to_user_hvm((dst), (src), (len)) :    \
+>> @@ -34,6 +35,43 @@
+>>         copy_from_user_hvm((dst), (src), (len)) :  \
+>>         __copy_from_guest_pv(dst, src, len))
+>>    
+>> +#elif defined(CONFIG_HVM)
+>> +#define raw_copy_to_guest(dst, src, len)        \
+>> +     copy_to_user_hvm((dst), (src), (len))
+>> +#define raw_copy_from_guest(dst, src, len)      \
+>> +     copy_from_user_hvm((dst), (src), (len))
+>> +#define raw_clear_guest(dst,  len)              \
+>> +     clear_user_hvm((dst), (len))
+>> +#define __raw_copy_to_guest(dst, src, len)      \
+>> +     copy_to_user_hvm((dst), (src), (len))
+>> +#define __raw_copy_from_guest(dst, src, len)    \
+>> +     copy_from_user_hvm((dst), (src), (len))
+>> +
+>> +#elif defined(CONFIG_PV)
+>> +#define raw_copy_to_guest(dst, src, len)        \
+>> +     copy_to_guest_pv(dst, src, len)
+>> +#define raw_copy_from_guest(dst, src, len)      \
+>> +     copy_from_guest_pv(dst, src, len)
+>> +#define raw_clear_guest(dst,  len)              \
+>> +     clear_guest_pv(dst, len)
+>> +#define __raw_copy_to_guest(dst, src, len)      \
+>> +     __copy_to_guest_pv(dst, src, len)
+>> +#define __raw_copy_from_guest(dst, src, len)    \
+>> +     __copy_from_guest_pv(dst, src, len)
+>> +
+>> +#else
+>> +#define raw_copy_to_guest(dst, src, len)        \
+>> +        ((void)(dst), (void)(src), (void)(len), 1)
+>> +#define raw_copy_from_guest(dst, src, len)      \
+>> +        ((void)(dst), (void)(src), (void)(len), 1)
+>> +#define raw_clear_guest(dst, len)               \
+>> +        ((void)(dst), (void)(len), 1)
+>> +#define __raw_copy_to_guest(dst, src, len)      \
+>> +        ((void)(dst), (void)(src), (void)(len), 1)
+>> +#define __raw_copy_from_guest(dst, src, len)    \
+>> +        ((void)(dst), (void)(src), (void)(len), 1)
+>> +#endif
+>> +
+>>    /*
+>>     * Pre-validate a guest handle.
+>>     * Allows use of faster __copy_* functions.
+>> diff --git a/xen/common/domain.c b/xen/common/domain.c
+>> index 4f91316ad93e..c603edcc7d46 100644
+>> --- a/xen/common/domain.c
+>> +++ b/xen/common/domain.c
+>> @@ -1985,8 +1985,9 @@ bool update_runstate_area(struct vcpu *v)
+>>    #endif
+>>            guest_handle--;
+>>            runstate.state_entry_time |= XEN_RUNSTATE_UPDATE;
+>> -        __raw_copy_to_guest(guest_handle,
+>> -                            (void *)(&runstate.state_entry_time + 1) - 1, 1);
+>> +        (void)__raw_copy_to_guest(guest_handle,
+>> +                                  (void *)(&runstate.state_entry_time + 1) - 1,
+>> +                                  1);
+>>            smp_wmb();
+>>        }
+>>    
+>> @@ -2008,8 +2009,9 @@ bool update_runstate_area(struct vcpu *v)
+>>        {
+>>            runstate.state_entry_time &= ~XEN_RUNSTATE_UPDATE;
+>>            smp_wmb();
+>> -        __raw_copy_to_guest(guest_handle,
+>> -                            (void *)(&runstate.state_entry_time + 1) - 1, 1);
+>> +        (void)__raw_copy_to_guest(guest_handle,
+>> +                                  (void *)(&runstate.state_entry_time + 1) - 1,
+>> +                                  1);
+>>        }
+>>    
+>>        update_guest_memory_policy(v, &policy);
+> 
+> Alternatively, we can make all the raw_* functions `static inline` and
+> have something like this which should have the same effect with much
+> less redundancy.
+> 
+> static inline
+> unsigned int raw_copy_to_user_hvm(void *to, const void *from,
+>                                     unsigned int len)
+> {
+>       if ( IS_ENABLED(CONFIG_HVM) &&
+>            (!IS_ENABLED(CONFIG_PV) || is_hvm_vcpu(current) )
+>          copy_to_user_hvm(to, from, len);
+>       else if ( IS_ENABLED(CONFIG_PV) )
+>          copy_to_guest_pv(to, from, len);
+	else
+  	   return len;
+> }
 
-But let me re-visit some of the code paths on ppc64 lazy mmu... 
+Can try.
 
-Looking at the arch specific usecase I see we always do get_cpu_var()
-for accessing the per-cpu batch array which disables preemption before
-accessing the per-cpu structure.. This per-cpu structure is where we
-batch pte updates... 
+Jan, would it be acceptable?
 
-For e.g... 
-  
-    arch_enter_lazy_mmu_mode()
-        hpte_need_flush()
-            get_cpu_var()   // this takes care of preempt_disable() 
-            adds vpns to per-cpu batch[i]
-            put_cpu_var()   // 
-    arch_leave_lazy_mmu_mode()
 
-> IOW, what could go wrong if the process is scheduled to another
-> CPU before preempt_disable() is called?
+-- 
+Best regards,
+-grygorii
 
-So from above - I don't think your sequence to update
-   state->active = true 
-before calling arch_enter hook should be a problem.
-Based on above this looks mostly ok to me.
-
--ritesh
 
