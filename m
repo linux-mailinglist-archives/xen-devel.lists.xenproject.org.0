@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32BC8C3AD4F
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 13:15:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1156867.1485834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36DDDC3ADB3
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 13:19:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1156881.1485844 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGytY-0007I1-Sa; Thu, 06 Nov 2025 12:15:16 +0000
+	id 1vGyxL-00084U-FO; Thu, 06 Nov 2025 12:19:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1156867.1485834; Thu, 06 Nov 2025 12:15:16 +0000
+Received: by outflank-mailman (output) from mailman id 1156881.1485844; Thu, 06 Nov 2025 12:19:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGytY-0007Fx-PO; Thu, 06 Nov 2025 12:15:16 +0000
-Received: by outflank-mailman (input) for mailman id 1156867;
- Thu, 06 Nov 2025 12:15:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vGyxL-00081g-CV; Thu, 06 Nov 2025 12:19:11 +0000
+Received: by outflank-mailman (input) for mailman id 1156881;
+ Thu, 06 Nov 2025 12:19:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IWGa=5O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vGytX-0007Fp-Li
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 12:15:15 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f3e5b1e-bb0a-11f0-9d17-b5c5bf9af7f9;
- Thu, 06 Nov 2025 13:15:13 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-b713c7096f9so65444766b.3
- for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 04:15:13 -0800 (PST)
+ id 1vGyxJ-00081a-F2
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 12:19:09 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cac6110e-bb0a-11f0-980a-7dc792cee155;
+ Thu, 06 Nov 2025 13:19:07 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-b403bb7843eso162756666b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 04:19:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b7289334288sm202003766b.15.2025.11.06.04.15.12
+ a640c23a62f3a-b728937fb6bsm208538566b.23.2025.11.06.04.19.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Nov 2025 04:15:12 -0800 (PST)
+ Thu, 06 Nov 2025 04:19:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f3e5b1e-bb0a-11f0-9d17-b5c5bf9af7f9
+X-Inumbo-ID: cac6110e-bb0a-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762431313; x=1763036113; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762431547; x=1763036347; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=59BqtCx4cmPQig7Vf46c7RV554Z2/TvCdMGFK7CIRY0=;
-        b=gwd45uYmmiL3AT8Vd3Cov5dgpzVB26/kk2guyC3q7NAThv4/05IXvS6tbSqPF5yV0H
-         OXkEQ59hBoDadkSexAHggcZLYJajvtHOGxY7JTxhxxO1Y299FwU3LobWmOLnABjj8QRq
-         /XWr+ZWOreChepooBdJGJlmk/Zz2Uem9fKHomcT6x+gz0tpMgyTKn8P30CAVTvPG6xtl
-         CKXr8MhdczvV5oG4VwzeprG6UkLEXneO7mXVT5X0f6v30yHv/LtmgfsBOnDxQqxEckjh
-         m8B8b/VHAZiS4QC2Q8um46cJ0ggwnJD308oyKQ5x2ANr2l8TXeZ0N7OlV1WgquvXfZIC
-         UIqg==
+        bh=udM5wja4JkzGjtlz6h3rJQZ9eHZo8P6+oDsjAOkOwVg=;
+        b=aO70J1hZOo0OnLc0lkbEy06z4ZPQU+mJrkseeyoSR/IiA6beqQhgqx8c+NZgGvK+rj
+         ERoqsRRikI+gPaKPLoNZi0p2VG/3qQM+S1bjQffMafVZgbLioD6+i7z1JU5f7tuwyPcq
+         LnAd5I3HUU7aX155kgydniRhQGVAtcV1Szmqyx23bbLig+dNUCFHK5ms9jlO9nj5X01n
+         65Wj7PCUeP9fgngFBAdhC/aWlliL1mnYdbeVe1ladB7+V7MN/vIBUQ1arce6/CP8dNxe
+         y73qPN8e9P4tFgCEnP9L6h+MXHfXzmmchKfSoo/MdS3BuOB4ebbCTbmvPr0NboOQ3WZf
+         E/Ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762431313; x=1763036113;
+        d=1e100.net; s=20230601; t=1762431547; x=1763036347;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=59BqtCx4cmPQig7Vf46c7RV554Z2/TvCdMGFK7CIRY0=;
-        b=oiAtdfA4b0mCCsn7MYGwBTTd1rvDL8k+EZ0utygz+mMDiJqZUhB7imnfyf+UjpjGdc
-         iumOPbhu8fXtEctD3bUm8eSvFjcCsqJMTbY/M3XNS/7mv0KxAyknOWfH/9/pLdW8S1t4
-         5q5TdFy0ZKEU9QFsVUekKvWs3a6j2BbvB+a+NOMkVSH9o1ozuIKyj3q3QQ0MDBp68sib
-         kDJNjh7/batODiNxu9c8zBUWsknk4tbh7o+rYlzeJToEiGkddkGG3jmLN4bncfIW67eG
-         jd/UM0JbT0W+zTeIAqvUxyY5ZwPQgDqQIykvTIjGrJKsi6aXLcuDnzcpK9DMsqQDcbtE
-         FkLQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV1zJNKsDVXpSpCUGlWXpKdIWmc7WDQOq28+Q+sSiASRj9VSqdGcJDo5iQo5iZOtgQPVoB/SmLSnyg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzmEOsTwI/qNIVw8Oyze8ypg3Y2vYFHDKS62cN3KQd2o3vohhMt
-	sDjSq/Pc3bxD9p1iVzv5/Ezsk21O5F7e51kAsiGstY/7c5XnfqaFtyU3j/E6SJPqcQ==
-X-Gm-Gg: ASbGncuj440Bv1c59G1FHvQfqYk8WbL4l7fSi34wAqQezQIE6ebfOJn221ZJSvPrty3
-	BxhM1iGoW8e9GS70clVLCu2p+TClX8W+csh3P5c+kCZUUpZNazgp3xDVCpZoNrE4vKN0TqGiCKs
-	YYlJ9HPxbGzuo090clEZqloHJccF7JOgcSqUMubjkiZay9Lo+upnZOCTtI+eda8NSqjakLronLW
-	OlW+4z/rivh1+9Cnwc1MhG+3XQfC8oX1dBvL4If1+Tse+oCd8ibZN0hTw7M3tXotOiwd9YEpJUm
-	GkRQglN53Y3QHunbtf0N5aHGtssAmpYoyzrh+Rwk3WQ8Lx9Z14jPt1Sjmp5zUtHZqBuiqrAQwYp
-	cWobkitddyfuyWKWDmrvFLhqUvFHXxXVbQGccJyRr4EUp02PjN+V067rWLMtiuO9eXZj5htFto0
-	d+3ePJ6QZFArRfzqSfNEArZbTOogEJnqCx+y8NZ6umNd04t87WuaIgscJJnHeK/FywwuL0nQM=
-X-Google-Smtp-Source: AGHT+IFt6gEe1ZvKk1PnrUUg+08KFAZ5sAe/UlrgxVnw6SJwKYvEPY82XEMJCEauwiFySNBPC1zwrA==
-X-Received: by 2002:a17:907:a4e:b0:b1d:285c:e0ef with SMTP id a640c23a62f3a-b72652bea31mr762381966b.26.1762431312887;
-        Thu, 06 Nov 2025 04:15:12 -0800 (PST)
-Message-ID: <39458e03-31c1-4aa6-8b66-f6d72ec8bdd9@suse.com>
-Date: Thu, 6 Nov 2025 13:15:12 +0100
+        bh=udM5wja4JkzGjtlz6h3rJQZ9eHZo8P6+oDsjAOkOwVg=;
+        b=Jf767LG5x/neBiLsgZtR6NFdBlb6eUHM8/2lb9KhRYGS4EVq8ZIQaYsM/7dDbrxggv
+         tA1+xsZlbFjOqk7OWVrQYv9FgIkP7+NO9hy+XJvvYCyB09xt7d9o5MgrYo14+1MH7nkE
+         eEEY6fLNdB9PUPjQtmWJeeQEvwTR8UrJgUhvExTusAbEH2bQ0kPOX1VvwtHcYzMCHhdh
+         r14Y81qrsxZhkF24wDfz4ESNYQY8RzHJrGjGlr2flOq7/WDt8ix22MKhUQWLCQWGisVu
+         SXw8WlOpe3duVnsC5RRw0jfLA4UR5L9SULGKdCNDtRSdlaI1YnHpW3rNOf4WRRD8Sukg
+         fNUg==
+X-Forwarded-Encrypted: i=1; AJvYcCV1ZyGgU+hBZVk7knP2Fzhzpq6ffXyYCDRq613IFvGQbdx4KeLfupafaXlPFCLLQSRUWWCWV4632n4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyYyQR0YEpJs+dXLTeQZVKrZ6JoQj+Qdctk9g9Ul1VhpIqEF4sA
+	z+VA9aQwZPG5w8QyDd0HwTx0EEi+tufP7gu2pkfuOtbK25SVqEocatqfw1QJ/lvzGQ==
+X-Gm-Gg: ASbGnct0hP3qzCcCwbuBMsm1dOTjKCOlyDqsrEwFOjQZeD4BUEoqx8aSmQrxOv8SYJ2
+	sQ43hLUjQ5RS29PkRl0k1YyKC+wI8tGv2RkFYTEigQM0oIgLpY8k0RUXwN4Fh3NnSIkovL9Fn9I
+	KI7CTukX5hnfI6C0nwuIs0dGgUm1qo9wBWRq+UxEStJ4xbJWoHdVKIMkbq1KfSZDEq3E3Rkl3sS
+	uFYG2lKsRcBDytOwfgVggzi1E2iEJTNcQp5gsLKzjUJxhLUgeHBvfz8LT5ArhfMrws6uwz9iKUV
+	pZg/Ugjrdm59fvLrjc7mnqVJMAMhOHkQV7EpgYaee1K3Fy89FSpXPrJD0l+v7Kd7Q9DkEx/UkMj
+	Qa/0kXXRhBCYGG2mrTu3O5UUduTtxrCyFclK+nC09eunWga2MnEl/xRQes8cifT7sJmRB95B8iL
+	zChKHPMqFBbyMHFGnK3beH0RFBasVMz6Z/eApGtef4hLWanDV/C9YUwv+ygI0j
+X-Google-Smtp-Source: AGHT+IG+4ACsFDygSLlz+i7hSgewZffd4il3RmLkOfVOY3a7zOnH3Lqoyno/XQNhmWH2gJVpHYnf9Q==
+X-Received: by 2002:a17:907:86ac:b0:b6d:4f1d:8c9e with SMTP id a640c23a62f3a-b72652a33a8mr686698366b.24.1762431546835;
+        Thu, 06 Nov 2025 04:19:06 -0800 (PST)
+Message-ID: <e66a7724-12d3-42e2-805d-b32febb3d346@suse.com>
+Date: Thu, 6 Nov 2025 13:19:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/8] xen/pci: introduce has_vpci_bridge
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1758618839.git.mykyta_poturai@epam.com>
- <acb8da959fac97fbec7bc086b921e31dd52d44f6.1758618839.git.mykyta_poturai@epam.com>
+Subject: Re: [PATCH for-4.22 v2] acpi: Set TPM2 LAML to actual log area size
+To: Tu Dinh <ngoc-tu.dinh@vates.tech>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Daniel Smith <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20251105000310.690-1-ngoc-tu.dinh@vates.tech>
+ <58064c07-4182-48d8-9479-7b9f8e9a06cd@suse.com>
+ <e3e182f1-8566-4fe5-b599-3b2f6c582782@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,101 +121,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <acb8da959fac97fbec7bc086b921e31dd52d44f6.1758618839.git.mykyta_poturai@epam.com>
+In-Reply-To: <e3e182f1-8566-4fe5-b599-3b2f6c582782@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24.09.2025 09:59, Mykyta Poturai wrote:
-> From: Stefano Stabellini <stefano.stabellini@amd.com>
+On 06.11.2025 13:13, Tu Dinh wrote:
+> On 06/11/2025 13:10, Jan Beulich wrote:
+>> On 05.11.2025 01:03, Tu Dinh wrote:
+>>> The LAML field should follow the TCG PFP specification:
+>>>
+>>> The TCG ACPI specification uses the field name "Log Area Minimum
+>>> Length", but the field value is the actual log area length reserved by
+>>> Platform Firmware, not a lower bound.
+>>
+>> And this is said where? Even the field description (ACPI 6.5) reads "Identifies
+>> the minimum length (in bytes) of the system’s preboot CC event log area." (I
+>> agree it makes little sense that way, but the change still needs proper
+>> explanation.)
 > 
-> has_vpci_bridge is a macro to check if the domain is a domU or is dom0
-> with vPCI (pci-scan=yes) enabled.
+> The above is an exact quote from the "TCG PC Client Platform Firmware 
+> Profile Specification Version 1.06 Revision 52".
 
-Hmm. Why would DomU-s, now and forever, not have (virtual) bridges? Wasn't them
-gaining (virtual) bridges actually the longer-term plan?
+Interesting. It didn't become clear to me that this actually is a quotation.
+Perhaps:
 
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -230,7 +230,7 @@ bool vpci_process_pending(struct vcpu *v)
->  
->              read_unlock(&v->domain->pci_lock);
->  
-> -            if ( !is_hardware_domain(v->domain) )
-> +            if ( has_vpci_bridge(v->domain) )
->                  domain_crash(v->domain);
->  
->              return false;
-> @@ -492,7 +492,7 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->              }
->          }
->  
-> -        if ( !is_hardware_domain(d) )
-> +        if ( has_vpci_bridge(d) )
->              break;
->  
->          d = dom_xen;
-> @@ -522,7 +522,7 @@ static void cf_check cmd_write(
->  {
->      struct vpci_header *header = data;
->  
-> -    if ( !is_hardware_domain(pdev->domain) )
-> +    if ( has_vpci_bridge(pdev->domain) )
->      {
->          const struct vpci *vpci = pdev->vpci;
->  
-> @@ -564,7 +564,7 @@ static void cf_check bar_write(
->      struct vpci_bar *bar = data;
->      bool hi = false;
->  
-> -    ASSERT(is_hardware_domain(pdev->domain));
-> +    ASSERT(!has_vpci_bridge(pdev->domain));
->  
->      if ( bar->type == VPCI_BAR_MEM64_HI )
->      {
-> @@ -747,7 +747,7 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
->  {
->      int rc;
->      bool mask_cap_list = false;
-> -    bool is_hwdom = is_hardware_domain(pdev->domain);
-> +    bool is_hwdom = !has_vpci_bridge(pdev->domain);
->  
->      if ( pci_conf_read16(pdev->sbdf, PCI_STATUS) & PCI_STATUS_CAP_LIST )
->      {
-> @@ -829,7 +829,7 @@ static int vpci_init_ext_capability_list(const struct pci_dev *pdev)
->  {
->      unsigned int pos = PCI_CFG_SPACE_SIZE;
->  
-> -    if ( !is_hardware_domain(pdev->domain) )
-> +    if ( has_vpci_bridge(pdev->domain) )
->          /* Extended capabilities read as zero, write ignore for DomU */
->          return vpci_add_register(pdev->vpci, vpci_read_val, NULL,
->                                   pos, 4, (void *)0);
-> @@ -866,7 +866,7 @@ int vpci_init_header(struct pci_dev *pdev)
->      struct vpci_header *header = &pdev->vpci->header;
->      struct vpci_bar *bars = header->bars;
->      int rc;
-> -    bool is_hwdom = is_hardware_domain(pdev->domain);
-> +    bool is_hwdom = !has_vpci_bridge(pdev->domain);
->  
->      ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
+The LAML field should follow the TCG PC Client Platform Firmware Profile
+Specification Version. Version 1.06 Revision 52 says:
 
-For none of the changes (also further ones) it is clear (to me) why the
-substitution is (logically) correct. For this last instance the variable
-name also ends up wrong after the replacement.
+'The TCG ACPI specification uses the field name "Log Area Minimum
+ Length", but the field value is the actual log area length reserved by
+ Platform Firmware, not a lower bound.'
 
-> --- a/xen/include/xen/vpci.h
-> +++ b/xen/include/xen/vpci.h
-> @@ -339,6 +339,15 @@ static inline int __must_check vpci_reset_device(struct pci_dev *pdev)
->      return vpci_assign_device(pdev);
->  }
->  
-> +#ifdef CONFIG_ARM
-> +#include <asm/pci.h>
-> +
-> +#define has_vpci_bridge(d) (!is_hardware_domain(d) || \
-> +                           (is_hardware_domain(d) && pci_scan_enabled))
+Remove the now-unused TPM_LOG_AREA_MINIMUM_SIZE.
 
-Nit: Off-by-1 indentation.
+? Then
+Acked-by: Jan Beulich <jbeulich@suse.com>
+and I could make the adjustment while committing (after 4.21 was branched off,
+of course).
 
 Jan
 
