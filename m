@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE443C3971D
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 08:48:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1156525.1485585 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEB3EC3989A
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 09:14:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1156540.1485594 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGuip-0003WW-LB; Thu, 06 Nov 2025 07:47:55 +0000
+	id 1vGv8X-0007vh-Nd; Thu, 06 Nov 2025 08:14:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1156525.1485585; Thu, 06 Nov 2025 07:47:55 +0000
+Received: by outflank-mailman (output) from mailman id 1156540.1485594; Thu, 06 Nov 2025 08:14:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGuip-0003Ue-Ht; Thu, 06 Nov 2025 07:47:55 +0000
-Received: by outflank-mailman (input) for mailman id 1156525;
- Thu, 06 Nov 2025 07:47:53 +0000
+	id 1vGv8X-0007tl-Kz; Thu, 06 Nov 2025 08:14:29 +0000
+Received: by outflank-mailman (input) for mailman id 1156540;
+ Thu, 06 Nov 2025 08:14:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IWGa=5O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vGuin-0003UW-Dd
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 07:47:53 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1vGv8W-0007tf-Ot
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 08:14:28 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e4f8b134-bae4-11f0-980a-7dc792cee155;
- Thu, 06 Nov 2025 08:47:50 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b7200568b13so116774866b.1
- for <xen-devel@lists.xenproject.org>; Wed, 05 Nov 2025 23:47:50 -0800 (PST)
+ id 9c65f219-bae8-11f0-980a-7dc792cee155;
+ Thu, 06 Nov 2025 09:14:26 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-b728a43e410so111959666b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 00:14:26 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b728937dd4bsm155494966b.28.2025.11.05.23.47.48
+ a640c23a62f3a-b72896c3b6dsm151331966b.65.2025.11.06.00.14.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Nov 2025 23:47:49 -0800 (PST)
+ Thu, 06 Nov 2025 00:14:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,68 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4f8b134-bae4-11f0-980a-7dc792cee155
+X-Inumbo-ID: 9c65f219-bae8-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762415270; x=1763020070; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762416866; x=1763021666; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ink/ZD5j4OM8DF6/xe+V6qGAlsfqYeTy8FxN7XWmuHU=;
-        b=Ujd/QF5zoaTADszd2xbjEUN22DRjo4JOwA9zu8YNEtD7iJJMm0efphuC4o/DCLdbuN
-         6e8xldfkzX4xqxxjQl8KhHJSzd90XYLr0AcoU+TuJoCNjmw7aW3tU5n74gy9gF+gB9GJ
-         2dzRLVg+h14nzsV5lkG41vBJSaB5ClkUFzzOi6S7eEN+sKZOcs+f9CEhO3YU10huscXy
-         4VcMF/dfmCQAIo+929l+7cY22J/dk8xtD07EeNUka77YC6zkeL3AbSRDIr3yV59KPYfd
-         10NKC4DjZDYp27pgMMEZ74BMfUp/Exl2qc3jWpWfIVilKuaVeSoMToSiiq4HoyUrUjb0
-         BmHw==
+        bh=cD9NbccOoXX2KeZ3wEd1+V0/gZs08Jq65CbAK1AlYVE=;
+        b=CBvJzd2rTag/rT2UKHP3JqyJOjYJyBUql2ps8IZUqRjFZO3VBR1KlMBswgpA/6e0rP
+         9ii8Pc81eIX5AYZNKX3GgoiLTX1U5csjTIr9SFGInyma610HMEkyJjqoUTu127MKFN7q
+         pYhecu3FGWqN3FtZLSyU2oiVAFWJbbh0va9qCM0VNl3gCidVjPKN9jboWbM64PqWR2Iv
+         xoqzkh2oJ19wmlOd5fYdIw6pM6WDrHlXcZEKDWz3dh7DCSBS30Q8E6f2Caj+mvXsZBDF
+         e4ciQQY0Q7jy061KXZls09ltsNyMYd3Mhq1SLdoFfEaZojdJp2VPyZvy4g9p8NvLeL5N
+         5Fgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762415270; x=1763020070;
+        d=1e100.net; s=20230601; t=1762416866; x=1763021666;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ink/ZD5j4OM8DF6/xe+V6qGAlsfqYeTy8FxN7XWmuHU=;
-        b=sGxUudEhmFhfukrsvOJWS4y2MsYJg8Lopm0lQCtraMKgfeqbI+5766CWNsUH4N87FR
-         Sx0SwgQHcmF628R20RBxmAwzZQVZDMcmNJ+Gj3t2wDdv3eunXbiokF9A0hSBpEoXqvvg
-         qEBKSu9znLrwEHGSWHXDTTuiXn4jkQEUJ28OsFxl5JF6IqZNjx7AYPCdlg1oAr5MdMI8
-         N5QO9ZlTHibUIsoiMFwVLNdyxSgV4Ggh3tPDm2aD5HcKTbWp4V7+AXBFIpaX8TcEKa3j
-         xO9oZ4Z6vZUF/fo6CYShTYL0xJKZHTCPpAILhbSnsf/N7Qe67pGWg+Jwsy8sAu175bzg
-         CRQQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX7yAcS//pczZYo9gbICOY/+frD0bkZ2GHZRLkVZCXAJyAyDK5Z+HWxWNCvpb8769BWIhzcN0IXpgA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyIsZeIyMODFRpB+SwIwn9Ee5URmA7ielkVTUMGBGI2tyST9ieC
-	cDi6GyVBmUSN3JRlSvMNRbD5u9JlU3l/WbG5O1PgWkZHCMmyWmOUnzUx0XeGbRmBwQ==
-X-Gm-Gg: ASbGncsXrgzugYVBiVABv7Sj1DekH4jgENPphQmaSEdZydndOeBe2bdCUo38/Tvxkfs
-	gVQrAMhEo1Klr9/ZNymKTvhMUJK/zpq1q/mBqI7l8Iz3oK0uvXh20wDrIrTbU3+FoaNmoJy33lA
-	Ho/x8kJg/xySC1NIWhtjGYa+RtdtCSWLD45w3u4QELtSDng0huhG+DnSxQUiGYzHhGw1K/XVqD9
-	ZCFO8OZiYHIl37ssG3v4ji2360rRoKWI6T9UAGeqDctK4rCmyGA096aTOq52tvEirJVivTISVuR
-	wpGuo5NhXrjcvBzHu6extRQ9j2tejVSONacVfgimKo+VfMgIdmfLrvu5O3uo11JS87FqEAOQ6Zi
-	njZEVI9BL8Lje2eoUfqzwwD1SxlX39Hw7Qk4EQ3GApg3gzIE7Z9ne55vRC3MqsQ0cvGHDjhfLlN
-	FsYTPPDZKhIvNd/NO5Oo7xX/BKmHin7nkMOG5bpSaVYQQc6hxtoRIX47Z6J8x0agX7EGLlBB6Ai
-	1FmVMjEmQ==
-X-Google-Smtp-Source: AGHT+IE36vDZQaBorxVHg3UkIMBTExwdFwGhJUImNDuYnIRUKBGY0CNHzfj5WmfG8w7ZS8zHD3ReTg==
-X-Received: by 2002:a17:906:478a:b0:b71:d701:cac2 with SMTP id a640c23a62f3a-b726560f2c9mr604368666b.50.1762415269879;
-        Wed, 05 Nov 2025 23:47:49 -0800 (PST)
-Message-ID: <43c10d2e-47c4-4571-8495-5106b6b5ca79@suse.com>
-Date: Thu, 6 Nov 2025 08:47:52 +0100
+        bh=cD9NbccOoXX2KeZ3wEd1+V0/gZs08Jq65CbAK1AlYVE=;
+        b=Sc1+3BWvN2W7sSXrb8c8FiBwNoQvLt80HeahrvEJChF8+VId7JMmjGUCoemxfocGoe
+         0JboGVAOs2N4cIAkyG8gjYao3B1p1yRH6IF2bFQB9Ad+NN3+W02WeqZchZpOXz3/y8y3
+         MlV6BTMN/ZFwepxHyLByZnN+cBWYEPsHf3/XX2izD0qQv9ar7uf7Musgv4MNLBHi7g4M
+         86nzEPoN1H/GP/Ir14s9pDf8cbvHUMP8HYG9G0jAiwIx9GvmLAK6Qi6NoQcbrSo1yVbY
+         TWnsNm08bOBYtxLQaczwr0nOqciGXgD0FvUfRBsswqUU7eYJkbGJ++IN6EzowemxvZ1J
+         PWvA==
+X-Forwarded-Encrypted: i=1; AJvYcCVBic3Wq8hnxLmDIjO0xUHRhhTAIdEhprmFq/JsKvPibjdpk0B/cr2DO93cwC4fB3/5iBTM0FxjzQI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxcqdI3e9vs4Y2lkVE4fXDyiJndcm/+gKnHUn1ouHrFa+Ec8yqS
+	VDildSAZDG4BSht5qdYXxzzkZaO3dv0fNrRC/IndYh/OYQyHM7Spsc09yyK4CVtpZA==
+X-Gm-Gg: ASbGncvQf4mpxrZ57JzL17YnR6rpRFNwZJep+w0l5eeo9ZJ/hMcs4tAT3dBlMYC0iyh
+	4oQpEqFj2WN6gMBdvKmepTyP8mZV/E9rUiSgAyBi2GVh/UOQcqx/5zyeRIg2XuE/48Dx+3QWk8z
+	oOW/dB/QfXMMpR34PBEyQ+7FfPSX+a2g4V68yNlGKoTCCHXPz7hwKiwd1wk0s95VZYKUbx2syS1
+	3wqyV55/cI1BTRMotUTYJSGNV5qzijIk0lQQPUg6fnWiHdHmpFJeSsKoHHxa55sgeyK8HvCeGGC
+	ecGNErDsP1+q1m9fQOmi19CMtdCvRNu4/Xnyw36I+T7LHoXTQKvM53P7EmSjzaPNy71OPdaEH1i
+	OGeOFCm+159QUAJyGJTdhPKB7BBYK09WlpkeeITV51AGMrIG7AFzrI5tzPvc/PRWfEn7oyy8eYW
+	/aiCzKvP+5qephJ1G6/b8mw7tR10EKbxGa8KwuBG4BCi4hJVbdxCYMKNHcGjXe53q5/BLuH9M=
+X-Google-Smtp-Source: AGHT+IEu8ryeKBkW8025Qy6URAFALeTJqE/qvXT9jXbbp8UACBRYH9EhwwSdKrO/XfaUGsVC/BBZLw==
+X-Received: by 2002:a17:907:868f:b0:b57:2d81:41f with SMTP id a640c23a62f3a-b72654e25acmr667786466b.40.1762416866142;
+        Thu, 06 Nov 2025 00:14:26 -0800 (PST)
+Message-ID: <2bfd6ba0-e793-4f19-a7c2-19ff5aee0fe0@suse.com>
+Date: Thu, 6 Nov 2025 09:14:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] domain: adjust soft-reset arch dependency
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Penny Zheng <Penny.Zheng@amd.com>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Timothy Pearson <tpearson@raptorengineering.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, milan_djokic@epam.com,
- Sergiy Kibrik <sergiy_kibrik@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <c9c8c9c6-a155-4986-bf77-5766cdcd6024@suse.com>
- <40609db8-ea7d-4866-b7b2-d9647c64d512@epam.com>
+Subject: Re: [RFC PATCH for-4.22 v2 2/3] x86/platform: Expose DTS sensors MSR
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1761752801.git.teddy.astie@vates.tech>
+ <1001287258cf9652c749c66c6565478085a8657c.1761752801.git.teddy.astie@vates.tech>
+ <22e53531-73e4-40e9-a45e-2c5f59852ce4@suse.com>
+ <ed81804d-16db-4fce-88b6-12dc165e73a0@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,46 +122,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <40609db8-ea7d-4866-b7b2-d9647c64d512@epam.com>
+In-Reply-To: <ed81804d-16db-4fce-88b6-12dc165e73a0@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 31.10.2025 14:08, Grygorii Strashko wrote:
-> Hi Jan,
+On 03.11.2025 15:30, Teddy Astie wrote:
+> Le 30/10/2025 à 14:54, Jan Beulich a écrit :
+>> On 29.10.2025 16:59, Teddy Astie wrote:
+>> I'd also like to note that unlike the two THERM_STATUS, MSR_TEMPERATURE_TARGET
+>> (as per the absence if an IA32 infix in the SDM) isn't an architectural MSR,
+>> and hence I'm not entirely convinced we can "blindly" expose it. (Interestingly
+>> in Linux code there is an IA32 infix.)
 > 
-> On 30.10.25 14:10, Jan Beulich wrote:
->> Arm's arch_domain_soft_reset() returning -ENOSYS is quite unhelpful: This
->> way a domain will be crashed if a tool stack mistakenly invokes
->> XEN_DOMCTL_soft_reset on it. Instead the tool stack should be told of its
->> mistake.
->>
->> Introduce HAS_SOFT_RESET, implied only by x86. "imply" rather than
->> "select" such that HAS_SOFT_RESET can later gain a dependency on
->> MGMT_HYPERCALLS. That way HAS_SOFT_RESET will go off when
->> MGMT_HYPERCALLS is off.
->>
->> Check the new setting early in domctl handling, and compile out the thus
->> dead (when HAS_SOFT_RESET=n) domain_soft_reset() as well as its dedicated
->> helpers.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>
+> We only perform rdmsr_safe on this MSR, so I don't think there is much 
+> problem with it as I don't expect Intel to reuse this MSR number for 
+> something else (at worst, it is going to not be implemented and would 
+> gracefully fail).
 > 
-> Thank you for your patch.
-> 
-> Reviewed-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> Some parts of this MSR slightly change, but the one (tjmax) that is 
+> interesting in here is consistent across the architectures.
 
-Thanks.
-
-> But one question - soft_reset is applicable for domain, so wouldn't it
-> be better to note that in Kconfig option name:
-> 
->    HAS_DOMAIN_SOFT_RESET
-
-I thought that "soft reset" is (going to remain) pretty unambiguous without the
-"domain". If (in particular) other REST maintainers think differently, I'm open
-to change the name. Generally my aim is to prefer reasonably short names for
-variables and alike, as long as no ambiguity arises.
+Perhaps it's indeed okay here, but the aspect needs calling out / justifying in
+the description.
 
 Jan
 
