@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33C8BC39D6D
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 10:36:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1156622.1485655 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B1D4C39F5A
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 10:58:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1156637.1485664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGwPs-0003tT-NB; Thu, 06 Nov 2025 09:36:28 +0000
+	id 1vGwkh-0006pW-Bf; Thu, 06 Nov 2025 09:57:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1156622.1485655; Thu, 06 Nov 2025 09:36:28 +0000
+Received: by outflank-mailman (output) from mailman id 1156637.1485664; Thu, 06 Nov 2025 09:57:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGwPs-0003rh-KX; Thu, 06 Nov 2025 09:36:28 +0000
-Received: by outflank-mailman (input) for mailman id 1156622;
- Thu, 06 Nov 2025 09:36:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vGwkh-0006o5-8o; Thu, 06 Nov 2025 09:57:59 +0000
+Received: by outflank-mailman (input) for mailman id 1156637;
+ Thu, 06 Nov 2025 09:57:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IWGa=5O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vGwPq-0003ra-R7
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 09:36:26 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 10619ef7-baf4-11f0-9d17-b5c5bf9af7f9;
- Thu, 06 Nov 2025 10:36:26 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-640b06fa959so1273498a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 01:36:25 -0800 (PST)
+ id 1vGwkg-0006nz-1i
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 09:57:58 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 10ba5f10-baf7-11f0-980a-7dc792cee155;
+ Thu, 06 Nov 2025 10:57:55 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-640b2a51750so1305564a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 01:57:54 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6411f6780b7sm1428693a12.0.2025.11.06.01.36.24
+ a640c23a62f3a-b7289682544sm174583366b.53.2025.11.06.01.57.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Nov 2025 01:36:25 -0800 (PST)
+ Thu, 06 Nov 2025 01:57:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10619ef7-baf4-11f0-9d17-b5c5bf9af7f9
+X-Inumbo-ID: 10ba5f10-baf7-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762421785; x=1763026585; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762423074; x=1763027874; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xni9+huuYImQhwEnC3UrxQEww0dsqUYZYj9u2IGywmU=;
-        b=A94AefD5i7P0qG4umCMK6dQdxkvrP0rYTSuSceIrzx5QQI54fLaWml9S2AP/eGHNDb
-         xVs6WG/FyXzHtgQv8Vsop+xzctGOFv0GS/TRJe943iONXaNI4zC27d/swIPJ2tfFUrgl
-         pmOoKeLZDgLH9O9uHaMFg80S4WpjN5F5RU1beKuBm5imySHSy/bDWMreCgVPqOjEUszM
-         NZdrGNrWfjbe0K94kiGEGope9QWmO03zuxo4qWh/hMYo98+8Nf36oDhbIY1X904rxoVN
-         bpIlp3JKSTyjZ/4jpZijuc7CdBxnxaxpPq3+K6FkQdg4pYY0BG/B+uCFwq5Jmt9uYgi1
-         si0A==
+        bh=2pV8SBOsPTBHMSriyI7Vv4bb6edPP5QubO2Uijno1hM=;
+        b=JUYgtLenxlMaasCiBjiiAfz9A2ARXxw7Y+OGu5DufzAJzFqKbUcHmVOttdIVBvtk5B
+         cnIIplAU6qiQRXwF9+t4SfQnmUcvX+BYrG/fBhEMlFrbVmlFfUpTK0XdgdmCat7Cd9XW
+         dS6Z3NQxLXNsuUda1Uj67xhn+WHacXykka6jrxCrYRrK8hGA0xEb5kacTGQZiC4boc5W
+         vE0X5n18M+f+bHTJ/k51X0lf9xsa/JAtnMA/ahPosI2gIEMfhnAQn6LYhLSKcqOoDE27
+         uu/6fkYGHTZtS9DZj1b6nDNzDJTbBjO+iJJT1CSt4WxODNE4Xhu7966uMmFS8Su9JBQU
+         uVjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762421785; x=1763026585;
+        d=1e100.net; s=20230601; t=1762423074; x=1763027874;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xni9+huuYImQhwEnC3UrxQEww0dsqUYZYj9u2IGywmU=;
-        b=H91Tv53UDy0Ky/oe5loLWvor8JrJJ7xOY0Cjf9gW2RkBhlrid3QQrlcsFXlhF5nfm7
-         VZkJKD0jN8mEuIQO7jXcM16WiHO/gyROe4M6H4zBClLdaVfxT45NwTHqbuWtXgoFTJiG
-         6vTu/7XhfUaCZF06rNbQBsUhtYwZw8SJpzywDKK9rwAcYmn87TAH7pGVnp8GRUohORbN
-         1TYMukBmIEqdD7QuARBjgsGoWdFltCk3ACyA6cgVkDp5yHa21eFacqhYj7R7u6N1hAVm
-         vsbon8vGneOfWpibh/oDaP2Zm2YAoWdGJ8DzqrnTacOD4qc/7p5adyyW2Zd7KqEKmMqy
-         mkzg==
-X-Forwarded-Encrypted: i=1; AJvYcCVUQma3hmnXgHBGIjCLWtjt/xil9H+7ysvEKA3vjDqutbEXB2iS4fuV1Gsud4c7UKq0lS/1schHbHA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwyAtYEr7ftJ9W/Jl1bvsKFFO80hvpdhWj/QhUKo3i0KvTezeOd
-	dXp2fT5ogtXfex23gaq3kE5+F1Zwhg6LXr6PAMmwztaIUDfKfTqHnD6lXRuy2+ZwOw==
-X-Gm-Gg: ASbGnctS9EPNbt29PZjOmxKKkOcWoWubUdkP8uGkSfiIunOGVmYe6JUMhp2TtbPJcQK
-	GKT9lqzUUxuwmatHGmlPQV86WfE4rd/wnI7h58iaIcXzHRVtBLyz2vChbXzCOayqVRUpC8J/uMZ
-	p20dmNOhjvbViIU9d0et7ZMAEngF7NN70Pi9dmDqdLyw8w/ZzdEflHO0Sxkxxg0rjW5GcjL1SIO
-	Ds1kDzun4/inuJ3F1jT+8/u/wCX0MWJhR9WTukNAz/Wzt0XNNC0ZvlBwDv2SzO/I2JGI11UkBT4
-	0XumxlCRVe9txCT61ejl5tMT6u288uSA6UxVwuYT2udYKSX0iWV5f58f5n4DCo2oMr9HQXX66Hx
-	XWfIk9zmBRidPpkjnOL7OwsmMfhH8N7RNoQGHKqyi/IcJuo+Ahp1xIUjepH9OjBryBYlAd+BN7w
-	ttm1aaExkGNMwz97zY8GjOxscVuGspbi6586CL1MzXqWl6YiR1BmCz7mB+i/yx
-X-Google-Smtp-Source: AGHT+IEzysGdCZzy4ppx01Y2ZNU0oBGvl91fEKsCkK1XIRn+90HgGAedJgYftgc5P0MuMvZWwzmExQ==
-X-Received: by 2002:a05:6402:1442:b0:640:bb20:41c7 with SMTP id 4fb4d7f45d1cf-6410588c61amr5680021a12.7.1762421785304;
-        Thu, 06 Nov 2025 01:36:25 -0800 (PST)
-Message-ID: <fc1ca849-0f66-4fdb-a70d-147cd30ba7de@suse.com>
-Date: Thu, 6 Nov 2025 10:36:28 +0100
+        bh=2pV8SBOsPTBHMSriyI7Vv4bb6edPP5QubO2Uijno1hM=;
+        b=uHeVGYuY+ApXcTgBfUkTa6+wcJH5vLzibITqRnIc41TUiyR7QQIZbJT+on8hDHRKW1
+         f03eHQiLmSWo88lqDybeHKMPesPNtfblitUuBUNqY0NOM+bnNqT4f2UA71EACWPhFTnk
+         tg87VDruHx3+4AdxQWPS8DvDMro8bn9NQLykyj3aZVKhLb9NpnBsZQkUFKVPXSSzE39n
+         aECnzSqmB7nUBMxSsPRD/UhU3V6EhfAvX+RIUWVajz7dMl/TLvD0/ieqaVfwm0YI4OC0
+         zVoeiZOVDgd5wo6TdBY9T0hViZaIrW2/COydd46zypLHrGCJN/5dSMd2bdp6OUNt0RXl
+         yLog==
+X-Forwarded-Encrypted: i=1; AJvYcCUKftHiFsFZG/ybelbJHQ7jT26ph8g4nvK7HrTWEdntGODLOy9EANvvtV1L3oP+ARXUBps+37gWtFg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzVdiWjgxv4kLFGYQRWKbMj09HVqPRG/OrD2egWjCJVAGGmHbNi
+	2Xn3CaKPBpN6obps1OAYaraGP0U+zTwI+U89n4O4rzPIQqS68IuYXW+BiaJgsdNslw==
+X-Gm-Gg: ASbGncuF0FA8IY3Fq0MbdGVYuffwZl8SJhlMygKwowABwiCyY3k3Bn3D5Jo6FTkySsW
+	qmNWx1P1x3GXLeMk3pYAFLX9GOLbyHfBWez+QxbVFEYR3lCcYF8SASFHMNWdh3aBvseY9m0JS2Q
+	/m3JdDEWm3eeMVRatU+9LCSn8VLRTIBQi+T5f/RmjlXV3ahLh3lC7w0cs74NnIBfIzPDbJeSNK8
+	HKL3RIr7EYrC2e9c/9wSiGOXkJB4lZ9N29+bRpeCGZK2OhWnkN+EWV/V4zVG8yw5tD29McJhv+R
+	djWe/yBn1FGqZQ8sag7XHsiycXpnCGu1Lwc+omDptSn6DC5vV6klskcEd2FmowzH00SovNaJO/+
+	dnp54lg8BOIiPQDmo3agEeJrfpqJE6tLExhyFFGdVqSX9Imwb5wgoKma8byGrV/ndXdC1iIDOQK
+	+VvMwHR0g7JLZEPu1ouM6jlq4/Ku3V1jbEPOB+xZTQyFKbAJihUQMkcwUtT/60
+X-Google-Smtp-Source: AGHT+IEuTn/BnleDYIkzdv8wOmSTxYhlItq1EppSz24bYdRDHlxDQxF3/TOz6/pHi+cS+Suvxnfazw==
+X-Received: by 2002:a17:907:944a:b0:b6d:8d8d:3010 with SMTP id a640c23a62f3a-b72655b7411mr510969166b.56.1762423073633;
+        Thu, 06 Nov 2025 01:57:53 -0800 (PST)
+Message-ID: <45031a9f-1072-4a41-9b46-35bf6437880b@suse.com>
+Date: Thu, 6 Nov 2025 10:57:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misra: address Rule 11.3 in spin_unlock_common()
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+Subject: Re: [XEN][PATCH] xen/x86: guest_access: optimize raw_x_guest() for PV
+ and HVM combinations
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ Jason Andryuk <jason.andryuk@amd.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <812bf5574cb44727c561e0ebc3a54848823ed490.1762163173.git.dmytro_prokopchuk1@epam.com>
- <7fb6ca46-3806-4aa5-a642-28384d6b944c@citrix.com>
+References: <20251031212058.1338332-1-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,40 +125,102 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7fb6ca46-3806-4aa5-a642-28384d6b944c@citrix.com>
+In-Reply-To: <20251031212058.1338332-1-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03.11.2025 12:26, Andrew Cooper wrote:
-> On 03/11/2025 10:11 am, Dmytro Prokopchuk1 wrote:
->> diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
->> index 0389293b09..d9dc9998e6 100644
->> --- a/xen/common/spinlock.c
->> +++ b/xen/common/spinlock.c
->> @@ -367,7 +367,8 @@ static void always_inline spin_unlock_common(spinlock_tickets_t *t,
->>      LOCK_PROFILE_REL;
->>      rel_lock(debug);
->>      arch_lock_release_barrier();
->> -    add_sized(&t->head, 1);
->> +    BUILD_BUG_ON(sizeof(t->head) != sizeof(uint16_t));
->> +    add_u16_sized(&t->head, 1);
-> 
-> This is an example where MISRA's opinions actively making the logic less
-> safe.
-> 
-> It's not possible for add_sized() to use the wrong type (as it
-> calculates it internally), whereas it's quite possible to update the
-> BUILD_BUG_ON() and fail to adjust the add.
-> 
-> Specifically, you've made it more complicated to reason about, and
-> created an opportunity to make an unsafe change where that opportunity
-> does not exist in the code as-is.
-> 
-> Furthermore, read and write atomic have exactly the same internal
-> pattern as add_sized(), so how does this not just kick the can down the
-> road?
+On 31.10.2025 22:20, Grygorii Strashko wrote:
+> --- a/xen/arch/x86/include/asm/guest_access.h
+> +++ b/xen/arch/x86/include/asm/guest_access.h
+> @@ -13,6 +13,7 @@
+>  #include <asm/hvm/guest_access.h>
+>  
+>  /* Raw access functions: no type checking. */
+> +#if defined(CONFIG_PV) && defined(CONFIG_HVM)
+>  #define raw_copy_to_guest(dst, src, len)        \
+>      (is_hvm_vcpu(current) ?                     \
+>       copy_to_user_hvm((dst), (src), (len)) :    \
+> @@ -34,6 +35,43 @@
+>       copy_from_user_hvm((dst), (src), (len)) :  \
+>       __copy_from_guest_pv(dst, src, len))
+>  
+> +#elif defined(CONFIG_HVM)
+> +#define raw_copy_to_guest(dst, src, len)        \
+> +     copy_to_user_hvm((dst), (src), (len))
+> +#define raw_copy_from_guest(dst, src, len)      \
+> +     copy_from_user_hvm((dst), (src), (len))
+> +#define raw_clear_guest(dst,  len)              \
+> +     clear_user_hvm((dst), (len))
+> +#define __raw_copy_to_guest(dst, src, len)      \
+> +     copy_to_user_hvm((dst), (src), (len))
+> +#define __raw_copy_from_guest(dst, src, len)    \
+> +     copy_from_user_hvm((dst), (src), (len))
+> +
+> +#elif defined(CONFIG_PV)
+> +#define raw_copy_to_guest(dst, src, len)        \
+> +     copy_to_guest_pv(dst, src, len)
+> +#define raw_copy_from_guest(dst, src, len)      \
+> +     copy_from_guest_pv(dst, src, len)
+> +#define raw_clear_guest(dst,  len)              \
+> +     clear_guest_pv(dst, len)
+> +#define __raw_copy_to_guest(dst, src, len)      \
+> +     __copy_to_guest_pv(dst, src, len)
+> +#define __raw_copy_from_guest(dst, src, len)    \
+> +     __copy_from_guest_pv(dst, src, len)
+> +
+> +#else
+> +#define raw_copy_to_guest(dst, src, len)        \
+> +        ((void)(dst), (void)(src), (void)(len), 1)
+> +#define raw_copy_from_guest(dst, src, len)      \
+> +        ((void)(dst), (void)(src), (void)(len), 1)
+> +#define raw_clear_guest(dst, len)               \
+> +        ((void)(dst), (void)(len), 1)
+> +#define __raw_copy_to_guest(dst, src, len)      \
+> +        ((void)(dst), (void)(src), (void)(len), 1)
+> +#define __raw_copy_from_guest(dst, src, len)    \
+> +        ((void)(dst), (void)(src), (void)(len), 1)
+> +#endif
 
-+1 (fwiw)
+I have to admit that I don't really like the repetition.
+
+Style-wise you want to be consistent with the adding of blank lines around the
+preprocessor directives: Imo here there want to be ones on both sides of each
+of the directives.
+
+For the last block, I'd further prefer if "len" was returned. That's properly
+representing that nothing was copied. And if these were all using a single
+inline stub function, ...
+
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -1985,8 +1985,9 @@ bool update_runstate_area(struct vcpu *v)
+>  #endif
+>          guest_handle--;
+>          runstate.state_entry_time |= XEN_RUNSTATE_UPDATE;
+> -        __raw_copy_to_guest(guest_handle,
+> -                            (void *)(&runstate.state_entry_time + 1) - 1, 1);
+> +        (void)__raw_copy_to_guest(guest_handle,
+> +                                  (void *)(&runstate.state_entry_time + 1) - 1,
+> +                                  1);
+>          smp_wmb();
+>      }
+>  
+> @@ -2008,8 +2009,9 @@ bool update_runstate_area(struct vcpu *v)
+>      {
+>          runstate.state_entry_time &= ~XEN_RUNSTATE_UPDATE;
+>          smp_wmb();
+> -        __raw_copy_to_guest(guest_handle,
+> -                            (void *)(&runstate.state_entry_time + 1) - 1, 1);
+> +        (void)__raw_copy_to_guest(guest_handle,
+> +                                  (void *)(&runstate.state_entry_time + 1) - 1,
+> +                                  1);
+>      }
+>  
+>      update_guest_memory_policy(v, &policy);
+
+... these changes would become unnecessary (I dislike such unnecessary - as per
+the C spec - casts, even if I understand that for Misra we may need to gain quite
+a few of them).
 
 Jan
 
