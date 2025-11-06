@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 810EEC3C35B
+	by mail.lfdr.de (Postfix) with ESMTPS id CB4E0C3C35E
 	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 16:59:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1157081.1486000 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1157082.1486008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH2Oe-0007sb-Ss; Thu, 06 Nov 2025 15:59:36 +0000
+	id 1vH2Of-0007w0-4p; Thu, 06 Nov 2025 15:59:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1157081.1486000; Thu, 06 Nov 2025 15:59:36 +0000
+Received: by outflank-mailman (output) from mailman id 1157082.1486008; Thu, 06 Nov 2025 15:59:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH2Oe-0007py-PV; Thu, 06 Nov 2025 15:59:36 +0000
-Received: by outflank-mailman (input) for mailman id 1157081;
+	id 1vH2Of-0007su-01; Thu, 06 Nov 2025 15:59:37 +0000
+Received: by outflank-mailman (input) for mailman id 1157082;
  Thu, 06 Nov 2025 15:58:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tFS0=5O=suse.com=marco.crivellari@srs-se1.protection.inumbo.net>)
- id 1vH2Nm-0007GJ-TT
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 15:58:42 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1vH2Nn-0007GJ-TU
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 15:58:43 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7759479a-bb29-11f0-9d17-b5c5bf9af7f9;
- Thu, 06 Nov 2025 16:58:42 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-429cf861327so879710f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 07:58:42 -0800 (PST)
+ id 77f526fc-bb29-11f0-9d17-b5c5bf9af7f9;
+ Thu, 06 Nov 2025 16:58:43 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-477632d9326so7423455e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 07:58:43 -0800 (PST)
 Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429eb403793sm5758966f8f.2.2025.11.06.07.58.40
+ ffacd0b85a97d-429eb403793sm5758966f8f.2.2025.11.06.07.58.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Nov 2025 07:58:40 -0800 (PST)
+ Thu, 06 Nov 2025 07:58:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7759479a-bb29-11f0-9d17-b5c5bf9af7f9
+X-Inumbo-ID: 77f526fc-bb29-11f0-9d17-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762444721; x=1763049521; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762444722; x=1763049522; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vTKQ/9KgyAcLZI3pm3L05sC2QlXoOYBGo9f5Rvs6qdU=;
-        b=PmSEE/UUBdOf1xk5gVicej8iFrs6zBaneA4ANWL2DHmD5MnVuhzemMSzkL+qlvLSLM
-         YB0XX6t8D13jW+t9TXw/r7+/tZsebH1+108DwzDWJm2zbWyxmcAfTapy+8sYbHcFvBxE
-         6bLTZUFuvjiV6G33w5fS90H3APnaoM/UWQnOobsabFHlE/ZxprGXwGs/JDhO0MtqXx+l
-         4d4K6zvkJKqGFQFYmxEI4Wb+r2nvHhug36Gyx6ytVKSZzeU+QsXf5EGiBkZmLwCFVH5E
-         xqVQ5vwsAhOPHMzuA0TMW7n/ZnZ0324opvmgmKP1mC5h5cdhRMvhQh0ssqkqYp/rZV1o
-         WTMQ==
+        bh=53hexOkYyaqxhpOSn/nthNa2oVXwHIV4I+WyLFdMY9Y=;
+        b=GrExudEKTjVcSpD+t1lJjHTK1UeHot11WbVvaxfJkMuEqebi2lFr6i88M+Fuhq2u3l
+         GdOsFAW0YS+L3zhtTfEItSDslWub/+cVoe2MP8fY1GsorpKyHfXgEj9gfWH62i//xTqv
+         MFrfNLrtueaEDSnrGhja8FI0X3BE+8n0PfOR6I2XuUrPGCvdegl4SwCP/1putRS6R9PX
+         k3SiAdIYpv+3yo4LYozqYWJZPXqsfQk60xQfQOyNZVP1ZsKNGjCTXOgvRFl2nbFb5PO7
+         FVOnIKhf8dWOOMGGv2Xw3uDIA2fnz8bUiBpPM5a231ga2GlqXaBjEvRffQoRGF12nJud
+         A9/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762444721; x=1763049521;
+        d=1e100.net; s=20230601; t=1762444722; x=1763049522;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=vTKQ/9KgyAcLZI3pm3L05sC2QlXoOYBGo9f5Rvs6qdU=;
-        b=fpOWOVuQ+gvKGQWVpyvONkRJq3xn7ZJOjpqnb49MEAFG9FEnfXo2jDu2D/N0KYt4Ey
-         5j2NLof0obbZpOz0v/UEOT2IJS5Xk001XpeitmmVb59A0RbbWAc2ECiaIxWbcipKzssc
-         jot5GUXmWe4kw1Syc0wAa70K/1mHmdJ/pCsMBIJ4twe95hCvZGpuCkeRrI8IQ++fLICx
-         lP3HrhWiglzYxqr27NUjb+xjNEn+WWvCysPJdJduWtvd4CG7xmKiNcW75qq6QPvGkK0S
-         Iy2NJNPSTvWRvs1bMsOIS2ukqshNnuDfrGg5bPihUIUsFWd9O2qs3cW/8wrvcDLWUVI0
-         fr1A==
-X-Forwarded-Encrypted: i=1; AJvYcCWBKMbkoMSwkguzoHKx9usrUyhLMbusWpq67pG3oISKBQvZH+FBbrPnZkfPsDhILIPeThXskbHAnXg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxK6eidv8J24aIRprHtXfQMWjoFumQ3kYLfF6fOFrufLQgIBn9y
-	BOgzdWWp0YyzL0fFscUY+jW37kuSYpb/dRebfyLESoqZeNykr6+hkM0bhU67a8PYaNM=
-X-Gm-Gg: ASbGncsEyL7G5SLPXXmslH4Q5Um4oz8Gch4m3oS+H3CVy2vSn3px6IhkwZ6xdITZkIT
-	l69IIaC9jVz/0FnuuHJ3PMrPolawEW+m09VKNycFaMfkSfYLomFO4qluBWaPtE8AL/GayeJYjyG
-	Qjk2Y2GcO/7GLAKBWgq3UI7FZi866PibZRCk506Sp9fz5fBruvI0i6cgdcpEwdveWPDpSm+kiac
-	Z8tyG5VZLxCm4wtSaB/2UfrMZJBxb7p25GBfS7UyTUYY0aKGKPTcka5XejgtN8vxi84GKpp8fiw
-	hwfVnW9c+DBv6+rK22AaJcSUDX+Bk5L4+kT8KgzGHXwdZAO0ype+2xz0gUyVP0aunuV+qTeoVpb
-	Rj6o4AcExoVQQx/mCqIFRJjtK7PZx/i9yEQDA0EStXqB2yqF7lqJrL1+t8OW7lZEc518MiKZ4Z+
-	K/cfwOeAA9x6gzcAUsupMWWP8=
-X-Google-Smtp-Source: AGHT+IFMnkLTlhStdnpadBpL2HuGw+mkAPiYvwVjt6jcTNz2UFYHeUrdQTK+BluDsXkk7abaXQWnhg==
-X-Received: by 2002:a05:6000:420c:b0:429:cc5f:68a7 with SMTP id ffacd0b85a97d-429e330b919mr7123146f8f.44.1762444721404;
-        Thu, 06 Nov 2025 07:58:41 -0800 (PST)
+        bh=53hexOkYyaqxhpOSn/nthNa2oVXwHIV4I+WyLFdMY9Y=;
+        b=byUTyAS2TWyXgRNsTBEIUnzfCrZ3Ec76PlgPgneejeRHi1NjC1y1XWbP6MA95hJSkm
+         GiCp4PBDRrlXDhM+fbRToIqdrbjW9SniMEHzBlq+UzUhQVRR7MgsbfpUz5sTMxTxKP09
+         5nI0iyetpo+wLvnvZUjHoT4oMHeAINfLNV3ZJHNmLDS8o2f0miCn5LpqBGsFNPOB3wIf
+         p6HK8pu8z1yf9pwwCZj9I0yXidWCLRa4OqPGgzxHZej6/Vtu54425v2O0FsEzq+9j+jl
+         PZHONEcTX/yfJqWloEIT1qK7cNiebWxQfNGVfnz3nOrmYmhz/qzrvRHxK0d8C3orOxtv
+         I6SQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV71w7wMxOGBDPFt4NLSuS8loVsN8IE7IbIB+hP/6JHQCsOCAIjAbjOVQ9hhTxsNtVAFF53KvFrByo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJnhSI1LpeElDQR6AFgiKZNya6fMMfsoSd1ghHLmCpTQu5ICwQ
+	Oy71/b16WPbG9GZLS2vnlJrv38cpelBwY+Y3eg+ndJz5pasYE3Mx/vQmC+Jw+dM+KwE=
+X-Gm-Gg: ASbGncuddznOT6asuI2Z3JVBMWfFnEZz5dPlUwzhEYhDP9fKNXdfMseelbBtG+7bR7i
+	IxDt8l0H28fTsIUDOqa3W3Uu+q1zP41R7f6O5jkQ2PkwXWRn1O5V3fSizYr8HO9Km/e5We7xl+M
+	9Hl8u/xB+gedNxTwXqu/7rZ8wStVwUzOaKuSBgPDskYmqi6FuAtdhPe3kqHYfBv5X2TrytWBPJk
+	uz/yos337a9oiWYgti5A9qqJpAYlmwbREnhyi+v930jDfhMOIXuzYX7wkARszMRWeOCydBJWW2U
+	HittJUABY0/WqZ9dLqhD4rFbGrnNR3LJTiIXu9WWOTO7Od2Yp5nRCwXuubJPFpfK5GvhNk5Ims1
+	deR7b6+N17THU2gEcBIX8maBPIfAT9fT60vRxSUD96fj+Yr10LOxgL3Ac4IItMuC1VQW1tmSaaE
+	aO8RGeFoXPqOCnJR22NnYm18Y=
+X-Google-Smtp-Source: AGHT+IGsuM3JnBRPrLDis+cGJhcRI2m6z7HtbWMdfo50tweopR7jN9KNvup76xnxqkeK15q0yW/MHQ==
+X-Received: by 2002:a05:600c:4e13:b0:475:dd53:6c06 with SMTP id 5b1f17b1804b1-4775ce3b380mr76738075e9.40.1762444722455;
+        Thu, 06 Nov 2025 07:58:42 -0800 (PST)
 From: Marco Crivellari <marco.crivellari@suse.com>
 To: linux-kernel@vger.kernel.org,
 	xen-devel@lists.xenproject.org
@@ -95,22 +95,29 @@ Cc: Tejun Heo <tj@kernel.org>,
 	Juergen Gross <jgross@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH 1/2] xen/events: replace use of system_wq with system_percpu_wq
-Date: Thu,  6 Nov 2025 16:58:30 +0100
-Message-ID: <20251106155831.306248-2-marco.crivellari@suse.com>
+Subject: [PATCH 2/2] xen: privcmd: WQ_PERCPU added to alloc_workqueue users
+Date: Thu,  6 Nov 2025 16:58:31 +0100
+Message-ID: <20251106155831.306248-3-marco.crivellari@suse.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251106155831.306248-1-marco.crivellari@suse.com>
 References: <20251106155831.306248-1-marco.crivellari@suse.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Currently if a user enqueues a work item using schedule_delayed_work() the
+Currently if a user enqueue a work item using schedule_delayed_work() the
 used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
 WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
 schedule_work() that is using system_wq and queue_work(), that makes use
 again of WORK_CPU_UNBOUND.
+This lack of consistentcy cannot be addressed without refactoring the API.
 
-This lack of consistency cannot be addressed without refactoring the API.
+alloc_workqueue() treats all queues as per-CPU by default, while unbound
+workqueues must opt-in via WQ_UNBOUND.
+
+This default is suboptimal: most workloads benefit from unbound queues,
+allowing the scheduler to place worker threads where they’re needed and
+reducing noise when CPUs are isolated.
 
 This continues the effort to refactor workqueue APIs, which began with
 the introduction of new workqueues and a new alloc_workqueue flag in:
@@ -118,46 +125,36 @@ the introduction of new workqueues and a new alloc_workqueue flag in:
 commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
 commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
 
-Switch to using system_percpu_wq because system_wq is going away as part of
-a workqueue restructuring.
+This change adds a new WQ_PERCPU flag to explicitly request alloc_workqueue()
+to be per-cpu when WQ_UNBOUND has not been specified.
+
+With the introduction of the WQ_PERCPU flag (equivalent to !WQ_UNBOUND),
+any alloc_workqueue() caller that doesn’t explicitly specify WQ_UNBOUND
+must now use WQ_PERCPU.
+
+Once migration is complete, WQ_UNBOUND can be removed and unbound will
+become the implicit default.
 
 Suggested-by: Tejun Heo <tj@kernel.org>
 Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
 ---
- drivers/xen/events/events_base.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/xen/privcmd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-index 9478fae014e5..663df17776fd 100644
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -581,7 +581,7 @@ static void lateeoi_list_add(struct irq_info *info)
- 					eoi_list);
- 	if (!elem || info->eoi_time < elem->eoi_time) {
- 		list_add(&info->eoi_list, &eoi->eoi_list);
--		mod_delayed_work_on(info->eoi_cpu, system_wq,
-+		mod_delayed_work_on(info->eoi_cpu, system_percpu_wq,
- 				    &eoi->delayed, delay);
- 	} else {
- 		list_for_each_entry_reverse(elem, &eoi->eoi_list, eoi_list) {
-@@ -666,7 +666,7 @@ static void xen_irq_lateeoi_worker(struct work_struct *work)
- 			break;
+diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
+index f52a457b302d..402be080ad2c 100644
+--- a/drivers/xen/privcmd.c
++++ b/drivers/xen/privcmd.c
+@@ -1091,7 +1091,8 @@ static long privcmd_ioctl_irqfd(struct file *file, void __user *udata)
  
- 		if (now < info->eoi_time) {
--			mod_delayed_work_on(info->eoi_cpu, system_wq,
-+			mod_delayed_work_on(info->eoi_cpu, system_percpu_wq,
- 					    &eoi->delayed,
- 					    info->eoi_time - now);
- 			break;
-@@ -782,7 +782,7 @@ static void xen_free_irq(struct irq_info *info)
+ static int privcmd_irqfd_init(void)
+ {
+-	irqfd_cleanup_wq = alloc_workqueue("privcmd-irqfd-cleanup", 0, 0);
++	irqfd_cleanup_wq = alloc_workqueue("privcmd-irqfd-cleanup", WQ_PERCPU,
++					   0);
+ 	if (!irqfd_cleanup_wq)
+ 		return -ENOMEM;
  
- 	WARN_ON(info->refcnt > 0);
- 
--	queue_rcu_work(system_wq, &info->rwork);
-+	queue_rcu_work(system_percpu_wq, &info->rwork);
- }
- 
- /* Not called for lateeoi events. */
 -- 
 2.51.1
 
