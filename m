@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB4E0C3C35E
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 16:59:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1157082.1486008 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3809BC3C728
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 17:33:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1157126.1486031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH2Of-0007w0-4p; Thu, 06 Nov 2025 15:59:37 +0000
+	id 1vH2ud-0006HH-Ta; Thu, 06 Nov 2025 16:32:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1157082.1486008; Thu, 06 Nov 2025 15:59:37 +0000
+Received: by outflank-mailman (output) from mailman id 1157126.1486031; Thu, 06 Nov 2025 16:32:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH2Of-0007su-01; Thu, 06 Nov 2025 15:59:37 +0000
-Received: by outflank-mailman (input) for mailman id 1157082;
- Thu, 06 Nov 2025 15:58:43 +0000
+	id 1vH2ud-0006FB-Q3; Thu, 06 Nov 2025 16:32:39 +0000
+Received: by outflank-mailman (input) for mailman id 1157126;
+ Thu, 06 Nov 2025 16:32:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tFS0=5O=suse.com=marco.crivellari@srs-se1.protection.inumbo.net>)
- id 1vH2Nn-0007GJ-TU
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 15:58:43 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ <SRS0=RMQi=5O=gmail.com=freddy77@srs-se1.protection.inumbo.net>)
+ id 1vH2ud-0006F5-4V
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 16:32:39 +0000
+Received: from mail-yx1-xb130.google.com (mail-yx1-xb130.google.com
+ [2607:f8b0:4864:20::b130])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77f526fc-bb29-11f0-9d17-b5c5bf9af7f9;
- Thu, 06 Nov 2025 16:58:43 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-477632d9326so7423455e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 07:58:43 -0800 (PST)
-Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429eb403793sm5758966f8f.2.2025.11.06.07.58.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Nov 2025 07:58:42 -0800 (PST)
+ id 3431fcea-bb2e-11f0-9d17-b5c5bf9af7f9;
+ Thu, 06 Nov 2025 17:32:37 +0100 (CET)
+Received: by mail-yx1-xb130.google.com with SMTP id
+ 956f58d0204a3-63f9beb27b9so1195459d50.1
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 08:32:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +40,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77f526fc-bb29-11f0-9d17-b5c5bf9af7f9
+X-Inumbo-ID: 3431fcea-bb2e-11f0-9d17-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762444722; x=1763049522; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=53hexOkYyaqxhpOSn/nthNa2oVXwHIV4I+WyLFdMY9Y=;
-        b=GrExudEKTjVcSpD+t1lJjHTK1UeHot11WbVvaxfJkMuEqebi2lFr6i88M+Fuhq2u3l
-         GdOsFAW0YS+L3zhtTfEItSDslWub/+cVoe2MP8fY1GsorpKyHfXgEj9gfWH62i//xTqv
-         MFrfNLrtueaEDSnrGhja8FI0X3BE+8n0PfOR6I2XuUrPGCvdegl4SwCP/1putRS6R9PX
-         k3SiAdIYpv+3yo4LYozqYWJZPXqsfQk60xQfQOyNZVP1ZsKNGjCTXOgvRFl2nbFb5PO7
-         FVOnIKhf8dWOOMGGv2Xw3uDIA2fnz8bUiBpPM5a231ga2GlqXaBjEvRffQoRGF12nJud
-         A9/w==
+        d=gmail.com; s=20230601; t=1762446756; x=1763051556; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=HoVdgOaqpJHfULXrAsHu8NUf8f/kGjWiUOAS8fLn9b8=;
+        b=B9GTAuF3DP9dY3akmDQ24St9N3UlGF60txdjxFn9gdpu+P4qDhBczy8beM88f+AiLr
+         rl79qAL/xQVPOUKcdQHJFEG41axciKvvW0jxHJu42G44jiheRb+9IRlAwu0gpxpcIoyV
+         NPdHBN0hU/tG8ygiEskDM/BTp/GnpNUQea6M4MOyfnM1Pk8hRNbXVGK1uzlFO9l2WgOj
+         tWXyXarmHLHYKvtc/WduV4WXikSCKhPU3zbdIE7Kb+IPxykt361JAgAJ0xEys1Z2nN9C
+         UI2ZmV80Bc9Rhp31ML3FmJO6aOSUoH8RZ/boNPQ7tffK19dvFVjptHeiMRXgWqOc/PS7
+         bdlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762444722; x=1763049522;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=53hexOkYyaqxhpOSn/nthNa2oVXwHIV4I+WyLFdMY9Y=;
-        b=byUTyAS2TWyXgRNsTBEIUnzfCrZ3Ec76PlgPgneejeRHi1NjC1y1XWbP6MA95hJSkm
-         GiCp4PBDRrlXDhM+fbRToIqdrbjW9SniMEHzBlq+UzUhQVRR7MgsbfpUz5sTMxTxKP09
-         5nI0iyetpo+wLvnvZUjHoT4oMHeAINfLNV3ZJHNmLDS8o2f0miCn5LpqBGsFNPOB3wIf
-         p6HK8pu8z1yf9pwwCZj9I0yXidWCLRa4OqPGgzxHZej6/Vtu54425v2O0FsEzq+9j+jl
-         PZHONEcTX/yfJqWloEIT1qK7cNiebWxQfNGVfnz3nOrmYmhz/qzrvRHxK0d8C3orOxtv
-         I6SQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV71w7wMxOGBDPFt4NLSuS8loVsN8IE7IbIB+hP/6JHQCsOCAIjAbjOVQ9hhTxsNtVAFF53KvFrByo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwJnhSI1LpeElDQR6AFgiKZNya6fMMfsoSd1ghHLmCpTQu5ICwQ
-	Oy71/b16WPbG9GZLS2vnlJrv38cpelBwY+Y3eg+ndJz5pasYE3Mx/vQmC+Jw+dM+KwE=
-X-Gm-Gg: ASbGncuddznOT6asuI2Z3JVBMWfFnEZz5dPlUwzhEYhDP9fKNXdfMseelbBtG+7bR7i
-	IxDt8l0H28fTsIUDOqa3W3Uu+q1zP41R7f6O5jkQ2PkwXWRn1O5V3fSizYr8HO9Km/e5We7xl+M
-	9Hl8u/xB+gedNxTwXqu/7rZ8wStVwUzOaKuSBgPDskYmqi6FuAtdhPe3kqHYfBv5X2TrytWBPJk
-	uz/yos337a9oiWYgti5A9qqJpAYlmwbREnhyi+v930jDfhMOIXuzYX7wkARszMRWeOCydBJWW2U
-	HittJUABY0/WqZ9dLqhD4rFbGrnNR3LJTiIXu9WWOTO7Od2Yp5nRCwXuubJPFpfK5GvhNk5Ims1
-	deR7b6+N17THU2gEcBIX8maBPIfAT9fT60vRxSUD96fj+Yr10LOxgL3Ac4IItMuC1VQW1tmSaaE
-	aO8RGeFoXPqOCnJR22NnYm18Y=
-X-Google-Smtp-Source: AGHT+IGsuM3JnBRPrLDis+cGJhcRI2m6z7HtbWMdfo50tweopR7jN9KNvup76xnxqkeK15q0yW/MHQ==
-X-Received: by 2002:a05:600c:4e13:b0:475:dd53:6c06 with SMTP id 5b1f17b1804b1-4775ce3b380mr76738075e9.40.1762444722455;
-        Thu, 06 Nov 2025 07:58:42 -0800 (PST)
-From: Marco Crivellari <marco.crivellari@suse.com>
-To: linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Cc: Tejun Heo <tj@kernel.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH 2/2] xen: privcmd: WQ_PERCPU added to alloc_workqueue users
-Date: Thu,  6 Nov 2025 16:58:31 +0100
-Message-ID: <20251106155831.306248-3-marco.crivellari@suse.com>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20251106155831.306248-1-marco.crivellari@suse.com>
-References: <20251106155831.306248-1-marco.crivellari@suse.com>
+        d=1e100.net; s=20230601; t=1762446756; x=1763051556;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=HoVdgOaqpJHfULXrAsHu8NUf8f/kGjWiUOAS8fLn9b8=;
+        b=c+1iaHvb1EySAazAy87oPEdT0n7E5XJ+OpK/blck6oVo/ht9vzABi50DH4nqSLSi+r
+         19GeHqLdcPpbSY95ir9BBj9lOwWyHSmgkrm2bj84FxejHeLRCieCFQ3emXfYltQv6t+I
+         vVdOgHVmzQi+kNXCoUyRUrkmf2CbMjyi3cHd+RwvxSAD5pFKMbz97tHRjQiToF+9WC7a
+         obEN7hH6MMlMpBPPGrQPxUWq/yhnxiBV8lFWpUSBllNQR+0M8DGkvmJl55z+jng2zK6X
+         T+WKwPdFWHmvB7tdVz4ga35Kw0JlfY2LWUUWmFwQdRo3ZkaaWgGoRAZxu6YPqfolFfph
+         TFBw==
+X-Gm-Message-State: AOJu0Yyb2xYKkdWuvcQLW7LSA5IipIIgbVngmRDoWx1UmYjJqkvOQhvs
+	GSRtwUB42R1CdPm5jDPYgeZTGuffqBzg55tzSEae4uQsRWkGX/GiYIrpMAzO7ZV4mEUF8jtYb0y
+	5Gu0NPp0UN3nj14epn22EDi4FTydfB+M=
+X-Gm-Gg: ASbGnctOsZNLnjxDpqCdYPLfrCSr7M2vHWwE7yTJZnAuWNjUU6kqCZPWCtUKn6P4n3+
+	9+WT7uyeQUXs2mA78yuec7GfyL/erJQNPW8KsZILunQtRGe/aX2T5lhbUMWKHVBTd/+17gVOB8V
+	RzMBa+U6U5mQHaX55Lpltlm3Y8QYft9BfI6sVft0yWyUMxikyIvSeal1YHOEI7OdFaxxKiwA0oz
+	e/oHGkjtCKoFYhR289lkzkHX4JZkHuyQnsUuUJatHOxNi0tJQZN9NNDkWpB
+X-Google-Smtp-Source: AGHT+IFxlP/1Z3VenWkOzjn1uLUZ0V3wSFGQmq3PyzCEB0U9Wxo4NZYQ0Vf9zxXV3zTBOtaE6aEK+J+r9NFWcAbOlvE=
+X-Received: by 2002:a05:690e:1a98:b0:63f:4b71:18d9 with SMTP id
+ 956f58d0204a3-63fd35b5abfmr4526688d50.69.1762446755597; Thu, 06 Nov 2025
+ 08:32:35 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20251105153808.20278-1-frediano.ziglio@citrix.com>
+ <fdc9fd41-2224-4672-911e-3e17b428d32a@gmail.com> <CAHt6W4eyH_7c4Q-KYaDjNJnSXjKSVNT1iSw0sNbLMXnK3iEHRg@mail.gmail.com>
+ <d193feac-3285-4c26-9a8a-ba09437e7e76@gmail.com> <CAHt6W4fEbuk+VzjFxfz5=T8GXCVW_jSoqqMAkiQTXL79B93SPg@mail.gmail.com>
+ <98e2f19f-5fce-4ad1-b821-f5abb1f815f6@suse.com>
+In-Reply-To: <98e2f19f-5fce-4ad1-b821-f5abb1f815f6@suse.com>
+From: Frediano Ziglio <freddy77@gmail.com>
+Date: Thu, 6 Nov 2025 16:32:24 +0000
+X-Gm-Features: AWmQ_blH8amtrbbrg3a4IDMoF2izySOvVGnY5u5qjrvC8kQvPkLxSBqN9Ub54Zo
+Message-ID: <CAHt6W4fscR1zAPbEmmgy5ARUGN5R2XBLF=Lkbjw3GU_RwibTfA@mail.gmail.com>
+Subject: Re: [PATCH v3] xen: Strip xen.efi by default
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Frediano Ziglio <frediano.ziglio@cloud.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+	Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Demi Marie Obenour <demiobenour@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Currently if a user enqueue a work item using schedule_delayed_work() the
-used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
-WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
-schedule_work() that is using system_wq and queue_work(), that makes use
-again of WORK_CPU_UNBOUND.
-This lack of consistentcy cannot be addressed without refactoring the API.
+On Thu, 6 Nov 2025 at 10:27, Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 06.11.2025 10:58, Frediano Ziglio wrote:
+> > On Thu, 6 Nov 2025 at 03:52, Demi Marie Obenour <demiobenour@gmail.com> wrote:
+> >> Does objdump on the signed file return correct section names?
+> >
+> > From objdump -x
+> >
+> > Sections:
+> > Idx Name          Size      VMA               LMA               File off  Algn
+> >   0 .text         0016c9ae  ffff82d040200000  ffff82d040200000  00000320  2**4
+> >                   CONTENTS, ALLOC, LOAD, READONLY, CODE
+> >   1 .rodata       0006b9e8  ffff82d040400000  ffff82d040400000  0016cce0  2**2
+> >                   CONTENTS, ALLOC, LOAD, DATA
+> >   2 .buildid      00000035  ffff82d04046c000  ffff82d04046c000  001d86e0  2**2
+> >                   CONTENTS, ALLOC, LOAD, READONLY, DATA
+> >   3 .init.text    0004d123  ffff82d040600000  ffff82d040600000  001d8720  2**2
+> >                   CONTENTS, ALLOC, LOAD, READONLY, CODE
+> >   4 .init.data    0006c9b0  ffff82d040800000  ffff82d040800000  00225860  2**2
+> >                   CONTENTS, ALLOC, LOAD, DATA
+> >   5 .data.read_mostly 00028da8  ffff82d040a00000  ffff82d040a00000
+> > 00292220  2**4
+> >                   CONTENTS, ALLOC, LOAD, DATA
+> >   6 .data         0000feec  ffff82d040a29000  ffff82d040a29000  002bafe0  2**4
+> >                   CONTENTS, ALLOC, LOAD, DATA
+> >   7 .bss          00223108  ffff82d040a39000  ffff82d040a39000  00000000  2**4
+> >                   ALLOC
+> >   8 .reloc        000016b8  ffff82d040c5d000  ffff82d040c5d000  002caee0  2**2
+> >                   CONTENTS, ALLOC, LOAD, READONLY, DATA
+> >   9 .sbat         000000a6  ffff82d040c5f000  ffff82d040c5f000  002cc5a0  2**2
+> >                   CONTENTS, READONLY
+> >
+> > Which looks correct.
+> >
+> > From hexdump -C I can see close to the end
+> >
+> > ...
+> > 002cc580  30 ae 38 ae 60 ae 00 00  00 80 a3 00 10 00 00 00  |0.8.`...........|
+> > 002cc590  a0 ae c0 ae e0 ae 00 00  00 00 00 00 00 00 00 00  |................|
+> > 002cc5a0  73 62 61 74 2c 31 2c 53  42 41 54 20 56 65 72 73  |sbat,1,SBAT Vers|
+> > 002cc5b0  69 6f 6e 2c 73 62 61 74  2c 31 2c 68 74 74 70 73  |ion,sbat,1,https|
+> > 002cc5c0  3a 2f 2f 67 69 74 68 75  62 2e 63 6f 6d 2f 72 68  |://github.com/rh|
+> > 002cc5d0  62 6f 6f 74 2f 73 68 69  6d 2f 62 6c 6f 62 2f 6d  |boot/shim/blob/m|
+> > 002cc5e0  61 69 6e 2f 53 42 41 54  2e 6d 64 0a 78 65 6e 2e  |ain/SBAT.md.xen.|
+> > 002cc5f0  78 73 2c 31 2c 43 6c 6f  75 64 20 53 6f 66 74 77  |xs,1,Cloud Softw|
+> > 002cc600  61 72 65 20 47 72 6f 75  70 2c 78 65 6e 2c 34 2e  |are Group,xen,4.|
+> > 002cc610  32 30 2e 31 2d 37 2e 32  32 2e 67 33 65 30 36 37  |20.1-7.22.g3e067|
+> > 002cc620  32 36 62 2e 78 73 39 2c  6d 61 69 6c 74 6f 3a 73  |26b.xs9,mailto:s|
+> > 002cc630  65 63 75 72 69 74 79 40  78 65 6e 73 65 72 76 65  |ecurity@xenserve|
+> > 002cc640  72 2e 63 6f 6d 0a 00 00  00 00 00 00 00 00 00 00  |r.com...........|
+> > 002cc650  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+> > 002cc660  2c 00 00 00 2e 69 6e 69  74 2e 74 65 78 74 00 2e  |,....init.text..|
+> > 002cc670  69 6e 69 74 2e 64 61 74  61 00 2e 64 61 74 61 2e  |init.data..data.|
+> > 002cc680  72 65 61 64 5f 6d 6f 73  74 6c 79 00 00 00 00 00  |read_mostly.....|
+> > 002cc690  9e 05 00 00 00 02 02 00  30 82 05 92 06 09 2a 86  |........0.....*.|
+> > 002cc6a0  48 86 f7 0d 01 07 02 a0  82 05 83 30 82 05 7f 02  |H..........0....|
+> > 002cc6b0  01 01 31 0f 30 0d 06 09  60 86 48 01 65 03 04 02  |..1.0...`.H.e...|
+> > 002cc6c0  01 05 00 30 5c 06 0a 2b  06 01 04 01 82 37 02 01  |...0\..+.....7..|
+> > 002cc6d0  04 a0 4e 30 4c 30 17 06  0a 2b 06 01 04 01 82 37  |..N0L0...+.....7|
+> > 002cc6e0  02 01 0f 30 09 03 01 00  a0 04 a2 02 80 00 30 31  |...0..........01|
+> > 002cc6f0  30 0d 06 09 60 86 48 01  65 03 04 02 01 05 00 04  |0...`.H.e.......|
+> > 002cc700  20 e2 47 64 f8 e8 7b 62  eb 17 e0 13 0a 0d 93 02  | .Gd..{b........|
+> > 002cc710  7a d8 3b f0 20 a8 ee 3d  49 98 3f de c1 47 de 15  |z.;. ..=I.?..G..|
+> > 002cc720  43 a0 82 03 2c 30 82 03  28 30 82 02 10 a0 03 02  |C...,0..(0......|
+> > 002cc730  01 02 02 11 00 8f fc 11  bf 41 54 40 74 89 2c 53  |.........AT@t.,S|
+> > 002cc740  a5 78 c1 e8 32 30 0d 06  09 2a 86 48 86 f7 0d 01  |.x..20...*.H....|
+> > 002cc750  01 0b 05 00 30 1c 31 1a  30 18 06 03 55 04 03 13  |....0.1.0...U...|
+> > 002cc760  11 58 65 6e 53 65 72 76  65 72 20 58 65 6e 20 64  |.XenServer Xen d|
+> > 002cc770  65 76 30 1e 17 0d 32 35  30 33 32 30 31 36 35 35  |ev0...2503201655|
+> > 002cc780  30 37 5a 17 0d 33 37 30  31 31 39 30 33 31 34 30  |07Z..37011903140|
+> > 002cc790  37 5a 30 1c 31 1a 30 18  06 03 55 04 03 13 11 58  |7Z0.1.0...U....X|
+> > 002cc7a0  65 6e 53 65 72 76 65 72  20 58 65 6e 20 64 65 76  |enServer Xen dev|
+> > ...
+> >
+> > So, this confirms that the string table is there to support larger
+> > section names and the signature is there and it's working.
+>
+> But is it going to work on all EFI implementations, or merely the one you tried?
 
-alloc_workqueue() treats all queues as per-CPU by default, while unbound
-workqueues must opt-in via WQ_UNBOUND.
+Can you be more specific ?
+The file was tested using dozens of different hardware and under Qemu.
+Only x64 if it's what you mean.
 
-This default is suboptimal: most workloads benefit from unbound queues,
-allowing the scheduler to place worker threads where they’re needed and
-reducing noise when CPUs are isolated.
+> Of course it would help if Demi could give more concrete pointers to (possible)
+> implementations where there might be (known? suspected?) issues.
+>
+> Jan
 
-This continues the effort to refactor workqueue APIs, which began with
-the introduction of new workqueues and a new alloc_workqueue flag in:
-
-commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
-commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
-
-This change adds a new WQ_PERCPU flag to explicitly request alloc_workqueue()
-to be per-cpu when WQ_UNBOUND has not been specified.
-
-With the introduction of the WQ_PERCPU flag (equivalent to !WQ_UNBOUND),
-any alloc_workqueue() caller that doesn’t explicitly specify WQ_UNBOUND
-must now use WQ_PERCPU.
-
-Once migration is complete, WQ_UNBOUND can be removed and unbound will
-become the implicit default.
-
-Suggested-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
----
- drivers/xen/privcmd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-index f52a457b302d..402be080ad2c 100644
---- a/drivers/xen/privcmd.c
-+++ b/drivers/xen/privcmd.c
-@@ -1091,7 +1091,8 @@ static long privcmd_ioctl_irqfd(struct file *file, void __user *udata)
- 
- static int privcmd_irqfd_init(void)
- {
--	irqfd_cleanup_wq = alloc_workqueue("privcmd-irqfd-cleanup", 0, 0);
-+	irqfd_cleanup_wq = alloc_workqueue("privcmd-irqfd-cleanup", WQ_PERCPU,
-+					   0);
- 	if (!irqfd_cleanup_wq)
- 		return -ENOMEM;
- 
--- 
-2.51.1
-
+Frediano
 
