@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE211C3A375
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 11:25:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1156689.1485706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 821F6C3A3E7
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 11:28:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1156703.1485714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGxAr-0004A1-8v; Thu, 06 Nov 2025 10:25:01 +0000
+	id 1vGxDn-0004nU-LQ; Thu, 06 Nov 2025 10:28:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1156689.1485706; Thu, 06 Nov 2025 10:25:01 +0000
+Received: by outflank-mailman (output) from mailman id 1156703.1485714; Thu, 06 Nov 2025 10:28:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vGxAr-00046u-5b; Thu, 06 Nov 2025 10:25:01 +0000
-Received: by outflank-mailman (input) for mailman id 1156689;
- Thu, 06 Nov 2025 10:24:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vGxDn-0004lL-Ig; Thu, 06 Nov 2025 10:28:03 +0000
+Received: by outflank-mailman (input) for mailman id 1156703;
+ Thu, 06 Nov 2025 10:28:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IWGa=5O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vGxAp-00046o-GE
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 10:24:59 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d82b3893-bafa-11f0-9d17-b5c5bf9af7f9;
- Thu, 06 Nov 2025 11:24:58 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-640d0ec9651so1114509a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 02:24:58 -0800 (PST)
+ id 1vGxDl-0004lF-RN
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 10:28:01 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4477f417-bafb-11f0-980a-7dc792cee155;
+ Thu, 06 Nov 2025 11:27:59 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-b3c2c748bc8so89024366b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 02:27:59 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6411f866dd5sm1405401a12.32.2025.11.06.02.24.56
+ a640c23a62f3a-b728937cc82sm180928566b.21.2025.11.06.02.27.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Nov 2025 02:24:57 -0800 (PST)
+ Thu, 06 Nov 2025 02:27:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d82b3893-bafa-11f0-9d17-b5c5bf9af7f9
+X-Inumbo-ID: 4477f417-bafb-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762424697; x=1763029497; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762424879; x=1763029679; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=prnQff2mG8GAQcC84FcjGAocA+SkY+ow+f04EBM/5x4=;
-        b=IZnK4q7oJ1r6kTPmhz3WjnWwM0nB8hM8hJ+ufCRrLCSj0BEQVe/UAnJKUl4VE8qP3P
-         uzdwBi0NVT/LORJwoJt0aVrMTvojNtlnHMXvumt9bgWtRs9UCBHHvDgI8GubhCVigLCu
-         SvJIW1Y4CYcoXjJl426emxtXK6SOqzGkdjSUmlpydiJnjo0wGjf8IzSF9Hq+ayIQq0+i
-         S5JZpIMD8FepWlrvLmdZi6NsRMq2epcpCYKe3Go0o8XEm+TjThwPKbJUIKxC85kaGPBD
-         PyR78LTGyODmAyj+jMxMIvinze528S6X/j7UlxflW22caFgK/OAJDEyniam/AtMw8U3V
-         q0iQ==
+        bh=wszm90SDq8rh+OASjrbEcSMHOVviPpxjUlzTlCgtiSQ=;
+        b=GyTAtPkMY5PyVebTtP1nA31ex5ghUdj2utVNo+0+OTSI9SGpu27nmYIxH9jzTaXpaF
+         kBufW7J8k1/1v+yukKAab8EgQ51GzTRFyoxruPxIQ19aq8zndebSODXUlorQ74Ko8nnP
+         HsWFajnzpL+sCPczDm0EtRalYw4xTJDR/7xGgaFz5BAdA8P23eHfbQFFMEP8bdoUvZOx
+         zLzbzGT+GNL25qOAOU8RJtqzO0ul873S0BbdhaRIY9Uaf3agZyrwH6Psuq/gSdwGfvYj
+         hciTGHLKtAaBPdFWy+mGTIYpn3XhSdcXEizEPyOHj1f0se9gHa+f3Pb/em7wuVsmgLfO
+         CHjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762424697; x=1763029497;
+        d=1e100.net; s=20230601; t=1762424879; x=1763029679;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=prnQff2mG8GAQcC84FcjGAocA+SkY+ow+f04EBM/5x4=;
-        b=T/S4AdxXaTqNxTZkRDY2KsNQDCaAi3QPPG2RLoFip7DanJ19Pk1CuNKXmG5mG6xdIo
-         9IKWrGg8AGVpT3L1oW15F9vqBw1+pI+WIzyHqlaWdTqiOFeCM+gYMQX/+PPg/kCsMrbx
-         4UFaZeLpc76B96amRJ8q3t8KMmrZzdMiXw9JH4M1a/h8/i/q5hpJ/LwEwIrMQBDg45jH
-         0xHneJfdtM3D4F6nFTbCXoqe8N7V4KBidX2hIvI37pwQlNiDTpOfAn9ifezk7lkyG6Ok
-         pw1kRolhzJZo2+r1Qy0Yp8itj7pBjp+4/FysdR6fiqy0jbLw2DP8MicxbNTmwf68LSP2
-         p6oQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXHPQtkn+8vjLd4PMwpxKCbfVdVJs6WzJFeu7jpxSHD4xouOYeLw/TzL2BvJ5YjhDKV0b6mBElQy5w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywd2J8azfnjbZ+WpKHhSNjjKqCXueXb5Fpcy8x9C4uhsKYQnevM
-	Mm5zZSOUnWV3cqdKO3jHU90Ix/V/jDayKw718IY9OTbaPtpkhN07qsn4o/9JMumIAg==
-X-Gm-Gg: ASbGncsilmqJQARsK7+PdzC+hl+1LPXeEe1tYN5r8NUgIlftxjh3bhzKckFdwZ4WFtU
-	ORz593yJSUocFdE1IVo5TTnm2HGUxVU2xKCB8A4998Wq3EdSgg9RqHM3Cylq6suM8MuIqDOzF3e
-	H9CCT2AvDgz5SAx4VkxG0K5bjwmTLlOWxKx8EWEEpMY5gvLbfHN3Amh7e7nh18fQyeykcMW+Lf/
-	izFMhKPj+cGCdc79y9n5cU50JO6+ExlrXJz+h0tYKzbbBGlQ8Inu8vi+f1SNuTvjZvVJojISx5x
-	Y7yWNQ3l0U2Lt2CNXtndxjbqYpk9Bi0zlvqKZEEF8SmHKWw+bjEkvCCgAE2w9ZvmJwbD6RtSHmk
-	M6OZ7tSl2eL0lqDQ39v70o6ZapOWmRyfc0Ne0PoTfmIykwQNLveEeOrJuqqZkU/aoJanS038HUJ
-	lIBDJaO/XtbYS4aCI4/OSDxyU6pTf3ISs9+MXtA0KlQBUuMNQj61iYZn1cYMUP
-X-Google-Smtp-Source: AGHT+IEK6/XPI8boX+h4WHZZ6ms3u9YX2cwFEozGewBMj809BbL87XZWGWtCwKxLSbowCgNS3DbYZw==
-X-Received: by 2002:a05:6402:440a:b0:63c:5d27:7ed7 with SMTP id 4fb4d7f45d1cf-64105b707e7mr6186615a12.30.1762424697443;
-        Thu, 06 Nov 2025 02:24:57 -0800 (PST)
-Message-ID: <fb5d3725-617c-4cbb-b0f3-b8f6c84b19c1@suse.com>
-Date: Thu, 6 Nov 2025 11:25:00 +0100
+        bh=wszm90SDq8rh+OASjrbEcSMHOVviPpxjUlzTlCgtiSQ=;
+        b=QVfo0V4XN50otE8GUR4PWfUoY3pe6Rfv89CrbOdLF3pplvPqBvaHmcsUJJ0FUC71PH
+         A6W0rOq3bqyqjw5kGe/hYGhI9nCglUq+GsUwPZMbLjBtkVbDlFiIM1TlBdj+PpjDZl8z
+         Eco0Jklcj5bzv91I6cyufzroTP6FPdiJLfAEMTYTWAtYGdgpzgYQTMWks9XY+tssJ5K5
+         nPz+uUA4xvbNC93rdalMqvBHHSGjgzlK044Q1A24syHgNJG3CFtZ6EdB4JrR+0ICtHiY
+         ufyM9gGM5QUxAWRa9ElC4jOSB9kGVke+43ZFNAG3wp0BYlcLGLbaS+3BVX8xCwAA/ZCn
+         pCmg==
+X-Gm-Message-State: AOJu0Yy564hCQjLdLB64OHENWUR9XNBXJyun1q6VM7sUR+Wa4kh2UQxB
+	Lz0MXRwVZmH4t8TC/XKN7zGXePLBnYyB1cP5o3BFGsJBhA5rL+MWtUzKaEk2YYu/ZA==
+X-Gm-Gg: ASbGncvf2mYVAILzsh19EKfZJFYDLFHz8/EM82h3tfMQSAaz7Ncv/jPDOWnSlb73RLN
+	E+Hvynxh2g2GZAhM/WTyf9AB+keEZFnTu9gRanzMlDS8mgdkFIVkYcszq3OZOc6sy11uppFmT7Q
+	pDopfPf06rHs7bm9BaCV5Vf1BBawu8DYFRtlMmsSE+P467PkxDNtIZt+4Mmx7QdqzCy1FrDIOZy
+	lxHvHL9LfynbAbUgPECn1zo4uMtTHECvpfNatmQh+b3xuAwNVcVJSTFtrCrIpC6OVDF0M5A/EVh
+	zPmPhMuAGP0kc4CM3uHXBLcmZmzsVCoPfymaMszoROOUTF7RrzbsBu4bEz+0o8XjQ7ePAua4MZl
+	QAyLUhGFMk+ZsK8WzVtg0LQ1yK73olG+xIgGMOVQaBQL2gC3SzwBT7RWS5lkcrI6LatIfP+igmu
+	b0wjYDeX9u7vkv54jwlDfHhXTSzVJBH/BT0J/SRNhpK7su6jnNXMPOD9nVAID45whxpUS462o=
+X-Google-Smtp-Source: AGHT+IG2gcTld3Ci4OWk10h1HrY1SIf/SdzSwfBc+Wqtiklakzmxy+AskGMVDzlcE3SlfUlrgaA7rw==
+X-Received: by 2002:a17:906:6a11:b0:b5c:753a:a4d8 with SMTP id a640c23a62f3a-b72655a7531mr638241066b.62.1762424879050;
+        Thu, 06 Nov 2025 02:27:59 -0800 (PST)
+Message-ID: <98e2f19f-5fce-4ad1-b821-f5abb1f815f6@suse.com>
+Date: Thu, 6 Nov 2025 11:28:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/5] lib/arm: Add I/O memory copy helpers
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v3] xen: Strip xen.efi by default
+To: Frediano Ziglio <freddy77@gmail.com>
+Cc: xen-devel@lists.xenproject.org,
+ Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
- <jgross@suse.com>, Julien Grall <julien@xen.org>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1761998077.git.oleksii_moisieiev@epam.com>
- <33372689f3097b0dde1d47b81a1bb8176b35d20c.1761998077.git.oleksii_moisieiev@epam.com>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Demi Marie Obenour <demiobenour@gmail.com>
+References: <20251105153808.20278-1-frediano.ziglio@citrix.com>
+ <fdc9fd41-2224-4672-911e-3e17b428d32a@gmail.com>
+ <CAHt6W4eyH_7c4Q-KYaDjNJnSXjKSVNT1iSw0sNbLMXnK3iEHRg@mail.gmail.com>
+ <d193feac-3285-4c26-9a8a-ba09437e7e76@gmail.com>
+ <CAHt6W4fEbuk+VzjFxfz5=T8GXCVW_jSoqqMAkiQTXL79B93SPg@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,214 +128,88 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <33372689f3097b0dde1d47b81a1bb8176b35d20c.1761998077.git.oleksii_moisieiev@epam.com>
+In-Reply-To: <CAHt6W4fEbuk+VzjFxfz5=T8GXCVW_jSoqqMAkiQTXL79B93SPg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.11.2025 12:56, Oleksii Moisieiev wrote:
-> --- /dev/null
-> +++ b/xen/include/xen/lib/io.h
-> @@ -0,0 +1,83 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Generic I/O memory copy function prototypes.
-> + *
-> + * These functions provide low-level implementation for copying data between
-> + * regular memory and I/O memory regions. Each architecture must provide its
-> + * own implementation based on the specific requirements of the architecture's
-> + * memory model and I/O access patterns.
-> + *
-> + * Architecture-specific implementations:
-> + * =====================================
-> + * Each architecture should implement these functions in xen/lib/<arch>/io.c
-> + * based on their hardware requirements:
-> + *
-> + * - ARM/ARM64: Requires special I/O accessors (readl_relaxed, writel_relaxed)
-> + *              with proper memory barriers and alignment handling.
-> + *              See xen/lib/arm/io.c for implementation.
-> + *
-> + * - x86/x86_64: I/O memory is directly accessible, so typically uses:
-> + *               #define memcpy_fromio memcpy
-> + *               #define memcpy_toio   memcpy
-> + *               See xen/arch/x86/dmi_scan.c for example usage.
+On 06.11.2025 10:58, Frediano Ziglio wrote:
+> On Thu, 6 Nov 2025 at 03:52, Demi Marie Obenour <demiobenour@gmail.com> wrote:
+>> Does objdump on the signed file return correct section names?
+> 
+> From objdump -x
+> 
+> Sections:
+> Idx Name          Size      VMA               LMA               File off  Algn
+>   0 .text         0016c9ae  ffff82d040200000  ffff82d040200000  00000320  2**4
+>                   CONTENTS, ALLOC, LOAD, READONLY, CODE
+>   1 .rodata       0006b9e8  ffff82d040400000  ffff82d040400000  0016cce0  2**2
+>                   CONTENTS, ALLOC, LOAD, DATA
+>   2 .buildid      00000035  ffff82d04046c000  ffff82d04046c000  001d86e0  2**2
+>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
+>   3 .init.text    0004d123  ffff82d040600000  ffff82d040600000  001d8720  2**2
+>                   CONTENTS, ALLOC, LOAD, READONLY, CODE
+>   4 .init.data    0006c9b0  ffff82d040800000  ffff82d040800000  00225860  2**2
+>                   CONTENTS, ALLOC, LOAD, DATA
+>   5 .data.read_mostly 00028da8  ffff82d040a00000  ffff82d040a00000
+> 00292220  2**4
+>                   CONTENTS, ALLOC, LOAD, DATA
+>   6 .data         0000feec  ffff82d040a29000  ffff82d040a29000  002bafe0  2**4
+>                   CONTENTS, ALLOC, LOAD, DATA
+>   7 .bss          00223108  ffff82d040a39000  ffff82d040a39000  00000000  2**4
+>                   ALLOC
+>   8 .reloc        000016b8  ffff82d040c5d000  ffff82d040c5d000  002caee0  2**2
+>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
+>   9 .sbat         000000a6  ffff82d040c5f000  ffff82d040c5f000  002cc5a0  2**2
+>                   CONTENTS, READONLY
+> 
+> Which looks correct.
+> 
+> From hexdump -C I can see close to the end
+> 
+> ...
+> 002cc580  30 ae 38 ae 60 ae 00 00  00 80 a3 00 10 00 00 00  |0.8.`...........|
+> 002cc590  a0 ae c0 ae e0 ae 00 00  00 00 00 00 00 00 00 00  |................|
+> 002cc5a0  73 62 61 74 2c 31 2c 53  42 41 54 20 56 65 72 73  |sbat,1,SBAT Vers|
+> 002cc5b0  69 6f 6e 2c 73 62 61 74  2c 31 2c 68 74 74 70 73  |ion,sbat,1,https|
+> 002cc5c0  3a 2f 2f 67 69 74 68 75  62 2e 63 6f 6d 2f 72 68  |://github.com/rh|
+> 002cc5d0  62 6f 6f 74 2f 73 68 69  6d 2f 62 6c 6f 62 2f 6d  |boot/shim/blob/m|
+> 002cc5e0  61 69 6e 2f 53 42 41 54  2e 6d 64 0a 78 65 6e 2e  |ain/SBAT.md.xen.|
+> 002cc5f0  78 73 2c 31 2c 43 6c 6f  75 64 20 53 6f 66 74 77  |xs,1,Cloud Softw|
+> 002cc600  61 72 65 20 47 72 6f 75  70 2c 78 65 6e 2c 34 2e  |are Group,xen,4.|
+> 002cc610  32 30 2e 31 2d 37 2e 32  32 2e 67 33 65 30 36 37  |20.1-7.22.g3e067|
+> 002cc620  32 36 62 2e 78 73 39 2c  6d 61 69 6c 74 6f 3a 73  |26b.xs9,mailto:s|
+> 002cc630  65 63 75 72 69 74 79 40  78 65 6e 73 65 72 76 65  |ecurity@xenserve|
+> 002cc640  72 2e 63 6f 6d 0a 00 00  00 00 00 00 00 00 00 00  |r.com...........|
+> 002cc650  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+> 002cc660  2c 00 00 00 2e 69 6e 69  74 2e 74 65 78 74 00 2e  |,....init.text..|
+> 002cc670  69 6e 69 74 2e 64 61 74  61 00 2e 64 61 74 61 2e  |init.data..data.|
+> 002cc680  72 65 61 64 5f 6d 6f 73  74 6c 79 00 00 00 00 00  |read_mostly.....|
+> 002cc690  9e 05 00 00 00 02 02 00  30 82 05 92 06 09 2a 86  |........0.....*.|
+> 002cc6a0  48 86 f7 0d 01 07 02 a0  82 05 83 30 82 05 7f 02  |H..........0....|
+> 002cc6b0  01 01 31 0f 30 0d 06 09  60 86 48 01 65 03 04 02  |..1.0...`.H.e...|
+> 002cc6c0  01 05 00 30 5c 06 0a 2b  06 01 04 01 82 37 02 01  |...0\..+.....7..|
+> 002cc6d0  04 a0 4e 30 4c 30 17 06  0a 2b 06 01 04 01 82 37  |..N0L0...+.....7|
+> 002cc6e0  02 01 0f 30 09 03 01 00  a0 04 a2 02 80 00 30 31  |...0..........01|
+> 002cc6f0  30 0d 06 09 60 86 48 01  65 03 04 02 01 05 00 04  |0...`.H.e.......|
+> 002cc700  20 e2 47 64 f8 e8 7b 62  eb 17 e0 13 0a 0d 93 02  | .Gd..{b........|
+> 002cc710  7a d8 3b f0 20 a8 ee 3d  49 98 3f de c1 47 de 15  |z.;. ..=I.?..G..|
+> 002cc720  43 a0 82 03 2c 30 82 03  28 30 82 02 10 a0 03 02  |C...,0..(0......|
+> 002cc730  01 02 02 11 00 8f fc 11  bf 41 54 40 74 89 2c 53  |.........AT@t.,S|
+> 002cc740  a5 78 c1 e8 32 30 0d 06  09 2a 86 48 86 f7 0d 01  |.x..20...*.H....|
+> 002cc750  01 0b 05 00 30 1c 31 1a  30 18 06 03 55 04 03 13  |....0.1.0...U...|
+> 002cc760  11 58 65 6e 53 65 72 76  65 72 20 58 65 6e 20 64  |.XenServer Xen d|
+> 002cc770  65 76 30 1e 17 0d 32 35  30 33 32 30 31 36 35 35  |ev0...2503201655|
+> 002cc780  30 37 5a 17 0d 33 37 30  31 31 39 30 33 31 34 30  |07Z..37011903140|
+> 002cc790  37 5a 30 1c 31 1a 30 18  06 03 55 04 03 13 11 58  |7Z0.1.0...U....X|
+> 002cc7a0  65 6e 53 65 72 76 65 72  20 58 65 6e 20 64 65 76  |enServer Xen dev|
+> ...
+> 
+> So, this confirms that the string table is there to support larger
+> section names and the signature is there and it's working.
 
-I'm not quite sure this is true, especially when now we prefer to use REP MOVSB
-there. You don't provide the x86 implementation anyway, so it's not clear whether
-it's a good idea so say anything here about (unclear) future code. (What may be
-appropriate in dmi_scan.c, where it's really RAM that is being accessed, may not
-be appropriate for actual MMIO.)
-
-> + * - Other architectures (RISC-V, PowerPC, MIPS, etc.): Should provide their
-> + *   own implementations following the function signatures defined below.
-> + *
-> + * Naming Convention:
-> + * ==================
-> + * The double underscore (__) prefix indicates these are low-level "raw"
-> + * implementation functions, following the Linux kernel convention for
-> + * architecture-specific primitives. This warns developers that these
-> + * functions have specific requirements and should not be confused with
-> + * regular memcpy().
-
-I disagree here. We really should stop violating name spacing rules set forth
-by the spec and/or Misra.
-
-> + */
-> +
-> +#ifndef _XEN_LIB_IO_H
-> +#define _XEN_LIB_IO_H
-> +
-> +#include <xen/types.h>
-> +
-> +/*
-> + * __memcpy_fromio - Copy data from I/O memory space to regular memory
-> + * @to: Destination buffer in regular memory
-> + * @from: Source address in I/O memory space (must be marked __iomem)
-> + * @count: Number of bytes to copy
-> + *
-> + * This function handles copying from memory-mapped I/O regions using
-> + * architecture-appropriate I/O accessor functions. It ensures proper:
-> + * - Memory ordering and barriers
-> + * - Alignment requirements
-> + * - Hardware-specific access semantics
-> + *
-> + * Each architecture provides its own implementation that may:
-> + * - Use special I/O accessor functions (ARM: readl_relaxed, readb_relaxed)
-> + * - Implement alignment handling for devices requiring specific access sizes
-> + * - Add memory barriers to ensure ordering with other I/O operations
-> + * - Or simply map to memcpy() if the architecture allows direct I/O access
-> + */
-> +extern void __memcpy_fromio(void *to, const volatile void __iomem *from,
-> +                            size_t count);
-> +
-> +/*
-> + * __memcpy_toio - Copy data from regular memory to I/O memory space
-> + * @to: Destination address in I/O memory space (must be marked __iomem)
-> + * @from: Source buffer in regular memory
-> + * @count: Number of bytes to copy
-> + *
-> + * This function handles copying to memory-mapped I/O regions using
-> + * architecture-appropriate I/O accessor functions. It ensures proper:
-> + * - Memory ordering and barriers
-> + * - Alignment requirements
-> + * - Hardware-specific access semantics
-> + *
-> + * Each architecture provides its own implementation that may:
-> + * - Use special I/O accessor functions (ARM: writel_relaxed, writeb_relaxed)
-> + * - Implement alignment handling for devices requiring specific access sizes
-> + * - Add memory barriers to ensure ordering with other I/O operations
-> + * - Or simply map to memcpy() if the architecture allows direct I/O access
-> + */
-> +extern void __memcpy_toio(volatile void __iomem *to, const void *from,
-> +                          size_t count);
-> +
-> +#endif /* _XEN_LIB_IO_H */
-
-There are no provisions here for an arch using macro aliasing, as you suggest in
-the comment further up for x86.
-
-> --- /dev/null
-> +++ b/xen/lib/arm/io.c
-> @@ -0,0 +1,102 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#include <asm/io.h>
-> +#include <xen/lib/io.h>
-> +
-> +/*
-> + * These functions use 32-bit (uint32_t) IO operations rather than 64-bit for
-> + * the following reasons:
-> + *
-> + * 1. ARM32/ARM64 compatibility: On ARM32, there is no atomic 64-bit IO accessor
-> + *    (readq_relaxed). Only readq_relaxed_non_atomic() exists, which internally
-> + *    performs two separate 32-bit reads. Using it would not provide any
-> + *    performance benefit and could introduce ordering issues.
-> + *
-> + * 2. Hardware compatibility: Many IO devices only support 32-bit aligned accesses.
-> + *    64-bit accesses might not be supported or could cause bus errors on some
-> + *    hardware.
-> + *
-> + * 3. Simplicity: Using 32-bit operations keeps the code simple, maintainable,
-> + *    and consistent across both ARM32 and ARM64 architectures without
-> + *    architecture-specific conditionals.
-> + *
-> + * The performance difference between 32-bit and 64-bit operations in this
-> + * context is negligible compared to the IO access latency itself.
-> + */
-> +
-> +/*
-> + * memcpy_fromio - Copy data from IO memory space to "real" memory space.
-> + * @to: Where to copy to
-> + * @from: Where to copy from
-> + * @count: The size of the area.
-> + */
-> +void __memcpy_fromio(void *to, const volatile void __iomem *from,
-> +                     size_t count)
-> +{
-> +    while ( count && !IS_ALIGNED((unsigned long)from, 4) )
-> +    {
-> +        *(uint8_t *)to = readb_relaxed(from);
-> +        from++;
-> +        to++;
-> +        count--;
-> +    }
-> +
-> +    while ( count >= 4 )
-> +    {
-> +        *(uint32_t *)to = readl_relaxed(from);
-
-Is this going to be fine on Arm32, when "to" doesn't point at a 4-byte-aligned
-location?
-
-> +        from += 4;
-> +        to += 4;
-> +        count -= 4;
-> +    }
-> +
-> +    while ( count )
-> +    {
-> +        *(uint8_t *)to = readb_relaxed(from);
-> +        from++;
-> +        to++;
-> +        count--;
-> +    }
-> +}
-> +
-> +/*
-> + * memcpy_toio - Copy data from "real" memory space to IO memory space.
-> + * @to: Where to copy to
-> + * @from: Where to copy from
-> + * @count: The size of the area.
-> + */
-> +void __memcpy_toio(volatile void __iomem *to, const void *from,
-> +                   size_t count)
-> +{
-> +    while ( count && !IS_ALIGNED((unsigned long)to, 4) )
-> +    {
-> +        writeb_relaxed(*(const uint8_t *)from, to);
-> +        from++;
-> +        to++;
-> +        count--;
-> +    }
-> +
-> +    while ( count >= 4 )
-> +    {
-> +        writel_relaxed(*(const uint32_t *)from, to);
-> +        from += 4;
-> +        to += 4;
-> +        count -= 4;
-> +    }
-> +
-> +    while ( count )
-> +    {
-> +        writeb_relaxed(*(const uint8_t *)from, to);
-> +        from++;
-> +        to++;
-> +        count--;
-> +    }
-> +}
-
-Is use of {read,write}l_relaxed() appropriate here anyway, when those
-functions do endian-ness conversions (which memcpy()-like functions clearly
-shouldn't do)?
+But is it going to work on all EFI implementations, or merely the one you tried?
+Of course it would help if Demi could give more concrete pointers to (possible)
+implementations where there might be (known? suspected?) issues.
 
 Jan
 
