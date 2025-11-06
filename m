@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 948ADC3C33D
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 16:58:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1157071.1485991 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DF2FC3C361
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 16:59:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1157085.1486013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH2N5-0007Ir-D6; Thu, 06 Nov 2025 15:57:59 +0000
+	id 1vH2Of-00081g-G1; Thu, 06 Nov 2025 15:59:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1157071.1485991; Thu, 06 Nov 2025 15:57:59 +0000
+Received: by outflank-mailman (output) from mailman id 1157085.1486013; Thu, 06 Nov 2025 15:59:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH2N5-0007GP-9g; Thu, 06 Nov 2025 15:57:59 +0000
-Received: by outflank-mailman (input) for mailman id 1157071;
- Thu, 06 Nov 2025 15:57:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vH2Of-0007vh-7c; Thu, 06 Nov 2025 15:59:37 +0000
+Received: by outflank-mailman (input) for mailman id 1157085;
+ Thu, 06 Nov 2025 15:58:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YCkv=5O=bounce.vates.tech=bounce-md_30504962.690cc582.v1-35b18899a5f3438fb6e7c458c2edc1ae@srs-se1.protection.inumbo.net>)
- id 1vH2N4-0007GJ-5A
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 15:57:58 +0000
-Received: from mail136-17.atl41.mandrillapp.com
- (mail136-17.atl41.mandrillapp.com [198.2.136.17])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5ba3e496-bb29-11f0-9d17-b5c5bf9af7f9;
- Thu, 06 Nov 2025 16:57:56 +0100 (CET)
-Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail136-17.atl41.mandrillapp.com (Mailchimp) with ESMTP id
- 4d2Rfp1kC0zPm0Wcy
- for <xen-devel@lists.xenproject.org>; Thu,  6 Nov 2025 15:57:54 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 35b18899a5f3438fb6e7c458c2edc1ae; Thu, 06 Nov 2025 15:57:54 +0000
+ <SRS0=tFS0=5O=suse.com=marco.crivellari@srs-se1.protection.inumbo.net>)
+ id 1vH2Np-0007c8-Ri
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 15:58:45 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 76bfe22c-bb29-11f0-980a-7dc792cee155;
+ Thu, 06 Nov 2025 16:58:41 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3ecde0be34eso1298241f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 07:58:41 -0800 (PST)
+Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-429eb403793sm5758966f8f.2.2025.11.06.07.58.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Nov 2025 07:58:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,229 +45,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ba3e496-bb29-11f0-9d17-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1762444674; x=1762714674;
-	bh=BYXZ9x9p2TsalxisIObnU5c4RxIs82a+71hF6ySnFmY=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=JilvSfYEvr6dXrwHWxYLiB83LfWRyOthtMjHDgyI+iFsjLP2/7TfLRkJ1OmlsCwei
-	 oMV1L4Fb1vcl6+e4nrXr9jsw6bH/7pityY7ZZgdMq9r3UZLbvyUUP1WQG4gOWYTuch
-	 85bm8La/b7ge2ZAMEJTzXkYkw3akhDr4Umk0Yp3uliyBJxDBEwcqGcVQHu+lGillPt
-	 IHsk4V+0RkmGnWEq8VR+WvFHlgKeeooWQGCdi2EszVZNL6ABqg7ryy90JO/CPjefMe
-	 Xe2O+GE2VO+Y10aww406fwL9oQpvnhR4odfdChpOWlt4Qf6n8YN44YY1qgEzDLkEGc
-	 gRq1MjvCQxqRA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1762444674; x=1762705174; i=teddy.astie@vates.tech;
-	bh=BYXZ9x9p2TsalxisIObnU5c4RxIs82a+71hF6ySnFmY=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=a456u8IauwgXxWeCaP8ponMjlZ9N5/NmV0vOKTfGM7V5SSR7wOVwdL+lZt729PEjR
-	 XE56Tw3LfOJ57tWX7/UtU7IX+lMZmGzP0dqsRacFUJ6LUTtgFs295MjO3GpGjQq7kq
-	 M5KuEJSMJ5jWmCNr300Lqbe2ilHdw1aimxWaXS+oun9tKvPO8pin3oMSIlFDxdCmG7
-	 Fsjst/qwLXxQpAgQdUgEgvP3NKlt9ey7AvLGUNz8feNdDj5Kl2q0AqwNz6/xnmOgat
-	 FboYwbDtYTr8NMqoeWkijMu7iz9epOKApy0cU5QpIku2X7nM69lcVMha8TbvnVleXY
-	 MiqkEwhZrCLpA==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[XEN][PATCH]=20xen/x86:=20guest=5Faccess:=20optimize=20raw=5Fx=5Fguest()=20for=20PV=20and=20HVM=20combinations?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1762444672391
-Message-Id: <434d9ce4-e5e1-453d-84b7-e21e66d0c5a3@vates.tech>
-To: "Grygorii Strashko" <grygorii_strashko@epam.com>, xen-devel@lists.xenproject.org
-Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "Alejandro Vallejo" <alejandro.garciavallejo@amd.com>, "Jason Andryuk" <jason.andryuk@amd.com>
-References: <20251031212058.1338332-1-grygorii_strashko@epam.com>
-In-Reply-To: <20251031212058.1338332-1-grygorii_strashko@epam.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.35b18899a5f3438fb6e7c458c2edc1ae?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251106:md
-Date: Thu, 06 Nov 2025 15:57:54 +0000
+X-Inumbo-ID: 76bfe22c-bb29-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1762444720; x=1763049520; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4FL6nYeU7/sYbYGrjWjcW/vfma09XwfZvs7Q6SdJJn4=;
+        b=BCLWII1OZU1Jk6DDtyMm1tkwMgQg3mheNzlUKH2G/alQCMAXyfDaRpcUkGrzB5YKwE
+         s1xfmCY0fkve5bljN53WPqUg8OlhgVbdAmepgf2vh9fBrCKFaPzUYRmTfGciBdwC1dOL
+         JGgDRy0C+aLHgLQ56APi1TZ1/muEy8yn4IrlezPIXvVSGotMZIrap6/hNOwZv8Y1RBLn
+         8YGoIR0QyL4jLQ+fLfdIhGngY2q1vr7cH2YBohkryEHjkUrQ2RfrN1iLx3SwpbdDnPPJ
+         rGz7orhM7M+Fr2Y2gF4slcySEyXC6nz/OWheSqSxWnj3lUG8AmNcCZdWpyo/2nGFiJ0o
+         W8zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1762444720; x=1763049520;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4FL6nYeU7/sYbYGrjWjcW/vfma09XwfZvs7Q6SdJJn4=;
+        b=mIuN7uMSFLCX/RpYfLV9UTK+kVatiG0fyIZ7iQJvfwJhdmg+++IP1wyXH9f9H8sxIK
+         ARNNO+Gzt6g2HRVMJl3ielpAqgKhyuw3ISG3i53GuCm/vppsc9EFMDRnEVc9FnTU2FMy
+         WZzPvQa7ppYeLhHYHCCDz8hG2XQDSQF1xKrE0EentiFdLf/uNgPrO/9SVNyEtKW9beUH
+         keuGSqGRwPtwSLaxBleXDjk3ngk7Y/RCcxT4G7Km/o8FStPQFtcs14PIL8sOgCh76gI0
+         3C7fQPPndfYzysUPoCaikURhyCoZqgwUEDyioMzGri6iJYeYTKGq4xWBxdDTPcd4CazU
+         yE7g==
+X-Forwarded-Encrypted: i=1; AJvYcCVVUahZizo46A81C7GwGbNBCrZ/7hhP/SCy9nEZtdnAx6saAWIAhObv4utqbQtMe0VVgoyDQdAZiTw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxX7gG0caLGajVyKRQj9BsY4U4PL5imGR3Cl3XqIZWTx1qEcZe0
+	LceaCPJWw+y8Ep5NxwEULhQpHFJ7Sg7Xk4nP1FSn6BzbLqwDfr6CScA824WlLTIwA+0=
+X-Gm-Gg: ASbGncuspk7qpHKEyvB3kZyurIkaAoBpPZa0vMeLQynTGilJKISWRAbOTJCRGKB0gyP
+	JXUQcHrrPrcHoj2OwcaIlyNV8UAqoeRsB3k1DGjYMBQvPv8FTR+8thjyptr/0kF5erA0WSYRN63
+	dzPlA/fyDiFdCD9tQ7rmLXuCE8PikOa+qFmc62WYGiFn622unk5h0wkOAfoOaQ2pkZdvT9lw1//
+	yS3cVooMr/c46jwfVt6RJKskrrZFjSJvIM4/GrAw/4StFLPF/Id4PCmFkaVlfLNccjkTL97uOc7
+	qGl84kFSjv2K/abBYmjypK9uqWeIZDt4dtoMzIBHTJTMCWdtrGzUkziC1F40rxYQOJBkXz1WlGt
+	RZYeP6NvHlBdI+AAiR3wfVbxvVQxsUibRr5UMkRpdQWgAsJZcP7OTB+S3zgnH5gFSquF13Sntv5
+	WWAySdgECIc5xQH68bjUz7WJA=
+X-Google-Smtp-Source: AGHT+IH8Fw/SiYYMB3pMDxqZxhmpJLxioCFXohxA9aJIH8CCNIcwKocF7Uc9vAgCmTSIo71Hr8Z5Aw==
+X-Received: by 2002:a05:6000:2910:b0:411:3c14:3ad9 with SMTP id ffacd0b85a97d-42a9579c728mr61206f8f.21.1762444720333;
+        Thu, 06 Nov 2025 07:58:40 -0800 (PST)
+From: Marco Crivellari <marco.crivellari@suse.com>
+To: linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Cc: Tejun Heo <tj@kernel.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: [PATCH 0/2] replace system_wq with system_percpu_wq, add WQ_PERCPU to alloc_workqueue
+Date: Thu,  6 Nov 2025 16:58:29 +0100
+Message-ID: <20251106155831.306248-1-marco.crivellari@suse.com>
+X-Mailer: git-send-email 2.51.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Le 31/10/2025 =C3=A0 22:25, Grygorii Strashko a =C3=A9crit=C2=A0:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
-> 
-> Xen uses below pattern for raw_x_guest() functions:
-> 
-> define raw_copy_to_guest(dst, src, len)        \
->      (is_hvm_vcpu(current) ?                     \
->       copy_to_user_hvm((dst), (src), (len)) :    \
->       copy_to_guest_pv(dst, src, len))
-> 
-> How this pattern is working depends on CONFIG_PV/CONFIG_HVM as:
-> - PV=3Dy and HVM=3Dy
->    Proper guest access function is selected depending on domain type.
-> - PV=3Dy and HVM=3Dn
->    Only PV domains are possible. is_hvm_domain/vcpu() will constify to "f=
-alse"
->    and compiler will optimize code and skip HVM specific part.
-> - PV=3Dn and HVM=3Dy
->    Only HVM domains are possible. is_hvm_domain/vcpu() will not be consti=
-fied.
->    No PV specific code will be optimized by compiler.
-> - PV=3Dn and HVM=3Dn
->    No guests should possible. The code will still follow PV path.
-> 
-> Rework raw_x_guest() code to use required functions explicitly for each
-> combination of CONFIG_PV/CONFIG_HVM with main intention to optimize code =
-for
-> (PV=3Dn and HVM=3Dy) case.
-> 
-> For the case (PV=3Dn and HVM=3Dn) empty stubs are created which return (1=
-)
-> indicating failure. Hence, no guests should possible in this case -
-> which means no access to guest memory  should ever happen.
-> The two calls of __raw_copy_to_guest() in common/domain.c->update_runstat=
-e_area()
-> are fixed for this case by explicitly cast the return value to void
-> (MISRA C Rule 17.7).
-> 
-> Finally build arch/x86/usercopy.c only for PV=3Dy.
-> 
-> The measured (bloat-o-meter) improvement for (PV=3Dn and HVM=3Dy) case is=
-:
->    add/remove: 0/10 grow/shrink: 2/90 up/down: 163/-30932 (-30769)
->    Total: Before=3D1937113, After=3D1906344, chg -1.59%
-> 
-> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-> ---
->   xen/arch/x86/Makefile                   |  2 +-
->   xen/arch/x86/include/asm/guest_access.h | 38 +++++++++++++++++++++++++
->   xen/common/domain.c                     | 10 ++++---
->   3 files changed, 45 insertions(+), 5 deletions(-)
-> 
-> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-> index 407571c510e1..27f131ffeb61 100644
-> --- a/xen/arch/x86/Makefile
-> +++ b/xen/arch/x86/Makefile
-> @@ -71,7 +71,7 @@ obj-y +=3D time.o
->   obj-y +=3D traps-setup.o
->   obj-y +=3D traps.o
->   obj-$(CONFIG_INTEL) +=3D tsx.o
-> -obj-y +=3D usercopy.o
-> +obj-$(CONFIG_PV) +=3D usercopy.o
->   obj-y +=3D x86_emulate.o
->   obj-$(CONFIG_TBOOT) +=3D tboot.o
->   obj-y +=3D hpet.o
-> diff --git a/xen/arch/x86/include/asm/guest_access.h b/xen/arch/x86/inclu=
-de/asm/guest_access.h
-> index 69716c8b41bb..36aeb89524ab 100644
-> --- a/xen/arch/x86/include/asm/guest_access.h
-> +++ b/xen/arch/x86/include/asm/guest_access.h
-> @@ -13,6 +13,7 @@
->   #include <asm/hvm/guest_access.h>
->   
->   /* Raw access functions: no type checking. */
-> +#if defined(CONFIG_PV) && defined(CONFIG_HVM)
->   #define raw_copy_to_guest(dst, src, len)        \
->       (is_hvm_vcpu(current) ?                     \
->        copy_to_user_hvm((dst), (src), (len)) :    \
-> @@ -34,6 +35,43 @@
->        copy_from_user_hvm((dst), (src), (len)) :  \
->        __copy_from_guest_pv(dst, src, len))
->   
-> +#elif defined(CONFIG_HVM)
-> +#define raw_copy_to_guest(dst, src, len)        \
-> +     copy_to_user_hvm((dst), (src), (len))
-> +#define raw_copy_from_guest(dst, src, len)      \
-> +     copy_from_user_hvm((dst), (src), (len))
-> +#define raw_clear_guest(dst,  len)              \
-> +     clear_user_hvm((dst), (len))
-> +#define __raw_copy_to_guest(dst, src, len)      \
-> +     copy_to_user_hvm((dst), (src), (len))
-> +#define __raw_copy_from_guest(dst, src, len)    \
-> +     copy_from_user_hvm((dst), (src), (len))
-> +
-> +#elif defined(CONFIG_PV)
-> +#define raw_copy_to_guest(dst, src, len)        \
-> +     copy_to_guest_pv(dst, src, len)
-> +#define raw_copy_from_guest(dst, src, len)      \
-> +     copy_from_guest_pv(dst, src, len)
-> +#define raw_clear_guest(dst,  len)              \
-> +     clear_guest_pv(dst, len)
-> +#define __raw_copy_to_guest(dst, src, len)      \
-> +     __copy_to_guest_pv(dst, src, len)
-> +#define __raw_copy_from_guest(dst, src, len)    \
-> +     __copy_from_guest_pv(dst, src, len)
-> +
-> +#else
-> +#define raw_copy_to_guest(dst, src, len)        \
-> +        ((void)(dst), (void)(src), (void)(len), 1)
-> +#define raw_copy_from_guest(dst, src, len)      \
-> +        ((void)(dst), (void)(src), (void)(len), 1)
-> +#define raw_clear_guest(dst, len)               \
-> +        ((void)(dst), (void)(len), 1)
-> +#define __raw_copy_to_guest(dst, src, len)      \
-> +        ((void)(dst), (void)(src), (void)(len), 1)
-> +#define __raw_copy_from_guest(dst, src, len)    \
-> +        ((void)(dst), (void)(src), (void)(len), 1)
-> +#endif
-> +
->   /*
->    * Pre-validate a guest handle.
->    * Allows use of faster __copy_* functions.
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index 4f91316ad93e..c603edcc7d46 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -1985,8 +1985,9 @@ bool update_runstate_area(struct vcpu *v)
->   #endif
->           guest_handle--;
->           runstate.state_entry_time |=3D XEN_RUNSTATE_UPDATE;
-> -        __raw_copy_to_guest(guest_handle,
-> -                            (void *)(&runstate.state_entry_time + 1) - 1=
-, 1);
-> +        (void)__raw_copy_to_guest(guest_handle,
-> +                                  (void *)(&runstate.state_entry_time + =
-1) - 1,
-> +                                  1);
->           smp_wmb();
->       }
->   
-> @@ -2008,8 +2009,9 @@ bool update_runstate_area(struct vcpu *v)
->       {
->           runstate.state_entry_time &=3D ~XEN_RUNSTATE_UPDATE;
->           smp_wmb();
-> -        __raw_copy_to_guest(guest_handle,
-> -                            (void *)(&runstate.state_entry_time + 1) - 1=
-, 1);
-> +        (void)__raw_copy_to_guest(guest_handle,
-> +                                  (void *)(&runstate.state_entry_time + =
-1) - 1,
-> +                                  1);
->       }
->   
->       update_guest_memory_policy(v, &policy);
+Hi,
 
-Alternatively, we can make all the raw_* functions `static inline` and 
-have something like this which should have the same effect with much 
-less redundancy.
+=== Current situation: problems ===
 
-static inline
-unsigned int raw_copy_to_user_hvm(void *to, const void *from,
-                                   unsigned int len)
-{
-     if ( IS_ENABLED(CONFIG_HVM) &&
-          (!IS_ENABLED(CONFIG_PV) || is_hvm_vcpu(current) )
-        copy_to_user_hvm(to, from, len);
-     else if ( IS_ENABLED(CONFIG_PV) )
-        copy_to_guest_pv(to, from, len);
-}
+Let's consider a nohz_full system with isolated CPUs: wq_unbound_cpumask is
+set to the housekeeping CPUs, for !WQ_UNBOUND the local CPU is selected.
 
-Teddy
+This leads to different scenarios if a work item is scheduled on an
+isolated CPU where "delay" value is 0 or greater then 0:
+        schedule_delayed_work(, 0);
+
+This will be handled by __queue_work() that will queue the work item on the
+current local (isolated) CPU, while:
+
+        schedule_delayed_work(, 1);
+
+Will move the timer on an housekeeping CPU, and schedule the work there.
+
+Currently if a user enqueue a work item using schedule_delayed_work() the
+used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
+WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
+schedule_work() that is using system_wq and queue_work(), that makes use
+again of WORK_CPU_UNBOUND.
+
+This lack of consistency cannot be addressed without refactoring the API.
+
+=== Recent changes to the WQ API ===
+
+The following, address the recent changes in the Workqueue API:
+
+- commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
+- commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
+
+The old workqueues will be removed in a future release cycle.
+
+=== Introduced Changes by this series ===
+
+1) [P 1] Replace uses of system_wq
+
+    system_wq is a per-CPU workqueue, but his name is not clear.
+    Because of that, system_wq has been replaced with system_percpu_wq.
+
+2) [P 2] WQ_PERCPU added to alloc_workqueue()
+
+    This change adds a new WQ_PERCPU flag to explicitly request
+    alloc_workqueue() to be per-cpu when WQ_UNBOUND has not been specified.
 
 
---
-Teddy Astie | Vates XCP-ng Developer
+Thanks!
 
-XCP-ng & Xen Orchestra - Vates solutions
 
-web: https://vates.tech
+Marco Crivellari (2):
+  xen/events: replace use of system_wq with system_percpu_wq
+  xen: privcmd: WQ_PERCPU added to alloc_workqueue users
 
+ drivers/xen/events/events_base.c | 6 +++---
+ drivers/xen/privcmd.c            | 3 ++-
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+-- 
+2.51.1
 
 
