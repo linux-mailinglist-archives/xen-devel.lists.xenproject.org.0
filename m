@@ -2,38 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A820C3BB79
-	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 15:26:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1157022.1485961 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC6E7C3C151
+	for <lists+xen-devel@lfdr.de>; Thu, 06 Nov 2025 16:35:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1157039.1485971 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH0wB-0003pJ-En; Thu, 06 Nov 2025 14:26:07 +0000
+	id 1vH20F-0003kX-6k; Thu, 06 Nov 2025 15:34:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1157022.1485961; Thu, 06 Nov 2025 14:26:07 +0000
+Received: by outflank-mailman (output) from mailman id 1157039.1485971; Thu, 06 Nov 2025 15:34:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vH0wB-0003mK-Br; Thu, 06 Nov 2025 14:26:07 +0000
-Received: by outflank-mailman (input) for mailman id 1157022;
- Thu, 06 Nov 2025 14:26:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=IWGa=5O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vH0w9-0003kn-Kx
- for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 14:26:05 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 84f3291f-bb1c-11f0-980a-7dc792cee155;
- Thu, 06 Nov 2025 15:26:01 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-640ca678745so1876583a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 06 Nov 2025 06:26:01 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6411f866dd5sm1849709a12.32.2025.11.06.06.25.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Nov 2025 06:26:00 -0800 (PST)
+	id 1vH20F-0003jV-3L; Thu, 06 Nov 2025 15:34:23 +0000
+Received: by outflank-mailman (input) for mailman id 1157039;
+ Thu, 06 Nov 2025 15:34:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hvFd=5O=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
+ id 1vH20E-0003jN-Ge
+ for xen-devel@lists.xenproject.org; Thu, 06 Nov 2025 15:34:22 +0000
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0fafd6f5-bb26-11f0-9d17-b5c5bf9af7f9;
+ Thu, 06 Nov 2025 16:34:20 +0100 (CET)
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5A673rWV004542;
+ Thu, 6 Nov 2025 15:33:33 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4a59xc7x4v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 06 Nov 2025 15:33:33 +0000 (GMT)
+Received: from m0356517.ppops.net (m0356517.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5A6FXWW0020778;
+ Thu, 6 Nov 2025 15:33:32 GMT
+Received: from ppma23.wdc07v.mail.ibm.com
+ (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4a59xc7x4m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 06 Nov 2025 15:33:32 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5A6FSEis009863;
+ Thu, 6 Nov 2025 15:33:30 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+ by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4a5x1kp3cv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 06 Nov 2025 15:33:30 +0000
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
+ [10.20.54.101])
+ by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 5A6FXSer15008248
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 6 Nov 2025 15:33:28 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 8439B20043;
+ Thu,  6 Nov 2025 15:33:28 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 90CA520040;
+ Thu,  6 Nov 2025 15:33:27 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.155.204.135])
+ by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Thu,  6 Nov 2025 15:33:27 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,198 +74,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84f3291f-bb1c-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762439161; x=1763043961; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Eh790BDJdUDGA8lspaIvEJ7wUkfPCub/5bhXGPpdv9M=;
-        b=YYe3TuPr0BYr2Y84ux914V3FLC8W9fliwH4LYATfK0BacUmSssUg+Q895AsXG8e9Hd
-         YeLX0SjRUJjBXzdqtIG/V4dwFdb9tw7J4dmSVgSJwOVK01fumm/kT0K5nx8lsoExskO2
-         ABCA+AWTQ/QG97WxRZpk1xvEfpEBytGyvW1M4RCB70Cdaxr0l6a8fF6uYUZ2Ma0PQkFh
-         Eg4l2j8Jgvjo4EiQ4AeuMqqjWExoYfpEAAbYQAjWr8gcREygmCtI0qku1VOgGVGoRigm
-         ju0cXRqnS3lMTSiFOgleESXnG284BRn3Ee4Gnv0iqMrk2uqP5FExRMKdbyMD9FItTEI1
-         bQAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762439161; x=1763043961;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Eh790BDJdUDGA8lspaIvEJ7wUkfPCub/5bhXGPpdv9M=;
-        b=DH3SpBROWx6oJfnoxbEwI1VWuD+AJzqo0ckERVQ+RsXNqLaWx8zXY65hs3EENn6ALB
-         VvJdt6FpvALcP9MBITCbCuRamryFp14r/06uwHOa0fMlh5mxN+4gEKcrtJwpmq6X2QjG
-         RN9t4Y4/Lp2DGSKwybfspeH+lkvVKyCQGT5VPnCdkg9Cl6fHttvO3SiDTCs1uzgMhV8b
-         BJS1w36DljEzJ+CuPk52jaJOyGjYwhTgy0nfaSjhSoPTgoWBiy+xyo9z7qnkaLxa0uTk
-         NQ5tJ6RKIu2lHplNg/2vIubdAbygk+JR/+Ul9uCCX95g6/FxXRAMXhgW4heBgbRe/0Cw
-         vChA==
-X-Forwarded-Encrypted: i=1; AJvYcCUibkAtFf0MersgYYm4nEp5ZJ1QCm9c6z28JggXQKXl3KGDNgauqF6DTSdO/fv0Me1KZDsuiFS0FqI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwEcGaHJqOQexb8WAUrdAdxSjEXKJGGs3i1SPJacsRNFJcM6+Tj
-	DDEzntwui+HQLYk+4tKr70HX4IEksvrG4APv3+5ACCVpEs5s9qMwCAve2N6NaeGJdQ==
-X-Gm-Gg: ASbGnctNVU7XGfZ5a2FFbQZzJUq7oEu0qfpPnO6TDF+0+enVD0yIYeVpr0+wlwOYRX2
-	HikhiY3+OLQa+souEnSXw/IhHeaKsJT8gJGy0uBEHUP/J4UQIly8W6ibexWg5kwNQIZT6cHFnVE
-	iP1QlT9ssfgg6jcJGJOs80QMY/Jrrhv7VtBMlGrai5GqtpqFfhThkkTNdcsw+jv5c1IHpHXmKef
-	j5JUw0TSEeggGYo4rfbMsUoPr44YTZa1ZNDRj4AsnLYNVNIpZ8iiggov5Bucd8rH1DGtHxjNCK/
-	VgVnuDIJMbl5LjZbQkKQ9lEJ57125S2jnRbtfKlVp7G4lNRZIa9jnXPb7l7mD/XAKw4iXqHuaKx
-	DW4k07nFcwKbZiYkD7XF2fdRJSI2LIg/i4KeuecQRsAc7tZv2LUFA7XML8mxRueEp7/CI7fSjNj
-	Jywdcr5vVN1rfFieExTa5JCXToM0C3FKbaQO882Bc7tozt+1Gurw/ESJA04SwZ
-X-Google-Smtp-Source: AGHT+IE+yLlXVE6Ej5O+s2G7Up6FgTx1oABnGDC2XCxnfXAVd8QBQCHXwG8v+WAa2zE4DWlWvn7HdA==
-X-Received: by 2002:a05:6402:1465:b0:640:ea9b:503c with SMTP id 4fb4d7f45d1cf-64105ca6b96mr6449673a12.38.1762439160677;
-        Thu, 06 Nov 2025 06:26:00 -0800 (PST)
-Message-ID: <8e3b791c-22ca-43e2-a3bf-f440032ab1ed@suse.com>
-Date: Thu, 6 Nov 2025 15:25:59 +0100
+X-Inumbo-ID: 0fafd6f5-bb26-11f0-9d17-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=USDQ8ElKabVeXvYmFW0YLq1tEPCwDR
+	9lnFGrXCv6r44=; b=Ud1ezlZulJ19pMoMC9cV2Puhpc6xfvY5kH8l9lzJzReHWw
+	mKEvGrCq+8tKTYQ2MxDxhIU69JV0pOnXy39LBfKHxozegDXvBfvTmpds52s5U6cE
+	/B8hVE2W8NjEjWAswsJNBdI1NjgMAEZpxAZmQ2gRLaUTDivnAluHG4qYTu7XsDwF
+	Vsk72wk+IJjAz3KWLN/C9Bbd92H7vh+BDHU0ZjrBqUI/zYCcM9fmOWIHGJocsLRR
+	RFqfscnpogqSAjX1viBd8MZh0c3dOnzgnvPYX0MV5maeP1AFCCwYIoJhH103h2O4
+	ttiB6tX1e7rVFmgT6CXyJjvDJ+Kc6/eoN7Ra3efQ==
+Date: Thu, 6 Nov 2025 16:33:26 +0100
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: Ritesh Harjani <ritesh.list@gmail.com>, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, Andreas Larsson <andreas@gaisler.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        David Hildenbrand <david@redhat.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        David Woodhouse <dwmw2@infradead.org>,
+        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Ryan Roberts <ryan.roberts@arm.com>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+        Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+        linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
+        x86@kernel.org
+Subject: Re: [PATCH v4 07/12] mm: enable lazy_mmu sections to nest
+Message-ID: <d5435e75-036b-44a5-a989-722e13f94b3e-agordeev@linux.ibm.com>
+References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
+ <20251029100909.3381140-8-kevin.brodsky@arm.com>
+ <87ms5050g0.ritesh.list@gmail.com>
+ <50d1b63a-88d7-4484-82c0-3bde96e3207d-agordeev@linux.ibm.com>
+ <48a4ecb5-3412-4d3f-9e43-535f8bee505f@arm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [for 4.22 v5 05/18] xen/riscv: add root page table allocation
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1760974017.git.oleksii.kurochko@gmail.com>
- <81d36dc5277d4756442f3ad5d64f37148787394a.1760974017.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <81d36dc5277d4756442f3ad5d64f37148787394a.1760974017.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <48a4ecb5-3412-4d3f-9e43-535f8bee505f@arm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTAxMDAyMSBTYWx0ZWRfX/YZyxmYrnrJ9
+ xCd4ujIZq7y0lim+YrboYNwl5TsRqk1oOoSjjpPrN2bdS3Yj8+BGw0eDwtF58nU1AxMxpNChFIt
+ kjix63Qwyja0jEYGMpU1W2106lg0/CJxII5rA6IH8ca9YKwDy28POrrS/UliHt5WUxWiY4RvYvK
+ KvjB7Q8W206gTc1ADhSmWj/G5k8ScNY8TzY3EvQXr/BVbxmytuyeX5wifFN5ALnc+chrAMwW/6j
+ QnaXo4exfOcjHuuvP3Y/8qCuhkp//Cj/oqysiN8ehC/uU7vBozF7kWjRZh1pps/+U+PuMO1myX5
+ CRiCQpqgahhrliHsenckRMbSmwXbtqSltJhRXk0UqsG5hBu7Va14xA+ZT8E/Z1xVt8mLCpJRj/v
+ zoQNd/ElbUWMuQJeG/kbcYXCoAfCRQ==
+X-Proofpoint-GUID: TFOhjUGUwcHF-txd3JWs84wNA_RrcFJO
+X-Authority-Analysis: v=2.4 cv=OdCVzxTY c=1 sm=1 tr=0 ts=690cbfcd cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=6UeiqGixMTsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=20KFwNOVAAAA:8 a=ENMs_uJo8d3F8rUHHo4A:9 a=CjuIK1q_8ugA:10
+ a=DXsff8QfwkrTrK3sU8N1:22 a=Z5ABNNGmrOfJ6cZ5bIyy:22 a=bWyr8ysk75zN3GCy5bjg:22
+X-Proofpoint-ORIG-GUID: 0GlCJX74XkrUHHpzFp_J9wLdkqJNwiej
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-06_03,2025-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 spamscore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 priorityscore=1501 clxscore=1015 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2511010021
 
-On 20.10.2025 17:57, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -3,6 +3,7 @@
->  #include <xen/init.h>
->  #include <xen/lib.h>
->  #include <xen/macros.h>
-> +#include <xen/domain_page.h>
->  #include <xen/mm.h>
->  #include <xen/paging.h>
->  #include <xen/rwlock.h>
-> @@ -103,6 +104,70 @@ void __init pre_gstage_init(void)
->      vmid_init();
->  }
->  
-> +static void clear_and_clean_page(struct page_info *page, bool clean_dcache)
-> +{
-> +    clear_domain_page(page_to_mfn(page));
-> +
-> +    /*
-> +     * If the IOMMU doesn't support coherent walks and the p2m tables are
-> +     * shared between the CPU and IOMMU, it is necessary to clean the
-> +     * d-cache.
-> +     */
-> +    if ( clean_dcache )
-> +        clean_dcache_va_range(page, PAGE_SIZE);
+On Thu, Nov 06, 2025 at 10:51:43AM +0000, Kevin Brodsky wrote:
+> On 05/11/2025 16:12, Alexander Gordeev wrote:
+> > On Wed, Nov 05, 2025 at 02:19:03PM +0530, Ritesh Harjani wrote:
+> >>> + * in_lazy_mmu_mode() can be used to check whether the lazy MMU mode is
+> >>> + * currently enabled.
+> >>>   */
+> >>>  #ifdef CONFIG_ARCH_HAS_LAZY_MMU_MODE
+> >>>  static inline void lazy_mmu_mode_enable(void)
+> >>>  {
+> >>> -	arch_enter_lazy_mmu_mode();
+> >>> +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
+> >>> +
+> >>> +	VM_WARN_ON_ONCE(state->nesting_level == U8_MAX);
+> >>> +	/* enable() must not be called while paused */
+> >>> +	VM_WARN_ON(state->nesting_level > 0 && !state->active);
+> >>> +
+> >>> +	if (state->nesting_level++ == 0) {
+> >>> +		state->active = true;
+> >>> +		arch_enter_lazy_mmu_mode();
+> >>> +	}
+> >>>  }
+> >> Some architectures disables preemption in their
+> >> arch_enter_lazy_mmu_mode(). So shouldn't the state->active = true should
+> >> happen after arch_enter_lazy_mmu_mode() has disabled preemption()? i.e.
+> > Do you have some scenario in mind that could cause an issue?
+> > IOW, what could go wrong if the process is scheduled to another
+> > CPU before preempt_disable() is called?
+> 
+> I'm not sure I understand the issue either.
+> 
+> >>   static inline void lazy_mmu_mode_enable(void)
+> >>   {
+> >>  -	arch_enter_lazy_mmu_mode();
+> >>  +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
+> >>  +
+> >>  +	VM_WARN_ON_ONCE(state->nesting_level == U8_MAX);
+> >>  +	/* enable() must not be called while paused */
+> >>  +	VM_WARN_ON(state->nesting_level > 0 && !state->active);
+> >>  +
+> >>  +	if (state->nesting_level++ == 0) {
+> >>  +		arch_enter_lazy_mmu_mode();
+> >>  +		state->active = true;
+> >>  +	}
+> >>   }
+> >>
+> >> ... I think it make more sense to enable the state after the arch_**
+> >> call right.
+> > But then in_lazy_mmu_mode() would return false if called from
+> > arch_enter_lazy_mmu_mode(). Not big problem, but still..
+> 
+> The ordering of nesting_level/active was the way you expected in v3, but
+> the conclusion of the discussion with David H [1] is that it doesn't
+> really matter so I simplified the ordering in v4 - the arch hooks
+> shouldn't call in_lazy_mmu_mode() or inspect lazy_mmu_state.
+> arch_enter()/arch_leave() shouldn't need it anyway since they're called
+> once per outer section (not in nested sections). arch_flush() could
+> potentially do something different when nested, but that seems unlikely.
+> 
+> - Kevin
+> 
+> [1]
+> https://lore.kernel.org/all/af4414b6-617c-4dc8-bddc-3ea00d1f6f3b@redhat.com/
 
-This cleans part of frame_table[], but not the memory page in question.
+I might be misunderstand this conversation, but it looked to me as a discussion
+about lazy_mmu_state::nesting_level value, not lazy_mmu_state::active.
 
-> --- a/xen/arch/riscv/paging.c
-> +++ b/xen/arch/riscv/paging.c
-> @@ -4,46 +4,67 @@
->  #include <xen/sched.h>
->  #include <xen/spinlock.h>
->  
-> +static int paging_ret_page_to_domheap(struct domain *d)
-> +{
-> +    struct page_info *page;
-> +
-> +    ASSERT(spin_is_locked(&d->arch.paging.lock));
-> +
-> +    /* Return memory to domheap. */
-> +    page = page_list_remove_head(&d->arch.paging.freelist);
-> +    if( page )
-> +    {
-> +        d->arch.paging.total_pages--;
-> +        free_domheap_page(page);
-> +    }
-> +    else
-> +    {
-> +        printk(XENLOG_ERR
-> +                "Failed to free P2M pages, P2M freelist is empty.\n");
+I do use in_lazy_mmu_mode() (lazy_mmu_state::active) check from the arch-
+callbacks. Here is the example (and likely the only case so far) where it hits:
 
-Nit: See earlier remark regarding full stops in log messages. The double
-"P2M" also looks unnecessary to me.
+static int kasan_populate_vmalloc_pte(pte_t *ptep, unsigned long addr,
+				      void *_data)
+{
+	lazy_mmu_mode_pause();
+	...
+	if (likely(pte_none(ptep_get(ptep)))) {
 
-> +static int paging_add_page_to_freelist(struct domain *d)
-> +{
-> +    struct page_info *page;
-> +
-> +    ASSERT(spin_is_locked(&d->arch.paging.lock));
-> +
-> +    /* Need to allocate more memory from domheap */
-> +    page = alloc_domheap_page(d, MEMF_no_owner);
-> +    if ( page == NULL )
-> +    {
-> +        printk(XENLOG_ERR "Failed to allocate pages.\n");
+		/* Here set_pte() checks whether we are in lazy_mmu mode */
+		set_pte_at(&init_mm, addr, ptep, pte);	<--- calls set_pte()
+		data->pages[index] = NULL;
+	}
+	...
+	lazy_mmu_mode_resume();
+	...
+}
 
-Again. (Also log messages typically wouldn't start with a capital letter,
-unless of course it's e.g. an acronym.)
+So without in_lazy_mmu_mode() check above the arch-specific set_pte()
+implementation enters a wrong branch, which ends up in:
 
-> @@ -55,6 +76,39 @@ int paging_freelist_adjust(struct domain *d, unsigned long pages,
->      return 0;
->  }
->  
-> +int paging_refill_from_domheap(struct domain *d, unsigned int nr_pages)
-> +{
-> +    ASSERT(spin_is_locked(&d->arch.paging.lock));
-> +
-> +    for ( unsigned int i = 0; i < nr_pages; i++ )
-> +    {
-> +        int rc = paging_add_page_to_freelist(d);
+[  394.503134] Call Trace:
+[  394.503137]  [<00007fffe01333f4>] dump_stack_lvl+0xbc/0xf0 
+[  394.503143]  [<00007fffe010298c>] vpanic+0x1cc/0x418 
+[  394.503149]  [<00007fffe0102c7a>] panic+0xa2/0xa8 
+[  394.503154]  [<00007fffe01e7a8a>] check_panic_on_warn+0x8a/0xb0 
+[  394.503160]  [<00007fffe082d122>] end_report+0x72/0x110 
+[  394.503166]  [<00007fffe082d3e6>] kasan_report+0xc6/0x100 
+[  394.503171]  [<00007fffe01b9556>] ipte_batch_ptep_get+0x146/0x150 
+[  394.503176]  [<00007fffe0830096>] kasan_populate_vmalloc_pte+0xe6/0x1e0 
+[  394.503183]  [<00007fffe0718050>] apply_to_pte_range+0x1a0/0x570 
+[  394.503189]  [<00007fffe07260fa>] __apply_to_page_range+0x3ca/0x8f0 
+[  394.503195]  [<00007fffe0726648>] apply_to_page_range+0x28/0x40 
+[  394.503201]  [<00007fffe082fe34>] __kasan_populate_vmalloc+0x324/0x340 
+[  394.503207]  [<00007fffe076954e>] alloc_vmap_area+0x31e/0xbf0 
+[  394.503213]  [<00007fffe0770106>] __get_vm_area_node+0x1a6/0x2d0 
+[  394.503218]  [<00007fffe07716fa>] __vmalloc_node_range_noprof+0xba/0x260 
+[  394.503224]  [<00007fffe0771970>] __vmalloc_node_noprof+0xd0/0x110 
+[  394.503229]  [<00007fffe0771a22>] vmalloc_noprof+0x32/0x40 
+[  394.503234]  [<00007fff604eaa42>] full_fit_alloc_test+0xb2/0x3e0 [test_vmalloc] 
+[  394.503241]  [<00007fff604eb478>] test_func+0x488/0x760 [test_vmalloc] 
+[  394.503247]  [<00007fffe025ad68>] kthread+0x368/0x630 
+[  394.503253]  [<00007fffe01391e0>] __ret_from_fork+0xd0/0x490 
+[  394.503259]  [<00007fffe24e468a>] ret_from_fork+0xa/0x30 
 
-The anomaly is more pronounced here, with the other function name in context:
-paging_refill_from_domheap() doesn't suggest there's a page (or several) being
-handed to it. paging_add_page_to_freelist() suggests one of its parameter
-would want to be struct page_info *. Within the naming model you chose, maybe
-paging_refill_from_domheap_one() or paging_refill_one_from_domheap()? Or
-simply _paging_refill_from_domheap()?
+I could have cached lazy_mmu_state::active as arch-specific data
+and check it, but then what is the point to have it generalized?
 
-> +        if ( rc )
-> +            return rc;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +int paging_ret_to_domheap(struct domain *d, unsigned int nr_pages)
-> +{
-> +    ASSERT(spin_is_locked(&d->arch.paging.lock));
-> +
-> +    if ( d->arch.paging.total_pages < nr_pages )
-> +        return false;
-> +
-> +    for ( unsigned int i = 0; i < nr_pages; i++ )
-> +    {
-> +        int rc = paging_ret_page_to_domheap(d);
-
-Somewhat similarly here. Maybe simply insert "one" in the name?
-
-Jan
+Thanks!
 
