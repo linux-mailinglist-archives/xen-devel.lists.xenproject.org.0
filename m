@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5207AC3EF58
-	for <lists+xen-devel@lfdr.de>; Fri, 07 Nov 2025 09:29:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1157388.1486202 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E178C3F5FF
+	for <lists+xen-devel@lfdr.de>; Fri, 07 Nov 2025 11:17:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1157449.1486218 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vHHqB-0004Ne-9l; Fri, 07 Nov 2025 08:29:03 +0000
+	id 1vHJWE-0001h0-TK; Fri, 07 Nov 2025 10:16:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1157388.1486202; Fri, 07 Nov 2025 08:29:03 +0000
+Received: by outflank-mailman (output) from mailman id 1157449.1486218; Fri, 07 Nov 2025 10:16:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vHHqB-0004Kd-5D; Fri, 07 Nov 2025 08:29:03 +0000
-Received: by outflank-mailman (input) for mailman id 1157388;
- Fri, 07 Nov 2025 08:29:01 +0000
+	id 1vHJWE-0001ej-QW; Fri, 07 Nov 2025 10:16:34 +0000
+Received: by outflank-mailman (input) for mailman id 1157449;
+ Fri, 07 Nov 2025 10:16:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=suI1=5P=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1vHHq9-0003eW-Bm
- for xen-devel@lists.xenproject.org; Fri, 07 Nov 2025 08:29:01 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cf85e724-bbb3-11f0-9d17-b5c5bf9af7f9;
- Fri, 07 Nov 2025 09:29:00 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-640ca678745so854202a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 07 Nov 2025 00:29:00 -0800 (PST)
-Received: from [192.168.50.2] (pool185-5-253-110.as6723.net. [185.5.253.110])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b72bdbcaeaasm186291766b.1.2025.11.07.00.28.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Nov 2025 00:28:58 -0800 (PST)
+ <SRS0=DTK6=5P=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
+ id 1vHJWD-0001ed-MQ
+ for xen-devel@lists.xenproject.org; Fri, 07 Nov 2025 10:16:33 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id d4715197-bbc2-11f0-9d17-b5c5bf9af7f9;
+ Fri, 07 Nov 2025 11:16:31 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B30531515;
+ Fri,  7 Nov 2025 02:16:22 -0800 (PST)
+Received: from [10.57.40.58] (unknown [10.57.40.58])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C9F5E3F66E;
+ Fri,  7 Nov 2025 02:16:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,400 +42,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf85e724-bbb3-11f0-9d17-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1762504140; x=1763108940; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Q1lK7oEcIsK0+NWU1/UuS5GiT9FCA6j224qtELIthyA=;
-        b=M4I5sTcMiGGRPMY64bEmiwaEgOfQXNt+yRq8WgrG8w1kg73K6YfH9OGeym/MTQ/7fV
-         a2qpiDnxn2H6PLfRjA7fiiK0v5NGLnskJJvpdiV5tJqosEAFVQZqq42w716O718jBJ5p
-         Hj65rNsqUiHcZdHAi+xxMNtx+1iTis4CMHxp+bIEdwYj34zXu1R6XabNDpiX0L+Y4Fny
-         YamDbwyY+gt5x+uDaz4+FM+FI87T4BV/ZZP5Y4N6/FfJZTjA4M2abXZuXkYXhqzcag3I
-         hHqxiLZhTrh6gWiJ0kgQSIKEd/sQfjiWWlaF64u1ZyznwdiihvuIrWgMJwqV22exduWd
-         hTqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762504140; x=1763108940;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q1lK7oEcIsK0+NWU1/UuS5GiT9FCA6j224qtELIthyA=;
-        b=mo/QQToT9EFDnNdHvlwaXUYm5hq4BF3VtDBD0VHiwrBXbMcGzIW/1W8//a7NfasxKh
-         Km1VJcyJHmFSOz7nlrCS5KutoygRYRmyI4mZ2V73lFq6rpX/0tFLuLTPV/bJ6H9En/IJ
-         IDR9xV8LqcO88JvYx7TD8psuEQ4Njq4H5O0Fiqm29mIMf9KyVVMEVNcq/oThJqwvpCAi
-         UYTV0TTmYxxUQGcMJ7JVrCNFyPYa8fgJKCVKGyExU5AJEkYnk04AMZKENn8MH8gYxCqP
-         43chyn1quEEzqM+S1OF5BHVZ7FqY3UohpFW/b0JT3o5lh0PhTef67eDTrRZW7d4l7Csh
-         hDTQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUVuceCV7Ox/1gbiX3WMTCeG1jpbMoyFyFpbZo7PPZ4gRMakpFLARq5shi58BnypuKSmxZtJtqTHWo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx6K60yTsxY6x1b0IPILiudh8eIIq7+efBvb2gYLHy0Bn/2s9w8
-	1NlyYKq7xSRKdLT3/zljpHFD6ZSfXL55ZIp5zULnJ9zu10nMdvqgH4WFzf159/iopgY=
-X-Gm-Gg: ASbGnctVIBPfk5grx/4SeW0hQz15zRTCbJDsyBxxXESOrQaAIZHJ6M1OuDDZ22MNJ6E
-	WwBLlcUIYr9dxWGVaNuy6TLpQPkaWzG/49leg3PxmdJ9C2jb4rHIs+XYrnscrQbEIpCUQatd0hN
-	IqewG60sKzRLPdmp9LDNUodFQpj6GulGqpz+gn+4EeeK2yiDN58hkY+imNHDeLV+ovdin4qvi5j
-	LARl4MzgNqRy3kZ6SHzJ1Sh8Rcm14cYmnbJ9K76PxDHFBjXhchTjIRTaywHb7SfGztoY8Bl/X3U
-	vVCQPxjQy/kTYq1ABSTJmOYMTUT5mi+aq8GO8H6nG+IS6DBWNUTzkuYWVb3oBNDsCNkd++ZV1uo
-	tFroXMzmt1e6r3xJnGcFiyHbyCw8xudOrTDTywwDSuK3u2eqHdUbmUCGMVe16pEOQy3gUqGCi3l
-	e3fe0wVvOJctCodivefyIjAcBivKAqZx4LXcU=
-X-Google-Smtp-Source: AGHT+IH2jBKudAwuHPXunGf3nGzjqed/E4peDeT3Kd14MtoKK2HR0OfAHk6LO9OGtwZbKNtRKzC9Ew==
-X-Received: by 2002:a17:906:6a08:b0:b72:b289:6de3 with SMTP id a640c23a62f3a-b72c0d6f5e8mr213138166b.58.1762504139673;
-        Fri, 07 Nov 2025 00:28:59 -0800 (PST)
-Message-ID: <50b5f94f-7762-4f82-a522-138c13b0f3b1@gmail.com>
-Date: Fri, 7 Nov 2025 10:27:14 +0200
+X-Inumbo-ID: d4715197-bbc2-11f0-9d17-b5c5bf9af7f9
+Message-ID: <9f749c3e-4f93-40c1-b5c6-74d2ead92d00@arm.com>
+Date: Fri, 7 Nov 2025 10:16:12 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Subject: Re: [PATCH v13 02/12] xen/arm: add initial support for LLC coloring
- on arm64
-To: Carlo Nonato <carlo.nonato@minervasys.tech>,
- xen-devel@lists.xenproject.org
-Cc: andrea.bastoni@minervasys.tech, marco.solieri@minervasys.tech,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20241217170637.233097-1-carlo.nonato@minervasys.tech>
- <20241217170637.233097-3-carlo.nonato@minervasys.tech>
-Content-Language: en-US
-In-Reply-To: <20241217170637.233097-3-carlo.nonato@minervasys.tech>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v4 07/12] mm: enable lazy_mmu sections to nest
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Ritesh Harjani <ritesh.list@gmail.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ David Hildenbrand <david@redhat.com>, "David S. Miller"
+ <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+ Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+ Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
+References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
+ <20251029100909.3381140-8-kevin.brodsky@arm.com>
+ <87ms5050g0.ritesh.list@gmail.com>
+ <50d1b63a-88d7-4484-82c0-3bde96e3207d-agordeev@linux.ibm.com>
+ <48a4ecb5-3412-4d3f-9e43-535f8bee505f@arm.com>
+ <d5435e75-036b-44a5-a989-722e13f94b3e-agordeev@linux.ibm.com>
+Content-Language: en-GB
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+In-Reply-To: <d5435e75-036b-44a5-a989-722e13f94b3e-agordeev@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Carlo,
+On 06/11/2025 15:33, Alexander Gordeev wrote:
+>> [...]
+>>>>   static inline void lazy_mmu_mode_enable(void)
+>>>>   {
+>>>>  -	arch_enter_lazy_mmu_mode();
+>>>>  +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
+>>>>  +
+>>>>  +	VM_WARN_ON_ONCE(state->nesting_level == U8_MAX);
+>>>>  +	/* enable() must not be called while paused */
+>>>>  +	VM_WARN_ON(state->nesting_level > 0 && !state->active);
+>>>>  +
+>>>>  +	if (state->nesting_level++ == 0) {
+>>>>  +		arch_enter_lazy_mmu_mode();
+>>>>  +		state->active = true;
+>>>>  +	}
+>>>>   }
+>>>>
+>>>> ... I think it make more sense to enable the state after the arch_**
+>>>> call right.
+>>> But then in_lazy_mmu_mode() would return false if called from
+>>> arch_enter_lazy_mmu_mode(). Not big problem, but still..
+>> The ordering of nesting_level/active was the way you expected in v3, but
+>> the conclusion of the discussion with David H [1] is that it doesn't
+>> really matter so I simplified the ordering in v4 - the arch hooks
+>> shouldn't call in_lazy_mmu_mode() or inspect lazy_mmu_state.
+>> arch_enter()/arch_leave() shouldn't need it anyway since they're called
+>> once per outer section (not in nested sections). arch_flush() could
+>> potentially do something different when nested, but that seems unlikely.
+>>
+>> - Kevin
+>>
+>> [1]
+>> https://lore.kernel.org/all/af4414b6-617c-4dc8-bddc-3ea00d1f6f3b@redhat.com/
+> I might be misunderstand this conversation, but it looked to me as a discussion
+> about lazy_mmu_state::nesting_level value, not lazy_mmu_state::active.
+>
+> I do use in_lazy_mmu_mode() (lazy_mmu_state::active) check from the arch-
+> callbacks. Here is the example (and likely the only case so far) where it hits:
 
-Thank you for the patch.
+Sorry I didn't mean arch callbacks in general, I meant the ones called
+from lazy_mmu_mode_*, that is arch_*_lazy_mmu_mode.
 
-On 17/12/2024 19:06, Carlo Nonato wrote:
-> LLC coloring needs to know the last level cache layout in order to make the
-> best use of it. This can be probed by inspecting the CLIDR_EL1 register,
-> so the Last Level is defined as the last level visible by this register.
-> Note that this excludes system caches in some platforms.
-> 
-> Static memory allocation and cache coloring are incompatible because static
-> memory can't be guaranteed to use only colors assigned to the domain.
-> Panic during DomUs creation when both are enabled.
-> 
-> Based on original work from: Luca Miccio <lucmiccio@gmail.com>
-> 
-> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v13:
-> - no changes
-> v12:
-> - fixed build errors
-> v11:
-> - removed useless #define from processor.h
-> v10:
-> - moved CONFIG_NUMA check in arch/arm/Kconfig
-> v9:
-> - no changes
-> v8:
-> - no changes
-> v7:
-> - only minor changes
-> v6:
-> - get_llc_way_size() now checks for at least separate I/D caches
-> v5:
-> - used - instead of _ for filenames
-> - moved static-mem check in this patch
-> - moved dom0 colors parsing in next patch
-> - moved color allocation and configuration in next patch
-> - moved check_colors() in next patch
-> - colors are now printed in short form
-> v4:
-> - added "llc-coloring" cmdline option for the boot-time switch
-> - dom0 colors are now checked during domain init as for any other domain
-> - fixed processor.h masks bit width
-> - check for overflow in parse_color_config()
-> - check_colors() now checks also that colors are sorted and unique
-> ---
->   docs/misc/cache-coloring.rst         | 14 +++++
->   xen/arch/arm/Kconfig                 |  1 +
->   xen/arch/arm/Makefile                |  1 +
->   xen/arch/arm/dom0less-build.c        |  6 +++
->   xen/arch/arm/include/asm/processor.h | 15 ++++++
->   xen/arch/arm/llc-coloring.c          | 79 ++++++++++++++++++++++++++++
->   xen/arch/arm/setup.c                 |  3 ++
->   xen/common/llc-coloring.c            |  4 +-
->   xen/include/xen/llc-coloring.h       |  6 +++
->   9 files changed, 128 insertions(+), 1 deletion(-)
->   create mode 100644 xen/arch/arm/llc-coloring.c
-> 
-> diff --git a/docs/misc/cache-coloring.rst b/docs/misc/cache-coloring.rst
-> index 371f21a0e7..12972dbb2c 100644
-> --- a/docs/misc/cache-coloring.rst
-> +++ b/docs/misc/cache-coloring.rst
-> @@ -113,6 +113,20 @@ Auto-probing of LLC specs
->   
->   LLC size and number of ways are probed automatically by default.
->   
-> +In the Arm implementation, this is done by inspecting the CLIDR_EL1 register.
-> +This means that other system caches that aren't visible there are ignored.
-> +
->   LLC specs can be manually set via the above command line parameters. This
->   bypasses any auto-probing and it's used to overcome failing situations, such as
->   flawed probing logic, or for debugging/testing purposes.
-> +
-> +Known issues and limitations
-> +****************************
-> +
-> +"xen,static-mem" isn't supported when coloring is enabled
-> +#########################################################
-> +
-> +In the domain configuration, "xen,static-mem" allows memory to be statically
-> +allocated to the domain. This isn't possible when LLC coloring is enabled,
-> +because that memory can't be guaranteed to use only colors assigned to the
-> +domain.
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index 604aba4996..c5e7b74733 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -8,6 +8,7 @@ config ARM_64
->   	depends on !ARM_32
->   	select 64BIT
->   	select HAS_FAST_MULTIPLY
-> +	select HAS_LLC_COLORING if !NUMA
->   
->   config ARM
->   	def_bool y
-> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-> index e4ad1ce851..ccbfc61f88 100644
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -35,6 +35,7 @@ obj-$(CONFIG_IOREQ_SERVER) += ioreq.o
->   obj-y += irq.o
->   obj-y += kernel.init.o
->   obj-$(CONFIG_LIVEPATCH) += livepatch.o
-> +obj-$(CONFIG_LLC_COLORING) += llc-coloring.o
->   obj-$(CONFIG_MEM_ACCESS) += mem_access.o
->   obj-y += mm.o
->   obj-y += monitor.o
-> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-> index f328a044e9..d93a85434e 100644
-> --- a/xen/arch/arm/dom0less-build.c
-> +++ b/xen/arch/arm/dom0less-build.c
-> @@ -5,6 +5,7 @@
->   #include <xen/grant_table.h>
->   #include <xen/iocap.h>
->   #include <xen/libfdt/libfdt.h>
-> +#include <xen/llc-coloring.h>
->   #include <xen/sched.h>
->   #include <xen/serial.h>
->   #include <xen/sizes.h>
-> @@ -890,7 +891,12 @@ void __init create_domUs(void)
->               panic("No more domain IDs available\n");
->   
->           if ( dt_find_property(node, "xen,static-mem", NULL) )
-> +        {
-> +            if ( llc_coloring_enabled )
-> +                panic("LLC coloring and static memory are incompatible\n");
-> +
->               flags |= CDF_staticmem;
-> +        }
->   
->           if ( dt_property_read_bool(node, "direct-map") )
->           {
-> diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
-> index 8e02410465..60b587db69 100644
-> --- a/xen/arch/arm/include/asm/processor.h
-> +++ b/xen/arch/arm/include/asm/processor.h
-> @@ -18,6 +18,21 @@
->   #define CTR_IDC_SHIFT       28
->   #define CTR_DIC_SHIFT       29
->   
-> +/* CCSIDR Current Cache Size ID Register */
-> +#define CCSIDR_LINESIZE_MASK            _AC(0x7, UL)
-> +#define CCSIDR_NUMSETS_SHIFT            13
-> +#define CCSIDR_NUMSETS_MASK             _AC(0x3fff, UL)
-> +#define CCSIDR_NUMSETS_SHIFT_FEAT_CCIDX 32
-> +#define CCSIDR_NUMSETS_MASK_FEAT_CCIDX  _AC(0xffffff, UL)
-> +
-> +/* CSSELR Cache Size Selection Register */
-> +#define CSSELR_LEVEL_SHIFT 1
-> +
-> +/* CLIDR Cache Level ID Register */
-> +#define CLIDR_CTYPEn_SHIFT(n) (3 * ((n) - 1))
-> +#define CLIDR_CTYPEn_MASK     _AC(0x7, UL)
-> +#define CLIDR_CTYPEn_LEVELS   7
-> +
->   #define ICACHE_POLICY_VPIPT  0
->   #define ICACHE_POLICY_AIVIVT 1
->   #define ICACHE_POLICY_VIPT   2
-> diff --git a/xen/arch/arm/llc-coloring.c b/xen/arch/arm/llc-coloring.c
-> new file mode 100644
-> index 0000000000..1c7b92bc45
-> --- /dev/null
-> +++ b/xen/arch/arm/llc-coloring.c
-> @@ -0,0 +1,79 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Last Level Cache (LLC) coloring support for ARM
-> + *
-> + * Copyright (C) 2024, Advanced Micro Devices, Inc.
-> + * Copyright (C) 2024, Minerva Systems SRL
-> + */
-> +#include <xen/init.h>
-> +#include <xen/llc-coloring.h>
-> +
-> +#include <asm/processor.h>
-> +#include <asm/sysregs.h>
-> +#include <asm/system.h>
-> +
-> +/* Return the LLC way size by probing the hardware */
-> +unsigned int __init get_llc_way_size(void)
-> +{
-> +    register_t ccsidr_el1;
-> +    register_t clidr_el1 = READ_SYSREG(CLIDR_EL1);
-> +    register_t csselr_el1 = READ_SYSREG(CSSELR_EL1);
-> +    register_t id_aa64mmfr2_el1 = READ_SYSREG(ID_AA64MMFR2_EL1);
-> +    uint32_t ccsidr_numsets_shift = CCSIDR_NUMSETS_SHIFT;
-> +    uint32_t ccsidr_numsets_mask = CCSIDR_NUMSETS_MASK;
-> +    unsigned int n, line_size, num_sets;
-> +
-> +    for ( n = CLIDR_CTYPEn_LEVELS; n != 0; n-- )
+Patch 8 also makes use of in_lazy_mmu_mode() in set_pte() et al. on arm64.
 
-According to the Arm ARM (DDI 0487J.a, D19.2.27):
+- Kevin
 
-If software reads the Cache Type fields from Ctype1 upwards, once it has
-seen a value of 000, no caches that can be managed using the architected
-cache maintenance instructions that operate by set/way exist at
-further-out levels of the hierarchy. So, for example, if Ctype3 is the
-first Cache Type field with a value of 000, the values of Ctype4 to
-Ctype7 must be ignored.
-
-Shouldn’t we read the Cache Type fields from the first index upwards and
-stop at the first 0b000, instead of iterating in reverse?
-
-
-
-Best regards,
-Mykola
-
-
-> +    {
-> +        uint8_t ctype_n = (clidr_el1 >> CLIDR_CTYPEn_SHIFT(n)) &
-> +                           CLIDR_CTYPEn_MASK;
-> +
-> +        /* Unified cache (see Arm ARM DDI 0487J.a D19.2.27) */
-> +        if ( ctype_n == 0b100 )
-> +            break;
-> +    }
-> +
-> +    if ( n == 0 )
-> +        return 0;
-> +
-> +    WRITE_SYSREG((n - 1) << CSSELR_LEVEL_SHIFT, CSSELR_EL1);
-> +    isb();
-> +
-> +    ccsidr_el1 = READ_SYSREG(CCSIDR_EL1);
-> +
-> +    /* Arm ARM: (Log2(Number of bytes in cache line)) - 4 */
-> +    line_size = 1U << ((ccsidr_el1 & CCSIDR_LINESIZE_MASK) + 4);
-> +
-> +    /* If FEAT_CCIDX is enabled, CCSIDR_EL1 has a different bit layout */
-> +    if ( (id_aa64mmfr2_el1 >> ID_AA64MMFR2_CCIDX_SHIFT) & 0x7 )
-> +    {
-> +        ccsidr_numsets_shift = CCSIDR_NUMSETS_SHIFT_FEAT_CCIDX;
-> +        ccsidr_numsets_mask = CCSIDR_NUMSETS_MASK_FEAT_CCIDX;
-> +    }
-> +
-> +    /* Arm ARM: (Number of sets in cache) - 1 */
-> +    num_sets = ((ccsidr_el1 >> ccsidr_numsets_shift) & ccsidr_numsets_mask) + 1;
-> +
-> +    printk(XENLOG_INFO "LLC found: L%u (line size: %u bytes, sets num: %u)\n",
-> +           n, line_size, num_sets);
-> +
-> +    /* Restore value in CSSELR_EL1 */
-> +    WRITE_SYSREG(csselr_el1, CSSELR_EL1);
-> +    isb();
-> +
-> +    return line_size * num_sets;
-> +}
-> +
-> +void __init arch_llc_coloring_init(void)
-> +{
-> +}
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> index 545702d8a3..5f1993ffed 100644
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -12,6 +12,7 @@
->   #include <xen/device_tree.h>
->   #include <xen/domain_page.h>
->   #include <xen/grant_table.h>
-> +#include <xen/llc-coloring.h>
->   #include <xen/types.h>
->   #include <xen/string.h>
->   #include <xen/serial.h>
-> @@ -334,6 +335,8 @@ void asmlinkage __init start_xen(unsigned long fdt_paddr)
->       printk("Command line: %s\n", cmdline);
->       cmdline_parse(cmdline);
->   
-> +    llc_coloring_init();
-> +
->       setup_mm();
->   
->       vm_init();
-> diff --git a/xen/common/llc-coloring.c b/xen/common/llc-coloring.c
-> index 335a907296..b034c0169c 100644
-> --- a/xen/common/llc-coloring.c
-> +++ b/xen/common/llc-coloring.c
-> @@ -8,6 +8,8 @@
->   #include <xen/keyhandler.h>
->   #include <xen/llc-coloring.h>
->   #include <xen/param.h>
-> +#include <xen/sched.h>
-> +#include <xen/types.h>
->   
->   #define NR_LLC_COLORS          (1U << CONFIG_LLC_COLORS_ORDER)
->   
-> @@ -19,7 +21,7 @@
->   static int8_t __initdata opt_llc_coloring = -1;
->   boolean_param("llc-coloring", opt_llc_coloring);
->   
-> -static bool __ro_after_init llc_coloring_enabled;
-> +bool __ro_after_init llc_coloring_enabled;
->   
->   static unsigned int __initdata llc_size;
->   size_param("llc-size", llc_size);
-> diff --git a/xen/include/xen/llc-coloring.h b/xen/include/xen/llc-coloring.h
-> index 0acd8d0ad6..a3ebb17186 100644
-> --- a/xen/include/xen/llc-coloring.h
-> +++ b/xen/include/xen/llc-coloring.h
-> @@ -8,13 +8,19 @@
->   #ifndef __XEN_LLC_COLORING_H__
->   #define __XEN_LLC_COLORING_H__
->   
-> +#include <xen/types.h>
-> +
->   struct domain;
->   
->   #ifdef CONFIG_LLC_COLORING
-> +extern bool llc_coloring_enabled;
-> +
->   void llc_coloring_init(void);
->   void dump_llc_coloring_info(void);
->   void domain_dump_llc_colors(const struct domain *d);
->   #else
-> +#define llc_coloring_enabled false
-> +
->   static inline void llc_coloring_init(void) {}
->   static inline void dump_llc_coloring_info(void) {}
->   static inline void domain_dump_llc_colors(const struct domain *d) {}
+> static int kasan_populate_vmalloc_pte(pte_t *ptep, unsigned long addr,
+> 				      void *_data)
+> {
+> 	lazy_mmu_mode_pause();
+> 	...
+> 	if (likely(pte_none(ptep_get(ptep)))) {
+>
+> 		/* Here set_pte() checks whether we are in lazy_mmu mode */
+> 		set_pte_at(&init_mm, addr, ptep, pte);	<--- calls set_pte()
+> 		data->pages[index] = NULL;
+> 	}
+> 	...
+> 	lazy_mmu_mode_resume();
+> 	...
+> }
+>
+> So without in_lazy_mmu_mode() check above the arch-specific set_pte()
+> implementation enters a wrong branch, which ends up in:
+>
+> [  394.503134] Call Trace:
+> [  394.503137]  [<00007fffe01333f4>] dump_stack_lvl+0xbc/0xf0 FWIW 
+> [  394.503143]  [<00007fffe010298c>] vpanic+0x1cc/0x418 
+> [  394.503149]  [<00007fffe0102c7a>] panic+0xa2/0xa8 
+> [  394.503154]  [<00007fffe01e7a8a>] check_panic_on_warn+0x8a/0xb0 
+> [  394.503160]  [<00007fffe082d122>] end_report+0x72/0x110 
+> [  394.503166]  [<00007fffe082d3e6>] kasan_report+0xc6/0x100 
+> [  394.503171]  [<00007fffe01b9556>] ipte_batch_ptep_get+0x146/0x150 
+> [  394.503176]  [<00007fffe0830096>] kasan_populate_vmalloc_pte+0xe6/0x1e0 
+> [  394.503183]  [<00007fffe0718050>] apply_to_pte_range+0x1a0/0x570 
+> [  394.503189]  [<00007fffe07260fa>] __apply_to_page_range+0x3ca/0x8f0 
+> [  394.503195]  [<00007fffe0726648>] apply_to_page_range+0x28/0x40 
+> [  394.503201]  [<00007fffe082fe34>] __kasan_populate_vmalloc+0x324/0x340 
+> [  394.503207]  [<00007fffe076954e>] alloc_vmap_area+0x31e/0xbf0 
+> [  394.503213]  [<00007fffe0770106>] __get_vm_area_node+0x1a6/0x2d0 
+> [  394.503218]  [<00007fffe07716fa>] __vmalloc_node_range_noprof+0xba/0x260 
+> [  394.503224]  [<00007fffe0771970>] __vmalloc_node_noprof+0xd0/0x110 
+> [  394.503229]  [<00007fffe0771a22>] vmalloc_noprof+0x32/0x40 
+> [  394.503234]  [<00007fff604eaa42>] full_fit_alloc_test+0xb2/0x3e0 [test_vmalloc] 
+> [  394.503241]  [<00007fff604eb478>] test_func+0x488/0x760 [test_vmalloc] 
+> [  394.503247]  [<00007fffe025ad68>] kthread+0x368/0x630 
+> [  394.503253]  [<00007fffe01391e0>] __ret_from_fork+0xd0/0x490 
+> [  394.503259]  [<00007fffe24e468a>] ret_from_fork+0xa/0x30 
+>
+> I could have cached lazy_mmu_state::active as arch-specific data
+> and check it, but then what is the point to have it generalized?
+>
+> Thanks!
 
