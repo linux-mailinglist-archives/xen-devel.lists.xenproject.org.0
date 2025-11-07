@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AEA5C40A6E
-	for <lists+xen-devel@lfdr.de>; Fri, 07 Nov 2025 16:46:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1157764.1486442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBAAAC40A8C
+	for <lists+xen-devel@lfdr.de>; Fri, 07 Nov 2025 16:47:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1157777.1486450 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vHOf3-0008Ns-IQ; Fri, 07 Nov 2025 15:46:01 +0000
+	id 1vHOgl-0000jp-WB; Fri, 07 Nov 2025 15:47:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1157764.1486442; Fri, 07 Nov 2025 15:46:01 +0000
+Received: by outflank-mailman (output) from mailman id 1157777.1486450; Fri, 07 Nov 2025 15:47:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vHOf3-0008Lo-Cl; Fri, 07 Nov 2025 15:46:01 +0000
-Received: by outflank-mailman (input) for mailman id 1157764;
- Fri, 07 Nov 2025 15:46:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ov7m=5P=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1vHOf1-0008Lg-Qc
- for xen-devel@lists.xenproject.org; Fri, 07 Nov 2025 15:46:00 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dacdaec4-bbf0-11f0-9d17-b5c5bf9af7f9;
- Fri, 07 Nov 2025 16:45:58 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-b64cdbb949cso169359566b.1
- for <xen-devel@lists.xenproject.org>; Fri, 07 Nov 2025 07:45:58 -0800 (PST)
-Received: from ?IPV6:2003:e5:870e:1500:7795:3e8a:56c1:ae53?
- (p200300e5870e150077953e8a56c1ae53.dip0.t-ipconnect.de.
- [2003:e5:870e:1500:7795:3e8a:56c1:ae53])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b72bf9bdf15sm274044366b.62.2025.11.07.07.45.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Nov 2025 07:45:57 -0800 (PST)
+	id 1vHOgl-0000h8-TH; Fri, 07 Nov 2025 15:47:47 +0000
+Received: by outflank-mailman (input) for mailman id 1157777;
+ Fri, 07 Nov 2025 15:47:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qRNH=5P=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1vHOgk-0000h2-SK
+ for xen-devel@lists.xenproject.org; Fri, 07 Nov 2025 15:47:46 +0000
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazlp170130006.outbound.protection.outlook.com
+ [2a01:111:f403:c201::6])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1a067bd3-bbf1-11f0-980a-7dc792cee155;
+ Fri, 07 Nov 2025 16:47:44 +0100 (CET)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by DB9PR03MB11025.eurprd03.prod.outlook.com (2603:10a6:10:5e0::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.12; Fri, 7 Nov
+ 2025 15:47:42 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9298.010; Fri, 7 Nov 2025
+ 15:47:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,239 +47,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dacdaec4-bbf0-11f0-9d17-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762530358; x=1763135158; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Bo8hOLP5wIkBbrnuws1pinQ4AYj9Sz8IvZxz60kmJmU=;
-        b=LZa6EdZcyJOqcqp5LZvzgZo7AI1MqZAgmbKUgGu969KSqPPP0XmlEJLw3PxQyXgujs
-         13F5Cv+A3fIZpdZztQ/8wPs68jzRBtFFdKGHWb5SkIu2cQbAxellA5a93PdS8702/SBi
-         JuDSkLdgzunldDZPh20AdDx7XI6yUIXRi5u9PVNO/ATaQMOV/e/DjXeIRykmF80Gwhpi
-         ZDuNP0dFMmTNkzlVGLq3dUwCRICU0GF9K7ZA1qKNqUrwSvIKn40cB9EkFf12vMUAy7wD
-         lr5e6kMG9RXZJlALp8zKLKdrk/1jnPoo+URiCk/U3IFTpQOb4LN1m3XtLvJlvZ1XIP1b
-         yOmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762530358; x=1763135158;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bo8hOLP5wIkBbrnuws1pinQ4AYj9Sz8IvZxz60kmJmU=;
-        b=PLyhEo06/NvgUmc72jQVFjTB9nRASVIIoz46IawArlu1XfgjQ/u8APViOt92jrIWqU
-         xrdVv43uULC9OErjVWG5y6mLi+Qvth2LeAdN/ANnsmf9tQcZuw5SP2lvq60G3MBe70FG
-         lZuF7ZxulIb0qkHuABBef3C+GcS/0DF9d4tdY1vrewbUvew4BMNyaMJjIZdk7y33Lj/9
-         FeJuC4WxlGk4wklfLSye/herMDwh+iuyg0Q52muM7rFSlRSuwGeN11ePsI3sChSLwJDu
-         egxjDVLH9hIF2C6QOpbq6iArDJJ0BTg8EIPKwCLC9r+nkp6VweuCfnomvVCAhkMzCCCv
-         1vhg==
-X-Forwarded-Encrypted: i=1; AJvYcCWbL+UbXs4VNHf0lrUmyEXuB4vcsRFa8te+5+CYdMn62QqJMc4h5lzEtZhHBYfA98Tyq4TpiW9FRxQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwT0rO+uX8xvYtujTfpg1ZXna7BY2CFzeE5QhTPNbSUyE7656Mh
-	8Tor1nWJ+xOpqk5WpfxliLsHGfqkTF+lO4xoP6IG22v3vUQ6f0JLS+CMI6rmKo/27RA=
-X-Gm-Gg: ASbGncufiDsgfSLeT+q/UtV9jZ/2tA3nsfa203ftjwxUanw9MS22v+xTY1ktmFCJ54O
-	1pZORMunpGkfyqqTFClytYUUXf/qVYDhc+zuhCnhm0sa0oAaPtVVkrpa/5foQwGn9VFub8Z7r/9
-	s9RTMz+zWXYggVzm6H5VLyZNpxCxLwpHY/89mCL8UNJlwgh1CJDRBb5YGDF05CYWrJXaMrOoTIB
-	pPhdq7DAyKZN0AT7JZzgsXLZmynqnUSIR8WtxpigfBt5XLGYQiY8qCJeJc9qbfez2aAtLk8mHrZ
-	mDRy1+q22KRQj2Xez/mgrWX9Y0WuhkOddLoN5oJfq6lgqRs5LKrMAzrR884BzRdAUjb5Ckgt4Yt
-	ZiX1QN+Bi5i3iS4Is9nXnNeQslvAm2Fsej6hJsKJDvaK5SKgTK1PcqSYxSsTb4+K0scFK+WYIOx
-	Is/4SwSLkaXEIYcg+YT0Udnho/d3pWolw7g1kZ4qBR6kdonpUtlOnvQtwZGhxTTOwvPAi0rbHoK
-	+7IGnFAFUfQ3cd1sheHLYS6M3CjrEYRamY6EaE=
-X-Google-Smtp-Source: AGHT+IFuCx4lTV36ytxTOyAJ/RoowaLhIeY2jVZHeX87aG97vvwLOiA38P+znCtMJ8WqDnaM5A4vXg==
-X-Received: by 2002:a17:907:6096:b0:b6d:4dc2:7be3 with SMTP id a640c23a62f3a-b72c08dc800mr387131266b.9.1762530357944;
-        Fri, 07 Nov 2025 07:45:57 -0800 (PST)
-Message-ID: <ed4971b3-49ea-4263-b225-80a643bca0c4@suse.com>
-Date: Fri, 7 Nov 2025 16:45:56 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: 1a067bd3-bbf1-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aPm0BwzFmqeLjFd0+QQxaCYD8IGtuQ5thNXGzLJxy7c3J5M01HrHdV/3cIlPHIpdnf2EbzJcCdZGEvqYqPPf6bKc112TQ7UkSIdaDOyhNHg9uvSEP5PLVlk8LwJbBrDRRA8iEUFOJwSaz0w/qRzDUzOk/mQRYMRjyUr8gY06fQRFTe/+YkFkUcOEmVYriLH1xEhJkLCIJF98E30SnOt0ty3sj7lttBSqBsuMQDDzchYzVDpygpLR5WvyET6RbND/C88zXtVdeWQmgMd8xN5DneVkbVO7FmasI1jx2goO109LF5wR3bUm29qD8ZLOvp9fDxVC+bg8nLggGqltwPtNPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/wYgZ5ceYs3bI4jfU+7Qhn95e1/3T87DUOQUeA9mjhw=;
+ b=Uke7G+gPib11Ayn3adzeXyIyRIwZNafm2neM4OAtUFbka6BrjUopwgII+N152JSg3n6Le4m+iNA2akcb4P+VUNl+1gE6cgT/A+EEYH/Eao3gJrtZJLqxPyzqEj4KcaZMqrvL7XZj0o0V6U/nArZ9qGqfiyCjbWL7WPpweHbyMatJ+qJ2zRdpcZ2tNthXY5UlDwJ4GXrlGTM+NCiWovoK9XVQQYuRzZ6NQAvU49Z3sluXic0zLer4ZIEglWUxr/UnjDu7CfbuKcA93JS00XGCM3dfTfQuyktfieQvHuUWvVoIvpuxAPIzUY7+HIo9o8dVx/iwk4XYYRyuvWTk0+n2rA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/wYgZ5ceYs3bI4jfU+7Qhn95e1/3T87DUOQUeA9mjhw=;
+ b=u6ugHFJI7pWyqGMmogZ3N/D5hNHRZRj3NrvKWFPMHHi5ybpxIhWJUC5STfwUOtCGbPCxJYyKQga50MLgFHsmW1J51fLwxFndq1dibeKNeyij2+ygVea5yh4zuCwCp1sk4U64kNpqes4bABN9GsW9pSWek7RvtBk1td/TrR7pBgH3OVAdfDYoFe6TvfelPORUjDUtJxCW4oMw4uwoZvhXYBjiMGqGrjPZyWLREl6488QdLWJ+p5MO7GTlY4bZLxn/ghrfl0oic8iNcZLIisrNUSkwzNHFRRaZBEhPaU7g2Et9M+tViOnFb+U3OC/TbIj/CJDxm2iGudjtcZlGkSO3Cw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Message-ID: <acac87ba-5a5a-49d1-925a-8754f4a3179f@epam.com>
+Date: Fri, 7 Nov 2025 17:47:40 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/12] x86/xen: simplify flush_lazy_mmu()
-To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
- Andreas Larsson <andreas@gaisler.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- David Hildenbrand <david@redhat.com>, "David S. Miller"
- <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
- Jann Horn <jannh@google.com>, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
- Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
-References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
- <20251029100909.3381140-3-kevin.brodsky@arm.com>
+Subject: Re: [XEN][PATCH] xen: make VMTRACE support optional
+To: Jan Beulich <jbeulich@suse.com>, Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Penny Zheng <Penny.Zheng@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251031212005.1338212-1-grygorii_strashko@epam.com>
+ <b6337cb5-da85-492d-bba9-688e35695c46@suse.com>
+ <e55f990a-1781-4651-a899-9d78bbbbdfd0@epam.com>
+ <63525e6f-4e17-4155-87b2-47b9ac9ea474@suse.com>
 Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20251029100909.3381140-3-kevin.brodsky@arm.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------2KDMQGlJELWzw0JdPjGXTYgs"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------2KDMQGlJELWzw0JdPjGXTYgs
-Content-Type: multipart/mixed; boundary="------------knysrRNvahQGLFPAzdME9JNX";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
- Andreas Larsson <andreas@gaisler.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- David Hildenbrand <david@redhat.com>, "David S. Miller"
- <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
- Jann Horn <jannh@google.com>, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
- Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
-Message-ID: <ed4971b3-49ea-4263-b225-80a643bca0c4@suse.com>
-Subject: Re: [PATCH v4 02/12] x86/xen: simplify flush_lazy_mmu()
-References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
- <20251029100909.3381140-3-kevin.brodsky@arm.com>
-In-Reply-To: <20251029100909.3381140-3-kevin.brodsky@arm.com>
-
---------------knysrRNvahQGLFPAzdME9JNX
-Content-Type: multipart/mixed; boundary="------------0xpsCIW0ItmLiouLur0gOGNm"
-
---------------0xpsCIW0ItmLiouLur0gOGNm
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+In-Reply-To: <63525e6f-4e17-4155-87b2-47b9ac9ea474@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0341.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ea::16) To AS2PR03MB8907.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5e4::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|DB9PR03MB11025:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ffd12e0-2544-4d7e-ec16-08de1e14fcb2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VWlpemYrcTFxWWR5dVF0NUZIb3Q1bjNsRmNJMWE3d0ttQ0tyTUk0aFhhcTgv?=
+ =?utf-8?B?Zm5yK3AyK3phWTdzOWxuTW04WnVhYWJqUjJzVVFyOHAxSU1YL2pwL1ZUVENE?=
+ =?utf-8?B?QXBtZC9MU3o2b1BqN1RSVG90VE45dkwwcldNU3QxcmRUK2pJTFE3TnU1RkhG?=
+ =?utf-8?B?NXkzN0Y4dS85MGdWTE9vbDZJaEIrWE4wTGROOHkxNHV0TUZmVVJnZ0F5NE1s?=
+ =?utf-8?B?WE11RTR3S0Z2NWNyaWljQlJZa2lZUjg1UXFXOFpLaWxiU0dXRENlbUpWY1d5?=
+ =?utf-8?B?eVp4SUJQT1NmcWxWRjVRU0djb1VxWkowOVpKZmFVenVKVk45anF6cnJwNnI4?=
+ =?utf-8?B?U3Z0QTRkK1hWT1dFZGMvd0RPMGxoYUZqelFZOThyN3o2UUkvMUkrVXVraVMx?=
+ =?utf-8?B?bUEwcDcyRUs5OXE2UmxQeFhDdTBYRGwxSXFPTy9jamlRRHRzN3Vzb3NoY0d0?=
+ =?utf-8?B?ZUovQmcyM0lQOGdRWndTb05URlVETmozOVJRbDI1d3Jqbmp1amR2Wm1neTQ2?=
+ =?utf-8?B?ZU1PbXVKcmMrd2ZhQTQ4SmdNRGVIZ2drL1B4S1hNaG0zVEN5SEtnbGxxY0FP?=
+ =?utf-8?B?WnQvOXlEOUdPaWRvYWVZYUN2d3ZhNGxVdUFBQ1NLMzZoQTFlcnpCMDR1SnRy?=
+ =?utf-8?B?UzNXSU4rZjhUZnlDY2hGQlUvSk1FVml3aWxMT3RlVjBRQktBSlUyRm5GcWlZ?=
+ =?utf-8?B?d1c3ZmdkQlhXaytJZ2g4LzB3OWVxc0FONXNGK3JrUnpQcVYwQlJ1cFBIbVkv?=
+ =?utf-8?B?clpGa1FCS2ZyLy91ZmlVVmpDTmIvTVEyK01rY2RRVU81YmhLY2xmWENqai8v?=
+ =?utf-8?B?TXNHbDFBeVhid3Fjd3prMXFBeWdGcmxldUowNVBPcTQyM0NFSDR6aUMrRXFB?=
+ =?utf-8?B?TmNGc3NqMGUxUnVWd1BQQVBWL28wSWZIaWlVSENhSjdkUDVvVGhlUmtUL21l?=
+ =?utf-8?B?a0puZDJFcytXNjVFTlJsNXlPQTRIVFNxTmJ4YzlyNlFWdkcwVkxRbGY2S2RC?=
+ =?utf-8?B?RlJUVmZXY0w2M1EzMkZvektmeDFSM1BTOEU1Y2VlcGhZNXkrTFhwKzkzZW1Y?=
+ =?utf-8?B?ZFYwR2F4dFlZN1lYRGcyYjZ1QVB2clBTL1VjcU96M083MHVZcnpGTG5EbmNO?=
+ =?utf-8?B?VjJhN3ZFWW9MbDhiN3ozQTkvY3ZZM1pPZmljZVVhb2psY1ExL2taL1lDMGI4?=
+ =?utf-8?B?QzYxTDg0c0JjTFAxVUhUYUhnVk1aMmVRSis0WXJ1RVN0WnFXVWxsdUtSanI1?=
+ =?utf-8?B?cnA0Ym1aeCtmQlVUaU5EL2FOWTg3Und1YXBaVVFYVzN1RURGdjhDRnB6WlNt?=
+ =?utf-8?B?aXFMNlpOM01nekc2bCtCalJxRndrNG9xNmlmckRIOGNTTlY1cVZUMHQwaGIv?=
+ =?utf-8?B?eWhrVzF6U25BOENLaUZpdUVpMGZNdmZFV2dBUGc5dVVRNU9ZdHk4eFI4eVBH?=
+ =?utf-8?B?bDV4S1BPVkdIQ3ZzNmtWVkNqMVVDWUxaZldiL1BqbVN1aThaN04vc2lyT1NU?=
+ =?utf-8?B?WExHZWk5ZXdYTGVkaEgzTXZiS0NQOS9VcUhpN0dReW1JSnhTSDF3U0FpMkNM?=
+ =?utf-8?B?WDRyWjA1ZDkwR3A3VDJKRG5PR0N3VWFaTEwxRVZZYW5BZnhRZzR0VzJYQXkw?=
+ =?utf-8?B?YXhTVG5neFdUUkFCc3RSWVFEUnk5dDBBNEdZWUJ2MnQrQitLRnlTbUFQQXR5?=
+ =?utf-8?B?bTNGWWlVY3VyR3hkUVVjM3AxWk9BSmxvdHlvL2RkTXU3bFpNZDJBWkVSL0k4?=
+ =?utf-8?B?czdWdUh1NnJUNHV6YWw0d1dKSFY2V25oMERuaEtHdExySmU2WEpmczRBNlRV?=
+ =?utf-8?B?bmJLWnJwZUE3LzlQQVNjeS9WNGFjY0FNUFA2OXNhVHp3MzBHa3ZSOGxHZDl1?=
+ =?utf-8?B?c2tXdmEzK24wTWZYWE85M05TTVI5cHZqUFRnVjB3MVZuOFNPeVVSNEQ0K0Yy?=
+ =?utf-8?B?U2JJQzdjcXB6ODN0Q3RiQjAzQjk5VlU0clpnWkNYUlV3K25peFRkSS9Hd05h?=
+ =?utf-8?B?MzBBT0NIMGt3PT0=?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VUEvV01JbWlsSU8vVHJaNmVXaDVPZDlrVnloOEdvOGdWZWZ0VDQ5TS9xUkJM?=
+ =?utf-8?B?M3ZraU1zVEhZc3VMa01DdlpCUitWTmlRVzkrK1BHWWNyOVd1Z3pOVGtqai9y?=
+ =?utf-8?B?T0M0Q0IwR3BXTkZiUS9zSFFlSWcyVm5RNGFhVFRPWGpNa214ZlhGcnlZdkJL?=
+ =?utf-8?B?ZFFXdVpzUWRKaTdJb2crdEhWanlKSERVKzlpNUlTNWZaWmZIbjY3THlCcG1K?=
+ =?utf-8?B?VmRoeTdQaFFseEpOZHplUTZqaVM1Uyt1MFVwSFhZL1JjcW14Q2ZxRmtZUC95?=
+ =?utf-8?B?OGVQdTllWlh3QTBXblo1T05TOWJPd2NxZ3VNTytMU1dYRTZYNVNNQ2k0TU5Q?=
+ =?utf-8?B?OWxpTFdvTE1KNkttOW14R3pvQ0dJcHZWMnNLdHduK0pwdE9SUEJCbWFaQ1Rz?=
+ =?utf-8?B?MmpScmNjNkRVSjk5ZnEwY0Q3TEpxU1RWcytmam5Mdkw2eGRXdll2ZGV6NU1L?=
+ =?utf-8?B?ejJISVBjaGF0MW05WGxYeDY4cmtjM1Q1anZ2akhWV0lmd2RSdkkrTWpjVVBK?=
+ =?utf-8?B?ZlpTQWNodDFlRjZWWTVBd1VtcFgxMVNHVng1L0xFQVFCTURwRFlWYVhWdVdh?=
+ =?utf-8?B?ckRSM1dHZWhlM1RCTVNXa3N6VzdnWFhKYk1oNi9IUlI4QnRMR0RaYk1FUGRu?=
+ =?utf-8?B?M1dFVlJHVTU2Vkg2Z3ZycEJ6WWtlQVNHcG9odW1pQitXalRUT3NNeEZzdzFX?=
+ =?utf-8?B?MklOWWxZdWs1K090YnZ6VXA0b0QrMjJVaHdxYTBrUnd4K0t6a29LS0FVVEYy?=
+ =?utf-8?B?K1EwQ01BN2hRRlNIMVJpTDNpalFkS1JLUDd6MHVSRCtsY2lQdGwzSCtIcWh5?=
+ =?utf-8?B?dzVFbTMxUU1nWTdPWFJneFAzQkxWaXc5c0VzYzZIcGMzUC9nUEtMZlNweE83?=
+ =?utf-8?B?bjRyUlE2amdrcTRhdkM2TGdkbzFQV3V5TnZVYUFYdEhZOG0zQm1SVW92QW9V?=
+ =?utf-8?B?WTdpM1VhLzFac3BNbzdhTkI0K2EyU1hGZHdrZmk2QjRRVzMvQ0c2NHBFWGhD?=
+ =?utf-8?B?S3diSCsyQTlGbWIwZ3pBb0x6d3NER0JpdVh2ZkhrSmwrYW11UXJXRDZ0Vld5?=
+ =?utf-8?B?WDdMemh6MGl1LzlFS29mWWtwazJ3UXB6Q2lFU0hSUERneGs5SlBqdXNkZm55?=
+ =?utf-8?B?UXdrYVNZRXRLenJnL3dqV3EzcmpNRHNBSENUTk5YNUJ4cHpsOGE3aTRDQU03?=
+ =?utf-8?B?Yk16OTNjL2VhTmZDb01pTENLVHp4Wittc3llTDZaakxwemlqb2VpNWJ3YUhl?=
+ =?utf-8?B?bzJ5WlQvK1g1a0VZUjdSWTF4djdXTWFZMjJFV01GbXV0R3JHaFVESjIvY0wz?=
+ =?utf-8?B?M05sVnltSW5MTWVuQ2w2TDBJVkJ4U2ttc2RjWkZqa0g5blBieGxETWdPV0dT?=
+ =?utf-8?B?RG1QZjNhQm1Lcm5yY2NyS1p2TGRMcUdxejFkY0dhald0aURtT3l0WG93TnRr?=
+ =?utf-8?B?Rng5T0lwVG92T3FUSlNCTklXcmpZWWltM0MzLzNLSExLaE9naTFLZzdRS1VW?=
+ =?utf-8?B?aEQ4R2g1bWZxTFdmVEUrM01HUnBYOUY5dzUvclRjc1VEQWgxRjdvNnVlVGxX?=
+ =?utf-8?B?dkJINnM3ZWtnUFMvUnlTeW5rWW9PWjJNdU1VeklnVzZ1NXduTHpuSEhDYXhn?=
+ =?utf-8?B?eEl1QU5BVHY1Rk5lYmdBbHN6NEcwNk9hMld6QnE1djYvQ3dadG5XaFJJNVRn?=
+ =?utf-8?B?Rk1OQjNrMDBOSHM3UUlIV3NCaXViL0tlTGErOEdIclQyS21GZUJqMGdjOHBQ?=
+ =?utf-8?B?M0JNM0pWMVJHbEhPenNFUVdObktYbHRHa2FUTU91eWN3QytITXdkL1JUSzRa?=
+ =?utf-8?B?T0JZMDdLUW1KZ3ZVNWZHQzFuWXlPOEZMRkU5UnpnL29VT1RvRVhPOEtLVnhi?=
+ =?utf-8?B?Qyt4anRSTTJQd3hWSVptSG0yanVjQ3FNT1h3OVJ5VWxybmFZcG5abThrallx?=
+ =?utf-8?B?YXN1ODlodWVDTVdtRmljVEJBMzIrYmZqS210RWtsSm9BVnAzaEF2a3lseGo1?=
+ =?utf-8?B?aEhMYlpJaTdWdDVuK1NZaFovQSs3RWg5QjkzdEFLYUxiVWp4WTIzK0xkaHZp?=
+ =?utf-8?B?dUJsdm5qWW81U2x3VDVHRTNZeFpQaVRWZ1Z3ZnE0RTY1Rzd5b01uYnQyeFdS?=
+ =?utf-8?B?bElTa3lnZHBzc0J2TFpTR2Fnbm4vMFMzUEFZSFBUcFh5WHlEb2wwSHRuNXVC?=
+ =?utf-8?B?N1E9PQ==?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ffd12e0-2544-4d7e-ec16-08de1e14fcb2
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2025 15:47:42.2304
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pU6//0PzLW1VH0dXG1eRSPZYERL9Mp1mBBnQNsuuCmhFybhR2A+hmCxZOljihNRC0L+m/wtR8F/bdxWANlgpZGbwWC/MltrgGXhAYuDckRA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB11025
 
-T24gMjkuMTAuMjUgMTE6MDgsIEtldmluIEJyb2Rza3kgd3JvdGU6DQo+IGFyY2hfZmx1c2hf
-bGF6eV9tbXVfbW9kZSgpIGlzIGNhbGxlZCB3aGVuIG91dHN0YW5kaW5nIGJhdGNoZWQNCj4g
-cGd0YWJsZSBvcGVyYXRpb25zIG11c3QgYmUgY29tcGxldGVkIGltbWVkaWF0ZWx5LiBUaGVy
-ZSBzaG91bGQNCj4gaG93ZXZlciBiZSBubyBuZWVkIHRvIGxlYXZlIGFuZCByZS1lbnRlciBs
-YXp5IE1NVSBjb21wbGV0ZWx5LiBUaGUNCj4gb25seSBwYXJ0IG9mIHRoYXQgc2VxdWVuY2Ug
-dGhhdCB3ZSByZWFsbHkgbmVlZCBpcyB4ZW5fbWNfZmx1c2goKTsNCj4gY2FsbCBpdCBkaXJl
-Y3RseS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEtldmluIEJyb2Rza3kgPGtldmluLmJyb2Rz
-a3lAYXJtLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNl
-LmNvbT4NCg0KDQpKdWVyZ2VuDQo=
---------------0xpsCIW0ItmLiouLur0gOGNm
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Hi
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 06.11.25 16:09, Jan Beulich wrote:
+> On 06.11.2025 14:50, Grygorii Strashko wrote:
+>> On 06.11.25 14:00, Jan Beulich wrote:
+>>> On 31.10.2025 22:20, Grygorii Strashko wrote:
+>>>> --- a/xen/Kconfig.debug
+>>>> +++ b/xen/Kconfig.debug
+>>>> @@ -155,4 +155,19 @@ config DEBUG_INFO
+>>>>    	  "make install-xen" for installing xen.efi, stripping needs to be
+>>>>    	  done outside the Xen build environment).
+>>>>    
+>>>> +config HAS_VMTRACE
+>>>> +    bool
+>>>> +
+>>>> +config VMTRACE
+>>>> +    bool "HW VM tracing support"
+>>>> +    depends on HAS_VMTRACE
+>>>> +    default y
+>>>> +    help
+>>>> +      Enables HW VM tracing support which allows to configure HW processor
+>>>> +      features (vmtrace_op) to enable capturing information about software
+>>>> +      execution using dedicated hardware facilities with minimal interference
+>>>> +      to the software being traced. The trace date can be retrieved using buffer
+>>>
+>>> Nit: s/date/data/
+>>>
+>>>> +      shared between Xen and domain
+>>>> +      (see XENMEM_acquire_resource(XENMEM_resource_vmtrace_buf)).
+>>>> +
+>>>
+>>> I was actually meaning to ask that "VMX only" should somehow be mentioned here,
+>>> but then I noticed this is an arch-independent location.
+>>
+>> Right, Arch code advertise VMTRACE support with HAS_VMTRACE.
+>> In this particular case:
+>> config INTEL_VMX
+>> ...
+>> 	select HAS_VMTRACE
+>>
+>>
+>>> I'm not quite sure we want it like this (just yet).
+>>
+>> ?
+> 
+> To rephrase the question: Are we expecting anything other than VMX to support
+> VMTRACE any time soon?
+> 
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+That's I do not know.
 
---------------0xpsCIW0ItmLiouLur0gOGNm--
+I assume your point is similar to what Teddy noted [1].
 
---------------knysrRNvahQGLFPAzdME9JNX--
+I think vmtrace code can be consolidate, but question is on what level(s):
 
---------------2KDMQGlJELWzw0JdPjGXTYgs
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+only:
+  xen/arch/x86/hvm/vmx/
+  |- vmtrace.c
 
------BEGIN PGP SIGNATURE-----
+or:
+  xen/arch/x86/hvm
+  |- vmtrace.c
+     <- vmtrace_alloc/free_buffer(), acquire_vmtrace_buf(), do_vmtrace_op()
+  xen/arch/x86/hvm/vmx/
+  |- vmtrace.c
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmkOFDQFAwAAAAAACgkQsN6d1ii/Ey+9
-7Qf/T56S47fDqEb7wrI6i48Xr9hbJbL1cOc88MTixDkHAfIu70HOLvfAW2G+G73cTTY/1IFY+cr+
-wk6KhYqguuIbbFGh6hlD2neoBl0l4Fiujn0c9wTKQbJrDL6h8jDeODAFWmkuyd0Rtnawy6o+0tgP
-OLmQ4vhbq2u58C6zzLGQWIz6csmJqnGTKYGIQZI/h7xUZhz/b/RzD8p5aTRMGfVraJlKwuNAsKmp
-/f7DpPGGCI7nCZWglBlKRFiGM/bZFdt9rZRV30JAFzq5kyUL6Lp3Y0nGp91si4slpitgwPxEG3M6
-oApGVoFTsieG0o5HaiDhf8c0R7g+2PiCjn5h6HxMIA==
-=Eb3P
------END PGP SIGNATURE-----
+it will require more work comparing to the current change.
 
---------------2KDMQGlJELWzw0JdPjGXTYgs--
+[1] https://patchwork.kernel.org/comment/26637627/
+
+-- 
+Best regards,
+-grygorii
+
 
