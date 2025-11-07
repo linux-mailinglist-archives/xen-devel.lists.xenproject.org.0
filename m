@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37D65C40912
-	for <lists+xen-devel@lfdr.de>; Fri, 07 Nov 2025 16:23:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1157727.1486411 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE313C40960
+	for <lists+xen-devel@lfdr.de>; Fri, 07 Nov 2025 16:29:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1157739.1486421 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vHOIp-0004HE-Ax; Fri, 07 Nov 2025 15:23:03 +0000
+	id 1vHOOd-0004ws-Ul; Fri, 07 Nov 2025 15:29:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1157727.1486411; Fri, 07 Nov 2025 15:23:03 +0000
+Received: by outflank-mailman (output) from mailman id 1157739.1486421; Fri, 07 Nov 2025 15:29:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vHOIp-0004Fd-7T; Fri, 07 Nov 2025 15:23:03 +0000
-Received: by outflank-mailman (input) for mailman id 1157727;
- Fri, 07 Nov 2025 15:23:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vHOOd-0004vL-RD; Fri, 07 Nov 2025 15:29:03 +0000
+Received: by outflank-mailman (input) for mailman id 1157739;
+ Fri, 07 Nov 2025 15:29:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2Yjs=5P=arm.com=ryan.roberts@srs-se1.protection.inumbo.net>)
- id 1vHOIo-0004FX-BO
- for xen-devel@lists.xenproject.org; Fri, 07 Nov 2025 15:23:02 +0000
+ id 1vHOOc-0004vF-5V
+ for xen-devel@lists.xenproject.org; Fri, 07 Nov 2025 15:29:02 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id a5b3da9d-bbed-11f0-9d17-b5c5bf9af7f9;
- Fri, 07 Nov 2025 16:23:01 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 7b69bb1b-bbee-11f0-980a-7dc792cee155;
+ Fri, 07 Nov 2025 16:28:59 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9C58F1515;
- Fri,  7 Nov 2025 07:22:52 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 55F981515;
+ Fri,  7 Nov 2025 07:28:51 -0800 (PST)
 Received: from [10.57.86.134] (unknown [10.57.86.134])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C0C093F694;
- Fri,  7 Nov 2025 07:22:55 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7C13D3F694;
+ Fri,  7 Nov 2025 07:28:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,15 +42,15 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5b3da9d-bbed-11f0-9d17-b5c5bf9af7f9
-Message-ID: <645178fd-df4e-42fe-b55e-97d9506499be@arm.com>
-Date: Fri, 7 Nov 2025 15:22:54 +0000
+X-Inumbo-ID: 7b69bb1b-bbee-11f0-980a-7dc792cee155
+Message-ID: <06026ad7-fb85-4a78-ba70-7fa1f5bca0cd@arm.com>
+Date: Fri, 7 Nov 2025 15:28:53 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/12] mm: introduce generic lazy_mmu helpers
+Subject: Re: [PATCH v4 08/12] arm64: mm: replace TIF_LAZY_MMU with
+ in_lazy_mmu_mode()
 Content-Language: en-GB
-To: "David Hildenbrand (Red Hat)" <davidhildenbrandkernel@gmail.com>,
- Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
+To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  Andreas Larsson <andreas@gaisler.com>,
  Andrew Morton <akpm@linux-foundation.org>,
@@ -58,11 +58,12 @@ Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
  Christophe Leroy <christophe.leroy@csgroup.eu>,
  Dave Hansen <dave.hansen@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>,
- David Woodhouse <dwmw2@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>,
- Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
- Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
- <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ David Hildenbrand <david@redhat.com>, "David S. Miller"
+ <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+ Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
  Madhavan Srinivasan <maddy@linux.ibm.com>,
  Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
  Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
@@ -73,81 +74,89 @@ Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
  xen-devel@lists.xenproject.org, x86@kernel.org
 References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
- <20251029100909.3381140-7-kevin.brodsky@arm.com>
- <71418b31-aedb-4600-9558-842515dd6c44@arm.com>
- <c764489e-0626-4a50-87b5-39e15d9db733@gmail.com>
+ <20251029100909.3381140-9-kevin.brodsky@arm.com>
 From: Ryan Roberts <ryan.roberts@arm.com>
-In-Reply-To: <c764489e-0626-4a50-87b5-39e15d9db733@gmail.com>
+In-Reply-To: <20251029100909.3381140-9-kevin.brodsky@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 07/11/2025 14:34, David Hildenbrand (Red Hat) wrote:
->>>   #ifndef pte_batch_hint
->>> diff --git a/mm/kasan/shadow.c b/mm/kasan/shadow.c
->>> index 5d2a876035d6..c49b029d3593 100644
->>> --- a/mm/kasan/shadow.c
->>> +++ b/mm/kasan/shadow.c
->>> @@ -305,7 +305,7 @@ static int kasan_populate_vmalloc_pte(pte_t *ptep,
->>> unsigned long addr,
->>>       pte_t pte;
->>>       int index;
->>>   -    arch_leave_lazy_mmu_mode();
->>> +    lazy_mmu_mode_pause();
->>
->> I wonder if there really are use cases that *require* pause/resume? I think
->> these kasan cases could be correctly implemented using a new nest level instead?
->> Are there cases where the effects really need to be immediate or do the effects
->> just need to be visible when you get to where the resume is?
->>
->> If the latter, that could just be turned into a nested disable (e.g. a flush).
->> In this case, there is only 1 PTE write so no benefit, but I wonder if other
->> cases may have more PTE writes that could then still be batched. It would be
->> nice to simplify the API by removing pause/resume if we can?
+On 29/10/2025 10:09, Kevin Brodsky wrote:
+> The generic lazy_mmu layer now tracks whether a task is in lazy MMU
+> mode. As a result we no longer need a TIF flag for that purpose -
+> let's use the new in_lazy_mmu_mode() helper instead.
 > 
-> It has clear semantics, clearer than some nest-disable IMHO.
+> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
+> ---
+>  arch/arm64/include/asm/pgtable.h     | 16 +++-------------
+>  arch/arm64/include/asm/thread_info.h |  3 +--
+>  2 files changed, 4 insertions(+), 15 deletions(-)
 > 
-> Maybe you can elaborate how you would change ("simplify") the API in that
-> regard? What would the API look like?
+> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+> index 535435248923..61ca88f94551 100644
+> --- a/arch/arm64/include/asm/pgtable.h
+> +++ b/arch/arm64/include/asm/pgtable.h
+> @@ -62,30 +62,21 @@ static inline void emit_pte_barriers(void)
+>  
+>  static inline void queue_pte_barriers(void)
+>  {
+> -	unsigned long flags;
+> -
+>  	if (in_interrupt()) {
+>  		emit_pte_barriers();
+>  		return;
+>  	}
+>  
+> -	flags = read_thread_flags();
+> -
+> -	if (flags & BIT(TIF_LAZY_MMU)) {
+> -		/* Avoid the atomic op if already set. */
+> -		if (!(flags & BIT(TIF_LAZY_MMU_PENDING)))
+> -			set_thread_flag(TIF_LAZY_MMU_PENDING);
+> -	} else {
+> +	if (in_lazy_mmu_mode())
+> +		test_and_set_thread_flag(TIF_LAZY_MMU_PENDING);
 
-By simplify, I just meant can we remove lazy_mmu_mode_pause() and
-lazy_mmu_mode_resume() ?
+This removes the optimization to only do the atomic set operation if the bit is
+not already set. I think that should remain.
 
+> +	else
+>  		emit_pte_barriers();
+> -	}
+>  }
+>  
+>  static inline void arch_enter_lazy_mmu_mode(void)
+>  {
+>  	if (in_interrupt())
+>  		return;
 
-We currently have:
+Why are you keeping this test? Surely it can go?
 
-apply_to_page_range
-  lazy_mmu_mode_enable()
-    kasan_populate_vmalloc_pte()
-      lazy_mmu_mode_pause()
-      <code>
-      lazy_mmu_mode_resume()
-  lazy_mmu_mode_disable()
-
-Where <code> is setting ptes. But if <code> doesn't need the effects to be
-visible until lazy_mmu_mode_resume(), then you could replace the block with:
-
-apply_to_page_range
-  lazy_mmu_mode_enable()
-    kasan_populate_vmalloc_pte()
-      lazy_mmu_mode_enable()
-      <code>
-      lazy_mmu_mode_disable()
-  lazy_mmu_mode_disable()
-
-However, looking at this more closely, I'm not really clear on why we need *any*
-special attention to lazy mmu inside of kasan_populate_vmalloc_pte() and
-kasan_depopulate_vmalloc_pte().
-
-I *think* that the original concern was that we were doing ptep_get(ptep) inside
-of a lazy_mmu block? So we need to flush so that the getter returns the most
-recent value? But given we have never written to that particular ptep while in
-the lazy mmu block, there is surely no hazard in the first place?
-
-apply_to_existing_page_range() will only call kasan_depopulate_vmalloc_pte()
-once per pte, right? So given we read the ptep before writing it, there should
-be no hazard? If so we can remove pause/resume.
-
-Thanks,
-Ryan
+> -
+> -	set_thread_flag(TIF_LAZY_MMU);
+>  }
+>  
+>  static inline void arch_flush_lazy_mmu_mode(void)
+> @@ -103,7 +94,6 @@ static inline void arch_leave_lazy_mmu_mode(void)
+>  		return;
+>  
+>  	arch_flush_lazy_mmu_mode();
+> -	clear_thread_flag(TIF_LAZY_MMU);
+>  }
+>  
+>  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+> diff --git a/arch/arm64/include/asm/thread_info.h b/arch/arm64/include/asm/thread_info.h
+> index f241b8601ebd..4ff8da0767d9 100644
+> --- a/arch/arm64/include/asm/thread_info.h
+> +++ b/arch/arm64/include/asm/thread_info.h
+> @@ -84,8 +84,7 @@ void arch_setup_new_exec(void);
+>  #define TIF_SME_VL_INHERIT	28	/* Inherit SME vl_onexec across exec */
+>  #define TIF_KERNEL_FPSTATE	29	/* Task is in a kernel mode FPSIMD section */
+>  #define TIF_TSC_SIGSEGV		30	/* SIGSEGV on counter-timer access */
+> -#define TIF_LAZY_MMU		31	/* Task in lazy mmu mode */
+> -#define TIF_LAZY_MMU_PENDING	32	/* Ops pending for lazy mmu mode exit */
+> +#define TIF_LAZY_MMU_PENDING	31	/* Ops pending for lazy mmu mode exit */
+>  
+>  #define _TIF_SIGPENDING		(1 << TIF_SIGPENDING)
+>  #define _TIF_NEED_RESCHED	(1 << TIF_NEED_RESCHED)
 
 
