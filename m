@@ -2,67 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C73FDC4552E
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 09:14:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1158142.1486531 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D466C4568A
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 09:45:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1158157.1486541 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIN1R-00073O-Hl; Mon, 10 Nov 2025 08:13:09 +0000
+	id 1vINVx-0002dX-1r; Mon, 10 Nov 2025 08:44:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1158142.1486531; Mon, 10 Nov 2025 08:13:09 +0000
+Received: by outflank-mailman (output) from mailman id 1158157.1486541; Mon, 10 Nov 2025 08:44:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIN1R-00071i-EN; Mon, 10 Nov 2025 08:13:09 +0000
-Received: by outflank-mailman (input) for mailman id 1158142;
- Mon, 10 Nov 2025 08:13:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vINVw-0002c6-Ul; Mon, 10 Nov 2025 08:44:40 +0000
+Received: by outflank-mailman (input) for mailman id 1158157;
+ Mon, 10 Nov 2025 08:44:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B9Y/=5S=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
- id 1vIN1Q-00071c-2N
- for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 08:13:08 +0000
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 14e8ff0f-be0d-11f0-9d18-b5c5bf9af7f9;
- Mon, 10 Nov 2025 09:13:05 +0100 (CET)
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5A9Mrb3H023648;
- Mon, 10 Nov 2025 08:11:59 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4a9wc6y6xk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Nov 2025 08:11:58 +0000 (GMT)
-Received: from m0360083.ppops.net (m0360083.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5AA86mfJ029272;
- Mon, 10 Nov 2025 08:11:58 GMT
-Received: from ppma23.wdc07v.mail.ibm.com
- (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4a9wc6y6xf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Nov 2025 08:11:58 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5AA51uvx014762;
- Mon, 10 Nov 2025 08:11:56 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
- by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4aahpjvgyb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Nov 2025 08:11:56 +0000
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
- [10.20.54.101])
- by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 5AA8BsbP47645168
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 10 Nov 2025 08:11:54 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 951A120043;
- Mon, 10 Nov 2025 08:11:54 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7574A20040;
- Mon, 10 Nov 2025 08:11:52 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.87.129.150])
- by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Mon, 10 Nov 2025 08:11:52 +0000 (GMT)
+ <SRS0=cpW6=5S=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vINVv-0002bz-Ac
+ for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 08:44:39 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7cf19759-be11-11f0-980a-7dc792cee155;
+ Mon, 10 Nov 2025 09:44:37 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-63b9da57cecso4290664a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Nov 2025 00:44:37 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b72bfa24d1fsm1015564766b.73.2025.11.10.00.44.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Nov 2025 00:44:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,168 +45,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14e8ff0f-be0d-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=WrPV25
-	ztsYqDlknSOqBjqi2t4Xb9rXv0xi6T3uNdmFI=; b=Yv6+1trT97d7+DoSIjC5W6
-	OLc4ylQKCKMAex0x0xYUBtCqgGuOUmceIjAitPSSQP4ha308n1vNjyCUQ6cvZ2r4
-	ei0eh+6E9Z0WEUSMVNe1jsCNm1I0JTMS3qMI8JK4k2CVJe8jcjFAe6GAYoZoYIPF
-	f2cH/cIWwfriYd6HDlkD0TTd91dXSMehLyFJYeYA+XopFefAuy+V38DHQN1UNf/W
-	3T+xvOmCCkXhX+7+7DFZbaLjxNtRDGKQpKgGoSwe7T8r3LPSCJLEPD7oCZTkMUFj
-	LW2FbGx5/pNgTdyi+piCoZDGmqPtaOa5o+7Wu4AdD2ze9GkYr3qc6pGcoRQ53Zvg
-	==
-Date: Mon, 10 Nov 2025 09:11:50 +0100
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: "David Hildenbrand (Red Hat)" <davidhildenbrandkernel@gmail.com>,
-        Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org, Andreas Larsson <andreas@gaisler.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        David Woodhouse <dwmw2@infradead.org>,
-        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
-        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
-        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
-        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
-        Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
-        linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
-        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
-        x86@kernel.org
-Subject: Re: [PATCH v4 06/12] mm: introduce generic lazy_mmu helpers
-Message-ID: <413b2c49-f124-4cda-8fea-a6cc165f6326-agordeev@linux.ibm.com>
-References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
- <20251029100909.3381140-7-kevin.brodsky@arm.com>
- <71418b31-aedb-4600-9558-842515dd6c44@arm.com>
- <c764489e-0626-4a50-87b5-39e15d9db733@gmail.com>
- <645178fd-df4e-42fe-b55e-97d9506499be@arm.com>
+X-Inumbo-ID: 7cf19759-be11-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1762764276; x=1763369076; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=w7LKLmJFnTZd1KGi6HWsaZz7t+rTUNDbLdHP6oTz5XU=;
+        b=R96c+9Xbd4Aby/ZTyGa5rLiwqHTJbRfgK+CrSJ8Pkeh/aB9wyZKsdL3YIfU1z5BSwO
+         31R66oRAhB/hiFqTCGVGuC3huKIYgKzJRKTAA7VJYpByZsEcpyIXV5wlloclH9VOMAev
+         kNRlpw5lXo+mEtl48O5wM/djo6BwBoE1J2P6hHwxcTKgj0PpXM0ZXT5ENCGaM3Hu6jdf
+         XC0pXklYBiHWdOVmGCeQnTVuG5IvJBVt4xoxruu9IkFdTxp68Wr2LGhJjXKnylf2wYLB
+         UBRmatL17ZxOfD4hSAsn3lKKcadQXSetdxb6tZaJ0GuiaCdbhYv0z0h2/IGCxjWmIhvW
+         RvZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1762764276; x=1763369076;
+        h=in-reply-to:from:content-language:references:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=w7LKLmJFnTZd1KGi6HWsaZz7t+rTUNDbLdHP6oTz5XU=;
+        b=oM7uY2fS1RixcngoyOhK7i99QxBXMeIKvgCGcEm8VU2McYDMG4bQ5Pri2vW0o4BCmt
+         VRylLvI9rd43BEp5bpXyoyppqI5PrnvuzAjF+xlgXMHse5pX2Dj0hjG1xxP9JBKfPXv0
+         fLNmVYw1w485lasaKei7+dJurHEDiteGnWj6+ktrAFHFhVv2P1ZR8iFk7upva2Vij453
+         FmMauHCdWY/8A1nwF6TAN9qJo1zykEtVdPSdNaQGHLb1ptxUFDizvSlrh2xRtK//4Nkk
+         0vbDJ4XH9QvdNbeh2s6LlslzZDMoIxbvwZ+OR14Ws4nxyvZ3rpsZPyIXItHbDgISFsPb
+         1grA==
+X-Forwarded-Encrypted: i=1; AJvYcCUeeNxOkvTUp363bKVnYaGDzrffvo42lu6ZSm1TeMaNuatNnGKSMff5F+A+x6Sj6fLEIJjDmnuj0ic=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw8fOy2xzdSUdhQKnEsnfsrpehjBRfdfY3D/UUb39RPa5Zj/kSf
+	80LCBCs92MePergGsc4L3K55XcW/CFFganR5do0b8U/ZidoPDXeINsFc
+X-Gm-Gg: ASbGncsyGQgjv07nshsfgf2CpaWu/B7ELjSz4vUOxBbrIn2bYlGvv8vUdRo26qrf8TM
+	OiKk9x6ru0UsBkTR/iuUr1qqOz3vGLD/tXeMBYKdBTwWDDHVxCC60Gwx7lV3GzwgLFscKDUyJc7
+	w6BkrKCd8sfajO9fnDtDmYtIu6m1gQsQyyAnSkYZtF8XsHIgkxLdKmFue4dyf8prYBfBkC+Sdma
+	qPUblzjuys7/Kz1orOl2gBYNTKBJDTWgVvIcXBc7aWg69WqkvOea42Ae+vEASj8JAy/Vo4M+YPw
+	o6NY3XEJsyr5PL8kPdRK32UrxKcvCOjbIK0xSN27CS/0a19kvhUadRdrqzkM0t86nqLDCCdOubA
+	B6I7X6lB9P5w0MeNmDPxppOaXq6+bKtaRb3iStPXqF5Vp6Z3Ox2ifEyI/9ctTjLuaS7WkRy/7Sr
+	Z5vjE9xOGItD5frWyB6rkR7tmYgw9OQtjN8SITltO+aQNtE1FKuIB5Bj0JDt4H
+X-Google-Smtp-Source: AGHT+IHyaveBc1mFku98W4Fskg3gRtDDG3Znkla0pfa9wn9Mh2FYC7vyX/4wtd1edYvOgXNQkHHkUw==
+X-Received: by 2002:a17:907:841:b0:b72:67c2:6eb0 with SMTP id a640c23a62f3a-b72e0562e6dmr805812166b.62.1762764276043;
+        Mon, 10 Nov 2025 00:44:36 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------Wvu8FsypiDWNyspQYkevPvrX"
+Message-ID: <c71613e1-9309-430b-b656-018dda8e6a07@gmail.com>
+Date: Mon, 10 Nov 2025 09:44:34 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.21] fix xl.cfg docs to correct viridian defaults
+ list
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ James Dingwall <james-xen@dingwall.me.uk>, xen-devel@lists.xenproject.org
+References: <aQ5HR2eEQ9awKtpC@dingwall.me.uk>
+ <8c9f0988-0eb3-40f0-bd22-13b23af03ed8@citrix.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <8c9f0988-0eb3-40f0-bd22-13b23af03ed8@citrix.com>
+
+This is a multi-part message in MIME format.
+--------------Wvu8FsypiDWNyspQYkevPvrX
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <645178fd-df4e-42fe-b55e-97d9506499be@arm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTA4MDAxOCBTYWx0ZWRfX0qxBt6PLz+e1
- 5ZkKhsJ1OtkLmCa4F9dckZhmGNoe5OQimO5vrOJyhCGGn+Oo9dBlfBgtY6sJsMOGytiqooOVqqZ
- 5VlqH6qDTNOxg7GqSCIIkxN9587HG/yU0g8PN3RC/Kn+8SDIn+tbvRphHit2rtoXvmhJTS9c/na
- zuc/vHReC35SkVZuc771TOtpWXwRcO+j9mxabq08ugqh/MQzZP8E1qqkKzT/vrw3I0gce+auuVH
- 8WG34NSJDjSCXhv0z/g1L2qiclooBzH5Y6sWhPQC3GQgXW7SVzsG1L6s2HqrTxBfWDx3OGWlJ4d
- 4V2wmLiIQn3wqkNWKtMaFFAnqiHVcDdPhaMGEjvefyMBpcxvcGE7lueGMCRslhcd2O9xOyzBoik
- qwn8HhTZbHMdNrVo7h0rei5NGYuy+g==
-X-Authority-Analysis: v=2.4 cv=GcEaXAXL c=1 sm=1 tr=0 ts=69119e4e cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=8nJEP1OIZ-IA:10 a=6UeiqGixMTsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=7CQSdrXTAAAA:8 a=AOQWXcEz_zGDWlu_gTMA:9
- a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10 a=a-qgeE7W1pNrGK8U0ZQC:22
- a=DXsff8QfwkrTrK3sU8N1:22 a=Z5ABNNGmrOfJ6cZ5bIyy:22 a=bWyr8ysk75zN3GCy5bjg:22
-X-Proofpoint-GUID: fP4xPRY0VPWa2LszakKlWyXVqqNy18Qg
-X-Proofpoint-ORIG-GUID: hjtY_m4sJxhd70lXi6KoIa-Y8h7Rk4-J
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-10_03,2025-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 bulkscore=0 adultscore=0 impostorscore=0
- lowpriorityscore=0 clxscore=1015 spamscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2511080018
 
-On Fri, Nov 07, 2025 at 03:22:54PM +0000, Ryan Roberts wrote:
 
-Hi Ryan,
+On 11/7/25 11:50 PM, Andrew Cooper wrote:
+> On 07/11/2025 7:23 pm, James Dingwall wrote:
+>> Hi,
+>>
+>> I was trying to work out why this would cause my Windows 10 guest to hang
+>> when it should have been equivalent to ['defaults'] or 1.
+>>
+>> viridian = ['base', 'freq', 'apic_assist', 'crash_ctl', 'no_vp_limit', 'cpu_hotplug', 'time_ref_count', 'stimer']
+>>
+>> Checking the libxl sources show that in fact the defaults are:
+>>
+>>      if (libxl_defbool_val(info->u.hvm.viridian)) {
+>>          /* Enable defaults */
+>>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_BASE);
+>>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_FREQ);
+>>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_TIME_REF_COUNT);
+>>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_APIC_ASSIST);
+>>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_CRASH_CTL);
+>>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_NO_VP_LIMIT);
+>>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_CPU_HOTPLUG);
+>>      }
+>>
+>> LIBXL_VIRIDIAN_ENLIGHTENMENT_STIMER was removed as a default enlightement in
+>> e83077a3d11072708a5c38fa09fa9d011914e2a1 but the docs were not kept aligned.
+> Hmm, indeed.
+>
+> For the patch, Reviewed-by: Andrew Cooper<andrew.cooper3@citrix.com>
+>
+> It should have a fixes tag, but I can fix that on commit.
+>
+> CC'ing Oleksii.Â  This is a docs fix should be considered for 4.21 at
+> this juncture.
 
-> On 07/11/2025 14:34, David Hildenbrand (Red Hat) wrote:
-> >>>   #ifndef pte_batch_hint
-> >>> diff --git a/mm/kasan/shadow.c b/mm/kasan/shadow.c
-> >>> index 5d2a876035d6..c49b029d3593 100644
-> >>> --- a/mm/kasan/shadow.c
-> >>> +++ b/mm/kasan/shadow.c
-> >>> @@ -305,7 +305,7 @@ static int kasan_populate_vmalloc_pte(pte_t *ptep,
-> >>> unsigned long addr,
-> >>>       pte_t pte;
-> >>>       int index;
-> >>>   -    arch_leave_lazy_mmu_mode();
-> >>> +    lazy_mmu_mode_pause();
-> >>
-> >> I wonder if there really are use cases that *require* pause/resume? I think
-> >> these kasan cases could be correctly implemented using a new nest level instead?
-> >> Are there cases where the effects really need to be immediate or do the effects
-> >> just need to be visible when you get to where the resume is?
-> >>
-> >> If the latter, that could just be turned into a nested disable (e.g. a flush).
-> >> In this case, there is only 1 PTE write so no benefit, but I wonder if other
-> >> cases may have more PTE writes that could then still be batched. It would be
-> >> nice to simplify the API by removing pause/resume if we can?
-> > 
-> > It has clear semantics, clearer than some nest-disable IMHO.
-> > 
-> > Maybe you can elaborate how you would change ("simplify") the API in that
-> > regard? What would the API look like?
-> 
-> By simplify, I just meant can we remove lazy_mmu_mode_pause() and
-> lazy_mmu_mode_resume() ?
-> 
-> 
-> We currently have:
-> 
-> apply_to_page_range
->   lazy_mmu_mode_enable()
->     kasan_populate_vmalloc_pte()
->       lazy_mmu_mode_pause()
->       <code>
->       lazy_mmu_mode_resume()
->   lazy_mmu_mode_disable()
-> 
-> Where <code> is setting ptes. But if <code> doesn't need the effects to be
-> visible until lazy_mmu_mode_resume(), then you could replace the block with:
-> 
-> apply_to_page_range
->   lazy_mmu_mode_enable()
->     kasan_populate_vmalloc_pte()
->       lazy_mmu_mode_enable()
->       <code>
->       lazy_mmu_mode_disable()
->   lazy_mmu_mode_disable()
-> 
-> However, looking at this more closely, I'm not really clear on why we need *any*
-> special attention to lazy mmu inside of kasan_populate_vmalloc_pte() and
-> kasan_depopulate_vmalloc_pte().
-> 
-> I *think* that the original concern was that we were doing ptep_get(ptep) inside
-> of a lazy_mmu block? So we need to flush so that the getter returns the most
-> recent value? But given we have never written to that particular ptep while in
-> the lazy mmu block, there is surely no hazard in the first place?
+Agree, it could be in 4.21:
 
-There is, please see:
-https://lore.kernel.org/linux-mm/cover.1755528662.git.agordeev@linux.ibm.com/
+Release-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-> apply_to_existing_page_range() will only call kasan_depopulate_vmalloc_pte()
-> once per pte, right? So given we read the ptep before writing it, there should
-> be no hazard? If so we can remove pause/resume.
+Thanks for notifying me.
 
-Unfortunately, we rather not, please see:
-https://lore.kernel.org/linux-mm/d407a381-099b-4ec6-a20e-aeff4f3d750f@arm.com/
+~ Oleksii
 
-The problem is kasan code invokes apply_to_page_range(), which enters lazy_mmu
-mode unconditionally. I would claim that is rather an obstacle for the kasan
-code, not a benefit. But it needs to be tackled.
+--------------Wvu8FsypiDWNyspQYkevPvrX
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Should apply_to_page_range() had an option not to enter the lazy_mmu mode
-(e.g. an extra "bool skip_lazy" parameter) - the pause/resume could have
-been avoided.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 11/7/25 11:50 PM, Andrew Cooper
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:8c9f0988-0eb3-40f0-bd22-13b23af03ed8@citrix.com">
+      <pre wrap="" class="moz-quote-pre">On 07/11/2025 7:23 pm, James Dingwall wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Hi,
 
-> Thanks,
-> Ryan
+I was trying to work out why this would cause my Windows 10 guest to hang
+when it should have been equivalent to ['defaults'] or 1.
 
-Thanks!
+viridian = ['base', 'freq', 'apic_assist', 'crash_ctl', 'no_vp_limit', 'cpu_hotplug', 'time_ref_count', 'stimer']
+
+Checking the libxl sources show that in fact the defaults are:
+
+    if (libxl_defbool_val(info-&gt;u.hvm.viridian)) {
+        /* Enable defaults */
+        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_BASE);
+        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_FREQ);
+        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_TIME_REF_COUNT);
+        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_APIC_ASSIST);
+        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_CRASH_CTL);
+        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_NO_VP_LIMIT);
+        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_CPU_HOTPLUG);
+    }
+
+LIBXL_VIRIDIAN_ENLIGHTENMENT_STIMER was removed as a default enlightement in
+e83077a3d11072708a5c38fa09fa9d011914e2a1 but the docs were not kept aligned.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Hmm, indeed.
+
+For the patch, Reviewed-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
+
+It should have a fixes tag, but I can fix that on commit.
+
+CC'ing Oleksii.Â  This is a docs fix should be considered for 4.21 at
+this juncture.</pre>
+    </blockquote>
+    <pre>Agree, it could be in 4.21:
+
+Release-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+Thanks for notifying me.
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------Wvu8FsypiDWNyspQYkevPvrX--
 
