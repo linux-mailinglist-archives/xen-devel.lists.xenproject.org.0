@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5FE5C48107
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 17:44:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1158595.1486926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18E86C48119
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 17:44:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1158606.1486937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIUzd-00086Q-S1; Mon, 10 Nov 2025 16:43:49 +0000
+	id 1vIV0L-00008C-5K; Mon, 10 Nov 2025 16:44:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1158595.1486926; Mon, 10 Nov 2025 16:43:49 +0000
+Received: by outflank-mailman (output) from mailman id 1158606.1486937; Mon, 10 Nov 2025 16:44:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIUzd-000847-PP; Mon, 10 Nov 2025 16:43:49 +0000
-Received: by outflank-mailman (input) for mailman id 1158595;
- Mon, 10 Nov 2025 16:43:48 +0000
+	id 1vIV0L-00005b-1x; Mon, 10 Nov 2025 16:44:33 +0000
+Received: by outflank-mailman (input) for mailman id 1158606;
+ Mon, 10 Nov 2025 16:44:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cpW6=5S=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vIUzc-000841-Mk
- for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 16:43:48 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ <SRS0=8h32=5S=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1vIV0J-000841-01
+ for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 16:44:31 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6d6a3fc3-be54-11f0-9d18-b5c5bf9af7f9;
- Mon, 10 Nov 2025 17:43:47 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b72b495aa81so365533866b.2
- for <xen-devel@lists.xenproject.org>; Mon, 10 Nov 2025 08:43:47 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b72bf9be184sm1115880066b.56.2025.11.10.08.43.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Nov 2025 08:43:45 -0800 (PST)
+ id 873d6c02-be54-11f0-9d18-b5c5bf9af7f9;
+ Mon, 10 Nov 2025 17:44:30 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-42b387483bbso1114020f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Nov 2025 08:44:30 -0800 (PST)
+Received: from localhost.localdomain (host-78-149-11-196.as13285.net.
+ [78.149.11.196]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42ac675caecsm23199456f8f.30.2025.11.10.08.44.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Nov 2025 08:44:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,164 +45,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d6a3fc3-be54-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 873d6c02-be54-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1762793027; x=1763397827; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zRniwjdc0UfaBLxkygqufg0mM1L6TlFxiMGSTb/bxmQ=;
-        b=khVyWxdarrSTnD8hNziHPF/vot/mrjbKzJOSqSdxdDoYbf2GwDzdA9Z9j8WULvLy1E
-         aOKsXgdbdBjH38MV0e8dsaWLqzUazV7SHKVaEYqZoqdTr56TMzetjoQtOZrsqvMfxZPB
-         vDRCm8UGTGbEcs7AL5NFFdHHhGGC/6+KiLKh5fNJWAvxxhIgQXEXFVKtxGlkD7kowSdx
-         boMrgCaVdaicNevaluuEKx8pm+PX8YuMSXmb/Qfo2tjslIoERAY9scGYvloa82R+rPS4
-         hFsXzVV21SURqrDuYi6WL+v1EPZMuHHoKP8MrAe5KsaOkRMJ3DBmSAjrxpc8dKKKfzmQ
-         rsZg==
+        d=citrix.com; s=google; t=1762793070; x=1763397870; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ATYaMcg4FdVN2MNi5kBpKlRbqlIhW8GlJrzSP+D662c=;
+        b=ASmVSa45tcRod+cRwWAGcms2CgzrUUc2AJfHUA8EDSF3tDikxyboXlTtkneBy06JZQ
+         I+Cy10aGnkUyex33eW5gqPQ8pOpJgoIdyKFJYVGfB0Ux2imUSsTKhtCRjUr24nj+xXCO
+         KnjjsbeiZA42zPoX01bDZRzFPNVZUc4jKCYnY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762793027; x=1763397827;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zRniwjdc0UfaBLxkygqufg0mM1L6TlFxiMGSTb/bxmQ=;
-        b=dkWzMYKiOOMzb2h3I+7ngPT6y8CdUuPIl7mhC5EPRGASv65V2EAhpHmV7sFpVPWYqj
-         17LnUwXOChVAxBWGlVdCmDZ46lNKOsHYpi/iImzZJuwkzQk/zlHT/HeFL+pyvXdhAsqM
-         TspcCmR/TVgRnylKKxFEmDCtqBvAtGzgYVAzNaQndoP3dOwmcVMV19z0aLC9JQISQB8G
-         +K8PG7NgBz3oHRqoMa3EbaqxGL3AKMcG0bzLMM3mI86VoLep6QE/BG6bvztRPwDBjbp1
-         Uc64+vwl8txovTzlGI3hOxegJPI0lwDSYhjdUnAxE1olpKT2kwEubNCLB06Rp/52cWDK
-         Bhbg==
-X-Forwarded-Encrypted: i=1; AJvYcCXKrEJTMzlPnuRvzTW8LWoX2zaa4Gku1v0tVlrIyxYDkDIjq7muPSRAbcbUgdkTLMyaNYRyHfnSCC8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzLVpa7LS1rhny9Aa6/YtC67cP9NbjEXU2xqFNh2GefaG9HB2Ie
-	n68yUXkyM1FkxhQA5iQsPSvs7Dnuy3DaYo4g/EDDiiq7OgFpZSkAV7Kb
-X-Gm-Gg: ASbGnctnSM3qI/e1vSlACOWDFjcr/92PuPSrN6JP8ZfA95YR2jhC2v7u4hCZfzQAiNn
-	2FKrY11Fa9s2fBnh+kDaBySeZsj3TxmstyvphgVQGVb3/gY0sVAtOqaRDEIGoeiKpFX0Kn/rxTT
-	jP5GefUacpBxqmimwi0FDLBwo1wQEOZ+qFan9DlpyuLTtFFrnD5/CZP5eEY4wU55KjJv+DVWNEI
-	f7ancZ9jY0YHhS3au+MXuNOwsOt9Tn5wuED4mswqQU5+bedowxvmIH7kLMZ3aO6e5NcyYbGBQq9
-	HCFBqCLl424E+9fkn/YlE58hZy5d9kNUy7PPJCF6YfDSGBe9/QqxsL3vG3Utuy+x4V6eXL70VTt
-	mmNCos5KRxU+uvf6/YZvpMIBUkjY6fRULFmhNlmLzijBkaLh9P99EUFcKVtHn4tWDr79N1fhnrF
-	gJJ5dNPz0KuN2jNnmRKJV+KAZ/mmtWa0cC/OJkfu0d/o6s46/xEVnXwN6Fg34BcozQgAREkHU=
-X-Google-Smtp-Source: AGHT+IE+Y1GCJ2WQX77Q3XWTOtt/Lgqy6/kagF35saYNe7k1ssyiOZQ+raISJLiuZ9b2DCVV4jigeA==
-X-Received: by 2002:a17:907:3f97:b0:b70:f2c4:bdf2 with SMTP id a640c23a62f3a-b72e02dc592mr827710566b.23.1762793026141;
-        Mon, 10 Nov 2025 08:43:46 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------D0bQwLXqUnPjcg6bY6Yul0lb"
-Message-ID: <0b90e356-6d70-4a50-a426-d3919be019ec@gmail.com>
-Date: Mon, 10 Nov 2025 17:43:44 +0100
+        d=1e100.net; s=20230601; t=1762793070; x=1763397870;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ATYaMcg4FdVN2MNi5kBpKlRbqlIhW8GlJrzSP+D662c=;
+        b=NgmBDRSONH0J/VsK8tav1LxQ4NAUq40K8+RikXhS70DhxLQc3ascTGlqy2UHxHGbo8
+         CmFbd7Gm9OIzBfXpTpuXFvOkx2FwOf//0BcXXD3oziciyscF0LB0Gl5ogFArt66hOFTg
+         JjJ2Oy8UJLMFb68eGAB3a5XltwbKteJkkb9xLaXobVoKqOZGS9CguP5mjfjg9rJpHBwK
+         LziYLi/Uui/16JYxn0JzQsRKaVbJbaoStUkMBqYGdQrBln+okVfcPPkhVZsuiMfwxvhe
+         ua004uZbHIbScf0b3cnlCaGZNPllytJPdhQL8Sa1uqwgx7MYOTmUEoM1SQkDHLL1/rjc
+         v66A==
+X-Gm-Message-State: AOJu0YzyvH+OHANncZOf731DGrOLHy0CeUnjWiPMmtX/+/m/DG/gxHg6
+	BqISNLbroNE9qJHp6tgtddqZh5I7MSFQV4ldKlgh2HEPrYBnCE0skWeVTEbA5ekcERjB9+ZkIbE
+	o8/RDJgQ=
+X-Gm-Gg: ASbGnct1GH9B3tgrWcgu8/qTkghKung/2cqPUHhw+IHeIxQtvqBnywpTXn16qgs7iJS
+	B6kvvuStgXsCdgjXGwoDrAMVlOg9iZ6eeVgeY3oWRs3VXcdqB/QCQfquPoPoyGR0JJ6x1FuhPdb
+	yuc9TuWBvxSBGeeLUkn26f4EU0ApY/U6sPlzRXZnlAUdSh4/+5HU0EDopHgCMoh69W9L0PkC+wq
+	Nh4hTyi5j61xmiHT2c0Uu/U6PYd1tRwzl5gTeGgnlBlilrbNLMyE+MWMK+yh3GgYdnqZ1jMOyzL
+	EwYDm+JY7VqZptuhOjgn0CZewjsPTATy2aF2XjL6F6wLvcHQQaqpJUTI0U0cI9BFoQutiZX3L5+
+	oCGHTc9ssZVKDqEwlL3QjXMB7C4+dr5dT8yGl6F6TcpRjbxHIR9w99WBh7phuP3AbELP2s9YzL4
+	1L7mgrp0KRvCv/fCm7z0+UpzzPuBppvWGWlPflrANWlaVq+wGnedMhbYV7UDBLqw==
+X-Google-Smtp-Source: AGHT+IG4NH9qxjkFD9F37q4SK7PLG3paAGuS/tDALl4u+nmg7eo0NhiViB40kuNY5TZBUrzFCUkzMQ==
+X-Received: by 2002:a05:6000:2510:b0:427:9e6:3a64 with SMTP id ffacd0b85a97d-42b2dc9f65bmr6875751f8f.47.1762793069663;
+        Mon, 10 Nov 2025 08:44:29 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Christian Lindig <christian.lindig@citrix.com>,
+	David Scott <dave@recoil.org>,
+	=?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>,
+	Rob Hoes <Rob.Hoes@citrix.com>,
+	Pau Ruiz Safont <pau.safont@vates.tech>,
+	Andrii Sultanov <andriy.sultanov@vates.tech>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH] CHANGELOG: Note about oxenstored being deprecated
+Date: Mon, 10 Nov 2025 16:44:27 +0000
+Message-Id: <20251110164427.54299-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] CHANGELOG.md: Update for 4.21 release cycle
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
-Cc: Community Manager <community.manager@xenproject.org>,
- committers@xenproject.org
-References: <1930832802df980a6fe610233265bc238fcfaca4.1758901622.git.oleksii.kurochko@gmail.com>
- <60d1d66e-83cd-47b5-9b94-0325f411ca72@citrix.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <60d1d66e-83cd-47b5-9b94-0325f411ca72@citrix.com>
-
-This is a multi-part message in MIME format.
---------------D0bQwLXqUnPjcg6bY6Yul0lb
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-
-On 11/10/25 5:29 PM, Andrew Cooper wrote:
-> On 26/09/2025 4:47 pm, Oleksii Kurochko wrote:
->> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->> ---
->> Chnages in v2:
->> - Drop the following items:
->>    - Allow to unflatten DTs.
->>    - Basic kexec support to Mini-OS for running in PVH mode.
->> ---
->>   CHANGELOG.md | 11 ++++++++++-
->>   1 file changed, 10 insertions(+), 1 deletion(-)
->>
->> diff --git a/CHANGELOG.md b/CHANGELOG.md
->> index ca1b43b940..0afd2eeb4b 100644
->> --- a/CHANGELOG.md
->> +++ b/CHANGELOG.md
->> @@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->>    - Debian Trixie added to CI.  Debian Bullseye retired from CI for RISC-V due
->>      to the baseline change.
->>    - Linux based device model stubdomains are now fully supported.
->> + - Remove libxenctrl usage from xenstored.
-> This is about libxenmange.  I think it wants to say:
->
-> - Introduce libxenmanage as a stable library, replacing xenstored's
-> dependency on unstable libraries.
-
->
-> Otherwise, LGTM.
-
-It is much better, I’ll be glad if this update can be done during the commit.
-
-Thanks!
-
-~ Oleksii
-
-
---------------D0bQwLXqUnPjcg6bY6Yul0lb
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 11/10/25 5:29 PM, Andrew Cooper
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:60d1d66e-83cd-47b5-9b94-0325f411ca72@citrix.com">
-      <pre wrap="" class="moz-quote-pre">On 26/09/2025 4:47 pm, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-Chnages in v2:
-- Drop the following items:
-  - Allow to unflatten DTs.
-  - Basic kexec support to Mini-OS for running in PVH mode.
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Christian Lindig <christian.lindig@citrix.com>
+CC: David Scott <dave@recoil.org>
+CC: Edwin Török <edwin.torok@cloud.com>
+CC: Rob Hoes <Rob.Hoes@citrix.com>
+CC: Pau Ruiz Safont <pau.safont@vates.tech>
+CC: Andrii Sultanov <andriy.sultanov@vates.tech>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+
+I'd like to add a --with-system-oxenstored= but I don't have time.  That will
+have to wait for 4.22.
 ---
- CHANGELOG.md | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ CHANGELOG.md | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/CHANGELOG.md b/CHANGELOG.md
-index ca1b43b940..0afd2eeb4b 100644
+index fc4f6d7c8a09..080305ef456f 100644
 --- a/CHANGELOG.md
 +++ b/CHANGELOG.md
-@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
-  - Debian Trixie added to CI.  Debian Bullseye retired from CI for RISC-V due
-    to the baseline change.
-  - Linux based device model stubdomains are now fully supported.
-+ - Remove libxenctrl usage from xenstored.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-This is about libxenmange.  I think it wants to say:
+@@ -53,6 +53,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+ 
+  - Support of qemu-traditional has been removed.
+ 
++ - The in-tree oxenstored is deprecated and will be removed in a future
++   version of Xen.  It is moving into the Xapi project
++   https://github.com/xapi-project/oxenstored so it can be maintained in line
++   with the other Ocaml projects in the Xen ecosystem.
++
+ ## [4.20.0](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.20.0) - 2025-03-05
+ 
+ ### Changed
 
-- Introduce libxenmanage as a stable library, replacing xenstored's
-dependency on unstable libraries. </pre>
-    </blockquote>
-    <p></p>
-    <blockquote type="cite"
-      cite="mid:60d1d66e-83cd-47b5-9b94-0325f411ca72@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
+base-commit: 343e01fd1d31dc6867473599c2c49039386bdf79
+-- 
+2.39.5
 
-Otherwise, LGTM.</pre>
-    </blockquote>
-    <pre>It is much better, I’ll be glad if this update can be done during the commit.
-
-Thanks!</pre>
-    <pre>~ Oleksii</pre>
-    <br>
-  </body>
-</html>
-
---------------D0bQwLXqUnPjcg6bY6Yul0lb--
 
