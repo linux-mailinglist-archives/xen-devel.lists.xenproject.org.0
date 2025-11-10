@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD03CC45192
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 07:37:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1158117.1486510 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F926C452E0
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 08:12:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1158130.1486521 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vILVk-0002Zf-S2; Mon, 10 Nov 2025 06:36:20 +0000
+	id 1vIM4E-0007gs-9L; Mon, 10 Nov 2025 07:11:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1158117.1486510; Mon, 10 Nov 2025 06:36:20 +0000
+Received: by outflank-mailman (output) from mailman id 1158130.1486521; Mon, 10 Nov 2025 07:11:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vILVk-0002Wd-LV; Mon, 10 Nov 2025 06:36:20 +0000
-Received: by outflank-mailman (input) for mailman id 1158117;
- Mon, 10 Nov 2025 06:36:18 +0000
+	id 1vIM4E-0007eX-6G; Mon, 10 Nov 2025 07:11:58 +0000
+Received: by outflank-mailman (input) for mailman id 1158130;
+ Mon, 10 Nov 2025 07:11:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ugol=5S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vILVi-0002WV-SN
- for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 06:36:18 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1vIM4D-0007eR-L0
+ for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 07:11:57 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 868b7980-bdff-11f0-980a-7dc792cee155;
- Mon, 10 Nov 2025 07:36:02 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-42b2a0c18caso1623083f8f.1
- for <xen-devel@lists.xenproject.org>; Sun, 09 Nov 2025 22:36:02 -0800 (PST)
+ id 89dbc640-be04-11f0-980a-7dc792cee155;
+ Mon, 10 Nov 2025 08:11:55 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-42b312a089fso704465f8f.2
+ for <xen-devel@lists.xenproject.org>; Sun, 09 Nov 2025 23:11:55 -0800 (PST)
 Received: from ?IPV6:2003:ca:b70c:6a8d:3447:d20d:2d49:c08?
  (p200300cab70c6a8d3447d20d2d490c08.dip0.t-ipconnect.de.
  [2003:ca:b70c:6a8d:3447:d20d:2d49:c08])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42b32ecf522sm8675021f8f.45.2025.11.09.22.36.00
+ 5b1f17b1804b1-47763da0242sm102606345e9.0.2025.11.09.23.11.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 09 Nov 2025 22:36:01 -0800 (PST)
+ Sun, 09 Nov 2025 23:11:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,68 +47,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 868b7980-bdff-11f0-980a-7dc792cee155
+X-Inumbo-ID: 89dbc640-be04-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762756561; x=1763361361; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762758714; x=1763363514; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kr+XGRoKIHGRYsiEGErklOAhl7b0/4B1Yaxz6uQK/Zw=;
-        b=GzEdIFS01sQ8D43+7ABYJhl7wnibH2yqjb6Ds+uUsnJT0oQ+pxMAyeZECKJiaqXd4U
-         qW7cI+aYLQmN0xn4DMdPwTRqnnDK+e18lLA5ud9QN76OXF+PhamyLLHZFQMuJrRQ7M7w
-         BnfjCtfvMw8Lvw17D+98P9nbKm1bBVKBiDWweddX4mp+01gvTraseI4IYvnpH0SFm1vz
-         Hm7GyASu1ng5vUkbTIQalWQIw9vcmpD511HT0l2JvES9v3B2zV0AxAd69wci8z7j9LkN
-         UEqWlZD3lAiaJFdmkOh20zF/1peyTZGhxEFksMZ9cyXIeeFDSzTgK6CJlKH4FWOzqo/L
-         dy+g==
+        bh=ttuGbKCkdItCP9jPmadASk+Rq7sHRnNWhiGeJiQoEkc=;
+        b=Wb3oAarux0njJqyE/7IHQRUoitgTQkXHF0rJj1dJ8HXLAHX0eUewkaX2MYU3CBLxqK
+         7PQPUrFNxmypjMUcYqyQ9SfpyzW9R6NIgTen+fVc6jBPhWUJuIAJjLSCZ3u3RRzBrB2c
+         sbIcy/xnuE0x6OmSNTuisgsE9PXxUIkOq8a1J3U3rS38s8aZ4FLAlCyvVRKiCWX/9ucP
+         0e08pHG5GeNUDvFOgPGfSoj4ApgNFHJMLxjx79eDVEmBjHdmZeor2+naSDe1Qwa7WbYZ
+         1fdeBb85DLwQQjRVXAtY/qAyEvWnm4EXMQjPYrO0cPmKVcAXuFvPu9/vXmE4CnGkDRQT
+         oxdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762756561; x=1763361361;
+        d=1e100.net; s=20230601; t=1762758714; x=1763363514;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kr+XGRoKIHGRYsiEGErklOAhl7b0/4B1Yaxz6uQK/Zw=;
-        b=jYWLsNLHdTy46qmcima9Us+TkBl60rQVqRwn9iQyVLE3xn50TIvnrxMdOCL6z3KzqI
-         od7MhhAGNSaUkmZ/v+z9wEHXbAqglqRo7m+vNKor86oi+UXzYzgUu1blqf5GZdm9/Gp5
-         rf+7qgwFUqw/4VMYxtxvXzw7+ae4/dyXLMt9wfxjMjq3j1KkgfhaynSHolDW9r+BRgdE
-         ulpktNsx3yLiEFLQWef9qNCOmQtOaMa/IbVSZVoolQYdE8wheK6vS3MkZz4uI1MVx7ma
-         WfDI8qjL7KWxKOxfgde5tp1gp4pX+QWKkjFIaW/mFh8cY6l5XTZXY7534VhssiecJEw6
-         zyOQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXgC1JOnp+zoOK3SIwFQk7vc0WFTtl+pb1SnorKRaBvogq3H/Rz5jRsIT2oW4zb6NL3W42Ww5Uo+no=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx5Cy4wPJBl7iYGE5438GZnaJQCkPYHuBn0TRh1BmDs5j8Rs1WE
-	qaPDUT2ePrRk6ITuEmjSEdR8MnfPYZWjRv4c50BhGHOLN13Cn7vR2qfQlLjtWcyU5g==
-X-Gm-Gg: ASbGnctC+zV3pIVDEvjSQMYyMwaVlLxZUfRaC1Sxr0dUkpaP68HY1qXd4DR4zzHDwPt
-	QDRkby/auI0QnN0knGOGkU468tUc5l7HtAlO8V9w5g9J3z2quzw5B4PABRMY+hw8kLukZN2bfEb
-	PQtTOf9EzoDOqpUQJCAQZVhk+zJ7ezImM6FBrdqICtlnakSoyGSPFS2cLOFCvMHGFhYbcjG+v2m
-	s6vvw5IoN9q1wsxLUOgDs4GFpDAaMap2cFCPh8B33kOduGM8j4BaE8xNw0OSDi1qBauJKBsRUb5
-	4wGxeXCR8hemKE1sRijDXtfkGjlGiRFU7WWseRwdRaGZSF4PNnNLUMHhLuSKC/ySjCMaGUhGyfK
-	LJNsM8sNFpb0UrStxUZ+tqtcTnuncq8eqRSX/CDd2M9s9wtloFCAdqDb244OGrj2JBn9zlk920B
-	kOsNUgi9lKjUnf2aQZfRj1myvD4e2qdpLT0QeJgKzyn9t+mrCB4nAeI9oNADG0t+e2iwIdLRj9T
-	5e3juXjlbkFpwSKX5zKBnO28v9L++fTC0sIwRMFkEDQ4Q==
-X-Google-Smtp-Source: AGHT+IH4Rvto99U04q4jqjsdpgdqnC+Ko5Aw+FvKiuI1uwej27aa0B60AyTZGc2REe9VkQYIhp0MxA==
-X-Received: by 2002:a5d:5f83:0:b0:428:5673:11e0 with SMTP id ffacd0b85a97d-42b2dc8725bmr5205479f8f.40.1762756561429;
-        Sun, 09 Nov 2025 22:36:01 -0800 (PST)
-Message-ID: <0613cfb9-0f6e-4c55-a250-ba2a5aa0e182@suse.com>
-Date: Mon, 10 Nov 2025 07:36:00 +0100
+        bh=ttuGbKCkdItCP9jPmadASk+Rq7sHRnNWhiGeJiQoEkc=;
+        b=F1GzMeY4uZuthVkZrg8okl1KT1+GpTMMlETQqecUHS9KkMUclgnf3mZFyEAmJjge6R
+         rbEOddqI/hecHs2Xa3M6+KGWo51FHboONIC11mVZaTRGO3LtRsQqtSz3uD4vLL86q2lx
+         jEHLahHrANPUchqTihVcBYJkwc5WFWg21oJmRgmyTjdyomS7WpHHYa+LaoD4gsxMviPe
+         qBPnqQN0zE8rpGePMyl6A3BxH1iBJZPPEsV9RbOATUSOdyRAYYZ9cXM8pklrUYeTtvNy
+         HHS6vjfoFnW+9PAvrcZuth6bU1bNoZt3vGONA0vwM8aGoXn12gj9Su1nUJLI723S8gEY
+         405g==
+X-Forwarded-Encrypted: i=1; AJvYcCWitN2/4wGt0jUs3nhvG3CExSj7I35g7j/1oH7RgEwiUnjNtr54j/1RPoYcXTNURamLy+JYUoUF1nQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxVqifWU4x6rprYOg3TbIhtNmUirxXuB06mEvPwezwaUQBWAdW0
+	GpO9WwMMkqg2FOuL8PQ/8aLCikKu8QzpMDtoFqhP/lQ2bb7u992FLSUalMVESzlcvA==
+X-Gm-Gg: ASbGncvpmMObeIgcWgafftfpE/MoWVgu/SZPqjpGxI2bZ7DK3FsF6guVSkwzhTg4EUf
+	qp6Qm03MhLaOvKi5ua7HtwnbePoQ6nsxSCr8gde7gg9ahWzN8T934tk1V1Pt6i9qBL+eJfqwBek
+	+jIcRhUXkbHRMbRuRG/8KR5SaAMgDIO7yRdjhu7nKgNctHt7a9ssRRzfSrc/yREO2MzDOJdUU0N
+	3r4yev0Hy/qiKDIX8HDclgkTKcYMSVe+ZxaTqtdjs/wuh1Pa6w/wA8GrLHvYW1mRAm5Z5S5K1vD
+	BMEy8OsyXQ2Zj48YxBjRGdPpN/kvplSaiQ+rKPInwulHFa2Q7fdznsj5HBHVw841Q2gFVYIFZc5
+	VePR7fKFXIYWhUTfFZPlDVMrNMqmuG2gk0OxQNayBhIVGG4WUSBk/TPV0BeO8BwgqtrsWXRcB1V
+	C8CkMwR2CMhDF1KFmGLgM/zgRJ2aNaknp7D63HAQByF5NV3Regv7aT9TKr3RypwIvXC/UQV3mYS
+	B3QTKd3RCYruV1VLAX9hH2KUsQQVtPYSPQfllORe1SWkg==
+X-Google-Smtp-Source: AGHT+IHs4quEVGCJ7ej0+1HlDO/LlNkZHALscGjlkCI9Lah6RGuFonPNb1lWg/APbdiL76LHV8eyVA==
+X-Received: by 2002:a05:600c:3b1f:b0:46f:b42e:e360 with SMTP id 5b1f17b1804b1-4777329c723mr60186835e9.40.1762758714526;
+        Sun, 09 Nov 2025 23:11:54 -0800 (PST)
+Message-ID: <47f86a44-007f-4b90-9656-b2440238b2ba@suse.com>
+Date: Mon, 10 Nov 2025 08:11:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] xen: make VMTRACE support optional
+Subject: Re: [XEN][PATCH v3] xen/x86: guest_access: optimize raw_x_guest() for
+ PV and HVM combinations
 To: Grygorii Strashko <grygorii_strashko@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Penny Zheng <Penny.Zheng@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Teddy Astie <teddy.astie@vates.tech>
-References: <20251031212005.1338212-1-grygorii_strashko@epam.com>
- <b6337cb5-da85-492d-bba9-688e35695c46@suse.com>
- <e55f990a-1781-4651-a899-9d78bbbbdfd0@epam.com>
- <63525e6f-4e17-4155-87b2-47b9ac9ea474@suse.com>
- <acac87ba-5a5a-49d1-925a-8754f4a3179f@epam.com>
+ Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251107181739.3034098-1-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -134,90 +124,119 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <acac87ba-5a5a-49d1-925a-8754f4a3179f@epam.com>
+In-Reply-To: <20251107181739.3034098-1-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 07.11.2025 16:47, Grygorii Strashko wrote:
-> Hi
-> 
-> On 06.11.25 16:09, Jan Beulich wrote:
->> On 06.11.2025 14:50, Grygorii Strashko wrote:
->>> On 06.11.25 14:00, Jan Beulich wrote:
->>>> On 31.10.2025 22:20, Grygorii Strashko wrote:
->>>>> --- a/xen/Kconfig.debug
->>>>> +++ b/xen/Kconfig.debug
->>>>> @@ -155,4 +155,19 @@ config DEBUG_INFO
->>>>>          "make install-xen" for installing xen.efi, stripping needs to be
->>>>>          done outside the Xen build environment).
->>>>>    +config HAS_VMTRACE
->>>>> +    bool
->>>>> +
->>>>> +config VMTRACE
->>>>> +    bool "HW VM tracing support"
->>>>> +    depends on HAS_VMTRACE
->>>>> +    default y
->>>>> +    help
->>>>> +      Enables HW VM tracing support which allows to configure HW processor
->>>>> +      features (vmtrace_op) to enable capturing information about software
->>>>> +      execution using dedicated hardware facilities with minimal interference
->>>>> +      to the software being traced. The trace date can be retrieved using buffer
->>>>
->>>> Nit: s/date/data/
->>>>
->>>>> +      shared between Xen and domain
->>>>> +      (see XENMEM_acquire_resource(XENMEM_resource_vmtrace_buf)).
->>>>> +
->>>>
->>>> I was actually meaning to ask that "VMX only" should somehow be mentioned here,
->>>> but then I noticed this is an arch-independent location.
->>>
->>> Right, Arch code advertise VMTRACE support with HAS_VMTRACE.
->>> In this particular case:
->>> config INTEL_VMX
->>> ...
->>>     select HAS_VMTRACE
->>>
->>>
->>>> I'm not quite sure we want it like this (just yet).
->>>
->>> ?
->>
->> To rephrase the question: Are we expecting anything other than VMX to support
->> VMTRACE any time soon?
->>
-> 
-> That's I do not know.
-> 
-> I assume your point is similar to what Teddy noted [1].
-> 
-> I think vmtrace code can be consolidate, but question is on what level(s):
-> 
-> only:
->  xen/arch/x86/hvm/vmx/
->  |- vmtrace.c
-> 
-> or:
->  xen/arch/x86/hvm
->  |- vmtrace.c
->     <- vmtrace_alloc/free_buffer(), acquire_vmtrace_buf(), do_vmtrace_op()
->  xen/arch/x86/hvm/vmx/
->  |- vmtrace.c
-> 
-> it will require more work comparing to the current change.
+On 07.11.2025 19:17, Grygorii Strashko wrote:
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -71,7 +71,7 @@ obj-y += time.o
+>  obj-y += traps-setup.o
+>  obj-y += traps.o
+>  obj-$(CONFIG_INTEL) += tsx.o
+> -obj-y += usercopy.o
+> +obj-$(CONFIG_PV) += usercopy.o
 
-Well, I don't think code movement is strictly necessary here. But as I'm unconvinced
-of Kconfig.debug (in whatever subdir) being an appropriate place to add this, for
-the time being merely putting the new Kconfig option directly next to INTEL_VMX (and
-then without any new HAS_*) wants at least considering, imo. If and when some other
-use appears, HAS_* can be introduced and the whole thing moved.
+Imo, if this was indeed doable (see below) the file would rather want moving
+to pv/.
 
-As otoh abstracting things in an arch-independent way also has its merits, it is -
-as said - not quite clear to me which way we'd prefer to have it.
+> --- a/xen/arch/x86/include/asm/guest_access.h
+> +++ b/xen/arch/x86/include/asm/guest_access.h
+> @@ -13,26 +13,64 @@
+>  #include <asm/hvm/guest_access.h>
+>  
+>  /* Raw access functions: no type checking. */
+> -#define raw_copy_to_guest(dst, src, len)        \
+> -    (is_hvm_vcpu(current) ?                     \
+> -     copy_to_user_hvm((dst), (src), (len)) :    \
+> -     copy_to_guest_pv(dst, src, len))
+> -#define raw_copy_from_guest(dst, src, len)      \
+> -    (is_hvm_vcpu(current) ?                     \
+> -     copy_from_user_hvm((dst), (src), (len)) :  \
+> -     copy_from_guest_pv(dst, src, len))
+> -#define raw_clear_guest(dst,  len)              \
+> -    (is_hvm_vcpu(current) ?                     \
+> -     clear_user_hvm((dst), (len)) :             \
+> -     clear_guest_pv(dst, len))
+> -#define __raw_copy_to_guest(dst, src, len)      \
+> -    (is_hvm_vcpu(current) ?                     \
+> -     copy_to_user_hvm((dst), (src), (len)) :    \
+> -     __copy_to_guest_pv(dst, src, len))
+> -#define __raw_copy_from_guest(dst, src, len)    \
+> -    (is_hvm_vcpu(current) ?                     \
+> -     copy_from_user_hvm((dst), (src), (len)) :  \
+> -     __copy_from_guest_pv(dst, src, len))
+> +static inline bool raw_use_hvm_access(const struct vcpu *v)
+> +{
+> +    return IS_ENABLED(CONFIG_HVM) && (!IS_ENABLED(CONFIG_PV) || is_hvm_vcpu(v));
+> +}
+
+Without a full audit (likely tedious and error prone) this still is a
+behavioral change for some (likely unintended) use against a system domain
+(likely the idle one): With HVM=y PV=n we'd suddenly use the HVM accessor
+there. IOW imo the "system domains are implicitly PV" aspect wants
+retaining, even if only "just in case". It's okay not to invoke the PV
+accessor (but return "len" instead), but it's not okay to invoke the HVM
+one.
+
+> +static inline unsigned int raw_copy_to_guest(void *dst, const void *src,
+> +                                             unsigned int len)
+> +{
+> +    if ( raw_use_hvm_access(current) )
+> +        return copy_to_user_hvm(dst, src, len);
+> +    else if ( IS_ENABLED(CONFIG_PV) )
+> +        return copy_to_guest_pv(dst, src, len);
+> +    else
+> +        return len;
+> +}
+> +
+> +static inline unsigned int raw_copy_from_guest(void *dst, const void *src,
+> +                                               unsigned int len)
+> +{
+> +    if ( raw_use_hvm_access(current) )
+> +        return copy_from_user_hvm(dst, src, len);
+> +    else if ( IS_ENABLED(CONFIG_PV) )
+> +        return copy_from_guest_pv(dst, src, len);
+> +    else
+> +        return len;
+> +}
+> +
+> +static inline unsigned int raw_clear_guest(void *dst, unsigned int len)
+> +{
+> +    if ( raw_use_hvm_access(current) )
+> +        return clear_user_hvm(dst, len);
+> +    else if ( IS_ENABLED(CONFIG_PV) )
+> +        return clear_guest_pv(dst, len);
+> +    else
+> +        return len;
+> +}
+> +
+> +static inline unsigned int __raw_copy_to_guest(void *dst, const void *src,
+> +                                               unsigned int len)
+> +{
+> +    if ( raw_use_hvm_access(current) )
+> +        return copy_to_user_hvm(dst, src, len);
+> +    else if ( IS_ENABLED(CONFIG_PV) )
+> +        return __copy_to_guest_pv(dst, src, len);
+> +    else
+> +        return len;
+> +}
+> +
+> +static inline unsigned int __raw_copy_from_guest(void *dst, const void *src,
+> +                                                 unsigned int len)
+> +{
+> +    if ( raw_use_hvm_access(current) )
+> +        return copy_from_user_hvm(dst, src, len);
+> +    else if ( IS_ENABLED(CONFIG_PV) )
+> +        return __copy_from_guest_pv(dst, src, len);
+> +    else
+> +        return len;
+> +}
+
+I have to admit that I'm not quite happy about the redundancy here (leaving
+aside the imo Misra-conflicting uses of "else"). It looks as if some macro-
+ization could still help. Not sure what others think, though.
 
 Jan
-
-> [1] https://patchwork.kernel.org/comment/26637627/
-> 
-
 
