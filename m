@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0450CC478B5
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 16:30:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1158452.1486809 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3DBBC47938
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 16:36:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1158464.1486818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vITpu-0008T8-8e; Mon, 10 Nov 2025 15:29:42 +0000
+	id 1vITwA-0001ix-Sk; Mon, 10 Nov 2025 15:36:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1158452.1486809; Mon, 10 Nov 2025 15:29:42 +0000
+Received: by outflank-mailman (output) from mailman id 1158464.1486818; Mon, 10 Nov 2025 15:36:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vITpu-0008Qw-5p; Mon, 10 Nov 2025 15:29:42 +0000
-Received: by outflank-mailman (input) for mailman id 1158452;
- Mon, 10 Nov 2025 15:29:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ugol=5S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vITpt-0008Qq-3U
- for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 15:29:41 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 11f3823f-be4a-11f0-980a-7dc792cee155;
- Mon, 10 Nov 2025 16:29:38 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-640ace5f283so3849896a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 10 Nov 2025 07:29:38 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6411f6780b7sm11604534a12.0.2025.11.10.07.29.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Nov 2025 07:29:37 -0800 (PST)
+	id 1vITwA-0001gV-Q7; Mon, 10 Nov 2025 15:36:10 +0000
+Received: by outflank-mailman (input) for mailman id 1158464;
+ Mon, 10 Nov 2025 15:36:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=D0MZ=5S=citrix.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1vITw9-0001gP-13
+ for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 15:36:09 +0000
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c105::7])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f53e5bdb-be4a-11f0-9d18-b5c5bf9af7f9;
+ Mon, 10 Nov 2025 16:36:01 +0100 (CET)
+Received: from IA3PR03MB8408.namprd03.prod.outlook.com (2603:10b6:208:546::19)
+ by PH8PR03MB7217.namprd03.prod.outlook.com (2603:10b6:510:259::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.15; Mon, 10 Nov
+ 2025 15:35:55 +0000
+Received: from IA3PR03MB8408.namprd03.prod.outlook.com
+ ([fe80::8d7b:218a:6264:2c39]) by IA3PR03MB8408.namprd03.prod.outlook.com
+ ([fe80::8d7b:218a:6264:2c39%5]) with mapi id 15.20.9298.007; Mon, 10 Nov 2025
+ 15:35:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,249 +47,262 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11f3823f-be4a-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762788578; x=1763393378; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=O5pYIZhbo7pLnFAv55ABo3MihsiXamJgbeGRbEuDLt4=;
-        b=Y82uhdIqp2awIucIWz1LRolNZmeg0qJb31sS54vHtbGVOth89mAbryFnuho63gNUK7
-         XtanEJf0SI+hAedTADZutRU3SnBAtCLyX7chpp0LMWJvObYJ2IIVmuiG8EMKEfP8qxW2
-         hwbTgL50Dst3U5xaKxBMOHHjkQd4yuZxABVlLX4CBjzEkdkrPz+2mxhy26POY4v9KGfE
-         +toPNshCdEXFAhFSl63nFeBe7ORoJfQBIomgo4LsXNwu51szZCe7X6M3nev3YSph1nRS
-         qgmXKMfw9QGeajWVuroQkmCusvLj8ruxtmT0eHtN49pR1QVAa690ggL4gHoIygbQB58a
-         67Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762788578; x=1763393378;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=O5pYIZhbo7pLnFAv55ABo3MihsiXamJgbeGRbEuDLt4=;
-        b=dJSAkhyVGhkoWXrOnr97B/GwFgKtBXsJxviTFFqiY0Ea4LiBtvfWKkBsU3+Dr+EFaR
-         dgiV2bbS7QoPDlM9i2lNC9jrsanFfeXymNnXHpdCceQiltZqO639BkGgUDWnDMeWDRjP
-         farQH6DTZZPVs4FqCvXzW7bCoUD5uwH3mDmpmfuottOsIJjrYfonU3n2b1jhKjhE2IsY
-         syyzFcX3p7isRfiy95X8ta4v57RYZDUUXdRQW2FL5ljTANvTMcSxN48Mqq3Zw8orlBg3
-         NCHJAKL1+pKs84HbJAFBk4cEurzmWKaZBc8cGS55d8F3TI5G3ReBLwahDtDZpulptrD2
-         S+MA==
-X-Forwarded-Encrypted: i=1; AJvYcCVyCWj6lXiLcnF+bUpBjfphreFfd6ZTw16Wp7ZwgggpbzeT/k/exT4LnA+9QiGM8O/UtoTDubaUEGc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YywDWronE/Yfp4tFBaS+GV4Y1HuquNffYJW6l7PbeJXkYLlCmA8
-	TGQSmxKO2YqcTOD2HcCDsQgTYRDnCotm3SXQ5AiXoxKUSl/m641MpDmVS6gi8jCfuw==
-X-Gm-Gg: ASbGnctme/FtakQeR6DJKuFbCgMIV1/QEw/lpQI9UFB9AhNciJ8nHpi0JXsuAiHkS05
-	1wP7DQ7Dmzp+hdMfbhibwYFiqwy2NXCKgUyl1JuDTW+MBzrReuBgilkKhZUqH5hEqsRvpxxQMRY
-	DnOGGz0MQle2sMeUq0L/vCcdJgl2Yi/MtwHb61ZEi55HEVTAbFYla5exXIGnx66n41XNyfBhDDJ
-	c/5sprtebUaFeXVpGfDmQD16qkK47d1Nv3wRbkrFgB69HODlbX438wmKoSi/yVGRiz0hCB/eaZc
-	ZParnBSo5rsrMzrWvJmUu/D/s/rsjMhIeR3t0vjwpgE7T1sYMKB2WubA1Wesv4mPPLm6T0EtBOM
-	xuKCdBGzMbkpEBVp6pb8ORDG1CaPdzD1cZk08uuBAQ/yhM/Tb+t1LZ9sXSIFPfBf2IbQpR7MMkf
-	REe8P9sfLSec125UFJ1l09aqbDJ5/WqsrQEo5NYDfm3i3iqVqiYXlbcppxEyW5QCX3Mjm6su/J8
-	Ik=
-X-Google-Smtp-Source: AGHT+IH/4zhIB2uMBG2OnoWRdrqhwu+IHpi7OSeKRePgsK8ctr4xguPgxqqHF2HVGhTDGscue+MbIw==
-X-Received: by 2002:a05:6402:51cd:b0:641:1f22:fc68 with SMTP id 4fb4d7f45d1cf-6415e6efc9bmr7671037a12.24.1762788578094;
-        Mon, 10 Nov 2025 07:29:38 -0800 (PST)
-Message-ID: <acf32e9d-4c07-45dd-baac-29e6d93cff56@suse.com>
-Date: Mon, 10 Nov 2025 16:29:39 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [for 4.22 v5 11/18] xen/riscv: Implement p2m_free_subtree() and
- related helpers
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1760974017.git.oleksii.kurochko@gmail.com>
- <24928a25f63f81ee72b78830306881b2c4c5a1e4.1760974017.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <24928a25f63f81ee72b78830306881b2c4c5a1e4.1760974017.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+X-Inumbo-ID: f53e5bdb-be4a-11f0-9d18-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p6z0vToHpaYimQDo4axHHLDf3u9I5Ylp2PI7LJhO38U9utfrMewpb0ilS8aw1Xqdn74rFeaAJHgx1/TMWEEKDwMha3un59kLMEcs+WON4NmXNvBKBl8VOUPyAncrRMlhqFRG5y0VnDsobXg8oWiMjejR/kmeBTV7lBqZAE4yfMj5/emu9NrHZlximSztt5gZl8xEdyRPZrvWdo4u4EwHYymHSwCmG2JBApyJzpNKADnG0Lkeq/VvoAex1zKPqTJsBtFPYevyTmKqG1T5kTcR7VVKxFJ3Gr2Lg7fnXArPZ+HVImx04ksoCyiNJfLDT0e9Jsr1RTardM2JLSmv0L1CEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OgnsOP1yOnWrKA6YRpqlH9/do+T3aNwg6qIwmyShu3k=;
+ b=p6/Vj+hqNOqeQBhgriq1i/smjPeqGfiOCjo7ZV6liixoFXvd+bUGQvhVn5h2zMRdmcWz7vhMDfY7Bihla/3wCBYFe7UrSQKIJRcncPuxwaGedt+m2/qStPjXnY7h2XoGimStO6hxv27BcLwc4S5vKQPwyCDi0qg+5u5rWI6yo8esWy42pAgjOtl88N6v9P9qse0gDKPq7wtQ3v3pJMIChAxNfKd1MY2Upc6hmMmtvbwNqplGieijg4zJuaYXEhgUY+GEpzqfThp6IsyNlC7zPbMN5xFGrW6EgNXz6Bki/PPWXbTJkbw+VulWWGcRGBxFWhKmFCqd/uQRaaAfNe8Hzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OgnsOP1yOnWrKA6YRpqlH9/do+T3aNwg6qIwmyShu3k=;
+ b=yMfGsKRVjCOikrohsyi7OKwTqUKXM6tu4l2B7/3pRgTeANOjPJk6Jucf+X7/wi5j8ah0MJQDkqS+C5Tsn+A+tn8WUa5VyY3cOR8PU53QPDbRfhRrMbImTwSqKtTJsTWEA/YbC5FTEiL1kqeVOTo/SQtdLM9a8BNsHJqe88ZNcCc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Frediano Ziglio <frediano.ziglio@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Frediano Ziglio <freddy77@gmail.com>,
+	Demi Marie Obenour <demiobenour@gmail.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH v5] xen: Strip xen.efi by default
+Date: Mon, 10 Nov 2025 15:35:51 +0000
+Message-ID: <20251110153551.84813-1-frediano.ziglio@citrix.com>
+X-Mailer: git-send-email 2.51.1
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO3P123CA0017.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:ba::22) To IA3PR03MB8408.namprd03.prod.outlook.com
+ (2603:10b6:208:546::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA3PR03MB8408:EE_|PH8PR03MB7217:EE_
+X-MS-Office365-Filtering-Correlation-Id: a44041dc-c924-4d46-151d-08de206ed6ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?JFhZBsLcIqDpaBpi3NB9DH0BUBXbrE+IEIRXzNCzSM6/Si7ihZFto2FOQMh9?=
+ =?us-ascii?Q?Ybsz73NPnpe+7/q+KAy2g87Yoj3yE/Lr9lmF7cpWQ+XO8X55fuDp3gS7WVmw?=
+ =?us-ascii?Q?i9WKeGIEqdnoC9JIMISwQ/NGyh2PVjEITSXsRF+rzsLE+z494DfiFK7ZHuBl?=
+ =?us-ascii?Q?8h2R93UgpTQ6ZhSMmSMH6S+jKX0mMa/61HXnDXO7kAy35hon+Qlk/FChN/O/?=
+ =?us-ascii?Q?EKC+Sh+hCJ7Q3QQFNpPRMEJVC/xGgkKxxTT9H1wPzyH3kFWBocPYQxo18PSW?=
+ =?us-ascii?Q?BnUIi75vZBWCgcFce64AcceUhC508sfSFsHznshZ8WQGDYTgSpGc/6SgaGNQ?=
+ =?us-ascii?Q?ZJDgwnX0VV0plcfLbEIkfQMI3n4OSOsIFUh+UWhJbhHplJe9vhfrcIdQqjgd?=
+ =?us-ascii?Q?sHd1UsSLbosj4B62a9/ITKu241iJoXAn6J14L7aGiPpmfY4NGsZ4ehrjvo3Y?=
+ =?us-ascii?Q?AnOcl76TqmDyMkmuke2McGHWTCSj8Mt66QtPJ7eidLgKqb7n7cUdHQXP1yAx?=
+ =?us-ascii?Q?950hxCSbacyR9UtiIAlyPpAc82kL6h1P9LlaIJ6znbkuIqFBJCnejvx4DHb2?=
+ =?us-ascii?Q?7X8pTQQF2h6Ce3KdRsxVOmj4Gmwr+tyMjJyTPgwdW4cemOQ9qiJn1m0LjEju?=
+ =?us-ascii?Q?/xJfd5QHKnwk3OtAE57D8M/3mcohpkRTRThtzNZ0zQL92lIAkM7dqJRMHR89?=
+ =?us-ascii?Q?qIRKNQluIu58D14d6ZNk5XQrO6abEhBBpPhF/Ef284gOVhEIzE+NJRRfmBuM?=
+ =?us-ascii?Q?J2JMBPmhpH1v+NOci8bizL/+6LLIX5tWUB3vhb+4tZfG7i79gl3n18hEsItO?=
+ =?us-ascii?Q?cJcxVi49mDKLAyu0k3rkrxieVETfUz8WKLmQFgUXEsLz2/cn0MtOU+mII2dB?=
+ =?us-ascii?Q?NappdBXIk5dex2cgMpVBZkDgqDHr5NfDYXcK/P64P4ON27xq0opA0Acsf5ct?=
+ =?us-ascii?Q?7TJj2MDIrWsiR7Fam/mtvdXIToCfDs2FlOONgm+1l7lgkAQDPKfzrdwg8DH2?=
+ =?us-ascii?Q?KUbRfgi1vRiFlxW0io94AsmeQFUI94f0b7/n4sQijETc5tEIKwnQprkVtBpb?=
+ =?us-ascii?Q?3VbvuJVDPWwRe2OA6ng96f2xDnXgmXmen9FuALue159geFGocz1lhJEPevH1?=
+ =?us-ascii?Q?0Q6D1NqlmlzcumOCzZ3uwuU0YB6gyBfcw5oqhrIDA+ck8YA1MNrCQcN09EoB?=
+ =?us-ascii?Q?4D3R41C1rxT3jlqb2dOmvlLFcTmYVfoa9oh/+E1TthnudHSQxPpfF/hFWbc3?=
+ =?us-ascii?Q?UQv/oHsxvWPRq3Ij0X7q+RGh7zBxY6n1XEn1PNHTSTC4Y5ZCItlWQyWyFL5H?=
+ =?us-ascii?Q?w6wjKE3i8RbyEMAMrI46D5Vo2OF1Gvam7o3dYXqElhvCIxJdtEr493PEVWqo?=
+ =?us-ascii?Q?Dij+sMD89btr/6wymvbWe2XCHF/3JIWW98GhJOXG3CeF63YSHA0C6rMsxwA3?=
+ =?us-ascii?Q?Wq4GMF5FeSAqqi1Tet/i54DOkKirZj1l?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR03MB8408.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?N1T5uSydZEEY1cY9moU0dicN9kJNox4m01YFhNhcvZIGUSukdjyIgIYun5VJ?=
+ =?us-ascii?Q?6pGUfXko6fejw+uvq3vQOWfnsfvspNFpH//lu385Pg3kLcz4jRmha83zyJjd?=
+ =?us-ascii?Q?hSKWOqEN/yHyREBtE8i1cblVKNVyKkvvNuf+6NwQVx+yG7Oa8D0T+Bd5M7+7?=
+ =?us-ascii?Q?LXPAlK/GwSaPr2EO4A7DO5DuIfyB+lPLXsPBJThuuHKjc5BnXs0kANH9cw2e?=
+ =?us-ascii?Q?I/6j9JS/mFkBdKLjv5bVuaSrpc1gUmZ3dFqP08G9xPGHW29bcUyaqRPYd/5S?=
+ =?us-ascii?Q?FLWT3/zlkQeonr8Ro5suIzj/VCPxAfOVZgLVffSXBPz2i4RgZofxLh9i5qQy?=
+ =?us-ascii?Q?+BiFznBOoaPiqkD/rrEH4m3zy+fYSvUainG+9QUvVBuZLwIk+lFPz3RMRvjX?=
+ =?us-ascii?Q?V4gv99JS9EGk8CaohpVbE3Wgr1GjDMascVSBHpj7jOsH/buTaZ/g5HmPWLBh?=
+ =?us-ascii?Q?yQS81dQMkOl41V+gkFH8W5cxTO74Uj3sXMgHLYtaLcNiKTT4+5koXWG/MxIl?=
+ =?us-ascii?Q?i/3BX3JgwtoJ4biLaf/Mu8OKqwayzXBo00aAScCROmZfETNmmpQtia1vT1oa?=
+ =?us-ascii?Q?SEVfve6U2MZew1qUX1smGI9sowNanOsrygLsqWD5TqR+cPZqfMPXUXe8ytWq?=
+ =?us-ascii?Q?oQcplKdjTH0PKItNcRX7n0iDU75RgxnpqkFJ+zajtaR1jrYahjypzgSswKrq?=
+ =?us-ascii?Q?6ParXNDlBzjrYYG8+xVjvq+hu4e6cejgsjNUfPUnr4WxMPrXMyK4bvmy+cFA?=
+ =?us-ascii?Q?0Cf2zkR9pd/Cxh/fxRKgPVwM+V919m0CbC3EYByvQ1TYAaBt4cckWmjnhR5F?=
+ =?us-ascii?Q?b7ZS7V23StkKmsFdd35KZanvRYOQnYxwzQBHb8WUc2d3HcOh6SSnTKEfHTC2?=
+ =?us-ascii?Q?gzhzbWIgvsICuCdqKvmxjsLhPkzK5tr7aTT46lwmhtsMpo/l3dRNo4+3RWxU?=
+ =?us-ascii?Q?/W5UTNwRfw989TsQb2pg5b12CSpX2CB35uO2Bvoy7sWwODYFnzM8XAsplDua?=
+ =?us-ascii?Q?LSotB5KBIfe7OJXG5Iuj8/n0dRvmadf4mOthagDKc8+qj7tb1dyZ2VGSdAjM?=
+ =?us-ascii?Q?XtkbUPmVMsuuZwh3BoDs5X/+HXDGe8MF/WhkH9breXCjigdVBCPxMZEBAZpQ?=
+ =?us-ascii?Q?eq6MOQRuui0+9S1uzPBxbSO46hhoTDC6Q5WicQFl3b6D+5vQhwyBJwO5Y/P/?=
+ =?us-ascii?Q?nzpA7ny/BT1HVTnenWARVdbPH9P3BvbuN5eG1XAfx8H4wdWe6Tw8i/sUvpGQ?=
+ =?us-ascii?Q?VsDeBhR6LEm5pbgoi8Q6AW/1zXvD+bixCAFasAfhX9O00TZP4ygOn2MoXMR/?=
+ =?us-ascii?Q?DB/bkrWaRLWXdmGZPFa3Y4K4s8LTHmW83BOu6mLtBJfdHXfc2Szu/wwjO2sb?=
+ =?us-ascii?Q?bc0Mu+NBzPd0UN+0ropwdXvVefFgl0v8Qja9nxNQALnyIYjVljUQAPhjoJkr?=
+ =?us-ascii?Q?8jiqqMJZceLOK9uOVEu40MHdwqo/Zxav2BEs2yynQ6ZXKTWGCvw/JTdNFMBQ?=
+ =?us-ascii?Q?4jXFLIX57pJuWbiouqE5K/mMaIzRhcd/dgBeIlx0bUeMFYXjg4X9IUUTq21x?=
+ =?us-ascii?Q?7y5L5X514JQYd4WYISDOql2mowvvxZxpAu3SZ3kOvEvNBrnChLVupiU3DwRL?=
+ =?us-ascii?Q?uA=3D=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a44041dc-c924-4d46-151d-08de206ed6ba
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR03MB8408.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2025 15:35:55.4782
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WWntoSvWjQJqm45t7j7B5rmUP3G3dMbv1hJB6nzDkAoU5jwd8ykp+C/lKAXoF9ftXEhrCZqFq9dO3QOzDTAzxJr6ao7yu64fV1VBxtMnlLI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR03MB7217
 
-On 20.10.2025 17:57, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/p2m.h
-> +++ b/xen/arch/riscv/include/asm/p2m.h
-> @@ -110,6 +110,8 @@ typedef enum {
->      p2m_mmio_direct_io, /* Read/write mapping of genuine Device MMIO area,
->                             PTE_PBMT_IO will be used for such mappings */
->      p2m_ext_storage,    /* Following types'll be stored outsude PTE bits: */
-> +    p2m_map_foreign_rw, /* Read/write RAM pages from foreign domain */
-> +    p2m_map_foreign_ro, /* Read-only RAM pages from foreign domain */
->  
->      /* Sentinel — not a real type, just a marker for comparison */
->      p2m_first_external = p2m_ext_storage,
-> @@ -120,15 +122,28 @@ static inline p2m_type_t arch_dt_passthrough_p2m_type(void)
->      return p2m_mmio_direct_io;
->  }
->  
-> +/*
-> + * Bits 8 and 9 are reserved for use by supervisor software;
-> + * the implementation shall ignore this field.
-> + * We are going to use to save in these bits frequently used types to avoid
-> + * get/set of a type from radix tree.
-> + */
-> +#define P2M_TYPE_PTE_BITS_MASK  0x300
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-Better use PTE_RSW in place of the raw number?
+For xen.gz file we strip all symbols and have an additional
+xen-syms.efi file version with all symbols.
+Make xen.efi more coherent stripping all symbols too.
+xen-syms.efi can be used for debugging.
 
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -17,6 +17,8 @@
->  #include <asm/riscv_encoding.h>
->  #include <asm/vmid.h>
->  
-> +#define P2M_SUPPORTED_LEVEL_MAPPING 2
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+Changes since v1:
+- avoid leaving target if some command fails.
 
-I fear without a comment it's left unclear what this is / represents.
+Changes since v2:
+- do not convert type but retain PE format;
+- use xen-syms.efi for new file name, more consistent with ELF.
 
-> @@ -403,11 +415,147 @@ static int p2m_next_level(struct p2m_domain *p2m, bool alloc_tbl,
->      return P2M_TABLE_MAP_NONE;
->  }
->  
-> +static void p2m_put_foreign_page(struct page_info *pg)
-> +{
-> +    /*
-> +     * It’s safe to call put_page() here because arch_flush_tlb_mask()
-> +     * will be invoked if the page is reallocated, which will trigger a
-> +     * flush of the guest TLBs.
-> +     */
-> +    put_page(pg);
-> +}
-> +
-> +/* Put any references on the single 4K page referenced by mfn. */
+Changes since v3:
+- update documentation;
+- do not remove xen.efi.elf;
+- check endbr instruction before generating final target.
 
-To me this and ...
+Changes since v4:
+- simplify condition check;
+- avoid reuse of $@.tmp file.
+---
+ docs/misc/efi.pandoc  |  8 +-------
+ xen/Kconfig.debug     |  9 ++-------
+ xen/Makefile          | 19 -------------------
+ xen/arch/x86/Makefile | 16 ++++++++++------
+ 4 files changed, 13 insertions(+), 39 deletions(-)
 
-> +static void p2m_put_4k_page(mfn_t mfn, p2m_type_t type)
-> +{
-> +    /* TODO: Handle other p2m types */
-> +
-> +    if ( p2m_is_foreign(type) )
-> +    {
-> +        ASSERT(mfn_valid(mfn));
-> +        p2m_put_foreign_page(mfn_to_page(mfn));
-> +    }
-> +}
-> +
-> +/* Put any references on the superpage referenced by mfn. */
+diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
+index 11c1ac3346..c66b18a66b 100644
+--- a/docs/misc/efi.pandoc
++++ b/docs/misc/efi.pandoc
+@@ -20,13 +20,7 @@ Xen to load the configuration file even if multiboot modules are found.
+ Once built, `make install-xen` will place the resulting binary directly into
+ the EFI boot partition, provided `EFI_VENDOR` is set in the environment (and
+ `EFI_MOUNTPOINT` is overridden as needed, should the default of `/boot/efi` not
+-match your system). When built with debug info, the binary can be quite large.
+-Setting `INSTALL_EFI_STRIP=1` in the environment will cause it to be stripped
+-of debug info in the process of installing. `INSTALL_EFI_STRIP` can also be set
+-to any combination of options suitable to pass to `strip`, in case the default
+-ones don't do. The xen.efi binary will also be installed in `/usr/lib64/efi/`,
+-unless `EFI_DIR` is set in the environment to override this default. This
+-binary will not be stripped in the process.
++match your system).
+ 
+ The binary itself will require a configuration file (names with the `.efi`
+ extension of the binary's name replaced by `.cfg`, and - until an existing
+diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
+index d900d926c5..1a8e0c6ec3 100644
+--- a/xen/Kconfig.debug
++++ b/xen/Kconfig.debug
+@@ -147,12 +147,7 @@ config DEBUG_INFO
+ 	  Say Y here if you want to build Xen with debug information. This
+ 	  information is needed e.g. for doing crash dump analysis of the
+ 	  hypervisor via the "crash" tool.
+-	  Saying Y will increase the size of the xen-syms and xen.efi
+-	  binaries. In case the space on the EFI boot partition is rather
+-	  limited, you may want to install a stripped variant of xen.efi in
+-	  the EFI boot partition (look for "INSTALL_EFI_STRIP" in
+-	  docs/misc/efi.pandoc for more information - when not using
+-	  "make install-xen" for installing xen.efi, stripping needs to be
+-	  done outside the Xen build environment).
++	  Saying Y will increase the size of the xen-syms, xen-syms.efi and
++	  xen.efi.elf binaries.
+ 
+ endmenu
+diff --git a/xen/Makefile b/xen/Makefile
+index ddcee8835c..605a26c181 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -493,22 +493,6 @@ endif
+ .PHONY: _build
+ _build: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
+ 
+-# Strip
+-#
+-# INSTALL_EFI_STRIP, if defined, will cause xen.efi to be stripped before it
+-# is installed. If INSTALL_EFI_STRIP is '1', then the default option(s) below
+-# will be used. Otherwise, INSTALL_EFI_STRIP value will be used as the
+-# option(s) to the strip command.
+-ifdef INSTALL_EFI_STRIP
+-
+-ifeq ($(INSTALL_EFI_STRIP),1)
+-efi-strip-opt := --strip-debug --keep-file-symbols
+-else
+-efi-strip-opt := $(INSTALL_EFI_STRIP)
+-endif
+-
+-endif
+-
+ .PHONY: _install
+ _install: D=$(DESTDIR)
+ _install: T=$(notdir $(TARGET))
+@@ -535,9 +519,6 @@ _install: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
+ 		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T)-$(XEN_VERSION).efi; \
+ 		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T).efi; \
+ 		if [ -n '$(EFI_MOUNTPOINT)' -a -n '$(EFI_VENDOR)' ]; then \
+-			$(if $(efi-strip-opt), \
+-			     $(STRIP) $(efi-strip-opt) -p -o $(TARGET).efi.stripped $(TARGET).efi && \
+-			     $(INSTALL_DATA) $(TARGET).efi.stripped $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi ||) \
+ 			$(INSTALL_DATA) $(TARGET).efi $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi; \
+ 		elif [ "$(D)" = "$(patsubst $(shell cd $(XEN_ROOT) && pwd)/%,%,$(D))" ]; then \
+ 			echo 'EFI installation only partially done (EFI_VENDOR not set)' >&2; \
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 407571c510..51d8084693 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -228,17 +228,21 @@ endif
+ 	$(MAKE) $(build)=$(@D) .$(@F).1r.o .$(@F).1s.o
+ 	$(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T $(obj)/efi.lds $< \
+ 	      $(dot-target).1r.o $(dot-target).1s.o $(orphan-handling-y) \
+-	      $(note_file_option) -o $@
+-	$(NM) -pa --format=sysv $@ \
++	      $(note_file_option) -o $(TARGET)-syms.efi
++	$(NM) -pa --format=sysv $(TARGET)-syms.efi \
+ 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+ 		> $@.map
+-ifeq ($(CONFIG_DEBUG_INFO),y)
+-	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O elf64-x86-64 $@ $@.elf
++ifeq ($(CONFIG_DEBUG_INFO)_$(filter --strip-debug,$(EFI_LDFLAGS)),y_)
++	$(OBJCOPY) -O elf64-x86-64 $(TARGET)-syms.efi $@.elf
++	$(STRIP) $(TARGET)-syms.efi -o $@.tmp
++else
++	mv -f $(TARGET)-syms.efi -o $@.tmp
+ endif
+-	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
+ ifeq ($(CONFIG_XEN_IBT),y)
+-	$(SHELL) $(srctree)/tools/check-endbr.sh $@
++	$(SHELL) $(srctree)/tools/check-endbr.sh $@.tmp
+ endif
++	mv -f $@.tmp $@
++	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
+ else
+ $(TARGET).efi: FORCE
+ 	rm -f $@
+-- 
+2.43.0
 
-... to a lesser degree this comment are potentially misleading. Down here at
-least there is something plural-ish (the 4k pages that the 2M one consists
-of), but especially for the single page case above "any" could easily mean
-"anything that's still outstanding, anywhere". I'm also not quite sure "on"
-is really what you mean (I'm not a native speaker, so my gut feeling may be
-wrong here).
-
-> +static void p2m_put_2m_superpage(mfn_t mfn, p2m_type_t type)
-> +{
-> +    struct page_info *pg;
-> +    unsigned int i;
-> +
-> +    /*
-> +     * TODO: Handle other p2m types, but be aware that any changes to handle
-> +     * different types should require an update on the relinquish code to
-> +     * handle preemption.
-> +     */
-
-I guess if I was to address this TODO, I wouldn't know what the latter part
-of the sentence is warning me of.
-
-> +    if ( !p2m_is_foreign(type) )
-> +        return;
-
-Are super-page foreign mappings actually intended to be permitted, conceptually?
-
->  /* Free pte sub-tree behind an entry */
->  static void p2m_free_subtree(struct p2m_domain *p2m,
->                               pte_t entry, unsigned int level)
->  {
-> -    panic("%s: hasn't been implemented yet\n", __func__);
-> +    unsigned int i;
-> +    pte_t *table;
-> +    mfn_t mfn;
-> +    struct page_info *pg;
-> +
-> +    /*
-> +     * Check if the level is valid: only 4K - 2M - 1G mappings are supported.
-> +     * To support levels > 2, the implementation of p2m_free_subtree() would
-> +     * need to be updated, as the current recursive approach could consume
-> +     * excessive time and memory.
-> +     */
-> +    ASSERT(level <= P2M_SUPPORTED_LEVEL_MAPPING);
-> +
-> +    /* Nothing to do if the entry is invalid. */
-> +    if ( !pte_is_valid(entry) )
-> +        return;
-> +
-> +    if ( (level == 0) || pte_is_superpage(entry, level) )
-
-Considering what pte_is_superpage() expands to, simply pte_is_mapping()?
-
-> +    {
-> +        p2m_type_t p2mt = p2m_get_type(entry);
-> +
-> +#ifdef CONFIG_IOREQ_SERVER
-> +        /*
-> +         * If this gets called then either the entry was replaced by an entry
-> +         * with a different base (valid case) or the shattering of a superpage
-> +         * has failed (error case).
-> +         * So, at worst, the spurious mapcache invalidation might be sent.
-> +         */
-> +        if ( p2m_is_ram(p2mt) &&
-> +             domain_has_ioreq_server(p2m->domain) )
-> +            ioreq_request_mapcache_invalidate(p2m->domain);
-> +#endif
-> +
-> +        p2m_put_page(entry, level, p2mt);
-> +
-> +        return;
-> +    }
-> +
-> +    table = map_domain_page(pte_get_mfn(entry));
-> +    for ( i = 0; i < P2M_PAGETABLE_ENTRIES(level); i++ )
-> +        p2m_free_subtree(p2m, table[i], level - 1);
-> +
-> +    unmap_domain_page(table);
-
-Please can the use of blank lines in such cases be symmetric: Either have them
-ahead of and after the loop, or have them nowhere?
-
-> @@ -435,7 +583,7 @@ static int p2m_set_entry(struct p2m_domain *p2m,
->       * Check if the level target is valid: we only support
->       * 4K - 2M - 1G mapping.
->       */
-> -    ASSERT(target <= 2);
-> +    ASSERT(target <= P2M_SUPPORTED_LEVEL_MAPPING);
-
-Ah, this is where that constant comes into play. It wants moving to the earlier
-patch, and with this being the purpose I guess it also wants to include MAX in
-its name.
-
-Jan
 
