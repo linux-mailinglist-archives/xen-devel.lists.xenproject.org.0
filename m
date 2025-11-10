@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0694C424EE
-	for <lists+xen-devel@lfdr.de>; Sat, 08 Nov 2025 03:34:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1157947.1486500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD03CC45192
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 07:37:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1158117.1486510 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vHYlq-0000MY-C1; Sat, 08 Nov 2025 02:33:42 +0000
+	id 1vILVk-0002Zf-S2; Mon, 10 Nov 2025 06:36:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1157947.1486500; Sat, 08 Nov 2025 02:33:42 +0000
+Received: by outflank-mailman (output) from mailman id 1158117.1486510; Mon, 10 Nov 2025 06:36:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vHYlq-0000Kq-8d; Sat, 08 Nov 2025 02:33:42 +0000
-Received: by outflank-mailman (input) for mailman id 1157947;
- Sat, 08 Nov 2025 02:33:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sm31=5Q=gmail.com=ritesh.list@srs-se1.protection.inumbo.net>)
- id 1vHYlp-0000Kk-Hx
- for xen-devel@lists.xenproject.org; Sat, 08 Nov 2025 02:33:41 +0000
-Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
- [2607:f8b0:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 55812537-bc4b-11f0-9d18-b5c5bf9af7f9;
- Sat, 08 Nov 2025 03:33:40 +0100 (CET)
-Received: by mail-pg1-x532.google.com with SMTP id
- 41be03b00d2f7-b98983bae8eso819301a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 07 Nov 2025 18:33:40 -0800 (PST)
-Received: from dw-tp ([171.76.85.117]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-ba8f8d7eedcsm6587378a12.2.2025.11.07.18.33.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Nov 2025 18:33:37 -0800 (PST)
+	id 1vILVk-0002Wd-LV; Mon, 10 Nov 2025 06:36:20 +0000
+Received: by outflank-mailman (input) for mailman id 1158117;
+ Mon, 10 Nov 2025 06:36:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ugol=5S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vILVi-0002WV-SN
+ for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 06:36:18 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 868b7980-bdff-11f0-980a-7dc792cee155;
+ Mon, 10 Nov 2025 07:36:02 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-42b2a0c18caso1623083f8f.1
+ for <xen-devel@lists.xenproject.org>; Sun, 09 Nov 2025 22:36:02 -0800 (PST)
+Received: from ?IPV6:2003:ca:b70c:6a8d:3447:d20d:2d49:c08?
+ (p200300cab70c6a8d3447d20d2d490c08.dip0.t-ipconnect.de.
+ [2003:ca:b70c:6a8d:3447:d20d:2d49:c08])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42b32ecf522sm8675021f8f.45.2025.11.09.22.36.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 09 Nov 2025 22:36:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,132 +47,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55812537-bc4b-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 868b7980-bdff-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1762569218; x=1763174018; darn=lists.xenproject.org;
-        h=mime-version:references:message-id:date:in-reply-to:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=8bKq5Kbap+TGIzkU08hwTVasn8Atv2TAiFfbpOuCLu4=;
-        b=inXNbaN0kxEE6pD1gvDIUGSLCAiR2dnSYvguT1eh9Xb9TtaToFkRc0AiG3xxwzAXU6
-         1faSKcMBwmSPooVCvSUcI8vuE7tpn6cRCrMEWrSQ9j+3v03jQyKGZ+xV/0KE/BbFvv68
-         S3DL434WUVov0jrQiCapDIjfi/cGYqVR7ZYBoz0E2ERgjHNOxfZkW/E6kJk7V+jqfcha
-         +vHICJxOz9pWnNeHPwUy2QBz2JE5fzlXnjfdSIaIjvNdMvYZMlSz9KCPEhHrijpPe0pl
-         UBnn5X69c4vnlDp/Vz7UBY809POkGxCc5lWBo9sRmfmpi0w2rqvLmo5ruAokzucINhY3
-         AIQw==
+        d=suse.com; s=google; t=1762756561; x=1763361361; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=kr+XGRoKIHGRYsiEGErklOAhl7b0/4B1Yaxz6uQK/Zw=;
+        b=GzEdIFS01sQ8D43+7ABYJhl7wnibH2yqjb6Ds+uUsnJT0oQ+pxMAyeZECKJiaqXd4U
+         qW7cI+aYLQmN0xn4DMdPwTRqnnDK+e18lLA5ud9QN76OXF+PhamyLLHZFQMuJrRQ7M7w
+         BnfjCtfvMw8Lvw17D+98P9nbKm1bBVKBiDWweddX4mp+01gvTraseI4IYvnpH0SFm1vz
+         Hm7GyASu1ng5vUkbTIQalWQIw9vcmpD511HT0l2JvES9v3B2zV0AxAd69wci8z7j9LkN
+         UEqWlZD3lAiaJFdmkOh20zF/1peyTZGhxEFksMZ9cyXIeeFDSzTgK6CJlKH4FWOzqo/L
+         dy+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762569218; x=1763174018;
-        h=mime-version:references:message-id:date:in-reply-to:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=8bKq5Kbap+TGIzkU08hwTVasn8Atv2TAiFfbpOuCLu4=;
-        b=gNq+Zo3fxJax1mqHCNZdyXqpzxsfSSfiABbjc7IKr45GLlsC87GlJQjYgVgux3XsBZ
-         eEQQEdlpfECk9dSBX/2ju0Lq4GhCyaLfeKaF4VuoSBUJHz/U2EIxEAcp39euCR4NxynP
-         5NiZhkAYiSPjXaiQP8g0i8ze9CMsDXpBI/EMcH1XFW/NXVA9++kKWgqkxMYLOfbTa3lA
-         VQLGhC4PIHbXKKz4kEKzUB+VNlEr6Kpga7fxi30j1E2sISOBaZiDG3wNg7pvcuy86Uis
-         JdO6NIc0ORxfexNcaP9s+x8ywec/O0vLGC3Pe5ni0XwCnb8mfiMSjuEp3XmsSH/9Acbe
-         jgRQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXVC155MfcuLlNZ/pbdkBdUtSTminB/AfNrYirjcFx5HludaK+wGVdnPN9x06Vmxzlik4/DlpqIUN8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwKsgyxPW8maCVUXR36YEFa7XI1RrqzD8k0GfcCpKjUFE9i4jfd
-	L3fsEMt/JgIRPW9zeOxCdNX+XYktH2j70PJFQWkb9tji+HfRZHByFRvU
-X-Gm-Gg: ASbGncta1G/e38V/PZ+53haESZ5h0XYEOTr8Ut5ilMZDeNA/RmVsadVgLcb6aiqDMTw
-	+hioUJMECIT9VViH6GC+KBODN7dMsZ0Ael5jRc/q6DCDh9nrn0VJpWFXc7ULpoGsgrZALn4lnC2
-	MP8J4RBGpyQ2e1V8k5Oxjw0mdOwqHV2AdMzNyzntsphVv6CZ8M+Yz4ZY1RXHWkZApU3N7rZ3TWC
-	6r88Iugt26RVKMpnh9R6EoMVC0TS04r5y8rK3snITZIQiGEP5uWg6i2sigLE/G9MxFdAgwLAbMY
-	zKsAJb5Sor+4Rc9qKGAqAKmomAkz2tYANnSLYB4coU5cm1cyzxAz38o8alcTVme347hiiGYukVs
-	rKMUSssDiFqdacFqcEoPB3KQz29GIG7cmqKHuOzFwO90BAkrwx/Dv7CSjWiFdzL/o3b8WRhcTjL
-	drJoPa
-X-Google-Smtp-Source: AGHT+IH/Pe7wf3Ci181tpT0LHXQVq+Kf1iV5vunI2sKT5fx4KiiLBfIeJu3hgL/jAYkDOG6ZWRYxGw==
-X-Received: by 2002:a05:6a20:12c5:b0:33f:9581:5d2f with SMTP id adf61e73a8af0-3539f99e63emr1740681637.3.1762569218334;
-        Fri, 07 Nov 2025 18:33:38 -0800 (PST)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Andreas Larsson <andreas@gaisler.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov <bp@alien8.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Christophe Leroy <christophe.leroy@csgroup.eu>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, David Hildenbrand <david@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>, 
-	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>, 
-	Juergen Gross <jgross@suse.com>, "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, 
-	Nicholas Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Suren Baghdasaryan <surenb@google.com>, 
-	Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>, 
-	Yeoreum Yun <yeoreum.yun@arm.com>, linux-arm-kernel@lists.infradead.org, 
-	linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, x86@kernel.org, 
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-Subject: Re: [PATCH v4 01/12] powerpc/64s: Do not re-activate batched TLB flush
-In-Reply-To: <b3e4a92f-5b51-4eee-bfb8-c454add0f0d2@arm.com>
-Date: Sat, 08 Nov 2025 06:05:17 +0530
-Message-ID: <87cy5t4b0a.ritesh.list@gmail.com>
-References: <20251029100909.3381140-1-kevin.brodsky@arm.com> <20251029100909.3381140-2-kevin.brodsky@arm.com> <87qzud42n1.ritesh.list@gmail.com> <b3e4a92f-5b51-4eee-bfb8-c454add0f0d2@arm.com>
+        d=1e100.net; s=20230601; t=1762756561; x=1763361361;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kr+XGRoKIHGRYsiEGErklOAhl7b0/4B1Yaxz6uQK/Zw=;
+        b=jYWLsNLHdTy46qmcima9Us+TkBl60rQVqRwn9iQyVLE3xn50TIvnrxMdOCL6z3KzqI
+         od7MhhAGNSaUkmZ/v+z9wEHXbAqglqRo7m+vNKor86oi+UXzYzgUu1blqf5GZdm9/Gp5
+         rf+7qgwFUqw/4VMYxtxvXzw7+ae4/dyXLMt9wfxjMjq3j1KkgfhaynSHolDW9r+BRgdE
+         ulpktNsx3yLiEFLQWef9qNCOmQtOaMa/IbVSZVoolQYdE8wheK6vS3MkZz4uI1MVx7ma
+         WfDI8qjL7KWxKOxfgde5tp1gp4pX+QWKkjFIaW/mFh8cY6l5XTZXY7534VhssiecJEw6
+         zyOQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXgC1JOnp+zoOK3SIwFQk7vc0WFTtl+pb1SnorKRaBvogq3H/Rz5jRsIT2oW4zb6NL3W42Ww5Uo+no=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx5Cy4wPJBl7iYGE5438GZnaJQCkPYHuBn0TRh1BmDs5j8Rs1WE
+	qaPDUT2ePrRk6ITuEmjSEdR8MnfPYZWjRv4c50BhGHOLN13Cn7vR2qfQlLjtWcyU5g==
+X-Gm-Gg: ASbGnctC+zV3pIVDEvjSQMYyMwaVlLxZUfRaC1Sxr0dUkpaP68HY1qXd4DR4zzHDwPt
+	QDRkby/auI0QnN0knGOGkU468tUc5l7HtAlO8V9w5g9J3z2quzw5B4PABRMY+hw8kLukZN2bfEb
+	PQtTOf9EzoDOqpUQJCAQZVhk+zJ7ezImM6FBrdqICtlnakSoyGSPFS2cLOFCvMHGFhYbcjG+v2m
+	s6vvw5IoN9q1wsxLUOgDs4GFpDAaMap2cFCPh8B33kOduGM8j4BaE8xNw0OSDi1qBauJKBsRUb5
+	4wGxeXCR8hemKE1sRijDXtfkGjlGiRFU7WWseRwdRaGZSF4PNnNLUMHhLuSKC/ySjCMaGUhGyfK
+	LJNsM8sNFpb0UrStxUZ+tqtcTnuncq8eqRSX/CDd2M9s9wtloFCAdqDb244OGrj2JBn9zlk920B
+	kOsNUgi9lKjUnf2aQZfRj1myvD4e2qdpLT0QeJgKzyn9t+mrCB4nAeI9oNADG0t+e2iwIdLRj9T
+	5e3juXjlbkFpwSKX5zKBnO28v9L++fTC0sIwRMFkEDQ4Q==
+X-Google-Smtp-Source: AGHT+IH4Rvto99U04q4jqjsdpgdqnC+Ko5Aw+FvKiuI1uwej27aa0B60AyTZGc2REe9VkQYIhp0MxA==
+X-Received: by 2002:a5d:5f83:0:b0:428:5673:11e0 with SMTP id ffacd0b85a97d-42b2dc8725bmr5205479f8f.40.1762756561429;
+        Sun, 09 Nov 2025 22:36:01 -0800 (PST)
+Message-ID: <0613cfb9-0f6e-4c55-a250-ba2a5aa0e182@suse.com>
+Date: Mon, 10 Nov 2025 07:36:00 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN][PATCH] xen: make VMTRACE support optional
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Penny Zheng <Penny.Zheng@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Teddy Astie <teddy.astie@vates.tech>
+References: <20251031212005.1338212-1-grygorii_strashko@epam.com>
+ <b6337cb5-da85-492d-bba9-688e35695c46@suse.com>
+ <e55f990a-1781-4651-a899-9d78bbbbdfd0@epam.com>
+ <63525e6f-4e17-4155-87b2-47b9ac9ea474@suse.com>
+ <acac87ba-5a5a-49d1-925a-8754f4a3179f@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <acac87ba-5a5a-49d1-925a-8754f4a3179f@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Kevin Brodsky <kevin.brodsky@arm.com> writes:
-
-> On 05/11/2025 02:46, Ritesh Harjani (IBM) wrote:
->> Kevin Brodsky <kevin.brodsky@arm.com> writes:
->>
->>> From: Alexander Gordeev <agordeev@linux.ibm.com>
+On 07.11.2025 16:47, Grygorii Strashko wrote:
+> Hi
+> 
+> On 06.11.25 16:09, Jan Beulich wrote:
+>> On 06.11.2025 14:50, Grygorii Strashko wrote:
+>>> On 06.11.25 14:00, Jan Beulich wrote:
+>>>> On 31.10.2025 22:20, Grygorii Strashko wrote:
+>>>>> --- a/xen/Kconfig.debug
+>>>>> +++ b/xen/Kconfig.debug
+>>>>> @@ -155,4 +155,19 @@ config DEBUG_INFO
+>>>>>          "make install-xen" for installing xen.efi, stripping needs to be
+>>>>>          done outside the Xen build environment).
+>>>>>    +config HAS_VMTRACE
+>>>>> +    bool
+>>>>> +
+>>>>> +config VMTRACE
+>>>>> +    bool "HW VM tracing support"
+>>>>> +    depends on HAS_VMTRACE
+>>>>> +    default y
+>>>>> +    help
+>>>>> +      Enables HW VM tracing support which allows to configure HW processor
+>>>>> +      features (vmtrace_op) to enable capturing information about software
+>>>>> +      execution using dedicated hardware facilities with minimal interference
+>>>>> +      to the software being traced. The trace date can be retrieved using buffer
+>>>>
+>>>> Nit: s/date/data/
+>>>>
+>>>>> +      shared between Xen and domain
+>>>>> +      (see XENMEM_acquire_resource(XENMEM_resource_vmtrace_buf)).
+>>>>> +
+>>>>
+>>>> I was actually meaning to ask that "VMX only" should somehow be mentioned here,
+>>>> but then I noticed this is an arch-independent location.
 >>>
->>> Since commit b9ef323ea168 ("powerpc/64s: Disable preemption in hash
->>> lazy mmu mode") a task can not be preempted while in lazy MMU mode.
->>> Therefore, the batch re-activation code is never called, so remove it.
+>>> Right, Arch code advertise VMTRACE support with HAS_VMTRACE.
+>>> In this particular case:
+>>> config INTEL_VMX
+>>> ...
+>>>     select HAS_VMTRACE
 >>>
->>> Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
->>> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
->>> ---
->>>  arch/powerpc/include/asm/thread_info.h |  2 --
->>>  arch/powerpc/kernel/process.c          | 25 -------------------------
->>>  2 files changed, 27 deletions(-)
 >>>
->> Since the commit referenced in above disables the preemption in
->> arch_enter_lazy_mmu(), so the expectation is that we will never be
->> context switched while in lazy_mmu, hence the code changes in
->> switch_to() around __flush_tlb_pending() should ideally never be called.
->
-> Correct, that's the idea.
->
->> With this analysis - the patch looks good to me. I will give this entire
->> patch series a try on Power HW with Hash mmu too (which uses lazy mmu and
->> let you know the results of that)!
->
-> That'd be very appreciated, thanks a lot!
->
-
-I did give this patch series a run on Power10 with Hash MMU. I ran the
-following stress-ng tests and didn't observe any issues (kernel warnings) so far.
-
-stress-ng --all 0 -t 60s --perf -v --verify \
---tlb-shootdown 0 \
---fault 0 \
---userfaultfd 0 \
---fork 0 \
---exec 0 \
---memfd 0 \
---numa 0 \
---pkey 0 \
---remap 0 \
---vm 0 \
---rmap 0 \
--x swap,pagemove
-(Note not all options shown here will work with --verify)
-
-Let me know what else I can run for validation?
-Do you know of any specific tests for validation of lazy mmu feature?
-
->> For this patch please feel free to add:
->> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>>>> I'm not quite sure we want it like this (just yet).
+>>>
+>>> ?
 >>
+>> To rephrase the question: Are we expecting anything other than VMX to support
+>> VMTRACE any time soon?
 >>
->> CC: Venkat who also runs CI on linux Power HW for upstream testing :)
->
-> Ack, will Cc you both in the next version.
+> 
+> That's I do not know.
+> 
+> I assume your point is similar to what Teddy noted [1].
+> 
+> I think vmtrace code can be consolidate, but question is on what level(s):
+> 
+> only:
+>  xen/arch/x86/hvm/vmx/
+>  |- vmtrace.c
+> 
+> or:
+>  xen/arch/x86/hvm
+>  |- vmtrace.c
+>     <- vmtrace_alloc/free_buffer(), acquire_vmtrace_buf(), do_vmtrace_op()
+>  xen/arch/x86/hvm/vmx/
+>  |- vmtrace.c
+> 
+> it will require more work comparing to the current change.
 
-Sure. Thanks!
+Well, I don't think code movement is strictly necessary here. But as I'm unconvinced
+of Kconfig.debug (in whatever subdir) being an appropriate place to add this, for
+the time being merely putting the new Kconfig option directly next to INTEL_VMX (and
+then without any new HAS_*) wants at least considering, imo. If and when some other
+use appears, HAS_* can be introduced and the whole thing moved.
 
--ritesh
+As otoh abstracting things in an arch-independent way also has its merits, it is -
+as said - not quite clear to me which way we'd prefer to have it.
+
+Jan
+
+> [1] https://patchwork.kernel.org/comment/26637627/
+> 
+
 
