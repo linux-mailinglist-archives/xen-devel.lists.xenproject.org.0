@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D466C4568A
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 09:45:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1158157.1486541 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C88BC4598E
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 10:20:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1158169.1486551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vINVx-0002dX-1r; Mon, 10 Nov 2025 08:44:41 +0000
+	id 1vIO42-0006un-I0; Mon, 10 Nov 2025 09:19:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1158157.1486541; Mon, 10 Nov 2025 08:44:41 +0000
+Received: by outflank-mailman (output) from mailman id 1158169.1486551; Mon, 10 Nov 2025 09:19:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vINVw-0002c6-Ul; Mon, 10 Nov 2025 08:44:40 +0000
-Received: by outflank-mailman (input) for mailman id 1158157;
- Mon, 10 Nov 2025 08:44:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vIO42-0006sC-Ek; Mon, 10 Nov 2025 09:19:54 +0000
+Received: by outflank-mailman (input) for mailman id 1158169;
+ Mon, 10 Nov 2025 09:19:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cpW6=5S=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vINVv-0002bz-Ac
- for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 08:44:39 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7cf19759-be11-11f0-980a-7dc792cee155;
- Mon, 10 Nov 2025 09:44:37 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-63b9da57cecso4290664a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 10 Nov 2025 00:44:37 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b72bfa24d1fsm1015564766b.73.2025.11.10.00.44.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Nov 2025 00:44:35 -0800 (PST)
+ <SRS0=YXtN=5S=arm.com=ryan.roberts@srs-se1.protection.inumbo.net>)
+ id 1vIO40-0006s6-TB
+ for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 09:19:52 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 68511ab8-be16-11f0-9d18-b5c5bf9af7f9;
+ Mon, 10 Nov 2025 10:19:50 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 91A6F2B;
+ Mon, 10 Nov 2025 01:19:41 -0800 (PST)
+Received: from [10.57.85.123] (unknown [10.57.85.123])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CED693F63F;
+ Mon, 10 Nov 2025 01:19:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,170 +42,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7cf19759-be11-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1762764276; x=1763369076; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=w7LKLmJFnTZd1KGi6HWsaZz7t+rTUNDbLdHP6oTz5XU=;
-        b=R96c+9Xbd4Aby/ZTyGa5rLiwqHTJbRfgK+CrSJ8Pkeh/aB9wyZKsdL3YIfU1z5BSwO
-         31R66oRAhB/hiFqTCGVGuC3huKIYgKzJRKTAA7VJYpByZsEcpyIXV5wlloclH9VOMAev
-         kNRlpw5lXo+mEtl48O5wM/djo6BwBoE1J2P6hHwxcTKgj0PpXM0ZXT5ENCGaM3Hu6jdf
-         XC0pXklYBiHWdOVmGCeQnTVuG5IvJBVt4xoxruu9IkFdTxp68Wr2LGhJjXKnylf2wYLB
-         UBRmatL17ZxOfD4hSAsn3lKKcadQXSetdxb6tZaJ0GuiaCdbhYv0z0h2/IGCxjWmIhvW
-         RvZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762764276; x=1763369076;
-        h=in-reply-to:from:content-language:references:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=w7LKLmJFnTZd1KGi6HWsaZz7t+rTUNDbLdHP6oTz5XU=;
-        b=oM7uY2fS1RixcngoyOhK7i99QxBXMeIKvgCGcEm8VU2McYDMG4bQ5Pri2vW0o4BCmt
-         VRylLvI9rd43BEp5bpXyoyppqI5PrnvuzAjF+xlgXMHse5pX2Dj0hjG1xxP9JBKfPXv0
-         fLNmVYw1w485lasaKei7+dJurHEDiteGnWj6+ktrAFHFhVv2P1ZR8iFk7upva2Vij453
-         FmMauHCdWY/8A1nwF6TAN9qJo1zykEtVdPSdNaQGHLb1ptxUFDizvSlrh2xRtK//4Nkk
-         0vbDJ4XH9QvdNbeh2s6LlslzZDMoIxbvwZ+OR14Ws4nxyvZ3rpsZPyIXItHbDgISFsPb
-         1grA==
-X-Forwarded-Encrypted: i=1; AJvYcCUeeNxOkvTUp363bKVnYaGDzrffvo42lu6ZSm1TeMaNuatNnGKSMff5F+A+x6Sj6fLEIJjDmnuj0ic=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw8fOy2xzdSUdhQKnEsnfsrpehjBRfdfY3D/UUb39RPa5Zj/kSf
-	80LCBCs92MePergGsc4L3K55XcW/CFFganR5do0b8U/ZidoPDXeINsFc
-X-Gm-Gg: ASbGncsyGQgjv07nshsfgf2CpaWu/B7ELjSz4vUOxBbrIn2bYlGvv8vUdRo26qrf8TM
-	OiKk9x6ru0UsBkTR/iuUr1qqOz3vGLD/tXeMBYKdBTwWDDHVxCC60Gwx7lV3GzwgLFscKDUyJc7
-	w6BkrKCd8sfajO9fnDtDmYtIu6m1gQsQyyAnSkYZtF8XsHIgkxLdKmFue4dyf8prYBfBkC+Sdma
-	qPUblzjuys7/Kz1orOl2gBYNTKBJDTWgVvIcXBc7aWg69WqkvOea42Ae+vEASj8JAy/Vo4M+YPw
-	o6NY3XEJsyr5PL8kPdRK32UrxKcvCOjbIK0xSN27CS/0a19kvhUadRdrqzkM0t86nqLDCCdOubA
-	B6I7X6lB9P5w0MeNmDPxppOaXq6+bKtaRb3iStPXqF5Vp6Z3Ox2ifEyI/9ctTjLuaS7WkRy/7Sr
-	Z5vjE9xOGItD5frWyB6rkR7tmYgw9OQtjN8SITltO+aQNtE1FKuIB5Bj0JDt4H
-X-Google-Smtp-Source: AGHT+IHyaveBc1mFku98W4Fskg3gRtDDG3Znkla0pfa9wn9Mh2FYC7vyX/4wtd1edYvOgXNQkHHkUw==
-X-Received: by 2002:a17:907:841:b0:b72:67c2:6eb0 with SMTP id a640c23a62f3a-b72e0562e6dmr805812166b.62.1762764276043;
-        Mon, 10 Nov 2025 00:44:36 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------Wvu8FsypiDWNyspQYkevPvrX"
-Message-ID: <c71613e1-9309-430b-b656-018dda8e6a07@gmail.com>
-Date: Mon, 10 Nov 2025 09:44:34 +0100
+X-Inumbo-ID: 68511ab8-be16-11f0-9d18-b5c5bf9af7f9
+Message-ID: <e428b1d5-65a8-49bc-92dc-ec4a4d933dec@arm.com>
+Date: Mon, 10 Nov 2025 09:19:40 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21] fix xl.cfg docs to correct viridian defaults
- list
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- James Dingwall <james-xen@dingwall.me.uk>, xen-devel@lists.xenproject.org
-References: <aQ5HR2eEQ9awKtpC@dingwall.me.uk>
- <8c9f0988-0eb3-40f0-bd22-13b23af03ed8@citrix.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <8c9f0988-0eb3-40f0-bd22-13b23af03ed8@citrix.com>
-
-This is a multi-part message in MIME format.
---------------Wvu8FsypiDWNyspQYkevPvrX
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v4 06/12] mm: introduce generic lazy_mmu helpers
+Content-Language: en-GB
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: "David Hildenbrand (Red Hat)" <davidhildenbrandkernel@gmail.com>,
+ Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ David Woodhouse <dwmw2@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
+ Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
+ <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Suren Baghdasaryan
+ <surenb@google.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, linux-arm-kernel@lists.infradead.org,
+ linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
+ xen-devel@lists.xenproject.org, x86@kernel.org
+References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
+ <20251029100909.3381140-7-kevin.brodsky@arm.com>
+ <71418b31-aedb-4600-9558-842515dd6c44@arm.com>
+ <c764489e-0626-4a50-87b5-39e15d9db733@gmail.com>
+ <645178fd-df4e-42fe-b55e-97d9506499be@arm.com>
+ <413b2c49-f124-4cda-8fea-a6cc165f6326-agordeev@linux.ibm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+In-Reply-To: <413b2c49-f124-4cda-8fea-a6cc165f6326-agordeev@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-
-On 11/7/25 11:50 PM, Andrew Cooper wrote:
-> On 07/11/2025 7:23 pm, James Dingwall wrote:
->> Hi,
+On 10/11/2025 08:11, Alexander Gordeev wrote:
+> On Fri, Nov 07, 2025 at 03:22:54PM +0000, Ryan Roberts wrote:
+> 
+> Hi Ryan,
+> 
+>> On 07/11/2025 14:34, David Hildenbrand (Red Hat) wrote:
+>>>>>   #ifndef pte_batch_hint
+>>>>> diff --git a/mm/kasan/shadow.c b/mm/kasan/shadow.c
+>>>>> index 5d2a876035d6..c49b029d3593 100644
+>>>>> --- a/mm/kasan/shadow.c
+>>>>> +++ b/mm/kasan/shadow.c
+>>>>> @@ -305,7 +305,7 @@ static int kasan_populate_vmalloc_pte(pte_t *ptep,
+>>>>> unsigned long addr,
+>>>>>       pte_t pte;
+>>>>>       int index;
+>>>>>   -    arch_leave_lazy_mmu_mode();
+>>>>> +    lazy_mmu_mode_pause();
+>>>>
+>>>> I wonder if there really are use cases that *require* pause/resume? I think
+>>>> these kasan cases could be correctly implemented using a new nest level instead?
+>>>> Are there cases where the effects really need to be immediate or do the effects
+>>>> just need to be visible when you get to where the resume is?
+>>>>
+>>>> If the latter, that could just be turned into a nested disable (e.g. a flush).
+>>>> In this case, there is only 1 PTE write so no benefit, but I wonder if other
+>>>> cases may have more PTE writes that could then still be batched. It would be
+>>>> nice to simplify the API by removing pause/resume if we can?
+>>>
+>>> It has clear semantics, clearer than some nest-disable IMHO.
+>>>
+>>> Maybe you can elaborate how you would change ("simplify") the API in that
+>>> regard? What would the API look like?
 >>
->> I was trying to work out why this would cause my Windows 10 guest to hang
->> when it should have been equivalent to ['defaults'] or 1.
+>> By simplify, I just meant can we remove lazy_mmu_mode_pause() and
+>> lazy_mmu_mode_resume() ?
 >>
->> viridian = ['base', 'freq', 'apic_assist', 'crash_ctl', 'no_vp_limit', 'cpu_hotplug', 'time_ref_count', 'stimer']
 >>
->> Checking the libxl sources show that in fact the defaults are:
+>> We currently have:
 >>
->>      if (libxl_defbool_val(info->u.hvm.viridian)) {
->>          /* Enable defaults */
->>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_BASE);
->>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_FREQ);
->>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_TIME_REF_COUNT);
->>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_APIC_ASSIST);
->>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_CRASH_CTL);
->>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_NO_VP_LIMIT);
->>          libxl_bitmap_set(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_CPU_HOTPLUG);
->>      }
+>> apply_to_page_range
+>>   lazy_mmu_mode_enable()
+>>     kasan_populate_vmalloc_pte()
+>>       lazy_mmu_mode_pause()
+>>       <code>
+>>       lazy_mmu_mode_resume()
+>>   lazy_mmu_mode_disable()
 >>
->> LIBXL_VIRIDIAN_ENLIGHTENMENT_STIMER was removed as a default enlightement in
->> e83077a3d11072708a5c38fa09fa9d011914e2a1 but the docs were not kept aligned.
-> Hmm, indeed.
->
-> For the patch, Reviewed-by: Andrew Cooper<andrew.cooper3@citrix.com>
->
-> It should have a fixes tag, but I can fix that on commit.
->
-> CC'ing Oleksii.  This is a docs fix should be considered for 4.21 at
-> this juncture.
+>> Where <code> is setting ptes. But if <code> doesn't need the effects to be
+>> visible until lazy_mmu_mode_resume(), then you could replace the block with:
+>>
+>> apply_to_page_range
+>>   lazy_mmu_mode_enable()
+>>     kasan_populate_vmalloc_pte()
+>>       lazy_mmu_mode_enable()
+>>       <code>
+>>       lazy_mmu_mode_disable()
+>>   lazy_mmu_mode_disable()
+>>
+>> However, looking at this more closely, I'm not really clear on why we need *any*
+>> special attention to lazy mmu inside of kasan_populate_vmalloc_pte() and
+>> kasan_depopulate_vmalloc_pte().
+>>
+>> I *think* that the original concern was that we were doing ptep_get(ptep) inside
+>> of a lazy_mmu block? So we need to flush so that the getter returns the most
+>> recent value? But given we have never written to that particular ptep while in
+>> the lazy mmu block, there is surely no hazard in the first place?
+> 
+> There is, please see:
+> https://lore.kernel.org/linux-mm/cover.1755528662.git.agordeev@linux.ibm.com/
 
-Agree, it could be in 4.21:
+I've stared at this for a while, but I'm afraid I still don't see the problem.
+This all looks safe to me. Could you explain exactly what this issue is?
 
-Release-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+If I've understood correctly, kasan_populate_vmalloc() is called during virtual
+range allocation by vmalloc. This is not in a nested lazy mmu block (but it
+wouldn't matter if it was once we have Kevin's nested changes to ensure flush
+when exiting the nested scope). kasan_populate_vmalloc() calls
+apply_to_page_range(), which will walk the set of ptes, calling
+kasan_populate_vmalloc_pte() for each one. kasan_populate_vmalloc_pte() does a
+ptep_get() then, if none, calls set_pte_at().
 
-Thanks for notifying me.
+That's not a hazard since you're calling get before the set and you only visit
+each pte once for the apply_to_page_range() lazy mmu block.
 
-~ Oleksii
+> 
+>> apply_to_existing_page_range() will only call kasan_depopulate_vmalloc_pte()
+>> once per pte, right? So given we read the ptep before writing it, there should
+>> be no hazard? If so we can remove pause/resume.
+> 
+> Unfortunately, we rather not, please see:
+> https://lore.kernel.org/linux-mm/d407a381-099b-4ec6-a20e-aeff4f3d750f@arm.com/
 
---------------Wvu8FsypiDWNyspQYkevPvrX
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Sorry but I don't see anything relavent to my point in this mail. Perhaps there
+is some s390-specific detail that I'm failing to understand?
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 11/7/25 11:50 PM, Andrew Cooper
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:8c9f0988-0eb3-40f0-bd22-13b23af03ed8@citrix.com">
-      <pre wrap="" class="moz-quote-pre">On 07/11/2025 7:23 pm, James Dingwall wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Hi,
+Thanks,
+Ryan
 
-I was trying to work out why this would cause my Windows 10 guest to hang
-when it should have been equivalent to ['defaults'] or 1.
+> 
+> The problem is kasan code invokes apply_to_page_range(), which enters lazy_mmu
+> mode unconditionally. I would claim that is rather an obstacle for the kasan
+> code, not a benefit. But it needs to be tackled.
+> > Should apply_to_page_range() had an option not to enter the lazy_mmu mode
+> (e.g. an extra "bool skip_lazy" parameter) - the pause/resume could have
+> been avoided.
+> 
+>> Thanks,
+>> Ryan
+> 
+> Thanks!
 
-viridian = ['base', 'freq', 'apic_assist', 'crash_ctl', 'no_vp_limit', 'cpu_hotplug', 'time_ref_count', 'stimer']
-
-Checking the libxl sources show that in fact the defaults are:
-
-    if (libxl_defbool_val(info-&gt;u.hvm.viridian)) {
-        /* Enable defaults */
-        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_BASE);
-        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_FREQ);
-        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_TIME_REF_COUNT);
-        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_APIC_ASSIST);
-        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_CRASH_CTL);
-        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_NO_VP_LIMIT);
-        libxl_bitmap_set(&amp;enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_CPU_HOTPLUG);
-    }
-
-LIBXL_VIRIDIAN_ENLIGHTENMENT_STIMER was removed as a default enlightement in
-e83077a3d11072708a5c38fa09fa9d011914e2a1 but the docs were not kept aligned.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Hmm, indeed.
-
-For the patch, Reviewed-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
-
-It should have a fixes tag, but I can fix that on commit.
-
-CC'ing Oleksii.  This is a docs fix should be considered for 4.21 at
-this juncture.</pre>
-    </blockquote>
-    <pre>Agree, it could be in 4.21:
-
-Release-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-Thanks for notifying me.
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------Wvu8FsypiDWNyspQYkevPvrX--
 
