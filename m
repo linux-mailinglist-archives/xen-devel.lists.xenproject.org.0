@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 865F1C45F8D
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F505C45F90
 	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 11:38:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1158194.1486570 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1158202.1486581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIPH3-0006GZ-99; Mon, 10 Nov 2025 10:37:25 +0000
+	id 1vIPHX-0006ha-HN; Mon, 10 Nov 2025 10:37:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1158194.1486570; Mon, 10 Nov 2025 10:37:25 +0000
+Received: by outflank-mailman (output) from mailman id 1158202.1486581; Mon, 10 Nov 2025 10:37:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIPH3-0006EQ-2X; Mon, 10 Nov 2025 10:37:25 +0000
-Received: by outflank-mailman (input) for mailman id 1158194;
- Mon, 10 Nov 2025 10:37:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vIPHX-0006fl-Dv; Mon, 10 Nov 2025 10:37:55 +0000
+Received: by outflank-mailman (input) for mailman id 1158202;
+ Mon, 10 Nov 2025 10:37:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bLcL=5S=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1vIPH1-0006E1-TK
- for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 10:37:23 +0000
+ id 1vIPHW-0006ac-AP
+ for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 10:37:54 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 3cb6b0b3-be21-11f0-9d18-b5c5bf9af7f9;
- Mon, 10 Nov 2025 11:37:21 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 4f185c22-be21-11f0-980a-7dc792cee155;
+ Mon, 10 Nov 2025 11:37:52 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CEEFE497;
- Mon, 10 Nov 2025 02:37:12 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4A3CFEC;
+ Mon, 10 Nov 2025 02:37:43 -0800 (PST)
 Received: from [10.57.39.147] (unknown [10.57.39.147])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0E4913F66E;
- Mon, 10 Nov 2025 02:37:12 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0EB953F66E;
+ Mon, 10 Nov 2025 02:37:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,12 +42,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cb6b0b3-be21-11f0-9d18-b5c5bf9af7f9
-Message-ID: <b21fb5b9-2e7f-4cbc-ae62-015b1317a9bd@arm.com>
-Date: Mon, 10 Nov 2025 11:36:52 +0100
+X-Inumbo-ID: 4f185c22-be21-11f0-980a-7dc792cee155
+Message-ID: <0d00dd6e-9e39-4ac6-8ea4-9407e75947eb@arm.com>
+Date: Mon, 10 Nov 2025 11:37:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/12] x86/xen: simplify flush_lazy_mmu()
+Subject: Re: [PATCH v4 05/12] mm: introduce CONFIG_ARCH_HAS_LAZY_MMU_MODE
 To: Ryan Roberts <ryan.roberts@arm.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  Andreas Larsson <andreas@gaisler.com>,
@@ -72,46 +72,30 @@ Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
  xen-devel@lists.xenproject.org, x86@kernel.org
 References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
- <20251029100909.3381140-3-kevin.brodsky@arm.com>
- <b165098a-8164-4664-aaaf-1e8c4391d797@arm.com>
+ <20251029100909.3381140-6-kevin.brodsky@arm.com>
+ <6a9c846f-22b6-4d5f-81dc-6cdcd4905952@arm.com>
 Content-Language: en-GB
 From: Kevin Brodsky <kevin.brodsky@arm.com>
-In-Reply-To: <b165098a-8164-4664-aaaf-1e8c4391d797@arm.com>
+In-Reply-To: <6a9c846f-22b6-4d5f-81dc-6cdcd4905952@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07/11/2025 12:31, Ryan Roberts wrote:
-> On 29/10/2025 10:08, Kevin Brodsky wrote:
->> arch_flush_lazy_mmu_mode() is called when outstanding batched
->> pgtable operations must be completed immediately. There should
->> however be no need to leave and re-enter lazy MMU completely. The
->> only part of that sequence that we really need is xen_mc_flush();
->> call it directly.
->>
->> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
-> This looks functionally equivalent to me, so:
->
-> Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
->
-> But I don't think this tidy up is strictly necessary for your series to work?
-> (perhaps I'll change my mind on that as I go through it).
+On 07/11/2025 13:56, Ryan Roberts wrote:
+>> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+>> index 6663ffd23f25..e6bf5c7311b5 100644
+>> --- a/arch/arm64/Kconfig
+>> +++ b/arch/arm64/Kconfig
+>> @@ -122,6 +122,7 @@ config ARM64
+>>  	select ARCH_WANTS_NO_INSTR
+>>  	select ARCH_WANTS_THP_SWAP if ARM64_4K_PAGES
+>>  	select ARCH_HAS_UBSAN
+>> +	select ARCH_HAS_LAZY_MMU_MODE
+> nit: This list is mostly in alphabetical order. Further up the list there are a
+> lot of ARCH_HAS_* entries. Perhaps move it to the correct position in that lot?
+> Then ARCH_HAS_UBSAN stays out of order on its own.
 
-I initially thought it might be, but in the end I think you're right -
-it should still work fine without this patch.
-
-Still, I'd rather avoid unnecessary calls to arch_enter() and
-arch_leave() as it makes it harder to reason about what is called where.
-Namely, keeping them here means that a nested call to
-lazy_mmu_mode_disable() would cause arch_leave() then arch_enter() to be
-called - rather unexpected.
-
-The only calls to arch_enter() and arch_leave() that are left after this
-series are the ones in <linux/pgtable.h> and the Xen context-switching
-logic (the one case where calling arch hooks directly is justified, see
-discussion on v3 [1]).
+That's fair, it does look like it's mostly in order apart from
+ARCH_HAS_UBSAN. Will move it further up.
 
 - Kevin
-
-[1]
-https://lore.kernel.org/all/390e41ae-4b66-40c1-935f-7a1794ba0b71@arm.com/
 
