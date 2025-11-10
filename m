@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 413CAC46D4D
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 14:18:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1158361.1486701 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E25ADC46F69
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 14:40:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1158373.1486712 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIRn1-0006h8-IZ; Mon, 10 Nov 2025 13:18:35 +0000
+	id 1vIS7s-0001wF-8U; Mon, 10 Nov 2025 13:40:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1158361.1486701; Mon, 10 Nov 2025 13:18:35 +0000
+Received: by outflank-mailman (output) from mailman id 1158373.1486712; Mon, 10 Nov 2025 13:40:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIRn1-0006fG-Fl; Mon, 10 Nov 2025 13:18:35 +0000
-Received: by outflank-mailman (input) for mailman id 1158361;
- Mon, 10 Nov 2025 13:18:34 +0000
+	id 1vIS7s-0001t8-50; Mon, 10 Nov 2025 13:40:08 +0000
+Received: by outflank-mailman (input) for mailman id 1158373;
+ Mon, 10 Nov 2025 13:40:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bLcL=5S=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1vIRn0-0006fA-1H
- for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 13:18:34 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id c08857db-be37-11f0-9d18-b5c5bf9af7f9;
- Mon, 10 Nov 2025 14:18:32 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E7B25497;
- Mon, 10 Nov 2025 05:18:22 -0800 (PST)
-Received: from [10.57.39.147] (unknown [10.57.39.147])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D493F3F63F;
- Mon, 10 Nov 2025 05:18:22 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ugol=5S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vIS7r-0001t2-39
+ for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 13:40:07 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c42230e3-be3a-11f0-9d18-b5c5bf9af7f9;
+ Mon, 10 Nov 2025 14:40:05 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-b3e7cc84b82so560975666b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Nov 2025 05:40:05 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b72bf97e54asm1086562166b.34.2025.11.10.05.40.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Nov 2025 05:40:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,90 +45,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c08857db-be37-11f0-9d18-b5c5bf9af7f9
-Message-ID: <d0ce35ad-bfcd-496b-996d-17e59a1d5a73@arm.com>
-Date: Mon, 10 Nov 2025 14:18:20 +0100
+X-Inumbo-ID: c42230e3-be3a-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1762782005; x=1763386805; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=4QLvdO2P/9/r0HSykvK/idkNhnhAYBCDP6fxe4vk9nA=;
+        b=Ip9cIqj2BXUjVeJVW2hSEZG3njRWMxv4T7fz383USjotZcfn45GRW7e7SKQ/b9wU85
+         wClLntSYJQzrsWJFR9QUdKSF69N7HXAdvbQ5Nz7mw7c6/XlgU92xr6ZPbDB1lEMSlZtP
+         htH4jlFYEHACArn9b8YDJQv2E8y3OeFFb1GLcpQf/+WW/YhK4S99tEK2Wyha11746t1N
+         Fhp8VS9ez/LscbWqj5mDO8etXausEPwDn+HFFKHZJjA5zoKoxLhLG+naOhmll9dhbg3b
+         MkXg7aUIkqPJrUUzncmN+RLqK8K6oRqI0yAMlY+gRO2wGSmsRyiWNz014H+X5IZqWl89
+         F6cA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1762782005; x=1763386805;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4QLvdO2P/9/r0HSykvK/idkNhnhAYBCDP6fxe4vk9nA=;
+        b=MbGKiZZPAS7hpf1u0+Vf4JcUpdCppcFpQuk0v2tg04uWGZkdZVEvHGDTH0jHvpFeHX
+         9m2h051q1bLQYt3lunVqB4eNDMVi+ri199R3QagM+iq3h/pWBR6dGmTxQADOZB4jujwQ
+         WklFiIJtWPZobk4JFgoexLrkpBvHi7WpZPrA2kWg8fZwdDc2ySMFU3lFeWfmYoNL21W+
+         QFil1hBYsSFGmKpdNEf8YDb4moRwtwZCVinUiYJl7qR95CrXyYi4zBQd2TX5bxSmhHgE
+         G6sZsAfbejzLIZMHH3UCfGActy3kgdIsCYSEHgBJZdTpRwp+4NpKx8sxb77fRNP3eTzD
+         lJCw==
+X-Forwarded-Encrypted: i=1; AJvYcCVbycFKplXbzRNFY5yHCsdJYCHv6iyYINqgWVghjeoxtKRB6SqcT+rOQyEQJhEbtYEa9jeahbY5iTE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxSAfKTtPCmpWJB+lsHMQUplI0LUhb4a3Ys6eIZluOKmI0Hykgi
+	BYU3Gu+RJA8OfnYAh4sc8cXnfnrLCbUHrhkDmEnm0E5qXrqrxhA56BTpSXRJeqsJOg==
+X-Gm-Gg: ASbGncvHjNTbmCjTXwj8MMyP1fxXd7QoTsHIZWQbwS5GYo+uByg8A47wgeP+qeReXpP
+	Uz267dzd1YjNTchKHtw/YIuOiyQOPepGHrZ84rdLTyWokA7gn6rC6XEd7d4Np1/HcF8+dJCyA6p
+	FuN5hZUNLSwiD8XXKHVZPS2nHU9pK2q0zILXkmeOECkjrfjxoZ9o7lAZET5xrzimfDycFynMMkR
+	PG3GKQbHZ1LmZtWu8Z0CrYC1WPfaU5sdQJDWQgH2jphZkVt6dNzYso0WEgNbvblPA0nap5YcGR5
+	ke6isJMhXtIIjhXx9cjAjnPmKizLJKv8sMnK0Rm3Jpat/PjSdeSW+FZs/jOb8QeSP2nden3kBAR
+	kdncZ8aQCQGbs+rKNtHiCmy0Th7vonHw5iL17X475Q30Wrk/wxb4m0sGAzXxo9MrsmLp2U2YR1x
+	jIHny67omDsBgpMHBMKzAS+qsDwGYsGGknZ0BXAMja9AfHIvsN7i+fETcpJrK1frF1eRlQ+owvi
+	vy71cJyRzRGcg==
+X-Google-Smtp-Source: AGHT+IG9yglJ74O+cqSdVo/ZXbwyyHI467VR92sXZfChBRwL9b4Cl+3mYCf3BRY5dxic2148ZaJoCg==
+X-Received: by 2002:a17:907:3d8c:b0:b70:ae6a:5fdb with SMTP id a640c23a62f3a-b72e05e6c11mr866055666b.45.1762782005178;
+        Mon, 10 Nov 2025 05:40:05 -0800 (PST)
+Message-ID: <55f0f1f2-3892-44fa-94d6-15e0e8513ef1@suse.com>
+Date: Mon, 10 Nov 2025 14:40:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/12] powerpc/64s: Do not re-activate batched TLB
- flush
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
- Andreas Larsson <andreas@gaisler.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- David Hildenbrand <david@redhat.com>, "David S. Miller"
- <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
- Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
- Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org,
- Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
- <20251029100909.3381140-2-kevin.brodsky@arm.com>
- <87qzud42n1.ritesh.list@gmail.com>
- <b3e4a92f-5b51-4eee-bfb8-c454add0f0d2@arm.com>
- <87cy5t4b0a.ritesh.list@gmail.com>
-Content-Language: en-GB
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-In-Reply-To: <87cy5t4b0a.ritesh.list@gmail.com>
+Subject: Re: [PATCH v5] xen: Strip xen.efi by default
+To: Frediano Ziglio <frediano.ziglio@citrix.com>
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Frediano Ziglio <freddy77@gmail.com>,
+ Demi Marie Obenour <demiobenour@gmail.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20251110125859.78124-1-frediano.ziglio@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251110125859.78124-1-frediano.ziglio@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 08/11/2025 00:35, Ritesh Harjani (IBM) wrote:
-> Kevin Brodsky <kevin.brodsky@arm.com> writes:
->
->> [...]
->>
->>> With this analysis - the patch looks good to me. I will give this entire
->>> patch series a try on Power HW with Hash mmu too (which uses lazy mmu and
->>> let you know the results of that)!
->> That'd be very appreciated, thanks a lot!
->>
-> I did give this patch series a run on Power10 with Hash MMU. I ran the
-> following stress-ng tests and didn't observe any issues (kernel warnings) so far.
->
-> stress-ng --all 0 -t 60s --perf -v --verify \
-> --tlb-shootdown 0 \
-> --fault 0 \
-> --userfaultfd 0 \
-> --fork 0 \
-> --exec 0 \
-> --memfd 0 \
-> --numa 0 \
-> --pkey 0 \
-> --remap 0 \
-> --vm 0 \
-> --rmap 0 \
-> -x swap,pagemove
-> (Note not all options shown here will work with --verify)
+On 10.11.2025 13:58, Frediano Ziglio wrote:
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -228,17 +228,21 @@ endif
+>  	$(MAKE) $(build)=$(@D) .$(@F).1r.o .$(@F).1s.o
+>  	$(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T $(obj)/efi.lds $< \
+>  	      $(dot-target).1r.o $(dot-target).1s.o $(orphan-handling-y) \
+> -	      $(note_file_option) -o $@
+> -	$(NM) -pa --format=sysv $@ \
+> +	      $(note_file_option) -o $(TARGET)-syms.efi
+> +	$(NM) -pa --format=sysv $(TARGET)-syms.efi \
+>  		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+>  		> $@.map
 
-That's great, many thanks!
+This part if fine with me now.
 
-> Let me know what else I can run for validation?
-> Do you know of any specific tests for validation of lazy mmu feature?
+> -ifeq ($(CONFIG_DEBUG_INFO),y)
+> -	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O elf64-x86-64 $@ $@.elf
+> +ifeq ($(CONFIG_DEBUG_INFO)_$(filter --strip-debug,$(EFI_LDFLAGS)),y_)
 
-I don't think there is - lazy MMU is not supposed to have any observable
-effect, all we can do is exercise the paths that use it and check that
-nothing explodes.
+This extra change looks correct to me, yet I wonder if doing it this way isn't
+fragile. If EFI_LDFLAGS wasn't set globally, but only for xen.efi, aiui this
+wouldn't work anymore.
 
-That said it wouldn't hurt to run the mm kselftests:
+> +	$(OBJCOPY) -O elf64-x86-64 $(TARGET)-syms.efi $@.elf
+> +	$(STRIP) $(TARGET)-syms.efi -o $@.tmp
+> +else
+> +	mv -f $(TARGET)-syms.efi -o $@.tmp
 
-    make -C tools/testing/selftests/ TARGETS=mm
+This, while I think I understand why you do it, looks somewhat odd. Plus the
+reason you do it is, like ...
 
-Thanks!
+>  endif
+> -	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
+>  ifeq ($(CONFIG_XEN_IBT),y)
+> -	$(SHELL) $(srctree)/tools/check-endbr.sh $@
+> +	$(SHELL) $(srctree)/tools/check-endbr.sh $@.tmp
+>  endif
+> +	mv -f $@.tmp $@
+> +	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
+>  else
+>  $(TARGET).efi: FORCE
+>  	rm -f $@
 
-- Kevin
+... (still) most of this, unrelated (and, as before, not mentioned at all in
+the description).
+
+Jan
 
