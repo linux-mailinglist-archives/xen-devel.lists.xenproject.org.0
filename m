@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA1F8C46A27
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 13:37:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1158322.1486670 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82854C46A7B
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 13:41:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1158337.1486681 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIR9F-0000Z4-G6; Mon, 10 Nov 2025 12:37:29 +0000
+	id 1vIRCR-00027P-1X; Mon, 10 Nov 2025 12:40:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1158322.1486670; Mon, 10 Nov 2025 12:37:29 +0000
+Received: by outflank-mailman (output) from mailman id 1158337.1486681; Mon, 10 Nov 2025 12:40:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIR9F-0000XB-DQ; Mon, 10 Nov 2025 12:37:29 +0000
-Received: by outflank-mailman (input) for mailman id 1158322;
- Mon, 10 Nov 2025 12:37:28 +0000
+	id 1vIRCQ-00025l-Us; Mon, 10 Nov 2025 12:40:46 +0000
+Received: by outflank-mailman (input) for mailman id 1158337;
+ Mon, 10 Nov 2025 12:40:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=thpE=5S=gmail.com=freddy77@srs-se1.protection.inumbo.net>)
- id 1vIR9E-0000X5-Mt
- for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 12:37:28 +0000
-Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
- [2607:f8b0:4864:20::112b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ugol=5S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vIRCP-00025f-DT
+ for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 12:40:45 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 03aadc6b-be32-11f0-9d18-b5c5bf9af7f9;
- Mon, 10 Nov 2025 13:37:27 +0100 (CET)
-Received: by mail-yw1-x112b.google.com with SMTP id
- 00721157ae682-787cc9de986so22719427b3.2
- for <xen-devel@lists.xenproject.org>; Mon, 10 Nov 2025 04:37:27 -0800 (PST)
+ id 79409d6c-be32-11f0-9d18-b5c5bf9af7f9;
+ Mon, 10 Nov 2025 13:40:44 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-b7277324204so507849166b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Nov 2025 04:40:44 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-64179499189sm4264591a12.8.2025.11.10.04.40.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Nov 2025 04:40:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,162 +45,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03aadc6b-be32-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 79409d6c-be32-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1762778246; x=1763383046; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=9wae001CoERG5WO46lzb4HtEOVA8lNVhjUvYhOsjDUc=;
-        b=TSMHPGeNE9g6lKaNKlHIa2Ute/WIy79KUTjRFoJnEvu696VL6f1X43pnTcr7Zz40Dd
-         xUZoKj0G6yapZd38608tdXF2FDif22fpz/3Gaw7dQP4htkMY51tGqdVBNyR5KG6u0JQV
-         uG/Ik30Spqvr0GRI3T/ssXs+LE1GUwxrWisexQHem9F3VbIyyKliovw+lcOCNgyygRoZ
-         3ofXIR+v5bT4n+7PihWQnYrKAveElCB/anFqmuPfTkcR/NL+LA52d7emm2jWtlYnhRV/
-         HgLbgEfVOrO4EiYKW8QxGfiNoq5ILwjJYiEMPNj2MDcDdXrnsiG6EYV3hMyM0S/yZ7iG
-         XwLQ==
+        d=suse.com; s=google; t=1762778443; x=1763383243; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=j87a6bVg9MU3HmA2emq5QiStErZQHTMqJIqHtg/3KiM=;
+        b=f5rIHecD8ewBJ807ro8u6XQ4NM3WLjSnlgIsqegf+8BnWTQBJBVQQVHEbCc+ccR1BO
+         Op/r1JjUJpg26ucfQ7PXHQ5cIyq13H1S+zvj8wuLuKhv4fOjcz13qkxyLivithLYfp6c
+         E6JWgxVB5NuoNKBCTZUSs6d4+tyTCdJ3cEtkdcI7lYRPEMLEbQV3uZc0RqFo1ByFVHxL
+         ZGf+hP/4KAMHTkdZdTRC121VAQkZv4TxgA0CGXPla72ylfikrVCKziNXVB5RFXHbBtTB
+         NezrxIKEmstmSEo0pwFtoFPfOUhOBVkkB7p3HsKQnIDxGxpD9A0u3LDmT0BLUZjYE/yb
+         xtGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762778246; x=1763383046;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1762778443; x=1763383243;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9wae001CoERG5WO46lzb4HtEOVA8lNVhjUvYhOsjDUc=;
-        b=BK6KVE6j2djXc+piHyj3HE+yLhecQwlwK8vDE2vM1Xoc2GCbgLxhLKKYitMOy2veGk
-         drTMvqnj6gQDGRq4Rqj4x7vhwBklGlHENmVdTs0u1YIyqAOtStuo38ktJJuSop6bbZEz
-         9Sr0XmFE6Vfm7Bx/Z2xxCMnFKCTt1c8wNN1yH4sdpMbB8bJJawyjjBus3+QZtPdtIt5D
-         Css7oTpdwY2TkkuCCV4sBMqMZSns9m+IAi0pof5hWxoKylEbD679t2orl7QYTPTPeg8N
-         RZJXyQsfdwJ/itTK9RsKjYPaBmmf1KeZf/7goOmkwM4AQEKMh6+aTb7wx4sbZ8fWeAvB
-         e1ug==
-X-Gm-Message-State: AOJu0YxlmJ6ny9GxMBZNTBtyrS1nnY9HWsBGrkeOAxTqF+chkR/FlLo6
-	6C3IUFo+J34XtblURB6ppqr0vSiBwZv9RUTBICOaXH6ykZ26TVsP/3roQoHrbj16FqSODyprVZ9
-	VGjfzgR09ya+33USknX+SRvOS+cqAic4=
-X-Gm-Gg: ASbGncu7NpNyn4jlTKcZA0PRlF7lecf67/xfawb1FMnBXdqbN3IIvMVkza1w1mu/MsM
-	VCqLtka6rJ55Xn5XKFJH9N+2+kI2Nhgr46TNWAAMZBdsTMOC+705tVa7nvngvOIxGd6teqUwS9p
-	CrCYmbk3dcFp3yXniKYXwQJRElLrZA4zIeZxeLr5hg1lSUx2TG1ka9Vpb6z0uQMtsNsd2jbTbIr
-	rhEQuoEzJqg0lb0kcssMa8y0n/QugqEBZNd0uK8eZ3QXyYyIWaXaY2W6Q+h
-X-Google-Smtp-Source: AGHT+IGJ293TP3BsXKshsR7HuRKuHMZf0ID0Tzia4t5syzJ8A7LG4In7UKur087FGg9weiyvgkVYQeOoYWU/6TeXlpQ=
-X-Received: by 2002:a05:690c:5996:b0:784:a232:b3d9 with SMTP id
- 00721157ae682-787d53765a6mr58245567b3.18.1762778246060; Mon, 10 Nov 2025
- 04:37:26 -0800 (PST)
+        bh=j87a6bVg9MU3HmA2emq5QiStErZQHTMqJIqHtg/3KiM=;
+        b=l/57C4pBIXWmNvI+Cp76R6/OZzbX3mxp5wZjucTLUueKGe92RGqy/9wlvDy6LXv01j
+         ExcAh7/Zfz2pW9rKhqzIfcMeLcPfbyEuN/n+AlD+OBOIswTg/CFnK9HWkOIrzfkRiJON
+         1kdTLNcfFza4PYYphwbtTC7jiSxjsygHN3BsSM6aO9zn4azGUzUfGqsPOwtudIgBMsUH
+         hBhHWjdg+xReZ4nlLPY5VI3hqX//dZdKrVpPj4F1r+7+pmBCW7LEkLrsxg3t4dgIgXDh
+         3+5xJkQQPkMKx5hLrwYVjLBCOsBusOkh8+A1AXi3NOPPZqF9De4/E8ZCFx7chql/T2tg
+         ESAA==
+X-Forwarded-Encrypted: i=1; AJvYcCWLkbrC9CwccjdyIvoHjB7E8KmYM/3kgCTbK3Lmxrv8YcIxabE16ZUMn0Y5Aq/dItG6pExrvMxFT4U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz/TAWGUGrJ4k+fcZhq2zcbTYiWgcZmQTFal+V3y4aK3+c+WAdC
+	7F9NOmJPZWu5uuGsa3f4nA2+OArLP8dk7z5lJvAOPmcz5iUEQzXQo2K8EiWRLsFAGA==
+X-Gm-Gg: ASbGncsuIOGegnkWVtCLaKBBLpNFVsUbmy0RTtAjte/N9jRQMfzYgsTWWsmgp7amGJy
+	+YEq/ILSPJU0KSvbLaL7Af1PYePFWSIaQ7P/bR4DIuywW6JI1wHDYtc1KnkZXQgq2SoKa1yq9O5
+	l+UhsJJ0TqpGgv+3DO5NZ7PkpPeqpdJ4UmQ0vye0a0ZZM1LjX7yJRW4tS/TfIZbK1UkU/wUdG1i
+	oPclb1p2+X1DMDN9x8FVyiaslfZSbqt4ZPXqH77mqTxn8u7VrdzGz1R6yULARCcduJGRgIrCStx
+	AZ+ShEQijT6xAIyVogv0RtWngvr4kGzsHSKGGdp8aWMsNlJng2X3dfIQWXEuiDnTnM4zF8fqxw7
+	t+ZI3VbBymbWmH3mtB7yzjBPmfFYdAfT3ceJxBeMs2LpsnXYvKhqaheqREtj/UFPapSdzelL0q4
+	pBNDe0g/N0K3T6RG390owTWnav4gnLX1X8rkFOeJe8XaJCHPCfVN7iml87mMlUv2Tw
+X-Google-Smtp-Source: AGHT+IG5baqsr5mEOt3+qZlFZOEASO9CgA/6SiXUjnceX7GhYw12ZvbeEZDEhzo8jaixkTdAkeAN3Q==
+X-Received: by 2002:a17:906:7309:b0:b72:5f93:2959 with SMTP id a640c23a62f3a-b72e02d9744mr690600966b.17.1762778443517;
+        Mon, 10 Nov 2025 04:40:43 -0800 (PST)
+Message-ID: <f1785ee8-2c70-41e5-9cb6-0506dc110ef0@suse.com>
+Date: Mon, 10 Nov 2025 13:40:44 +0100
 MIME-Version: 1.0
-References: <20251105153808.20278-1-frediano.ziglio@citrix.com>
- <fdc9fd41-2224-4672-911e-3e17b428d32a@gmail.com> <CAHt6W4eyH_7c4Q-KYaDjNJnSXjKSVNT1iSw0sNbLMXnK3iEHRg@mail.gmail.com>
- <d193feac-3285-4c26-9a8a-ba09437e7e76@gmail.com> <CAHt6W4fEbuk+VzjFxfz5=T8GXCVW_jSoqqMAkiQTXL79B93SPg@mail.gmail.com>
- <98e2f19f-5fce-4ad1-b821-f5abb1f815f6@suse.com> <CAHt6W4fscR1zAPbEmmgy5ARUGN5R2XBLF=Lkbjw3GU_RwibTfA@mail.gmail.com>
- <1fa1ca4d-62ce-49ee-8a8a-8d0d9e8abf2e@suse.com>
-In-Reply-To: <1fa1ca4d-62ce-49ee-8a8a-8d0d9e8abf2e@suse.com>
-From: Frediano Ziglio <freddy77@gmail.com>
-Date: Mon, 10 Nov 2025 12:37:14 +0000
-X-Gm-Features: AWmQ_blkxVAXKVTlgNA7yJwVR9gISJiYP0I0CYBWVMETb0VbbeEKn0zNFqkemIo
-Message-ID: <CAHt6W4ci9QfOn0cKgsyqaemn1R8eOh2bd=4wQehXFFZn22aNiA@mail.gmail.com>
-Subject: Re: [PATCH v3] xen: Strip xen.efi by default
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Frediano Ziglio <frediano.ziglio@cloud.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
-	Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	Demi Marie Obenour <demiobenour@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] xen: Strip xen.efi by default
+To: Frediano Ziglio <frediano.ziglio@citrix.com>,
+ xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Frediano Ziglio <freddy77@gmail.com>,
+ Demi Marie Obenour <demiobenour@gmail.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <20251110123034.77692-1-frediano.ziglio@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251110123034.77692-1-frediano.ziglio@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 7 Nov 2025 at 07:04, Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 06.11.2025 17:32, Frediano Ziglio wrote:
-> > On Thu, 6 Nov 2025 at 10:27, Jan Beulich <jbeulich@suse.com> wrote:
-> >>
-> >> On 06.11.2025 10:58, Frediano Ziglio wrote:
-> >>> On Thu, 6 Nov 2025 at 03:52, Demi Marie Obenour <demiobenour@gmail.com> wrote:
-> >>>> Does objdump on the signed file return correct section names?
-> >>>
-> >>> From objdump -x
-> >>>
-> >>> Sections:
-> >>> Idx Name          Size      VMA               LMA               File off  Algn
-> >>>   0 .text         0016c9ae  ffff82d040200000  ffff82d040200000  00000320  2**4
-> >>>                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-> >>>   1 .rodata       0006b9e8  ffff82d040400000  ffff82d040400000  0016cce0  2**2
-> >>>                   CONTENTS, ALLOC, LOAD, DATA
-> >>>   2 .buildid      00000035  ffff82d04046c000  ffff82d04046c000  001d86e0  2**2
-> >>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-> >>>   3 .init.text    0004d123  ffff82d040600000  ffff82d040600000  001d8720  2**2
-> >>>                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-> >>>   4 .init.data    0006c9b0  ffff82d040800000  ffff82d040800000  00225860  2**2
-> >>>                   CONTENTS, ALLOC, LOAD, DATA
-> >>>   5 .data.read_mostly 00028da8  ffff82d040a00000  ffff82d040a00000
-> >>> 00292220  2**4
-> >>>                   CONTENTS, ALLOC, LOAD, DATA
-> >>>   6 .data         0000feec  ffff82d040a29000  ffff82d040a29000  002bafe0  2**4
-> >>>                   CONTENTS, ALLOC, LOAD, DATA
-> >>>   7 .bss          00223108  ffff82d040a39000  ffff82d040a39000  00000000  2**4
-> >>>                   ALLOC
-> >>>   8 .reloc        000016b8  ffff82d040c5d000  ffff82d040c5d000  002caee0  2**2
-> >>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-> >>>   9 .sbat         000000a6  ffff82d040c5f000  ffff82d040c5f000  002cc5a0  2**2
-> >>>                   CONTENTS, READONLY
-> >>>
-> >>> Which looks correct.
-> >>>
-> >>> From hexdump -C I can see close to the end
-> >>>
-> >>> ...
-> >>> 002cc580  30 ae 38 ae 60 ae 00 00  00 80 a3 00 10 00 00 00  |0.8.`...........|
-> >>> 002cc590  a0 ae c0 ae e0 ae 00 00  00 00 00 00 00 00 00 00  |................|
-> >>> 002cc5a0  73 62 61 74 2c 31 2c 53  42 41 54 20 56 65 72 73  |sbat,1,SBAT Vers|
-> >>> 002cc5b0  69 6f 6e 2c 73 62 61 74  2c 31 2c 68 74 74 70 73  |ion,sbat,1,https|
-> >>> 002cc5c0  3a 2f 2f 67 69 74 68 75  62 2e 63 6f 6d 2f 72 68  |://github.com/rh|
-> >>> 002cc5d0  62 6f 6f 74 2f 73 68 69  6d 2f 62 6c 6f 62 2f 6d  |boot/shim/blob/m|
-> >>> 002cc5e0  61 69 6e 2f 53 42 41 54  2e 6d 64 0a 78 65 6e 2e  |ain/SBAT.md.xen.|
-> >>> 002cc5f0  78 73 2c 31 2c 43 6c 6f  75 64 20 53 6f 66 74 77  |xs,1,Cloud Softw|
-> >>> 002cc600  61 72 65 20 47 72 6f 75  70 2c 78 65 6e 2c 34 2e  |are Group,xen,4.|
-> >>> 002cc610  32 30 2e 31 2d 37 2e 32  32 2e 67 33 65 30 36 37  |20.1-7.22.g3e067|
-> >>> 002cc620  32 36 62 2e 78 73 39 2c  6d 61 69 6c 74 6f 3a 73  |26b.xs9,mailto:s|
-> >>> 002cc630  65 63 75 72 69 74 79 40  78 65 6e 73 65 72 76 65  |ecurity@xenserve|
-> >>> 002cc640  72 2e 63 6f 6d 0a 00 00  00 00 00 00 00 00 00 00  |r.com...........|
-> >>> 002cc650  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
-> >>> 002cc660  2c 00 00 00 2e 69 6e 69  74 2e 74 65 78 74 00 2e  |,....init.text..|
-> >>> 002cc670  69 6e 69 74 2e 64 61 74  61 00 2e 64 61 74 61 2e  |init.data..data.|
-> >>> 002cc680  72 65 61 64 5f 6d 6f 73  74 6c 79 00 00 00 00 00  |read_mostly.....|
-> >>> 002cc690  9e 05 00 00 00 02 02 00  30 82 05 92 06 09 2a 86  |........0.....*.|
-> >>> 002cc6a0  48 86 f7 0d 01 07 02 a0  82 05 83 30 82 05 7f 02  |H..........0....|
-> >>> 002cc6b0  01 01 31 0f 30 0d 06 09  60 86 48 01 65 03 04 02  |..1.0...`.H.e...|
-> >>> 002cc6c0  01 05 00 30 5c 06 0a 2b  06 01 04 01 82 37 02 01  |...0\..+.....7..|
-> >>> 002cc6d0  04 a0 4e 30 4c 30 17 06  0a 2b 06 01 04 01 82 37  |..N0L0...+.....7|
-> >>> 002cc6e0  02 01 0f 30 09 03 01 00  a0 04 a2 02 80 00 30 31  |...0..........01|
-> >>> 002cc6f0  30 0d 06 09 60 86 48 01  65 03 04 02 01 05 00 04  |0...`.H.e.......|
-> >>> 002cc700  20 e2 47 64 f8 e8 7b 62  eb 17 e0 13 0a 0d 93 02  | .Gd..{b........|
-> >>> 002cc710  7a d8 3b f0 20 a8 ee 3d  49 98 3f de c1 47 de 15  |z.;. ..=I.?..G..|
-> >>> 002cc720  43 a0 82 03 2c 30 82 03  28 30 82 02 10 a0 03 02  |C...,0..(0......|
-> >>> 002cc730  01 02 02 11 00 8f fc 11  bf 41 54 40 74 89 2c 53  |.........AT@t.,S|
-> >>> 002cc740  a5 78 c1 e8 32 30 0d 06  09 2a 86 48 86 f7 0d 01  |.x..20...*.H....|
-> >>> 002cc750  01 0b 05 00 30 1c 31 1a  30 18 06 03 55 04 03 13  |....0.1.0...U...|
-> >>> 002cc760  11 58 65 6e 53 65 72 76  65 72 20 58 65 6e 20 64  |.XenServer Xen d|
-> >>> 002cc770  65 76 30 1e 17 0d 32 35  30 33 32 30 31 36 35 35  |ev0...2503201655|
-> >>> 002cc780  30 37 5a 17 0d 33 37 30  31 31 39 30 33 31 34 30  |07Z..37011903140|
-> >>> 002cc790  37 5a 30 1c 31 1a 30 18  06 03 55 04 03 13 11 58  |7Z0.1.0...U....X|
-> >>> 002cc7a0  65 6e 53 65 72 76 65 72  20 58 65 6e 20 64 65 76  |enServer Xen dev|
-> >>> ...
-> >>>
-> >>> So, this confirms that the string table is there to support larger
-> >>> section names and the signature is there and it's working.
-> >>
-> >> But is it going to work on all EFI implementations, or merely the one you tried?
-> >
-> > Can you be more specific ?
-> > The file was tested using dozens of different hardware and under Qemu.
-> > Only x64 if it's what you mean.
->
-> No, I was referring to the fact that there are distinct EFI implementations,
-> which may differ in their loader behavior. But see also Demi's clarification
-> on her original remark.
->
-> Jan
+On 10.11.2025 13:30, Frediano Ziglio wrote:
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -228,17 +228,23 @@ endif
+>  	$(MAKE) $(build)=$(@D) .$(@F).1r.o .$(@F).1s.o
+>  	$(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T $(obj)/efi.lds $< \
+>  	      $(dot-target).1r.o $(dot-target).1s.o $(orphan-handling-y) \
+> -	      $(note_file_option) -o $@
+> -	$(NM) -pa --format=sysv $@ \
+> +	      $(note_file_option) -o $@.tmp
+> +	$(NM) -pa --format=sysv $@.tmp \
 
-Demi posted an update on that remark that it was a mistake.
+Why is this needed in this shape? Can't you use $(TARGET)-syms.efi here
+right away, ...
 
-The signature should be applied as the last step resulting in it to be
-at the end of the file. This as any following update to the file
-(beside updating the checksum or the signature itself) would
-invalidate the signature and correctly the firmware would refuse to
-load the file if secure boot is enabled.
+>  		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+>  		> $@.map
+>  ifeq ($(CONFIG_DEBUG_INFO),y)
+> -	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O elf64-x86-64 $@ $@.elf
+> +	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) \
+> +		-O elf64-x86-64 $@.tmp $@.elf
+> +	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))mv -f \
+> +		$@.tmp $(TARGET)-syms.efi
 
-Frediano
+... avoiding the need for this mv and ...
+
+> +	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(STRIP) \
+> +		$(TARGET)-syms.efi -o $@.tmp
+
+... double use of $@.tmp?
+
+>  endif
+> -	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
+>  ifeq ($(CONFIG_XEN_IBT),y)
+> -	$(SHELL) $(srctree)/tools/check-endbr.sh $@
+> +	$(SHELL) $(srctree)/tools/check-endbr.sh $@.tmp
+>  endif
+> +	mv -f $@.tmp $@
+> +	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
+
+At least part of the rearrangement here also looks unrelated, and isn't
+mentioned at all in the description.
+
+Jan
 
