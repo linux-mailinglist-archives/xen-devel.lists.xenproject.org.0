@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFAD6C4814A
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 17:47:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1158621.1486946 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95D3DC48174
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Nov 2025 17:48:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1158631.1486957 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIV2Y-0000ms-JO; Mon, 10 Nov 2025 16:46:50 +0000
+	id 1vIV4E-0001Jn-UE; Mon, 10 Nov 2025 16:48:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1158621.1486946; Mon, 10 Nov 2025 16:46:50 +0000
+Received: by outflank-mailman (output) from mailman id 1158631.1486957; Mon, 10 Nov 2025 16:48:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIV2Y-0000lR-Gp; Mon, 10 Nov 2025 16:46:50 +0000
-Received: by outflank-mailman (input) for mailman id 1158621;
- Mon, 10 Nov 2025 16:46:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vIV4E-0001Hi-RU; Mon, 10 Nov 2025 16:48:34 +0000
+Received: by outflank-mailman (input) for mailman id 1158631;
+ Mon, 10 Nov 2025 16:48:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ugol=5S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vIV2X-0000lL-L1
- for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 16:46:49 +0000
+ id 1vIV4D-0001Hc-V4
+ for xen-devel@lists.xenproject.org; Mon, 10 Nov 2025 16:48:33 +0000
 Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
  [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d84f21b6-be54-11f0-980a-7dc792cee155;
- Mon, 10 Nov 2025 17:46:46 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 17ae2014-be55-11f0-9d18-b5c5bf9af7f9;
+ Mon, 10 Nov 2025 17:48:32 +0100 (CET)
 Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-b725ead5800so428154166b.1
- for <xen-devel@lists.xenproject.org>; Mon, 10 Nov 2025 08:46:46 -0800 (PST)
+ a640c23a62f3a-b731b176b5eso37073366b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Nov 2025 08:48:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b72bfa0f37csm1125001066b.64.2025.11.10.08.46.45
+ a640c23a62f3a-b72bfa24d2asm1113644766b.70.2025.11.10.08.48.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Nov 2025 08:46:45 -0800 (PST)
+ Mon, 10 Nov 2025 08:48:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d84f21b6-be54-11f0-980a-7dc792cee155
+X-Inumbo-ID: 17ae2014-be55-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762793206; x=1763398006; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762793312; x=1763398112; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vMaAnMq1S1h5nBzqUg9PRKg5j8qtxsXvMkJvhFl3xkc=;
-        b=eWET3o1sPrLphriBB04280bxufxuyLL5iumvx0e72/FXIqbeXPHDZxt5pZkBB9uQFh
-         iskIULRne5b05a+ZtcYn4hEVig07abrZz0YQt9BtwyExGdX9OGEw0tf2jDwpFDnCpkdS
-         BQODyUw8hR4kX7Psco5bv15vhQq1dy/iwxLDeX7M0gFore7jvRvL+VLsU2+p5iPcE7pN
-         SsYOS+6esVj3hObrdyrV1zXateSM3RiE0oJmgXVsY2sFumQT8rLgVgXmYtK3Q34mM7Dr
-         P/foQ01pyGlc9PvqIwCfm5cW5DhJChAIkzL9anU9rh3lsEeMeWvWvStUJ0LHUiIcDn6m
-         R9/Q==
+        bh=R8+QZGgVmEaud9doZNmkJqdoOW5bjN903RjW0q6qGLI=;
+        b=dJdwCtECzXcVKwYjaaPyUDKWXEek8zRu7KDtdaToOsL95+QS9ZMiaXOhNvY+JJmPhD
+         lxvc2OfKXXJLsrtgQQNNeS9VaYpll/HunSV5KPi7SSioGSTm8PPAYDccizSnGTDocqqf
+         EDW1awi5W/myFY3yi6FthuRbDTF6c1FX1sW8XAVCaNCbwj9XKTrh13FF8gwxARBnUpt5
+         /oZrop7rwflMGtizrLZKi+Av2hqCgeibHSyQTf+Xobno2rhD3/z2U6IHOYc658Oudehq
+         2/uOzM3m+VigPY2mPfBpmfucKxotFTZ3gxo/cjU0v9ALBj88+TwqJKc3LyHi4F5WNSNz
+         Ksiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762793206; x=1763398006;
+        d=1e100.net; s=20230601; t=1762793312; x=1763398112;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vMaAnMq1S1h5nBzqUg9PRKg5j8qtxsXvMkJvhFl3xkc=;
-        b=fzstmTp2KT5M0B0/50FDu5Wv/yR3foc4MOsAFr7cjsWNCk0HtchGzMsafzjVdCKCy2
-         dBy8FYXwtuQ97F+TatpYQfnkIC4h7iuB5WOwgu70RO7D3SwwLb6Gygz1NzLUo0DdjYMh
-         jymiIVyouq8tOXT2cVPRLJA3z6YYChPwFG6x8k5LeFhDQfgSdWNY40OCjEIreWEmqoTc
-         j5m8mcNYmOb22UTCu3Y0NklV2L4L6LenMBgRMPmk1har4bDWQljGhkEfsR3ENQZVWZ5p
-         gp78NFX+R0X10ZrHB1a73FDiwBBHWFPew4lattx01OiSZArKxGa1lz+D/jx+ZkdHHrxz
-         tygg==
-X-Forwarded-Encrypted: i=1; AJvYcCXaNHwAOen6OqTE/XNjy6TMAPfc4armtTEj7Ud1OY81lAh02MQBW8nz8Dkmrm1tQRXJolNk0T1FhHA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywlxw/v+1J0uMgLTmf45b6QdIImbdS0d83c34k+ZBNXxdJePGyE
-	LHRwP7sABIuJsyrCE5eNZqq6x/2uaT9wC6/CsqWqmAYGi6GIe0LFcQ3JWWe+SReaWw==
-X-Gm-Gg: ASbGncuRDdtNiDj+YPfTYaufWb2izwtNc91cKKeRw//YXovFxiXgyAMC8nwDjq1Wzsz
-	VKfIG+IKNpXaQqULfMIntYXFF0OdFn+HAluiRnyzAPeBZmXXkauoXh+ktUl+FknPXYPF+CnUoEt
-	CZlLZ3bMEQq532Mz3DZZ7L2B3u4fHjsiAwNIk1hiZb8vJ5zb6ZA9q2JEZAZ7SARZaev2dJfqV8+
-	o+LKpMR1vz3MsFXojtNzwy/m/sg/W16jTPFHPfQXXBbxoqPJwnNeAJqMJF5FIl3yUOu95POwZkM
-	lP4D/k62s0EWx7b6t2qQRZBXmZqFudq/4kTxxMXERcAcZ9qiRQh7YBe4DFUuj0HGsATVZ1KNvJb
-	LvpK9mRwS1TlEYsgCFMWuUvcqVU1MtBJYrgLFQWgCtczfQZ57nhkMCJfQrskaMtuRHrK96fLedn
-	U1bvES/NIMKHDlbMaWQzpWFw7J9IIkh1N+9iV+ZSx4fj649fDsLtGf+H9u/SmbbxgTe4HSXDlW6
-	JI=
-X-Google-Smtp-Source: AGHT+IGWt6it8T2LMnBSKMAzRlrs5QzgCbc3mBhJppPH+OKUapWDU8AjOuwo9704Eb72gnNv1J3ZXQ==
-X-Received: by 2002:a17:907:7ba4:b0:b6d:8e29:8f67 with SMTP id a640c23a62f3a-b72e02dcc65mr858100966b.26.1762793205959;
-        Mon, 10 Nov 2025 08:46:45 -0800 (PST)
-Message-ID: <c40be165-0db3-4115-b96b-92624b669e74@suse.com>
-Date: Mon, 10 Nov 2025 17:46:47 +0100
+        bh=R8+QZGgVmEaud9doZNmkJqdoOW5bjN903RjW0q6qGLI=;
+        b=A5IkhJyAUFP1LP0FGcVtXPXFjQaRGu5m4cgVYzekZko9n4C9F9KKxsc2KF1/8GSacr
+         jGk06O5rVHyTrB2H2/Q2x0YXARFNYHE2QhVKMSevOWu+AbVt6Uj7S9vVLVbarpVZlJuE
+         I9fpL1YHW5N4xxe6btIf5Ypq3t8idIObLo5PgcnQfgu5TpyRHkSI9H7JaKVaYamsKIWu
+         pDiQh72cdAzbR7U/1iHEzPTUbNUQvJsGJdjgBhdPvPy08SuTshJ/mG9+rdqyg4stQT/p
+         l6KHJgzZViZkjKg14tVwlOaaDj2Crk4VPo3R1D+KO4SrLUIvfrGg6oCJ8YxY0LXlslG9
+         /Tcg==
+X-Forwarded-Encrypted: i=1; AJvYcCUBFAHdmvq2d2M6vAabMChlapjMSP0W4RUKUcmWcRUKDKvDx22nlkU3ltocH45LMqamAlIxx13K+kE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzqjg3B1FCGe7KbTbyzB4zfk4/5QEbUZM6sw3+x1N0es6Pu2M+m
+	bvyAm+0t/E+Ln5ejunB0lRH+1h0hqV+nAWErZpoV8mkByN/01/KcDpnQfGu1CRlwz77fI6KPccU
+	T6D8=
+X-Gm-Gg: ASbGncuHpsQbVjWbSlu+zfyFds415CWKT+6Z5okFoevbzXoQjGwgamEc41zPPMKCLmS
+	WW/tDW/cUmi6KjkaA7SCDO41hfQRLioQldTqsFmll4UyDlZ852X4z5CqNCIB9cFWlhvM3ok+V5k
+	C7eHI8cc+iNSQAVRlw77B5mXEYjwCC7tZ2Dw1gqA7s7PTEHXdGRnjBJcQxH+SzfR2+zpcW+4eGn
+	qHHKJa4KLb3KmlPaNADS+74GVwz7Q4fuhw/DTUsaiNLmlLjt/9OGaaK6Lj7fhZ3lf7op6iEEQte
+	UGMsRtdR3IedF1aExDgvl30fvzvMx9jO10hCHAZYqS0xrHBLqkeAWK78QbG31wtnJADk9uRIdk4
+	JHKOtCvAfZ5WJFUOGYidVR8L+Et+hC2etult+rvCxjWxoz9iGiDxQBV4U5K6JIK37RRS8y73/8R
+	t+g8ndROJGFFHiKhxXJTIaiTAFs5hyrldnk+PEN4fzHoeajQoJ895+6FLsTXNJ2KVkLEizeFaBC
+	9oG+bU4pxbwDQ==
+X-Google-Smtp-Source: AGHT+IFzyT23zB+JKnbAU6yqJPaFEwaQRrC3AkD6id1HpRGpKmwmCTYvgILSyOh/Gyl5aRoA2iV88Q==
+X-Received: by 2002:a17:907:ea5:b0:b71:29f7:47ef with SMTP id a640c23a62f3a-b72e05a4cd7mr720571066b.61.1762793312268;
+        Mon, 10 Nov 2025 08:48:32 -0800 (PST)
+Message-ID: <06fcbcc3-0c21-4d33-b02a-059f70823235@suse.com>
+Date: Mon, 10 Nov 2025 17:48:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [for 4.22 v5 17/18] xen/riscv: add support of page lookup by GFN
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH] CHANGELOG: Note about oxenstored being deprecated
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1760974017.git.oleksii.kurochko@gmail.com>
- <3eea04894401202666ea0bb7ee1240a23ba54d8a.1760974017.git.oleksii.kurochko@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>, =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>,
+ Rob Hoes <Rob.Hoes@citrix.com>, Pau Ruiz Safont <pau.safont@vates.tech>,
+ Andrii Sultanov <andriy.sultanov@vates.tech>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251110164427.54299-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,89 +128,15 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3eea04894401202666ea0bb7ee1240a23ba54d8a.1760974017.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <20251110164427.54299-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.10.2025 17:58, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -1049,3 +1049,178 @@ int map_regions_p2mt(struct domain *d,
->  
->      return rc;
->  }
-> +
-> +/*
-> + * p2m_get_entry() should always return the correct order value, even if an
-> + * entry is not present (i.e. the GFN is outside the range):
-> + *   [p2m->lowest_mapped_gfn, p2m->max_mapped_gfn]).    (1)
+On 10.11.2025 17:44, Andrew Cooper wrote:
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-There's one closing parenthesis too many here (likely the one before the colon).
-
-> + * This ensures that callers of p2m_get_entry() can determine what range of
-> + * address space would be altered by a corresponding p2m_set_entry().
-> + * Also, it would help to avoid cost page walks for GFNs outside range (1).
-
-DYM "costly"?
-
-> + * Therefore, this function returns true for GFNs outside range (1), and in
-> + * that case the corresponding level is returned via the level_out argument.
-> + * Otherwise, it returns false and p2m_get_entry() performs a page walk to
-> + * find the proper entry.
-> + */
-> +static bool check_outside_boundary(gfn_t gfn, gfn_t boundary, bool is_lower,
-> +                                   unsigned int *level_out)
-> +{
-> +    unsigned int level;
-> +
-> +    if ( is_lower ? gfn_x(gfn) < gfn_x(boundary)
-> +                  : gfn_x(gfn) > gfn_x(boundary) )
-> +    {
-> +        unsigned long mask = 0;
-> +
-> +        for ( level = P2M_ROOT_LEVEL; level; level-- )
-> +        {
-> +            unsigned long masked_gfn;
-> +
-> +            mask |= PFN_DOWN(P2M_LEVEL_MASK(level));
-> +            masked_gfn = gfn_x(gfn) & mask;
-> +
-> +            if ( is_lower ? masked_gfn < gfn_x(boundary)
-> +                          : masked_gfn > gfn_x(boundary) )
-> +            {
-> +                *level_out = level;
-
-For this to be correct in the is_lower case, don't you need to fill the
-bottom bits of masked_gfn with all 1s, rather than with all 0s? Otherwise
-the tail of the range may be above boundary.
-
-> +struct page_info *p2m_get_page_from_gfn(struct p2m_domain *p2m, gfn_t gfn,
-> +                                        p2m_type_t *t)
-> +{
-> +    struct page_info *page;
-> +    p2m_type_t p2mt = p2m_invalid;
-> +    mfn_t mfn;
-> +
-> +    p2m_read_lock(p2m);
-> +    mfn = p2m_get_entry(p2m, gfn, t, NULL);
-> +
-> +    if ( !mfn_valid(mfn) )
-> +    {
-> +        p2m_read_unlock(p2m);
-> +        return NULL;
-> +    }
-> +
-> +    if ( t )
-> +        p2mt = *t;
-
-Doesn't it need to be the other way around? The way you have it, when a caller
-passes NULL for t, p2m_get_entry() won't give you a type, and you'll do all
-further work with p2m_invalid.
-
-Also, might this better move ahead of the earlier if()? Callers might be able
-to do still something based on the type, when they get back NULL as function
-return value. (Practically this might only become of interest once you add
-something like PoD, paging, or sharing.)
+Based on the prior discussion:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
