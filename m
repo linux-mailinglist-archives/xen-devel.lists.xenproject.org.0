@@ -2,66 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C24CC4C3B4
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Nov 2025 09:03:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1158792.1487212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEFC2C4C4FA
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Nov 2025 09:14:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1158807.1487220 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIjL3-0002So-RN; Tue, 11 Nov 2025 08:02:53 +0000
+	id 1vIjVd-0004Do-S9; Tue, 11 Nov 2025 08:13:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1158792.1487212; Tue, 11 Nov 2025 08:02:53 +0000
+Received: by outflank-mailman (output) from mailman id 1158807.1487220; Tue, 11 Nov 2025 08:13:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vIjL3-0002Ph-Nf; Tue, 11 Nov 2025 08:02:53 +0000
-Received: by outflank-mailman (input) for mailman id 1158792;
- Tue, 11 Nov 2025 08:02:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m/Ya=5T=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
- id 1vIjL2-0002Pb-PW
- for xen-devel@lists.xenproject.org; Tue, 11 Nov 2025 08:02:52 +0000
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d1688048-bed4-11f0-9d18-b5c5bf9af7f9;
- Tue, 11 Nov 2025 09:02:51 +0100 (CET)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5AALY1xc017402;
- Tue, 11 Nov 2025 08:02:00 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4a9wgwtumd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Nov 2025 08:02:00 +0000 (GMT)
-Received: from m0360072.ppops.net (m0360072.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5AB7kG37026652;
- Tue, 11 Nov 2025 08:01:59 GMT
-Received: from ppma23.wdc07v.mail.ibm.com
- (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4a9wgwtumb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Nov 2025 08:01:59 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5AB5Gbhj014853;
- Tue, 11 Nov 2025 08:01:58 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
- by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4aahpk1q0u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Nov 2025 08:01:58 +0000
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com
- [10.20.54.104])
- by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 5AB81uo343188530
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 11 Nov 2025 08:01:56 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 80F072004B;
- Tue, 11 Nov 2025 08:01:56 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2ADFB20040;
- Tue, 11 Nov 2025 08:01:54 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.111.64.50]) by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Tue, 11 Nov 2025 08:01:54 +0000 (GMT)
+	id 1vIjVd-0004Bn-PI; Tue, 11 Nov 2025 08:13:49 +0000
+Received: by outflank-mailman (input) for mailman id 1158807;
+ Tue, 11 Nov 2025 08:13:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qJwk=5T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vIjVb-0004Bf-RQ
+ for xen-devel@lists.xenproject.org; Tue, 11 Nov 2025 08:13:47 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 52858937-bed6-11f0-980a-7dc792cee155;
+ Tue, 11 Nov 2025 09:13:36 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-640a503fbe8so7002650a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Nov 2025 00:13:36 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b72bdbcaeaasm1337125666b.1.2025.11.11.00.13.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Nov 2025 00:13:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -73,250 +45,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1688048-bed4-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=a9W0L6
-	CfK0bWdTLm9fJi4xkSwBtlng03J+x1NVveACU=; b=qdo1txQgzgOvIHTmCzU7HB
-	Gn+DrVuskN48MqA/40OYsz0tP49ocEYlsaI4/lyOl87fxVMg8ZYDJ6WfohfxUa2H
-	sCIXGOdWkVT7byFFSSNba85ql3Jovzbu3vHW6s+6oA+dceJ5xhYy0xmHLma5lXwH
-	lco3Z991ZRYlMBrC8ph0/LJ1Vvt/e3RGPvY6qNS+2DRsPg2MSEcRVFMIwTtKS8WI
-	KYdt+tIQ5ETwHVz86a6K28vbtfyBvCD2F1E+28XuqeV3bN6vX0T9xvwyMQDiSz6P
-	IcBBYG90bfN/z8xaZDRdprnl55ftC0Cnz9ls8W5PCCk0f7PgPqbw7DMxKYlyocBw
-	==
-Date: Tue, 11 Nov 2025 09:01:52 +0100
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: "David Hildenbrand (Red Hat)" <davidhildenbrandkernel@gmail.com>,
-        Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org, Andreas Larsson <andreas@gaisler.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        David Woodhouse <dwmw2@infradead.org>,
-        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
-        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
-        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
-        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
-        Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
-        linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
-        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
-        x86@kernel.org
-Subject: Re: [PATCH v4 06/12] mm: introduce generic lazy_mmu helpers
-Message-ID: <92eca53f-eb5d-4bd0-ad6c-56c65fdcea86-agordeev@linux.ibm.com>
-References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
- <20251029100909.3381140-7-kevin.brodsky@arm.com>
- <71418b31-aedb-4600-9558-842515dd6c44@arm.com>
- <c764489e-0626-4a50-87b5-39e15d9db733@gmail.com>
- <645178fd-df4e-42fe-b55e-97d9506499be@arm.com>
- <413b2c49-f124-4cda-8fea-a6cc165f6326-agordeev@linux.ibm.com>
- <e428b1d5-65a8-49bc-92dc-ec4a4d933dec@arm.com>
+X-Inumbo-ID: 52858937-bed6-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1762848816; x=1763453616; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=GhQCzFDE+/IZZdWnVD3OLYOkqAxegmWsEGoaRQC8V9c=;
+        b=YTCwlaaTqk+/mBMAKmkVnrgVCa5/THjjPuSoffoIFM7AEw6JSDpfeJMSNGnGlaQS/u
+         9td9eG588qq3DAYa0gx75w3Zq57VsxiN532G2Pkte2SfU1I0TaPPtZ7dv8bbcUkUNyA0
+         o06WikI+nDbaCtsHvkFVZA74/3F3a7cbPfhpGz0lL+Fdvkg+8rr3ckYH7huuaNu32Wus
+         28Otp4yDF6oV7jW5nx8bpoY718cen11PrEZxRdMFOI7X88DDKzSRo2HOHYg/3gD7AWnw
+         8nVsGFFo4ghB3F4saZyU1kAd82mt34pIeNTb4lokWsRKgBfg8SYzYoFYNLXHdFLcfq7o
+         bAnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1762848816; x=1763453616;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GhQCzFDE+/IZZdWnVD3OLYOkqAxegmWsEGoaRQC8V9c=;
+        b=htsFZg5Rl4kED/3ePmfz36lG+WWnaT5T/6KRtBLlf6iCioku2zOSQcngn7JNI/4iB9
+         M7Io33d4h/bwB5swcGUHSqnPxos6IQ2Dv9CkOWABoPzM6VhET0PuDNevYF6K5AMRyzZ7
+         xYo93BPpXvRyxb/2Ab5jeTyQzdX0hc3VCKu9LZikU5ECCup+cqREOd/q6FaiOnO62eqC
+         TYE6dJHYN/tPQ4pQv1SSsvhApf/nZPId7CrwACE1AnGxb4+PbhjRBmA2nmeP7+mHnB34
+         gPboEGZSokh3RIVtfY1AVXVeOAO1pR3dVQMQeFCETzOWb4QyQ4ly+hE6ZpWW4JfbCySs
+         Rutw==
+X-Forwarded-Encrypted: i=1; AJvYcCW0L/VhK9UzMrp8w3ZU+DdrZX+z76uzCzzmKkEnWebJ9YJRKzWV0FnZtwVteth0kSyfHNsPcEgclIA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxt9BiE1yCKgxhXUMl4u8PN9Hot3OtGjeBGkvVnoq078Bn0Vyzp
+	ioJyWPNyLizKtL+HtoNAnSb+ZJSxcVbKwx2x819UngPqgMjROhAWRrSqULfPZ4k2HQ==
+X-Gm-Gg: ASbGncsApcqvixDtt+sU66F8jm6Pie7s2qyQZTsH11KZTXTVyRXPWsTtVR2A62giknZ
+	0S1tsy0VyZskDq8glOU31Jz9TKyvLMMiGX+2LSYX7kbmH55gy5XW3cA3dgRZrSVAPLmBXGpes/+
+	O1yrtH4Fbpo8eMOsUTZ4pThZ2GE/HZkqSeoEzbmprcQC2r9IjSHmdR76uJN6moZJM+2UGE4ojs8
+	hDtDqNVlVT8Dmdlk46/EGFyd2fM3LXSY+Q1MgnR1LDQZOv2npr9LhkpaQjo+g94EMK0kOsGIrBz
+	WanlZaHCBRSNSRaZ6c6wdDqlEW2HT9+VekZwDw4K5nW44hcvTNvhgUrgXXzM9TTLRhdLw6DJbcK
+	H2Wls69EXH5Wr398A6P7IQpEoizoNT+F1ORxZMi2EIdcaqmfW19HrT4c8k0wlIDkPKZplV9jjur
+	iFUzjbt0qeBcOXyi5b5yk0to/iRqEAjQN0vl1ZfE0ND6IkI5IH36+5PlobMzOc7w7oXZdqo409E
+	/PxPiWb0XtMng==
+X-Google-Smtp-Source: AGHT+IHy2v0PYGZGvkBvaCsBHMbknsqU0SqQ5b9Ci+RLIJQ0ZgFE1esX4oQY0e66jaLJz5eHeQA9hw==
+X-Received: by 2002:a05:6402:26d0:b0:640:cd2a:3cc1 with SMTP id 4fb4d7f45d1cf-6415db564bbmr9211727a12.0.1762848815988;
+        Tue, 11 Nov 2025 00:13:35 -0800 (PST)
+Message-ID: <c1fbdd8a-1c4d-4dda-8dff-e0206ab1cdc1@suse.com>
+Date: Tue, 11 Nov 2025 09:13:36 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e428b1d5-65a8-49bc-92dc-ec4a4d933dec@arm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 6zTX9ZOrNUJdIPkZTpOF6inwbKLmfWMW
-X-Proofpoint-ORIG-GUID: LChZoM8zrhHNbPBL-El76cxb9g1AeKQe
-X-Authority-Analysis: v=2.4 cv=VMPQXtPX c=1 sm=1 tr=0 ts=6912ed78 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=8nJEP1OIZ-IA:10 a=6UeiqGixMTsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=7CQSdrXTAAAA:8 a=RmnHjvQuIkE0_jnVAnoA:9
- a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10 a=a-qgeE7W1pNrGK8U0ZQC:22
- a=DXsff8QfwkrTrK3sU8N1:22 a=Z5ABNNGmrOfJ6cZ5bIyy:22 a=bWyr8ysk75zN3GCy5bjg:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTA4MDAyMiBTYWx0ZWRfXyGhka9ktVQcp
- NtumBxw6X433jOZ6hxU7cflzh+FFuYKWWKnULzVPcUOjZXQmkTAqOCdXlHIsHv1lpUX47VickOd
- +ymisGDp/K22Lqycx3j2XXMo0XpqaRXvqkKxvBKvJKxPXuUfuzt3AXkbSqNOdA4ImI9C+Xq1kxt
- TEOnl7KKGrGzBnDhvUHkdpLWQe2Lh5ecd2l9m9sQhLcN/N7oBhjXJoRqt609HdHHCQ8kIUpq28s
- Sh00eZmpM+PD2+npNB09KeaWuLe3d4wgMIavWSzMSuvE62y1vEOzjS8GZEWtbBR0nfeizZ8kPEd
- goqFEPPBTD0yzYfjqEub6US2xXlbVyhasXpHCLWJWgCsNJJetNjX1OgXN6mLcI9N0yKOs9EGAVS
- 77b7qIhDEPM4ZI6Q7fzDt9a5okKZvQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-11_01,2025-11-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- clxscore=1015 phishscore=0 spamscore=0 malwarescore=0 adultscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2510240000
- definitions=main-2511080022
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 09/28] xen/vm_event: consolidate CONFIG_VM_EVENT
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ "oleksii.kurochko@gmail.com" <oleksii.kurochko@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>
+References: <20251013101540.3502842-1-Penny.Zheng@amd.com>
+ <20251013101540.3502842-10-Penny.Zheng@amd.com>
+ <1a9ac91c-2295-4749-8807-668fcecf8f8e@suse.com>
+ <DM4PR12MB84515407D91133DF7B182BF1E1CFA@DM4PR12MB8451.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <DM4PR12MB84515407D91133DF7B182BF1E1CFA@DM4PR12MB8451.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 10, 2025 at 09:19:40AM +0000, Ryan Roberts wrote:
-> On 10/11/2025 08:11, Alexander Gordeev wrote:
-> > On Fri, Nov 07, 2025 at 03:22:54PM +0000, Ryan Roberts wrote:
-> > 
-> > Hi Ryan,
-> > 
-> >> On 07/11/2025 14:34, David Hildenbrand (Red Hat) wrote:
-> >>>>>   #ifndef pte_batch_hint
-> >>>>> diff --git a/mm/kasan/shadow.c b/mm/kasan/shadow.c
-> >>>>> index 5d2a876035d6..c49b029d3593 100644
-> >>>>> --- a/mm/kasan/shadow.c
-> >>>>> +++ b/mm/kasan/shadow.c
-> >>>>> @@ -305,7 +305,7 @@ static int kasan_populate_vmalloc_pte(pte_t *ptep,
-> >>>>> unsigned long addr,
-> >>>>>       pte_t pte;
-> >>>>>       int index;
-> >>>>>   -    arch_leave_lazy_mmu_mode();
-> >>>>> +    lazy_mmu_mode_pause();
-> >>>>
-> >>>> I wonder if there really are use cases that *require* pause/resume? I think
-> >>>> these kasan cases could be correctly implemented using a new nest level instead?
-> >>>> Are there cases where the effects really need to be immediate or do the effects
-> >>>> just need to be visible when you get to where the resume is?
-> >>>>
-> >>>> If the latter, that could just be turned into a nested disable (e.g. a flush).
-> >>>> In this case, there is only 1 PTE write so no benefit, but I wonder if other
-> >>>> cases may have more PTE writes that could then still be batched. It would be
-> >>>> nice to simplify the API by removing pause/resume if we can?
-> >>>
-> >>> It has clear semantics, clearer than some nest-disable IMHO.
-> >>>
-> >>> Maybe you can elaborate how you would change ("simplify") the API in that
-> >>> regard? What would the API look like?
-> >>
-> >> By simplify, I just meant can we remove lazy_mmu_mode_pause() and
-> >> lazy_mmu_mode_resume() ?
-> >>
-> >>
-> >> We currently have:
-> >>
-> >> apply_to_page_range
-> >>   lazy_mmu_mode_enable()
-> >>     kasan_populate_vmalloc_pte()
-> >>       lazy_mmu_mode_pause()
-> >>       <code>
-> >>       lazy_mmu_mode_resume()
-> >>   lazy_mmu_mode_disable()
-> >>
-> >> Where <code> is setting ptes. But if <code> doesn't need the effects to be
-> >> visible until lazy_mmu_mode_resume(), then you could replace the block with:
-> >>
-> >> apply_to_page_range
-> >>   lazy_mmu_mode_enable()
-> >>     kasan_populate_vmalloc_pte()
-> >>       lazy_mmu_mode_enable()
-> >>       <code>
-> >>       lazy_mmu_mode_disable()
-> >>   lazy_mmu_mode_disable()
-> >>
-> >> However, looking at this more closely, I'm not really clear on why we need *any*
-> >> special attention to lazy mmu inside of kasan_populate_vmalloc_pte() and
-> >> kasan_depopulate_vmalloc_pte().
-> >>
-> >> I *think* that the original concern was that we were doing ptep_get(ptep) inside
-> >> of a lazy_mmu block? So we need to flush so that the getter returns the most
-> >> recent value? But given we have never written to that particular ptep while in
-> >> the lazy mmu block, there is surely no hazard in the first place?
-> > 
-> > There is, please see:
-> > https://lore.kernel.org/linux-mm/cover.1755528662.git.agordeev@linux.ibm.com/
+On 11.11.2025 08:08, Penny, Zheng wrote:
+> [Public]
 > 
-> I've stared at this for a while, but I'm afraid I still don't see the problem.
-> This all looks safe to me. Could you explain exactly what this issue is?
+> Hi,
 > 
-> If I've understood correctly, kasan_populate_vmalloc() is called during virtual
-> range allocation by vmalloc. This is not in a nested lazy mmu block (but it
-> wouldn't matter if it was once we have Kevin's nested changes to ensure flush
-> when exiting the nested scope). kasan_populate_vmalloc() calls
-> apply_to_page_range(), which will walk the set of ptes, calling
-> kasan_populate_vmalloc_pte() for each one. kasan_populate_vmalloc_pte() does a
-> ptep_get() then, if none, calls set_pte_at().
+> Sorry for the late response. Just got back from long annual leaves
 > 
-> That's not a hazard since you're calling get before the set and you only visit
-> each pte once for the apply_to_page_range() lazy mmu block.
-
-I have to admit I do not remember every detail and would have to recreate
-the issue - which is specific to s390 lazy_mmu implementation I think.
-Both kasan_populate_vmalloc_pte() and kasan_depopulate_vmalloc_pte() do:
-
-apply_to_page_range()
-{
-    arch_enter_lazy_mmu_mode();
-
-    kasan_de|populate_vmalloc_pte()
-    {
-        arch_leave_lazy_mmu_mode();             <--- remove?
-
-        spin_lock(&init_mm.page_table_lock);
-        <PTE update>
-        spin_unlock(&init_mm.page_table_lock);	<--- PTE store should be done
-
-        arch_enter_lazy_mmu_mode();             <--- remove?
-    }
-
-    arch_leave_lazy_mmu_mode();
-}
-
-Upon return from spin_unlock() both kasan callbacks expect the PTE contains
-an updated value to be stored to pgtable. That is true unless we remove
-arch_leave|enter_lazy_mmu_mode() brackets. If we do the value is continued
-to be cached and only stored when the outer arch_leave_lazy_mmu_mode() is
-called. That results in a race between concurrent PTE updaters.
-
-> >> apply_to_existing_page_range() will only call kasan_depopulate_vmalloc_pte()
-> >> once per pte, right? So given we read the ptep before writing it, there should
-> >> be no hazard? If so we can remove pause/resume.
-> > 
-> > Unfortunately, we rather not, please see:
-> > https://lore.kernel.org/linux-mm/d407a381-099b-4ec6-a20e-aeff4f3d750f@arm.com/
+>> -----Original Message-----
+>>> --- a/xen/arch/x86/include/asm/mem_access.h
+>>> +++ b/xen/arch/x86/include/asm/mem_access.h
+>>> @@ -14,6 +14,7 @@
+>>>  #ifndef __ASM_X86_MEM_ACCESS_H__
+>>>  #define __ASM_X86_MEM_ACCESS_H__
+>>>
+>>> +#ifdef CONFIG_VM_EVENT
+>>>  /*
+>>>   * Setup vm_event request based on the access (gla is -1ull if not available).
+>>>   * Handles the rw2rx conversion. Boolean return value indicates if event type
+>>> @@ -25,6 +26,14 @@
+>>>  bool p2m_mem_access_check(paddr_t gpa, unsigned long gla,
+>>>                            struct npfec npfec,
+>>>                            struct vm_event_st **req_ptr);
+>>> +#else
+>>> +static inline bool p2m_mem_access_check(paddr_t gpa, unsigned long gla,
+>>> +                                        struct npfec npfec,
+>>> +                                        struct vm_event_st **req_ptr)
+>>> +{
+>>> +    return false;
+>>
+>> Leaving *req_ptr untouched feels dangerous; the fact that the sole caller has
+>> what it uses set to NULL up front is secondary.
+>>
 > 
-> Sorry but I don't see anything relavent to my point in this mail. Perhaps there
-> is some s390-specific detail that I'm failing to understand?
-
-Sorry, with this message I meant the branch where it was discussed,
-I will try to C&P some excerpts and summarize it here.
-
-* lazy_mmu_mode_enable()
-
-This helper is parameter-free, assuming the MMU unit does not need any
-configuration other than turning it on/off. That is currently true, but
-(as I noted in my other mail) I am going to introduce a friend enable
-function that accepts parameters, creates an arch-specific state and
-uses it while the lazy mmu mode is active:
-
-static inline void arch_enter_lazy_mmu_mode_pte(struct mm_struct *mm,
-						unsigned long addr,
-						unsigned long end,
-						pte_t *ptep)
-{
-	...
-}
-
-* lazy_mmu_mode_resume() -> arch_enter_lazy_mmu_mode()
-
-Conversely, this needs to be -> arch_resume_lazy_mmu_mode(). And it can not
-be arch_enter_lazy_mmu_mode(), since a lazy_mmu_mode_resume() caller does
-not know the parameters passed to the original lazy_mmu_mode_enable(...)-
-friend.
-
+> If we *req_ptr = NULL; compiler will not DCE the following code block when VM_EVENT=n:
+> ```
+>         if ( req_ptr )
+>         {
+>                 if ( monitor_traps(curr, sync, req_ptr) < 0 )
+>                         rc = 0;
 > 
-> Thanks,
-> Ryan
+>                 xfree(req_ptr);
+>         }
+>         return rc;
+> ```
+> Or am I misunderstanding what you suggest?
 
-Thanks!
+First: It would have helped if you had also said where that code fragment actually
+was taken from.
 
-> > 
-> > The problem is kasan code invokes apply_to_page_range(), which enters lazy_mmu
-> > mode unconditionally. I would claim that is rather an obstacle for the kasan
-> > code, not a benefit. But it needs to be tackled.
-> > > Should apply_to_page_range() had an option not to enter the lazy_mmu mode
-> > (e.g. an extra "bool skip_lazy" parameter) - the pause/resume could have
-> > been avoided.
-> > 
-> >> Thanks,
-> >> Ryan
-> > 
-> > Thanks!
+Seeing it's in hvm_hap_nested_page_fault(), I'm having trouble following why the
+compiler wouldn't be able to see that the local variable "req_ptr" there would
+never change value, i.e. remain NULL throughout its lifetime. If indeed there's a
+compiler shortcoming, that either wants working around or properly writing down.
+
+Jan
 
