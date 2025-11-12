@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E4D8C53159
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 16:38:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160078.1488312 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ADA3C53165
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 16:38:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160101.1488332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJCv4-0008B7-Tc; Wed, 12 Nov 2025 15:38:02 +0000
+	id 1vJCvT-0000pQ-Bn; Wed, 12 Nov 2025 15:38:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160078.1488312; Wed, 12 Nov 2025 15:38:02 +0000
+Received: by outflank-mailman (output) from mailman id 1160101.1488332; Wed, 12 Nov 2025 15:38:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJCv4-00089X-Qy; Wed, 12 Nov 2025 15:38:02 +0000
-Received: by outflank-mailman (input) for mailman id 1160078;
- Wed, 12 Nov 2025 15:38:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OM5g=5U=bounce.vates.tech=bounce-md_30504962.6914a9d4.v1-98f689ac8ef6429eba55bb534baecc65@srs-se1.protection.inumbo.net>)
- id 1vJCv2-0007vC-HH
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 15:38:00 +0000
-Received: from mail136-17.atl41.mandrillapp.com
- (mail136-17.atl41.mandrillapp.com [198.2.136.17])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 912f6e0e-bfdd-11f0-9d18-b5c5bf9af7f9;
- Wed, 12 Nov 2025 16:38:00 +0100 (CET)
-Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail136-17.atl41.mandrillapp.com (Mailchimp) with ESMTP id
- 4d66x00cdYzPm0Zms
- for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 15:37:56 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 98f689ac8ef6429eba55bb534baecc65; Wed, 12 Nov 2025 15:37:56 +0000
+	id 1vJCvT-0000nD-97; Wed, 12 Nov 2025 15:38:27 +0000
+Received: by outflank-mailman (input) for mailman id 1160101;
+ Wed, 12 Nov 2025 15:38:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=K5hw=5U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vJCvR-0008Gb-Sp
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 15:38:25 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9b17f5bf-bfdd-11f0-980a-7dc792cee155;
+ Wed, 12 Nov 2025 16:38:16 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-b727f330dd2so159636066b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 07:38:16 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b72bf723172sm1603651966b.32.2025.11.12.07.38.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Nov 2025 07:38:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,103 +45,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 912f6e0e-bfdd-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1762961876; x=1763231876;
-	bh=kCjQ/w4mi64pHFYbQXYYAj4/n0muw09kfLASyhbwR3Y=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=J0hi8lk5FCgyJsaDLkkVsDEOmpJGDK7vPr06fWvfA2+bO7hhLghFQ+lPH163R+25m
-	 3gJw1Ru3vVU5ZoKgyStzHbuf+Js+IJS+3QOBY66ccblc+S9RwTdUtn/OHs0t6r1IwD
-	 MnclgqeawIFwfgInb6DBTNFMtwPAYE9Mfm2XUHKOvJCrsxyIaI6DkypTmCAkJdzjXi
-	 5RkQCUFwRX4/IK7BGbI8ovOcDEBp47WGb9xRSOzGDMxb6E1IovPvXxnPP80gE0P+wr
-	 Aep/USDeXGxSPKKX9v6/t9ErEzaFBQD94VUWqKbujnKN69IVQfqP4hacQVlSmKgIuT
-	 MyalPI2MgJZQw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1762961876; x=1763222376; i=teddy.astie@vates.tech;
-	bh=kCjQ/w4mi64pHFYbQXYYAj4/n0muw09kfLASyhbwR3Y=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=vgaj0LtADCuCvad7mQ7zgjGaGFNrB9WaMwLciqRruKy7vqv61JGa2eSZ7jspe8rdj
-	 qF5PlAmFpMICfzH8SHu+dY+D7Z6XdhIWPhd++wJH9n5ORxrE0yrAruneXAQBdoGB1b
-	 NBTPR+u44I+rk33Hm9mM9Ks+KWBy7nBPAQ+iLs6ask57Mh8vU/rmHpu0n/krm/9duZ
-	 Yhz6etH5dsBMNonBO2fxPDwOKs9mFfMdpKvUHeBtemBsRpFyLXomUw1hv+7uAWzk8m
-	 zShoZql9b/d13CoMMp4WFb81LfUIno/EiMgNBYap5XHHgd4q9RS3Q3DHUZsiBUyPxf
-	 O02sYDc7HPxxg==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[PATCH=202/2]=20amd/iommu:=20Remove=20dead=20non-atomic=20update=20checking?=
-X-Mailer: git-send-email 2.51.2
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1762961874950
-To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Jason Andryuk" <jason.andryuk@amd.com>
-Message-Id: <b0e81bd67c3f135a4102d12ed95a52ce56482992.1762961527.git.teddy.astie@vates.tech>
-In-Reply-To: <cover.1762961527.git.teddy.astie@vates.tech>
-References: <cover.1762961527.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.98f689ac8ef6429eba55bb534baecc65?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251112:md
-Date: Wed, 12 Nov 2025 15:37:56 +0000
+X-Inumbo-ID: 9b17f5bf-bfdd-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1762961895; x=1763566695; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=rvdn/YOEw/NnNm8kV+DjBN/TshsYdk9FMorxA63YZUM=;
+        b=HwjvDR3z83Oih77XawyXqnqWur0Iszx7pasyACezccX/t6Am+jnebQX2PCf7iEWO2e
+         i8lZBead5/twKQ0MQuF4YwGKGGBBhZJSGbU3w29bC50tgOZtjXIS7ODMjF/Qsyn9q1W/
+         QknuGO/rWVrape8PQ8Y8lkmQPDIWJPezVRRKrFAhflkH2sVmEoiQvBENj9F3W73MZl16
+         gcm+jrcXaCt16EYMo7zNyGz3t6tmveff4pkkmMX6plvgi5ZOfUHzsW13ls5fBkyyDRPG
+         ZT/i50Hpx6TSScthUGoTX6mB742/j/WJhtotob2KEyxnnP5MHtjLnNCYPEIyFaNY6ptn
+         88PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1762961895; x=1763566695;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=rvdn/YOEw/NnNm8kV+DjBN/TshsYdk9FMorxA63YZUM=;
+        b=uWtGEdqcJ4VCFtfxI1dfxMOjMDyoFwinXAqBCBAx7kMleQWVJ/WwrmXDE3JWp176Ho
+         7uG4hd8SCHFMDw/jp4NPq4iDFaN3ZwQGe6Ih5PZoW5kjEESAViwbC063Z1jfx8tjZhQN
+         fYcdfJXs3N+nJP8nuifY8qAxnGAK2WKS8mSFy3IxBurR7gKuuBgHPIxwAuXrh61Dg1MB
+         196zuuYWY5LZXJm3dWqOW5kJ2ZGdTrt/lAB23oGD7QgEhGZNZnLvGg4j1oykK+agw8yB
+         nhJP5Aig7rADuuE7IqeKiiuTpSBwn+3Jf+Ar8nD+mzKnDVJQJLgfoJAL+g+xvqsSf8Ke
+         vD4w==
+X-Gm-Message-State: AOJu0Yy+sYWsOWb6CfZhTST+UidGf8mivzP+7WcPGtEBJ0Q2U9KWlG1d
+	yk0Rgpc5QD0xBnEep4cRmbYa+iaWuppIvigQD3m6ZHGGffqgGVUNNKGmWBeMaNLH0NlWo1xWzlA
+	0COY=
+X-Gm-Gg: ASbGncvgVvdJUpp8wFPzgSDeCvEm8u/ArYfOL4baS0oUBnpMtjL+12vMvYgaieQAWcg
+	X+E4ZyQXWnIO0ZD2PQnamEhmLfX2MdBt4J+KMLCSwbLdV2QLmgnIOoK7ka+lKxQqgVmTywm35XY
+	1Nmb5nVpf7DEzPz0xWZSDmWCCjSxcJ+Jyxko9FFHmfjOpKVSm3bLn6NM9lEte8y2jTPyStHBRPO
+	TkyPN5mBL8SnaEsSGdnDu1SHXECB9gfxulue10K6XFXWuBhw/8Q/xZUK3ha2ulhj93P9n49XS61
+	0apCpho83RCmsAaZ0Lu1xm6KfgxN48DQgLTrFKCUd6qKj/tGpx0Bpc6/dV+r+WxsUYKASOYHdea
+	hOpcAvhXKnYu/x9trLGu7R7CzMOuulMvQ5Uh1BspsZ9vymbGZbaxit9hzLQ8o1WnWJ6H4+OFwMT
+	AWIIUEpquT/5lcxMXqf0ssVspcAaXdPl40pAbVRnUPdgf2V3/ciW+ATAbaR3N3yfUb
+X-Google-Smtp-Source: AGHT+IFk+RTd/pu58Fj0kLi5co02NEQH384dGAfAnPx5TLBwVNmjmnvwAxLXYV/QjLkYlo6nNMgcjg==
+X-Received: by 2002:a17:907:60d3:b0:b28:b057:3958 with SMTP id a640c23a62f3a-b7331aec36cmr336231666b.48.1762961895446;
+        Wed, 12 Nov 2025 07:38:15 -0800 (PST)
+Message-ID: <af03f611-ef38-49d0-ac7b-4bad39db46c1@suse.com>
+Date: Wed, 12 Nov 2025 16:38:13 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] core-parking: shrink and relocate core_parking_cpunum[]
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-When updating a DTE, amd_iommu_setup_domain_device() would check if
-the update had been non-atomic (i.e rc > 0) and throw a warning if
-such non-atomic update could be dangerous.  However since commit
-3fc44151d83d, rc can no longer be positive, making this branch
-unreachable code.
+This NR_CPUS-dimensioned array is likely unused on most installations.
+Therefore it is especially wasteful for it to consume more space than
+really needed. Use the smallest possible type.
 
-No functional change intended.
+Further the array having all fields set to -1 is actually useless. Nothing
+relies on it, and core_parking_remove() doesn't restore the sentinel for
+vacated slots. Drop the initializers, moving the array to .bss.
 
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+Finally take the opportunity and update an adjacent variable's type, where
+a fixed-width type was pretty clearly inappropriate to use.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/drivers/passthrough/amd/pci_amd_iommu.c | 18 ------------------
- 1 file changed, 18 deletions(-)
+I assume there is a reason this is acting (mostly) as a LIFO. Else a
+simple cpumask_t would suffice.
 
-diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-index 3a14770855..02eee4e658 100644
---- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-+++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-@@ -225,24 +225,6 @@ static int __must_check amd_iommu_setup_domain_device(
-             spin_unlock_irqrestore(&iommu->lock, flags);
-             return rc;
-         }
--        if ( rc &&
--             domain != pdev->domain &&
--             /*
--              * By non-atomically updating the DTE's domain ID field last,
--              * during a short window in time TLB entries with the old domain
--              * ID but the new page tables may have been inserted.  This could
--              * affect I/O of other devices using this same (old) domain ID.
--              * Such updating therefore is not a problem if this was the only
--              * device associated with the old domain ID.  Diverting I/O of any
--              * of a dying domain's devices to the quarantine page tables is
--              * intended anyway.
--              */
--             !pdev->domain->is_dying &&
--             pdev->domain != dom_io &&
--             (any_pdev_behind_iommu(pdev->domain, pdev, iommu) ||
--              pdev->phantom_stride) )
--            AMD_IOMMU_WARN(" %pp: reassignment may cause %pd data corruption\n",
--                           &PCI_SBDF(pdev->seg, bus, devfn), pdev->domain);
+An alternative would be to use the new BRK allocator, at least for NR_CPUS
+above a certain threshold.
+
+--- a/xen/common/core_parking.c
++++ b/xen/common/core_parking.c
+@@ -27,8 +27,16 @@
+ #define CORE_PARKING_DECREMENT 2
  
-         /*
-          * Check remaining settings are still in place from an earlier call
--- 
-2.51.2
-
-
-
---
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+ static DEFINE_SPINLOCK(accounting_lock);
+-static uint32_t cur_idle_nums;
+-static unsigned int core_parking_cpunum[NR_CPUS] = {[0 ... NR_CPUS-1] = -1};
++static unsigned int cur_idle_nums;
++static
++#if CONFIG_NR_CPUS <= (1U << BITS_PER_BYTE)
++    unsigned char
++#elif CONFIG_NR_CPUS <= (1U << (BITS_PER_BYTE * __SIZEOF_SHORT__))
++    unsigned short
++#else
++    unsigned int
++#endif
++    core_parking_cpunum[CONFIG_NR_CPUS];
+ 
+ struct cp_policy {
+     char name[30];
 
