@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A860C50DC3
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 08:08:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1159512.1487834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9727BC50DC0
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 08:08:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1159511.1487822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJ4y6-0004kx-Hb; Wed, 12 Nov 2025 07:08:38 +0000
+	id 1vJ4xz-0004TP-8w; Wed, 12 Nov 2025 07:08:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1159512.1487834; Wed, 12 Nov 2025 07:08:38 +0000
+Received: by outflank-mailman (output) from mailman id 1159511.1487822; Wed, 12 Nov 2025 07:08:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJ4y6-0004hq-DM; Wed, 12 Nov 2025 07:08:38 +0000
-Received: by outflank-mailman (input) for mailman id 1159512;
- Wed, 12 Nov 2025 07:08:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vJ4xz-0004S1-5y; Wed, 12 Nov 2025 07:08:31 +0000
+Received: by outflank-mailman (input) for mailman id 1159511;
+ Wed, 12 Nov 2025 07:08:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8ume=5U=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
- id 1vJ4y4-0004h8-VX
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 07:08:37 +0000
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c202::7])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6128ab85-bf96-11f0-980a-7dc792cee155;
- Wed, 12 Nov 2025 08:08:29 +0100 (CET)
-Received: from AM9PR03MB7526.eurprd03.prod.outlook.com (2603:10a6:20b:3de::17)
- by VI1PR03MB6384.eurprd03.prod.outlook.com (2603:10a6:800:193::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.12; Wed, 12 Nov
- 2025 07:08:01 +0000
-Received: from AM9PR03MB7526.eurprd03.prod.outlook.com
- ([fe80::d976:7403:c89d:4677]) by AM9PR03MB7526.eurprd03.prod.outlook.com
- ([fe80::d976:7403:c89d:4677%6]) with mapi id 15.20.9320.013; Wed, 12 Nov 2025
- 07:08:00 +0000
+ <SRS0=EQc1=5U=bounce.vates.tech=bounce-md_30504962.69143269.v1-d068692f474a423bb6591a33a5e4c6c5@srs-se1.protection.inumbo.net>)
+ id 1vJ4xx-0004Rv-Gv
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 07:08:29 +0000
+Received: from mail136-17.atl41.mandrillapp.com
+ (mail136-17.atl41.mandrillapp.com [198.2.136.17])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 62a680f2-bf96-11f0-9d18-b5c5bf9af7f9;
+ Wed, 12 Nov 2025 08:08:27 +0100 (CET)
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail136-17.atl41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4d5vd5690rzPm0ZmK
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 07:08:25 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ d068692f474a423bb6591a33a5e4c6c5; Wed, 12 Nov 2025 07:08:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,155 +43,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6128ab85-bf96-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qk/Ruc78cTvuVkIikNnQW3xfJJscFKLnuHhKWZqhscrRbKCLE5BXeyiSZFxwTiPzFcxkV0NScE+aks74uzxFqqwtYovLVIf3Qef6R5mnpzP2JpMRRYXD2YpDYpqyFK894vHxT2O0ocsHM4YJDBdo97Y8VxUT8dkNq56oo+/NXBRBhGZY81n0ErB2knLgbyVlroIcJ2+Qy04qNDzU8N3tVrIdtPXT7ZjNa5ZGMqxmeeNYkafTM/6i8EeYDI8Cswv2TcnNgE/zp8b3trrTOyF2WqI0SN/yu6RSDKO6mTB9+o7kdlTpyeL5U7d0Osum8XupiiRW61R555turKz2ZZEiEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xETYGnJkNgVlooehPx8NuhdN7rntm8FPEct7pYgXeMc=;
- b=qU0fYmir8W0OpqGZBIHDQVKfXUzhbnWgK/SJYFtRMyndVR8A0nwYTwa4fXeNoBRpG5BVBOkR8yOyhYLxhKCOQY0YbM3r/e0jISj099m294Qlefz/26dY6zR7wDY3KwnX4pUsrEONGxFya1PIQQoQlzdH4eg1DYwNnR4/EcW+y6+U7MFeW25lcA/M57eZstRrF9dq0fl8ce+TSeeLGB2QAn5sQhVhCUU7FENAdMfqEU7To15367RyvlGlaSAjh8YPPV7mdPpYMAR/4F8XZPwleF8bBfjOs3HB5/OALgWARx9AJMMbJ1zdfmIAMgq53GnVsrjY8cNDQekJ4izDCUA6Qg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xETYGnJkNgVlooehPx8NuhdN7rntm8FPEct7pYgXeMc=;
- b=Mk+dFv3He38ymCHuqt60jS2kzdAjcCy2gewRlsI1X0TP0XElIS1l5QNCTrE9q0VD0q67G53dX/5Y+tmYFGIfPqnQRuCTaYytX7cvtclkCUZAA9OuD6DLWu/hVQPG66Ao+J4qtNwitiYgJa06Xy5qI1zqQuKoONhaLJPu5mlbTPnXfClw3Zl4EM1HmN8y2+98MCce79V+IcDT1/ryY6JJYGZrRJNrwsxJSP1UbEC5KlSasEJMehCy9F1AUMh3lWivaZp29V1boi8BIsqUK2M06WCXHIvNAnR0Q7HjYwF4B7QhVwDqNHyisgl85Q/S6HkSJh4c7gCPs9yGHA0b3z3C/Q==
-From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] xen/arm: Use FDT_MAGIC from libfdt instead of local macro
-Thread-Topic: [PATCH] xen/arm: Use FDT_MAGIC from libfdt instead of local
- macro
-Thread-Index: AQHcU6MU9r1SyxgepkCxXro0WqQYWg==
-Date: Wed, 12 Nov 2025 07:08:00 +0000
-Message-ID:
- <464fb509cc7f66934689d9e2d3a77bf5fcd45c24.1762931200.git.dmytro_prokopchuk1@epam.com>
-Accept-Language: en-US, uk-UA, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM9PR03MB7526:EE_|VI1PR03MB6384:EE_
-x-ms-office365-filtering-correlation-id: 3ba82cc7-f070-420e-9507-08de21ba3750
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|42112799006|38070700021;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?tU7caCM0iHCIyvN4nRiumwAn0FuGA+VCgV/PrPpNddv/DsW7QiMCrSjuhA?=
- =?iso-8859-1?Q?lAWt32hnbYW+zdG3MRTj69ZVAM4XNnPiFUFl5traeewL83xr2nwPJ/++kG?=
- =?iso-8859-1?Q?GGlrbgtex+TSsMjcItvgTl1cELWur0QkrNrFPmuudJ6Ql1ZWvhNMsCiRNH?=
- =?iso-8859-1?Q?aocJah62WJDY9xthzPgO9w1WE8gXpbXNBGquWEwNMaIQZEZWgeQvjY7VfL?=
- =?iso-8859-1?Q?V3vPHai2dw86CHxqen/mjH1HwmvQr841phxSk6dIZZXUbtuJbQyAkRWIMX?=
- =?iso-8859-1?Q?Vwi+W8+tiESHJftceV3+MDEZkbBvJ4UojuQB+rN1WgXQt3bniRlwgm50Cf?=
- =?iso-8859-1?Q?Oy1tw9RC7TaYKvibvYb6rlxNxOmdRQuWFO9txdWRL+47CfH8daSuuJaZHm?=
- =?iso-8859-1?Q?lC7XsIx1lL0apmuD8zN8Bs+qfMgDyAAbNd69LhhkQmq6aZBt6uAOBFVCcs?=
- =?iso-8859-1?Q?DXSXGLRbgcWEOonE1tF2Yf3YJ7GS4+mmm5UqTFrz5is9dMmaQOZ+dkSjQf?=
- =?iso-8859-1?Q?JovsXP5xlZZyjUAAWqH2h+H9gulVRjwH/7m/e6Ip3voZdJM87CpIwm0jnG?=
- =?iso-8859-1?Q?14HMSO8cTBNY6gqVFTKzk5Tu+cTtY1sOtKdqj7qWcwEUTKN9eRlxahXZG/?=
- =?iso-8859-1?Q?MUXSpaN2oJTJTJy9285sXusy7O/929N8ov0bGuUyf71/AZzHeRhN0jBP1Q?=
- =?iso-8859-1?Q?RhRGHTW4QaNyVd+/51WcmqhGsclx1/2n556pg0KPC0ssk+AAA7mtLErH+0?=
- =?iso-8859-1?Q?IfLkrCgzExPPdMaSag60sdCsK2M0b+sYMbpFeHMTTVsGxVyQGOmsceV2iW?=
- =?iso-8859-1?Q?LmIW/YHv69OVHuI8Df0faO5db2t7ImvdCgcf+dDMpTeX1fJnWVm+lGx/B5?=
- =?iso-8859-1?Q?ziQbFYWXUi3wdhx+6xocR7wnaEez2eMeyOdYosXHpoG5x4WzYK5GUEW4RM?=
- =?iso-8859-1?Q?UagE2kgkFxzplU0QMZ8G9MRGF1bhbbgDX1A0pIOCTAoFlYs5XFVScK+e9v?=
- =?iso-8859-1?Q?O/530ledlVZgaxnXzmRQhrcWUfPyG1anpdqQqku+iscR8psaOSMdwv1ERo?=
- =?iso-8859-1?Q?WB0nN8HBYPxCrCOuOnhV/Mey34husYl03eZ1bcs6U68qEsGd6c3J9aPiRR?=
- =?iso-8859-1?Q?ViD3qDgvHZ13TPKyrmi5NpZAvv+cTmDMNApnUlF7F5Z9WXCdRJoTdqAE4u?=
- =?iso-8859-1?Q?jAWJBFbxQna/lRpZ3ztTs4gASHUNhXc0RLR53bR/SkJQNN/ZCM9UAVE1vT?=
- =?iso-8859-1?Q?9LvzrlJdX3gyOEgyBUGrIkaVAFWJM1iG95y+bcwQ1gqGu72EnXP2E2Gr/M?=
- =?iso-8859-1?Q?bCdO1aeJvTCKTRPkqOPj2vHev+AJgKKdjE30wO9xeFl6VxMBRHY04P4Nfy?=
- =?iso-8859-1?Q?1QMKCsW00qmAqk54kQ6vwJqRt1EqswXFHQRfuVEjG0myDkrOqUuEZNmzCy?=
- =?iso-8859-1?Q?ze2WonOTcu7aI5FgeQcS9+65kmD+S7PAurWrD75zQ2LgCAnmpjR3Di9oq1?=
- =?iso-8859-1?Q?4PaHNjFmTB4Q4hkhhZ/T60wbKz+PvRr3OPRI7VPLIlyhPOOw+0+k6e9Smo?=
- =?iso-8859-1?Q?WMIAakPEj8cNQgRIIz+sXTg0yQvs?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR03MB7526.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(42112799006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?/9VQrmxLmsKKfAGf7jX/ffYDdhm0RFXFNEJBOOKl+07MTr3tpggoMquLv+?=
- =?iso-8859-1?Q?4xeM2NrOsjPbM7X4UJ75n9iAAKT0fxaNloGBP+o06bMis2+mIrVGnbZQFr?=
- =?iso-8859-1?Q?tsS9Tg2jWz9f4KjdFBPqst567TCarmXchLteOloEljEBwWXT+kD7HZkag7?=
- =?iso-8859-1?Q?tZc4VlbZhcfm/F3D9+wTbX5LHm0UxtqxlwRkR78GkLERsEPrK5JsGWJSdb?=
- =?iso-8859-1?Q?nzpX6UGOqA87+ciTrUfblThg2TZOU018fbzdM0Mpu4ALK9ALyiDTq2e8Hn?=
- =?iso-8859-1?Q?y+cGf1q06l0eBqQEzs60CBrTDnnAnj/h1TLmYluELIjTC8NAi/dxcx1fUh?=
- =?iso-8859-1?Q?sFeeYk0V9QSO6jZy6C7jbapmr7mPfeWNOZym7eCzq8vxMsrKL54ZW3y0CW?=
- =?iso-8859-1?Q?NEbWz30I5+Lwmj7DQwdTp7VnHVNXEGZhuOITEOiakCVzeWtlec7yRXvdFX?=
- =?iso-8859-1?Q?tZSguxO+Oqxuvga7gGplgGjqULj/Ent3A2v76BQcou3zatolG9fkadV9I7?=
- =?iso-8859-1?Q?7psx2qK+wE63Qp4RA+C2+lGT/C8u625mqI/AGC6vqGsS5ZMEhjcCYRGBPx?=
- =?iso-8859-1?Q?O0qlYatEv7Fqz6oZLWAwMqQ5Xh8acLBzcIcNsDuNF3nUjUKsFPVKs/QJ1b?=
- =?iso-8859-1?Q?2qPjIUlvthCzQ9M/5DiW0KIvRWQaDhtiGTPNYhvsOMzrBYNIHuM97yn7t4?=
- =?iso-8859-1?Q?xlZTzsVLCUXhvdRWe5fvg04eqPj5MVlvzc8yvBWlnldw+UBToe/rTDO7A6?=
- =?iso-8859-1?Q?tO2AmSNOobfnMka88mGxT4v/U+lnRuaOzf6dELx7ELJnb14HDFV9G3Odsx?=
- =?iso-8859-1?Q?+YOOwGveo+d5xKgBzYzn/p6mWbMc1WV4UqZIrwf53CSgBGzWbqYR7cqetq?=
- =?iso-8859-1?Q?mXsbmUjsKb5kcOHt7TT1IgIulAEuLpULOlUh1kKF2itSPoVzXnP4ZfBz8I?=
- =?iso-8859-1?Q?tNkKEWFNAsubkKjEgXxP5+eDQJQHlLdqKf+WIrwqOfbcmeKhr3+AHxHuN4?=
- =?iso-8859-1?Q?4pRUg0DNRR2Nw+bHlNxT3gQpK5H/JuRYCMf23xnpKv4QBnaBEmKdKslG1a?=
- =?iso-8859-1?Q?9fvC1ObOr0qdrR8cV7FchZwVeN9RxwU8cVY8iHC8edjB+zbBwqyzlIcuJI?=
- =?iso-8859-1?Q?UInHkV+6DW/ZZSFQIu/RVoXXAOAaoIoG7vk1QmZINoh6pG3XUH6uF02RxT?=
- =?iso-8859-1?Q?zmbHoYta33v/WMIOEkMyDLIBalHtr7G3XVKyNh8Vm4pfoVKUV4/8n9py/7?=
- =?iso-8859-1?Q?1nCBs7EhVZNelq4Hknz4D817k82NC8aX1GQYde2I4qzq02P6L6KHD8MJsz?=
- =?iso-8859-1?Q?/HyRcQCp5xMsXe4+qWRr3N+PpJhsc4vC9vbIzekWY+PJA3PIxZkWlZ1XHD?=
- =?iso-8859-1?Q?hVJP2dave3/SN706Qr2OBN0ebC7c2s496tC2ot0acQt9wTbkcvnoerilOi?=
- =?iso-8859-1?Q?evYxlKx1UkqO1AqCr428Lbs4AcNjOjbBFSbfCLlxaYSGIOUpct/hxuXeGL?=
- =?iso-8859-1?Q?dRIJ919+WjULDAFYCel5g7JQrw6aN/SWSRn5xgZSf813WhxzSz0z0WqeUU?=
- =?iso-8859-1?Q?bwC8hUKVTW6Qnu3oERNdUPIIzfBqC55IQ9fg9NziC2srqbgi7ZEYbcE1dN?=
- =?iso-8859-1?Q?Eb5P0Sg5v6NFm32CjtIOct2m3HYrHHCkDyLKcXDjMEuGu0bxcR68adfw?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 62a680f2-bf96-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1762931305; x=1763201305;
+	bh=Oa4yrycR7NIuFObzqDKHG41ZmuCJzPot29fGUbt2GPo=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=S7rkVGk4NzzMc0ty25NVhMX/EhcVew8Ob4VNw/upJv/qQanYMyaGKbhAxTs81dAZC
+	 ilfhl58S68VkjJlFm+TMaSNcb+ACWsShm9VPOE7dJ0btyuUSkUohR5R3DLNlGtgsTg
+	 npCrVykHtBf4aurJa+h2YRglJcUK5ST6kd4nEn9iHk2ZlJXyGWh7SYbt3XHUMY9GZq
+	 aOWDki8LWD/Ul69G7UI14+bbmihWSV0R3x10a9uzFfaBDLKOGJUJMznkMl1ejQyUJk
+	 ij0YBwFWvxzaGRla9YbpZEeaXyHhS4cUZdfNw5bqkfrcdeAqohAp63Oyn1TtkddUQd
+	 Rny6FWxhOoiSQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1762931305; x=1763191805; i=ngoc-tu.dinh@vates.tech;
+	bh=Oa4yrycR7NIuFObzqDKHG41ZmuCJzPot29fGUbt2GPo=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=CSaW4rK3iIQVvqUAoWd633BSSoDHptDkDEdj2ruoBlm5hPC/ufnF5yFixOOFIkwcD
+	 yVh9/x34UBfXUSiN2xKtlq1aRWdVy3X7eUyLuB1Nhu+PLUPyxEG9iV0MRkvGV5dE+O
+	 DL+w1lU+2yZnxqYgn1d1VCBlHvGftzY/KxMxPKTLeyZHkdyT5CVzL4WGjFXDHtFtQA
+	 zsSbz5RYNU5h6hI5LgSDURVOrbiBczJIi5wqeGj7Zwl1RVc9Qf+6pVkz/kP6jxKL4W
+	 4YoQMDFez2fdMUJ+GIjJBK/7qBhiGQPqXQw56qZfo21LzBUEkHN35QQ3fenwACL3Dm
+	 ztHN7jggUy6YA==
+From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
+Subject: =?utf-8?Q?[PATCH]=20xen:=20Expose=20time=5Foffset=20in=20struct=20arch=5Fshared=5Finfo?=
+X-Mailer: git-send-email 2.51.2.windows.1
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1762931304036
+To: xen-devel@lists.xenproject.org
+Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Bertrand Marquis" <bertrand.marquis@arm.com>, "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>, "Tu Dinh" <ngoc-tu.dinh@vates.tech>
+Message-Id: <20251112070815.545-1-ngoc-tu.dinh@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.d068692f474a423bb6591a33a5e4c6c5?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20251112:md
+Date: Wed, 12 Nov 2025 07:08:25 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR03MB7526.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ba82cc7-f070-420e-9507-08de21ba3750
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Nov 2025 07:08:00.8227
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: H776GSKta3829b1gJtji3FAv2qa/u9Qe0NI43X9jydmql5l+uMqtASqoQ+Jrcem5Iqdc4TZAX7EHAUmzyzP+L2awRcNslnvKb36ZF9kh2S8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB6384
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Remove the redundant local 'DTB_MAGIC' definition and replace its usage
-with the canonical 'FDT_MAGIC' from 'libfdt'.
+time_offset is currently always added to wc_sec. This means that without
+the actual value of time_offset, guests have no way of knowing what's
+the actual host clock. Once the guest clock drifts beyond 1 second,
+updates to the guest RTC would themselves change time_offset and make it
+impossible to resync guest time to host time.
 
-Fixes: 66edeb2e3972 (arm: copy DTB appended to zImage)
-Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+Since there's no way to add more fields to struct shared_info, the
+addition has to be done through struct arch_shared_info instead. Add two
+fields in arch_shared_info representing time_offset's low and high
+32-bit halves.
+
+Provide a new feature bit XENFEAT_shared_info_time_offset for this
+functionality.
+
+Signed-off-by: Tu Dinh <ngoc-tu.dinh@vates.tech>
 ---
- xen/arch/arm/kernel.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ tools/include/xen-foreign/reference.size | 5 ++---
+ xen/common/kernel.c                      | 3 ++-
+ xen/common/time.c                        | 5 +++++
+ xen/include/public/arch-arm.h            | 2 ++
+ xen/include/public/arch-ppc.h            | 3 +++
+ xen/include/public/arch-riscv.h          | 3 ++-
+ xen/include/public/arch-x86/xen.h        | 3 +++
+ xen/include/public/features.h            | 5 +++++
+ 8 files changed, 24 insertions(+), 5 deletions(-)
 
-diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-index 48f4b56d0c..7544fd50a2 100644
---- a/xen/arch/arm/kernel.c
-+++ b/xen/arch/arm/kernel.c
-@@ -40,8 +40,6 @@ struct minimal_dtb_header {
-     /* There are other fields but we don't use them yet. */
- };
-=20
--#define DTB_MAGIC 0xd00dfeedU
+diff --git a/tools/include/xen-foreign/reference.size b/tools/include/xen-foreign/reference.size
+index 11a06a7a43..38e799617a 100644
+--- a/tools/include/xen-foreign/reference.size
++++ b/tools/include/xen-foreign/reference.size
+@@ -9,6 +9,5 @@ vcpu_guest_context        |     352     352    2800    5168
+ arch_vcpu_info            |       0       0      24      16
+ vcpu_time_info            |      32      32      32      32
+ vcpu_info                 |      48      48      64      64
+-arch_shared_info          |       0       0      28      48
+-shared_info               |    1088    1088    2344    3136
 -
- static void __init place_modules(struct kernel_info *info,
-                                  paddr_t kernbase, paddr_t kernend)
- {
-@@ -383,7 +381,7 @@ static int __init kernel_zimage32_probe(struct kernel_i=
-nfo *info,
-     if ( addr + end - start + sizeof(dtb_hdr) <=3D size )
-     {
-         copy_from_paddr(&dtb_hdr, addr + end - start, sizeof(dtb_hdr));
--        if (be32_to_cpu(dtb_hdr.magic) =3D=3D DTB_MAGIC) {
-+        if (be32_to_cpu(dtb_hdr.magic) =3D=3D FDT_MAGIC) {
-             end +=3D be32_to_cpu(dtb_hdr.total_size);
-=20
-             if ( end > addr + size )
---=20
++arch_shared_info          |       8       8      36      56
++shared_info               |    1096    1096    2352    3144
+diff --git a/xen/common/kernel.c b/xen/common/kernel.c
+index e6979352e1..dbd2cf9c76 100644
+--- a/xen/common/kernel.c
++++ b/xen/common/kernel.c
+@@ -676,7 +676,8 @@ long do_xen_version(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+ #ifdef CONFIG_X86
+                         (1U << XENFEAT_vcpu_time_phys_area) |
+ #endif
+-                        (1U << XENFEAT_runstate_phys_area);
++                        (1U << XENFEAT_runstate_phys_area) |
++                        (1U << XENFEAT_shared_info_time_offset);
+             if ( VM_ASSIST(d, pae_extended_cr3) )
+                 fi.submap |= (1U << XENFEAT_pae_pgdir_above_4gb);
+             if ( paging_mode_translate(d) )
+diff --git a/xen/common/time.c b/xen/common/time.c
+index c873b5731b..0f38b1342d 100644
+--- a/xen/common/time.c
++++ b/xen/common/time.c
+@@ -118,6 +118,11 @@ void update_domain_wallclock_time(struct domain *d)
+     shared_info(d, wc_sec_hi) = sec >> 32;
+ #endif
+ 
++    shared_info(d, arch.time_offset) =
++        (uint32_t)(uint64_t)d->time_offset.seconds;
++    shared_info(d, arch.time_offset_hi) =
++        (uint32_t)((uint64_t)d->time_offset.seconds >> 32);
++
+     smp_wmb();
+     *wc_version = version_update_end(*wc_version);
+ 
+diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
+index b31324f8d4..2f34fb409b 100644
+--- a/xen/include/public/arch-arm.h
++++ b/xen/include/public/arch-arm.h
+@@ -363,6 +363,8 @@ struct arch_vcpu_info {
+ typedef struct arch_vcpu_info arch_vcpu_info_t;
+ 
+ struct arch_shared_info {
++    uint32_t time_offset;
++    uint32_t time_offset_hi;
+ };
+ typedef struct arch_shared_info arch_shared_info_t;
+ typedef uint64_t xen_callback_t;
+diff --git a/xen/include/public/arch-ppc.h b/xen/include/public/arch-ppc.h
+index 4ca453a284..5bb47e09d3 100644
+--- a/xen/include/public/arch-ppc.h
++++ b/xen/include/public/arch-ppc.h
+@@ -92,6 +92,9 @@ DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
+ 
+ struct arch_shared_info {
+     uint64_t boot_timebase;
++
++    uint32_t time_offset;
++    uint32_t time_offset_hi;
+ };
+ 
+ struct arch_vcpu_info {
+diff --git a/xen/include/public/arch-riscv.h b/xen/include/public/arch-riscv.h
+index 168263b920..e502aade99 100644
+--- a/xen/include/public/arch-riscv.h
++++ b/xen/include/public/arch-riscv.h
+@@ -65,8 +65,9 @@ struct arch_vcpu_info {
+ };
+ typedef struct arch_vcpu_info arch_vcpu_info_t;
+ 
+-/* TODO:  add a placeholder entry if no real ones surface */
+ struct arch_shared_info {
++    uint32_t time_offset;
++    uint32_t time_offset_hi;
+ };
+ typedef struct arch_shared_info arch_shared_info_t;
+ 
+diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arch-x86/xen.h
+index b99a691706..598af31e4e 100644
+--- a/xen/include/public/arch-x86/xen.h
++++ b/xen/include/public/arch-x86/xen.h
+@@ -263,6 +263,9 @@ struct arch_shared_info {
+     /* There's no room for this field in the generic structure. */
+     uint32_t wc_sec_hi;
+ #endif
++
++    uint32_t time_offset;
++    uint32_t time_offset_hi;
+ };
+ typedef struct arch_shared_info arch_shared_info_t;
+ 
+diff --git a/xen/include/public/features.h b/xen/include/public/features.h
+index 8801930947..b48591c17a 100644
+--- a/xen/include/public/features.h
++++ b/xen/include/public/features.h
+@@ -128,6 +128,11 @@
+  */
+ #define XENFEAT_dm_msix_all_writes        20
+ 
++/*
++ * arch_shared_info provides time_offset and time_offset_hi
++ */
++#define XENFEAT_shared_info_time_offset   21
++
+ #define XENFEAT_NR_SUBMAPS 1
+ 
+ #endif /* __XEN_PUBLIC_FEATURES_H__ */
+-- 
 2.43.0
+
+
+
+--
+Ngoc Tu Dinh | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
