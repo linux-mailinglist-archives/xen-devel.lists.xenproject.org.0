@@ -2,49 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 215E3C52B58
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 15:28:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1159972.1488223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 103CBC52CF0
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 15:52:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1159989.1488233 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJBpG-0002r7-SQ; Wed, 12 Nov 2025 14:27:58 +0000
+	id 1vJCCM-0007CA-PX; Wed, 12 Nov 2025 14:51:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1159972.1488223; Wed, 12 Nov 2025 14:27:58 +0000
+Received: by outflank-mailman (output) from mailman id 1159989.1488233; Wed, 12 Nov 2025 14:51:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJBpG-0002pf-Oi; Wed, 12 Nov 2025 14:27:58 +0000
-Received: by outflank-mailman (input) for mailman id 1159972;
- Wed, 12 Nov 2025 14:27:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vJCCM-00079f-Ly; Wed, 12 Nov 2025 14:51:50 +0000
+Received: by outflank-mailman (input) for mailman id 1159989;
+ Wed, 12 Nov 2025 14:51:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vb/2=5U=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vJBpF-0002pU-5o
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 14:27:57 +0000
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazlp170120001.outbound.protection.outlook.com
- [2a01:111:f403:c10d::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c5bd1dab-bfd3-11f0-980a-7dc792cee155;
- Wed, 12 Nov 2025 15:27:53 +0100 (CET)
-Received: from SN7PR04CA0208.namprd04.prod.outlook.com (2603:10b6:806:126::33)
- by SN7PR12MB7202.namprd12.prod.outlook.com (2603:10b6:806:2a9::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.16; Wed, 12 Nov
- 2025 14:27:48 +0000
-Received: from SN1PEPF000397AF.namprd05.prod.outlook.com
- (2603:10b6:806:126:cafe::2) by SN7PR04CA0208.outlook.office365.com
- (2603:10b6:806:126::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.15 via Frontend Transport; Wed,
- 12 Nov 2025 14:27:46 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000397AF.mail.protection.outlook.com (10.167.248.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9320.13 via Frontend Transport; Wed, 12 Nov 2025 14:27:48 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 12 Nov
- 2025 06:27:46 -0800
+ <SRS0=wyU1=5U=bounce.vates.tech=bounce-md_30504962.69149f01.v1-52d6befa532c45509e8e4ebbc4f991d1@srs-se1.protection.inumbo.net>)
+ id 1vJCCK-000787-Qo
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 14:51:48 +0000
+Received: from mail179-26.suw41.mandrillapp.com
+ (mail179-26.suw41.mandrillapp.com [198.2.179.26])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1c4f7140-bfd7-11f0-9d18-b5c5bf9af7f9;
+ Wed, 12 Nov 2025 15:51:47 +0100 (CET)
+Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail179-26.suw41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4d65vj35BWzKsbYwq
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 14:51:45 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 52d6befa532c45509e8e4ebbc4f991d1; Wed, 12 Nov 2025 14:51:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,190 +43,267 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5bd1dab-bfd3-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WtQ5wVd9yZEiSZheeyJ5pKbr1U2RujyAFRCT5LaoQcJqOzaxWqdJCZ+iqrmOFWowS3rrgwOjvHPD9aanikyU/urKjE9lLLQSpV7a0CaHN85hYXl361iO79iwi6xGXEcUMU6fPIKk6dkFvidAktubFsZJ13PBXxffx/7z9YUfTafmgr2BLyRYxJWhQTEo/3xxqW/2fW3o/S6zA8zVhlKpQHbC7LzsC2dYuek0UrFjJruSV3Eh1vXBo+vE9du4NHGy9uVkNmmIM3mtH52DR8xNyPwuBbR/0Hsay6rbVLoizTUn6q5BlkHjriuNLavshYRr2kPZBsVnVFBBrokE/Y2Iaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wGuOmNpP5yyZ1l/CrpgcvPM7sz1OuSZiU/VII2toOT4=;
- b=mTJYomaYpxU9Pw4x93QhH4Iozy09TwmWmoXhiO6HvHzoCd/V+kC99tCRX+tGAhOLXWwZfcGdOci6YswQZRUpcrfEhEg2MaGP0Myq2L7cOPwKE9P+8Bzj9l6HAPYNIg2NLirUDHhQvmEErl/qgbHtwa5975wCz9X/A9qWDJlU/8Y6ZHbF5Nw9HTB0P0C/XKbF48FSGdKEkXdoLE4Z0C8gLg5Cf5FDpQneE7l9XDbFgE/NCWVedoeGyHDfcWW3j9h+iz6CH2S/Qg8cHYZgyt2RdLBJUQrFSCkhuo0Y+MBwnqrR19swxdjCUCc1/6Oq9mgv3+ffOchBk3LFo79XXKmkXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wGuOmNpP5yyZ1l/CrpgcvPM7sz1OuSZiU/VII2toOT4=;
- b=SYaLcMTNHkdW9MgBuq7lAxSk4QgWKdPEq2EA0UWaqh/v25ku+SOEWNqJuKb1zBU3WdmC+Kc9EAWg5R/wR4u1TX+OCyXqEhRe6TjoEM/IHirLZWK/JeDnlF2C/uJ4LdI8uikL3oodOyfosbYhcuf1O2+t6ymOjalktt0ak1dVbFk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+X-Inumbo-ID: 1c4f7140-bfd7-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1762959105; x=1763229105;
+	bh=IuOrOxBNA8cMhpMdlUPw8GDI0O10TQFvQKvWOyS1SPc=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=DFOEYkAh9ebmUVJ9eN0DjxpnxfsRRVOlT/FCgmV+NqIm8e5iwGgSGgOgIEeYAyfMg
+	 Q29kepInuYfrduAA1CHjexzUTNA2tNHses6Wfp/j193VbDm3LgRXLpF+iTzCcbl7Kk
+	 Ae0Zo9gHO1NWWZCtv6x1iUM021qkBi9gnoLMvwpf1HY0BcbwR7bQCXzLrk6RLXDS1K
+	 IPPMiqpI82dhI997Hr4BjYt92h4BbYUVuTm2hnVtba6bHH6muzxDIl434KEeDyE/80
+	 EloVSX2X1E6830WrcjPKxM+DKBNLHcYxOkAOGn5BaBmyeoXV1IWMFYJ6Xw8eEYZJYI
+	 /URQsOeBse6ww==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1762959105; x=1763219605; i=teddy.astie@vates.tech;
+	bh=IuOrOxBNA8cMhpMdlUPw8GDI0O10TQFvQKvWOyS1SPc=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=OEQ1vAPj5iNee8+/+Br36Vwy6Kg/8lck2j+aHURrG2pkgCA1w3c1kB5W9lsNgRROW
+	 ArI7R0t5jyKF8WERYiy7rT6Qipcxfp1ugIwbEkpwmj+zoEzmlR/Dax7ldY5R20bGGp
+	 CZUrMrRTdAJM5VjgwzviSV1Iu5zRWHOFe21Rfl1xCT+dMwPKoDxuLq4/bhHTDnG5Ih
+	 umLB+eyaxEaaoLQ/CDBEpjCRSJ6cvehJuLmA9xY+GRFx47qgxgZsxl9r61VJwMJe06
+	 Vz/eunXzEfHMW7yx8OeiPP+NoA6AU+KpEykoxgYYquHggtCdXMAP8f6eeJA5KGZOwW
+	 3rgI/KBl3dx/Q==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?[RFC=20PATCH=20v2]=20x86/hvm:=20Allow=20pre-enabling=20x2apic=20mode=20on=20BSP?=
+X-Mailer: git-send-email 2.51.2
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1762959104208
+To: xen-devel@lists.xenproject.org
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Anthony PERARD" <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Jan Beulich" <jbeulich@suse.com>, "Alejandro Vallejo" <alejandro.garciavallejo@amd.com>, "Grygorii Strashko" <grygorii_strashko@epam.com>
+Message-Id: <0cb4d1f91212a65baf924ed0ef825d8adb4b5423.1762958551.git.teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.52d6befa532c45509e8e4ebbc4f991d1?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20251112:md
+Date: Wed, 12 Nov 2025 14:51:45 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Wed, 12 Nov 2025 15:27:45 +0100
-Message-ID: <DE6SC2RG21IK.20ONZLHO187R5@amd.com>
-CC: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Jason Andryuk
-	<jason.andryuk@amd.com>
-Subject: Re: [XEN][PATCH v7] x86: make Viridian support optional
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Jan Beulich <jbeulich@suse.com>, Grygorii Strashko
-	<grygorii_strashko@epam.com>
-X-Mailer: aerc 0.20.1
-References: <20251031161716.1222956-1-grygorii_strashko@epam.com>
- <a4d3eb8d-17ea-4d3c-87ef-ba5c3477b8c3@suse.com>
- <edb590e4-340d-4a0f-9543-0dfdcc7b54b1@epam.com>
- <210edee7-8525-47a9-8191-ea7d94db5fce@suse.com>
- <0a5af540-214d-46cc-93e5-f0266bb79064@epam.com>
- <b829a9dc-ed1d-45f9-a56f-ec288e0d5523@suse.com>
-In-Reply-To: <b829a9dc-ed1d-45f9-a56f-ec288e0d5523@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397AF:EE_|SN7PR12MB7202:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5fb78638-0daa-426b-226e-08de21f7a77e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|376014|1800799024|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?eGh3eitkZEVlb2NZUnlNTGRQSTZVK1ZtQXlQRGVSRGZDMGMySWxYMTQ2ZEx6?=
- =?utf-8?B?M0h1RDQ4OXJ1RVJQODNUKzFUL3I5L1RPUmpIVm1Eb2JSRnhEbmE0bTltOHNp?=
- =?utf-8?B?SVZVcG92K3Jsc2kwdWNBcjJwb0dUQXh0dEgxaEJDbFZmaHdmQitLY2JxRDkz?=
- =?utf-8?B?b0tIYi9ZN1NNNHVMWlJSTWFKdlZHR3gxOXd0eDhkbGx2TG9PMGI4cDNOMHhP?=
- =?utf-8?B?N0FjUUtJNmV0ZkZTM0NlVVV6bTduNUxONEo0dFdtT2lqYVBKY2lYSGgxQ0FF?=
- =?utf-8?B?bUY2MHVOWnBLbm5qbFk3M2ltcEl1WXRnbDl3U2xDTjFrT1YxMWdQbW9ZbnJ1?=
- =?utf-8?B?cWlabnBuOXZRS0ZYR0ZzV3ZrOFV6Vlo5RElaQWJncnFJTVhNLzhZYnp0NmlX?=
- =?utf-8?B?L2tHSE5OY2NORzFUSGJBWHNGdlRoWXRoeU9udGQ5K3JxS1ZwdjhrMWVXUWY5?=
- =?utf-8?B?M25TRW0wWVNDclcrQ21OZytOYW5Sbk5oSmtTMmtld25wU21sUmVkSkhpV3JT?=
- =?utf-8?B?bXZEMXcxTkZPeTB1US9xZy81R1lZdXRkbC82QVRqOFlxQjBUaHNpWERvSVhs?=
- =?utf-8?B?ZGpydlFraWJRMmRPSElZNkkwQ0t1NkViY09jeXM1RW10eWY5aUV6eFhnNWF0?=
- =?utf-8?B?TVplR1dIdGVkeWVMdGorcmZkR2VnTWpJTDVpZjh6Mi9KKzdIa2pGTTc5ZVhF?=
- =?utf-8?B?NEpUK1ppclE4RWp1M0x1NGE2aFhOUGxLWWh6V1Z2RTBpbXAyV01CMWd2VjI0?=
- =?utf-8?B?b1R0alh3LzBaV0c2R0lUQmg2Y0NueXRxZ1Q0T1BTTnF1QW1VLzFWZTZHY3h6?=
- =?utf-8?B?N0dzazlZUjRwS2NvbjBJV0NhTTM5aDJ0bWsxbDRVL1dQbHRhSlB4TFRib0ow?=
- =?utf-8?B?aVhTVjFtOWlNK3NlZFlXTTZXWnJwanVTRDBpZ0U0a3IzclR1dzRPandKd1Nj?=
- =?utf-8?B?N3JkcVFTdC85M05zbzN6SVlpclJ0RXZYZCtHeWxnTXhHZHc2Y3oxQXl5NDkv?=
- =?utf-8?B?cGp6eFlHaG5vN1pEc1NCaHU1d2FIcHU0SVNJRitQaTNtTzl1T1Jjd2FiMEhQ?=
- =?utf-8?B?ekRrTE9Sd0VvZHBCYWFVc21PN0ZSWWpnSVVJa1lxT2RldzlRc1pTSktnc1ha?=
- =?utf-8?B?dEJoZ0p6aHJheEZSakM4K2dLUFViL2xrN0o3cmRoZmJ3eUJqSjgweXVDTnpB?=
- =?utf-8?B?NTYyNmRKLzhoQ0xrWFk0a0NyVHZzOXZVQm1YSTRRVE95SnlrN25OWUQzUWkr?=
- =?utf-8?B?YXNMbmNPc3pvc2hkS2tuOVZiK1A4YnVuM1NYM2VOYjNOVUpiT0EwYW1OZDJv?=
- =?utf-8?B?TWgyeGFBaWhkSmpaYU9ZR3N0WDFsanpMeXE5amxRYWlya29KSEh0bmRPMGlY?=
- =?utf-8?B?T3lLR2NjVUhGbjBhMWplUzVnTzZkdTR1T0xQR0NqR0xMUW04bUE0c0wvZTJr?=
- =?utf-8?B?c2tDQUtYeWxoVFpvM0dZeW4yRGFhVHFMWVRCWUJ5VVQvc016Mkt4ZWtNOGZu?=
- =?utf-8?B?R01ocFVab25ZZ2lKbjBrWmZoSEF4aGM0NHVob2ZQZm5yZ2V6aFZBMGtYZ2tv?=
- =?utf-8?B?MTVYTTNaUlc2ODhjaVlNLzZUc200ZldUR3BScUh1UTlNQXozd2dvSHdsSC9s?=
- =?utf-8?B?U2dlR1hLS2ZXd2hWNm5DbWNjUEdFR3ZCbXVKNFRTUmxGQTAvSzhmdVFTUkhr?=
- =?utf-8?B?Y1dmWE9QdFBOQXBlTVZQUWhiR3JrdEFCeXNWc2t5SFZublNLVHo0NVY3RXpB?=
- =?utf-8?B?OVVKNzJSV3g2Z05LNnNhRE1DNVVhaTQ5V1lJV3cwN1RDd083Q3k0em1ETDBH?=
- =?utf-8?B?UjcrVitGZlpPNzNsNzFvZlY3eUtrc09JYU5UdW9PVUpCQVVmbndBS3AwTjRC?=
- =?utf-8?B?NVc5Z1NlM3pMT1hlVFdYUmRYM05EVWxYMjZlSnVVMEM2V3ZhSm1nNnpyWno4?=
- =?utf-8?B?ZFZoVUYvSUdRVmpqVnBKTWd1U3pxR2xwVXBBbVNDQWk4WUliT1BTTDZaZHAv?=
- =?utf-8?B?UEorVXZiZjlLdGZPTVpGUkVNanFmZ0FON0RHdUcza2E2eFRVUU9jTjNzQUJQ?=
- =?utf-8?B?Z2NiYjNYOEhNL2xsOWIzNlhFTzIvUHpFbHZrM212Q3pnWVE3Y1NMQStqQ1dW?=
- =?utf-8?Q?cGTs=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2025 14:27:48.3141
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fb78638-0daa-426b-226e-08de21f7a77e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000397AF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7202
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Wed Nov 12, 2025 at 7:40 AM CET, Jan Beulich wrote:
-> On 11.11.2025 19:25, Grygorii Strashko wrote:
->> On 06.11.25 15:47, Jan Beulich wrote:
->>> On 06.11.2025 14:42, Grygorii Strashko wrote:
->>>> On 06.11.25 13:35, Jan Beulich wrote:
->>>>> On 31.10.2025 17:17, Grygorii Strashko wrote:
->>>>>> --- a/xen/arch/x86/hvm/hvm.c
->>>>>> +++ b/xen/arch/x86/hvm/hvm.c
->>>>>> @@ -4231,8 +4231,9 @@ static int hvm_set_param(struct domain *d, uin=
-t32_t index, uint64_t value)
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 rc =3D -EINVAL;
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case HVM_PARAM_VIRIDIAN:
->>>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( (value & ~HVMPV_fea=
-ture_mask) ||
->>>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 !(value & HVMPV_base_freq) )
->>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( !IS_ENABLED(CONFIG_=
-VIRIDIAN) && value )
->>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-rc =3D -ENODEV;
->>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else if ( (value & ~HVMP=
-V_feature_mask) || !(value & HVMPV_base_freq) )
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 rc =3D -EINVAL;
->>>>>
->>>>> I find the check for value to be (non-)zero a little dubious here: If=
- any caller
->>>>> passed in 0, it would get back -EINVAL anyway. Imo -ENODEV would be m=
-ore suitable
->>>>> in that case as well. Things would be different if 0 was a valid valu=
-e to pass in.
->>>>
->>>> The idea was to distinguish between "Feature enabled, Invalid paramete=
-r" and "Feature disabled".
->>> "
->>> But you don't, or else the addition would need to live after the -EINVA=
-L checks.
->>> I also question the utility of knowing "parameter was invalid" when the=
- feature
->>> isn't available anyway.
->>=20
->> My understanding here - I need to drop non-zero "value" check.
->> will be:
->>=20
->> =C2=A0=C2=A0=C2=A0 case HVM_PARAM_VIRIDIAN:
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( !IS_ENABLED(CONFIG_VIRID=
-IAN) )
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rc =
-=3D -ENODEV;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else if ( (value & ~HVMPV_fea=
-ture_mask) || !(value & HVMPV_base_freq) )
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rc =
-=3D -EINVAL;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
->
-> Yes, or alternatively
->
->     case HVM_PARAM_VIRIDIAN:
->         if ( (value & ~HVMPV_feature_mask) || !(value & HVMPV_base_freq) =
-)
->             rc =3D -EINVAL;
->         else if ( !IS_ENABLED(CONFIG_VIRIDIAN) )
->             rc =3D -ENODEV;
->         break;
->
-> Both have their up- and down-sides.
->
-> Jan
+Introduce a new option to start the BSP vCPU in x2APIC mode instead
+of xAPIC mode. Expose this in xl through a new "x2apic_mode" option.
 
-We should aim for Grygorii's form, imo. If anything because it eliminates
-the second else-if on !VIRIDIAN, leading to a marginal binary size reductio=
-n.
+Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+---
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Grygorii Strashko <grygorii_strashko@epam.com>
 
-There's no value in validation when viridian support just isn't there.
+Later on, we could consider with this option to use x2APIC ACPI
+tables instead of xAPIC ones.
 
-Cheers,
-Alejandro
+There is also some room into introducing a new Kconfig option to
+only support x2apic mode, which would change how the "Xen default"
+would behave.
+
+changed in v2:
+ - only pre-enable instead of forcing
+ - use domain builder to pre-enable instead of introducing a new domain creation flag
+
+v1:
+- https://lore.kernel.org/xen-devel/d498a50f6187b362ac5da3c6a7a7c348f35dc4b3.1761761288.git.teddy.astie@vates.tech/
+---
+ docs/man/xl.cfg.5.pod.in         | 16 ++++++++++++
+ tools/include/libxl.h            |  8 ++++++
+ tools/include/xenguest.h         |  4 +++
+ tools/libs/guest/xg_dom_x86.c    | 42 ++++++++++++++++++++++++++++++++
+ tools/libs/light/libxl_types.idl |  1 +
+ tools/libs/light/libxl_x86.c     |  4 +++
+ tools/xl/xl_parse.c              | 11 +++++++++
+ 7 files changed, 86 insertions(+)
+
+diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+index ad1553c5e9..0f7a89fe92 100644
+--- a/docs/man/xl.cfg.5.pod.in
++++ b/docs/man/xl.cfg.5.pod.in
+@@ -3198,6 +3198,22 @@ option.
+ 
+ If using this option is necessary to fix an issue, please report a bug.
+ 
++=item B<x2apic_mode="MODE">
++
++Sets the x2apic mode of the domain. The valid values are as follows:
++
++=over 4
++
++=item B<"default">
++
++Use default Xen LAPIC behavior.
++
++=item B<"pre_enable">
++
++Initially enable x2apic for the BSP of the domain.
++
++=back
++
+ =back
+ 
+ =head1 SEE ALSO
+diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+index bc35e412da..9850e8aa41 100644
+--- a/tools/include/libxl.h
++++ b/tools/include/libxl.h
+@@ -1537,6 +1537,14 @@ void libxl_mac_copy(libxl_ctx *ctx, libxl_mac *dst, const libxl_mac *src);
+  */
+ #define LIBXL_HAVE_XEN_PLATFORM_PCI_BAR_UC
+ 
++/*
++ * LIBXL_HAVE_X2APIC_PREENABLE
++ *
++ * libxl_domain_build_info contains a boolean 'arch_x86.x2apic_preenable' field
++ * to initially set the BSP LAPIC in x2APIC mode.
++ */
++#define LIBXL_HAVE_X2APIC_PREENABLE
++
+ typedef char **libxl_string_list;
+ void libxl_string_list_dispose(libxl_string_list *sl);
+ int libxl_string_list_length(const libxl_string_list *sl);
+diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
+index c88958faa9..408a0c77e8 100644
+--- a/tools/include/xenguest.h
++++ b/tools/include/xenguest.h
+@@ -223,6 +223,10 @@ struct xc_dom_image {
+     /* If unset disables the setup of the IOREQ pages. */
+     bool device_model;
+ 
++#if defined(__i386__) || defined(__x86_64__)
++    bool preenable_x2apic; /* 1 makes x2APIC enabled initially, 0 keeps default Xen behavior */
++#endif
++
+     /* BIOS/Firmware passed to HVMLOADER */
+     struct xc_hvm_firmware_module system_firmware_module;
+ 
+diff --git a/tools/libs/guest/xg_dom_x86.c b/tools/libs/guest/xg_dom_x86.c
+index a82b481a12..43ada5a6ac 100644
+--- a/tools/libs/guest/xg_dom_x86.c
++++ b/tools/libs/guest/xg_dom_x86.c
+@@ -58,6 +58,9 @@
+ #define MTRR_TYPE_WRBACK     6
+ #define MTRR_DEF_TYPE_ENABLE (1u << 11)
+ 
++#define APIC_BASE_EXTD   (1UL << 10)
++#define APIC_BASE_ENABLE (1UL << 11)
++
+ #define SPECIALPAGE_PAGING   0
+ #define SPECIALPAGE_ACCESS   1
+ #define SPECIALPAGE_SHARING  2
+@@ -1131,6 +1134,45 @@ static int vcpu_hvm(struct xc_dom_image *dom)
+         }
+     }
+ 
++    if ( dom->preenable_x2apic )
++    {
++        struct {
++            struct hvm_save_descriptor header_d;
++            HVM_SAVE_TYPE(HEADER) header;
++            struct hvm_save_descriptor lapic_d;
++            HVM_SAVE_TYPE(LAPIC) lapic;
++            struct hvm_save_descriptor end_d;
++            HVM_SAVE_TYPE(END) end;
++        } lapic = {
++            .header_d = bsp_ctx.header_d,
++            .header = bsp_ctx.header,
++            .lapic_d.typecode = HVM_SAVE_CODE(LAPIC),
++            .lapic_d.length = HVM_SAVE_LENGTH(LAPIC),
++            .end_d = bsp_ctx.end_d,
++            .end = bsp_ctx.end,
++        };
++        const HVM_SAVE_TYPE(LAPIC) *lapic_record =
++            hvm_get_save_record(full_ctx, HVM_SAVE_CODE(LAPIC), 0);
++
++        if ( !lapic_record )
++        {
++            xc_dom_panic(dom->xch, XC_INTERNAL_ERROR,
++                         "%s: unable to get LAPIC save record", __func__);
++            goto out;
++        }
++
++        memcpy(&lapic.lapic, lapic_record, sizeof(lapic.lapic));
++
++        lapic.lapic.apic_base_msr |= APIC_BASE_ENABLE | APIC_BASE_EXTD;
++
++        rc = xc_domain_hvm_setcontext(dom->xch, dom->guest_domid,
++                                      (uint8_t *)&lapic, sizeof(lapic));
++
++        if ( rc != 0 )
++            xc_dom_panic(dom->xch, XC_INTERNAL_ERROR,
++                         "%s: SETHVMCONTEXT failed (rc=%d)", __func__, rc);
++    }
++
+     /*
+      * Loading the BSP context should be done in the last call to setcontext,
+      * since each setcontext call will put all vCPUs down.
+diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+index d64a573ff3..9fdf89d88b 100644
+--- a/tools/libs/light/libxl_types.idl
++++ b/tools/libs/light/libxl_types.idl
+@@ -738,6 +738,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
+                                ("arm_sci", libxl_arm_sci),
+                               ])),
+     ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
++                               ("x2apic_preenable", libxl_defbool)
+                               ])),
+     # Alternate p2m is not bound to any architecture or guest type, as it is
+     # supported by x86 HVM and ARM support is planned.
+diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
+index 60d4e8661c..f9725f069a 100644
+--- a/tools/libs/light/libxl_x86.c
++++ b/tools/libs/light/libxl_x86.c
+@@ -555,6 +555,9 @@ int libxl__arch_domain_init_hw_description(libxl__gc *gc,
+                                            libxl__domain_build_state *state,
+                                            struct xc_dom_image *dom)
+ {
++    if (libxl_defbool_val(d_config->b_info.arch_x86.x2apic_preenable))
++        dom->preenable_x2apic = true;
++
+     return 0;
+ }
+ 
+@@ -818,6 +821,7 @@ int libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
+ {
+     libxl_defbool_setdefault(&b_info->acpi, true);
+     libxl_defbool_setdefault(&b_info->arch_x86.msr_relaxed, false);
++    libxl_defbool_setdefault(&b_info->arch_x86.x2apic_preenable, false);
+     libxl_defbool_setdefault(&b_info->trap_unmapped_accesses, false);
+ 
+     if (b_info->type == LIBXL_DOMAIN_TYPE_HVM) {
+diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+index af86d3186d..92bf9d2ad5 100644
+--- a/tools/xl/xl_parse.c
++++ b/tools/xl/xl_parse.c
+@@ -3040,6 +3040,17 @@ skip_usbdev:
+                     "WARNING: msr_relaxed will be removed in future versions.\n"
+                     "If it fixes an issue you are having please report to "
+                     "xen-devel@lists.xenproject.org.\n");
++    
++    if (!xlu_cfg_get_string(config, "x2apic_mode", &buf, 1)) {
++        if (!strcmp(buf, "pre_enable"))
++            libxl_defbool_set(&b_info->arch_x86.x2apic_preenable, true);
++        else if (!strcmp(buf, "default"))
++            libxl_defbool_set(&b_info->arch_x86.x2apic_preenable, false);
++        else {
++            fprintf(stderr, "Unknown x2apic mode \"%s\" specified\n", buf);
++            exit(EXIT_FAILURE);
++        }
++    }
+ 
+     xlu_cfg_get_defbool(config, "vpmu", &b_info->vpmu, 0);
+ 
+-- 
+2.51.2
+
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
 
