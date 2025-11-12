@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B1CEC53200
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 16:43:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160140.1488353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82A38C53212
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 16:45:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160151.1488363 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJCzx-0003cw-6p; Wed, 12 Nov 2025 15:43:05 +0000
+	id 1vJD1y-00049U-Hu; Wed, 12 Nov 2025 15:45:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160140.1488353; Wed, 12 Nov 2025 15:43:05 +0000
+Received: by outflank-mailman (output) from mailman id 1160151.1488363; Wed, 12 Nov 2025 15:45:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJCzx-0003a3-3i; Wed, 12 Nov 2025 15:43:05 +0000
-Received: by outflank-mailman (input) for mailman id 1160140;
- Wed, 12 Nov 2025 15:43:03 +0000
+	id 1vJD1y-00047a-Eq; Wed, 12 Nov 2025 15:45:10 +0000
+Received: by outflank-mailman (input) for mailman id 1160151;
+ Wed, 12 Nov 2025 15:45:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=K5hw=5U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJCzv-0003Zv-8s
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 15:43:03 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1vJD1w-00047S-7S
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 15:45:08 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 45ba9896-bfde-11f0-9d18-b5c5bf9af7f9;
- Wed, 12 Nov 2025 16:43:02 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-640bd9039fbso1796357a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 07:43:02 -0800 (PST)
+ id 9061e42e-bfde-11f0-9d18-b5c5bf9af7f9;
+ Wed, 12 Nov 2025 16:45:07 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-b5b823b4f3dso145226866b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 07:45:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6411f86ea13sm16131405a12.37.2025.11.12.07.43.00
+ a640c23a62f3a-b72bf9be009sm1599906566b.60.2025.11.12.07.45.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Nov 2025 07:43:01 -0800 (PST)
+ Wed, 12 Nov 2025 07:45:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45ba9896-bfde-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 9061e42e-bfde-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762962181; x=1763566981; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762962307; x=1763567107; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=9SFf8juCkudErh44zooLXSedZjoB2NxiVe5ocYoeq6g=;
-        b=QbLWJynL6RyeE/wxueJWfT/itO3eGu4NeoEw/i/jReDoMeLE5S2x1aZkom8BbBLiQQ
-         qmKTM9ouDjuz+S13ERM7gI2dSai19At1Wmb7674a7LDpHjqAHQxsrwhNwQ3cItejXVm5
-         FjtQDJUlTweD0XP7Oyi+lYz0gpWEWcvYK+pYMpUV4Fxv0/DZNlM0zmcPfAvnQwvH39o5
-         hv5+JzZo/dD/iBzpE6bWBonoN3ULAOqZYx2FcCoWcUuoJ0UKPY08oa/T90kSlfK+tbLh
-         x7T7no6Km0YAqeOFyM0iM0pmocxVDRFUOk2WpsyPZQVkIlyYuw9jRwe+U53fdgmK3ENU
-         engA==
+        bh=QjhqL87pzp+2XHaJgFqLk9Y6GoXRUy4qE8hyCMxk1sc=;
+        b=VeWKIflHGvL/AobxzZzK38lyr4ik6qH8PzOUuALdbSEu/At9kCXy8FHXxjeQK3MIXy
+         BkZLj2HuJ0ARxOLPSpb4e6ySXr13pOpw6daHh8OZnHgM3PxG70SDz5S2tyqKnKxmgq+B
+         tJP7kz4nVyhGIOKc743bA/QYIc5ZkAVDCCAPasTutBMvz5lhAEyBh1xRDDS+TpqFAkhK
+         1tm2YDXq0c/KHrf8LVOy+0JpGdNr48Tlpa4BB+TwRm6qzGIJ4UBfJpOsGH77MgQQ+yVI
+         YKwa6rmKfW/gzA6wh8GVravet0P+eaDNZRHGp3EAV4oMgOgSU9pNwrwlRx7pLqqZc/3U
+         Fn9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762962181; x=1763566981;
+        d=1e100.net; s=20230601; t=1762962307; x=1763567107;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9SFf8juCkudErh44zooLXSedZjoB2NxiVe5ocYoeq6g=;
-        b=Pv+zxJEM8rbHht6Ozzkq22O1jLe7I0fsZ85gQFULXrZKZj7UQ2asz0c9IhEfnGsIt0
-         JHhWuxogIXXJjvetQnqhASZVaoAGQ9WfgK5PGmqwn0nqF+z0ot0+J+GZwMNHq20/V1S8
-         5xuatJ7sratMFlHedJiSwvkmDNlbItDAFI8AApwR8loP+gv8ZW1X0Esw2Ro8RF1pw/zv
-         /boupvfVL8xTqSLKdqw3tas8m6e1uj9lLBWtK+6mB0SS2OoYYfRqlxzns4Q7ZDJMNDdM
-         iHU6VtvCOs2W5MDgDXa1gsLJyjfGRTwqQI/SpHIGb61cDm0Qrnzl5+V5seK8QEavUHxa
-         Ug3w==
-X-Gm-Message-State: AOJu0YzF0Dyc66X3iLicB1T9iZLVg16p5nUXKLeFyb5Czkzo0bOlZozB
-	PqdY+lXJ3DS7AZQLNl++7VSp2Fn0uFV6N2dV8vVcDx8ZeLwl51YDKgSuWNoH2f7mZtX6FpYNRdU
-	/78o=
-X-Gm-Gg: ASbGncsm6CrDTQyaho5bS5HfZkyCY2F2PP6jEC20m2F1zF9gdpC1jWyKrE293bwDdlN
-	1i7c34Dk8vlnPhb2d0akpHcvNNoV8kfcXMmP/eFYEkwWzI4z7py+FMJnwQ3Eo78pzuj3X7BBG7V
-	QQJDgGnV3k/oIS67BjeDBVH4Y5VF96vhdX7Q704IjgCdQy6zwfqX55fEK67pHRKpjNJz5/A91oJ
-	nMwWlUdQp6GlpVT/f6QF18aUExg5PXxbCYdN+lG9Dp4S5dsD9XF2reQ9ehqLQqKTZ8igQG+61RW
-	aNZAtIm3mkbRdYoVCmAMjBgteJsaolX6UBWJ+MAKpdlo+AeZNSuO1td/TM+lP3D+jgRJ+1/Mn9L
-	1hvlwSRDd7M0KIjOGlpXHzVdVCILa51WZbFPqOqnlnPUdMNRu/M4Fl1l0LlaukvLT0rwZuvoT7b
-	KJkHV5w7yjwbHqlEzyDnpnQQPmA//IIfNZxFxTyIy8JE2EvkdxpPqy2Mp4utaO1Z3X
-X-Google-Smtp-Source: AGHT+IFc0/J/d2hr8fjKhIdErXbuFbWyu/1KJ6vm965wQOHY7XU7H0ofR2KAgmcBjTdUd+9T1F+oLw==
-X-Received: by 2002:a05:6402:40c6:b0:640:b1cf:f800 with SMTP id 4fb4d7f45d1cf-6431a39286bmr3055364a12.4.1762962181555;
-        Wed, 12 Nov 2025 07:43:01 -0800 (PST)
-Message-ID: <88bbddc8-61cb-4284-9b0b-9735a4a8099c@suse.com>
-Date: Wed, 12 Nov 2025 16:43:00 +0100
+        bh=QjhqL87pzp+2XHaJgFqLk9Y6GoXRUy4qE8hyCMxk1sc=;
+        b=M54CCpO4mtjixiLtccfF8ypP4lvYlhafc6OuhwSbvYcenluJGRVYOlSikaDuoeq90M
+         nNYEFHbx3PAKsjn3RoVqfRjuMztMNt4mu+Os3GRSTCXcejgCZbPs0z4/hym1MQFEsqMB
+         bIu3XdlPU6FBEYVkzUmNLJaANJvMXpC/h4cytGIuyu5MzjDqT1sR4rgh19aE3Anj/xvR
+         kkhrn6dR/48MNFGVNJnEXXjC9sRq+im0ye/NjL53wiVJfBZE4rK/i5I+lG/Zf7C+6++v
+         wMOBQkLtZHE46yIVfnNrXvbWKEUQsoKXX+JI0GyIDzY5zJ/ppteFgu5Q9fMM3Bn9La9i
+         IsYA==
+X-Gm-Message-State: AOJu0YxQ4JSP8LmOUrlb9WdFLLkSjMIJnKFrb983VoBL26wojn4s7zc1
+	O4FSlwTg0QT62pMW5soxBmoOFHpC1Cl928zNJoVhzUrddjaC5LdNRKwbz9ZrM+yPVPo/BR3M6Ai
+	1iwY=
+X-Gm-Gg: ASbGncvFJqB63slWZCKZfzeVVyWbwr8ew9AvlCgWDQ2AQoB8+HGWYvKWHfcWB7Eq42y
+	QlmLWSmr3LGsa7n6wW4LxMAwr2Um+411S/bExUu9T2Ooqtg8xTKxB/UWyOF636q1MXXjftaXiFm
+	2CZMrX6m+WVruGB9Ez9YAPTFn1AiRVXHdaGZSYa3BH89822HlVMc3XYzFTn+Ryn3AvIcCj/NHdB
+	V+ehVVP7mNwJluDqok/xQJP+5rfvN6DD44X6/F2xp6t3rlDmA1tpE81pSEwi/2209SeVIhQzB3m
+	0Sb9PmF3G1H7/Def6n9mjF4n8gvebNKLVMdKjlRC3kIoBFMy4LIbIQqeup8GQewYnJgCPbshvxX
+	JvSuSGmF4h4ng5LshkdZXfSpbXJfEe3dirkT50qmJbSKG/GXqcvn/jOri4nS0Nz4DnYvzkhNymS
+	Me22yItDzOr6vXICIm/vZOwaTayrtQk7pjzDVRCnIj5AKsLv0HEZFA2uTxhlGiJ8jv
+X-Google-Smtp-Source: AGHT+IFFSO4oEiMOFKN16gV7CFuTZ6lC17oVGjwrmomRLYFiqmIEzUVTYQhsDR0TrKfLTDWi/dwJwA==
+X-Received: by 2002:a17:907:9717:b0:b72:51fd:5a5f with SMTP id a640c23a62f3a-b733197086cmr339607766b.1.1762962306540;
+        Wed, 12 Nov 2025 07:45:06 -0800 (PST)
+Message-ID: <52227196-dbc9-4f6d-9c64-a5da5037b1ec@suse.com>
+Date: Wed, 12 Nov 2025 16:45:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -92,7 +92,7 @@ To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/IRQ: use LOCK-free bit setting in init_irq_data()
+Subject: [PATCH] x86/MSI: adjust permitted vector range
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -119,26 +119,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Much like done later in the function, syscall and hypercall vectors can
-have their bits set without use of LOCKed accesses.
+It's really FIRST_IRQ_VECTOR vector which is meant here, i.e. effectively
+there is a form of open-coding in use right now.
+
+No change in practice, due to the present aliasing.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+While doing the HPET work I had to fiddle with this, even if in the end
+no vector below FIRST_DYNAMIC_VECTOR is being used there (for now at
+least).
 
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -450,12 +450,12 @@ int __init init_irq_data(void)
+--- a/xen/arch/x86/msi.c
++++ b/xen/arch/x86/msi.c
+@@ -158,7 +158,7 @@ void msi_compose_msg(unsigned vector, co
+ {
+     memset(msg, 0, sizeof(*msg));
  
- #ifdef CONFIG_PV
-     /* Never allocate the Linux/BSD fast-trap vector. */
--    set_bit(LEGACY_SYSCALL_VECTOR, used_vectors);
-+    __set_bit(LEGACY_SYSCALL_VECTOR, used_vectors);
- #endif
+-    if ( vector < FIRST_DYNAMIC_VECTOR )
++    if ( vector < FIRST_IRQ_VECTOR )
+         return;
  
- #ifdef CONFIG_PV32
-     /* Never allocate the hypercall vector. */
--    set_bit(HYPERCALL_VECTOR, used_vectors);
-+    __set_bit(HYPERCALL_VECTOR, used_vectors);
- #endif
-     
-     /*
+     if ( cpu_mask )
 
