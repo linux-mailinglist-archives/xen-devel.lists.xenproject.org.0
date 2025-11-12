@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAF2CC53C01
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 18:43:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160427.1488573 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A379C54058
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 19:55:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160445.1488582 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJEsZ-0008WE-6M; Wed, 12 Nov 2025 17:43:35 +0000
+	id 1vJFyr-000149-9N; Wed, 12 Nov 2025 18:54:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160427.1488573; Wed, 12 Nov 2025 17:43:35 +0000
+Received: by outflank-mailman (output) from mailman id 1160445.1488582; Wed, 12 Nov 2025 18:54:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJEsZ-0008To-3K; Wed, 12 Nov 2025 17:43:35 +0000
-Received: by outflank-mailman (input) for mailman id 1160427;
- Wed, 12 Nov 2025 17:43:33 +0000
+	id 1vJFyr-00011J-6i; Wed, 12 Nov 2025 18:54:09 +0000
+Received: by outflank-mailman (input) for mailman id 1160445;
+ Wed, 12 Nov 2025 18:54:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EiA8=5U=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vJEsX-0008Ti-Dh
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 17:43:33 +0000
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c207::3])
+ <SRS0=R8Yv=5U=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1vJFyp-00011D-VJ
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 18:54:08 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1ad5a67f-bfef-11f0-9d18-b5c5bf9af7f9;
- Wed, 12 Nov 2025 18:43:32 +0100 (CET)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by AM9PR03MB7092.eurprd03.prod.outlook.com (2603:10a6:20b:2da::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.16; Wed, 12 Nov
- 2025 17:43:28 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9320.013; Wed, 12 Nov 2025
- 17:43:28 +0000
+ id f6e754d3-bff8-11f0-9d18-b5c5bf9af7f9;
+ Wed, 12 Nov 2025 19:54:06 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-47774d3536dso137705e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 10:54:06 -0800 (PST)
+Received: from localhost.localdomain (host-78-149-11-196.as13285.net.
+ [78.149.11.196]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47787e3a63asm50059175e9.1.2025.11.12.10.54.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Nov 2025 10:54:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,242 +45,613 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ad5a67f-bfef-11f0-9d18-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EI/2DnmMa07WqBfFT3nXpVxDqc2mdp9alat+poPT4hGcYSSZCBukt/6F6c6Cs9HRUn9ilwivcpQeTXFq2hfRWED9NjTbnT5kqxn2BMjuR60u6kGM6RUW1v0bHBSv/pA9Wk5UW+47hgK1YmxsXFTcwkWx3mOveei9ldDWPHInW4vPwnyvDd4J9f63/9eDXp9tRFXsS+/PNfD86bPUHyHPtr3CSzzfCT//B1OuOWFH9OYQ/kLcJFw+WVhU0F56Nt6Bl1Co7INTNXf5+bNwog76WxGNsBBrzOt2UMOpdD/17cXalYL33nTYM7wURNF66sMoZj24BIE+tiYVpby05zAavg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zgXVSZKXyuLA2RhHH8YGNr86VFo+6JSzHJCAS2d3nYc=;
- b=FCy6ODgeZx9r3vCDdnxSF1tnAi3JEGcHBO/7IgP0OXP3TbG3tkStKKhgSeFf78CgjDZlh5/IS+B6b0/q+6I7Pd+d/Ow70TEAe4ppJnp+fSyH2hZhbmCU/uuyWMLpKARk7cPmLtJYngCm2KKH/biyXwgBCneaic03hDd4AQa7X3YMKYmxfiV9MO8YICdk+nRsP7C/3720ndIQ4k7GXtGufrqUjt3W8U5W4V8tI4UbDSg2QrTDv6C2fQgcsD7ZyZbqQijS82ByFYMEBWSW9QXZvSc/1hxJI2GQO4Rn2nPxsSjruPK2saXSscjHBDDqSOsCuhrgIHjYoa61om4/rsEU0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zgXVSZKXyuLA2RhHH8YGNr86VFo+6JSzHJCAS2d3nYc=;
- b=I03BWNy1FNCzDHGfdxCw2yJZHhrnS1pYp5FXVVrIn5dSipKM44/y1OhlaM4th9Finu4CotIQ/ctv3gAS8/AyA03mNirTOd47EO/L2z0YlZWINgCrKFi7RLoXive2lPNrAiNMDhZjCX9kTyHqlkwxv5mCx7/MkzmIDSZ9hj543cxXnv5CdfxRR+SBLN10wQ5PoqGf32y9MTgV4tq36g/4U+Vrto2HXz0lYtzUtC7hDsyU32SLcIFGG8c1WymIAxrPiM+W6Tm5gKzlYYW0nfzvyyNLuYGEcCcupuAbg1CveMKYb1JTRX3DSql1CDUuChMUgBJuPwsiOprpQfdVekx2MA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <51f5ea06-96aa-45f7-a90b-50d7be1c10cd@epam.com>
-Date: Wed, 12 Nov 2025 19:43:26 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v3] xen/x86: guest_access: optimize raw_x_guest() for
- PV and HVM combinations
-To: Jan Beulich <jbeulich@suse.com>
+X-Inumbo-ID: f6e754d3-bff8-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1762973646; x=1763578446; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=5k8Z21gLVTYm6B0Dso+ikwMCEQe44y5PQXbxI2nGMZ8=;
+        b=HojHs3gGCLKeByheAJ4MhydMIb7RzEs+0cHTiznDIAG602Hd10Gxzfhx26Z/LBAjeS
+         S1d3ihd7kbugTqEuSulJxxYp9IuUWNWb0I4EW/A3qlD6Rc3+0GoieV83LidBN2mk+6Do
+         hr6/WncLvL9SlgVT5tL8MyT2vmkVv+IQYRsAY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1762973646; x=1763578446;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5k8Z21gLVTYm6B0Dso+ikwMCEQe44y5PQXbxI2nGMZ8=;
+        b=P4SAckpWg/cRWhO9MuNv5uA97J/i7YOfDvsGQ+A5pC1lWKsTZ4aBoMebZkc4+cTuNj
+         h2P9pHnl2d0mdPRJ48+MMblcj7kpWwfkDPQhFbx4Fy267EGX9zCicfNURDJ+FFJbcCo5
+         5yz43JV3Zk3cVsIp6L5bwJrgkhnjsDEw7VWFiki4Z2q2QgJ9XVsfQDZst8R7clxfRG9r
+         PFTUuNgJfBbzN1HlTTI99oPrvYd9sUWBvNP4FyLiaaNfPqD7uDWlN0g7sEsDFCxI8ps8
+         gRNRB/PfupmvDCRE7vgUWWEzl8mxrF25ZWWEBhAtXm/cNYB2oyIap9L6D29EgcgO1v1V
+         tuLg==
+X-Gm-Message-State: AOJu0Yx/AbpjZY/VDA9BKzbSr/yIDj9etSlQAdF6qOwa5KqpIN5eRpns
+	EhtVOSQC4sXVo4TlZd3HcD17bYgHtaPU5c8lmmBFPF2IjffJRYxYWEthRNeirv0OmXRfa+2+7c6
+	vetjN1Ok=
+X-Gm-Gg: ASbGncvZdu4Ig8DahXYgfzZtMTiIgD1HqYMzh9b8txIWXugMqddTPcQ9DfUjI9gvLc9
+	RGvPj/IS17aQfyHmCWu0vDLvWmYMA4Lpgpag5Nn9CCu3Yl7u8KtkpPsINrIsWh4idW5d8ARo2/0
+	208H8YeS8u4EjlJNT6VU0D2TuMD+WFdEZu2mXbizwFMB6ymoMRNa1EUjm11Y2r5427V2t76NXTf
+	+9atLex9Cv8npAbRtl4t77UivV7p0U9D+kRjcs5fjkfTW7dBdCjoXWEUCtgN5BywfxoatGkMd0v
+	b33FkVYQ+IFOjGZSoXnq19i2jv3obvpX+u7CdQpZyzTeSFSfORfE0SFCNngP836llPgyzoyYkSV
+	HKv6QWpN+oF2R7ZVawJq/n2RS9GlJ3nE6uIOSPwQOJtdRE6Ji11re/lnTgH+SWYrDGaIDXTLIM7
+	oQn2wnxjYxBA/M7mRMeFHu8GlooPmL0NS6C7JNzakAg9qiG9cAX8s=
+X-Google-Smtp-Source: AGHT+IFElUgNsYU/vgmDo87ZKRZvl5iBZKGXHPA7SDIMCOuW10l69/+cwQSxoZZuMwEmL2rTILPuNg==
+X-Received: by 2002:a05:600c:154d:b0:477:4f97:cb31 with SMTP id 5b1f17b1804b1-4778bd2c40emr3920195e9.2.1762973645252;
+        Wed, 12 Nov 2025 10:54:05 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Lira, Victor M" <victlira@amd.com>
-References: <20251107181739.3034098-1-grygorii_strashko@epam.com>
- <47f86a44-007f-4b90-9656-b2440238b2ba@suse.com>
- <f0a5a939-7d66-417d-8a88-34cc172623e6@epam.com>
- <faab050f-677f-469c-8bca-93c55a53165c@suse.com>
- <a858cfd2-c6cc-4ed1-bb12-8cad488f4542@epam.com>
- <be5586a8-bb32-448f-b249-538d1b65f626@suse.com>
-Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <be5586a8-bb32-448f-b249-538d1b65f626@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0150.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b8::16) To AS2PR03MB8907.eurprd03.prod.outlook.com
- (2603:10a6:20b:5e4::22)
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH] docs: Rewrite the Tagging and Branching checklist
+Date: Wed, 12 Nov 2025 18:54:02 +0000
+Message-Id: <20251112185402.209485-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|AM9PR03MB7092:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90f520de-2d3e-4976-02e5-08de2212fccc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?T0xoUjJ0aXZUamsxbFBoK01hUlQvUnovUTVpc0R0MlJrT1FEUHR1aEtBM295?=
- =?utf-8?B?aTFGU3NwQ0NzeUFCNmRreE50V2FmVHRxWStLNllDdWFWVG12c1FNcFkyZ081?=
- =?utf-8?B?KzRzcWtYbFA5VCs5OGZ2Uy84Q05uODJxeTBFSUJ4aDlCZzVzVHhVTVNWMDRX?=
- =?utf-8?B?Zi9TOVZQbXAvY3h1WG5IK3I5QlFaNzh2MU9LU3FLUW1DNlI1TGh3TDFaTk52?=
- =?utf-8?B?bVc3KzJaSkNUUVVkOHJqVFltc1BHOCtab1dhZ2RQbndRYlRPeTBtalo0OUlk?=
- =?utf-8?B?aXNGaXlVMDZ0NWlhblRXTlloVDJFdzUrS0hDUDFxbFpGc3UyNjNXOGh2citR?=
- =?utf-8?B?YzM5ajhIUi9XTFN6VTR0SERXQnE3SXdKSFJaQWk0dituK0VQVUc2RDZlOVZF?=
- =?utf-8?B?WXRvUVpERTV6blpuVC9tRngzUFBwZURBdnNVOCt0eFpPWldmREpjbHhTYVJt?=
- =?utf-8?B?aHNNM2lZVGlvTVNxTmdma2M3SkxkYk1JT3NGU2pGNkV6NE5namt3S2Y0S0Mr?=
- =?utf-8?B?NjVWSEtRcmVsRFFGYVdOYzNUaVdIemh6UnN4cjJpUWY1OXlxS00wTlF4aSt1?=
- =?utf-8?B?d2dISW5QMEFKeVdIR3NMSXl5WVVydmFDMGZFYWVzVUI0bmE5UEptTnhOL29H?=
- =?utf-8?B?TlFtNUxUdFhtTE5sSVpBMWNqdlVWcGo4Tk5NSDVCaHEvVmVrS1NkWFR6YlNa?=
- =?utf-8?B?YXFxckJGcHdPb0xRUDE1MExBakxjWFcrZWk1V1A3cmNubjl2cGZSZ2xneFhy?=
- =?utf-8?B?cjMxN203cnJFMi9nWlN6OTVwWDhad24xN2dNK3FvakNDM2FReDhqS2pHWnNs?=
- =?utf-8?B?bnJKcW4xV0lZSlA3TG1ZaFUzYXJ6Wi9rdkt5NUhnYWxTU2M3VldZN1hyK2JF?=
- =?utf-8?B?dkFDK3kzb2ZQaCtwWEV0M2lwQ0liYnBNWmZNaWZzTUdURHJvL2NWZDZlWmg3?=
- =?utf-8?B?L2NEVS9SOXhrdHJxTzE5ZDJnbzBsYXlMUnBIZlNpdCtaLytNQUI0WFhJRDE1?=
- =?utf-8?B?T1dIODhYR2p1OEF0SWRJR3JXanhId1JYQW02RkpVTzQ0Zzh5UjlIUy9zNG5X?=
- =?utf-8?B?QlJ5RXJPdTlLcUt1bldUZGs1akpEbG42ZHA5YlhEUmJ0cGNFVCs4R2l1aGZY?=
- =?utf-8?B?YUNQZFIvaXFmVHJTWXpoZkV5R09OdkVVdG1PbTc0aExBbmkwQVl5R0szUkJn?=
- =?utf-8?B?RG1jQlhrR3FWblpUU1lzSDhPcFViWUFCNW9ES0N1QisxaWxFU2c3SWdmNDc0?=
- =?utf-8?B?UGVmWVFUcGltNlA2Wk5kTyt0R2NEOEZvQkdmeE1BU3NnbWgxMnkvOVRGamRi?=
- =?utf-8?B?bys1dXY5cUdKUUlFam50ZXNvd2hHU3U2Q2tYSGxzaDdzaXU5ZkJlek9TeXFn?=
- =?utf-8?B?UnNkcEhnYmorK3FaT1laRHB6UGRBZGVYQ0NNcHZVcTFrU2NKazdXRWthMUxq?=
- =?utf-8?B?a2wydHRDNEdwWUgzZmRNcTFsdndrcmIzR0tPeklGK2JQL3Q4czU5VmlPUXlC?=
- =?utf-8?B?UnEzOGRxMldNV0tReWpGaUlxWFBQem1LR2R6VVVUSmRzNitjN0pnRlk4SXFh?=
- =?utf-8?B?Ry8xTGVPYTA1L2EvMFhXci92WnkzaUlYS1lhNnM5bmZoaUNXZUc5QThCN0Rz?=
- =?utf-8?B?cGJqVGhJejRicE02S0toVWZXOGtzN01mN296MGtISkE1NWkrdkMySE4relBE?=
- =?utf-8?B?RTZSMVdKTEpkQTQ0VHlQcGQwelRZZWtuY243enNqR0xsYmJWRTdVaFpnZWZK?=
- =?utf-8?B?ZHhLdjBLbWtXN25hUjdJVWpKazBTOUcwVS8yODU4aURlL3JxMDM1T0lOeE9F?=
- =?utf-8?B?dUtGQnR0eWlrMXlIYjBHcXdlKzB1VW1EUEJqOE01VTd1TUd0MVNiZU9wQUY3?=
- =?utf-8?B?QWFXa3dyYlZSdkhkbXp4YUVLbDNnazdXMHZveXp6bCtQZGtGVXFXNDRwSHVL?=
- =?utf-8?Q?FDwVE4DUvlpPbJGNDjJLQtj2uJmG7bWd?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TTh4ZGE2MTZjMjZGVFNoOHJTY2EwSDFwOVJIMk11ZUo4OHNmRC9qNVpSaEo0?=
- =?utf-8?B?c3VhMCtwbUF5bzllVEsxOTBXNHdENzZBZE1UanNSK0tNM2YzbTRUdmtVc1l5?=
- =?utf-8?B?SXA5em1YQWFhZlFIMXJuYUhYTmE2amk1a2hRNlZFV2UxZTIraEVOV01DbGRn?=
- =?utf-8?B?dHphVEhTRlVYQUpDZFRvQ1dzN0hKdXNZWEEwL09RSXlMbUVuTWNTTSs3WHpX?=
- =?utf-8?B?U2EvQk5TVVdhSVM3cENwK0psL2FRL0RrU1hlMTRYWUpiWCt5dkMvUUdCM2ZS?=
- =?utf-8?B?Z1g5VzZ4YitjODNXM2RVaTNKY1VBWmF0aE9yNlAyMzg1bTAxV1p0NzhRdmtz?=
- =?utf-8?B?WXltc3kyMXYxd280Z2VnSzkvZHpBRlNEOURlUXZMQUNXTVpDVTFCV2laRitZ?=
- =?utf-8?B?QVcySEl3VjdrWnViTWdKZjlIZ0tyQTJvOHZrWTNQcDNoRThCSVZhcTN5TUd4?=
- =?utf-8?B?ZGRjVldDT3pnVWFweDdjMUZNSXlWcEFBV2tWSHVscXc4Wmt4aFE5Y0w3SzVj?=
- =?utf-8?B?dlVOMFhKNkpMNEhwdUhYLzFJdFAzTzhWb25JMkJlNzgrbmRabDZpMVU2TzBI?=
- =?utf-8?B?SGdSck4wcHB5NDduVldMaGdzY1h0azBYT3MvZ2VBYS9KMjZieTE3NGxoZGZY?=
- =?utf-8?B?VjVoSW1KNVB3eDFCZFNIemZPVlRpL21iem9EcmxPZTdMcFZUelo4T2t2dW9x?=
- =?utf-8?B?bkNaNEQ1RFpxRjltQWJhRGVlS1JuOVNKZE1OcGRqNWlubjZyQ1hUTC9CYXV3?=
- =?utf-8?B?YVVxblp4cWJiTXBadVdDSk51NnRDVWtnOUk5UWdYYlNxcEFDM21hWVpMSXdo?=
- =?utf-8?B?MUUrSVMrbVMwOGcrZDNVVm5VR3U2VDFCM3IvZzBpbE5mQUIxYUlBRmttSlhh?=
- =?utf-8?B?NTJwT2swQXhlZDRkSk9uQUFnMlczYUE0dm8wSW5sLzZhNjJodGwvQ1BkRWV0?=
- =?utf-8?B?bHc1SDhkMXA2NzhIZ0swb0FpNU4zeExZenhWQnJyVEY2VVZoREJ0RzhUSTNt?=
- =?utf-8?B?SzhnbzlacitYeWpXckxOR2J5aDNsL0YrOTdTM2FLcVo1UmRUVXUwSzUwZVFj?=
- =?utf-8?B?d3dPM0xXWDVtYkJGSEhwMUI1UWZlc3FBbms5N0paQzF4OXJuMWdPcEUrVVJm?=
- =?utf-8?B?OEVqQUk5emc2bU5oT0M4OTJkUjQyTVVLclFvb2l1Z05xMzBKM1hRMkVOcnhM?=
- =?utf-8?B?Q3ltT1h1OG52S3lXaExBR2FjWDNRdnJkZGk4cTFHNld0cGFnSUFCOUVvdkdN?=
- =?utf-8?B?cjBlNlJVamtveXlMV2RMeCtOUGE4VzEzYUdEeDBhR1dIeFErUlN2N3g3NlBx?=
- =?utf-8?B?N3hvaGxSdmJ3S1BTMDRkOHZqd0hWT2UzSGtrMm5STDluY1RhdCsxYW1DQUV3?=
- =?utf-8?B?aXRkVytFQS9wSE42OEtHb1NTT0xBL2RMdXhCV0prTkVpMGI0dTh1UEFER2E5?=
- =?utf-8?B?eFl3Q0RXbXFzK25hOU9uWWJ5WXdWT3lTWHpaeDBLZEJicXQwN0R3bjJ3UjhX?=
- =?utf-8?B?TE1VNjRWYURlQUtEV2k4cUFITUxDZ2EweXhPS0xPSS9OT0NzdjdxWEZLcFBo?=
- =?utf-8?B?ZWRLRHZVbGFtWno1TzRaTm9NZStTWFlRSzB5MDdMUlZMK3N6MDVHNlVNVUVz?=
- =?utf-8?B?WWJjOHp5d2cxM3RtUUZsb3NtNHl3N0dZNWNIK21lMFQvaTl0OVU1VkJVYS9w?=
- =?utf-8?B?ajBrSDRSZVlZeVgvM3EzN2dOMHdvdUV6alFSUEJSRjRKbTh2M2Ezcy83dFpK?=
- =?utf-8?B?aDJpVWdBSkFGQ296bGVVM00yMDFTQlRsZ3lmOUN6VG1DRzdrdWVMOUF5L0xn?=
- =?utf-8?B?d0FnbWlCV3ZTZmdXN2taSXdWWFl0OHRiYlRpY3NLQVgrTDUwSWJBbXFQNzV3?=
- =?utf-8?B?NHE2RWlMOUZDNEVaYjhtTWVyQkZrdVhSd0I5OWF2MEM3UndUNUMyQXUyNkpw?=
- =?utf-8?B?Y2JnL28xdlhvVzBiWDdTSGx2cGVaTjErVjJrWURaK2w1T0JsamRoRy9wU3dV?=
- =?utf-8?B?MUloNVYvZGp1dXNBRCtPdWZvbkZTcEc2M3UrdFBEMEQ3eE1EQnVab2RpSlRs?=
- =?utf-8?B?TUdhajhaSTFoUFFmNnRtZno5Yjcxb1EzcVE1c0FIS3d2NWJHRWE2eEkzNnVO?=
- =?utf-8?B?ZGVwQlR5L3N4aGxrKzB5ZFpXTTh5eU9TL21OVFVuWjdWUUdXSVNnbVlTTEwz?=
- =?utf-8?B?anc9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90f520de-2d3e-4976-02e5-08de2212fccc
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2025 17:43:28.0386
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UY4lcNdzTsR5DimLeT4Mwh5QP2ZR/wYHZF+/ste0U6qNrBwm8vERFjXVSTIyeClnYMs8W+FsWaYsactLesrFkc4bWHI2CxL9ImtA0USWM8w=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7092
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+There's a lot of stale information in the current checklists.  Merge the
+documents and present the information in chronological order.  Provide real
+examples from the tree rather than trying to be too prescriptive.
 
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-On 12.11.25 15:07, Jan Beulich wrote:
-> On 12.11.2025 12:27, Grygorii Strashko wrote:
->>
->>
->> On 12.11.25 08:38, Jan Beulich wrote:
->>> On 11.11.2025 18:52, Grygorii Strashko wrote:
->>>> On 10.11.25 09:11, Jan Beulich wrote:
->>>>> On 07.11.2025 19:17, Grygorii Strashko wrote:
->>>>>> --- a/xen/arch/x86/include/asm/guest_access.h
->>>>>> +++ b/xen/arch/x86/include/asm/guest_access.h
->>>>>> @@ -13,26 +13,64 @@
->>>>>>     #include <asm/hvm/guest_access.h>
->>>>>>       /* Raw access functions: no type checking. */
->>>>>> -#define raw_copy_to_guest(dst, src, len)        \
->>>>>> -    (is_hvm_vcpu(current) ?                     \
->>>>>> -     copy_to_user_hvm((dst), (src), (len)) :    \
->>>>>> -     copy_to_guest_pv(dst, src, len))
->>>>>> -#define raw_copy_from_guest(dst, src, len)      \
->>>>>> -    (is_hvm_vcpu(current) ?                     \
->>>>>> -     copy_from_user_hvm((dst), (src), (len)) :  \
->>>>>> -     copy_from_guest_pv(dst, src, len))
->>>>>> -#define raw_clear_guest(dst,  len)              \
->>>>>> -    (is_hvm_vcpu(current) ?                     \
->>>>>> -     clear_user_hvm((dst), (len)) :             \
->>>>>> -     clear_guest_pv(dst, len))
->>>>>> -#define __raw_copy_to_guest(dst, src, len)      \
->>>>>> -    (is_hvm_vcpu(current) ?                     \
->>>>>> -     copy_to_user_hvm((dst), (src), (len)) :    \
->>>>>> -     __copy_to_guest_pv(dst, src, len))
->>>>>> -#define __raw_copy_from_guest(dst, src, len)    \
->>>>>> -    (is_hvm_vcpu(current) ?                     \
->>>>>> -     copy_from_user_hvm((dst), (src), (len)) :  \
->>>>>> -     __copy_from_guest_pv(dst, src, len))
->>>>>> +static inline bool raw_use_hvm_access(const struct vcpu *v)
->>>>>> +{
->>>>>> +    return IS_ENABLED(CONFIG_HVM) && (!IS_ENABLED(CONFIG_PV) || is_hvm_vcpu(v));
->>>>>> +}
->>>>>
->>>>> Without a full audit (likely tedious and error prone) this still is a
->>>>> behavioral change for some (likely unintended) use against a system domain
->>>>> (likely the idle one): With HVM=y PV=n we'd suddenly use the HVM accessor
->>>>> there. IOW imo the "system domains are implicitly PV" aspect wants
->>>>> retaining, even if only "just in case". It's okay not to invoke the PV
->>>>> accessor (but return "len" instead), but it's not okay to invoke the HVM
->>>>> one.
->>>>
->>>> This patch is subset of "constify is_hvm_domain() for PV=n case" attempts.
->>>>
->>>> It was made under assumption that:
->>>> "System domains do not have Guests running, so can't initiate hypecalls and
->>>>    can not be users of copy_to/from_user() routines. There are no Guest and no user memory".
->>>> [IDLE, COW, IO, XEN]
->>>>
->>>> If above assumption is correct - this patch was assumed safe.
->>>>
->>>> if not - it all make no sense, probably.
->>>
->>> I wouldn't go as far as saying that. It can be arranged to avid the corner
->>> case I mentioned, I think.
->>
->> do you mean adding "&& !is_system_domain(v->domain)" in raw_use_hvm_access()?
-> 
-> No, we want to avoid adding any new any runtime checks.
-> 
->> Hm, I see that vcpu(s) are not even created for system domains in domain_create().
->> So seems !is_system_domain(v->domain) == true always here.
-> 
-> "always" in what sense? It _should_ be always true, but in the unlikely event we
-> have a path where it isn't (which we could be sure of only after a full audit),
-> behavior there shouldn't change in the described problematic way.
-> 
->> Am I missing smth?
->> Or you meant smth. else?
-> 
-> I was thinking of something along the lines of
-> 
->      if ( is_hvm_vcpu(current) )
+A rendered version can be found here:
 
-this condition will not be constified any more for HVM=y and PV=n
+  https://andrewcoop-xen.readthedocs.io/en/docs-branching/process/tagging-branching.html
 
->          return ..._hvm();
-> 
->      if ( !IS_ENABLED(CONFIG_PV) )
->          return len;
-> 
->      return ..._pv();
+As I'm about to do the 4.21 release, I'm tempted to defer this patch until
+after I've done so, so all the examples can be consistently 4.21.
 
-Possible benefit will be reduced from:
-   add/remove: 2/9 grow/shrink: 2/90 up/down: 1678/-32560 (-30882)
+I wanted to replace CVS with something more modern, but Git really sucks with
+binary files and this repo in particular.  (For anyone interested, the VM is
+so small that the Git server process OOM's when you try to clone it.)
 
-to:
-   add/remove: 3/8 grow/shrink: 3/89 up/down: 1018/-12087 (-11069)
+This is (AFAICT) an accurate statement of what gets done.  It highlights some
+inconsistences with how we branch and tag other trees, particularly QEMU which
+is now the only tree that moves back to being master.
+---
+ docs/index.rst                                |   9 +
+ docs/process/branching-checklist.txt          |  91 --------
+ docs/process/index.rst                        |   9 +
+ docs/process/release-technician-checklist.txt | 174 ----------------
+ docs/process/tagging-branching.rst            | 194 ++++++++++++++++++
+ 5 files changed, 212 insertions(+), 265 deletions(-)
+ delete mode 100644 docs/process/branching-checklist.txt
+ create mode 100644 docs/process/index.rst
+ delete mode 100644 docs/process/release-technician-checklist.txt
+ create mode 100644 docs/process/tagging-branching.rst
 
-Any way it is smth.
+diff --git a/docs/index.rst b/docs/index.rst
+index bd87d736b9c3..3513d4b609d8 100644
+--- a/docs/index.rst
++++ b/docs/index.rst
+@@ -54,6 +54,15 @@ kind of development environment.
+    misc/ci
+ 
+ 
++Process documentation
++---------------------
++
++.. toctree::
++   :maxdepth: 2
++
++   process/index
++
++
+ Unsorted documents
+ ------------------
+ 
+diff --git a/docs/process/branching-checklist.txt b/docs/process/branching-checklist.txt
+deleted file mode 100644
+index 9632888a56e2..000000000000
+--- a/docs/process/branching-checklist.txt
++++ /dev/null
+@@ -1,91 +0,0 @@
+-=== Before starting ===
+-
+-Access to the following accounts is necessary:
+-    * xenbits.xen.org: xen, xendocs
+-    * osstest.osstest-test-lab: osstest
+-
+-=== Check list ===
+-
+-v=4.1
+-ov=4.0
+-
+-# make branches in xenbits.xen.org qemus
+-    ssh xen@xenbits.xen.org
+-    cd ~/git/qemu-xen.git
+-    git branch staging-$v staging
+-    git branch stable-$v master
+-
+-# make branch in libvirt
+-    ssh xen@xenbits.xen.org
+-    cd ~/git/libvirt.git/
+-    git branch osstest/frozen/xen-$v-testing   xen-tested-master
+-
+-# make branches in xenbits.xen.org xen.git
+-    ssh xen@xenbits.xen.org
+-    cd ~/git/xen.git
+-    git branch staging-$v staging
+-    git branch stable-$v master
+-
+-# update xendocs@xenbits docs generator to generate new stable branch
+-#  docs too. commit to git.
+-* make 13:37 <ijc> https://xenbits.xen.org/docs/4.2-testing/ is now live true
+-#14:17 <ijc> HOWTO: login to xenbits. become "xendocs" . cd cronjobs . edit
+-#            xenbits-docs-all.sh in the obvious way. git commit
+-    ssh xendocs@xenbits.xen.org
+-    cd cronjobs
+-    ed xenbits-docs-all.sh
+-    /for branch
+-    s/$/ 4.6-testing
+-    # ^ OR SIMILAR
+-    w
+-    q
+-    git add -p
+-    git commit -m "Branch for $v"
+-
+-* make branches etc. in osstest
+-    ssh osstest@osstest.test-lab
+-    cd testing.git
+-    OSSTEST_CONFIG=production-config ./mg-branch-setup xen-$v-testing bisect
+-    OSSTEST_CONFIG=production-config ./mg-branch-setup qemu-upstream-$v-testing bisect
+-
+-* add branch to osstest
+-    Add both qemu-upstream-$v-testing and xen-$v-testing to BRANCHES in cr-for-branches
+-    git add -p
+-    git commit -m "cr-for-branches: Add Xen and QEMU $v branch"
+-
+-* add to patchbot
+-    ssh xen@xenbits.xen.org
+-    cd ~/HG/patchbot/
+-
+-    cp xen--master.patchbot-reported-heads xen--stable-$v.patchbot-reported-heads
+-    cp xen--staging.patchbot-reported-heads xen--staging-$v.patchbot-reported-heads
+-    cp qemu-xen--master.patchbot-reported-heads  qemu-xen--stable-$v.patchbot-reported-heads
+-    cp qemu-xen--staging.patchbot-reported-heads  qemu-xen--staging-$v.patchbot-reported-heads
+-
+-    #emacs versions
+-    perl -i~ -pe 'next unless m/\b\Q'$ov'\E\b/; $x=$_; $x=~ s/\b\Q'$ov'\E\b/'$v'/g; print $x;' versions
+-    git diff
+-    git add versions
+-    git commit -m "Branch for $v"
+-
+-Ensure references to qemu trees and Mini-OS in xen.git's Config.mk are updated.
+-The variables and there content should be:
+-  * QEMU_UPSTREAM_REVISION: qemu-xen-X.Y.0
+-  * MINIOS_UPSTREAM_REVISION: xen-RELEASE-X.Y.0
+-Where X.Y is the release version (e.g. 4.17).
+-
+-Update newly diverging staging (unstable) according to
+-release-technician-checklist.txt section re README etc.
+-
+-Update newly diverging staging-$v according to
+-release-technician-checklist.txt section re README etc.,
+-including turning off debug.
+-
+-Set off a manual osstest run, since the osstest cr-for-branches change
+-will take a while to take effect:
+-    ssh osstest@osstest.test-lab
+-    cd testing.git
+-    screen -S $v
+-    BRANCHES=xen-$v-testing ./cr-for-branches branches -w "./cr-daily-branch --real"
+-
+-Send message to committers and RM.  Use previous mail as a template.
+diff --git a/docs/process/index.rst b/docs/process/index.rst
+new file mode 100644
+index 000000000000..d83d6ba9271d
+--- /dev/null
++++ b/docs/process/index.rst
+@@ -0,0 +1,9 @@
++.. SPDX-License-Identifier: CC-BY-4.0
++
++Process documentation
++=====================
++
++.. toctree::
++   :maxdepth: 2
++
++   tagging-branching
+diff --git a/docs/process/release-technician-checklist.txt b/docs/process/release-technician-checklist.txt
+deleted file mode 100644
+index ae369c6dc5de..000000000000
+--- a/docs/process/release-technician-checklist.txt
++++ /dev/null
+@@ -1,174 +0,0 @@
+-
+-s=master
+-#b=unstable
+-v=$v-rc1
+-
+-OR
+-
+-x=4.1
+-m=1
+-rc=-rc2
+-
+-r=$x.$m
+-s=$x-testing
+-#b=$x-testing
+-v=$r$rc
+-
+-t=$r$rc
+-OR
+-t=RELEASE-$r
+-
+-
+-# FIRSTLY
+-#  - check (for point releases, but not RCs) all XSAs have been applied (Lars)
+-#
+-* check, even for point releases
+-*  http://logs.test-lab.xenproject.org/osstest/results/all-branch-statuses.txt
+-
+-
+-# QEMU
+-
+-  git checkout $s
+-  git show # should show appropriate intended commit
+-  git-tag -u 'Xen.org Xen tree code signing' -m "Xen $v" xen-$v
+-
+-# consider making tag in minios, and updating xen.git Config.mk
+-  git checkout SOMETHING
+-  git show # should show appropriate intended commit
+-  git-tag -u 'xen tree' -s -m "Xen $r$rc" xen-$t
+-  git push xen@xenbits.xen.org:/home/xen/git/mini-os.git xen-$t
+-
+-* Also tag upstream qemu tree (Stefano)
+-  git checkout SOMETHING
+-  git show # should show appropriate intended commit
+-  git tag -u 'xen tree' -s -m "Xen $r$rc" qemu-xen-$v 
+-  git push osstest@xenbits.xen.org:/home/xen/git/qemu-xen.git qemu-xen-$v
+-
+-* consider bumping sonames of shlibs
+-
+-* change xen-unstable README. The banner (generated using figlet) should say:
+-    - "Xen 4.5" in releases and on stable branches
+-    - "Xen 4.5-unstable" on unstable
+-    - "Xen 4.5-rc" for release candidate
+-
+-* for major releases, drop staging-only text from MAINTAINERS and add stable
+-  maintainer(s) there
+-
+-* change xen-unstable Config.mk
+-#   QEMU_UPSTREAM_REVISION,
+-#   MINIOS_UPSTREAM_REVISION
+-#     (drop any references to the specific commits, e.g. date or title)
+-* change SUPPORT.md heading version number; -unstable or -rc tag
+-*     (empty in stable branches after .0 release).
+-* SUPPORT.md: insert correct version number in release-notes link
+-* CHANGELOG.md: set section heading to delete UNRELEASED and add date;
+-#               in unstable branches set to X.Y.0 and RELEASE-X.YY.0
+-* change xen-unstable xen/Makefile XEN_EXTRAVERSION
+-# if main version number has changed (eg 4.7 -> 4.8) rerun ./autogen.sh
+-* rerun ./autogen.sh to update version number in configure
+-#    - XEN_EXTRAVERSION should be as follows
+-#      `.0-rc$(XEN_VENDORVERSION)'       during freeze, first rc onwards (including staging, before branching)
+-#      `-unstable$(XEN_VENDORVERSION)'   unstable aka unfrozen staging (or unstable branch, after branching)
+-#      `.0$(XEN_VENDORVERSION)'          actual release of Xen X.Y.0 (aka first actual release of Xen X.Y)
+-#      `.Z$(XEN_VENDORVERSION)'          actual release of Xen X.Y.Z (stable point realase)
+-#      `.Z-pre$(XEN_VENDORVERSION)'      stable branch, after release of Z-1
+-#
+-#    - turn off debug on stable branches, if not already done
+-#           - tools/Rules.mk
+-#                 debug ?= n
+-#           - xen/Kconfig.debug
+-#                 config DEBUG
+-#                     default n
+-
+-* tag xen-unstable
+-
+-# In xen.git
+-  git-fetch origin
+-  git-checkout staging-$x
+-  git-pull
+-  git-show # should show commit updating version to right version
+-  git-tag -u 'xen tree' -s -m "Xen $r$rc" $t
+-  git-push origin $t
+-  git-push origin staging-$x
+-##  hg tag <tag_name> ; hg sign -k "Xen tree" <tag_name>
+-
+-
+-
+-HANDLING TAG GENERATED BY RELEASE MANAGER
+-
+-   fetch the tag into my tree
+-   make the tarball (RELEASE TARBALL, below)
+-   test build (see below)
+-   website (see below)
+-   merge tag into staging and push to staging
+-   maybe force push into master
+-   definitely push tag to xenbits
+-        git-push origin $t
+-
+-
+-
+-
+-RELEASE TARBALL
+-
+-   for 4.5 and later, use tarball target
+-       git checkout $t
+-       git clean -xdff
+-       # export http_proxy=http://localhost:3128/
+-       ./configure
+-       make src-tarball-release   # must be used for actual releases
+-       make src-tarball           # uses git-describe (best for RCs)
+-        # ^find some way to add git-cache-proxy to this (done in ~iwj/.gitconfig)
+-       mkdir /volatile/iwj/website-thing/xen.org/oss-xen/release/$v
+-       mv dist/xen-$v.tar.[glx]z /volatile/iwj/website-thing/xen.org/oss-xen/release/$v/.
+-
+-       # website-thing/xen.org is cvs -d mail.xenproject.org:/home/downloads-cvs/cvs-repos co xen.org
+-	cd /volatile/iwj/website-thing/xen.org
+-
+-# test build
+-                cd /volatile/iwj/d
+-                mkdir build
+-                cd build
+-                tar zxf /volatile/iwj/website-thing/xen.org/oss-xen/release/$v/xen-$v.tar.gz
+-#                rsync -a --delete xen-$v build/
+-                cd xen-$v
+-                export http_proxy=http://localhost:3128/
+-                (./configure && make -j4 KERNELS='' && echo ok.) 2>&1 | tee ../log.$v       # post 4.2
+-
+-# [[ test build amd64 ]]
+-
+-	cvs add -kb oss-xen/release/$v/
+-
+-        cd oss-xen/release/$v
+-        for t in xen-$v.tar.[glx]z
+-        do
+-            gpg --digest-algo=SHA256 --detach-sign -u 'xen tree' $t
+-            cvs add -kb $t
+-            cvs add -kb $t.sig
+-        done
+-        cd ../../..
+-
+-	cvs ci -m $v
+-
+-        ssh downloads-cvs@mail.xenproject.org
+-	cd /data/downloads.xenproject.org/xen.org
+-	cvs -q up -d
+-	# should show something like
+-	#   U oss-xen/release/4.8.0-rc2/xen-4.8.0-rc2.tar.gz
+-	#   U oss-xen/release/4.8.0-rc2/xen-4.8.0-rc2.tar.gz.sig
+-	#   U oss-xen/release/4.8.0-rc2/xen-4.8.0-rc2.tar.lz
+-	#   U oss-xen/release/4.8.0-rc2/xen-4.8.0-rc2.tar.lz.sig
+-	#   U oss-xen/release/4.8.0-rc2/xen-4.8.0-rc2.tar.xz
+-	#   U oss-xen/release/4.8.0-rc2/xen-4.8.0-rc2.tar.xz.sig
+-
+-After a .0 release, update XEN_EXTRAVERSION again (to .1-pre, see above).
+-
+-After a .0 release,
+-Update new stable tree's MAINTAINERS to contain correct info for this
+-stable branch: usually, copy text from previous
+-staging-$ov:MAINTAINERS section "Stable Release Maintenance"
+-into new staging-$v, deleting what's there.
+-  git cat-file blob origin/staging-$ov:MAINTAINERS >MAINTAINERS
+-and review the changes, commiting ONLY THE RELEVANT ONES
+-
+-Notify release manager of completion
+-
+diff --git a/docs/process/tagging-branching.rst b/docs/process/tagging-branching.rst
+new file mode 100644
+index 000000000000..b39dd2c248a1
+--- /dev/null
++++ b/docs/process/tagging-branching.rst
+@@ -0,0 +1,194 @@
++.. SPDX-License-Identifier: CC-BY-4.0
++
++===============================
++Tagging and Branching Checklist
++===============================
++
++Before starting
++===============
++
++ * Review this checklist for changes during the development window.
++ * Access to the following necessary:
++
++   * The 'xen tree' signing key.
++   * The xen and xendocs users on xenbits.xen.org
++   * The downloads-cvs user on mail.xenproject.org
++   * A checkout of the xen.org CVS repository
++
++::
++
++  cvs -d downloads-cvs@mail.xenproject.org:/home/downloads-cvs/cvs-repos checkout xen.org
++
++
++For RC1
++=======
++
++ * Pin ``QEMU_UPSTREAM_REVISION`` to an exact SHA.  Commit.
++
++ * Update ``XEN_EXTRAVERSION`` from ``-unstable`` to ``.0-rc1``.  For
++   ``README`` and ``SUPPORT.md``, use the slightly more generic ``-rc`` so
++   they doesn't need to change during subsequent RCs.  Commit.
++
++ * Tag.  Produce tarballs.
++
++e.g. from Xen 4.21, ``ffd25d717a74^..d1478321eacb``::
++
++  * d1478321eacb - (tag: 4.21.0-rc1) Update Xen version to 4.21.0-rc1
++  * ffd25d717a74 - Config.mk: Pin QEMU_UPSTREAM_REVISION
++
++
++For subsequent RCs
++==================
++
++ * Update ``XEN_EXTRAVERSION`` to the next RC number.  Commit.  Tag.
++
++e.g. from Xen 4.21, ``eff32008be0d`` and ``9632ce6fe5b2``::
++
++  * 9632ce6fe5b2 - (tag: 4.21.0-rc3) Update Xen version to 4.21.0-rc3
++  * eff32008be0d - (tag: 4.21.0-rc2) Update Xen version to 4.21.0-rc2
++
++
++Branching
++=========
++
++On xenbits:
++
++ * Create new staging and stable branches in xen.git.
++
++ * Add the new branches to patchbot.  In ``~xen/HG/patchbot`` copy the exsting
++   master and staging reported heads, update the ``versions`` file, and commit
++   the result.
++
++ * Add the new stable branch to the docs cronjob.  In ``~xendocs/cronjobs``
++   edit ``xenbits-docs-all.sh`` and commit the result.  e.g.:
++
++::
++
++  ssh xenbits.xen.org
++
++  cd ~xen/git/xen.git
++  git branch staging-$v staging
++  git branch stable-$v master
++
++  cd ~xen/HG/patchbot
++  cp xen--master.patchbot-reported-heads xen--stable-$v.patchbot-reported-heads
++  cp xen--staging.patchbot-reported-heads xen--staging-$v.patchbot-reported-heads
++  $EDITOR versions
++  git commit -am "Branch for $v"
++
++  cd ~xendocs/cronjobs
++  $EDITOR xenbits-docs-all.sh
++  git commit -am "Branch for $v"
++
++
++On the new branch:
++
++ * Switch to release builds by default.  Commit.
++
++On staging:
++
++ * Update ``XEN_SUBVERSION`` to the next version.  Update
++   ``XEN_EXTRAVERSION``, ``README`` and ``SUPPORT.md`` back to ``-unstable``.
++   Commit.  Tag the start of the new development window.
++
++ * Rerun ``./autogen.sh`` to refresh the configure scripts.  Commit.
++
++ * Switch ``QEMU_UPSTREAM_REVISION`` back to ``master``.  Commit.
++
++ * Create a new section in ``CHANGELOG.md``.  Commit.
++
++e.g. from Xen 4.21, ``d510f9c1430c^..62d0a92057ca`` and ``d510f9c1430c^..b0255656d121``::
++
++  * 62d0a92057ca - CHANGELOG.md: Start a new 4.22 section
++  * 7b88e463f999 - Config.mk: Switch QEMU back to master
++  * d954e8c5c8de - Rerun ./autogen.sh for 4.22
++  * 85768c28b705 - (tag: 4.22-dev) Update Xen to 4.22
++  | * b0255656d121 - (staging-4.21) Switch to release builds by default
++  |/
++  * d510f9c1430c - doc/man: Align list of viridian default enlightenments with libxl
++
++
++Releasing
++=========
++
++ * Finalise the release dates in ``CHANGELOG.md`` (backported from staging)
++   and ``SUPPORT.md`` (only in the release branch).
++
++ * Tag the release in relevant external repos, and update ``Config.mk`` to
++   refer to the tag.
++
++ * Update ``XEN_EXTRAVERSION`` to drop the ``-rc`` suffix, and update
++   ``README`` to match.  Commit.
++
++ * Tag.  Produce tarballs.
++
++e.g. from Xen 4.20, ``5cd830509d38^..3ad5d648cda5``::
++
++  * 3ad5d648cda5 - (tag: RELEASE-4.20.0) Update to Xen 4.20
++  * 89fd1ba88403 - Config.mk: Bump tags to final
++  * 6bf05e086765 - SUPPORT.md: Define support lifetime
++  * 5cd830509d38 - CHANGELOG.md: Set release date for 4.20
++
++
++Tagging
++=======
++
++ * Confirm that HEAD is on the commit which adjusts ``XEN_EXTRAVERSION``
++   suitably.  i.e. ``git show`` shows the intended commit.  Check that all CIs
++   are happy with this commit.
++
++ * Tags are expected to be in one of following forms:
++
++   * ``RELEASE-$X.$Y.$Z`` for releases.
++   * ``$X.$Y.0-rc$N`` for release candidates.
++   * ``$X.$Y-dev`` for development windows.
++
++ * Tags need to be annotated and signed with the appropriate key.  e.g.:
++
++::
++
++  git tag -u 'xen tree' -s -m "Xen $VER.0-rc1" $VER.0-rc1
++
++
++Producing tarballs
++==================
++
++ * Confirm that HEAD is tagged.  i.e. ``git describe`` does not contain a SHA
++   on the end.
++
++ * In the root of Xen, run ``make src-tarball-release``.  This produces one or
++   more tarballs with different compression schemes.
++
++ * In the CVS repostiory, create a new directory and add it.  Copy the
++   tarballs in, sign them and add them.  Commit the result (pushes to the
++   server).
++
++ * On mail.xenproject.org, update the webroot.  e.g.:
++
++::
++
++   cd /path/to/xen.git
++   make src-tarball-release
++   ... # output in dist/
++
++   cd /path/to/xen.org.cvs
++
++   # Make and add new directory
++   mkdir oss-xen/release/$VER
++   cvs add -kb oss-xen/release/$VER
++
++   # Copy the tarballs, sign and add them
++   cp /path/to/xen.git/dist/xen-*.tar.* .
++   for t in xen-*.tar.*
++   do
++       gpg --digest-algo=SHA256 --detach-sign -u 'xen tree' $t
++       cvs add -kb $t
++       cvs add -kb $t.sig
++   done
++
++   # Commit the result (also pushes to the server)
++   cvs commit -m $VER
++
++   # SSH to the server and update the webroot
++   ssh downloads-cvs@mail.xenproject.org -- \
++       'cd /data/downloads.xenproject.org/xen.org/; cvs -q update -d'
 
+base-commit: 781cf8affe407654fd5d216f3bcb148601f1a61f
 -- 
-Best regards,
--grygorii
+2.39.5
 
 
