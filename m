@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7A20C51C6A
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 11:52:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1159699.1488037 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9704C51C5E
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 11:52:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1159701.1488060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJ8SB-0007WM-Cw; Wed, 12 Nov 2025 10:51:55 +0000
+	id 1vJ8SE-00089A-5o; Wed, 12 Nov 2025 10:51:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1159699.1488037; Wed, 12 Nov 2025 10:51:55 +0000
+Received: by outflank-mailman (output) from mailman id 1159701.1488060; Wed, 12 Nov 2025 10:51:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJ8SB-0007O7-8F; Wed, 12 Nov 2025 10:51:55 +0000
-Received: by outflank-mailman (input) for mailman id 1159699;
- Wed, 12 Nov 2025 10:51:53 +0000
+	id 1vJ8SE-00087s-0q; Wed, 12 Nov 2025 10:51:58 +0000
+Received: by outflank-mailman (input) for mailman id 1159701;
+ Wed, 12 Nov 2025 10:51:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ulhw=5U=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1vJ8S9-0006fP-U2
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 10:51:53 +0000
+ id 1vJ8SB-0006fP-UR
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 10:51:55 +0000
 Received: from AM0PR02CU008.outbound.protection.outlook.com
  (mail-westeuropeazlp170130006.outbound.protection.outlook.com
  [2a01:111:f403:c201::6])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9947d3f4-bfb5-11f0-9d18-b5c5bf9af7f9;
+ id 99c20714-bfb5-11f0-9d18-b5c5bf9af7f9;
  Wed, 12 Nov 2025 11:51:53 +0100 (CET)
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  (2603:10a6:102:30d::12) by PAWPR03MB9786.eurprd03.prod.outlook.com
  (2603:10a6:102:2e8::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.12; Wed, 12 Nov
- 2025 10:51:48 +0000
+ 2025 10:51:49 +0000
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::b8c6:f37a:987a:beb]) by PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::b8c6:f37a:987a:beb%7]) with mapi id 15.20.9298.015; Wed, 12 Nov 2025
- 10:51:48 +0000
+ 10:51:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,33 +47,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9947d3f4-bfb5-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 99c20714-bfb5-11f0-9d18-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xq3AMRceXQOpZuHdxUeHS/m2Yr/1YG3voPokSFkMINk0XAc2XWhxX3YDOrqEz8JYb9jX7Pln7t5Mj6SkV9fgzD6aKVMLRyVUDyqohWnqF+0YR5WiiYuu8OtkZqHFowa+CB5r27qI6UHrsLGw52Y2owOxeP7pkPMpYbIYyUJArS6/qKwjYxY3rvuqYG/1q4ittA6QpWAMXF+JjZUhyuGgvI77DRJ7rfuatD0733c5xsTVHnCShKLX2XHBVwqaEQkKJb0mOvbflGeZOynAzmo7cOIkF/3zuJgc59Ak9yIgdQ45jlpEpGclYepJ/3tOtfy0vlneksXWgPFqlNYprZ//Bw==
+ b=unIW4zEC0wHFFctVtNHkc+oWco2vI6W1nDkCgucoqWIbUAiS/besPfKUvjccDuve2aCAulbtwn6GrMz9f56y29H5DbdpwemPUMsSZSoGkXiqa1U8hScPDIGEKhP5OoZm+HK6qB3MdWdPtX9lj3wgHWAtDgpEItkiUjuOXNQycpv6F3s0Rkm8wblBETqRrxFJvcNIkzh+pqsCzDsAerMA++SrRyvQsF490F0tYqCJ8e/bhC46IADilpm4iP0l3Ffa1XV1u4D1nLSpZpZpG8wc82ytRPff8q2jIBdnnEpPl613lQG2vSmWrE2lL55B/5Ld9jIv3GEErPSwUZye/HhQiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v7Xue1J/5TT4npEO/DAmlQiS+zcOzlt5re/MztD1gyY=;
- b=Zo+VdohhfjAgn6TpdFOBW1jtFpSCFiK8IvD4bBWppiPY8Ye3r9YqfDR61vGtyNS2XTVxsIwpBGTmK9/DrHrNwUfGpmgGi7rM0i/4VWDVeePsodYKbY5H0C/nNo25f7a7gZ1vsLe5nQ6nI4zkNiHzA4uB80LKdqxPejlbOlHW0DYOXmm3PcXKR4Wn6yGKIx2SOBQs/DPf4t/39WqYAWS/bX+Jdg7QYDAgqt9K7QA6CnQ88udlqu6cWh1gcTZ7Ws99AnNTLxf/wrMPuFpTjlckR6kEjf4hbNVqPVZNKlFApcywMOR4jMYJCVmTUPCDUSfKySdl/aPwQFkD1IrjLKNnzg==
+ bh=RK3xjJT1/m7h8Eiq8scWUKysHO6uL/FasxMvbQpKdSo=;
+ b=tjeCWW4PqlQHCqLy1MnansX6f+goo0eWfOj/q1YwjTxcs+L4JJkgOq22lfmBAf2dIRVi5Sj7E9wgS6kmu+QuVpLICCp1FOrOuVWtOkKugguQuYWNpIHZhuwjw5fZVmWbE/MCjjx8HZieHziwgc7Hzz9LHXZD2eQy25zVwD3T0jK0tsfyL+xuTsBfBhicfgPLwqQZQnjDA2lQw/QkBolhNdo+9oCTG2A3Bsu096Q36OnwlpRO/kSXEEdkbwYcuYeyT+FR+yBC8Rb3c5SPRuAF11VmWKVUmh3oPn+hy/ksjhFTSkperMH0icM7aoRgVVEmIRObWIdAJP/qMJGvp3fciQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v7Xue1J/5TT4npEO/DAmlQiS+zcOzlt5re/MztD1gyY=;
- b=vJbu7+qPn3b+54iPwQFRusTGws/QVFFTFTOBVOb2atIAr2O4KUMP9Ue5HzUoH4AdKaf2reVtUPbx57Gcm6eilIlryDls7rnZLk8AvA5jS/OwAdo+zDnAVSbb6seKMMgLJfiOB8Zl9Hf1t9KWJsN8neYrhrHJd5T5qPILlUnMxRhg4oMwijgU8vXFRdEW/MYOFsTxpFJqdri9ClBnO234pyw6TO8P8FhsPOHV8OGwtHH7a79giLTTM32S/1f9DlEY7rlFvmKdusJ4nPW3yAQnGnyOH1Uxx55ItlXK1W/YHNWLqogsOaa+h5Yk5VcOAAxNQXwkl3yVGkSjlBlePY+9mg==
+ bh=RK3xjJT1/m7h8Eiq8scWUKysHO6uL/FasxMvbQpKdSo=;
+ b=q1diejAUXV+jdjwUMJkRw0DuP6YQFwMz+v4omjDtjgn9c2ezO9Ta0FidIVRdGBx/3U7U8yy9GorcDaoYUEjCw/bGq9HrUVZ+xfAaE4ydTHabBlgCXtYMU70vLUwrz18uiJ/ov+1izfB78hqlISPCiJfiTInH/b0BDtdE7F/fJpJ4naY7lE8beXMY6VwjBKc50VudmxWKSxvwkW4g97BshBm5hOl/Lt+YANJTRAGoC0hYlVyyEE5A2T7E9ezKX8bKxKv71SxNQk1rDQK7hdgwQdgIDAgBnC4c1NVuKGZCD6M+9rVDg0YFqZGKcbk+EBY8OvpiJsFnChj58ys3YvXWpQ==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v4 4/8] arm/irq: Migrate IRQs from dyings CPUs
-Thread-Topic: [PATCH v4 4/8] arm/irq: Migrate IRQs from dyings CPUs
-Thread-Index: AQHcU8JYvjT2yDm5JUiekiWBeQTl2w==
+ Babchuk <Volodymyr_Babchuk@epam.com>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>
+Subject: [PATCH v4 6/8] arm/sysctl: Implement cpu hotplug ops
+Thread-Topic: [PATCH v4 6/8] arm/sysctl: Implement cpu hotplug ops
+Thread-Index: AQHcU8JY4MUEJP5v5ECe3RrLj+fwXw==
 Date: Wed, 12 Nov 2025 10:51:48 +0000
 Message-ID:
- <6371ac96102f48b55ffd884656770187ed3a7f84.1762939773.git.mykyta_poturai@epam.com>
+ <656cb01061f2ec726eb23784d01517a94117618e.1762939773.git.mykyta_poturai@epam.com>
 References: <cover.1762939773.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1762939773.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -84,70 +85,70 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|PAWPR03MB9786:EE_
-x-ms-office365-filtering-correlation-id: 28371c27-a8b0-463d-f3a7-08de21d97a9b
+x-ms-office365-filtering-correlation-id: e2c5d9b2-e834-4c46-91ae-08de21d97b1e
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700021;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?Chr7kuPHwSmrOW3fu4daLM2bZj+xl3vtqgGCRvOJq62ZlEFQGaq5ObuBDU?=
- =?iso-8859-1?Q?NK9dhLwQoqmNoTKMVsCBYnDxYOQyWi/+sR3l9LouS52j72nuud8MVqHdMA?=
- =?iso-8859-1?Q?u9owY12NFjKzoMIhJpiADXVy1uuEAJ63Jbepq1UdIueetspsDWEA7aEHPN?=
- =?iso-8859-1?Q?EQc6HN3xz1mSMIkehrln7w+PtETwBqqMiqqc4kmuq9kniuN7FxVZVZiMNu?=
- =?iso-8859-1?Q?dHaD43yscZTeP9Bwfddd/C4R/JUIpTl5ZwF/JvgKCQGxgZirXNqBLYYRgB?=
- =?iso-8859-1?Q?atUtBqbLwL7TM5ZrssudlqYJhTaFZOgn5RZmyF4FqjDr2ve3BRAaxkeenC?=
- =?iso-8859-1?Q?1koayFURvNm9TmMZuNdivvgPgDq23SYcqg434gP0/v4YpU8hQ99rtOyVdc?=
- =?iso-8859-1?Q?J2Js+1HgUlH61nzSHkregaawBECwq9cty5GY5Fn79E8jXof3ZxjWCf3utz?=
- =?iso-8859-1?Q?pUjt5RDJL2nBEC1gAwKw0g08N6MH4xyeyBNEfF5nrVj4NXfx9JPuXinXaM?=
- =?iso-8859-1?Q?rqIP59Ljj9uRL98f1ir9dsf9NuFEg1CSlo77EGKJxyqIavH1Gw74UHi6Y/?=
- =?iso-8859-1?Q?Gh/dDPKx3o+9sNzxjFVfJtdulwszqJkP3RTeegOURDcknbz5NbcA3sr+Yh?=
- =?iso-8859-1?Q?YvdXvzf6+9CdD6jfwNq2zG143agUL+oJAuIBIIAwNbiNVLGE/JhPEWzXbO?=
- =?iso-8859-1?Q?eJP+z/cfA+cEy2dm2eihPsajHmM8bbHr4jPUf2ANVLY9ZEG8IrhUFqtt+e?=
- =?iso-8859-1?Q?3h5ZCd9WeM21vXG2xDVtD2iN69lx17sx3PBx58/SoIkxI4OzTi7cIGvX18?=
- =?iso-8859-1?Q?AwFwv2rTIY3gy7QaVFVvFHa9AcqEKSJG2S/uoijUGZvHQDA9LWgsnq/0xe?=
- =?iso-8859-1?Q?d63vfk+IzyRJAn5+NqKT3Nl8i8qAM1AREPGpC2B1aMf2F5zQDx8RInevA4?=
- =?iso-8859-1?Q?9xjUJSXWlfuDE6R5dhyVv+PLTB6jia1BHg4kpemRXHNq63IrlBI72EfzKt?=
- =?iso-8859-1?Q?L+f+t7douKSobbsggKMZ4z2OB0ZMYMtCi84T5z9z3oTtN4Yz4NpI6L9YOL?=
- =?iso-8859-1?Q?qFPHT5853KBFW5fkFDD3Tp9COPh5h7s0w5v88yBTY5fhQJlkjpgTv6aLzt?=
- =?iso-8859-1?Q?YPnQbT3+jJ2xj9culfNEsoezwsYc4waGGYxAVXaCP7YmhQShBmxVsOzOw1?=
- =?iso-8859-1?Q?pVL0BqrnyzhdRBHwvJjPGEqKTRjDdeaSPFMvAekBPOeTCTjbykFrJVmDRN?=
- =?iso-8859-1?Q?ghvLpJ/2eXfkhUGxhoGxZ/iQAnzKIIV6NxNNDT1AWb8GOsmxLBlOi2uGc9?=
- =?iso-8859-1?Q?Do4DksL9Fao+L2D4scFjEhZE+3O8GdS+IHkR+3mzRe2YGMZ3EfrvtirDwB?=
- =?iso-8859-1?Q?HPNQi9Lfbv/xP+m4llMCAKG/B91XXo6Go7aOkg+e+G/sg4No8UH/YNFN/+?=
- =?iso-8859-1?Q?whD4PDW4swosv7J1LiaY7C0eQcNgLcTFSxstLTzi95dB33OTP9rsOvLUeT?=
- =?iso-8859-1?Q?SKRFwOOVcuFRkr27fdPuljTkorATUP0RG+MlEaxR+J6dZXGz5J0DYwa1QW?=
- =?iso-8859-1?Q?O6NjmrruoxdGL2y3G+lmuj68mv9U?=
+ =?iso-8859-1?Q?7WyZVAbBsrJYl/SB/GcPH0Isi8Nlh855KJks4d8wHieoQVkKrIRKUmsdoa?=
+ =?iso-8859-1?Q?QlyqeBjqiS8x99hp26DhueYu0+VvLzqI4P+sJoxXvPtpceaiLT92cN6hy8?=
+ =?iso-8859-1?Q?/Q+DIOHhvlZHupGPaUxBISBFm46+OvG3ITEAoXq/QZ6jH76ow2zt0wBuLL?=
+ =?iso-8859-1?Q?ssBwJ0hOhvwy8hEZC45Ep+jkCXrGA/Yu3Paet4eXMZ37KWjlpjD8r7w1kj?=
+ =?iso-8859-1?Q?Z6lUdMUbarHpOmLyvVI5V3HbB/F56g8hL17QQ5W/0oTm9r39k8r1n3qEuE?=
+ =?iso-8859-1?Q?vEl0Tu2yaIVajzG2Jxg0O8ED0JUJiNhMpCxNTtpvgWcWyTQcoNB5VVEVmH?=
+ =?iso-8859-1?Q?adJUI4wzWxfbai57EvHnK5gCJHOYTEh52pDEwLKEFEYsvjMsGbqVNOkNeq?=
+ =?iso-8859-1?Q?H8rjsu+vs47AeXDe+O/FMQYvT6vK3j9aErRnH/G3mXyqELfm6T9+bOldA1?=
+ =?iso-8859-1?Q?Dm63wBuvdE5GrqylAuMULMgOLdv6p5IiAPEQiYq1YXhjsBsf+M5rAznosM?=
+ =?iso-8859-1?Q?meSGDuhuDMfR5leaJDuTbjSV1rgA2ZWj0OiYIXxAovjBOp+AK9t+nV7AdC?=
+ =?iso-8859-1?Q?S42zdjtX2JYv+qha77pxDy4mQ15ltLERDtQWvZdCSLib2p2aAu9Xq65zhb?=
+ =?iso-8859-1?Q?Xj15iKR6c2unUuQ1fJbjvKBiNZn0vGyeWrETwF27rEx1IHENqa1ldoKVr4?=
+ =?iso-8859-1?Q?HAGSMp5C4Z1W1EVlDNiH/5qEOJ6L7jXK/F/C4neheKPEnkFEeQ3zFhbqrl?=
+ =?iso-8859-1?Q?Ohe2HpY3uh0v1iCeWRObfQx8EFs4557bqfOfA8hbjIhqWT/62IGXl0XhR3?=
+ =?iso-8859-1?Q?kA5WctKCFFJqRJPEvQUU462pC4oXVP7m/17hwPuMyt9nx3RFuQRcsT6poY?=
+ =?iso-8859-1?Q?Rz3HfeVPN/jZ0tGW475VrAyuut/dfMwL9B+MIhFupZ7w7oZa9u0zrS/tZv?=
+ =?iso-8859-1?Q?36CGVKmNgal7yU8hv3raGovGvf2RCmmfPrPzotkjt2r7lJZJpbIWeJXpJP?=
+ =?iso-8859-1?Q?vYtb/I0dAALTd2wLysVOthM6Xck/XfRkBVxJbWXTmQNI76zG2geTdpGFuS?=
+ =?iso-8859-1?Q?YF8hQh6Cuo6rkxMreAncAgemZmLQFttOSAEdrUYfLDgsnC/k5CQAeJf2Ah?=
+ =?iso-8859-1?Q?PimaxqnM1JpPgpv35F455WHvVHtgRU/xE05ET7PREyXS/OCsCXrDPLWlF5?=
+ =?iso-8859-1?Q?zObuP3KqoeakM99KdNDgXJMzFjLw+tQg2QF3tmA6D2w97lhfZgFGVCUg/4?=
+ =?iso-8859-1?Q?VFZP/rQY4ddnczC6rwwM1yIr9Xr9g4LpBNu01IW1hqpH7sRVJX5yXAepV3?=
+ =?iso-8859-1?Q?cfzzhB/Tl5owyf/Cnii8gXLCvAMkzL10TC6veI16v6pMabRnuOmg4VAGbZ?=
+ =?iso-8859-1?Q?ZBOXop+Q6qID5EYrSHS9+yIjcSMN9KQyplUOa8PPWS0f7KCsm5IYKIuWeO?=
+ =?iso-8859-1?Q?eV/y0BfVZ4sekoGHT+saFOFGRAxecojP+kAb4tQL7HObb9iQ46/2+FjzEk?=
+ =?iso-8859-1?Q?3L0fJSBOkvo38R7QF3oHCiDRTn5Zmq6yCwo3kyel7Hu9Q1Z89WwNXAiF8x?=
+ =?iso-8859-1?Q?k7fp13O8aRqycC2XvXGBlooolMQe?=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700021);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?euEOK8VJiDGSt8X31jLxDhxkhZjrFCa87PNb6I8JSnRzD8ncTiD4kQgaEz?=
- =?iso-8859-1?Q?F3IpRRk32XPtSJWmeqtrKTgnw+hVXC/tRTQyzywVxtNalccNpiam+kxhny?=
- =?iso-8859-1?Q?hV/oetGMZVhf72vsL1nVV9MJVFaxkhn6xq7V1hE+PxHxk7cvWFA5hM97I2?=
- =?iso-8859-1?Q?I4RrwPdvhjPUpFtcRYiTL+hd371A7IkkHEurGQygfzAmLtmqqtYRvJhALC?=
- =?iso-8859-1?Q?KFtGLfyjxwPka3Z+EB4AstRSOU3yrL//eRfX0LyPJ15FFjY8B0QTGvtppV?=
- =?iso-8859-1?Q?41gY/KVKLCz9VEmDDVrLnLWBWy8ZcT0sGrijU2POyBn0i+PiG+UGsRMspF?=
- =?iso-8859-1?Q?841NDcxwYpq2L/M/r2CReVPlAAWL17okyTWjSOJafBYZChXCZhWodYggkY?=
- =?iso-8859-1?Q?C20/HdjVEqiuw71pi5ZhXHap4Ma76GPrJVjVQS/aQZouHnSYa0gIllV6lq?=
- =?iso-8859-1?Q?HXVVd7U/RgT+tkABSrVHBL6DnK7LtYNVYdftIeoi+xeCYpYR8xCMkuhAvH?=
- =?iso-8859-1?Q?z4boFB94TNqH6JR4ZMD2SQdHv4YeAkINuCXWe8UDgzTF/KElLRFFEt9Qjw?=
- =?iso-8859-1?Q?/EDfOskzDSkBZToaWe3gEaVm/Y16yxAuRfUNV83Q3t0mMJLPbePS40CGYN?=
- =?iso-8859-1?Q?ofQa4noZx22Lg6UYB4CwM2i3SX+OYjk9DhM8iocX+VDkC8wfP9Bc0LmM5Q?=
- =?iso-8859-1?Q?e7LQx4fkjsNAxqB8/HmgqdlSkhIoKV6zu98Ma3Z5lZUGCoJFcKGn5ngaI6?=
- =?iso-8859-1?Q?JIXD8pq6+9nfI58WqdKxK6vQsnlVzKL5q+tMXm1jBneHrP8MATyp/E0sts?=
- =?iso-8859-1?Q?kVaS4mg/9fbWBPhhcL/vNU9yvLsty2FhA6VIMDb4iBF+FfxW6QCzGn9jOc?=
- =?iso-8859-1?Q?ArHnJDO8uJXdSFITgqtw/KXyMh37ppzG+z9bU8tloH6lGSthp+1zr3pokK?=
- =?iso-8859-1?Q?fp9sPrbA3naMY9om/Id+1yCFERBXnOAFGgGETLWOk+MLFnASjc/FmZZ4V/?=
- =?iso-8859-1?Q?cfdMBljUGee7iru2fEvn0UM4y+EWdFYwdazvTqY/VVPHJHWZ78KVsWCQ5U?=
- =?iso-8859-1?Q?RO819bsV0thocZWo5m/O4iaYNYaVUroxzV5UaHbmlAITgv5nqLiW8N4XwF?=
- =?iso-8859-1?Q?XVNaq/kbqxP73uy76tKZnOco7LcNIFfxlhMuVrdFJksDcz5zVTMzci/ujL?=
- =?iso-8859-1?Q?VGx1zEMK+bAry9/NRw7ujQ8leZRciNUYV3zF/odDh4XS2EXoz5ESYH6XQS?=
- =?iso-8859-1?Q?fLrloJozhKQfFjir+WV1vMK01d1raeOKrAMaacb3XaY6lbQyzyxPN9X/OV?=
- =?iso-8859-1?Q?7V7OIrPdRM4CKBBtzIuo44g8PVowI58fRdQYapBuNExlP0GOi2ogD3ZdB9?=
- =?iso-8859-1?Q?Da5xNLSN+xITcGz/dcZklW23AXEG4XB+ruoYX8k9UYPzIUOGqwH3khaV+j?=
- =?iso-8859-1?Q?y1T4xwTaktBhK7BiyTqLfSI9cvRQjdU82guJG3dsbINxC+VLusZZuIubar?=
- =?iso-8859-1?Q?bCUJ7f8ihmwSk0m5pCRXTJu+BS1YCF3wwu8xel9hig41XoY08tbzLxqYhV?=
- =?iso-8859-1?Q?7eqTU48vxNpGeyItLWvNQOWZf4+TD6d4OIQ68b5v4rjhtspxTDVSzLn50q?=
- =?iso-8859-1?Q?37Hkcso6R94R/3qpZRie+VVbJUGLqQyNURybVlhmLZ/rVXDMBzP24crA?=
+ =?iso-8859-1?Q?R2/loyO7+u8znGONUJxJbT0c5GLVepvuUitfGTnM4/Hm+GlNWv10ThOrHi?=
+ =?iso-8859-1?Q?IoTJW6O/OT7HKFe3T33BWzcKF3bVSyNV/WHPHS1cgE+rNLWTcsXSe66Ujk?=
+ =?iso-8859-1?Q?99jkZDnp9uKRPQG4dmMwVEeX5ELOjnKxnB2P2pxCAeCNbtQdmvfh85Zf9o?=
+ =?iso-8859-1?Q?LNsHZFil/eQDRFJ5RUA7HXdTvk2DRpMwjGv5p0Ck6GGdxn0s2QWjQsByh4?=
+ =?iso-8859-1?Q?DrMQJvjCVr3978qTPV9P/x4Qh4qlLslF8wNt7LKELO4o+H0FVhpbu8jECs?=
+ =?iso-8859-1?Q?HwmNhkZUDJOPxB4RJOTgbWs0GuKxG9RM0Xcnc9zdoXmjR/zq7EYBbSCmrk?=
+ =?iso-8859-1?Q?YE6KvKS/fW3kugPC/U4/mNg89PrQI5FsCYifjTtIV0sBj4JApR8BCJMRtA?=
+ =?iso-8859-1?Q?D8J9pCYAWfvSjuEYW/7JFFWoW8SsUgIykaA+P3hM+AZPcHKCaRdZts4ymL?=
+ =?iso-8859-1?Q?Pa5Jnp+MDDaN8g4jBtDMVRfVbVn31n5xfoOM71DVplnKlagpmK/h5NESPg?=
+ =?iso-8859-1?Q?3KtzT0vPZYfL1QOIWFQzD0+3gMwTQrRgrorizlj2Te/ri3X38LY/r74A2t?=
+ =?iso-8859-1?Q?1XIU+OBr5vOEi4BpDybb2IJCM12QVB0WF87YiRxvigP+Jz60RwHPy8GaDA?=
+ =?iso-8859-1?Q?3vl9jhcQbm5tP7imtWDUVneLXaVBZPgFSfzeOAJhd6QUPqy+/0fB2wrKIb?=
+ =?iso-8859-1?Q?eQiBqWuhdS8T2pouI77QkoFBU8gqiJthmMtU3iHUlDDBP8cP7SKkJyTIuz?=
+ =?iso-8859-1?Q?Bh3cjHjJHPEZPbTsD/6ohLX3sag9mWVdMOqTJRl5lnh2hEJt0f8iJ2aK/H?=
+ =?iso-8859-1?Q?wu3sCkA+pb38Zx26kb9Db7uVw50PwD+XSBfxdNipET0xal5PiURpmXY1Zw?=
+ =?iso-8859-1?Q?NpEzbb5c1bFgSeaXWi9XhKmSBCqTQkfQKi/nYPRDS01QYPpzSYuoOvC8W3?=
+ =?iso-8859-1?Q?GfjL2hjnj/qRYUhu5z6DcYfyCkSpvT1g81Kh4U61UzZVWWTSSSgqQoPuqw?=
+ =?iso-8859-1?Q?MSP+LOqIwRUD8sqYDBmK04nuqEwBX1Wase5HiFnMHfnM2Aap513uRi7IBg?=
+ =?iso-8859-1?Q?DTEUIsfZ5/O9KqiGjevjAM99o17nzJLggefqPaO/jpn8qAdIRBWSo3e+jQ?=
+ =?iso-8859-1?Q?+TeaQySH+mho/HTe9IgaEhIZ9f4n4wbBhPnHTs54fhLKCFQhtMvA61v4em?=
+ =?iso-8859-1?Q?sGZlTmIhSy5YngbetamFOrPGgue86C/39CHNH+D/+6qV+VyL+7Pp0rGqIU?=
+ =?iso-8859-1?Q?Zlxc61QfTGHhysQkjO5c/MPETG2SemRwMmx6FIYrFFFJklurzJLo6SGv9q?=
+ =?iso-8859-1?Q?/puBntGzzw3fHtij9cJvzRpvSOM06Fav4iW9lZpZDj9YDDZkw792aWa8qp?=
+ =?iso-8859-1?Q?bagidUC/j2Q6yqU4uK6CaqlC0Pq9PhnI9RPqKKqv3sWcRrFwgv7yfS4IY0?=
+ =?iso-8859-1?Q?05+zE7C0YkXX42k+y5wAFafKwMnx4wNRfPz2L87T1gGL1HT8s27fa5X3sV?=
+ =?iso-8859-1?Q?g8ckV8V/2cgdth88lXJM86T7j0tbwDhKW/GAl/Ff8nHLRHRwGv8R7HF0zF?=
+ =?iso-8859-1?Q?dejmfpp5Dzgl+ZzLYyXectBf0noDOcqYbUpIW0Neu/Fpwp6cKZ2DCHIR5/?=
+ =?iso-8859-1?Q?F84x8hFR/aotVy6jAXieOBGGqKdrx8QrbsgF92LfYGu8+8xSlEo0Uutg?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -155,124 +156,121 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28371c27-a8b0-463d-f3a7-08de21d97a9b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Nov 2025 10:51:48.1152
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2c5d9b2-e834-4c46-91ae-08de21d97b1e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Nov 2025 10:51:49.0352
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: l5FLPJZUFgD3iE5eRA1Q4RFrlG7pSqeuJWkOqEp91KdRQnJdDP0yzUAwwmAPkM7tCJbOxAqgdJeLNeU8faecng==
+X-MS-Exchange-CrossTenant-userprincipalname: zXMOreC99SoWseZ0KgOhN46PyW3A0dWzsLhJHRlSKlI3MnDLQhaRT9O3KZTk29YkuqDB5tAc2Syb6QfJEB4Ubg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR03MB9786
 
-Move IRQs from dying CPU to the online ones.
-Guest-bound IRQs are already handled by scheduler in the process of
-moving vCPUs to active pCPUs, so we only need to handle IRQs used by Xen
-itself.
+Implement XEN_SYSCTL_CPU_HOTPLUG_{ONLINE,OFFLINE} calls to allow for
+enabling/disabling CPU cores in runtime.
 
-If IRQ is to be migrated, it's affinity is set to a mask of all online
-CPUs. With current GIC implementation, this means they are routed to a
-random online CPU. This may cause extra moves if multiple cores are
-disabled in sequence, but should prevent all interrupts from piling up
-on CPU0 in case of repeated up-down cycles on different cores.
+For now this operations only support Arm64. For proper Arm32 support,
+there needs to be a mechanism to free per-cpu page tables, allocated in
+init_domheap_mappings.
+Also, hotplug is not supported if ITS, FFA, or TEE is enabled, as they
+use non-static IRQ actions.
 
-IRQs from CPU 0 are never migrated, as dying CPU 0 means we are either
-shutting down compeletely or entering system suspend.
-
-Considering that all Xen-used IRQs are currently allocated during init
-on CPU 0, and setup_irq uses smp_processor_id for the initial affinity.
-This change is not strictly required for correct operation for now, but
-it should future-proof cpu hotplug and system suspend support in case
-some kind if IRQ balancing is implemented later.
+Create a Kconfig option RUNTIME_CPU_CONTROL that reflects this
+constraints.
 
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 
 v3->v4:
-* patch introduced
----
- xen/arch/arm/include/asm/irq.h |  2 ++
- xen/arch/arm/irq.c             | 39 ++++++++++++++++++++++++++++++++++
- xen/arch/arm/smpboot.c         |  2 ++
- 3 files changed, 43 insertions(+)
+* don't reimplement cpu_up/down helpers
+* add Kconfig option
+* fixup formatting
 
-diff --git a/xen/arch/arm/include/asm/irq.h b/xen/arch/arm/include/asm/irq.=
-h
-index 09788dbfeb..6e6e27bb80 100644
---- a/xen/arch/arm/include/asm/irq.h
-+++ b/xen/arch/arm/include/asm/irq.h
-@@ -126,6 +126,8 @@ bool irq_type_set_by_domain(const struct domain *d);
- void irq_end_none(struct irq_desc *irq);
- #define irq_end_none irq_end_none
+v2->v3:
+* no changes
+
+v1->v2:
+* remove SMT ops
+* remove cpu =3D=3D 0 checks
+* add XSM hooks
+* only implement for 64bit Arm
+---
+ xen/arch/arm/Kconfig  |  4 ++++
+ xen/arch/arm/sysctl.c | 32 ++++++++++++++++++++++++++++++++
+ 2 files changed, 36 insertions(+)
+
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index cf6af68299..931ae51575 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -274,6 +274,10 @@ config PCI_PASSTHROUGH
+ 	help
+ 	  This option enables PCI device passthrough
 =20
-+void evacuate_irqs(unsigned int from);
++config RUNTIME_CPU_CONTROL
++    def_bool y
++    depends on ARM_64 && !TEE && !FFA && !HAS_ITS
 +
- #endif /* _ASM_HW_IRQ_H */
- /*
-  * Local variables:
-diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-index 28b40331f7..b383d71930 100644
---- a/xen/arch/arm/irq.c
-+++ b/xen/arch/arm/irq.c
-@@ -158,6 +158,45 @@ static int init_local_irq_data(unsigned int cpu)
-     return 0;
+ endmenu
+=20
+ menu "ARM errata workaround via the alternative framework"
+diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
+index 32cab4feff..3c4e29d82c 100644
+--- a/xen/arch/arm/sysctl.c
++++ b/xen/arch/arm/sysctl.c
+@@ -12,6 +12,7 @@
+ #include <xen/dt-overlay.h>
+ #include <xen/errno.h>
+ #include <xen/hypercall.h>
++#include <xsm/xsm.h>
+ #include <asm/arm64/sve.h>
+ #include <public/sysctl.h>
+=20
+@@ -23,6 +24,33 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+                                        XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);
  }
 =20
-+static void evacuate_irq(int irq, unsigned int from)
++static long cpu_hotplug_sysctl(struct xen_sysctl_cpu_hotplug *hotplug)
 +{
-+    struct irq_desc *desc =3D irq_to_desc(irq);
-+    unsigned long flags;
++#ifdef CONFIG_RUNTIME_CPU_CONTROL
++    int ret;
 +
-+    /* Don't move irqs from CPU 0 as it is always last to be disabled */
-+    if ( from =3D=3D 0 )
-+        return;
++    switch ( hotplug->op )
++    {
++    case XEN_SYSCTL_CPU_HOTPLUG_ONLINE:
++        ret =3D xsm_resource_plug_core(XSM_HOOK);
++        if ( ret )
++            return ret;
++        return continue_hypercall_on_cpu(0, cpu_up_helper, _p(hotplug->cpu=
+));
 +
-+    ASSERT(!cpumask_empty(&cpu_online_map));
-+    ASSERT(!cpumask_test_cpu(from, &cpu_online_map));
++    case XEN_SYSCTL_CPU_HOTPLUG_OFFLINE:
++        ret =3D xsm_resource_unplug_core(XSM_HOOK);
++        if ( ret )
++            return ret;
++        return continue_hypercall_on_cpu(0, cpu_down_helper, _p(hotplug->c=
+pu));
 +
-+    spin_lock_irqsave(&desc->lock, flags);
-+    if ( likely(!desc->action) )
-+        goto out;
-+
-+    if ( likely(test_bit(_IRQ_GUEST, &desc->status) ||
-+                test_bit(_IRQ_MOVE_PENDING, &desc->status)) )
-+        goto out;
-+
-+    if ( cpumask_test_cpu(from, desc->affinity) )
-+        irq_set_affinity(desc, &cpu_online_map);
-+
-+out:
-+    spin_unlock_irqrestore(&desc->lock, flags);
-+    return;
++    default:
++        return -EOPNOTSUPP;
++    }
++#else
++    return -EOPNOTSUPP;
++#endif
 +}
 +
-+void evacuate_irqs(unsigned int from)
-+{
-+    int irq;
-+
-+    for ( irq =3D NR_LOCAL_IRQS; irq < NR_IRQS; irq++ )
-+        evacuate_irq(irq, from);
-+
-+    for ( irq =3D ESPI_BASE_INTID; irq < ESPI_MAX_INTID; irq++ )
-+        evacuate_irq(irq, from);
-+}
-+
- static int cpu_callback(struct notifier_block *nfb, unsigned long action,
-                         void *hcpu)
+ long arch_do_sysctl(struct xen_sysctl *sysctl,
+                     XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
  {
-diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-index 7f3cfa812e..46b24783dd 100644
---- a/xen/arch/arm/smpboot.c
-+++ b/xen/arch/arm/smpboot.c
-@@ -425,6 +425,8 @@ void __cpu_disable(void)
+@@ -34,6 +62,10 @@ long arch_do_sysctl(struct xen_sysctl *sysctl,
+         ret =3D dt_overlay_sysctl(&sysctl->u.dt_overlay);
+         break;
 =20
-     smp_mb();
-=20
-+    evacuate_irqs(cpu);
++    case XEN_SYSCTL_cpu_hotplug:
++        ret =3D cpu_hotplug_sysctl(&sysctl->u.cpu_hotplug);
++        break;
 +
-     /* Return to caller; eventually the IPI mechanism will unwind and the=
-=20
-      * scheduler will drop to the idle loop, which will call stop_cpu(). *=
-/
- }
+     default:
+         ret =3D -ENOSYS;
+         break;
 --=20
 2.51.2
 
