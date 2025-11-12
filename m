@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BE27C532FC
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 16:52:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160182.1488392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A7C9C5330B
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 16:53:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160200.1488403 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJD8f-0006u7-P8; Wed, 12 Nov 2025 15:52:05 +0000
+	id 1vJD9P-0007hK-2C; Wed, 12 Nov 2025 15:52:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160182.1488392; Wed, 12 Nov 2025 15:52:05 +0000
+Received: by outflank-mailman (output) from mailman id 1160200.1488403; Wed, 12 Nov 2025 15:52:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJD8f-0006sT-MV; Wed, 12 Nov 2025 15:52:05 +0000
-Received: by outflank-mailman (input) for mailman id 1160182;
- Wed, 12 Nov 2025 15:52:04 +0000
+	id 1vJD9O-0007eD-VZ; Wed, 12 Nov 2025 15:52:50 +0000
+Received: by outflank-mailman (input) for mailman id 1160200;
+ Wed, 12 Nov 2025 15:52:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=31i5=5U=arm.com=harry.ramsey@srs-se1.protection.inumbo.net>)
- id 1vJD8e-0006dK-5b
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 15:52:04 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 87d22629-bfdf-11f0-9d18-b5c5bf9af7f9;
- Wed, 12 Nov 2025 16:52:03 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3FE902B;
- Wed, 12 Nov 2025 07:51:54 -0800 (PST)
-Received: from [10.57.40.63] (unknown [10.57.40.63])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ACC473F5A1;
- Wed, 12 Nov 2025 07:52:00 -0800 (PST)
+ <SRS0=fKgU=5U=bounce.vates.tech=bounce-md_30504962.6914ad4f.v1-a088325c52bd4b45ab4dbc8a8e7ebfca@srs-se1.protection.inumbo.net>)
+ id 1vJD9N-0006dK-N4
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 15:52:49 +0000
+Received: from mail179-26.suw41.mandrillapp.com
+ (mail179-26.suw41.mandrillapp.com [198.2.179.26])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a30b2673-bfdf-11f0-9d18-b5c5bf9af7f9;
+ Wed, 12 Nov 2025 16:52:49 +0100 (CET)
+Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail179-26.suw41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4d67G71xl9zKsbmYF
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 15:52:47 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ a088325c52bd4b45ab4dbc8a8e7ebfca; Wed, 12 Nov 2025 15:52:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,188 +43,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87d22629-bfdf-11f0-9d18-b5c5bf9af7f9
-Message-ID: <fe082ad9-ee55-46bd-8b93-5320649e6aca@arm.com>
-Date: Wed, 12 Nov 2025 15:51:59 +0000
+X-Inumbo-ID: a30b2673-bfdf-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1762962767; x=1763232767;
+	bh=ruW9iBncENpG8nrkxDa8tPpqRo7R4vCtqNBQqHtYGDk=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=h+y8S0eY9fcYR2UpY9SODWdZTpfjO9XKJ7gdumTZW+tPloGG6bWod21FWe0JnH4GG
+	 yIIK4sZ4PMMdoeia2hH12oAKp/ERnq8fXN4diwGMOsonIDIaP5y8sdMZfZeKdCOyvI
+	 0LnTr1WvftLdZ7EZGBP217II7KxXMACcvvSj3T+e6L/h+417IdAOZI+frbtC+Zur7R
+	 3gX7XniBimGsAsyIiccgPcJjorV80CPxuBog9zhuo+ZMcSgHfjOrYqDBhE4B9cTObB
+	 Bz758rJ3I4yFDjA2FsfW6pN43BCzQXVL88O1CzgsKamotAqcW9h8P/qoBiu1T7b8Qw
+	 p+Vk6KH/rUKCw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1762962767; x=1763223267; i=teddy.astie@vates.tech;
+	bh=ruW9iBncENpG8nrkxDa8tPpqRo7R4vCtqNBQqHtYGDk=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=sKyvEWYyZlzAJ0DaJQnxblF6KqT0He/82B4nSMILEEyDwmXmklqD/wEtyzd25afq5
+	 GChf4HkJm1RAwgJmvy4Ao8+3CWopOrotf5GSPHY1bJ9LkTeWqmuLPh6DR2+rj5Cy6f
+	 G4cD0vN+j7neBfdGWSWX/RrD0kiu0W7OXc0J2cl3e++7Brjch5jJLEn3OJqjqye/wZ
+	 ajEFme61rojB45nfSTYV4ZJnytOQj3lAIJ3UiTP70lJq4Y42BqBVGVNwefvc3tzBBE
+	 6X8ZkZxBPn7PH/KgtFYU7PSUNmREf9BAPZ4H5jvU5bdaDA/nYTsvO3aXqxiBaHU/Qc
+	 iISBHjvM6pweA==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=201/2]=20x86:=20Conditionalise=20PV-only=20fallback=20branches=20on=20CONFIG=5FPV?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1762962766178
+Message-Id: <de2b8cfa-d9b3-405a-af51-cc2b5b22271a@vates.tech>
+To: "Alejandro Vallejo" <alejandro.garciavallejo@amd.com>, xen-devel@lists.xenproject.org
+Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
+References: <20251112152235.224001-1-alejandro.garciavallejo@amd.com> <20251112152235.224001-2-alejandro.garciavallejo@amd.com>
+In-Reply-To: <20251112152235.224001-2-alejandro.garciavallejo@amd.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.a088325c52bd4b45ab4dbc8a8e7ebfca?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20251112:md
+Date: Wed, 12 Nov 2025 15:52:47 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] arm/mpu: Implement setup_mm for MPU systems
-Content-Language: en-GB
-To: "Orzel, Michal" <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Luca.Fancellu@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20251111101601.4171120-1-harry.ramsey@arm.com>
- <20251111101601.4171120-2-harry.ramsey@arm.com>
- <80c02055-2687-4e24-8de0-8fb4dfe2af02@amd.com>
-From: Harry Ramsey <harry.ramsey@arm.com>
-In-Reply-To: <80c02055-2687-4e24-8de0-8fb4dfe2af02@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Le 12/11/2025 =C3=A0 16:25, Alejandro Vallejo a =C3=A9crit=C2=A0:
+> A couple of branches rely on PV being the "else" branch, making it
+> be compiled even when PV support is not itself compiled-in.
+> 
+> Add a explicit conditional on CONFIG_PV in those cases to remove the
+> code in !CONFIG_PV builds.
+> 
+> Not a functional change.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+> ---
+>   xen/arch/x86/cpuid.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+> index b63a82dd38..2e24c84708 100644
+> --- a/xen/arch/x86/cpuid.c
+> +++ b/xen/arch/x86/cpuid.c
+> @@ -297,7 +297,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+>               if ( v->arch.hvm.guest_cr[4] & X86_CR4_OSXSAVE )
+>                   res->c |=3D cpufeat_mask(X86_FEATURE_OSXSAVE);
+>           }
+> -        else /* PV domain */
+> +        else if ( IS_ENABLED(CONFIG_PV) )
+>           {
+>               regs =3D guest_cpu_user_regs();
+>   
+> @@ -509,7 +509,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+>               if ( !hap_enabled(d) && !hvm_pae_enabled(v) )
+>                   res->d &=3D ~cpufeat_mask(X86_FEATURE_PSE36);
+>           }
+> -        else /* PV domain */
+> +        else if ( IS_ENABLED(CONFIG_PV) )
+>           {
+>               /*
+>                * MTRR used to unconditionally leak into PV guests.  They =
+cannot
+
+I don't like having IS_ENABLED(CONFIG_PV) here, but I don't think of a 
+better solution as using e.g is_pv_domain isn't really better as it 
+would make us evaluate d->options twice.
+
+That said,
+Reviewed-by: Teddy Astie <teddy.astie@vates.tech>
+
+Teddy
 
 
-On 12/11/2025 12:40, Orzel, Michal wrote:
->
-> On 11/11/2025 11:15, Harry Ramsey wrote:
->> Implement `setup_mm` for MPU systems. This variant does not require
->> setting up a direct map.
->>
->> To reduce code duplication the common initalisation code for both MPU
->> and MMU Arm64 configurations is refactored into `setup_mm`. Platform-specific
->> setup steps are now handled by a new helper function `setup_mm_helper`.
->>
->> Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
->> ---
->> Changes in v2:
->> - Improve clarity with regards to MPU setup in setup_mm
->> ---
->>   xen/arch/arm/arm64/mmu/mm.c   | 26 +------------------
->>   xen/arch/arm/include/asm/mm.h |  2 ++
->>   xen/arch/arm/mm.c             | 48 +++++++++++++++++++++++++++++++++++
->>   xen/arch/arm/mpu/mm.c         | 30 ++++++++++++++++++++--
->>   4 files changed, 79 insertions(+), 27 deletions(-)
->>
->> diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
->> index 3e64be6ae6..70b53be032 100644
->> --- a/xen/arch/arm/arm64/mmu/mm.c
->> +++ b/xen/arch/arm/arm64/mmu/mm.c
->> @@ -4,8 +4,6 @@
->>   #include <xen/llc-coloring.h>
->>   #include <xen/mm.h>
->>   #include <xen/pfn.h>
->> -#include <xen/static-memory.h>
->> -#include <xen/static-shmem.h>
->>
->>   #include <asm/setup.h>
->>
->> @@ -240,33 +238,18 @@ static void __init setup_directmap_mappings(unsigned long base_mfn,
->>           panic("Unable to setup the directmap mappings.\n");
->>   }
->>
->> -void __init setup_mm(void)
->> +void __init setup_mm_helper(void)
->>   {
->>       const struct membanks *banks = bootinfo_get_mem();
->>       paddr_t ram_start = INVALID_PADDR;
->>       paddr_t ram_end = 0;
->> -    paddr_t ram_size = 0;
->>       unsigned int i;
->>
->> -    init_pdx();
->> -
->> -    /*
->> -     * We need some memory to allocate the page-tables used for the directmap
->> -     * mappings. But some regions may contain memory already allocated
->> -     * for other uses (e.g. modules, reserved-memory...).
->> -     *
->> -     * For simplicity, add all the free regions in the boot allocator.
->> -     */
->> -    populate_boot_allocator();
->> -
->> -    total_pages = 0;
->> -
->>       for ( i = 0; i < banks->nr_banks; i++ )
->>       {
->>           const struct membank *bank = &banks->bank[i];
->>           paddr_t bank_end = bank->start + bank->size;
->>
->> -        ram_size = ram_size + bank->size;
->>           ram_start = min(ram_start, bank->start);
->>           ram_end = max(ram_end, bank_end);
->>
->> @@ -274,16 +257,9 @@ void __init setup_mm(void)
->>                                    PFN_DOWN(bank->size));
->>       }
->>
->> -    total_pages += ram_size >> PAGE_SHIFT;
->> -
->>       directmap_virt_end = XENHEAP_VIRT_START + ram_end - ram_start;
->>       directmap_mfn_start = maddr_to_mfn(ram_start);
->>       directmap_mfn_end = maddr_to_mfn(ram_end);
->> -
->> -    setup_frametable_mappings(ram_start, ram_end);
->> -
->> -    init_staticmem_pages();
->> -    init_sharedmem_pages();
->>   }
->>
->>   /*
->> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
->> index 7a93dad2ed..f702f4a0d6 100644
->> --- a/xen/arch/arm/include/asm/mm.h
->> +++ b/xen/arch/arm/include/asm/mm.h
->> @@ -202,6 +202,8 @@ extern void remove_early_mappings(void);
->>   extern int prepare_secondary_mm(int cpu);
->>   /* Map a frame table to cover physical addresses ps through pe */
->>   extern void setup_frametable_mappings(paddr_t ps, paddr_t pe);
->> +/* Helper function to setup memory management */
->> +void setup_mm_helper(void);
->>   /* map a physical range in virtual memory */
->>   void __iomem *ioremap_attr(paddr_t start, size_t len, unsigned int attributes);
->>
->> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
->> index 3b05b46ee0..c1208de26c 100644
->> --- a/xen/arch/arm/mm.c
->> +++ b/xen/arch/arm/mm.c
->> @@ -12,8 +12,12 @@
->>   #include <xen/grant_table.h>
->>   #include <xen/guest_access.h>
->>   #include <xen/mm.h>
->> +#include <xen/static-memory.h>
->> +#include <xen/static-shmem.h>
->>   #include <xen/vmap.h>
->>
->> +#include <asm/setup.h>
->> +
->>   #include <xsm/xsm.h>
->>
->>   #include <public/memory.h>
->> @@ -24,6 +28,50 @@
->>
->>   unsigned long frametable_base_pdx __read_mostly;
->>
->> +#if defined(CONFIG_ARM_64) || defined(CONFIG_MPU)
->> +void __init setup_mm(void)
->> +{
->> +    const struct membanks *banks = bootinfo_get_mem();
->> +    paddr_t ram_start = INVALID_PADDR;
->> +    paddr_t ram_end = 0;
->> +    paddr_t ram_size = 0;
->> +    unsigned int i;
->> +
->> +    init_pdx();
->> +
->> +    for ( i = 0; i < banks->nr_banks; i++ )
->> +    {
->> +        const struct membank *bank = &banks->bank[i];
->> +        paddr_t bank_end = bank->start + bank->size;
->> +
->> +        ram_size = ram_size + bank->size;
->> +        ram_start = min(ram_start, bank->start);
->> +        ram_end = max(ram_end, bank_end);
->> +    }
->> +
->> +    total_pages = ram_size >> PAGE_SHIFT;
->> +
->> +    /*
->> +     * On MMU systems we need some memory to allocate the page-tables used for
->> +     * the directmap mappings.  But some regions may contain memory already
->> +     * allocated for other uses (e.g. modules, reserved-memory...).
->> +     *
->> +     * On MPU systems we need to pre-reserve regions that were allocated for
->> +     * other uses (e.g. modules, reserved-memory...).
-> I'm not sure I understand this part of the comment with regards to
-> populate_boot_allocator(). Could you please explain?
-I think I should remove the MPU section and move this comment into patch 
-3 as it is confusing without the additional context of reference counting.
+--
+Teddy Astie | Vates XCP-ng Developer
 
-During Xen initialization, the MPU assigns a refcount of 1 to 
-pre-allocated regions in head.S prepare_xen_region. Unlike an MMU, an 
-MPU has no virtual memory, so we must prevent these regions from being 
-freed or remapped to non-preallocated areas.
+XCP-ng & Xen Orchestra - Vates solutions
 
->
-> ~Michal
->
-~Harry
+web: https://vates.tech
+
+
 
