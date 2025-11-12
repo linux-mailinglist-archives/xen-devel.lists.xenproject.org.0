@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5D55C546F7
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 21:26:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160465.1488593 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 387FBC546FA
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 21:26:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160475.1488603 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJHOd-0003te-Iy; Wed, 12 Nov 2025 20:24:51 +0000
+	id 1vJHPL-0004SB-Vf; Wed, 12 Nov 2025 20:25:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160465.1488593; Wed, 12 Nov 2025 20:24:51 +0000
+Received: by outflank-mailman (output) from mailman id 1160475.1488603; Wed, 12 Nov 2025 20:25:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJHOd-0003so-ER; Wed, 12 Nov 2025 20:24:51 +0000
-Received: by outflank-mailman (input) for mailman id 1160465;
- Wed, 12 Nov 2025 20:24:50 +0000
+	id 1vJHPL-0004Ox-SP; Wed, 12 Nov 2025 20:25:35 +0000
+Received: by outflank-mailman (input) for mailman id 1160475;
+ Wed, 12 Nov 2025 20:25:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EiA8=5U=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vJHOc-0003si-Br
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 20:24:50 +0000
+ id 1vJHPK-0003si-Lk
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 20:25:34 +0000
 Received: from MRWPR03CU001.outbound.protection.outlook.com
  (mail-francesouthazlp170110003.outbound.protection.outlook.com
  [2a01:111:f403:c207::3])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a22dde3e-c005-11f0-9d18-b5c5bf9af7f9;
- Wed, 12 Nov 2025 21:24:48 +0100 (CET)
+ id bdb1d539-c005-11f0-9d18-b5c5bf9af7f9;
+ Wed, 12 Nov 2025 21:25:34 +0100 (CET)
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
  by AS4PR03MB8506.eurprd03.prod.outlook.com (2603:10a6:20b:576::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.13; Wed, 12 Nov
- 2025 20:24:44 +0000
+ 2025 20:25:32 +0000
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9320.013; Wed, 12 Nov 2025
- 20:24:44 +0000
+ 20:25:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,607 +47,220 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a22dde3e-c005-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: bdb1d539-c005-11f0-9d18-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YigWvIQujKMWnW1ZG6+SD7YcDZJ1cJ4elcJ5GVSBIFn8VkJKneuTlKz3kuGcIMjVVzPdtwss+2xJdikVn+m+eGqyxvVZdUjakxjCIh0RD8ny77aNnwylR13cdxlK1cjxdSwjpSm5gUrWI9+ER+2sXygBEkg0yaeS6a05jFUvHmVzS+xIiRDPbb4CH2uYoMOGb5PTWmZbAOyALZ7MN7b6S4fpHXN1L3cwCu7SzXXnbSKzHcLD9MtOVzbUrBnuFlyuW9EgIKGfoeHNUyymQCqWVwc6kNRHd+MZ5I55z2qYT8TKXR84sp0cnLXIuKO63rS1smwl0BIWMgVCydgt4cfM2A==
+ b=IgLML+ayXDhYMs6c74tVIxzoola2z6s/dmRyZoC5033WvueQQQKEluPX5MA8oaeQFPS+DVPEwm+04ZcuoZBeHv0MDabUyxaA6aK7pPuEs1RwTz1UwouDdNqT+VghLe8CK5MnF9itBaa82ZFf/R7DtGq6mzZ4ehyJuPoGTkbWU9qgL3baAT60NQC32gcEQDLfEGdljY3TTjemVNLe0Owo1eknWEAUdj3oVW27zP/OSiOMtdKOIlQBR2IyUJ7KVV0puvTSs/C/o36u0I/TdlqeGerse8Mp3TeOvfV9iUa0m1ct/bQr7DA7wR4Rjx+HyVi8hf8M/clcW30IZonbT/03Aw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GDN1Xz98/FqKkXmOY2pxplpXxc8aFt7mDbeg21m2vRk=;
- b=nGz4PqAZrqw6tvOsJ+BdofvPbGGXQPXhMNcF9uqctBMMT/uVl7gYczvt710wu8T1juMxqgt9mKmcZk5BlmMjjdNlkpmqvs6qGg0gi1JREqDp8WWk7Vb9LtCAlOWMh3KZbHhp/RdmvYGOr87qJmQYWlyEKtoKSb65W8lII7SGzTyQcvK6fr2V5ao56IJdsvdzbiZtp2LU6mPEv8cbgwTuZ7PFr+3sTmiCBySw2g/mdJpoIlmWxgXP4fneSoiXda4/PPrXg4nozR6Fp8AeIKWtohQ2sB2fQ41PKM6DiZUudcdeBevVqmt8+UpaHWTE7f2mn+aLkUf/q4LEzKFwDSxoBA==
+ bh=vEc11qj6VNeS+qQGExmT8/5BSuSV1Y4Xhy3y9veJe4s=;
+ b=WQUw6HMwezkwmx6N0RicXsvZvNxpgeBVCCA6hYakiNWQLKPwwhKx/rgY3y7pWv2XWJCkI0TbPaDad7VuODux3KqkGCJ8eSs6nPfEJRtEJZeZ6vwTxu1+TvZM+IvkFLvZ07fdpSO4zRr/fukpXGLCJNobYdLZ94aQ8kF8GNOAJSrCpZUTdPIpZJcOx1gypjYlKmGjSGfGTTwqQEwJY9nhfoq3R1UvKWweiaQLlx5Hk3M/Uy+UtOVlrl387jcHQlK2QKV/rK5T7jZngWypBfpt3IgFWQgoVp2CFuEPTfJoHl15cxarejSsxgstcNWxl5Ksj//BnYjzgg/I2gLW6IIi+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GDN1Xz98/FqKkXmOY2pxplpXxc8aFt7mDbeg21m2vRk=;
- b=JWwmZtrm3yrvmRJnrEhIn/xJbxtcpq6BL+UFrdQPGCvMQ4fwHhUIW+2dKMCIm0BCPM8/5ZxpTMh+GtlxqfFZMs3JjWKx4VJdw/nNoYBQoMY9w8kj5vRjvHZKHCpOyIOqhsvuVizIlDt5NfkQ73t5vXie8UVXaFfbfRtC8P8wTiJm2yd5udRJLjhL0xK1sOkHwMmY+kb3K3vzuZ/lutaDSbRA3oS36Ue+FAXa+G2yf2iJ9K1F5kIbbYL1oG0SpKYZtVIHI5B06e9L9LFTvs+inH1tXNkNCTKC+5Fv8DR/A4UH6kInvflNx2HVT6pbW58x4SqCYX5MB4NM71Of6Y5P+Q==
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Grygorii Strashko <grygorii_strashko@epam.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
- Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Tamas K
- Lengyel <tamas@tklengyel.com>, Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>, Teddy Astie
-	<teddy.astie@vates.tech>, Penny Zheng <Penny.Zheng@amd.com>
-Subject: [XEN][PATCH v2] xen: make VMTRACE support optional
-Thread-Topic: [XEN][PATCH v2] xen: make VMTRACE support optional
-Thread-Index: AQHcVBJh32SIAsW070+7GZyMQ8BkVA==
-Date: Wed, 12 Nov 2025 20:24:44 +0000
-Message-ID: <20251112202442.3879997-1-grygorii_strashko@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
+ bh=vEc11qj6VNeS+qQGExmT8/5BSuSV1Y4Xhy3y9veJe4s=;
+ b=XCHYTsrZO/LrOMdaKADUU77jxIJvR934fGu25/Srr4b/dmhLtGv6ZCUYE+eKbpbjTPPAiCie4Mr+arYlJuooOzwrNxHue3N0BdEQcG1OZ+XiYzEPsmBxSYyJIMyexBjmwE74b6i9KvLv49IK2gcULR0qwKKuQlWTfWO6slT07MrIJA4nZEcdFrx7nY71B0dLLynObQoXclxrlbGRg4+QQP9H+4fHJJ6+Bwfr05jirW+BN1W7/AIxyieST/a+GHectysoweOzEVl78B/M0BxIFT9HPBSO85aDH6pLdFup4UksL8sMvJ+GC7Dk7vi1nvrLe/Sw+hF4tSeuFokswosbvg==
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS2PR03MB8907:EE_|AS4PR03MB8506:EE_
-x-ms-office365-filtering-correlation-id: bbf0c264-22de-456f-7def-08de22298456
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|7416014|376014|1800799024|38070700021;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?FoHNpH3vTlZ2rvTnuyHL8YImM/CR0pYz3ug1sryA7Ow8fipqlovYrqZhf3?=
- =?iso-8859-1?Q?qGgVlrywFE3W7IgN8fxVqqSp5XjZaYbLTBv5loML5vrEB+Pd7oH4I6/o8S?=
- =?iso-8859-1?Q?6oU63D98iboD5qJ7SeAnBlDgNXxw2FxkhGOZ/PTGof5qBYWEhWGmKzACzm?=
- =?iso-8859-1?Q?pUhsrfXCFSALyZu0s86+5yeZT/Xh7oXwigc/s8VkM/w5XKaz8vx27yud1/?=
- =?iso-8859-1?Q?qLxAW6CmAS7YMJDOi5bXpLiCgMxlSnN7RmuXBGHxuMd31C0COUD/ParQty?=
- =?iso-8859-1?Q?ev9CWICUF0vAeL7rKbGi+AyYTjpEYA98i0rN3007kUjKqSBUVofzd1r61X?=
- =?iso-8859-1?Q?FfrQBj3FaEWqdM28RmdEGfMimgFF28FxjQ1Gxf54E//CWx1YohykX154wp?=
- =?iso-8859-1?Q?SJ4VR/G+RrEbMO9pnHydgjF2d+/DTmrGXOuXW7gSWKec2piEFU1vV6SlGd?=
- =?iso-8859-1?Q?HI6e6xhlDCuS30LqAZEmjlWAYKaeoQZdWQmBMjZSn14UILyDPHfgRSw+ow?=
- =?iso-8859-1?Q?8U+iNbKmgTGd91HNW2t0uo3UBjm5ZJitu37TkelmIg+yQUByxsXVxJRPLX?=
- =?iso-8859-1?Q?zQYm0YSsg/JSTxTSdVIT6juYARNOg3LpY384Nk6so2r7a1yHSYSCrpYgIx?=
- =?iso-8859-1?Q?8DORJKr/cN3LROoNg04GUUWk2xlOsKQdwYJ2Y/peuERHpmpVMKRvq8DuQk?=
- =?iso-8859-1?Q?OE9zBoqyKxKHWPPfYxFjeMyAHe5L1E6Nac+6k44zo6ljAjOOwR014b3vAO?=
- =?iso-8859-1?Q?4wEF52CHQQaZ3Hrm97V1CZ/4zEI9mxTdQFbBSQY3ZWUMkfREDjKxr6AYy3?=
- =?iso-8859-1?Q?I5UAcL4eIAMawIRNFZE+uVe7L7TQvGD+DXKFF/W4gONutSFthDdxc62eXN?=
- =?iso-8859-1?Q?5F4dlwVbYm2mgYkMlTOmkEVIlpJQnRKzYjUvhhY1VangdriVCskN13Xn+K?=
- =?iso-8859-1?Q?Yk2dCWSH4p42R4F9y0V3fzFGuXdXn+FXM7y5JIGQQWKUVpbwNYpuABz7a4?=
- =?iso-8859-1?Q?4gURuJjhOe4aKiKbvz35tIhj5Xtlx/pvL+CR/UZp3qj5AzRvGVsZ97/ZaV?=
- =?iso-8859-1?Q?KS7FCcYl+LL95KS9gKAEM7gt05ewdmEkMyaI3g564dTKGb2PHggweSWwD5?=
- =?iso-8859-1?Q?eMzv9NmjHtNYFXTwQjHaTNtFqBpcrok+uiKLqjGo5XWojd7qYOe5UZP0zD?=
- =?iso-8859-1?Q?fuYDbVUUQg3uQ9KbQ4iZh1bZV83Zxfs+JIX7pL4XFaIK8sY3MR4LcHJd0d?=
- =?iso-8859-1?Q?U7wyR/9I+wTR/wSVKEUE41vS2B6r2vrOu9nA0seg2kb8Cs8L4u73kJyeiJ?=
- =?iso-8859-1?Q?dXtdg1vvlQx0niZdrCR9tQxE6NDvZYkkvkekJ669t0txXN//cyCw+HX7g5?=
- =?iso-8859-1?Q?sza8jsiLx5V2WVfC5lIqbMiDUR/YN4vvU4f7LkKFxG0fCGrGRxAeksG23a?=
- =?iso-8859-1?Q?rEdy5nFzMX8AkgZuZuzsLHlA66PNlprkS2J6vRLwkyOpqMv3K1YyMULCEN?=
- =?iso-8859-1?Q?jV1Y8Xcc1aQdfe8uKwYshgKwiEOVHtPUbmi/7pae2ivrDWv+strFGa7e+M?=
- =?iso-8859-1?Q?Pmmeh2+tmB95yacyF31DADAiFl51?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?dJQqOIHWs4Zbv2NukShPClhJOggd4rC1S49B0zjTyE/DYkf2NcQVeSpjXk?=
- =?iso-8859-1?Q?5z/bQf+YnN31ygd/jMwaYK1FfvpFqdA1Svc0gMhWI7aPMTf9yB26t6S2Et?=
- =?iso-8859-1?Q?KCVmZuztuhX05Rc9ELnVoQx/6m46iDAiDCRO4i574MHO1hKp9VIltzXU8N?=
- =?iso-8859-1?Q?HerrxbWBRmwQv/7ZhuHURRGwQx9vRQrPTTni30t1rFVvI4fw+jBmqbamoa?=
- =?iso-8859-1?Q?cLOK2YIfFjlfJbhX4RikdSOkVs7D2iR1Y7/5fDGPrjO9/4sscL9mdx8lfg?=
- =?iso-8859-1?Q?z2pHddQj9dc0SAey/AUTzeXmZ2kJemrwUxll2jgwmgm2DN/CWlmjf/xV84?=
- =?iso-8859-1?Q?5aesUJNoa0abnjRCMKMKVXTd2sbfxvpe0TrE3Tb8eaSDkGXKRjs+ajdYDb?=
- =?iso-8859-1?Q?zqfNcMxp1LOZ9zcgv9hxmNBD73piZXMsbuXmtVzfU6OuVC6/o0VWtmon2L?=
- =?iso-8859-1?Q?EaqBgd33k1CCvOyvozltmOFHYITQylJI4AvyL/HL/nIWr+sSl7ZfGuMtJc?=
- =?iso-8859-1?Q?VZZKv8G59M9+5uN69brdnuxhx7UO3j70QvyRLOeUr6T+SJ89B8Id9j+E8w?=
- =?iso-8859-1?Q?hMBeOkwL8dB+Sk+yJivX/ZSTb3Z3iNSfP5nWc90qHafuv4Zu0yB+DM1ymd?=
- =?iso-8859-1?Q?mxziWcHNK/czps+GbKewuhClBc1NGA07Dg+bWAQ/IF6JvgpAOCjKtJIQCP?=
- =?iso-8859-1?Q?zQSCtoCn48PLUV2PE8h+eG2NSB+c6QElfbd3ze3ZgByc1LvamXaB0dgTTa?=
- =?iso-8859-1?Q?un2qRCnqwqxij07JBUZJx9srhsihMwZO6XUlC9Vf8UG9su7q45ZO4HOJ/d?=
- =?iso-8859-1?Q?AKEzdwqC7OvarblBlNGwAc4qbL21Yi9RcL52METgAcFIJhuUe5UVzbHjOP?=
- =?iso-8859-1?Q?CaWNBJfG2/ZKePCgO3ha6/htYNlUXLNWqKwOC1NAMSh7vPNmxhqgE6n6wB?=
- =?iso-8859-1?Q?dyzocLyQfKSx3pIHQbV9cyiWSHH9YOmdk0cGdtQhNM1/l0/RtldpSgrUvD?=
- =?iso-8859-1?Q?EN+eL76+lVYeTlQ/A4cBzBOmLpyZuc1kIQypDWSEZNkDDygaCeZpBjCyzI?=
- =?iso-8859-1?Q?RLA8nt8PC5/jIgI2aIt28B7kQeptor3OT/qbhYG0b80+yTDfa2GHupfSh/?=
- =?iso-8859-1?Q?ys9ladkvPPs7PR6cD3yYRBr8qxlXjXBnPWgZ6vmR7tE+akSGbA3bmDOt1p?=
- =?iso-8859-1?Q?L3hd3eGj0EAcupLwfW3N7sxWQyQP6HtXXIKdYDWJYIPgdrmcv4La3LJOdw?=
- =?iso-8859-1?Q?rG8Um9qCncgkYslovcgGwd4jz5yNyFedyFgvAOVMPC3LXhASeX/dsdvuxx?=
- =?iso-8859-1?Q?EWk3UVggNfVEAHkwbjuvrY2hCchGgrr8GgTk18Le580G/qmpJLgJR9xSp0?=
- =?iso-8859-1?Q?TSxb1veHZYn0zt+C++G3Pp5d9dD+kGq8eNw4qKhnITo0ETbfd7Qlm5Taea?=
- =?iso-8859-1?Q?dNY5E5Paag664F1yDASC79/xXd0kAtt35i3MipvwHEhwJnd/xL/S1ceF2x?=
- =?iso-8859-1?Q?WKi6i41wpuLI6eziXYCxkMqqyMcgjE7vXz9oRYdYmaahrZCNrGTbbmmyfP?=
- =?iso-8859-1?Q?9ByLayRlMxwdaOrwuupLCb+5fKNs7eZviP20NKjK2te7itqyOdJcHkDcNi?=
- =?iso-8859-1?Q?VbIIUd3m3F3aBHVCO/ilxDqHlikAgL0Q4RvCQsk/fUteAS4v+w0pnyrg?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Message-ID: <7b2fe09a-02f4-4575-9e42-1328f3a40f1d@epam.com>
+Date: Wed, 12 Nov 2025 22:25:31 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN][PATCH] x86/hvm: revise "cpu_has_vmx" usage for
+ !CONFIG_INTEL_VMX case
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+References: <20250924101417.229108-1-grygorii_strashko@epam.com>
+Content-Language: en-US
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+In-Reply-To: <20250924101417.229108-1-grygorii_strashko@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: WA2P291CA0046.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1f::15) To AS2PR03MB8907.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5e4::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|AS4PR03MB8506:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8090cf44-484a-46ec-9421-08de2229a10d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?NU9tMm9wZUJLYVFUbCt2TDJJc0lTMFJyVk03NmhqMlFoT2RyUjVlUWpyYnZG?=
+ =?utf-8?B?ZFJtS2p1VTVqaVIyL2xmU1VqcTN0Y1VpVm9sck56aXJrRWlRb3RSNS9zaFZJ?=
+ =?utf-8?B?VitWZzlXbjlyMzBxRDRXT25ZaWdTWWQ4aFcwazlqcWNWd29rUnduZDlhWjM4?=
+ =?utf-8?B?UmFUV3JiZC9Ob1VpNEtFcitIWkZRQSt4NW1zcGdxQmFvbGVvZm1iclRjOXpL?=
+ =?utf-8?B?OGszcVBKRGhrNGJIayt3cE9RQXFBWGZ0RjFETVJLK0tPRU9WZzdoMENRM0xt?=
+ =?utf-8?B?UTRqTjZOUTVuU0xCSy9WaTIxbkZrUEtnc05zSFc4K0NKcW43cVI3OXAvNzNU?=
+ =?utf-8?B?N2FFeGc4b3pPeG5nS0xpTE96T2I0RUdXT1htaUlITS9NUDNjY0YrT0dBVk0z?=
+ =?utf-8?B?WkhPOWN5NUQwZmZHa0x0b0E3KzEvNEI4WElTN2M1eGU0UFFWNXdKQWs2cy9F?=
+ =?utf-8?B?WERtYjN1dmI5WXRKKytVTGxMY2xrUGhjVlJHYnJUVlJiSHUzL2JTbkd4TE9Q?=
+ =?utf-8?B?cHZwalpVN0FzeUg3bmgvbENhRUxNQURFRjg0ZHpZZnpKTTVjM2dkQ0NjcVNX?=
+ =?utf-8?B?UXNEd0pDNXVNUUt3dXVZNjNWMzNsQjY3YitqbmV6QXR3MGZmWmFRSjFlMlIx?=
+ =?utf-8?B?N0JwaERLekVOYXhVRzhRdlk1bk1PR0hpS28zZ2ZSRnYvclJZTDNvUFBoaEFJ?=
+ =?utf-8?B?UG5wbHh3M3dmTU9KK2hYQThUUS81T3ZyckpkekpaTHlsZVBnSUE0cms0ajNF?=
+ =?utf-8?B?NmJGWkMrNkNsdTNMK1BWMjdOblhRdC9USTlkbFRBT3N5WkJmT0pPR1hrMDBm?=
+ =?utf-8?B?RWtocGVCRkJvT0RyUjh1VEJFYVV1NHkzdjlWVkZZV3NTU2FmRkZyQlBkMVFO?=
+ =?utf-8?B?N0d3eTJyVUw4ZDQvMGJ5RG9tTS9reWVpaXB5ZWtZckR0aE5iNVR3M3ljUFgz?=
+ =?utf-8?B?NjBnNDFMLzJ0Y1U2REhHU29aOW8rRnNCOXUrTis1dnlrWEJ4a2NoUXlMeG16?=
+ =?utf-8?B?M2RkcXdXUWxwdUpheU9YNTNiUllPR01PR3FncXNYUFgyVG1ETU94aE1vWjE0?=
+ =?utf-8?B?Y2VacFN6VnlJZWFNeUovR3JhK1QzZy9pandpcGtFOStsS2ord3ovOG1xMHk5?=
+ =?utf-8?B?WktjSk41NmF0TzZFV0lGdSt4TS9ySVhJM1djenE5WXNzME85UUpXYW4wZUtG?=
+ =?utf-8?B?UTVSSEFHUFVTYlBsb0dMNUdJRjArZ0E4RW15K21vbGlIVXBXYk9nZm5PN2x3?=
+ =?utf-8?B?SERhMHg1WnZ1K2tVN1Y4WWhzeE53SXBPamtPMjdzSkdGMFZnTU5CckJBWmRD?=
+ =?utf-8?B?NktpOFlESXl6NGtwRC9ZdndnZkJOZWE3YjhyeWloVnlWdmYybE9YdVErSUlr?=
+ =?utf-8?B?Y05yUWN0UFNzTXhlOG0rajVhcUlKcVhGM1l3M0xzdDJ0OFZ0ajBFY1FUZm1j?=
+ =?utf-8?B?V3lERGtjaEJycXJaVVhHQ2xIUmVmMkMzNUZxbEgzY2pJRXBiQkdoR0wzZEZz?=
+ =?utf-8?B?cWU1MW1nS3ZOc0pLbWlPaytMMDRBT0YzQmxRVk4zdjFXNWw3cUZTZkg3ZEZa?=
+ =?utf-8?B?UzV6WGpZb05qZE1YUjR1ZlYrOWJnWHViU0UxU1d5SjFxUGpvOTd1dXJjbGhv?=
+ =?utf-8?B?SzdwNUx5MjlhaXhPdWZGY0hWbE5VcDBPYTg3YVIvQ0FYRlBoNFJmYVhUeVA2?=
+ =?utf-8?B?bUpkWkpCa0pwcC9JWklXUWpoZXBMUHVXalRVRGUwbGtVRTEyVzQ1M3pvYURK?=
+ =?utf-8?B?TU1ocGhLbTlRUVV6Q01yQWdEcEhFYThyc3o2bVBvdlcya01mZzJrMEpDWUdu?=
+ =?utf-8?B?UWU1M1piZm9GeStDaTRML0RCZlhDRDBvdDFjL2hWVHB0R2dYU3hVS0tRK0w5?=
+ =?utf-8?B?dlVHdm83UVBTQTRoZDV4Tm5mV3ljejNrSng3STNNeFU0STYwWHVLd096SXp6?=
+ =?utf-8?Q?0F1t2nU5RM7swvNn7avaUccF9MbjzkKc?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Z2IzSEsvMWVEVzFrZnNpUGlnMTUzMXhiV0VHWmtSblJFSlhvVjFGemRmNk1T?=
+ =?utf-8?B?RHhMUVJvQXUyYStmZ2JVa1Bod09Kamp2SnZ6SFcwVUMvMDFNR3ZZYXRCOGQy?=
+ =?utf-8?B?ZDZDbG85NGVGZWp1aEhtblhTYmFWVEtXbWRjK0tablF1M2g3VWRMTUFqUWlC?=
+ =?utf-8?B?THFoM2xjcXJJZnZudElRV1AxaXc3TTBVa0xza01iS2Znb2xZYVE4OTNackJv?=
+ =?utf-8?B?NW44YVBQQWJnT09YNndzMm1MVkZUZlpWaVlIZjMxSVgweEFIc3pVWmYzbi9R?=
+ =?utf-8?B?MUloUWJ1Zm5aMUNqK3V1UFJwUVp1TU1WenBqa25BYlE4ZkxCekQ0eVRyTy9u?=
+ =?utf-8?B?cDBrdWp4NHgvTFFob2ZTZFB5QW1GYTEwcGxnUEVqc093VHFWdHc0YlczS2hD?=
+ =?utf-8?B?SHZ3UFc5aXBvQ09heGdVbUtCMVc2SzJVQmFhVmsvd1Z3WmUxRlhwZm1aOVpD?=
+ =?utf-8?B?SnZsS1k5SG1VM0ZBcDc1M3ZzdVUwVjhZcTh3ZTg2OEZTN0wrL0QzczM3RXVt?=
+ =?utf-8?B?RUE0bGluK2ZMUFdINWN0d3Z3dmNiSW8rM212b1YzcFFJZFhZQ1paQ011MFlr?=
+ =?utf-8?B?TEU5OVNreFFJZWwrZHk4L1A4VVpSM2NqanE1blM1ZVFnK05xbTlhY1VIOS9r?=
+ =?utf-8?B?ZHNNYmYwaDlINjBYeGlDQUZZeDVsaE9NNWNQNWxqTEtpcjNtRnlIQjBXbitp?=
+ =?utf-8?B?RXVaQnVmZHZaWmRGV2xyZ2ZLbUdQQTRMUjNta0NrTVVueFVpQ2dLd0lxT3BF?=
+ =?utf-8?B?ajFFZFYwU1BrVUp0VW9MREJZalpxZnBSSno0MzlzamJPaDAvUDJqa1doeXRo?=
+ =?utf-8?B?Y0VPUjVNTGFEcnlLeUs5ekhVY1pSdGhDK1VvQUw0UDAzbElhbHZYMnVYK0JN?=
+ =?utf-8?B?bUpyMGZSS0RFUlNNbk9Ib3ptWDYrQ0FUeWdWOEMwUGZabWp4TysyQUJqbk9C?=
+ =?utf-8?B?b21QWUxRRWg0dC82c0ljZUMxQUUxK1FWbzhxdDVlbVp0WS9LRkJjYmNVcXFU?=
+ =?utf-8?B?MEVST1c2N3pkaVphcXQvQWVJWXh5RytkZGRVUXl0NEJnRU5MWWhiYnpxTHAz?=
+ =?utf-8?B?NVdaaFMxVDVxMHVQSUlVWjYwUGV5MHBIcXBuc3dvMjQzWXQycld3M0Noc01m?=
+ =?utf-8?B?aHF2am8wUnB3NVBveFZ5UGJMMlRqVk4rNE93Q0ZKamxuYzY2MzY4QUNPekds?=
+ =?utf-8?B?ejNUY2VLRkNzYmJIejB5SW9oOXBrQ3dtWEpvcVdGZ3VWTzJ5allJOC9nMEc2?=
+ =?utf-8?B?NlJQcm0yUThHZWF6aUMyeG5ic3pGQWlwZXFHb3htYTVjSDFrWG8xWDdhRElt?=
+ =?utf-8?B?MXB5MWxCWTVRUURPTFRwa1JSQ3hBWUtKdHpDNW1oeFdmS0hlUTEyR3M4dnYz?=
+ =?utf-8?B?R2lwTUVFbm5wK2pQckpYVFpkKy9zSmFLOXRNTVJ4VE9LWDBkRUJjVytObVl3?=
+ =?utf-8?B?RTFrejVYS29MVHlCeVdPWUFjRzhhKzJHRXFRS0grREpiY2YxQnJuVlNuaDdt?=
+ =?utf-8?B?VDRxQ0lsYVdCS2pUKzZwVXdhU1hyOGZ2bWEzYUh5TFVDNkExcGFaV3k3cGNy?=
+ =?utf-8?B?ZWh4bXIzMXRNeEJxYnkzd1E5SFZqTkx0dm50b0Y0Z0ZFNkRJVVJXMWpsRnF2?=
+ =?utf-8?B?NzZzMXZ3NUNzc3hOTEx0RFY1Um5zMmJveU1rdjBwZkF4RlZEUm5sMmo2RFJu?=
+ =?utf-8?B?ajlUNlVuaHN1cWVwR2xEdzlqcXNDMkpuT2F3TjZSRUxuZUZlRXFjd1Q3emdO?=
+ =?utf-8?B?c3JnZnZiRDhCVU1yZkdlV0xlRnNPMkxJRzRyZ2w3ZXAwTXQ4OXV0ei9vYnlV?=
+ =?utf-8?B?NXRGNWFCdENCTEVHeE53S1dBN3JtUnhUN3ZVNmV1bkRDcUd2ZTdEbldEU3Yv?=
+ =?utf-8?B?VHRTTnRjRVRwSGh3bE04ZWxmc3NKSHhyUkVEQWZONWMvSTIxY25KVkhUQmdl?=
+ =?utf-8?B?VjkzUFMxOWJ5WXNYYnh5WGhrTHBoREw1Y0Zza0FnRUJWQ1Y4aTk4SFk2S1RB?=
+ =?utf-8?B?NHdZNUtTSmEvMXo2U3h2M0ZHUUc2Y3B6UFpPSlR5ZTRjbEtRbEJ1dVZONlpF?=
+ =?utf-8?B?ZGo4aTlNd0hSSDNsWERTVStjN09veHNlZE5RTHJuK0xNZklhM0pOOUxzQ0Z3?=
+ =?utf-8?B?b1QyTGJlZDNqOWc5OVFLVDBjSnJTRkNqbjJ6K2E1L0ZqcTcwanAyUEFsU3do?=
+ =?utf-8?B?bHc9PQ==?=
 X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8090cf44-484a-46ec-9421-08de2229a10d
 X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbf0c264-22de-456f-7def-08de22298456
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Nov 2025 20:24:44.2242
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2025 20:25:32.5402
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pOHRy2lgcMw/WnBzFXI3UdIOdeND1zyyKUnVuja0wbh8odI3K631wGqa54lcMpJMuhSm6tyAfSOLpefd4FCcSzVBdNid11OFk5AI1FFHkwk=
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: slcQg8rxjiNjnK/+vV9k/Y8lJbKq8rvtqoRfABIw9z2Z5pvJ2fK6qTCZ9oGVFIlkaW/XTVznW2rQPLHq0XfJ5jcTx0H4WWn8Ppqc4MYA3MM=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR03MB8506
 
-From: Grygorii Strashko <grygorii_strashko@epam.com>
+Hi
 
-The VMTRACE feature is depends on Platform/Arch HW and code support and now
-can be used only on x86 HVM with Intel VT-x (INTEL_VMX) enabled.
-This makes VMTRACE support optional by introducing HVM Kconfig option:
-- CONFIG_VMTRACE to enable/disable the feature.
+Could it be merged if no other comments, please?
 
-Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
----
-changes in v2:
- - fix comments from Jan Beulich
- - move CONFIG_VMTRACE in HVM
- - drop HAS_VMTRACE
-=20
-v1:
- https://patchwork.kernel.org/project/xen-devel/patch/20251031212005.133821=
-2-1-grygorii_strashko@epam.com/
+On 24.09.25 13:14, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
+> 
+> Since commit b99227347230 ("x86: Fix AMD_SVM and INTEL_VMX dependency") the
+> HVM Intel VT-x support can be disabled, but it still keeps VMX
+> code partially built-in. Particularly in HVM code there are two places:
+> 
+> 1) hvm/dom0_build.c
+>   dom0_construct_pvh()->pvh_populate_p2m()
+>      ...
+>      if ( cpu_has_vmx && paging_mode_hap(d) && !vmx_unrestricted_guest(v) )
+>      {
+>          ...
+>          [unreachable for !cpu_has_vmx case]
+>          rc = pvh_setup_vmx_realmode_helpers(d);
+> 
+> pvh_setup_vmx_realmode_helpers() allocates memory and configures
+>   HVM_PARAM_VM86_TSS_SIZED
+>   HVM_PARAM_IDENT_PT
+> 
+> 2) hvm/hvm.c
+>   hvm_set_param()
+>      ...
+>      case HVM_PARAM_IDENT_PT:
+> 
+>          if ( !paging_mode_hap(d) || !cpu_has_vmx )
+>          {
+>              d->arch.hvm.params[index] = value;
+>              break;
+>          }
+>          [unreachable for !cpu_has_vmx case]
+>          ...
+> 
+> Hence HVM_PARAM_IDENT_PT/HVM_PARAM_VM86_TSS_SIZED are used only by VMX code
+> above code become unreachable in !cpu_has_vmx case and can be optimazed
+> when !CONFIG_INTEL_VMX.
+> 
+> Replace "cpu_has_vmx" with using_vmx() to account !CONFIG_INTEL_VMX and allow
+> compiler DCE to optimize code.
+> 
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> ---
+> add/remove: 0/0 grow/shrink: 0/2 up/down: 0/-604 (-604)
+> Function                                     old     new   delta
+> hvm_set_param                               1602    1473    -129
+> dom0_construct_pvh                          4438    3963    -475
+> Total: Before=3567191, After=3566587, chg -0.02%
+> 
+>   xen/arch/x86/hvm/dom0_build.c | 2 +-
+>   xen/arch/x86/hvm/hvm.c        | 2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+> index 5551f9044836..5ac2cf8394d8 100644
+> --- a/xen/arch/x86/hvm/dom0_build.c
+> +++ b/xen/arch/x86/hvm/dom0_build.c
+> @@ -473,7 +473,7 @@ static int __init pvh_populate_p2m(struct domain *d)
+>           }
+>       }
+>   
+> -    if ( cpu_has_vmx && paging_mode_hap(d) && !vmx_unrestricted_guest(v) )
+> +    if ( using_vmx() && paging_mode_hap(d) && !vmx_unrestricted_guest(v) )
+>       {
+>           /*
+>            * Since Dom0 cannot be migrated, we will only setup the
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 95a80369b9b8..70331aeec9a0 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -4302,7 +4302,7 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
+>            * Only actually required for VT-x lacking unrestricted_guest
+>            * capabilities.  Short circuit the pause if possible.
+>            */
+> -        if ( !paging_mode_hap(d) || !cpu_has_vmx )
+> +        if ( !paging_mode_hap(d) || !using_vmx() )
+>           {
+>               d->arch.hvm.params[index] = value;
+>               break;
 
- xen/arch/x86/domctl.c                   |  4 ++++
- xen/arch/x86/hvm/Kconfig                | 12 ++++++++++++
- xen/arch/x86/hvm/vmx/vmcs.c             |  2 ++
- xen/arch/x86/hvm/vmx/vmx.c              | 11 +++++++++++
- xen/arch/x86/include/asm/guest-msr.h    |  2 ++
- xen/arch/x86/include/asm/hvm/hvm.h      | 10 ++++++++++
- xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  2 ++
- xen/arch/x86/mm/mem_sharing.c           |  2 ++
- xen/arch/x86/vm_event.c                 |  7 ++++---
- xen/common/domain.c                     | 10 ++++++++++
- xen/common/memory.c                     |  6 ++++++
- xen/common/vm_event.c                   |  3 ++-
- xen/include/xen/domain.h                |  4 ++++
- xen/include/xen/sched.h                 |  4 ++++
- 14 files changed, 75 insertions(+), 4 deletions(-)
+-- 
+Best regards,
+-grygorii
 
-diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-index 6153e3c07e2d..d9521808dcba 100644
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -154,6 +154,7 @@ void arch_get_domain_info(const struct domain *d,
- static int do_vmtrace_op(struct domain *d, struct xen_domctl_vmtrace_op *o=
-p,
-                          XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
- {
-+#ifdef CONFIG_VMTRACE
-     struct vcpu *v;
-     int rc;
-=20
-@@ -198,6 +199,9 @@ static int do_vmtrace_op(struct domain *d, struct xen_d=
-omctl_vmtrace_op *op,
-     vcpu_unpause(v);
-=20
-     return rc;
-+#else
-+    return -EOPNOTSUPP;
-+#endif
- }
-=20
- #define MAX_IOPORTS 0x10000
-diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
-index c1a131d1851a..5c47a45c9350 100644
---- a/xen/arch/x86/hvm/Kconfig
-+++ b/xen/arch/x86/hvm/Kconfig
-@@ -35,6 +35,18 @@ config INTEL_VMX
- 	  If your system includes a processor with Intel VT-x support, say Y.
- 	  If in doubt, say Y.
-=20
-+config VMTRACE
-+    bool "HW VM tracing support"
-+    depends on INTEL_VMX
-+    default y
-+    help
-+      Enables HW VM tracing support which allows to configure HW processor
-+      features (vmtrace_op) to enable capturing information about software
-+      execution using dedicated hardware facilities with minimal interfere=
-nce
-+      to the software being traced. The trace data can be retrieved using =
-buffer
-+      shared between Xen and domain
-+      (see XENMEM_acquire_resource(XENMEM_resource_vmtrace_buf)).
-+
- config HVM_FEP
- 	bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
- 	default DEBUG
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index cd5ac8a5f0e3..2fffc2006ab0 100644
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -307,6 +307,7 @@ static int vmx_init_vmcs_config(bool bsp)
-     rdmsrl(MSR_IA32_VMX_MISC, _vmx_misc_cap);
-=20
-     /* Check whether IPT is supported in VMX operation. */
-+#ifdef CONFIG_VMTRACE
-     if ( bsp )
-         vmtrace_available =3D cpu_has_proc_trace &&
-                             (_vmx_misc_cap & VMX_MISC_PROC_TRACE);
-@@ -317,6 +318,7 @@ static int vmx_init_vmcs_config(bool bsp)
-                smp_processor_id());
-         return -EINVAL;
-     }
-+#endif
-=20
-     if ( caps.cpu_based_exec_control & CPU_BASED_ACTIVATE_SECONDARY_CONTRO=
-LS )
-     {
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index e2b5077654ef..66367adf3393 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -619,6 +619,7 @@ static void cf_check domain_creation_finished(struct do=
-main *d)
-=20
- static void vmx_init_ipt(struct vcpu *v)
- {
-+#ifdef CONFIG_VMTRACE
-     unsigned int size =3D v->domain->vmtrace_size;
-=20
-     if ( !size )
-@@ -629,6 +630,7 @@ static void vmx_init_ipt(struct vcpu *v)
-     ASSERT(size >=3D PAGE_SIZE && (size & (size - 1)) =3D=3D 0);
-=20
-     v->arch.msrs->rtit.output_limit =3D size - 1;
-+#endif
- }
-=20
- static int cf_check vmx_vcpu_initialise(struct vcpu *v)
-@@ -721,11 +723,13 @@ static void vmx_save_guest_msrs(struct vcpu *v)
-      */
-     v->arch.hvm.vmx.shadow_gs =3D read_gs_shadow();
-=20
-+#ifdef CONFIG_VMTRACE
-     if ( v->arch.hvm.vmx.ipt_active )
-     {
-         rdmsrl(MSR_RTIT_OUTPUT_MASK, msrs->rtit.output_mask);
-         rdmsrl(MSR_RTIT_STATUS, msrs->rtit.status);
-     }
-+#endif
-=20
-     if ( cp->feat.pks )
-         msrs->pkrs =3D rdpkrs_and_cache();
-@@ -744,12 +748,14 @@ static void vmx_restore_guest_msrs(struct vcpu *v)
-     if ( cpu_has_msr_tsc_aux )
-         wrmsr_tsc_aux(msrs->tsc_aux);
-=20
-+#ifdef CONFIG_VMTRACE
-     if ( v->arch.hvm.vmx.ipt_active )
-     {
-         wrmsrl(MSR_RTIT_OUTPUT_BASE, page_to_maddr(v->vmtrace.pg));
-         wrmsrl(MSR_RTIT_OUTPUT_MASK, msrs->rtit.output_mask);
-         wrmsrl(MSR_RTIT_STATUS, msrs->rtit.status);
-     }
-+#endif
-=20
-     if ( cp->feat.pks )
-         wrpkrs(msrs->pkrs);
-@@ -2563,6 +2569,7 @@ static bool cf_check vmx_get_pending_event(
-     return true;
- }
-=20
-+#ifdef CONFIG_VMTRACE
- /*
-  * We only let vmtrace agents see and modify a subset of bits in MSR_RTIT_=
-CTL.
-  * These all pertain to data-emitted into the trace buffer(s).  Must not
-@@ -2705,6 +2712,7 @@ static int cf_check vmtrace_reset(struct vcpu *v)
-     v->arch.msrs->rtit.status =3D 0;
-     return 0;
- }
-+#endif
-=20
- static uint64_t cf_check vmx_get_reg(struct vcpu *v, unsigned int reg)
- {
-@@ -2877,11 +2885,14 @@ static struct hvm_function_table __initdata_cf_clob=
-ber vmx_function_table =3D {
-     .altp2m_vcpu_emulate_ve =3D vmx_vcpu_emulate_ve,
-     .altp2m_vcpu_emulate_vmfunc =3D vmx_vcpu_emulate_vmfunc,
- #endif
-+
-+#ifdef CONFIG_VMTRACE
-     .vmtrace_control =3D vmtrace_control,
-     .vmtrace_output_position =3D vmtrace_output_position,
-     .vmtrace_set_option =3D vmtrace_set_option,
-     .vmtrace_get_option =3D vmtrace_get_option,
-     .vmtrace_reset =3D vmtrace_reset,
-+#endif
-=20
-     .get_reg =3D vmx_get_reg,
-     .set_reg =3D vmx_set_reg,
-diff --git a/xen/arch/x86/include/asm/guest-msr.h b/xen/arch/x86/include/as=
-m/guest-msr.h
-index 5f0cb0a93995..702f47fe1e16 100644
---- a/xen/arch/x86/include/asm/guest-msr.h
-+++ b/xen/arch/x86/include/asm/guest-msr.h
-@@ -50,6 +50,7 @@ struct vcpu_msrs
-         };
-     } misc_features_enables;
-=20
-+#ifdef CONFIG_VMTRACE
-     /*
-      * 0x00000560 ... 57x - MSR_RTIT_*
-      *
-@@ -81,6 +82,7 @@ struct vcpu_msrs
-             };
-         };
-     } rtit;
-+#endif
-=20
-     /*
-      * 0x000006e1 - MSR_PKRS - Protection Key Supervisor.
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/=
-hvm/hvm.h
-index 6f174ef658f1..e59d91ded63d 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -234,12 +234,14 @@ struct hvm_function_table {
-     int (*altp2m_vcpu_emulate_vmfunc)(const struct cpu_user_regs *regs);
- #endif
-=20
-+#ifdef CONFIG_VMTRACE
-     /* vmtrace */
-     int (*vmtrace_control)(struct vcpu *v, bool enable, bool reset);
-     int (*vmtrace_output_position)(struct vcpu *v, uint64_t *pos);
-     int (*vmtrace_set_option)(struct vcpu *v, uint64_t key, uint64_t value=
-);
-     int (*vmtrace_get_option)(struct vcpu *v, uint64_t key, uint64_t *valu=
-e);
-     int (*vmtrace_reset)(struct vcpu *v);
-+#endif
-=20
-     uint64_t (*get_reg)(struct vcpu *v, unsigned int reg);
-     void (*set_reg)(struct vcpu *v, unsigned int reg, uint64_t val);
-@@ -735,6 +737,7 @@ static inline bool altp2m_vcpu_emulate_ve(struct vcpu *=
-v)
- bool altp2m_vcpu_emulate_ve(struct vcpu *v);
- #endif /* CONFIG_ALTP2M */
-=20
-+#ifdef CONFIG_VMTRACE
- static inline int hvm_vmtrace_control(struct vcpu *v, bool enable, bool re=
-set)
- {
-     if ( hvm_funcs.vmtrace_control )
-@@ -769,13 +772,20 @@ static inline int hvm_vmtrace_get_option(
-=20
-     return -EOPNOTSUPP;
- }
-+#else
-+int hvm_vmtrace_output_position(struct vcpu *v, uint64_t *pos);
-+#endif
-=20
- static inline int hvm_vmtrace_reset(struct vcpu *v)
- {
-+#ifdef CONFIG_VMTRACE
-     if ( hvm_funcs.vmtrace_reset )
-         return alternative_call(hvm_funcs.vmtrace_reset, v);
-=20
-     return -EOPNOTSUPP;
-+#else
-+    return 0;
-+#endif
- }
-=20
- /*
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include=
-/asm/hvm/vmx/vmcs.h
-index ecd91389302c..24fd3162af40 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -146,8 +146,10 @@ struct vmx_vcpu {
-     /* Do we need to tolerate a spurious EPT_MISCONFIG VM exit? */
-     bool                 ept_spurious_misconfig;
-=20
-+#ifdef CONFIG_VMTRACE
-     /* Processor Trace configured and enabled for the vcpu. */
-     bool                 ipt_active;
-+#endif
-=20
-     /* Is the guest in real mode? */
-     uint8_t              vmx_realmode;
-diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-index 4787b2796479..074f1b2562b3 100644
---- a/xen/arch/x86/mm/mem_sharing.c
-+++ b/xen/arch/x86/mm/mem_sharing.c
-@@ -1888,7 +1888,9 @@ static int fork(struct domain *cd, struct domain *d)
-         domain_pause(d);
-         cd->max_pages =3D d->max_pages;
-         *cd->arch.cpu_policy =3D *d->arch.cpu_policy;
-+#ifdef CONFIG_VMTRACE
-         cd->vmtrace_size =3D d->vmtrace_size;
-+#endif
-         cd->parent =3D d;
-     }
-=20
-diff --git a/xen/arch/x86/vm_event.c b/xen/arch/x86/vm_event.c
-index fc349270b9c5..e9ac1d497594 100644
---- a/xen/arch/x86/vm_event.c
-+++ b/xen/arch/x86/vm_event.c
-@@ -253,7 +253,8 @@ void vm_event_fill_regs(vm_event_request_t *req)
-     req->data.regs.x86.shadow_gs =3D ctxt.shadow_gs;
-     req->data.regs.x86.dr6 =3D ctxt.dr6;
-=20
--    if ( hvm_vmtrace_output_position(curr, &req->data.regs.x86.vmtrace_pos=
-) !=3D 1 )
-+    if ( IS_ENABLED(CONFIG_VMTRACE) &&
-+         hvm_vmtrace_output_position(curr, &req->data.regs.x86.vmtrace_pos=
-) !=3D 1 )
-         req->data.regs.x86.vmtrace_pos =3D ~0;
- #endif
- }
-@@ -303,12 +304,12 @@ void vm_event_emulate_check(struct vcpu *v, vm_event_=
-response_t *rsp)
- #endif
- }
-=20
-+#ifdef CONFIG_VMTRACE
- void vm_event_reset_vmtrace(struct vcpu *v)
- {
--#ifdef CONFIG_HVM
-     hvm_vmtrace_reset(v);
--#endif
- }
-+#endif
-=20
- /*
-  * Local variables:
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index e13e01c1d272..ce4f55339fb4 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -136,7 +136,9 @@ struct vcpu *idle_vcpu[NR_CPUS] __read_mostly;
-=20
- vcpu_info_t dummy_vcpu_info;
-=20
-+#ifdef CONFIG_VMTRACE
- bool __read_mostly vmtrace_available;
-+#endif
-=20
- bool __read_mostly vpmu_is_available;
-=20
-@@ -318,6 +320,7 @@ static void vcpu_info_reset(struct vcpu *v)
-=20
- static void vmtrace_free_buffer(struct vcpu *v)
- {
-+#ifdef CONFIG_VMTRACE
-     const struct domain *d =3D v->domain;
-     struct page_info *pg =3D v->vmtrace.pg;
-     unsigned int i;
-@@ -332,10 +335,12 @@ static void vmtrace_free_buffer(struct vcpu *v)
-         put_page_alloc_ref(&pg[i]);
-         put_page_and_type(&pg[i]);
-     }
-+#endif
- }
-=20
- static int vmtrace_alloc_buffer(struct vcpu *v)
- {
-+#ifdef CONFIG_VMTRACE
-     struct domain *d =3D v->domain;
-     struct page_info *pg;
-     unsigned int i;
-@@ -377,6 +382,9 @@ static int vmtrace_alloc_buffer(struct vcpu *v)
-     }
-=20
-     return -ENODATA;
-+#else
-+    return 0;
-+#endif
- }
-=20
- /*
-@@ -825,7 +833,9 @@ struct domain *domain_create(domid_t domid,
-         ASSERT(!config->altp2m.nr);
- #endif
-=20
-+#ifdef CONFIG_VMTRACE
-         d->vmtrace_size =3D config->vmtrace_size;
-+#endif
-     }
-=20
-     /* Sort out our idea of is_control_domain(). */
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index 3688e6dd5032..66dc7f7a0a41 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -1155,8 +1155,10 @@ static unsigned int resource_max_frames(const struct=
- domain *d,
-     case XENMEM_resource_ioreq_server:
-         return ioreq_server_max_frames(d);
-=20
-+#ifdef CONFIG_VMTRACE
-     case XENMEM_resource_vmtrace_buf:
-         return d->vmtrace_size >> PAGE_SHIFT;
-+#endif
-=20
-     default:
-         return 0;
-@@ -1198,6 +1200,7 @@ static int acquire_ioreq_server(struct domain *d,
- #endif
- }
-=20
-+#ifdef CONFIG_VMTRACE
- static int acquire_vmtrace_buf(
-     struct domain *d, unsigned int id, unsigned int frame,
-     unsigned int nr_frames, xen_pfn_t mfn_list[])
-@@ -1220,6 +1223,7 @@ static int acquire_vmtrace_buf(
-=20
-     return nr_frames;
- }
-+#endif
-=20
- /*
-  * Returns -errno on error, or positive in the range [1, nr_frames] on
-@@ -1238,8 +1242,10 @@ static int _acquire_resource(
-     case XENMEM_resource_ioreq_server:
-         return acquire_ioreq_server(d, id, frame, nr_frames, mfn_list);
-=20
-+#ifdef CONFIG_VMTRACE
-     case XENMEM_resource_vmtrace_buf:
-         return acquire_vmtrace_buf(d, id, frame, nr_frames, mfn_list);
-+#endif
-=20
-     default:
-         ASSERT_UNREACHABLE();
-diff --git a/xen/common/vm_event.c b/xen/common/vm_event.c
-index b2787c010890..cf0258223f50 100644
---- a/xen/common/vm_event.c
-+++ b/xen/common/vm_event.c
-@@ -441,7 +441,8 @@ static int vm_event_resume(struct domain *d, struct vm_=
-event_domain *ved)
-             if ( rsp.flags & VM_EVENT_FLAG_GET_NEXT_INTERRUPT )
-                 vm_event_monitor_next_interrupt(v);
-=20
--            if ( rsp.flags & VM_EVENT_FLAG_RESET_VMTRACE )
-+            if ( IS_ENABLED(CONFIG_VMTRACE) &&
-+                 (rsp.flags & VM_EVENT_FLAG_RESET_VMTRACE) )
-                 vm_event_reset_vmtrace(v);
-=20
-             if ( rsp.flags & VM_EVENT_FLAG_VCPU_PAUSED )
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index 8aab05ae93c8..aa86a9f46022 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -191,7 +191,11 @@ void vnuma_destroy(struct vnuma_info *vnuma);
- static inline void vnuma_destroy(struct vnuma_info *vnuma) { ASSERT(!vnuma=
-); }
- #endif
-=20
-+#ifdef CONFIG_VMTRACE
- extern bool vmtrace_available;
-+#else
-+#define vmtrace_available false
-+#endif
-=20
- extern bool vpmu_is_available;
-=20
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 02bdc256ce37..dcd8647e0d36 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -300,9 +300,11 @@ struct vcpu
-     /* vPCI per-vCPU area, used to store data for long running operations.=
- */
-     struct vpci_vcpu vpci;
-=20
-+#ifdef CONFIG_VMTRACE
-     struct {
-         struct page_info *pg; /* One contiguous allocation of d->vmtrace_s=
-ize */
-     } vmtrace;
-+#endif
-=20
-     struct arch_vcpu arch;
-=20
-@@ -623,7 +625,9 @@ struct domain
-     unsigned int nr_altp2m;    /* Number of altp2m tables. */
- #endif
-=20
-+#ifdef CONFIG_VMTRACE
-     unsigned int vmtrace_size; /* Buffer size in bytes, or 0 to disable. *=
-/
-+#endif
-=20
- #ifdef CONFIG_ARGO
-     /* Argo interdomain communication support */
---=20
-2.34.1
 
