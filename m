@@ -2,56 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 976D2C532F3
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 16:51:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160175.1488383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BE27C532FC
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 16:52:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160182.1488392 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJD88-0006GF-F7; Wed, 12 Nov 2025 15:51:32 +0000
+	id 1vJD8f-0006u7-P8; Wed, 12 Nov 2025 15:52:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160175.1488383; Wed, 12 Nov 2025 15:51:32 +0000
+Received: by outflank-mailman (output) from mailman id 1160182.1488392; Wed, 12 Nov 2025 15:52:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJD88-0006DN-BT; Wed, 12 Nov 2025 15:51:32 +0000
-Received: by outflank-mailman (input) for mailman id 1160175;
- Wed, 12 Nov 2025 15:51:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vJD8f-0006sT-MV; Wed, 12 Nov 2025 15:52:05 +0000
+Received: by outflank-mailman (input) for mailman id 1160182;
+ Wed, 12 Nov 2025 15:52:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Onbl=5U=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1vJD87-0006DF-7v
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 15:51:31 +0000
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c107::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 73111bb0-bfdf-11f0-980a-7dc792cee155;
- Wed, 12 Nov 2025 16:51:28 +0100 (CET)
-Received: from SN7PR04CA0042.namprd04.prod.outlook.com (2603:10b6:806:120::17)
- by PH7PR12MB6468.namprd12.prod.outlook.com (2603:10b6:510:1f4::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.16; Wed, 12 Nov
- 2025 15:51:22 +0000
-Received: from SN1PEPF000397B4.namprd05.prod.outlook.com
- (2603:10b6:806:120:cafe::a6) by SN7PR04CA0042.outlook.office365.com
- (2603:10b6:806:120::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.16 via Frontend Transport; Wed,
- 12 Nov 2025 15:51:21 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SN1PEPF000397B4.mail.protection.outlook.com (10.167.248.58) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9320.13 via Frontend Transport; Wed, 12 Nov 2025 15:51:21 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 12 Nov
- 2025 07:51:21 -0800
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 12 Nov
- 2025 09:51:21 -0600
-Received: from [172.31.139.223] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 12 Nov 2025 07:51:19 -0800
+ <SRS0=31i5=5U=arm.com=harry.ramsey@srs-se1.protection.inumbo.net>)
+ id 1vJD8e-0006dK-5b
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 15:52:04 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 87d22629-bfdf-11f0-9d18-b5c5bf9af7f9;
+ Wed, 12 Nov 2025 16:52:03 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3FE902B;
+ Wed, 12 Nov 2025 07:51:54 -0800 (PST)
+Received: from [10.57.40.63] (unknown [10.57.40.63])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ACC473F5A1;
+ Wed, 12 Nov 2025 07:52:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,115 +42,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73111bb0-bfdf-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TYdAOyFE+BJWMoetwofGts653UC6eVTlxsVeyHKX3jYH/tT4tu3lxOU10Zay8PG5plgH2NbzmH/jFjuyzgVDTtvtGTNFrtQ90UGsgEaQyFMpmeP4k07K0YbNRCsozNfkHaZ+fXUjkVXLBcxh7BSov7MG3wCckvVF81cwsAUixKCaIo2EXcQEFM+hSQBzLctgBw/zZK8pqR1NgbUSfiXCE3eJw9mi7U7pJfvgbR95ON0jYLCRnMqt2gXh8HvAqtPfmcKNv/+PVknJDf9VdeEDHsvA8dz6EpfE7ZwbtYUNNJDXu7wM/LRTx++8VP68vZiv9pnzuN9vJJ6jVIGZttol8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HhOhxZSzbM/DBiNV0hItvRWwAI0FPi50RpxqEs3zpSk=;
- b=pLT89I49hdu2hdP3xO0QAy949YSisl6ZfmduHgHTchLu+GJFyZkWvn3TrJmSrlDdcRmyqOFYIsOthf/WXdm/XIH+eAVahJMRDNCrsFSjW4+/7lgI08k8UJhADPTSKmllq7+sraLb0zsxRuEY13LOjr14MuFBdNB6Tzi3qFpX9jSVqoeJ1znfRizhZ+UlbHrMVPzeb2GrR9GYz92IaJ/vLqMV/Go3mgE6swO1F5aIt1jh1gc3TnrMJdD/SG7bwYFv6R9hqRSmjx3UxfO9YQQu8TwKC05YNbStdDTBJZU4BV9lykdOR105lLOnlD3kpdgmT71tdhY9PDd1GkUOyLqVZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HhOhxZSzbM/DBiNV0hItvRWwAI0FPi50RpxqEs3zpSk=;
- b=yXwhNbkOcmYOjqAz5kx+qWK7dMkP6yc4zDPmON0YY4y1922txeMO++z7Q5lAkpD4bzlSk3MDP5If399GVFf+jHHj7qPlZwOq+nkVB57c4CbIx/uHfJViTg1AuK8uYUDUpkLMB6ah/U8Dj5yfjig7WeUBiDwrgra6mcYfgJnwMq8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <8b9d7300-ef9b-497c-b6c7-3922edbb7f75@amd.com>
-Date: Wed, 12 Nov 2025 10:51:20 -0500
+X-Inumbo-ID: 87d22629-bfdf-11f0-9d18-b5c5bf9af7f9
+Message-ID: <fe082ad9-ee55-46bd-8b93-5320649e6aca@arm.com>
+Date: Wed, 12 Nov 2025 15:51:59 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] xen: Strip xen.efi by default
-To: Frediano Ziglio <frediano.ziglio@citrix.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Frediano Ziglio <frediano.ziglio@cloud.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
- Grall" <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Frediano
- Ziglio <freddy77@gmail.com>, Demi Marie Obenour <demiobenour@gmail.com>,
-	=?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-References: <20251110153707.84879-1-frediano.ziglio@citrix.com>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <20251110153707.84879-1-frediano.ziglio@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH v2 1/3] arm/mpu: Implement setup_mm for MPU systems
+Content-Language: en-GB
+To: "Orzel, Michal" <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Luca.Fancellu@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20251111101601.4171120-1-harry.ramsey@arm.com>
+ <20251111101601.4171120-2-harry.ramsey@arm.com>
+ <80c02055-2687-4e24-8de0-8fb4dfe2af02@amd.com>
+From: Harry Ramsey <harry.ramsey@arm.com>
+In-Reply-To: <80c02055-2687-4e24-8de0-8fb4dfe2af02@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B4:EE_|PH7PR12MB6468:EE_
-X-MS-Office365-Filtering-Correlation-Id: aedf1aa3-461b-43fe-7683-08de220353cf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|7416014|36860700013|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Y210aW9iSlJsaWtoaHpGeThvMy96bmthOGNhOUdyY0h3Q3NLdW9VWWtFV2E3?=
- =?utf-8?B?NlI3alhTcEI2U1hvZUd2eG1RU2I4OWVOZVJCeWViVmVtdlk3OU13UDRwMWhP?=
- =?utf-8?B?Q1Rna21mUDEzdTIycTkvejJGdmtFR1h6NFlLSDFJV2x3bElNOUtPbHg3WGU4?=
- =?utf-8?B?Q3dTOUNwSUF1MXpnMEJvSTJaZXI0S05mTFF5VEl3RDEyTTFBK3NVMjlJQWc1?=
- =?utf-8?B?SUpKS1BBQTFNNkg4ZTJyak9Za1ZHRHpUS0VKeDVBL1Y5eEZsTzR1a1dqaE9B?=
- =?utf-8?B?VDVTM0I3a2s3VHpoUDV1OGhYTHFqcWZxMDhiTTg1MHBZbllKQUI5amg1UE5L?=
- =?utf-8?B?aWdtMVdFSHpwZy9WU2VFbTYzWWNEdS9xZ1JOdElYdDdlYWtXMGZwSTZGN2VH?=
- =?utf-8?B?djl0MzRqRzdCL1dmcjlkTWFhelJYWURVNFI1YmhKYVlvdGdQT3BWbDY2VGlL?=
- =?utf-8?B?OGlrTTUyWXZZNWhvTHNuQW9lalBDYnVxSC9WN1I0ZVUrb3N1TmtlbVlvQUlr?=
- =?utf-8?B?RURmREtOWHc5S3EzcklZOW9GcGhHSHVPdk1LbDRrMkRtQS9lLzFvbFBBd1ZD?=
- =?utf-8?B?aDJ1SHE3M281OHVOSTZPQWduZzIyS0FLOG9CbG5WR1YybDlkbHQxWnNEbmNP?=
- =?utf-8?B?MHBCRWV2Mk54ZUFUOUxxS0xja2hGNGhscitRNVV3aXpJbnNiMTFlVGZHaDlW?=
- =?utf-8?B?d2c4Wlo2dldTYXRsK0NJaU9YN3pLT2RxT2xVVG1RTzRuQmRTejVzcVRuT3NK?=
- =?utf-8?B?NisxVnVCQVhOQjdBbmE4bWtMYjRjUEkzV0Y2cWFRdXZrbjltdWNjdGtYNXBK?=
- =?utf-8?B?R0U0N3JROEE0bWdaV2FORmNQRlArTEdDdnlURHArdkRHVFViQ1hJNlMxT20x?=
- =?utf-8?B?cTFUMElMQjlHaTNTYkJlV1RDeGFmU1hsUnA2SHozcDdMVDJGeEJyUkRlc0Qr?=
- =?utf-8?B?TzU2M01Gc2ZLUFdJdU5DMHdpZDd6SzFxVXVtUHBWR0NUaklLbkZjZmxUL1lF?=
- =?utf-8?B?bjI1NGt6RDVoNVk4NWZDbHhhdFJNVjVIcjk3NGRYV1lIbkFmREpTUnhYQUNo?=
- =?utf-8?B?Q0NScktIbHVsQlFvSXUycWRHcWFwb2pOV0pQT3I1OWN4QzJNelk2dFZkYlVR?=
- =?utf-8?B?ZGVDeXVhTzBmbTN6WXpsYVRtVDZoTW9zWlY4RnEvdFliVWpYekNXVE9QVWt3?=
- =?utf-8?B?dlJNZmlSYzJLYk9EczVQRTIyQS93eTlqYkw5RVdldGlXM2VmU0gzM0FCUjVi?=
- =?utf-8?B?cEEwelZSVDBZOTFwZUlzY1ZranI4QzBXeW1sS09VR1VZQVVGYllaZzljUkV1?=
- =?utf-8?B?V0tnN0xlWjBRcUY1M0hERUZMNjVXeWF1ajRpWGF0eUZFSnJyRHNOV1pwWkxl?=
- =?utf-8?B?SE5Sb1ZTb0lxYXlvaHVsNTRvVUN4QkJhV2VnY0JOOU5OcVVwREhaSlJyVU5i?=
- =?utf-8?B?ckY1QXYwMkpPeURRTU5BL2lWOW5td045Z29RblBzQkhBTEZyVXJUVUtrdVJV?=
- =?utf-8?B?MHdrZlRRWHB2alJDcDlnblR5V3E5TDlkV3ozNUZhZ3ZiNTBoTGlaUFMwM2dZ?=
- =?utf-8?B?bEVmOWlDbXcyR082OUNGTnpXYW1ZVU44R3JTSGxuTURuTTJPTXRZMXlmeitW?=
- =?utf-8?B?Tm14SnROSWJnSTZqRE9LeHdmTGNEQllUU3Q0ZjZRcjV3Q1ZLUEhJanA5TWZy?=
- =?utf-8?B?cVdpdEQxUzlSLzZnL1VRR0ljVXFjakM5cVJrK3ZhRUhjTFpjWFFhSStCSWly?=
- =?utf-8?B?QUJFOXNiZ2RPL2gzODB2MHhQNG0veVArM005QVgxb3MxNWZMTmk2RFlScWF0?=
- =?utf-8?B?Mjc2UWkzMmt1Z3ZLbjhHS0tZME5iUDlBdkZDcWlycVJuWDNLbmZ2bTFhNUNM?=
- =?utf-8?B?WFJ1M0c1NVZDTXB3SXJxVjBXQWN0VzBxdFVtOWt4S21NSk1nTkJ6eGNhTmJl?=
- =?utf-8?B?OWErZnJtT2ozcDZNSlY3Q3d2M3JEbGY0dWFBUzg3aktIdGJrM3IrSUxtcnYz?=
- =?utf-8?B?ZDU1Y2tUMk55aXJzMlZQbXVTbG43WkpIUXRpZTZSQ3EzVHBUK29EZ0hzanAv?=
- =?utf-8?B?alRhNHQvZzQ1TTZCMXJxMndLYzdLTkVUd2VrZE5kbGtjSTdDS0xFRWtmb0E1?=
- =?utf-8?Q?OLR8=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(36860700013)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2025 15:51:21.8846
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aedf1aa3-461b-43fe-7683-08de220353cf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000397B4.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6468
 
-On 11/10/25 10:37, Frediano Ziglio wrote:
-> From: Frediano Ziglio <frediano.ziglio@cloud.com>
-> 
-> For xen.gz file we strip all symbols and have an additional
-> xen-syms.efi file
 
-Can you add xen/xen-syms.efi to .gitignore please? Or perhaps change the
-existing xen/xen-syms.map to xen/xen-syms.* ?
+On 12/11/2025 12:40, Orzel, Michal wrote:
+>
+> On 11/11/2025 11:15, Harry Ramsey wrote:
+>> Implement `setup_mm` for MPU systems. This variant does not require
+>> setting up a direct map.
+>>
+>> To reduce code duplication the common initalisation code for both MPU
+>> and MMU Arm64 configurations is refactored into `setup_mm`. Platform-specific
+>> setup steps are now handled by a new helper function `setup_mm_helper`.
+>>
+>> Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
+>> ---
+>> Changes in v2:
+>> - Improve clarity with regards to MPU setup in setup_mm
+>> ---
+>>   xen/arch/arm/arm64/mmu/mm.c   | 26 +------------------
+>>   xen/arch/arm/include/asm/mm.h |  2 ++
+>>   xen/arch/arm/mm.c             | 48 +++++++++++++++++++++++++++++++++++
+>>   xen/arch/arm/mpu/mm.c         | 30 ++++++++++++++++++++--
+>>   4 files changed, 79 insertions(+), 27 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
+>> index 3e64be6ae6..70b53be032 100644
+>> --- a/xen/arch/arm/arm64/mmu/mm.c
+>> +++ b/xen/arch/arm/arm64/mmu/mm.c
+>> @@ -4,8 +4,6 @@
+>>   #include <xen/llc-coloring.h>
+>>   #include <xen/mm.h>
+>>   #include <xen/pfn.h>
+>> -#include <xen/static-memory.h>
+>> -#include <xen/static-shmem.h>
+>>
+>>   #include <asm/setup.h>
+>>
+>> @@ -240,33 +238,18 @@ static void __init setup_directmap_mappings(unsigned long base_mfn,
+>>           panic("Unable to setup the directmap mappings.\n");
+>>   }
+>>
+>> -void __init setup_mm(void)
+>> +void __init setup_mm_helper(void)
+>>   {
+>>       const struct membanks *banks = bootinfo_get_mem();
+>>       paddr_t ram_start = INVALID_PADDR;
+>>       paddr_t ram_end = 0;
+>> -    paddr_t ram_size = 0;
+>>       unsigned int i;
+>>
+>> -    init_pdx();
+>> -
+>> -    /*
+>> -     * We need some memory to allocate the page-tables used for the directmap
+>> -     * mappings. But some regions may contain memory already allocated
+>> -     * for other uses (e.g. modules, reserved-memory...).
+>> -     *
+>> -     * For simplicity, add all the free regions in the boot allocator.
+>> -     */
+>> -    populate_boot_allocator();
+>> -
+>> -    total_pages = 0;
+>> -
+>>       for ( i = 0; i < banks->nr_banks; i++ )
+>>       {
+>>           const struct membank *bank = &banks->bank[i];
+>>           paddr_t bank_end = bank->start + bank->size;
+>>
+>> -        ram_size = ram_size + bank->size;
+>>           ram_start = min(ram_start, bank->start);
+>>           ram_end = max(ram_end, bank_end);
+>>
+>> @@ -274,16 +257,9 @@ void __init setup_mm(void)
+>>                                    PFN_DOWN(bank->size));
+>>       }
+>>
+>> -    total_pages += ram_size >> PAGE_SHIFT;
+>> -
+>>       directmap_virt_end = XENHEAP_VIRT_START + ram_end - ram_start;
+>>       directmap_mfn_start = maddr_to_mfn(ram_start);
+>>       directmap_mfn_end = maddr_to_mfn(ram_end);
+>> -
+>> -    setup_frametable_mappings(ram_start, ram_end);
+>> -
+>> -    init_staticmem_pages();
+>> -    init_sharedmem_pages();
+>>   }
+>>
+>>   /*
+>> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+>> index 7a93dad2ed..f702f4a0d6 100644
+>> --- a/xen/arch/arm/include/asm/mm.h
+>> +++ b/xen/arch/arm/include/asm/mm.h
+>> @@ -202,6 +202,8 @@ extern void remove_early_mappings(void);
+>>   extern int prepare_secondary_mm(int cpu);
+>>   /* Map a frame table to cover physical addresses ps through pe */
+>>   extern void setup_frametable_mappings(paddr_t ps, paddr_t pe);
+>> +/* Helper function to setup memory management */
+>> +void setup_mm_helper(void);
+>>   /* map a physical range in virtual memory */
+>>   void __iomem *ioremap_attr(paddr_t start, size_t len, unsigned int attributes);
+>>
+>> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+>> index 3b05b46ee0..c1208de26c 100644
+>> --- a/xen/arch/arm/mm.c
+>> +++ b/xen/arch/arm/mm.c
+>> @@ -12,8 +12,12 @@
+>>   #include <xen/grant_table.h>
+>>   #include <xen/guest_access.h>
+>>   #include <xen/mm.h>
+>> +#include <xen/static-memory.h>
+>> +#include <xen/static-shmem.h>
+>>   #include <xen/vmap.h>
+>>
+>> +#include <asm/setup.h>
+>> +
+>>   #include <xsm/xsm.h>
+>>
+>>   #include <public/memory.h>
+>> @@ -24,6 +28,50 @@
+>>
+>>   unsigned long frametable_base_pdx __read_mostly;
+>>
+>> +#if defined(CONFIG_ARM_64) || defined(CONFIG_MPU)
+>> +void __init setup_mm(void)
+>> +{
+>> +    const struct membanks *banks = bootinfo_get_mem();
+>> +    paddr_t ram_start = INVALID_PADDR;
+>> +    paddr_t ram_end = 0;
+>> +    paddr_t ram_size = 0;
+>> +    unsigned int i;
+>> +
+>> +    init_pdx();
+>> +
+>> +    for ( i = 0; i < banks->nr_banks; i++ )
+>> +    {
+>> +        const struct membank *bank = &banks->bank[i];
+>> +        paddr_t bank_end = bank->start + bank->size;
+>> +
+>> +        ram_size = ram_size + bank->size;
+>> +        ram_start = min(ram_start, bank->start);
+>> +        ram_end = max(ram_end, bank_end);
+>> +    }
+>> +
+>> +    total_pages = ram_size >> PAGE_SHIFT;
+>> +
+>> +    /*
+>> +     * On MMU systems we need some memory to allocate the page-tables used for
+>> +     * the directmap mappings.  But some regions may contain memory already
+>> +     * allocated for other uses (e.g. modules, reserved-memory...).
+>> +     *
+>> +     * On MPU systems we need to pre-reserve regions that were allocated for
+>> +     * other uses (e.g. modules, reserved-memory...).
+> I'm not sure I understand this part of the comment with regards to
+> populate_boot_allocator(). Could you please explain?
+I think I should remove the MPU section and move this comment into patch 
+3 as it is confusing without the additional context of reference counting.
+
+During Xen initialization, the MPU assigns a refcount of 1 to 
+pre-allocated regions in head.S prepare_xen_region. Unlike an MMU, an 
+MPU has no virtual memory, so we must prevent these regions from being 
+freed or remapped to non-preallocated areas.
+
+>
+> ~Michal
+>
+~Harry
 
