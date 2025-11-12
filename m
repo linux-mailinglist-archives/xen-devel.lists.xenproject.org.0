@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D460C535C9
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 17:23:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160302.1488483 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCED9C535C5
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 17:22:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160306.1488519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJDcK-0000Tw-1p; Wed, 12 Nov 2025 16:22:44 +0000
+	id 1vJDcQ-0001IM-AK; Wed, 12 Nov 2025 16:22:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160302.1488483; Wed, 12 Nov 2025 16:22:44 +0000
+Received: by outflank-mailman (output) from mailman id 1160306.1488519; Wed, 12 Nov 2025 16:22:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJDcJ-0000RW-Uo; Wed, 12 Nov 2025 16:22:43 +0000
-Received: by outflank-mailman (input) for mailman id 1160302;
- Wed, 12 Nov 2025 16:22:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vJDcQ-0001Cp-4p; Wed, 12 Nov 2025 16:22:50 +0000
+Received: by outflank-mailman (input) for mailman id 1160306;
+ Wed, 12 Nov 2025 16:22:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Vb/2=5U=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vJDcI-0000RL-SO
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 16:22:42 +0000
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azlp170120001.outbound.protection.outlook.com
- [2a01:111:f403:c107::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cf0375b7-bfe3-11f0-9d18-b5c5bf9af7f9;
- Wed, 12 Nov 2025 17:22:41 +0100 (CET)
+ id 1vJDcO-0000RX-Qt
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 16:22:48 +0000
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c107::3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d29f6041-bfe3-11f0-980a-7dc792cee155;
+ Wed, 12 Nov 2025 17:22:47 +0100 (CET)
 Received: from BN9PR03CA0199.namprd03.prod.outlook.com (2603:10b6:408:f9::24)
- by BY5PR12MB4162.namprd12.prod.outlook.com (2603:10b6:a03:201::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.15; Wed, 12 Nov
+ by SJ5PPFE4FC9FAB3.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::9a7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.17; Wed, 12 Nov
  2025 16:22:37 +0000
 Received: from BN3PEPF0000B06C.namprd21.prod.outlook.com
- (2603:10b6:408:f9:cafe::3) by BN9PR03CA0199.outlook.office365.com
+ (2603:10b6:408:f9:cafe::7c) by BN9PR03CA0199.outlook.office365.com
  (2603:10b6:408:f9::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.16 via Frontend Transport; Wed,
  12 Nov 2025 16:22:37 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN3PEPF0000B06C.mail.protection.outlook.com (10.167.243.71) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9343.0 via Frontend Transport; Wed, 12 Nov 2025 16:22:36 +0000
+ 15.20.9343.0 via Frontend Transport; Wed, 12 Nov 2025 16:22:37 +0000
 Received: from xcbagarciav01.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 12 Nov
- 2025 08:22:34 -0800
+ 2025 08:22:35 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf0375b7-bfe3-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: d29f6041-bfe3-11f0-980a-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c4FyQ4PDxvp7+M1JKdbnFTNc7S2F/LfTCG+F9d0xa+TtdMUrHmTJQpSDaUIGjutqnbn6yKGs7Q9xEfku6KgOBGEk+p/93NIf4/MwN5uS22Mdp/vePCDvRgXt/2to1+2yBzNpclVBpopu3TWaWJkE5Tr+7LnaUYy5VvE4nHkj9EllgfbtzGQ5fmb4rxSa4Y0PigbClkH1TzkhwTr8EqBYX4xfhfQJvhQ5VTqnpFMnIivRBJXS0DFnl5cYgeX3Znrd9kesDahZ7/iR3A1Em8/IqF8+wpQyt27cnnUf9psEhwwoKma4y5r0glLEaZ0Uq7VW+3ExrmF0ll8WKWpApssgtA==
+ b=nmWRS0VEPOiBM7Sad1179CXDJoO/5iCuoJgUYVUJJNXF6Q9THJOCqmuBj2LutWVMexB7K5AXSkDvtWT7Lnuht4x+YqLcvqgY7/G02zlv5dmTrY5ULKSuNH1nISC70nE1v30FSBRilSgyomRXrGe1OKRlrQQ2GYz4M9uF7pqyZc9q8bKuFbAuNUOxSZ/o5FJaMsGFkS4Cm9ylTlVX/SPwwV9zrfbobMaaabg8Wt82/D9UZw8djlr0fpw+JjL8aJ6C8SBdKuARbu64DGlcrlhMVwLDZw4n0VZpPpoWrslIqKHGK4ywEHUEPuQp9x3GCHJmzs1nUeMCB3Chr9gGCl0hpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7AD+PhPKcjdOH7op5TswjHIaXy9fjfsf0PKlh/uahcQ=;
- b=BG5Vjdca5jsHhyX6l4Tj+SqQV/BA9cSpgf7n3/4q1Ju7o9jWgn9oB63EnIots0aqhmXdo5g/MPcYOtqkxuNbd1R2MnVk6B4LjpH6YNeTAWmivtTzClARiDM/lc5du+elto12CoXtC6QIwnUi5eNHgExxs+NthgvRWgCKYRQTIh4DO3jZeBzTn9PEvmlKvKweetGXseXzJq3zauaUPCGPG7GRzWR2xic/sPsrBuFKytgUkOFjEcTUvNSgG3/RZB7l00fJScQMlFUyh1FloIbKfDmv41nSY5kb/RtWRVwHP3BsPCjppno2MtQXStCeeq8f0UnZzUeXfps1iblT6w8uXw==
+ bh=ZXBRlT+vmpj7q780lMTRkbD8kmp9sJpq7zet8o+dSy0=;
+ b=JOhhLXC1WsStcH3+7YOk2mcTzjf21RxF4Oi7I+o/GxPzeB5xJYpneEjK4ddXEnYp3Fs5Azm4LfDfxXHjWGmz+goA3fOGgGPwdDI561uKYW1rlnJQnWkbFJZ2ZlBiUMNHPElOVRi78CJtnRheAyccNU9uOrWQ8RLmOo9VNvQCeSiGapK+fV+Q0n54sQEHbW/D+R0cZB4cVLv437Af0j7bCCZnBmJmVrHleI12Tyrx7Rwk+bEMZGjxiQPjbtLsSDfPkJvAsU18PnsnM5F1NBeqq9nVoqOJ38GmU4IOOwbStzBGqR+BSspRDCnkCHifS0ZCYAc0V2M+bVfP/DU6md0lzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7AD+PhPKcjdOH7op5TswjHIaXy9fjfsf0PKlh/uahcQ=;
- b=XpnKf11RuKZw31zP7mbz6QBuuPs+kpA9/ykli+/ziXlpMCcGHCJ4fPgRIPkwSaeSbO7o6GVQ7T7rUgcw56QDYULsoI1zfyBppuDsCgzwNMZ4E9RQJQighkE753FxYLGzgnFBjxTV24O/qIwuFcmcbNtxBDE4V94du21vZlUSMKE=
+ bh=ZXBRlT+vmpj7q780lMTRkbD8kmp9sJpq7zet8o+dSy0=;
+ b=avAMx6LNDVt0+g3zsTmp3V+Kd8oKOGkaEFjl3sTF2t6w40/a4OrM+6VKJ3XjnUuaORzMKMR919vTuKbt6WpoRayUrynS235ybbPJv8mR0dBTJYKDed3KTg3SJ6g5A2DBg3urzMFwoPXnCGwJ7cEaYPxSbdmwu4xmmDPNUbqB+7k=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -83,9 +83,9 @@ To: <xen-devel@lists.xenproject.org>
 CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Jan Beulich
 	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 2/4] x86: Split out Intel-specific code to be executed without ucode loading
-Date: Wed, 12 Nov 2025 17:22:15 +0100
-Message-ID: <20251112162219.226075-3-alejandro.garciavallejo@amd.com>
+Subject: [PATCH 3/4] x86: Split out early_microcode_load() and microcode_load_one()
+Date: Wed, 12 Nov 2025 17:22:16 +0100
+Message-ID: <20251112162219.226075-4-alejandro.garciavallejo@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251112162219.226075-1-alejandro.garciavallejo@amd.com>
 References: <20251112162219.226075-1-alejandro.garciavallejo@amd.com>
@@ -97,265 +97,282 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06C:EE_|BY5PR12MB4162:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31423ed2-b646-4625-2b61-08de2207b172
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06C:EE_|SJ5PPFE4FC9FAB3:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f27baef-e039-4b20-1cbb-08de2207b1de
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
+	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?o9GDH+QqjCfz11Z9JDl2ci0equP4etU0vBP3xfb2vYjb7DRwIiobx1TuWS71?=
- =?us-ascii?Q?qGyOC0xrSu+CXkEXrp7j9uKbeLKTkjunjk7l7DMx0ahpAGtvwXYisdmCDBPf?=
- =?us-ascii?Q?Pkq/CNdbx6lR5DKv3bxDuTeL22raIi+R4gu1gsh3NnEx3f7qcKTERjMKRYWn?=
- =?us-ascii?Q?xh4guEStyOCGq+aGeZLeK/cS7D5dpWAUzyK2/awhU6sJkjCizXRXph0z9ud1?=
- =?us-ascii?Q?UMypaelPppCiUkjyKlNQb2gvO8Pye1Rt1wNvUUEay0WwS5c2hJm1Glq7vekX?=
- =?us-ascii?Q?Cws9Tys7IdLIyxwwYpWrKhzfjQDWFPCdlk4zNcnXh/oB8lNKALLzMu6GltRD?=
- =?us-ascii?Q?F6UAMg6U3ujy0fWtA3TbpLFsyU83shlrd9A6IrEEnYx/n7A+AV+kE722V+x4?=
- =?us-ascii?Q?YW4iMwFV3B0hV2W8PcgNXV/8UyiFJB7KOSTji4q/m8ObLL7Fl1oFb10x+ynx?=
- =?us-ascii?Q?m8wvM6y9xrx1E6LOs64cIdYvwXb0I2g+CNp2qnEPI/GW/yVszGyVSRFVdxIC?=
- =?us-ascii?Q?5TTh/wBs+W2oAWFmjm3uvQKmsfsT2zgfgcy27z6o3OyXXAun/mk3d3rlQo4w?=
- =?us-ascii?Q?4aHD3XAxjwFab45E7Jotzc1mHLjNgDAQYk6n/PK5ppayO6FVM85YV/D4bIuC?=
- =?us-ascii?Q?HeR72riVwshHJ5YbC7n/WnBNYSup/DaukkO8+3BWa1ScL29gDIDAE3DjCWYU?=
- =?us-ascii?Q?YtRMrBjCtC6/V9QLOtTF7ISIshT9XpsRn2XNFkt5LLFpN8or8WutKKjFMkdX?=
- =?us-ascii?Q?qEY4FiTVAkUi6gkOHfpPY2QuLdbWbl68ZyL7UuQ347TwbZ/ROoxvvg04HF5b?=
- =?us-ascii?Q?J+jzW1azIM3inKN0/veVLZRCZXWzSdk6stp6fTNQXlwYXjxKfj81MH+P35OO?=
- =?us-ascii?Q?IbdGKYzmDQOa/7kVuLUXfhg7IWxXeMhHYd8gBEiX6sZCX4drTlk0HIYmUu2R?=
- =?us-ascii?Q?N71bR8Y5gijVafgsZ8XDCJ292RmL2qlWGviLVX9zsoCcIEkQAH1N5/OGghk4?=
- =?us-ascii?Q?oFvsXGMU4OPCi0IeyfERfHSEXKiVe5gctSIqp5VUcGIGqyYbk/FbkajrlVx4?=
- =?us-ascii?Q?LjtaWEAVER8qpWhS8tPU8WTxfUfjwbFSdVUgn5ktzdhyyJ/IXRIfAh2PLDHR?=
- =?us-ascii?Q?uVrVNkEbHRAobmA70eMxKEfJxrLw+FrK3gKv+9F5UMT8QqUOHl6lPMTEx5PU?=
- =?us-ascii?Q?rE5OQ9rxXyZy1DA52ktMNcgZSNRxaKHaj0l0VNfmvHVtNlnyHbNJt/2d9ZLw?=
- =?us-ascii?Q?yyfdcnVuLq7cU/hDCdVZCiibHr8IMIZPb/HAYmN2aGNTmMyOfwOLqNBcTg/q?=
- =?us-ascii?Q?dBKHp/gLHGq4Ft5eNP0kYHTAUdYVidnFpN5H9463yIKcsRSGWrPIMOO8u97S?=
- =?us-ascii?Q?CoIKT9lr89igNhdLPamb4RtmQr1hiE8GlehgU7gxMUv7QDx6S+LVLT6/aPUY?=
- =?us-ascii?Q?N4bTLiB81TOrtwaY/xLZwkyfzXx8c8PyHjAjaDT1ycUHsSEXaVXz1+q6Dt75?=
- =?us-ascii?Q?sbHHdBOA+jgWuXnwx0tFAW+WtznscJVHbO3l0FbKKtf9hCQNEPJkOiuoRkVI?=
- =?us-ascii?Q?2pI5HCU1OG7f757fbow=3D?=
+	=?us-ascii?Q?hQKbQR2MaDAKGtXTeonY3HgciYsVBb1kjp1E211JQoMN3D3QDV2anCbsjQ2k?=
+ =?us-ascii?Q?HOhSgmmklcoezIBz85LKUd6j+8hBI+21qSd97d6coznzC8lYecPm45/upnFJ?=
+ =?us-ascii?Q?BOBYUTdiIKHnyNjBPEgMw0URtleuaZqM1Iur5VHcVw2GwDg618nzOw6Ch3IG?=
+ =?us-ascii?Q?GttBrLxfqiuyYgm7aJKat3uWbG8BgQ4G9z8UdfReMSQaAWmm2/VSHQHPuoXd?=
+ =?us-ascii?Q?fw9GoFK/9odNAEwGlge0FnrH+OAriKsEfTY5odLwR+4XKw/Rjpf+g/J/W+Wg?=
+ =?us-ascii?Q?E9wPIw+vyRZPJpDO5vhZcVp5byQq18MbLoLnPM+C9c+teA+5j0yafbKrGHtQ?=
+ =?us-ascii?Q?kuhn4xGsoG/Hljh/kNeIm/sSlCJrPjK8HH9rwIe2rXhB97/bBTJ6OAsL/iMI?=
+ =?us-ascii?Q?0u8Sy8FTCX2fNvUQ4jUCH1jVsxCsxRt9paDLWZoj7FJoqDMPsLTUXf8WmL4c?=
+ =?us-ascii?Q?YnuN4/U/n1zMHF9DfxHxT7VoqzOCK8uOwu9WsaTUbZTZAL/uSeDAnsnOrJAH?=
+ =?us-ascii?Q?0gi0ZflQWhNaSB1sSK7ltCL3FlPjdBeoF4bQ5CUuNJfgfU+bp3ZzjN3ELEwZ?=
+ =?us-ascii?Q?VtdrZyVydwTcSxIQ5ZQVi+/EF6MptGMnMRANEXdmS8X2xm+GotFagwb6VgpK?=
+ =?us-ascii?Q?NL++svOW8GUj3AKJnOQsz3TngDtnq34b2K+Pxh5BkYjc+UAIRnaDxIOpS2Ov?=
+ =?us-ascii?Q?/rb6Hg1WkdQol/MCX4BCmluBDdZA6y6a9PLH5UrQsFIPlbR20AZxFyT+S/4p?=
+ =?us-ascii?Q?oIFKvNlauBALzwBHjGUEPTxIxOlI72uU88RIKmt0XaeR5yGKqt1tBXY2WnHE?=
+ =?us-ascii?Q?M6BmeJTzYGZrNOxhFUvEGht5zVA0rsy1EsMkFDty2NaA2Mtut+nJ1cIn6tV9?=
+ =?us-ascii?Q?maKnhdT4C21r3l4bDbHfhCYBy0eRCNoN6FodG5HxWuR5zHyQPJfGFqFNx7Uu?=
+ =?us-ascii?Q?gnpS/uB5q8VoUKIPcCblDYaMauVXHS6PDF2ylf79c6IzRJ6DVbm7oecy7W/0?=
+ =?us-ascii?Q?08eanYEsEaUSFHBsOyuiyMKvYT5zv+snj8FMcm1mbYzT5d8F1vXSpR7YKTd7?=
+ =?us-ascii?Q?zEdC0nSxFxZEXtoeZrQXRw1s22Dl4VkQcqhvNdR1Ojwf1sC6jg6mWFBa4Uao?=
+ =?us-ascii?Q?4rpy5B79PovOIXuBeltwuCFtOLFhUw2i67RAXPo0FJBdsV7htkH/+ait5AFa?=
+ =?us-ascii?Q?ivGXli3ZzQEbH+BEUndWPN4HAA7Lr0hs7DV/Pw1o5M4a80qEACwqwz1XCF6A?=
+ =?us-ascii?Q?8LhaYTlWRplmoa46HxvXTkjzM1KfWLxlNDFBHaUpgsVcL9utAxQ02udDD0tp?=
+ =?us-ascii?Q?TNzYu+0wxhDG9bLkPvk1HevA3sfoU/cYm3q1kAbRaWWEg5cHEDpnvk3taPin?=
+ =?us-ascii?Q?UoOt1i/C93KAsUbCMKkkBwQIUsLUqR6dXP9ZgAmrCUFc0NS/44jWTQqgOgaG?=
+ =?us-ascii?Q?PgIvph49wICKoN6Uwo4ifpuFaWsuMjNvLgYBC+I6uGiJGq/tcVxAKU5513Fi?=
+ =?us-ascii?Q?vwK7QVrdBTJnnmTZXEAY/Xu2/2HIT/2SjjD2qW8SaIB4+teQdT+3C+QL2Ys1?=
+ =?us-ascii?Q?0Wqj/TD7p0wV001Dvx8=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2025 16:22:36.9923
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2025 16:22:37.7006
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31423ed2-b646-4625-2b61-08de2207b172
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f27baef-e039-4b20-1cbb-08de2207b1de
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	BN3PEPF0000B06C.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4162
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFE4FC9FAB3
 
-Some code must be executed even with microcode loading disabled to find
-out the current microcode revision. This is important to determine active
-erratas and such.
-
-With the intent of stripping microcode loading via Kconfig, move such
-essential Intel-specific code to an intel-base.c file.
+A later patch compiles out most of the microcode loading code by removing
+core.c from the Makefile based on Kconfig. These functions are important
+to set up the ucode_op to read the microcode revision and report it on
+every CPU.
 
 Not a functional change.
 
 Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 ---
- xen/arch/x86/cpu/microcode/Makefile     |  1 +
- xen/arch/x86/cpu/microcode/intel-base.c | 48 +++++++++++++++++++++
- xen/arch/x86/cpu/microcode/intel.c      | 56 ++++---------------------
- xen/arch/x86/cpu/microcode/intel.h      | 16 +++++++
- 4 files changed, 72 insertions(+), 49 deletions(-)
- create mode 100644 xen/arch/x86/cpu/microcode/intel-base.c
- create mode 100644 xen/arch/x86/cpu/microcode/intel.h
+ xen/arch/x86/cpu/microcode/Makefile  |  1 +
+ xen/arch/x86/cpu/microcode/base.c    | 72 ++++++++++++++++++++++++++++
+ xen/arch/x86/cpu/microcode/core.c    | 57 +---------------------
+ xen/arch/x86/cpu/microcode/private.h | 14 ++++++
+ 4 files changed, 89 insertions(+), 55 deletions(-)
+ create mode 100644 xen/arch/x86/cpu/microcode/base.c
 
 diff --git a/xen/arch/x86/cpu/microcode/Makefile b/xen/arch/x86/cpu/microcode/Makefile
-index 00aa0f24e4..74289981e3 100644
+index 74289981e3..765195ada3 100644
 --- a/xen/arch/x86/cpu/microcode/Makefile
 +++ b/xen/arch/x86/cpu/microcode/Makefile
-@@ -2,3 +2,4 @@ obj-$(CONFIG_AMD) += amd.o
+@@ -1,5 +1,6 @@
+ obj-$(CONFIG_AMD) += amd.o
  obj-$(CONFIG_AMD) += amd-base.o
++obj-y += base.o
  obj-y += core.o
  obj-$(CONFIG_INTEL) += intel.o
-+obj-$(CONFIG_INTEL) += intel-base.o
-diff --git a/xen/arch/x86/cpu/microcode/intel-base.c b/xen/arch/x86/cpu/microcode/intel-base.c
+ obj-$(CONFIG_INTEL) += intel-base.o
+diff --git a/xen/arch/x86/cpu/microcode/base.c b/xen/arch/x86/cpu/microcode/base.c
 new file mode 100644
-index 0000000000..4fcacaa192
+index 0000000000..895ee78d2e
 --- /dev/null
-+++ b/xen/arch/x86/cpu/microcode/intel-base.c
-@@ -0,0 +1,48 @@
-+#include <xen/init.h>
-+
-+#include <asm/msr.h>
-+#include <asm/processor.h>
-+
-+#include "intel.h"
-+
-+#define pr_debug(x...) ((void)0)
-+
-+static void cf_check collect_cpu_info(void)
-+{
-+    struct cpu_signature *csig = &this_cpu(cpu_sig);
-+    uint64_t msr_content;
-+
-+    memset(csig, 0, sizeof(*csig));
-+
-+    rdmsrl(MSR_IA32_PLATFORM_ID, msr_content);
-+    csig->pf = 1 << ((msr_content >> 50) & 7);
-+
-+    /*
-+     * Obtaining the microcode version involves writing 0 to the "read only"
-+     * UCODE_REV MSR, executing any CPUID instruction, after which a nonzero
-+     * revision should appear.
-+     */
-+    wrmsrl(MSR_IA32_UCODE_REV, 0);
-+    csig->sig = cpuid_eax(1);
-+    rdmsrl(MSR_IA32_UCODE_REV, msr_content);
-+    csig->rev = msr_content >> 32;
-+
-+    pr_debug("microcode: collect_cpu_info : sig=%#x, pf=%#x, rev=%#x\n",
-+             csig->sig, csig->pf, csig->rev);
-+}
-+
-+static const struct microcode_ops __initconst_cf_clobber intel_ucode_ops = {
-+    .cpu_request_microcode = intel_cpu_request_microcode,
-+    .apply_microcode       = intel_apply_microcode,
-+    .collect_cpu_info      = collect_cpu_info,
-+    .compare               = intel_compare,
-+    .cpio_path             = intel_cpio_path,
-+};
-+
-+void __init ucode_probe_intel(struct microcode_ops *ops)
-+{
-+    *ops = intel_ucode_ops;
-+
-+    if ( !intel_can_load_microcode() )
-+        ops->apply_microcode = NULL;
-+}
-diff --git a/xen/arch/x86/cpu/microcode/intel.c b/xen/arch/x86/cpu/microcode/intel.c
-index 281993e725..c5e0012a03 100644
---- a/xen/arch/x86/cpu/microcode/intel.c
-+++ b/xen/arch/x86/cpu/microcode/intel.c
-@@ -31,9 +31,7 @@
- #include <asm/processor.h>
- #include <asm/system.h>
- 
--#include "private.h"
--
--#define pr_debug(x...) ((void)0)
-+#include "intel.h"
- 
- struct microcode_patch {
-     uint32_t hdrver;
-@@ -120,30 +118,6 @@ static bool signature_matches(const struct cpu_signature *cpu_sig,
-     return cpu_sig->pf & ucode_pf;
- }
- 
--static void cf_check collect_cpu_info(void)
--{
--    struct cpu_signature *csig = &this_cpu(cpu_sig);
--    uint64_t msr_content;
--
--    memset(csig, 0, sizeof(*csig));
--
--    rdmsrl(MSR_IA32_PLATFORM_ID, msr_content);
--    csig->pf = 1 << ((msr_content >> 50) & 7);
--
--    /*
--     * Obtaining the microcode version involves writing 0 to the "read only"
--     * UCODE_REV MSR, executing any CPUID instruction, after which a nonzero
--     * revision should appear.
--     */
--    wrmsrl(MSR_IA32_UCODE_REV, 0);
--    csig->sig = cpuid_eax(1);
--    rdmsrl(MSR_IA32_UCODE_REV, msr_content);
--    csig->rev = msr_content >> 32;
--
--    pr_debug("microcode: collect_cpu_info : sig=%#x, pf=%#x, rev=%#x\n",
--             csig->sig, csig->pf, csig->rev);
--}
--
- /*
-  * Sanity check a blob which is expected to be a microcode patch.  The 48 byte
-  * header is of a known format, and together with totalsize are within the
-@@ -273,7 +247,7 @@ static bool microcode_fits_cpu(const struct microcode_patch *mc)
-     return false;
- }
- 
--static int cf_check intel_compare(
-+int cf_check intel_compare(
-     const struct microcode_patch *old, const struct microcode_patch *new)
- {
-     /*
-@@ -286,8 +260,8 @@ static int cf_check intel_compare(
-     return compare_revisions(old->rev, new->rev);
- }
- 
--static int cf_check apply_microcode(const struct microcode_patch *patch,
--                                    unsigned int flags)
-+int cf_check intel_apply_microcode(const struct microcode_patch *patch,
-+                                   unsigned int flags)
- {
-     uint64_t msr_content;
-     unsigned int cpu = smp_processor_id();
-@@ -333,7 +307,7 @@ static int cf_check apply_microcode(const struct microcode_patch *patch,
-     return 0;
- }
- 
--static struct microcode_patch *cf_check cpu_request_microcode(
-+struct microcode_patch *cf_check intel_cpu_request_microcode(
-     const void *buf, size_t size, bool make_copy)
- {
-     int error = 0;
-@@ -391,7 +365,7 @@ static struct microcode_patch *cf_check cpu_request_microcode(
-     return patch;
- }
- 
--static bool __init can_load_microcode(void)
-+bool __init intel_can_load_microcode(void)
- {
-     uint64_t mcu_ctrl;
- 
-@@ -404,21 +378,5 @@ static bool __init can_load_microcode(void)
-     return !(mcu_ctrl & MCU_CONTROL_DIS_MCU_LOAD);
- }
- 
--static const char __initconst intel_cpio_path[] =
-+const char __initconst intel_cpio_path[] =
-     "kernel/x86/microcode/GenuineIntel.bin";
--
--static const struct microcode_ops __initconst_cf_clobber intel_ucode_ops = {
--    .cpu_request_microcode            = cpu_request_microcode,
--    .collect_cpu_info                 = collect_cpu_info,
--    .apply_microcode                  = apply_microcode,
--    .compare                          = intel_compare,
--    .cpio_path                        = intel_cpio_path,
--};
--
--void __init ucode_probe_intel(struct microcode_ops *ops)
--{
--    *ops = intel_ucode_ops;
--
--    if ( !can_load_microcode() )
--        ops->apply_microcode = NULL;
--}
-diff --git a/xen/arch/x86/cpu/microcode/intel.h b/xen/arch/x86/cpu/microcode/intel.h
-new file mode 100644
-index 0000000000..3c1419dc77
---- /dev/null
-+++ b/xen/arch/x86/cpu/microcode/intel.h
-@@ -0,0 +1,16 @@
++++ b/xen/arch/x86/cpu/microcode/base.c
+@@ -0,0 +1,72 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef ASM_X86_MICROCODE_INTEL_H
-+#define ASM_X86_MICROCODE_INTEL_H
++#include <xen/alternative-call.h>
++
++#include <xen/errno.h>
++#include <xen/init.h>
++#include <xen/lib.h>
++
++#include <asm/asm_defns.h>
++#include <asm/cpufeature.h>
++#include <asm/x86-vendors.h>
++#include <asm/microcode.h>
 +
 +#include "private.h"
 +
-+bool intel_can_load_microcode(void);
-+int cf_check intel_compare(const struct microcode_patch *old,
-+                           const struct microcode_patch *new);
-+int cf_check intel_apply_microcode(const struct microcode_patch *patch,
-+                                   unsigned int flags);
-+struct microcode_patch *cf_check intel_cpu_request_microcode(
-+    const void *buf, size_t size, bool make_copy);
-+extern const char intel_cpio_path[];
++struct microcode_ops __ro_after_init ucode_ops;
 +
-+#endif /* ASM_X86_MICROCODE_INTEL_H */
++int microcode_update_one(void)
++{
++    /*
++     * This path is used for APs and S3 resume.  Read the microcode revision
++     * if possible, even if we can't load microcode.
++     */
++    if ( ucode_ops.collect_cpu_info )
++        alternative_vcall(ucode_ops.collect_cpu_info);
++
++    return _microcode_update_one();
++}
++
++int __init early_microcode_init(struct boot_info *bi)
++{
++    const struct cpuinfo_x86 *c = &boot_cpu_data;
++
++    switch ( c->vendor )
++    {
++    case X86_VENDOR_AMD:
++        ucode_probe_amd(&ucode_ops);
++        break;
++
++    case X86_VENDOR_INTEL:
++        ucode_probe_intel(&ucode_ops);
++        break;
++    }
++
++    if ( !ucode_ops.collect_cpu_info )
++    {
++        printk(XENLOG_INFO "Microcode loading not available\n");
++        return -ENODEV;
++    }
++
++    ucode_ops.collect_cpu_info();
++
++    printk(XENLOG_INFO "BSP microcode revision: 0x%08x\n", this_cpu(cpu_sig).rev);
++
++    /*
++     * Some hypervisors deliberately report a microcode revision of -1 to
++     * mean that they will not accept microcode updates.
++     *
++     * It's also possible the hardware might have built-in support to disable
++     * updates and someone (e.g: a baremetal cloud provider) disabled them.
++     *
++     * Take the hint in either case and ignore the microcode interface.
++     */
++    if ( !ucode_ops.apply_microcode || this_cpu(cpu_sig).rev == ~0 )
++    {
++        printk(XENLOG_INFO "Microcode loading disabled due to: %s\n",
++               ucode_ops.apply_microcode ? "rev = ~0" : "HW toggle");
++        ucode_ops.apply_microcode = NULL;
++        return -ENODEV;
++    }
++
++    return early_microcode_load(bi);
++}
+diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+index 1d1a5aa4b0..553a0ced15 100644
+--- a/xen/arch/x86/cpu/microcode/core.c
++++ b/xen/arch/x86/cpu/microcode/core.c
+@@ -162,8 +162,6 @@ static int __init cf_check parse_ucode(const char *s)
+ }
+ custom_param("ucode", parse_ucode);
+ 
+-static struct microcode_ops __ro_after_init ucode_ops;
+-
+ static DEFINE_SPINLOCK(microcode_mutex);
+ 
+ DEFINE_PER_CPU(struct cpu_signature, cpu_sig);
+@@ -648,7 +646,7 @@ int ucode_update_hcall(XEN_GUEST_HANDLE(const_void) buf,
+ }
+ 
+ /* Load a cached update to current cpu */
+-int microcode_update_one(void)
++int _microcode_update_one(void)
+ {
+     int rc;
+ 
+@@ -736,13 +734,7 @@ static int __init cf_check microcode_init_cache(void)
+ }
+ presmp_initcall(microcode_init_cache);
+ 
+-/*
+- * There are several tasks:
+- * - Locate the ucode blob in the boot modules.
+- * - Parse and attempt in-place load.
+- * - Inform microcode_init_cache() of how to find the blob again.
+- */
+-static int __init early_microcode_load(struct boot_info *bi)
++int __init early_microcode_load(struct boot_info *bi)
+ {
+     void *data = NULL;
+     size_t size;
+@@ -873,48 +865,3 @@ static int __init early_microcode_load(struct boot_info *bi)
+ 
+     return rc;
+ }
+-
+-int __init early_microcode_init(struct boot_info *bi)
+-{
+-    const struct cpuinfo_x86 *c = &boot_cpu_data;
+-
+-    switch ( c->vendor )
+-    {
+-    case X86_VENDOR_AMD:
+-        ucode_probe_amd(&ucode_ops);
+-        break;
+-
+-    case X86_VENDOR_INTEL:
+-        ucode_probe_intel(&ucode_ops);
+-        break;
+-    }
+-
+-    if ( !ucode_ops.collect_cpu_info )
+-    {
+-        printk(XENLOG_INFO "Microcode loading not available\n");
+-        return -ENODEV;
+-    }
+-
+-    ucode_ops.collect_cpu_info();
+-
+-    printk(XENLOG_INFO "BSP microcode revision: 0x%08x\n", this_cpu(cpu_sig).rev);
+-
+-    /*
+-     * Some hypervisors deliberately report a microcode revision of -1 to
+-     * mean that they will not accept microcode updates.
+-     *
+-     * It's also possible the hardware might have built-in support to disable
+-     * updates and someone (e.g: a baremetal cloud provider) disabled them.
+-     *
+-     * Take the hint in either case and ignore the microcode interface.
+-     */
+-    if ( !ucode_ops.apply_microcode || this_cpu(cpu_sig).rev == ~0 )
+-    {
+-        printk(XENLOG_INFO "Microcode loading disabled due to: %s\n",
+-               ucode_ops.apply_microcode ? "rev = ~0" : "HW toggle");
+-        ucode_ops.apply_microcode = NULL;
+-        return -ENODEV;
+-    }
+-
+-    return early_microcode_load(bi);
+-}
+diff --git a/xen/arch/x86/cpu/microcode/private.h b/xen/arch/x86/cpu/microcode/private.h
+index e6c965dc99..881ea7d8d9 100644
+--- a/xen/arch/x86/cpu/microcode/private.h
++++ b/xen/arch/x86/cpu/microcode/private.h
+@@ -5,6 +5,8 @@
+ 
+ #include <asm/microcode.h>
+ 
++struct boot_info;
++
+ /* Opaque.  Internals are vendor-specific. */
+ struct microcode_patch;
+ 
+@@ -68,6 +70,7 @@ struct microcode_ops {
+ };
+ 
+ extern bool opt_digest_check;
++extern struct microcode_ops ucode_ops;
+ 
+ /*
+  * Microcode loading falls into one of 3 states.
+@@ -93,4 +96,15 @@ void ucode_probe_intel(struct microcode_ops *ops);
+ static inline void ucode_probe_intel(struct microcode_ops *ops) {}
+ #endif
+ 
++/*
++ * There are several tasks:
++ * - Locate the ucode blob in the boot modules.
++ * - Parse and attempt in-place load.
++ * - Inform microcode_init_cache() of how to find the blob again.
++ */
++int early_microcode_load(struct boot_info *bi);
++
++/* Attempt performaing a microcode load */
++int _microcode_update_one(void);
++
+ #endif /* ASM_X86_MICROCODE_PRIVATE_H */
 -- 
 2.43.0
 
