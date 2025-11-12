@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3A03C50BD6
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 07:41:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1159473.1487792 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 474FEC50C2D
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 07:50:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1159485.1487803 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJ4XB-0000Hy-MW; Wed, 12 Nov 2025 06:40:49 +0000
+	id 1vJ4gE-0001yu-Gd; Wed, 12 Nov 2025 06:50:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1159473.1487792; Wed, 12 Nov 2025 06:40:49 +0000
+Received: by outflank-mailman (output) from mailman id 1159485.1487803; Wed, 12 Nov 2025 06:50:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJ4XB-0000Fr-Js; Wed, 12 Nov 2025 06:40:49 +0000
-Received: by outflank-mailman (input) for mailman id 1159473;
- Wed, 12 Nov 2025 06:40:48 +0000
+	id 1vJ4gE-0001wO-Cn; Wed, 12 Nov 2025 06:50:10 +0000
+Received: by outflank-mailman (input) for mailman id 1159485;
+ Wed, 12 Nov 2025 06:50:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=K5hw=5U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJ4XA-0000Fl-RO
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 06:40:48 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1vJ4gD-0001wI-1Z
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 06:50:09 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8524168c-bf92-11f0-980a-7dc792cee155;
- Wed, 12 Nov 2025 07:40:47 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-42b31c610fcso343080f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Nov 2025 22:40:47 -0800 (PST)
+ id d2eaa389-bf93-11f0-980a-7dc792cee155;
+ Wed, 12 Nov 2025 07:50:07 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-42b32a5494dso165979f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Nov 2025 22:50:07 -0800 (PST)
 Received: from ?IPV6:2003:ca:b70c:6a60:8d0a:6473:d951:bd22?
  (p200300cab70c6a608d0a6473d951bd22.dip0.t-ipconnect.de.
  [2003:ca:b70c:6a60:8d0a:6473:d951:bd22])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42abe63e13csm31985301f8f.19.2025.11.11.22.40.45
+ ffacd0b85a97d-42ac675ca86sm32389144f8f.31.2025.11.11.22.50.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Nov 2025 22:40:46 -0800 (PST)
+ Tue, 11 Nov 2025 22:50:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,63 +47,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8524168c-bf92-11f0-980a-7dc792cee155
+X-Inumbo-ID: d2eaa389-bf93-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762929646; x=1763534446; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762930206; x=1763535006; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=s/MV7yDOzfqCSM/45fhpa5D1WC2nfoCMfFecxUzX42g=;
-        b=dk7F86b9pGgb8CkGiC7ukN7rQbBYn1JRGKHrZtm/L2zUifaBM10bSy/blBRdRSNHCR
-         d6YnYHXdn8dM9v6AK7sEhxA+dRyd6sOpYF8fYfsNCa2T6rJUZXy5DWrIdBQViHDxyGQN
-         ncZGbB7N+7SXAcsEv9fjRPpvA2kqGb6+pv0TKR4GSXLyAtXBfWqOvNJbEYQx4KX/YKbl
-         MrpbuDQJUeD9P8Iyf3488cuopzhtj2fyf7bRYD2UkDX/UP6txiaAndHRm7K8wANtd7x3
-         eGzt6QtNyIVKhMq9sjghQgeko0O3bV/kDw4TP0Fk0R79POr7wwaXRdvbRTVT0/ymnyBe
-         OWmA==
+        bh=i1GLyRhvFZlmUdvAsV3vRpeqfv9Dtimp8WWjTBXjIe0=;
+        b=TDMMqb7ifcn0/Hyuzvv3zo0QQ0na0ssCOSYJOKVIJYc8MOWPdhdYTF1pGqkpD1KG8s
+         a8tZq8oqukyqDZEmLB1Qb0n4LLNfG7vVO66XfFa0Dc9QxZLR859wosppBN2iSYeufff+
+         2qvZZBGaNfaFs5T1TiG92wMdH9qU+wHFEMlHDRIubExVuojzgeE3K+D6bhTgyLmozQwX
+         8nK94mFBDXzFbVOVbDnw0cXicHTIST6KbQ1ylxbWheCCp57xr7co7PQcME3rORPoqvi6
+         EaAyCGkubCaAhZw3oXl5xVgX13/0r3u49hrCIqwoJFpVZbA4WsfgDiAbr9vUsIOaJYGP
+         KvsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762929646; x=1763534446;
+        d=1e100.net; s=20230601; t=1762930206; x=1763535006;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=s/MV7yDOzfqCSM/45fhpa5D1WC2nfoCMfFecxUzX42g=;
-        b=j1I0u8BTVHNaxWYj5hOowlxHIOWBJE+5cqQlP0vPjt0nHLlf00RpBgEGVHO+98CSA7
-         571tHeohnk7CKkO4YXqap1gxJbDDHqr1ddRuka9sKuictOYFoxezWojre3SZYO3WVAgZ
-         w3HdJUmzyyikNJkSmJxWilLDBoYVr45fl7TOxhR6gpry/2+VbnUhuFKSLifBFYCYZztb
-         JwUT0Y0TyPsRM+mdtaxzEe8NOOl1uUrGjO/ByybYtgBPoQHCGVfTNi6FZU5a/t2Ajygg
-         aRSPbRDjgthxqgNKYj0QEAKEi2CbGD6xmE6DY9BpomkAVatIp0uvbKm52oQHvsd20ot3
-         DQDA==
-X-Forwarded-Encrypted: i=1; AJvYcCWG6ksc9ERnfA/e2Y7cKgrpE4kNkyGkXxmq7zMW2tWv3Z+aGDheclNoLTujbaEZ6JkeqNU2IPghEOc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxPmGAue+6OHfnThFf/bT+IBPuWswCyCmxF4bw0WjHoR8He8kzk
-	u3joFoiqntVlsWrR5f9dvLxHdS55wG7VDbuSy0vaolgaEdZHDuuNSLsjCJCiUQnDyQ==
-X-Gm-Gg: ASbGnctkAbOuIIKDxlSmJCqLNb1/2DfgbGUo0QTuU8Jfh/NKAar30aznP0QBZ6UUzFL
-	9vlw+WooRpyRa93+dSFIdRCCAb+75Ld9pdSPxXk4yKvx2YYLIInqYy8HG71vg06/O6L76QBdY+h
-	/fkx6wGbqbotl49Npdw80k+msBCwfbamwfIKEFx5Xyky3VNYYDs77s7SYSKdvFLKnCdptJcrUGw
-	U/fwcsTqpwqgSTjTd3JqIMLcBK3ngBN7+dN3othdFNxuM0HSe/i4UcqyOmXEnYhrKy3GtFR2vzK
-	b7Wd2h30Adm3bRNtGO+IdY5ncBItUpW+jUtpB8178xhcUVwP542XbLw0LDy6B4oEm1VDd00dZz8
-	iy090SncizuCnnVqOVUnFYwj8L08gKDmkG6vo3xj4R3ujjFHADlvOSAOOXAszEG5lNyGJS8G0Ok
-	vciFR0z9eSdKJ5eYglDzUPxB27AstXpzYoLJwGtkOo1CbGNa3ECe+QyfGWscgeDwOsPjOWR2/MI
-	KaNnro9cHDI7g0vK6Vi2Z6xlJ8Zq70m2IuLnw==
-X-Google-Smtp-Source: AGHT+IHVef6uX0+z56B9hXwP4OntPwVIgvlxMFNOYQE6KPCWLeplfvW0rMA71+q/9Dokesjg7P0CBA==
-X-Received: by 2002:a05:6000:250c:b0:42b:300f:7d8d with SMTP id ffacd0b85a97d-42b4bdaeb5bmr1255497f8f.34.1762929646416;
-        Tue, 11 Nov 2025 22:40:46 -0800 (PST)
-Message-ID: <b829a9dc-ed1d-45f9-a56f-ec288e0d5523@suse.com>
-Date: Wed, 12 Nov 2025 07:40:44 +0100
+        bh=i1GLyRhvFZlmUdvAsV3vRpeqfv9Dtimp8WWjTBXjIe0=;
+        b=suVE8BaV+7mI3iOZfSlBn4MbtcKLViAqDSYXFuDcSrDixVtUcCHOahd0MQLv9eHf6b
+         tkB+dGaG9GoN59dyRf9Jb+3FbT/UjZ0kexyuPtwgNFyzUAzRVc5eSVEHL0SfVg7evBAa
+         PzyLcJKbkNNcfjx5sxSrQzN2uca0r3wnndXrKEk2KJSPAOKWOk2iRFJM33iFhgkxOEck
+         WYITYbQAVHNiOZPnSdoVXcKMz9LKViZIdr425n0ypR2pk4eV19Cy2LJYoTvQA0L4/V17
+         Za8vH2TBB9yy7Ae4/v1B4JnqPWMUZHOWc9a4ZVQqW4JHDz4kxYBXXjfcq/DY/hkHBVkB
+         g1Dw==
+X-Forwarded-Encrypted: i=1; AJvYcCX3gfw3WSb64v4INnxpn3a17NWtxh5BfhqprvEJEQlqefYn6brMdGTT7ERXAIPNOSFfTXIZA+2Djuc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzROL00B9QjOEMjoxaBeFDWtBlkkHL5xLrAD/k/6Xg1VPNaRZtu
+	tJZkgeK/OhwLW+4CnoB0G7uUtUe+PYeS5PpAguqtxreN+LYh+C38dsMF9P7JAIEZEg==
+X-Gm-Gg: ASbGncsqghrhOMbtZUeZdazPTZikv7bks318WfLDAF9aV4h22MzawlsANJZVHzrcGzj
+	JrpGctmk2LOPGVmDfoyrWZ9rCGOMbEcDJPR2BEoqLo5C211zO3U56xTBYKMHzHXGn6OGigxjT6O
+	QUQJVzCWeV0n0AOi4pTONWkMKHTQpelGnmsbDME+zuLipajI58WfnE1KI6NIhC3HEIhp/lK95S0
+	U6bydSw+VlDaSmd+oo/uxyubWFSdi5z9xMlV+61kOPgPJ5BpVkkPsed7B/jYTZZ2KDIizdWGjt0
+	CXcvfywWEbwZryM1xr3zLrEj/KCG8kDXMM200QG95itndfzOYO6qig5czrpa2nPuAL8XTdX/uw0
+	mN5ZYkpnBRY6dqLwW88XL6fUnmlf7JEH4+gF1IJkohM2iuVpga/WhiateYJ0stGIcbAEkEjsjox
+	RsQtW/5GMDTs56oDDy53J35WWJDGP68u0SD1dt+2EBPa+ZHh8rBq6wn9Tb+2D1q6ZVy98v/hjgc
+	/Mqr2X0umRspZShllp4573JAlVGSWunFXEC8A==
+X-Google-Smtp-Source: AGHT+IEmfHopHTPbHjU0mIYNFLlG1Qm0pdFllJth2uauvyYK1Qwfnk+7j3htuZTTxzCizkBNr9Aoig==
+X-Received: by 2002:a05:6000:2888:b0:42b:3da6:6d32 with SMTP id ffacd0b85a97d-42b4bb94f09mr1323542f8f.23.1762930206333;
+        Tue, 11 Nov 2025 22:50:06 -0800 (PST)
+Message-ID: <cea9d2cc-ba33-4483-92e9-4aa31c24960b@suse.com>
+Date: Wed, 12 Nov 2025 07:50:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v7] x86: make Viridian support optional
+Subject: Re: [XEN][PATCH 0/5] x86: pvh: allow to disable 32-bit (COMPAT)
+ interface support
 To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>
-References: <20251031161716.1222956-1-grygorii_strashko@epam.com>
- <a4d3eb8d-17ea-4d3c-87ef-ba5c3477b8c3@suse.com>
- <edb590e4-340d-4a0f-9543-0dfdcc7b54b1@epam.com>
- <210edee7-8525-47a9-8191-ea7d94db5fce@suse.com>
- <0a5af540-214d-46cc-93e5-f0266bb79064@epam.com>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ Jason Andryuk <jason.andryuk@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251111175413.3540690-1-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,58 +128,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0a5af540-214d-46cc-93e5-f0266bb79064@epam.com>
+In-Reply-To: <20251111175413.3540690-1-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11.11.2025 19:25, Grygorii Strashko wrote:
-> On 06.11.25 15:47, Jan Beulich wrote:
->> On 06.11.2025 14:42, Grygorii Strashko wrote:
->>> On 06.11.25 13:35, Jan Beulich wrote:
->>>> On 31.10.2025 17:17, Grygorii Strashko wrote:
->>>>> --- a/xen/arch/x86/hvm/hvm.c
->>>>> +++ b/xen/arch/x86/hvm/hvm.c
->>>>> @@ -4231,8 +4231,9 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
->>>>>                rc = -EINVAL;
->>>>>            break;
->>>>>        case HVM_PARAM_VIRIDIAN:
->>>>> -        if ( (value & ~HVMPV_feature_mask) ||
->>>>> -             !(value & HVMPV_base_freq) )
->>>>> +        if ( !IS_ENABLED(CONFIG_VIRIDIAN) && value )
->>>>> +            rc = -ENODEV;
->>>>> +        else if ( (value & ~HVMPV_feature_mask) || !(value & HVMPV_base_freq) )
->>>>>                rc = -EINVAL;
->>>>
->>>> I find the check for value to be (non-)zero a little dubious here: If any caller
->>>> passed in 0, it would get back -EINVAL anyway. Imo -ENODEV would be more suitable
->>>> in that case as well. Things would be different if 0 was a valid value to pass in.
->>>
->>> The idea was to distinguish between "Feature enabled, Invalid parameter" and "Feature disabled".
->> "
->> But you don't, or else the addition would need to live after the -EINVAL checks.
->> I also question the utility of knowing "parameter was invalid" when the feature
->> isn't available anyway.
-> 
-> My understanding here - I need to drop non-zero "value" check.
-> will be:
-> 
->     case HVM_PARAM_VIRIDIAN:
->         if ( !IS_ENABLED(CONFIG_VIRIDIAN) )
->             rc = -ENODEV;
->         else if ( (value & ~HVMPV_feature_mask) || !(value & HVMPV_base_freq) )
->             rc = -EINVAL;
->         break;
+On 11.11.2025 18:54, Grygorii Strashko wrote:
+> This series introduces possibility to disable 32-bit (COMPAT) interface support
+> in the following cases:
 
-Yes, or alternatively
+The use of plural here ...
 
-    case HVM_PARAM_VIRIDIAN:
-        if ( (value & ~HVMPV_feature_mask) || !(value & HVMPV_base_freq) )
-            rc = -EINVAL;
-        else if ( !IS_ENABLED(CONFIG_VIRIDIAN) )
-            rc = -ENODEV;
-        break;
+>       - Only PVH domains are used
+>       - Guests (OS) are started by using direct Direct Kernel Boot
+>       - Guests (OS) are 64-bit and Guest early boot code, which is running not
+>         in 64-bit mode, does not access Xen interfaces
+>         (hypercalls, shared_info, ..)
 
-Both have their up- and down-sides.
+... makes this an OR list, which I don't think would be correct. PVH domains,
+for example, can well be 32-bit ones, can't they? Otoh the latter two points
+look as if they really enumerate alternatives. Can you clarify please what is
+meant?
 
 Jan
+
+> If above criterias are met the COMPAT HVM interface become unreachable and can be disabled.
+> Coverage reports analyze and adding guard (debug) exceptions in hvm_hypercall/hvm_do_multicall_call
+> and hvm_latch_shinfo_size() confirm that COMPAT HVM interface is unused for safety use-case.
+> 
+> Grygorii Strashko (5):
+>   x86: hvm: dm: factor out compat code under ifdefs
+>   x86: hvm: compat: introduce vcpu_is_hcall_compat() helper
+>   x86: hvm: factor out compat code under ifdefs
+>   x86: pvh: allow to disable 32-bit interface support
+>   x86: constify has_32bit_shinfo() if !CONFIG_COMPAT
+> 
+>  xen/arch/x86/hvm/Kconfig          | 19 +++++++++++++++-
+>  xen/arch/x86/hvm/dm.c             |  2 ++
+>  xen/arch/x86/hvm/hvm.c            | 22 +++++++++++++-----
+>  xen/arch/x86/hvm/hypercall.c      | 37 +++++++++++++++++++++++--------
+>  xen/arch/x86/hypercall.c          |  6 +----
+>  xen/arch/x86/include/asm/domain.h |  3 ++-
+>  xen/common/kernel.c               |  2 +-
+>  xen/include/xen/sched.h           |  9 ++++++++
+>  8 files changed, 78 insertions(+), 22 deletions(-)
+> 
+
 
