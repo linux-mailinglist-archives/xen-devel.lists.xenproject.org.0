@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24EEDC5326F
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 16:47:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160162.1488373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 976D2C532F3
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 16:51:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160175.1488383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJD4I-0004hv-Vl; Wed, 12 Nov 2025 15:47:34 +0000
+	id 1vJD88-0006GF-F7; Wed, 12 Nov 2025 15:51:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160162.1488373; Wed, 12 Nov 2025 15:47:34 +0000
+Received: by outflank-mailman (output) from mailman id 1160175.1488383; Wed, 12 Nov 2025 15:51:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJD4I-0004fk-SP; Wed, 12 Nov 2025 15:47:34 +0000
-Received: by outflank-mailman (input) for mailman id 1160162;
- Wed, 12 Nov 2025 15:47:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=K5hw=5U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJD4I-0004fe-6U
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 15:47:34 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e7476ff6-bfde-11f0-9d18-b5c5bf9af7f9;
- Wed, 12 Nov 2025 16:47:33 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-b7277324054so142448666b.0
- for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 07:47:33 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b72bf97d0ffsm1679868966b.46.2025.11.12.07.47.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Nov 2025 07:47:32 -0800 (PST)
+	id 1vJD88-0006DN-BT; Wed, 12 Nov 2025 15:51:32 +0000
+Received: by outflank-mailman (input) for mailman id 1160175;
+ Wed, 12 Nov 2025 15:51:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Onbl=5U=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1vJD87-0006DF-7v
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 15:51:31 +0000
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c107::3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 73111bb0-bfdf-11f0-980a-7dc792cee155;
+ Wed, 12 Nov 2025 16:51:28 +0100 (CET)
+Received: from SN7PR04CA0042.namprd04.prod.outlook.com (2603:10b6:806:120::17)
+ by PH7PR12MB6468.namprd12.prod.outlook.com (2603:10b6:510:1f4::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.16; Wed, 12 Nov
+ 2025 15:51:22 +0000
+Received: from SN1PEPF000397B4.namprd05.prod.outlook.com
+ (2603:10b6:806:120:cafe::a6) by SN7PR04CA0042.outlook.office365.com
+ (2603:10b6:806:120::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.16 via Frontend Transport; Wed,
+ 12 Nov 2025 15:51:21 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SN1PEPF000397B4.mail.protection.outlook.com (10.167.248.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9320.13 via Frontend Transport; Wed, 12 Nov 2025 15:51:21 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 12 Nov
+ 2025 07:51:21 -0800
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 12 Nov
+ 2025 09:51:21 -0600
+Received: from [172.31.139.223] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 12 Nov 2025 07:51:19 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,301 +63,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7476ff6-bfde-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762962452; x=1763567252; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=iy7oTaOzKlzz8YelCHtRD+AO8mQ+0asw2evB4QFPDgc=;
-        b=P/FrKfnxw9Tcj8rn3jYqTypYf4qfLn5IPRBb8NjFsuWguz5MyXBCSfmR0JVvqNBnoC
-         gz9wXWdL64MxaJ6g3zso5N1irQFUQVh7flDpy1RSsUNnvM/uCmF8RQtSG24fo1ut57xw
-         3OTFuAanWpl+11dSae8mifUwRULbdJ8U8NJck3+vDLx0wmJ3S3+XbBaLY4kMuhuM0Wj1
-         hY0AvXKzc0Oz9bOEh2NCt7qNaPLx1MS9Sq2opV29IMp4TkTO2ck2K3vnAlxzXwPs2xFv
-         x2udviG3QlGTYQuWVC1Xp4NNtQKXTmtuUui3bcUGzKBE8L0JYvAE187Q0m9q1cZJJrn/
-         Fueg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762962453; x=1763567253;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=iy7oTaOzKlzz8YelCHtRD+AO8mQ+0asw2evB4QFPDgc=;
-        b=qT10HC6vmSiizmroSgdLqCCXMrgRxNAYXxT5x8IY6EOlbfb4eB37aa4FS/TXUEefSq
-         oCxj66TayIO6Nnl8b6r0+QJpx09qEQF9X8PFsUa5A+gpu9VMhhlMDoOlHhgNSqBC6weU
-         WF2ejOgIkTDHDMTcxOWZSGS/DI7XU12PeVBnOsFW6tIscRy3qMqi3iG0y2LG9enDfujy
-         VM/fCpwtlzdRNep76nyV81JLHA+DRYxEKHXQjnOfXxmWkyM3/J6XMuuqiwQV44Cybhpu
-         rs1lFV/0dFNpKr/06AFI9mwFVWQoRqqrBg9Ivz4hVnaabRRbJUrr+bhb4Rsu2++xli6G
-         krNQ==
-X-Gm-Message-State: AOJu0YwUMbTAVMW6ZksjR1LHKsWsdCxc/fz7tna2w9ps3PacJEHeHGFD
-	DT8p63Vim8UGeq0S3s+UrbptRD6DGE6oLbXbcc1ixxGK+/jv4WgN+4hIuXGSa7MXLDsrPGc71Sp
-	lCAQ=
-X-Gm-Gg: ASbGncsQaQt08LNcvckLtbud0dSDAZVv2AipQKKmm26bZEBI5/t94hhPkfGwkUUCeLG
-	Ra9M4AxRQxuAYYZ5Lih6EivwsWgdVmqI4e/YSGGbb7gK6dlHLW1ECTgrTKISJOgYteQq8SiNxKk
-	PsS3fpQJVRpR5mavzPVNUzcXarXCGfO8WKS0dVZwkIXJREuDxSCbUhgF0O2fQecR7M+HwSYgfPz
-	CmGkoA7Huq6Iv1mAQb7YVZgWiI1ngnFJALuH/COjrlza4JIujuL07q2KXRLepU5LfKdememJovK
-	S1CeAGh7KDVCMOLFJIhs5oPCWpqX0SxtsTRT0FEvBSnk6JGp3RHuwrz9To+R6q61k9mNKLrvra8
-	NPgTK/1AcAYETDbN44zpmYfcRZzr8H0FvQC/lVJF59+5yt8m+xv6xPh9hA8lOdFKfFl2JziW59U
-	5yOgzL6C6dmFChZCC0IR5wi8awJj8PE8ewoONMZwrrOIvKrFdQnabAz9iQW+diz0U1
-X-Google-Smtp-Source: AGHT+IF7tOn23vYszST83UM72Zvl2x/2BvtxYZmhI+N07C2CK5tyZCcxDsNgsLgJzy31Qj84Hy6vcw==
-X-Received: by 2002:a17:907:971e:b0:b72:6728:5baa with SMTP id a640c23a62f3a-b7331a373ecmr369499266b.25.1762962452564;
-        Wed, 12 Nov 2025 07:47:32 -0800 (PST)
-Message-ID: <3dce4f28-558b-495c-ac45-0f699da82458@suse.com>
-Date: Wed, 12 Nov 2025 16:47:31 +0100
+X-Inumbo-ID: 73111bb0-bfdf-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TYdAOyFE+BJWMoetwofGts653UC6eVTlxsVeyHKX3jYH/tT4tu3lxOU10Zay8PG5plgH2NbzmH/jFjuyzgVDTtvtGTNFrtQ90UGsgEaQyFMpmeP4k07K0YbNRCsozNfkHaZ+fXUjkVXLBcxh7BSov7MG3wCckvVF81cwsAUixKCaIo2EXcQEFM+hSQBzLctgBw/zZK8pqR1NgbUSfiXCE3eJw9mi7U7pJfvgbR95ON0jYLCRnMqt2gXh8HvAqtPfmcKNv/+PVknJDf9VdeEDHsvA8dz6EpfE7ZwbtYUNNJDXu7wM/LRTx++8VP68vZiv9pnzuN9vJJ6jVIGZttol8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HhOhxZSzbM/DBiNV0hItvRWwAI0FPi50RpxqEs3zpSk=;
+ b=pLT89I49hdu2hdP3xO0QAy949YSisl6ZfmduHgHTchLu+GJFyZkWvn3TrJmSrlDdcRmyqOFYIsOthf/WXdm/XIH+eAVahJMRDNCrsFSjW4+/7lgI08k8UJhADPTSKmllq7+sraLb0zsxRuEY13LOjr14MuFBdNB6Tzi3qFpX9jSVqoeJ1znfRizhZ+UlbHrMVPzeb2GrR9GYz92IaJ/vLqMV/Go3mgE6swO1F5aIt1jh1gc3TnrMJdD/SG7bwYFv6R9hqRSmjx3UxfO9YQQu8TwKC05YNbStdDTBJZU4BV9lykdOR105lLOnlD3kpdgmT71tdhY9PDd1GkUOyLqVZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HhOhxZSzbM/DBiNV0hItvRWwAI0FPi50RpxqEs3zpSk=;
+ b=yXwhNbkOcmYOjqAz5kx+qWK7dMkP6yc4zDPmON0YY4y1922txeMO++z7Q5lAkpD4bzlSk3MDP5If399GVFf+jHHj7qPlZwOq+nkVB57c4CbIx/uHfJViTg1AuK8uYUDUpkLMB6ah/U8Dj5yfjig7WeUBiDwrgra6mcYfgJnwMq8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <8b9d7300-ef9b-497c-b6c7-3922edbb7f75@amd.com>
+Date: Wed, 12 Nov 2025 10:51:20 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6] xen: Strip xen.efi by default
+To: Frediano Ziglio <frediano.ziglio@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Frediano Ziglio <frediano.ziglio@cloud.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
+ Grall" <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Frediano
+ Ziglio <freddy77@gmail.com>, Demi Marie Obenour <demiobenour@gmail.com>,
+	=?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <20251110153707.84879-1-frediano.ziglio@citrix.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Penny Zheng <Penny.Zheng@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/mm: split struct sh_dirty_vram and make results private
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <20251110153707.84879-1-frediano.ziglio@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B4:EE_|PH7PR12MB6468:EE_
+X-MS-Office365-Filtering-Correlation-Id: aedf1aa3-461b-43fe-7683-08de220353cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|7416014|36860700013|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Y210aW9iSlJsaWtoaHpGeThvMy96bmthOGNhOUdyY0h3Q3NLdW9VWWtFV2E3?=
+ =?utf-8?B?NlI3alhTcEI2U1hvZUd2eG1RU2I4OWVOZVJCeWViVmVtdlk3OU13UDRwMWhP?=
+ =?utf-8?B?Q1Rna21mUDEzdTIycTkvejJGdmtFR1h6NFlLSDFJV2x3bElNOUtPbHg3WGU4?=
+ =?utf-8?B?Q3dTOUNwSUF1MXpnMEJvSTJaZXI0S05mTFF5VEl3RDEyTTFBK3NVMjlJQWc1?=
+ =?utf-8?B?SUpKS1BBQTFNNkg4ZTJyak9Za1ZHRHpUS0VKeDVBL1Y5eEZsTzR1a1dqaE9B?=
+ =?utf-8?B?VDVTM0I3a2s3VHpoUDV1OGhYTHFqcWZxMDhiTTg1MHBZbllKQUI5amg1UE5L?=
+ =?utf-8?B?aWdtMVdFSHpwZy9WU2VFbTYzWWNEdS9xZ1JOdElYdDdlYWtXMGZwSTZGN2VH?=
+ =?utf-8?B?djl0MzRqRzdCL1dmcjlkTWFhelJYWURVNFI1YmhKYVlvdGdQT3BWbDY2VGlL?=
+ =?utf-8?B?OGlrTTUyWXZZNWhvTHNuQW9lalBDYnVxSC9WN1I0ZVUrb3N1TmtlbVlvQUlr?=
+ =?utf-8?B?RURmREtOWHc5S3EzcklZOW9GcGhHSHVPdk1LbDRrMkRtQS9lLzFvbFBBd1ZD?=
+ =?utf-8?B?aDJ1SHE3M281OHVOSTZPQWduZzIyS0FLOG9CbG5WR1YybDlkbHQxWnNEbmNP?=
+ =?utf-8?B?MHBCRWV2Mk54ZUFUOUxxS0xja2hGNGhscitRNVV3aXpJbnNiMTFlVGZHaDlW?=
+ =?utf-8?B?d2c4Wlo2dldTYXRsK0NJaU9YN3pLT2RxT2xVVG1RTzRuQmRTejVzcVRuT3NK?=
+ =?utf-8?B?NisxVnVCQVhOQjdBbmE4bWtMYjRjUEkzV0Y2cWFRdXZrbjltdWNjdGtYNXBK?=
+ =?utf-8?B?R0U0N3JROEE0bWdaV2FORmNQRlArTEdDdnlURHArdkRHVFViQ1hJNlMxT20x?=
+ =?utf-8?B?cTFUMElMQjlHaTNTYkJlV1RDeGFmU1hsUnA2SHozcDdMVDJGeEJyUkRlc0Qr?=
+ =?utf-8?B?TzU2M01Gc2ZLUFdJdU5DMHdpZDd6SzFxVXVtUHBWR0NUaklLbkZjZmxUL1lF?=
+ =?utf-8?B?bjI1NGt6RDVoNVk4NWZDbHhhdFJNVjVIcjk3NGRYV1lIbkFmREpTUnhYQUNo?=
+ =?utf-8?B?Q0NScktIbHVsQlFvSXUycWRHcWFwb2pOV0pQT3I1OWN4QzJNelk2dFZkYlVR?=
+ =?utf-8?B?ZGVDeXVhTzBmbTN6WXpsYVRtVDZoTW9zWlY4RnEvdFliVWpYekNXVE9QVWt3?=
+ =?utf-8?B?dlJNZmlSYzJLYk9EczVQRTIyQS93eTlqYkw5RVdldGlXM2VmU0gzM0FCUjVi?=
+ =?utf-8?B?cEEwelZSVDBZOTFwZUlzY1ZranI4QzBXeW1sS09VR1VZQVVGYllaZzljUkV1?=
+ =?utf-8?B?V0tnN0xlWjBRcUY1M0hERUZMNjVXeWF1ajRpWGF0eUZFSnJyRHNOV1pwWkxl?=
+ =?utf-8?B?SE5Sb1ZTb0lxYXlvaHVsNTRvVUN4QkJhV2VnY0JOOU5OcVVwREhaSlJyVU5i?=
+ =?utf-8?B?ckY1QXYwMkpPeURRTU5BL2lWOW5td045Z29RblBzQkhBTEZyVXJUVUtrdVJV?=
+ =?utf-8?B?MHdrZlRRWHB2alJDcDlnblR5V3E5TDlkV3ozNUZhZ3ZiNTBoTGlaUFMwM2dZ?=
+ =?utf-8?B?bEVmOWlDbXcyR082OUNGTnpXYW1ZVU44R3JTSGxuTURuTTJPTXRZMXlmeitW?=
+ =?utf-8?B?Tm14SnROSWJnSTZqRE9LeHdmTGNEQllUU3Q0ZjZRcjV3Q1ZLUEhJanA5TWZy?=
+ =?utf-8?B?cVdpdEQxUzlSLzZnL1VRR0ljVXFjakM5cVJrK3ZhRUhjTFpjWFFhSStCSWly?=
+ =?utf-8?B?QUJFOXNiZ2RPL2gzODB2MHhQNG0veVArM005QVgxb3MxNWZMTmk2RFlScWF0?=
+ =?utf-8?B?Mjc2UWkzMmt1Z3ZLbjhHS0tZME5iUDlBdkZDcWlycVJuWDNLbmZ2bTFhNUNM?=
+ =?utf-8?B?WFJ1M0c1NVZDTXB3SXJxVjBXQWN0VzBxdFVtOWt4S21NSk1nTkJ6eGNhTmJl?=
+ =?utf-8?B?OWErZnJtT2ozcDZNSlY3Q3d2M3JEbGY0dWFBUzg3aktIdGJrM3IrSUxtcnYz?=
+ =?utf-8?B?ZDU1Y2tUMk55aXJzMlZQbXVTbG43WkpIUXRpZTZSQ3EzVHBUK29EZ0hzanAv?=
+ =?utf-8?B?alRhNHQvZzQ1TTZCMXJxMndLYzdLTkVUd2VrZE5kbGtjSTdDS0xFRWtmb0E1?=
+ =?utf-8?Q?OLR8=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2025 15:51:21.8846
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aedf1aa3-461b-43fe-7683-08de220353cf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF000397B4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6468
 
-The types are local to the shadow and HAP subsystems respectively, and
-HAP has no need for the shadow-specific fields (i.e. it can get away with
-smaller allocations). In struct hvm_domain it therefore suffices to have
-a union of two (generally opaque) pointers.
+On 11/10/25 10:37, Frediano Ziglio wrote:
+> From: Frediano Ziglio <frediano.ziglio@cloud.com>
+> 
+> For xen.gz file we strip all symbols and have an additional
+> xen-syms.efi file
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
---- a/xen/arch/x86/include/asm/hvm/domain.h
-+++ b/xen/arch/x86/include/asm/hvm/domain.h
-@@ -95,7 +95,10 @@ struct hvm_domain {
-     struct list_head       pinned_cacheattr_ranges;
- 
-     /* VRAM dirty support.  Protect with the domain paging lock. */
--    struct sh_dirty_vram *dirty_vram;
-+    union {
-+        struct sh_dirty_vram *sh;
-+        struct hap_dirty_vram *hap;
-+    }                      dirty_vram;
- 
-     /* If one of vcpus of this domain is in no_fill_mode or
-      * mtrr/pat between vcpus is not the same, set is_in_uc_mode
---- a/xen/arch/x86/include/asm/paging.h
-+++ b/xen/arch/x86/include/asm/paging.h
-@@ -133,19 +133,6 @@ struct paging_mode {
-     (DIV_ROUND_UP(PADDR_BITS - PAGE_SHIFT - (PAGE_SHIFT + 3), \
-                   PAGE_SHIFT - ilog2(sizeof(mfn_t))) + 1)
- 
--#ifdef CONFIG_HVM
--/* VRAM dirty tracking support */
--struct sh_dirty_vram {
--    unsigned long begin_pfn;
--    unsigned long end_pfn;
--#ifdef CONFIG_SHADOW_PAGING
--    paddr_t *sl1ma;
--    uint8_t *dirty_bitmap;
--    s_time_t last_dirty;
--#endif
--};
--#endif
--
- #if PG_log_dirty
- 
- /* log dirty initialization */
---- a/xen/arch/x86/mm/hap/hap.c
-+++ b/xen/arch/x86/mm/hap/hap.c
-@@ -36,6 +36,11 @@
- /*          HAP VRAM TRACKING SUPPORT           */
- /************************************************/
- 
-+struct hap_dirty_vram {
-+    unsigned long begin_pfn;
-+    unsigned long end_pfn;
-+};
-+
- /*
-  * hap_track_dirty_vram()
-  * Create the domain's dv_dirty_vram struct on demand.
-@@ -52,7 +57,7 @@ int hap_track_dirty_vram(struct domain *
-                          XEN_GUEST_HANDLE(void) guest_dirty_bitmap)
- {
-     long rc = 0;
--    struct sh_dirty_vram *dirty_vram;
-+    struct hap_dirty_vram *dirty_vram;
-     uint8_t *dirty_bitmap = NULL;
- 
-     if ( nr_frames )
-@@ -66,17 +71,17 @@ int hap_track_dirty_vram(struct domain *
- 
-         paging_lock(d);
- 
--        dirty_vram = d->arch.hvm.dirty_vram;
-+        dirty_vram = d->arch.hvm.dirty_vram.hap;
-         if ( !dirty_vram )
-         {
-             rc = -ENOMEM;
--            if ( (dirty_vram = xzalloc(struct sh_dirty_vram)) == NULL )
-+            if ( (dirty_vram = xzalloc(struct hap_dirty_vram)) == NULL )
-             {
-                 paging_unlock(d);
-                 goto out;
-             }
- 
--            d->arch.hvm.dirty_vram = dirty_vram;
-+            d->arch.hvm.dirty_vram.hap = dirty_vram;
-         }
- 
-         if ( begin_pfn != dirty_vram->begin_pfn ||
-@@ -132,7 +137,7 @@ int hap_track_dirty_vram(struct domain *
-     {
-         paging_lock(d);
- 
--        dirty_vram = d->arch.hvm.dirty_vram;
-+        dirty_vram = d->arch.hvm.dirty_vram.hap;
-         if ( dirty_vram )
-         {
-             /*
-@@ -142,7 +147,7 @@ int hap_track_dirty_vram(struct domain *
-             begin_pfn = dirty_vram->begin_pfn;
-             nr_frames = dirty_vram->end_pfn - dirty_vram->begin_pfn;
-             xfree(dirty_vram);
--            d->arch.hvm.dirty_vram = NULL;
-+            d->arch.hvm.dirty_vram.hap = NULL;
-         }
- 
-         paging_unlock(d);
-@@ -630,7 +635,7 @@ void hap_teardown(struct domain *d, bool
- 
-     d->arch.paging.mode &= ~PG_log_dirty;
- 
--    XFREE(d->arch.hvm.dirty_vram);
-+    XFREE(d->arch.hvm.dirty_vram.hap);
- 
- out:
-     paging_unlock(d);
---- a/xen/arch/x86/mm/shadow/common.c
-+++ b/xen/arch/x86/mm/shadow/common.c
-@@ -2886,11 +2886,11 @@ void shadow_teardown(struct domain *d, b
-     d->arch.paging.mode &= ~PG_log_dirty;
- 
- #ifdef CONFIG_HVM
--    if ( is_hvm_domain(d) && d->arch.hvm.dirty_vram )
-+    if ( is_hvm_domain(d) && d->arch.hvm.dirty_vram.sh )
-     {
--        xfree(d->arch.hvm.dirty_vram->sl1ma);
--        xfree(d->arch.hvm.dirty_vram->dirty_bitmap);
--        XFREE(d->arch.hvm.dirty_vram);
-+        xfree(d->arch.hvm.dirty_vram.sh->sl1ma);
-+        xfree(d->arch.hvm.dirty_vram.sh->dirty_bitmap);
-+        XFREE(d->arch.hvm.dirty_vram.sh);
-     }
- #endif
- 
---- a/xen/arch/x86/mm/shadow/hvm.c
-+++ b/xen/arch/x86/mm/shadow/hvm.c
-@@ -1033,7 +1033,7 @@ int shadow_track_dirty_vram(struct domai
-     p2m_lock(p2m_get_hostp2m(d));
-     paging_lock(d);
- 
--    dirty_vram = d->arch.hvm.dirty_vram;
-+    dirty_vram = d->arch.hvm.dirty_vram.sh;
- 
-     if ( dirty_vram && (!nr_frames ||
-              ( begin_pfn != dirty_vram->begin_pfn
-@@ -1043,8 +1043,8 @@ int shadow_track_dirty_vram(struct domai
-         gdprintk(XENLOG_INFO, "stopping tracking VRAM %lx - %lx\n", dirty_vram->begin_pfn, dirty_vram->end_pfn);
-         xfree(dirty_vram->sl1ma);
-         xfree(dirty_vram->dirty_bitmap);
--        xfree(dirty_vram);
--        dirty_vram = d->arch.hvm.dirty_vram = NULL;
-+        XFREE(dirty_vram);
-+        d->arch.hvm.dirty_vram.sh = NULL;
-     }
- 
-     if ( !nr_frames )
-@@ -1075,7 +1075,7 @@ int shadow_track_dirty_vram(struct domai
-             goto out;
-         dirty_vram->begin_pfn = begin_pfn;
-         dirty_vram->end_pfn = end_pfn;
--        d->arch.hvm.dirty_vram = dirty_vram;
-+        d->arch.hvm.dirty_vram.sh = dirty_vram;
- 
-         if ( (dirty_vram->sl1ma = xmalloc_array(paddr_t, nr_frames)) == NULL )
-             goto out_dirty_vram;
-@@ -1202,8 +1202,8 @@ int shadow_track_dirty_vram(struct domai
-  out_sl1ma:
-     xfree(dirty_vram->sl1ma);
-  out_dirty_vram:
--    xfree(dirty_vram);
--    dirty_vram = d->arch.hvm.dirty_vram = NULL;
-+    XFREE(dirty_vram);
-+    d->arch.hvm.dirty_vram.sh = NULL;
- 
-  out:
-     paging_unlock(d);
-@@ -1226,7 +1226,7 @@ void shadow_vram_get_mfn(mfn_t mfn, unsi
-                          const struct domain *d)
- {
-     unsigned long gfn;
--    struct sh_dirty_vram *dirty_vram = d->arch.hvm.dirty_vram;
-+    struct sh_dirty_vram *dirty_vram = d->arch.hvm.dirty_vram.sh;
- 
-     ASSERT(is_hvm_domain(d));
- 
-@@ -1256,7 +1256,7 @@ void shadow_vram_put_mfn(mfn_t mfn, unsi
-                          const struct domain *d)
- {
-     unsigned long gfn;
--    struct sh_dirty_vram *dirty_vram = d->arch.hvm.dirty_vram;
-+    struct sh_dirty_vram *dirty_vram = d->arch.hvm.dirty_vram.sh;
- 
-     ASSERT(is_hvm_domain(d));
- 
---- a/xen/arch/x86/mm/shadow/multi.c
-+++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -608,7 +608,7 @@ _sh_propagate(struct vcpu *v,
- #ifdef CONFIG_HVM
-     if ( unlikely(level == 1) && is_hvm_domain(d) )
-     {
--        struct sh_dirty_vram *dirty_vram = d->arch.hvm.dirty_vram;
-+        struct sh_dirty_vram *dirty_vram = d->arch.hvm.dirty_vram.sh;
- 
-         if ( dirty_vram && dirty_vram->last_dirty == -1 &&
-              gfn_x(target_gfn) >= dirty_vram->begin_pfn &&
---- a/xen/arch/x86/mm/shadow/private.h
-+++ b/xen/arch/x86/mm/shadow/private.h
-@@ -424,7 +424,15 @@ mfn_t sh_make_monitor_table(const struct
- void sh_destroy_monitor_table(const struct vcpu *v, mfn_t mmfn,
-                               unsigned int shadow_levels);
- 
--/* VRAM dirty tracking helpers. */
-+/* VRAM dirty tracking support */
-+struct sh_dirty_vram {
-+    unsigned long begin_pfn;
-+    unsigned long end_pfn;
-+    paddr_t *sl1ma;
-+    uint8_t *dirty_bitmap;
-+    s_time_t last_dirty;
-+};
-+
- void shadow_vram_get_mfn(mfn_t mfn, unsigned int l1f,
-                          mfn_t sl1mfn, const void *sl1e,
-                          const struct domain *d);
+Can you add xen/xen-syms.efi to .gitignore please? Or perhaps change the
+existing xen/xen-syms.map to xen/xen-syms.* ?
 
