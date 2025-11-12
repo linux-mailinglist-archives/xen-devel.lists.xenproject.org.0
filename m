@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FEF5C51B08
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 11:36:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1159669.1487981 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 836DCC51BC2
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 11:43:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1159680.1487991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJ8Cn-0003JB-He; Wed, 12 Nov 2025 10:36:01 +0000
+	id 1vJ8Jo-0004wm-7y; Wed, 12 Nov 2025 10:43:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1159669.1487981; Wed, 12 Nov 2025 10:36:01 +0000
+Received: by outflank-mailman (output) from mailman id 1159680.1487991; Wed, 12 Nov 2025 10:43:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJ8Cn-0003GR-EZ; Wed, 12 Nov 2025 10:36:01 +0000
-Received: by outflank-mailman (input) for mailman id 1159669;
- Wed, 12 Nov 2025 10:36:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vJ8Jo-0004ua-4M; Wed, 12 Nov 2025 10:43:16 +0000
+Received: by outflank-mailman (input) for mailman id 1159680;
+ Wed, 12 Nov 2025 10:43:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LXb0=5U=bounce.vates.tech=bounce-md_30504962.6914630c.v1-b47811629e5f415c9e9276478d1b43fa@srs-se1.protection.inumbo.net>)
- id 1vJ8Cm-0003GH-6m
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 10:36:00 +0000
-Received: from mail136-17.atl41.mandrillapp.com
- (mail136-17.atl41.mandrillapp.com [198.2.136.17])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5fbe819c-bfb3-11f0-9d18-b5c5bf9af7f9;
- Wed, 12 Nov 2025 11:35:58 +0100 (CET)
-Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail136-17.atl41.mandrillapp.com (Mailchimp) with ESMTP id
- 4d60DX37GNzPm0ZmB
- for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 10:35:56 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- b47811629e5f415c9e9276478d1b43fa; Wed, 12 Nov 2025 10:35:56 +0000
+ <SRS0=DUs6=5U=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
+ id 1vJ8Jm-0004uU-EN
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 10:43:14 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 602d0799-bfb4-11f0-980a-7dc792cee155;
+ Wed, 12 Nov 2025 11:43:08 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7755A1515;
+ Wed, 12 Nov 2025 02:42:59 -0800 (PST)
+Received: from [10.57.41.24] (unknown [10.57.41.24])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A008F3F5A1;
+ Wed, 12 Nov 2025 02:43:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,115 +42,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5fbe819c-bfb3-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1762943756; x=1763213756;
-	bh=uopzZcAexBVhZB+T7b3Dzoc1+hwrJIO3k293J16pMOk=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=WR9We+54ceraJ1wknJjr4ITHgSF8etRoiVJtPcfcAW0guu75S90bFlN04eEg350Bf
-	 Xrwh++RbjMXQajjnxcpAyXEGjE3H+lUCKtc8q7jwgMZnfYTvIjFfaOna0RZDW1HbgE
-	 zBTcic0lj08WjlQuKT9c3JFOfErywr7qdNKQdKq0VYopEZkfshU6zVvqMDAWrCyVdI
-	 sprDrxbgYVD2oXrtp88Vh5pHxwbTsgYwwZvcta/WNqXH2yLFzX29zTTNwLDOQJQ2ZQ
-	 GxiWZgnyuGNqn5npXrtum5U4lzDeRlUKvnArZ/BBis5ldqydozklI4zwe69YyHjPZx
-	 bzXAdFQTNf1Bw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1762943756; x=1763204256; i=teddy.astie@vates.tech;
-	bh=uopzZcAexBVhZB+T7b3Dzoc1+hwrJIO3k293J16pMOk=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=mPDlsLTc0dY+GrvN5AigmqVPlq3q574D/0ACQ9P986AyGr82l7LWkW4uNw+sURHTZ
-	 6sY/9T+j2pVAi/r94TgIObBm3+ggujchXOrzUUcw6vke1kvuWkpsek0NbTHepb/iGC
-	 sVwxHhTlMl11+iV8PBRlIk+IN9SFEHwiryUutYos54Ox3kCbdLFHJ9MLz1lnRNWJ9H
-	 u3EipM9+MqvQd0Wys/1r9ceySqMc9Jp73TOYnPFTbbkPYSO6CqRF4+Of4q33mQYA9Q
-	 hgLzEXS1rsgGLBcniOjzd0aKNe50e3ItmHYeiRHwo6jGSqFyrCFaMQPsBed1NmmpL+
-	 rEj8ZVrI/ZO/g==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RFC=20PATCH=20for-4.22]=20x86/hvm:=20Introduce=20force=5Fx2apic=20flag?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1762943754497
-Message-Id: <c1d2fece-02fe-4c3a-b08b-ac8525277787@vates.tech>
-To: xen-devel@lists.xenproject.org
-Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, "Alejandro Vallejo" <alejandro.vallejo@cloud.com>, "Grygorii Strashko" <grygorii_strashko@epam.com>
-References: <d498a50f6187b362ac5da3c6a7a7c348f35dc4b3.1761761288.git.teddy.astie@vates.tech>
-In-Reply-To: <d498a50f6187b362ac5da3c6a7a7c348f35dc4b3.1761761288.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.b47811629e5f415c9e9276478d1b43fa?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251112:md
-Date: Wed, 12 Nov 2025 10:35:56 +0000
+X-Inumbo-ID: 602d0799-bfb4-11f0-980a-7dc792cee155
+Message-ID: <cdb4b97a-415b-4dba-877b-0cd570381a6d@arm.com>
+Date: Wed, 12 Nov 2025 11:42:58 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 07/12] mm: enable lazy_mmu sections to nest
+To: Ryan Roberts <ryan.roberts@arm.com>, linux-mm@kvack.org,
+ David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ David Woodhouse <dwmw2@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
+ Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
+ <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Suren Baghdasaryan
+ <surenb@google.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, linux-arm-kernel@lists.infradead.org,
+ linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
+ xen-devel@lists.xenproject.org, x86@kernel.org
+References: <20251029100909.3381140-1-kevin.brodsky@arm.com>
+ <20251029100909.3381140-8-kevin.brodsky@arm.com>
+ <999feffa-5d1d-42e3-bd3a-d949f2a9de9d@arm.com>
+ <cc9dc398-b9c5-4bb8-94ad-7e7f3ddd5b4f@arm.com>
+ <824bf705-e9d6-4eeb-9532-9059fa56427f@arm.com>
+ <58fd1a6e-f2c4-421c-9b95-dea4b244a515@arm.com>
+ <8f70692c-25a9-4bd0-94ab-43ab435e4b1b@arm.com>
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+Content-Language: en-GB
+In-Reply-To: <8f70692c-25a9-4bd0-94ab-43ab435e4b1b@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Le 29/10/2025 =C3=A0 19:26, Teddy Astie a =C3=A9crit=C2=A0:
-> Introduce a new flag to force the x2APIC enabled and preventing a
-> guest from switching back LAPIC to xAPIC mode.
-> 
-> The semantics of this mode are based IA32_XAPIC_DISABLE_STATUS
-> architectural MSR of Intel specification.
-> 
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-> ---
-> This feature can be useful for various reasons, starting with SEV as
-> it is complicated (especially with SEV-ES) to handle MMIO, and legacy
-> xAPIC is one thing that needs MMIO intercepts (and Linux uses it during
-> boot unless x2APIC is initially enabled, even if it switches to
-> x2apic afterward). It could also be interesting to reduce the attack
-> surface of the hypervisor (by only exposing x2apic to the guest).
-> 
-> As it can allow to have MMIO-less guest (using PVH), perhaps it can
-> be enough for avoiding the problematic cases of virtualized INVLPGB
-> (when we have it).
-> 
-> In my testing, Linux, FreeBSD and PV-shim works fine with it; OVMF
-> freezes for some reason, NetBSD doesn't support it (no x2apic support
-> as Xen guest). HVM BIOS gets stuck at SeaBIOS as it expects booting
-> with xAPIC.
-> 
-> On Intel platforms, it would be better to expose the
-> IA32_XAPIC_DISABLE_STATUS architectural MSR to advertise this to
-> guest, but it's non-trivial as it needs to be properly exposed
-> through IA32_ARCH_CAPABILITIES which is currently passed-through.
-> 
->   docs/man/xl.cfg.5.pod.in              |  7 +++++++
->   tools/libs/light/libxl_types.idl      |  1 +
->   tools/libs/light/libxl_x86.c          |  4 ++++
->   tools/xl/xl_parse.c                   |  1 +
->   xen/arch/x86/domain.c                 |  2 +-
->   xen/arch/x86/hvm/hvm.c                |  2 ++
->   xen/arch/x86/hvm/vlapic.c             | 23 ++++++++++++++++++++++-
->   xen/arch/x86/include/asm/domain.h     |  2 ++
->   xen/arch/x86/include/asm/hvm/domain.h |  3 +++
->   xen/include/public/arch-x86/xen.h     | 12 +++++++++++-
->   10 files changed, 54 insertions(+), 3 deletions(-)
-> 
+On 11/11/2025 17:03, Ryan Roberts wrote:
+> On 11/11/2025 15:56, Kevin Brodsky wrote:
+>> On 11/11/2025 10:24, Ryan Roberts wrote:
+>>> [...]
+>>>
+>>>>>> +		state->active = true;
+>>>>>> +		arch_enter_lazy_mmu_mode();
+>>>>>> +	}
+>>>>>>  }
+>>>>>>  
+>>>>>>  static inline void lazy_mmu_mode_disable(void)
+>>>>>>  {
+>>>>>> -	arch_leave_lazy_mmu_mode();
+>>>>>> +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
+>>>>>> +
+>>>>>> +	VM_WARN_ON_ONCE(state->nesting_level == 0);
+>>>>>> +	VM_WARN_ON(!state->active);
+>>>>>> +
+>>>>>> +	if (--state->nesting_level == 0) {
+>>>>>> +		state->active = false;
+>>>>>> +		arch_leave_lazy_mmu_mode();
+>>>>>> +	} else {
+>>>>>> +		/* Exiting a nested section */
+>>>>>> +		arch_flush_lazy_mmu_mode();
+>>>>>> +	}
+>>>>>>  }
+>>>>>>  
+>>>>>>  static inline void lazy_mmu_mode_pause(void)
+>>>>>>  {
+>>>>>> +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
+>>>>>> +
+>>>>>> +	VM_WARN_ON(state->nesting_level == 0 || !state->active);
+>>>>> nit: do you need the first condition? I think when nesting_level==0, we expect
+>>>>> to be !active?
+>>>> I suppose this should never happen indeed - I was just being extra
+>>>> defensive.
+>>>>
+>>>> Either way David suggested allowing pause()/resume() to be called
+>>>> outside of any section so the next version will bail out on
+>>>> nesting_level == 0.
+>>> Ignoring my current opinion that we don't need pause/resume at all for now; Are
+>>> you suggesting that pause/resume will be completely independent of
+>>> enable/disable? I think that would be best. So enable/disable increment and
+>>> decrement the nesting_level counter regardless of whether we are paused.
+>>> nesting_level 0 => 1 enables if not paused. nesting_level 1 => 0 disables if not
+>>> paused. pause disables nesting_level >= 1, resume enables if nesting_level >= 1.
+>> This is something else. Currently the rules are:
+>>
+>> [A]
+>>
+>> // pausing forbidden
+>> enable()
+>>     pause()
+>>     // pausing/enabling forbidden
+>>     resume()
+>> disable()
+>>
+>> David suggested allowing:
+>>
+>> [B]
+>>
+>> pause()
+>> // pausing/enabling forbidden
+>> resume()
+>>
+>> Your suggestion is also allowing:
+>>
+>> [C]
+>>
+>> pause()
+>>     // pausing forbidden
+>>     enable()
+>>     disable()
+>> resume()
+> I think the current kasan kasan_depopulate_vmalloc_pte() path will require [C]
+> if CONFIG_DEBUG_PAGEALLOC is enabled on arm64. It calls __free_page() while
+> paused. I guess CONFIG_DEBUG_PAGEALLOC will cause __free_page() ->
+> debug_pagealloc_unmap_pages() ->->-> update_range_prot() -> lazy_mmu_enable().
 
-I guess for now, it would be preferable overall to :
-- just add a way to enable it by default, not lock in it in x2apic mode
-- the ability to lock it down (i.e disable xAPIC at compile time) could 
-be introduced separately
+Well, I really should have tried booting with KASAN enabled before...
+lazy_mmu_mode_enable() complains exactly as you predicted:
 
-I'm not completely decided on the naming of the option, maybe something 
-like :
-x2apic_mode =3D <default> | <pre_enable> (or just enable ?)
+> [    1.047587] WARNING: CPU: 0 PID: 1 at include/linux/pgtable.h:273
+> update_range_prot+0x2dc/0x50c
+> [    1.048025] Modules linked in:
+> [    1.048296] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted
+> 6.18.0-rc3-00012-ga901e7f479f1 #142 PREEMPT
+> [    1.048706] Hardware name: FVP Base RevC (DT)
+> [    1.048941] pstate: 11400009 (nzcV daif +PAN -UAO -TCO +DIT -SSBS
+> BTYPE=--)
+> [    1.049309] pc : update_range_prot+0x2dc/0x50c
+> [    1.049631] lr : update_range_prot+0x80/0x50c
+> [    1.049950] sp : ffff8000800e6f20
+> [    1.050162] x29: ffff8000800e6fb0 x28: ffff700010014000 x27:
+> ffff700010016000
+> [    1.050747] x26: 0000000000000000 x25: 0000000000000001 x24:
+> 00000000008800f7
+> [    1.051308] x23: 0000000000000000 x22: fff00008000f7000 x21:
+> fff00008003009f8
+> [    1.051884] x20: fff00008000f8000 x19: 1ffff0001001cdea x18:
+> ffff800080769000
+> [    1.052469] x17: ffff95c63264ec00 x16: ffff8000800e7504 x15:
+> 0000000000000003
+> [    1.053045] x14: ffff95c63482f000 x13: 0000000000000000 x12:
+> ffff783ffc0007bf
+> [    1.053620] x11: 1ffff83ffc0007be x10: ffff783ffc0007be x9 :
+> dfff800000000000
+> [    1.054203] x8 : fffd80010001f000 x7 : ffffffffffffffff x6 :
+> 0000000000000001
+> [    1.054776] x5 : 0000000000000000 x4 : fff00008003009f9 x3 :
+> 1ffe00010006013f
+> [    1.055348] x2 : fff0000800300000 x1 : 0000000000000001 x0 :
+> 0000000000000000
+> [    1.055912] Call trace:
+> [    1.056100]  update_range_prot+0x2dc/0x50c (P)
+> [    1.056478]  set_memory_valid+0x44/0x70
+> [    1.056850]  __kernel_map_pages+0x68/0xe4
+> [    1.057226]  __free_frozen_pages+0x528/0x1180
+> [    1.057601]  ___free_pages+0x11c/0x160
+> [    1.057961]  __free_pages+0x14/0x20
+> [    1.058307]  kasan_depopulate_vmalloc_pte+0xd4/0x184
+> [    1.058748]  __apply_to_page_range+0x678/0xda8
+> [    1.059149]  apply_to_existing_page_range+0x14/0x20
+> [    1.059553]  kasan_release_vmalloc+0x138/0x200
+> [    1.059982]  purge_vmap_node+0x1b4/0x8a0
+> [    1.060371]  __purge_vmap_area_lazy+0x4f8/0x870
+> [    1.060779]  _vm_unmap_aliases+0x488/0x6ec
+> [    1.061176]  vm_unmap_aliases+0x1c/0x34
+> [    1.061567]  change_memory_common+0x17c/0x380
+> [    1.061949]  set_memory_ro+0x18/0x24
+> [...]
 
-`default` will keep the current behavior, or force x2apic if xAPIC is 
-disabled at compile time; `pre_enable` will enable it by default, but OS 
-may be able to go back to xAPIC mode if supported.
 
-Teddy
+> Arguably you could move the resume() to before the __free_page(). But it just
+> illustrates that it's all a bit brittle at the moment...
 
+Difficult to disagree. With things like DEBUG_PAGEALLOC it becomes very
+hard to know what is guaranteed not to use lazy MMU.
 
---
-Teddy Astie | Vates XCP-ng Developer
+>>> Perhaps we also need nested pause/resume? Then you just end up with 2 counters;
+>>> enable_count and pause_count. Sorry if this has already been discussed.
+>> And finally:
+>>
+>> [D]
+>>
+>> pause()
+>>     pause()
+>>         enable()
+>>         disable()
+>>     resume()
+>> resume()
+>>
+>> I don't really mind either way, but I don't see an immediate use for [C]
+>> and [D] - the idea is that the paused section is short and controlled,
+>> not made up of arbitrary calls. 
+> If my thinking above is correct, then I've already demonstrated that this is not
+> the case. So I'd be inclined to go with [D] on the basis that it is the most robust.
+>
+> Keeping 2 nesting counts (enable and pause) feels pretty elegant to me and gives
+> the fewest opportunities for surprises.
 
-XCP-ng & Xen Orchestra - Vates solutions
+Agreed, if we're going to allow enable() within a paused section, then
+we might as well allow paused sections to nest too. The use-case is
+clear, so I'm happy to go ahead and make those changes.
 
-web: https://vates.tech
+David, any thoughts?
 
+- Kevin
 
+>
+> Thanks,
+> Ryan
+>
+>> A potential downside of allowing [C] and
+>> [D] is that it makes it harder to detect unintended nesting (fewer
+>> VM_WARN assertions). Happy to implement it if this proves useful though.
+>>
+>> OTOH the idea behind [B] is that it allows the caller of
+>> pause()/resume() not to care about whether lazy MMU is actually enabled
+>> or not - i.e. the kasan helpers would keep working even if
+>> apply_to_page_range() didn't use lazy MMU any more.
+>>
+>>>>>> +
+>>>>>> +	state->active = false;
+>>>>>>  	arch_leave_lazy_mmu_mode();
+>>>>>>  }
+>>>>>>  
+>>>>>> [...]
 
