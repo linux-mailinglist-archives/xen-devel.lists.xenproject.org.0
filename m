@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C2D3C53180
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 16:39:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160119.1488343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B1CEC53200
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Nov 2025 16:43:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160140.1488353 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJCw5-0001V6-KJ; Wed, 12 Nov 2025 15:39:05 +0000
+	id 1vJCzx-0003cw-6p; Wed, 12 Nov 2025 15:43:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160119.1488343; Wed, 12 Nov 2025 15:39:05 +0000
+Received: by outflank-mailman (output) from mailman id 1160140.1488353; Wed, 12 Nov 2025 15:43:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJCw5-0001Si-GX; Wed, 12 Nov 2025 15:39:05 +0000
-Received: by outflank-mailman (input) for mailman id 1160119;
- Wed, 12 Nov 2025 15:39:04 +0000
+	id 1vJCzx-0003a3-3i; Wed, 12 Nov 2025 15:43:05 +0000
+Received: by outflank-mailman (input) for mailman id 1160140;
+ Wed, 12 Nov 2025 15:43:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=K5hw=5U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJCw4-0007vC-Iz
- for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 15:39:04 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1vJCzv-0003Zv-8s
+ for xen-devel@lists.xenproject.org; Wed, 12 Nov 2025 15:43:03 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b7a894ec-bfdd-11f0-9d18-b5c5bf9af7f9;
- Wed, 12 Nov 2025 16:39:04 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-b71397df721so157016166b.1
- for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 07:39:03 -0800 (PST)
+ id 45ba9896-bfde-11f0-9d18-b5c5bf9af7f9;
+ Wed, 12 Nov 2025 16:43:02 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-640bd9039fbso1796357a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 07:43:02 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b72bdbc9656sm1633664466b.7.2025.11.12.07.39.02
+ 4fb4d7f45d1cf-6411f86ea13sm16131405a12.37.2025.11.12.07.43.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Nov 2025 07:39:02 -0800 (PST)
+ Wed, 12 Nov 2025 07:43:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7a894ec-bfdd-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 45ba9896-bfde-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1762961943; x=1763566743; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1762962181; x=1763566981; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=kYT8qoqnprdkjXlqI1OoX8dNcvzXGPzmLDAARTBQY5E=;
-        b=fGoYH7d/ELZPH9du88k69a0sK2D4ad3v5m7mCGTpau4qoi06Th00Az4QQ/LsHCtjmJ
-         r7mAmKdjP5QQr2DdwtlwKBlAryuGLRp6zJmPjUfDW5wwOC4O3kJ4aS3TD/nqOM7PLyre
-         7IPPj9lsN+pvMeY9aagjgZ/2x7qXaENcuQMfkkyj+6yY+6hBujKaQqLYTIjI5pt9vSn0
-         IWJluK3nwaGq/zBfQ8nOLro9O08uXT3khSfYpelom0m2nQIR8GobAB/BraixbgrsG0qK
-         y6quAGTZAkMSx/r5Yr8crIxaAW+ICE3Bf3W/4xJ4/Ou59qYJeSqkvTzhMSE3JeLw3aL4
-         PCMw==
+        bh=9SFf8juCkudErh44zooLXSedZjoB2NxiVe5ocYoeq6g=;
+        b=QbLWJynL6RyeE/wxueJWfT/itO3eGu4NeoEw/i/jReDoMeLE5S2x1aZkom8BbBLiQQ
+         qmKTM9ouDjuz+S13ERM7gI2dSai19At1Wmb7674a7LDpHjqAHQxsrwhNwQ3cItejXVm5
+         FjtQDJUlTweD0XP7Oyi+lYz0gpWEWcvYK+pYMpUV4Fxv0/DZNlM0zmcPfAvnQwvH39o5
+         hv5+JzZo/dD/iBzpE6bWBonoN3ULAOqZYx2FcCoWcUuoJ0UKPY08oa/T90kSlfK+tbLh
+         x7T7no6Km0YAqeOFyM0iM0pmocxVDRFUOk2WpsyPZQVkIlyYuw9jRwe+U53fdgmK3ENU
+         engA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762961943; x=1763566743;
+        d=1e100.net; s=20230601; t=1762962181; x=1763566981;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kYT8qoqnprdkjXlqI1OoX8dNcvzXGPzmLDAARTBQY5E=;
-        b=FwjgU9EAwlp0pa0naGvEG1vfQ0itkPumSb4bOoasmCpk05YTaYNhLq9PQdL4PUwYgU
-         mfuZ0de19gywx68RzVNdLFdtmnZLRijzhEwNthasuQCoZ6l1QYiWCqQr75MDLaQiFgAp
-         xrQSuYOOMLepV3Ba1StZHLYcKDpcAnvRHphfsco8OZ0zhp8eK0s/nsZok8VLSP/ugW7w
-         UkoqE1q/kmBAikk3TDx738sjZbgOslrJtNHcpqv1EwgmrbutkyEPDJWxzfbvJ64Yolcn
-         HvVqsqdodLqCrZAE2DGm4XmXbk5tH12KxnLGS8TlLkt0O1mxKBrL+XGdJm/rHcg6KVUq
-         tzCQ==
-X-Gm-Message-State: AOJu0YzDHVWIc6CAIxIbjZDthlzPSfIcgo224B8dVB1Brxl6xXgHwkBQ
-	J2onGA0zMxgyiHb7rFn8VJIGkftd/nz1/4C74kd3UY+/JVuxWh558iq5xrMFTBhTuFa1bioBxDU
-	z2IQ=
-X-Gm-Gg: ASbGncuTCl1Y3fdmsXRWKv9t/RcyC/797HLRrYJoGkloxNPNwv4JOJsws/h1M75FFJI
-	ov4YIt6sIQdOJOrs9Y5UQ2y9o8la5GC8WLTDHp7yL8dJXgJWJXdMqt0z2uULLVebOndLYGlGjhR
-	Du/t48KnkMHM0QCcWe8sPwmVFopXXpPH4Wv393m+aw7SgW9ZIXW3U/QS/Zy7ZDSv90nK4KnWb0S
-	dUHzMLhLfhprGLiFZi+s7LINInkPPhnNatN4td3NUNiUiWGpsD2Uc70ZgS4JDabqy6EoLTm+GHU
-	I8wTXstupiUfrLATrNsDC/u7NQeyJj8lHGEt8oSde6TEGNWIadbumGLL7Ht0jqd12delqwX22dn
-	yK6xi76vNj/fgCQdEV2I7oAkXIFUgEdsss0cNAEcWSXMZswQjksl7y5ya9xt21TdwF1U1y2rut3
-	HMDYbFfMpMy9o0rPpc7NK0leAifhyFl25F+CgywXp+jYStrzPP/Hu1XCmY7G0Hnob+
-X-Google-Smtp-Source: AGHT+IFwR8ZmuJ/y07Tp1TJmMESrpC1W6wK+FNKST+o20axNFjm84y3H/Zbw2E/LEqP9u/+/rZmi/A==
-X-Received: by 2002:a17:907:7f0c:b0:b6d:3f38:2969 with SMTP id a640c23a62f3a-b733198f05bmr397997766b.18.1762961943172;
-        Wed, 12 Nov 2025 07:39:03 -0800 (PST)
-Message-ID: <8f814892-9f20-436a-907f-f25b294a9741@suse.com>
-Date: Wed, 12 Nov 2025 16:39:01 +0100
+        bh=9SFf8juCkudErh44zooLXSedZjoB2NxiVe5ocYoeq6g=;
+        b=Pv+zxJEM8rbHht6Ozzkq22O1jLe7I0fsZ85gQFULXrZKZj7UQ2asz0c9IhEfnGsIt0
+         JHhWuxogIXXJjvetQnqhASZVaoAGQ9WfgK5PGmqwn0nqF+z0ot0+J+GZwMNHq20/V1S8
+         5xuatJ7sratMFlHedJiSwvkmDNlbItDAFI8AApwR8loP+gv8ZW1X0Esw2Ro8RF1pw/zv
+         /boupvfVL8xTqSLKdqw3tas8m6e1uj9lLBWtK+6mB0SS2OoYYfRqlxzns4Q7ZDJMNDdM
+         iHU6VtvCOs2W5MDgDXa1gsLJyjfGRTwqQI/SpHIGb61cDm0Qrnzl5+V5seK8QEavUHxa
+         Ug3w==
+X-Gm-Message-State: AOJu0YzF0Dyc66X3iLicB1T9iZLVg16p5nUXKLeFyb5Czkzo0bOlZozB
+	PqdY+lXJ3DS7AZQLNl++7VSp2Fn0uFV6N2dV8vVcDx8ZeLwl51YDKgSuWNoH2f7mZtX6FpYNRdU
+	/78o=
+X-Gm-Gg: ASbGncsm6CrDTQyaho5bS5HfZkyCY2F2PP6jEC20m2F1zF9gdpC1jWyKrE293bwDdlN
+	1i7c34Dk8vlnPhb2d0akpHcvNNoV8kfcXMmP/eFYEkwWzI4z7py+FMJnwQ3Eo78pzuj3X7BBG7V
+	QQJDgGnV3k/oIS67BjeDBVH4Y5VF96vhdX7Q704IjgCdQy6zwfqX55fEK67pHRKpjNJz5/A91oJ
+	nMwWlUdQp6GlpVT/f6QF18aUExg5PXxbCYdN+lG9Dp4S5dsD9XF2reQ9ehqLQqKTZ8igQG+61RW
+	aNZAtIm3mkbRdYoVCmAMjBgteJsaolX6UBWJ+MAKpdlo+AeZNSuO1td/TM+lP3D+jgRJ+1/Mn9L
+	1hvlwSRDd7M0KIjOGlpXHzVdVCILa51WZbFPqOqnlnPUdMNRu/M4Fl1l0LlaukvLT0rwZuvoT7b
+	KJkHV5w7yjwbHqlEzyDnpnQQPmA//IIfNZxFxTyIy8JE2EvkdxpPqy2Mp4utaO1Z3X
+X-Google-Smtp-Source: AGHT+IFc0/J/d2hr8fjKhIdErXbuFbWyu/1KJ6vm965wQOHY7XU7H0ofR2KAgmcBjTdUd+9T1F+oLw==
+X-Received: by 2002:a05:6402:40c6:b0:640:b1cf:f800 with SMTP id 4fb4d7f45d1cf-6431a39286bmr3055364a12.4.1762962181555;
+        Wed, 12 Nov 2025 07:43:01 -0800 (PST)
+Message-ID: <88bbddc8-61cb-4284-9b0b-9735a4a8099c@suse.com>
+Date: Wed, 12 Nov 2025 16:43:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -92,8 +92,7 @@ To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86: there's no use for -mpreferred-stack-boundary= when
- assembling
+Subject: [PATCH] x86/IRQ: use LOCK-free bit setting in init_irq_data()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -120,16 +119,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-This option is only relevant for C ones.
+Much like done later in the function, syscall and hypercall vectors can
+have their bits set without use of LOCKed accesses.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/Rules.mk
-+++ b/xen/arch/x86/Rules.mk
-@@ -7,4 +7,4 @@ else
- object_label_flags = '-D__OBJECT_LABEL__=$(subst /,$$,$(subst -,_,$@))'
- endif
- c_flags += $(object_label_flags) $(CFLAGS_stack_boundary)
--a_flags += $(object_label_flags) $(CFLAGS_stack_boundary)
-+a_flags += $(object_label_flags)
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -450,12 +450,12 @@ int __init init_irq_data(void)
+ 
+ #ifdef CONFIG_PV
+     /* Never allocate the Linux/BSD fast-trap vector. */
+-    set_bit(LEGACY_SYSCALL_VECTOR, used_vectors);
++    __set_bit(LEGACY_SYSCALL_VECTOR, used_vectors);
+ #endif
+ 
+ #ifdef CONFIG_PV32
+     /* Never allocate the hypercall vector. */
+-    set_bit(HYPERCALL_VECTOR, used_vectors);
++    __set_bit(HYPERCALL_VECTOR, used_vectors);
+ #endif
+     
+     /*
 
