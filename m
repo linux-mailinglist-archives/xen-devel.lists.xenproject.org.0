@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 854AAC57C2C
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 14:45:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1161598.1489515 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87248C57C83
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 14:51:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1161613.1489525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJXdZ-0001H0-VD; Thu, 13 Nov 2025 13:45:21 +0000
+	id 1vJXio-0002pa-HB; Thu, 13 Nov 2025 13:50:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1161598.1489515; Thu, 13 Nov 2025 13:45:21 +0000
+Received: by outflank-mailman (output) from mailman id 1161613.1489525; Thu, 13 Nov 2025 13:50:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJXdZ-0001Ed-SX; Thu, 13 Nov 2025 13:45:21 +0000
-Received: by outflank-mailman (input) for mailman id 1161598;
- Thu, 13 Nov 2025 13:45:20 +0000
+	id 1vJXio-0002mW-E4; Thu, 13 Nov 2025 13:50:46 +0000
+Received: by outflank-mailman (input) for mailman id 1161613;
+ Thu, 13 Nov 2025 13:50:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJXdY-0001EX-Ps
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 13:45:20 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1vJXim-0002mQ-FD
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 13:50:44 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fe43f5b5-c096-11f0-9d18-b5c5bf9af7f9;
- Thu, 13 Nov 2025 14:45:19 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-64198771a9bso1516569a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 05:45:19 -0800 (PST)
+ id bf62823e-c097-11f0-9d18-b5c5bf9af7f9;
+ Thu, 13 Nov 2025 14:50:43 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-b727f452fffso313236566b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 05:50:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fa81223sm171546466b.4.2025.11.13.05.45.18
+ a640c23a62f3a-b734fa812a3sm170869166b.8.2025.11.13.05.50.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 05:45:18 -0800 (PST)
+ Thu, 13 Nov 2025 05:50:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe43f5b5-c096-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: bf62823e-c097-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763041519; x=1763646319; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763041843; x=1763646643; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7IYnH03GwJiwEXYHq7z5djT9LuQQHqZnjMKilL0R9ks=;
-        b=Q6m32YcFFZwCwLtjh/f7L3/eHtKu+NyQkCMqMWmGm5lrhRT/dJ2RgpT+sd1iPI0vtS
-         ytjhZ2/L/utt4+SsVFKbjKD3XwsZw/FL0kvF2616V9n+kKOpxUo9Ep3bVMeSn9Cx4UGO
-         zrgN6C0clX/VoJWg59tb+NDEstjyRML9AynicRuQBoKpL1pbD/+2C3C49Inqwv5BMLGr
-         f9+HviI0nH54WoGDVw6L7+fmZNGvMx7AHhLaYlGCd6bIuIIzOPVOeFp8Rmmkg1yNOwHv
-         hjnQqaLPZ6gMEm7IEheiits13vAc1M2Uf8ZnyB7DN/8jQDmv64rrDJMcvMSso+vtsXG3
-         Gmdw==
+        bh=+xBESS9IJ6pA4wD0WSdVGAVC6FPHQN7vpy3PvXdxZY4=;
+        b=c4XFT/an1brDOhl8nUr8tj1wq5ge0Kwbm2uLNh0q9xzFRAV4HiZ+zeZ1WW0T7fIj7W
+         /WJvQAXp2tU4aqcF23w7deC29q5phIA14A+QSEWlM3GAyVY1TaNwh39eCq9Vn9bXPEyo
+         pdW4vfaidLHNzLgy1Omcca63W+hFOCtoWr0I5E4ZBzZ8XvFaM14DBkmh3PeK8fJ2ly7p
+         L0TYZvRCnxVyfFe9QCxtj81xZWNnKMHrMlmpQIV4/3itTBToC6R62AXFkbFOkPjhl2iS
+         5fDMlSewiMzCQrq9aXSmMgpb3KXCK5J+3uf7A9jZikrbNqZYH8B0zAXtgF0+k6PAxsy1
+         bJbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763041519; x=1763646319;
+        d=1e100.net; s=20230601; t=1763041843; x=1763646643;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7IYnH03GwJiwEXYHq7z5djT9LuQQHqZnjMKilL0R9ks=;
-        b=dJvw6Ayn0F4I8hTlBEKy9YGlsKiawaLuSQPZAV6NwP2HfdeeQ+JCIkg4q+jUWLGnBq
-         mh/4RQVuGl1sCGtNGCijxdv/WDfHGaWMEmAQAD+1TLi/3j7PmSSbSfQLkuHXUG3fH/x6
-         4VfVD7IFcDBGOb9agRxwMzo7/e8SUsnw4WxASZoVoSkxqaw/e2RnjdfoYL4VPo/RddFx
-         xRdXJMGa5SiPgPlQWIN2JP4ibYo9WsXqZilogkA2YFwQyt8yXCiv3HA467laS9leMkId
-         CgM6jIhQsm9cYaL/FpRPtbStc4Lw+bglmHM2qfbVu/mpzrSJHfWUjKqOh1srRZcyouU2
-         V3Sg==
-X-Gm-Message-State: AOJu0YwndDeGoRbSFEhRC1janAgFwSKpvkGZ9I+5EBkhDa4812ev5dPi
-	wGec9fQFf3UCWBhC88CyeQs2SgIe/vsf3FjZebglPlw3hX2DDcqi8mNM8XtV0+p+Kw==
-X-Gm-Gg: ASbGncvo5vnoubgblbeOc4weWs6VdgCt0E9E5RGfqIAewA3tF8zgb/qiIhxzxRnH+0A
-	+SNfGFXnM/vIcMYR4gLwPomeE9Rpm7pb2b3ii5vZMPydzY3vWagym5IZowL80ZGtCVRuO+UMpq3
-	CQ93LjIkcFh9vN/OSpO993tCQv3XMLYn0KHBdvrUppLqy0/9rIT66lIWDTXupOdxxKOlPBO4tP+
-	fCtRfHCvfZN8oVh67qI5ItRKVGIuy/KigTNjmalUytBQoshtWxBOr/K90hAyv0K7Z9JsJn8FzM1
-	ZQIPy6/eHZoMjqecnA3iK6QRhdjao4c+i2IEKhL0kt63bGknRP8rF7as5aF/bapeT/PG0n0gHH6
-	NRJDcieOBN1u8SlcTcssHSTO+S9ZgBdErkplgv8W7LnFAfJNcHb6e0ssZC+lkmh02zcgyglcZrT
-	d3LSkjZO/NbSPRP7zsTHIvFZWH2PChKlbuZzAaJ5bz3z4KHT89ukSYNK+Um5Kasfnx
-X-Google-Smtp-Source: AGHT+IFBVVdFAD2d/Mo7MJ7t5Hvo+v8Ucl2jZ2CRltmbBM3Sa0OgK5ABz819D970s+0CAzi5TMzymg==
-X-Received: by 2002:a17:906:f591:b0:b70:be84:5186 with SMTP id a640c23a62f3a-b7331aec174mr650743566b.44.1763041518656;
-        Thu, 13 Nov 2025 05:45:18 -0800 (PST)
-Message-ID: <f1c74d0b-9f1b-41cf-885f-9323f4d5ca9a@suse.com>
-Date: Thu, 13 Nov 2025 14:45:17 +0100
+        bh=+xBESS9IJ6pA4wD0WSdVGAVC6FPHQN7vpy3PvXdxZY4=;
+        b=Z3wR1oVAVgXr7ae2uAepGQy3bY4yVMwN0nfztKRd7lSGZT8ADAs8oxNq8yWmvOGYvh
+         gAi+H0QMbr7M5x0cnL8E0A0oc68UJ3caIOdfRIRTGzto043BMfI2k1bcJdxO6m0nPqcY
+         3/C3QwCu/6azESS1Q/T2lpoyV9ZEpwSDFHkN/UZj12abT7ENdB/nEyDDoMoPDWbAujZM
+         VJtFx35pcmYu/eFPiBbF+Snb7cAlzuuMTNnoGd/29heBAV+7LNtNaYqBnR+UeYeNnDWE
+         Yt5Nl5OzpSZLdB7USpPFOQhAp5c2api6EXEGBkT+4i30HKdFHloDo1PNu51WM2Oz8xsb
+         7skA==
+X-Forwarded-Encrypted: i=1; AJvYcCVDwXT55B6cnw25YugFckTsy88XU67KPNHGre0XkeroJE7+GwQcB4m4yzDoyqDksKK0UqtRgPEFq1o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxcox4dwDhXYzJ/RVGyWD5T1WOu0LuVxUR5lhokJzdCVHdNCKS6
+	V/Y4XatTTuq+1UfCcJxwrQe3QTB/gkpCxReIHh2GeoGejp7kbAAyJo7JC0TzgHhwyA==
+X-Gm-Gg: ASbGncs5HDkFbzasOwM3SSSGOP2I5iPmRr0Zt6EpK03vD+bGxYa7O4/uAh+pxlVGsav
+	32jjP8zwwccnU4EFz4KUv73woKtJnIYtagPevruR4RSKhaDTa/hOssxJd7ew1fa33EkEZZvucO9
+	bjHzk3T4wYBqVrT4tDNdmNvzt145cMVvVM2J3wEjbFdES1BVPA+di/ry+vAlPD2j+IwvsZDD5QT
+	ansnQsrDBlwkMesIhNI8Ht5ev+lZ4/BDYHvm2nD2Qximy9eU5qo9vlm1KCNwAShhK9b+JGBTLX/
+	W2omwiFvf6VdnFmP8Ah+/DxN3oj7WXw2Kh+YouyDaVHL7OE6nWh3kISjd9OAmqJDdYs8TSBMGgh
+	vAXFHnLo72DuTlbpc1KPvujafBWFqFaHL3Kp0P5WjSx5JCcFl+CAq15zTdTmozso/L/j40sdio8
+	9TIWfHdX5HGiPqgx350Tz++xtuhiWJo9cjQyZi0+HOUC9bGhn+4xgkRrE1QFJglFp5
+X-Google-Smtp-Source: AGHT+IFceF58qKnk8aNNb1W6/0rY/MKEusc3pV6bpPIhwGp2GK50sr8/geb/VxqPrpiF8FdWnXiezQ==
+X-Received: by 2002:a17:907:7216:b0:b3f:331a:a982 with SMTP id a640c23a62f3a-b7348056d86mr305417566b.6.1763041842753;
+        Thu, 13 Nov 2025 05:50:42 -0800 (PST)
+Message-ID: <e16c5302-3ea8-4ce2-97de-4b891bca68a0@suse.com>
+Date: Thu, 13 Nov 2025 14:50:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20] mktarball: Drop double-processing of the archive
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251113130154.220139-1-andrew.cooper3@citrix.com>
- <ce976661-927c-44e0-a478-893242bacba3@suse.com>
- <b0d1b91a-a9fa-48fc-9546-b481c75ee185@citrix.com>
- <c0ac3598-c070-4b73-9e6a-49385338ea1c@suse.com>
- <1dc03c2e-772e-40ab-b3a1-7c9d463b7250@citrix.com>
+Subject: Re: [XEN][PATCH 4/5] x86: pvh: allow to disable 32-bit interface
+ support
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ Jason Andryuk <jason.andryuk@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251111175413.3540690-1-grygorii_strashko@epam.com>
+ <20251111175413.3540690-5-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,69 +124,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1dc03c2e-772e-40ab-b3a1-7c9d463b7250@citrix.com>
+In-Reply-To: <20251111175413.3540690-5-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 13.11.2025 14:42, Andrew Cooper wrote:
-> On 13/11/2025 1:34 pm, Jan Beulich wrote:
->> On 13.11.2025 14:29, Andrew Cooper wrote:
->>> On 13/11/2025 1:12 pm, Jan Beulich wrote:
->>>> On 13.11.2025 14:01, Andrew Cooper wrote:
->>>>> This is a partial backport of commit 63ebd0e9649e ("releases: use newer
->>>>> compression methods for tarballs"), but keeping gz as the only compression
->>>>> method.
->>>>>
->>>>> In addition to efficiency, this causes the tarball to use root/root ownership,
->>>>> rather than leak whomever produced the tarball.
->>>> I don't understand this part. Isn't the ownership whatever "git archive" reports?
->>> This is fixing the issue you noticed about internal ownership:
->>>
->>> xen.org.cvs/oss-xen/release$ tar tf 4.20.1/xen-4.20.1.tar.gz --verbose | head
->>> drwxrwxr-x andrew/andrew     0 2025-07-10 12:28 xen-4.20.1/
->>> drwxrwxr-x andrew/andrew     0 2025-07-09 14:57 xen-4.20.1/.github/
->>> drwxrwxr-x andrew/andrew     0 2025-07-09 14:57 xen-4.20.1/.github/workflows/
->>> -rw-rw-r-- andrew/andrew  1362 2025-07-09 14:57 xen-4.20.1/.github/workflows/coverity.yml
->>> -rw-rw-r-- andrew/andrew    96 2025-07-09 14:57 xen-4.20.1/.gitarchive-info
->>> -rw-rw-r-- andrew/andrew  9668 2025-07-09 14:57 xen-4.20.1/Makefile
->>> drwxrwxr-x andrew/andrew     0 2025-07-09 14:57 xen-4.20.1/stubdom/
->>> -rw-rw-r-- andrew/andrew 24220 2025-07-09 14:57 xen-4.20.1/stubdom/Makefile
->>> drwxrwxr-x andrew/andrew     0 2025-07-09 14:57 xen-4.20.1/stubdom/grub/
->>> -rw-rw-r-- andrew/andrew  2252 2025-07-09 14:57 xen-4.20.1/stubdom/grub/Makefile
->>>
->>> xen.org.cvs/oss-xen/release$ tar tf 4.20.2/xen-4.20.2.tar.gz --verbose | head
->>> drwxrwxr-x root/root         0 2025-11-13 09:51 xen-4.20.2/
->>> -rw-rw-r-- root/root      4781 2025-11-13 09:51 xen-4.20.2/.cirrus.yml
->>> -rw-rw-r-- root/root        97 2025-11-13 09:51 xen-4.20.2/.gitarchive-info
->>> -rw-rw-r-- root/root        30 2025-11-13 09:51 xen-4.20.2/.gitattributes
->>> drwxrwxr-x root/root         0 2025-11-13 09:51 xen-4.20.2/.github/
->>> drwxrwxr-x root/root         0 2025-11-13 09:51 xen-4.20.2/.github/workflows/
->>> -rw-rw-r-- root/root      1362 2025-11-13 09:51 xen-4.20.2/.github/workflows/coverity.yml
->>> -rw-rw-r-- root/root      7035 2025-11-13 09:51 xen-4.20.2/.gitignore
->>> -rw-rw-r-- root/root       798 2025-11-13 09:51 xen-4.20.2/.gitlab-ci.yml
->>> -rw-rw-r-- root/root     15298 2025-11-13 09:51 xen-4.20.2/CHANGELOG.md
->> I guess my reply was ambiguous. I did understand that's the effect, but I
->> wasn't able to tell why such a difference would result. It's all "git
->> archive", before and after the change.
-> 
-> Ah.  The first git archive does the right thing, but the result gets
-> expanded into the regular filesystem and takes local ownership.
+On 11.11.2025 18:54, Grygorii Strashko wrote:
+> --- a/xen/arch/x86/hvm/Kconfig
+> +++ b/xen/arch/x86/hvm/Kconfig
+> @@ -2,7 +2,6 @@ menuconfig HVM
+>  	bool "HVM support"
+>  	depends on !PV_SHIM_EXCLUSIVE
+>  	default !PV_SHIM
+> -	select COMPAT
+>  	select IOREQ_SERVER
+>  	select MEM_ACCESS_ALWAYS_ON
+>  	help
+> @@ -70,4 +69,22 @@ config MEM_PAGING
+>  config MEM_SHARING
+>  	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
+>  
+> +config HVM_COMPAT
+> +    bool "HVM 32-bit interface support on 64-bit Xen" if EXPERT
 
-Oh, I see - because of --no-same-owner being the default for non-root.
+x86 Xen is always 64-bit, so I don't view it necessary to say so explicitly.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Imo the whole construct will want to move up, perhaps ahead of HVM_FEP.
 
 Jan
-
-> Then, nothing is merged, and the result is re-tar'd using:
-> 
-> GZIP=-9v tar cz -f $xen_root/dist/xen-$desc.tar.gz -C $tdir xen-$desc
-> 
-> which retains local ownership into the resulting archive.
-> 
-> For 4.19 and earlier, I propose to add '--owner 0 --group 0' to this tar
-> invocation.
-> 
-> ~Andrew
-
 
