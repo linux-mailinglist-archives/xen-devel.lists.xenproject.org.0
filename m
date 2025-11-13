@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3073CC56C09
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 11:08:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160877.1488929 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 577C5C56C99
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 11:16:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160890.1488943 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJUEl-00029E-EQ; Thu, 13 Nov 2025 10:07:31 +0000
+	id 1vJUNL-00049G-9N; Thu, 13 Nov 2025 10:16:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160877.1488929; Thu, 13 Nov 2025 10:07:31 +0000
+Received: by outflank-mailman (output) from mailman id 1160890.1488943; Thu, 13 Nov 2025 10:16:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJUEl-000276-BS; Thu, 13 Nov 2025 10:07:31 +0000
-Received: by outflank-mailman (input) for mailman id 1160877;
- Thu, 13 Nov 2025 10:07:30 +0000
+	id 1vJUNL-00046O-6M; Thu, 13 Nov 2025 10:16:23 +0000
+Received: by outflank-mailman (input) for mailman id 1160890;
+ Thu, 13 Nov 2025 10:16:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJUEj-00026s-Vy
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 10:07:29 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1vJUNK-00046I-8K
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 10:16:22 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8f2a2f01-c078-11f0-980a-7dc792cee155;
- Thu, 13 Nov 2025 11:07:28 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-64088c6b309so1086815a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 02:07:28 -0800 (PST)
+ id ca8cf30e-c079-11f0-980a-7dc792cee155;
+ Thu, 13 Nov 2025 11:16:17 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-b7277324054so79838066b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 02:16:17 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fd809absm129504266b.44.2025.11.13.02.07.26
+ a640c23a62f3a-b734fad800dsm136057766b.29.2025.11.13.02.16.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 02:07:26 -0800 (PST)
+ Thu, 13 Nov 2025 02:16:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f2a2f01-c078-11f0-980a-7dc792cee155
+X-Inumbo-ID: ca8cf30e-c079-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763028447; x=1763633247; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763028976; x=1763633776; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zw+YHlQ/peQO5V4lUzzZ3ZPKQmLeOrJGX3UasDPLo08=;
-        b=VDO/+XWvi+cT4OBlalDSLzXiKBHkz7J6bKrj3dcE0kjsePE8XOKZZy0GhEuANapleD
-         xQENwpqbyNx7JvVg16VBH24k2ru14urCFCfLD1X4mS7X5/0+Nr0RJZsJ+G2s7E+/L8VG
-         r1pV5MUxTcH4WLfxf+c6MFIOslXv88zWVZ5VKb3gWvhXMdzZMGIt0G73tUAWSTvS6iFh
-         nlKt6nmmZxFiJnlcvh2arSaNITrzIzalfdab2iav1RjfWFCJ7XDim/4Zo+D5ufl9PNfu
-         cHRRyKtZCCAHhgvmthrS7LR/FGb0OpjKkldIxlatKOwuMoOT9POScASeqd9n1hybCzuC
-         rB1w==
+        bh=gPEYLCwfTCc+w39ymAHJHeVUMUfjvXkqi2G7RerLYFg=;
+        b=eTNdRLOn62ndFrRkHpxO8Fsm1sALPjvu2uiMVQzHinWO36aPOntI6uevvTZj5/VSnR
+         ecpEEVbedzg91+CcBhrxrlZ4FJrBov/W23CQE4OqmodvakVI/cas/5FEx0FvD3DpiALT
+         KP1KACqZIZtkg8D2WijwAMs4EJ8fOI69iVYwaMJrgcwaiZqzp63oAc+K0e5x+jCtusZ3
+         EGStQNy0R1eZaK9J2GXNiHMtR0qfzZ428eCmN13/0J3ILH4XKZcPNL78OzqKJ3RcaBat
+         hdxxeVvPPKxyRgdpM9sDjYC4tCl4kYtZ0PLU4haI1R2ERfwGmOzn5aVvKDuzZWVJ7X7Z
+         Nw9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763028447; x=1763633247;
+        d=1e100.net; s=20230601; t=1763028976; x=1763633776;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zw+YHlQ/peQO5V4lUzzZ3ZPKQmLeOrJGX3UasDPLo08=;
-        b=ejzXw8rrym8nyjrcJGP3bK5ViSWn8qgtr0MuCenjhasz4g8Z7W8JuWiZsAYrmSPIAt
-         o3GhzgKEbrpYJcTJf2BOfsWSfR4NKPFOnnWNnUfDk4u3erhjnrL8w2ujfNUL+elWaxMK
-         mw1oklN3DCWj1uv3Or474zV54PCdutxUx//9sbz/YyDOI1P2NOnFPsDhdcMUTF+6ExJf
-         Uxr35fD/4q14NOi22mv+GwrdsGgEwq46nArvBAc2NScxHQAGyStqvg/tAQOH3fL+c7PR
-         EJhxuZSTTA8Kibk3P6+VsGxOoeJ6I3sXBqg38VvsxTZiSEpCcCwUaJ1rDZBKtg9E+lH8
-         gkNg==
-X-Forwarded-Encrypted: i=1; AJvYcCXDj7CRxwiHudncfjCYqyZOyEhheQD1DSYgnSbSjv6AqbGEitWqds/6x92Hy8MH+4Mz31HftZgLYe8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx7FYaGv/KAtgUBXmAD1U6NCJAmsWdIX3pF/MJe2ZuLRYB6TfIm
-	nMfeB/D2FKPmsAxdTgb+BqQsVHdU3YMlGWOGPXRIogneuLp6HkqA8VXDoBbR77FeUTiPra6ZisE
-	Hp6Q=
-X-Gm-Gg: ASbGnctG5qk78OwPvdozKh07Yr/F1dIXXwLHbUMqw+ntWBqz3dGHrDUShtLXbQ7AqAH
-	pu9cFzMWNx9k+yhpmS4XQxIMS8A9sWHPvBtLjs++3SDg0T2o1GGlFVfNwQSVtUC8ssZUb5YsPdR
-	wye7J1vl4hgVdzZ2Go/pL2wrgJWTSNO0zfxhbujZXN8xupywEXhbQy4MO8jqxZKIUnELHoQXcGR
-	jDkZduF40v1gkhYUOM/adxtJsTU0y6gPnyMyZUbkGe/GMumm1wf0PU3m3r4R3dDAw9X0G2UyS/y
-	yfi9nLFarTIgJ+RkJsDAr9pRSORxEBJIESZQ6HpGWtSFfiajEKbFVqg3Lh2eUcoFYvNbMGxx8OV
-	u5glaO1re6A4kYB5QCcgZWLdaDgGKWdaQsTnMtME6+Qw+wxOmDJnYufq9LCkSr46JWJRE4lgc94
-	Q7gCqqd/7wJsUqiHQwwMtkVSOmv2EYf+GxElgW7+lJPQiyt76ywP1OwCmTkWVrGF9z
-X-Google-Smtp-Source: AGHT+IHKbgtl1lKhL7B/M844zEyn1UVxl3KMhxX97Zz4TlDFoJyALyD0jLuLPjzuKRWvCvti+QiuTw==
-X-Received: by 2002:a17:907:9713:b0:b72:5a54:1720 with SMTP id a640c23a62f3a-b7331ae8bbbmr574138866b.57.1763028447355;
-        Thu, 13 Nov 2025 02:07:27 -0800 (PST)
-Message-ID: <1d0f9933-c12a-410e-84ee-e58fa78d0f8a@suse.com>
-Date: Thu, 13 Nov 2025 11:07:25 +0100
+        bh=gPEYLCwfTCc+w39ymAHJHeVUMUfjvXkqi2G7RerLYFg=;
+        b=lzmfIzsvR5pO9NS8WQYBXAUx4wJdszQe88y2qvqHos/dS2w3VdqE0IUo/EdGbgAvi3
+         xx8AekQV3iI38a23CsXHLaJvnLmdD1Lfpofd+jDdKgX464fKHw+AgvLFdGCthgNXjmer
+         RGPDCLRUtG/vyFMn91PXEp/eKuaMPUTQC9YLIP5oWftrrbSq1X82cn/BTtvmpX1DmjOy
+         XLenD7RPn3Y31ynQJQtBIOF/nZD4aHO8AD5zDY6jj9ncMkzNTf+mJLxA1PxQpWZ3O7vc
+         DolJ/LqtYBrqx61SQCGgBOSJwFpkMTISJS0RvqiUoCtDAYVMpnK4AZwyJsMNQZyFCSwx
+         +49Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVcz03qVbpiEKEYjy5tpPyNDFzaXlw28/2a5meBXnc9Jzk1oxR4LrjSQ9GM7AEXr9A4AbE/0P+19RY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyKQ3+LnTqIwN6cmpE+XE2HK/cr0jaT2zl1jmysK+/vKnrfGk2z
+	opOFn7u040sBb5Eb1Oi20yKfJaMN4SHAcyw5lqYu7ONtCcehA8abclBmnFNYGcy0Zg==
+X-Gm-Gg: ASbGncsjs0lGA1YHlADHlsePUGT/DY+UCmqZpx6lvx/7EOxVi8ReYbGL6lz9n/ZZDJd
+	Wrj7RfUdeInJkaPmxKlWfeTK/P9watmr5xEmiR5pmcBxjj29BruOeLfSe+LB8mGg3gJM2lbdydR
+	eGkwwx+ZZ2funtqYm0n5tTtVmLWtK/YU4bLnWHzX0hk/4VWVyB7OZ3T/0oCVsCgDq8PtVEs0yzf
+	uJU6DzYY1Azph7WF7goRhWoKiufp2QYOegBLXbIzSwzVUkL9J6MSgZC4ltfp+JdSXht+cuj204+
+	xQb1wkgOq7C1EHPFFRo1h23V/546y1iAZjXVvqu+iXV4SJcFqewXsI77JJoSkmKFLg3lMoFut9K
+	Kub4EyENKZ9rbnJrfecyZmp8DL2x5wWo8qSHDQlHDkA3yXGYk8vmffYlgkOBex7gbYvkeyc98SD
+	354SFuhFkfK4ScwiJJzCRYm8VkB8oVnlBiVE6I8zpdDuai4L6AkPtIbouPClZPkS17s4Em06R3f
+	YM=
+X-Google-Smtp-Source: AGHT+IEFoe6aGHoiYxLhHZB+kolAewuWbWSR4NrtheCvnIxj/uQFhKlUQnHHiM1Et5bXR7uTSfVcSQ==
+X-Received: by 2002:a17:907:7290:b0:b73:53ab:cfa1 with SMTP id a640c23a62f3a-b7353abdf18mr173771166b.17.1763028976531;
+        Thu, 13 Nov 2025 02:16:16 -0800 (PST)
+Message-ID: <9ca0d80e-2566-4874-b4b3-914d8b99f33d@suse.com>
+Date: Thu, 13 Nov 2025 11:16:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/8] xen/pci: introduce has_vpci_bridge
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
+Subject: Re: [PATCH v1 7/7] xen/vm_event: consolidate CONFIG_VM_EVENT
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1758618839.git.mykyta_poturai@epam.com>
- <acb8da959fac97fbec7bc086b921e31dd52d44f6.1758618839.git.mykyta_poturai@epam.com>
- <39458e03-31c1-4aa6-8b66-f6d72ec8bdd9@suse.com>
- <b287a8ec-0f85-409c-b133-b709026028d2@epam.com>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20251113031630.1465599-1-Penny.Zheng@amd.com>
+ <20251113031630.1465599-8-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,66 +129,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b287a8ec-0f85-409c-b133-b709026028d2@epam.com>
+In-Reply-To: <20251113031630.1465599-8-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.11.2025 10:49, Mykyta Poturai wrote:
-> On 06.11.25 14:15, Jan Beulich wrote:> On 24.09.2025 09:59, Mykyta 
-> Poturai wrote:
->  >> From: Stefano Stabellini <stefano.stabellini@amd.com>
->  >>
->  >> has_vpci_bridge is a macro to check if the domain is a domU or is dom0
->  >> with vPCI (pci-scan=yes) enabled.
->  >
->  > Hmm. Why would DomU-s, now and forever, not have (virtual) bridges? 
-> Wasn't them
->  > gaining (virtual) bridges actually the longer-term plan?
->  >
+On 13.11.2025 04:16, Penny Zheng wrote:
+> File hvm/vm_event.c and x86/vm_event.c are the extend to vm_event handling
+> routines, and its compilation shall be guarded by CONFIG_VM_EVENT too.
 > 
-> Seems like there is a misunderstanding here. Indeed it is the plan for 
-> DomUs to have virtual bridges and this check is designed to 
-> differentiate two categories of domains.
-> 1. All DomUs + Dom0 with the virtual bridge.
-> 2. Dom0 with HW bridge.
+> Although CONFIG_VM_EVENT is right now forcibly enabled on x86 via
+> MEM_ACCESS_ALWAYS_ON, we could disable it through disabling
+> CONFIG_MGMT_HYPERCALLS later. So we remove MEM_ACCESS_ALWAYS_ON and
+> make VM_EVENT=y on default only on x86 to retain the same.
 > 
-> I will try to rephrase the commit message to be more clear.
+> The following functions are developed on the basis of vm event framework, or
+> only invoked by vm_event.c, so they all shall be wrapped with CONFIG_VM_EVENT
+> (otherwise they will become unreachable and
+> violate Misra rule 2.1 when VM_EVENT=n):
+> - hvm_toggle_singlestep
+> - hvm_fast_singlestep
+> - hvm_emulate_one_vm_event
+>     - hvmemul_write{,cmpxchg,rep_ins,rep_outs,rep_movs,rep_stos,read_io,write_io}_discard
+> And Function vm_event_check_ring() needs stub to pass compilation when
+> VM_EVENT=n.
 > 
->  >> @@ -866,7 +866,7 @@ int vpci_init_header(struct pci_dev *pdev)
->  >>       struct vpci_header *header = &pdev->vpci->header;
->  >>       struct vpci_bar *bars = header->bars;
->  >>       int rc;
->  >> -    bool is_hwdom = is_hardware_domain(pdev->domain);
->  >> +    bool is_hwdom = !has_vpci_bridge(pdev->domain);
->  >>
->  >>       ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
->  >
->  > For none of the changes (also further ones) it is clear (to me) why the
->  > substitution is (logically) correct. For this last instance the variable
->  > name also ends up wrong after the replacement.
->  >> Jan
-> 
-> The general logic for this change is that before it we assumed that 
-> hwdom always uses HW bridge. Now it is not always true and hwdom can 
-> also use a virtual bridge, so it needs to be treated the same way as 
-> DomUs are.
-> 
-> You also mentioned on a previous series
-> 
->  > Here and perhaps everywhere else I wonder: Is this really an 
-> appropriately
->  > named predicate for the purpose / context?
-> 
-> Maybe you have some ideas of a better name? From what I came up with 
-> this seems like the best one.
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> ---
+> v1 -> v2:
+> - split out XSM changes
 
-How to name it depends on the (ultimate) purpose. If, as you say, it's intended
-to cover Dom0 and DomU uniformly when they have a virtual bridge, the name might
-be quite okay. Then, as you said you would do, better wording may be needed,
-variable names like the one mentioned above may need adjustment, and any code
-paths suddenly becoming usable for DomU-s need to be audited for this being a
-safe/secure thing to do (quite a few of the Dom0-only paths have been taking
-some liberties so far).
+Isn't that split out patch also needed as a prereq to the one here? The one
+here on its own:
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+But the possibly missing dependency question needs addressing before this may
+go in.
+
+> - remove unnecessary stubs
+> - move "struct p2m_domain" declaration ahead of the #ifdef
+> ---
+> v2 -> v3:
+> - move .enable_msr_interception and .set_descriptor_access_exiting together
+> - with the introduction of "vm_event_is_enabled()", all hvm_monitor_xxx()
+> stubs are no longer needed
+> - change to use in-place stubs in do_altp2m_op()
+> - no need to add stub for monitor_traps(), __vm_event_claim_slot(),
+> vm_event_put_request() and vm_event_vcpu_pause()
+> - remove MEM_ACCESS_ALWAYS_ON
+> - return default p2m_access_rwx for xenmem_access_to_p2m_access() when
+> VM_EVENT=n
+> - add wrapping for hvm_emulate_one_vm_event/
+> hvmemul_write{,cmpxchg,rep_ins,rep_outs,rep_movs,rep_stos,read_io,write_io}_discard
+> ---
+
+No changes at all in this version? The v3 patch was much larger, after all.
 
 Jan
 
