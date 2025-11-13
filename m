@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20D8EC56104
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 08:31:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160668.1488733 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E726C5612E
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 08:36:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160683.1488743 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJRnj-0007Q1-3C; Thu, 13 Nov 2025 07:31:27 +0000
+	id 1vJRsY-0008B0-Mw; Thu, 13 Nov 2025 07:36:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160668.1488733; Thu, 13 Nov 2025 07:31:27 +0000
+Received: by outflank-mailman (output) from mailman id 1160683.1488743; Thu, 13 Nov 2025 07:36:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJRni-0007N6-V1; Thu, 13 Nov 2025 07:31:26 +0000
-Received: by outflank-mailman (input) for mailman id 1160668;
- Thu, 13 Nov 2025 07:31:25 +0000
+	id 1vJRsY-00088p-Je; Thu, 13 Nov 2025 07:36:26 +0000
+Received: by outflank-mailman (input) for mailman id 1160683;
+ Thu, 13 Nov 2025 07:36:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJRnh-0007Ly-OW
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 07:31:25 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1vJRsW-00088j-VO
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 07:36:24 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1941920-c062-11f0-9d18-b5c5bf9af7f9;
- Thu, 13 Nov 2025 08:31:23 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-6419aaced59so706919a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 23:31:24 -0800 (PST)
+ id 7464bfa9-c063-11f0-9d18-b5c5bf9af7f9;
+ Thu, 13 Nov 2025 08:36:23 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-b735487129fso43360366b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 23:36:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a498102sm819709a12.24.2025.11.12.23.31.22
+ a640c23a62f3a-b734fd80a6dsm105689366b.47.2025.11.12.23.36.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Nov 2025 23:31:22 -0800 (PST)
+ Wed, 12 Nov 2025 23:36:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1941920-c062-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 7464bfa9-c063-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763019083; x=1763623883; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763019383; x=1763624183; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zaodl8B6QbQFdBfXqLETJkEz+q3oMSYf+0RLjRBTEmQ=;
-        b=O5/+Hss9cCkPec5VvDqHA0NERtHe79BxSTSGtywxaVHkW2AvrdGAdWl5F9RpV4bzLG
-         /2yLWHkIe/TGsjYfjY5nCzC8xu97VCx2eGoF+rP2sgBIDoMdYNzP8ZUFEAXInPh5teLz
-         SW2JV56ZLgvv38LCs/VxdDnYCnozuHIw2iG1G01z0tkI9chGBvcu60UocoZpgbeGmHKh
-         4RLrGh/3+XFQMNHvXFuAt692FiLeYeGZ6vJtZZP4WMUypswORUV1Cu4MXQnS2RC5C0z4
-         wp+c0t2PMcLN/JYWZ58AQYXUdLCVSmfB8COyVkGfTAXT+VdGQGRWR9xrIFFQoMds5g1D
-         u1AQ==
+        bh=l4lYzfBwuVBBaYXQk2HXq2XAaL01PNUOBEPgjYVMHQo=;
+        b=brtGbDy+5SY9+tU3587djE/xJAAzU0SnwsQGnkUxjO+75gSl3blPyOk5Sb/0TO58/i
+         N4szH+1hP/PA8WnwhkiEL2PbN3EQNrkuKhZNxuQ/isq9yltCj5DGUco8cuP4saLslIuM
+         T9lkEnVmWV+zSZQ4RpTKIHlpAtusauty5KHUnIwELjM0A6fB6BhvQvxQySYYE1vbMZ3T
+         ZzTr4Ff9K5OF+3XCdN2vHiUZtvAjaHh0Ru4GjNnx8TeuPV7EB2Eki1H5iKQkh5wy+ywN
+         vnI6YT1zwRjaIzI5Fq7v9tJmTheIO7Tt77nCS4X0GiQjwOJqIoKsNls0E9j+3ijxckil
+         gmww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763019083; x=1763623883;
+        d=1e100.net; s=20230601; t=1763019383; x=1763624183;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zaodl8B6QbQFdBfXqLETJkEz+q3oMSYf+0RLjRBTEmQ=;
-        b=kWYKS/uEMAI4lYmKXqVvnk6CYQvEJGKWNyxKaasNHBCnwcsjYJv05b6aEGnqlCqMiR
-         aDDFtndk6kJZfgl2rw9wVusLbR1XWJKObICiTejlOwep0AlMSpnjGKKbOqPsWXKzFENn
-         jk7rWom9RmM9mnvVUX6NvJMn2zuLSwGGfyKTefFWBiW50j6CbZooDjFOjXgjSy7D3Iks
-         NT7Mz25NS0HAy+yptfmkfSI6gkFoJZtlnjDQRmJ1gZG+KMMN9RkUD4pU1AcQxDSXzAa9
-         Fr2lcO6tVNvHmyWPElDN8VmEzLXBg8g6Aa9WJXqBXDGEA5R/ueDfnZiPsTcXK2fmXeW0
-         Hl+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUq9XWhSlB7SCeTQUjjapaHn7Xed39T2UKixKall+vOo5lD/s29CPE/5GbACi3KDB3BwV/d/lSb65w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YztI3jNpMW3s78ZTcoaz+MZLZopuOJTuEKa3Sb3CKqBrW6o5q3l
-	GnQU3vwZ0bqag0YlnN+cAayUHQ36KOYP/HnQ9HrhxQ/KU4oPSgXpP4PKWm3343JALA==
-X-Gm-Gg: ASbGncv16K3OQunecg1HU/igwheJj7PSftNBHsLppXxzs5fsW68qKWhBbiKi5vjMM/x
-	IPN08jgpNEclRBGcD8HIKDF+cQ1Jv9OxsrRJBBWGBkFGwuLrab9xn9Mp5CgxgtFdu15k4NQpqe1
-	WX27JfpglujViTWLbQIuoj0DFS4nLyHAV+zGgnfzQXlMWwqezNthvVwgQ1HO9WhfIHyqE+z+vRF
-	habIk9RebnXuZjqKZU7pHpDXDo5eZtvmrI7k8dvOHVtwxZ5RQ59faWLUfhryxDjHjL8nprRaI+N
-	Tlu7DhUtXgtscvY3vZnZLB2iWBM6+1ix3DvipwYbTXT7KL2TK1A41hEtEun88JYWZi5i2IHcIZg
-	pqTlCPdf8WE8stCSnRGCLAmxBH3gRMltTjhU9a5Vnk+DoiTKSkXJhowLuU/vihLqY1XNMj4tZ9k
-	sMuL4g5VvHgRSIUtZmko/e0pTzERugNsDEOFo9dCCmzB7sCj00toAlOlxnTg0SjltYSkfB0ma6R
-	dU=
-X-Google-Smtp-Source: AGHT+IEuhK/HrDOZkIoH0wiJVlBRL75MxfNFFoRTfj96aHpRpJu2WPSf1yEbeHQVN4cxIhYm3a1S5Q==
-X-Received: by 2002:a05:6402:3586:b0:640:c454:da with SMTP id 4fb4d7f45d1cf-6431a3948d1mr5022789a12.5.1763019083342;
-        Wed, 12 Nov 2025 23:31:23 -0800 (PST)
-Message-ID: <cc64ffb5-4419-458b-9526-fa765eda7bd6@suse.com>
-Date: Thu, 13 Nov 2025 08:31:21 +0100
+        bh=l4lYzfBwuVBBaYXQk2HXq2XAaL01PNUOBEPgjYVMHQo=;
+        b=KAlJlzHfYP797epLII70ZtfJZQElbBDZZ+a0dLcuy09OvVI1uDW0Qh1JxtLtq5YexN
+         uiR5Fz9J/pL2ZzJyjVmkqCiWyFSPilVer4JoMgtXFxS0gb599+BbNBRJI9FHQQ5KK32P
+         d9DI40nRmXlevP+19L9sPISByhI+HMcztMYQNqr+woJuialXgtXWWJO0oGa4DoqD0eHQ
+         yh8XM3cQEMqQleZSHyz1S/bXX6MrhcoInJ1PCeaIO425ByGODeIwPZbQjQa2fEzCiBXR
+         OkDhl6cqg0zj4PQOHc8bEKdQVfO6zi+Aq5zQOpqLSjyPkz5mVU09QDZOF+L4NbLuzD1B
+         +ZEQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWkgeanIFdQ+XtvR9q0p/hKsWZC0RkzQuwzieSekpSueuVYyinXGqTClPCbyaEts2ENDV31FiCnh0o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzSnTnKAIDn8QNFnynP8Vq6vLzlOXYrJVWXJoBZk6e+D4KUbqVT
+	jaR2bfNwLdKZCiFovaV+l9CehJJELyh8nB5FcbgQmnbwxFOShTLvE9ab6nl02QmJhA==
+X-Gm-Gg: ASbGnctEo1SgNm91esqqkYhP+waYJo2K53kezar1rXw+P8liGE+MIRrDWMVvmCe8NZT
+	OPfFQxkHbMUC59bDohJjwQ+zfiL+4sqAySx5ixi3grTxwvmbe2TNayZpvOuyiHrZ1PMz0s3gkoO
+	gsmOVFMU5ZNYejhJN1YPtBBY6YyzVHskFuVV4L02bq30OU8nesxsXDDVwZwd9VftzV/zMsr2L/2
+	Kh6fXS9Jio8F3C6nF7fvN9MME4Daq8feVpUKPTVsKY9QUO6N6EMwAwK/61ptX89WCT+Vy7t8b2f
+	stzuxNTJQzC92sKX8YqvAktwm8FqE6oVVEuC3YiRPIOfS9ke7ny/lE95s7WL2H8da+QRE3yWEOJ
+	JSeDiHRpcehHSNRZtimDDVtiBfFwcANKBxyRP4MALZ6fgj6hh7D0JraF4L+hKFlOyhc8S7Wj7bn
+	u8IMZsJSUsRjYaoD9IRhwpHCPChh1+djDEroZgmUyKV3Ph4yq91UDhiQQ3i+fh+vbQhEPbkqA3l
+	Zs=
+X-Google-Smtp-Source: AGHT+IEtyS2aG1IhYt6x/h8xdG1/XyYuD2UNH7t73WWHSh6NcJ3y17nQVOQ5CzBMd7Lxyw4ldER64w==
+X-Received: by 2002:a17:906:6a16:b0:b73:246d:cf1c with SMTP id a640c23a62f3a-b7331af0e07mr624322466b.63.1763019383365;
+        Wed, 12 Nov 2025 23:36:23 -0800 (PST)
+Message-ID: <248593ca-e24a-4518-800e-2c58e3197937@suse.com>
+Date: Thu, 13 Nov 2025 08:36:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] x86/hvm: revise "cpu_has_vmx" usage for
- !CONFIG_INTEL_VMX case
-To: Grygorii Strashko <grygorii_strashko@epam.com>
+Subject: Re: [PATCH 0/4] Add Kconfig option to remove microcode loading
+ support
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250924101417.229108-1-grygorii_strashko@epam.com>
- <7b2fe09a-02f4-4575-9e42-1328f3a40f1d@epam.com>
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20251112162219.226075-1-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,101 +123,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7b2fe09a-02f4-4575-9e42-1328f3a40f1d@epam.com>
+In-Reply-To: <20251112162219.226075-1-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.11.2025 21:25, Grygorii Strashko wrote:
-> Could it be merged if no other comments, please?
+On 12.11.2025 17:22, Alejandro Vallejo wrote:
+> Hi,
+> 
+> The series is mostly a refactor between everything needed to load microcode and
+> the bare minimum to probe the current microcode revision.
+> 
+> The Kconfig option keeps the reading of microcode rev data around, as it's very
+> relevant for security and debuggability in order to deduce which erratas apply
+> to the current platform.
+> 
+> The idea is to move everything that must still be compiled with !CONFIG_UCODE
+> onto {,amd-,intel-}base.c, then remove everything else conditionally at the
+> Makefile level.
+> 
+> Renaming files (e.g: s/base/core/ and s/core/common/) would better reflect
+> post-series reality, but it'd be annoying for later backports in this general
+> area.
+> 
+> Cheers,
+> Alejandro
+> 
+> Alejandro Vallejo (4):
+>   x86: Split out AMD-specific code to be executed without ucode loading
+>   x86: Split out Intel-specific code to be executed without ucode
+>     loading
+>   x86: Split out early_microcode_load() and microcode_load_one()
+>   x86: Add Kconfig option to disable microcode loading
+> 
+>  xen/arch/x86/Kconfig                    | 12 ++++
+>  xen/arch/x86/cpu/microcode/Makefile     |  9 ++-
+>  xen/arch/x86/cpu/microcode/amd-base.c   | 55 +++++++++++++++++++
+>  xen/arch/x86/cpu/microcode/amd.c        | 55 ++-----------------
+>  xen/arch/x86/cpu/microcode/amd.h        | 15 +++++
+>  xen/arch/x86/cpu/microcode/base.c       | 73 +++++++++++++++++++++++++
+>  xen/arch/x86/cpu/microcode/core.c       | 58 +-------------------
+>  xen/arch/x86/cpu/microcode/intel-base.c | 50 +++++++++++++++++
+>  xen/arch/x86/cpu/microcode/intel.c      | 56 +++----------------
+>  xen/arch/x86/cpu/microcode/intel.h      | 16 ++++++
+>  xen/arch/x86/cpu/microcode/private.h    | 14 +++++
+>  xen/arch/x86/efi/efi-boot.h             |  2 +-
+>  xen/arch/x86/platform_hypercall.c       |  2 +
+>  13 files changed, 259 insertions(+), 158 deletions(-)
+>  create mode 100644 xen/arch/x86/cpu/microcode/amd-base.c
+>  create mode 100644 xen/arch/x86/cpu/microcode/amd.h
+>  create mode 100644 xen/arch/x86/cpu/microcode/base.c
+>  create mode 100644 xen/arch/x86/cpu/microcode/intel-base.c
+>  create mode 100644 xen/arch/x86/cpu/microcode/intel.h
 
-It's on my list of things to put in. However, since you ask: You do realize that
-all your recent postings were while the tree was frozen? That's okay-ish, but
-when preparing a release people would preferably focus on the release, not on
-what is to come afterwards. This change of yours, like quite a few from others,
-will need to wait until the tree is fully open again. It having been progressed
-to the point where it can in principle go in was already a courtesy, considering
-the timing.
+Purely based on this diffstat: A doc update likely is necessary as well, as
+the ucode= command line option now becomes only conditionally applicable (aiui,
+i.e. without having looked at the patches them selves).
 
 Jan
-
-> On 24.09.25 13:14, Grygorii Strashko wrote:
->> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>
->> Since commit b99227347230 ("x86: Fix AMD_SVM and INTEL_VMX dependency") the
->> HVM Intel VT-x support can be disabled, but it still keeps VMX
->> code partially built-in. Particularly in HVM code there are two places:
->>
->> 1) hvm/dom0_build.c
->>   dom0_construct_pvh()->pvh_populate_p2m()
->>      ...
->>      if ( cpu_has_vmx && paging_mode_hap(d) && !vmx_unrestricted_guest(v) )
->>      {
->>          ...
->>          [unreachable for !cpu_has_vmx case]
->>          rc = pvh_setup_vmx_realmode_helpers(d);
->>
->> pvh_setup_vmx_realmode_helpers() allocates memory and configures
->>   HVM_PARAM_VM86_TSS_SIZED
->>   HVM_PARAM_IDENT_PT
->>
->> 2) hvm/hvm.c
->>   hvm_set_param()
->>      ...
->>      case HVM_PARAM_IDENT_PT:
->>
->>          if ( !paging_mode_hap(d) || !cpu_has_vmx )
->>          {
->>              d->arch.hvm.params[index] = value;
->>              break;
->>          }
->>          [unreachable for !cpu_has_vmx case]
->>          ...
->>
->> Hence HVM_PARAM_IDENT_PT/HVM_PARAM_VM86_TSS_SIZED are used only by VMX code
->> above code become unreachable in !cpu_has_vmx case and can be optimazed
->> when !CONFIG_INTEL_VMX.
->>
->> Replace "cpu_has_vmx" with using_vmx() to account !CONFIG_INTEL_VMX and allow
->> compiler DCE to optimize code.
->>
->> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->> ---
->> add/remove: 0/0 grow/shrink: 0/2 up/down: 0/-604 (-604)
->> Function                                     old     new   delta
->> hvm_set_param                               1602    1473    -129
->> dom0_construct_pvh                          4438    3963    -475
->> Total: Before=3567191, After=3566587, chg -0.02%
->>
->>   xen/arch/x86/hvm/dom0_build.c | 2 +-
->>   xen/arch/x86/hvm/hvm.c        | 2 +-
->>   2 files changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
->> index 5551f9044836..5ac2cf8394d8 100644
->> --- a/xen/arch/x86/hvm/dom0_build.c
->> +++ b/xen/arch/x86/hvm/dom0_build.c
->> @@ -473,7 +473,7 @@ static int __init pvh_populate_p2m(struct domain *d)
->>           }
->>       }
->>   
->> -    if ( cpu_has_vmx && paging_mode_hap(d) && !vmx_unrestricted_guest(v) )
->> +    if ( using_vmx() && paging_mode_hap(d) && !vmx_unrestricted_guest(v) )
->>       {
->>           /*
->>            * Since Dom0 cannot be migrated, we will only setup the
->> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
->> index 95a80369b9b8..70331aeec9a0 100644
->> --- a/xen/arch/x86/hvm/hvm.c
->> +++ b/xen/arch/x86/hvm/hvm.c
->> @@ -4302,7 +4302,7 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
->>            * Only actually required for VT-x lacking unrestricted_guest
->>            * capabilities.  Short circuit the pause if possible.
->>            */
->> -        if ( !paging_mode_hap(d) || !cpu_has_vmx )
->> +        if ( !paging_mode_hap(d) || !using_vmx() )
->>           {
->>               d->arch.hvm.params[index] = value;
->>               break;
-> 
-
 
