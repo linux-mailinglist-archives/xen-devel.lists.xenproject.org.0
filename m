@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25A24C571AE
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 12:09:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160998.1489023 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E20E2C571B4
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 12:10:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1161008.1489033 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJVCw-000744-SN; Thu, 13 Nov 2025 11:09:42 +0000
+	id 1vJVDY-0008W5-5K; Thu, 13 Nov 2025 11:10:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160998.1489023; Thu, 13 Nov 2025 11:09:42 +0000
+Received: by outflank-mailman (output) from mailman id 1161008.1489033; Thu, 13 Nov 2025 11:10:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJVCw-00071H-PE; Thu, 13 Nov 2025 11:09:42 +0000
-Received: by outflank-mailman (input) for mailman id 1160998;
- Thu, 13 Nov 2025 11:09:41 +0000
+	id 1vJVDY-0008Tm-1w; Thu, 13 Nov 2025 11:10:20 +0000
+Received: by outflank-mailman (input) for mailman id 1161008;
+ Thu, 13 Nov 2025 11:10:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJVCv-00071B-21
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 11:09:41 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1vJVDW-00071B-Po
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 11:10:18 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f821288-c081-11f0-9d18-b5c5bf9af7f9;
- Thu, 13 Nov 2025 12:09:39 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-6419e6dab7fso999838a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 03:09:39 -0800 (PST)
+ id 565afd64-c081-11f0-9d18-b5c5bf9af7f9;
+ Thu, 13 Nov 2025 12:10:18 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-b472842981fso81494066b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 03:10:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a3d7335sm1220401a12.4.2025.11.13.03.09.38
+ a640c23a62f3a-b734fed80f0sm138517166b.66.2025.11.13.03.10.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 03:09:38 -0800 (PST)
+ Thu, 13 Nov 2025 03:10:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f821288-c081-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 565afd64-c081-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763032179; x=1763636979; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763032218; x=1763637018; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FL0FICzmakeWQSwiOt+QBkhmyqz6vTIP8is0c/IB2xQ=;
-        b=f1kSr+jvoCD/ycTzJk2OQk9n2YEYYI3NW7WZfN2+Q6EK2rDB14BvCTFwqWG7vmrKQG
-         J5cvxwrvtP1RBN5Q+N89D2a6w+wXceXC0vw+pDx9Syh3ywOBZQ1scWhklINFC69dLh7S
-         Dzot59J2qSv1Sa6+yKnd/bJSlDyvRtt2FeIu0UYjyEfOaahpnWwuYdlqUZODwGLb8/sO
-         bsrlXl66DSmcF6viGbMnRjtEhbPDRt+XCQiig3LQuQnnp9tcBqqdZhpFhhDcakJI0LyW
-         zMtks4dDz8sM4ZnrmiGT1TVQ9GMXPdlP9hwcwQ2n5aEtQMiFtDo5An4vG5L1O8cXVPBn
-         6c+w==
+        bh=L0v3DkxT0rMrBP+phTdGWD9D4HrfyHtMTjxGYVRGi64=;
+        b=azkMXHmthTNSE0JtAmQvjX/gZCm1wHvtfeJRgrPvz8Q/BAE5/vOuZhDOxRxXyPH3aA
+         ONQ4ri0B+AZSsJadrxewwEqHGW7bHQq+Zsls9XI4U2d8HuI650JHGS+2SRVpUG1zP4B7
+         yAk0nmuapOidv+owkDWda8DSRve2v3+mtfN04NHKftUG8J5o3Z0j6ikxV6bsKWMWinXR
+         AImuyGpSFVFgJIQPA+XYyG3k1QdvxeNBZ23lfpCgZkmSa12Lcga4+FKt9Q5BU5uo2O+c
+         p2oojfhlcf/UZR5Qt3tgrOZ40vhC7K8JE7p853IJBf0y7wbrm+uMaUlR2N9iiJ+lmqUT
+         DCEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763032179; x=1763636979;
+        d=1e100.net; s=20230601; t=1763032218; x=1763637018;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FL0FICzmakeWQSwiOt+QBkhmyqz6vTIP8is0c/IB2xQ=;
-        b=tItKeUVnikXsxGJHtIlNs+8Ug2GT3HRZkdubecqmk+Oh6RShorttFMvzKxssan0RzR
-         qzsNMJTjKcNJCkPTkHrMj8qpOcQnrGesrJtB5vb9+6SwAmiqQCbiaKGQ/Gj4GJVLUV2x
-         q3qfPJHuSy+DWGYpNfekDnMzPgt4isTcTVFr5zx+ftbSH/jmWkQCTGlbInBJepqpEH5x
-         NC0m0I9XhAYB6QaYWM6ciINNfbscqCPfFqnJEbDTs2OgziEHCq3yGeF32FVWmL9UJPtE
-         AiB98lavZCNBrTztqnQKtAOjiQOUamwgDdSuJNfhrWPebFJsFTEn5r8cec+lIORuD63j
-         8I4A==
-X-Gm-Message-State: AOJu0YzKoP/MA/XO6f0w+F2bVQDudMZN10F0dXZV41UgWW9GR1/vaoiB
-	t4yZg1E8eFMFfP8J9ZvIWh5aRNuFL2Xt5reMQRwbPA58larAm6aZRywzXKltdw4REYxTPMlMsck
-	Rt7s=
-X-Gm-Gg: ASbGncvLYqCuiotSth/+IIPkRJRE4OXFS5uGjDgZbhKTM+Z9+RYLgulSvvdW6r31Rh/
-	OtCgV7KDOkk35j1gFMmxZvDLl/WPZlWSv7skB2/exZgXMLBbIGk61oTypE89y4pfCPxHKV47vwK
-	ELBuzN5BoK5tsNepL+XM7SVMx5JVLtIAfs9AlU0dSYJhuUXUMRvoVRmH7jMML/mJ9VnkAA3qqIJ
-	M0i56fBvB75t5cg/4q7EGUk0lV1z3mi8Accs719MaWBr4LBZG0WKTB5E79g+4griB9GGolbH9JC
-	gCemUl9RhDK3HMaqjHs+V/kA841IM/IU0VfRMqKS4JQrFd+W5i616NK8WUYn6jQ+q7XSEPB3K/I
-	WZ041MUbfH8Xmen9duF0e6Gop60uJgqOVkuOu7wz/h/EjXJbjjYLCKzYKfk/V8BHPRa2F5w32FG
-	rRgWVFShQivxb3nx7BBRnehNGMXWbbQoh29GfF7qiYSh/g7fcXihkimDc0QwPd0NC1Kd/VES1kg
-	kE=
-X-Google-Smtp-Source: AGHT+IGg7q/D9GwuBWGMxPhUPl54zwC+G92GrsPaapBaSO0AO/HKdqIgTALzi0uYCvztJsOYAccPvg==
-X-Received: by 2002:a05:6402:2707:b0:640:bd90:350d with SMTP id 4fb4d7f45d1cf-6431a4c014fmr5547928a12.1.1763032179224;
-        Thu, 13 Nov 2025 03:09:39 -0800 (PST)
-Message-ID: <452fdf1f-646a-4bb1-83ea-ac4c998a096b@suse.com>
-Date: Thu, 13 Nov 2025 12:09:37 +0100
+        bh=L0v3DkxT0rMrBP+phTdGWD9D4HrfyHtMTjxGYVRGi64=;
+        b=iRA96084bRMM3tCUVYV0bQRsbc+ErRZ4R/2WIcyXDfz1Rzk5bnTIvda15C4BbQNnyL
+         a0zDpPN2MrEs4tcuj0HwGBYOY3EYBBCstm1sMHAscvPDbemhtiDExb8gI0ZVX3mjVh2j
+         ywquzyoh4KIC/NTNloWoemn3VbZxP/nbDae7QFG3vAOcDMZgIXTDZxvaPsp/OKiU2Je1
+         6GYgi4xkOftDz8UCeQSZ2VIxTjnH3J9ux5PHc8SQXO9YqPD4FcrgilOQZaUBMECvrODU
+         5HB3e8J6oh7zjGljAJMdVnsvu9XWQlSoWSSB1Vi5i99CPtBe1HwcRdpmnP28GeTDa+M+
+         iF5w==
+X-Gm-Message-State: AOJu0Yxw8rdoAu20S0DO5bWJXeqkFCpEwV3cz8IrJij3r/O/5E/jHhD2
+	o650xibp3oec97NkBz/SnLLrFGWYrTah7CEzDGsluHwaShf1qGR3TnHlSRbaQp9baS7O0s53CjE
+	8pdY=
+X-Gm-Gg: ASbGncs///Am+kRKPw6rF6KAi+hNpH5rl4oNZysyg3NIFnaGw9WLVUX5UVCFe/4RTJq
+	J7XXZFqa/zTMmHWY59a2I/Vs2+PlH1JRJv3DtY72oU6SsxIYkjifzBDaqijHFHsyTLn1lsXBZcX
+	mPov2WTS0jkJUcadlMh1MZslOz6a8+hl4Tc6pDFntp1L3suLnxKSiv9dGXyziLmJWBr4+EZrALg
+	TplGZl4q0FoJpM6Lez7q2lqIjr31aNU2uSQGJDfonDyAEpfRpnw2R4iP3GPBCEumXhy9frTFhBN
+	4jh40SryS4yYQAgthqEhu+iuuQrkCNN/toiaqA69B58ph42JHlV1FPP2vDuuFMNlLqnM17+Jsdu
+	y1sA4+cS0tnP+glYA8Drpl/oO3EpjW1R0RT+KA8/N/aucpqttD7YIvDfzJiwkMAI4IRxHSfO25r
+	TRmpv7ts4pJgTIUv/R1tdRwSRS64TJLwLqrtMJbogNFGey979hy9xJqvn5kuUQNYJTMfzfPxO7p
+	dY=
+X-Google-Smtp-Source: AGHT+IFYExKU88g8Yz6PKEyLXWcACOU6b/Klwd/BLxiJMRvN18WS/41F60lg5t9Fl3F8UF/+Q81JaA==
+X-Received: by 2002:a17:907:2d06:b0:b72:a40e:d10 with SMTP id a640c23a62f3a-b7331a6b9e5mr691249866b.40.1763032217422;
+        Thu, 13 Nov 2025 03:10:17 -0800 (PST)
+Message-ID: <bec55a88-00f3-4961-b1dc-5b9e38d94a32@suse.com>
+Date: Thu, 13 Nov 2025 12:10:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 2/3] x86/EFI: replace ebmalloc()
+Subject: [PATCH 3/3] xhci-dbc: use brk_alloc()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>,
- Daniel Smith <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+ <roger.pau@citrix.com>, Marek Marczykowski <marmarek@invisiblethingslab.com>
 References: <bdbb2884-c2d2-415a-8891-a598d112e34c@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,340 +126,84 @@ In-Reply-To: <bdbb2884-c2d2-415a-8891-a598d112e34c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Use the new brk_alloc() instead, with ebmalloc() merely being a thin
-wrapper.
+This way the relatively large chunk of DMA buffers can be freed when the
+driver isn't in use.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-I'm not quite certain whether we ought to permit non-page-granular
-reservations. The in-memory image being somewhat larger due to possibly
-excessive padding isn't really a big problem, I think.
 
---- a/xen/Rules.mk
-+++ b/xen/Rules.mk
-@@ -262,7 +262,7 @@ quiet_cmd_obj_init_o = INIT_O  $@
- define cmd_obj_init_o
-     $(OBJDUMP) -h $< | while read idx name sz rest; do \
-         case "$$name" in \
--        .*.local) ;; \
-+        .*.local|.bss..brk*) ;; \
-         .text|.text.*|.data|.data.*|.bss|.bss.*) \
-             test $$(echo $$sz | sed 's,00*,0,') != 0 || continue; \
-             echo "Error: size of $<:$$name is 0x$$sz" >&2; \
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -10,6 +10,7 @@
- #include <xen/vga.h>
- 
- #include <asm/boot-helpers.h>
-+#include <asm/brk.h>
- #include <asm/e820.h>
- #include <asm/edd.h>
- #include <asm/microcode.h>
-@@ -119,6 +120,18 @@ static void __init relocate_trampoline(u
-     reloc_trampoline64();
- }
- 
-+DEFINE_BRK(efi, MB(1));
-+
-+static void *__init ebmalloc(size_t size)
-+{
-+    void *ptr = brk_alloc(size);
-+
-+    if ( !ptr )
-+        blexit(L"Out of BRK memory\r\n");
-+
-+    return ptr;
-+}
-+
- static void __init place_string(u32 *addr, const char *s)
- {
-     char *alloc = NULL;
---- a/xen/arch/x86/efi/stub.c
-+++ b/xen/arch/x86/efi/stub.c
-@@ -41,12 +41,4 @@ void __init noreturn efi_multiboot2(EFI_
- 
- void __init efi_init_memory(void) { }
- 
--bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
--{
--    /* FIXME: Simplify once the call here with two NULLs goes away. */
--    if ( start || end )
--        *start = *end = (unsigned long)_end;
--    return false;
--}
--
- void efi_update_l4_pgtable(unsigned int l4idx, l4_pgentry_t l4e) { }
---- a/xen/arch/x86/include/asm/brk.h
-+++ b/xen/arch/x86/include/asm/brk.h
-@@ -2,6 +2,10 @@
- 
+--- a/xen/drivers/char/xhci-dbc.c
++++ b/xen/drivers/char/xhci-dbc.c
+@@ -27,6 +27,8 @@
+ #include <xen/serial.h>
+ #include <xen/timer.h>
  #include <xen/types.h>
- 
-+#define DEFINE_BRK(var, size) \
-+    static char __section(".bss..brk.page_aligned") __aligned(PAGE_SIZE) \
-+        __used var ## _brk_[size]
 +
- void *brk_alloc(size_t size);
- unsigned long brk_get_unused_start(void);
- void brk_free_unused(void);
---- a/xen/arch/x86/include/asm/setup.h
-+++ b/xen/arch/x86/include/asm/setup.h
-@@ -9,6 +9,8 @@ extern const char __2M_rodata_start[], _
- extern char __2M_init_start[], __2M_init_end[];
- extern char __2M_rwdata_start[], __2M_rwdata_end[];
- 
-+extern unsigned long brk_end;
-+
- extern unsigned long xenheap_initial_phys_start;
- extern uint64_t boot_tsc_stamp;
- 
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -31,6 +31,7 @@
- #include <asm/alternative.h>
- #include <asm/apic.h>
- #include <asm/bootinfo.h>
 +#include <asm/brk.h>
- #include <asm/bzimage.h>
- #include <asm/cpu-policy.h>
- #include <asm/e820.h>
-@@ -163,6 +164,8 @@ cpumask_t __read_mostly cpu_present_map;
+ #include <asm/fixmap.h>
+ #include <asm/io.h>
+ #include <asm/string.h>
+@@ -1321,7 +1323,7 @@ static struct uart_driver dbc_uart_drive
+ };
  
- unsigned long __read_mostly xen_phys_start;
+ /* Those are accessed via DMA. */
+-struct dbc_dma_bufs {
++struct __aligned(PAGE_SIZE) dbc_dma_bufs {
+     struct xhci_trb evt_trb[DBC_TRB_RING_CAP];
+     struct xhci_trb out_trb[DBC_TRB_RING_CAP];
+     struct xhci_trb in_trb[DBC_TRB_RING_CAP];
+@@ -1335,8 +1337,7 @@ struct dbc_dma_bufs {
+      * DMA-reachable by the USB controller.
+      */
+ };
+-static struct dbc_dma_bufs __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+-    dbc_dma_bufs;
++DEFINE_BRK(xhci, sizeof(struct dbc_dma_bufs));
  
-+unsigned long __ro_after_init brk_end;
-+
- /* Only used in asm code and within this source file */
- char asmlinkage __section(".init.bss.stack_aligned") __aligned(STACK_SIZE)
-     cpu0_stack[STACK_SIZE];
-@@ -1109,7 +1112,6 @@ void asmlinkage __init noreturn __start_
-     struct boot_info *bi;
-     unsigned long nr_pages, raw_max_page;
-     int i, j, bytes = 0;
--    unsigned long eb_start, eb_end;
-     bool acpi_boot_table_init_done = false, relocated = false;
-     bool vm_init_done = false;
-     int ret;
-@@ -1473,7 +1475,7 @@ void asmlinkage __init noreturn __start_
-         /*
-          * This needs to remain in sync with remove_xen_ranges() and the
-          * respective reserve_e820_ram() invocation below. No need to
--         * query efi_boot_mem_unused() here, though.
-+         * query brk_get_unused_start() here, though.
-          */
-         xen->start = virt_to_maddr(_stext);
-         xen->size  = __2M_rwdata_end - _stext;
-@@ -1616,18 +1618,11 @@ void asmlinkage __init noreturn __start_
-     if ( !xen_phys_start )
-         panic("Not enough memory to relocate Xen\n");
- 
--    /* FIXME: Putting a hole in .bss would shatter the large page mapping. */
--    if ( using_2M_mapping() )
--        efi_boot_mem_unused(NULL, NULL);
--
-     /* This needs to remain in sync with remove_xen_ranges(). */
--    if ( efi_boot_mem_unused(&eb_start, &eb_end) )
--    {
--        reserve_e820_ram(&boot_e820, __pa(_stext), __pa(eb_start));
--        reserve_e820_ram(&boot_e820, __pa(eb_end), __pa(__2M_rwdata_end));
--    }
--    else
--        reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
-+    brk_end = brk_get_unused_start();
-+    if ( using_2M_mapping() )
-+        brk_end = PAGE_ALIGN_2M(brk_end);
-+    reserve_e820_ram(&boot_e820, __pa(_stext), __pa(brk_end));
- 
-     /* Late kexec reservation (dynamic start address). */
-     kexec_reserve_area();
-@@ -2231,7 +2226,6 @@ __initcall(init_xen_cap_info);
- 
- int __hwdom_init remove_xen_ranges(struct rangeset *r)
+ static int __init cf_check xhci_parse_dbgp(const char *opt_dbgp)
  {
--    paddr_t start, end;
-     int rc;
+@@ -1413,24 +1414,33 @@ void __init xhci_dbc_uart_init(void)
+ {
+     struct dbc_uart *uart = &dbc_uart;
+     struct dbc *dbc = &uart->dbc;
++    struct dbc_dma_bufs *dma_bufs;
  
-     /* S3 resume code (and other real mode trampoline code) */
-@@ -2253,26 +2247,10 @@ int __hwdom_init remove_xen_ranges(struc
-         return rc;
- 
-     /* hypervisor .data + .bss */
--    if ( efi_boot_mem_unused(&start, &end) )
--    {
--        ASSERT(__pa(start) >= __pa(&__2M_rwdata_start));
--        rc = rangeset_remove_range(r, PFN_DOWN(__pa(&__2M_rwdata_start)),
--                                   PFN_DOWN(__pa(start) - 1));
--        if ( rc )
--            return rc;
--        ASSERT(__pa(end) <= __pa(&__2M_rwdata_end));
--        rc = rangeset_remove_range(r, PFN_DOWN(__pa(end)),
--                                   PFN_DOWN(__pa(&__2M_rwdata_end) - 1));
--        if ( rc )
--            return rc;
--    }
--    else
--    {
--        rc = rangeset_remove_range(r, PFN_DOWN(__pa(&__2M_rwdata_start)),
--                                   PFN_DOWN(__pa(&__2M_rwdata_end) - 1));
--        if ( rc )
--            return rc;
--    }
-+    rc = rangeset_remove_range(r, PFN_DOWN(__pa(&__2M_rwdata_start)),
-+                               PFN_DOWN(__pa(brk_end) - 1));
-+    if ( rc )
-+        return rc;
- 
-     return 0;
- }
---- a/xen/arch/x86/tboot.c
-+++ b/xen/arch/x86/tboot.c
-@@ -321,8 +321,6 @@ void tboot_shutdown(uint32_t shutdown_ty
-     /* if this is S3 then set regions to MAC */
-     if ( shutdown_type == TB_SHUTDOWN_S3 )
-     {
--        unsigned long s, e;
--
-         /*
-          * Xen regions for tboot to MAC. This needs to remain in sync with
-          * remove_xen_ranges().
-@@ -336,16 +334,8 @@ void tboot_shutdown(uint32_t shutdown_ty
-         g_tboot_shared->mac_regions[1].size = __2M_rodata_end - _stext;
-         /* hypervisor .data + .bss */
-         g_tboot_shared->mac_regions[2].start = (uint64_t)__pa(&__2M_rwdata_start);
--        g_tboot_shared->mac_regions[2].size = __2M_rwdata_end - __2M_rwdata_start;
--        if ( efi_boot_mem_unused(&s, &e) )
--        {
--            g_tboot_shared->mac_regions[2].size =
--                s - (unsigned long)__2M_rwdata_start;
--            g_tboot_shared->mac_regions[3].start = __pa(e);
--            g_tboot_shared->mac_regions[3].size =
--                (unsigned long)__2M_rwdata_end - e;
--            g_tboot_shared->num_mac_regions = 4;
--        }
-+        g_tboot_shared->mac_regions[2].size =
-+            brk_end - (unsigned long)__2M_rwdata_start;
- 
-         /*
-          * MAC domains and other Xen memory
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -1788,8 +1788,6 @@ void __init efi_init_memory(void)
-         pte_attr_t prot;
-     } *extra, *extra_head = NULL;
- 
--    free_ebmalloc_unused_mem();
--
-     if ( !efi_enabled(EFI_BOOT) )
+     if ( !dbc->enable )
          return;
  
---- a/xen/common/efi/ebmalloc.c
-+++ /dev/null
-@@ -1,74 +0,0 @@
--#include "efi.h"
--#include <xen/init.h>
--#include <xen/mm.h>
--
--#ifdef CONFIG_ARM
--/*
-- * TODO: Enable EFI boot allocator on ARM.
-- * This code can be common for x86 and ARM.
-- * Things TODO on ARM before enabling ebmalloc:
-- *   - estimate required EBMALLOC_SIZE value,
-- *   - where (in which section) ebmalloc_mem[] should live; if in
-- *     .bss.page_aligned, as it is right now, then whole BSS zeroing
-- *     have to be disabled in xen/arch/arm/arm64/head.S; though BSS
-- *     should be initialized somehow before use of variables living there,
-- *   - use ebmalloc() in ARM/common EFI boot code,
-- *   - call free_ebmalloc_unused_mem() somewhere in init code.
-- */
--#define EBMALLOC_SIZE	MB(0)
--#else
--#define EBMALLOC_SIZE	MB(1)
--#endif
--
--static char __section(".bss.page_aligned") __aligned(PAGE_SIZE)
--    ebmalloc_mem[EBMALLOC_SIZE];
--static unsigned long __read_mostly ebmalloc_allocated;
--
--/* EFI boot allocator. */
--void __init *ebmalloc(size_t size)
--{
--    void *ptr = ebmalloc_mem + ebmalloc_allocated;
--
--    ebmalloc_allocated += ROUNDUP(size, sizeof(void *));
--
--    if ( ebmalloc_allocated > sizeof(ebmalloc_mem) )
--        blexit(L"Out of static memory\r\n");
--
--    return ptr;
--}
--
--bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
--{
--    /* FIXME: Drop once the call here with two NULLs goes away. */
--    if ( !start && !end )
--    {
--        ebmalloc_allocated = sizeof(ebmalloc_mem);
--        return false;
--    }
--
--    *start = (unsigned long)ebmalloc_mem + PAGE_ALIGN(ebmalloc_allocated);
--    *end = (unsigned long)ebmalloc_mem + sizeof(ebmalloc_mem);
--
--    return *start < *end;
--}
--
--void __init free_ebmalloc_unused_mem(void)
--{
--    unsigned long start, end;
--
--    if ( !efi_boot_mem_unused(&start, &end) )
--        return;
--
--    destroy_xen_mappings(start, end);
--
--#ifdef CONFIG_X86
--    /*
--     * By reserving the space early in the E820 map, it gets freed way before
--     * we make it here. Don't free the range a 2nd time.
--     */
--#else
--    init_xenheap_pages(__pa(start), __pa(end));
--#endif
--
--    printk(XENLOG_INFO "Freed %lukB unused BSS memory\n", (end - start) >> 10);
--}
---- a/xen/common/efi/efi-common.mk
-+++ b/xen/common/efi/efi-common.mk
-@@ -1,4 +1,4 @@
--EFIOBJ-y := boot.init.o pe.init.o ebmalloc.o runtime.o
-+EFIOBJ-y := boot.init.o pe.init.o runtime.o
- EFIOBJ-$(CONFIG_COMPAT) += compat.o
+-    dbc->dbc_ctx = &dbc_dma_bufs.ctx;
+-    dbc->dbc_erst = &dbc_dma_bufs.erst;
+-    dbc->dbc_ering.trb = dbc_dma_bufs.evt_trb;
+-    dbc->dbc_oring.trb = dbc_dma_bufs.out_trb;
+-    dbc->dbc_iring.trb = dbc_dma_bufs.in_trb;
+-    dbc->dbc_owork.buf = dbc_dma_bufs.out_wrk_buf;
+-    dbc->dbc_iwork.buf = dbc_dma_bufs.in_wrk_buf;
+-    dbc->dbc_str = dbc_dma_bufs.str_buf;
++    dma_bufs = brk_alloc(sizeof(*dma_bufs));
++    if ( !dma_bufs )
++    {
++        dbc->enable = false;
++        printk(XENLOG_ERR "XHCI: not enough BRK space available\n");
++        return;
++    }
++
++    dbc->dbc_ctx = &dma_bufs->ctx;
++    dbc->dbc_erst = &dma_bufs->erst;
++    dbc->dbc_ering.trb = dma_bufs->evt_trb;
++    dbc->dbc_oring.trb = dma_bufs->out_trb;
++    dbc->dbc_iring.trb = dma_bufs->in_trb;
++    dbc->dbc_owork.buf = dma_bufs->out_wrk_buf;
++    dbc->dbc_iwork.buf = dma_bufs->in_wrk_buf;
++    dbc->dbc_str = dma_bufs->str_buf;
  
- CFLAGS-y += -fshort-wchar
---- a/xen/common/efi/efi.h
-+++ b/xen/common/efi/efi.h
-@@ -48,10 +48,6 @@ void noreturn blexit(const CHAR16 *str);
- 
- const CHAR16 *wmemchr(const CHAR16 *s, CHAR16 c, UINTN n);
- 
--/* EFI boot allocator. */
--void *ebmalloc(size_t size);
--void free_ebmalloc_unused_mem(void);
--
- const void *pe_find_section(const void *image, const UINTN image_size,
-                             const CHAR16 *section_name, UINTN *size_out);
- 
---- a/xen/include/xen/efi.h
-+++ b/xen/include/xen/efi.h
-@@ -39,7 +39,6 @@ static inline bool efi_enabled(unsigned
- extern bool efi_secure_boot;
- 
- void efi_init_memory(void);
--bool efi_boot_mem_unused(unsigned long *start, unsigned long *end);
- bool efi_rs_using_pgtables(void);
- unsigned long efi_get_time(void);
- void efi_halt_system(void);
+     if ( dbc_open(dbc) )
+     {
+         iommu_add_extra_reserved_device_memory(
+-                PFN_DOWN(virt_to_maddr(&dbc_dma_bufs)),
+-                PFN_UP(sizeof(dbc_dma_bufs)),
++                PFN_DOWN(virt_to_maddr(dma_bufs)),
++                PFN_DOWN(sizeof(*dma_bufs)),
+                 uart->dbc.sbdf,
+                 "XHCI console");
+         serial_register_uart(SERHND_XHCI, &dbc_uart_driver, &dbc_uart);
 
 
