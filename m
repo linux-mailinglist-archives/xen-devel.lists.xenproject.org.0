@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28B90C58EDD
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 17:59:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1161935.1489749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B041EC58F71
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 18:02:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1161948.1489759 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJafF-0001Nc-I9; Thu, 13 Nov 2025 16:59:17 +0000
+	id 1vJaiF-0002uS-V4; Thu, 13 Nov 2025 17:02:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1161935.1489749; Thu, 13 Nov 2025 16:59:17 +0000
+Received: by outflank-mailman (output) from mailman id 1161948.1489759; Thu, 13 Nov 2025 17:02:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJafF-0001Lj-EK; Thu, 13 Nov 2025 16:59:17 +0000
-Received: by outflank-mailman (input) for mailman id 1161935;
- Thu, 13 Nov 2025 16:59:15 +0000
+	id 1vJaiF-0002s4-RN; Thu, 13 Nov 2025 17:02:23 +0000
+Received: by outflank-mailman (input) for mailman id 1161948;
+ Thu, 13 Nov 2025 17:02:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJafD-0001LA-LJ
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 16:59:15 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1vJaiD-0002ry-VO
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 17:02:21 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 14d7f34d-c0b2-11f0-980a-7dc792cee155;
- Thu, 13 Nov 2025 17:59:13 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b735b7326e5so94324066b.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 08:59:13 -0800 (PST)
+ id 83c31063-c0b2-11f0-980a-7dc792cee155;
+ Thu, 13 Nov 2025 18:02:19 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-b6d402422c2so162939466b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 09:02:19 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fb12d55sm198128066b.33.2025.11.13.08.59.12
+ a640c23a62f3a-b734fda8a86sm194019366b.52.2025.11.13.09.02.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 08:59:12 -0800 (PST)
+ Thu, 13 Nov 2025 09:02:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14d7f34d-c0b2-11f0-980a-7dc792cee155
+X-Inumbo-ID: 83c31063-c0b2-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763053153; x=1763657953; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=o0VvNcjxBxjFprhtCWFDFi8shOLZctGLzT/2KpVDLGE=;
-        b=TCcPDZ6vcZIusAkAdx5mw6x3yeMkT8bRd86IHG2jymrjLCHeeQXDuAScIyalHdmIqG
-         tzYX7juHVkvWeMWgNznhruvJD+z1BTsMx7spQ+CqsDKBWj7hJ8uxR26vNng1NbmSQyip
-         2HpFL0MPXEtlZ+KIdzWwnt4zNUpD5CeCnr1dfZtcdT/ZGMNLSdaNJnuEOLhrfRJP5gnj
-         koi9BU46gnkiVx2Ak3SDuOzQWSh0Nagal3iAN1R7oOmAq+rAubQz6xBRuU9XjpFNs/t8
-         /NRYfy58ILdDreaUtWezfvenhiDLnWiHCg+Tt5x4VMOkZvRdzbXJeUq94bTvLqKlbFQm
-         WtJw==
+        d=suse.com; s=google; t=1763053339; x=1763658139; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ie1q//RtipQx+cOa4gaCmoTXh04HnvyXTLEd6YBSnOY=;
+        b=LCbqmVZoxmgJbSLcjVJxzKrun33Kkv+nb38ua5iErYGiAc8ZWZpNisZ6ibCfqgGwhX
+         GDfYC3wzJ+zcu6O1DUCVVxwbxsUICNook767s3XqdTtfjMjZFprzY1kVTyNCOq3RgMHE
+         feOkt9LXpaYlAOxnHYmmLli0nv7LL3BvcUnXLW2lds46kZbcdugZCU+I4s7wn9yGNJvb
+         epeD6zfiA6s8QgYV6KGpBWtXeSB/DxkSDyxSeK6C4j3Yr6zaSska2pzEVpJZv7HziPkS
+         RtG+Gnxz1lhfNeq7mArcgO05L20zHconAx6Ih09R+MsNFXd8WWYIJuedUvI6TMrgvLZ7
+         IO8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763053153; x=1763657953;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1763053339; x=1763658139;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=o0VvNcjxBxjFprhtCWFDFi8shOLZctGLzT/2KpVDLGE=;
-        b=galc5jFblW+Kga4xaLMamAsqVUjz28uvpzsGub+sw9OPwxuc13/U2mspzxheGWckhA
-         DNAYnXX0nOyf4Pp86owgDN3+UfiUfRIl+6iGtszqosNCrncPPSpd18q5jQcLqQkzfAOR
-         bJPG9/WjaD14WUuEyUCsDk31PuqjX9dPjgod5g4oEEInZOhaqzpanGwmy9kVRlfLlAJQ
-         tAqzFxOphQ+9fpmMt5iYmfzZAZV4U1JRu5qES1xhDZmyB+OPT1hHXpCtzAJf3hApRG1F
-         pRlPFt6CyLNXLJNLU0dLLg52z6tQPDQRQX5b0+qMOdbRFmOOX8Syujdt+Oc17C4Nt0aq
-         FBRg==
-X-Forwarded-Encrypted: i=1; AJvYcCW2PFWseg++e5VER3lvUvdWdbmb9HIwsiRtadiydhyMzhelWFLlZ9QtVRrFzvTJEqKklmFC9bOdScM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YysrXH1R+Ho86NlTbaFi4QvyiqGF9JdHGa0bssQT+zcGQSzXRWF
-	D04fodeQKgmicYTvn2WKs3YmEALmQioOPfNnIdefUGSf9rCDnv/sbxjGOyQYDNBi0Q==
-X-Gm-Gg: ASbGncvXC1UTLOQGXatLkqRwU/FlFca52RDINncbNERdsbx9OVcFil+JXEwnvEibzI1
-	DskRlonCO7LuIuOsEODp/VyqUYmzYFR1Lo33Du34aQ+Bvqwxa6ucUGSluT4ZKHYOV+8IcsQUROd
-	5u/ErMxX8cTeDeMu4p86tCAatXXSOK9VMXRh424NZ6Q23hlfa45u0k07MOPGd72jS7QC04hdFdy
-	KDPAplQNA6j1t1H5TD0MIbk/v8R1JZMAyzxfAW21JXJvShqAPHeI99pO1ds6MOvjYb/OeBfr/kE
-	KhblspQB5Ugun28qVxz3WAmdpPmFkPLg0tXei06L5dDhatpHB2u9HadPK0ID3LI6lRhY2kEcmWX
-	Ndae96sXFH7ShrgubR40SchgBkoRRt1DaV3NcuY3CanYkQGBpEcObRXwBGcl8NAeMLrKYFsG61C
-	KGbr8Ztl/S1YPL/8Q0pWWzX0VfXk2vTT17T7xvqNtoD1s1DRNbIEv+KmcIYJnPZqrgbN1QM8bLL
-	TY=
-X-Google-Smtp-Source: AGHT+IEuGV17EDvS6PBAMX5eK7iMTh0aUw4jnzgyk+qZxjlwg/USi1DVtmERL0eFGBNB2+EIVqaVyw==
-X-Received: by 2002:a17:907:1c8e:b0:b73:2fdf:21f8 with SMTP id a640c23a62f3a-b73480bc7d1mr423318266b.7.1763053153004;
-        Thu, 13 Nov 2025 08:59:13 -0800 (PST)
-Message-ID: <4cfc4f5b-1d7e-4f69-9bfd-99ac0f65ac97@suse.com>
-Date: Thu, 13 Nov 2025 17:59:11 +0100
+        bh=Ie1q//RtipQx+cOa4gaCmoTXh04HnvyXTLEd6YBSnOY=;
+        b=OvVYgtcFF+2cWZCg9KwtEr0T+ItXk7y+y3JyGLG5ksDAJXy5m+XlqDmCIP5Oa7hZHy
+         vBfYhZMeNEmHTa8a3fP72MlJXec17H2qStANiGwps7WswwFgKIa4wxqhTxb5+qh4AYZM
+         ZztECuFL4Cpv0Viot0g7V9CH2U+iySfIotg11OI8DD50w2tji4NTEPL6qq6R4bLDIP1S
+         M7C2kLaieXMfwFqysd1+szy8rf0GCikJDCX/4nmvI+Lz3qrrgk+L7Cm1irpD2YBzdQBn
+         xZJ8RVQNpxfLZzyDWjH4Ba2b9hLvO2MBPNl4zda4LqPCtVhh32gQRWXVL8Jbpi5aLxr3
+         XOUQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVFG0yF4r70CjETB7nI14U3fK+rdcVSDFlc44ka+DDQ5yZw2L6WhNpMH5mXA+EsdYIrfeU/plUxNV8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzHogVTgJu/FJrR7C70q/Peou3W50LR+aQ5NCtES5doLLlPjUWM
+	pLKiHKEQ8UqaqLZA3leLPRfdqO06N2nda65jg1TZprnomo14N5v3bNsqrmoTuNnaYw==
+X-Gm-Gg: ASbGncsgNNMe35eFmSZg4EPueIdsnaIKYjAhAhisuniLehj9DXteSmfQEPYiTuXl8Ja
+	1jtbVukWB7PvDnKU2/cjAReZOnAxKa2MHv6ELxi1EZz/6Ns/dxI0vo1O+DIc16Kw/Fnk1hO9d8e
+	jgGJNyYeYrEgTf3I38iI15sC76VmQLZtnZoSGQgAWYyYwTTw6oVLyHMvO+K4t1EuD9uHhBZ3/Jm
+	vt0ZfAz/oT9iXWlNPiJXC1OiaKGhbD3TgDfDHWLmOH9oTKtPQS0QQ7G4AeQJIJ63JkrKhRUFErS
+	wUyWghgn8NblR1/QdTcrFHUL3suG++19hQGYWElyvj88NqNE3kFhdnfj5N83jklWRad6noCzm2+
+	B7G1suIZkRkzVDbi1XLDcM876GJxbrL/2ebgTfZYXI16ifVwJQzCtH8zs08mpjjhuw5EzGn897J
+	mEOLwOCF2pAdCuMVr8LjBEWm4MLQszNpt4wXKG0WHhGtzSakXNYvD9qmzhMxuxeFI1
+X-Google-Smtp-Source: AGHT+IF6evj/9e6K9SSXRYny56NQ/PHCpbaX6+Sh4GXyOTHqg7O009fXPrtMCuawFA/urCgEkACeyg==
+X-Received: by 2002:a17:907:6d0d:b0:b60:18d5:4293 with SMTP id a640c23a62f3a-b733196076amr764646066b.9.1763053339054;
+        Thu, 13 Nov 2025 09:02:19 -0800 (PST)
+Message-ID: <5bb5c2d8-53bd-4669-9238-6ae8ab8d349c@suse.com>
+Date: Thu, 13 Nov 2025 18:02:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 4/5] config: remove unused paths from config/Paths.mk.in
+From: Jan Beulich <jbeulich@suse.com>
 To: Juergen Gross <jgross@suse.com>
 Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
 References: <20251111161959.13667-1-jgross@suse.com>
  <20251111161959.13667-5-jgross@suse.com>
+ <4cfc4f5b-1d7e-4f69-9bfd-99ac0f65ac97@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -119,40 +119,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251111161959.13667-5-jgross@suse.com>
+In-Reply-To: <4cfc4f5b-1d7e-4f69-9bfd-99ac0f65ac97@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.11.2025 17:19, Juergen Gross wrote:
-> --- a/config/Paths.mk.in
-> +++ b/config/Paths.mk.in
-> @@ -20,10 +20,7 @@ libexecdir               := @libexecdir@
->  datarootdir              := @datarootdir@
->  mandir                   := @mandir@
->  docdir                   := @docdir@
-> -dvidir                   := @dvidir@
->  htmldir                  := @htmldir@
-> -pdfdir                   := @pdfdir@
+On 13.11.2025 17:59, Jan Beulich wrote:
+> On 11.11.2025 17:19, Juergen Gross wrote:
+>> --- a/config/Paths.mk.in
+>> +++ b/config/Paths.mk.in
+>> @@ -20,10 +20,7 @@ libexecdir               := @libexecdir@
+>>  datarootdir              := @datarootdir@
+>>  mandir                   := @mandir@
+>>  docdir                   := @docdir@
+>> -dvidir                   := @dvidir@
+>>  htmldir                  := @htmldir@
+>> -pdfdir                   := @pdfdir@
+> 
+> Question is whether we're mistakenly not respecting in particular this one,
+> for the *.pdf we create. For all the others I agree there's no (present or
+> potential) use. I notice though that docs/Makefile cleans e.g. *.dvi
+> nevertheless.
 
-Question is whether we're mistakenly not respecting in particular this one,
-for the *.pdf we create. For all the others I agree there's no (present or
-potential) use. I notice though that docs/Makefile cleans e.g. *.dvi
-nevertheless.
+Actually, I can't spot a use of htmldir either, when likely we should respect
+that one, too.
 
 Jan
-
-> -psdir                    := @psdir@
->  includedir               := @includedir@
->  localstatedir            := @localstatedir@
->  sysconfdir               := @sysconfdir@
-> @@ -34,8 +31,6 @@ LIBEXEC_LIB              := @LIBEXEC_LIB@
->  LIBEXEC_INC              := @LIBEXEC_INC@
->  
->  SHAREDIR                 := @SHAREDIR@
-> -MAN1DIR                  := $(mandir)/man1
-> -MAN8DIR                  := $(mandir)/man8
->  
->  XEN_RUN_DIR              := @XEN_RUN_DIR@
->  XEN_LOG_DIR              := @XEN_LOG_DIR@
-
 
