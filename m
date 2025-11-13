@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74883C57378
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 12:36:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1161053.1489076 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BB79C57396
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 12:38:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1161064.1489085 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJVcM-0005eD-PG; Thu, 13 Nov 2025 11:35:58 +0000
+	id 1vJVeC-000689-4i; Thu, 13 Nov 2025 11:37:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1161053.1489076; Thu, 13 Nov 2025 11:35:58 +0000
+Received: by outflank-mailman (output) from mailman id 1161064.1489085; Thu, 13 Nov 2025 11:37:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJVcM-0005b6-M1; Thu, 13 Nov 2025 11:35:58 +0000
-Received: by outflank-mailman (input) for mailman id 1161053;
- Thu, 13 Nov 2025 11:35:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vJVeC-00066i-14; Thu, 13 Nov 2025 11:37:52 +0000
+Received: by outflank-mailman (input) for mailman id 1161064;
+ Thu, 13 Nov 2025 11:37:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJVcK-0005b0-I9
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 11:35:56 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e9be2e4e-c084-11f0-980a-7dc792cee155;
- Thu, 13 Nov 2025 12:35:54 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b728a43e410so105929266b.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 03:35:53 -0800 (PST)
+ id 1vJVeA-00066c-O9
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 11:37:50 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2ea7a0f8-c085-11f0-9d18-b5c5bf9af7f9;
+ Thu, 13 Nov 2025 12:37:49 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-b7346565d7cso96782166b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 03:37:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fa80cb6sm149638166b.7.2025.11.13.03.35.52
+ a640c23a62f3a-b734fd809ddsm148308966b.48.2025.11.13.03.37.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 03:35:52 -0800 (PST)
+ Thu, 13 Nov 2025 03:37:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9be2e4e-c084-11f0-980a-7dc792cee155
+X-Inumbo-ID: 2ea7a0f8-c085-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763033753; x=1763638553; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763033869; x=1763638669; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ROw8OP8t04ZDQgvKd2J8Vdq0edYSR4HDgmS9LGq+kQk=;
-        b=RN+FijksBOYlmW+sF3mIxED18v9MLrif94XcJcQ9VwTu1GaeayJO1c5RjWSZ7wkYMq
-         vreBb6smSNl41r8wmiBjPKSo7zB+KuMKD0JYJDXYfOju4e9LuVyunS35TUtsZir+RINR
-         Wo0N/CqKguKiuVnTbTc56M+tk/2OllO7wRKjWxds9AfJ/stuzHfc+1qIfhGbvdtjiu3f
-         laneJpM1ZiIziLi9mJfw7CODwYuN7OMfpfMscNM2gRzPpepk6KBfuY15+OCep4ynXzJd
-         fJYq5nac94BxOcmED/QilD/IQfX36neS1ZZHo6RSf/LO+XV+nyRwUYaN+bhpOXvFHRn+
-         cJ/g==
+        bh=sJNALaH0yE+mXCwmbYY/Ta/cfHto0EYt+VbWZLRz5Dc=;
+        b=glv6tkwy4wfnT+oTU5RuDpv8Qfuc/Y1Ue9dVyVeig5gLa0trMERNdQYgj9zZJ9H1f9
+         HZaAaAUiex/uN4C/Dq81N/UCMKJpGrFnyhnLEDMVI5TdrncSYeVfBWtwL643qNKFh7dY
+         IgYDoJUE9C9NtXvUWFAgkp0Ro4mpzxio+D5RapaEeh5C91+MhoMR+Fn0A3hd9hPEQeE5
+         usxiMQLcrvmScoqpF8gp1xmIrxyTSZPvZmTTfLb/sYCPN5cqrkf/18SmwffGaLwYj4As
+         NiCL0O/3uMxnCkvO/Uz8OSjvKNidyOrSdKK8wO9+NEw3VawlFfN36aZ+/qh2KarwkTgZ
+         kJtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763033753; x=1763638553;
+        d=1e100.net; s=20230601; t=1763033869; x=1763638669;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ROw8OP8t04ZDQgvKd2J8Vdq0edYSR4HDgmS9LGq+kQk=;
-        b=r9yGCsJtBS7jcexlDA5usO0J2CPoERLkTsfCNDvMDoqMpCVq+HMLQ9/2S0vabASAT9
-         T5c8PswtwnJ6ocdCIIgg+pCUIeswsiJ5unFFKC8yVpw54IMW2XRx6cSHMoHnTbaCMUu1
-         ucHRF4vYfvMNrnmSGQyDsxOiwyk3aS7m5+atpVIIgrwrXmcP2+JNJVgrxNMxJgrEFKOH
-         2sZhM8AS8qDGcfsV2kJdsQ4Kwm2OlmzpBgZm9jUnozVwkK9dUzYPcZznKtpjkYDyh9pZ
-         bbKvGnZc5ohEIJYfELcZqvx36kj+vYNrRsaDIFBh2zF3lTexE9vlL0YJsxda/s5MAA6Q
-         o2Ug==
-X-Forwarded-Encrypted: i=1; AJvYcCX4f4UkrS0uy6kJi0cOvCW5rsjxiQfRw5GTi5d1sX3avcNEmb4zqK8XbKQtbkyph5TyAuYloRHvCcc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywm7HGojMdTR45fmEDFgHFEK8DCLHQB7yiGFrkUWOM+LTH8raj8
-	DNhxIqpcDGf0uaZv93P6v57f5pjoeKsvzRPJVmbkxhRAoZ/Mnz2QBY8X342bxi5SsA==
-X-Gm-Gg: ASbGncuyb5Ln8SN2rkHfMEjm8cbtV+yOEmSjspy8xbwxs0zz98mZVVqpD5Zit2vYsjY
-	z7oRh+FJ+bAMegYqwm5Josfp1LrFqC/P033gjJbJ1fvDmL+jSXb6dnImOXpr8IdWJGVbSxrlmFs
-	4ymoS3Q8W2T0+2IGF/wLt5Daj3erR8PHbioXl5NYZREbQ9LaAYOzssfUdEwRY/dsNCRytCDmP2z
-	N6OjIgHlSr4asDhlPWGl/OTjIXPcxbQG6en6fB+D1MBoyTIXndFZzrVLfDSJ/Qk+OBAwa2lucoL
-	WPlUyPPaaCUKCjkon9ZzzLAETSDt2KACoewPXvUpbBkafw4OUlNQIiA8a3gPEQ3RHeKYb3/HwqM
-	eqc+evQib7xboiXQVsc8Enx8v1Hhhsry7WxvgoiU78Gaq1Bra8wkKjvBJK8xmE1Byjlnto9vo9S
-	3XE6913AeRBfB+ZXz4XD6miLlGZ/tsRxAnHfSAyJQU3gAAPfe4lCycMzAmOV81KfBA
-X-Google-Smtp-Source: AGHT+IFWHCJbKQlvp33spBWRSPXqixooZ+gVJdwbLmMI41T7bgJ7JVa7WhTWY0uBPjfIeExizDephw==
-X-Received: by 2002:a17:907:3f19:b0:b73:4fbb:37a2 with SMTP id a640c23a62f3a-b734fbb412dmr216534866b.5.1763033753189;
-        Thu, 13 Nov 2025 03:35:53 -0800 (PST)
-Message-ID: <b3ed438d-2b73-4b07-99e5-01e66a833f4d@suse.com>
-Date: Thu, 13 Nov 2025 12:35:51 +0100
+        bh=sJNALaH0yE+mXCwmbYY/Ta/cfHto0EYt+VbWZLRz5Dc=;
+        b=H4Z3KbKo/Pv8vKa3gCaDXxcqmAzFaC3Ff+xu1MZZrX6xj35NXruMjq52BR+1+oWEEb
+         vei279RIxlwQeclEoazpB38atyKfoS9tQoiSMtvrjm5vTUHX1EnamDiY/wBixLb2BXvf
+         7oSCOM4wA6noeUlf0+BDEj/D+rMgWsc8Gw8DRXzaolvIVjY0uk8eb0z53VeZa6uBiQyX
+         qSASspHc4gBmP6ojAR6ecqDzbEvELDXV6UbkboCHjvzgQUt9awbzEXsLKER7Dl07/5tM
+         0YPZYyx6cneNF1bsA2AZAxKCVOY3njYUbqFgQF/YOBGpo1aFzlE3YusJ4+m4aJk2pAFm
+         d3Rg==
+X-Forwarded-Encrypted: i=1; AJvYcCUAx3e7DU5jYStaMgyR1tbbzEGSgBKnfR0Yrx6251L3IbqNTLOeLCuTh5rEL6h78UsssMMi454lrHU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz+cqALe74zuefqA4nfNzrp6lSFyFY255Z964AKu1fmZIKZ2B5W
+	VEEqXrzsvphXF2ciwp7l8chGlxoN/MQecEW5v7EACaOR3ntD1/9aylXhmDn5iZtDHw==
+X-Gm-Gg: ASbGncuAtuNDhc4DI4bpOu+apQFYuyRyt6S21a+T2OPdjPWvZqXSmsPwNAtjDRBza0F
+	eOXvOO4XTWOI1Ruvpwzd3tSfVSNfbVdlQWuHAEWDL/a9u2g9ucuCYKpB1qvDxEe6e6W58AHU0Jx
+	vgkbGk1tlzYDF/hPUI8f5FVYadbEteXiPXbsLSqqjCxRtf2Jc768HRJZ/ILpyNRuVkplRxZdX6C
+	oFR+KotcO64FiQv/cbSsvvwu3v0dRna2s3o1IWYh5I8VMlQ6PiaxbcNqD33+JcSR/qHeff55A1t
+	G/WQuOQnZBEUiAE3IMf3xZDoHjhJKbz4OWun31sMxVpjMz+6pWfh6X9cq/veLRc9Y6DL4cUaZ2J
+	HSQB6nrt52hy502OygbjEdAUeZjKhGErARYeATBZuipMD+mjpUQfdXLVDSVmeQgdHHn0vbJP88m
+	GKqZaVTcctuzuYvSgnzZqVJ1wvuSVcwKKwmFE2jq2LvuBvvxAxUvTMLPPOORjwQlsH
+X-Google-Smtp-Source: AGHT+IEevsvcsr6NYKwHlFUNPqXsUmeUpkhpibbCepuMensWVbWF1WB9/BLUIFZg4gnmxqnQMO3Z/w==
+X-Received: by 2002:a17:907:2d12:b0:b73:5958:7e6c with SMTP id a640c23a62f3a-b7359588192mr104207166b.3.1763033869037;
+        Thu, 13 Nov 2025 03:37:49 -0800 (PST)
+Message-ID: <367dc942-7113-46cf-9c54-fa77dc6b4c53@suse.com>
+Date: Thu, 13 Nov 2025 12:37:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] amd/iommu: Always atomically update DTE
+Subject: Re: [PATCH 2/2] amd/iommu: Remove dead non-atomic update checking
 To: Teddy Astie <teddy.astie@vates.tech>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
 References: <cover.1762961527.git.teddy.astie@vates.tech>
- <a14812d39743f5f49614d099bdac6720bf7c4fae.1762961527.git.teddy.astie@vates.tech>
+ <b0e81bd67c3f135a4102d12ed95a52ce56482992.1762961527.git.teddy.astie@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,127 +120,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a14812d39743f5f49614d099bdac6720bf7c4fae.1762961527.git.teddy.astie@vates.tech>
+In-Reply-To: <b0e81bd67c3f135a4102d12ed95a52ce56482992.1762961527.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 12.11.2025 16:37, Teddy Astie wrote:
-> amd_iommu_set_root_page_table chooses between updating atomically
-> and non-atomically depending on whether the DTE is active or not.
-> 
-> This choice existed mostly because cx16 wasn't supposed always available
-> until [1]. Thus we don't need to threat the non-atomic path in a special
-> way anymore.
-> 
-> By rearranging slightly the atomic path, we can make it cover all the cases
-> which improves the code generation at the expense of systematically performing
-> cmpxchg16b.
-> 
-> Also remove unused raw64 fields of ldte, and the deprecated comment as the
-> function actually behaves in a more usual way and can't return >0.
-> 
-> [1] 2636fcdc15c7 "x86/iommu: check for CMPXCHG16B when enabling IOMMU"
+> When updating a DTE, amd_iommu_setup_domain_device() would check if
+> the update had been non-atomic (i.e rc > 0) and throw a warning if
+> such non-atomic update could be dangerous.  However since commit
+> 3fc44151d83d, rc can no longer be positive, making this branch
+> unreachable code.
+
+I.e. it addresses a Misra concern and hence ...
+
+> No functional change intended.
 > 
 > Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-> ---
->  xen/drivers/passthrough/amd/iommu_map.c | 78 ++++++++-----------------
->  1 file changed, 25 insertions(+), 53 deletions(-)
-> 
-> diff --git a/xen/drivers/passthrough/amd/iommu_map.c b/xen/drivers/passthrough/amd/iommu_map.c
-> index 320a2dc64c..e3165d93aa 100644
-> --- a/xen/drivers/passthrough/amd/iommu_map.c
-> +++ b/xen/drivers/passthrough/amd/iommu_map.c
-> @@ -154,69 +154,41 @@ static void set_iommu_ptes_present(unsigned long pt_mfn,
->      unmap_domain_page(table);
->  }
->  
-> -/*
-> - * This function returns
-> - * - -errno for errors,
-> - * - 0 for a successful update, atomic when necessary
-> - * - 1 for a successful but non-atomic update, which may need to be warned
-> - *   about by the caller.
-> - */
->  int amd_iommu_set_root_page_table(struct amd_iommu_dte *dte,
->                                    uint64_t root_ptr, uint16_t domain_id,
->                                    uint8_t paging_mode, unsigned int flags)
->  {
->      bool valid = flags & SET_ROOT_VALID;
->  
-> -    if ( dte->v && dte->tv )
-> -    {
-> -        union {
-> -            struct amd_iommu_dte dte;
-> -            uint64_t raw64[4];
-> -            __uint128_t raw128[2];
-> -        } ldte = { .dte = *dte };
-> -        __uint128_t res, old = ldte.raw128[0];
-> -        int ret = 0;
-> -
-> -        ldte.dte.domain_id = domain_id;
-> -        ldte.dte.pt_root = paddr_to_pfn(root_ptr);
-> -        ldte.dte.iw = true;
-> -        ldte.dte.ir = true;
-> -        ldte.dte.paging_mode = paging_mode;
-> -        ldte.dte.v = valid;
-> -
-> -        res = cmpxchg16b(dte, &old, &ldte.raw128[0]);
-> -
-> -        /*
-> -         * Hardware does not update the DTE behind our backs, so the
-> -         * return value should match "old".
-> -         */
-> -        if ( res != old )
-> -        {
-> -            printk(XENLOG_ERR
-> -                   "Dom%d: unexpected DTE %016lx_%016lx (expected %016lx_%016lx)\n",
-> -                   domain_id,
-> -                   (uint64_t)(res >> 64), (uint64_t)res,
-> -                   (uint64_t)(old >> 64), (uint64_t)old);
-> -            ret = -EILSEQ;
-> -        }
-> +    union {
-> +        struct amd_iommu_dte dte;
-> +        __uint128_t raw128[2];
-> +    } ldte = { .dte = *dte };
-> +    __uint128_t res, old = ldte.raw128[0];
->  
-> -        return ret;
-> -    }
-> +    ldte.dte.domain_id = domain_id;
-> +    ldte.dte.pt_root = paddr_to_pfn(root_ptr);
-> +    ldte.dte.iw = true;
-> +    ldte.dte.ir = true;
-> +    ldte.dte.paging_mode = paging_mode;
-> +    ldte.dte.tv = true;
-> +    ldte.dte.v = valid;
-> +
-> +    res = cmpxchg16b(dte, &old, &ldte.raw128[0]);
->  
-> -    if ( valid || dte->v )
-> +    /*
-> +     * Hardware does not update the DTE behind our backs, so the
-> +     * return value should match "old".
-> +     */
-> +    if ( res != old )
->      {
-> -        dte->tv = false;
-> -        dte->v = true;
-> -        smp_wmb();
-> +        printk(XENLOG_ERR
-> +                "Dom%d: unexpected DTE %016lx_%016lx (expected %016lx_%016lx)\n",
-> +                domain_id,
-> +                (uint64_t)(res >> 64), (uint64_t)res,
-> +                (uint64_t)(old >> 64), (uint64_t)old);
 
-Indentation is now off by 1 here.
-
-> +        return -EILSEQ;
-
-The downside of this is that all updates can now take this path. Yes, this shouldn't
-be possible to be taken, but it's a (minor) concern nevertheless. At the very least
-such a downside wants, imo, mentioning in the description, even if for nothing else
-than to make clear that it was a deliberate choice.
+... wants at least an Amends: tag, likely a Fixes: one. Then:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
