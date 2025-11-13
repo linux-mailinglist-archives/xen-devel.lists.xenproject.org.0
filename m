@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3841C56E3B
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 11:37:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160927.1488973 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EDB4C56F46
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 11:44:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160944.1488983 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJUhf-0008Vp-Fw; Thu, 13 Nov 2025 10:37:23 +0000
+	id 1vJUoC-00024E-5u; Thu, 13 Nov 2025 10:44:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160927.1488973; Thu, 13 Nov 2025 10:37:23 +0000
+Received: by outflank-mailman (output) from mailman id 1160944.1488983; Thu, 13 Nov 2025 10:44:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJUhf-0008Tg-DF; Thu, 13 Nov 2025 10:37:23 +0000
-Received: by outflank-mailman (input) for mailman id 1160927;
- Thu, 13 Nov 2025 10:37:21 +0000
+	id 1vJUoC-00021W-2n; Thu, 13 Nov 2025 10:44:08 +0000
+Received: by outflank-mailman (input) for mailman id 1160944;
+ Thu, 13 Nov 2025 10:44:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJUhd-0007uQ-FS
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 10:37:21 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1vJUoB-00021Q-0z
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 10:44:07 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bb2e9cea-c07c-11f0-980a-7dc792cee155;
- Thu, 13 Nov 2025 11:37:19 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-b727f452fffso279496566b.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 02:37:19 -0800 (PST)
+ id acad15ee-c07d-11f0-980a-7dc792cee155;
+ Thu, 13 Nov 2025 11:44:05 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-b7355f6ef12so63485066b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 02:44:05 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fda8d69sm134702666b.50.2025.11.13.02.37.18
+ a640c23a62f3a-b734fda8da2sm133547566b.55.2025.11.13.02.44.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 02:37:18 -0800 (PST)
+ Thu, 13 Nov 2025 02:44:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb2e9cea-c07c-11f0-980a-7dc792cee155
+X-Inumbo-ID: acad15ee-c07d-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763030239; x=1763635039; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763030644; x=1763635444; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=H6dVcWosJ7I6Kkwur9ex04TNB6MAFRxEteR0K6IOoAA=;
-        b=KtQ0myC5CKH85fBCR+MHKb6jTOwYWolGS8m8xNqrhl1qdUuHDbiUIcvL6QKS5wguDl
-         gyydNErbx9280eRD63LLZWh8/iQv3q1+BrVwDJXhZ0FVd1YIesJYtxc9HvwFU5BxKMXY
-         Vc131kbHOOCx1vkGQZ3TUrMMrqNYGei7faYIl8b1thAfFZb1HKl3mjPy3zpJXGW9ItLZ
-         SwKDMh/CMhavEKwwc0Bi1dflmDpipe3mv/qqNQkuxuBDgM7PWa1uWvVjhej1sce4+N2L
-         9pTaRXvtFh3RKKlg7vptmxy+Pb9CB21rCZ+DUq3ISKrLxFGkt3Elbgxu5p6MV9Eum2Hs
-         GrNw==
+        bh=JImBlaVHtIbdMKfPNgP2nMGlhSt+jCNCdhLCnCDqYec=;
+        b=F99u2VYEX4ZypybP2Yl8i2r0Fh/535MAm8Hrj7Gf7gABQYmLPjPa5cSam/GykKOQSU
+         mTl4syVFOxEwz8x0jWJecdb63iYTorRVN9q6dxJNuy3StnlPiPVkH4jMQq5COy6Wcmae
+         JXafNCaucGzc3TSDmrM2tsiFLUJJckrQ1Il+iScxbx2ell3YQ5pCG9cCNn56r42xoQWw
+         6kA9OQoYQ0xtKTrUjYPFi7s1zOIg8XF1rMf6+0uhBrF5oDmjZrP9VrLmKLj/CC3Eq3et
+         OfQSgAFRofFbbyezRb4UH9kFv6oufcADXr5ebMCY5eROPkdOwdacKg33JVx8MjY6Gd08
+         KBPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763030239; x=1763635039;
+        d=1e100.net; s=20230601; t=1763030644; x=1763635444;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=H6dVcWosJ7I6Kkwur9ex04TNB6MAFRxEteR0K6IOoAA=;
-        b=PMWOW+DORc68AUmNsxlp5o+eTT1BpK+QkwJTwi9Oe4gJ1gxQOslTcnRjXHoHPGVxpo
-         AnEQUjNDDkABE45ZjU6cL7chBiX6YH5EY7IFz9xWyXzSPpfgpLvWfqDyf87ZrEMDfMhx
-         ohoVknjL+h7ZGyuHnL+ZCxkzRNjYBF8GI7Ykae/AXMNSuocAiLTEQ8n7oH6XorXuH/xV
-         1Rny2ObL1GnLvcd/FXgMovTo0jOGBrNO89/t7e7wgoWy5b4Nt0MbrG2pr9KytqrLbDtc
-         rnNUKXcT/xwnQBkqJ1d2ygvTKlHuNuxCMMwyLZcTCdafWx2+4wr/qjO92wRepjsBgOWa
-         LtAg==
-X-Forwarded-Encrypted: i=1; AJvYcCXbyPUYeJOLTTFuXk4lZrFBynFfjfp4ZCo6UHeY6/s0VeVQCPb0xT0YwwRa404SyhaULI3zhqDEI3w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwazUqIuzQLeCMFbshKLvv0UvE0FTllFbPFPUGuYTrNTiNBFMEZ
-	BGj+83+U8IlHMC5O8uOSSsbdwwnQMLXPmmL1MeSGhB/N7ibYPj06kcT1CqIodQBAhw==
-X-Gm-Gg: ASbGncvzrCTxzJ5cHAeiu6LztDAygh0t9rx90AzwmC6xy7zRAJPnx9JlIYc0xUN6GLA
-	gqoo8Pu5pdkuN0HlBQXGvlMZhGSnJGT9tCtXQZb+lQHYRucLqHEYKWiBQyWxoBTV0KnkTkEk7wk
-	9Yn2TYeKDE7uWcZjJ+4eLQeeNykBY5LnxNww6A9U41SC6NlHEP2czVHsZgEKUkRGDsyV6yzVB6w
-	LiAwjQNrTJhAZ4Wvgwa3FIvXoU4N5LnB9H6ocfwYDCEMqR/2syk9IuHPRsR4rQTxkH7c3c5AJuo
-	ZXVwyfW9/yWeMYi4VIvLUllhp3mliMnaQZEWaqmdS5Q4NS45PV2x3eFGgGBNP4/orrK8VSjw51Z
-	DFQCGDQN6UWjIqMm+YO9i/dY8KrlkuenCQrvkzMNUnTGgy/cj94Fub3d+TccCu9vBWtKkLEPh1N
-	aD5XRpB54Ki2jnzQqVqoxb1LlBoDoQVnAtr4vtZyiYdSi7DbHP8EtdvVThEW99bgINh2CdqT0ID
-	vs=
-X-Google-Smtp-Source: AGHT+IHOhqpL6Wcjb1RIVcl4yJSLenhKuyI5EeSc4Kuayssr7gCl74tW6cku5q03WgGWg1GE3zb1EQ==
-X-Received: by 2002:a17:907:74c:b0:b70:83a2:3f5a with SMTP id a640c23a62f3a-b7346956cb2mr325525066b.0.1763030239247;
-        Thu, 13 Nov 2025 02:37:19 -0800 (PST)
-Message-ID: <901e9a91-60f0-4b9b-a989-fbd64cf40fb1@suse.com>
-Date: Thu, 13 Nov 2025 11:37:17 +0100
+        bh=JImBlaVHtIbdMKfPNgP2nMGlhSt+jCNCdhLCnCDqYec=;
+        b=Hyp4aP6ZdrpSCnct9xxWS2Niq1/yqS7o/mkBlJpnwmgVzFnSCdqGTYFFfC27EElNjH
+         m1cbcAqlWGCTFLbq+LOwmmmF/AnyH8cPIe4bI009YjF1AqZM8obLhSh9o86AMuncUVW+
+         1cXz1yhCLW4HNxM+UPJvGM5UgOivXCkfibz8G5G3NQqxhhwfpUe/IuIWkV1dh5x9Udh5
+         29T5fYiRI+tB3G1JYt2jDo/6HVdoeC+3NOQUe7HOcN7VAPUUSj2voe30uxNLX0gop0PG
+         WM0yWV1tiVRwABITPeRUYbyeVI/OBzBJApjXQGo9Be/uBO2aTfdSSk1zLSR5Uwjcyl+c
+         Ooiw==
+X-Forwarded-Encrypted: i=1; AJvYcCWnD3EFwem3xryxAzdl5cUiRNsEhqsxP63jaRXiZh4u6Qz5QzrNcCSTnrXZeoiQhzI1INGjw4VCJCU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyOtdaDCW4mWu1CmiqD4YE1QMfYRw3QCGoRaiydWvih04vOpwl/
+	xL/5D44GQJCUJ8zBONpFSJh48CbT4sE93i3swDIUcegrOwEws6/u9MGcLs4gj9+txg==
+X-Gm-Gg: ASbGnctHAqJkSmR47w3MdN2OvUK++62XcZ0QHZDnjZxySseYZClsVjS8vY//xT/uFc0
+	17yjtiUmmxqAXRAuZWZi8BEDfWTF9C4J3UtkwfTTDCP9ejV8k8cLKxs4kbE+JM259FZ/DFOg8bx
+	hYFE1Z+cvSizBJglyp+Uav3w0OBYFo3I5Ke2QUuNKoBH6HeL51FUC3W6xC3KtEAtm0DczVvaaQ5
+	y8z0hCdnmeW9omXNrozOcBfMSwidquKuXUqreMMm5VP9Vn5wDy+baX7g03n24iGm2l1KzHwm3N3
+	t6xCbue4mLuuQi956tF8JQuUB20TAlIMVg/CClyyaN/wz0H1+pz9hZZBU1HXAXCvWQbr6S/NQS/
+	6xyfx7zEEYpG9y/FLsa6COKM7FLwK28oxS/DN8OmRYZdJLcVqMTTgxIJLDkt0othGSl5U9YUX4G
+	6kzY8/wST7KHgtMXVwYjG7I7Y6jtRO3I2oCcXcvN7cJTq0Lrwxws5Ey6HJOLblyOmF
+X-Google-Smtp-Source: AGHT+IFmhnr5BLkO44xAA+T0S96KFYNdA6bY+1/A9MTOSoeX4pbKNNUXQlTIUwVLWhrRtsLebmM92Q==
+X-Received: by 2002:a17:907:3e12:b0:b70:af3d:e97b with SMTP id a640c23a62f3a-b7331997c12mr732607966b.17.1763030644453;
+        Thu, 13 Nov 2025 02:44:04 -0800 (PST)
+Message-ID: <25ec2731-e629-4cc7-b374-5e48fba4c814@suse.com>
+Date: Thu, 13 Nov 2025 11:44:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/8] smp: Move cpu_up/down helpers to common code
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [RESEND PATCH v2 1/3] x86/hvm: move hvm_shadow_handle_cd() to vmx
+ code
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Timothy Pearson <tpearson@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1762939773.git.mykyta_poturai@epam.com>
- <e0fe3bb03af9c612605a2a5dd9b5670d0428fa1a.1762939773.git.mykyta_poturai@epam.com>
+References: <20251111200958.3576341-1-grygorii_strashko@epam.com>
+ <20251111200958.3576341-2-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,69 +122,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e0fe3bb03af9c612605a2a5dd9b5670d0428fa1a.1762939773.git.mykyta_poturai@epam.com>
+In-Reply-To: <20251111200958.3576341-2-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.11.2025 11:51, Mykyta Poturai wrote:
-> This will reduce code duplication for the upcoming cpu hotplug support
-> on Arm64 patch.
+On 11.11.2025 21:10, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
 > 
-> SMT-disable enforcement check is moved into a separate
-> architecture-specific function.
+> Functions:
+>  hvm_shadow_handle_cd()
+>  hvm_set_uc_mode()
+>  domain_exit_uc_mode()
+> are used only by Intel VMX code, so move them to VMX code.
 > 
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> While here:
+> - minor format change in domain_exit_uc_mode()
+> - s/(0/1)/(false/true) for bool types
+> - use "struct domain *" as parameter in hvm_set_uc_mode()
+> - use "struct domain *d" as local var in hvm_shadow_handle_cd()
 
-Solely from an x86 perspective this looks okay to me, but on Arm you introduce
-...
+One more please:
 
-> --- a/xen/common/smp.c
-> +++ b/xen/common/smp.c
-> @@ -16,6 +16,7 @@
->   * GNU General Public License for more details.
->   */
->  
-> +#include <xen/cpu.h>
->  #include <asm/hardirq.h>
->  #include <asm/processor.h>
->  #include <xen/spinlock.h>
-> @@ -104,6 +105,37 @@ void smp_call_function_interrupt(void)
->      irq_exit();
+> @@ -1451,6 +1452,66 @@ static int cf_check vmx_get_guest_pat(struct vcpu *v, u64 *gpat)
+>      return 1;
 >  }
 >  
-> +long cf_check cpu_up_helper(void *data)
+> +/* Exit UC mode only if all VCPUs agree on MTRR/PAT and are not in no_fill. */
+> +static bool domain_exit_uc_mode(struct vcpu *v)
 > +{
-> +    unsigned int cpu = (unsigned long)data;
-> +    int ret = cpu_up(cpu);
-> +
-> +    /* Have one more go on EBUSY. */
-> +    if ( ret == -EBUSY )
-> +        ret = cpu_up(cpu);
-> +
-> +    if ( !ret && arch_smt_cpu_disable(cpu) )
-> +    {
-> +        ret = cpu_down_helper(data);
-> +        if ( ret )
-> +            printk("Could not re-offline CPU%u (%d)\n", cpu, ret);
-> +        else
-> +            ret = -EPERM;
-> +    }
-> +
-> +    return ret;
-> +}
-> +
-> +long cf_check cpu_down_helper(void *data)
-> +{
-> +    int cpu = (unsigned long)data;
-> +    int ret = cpu_down(cpu);
-> +    /* Have one more go on EBUSY. */
-> +    if ( ret == -EBUSY )
-> +        ret = cpu_down(cpu);
-> +    return ret;
-> +}
+> +    struct domain *d = v->domain;
+> +    struct vcpu *vs;
 
-...unreachable code, which - for the case when RUNTIME_CPU_CONTROL=n - won't
-even be rectified by the next patch.
+const on all three pointer target types. Then, together with the function
+prefix adjustment discussed on the other sub-thread,
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
