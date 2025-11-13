@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87248C57C83
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 14:51:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1161613.1489525 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EF99C57CAA
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 14:52:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1161624.1489535 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJXio-0002pa-HB; Thu, 13 Nov 2025 13:50:46 +0000
+	id 1vJXke-0003dt-Ru; Thu, 13 Nov 2025 13:52:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1161613.1489525; Thu, 13 Nov 2025 13:50:46 +0000
+Received: by outflank-mailman (output) from mailman id 1161624.1489535; Thu, 13 Nov 2025 13:52:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJXio-0002mW-E4; Thu, 13 Nov 2025 13:50:46 +0000
-Received: by outflank-mailman (input) for mailman id 1161613;
- Thu, 13 Nov 2025 13:50:44 +0000
+	id 1vJXke-0003bE-P3; Thu, 13 Nov 2025 13:52:40 +0000
+Received: by outflank-mailman (input) for mailman id 1161624;
+ Thu, 13 Nov 2025 13:52:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJXim-0002mQ-FD
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 13:50:44 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1vJXke-0003Zf-At
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 13:52:40 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bf62823e-c097-11f0-9d18-b5c5bf9af7f9;
- Thu, 13 Nov 2025 14:50:43 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-b727f452fffso313236566b.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 05:50:43 -0800 (PST)
+ id 049ec015-c098-11f0-9d18-b5c5bf9af7f9;
+ Thu, 13 Nov 2025 14:52:39 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-b7277324054so110307166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 05:52:39 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fa812a3sm170869166b.8.2025.11.13.05.50.42
+ a640c23a62f3a-b734fad41f1sm170250866b.23.2025.11.13.05.52.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 05:50:42 -0800 (PST)
+ Thu, 13 Nov 2025 05:52:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf62823e-c097-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 049ec015-c098-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763041843; x=1763646643; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763041959; x=1763646759; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+xBESS9IJ6pA4wD0WSdVGAVC6FPHQN7vpy3PvXdxZY4=;
-        b=c4XFT/an1brDOhl8nUr8tj1wq5ge0Kwbm2uLNh0q9xzFRAV4HiZ+zeZ1WW0T7fIj7W
-         /WJvQAXp2tU4aqcF23w7deC29q5phIA14A+QSEWlM3GAyVY1TaNwh39eCq9Vn9bXPEyo
-         pdW4vfaidLHNzLgy1Omcca63W+hFOCtoWr0I5E4ZBzZ8XvFaM14DBkmh3PeK8fJ2ly7p
-         L0TYZvRCnxVyfFe9QCxtj81xZWNnKMHrMlmpQIV4/3itTBToC6R62AXFkbFOkPjhl2iS
-         5fDMlSewiMzCQrq9aXSmMgpb3KXCK5J+3uf7A9jZikrbNqZYH8B0zAXtgF0+k6PAxsy1
-         bJbw==
+        bh=UVemUlllDfBryrBvzeX7gVYUoPR7foaMqOYSznVSXTk=;
+        b=OrX52a4ti6QMBA37eAsOaHrrWD9OGqtP/8MqM4KTIS0vWArQuXU5aAAPhnGNaK5Dia
+         8HV6/5/1OrILPuzjOXswpcKaauOCsuGEVln5qimLzsaaiDVLKH/Cv39ja9z6KRdZfziV
+         mvJuzLspWWkTRylguAEtOaErYN9gW3gzOhWC3PuCoWtGGBO7S7isBHBSf2wBgQr8fvNH
+         o6H6O0WFVm6ygYine/Aq3QyrPPr/9+CGPhy6LWpQ5DsX5IqfKaXasJ7xeQD8JLCFf47S
+         BGn/GsTnz8o+swC/k83CK4hPwNssGtD4aSVOuatpq84qIopMewxcggDKjR1PYHfkytBJ
+         AbLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763041843; x=1763646643;
+        d=1e100.net; s=20230601; t=1763041959; x=1763646759;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+xBESS9IJ6pA4wD0WSdVGAVC6FPHQN7vpy3PvXdxZY4=;
-        b=Z3wR1oVAVgXr7ae2uAepGQy3bY4yVMwN0nfztKRd7lSGZT8ADAs8oxNq8yWmvOGYvh
-         gAi+H0QMbr7M5x0cnL8E0A0oc68UJ3caIOdfRIRTGzto043BMfI2k1bcJdxO6m0nPqcY
-         3/C3QwCu/6azESS1Q/T2lpoyV9ZEpwSDFHkN/UZj12abT7ENdB/nEyDDoMoPDWbAujZM
-         VJtFx35pcmYu/eFPiBbF+Snb7cAlzuuMTNnoGd/29heBAV+7LNtNaYqBnR+UeYeNnDWE
-         Yt5Nl5OzpSZLdB7USpPFOQhAp5c2api6EXEGBkT+4i30HKdFHloDo1PNu51WM2Oz8xsb
-         7skA==
-X-Forwarded-Encrypted: i=1; AJvYcCVDwXT55B6cnw25YugFckTsy88XU67KPNHGre0XkeroJE7+GwQcB4m4yzDoyqDksKK0UqtRgPEFq1o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxcox4dwDhXYzJ/RVGyWD5T1WOu0LuVxUR5lhokJzdCVHdNCKS6
-	V/Y4XatTTuq+1UfCcJxwrQe3QTB/gkpCxReIHh2GeoGejp7kbAAyJo7JC0TzgHhwyA==
-X-Gm-Gg: ASbGncs5HDkFbzasOwM3SSSGOP2I5iPmRr0Zt6EpK03vD+bGxYa7O4/uAh+pxlVGsav
-	32jjP8zwwccnU4EFz4KUv73woKtJnIYtagPevruR4RSKhaDTa/hOssxJd7ew1fa33EkEZZvucO9
-	bjHzk3T4wYBqVrT4tDNdmNvzt145cMVvVM2J3wEjbFdES1BVPA+di/ry+vAlPD2j+IwvsZDD5QT
-	ansnQsrDBlwkMesIhNI8Ht5ev+lZ4/BDYHvm2nD2Qximy9eU5qo9vlm1KCNwAShhK9b+JGBTLX/
-	W2omwiFvf6VdnFmP8Ah+/DxN3oj7WXw2Kh+YouyDaVHL7OE6nWh3kISjd9OAmqJDdYs8TSBMGgh
-	vAXFHnLo72DuTlbpc1KPvujafBWFqFaHL3Kp0P5WjSx5JCcFl+CAq15zTdTmozso/L/j40sdio8
-	9TIWfHdX5HGiPqgx350Tz++xtuhiWJo9cjQyZi0+HOUC9bGhn+4xgkRrE1QFJglFp5
-X-Google-Smtp-Source: AGHT+IFceF58qKnk8aNNb1W6/0rY/MKEusc3pV6bpPIhwGp2GK50sr8/geb/VxqPrpiF8FdWnXiezQ==
-X-Received: by 2002:a17:907:7216:b0:b3f:331a:a982 with SMTP id a640c23a62f3a-b7348056d86mr305417566b.6.1763041842753;
-        Thu, 13 Nov 2025 05:50:42 -0800 (PST)
-Message-ID: <e16c5302-3ea8-4ce2-97de-4b891bca68a0@suse.com>
-Date: Thu, 13 Nov 2025 14:50:41 +0100
+        bh=UVemUlllDfBryrBvzeX7gVYUoPR7foaMqOYSznVSXTk=;
+        b=QekZAfr4S7uXQCRtaYt1GUpsj5CZAKkj2BdaogQdTtY95gr3pn+3lDh2kiP+nKo5Bb
+         FU6uUAbeJcT7DrcHaXUd+09eoYrLoPPRIQNuhAM52InO++3TRy9xAuL8WQsSMfJZ6kFu
+         vssTiR29YayImY1Hr5RFbZm+nAeZ6Oxw0zimceHW6R7yv4e5iBcCkO5SFlq2O+4n2xDc
+         0r5U0KifPR7zhdztW6q+GZy1Q+8sM+EhSKzNAZwmFHSrlAWrCqeP49h0jM3sBB/nVaLA
+         EGUiJ7BKFFdrpe4ZKs4pIS+jT9UMyT805ivOxjFgH1J2mOEqWn4l+5W6fFMKrvSuAGAr
+         sLfQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVEyxKnLKLBOR730VU67cvPhiQ7iVhqgVZyOwuxvRY2tPmTsIQbJiWgRvCox8hLRwSYrJaLVLhOj4Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz0H9X2HQUJeSe1inlAJdhetWDjbTZLXRI/RmTWtX0QbvfXGWHy
+	QE+zkty35jV8OvIpOxFgFqKMU5dvhEBlYLsN0m6zI2Xh01QjbUVCu09amMC+vnsOtw==
+X-Gm-Gg: ASbGncs6mW06aScNc86RRAAUivf1swIpMBr/pQnVT6jDS3dxfwWgm9oKOB807aAqtWX
+	zU6254FJznw0MdhzhD6pYlqNsxV+05az7jb8iRVmfXW/0ZGjUyBSYBsCetOUIPdFjxZHqsTTLp9
+	jfdIrHwJYF8+nSW4P728ZeWyjW9bZPPnUHv9CUEnqvYhXly+svRRiHZL/HJJemscNmmVi6WV3lX
+	7z2bS0mvI6/LQjLxPbblG25OjoCs+xMWS4pIUG/7RaWNHD6rqWj5kak2AXSHDem8weAopA5789Y
+	AZWKrSlHscWGtyJolwQY85b4N1g2CpAWH9OJvmBMZoaI5v4kZ+UqJkxAfnrn8dB592SogY7cnHh
+	JU2e99z1ymwe+uegm5KGcggHifd6We9uCiVuqtmLB1IVr5uMVftZ+rsHWQUVxe5Csoqv1XY4sqC
+	1vNEWEfMahhYzFAAR354izIFdr4AvuGDJDs/vyIGm/rqn/y7n18i2Rg2QyvyoXnw70BNTZjc14n
+	CY=
+X-Google-Smtp-Source: AGHT+IFSlQwmWu3aqzfR7TlRZQM2UthORwcOmWU34KumKfYFprcjLOG+c8X8ReK7MMZblVzpX3qUTQ==
+X-Received: by 2002:a17:907:7290:b0:b73:53ab:cfa1 with SMTP id a640c23a62f3a-b7353abdf18mr256960166b.17.1763041958857;
+        Thu, 13 Nov 2025 05:52:38 -0800 (PST)
+Message-ID: <77044bac-e343-4c04-ba1f-11446ffeeb36@suse.com>
+Date: Thu, 13 Nov 2025 14:52:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH 4/5] x86: pvh: allow to disable 32-bit interface
- support
+Subject: Re: [XEN][PATCH 5/5] x86: constify has_32bit_shinfo() if
+ !CONFIG_COMPAT
 To: Grygorii Strashko <grygorii_strashko@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -98,7 +99,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Jason Andryuk <jason.andryuk@amd.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20251111175413.3540690-1-grygorii_strashko@epam.com>
- <20251111175413.3540690-5-grygorii_strashko@epam.com>
+ <20251111175413.3540690-6-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,31 +125,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251111175413.3540690-5-grygorii_strashko@epam.com>
+In-Reply-To: <20251111175413.3540690-6-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11.11.2025 18:54, Grygorii Strashko wrote:
-> --- a/xen/arch/x86/hvm/Kconfig
-> +++ b/xen/arch/x86/hvm/Kconfig
-> @@ -2,7 +2,6 @@ menuconfig HVM
->  	bool "HVM support"
->  	depends on !PV_SHIM_EXCLUSIVE
->  	default !PV_SHIM
-> -	select COMPAT
->  	select IOREQ_SERVER
->  	select MEM_ACCESS_ALWAYS_ON
->  	help
-> @@ -70,4 +69,22 @@ config MEM_PAGING
->  config MEM_SHARING
->  	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
->  
-> +config HVM_COMPAT
-> +    bool "HVM 32-bit interface support on 64-bit Xen" if EXPERT
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
+> 
+> Constify has_32bit_shinfo() if !CONFIG_COMPAT.
 
-x86 Xen is always 64-bit, so I don't view it necessary to say so explicitly.
-
-Imo the whole construct will want to move up, perhaps ahead of HVM_FEP.
+As already indicated in reply to another patch, drop the field altogether
+when COMPAT=n, having the macro simply resolve to false in that case?
 
 Jan
 
