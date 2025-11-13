@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AB77C56861
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 10:14:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160762.1488816 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34E79C568AD
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 10:18:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160776.1488827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJTOm-00077P-Jv; Thu, 13 Nov 2025 09:13:48 +0000
+	id 1vJTT3-0007kR-6k; Thu, 13 Nov 2025 09:18:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160762.1488816; Thu, 13 Nov 2025 09:13:48 +0000
+Received: by outflank-mailman (output) from mailman id 1160776.1488827; Thu, 13 Nov 2025 09:18:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJTOm-00074o-HI; Thu, 13 Nov 2025 09:13:48 +0000
-Received: by outflank-mailman (input) for mailman id 1160762;
- Thu, 13 Nov 2025 09:13:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vJTT3-0007iH-4F; Thu, 13 Nov 2025 09:18:13 +0000
+Received: by outflank-mailman (input) for mailman id 1160776;
+ Thu, 13 Nov 2025 09:18:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJTOl-00074i-BJ
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 09:13:47 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0e98df83-c071-11f0-9d18-b5c5bf9af7f9;
- Thu, 13 Nov 2025 10:13:45 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-b728a43e410so85292266b.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 01:13:45 -0800 (PST)
+ id 1vJTT1-0007iB-Kb
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 09:18:11 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id abcba1c5-c071-11f0-980a-7dc792cee155;
+ Thu, 13 Nov 2025 10:18:09 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-640c6577120so1030376a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 01:18:09 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fad45afsm123420266b.24.2025.11.13.01.13.44
+ 4fb4d7f45d1cf-6433a497ffdsm1016727a12.21.2025.11.13.01.18.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 01:13:45 -0800 (PST)
+ Thu, 13 Nov 2025 01:18:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e98df83-c071-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: abcba1c5-c071-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763025225; x=1763630025; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763025489; x=1763630289; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kQOSH/xsrnviIaxP4tMdhE9UpPXE9h9HanA6W7ECFMw=;
-        b=SNTzuSJkpkbIbhTNmItN1goaETsfSeu4hVMPtSOVE2v3vv/w7EL5rZF0sbCtTWdjo3
-         YQcl9WI8kClg5JcWkv3us18sIkeJaDnPAKbpcC4UteJwLlxQye3bLTKaAthm05QkCgmg
-         DpuLR3uHFDz8gTpi6w4eruoYLFEQZczh7K3jC3q/iOJ0jZirVAasdWCDV0YlxkiuoJW9
-         iPe1HGy4yk0DvlCOu2rOebmIZQ1dVh3wnt44fYTwSoxMCp6WZKdLTX9l83xbPWoQ3wIi
-         53dKvwQEOsKP7sSVukwOH74ipu1YzMjkidp9aeZJcAQVuUbut9rtEFo7tut57xHA5cRI
-         ZlZQ==
+        bh=SV8Y/QsOuXLF5oLXrwfPXc6plXQC0djuVsHcadHB8tA=;
+        b=Kvc8GeWsAVSiA8K34xRqdJ6MfOJQsURPY8lSAoQuwYoY5UzSpmkSI0v6ptDODrO2wi
+         Xly4OzospuEu/O5dNNf3/IN1j15UU3x76BSrAfe3h6hcLWqXphaJrTJ8+oscvaDUiSkx
+         m1zZfcLj+XkPQTDsN/7Ra/SszD7+MA23iUiSS7cakIim0ZaPTlBA/n1lzOLwv3YqB3aD
+         IqckX/l4cgg9Aq2kTK/DE8mMGsyKGugIRwxIuTKCd5EPaz538mhAfCZFiQaUqS2WMbQv
+         gjTSQP006uniP1foJGXBaYJMRG6otVQW35Hb1o3LADuRD+xRZaZwDlK9r4sf0ztyrJP/
+         AmsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763025225; x=1763630025;
+        d=1e100.net; s=20230601; t=1763025489; x=1763630289;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kQOSH/xsrnviIaxP4tMdhE9UpPXE9h9HanA6W7ECFMw=;
-        b=UGk0m1oOQJwgNKAJ4ROnUe9OCfAjzIY+pMUC0u5Ou4nH/YG9X9HVE0AuT2iZc/n9eI
-         lB0u2iCxOZPHhj0TK9daYkd/cC2xiKmFFUiWbUlJEUthgSJRsmHbq5rJHqewd01diVms
-         5WR6FbcXww+vDBSKun4C4wUgaEQDQRw315XbsjJpwQMl1LcM4COk8mlPTgfjRN/XszgJ
-         pjx6kV4p7vABhNp+pgLp/2Ndz/Mt6CChJ5pJzDdDCBuq//3qMO8++R7NkgjeCuSH2YMN
-         OrO1X9faypqL5Zq38xAqL0bJfosLJyoxOsNWx5FK77hzOHP+xZcwbwSCnXovA2xIQ6R3
-         NzCA==
-X-Forwarded-Encrypted: i=1; AJvYcCWpIfA9PS313JZ0B8gkbh9/PfUyu++vDbkQLEUjO3cBOj9o+mJR1M16h2CM8lTEXGHQGK9TYkr7DPk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw3Wbu0q89EjkCZ7ckiSyHsLQjWKkKZq4lBrEnB8wpo6HmuARYm
-	0hwm9Ivoubyn+2IaujmncJNZflHTHNlFsjiRkdu1E/XnCvpllEjDHPsJ9EliNzQN5w==
-X-Gm-Gg: ASbGncs58TYEYi+jwr3lgdRAcSPOw5bbQ33UpwWL8mj2074mWBIAoC2onNnnUvVmbwZ
-	zDwBt70z/D3effV/kfxDlj8B5mtJWwjVhJFlo/27WY9DsDkCK/pdsLYMq8tDs1vUnag9LlQanJ3
-	7wE86r5vKeuffxe79BFxFNHafsPeP1FaBrv8LQz2NaksqOpu+2OJiRnioDBpi9sjklFhORxbpyb
-	SWePxjegpcwFXVY92mbSrrHn/dbBemyueLwkQ7BwIWR9euRNfqvpVWm3hLiEhQxzCoU+Lu6gRYf
-	7KosqbCyjdb5KtSPtVoXnzT8P6XN/8JgYGX0B3Hced4gMmIV9yyM1SXozLjJUAz0uI+qc8ccrkS
-	NHfgdLjkNvkPpfzZs/kmX3fFA3Ei+AC80X8sdCoZD3pe6R1Bpl7WslVonERWHHOXFUDJmciGsot
-	nYMdloc1C42nUSd23IHGJABNIqKSwMDs4GCd3KbXmTDexXVHN0VrwexqWEtffXs27sP2UmkA5fT
-	3Q=
-X-Google-Smtp-Source: AGHT+IFLdyltBls2Zc3flTeMOJCRlcmvRpa6+xUfrYynpSRcOCO+cwkKc0UVDonEp3n9STRI780Igg==
-X-Received: by 2002:a17:907:d644:b0:b72:b7e1:5c90 with SMTP id a640c23a62f3a-b7331a838e7mr597080866b.34.1763025225266;
-        Thu, 13 Nov 2025 01:13:45 -0800 (PST)
-Message-ID: <8c74b068-ba9a-4867-8d39-31c77f3cc339@suse.com>
-Date: Thu, 13 Nov 2025 10:13:43 +0100
+        bh=SV8Y/QsOuXLF5oLXrwfPXc6plXQC0djuVsHcadHB8tA=;
+        b=BGQcsjSeWeYgQDW9XpEM1Z7g2KCXXAlHHlghnenZFozhpNGFtXlMnrP2QdAKMdYCFR
+         fUR8pLfMjlnvXPtwJEsleYDg3n7PBTZ9+5ECtAphvD82UYFbfK7d4ILRUKfjO+YbMFk6
+         4oDY5y3fiCftRhMK2TIznchOmM9hgwMu3I1sDKSd5T1vrUygZm69oK4i8lPXIwmncwr7
+         6ts9RrZmWq98XTaiZFFpj2c4eLpI+4YqnrtvZKBRtdY1gK1fCw6r+Bv4JkNvYhZvpfR2
+         yk9UbvgsdntrfviWZ1cs1k4x93WnkrM4pUMKM7BwHf0uA1q4F9wKBmOwlKn9zg9jnUva
+         YCLw==
+X-Forwarded-Encrypted: i=1; AJvYcCVfvUvUmBFPteneylNbJZw8JjvLM4UATre7pQkq0KF/nuygYXGBd19MxNZSFg6+Tt/NTObu0giozOk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzklfzzB+dftgM2fUrYZvK2O042mbn23ZxM2EYKswKlA3TubSf9
+	4YVlCz0ovXt0Uzn/cbdZ0HcNeZhUUud0nCKDZb5cg3AMh7/V7YSmeHW8k/QSOxH+iw==
+X-Gm-Gg: ASbGncsbpHZGRQteI1Z8Pf1Wx9Sjd+dC83Fc37GjDxw//ya2f/QFXrMtNw7w9/Kg6jv
+	MJcNmucx5/C6r5w8bUR1JgD2fE/4371VFI11KHwlkrXX8TIxP1KHebOvW4wDYDnRXtAy17Bpj1L
+	obQSBtxy4a9TMtKl9SkzRXHUShyYifu6DfN2ZX+qZBJY8lYmfxSQlvEK6sk2tJA/hTjmtoM9lJS
+	wIC33Zr6WODAW+G4KIi+ChA6NsfGYQ3g10JT3/3DEcsKjQa1ScufuQ5SHIqk1gD0H1ekKpkBSR8
+	VjXyR3KlSVZRhE7DYWdlYi/XYB6GpI4AZH+0cuzyaSZ3aCftJ2IrtsJ6TqamW3eLKWhAbr0vdrb
+	RIgRb72PBePjTXEdLIsdVNDFc9seco8th/eGSCyaE8E37wBhx1TvjcLpxHgmyi672chaiSSHLpb
+	oJRhVAsgDeRgid5+K1ffK1uDKCckMZKTEBBkBjjMsBYFAB0suhJfRtq4dbA1B+wa6YZLWWk0zGP
+	/c=
+X-Google-Smtp-Source: AGHT+IHfj8KwgMeyLIbHR87rzTVNwKv5Gq8srGMKk+ANr/RbrDmg7w1eZa0fYmBaM4lT33+lMFwweQ==
+X-Received: by 2002:a05:6402:2106:b0:643:e03:daed with SMTP id 4fb4d7f45d1cf-6431a49e91dmr5103948a12.1.1763025488974;
+        Thu, 13 Nov 2025 01:18:08 -0800 (PST)
+Message-ID: <e443bbe9-e2ac-42c7-803f-2017848c4f58@suse.com>
+Date: Thu, 13 Nov 2025 10:18:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/7] xen/vm_event: introduce vm_event_is_enabled()
+Subject: Re: [PATCH v1 3/7] xen/monitor: wrap monitor_op under CONFIG_VM_EVENT
 To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Jason Andryuk <jason.andryuk@amd.com>, Tamas K Lengyel
  <tamas@tklengyel.com>, Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>,
- xen-devel@lists.xenproject.org
+ Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
 References: <20251113031630.1465599-1-Penny.Zheng@amd.com>
- <20251113031630.1465599-3-Penny.Zheng@amd.com>
+ <20251113031630.1465599-4-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,117 +123,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251113031630.1465599-3-Penny.Zheng@amd.com>
+In-Reply-To: <20251113031630.1465599-4-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 13.11.2025 04:16, Penny Zheng wrote:
-> Function vm_event_is_enabled() is introduced to check if vm event is enabled,
-> and also make the checking conditional upon CONFIG_VM_EVENT, which could help
-> DCE a lot unreachable calls/codes, such as hvm_monitor_io(), etc, when having
+> Feature monitor_op is based on vm event subsystem, so monitor.o shall be
+> wrapped under CONFIG_VM_EVENT.
+> The following functions are only invoked by monitor-op, so they all shall be
+> wrapped with CONFIG_VM_EVENT (otherwise they will become unreachable and
+> violate Misra rule 2.1 when VM_EVENT=n):
+> - hvm_enable_msr_interception
+>   - hvm_function_table.enable_msr_interception
+> - hvm_has_set_descriptor_access_existing
+>   - hvm_function_table.set_descriptor_access_existi
+> - arch_monitor_get_capabilities
+> Function monitored_msr() still needs a stub to pass compilation when
 > VM_EVENT=n.
 > 
 > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 > ---
-> v2 -> v3:
-> - move assignment (to ev) past the check.
-> - remove redundant check
-> - make "may_defer" & with vm_event_is_enabled() and have assertion back
-> - add vm_event_is_enabled() for hvm_monitor_xxx() in svm.c/vmx.c/mem_sharing.c, then later there is no need to add stubs for them
-> ---
 > v3 -> v4:
-> - move "may_defer" & with vm_event_is_enabled() to the very top of the function
-> - use ?: to avoid introducing a new local variable
-> - fix the wrong order
-> - use pointer-to-const when possible
-> - use IS_ENABLED(xxx) instead of #ifdef-block
-
-This is irritating, as the subject (bogusly) says v1.
-
+> - a new commit split from previous "xen/vm_event: consolidate CONFIG_VM_EVENT"
+> - Another blank line ahead of the #ifdef
+> - Move hvm_enable_msr_interception() up into the earlier #ifdef
+> - only arch_monitor_get_capabilities() needs wrapping, as this static inline
+> function calls hvm_has_set_descriptor_access_exiting(), which is declared only
+> when VM_EVENT=y
 > ---
->  xen/arch/x86/hvm/emulate.c          |  9 +++--
->  xen/arch/x86/hvm/hvm.c              | 24 ++++++++---
->  xen/arch/x86/hvm/svm/intr.c         |  2 +-
->  xen/arch/x86/hvm/svm/svm.c          | 54 +++++++++++++++----------
->  xen/arch/x86/hvm/vmx/intr.c         |  2 +-
->  xen/arch/x86/hvm/vmx/vmx.c          | 63 +++++++++++++++++------------
->  xen/arch/x86/include/asm/vm_event.h |  8 ++++
->  xen/arch/x86/mm/mem_sharing.c       |  3 ++
->  8 files changed, 106 insertions(+), 59 deletions(-)
+>  xen/arch/x86/hvm/Makefile          |  2 +-
+>  xen/arch/x86/hvm/svm/svm.c         |  8 +++++++-
+>  xen/arch/x86/hvm/vmx/vmx.c         | 10 ++++++++++
+>  xen/arch/x86/include/asm/hvm/hvm.h | 18 +++++++++++-------
+>  xen/arch/x86/include/asm/monitor.h |  9 +++++++++
+>  5 files changed, 38 insertions(+), 9 deletions(-)
 
-As before - why's there no "x86" in the subject prefix?
-
-> @@ -3860,9 +3870,11 @@ int hvm_descriptor_access_intercept(uint64_t exit_info,
->      struct vcpu *curr = current;
->      struct domain *currd = curr->domain;
->  
-> -    if ( currd->arch.monitor.descriptor_access_enabled )
-> +    if ( vm_event_is_enabled(curr) &&
-> +         currd->arch.monitor.descriptor_access_enabled )
->      {
->          ASSERT(curr->arch.vm_event);
-> +
->          hvm_monitor_descriptor_access(exit_info, vmx_exit_qualification,
->                                        descriptor, is_write);
-
-Stray (and not really necessary) addition of a blank line? Did you perhaps
-rather mean to remove the now pointless ASSERT()?
-
-> @@ -2907,16 +2914,19 @@ void asmlinkage svm_vmexit_handler(void)
->  
->      case VMEXIT_IOIO:
->      {
-> -        int rc;
-> +        if ( vm_event_is_enabled(v) )
-> +        {
-> +            int rc;
-
-With this the outer figure braces introduced by patch 1 can also go away again.
-
-> @@ -4703,16 +4711,20 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
->              };
->          } io_qual;
->          unsigned int bytes;
-> -        int rc;
->  
->          __vmread(EXIT_QUALIFICATION, &io_qual.raw);
->          bytes = io_qual.size + 1;
->  
-> -        rc = hvm_monitor_io(io_qual.port, bytes, io_qual.in, io_qual.str);
-> -        if ( rc < 0 )
-> -            goto exit_and_crash;
-> -        if ( rc )
-> -            break;
-> +        if ( vm_event_is_enabled(v) )
-> +        {
-> +            int rc;
-> +
-> +            rc = hvm_monitor_io(io_qual.port, bytes, io_qual.in, io_qual.str);
-
-Make this the initializer of the variable?
-
-> --- a/xen/arch/x86/include/asm/vm_event.h
-> +++ b/xen/arch/x86/include/asm/vm_event.h
-> @@ -45,4 +45,12 @@ void vm_event_sync_event(struct vcpu *v, bool value);
->  
->  void vm_event_reset_vmtrace(struct vcpu *v);
->  
-> +static inline bool vm_event_is_enabled(const struct vcpu *v)
-> +{
-> +    if ( IS_ENABLED(CONFIG_VM_EVENT) )
-> +        return v->arch.vm_event != NULL;
-> +
-> +    return false;
-> +}
-
-Simply
-
-    return IS_ENABLED(CONFIG_VM_EVENT) && v->arch.vm_event != NULL;
-
-?
-
-I guess I might as well do the adjustments while committing, even if it's quite
-a few of them. In any event, with the adjustments
+Same remark as for patch 2 regarding the subject prefix. Then
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
