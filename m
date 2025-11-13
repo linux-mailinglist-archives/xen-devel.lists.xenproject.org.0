@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A77C2C573F0
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 12:42:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1161079.1489095 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF98FC57447
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 12:50:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1161090.1489104 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJViu-0008EY-Pp; Thu, 13 Nov 2025 11:42:44 +0000
+	id 1vJVqW-0001Ny-Fx; Thu, 13 Nov 2025 11:50:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1161079.1489095; Thu, 13 Nov 2025 11:42:44 +0000
+Received: by outflank-mailman (output) from mailman id 1161090.1489104; Thu, 13 Nov 2025 11:50:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJViu-0008Bf-Mp; Thu, 13 Nov 2025 11:42:44 +0000
-Received: by outflank-mailman (input) for mailman id 1161079;
- Thu, 13 Nov 2025 11:42:43 +0000
+	id 1vJVqW-0001Lu-DK; Thu, 13 Nov 2025 11:50:36 +0000
+Received: by outflank-mailman (input) for mailman id 1161090;
+ Thu, 13 Nov 2025 11:50:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJVit-0008A3-Oh
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 11:42:43 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1vJVqV-0001Lo-9V
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 11:50:35 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dcdf7a7b-c085-11f0-980a-7dc792cee155;
- Thu, 13 Nov 2025 12:42:41 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-b7272012d30so105799366b.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 03:42:41 -0800 (PST)
+ id f5169967-c086-11f0-980a-7dc792cee155;
+ Thu, 13 Nov 2025 12:50:33 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-640c1fda178so1193348a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 03:50:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fad41f1sm148215466b.23.2025.11.13.03.42.40
+ 4fb4d7f45d1cf-6433a4b2155sm1287405a12.29.2025.11.13.03.50.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 03:42:40 -0800 (PST)
+ Thu, 13 Nov 2025 03:50:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dcdf7a7b-c085-11f0-980a-7dc792cee155
+X-Inumbo-ID: f5169967-c086-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763034161; x=1763638961; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763034631; x=1763639431; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0JsZdpK/1Z+0O/oXuUGPHfNJlMFWbGPTk9aOGow34/8=;
-        b=SwBtFCm9ISv4AjGognYCaO/ao3MS64zbG9k679666AWNLIcZwfnBn/IddySvaPcFrl
-         YCVb+AzT0oh4hJDtjvvTJbpN8nFfo6eZi+yU3AXuT7+/3AvPK/7yywf+1yfFuuGI3ysa
-         VhZ60LzaMCEf60QD7i2pi2As8JZ8SHMSM04fVzLYCl776ziRIurfPKXgb3M+ZYMgVPx6
-         fSKGIMqrao0TMvCAvYu0O1sDFt4HlCtcwlwGFTkoyRDB+e7bX5zEEUHcvJccWoi/4+nD
-         av/OMO9rxIC6bYzfd1IaE1xNmSyNiL/3xPuyHz3NQIxoWgP3foyyK2OLjZfZyiFXaIG9
-         m1Aw==
+        bh=zCQyhlYxpZcCq/t6A4KQwqoBcvSUZzjN81//0doSuEA=;
+        b=VPMklaVJkClz4ssMXopEJJi1FII1A/fP1fY8C9JMsH9KFaGFnM9p8Or/TPTgTGzrTQ
+         ix+Fw218kQg5exRi7/JKcNEpqQ6B6neqRBYxdc/xDHMYDyD/qqR4Hviwf8GM1T8wqSS9
+         ja12Pv/DP2Yec5Qa81EJa5ZGKGakEalbj0SJR4DozfZQpmBp3mqslxnGwO9DsmkbgxrM
+         x41HEd60G+qjViD7xNXTF3iAo0nk4u5GvDOJem3brW+YjyiFr24tzmvi7PBb1B5m7AAO
+         BArVV0XjGa92yYdQjbd/3wxMb66LCq0FGYBOkVlXoCFg9/k65470V2nyYY2k83XGGwLt
+         Ta3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763034161; x=1763638961;
+        d=1e100.net; s=20230601; t=1763034631; x=1763639431;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0JsZdpK/1Z+0O/oXuUGPHfNJlMFWbGPTk9aOGow34/8=;
-        b=Lxns1MvY3jQVcOFCUTarhpLPX5d3EQDWzjxeqsUxaH1z30mQt4lV7u9t3C0N++ywbT
-         93ABEDVomlhOSinwxvZf5Xd3fH3OoGMPK1NsXVRvrpuCrPeZ6DW6uPzDsiEHVX592/0W
-         pLoj9gyMo3DyHYu6vxvgbS+B5q+bIAjRgnzp812uYWFoizYG4xKKAmTe/tuVUArS6z5M
-         2rywzRnjngEhdUVx/NbHDo5Fp+LIKjeVdM/BzxpkpTFSpCHu2+4/qdxlRDE6k8JrGvMY
-         ot4OdnazFjfzLkHc2+cHDZqVf3ANjzXCSTS51Gf830dvIQeAeCrLY/lugJW5KskMXzK9
-         rfeQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXrZO293sBnfS6015vihrjHNRGRSqDSkJdKL+B9HHDxV7KyyxpQ8PJ1E6DREtXQbWv+i+wigeHwkU8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzQZMWac5QE11WLdmFoubGeW2aSZvMyWabsnLiDEFmx5uWFCWWf
-	kTxQ5K/9TbsqagwwkeIAlqjQ9dVs4MwTMjBL1h3pJXXV6LpxPDnba3me2Nnplfp1sw==
-X-Gm-Gg: ASbGncvws+frpguFRgfVLqUv9Xy7nJ+mePEQkgNE24HkN+g1kXdwzoeDaUlP/0ghXVV
-	LhSaMzPmb2KhLETsoCgooXqkrYyAljXygtjcolmV4GgDyrBjubIPMQfCg2YlsKr0botxntOUEqP
-	BXoKP4BXRH1yuLw3MlB1GedonaZZtL+nwPegqT0CvUORoaEG86rj7c0cgh4rOQSLbgQ5bp3X5ld
-	+VRaNRyLFq4/Tlb8FkmG9LXOCaVY35YrSF/JQmj2D5941aidQ+uHvjevDIQuZGljSH66oRc9UwH
-	9Ngi+h3QSbBc14nVx2dzl/7UYIhr1h6ZSCfCwKXPjE5X+HZO/xRw0yY+jme0C7A8Q7T1WCb8bN+
-	55UoGhCh68vUv18zAChRNO0TcisSD4SP99YQkILv3rDWH3dIkZDuLoDAKxSReP0McdJnUo+/dfc
-	HGQa36OsLbJuZpfjLY+KUAFaJ8vYts8DdEeuVQ6uzawUhpShmmniIgygRE2fu5M/2t
-X-Google-Smtp-Source: AGHT+IESisLcBx5UZ8r08HujXcYEYCIXKuGRkiHNaBtyJl7Pzlb3eJs1LkIkqHvZtKGRAA2VSUT55g==
-X-Received: by 2002:a17:907:6e8a:b0:b72:c261:3ad4 with SMTP id a640c23a62f3a-b7331a7078dmr653785066b.34.1763034161339;
-        Thu, 13 Nov 2025 03:42:41 -0800 (PST)
-Message-ID: <730c6001-58a2-46db-95fa-c8ec2081d3b0@suse.com>
-Date: Thu, 13 Nov 2025 12:42:39 +0100
+        bh=zCQyhlYxpZcCq/t6A4KQwqoBcvSUZzjN81//0doSuEA=;
+        b=izYkRi8r9Kb0GbtSFADw8xQujfpJ09aHGsdud8Tt9dBMUYDWcRYZX7krZgZJRbgU7N
+         Tg3nN4pAmwlZbFqN+AqNvq0sWGiQlpsSnsPYS8Pewr6CuF5Z95M9BD6iQ/MSNbwMWMHF
+         6umWyjj7GVooaTBo3CGsVqoVXAS9W0XAg5rMnfdrvH1UEB32BI3SajE5UuPTXUmiRRlT
+         JL6ss7otxAzSlMr0hMyRyRaeJib1EKToo3Gi+rD2Hl82utJaYUgfyJGyBraNXza9s0dj
+         IJkOysraha16tsd9wyLv8rSkZ4X2MlHVJcSPu49Vp+BZujTQmUgcFoDe2H4s6zWHvXqG
+         Tstg==
+X-Forwarded-Encrypted: i=1; AJvYcCWmeeQvFcYXvnyyw/HD6B59D6oLcJN6wFova1tApFghgJBw0WWyvYFDcHkLBnaThSW8+FotF+mePCU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwoSlgZlzAcXU4XYRjTMdzuE0xcth5Aa8DgnCp/OTg5BdgJ6fFQ
+	ZjxTeu66f/7JhrVDMIRyKmVu0PSW4aSOy/d66RsYLm1Wv0N8DQsQWxF0dq1hR3Cxfw==
+X-Gm-Gg: ASbGncuFNJ/U+nVGYyX17eUFbAnzS2htBiSjinBNZBQTevcqAFYcvmBKFgaBSi0WVoy
+	N8h3S7ZByt+awwuiPPA22mglE2mkHNJGSqwZcRffHFU2hHRmw6KGlc97ZpAuJT4nHWr0cNuaLm+
+	N+MU5+KQUvhvp5aJqmeagsTV2Tx6nTT1cXiDTOoPozmTTOtXog4+RyQBQGpzpsN0vlaFu8FH8+D
+	KGrvzeMUwJFGlxISjRJ8ShFbzKNYpa955G8zBsCgVX5QT8ulk3PdPJH494joYHxB+vUlMxWdQ4l
+	Omo+JhJ4oE46/LcJHpJMu3USA7L7ECP4qgto3vlmVR19N/H6LxdXLYyujGoLHn+LuhHzQn1mHh7
+	04FvDlRedOIYwIIFvgfRfeu/s8TGlKRv49Ef5Xn5BVRADJedjQCM0MUdKgWGCxR0PIZ8MhkvTtM
+	oKPqYetVKICbHK2sA3krh4XR/kc2WeVG5wNMWcCLSnJSxbu+j7cMMY5TsRdNfjbO18pLv7DzTok
+	VM=
+X-Google-Smtp-Source: AGHT+IEIboc0S+e+9JX/ImrFUHfHIS9DDfUsS8tEtlJ1dBZKWHzPDvZdxijBlXlnOYejf4OAgNx/Ww==
+X-Received: by 2002:a05:6402:51c7:b0:640:c69b:8ecd with SMTP id 4fb4d7f45d1cf-6431a57647dmr5512081a12.25.1763034631295;
+        Thu, 13 Nov 2025 03:50:31 -0800 (PST)
+Message-ID: <5c08e298-3ef4-451c-b0f8-24f207a9d512@suse.com>
+Date: Thu, 13 Nov 2025 12:50:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86: Conditionalise PV-only fallback branches on
- CONFIG_PV
+Subject: Re: [PATCH 2/2] x86: Remove stubs from asm/pv/domain.h
 To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20251112152235.224001-1-alejandro.garciavallejo@amd.com>
- <20251112152235.224001-2-alejandro.garciavallejo@amd.com>
+ <20251112152235.224001-3-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,36 +121,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251112152235.224001-2-alejandro.garciavallejo@amd.com>
+In-Reply-To: <20251112152235.224001-3-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 12.11.2025 16:22, Alejandro Vallejo wrote:
-> --- a/xen/arch/x86/cpuid.c
-> +++ b/xen/arch/x86/cpuid.c
-> @@ -297,7 +297,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
->              if ( v->arch.hvm.guest_cr[4] & X86_CR4_OSXSAVE )
->                  res->c |= cpufeat_mask(X86_FEATURE_OSXSAVE);
->          }
-> -        else /* PV domain */
-> +        else if ( IS_ENABLED(CONFIG_PV) )
->          {
->              regs = guest_cpu_user_regs();
->  
-> @@ -509,7 +509,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
->              if ( !hap_enabled(d) && !hvm_pae_enabled(v) )
->                  res->d &= ~cpufeat_mask(X86_FEATURE_PSE36);
->          }
-> -        else /* PV domain */
-> +        else if ( IS_ENABLED(CONFIG_PV) )
+> They are unnecessary. The only two cases with link-time failures are
+> fallback else branches that can just as well be adjusted with explicit
+> IS_ENABLED(CONFIG_PV). HVM has no equivalent stubs and there's no reason
+> to keep the asymmetry.
+> 
+> No functional change.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+> ---
+> I'd rather remove the "rc = -EOPNOTSUPP" branch altogether, or replace
+> it with ASSERT_UNREACHABLE(), but I kept it here to preserve prior behaviour.
+> 
+> Thoughts?
 
-Maybe better leave the "else"-s as is and, ahead of them, insert
-
-        else if ( !IS_ENABLED(CONFIG_PV) )
-            ASSERT_UNREACHABLE();
-
-Happy to make the adjustment while committing, provided you'd be happy with me
-doing so.
+I think using ASSERT_UNREACHABLE() there would be better, in particular bring
+things in line with the {hvm,pv}_domain_initialise() call site. Preferably
+that way (happy to adjust while committing):
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
