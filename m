@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37FC4C57561
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 13:09:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1161111.1489119 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F28FC57570
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 13:11:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1161124.1489138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJW8O-0004Bh-27; Thu, 13 Nov 2025 12:09:04 +0000
+	id 1vJWAZ-0005oQ-I8; Thu, 13 Nov 2025 12:11:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1161111.1489119; Thu, 13 Nov 2025 12:09:04 +0000
+Received: by outflank-mailman (output) from mailman id 1161124.1489138; Thu, 13 Nov 2025 12:11:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJW8N-00049s-VS; Thu, 13 Nov 2025 12:09:03 +0000
-Received: by outflank-mailman (input) for mailman id 1161111;
- Thu, 13 Nov 2025 12:09:02 +0000
+	id 1vJWAZ-0005lK-EC; Thu, 13 Nov 2025 12:11:19 +0000
+Received: by outflank-mailman (input) for mailman id 1161124;
+ Thu, 13 Nov 2025 12:11:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJW8M-00049j-AC
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 12:09:02 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=EIX7=5V=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1vJWAY-0005l5-Hp
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 12:11:18 +0000
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c112::5])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 89b5af3f-c089-11f0-980a-7dc792cee155;
- Thu, 13 Nov 2025 13:09:00 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-64088c6b309so1289895a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 04:09:00 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a4b1dc1sm1366871a12.25.2025.11.13.04.08.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 04:08:59 -0800 (PST)
+ id d8d6066d-c089-11f0-980a-7dc792cee155;
+ Thu, 13 Nov 2025 13:11:13 +0100 (CET)
+Received: from CY5PR15CA0225.namprd15.prod.outlook.com (2603:10b6:930:88::26)
+ by CH1PPF2D39B31FF.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::60a) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.17; Thu, 13 Nov
+ 2025 12:11:07 +0000
+Received: from CY4PEPF0000E9D1.namprd03.prod.outlook.com
+ (2603:10b6:930:88:cafe::c4) by CY5PR15CA0225.outlook.office365.com
+ (2603:10b6:930:88::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.17 via Frontend Transport; Thu,
+ 13 Nov 2025 12:11:04 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D1.mail.protection.outlook.com (10.167.241.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9320.13 via Frontend Transport; Thu, 13 Nov 2025 12:11:06 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 13 Nov
+ 2025 04:11:04 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +56,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89b5af3f-c089-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763035740; x=1763640540; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fLrMAWs0s6+ymMs+8vjt6qBmgpso9jUTwbhGPgnA3hE=;
-        b=at5kQceFwrf6/n/HRSPWhcHwcS/cJ4+0Vx/hDjB5ITMy5ZFHKFsJX6zZcsYTd6CYjf
-         AA0R0aSpEJOscZ7SJVpNM+WkKsKVcbuOgfeEObI1o2YKw6TBTCksxi0uUQSHpkGyuJzg
-         SL4tQuz4HZhDC/wdXdLBPJjlyM2crB0o9QTTffNzHqpgKZno97/x1Tkf99pcn+TRuUsP
-         wna4TCkDetYTTsV2ODB8Xt99yU16vsYFQGlRRYYVaPgtUt67l96nxV2QJpmBALc6aN9i
-         /t3lB8trg71Ndofynh/NmPl7k+82hngmvL5stAUfCNB/Nak03B8oWQLrO0Yv4kK7EXhr
-         2w3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763035740; x=1763640540;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fLrMAWs0s6+ymMs+8vjt6qBmgpso9jUTwbhGPgnA3hE=;
-        b=FA19iIvaLgFPvpoEeDEwlKzMzQzZo+5O7tbvVdPVRnuuIbr3uSNcgN7zmzlLBJcXDH
-         Q6luo7K1i+cVxff1x0nBXWdVIy9PwoYgJP2EI7Rn0BjjrC7FeBVeleWV60H2NZ5fZaX9
-         3JNLnEOsVozMcnWDqcKB04k/LaQyer/8q+MGWi/V8JkbvQV5BhCuk3QFZY0vKJ0AIiLv
-         uUB5eVmD3L1W/wgJQ6JhwyNlYiqeNSlQgpGmU8OQcxUgnw0NCrO/wd8/MS7tIkcUhrQT
-         i4UKXIKuaM2gYyOZhg2nHuZAdbUQiE9MZsyPZMrZJ+mRP55kGd0pu3QNNmvH+ZEUBBth
-         7DMg==
-X-Forwarded-Encrypted: i=1; AJvYcCVa6euRfblFtM5xFg4kb8ovDnbnl0bQdfK4k1nigAJ86VlO4SpLszlefuvmV22vB5zhLdIh82AABLQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyyU2wc6s8vbSYZRJ5GYKMJwum3hTEIbvgzbBfJaVFNgmvq0wlN
-	UayvyzqnFnqc8fzFdUHZBmRJH9zEFm909HYHySGlL8sPLZ93NAnNyAGE7bP0uoAD8A==
-X-Gm-Gg: ASbGncsPcjT2tjiW/e/wWAMqywwPOXuNjcUP43WWb9qE7CvH8maN+giCYLIjBymCGoU
-	vfRMmUFDRydNMqtZvuY8qExXHvg1SyrAzsBWdq/alsuIJEk1L8u1v57vVRlw9dM4runUEvZW7bw
-	uEnJ6/MEyOS+/9gjIqfT5xUUW7EQh2juJo3njLBWTqR8ycF/LWauq0gK53m9lxBxVCAJDeHm2A7
-	PYM6HP1CfmAB4HYmSQZJoOMiYt4kZXanJ3ZMMU2ipZUdVqz91Wrkf9SznVdOOOYu//6o2LCgItN
-	55mUo88yzTGkoAb1e3uRTsnw+znoLzjY3GllXGz8ZsLOiQtF2aqu386KAX4YS/RYzQqQFfObEoS
-	YG0r27xkqJ0dFTfGa2Md/a7m//eWMX+PSm0Q67DC5frlbdqwCYmh1LxJj/fckJayRYmSXAhoWbo
-	RsB9DXB5DqjVl2z55OTTGtWkEYuBomEoJBKzR+o0NW3cDojVv9BEOu5xQ69cmdmzuNpCYTcPne7
-	Ls=
-X-Google-Smtp-Source: AGHT+IHlWwmTfH8MFoqObQdrxMO1/VC3mQ+uEU3nhmrlXnz/Rx8hEM87ZuHvL4PayOpe54BaIM6vRw==
-X-Received: by 2002:a05:6402:26c6:b0:639:d9f4:165e with SMTP id 4fb4d7f45d1cf-6431a5755f0mr5180651a12.29.1763035739600;
-        Thu, 13 Nov 2025 04:08:59 -0800 (PST)
-Message-ID: <75e6e27c-1d47-4689-a52d-e596de84db26@suse.com>
-Date: Thu, 13 Nov 2025 13:08:57 +0100
+X-Inumbo-ID: d8d6066d-c089-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HP3xMrWNj6zChVsM8ZLxyhLW22eRU3drpVMvNf9qleZV68LMFYSsP+zWDva4wODCHLfxOvNRoQ9v60VZKEjuA3rpSAKze3m/UOys2Vu2uxGMxNE9+OSv935AtI5jrF1/6gWlxKt7KUghB2vko6Zj03kSWwJ0PodYGaaUemubJtSSuG8mHXKX9x2PF5HUJibscmfRaHq6PYYyHLBLGWDA0qhuYB55uXgdyNM65xe/uMlAWiRh90tl18TgVCppY4wRH/1fffd33JJwNmmLLVA+aMkW3ffsaWAtk1PiEMEfKA9mDsM9jt0gckakPmM0deQgb4l7xmIoD/3HxIMNpG8+WQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GQ6STHSeVh9OveuC6XAfNdRZRY2Oa/qbFLZCd9oxU3o=;
+ b=ddkbuG5HgjZCOU0184ifG3sIFqTeqDurntOSQIl7WHozjJDEfzjmmkVO9ReMwwf3nN6ulg6UR/1cXym8V0HPjpAWFjcgv6/cfUksCZCI9HBqb6FAuYHv1I0Rr3Ozo7fVFO4nYTFPuFjwVBIDaYtNPvNQv+lJ6T9q+S/hoPv4dB1I0Yz4MEY7pinkHuDghWgDaM/0J1YByEQ5M5B50glqejarzHi1OysMeIWG4+tRdfu+TsTHkoqFMkU32HksjgACM6l3GHXDb5acyKCJhlV9n/iD6hMDq39D1Qw2SkOxDrEkds2hmWwhbJEQbnOnMqi31MCpKI9mhZx19/y0eRMK6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GQ6STHSeVh9OveuC6XAfNdRZRY2Oa/qbFLZCd9oxU3o=;
+ b=cUvxQb5B2ysz4QR+pLg1cP5bylDWvRVlKpQprRrLAeSDmXKZ3OQ1n/7UIPhVMKW194dnjyMLSPg4TycnQcg5Vqev7pA1rJw+k5JtskvHGCA1KGktTSXcOd7CUqmPbSvQDLnm2NXViaLHo1CA6c/FQ6zCXOwfcwO+IGoIMJckGC0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Expose time_offset in struct arch_shared_info
-To: Tu Dinh <ngoc-tu.dinh@vates.tech>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20251112070815.545-1-ngoc-tu.dinh@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251112070815.545-1-ngoc-tu.dinh@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 13 Nov 2025 13:11:02 +0100
+Message-ID: <DE7K1Y4UYCOW.2DLMCBVK7J0QT@amd.com>
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?utf-8?q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH 0/4] Add Kconfig option to remove microcode loading
+ support
+X-Mailer: aerc 0.20.1
+References: <20251112162219.226075-1-alejandro.garciavallejo@amd.com>
+ <61df49ba-4aab-42e3-b945-700a8f20c739@citrix.com>
+In-Reply-To: <61df49ba-4aab-42e3-b945-700a8f20c739@citrix.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D1:EE_|CH1PPF2D39B31FF:EE_
+X-MS-Office365-Filtering-Correlation-Id: e73471ce-fc01-4339-6401-08de22adb979
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?MklmaGlRRkQ4NWhVYTdqejBNRGsrWEVOQzNBWEhWSGxSeDhzRkk4K2FlaUVw?=
+ =?utf-8?B?b2RpcURFZWZKVXJReExGMXFlbmJmYkN1emlWOEIvZ2JLVzdncXpCWGtwTllW?=
+ =?utf-8?B?V1pZc3hCeTROQTFubHhlK1FQRW5XZDU4L3doZ3RLYmQwWTN5dnpNMjUzL09J?=
+ =?utf-8?B?MnFOMEQ2ZFlrUjhKNGxTQ1FzTEpzODdST2VvbTBMeFFaMFNWelVITHJuYTZn?=
+ =?utf-8?B?ZVJVMzBBZEpqNUI0dXNZdmMwbGZ3ZWxSVisvK3FERCs4S0hTMzdGMEo4bW9J?=
+ =?utf-8?B?MFdkOStndGNpRW9xa3dzRERVL0JuVGl6Uy9IRGRHbTU3Z29aOXRFbFdzVXFG?=
+ =?utf-8?B?Y3ZoV0lFcHl0YmplNmFwQit2MUFJU2lVWmRqS0czUFlWVU9Rb0NLMDNlK0xp?=
+ =?utf-8?B?VlQ0aGRlWWZ6VUFqVFdKRUxmZzlNRWQ1RnowZzFBc3ZmTkpwN0t4VktIOG01?=
+ =?utf-8?B?SkZPTnVnOHVMdWlrMWRBMFAxbDMxZ3ZIZmtEYlJqMUpEbVliWkRhbmdSVDV2?=
+ =?utf-8?B?ZVRTdjN4ajVueFZydldiL0djSCtacnRMMUxVMyt4OTYvSVRxOFVVRVMzc2Zo?=
+ =?utf-8?B?Ti9VWmxmdHBDYkltcGl3aXVvT1hrdEdDc3QvZzZNOXYxcHRKY2E2SFBNTFNl?=
+ =?utf-8?B?WStCbHVHVEtueW1JTjBTYXJCak5aU0J5dWIzNDBZc0ZaQUhiS1loQ1FETkFr?=
+ =?utf-8?B?bVgrTGJ1UGI4b2VTL2FqRzlFT3hIRWxGdEdoWUxRdk5qSnA2TkRXK09ZdDAr?=
+ =?utf-8?B?ZXhDN2hEbkkzUDMwNmVUSkVRNVpPV1VGNUtVNmJYWUM5NEV6dm54NFNiRzRC?=
+ =?utf-8?B?enpoNkJUSXlkYWU5T3h1Zm8yVUkxdm8rQ1daeWsyVEJkdG9UOWJRNXZ0ZVFv?=
+ =?utf-8?B?UWhjVlI2VVJhYUZSQnJNRXVLSjB3ZGV1d05USksyK0tIYWVrQ2RDSGQ2U25D?=
+ =?utf-8?B?RHF2Q3JWVDVzdjVtbW83VlQvRkREOFljN21kR1FJdGtQd01MeHJQMERRTkFU?=
+ =?utf-8?B?TDR4MUlLMGRvMlh1QnQ2MkhJekVVaC9MT0VTTXFnR2RhWjcxSnd1Ums4U3Vj?=
+ =?utf-8?B?dE5SeCtNbWhEaHoxQ0V3S0lnWVV4NnM2SExUY2wyak9ZSy9jK2pTRTR6VzhW?=
+ =?utf-8?B?a3RheHQ1M2FCS3Y2UFhNYTdWVHlQOFFycXNYcGNnUCttSnh6ZmlKSG5vYXFs?=
+ =?utf-8?B?dzB0YVlCcTJrQVZzNERUU3dyckphcEppTWdYSTREd3V1cklpWHdUM2dyNjBj?=
+ =?utf-8?B?eXIxSHRpemFCQlFDeDNXZVNuRVhWNU1HWWZBSU9nVmhWYy9PaWpHSk9GWDRV?=
+ =?utf-8?B?L1N3ZHFObnhPc3R4Wk5mQld0TnhkSEJZTVZ3dUUrK0hiUGdra0x0ZzN0Q3Rl?=
+ =?utf-8?B?Q0taazFpRk9JdDVtZTI4MTBYMytpeG9JaFozVklRTmRUS1pUVmNtY3RqMDZz?=
+ =?utf-8?B?RXFiRHUrZURCTUpLS2h1eXlEY2ZjejVONmZNWFhTWWtSdEt5R1ErMXhGMDlT?=
+ =?utf-8?B?THZmQ2J5QnkzblZsNkFRTEdyeWlxdlZMNVduYmR0TlFaRUF5WjVmNjBsODRu?=
+ =?utf-8?B?VVdOTUwwYmZYSlNpUC92TldzQVEweXRCd1ppam5ScFZGTmRYWERVS0lLZ3V3?=
+ =?utf-8?B?anh2VTFLZnp5R3pBSGdISmQxZnNTWS8rM0ZxbWRDYnpudU9sZFZKWmZPL3Jq?=
+ =?utf-8?B?bFpYYUY4bnB0TjhvbGVCbHFwcU5GUnJUbDhReGNpQmVQdnlhQ3lxVkEwSjJU?=
+ =?utf-8?B?WVphbzJ0Yzd0LzlXMWdQWmN5QjIwaVZRN1RwVExESm5GNGpQOWFoWGE0eVRD?=
+ =?utf-8?B?MENEbk9NeEYvMFFrYjF1enRWdTNWUUpBd01MclZVKzFIKzJyV2Q0djVLQnlU?=
+ =?utf-8?B?K3NucWk2OWVFRlJYMVdZRStCeEV4VmI0YzVkZEFPVXhnd2tTdklIQmlHNG9F?=
+ =?utf-8?B?V0RUUFhaZnJTNGJjc2tYVWF6VWlRdXhwbTRZWGYvaTZFRmFKbkdYSGdVUmEv?=
+ =?utf-8?B?TUorMkVMK3o4cElxNllQT2FSNXgvWFZ0blpHRGV1UXBCZmpPc1BoaDFpVjRV?=
+ =?utf-8?B?WndibHEwMDlJNFVnZk8vRnVvcXVVK0ljL1J1dzRUckFjUmlDazZzUms2OHVF?=
+ =?utf-8?Q?5t0E=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2025 12:11:06.8743
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e73471ce-fc01-4339-6401-08de22adb979
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D1.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF2D39B31FF
 
-On 12.11.2025 08:08, Tu Dinh wrote:
-> time_offset is currently always added to wc_sec. This means that without
-> the actual value of time_offset, guests have no way of knowing what's
-> the actual host clock. Once the guest clock drifts beyond 1 second,
-> updates to the guest RTC would themselves change time_offset and make it
-> impossible to resync guest time to host time.
+On Thu Nov 13, 2025 at 9:50 AM CET, Andrew Cooper wrote:
+> On 12/11/2025 4:22 pm, Alejandro Vallejo wrote:
+>>  xen/arch/x86/Kconfig                    | 12 ++++
+>>  xen/arch/x86/cpu/microcode/Makefile     |  9 ++-
+>>  xen/arch/x86/cpu/microcode/amd-base.c   | 55 +++++++++++++++++++
+>>  xen/arch/x86/cpu/microcode/amd.c        | 55 ++-----------------
+>>  xen/arch/x86/cpu/microcode/amd.h        | 15 +++++
+>>  xen/arch/x86/cpu/microcode/base.c       | 73 +++++++++++++++++++++++++
+>>  xen/arch/x86/cpu/microcode/core.c       | 58 +-------------------
+>>  xen/arch/x86/cpu/microcode/intel-base.c | 50 +++++++++++++++++
+>>  xen/arch/x86/cpu/microcode/intel.c      | 56 +++----------------
+>>  xen/arch/x86/cpu/microcode/intel.h      | 16 ++++++
+>>  xen/arch/x86/cpu/microcode/private.h    | 14 +++++
+>>  xen/arch/x86/efi/efi-boot.h             |  2 +-
+>>  xen/arch/x86/platform_hypercall.c       |  2 +
+>>  13 files changed, 259 insertions(+), 158 deletions(-)
+>>  create mode 100644 xen/arch/x86/cpu/microcode/amd-base.c
+>>  create mode 100644 xen/arch/x86/cpu/microcode/amd.h
+>>  create mode 100644 xen/arch/x86/cpu/microcode/base.c
+>>  create mode 100644 xen/arch/x86/cpu/microcode/intel-base.c
+>>  create mode 100644 xen/arch/x86/cpu/microcode/intel.h
+>
+> This is awfully invasive for something that ultimately drops only a
+> handful of lines of code.
 
-I guess I don't understand what the problem is, or why it would need a
-change in the hypervisor (interface). If the guest updates the vRTC, it is
-(implicitly) asking for a change of time offset, isn't it? And whatever
-adjustments it makes, it could track and accumulate them?
+Two handfuls when considering both AMD and Intel. But yes, I'd rather not m=
+odify
+as much as this. However, for our purposes it's important to physically mov=
+e out
+the code we want to Kconfig out, as then coverage reports don't need except=
+ions.
 
-> Since there's no way to add more fields to struct shared_info, the
-> addition has to be done through struct arch_shared_info instead. Add two
-> fields in arch_shared_info representing time_offset's low and high
-> 32-bit halves.
+>
+> First, it should be CONFIG_MICROCODE_LOADING. [...]
 
-Any why in two halves? Without that, ...
+Sure,  I don't mind it being $FOO or $BAR.
 
-> --- a/xen/common/time.c
-> +++ b/xen/common/time.c
-> @@ -118,6 +118,11 @@ void update_domain_wallclock_time(struct domain *d)
->      shared_info(d, wc_sec_hi) = sec >> 32;
->  #endif
->  
-> +    shared_info(d, arch.time_offset) =
-> +        (uint32_t)(uint64_t)d->time_offset.seconds;
-> +    shared_info(d, arch.time_offset_hi) =
-> +        (uint32_t)((uint64_t)d->time_offset.seconds >> 32);
+> Next, annotate the functions that you conditionally don't reference in
+> {amd,intel}_ucode_ops with __maybe_unused, and dead code elimination
+> should do the rest.
 
-... no casting at all would be needed here. (Even when there are two halves,
-some of the casting can be dropped.)
+I considered that, but local DCE poses problems for coverage tracking, whic=
+h
+we care about deeply. I'll check if there's some magic we can do to enable =
+that
+pattern but as of now, there isn't.
 
-Another question is - why unsigned? struct domain's time_offset.seconds is
-signed for a reason, aiui.
+If I can't make it work I'll just take the sledgehammer and drop all ops an=
+d
+dependent functions.
 
-Jan
+Cheers,
+Alejandro
 
