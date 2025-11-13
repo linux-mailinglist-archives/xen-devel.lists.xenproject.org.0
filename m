@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 539ACC569DA
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 10:35:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160816.1488868 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2FCAC56AE3
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 10:49:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160831.1488879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJTjX-0003h5-25; Thu, 13 Nov 2025 09:35:15 +0000
+	id 1vJTwm-0005o4-AG; Thu, 13 Nov 2025 09:48:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160816.1488868; Thu, 13 Nov 2025 09:35:15 +0000
+Received: by outflank-mailman (output) from mailman id 1160831.1488879; Thu, 13 Nov 2025 09:48:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJTjW-0003f7-Vg; Thu, 13 Nov 2025 09:35:14 +0000
-Received: by outflank-mailman (input) for mailman id 1160816;
- Thu, 13 Nov 2025 09:35:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vJTwm-0005lN-6y; Thu, 13 Nov 2025 09:48:56 +0000
+Received: by outflank-mailman (input) for mailman id 1160831;
+ Thu, 13 Nov 2025 09:48:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJTjU-0003f1-Q0
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 09:35:12 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0c22ed61-c074-11f0-980a-7dc792cee155;
- Thu, 13 Nov 2025 10:35:10 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b729a941e35so86096966b.3
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 01:35:10 -0800 (PST)
+ id 1vJTwk-0005lH-Ko
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 09:48:54 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f66d2ff1-c075-11f0-9d18-b5c5bf9af7f9;
+ Thu, 13 Nov 2025 10:48:52 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-b735487129fso63401466b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 01:48:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a49884dsm1043134a12.20.2025.11.13.01.35.08
+ a640c23a62f3a-b734fed80f0sm124507266b.66.2025.11.13.01.48.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 01:35:09 -0800 (PST)
+ Thu, 13 Nov 2025 01:48:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c22ed61-c074-11f0-980a-7dc792cee155
+X-Inumbo-ID: f66d2ff1-c075-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763026510; x=1763631310; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763027332; x=1763632132; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YG9oWxQDB0T28MDS53X67Wp77jXQH/URljytmECbxiI=;
-        b=Ll2GVfW+euxyQ7AId61PWbx/Q5FtUfFmnCbfpl9VArJPCYALBJ0A61EPYAVMqM31e+
-         B4Btf3FaSjJiYqUaMiEphRAsYmL87HStCH5FG0W3jmE2luv4BiMVJBIWOLP+ol+m9nT0
-         hGzbVoEMguOJcDatUMHMO5aY8p2v0qCwmmvMTNv63WZtvofon60NxDntOPcZvQsFu2g9
-         YW0l9MHWX1ze1OQ+y6TjEDRcIIzA6jjlEMvg8pIFEIplyYm/9rfQy5VfoifEqBdFoho6
-         V07dtoXYHNN6lwqFWK/QWBE/A91YeNi23+vqPlu4Ko3vCnwmgfL3uG4xiImttCyVHAnk
-         4yUA==
+        bh=SK0JPbL+U5AOnhbtjDfulyIUpo+HnOPs20u2boZFh9A=;
+        b=KRuitHp1YeD8Q1yyHfnnMId7i7gxYzJ780J2kjvnr96MbheMckHcHC0ODM7PAA8ypB
+         AyRnRYujw0WTFVF5MdV2rHFoKw+FWa01foPQmI5DV5Os0Vy4wEef1TFelFbt++iSe8dK
+         XWiTu9/TBeC1+1RU9TpD5vO7CQfgBs1vIRLsKyHlyd8NVk0m1XBU7Hcy7WTgvgOQXc+p
+         GrcUs6VYYIfC9rnZLkG+Okudej5bk5dIYIVsOBuJOVWmm3oNOM0DNM8oMqwjnGc6u7bm
+         QZcYx6dzi7fJAH+0mAj2cIRxgqT3JUMkUUAoJ+T86vSdy3eeso+z3SBbf1QQqG3h9BJI
+         TJBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763026510; x=1763631310;
+        d=1e100.net; s=20230601; t=1763027332; x=1763632132;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YG9oWxQDB0T28MDS53X67Wp77jXQH/URljytmECbxiI=;
-        b=MI/BIgk8na5f1K8QK6el4urSvC8MdGgl/vHBPOZybKmeHhBz4/PpubGnDN93gQFPN/
-         8WMWMxqgZZGMX69pmoPzZx7/UxjjlDJ8JRZExldY9EQJujtN2cNKcPvNlShIt6tufbhX
-         nZD3ojHJE5Uj/PYbZssIP905FNwqlwD5DPH/XkXMJZu5zhaajRJrlaFZpfe1StqjiDeJ
-         z9ne+c2UCw16n6SceegBytS/D5o/yUrD1cx6VfqXUDmz4qzfZ0UtS76SRC9yJujLjHaC
-         uQNLXqe88kAh2knsImOTSDf7BwnhWQOqAgTvNFF4UfbDlJWYMiQIGp3WobtFohI4ooN7
-         DltQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVB8gxTQydItMDmTqZ2xyrS2K966ox8Aa6yZcFzt3tO4ylkEDBTrc4cFLWMo+x/K6HxhUSKg+vS+b4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxAlD0M2Toslq3vM4mthEoD2oqXFg2iodTr7RranyVS/EQO4oS/
-	uJqPKqoVh09JZMkUema+XO8z0AJEHATmARG78YB0FReXkb/vjkkH33zVIsXbqH1HPQ==
-X-Gm-Gg: ASbGncvi+8646CrugkJP94CPH+P1itpU9GeJa9TGg9cTom9mwb8iHLyuNyLNDMHIy/e
-	6f8S8G89sciT/6mcabnCldArxDmga2ylIrCwFYVWeP+I/QbJKhn9Pfen0EDOEQVxoEaU4ICLp/C
-	bQtQxX3HvCGHid+hR6Pqu+DbFOPjTAJNZG3JcdmOP7UUpjz99s2aitvIBstUNNdgbxQZ996C/1R
-	KU3KSakFyQuiI0uF/9o/PVLyMi2xuZqgZfLHg+KyXXg7Qu8AN1K1lp3WaVGTXHatwwgqITZaXKB
-	R28qd6kLYe2D5R1Xv0jcTk/Ueex/njo/RBbAa1n3+YytPq+YYksuGjqsg33k3yyja3cvLHRnRrA
-	Lcju33UGeDiPTV6gtwaiANTSuF4dw3ZYuHgQLRayTOGl2pioR91lG9v9zW+0CNkAhqL29NTKA3Z
-	tAeWIJmoynzpCB0647PHAwmSou8rnudbG7wd9wvqu1soGZzn+WR8vSNaytsxMyLWqO
-X-Google-Smtp-Source: AGHT+IGbP609jo4Jxn/0MtRsp0M++k9Ekz5xs7+FXeeKtYHY5i5iVePZfCjHa2VGFVa9GmrJ2nKoGg==
-X-Received: by 2002:a17:907:9709:b0:b46:abad:430e with SMTP id a640c23a62f3a-b7331a972abmr636309666b.37.1763026509636;
-        Thu, 13 Nov 2025 01:35:09 -0800 (PST)
-Message-ID: <136416d6-ea2b-444d-b331-8aef1881ed91@suse.com>
-Date: Thu, 13 Nov 2025 10:35:07 +0100
+        bh=SK0JPbL+U5AOnhbtjDfulyIUpo+HnOPs20u2boZFh9A=;
+        b=vrAhpGx43Zn9iWQMlqfsCuZEyn4Zwq7ZyqvBUBhZZU4xIYS8tKa+MNbY3/B2q2Q/de
+         dNBiJ255k1Nc5poIX+QuX4mMeKjZBkSmMAY/cSYiddACag5GpjEoLAKC0tW5oWyrsrrg
+         qrpe/5mvi4BVW4X3O1ySAwuRy7FLvKJdhzyy//3xApEvSNYz7zhNFj0R2YfkecIC1e1/
+         8in4YbkVQz+3kTpDO0GpeCo49VTLU1ibvKzrolmTdEnrQ3yUzS8RZliq3+6qb7DmkQmT
+         YcpNhhOVHk62qL739z1Qd7ngVQAQzmPLO3hIsjJkW8fyzx07va3/+gosyPSBz2QVGrY5
+         fqeA==
+X-Forwarded-Encrypted: i=1; AJvYcCXRjA+Xap+OuV1t8SLQaY9+uudT7nmmazmmU52GAtxWgrxpg3ifFpkU4eKViJIS8Jav7qYodS+Y6ds=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx9o8F1Vg+Z84Zp75hPBap+Swldp3PLls1BbXeu+7OZc/r+QOdz
+	0MwpsOdC8yZQiTmqe08VaJDFBAlXbWhhTFuXsiEJSPYRLUfpVvSBU/IXXaOM6MeAfw==
+X-Gm-Gg: ASbGncscIic8gQGm1wIc+rx86F+IfTK7F01KqQK4kj1mfzKFUTeSaWQtcz3YsYvsY0C
+	Zr2GFRJKsYWb+nJUhQ5Etzub8Ct4I9fpVvgANQzmiJjOmk1TFZqV6WZSTEGr29p20oqM8x/4K+o
+	MnqR6A8DJGCTULs4xrnzlDQN2qx9d4+PkGTzL+gvY3G8C8kSvaUxPbgVn81JxpRe3jZFZcuIqP6
+	BqvIDXy7VW5rY3Z9xWBh5WEtSg0MdUl21J+XC3oX14GFbYMBJFxRg4u4mxf67m2dfJXBShFFsOS
+	vHCu07jSms/Mhqx9Lygs8GcI7LFMhE15PzIO9tjKFUJ6WW6gEMhQG6ZMGxmezMPzK7DeZ97F0hR
+	Tn0lsF6lq9U/KOtOxj2ezGmgmV5NsmZ8r1DHXRDICp/I/1rFVxGo3XSihPeGcnNPLYAU0tURTMP
+	V4KcI1d48chQ58H4BFrKQOW9+EZJGt6ChFsUE0UcMk8fbnMZHkRWtJyn3BjMyn0TUf
+X-Google-Smtp-Source: AGHT+IF+oY/iXXqDvmvaiS5+26d5qafl56HrbUWIOBEu6AJMU7vOtUM3htqMmteVbfHINRFrROFrNA==
+X-Received: by 2002:a17:907:60cb:b0:b6d:5718:d43f with SMTP id a640c23a62f3a-b7331a69bb1mr619141966b.39.1763027332204;
+        Thu, 13 Nov 2025 01:48:52 -0800 (PST)
+Message-ID: <a4407571-5185-4203-a0a5-8cb7821055b2@suse.com>
+Date: Thu, 13 Nov 2025 10:48:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/7] xen/x86: move declaration from mem_access.h to
- altp2m.h
-To: Penny Zheng <Penny.Zheng@amd.com>
+Subject: Re: [PATCH v1 6/7] xen/mem_access: wrap memory access when VM_EVENT=n
+To: Penny Zheng <Penny.Zheng@amd.com>, Tamas K Lengyel <tamas@tklengyel.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
  Alexandru Isaila <aisaila@bitdefender.com>,
  Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
 References: <20251113031630.1465599-1-Penny.Zheng@amd.com>
- <20251113031630.1465599-6-Penny.Zheng@amd.com>
+ <20251113031630.1465599-7-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,26 +121,81 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251113031630.1465599-6-Penny.Zheng@amd.com>
+In-Reply-To: <20251113031630.1465599-7-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 13.11.2025 04:16, Penny Zheng wrote:
-> Memory access and ALTP2M are two seperate features, and each could be
-> controlled via VM_EVENT or ALTP2M. In order to avoid implicit declaration
-> when ALTP2M=y and VM_EVENT=n on compiling hvm.o/altp2m.o, we move declaration
-> of the following functions from <asm/mem_access.h> to <asm/altp2m.h>:
-> - p2m_set_suppress_ve
-> - p2m_set_suppress_ve_multi
-> - p2m_get_suppress_ve
-> Potential error on altp2m.c also breaks Misra Rule 8.4.
-> 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> Feature memory access is based on vm event subsystem, and it could be disabled
+> in the future. So a few switch-blocks in do_altp2m_op() need
+> IS_ENABLED(CONFIG_VM_EVENT) wrapping to pass compilation when ALTP2M=y and
+> VM_EVENT=n(, hence MEM_ACCESS=n), like HVMOP_altp2m_set_mem_access, etc.
+> Function p2m_mem_access_check() still needs stub when VM_EVENT=n to
+> pass compilation.
+> Although local variable "req_ptr" still remains NULL throughout its lifetime,
+> with the change of NULL assignment, we will face runtime undefined error only
+> when CONFIG_USBAN is on. So we strengthen the condition check via adding
+> vm_event_is_enabled() for the special case.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+As to this, didn't I ask for ...
 
-This looks to be independent of all earlier changes, and hence could go in ahead
-of any of them?
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -52,6 +52,7 @@
+>  #include <asm/i387.h>
+>  #include <asm/mc146818rtc.h>
+>  #include <asm/mce.h>
+> +#include <asm/mem_access.h>
+>  #include <asm/monitor.h>
+>  #include <asm/msr.h>
+>  #include <asm/mtrr.h>
+> @@ -2081,7 +2082,7 @@ int hvm_hap_nested_page_fault(paddr_t gpa, unsigned long gla,
+>  #endif
+>      }
+>  
+> -    if ( req_ptr )
+> +    if ( req_ptr && vm_event_is_enabled(curr) )
+>      {
+>          if ( monitor_traps(curr, sync, req_ptr) < 0 )
+>              rc = 0;
+
+... a comment next to the (now seemingly excessive) condition?
+
+> @@ -4862,58 +4863,70 @@ static int do_altp2m_op(
+>          break;
+>  
+>      case HVMOP_altp2m_set_mem_access:
+> -        if ( a.u.mem_access.pad )
+> -            rc = -EINVAL;
+> -        else
+> -            rc = p2m_set_mem_access(d, _gfn(a.u.mem_access.gfn), 1, 0, 0,
+> -                                    a.u.mem_access.access,
+> -                                    a.u.mem_access.view);
+> +        if ( IS_ENABLED(CONFIG_VM_EVENT) )
+
+Wouldn't this then better be vm_event_is_enabled()? Or can this (and the ones below)
+be carried out ahead of enabling? Tamas?
+
+In any event, here and even more so ...
+
+> +        {
+> +            if ( a.u.mem_access.pad )
+> +                rc = -EINVAL;
+> +            else
+> +                rc = p2m_set_mem_access(d, _gfn(a.u.mem_access.gfn), 1, 0, 0,
+> +                                        a.u.mem_access.access,
+> +                                        a.u.mem_access.view);
+> +        }
+>          break;
+>  
+>      case HVMOP_altp2m_set_mem_access_multi:
+> -        if ( a.u.set_mem_access_multi.pad ||
+> -             a.u.set_mem_access_multi.opaque > a.u.set_mem_access_multi.nr )
+> +        if ( IS_ENABLED(CONFIG_VM_EVENT) )
+
+... here please avoid this heavy churn by using the inverted condition plus break;
+In all cases you fiddle with rc also needs setting to a suitable error indicator,
+e.g. -EOPNOTSUPP, I think.
 
 Jan
 
