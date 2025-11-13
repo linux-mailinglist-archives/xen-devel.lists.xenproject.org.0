@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41FE2C5583A
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 04:17:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160537.1488653 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 310C4C5582E
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 04:17:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160538.1488662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJNpn-0004CN-UV; Thu, 13 Nov 2025 03:17:19 +0000
+	id 1vJNpr-0004Tu-9q; Thu, 13 Nov 2025 03:17:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160537.1488653; Thu, 13 Nov 2025 03:17:19 +0000
+Received: by outflank-mailman (output) from mailman id 1160538.1488662; Thu, 13 Nov 2025 03:17:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJNpn-00049P-QJ; Thu, 13 Nov 2025 03:17:19 +0000
-Received: by outflank-mailman (input) for mailman id 1160537;
- Thu, 13 Nov 2025 03:17:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vJNpr-0004SF-66; Thu, 13 Nov 2025 03:17:23 +0000
+Received: by outflank-mailman (input) for mailman id 1160538;
+ Thu, 13 Nov 2025 03:17:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zWJc=5V=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1vJNpm-0003dm-Jl
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 03:17:18 +0000
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c107::3])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 41dc68b6-c03f-11f0-9d18-b5c5bf9af7f9;
- Thu, 13 Nov 2025 04:17:18 +0100 (CET)
-Received: from BN9PR03CA0279.namprd03.prod.outlook.com (2603:10b6:408:f5::14)
- by DS7PR12MB8231.namprd12.prod.outlook.com (2603:10b6:8:db::14) with
+ id 1vJNpq-0004P7-1g
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 03:17:22 +0000
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170120001.outbound.protection.outlook.com
+ [2a01:111:f403:c107::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 40da3892-c03f-11f0-980a-7dc792cee155;
+ Thu, 13 Nov 2025 04:17:16 +0100 (CET)
+Received: from BN0PR04CA0023.namprd04.prod.outlook.com (2603:10b6:408:ee::28)
+ by DS7PR12MB8371.namprd12.prod.outlook.com (2603:10b6:8:e9::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.16; Thu, 13 Nov
- 2025 03:17:08 +0000
-Received: from BN1PEPF00004689.namprd05.prod.outlook.com
- (2603:10b6:408:f5:cafe::54) by BN9PR03CA0279.outlook.office365.com
- (2603:10b6:408:f5::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.15 via Frontend Transport; Thu,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.15; Thu, 13 Nov
+ 2025 03:17:07 +0000
+Received: from BN1PEPF00004687.namprd05.prod.outlook.com
+ (2603:10b6:408:ee:cafe::fd) by BN0PR04CA0023.outlook.office365.com
+ (2603:10b6:408:ee::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.17 via Frontend Transport; Thu,
  13 Nov 2025 03:17:07 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00004689.mail.protection.outlook.com (10.167.243.134) with Microsoft
+ BN1PEPF00004687.mail.protection.outlook.com (10.167.243.132) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.9320.13 via Frontend Transport; Thu, 13 Nov 2025 03:17:07 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 12 Nov 2025 19:17:02 -0800
+ 15.2.2562.17; Wed, 12 Nov 2025 19:17:05 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41dc68b6-c03f-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 40da3892-c03f-11f0-980a-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rWDNcJFfFSBxRDtPR3xftvgiSE+qJl8COMp8sVqHpqAtFzo0vQSOxBZ8mEoaBW7lm3a0vwU877uofnJsau+lqgCNvXIN7sxPEhCrfb+bNH0JmEM2MKFbB6we4ryfapZQGsyXi5cKA4xLvugOi2jRvWhyRR5qb9FA7DmO+6QyV7jo5oCm8epzfLpQpWUzYxtNVbAClxPzsomLq2rtREzi1TCaAnkrDsi7ksBjvO9ZyX8zgNjw/zfWu3YiQJVrR8nmMYANiIXstgn6xkDvWx20DuM/vhqFblYrWLUq7MmMMtGhqE4yv7/0d2c/fpWgKLmaFH7ELN0gpUiZ3gAKi0n1Ng==
+ b=O+91XROzIxgbi2/uG1GWsFz/+BY9qkEynHTeg+aKmlQRF1bxbNudgyrxTljGRXFVv7GgYkga935Wgz8zdlDAVuSMYKRyANbROwudf6GojzX57jrc7AD68O0T7oOcpVMKUjxAIqiAPxTML1pAKYRg0oKWGvCQ4mhboAzJ0g+2z4MKDecJ+vg38m75eeZlk+tnVXW8aW970gLbREqzf7bYLwZ4y4fcJAQ0lcWoe/FyofEyKVHaU4A1I7m2honwz7bkud8UbeED7wq0rZTfDTLGSlttG1oQdLf8yLLkGYiIO09a/L8UmMT9vH8h93oLgxod+5yfUdKyXUghVoOj1H5+CA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3Q12+M0OwuIkHlopjraGyEJ5y3DeGTjmnV498MkT3eM=;
- b=CBfz+GEoOOXQvca4AdB1a9rfs3NRMCnJ3kr/htZFQ6LH7qloDfVtjXM99vKVHXGCy+ksPNszLQNGwAuQ3pjQDYjbyXFeX0G1EJJ79zRVgusc91fNtCYNOYL8+E1OWzxsOhvW09zg2P8GVpnN3S/XUM+c7FjKHLfghigm4hCbm70vzxiPjE9YMu+kj4q11IQAhLk2Nuqj363n6o07yCJbNnjw5rQsyWkp3oEZjKW1571ouCGa6yKC96SsmQvWB6opbM/kkuBemaK5qfBzFGzk99ScmDfuapEgdbbWWApT/rJp3Y7nDsk+LQq/M1XlvpBRpVzFJghMYEnZVo6IzKGF3w==
+ bh=4x2ARk3ZxYxwpxUDHDaaqu67aOVqpGDeb1IHQh8e0yI=;
+ b=apmDhCjEIOZOnR3pzEiXyEBkgrFfXf+77RqH4cAlDrkcxuIvO4yavAWXGmWgTDhxVOlQnmQBSv2mJDf8++ORIJ1fyfLdBRCV20DW7esj9ED845uC5a57fgj8K4aPf0VfrAJQMnoLoy/2YaPbcUnr2NKDBY7a3xnX4wj5QNsriMNqucs1D6Ip7QOM6bqQ+fH3NcEQJUlVzCJK/L38P4Q+ch969EsbzX1j39oc1ao7axDJDTQBAPsogntA1iF1curYMYiqEPI/7YfoGc4NudKrhU2cDNU3s8XywQ8MmC0xJkDVMApuNXYB0pNLMB42wVU2X6mHAmJq326H6UWRL1EE7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Q12+M0OwuIkHlopjraGyEJ5y3DeGTjmnV498MkT3eM=;
- b=BQ1g6RJvDYQ9CgkBs6yXnYIl3ricd0Sw4THUFkO2uLNUVfcnPyrC+rPi72jNSFbOnUjDgjN9agk15LY1TfQf9u2O8q8KiGqYAk3fEwmkrhMiXnC9S1xRcpIMsjXd78YyTqqo/S40uF6VV1yFid+0R7/24nuRG8eRItkynLh23TI=
+ bh=4x2ARk3ZxYxwpxUDHDaaqu67aOVqpGDeb1IHQh8e0yI=;
+ b=kIQutGK+W9quxrILEkzxTqtdFaWp2Nh14MoHckw2TuyjL/829dyUFdtnbAxhwiZmvavnSr7Dr2SyD9lEzcPpRSXK6lbxRkudX7aK8A+JdLva0WdsXlrrlHo8GMoH+uB5Y/2AgHjcMtvYGJ41xYDN0T/HBDrACbeY0J8YuKoixUA=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,14 +80,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 From: Penny Zheng <Penny.Zheng@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Penny Zheng <Penny.Zheng@amd.com>, Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu
-	<ppircalabu@bitdefender.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>
-Subject: [PATCH v1 4/7] xen/p2m: move xenmem_access_to_p2m_access() to common p2m.c
-Date: Thu, 13 Nov 2025 11:16:27 +0800
-Message-ID: <20251113031630.1465599-5-Penny.Zheng@amd.com>
+CC: Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich <jbeulich@suse.com>,
+	"Andrew Cooper" <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Tamas K Lengyel
+	<tamas@tklengyel.com>, "Alexandru Isaila" <aisaila@bitdefender.com>, Petre
+ Pircalabu <ppircalabu@bitdefender.com>
+Subject: [PATCH v1 5/7] xen/x86: move declaration from mem_access.h to altp2m.h
+Date: Thu, 13 Nov 2025 11:16:28 +0800
+Message-ID: <20251113031630.1465599-6-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251113031630.1465599-1-Penny.Zheng@amd.com>
 References: <20251113031630.1465599-1-Penny.Zheng@amd.com>
@@ -99,164 +99,114 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004689:EE_|DS7PR12MB8231:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab65e609-fbd7-44ef-6f32-08de2263205e
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004687:EE_|DS7PR12MB8371:EE_
+X-MS-Office365-Filtering-Correlation-Id: cfeb5208-3e14-4044-f6da-08de22632088
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
+	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?xwGO9fsoFLSPFSFcz246KUg3hyQWvfV/9V402P/E3W5D+swhpQIqx8fiWpeS?=
- =?us-ascii?Q?i9EKMbymTJKo2wjNtDgOINaP6L0UIG1SvWu0Tdknsigf5P5uLsfmGKblADe0?=
- =?us-ascii?Q?WsSLojJZBjreFgpBcgHtiahZ9uFvIGycMbCZ6GwWt4lRSNNM1tQUtuB2xSyj?=
- =?us-ascii?Q?XMRzWfSdJEM39EinyLsumwn4nZzxQA0fEh9nurFYQLylqYSNGDcQlF9UE6j6?=
- =?us-ascii?Q?UfsNrqSfDRatN4k8+EI0J1uzuiHjGo7Nq9hfH9p5aX1fSkQDjflre/Iozu/h?=
- =?us-ascii?Q?z0weW3YaWmGSuKb7oXuLG97cbWhSypmcZRv95a/mZuY/5T1cvTfbdazo2EYU?=
- =?us-ascii?Q?A/0cHVejrKILMWkoTglpiA3AU5gua/ZYCT6BiCTaopvkNno/xIgdU7osiyX9?=
- =?us-ascii?Q?CpmXuEqJOf9ExhxQghEXrVFcWMhuT5a/9St3LoFWzbzpO5HSJyS1Ub+co3tE?=
- =?us-ascii?Q?vDBADJ6+I+xvJsQEuI6BNqKntW364EYQeSClYdGTZ3PfGoXG6nlhFqSDGsyD?=
- =?us-ascii?Q?k+lyf1EI+8Y7G9dVnDkkDdW08DNoSTHaelnwCK4OA8UpSOISFCPyUvlRMbYe?=
- =?us-ascii?Q?JNZgAaGXMMZnLdqXmSqNTH10sixTA3WHoZehrnDjO+rFEFbvEtEwohehpyt5?=
- =?us-ascii?Q?zR9J9V3TIKegrOAoC5LqXeS5QTUJqLoAt87+9Q6yYjEO/5RrO1slY8kHw5wX?=
- =?us-ascii?Q?Vv38ukO9IoBeCzMEV4EEWuCR3abXPHzj3CQRuLfI5779oGf6mS9UpRRekWRi?=
- =?us-ascii?Q?R1Yor6FYBjr5pzbH1gcldKFLSSTQV9l4H9nOFnQU/RpbI2OajIs5sYVdsi0j?=
- =?us-ascii?Q?CgnHlslQsy7HfW8SbKZr3bOgb5ZQFRhTTzl8DsmiuzNV4wV0LjuU2zCerjQG?=
- =?us-ascii?Q?ruFAvH9Pq4vzk2J+RRwmoIBCx3lHrUUXD6KthkU9+QwIMbIgIo6e5ZttXFNP?=
- =?us-ascii?Q?v37/k9/8n1sJZtoqDoE937o21OXd5CR+BuWYoS9KJDDMxCz5ERW1DZPvmOy3?=
- =?us-ascii?Q?HSIgZQ4Dmu0LCqWuaJ4q4RjUxqPB2WPpRNxJOnUxysPpxeF9ZbdRJ85CuoN/?=
- =?us-ascii?Q?qZI32sS1GHY7JEvIm1HsfNK/2fi1upZQ46cxBna7BSN2M1go2qIXkzAcl3xD?=
- =?us-ascii?Q?/sz+2nOxYzHQeHgegMZdf3w4aI4ubp7DH2lEiLXXr/zdE6BU4HZa6DeyZDpw?=
- =?us-ascii?Q?T+9yIUxll/WKJnySNzOrPNkIDfyIM9y24cb6jJRp/bs2ZDaHrGa9ffZSjMEc?=
- =?us-ascii?Q?70mQQTQuvVj0AogSd/O7/4x49ZjfyDVrt8N+Rtq6/BmvVuyhoZ0BDqPTLFn6?=
- =?us-ascii?Q?KRrrDod+WSWDJ42TgxzI1uR62TXWMefr0kh4680DEIJF+d3Vzv4yptdhbzia?=
- =?us-ascii?Q?41TwVaHGobctc69j64STOej72TCXzb+Yyst918wWBaUd+TEMo0SHsT0dkqj8?=
- =?us-ascii?Q?TZjkQ3duHlhEfs6WjIf9uk5nPYLDEYXXMlBrnzLAgZszOt/LP6aDRlq+QHXT?=
- =?us-ascii?Q?h/FFN02yu3LzMaiRws+lXhHKlSPsckCb0js+j99Abq6FIgv/mrBaQ2HX7Q?=
- =?us-ascii?Q?=3D=3D?=
+	=?us-ascii?Q?TXxT7zah4uVDg5JCts8aj4ZQRTRbT4Pl/aNhDt7lErszT8h+BabBxrMoJJP8?=
+ =?us-ascii?Q?IMEpA/np4TxysIuhgDPs43nolKpxmBaevm6RAntOIWVnp6f9hyESP/0zMFv6?=
+ =?us-ascii?Q?2BYQmvCL5iCI6klpxKPRC6jS6p5wGOQjlANirbS1D7A8u9VmLyMG74Pun/h1?=
+ =?us-ascii?Q?tpOfeNCo9gfgg06+7/G1bV/GwAMlJqUEIeUezBqprsi1237aECGiVuTCGm5+?=
+ =?us-ascii?Q?9qzNXmzuGHxkeM5gQafe7Nhkcw+RAPO2tKn68pgy5UV5w07PbFhsq8KPhdOx?=
+ =?us-ascii?Q?kbIfx3RBRXm09sX5LNiDz4iyxBVPIZb2yzoqSIVKwxPvpHMp18yuB7tKRhSP?=
+ =?us-ascii?Q?vg6NxsiwrFYd9i+pUXx0auwCNto5MvBGrHsJfI0IEe/B2ShJJL+RPpviX3fN?=
+ =?us-ascii?Q?m6eWrqRxPuufeesu5ZIA0GQQPfc12oSIqvZo47dv2TPg+M0z2SHclNrN2p44?=
+ =?us-ascii?Q?w1RIWfd3cYkDtqUqcwI/fG4uauushT2G/JYGof+JN+Ztz2h40DjGflLYK1+j?=
+ =?us-ascii?Q?SCNmAnUqIlWTtW+R8AZlMmMIaauWJV5g+QT6FcbkV8jkiTlWkj4B9sEwvHd1?=
+ =?us-ascii?Q?4wcuTkeqSqSfoGqtWont1eqlY/G6Hn3jMm8/7NH3oZxOgm916v2D3i2Omfti?=
+ =?us-ascii?Q?WpcYqfjHQIuxi/dyfiioiwDvuOrcHPUnMDTCZaw4kULNYr4fbYa/hx6STnYF?=
+ =?us-ascii?Q?k2pRWY6GBBnZSMSdIJ6jacQTo27YVvP9INzE4HP84hYuJOzYz9l3fuYh2NIK?=
+ =?us-ascii?Q?JpoP/GYKbH3g030pL+O/cilQky0sBqV8B7rHx2L3S9P7JFbkY2jx9mEDFOjz?=
+ =?us-ascii?Q?jhj8Wz+dME7ook+pFBMMSGK4KvhDlBSwoWvJpVslQGQnnHMYZ1JadtTtTprp?=
+ =?us-ascii?Q?P0Zut+OR83K4RBNvTfqNWiUhA7vMTqYYozH70obbb7x5czc08hN71PCI0BmX?=
+ =?us-ascii?Q?P+vmkPzYBhHlniJo7+s5VIxcvN+/LL3nZ9HobPvPFGMT2SoMkIzBXu0a8jkE?=
+ =?us-ascii?Q?GEv3eLZK+zIHm8gc406QNkxyHWqzmPS9R1HFByuNoUD5xNIb1GGcbhnafl3S?=
+ =?us-ascii?Q?GTHgpjxmvGWreXhtlC5c+i9TZ43gZZASDqvO3wWAmkVrJ9eEPBsb+qgubWv7?=
+ =?us-ascii?Q?SH9DRhRPPBcqPkfA6IJq9vWmk60pEQ08WPoegiAilY3Lqr7jIjvylP9LalPc?=
+ =?us-ascii?Q?Xrs87T9DvA/KRLZDRyPJezkhdLAijiBJQsUNT3DpnWWinMSlw8j/BxV33bnt?=
+ =?us-ascii?Q?8uOGmeMMFjiCaLbSLlyLKIMYpvV+0OM8j8ZE8pLjTbpJmtiE9DuNWa2YTIrC?=
+ =?us-ascii?Q?WwXgHSKFOoTJtUTJ/23AHwf4xJwWCVB7pqfJ6tl9G+leHA+dcd5ZSl3+yKJg?=
+ =?us-ascii?Q?+ND9+CghIFCn85A17iSQGmvmVod+M5P1krjVWKY0u44eXXXDFXTCUvYi4bQ8?=
+ =?us-ascii?Q?Jo86JGYiY5uxljWbhNl5TAEFS4DbRGXW8IdAgYP9DoH81fYzJ7N9sXiiMfYR?=
+ =?us-ascii?Q?uwARWy35PsO4dKU613UXV4QhJrdQ6Cc4PunlR0NVqkhmbqtJBGXCtW16iXxB?=
+ =?us-ascii?Q?A2vUwf2hN79ycRhUU1w=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2025 03:17:07.2920
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2025 03:17:07.5706
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab65e609-fbd7-44ef-6f32-08de2263205e
+X-MS-Exchange-CrossTenant-Network-Message-Id: cfeb5208-3e14-4044-f6da-08de22632088
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004689.namprd05.prod.outlook.com
+	BN1PEPF00004687.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8231
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8371
 
-Memory access and ALTP2M are two seperate features, while both depending on
-helper xenmem_access_to_p2m_access(). So it betters lives in common p2m.c,
-other than mem_access.c which will be compiled out when VM_EVENT=n && ALTP2M=y.
-Coding style has been corrected at the same time.
+Memory access and ALTP2M are two seperate features, and each could be
+controlled via VM_EVENT or ALTP2M. In order to avoid implicit declaration
+when ALTP2M=y and VM_EVENT=n on compiling hvm.o/altp2m.o, we move declaration
+of the following functions from <asm/mem_access.h> to <asm/altp2m.h>:
+- p2m_set_suppress_ve
+- p2m_set_suppress_ve_multi
+- p2m_get_suppress_ve
+Potential error on altp2m.c also breaks Misra Rule 8.4.
 
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 ---
 v3 -> v4:
 - new commit
 ---
- xen/arch/x86/mm/mem_access.c | 36 ----------------------------------
- xen/arch/x86/mm/p2m.c        | 38 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 38 insertions(+), 36 deletions(-)
+ xen/arch/x86/include/asm/altp2m.h     | 10 ++++++++++
+ xen/arch/x86/include/asm/mem_access.h | 10 ----------
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/xen/arch/x86/mm/mem_access.c b/xen/arch/x86/mm/mem_access.c
-index e6b609064c..e55e53f44c 100644
---- a/xen/arch/x86/mm/mem_access.c
-+++ b/xen/arch/x86/mm/mem_access.c
-@@ -298,42 +298,6 @@ static int set_mem_access(struct domain *d, struct p2m_domain *p2m,
-     return rc;
- }
+diff --git a/xen/arch/x86/include/asm/altp2m.h b/xen/arch/x86/include/asm/altp2m.h
+index 8ecd74f363..9c1ac3cc26 100644
+--- a/xen/arch/x86/include/asm/altp2m.h
++++ b/xen/arch/x86/include/asm/altp2m.h
+@@ -46,6 +46,16 @@ void altp2m_vcpu_destroy(struct vcpu *v);
+ int altp2m_vcpu_enable_ve(struct vcpu *v, gfn_t gfn);
+ void altp2m_vcpu_disable_ve(struct vcpu *v);
  
--bool xenmem_access_to_p2m_access(const struct p2m_domain *p2m,
--                                 xenmem_access_t xaccess,
--                                 p2m_access_t *paccess)
--{
--    static const p2m_access_t memaccess[] = {
--#define ACCESS(ac) [XENMEM_access_##ac] = p2m_access_##ac
--        ACCESS(n),
--        ACCESS(r),
--        ACCESS(w),
--        ACCESS(rw),
--        ACCESS(x),
--        ACCESS(rx),
--        ACCESS(wx),
--        ACCESS(rwx),
--        ACCESS(rx2rw),
--        ACCESS(n2rwx),
--        ACCESS(r_pw),
--#undef ACCESS
--    };
--
--    switch ( xaccess )
--    {
--    case 0 ... ARRAY_SIZE(memaccess) - 1:
--        xaccess = array_index_nospec(xaccess, ARRAY_SIZE(memaccess));
--        *paccess = memaccess[xaccess];
--        break;
--    case XENMEM_access_default:
--        *paccess = p2m->default_access;
--        break;
--    default:
--        return false;
--    }
--
--    return true;
--}
--
- /*
-  * Set access type for a region of gfns.
-  * If gfn == INVALID_GFN, sets the default access type.
-diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-index e2a00a0efd..f2bf5ef8d3 100644
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -2189,6 +2189,44 @@ void p2m_log_dirty_range(struct domain *d, unsigned long begin_pfn,
-     guest_flush_tlb_mask(d, d->dirty_cpumask);
- }
++int p2m_set_suppress_ve(struct domain *d, gfn_t gfn, bool suppress_ve,
++                        unsigned int altp2m_idx);
++
++struct xen_hvm_altp2m_suppress_ve_multi;
++int p2m_set_suppress_ve_multi(struct domain *d,
++                              struct xen_hvm_altp2m_suppress_ve_multi *sve);
++
++int p2m_get_suppress_ve(struct domain *d, gfn_t gfn, bool *suppress_ve,
++                        unsigned int altp2m_idx);
++
+ #else
  
-+bool xenmem_access_to_p2m_access(const struct p2m_domain *p2m,
-+                                 xenmem_access_t xaccess,
-+                                 p2m_access_t *paccess)
-+{
-+    static const p2m_access_t memaccess[] = {
-+#define ACCESS(ac) [XENMEM_access_##ac] = p2m_access_##ac
-+        ACCESS(n),
-+        ACCESS(r),
-+        ACCESS(w),
-+        ACCESS(rw),
-+        ACCESS(x),
-+        ACCESS(rx),
-+        ACCESS(wx),
-+        ACCESS(rwx),
-+        ACCESS(rx2rw),
-+        ACCESS(n2rwx),
-+        ACCESS(r_pw),
-+#undef ACCESS
-+    };
-+
-+    switch ( xaccess )
-+    {
-+    case 0 ... ARRAY_SIZE(memaccess) - 1:
-+        xaccess = array_index_nospec(xaccess, ARRAY_SIZE(memaccess));
-+        *paccess = memaccess[xaccess];
-+        break;
-+
-+    case XENMEM_access_default:
-+        *paccess = p2m->default_access;
-+        break;
-+
-+    default:
-+        return false;
-+    }
-+
-+    return true;
-+}
-+
+ static inline bool altp2m_is_eptp_valid(const struct domain *d,
+diff --git a/xen/arch/x86/include/asm/mem_access.h b/xen/arch/x86/include/asm/mem_access.h
+index 1a52a10322..257ed33de1 100644
+--- a/xen/arch/x86/include/asm/mem_access.h
++++ b/xen/arch/x86/include/asm/mem_access.h
+@@ -34,16 +34,6 @@ bool p2m_mem_access_emulate_check(struct vcpu *v,
+ /* Sanity check for mem_access hardware support */
+ bool p2m_mem_access_sanity_check(const struct domain *d);
+ 
+-int p2m_set_suppress_ve(struct domain *d, gfn_t gfn, bool suppress_ve,
+-                        unsigned int altp2m_idx);
+-
+-struct xen_hvm_altp2m_suppress_ve_multi;
+-int p2m_set_suppress_ve_multi(struct domain *d,
+-                              struct xen_hvm_altp2m_suppress_ve_multi *sve);
+-
+-int p2m_get_suppress_ve(struct domain *d, gfn_t gfn, bool *suppress_ve,
+-                        unsigned int altp2m_idx);
+-
+ #endif /*__ASM_X86_MEM_ACCESS_H__ */
+ 
  /*
-  * Local variables:
-  * mode: C
 -- 
 2.34.1
 
