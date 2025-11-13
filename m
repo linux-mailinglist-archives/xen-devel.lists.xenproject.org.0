@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1647C57E1F
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 15:19:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1161678.1489572 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBAA2C57F19
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 15:29:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1161692.1489582 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJY9v-0001OF-Ba; Thu, 13 Nov 2025 14:18:47 +0000
+	id 1vJYJf-0003cx-7Z; Thu, 13 Nov 2025 14:28:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1161678.1489572; Thu, 13 Nov 2025 14:18:47 +0000
+Received: by outflank-mailman (output) from mailman id 1161692.1489582; Thu, 13 Nov 2025 14:28:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJY9v-0001Lq-8S; Thu, 13 Nov 2025 14:18:47 +0000
-Received: by outflank-mailman (input) for mailman id 1161678;
- Thu, 13 Nov 2025 14:18:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vJYJf-0003bG-4j; Thu, 13 Nov 2025 14:28:51 +0000
+Received: by outflank-mailman (input) for mailman id 1161692;
+ Thu, 13 Nov 2025 14:28:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJY9t-0001Lk-Qn
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 14:18:45 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a442dec9-c09b-11f0-980a-7dc792cee155;
- Thu, 13 Nov 2025 15:18:35 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-641677916b5so1618196a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 06:18:35 -0800 (PST)
+ id 1vJYJd-0003bA-Sf
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 14:28:49 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 118799c9-c09d-11f0-9d18-b5c5bf9af7f9;
+ Thu, 13 Nov 2025 15:28:48 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-b735b7326e5so62948666b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 06:28:48 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a3d7335sm1575034a12.4.2025.11.13.06.18.34
+ a640c23a62f3a-b734fd80d27sm174893366b.40.2025.11.13.06.28.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 06:18:34 -0800 (PST)
+ Thu, 13 Nov 2025 06:28:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a442dec9-c09b-11f0-980a-7dc792cee155
+X-Inumbo-ID: 118799c9-c09d-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763043515; x=1763648315; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763044128; x=1763648928; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=H0UlQISciIBWlq/TUFTjZ1G3jilWFF0VaPN4BmedAAU=;
-        b=WP64nOb2Wsn6ubdU0yLfBwwyoq6RlJijJ2LqYDYTE/1BAwAjnczT3NrlE3l/rJNB8Y
-         O3qBlnovd6Og3TDe1nSJ7qxnOeRH/QC/svC2kIN124Dr/DTc0R2NE18Z9Zs7MOb9A31v
-         cL8fgVqP8jJJ43lMO5ZGxjkpTypS04UO2rsKV6vY//jHuAbeop+FruwVm5CZG2z6MYIX
-         Su8+LV9NyqvONKh7eeIurpvxHCwlErU39SuuyI7hIWSOAQ47UWlfR7MxRVfyMzWoQF68
-         MJiAfMPxKN+X3g7GrbinCwQAowneIn3V375hKJWN+EqYABoIxRaDSSe/6ezgojblvo1L
-         QKXg==
+        bh=6z9LAEGW/utGPc+qe+s1pQh7FGgt8lv2FC/vukN4yA8=;
+        b=Iua8/7jNqBje7O2/5kO7G5yIx0Dz2dRHvb1DLb3cGSZALAh+jLds6L/+tRRQE7J4OJ
+         Ebu7D6SqjFtGkEuc216r+llf5yDuZt6FrqnCi9J6wC5knacA4oIajHoUVrRHx+sYx1sh
+         BssAtqyAaE/JF5UZnWwdXereAEzSGEIppZMUmv8F8oq9ssd/D1/0NCn3241iqQIh2LZa
+         lIlFXsL0jcoKrz8mjrdVhI0hSXYNQfL7aPKVsHROhns/Rzvr9jHCToPhp222Kjz2mFp+
+         qjOney+M/D9hdrKyWA1GFVev0puVIacAGYTPkUL3EO8gJEjk9ciBSQmZaURNS8vA6jQp
+         rdgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763043515; x=1763648315;
+        d=1e100.net; s=20230601; t=1763044128; x=1763648928;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=H0UlQISciIBWlq/TUFTjZ1G3jilWFF0VaPN4BmedAAU=;
-        b=KsBcTF845B/XZzaIPs+yygiT5NW5dY1vphoAHUQLJFXIWFYjUurmTm/XfxTucFbzWH
-         H22mjmNsx16qXvpkF/YpRvJV8wF0KBZ4MOyTHMf8DKoAxvwGVHhXONzGIjmosa0dXfdK
-         NVGtqyKj/Qn+XGP0cvxSyB6110Jd6cfS7g30tYxVSQttjSGDgByzqVY/LF6sDSoET2tn
-         41wcQXNV095NEmPVolFGw9PgYxP4jl3tOKx6FTaZ+vmayJP8tWReG9v1fnfn0EySFj0G
-         +Vz2rIoTk5W3QBriv+0iZ3hg7VpXPBPs7ICNPQ/+Y9od84q+9mT0jhAEhj3eb56lGesq
-         GlhQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWZoisGva5Mrv8NfmwEoiGGzttAvVsl9ROXs6Ub4A8KiMX3I6UovuvFMUSAVx8h/rLgKxfgvCD+zu8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzEOM+LREkcHukQzkbGEkIUsyljw3r66CZCBVmNPWAg82QTT5Hv
-	IBu3QnueCLqVE0n/yM7aOHVKnafWgfkGOJhOfOYqGyRNrpJ4hdb0dbDmbZU69tWh/w==
-X-Gm-Gg: ASbGncs1Tkk/c2TA6PW+bvWdveBym1PDSc4dZ3iF9hDtnGzGeuKY1Zx+iySsQ2x8Qhy
-	v1YxPbBVZj1BPqccoDsvuY9fGo9GDXuaMRCy0E5+33eFH/6CfOJ/bYzwsC3aCCe/G1zgLr4FGZu
-	TJP0kvgFaaYd4EBb2B948QO1K+IpBGCOZJ6WfxesXvp1ro2kiDP6KFlB1AqCFceuP7HgTloBCoE
-	hpULsPkBODeAB1tOcMjuKXXQFL8IY4yESLIi+2gsjPREthHgLh68fapF8OJ5GE9SH3ir+uTeeiw
-	hhg3JgQ6qg5D+0t2kCSZhYpWPvT5ds1M6R715tczU2w6EwifOLOMa2dluZP3SFBwPRr7Id6wg9p
-	YUqbepAZ/17IjFEhCYsWPKUKwD0tHYQDtVPd1l9sL3DNyiqkptG/XqjPEQ0yF3zRy7L3M3CfPkh
-	VeBnxpE3dcilsjFE7DwI83ihnqMdp2isniwyxByNAvCwaA5q8zRjrzmrnVGUgCoF0Z
-X-Google-Smtp-Source: AGHT+IGsKXFg72NR7werMpfKTmmCiEsZ0Btt7tO/76v46MSY3zLxetSHNgdbnbOLmEaxYqtegH2DzA==
-X-Received: by 2002:a05:6402:27ce:b0:641:72a8:c91c with SMTP id 4fb4d7f45d1cf-6431a54e90bmr6108275a12.27.1763043515253;
-        Thu, 13 Nov 2025 06:18:35 -0800 (PST)
-Message-ID: <0978b00a-3848-4c45-aa64-46756c43bb5b@suse.com>
-Date: Thu, 13 Nov 2025 15:18:33 +0100
+        bh=6z9LAEGW/utGPc+qe+s1pQh7FGgt8lv2FC/vukN4yA8=;
+        b=TuPKni1PdgCqnUjo/5Mch0PN7ypo6J7a+msqE2I8vkI6CzV93D8QwuHQKLEbiwBA1z
+         r/6+zpTZgNS2wI5db/4axhu7MhwuPGn1N8TI1mNTBQ5GqhcfH1QO8RJRwEDsk7nWqKx0
+         hxiQIXd/PT1pf4lsmTWNp6R4y1SiSlMPeQKCI4jRcssnInDnjBxVFmotWRQzT16VoueC
+         G7qvzwzPZKm67a/njvlypntYRAYPcXlal6wh5q/2p4eJrcwJTRRdE1x22LH4aNZjDH1c
+         l4EHRJC/MJyKMZkJ+uP9dAN8lAQjHlC8cwUbC2uetW4ng3jHTgmLMXW09epGJVXj/Noa
+         7yVA==
+X-Forwarded-Encrypted: i=1; AJvYcCU/aFPBCuz4/V0eTZi9CG5EZU/aghy0ez/rRtpX83eDgnf+dRaVEi/74V76OSAywVSIwpcQ89g6prY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyi8ZVRHIsUjYR18k471dJ0ZEUIfpKD1vfaAB3Bz2hihqF4Kkou
+	YsU5dDk0c+a24z19ugmYrENkivLzX8T8q817L1a8R+O6UVV0caFFvXB4/4shDgpUtg==
+X-Gm-Gg: ASbGncsPgq0lKgUiJc8nYI0RKPSpVOZKR739wkyK+mx1hGNEIa07XRwjz2Hh8+OVrpr
+	A9H6OygXMo6lFq7QUU92lutE6pJ0ZYcQ5zX/zN2Z3PakRSGCoqgs3YJgOvq9fU6GXx6Ctx/8pKk
+	KXb5z/3hGJxt0fUCLBuVg3GNS4lfaJ+9OnqQr4soCKfWp0mj6OG5ShkoVXQiC5moAyDRaVyqO07
+	15yOWnoorKH63HM/7Ve7lfT5NCQcn8M2Hu4FzKOCIhG/oC+s6wA2Ul0X10CtCEm1N8e9njo0btV
+	euLpgSthK0sIF4gJo5g06d2VZsW8KaE3cU0Lzv0BPiTdUd88ldBjKZG/JL97KOp5xnrDC2tVSZn
+	ycvRA2L1KHPUmR2wo5rDr3ju12/DHxBXVPjBUOUtR8jUjbUjz4E8ZqNURz3aBL27WFdo7SiPCL1
+	FExF8IQ7/D8aaI6GD+5fI9V1CJ/uVwNP62UfCTdpVNTMjfdG2eCtGAJAGZD22IPvHHE83/MfjDa
+	y4=
+X-Google-Smtp-Source: AGHT+IEHl82PpdTl4nbTh0VmiGRufZ9ktiyGRLU+PyL74QdyuVtLqBriQN6NPZWAsJ7rQZvPrMoWtQ==
+X-Received: by 2002:a17:907:7e84:b0:b4a:e7c9:84c1 with SMTP id a640c23a62f3a-b7348056909mr357154766b.7.1763044127998;
+        Thu, 13 Nov 2025 06:28:47 -0800 (PST)
+Message-ID: <4b0b5b43-1931-40a5-9879-f2a2dac9c602@suse.com>
+Date: Thu, 13 Nov 2025 15:28:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/7] xen/page_alloc: Protect claimed memory against
- other allocations
+Subject: Re: [PATCH v3 7/7] xen: New hypercall to claim memory using
+ XEN_DOMCTL_claim_memory
 To: Bernhard Kaindl <bernhard.kaindl@cloud.com>
 Cc: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
+ <jgross@suse.com>, Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>, xen-devel@lists.xenproject.org
 References: <cover.1757261045.git.bernhard.kaindl@cloud.com>
- <b37634dd9a37b52030bc8196dcdeec896a5706a6.1757261045.git.bernhard.kaindl@cloud.com>
+ <e45dee16b67f31960e89fb3a3033064fcff02aae.1757261045.git.bernhard.kaindl@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,33 +128,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b37634dd9a37b52030bc8196dcdeec896a5706a6.1757261045.git.bernhard.kaindl@cloud.com>
+In-Reply-To: <e45dee16b67f31960e89fb3a3033064fcff02aae.1757261045.git.bernhard.kaindl@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 07.09.2025 18:15, Bernhard Kaindl wrote:
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -980,9 +980,19 @@ static struct page_info *get_free_buddy(unsigned int zone_lo,
->      {
->          zone = zone_hi;
->          do {
-> -            /* Check if target node can support the allocation. */
-> -            if ( !avail[node] || (avail[node][zone] < (1UL << order)) )
-> -                continue;
-> +            unsigned long request = 1UL << order;
-> +            /*
-> +             * Check if this node is currently suitable for this allocation.
-> +             * 1. It has sufficient memory in the requested zone and the
-> +             * 2. request must fit in the unclaimed memory of the node minus
-> +             *    outstanding claims, unless the allocation is made by a domain
-> +             *    with sufficient node-claimed memory to cover the allocation.
-> +             */
-> +            if ( !avail[node] || (avail[node][zone] < request) ||
-> +                 (insufficient_memory(node, request) &&
-> +                  (!d || node != d->claim_node ||     /* a domain with claims */
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -267,6 +267,35 @@ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
+>      return rc;
+>  }
+>  
+> +/* XEN_DOMCTL_claim_memory: Claim an amount of memory for a domain */
+> +int claim_memory(struct domain *d, const struct xen_domctl_claim_memory *uinfo)
+> +{
+> +    memory_claim_t claim;
+> +    int rc;
+> +
+> +    switch ( uinfo->nr_claims )
+> +    {
+> +        case 0:
 
-What if ->claim_node is NUMA_NO_NODE?
+Nit (style) Indentation (case labels ant indenting the same as the respective
+opening figure brace).
+
+Considering what follows I'm not quite sure though that using switch() is
+appropriate here. Kind of depends on what the longer-term plans are.
+
+> +            /* Cancel existing claim. */
+> +            rc = domain_claim_pages(d, 0, 0);
+> +            break;
+
+This effect also wants mentioning in the public header. It's not what I would
+expect (a no-op). Also, shouldn't NUMA_NO_NODE be passed here?
+
+> +        case 1:
+> +            /* Only single node claims supported at the moment. */
+
+Isn't the comment misplaced? Comments usually describe what follows, and the
+"nr_claims == 1" restriction starts already a line earlier. Maybe the comment
+would best go on the same line as the case label.
+
+> +            if ( copy_from_guest(&claim, uinfo->claims, 1) )
+> +                return -EFAULT;
+> +
+> +            rc = domain_claim_pages(d, claim.node, claim.nr_pages);
+
+claim.node needs bounds checking, for nodemask_test() to not overrun the bitmap.
+
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -1276,6 +1276,21 @@ struct xen_domctl_get_domain_state {
+>      uint64_t unique_id;      /* Unique domain identifier. */
+>  };
+>  
+> +struct xen_memory_claim {
+> +    unsigned int node;      /* NUMA node, XC_NUMA_NO_NODE for a host claim */
+> +    unsigned long nr_pages; /* Number of pages to claim */
+
+Fixed-width types need using here and ...
+
+> +};
+> +typedef struct xen_memory_claim memory_claim_t;
+> +DEFINE_XEN_GUEST_HANDLE(memory_claim_t);
+> +
+> +/* XEN_DOMCTL_claim_memory: Claim an amount of memory for a domain */
+> +struct xen_domctl_claim_memory {
+> +    /* IN: array of memory claims */
+> +    XEN_GUEST_HANDLE_64(memory_claim_t) claims;
+> +    /* IN: number of claims */
+> +    unsigned int nr_claims;
+
+... here.
 
 Jan
 
