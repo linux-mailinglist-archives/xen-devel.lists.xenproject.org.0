@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B9A2C58BFF
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 17:33:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1161905.1489729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFE8DC58DA9
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 17:50:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1161920.1489738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJaGW-0005fV-8t; Thu, 13 Nov 2025 16:33:44 +0000
+	id 1vJaVr-0007qI-IH; Thu, 13 Nov 2025 16:49:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1161905.1489729; Thu, 13 Nov 2025 16:33:44 +0000
+Received: by outflank-mailman (output) from mailman id 1161920.1489738; Thu, 13 Nov 2025 16:49:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJaGW-0005dK-5Z; Thu, 13 Nov 2025 16:33:44 +0000
-Received: by outflank-mailman (input) for mailman id 1161905;
- Thu, 13 Nov 2025 16:33:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vJaVr-0007nN-FK; Thu, 13 Nov 2025 16:49:35 +0000
+Received: by outflank-mailman (input) for mailman id 1161920;
+ Thu, 13 Nov 2025 16:49:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJaGU-0005d1-JS
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 16:33:42 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 832f910d-c0ae-11f0-980a-7dc792cee155;
- Thu, 13 Nov 2025 17:33:40 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-63b9da57cecso1536997a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 08:33:40 -0800 (PST)
+ id 1vJaVq-0007nH-LF
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 16:49:34 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bae840dc-c0b0-11f0-9d18-b5c5bf9af7f9;
+ Thu, 13 Nov 2025 17:49:33 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-b7355f6ef12so131088966b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 08:49:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a4cbd18sm1737288a12.35.2025.11.13.08.33.39
+ a640c23a62f3a-b734fad48dcsm197981266b.25.2025.11.13.08.49.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 08:33:39 -0800 (PST)
+ Thu, 13 Nov 2025 08:49:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 832f910d-c0ae-11f0-980a-7dc792cee155
+X-Inumbo-ID: bae840dc-c0b0-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763051620; x=1763656420; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CPobIyLR5ER/prJiVLVTFEyyhSEvwjFrinkdSwH5Daw=;
-        b=HSx90eAePF3R8MDcY4lVAi4OTKq32JNKS/9OFBnhA7psVchRbV0js6araoew8AmrmW
-         pLrC/NRFGuJeOHrBqleSzVe58mEuv+iLMo/PIPz3GY7s+XcGVy7gdx7DL0Sd9gjHt5nO
-         j2O8AntV993CyBMV8itz5WoPN56oXnd8mcjC/KmVA/kKCFyPyv/REOL/v6Zl91wHfxq5
-         0rfhriXI1KlAAZWXeL6eB7I8romCjpq2Nz9RMejg4YG3p3NvRb8wK2MKhDnBUxmS0Co9
-         ZEjbzZ1yDky6sh7BPKLNcc0MGznTt2hAQUrGESR5PK7ajOcKwSS3KZBgU3hzm61h5xPS
-         DC/Q==
+        d=suse.com; s=google; t=1763052573; x=1763657373; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=mBDAtgpture23e+Y1P8BA79C3krkdcCq1Kelp+HYmI8=;
+        b=crtz3I1iwEgYSZ+HWfH6vHAj3kcLOi12a2Rohia+1SQ49geCCpCqWKt88Z5hxPhErL
+         MwZYvtvI+QBQxT0T9VlhmHCfgpWzlczaeKKjEZVevn0PdTZL6weczzfi/SDQGcNo+X78
+         YJ15Li1nmq4uBfnrwqIhuAzt65NDc+IA+Mpu5zXHLgxvv1atgyIA16TYt0BtaOP8e4J3
+         CeYS3xOXC0VQDivJ2VQ7SSfYGIgBVID1tMMaX5YBZZIQAmDHrYISWCgOHe5EMryAppba
+         DEWyoB/js0VggMgYsedWSxzVjKurV8JcVJj0/PnjToTQRxlm7Ng/Ffu6aFdCZ1whTYQa
+         tCig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763051620; x=1763656420;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1763052573; x=1763657373;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CPobIyLR5ER/prJiVLVTFEyyhSEvwjFrinkdSwH5Daw=;
-        b=Jt7Il6fhE++xYFWqdO5yqpk2IlrOWjg9Ek6Poo2+XlnU1VUSsfV+cg8czvittKTTma
-         fzVq8WZVce61u5sk0gCdZ3YT56Yp4ADxoIFPH6x2WxoV0+vnsLcY1rbNMwdwvFAuHLk/
-         HGoBs8sRFQ8IS4U6TH8E2WU1+dX5FH8k6Nn7nyKcRK5WdI1VzABpGscl4WchExJuIk5Z
-         H99KC5ILNN/s1gPU0zVWxzfXbT0tXyWDDdZcMX9BQTjAmpSlGtzhApv+AEy4kFHTesbX
-         VyM2S/Ly0Qir4ZpMGsNDNBnmWgha27HVNjbBA/KDSx3ANwXQi0cyacqH48Cdkav/p6Rc
-         YC4A==
-X-Gm-Message-State: AOJu0Ywg4T10EilKgcHNb2/a5C0xbHCDqZ4Q3s/UK4fsKTKTfRTbJks8
-	QC63FIzgy/5s8N90ZxOLpUifsMb+hHD+jO8ml/0NZvTmNigwhhMGmmZes0YCo55h8wt12ICDaui
-	s0TU=
-X-Gm-Gg: ASbGncsyOYABuxRMwYMLFPS9+I9+kAlXFgDTbGvGc9yObZEY3ZwEIfVfsmlutDmYcLb
-	KJu64yttTmrt/qIsjDKQsdCRGL1dMOEIL3yNAknLSswb5gw9ITnsBnyzV6MYMlsANpESMbbi3qq
-	UFl8QTZ6uQ4QcBz0CpLqAAg0Ur7t0fnEkxMu3OecFZBntwK3yF+RxAORx/xzmpPsNVrf4XzJ+DR
-	33FNGdLcFF5HrHYbxIa1I5+YdsexrHXGb51jvDnAhyZ5U7SbBmJ1szWjRnPNsOGqroZrtBIaOch
-	eIyW9pNvu7JzScS1KWsPCRYZCjj40q7q1nYpewN9UwcCPycE/LgC9xrV1csWiBmLaBhQcEbiH9q
-	hFqbpRVl8GdGAmbTbwkcZSKq2v2ITEw9n4A1/vMYexozuRuol7kEnfGUI3ukihTUsLN/+aeASSd
-	f1AGoQy+w/HIWMNKZp60kXUS7kONP++2GeLUGjQDYrLvNQf+FncTO6AlPr581hKJqG5Vb2EZenD
-	6M=
-X-Google-Smtp-Source: AGHT+IF5YkhcelQBvEOqv7eSnsdw97EkwT1t8PDRAPyIdUAy6/y3JJ6BHd/zG1kh+pEZzIG50MTzxQ==
-X-Received: by 2002:a05:6402:5351:20b0:641:2c5d:81a6 with SMTP id 4fb4d7f45d1cf-6431a577324mr5011445a12.33.1763051620136;
-        Thu, 13 Nov 2025 08:33:40 -0800 (PST)
-Message-ID: <71f80a69-a8b6-4836-a5ca-3ee291258401@suse.com>
-Date: Thu, 13 Nov 2025 17:33:38 +0100
+        bh=mBDAtgpture23e+Y1P8BA79C3krkdcCq1Kelp+HYmI8=;
+        b=dd0/dgOHfUkAClWcXtpnhc20Kow5TYhwpCgB81v0/t5A45Ei142D88Dw3VA5P7P3PO
+         4QP+EE1LDEjE3RWST+wc7om+aD2mwkRw2H9LwuFx9P8d9Qv2gxV7iZdHa+wkSoLkmeBW
+         A9bRijcgXtwUk5e2+q2P8V37biBhKTxM96IAkJ7ft3kyWDrxAeHrqI3G298tQxIgyJpd
+         XS0De5DpW4+ibBptti1yL2E3mnBy4PPhNmGSCIC0FeA1J8PX1s1cJ8QLirt7bwQyJtf6
+         1VUyEJM5lj/BqqdD/Kl08mp5P0BdMH28jZQluLYhKhzvVrCLqVAFD/QhZcGJjX4ukDFY
+         1lfw==
+X-Forwarded-Encrypted: i=1; AJvYcCWNzJqivLFZPLXHmEZq2fdvlZTAZomXeqzT7y9vZbfUdiWrm8sJKjuQYFfTHgql2J59i+WNBAvDFUU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwxoX+XyBxapnRrvLs9d39hN+pdHCu+ZFMfszuIEUSLf1aOZ0Xx
+	5TOw4rHtAO9Nj01KvjuaE8TkfVs6wM7LRN4cLCnv+IREBX4F/sKB2ows3/+PDjhj5Q==
+X-Gm-Gg: ASbGnct9cEwSNzr93nfLoesKn8cfw6xHh9kAri3vYs/wZYM99YSk17haU9GRsrfaKwf
+	Bim/qFy867k2bZzD4HgBfmm8mm5d2QcEhW+HOY0l/f+dGAGK2gd41Y+fkLnRotZH8Rjmv3EWzJ8
+	4RdPRPhsoGde7NAWP8v1GKZoGaw/V9hshxmRyxxHfxGB16hD/Olanj2zoDmi5NrlKtonO1SXxiC
+	WGYO6pjFopMEdgbhXlncnUBKy/Q79OIbqlLBSNnpeLlbGf2dzn+5y3zANbDyw6xJUpHT8SGGV5v
+	Tlkg4VGX4tDVJ3Mkl3Ua2XWMcBobJdYM4GM6B32m9RUtuImBM4o16gOHF6yDAfiKDup5Wx9ArRV
+	Eyyy+Wtz2c7Aw5IxQCWRYLzAgBE6rX/byS/Uq+MFSHhXCXz1eFCFK9j1O37wnajgNZwbgJbJPOT
+	fuF38eM/yp/AbJ7T3bqPxyDV4WYU6JVDaLCenesaC82rIW1vkdwghla15L/BafPXavxUTZl30us
+	rA=
+X-Google-Smtp-Source: AGHT+IFCk4ytL6k9q2qaDXrS1Fn5Xzvl3Hi/FRCSWYJ8OQowGcUy+gIomxu67s3q4AOGY8fYdGxhXA==
+X-Received: by 2002:a17:907:6e93:b0:b72:9d0b:defa with SMTP id a640c23a62f3a-b7331ab3429mr794732266b.41.1763052572479;
+        Thu, 13 Nov 2025 08:49:32 -0800 (PST)
+Message-ID: <f5934f86-7a93-4184-a807-86fc6e18157a@suse.com>
+Date: Thu, 13 Nov 2025 17:49:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] mktarball: Use root/root for internal ownership
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20251113162048.224485-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 2/5] build: add new make pattern for making file from
+ file.src
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20251111161959.13667-1-jgross@suse.com>
+ <20251111161959.13667-3-jgross@suse.com>
 Content-Language: en-US
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,21 +124,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251113162048.224485-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20251111161959.13667-3-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.11.2025 17:20, Andrew Cooper wrote:
-> ... rather than leaking whomever created the tarball.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> 
-> And backport to 4.17 as there's still one more release to do there.
+On 11.11.2025 17:19, Juergen Gross wrote:
+> --- a/Config.mk
+> +++ b/Config.mk
+> @@ -159,6 +159,20 @@ define move-if-changed
+>  	if ! cmp -s $(1) $(2); then mv -f $(1) $(2); else rm -f $(1); fi
+>  endef
+>  
+> +PATH_FILES := Paths
+> +INC_FILES := $(foreach f, $(PATH_FILES), $(XEN_ROOT)/config/$(f).mk)
+> +
+> +include $(INC_FILES)
+> +
+> +BUILD_MAKE_VARS := $(foreach f, $(PATH_FILES), $(shell awk '$$2 == ":=" { print $$1; }' $(XEN_ROOT)/config/$(f).mk.in))
+> +
+> +define apply-build-vars
+> +	sed $(foreach v, $(BUILD_MAKE_VARS), -e 's#@$(v)@#$($(v))#g') <$< >$@
+> +endef
+> +
+> +%:: %.src
+> +	$(apply-build-vars)
 
-Fine with me:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+I'm not convinced of having this here, rather than in less central places (say
+under tools/ and docs/). I'm also not sure I really understand why it needs to
+be .src - can't we stick to .in, enumerating the specific files that want
+generating this way (thus avoiding accidental attempts to re-generate files
+which need generating a different way)?
+
+Also - why the double colon here?
+
+(Maybe I figure answers to these questions as I look at subsequent patches.)
 
 Jan
 
