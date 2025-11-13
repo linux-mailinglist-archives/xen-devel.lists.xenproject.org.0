@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C123DC59861
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 19:40:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1162056.1489849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58DB1C598A9
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 19:43:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1162068.1489859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJcFA-0003ok-48; Thu, 13 Nov 2025 18:40:28 +0000
+	id 1vJcHs-0004Zm-J9; Thu, 13 Nov 2025 18:43:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1162056.1489849; Thu, 13 Nov 2025 18:40:28 +0000
+Received: by outflank-mailman (output) from mailman id 1162068.1489859; Thu, 13 Nov 2025 18:43:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJcFA-0003mL-12; Thu, 13 Nov 2025 18:40:28 +0000
-Received: by outflank-mailman (input) for mailman id 1162056;
- Thu, 13 Nov 2025 18:40:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vJcHs-0004XZ-EJ; Thu, 13 Nov 2025 18:43:16 +0000
+Received: by outflank-mailman (input) for mailman id 1162068;
+ Thu, 13 Nov 2025 18:43:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X5Bi=5V=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vJcF9-0003mF-0I
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 18:40:27 +0000
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azlp170100009.outbound.protection.outlook.com
- [2a01:111:f403:c107::9])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 350acf2a-c0c0-11f0-980a-7dc792cee155;
- Thu, 13 Nov 2025 19:40:21 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by SA1PR03MB6562.namprd03.prod.outlook.com (2603:10b6:806:1c9::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.17; Thu, 13 Nov
- 2025 18:40:15 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9320.013; Thu, 13 Nov 2025
- 18:40:15 +0000
+ <SRS0=25e8=5V=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1vJcHr-0004XT-Jd
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 18:43:15 +0000
+Received: from fout-b2-smtp.messagingengine.com
+ (fout-b2-smtp.messagingengine.com [202.12.124.145])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9bb46672-c0c0-11f0-9d18-b5c5bf9af7f9;
+ Thu, 13 Nov 2025 19:43:13 +0100 (CET)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfout.stl.internal (Postfix) with ESMTP id 0C9A71D00313;
+ Thu, 13 Nov 2025 13:43:12 -0500 (EST)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-04.internal (MEProxy); Thu, 13 Nov 2025 13:43:12 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 13 Nov 2025 13:43:09 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,167 +44,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 350acf2a-c0c0-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DcW70mAgotGGgQX0Psdd94uTiCUDMf3az56xCp4EfvhbeFQt9H4o+EWRwqN39EAs2RRRYUYCaoWn8ZoetRhanqpc6j5YatWJKzHFhhNC+8w+/xMkKSbQj5IP5SAS/ngqLbHrSoR4oQ3Aur9AXL5b4TNFK67ub5+s57O2SXkSfL7oX/Z46gVs09Bz89is7hEMXhroNVn9ZRVmFjd8OKeHUvxYuhjNnamcgio8zmOpAM5Fr8Gm3p6PHCo6W3saizCdkLtL6zYNbz8SqDesFTC/6ApJZPPUYn7lMJ5m8TOHJKwv7TCqh9y1quurQwEkM+wD+rs3ID36H1qzT74LxHKCng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h64cCLujmHCZOMUaU8v8tv2k8Sg/VOIGd0dYcxlE0xI=;
- b=HY5Kknnye/oHoUEXbDZB1Z5+QZX2LFjyByPwMpLEMgsQDuYoggjrYkNV7iQB/kUeHMyFuJxwuD/VdhhlKq4+Kb5DVQwIGmBiy0yHfjySl5o0S+7Gw8DqBRkgC/RFIV2IH97HzLsRePRQnYSYID5a3HmDuvi6/VJTVmUqFqKJeHKKP94DhiTK59bsCaxGIo9NjVMLPVIFKSHaIITdIykcuDNilJXigQC8Ssni0H5tnXKNbaXdsxb6YJV9tJrerf9iM5PMHR8tjzGqocbAoLDtIGIstX+2e6rqjYgpkxarLJkHFMfIFaZaRtRZgbtkZZgSHMMNLREXQWySL1MOjKQZtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h64cCLujmHCZOMUaU8v8tv2k8Sg/VOIGd0dYcxlE0xI=;
- b=H0ugjnXYH49EEHoROQfBeya5jpo2gbEM5YhjdoBsWb6THS++3gcIS3Ngb2RgSNqLe9iQ7MzzR9iElmnTOrf5/Q/IpPKXpSfcqGFGdXX1HGDBg2uV2eSy63u3R2tWuHoHJl6zY4b4ml/bDhhIAhfpq68esdbWPLDZrMZRag5ImWE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <d95e5a85-a8cf-4207-94d8-5e1afff615c1@citrix.com>
-Date: Thu, 13 Nov 2025 18:40:10 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21 v8] xen: Strip xen.efi by default
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Frediano Ziglio <frediano.ziglio@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
- Frediano Ziglio <frediano.ziglio@cloud.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Frediano Ziglio <freddy77@gmail.com>,
- Demi Marie Obenour <demiobenour@gmail.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20251113154358.28704-1-frediano.ziglio@citrix.com>
- <aRYk80Sqo-sjN6fG@mail-itl>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <aRYk80Sqo-sjN6fG@mail-itl>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0182.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a4::7) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+X-Inumbo-ID: 9bb46672-c0c0-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1763059391;
+	 x=1763145791; bh=lXxLZsOxpREcR2HuC2Fg0UpqH2BHTtEmo6JxubieZyA=; b=
+	KAOtBBApaFoXo1ev2sX81dEjpOwSx88xDiKvL17DK5xSVzR9tOrpSTH/LDKso1dE
+	HygUFq4ywRQEYw8SwDZKXR1g+4GoO4l7GfvuiP5vYyjFdwcet9nB4JD9UwQzJNHd
+	3VzVP8huy6E2TVOaU0B1LWLY2owM34eGxa3ZIHjhPb/HUuQBWKKxPLXLsug/CuGw
+	lg1WzBfeOyY7EhojcnvRS/yvdr9FCxUzB+nqL2u7X5BJrgQEiYcCL8BfkKBKuDD2
+	iM2SfPWznqdRoz5OxuhonR3UWo2YYO23ZMBLmXjw5uAp6kkkDi9LRswZc0JDzDFJ
+	GFNMwa19WFedVK3SXXV/FQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1763059391; x=1763145791; bh=lXxLZsOxpREcR2HuC2Fg0UpqH2BHTtEmo6J
+	xubieZyA=; b=okJS8zZIk6KNPbQrqKWzVNt0s75dEtfV5QtmgKKaVKhFLkD6+/t
+	1lrjxKCrCDB4ZDDprpNf+jR4QZx1w9r6LgoYezwARBetfnNaPWun4csiKshjXn6/
+	xhOvLtRkDI3tEozbJ3E5PZss6q5UQ1/+OiJ0+mbDp1eqhQvj3dycQEKNAdQUrF/i
+	naOhOszABdDE3OsqYWUkeokID4Oy0TcD5IZgF7aCoAKc89GGBt87qXEYqT+4O1lO
+	nhmCtJ462psyqWGR2hmFrw9TK2S8Kb1DGsDXlJBZiLyzmYj8i1B8YyKZFxJnD1Zf
+	1/rg9vQ6zmPJZdbzujYmFpDlnH1/AeCECkQ==
+X-ME-Sender: <xms:viYWaflcrBwHFfi9H4DAVYlkWZTPuEf4PNzZShGPUAO7_-n_f5HvIg>
+    <xme:viYWae1JL5W2mtFO8mr-uBCpLv-9GhtfaZT13kaNOhfxFFI800ON-ykEcuCfbEZzD
+    P9LPmJmoapQJMx4jWIQ57kXDlKuZd9oQK-uau9SyZ58fPcMecE>
+X-ME-Received: <xmr:viYWaX24zDD4Emr8zQXTEC4UQFRzLvK9og_DIq56jQcBNmere7U7BZ5XtEhbSNOdG_3JTGuvNXHmmRR10JS4m0BOsThlztgROMA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvtdejieelucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepieeluddv
+    keejueekhfffteegfeeiffefjeejvdeijedvgfejheetuddvkeffudeinecuffhomhgrih
+    hnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
+    mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
+    gsrdgtohhmpdhnsggprhgtphhtthhopeekpdhmohguvgepshhmthhpohhuthdprhgtphht
+    thhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtph
+    htthhopehjghhrohhsshesshhushgvrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhl
+    ihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepohhlvghkshgrnhgurhgpthihsh
+    hhtghhvghnkhhosegvphgrmhdrtghomhdprhgtphhtthhopehjihgrnhhgrdhpvghnghel
+    seiithgvrdgtohhmrdgtnhdprhgtphhtthhopegthhgvnhhqihhujhhiieeiieesghhmrg
+    hilhdrtghomhdprhgtphhtthhopehjrghsohhnrdgrnhgurhihuhhksegrmhgurdgtohhm
+    pdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrd
+    horhhg
+X-ME-Proxy: <xmx:viYWaYq72mAbLE6ZjHOIexKo5CBfw5XhM-X8ivyjDyycQKzAVXdNww>
+    <xmx:viYWabiq9dfFJCgJNel92GabUZMqPSE0uMT3D2yUSVQR3P-x7Mvvqg>
+    <xmx:viYWac-1J6roKTKpn4zsuYd58CvB4D6-PQIoNUj571oenr_wTchgMA>
+    <xmx:viYWafWSlL5Tb8_48cWM70HjW6QP0nZRK0CpZAjSSnK_slG9toGbWA>
+    <xmx:vyYWac8fLx6NH354UureVdHrvxp2BRJzEP9yIXe4imP6SXmX4CqXqFro>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 13 Nov 2025 19:43:07 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: linux-kernel@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Peng Jiang <jiang.peng9@zte.com.cn>,
+	Qiu-ji Chen <chenqiuji666@gmail.com>,
+	Jason Andryuk <jason.andryuk@amd.com>,
+	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] xen/xenbus: better handle backend crash
+Message-ID: <aRYmuwW5rShXqMj1@mail-itl>
+References: <20251102032105.772670-1-marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SA1PR03MB6562:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a3ce7c5-7aea-48c8-34e7-08de22e415f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|366016|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UjMyNjB3MXgrY0RwTExjNklqZTNvZGlPRXdTRkE2bHN1bzFKeDY3bk9DcnEr?=
- =?utf-8?B?aXBUY3Job3R3a3FDWUd1SVA2S0x6MzhNSlVoQ3J3aXN6ZlZ3ZjBQc1BVWmJx?=
- =?utf-8?B?SHUyVThNcE8vcFlZc0ROWGQrelFZQzFIOGt3L0oydTVRcnRNWEI1bGdsR0pX?=
- =?utf-8?B?WWdLYXFRMUVCMVNXaWNCNmtSc2p0Sm9DRHNCUk1sZTYxa0t2ekFtdHlxT2RM?=
- =?utf-8?B?Nno1Q1JOL1Y2S1drbkRDd2VycUp1S1M0TE1EREgrbFZwbmxWTFI1T3RDUEFM?=
- =?utf-8?B?ZmFKV0ZyY1daY0ZEVkUvRkpYVnZ4YSt4bmJ4S2RBZ3ZWRDduMUtKVmh4TVRK?=
- =?utf-8?B?dk00Q04xSnhHbytheUZVVUxMNXlKcHprb0xtalB3WTZ3Y1V4eE92QkI2c3J4?=
- =?utf-8?B?SVJ1UEdtVDRWNk8ydmc1UFZVdWhaMDdBRDJXUkhBeFBwVGdKdWwrWVR2OVI5?=
- =?utf-8?B?VHVvVFNhbTAzbTFxT1l6RUFqb1hSa3QxUGF0UGlJbmlQcVd4T2hqUVdZa0Yz?=
- =?utf-8?B?cWhCMndEa2E2MldIenhaM1RnM25QTHJ0dW4vTmZ6NlN5dk9VeitDeFBCQ0ZC?=
- =?utf-8?B?MTIvQ1FTSGdZd0JPL09qUTlFZzIvU0I3STV1RHFEbzU4SkFYNjJMc2ViNzNN?=
- =?utf-8?B?RGhvN2ovNDB6MTEwaXpVTklrQmZyT0RxdmhMWWhWcC94L1ZxRDI0NlpvNUxD?=
- =?utf-8?B?ZUpyL3YvQjJrRkk2Nm5hbVp4VEU3alFVUmtSVlN4eDlpdUQya04yUlpWdjJ0?=
- =?utf-8?B?U0pHdUhUMHg3OWpCbkFvZFByRzZWVithSDRzSVp2ZWFMM1NKbzdJZjVtRTZ0?=
- =?utf-8?B?NkdQMlBHNDdrREQzc0hoQkF4aWVKL0pGMTVQVWx6RWtXRHdES0o3YzN3dnZu?=
- =?utf-8?B?SmNRK2xNa3FKNDlOWHU4L0N1Q1FxaTlOYkdvMWFubEdzeFpnaVJpdnpMa0My?=
- =?utf-8?B?ZEc3Sm9tbmNGSDhYU2k0WFJtUTRwTUQ4WHR1dUU5amIvWDNyakpvQTV1WmpI?=
- =?utf-8?B?RVhnMmlIWjdnQjRQc2JLRUF5K2dXSENSc1lSVWs4aGh0N0dnWXZ2clU2NXFr?=
- =?utf-8?B?ZXlDc201MFA2Vk1oMkVQelpXN0k0NFVoVmN3SHk5L2lYT0YrWXdZOCtwMG96?=
- =?utf-8?B?N2tjaFFsekVNWDZKSzR3ZFRXRnVTZ2JiN0tiRTUvdUtqTStjZUdWZG14MnhO?=
- =?utf-8?B?QVBScXNoVTZtckNzVnc2a05TS1FUL1JHb2h4QjZFcFB5Zk1VL3NnN29sWkFq?=
- =?utf-8?B?SnpOM2dob2RIMmFlTUZDNUNobk5qcmVMWkFVZG5lVW1WbkEwTWVoQkFpQ2dN?=
- =?utf-8?B?WmQycktpZmwySnRxNkF2OG81ZlUzS1pGTS9RbHNUUG1BR2F3NXloQ0dOTEh1?=
- =?utf-8?B?S0hSdXVTeHhYdkxGZkVOTGdkbmhpWTMwWHBYaVFsYTZORjVvWlRiRlBVU005?=
- =?utf-8?B?R3VGTzZIQVRvVFRzZWlTdEo0bllPZ3JOcmZQdnE3WUk5K2ZQcEJDMmd4UmNL?=
- =?utf-8?B?ajhFSGNXMTBQZE1IbEFXL0d4UmZpRlV6S3RObFNkN05qWHBNblVGRnlUUmxC?=
- =?utf-8?B?SEVFdGkrRGEycFlPSTJFT2tjMkR0c0hEa1JDdFBXU3dsRDZ1M0F6ZHVwOHFW?=
- =?utf-8?B?SW1JK3d1blpDVENUaUhPdDBiZEpkdXpzZGUvemZWLzlCa0VGU0NEbi9yYXlP?=
- =?utf-8?B?TVc4MEtWcU8vZmtoSW9UVnlsZVE1d0h0b25tL3laTXo0bHBNRXRzNkhIbk5l?=
- =?utf-8?B?M2tOcFlzWkFlR1NUblo5bTF0L2ZKc2RxZy9QNFBLdnFzSU1hOTZiSERXUlky?=
- =?utf-8?B?VzVZSG93UlZwZitKU1RwUnFBSU9kTTRmQmhLNnRqSk04ZjU3bFR3VHorZ0Vz?=
- =?utf-8?B?aTh4NS9lQld5akRwODE5bEFKbEdjMU9Vem12RjM0OTFWNzd0emFlWjdDVFNt?=
- =?utf-8?Q?4oWtvGXDrvtFcuvt1vxlDgdJEbSs6h6R?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(366016)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eFB4aC8wYlg4SDVUbW1qVnYvb29kRWhSVENDcnBTS3d1NzhtbHg3SWRxMFBV?=
- =?utf-8?B?Z0dqYU12VFVLNFZZbVp1S3FGMm5UUjYrODlSN0VtaGQzekdQTlZxWkhXUFRR?=
- =?utf-8?B?OW1vVnhFU0c4Y1BVMk9tdmtvSlFBbDBidGZsRHFXNWRJd0hOY3dMWDFBTjFT?=
- =?utf-8?B?YWpmSGhkdWVhWEh6WkcxdUoyL1hLL2xkV2NpMWU0bWRXMHpTUXJleGhZbm80?=
- =?utf-8?B?MWdoQkl4bSt5eHMxVktFbm5YVEdva09wMENtS1FOOU9LWW5RaVBsTjJWWERE?=
- =?utf-8?B?YWlidG8vd251TVRSR2lQeFh6djdVWWhEdTlieVREdjVQVlFPYWhZZjFYVEdW?=
- =?utf-8?B?bllGTzZOdlBheDdWanpDZmZuaEhIbFRMQWpJN1E0MUVYZFlYY1E4ejBwcUJ2?=
- =?utf-8?B?bjl3U0VvM3JCWTBaalp0Vm9yajhIcHBHUllQSG5RYlVOazlod29RZElEVCs5?=
- =?utf-8?B?R3RZWWllaEk2bEpLMXJCRnJtRWFLY2o1d0VmR2lXZ2FGZEpsYVpOYmt4WWRI?=
- =?utf-8?B?dEZ1VXhtN0o3QnBwZEJOSEhwbDJ5ZUpYTHlRQ2wzQzE5a21GbXozcWJXRHlE?=
- =?utf-8?B?QThuUHcwMFAwVVhDSXJkdmk0RzlTeVh4RFZtMUVOM0hZUnAvbmRmTElONndq?=
- =?utf-8?B?Umw5SUNZaW4rdFJMQTBUeENuVFpMbmRqSldqdngzY3hRa0NJUG1Tekg1SllQ?=
- =?utf-8?B?cXNVblBNcDEyMk1Kdkg3UVVzTC9Fc3FXbi9SSTMwUitqM000WVBWMVo0SWJ1?=
- =?utf-8?B?N2ZLMTd3MmNsZlBueFB2UUx0YTYxaGdXU0tUcDZGVlB2S0gvMUtMQkRCZkdM?=
- =?utf-8?B?K3ZQL3hvUXRsVHI4T1NBb25lWHVvQ0FCcjMwMXZyQk5CdytFL21nbWtJQ3pv?=
- =?utf-8?B?UE5TQW8zMG1MbWZzNVNqdDkvQTI1dHMxVi9HNURBblNqZFFucUFWMktEemdL?=
- =?utf-8?B?L2pERkpjVHU4eUtHem13M3crRUloaGhKbWRaejBRZU0vQ2RFTlVSWVZBeHVM?=
- =?utf-8?B?bm1TOGtnMHZGSUlnd3pxVHJjVmdyNXZVcUtqRTVraTIraUIyN2w3L3RKTVRL?=
- =?utf-8?B?NTVaSTBKUEdMOU9aa2dMRWFoV3ZLVGdLemFtbU1YQlBvU0NHMFNHZ3FTTlNx?=
- =?utf-8?B?aUk2Q1VnejRTcEJXVGR1T1NFK2xDTHIvY0NRQXdxZ01DSDRCcWFVNVJhMG8w?=
- =?utf-8?B?SkVFV0RZWkZXZENicEt4V1VnbjBCVldyY2Q0c2hNdytONityZlFJSG9xTHM3?=
- =?utf-8?B?ayt5b0hzNXZHKzExeEhSUkVTem5xNXdudjhVa29xc3pXL1FCNzJSaDQ4S2tv?=
- =?utf-8?B?ekVMekxXTG5pZFB5M3ZwZjBrNGszaU5Gc3VjUjE2eDVBWkVDajNuRlNJcVcw?=
- =?utf-8?B?RjFyMEZLYVp2VDRYMk8yaHdaZGtuclJrRmoyMXVSbC9NM05LbXExRFJxbkQy?=
- =?utf-8?B?Vld2QkJxdWFNalFIWTNVcU9WUFNrUFozY1RobCtYelg0U0MzQzRXVUZKNmpa?=
- =?utf-8?B?aDkxSWoxTlR6R1hwamtuU20vU2pDcFpKVTRpcyt4eExIMEpXQU1kT2U2cG5j?=
- =?utf-8?B?OXhUcmFlVUQzTmpHT2xrdGh3Y1BoaUtZU1JBcTMzZUJrdVF1V2tXSEgzaldV?=
- =?utf-8?B?MVBIc2lSVERBWFhReUwvWlp0NUhYTGNNMU1odjNzM0FMOWdNSU9XMFFqWjla?=
- =?utf-8?B?eXMwZVhLeEI0dXRzWUFsNkhUWjk0ZVduZmNvNU13d2ljeDJJTU1rRVVPZzFL?=
- =?utf-8?B?QldPMHBRbUpCYWhhMVZ6VVdldGxLZEpSdTJydWl4TDkzMGI5WXZrTmtBaVpU?=
- =?utf-8?B?TmxjbWExelNSUzU4Z2tnajR0L25pOHdubGpJRDJVWE0ybjZOc0ZpSllFaGNt?=
- =?utf-8?B?eXVHL3BBek9adUNpY05sVEh3L1JYVFdDVXhacjkzcnZyODcvT3ZxNjJ6LzVl?=
- =?utf-8?B?ZnUwelJ3RFJBVWgwL2hPa0ZoSEF3TWVXTk9Jd3NMSEt5S01scFVnb3B0cWJZ?=
- =?utf-8?B?bWJqd0xRRzZmOXNjb2Q1dFVMcndpMGVCSXhtN3E5REtnOFlwMmlOdzZUSm5N?=
- =?utf-8?B?Z2p6RkxYVW13eTAwaG4xNWZOdGtFTVpaUyt1Zmw1NzNRWXBIYStCckt4d04w?=
- =?utf-8?B?L0M0Yy9xSnFKTVNKTUZSK2VkT0l1czJkYWFEeFpsZ0lHZ3dTa096L3NHOUlG?=
- =?utf-8?B?OFE9PQ==?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a3ce7c5-7aea-48c8-34e7-08de22e415f5
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2025 18:40:15.1041
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CHkKD/hIpIZ/UdU8BlbYVh9VBpTNfgeqO1dJIlBZ5SL+Qw1t3FH65sR1PDSuLj7WpNUcyP0lBfvwg5DAQy3zVqBTxeE6nVgf/9vkAVjQnRo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB6562
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="oRemhD1n1wZhbvYq"
+Content-Disposition: inline
+In-Reply-To: <20251102032105.772670-1-marmarek@invisiblethingslab.com>
 
-On 13/11/2025 6:35 pm, Marek Marczykowski-Górecki wrote:
-> On Thu, Nov 13, 2025 at 03:43:58PM +0000, Frediano Ziglio wrote:
->> From: Frediano Ziglio <frediano.ziglio@cloud.com>
->>
->> For xen.gz file we strip all symbols and have an additional
->> xen-syms.efi file version with all symbols.
-> You meant xen-syms here, right?
 
-I think so.  I just noticed the same.
+--oRemhD1n1wZhbvYq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Nov 2025 19:43:07 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: linux-kernel@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Peng Jiang <jiang.peng9@zte.com.cn>,
+	Qiu-ji Chen <chenqiuji666@gmail.com>,
+	Jason Andryuk <jason.andryuk@amd.com>,
+	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] xen/xenbus: better handle backend crash
 
->
->> Make xen.efi more coherent stripping all symbols too.
->> xen-syms.efi can be used for debugging.
->>
->> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> With the above fixed:
->
-> Reviewed-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->
+Ping?
 
-I've done some ad-hoc testing and everything seems to be in order.
+On Sun, Nov 02, 2025 at 04:20:12AM +0100, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> When the backend domain crashes, coordinated device cleanup is not
+> possible (as it involves waiting for the backend state change). In that
+> case, toolstack forcefully removes frontend xenstore entries.
+> xenbus_dev_changed() handles this case, and triggers device cleanup.
+> It's possible that toolstack manages to connect new device in that
+> place, before xenbus_dev_changed() notices the old one is missing. If
+> that happens, new one won't be probed and will forever remain in
+> XenbusStateInitialising.
+>=20
+> Fix this by checking backend-id and if it changes, consider it
+> unplug+plug operation. It's important that cleanup on such unplug
+> doesn't modify xenstore entries (especially the "state" key) as it
+> belong to the new device to be probed - changing it would derail
+> establishing connection to the new backend (most likely, closing the
+> device before it was even connected). Handle this case by setting new
+> xenbus_device->vanished flag to true, and check it before changing state
+> entry.
+>=20
+> And even if xenbus_dev_changed() correctly detects the device was
+> forcefully removed, the cleanup handling is still racy. Since this whole
+> handling doesn't happend in a single xenstore transaction, it's possible
+> that toolstack might put a new device there already. Avoid re-creating
+> the state key (which in the case of loosing the race would actually
+> close newly attached device).
+>=20
+> The problem does not apply to frontend domain crash, as this case
+> involves coordinated cleanup.
+>=20
+> Problem originally reported at
+> https://lore.kernel.org/xen-devel/aOZvivyZ9YhVWDLN@mail-itl/T/#t,
+> including reproduction steps.
+>=20
+> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
+ab.com>
+> ---
+> I considered re-using one of existing fields instead of a new
+> xenbus_device->vanished, but I wasn't sure if that would work better.
+> Setting xenbus_device->nodename to NULL would prevent few other places
+> using it (including some log messages). Setting xenbus_device->otherend
+> might have less unintentional impact, but logically it doesn't feel
+> correct.
+>=20
+> With this patch applied, I cannot reproduce the issue anymore - neither
+> with the simplified reproducer script, nor with the full test suite.
+> ---
+>  drivers/xen/xenbus/xenbus_client.c |  2 ++
+>  drivers/xen/xenbus/xenbus_probe.c  | 25 +++++++++++++++++++++++++
+>  include/xen/xenbus.h               |  1 +
+>  3 files changed, 28 insertions(+)
+>=20
+> diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenb=
+us_client.c
+> index e73ec225d4a61..ce2f49d9aa4ad 100644
+> --- a/drivers/xen/xenbus/xenbus_client.c
+> +++ b/drivers/xen/xenbus/xenbus_client.c
+> @@ -275,6 +275,8 @@ __xenbus_switch_state(struct xenbus_device *dev,
+>   */
+>  int xenbus_switch_state(struct xenbus_device *dev, enum xenbus_state sta=
+te)
+>  {
+> +	if (dev->vanished)
+> +		return 0;
+>  	return __xenbus_switch_state(dev, state, 0);
+>  }
+> =20
+> diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbu=
+s_probe.c
+> index 86fe6e7790566..3c3e56b544976 100644
+> --- a/drivers/xen/xenbus/xenbus_probe.c
+> +++ b/drivers/xen/xenbus/xenbus_probe.c
+> @@ -444,6 +444,9 @@ static void xenbus_cleanup_devices(const char *path, =
+struct bus_type *bus)
+>  		info.dev =3D NULL;
+>  		bus_for_each_dev(bus, NULL, &info, cleanup_dev);
+>  		if (info.dev) {
+> +			dev_warn(&info.dev->dev,
+> +			         "device forcefully removed from xenstore\n");
+> +			info.dev->vanished =3D true;
+>  			device_unregister(&info.dev->dev);
+>  			put_device(&info.dev->dev);
+>  		}
+> @@ -659,6 +662,28 @@ void xenbus_dev_changed(const char *node, struct xen=
+_bus_type *bus)
+>  		return;
+> =20
+>  	dev =3D xenbus_device_find(root, &bus->bus);
+> +	/* Backend domain crash results in not coordinated frontend removal,
+> +	 * without going through XenbusStateClosing. Check if the device
+> +	 * wasn't replaced to point at another backend in the meantime.
+> +	 */
+> +	if (dev && !strncmp(node, "device/", sizeof("device/")-1)) {
+> +		int backend_id;
+> +		int err =3D xenbus_gather(XBT_NIL, root,
+> +				        "backend-id", "%i", &backend_id,
+> +					NULL);
+> +		if (!err && backend_id !=3D dev->otherend_id) {
+> +			/* It isn't the same device, assume the old one
+> +			 * vanished and new one needs to be probed.
+> +			 */
+> +			dev_warn(&dev->dev,
+> +				 "backend-id mismatch (%d !=3D %d), reconnecting\n",
+> +				 backend_id, dev->otherend_id);
+> +			dev->vanished =3D true;
+> +			device_unregister(&dev->dev);
+> +			put_device(&dev->dev);
+> +			dev =3D NULL;
+> +		}
+> +	}
+>  	if (!dev)
+>  		xenbus_probe_node(bus, type, root);
+>  	else
+> diff --git a/include/xen/xenbus.h b/include/xen/xenbus.h
+> index 7dab04cf4a36c..43a5335f1d5a3 100644
+> --- a/include/xen/xenbus.h
+> +++ b/include/xen/xenbus.h
+> @@ -87,6 +87,7 @@ struct xenbus_device {
+>  	struct completion down;
+>  	struct work_struct work;
+>  	struct semaphore reclaim_sem;
+> +	bool vanished;
+> =20
+>  	/* Event channel based statistics and settings. */
+>  	atomic_t event_channels;
+> --=20
+> 2.51.0
+>=20
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--oRemhD1n1wZhbvYq
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmkWJrsACgkQ24/THMrX
+1ywbfAgAmQnHHJlmbMTOX3RtNPXxgqaSefI2mnhv5lYA7X74m8OZxYA6RV/AIkU/
+yAVUPQmOahNBjJnSGhkTTV2aFgyf+r5O63Hr9eFGgbGY6TH416bgXLj/dJ/cfLgL
+OWxAhSF9TphGmIu1Aqm/JmkM7dic8yTNoL72eKdHY2oKie6dqtX6NfmJEwxrQYwP
+iw1pP1A2tWDR+mzfvm4p+camWTAxlYc59CgA5VKOGcb9XsC6PxPXteIkG70bz/iv
+d1FywMWsOTb4buaLMRGAGATEOhrK5BY5nPO3uYRogL0EB8zBVUJOIIlLlOYma8GV
+G21Rrxa+gQvJtJM73m47Tj0cq8O+TQ==
+=/ugj
+-----END PGP SIGNATURE-----
+
+--oRemhD1n1wZhbvYq--
 
