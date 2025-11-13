@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EE0AC5A7D6
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 00:13:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1162180.1489927 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB57FC5A9D5
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 00:33:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1162195.1489936 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJgUz-0001WZ-A9; Thu, 13 Nov 2025 23:13:05 +0000
+	id 1vJgoK-0004cD-Sg; Thu, 13 Nov 2025 23:33:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1162180.1489927; Thu, 13 Nov 2025 23:13:05 +0000
+Received: by outflank-mailman (output) from mailman id 1162195.1489936; Thu, 13 Nov 2025 23:33:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJgUz-0001Up-7C; Thu, 13 Nov 2025 23:13:05 +0000
-Received: by outflank-mailman (input) for mailman id 1162180;
- Thu, 13 Nov 2025 23:13:04 +0000
+	id 1vJgoK-0004Zk-Pj; Thu, 13 Nov 2025 23:33:04 +0000
+Received: by outflank-mailman (input) for mailman id 1162195;
+ Thu, 13 Nov 2025 23:33:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Fq0p=5V=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1vJgUy-0001Uj-Ef
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 23:13:04 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FQDN=5V=gmail.com=freddy77@srs-se1.protection.inumbo.net>)
+ id 1vJgoJ-0004Ze-I5
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 23:33:03 +0000
+Received: from mail-yx1-xb130.google.com (mail-yx1-xb130.google.com
+ [2607:f8b0:4864:20::b130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4c4f5c03-c0e6-11f0-980a-7dc792cee155;
- Fri, 14 Nov 2025 00:13:01 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:8ac4:0:0:0:0:f7])
- by mailhost.m5p.com (8.18.1/8.17.1) with ESMTPS id 5ADNCohx031081
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Thu, 13 Nov 2025 18:12:56 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.18.1/8.15.2/Submit) id 5ADNCoUX031080;
- Thu, 13 Nov 2025 15:12:50 -0800 (PST) (envelope-from ehem)
+ id 15f97dff-c0e9-11f0-980a-7dc792cee155;
+ Fri, 14 Nov 2025 00:32:58 +0100 (CET)
+Received: by mail-yx1-xb130.google.com with SMTP id
+ 956f58d0204a3-641e4744e59so720171d50.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 15:32:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,83 +40,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c4f5c03-c0e6-11f0-980a-7dc792cee155
-Date: Thu, 13 Nov 2025 15:12:50 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: Xen DomU Bootloader Experiences
-Message-ID: <aRZl8juO9RqN36lF@mattapan.m5p.com>
-References: <aRT4fiuF8soWI6tc@mattapan.m5p.com>
- <364eca04-63d0-4ceb-b6c8-84fa6efc3aeb@epam.com>
+X-Inumbo-ID: 15f97dff-c0e9-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1763076777; x=1763681577; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8SI4cIqrAacX8OARZm6mZ0FnCfCuDC1hURLlwaznqVo=;
+        b=lSIVjD1uBVNCgLxnGBjhTtUJvzgWiconp/fbTF7o/nVzOYWbR1cOVTtQrM3N8hOH+e
+         Jh2ofChN+u4k26IwtAi1hENILOfjmrHwWVjOjSG8DwzKw5A/y2mjxcjwSYi/DAuy8dDp
+         PzVu0KqiKjm+saMjdummEu7BZaMzqzzydMl65Yj8+4aBUqQ3xeG2ZARnerb4/OrJZQvm
+         XRS35dAddbAQOZCb2UDZoHD7UbR0h2OSRdE7K5Y9u2LtLl4TfBBLO3Wo3H5EuJTkRe9X
+         gAL6NB4q0FuTm0d4BLYnN/zoIIKH/HzVMpIRoKY5F7ohM2gXwnTC9IJRqab9Z5pmKpqx
+         CFcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763076777; x=1763681577;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=8SI4cIqrAacX8OARZm6mZ0FnCfCuDC1hURLlwaznqVo=;
+        b=djRhdLU6cbo+OISCohVcryr2q30aBgFFnBsMvb9eSHpnIdJTQ4Bm+Gmja/R0giuU4h
+         i/SfKH484NXYvDdt3i/OGSSwsS/9QImnBmNI5ogq1FHkPiDt4hY3vmVnfp+im2C71WtD
+         hf2O5o8BVxK18uVJNT559QCexOsFgWnzGJ/sVPtAhIMCs0jIt+lGu2Gl6N86BHzG1LI0
+         AECnAp98a36IPCXOns/FQ/FUDYl9S34XZ8P5ViPPWbkiYSuYTlKvqdDRfRItti2RfFJn
+         q3jxNq6hY+5BCvA0y0dSO2PhqOznsNOgrRXTN5jsfx7z+crNF07GSxLhnig9XxAn5HR6
+         Vljw==
+X-Forwarded-Encrypted: i=1; AJvYcCW44VIQlqJDtJx8RKS/0ICiUGiJxg/JpLgdHH3w8JzrqEnjek54GCEJwaoUU3M5JQjSZfr7LW7wXmQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywplvk3N3Pq5D7anKSYbKlpHM8RT91uB1LEK6ZbXTn5UDAbBrye
+	f32o2g/N3yVODuPhUOuvtH2KK03SDMiO1EyYbjI60+kU71NVcDblUG5xOUBVL4+oNnhMkogk7+F
+	x0n9SeTaxfoh0nClPChDuzAltcxmwxwc=
+X-Gm-Gg: ASbGncsJrdDI4YgxMUFdWANb0WqR4mC61JiIQTXDPfI5uCg+MSiELXq+iqtDZlBAEoZ
+	FMzDh5kOHjeGKaA85oQm3J9zTWeWuwB42aR363suK0G7LsN63Mn449ogjDCGzi5Ms9nLnaiJHmG
+	rQvhkNldoPd6Y2SyUk8dgMkavGiFYzjrUe/W6AQEKrwtBpdVU6mkbkazG8+ZbMxII9+ByisAgL/
+	SukUxiV7ypvxCy8F6q4XBoRaZMdRNzwPW9H0ONrHnSEZB5teekeBDL/ogr5mqcoy2HoA78=
+X-Google-Smtp-Source: AGHT+IG7De5RrmBHFBNMsQtSaaGYCJfRDbL8A8fGQhZag6Kz2YCQqZYAgnbu/n0DZUiyntRsADD3TYmT5ZiDdStoTHg=
+X-Received: by 2002:a53:d00b:0:b0:63f:a89c:46f9 with SMTP id
+ 956f58d0204a3-641e76a391dmr889503d50.40.1763076777096; Thu, 13 Nov 2025
+ 15:32:57 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <364eca04-63d0-4ceb-b6c8-84fa6efc3aeb@epam.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on mattapan.m5p.com
+References: <20251113154358.28704-1-frediano.ziglio@citrix.com>
+ <aRYk80Sqo-sjN6fG@mail-itl> <d95e5a85-a8cf-4207-94d8-5e1afff615c1@citrix.com>
+In-Reply-To: <d95e5a85-a8cf-4207-94d8-5e1afff615c1@citrix.com>
+From: Frediano Ziglio <freddy77@gmail.com>
+Date: Thu, 13 Nov 2025 23:32:44 +0000
+X-Gm-Features: AWmQ_bmkl8V_7Xf06ULHeD6GClX2xw775Hsmw_BjynXbXQnDqw6ASMExjpcRDok
+Message-ID: <CAHt6W4dKLM8_04TFheOT5zHv+U-XDJEyKUV_6g_i17baAn5E_g@mail.gmail.com>
+Subject: Re: [PATCH for-4.21 v8] xen: Strip xen.efi by default
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Frediano Ziglio <frediano.ziglio@citrix.com>, xen-devel@lists.xenproject.org, 
+	Frediano Ziglio <frediano.ziglio@cloud.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Demi Marie Obenour <demiobenour@gmail.com>, 
+	Stewart Hildebrand <stewart.hildebrand@amd.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 13, 2025 at 10:13:07PM +0200, Grygorii Strashko wrote:
-> 
-> On 12.11.25 23:13, Elliott Mitchell wrote:
-> > 
-> > Recommendations:
-> > PyGRUB is functional within its limits.  Problems are GRUBv1 syntax and
-> > running within Domain 0.  Given this I feel the Xen Project should be
-> > heading towards deprecating PyGRUB.  Since PvGRUB works for x86 now, I
-> > would default to neither building nor installing PyGRUB on x86.  For
-> > other architectures PyGRUB is still useful.
-> > 
-> > The Xen Project should formally ask the GRUB Project to port PvGRUB to
-> > ARM, RISC-V and PowerPC.  The need for PvGRUB on ARM seems rather urgent.
-> > Without a proper bootloader VMs aren't too useful.
-> > 
-> > 
-> > The Xen Project needs people to work with EDK2/Tianocore.  The oldest
-> > report I've seen of the EDK2/Tianocore issue dates to mid-2023.  Now two
-> > years later the bug is still present.
-> > 
-> > The ability to configure XEN_EFI.fd as a domain kernel is a feature
-> > highly worthy of being ported to x86.  For OSes which don't particularly
-> > like GRUB, but do have PV drivers this is an ideal boot method.
-> 
-> Just curious, you did not mention u-boot which is widely used on ARM,
-> for example Android guests boot using it.
+On Thu, 13 Nov 2025 at 18:40, Andrew Cooper <andrew.cooper3@citrix.com> wro=
+te:
+>
+> On 13/11/2025 6:35 pm, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Thu, Nov 13, 2025 at 03:43:58PM +0000, Frediano Ziglio wrote:
+> >> From: Frediano Ziglio <frediano.ziglio@cloud.com>
+> >>
+> >> For xen.gz file we strip all symbols and have an additional
+> >> xen-syms.efi file version with all symbols.
+> > You meant xen-syms here, right?
+>
+> I think so.  I just noticed the same.
+>
 
-As I have not used U-Boot to load a DomU I did not write about something
-I have not done.  Have you used U-Boot to load a DomU?  Was it a pleasant
-experience?  Was it easy to setup?  Was it difficult to setup?
+Yes, my mistake
 
-PyGRUB still has a bit of value since it can still load some Linux
-guests.  GRUBv1 syntax is a major weakness, so I think the Xen Project
-should be heading towards deprecating PyGRUB.  Mostly this needs GRUB's
-Xen support to be ported to ARM and RISC-V.
+> >
+> >> Make xen.efi more coherent stripping all symbols too.
+> >> xen-syms.efi can be used for debugging.
+> >>
+> >> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> > With the above fixed:
+> >
+> > Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
+ab.com>
+> >
+>
+> I've done some ad-hoc testing and everything seems to be in order.
+>
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-GRUB's Xen support works great for x86.  Pleasant experience with minimal
-trouble.  This is great for loading Linux in a DomU.
-
-Tianocore/EDK2 support worked (past tense) great for ARM64.  Pleasant
-experience with minimal trouble.  I haven't done full installation, but I
-expect full installation will be a breeze (sigh getting patches into some
-projects is extremely difficult).
-
-
-
-Grygorii Strashko, do you think U-Boot is likely to cover some scenario
-not covered by either GRUB or Tianocore/EDK2?  Do you think U-Boot is
-likely to do a better job with some scenario than either GRUB or
-Tianocore/EDK2?
-
-You mentioned using U-Boot to load Android DomUs on ARM.  Is that likely
-to be difficult to switch to Tianocore/EDK2?
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+Thanks,
+   Frediano
 
