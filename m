@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AB2BC56200
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 08:55:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1160696.1488753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6431C564D6
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 09:37:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1160716.1488763 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJS9v-0002iN-4p; Thu, 13 Nov 2025 07:54:23 +0000
+	id 1vJSpB-0000Km-7N; Thu, 13 Nov 2025 08:37:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1160696.1488753; Thu, 13 Nov 2025 07:54:23 +0000
+Received: by outflank-mailman (output) from mailman id 1160716.1488763; Thu, 13 Nov 2025 08:37:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJS9v-0002gv-1X; Thu, 13 Nov 2025 07:54:23 +0000
-Received: by outflank-mailman (input) for mailman id 1160696;
- Thu, 13 Nov 2025 07:54:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vJSpB-0000IB-4Z; Thu, 13 Nov 2025 08:37:01 +0000
+Received: by outflank-mailman (input) for mailman id 1160716;
+ Thu, 13 Nov 2025 08:37:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJS9t-0002gj-FD
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 07:54:21 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f580f623-c065-11f0-9d18-b5c5bf9af7f9;
- Thu, 13 Nov 2025 08:54:20 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-6431b0a1948so878843a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 12 Nov 2025 23:54:19 -0800 (PST)
+ id 1vJSpA-0000I2-6Q
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 08:37:00 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ea67370d-c06b-11f0-980a-7dc792cee155;
+ Thu, 13 Nov 2025 09:36:57 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-b72dad1b713so74686866b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 00:36:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fd809d2sm108231866b.42.2025.11.12.23.54.18
+ a640c23a62f3a-b734fda92c5sm113316166b.53.2025.11.13.00.36.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Nov 2025 23:54:18 -0800 (PST)
+ Thu, 13 Nov 2025 00:36:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f580f623-c065-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: ea67370d-c06b-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763020459; x=1763625259; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763023017; x=1763627817; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nh4jlbd2A4PXp9wNRBxx115wquv3uJxgOyL4oNtHSsw=;
-        b=IvRnObvofDhosEXq5k+ny9eX7wfQacOwp5jIu5nEPWUajYD2mmoS4uDxT6OIZU+dw6
-         9ZmPoLgpaQE20qDZzoDzSDTiHJLT12ivmV5ZlET0/Az49zeoBHtpDjAHc5Hvd7pCM9d2
-         +00MGi5Ll3BtQgJdIEvWCyh367FfhjDRQ6zveiIjrUp8MkMDqlG/29nhkkUUtxQWlMTo
-         brOSsi0RwCotYOaPM3BPum2B3nyZ7agvhKOeAHSqoXSIebeWwHN5ekic34wRDy12G8hc
-         0aatEJUePvvuv+HN4YOe1xDm3o4B8+piZ6SmwBnI6Ct7S/ySc/OyD5qkIqMCO1LfMuVz
-         Q+2g==
+        bh=KKRt9vZHD+sKgNrjDwmHcf8CKsr8hx5uNNH8e7WqOzA=;
+        b=crJSM6jaH7XdKgQr8CNDlFyDmWShkO2V97DRB1BYOHIJgFAolF5BSRnnR2v5kOqVZr
+         jYTXUnpB/0lW9BHyk9nF/20Wv8gM6jWSaIUuwIVBro0UznRTOYRsNTjIbotJaGeNqUlP
+         u3Ne4ZCIYh92SeKoUEbp6Gy2hC5iB2xslQ2fMDAOj3e7wGU5SjXhvLccVwS5io0vKXnk
+         5z9cKGzxP+mkJXuwIbArLo4/RbzEcRsaQ2cFfxO57LOyzl16sbdAvyUCIAwTlzJXy77O
+         YgqnjfoTnzkkeEO507FLv4QZ0qn21gZ97bITiJczAdFHapZqwMF0+JZJMyXtvqW1YKLj
+         iOUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763020459; x=1763625259;
+        d=1e100.net; s=20230601; t=1763023017; x=1763627817;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nh4jlbd2A4PXp9wNRBxx115wquv3uJxgOyL4oNtHSsw=;
-        b=DlBokLESd2Emz2l5J2HeXivl/6vzDz+DornHT0x3kqqN4/o8tqOnLfyfQWphEZBoQv
-         JM2Kmw/ypqrh2EMbyP9eTE+yrmHyOVEGslEo7d4nUA4ZBYfg/L4tEbXXgVg+q/JjZt1G
-         4m0pBO2ulnpkq+eo+9CSEVezwBFj6vfmcoHCjCDH08fzGvbCescFRJ6xMCAp7NUTE+sf
-         F2PnxZlvjHEds2fSrjW3y12hy2dGAZJa+J/1p6sc8FxDuOszTYf5VaURG3U9WPXaQdTo
-         R1SavK0u36i3YKv02Bgng/oGE66AEX4l3QsH0hH9dNJpf2/PT8deYSUVfjHURwXqT/US
-         RxPw==
-X-Forwarded-Encrypted: i=1; AJvYcCX81b+th+8ufpvPkmXcDZmq6eAO8LuYIRa1NilX2o26WHnHMLw9ju+XOhnrxlyY9h/jDznO8rHCGis=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyvMuP2BNvn2vkcLC+3kNPJjU615OYAPbfnOHqV4C19yuhT4Epb
-	F+OZ6i16hXIXzwVyajYkfIYxhI73A+frot8cSjEMcb5CCoIDER7WwhhraI/eGdYMxg==
-X-Gm-Gg: ASbGncvlU/+5JYaAF8jCBNvzCI52WiugLN7Tw656TfOJhuaveUu2crUlsT5W7r2iI19
-	AGs7raZz6klZziI+rpqiYGAI7p6kA0SLZI069d3JnUj9PNLOn1Rd3TzBdnG/3MVzQ3J9NeGwM28
-	XPtR9di3RpA+ziidTU/s5KmmVQ3G/hNFmz6cltzHAOws83yxG+ceNy0G+ALZnA5BTKPCYpdO9x2
-	pn7tsgVTuKmv7SmyMoWPphQEKw1zHp5fWvvmRDyYvgxjPgd8D+kricMj2MxqwaRSSlNII+TpwAg
-	HLsgxG9/sZk1BN6Vx06aU8OBp6FmKk/QY7+kmZycl/UCBau7Pg2pncGBsctL9nA4ulaCx7aGhiF
-	Z4zBO33Xpb57riGN6UCO7FhB+VKCoGt3782kWw5rBpqYVFZroBF6Q1oc9lSaN5BYClnPaJf6b6Y
-	3/qjPyJW3VAm358w/6n5TrjYMJSmnzLIvetY2eSmI2Jop1F0ol3jFrYueDcucphh1Hv77128n2g
-	5PsPHdgGesGjg==
-X-Google-Smtp-Source: AGHT+IFSwq15YQZ/wO4fG/rpyghnnBXdfdoiegmJ0I70VOwv2TmX9bxD72WhYOmk1yvjsixy2VUm5w==
-X-Received: by 2002:a17:907:2d2c:b0:b70:b71a:a5ae with SMTP id a640c23a62f3a-b7331aa3be1mr641438866b.44.1763020458664;
-        Wed, 12 Nov 2025 23:54:18 -0800 (PST)
-Message-ID: <9a949edb-8eb8-4984-adf0-4ab8b82e64db@suse.com>
-Date: Thu, 13 Nov 2025 08:54:17 +0100
+        bh=KKRt9vZHD+sKgNrjDwmHcf8CKsr8hx5uNNH8e7WqOzA=;
+        b=jUwFqpTOH5sHOxeFjenDH7J2ZBt3vwKTJoafDgWntin5QDNdmP3otwIs2dRDurBkg8
+         LZVuBXAdejKudMymiItft+nh0xMUp7rEeERpW543UIjksUhFuMZUwvYWLm2VyMmF8bFY
+         vd59H+uQiw5TbL6nMgTGHaQM30/sZy5VMp8M8pt9pifyIrv+vTZXITKNFNsgeJidPEJ/
+         cPLHaIZFcJCdeU33DBu2UjyXyEfGDEwlNoIICdLBi+2k9gavLvyBsAhhW6YOdSfxRlWw
+         yAfhreWIs40q3hBdLpQ7XwUOCYQNt3Lpw0V5BbAO220hV6MHSsxBcLfShs5DlExZigw4
+         0EVw==
+X-Forwarded-Encrypted: i=1; AJvYcCUuGJ1NITXi3T22xmwXOQhkggwQ2qpa3zS3BncsaObUw4/ZXBp9KDclkqpan6WytabQZiWtSDBEJlA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwBVGbrh2SX1HD3359ggc7Zn3ORQBQicXgY3ISBR0GHkbqE7Zqu
+	MCI2l+EXQnvycGjAVYTOUUhwZwQcqRCw0ibXHnHNq6d4b5booYDZftVL67r+QBZ5LA==
+X-Gm-Gg: ASbGncsXh/dIzV6uH3NnmLfi2UaQVHshoYQbv+L3muIJUmiopgbK5I/lkeucZGJp+XG
+	y+unzB+IFeBWM6V5R/SSqGCLIIqvxaxUC3BPWDe48M+fWUTRHwKiGQlR9Bl60EhfVUCUOEoc4wu
+	VkjZSmzgeCu0Z2LfUPgy/Acctgz2/bWlge134b6cME/+nRjpOGXsbizeGW1fh+bBx/ZDH7vODAn
+	CWdDFoL1VbUtNN3K5XsSxVy7HR7OOQPTmqhM7agmpYX7VM5/JttHmVfJXaMCFS4XFJdSlUUfjWX
+	bvqDjyQD8N1Z9fWwrDKutzMbYSkBbh4I7p5Ul8ctHDrnr02pD5UYE+3qoAO1wQvmryh4/mB6Ngn
+	E3JBXCcBfaRZ9eH/4E8iJ2gS0uAj9Db4LiJqtoeGAWs/eHwDQlew4GBGsGDmjDUt8UJGIG3lrtn
+	P2YyO9TiICGBQ0xPEJfxWs+uGM3GXo1tsaNwnKiyVTcyOQ1Vq7ZA==
+X-Google-Smtp-Source: AGHT+IGUmdm1aQ6L3W2GeoEolsNtMxYsw+ekEzR+jcR/4fH5iMIA+/HfOwU+/OHVqgaqaNGyqjNNPw==
+X-Received: by 2002:a17:907:80e:b0:b72:5d08:486c with SMTP id a640c23a62f3a-b73319ba692mr699660466b.27.1763023016757;
+        Thu, 13 Nov 2025 00:36:56 -0800 (PST)
+Message-ID: <a634c192-9ea3-46d9-a087-f0f48a5c2494@suse.com>
+Date: Thu, 13 Nov 2025 09:36:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: Rewrite the Tagging and Branching checklist
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [XEN][PATCH v2] xen: make VMTRACE support optional
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251112185402.209485-1-andrew.cooper3@citrix.com>
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Teddy Astie <teddy.astie@vates.tech>, Penny Zheng <Penny.Zheng@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251112202442.3879997-1-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,175 +126,133 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251112185402.209485-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20251112202442.3879997-1-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.11.2025 19:54, Andrew Cooper wrote:
-> There's a lot of stale information in the current checklists.  Merge the
-> documents and present the information in chronological order.  Provide real
-> examples from the tree rather than trying to be too prescriptive.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 12.11.2025 21:24, Grygorii Strashko wrote:
+> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+> @@ -307,6 +307,7 @@ static int vmx_init_vmcs_config(bool bsp)
+>      rdmsrl(MSR_IA32_VMX_MISC, _vmx_misc_cap);
+>  
+>      /* Check whether IPT is supported in VMX operation. */
+> +#ifdef CONFIG_VMTRACE
+>      if ( bsp )
+>          vmtrace_available = cpu_has_proc_trace &&
+>                              (_vmx_misc_cap & VMX_MISC_PROC_TRACE);
+> @@ -317,6 +318,7 @@ static int vmx_init_vmcs_config(bool bsp)
+>                 smp_processor_id());
+>          return -EINVAL;
+>      }
+> +#endif
 
-Hardly anything is being said about stable releases - is this intentional?
+Initially I was inclined to ask for use of IS_ENABLED() here, but that wouldn't
+work since vmtrace_available isn't an lvalue when VMTRACE=n. Hence why generally
+I think it is better to check the particular identifier in such cases, rather
+than the original CONFIG_* (i.e. "#ifndef vmtrace_available" here). I'm not
+going to insist though, as I expect opinions may differ on this matter.
 
-A few comments below, but ultimately I think it will need to be Julien to
-ack.
+> --- a/xen/arch/x86/include/asm/hvm/hvm.h
+> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
+> @@ -234,12 +234,14 @@ struct hvm_function_table {
+>      int (*altp2m_vcpu_emulate_vmfunc)(const struct cpu_user_regs *regs);
+>  #endif
+>  
+> +#ifdef CONFIG_VMTRACE
+>      /* vmtrace */
+>      int (*vmtrace_control)(struct vcpu *v, bool enable, bool reset);
+>      int (*vmtrace_output_position)(struct vcpu *v, uint64_t *pos);
+>      int (*vmtrace_set_option)(struct vcpu *v, uint64_t key, uint64_t value);
+>      int (*vmtrace_get_option)(struct vcpu *v, uint64_t key, uint64_t *value);
+>      int (*vmtrace_reset)(struct vcpu *v);
+> +#endif
+>  
+>      uint64_t (*get_reg)(struct vcpu *v, unsigned int reg);
+>      void (*set_reg)(struct vcpu *v, unsigned int reg, uint64_t val);
+> @@ -735,6 +737,7 @@ static inline bool altp2m_vcpu_emulate_ve(struct vcpu *v)
+>  bool altp2m_vcpu_emulate_ve(struct vcpu *v);
+>  #endif /* CONFIG_ALTP2M */
+>  
+> +#ifdef CONFIG_VMTRACE
+>  static inline int hvm_vmtrace_control(struct vcpu *v, bool enable, bool reset)
+>  {
+>      if ( hvm_funcs.vmtrace_control )
+> @@ -769,13 +772,20 @@ static inline int hvm_vmtrace_get_option(
+>  
+>      return -EOPNOTSUPP;
+>  }
+> +#else
+> +int hvm_vmtrace_output_position(struct vcpu *v, uint64_t *pos);
+> +#endif
 
-> --- /dev/null
-> +++ b/docs/process/tagging-branching.rst
-> @@ -0,0 +1,194 @@
-> +.. SPDX-License-Identifier: CC-BY-4.0
-> +
-> +===============================
-> +Tagging and Branching Checklist
-> +===============================
-> +
-> +Before starting
-> +===============
-> +
-> + * Review this checklist for changes during the development window.
-> + * Access to the following necessary:
-> +
-> +   * The 'xen tree' signing key.
-> +   * The xen and xendocs users on xenbits.xen.org
-> +   * The downloads-cvs user on mail.xenproject.org
-> +   * A checkout of the xen.org CVS repository
-> +
-> +::
-> +
-> +  cvs -d downloads-cvs@mail.xenproject.org:/home/downloads-cvs/cvs-repos checkout xen.org
-> +
-> +
-> +For RC1
-> +=======
-> +
-> + * Pin ``QEMU_UPSTREAM_REVISION`` to an exact SHA.  Commit.
-> +
-> + * Update ``XEN_EXTRAVERSION`` from ``-unstable`` to ``.0-rc1``.  For
-> +   ``README`` and ``SUPPORT.md``, use the slightly more generic ``-rc`` so
-> +   they doesn't need to change during subsequent RCs.  Commit.
+There not being any definition for this declaration (regardless of configuration),
+a comment might have been warranted here. Furthermore, can't the stub further down
+in the file now go away (addressing a Misra concern of it now being unused, as
+HVM=n implies VMTRACE=n)? Possibly this applies to a few other stubs there as
+well?
 
-Nit: don't
+>  static inline int hvm_vmtrace_reset(struct vcpu *v)
+>  {
+> +#ifdef CONFIG_VMTRACE
+>      if ( hvm_funcs.vmtrace_reset )
+>          return alternative_call(hvm_funcs.vmtrace_reset, v);
+>  
+>      return -EOPNOTSUPP;
+> +#else
+> +    return 0;
+> +#endif
+>  }
 
-> + * Tag.  Produce tarballs.
-> +
-> +e.g. from Xen 4.21, ``ffd25d717a74^..d1478321eacb``::
-> +
-> +  * d1478321eacb - (tag: 4.21.0-rc1) Update Xen version to 4.21.0-rc1
-> +  * ffd25d717a74 - Config.mk: Pin QEMU_UPSTREAM_REVISION
-> +
-> +
-> +For subsequent RCs
-> +==================
-> +
-> + * Update ``XEN_EXTRAVERSION`` to the next RC number.  Commit.  Tag.
-> +
-> +e.g. from Xen 4.21, ``eff32008be0d`` and ``9632ce6fe5b2``::
-> +
-> +  * 9632ce6fe5b2 - (tag: 4.21.0-rc3) Update Xen version to 4.21.0-rc3
-> +  * eff32008be0d - (tag: 4.21.0-rc2) Update Xen version to 4.21.0-rc2
-> +
-> +
-> +Branching
-> +=========
-> +
-> +On xenbits:
-> +
-> + * Create new staging and stable branches in xen.git.
-> +
-> + * Add the new branches to patchbot.  In ``~xen/HG/patchbot`` copy the exsting
-> +   master and staging reported heads, update the ``versions`` file, and commit
-> +   the result.
-> +
-> + * Add the new stable branch to the docs cronjob.  In ``~xendocs/cronjobs``
-> +   edit ``xenbits-docs-all.sh`` and commit the result.  e.g.:
-> +
-> +::
-> +
-> +  ssh xenbits.xen.org
-> +
-> +  cd ~xen/git/xen.git
-> +  git branch staging-$v staging
-> +  git branch stable-$v master
-> +
-> +  cd ~xen/HG/patchbot
-> +  cp xen--master.patchbot-reported-heads xen--stable-$v.patchbot-reported-heads
-> +  cp xen--staging.patchbot-reported-heads xen--staging-$v.patchbot-reported-heads
-> +  $EDITOR versions
-> +  git commit -am "Branch for $v"
-> +
-> +  cd ~xendocs/cronjobs
-> +  $EDITOR xenbits-docs-all.sh
-> +  git commit -am "Branch for $v"
-> +
-> +
-> +On the new branch:
-> +
-> + * Switch to release builds by default.  Commit.
-> +
-> +On staging:
-> +
-> + * Update ``XEN_SUBVERSION`` to the next version.  Update
-> +   ``XEN_EXTRAVERSION``, ``README`` and ``SUPPORT.md`` back to ``-unstable``.
-> +   Commit.  Tag the start of the new development window.
-> +
-> + * Rerun ``./autogen.sh`` to refresh the configure scripts.  Commit.
-> +
-> + * Switch ``QEMU_UPSTREAM_REVISION`` back to ``master``.  Commit.
-> +
-> + * Create a new section in ``CHANGELOG.md``.  Commit.
+This doesn't look right - if absence of a hook results in -EOPNOTSUPP, so should
+VMTRACE=n do. (There's no practical effect from this though, as - perhaps wrongly -
+neither caller checks the return value.)
 
-Should this really be four separate commits?
+> --- a/xen/common/memory.c
+> +++ b/xen/common/memory.c
+> @@ -1155,8 +1155,10 @@ static unsigned int resource_max_frames(const struct domain *d,
+>      case XENMEM_resource_ioreq_server:
+>          return ioreq_server_max_frames(d);
+>  
+> +#ifdef CONFIG_VMTRACE
+>      case XENMEM_resource_vmtrace_buf:
+>          return d->vmtrace_size >> PAGE_SHIFT;
+> +#endif
+>  
+>      default:
+>          return 0;
+> @@ -1198,6 +1200,7 @@ static int acquire_ioreq_server(struct domain *d,
+>  #endif
+>  }
+>  
+> +#ifdef CONFIG_VMTRACE
+>  static int acquire_vmtrace_buf(
+>      struct domain *d, unsigned int id, unsigned int frame,
+>      unsigned int nr_frames, xen_pfn_t mfn_list[])
+> @@ -1220,6 +1223,7 @@ static int acquire_vmtrace_buf(
+>  
+>      return nr_frames;
+>  }
+> +#endif
+>  
+>  /*
+>   * Returns -errno on error, or positive in the range [1, nr_frames] on
+> @@ -1238,8 +1242,10 @@ static int _acquire_resource(
+>      case XENMEM_resource_ioreq_server:
+>          return acquire_ioreq_server(d, id, frame, nr_frames, mfn_list);
+>  
+> +#ifdef CONFIG_VMTRACE
+>      case XENMEM_resource_vmtrace_buf:
+>          return acquire_vmtrace_buf(d, id, frame, nr_frames, mfn_list);
+> +#endif
+>  
+>      default:
+>          ASSERT_UNREACHABLE();
 
-> +e.g. from Xen 4.21, ``d510f9c1430c^..62d0a92057ca`` and ``d510f9c1430c^..b0255656d121``::
-> +
-> +  * 62d0a92057ca - CHANGELOG.md: Start a new 4.22 section
-> +  * 7b88e463f999 - Config.mk: Switch QEMU back to master
-> +  * d954e8c5c8de - Rerun ./autogen.sh for 4.22
-> +  * 85768c28b705 - (tag: 4.22-dev) Update Xen to 4.22
-> +  | * b0255656d121 - (staging-4.21) Switch to release builds by default
-> +  |/
-> +  * d510f9c1430c - doc/man: Align list of viridian default enlightenments with libxl
-> +
-> +
-> +Releasing
-> +=========
-> +
-> + * Finalise the release dates in ``CHANGELOG.md`` (backported from staging)
-> +   and ``SUPPORT.md`` (only in the release branch).
-> +
-> + * Tag the release in relevant external repos, and update ``Config.mk`` to
-> +   refer to the tag.
-> +
-> + * Update ``XEN_EXTRAVERSION`` to drop the ``-rc`` suffix, and update
-
-Since further up it's now rc<N>, imo it would be better to also say it that way
-here.
-
-> +   ``README`` to match.  Commit.
-
-The latest here QEMU_UPSTREAM_REVISION and MINIOS_UPSTREAM_REVISION also need
-adjusting to reference version tags, aiui. Taking tag creation in the respective
-leaf trees as prereq.
-
-> + * Tag.  Produce tarballs.
-
-Link to the respective section further down?
-
-> +e.g. from Xen 4.20, ``5cd830509d38^..3ad5d648cda5``::
-> +
-> +  * 3ad5d648cda5 - (tag: RELEASE-4.20.0) Update to Xen 4.20
-> +  * 89fd1ba88403 - Config.mk: Bump tags to final
-> +  * 6bf05e086765 - SUPPORT.md: Define support lifetime
-> +  * 5cd830509d38 - CHANGELOG.md: Set release date for 4.20
-> +
-> +
-> +Tagging
-> +=======
-
-Likewise this section may want linking to from respective places above?
+Without the intention to ask for a change right in this patch, this is a little
+awkward: resource_max_frames() returning 0 results in acquire_resource() to
+return -EINVAL, when with VMTRACE=n for XENMEM_resource_vmtrace_buf it imo
+better would be -EOPNOTSUPP.
 
 Jan
 
