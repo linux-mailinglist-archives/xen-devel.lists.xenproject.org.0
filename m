@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2A93C57938
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 14:12:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1161444.1489395 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72E62C5798F
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 14:16:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1161461.1489405 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJX86-0004ds-MT; Thu, 13 Nov 2025 13:12:50 +0000
+	id 1vJXBF-0005xy-88; Thu, 13 Nov 2025 13:16:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1161444.1489395; Thu, 13 Nov 2025 13:12:50 +0000
+Received: by outflank-mailman (output) from mailman id 1161461.1489405; Thu, 13 Nov 2025 13:16:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJX86-0004c3-JP; Thu, 13 Nov 2025 13:12:50 +0000
-Received: by outflank-mailman (input) for mailman id 1161444;
- Thu, 13 Nov 2025 13:12:49 +0000
+	id 1vJXBF-0005v7-57; Thu, 13 Nov 2025 13:16:05 +0000
+Received: by outflank-mailman (input) for mailman id 1161461;
+ Thu, 13 Nov 2025 13:16:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJX85-0004bx-SJ
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 13:12:49 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1vJXBD-0005v1-RF
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 13:16:03 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 73b20b2d-c092-11f0-9d18-b5c5bf9af7f9;
- Thu, 13 Nov 2025 14:12:48 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-b735487129fso97649066b.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 05:12:48 -0800 (PST)
+ id e744ebf0-c092-11f0-9d18-b5c5bf9af7f9;
+ Thu, 13 Nov 2025 14:16:02 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-6419b7b4b80so1173962a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 05:16:02 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a497ffdsm1435956a12.21.2025.11.13.05.12.47
+ a640c23a62f3a-b734fa80cb6sm166471466b.7.2025.11.13.05.16.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 05:12:47 -0800 (PST)
+ Thu, 13 Nov 2025 05:16:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73b20b2d-c092-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: e744ebf0-c092-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763039568; x=1763644368; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uWmOl/0OF3kohnl+GhEeii8xZ3sWFeGO/MAqVUdJQ5I=;
-        b=PKzwzsCzlaaRVh7a+WdKfjOO0f9+wi/Q9NcYj08WywA9QBgHDvxDTmqDqFDX4qVrIu
-         jR1oZ64BJQr+oacdcGoTz5nXSxWMAr54VmWkzKw8yL5XC3qT/x68K/63U4eCJ97tG/Wv
-         C/bASkWlN2ry5addpTmvuMdjtntfi3my9g+thZUKOboK6dzotVgCSRRpCyYLiVCN7lFH
-         hkUTIYY6Vr9AYBfVo3awnERKipoRqaah+ctwK/O9OOiw8E/IGanoNNBQyGnT55y/9koM
-         D2maE1WcMxhoPm7sCU2TDv3ejvEQBb3uFiIY4ovIqBibYbUxzn29GQaPHCrPYZBz7nBX
-         RrfQ==
+        d=suse.com; s=google; t=1763039762; x=1763644562; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=WStyKkKSy8Yy4nFKaQnYd0JZPd3uoBBPaR3rb8m7pXA=;
+        b=VNXvlJMNOniWevcjbUbs2YugYZ1KgL/asaybLjOE88EDJFMiBGRiRS+uGsfjx8V5JJ
+         Crj9IJLtgVhoSGqVn7uUATzh/sqqvhk/TnuGGMIYUXvkCMEVNo+1jcEnoyBbyjHOfjJE
+         4PuPEEs6nZSP/XA4eegkRcI4tV2wQrXLmzPo63Exzk148gjZ4P44u9MgCZhkAp/+eDsq
+         5Qan1/4R+dXl3IPh4ZGdBhk8FYgLoF00xiohfDE4Ssp975998+azZGQ1N+ZVtr4WByvL
+         e5aH0OUFDxCG4R2Entn16fD6tUUm+YwwYQ2wCRx2FmPM700C/JxFeFab2+sqnKQuYOoS
+         sxGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763039568; x=1763644368;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1763039762; x=1763644562;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uWmOl/0OF3kohnl+GhEeii8xZ3sWFeGO/MAqVUdJQ5I=;
-        b=abDbxH9GJKolEteD/A24DorXOOYAPKIqXyy3EPYyYY8/4H8vGWD3ggnGblWMM+WrOe
-         S1kR6BbtnZHq9xGCjaEPArB0aGvzshz36wrMAAxT5Qb+E/6UO+WA0AL0MduFVgaNWoZ2
-         4vx1QQQuyrTx53K2DebamOOhbzZiZZopEVQzgIJt81rkz/tgztJsLvjuNBUJ/te01H3L
-         eThcNojB7EmR20UyFL+MJZX/sUzY9S+5IyFCgNbOcMEs4dbBj5bc3trgRkNN9g5vQamO
-         1EiXjh0pRK2FsnTcOqwHOcnonBZ1t7QgbIkAKp4MOgpiwhQL6+tnSpbQf3znU7//Stoh
-         1pAQ==
-X-Gm-Message-State: AOJu0YzVHrZrAzkiSVe3qilhgpvyAgUZKkDDrM5rPBSE6znNrxtwrin8
-	RxYliXTumOFJNZMm9lh9EH3HWHuxWnPDHRLCBsk6cLSxF5hDUFKJwz673kzFl1kqrg==
-X-Gm-Gg: ASbGncsojk+u97UvtFph66Wsu4xLdKoyo4h6ssaIcJxI8/LbItH3fWLPilEfkgm9ED1
-	IAn4BDlPZXzek47JzlX4QWJhn2Jo4xKc5opQaK28I422DQNeTrzjxxAgsN5DPqo0GvWDqr8wIqV
-	+PEi9DYtoKIi96AjdgjhW+2/GQ2qM0oWRpugnDDOHffnYgSTgi/6iNLAldFRGB6vg4ATZRyf2Uu
-	qK6tQXPvGEvhJosFFrzQeI8O8jaxAqCdmo1NuiTKb8Ei6PXXUtXKpz2rFe9br88a77zER6k9x2/
-	LV3bsTvnrRWeiBmqoJkCCBgSHBQYQemZbYuSesh7EXKP7g6X0gOOfsZWMpgoSi/UYm5qQbVRM6V
-	N91DD1E6Yz5Q5oJoPbIqjnIFpWcTHJ+k+xTUgFaRb8HOiiAWAYwmLAfBJL0ZWiJvW1mXoQ7ywXr
-	XtbZ205e0ieKEv4NG8m6Ye7uOlgfQEerrlZy9BYi5TF0TOYTCwlRgG6qR6F7y1qcBN
-X-Google-Smtp-Source: AGHT+IGwFanqLa0mTgFI/Q8WENhka7d3jzmgQ5XFtAwWAtJLK5U7NXW+hbx2TyJCOjhnwX0l4677vA==
-X-Received: by 2002:a17:907:c11:b0:b40:e687:c2c with SMTP id a640c23a62f3a-b7331a6a9aamr787680066b.37.1763039568215;
-        Thu, 13 Nov 2025 05:12:48 -0800 (PST)
-Message-ID: <ce976661-927c-44e0-a478-893242bacba3@suse.com>
-Date: Thu, 13 Nov 2025 14:12:46 +0100
+        bh=WStyKkKSy8Yy4nFKaQnYd0JZPd3uoBBPaR3rb8m7pXA=;
+        b=AQCOx8W+Ozw8X00IwKr/69sumAwFI0S7ylp2axXYm6cbYOjdxsYvzWBLs9DuPRJpex
+         KWf4SvZsl+CjFqrAJSDWQZLrywn0Kk0gTxpjRAg0I1QgL9pK/5TwSm0Opi0DSZ60cuwv
+         y+oNJWfFiZmKsANwOakCe23fQipyosg7zNLB3opNOuoL7N5asRzegsREXjP4YM/EQH09
+         xkdiD3wNyWYayBNVoKa3kxK7ApoNYiwXzbUnt7pcqteMO3v044xUsbCnnjS0eOBiDngH
+         JDQ1bL0HZVR+mlb+8OAMLUFre2n3TN6XznFYyrK/XMsJIHY4rD8JnF/dA7gn/UrM2LlJ
+         QRqw==
+X-Forwarded-Encrypted: i=1; AJvYcCXAiNDtbMZGALd2yO86bjH4kg1xnTdewpcCXGXrUE82qa2Tpw/BPfsyIsfVMO1wi52m4R4z+3zn5t4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyUPXLMZtKr+uMrQuSq2rBrY3bICan1ZwM99ZEvauaJjE/qA2gf
+	vn7bei72UWLhaZ6qOde+EDAMDyhCijYThK2II4k71QXA9gIJp24/ncQcZQN/1uM48g==
+X-Gm-Gg: ASbGncv7MHEErJJQFlnYao5A/l/0KHjDM+0pbk3C6xkScl3zIwLxwBuct3ixDvwgqvr
+	wlfldchjH81fwd7NiNYOZcvA1HMEntnhBGTI+8chB7nkt6bRmMX52S9RwA6SQdESY5/9xjl+6VS
+	aXAatRT+SqEDA3doxRvxwOmOoVXOS78Ub6rQWOT4plvSmN67gbY9++pzBJ3UWkEkkS+ZHJik7at
+	1GCi02q5HyeGiB+NEkIXDCInNoSiuYBF982KQP66+noYngd1wtoXerQlMskZ9yPmN4IE5CAdSO7
+	rQ2gaVVd2Oy6cJjRBlu4yyzULWLMbMqyw9YFAR/JLoTByPG+cLM3rZX/cUMoVcJZGqhXwLE0bwJ
+	lObAzaNCXGZ0oHyPKxavxQuM40I11b8nZT86JwbAcX85QhqsoI4SFJy/rcVHCT6WQiD8HEjAdhQ
+	ih8VoA5EPCj1Pi5V+mETj5dtqGWui65kfUf0quKqA8g4GuFPD7TZ4jiXQfgLq3CYIR
+X-Google-Smtp-Source: AGHT+IHblvet1Hn0bpIJRhJz5Lh5EAJP6/Utk+d8S6NP9ennfv7yoT+lPo3HcLw3i/UnOU0qDCGDOg==
+X-Received: by 2002:a17:906:f405:b0:b73:544d:ba2e with SMTP id a640c23a62f3a-b73544dbbfcmr177084466b.25.1763039762077;
+        Thu, 13 Nov 2025 05:16:02 -0800 (PST)
+Message-ID: <a4ede115-7d3d-422e-b679-9740963fbc54@suse.com>
+Date: Thu, 13 Nov 2025 14:16:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20] mktarball: Drop double-processing of the archive
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20251113130154.220139-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v7] xen: Strip xen.efi by default
+To: Frediano Ziglio <freddy77@gmail.com>
+Cc: Frediano Ziglio <frediano.ziglio@citrix.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Demi Marie Obenour <demiobenour@gmail.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ xen-devel@lists.xenproject.org
+References: <20251113124945.25343-1-frediano.ziglio@citrix.com>
+ <70c36cf7-de4e-418a-921c-fe1268178194@suse.com>
+ <CAHt6W4fjxoGF1rNMhQ2M2_uOEgAyBtNvDcmmbBF6U7qp-LZWOw@mail.gmail.com>
 Content-Language: en-US
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,36 +130,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251113130154.220139-1-andrew.cooper3@citrix.com>
+In-Reply-To: <CAHt6W4fjxoGF1rNMhQ2M2_uOEgAyBtNvDcmmbBF6U7qp-LZWOw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.11.2025 14:01, Andrew Cooper wrote:
-> This is a partial backport of commit 63ebd0e9649e ("releases: use newer
-> compression methods for tarballs"), but keeping gz as the only compression
-> method.
+On 13.11.2025 14:10, Frediano Ziglio wrote:
+> On Thu, 13 Nov 2025 at 13:02, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 13.11.2025 13:49, Frediano Ziglio wrote:
+>>> --- a/CHANGELOG.md
+>>> +++ b/CHANGELOG.md
+>>> @@ -65,6 +65,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>>>        for hypervisor mode.
+>>>
+>>>  ### Removed
+>>> + - The install-time environment variable INSTALL_EFI_STRIP is no longer
+>>> +   supported, xen.efi will is now always being stripped.
+>>> +
+>>>   - On x86:
+>>>     - GNTTABOP_cache_flush: it's unused on x86 and the implementation is
+>>>       broken.
+>>
+>> That's the wrong "Removed" section, though. Moving it where you put it would
+>> be part of backporting (to 4.21) effort.
+>>
 > 
-> In addition to efficiency, this causes the tarball to use root/root ownership,
-> rather than leak whomever produced the tarball.
+> I think there was discussion that should go to 4.21 as not stripping
+> cause issues with some firmware.
+> Should I move to 4.22 then ?
 
-I don't understand this part. Isn't the ownership whatever "git archive" reports?
-I have to admit though ...
-
-> --- a/tools/misc/mktarball
-> +++ b/tools/misc/mktarball
-> @@ -5,14 +5,6 @@
->  # Takes 2 arguments, the path to the dist directory and the version
->  set -ex
->  
-> -function git_archive_into {
-> -    mkdir -p "$2"
-> -
-> -    git --git-dir="$1"/.git \
-> -	archive --format=tar HEAD | \
-> -	tar Cxf "$2" -
-
-... that I'm unaware of what the C here does. It can't be the same as -C, and the
---help output of the GNU tar that I checked doesn't mention anything else at all.
+All patches should be against staging, which is 4.22 now. Anything against older
+branches either needs explicitly tagging as such (e.g. when no staging equivalent
+exists), or otherwise would need backporting from what went into staging. (The
+more that at this time of the release cycle I'm not sure this kind of change is
+still eligible for going onto the release branch. It may well need to wait for
+4.21.1 now. But that's [mainly] Oleksii's call, whom you didn't even Cc.)
 
 Jan
 
