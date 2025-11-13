@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F9FDC575F8
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 13:23:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1161188.1489195 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FE2FC57604
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Nov 2025 13:24:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1161199.1489205 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJWML-0002Bu-Km; Thu, 13 Nov 2025 12:23:29 +0000
+	id 1vJWMx-0002k9-Uj; Thu, 13 Nov 2025 12:24:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1161188.1489195; Thu, 13 Nov 2025 12:23:29 +0000
+Received: by outflank-mailman (output) from mailman id 1161199.1489205; Thu, 13 Nov 2025 12:24:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJWML-0002Ad-Ft; Thu, 13 Nov 2025 12:23:29 +0000
-Received: by outflank-mailman (input) for mailman id 1161188;
- Thu, 13 Nov 2025 12:23:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EIX7=5V=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vJWMK-0002AP-PB
- for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 12:23:28 +0000
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazlp170120005.outbound.protection.outlook.com
- [2a01:111:f403:c105::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8d97b943-c08b-11f0-980a-7dc792cee155;
- Thu, 13 Nov 2025 13:23:26 +0100 (CET)
-Received: from MN0PR05CA0013.namprd05.prod.outlook.com (2603:10b6:208:52c::7)
- by CH3PR12MB8234.namprd12.prod.outlook.com (2603:10b6:610:125::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.15; Thu, 13 Nov
- 2025 12:23:22 +0000
-Received: from MN1PEPF0000F0E2.namprd04.prod.outlook.com
- (2603:10b6:208:52c:cafe::c1) by MN0PR05CA0013.outlook.office365.com
- (2603:10b6:208:52c::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.7 via Frontend Transport; Thu,
- 13 Nov 2025 12:23:22 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000F0E2.mail.protection.outlook.com (10.167.242.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9320.13 via Frontend Transport; Thu, 13 Nov 2025 12:23:22 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 13 Nov
- 2025 04:23:20 -0800
+	id 1vJWMx-0002ig-Ru; Thu, 13 Nov 2025 12:24:07 +0000
+Received: by outflank-mailman (input) for mailman id 1161199;
+ Thu, 13 Nov 2025 12:24:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=HFQP=5V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vJWMw-0002cq-8O
+ for xen-devel@lists.xenproject.org; Thu, 13 Nov 2025 12:24:06 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a53b71f1-c08b-11f0-9d18-b5c5bf9af7f9;
+ Thu, 13 Nov 2025 13:24:05 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-640b06fa959so1392542a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 04:24:05 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6433a3d6f5bsm1377123a12.6.2025.11.13.04.24.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Nov 2025 04:24:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,137 +45,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d97b943-c08b-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x2cX45hUUsFORe5h3WyRbGdEikmQdtQjFfMnQQ/yC/mDOC8O6F1gFZNyKAnrXOJNQgUXThIHDhyeg7OqnOc+nPZJv8Mer2nHsfkofTVv2XUrHymKg+iLa3F03KjD6MTIgwG8JUH7hS39hOqqTXaclS4gc1Y+HunKyJuTcUsfs6fv+OZVehUON6UuIkNoSegU2J2juFBS8YuRZqjGDhQisrk9yNVQxMCN/vTjKHdflqTTViiRL1j5bf0RjoBEK6TQ8SoHsiS/aNQiqrGdcN6sCbVALgnf1VLPP+umrYDFiDuwLViaCeRf83pbY4FvfAdyDHHJ44wjgddU6K5c/q4jYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QKd15oiT6H5dSlMAOW634YLWGGRVLgxhDzHb0E2eXB4=;
- b=xzZrkOaCxkUWJ8RX7DlgKMWZkQMZsPA24sgVIJo7rSVTN4P8KEpXEwGFJ7UpDzcYxKzLivg+R4sQ8NOnBzE0MkOdkdz2Qj5CrP2FWnBhYVJR04g+FM/cafq62aU5gVnaJ3oN/IcrjctjV6HkYxC0COG5TV4apZfUQVEG6GJU7elU3XZyjtpct9CRV2eX4BZaoOCdDVC/bQVEp5spFxORvpYs07davQz9Lv6jsHpeK371Uf5PT/0r2Gctmex4WEWcP29gMuNztG7G5QR+eeR0FbDvqZKwZQ9jSmmr4mGU18gBVE8eV4fRlI3J+b7P8bSKg2M7bcEPUmBGPp6IgobzvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QKd15oiT6H5dSlMAOW634YLWGGRVLgxhDzHb0E2eXB4=;
- b=jPI1LgpmfJwyuJVMmKcCotXbW67RwV/uw7DOmNfFeju/T8zlZ9Ue2paM+Lkrc0ZcMamdAnMkpRHqWAikBi8AsiaT4oZSmzgsDAqaktMBxspq6GOo6sir1DeRjKWr0dWlKxq5p7XF74Juob6NSksSutUr/HIOKU2cmCF+tyIQOvI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+X-Inumbo-ID: a53b71f1-c08b-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1763036645; x=1763641445; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=c8nFr9p8UFhmCXS76o6qsModOGM3KrazWlgBjqrbB38=;
+        b=JE8ZEUfHaROWFDfDzK0ltnAVLqVzh3lIhD5zheQnavJKXEUdR+6jujY0+d904/NM0e
+         lIZfeQzDm+DIXsUNlMLolCUZnJ+EjBp4ldAJHADHeij8UPHNTEWXCrA0OR5HASg5XbIM
+         vkfXhj72lJhc1jV6Cm7jQ6uktKe5D3gNEXp8WrPZCu9tkDYqiko3RGbRbLRjYWkIfNcA
+         W0GMIp2KyD8r2sx2yTLZAptqMPMhiq5e5PDjfYkXCnR6+5CrmZEOcoxav6i9aewlVA0e
+         Lmh4XFGnANFrKJ70vSE7MWCQrH3o1mxqmLwDAQym8hBiObAgG63TZlIMBmgAT/LRsaLj
+         zauw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763036645; x=1763641445;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=c8nFr9p8UFhmCXS76o6qsModOGM3KrazWlgBjqrbB38=;
+        b=I0VL6VGojtlxL5/PZ1/a1ubRNF/axHM6Apl+7TTJ/jjI8PSwL8wohoSrzFvjCTQmN1
+         19lERf0RP+NPhsp56pWuJtuwbP/jWiPvuRbx7BWMdTEC8wuT/h6+FWBAFXtTkjzumrjq
+         C3RuoqggV6fOLj1ay1Cynv0jR94h4uOCdWfQEjMTjOCbOtqOjYh4sTKm9YpaxwHYqG5V
+         7rE7sSSJafs+8G86c7kBUailBNGZtObJXrqecK96MAFQRteSq6KZCJHHsMofyoyM23Tu
+         iZO9DyhEhtcWoouyKzt7pM+4NKIgo3DA7eg3t3u73lL3NEbNW//CO52FdUI5gV1gHJnD
+         UOHQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXSK7g7uNNthLwtIi8XJAhjFXni7QCwbhC8fnL4slQKdHFckvU5gI93J6RS/W9f9fGWSmaDGV1RDNQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YydQ8cxqxW/5itIMUopZeZ4MFgOxHgCTNcVsTdbtqnQkFrpAUl1
+	jzOSXkIqMGQ+1xQvSn5bKkXDGEIRVepRwHVtcjTc0GmBBzozCEicaybydHH3EiBqqRM8biNFbxq
+	bctc=
+X-Gm-Gg: ASbGnctraYbTeZRp5gtZOxi1xmHgHxvKAoZS5H5LboqzNM4o6qsLYRnqeQvkcnDAHDW
+	LMdUpLIVIszmUNGUpvvdP1SmyrByEKUOk9PSKQIOZOofHdfT8Vo8W7mMYl5dLSNQztucNf3AS0N
+	AsK2RgKzytissnk0m5+D2VG11w1lZI/gmSJylYKl9T4+s5PhbjGLny5dvCcL7ZaU1hSRBqMH+Fr
+	QNrqDFFHRUHiiXNxBb8Y4FX6pJk86fO+bvxGnJSLl7/y8xokhh/DZOAZZNIhQpsZfX9Nk9gMtxw
+	gXsE0J7kveBz8QiIQGRIJwNn+WCXEMoPqSVN3x6XaXTnUEnrTOfvtBZkarBdaRf+utTgYsHV7yR
+	WNwNDIQ3sr7jNMZiYJoftcNovN3XZekLFLhB8mn+ABKAAHepTxn8St80GXwCoaexNm3vPFVFmvr
+	ftMH25PVZ9eoqXl2mSTLEwvvSlm+kokjc+cJnPPoGntat46TkFQb9rlyOrMittDqjxD9xE8yhcj
+	Q0=
+X-Google-Smtp-Source: AGHT+IGnOCjbzoJQF2LfxVXZCWjBvx3+Mi8iUeMDAmZ3GIaQP7MW+U0zXNRkPa5ltdxUzb4FAt1jCA==
+X-Received: by 2002:a05:6402:1449:b0:640:b8a0:1aad with SMTP id 4fb4d7f45d1cf-6431a39287emr6430856a12.6.1763036644938;
+        Thu, 13 Nov 2025 04:24:04 -0800 (PST)
+Message-ID: <457733d4-65bc-41f6-ad1b-5afb17303517@suse.com>
+Date: Thu, 13 Nov 2025 13:24:03 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 13 Nov 2025 13:23:18 +0100
-Message-ID: <DE7KBC8848Z3.2GZU4DD87D20F@amd.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 2/2] x86: Remove stubs from asm/pv/domain.h
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-X-Mailer: aerc 0.20.1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] x86: Conditionalise PV-only fallback branches on
+ CONFIG_PV
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <20251112152235.224001-1-alejandro.garciavallejo@amd.com>
- <20251112152235.224001-3-alejandro.garciavallejo@amd.com>
- <5c08e298-3ef4-451c-b0f8-24f207a9d512@suse.com>
-In-Reply-To: <5c08e298-3ef4-451c-b0f8-24f207a9d512@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E2:EE_|CH3PR12MB8234:EE_
-X-MS-Office365-Filtering-Correlation-Id: bf3f5865-30b0-4897-2726-08de22af6fe2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RXBFeDIrUkl0UkZTb3JjcmV4R2diWTBYbnRKSlZOeER1U21yL2ZzRUxOK1VD?=
- =?utf-8?B?THJwcHRlcWVKOUFUN1JMYktMaWQxZnN4ZEpmeVZoc1U1c1BBVk51VHRTZFhF?=
- =?utf-8?B?aTJyQm9UNFhnNGhWdGFNcHZPWmI1SmxhSjdUOWNqVkM4UjBWMUJoYW0yNWZz?=
- =?utf-8?B?d3RtblhUMXNpdkVQOC9sYVU3L3g4K0I0L1BTMnVWNzFmMElQQmNjLzZHTCtO?=
- =?utf-8?B?OUdRc0gvMkt3NUFlbWpmU0U1OVJ0Q2Z0bS9LSEtIY2IzZGwzTllmQlVQOU5r?=
- =?utf-8?B?ZVduT3FQSnd4WE5mR2RCUSthcENWbElBYXFWNEZzcC9BZ1hFSGNKNUtZSVh2?=
- =?utf-8?B?UFRwQkFzK1ZxVmw1SGZWSGUyWEh4S1JLSlJOY1k2TmxNSUxZZFFFV2x3VW9r?=
- =?utf-8?B?Q1dXVnBTd0tBa2ZXRGh1Z3NTaDVsQ3RFUnZpU1FlOVU2OHBqc1d1eHR2NWNh?=
- =?utf-8?B?RXBEVzh0eGdvMG1sMGNqUTE4anpwV0JLbUdHTlI4MWVHaWI4bW5mS1Q1eGVu?=
- =?utf-8?B?SEhBWjZqMzFOTk5XeXY1MmdlTE1GTXFQSlEyZzdxbnJtV3Jxc3JQdWtERlIz?=
- =?utf-8?B?Y2JCQmJsMCtjMFA1OHRjZmZJbGc5QXZ6VWxCditoSDNoVjBFU0pqS1RwYmx0?=
- =?utf-8?B?MWh1RnFrTDVPcnhsdEJBbjlCNUJYQmxLaFQ0WDcwU0VCNE94MkdHd1BucElx?=
- =?utf-8?B?Z0IzVWwrWmp1TGh0VHdPdDc0SkhEWGpTY05kRFY5a3ZQUkxCZURSZ1duSmFq?=
- =?utf-8?B?ZVhicHFYTDNPUFVJMlZ6d216Q2YralhJTE55elpQZzRVOWlML0ZQWTB4TTJL?=
- =?utf-8?B?a1FycmtZd2NMS2U1Tkd1ZFBML0krS0VYWVBINGdtNFZicHU0a1Q4QmkyREE1?=
- =?utf-8?B?d3Zud3BXODNHN2N3cDFCSStYZ2N5UFBzTk5UQlFNUTBPTVZpSlk2MVZybjho?=
- =?utf-8?B?Y3B4K2NEQzdOS0Z5NzJjRTNaMzlXZzhBUkxzZy92eThVUlo4STlOdWlEb1hS?=
- =?utf-8?B?WDFyamxaaVlEZVFGV0VzQUpqeG1tTmlhRmpzVkhIamhuMVk0bEQ3ZzNFTEtP?=
- =?utf-8?B?MkNpeWR2Z0FOK1dEdDZyVm1UdS9DWXFHV1NOT3RtejVjQWVGemR5WDRaU01l?=
- =?utf-8?B?VFZ4ZFhBRHhPSEdSaVd6RENoU3ZDOUxSVEIyTmZiT0N0N1BsSnQ1VGNITFdJ?=
- =?utf-8?B?KzFXcVJSNnd4NWswMEZTSldnUk4vMTZ0RmlqTnJVZEhzekpUVnlsRGl5aXhx?=
- =?utf-8?B?ZnUvbkNIbTg1WnFHbk05ZGVGREJHVU55OXVmRTJ0OTNvQjRNbDFYRWJ3a3Z3?=
- =?utf-8?B?K1FiNUFVNGlSNmFJdXQyYVZMaGllRkF3RFNLQTF4SVhiQkViNVoyVkhJOWRl?=
- =?utf-8?B?Y2phNW4wMTlSdUMyZjQ0aXBwZnl3VGFLWko3dHNXMndGSGV5cUx5RXdaRTJ2?=
- =?utf-8?B?c2wzN2JUUENYZGRJbjBFTkQzNG9SNkViYnAzMFMva2c5STFyWGF1Q3h2aDNW?=
- =?utf-8?B?TmRwQ1BoZHdlZjh5aWJJU2hIeS9iQXYvdk5CaW1uT3ZaZ2lTdWR2b2U5ZFFw?=
- =?utf-8?B?TE8xOVp2RmdrZC9TNktPMCtET05sSitCVi9CQlNLbno1S1U1NFVaWUMvRWI0?=
- =?utf-8?B?MTVBZU9NOWtRUExUS0lNR2F4RDM3bE1hMWo1VHBiU0RPSndITGxMVURTaVRT?=
- =?utf-8?B?anA3c1FZc2NVaU9qYnNjdUpmbFBYcGFCc1VVdThWZXltT25qbDdjMGtKL0N2?=
- =?utf-8?B?bWY2QjQ5eVd1b3BlWThEdFczWTNmcXJsMngwd21LbXBRUlMrVlFOYTNZTjhP?=
- =?utf-8?B?R2tPV3RicFErZDQwT1dCZXl3RUZVYWF1R1p2Z3lGSmpFeTBmeTVRUSs1ejJC?=
- =?utf-8?B?aXlvcUVLb09aeHUyWGdxQjVKS2R5RXVzM2VXbW5EcFZwZHFHM2JlQ3BOKzIz?=
- =?utf-8?B?dkdWbU5pNkZ6bHZPRXRGY1JRRUdiMTV2WUN6alhZdm0vM1E4RHdnb1AzMHdu?=
- =?utf-8?B?cnVUTlJXWGxHUndNSnNrUTBFWS9MSUpMVjNVOWlFZE4wRS9zc256TWZDa1Ex?=
- =?utf-8?B?NGVGazNDMUdKUFZKMWZRMW14M3Q5VWJxbGI2SVhramVydGZCMFBhWXlyWjBF?=
- =?utf-8?Q?rJIc=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2025 12:23:22.4465
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf3f5865-30b0-4897-2726-08de22af6fe2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0E2.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8234
+ <20251112152235.224001-2-alejandro.garciavallejo@amd.com>
+ <730c6001-58a2-46db-95fa-c8ec2081d3b0@suse.com>
+ <DE7K9G9FS7ZL.2JVRCUHFJFH6W@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <DE7K9G9FS7ZL.2JVRCUHFJFH6W@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu Nov 13, 2025 at 12:50 PM CET, Jan Beulich wrote:
-> On 12.11.2025 16:22, Alejandro Vallejo wrote:
->> They are unnecessary. The only two cases with link-time failures are
->> fallback else branches that can just as well be adjusted with explicit
->> IS_ENABLED(CONFIG_PV). HVM has no equivalent stubs and there's no reason
->> to keep the asymmetry.
->>=20
->> No functional change.
->>=20
->> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->> ---
->> I'd rather remove the "rc =3D -EOPNOTSUPP" branch altogether, or replace
->> it with ASSERT_UNREACHABLE(), but I kept it here to preserve prior behav=
-iour.
->>=20
->> Thoughts?
->
-> I think using ASSERT_UNREACHABLE() there would be better, in particular b=
-ring
-> things in line with the {hvm,pv}_domain_initialise() call site. Preferabl=
-y
-> that way (happy to adjust while committing):
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->
-> Jan
+On 13.11.2025 13:20, Alejandro Vallejo wrote:
+> On Thu Nov 13, 2025 at 12:42 PM CET, Jan Beulich wrote:
+>> On 12.11.2025 16:22, Alejandro Vallejo wrote:
+>>> --- a/xen/arch/x86/cpuid.c
+>>> +++ b/xen/arch/x86/cpuid.c
+>>> @@ -297,7 +297,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+>>>              if ( v->arch.hvm.guest_cr[4] & X86_CR4_OSXSAVE )
+>>>                  res->c |= cpufeat_mask(X86_FEATURE_OSXSAVE);
+>>>          }
+>>> -        else /* PV domain */
+>>> +        else if ( IS_ENABLED(CONFIG_PV) )
+>>>          {
+>>>              regs = guest_cpu_user_regs();
+>>>  
+>>> @@ -509,7 +509,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+>>>              if ( !hap_enabled(d) && !hvm_pae_enabled(v) )
+>>>                  res->d &= ~cpufeat_mask(X86_FEATURE_PSE36);
+>>>          }
+>>> -        else /* PV domain */
+>>> +        else if ( IS_ENABLED(CONFIG_PV) )
+>>
+>> Maybe better leave the "else"-s as is and, ahead of them, insert
+>>
+>>         else if ( !IS_ENABLED(CONFIG_PV) )
+>>             ASSERT_UNREACHABLE();
+>>
+>> Happy to make the adjustment while committing, provided you'd be happy with me
+>> doing so.
+> 
+> Should I understand that as an Acked-by?
 
-Sounds good to me. Though arguablt the commit message might need to change =
-too
-to remove the last line about not being a functional change. While not
-externally visible, it is a real change.
+You may, yes (implicitly).
 
-Cheers,
-Alejandro
+Jan
+
+> I think it'd be marginally clearer with the assert added to my code as an else
+> branch at the end, but either form works. I'm fine with it being committed
+> in the form I originally sent, what you proposed, or the ASSERT as an else
+> branch.
+> 
+> They all have the same effect, after all.
+> 
+> Cheers,
+> Alejandro
+
 
