@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B7DFC5E6CD
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 18:04:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1162801.1490317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C960C5EB70
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 19:02:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1162818.1490327 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJxDc-0002PZ-4t; Fri, 14 Nov 2025 17:04:16 +0000
+	id 1vJy79-0002OL-7D; Fri, 14 Nov 2025 18:01:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1162801.1490317; Fri, 14 Nov 2025 17:04:16 +0000
+Received: by outflank-mailman (output) from mailman id 1162818.1490327; Fri, 14 Nov 2025 18:01:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJxDc-0002NJ-0w; Fri, 14 Nov 2025 17:04:16 +0000
-Received: by outflank-mailman (input) for mailman id 1162801;
- Fri, 14 Nov 2025 17:04:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vJy79-0002MW-4P; Fri, 14 Nov 2025 18:01:39 +0000
+Received: by outflank-mailman (input) for mailman id 1162818;
+ Fri, 14 Nov 2025 18:01:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0Jk/=5W=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vJxDa-0002ND-IL
- for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 17:04:14 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f1af2d98-c17b-11f0-9d18-b5c5bf9af7f9;
- Fri, 14 Nov 2025 18:04:13 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-640c1fda178so3432346a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 14 Nov 2025 09:04:12 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fedb91bsm421284266b.70.2025.11.14.09.04.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Nov 2025 09:04:11 -0800 (PST)
+ <SRS0=lTzj=5W=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1vJy78-0002MP-66
+ for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 18:01:38 +0000
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c200::3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f532241f-c183-11f0-980a-7dc792cee155;
+ Fri, 14 Nov 2025 19:01:35 +0100 (CET)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by AM9PR03MB7694.eurprd03.prod.outlook.com (2603:10a6:20b:41e::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.15; Fri, 14 Nov
+ 2025 18:01:32 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9320.013; Fri, 14 Nov 2025
+ 18:01:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,729 +47,257 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1af2d98-c17b-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763139852; x=1763744652; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7xaxRGVd51zbr8z+5hwXTma7PMkYBPKA8ZE0YBvceC0=;
-        b=b4FekbvOAUD55OvLLpHPTREN+KEi7cswbRTlhJX4PbaYq2Xi/lB3gEP5jU0AFHXyyh
-         QJVM83uKxOiRIWENdMGI8aAokv/51YJjzdWNfA8983eBT2rxKOUyMV6Z79T+trqin4yX
-         hp7hSi8Ms+rt4KToOvGUxa+JjuiqNDaIfPYTVUOrCDUmswp9lCpomyVIdPxwyyRJ8C2W
-         oo3drid4UeZz9HS63EdJA+fm1RfL7dkMree9NbrMtG3+kaqUUrZw4Fisc3KD1xDhBWq6
-         ZztauUzjK7VxaslStwy772RYsbd+j8cbDxE32NpgoetCzuW0Mjs97Lrco04ngwf6XQW5
-         aN/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763139852; x=1763744652;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=7xaxRGVd51zbr8z+5hwXTma7PMkYBPKA8ZE0YBvceC0=;
-        b=qKjgIzio8HTow2hvD3h4UU2jou7Ud498hUjFIMYG44WOeiHrHLJ853Pk91zUtTuCNG
-         oK88Zn/r9h4BVBG0aw19mkB2b98egFshiPIR0GsNuBATg1mlGXBHiUw5kVzk0R5cGBSp
-         xm0mZJQymrPOrrHrrlF50/q9cZtEZ8F2yYQbJzH9BZnCLkLD6zxlj0hv/sjcBP2mIIF8
-         2Dk5q72+44HfnIyb6dpSz7JKH47HEJB1SDI/tCPcDbhTRL/LiG5VguTH+n0pfPrd1crC
-         c9Df33IxPT2DBNhgmPRh56VB+l+kumpmaAdUarWXXh2pTi62KZm6LHegMUWfBcrPYZW8
-         mXfQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUyNtOgAmCWPqxQ84qpkyRTmpmQgsmfrEvaqrUGccVzxNMwvhgDnbTbh3Wp3LYjNtY61H3XPXMrrTI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyLFi+Bey/7jbHajJ1QLDjG4Ioidxf0QelVfGihsvFSUp1bQDec
-	t7CuS+cSiw1wyFnWCZc1vsbPdndiJxp3BTeRT5GY5sWR9q5FVgc1TP36
-X-Gm-Gg: ASbGncuvxSzD3pZl0EgpSVe3rtnmG0/yJFgZDPDm2oF7ZY0tXEgXiojHa1zKV65BjRM
-	V5WsYPzD9Gt5p0e7caeHYRXHTyfIByTynNDo4B/aG9xVHaE2qgj509bR4pk9Z6RDEq6ov+yOUpn
-	Qr2fzcMbn4iJuMOKFcJ1H1Z5lBog6XVEWj2iiqeyXDjb+yhrgCT2fnN4vJ0oRya78cYAp9qLQzz
-	WtmQtCsvk6XUIoBj2qGMp3EWuxcxe53cUetClDsNTxLUOQESuWGiND/6c8WFt5EeGtedG5Yg9Fa
-	JFiTpY0bfES+iTbTYf5K/aFzrdYZ+toRLPbEM2vkCk6QJhLEoJdrQIRCHFP5idBOb7MS21h2U+y
-	02DL9uMl82nA/Vup+lHzVPUlWA7nDHjzXDUXC1CSFLirgIsbEg4XiFlkcBkNwHyZ60DnshyJppP
-	fwtbSwDHnzt7k6OAIKXq/ZzTXapL8so2p7w+XJ+c+oxCXNQCcgG4M0jpD+t2fF
-X-Google-Smtp-Source: AGHT+IEACu0Mqu+36Ut6dFJtgad9ke7KsBHr9+3Tu+VKlWtZ3w9PqhvJy5aJswzneeY3XGexssIImA==
-X-Received: by 2002:a17:907:a41:b0:b71:1164:6a8b with SMTP id a640c23a62f3a-b7367869c44mr385634366b.7.1763139851800;
-        Fri, 14 Nov 2025 09:04:11 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------Pq48CNIJ8D8qOdyUGPQOyyLN"
-Message-ID: <3fc28006-4a03-4d95-8db3-71a7b3131f82@gmail.com>
-Date: Fri, 14 Nov 2025 18:04:10 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [for 4.22 v5 10/18] xen/riscv: implement p2m_set_range()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1760974017.git.oleksii.kurochko@gmail.com>
- <d689c48582505b0dab6896b414d01d844d834bd5.1760974017.git.oleksii.kurochko@gmail.com>
- <cfe9da20-5680-4f42-92f6-f46350811380@suse.com>
+X-Inumbo-ID: f532241f-c183-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZPxR75x713JzE5IC0YAi+azhGpF6bzT9Hq0DcYEg7pg/QJhP1P6UPzA6w83AKUVJuHihFzRsGoGG7Z/3o6zB+VbJLH/tXHyDVrLBa7V4/K52g63Mv9OMAbc0+daiADb4MUlnLd2WkZmB+9DEXoiGksZRGKxA6x45GwldAktVzqF9iu8uULmIwXXzHiJlCIqGhQgUjQAcA+wCqpTAuy4s2IhKYNvUs8ICQriSVkz94/NjxXa/AVGpGiyjZGoeQs8DhUlp/qqEJCGvahpdf7zwU6gTeViZzBtiG4SpcPm+pAc/hcrxNBH1CA+LVokw/wSqZ4DIjSp1c8St0zvDJRc+xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XiNGl3ZXa6y3CFfQsH463W3pcuo8YvXy7QmlmKcHFuI=;
+ b=Yof2g1kwB+thVdlZnXzCh9dc1vyTsNH1dyX1FjVCg7XFqqWYKDQS1uy301Yl9AJa3r2s8U+cY0xIms7XUAVZHci+qsIjBnlcFxVY9vQH/Z4dxxqvcf66a5+UjvBEGtCn52Gcw7511wggKTjOmumlFm2QGQx8p+m6Cibl+LTBFJHVP/0/zftXNJrmofra+ihm5X1azKAduUfROpxl7hzzMm/bnLYHzOI/rZJFdhinKwjGPwiU3ecHApJKw0YeXSz1+wwro2dVuuiNE1+h+aM3HFfj+1C0PfxtSjM7hmYc25x4oPiKN3mzwPn3IEMUt4yWEwiT4HFXS82jrUyGcZXhVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XiNGl3ZXa6y3CFfQsH463W3pcuo8YvXy7QmlmKcHFuI=;
+ b=AF9ytWIeZ7SOlxzBsCcSUcTXmAQg/15j2CN9Awveo1s3phKGamvx95tpFai4ia+XrnU8cyZ4X5zfJVmkzivs2b94a45OmQOcOadz17eV5jFS8SO+egsdXMuf3vGXEwy+PjmoBgPi5T7k7KjIJzIxuL6tcY8hU3LgS69ldmbzmcy/TStIaqINe8yqYD/bBu4WQ4/HRGetgKXo0ZqvLSdujpGAqOSqbJAtYgZBV/izWKRgp3qLRcdJkMBCFnOUKtmig7zQ0nJ49HDLjHktTLMq+LXT/lkrpsNbQcZbI8quR1oYo7i0gypci2pK4ypTWGr/O2ro02hpUaVCad95TmInjQ==
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Grygorii Strashko <grygorii_strashko@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Jan
+ Beulich <jbeulich@suse.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>, Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+	Jason Andryuk <jason.andryuk@amd.com>
+Subject: [XEN][PATCH] common/libfdt: optimize usage
+Thread-Topic: [XEN][PATCH] common/libfdt: optimize usage
+Thread-Index: AQHcVZC1OaGU/KuFYUqRuKRHxQFN9g==
+Date: Fri, 14 Nov 2025 18:01:32 +0000
+Message-ID: <20251114180130.346755-1-grygorii_strashko@epam.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <cfe9da20-5680-4f42-92f6-f46350811380@suse.com>
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS2PR03MB8907:EE_|AM9PR03MB7694:EE_
+x-ms-office365-filtering-correlation-id: 993171f7-f83c-44cd-aa14-08de23a7d821
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|7416014|376014|38070700021;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?mgORjBjI/m6FfLi7juyqXNS6vKrt1a42LMxw50rK3ZPrOHKPMKt0YbLbi+?=
+ =?iso-8859-1?Q?/UwA+Y1Y1XRvBCAzGYT2HYYyBuVnhLdDRHdnnqFdG6ZFmJ1r8h6wcz1PCf?=
+ =?iso-8859-1?Q?rUlzOKpv1uQP35TdUkZiNyWXGU4QNTyIkOAgGrZk9AM0wnKg5cQ9frVNaO?=
+ =?iso-8859-1?Q?s4oozrXMghNQ9utA4d5LDQZJ+7mVQG7f9QM83YsUBCjk9zl5uOXYUqre/w?=
+ =?iso-8859-1?Q?zuAB4QKvH3sKAR6EwL1wAtgKaliVs0/+pgP97aqgmaEthyGV/ALtRCkPCb?=
+ =?iso-8859-1?Q?n5m4YhAMNRe6FYoIAtaU3kiwO5GHMy1B3oXmrxyoBxQROvJYuiSxlLrJay?=
+ =?iso-8859-1?Q?dTYJt3l/q30agy0JvTuC4tsK89ELF+9yzTCP+aJrBdc0tCUm6+Q9Q92aS1?=
+ =?iso-8859-1?Q?Uw/QWsaeEFbZMSZ12D0qtl8UjGblhjQC/N4Uk5fA72F2cr8I+f+27qDYGg?=
+ =?iso-8859-1?Q?LKt9Cycm142B5VtctjtjmT1XAHV7EEVRgwWcbYz//rDYkrpsGFJiDjPsw0?=
+ =?iso-8859-1?Q?qO2x30a4mTsW4eJDGbodjW+JBQuqGW84Z478gM36jh4kEVPgCeYwwFoxY3?=
+ =?iso-8859-1?Q?EXyu5piNuMcom2s3YqcwCnlNJ4x6aaW0YSgx3NWW71lkI7pwQ61IT+nR8d?=
+ =?iso-8859-1?Q?TitSVLgJdZe/faek88RdNoAjpPCVc7wqklXI8d95FWIBDvxHI7nPdUhHj7?=
+ =?iso-8859-1?Q?MxwQNYM+x9nk0tUC9RKGGnk/o2q1SodAZQBNrjc7TuXB+LHlK6J+2RmR3V?=
+ =?iso-8859-1?Q?kNhXpfSebE6zR0nfRvj9aS+kqrO7YgjfWLR8sS/cRJ3RC+JH3Enxvqh72K?=
+ =?iso-8859-1?Q?UIiY5ICXIQqccsjZPCcL6yEb9rSsx6B43cSf0Qy4wSbxQ9oKY/E2DFoMdw?=
+ =?iso-8859-1?Q?lZYrM136brdIYDvVg8sJjViL5KTLbH96BH90EqutOgSQbWfchcDQjlAvvC?=
+ =?iso-8859-1?Q?GTwSXt6xvDr0TIMynH4r7/zsPPoP/z2S93fZ8BUDO0ogy04u0Q447Cx3tI?=
+ =?iso-8859-1?Q?zt1JyXwvhZn4m/FpIJnlcBKSiscNg6oV8G7JrQAOIGRRes1lmACb5QJvHo?=
+ =?iso-8859-1?Q?MrzIIhvPWfmZNQGrIK721cqoifkPtCPlb/F1yiu3DhvDbTZtOruUUILFBG?=
+ =?iso-8859-1?Q?YQ2hxOe6HZadwkpMj+NE8GlCYqtijQJbMcZtnJSiWFdjdwkZrQiJHMzR2a?=
+ =?iso-8859-1?Q?wu+j4QGsmZRzb55x1mgn1+f5aJScm359w3Q/EMswjsLYT0HoL2vNEb6ntH?=
+ =?iso-8859-1?Q?QF6QJ8YxQf5TP7ocYyILP/ZtT5SWbsawv/rndncnphv10kO0tOLHyTb2UC?=
+ =?iso-8859-1?Q?H2/zG7OiBhcRAOKwFDLJ6/+1+ZHzCV1zIGlpEdpj2JOtPe4doV8WSHC3Mr?=
+ =?iso-8859-1?Q?EB6URb+98/Pg4ajWN7O064laMz+orwDe7CG/8MNwEIYKux8RvNizPFnbe1?=
+ =?iso-8859-1?Q?p/4Lx5G7GgSoJpjWpDWCipTFdmHdoZRWZVVFwCT+MeF4oMiUWWALc06Yoa?=
+ =?iso-8859-1?Q?aI1cR4wrCckAcW918R1gqv+j5Kyq2CrLz5Xg4XYiitEbvEESTYP+Iv/vde?=
+ =?iso-8859-1?Q?nuKiOB1MagxgtszWjmHNtY+YJAlB?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?b1BIEbNHfLmDEzPYgRC8ERu03UreKjHp5kmpuFgolgeKjjhfHIubmG+aKi?=
+ =?iso-8859-1?Q?uDMrWqa3xCvh18lOh/cjst51ehDyIXOiiIIMTi5bA5GUOIl8vwy2k5SovF?=
+ =?iso-8859-1?Q?aCRnOYt54Vc79ztaG1isNBVaKE0bR80SAts9q5NWFpq0hnb+4EhhpsfKUQ?=
+ =?iso-8859-1?Q?ozfiwNzVgEr24qvJOJsUnUw1zrVs3vUhJw5vjY8JrvfM+MPvZur3LHsNUt?=
+ =?iso-8859-1?Q?RCN4jVubP1GTbt8jIMHo1w7e4cx8q1qNvxjvR7Y2AoVyDD2ZOTZa3OInjP?=
+ =?iso-8859-1?Q?rRKeJVx1yI+w83ZVpPObvHfSD+NGRsViNUM3V7rK+1eN1CK0D3JUVQwFsW?=
+ =?iso-8859-1?Q?s5CIMGUHxIqzvFdtxb5s/C/seYGarjR6PMKu2DNMFZXaQqQiUtUjOPJd7d?=
+ =?iso-8859-1?Q?5R8phjezP51Lv/PPMymVeLv+VkPvMJmiSHEkQj+mPE1ABeAkrkl1dESFCo?=
+ =?iso-8859-1?Q?X0Sf0h3pQ46LePweB/vrhGi+JzZmry2AChOtzWH7kXnlYn29dX0aS+LHz9?=
+ =?iso-8859-1?Q?EHTID2c7qHyyoL/IK6pGJe5phbzyNpl0bEDgFVvEjVRFnop5OKphvkP1GZ?=
+ =?iso-8859-1?Q?SPfB5DsablNexySkd4k50ipKizvsJRM0z4JTsiU+ac20m/FsfsN3CPtSA0?=
+ =?iso-8859-1?Q?CLCgUk5pxqrzfom3QaySIthxwoIXwkk/ZGAnOBgkfMcZHYUNt0d2XSe12h?=
+ =?iso-8859-1?Q?RKdo9y2ZUHAqOhmG5mqi4UuPCRVl03AIWQ8ZTvovY4LXJiveqXH8THC0TM?=
+ =?iso-8859-1?Q?s0XxTouVYT6yZaKRBcV3gc/wEAya6w9w9zkFgPdhJu6hQRC93OeDOcmFAT?=
+ =?iso-8859-1?Q?jqlFxapaslDIO/jIpVkiwVXVEVf/+sWL4eERj5qsWt7TU6WmsjvVVKT/tn?=
+ =?iso-8859-1?Q?Ootzp/Qj4Q4w1cIW5E7FLhNT8O9SnJA3tp+gd37pjjldJ/sm9wT2V4ok4f?=
+ =?iso-8859-1?Q?avchy8HXHpvIlfkNKkgFtn214AfzPQXJaOKoU3H5ViVodydWEWkwCuoW5r?=
+ =?iso-8859-1?Q?B56oV1liILbRtpxVTbragDIqmstsklMXmG7FdNnpZs/MG85jY9lCKoLPNG?=
+ =?iso-8859-1?Q?Sj6qoB6M+ai8z7HmIYg8q8kDe4Uk1JwRikvAnEv+OBs2i7lnrNjOoFWWDv?=
+ =?iso-8859-1?Q?6/p7uac6ZgwlLdl+cw4hiA1QRBfx0RtgdGD6XhWfnwRJvzx0NV/lCIK5PA?=
+ =?iso-8859-1?Q?Na6jvsEuYUVqxkcnnAdWYjEnsBnA57Svu/yV5Tx/PAaIxWDk+VcdAXDkKx?=
+ =?iso-8859-1?Q?nMpt2mPrC4rwnvXNelV35AEUPqF5DAcmAZa1lZSD9bVZXLYkQQf+1mgxLj?=
+ =?iso-8859-1?Q?0NvgItztoQTTj2jbSa8c5Ip4+w5PXawb/Hpr9xl72A2Zb/FIcDqX9Qx8U8?=
+ =?iso-8859-1?Q?v2pZTIvwfbkwyifWva1ddONIWInjurWMrMFW3GS1px7LrbSk9jo41fyvAl?=
+ =?iso-8859-1?Q?PHBmM564l3Rmvrxz6DJ1348lwuldCxklYZGUOyXFeSME8Iq69s3Sdstp6y?=
+ =?iso-8859-1?Q?4BFYPUQCQ9pW3mL5c+oWK7r/Ww3nPD4jXkje8+IR2+2DJXK+J8p3F0YucQ?=
+ =?iso-8859-1?Q?wXhnPBpb7Ow9yQ8oAObFZDwbAikuUy5jCzXXhY/VA/8euaAG36spv6tQnR?=
+ =?iso-8859-1?Q?xbD1IvSj/WYqqYxJLHh00m3q1jVM4XnwWZ+2FaKurUCjgdvI1cpKhP/Q?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 993171f7-f83c-44cd-aa14-08de23a7d821
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Nov 2025 18:01:32.5738
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pk1rWvhrMFSh/xGHp0/DkS7RTdK+tx7N2uxgTUl+K1WIX4ox51b2QWW/Dba8JVqA/OnkxvKOHkKPXAYA0hckaWecsrvkB0P8/SfpDSpivu4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7694
 
-This is a multi-part message in MIME format.
---------------Pq48CNIJ8D8qOdyUGPQOyyLN
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Grygorii Strashko <grygorii_strashko@epam.com>
 
+Now all libfdt features are built-it unconditionally, but...
 
-On 11/10/25 3:53 PM, Jan Beulich wrote:
-> On 20.10.2025 17:57, Oleksii Kurochko wrote:
->> --- a/xen/arch/riscv/include/asm/p2m.h
->> +++ b/xen/arch/riscv/include/asm/p2m.h
->> @@ -8,12 +8,45 @@
->>   #include <xen/rwlock.h>
->>   #include <xen/types.h>
->>   
->> +#include <asm/page.h>
->>   #include <asm/page-bits.h>
->>   
->>   extern unsigned char gstage_mode;
->> +extern unsigned int gstage_root_level;
->>   
->>   #define P2M_ROOT_ORDER  (ilog2(GSTAGE_ROOT_PAGE_TABLE_SIZE) - PAGE_SHIFT)
->>   #define P2M_ROOT_PAGES  BIT(P2M_ROOT_ORDER, U)
->> +#define P2M_ROOT_LEVEL  gstage_root_level
->> +
->> +/*
->> + * According to the RISC-V spec:
->> + *   When hgatp.MODE specifies a translation scheme of Sv32x4, Sv39x4, Sv48x4,
->> + *   or Sv57x4, G-stage address translation is a variation on the usual
->> + *   page-based virtual address translation scheme of Sv32, Sv39, Sv48, or
->> + *   Sv57, respectively. In each case, the size of the incoming address is
->> + *   widened by 2 bits (to 34, 41, 50, or 59 bits).
->> + *
->> + * P2M_LEVEL_ORDER(lvl) defines the bit position in the GFN from which
->> + * the index for this level of the P2M page table starts. The extra 2
->> + * bits added by the "x4" schemes only affect the root page table width.
->> + *
->> + * Therefore, this macro can safely reuse XEN_PT_LEVEL_ORDER() for all
->> + * levels: the extra 2 bits do not change the indices of lower levels.
->> + *
->> + * The extra 2 bits are only relevant if one tried to address beyond the
->> + * root level (i.e., P2M_LEVEL_ORDER(P2M_ROOT_LEVEL + 1)), which is
->> + * invalid.
->> + */
->> +#define P2M_LEVEL_ORDER(lvl) XEN_PT_LEVEL_ORDER(lvl)
-> Is the last paragraph of the comment really needed? It talks about something
-> absurd / impossible only.
+X86: The libfdt is used on x86 only to parse Hyperlaunch/dom0less Xen
+nodes, so full libfdt is not needed in this case and minimal, RO
+configuration can be used.
 
-Agree, it isn't really needed, lets drop it.
+ARM - situation is more complicated:
+1) ARM reads Host DT (fdt.c RO)
+2) ARM reads passthrough DT (RO)
+3) ARM generates dom0/hwdom DT from Host DT (there is a mix of WIP and SW A=
+PIs)
+4) ARM generates domU DT (there is a mix of WIP and SW APIs)
+4) With EFI enabled - ARM needs RW API and fdt_empty_tree
+5) With CONFIG_OVERLAY_DTB - ARM needs RW and fdt_overlay API
 
->
->> +#define P2M_ROOT_EXTRA_BITS(lvl) (2 * ((lvl) == P2M_ROOT_LEVEL))
->> +
->> +#define P2M_PAGETABLE_ENTRIES(lvl) \
->> +    (BIT(PAGETABLE_ORDER + P2M_ROOT_EXTRA_BITS(lvl), UL))
->> +
->> +#define GFN_MASK(lvl) (P2M_PAGETABLE_ENTRIES(lvl) - 1UL)
-> If I'm not mistaken, this is a mask with the low 10 or 12 bits set.
+Hence, add possibility for optimizing libfdt usage by introducing separate
+Kconfig options for each libfdt feature and select them where needed.
 
-I'm not sure I fully understand you here. With the current implementation,
-it returns a bitmask that corresponds to the number of index bits used
-at each level. So, if|P2M_ROOT_LEVEL = 2|, then:
-   |G||FN_MASK(0) = 0x1ff| (9-bit GFN for the level 0)
-   |GFN_MASK(1) = 0x1ff| (9-bit GFN width for level 1)
-   |GFN_MASK(2) = 0x7ff| (11-bit GFN width for level 2)
+Following libfdt modules are not used after this change:
+ Makefile.libfdt
+ fdt_addresses.c
+ fdt_strerror.c
+ fdt_check.c
 
-Or do you mean that GFN_MASK(lvl) should return something like this:
-   |G||FN_MASK_(0) = 0x1FF000 (0x1ff << 0xc) GFN_MASK_(1) = 0x3FE00000 
-(GFN_MASK_(0)<<9) GFN_MASK_(2) = 0x1FFC0000000 (GFN_MASK_(1)<<9 + extra 
-2 bits) And then here ...|
+Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+---
+Not sure about using DOMAIN_BUILD_HELPERS for selecting=20
+LIBFDT features, as DOMAIN_BUILD_HELPERS doesn't exactly
+says that domain's DT will be generated when selected.
 
-> That's not really something you can apply to a GFN, unlike the name
-> suggests.
+ xen/arch/arm/Kconfig       |  4 ++++
+ xen/common/Kconfig         |  4 ++++
+ xen/common/libfdt/Kconfig  | 14 ++++++++++++++
+ xen/common/libfdt/Makefile | 12 +++++++++---
+ 4 files changed, 31 insertions(+), 3 deletions(-)
+ create mode 100644 xen/common/libfdt/Kconfig
 
-That is why virtual address should be properly shifted before, something
-like it is done in calc_offset():
-   (va >> P2M_LEVEL_SHIFT(lvl)) & GFN_MASK(lvl);
-
-...
-  (va & GFN_MASK_(lvl)) >> P2M_LEVEL_SHIFT(lvl) ?
-In this option more shifts will be needed.
-
-Would it be better to just rename GFN_MASK() to P2M_PT_INDEX_MASK()? Or,
-maybe, even just P2M_INDEX_MASK().
-
->
->> +#define P2M_LEVEL_SHIFT(lvl) (P2M_LEVEL_ORDER(lvl) + PAGE_SHIFT)
-> Whereas here the macro name doesn't make clear what is shifted: An
-> address or a GFN. (It's the former, aiui.)
-
-Yes, it is expected to be used to shift gfn.
-
-The similar as with above would it be better to rename P2M_LEVEL_SHIFT to
-P2M_GFN_LEVEL_SHIFT()?
-
->
->> --- a/xen/arch/riscv/p2m.c
->> +++ b/xen/arch/riscv/p2m.c
->> @@ -9,6 +9,7 @@
->>   #include <xen/rwlock.h>
->>   #include <xen/sched.h>
->>   #include <xen/sections.h>
->> +#include <xen/xvmalloc.h>
->>   
->>   #include <asm/csr.h>
->>   #include <asm/flushtlb.h>
->> @@ -17,6 +18,43 @@
->>   #include <asm/vmid.h>
->>   
->>   unsigned char __ro_after_init gstage_mode;
->> +unsigned int __ro_after_init gstage_root_level;
-> Like for mode, I'm unconvinced of this being a global (and not per-P2M /
-> per-domain).
-
-The question is then if we really will (or want to) have cases when gstage
-mode will be different per-domain/per-p2m?
-
->
->> +/*
->> + * The P2M root page table is extended by 2 bits, making its size 16KB
->> + * (instead of 4KB for non-root page tables). Therefore, P2M root page
->> + * is allocated as four consecutive 4KB pages (since alloc_domheap_pages()
->> + * only allocates 4KB pages).
->> + */
->> +#define ENTRIES_PER_ROOT_PAGE \
->> +    (P2M_PAGETABLE_ENTRIES(P2M_ROOT_LEVEL) / P2M_ROOT_ORDER)
->> +
->> +static inline unsigned int calc_offset(unsigned int lvl, vaddr_t va)
-> Where would a vaddr_t come from here? Your input are guest-physical addresses,
-> if I'm not mistaken.
-
-You are right. Would it be right to 'paddr_t gpa' here? Or paddr_t is supposed to use
-only with machine physical address?
-
-
->
->> +{
->> +    unsigned int offset = (va >> P2M_LEVEL_SHIFT(lvl)) & GFN_MASK(lvl);
->> +
->> +    /*
->> +     * For P2M_ROOT_LEVEL, `offset` ranges from 0 to 2047, since the root
->> +     * page table spans 4 consecutive 4KB pages.
->> +     * We want to return an index within one of these 4 pages.
->> +     * The specific page to use is determined by `p2m_get_root_pointer()`.
->> +     *
->> +     * Example: if `offset == 512`:
->> +     *  - A single 4KB page holds 512 entries.
->> +     *  - Therefore, entry 512 corresponds to index 0 of the second page.
->> +     *
->> +     * At all other levels, only one page is allocated, and `offset` is
->> +     * always in the range 0 to 511, since the VPN is 9 bits long.
->> +     */
->> +    return offset % ENTRIES_PER_ROOT_PAGE;
-> Seeing something "root" used here (when this is for all levels) is pretty odd,
-> despite all the commentary. Given all the commentary, why not simply
->
->      return offset & ((1U << PAGETABLE_ORDER) - 1);
->
-> ?
-
-It works for all levels where|lvl < P2M_ROOT_LEVEL|, because in those cases the GFN
-bit length is equal to|PAGETABLE_ORDER|. However, at the root level the GFN bit length
-is 2 bits larger. So something like the following is needed:
-   offset & ((1U << (PAGETABLE_ORDER + P2M_ROOT_EXTRA_BITS(lvl))) - 1);
-This still returns an offset within a single 16 KB page, but in the case of the P2M
-root we actually have four consecutive 4 KB pages, so the intention was to return
-an offset inside one of those four 4 KB pages.
-
-While writing the above, I started thinking whether|calc_offset()| could be implemented
-much more simply. Since the root page table consists of four/consecutive/ pages, it seems
-acceptable to have the offset in the range|[0, 2^11)| instead of doing all the extra
-manipulation to determine which of the four pages is used and the offset within that
-specific page:
-
-   static inline unsigned int calc_offset(unsigned int lvl, paddr_t gpa)
-   {
-      return (gpa >> P2M_LEVEL_SHIFT(lvl)) & GFN_MASK(lvl);
-   }
-
-   static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
-   {
-     return __map_domain_page(p2m->root);
-   }
-
-It probably still makes sense for|p2m_get_root_pointer()| to check that the root GFN
-index is not larger than|2^11|.
-
-Am I missing something?
-
->
->> +}
->> +
->> +#define P2M_MAX_ROOT_LEVEL 4
->> +
->> +#define P2M_DECLARE_OFFSETS(var, addr) \
->> +    unsigned int var[P2M_MAX_ROOT_LEVEL] = {-1};\
->> +    for ( unsigned int i = 0; i <= gstage_root_level; i++ ) \
->> +        var[i] = calc_offset(i, addr);
-> This surely is more than just "declare", and it's dealing with all levels no
-> matter whether you actually will use all offsets.
-
-I will rename|P2M_DECLARE_OFFSETS| to|P2M_BUILD_LEVEL_OFFSETS()|.
-
-But how can I know which offset I will actually need to use?
-If we take the following loop as an example:
-   |for( level = P2M_ROOT_LEVEL; level > target; level-- ) { ||/* ||* Don't try to allocate intermediate page tables if the mapping ||* is about to be removed. ||*/ ||rc = p2m_next_level(p2m, !removing_mapping, ||level, &table, offsets[level]); ||... ||} |It walks from|P2M_ROOT_LEVEL| down to|target|, where|target| is determined at runtime.
-
-If you mean that, for example, when the G-stage mode is Sv39, there is no need to allocate
-an array with 4 entries (or 5 entries if we consider Sv57, so P2M_MAX_ROOT_LEVEL should be
-updated), because Sv39 only uses 3 page table levels — then yes, in theory it could be
-smaller. But I don't think it is a real issue if the|offsets[]| array on the stack has a
-few extra unused entries.
-
-If preferred, Icould allocate the array dynamically based on|gstage_root_level|.
-Would that be better?
-
->
->> @@ -259,13 +308,293 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
->>       return rc;
->>   }
->>   
->> +/*
->> + * Map one of the four root pages of the P2M root page table.
->> + *
->> + * The P2M root page table is larger than normal (16KB instead of 4KB),
->> + * so it is allocated as four consecutive 4KB pages. This function selects
->> + * the appropriate 4KB page based on the given GFN and returns a mapping
->> + * to it.
->> + *
->> + * The caller is responsible for unmapping the page after use.
->> + *
->> + * Returns NULL if the calculated offset into the root table is invalid.
->> + */
->> +static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
->> +{
->> +    unsigned long root_table_indx;
->> +
->> +    root_table_indx = gfn_x(gfn) >> P2M_LEVEL_ORDER(P2M_ROOT_LEVEL);
-> With the variable name shortened (to e.g. idx) this could be its initializer
-> without ending up with too long a line. The root_table_ prefix isn't really
-> adding much value in the context of this function.
->
->> +    if ( root_table_indx >= P2M_ROOT_PAGES )
->> +        return NULL;
->> +
->> +    /*
->> +     * The P2M root page table is extended by 2 bits, making its size 16KB
->> +     * (instead of 4KB for non-root page tables). Therefore, p2m->root is
->> +     * allocated as four consecutive 4KB pages (since alloc_domheap_pages()
->> +     * only allocates 4KB pages).
->> +     *
->> +     * Initially, `root_table_indx` is derived directly from `va`.
-> There's no 'va' here.
-
-Should be gfn.
-
->
->> +static inline void p2m_clean_pte(pte_t *p, bool clean_pte)
-> "clean_pte" as a parameter name of a function of this name is, well, odd.
-
-clean_cache should be better:
-   p2m_clean_pte(pte_t *p, bool clean_cache)
-
-I suppose it would be nice to rename everywhere clean_pte to clean_cache.
-
-Thanks.
-
-~ Oleksii
-
---------------Pq48CNIJ8D8qOdyUGPQOyyLN
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 11/10/25 3:53 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:cfe9da20-5680-4f42-92f6-f46350811380@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 20.10.2025 17:57, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/p2m.h
-+++ b/xen/arch/riscv/include/asm/p2m.h
-@@ -8,12 +8,45 @@
- #include &lt;xen/rwlock.h&gt;
- #include &lt;xen/types.h&gt;
- 
-+#include &lt;asm/page.h&gt;
- #include &lt;asm/page-bits.h&gt;
- 
- extern unsigned char gstage_mode;
-+extern unsigned int gstage_root_level;
- 
- #define P2M_ROOT_ORDER  (ilog2(GSTAGE_ROOT_PAGE_TABLE_SIZE) - PAGE_SHIFT)
- #define P2M_ROOT_PAGES  BIT(P2M_ROOT_ORDER, U)
-+#define P2M_ROOT_LEVEL  gstage_root_level
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index cf6af68299f6..f10cd3d7effc 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -111,6 +111,8 @@ config ARM_EFI
+ 	bool "UEFI boot service support"
+ 	depends on ARM_64 && !MPU
+ 	default y
++	select LIBFDT_RW
++	select LIBFDT_EMPTY_TREE
+ 	help
+ 	  This option provides support for boot services through
+ 	  UEFI firmware. A UEFI stub is provided to allow Xen to
+@@ -149,6 +151,8 @@ config HAS_ITS
+ config OVERLAY_DTB
+ 	bool "DTB overlay support (UNSUPPORTED)" if UNSUPPORTED
+ 	depends on SYSCTL
++	select LIBFDT_RW
++	select LIBFDT_OVERLAY
+ 	help
+ 	  Dynamic addition/removal of Xen device tree nodes using a dtbo.
+=20
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 401d5046f6f5..256aff269c3b 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -28,6 +28,8 @@ config DOM0LESS_BOOT
+=20
+ config DOMAIN_BUILD_HELPERS
+ 	bool
++	select LIBFDT_WIP
++	select LIBFDT_SW
+=20
+ config GRANT_TABLE
+ 	bool "Grant table support" if EXPERT
+@@ -680,4 +682,6 @@ config PM_STATS
+ 	  Enable collection of performance management statistics to aid in
+ 	  analyzing and tuning power/performance characteristics of the system
+=20
++source "common/libfdt/Kconfig"
 +
-+/*
-+ * According to the RISC-V spec:
-+ *   When hgatp.MODE specifies a translation scheme of Sv32x4, Sv39x4, Sv48x4,
-+ *   or Sv57x4, G-stage address translation is a variation on the usual
-+ *   page-based virtual address translation scheme of Sv32, Sv39, Sv48, or
-+ *   Sv57, respectively. In each case, the size of the incoming address is
-+ *   widened by 2 bits (to 34, 41, 50, or 59 bits).
-+ *
-+ * P2M_LEVEL_ORDER(lvl) defines the bit position in the GFN from which
-+ * the index for this level of the P2M page table starts. The extra 2
-+ * bits added by the "x4" schemes only affect the root page table width.
-+ *
-+ * Therefore, this macro can safely reuse XEN_PT_LEVEL_ORDER() for all
-+ * levels: the extra 2 bits do not change the indices of lower levels.
-+ *
-+ * The extra 2 bits are only relevant if one tried to address beyond the
-+ * root level (i.e., P2M_LEVEL_ORDER(P2M_ROOT_LEVEL + 1)), which is
-+ * invalid.
-+ */
-+#define P2M_LEVEL_ORDER(lvl) XEN_PT_LEVEL_ORDER(lvl)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Is the last paragraph of the comment really needed? It talks about something
-absurd / impossible only.</pre>
-    </blockquote>
-    <pre>Agree, it isn't really needed, lets drop it.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:cfe9da20-5680-4f42-92f6-f46350811380@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+#define P2M_ROOT_EXTRA_BITS(lvl) (2 * ((lvl) == P2M_ROOT_LEVEL))
+ endmenu
+diff --git a/xen/common/libfdt/Kconfig b/xen/common/libfdt/Kconfig
+new file mode 100644
+index 000000000000..3abd904b2969
+--- /dev/null
++++ b/xen/common/libfdt/Kconfig
+@@ -0,0 +1,14 @@
++config LIBFDT_WIP
++	bool
 +
-+#define P2M_PAGETABLE_ENTRIES(lvl) \
-+    (BIT(PAGETABLE_ORDER + P2M_ROOT_EXTRA_BITS(lvl), UL))
++config LIBFDT_SW
++    bool
 +
-+#define GFN_MASK(lvl) (P2M_PAGETABLE_ENTRIES(lvl) - 1UL)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-If I'm not mistaken, this is a mask with the low 10 or 12 bits set.</pre>
-    </blockquote>
-    <pre data-start="59" data-end="254">I'm not sure I fully understand you here. With the current implementation,
-it returns a bitmask that corresponds to the number of index bits used
-at each level. So, if <code data-start="227" data-end="247">P2M_ROOT_LEVEL = 2</code>, then:
-  <code>G</code><code data-start="258" data-end="279">FN_MASK(0) = 0x1ff</code> (9-bit GFN for the level 0)
-  <code data-start="313" data-end="334">GFN_MASK(1) = 0x1ff</code> (9-bit GFN width for level 1)
-  <code data-start="369" data-end="390">GFN_MASK(2) = 0x7ff</code> (11-bit GFN width for level 2)
-
-Or do you mean that GFN_MASK(lvl) should return something like this:
-  <code>G</code><code data-start="258" data-end="279">FN_MASK_(0) = 0x1FF000 (0x1ff &lt;&lt; 0xc)
-  GFN_MASK_(1) = 0x3FE00000 (GFN_MASK_(0)&lt;&lt;9)
-  GFN_MASK_(2) = 0x1FFC0000000 (GFN_MASK_(1)&lt;&lt;9 + extra 2 bits)
-And then here ...</code></pre>
-    <pre></pre>
-    <blockquote type="cite"
-      cite="mid:cfe9da20-5680-4f42-92f6-f46350811380@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-That's not really something you can apply to a GFN, unlike the name
-suggests.</pre>
-    </blockquote>
-    <pre>That is why virtual address should be properly shifted before, something
-like it is done in calc_offset():
-  (va &gt;&gt; P2M_LEVEL_SHIFT(lvl)) &amp; GFN_MASK(lvl);
-
-...
- (va &amp; GFN_MASK_(lvl)) &gt;&gt; P2M_LEVEL_SHIFT(lvl) ?
-In this option more shifts will be needed.
-
-Would it be better to just rename GFN_MASK() to P2M_PT_INDEX_MASK()? Or,
-maybe, even just P2M_INDEX_MASK().
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:cfe9da20-5680-4f42-92f6-f46350811380@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+#define P2M_LEVEL_SHIFT(lvl) (P2M_LEVEL_ORDER(lvl) + PAGE_SHIFT)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Whereas here the macro name doesn't make clear what is shifted: An
-address or a GFN. (It's the former, aiui.)</pre>
-    </blockquote>
-    <pre>Yes, it is expected to be used to shift gfn.
-
-The similar as with above would it be better to rename P2M_LEVEL_SHIFT to
-P2M_GFN_LEVEL_SHIFT()?
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:cfe9da20-5680-4f42-92f6-f46350811380@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/p2m.c
-+++ b/xen/arch/riscv/p2m.c
-@@ -9,6 +9,7 @@
- #include &lt;xen/rwlock.h&gt;
- #include &lt;xen/sched.h&gt;
- #include &lt;xen/sections.h&gt;
-+#include &lt;xen/xvmalloc.h&gt;
- 
- #include &lt;asm/csr.h&gt;
- #include &lt;asm/flushtlb.h&gt;
-@@ -17,6 +18,43 @@
- #include &lt;asm/vmid.h&gt;
- 
- unsigned char __ro_after_init gstage_mode;
-+unsigned int __ro_after_init gstage_root_level;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Like for mode, I'm unconvinced of this being a global (and not per-P2M /
-per-domain).</pre>
-    </blockquote>
-    <pre>The question is then if we really will (or want to) have cases when gstage
-mode will be different per-domain/per-p2m? 
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:cfe9da20-5680-4f42-92f6-f46350811380@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+/*
-+ * The P2M root page table is extended by 2 bits, making its size 16KB
-+ * (instead of 4KB for non-root page tables). Therefore, P2M root page
-+ * is allocated as four consecutive 4KB pages (since alloc_domheap_pages()
-+ * only allocates 4KB pages).
-+ */
-+#define ENTRIES_PER_ROOT_PAGE \
-+    (P2M_PAGETABLE_ENTRIES(P2M_ROOT_LEVEL) / P2M_ROOT_ORDER)
++config LIBFDT_RW
++    bool
 +
-+static inline unsigned int calc_offset(unsigned int lvl, vaddr_t va)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Where would a vaddr_t come from here? Your input are guest-physical addresses,
-if I'm not mistaken.</pre>
-    </blockquote>
-    <pre>You are right. Would it be right to 'paddr_t gpa' here? Or paddr_t is supposed to use
-only with machine physical address?</pre>
-    <p><br>
-    </p>
-    <blockquote type="cite"
-      cite="mid:cfe9da20-5680-4f42-92f6-f46350811380@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+{
-+    unsigned int offset = (va &gt;&gt; P2M_LEVEL_SHIFT(lvl)) &amp; GFN_MASK(lvl);
++config LIBFDT_EMPTY_TREE
++    bool
 +
-+    /*
-+     * For P2M_ROOT_LEVEL, `offset` ranges from 0 to 2047, since the root
-+     * page table spans 4 consecutive 4KB pages.
-+     * We want to return an index within one of these 4 pages.
-+     * The specific page to use is determined by `p2m_get_root_pointer()`.
-+     *
-+     * Example: if `offset == 512`:
-+     *  - A single 4KB page holds 512 entries.
-+     *  - Therefore, entry 512 corresponds to index 0 of the second page.
-+     *
-+     * At all other levels, only one page is allocated, and `offset` is
-+     * always in the range 0 to 511, since the VPN is 9 bits long.
-+     */
-+    return offset % ENTRIES_PER_ROOT_PAGE;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Seeing something "root" used here (when this is for all levels) is pretty odd,
-despite all the commentary. Given all the commentary, why not simply
-
-    return offset &amp; ((1U &lt;&lt; PAGETABLE_ORDER) - 1);
-
-?</pre>
-    </blockquote>
-    <pre data-start="59" data-end="249">It works for all levels where <code
-    data-start="105" data-end="127">lvl &lt; P2M_ROOT_LEVEL</code>, because in those cases the GFN
-bit length is equal to <code data-start="183" data-end="200">PAGETABLE_ORDER</code>. However, at the root level the GFN bit length
-is 2 bits larger. So something like the following is needed:
-  offset &amp; ((1U &lt;&lt; (PAGETABLE_ORDER + P2M_ROOT_EXTRA_BITS(lvl))) - 1);
-This still returns an offset within a single 16 KB page, but in the case of the P2M
-root we actually have four consecutive 4 KB pages, so the intention was to return
-an offset inside one of those four 4 KB pages.
-
-While writing the above, I started thinking whether <code
-    data-start="654" data-end="669">calc_offset()</code> could be implemented
-much more simply. Since the root page table consists of four <em
-    data-start="752" data-end="765">consecutive</em> pages, it seems
-acceptable to have the offset in the range <code data-start="825"
-    data-end="836">[0, 2^11)</code> instead of doing all the extra
-manipulation to determine which of the four pages is used and the offset within that
-specific page:
-
-  static inline unsigned int calc_offset(unsigned int lvl, paddr_t gpa)
-  {
-     return (gpa &gt;&gt; P2M_LEVEL_SHIFT(lvl)) &amp; GFN_MASK(lvl);
-  }
-
-  static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
-  {
-    return __map_domain_page(p2m-&gt;root);
-  }
-</pre>
-    <pre data-start="1227" data-end="1345">It probably still makes sense for <code
-    data-start="1261" data-end="1285">p2m_get_root_pointer()</code> to check that the root GFN
-index is not larger than <code data-start="1338" data-end="1344">2^11</code>.</pre>
-    <pre data-start="1347" data-end="1370" data-is-last-node=""
-    data-is-only-node="">Am I missing something?</pre>
-    <pre>
-</pre>
-    <blockquote type="cite"
-      cite="mid:cfe9da20-5680-4f42-92f6-f46350811380@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+}
++config LIBFDT_OVERLAY
++    bool
+diff --git a/xen/common/libfdt/Makefile b/xen/common/libfdt/Makefile
+index 6ce679f98f47..c832d1849a5c 100644
+--- a/xen/common/libfdt/Makefile
++++ b/xen/common/libfdt/Makefile
+@@ -1,7 +1,13 @@
+-include $(src)/Makefile.libfdt
+=20
+ SECTIONS :=3D text data $(SPECIAL_DATA_SECTIONS)
+=20
++obj-libfdt-y :=3D fdt.o fdt_ro.o
++obj-libfdt-$(CONFIG_LIBFDT_WIP) +=3D fdt_wip.o
++obj-libfdt-$(CONFIG_LIBFDT_SW) +=3D fdt_sw.o
++obj-libfdt-$(CONFIG_LIBFDT_RW) +=3D fdt_rw.o
++obj-libfdt-$(CONFIG_LIBFDT_EMPTY_TREE) +=3D fdt_empty_tree.o
++obj-libfdt-$(CONFIG_LIBFDT_OVERLAY) +=3D fdt_overlay.o
 +
-+#define P2M_MAX_ROOT_LEVEL 4
-+
-+#define P2M_DECLARE_OFFSETS(var, addr) \
-+    unsigned int var[P2M_MAX_ROOT_LEVEL] = {-1};\
-+    for ( unsigned int i = 0; i &lt;= gstage_root_level; i++ ) \
-+        var[i] = calc_offset(i, addr);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-This surely is more than just "declare", and it's dealing with all levels no
-matter whether you actually will use all offsets.</pre>
-    </blockquote>
-    <pre data-start="61" data-end="128">I will rename <code
-    data-start="75" data-end="96">P2M_DECLARE_OFFSETS</code> to <code
-    data-start="100" data-end="127">P2M_BUILD_LEVEL_OFFSETS()</code>.
-
-But how can I know which offset I will actually need to use?
-If we take the following loop as an example:
-  <code class="whitespace-pre! language-c"><span><span><span
-    class="hljs-keyword">for</span></span><span> ( level = P2M_ROOT_LEVEL; level &gt; target; level-- )
-  {
-    </span></span></code><code class="whitespace-pre! language-c"><span><span><span
-    class="hljs-comment">/*
-     </span></span></span></code><code
-    class="whitespace-pre! language-c"><span><span><span
-    class="hljs-comment">* Don't try to allocate intermediate page tables if the mapping
-     </span></span></span></code><code
-    class="whitespace-pre! language-c"><span><span><span
-    class="hljs-comment">* is about to be removed.
-     </span></span></span></code><code
-    class="whitespace-pre! language-c"><span><span><span
-    class="hljs-comment">*/
-     </span></span></span></code><code
-    class="whitespace-pre! language-c"><span><span>rc = p2m_next_level(p2m, !removing_mapping,
-                         </span></span></code><code
-    class="whitespace-pre! language-c"><span><span>level, &amp;table, offsets[level]);
-     </span></span></code><code class="whitespace-pre! language-c"><span><span>...
-  </span></span></code><code class="whitespace-pre! language-c"><span><span>}
-</span></span></code>It walks from <code data-start="549" data-end="565">P2M_ROOT_LEVEL</code> down to <code
-    data-start="574" data-end="582">target</code>, where <code
-    data-start="590" data-end="598">target</code> is determined at runtime.
-
-If you mean that, for example, when the G-stage mode is Sv39, there is no need to allocate
-an array with 4 entries (or 5 entries if we consider Sv57, so P2M_MAX_ROOT_LEVEL should be
-updated), because Sv39 only uses 3 page table levels — then yes, in theory it could be
-smaller. But I don't think it is a real issue if the <code
-    data-start="911" data-end="922">offsets[]</code> array on the stack has a
-few extra unused entries.
-
-If preferred, I <span data-start="991" data-end="998">could</span> allocate the array dynamically based on <code
-    data-start="1039" data-end="1058">gstage_root_level</code>.
-Would that be better?
-
-</pre>
-    <pre></pre>
-    <blockquote type="cite"
-      cite="mid:cfe9da20-5680-4f42-92f6-f46350811380@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -259,13 +308,293 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
-     return rc;
- }
- 
-+/*
-+ * Map one of the four root pages of the P2M root page table.
-+ *
-+ * The P2M root page table is larger than normal (16KB instead of 4KB),
-+ * so it is allocated as four consecutive 4KB pages. This function selects
-+ * the appropriate 4KB page based on the given GFN and returns a mapping
-+ * to it.
-+ *
-+ * The caller is responsible for unmapping the page after use.
-+ *
-+ * Returns NULL if the calculated offset into the root table is invalid.
-+ */
-+static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
-+{
-+    unsigned long root_table_indx;
-+
-+    root_table_indx = gfn_x(gfn) &gt;&gt; P2M_LEVEL_ORDER(P2M_ROOT_LEVEL);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-With the variable name shortened (to e.g. idx) this could be its initializer
-without ending up with too long a line. The root_table_ prefix isn't really
-adding much value in the context of this function.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    if ( root_table_indx &gt;= P2M_ROOT_PAGES )
-+        return NULL;
-+
-+    /*
-+     * The P2M root page table is extended by 2 bits, making its size 16KB
-+     * (instead of 4KB for non-root page tables). Therefore, p2m-&gt;root is
-+     * allocated as four consecutive 4KB pages (since alloc_domheap_pages()
-+     * only allocates 4KB pages).
-+     *
-+     * Initially, `root_table_indx` is derived directly from `va`.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-There's no 'va' here.</pre>
-    </blockquote>
-    <pre>Should be gfn.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:cfe9da20-5680-4f42-92f6-f46350811380@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+static inline void p2m_clean_pte(pte_t *p, bool clean_pte)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-"clean_pte" as a parameter name of a function of this name is, well, odd.</pre>
-    </blockquote>
-    <pre>clean_cache should be better:
-  p2m_clean_pte(pte_t *p, bool clean_cache)
-
-I suppose it would be nice to rename everywhere clean_pte to clean_cache.
-
-Thanks.
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------Pq48CNIJ8D8qOdyUGPQOyyLN--
+ # For CONFIG_OVERLAY_DTB, libfdt functionalities will be needed during run=
+time.
+ ifneq ($(CONFIG_OVERLAY_DTB),y)
+ OBJCOPYFLAGS :=3D $(foreach s,$(SECTIONS),--rename-section .$(s)=3D.init.$=
+(s))
+@@ -15,7 +21,7 @@ CFLAGS-y +=3D -I$(srctree)/include/xen/libfdt/
+ $(obj)/libfdt.o: $(obj)/libfdt-temp.o FORCE
+ 	$(call if_changed,objcopy)
+=20
+-$(obj)/libfdt-temp.o: $(addprefix $(obj)/,$(LIBFDT_OBJS)) FORCE
++$(obj)/libfdt-temp.o: $(addprefix $(obj)/,$(obj-libfdt-y)) FORCE
+ 	$(call if_changed,ld)
+=20
+-targets +=3D libfdt-temp.o $(LIBFDT_OBJS)
++targets +=3D libfdt-temp.o $(obj-libfdt-y)
+--=20
+2.34.1
 
