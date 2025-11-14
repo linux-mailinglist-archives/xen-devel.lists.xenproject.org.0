@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C12D7C5D544
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 14:25:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1162668.1490227 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D394C5D75B
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 15:02:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1162682.1490237 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJtnA-0000Z0-CR; Fri, 14 Nov 2025 13:24:44 +0000
+	id 1vJuMg-0006II-0e; Fri, 14 Nov 2025 14:01:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1162668.1490227; Fri, 14 Nov 2025 13:24:44 +0000
+Received: by outflank-mailman (output) from mailman id 1162682.1490237; Fri, 14 Nov 2025 14:01:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJtnA-0000XC-9g; Fri, 14 Nov 2025 13:24:44 +0000
-Received: by outflank-mailman (input) for mailman id 1162668;
- Fri, 14 Nov 2025 13:24:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vJuMf-0006Gp-Tw; Fri, 14 Nov 2025 14:01:25 +0000
+Received: by outflank-mailman (input) for mailman id 1162682;
+ Fri, 14 Nov 2025 14:01:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Irg0=5W=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vJtn8-0000X6-Kk
- for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 13:24:42 +0000
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c10d::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 459e38b3-c15d-11f0-980a-7dc792cee155;
- Fri, 14 Nov 2025 14:24:40 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by DS4PR03MB8132.namprd03.prod.outlook.com (2603:10b6:8:281::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.16; Fri, 14 Nov
- 2025 13:24:36 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9320.018; Fri, 14 Nov 2025
- 13:24:36 +0000
+ <SRS0=lTzj=5W=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1vJuMe-0006Gj-2x
+ for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 14:01:24 +0000
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c201::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6675d137-c162-11f0-9d18-b5c5bf9af7f9;
+ Fri, 14 Nov 2025 15:01:22 +0100 (CET)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by AS8PR03MB7173.eurprd03.prod.outlook.com (2603:10a6:20b:2e4::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.17; Fri, 14 Nov
+ 2025 14:01:19 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%3]) with mapi id 15.20.9320.013; Fri, 14 Nov 2025
+ 14:01:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,187 +47,319 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 459e38b3-c15d-11f0-980a-7dc792cee155
+X-Inumbo-ID: 6675d137-c162-11f0-9d18-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=emVDBphZwUNe60tTFFON+CSaNf053/WtU/BilcZlIGeXRXecDQwD76/RwMtdLeBxQCEeBMgXxjjlkttl45m1pGhbK/VRj87C7D0IWc+TtVhJGe5DX4Q8JB/zgj0kq2b5EIG8Ar67rgwc24/MeLX/XbC37m2aa0htQQ7meX9ihFd6Z6RnML+umTLLkET3hQLWUTkMYD2CWdFeSpIcADvFMYl5YHirrC7AZp1K+5ePP9aoAv6jhfWug7ClXmkOY8NOgY+OowuFT4UPg4U6szAr27VyseZp+yoka1vqDDvoAQNfMLsBS18gywLGG3Do/+4Ro0p94LAECi2KDfAqCHNHKg==
+ b=owCOe+zET0W9Y3vSGszkIVupdPms2fAK8kWp8XxrsMiQC3PFrwRA8/7ws5qj9q7GENvPo4h78Y1OB2+sekwb2JOYB45vAVLpf1esvWNMoBvXxK9vK5Ps5eQU/mGtTC6e3cxTKwkpB1DT+o38cYfl3gncYnYOhuaA22RVUEM9YpIikXuHGt8S0WE7CiqhG8hqgeAWGCwLUdFFQ28NSw9xU9lxAtDEqSKUOrEgSN1BMGMQdEmxythzKz6nkc/BlIjVg7fPX98cvNsmSl3758ucKH4vXcfOKCO6f6t+Y4vRt9uLcmp6XQYafq6I7jtWMfbqofKj35xFPTKTeVssDGxOHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PYNCRcJ5PwEaNgW0xdKz4FQJJfGCSSWx3K+lYxabLts=;
- b=AT+6+FxxQSD6kaChjFpD0ssbegiW/sJHLllD9tLx1WPCW2GX1qaOsAUap575m4ozxF/DH5hnVnj3Nq7CtPQTwAfimBdLSuMXIN1k7MgPdY1QeAHUSDM/vrP3848F4RwLaGWJMI8/SScYmNECMGmg+ojNop2X9Yq0bN9ZMIfyGx2YUJGa2HiBDIVtbNIuNPvCZyV4TVobXnGSdYZZu/YVBP0zGtNkG5xj7e+nuCQyqkKGxBmP15a9/eeCHkn0sF1X/WVhPJKAKcgk1MG2wf55YUrQ00UH4r1LqCNaLCG1owc+7C2W3djhl/wBnAx2AwccWlR6XxaQhFd8YT98A0YFfA==
+ bh=X5BvTn8RP7T1gGrq+r+B32FCLNbKbAQxECCv+rZ7kBQ=;
+ b=xBHpl3+Ey94RKMoeDprfz+IgutJPiV3Ii1BoOuIEQPX9IBBDN2mll72pVheI6VNG9pi/lBJIyZMewaAHTiXdb+FOSwhTppK7tdjrqj6TMBQL1MRVr/rGbgTvWhxZbWYCEAknTEWRhdMim1ZyGCXoAAjPS8pfCI7bNEcSrdpO/DO4hMCUyRPcGM9XviKbDgpAJ/XoocJj/l1E2EvZLbktyyGUThvhncN5NpabnwKnITiW2KHVXjJs0+ok/J38w5jCKhEl4H5tun/fzQFrYXP5wpGJmvZie9xbpZaYvJxA5r2okEOeEZSX+GR+cdZ9gTZtouAvPvQfTQwRXAFMoeStJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PYNCRcJ5PwEaNgW0xdKz4FQJJfGCSSWx3K+lYxabLts=;
- b=YtkLjiEHlgi73cWeGdJt/Ay1ki7ZLttengatV+/aUFjXLw3HMYtiFw0YPr6sgjbbZOO6C4XDs69HyKpXmNqzP7FxYmPrPOg0+cesQ4YN/TZD09XJiNXb/bpRV7/jnvMKUHPYTXPMhni8DBFQmY9OiZBfaATeP7rziiuXOa/SFcc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <c8070338-8522-41bf-9402-229e2369857c@citrix.com>
-Date: Fri, 14 Nov 2025 13:24:32 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ioreq: Assert with out of bounds vCPU ID
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julian Vetter <julian.vetter@vates.tech>
-References: <f4146ec2fa354ab6a64d96eca831fe0be97f281b.1763124998.git.teddy.astie@vates.tech>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <f4146ec2fa354ab6a64d96eca831fe0be97f281b.1763124998.git.teddy.astie@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0352.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:d::28) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+ bh=X5BvTn8RP7T1gGrq+r+B32FCLNbKbAQxECCv+rZ7kBQ=;
+ b=C0p/0nLGDjfs6D9ZC9Y/XfTiVO+qrPTomAeRThvY+Zz7vauv4Dek3IwX3b30urx6fcPp+D/dXQbE94+JdYsRtVjQN6//0k1uxg8CfgbZcDuHMuDsXoIodilqkdafcgVQGAUDot+CI05ITAxxr4nECtCzMKzt4X3f3s2Op6De12zNtK+QrQW5RsFrMV5Gr/UxPplDhQo1q6IsfJGkO7a+dIRuxv7HS1zAPQqguO/JTjcKHxTa5i1z9Q/tgOVlTnsncJsaKXYXumU6qiQqF9hEz74b1cxkk9PQUGaAU/XaDprWCCsRg+IDMQxqkmTKOvSLIYEcuWU5Yspn1wuY5usdqQ==
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Grygorii Strashko <grygorii_strashko@epam.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Jason Andryuk
+	<jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>, Alejandro
+ Vallejo <alejandro.garciavallejo@amd.com>
+Subject: [XEN][PATCH v4] xen/x86: guest_access: optimize raw_x_guest() for PV
+ and HVM combinations
+Thread-Topic: [XEN][PATCH v4] xen/x86: guest_access: optimize raw_x_guest()
+ for PV and HVM combinations
+Thread-Index: AQHcVW8mVQ2jSEgYfEK6o/9vmk6AaA==
+Date: Fri, 14 Nov 2025 14:01:19 +0000
+Message-ID: <20251114140117.270461-1-grygorii_strashko@epam.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS2PR03MB8907:EE_|AS8PR03MB7173:EE_
+x-ms-office365-filtering-correlation-id: fb9cfb65-a145-4594-68c7-08de23864979
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700021;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?T/v57I+jl3d61PqGwwm+ag0Ex0bBmqAMj+GqQQ2H6uNrzfescmzGbE+voQ?=
+ =?iso-8859-1?Q?LU0XJLO96kPARuwTMBHqyX0+3FKy2BwLGwsdL3BK/Lh6H6TAAn6CtX8D2f?=
+ =?iso-8859-1?Q?mO0VoRrqQsKGpVZIODPqT6oYNmEUs9qXi22T55OWGuIDSMQRhfv/dm/IMC?=
+ =?iso-8859-1?Q?hVBpMrfmxfXwf02kztS7fgK5tvzZN1Q61NHh6vO8Xv7Oo79AjF7bNQlssU?=
+ =?iso-8859-1?Q?niVEGsZp1mxuZ/Lb1/s4tKdPVYqLbLm331+0MF7HmeMlUXi0Xya2sZEGr3?=
+ =?iso-8859-1?Q?GRsW88kaS9GNK0I5nrKhRlBNa9pVyOJyRd3/+nebvhpX/HeBxrxUdcDfU8?=
+ =?iso-8859-1?Q?KBNmJmiUtzI85eUODx3F+DcQW1WmTxOeT+pjP/0US5bqGsocqPPi2KZffG?=
+ =?iso-8859-1?Q?UylhmPSpQQH0gXGQWdvDm4XtXgZnJY9LbYbLYwXeiXP80Q9TWNYtZ4jUB0?=
+ =?iso-8859-1?Q?BwTXdRXaxwpggmzxfODmPqWyD+SWIQHzc/0EOvLgDAam20sDxprB79zRZp?=
+ =?iso-8859-1?Q?m4czO7h4LAOwHw7PObdXB1okz2CMsQQpGXTaA2zVINrAFhpeWq4L4DXNAy?=
+ =?iso-8859-1?Q?wLh7XiojVC2cA4/QLZTgFv2ybdMsoPg2rfiIftY+acsoiU5qg9wXE7dWAi?=
+ =?iso-8859-1?Q?Lx9wNH0LhM9B5qRrHhRppKPqLH5RH9BNoZdmJ3b3vjWljunx2E+WWtcBIJ?=
+ =?iso-8859-1?Q?+B21k7k0LWtqqBfASGGipFWCudRsppox3mL4fyWG47MGQtFiqwEeC3Xsct?=
+ =?iso-8859-1?Q?hbBKx6SYmVuSSDPgah/JC4Fx6ZpYaNUufNql8h7sXx8Jw2cu+pO4jE22cx?=
+ =?iso-8859-1?Q?Z0SZ0QnTxf4+J2kwLAGZUWVqVIPwqmp7QDnN8uRkWWVpG+WjqD5XM+WhFN?=
+ =?iso-8859-1?Q?9KBg4MZPcH/hbqCjUGBTAqKkS/qH23d9IQiQYqCmXw2IZZcq+tq/4+Yy9r?=
+ =?iso-8859-1?Q?HsJrRX0eRy4RhNGLh+yH88duuMOyBcB2m+jsHwOsTJYAFsxujJ/E2ei0FC?=
+ =?iso-8859-1?Q?JNg2mYpB7UTxGKHgP3Jip6RdINJondotYSlCC2LmFhiiwYbD4sUcuNwVPZ?=
+ =?iso-8859-1?Q?J2knkmx/+uKI8Ej3GbR18R2up/IzanwTbF3vpDgEZht4dOYleB6ksyyx8c?=
+ =?iso-8859-1?Q?nUCis07koEBZay17zRh6bWO4ZeqWiPQGKMcNXgAPYuJZoYbxkVBF2Hcas/?=
+ =?iso-8859-1?Q?4+gR6ukxtIqplmb4pwwN3skFcpYDp9xh2hNZLGyzgJQ4H04JJbbORvupdr?=
+ =?iso-8859-1?Q?91thLQH1vQdzdtme9enuTOSgyqNRQ/ug9vS4uCnJPI0iU4bddryFRApHxi?=
+ =?iso-8859-1?Q?KhjgWQEShD4FFauZlqT4Z+o29yALR9n09ldnppXNgJBN4xGtKrw17d7m8l?=
+ =?iso-8859-1?Q?1vXuzhts12zqCQebl094kTdTCNterhxweXW2rPQmPychIVjG5e/JoKAjlv?=
+ =?iso-8859-1?Q?REwWF4VjYwq3su9kqkyD379iaw9sXbLJ28Cv22bbDZGQE1zAZgMDryttbK?=
+ =?iso-8859-1?Q?bGvtXBeBan1QHgUkSOqOI9G/yYofYNc8wQ71xCy4PqJQkrDjEkFd06uCeA?=
+ =?iso-8859-1?Q?8+hX1MUpbfKb/DGBi5EroFoyD3CZ?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?SIpA54Y3S3jaPN3RbB4/KMj0xOmlboxIlX4YH6zT7+og2/Vd2pFk0fqs61?=
+ =?iso-8859-1?Q?KHOfPaStiaMg5IqJsRL1O/6ZPbGLDQyjWWF1zXf3C3gE7tOWddwBD2Ozrp?=
+ =?iso-8859-1?Q?dPsphe5agk2+4wsmNm9K/fZL/Ltw+uFxEbLkgVofrRu9neVh4AcfzSKu7b?=
+ =?iso-8859-1?Q?GN67OSBTkXiy5nevRfGAG3oFmTxw7eRL3Md7F93Y4zn28jQZ4CiGcJcE5P?=
+ =?iso-8859-1?Q?yJz2RTyHYuQpgNOv3z2XNtKHKt+0AE9pnbK3KbM8KnjuYN9o3sa0+UeXAa?=
+ =?iso-8859-1?Q?9erJRelYv2iGu0QPimGHeh+XHdZWXv1Nxrj8qSZ9akmYqqoFVap7QZYL9o?=
+ =?iso-8859-1?Q?VUVH93BCpJhMVQTNVM+BQDy2KW8hkHPGe4D2rGEKIfLRhyIaG26xDvBxka?=
+ =?iso-8859-1?Q?eOf26o8oHMLoLOC2uJ0iH920Tqk9KGBLHjbXZr0K4SfBeNUHIwDsNVC9ux?=
+ =?iso-8859-1?Q?G0laoO/0pYfYm+Ev/P3CG3rWNsRYjfvt/3bwz9kinb6Od/K7ZarLCAn/Nk?=
+ =?iso-8859-1?Q?Us2Me1zTrBkZjPil312Ve9LYtr3M4jJj9Yeow1Rc7y+L9vYKvJaP9xjY28?=
+ =?iso-8859-1?Q?tJ72dNtpvl8ePhxCc6K095YV7ANu0N87jjDLhOiAbRS6dyUUB374A8nzd9?=
+ =?iso-8859-1?Q?bmoZSolK9zH+sxEu5dnvHh0qVB6X+xyd7Sb+AXji0N0RKujmjdiqlj2hd7?=
+ =?iso-8859-1?Q?fovG/7TTwLU58cC4jQXWrtnd2PiDRM9lmQEp2bM+xbSth/ERWkRy578q3/?=
+ =?iso-8859-1?Q?2+P6clTmKTPo9IyQByyAI36ZjyZMHF1VcT6+/Iyzq+0/JZNQskTpr7xl7z?=
+ =?iso-8859-1?Q?zwJNcqxkDIu1yzQtfO8Hu58ztq/xZ+4DX/eqTvfK6gT78LNMWU+JvltnPE?=
+ =?iso-8859-1?Q?AgZfl5tkQKjvWLuMg9seddA42fVGxeJFLPBham6ulkLYQz9FrQrxxgOWnt?=
+ =?iso-8859-1?Q?XWivW5PhN5o3pOicFH3XLpNKjnWCQ1slxfizBR/L9UTf8Q7ZORr5zlvJ1L?=
+ =?iso-8859-1?Q?DFENiW4xP4lbN2F6kRjkbTALza4ZVU5BpRr0lP+yxSr0ugxdWzqZWHp/Kq?=
+ =?iso-8859-1?Q?WL8D6y+p7zqzw85u0ub72KaEwOQjoL5Qrmpn5MfxX4bj2/H1Sc33tM2lOS?=
+ =?iso-8859-1?Q?nin0JbjVwgOdNIPNwVRMHw/2y6vJ+F1fTWbc+xnQIShT3RHEPPHZo0VlYq?=
+ =?iso-8859-1?Q?/aE/4EPkA56R6CQZrnI/5Cx9i0zEI90Acqbb6VqRuoJju1YsC6kjKhxnWZ?=
+ =?iso-8859-1?Q?c5Pzca/y3V92egJMkBzVuPRxNK9qpnqnZJ2YrT8ziHl5uGlpHuViYULodW?=
+ =?iso-8859-1?Q?fnZsPbbFpKgcpIr3Qn5DLGEjPBVubAEfSS95WPyg0UkB+/IutwH88i/ZTM?=
+ =?iso-8859-1?Q?kWMknh2hdHoX2v21dZx9ljKsfxSRAvQkIkeG8XDE3QTlzoxLM0z2ClQO0v?=
+ =?iso-8859-1?Q?1xVK7Y/ohAL92uH8RTdgCKMSay9j8bp3LUQ9HrZshtUxAhYt2Ytwj5kk3j?=
+ =?iso-8859-1?Q?y/ECqJY6BI8BLSBo4hqABt+oVjyUtB6OpY/ZPprm3POyc62QqTWlLrdnOT?=
+ =?iso-8859-1?Q?7vy5bKw5fpS6DJg8/InTYNBZbojnLHSu2ryDthnsPfBHwAetBYjEYmDxei?=
+ =?iso-8859-1?Q?I5xQ+msTHu3ASAvFvsCChFkPf7JUj7DpIbG5DwTn7TwjQ/6hYVXzbrEQ?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|DS4PR03MB8132:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1acf7679-e613-4f50-375a-08de238127ee
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?OUxRRitYcUZsZnJsa0U0Qk85QW54aVBJZGZZckE4WGN4MkJyY1hHVTdWeDEz?=
- =?utf-8?B?OVFCa0FVMnBndGVVZ3R3NUN6ZW9qZlhUTEw2cFo1OWVkek45R041azF2SzFW?=
- =?utf-8?B?blVwajlVSlhWbUVpNEpOZklXbWthMlh0dW1UQjh3OGlRTWFCWmNtYnZzMXdn?=
- =?utf-8?B?UDF0YS9yQWMzZkRndFJ4QlBaeGtyeVNpWUpHeVlNeTNXVmk1MEZqbUxxUllp?=
- =?utf-8?B?aTd6U2V1R1k2ZW5pWVdGR3EyOVdGc1o0Tmo1VHBqUHZxVENwT3Z2VTJsVE5D?=
- =?utf-8?B?di9zZXFYWG0rVk5QWlNBbDNoVklEVVhmSXg0dy9OcTJ3czRvdGU4eHVsT3VG?=
- =?utf-8?B?YlBrKzM5dGNJdk9wU3B3RXFsT0hZQXovSzBzQmIyNE13dWN0M05RMHlqWlB1?=
- =?utf-8?B?czd3T3pGcjN1aEovZ0RFTWQ4Z1VLYllqVGptbXg5NldqVko5N1BxS2UxQTFa?=
- =?utf-8?B?a01XOWNrbWZha2hqTmo2S2hTdmVXNE9GekpZM1N4by9lTDkvd1pFWXR0R1FZ?=
- =?utf-8?B?bXhRdzRTdTRKMFI4OW52c0F4bGNUYU8vTTQ5Zng4Y1JiTmZZVHZMSEtUNTVj?=
- =?utf-8?B?YXRCNU96T294OUtvTlNxU3B5aTZRKyt2TkdDTk9LeGpjdEgwVm84UWROUXBC?=
- =?utf-8?B?MEM2bzZqVk80QjRiUnBpQmlzRG5GNU5LSU9YTHNtOFUwMUIzOTJGRUlaSXIz?=
- =?utf-8?B?ZWU1VGo4NkFCUUprNWF2WmNTRjQrcjlKVFVyNk54TGVNYkpQYjRIM3BOcjIv?=
- =?utf-8?B?d1BlcWZJTXJVQVA5bCt2QnFSNkNiZGRZVGczM3JpMzNEWVV3NHdIUUM0cGk1?=
- =?utf-8?B?S2g0UjNOeFI2WHl2L0F2THJlQkIxZnVlWnluN05mK1pzZEdPeXJjL2lDTFE4?=
- =?utf-8?B?Q2h6REI2bStNOTExMFVCSVpZMnNZVFR6SytJbVlLZCtOWExzTm9sVk1jNFIv?=
- =?utf-8?B?Sm45SCtvZy9vYythcldiR2FmYmYxRHZMSi9aVW1TcWM0eWFYTDlDeFp2L3Vh?=
- =?utf-8?B?K2wwUDlqaFAyL04veU52UmZLcksxeC9qbElRQU5CdE9kTndzTWwvSUVWVDZ5?=
- =?utf-8?B?ZDdCY0dnVlp2Q3ZONG9wMVBtSEhhK1hHT1BGbTJaVDFwaHJqMkp2dEpMNVcy?=
- =?utf-8?B?MHdQdzNEVkN6TXVjWFp4cVM0WC9OWnNhR3NlSVpUMXFFS1N1Y05KNWN5a2FQ?=
- =?utf-8?B?dklQM1IvS1Q0SDg0eXZsN0VvYTV1RGhQQTJmbHVkcGhhbXhBeDBFaUp4RHp4?=
- =?utf-8?B?cUkxTkU5VnJtRHhpVmtEcS9MM25JeVlqUVQ0TGw5cGRxOFBFU1YzL0g5QVI3?=
- =?utf-8?B?elJQOHZHY1JFRFByb1BYd2VhaEV4b2g2UW80NlNDTThJQmxrNFZuOUIzR1h0?=
- =?utf-8?B?Zi9wT3NQWG94VEd5QXdSY1BhQnUrRWtxVHdSbmxxNThZME1OTElRL2l4Wlcz?=
- =?utf-8?B?OGMrN0p6U2JaSTczZ0cyUkxlL0FvZEY3S25CV2VhdTFYYjFXT1hPaUQrUTdu?=
- =?utf-8?B?eDExNW5xZ0J0aUZETTR1SGhFNzdWSU9mNHdsQ1RubktpUEN0R2JBLzdiTVhm?=
- =?utf-8?B?bkc1NWdEYkVQbDNKd29rQ0FsWWt5R1hNUm1MMmV0VG4yOTlFREpxVnd0d3Zl?=
- =?utf-8?B?cmVtT3JxbFVCSGJSY3ZjYmczQ3d2c2RtbXk1TUhUaFJxUk9FSUhNbEd2VmMz?=
- =?utf-8?B?a3A0aWw5ZWhoamRQL24wMVBDMnVHOW0zc2Rwdy96UEhUSW5kYlJPQkpURHFL?=
- =?utf-8?B?dDdSeTBUdXdlSGxrVXRCRE4wZ2JOS2R3eElnWUVWejV5QzRrTXBQZktMY3Zu?=
- =?utf-8?B?ZURyUW5SR2hqRWh6L2RlYmJmM3AxbUx6dm83cEs2SStPdGowR3pCSjAxQXNV?=
- =?utf-8?B?YzZwb1ROekFrekYwM1pwc200L3hjTnJWRDdJN2d4cWFCSm0vZ2NDTmo4blNJ?=
- =?utf-8?Q?8ufybbg4WgQeNTW0OGOShIsOA2zeK0B7?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RUFqZnp0VWR0NnJaZm96blZMYXh2VVJoSXhwbG91amRJdElpY3ljSUtpWTR1?=
- =?utf-8?B?bFhDNjhWWCsxOW9JbytoOEsvRDc1SzdnS3gyM0ZSaHJpaElxN1VsZndrM3Z4?=
- =?utf-8?B?UnF0TGNOTitySWZjNkhvOWtWcm9vYWpxTmp6YmFHc3pEZjVDZEMwMHZERTMr?=
- =?utf-8?B?bWluWUJNSS94UTlUYnBQZzlJdnY2Mm1YUFNzN1FsSTJmOVdjODNVSEhBMHFM?=
- =?utf-8?B?N3BaT0NmbzBaNFMvUmltTDNHWWJDMWwzNXduWGtOV3M2WkZyUEFJdGVPUDRS?=
- =?utf-8?B?U24vZTB6RmpYK3hvTzJ3b1VQSmw1UUtReHVQZXd1OU9UUHYrZ2hrWmsySXds?=
- =?utf-8?B?Z3pIWDA1RnVTWkFHL2xaQXBPcWNhVHZxSHBqRXZQQ09ZR1g2T3pva3NrQ0Qx?=
- =?utf-8?B?akpsWURRWC9Gc3BiY2xOT1JLdkk4SGZXTUl2QS9DMkNnTFZlVjRyb2EzUUtk?=
- =?utf-8?B?eEZYVUcxL1lnbDhXU0NOdWpud1VrazBRNCtRMzlaYkpCV1BTTTd2Z3lvV3hI?=
- =?utf-8?B?Y1pKemttT0lYcE5JNjR2T1gxK1hxeTZkSFQ1SDloOW9xSzE0QzNxbmhvZWVJ?=
- =?utf-8?B?c0M0T1hsMWJNekMrLytUaEdGWnVZOU9tdFJkVnY0RkVXcmFwS2I0WW12U05M?=
- =?utf-8?B?ZytKalpVU0IrNENQZUJvUzNRc2g2OTRxdmV3dE55Rnp6bTRrMWdmZTYxTkJu?=
- =?utf-8?B?TmxyN1V6cEZIdzFlSUtMdnkzbW1hYkx4Z0VFL1RzVFBrdThiaTVwU21DSHBj?=
- =?utf-8?B?UEhxRjNxTTRwNFExQWMrTU5QUGREVEpISEwyMGQrZGs0bkswWTZVcGI1QUdP?=
- =?utf-8?B?b1doT001YXJzSDFaYnk3cTB0VXpRd3VORFJ5c25Ta1dOTkpOVmJCTWJLL0lr?=
- =?utf-8?B?WmtwNlh3NVkrTnBXUTg3ZTQ5QVZHWVFFdWFseUU1WVZjOTNmcW43OHkwRnl2?=
- =?utf-8?B?dWRSUTFPdEk5VnpxaGtXbVhicFVlMXNGZ3ZNc3VpcVNTeUgxblhoejd1SGR3?=
- =?utf-8?B?MU9mSkFQOHpkSEs0aHNwSmNHRkJXVktoUXFhOXRISGxVd0JvOGN3THNubU9q?=
- =?utf-8?B?K09XNlNpSTd1Uk1lZTZMK0VIcDZ3Zmk4eEkrY1NoOFB6T1hZc3JLclFiMHFC?=
- =?utf-8?B?aGxLQXVCK0hNYVlmTkl6S21uNEJHQTVzOUxjaVQ4U292MXhJYjJ1Zk9ibkVM?=
- =?utf-8?B?SVRnUjZRa0Z5cWZtR1kzc29LT1R5UzhIWVhqdVQzaUJaaUZwSkV6QXJZUzNp?=
- =?utf-8?B?eDNUOTM1ak12OWpSZlBZSFNiYXRBT0o3MEYwM293dlMwL3loOGdLTDhTRG1D?=
- =?utf-8?B?RnhTNkhha0ZrVTVaTmc3OUdPRGdXQWdIR3g3ak5FcnNTU1lYRGgvRnlielhO?=
- =?utf-8?B?RkR3dXJwYldKVUFNN283cEhUY21sbzErN24rK3hEQ1AxTEZRTmtEcDBJTCth?=
- =?utf-8?B?amdqam5UdDlNOGVIaGtxbEFnNkd2S3doMm91Q3BTVFNVWUxWOUNyTytJV2NF?=
- =?utf-8?B?eityR0pnTjdERlN3c3FldGpNd3h0QkErdXlEK0hkb3RWUC9aTDRuaE5rY0Jt?=
- =?utf-8?B?aTgyNEdadlhhdXVmcGpxQVFtYnNLWHNId1Btb3JMNWo4NFcwa01VdVZhKzlv?=
- =?utf-8?B?OUdPdlBxTFJQTmp6UVkrR1BLUXh1QzBMYjBRb3pwU0RsWG5lZEw4Unlod0F3?=
- =?utf-8?B?N283WGdXWm9yTG1wYU1ZS2lzY0N1czUyWlhPR2pjcVBRZGdaUVg4aG5sWDBJ?=
- =?utf-8?B?azVGZXdLL2lxaG93OE9BaFA1c3BiSy9DSFdLS1hxdTJUamhPcE5RY1dmL3RR?=
- =?utf-8?B?akNpNng5Q1UxQWhzMUhXSno3QzRtY0tjRjhBVVZ4R2lWSE5rVGdYSmJ3N3dp?=
- =?utf-8?B?b0xSdG9ucyswTnd2RDJpTnQ4clc4QU1pSlp1TzJZNnJNR0dISTdPMjFDbGp6?=
- =?utf-8?B?dWhkeGE4YW1BbVFiSnN2dHRpLzZKYnJ6VUFYZlp1andkUUVwRVF2N0txZXFB?=
- =?utf-8?B?eW5xVTB6UVZNdWdzR2d0MDdGK3RVRkNkVzhZRHRXMHJib2haSlFVNGVsc0d6?=
- =?utf-8?B?Z3NxdlBVQTRWM0o4Zlg5ZVJUa3htQ3hDZVo2dXp5WE1FNGtWRlo2aWtqdTZk?=
- =?utf-8?B?UGhYb0k3YkFaQ1NnWFp1N1UyMlRHRjBkeTVtSDZxSXliaVlXVmhRT2NyckxW?=
- =?utf-8?B?S1E9PQ==?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1acf7679-e613-4f50-375a-08de238127ee
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2025 13:24:36.2596
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb9cfb65-a145-4594-68c7-08de23864979
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Nov 2025 14:01:19.8007
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vrRmyIuPqeJX6R2k8CCsWGpkDey1ut+Fv6v8NdLPbk5kut55EUtCCl412W+pOhnrmUOdPswqP1giunNBaxwg+kv1rjn2++WyZEtQIkKgukY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR03MB8132
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EzRtjHG7V03Hufd8hr1vfuWtc7ntol9wOvAQYsdfP0uEEPCYfsri/UBqufyPnPBXOEJBluKJqohfdW8K2cEGVDRIq4L+2lQPazgz9eXzqlI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB7173
 
-On 14/11/2025 1:05 pm, Teddy Astie wrote:
-> A 4K page appears to be able to hold 128 ioreq entries, which luckly
-> matches the current vCPU limit. However, if we decide to increase the
-> domain vCPU limit, that doesn't hold anymore and this function would now
-> silently create a out of bounds pointer leading to confusing problems.
->
-> All architectures have no more than 128 as vCPU limit on HVM guests,
-> and have pages that are at most 4 KB, so this case doesn't occurs in
-> with the current limits.
->
-> Assert if the vCPU ID will lead to a out of bounds pointer.
->
-> No functional change.
->
-> Reported-by: Julian Vetter <julian.vetter@vates.tech>
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-> ---
-> Not sure if this is the best approach, perhaps preventing compilation if the
-> vCPU limit is higher than what the ioreq page can hold is preferable ?
->
->  xen/common/ioreq.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
-> index f5fd30ce12..b2ef46ed7b 100644
-> --- a/xen/common/ioreq.c
-> +++ b/xen/common/ioreq.c
-> @@ -99,6 +99,7 @@ static ioreq_t *get_ioreq(struct ioreq_server *s, struct vcpu *v)
->  
->      ASSERT((v == current) || !vcpu_runnable(v));
->      ASSERT(p != NULL);
-> +    ASSERT(v->vcpu_id < (PAGE_SIZE / sizeof(struct ioreq)));
->  
->      return &p->vcpu_ioreq[v->vcpu_id];
->  }
+From: Grygorii Strashko <grygorii_strashko@epam.com>
 
-The 128 vCPU problem was known and IOERQ servers intentionally had
-multi-page capabilities from the outset to address this problem.
+Xen uses below pattern for raw_x_guest() functions:
 
-See the calculation in ioreq_server_max_frames().
+define raw_copy_to_guest(dst, src, len)        \
+    (is_hvm_vcpu(current) ?                     \
+     copy_to_user_hvm((dst), (src), (len)) :    \
+     copy_to_guest_pv(dst, src, len))
 
-It hasn't been exercised in anger because there's still the APIC ID
-limit at 128 still, but IOREQ servers are expected to work correctly
-above this limit.  That said, this function is clearly buggy and in need
-of fixing.
+This pattern works depending on CONFIG_PV/CONFIG_HVM as:
+- PV=3Dy and HVM=3Dy
+  Proper guest access function is selected depending on domain type.
+- PV=3Dy and HVM=3Dn
+  Only PV domains are possible. is_hvm_domain/vcpu() will constify to "fals=
+e"
+  and compiler will optimize code and skip HVM specific part.
+- PV=3Dn and HVM=3Dy
+  Only HVM domains are possible. is_hvm_domain/vcpu() will not be constifie=
+d.
+  No PV specific code will be optimized by compiler.
+- PV=3Dn and HVM=3Dn
+  No guests should possible. The code will still follow PV path.
 
-To the assert specifically, that's really not appropriate.  If it were
-to ever fire, we'd have an XSA.  Logic if this nature either needs to be
-fail safe (if returning NULL is ok), or be a BUG() so it doesn't become
-unsafe in release builds.
+Rework raw_x_guest() code to use static inline functions which account for
+above PV/HVM possible configurations with main intention to optimize code
+for (PV=3Dn and HVM=3Dy) case.
 
-~Andrew
+For the case (PV=3Dn and HVM=3Dn) return "len" value indicating a failure (=
+no
+guests should be possible in this case, which means no access to guest
+memory should ever happen).
+
+Finally move arch/x86/usercopy.c into arch/x86/pv/usercopy.c to use it only
+with PV=3Dy.
+
+The measured (bloat-o-meter) improvement for (PV=3Dn and HVM=3Dy) case is:
+  add/remove: 3/8 grow/shrink: 3/89 up/down: 1018/-12087 (-11069)
+  Total: Before=3D1937280, After=3D1926211, chg -0.57%
+
+[teddy.astie@vates.tech: Suggested to use static inline functions vs
+macro combinations]
+Suggested-by: Teddy Astie <teddy.astie@vates.tech>
+Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+---
+changes in v4:
+- move usercopy.c into arch/x86/pv/
+- rework to always dynamically check for HVM vcpu(domain) by using is_hvm_v=
+cpu()
+  as requested by Jan Beulich
+
+changes in v3:
+- add raw_use_hvm_access() wrapper
+
+changes in v2:
+- use static inline functions instead of macro combinations
+
+ xen/arch/x86/Makefile                   |  4 --
+ xen/arch/x86/include/asm/guest_access.h | 78 ++++++++++++++++++-------
+ xen/arch/x86/pv/Makefile                |  4 ++
+ xen/arch/x86/{ =3D> pv}/usercopy.c        |  0
+ 4 files changed, 62 insertions(+), 24 deletions(-)
+ rename xen/arch/x86/{ =3D> pv}/usercopy.c (100%)
+
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 407571c510e1..6e2b17471719 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -71,7 +71,6 @@ obj-y +=3D time.o
+ obj-y +=3D traps-setup.o
+ obj-y +=3D traps.o
+ obj-$(CONFIG_INTEL) +=3D tsx.o
+-obj-y +=3D usercopy.o
+ obj-y +=3D x86_emulate.o
+ obj-$(CONFIG_TBOOT) +=3D tboot.o
+ obj-y +=3D hpet.o
+@@ -92,9 +91,6 @@ hostprogs-y +=3D efi/mkreloc
+=20
+ $(obj)/efi/mkreloc: HOSTCFLAGS +=3D -I$(srctree)/include
+=20
+-# Allows usercopy.c to include itself
+-$(obj)/usercopy.o: CFLAGS-y +=3D -iquote .
+-
+ ifneq ($(CONFIG_HVM),y)
+ $(obj)/x86_emulate.o: CFLAGS-y +=3D -Wno-unused-label
+ endif
+diff --git a/xen/arch/x86/include/asm/guest_access.h b/xen/arch/x86/include=
+/asm/guest_access.h
+index 69716c8b41bb..f0e56b112e14 100644
+--- a/xen/arch/x86/include/asm/guest_access.h
++++ b/xen/arch/x86/include/asm/guest_access.h
+@@ -13,26 +13,64 @@
+ #include <asm/hvm/guest_access.h>
+=20
+ /* Raw access functions: no type checking. */
+-#define raw_copy_to_guest(dst, src, len)        \
+-    (is_hvm_vcpu(current) ?                     \
+-     copy_to_user_hvm((dst), (src), (len)) :    \
+-     copy_to_guest_pv(dst, src, len))
+-#define raw_copy_from_guest(dst, src, len)      \
+-    (is_hvm_vcpu(current) ?                     \
+-     copy_from_user_hvm((dst), (src), (len)) :  \
+-     copy_from_guest_pv(dst, src, len))
+-#define raw_clear_guest(dst,  len)              \
+-    (is_hvm_vcpu(current) ?                     \
+-     clear_user_hvm((dst), (len)) :             \
+-     clear_guest_pv(dst, len))
+-#define __raw_copy_to_guest(dst, src, len)      \
+-    (is_hvm_vcpu(current) ?                     \
+-     copy_to_user_hvm((dst), (src), (len)) :    \
+-     __copy_to_guest_pv(dst, src, len))
+-#define __raw_copy_from_guest(dst, src, len)    \
+-    (is_hvm_vcpu(current) ?                     \
+-     copy_from_user_hvm((dst), (src), (len)) :  \
+-     __copy_from_guest_pv(dst, src, len))
++static inline unsigned int raw_copy_to_guest(void *dst, const void *src,
++                                             unsigned int len)
++{
++    if ( is_hvm_vcpu(current) )
++        return copy_to_user_hvm(dst, src, len);
++
++    if ( !IS_ENABLED(CONFIG_PV) )
++        return len;
++
++    return copy_to_guest_pv(dst, src, len);
++}
++
++static inline unsigned int raw_copy_from_guest(void *dst, const void *src,
++                                               unsigned int len)
++{
++    if ( is_hvm_vcpu(current) )
++        return copy_from_user_hvm(dst, src, len);
++
++    if ( !IS_ENABLED(CONFIG_PV) )
++        return len;
++
++    return copy_from_guest_pv(dst, src, len);
++}
++
++static inline unsigned int raw_clear_guest(void *dst, unsigned int len)
++{
++    if ( is_hvm_vcpu(current) )
++        return clear_user_hvm(dst, len);
++
++    if ( !IS_ENABLED(CONFIG_PV) )
++        return len;
++
++    return clear_guest_pv(dst, len);
++}
++
++static inline unsigned int __raw_copy_to_guest(void *dst, const void *src,
++                                               unsigned int len)
++{
++    if ( is_hvm_vcpu(current) )
++        return copy_to_user_hvm(dst, src, len);
++
++    if ( !IS_ENABLED(CONFIG_PV) )
++        return len;
++
++    return __copy_to_guest_pv(dst, src, len);
++}
++
++static inline unsigned int __raw_copy_from_guest(void *dst, const void *sr=
+c,
++                                                 unsigned int len)
++{
++    if ( is_hvm_vcpu(current) )
++        return copy_from_user_hvm(dst, src, len);
++
++    if ( !IS_ENABLED(CONFIG_PV) )
++        return len;
++
++    return __copy_from_guest_pv(dst, src, len);
++}
+=20
+ /*
+  * Pre-validate a guest handle.
+diff --git a/xen/arch/x86/pv/Makefile b/xen/arch/x86/pv/Makefile
+index 6cda354cc41f..59489cd75af6 100644
+--- a/xen/arch/x86/pv/Makefile
++++ b/xen/arch/x86/pv/Makefile
+@@ -14,6 +14,10 @@ obj-y +=3D ro-page-fault.o
+ obj-$(CONFIG_PV_SHIM) +=3D shim.o
+ obj-$(CONFIG_TRACEBUFFER) +=3D trace.o
+ obj-y +=3D traps.o
++obj-$(CONFIG_PV) +=3D usercopy.o
+=20
+ obj-bin-y +=3D dom0_build.init.o
+ obj-bin-y +=3D gpr_switch.o
++
++# Allows usercopy.c to include itself
++$(obj)/usercopy.o: CFLAGS-y +=3D -iquote .
+diff --git a/xen/arch/x86/usercopy.c b/xen/arch/x86/pv/usercopy.c
+similarity index 100%
+rename from xen/arch/x86/usercopy.c
+rename to xen/arch/x86/pv/usercopy.c
+--=20
+2.34.1
 
