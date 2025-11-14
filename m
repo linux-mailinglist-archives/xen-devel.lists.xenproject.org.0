@@ -2,45 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3FFFC5CE06
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 12:33:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1162456.1490126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54AF7C5CE5D
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 12:41:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1162506.1490136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJs39-0002ll-3W; Fri, 14 Nov 2025 11:33:07 +0000
+	id 1vJsAX-0005If-Qz; Fri, 14 Nov 2025 11:40:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1162456.1490126; Fri, 14 Nov 2025 11:33:07 +0000
+Received: by outflank-mailman (output) from mailman id 1162506.1490136; Fri, 14 Nov 2025 11:40:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJs39-0002j8-03; Fri, 14 Nov 2025 11:33:07 +0000
-Received: by outflank-mailman (input) for mailman id 1162456;
- Fri, 14 Nov 2025 11:33:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=leFb=5W=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1vJs37-0001jd-Dv
- for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 11:33:05 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id af2e087d-c14d-11f0-9d18-b5c5bf9af7f9;
- Fri, 14 Nov 2025 12:33:04 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1B9331F460;
- Fri, 14 Nov 2025 11:33:04 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AAB383EA61;
- Fri, 14 Nov 2025 11:33:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id GC7fJ28TF2naSwAAD6G6ig
- (envelope-from <jgross@suse.com>); Fri, 14 Nov 2025 11:33:03 +0000
+	id 1vJsAX-0005Fm-OH; Fri, 14 Nov 2025 11:40:45 +0000
+Received: by outflank-mailman (input) for mailman id 1162506;
+ Fri, 14 Nov 2025 11:40:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Irg0=5W=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vJsAW-0005Fg-Jz
+ for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 11:40:44 +0000
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c105::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bfaa5b3f-c14e-11f0-980a-7dc792cee155;
+ Fri, 14 Nov 2025 12:40:42 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by LV3PR03MB7523.namprd03.prod.outlook.com (2603:10b6:408:196::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.18; Fri, 14 Nov
+ 2025 11:40:39 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9320.018; Fri, 14 Nov 2025
+ 11:40:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,406 +47,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af2e087d-c14d-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1763119984; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cqrX1vxyYUVBqUz0HLEJ2M0JuWIrU5qpOakfLpsYylE=;
-	b=DawyupUTEwG1FdnJn34Gw9rX6M7Mz7Qm7K+YjUS1co3WDIwQmoNm3rjGbuE85VD1u31t74
-	OmV6OL6vxBZCcFusXWQOwnoqYqR4SJO4U/jixvoJbI53VbNKQer1ElgychE97AzQmAo8gr
-	LVa5n5qoaY21vMQ5HFTCFAmlZKQQDBI=
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1763119984; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cqrX1vxyYUVBqUz0HLEJ2M0JuWIrU5qpOakfLpsYylE=;
-	b=DawyupUTEwG1FdnJn34Gw9rX6M7Mz7Qm7K+YjUS1co3WDIwQmoNm3rjGbuE85VD1u31t74
-	OmV6OL6vxBZCcFusXWQOwnoqYqR4SJO4U/jixvoJbI53VbNKQer1ElgychE97AzQmAo8gr
-	LVa5n5qoaY21vMQ5HFTCFAmlZKQQDBI=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>
-Subject: [PATCH v2 4/4] tools: replace @xxx@ markers at build time
-Date: Fri, 14 Nov 2025 12:32:38 +0100
-Message-ID: <20251114113238.9279-5-jgross@suse.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251114113238.9279-1-jgross@suse.com>
+X-Inumbo-ID: bfaa5b3f-c14e-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h3O4YUSnaSLqmfqzJV/kwBekOrxS04JMehtE3XmNGy05hPjEfzk1rmewtcPTE2BVk59jPRrXkpr7NRIMqBZ2FvD3CiXgPo9qcl4vAqD5c6JudV44sOfdgJwyY/8X7ZRWnIhRMYSlCho+xioO5RzCufKicC66vpP/pBpUaVv/+PjTg6zoQc4578d/SPuJ1FSm0rFuw2VGR5spw0Nr//e21TqnqubfPVxlkIFBrEQ58oZQmxtAhOmKyoPxTMly/yHzBxgZIBcgVux/xH1ncREWdXtdJ8K74JYDN+vZ9QwXTUatwiStXWOOtGQ3gSe9Dkv8AyX59QoAGcU9l1imIk1qmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=W19MrCDoPbtirXsMWA1QzvxUL8kXqHyIggKzu+m6Jxc=;
+ b=KS0WYVHAsp+mEuleYVPCFyu7tR0NuILCajZ0Ia1zXtKAIEOj8bCEf16WSTaai8kD4qTsAEsDuBnNz2bjdKPW96+BXBU8kR0yIevwazdf9DDYALCFcg9UInpKfkkiFA3p948qQGnF+8WPVjkoziNaI6kSSR5BGPqWNCXgyrPmKA8HDwgWzZzvY76jSfi5hCvzSdLIo6DUg+yzs9mxcUQNTbURLGvC2mN/oe+5nUrDpJ8whgov/K4fXzU/EoARrfRd0pf5zpsgvbqIcm+anLgjatPpZ472hprOKojwNTmZrt4ND8h/hLObldNIa4uNCRfQHAg3suhkijJ+8EKywYzDxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W19MrCDoPbtirXsMWA1QzvxUL8kXqHyIggKzu+m6Jxc=;
+ b=xiiux80xD20psiplsYPIE8v1zOkRhNUgUKp8TY6VEvDBOK3rV3n4Da6ozGOpRs7ue1PJzZYaDQFYXtQF0J0QadTSyCzAYKufafiDAYT+vcRHUkTzDDp+dvO5Y7NeIgEblIYKE+0/UXVYfFHXGaKMNj3IfA9k/P67ihG6JCon+yM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <7e24823f-cce1-4430-83f1-ebde6986efa4@citrix.com>
+Date: Fri, 14 Nov 2025 11:40:30 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] docs: replace @xxx@ markers at build time
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>
 References: <20251114113238.9279-1-jgross@suse.com>
-MIME-Version: 1.0
+ <20251114113238.9279-3-jgross@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <20251114113238.9279-3-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-6.80 / 50.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_COUNT_TWO(0.00)[2];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Score: -6.80
-X-Spam-Level: 
+X-ClientProxiedBy: LO2P265CA0336.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a4::36) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|LV3PR03MB7523:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1beba3b8-ef77-44a8-23f8-08de2372a250
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?aEVkUGZ0UEtPN1pUeVEwQWVNR3lrOUV1eThFS0RpSHFmZWR1K3hWcHBwcVJu?=
+ =?utf-8?B?OExBYnY3NFhmWC94bTRuRDJibGZicjAyWlJSdWltMnNleVBZMVppUVVMT3gx?=
+ =?utf-8?B?RDZoZTZPZTJCRFhBbjZ2andPY1RZYTNITjlwSnJibE54S1lNZmFzaDdxOFJO?=
+ =?utf-8?B?ZFRiNUVpRlF1OStJU1hCSjNYTStBS3o0bzRDVTQxa1NOdks4bVZDdHFHS29B?=
+ =?utf-8?B?am10NTlBRGxXZ2E2QlRHQ1VSRWR0OG1mMUgzT3d5ajdQRmpXaG9Va2lNWkh1?=
+ =?utf-8?B?eVNzdzZXSUNmNVdpL0ZtM1BFZC85b1RxNW1HN25WeE5iVlBrTEx6RzRmNSt4?=
+ =?utf-8?B?UjB2S21uYzNja0paT0V2dUl2dEpteXlXYWhGNklXVkQ2M3pFOUgzaGlCMFh1?=
+ =?utf-8?B?MXVwbFBVRHR0ZWhNM1BZSXdRQ1luRSs3a3JNV3pmekpwY0hrTW1RRUVYY1F0?=
+ =?utf-8?B?cjJCekswYmRyQjg2aWI4QzJXVE9EZ0dnRVpGcUI0OS9DTldlNnRRVWlxaC9I?=
+ =?utf-8?B?RHRCdjBmYUxCdXFHQ1NLM1MwTGdYY3hHaUROMGl5M1ZTdjk5RVVzOU1UNk55?=
+ =?utf-8?B?VzUxenpMSE1IVm5oZWtLVWg0WXhTK0o3Rit2TXc5R29iYnlnVHc4dkJReVVJ?=
+ =?utf-8?B?WmhnUjFuN0tyRDNqbmwxUU9NOTFzSm5YbDQvZDdMV1VLalVSTGlSYkdHNVk5?=
+ =?utf-8?B?MU9RVXJPOG5vYVlSYy9SUUtlbTBYSUdaeWFUVC9yMGhPT3U4THpMaGRpempQ?=
+ =?utf-8?B?MjdFY2IrVFZvUUtKSkRwWEQ3RGVLRlUzSXNVRGFtU1FCUVJma2pKaU1Fb3lm?=
+ =?utf-8?B?bUhSUFJWVGZQSTBIaitFc0N0K0ZNblBPMTYyTys1UTRsRkNvalRLREFrU1NY?=
+ =?utf-8?B?TWpnVjAyM3pYMTdPbDVCUnpJUnBNL24yTi9XOGs1aFl1YVovaHMzZDV4VC84?=
+ =?utf-8?B?OU9mUENFbXB5RS80OHhZTURYZDNMdENwUFh6akNPcDJqZGIya3dxdGVqZUZM?=
+ =?utf-8?B?ckp3cmJZS0cxWHR1b2h0Wm1BcXRjSlBNeVgyVm9wUkg5c1lkQnlicXZ2RHZt?=
+ =?utf-8?B?YU1xZCtpMDBmYkhMS09zMWZpT3JaamdFQ1pRZzkwVlhQOFA4MFVYZytENS9Y?=
+ =?utf-8?B?R0ZRdDVNODZGYTdCWHlIbFFFRXI1RGwwM011cmRUc2VvS3dDTDdraHFXMndD?=
+ =?utf-8?B?dmVDQjVQL3lnTWU3eHlxV2NHcE5vblBqbU5SNndYTkxyTG9qVUtaM1NVb0Nz?=
+ =?utf-8?B?UFRVZmJOMmhtNjhHaER2UEJLeUdVRk9jTlRoMEdxamhqbTJMMGgzY0diS3Y1?=
+ =?utf-8?B?TUtvVm9oRy90WWdqajlTeTFuMjVqSmxqejNUaUlzajVEd1NNVSt5N1ZlMnRQ?=
+ =?utf-8?B?Z0xLQksxNktITzZCa2hadWE1RTNTRFRWVmpyL3FsS0dnZ0ZsWGs3SWUzWkdy?=
+ =?utf-8?B?TDArTTJVQkgwVG9VbjJXNWZUQ3Q2MjJha09xdGxoQmJFOC9ZSG9EL2Qxa2No?=
+ =?utf-8?B?YlJNZk9PdTQvYitsY3hQazJJT1YxY0t1UGxoa2hGMUttMXRjOVR2V1ZmanN3?=
+ =?utf-8?B?eUdJamVyS08yTVIvMEhjdGx2QjlEWmtkYlIzMUtsTkZibklTMzVhNnRqU1l0?=
+ =?utf-8?B?N2VoUDUzQUJaNXlyWUZRdTZVcU9YVDlxZ0szWmpHTG1uLy81endaWmxYRmFI?=
+ =?utf-8?B?MXlTYVU3eHFzY2liQzl5V2pYZzBkVi9LYjRLNFZlOGhXK3g2a0pJM2Vac054?=
+ =?utf-8?B?NjR3VGxPMExyWDZaa2hITzRDUGpzUlV3RkUrRURMdVdOYlFLSVEwTlg2L1hN?=
+ =?utf-8?B?cnNVeFBlNUJNNko5QytBVkJSMk52SzhZVXFCRWlDdGR1ZTQwelZqOTgvb3JS?=
+ =?utf-8?B?Yys3cnZaUmhKVjhwM1p2NWw1eHBwbG9lMk90V0p2eENpWldnU0Z3RmdlZERW?=
+ =?utf-8?Q?3ynlFgByHgxRIVOgTWNqnON8jSAFtp6w?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S2pvekJpTC9BVllaaHZCQlQxc2M3TXN2cEhGNmw2Z2JMUHdETWNqaUl3Z3FF?=
+ =?utf-8?B?dHltMitsNnpXZE5YcUwxYkhsYmR0UHF6R2F0OFVFeTVwN25YaFBTcHVLWkFs?=
+ =?utf-8?B?YmUwWnVYUEFZOEZQYnhUUElJT20yM1A0RXRqUzkySUhBNDVoOTJQT1NDaVQx?=
+ =?utf-8?B?VWlKK3JBc282Wk80akNwUndvVjR0d2d4YU0vZktObFdsQytXc1RqWFNjODlG?=
+ =?utf-8?B?a1Z5d3g1cENTNnMvckIvUUhZZzJHaGhRRDFiNnRyeXhnaHM1d2dPdHRQV0Q5?=
+ =?utf-8?B?OHpEV0NJTU1mZGJEQ0VDNFVyN0hYbFZ6a3lXTkJMUGx5UVhqWnVFdFJDcVdn?=
+ =?utf-8?B?QnRHR2FhNDl4SXFObmZYejdhbkRaOTBsR2ZNUTF1ckNWdldwYk9FMUZHZytJ?=
+ =?utf-8?B?OGhhQVlTbHRUdWN2QjZrZHB6WDlDckJySjBnUld2TVdGQk9IS1JuWEhEV21B?=
+ =?utf-8?B?QUt1dVkxQmhGRCtiOVJsVVZWWVRjM2gzdk9GbklETklnblFkQ1RBRWVsRkly?=
+ =?utf-8?B?d3R4d1RlK0p0aStRZ1R4V2dMQjBROEJiNkNxMkEydWVvaDN6VGdsNFZ4MEdD?=
+ =?utf-8?B?YWg1VDdSWmNvSGFXaG5IYWZ1aVFMOUE0bGpGUUJJM0xqcVcvTmFFTWcxek9K?=
+ =?utf-8?B?REZYWFJ5SmhaUUZLUWJQdlhrN1ZEWDNjUXlPSEpuVUlMWVVnWVVFWWVWdW96?=
+ =?utf-8?B?Mmd0ODN1cGF4Vkp0T2o1WTV0Q0Q5aHUyOGZrRTVlcWFTQlBTV3Vhc240Uy9Q?=
+ =?utf-8?B?M0cyZnI3U3J6WitqQllPKzcvbHpvRldlR0JlRlExV3EwbnhYMEtHR1JWS2M2?=
+ =?utf-8?B?UDBabGV5TEpWdVpCS2hDVUZXVkVsSGhYOEplMXJjNVdEZW5FSit4aEltRGVq?=
+ =?utf-8?B?Y2x6aXMzYjQ4aXc3Nk9HbE9HcURFWnJyVm00VTRacjhabDRTZHNmb2I2S0lw?=
+ =?utf-8?B?dHkzM240aTFYY1R6c2pkYzhuR0lyVHVLQXVIRS9iWGF1enVXa0FDdk5uRkZX?=
+ =?utf-8?B?VUE0blFKMzcwelFGd3lpZWxtVlN4WHlzd1hOcVlXdktZVUlUT2pWNTEwTDNE?=
+ =?utf-8?B?U2tTR21aNTVRSWpYRGx4cFdqZUVhOTJZTGZxNkFvQWxUbkU4R0JhK2ljVVJ2?=
+ =?utf-8?B?b0FYa2FlWk9KTzlQb2FOd2RnYk93T2hpdUh2V0xFMS9Uc005UmxHU1o1dFNw?=
+ =?utf-8?B?ZVlYYzhoVmtaZ3ZYaGtBT2xWK2Vhd2NxM0wvSnRhVlNRaFR5ajVLbTdUOExo?=
+ =?utf-8?B?dmw2QW45UWp6V0hRR205cW5RTnhvaUh4L2ZyMkZaMTh0bENUZFBMb242L3NP?=
+ =?utf-8?B?NFN2aDlGRkY5Y05ESmZtMmdkUnRMWXpsalNMRUVyOUduL1ZZejE2aFl1Nlhz?=
+ =?utf-8?B?TVRJeER4RVhUT1MvN01tenJvdW1lUjgvY05oNmNMSXRhazNOYjBmdTh2VnV4?=
+ =?utf-8?B?Q21rOGNiWEN2ZGtSVlZPWFVyS0JYM1VqZnFpYUs0YTJMMXpLMG96eDV5b0Rq?=
+ =?utf-8?B?Wk5wbDNBSjVHZ3hVdDQwdVdiWkI5YVVMSWx1c0hERVZSdllVbkpiSVkvNGFo?=
+ =?utf-8?B?dDhiZXdjZ2tJcHptUTN4QWsvbWdNQ0JRZ2E5WWVyNCtJaU9LVGZWQnJHTnFW?=
+ =?utf-8?B?aXFIR0tKMVJKMUtEdTdSNm5NM0Fia1l2aWY0R2lMMC8rckN2ampKSWhoeE9C?=
+ =?utf-8?B?MDVhRk43emFyMVNMMlJKR0dQMWVHRHlwQUwwS1RrUW9Qb05DcjVIUkdtcm45?=
+ =?utf-8?B?a3Mzbm5VdWdYZHFrb2RsbmFIVFlUNVI0SDNUeVVPQjhlVWwxYkxEd3Flckxn?=
+ =?utf-8?B?azJxeFVtZDRwcnFLUXZLWlp1dXAzWmE5U0MwcWR0M2wwTmZvQ0NqZ3pvS2hL?=
+ =?utf-8?B?ZnNnQzJiZnhnVHVnYWlDZGozZWdXM1BUOEFSZ3NhVmhWUVJRSDVnYzFtTC9Y?=
+ =?utf-8?B?eDdXVUwxMFlnMEQxM3M1VlYwZzdzNEJnTUpUb2hjM0kxalFFejB4bkdSYnhk?=
+ =?utf-8?B?M0pkVjRENEFqL0NWZDdkdTc0OWY2TnVtTUJrZTg0blRRRFZoN0trNngwVi9y?=
+ =?utf-8?B?cHNNcXBaMU1qNmtjSWdxNnZZc25nNWVRUXExdlErcHRtcVpvNXpUU1pTYnlp?=
+ =?utf-8?B?WHBwYmNiRU05MjI4ZDdxak9XNm9QdEhHaWdRT0dpcytNcnlvT0NHdXhNeWlT?=
+ =?utf-8?B?L3c9PQ==?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1beba3b8-ef77-44a8-23f8-08de2372a250
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2025 11:40:39.1311
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qlNw7FThJYSVahsyTdyUW+J5/GVL/RJL+BlUPAWYhTHBM8xmskojARDr6j5+JTa41tvZrSwnQ0iIwFvWiu3zP1ZzMcrYwRgN4lrwQQ/t8ro=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR03MB7523
 
-Use the apply-build-vars make macro to replace the @xxx@ markers in
-most *.in files only at build time.
+On 14/11/2025 11:32 am, Juergen Gross wrote:
+> diff --git a/docs/Makefile b/docs/Makefile
+> index 37776d303c..e5f4a8ca86 100644
+> --- a/docs/Makefile
+> +++ b/docs/Makefile
+> @@ -8,8 +8,11 @@ DATE		:= $(call date,"+%Y-%m-%d")
+>  DOC_ARCHES      := arm ppc riscv x86_32 x86_64
+>  MAN_SECTIONS    := 1 5 7 8
+>  
+> +IN_FILES := man/xl-disk-configuration.5.pod man/xl-network-configuration.5.pod
+> +IN_FILES += man/xl.1.pod man/xl.cfg.5.pod man/xl.conf.5.pod
 
-As some of the markers are local to tools/configure, introduce
-config/Tools-paths.mk.in and add the related make variables to it.
-Add Tools-paths to the PATH_FILES make variable in order to include
-the definitions for replacing them in the *.in files.
+Sorry, I meant to say this on the previous revision.  Can we please list
+these one per line, for the future ease of inserting/removing.
 
-Add the generated files to the distclean target.
+Is IN_FILES really correct?  These are the generated (non-.in) files,
+rather than the .in files themselves.  GEN_FILES from v1 would seem to
+be a better fit.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- don't rename source files
----
- .gitignore                     |  1 +
- Config.mk                      |  2 +-
- config/Tools-paths.mk.in       | 10 ++++++++++
- tools/configure                | 21 ++-------------------
- tools/configure.ac             | 19 +------------------
- tools/hotplug/FreeBSD/Makefile |  7 ++++++-
- tools/hotplug/Linux/Makefile   | 10 +++++++++-
- tools/hotplug/NetBSD/Makefile  |  7 ++++++-
- tools/hotplug/common/Makefile  |  7 ++++++-
- tools/ocaml/libs/xs/Makefile   |  9 +++++++++
- tools/ocaml/xenstored/Makefile |  9 ++++++++-
- 11 files changed, 59 insertions(+), 43 deletions(-)
- create mode 100644 config/Tools-paths.mk.in
+But, overall I think this is a nicer change.
 
-diff --git a/.gitignore b/.gitignore
-index d83427aba8..57d54f676f 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -47,6 +47,7 @@ config.status
- config.cache
- config/Toplevel.mk
- config/Paths.mk
-+config/Tools-paths.mk
- 
- dist/*
- extras/
-diff --git a/Config.mk b/Config.mk
-index d21d67945a..8d1368d25b 100644
---- a/Config.mk
-+++ b/Config.mk
-@@ -159,7 +159,7 @@ define move-if-changed
- 	if ! cmp -s $(1) $(2); then mv -f $(1) $(2); else rm -f $(1); fi
- endef
- 
--PATH_FILES := Paths
-+PATH_FILES := Paths Tools-paths
- INC_FILES := $(foreach f, $(PATH_FILES), $(XEN_ROOT)/config/$(f).mk)
- 
- include $(INC_FILES)
-diff --git a/config/Tools-paths.mk.in b/config/Tools-paths.mk.in
-new file mode 100644
-index 0000000000..ac6298e761
---- /dev/null
-+++ b/config/Tools-paths.mk.in
-@@ -0,0 +1,10 @@
-+-include $(XEN_ROOT)/config/Paths.mk
-+
-+XENSTORED                := @XENSTORED@
-+XENSTORED_KVA            := @XENSTORED_KVA@
-+XENSTORED_PORT           := @XENSTORED_PORT@
-+XEN_RUN_STORED           := @XEN_RUN_STORED@
-+
-+LINUX_BACKEND_MODULES    := @LINUX_BACKEND_MODULES@
-+
-+qemu_xen_path            := @qemu_xen_path@
-diff --git a/tools/configure b/tools/configure
-index 3111f5688c..479c7c9a3c 100755
---- a/tools/configure
-+++ b/tools/configure
-@@ -2742,7 +2742,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
- 
- 
- 
--ac_config_files="$ac_config_files ../config/Tools.mk hotplug/common/hotplugpath.sh hotplug/FreeBSD/rc.d/xencommons hotplug/FreeBSD/rc.d/xendriverdomain hotplug/Linux/init.d/sysconfig.xencommons hotplug/Linux/init.d/sysconfig.xendomains hotplug/Linux/init.d/xen-watchdog hotplug/Linux/init.d/xencommons hotplug/Linux/init.d/xendomains hotplug/Linux/init.d/xendriverdomain hotplug/Linux/launch-xenstore hotplug/Linux/vif-setup hotplug/Linux/xen-hotplug-common.sh hotplug/Linux/xendomains hotplug/NetBSD/rc.d/xencommons hotplug/NetBSD/rc.d/xendriverdomain ocaml/libs/xs/paths.ml ocaml/xenstored/paths.ml ocaml/xenstored/oxenstored.conf"
-+ac_config_files="$ac_config_files ../config/Tools.mk ../config/Tools-paths.mk"
- 
- ac_config_headers="$ac_config_headers config.h"
- 
-@@ -11268,24 +11268,7 @@ for ac_config_target in $ac_config_targets
- do
-   case $ac_config_target in
-     "../config/Tools.mk") CONFIG_FILES="$CONFIG_FILES ../config/Tools.mk" ;;
--    "hotplug/common/hotplugpath.sh") CONFIG_FILES="$CONFIG_FILES hotplug/common/hotplugpath.sh" ;;
--    "hotplug/FreeBSD/rc.d/xencommons") CONFIG_FILES="$CONFIG_FILES hotplug/FreeBSD/rc.d/xencommons" ;;
--    "hotplug/FreeBSD/rc.d/xendriverdomain") CONFIG_FILES="$CONFIG_FILES hotplug/FreeBSD/rc.d/xendriverdomain" ;;
--    "hotplug/Linux/init.d/sysconfig.xencommons") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/init.d/sysconfig.xencommons" ;;
--    "hotplug/Linux/init.d/sysconfig.xendomains") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/init.d/sysconfig.xendomains" ;;
--    "hotplug/Linux/init.d/xen-watchdog") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/init.d/xen-watchdog" ;;
--    "hotplug/Linux/init.d/xencommons") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/init.d/xencommons" ;;
--    "hotplug/Linux/init.d/xendomains") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/init.d/xendomains" ;;
--    "hotplug/Linux/init.d/xendriverdomain") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/init.d/xendriverdomain" ;;
--    "hotplug/Linux/launch-xenstore") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/launch-xenstore" ;;
--    "hotplug/Linux/vif-setup") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/vif-setup" ;;
--    "hotplug/Linux/xen-hotplug-common.sh") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/xen-hotplug-common.sh" ;;
--    "hotplug/Linux/xendomains") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/xendomains" ;;
--    "hotplug/NetBSD/rc.d/xencommons") CONFIG_FILES="$CONFIG_FILES hotplug/NetBSD/rc.d/xencommons" ;;
--    "hotplug/NetBSD/rc.d/xendriverdomain") CONFIG_FILES="$CONFIG_FILES hotplug/NetBSD/rc.d/xendriverdomain" ;;
--    "ocaml/libs/xs/paths.ml") CONFIG_FILES="$CONFIG_FILES ocaml/libs/xs/paths.ml" ;;
--    "ocaml/xenstored/paths.ml") CONFIG_FILES="$CONFIG_FILES ocaml/xenstored/paths.ml" ;;
--    "ocaml/xenstored/oxenstored.conf") CONFIG_FILES="$CONFIG_FILES ocaml/xenstored/oxenstored.conf" ;;
-+    "../config/Tools-paths.mk") CONFIG_FILES="$CONFIG_FILES ../config/Tools-paths.mk" ;;
-     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
-     "hotplug/Linux/systemd/proc-xen.mount") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/systemd/proc-xen.mount" ;;
-     "hotplug/Linux/systemd/xen-init-dom0.service") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/systemd/xen-init-dom0.service" ;;
-diff --git a/tools/configure.ac b/tools/configure.ac
-index 285b4ea128..ecd45e782e 100644
---- a/tools/configure.ac
-+++ b/tools/configure.ac
-@@ -7,24 +7,7 @@ AC_INIT([Xen Hypervisor Tools], m4_esyscmd([../version.sh ../xen/Makefile]),
- AC_CONFIG_SRCDIR([libs/light/libxl.c])
- AC_CONFIG_FILES([
- ../config/Tools.mk
--hotplug/common/hotplugpath.sh
--hotplug/FreeBSD/rc.d/xencommons
--hotplug/FreeBSD/rc.d/xendriverdomain
--hotplug/Linux/init.d/sysconfig.xencommons
--hotplug/Linux/init.d/sysconfig.xendomains
--hotplug/Linux/init.d/xen-watchdog
--hotplug/Linux/init.d/xencommons
--hotplug/Linux/init.d/xendomains
--hotplug/Linux/init.d/xendriverdomain
--hotplug/Linux/launch-xenstore
--hotplug/Linux/vif-setup
--hotplug/Linux/xen-hotplug-common.sh
--hotplug/Linux/xendomains
--hotplug/NetBSD/rc.d/xencommons
--hotplug/NetBSD/rc.d/xendriverdomain
--ocaml/libs/xs/paths.ml
--ocaml/xenstored/paths.ml
--ocaml/xenstored/oxenstored.conf
-+../config/Tools-paths.mk
- ])
- AC_CONFIG_HEADERS([config.h])
- AC_CONFIG_AUX_DIR([../])
-diff --git a/tools/hotplug/FreeBSD/Makefile b/tools/hotplug/FreeBSD/Makefile
-index a6552c9884..8de923781c 100644
---- a/tools/hotplug/FreeBSD/Makefile
-+++ b/tools/hotplug/FreeBSD/Makefile
-@@ -8,9 +8,13 @@ XEN_SCRIPT_DATA :=
- 
- XEN_RCD_PROG := rc.d/xencommons rc.d/xendriverdomain
- 
-+IN_FILES := rc.d/xencommons rc.d/xendriverdomain
-+
- .PHONY: all
- all:
- 
-+$(foreach file,$(IN_FILES),$(eval $(call apply-build-vars,$(file))))
-+
- .PHONY: install
- install: install-scripts install-rcd
- 
-@@ -35,7 +39,7 @@ uninstall-scripts:
- 	rm -f $(addprefix $(DESTDIR)$(XEN_SCRIPT_DIR)/, $(XEN_SCRIPT_DATA))
- 
- .PHONY: install-rcd
--install-rcd:
-+install-rcd: $(IN_FILES)
- 	$(INSTALL_DIR) $(DESTDIR)$(INITD_DIR)
- 	set -e; for i in $(XEN_RCD_PROG); \
- 	   do \
-@@ -51,3 +55,4 @@ clean:
- 
- .PHONY: distclean
- distclean: clean
-+	rm -rf $(IN_FILES)
-diff --git a/tools/hotplug/Linux/Makefile b/tools/hotplug/Linux/Makefile
-index 9a7b3a3515..6fcf84a6f4 100644
---- a/tools/hotplug/Linux/Makefile
-+++ b/tools/hotplug/Linux/Makefile
-@@ -26,9 +26,16 @@ XEN_SCRIPT_DATA := xen-script-common.sh locking.sh logging.sh
- XEN_SCRIPT_DATA += xen-hotplug-common.sh xen-network-common.sh vif-common.sh
- XEN_SCRIPT_DATA += block-common.sh
- 
-+IN_FILES := launch-xenstore vif-setup xendomains xen-hotplug-common.sh
-+IN_FILES += init.d/sysconfig.xendomains init.d/xen-watchdog
-+IN_FILES += init.d/xencommons init.d/xendomains
-+IN_FILES += init.d/xendriverdomain init.d/sysconfig.xencommons
-+
- .PHONY: all
- all: subdirs-all
- 
-+$(foreach file,$(IN_FILES),$(eval $(call apply-build-vars,$(file))))
-+
- .PHONY: install
- install: install-initd install-scripts subdirs-install
- 
-@@ -37,7 +44,7 @@ uninstall: uninstall-initd uninstall-scripts subdirs-uninstall
- 
- # See docs/misc/distro_mapping.txt for INITD_DIR location
- .PHONY: install-initd
--install-initd:
-+install-initd: $(IN_FILES)
- 	$(INSTALL_DIR) $(DESTDIR)$(INITD_DIR)
- 	$(INSTALL_DIR) $(DESTDIR)$(SYSCONFIG_DIR)
- 	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
-@@ -81,3 +88,4 @@ clean: subdirs-clean
- 
- .PHONY: distclean
- distclean: clean
-+	rm -rf $(IN_FILES)
-diff --git a/tools/hotplug/NetBSD/Makefile b/tools/hotplug/NetBSD/Makefile
-index 1cd3db2ccb..4ac6bd8fa7 100644
---- a/tools/hotplug/NetBSD/Makefile
-+++ b/tools/hotplug/NetBSD/Makefile
-@@ -12,9 +12,13 @@ XEN_SCRIPTS += qemu-ifup
- XEN_SCRIPT_DATA :=
- XEN_RCD_PROG := rc.d/xencommons rc.d/xendomains rc.d/xen-watchdog rc.d/xendriverdomain
- 
-+IN_FILES := rc.d/xencommons rc.d/xendriverdomain
-+
- .PHONY: all
- all:
- 
-+$(foreach file,$(IN_FILES),$(eval $(call apply-build-vars,$(file))))
-+
- .PHONY: install
- install: install-scripts install-rcd
- 
-@@ -39,7 +43,7 @@ uninstall-scripts:
- 	rm -f $(addprefix $(DESTDIR)$(XEN_SCRIPT_DIR)/, $(XEN_SCRIPT_DATA))
- 
- .PHONY: install-rcd
--install-rcd:
-+install-rcd: $(IN_FILES)
- 	$(INSTALL_DIR) $(DESTDIR)$(INITD_DIR)
- 	set -e; for i in $(XEN_RCD_PROG); \
- 	   do \
-@@ -57,3 +61,4 @@ clean:
- 
- .PHONY: distclean
- distclean: clean
-+	rm -rf $(IN_FILES)
-diff --git a/tools/hotplug/common/Makefile b/tools/hotplug/common/Makefile
-index 62afe1019e..0017332293 100644
---- a/tools/hotplug/common/Makefile
-+++ b/tools/hotplug/common/Makefile
-@@ -7,9 +7,13 @@ include $(XEN_ROOT)/tools/Rules.mk
- XEN_SCRIPTS :=
- XEN_SCRIPT_DATA := hotplugpath.sh
- 
-+IN_FILES := hotplugpath.sh
-+
- .PHONY: all
- all:
- 
-+$(foreach file,$(IN_FILES),$(eval $(call apply-build-vars,$(file))))
-+
- .PHONY: install
- install: install-scripts
- 
-@@ -17,7 +21,7 @@ install: install-scripts
- uninstall: uninstall-scripts
- 
- .PHONY: install-scripts
--install-scripts: all
-+install-scripts: all $(IN_FILES)
- 	$(INSTALL_DIR) $(DESTDIR)$(XEN_SCRIPT_DIR)
- 	set -e; for i in $(XEN_SCRIPTS); \
- 	   do \
-@@ -38,3 +42,4 @@ clean:
- 
- .PHONY: distclean
- distclean: clean
-+	rm -rf $(IN_FILES)
-diff --git a/tools/ocaml/libs/xs/Makefile b/tools/ocaml/libs/xs/Makefile
-index e160e6a711..7d70d0904c 100644
---- a/tools/ocaml/libs/xs/Makefile
-+++ b/tools/ocaml/libs/xs/Makefile
-@@ -8,6 +8,8 @@ OCAMLOPTFLAGS += -for-pack Xenstore
- .NOTPARALLEL:
- # Ocaml is such a PITA!
- 
-+IN_FILES := paths.ml
-+
- PREINTF = xsraw.cmi xst.cmi
- PREOBJS = queueop xsraw xst
- PRELIBS = $(foreach obj, $(PREOBJS),$(obj).cmo) $(foreach obj,$(PREOJBS),$(obj).cmx)
-@@ -17,6 +19,10 @@ LIBS = xenstore.cma xenstore.cmxa
- 
- all: $(PREINTF) $(PRELIBS) $(INTF) $(LIBS) $(PROGRAMS)
- 
-+$(foreach file,$(IN_FILES),$(eval $(call apply-build-vars,$(file))))
-+
-+$(OBJS): $(IN_FILES)
-+
- bins: $(PROGRAMS)
- 
- libs: $(LIBS)
-@@ -43,4 +49,7 @@ install: $(LIBS) META
- uninstall:
- 	$(OCAMLFIND) remove -destdir $(OCAMLDESTDIR) xenstore
- 
-+.PHONY: distclean
-+	rm -rf $(IN_FILES)
-+
- include $(OCAML_TOPLEVEL)/Makefile.rules
-diff --git a/tools/ocaml/xenstored/Makefile b/tools/ocaml/xenstored/Makefile
-index c333394a34..2576991030 100644
---- a/tools/ocaml/xenstored/Makefile
-+++ b/tools/ocaml/xenstored/Makefile
-@@ -72,6 +72,8 @@ XENSTOREDLIBS = \
- 	-ccopt -L -ccopt $(OCAML_TOPLEVEL)/libs/xsd_glue $(OCAML_TOPLEVEL)/libs/xsd_glue/plugin_interface_v1.cmxa \
- 	-ccopt -L -ccopt $(XEN_ROOT)/tools/libs/ctrl
- 
-+IN_FILES := paths.ml oxenstored.conf
-+
- PROGRAMS = oxenstored
- 
- oxenstored_LIBS = $(XENSTOREDLIBS)
-@@ -83,7 +85,9 @@ oxenstored_OBJS = $(oxenstored_MLSORTED:.ml=)
- 
- OCAML_PROGRAM = oxenstored
- 
--all: $(INTF) $(LIBS) $(PROGRAMS)
-+all: $(IN_FILES) $(INTF) $(LIBS) $(PROGRAMS)
-+
-+$(foreach file,$(IN_FILES),$(eval $(call apply-build-vars,$(file))))
- 
- bins: $(PROGRAMS)
- 
-@@ -99,4 +103,7 @@ uninstall:
- 	rm -f $(DESTDIR)$(XEN_CONFIG_DIR)/oxenstored.conf
- 	rm -f $(DESTDIR)$(sbindir)/oxenstored
- 
-+distclean:
-+	rm -rf $(IN_FILES)
-+
- include $(OCAML_TOPLEVEL)/Makefile.rules
--- 
-2.51.0
+> +
+>  # Documentation sources to build
+> -MAN-SRC-y := $(sort $(basename $(wildcard man/*.pod man/*.pandoc)))
+> +MAN-SRC-y := $(sort $(basename $(wildcard man/*.pod man/*.pandoc) $(IN_FILES)))
 
+Doesn't the man/*.pod wildcard do this already ?
+
+~Andrew
 
