@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB3AFC5BA9B
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 08:03:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1162300.1489997 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 750A6C5BDA9
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 08:57:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1162317.1490006 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJnpq-0000SO-Mf; Fri, 14 Nov 2025 07:03:06 +0000
+	id 1vJofj-0007xx-Dy; Fri, 14 Nov 2025 07:56:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1162300.1489997; Fri, 14 Nov 2025 07:03:06 +0000
+Received: by outflank-mailman (output) from mailman id 1162317.1490006; Fri, 14 Nov 2025 07:56:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJnpq-0000Qc-Jw; Fri, 14 Nov 2025 07:03:06 +0000
-Received: by outflank-mailman (input) for mailman id 1162300;
- Fri, 14 Nov 2025 07:03:05 +0000
+	id 1vJofj-0007vl-Au; Fri, 14 Nov 2025 07:56:43 +0000
+Received: by outflank-mailman (input) for mailman id 1162317;
+ Fri, 14 Nov 2025 07:56:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8YOW=5W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJnpp-0000QW-Ik
- for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 07:03:05 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1vJofi-0007vf-Et
+ for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 07:56:42 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f750e15c-c127-11f0-9d18-b5c5bf9af7f9;
- Fri, 14 Nov 2025 08:03:04 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-b736cd741c1so50307166b.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 23:03:04 -0800 (PST)
+ id 73b98d6f-c12f-11f0-9d18-b5c5bf9af7f9;
+ Fri, 14 Nov 2025 08:56:41 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-b714b1290aeso251693366b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 23:56:39 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734e9e0f20sm332056466b.0.2025.11.13.23.03.01
+ a640c23a62f3a-b734fd80841sm336369066b.41.2025.11.13.23.56.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 23:03:01 -0800 (PST)
+ Thu, 13 Nov 2025 23:56:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f750e15c-c127-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 73b98d6f-c12f-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763103784; x=1763708584; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763106999; x=1763711799; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ci1I6RRmoHdEIRPBTUPpqieBT26GFNnuyI1sHZDQ+o8=;
-        b=OJ9C1L/1c3zRlGQPUDuM+e0onKV8AOwjLwjxeDXhR9LRi/awGMDzNzlro9rMzAi3aL
-         SBOTkgQ64jq3MjcptOlfCg6fNSsW9F1/ceY6KfXkbvYNTvTcDyq3XRJpQDhKEhFkUgV5
-         56FfYWjSqw0YcitdO0B3tMIfQVPnDpXpvAb8a1ShzKDO7bjv51kRUc4I1+b/O/bSYjn1
-         S27O8vdtaDgmPxnK91ZhrS6gtC6D5WzSXvMHlj9hQ0pEXu9nFxUQipL3dXPtc9fAsweN
-         YVxETvJODaiUzaJTAisNK39UDnOeICoHpBZ+chj1oTfshFE4IEyKAOVlL8nA1M5sKaL1
-         L7sA==
+        bh=RDkIoua/g7h+7uKXF1oqE2oZDei/rjUbfMR/pR3Zi5U=;
+        b=HTRceDXXXJFFVS36smDsXfB37y/FeMOGYOPnRjwPerJl4CYv5cmxoPSTL2WWRqD2ar
+         pgnvFbqd/a5fiU48nMFbUYrEFgu5+xpOMK8MrdpdFJMVemFm2jTbgp/Hborir9SpKYgX
+         VBYVKIZVDK/YCI2QUn6VoZwRRB/izeWTEggh6aYNxk4OEd25Nna7SeA5RX23RFxOkHrN
+         paw/Hm2SKSaJd/eJh6+GXzti/nvKCNqeoFwUpgg4y1tQHe4SqRNYUMPRb3y7zMP5CbU8
+         1rgLUMsKNqc0xx44EWDKXlthVAwRP4c9xj4U372eblVbou4y5QuoTYLKvYXG7zqlyGi+
+         rVFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763103784; x=1763708584;
+        d=1e100.net; s=20230601; t=1763106999; x=1763711799;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ci1I6RRmoHdEIRPBTUPpqieBT26GFNnuyI1sHZDQ+o8=;
-        b=kUqOdlh3CFlL0LoA6GkgwmQODeeR74jwlV1bZEE6VKl7Sbn4OJ2/Ej/GQ9GjI9JgjG
-         nBba1QeYQe2msqbt5DbxF1uvn9xc9zv8QRQmLcEEkHfzatUpX21sYDCb8xyjrw81gCOH
-         hlx80P5dIO4M8o5Bwg921xMTxXkE5vb8uTOy8KDSo1yXpCX2GEeI01hcXbLyzXEaReq4
-         tQLw4il0sJMh9REyvkmvhwuH2O55zK3buYHOnZ3UXnmd9EDmd1UUVzRqcxFOFfRYo4nz
-         GkysaIrE14yEc4wiQgQCCQ4YcUgfXwPNW6dmyYlNG8/XK4OMS9qPKuUeg7+PJ9HCu+kk
-         DkYw==
-X-Forwarded-Encrypted: i=1; AJvYcCVAfVeed2Wm2mXy1VE8zWP6wL6veV0WEj/Tl3S5bX7w8nIiD2DOL7uAZ0TXp4VCxXZ8PDCFubuMkzI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyerJI+vJbHqHx2W051w5T+X/BtwxB0hs9IfL2BYC1qfcm04MPH
-	VErQzHEXhM78rRqkytkNjbDs+TqvP6kVF8o4ec/j3OxmJD+oSxnFXLpK6Z1XNVGp0Q==
-X-Gm-Gg: ASbGncskXU7DAQNCM3Hptc2+lnUHjVpAalhxRZHSe4rSZQnZm8BPKA6UFb6Y41w4xWh
-	x9W5+kMSrHd2R9BE8XAkxpVj+Qjptg4ndFrGVAS1D1GclEL/8s7Ymm0+nX/BQCxrpby2NvARz3X
-	ZH8ueFaDd8kXEkrM/p3lk9kqbpny8mCbTj8rO06+J+3O4d3NFLzIcwazlI3N8eK2v0wpj0oV6Ok
-	PiYdiVOQd9ThkZFzFAgzVFRT2ejJ1XXowRt81azCWO42D/9XhE0kUEYy/SifnLqv8/vHnQz+JkS
-	oKJip3/utMcakk7Kz2e+FKhnk3cutpCDjj6EknoDB9FhW9SOSNneKIjSuPdNxU9MiJm9L/b0ARg
-	BkzQ948LuYAGr0Y/3Q4nvJDiHbKjdNUBUMbahw1byp/jyYDWU8xxuV9zHwymxxz0yfBrFunV3VH
-	AepJ+BZNXRmhBZZcZQdH+EZd/zL5sBadFJECHwnWqwUK/A/B+RZZU8NJV27kqnaj9x
-X-Google-Smtp-Source: AGHT+IF6yZAVyEftlez0DNDBtoyLpIHUV45NhCv/eexpR9uppRXJlMKrUIbL5kUoXxVp0e3YLHZwNA==
-X-Received: by 2002:a17:906:4fc9:b0:b73:56cc:44b2 with SMTP id a640c23a62f3a-b73678f4befmr191585166b.30.1763103782179;
-        Thu, 13 Nov 2025 23:03:02 -0800 (PST)
-Message-ID: <58870063-297e-42c0-8bdb-ebab339b11ae@suse.com>
-Date: Fri, 14 Nov 2025 08:02:59 +0100
+        bh=RDkIoua/g7h+7uKXF1oqE2oZDei/rjUbfMR/pR3Zi5U=;
+        b=GCcJK/PW9ECSwMYm/iei+LfflN+NIekUYD66AYv68fAgNtiRI3Ugfr1jyEjOLCruzi
+         eDBynuo5t4/AT/dyTlatnE3ZEW0JUjYrJwC9CzIv1kJ7+O86zAJ9/UYTNjCyLOmRBKNb
+         /FVSXC29OznENQB1uHPVgKsU9maIL41X6gJcQV1Dh3mwFihBe1kk8ZzR124FoTmSIBcf
+         FrgY5iyvHH7oCvcto1/h4PwEju436dJMgp85mEngflrSSO3fGiWMNbIzY6fskXzUN94y
+         1BtT3KxFZVf89VZuE1pFkZ5j6U2UXWXrn7jcQ/JLOPnmEF4lRuqI2eBbX0dneA4aUctM
+         5jvg==
+X-Gm-Message-State: AOJu0YwViQogrK5MhFy3WwVRGVONSmcrjBLoYKUSYT+vdI3xZuLT95n2
+	b5Yvpam+v4UICZU2O4G+w3t9m2LDYQrES/DO5t23gUJmYNM86kLTokXkWlJF9bYWLw==
+X-Gm-Gg: ASbGncvDgEyhHKhf0Jmwk9TVBFpwNyMNu2GHhAK/Z89PKyxE2AYDyq/1p/jcxDwWpBc
+	9d1RgQlZDzTbjGnD+hHc8s20uk3I92e2ASGpJ3e9+4WRnV64eqM4m3i2JNwDl3CPX5WSTF0Y3hE
+	fKcqtGJW8s8draZlamu1stzgXdJhoNEXMnmf/syAGbycBloYj0SGpBjkTMaTtY81oC4FPAoRcPa
+	U4rlNmu0jQcOB9XpBdJimd9ABpHX9vzbb8zvB+qN04MlyD75xYlbqFs/qoEoJF97NFcchzMsbpd
+	kcM7Z8OoXlRX3+Mi860hMb8tdJ/c1tAkaIvLcdGkDQ/ni9YbQB7xiNI+4QAidEO1+OohqWoF1VO
+	TfK4Pk+HbedQj/CrNMyd+7Q0svtMfR17fCEafhaw9CqEtDJzignFXH9B9OZwM7bxOqsTfWeB7IB
+	5/PMYI71HoDi6vJYmKNUDKeSGmy8OWQnl4iX04Z2OZcywqGYzGcX9bl+Zf0wIJKv7q/AX1WSMHb
+	bbTT7putNt9pA==
+X-Google-Smtp-Source: AGHT+IFyl4nb7aLaMGtdUzXIyU0STY1YFAEmOq0IFtXlV5q7PidcK3kylq3BcLuwHQTx0Q+6sFmFiA==
+X-Received: by 2002:a17:907:6d18:b0:b72:a40e:d10 with SMTP id a640c23a62f3a-b73678e9c85mr194736166b.40.1763106999230;
+        Thu, 13 Nov 2025 23:56:39 -0800 (PST)
+Message-ID: <95c51b33-a14a-4f3e-a737-2e52aa3e475e@suse.com>
+Date: Fri, 14 Nov 2025 08:56:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v2] xen: make VMTRACE support optional
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Teddy Astie <teddy.astie@vates.tech>, Penny Zheng <Penny.Zheng@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251112202442.3879997-1-grygorii_strashko@epam.com>
- <a634c192-9ea3-46d9-a087-f0f48a5c2494@suse.com>
- <9c4294ec-906d-4607-8f7d-b5b1bb7e74f2@epam.com>
- <71334f75-d50b-43f4-909b-a27b288ea1aa@suse.com>
- <cbffc389-a97c-4075-9106-b2a7a90b52cc@epam.com>
+Subject: Re: [PATCH 1/3] x86: introduce "brk" allocator
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <bdbb2884-c2d2-415a-8891-a598d112e34c@suse.com>
+ <7a3eb7f3-db3e-4c2f-a231-cdf05a14be26@suse.com> <aRYYP8fG9fgvGGYS@mail-itl>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,50 +121,84 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cbffc389-a97c-4075-9106-b2a7a90b52cc@epam.com>
+In-Reply-To: <aRYYP8fG9fgvGGYS@mail-itl>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13.11.2025 21:40, Grygorii Strashko wrote:
-> On 13.11.25 14:58, Jan Beulich wrote:
->> On 13.11.2025 13:53, Grygorii Strashko wrote:
->>> On 13.11.25 10:36, Jan Beulich wrote:
->>>> On 12.11.2025 21:24, Grygorii Strashko wrote:
->>>>> --- a/xen/arch/x86/hvm/vmx/vmcs.c
->>>>> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
->>>>> @@ -307,6 +307,7 @@ static int vmx_init_vmcs_config(bool bsp)
->>>>>        rdmsrl(MSR_IA32_VMX_MISC, _vmx_misc_cap);
->>>>>    
->>>>>        /* Check whether IPT is supported in VMX operation. */
->>>>> +#ifdef CONFIG_VMTRACE
->>>>>        if ( bsp )
->>>>>            vmtrace_available = cpu_has_proc_trace &&
->>>>>                                (_vmx_misc_cap & VMX_MISC_PROC_TRACE);
->>>>> @@ -317,6 +318,7 @@ static int vmx_init_vmcs_config(bool bsp)
->>>>>                   smp_processor_id());
->>>>>            return -EINVAL;
->>>>>        }
->>>>> +#endif
->>>>
->>>> Initially I was inclined to ask for use of IS_ENABLED() here, but that wouldn't
->>>> work since vmtrace_available isn't an lvalue when VMTRACE=n. Hence why generally
->>>> I think it is better to check the particular identifier in such cases, rather
->>>> than the original CONFIG_* (i.e. "#ifndef vmtrace_available" here). I'm not
->>>> going to insist though, as I expect opinions may differ on this matter.
->>>
->>> Yep. assignment required ifdef wrapping.
->>>
->>> "#ifndef vmtrace_available" will not work out of the box as there are
->>>
->>> "if (vmtrace_available)" in code. So, can't just "not define"/undef "vmtrace_available".
->>
->> I meant this just for the case here, though. Elsewhere you want to stick to
->> checking CONFIG_VMTRACE.
+On 13.11.2025 18:41, Marek Marczykowski-Górecki wrote:
+> On Thu, Nov 13, 2025 at 12:08:18PM +0100, Jan Beulich wrote:
+>> --- /dev/null
+>> +++ b/xen/arch/x86/boot/brk.c
+>> @@ -0,0 +1,72 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>> +
+>> +#include <xen/efi.h>
+>> +#include <xen/lib.h>
+>> +#include <xen/mm.h>
+>> +#include <xen/page-defs.h>
+>> +
+>> +#include <asm/brk.h>
+>> +
+>> +extern char __brk_start[];
+>> +extern const char __bss_end[];
+>> +
+>> +static unsigned long __initdata allocated;
+>> +static bool __initdata finished;
+>> +
+>> +void *__init brk_alloc(size_t size)
+>> +{
+>> +    void *ptr = __brk_start + allocated;
+>> +
+>> +    if ( finished )
+>> +        return NULL;
+>> +
+>> +    /* Allocations PAGE_SIZE and up will be page-aligned. */
+>> +    if ( size >= PAGE_SIZE )
+>> +        allocated = ROUNDUP(allocated, PAGE_SIZE);
+>> +
+>> +    allocated += ROUNDUP(size, sizeof(void *));
+>> +
+>> +    if ( allocated > __bss_end - __brk_start )
+>> +        return NULL;
+>> +
+>> +    return ptr;
+>> +}
+>> +
+>> +unsigned long __init brk_get_unused_start(void)
 > 
-> I'd prefer to keep this part as is. Please tell me if you insist.
+> It's a bit unintuitive for brk_get_* to have this significant side
+> effect. Maybe name it brk_finalize_get_unused_start() ?
 
-I won't insist, first and foremost again because I expect opinions on this
-matter would generally differ anyway.
+Getting too long for my taste, and a caller obtaining this value kind of
+needs to understand that either what it gets back is stale the moment it
+uses the result, or (for it to not be stale) no further changes (i.e.
+allocations) are permitted afterwards.
+
+>> +{
+>> +    finished = true;
+>> +
+>> +    allocated = ROUNDUP(allocated, PAGE_SIZE);
+>> +
+>> +    return (unsigned long)__brk_start + allocated;
+>> +}
+>> +
+>> +void __init brk_free_unused(void)
+>> +{
+>> +    unsigned long start = brk_get_unused_start(),
+>> +                  end = (unsigned long)__bss_end;
+>> +    unsigned int subsys;
+>> +
+>> +    /*
+>> +     * Only xen.efi will have the symbol __subsystem__ available, and it'll
+>> +     * be non-zero (10) there.  In ELF the symbol will be undefined, and
+>> +     * hence zero will be loaded into the register.
+>> +     */
+>> +    asm ( ".weak __subsystem__; mov $__subsystem__, %0" : "=r" (subsys) );
+> 
+> Is this really the best way to detect xen.efi?
+
+Well, it took me a while to figure _some_ reasonably reliable way. I'm
+all ears towards better approaches.
 
 Jan
 
