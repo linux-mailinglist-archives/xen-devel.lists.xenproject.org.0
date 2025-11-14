@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76019C5E3FC
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 17:33:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1162773.1490296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C7F0C5E45F
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 17:36:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1162786.1490307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJwin-0005jg-HW; Fri, 14 Nov 2025 16:32:25 +0000
+	id 1vJwmn-0006Jh-16; Fri, 14 Nov 2025 16:36:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1162773.1490296; Fri, 14 Nov 2025 16:32:25 +0000
+Received: by outflank-mailman (output) from mailman id 1162786.1490307; Fri, 14 Nov 2025 16:36:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJwin-0005hC-EJ; Fri, 14 Nov 2025 16:32:25 +0000
-Received: by outflank-mailman (input) for mailman id 1162773;
- Fri, 14 Nov 2025 16:32:24 +0000
+	id 1vJwmm-0006H4-UM; Fri, 14 Nov 2025 16:36:32 +0000
+Received: by outflank-mailman (input) for mailman id 1162786;
+ Fri, 14 Nov 2025 16:36:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2ooD=5W=bounce.vates.tech=bounce-md_30504962.69175993.v1-469cd3eab40649e79b67003d05c65955@srs-se1.protection.inumbo.net>)
- id 1vJwim-0005h6-84
- for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 16:32:24 +0000
-Received: from mail128-17.atl41.mandrillapp.com
- (mail128-17.atl41.mandrillapp.com [198.2.128.17])
+ <SRS0=0Jk/=5W=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vJwml-0006Gw-Gz
+ for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 16:36:31 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7e0d0aed-c177-11f0-9d18-b5c5bf9af7f9;
- Fri, 14 Nov 2025 17:32:21 +0100 (CET)
-Received: from pmta08.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail128-17.atl41.mandrillapp.com (Mailchimp) with ESMTP id
- 4d7N2q47wMzCf9RlV
- for <xen-devel@lists.xenproject.org>; Fri, 14 Nov 2025 16:32:19 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 469cd3eab40649e79b67003d05c65955; Fri, 14 Nov 2025 16:32:19 +0000
+ id 12ce0f77-c178-11f0-9d18-b5c5bf9af7f9;
+ Fri, 14 Nov 2025 17:36:30 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-64149f78c0dso3497508a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Nov 2025 08:36:30 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6433a498102sm4042494a12.24.2025.11.14.08.36.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Nov 2025 08:36:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,141 +45,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e0d0aed-c177-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1763137939; x=1763407939;
-	bh=eXLgTxppW7YAJWwm3TS/tlQb0nifMGgYjeK8MLTbGt8=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=Ic5MUn/O7z1nh6m0pZ9kESx/31R6+TswED91fFzoTpSsBX8loT+K90tOIZogVYbk9
-	 63G4yyQoNrZvGOZOvKNyfh8Vt2NfUrrvpPmcOHupPri1tbMR2uK0z9wAQHrZzivFeE
-	 BQJ8zGz/0VeNU1iHUZZmghwW1hGfEcm94v8LJO9rqewrfWyy3HufSBlE0QnWU1IGtL
-	 ivSA1OGRK5ErGme6MMWa0OVAOXtdMaQ8vktu47j3fqDnL7KmMLR6uVOK9xUFVyS4qP
-	 rx+g+t+jGrYfCHf8lcfgRGwZgj3+4XCJ2l1zQO57npHDf+jfTpEnInjiuNcYYkOASQ
-	 jay+Nf5nBX2/Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1763137939; x=1763398439; i=teddy.astie@vates.tech;
-	bh=eXLgTxppW7YAJWwm3TS/tlQb0nifMGgYjeK8MLTbGt8=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=kTBQT0O7aA02ILgqy2ctfx3dJ9cn1SPdNS85qIK2S34BavUkfb5rupwnB5pLwbrA1
-	 pw7Ceg3VSbc8soG+SSBHFH5tULAr7y58yjQZNh6f6NvQcHGiTqbX81co05LSgTYS+O
-	 7qyimkvk+pn0+2prO2JCA7h43OUJCr/0lKzD6g1nZ97FZIQKxoaPB3SDHgIQXPcUAS
-	 UJ4PmAEKc+oZjYSyGFQkkgcOBZvEOeWlSzQ7ZCuA3YU0dKPHeamo1aL6oF5rUh8kMJ
-	 5AGWQLxyZg6WJMCEQAyb4SylFjVk956KquDBL6GDQQTzdR/xeW2eBqNISq7t6gONSl
-	 cM5PdeSzfLEiQ==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[PATCH=20v2]=20ioreq:=20Check=20for=20out=20of=20bounds=20vCPU=20ID?=
-X-Mailer: git-send-email 2.51.2
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1763137938262
-To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Julian Vetter" <julian.vetter@vates.tech>
-Message-Id: <f6cc34ce96693545ba9b8db6fe668c37c80f16c5.1763137553.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.469cd3eab40649e79b67003d05c65955?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251114:md
-Date: Fri, 14 Nov 2025 16:32:19 +0000
+X-Inumbo-ID: 12ce0f77-c178-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1763138190; x=1763742990; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RATeqMgtNYio0MBZfJKvc4WkCiH5PtaCMi+RWfYf0Pc=;
+        b=i+PeM2YoclgW/5y6ITfhdsEhRPEkFT+92OJWAKeWudJ0j0XCSI5rfY7tLFJy9YQR7d
+         hwukXdVnKerYt9GOHwHwBqZajmHGO7YA9I0GjU9IQHDzVe4909s6Kfk3omH9G6nK0DmJ
+         dgyjwrmBVez1nRhngFqsFY8xLtVpQAkpXD52JLVMjMld3Zxl4dVuvyzyRcwWyMr45h8m
+         WTpJkxg0u93u9LUO1rGq4FEc6MW02mFTaHrfgiPHbUAW5hYi4/wAVCkECIvvECFNsRcn
+         Mgxe1DN7hYoJEhiP9YHl6VF96audjQn8TqeIpJUpICdk8xrg/JIeGTQaL3BH4iZkN88I
+         qagw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763138190; x=1763742990;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=RATeqMgtNYio0MBZfJKvc4WkCiH5PtaCMi+RWfYf0Pc=;
+        b=J6XPYfWv/zReNlbH6Ip5woU6h6RJ/SUG4WLpocFY5FHgrrpGkmPwQL0QNSw5SfLOWe
+         Qf6lFG/2FCKwosE/WkMSUq5tQifZq+M3rXGth5vKLT+KC29xnwG2hiJ/Zsk84LvvU70e
+         036l3ODCbKoAdsruOtimha0j1N3DnIdguPZ7SkQd+AK/TTNQWf2N7//8W7m734DuXbxU
+         zaOLLZK25tNwZhR0os9Pgo1f/3/tq4P7M8y0OUYmzPx3p9l86lAJqD0CniFt668HjDup
+         u+C1QI/C13VIltLoBKph/QnKviyMixyZwpCcEfSCXaJiMEaiq8v7Zl7UegQMYa7+8TUr
+         oKOw==
+X-Forwarded-Encrypted: i=1; AJvYcCX5ib11mBfzG/NWi0wLb60tufVAX0b06NZ/jahGh2K9dz74uXK37yYux3Jtptwa8kAlM3ozo0pYDFE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyFzNc9zNrpm3oASTgFX80hPv2GI/Jv95OUni3wy3inzzj7HHBW
+	r1D7dE2xtn1GiL/zD1jeczpi/1Z4Ac6TjRC1H5ycDyj8O9kigw8Ns87O
+X-Gm-Gg: ASbGncv+kR6dZmGJ+COe7b0D4Wk1LA4WZJ3y93s+DMQGtxJV7J4eFage20Ha5BhdfOM
+	v5/AnywffvqTGuHXcA/t6fH89RGAezStw04x8UlV0rVrrNy5knU8O6OPNr+CMmYv1juoy15okGh
+	n0dm9aVsQHGEjXs+xPj6b7Dodxnx+MeZHAWj24cxT12oVruS7U3ED1z3nHfQW3KY+e9/CRUWDC7
+	KSiJ2Gvrif9LewVMMEctHhA9GzGbPKvwxoPhV19I4e8q6HgcSwRA7xSmBO73FdL11RgdYeCmC56
+	tSkWFKISX+ytty0cirPm73bUysFv7+G1pljHknS70Ov+y2ZD9qvhMINf81FGwp28Per9JarLvx6
+	VsMNu8DAOtGgwuU31fseUAXt08XbeF+tyUIM6iWTxPtGi8S8BQVro95AJnDFjkzbxUzkjfPlsZU
+	6Z5G9yFe/+QAGPlnzjQjg0D/kPQFr20tu5Q7dEGVnpcXXmggO0Zg==
+X-Google-Smtp-Source: AGHT+IEy3ZJUmZJcUPsd/LTTkravs36fsKRRHjeb43/D2dLHfxTpBnN+EwuafJ8l2As8nwCfZysw6Q==
+X-Received: by 2002:a17:907:25c4:b0:b6d:6d66:e8e9 with SMTP id a640c23a62f3a-b73679623edmr375395766b.61.1763138189799;
+        Fri, 14 Nov 2025 08:36:29 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------zktd4dPiueMU1ucWXh2UWr1O"
+Message-ID: <5a5422b8-e8a5-4662-bea1-4604bdfd3d3b@gmail.com>
+Date: Fri, 14 Nov 2025 17:36:27 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.21] x86/ucode: Add extra rows to the entrysign model
+ table (again)
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20251114152447.272823-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20251114152447.272823-1-andrew.cooper3@citrix.com>
 
-A 4K page appears to be able to hold 128 ioreq entries, which luckly
-matches the current vCPU limit. However, if we decide to increase the
-vCPU limit, that doesn't hold anymore and this function would now
-silently fetch a out of bounds pointer.
+This is a multi-part message in MIME format.
+--------------zktd4dPiueMU1ucWXh2UWr1O
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-All architectures have no more than 128 as vCPU limit on HVM guests,
-and have pages that are at most 4 KB, so this case doesn't occurs in
-with the current limits.
 
-Make sure that out of bounds attempts are reported and adjust the around
-logic to at worst crash the offending domain instead.
+On 11/14/25 4:24 PM, Andrew Cooper wrote:
+> Link:https://git.kernel.org/tip/dd14022a7ce96963aa923e35cf4bcc8c32f95840
+> Fixes: ff8228ab4658 ("x86/ucode: Relax digest check when Entrysign is fixed in firmware")
+> Signed-off-by: Andrew Cooper<andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich<JBeulich@suse.com>
+> CC: Roger Pau Monné<roger.pau@citrix.com>
+> CC: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>
+> Found because AMD have released ucode to fix RDSEED on this CPU, and I
+> cross-referenced the tables.
+>
+> Again, for 4.21 even at this juncture.  It wants backporting everywhere in due
+> course.
 
-No functional change.
+The same as for previous/another patch:
+   Release-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-Reported-by: Julian Vetter <julian.vetter@vates.tech>
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+Thanks.
+
+~ Oleksii
+
+> ---
+>   xen/arch/x86/cpu/microcode/amd.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
+> index 550b8c1e57ec..4a7573c885e5 100644
+> --- a/xen/arch/x86/cpu/microcode/amd.c
+> +++ b/xen/arch/x86/cpu/microcode/amd.c
+> @@ -659,6 +659,7 @@ void __init amd_check_entrysign(void)
+>       case 0x0b1010: fixed_rev = 0x47; break;
+>       case 0x0b2040: fixed_rev = 0x32; break;
+>       case 0x0b4040: fixed_rev = 0x32; break;
+> +    case 0x0b4041: fixed_rev = 0x02; break;
+>       case 0x0b6000: fixed_rev = 0x32; break;
+>       case 0x0b6080: fixed_rev = 0x32; break;
+>       case 0x0b7000: fixed_rev = 0x32; break;
+--------------zktd4dPiueMU1ucWXh2UWr1O
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 11/14/25 4:24 PM, Andrew Cooper
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20251114152447.272823-1-andrew.cooper3@citrix.com">
+      <pre wrap="" class="moz-quote-pre">Link: <a class="moz-txt-link-freetext" href="https://git.kernel.org/tip/dd14022a7ce96963aa923e35cf4bcc8c32f95840">https://git.kernel.org/tip/dd14022a7ce96963aa923e35cf4bcc8c32f95840</a>
+Fixes: ff8228ab4658 ("x86/ucode: Relax digest check when Entrysign is fixed in firmware")
+Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
 ---
-v2:
- - check and report instead of ASSERT and eventually crash offending domain
+CC: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:JBeulich@suse.com">&lt;JBeulich@suse.com&gt;</a>
+CC: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
+CC: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
 
- xen/common/ioreq.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+Found because AMD have released ucode to fix RDSEED on this CPU, and I
+cross-referenced the tables.
 
-diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
-index f5fd30ce12..a2a2dafe85 100644
---- a/xen/common/ioreq.c
-+++ b/xen/common/ioreq.c
-@@ -100,7 +100,14 @@ static ioreq_t *get_ioreq(struct ioreq_server *s, struct vcpu *v)
-     ASSERT((v == current) || !vcpu_runnable(v));
-     ASSERT(p != NULL);
- 
--    return &p->vcpu_ioreq[v->vcpu_id];
-+    if ( likely(v->vcpu_id < (PAGE_SIZE / sizeof(struct ioreq))) )
-+        return &p->vcpu_ioreq[v->vcpu_id];
-+    else
-+    {
-+        gprintk(XENLOG_ERR, "Out of bounds vCPU %pv in ioreq server\n", v);
-+        WARN();
-+        return NULL;
-+    }
- }
- 
- /*
-@@ -154,9 +161,17 @@ bool vcpu_ioreq_pending(struct vcpu *v)
- static bool wait_for_io(struct ioreq_vcpu *sv, ioreq_t *p)
- {
-     unsigned int prev_state = STATE_IOREQ_NONE;
--    unsigned int state = p->state;
-+    unsigned int state;
-     uint64_t data = ~0;
- 
-+    if ( unlikely(!p) )
-+    {
-+        domain_crash(sv->vcpu->domain);
-+        return false;
-+    }
-+
-+    state = p->state;
-+
-     smp_rmb();
- 
-     /*
-@@ -354,7 +369,10 @@ static void ioreq_server_update_evtchn(struct ioreq_server *s,
-     {
-         ioreq_t *p = get_ioreq(s, sv->vcpu);
- 
--        p->vp_eport = sv->ioreq_evtchn;
-+        if ( likely(p) )
-+            p->vp_eport = sv->ioreq_evtchn;
-+        else
-+            WARN();
-     }
- }
- 
-@@ -1274,6 +1292,9 @@ int ioreq_send(struct ioreq_server *s, ioreq_t *proto_p,
-             evtchn_port_t port = sv->ioreq_evtchn;
-             ioreq_t *p = get_ioreq(s, curr);
- 
-+            if ( unlikely(!p) )
-+                break;
-+
-             if ( unlikely(p->state != STATE_IOREQ_NONE) )
-             {
-                 gprintk(XENLOG_ERR, "device model set bad IO state %d\n",
--- 
-2.51.2
+Again, for 4.21 even at this juncture.  It wants backporting everywhere in due
+course.</pre>
+    </blockquote>
+    <pre>The same as for previous/another patch:
+  Release-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E"
+    href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
 
+Thanks.
 
+~ Oleksii</pre>
+    <blockquote type="cite"
+      cite="mid:20251114152447.272823-1-andrew.cooper3@citrix.com">
+      <pre wrap="" class="moz-quote-pre">
+---
+ xen/arch/x86/cpu/microcode/amd.c | 1 +
+ 1 file changed, 1 insertion(+)
 
---
-Teddy Astie | Vates XCP-ng Developer
+diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
+index 550b8c1e57ec..4a7573c885e5 100644
+--- a/xen/arch/x86/cpu/microcode/amd.c
++++ b/xen/arch/x86/cpu/microcode/amd.c
+@@ -659,6 +659,7 @@ void __init amd_check_entrysign(void)
+     case 0x0b1010: fixed_rev = 0x47; break;
+     case 0x0b2040: fixed_rev = 0x32; break;
+     case 0x0b4040: fixed_rev = 0x32; break;
++    case 0x0b4041: fixed_rev = 0x02; break;
+     case 0x0b6000: fixed_rev = 0x32; break;
+     case 0x0b6080: fixed_rev = 0x32; break;
+     case 0x0b7000: fixed_rev = 0x32; break;
+</pre>
+    </blockquote>
+  </body>
+</html>
 
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+--------------zktd4dPiueMU1ucWXh2UWr1O--
 
