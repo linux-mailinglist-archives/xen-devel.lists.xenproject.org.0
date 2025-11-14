@@ -2,38 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 750A6C5BDA9
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 08:57:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1162317.1490006 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A853C5C37D
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 10:20:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1162363.1490037 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJofj-0007xx-Dy; Fri, 14 Nov 2025 07:56:43 +0000
+	id 1vJpyt-0005Hj-PT; Fri, 14 Nov 2025 09:20:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1162317.1490006; Fri, 14 Nov 2025 07:56:43 +0000
+Received: by outflank-mailman (output) from mailman id 1162363.1490037; Fri, 14 Nov 2025 09:20:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJofj-0007vl-Au; Fri, 14 Nov 2025 07:56:43 +0000
-Received: by outflank-mailman (input) for mailman id 1162317;
- Fri, 14 Nov 2025 07:56:42 +0000
+	id 1vJpyt-0005G3-Lg; Fri, 14 Nov 2025 09:20:35 +0000
+Received: by outflank-mailman (input) for mailman id 1162363;
+ Fri, 14 Nov 2025 09:20:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8YOW=5W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJofi-0007vf-Et
- for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 07:56:42 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 73b98d6f-c12f-11f0-9d18-b5c5bf9af7f9;
- Fri, 14 Nov 2025 08:56:41 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-b714b1290aeso251693366b.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 23:56:39 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fd80841sm336369066b.41.2025.11.13.23.56.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 23:56:38 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=o/3C=5W=csgroup.eu=christophe.leroy@srs-se1.protection.inumbo.net>)
+ id 1vJpys-0005Fx-Kz
+ for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 09:20:34 +0000
+Received: from pegase2.c-s.fr (pegase2.c-s.fr [93.17.235.10])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 2bfd335c-c13b-11f0-9d18-b5c5bf9af7f9;
+ Fri, 14 Nov 2025 10:20:33 +0100 (CET)
+Received: from localhost (mailhub4.si.c-s.fr [172.26.127.67])
+ by localhost (Postfix) with ESMTP id 4d7B3S6g5lz9sSm;
+ Fri, 14 Nov 2025 10:02:12 +0100 (CET)
+Received: from pegase2.c-s.fr ([172.26.127.65])
+ by localhost (pegase2.c-s.fr [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id Jh3Mqk4UdkM3; Fri, 14 Nov 2025 10:02:12 +0100 (CET)
+Received: from messagerie.si.c-s.fr (messagerie.si.c-s.fr [192.168.25.192])
+ by pegase2.c-s.fr (Postfix) with ESMTP id 4d7B3P5h7Hz9sSt;
+ Fri, 14 Nov 2025 10:02:09 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id 940058B770;
+ Fri, 14 Nov 2025 10:02:09 +0100 (CET)
+Received: from messagerie.si.c-s.fr ([127.0.0.1])
+ by localhost (messagerie.si.c-s.fr [127.0.0.1]) (amavisd-new, port 10023)
+ with ESMTP id WOt_dcMEhEst; Fri, 14 Nov 2025 10:02:09 +0100 (CET)
+Received: from [192.168.235.99] (unknown [192.168.235.99])
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id DCFEA8B76E;
+ Fri, 14 Nov 2025 10:02:07 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,160 +54,408 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73b98d6f-c12f-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763106999; x=1763711799; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RDkIoua/g7h+7uKXF1oqE2oZDei/rjUbfMR/pR3Zi5U=;
-        b=HTRceDXXXJFFVS36smDsXfB37y/FeMOGYOPnRjwPerJl4CYv5cmxoPSTL2WWRqD2ar
-         pgnvFbqd/a5fiU48nMFbUYrEFgu5+xpOMK8MrdpdFJMVemFm2jTbgp/Hborir9SpKYgX
-         VBYVKIZVDK/YCI2QUn6VoZwRRB/izeWTEggh6aYNxk4OEd25Nna7SeA5RX23RFxOkHrN
-         paw/Hm2SKSaJd/eJh6+GXzti/nvKCNqeoFwUpgg4y1tQHe4SqRNYUMPRb3y7zMP5CbU8
-         1rgLUMsKNqc0xx44EWDKXlthVAwRP4c9xj4U372eblVbou4y5QuoTYLKvYXG7zqlyGi+
-         rVFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763106999; x=1763711799;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RDkIoua/g7h+7uKXF1oqE2oZDei/rjUbfMR/pR3Zi5U=;
-        b=GCcJK/PW9ECSwMYm/iei+LfflN+NIekUYD66AYv68fAgNtiRI3Ugfr1jyEjOLCruzi
-         eDBynuo5t4/AT/dyTlatnE3ZEW0JUjYrJwC9CzIv1kJ7+O86zAJ9/UYTNjCyLOmRBKNb
-         /FVSXC29OznENQB1uHPVgKsU9maIL41X6gJcQV1Dh3mwFihBe1kk8ZzR124FoTmSIBcf
-         FrgY5iyvHH7oCvcto1/h4PwEju436dJMgp85mEngflrSSO3fGiWMNbIzY6fskXzUN94y
-         1BtT3KxFZVf89VZuE1pFkZ5j6U2UXWXrn7jcQ/JLOPnmEF4lRuqI2eBbX0dneA4aUctM
-         5jvg==
-X-Gm-Message-State: AOJu0YwViQogrK5MhFy3WwVRGVONSmcrjBLoYKUSYT+vdI3xZuLT95n2
-	b5Yvpam+v4UICZU2O4G+w3t9m2LDYQrES/DO5t23gUJmYNM86kLTokXkWlJF9bYWLw==
-X-Gm-Gg: ASbGncvDgEyhHKhf0Jmwk9TVBFpwNyMNu2GHhAK/Z89PKyxE2AYDyq/1p/jcxDwWpBc
-	9d1RgQlZDzTbjGnD+hHc8s20uk3I92e2ASGpJ3e9+4WRnV64eqM4m3i2JNwDl3CPX5WSTF0Y3hE
-	fKcqtGJW8s8draZlamu1stzgXdJhoNEXMnmf/syAGbycBloYj0SGpBjkTMaTtY81oC4FPAoRcPa
-	U4rlNmu0jQcOB9XpBdJimd9ABpHX9vzbb8zvB+qN04MlyD75xYlbqFs/qoEoJF97NFcchzMsbpd
-	kcM7Z8OoXlRX3+Mi860hMb8tdJ/c1tAkaIvLcdGkDQ/ni9YbQB7xiNI+4QAidEO1+OohqWoF1VO
-	TfK4Pk+HbedQj/CrNMyd+7Q0svtMfR17fCEafhaw9CqEtDJzignFXH9B9OZwM7bxOqsTfWeB7IB
-	5/PMYI71HoDi6vJYmKNUDKeSGmy8OWQnl4iX04Z2OZcywqGYzGcX9bl+Zf0wIJKv7q/AX1WSMHb
-	bbTT7putNt9pA==
-X-Google-Smtp-Source: AGHT+IFyl4nb7aLaMGtdUzXIyU0STY1YFAEmOq0IFtXlV5q7PidcK3kylq3BcLuwHQTx0Q+6sFmFiA==
-X-Received: by 2002:a17:907:6d18:b0:b72:a40e:d10 with SMTP id a640c23a62f3a-b73678e9c85mr194736166b.40.1763106999230;
-        Thu, 13 Nov 2025 23:56:39 -0800 (PST)
-Message-ID: <95c51b33-a14a-4f3e-a737-2e52aa3e475e@suse.com>
-Date: Fri, 14 Nov 2025 08:56:37 +0100
+X-Inumbo-ID: 2bfd335c-c13b-11f0-9d18-b5c5bf9af7f9
+X-Virus-Scanned: amavisd-new at c-s.fr
+X-Virus-Scanned: amavisd-new at c-s.fr
+Message-ID: <83cdd7e8-51a7-4989-b270-93cec301cde7@csgroup.eu>
+Date: Fri, 14 Nov 2025 10:02:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86: introduce "brk" allocator
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <bdbb2884-c2d2-415a-8891-a598d112e34c@suse.com>
- <7a3eb7f3-db3e-4c2f-a231-cdf05a14be26@suse.com> <aRYYP8fG9fgvGGYS@mail-itl>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aRYYP8fG9fgvGGYS@mail-itl>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v5 10/14] powerpc: Convert to physical address DMA mapping
+To: Leon Romanovsky <leon@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Russell King <linux@armlinux.org.uk>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Matt Turner <mattst88@gmail.com>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Geoff Levand <geoff@infradead.org>, "David S. Miller" <davem@davemloft.net>,
+ Andreas Larsson <andreas@gaisler.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, xen-devel@lists.xenproject.org,
+ linux-alpha@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ sparclinux@vger.kernel.org
+References: <20251015-remove-map-page-v5-0-3bbfe3a25cdf@kernel.org>
+ <20251015-remove-map-page-v5-10-3bbfe3a25cdf@kernel.org>
+From: Christophe Leroy <christophe.leroy@csgroup.eu>
+Content-Language: fr-FR
+In-Reply-To: <20251015-remove-map-page-v5-10-3bbfe3a25cdf@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 13.11.2025 18:41, Marek Marczykowski-Górecki wrote:
-> On Thu, Nov 13, 2025 at 12:08:18PM +0100, Jan Beulich wrote:
->> --- /dev/null
->> +++ b/xen/arch/x86/boot/brk.c
->> @@ -0,0 +1,72 @@
->> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->> +
->> +#include <xen/efi.h>
->> +#include <xen/lib.h>
->> +#include <xen/mm.h>
->> +#include <xen/page-defs.h>
->> +
->> +#include <asm/brk.h>
->> +
->> +extern char __brk_start[];
->> +extern const char __bss_end[];
->> +
->> +static unsigned long __initdata allocated;
->> +static bool __initdata finished;
->> +
->> +void *__init brk_alloc(size_t size)
->> +{
->> +    void *ptr = __brk_start + allocated;
->> +
->> +    if ( finished )
->> +        return NULL;
->> +
->> +    /* Allocations PAGE_SIZE and up will be page-aligned. */
->> +    if ( size >= PAGE_SIZE )
->> +        allocated = ROUNDUP(allocated, PAGE_SIZE);
->> +
->> +    allocated += ROUNDUP(size, sizeof(void *));
->> +
->> +    if ( allocated > __bss_end - __brk_start )
->> +        return NULL;
->> +
->> +    return ptr;
->> +}
->> +
->> +unsigned long __init brk_get_unused_start(void)
+
+
+Le 15/10/2025 à 11:12, Leon Romanovsky a écrit :
+> From: Leon Romanovsky <leonro@nvidia.com>
 > 
-> It's a bit unintuitive for brk_get_* to have this significant side
-> effect. Maybe name it brk_finalize_get_unused_start() ?
-
-Getting too long for my taste, and a caller obtaining this value kind of
-needs to understand that either what it gets back is stale the moment it
-uses the result, or (for it to not be stale) no further changes (i.e.
-allocations) are permitted afterwards.
-
->> +{
->> +    finished = true;
->> +
->> +    allocated = ROUNDUP(allocated, PAGE_SIZE);
->> +
->> +    return (unsigned long)__brk_start + allocated;
->> +}
->> +
->> +void __init brk_free_unused(void)
->> +{
->> +    unsigned long start = brk_get_unused_start(),
->> +                  end = (unsigned long)__bss_end;
->> +    unsigned int subsys;
->> +
->> +    /*
->> +     * Only xen.efi will have the symbol __subsystem__ available, and it'll
->> +     * be non-zero (10) there.  In ELF the symbol will be undefined, and
->> +     * hence zero will be loaded into the register.
->> +     */
->> +    asm ( ".weak __subsystem__; mov $__subsystem__, %0" : "=r" (subsys) );
+> Adapt PowerPC DMA to use physical addresses in order to prepare code
+> to removal .map_page and .unmap_page.
 > 
-> Is this really the best way to detect xen.efi?
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
-Well, it took me a while to figure _some_ reasonably reliable way. I'm
-all ears towards better approaches.
+Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
 
-Jan
+Non fatal comments below.
+
+> ---
+>   arch/powerpc/include/asm/iommu.h         |  8 ++++----
+>   arch/powerpc/kernel/dma-iommu.c          | 22 ++++++++++-----------
+>   arch/powerpc/kernel/iommu.c              | 14 +++++++-------
+>   arch/powerpc/platforms/ps3/system-bus.c  | 33 ++++++++++++++++++--------------
+>   arch/powerpc/platforms/pseries/ibmebus.c | 15 ++++++++-------
+>   arch/powerpc/platforms/pseries/vio.c     | 21 +++++++++++---------
+>   6 files changed, 60 insertions(+), 53 deletions(-)
+> 
+> diff --git a/arch/powerpc/include/asm/iommu.h b/arch/powerpc/include/asm/iommu.h
+> index b410021ad4c6..eafdd63cd6c4 100644
+> --- a/arch/powerpc/include/asm/iommu.h
+> +++ b/arch/powerpc/include/asm/iommu.h
+> @@ -274,12 +274,12 @@ extern void *iommu_alloc_coherent(struct device *dev, struct iommu_table *tbl,
+>   				  unsigned long mask, gfp_t flag, int node);
+>   extern void iommu_free_coherent(struct iommu_table *tbl, size_t size,
+>   				void *vaddr, dma_addr_t dma_handle);
+> -extern dma_addr_t iommu_map_page(struct device *dev, struct iommu_table *tbl,
+> -				 struct page *page, unsigned long offset,
+> -				 size_t size, unsigned long mask,
+> +extern dma_addr_t iommu_map_phys(struct device *dev, struct iommu_table *tbl,
+> +				 phys_addr_t phys, size_t size,
+> +				 unsigned long mask,
+>   				 enum dma_data_direction direction,
+>   				 unsigned long attrs);
+
+'extern' is pointless for function prototypes.
+
+Report from checkpatch:
+
+CHECK: extern prototypes should be avoided in .h files
+#31: FILE: arch/powerpc/include/asm/iommu.h:277:
++extern dma_addr_t iommu_map_phys(struct device *dev, struct iommu_table 
+*tbl,
+
+
+> -extern void iommu_unmap_page(struct iommu_table *tbl, dma_addr_t dma_handle,
+> +extern void iommu_unmap_phys(struct iommu_table *tbl, dma_addr_t dma_handle,
+>   			     size_t size, enum dma_data_direction direction,
+>   			     unsigned long attrs);
+
+Same:
+
+CHECK: extern prototypes should be avoided in .h files
+#37: FILE: arch/powerpc/include/asm/iommu.h:282:
++extern void iommu_unmap_phys(struct iommu_table *tbl, dma_addr_t 
+dma_handle,
+
+
+
+>   
+> diff --git a/arch/powerpc/kernel/dma-iommu.c b/arch/powerpc/kernel/dma-iommu.c
+> index 0359ab72cd3b..aa3689d61917 100644
+> --- a/arch/powerpc/kernel/dma-iommu.c
+> +++ b/arch/powerpc/kernel/dma-iommu.c
+> @@ -93,28 +93,26 @@ static void dma_iommu_free_coherent(struct device *dev, size_t size,
+>   
+>   /* Creates TCEs for a user provided buffer.  The user buffer must be
+>    * contiguous real kernel storage (not vmalloc).  The address passed here
+> - * comprises a page address and offset into that page. The dma_addr_t
+> - * returned will point to the same byte within the page as was passed in.
+> + * is a physical address to that page. The dma_addr_t returned will point
+> + * to the same byte within the page as was passed in.
+>    */
+> -static dma_addr_t dma_iommu_map_page(struct device *dev, struct page *page,
+> -				     unsigned long offset, size_t size,
+> +static dma_addr_t dma_iommu_map_phys(struct device *dev, phys_addr_t phys,
+> +				     size_t size,
+>   				     enum dma_data_direction direction,
+>   				     unsigned long attrs)
+>   {
+> -	return iommu_map_page(dev, get_iommu_table_base(dev), page, offset,
+> -			      size, dma_get_mask(dev), direction, attrs);
+> +	return iommu_map_phys(dev, get_iommu_table_base(dev), phys, size,
+> +			      dma_get_mask(dev), direction, attrs);
+>   }
+>   
+> -
+> -static void dma_iommu_unmap_page(struct device *dev, dma_addr_t dma_handle,
+> +static void dma_iommu_unmap_phys(struct device *dev, dma_addr_t dma_handle,
+>   				 size_t size, enum dma_data_direction direction,
+>   				 unsigned long attrs)
+>   {
+> -	iommu_unmap_page(get_iommu_table_base(dev), dma_handle, size, direction,
+> +	iommu_unmap_phys(get_iommu_table_base(dev), dma_handle, size, direction,
+>   			 attrs);
+>   }
+>   
+> -
+>   static int dma_iommu_map_sg(struct device *dev, struct scatterlist *sglist,
+>   			    int nelems, enum dma_data_direction direction,
+>   			    unsigned long attrs)
+> @@ -211,8 +209,8 @@ const struct dma_map_ops dma_iommu_ops = {
+>   	.map_sg			= dma_iommu_map_sg,
+>   	.unmap_sg		= dma_iommu_unmap_sg,
+>   	.dma_supported		= dma_iommu_dma_supported,
+> -	.map_page		= dma_iommu_map_page,
+> -	.unmap_page		= dma_iommu_unmap_page,
+> +	.map_phys		= dma_iommu_map_phys,
+> +	.unmap_phys		= dma_iommu_unmap_phys,
+>   	.get_required_mask	= dma_iommu_get_required_mask,
+>   	.mmap			= dma_common_mmap,
+>   	.get_sgtable		= dma_common_get_sgtable,
+> diff --git a/arch/powerpc/kernel/iommu.c b/arch/powerpc/kernel/iommu.c
+> index 244eb4857e7f..6b5f4b72ce97 100644
+> --- a/arch/powerpc/kernel/iommu.c
+> +++ b/arch/powerpc/kernel/iommu.c
+> @@ -848,12 +848,12 @@ EXPORT_SYMBOL_GPL(iommu_tce_table_put);
+>   
+>   /* Creates TCEs for a user provided buffer.  The user buffer must be
+>    * contiguous real kernel storage (not vmalloc).  The address passed here
+> - * comprises a page address and offset into that page. The dma_addr_t
+> - * returned will point to the same byte within the page as was passed in.
+> + * is physical address into that page. The dma_addr_t returned will point
+> + * to the same byte within the page as was passed in.
+>    */
+> -dma_addr_t iommu_map_page(struct device *dev, struct iommu_table *tbl,
+> -			  struct page *page, unsigned long offset, size_t size,
+> -			  unsigned long mask, enum dma_data_direction direction,
+> +dma_addr_t iommu_map_phys(struct device *dev, struct iommu_table *tbl,
+> +			  phys_addr_t phys, size_t size, unsigned long mask,
+> +			  enum dma_data_direction direction,
+>   			  unsigned long attrs)
+>   {
+>   	dma_addr_t dma_handle = DMA_MAPPING_ERROR;
+> @@ -863,7 +863,7 @@ dma_addr_t iommu_map_page(struct device *dev, struct iommu_table *tbl,
+>   
+>   	BUG_ON(direction == DMA_NONE);
+>   
+> -	vaddr = page_address(page) + offset;
+> +	vaddr = phys_to_virt(phys);
+>   	uaddr = (unsigned long)vaddr;
+>   
+>   	if (tbl) {
+> @@ -890,7 +890,7 @@ dma_addr_t iommu_map_page(struct device *dev, struct iommu_table *tbl,
+>   	return dma_handle;
+>   }
+>   
+> -void iommu_unmap_page(struct iommu_table *tbl, dma_addr_t dma_handle,
+> +void iommu_unmap_phys(struct iommu_table *tbl, dma_addr_t dma_handle,
+>   		      size_t size, enum dma_data_direction direction,
+>   		      unsigned long attrs)
+>   {
+> diff --git a/arch/powerpc/platforms/ps3/system-bus.c b/arch/powerpc/platforms/ps3/system-bus.c
+> index afbaabf182d0..f4f3477d3a23 100644
+> --- a/arch/powerpc/platforms/ps3/system-bus.c
+> +++ b/arch/powerpc/platforms/ps3/system-bus.c
+> @@ -551,18 +551,20 @@ static void ps3_free_coherent(struct device *_dev, size_t size, void *vaddr,
+>   
+>   /* Creates TCEs for a user provided buffer.  The user buffer must be
+>    * contiguous real kernel storage (not vmalloc).  The address passed here
+> - * comprises a page address and offset into that page. The dma_addr_t
+> - * returned will point to the same byte within the page as was passed in.
+> + * is physical address to that hat page. The dma_addr_t returned will point
+> + * to the same byte within the page as was passed in.
+>    */
+>   
+> -static dma_addr_t ps3_sb_map_page(struct device *_dev, struct page *page,
+> -	unsigned long offset, size_t size, enum dma_data_direction direction,
+> -	unsigned long attrs)
+> +static dma_addr_t ps3_sb_map_phys(struct device *_dev, phys_addr_t phys,
+> +	size_t size, enum dma_data_direction direction, unsigned long attrs)
+
+CHECK: Alignment should match open parenthesis
+#151: FILE: arch/powerpc/platforms/ps3/system-bus.c:559:
++static dma_addr_t ps3_sb_map_phys(struct device *_dev, phys_addr_t phys,
++	size_t size, enum dma_data_direction direction, unsigned long attrs)
+
+
+
+>   {
+>   	struct ps3_system_bus_device *dev = ps3_dev_to_system_bus_dev(_dev);
+>   	int result;
+>   	dma_addr_t bus_addr;
+> -	void *ptr = page_address(page) + offset;
+> +	void *ptr = phys_to_virt(phys);
+> +
+> +	if (unlikely(attrs & DMA_ATTR_MMIO))
+> +		return DMA_MAPPING_ERROR;
+>   
+>   	result = ps3_dma_map(dev->d_region, (unsigned long)ptr, size,
+>   			     &bus_addr,
+> @@ -577,8 +579,8 @@ static dma_addr_t ps3_sb_map_page(struct device *_dev, struct page *page,
+>   	return bus_addr;
+>   }
+>   
+> -static dma_addr_t ps3_ioc0_map_page(struct device *_dev, struct page *page,
+> -				    unsigned long offset, size_t size,
+> +static dma_addr_t ps3_ioc0_map_phys(struct device *_dev, phys_addr_t phys,
+> +				    size_t size,
+>   				    enum dma_data_direction direction,
+>   				    unsigned long attrs)
+>   {
+> @@ -586,7 +588,10 @@ static dma_addr_t ps3_ioc0_map_page(struct device *_dev, struct page *page,
+>   	int result;
+>   	dma_addr_t bus_addr;
+>   	u64 iopte_flag;
+> -	void *ptr = page_address(page) + offset;
+> +	void *ptr = phys_to_virt(phys);
+> +
+> +	if (unlikely(attrs & DMA_ATTR_MMIO))
+> +		return DMA_MAPPING_ERROR;
+>   
+>   	iopte_flag = CBE_IOPTE_M;
+>   	switch (direction) {
+> @@ -613,7 +618,7 @@ static dma_addr_t ps3_ioc0_map_page(struct device *_dev, struct page *page,
+>   	return bus_addr;
+>   }
+>   
+> -static void ps3_unmap_page(struct device *_dev, dma_addr_t dma_addr,
+> +static void ps3_unmap_phys(struct device *_dev, dma_addr_t dma_addr,
+>   	size_t size, enum dma_data_direction direction, unsigned long attrs)
+
+CHECK: Alignment should match open parenthesis
+#193: FILE: arch/powerpc/platforms/ps3/system-bus.c:622:
++static void ps3_unmap_phys(struct device *_dev, dma_addr_t dma_addr,
+  	size_t size, enum dma_data_direction direction, unsigned long attrs)
+
+
+
+>   {
+>   	struct ps3_system_bus_device *dev = ps3_dev_to_system_bus_dev(_dev);
+> @@ -690,8 +695,8 @@ static const struct dma_map_ops ps3_sb_dma_ops = {
+>   	.map_sg = ps3_sb_map_sg,
+>   	.unmap_sg = ps3_sb_unmap_sg,
+>   	.dma_supported = ps3_dma_supported,
+> -	.map_page = ps3_sb_map_page,
+> -	.unmap_page = ps3_unmap_page,
+> +	.map_phys = ps3_sb_map_phys,
+> +	.unmap_phys = ps3_unmap_phys,
+>   	.mmap = dma_common_mmap,
+>   	.get_sgtable = dma_common_get_sgtable,
+>   	.alloc_pages_op = dma_common_alloc_pages,
+> @@ -704,8 +709,8 @@ static const struct dma_map_ops ps3_ioc0_dma_ops = {
+>   	.map_sg = ps3_ioc0_map_sg,
+>   	.unmap_sg = ps3_ioc0_unmap_sg,
+>   	.dma_supported = ps3_dma_supported,
+> -	.map_page = ps3_ioc0_map_page,
+> -	.unmap_page = ps3_unmap_page,
+> +	.map_phys = ps3_ioc0_map_phys,
+> +	.unmap_phys = ps3_unmap_phys,
+>   	.mmap = dma_common_mmap,
+>   	.get_sgtable = dma_common_get_sgtable,
+>   	.alloc_pages_op = dma_common_alloc_pages,
+> diff --git a/arch/powerpc/platforms/pseries/ibmebus.c b/arch/powerpc/platforms/pseries/ibmebus.c
+> index 3436b0af795e..cad2deb7e70d 100644
+> --- a/arch/powerpc/platforms/pseries/ibmebus.c
+> +++ b/arch/powerpc/platforms/pseries/ibmebus.c
+> @@ -86,17 +86,18 @@ static void ibmebus_free_coherent(struct device *dev,
+>   	kfree(vaddr);
+>   }
+>   
+> -static dma_addr_t ibmebus_map_page(struct device *dev,
+> -				   struct page *page,
+> -				   unsigned long offset,
+> +static dma_addr_t ibmebus_map_phys(struct device *dev, phys_addr_t phys,
+>   				   size_t size,
+>   				   enum dma_data_direction direction,
+>   				   unsigned long attrs)
+>   {
+> -	return (dma_addr_t)(page_address(page) + offset);
+> +	if (attrs & DMA_ATTR_MMIO)
+> +		return DMA_MAPPING_ERROR;
+> +
+> +	return (dma_addr_t)(phys_to_virt(phys));
+>   }
+>   
+> -static void ibmebus_unmap_page(struct device *dev,
+> +static void ibmebus_unmap_phys(struct device *dev,
+>   			       dma_addr_t dma_addr,
+>   			       size_t size,
+>   			       enum dma_data_direction direction,
+> @@ -146,8 +147,8 @@ static const struct dma_map_ops ibmebus_dma_ops = {
+>   	.unmap_sg           = ibmebus_unmap_sg,
+>   	.dma_supported      = ibmebus_dma_supported,
+>   	.get_required_mask  = ibmebus_dma_get_required_mask,
+> -	.map_page           = ibmebus_map_page,
+> -	.unmap_page         = ibmebus_unmap_page,
+> +	.map_phys           = ibmebus_map_phys,
+> +	.unmap_phys         = ibmebus_unmap_phys,
+>   };
+>   
+>   static int ibmebus_match_path(struct device *dev, const void *data)
+> diff --git a/arch/powerpc/platforms/pseries/vio.c b/arch/powerpc/platforms/pseries/vio.c
+> index ac1d2d2c9a88..18cffac5468f 100644
+> --- a/arch/powerpc/platforms/pseries/vio.c
+> +++ b/arch/powerpc/platforms/pseries/vio.c
+> @@ -512,18 +512,21 @@ static void vio_dma_iommu_free_coherent(struct device *dev, size_t size,
+>   	vio_cmo_dealloc(viodev, roundup(size, PAGE_SIZE));
+>   }
+>   
+> -static dma_addr_t vio_dma_iommu_map_page(struct device *dev, struct page *page,
+> -                                         unsigned long offset, size_t size,
+> -                                         enum dma_data_direction direction,
+> -                                         unsigned long attrs)
+> +static dma_addr_t vio_dma_iommu_map_phys(struct device *dev, phys_addr_t phys,
+> +					 size_t size,
+> +					 enum dma_data_direction direction,
+> +					 unsigned long attrs)
+>   {
+>   	struct vio_dev *viodev = to_vio_dev(dev);
+>   	struct iommu_table *tbl = get_iommu_table_base(dev);
+>   	dma_addr_t ret = DMA_MAPPING_ERROR;
+>   
+> +	if (unlikely(attrs & DMA_ATTR_MMIO))
+> +		return ret;
+> +
+>   	if (vio_cmo_alloc(viodev, roundup(size, IOMMU_PAGE_SIZE(tbl))))
+>   		goto out_fail;
+> -	ret = iommu_map_page(dev, tbl, page, offset, size, dma_get_mask(dev),
+> +	ret = iommu_map_phys(dev, tbl, phys, size, dma_get_mask(dev),
+>   			direction, attrs);
+
+CHECK: Alignment should match open parenthesis
+#285: FILE: arch/powerpc/platforms/pseries/vio.c:530:
++	ret = iommu_map_phys(dev, tbl, phys, size, dma_get_mask(dev),
+  			direction, attrs);
+
+
+>   	if (unlikely(ret == DMA_MAPPING_ERROR))
+>   		goto out_deallocate;
+> @@ -536,7 +539,7 @@ static dma_addr_t vio_dma_iommu_map_page(struct device *dev, struct page *page,
+>   	return DMA_MAPPING_ERROR;
+>   }
+>   
+> -static void vio_dma_iommu_unmap_page(struct device *dev, dma_addr_t dma_handle,
+> +static void vio_dma_iommu_unmap_phys(struct device *dev, dma_addr_t dma_handle,
+>   				     size_t size,
+>   				     enum dma_data_direction direction,
+>   				     unsigned long attrs)
+> @@ -544,7 +547,7 @@ static void vio_dma_iommu_unmap_page(struct device *dev, dma_addr_t dma_handle,
+>   	struct vio_dev *viodev = to_vio_dev(dev);
+>   	struct iommu_table *tbl = get_iommu_table_base(dev);
+>   
+> -	iommu_unmap_page(tbl, dma_handle, size, direction, attrs);
+> +	iommu_unmap_phys(tbl, dma_handle, size, direction, attrs);
+>   	vio_cmo_dealloc(viodev, roundup(size, IOMMU_PAGE_SIZE(tbl)));
+>   }
+>   
+> @@ -605,8 +608,8 @@ static const struct dma_map_ops vio_dma_mapping_ops = {
+>   	.free              = vio_dma_iommu_free_coherent,
+>   	.map_sg            = vio_dma_iommu_map_sg,
+>   	.unmap_sg          = vio_dma_iommu_unmap_sg,
+> -	.map_page          = vio_dma_iommu_map_page,
+> -	.unmap_page        = vio_dma_iommu_unmap_page,
+> +	.map_phys          = vio_dma_iommu_map_phys,
+> +	.unmap_phys        = vio_dma_iommu_unmap_phys,
+>   	.dma_supported     = dma_iommu_dma_supported,
+>   	.get_required_mask = dma_iommu_get_required_mask,
+>   	.mmap		   = dma_common_mmap,
+> 
+
 
