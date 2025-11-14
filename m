@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7FE5C5BA72
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 08:00:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1162288.1489987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB3AFC5BA9B
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 08:03:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1162300.1489997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJnmZ-00074X-8h; Fri, 14 Nov 2025 06:59:43 +0000
+	id 1vJnpq-0000SO-Mf; Fri, 14 Nov 2025 07:03:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1162288.1489987; Fri, 14 Nov 2025 06:59:43 +0000
+Received: by outflank-mailman (output) from mailman id 1162300.1489997; Fri, 14 Nov 2025 07:03:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJnmZ-000736-5r; Fri, 14 Nov 2025 06:59:43 +0000
-Received: by outflank-mailman (input) for mailman id 1162288;
- Fri, 14 Nov 2025 06:59:42 +0000
+	id 1vJnpq-0000Qc-Jw; Fri, 14 Nov 2025 07:03:06 +0000
+Received: by outflank-mailman (input) for mailman id 1162300;
+ Fri, 14 Nov 2025 07:03:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8YOW=5W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vJnmY-000730-Aw
- for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 06:59:42 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1vJnpp-0000QW-Ik
+ for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 07:03:05 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7df408a3-c127-11f0-9d18-b5c5bf9af7f9;
- Fri, 14 Nov 2025 07:59:41 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-b73545723ebso258814466b.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 22:59:41 -0800 (PST)
+ id f750e15c-c127-11f0-9d18-b5c5bf9af7f9;
+ Fri, 14 Nov 2025 08:03:04 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-b736cd741c1so50307166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Nov 2025 23:03:04 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fed90c0sm323456966b.65.2025.11.13.22.59.39
+ a640c23a62f3a-b734e9e0f20sm332056466b.0.2025.11.13.23.03.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 22:59:40 -0800 (PST)
+ Thu, 13 Nov 2025 23:03:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7df408a3-c127-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: f750e15c-c127-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763103580; x=1763708380; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763103784; x=1763708584; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YUJJ+xa0sGTQFOrlO6Vlfi9dZfXhp+5ABnjAmn+IZS8=;
-        b=O11/wbChSsQzWGEl7dTHCFecjQfs/HaVGUNHI1WxY2JvxOZ/byPitCUAg6OD6JqODi
-         pIcLnZcpXE0pqmxxMuSyjugNVts7kk3iVSBWiJcnJksHEQ8T3F+UZrsdpQZ3z299KQ1e
-         KIFlWLKiE/80JnPkv1OQADg5kHdiU69j5pskuu3u7e674N6l8VrLOZ1kk8PiN9NzI2Ny
-         E+b2qO25mE1r8vaOEVKSQeKaQY+CHXM5cEFlD2VKsE83RV8ybRN25RSKUPmj7+ue7CIQ
-         2SMwLHAw0vIuWICoA0dR6GnLves8XO5/AZPOAUbmAnvn9jHdB3LxcMPqwiARl1Hrf89X
-         ij/A==
+        bh=Ci1I6RRmoHdEIRPBTUPpqieBT26GFNnuyI1sHZDQ+o8=;
+        b=OJ9C1L/1c3zRlGQPUDuM+e0onKV8AOwjLwjxeDXhR9LRi/awGMDzNzlro9rMzAi3aL
+         SBOTkgQ64jq3MjcptOlfCg6fNSsW9F1/ceY6KfXkbvYNTvTcDyq3XRJpQDhKEhFkUgV5
+         56FfYWjSqw0YcitdO0B3tMIfQVPnDpXpvAb8a1ShzKDO7bjv51kRUc4I1+b/O/bSYjn1
+         S27O8vdtaDgmPxnK91ZhrS6gtC6D5WzSXvMHlj9hQ0pEXu9nFxUQipL3dXPtc9fAsweN
+         YVxETvJODaiUzaJTAisNK39UDnOeICoHpBZ+chj1oTfshFE4IEyKAOVlL8nA1M5sKaL1
+         L7sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763103580; x=1763708380;
+        d=1e100.net; s=20230601; t=1763103784; x=1763708584;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YUJJ+xa0sGTQFOrlO6Vlfi9dZfXhp+5ABnjAmn+IZS8=;
-        b=mAs0oZkFg/R3T2jNiOuLVlUVlggabA+Fg/Q1bqJWPAEeZi1Ys4jPF69qjnAMoko0sw
-         Mv/ogSfYEyypcpTQED7xzgSkijErvDYou1V9cEN+nut9Skqtn8XHSU1YxFDuGq4Vb9ia
-         4uzc4eUnM45jkp8Y5W4+zkHw0Kq+Y1NCR5ieDzaQs+y3zPkBmH4uBsW1NQYr0O8F5BfP
-         c/dRuDWrkeARm4A8rFHSYVRKthoHcXvXzH4Bt4lpzW/ERGOK2lczLk4enPoRhDlWs6O4
-         y5Zun+h62ei6UTKBIL421x//TLNSiJi7fOFcAMvWAEuErmczebhsMMfFSk1Fpq0l8uTv
-         9zhg==
-X-Forwarded-Encrypted: i=1; AJvYcCWi0OQyYSXSBzPmXezMZlT8yKfQhEnmQNOJz0pi1cJk3ryFec8X9+yCM2O80m+1cbZja8qaZ8UQfV8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyfvYn7F3T9cVJ9J8QfoGvCAiEYvNpihhkYBUU7SfYkaiSnl4b+
-	OF77KthSdMr2i42RH3SjPH89YchlZTp/wK212CBCAF/YsegU/rtJTyi9J7884fYfPg==
-X-Gm-Gg: ASbGncumGaWug3jcFXF5NZgZbEnvnFfFecvHCFgupl9B/ThK9WjMhyC8QUcwgUUVv4Z
-	6VwlCjeXaPP5JetFDcGVHY8endX6VENc1hpngdWPY1szeDaEyHmn7Y+D7Eps7AkOAcnVAWijUt8
-	6c7XZBaD+Im3S+m4ow4LQ+ZFAk9q8L9HvXWID949Huh71pXgqpcLM/9m47iJAEfZ/ZBOZk3pLKy
-	2zooiHEYpOirT/bKpxQTAoTXtWWLSSBpDPFOyOn8ZLQ0pHl3KOeAjeVQmhPFYmxkHqoMpV12SYX
-	FHyVIgxWGIAnDN5pbEfescox5zYc1+T6S1vYyvLNrjP475BKqal3hFKu/JszEFhUHjF6rpcbPel
-	Yrx+PxUdC/QTOj1WYRqu050u6CaCeT1cUhgwG0Xx9ZirRDzJZ4Ayg2q0cdAHRL5pZqJUExHXd40
-	f5c2b/YZH5y1/I7Rnco0mccvV6sCu8fWFn48nG0UxppdXCwVGVX+zOXB8o0Wbke13s1OmQiZS+E
-	X+e0m9wGp9o0fO+fQF9FVhR
-X-Google-Smtp-Source: AGHT+IHqI21Ig8fZIC6I8uTx6uOUbqxIgnNd7NhIebn2U5FaAkFre3m96MPojxN8tY89suwFi016Ow==
-X-Received: by 2002:a17:906:fd88:b0:b72:9d0b:def4 with SMTP id a640c23a62f3a-b736788f991mr207274866b.18.1763103580519;
-        Thu, 13 Nov 2025 22:59:40 -0800 (PST)
-Message-ID: <6cdf4053-6547-44a1-aea6-ac1ae337e6e6@suse.com>
-Date: Fri, 14 Nov 2025 07:59:38 +0100
+        bh=Ci1I6RRmoHdEIRPBTUPpqieBT26GFNnuyI1sHZDQ+o8=;
+        b=kUqOdlh3CFlL0LoA6GkgwmQODeeR74jwlV1bZEE6VKl7Sbn4OJ2/Ej/GQ9GjI9JgjG
+         nBba1QeYQe2msqbt5DbxF1uvn9xc9zv8QRQmLcEEkHfzatUpX21sYDCb8xyjrw81gCOH
+         hlx80P5dIO4M8o5Bwg921xMTxXkE5vb8uTOy8KDSo1yXpCX2GEeI01hcXbLyzXEaReq4
+         tQLw4il0sJMh9REyvkmvhwuH2O55zK3buYHOnZ3UXnmd9EDmd1UUVzRqcxFOFfRYo4nz
+         GkysaIrE14yEc4wiQgQCCQ4YcUgfXwPNW6dmyYlNG8/XK4OMS9qPKuUeg7+PJ9HCu+kk
+         DkYw==
+X-Forwarded-Encrypted: i=1; AJvYcCVAfVeed2Wm2mXy1VE8zWP6wL6veV0WEj/Tl3S5bX7w8nIiD2DOL7uAZ0TXp4VCxXZ8PDCFubuMkzI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyerJI+vJbHqHx2W051w5T+X/BtwxB0hs9IfL2BYC1qfcm04MPH
+	VErQzHEXhM78rRqkytkNjbDs+TqvP6kVF8o4ec/j3OxmJD+oSxnFXLpK6Z1XNVGp0Q==
+X-Gm-Gg: ASbGncskXU7DAQNCM3Hptc2+lnUHjVpAalhxRZHSe4rSZQnZm8BPKA6UFb6Y41w4xWh
+	x9W5+kMSrHd2R9BE8XAkxpVj+Qjptg4ndFrGVAS1D1GclEL/8s7Ymm0+nX/BQCxrpby2NvARz3X
+	ZH8ueFaDd8kXEkrM/p3lk9kqbpny8mCbTj8rO06+J+3O4d3NFLzIcwazlI3N8eK2v0wpj0oV6Ok
+	PiYdiVOQd9ThkZFzFAgzVFRT2ejJ1XXowRt81azCWO42D/9XhE0kUEYy/SifnLqv8/vHnQz+JkS
+	oKJip3/utMcakk7Kz2e+FKhnk3cutpCDjj6EknoDB9FhW9SOSNneKIjSuPdNxU9MiJm9L/b0ARg
+	BkzQ948LuYAGr0Y/3Q4nvJDiHbKjdNUBUMbahw1byp/jyYDWU8xxuV9zHwymxxz0yfBrFunV3VH
+	AepJ+BZNXRmhBZZcZQdH+EZd/zL5sBadFJECHwnWqwUK/A/B+RZZU8NJV27kqnaj9x
+X-Google-Smtp-Source: AGHT+IF6yZAVyEftlez0DNDBtoyLpIHUV45NhCv/eexpR9uppRXJlMKrUIbL5kUoXxVp0e3YLHZwNA==
+X-Received: by 2002:a17:906:4fc9:b0:b73:56cc:44b2 with SMTP id a640c23a62f3a-b73678f4befmr191585166b.30.1763103782179;
+        Thu, 13 Nov 2025 23:03:02 -0800 (PST)
+Message-ID: <58870063-297e-42c0-8bdb-ebab339b11ae@suse.com>
+Date: Fri, 14 Nov 2025 08:02:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] build: add new make pattern for making file from
- file.src
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: Re: [XEN][PATCH v2] xen: make VMTRACE support optional
+To: Grygorii Strashko <grygorii_strashko@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20251111161959.13667-1-jgross@suse.com>
- <20251111161959.13667-3-jgross@suse.com>
- <f5934f86-7a93-4184-a807-86fc6e18157a@suse.com>
- <6cc9926e-ec22-40b9-9711-e89f1d8f3087@suse.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Teddy Astie <teddy.astie@vates.tech>, Penny Zheng <Penny.Zheng@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251112202442.3879997-1-grygorii_strashko@epam.com>
+ <a634c192-9ea3-46d9-a087-f0f48a5c2494@suse.com>
+ <9c4294ec-906d-4607-8f7d-b5b1bb7e74f2@epam.com>
+ <71334f75-d50b-43f4-909b-a27b288ea1aa@suse.com>
+ <cbffc389-a97c-4075-9106-b2a7a90b52cc@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,46 +130,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6cc9926e-ec22-40b9-9711-e89f1d8f3087@suse.com>
+In-Reply-To: <cbffc389-a97c-4075-9106-b2a7a90b52cc@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14.11.2025 07:18, Jürgen Groß wrote:
-> On 13.11.25 17:49, Jan Beulich wrote:
->> On 11.11.2025 17:19, Juergen Gross wrote:
->>> --- a/Config.mk
->>> +++ b/Config.mk
->>> @@ -159,6 +159,20 @@ define move-if-changed
->>>   	if ! cmp -s $(1) $(2); then mv -f $(1) $(2); else rm -f $(1); fi
->>>   endef
->>>   
->>> +PATH_FILES := Paths
->>> +INC_FILES := $(foreach f, $(PATH_FILES), $(XEN_ROOT)/config/$(f).mk)
->>> +
->>> +include $(INC_FILES)
->>> +
->>> +BUILD_MAKE_VARS := $(foreach f, $(PATH_FILES), $(shell awk '$$2 == ":=" { print $$1; }' $(XEN_ROOT)/config/$(f).mk.in))
->>> +
->>> +define apply-build-vars
->>> +	sed $(foreach v, $(BUILD_MAKE_VARS), -e 's#@$(v)@#$($(v))#g') <$< >$@
->>> +endef
->>> +
->>> +%:: %.src
->>> +	$(apply-build-vars)
+On 13.11.2025 21:40, Grygorii Strashko wrote:
+> On 13.11.25 14:58, Jan Beulich wrote:
+>> On 13.11.2025 13:53, Grygorii Strashko wrote:
+>>> On 13.11.25 10:36, Jan Beulich wrote:
+>>>> On 12.11.2025 21:24, Grygorii Strashko wrote:
+>>>>> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+>>>>> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+>>>>> @@ -307,6 +307,7 @@ static int vmx_init_vmcs_config(bool bsp)
+>>>>>        rdmsrl(MSR_IA32_VMX_MISC, _vmx_misc_cap);
+>>>>>    
+>>>>>        /* Check whether IPT is supported in VMX operation. */
+>>>>> +#ifdef CONFIG_VMTRACE
+>>>>>        if ( bsp )
+>>>>>            vmtrace_available = cpu_has_proc_trace &&
+>>>>>                                (_vmx_misc_cap & VMX_MISC_PROC_TRACE);
+>>>>> @@ -317,6 +318,7 @@ static int vmx_init_vmcs_config(bool bsp)
+>>>>>                   smp_processor_id());
+>>>>>            return -EINVAL;
+>>>>>        }
+>>>>> +#endif
+>>>>
+>>>> Initially I was inclined to ask for use of IS_ENABLED() here, but that wouldn't
+>>>> work since vmtrace_available isn't an lvalue when VMTRACE=n. Hence why generally
+>>>> I think it is better to check the particular identifier in such cases, rather
+>>>> than the original CONFIG_* (i.e. "#ifndef vmtrace_available" here). I'm not
+>>>> going to insist though, as I expect opinions may differ on this matter.
+>>>
+>>> Yep. assignment required ifdef wrapping.
+>>>
+>>> "#ifndef vmtrace_available" will not work out of the box as there are
+>>>
+>>> "if (vmtrace_available)" in code. So, can't just "not define"/undef "vmtrace_available".
 >>
->> I'm not convinced of having this here, rather than in less central places (say
->> under tools/ and docs/). I'm also not sure I really understand why it needs to
->> be .src - can't we stick to .in, enumerating the specific files that want
->> generating this way (thus avoiding accidental attempts to re-generate files
->> which need generating a different way)?
+>> I meant this just for the case here, though. Elsewhere you want to stick to
+>> checking CONFIG_VMTRACE.
 > 
-> With enumerating the files to generate we could probably stick to *.in.
-> 
-> I'm fine with moving the rule to the tools and docs makefiles, but I'd
-> like to keep the apply-build-vars definition here in order to avoid
-> duplicating it.
+> I'd prefer to keep this part as is. Please tell me if you insist.
 
-Oh, sure, I indeed meant only the rule to move.
+I won't insist, first and foremost again because I expect opinions on this
+matter would generally differ anyway.
 
 Jan
 
