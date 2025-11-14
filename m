@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3245EC5C42A
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 10:28:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1162378.1490046 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00FF8C5C969
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Nov 2025 11:32:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1162400.1490056 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJq62-0006Dq-Fi; Fri, 14 Nov 2025 09:27:58 +0000
+	id 1vJr59-000806-1w; Fri, 14 Nov 2025 10:31:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1162378.1490046; Fri, 14 Nov 2025 09:27:58 +0000
+Received: by outflank-mailman (output) from mailman id 1162400.1490056; Fri, 14 Nov 2025 10:31:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vJq62-0006BR-Cm; Fri, 14 Nov 2025 09:27:58 +0000
-Received: by outflank-mailman (input) for mailman id 1162378;
- Fri, 14 Nov 2025 09:27:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0Jk/=5W=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vJq60-0006BG-M0
- for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 09:27:56 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2c7b551e-c13c-11f0-9d18-b5c5bf9af7f9;
- Fri, 14 Nov 2025 10:27:43 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-b6d402422c2so272134866b.2
- for <xen-devel@lists.xenproject.org>; Fri, 14 Nov 2025 01:27:43 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fad44b4sm351744066b.28.2025.11.14.01.27.40
+	id 1vJr58-0007xT-VW; Fri, 14 Nov 2025 10:31:06 +0000
+Received: by outflank-mailman (input) for mailman id 1162400;
+ Fri, 14 Nov 2025 10:31:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=leFb=5W=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1vJr57-0007xN-Cq
+ for xen-devel@lists.xenproject.org; Fri, 14 Nov 2025 10:31:05 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 03292a91-c145-11f0-980a-7dc792cee155;
+ Fri, 14 Nov 2025 11:31:00 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-4775638d819so10460085e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Nov 2025 02:31:00 -0800 (PST)
+Received: from ?IPV6:2003:e5:871a:de00:dd24:7204:f00a:bf44?
+ (p200300e5871ade00dd247204f00abf44.dip0.t-ipconnect.de.
+ [2003:e5:871a:de00:dd24:7204:f00a:bf44])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4778c8a9456sm83391575e9.15.2025.11.14.02.30.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Nov 2025 01:27:41 -0800 (PST)
+ Fri, 14 Nov 2025 02:30:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,396 +47,250 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c7b551e-c13c-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 03292a91-c145-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763112463; x=1763717263; darn=lists.xenproject.org;
-        h=in-reply-to:content-language:references:cc:to:subject:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MVKERs91mOCm7IAcUp0XjHIoVNY8W/5iSvj/CJSrAxM=;
-        b=m7fSZgu1dsIumR+9NdtmGqzS2CajQPzp9SAOe8rtk4ZndLgFtALv8WhsxFTbEVZBxa
-         n2dPqi5aivvJbDs9IsdNkA7ZwCfyyio069Xlp9E4X3p4QhEC9stXHOmpIDaTCyBOzz/E
-         yqIrv8knXoHX31hflGD8Dg+2wSCeRqS1YTBktxPX3DcYF5P3U7uW7gVTY/5eu3+GtBJ5
-         kdueu9TAxSS1gF8FdV9vayfvMH2ajT0vPMGlYt6oS6kXLNPP4YDUBFF+83r6hdBo9WOq
-         oRsO6Jv6liWpzxlvm2ZbYoAihGlkneR0bOPMjB038QQQq2pFNA2PrZue6WRjWKQZCjhq
-         HoNg==
+        d=suse.com; s=google; t=1763116259; x=1763721059; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Q4XTyr1X5g+kIeBZj9JdNZ/buVbiw85bDIPMzT1dQ5g=;
+        b=WJg7SpOxWvPCBsM0e65hFKfIipA8xdc1YUtriW4IOB9HMmE5BiXUI8DTBiNQY8yEGk
+         cJ/JTcH4shjXxfIJAca6JCQO1TNRfr8kRWvn58+RPEO8MvUBXumyuo/JevZaDq/0qH/z
+         Otxn0kHXbYJI+xeZQ/qG01B8fwBNBy2tt7O8nS8HXG+KOCqzs9Kl92f+Sz48TV9Og+x4
+         TUh1uQPho5eHsoE0fdvorkQy5lyyCfPXRtQzY6TFhRUQKC0eGp4AzyQzD3zgWBK+Qt7o
+         lgagvQ64X6gVK5bL3ev9++OfrmOr8bstI5FpMvxE/Hb7eLpJNVQgY7M8fFVJVqiqEVD3
+         a7Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763112463; x=1763717263;
-        h=in-reply-to:content-language:references:cc:to:subject:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=MVKERs91mOCm7IAcUp0XjHIoVNY8W/5iSvj/CJSrAxM=;
-        b=J8JY9JtnnuE38skqszalsWApqSVc6d7SUXwGuXdSJw1jIQGDTzVgJrXX/XxSrdcyp2
-         MiDGxPNlyPGQoRJA2MpTUzoIVgMbGMgXcCGfHjjSVrpjQjE9HlM1yZPW7SF+YPIwxYfB
-         HS0z+2iHcm/HwD79a0l2esmCXSnnyUHCe0QDtOgTSYT5DLmjkVCIHzbRdSMWm9KOyk8D
-         rcxH52V3L2e3ZjI4Z4QDkpacJVqbq5oCmJRqziiox69GKYggn0T5xudd9g72iVw5zr6s
-         rYvDaZZJFS8k372sHQjjH2G38v8sAnsoodEBL3hDdkkSneBLTkSvCaoNztFF9fluGY41
-         VTnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUp45wHrut3DcBYetT6cYUHFTrgbBfJy0riK9XKK6rvrqJAJBvfRSpCgBMFR8hZn4ogK5g8d5v3Zfk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxDWwaWTbcxwGb6KopmmXkaw5pEqJcoDqi8XN7txJOZ4g8tlfAe
-	ty+5CwxK+08MXLxqtX1IKWWsDE++DQlZ5pYFhDusBEwBwUFAZj1YaW0k
-X-Gm-Gg: ASbGncvsILsWRcHMLrXTk2YwlY5vmMugfaaxkqIjk1sgXBtA8OGbXrKaIAF1VPiH/Td
-	uuqqZoop6qiKBHy67bK7aJDIuRTb+5yl7d4GV1PqnNeshr2lf2sdl98O1z2KrOnZa3jZaJEeinm
-	+bXWRbt2pWwEOBE0sxpe/50bJLSKApUesx3tOfNnFmrYUPvUTk7SR1A1ujP7U2lM121bO/oADfA
-	rPASpRj6bkMrnVZoKMGVCLQSVptskWgf/O5najf6oh37TODZmVm+Dj33D+AxvuHXBo/nGMjMNAC
-	xbAUVujf8cGsNpOaD2UBT8nu0OgIlq862vT+1+uFmQfhG5m2q6rTygS7nhP06GgZIBR8nlnlHjq
-	w9x2r4Nx5cjZLcwLeiAgXk3Hak4o/4BnAL+ZwGCdU7ThokEZRQMc82JIlRDiBtrOdXkrcnceALF
-	GteP9JqEc6NHrNlboYmRyuPmZZG7yMURwrT+CK0ixq/+RNmcURaw==
-X-Google-Smtp-Source: AGHT+IHEaP8TA9rtQXfFZUrU/3l/kbFb7PCQik0PalKgyIrzSacPlF2MeFnEr6vaOmM8+p5GlffotA==
-X-Received: by 2002:a17:907:da9:b0:b72:60d9:32b0 with SMTP id a640c23a62f3a-b7367828bd4mr236797866b.3.1763112461559;
-        Fri, 14 Nov 2025 01:27:41 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------ihJQpW5AIiAsY4FgPUKoUE3H"
-Message-ID: <cf96c62e-cac0-4b18-9524-0703c6492453@gmail.com>
-Date: Fri, 14 Nov 2025 10:27:40 +0100
+        d=1e100.net; s=20230601; t=1763116259; x=1763721059;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Q4XTyr1X5g+kIeBZj9JdNZ/buVbiw85bDIPMzT1dQ5g=;
+        b=BfOsIHczdTVvrlYfosNhE7VYUnph+wAhETuXnKFHY0qphrOPwhbE0BxHh3kF9FbInG
+         dQY9izRy6t2C3olu9s9wApQb14hvksmJUTzXP5Fv9jupqi+PyIEGHGn1C3wtJ6e0su3a
+         z97PoQf03iFb3AC6dJhSgvjNk37MK9XRZoe0FMjpfCr11/bY4iiNQzNt5rxosCaUm7bl
+         Wd/fM2i/Jx371p8pEtY+h6gYVlBXK3fgKxLreJKOyHmwgw4DLf5f4JaTLNS6jiV3yGpm
+         dXFYCsZVbcOkA5623q8XuNHTjaR43p/9EkT7IybiBO2vMIGLGeeE6KMK9k/9jwlmb1dP
+         Nnnw==
+X-Forwarded-Encrypted: i=1; AJvYcCUUlGN59+ut5mwpt3mffZXCvtLEe3hLbrkkXEqdMr+GOpDAA5iDeAoU75/WqsTt5dsCS7hZeqz4Ns4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyuu4VkVIVHHWLAVMVBaSkSC+8dTWHwWuQ1qYB+eLcHInQGhYSa
+	JHEBUmr3LG/uYeRxny1I5Ajvp34Hp0UMZoje57NjF4/AwKdNmPf/KWjS0au1SNxbeYo=
+X-Gm-Gg: ASbGncv/cVVqg1OjrM30ZtvhBP+T2Rn4FFNsBrqgcMpz+VMYXn2gF35HDDcHS/3YyqA
+	bDnEnyjY37lUTSoM2PCdS5dJ1x6ZFZpCnpaSoFlXzgP9dlHh0TBNoHUXxBn1Lx6m+7vNbKoiaCS
+	IiThI4zce9TK9BIAAA9+gDN8ypQu0eARCiKUg8GMKmYEq3QiTJi8cfXsnNXAnp1FZ7AndJbLMR/
+	UVpQUd3mrQC4DidGsWVRIFTnpGu+9C5Duz2VtZ6TPm83Bnqcg1J44NIwrq/UnS/KO17wKxtD7gE
+	g6jBe4oW6E1Ww46bOD3WZidsWGQq/9frWiuKwgfueSH8K6bqzqot6W/zA2t7LEHvOsBeiXoallZ
+	BsY3qFsj/0IjfdIbO8G3d3dL0i0UbwOah4CSKXAIoHFNI/XqW3m5EV7G+vgHR3Ru+Xq+JWd8Olj
+	g9yxIxzEbkbSgwskHgSXmXoVHCWmgGJVx0Sf4uMliJYHqPGfOiQUVjl/4repANsNNSDu6sL2pOc
+	fh7/CPauiKbraAPkKTmlODMRSC1fRfI+xaAZMA1RkCHtRWcow==
+X-Google-Smtp-Source: AGHT+IGLRkq7AR6foWz/NxVZOn39SbSF5tmr0epwVsPn7nJoDvuq2dXw1SbrCJcg8JDpU4nrAoNTdQ==
+X-Received: by 2002:a05:600c:3b19:b0:46e:4246:c90d with SMTP id 5b1f17b1804b1-4778fe68378mr22128845e9.11.1763116259368;
+        Fri, 14 Nov 2025 02:30:59 -0800 (PST)
+Message-ID: <d8821c62-f075-4ff3-b538-e5ee300141b0@suse.com>
+Date: Fri, 14 Nov 2025 11:30:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [for 4.22 v5 02/18] xen/riscv: introduce VMID allocation and
- manegement
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1760974017.git.oleksii.kurochko@gmail.com>
- <bdbe6c13991c2d166614795d43db3f71d790c00f.1760974017.git.oleksii.kurochko@gmail.com>
- <7e9671b3-6972-45b8-9cba-4447fa802fe2@suse.com>
+Subject: Re: [PATCH 4/5] config: remove unused paths from config/Paths.mk.in
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <20251111161959.13667-1-jgross@suse.com>
+ <20251111161959.13667-5-jgross@suse.com>
+ <4cfc4f5b-1d7e-4f69-9bfd-99ac0f65ac97@suse.com>
+ <5bb5c2d8-53bd-4669-9238-6ae8ab8d349c@suse.com>
+ <870d7330-5563-4c45-8a45-03734e75d92b@citrix.com>
 Content-Language: en-US
-In-Reply-To: <7e9671b3-6972-45b8-9cba-4447fa802fe2@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <870d7330-5563-4c45-8a45-03734e75d92b@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------PZLLrvF7rDr27I6gTBkCYNC1"
 
-This is a multi-part message in MIME format.
---------------ihJQpW5AIiAsY4FgPUKoUE3H
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------PZLLrvF7rDr27I6gTBkCYNC1
+Content-Type: multipart/mixed; boundary="------------M0G8WCJinJoSo0B3WlYN9zHT";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+Message-ID: <d8821c62-f075-4ff3-b538-e5ee300141b0@suse.com>
+Subject: Re: [PATCH 4/5] config: remove unused paths from config/Paths.mk.in
+References: <20251111161959.13667-1-jgross@suse.com>
+ <20251111161959.13667-5-jgross@suse.com>
+ <4cfc4f5b-1d7e-4f69-9bfd-99ac0f65ac97@suse.com>
+ <5bb5c2d8-53bd-4669-9238-6ae8ab8d349c@suse.com>
+ <870d7330-5563-4c45-8a45-03734e75d92b@citrix.com>
+In-Reply-To: <870d7330-5563-4c45-8a45-03734e75d92b@citrix.com>
+Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
+ ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
+ Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
+ pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
+ tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
+ OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
+ v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
+ 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
+ jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
+ DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
+ Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
+ dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
+ AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
+
+--------------M0G8WCJinJoSo0B3WlYN9zHT
+Content-Type: multipart/mixed; boundary="------------MgMECj8KC11SpExay2YBSNYf"
+
+--------------MgMECj8KC11SpExay2YBSNYf
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
 
+T24gMTMuMTEuMjUgMjA6NTgsIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+IE9uIDEzLzExLzIw
+MjUgNTowMiBwbSwgSmFuIEJldWxpY2ggd3JvdGU6DQo+PiBPbiAxMy4xMS4yMDI1IDE3OjU5
+LCBKYW4gQmV1bGljaCB3cm90ZToNCj4+PiBPbiAxMS4xMS4yMDI1IDE3OjE5LCBKdWVyZ2Vu
+IEdyb3NzIHdyb3RlOg0KPj4+PiAtLS0gYS9jb25maWcvUGF0aHMubWsuaW4NCj4+Pj4gKysr
+IGIvY29uZmlnL1BhdGhzLm1rLmluDQo+Pj4+IEBAIC0yMCwxMCArMjAsNyBAQCBsaWJleGVj
+ZGlyICAgICAgICAgICAgICAgOj0gQGxpYmV4ZWNkaXJADQo+Pj4+ICAgZGF0YXJvb3RkaXIg
+ICAgICAgICAgICAgIDo9IEBkYXRhcm9vdGRpckANCj4+Pj4gICBtYW5kaXIgICAgICAgICAg
+ICAgICAgICAgOj0gQG1hbmRpckANCj4+Pj4gICBkb2NkaXIgICAgICAgICAgICAgICAgICAg
+Oj0gQGRvY2RpckANCj4+Pj4gLWR2aWRpciAgICAgICAgICAgICAgICAgICA6PSBAZHZpZGly
+QA0KPj4+PiAgIGh0bWxkaXIgICAgICAgICAgICAgICAgICA6PSBAaHRtbGRpckANCj4+Pj4g
+LXBkZmRpciAgICAgICAgICAgICAgICAgICA6PSBAcGRmZGlyQA0KPj4+IFF1ZXN0aW9uIGlz
+IHdoZXRoZXIgd2UncmUgbWlzdGFrZW5seSBub3QgcmVzcGVjdGluZyBpbiBwYXJ0aWN1bGFy
+IHRoaXMgb25lLA0KPj4+IGZvciB0aGUgKi5wZGYgd2UgY3JlYXRlLiBGb3IgYWxsIHRoZSBv
+dGhlcnMgSSBhZ3JlZSB0aGVyZSdzIG5vIChwcmVzZW50IG9yDQo+Pj4gcG90ZW50aWFsKSB1
+c2UuIEkgbm90aWNlIHRob3VnaCB0aGF0IGRvY3MvTWFrZWZpbGUgY2xlYW5zIGUuZy4gKi5k
+dmkNCj4+PiBuZXZlcnRoZWxlc3MuDQo+PiBBY3R1YWxseSwgSSBjYW4ndCBzcG90IGEgdXNl
+IG9mIGh0bWxkaXIgZWl0aGVyLCB3aGVuIGxpa2VseSB3ZSBzaG91bGQgcmVzcGVjdA0KPj4g
+dGhhdCBvbmUsIHRvby4NCj4gDQo+IEJlc2lkZXMgdGhlIG1hbnBhZ2VzLCBub3RoaW5nIGdl
+bmVyYXRlZCBpbiBkb2NzLyBpcyByZWFsbHkgZml0IHRvDQo+IHBhY2thZ2UgZm9yIGVuZCB1
+c2Vycy7CoCBUaGVyZSdzIG5vIGNvaGVyZW50IHN0cnVjdHVyZSwgc29tZSBvZiBpdCBpcw0K
+PiBzdHJhaWdodCBicmFpbmR1bXBzIGZyb20gZGV2ZWxvcGVycy4NCj4gDQo+IGRvY2RpciBp
+cyBvbmx5IHVzZWQgYnkgdGhlIHt1bix9aW5zdGFsbC1odG1sIHRhcmdldHMgKG9wZW5jb2Rp
+bmcNCj4gaHRtbGRpciksIGFuZCB0aGUgcm0gaW4gdGhlIGluc3RhbGwgdGFyZ2V0IGlzIGZ1
+cnRoZXIgZXZpZGVuY2UgdG8gdGhlDQo+IHVuc3VpdGFiaWxpdHkgb2Ygd2hhdCdzIHRoZXJl
+Lg0KPiANCj4gSSdkIGdvIHNvIGZhciBhcyB0byBzdWdnZXN0IHdlIHNob3VsZCBkcm9wIGlu
+c3RhbGwtaHRtbCwgZXhjZXB0IHRoYXQgaXQNCj4gd291bGQgYnJlYWsgdGhlIGdlbmVyYXRp
+b24gb2YgaHR0cHM6Ly94ZW5iaXRzLnhlbi5vcmcvZG9jcy91bnN0YWJsZS8NCg0KSSB0aGlu
+ayBJJ2xsIGxlYXZlIGZ1cnRoZXIgY2xlYW51cCBmb3IgYW5vdGhlciBwYXRjaC4NCg0KQXMg
+eW91IHNhaWQsIGRvY2RpciBpcyBiZWluZyB1c2VkIHJpZ2h0IG5vdyBhbmQgaHRtbGRpciBj
+b3VsZCBiZSB1c2VkIGluDQpjYXNlIHRoZSBvcGVuIGNvZGluZyB2aWEgZG9jZGlyIGlzIGJl
+aW5nIGNsZWFuZWQgdXAuDQoNCg0KSnVlcmdlbg0K
+--------------MgMECj8KC11SpExay2YBSNYf
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-On 11/6/25 3:05 PM, Jan Beulich wrote:
-> On 20.10.2025 17:57, Oleksii Kurochko wrote:
->
-> +static unsigned int vmidlen_detect(void)
-> +{
-> +    unsigned int vmid_bits;
-> +
-> +    /*
-> +     * According to the RISC-V Privileged Architecture Spec:
-> +     *   When MODE=Bare, guest physical addresses are equal to supervisor
-> +     *   physical addresses, and there is no further memory protection
-> +     *   for a guest virtual machine beyond the physical memory protection
-> +     *   scheme described in Section "Physical Memory Protection".
-> +     *   In this case, the remaining fields in hgatp must be set to zeros.
-> +     * Thereby it is necessary to set gstage_mode not equal to Bare.
-> +     */
-> +    ASSERT(gstage_mode != HGATP_MODE_OFF);
-> +    csr_write(CSR_HGATP,
-> +              MASK_INSR(gstage_mode, HGATP_MODE_MASK) | HGATP_VMID_MASK);
-> +    vmid_bits = MASK_EXTR(csr_read(CSR_HGATP), HGATP_VMID_MASK);
-> +    vmid_bits = flsl(vmid_bits);
-> +    csr_write(CSR_HGATP, _AC(0, UL));
-> +
-> +    /*
-> +     * From RISC-V spec:
-> +     *   Speculative executions of the address-translation algorithm behave as
-> +     *   non-speculative executions of the algorithm do, except that they must
-> +     *   not set the dirty bit for a PTE, they must not trigger an exception,
-> +     *   and they must not create address-translation cache entries if those
-> +     *   entries would have been invalidated by any SFENCE.VMA instruction
-> +     *   executed by the hart since the speculative execution of the algorithm
-> +     *   began.
-> +     *
-> +     * Also, despite of the fact here it is mentioned that when V=0 two-stage
-> +     * address translation is inactivated:
-> +     *   The current virtualization mode, denoted V, indicates whether the hart
-> +     *   is currently executing in a guest. When V=1, the hart is either in
-> +     *   virtual S-mode (VS-mode), or in virtual U-mode (VU-mode) atop a guest
-> +     *   OS running in VS-mode. When V=0, the hart is either in M-mode, in
-> +     *   HS-mode, or in U-mode atop an OS running in HS-mode. The
-> +     *   virtualization mode also indicates whether two-stage address
-> +     *   translation is active (V=1) or inactive (V=0).
-> +     * But on the same side, writing to hgatp register activates it:
-> +     *   The hgatp register is considered active for the purposes of
-> +     *   the address-translation algorithm unless the effective privilege mode
-> +     *   is U and hstatus.HU=0.
-> +     *
-> +     * Thereby it leaves some room for speculation even in this stage of boot,
-> +     * so it could be that we polluted local TLB so flush all guest TLB.
-> +     */
-> +    local_hfence_gvma_all();
-> That's a lot of redundancy with gstage_mode_detect(). The function call here
-> actually renders the one there redundant, afaict. Did you consider putting a
-> single instance at the end of it in pre_gstage_init()? Otherwise at least
-> don't repeat the comment here, but merely point at the other one?
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Agree, it could be moved to the end of pre_gstage_init().
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
+--------------MgMECj8KC11SpExay2YBSNYf--
 
->> +    return vmid_bits;
->> +}
->> +
->> +void vmid_init(void)
-> This (and its helper) isn't __init because you intend to also call it during
-> bringup of secondary processors?
+--------------M0G8WCJinJoSo0B3WlYN9zHT--
 
-Yes, I wasn't able to find that VMIDLEN is guaranteed to be same for all
-harts.
+--------------PZLLrvF7rDr27I6gTBkCYNC1
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
->> +    unsigned int vmid_len = vmidlen_detect();
->> +    struct vmid_data *data = &this_cpu(vmid_data);
->> +
->> +    BUILD_BUG_ON((HGATP_VMID_MASK >> HGATP_VMID_SHIFT) >
->> +                 (BIT((sizeof(data->max_vmid) * BITS_PER_BYTE), UL) - 1));
->> +
->> +    data->max_vmid = BIT(vmid_len, U) - 1;
->> +    data->used = opt_vmid && (vmid_len > 1);
->> +
->> +    if ( g_vmid_used < 0 )
->> +    {
->> +        g_vmid_used = data->used;
->> +        printk("VMIDs use is %sabled\n", data->used ? "en" : "dis");
->> +    }
->> +    else if ( g_vmid_used != data->used )
->> +        printk("CPU%u: VMIDs use is %sabled\n", smp_processor_id(),
->> +               data->used ? "en" : "dis");
->> +
->> +    /* Zero indicates 'invalid generation', so we start the count at one. */
->> +    data->generation = 1;
->> +
->> +    /* Zero indicates 'VMIDs use disabled', so we start the count at one. */
->> +    data->next_vmid = 1;
->> +}
->> +
->> +void vmid_flush_vcpu(struct vcpu *v)
->> +{
->> +    write_atomic(&v->arch.vmid.generation, 0);
->> +}
->> +
->> +void vmid_flush_hart(void)
->> +{
->> +    struct vmid_data *data = &this_cpu(vmid_data);
->> +
->> +    if ( !data->used )
->> +        return;
->> +
->> +    if ( likely(++data->generation != 0) )
->> +        return;
->> +
->> +    /*
->> +     * VMID generations are 64 bit.  Overflow of generations never happens.
->> +     * For safety, we simply disable ASIDs, so correctness is established; it
->> +     * only runs a bit slower.
->> +     */
->> +    printk("%s: VMID generation overrun. Disabling VMIDs.\n", __func__);
-> Is logging of the function name of any value here?
+-----BEGIN PGP SIGNATURE-----
 
-Agree, there is no any sense for the logging of the function name.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmkXBOIFAwAAAAAACgkQsN6d1ii/Ey8+
+zgf+PAQnakVtsCAFtvvOiMxxGShuS8vWuMODPMrAXfV+bK1Uv11mXnutEWqWSGSO3QmuTXGf+vu1
+sWBGx332qauvoaF+Pfzj827cgzYjJ4IMjwhZh2msD4BSAQnonzgo8+Lw2Ck/Gd/6sTwCsqy+hd0w
+rilR+244svy+3OwLvgMHYqPFa17LoKkWgI93zOHhTo4CmM6/cfbhLi5wwmAQOHcFpV082RbmK/JW
+ypn3MHl6uEJzdA0AJVfdhgtMRKoSASnYylshMWpoqdws2OAy+g/4WVpT3PnA84kuU3B5WGFEIvhT
+9yQ0u3UsJ5xomVoPEF+QxQ9JcwUMAY/2xSKBb4imsA==
+=ayam
+-----END PGP SIGNATURE-----
 
->   Also, despite the x86
-> original havinbg it like this - generally no full stops please if log
-> messages. "VMID generation overrun; disabling VMIDs\n" would do.
-
-Sure, I will drop it and will try to not add it in such cases. But could you
-please remind (if I asked that before) me what is the reason why full stop
-shouldn't be presented in such cases?
-
->> +bool vmid_handle_vmenter(struct vcpu_vmid *vmid)
->> +{
->> +    struct vmid_data *data = &this_cpu(vmid_data);
->> +
->> +    /* Test if VCPU has valid VMID. */
-> x86 has a ->disabled check up from here; why do you not check ->used?
-
-The x86 comment confused me, at first I thought the check was related to
-erratum #170, but now I see that it might actually be useful here, so I'll add:
-     if ( !data->used )
-         goto disabled;
-
-Thanks.
-
-~ Oleksii
-
---------------ihJQpW5AIiAsY4FgPUKoUE3H
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 11/6/25 3:05 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:7e9671b3-6972-45b8-9cba-4447fa802fe2@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 20.10.2025 17:57, Oleksii Kurochko wrote:
-
-+static unsigned int vmidlen_detect(void)
-+{
-+    unsigned int vmid_bits;
-+
-+    /*
-+     * According to the RISC-V Privileged Architecture Spec:
-+     *   When MODE=Bare, guest physical addresses are equal to supervisor
-+     *   physical addresses, and there is no further memory protection
-+     *   for a guest virtual machine beyond the physical memory protection
-+     *   scheme described in Section "Physical Memory Protection".
-+     *   In this case, the remaining fields in hgatp must be set to zeros.
-+     * Thereby it is necessary to set gstage_mode not equal to Bare.
-+     */
-+    ASSERT(gstage_mode != HGATP_MODE_OFF);
-+    csr_write(CSR_HGATP,
-+              MASK_INSR(gstage_mode, HGATP_MODE_MASK) | HGATP_VMID_MASK);
-+    vmid_bits = MASK_EXTR(csr_read(CSR_HGATP), HGATP_VMID_MASK);
-+    vmid_bits = flsl(vmid_bits);
-+    csr_write(CSR_HGATP, _AC(0, UL));
-+
-+    /*
-+     * From RISC-V spec:
-+     *   Speculative executions of the address-translation algorithm behave as
-+     *   non-speculative executions of the algorithm do, except that they must
-+     *   not set the dirty bit for a PTE, they must not trigger an exception,
-+     *   and they must not create address-translation cache entries if those
-+     *   entries would have been invalidated by any SFENCE.VMA instruction
-+     *   executed by the hart since the speculative execution of the algorithm
-+     *   began.
-+     *
-+     * Also, despite of the fact here it is mentioned that when V=0 two-stage
-+     * address translation is inactivated:
-+     *   The current virtualization mode, denoted V, indicates whether the hart
-+     *   is currently executing in a guest. When V=1, the hart is either in
-+     *   virtual S-mode (VS-mode), or in virtual U-mode (VU-mode) atop a guest
-+     *   OS running in VS-mode. When V=0, the hart is either in M-mode, in
-+     *   HS-mode, or in U-mode atop an OS running in HS-mode. The
-+     *   virtualization mode also indicates whether two-stage address
-+     *   translation is active (V=1) or inactive (V=0).
-+     * But on the same side, writing to hgatp register activates it:
-+     *   The hgatp register is considered active for the purposes of
-+     *   the address-translation algorithm unless the effective privilege mode
-+     *   is U and hstatus.HU=0.
-+     *
-+     * Thereby it leaves some room for speculation even in this stage of boot,
-+     * so it could be that we polluted local TLB so flush all guest TLB.
-+     */
-+    local_hfence_gvma_all();
-</pre>
-      <pre wrap="" class="moz-quote-pre">That's a lot of redundancy with gstage_mode_detect(). The function call here
-actually renders the one there redundant, afaict. Did you consider putting a
-single instance at the end of it in pre_gstage_init()? Otherwise at least
-don't repeat the comment here, but merely point at the other one?</pre>
-    </blockquote>
-    <pre>Agree, it could be moved to the end of pre_gstage_init().</pre>
-    <p><br>
-    </p>
-    <blockquote type="cite"
-      cite="mid:7e9671b3-6972-45b8-9cba-4447fa802fe2@suse.com">
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    return vmid_bits;
-+}
-+
-+void vmid_init(void)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">This (and its helper) isn't __init because you intend to also call it during
-bringup of secondary processors?</pre>
-    </blockquote>
-    <pre>Yes, I wasn't able to find that VMIDLEN is guaranteed to be same for all
-harts.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:7e9671b3-6972-45b8-9cba-4447fa802fe2@suse.com">
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    unsigned int vmid_len = vmidlen_detect();
-+    struct vmid_data *data = &amp;this_cpu(vmid_data);
-+
-+    BUILD_BUG_ON((HGATP_VMID_MASK &gt;&gt; HGATP_VMID_SHIFT) &gt;
-+                 (BIT((sizeof(data-&gt;max_vmid) * BITS_PER_BYTE), UL) - 1));
-+
-+    data-&gt;max_vmid = BIT(vmid_len, U) - 1;
-+    data-&gt;used = opt_vmid &amp;&amp; (vmid_len &gt; 1);
-+
-+    if ( g_vmid_used &lt; 0 )
-+    {
-+        g_vmid_used = data-&gt;used;
-+        printk("VMIDs use is %sabled\n", data-&gt;used ? "en" : "dis");
-+    }
-+    else if ( g_vmid_used != data-&gt;used )
-+        printk("CPU%u: VMIDs use is %sabled\n", smp_processor_id(),
-+               data-&gt;used ? "en" : "dis");
-+
-+    /* Zero indicates 'invalid generation', so we start the count at one. */
-+    data-&gt;generation = 1;
-+
-+    /* Zero indicates 'VMIDs use disabled', so we start the count at one. */
-+    data-&gt;next_vmid = 1;
-+}
-+
-+void vmid_flush_vcpu(struct vcpu *v)
-+{
-+    write_atomic(&amp;v-&gt;arch.vmid.generation, 0);
-+}
-+
-+void vmid_flush_hart(void)
-+{
-+    struct vmid_data *data = &amp;this_cpu(vmid_data);
-+
-+    if ( !data-&gt;used )
-+        return;
-+
-+    if ( likely(++data-&gt;generation != 0) )
-+        return;
-+
-+    /*
-+     * VMID generations are 64 bit.  Overflow of generations never happens.
-+     * For safety, we simply disable ASIDs, so correctness is established; it
-+     * only runs a bit slower.
-+     */
-+    printk("%s: VMID generation overrun. Disabling VMIDs.\n", __func__);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">Is logging of the function name of any value here?</pre>
-    </blockquote>
-    <pre>Agree, there is no any sense for the logging of the function name.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:7e9671b3-6972-45b8-9cba-4447fa802fe2@suse.com">
-      <pre wrap="" class="moz-quote-pre"> Also, despite the x86
-original havinbg it like this - generally no full stops please if log
-messages. "VMID generation overrun; disabling VMIDs\n" would do.</pre>
-    </blockquote>
-    <pre>Sure, I will drop it and will try to not add it in such cases. But could you
-please remind (if I asked that before) me what is the reason why full stop
-shouldn't be presented in such cases?
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:7e9671b3-6972-45b8-9cba-4447fa802fe2@suse.com">
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+bool vmid_handle_vmenter(struct vcpu_vmid *vmid)
-+{
-+    struct vmid_data *data = &amp;this_cpu(vmid_data);
-+
-+    /* Test if VCPU has valid VMID. */
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">x86 has a -&gt;disabled check up from here; why do you not check -&gt;used?</pre>
-    </blockquote>
-    <pre>The x86 comment confused me, at first I thought the check was related to
-erratum #170, but now I see that it might actually be useful here, so I'll add:
-    if ( !data-&gt;used )
-        goto disabled;
-
-Thanks.
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------ihJQpW5AIiAsY4FgPUKoUE3H--
+--------------PZLLrvF7rDr27I6gTBkCYNC1--
 
