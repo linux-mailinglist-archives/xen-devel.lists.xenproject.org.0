@@ -2,56 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44881C5FBFD
-	for <lists+xen-devel@lfdr.de>; Sat, 15 Nov 2025 01:40:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1162898.1490367 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FED4C60094
+	for <lists+xen-devel@lfdr.de>; Sat, 15 Nov 2025 07:24:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1162914.1490376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vK4Jv-0006b7-HY; Sat, 15 Nov 2025 00:39:15 +0000
+	id 1vK9gz-0002PS-QG; Sat, 15 Nov 2025 06:23:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1162898.1490367; Sat, 15 Nov 2025 00:39:15 +0000
+Received: by outflank-mailman (output) from mailman id 1162914.1490376; Sat, 15 Nov 2025 06:23:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vK4Jv-0006Yo-DP; Sat, 15 Nov 2025 00:39:15 +0000
-Received: by outflank-mailman (input) for mailman id 1162898;
- Sat, 15 Nov 2025 00:39:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vK9gz-0002Mx-Kj; Sat, 15 Nov 2025 06:23:25 +0000
+Received: by outflank-mailman (input) for mailman id 1162914;
+ Sat, 15 Nov 2025 06:23:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Oktg=5X=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1vK4Jt-0006Yi-0q
- for xen-devel@lists.xenproject.org; Sat, 15 Nov 2025 00:39:13 +0000
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c10d::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7e902bf0-c1bb-11f0-980a-7dc792cee155;
- Sat, 15 Nov 2025 01:39:09 +0100 (CET)
-Received: from PH7P220CA0104.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32d::26)
- by LV2PR12MB5967.namprd12.prod.outlook.com (2603:10b6:408:170::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.18; Sat, 15 Nov
- 2025 00:39:02 +0000
-Received: from CO1PEPF000044FB.namprd21.prod.outlook.com
- (2603:10b6:510:32d:cafe::40) by PH7P220CA0104.outlook.office365.com
- (2603:10b6:510:32d::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.18 via Frontend Transport; Sat,
- 15 Nov 2025 00:39:00 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF000044FB.mail.protection.outlook.com (10.167.241.201) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9343.0 via Frontend Transport; Sat, 15 Nov 2025 00:39:01 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 14 Nov
- 2025 16:39:00 -0800
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 14 Nov
- 2025 18:39:00 -0600
-Received: from [172.28.100.6] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 14 Nov 2025 16:38:59 -0800
+ <SRS0=aqlM=5X=gmail.com=freddy77@srs-se1.protection.inumbo.net>)
+ id 1vK9gx-0002Mr-PJ
+ for xen-devel@lists.xenproject.org; Sat, 15 Nov 2025 06:23:23 +0000
+Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
+ [2607:f8b0:4864:20::112f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 94b4bc9a-c1eb-11f0-9d18-b5c5bf9af7f9;
+ Sat, 15 Nov 2025 07:23:21 +0100 (CET)
+Received: by mail-yw1-x112f.google.com with SMTP id
+ 00721157ae682-786635a8ce4so23589817b3.2
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Nov 2025 22:23:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,123 +40,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e902bf0-c1bb-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GTY35LWkMYKq0EgktfczgZ6ogN3Zn5vXVCvgJVaaoqs2xIYA/qny/DDSwh9FrpKqaEhtGam9kTN4WT+DlAyCUn6re+hHoJba8oQeIPi48Y8Db1jklbBWs0gAVIR7TZ2kiqEBRzm1YfoTrXfD5CbfYeIZ5AeLy+h3ckIbY82bmNIFMCx5IecDfSPac5yIgNW15ZJkzt+PIdK8JimLD1PgvnemXiL7QlKTXqlmOEyYSwcYICMr9l60sw23b/yqZ9ItnfsfUASdV//VSPbBvA97F4257x6pJYHzAztxQGEgXM53tbYje3O+njoCFtXuN66NJ0+IUbhlr6JzayJXHMdtpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4QrBhMJvFc9AU5l8tuxzY/KBXfv9uFBDoGcf0mObcf4=;
- b=UFim9dZfctSMk5h1+5ZvibKoGkW4nIrAn7It+6JgJHxIF7Bpt0I/JSVx1ZHD2QO/0dhxQd37q6IIel7tlug07nC69vO7qfz6W5Wn8KgHf3NTVcn5tmpV/TSofmRUqjwLw6bQTTkQRgbjQ+TLC1L1q36pAk4nD11Cdz0fBj+0ZCNXauMlMMF9xB+Y/TCK6LHtr0sQmRncLeyHqfaE/pLJRuUP3U3Q2J0hn2USgvu56IcqEO9hfyMhiORgJJnjebtKPNPJquWL/pokc2ajE+ISGSFnayng6eXTSBp483BOG2R18mD6D5Lrg3khuUsRIfk7ZS1aHzlYjMIQbHhAeL0sig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4QrBhMJvFc9AU5l8tuxzY/KBXfv9uFBDoGcf0mObcf4=;
- b=e3296XobzMhaoJ0MnmhwxZS1g2UY6lE/w85uVfsnZIAbUNTSHdQK9JEVUBJq3UOow7qE2E5qyk09MLJ3y1Xv9R3RJ7mVYqA7zLBxJsYvE6fIKPSxmZ5aGAbMZ7sUB8R0u0a4yOJGOpLONl0jzxldO2fjLB8egR5I83NtlcmYG7g=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <a34a7aa7-53da-4925-8428-cc20e1135f7f@amd.com>
-Date: Fri, 14 Nov 2025 18:21:16 -0500
+X-Inumbo-ID: 94b4bc9a-c1eb-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1763187800; x=1763792600; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=FJ2y61QwBwP4GyAg3QVko/gFVDcVKUY9ce9QUrVZDDY=;
+        b=N5K5CoeoQKOFdzGjYC1KSGac0ottZg3AThuHBNyzIn9RekHFhnh0leTlRj1vuEiNwI
+         gGoPmrYnqd/g/QnreJpPr1zj53sZT4O8kJF2K2yj6UV7k/xF2kuETLbvvp8X2s5kNEku
+         SFTqs8NVxYY64basAFbswV6fr9e54yw9UieIZ4b23/mIx9n4Q9Rxe0eceerAJDJ0zK41
+         4iSCWOGCUMXUsySZz1PWrexbL+8Nu55lrXUjdx3aS5DRz8tfWyJHPir41Cc3gegggwub
+         mTVcVzeiK8BhMr8CEMSUVs9gO/WLa12/QFQ9s8RUHQwrRZ2uZCLtmUSjZadQVYg9dSq3
+         HZKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763187800; x=1763792600;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FJ2y61QwBwP4GyAg3QVko/gFVDcVKUY9ce9QUrVZDDY=;
+        b=n7xZU3r5gyFaJqsFjMimTCNdSulzixDMtg0tj5iXujRZtIoSzfy8c0wWYGZDL6EDff
+         pOChwMcYyi3NJhIWiAp8pfizJVivH+oIqLiGRCkReOEzt2Ct1lj+R4/7QYFFyCG7U+g8
+         dnBYTFpmgPwi06ZWfLBGEI/hu2aitZX+sGYlQLH5/DfNu8Fil6JXWrZErGFr+8BL2YqG
+         BrHB8LxhBWZwEoIW7llho9I8r1CPN67AlUxonR0owt3wpmMkNHdB6aPZyiDysj0YwXYR
+         rLFkY9Q8nj0avXbZ3kdAWYkm638rCFhuHz/QNvpmZelAP8twa/YPmKphN5TTD8hX6uxR
+         pjPw==
+X-Forwarded-Encrypted: i=1; AJvYcCV1VSgdJI0Rqad96X1sdI28pMLUhZ6zBlKsVC8bpet+wWtAZYX5KSlb5/Yfmk5hNEOoQYqPJqgXeLk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwLr1YZKxAroQPbA5c3ZMDQhkBdW350KdGSD48Suj76MujSc6Fl
+	HwsTnN0xYX1dJagvWUOdRxObhvvCTE8+EC9rWSvN0zsBEPYFFLIuTYecstVGmtM6GLvKiTGpHJu
+	Os4P/POfoUYs/XGrMJ34V1C3kwUn3E1A=
+X-Gm-Gg: ASbGncu75sHzqXi/AUkKs64wimC94nb8mL3RU4cUm0s7iYM3tcO27Ml6GOE7t0SDsq2
+	Tr7Z23NPlONGLENfhNZvkTpNnoRXT4fSJVKuYFo8HoHsJekwTmXOrJ+1SVCmFVRv7Bke+8q+6O5
+	s/zYCO3uQwtiVh+pi/J4dFDNxMmQdvNgh4epiev1GBAcczJTzLgC3Dl/oUQBMvCMorTJE92lMe0
+	a+vFyvfvvQlq0Et2VTJGUiCzHNWurFjprXtstWU2jHtw+tARnFMAnyfmUSc
+X-Google-Smtp-Source: AGHT+IE5yt15o7yFmkSbTtMqG+hbN4FCKFGZhE9D0XAg+u99VJsuFTT889TgY0lY0OJgJG8KPABt9sjHMgndiuM57qc=
+X-Received: by 2002:a05:690c:a79a:b0:787:fec5:7090 with SMTP id
+ 00721157ae682-78929e3f56emr37690307b3.10.1763187799865; Fri, 14 Nov 2025
+ 22:23:19 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] x86/paging: replace !paging_mode_hap() with
- paging_mode_shadow()
-To: Grygorii Strashko <grygorii_strashko@epam.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>
-References: <20251114144454.287224-1-grygorii_strashko@epam.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20251114144454.287224-1-grygorii_strashko@epam.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044FB:EE_|LV2PR12MB5967:EE_
-X-MS-Office365-Filtering-Correlation-Id: b28aea71-c1f9-4a94-4bc3-08de23df5f2b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?SFpONVFQTVVEMVFpMkZWM283V0VFenNhaHhvZmQyVlprSWEyVUovNXExKzhD?=
- =?utf-8?B?SmZvbzI5blhOWm9uNVF6Q1RDMlE0c2hOTDhmbElGT0l3VU13NG5zUTcvMzFs?=
- =?utf-8?B?R2xGRnNtaHYxWE1rbjJRQnJac21jd3FEdDlCRm96SGZWQnlDOFEyZXhTeVBE?=
- =?utf-8?B?SkhsVXNlbzF4YjY0VHF2eWJXYjE5NFVQUFdDRTBXenZadnFjUHNOVjJRQ2U2?=
- =?utf-8?B?VWdQMytnK2xGSzQ5Y2VoQnptYm02OFdWU3RUYUxkMjM4ZFQrd1UvQkRtcXZa?=
- =?utf-8?B?a2E5NHBZcHdDVEtuWEJ4ckxHTmQ5K3JMRDg5ZUxVQ3ltZDQ4YmU5d3FwanRj?=
- =?utf-8?B?RERKVEc2SVczWXhNSVd2UFhYeGtoZm5WdXJXa1hlZnFPMnhTdzBQSEJrRmhT?=
- =?utf-8?B?THlkSEpPQUQyYTU3b0xhTk02Mk9TWWFUSEUwcUdBS05NbUFaR09KeXlybkt3?=
- =?utf-8?B?WVRyOS8waXc2SFI3SjdMdWRkMGIxR0tKcml6MmExYVlSTUROYlZTdVJXaUw3?=
- =?utf-8?B?YTNKOWdIOERCM1JZQm1ta3duT3prYmwxSUVrTWhqUXJ0RTBOdDVFMUVHWnVx?=
- =?utf-8?B?R01sTVRZUkFQNVJ6RnBnRE02WmRWOVR4MzZUVHVSSlZzN3ltYlV6VHpUZ09U?=
- =?utf-8?B?OUFEWVdmMnVOTEQ3dHhnL1o3M2g3WG5ZT0lTemxYU1BuZVphUG5YNFc1UFJK?=
- =?utf-8?B?YUVxdGhSVlQ0WDJ2VDFEVCtza2dVL1lhQUlic1NqR1lpaGNCWHE4R0xBUnFO?=
- =?utf-8?B?VGYwSC8zSjZHRE9jMlQ4SUp4SEp0NlFsMkJtYVJNTEFxT1FIenZtMUdZcjJy?=
- =?utf-8?B?US9lWnp0QXlUaG04REpMYlM5cWdkYTZsSFg4eEpNNjNoMTQ0R1JNbEt2MFk2?=
- =?utf-8?B?eGtHQ2RtWHVVOEJiL0FMOEhVb0ozTkxSTHdzZ3JBQ2o2SEh3U0VzTU9MOXBU?=
- =?utf-8?B?UjFnc2R6ZXpLTUpWejdKaU5nUGR5dlMrN2k3SHpBSkVuRUt6S3VTdW9OTU5Y?=
- =?utf-8?B?blU5Z0t6N2hjZkRKU3AzYU85Sm1zZ1V5OTFMdllXOUxJdk1FeGJuS3NLcjhK?=
- =?utf-8?B?a0w1T0oxU1BBdlpXSzhXL0FZdG5aOEtoMXRtV2U2YnFlK3d5aGlHNUFsV1p2?=
- =?utf-8?B?SXd5a2xRSUxMZ0ZPamllYkdCM3lLcTlCdkVXVjZ0djF3MmFnRHZwOElmQ01E?=
- =?utf-8?B?WWV5RWtxeG5JNjNPSXRXSEhUeGVpQVdtaWw2Rk9qQUJtdzBuNGNIOVdPL2F0?=
- =?utf-8?B?VlhvUHRQTmUwSHU2NFk1SjE4MFhXWTYrS1NXSE85c1Q0ZWk2aEo4SHQycllG?=
- =?utf-8?B?UHdlTU5pMEI4Sm9BSmpoUGZOQzByWWZQNHBjcWRzbWRuOGZmZXdFZUROcUk0?=
- =?utf-8?B?VW93SldWZms4QTZ4RjdibjdTNEJ2c3VsVCtTN04rc2Rpc2ltaGlqY2lUbldp?=
- =?utf-8?B?dXNoTjN4VWluNmFuZlRkcHBDaDdFcmk5dC9yYlZZNjdwdlFHV2tyZkEvVHhW?=
- =?utf-8?B?YzYycU1NeTBzbE1GRG0zMGNGUU1pLzJjYUpTTzc0b2hOTys4d2hTSW9ISW9O?=
- =?utf-8?B?TklPTjdGd3BMQUdWQkFubE8wNXRYUnYrUkVkdEtBVkM4QWdKN2svTm05TTN2?=
- =?utf-8?B?R25mOERvcW1YMXM3SzN4ZnA0RGZ0K0F3SmhZVHcvK2RMYTBTeU1LZWdodFRC?=
- =?utf-8?B?eTFhc0tuL1hvM0lDMDh5ekc4dXBrOVhCTTl1RHdJS0srTHN0OXVHTVZTNVlx?=
- =?utf-8?B?dHZrR0QzUm5aTFZlUWlLaEwrRFYya05Ib2RZZTRPSDdnN0hEakpScnJTVVVJ?=
- =?utf-8?B?Y1FzYzhiclJGUlVOVmFNRy9zcXorak8wWE1xWGFKM29FbXdYZEFwekNheFNn?=
- =?utf-8?B?Q0hUYWNOSnU3eGlKczR5WGttNWNaZ2k5bGJKSHFEQy9wZUltdDFYN3luYnVa?=
- =?utf-8?B?MEdsUGNlWW4xWGN4ZDdWSlU3dXQzbmt0Qk16c09OeTI1b1kvWnJGTGpnS2VL?=
- =?utf-8?B?cTR3SldsWXBJb201R3RoZFR3YmNuZkZYakdJMURLNFU2R1o5MHdFWXlXSFdn?=
- =?utf-8?B?d0N3WXZNMlVGbFRYMEFGZElsR1ZFZW5vZzhBVCsxNXZnMUZBVFoxNjdER3RB?=
- =?utf-8?Q?3vlH5sHA6zORmnKpJcpChawAF?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2025 00:39:01.3204
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b28aea71-c1f9-4a94-4bc3-08de23df5f2b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000044FB.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5967
+References: <20251113154358.28704-1-frediano.ziglio@citrix.com>
+ <6729f3d9-618c-4dcd-93f8-d02ca7cea017@gmail.com> <8f8a769d-95ea-4554-8ee0-d6247f583e37@citrix.com>
+In-Reply-To: <8f8a769d-95ea-4554-8ee0-d6247f583e37@citrix.com>
+From: Frediano Ziglio <freddy77@gmail.com>
+Date: Sat, 15 Nov 2025 06:23:08 +0000
+X-Gm-Features: AWmQ_bmU30pKVwITGKKBYza3lhINdd4lGPLiZ8i2QtdUFIRM-pceOAFSb_bKknc
+Message-ID: <CAHt6W4eDDm-fNUB7W1Zgj+x-bkK2fxTB50C38T4Uy0_Ofy_cww@mail.gmail.com>
+Subject: Re: [PATCH v8] xen: Strip xen.efi by default
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+	Frediano Ziglio <frediano.ziglio@citrix.com>, xen-devel@lists.xenproject.org, 
+	Frediano Ziglio <frediano.ziglio@cloud.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Demi Marie Obenour <demiobenour@gmail.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Stewart Hildebrand <stewart.hildebrand@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 2025-11-14 09:44, Grygorii Strashko wrote:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
-> 
-> Now Xen supports only two paging modes: HAP and SHADOW, so
-> !paging_mode_hap() is actually means paging_mode_shadow().
-> 
-> For an abstract, future case of there being a 3rd paging mode it is also
-> better to explicitly mention checked paging mode (SHADOW) instead of using
-> negative check of another paging mode (HAP).
-> 
-> Hence, s/!paging_mode_hap()/paging_mode_shadow() which also allows DCE drop
-> unused code when SHADOW_PAGING=n.
-> The !paging_mode_hap() in hap.c not changed as HAP is checking for itself
-> to be enabled.
-> 
-> Inspired by [1].
-> 
-> [1] https://patchwork.kernel.org/project/xen-devel/patch/20251111200958.3576341-3-grygorii_strashko@epam.com/
-> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+On Fri, 14 Nov 2025 at 19:18, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>
+> On 14/11/2025 3:40 pm, Oleksii Kurochko wrote:
+> >
+> >
+> > On 11/13/25 4:43 PM, Frediano Ziglio wrote:
+> >> From: Frediano Ziglio <frediano.ziglio@cloud.com>
+> >>
+> >> For xen.gz file we strip all symbols and have an additional
+> >> xen-syms.efi file version with all symbols.
+> >> Make xen.efi more coherent stripping all symbols too.
+> >> xen-syms.efi can be used for debugging.
+> >>
+> >> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> > Release-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> >
+> > Thanks.
+>
+> Thanks.  Unfortunately CI says no.
+>
+> Ubuntu's 20.04, 18.04 and 16.04 all fail:
+> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2159622869
+>
+> From 16.04:
+>
+> 2025-11-14T18:01:51.192964Z 01O strip xen-syms.efi -o xen.efi
+> 2025-11-14T18:01:51.198151Z 01O strip:xen-syms.efi[.init]: relocation count is negative: File truncated
+> 2025-11-14T18:01:51.198166Z 01O strip: xen.efi: Failed to read debug data section
+> 2025-11-14T18:01:51.198169Z 01O strip:xen.efi: error copying private BFD data: File truncated
+> 2025-11-14T18:01:51.198932Z 01O arch/x86/Makefile:207: recipe for target 'xen.efi' failed
+> 2025-11-14T18:01:51.198937Z 01O make[3]: *** [xen.efi] Error 1
+> 2025-11-14T18:01:51.199616Z 01O build.mk:90: recipe for target 'xen' failed
+> 2025-11-14T18:01:51.199619Z 01O make[2]: *** [xen] Error 2
+> 2025-11-14T18:01:51.200402Z 01O Makefile:600: recipe for target 'xen' failed
+> 2025-11-14T18:01:51.200409Z 01O make[1]: *** [xen] Error 2
+>
+>
+> I find it hard to believe that the relocation count is really negative,
+> and given that newer binuitls works, I expect this is a binutils bug.
+>
 
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+Unless the message is just misleading I find it hard to have a
+negative number of items in a container.
+
+> Nevertheless, we need some workaround.  Given that the previous
+> behaviour was not to strip, I think we can reuse that for broken toolchains?
+>
+
+Something like that ?
+
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index a154ffe6b2..c465eb12e2 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -236,7 +236,9 @@ ifeq ($(CONFIG_DEBUG_INFO),y)
+        $(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) \
+                -O elf64-x86-64 $(TARGET)-syms.efi $@.elf
+ endif
+-       $(STRIP) $(TARGET)-syms.efi -o $@
++       $(STRIP) $(TARGET)-syms.efi -o $@ || { \
++               LANG=C strip $(TARGET)-syms.efi -o $@ 2>&1 | grep -q \
++               "relocation count is negative" && mv -f $(TARGET)-syms.efi $@; }
+ ifneq ($(CONFIG_DEBUG_INFO),y)
+        rm -f $(TARGET)-syms.efi
+ endif
+
+It will fall back to not stripping in case that bug is detected. I
+don't know how to test it.
+(the LANG=C is to always force the English message).
+
+> ~Andrew
+
+Frediano
 
