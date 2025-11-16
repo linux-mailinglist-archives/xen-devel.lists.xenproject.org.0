@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42D2CC61376
-	for <lists+xen-devel@lfdr.de>; Sun, 16 Nov 2025 12:34:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1163231.1490417 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71CFBC613C1
+	for <lists+xen-devel@lfdr.de>; Sun, 16 Nov 2025 12:43:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1163243.1490426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKb1k-0002LW-52; Sun, 16 Nov 2025 11:34:40 +0000
+	id 1vKb9y-000468-TT; Sun, 16 Nov 2025 11:43:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1163231.1490417; Sun, 16 Nov 2025 11:34:40 +0000
+Received: by outflank-mailman (output) from mailman id 1163243.1490426; Sun, 16 Nov 2025 11:43:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKb1k-0002Io-2N; Sun, 16 Nov 2025 11:34:40 +0000
-Received: by outflank-mailman (input) for mailman id 1163231;
- Sun, 16 Nov 2025 11:34:38 +0000
+	id 1vKb9y-000444-Qk; Sun, 16 Nov 2025 11:43:10 +0000
+Received: by outflank-mailman (input) for mailman id 1163243;
+ Sun, 16 Nov 2025 11:43:09 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1vKb1i-0002Ii-Gq
- for xen-devel@lists.xenproject.org; Sun, 16 Nov 2025 11:34:38 +0000
+ (envelope-from <julien@xen.org>) id 1vKb9x-00043y-TB
+ for xen-devel@lists.xenproject.org; Sun, 16 Nov 2025 11:43:09 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vKb1h-00A6bW-2s;
- Sun, 16 Nov 2025 11:34:37 +0000
+ (envelope-from <julien@xen.org>) id 1vKb9x-00A6jv-0Y;
+ Sun, 16 Nov 2025 11:43:09 +0000
 Received: from [2a02:8012:3a1:0:850b:33c3:9f1f:5f9a]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vKb1h-000aEu-1s;
- Sun, 16 Nov 2025 11:34:37 +0000
+ (envelope-from <julien@xen.org>) id 1vKb9w-000bRg-2m;
+ Sun, 16 Nov 2025 11:43:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,141 +42,113 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=MXtETNSY9doQbFirrawzKsx3HEd7bIav1Of06vFXCDY=; b=l13dhB5+eoj93ZPPa5WvCK7nfc
-	QvDo2Rwu7Jikcg6J/mgGLPZV1DmDz26NKxQfscqRqpIdL1uFI6JXZEM/1OEUlt+TKQxc19BbEF/Us
-	UOJuvdsJSXm2vsjpYHDa4yNe6Q+B0R6xEdEz2WOvetAKV5IhYBg/m03akKJZk44cd6H0=;
-Message-ID: <c648a729-4256-48ac-aa03-3cdee316d5d6@xen.org>
-Date: Sun, 16 Nov 2025 11:34:36 +0000
+	bh=VicII8vY/o+jje6S04gQAxkgnQ+Xq8DsT0fI3Yzz3ss=; b=Gc5kTf6UA2iY4mDTCk83P/niL3
+	IIru41IGkl4hG8WhzKQ4ujoaylH1MwNlpqFfFz74HlDxVtPHFB79mUY/n8xjdBDR6tE3XEJWTMJ/X
+	zNMG60uHUb4wrJy59SjbUc7rj3EZJZxCesgBWrxoG4I84QAmEIBX+2wCtndu9bWQGPGw=;
+Message-ID: <8b19fe39-f31a-4698-a004-1e57eb854082@xen.org>
+Date: Sun, 16 Nov 2025 11:43:07 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/8] arm/sysctl: Implement cpu hotplug ops
+Subject: Re: [PATCH v4 8/8] docs: Document CPU hotplug
 Content-Language: en-GB
 To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.1762939773.git.mykyta_poturai@epam.com>
- <656cb01061f2ec726eb23784d01517a94117618e.1762939773.git.mykyta_poturai@epam.com>
+ <48bafdb8e6269a3d958065c6a1062ce2736632a0.1762939773.git.mykyta_poturai@epam.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <656cb01061f2ec726eb23784d01517a94117618e.1762939773.git.mykyta_poturai@epam.com>
+In-Reply-To: <48bafdb8e6269a3d958065c6a1062ce2736632a0.1762939773.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi,
 
 On 12/11/2025 10:51, Mykyta Poturai wrote:
-> Implement XEN_SYSCTL_CPU_HOTPLUG_{ONLINE,OFFLINE} calls to allow for
-> enabling/disabling CPU cores in runtime.
-> 
-> For now this operations only support Arm64. For proper Arm32 support,
-> there needs to be a mechanism to free per-cpu page tables, allocated in
-> init_domheap_mappings.
-> Also, hotplug is not supported if ITS, FFA, or TEE is enabled, as they
-> use non-static IRQ actions.
-> 
-> Create a Kconfig option RUNTIME_CPU_CONTROL that reflects this
-> constraints.
-> 
 > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 > 
 > v3->v4:
-> * don't reimplement cpu_up/down helpers
-> * add Kconfig option
-> * fixup formatting
+> * update configuration section
 > 
 > v2->v3:
-> * no changes
-> 
-> v1->v2:
-> * remove SMT ops
-> * remove cpu == 0 checks
-> * add XSM hooks
-> * only implement for 64bit Arm
+> * patch introduced
 > ---
->   xen/arch/arm/Kconfig  |  4 ++++
->   xen/arch/arm/sysctl.c | 32 ++++++++++++++++++++++++++++++++
->   2 files changed, 36 insertions(+)
+>   docs/misc/cpu-hotplug.txt | 51 +++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 51 insertions(+)
+>   create mode 100644 docs/misc/cpu-hotplug.txt
 > 
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index cf6af68299..931ae51575 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -274,6 +274,10 @@ config PCI_PASSTHROUGH
->   	help
->   	  This option enables PCI device passthrough
->   
-> +config RUNTIME_CPU_CONTROL
-> +    def_bool y
-> +    depends on ARM_64 && !TEE && !FFA && !HAS_ITS
+> diff --git a/docs/misc/cpu-hotplug.txt b/docs/misc/cpu-hotplug.txt
+> new file mode 100644
+> index 0000000000..1fbad0ecf7
+> --- /dev/null
+> +++ b/docs/misc/cpu-hotplug.txt
+> @@ -0,0 +1,51 @@
+> +CPU Hotplug
+> +===========
 > +
->   endmenu
->   
->   menu "ARM errata workaround via the alternative framework"
-> diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
-> index 32cab4feff..3c4e29d82c 100644
-> --- a/xen/arch/arm/sysctl.c
-> +++ b/xen/arch/arm/sysctl.c
-> @@ -12,6 +12,7 @@
->   #include <xen/dt-overlay.h>
->   #include <xen/errno.h>
->   #include <xen/hypercall.h>
-> +#include <xsm/xsm.h>
->   #include <asm/arm64/sve.h>
->   #include <public/sysctl.h>
->   
-> @@ -23,6 +24,33 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
->                                          XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);
->   }
->   
-> +static long cpu_hotplug_sysctl(struct xen_sysctl_cpu_hotplug *hotplug)
+> +CPU hotplug is a feature that allows pCPU cores to be added to or removed from a
+> +running system without requiring a reboot. It is supported on x86 and Arm64
+> +architectures.
 
-As you moved the helper in common code. I was expecting the logic to 
-handle CPU_HOTPLUG_ONLINE and CPU_HOTPLUG_OFFLINE to also move in 
-common. Can you explain why this wasn't done?
+"supported" usually implies that we will backport fixes and issues XSA. 
+Is this what you intended to say?
 
-> +{
-> +#ifdef CONFIG_RUNTIME_CPU_CONTROL
-> +    int ret;
+Asking because SUPPORT.md has the following:
+
+### ACPI CPU Hotplug
+
+     Status, x86: Experimental
+
+There is also no mention for Arm in SUPPORT.md. As you enable the 
+feature, we should clarify what's its state.
+	> +
+> +Implementation Details
+> +----------------------
 > +
-> +    switch ( hotplug->op )
-> +    {
-> +    case XEN_SYSCTL_CPU_HOTPLUG_ONLINE:
-> +        ret = xsm_resource_plug_core(XSM_HOOK);
-> +        if ( ret )
-> +            return ret;
-> +        return continue_hypercall_on_cpu(0, cpu_up_helper, _p(hotplug->cpu));
+> +CPU hotplug is implemented through the `XEN_SYSCTL_CPU_HOTPLUG_*` sysctl calls.
+> +The specific calls are:
 > +
-> +    case XEN_SYSCTL_CPU_HOTPLUG_OFFLINE:
-> +        ret = xsm_resource_unplug_core(XSM_HOOK);
-> +        if ( ret )
-> +            return ret;
-> +        return continue_hypercall_on_cpu(0, cpu_down_helper, _p(hotplug->cpu));
+> +- `XEN_SYSCTL_CPU_HOTPLUG_ONLINE`: Brings a pCPU online
+> +- `XEN_SYSCTL_CPU_HOTPLUG_OFFLINE`: Takes a pCPU offline
+> +- `XEN_SYSCTL_CPU_HOTPLUG_SMT_ENABLE`: Enables SMT threads (x86 only)
+> +- `XEN_SYSCTL_CPU_HOTPLUG_SMT_DISABLE`: Disables SMT threads (x86 only)
 > +
-> +    default:
-> +        return -EOPNOTSUPP;
-> +    }
-> +#else
-> +    return -EOPNOTSUPP;
-> +#endif
-> +}
+> +All cores can be disabled, assuming hardware support, except for core 0. Sysctl
+> +calls are routed to core 0 before doing any actual up/down operations on other
+> +cores.
 > +
->   long arch_do_sysctl(struct xen_sysctl *sysctl,
->                       XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->   {
-> @@ -34,6 +62,10 @@ long arch_do_sysctl(struct xen_sysctl *sysctl,
->           ret = dt_overlay_sysctl(&sysctl->u.dt_overlay);
->           break;
->   
-> +    case XEN_SYSCTL_cpu_hotplug:
-> +        ret = cpu_hotplug_sysctl(&sysctl->u.cpu_hotplug);
-> +        break;
+> +Configuration
+> +-------------
 > +
->       default:
->           ret = -ENOSYS;
->           break;
+> +Sysctl handlers are enabled unconditionally on x86 architecture. On Arm64,
+> +handlers are enabled by default when ITS, FFA, and TEE configs are disabled.
+> +Building of the userspace tool "hptool" is controlled by the "hptool" flag in
+> +the configure script. It is enabled by default and can be disabled with
+> +--disable-hptool command line option.
+> +
+> +Usage
+> +-----
+> +
+> +Disable core:
+> +
+> +$ xen-hptool cpu-offline 2
+> +Prepare to offline CPU 2
+> +(XEN) Removing cpu 2 from runqueue 0
+> +CPU 2 offlined successfully
+> +
+> +Enable core:
+> +
+> +$ xen-hptool cpu-online 2
+> +Prepare to online CPU 2
+> +(XEN) Bringing up CPU2
+> +(XEN) GICv3: CPU2: Found redistributor in region 0 @00000a004005c000
+> +(XEN) CPU2: Guest atomics will try 1 times before pausing the domain
+> +(XEN) CPU 2 booted.
+> +(XEN) Adding cpu 2 to runqueue 0
+> +CPU 2 onlined successfully
 
 Cheers,
 
