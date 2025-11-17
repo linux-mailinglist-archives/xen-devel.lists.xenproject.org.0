@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92526C648CA
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 15:05:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1163954.1490987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9275EC648D9
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 15:06:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1163965.1490997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKzrB-0005Jw-7u; Mon, 17 Nov 2025 14:05:25 +0000
+	id 1vKzsC-0005nc-GX; Mon, 17 Nov 2025 14:06:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1163954.1490987; Mon, 17 Nov 2025 14:05:25 +0000
+Received: by outflank-mailman (output) from mailman id 1163965.1490997; Mon, 17 Nov 2025 14:06:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKzrB-0005H6-54; Mon, 17 Nov 2025 14:05:25 +0000
-Received: by outflank-mailman (input) for mailman id 1163954;
- Mon, 17 Nov 2025 14:05:23 +0000
+	id 1vKzsC-0005lf-DS; Mon, 17 Nov 2025 14:06:28 +0000
+Received: by outflank-mailman (input) for mailman id 1163965;
+ Mon, 17 Nov 2025 14:06:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6Jhw=5Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vKzr9-0005H0-8J
- for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 14:05:23 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1vKzsA-0005lZ-MD
+ for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 14:06:26 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7439ecfc-c3be-11f0-980a-7dc792cee155;
- Mon, 17 Nov 2025 15:05:21 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-640d0ec9651so7217634a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 06:05:21 -0800 (PST)
+ id 9a2ae6b6-c3be-11f0-980a-7dc792cee155;
+ Mon, 17 Nov 2025 15:06:24 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-b73161849e1so747492966b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 06:06:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a4b1fadsm10885503a12.31.2025.11.17.06.05.18
+ a640c23a62f3a-b734fad41cesm1069832766b.16.2025.11.17.06.06.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Nov 2025 06:05:19 -0800 (PST)
+ Mon, 17 Nov 2025 06:06:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7439ecfc-c3be-11f0-980a-7dc792cee155
+X-Inumbo-ID: 9a2ae6b6-c3be-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763388320; x=1763993120; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763388384; x=1763993184; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oi15DKT3aDsg6QpimKdL+Q5O4OWBWSHT2/3dLqG5Y+U=;
-        b=Iwy1ntzgN9L4Bfk+X+vqau3AnQEk+6W47iBVStsA3aqBM9PoV/Db7As5bDHHicQfOJ
-         1QNpxEHsYZLMtFUgRFX7tiwiyM0a5A6T/BtA1oJvgp7EHvKFSpTCnWmRQGN3LEN7i7qD
-         QMHVriQxaVgA7wpa2/YVfvcMPOCC1dItJBlxSgunKHmHI8CfQsNz3RP3f+HKiY0R08vK
-         MOZCqGabVt8c/2KG89uZwGd8pJe5Dt8ilziCJoygbd5Db+gAt2KLBtzEpYxoRGtikF4R
-         sowgO2U7/ZBP/vr88uRC64eIvmTTuJEiOVJHWwsM6jGW9TzpD2tbVKLCNy/+nu6Hm4gG
-         RYJA==
+        bh=SsMybJeNLcUHgJongywDT624v6pbOOCP6TG9WWFzqrY=;
+        b=YFMcX4hOkV3CDnWq0OQUyg6wRhBdPf/pb3BFlNf3fMX7HxrHjfO+oe75ddBvVB4vxt
+         N+epha6QUTV2q8oCcY9t2haoDPeg5IAAjqvS2hAiJFFC7T1miUdzLf949xq33nLQn7Sk
+         AOqeMJCO55yzzoCjXHS63/4BZvnfZzexkTcP7FczMiD9Im3KG9WGc+NxdpZjXNZA2psD
+         xG6ri6GvtBJE1aQRg8zWVnUAsqbmn533plhQjXocZCJbO6b2+0ufRbUpvmLtDaQQWJ2X
+         encSehO72znsnVBGf1HHeAYVya+T4LmgPKPtK3qAnaaWeXExlJdqWB74FyaeMEOuAVx/
+         Y3kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763388320; x=1763993120;
+        d=1e100.net; s=20230601; t=1763388384; x=1763993184;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oi15DKT3aDsg6QpimKdL+Q5O4OWBWSHT2/3dLqG5Y+U=;
-        b=iOR/LD1f1dwn47QwP5HV4L5O1oG97zqrz8iSGtkia/3QhFQdSV5JtXhBrI3nM+eggr
-         K8z+sPJQWJ1jynnQSFXnqGQVmGN06RoeIClQCuFe33Da4AMsV7M4sMdjrx5miuV1FH7a
-         s8tpn6gwVORPCQp1SEtmrEyop8Io2WapAWeqa8fxl2aYVEne0NgrC2an7jQGo1xT784m
-         JUrdDl9ZzWORoHcOIiKowQxWuniOOWu+OR7F479jqyI2tIPipP5I3CDavRe+2v1OJ1hw
-         ++LqPBFYpLY2hkam38DQFFIN+7dGaGrOOw4wGLyRgKDQ7XqWMktMKOtMD1G04j/YxV8J
-         r3Pw==
-X-Forwarded-Encrypted: i=1; AJvYcCVPYeqfJ+edZUNsjwWdDkzZFm5tijblGZNRHHN1CJv/d97jBwlhQ6x+DqdqHtobZrqKabNjt4+IIa8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz94bJZhiIYwf8J1dT3p5cyIWMkaxM1Cr+mk8Wz7pWKscrmgpH6
-	HKyXFFjlN7QZLzLhfW0O5ecIOwGihTAarD7V/uSWzNZ5KYJedWP4GATXoz2NDHvuBQ==
-X-Gm-Gg: ASbGncsZSjKGWyfbh3m+1//paOzI133YK3fSsoJksKuFLbEKJqe3Qi8lasS2pvCRtvc
-	WtRzuxYKpZ4/bIGQSZ8jHxGNbHhBT0ob3gcjUljvwG4cC4Re7f2KiXKa47Lm7FYobTIw2jfKCez
-	NvIRO011Uii0lFTuxxDitInGxlQCOHSFzkgwusi3/7dBbEsnn1ozqCMJZFuNazhAUD142od0gAS
-	SoskhYPh6TnuEb5tUQHvsCrLZGbfcy3PaYJQy03QNhe4SG8W1AhKPpy8BagS4330a+7EVCQGGwV
-	KyhLysTGLz4F+mP+hh45o5nq1mqke5m6A4GpPbjGISK/lwAg0LLG6tJqJeZKGgB0ePzjubOVxTu
-	QFN642748IgrhgUl358QZ4gnsAyo+NoZYS2K8vTHFcHIGr9/0Dra7rgmRfATYGBQhM1BdH8XDx8
-	wk1oJSuVs9LfXqnkDwUDYAlZukJjNGtBrCMer1z+PMbuG2GPY05aTwoj/XJVs0X3Tn2+NIXV6Z3
-	hs=
-X-Google-Smtp-Source: AGHT+IEc5NYvTEyzp4bpEqgfqSNbLl+WC01KST4xXvQKVgmfCLvJrW7R14G6A1Z6/cmBBWwvxUmk2A==
-X-Received: by 2002:a05:6402:2691:b0:640:a9b1:870b with SMTP id 4fb4d7f45d1cf-64350e21a78mr11764085a12.14.1763388320485;
-        Mon, 17 Nov 2025 06:05:20 -0800 (PST)
-Message-ID: <3eca4c7a-0d72-4149-892e-c3ffcfca0ed4@suse.com>
-Date: Mon, 17 Nov 2025 15:05:19 +0100
+        bh=SsMybJeNLcUHgJongywDT624v6pbOOCP6TG9WWFzqrY=;
+        b=rrOd/SD3ykJpQ/bui06WBO9sJssA9IJYi1P5j16xiF+upaCalQiP6LzBOtf7/2AkI0
+         p94pqBUQAXOLmgtZGVarS4y+b0/GPr8FQdpjaTNPH9VRk+f9txfIvR/NDmA94kV9Tekm
+         6Q4MH5rapA/P/Net61h1Eu7d7WE/o+SywJWJofpfS+o90PQfqu/JxxaDYeQE+30BbJlt
+         usAqp4I5algiR4iGcsI1u/VEOXrpBlBYG21EypDo4o2PmezAOqkBoqZlxegZnccYuy+A
+         gkr/sagC2Os4bqUwCkIR5er+rhv4mBfrQLNwD/NKq/GQrM4bqyncEb44CwY7cSWhzCpr
+         kYEA==
+X-Forwarded-Encrypted: i=1; AJvYcCUjQnoSmTZ8Jr4hexIdiZNZLGFiamXoOXGd6Xpq2yLh6jIpMhjob1Za2YEk53MH0OmK3kCf8HVXAuY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwzsENdLej50jfm4a5OunUW5r1Ju+eZ4OZIb9vKXBckMCbeSUlg
+	rW/F4gPKGAQ/zd4CYRxmj0e6Q/xtAnL5E26wY/Mhnj1vvS1VMmV6ZVFsLEpQMpAmsQ==
+X-Gm-Gg: ASbGncuxGpNq7GbEMrRaR3mPci95qTQ7Mz2YHpH1u39ilho9g2QzLJHFEUUWU41CyGn
+	ao/7HeJHpqbKKJbc8K6vM6pg23BvXAcCXI8OstAs9KVLa3aatB0rTokPNWQvKou9W3p+zOkxVyW
+	aNU7SXUBhK6e9jC5iBCH5Pjb0Ra4fKQj0FnCynGKQmP80dQOti+Ec9ROw6MKw/dF6wSMQcH7o7N
+	5qlEkh+pbXKV3THfBxUuFA2Nz1zhCnhvqnyFLR2WLJqL0DoWSP4ZieDX2+owKdy7MnRIcdi90Ba
+	hwoufrWVqfI3AYr3PF31q+usuhh+8Byu190cp3wHUfm9gbcdxSUVXyFBKMd0hBVqrsNUc8mo2a1
+	Nj5pLMCH1ih5aLw6RfpgKtvefFMopIrqQ3FR89JupFzbW6R99AvCrzkCKkJdulfob5975WLHXKE
+	fPpE6rGgrAWWb+L0nNzYRSwNk8kd3V76QKwLpzsTCgcvSpP+X7zXtgumF/v9QHEbBMWcmq6Ilry
+	bCVpUW4zigCqOArvqxro7Ku
+X-Google-Smtp-Source: AGHT+IHuAWQxWa3dxctrAGzh/VvFciAKb/DIQ4hrRph25Oi7F9Zgy5Us7kirYd+2aQcCpOeXd5bwAg==
+X-Received: by 2002:a17:907:6d2a:b0:b50:a389:7aa4 with SMTP id a640c23a62f3a-b73677eea3bmr1315555066b.13.1763388384054;
+        Mon, 17 Nov 2025 06:06:24 -0800 (PST)
+Message-ID: <401757d0-643d-4901-9859-9ac110888883@suse.com>
+Date: Mon, 17 Nov 2025 15:06:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] build: add make macro for making file from file.in
+Subject: Re: [PATCH v2 2/4] docs: replace @xxx@ markers at build time
 To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20251114113238.9279-1-jgross@suse.com>
- <20251114113238.9279-2-jgross@suse.com>
- <936632a3-d713-4183-b1db-5a554b617b74@suse.com>
- <7577ceec-1271-4569-91f1-fd7197a33991@suse.com>
- <f42863be-aef8-4a7b-915b-235bd89a8341@suse.com>
- <7ce4dd85-d88d-420d-b6da-9bee9fe61017@suse.com>
+ <20251114113238.9279-3-jgross@suse.com>
+ <7e24823f-cce1-4430-83f1-ebde6986efa4@citrix.com>
+ <2de93313-9f1b-46a7-99c8-618281aff2f1@suse.com>
+ <e4d19c4e-8eac-400f-8e3a-83684a290da6@suse.com>
+ <0ed9b152-6465-4736-be59-352d68b77e6f@suse.com>
+ <45c6d3dd-3901-4609-918b-ba6b685d6496@suse.com>
+ <d0f7a82a-b3f9-4716-a5a0-a8605da65243@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,53 +126,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7ce4dd85-d88d-420d-b6da-9bee9fe61017@suse.com>
+In-Reply-To: <d0f7a82a-b3f9-4716-a5a0-a8605da65243@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 17.11.2025 14:10, Jürgen Groß wrote:
-> On 17.11.25 13:54, Jan Beulich wrote:
->> On 17.11.2025 13:48, Jürgen Groß wrote:
->>> On 17.11.25 13:29, Jan Beulich wrote:
->>>> On 14.11.2025 12:32, Juergen Gross wrote:
->>>>> --- a/Config.mk
->>>>> +++ b/Config.mk
->>>>> @@ -159,6 +159,19 @@ define move-if-changed
->>>>>    	if ! cmp -s $(1) $(2); then mv -f $(1) $(2); else rm -f $(1); fi
->>>>>    endef
->>>>>    
->>>>> +PATH_FILES := Paths
->>>>> +INC_FILES := $(foreach f, $(PATH_FILES), $(XEN_ROOT)/config/$(f).mk)
->>>>> +
->>>>> +include $(INC_FILES)
->>>>
->>>> Is any of the above part of introducing the macro? "Paths" is already a
->>>> specific case of holding patterns that want replacing. In turn ...
->>>>
->>>>> +BUILD_MAKE_VARS := $(foreach f, $(PATH_FILES), $(shell awk '$$2 == ":=" { print $$1; }' $(XEN_ROOT)/config/$(f).mk.in))
->>>>
->>>> ... it's not quite clear to me how it can be $(PATH_FILES) here.
->>>
->>> See patch 4.
->>>
->>> PATH_FILES is specifying the .mk files containing the marker definitions.
->>> I need the ability to have multiple such files in order to be able to let
->>> tools/configure build its own definitions.
->>
->> That's a good example - why would that affect the stubdom/ part of the tree?
->> Imo what pattern file(s) to use wants leaving to the invokee of the macro,
->> not pinning down globally for everyone.
-> 
-> Yes, I could add the tools specific marker file in the use cases under tools.
-> 
-> The question is whether adding it to 6 Makefiles is really worth that
-> optimization, especially as only building the man files would be effected
-> right now (which could change in future, of course).
+On 17.11.2025 14:17, Jürgen Groß wrote:
+> And using $(wildcard <path>/*.in) is not an option, as that would reintroduce
+> the need to distinguish the configure-time and build-time *.in files,
 
-Sticking to Paths.mk (which sits in the global config/ subtree anyway) might
-be okay. The new (tools/ specific aiui) file you add later doesn't really
-belong there, though. Therefore the macro may want to be constructed such
-that it can be used both ways.
+Hmm, yes, if there's a mix of them in any one directory, that wouldn't work.
 
 Jan
+
+> which
+> I solved in V1 of my series by renaming the build-time ones to *.src.
+> 
+> 
+> Juergen
+
 
