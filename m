@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9275EC648D9
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 15:06:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1163965.1490997 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4418BC64921
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 15:10:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1163978.1491008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKzsC-0005nc-GX; Mon, 17 Nov 2025 14:06:28 +0000
+	id 1vKzvQ-0006Qv-Tm; Mon, 17 Nov 2025 14:09:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1163965.1490997; Mon, 17 Nov 2025 14:06:28 +0000
+Received: by outflank-mailman (output) from mailman id 1163978.1491008; Mon, 17 Nov 2025 14:09:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKzsC-0005lf-DS; Mon, 17 Nov 2025 14:06:28 +0000
-Received: by outflank-mailman (input) for mailman id 1163965;
- Mon, 17 Nov 2025 14:06:26 +0000
+	id 1vKzvQ-0006Ol-QN; Mon, 17 Nov 2025 14:09:48 +0000
+Received: by outflank-mailman (input) for mailman id 1163978;
+ Mon, 17 Nov 2025 14:09:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6Jhw=5Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vKzsA-0005lZ-MD
- for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 14:06:26 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1vKzvP-0006Of-5H
+ for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 14:09:47 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a2ae6b6-c3be-11f0-980a-7dc792cee155;
- Mon, 17 Nov 2025 15:06:24 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-b73161849e1so747492966b.2
- for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 06:06:24 -0800 (PST)
+ id 0fcd84a6-c3bf-11f0-980a-7dc792cee155;
+ Mon, 17 Nov 2025 15:09:42 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-64162c04f90so7088343a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 06:09:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fad41cesm1069832766b.16.2025.11.17.06.06.22
+ a640c23a62f3a-b734fad4487sm1116583266b.22.2025.11.17.06.09.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Nov 2025 06:06:22 -0800 (PST)
+ Mon, 17 Nov 2025 06:09:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a2ae6b6-c3be-11f0-980a-7dc792cee155
+X-Inumbo-ID: 0fcd84a6-c3bf-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763388384; x=1763993184; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763388581; x=1763993381; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SsMybJeNLcUHgJongywDT624v6pbOOCP6TG9WWFzqrY=;
-        b=YFMcX4hOkV3CDnWq0OQUyg6wRhBdPf/pb3BFlNf3fMX7HxrHjfO+oe75ddBvVB4vxt
-         N+epha6QUTV2q8oCcY9t2haoDPeg5IAAjqvS2hAiJFFC7T1miUdzLf949xq33nLQn7Sk
-         AOqeMJCO55yzzoCjXHS63/4BZvnfZzexkTcP7FczMiD9Im3KG9WGc+NxdpZjXNZA2psD
-         xG6ri6GvtBJE1aQRg8zWVnUAsqbmn533plhQjXocZCJbO6b2+0ufRbUpvmLtDaQQWJ2X
-         encSehO72znsnVBGf1HHeAYVya+T4LmgPKPtK3qAnaaWeXExlJdqWB74FyaeMEOuAVx/
-         Y3kA==
+        bh=VXNtjF6veLw1YHLqTY8l6Q2aj1InYFAF5HJx/Kwd3Qk=;
+        b=IT/pfZPrI8GT1m3RTJmvo4E35Vk7b3FhjG9fNipFjVyaPGEtLKVaw5gyZa0xttV7Tm
+         SMGFy/3begJ7EXqBuwqLczFsqSxg4eapz50xncsB4Wr7N+fX6WcK688FS+nTKQSCI6MB
+         KsDsavxBK2eEG4wlIx268IyLeGy6eKPyRL0EYD2QFHoXYCkLy2kp78tfARU4uGdUuMsL
+         2H7WvrSLx4MeZCdXi6gUQUqATH9LD+4Js7LrgpuJ/9K0dn8a+ilrrfkNYiUlqHkTOsgT
+         znyiyJwAuwTmHV/VG/tYC+nrlKypadAx4Vlxo5vZjg4EzplT6wNd5V/55AEvouf9NxPA
+         LiWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763388384; x=1763993184;
+        d=1e100.net; s=20230601; t=1763388581; x=1763993381;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SsMybJeNLcUHgJongywDT624v6pbOOCP6TG9WWFzqrY=;
-        b=rrOd/SD3ykJpQ/bui06WBO9sJssA9IJYi1P5j16xiF+upaCalQiP6LzBOtf7/2AkI0
-         p94pqBUQAXOLmgtZGVarS4y+b0/GPr8FQdpjaTNPH9VRk+f9txfIvR/NDmA94kV9Tekm
-         6Q4MH5rapA/P/Net61h1Eu7d7WE/o+SywJWJofpfS+o90PQfqu/JxxaDYeQE+30BbJlt
-         usAqp4I5algiR4iGcsI1u/VEOXrpBlBYG21EypDo4o2PmezAOqkBoqZlxegZnccYuy+A
-         gkr/sagC2Os4bqUwCkIR5er+rhv4mBfrQLNwD/NKq/GQrM4bqyncEb44CwY7cSWhzCpr
-         kYEA==
-X-Forwarded-Encrypted: i=1; AJvYcCUjQnoSmTZ8Jr4hexIdiZNZLGFiamXoOXGd6Xpq2yLh6jIpMhjob1Za2YEk53MH0OmK3kCf8HVXAuY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwzsENdLej50jfm4a5OunUW5r1Ju+eZ4OZIb9vKXBckMCbeSUlg
-	rW/F4gPKGAQ/zd4CYRxmj0e6Q/xtAnL5E26wY/Mhnj1vvS1VMmV6ZVFsLEpQMpAmsQ==
-X-Gm-Gg: ASbGncuxGpNq7GbEMrRaR3mPci95qTQ7Mz2YHpH1u39ilho9g2QzLJHFEUUWU41CyGn
-	ao/7HeJHpqbKKJbc8K6vM6pg23BvXAcCXI8OstAs9KVLa3aatB0rTokPNWQvKou9W3p+zOkxVyW
-	aNU7SXUBhK6e9jC5iBCH5Pjb0Ra4fKQj0FnCynGKQmP80dQOti+Ec9ROw6MKw/dF6wSMQcH7o7N
-	5qlEkh+pbXKV3THfBxUuFA2Nz1zhCnhvqnyFLR2WLJqL0DoWSP4ZieDX2+owKdy7MnRIcdi90Ba
-	hwoufrWVqfI3AYr3PF31q+usuhh+8Byu190cp3wHUfm9gbcdxSUVXyFBKMd0hBVqrsNUc8mo2a1
-	Nj5pLMCH1ih5aLw6RfpgKtvefFMopIrqQ3FR89JupFzbW6R99AvCrzkCKkJdulfob5975WLHXKE
-	fPpE6rGgrAWWb+L0nNzYRSwNk8kd3V76QKwLpzsTCgcvSpP+X7zXtgumF/v9QHEbBMWcmq6Ilry
-	bCVpUW4zigCqOArvqxro7Ku
-X-Google-Smtp-Source: AGHT+IHuAWQxWa3dxctrAGzh/VvFciAKb/DIQ4hrRph25Oi7F9Zgy5Us7kirYd+2aQcCpOeXd5bwAg==
-X-Received: by 2002:a17:907:6d2a:b0:b50:a389:7aa4 with SMTP id a640c23a62f3a-b73677eea3bmr1315555066b.13.1763388384054;
-        Mon, 17 Nov 2025 06:06:24 -0800 (PST)
-Message-ID: <401757d0-643d-4901-9859-9ac110888883@suse.com>
-Date: Mon, 17 Nov 2025 15:06:23 +0100
+        bh=VXNtjF6veLw1YHLqTY8l6Q2aj1InYFAF5HJx/Kwd3Qk=;
+        b=CfDQqY99vtIyNTaMo+MlH5eODko2N1YZE+3mX2SbH2I1ZMmV46vk2HGEnk9ZyHgp0m
+         4pUK4u/Tzn7BF9g4TJPc06UqRyMZAIsRR+QyoPi3uvGy7SrQdcgky0bvDMfaAa38Daxz
+         tEJkFjhjTFRYm/4sFOToNm9vdKBpzSSN8Fz7dN0nsbvbpyh/MJ3CIPGeceqFhVjj84lO
+         TZgXlH82Hm53qTaloNyxbA+mkPJGZMb78ALhyv60IjGYCPvKBb/y4Xxuc8Z+nNqNDenf
+         XG3CK1IKmWCE5Kb42AABniCIx7EwPLwO54QA5ru3mxkkT6XfZt/zLNEvYLybNxDNVsy7
+         Nb2Q==
+X-Forwarded-Encrypted: i=1; AJvYcCV+scUX2Z/Aq4+4BD0r/owG1QSFl5mxzCiF8hT84m12RYhRcuBS1Rhpkg/EZ+yS72ECjXTaS6kO8+g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwENEG2LwtMIo706mL3cnmXo+xo4tf1nVx3e1WDuqO1S+q6DMn4
+	ksxXjjnXTolvEZHPypnTkzlGyyk9vKek9mvbRaO0MD5KHGBrSSoPGtjvskdSIpVOWg==
+X-Gm-Gg: ASbGncvIefu/h2h38rbMGtVdSMygBawUxT3+eQbPjSxrODetoyFq1c9ihnojAWu504x
+	ptPng+0qKamDOvOHNDzHQjh9/eOw5f0u+MNxyF6CRxik0RTR5T6oYYxexdQTEdIRvkLz8XoF5P/
+	rNTpLCWMm8IRLYE8Gf6W5poRDYGbrTktK7gJj/JysvzNk6fb8k7gGWuXTBkHgXsLvG5H1fLBvMi
+	l0ykDcigvblzY97T+0R956pngULxXj8PlRLWG4LWyvLVeftF5IkVB7bND+y4Alsd6eydjrwTW6I
+	MDY6nMOdO/mUDtN+dntEQEcWM/lBv/iedLCL2qpzPucbl6tOYOmoE3cV2qQjxcLWQiB57qFcY17
+	oiRMaEIPcg7GlsSFko7VzJFcYJqQIS+aWzpOkZ+fx3C2wQDrwmlXmrWPTWHKDVw3otz0VpiSPCb
+	ih+5wACaThurla3EqGUpXuO7FOKRllxr6CXCG3Ewz+00/TCm+914HgBBizy4r7PxOs5jyzU14j0
+	Uv5ScTeCKl4Hg==
+X-Google-Smtp-Source: AGHT+IFFPMtK1WSA7NW/A+hNFQHScjfbrnsNzatTFCJ9a+4pzx/MH71FS0QTyI/mnt2ZkrL5GnRnFQ==
+X-Received: by 2002:a17:907:1c27:b0:b73:3e15:a370 with SMTP id a640c23a62f3a-b7367c001f0mr1349226366b.57.1763388581464;
+        Mon, 17 Nov 2025 06:09:41 -0800 (PST)
+Message-ID: <e0f69901-b8d4-4af0-b085-d936fdfcb0fd@suse.com>
+Date: Mon, 17 Nov 2025 15:09:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] docs: replace @xxx@ markers at build time
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20251114113238.9279-1-jgross@suse.com>
- <20251114113238.9279-3-jgross@suse.com>
- <7e24823f-cce1-4430-83f1-ebde6986efa4@citrix.com>
- <2de93313-9f1b-46a7-99c8-618281aff2f1@suse.com>
- <e4d19c4e-8eac-400f-8e3a-83684a290da6@suse.com>
- <0ed9b152-6465-4736-be59-352d68b77e6f@suse.com>
- <45c6d3dd-3901-4609-918b-ba6b685d6496@suse.com>
- <d0f7a82a-b3f9-4716-a5a0-a8605da65243@suse.com>
+Subject: Re: [PATCH v3] ioreq: Make sure ioreq is always in-bounds
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julian Vetter <julian.vetter@vates.tech>, xen-devel@lists.xenproject.org
+References: <dddbae09e8e6b94a20f5ce24f3560dd15e5c6c01.1763382746.git.teddy.astie@vates.tech>
+ <97ffeca9-348e-4997-a223-359fefa83107@suse.com>
+ <8e1403ce-c333-4236-b38a-82525c7b542f@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,22 +125,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d0f7a82a-b3f9-4716-a5a0-a8605da65243@suse.com>
+In-Reply-To: <8e1403ce-c333-4236-b38a-82525c7b542f@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 17.11.2025 14:17, Jürgen Groß wrote:
-> And using $(wildcard <path>/*.in) is not an option, as that would reintroduce
-> the need to distinguish the configure-time and build-time *.in files,
+On 17.11.2025 14:43, Teddy Astie wrote:
+> Le 17/11/2025 à 13:46, Jan Beulich a écrit :
+>> On 17.11.2025 13:35, Teddy Astie wrote:
+>>> A 4K page appears to be able to hold 128 ioreq entries, which luckly
+>>> matches the current vCPU limit. However, if we decide to increase the
+>>> domain vCPU limit, that doesn't hold anymore and this function would now
+>>> silently create a out of bounds pointer leading to confusing problems.
+>>>
+>>> All architectures with ioreq support don't support 128 vCPU limit for
+>>> HVM guests, and  have pages that are at least 4 KB large, so this case
+>>> doesn't occurs in with the current limits.
+>>>
+>>> For the time being, make sure we can't make a Xen build that can
+>>> accidentally make a out of bounds pointers here.
+>>>
+>>> No functional change.
+>>>
+>>> Reported-by: Julian Vetter <julian.vetter@vates.tech>
+>>> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+>>
+>> I was meaning to ack this, but ...
+>>
+>>> --- a/xen/common/ioreq.c
+>>> +++ b/xen/common/ioreq.c
+>>> @@ -99,6 +99,7 @@ static ioreq_t *get_ioreq(struct ioreq_server *s, struct vcpu *v)
+>>>   
+>>>       ASSERT((v == current) || !vcpu_runnable(v));
+>>>       ASSERT(p != NULL);
+>>> +    BUILD_BUG_ON(HVM_MAX_VCPUS > (PAGE_SIZE / sizeof(struct ioreq)));
+>>
+>> ... does this even build on e.g. Arm? IOREQ_SERVER is a setting which can be
+>> enabled (with EXPERT=y) also for non-x86. Yet HVM_MAX_VCPUS looks to be an
+>> x86-only thing. (I then also wonder about some of what the description says).
+>>
+>> Just to mention (no further change requested at this point, in this regard):
+>> HVM_MAX_VCPUS being part of the public interface, we'll need to see whether we
+>> can sensibly retain that identifier to carry changed meaning once we up the
+>> limit. The check here may therefore not trigger at that point; the hope then
+>> is that while making respective changes, people would at least stumble across
+>> it by e.g. seeing it in grep output.
+>>
+> 
+> Apparently it doesn't build (debian-bookworm-gcc-arm32-randconfig 
+> catched it).
+> ARM does provide MAX_VIRT_CPUS and GUEST_MAX_VCPUS which is 128 or 
+> lower, but that doesn't map (or not properly) with what we have in x86 
+> (MAX_VIRT_CPUS=8192 is PV-specific, and GUEST_MAX_VCPUS doesn't exist).
+> 
+> I am not sure what to do, looks like many things are redundant here.
 
-Hmm, yes, if there's a mix of them in any one directory, that wouldn't work.
+Maybe non-x86 could surface HVM_MAX_VCPUS as an alias of whatever they already
+got, much like CONFIG_HVM exists also for Arm, and will likely need introducing
+for PPC and RISC-V (despite not being overly meaningful for non-x86)?
 
 Jan
-
-> which
-> I solved in V1 of my series by renaming the build-time ones to *.src.
-> 
-> 
-> Juergen
-
 
