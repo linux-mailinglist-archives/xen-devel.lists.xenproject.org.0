@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1987C64AC0
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 15:39:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1164104.1491118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE401C64AC6
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 15:40:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1164118.1491128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vL0OB-00088Q-FU; Mon, 17 Nov 2025 14:39:31 +0000
+	id 1vL0OY-0000G4-SH; Mon, 17 Nov 2025 14:39:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1164104.1491118; Mon, 17 Nov 2025 14:39:31 +0000
+Received: by outflank-mailman (output) from mailman id 1164118.1491128; Mon, 17 Nov 2025 14:39:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vL0OB-00086n-CX; Mon, 17 Nov 2025 14:39:31 +0000
-Received: by outflank-mailman (input) for mailman id 1164104;
- Mon, 17 Nov 2025 14:39:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vL0OY-0000D3-Om; Mon, 17 Nov 2025 14:39:54 +0000
+Received: by outflank-mailman (input) for mailman id 1164118;
+ Mon, 17 Nov 2025 14:39:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6Jhw=5Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vL0OA-0007Pr-SI
- for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 14:39:30 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 39b229e4-c3c3-11f0-9d18-b5c5bf9af7f9;
- Mon, 17 Nov 2025 15:39:30 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-b7277324204so574071566b.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 06:39:30 -0800 (PST)
+ id 1vL0OX-00079j-6y
+ for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 14:39:53 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 464e5df0-c3c3-11f0-980a-7dc792cee155;
+ Mon, 17 Nov 2025 15:39:51 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-b7355f6ef12so723024466b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 06:39:51 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fedb2eesm1089927466b.68.2025.11.17.06.39.29
+ a640c23a62f3a-b734fa81172sm1085670266b.15.2025.11.17.06.39.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Nov 2025 06:39:29 -0800 (PST)
+ Mon, 17 Nov 2025 06:39:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39b229e4-c3c3-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 464e5df0-c3c3-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763390370; x=1763995170; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763390391; x=1763995191; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Yfju5TuSYr1gnKBFs17R38Pvw/Jb2fzNTTH63D/Pa3U=;
-        b=M7I822gJPFWI4MHnpyr7sWzwrYwyv165WM3oRfNaztDlWZ+cNeFJXYNQBENgindruD
-         t3KlUobWSyWNiTna8nt3Hv7uBlmEkmGjnXOeMZHDWHgppKrjg21pQMXs5gJEUQsxigPq
-         4XdSn2mD7+SheiFyBJ9aUm93svu6NLW+LzvFVd2MW4beThK/kdzvkUs2kD5KSXQtVcVa
-         rvXrW2GzA5wXkqSOLK5WPQ1Wgpr/vWFq5AjF0sK6crPxzkdpyuv9RzNHVS9ewq8CiHac
-         xvXZvjkCsKDdZqN1qvv0bQQhj5ZHfHaSvVIy+Bghr8UE7fhpPo5sCqigqKFTFz+llPOJ
-         an1Q==
+        bh=y0auAxXnuppooklnSDerPgHwMUEE+NEjFepbTDvIXXk=;
+        b=PzefT0+Tt6vUwGzEcU25LGh2cqy/7E1+tWQUJlYz4ZdRKa4jd7ThJo1w1hLrCLjf/8
+         D1/RGQVqGPehmg6pWgV5H2Yr/E3uEIhRt5YwgJPPl1PIAa5d29fXbtHcefjPmImfVYqE
+         WJQzOhhhxpEob1Qw5t5q3omZbvzF+TlrN+9ouiHkFnx7XJABaiQJITD/ps8+wvXFPL95
+         elhCbdEbjZ/PrfXBVXWnF2ZDvGymAWRrwO0EnDwVK4Psto5wMarUahLzNg6gPuC2FfHf
+         Rk923IN55wZ9ZPTrYQc/ksiVx4Jm1hNNWxqRxcV1gXE+3XZxOfjSzsCCk73m1S4Wzddc
+         F5Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763390370; x=1763995170;
+        d=1e100.net; s=20230601; t=1763390391; x=1763995191;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Yfju5TuSYr1gnKBFs17R38Pvw/Jb2fzNTTH63D/Pa3U=;
-        b=HwBYHnCH00oRdtCgeu9sEWpRYsFjOERB6ev1YSpCTX4egwdw8+ACg4LCRJqrNe5h89
-         hSHy/vKcLm7H8llvvTxp1equuSMk7IiLeehEpK6Elt9YVzxfAj74Gf6jVOxZ5ThbOZix
-         HPgiqnZd4NeGi8fFdn8T/Bky6grlwQvN86E3PbopaRI5zbDvDVgkBA9u6+oy29Fzphj4
-         hlUuGnD6XdoUzdloCads4qtOXwYm9oYXzMscMsI2AxlwnoAjndUfdb4uO5IVX+QNz+PF
-         bkOEX7slfeM721qKSvyYz/ps+CUrF3ZzsZDEPbN0SDXMtsAVhPo+n/WFqDuzPndifNid
-         gs7Q==
-X-Gm-Message-State: AOJu0YzWvkWxYjbcv2eqLvZmWkE9Mdb6yNkuHlDh0/toSQx+jOlDCMng
-	Mj419xx+ze2xgIVXZ0/u+897QJEGdcKMnFAlCk6XTP8a/P9BZ9KY0T8sTojvfEKBgGKvUbyqR+6
-	WXBA=
-X-Gm-Gg: ASbGncsNGxyqw8CBROm5/nqXpNnhOr733N3znLXxlPMfc1zNeO5KNVSoPWb1SU6hCCP
-	sSDYL5kIzm1ErohQ9vnK42/7conCiMG/tDuBg/TLKMtrnjhL4ouS+O15IqpFbU5lUeiC5S91ace
-	2pcNqMnZK1TMx8PBhWg2Y6DVHSgzlW7xFV7BybY8/bT1LBweEBfIsE05fEVEgX2VB+fqVtL2sl2
-	CJucV5XQ15GfHnWgUfJTUCrDQPhPeaBl5TzimFlyu6WlibgEVe4zjYU4XUcl1EK3rN2EDosZ+q7
-	Ipwedlfa5FjB2Z5nwUmkxqCYJuKXuPNFBCi/EvtIA+lmlyUNpsZnHMD/LUKyFQ6XqOKDWH2XFof
-	2l7USiOJKvo1fvP15gtQOzPT4kkWIJX45fQ+xqYcemAYsy2eH48LKZIaz5kjbgKh0KLjzwJTFUC
-	0DoVfaIp5kUmtmAoF6k2qQaVBCHKNxy9imZQ87s+cJuuFKvq2VPc5Sj8y0HjY2ezWcfYQQ3+lUV
-	nMwnexT1s8Rgg==
-X-Google-Smtp-Source: AGHT+IFqKWURIzhu1XRhapZ/K6XdgrEUTElkp6+U2JG4zQb4GkX7BZZ7YWOcY6wzJVt2sz+bOVLMZQ==
-X-Received: by 2002:a17:907:7b8d:b0:b70:b93c:26cf with SMTP id a640c23a62f3a-b73678086a4mr1208450666b.6.1763390369788;
-        Mon, 17 Nov 2025 06:39:29 -0800 (PST)
-Message-ID: <0bc920e2-2e32-4b3d-9ed0-a2c2b34e9591@suse.com>
-Date: Mon, 17 Nov 2025 15:39:30 +0100
+        bh=y0auAxXnuppooklnSDerPgHwMUEE+NEjFepbTDvIXXk=;
+        b=daLy7+MxLu14K4Wzr9CWR8lS2zZm7Z2bhhBwEExlqmWsznXotW0Iw2sK92yj+zvW9g
+         g/92Kx8XZj0YxwCZ0rUxrImNYYhNks7wHkmA6ONRfaJG8MfurNeCOSyhV5BgZx1JMf8X
+         q2JCy206BDA3L8VfYpi5AhtdZWEZC+8KLdzNr+RwVmHhWvDQBvDI1Lu92Y58+6O3R0Eo
+         snjPnIWoIN4uNMLev/t8XwdsrqKsTL/RWmJ++nUtmVofX3NHBnIWITASunhw4lvdxvRC
+         MN89+OUnH5X10V6zVMQxTL9CK+J2jcIPyCw3jnyDLzKw8fYFiwTYKE4LisSX6SY75zxx
+         UZNw==
+X-Gm-Message-State: AOJu0YxymdIVgfEBlysCSRkzQHl011vbJNiarp+OJ3ItBlrxE9F42Nlh
+	+wrkjFXyj0s3xjqGgCCnZgi4kf6sQLXWghnSbysird7nmQlHp7paRq07xCh8gLpahnZPaRiu3Qw
+	QG6U=
+X-Gm-Gg: ASbGncushpYq+6oW4OjA6FPB0EFEfRqFHCNZx73NxEuTwh+SubYxnuSPDuPjqZDHwMB
+	KoW4iSFOwSDCrvvBkU33wBYaMQN914Dx0T5Rr4ReyPa32hv81MSaDIbrr/CC1v+LtDsJE7f452p
+	qI8a2uaIlEWVN0tvh5wMCH4vnM1F+MKoe8q095pbDHsMQ2ALhLqd8q5f8m0Vy9B+zl2RbjvpkJ7
+	HN57nPtZxXSXOsXIBkCcevyTwMx5WTzUBozqfqGNuY+0l5YVHhxvsZFp6R9r1SBmko790qCci1w
+	nM8JP4ZR7E0iOFEd2r94kCVdl529PpOwYYo6BzlpvIkhRG1zc5eq1Hm45QGjo+5jtGAFBWe8KCO
+	sliETsRJsauz9eaiJZ2y/axZNeJy6VhX3YKnB9AmvredEnZ0nN65F/ECcJ1cAp/EQkxLaomjNRh
+	WznUz03sy25tFW5SVFk9AJ822NUgwJQRCzIrDuDq7D6UnhJMf2et3Pef87lIj+G1Ax
+X-Google-Smtp-Source: AGHT+IG9dgAgdipcXC/EhIFV2j2Hx95fMyUeXKzGksp4jaH2e+ltPjQaZyef1keZ4a9X8AqeOl49vA==
+X-Received: by 2002:a17:907:9714:b0:b73:9937:e96b with SMTP id a640c23a62f3a-b739937ead7mr389975666b.52.1763390390958;
+        Mon, 17 Nov 2025 06:39:50 -0800 (PST)
+Message-ID: <5e09670f-dd80-4dfe-a8d6-182545b744ee@suse.com>
+Date: Mon, 17 Nov 2025 15:39:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v4 6/8] x86/HPET: simplify "expire" check a little in
- reprogram_hpet_evt_channel()
+Subject: [PATCH v4 7/8] x86/HPET: drop .set_affinity hook
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -124,30 +122,86 @@ In-Reply-To: <57f34114-54b7-483d-8ac0-e9fa49df959f@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-When this was added, the log message was updated correctly, but the zero
-case was needlessly checked separately: hpet_broadcast_enter() had a zero
-check added at the same time, while handle_hpet_broadcast() can't possibly
-pass 0 here anyway.
+No IRQ balancing is supposed to be happening on the broadcast IRQs. The
+only entity responsible for fiddling with the CPU affinities is
+set_channel_irq_affinity(). They shouldn't even be fiddled with when
+offlining a CPU: A CPU going down can't at the same time be idle. Some
+properties (->arch.cpu_mask in particular) may transiently reference an
+offline CPU, but that'll be adjusted as soon as a channel goes into active
+use again.
 
-Fixes: 7145897cfb81 ("cpuidle: Fix for timer_deadline==0 case")
+Along with adjusting fixup_irqs() (in a more general way, i.e. covering all
+vectors which are marked in use globally), also adjust section placement of
+used_vectors.
+
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2: New.
+v4: New.
 
 --- a/xen/arch/x86/hpet.c
 +++ b/xen/arch/x86/hpet.c
-@@ -147,10 +147,10 @@ static int reprogram_hpet_evt_channel(
-     int64_t delta;
-     int ret;
+@@ -294,22 +294,6 @@ static int hpet_msi_write(struct hpet_ev
  
--    if ( (ch->flags & HPET_EVT_DISABLE) || (expire == 0) )
-+    if ( ch->flags & HPET_EVT_DISABLE )
-         return 0;
+ #define hpet_msi_shutdown hpet_msi_mask
  
--    if ( unlikely(expire < 0) )
-+    if ( unlikely(expire <= 0) )
-     {
-         printk(KERN_DEBUG "reprogram: expire <= 0\n");
-         return -ETIME;
+-static void cf_check hpet_msi_set_affinity(
+-    struct irq_desc *desc, const cpumask_t *mask)
+-{
+-    struct hpet_event_channel *ch = desc->action->dev_id;
+-    struct msi_msg msg = ch->msi.msg;
+-
+-    /* This really is only for dump_irqs(). */
+-    cpumask_copy(desc->arch.cpu_mask, mask);
+-
+-    msg.dest32 = cpu_mask_to_apicid(mask);
+-    msg.address_lo &= ~MSI_ADDR_DEST_ID_MASK;
+-    msg.address_lo |= MSI_ADDR_DEST_ID(msg.dest32);
+-    if ( msg.dest32 != ch->msi.msg.dest32 )
+-        hpet_msi_write(ch, &msg);
+-}
+-
+ /*
+  * IRQ Chip for MSI HPET Devices,
+  */
+@@ -321,7 +305,6 @@ static hw_irq_controller hpet_msi_type =
+     .disable    = hpet_msi_mask,
+     .ack        = irq_actor_none,
+     .end        = end_nonmaskable_irq,
+-    .set_affinity   = hpet_msi_set_affinity,
+ };
+ 
+ static int __hpet_setup_msi_irq(struct irq_desc *desc)
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -51,7 +51,7 @@ static vmask_t global_used_vector_map;
+ 
+ struct irq_desc __read_mostly *irq_desc = NULL;
+ 
+-static DECLARE_BITMAP(used_vectors, X86_IDT_VECTORS);
++static DECLARE_BITMAP(used_vectors, X86_IDT_VECTORS) __ro_after_init;
+ 
+ static DEFINE_SPINLOCK(vector_lock);
+ 
+@@ -2630,13 +2630,17 @@ void fixup_irqs(void)
+         spin_lock(&desc->lock);
+ 
+         vector = irq_to_vector(irq);
+-        if ( vector >= FIRST_HIPRIORITY_VECTOR &&
+-             vector <= LAST_HIPRIORITY_VECTOR &&
+-             desc->handler == &no_irq_type )
++        if ( (vector >= FIRST_HIPRIORITY_VECTOR &&
++              vector <= LAST_HIPRIORITY_VECTOR &&
++              desc->handler == &no_irq_type) ||
++             test_bit(vector, used_vectors) )
+         {
+             /*
+              * This can in particular happen when parking secondary threads
+              * during boot and when the serial console wants to use a PCI IRQ.
++             *
++             * Globally used vectors (like the HPET broadcast IRQ ones), need
++             * to be left alone in any event.
+              */
+             spin_unlock(&desc->lock);
+             continue;
 
 
