@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5654CC63D86
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 12:37:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1163608.1490688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01C0FC63F8A
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 12:59:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1163625.1490711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKxX9-0002JE-1T; Mon, 17 Nov 2025 11:36:35 +0000
+	id 1vKxsh-0005aI-0s; Mon, 17 Nov 2025 11:58:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1163608.1490688; Mon, 17 Nov 2025 11:36:35 +0000
+Received: by outflank-mailman (output) from mailman id 1163625.1490711; Mon, 17 Nov 2025 11:58:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKxX8-0002HQ-Uw; Mon, 17 Nov 2025 11:36:34 +0000
-Received: by outflank-mailman (input) for mailman id 1163608;
- Mon, 17 Nov 2025 11:36:34 +0000
+	id 1vKxsg-0005Yr-UI; Mon, 17 Nov 2025 11:58:50 +0000
+Received: by outflank-mailman (input) for mailman id 1163625;
+ Mon, 17 Nov 2025 11:58:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lv5t=5Z=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vKxX7-0002HK-R9
- for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 11:36:33 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ <SRS0=RXl4=5Z=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vKxsf-0005Yj-ER
+ for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 11:58:49 +0000
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c112::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aa7f06d0-c3a9-11f0-9d18-b5c5bf9af7f9;
- Mon, 17 Nov 2025 12:36:32 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-6419aaced59so5772184a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 03:36:32 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a3d87e3sm9920032a12.7.2025.11.17.03.36.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Nov 2025 03:36:31 -0800 (PST)
+ id c6089c89-c3ac-11f0-9d18-b5c5bf9af7f9;
+ Mon, 17 Nov 2025 12:58:48 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by SA2PR03MB5740.namprd03.prod.outlook.com (2603:10b6:806:11b::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.22; Mon, 17 Nov
+ 2025 11:58:44 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9320.021; Mon, 17 Nov 2025
+ 11:58:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,554 +47,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa7f06d0-c3a9-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763379392; x=1763984192; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=h+w5skDQjQKPpKBD0D07sikY/lh5cTebhvCbmA3IOh8=;
-        b=Lp50/r0MmjQXz116Y8gg6Vrf4TVz/yuH3mue5ZWNUi3YTxKptuvlkB1cj7hpawji/q
-         kpXAi81CTyCahR5NYKfNSuP2PJB9ygryf0ltEnPRBblSXcXbHx2CF40AnOItyF+X6+BZ
-         348OETakjmUUYRZ4Y8AXzKSfGf8Z0ggbh7xZxDdzoDJxEm5K1lQ9tu9xqPyZ6kMfczkL
-         OoruN3Bb3b+1Sd+6di2ozOslHY8dr6IItfH01U6FAVYzuedifiuHhMJne/b1nlfbE1EH
-         B/AsYXsyKbc1yChLOkMBD0jQOHLhOEB5LrqXOruNnvtCVfRuJI4ThFAW53KHzYTyiYBa
-         eCGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763379392; x=1763984192;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=h+w5skDQjQKPpKBD0D07sikY/lh5cTebhvCbmA3IOh8=;
-        b=apFzIWvDbeqc22cx4QrsTo4LlPSHkVR8s8fUgvh4mV9PVHHQWeeDOFI4A5UJAOYEu+
-         ZpLU1qTN7rRqLNBRZUUuDbrtCT6Ed5/YI1pxyosxKV9l7OU3PTW5wrHU0C1Zmgszt2rc
-         AlbbCrcxY2ynnLAJ0HPrrXwSRaxmZv16FveWqWwdPTr2uMLFFJWRfWThWbZbH/s+XE3c
-         q4U3QrjwvEul7b1xsKpnzt0WZDUNNAocHtn7i881KH9CdKT4h3tztTNbdOHrO6P/63X+
-         k0gegQEbCtPApbG2TkyELwigSsjB2cZVTNDYw7Htw26JcPprZlxi02q3PbEHuo033vWO
-         agfA==
-X-Forwarded-Encrypted: i=1; AJvYcCVhur9MyBgRjB7qq1VwbiErqJs1mrpwHoZGu15IxM+x1/kTHV/2WyYLw3xQlHLNW2zSIldkXNu+2gQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywgdx0TnjsH+pvz2N60C00eSufnUviriz44b+nRAMLkcNNSMVbv
-	Z0UZl+zGadwDVJxwJZsQTlMUZmyBOWDkH1reLJu3aQfSbJqFVGBA0GWs
-X-Gm-Gg: ASbGncscMrm2hHmbPoyfWwX0Mw9CKEMtA6nbbws7XYeychi/azsay3h5IOajCPk/I3o
-	rnttFndJSmzPPcdnN/sifTofrVWKop0p220JkfHN3d0VVJukuiE3SI2ZtVA32w5THiD92vvS3lV
-	CJifgDeW8bdpgFdZ3G6PUN6WVO1XH+KfSn2b0P1RWymA5k2Pm1GCNF1GtSJa2DA2QrQvGdNbxmo
-	OPldWhATo7VpsTcQxHXw3IGAnRIOlOhq/PYZ44GRSBEl9ssmJTwsBPkWDSOWqTgkVLTKBrJznZ4
-	XPOnCvJR837pNbT2t2lHK946BrhUviAqPTZZQKtZ+y2XR1rpq/7LT6YR4r7pTULDunWiks2pBTN
-	JFxVuRoRGfElYQF+YZymFnROTX+8X98mvDhp2eVCeniN/9LMiyXN2gmeVZERn6NVjJMqDIsBn3J
-	mFOkG/9RfQB9zNFF9B6vL8dsQmBT6Iml6sVzFBsIoEGoWmmN4QKJkt1mJKX6wU
-X-Google-Smtp-Source: AGHT+IEOw+aMZAAYW9aax9h93sTsrEiv2K4qI3LLkgIOr/8lbTLqC5JaYw9YphhWVI62M0Na4L6TnA==
-X-Received: by 2002:a05:6402:848:b0:640:b814:bb81 with SMTP id 4fb4d7f45d1cf-64350ebd23dmr12241316a12.32.1763379391684;
-        Mon, 17 Nov 2025 03:36:31 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------V6mKv6hgrgibcKtaBVf7Ty0a"
-Message-ID: <6eb7b19e-df55-4706-9da2-67158640aa08@gmail.com>
-Date: Mon, 17 Nov 2025 12:36:29 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: c6089c89-c3ac-11f0-9d18-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fDgmWiPq052n0U09LG4XRbkjDL7PWZhCQFuO/4IoqnpeBPShRw2Yn8dHozmnVukApBbk57aj/5sREnVI3MvchEekqWDY4DwW5RXjMBVIEXLG5jRs4XqqYgB1KdbNSDMAOVj3QDGfvcxtjkUUGCjUHD5JLKTRyvBh/Bp+peB8Fd7rgLGdeTm6rRK70qbd/uOWaRrsKCNA+3CNuGK1BRNsApuuc7YWMfm7QrE4GIeSLxWOyVoTgVpse+IkGs2q7HQRDlJ/1mDrq/HwQY+L794tpQecRP3De0Q4vOntlL47RgE06NN27BEhtE8yuHKpqxXFVIFW/IcJYnBOOmZGVcG28w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yXOwgGuSEZnkIlEvTVf4y/Ty3nQxbky0qYGtI6rAeYc=;
+ b=OV4pfn7NQvJPO6ccMtn9/JKODAZMOZ+LDWKABusVlkDdlDuKJbXEMZroiJ2gTOl/NqejsSTcE2RnQ5x6nSOGabAGWopCfhdwGkKvyVGlAG3YOfFg//LCQQFAArIQiyCf47ldpCflbFEYisMIGV3cxCBGfbzuOE16q7Rn8pXfiKq5Vr6QfaPzAA/+gUQW0aSMgKAfCYdzdpqCRVrr5RyfE+DnH5jfXKa+6Crkt3c49p6pEV0t6cPOVu6NANY2QxsCIxhQeZD4nns5RtUDJj09thPoO8RZ9CS5FZtxRrs1HobF4QQz4vHXldoEdy5jfTKdfF8b0sMe9Ww31jz8pSlLqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yXOwgGuSEZnkIlEvTVf4y/Ty3nQxbky0qYGtI6rAeYc=;
+ b=sP9eRXtLGlnXgL9Sn6/6+LdSuKTlrKM3bQgKc66m27VZa9qE8llgQZqzZCBIV6C1eAuOAQ71HJgahsXXaDEfQjZmdnM+Nskias5GVIpWUR2EC+Y8jCsVnC1wPOa0boVM6cvhOfQLw0lkM0g7vZAX6YES+0XxeMaI41lQX5glZ44=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <ac2377d2-54eb-49f5-8906-a9745baca534@citrix.com>
+Date: Mon, 17 Nov 2025 11:58:41 +0000
 User-Agent: Mozilla Thunderbird
-Subject: Re: [for 4.22 v5 11/18] xen/riscv: Implement p2m_free_subtree() and
- related helpers
+Subject: Re: [PATCH for-4.21] x86/ucode: Add extra rows to the entrysign model
+ table (again)
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1760974017.git.oleksii.kurochko@gmail.com>
- <24928a25f63f81ee72b78830306881b2c4c5a1e4.1760974017.git.oleksii.kurochko@gmail.com>
- <acf32e9d-4c07-45dd-baac-29e6d93cff56@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <acf32e9d-4c07-45dd-baac-29e6d93cff56@suse.com>
-
-This is a multi-part message in MIME format.
---------------V6mKv6hgrgibcKtaBVf7Ty0a
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251114152447.272823-1-andrew.cooper3@citrix.com>
+ <2db5085c-a04d-4745-8fc7-5e257ab30926@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <2db5085c-a04d-4745-8fc7-5e257ab30926@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0122.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:192::19) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SA2PR03MB5740:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43b5456b-2d47-46e2-1124-08de25d0a88a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?WkpRVW5zTWROSmtTWnI3TmI3RWt4U0h2R3ViUmNDWDA4YnJpNGJwRVpGWEFZ?=
+ =?utf-8?B?TE4rWHBWTTRnSGk4MXdYNXpaWWh5aGtVeUY2dGlEdTdjN3JvWjd1UnZQR2ha?=
+ =?utf-8?B?ekFVWThMUTlET2pWblFwNnpYaGpMMlhQV1p4QmtIY0krbEZXbG9DSzl4R3Ev?=
+ =?utf-8?B?dE5HSFd4R0NUSUlxUU9XSmdwVEZVQmZVSjF5QmxydkYweWxHMGYvYzBNY3pU?=
+ =?utf-8?B?UGErQ0krT1dobm9SVFFNc00xSmxEZDdIVVBpMm5yZmVXRCtGbklzajFmSzRj?=
+ =?utf-8?B?bFc2dVVuZERpdjJEY1BxekVKemRhSm5mVU55amQ5YTlGRVVVcUlxczBCUk5l?=
+ =?utf-8?B?ZDRBUE40bXErVE12akVockQyQlRDYWJZbVFrRVpjcEhHY2c5dzBPRjNSSE5I?=
+ =?utf-8?B?eEc0WTB3QjlrT1JFOGlxSnB5cDl2SUVqU3pLLy9GVmJ0NytCTjNMMmFMVVZD?=
+ =?utf-8?B?NDZzQ2tKTEJFWGhmV3kwVnlFSi9QK3dwWkF6ZWh4aTZQWkh2Mm50WC9BeXhn?=
+ =?utf-8?B?ekZ3MWljSFRaUFF0UjhhbkVXWTVsNGxhdlZGUXp4WEtlZ011Q1R4dTAxVTNr?=
+ =?utf-8?B?UUVIYWtlNGxpQTRWMVhjcGdwZHhnUlRUTXVrblFJR1oyK2JhVXp0L0g5bW1J?=
+ =?utf-8?B?aGU2dlNTUUE0d3kyUUl4d0NWTkpwV0hyRVh4Q3c4NkRSZTR0T0RxYTQwNVBo?=
+ =?utf-8?B?dnJVTExVR2VraDd4cDd5WDZJRUxQandyWjR0eXIvNHN4RGJ3cTZRSjlkbXBM?=
+ =?utf-8?B?U3l4QlhDSVYwRU9vdjJnM3F5dktLVHFIVGJCWFJUZGF6am83ZGxMOXdNZHdE?=
+ =?utf-8?B?cWNyY0RTaStFY3F2ZXoxSVhuSmlTdWFhZ0E3Q3VCcDJZRW9lZkVYRWdmTk5Z?=
+ =?utf-8?B?ZmFXUW5sczk3bkxXVEVxZzRXU0w3dGtrT205NStXYjdvbk5lTnl6V0ZWRDF5?=
+ =?utf-8?B?dUtVQ2JuZnQ2Q2ZwRDN2eGNQdzEvdncrVHFvSWhCbVdZNi9TbCsvcEJCRGl5?=
+ =?utf-8?B?QU9TczZWaXhvTmgrQmNPSktOOFFDbFBaSU1uY0c5T3Z1UWtabUFTZzdGWkQr?=
+ =?utf-8?B?cW1pYlZXK3I2ajI4d05GRERpZVJNVFg3ejNWSGlyV04vK1Z2UjJxUXFZV3hj?=
+ =?utf-8?B?TWEveXp1OUNNMy9FajFUWUpCc2NDL0UvOFpQL1YzSjZPT0xySU9KNWZDbDdI?=
+ =?utf-8?B?UE9HWEFmaTVoS0d3MW5sd1FOTyttYWtSUkY5RW5LYWJqOXBESGFySFgrZUdq?=
+ =?utf-8?B?SS9TNmNqQ0pVRkl6VEtaeERVcUlRc2JQeWJlVTVsMHdvcjM3Z1p1MU9NRnRM?=
+ =?utf-8?B?MFY2cnRlc1ZVVnhsLytsUWR5SDdtOXl6U3phSjRmTWk1L3lyRHJRdmRKQWVZ?=
+ =?utf-8?B?MEtyTWtqOURTVVdhcDRCQW1yM2IzV1VYVDdqajlWTnl4dG9GMUxZK2ZqTmts?=
+ =?utf-8?B?bk5oS3JSK0dzbkNnRExOcE4rYnhXajg4SzBMMFlZQ2Iwa3BMQ2QvZzdEZDRN?=
+ =?utf-8?B?TWtGTWVYV2V1TmtBYm13ejhlZlZ2MHlwNzdLajJOQmgrMEpjRklETmVJbFVL?=
+ =?utf-8?B?a2ErQlB6UU1OWlBObkR3QXR4emNtbEh3TjJpWmlRYmpNNm9ycFRTNTJoSTQ5?=
+ =?utf-8?B?NXR2MVNmUk01c3NMR1NVaHB0UmtpcmFUNzgxY2Z6S0ZwY05Hczk5SDh1VGMw?=
+ =?utf-8?B?NmZXNUVvYUExdU9ESExWOTdDcWhMdXRBVURVQ2NGNkh0T0o3T2p3ZkNLdWpj?=
+ =?utf-8?B?TUxmV0QwSjh5dEJ1U21NdEIzcUFvUmtHdzJnWnNpdlYyNmk4c0V2bUdNaWFZ?=
+ =?utf-8?B?dnhZNFA4KzY0d3Z2Mm5wTGRJbFVBUm1UTnBXNTRWZUxyZWFkU0JSTzBDTGcz?=
+ =?utf-8?B?TzRPR0tsQ3pPWS9zKzJVeUFjUXJNK2RqaVQzcmowYVJ1YlFHb3N6ZUtUSTJh?=
+ =?utf-8?B?V2V3RHNwb3VCMWt5dk1uNStEU0dmbXc1Vit4NGhoQ1JpN2h6Zy9kYUNrOE9r?=
+ =?utf-8?B?ZFlHV3h6MjlBPT0=?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q1duS25oNERtSUI3S1FwZ0ZWV21aMXRkS3Fqa01ld0dmbE95dTkwbUs5OExC?=
+ =?utf-8?B?WkdndkZ3aEpXY1F6Y1NWbzdpa0RNcmdNYklGUVB1VmJzZWk1Y2ZpV1RtSXdW?=
+ =?utf-8?B?SmovcGQ4UjBFZ1dYWE5SOG0wVnlJeVFEejN1MkxFK2FIYXR5WndCQ0RjUDUr?=
+ =?utf-8?B?aVZOVVhKNFV6RWJHSW0yNU9JaFp2bngvYmdTT2NLNG9CWEt1OUNVM09IalE1?=
+ =?utf-8?B?U1c1RElqRVpjQ29RVkdvRzhnend2enlrMk4xUHEvdGRhT0NaSVhDZlZ0eGJl?=
+ =?utf-8?B?b2tnSkJSK2NISk04NU9TaUNOdndRcUoxSjNSS3UvdnFEb3RlZHBzM3RxbUFV?=
+ =?utf-8?B?ZWdrdUdGcSs1Z2VNU2d3S2MrM0pjbWpzS2ZsdGxDWXV4RmtSNDZiZkRsL01k?=
+ =?utf-8?B?b3BiZ0xHZEs3dnhhZUlFZlBFejltdm0rb0JHVXMvZmZTRU1CcnpWalNHeTFQ?=
+ =?utf-8?B?Z2JJRit5Q1dBZUY1KzdrWmZuSlZsME5qbFhDVTBRaWs5OWdzVmhVYnQrRHUx?=
+ =?utf-8?B?eEE0RzEzNkowQVJsUFc0THhPY1JtZHpnak5rQWdMbU1zQllFSFcyaEEwMDc1?=
+ =?utf-8?B?RFNxWGZoYnhsaTlVTE44K3cvelpQNWFKNW9hRjNYSWd5NlNkT0FJZ3Y1S3ZD?=
+ =?utf-8?B?cHFybk12M0crckdOZlIvMGhhM3A4eDZyTW9va0FvRGpVY0FIVk5idzdpMFFJ?=
+ =?utf-8?B?cFlqd3ZKVGljWVgwclBoREtBWVdwdkNqMituS01vbzA2QmxMeWNlNGFncVR1?=
+ =?utf-8?B?MUEvdGZmcG1PY2hDTW1URldpV2gvL29LYkZ6NTc4NU1QdTBmeFg1bUhDcXh6?=
+ =?utf-8?B?TGtDcWJLZzFyTUF1VzhvbGZOdHptT2NRWjdyT1IzM1hhVjdNSWdpUEk4NUU1?=
+ =?utf-8?B?ckZjZXR6RkczNkNWcjY3R0hvc2FCdVJTZTFXaksrczFWQjVRMTY5SmhBTkhu?=
+ =?utf-8?B?cHo5U0pScHJyM2JHMDBzZ2FnRUpFUDRpdFNibTU1eUw4QjRFaUxkanphb3RK?=
+ =?utf-8?B?cjJ4UmNodWltUDA1ck9WbDF1ZWh6enROTlV2WSs1a0h1eWtBbTRUWlRoYWZT?=
+ =?utf-8?B?ZzdqakFNMDMzb2ZTVHZTd0lJYzZ2d3d4WWtpbjlFUzF4S2ZiaitzZXN5bEZH?=
+ =?utf-8?B?S1JsSVRnRExYZEw5bm5XZWpBamRRb0trdmxKcjJod1RKeEs4QTVHbXQxb0lG?=
+ =?utf-8?B?R0JmRGJLSFJtZ3kxWEN1bzdTNHhsUnRyZ3NUTXhCcXQwY040ZXpKeUE0Nnha?=
+ =?utf-8?B?RVAwajBkOXppNUlqREhocnRSZFk4Y1BTMzNUcW9HdUJZQ2NBTzNEZ0tOMlJH?=
+ =?utf-8?B?dGVWV215M1hhSVVOMFRTT3FMQXlrQndCazhVeUV3RnRFRVN2K1pUellyUnBv?=
+ =?utf-8?B?YmdWZE9IdExCTm1GVmFIdG5TcnBoMXR0ZUdVL0Z5Z2NoYmVDUjYzRVgwL0c4?=
+ =?utf-8?B?QldrK1grRnNCOENya2M5RGtaam54bU1GdVRPUC9RYU90ZDFnVE5vUmkvL2lX?=
+ =?utf-8?B?YzBxc2RlOHYzM21hQVRwa0dYTXJnTFEvdzRhYWdXM2lHWThBK0JPUGRWeHB5?=
+ =?utf-8?B?Y3JQSlZteGRtRVhBVDdqcElrV2lsVTVja2lsV1ZKalRweFR1cWp0Mmg1QnZ0?=
+ =?utf-8?B?Wm1ZQnVwTFI2YVRHTmY2V3lkS1lmYmhrdmZGUURrcEFURDdaWXVsVzBacmRk?=
+ =?utf-8?B?U2I5cVo0TE9MeHBUQU9LMHdlSXo5S1NiZ2t1NFF4M3NjQzM3MlBxWG5mUFIw?=
+ =?utf-8?B?N0dNOGo3VXZQZGs4MUlsOEx6enpGbzhYQlU3TWNYT3J5UTBRK250Z09aOThD?=
+ =?utf-8?B?YnplWDcwa3BxYldMbjMyZ01PWUFMOWpiVktvaXM2TUNkQ1FoNjF2QTFVZTNa?=
+ =?utf-8?B?VjVHVmZRcEFndkYyeGdnYmRPeHk5TVlxYjFUOUpybVVlSVQzTlhodlhicXZ2?=
+ =?utf-8?B?S1FCWnpRS01hTnNFOGE3Y2YzUC9tcnpYSnlwUDF4cUt3UEZ5YXhEc0JaaFlK?=
+ =?utf-8?B?WE9Gc3owYWFPY3JaUW5YTUlIMkRnMUE2YVJCbDBaWkY3WGhXeFYrUWZ2TGVi?=
+ =?utf-8?B?RDNLWkdIOUN2bzZNdkpvZ3h3dTNhdEhlWkxDelVTUkxxQUhTTmU2cmlLM1Fr?=
+ =?utf-8?B?NGFHZHlDRGlzMXZvOFVOZFlTMHhySDdlZTlndFFYMzhoOUp0NE1adzRFUmRv?=
+ =?utf-8?B?elE9PQ==?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43b5456b-2d47-46e2-1124-08de25d0a88a
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2025 11:58:44.6199
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ScREtYqr85vIUH8VhXsyYk5vng+ekHUXEFpjehWWBjcVLeoqhBFcvauVs+7L0ZWG407BRf9ZspU8sIYNf00HWvwvkACsRkOZxnK3F39U97I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5740
 
+On 17/11/2025 9:43 am, Jan Beulich wrote:
+> On 14.11.2025 16:24, Andrew Cooper wrote:
+>> Link: https://git.kernel.org/tip/dd14022a7ce96963aa923e35cf4bcc8c32f95840
+>> Fixes: ff8228ab4658 ("x86/ucode: Relax digest check when Entrysign is fixed in firmware")
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-On 11/10/25 4:29 PM, Jan Beulich wrote:
-> On 20.10.2025 17:57, Oleksii Kurochko wrote:
->> --- a/xen/arch/riscv/include/asm/p2m.h
->> +++ b/xen/arch/riscv/include/asm/p2m.h
->> @@ -110,6 +110,8 @@ typedef enum {
->>       p2m_mmio_direct_io, /* Read/write mapping of genuine Device MMIO area,
->>                              PTE_PBMT_IO will be used for such mappings */
->>       p2m_ext_storage,    /* Following types'll be stored outsude PTE bits: */
->> +    p2m_map_foreign_rw, /* Read/write RAM pages from foreign domain */
->> +    p2m_map_foreign_ro, /* Read-only RAM pages from foreign domain */
->>   
->>       /* Sentinel — not a real type, just a marker for comparison */
->>       p2m_first_external = p2m_ext_storage,
->> @@ -120,15 +122,28 @@ static inline p2m_type_t arch_dt_passthrough_p2m_type(void)
->>       return p2m_mmio_direct_io;
->>   }
->>   
->> +/*
->> + * Bits 8 and 9 are reserved for use by supervisor software;
->> + * the implementation shall ignore this field.
->> + * We are going to use to save in these bits frequently used types to avoid
->> + * get/set of a type from radix tree.
->> + */
->> +#define P2M_TYPE_PTE_BITS_MASK  0x300
-> Better use PTE_RSW in place of the raw number?
+Thanks.
 
-It would be better, thanks.
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>
+>> Found because AMD have released ucode to fix RDSEED on this CPU, and I
+>> cross-referenced the tables.
+> I wonder how many more we're going to see.
 
->
->> --- a/xen/arch/riscv/p2m.c
->> +++ b/xen/arch/riscv/p2m.c
->> @@ -17,6 +17,8 @@
->>   #include <asm/riscv_encoding.h>
->>   #include <asm/vmid.h>
->>   
->> +#define P2M_SUPPORTED_LEVEL_MAPPING 2
-> I fear without a comment it's left unclear what this is / represents.
+I doubt this will be the last.
 
-Probably just renaming it to|P2M_MAX_SUPPORTED_LEVEL_MAPPING| would make it clearer,
-wouldn’t it?
-Otherwise, I can add the following comment:
-/*
-  * At the moment, only 4K, 2M, and 1G mappings are supported for G-stage
-  * translation. Therefore, the maximum supported page-table level is 2,
-  * which corresponds to 1G mappings.
-  */
-
-
-
->
->> @@ -403,11 +415,147 @@ static int p2m_next_level(struct p2m_domain *p2m, bool alloc_tbl,
->>       return P2M_TABLE_MAP_NONE;
->>   }
->>   
->> +static void p2m_put_foreign_page(struct page_info *pg)
->> +{
->> +    /*
->> +     * It’s safe to call put_page() here because arch_flush_tlb_mask()
->> +     * will be invoked if the page is reallocated, which will trigger a
->> +     * flush of the guest TLBs.
->> +     */
->> +    put_page(pg);
->> +}
->> +
->> +/* Put any references on the single 4K page referenced by mfn. */
-> To me this and ...
->
->> +static void p2m_put_4k_page(mfn_t mfn, p2m_type_t type)
->> +{
->> +    /* TODO: Handle other p2m types */
->> +
->> +    if ( p2m_is_foreign(type) )
->> +    {
->> +        ASSERT(mfn_valid(mfn));
->> +        p2m_put_foreign_page(mfn_to_page(mfn));
->> +    }
->> +}
->> +
->> +/* Put any references on the superpage referenced by mfn. */
-> ... to a lesser degree this comment are potentially misleading. Down here at
-> least there is something plural-ish (the 4k pages that the 2M one consists
-> of), but especially for the single page case above "any" could easily mean
-> "anything that's still outstanding, anywhere". I'm also not quite sure "on"
-> is really what you mean (I'm not a native speaker, so my gut feeling may be
-> wrong here).
-
-Then I could suggest the following instead:
-   /* Put the reference associated with the 4K page identified by mfn. */
-and
-  /* Put the references associated with the superpage identified by mfn. */
-
-I think the comments could be omitted, since the function names already make
-this clear.
-
->
->> +static void p2m_put_2m_superpage(mfn_t mfn, p2m_type_t type)
->> +{
->> +    struct page_info *pg;
->> +    unsigned int i;
->> +
->> +    /*
->> +     * TODO: Handle other p2m types, but be aware that any changes to handle
->> +     * different types should require an update on the relinquish code to
->> +     * handle preemption.
->> +     */
-> I guess if I was to address this TODO, I wouldn't know what the latter part
-> of the sentence is warning me of.
-
-It is referencing to the code which isn't introduced yet, something like Arm has
-in|relinquish_p2m_mapping()|:
-   https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/arm/mmu/p2m.c#L1588
-I am not 100% sure that this comment is useful now (as|relinquish_p2m_mapping() isn't introduced yet), so I am okay just to 
-drop it and add it when ||relinquish_p2m_mapping() will be introduced.|
-
-
->
->> +    if ( !p2m_is_foreign(type) )
->> +        return;
-> Are super-page foreign mappings actually intended to be permitted, conceptually?
-
-Good question. Conceptually, yes (and I thought that was the reason why ARM has
-code to handle such cases and so I decided to have the same for RISC-V), but in
-reality, it will be 4 KB pages, as I can see in the current codebase for other
-architectures.
-
->
->>   /* Free pte sub-tree behind an entry */
->>   static void p2m_free_subtree(struct p2m_domain *p2m,
->>                                pte_t entry, unsigned int level)
->>   {
->> -    panic("%s: hasn't been implemented yet\n", __func__);
->> +    unsigned int i;
->> +    pte_t *table;
->> +    mfn_t mfn;
->> +    struct page_info *pg;
->> +
->> +    /*
->> +     * Check if the level is valid: only 4K - 2M - 1G mappings are supported.
->> +     * To support levels > 2, the implementation of p2m_free_subtree() would
->> +     * need to be updated, as the current recursive approach could consume
->> +     * excessive time and memory.
->> +     */
->> +    ASSERT(level <= P2M_SUPPORTED_LEVEL_MAPPING);
->> +
->> +    /* Nothing to do if the entry is invalid. */
->> +    if ( !pte_is_valid(entry) )
->> +        return;
->> +
->> +    if ( (level == 0) || pte_is_superpage(entry, level) )
-> Considering what pte_is_superpage() expands to, simply pte_is_mapping()?
-
-Makes sense, we can really just have:
-  if ( pte_is_mapping(entry) )
-
->
->> +    {
->> +        p2m_type_t p2mt = p2m_get_type(entry);
->> +
->> +#ifdef CONFIG_IOREQ_SERVER
->> +        /*
->> +         * If this gets called then either the entry was replaced by an entry
->> +         * with a different base (valid case) or the shattering of a superpage
->> +         * has failed (error case).
->> +         * So, at worst, the spurious mapcache invalidation might be sent.
->> +         */
->> +        if ( p2m_is_ram(p2mt) &&
->> +             domain_has_ioreq_server(p2m->domain) )
->> +            ioreq_request_mapcache_invalidate(p2m->domain);
->> +#endif
->> +
->> +        p2m_put_page(entry, level, p2mt);
->> +
->> +        return;
->> +    }
->> +
->> +    table = map_domain_page(pte_get_mfn(entry));
->> +    for ( i = 0; i < P2M_PAGETABLE_ENTRIES(level); i++ )
->> +        p2m_free_subtree(p2m, table[i], level - 1);
->> +
->> +    unmap_domain_page(table);
-> Please can the use of blank lines in such cases be symmetric: Either have them
-> ahead of and after the loop, or have them nowhere?
->
->> @@ -435,7 +583,7 @@ static int p2m_set_entry(struct p2m_domain *p2m,
->>        * Check if the level target is valid: we only support
->>        * 4K - 2M - 1G mapping.
->>        */
->> -    ASSERT(target <= 2);
->> +    ASSERT(target <= P2M_SUPPORTED_LEVEL_MAPPING);
-> Ah, this is where that constant comes into play. It wants moving to the earlier
-> patch, and with this being the purpose I guess it also wants to include MAX in
-> its name.
-
-Regarding MAX it is what I came up to in my reply somewhere above, so then lets
-just add "MAX".
-
-~ Oleksii
-
---------------V6mKv6hgrgibcKtaBVf7Ty0a
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 11/10/25 4:29 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:acf32e9d-4c07-45dd-baac-29e6d93cff56@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 20.10.2025 17:57, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/p2m.h
-+++ b/xen/arch/riscv/include/asm/p2m.h
-@@ -110,6 +110,8 @@ typedef enum {
-     p2m_mmio_direct_io, /* Read/write mapping of genuine Device MMIO area,
-                            PTE_PBMT_IO will be used for such mappings */
-     p2m_ext_storage,    /* Following types'll be stored outsude PTE bits: */
-+    p2m_map_foreign_rw, /* Read/write RAM pages from foreign domain */
-+    p2m_map_foreign_ro, /* Read-only RAM pages from foreign domain */
- 
-     /* Sentinel — not a real type, just a marker for comparison */
-     p2m_first_external = p2m_ext_storage,
-@@ -120,15 +122,28 @@ static inline p2m_type_t arch_dt_passthrough_p2m_type(void)
-     return p2m_mmio_direct_io;
- }
- 
-+/*
-+ * Bits 8 and 9 are reserved for use by supervisor software;
-+ * the implementation shall ignore this field.
-+ * We are going to use to save in these bits frequently used types to avoid
-+ * get/set of a type from radix tree.
-+ */
-+#define P2M_TYPE_PTE_BITS_MASK  0x300
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Better use PTE_RSW in place of the raw number?</pre>
-    </blockquote>
-    <pre>It would be better, thanks.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:acf32e9d-4c07-45dd-baac-29e6d93cff56@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/p2m.c
-+++ b/xen/arch/riscv/p2m.c
-@@ -17,6 +17,8 @@
- #include &lt;asm/riscv_encoding.h&gt;
- #include &lt;asm/vmid.h&gt;
- 
-+#define P2M_SUPPORTED_LEVEL_MAPPING 2
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I fear without a comment it's left unclear what this is / represents.</pre>
-    </blockquote>
-    <pre>Probably just renaming it to <code data-start="130"
-    data-end="163">P2M_MAX_SUPPORTED_LEVEL_MAPPING</code> would make it clearer,
-wouldn’t it?
-Otherwise, I can add the following comment:
-/*
- * At the moment, only 4K, 2M, and 1G mappings are supported for G-stage
- * translation. Therefore, the maximum supported page-table level is 2,
- * which corresponds to 1G mappings.
- */
-
-
-</pre>
-    <p><br>
-    </p>
-    <blockquote type="cite"
-      cite="mid:acf32e9d-4c07-45dd-baac-29e6d93cff56@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -403,11 +415,147 @@ static int p2m_next_level(struct p2m_domain *p2m, bool alloc_tbl,
-     return P2M_TABLE_MAP_NONE;
- }
- 
-+static void p2m_put_foreign_page(struct page_info *pg)
-+{
-+    /*
-+     * It’s safe to call put_page() here because arch_flush_tlb_mask()
-+     * will be invoked if the page is reallocated, which will trigger a
-+     * flush of the guest TLBs.
-+     */
-+    put_page(pg);
-+}
-+
-+/* Put any references on the single 4K page referenced by mfn. */
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-To me this and ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+static void p2m_put_4k_page(mfn_t mfn, p2m_type_t type)
-+{
-+    /* TODO: Handle other p2m types */
-+
-+    if ( p2m_is_foreign(type) )
-+    {
-+        ASSERT(mfn_valid(mfn));
-+        p2m_put_foreign_page(mfn_to_page(mfn));
-+    }
-+}
-+
-+/* Put any references on the superpage referenced by mfn. */
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... to a lesser degree this comment are potentially misleading. Down here at
-least there is something plural-ish (the 4k pages that the 2M one consists
-of), but especially for the single page case above "any" could easily mean
-"anything that's still outstanding, anywhere". I'm also not quite sure "on"
-is really what you mean (I'm not a native speaker, so my gut feeling may be
-wrong here).</pre>
-    </blockquote>
-    <pre>Then I could suggest the following instead:
-  /* Put the reference associated with the 4K page identified by mfn. */
-and
- /* Put the references associated with the superpage identified by mfn. */
-
-I think the comments could be omitted, since the function names already make
-this clear.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:acf32e9d-4c07-45dd-baac-29e6d93cff56@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+static void p2m_put_2m_superpage(mfn_t mfn, p2m_type_t type)
-+{
-+    struct page_info *pg;
-+    unsigned int i;
-+
-+    /*
-+     * TODO: Handle other p2m types, but be aware that any changes to handle
-+     * different types should require an update on the relinquish code to
-+     * handle preemption.
-+     */
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I guess if I was to address this TODO, I wouldn't know what the latter part
-of the sentence is warning me of.</pre>
-    </blockquote>
-    <pre>It is referencing to the code which isn't introduced yet, something like Arm has
-in <code>relinquish_p2m_mapping()</code>:
-  <a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/arm/mmu/p2m.c#L1588">https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/arm/mmu/p2m.c#L1588</a>
-I am not 100% sure that this comment is useful now (as <code>relinquish_p2m_mapping()
-isn't introduced yet), so I am okay just to drop it and add it when
-</code><code>relinquish_p2m_mapping() will be introduced.</code></pre>
-    <p><br>
-    </p>
-    <blockquote type="cite"
-      cite="mid:acf32e9d-4c07-45dd-baac-29e6d93cff56@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    if ( !p2m_is_foreign(type) )
-+        return;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Are super-page foreign mappings actually intended to be permitted, conceptually?</pre>
-    </blockquote>
-    <pre>Good question. Conceptually, yes (and I thought that was the reason why ARM has
-code to handle such cases and so I decided to have the same for RISC-V), but in
-reality, it will be 4 KB pages, as I can see in the current codebase for other
-architectures.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:acf32e9d-4c07-45dd-baac-29e6d93cff56@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre"> /* Free pte sub-tree behind an entry */
- static void p2m_free_subtree(struct p2m_domain *p2m,
-                              pte_t entry, unsigned int level)
- {
--    panic("%s: hasn't been implemented yet\n", __func__);
-+    unsigned int i;
-+    pte_t *table;
-+    mfn_t mfn;
-+    struct page_info *pg;
-+
-+    /*
-+     * Check if the level is valid: only 4K - 2M - 1G mappings are supported.
-+     * To support levels &gt; 2, the implementation of p2m_free_subtree() would
-+     * need to be updated, as the current recursive approach could consume
-+     * excessive time and memory.
-+     */
-+    ASSERT(level &lt;= P2M_SUPPORTED_LEVEL_MAPPING);
-+
-+    /* Nothing to do if the entry is invalid. */
-+    if ( !pte_is_valid(entry) )
-+        return;
-+
-+    if ( (level == 0) || pte_is_superpage(entry, level) )
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Considering what pte_is_superpage() expands to, simply pte_is_mapping()?</pre>
-    </blockquote>
-    <pre>Makes sense, we can really just have:
- if ( pte_is_mapping(entry) )</pre>
-    <blockquote type="cite"
-      cite="mid:acf32e9d-4c07-45dd-baac-29e6d93cff56@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    {
-+        p2m_type_t p2mt = p2m_get_type(entry);
-+
-+#ifdef CONFIG_IOREQ_SERVER
-+        /*
-+         * If this gets called then either the entry was replaced by an entry
-+         * with a different base (valid case) or the shattering of a superpage
-+         * has failed (error case).
-+         * So, at worst, the spurious mapcache invalidation might be sent.
-+         */
-+        if ( p2m_is_ram(p2mt) &amp;&amp;
-+             domain_has_ioreq_server(p2m-&gt;domain) )
-+            ioreq_request_mapcache_invalidate(p2m-&gt;domain);
-+#endif
-+
-+        p2m_put_page(entry, level, p2mt);
-+
-+        return;
-+    }
-+
-+    table = map_domain_page(pte_get_mfn(entry));
-+    for ( i = 0; i &lt; P2M_PAGETABLE_ENTRIES(level); i++ )
-+        p2m_free_subtree(p2m, table[i], level - 1);
-+
-+    unmap_domain_page(table);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Please can the use of blank lines in such cases be symmetric: Either have them
-ahead of and after the loop, or have them nowhere?
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -435,7 +583,7 @@ static int p2m_set_entry(struct p2m_domain *p2m,
-      * Check if the level target is valid: we only support
-      * 4K - 2M - 1G mapping.
-      */
--    ASSERT(target &lt;= 2);
-+    ASSERT(target &lt;= P2M_SUPPORTED_LEVEL_MAPPING);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Ah, this is where that constant comes into play. It wants moving to the earlier
-patch, and with this being the purpose I guess it also wants to include MAX in
-its name.</pre>
-    </blockquote>
-    <pre>Regarding MAX it is what I came up to in my reply somewhere above, so then lets
-just add "MAX".
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------V6mKv6hgrgibcKtaBVf7Ty0a--
+~Andrew
 
