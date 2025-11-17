@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72244C6327D
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 10:26:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1163520.1490615 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54D30C632CE
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 10:31:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1163534.1490624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKvV2-0007IQ-IT; Mon, 17 Nov 2025 09:26:16 +0000
+	id 1vKva6-0000UV-7j; Mon, 17 Nov 2025 09:31:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1163520.1490615; Mon, 17 Nov 2025 09:26:16 +0000
+Received: by outflank-mailman (output) from mailman id 1163534.1490624; Mon, 17 Nov 2025 09:31:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKvV2-0007GF-Ec; Mon, 17 Nov 2025 09:26:16 +0000
-Received: by outflank-mailman (input) for mailman id 1163520;
- Mon, 17 Nov 2025 09:26:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vKva6-0000Sd-51; Mon, 17 Nov 2025 09:31:30 +0000
+Received: by outflank-mailman (input) for mailman id 1163534;
+ Mon, 17 Nov 2025 09:31:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6Jhw=5Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vKvV0-0007G9-JS
- for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 09:26:14 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 73b1cbb5-c397-11f0-980a-7dc792cee155;
- Mon, 17 Nov 2025 10:26:09 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-640c6577120so6971604a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 01:26:09 -0800 (PST)
+ id 1vKva4-0000SW-No
+ for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 09:31:28 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2c4c7bb6-c398-11f0-9d18-b5c5bf9af7f9;
+ Mon, 17 Nov 2025 10:31:19 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-b7291af7190so577950666b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 01:31:19 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a4b2155sm9674600a12.29.2025.11.17.01.26.08
+ a640c23a62f3a-b737c38c619sm600649466b.1.2025.11.17.01.31.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Nov 2025 01:26:08 -0800 (PST)
+ Mon, 17 Nov 2025 01:31:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73b1cbb5-c397-11f0-980a-7dc792cee155
+X-Inumbo-ID: 2c4c7bb6-c398-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763371569; x=1763976369; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763371879; x=1763976679; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BKjDAi0ec2USBXlFJ3bdHpd9TNQRFpY7FQr6YKiiTu0=;
-        b=b6caoej9ahd+SKWHIbpobWonWFr/EpTJMmUbfXC2+6DGIddWGsuK76bOXgVxe10IAY
-         5l37nZmx9xGXtIS5OkMEKaDtBeeYQKMvpe8o3Z6v6WKfEYDnory5gH+AqVC/Sw5xbUbh
-         ra7Bt54iScSVSNAYqyxogjd1EROrtzxDPcoLBgJeIMdJJDOzT71+o3LG8sW2Py6JBHBM
-         sgAJg5IgGtsHNb1aQcj22bTWrWPGN0aP0mgM1OrSzmtXiVy6IGsnIYKaiP4lUhVt3Csf
-         cZpCYAhYP207f31GHyEqbuUV5AT26iG0TqEv0RcVP5jgjQ1BxmdbAzq9Hh5p6fw8KMKu
-         mW5Q==
+        bh=yerW25dGvgcbFbGkdVLoeOxLybcdbOVC80ZrnezDTiU=;
+        b=CRMkmWgGVx8rHly+L81yl66otol9a8g8Nn+V8TexVpOdWd3h669/mDLTsHoVFpGaiy
+         3kfu0RTUsz+ussvSNOK/5qLSIaY87J/4hC75mkgr0TAODssRgLkO1aEi/EEO3e19YjwD
+         kiQC+TzF9OcSuryFOomkR8bKE+xGe9SjgO8N18DjSzbSzCoen6gtQdo1Rtd+SFSLHr4K
+         c9bN2cd6Jxi7rGRuar1Ee+LM5dvixZTsky/A1QuyHtRD3inJ5enNjKAkaYaDThH2goR+
+         mLtEoVD3jDaxkk0PHSU1LRhSD5hTHh9D8Hq5JRD9AtkomQuwTFMHfwZquYUxHdFwtxgL
+         QJ+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763371569; x=1763976369;
+        d=1e100.net; s=20230601; t=1763371879; x=1763976679;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BKjDAi0ec2USBXlFJ3bdHpd9TNQRFpY7FQr6YKiiTu0=;
-        b=m7oOOq/2P7N0UDzDUgy95aLnqrQLJFLBdNXCHcLPl3Ohh+ztpMtJrKY2nP9Y401FxU
-         pfAyUPmiQKuiZMXMAfbwi44TGL6rfUqo8nAvazOY4gSqqv2/MMKmVAh05xMcp1EiJjF+
-         Qs0a89L8PKVr8fN/CeDE4Q1gs+CQ7wrsWWi7iZWauyBKxNjGeJvJ9ohLT/yHsha5z2B/
-         O1jjd9GJu6g5ssJ2vB5Y1qcmdFPQ/OM89IqV13dCWFYIG25UJM7zhO6R/mLMj5PB5sXL
-         oqPctP7cKT5/eC2Xve85QlZWdKNDcZsulmKZgpRjamPg7GzMcf+GAKfQU4erVsPiOZal
-         M0zQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXSOMsc6fdolKeDEqUhhlJLy5WGqLP91nYYdK6Wuf3fFh5mVygMPFN7fiAre3ZffgC8t93ET80hRoc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YybY9ZP2cUUKbCJfFvpQfxkMLKNyH1AmT6PDvodx5q1sceNr5TZ
-	5YKtOGCoNCLOxhSfb5RT1MnoMTD71UtdRqcLMWQw5VrA3AES9Vxx+ssML2OTmX3Dug==
-X-Gm-Gg: ASbGncv+3q4tgUB24xNBt53bVdCPs/GFQ7UqpbBTmADytKHMpZv9gNt32pnAduDjVLq
-	QgzEJ8rZf2gKvTQaISacQwBggQ3fshbY2tWGa1/yYjiTCjoHYPx5W6DA7cKVJaVFqrIH61s1c46
-	fbIGM4xV/0DPF8fDePQ0U1ARTJmp8KVoSx1cX512evWY9RKbu6NkNWmiL00J3Fr+GPRPKYvrixf
-	+syanSnx5k91Tx5jKEj0dHLxIENLNhDd+h8s8DfeCTHjAV0jrDqu548a4krU4+5ZW4xNRzeRrNG
-	WKcbdgPyukWDwt6ZWONkzNPOBUlE+HNdI+JsNIzNFEXF8DxzzO5pAzbUSZfM/B28DE/qmiIT7mx
-	rGgNKbIU0YHUXsQ1+9BKsqTV6VCv1BTBFfcOfR6PjKjzcOpWyVbe78Y89+pSQKym+HO7phwCQph
-	ugsZvjzhQHVjrxIUiHMC9UGUpdTm0lAqM+lZjigBFtOtYSS0C/4JugUbrYWxUnjy56ysaKlyQRJ
-	Tw=
-X-Google-Smtp-Source: AGHT+IGSJ5zWrw1JjwXGiwCDLQxjhXxBpw9cYhBuWJdCX0vhBR/Sw8Z0QxksWmuif8Z0z6j7VjGiJg==
-X-Received: by 2002:a05:6402:27c8:b0:640:ebca:e682 with SMTP id 4fb4d7f45d1cf-64350e8a783mr10393485a12.21.1763371569274;
-        Mon, 17 Nov 2025 01:26:09 -0800 (PST)
-Message-ID: <fadc4456-17d1-4ba5-9623-db928238f3b8@suse.com>
-Date: Mon, 17 Nov 2025 10:26:09 +0100
+        bh=yerW25dGvgcbFbGkdVLoeOxLybcdbOVC80ZrnezDTiU=;
+        b=mF7PFwqB00kvA1tm9a4zN8qSXC6gr6K6IG5Cjfz0mVDUmtxOU/wgEvbcrJd43JD2ye
+         hC+R9nwp2q81OPdIsJqgtLgIQDIBEByhY4GeiWBCH9LCVlikJBanzL1w25kNhFMujHFj
+         uqHzJUuWp6rNZjyNCwXS4GQ0MdiEipQEO4kZqaUx+Oy77MPdFYCWo+DWdb6Qilr9VDMF
+         H2BED1hOwivKE88m9XeM7ugKjZ4H2zF6N8Q+6X/fBx+6/iZ867WA0B6H6y9dP62TOF+L
+         H4hFsGdnH9jzg8RwgxwzalvA+Od/zYJYz2RbOfqtmRFuN80WtjE+27nnRH9KffYD715o
+         Xsmw==
+X-Forwarded-Encrypted: i=1; AJvYcCXoIn1i1ldoztTv2vSaJPCSHpBe1VC/uv6kXFuX/vnidjmB9v0Pb26lLkU33XoSZI4jcNcmOg+LJiQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzdUyr3QWijTOQpy9c0yCELtrgUAh6mgRmcxmodKOIVMMN4wnkm
+	hD8P+WSe1q2DvcYE0+kGGfPUs8CqPTjubKxdxTjoLRix4YFaXnuQovcKwOVtlFYumA==
+X-Gm-Gg: ASbGnct+DytdOkVrNxfdM1IQEYtSFJtWPugy6Zh+XjL66wSYkBKU8GAt/6J9NZg/WIj
+	fgbv8UFKZloMcgok04qDBLzKOK74xtShV0ubJWEfgma7ZKrgjW3PI/1kvdI/cWUtNdsfz7K+0sf
+	PvCt9G2sj9SLgTHSNiZdmxnwdnSIypTnc/k+rYlLIEUMA7Km8C0dx2EnchEyFOi7msgDX2laI12
+	hbL7mVqJ7lXc6IgFOVOaaJSWfC+mOGXATjoryVampMITbAROkHP6XppjMbsxDRzDRKScVuzCoeG
+	H5vG4CjKklHZFWczG3ctiZAqU+Cp0aDIOeXiD8MZL2YOugklM8jmCFIYxW2uVdvCt0OiNlKtlgf
+	kyK1BZG1rvK21j8AnZfxFnHH4PHeljZd6mHnJQ7gVEVKuptnDHSPARpdAM0NPkBBwR+dWEgFC1I
+	20VU/njp/Av1B7McS4znURwEUfsAgKW8q67GYZ3n8Rsm/ywgpGuhqzIO3CI+HJ9HHf
+X-Google-Smtp-Source: AGHT+IHXQMrxWpVsS/Z2t9jGaxu45zEl1JZ4nBag/HULCyd7lWkQ8v/gjAmAqLSV7ZwCARMXD4fixQ==
+X-Received: by 2002:a17:907:3c82:b0:b6d:5df7:3490 with SMTP id a640c23a62f3a-b73677ee60dmr1002033366b.1.1763371878846;
+        Mon, 17 Nov 2025 01:31:18 -0800 (PST)
+Message-ID: <0557029f-5946-4ee1-a622-842e2698a6c8@suse.com>
+Date: Mon, 17 Nov 2025 10:31:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ioreq: Check for out of bounds vCPU ID
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [XEN][PATCH] common/libfdt: optimize usage
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julian Vetter <julian.vetter@vates.tech>, xen-devel@lists.xenproject.org
-References: <f6cc34ce96693545ba9b8db6fe668c37c80f16c5.1763137553.git.teddy.astie@vates.tech>
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ Jason Andryuk <jason.andryuk@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251114180130.346755-1-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,52 +126,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f6cc34ce96693545ba9b8db6fe668c37c80f16c5.1763137553.git.teddy.astie@vates.tech>
+In-Reply-To: <20251114180130.346755-1-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.11.2025 17:32, Teddy Astie wrote:
-> A 4K page appears to be able to hold 128 ioreq entries, which luckly
-> matches the current vCPU limit. However, if we decide to increase the
-> vCPU limit, that doesn't hold anymore and this function would now
-> silently fetch a out of bounds pointer.
+On 14.11.2025 19:01, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
 > 
-> All architectures have no more than 128 as vCPU limit on HVM guests,
-> and have pages that are at most 4 KB, so this case doesn't occurs in
-> with the current limits.
+> Now all libfdt features are built-it unconditionally, but...
+> 
+> X86: The libfdt is used on x86 only to parse Hyperlaunch/dom0less Xen
+> nodes, so full libfdt is not needed in this case and minimal, RO
+> configuration can be used.
+> 
+> ARM - situation is more complicated:
+> 1) ARM reads Host DT (fdt.c RO)
+> 2) ARM reads passthrough DT (RO)
+> 3) ARM generates dom0/hwdom DT from Host DT (there is a mix of WIP and SW APIs)
+> 4) ARM generates domU DT (there is a mix of WIP and SW APIs)
+> 4) With EFI enabled - ARM needs RW API and fdt_empty_tree
+> 5) With CONFIG_OVERLAY_DTB - ARM needs RW and fdt_overlay API
 
-DYM "at least 4 KB"? If there was an arch with 2k pages but 128 vCPU limit,
-it would be affected, wouldn't it?
+This goes too far, imo.
 
-> Make sure that out of bounds attempts are reported and adjust the around
-> logic to at worst crash the offending domain instead.
+> --- /dev/null
+> +++ b/xen/common/libfdt/Kconfig
+> @@ -0,0 +1,14 @@
+> +config LIBFDT_WIP
+> +	bool
+> +
+> +config LIBFDT_SW
+> +    bool
+> +
+> +config LIBFDT_RW
+> +    bool
+> +
+> +config LIBFDT_EMPTY_TREE
+> +    bool
+> +
+> +config LIBFDT_OVERLAY
+> +    bool
 
-Wouldn't we better prevent creation of such guests? And point out the need
-to adjust code by a build-time check?
+Nit: Inconsistent indentation.
 
-> --- a/xen/common/ioreq.c
-> +++ b/xen/common/ioreq.c
-> @@ -100,7 +100,14 @@ static ioreq_t *get_ioreq(struct ioreq_server *s, struct vcpu *v)
->      ASSERT((v == current) || !vcpu_runnable(v));
->      ASSERT(p != NULL);
->  
-> -    return &p->vcpu_ioreq[v->vcpu_id];
-> +    if ( likely(v->vcpu_id < (PAGE_SIZE / sizeof(struct ioreq))) )
-> +        return &p->vcpu_ioreq[v->vcpu_id];
-
-Imo you then also need to use array_access_nospec() here.
-
-> +    else
-> +    {
-> +        gprintk(XENLOG_ERR, "Out of bounds vCPU %pv in ioreq server\n", v);
-> +        WARN();
-> +        return NULL;
-> +    }
->  }
-
-While I'm generally arguing against such needless uses of "else", this one
-is imo a particularly bad example. The brace-enclosed scope give the strong
-(but misleading) impression that the function is lacking a trailing "return".
+Also, how would one be to guess which of these may need selecting? What do
+"WIP", "SW", and "RW" stand for? What exactly would "empty tree" mean? Yes,
+you follow what the files are named under libfdt/, but that naming is
+overly cryptic, too. The comments at the top of these files also don't
+say anything helpful.
 
 Jan
 
