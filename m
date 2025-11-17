@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93310C632F2
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 10:34:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1163545.1490635 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AA7CC63463
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 10:43:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1163558.1490645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKvcr-00018p-L7; Mon, 17 Nov 2025 09:34:21 +0000
+	id 1vKvlN-0002xP-Df; Mon, 17 Nov 2025 09:43:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1163545.1490635; Mon, 17 Nov 2025 09:34:21 +0000
+Received: by outflank-mailman (output) from mailman id 1163558.1490645; Mon, 17 Nov 2025 09:43:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKvcr-00016D-He; Mon, 17 Nov 2025 09:34:21 +0000
-Received: by outflank-mailman (input) for mailman id 1163545;
- Mon, 17 Nov 2025 09:34:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vKvlN-0002vQ-Ah; Mon, 17 Nov 2025 09:43:09 +0000
+Received: by outflank-mailman (input) for mailman id 1163558;
+ Mon, 17 Nov 2025 09:43:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6Jhw=5Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vKvcq-000165-Ob
- for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 09:34:20 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 971bef05-c398-11f0-980a-7dc792cee155;
- Mon, 17 Nov 2025 10:34:18 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-b737c6c13e1so300550766b.3
- for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 01:34:18 -0800 (PST)
+ id 1vKvlL-0002vK-Vj
+ for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 09:43:07 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d1d1d53d-c399-11f0-9d18-b5c5bf9af7f9;
+ Mon, 17 Nov 2025 10:43:06 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-640b4a52950so5825687a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 01:43:06 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fda8bc8sm1041576366b.49.2025.11.17.01.34.17
+ a640c23a62f3a-b734fad44b4sm1050807366b.28.2025.11.17.01.43.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Nov 2025 01:34:17 -0800 (PST)
+ Mon, 17 Nov 2025 01:43:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 971bef05-c398-11f0-980a-7dc792cee155
+X-Inumbo-ID: d1d1d53d-c399-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763372058; x=1763976858; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EA40i+e9TagtePB0HRsi1abTpKrLFNjOZR0t41vR2b8=;
-        b=Uv+9U+uN8+ei+4seiiNYOH2bGHhFOQJlyUHbj9q7Fpdoov5efB36Mml3v30ZU7XTd5
-         2zxN3EqFYv7YyvJ2TH/Q1MgzagEjwKae/xOwyqTlr7xYjXOlGCItSW8cIDbRGYhh3qLD
-         VKId1qdA7vEWTf/qZ3eLYhypbYfPRNHoL8bqdfoKvS2jEuXF7odxk84DHLEd62UkZ9QO
-         R8eSYq0F/oBcRdrohaIyKhymyvUp0BADbR/LScrxdW9/1s6M1Y22xyBfls/ohiYgUlck
-         rxYNOBMv5LHGm1z4n8kKlJuYZVqWNiqS9HAq/PS5zi5LGGmvtYiimxonwisvydXY/y48
-         1EJg==
+        d=suse.com; s=google; t=1763372586; x=1763977386; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Muu8mGOB3Hor5+Xmb/Z/xvUInL65jcNOJXO+1HzjbN4=;
+        b=HKPZDww9unooJanXK0e+180z1w6uznvUkwCL3A4IFmTOh5qP70MRG54kc+tJ4VLJ28
+         b/FxA4A6WVyb6SSFzmJoYEuvItDfL3hhMHZGohzfZwqHP/GdSL/hgZKEl+GXf/A+s9Uj
+         cTyHrU8DDqw4V5q7JjFnmSXT4AJG3cHLLb/QfRC2EK+55NmD6KWfbRM3arYU9CZwcSm7
+         bkcJnWzhKKO1LVsoqlh4qhOj0g58LPgEQywqMJiFyPRB8YFjfY/N9ccxmaLS9qSkflEq
+         0ZPKwIHyZoOBCJOPoZ13MRMrD+x3JT6jj0zt8WB5N6LjSB7brssxdCRBM4fhbLRxHP8v
+         UpMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763372058; x=1763976858;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1763372586; x=1763977386;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EA40i+e9TagtePB0HRsi1abTpKrLFNjOZR0t41vR2b8=;
-        b=NWeADsgSMSaz/2J1api4D4fiEVRgnHJDDThG4tQFTL80kKSYTNRfBKWHKXUf3a5ebc
-         nDzfqAAx70TdQ4szMtvP4daKX4AMOX50Ta8igJENMelMOCwbH4I52n1og3BSCSfW97eJ
-         D0BhzsklcrrajsyFmHGDn3Ft74ksE1RBlX5wN7l2uNQuhDz7t/8XG03ngesx7HGRDhgW
-         1WbB76cbLiIj/3tOS3KoSJlrinzRjrdxm/DNp5uw0LEuQKCHaOLcqbN9e5Zd7vV97HPv
-         TY8TVf2Nboa8F2wEYaxACHK9zKjxuHKUNeIl1/5Lfa43zgjjPZg+vrkhPnOJ0sJ5t2GO
-         /U5w==
-X-Forwarded-Encrypted: i=1; AJvYcCXCon3HvQbTxlRnPoLsaj9WEPuhbCfOtmb5gj92/kSgakVyj1f1zwY1rpE5Javugqz3YpxkOd0xrGE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx6doKEpoF8YypIfNZa/3DJOvqhCU3tUBUdmwCt4dfxOVMF1D8M
-	8+uo+KcMpwEC4oUS3GXwbMyB0L1F8U0rF0lmJRalh8blnmOMtjXsZNrgTcD0+2N6IQ==
-X-Gm-Gg: ASbGncsgElxJ01IrHZA2wG+5NhTN8hktm9kIak3KIENV0MNKwp1gzibjQKLggzkzyPm
-	qEOf/xFp3dIR93yr6hOi1jE9z9pFrSAddv/voFm80wm2WcqCwWcNbEl7TefbDWNXZF2o+KHDxPZ
-	Anq0pbjAfRBwduhg2SDwEdch2klPeM0tIoZjHgRWaOqiZEsUs4uLPKt4OS2OFcx5BTj5dzXmodi
-	qxokGO5P00F3IaH/wn1cbEB0OKbOYmg9xifEOT8Hp4MMjnOnn1YsKn11GuHjfGlk/JhkYw1qguT
-	Tbdjk7MRo/GyvWBTcA3bSgraQgX+qbGxll8+i3h6j9OXom+iG1Q6spnO0pBJj47BnGd4gJ5Ngtj
-	nb1tlTzIAdiVPmK+nvVoz8K7DI/kTZm6JEqKeJmzJPRoyVgdVEdxtv4btcLb4Cz7o4BgNvhyvL9
-	WxUh7hhnJ4T81n9Aaehmxqv/tYfFZsLmlzt0T0CNJXwPBCGEwQbLU1H3lmbe6NaZWL
-X-Google-Smtp-Source: AGHT+IHu+kIECWmrE0Vpr4tvn8DNNSNYWPegJUiJH9tGqInyvujf7Hbo/oy/4W3xIQeoX2j1LtLiBQ==
-X-Received: by 2002:a17:907:a08a:b0:b73:870f:fa32 with SMTP id a640c23a62f3a-b73870ffe43mr665375166b.43.1763372058127;
-        Mon, 17 Nov 2025 01:34:18 -0800 (PST)
-Message-ID: <991e0324-98af-4264-a527-703c72439780@suse.com>
-Date: Mon, 17 Nov 2025 10:34:18 +0100
+        bh=Muu8mGOB3Hor5+Xmb/Z/xvUInL65jcNOJXO+1HzjbN4=;
+        b=sM0eQjwsQZrn6oCKZuZyGOEDGz3KcBF3LJF+w2/iW9ng6QGmUTMU58JfXQbuB02m1e
+         XrGa5sieT2Gia3b8v/H7KjjS1eLFOTVAiT7bhyGO7x17YUulev1fLIs46NIuKHpp10v+
+         I2eHFRGAeUCGSLJC3mpyJBFTD+CSjGdI4ssMRE8dH/KIS6+WJ/fFQKpeZPxDwjCKMsot
+         fZ9TA9t1wPwWf/DUpTkhF+tEolJc8kciuEwyYNWP77NE19yH2PzIFbdhhTYd3rxUXkwa
+         fdjmDiwJv5r22YPi6lRYbKpgRFtjZiqiDr2q76dVYiwZM1RF6mny3UvFo5/Fafc8O5sX
+         fLoQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWK/gKiBAxrPAt7+TRsZj012CY3gbofsElwNzzT2MOBlla/eqTN64NNAFS+Cu9HIGUi4SSAefhfmT8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywz9ZCGtyQa1mcbtP1JcHczV6hMnT4yZlr65z16xA8J9HbTfTo4
+	jHzrs80h8XmZaa47tXJ8NHd52vxO4r8JjpjxkO5AjRKtpNd6pjcKtsFyDAlHUKABVQ==
+X-Gm-Gg: ASbGncvWUBFOJtHD+9g7st4978Qxun258Dubcx8CF7lfDjqULFu7OalWJmtvRpuGRef
+	7KY/DGQI+kvj9tBahM2AYoxu/L18XUdIUmmqZZVOiD/l3K0IpcGDs6VK1qHCHKLcsWJ0hPps4Mm
+	CxqEwtsS2yCPnU52JXtUCSlMSMhagv3481IO+NQr2Wq48DZQMFf6W6INIFdqGY9+uXfsK1NUimK
+	rLgytmW7qOCU4tgCPwHRag/Hmcpt18Fare5GBOTyz9iRkENqh5ng0vzBLKobs3e1+qHY6sJB+ZJ
+	xTcQr4MnS4Zof1Uy3iYBU4YOYh/NjnZsjvkX2fKEtdeylA6s7Dzku2YaRpgR0YCV25ih2VBbh+1
+	uLgZdpSbsxyYEtYmk1DRpbNO3wn15tY+lAyytahj+pLvjrEPp5ZyYN7K3ltSgxKXyPxj3NYSpWJ
+	4XWfqu29crUC2H72YQm5tmwo4WUY2VH89Oyv2fUcI8qkoiSJmwxwo5CDqkC7CNDYwHdmJmPZ+VR
+	g8XaFblme799w==
+X-Google-Smtp-Source: AGHT+IFzXFqYU7iXFFxKVQf57bz1ySs5E7cnXfb4y+WcKXNnCWvwX9FSGoHP3mcwoF9RPSfqFM8+jQ==
+X-Received: by 2002:a17:907:5c9:b0:b73:5b9a:47c7 with SMTP id a640c23a62f3a-b736795d4aemr1263810766b.51.1763372586167;
+        Mon, 17 Nov 2025 01:43:06 -0800 (PST)
+Message-ID: <2db5085c-a04d-4745-8fc7-5e257ab30926@suse.com>
+Date: Mon, 17 Nov 2025 10:43:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] common/libfdt: optimize usage
-From: Jan Beulich <jbeulich@suse.com>
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Jason Andryuk <jason.andryuk@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251114180130.346755-1-grygorii_strashko@epam.com>
- <0557029f-5946-4ee1-a622-842e2698a6c8@suse.com>
+Subject: Re: [PATCH for-4.21] x86/ucode: Add extra rows to the entrysign model
+ table (again)
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251114152447.272823-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -127,32 +121,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0557029f-5946-4ee1-a622-842e2698a6c8@suse.com>
+In-Reply-To: <20251114152447.272823-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17.11.2025 10:31, Jan Beulich wrote:
-> On 14.11.2025 19:01, Grygorii Strashko wrote:
->> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>
->> Now all libfdt features are built-it unconditionally, but...
->>
->> X86: The libfdt is used on x86 only to parse Hyperlaunch/dom0less Xen
->> nodes, so full libfdt is not needed in this case and minimal, RO
->> configuration can be used.
->>
->> ARM - situation is more complicated:
->> 1) ARM reads Host DT (fdt.c RO)
->> 2) ARM reads passthrough DT (RO)
->> 3) ARM generates dom0/hwdom DT from Host DT (there is a mix of WIP and SW APIs)
->> 4) ARM generates domU DT (there is a mix of WIP and SW APIs)
->> 4) With EFI enabled - ARM needs RW API and fdt_empty_tree
->> 5) With CONFIG_OVERLAY_DTB - ARM needs RW and fdt_overlay API
+On 14.11.2025 16:24, Andrew Cooper wrote:
+> Link: https://git.kernel.org/tip/dd14022a7ce96963aa923e35cf4bcc8c32f95840
+> Fixes: ff8228ab4658 ("x86/ucode: Relax digest check when Entrysign is fixed in firmware")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 > 
-> This goes too far, imo.
+> Found because AMD have released ucode to fix RDSEED on this CPU, and I
+> cross-referenced the tables.
 
-The more that, unless OVERLAY_DTB=y, all code and data moves to .init.*. Is
-coverage in in .init.* really of as much concern as runtime code/data?
+I wonder how many more we're going to see.
 
 Jan
 
