@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 251FCC65417
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 17:52:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1164204.1491209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF936C65450
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 17:56:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1164215.1491219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vL2Sj-0005Lx-8Y; Mon, 17 Nov 2025 16:52:21 +0000
+	id 1vL2Vy-0005te-Me; Mon, 17 Nov 2025 16:55:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1164204.1491209; Mon, 17 Nov 2025 16:52:21 +0000
+Received: by outflank-mailman (output) from mailman id 1164215.1491219; Mon, 17 Nov 2025 16:55:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vL2Sj-0005Jc-5f; Mon, 17 Nov 2025 16:52:21 +0000
-Received: by outflank-mailman (input) for mailman id 1164204;
- Mon, 17 Nov 2025 16:52:19 +0000
+	id 1vL2Vy-0005sA-JT; Mon, 17 Nov 2025 16:55:42 +0000
+Received: by outflank-mailman (input) for mailman id 1164215;
+ Mon, 17 Nov 2025 16:55:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6Jhw=5Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vL2Sh-0005JW-9r
- for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 16:52:19 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1vL2Vw-0005s4-K3
+ for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 16:55:40 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c447744c-c3d5-11f0-980a-7dc792cee155;
- Mon, 17 Nov 2025 17:52:13 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-640aaa89697so5937873a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 08:52:13 -0800 (PST)
+ id 3d23e7be-c3d6-11f0-980a-7dc792cee155;
+ Mon, 17 Nov 2025 17:55:36 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-b737502f77bso366368766b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 08:55:36 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fad41f1sm1133864166b.23.2025.11.17.08.52.12
+ a640c23a62f3a-b734fad4494sm1110193066b.18.2025.11.17.08.55.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Nov 2025 08:52:12 -0800 (PST)
+ Mon, 17 Nov 2025 08:55:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c447744c-c3d5-11f0-980a-7dc792cee155
+X-Inumbo-ID: 3d23e7be-c3d6-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763398333; x=1764003133; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763398536; x=1764003336; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=weznmtnipny7ujYDz+XHFQiEruW9WJeEiY+a1pjZB7c=;
-        b=PCiU/rYYE3XFghF97noy01SnJdkOoFCuOFVdk99wBvYMz3EED7UeubkSDL/uvZ2Id5
-         g5P+D51ASrceEKTd0gbRyhxQqwYVUb4eLnnsevJ2W2F1/OYZ6ayTVeCDbueiXlwg/+dY
-         U68ninPLv4JcYCYbfWHnKadPPUDOk9ktjx2ZfZjA6A3cjCiBMkLpX5vf2XRQnc6fsuUM
-         TuprzJLLD3Usvg53/6ZOCX15VpdClrSRpC6b+TMiZl90e00C8x8FmqBcyzy7jvpnumbt
-         gj25juvcLzQ6l1KxhdzlNWiMIF4ifReWGfrI3EEkP3veLtsVNclZiZvkJGcdnsPKtcMP
-         bsiQ==
+        bh=PZPbZAwOcEcTrgbOQwHxlX/F2c3LK73uMtBVLXsIHHs=;
+        b=IYWCoRvTIoho/zJTmjrbVJZY0F2Sz/6UFNUZVVMGgKnSKRtjLbjzV57mTqxeyN+eno
+         Lqclyd6rMpnYu5wqW0GduTfdzaFN1N8T0Yyfl1LjlckAfLgOrScJxan5Av/gE+sxO2YP
+         8QiGOXtEpxYC5mnRMAjWPElZzxpYwuxtehPhJTwf2Bo/hjGXgG5s2xbtBO0zQKFyoPvz
+         Bvqh66EWX4NKROMjUsSfjp33q99badxC/RsENIrgH0j5tfHQCzpFpQSDdvjk+TUeE0pO
+         Is9k6410F80w26g8x8aTpC8FcVhBgWATmrMEqjvcPcoqKpUrMzChSRg/OQHoG/1tcSCA
+         eWyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763398333; x=1764003133;
+        d=1e100.net; s=20230601; t=1763398536; x=1764003336;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=weznmtnipny7ujYDz+XHFQiEruW9WJeEiY+a1pjZB7c=;
-        b=VnMJY/tsQyrWagntM3vqE6xPWWT4pb13Js3it8+sv6f33P/uBScrUNklpGmHrBGDjk
-         PJhqBv5k1LgamZSr5dGEmtW9CXmyv8eh/xQTCvIVo4FD+f5HnqfQb+xD+mxEnrG+aDDt
-         TCvoIhdJXe18GVhj5nIvnfEJHzubQFpBmbKcid+muc8wL2kDMEbXiOcUpzffYzEXQBQy
-         Aopl09y+561WmLBbm+6dAQXWbl8qfwE4GgXBCQyTvHfHn3BqIlVWIjHd9ye9jIGTcRJo
-         EJuiRyFiA1u7W2FDp+xUjHu/ix7QVI0X5FDrUv2s6rT9mtzPF5jOYokWeZ1d2GYDfVSu
-         rWmw==
-X-Forwarded-Encrypted: i=1; AJvYcCWEWk0Jnm5wG+xGMIq3pxZiJTlyGYnwo1tzyNisXMweZMUy2S/xsiK6VhRz8pmQ28lavaGzbKtqz9c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwXoTrhbQcBhn2LamAd5kho2ER1egQUSZyEAXNj7Us4VEJ51tv0
-	t1yb5xmysrCaQNVGo9NpuFU/vwzt3h+vKggmHT/uX6RGDMhroUBnbLUMoAmzGs8DHg==
-X-Gm-Gg: ASbGncuVVNmRaGNm2O8PFghiHQ266NLYDIf9EvWEMMhpU+5H0WXSmgg+PNk2TSP+nBF
-	Fu9XtffCRHHdC71fZuRHPjjS/HzT+TuosRm4AvbA/YmM2TNlhhx7oo+o/YxG37/15OibtTKMh14
-	YsUu7GS7g6uVUsbsYinFBra3LFtmvmoAy6Tr16UCuf0iviOUiKrTCau9+7I3qnbhIcs1eDq+oNV
-	/pqwIbEiw01hBF+w8GOaq/kwADskhcVEmPnDyyqesqkllLQ6Rf6dKn8hhVe36rGsLcp8q1+DR6d
-	M25fYGbV1AKuPIlT1x671b1+eSzQNEnhM7ufUN7kB77OBvI0BM0SQo9fyofha/zq/k9OSStcuzw
-	+3LrS+396jIilDwmPGuvQZJRhupJF21wDNaYMDs8y34CucTRR5tkiJt0N8XInaxLCVED29whMoj
-	NDtIxfp25aYyESZF4zndWWXfoS1GmNlkRRAszqPUktIP94Fjzn6JqjFrlfDub8l0nb/Ln1J7+L7
-	wfUyC2Oqn/lWQ==
-X-Google-Smtp-Source: AGHT+IGbCFREwi2uakdE5UYH/RbFRM5WzZpqBevojXwmpUyh8F6lcTxKbAcm2eGsKG5kTBfTi+N95g==
-X-Received: by 2002:a17:906:7304:b0:b72:a899:168d with SMTP id a640c23a62f3a-b73677edba0mr1349594766b.13.1763398333182;
-        Mon, 17 Nov 2025 08:52:13 -0800 (PST)
-Message-ID: <225378f4-0ebd-4c77-ae77-807bbb03b0bb@suse.com>
-Date: Mon, 17 Nov 2025 17:52:13 +0100
+        bh=PZPbZAwOcEcTrgbOQwHxlX/F2c3LK73uMtBVLXsIHHs=;
+        b=JwtoOExPbm7RdqW9TsrCcABujMBDsWXeLAM9kVw2s0Qvc/oanXE9pLcW7QlDDT+Tu/
+         2zzNWgy/rAPmuHr6b2V8D1yVhKNT3HuxONnPu7veQ3VJyaQJ11KHSjq7pa3BNqHcpA/s
+         GQLbSXxEAKrLmffNiCB4OfK/agqdamgf6JQ0jCM97wXEqLOg/oH8N0dy/bjZm50gcb/T
+         aCRZjUVHNkqrMhjz8h50Y05MTUIgcoVrAPNab8ea35LV73ax1jPn9j+txSx4o3YAHhVi
+         RsnQWkc61MqKOKi5BCZ5jNJCbvqebr1PZRz2ygpkMtukyLLjYiv91kW+/hKqvoGP/Xg6
+         p9Mw==
+X-Forwarded-Encrypted: i=1; AJvYcCVRAN7fIE2M0Vd8PDeZW5sTdZoQ2OVlRuWie5NzMHs2EcGH366Wba8fd+kRSiHubxFDlrrzMjmlzJM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxt0fYmRTCM4D20xQHleqPlhrKuGvIfSPc9yPYZj2zo0WTdTOKI
+	DlGnGWERH6HYncZ9FEdMONkOIN+n42ohA0mtryEccfqRoLhm3sNwojIZjuOiWnsMWQ==
+X-Gm-Gg: ASbGncvTdyo4P9t3rqoZfeKKMacSkcUd4ResgLQcys9TBE9A8XguRWnANG9HQM7g5Gx
+	r7eyLfSBKtTXVLsvzBfRxhRiiSUsocxPTJr1W42ih7cQs417UJ7vs1Ldpt9ajKCV8FkHDkKSD4A
+	3N8ZAiQMiY5xndXqsgPRxtavm/9Jzw3cl1YVJ9OnKCgk/qsy3tt8GVtZGxowv1AMcxx/XGRSrWc
+	+dOOJCShiq5/8Hh4Qf082sQuaffxikS4qrsrK+HPkpUwuaOTRiZkmIn/Na+rzV+7nbjzr0Q0bMj
+	TcYCsyYgEfkGyn2QMJRF+/xCOMs5oaChzDM9SKq4kt1PHlKAfK/vqhP2bMv6ulLMDcAO1b9M211
+	8/0CjTdtLR69yA1jod3m5JfCvL7z4I/3ySQ/M5wlpl/VvmCVBC1nhGXqfWP7JOLjKBR3+GnkzPf
+	fJbAeeR+upSugNyOcVH0PpLSYBpB44TxauKdetdu/FlMGaD4OrUz1QbVFn7sht60Ns4Xb+mRWkP
+	8F6bszXTJSgzGIWX7hFNZvn
+X-Google-Smtp-Source: AGHT+IFxX35UDCkupISlSCB+GXyBNoCE7vecEZLr7bMxmBifRyFv8zEiyWm79XM9MGNFLFJ5FWMpMg==
+X-Received: by 2002:a17:907:849:b0:b72:598:2f32 with SMTP id a640c23a62f3a-b73678ed1d0mr1434913766b.42.1763398535660;
+        Mon, 17 Nov 2025 08:55:35 -0800 (PST)
+Message-ID: <035a9514-9a7f-44ab-86a7-61deab37f7c7@suse.com>
+Date: Mon, 17 Nov 2025 17:55:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v3] xen: make VMTRACE support optional
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Teddy Astie <teddy.astie@vates.tech>, Penny Zheng <Penny.Zheng@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251114142207.279834-1-grygorii_strashko@epam.com>
+Subject: Re: [PATCH 0/4] Add Kconfig option to remove microcode loading
+ support
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ xen-devel@lists.xenproject.org
+References: <20251112162219.226075-1-alejandro.garciavallejo@amd.com>
+ <61df49ba-4aab-42e3-b945-700a8f20c739@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,86 +125,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251114142207.279834-1-grygorii_strashko@epam.com>
+In-Reply-To: <61df49ba-4aab-42e3-b945-700a8f20c739@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.11.2025 15:22, Grygorii Strashko wrote:
-> --- a/xen/arch/x86/hvm/Kconfig
-> +++ b/xen/arch/x86/hvm/Kconfig
-> @@ -35,6 +35,18 @@ config INTEL_VMX
->  	  If your system includes a processor with Intel VT-x support, say Y.
->  	  If in doubt, say Y.
->  
-> +config VMTRACE
-> +    bool "HW VM tracing support"
-> +    depends on INTEL_VMX
-> +    default y
-> +    help
-> +      Enables HW VM tracing support which allows to configure HW processor
-> +      features (vmtrace_op) to enable capturing information about software
-> +      execution using dedicated hardware facilities with minimal interference
-> +      to the software being traced. The trace data can be retrieved using buffer
-> +      shared between Xen and domain
-> +      (see XENMEM_acquire_resource(XENMEM_resource_vmtrace_buf)).
+On 13.11.2025 09:50, Andrew Cooper wrote:
+> On 12/11/2025 4:22 pm, Alejandro Vallejo wrote:
+>>  xen/arch/x86/Kconfig                    | 12 ++++
+>>  xen/arch/x86/cpu/microcode/Makefile     |  9 ++-
+>>  xen/arch/x86/cpu/microcode/amd-base.c   | 55 +++++++++++++++++++
+>>  xen/arch/x86/cpu/microcode/amd.c        | 55 ++-----------------
+>>  xen/arch/x86/cpu/microcode/amd.h        | 15 +++++
+>>  xen/arch/x86/cpu/microcode/base.c       | 73 +++++++++++++++++++++++++
+>>  xen/arch/x86/cpu/microcode/core.c       | 58 +-------------------
+>>  xen/arch/x86/cpu/microcode/intel-base.c | 50 +++++++++++++++++
+>>  xen/arch/x86/cpu/microcode/intel.c      | 56 +++----------------
+>>  xen/arch/x86/cpu/microcode/intel.h      | 16 ++++++
+>>  xen/arch/x86/cpu/microcode/private.h    | 14 +++++
+>>  xen/arch/x86/efi/efi-boot.h             |  2 +-
+>>  xen/arch/x86/platform_hypercall.c       |  2 +
+>>  13 files changed, 259 insertions(+), 158 deletions(-)
+>>  create mode 100644 xen/arch/x86/cpu/microcode/amd-base.c
+>>  create mode 100644 xen/arch/x86/cpu/microcode/amd.h
+>>  create mode 100644 xen/arch/x86/cpu/microcode/base.c
+>>  create mode 100644 xen/arch/x86/cpu/microcode/intel-base.c
+>>  create mode 100644 xen/arch/x86/cpu/microcode/intel.h
+> 
+> This is awfully invasive for something that ultimately drops only a
+> handful of lines of code.
+> 
+> First, it should be CONFIG_MICROCODE_LOADING.  We're not getting rid of
+> all microcode capabilities.  Also, of all the places where UCODE needs
+> expanding properly, it's Kconfig.
+> 
+> Next, annotate the functions that you conditionally don't reference in
+> {amd,intel}_ucode_ops with __maybe_unused, and dead code elimination
+> should do the rest.
 
-Please check adjacent options above or ...
-
->  config HVM_FEP
->  	bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
->  	default DEBUG
-
-... below for how proper indentation would look like here.
-
-> --- a/xen/arch/x86/hvm/vmx/vmcs.c
-> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-> @@ -307,6 +307,7 @@ static int vmx_init_vmcs_config(bool bsp)
->      rdmsrl(MSR_IA32_VMX_MISC, _vmx_misc_cap);
->  
->      /* Check whether IPT is supported in VMX operation. */
-> +#ifdef CONFIG_VMTRACE
-
-This imo wants to move ahead of the comment. (Feels a little like I may have
-said so already, but it may well have been in the context of a different
-recent patch.)
-
-> @@ -772,13 +775,24 @@ static inline int hvm_vmtrace_get_option(
->  
->      return -EOPNOTSUPP;
->  }
-> +#else
-> +/*
-> + * Function declaration(s) here are used without definition(s) to make compiler
-> + * happy when VMTRACE=n, compiler DCE will eliminate unused code.
-> + */
-> +int hvm_vmtrace_output_position(struct vcpu *v, uint64_t *pos);
-> +#endif
->  
->  static inline int hvm_vmtrace_reset(struct vcpu *v)
->  {
-> +#ifdef CONFIG_VMTRACE
->      if ( hvm_funcs.vmtrace_reset )
->          return alternative_call(hvm_funcs.vmtrace_reset, v);
->  
->      return -EOPNOTSUPP;
-> +#else
-> +    return -EOPNOTSUPP;
-> +#endif
-
-No #else please and the #endif moved up.
-
-> --- a/xen/arch/x86/vm_event.c
-> +++ b/xen/arch/x86/vm_event.c
-> @@ -253,7 +253,8 @@ void vm_event_fill_regs(vm_event_request_t *req)
->      req->data.regs.x86.shadow_gs = ctxt.shadow_gs;
->      req->data.regs.x86.dr6 = ctxt.dr6;
->  
-> -    if ( hvm_vmtrace_output_position(curr, &req->data.regs.x86.vmtrace_pos) != 1 )
-> +    if ( IS_ENABLED(CONFIG_VMTRACE) &&
-> +         hvm_vmtrace_output_position(curr, &req->data.regs.x86.vmtrace_pos) != 1 )
-
-Would be nice if the too-long-line issue here was also address, when the line
-needs touching anyway.
+Are you, btw, sure this would be Misra-compliant? Right now we solely
+deviate __maybe_unused when used on labels which may really be unused,
+afaics.
 
 Jan
 
