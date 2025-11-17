@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E578C642FB
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 13:52:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1163764.1490843 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5ECDC642F8
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Nov 2025 13:51:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1163763.1490832 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKyi0-0002nB-OO; Mon, 17 Nov 2025 12:51:52 +0000
+	id 1vKyhv-0002Qc-FA; Mon, 17 Nov 2025 12:51:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1163764.1490843; Mon, 17 Nov 2025 12:51:52 +0000
+Received: by outflank-mailman (output) from mailman id 1163763.1490832; Mon, 17 Nov 2025 12:51:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vKyi0-0002k0-KW; Mon, 17 Nov 2025 12:51:52 +0000
-Received: by outflank-mailman (input) for mailman id 1163764;
- Mon, 17 Nov 2025 12:51:50 +0000
+	id 1vKyhv-0002P4-C8; Mon, 17 Nov 2025 12:51:47 +0000
+Received: by outflank-mailman (input) for mailman id 1163763;
+ Mon, 17 Nov 2025 12:51:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T/DW=5Z=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1vKyhy-0001xJ-Mi
- for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 12:51:50 +0000
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazlp170120007.outbound.protection.outlook.com
- [2a01:111:f403:c101::7])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6Jhw=5Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vKyhu-0001xJ-HO
+ for xen-devel@lists.xenproject.org; Mon, 17 Nov 2025 12:51:46 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2c02a431-c3b4-11f0-980a-7dc792cee155;
- Mon, 17 Nov 2025 13:51:45 +0100 (CET)
-Received: from SJ0PR13CA0152.namprd13.prod.outlook.com (2603:10b6:a03:2c7::7)
- by DM6PR12MB4043.namprd12.prod.outlook.com (2603:10b6:5:216::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.22; Mon, 17 Nov
- 2025 12:51:40 +0000
-Received: from CO1PEPF000075F0.namprd03.prod.outlook.com
- (2603:10b6:a03:2c7:cafe::4b) by SJ0PR13CA0152.outlook.office365.com
- (2603:10b6:a03:2c7::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.10 via Frontend Transport; Mon,
- 17 Nov 2025 12:51:18 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000075F0.mail.protection.outlook.com (10.167.249.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9343.9 via Frontend Transport; Mon, 17 Nov 2025 12:51:39 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 17 Nov
- 2025 04:51:38 -0800
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 17 Nov
- 2025 04:51:38 -0800
-Received: from [10.252.147.171] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 17 Nov 2025 04:51:36 -0800
+ id 2bf225f9-c3b4-11f0-980a-7dc792cee155;
+ Mon, 17 Nov 2025 13:51:44 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-6406f3dcc66so7168999a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 04:51:44 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b734fa81172sm1065371066b.15.2025.11.17.04.51.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Nov 2025 04:51:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,154 +45,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c02a431-c3b4-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SnMPRtSv4NCr7m8Utrdm82tIQnGq+7E4acJjyr8KHZ5Qxz0ph7WPXOyNV5kn0hIIUOLLfjF+mBshcuJm6qXh+8ytGH1yiwuwCjyMhc39mpP/IW3nTOwWyIB2aSoxkKZjeiJ02Xp5AU0xAVQEiMuZLz5iSv+pkInINzcrNnxo/qMp4gyFfzUznNQEEXPeWDny4lJO2EWIL0jj9tAXycFHU7RDAGMAEyy/CifT1F3ago7A5oDm3wtyjKzlBz8zOvZXMR/ieZIpR7xlmQZrD0iiYtK585w0iwlfiasVqAHbJMzF2duIfpH4ZCrabYyRpTENKBgrt6JRJbER1Nf3aJvk0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qgIa7eJUcJy0L797JuXOlZcWIxafwc3mfLGn2Bbocrk=;
- b=d3QYYbaSoaC6Nv67HuIuAteOiYSCh3IPJzd/0LTUSzxYQbKgkgYp0HuYQUKvnyru5CoCFZLfrEVjrovoPlwZNyPwjBCM/YPzkwELVzIdL/flxwdwZ0JMOU+DL5/OvvGqmQa40lKbr1CdDCYBrY56/y9KeOkhazlzDn9Jp0ZD9ND9ZiiacW9YU8e8K54mdZRcu59EqcaU6ek53J39lry5wigT5czeyyRmYWslykJbKzow7CZI6dlh2tTZsfjuaXtPHAdo3lS82n0LCqZAVkXclhn1qZGFD+UphMI/k7PGuCU2mr11htKtAeNpff+jwNyPW+83mIWy0jDP6PsqG6sDGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qgIa7eJUcJy0L797JuXOlZcWIxafwc3mfLGn2Bbocrk=;
- b=GPGg0zV302/8Fnww0dlUiXnzagUKdbQgIl+riFB/CeTB4T/5IF+2yUP8Fv4rfSAZjQ59FTxxy4UFcO5cGOT2X2eFtta9JSsBHauUrOCpiGcHd1OMBULJKQl8boO50XEDyoPt//25JEzFkhIYC03U5EuoE83pPrRfG9z2OVgYugU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <7261ef7c-c574-4c3f-9aa0-259386f05d05@amd.com>
-Date: Mon, 17 Nov 2025 13:51:36 +0100
+X-Inumbo-ID: 2bf225f9-c3b4-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1763383904; x=1763988704; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=+R9BOcERIeXU8LRQN4JtCf/Y5k3H9zQGXysn+KICTKQ=;
+        b=eN1XKCyWzx3Qgdc2Oney2UhMceCCKCnXvKMAacmLUoSD4tPMMyrsDccqQkKaef0Aky
+         7pLTjZeQrVRk9+ns3HSBZ5pIU2TltJqB20lF8doBoHmZ4E2gFBdMXXwt+FVc+S1J5mm5
+         gO/ReYW2C9O08uE80nRJv7AsWVuVyfN+i7FOl9aYM5lFzc09aY1uiiX0RheG+L2zpVKa
+         +IPRbvJa1nbyxnCKjOge4/xFZ/Qp8y4tZamjCn9EEkRtQYnniNVSjIvdbyGX5hO5D3Bz
+         Og4infx5ULwNSCcVmJqcDIDS5tJbnkgMfY45eoS3VO9x7kFN4WqDjl436K9UhFPr8R+H
+         61yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763383904; x=1763988704;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+R9BOcERIeXU8LRQN4JtCf/Y5k3H9zQGXysn+KICTKQ=;
+        b=OiVHwN5s/HZqahpxF/bt85AfJmpchT2Qb9nXH76666UdRi5bNr208SSeZOUzqeCx5z
+         Y2sus3vNTTF6VRW6iamw9P+sLMN3AtncXaMS/KkeK5xVxN1EwQ9EIQGZwK5IHvnHHfhU
+         +zOfFZ7Do5bsbr07C22tSqfAcSUyiJq9oS5SmE2Bzo6YwBYUAu49o39hK0kkE0t+xzVR
+         c9FZmO/RAA3mPboX6/Kixqi3To9Or3aYFrWk98Iglvd4nkFjw57m4ss8L0ltIvzUofwr
+         gsOTwGUTuFZY7DDqZyhxvGdHMtQ/k8RbDl9ekcO5A5mePV8RFkCZidaKROPkqFOeSh3r
+         ZGqQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV0gnayhmkJQx7lSRhJ7FuvlQO52YuZzA5aP/wc5nUNJwD0ZeSbKMspgg49uEcsCvXQ1B3wR1XoDhg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyjFwm5qEwEvPJLod746gE1uCabU0MmR0/tkr39jghGNVMj4wbz
+	6mv47fEei5JMDD7YSR98/90tDVT0PLwe2Q7SnD1FFMlA/UvaF3v8+DRzs4wwk0VRDw==
+X-Gm-Gg: ASbGncssO2SlFExSPt4KAJ3KuUxEPh0aoTbjuwA6ImVac4qtXR+SjEun4WfcsHiP+j7
+	jF+LWFXVN6/zVgyyvJ75I9gmH6G1/Dt5PT6cXweZzi1vyX86jS1X4ElRQfAKGFp2BipN1obPlQS
+	q9korzAUvzZGdPNUjppkxg3BJ9asI+B5YvqC3UrfawGLCPEzcgN0Zn/0KvS6n942jYEObtaitTn
+	78M458lPVn7ESMiDvVtR1Nu1W5QkB0HrNajAvCdA/BLPHSdV9NNrTxTEgf5MOfGOkXcqArYuuDq
+	SD4JuxKJDNr3F+g2ySmfKI30rGjbcGzfVXmXuz/TFezPYENW+tswLKuW0oT9+S4UfYmWxowes6R
+	g/uzLHa8psczDEKxBK7dcBF8MQc2FyplpYHfFT0+7kbJBpO2Dpi3DUp5srCG4y233qiZ3TXyp8r
+	VcwRFxCNJ2SFXTQXLpARnwOplRDD0+szmizCQmXahH9+9YmNkJH7kJZmeEVq5PPu7v
+X-Google-Smtp-Source: AGHT+IHvF7DgeRfsK6km58wxrA5A+/iIdBKLUsvdxoJlKAFZ7dGiUy/YMg9Uaw8ni1qTBV45KTjqCw==
+X-Received: by 2002:a17:906:f58b:b0:b4a:ed12:ce51 with SMTP id a640c23a62f3a-b73678b33c7mr1192356466b.23.1763383904222;
+        Mon, 17 Nov 2025 04:51:44 -0800 (PST)
+Message-ID: <c1b9bfb6-8ff8-4f60-953a-0f23818b5f95@suse.com>
+Date: Mon, 17 Nov 2025 13:51:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] arm/mpu: Implement setup_mm for MPU systems
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"Stefano Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
-	"Bertrand Marquis" <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Harry Ramsey <Harry.Ramsey@arm.com>
-References: <20251111101601.4171120-1-harry.ramsey@arm.com>
- <20251111101601.4171120-2-harry.ramsey@arm.com>
- <80c02055-2687-4e24-8de0-8fb4dfe2af02@amd.com>
- <fe082ad9-ee55-46bd-8b93-5320649e6aca@arm.com>
- <EF7146C1-4351-49F1-A0A2-9BAE0EEFB888@arm.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+Subject: Re: [PATCH v2 1/4] build: add make macro for making file from file.in
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20251114113238.9279-1-jgross@suse.com>
+ <20251114113238.9279-2-jgross@suse.com>
+ <468c6686-43e5-4c35-8366-58558f199e22@citrix.com>
+ <cc90d18b-f88e-49d9-a55f-b7035ce43167@suse.com>
+ <113c9cc1-5e39-4a54-88de-dd2b70b90a49@suse.com>
+ <88e6b9d8-21b6-4b37-97fc-d35b90ed9b49@suse.com>
 Content-Language: en-US
-In-Reply-To: <EF7146C1-4351-49F1-A0A2-9BAE0EEFB888@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075F0:EE_|DM6PR12MB4043:EE_
-X-MS-Office365-Filtering-Correlation-Id: f01f2fe6-2298-4fec-6a51-08de25d80d12
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?d1hQMFVlQkdMcS9UQWpLamhxUy9rT0NiZVBseENobHFRODhLL0lHa1daU1pU?=
- =?utf-8?B?TUcvcW5uTlpvQTIyU2M4azZzRE95QkgycTlJb1kyQ1ltR1o2Q2FWNzhxbjBm?=
- =?utf-8?B?aFpUNGM0b3EvM09KbDVhSW53MjRQWTA2RWJzaFJydU5SNkRLeHFDa0xQTGIz?=
- =?utf-8?B?UWwvYVBzMXRET0I2TmFTeE91V2hoSURmWFFWTldPbEVVTDk4M3A0RE1xNC9F?=
- =?utf-8?B?UjNtUWtIb0Q2dk9tVzB3MytDY3FvTEpJMEJQREVIS1Z5VUNub2UyNFJSY2Q4?=
- =?utf-8?B?Tkh4ODZKUVZzekl0UDlvUG1SUlY0aWJwYXhyM3IvSU9JTngrcjV1dXlQa3ht?=
- =?utf-8?B?SUdiNkQrRjlLaS8xSjNMSjFoOE1kbGtIWFhsNmlZMmdQSDZ0WUowdzZLSWRa?=
- =?utf-8?B?Ykp6aXA3WUtZbDFoUFBCL0x4VnJaZXBVL212TzRvdFc4VXNGMzZ1Ym95YTVm?=
- =?utf-8?B?NkxVcnlLb2gyMWU5OHcvK1RXWlNZWERVZXVjODRNaExGNlF5cHlSQmZDUW9l?=
- =?utf-8?B?SllpcHpaYjBmSkxNVXh4WGhab0lGMTVDcXl4QTRkMHJXdnJkdE5uQVQ3cDBG?=
- =?utf-8?B?ODR1YURzcWFJdUoweGEwRXBWNTUxRW5oVDhiQk1yRmVwV2lGclVRN2IxZlVK?=
- =?utf-8?B?VVI3cU5LdGxERnhrVE1ydGo1YVdmNkE4NUREUXRrcUJYZ2hWZUdMZFVYZ3pZ?=
- =?utf-8?B?S2FqNGFCbmEydEdsb2lrOElpRlFXR0lRRGk0cGJQU2FTVTZQM1U1OVhhaEFB?=
- =?utf-8?B?UGEzQkRNTy9oOWtuemNMcE1kcXh1VUZyVDluOUhhdFpMUGNGSDhVNlhWNm5l?=
- =?utf-8?B?UmErTHpxUUxhVW1TNFhrM2xlTEpUeEZGb2JDMDdqcjYxS1cycU9tMnFnRWJX?=
- =?utf-8?B?UktQRGg2VFBzVHRsUVdMRm0yMlRNRUEwRGM5a1lKVnRTSlAybVBwaThKMWVW?=
- =?utf-8?B?UVBYU2ZhczNQbmNsaklNOW5ZSWk4YXhwQ1JaYkk4LzBxWWxNVGdEVjRFZlM0?=
- =?utf-8?B?OFp5eWpiVkRkc2gxcE9DRHM4NUtXWkhjenhDcGR5MVEvZnhUQlRrc1Vkei82?=
- =?utf-8?B?WkV3QnRuNGwzU01nYUlFMWg1TE1HeUVBOHIzanhnbTZYbHMxblRNWUdhN0tZ?=
- =?utf-8?B?dFJ4MTZDSGd1VnIrRE5VbUhsTkNlSEVaM0R4M2t3T2g3SS9BdmZ3Ynd3OXE5?=
- =?utf-8?B?b1NqaVJLMGZJVmlENjR0U1ZGc0NjWFdiSFhPcU9QaGgyL0FSbUJjRldDSXRa?=
- =?utf-8?B?emVkTW0rSXRNdXFVRnNrZEx0U3FuQU5VM1JLV25tZUd1NSt5aExZQW9IU2Ux?=
- =?utf-8?B?WFJkcnRkd3plM1FiUGJkSXphTVd4anhXMzJNRkpIc3dVRVIxWEVyZWJId2dk?=
- =?utf-8?B?TitrbkVkZVE0OVdYTG1HWE5YZURjUC9kejlKalpWMk9lS3FHQjhOK1A5UzEv?=
- =?utf-8?B?Z0ZCZzlUMTIwd1VhejlRU3hIQndDdjdJKysyR2RoK1owZ2hsb0J5RXdMbVUr?=
- =?utf-8?B?K25XMXZPV2pFZFF3REpYVDFNZE5WaDk4RzByYWxJVjRpVVg0NklhNWs4aHBk?=
- =?utf-8?B?bU53VFFIUStRYnprUG1IMmpqYTNEY3RPcXp1U2NtY0xVQitnY2Q1UHVlQWt4?=
- =?utf-8?B?TUNGdG10ZmhRMkNWOTdwRG82aVVVVzhvdlhqQUN3S0VubGJiY0lKeEhqU3Nq?=
- =?utf-8?B?UUpwRXorK2JWNnpCL0p2SlNQZGc5R1dVZFFoNldoT3cwQlpqOWZrOU1IODg3?=
- =?utf-8?B?UTJJcnBzcWc1SGpjM05NclpqTTZSdFpRMkZxdnM2c1p5eWZvbmtnQ1FBMDV3?=
- =?utf-8?B?ZDJLeGMwZnJaWWV4ZUgydThTbFp2SjBQNE9CVDZFZjd1MTVhcFZLUlg3Vkdu?=
- =?utf-8?B?VFhrRVgrQnp1VkpLaWFGcnRxeUNuNkVHendxUzBqMHZadk5KRkZlWUtIcGlS?=
- =?utf-8?B?OGdkNTRteWlwNnF0N21iQW9Fb1NCUlZqYlJBVnJrUTlFTTFlTGZzNFRpalFk?=
- =?utf-8?B?NDNoNGVyWllXUWdOLy96MWZPQkd1MmZoU29kd0ZQZHY2a21SaVM5bWpZVTR1?=
- =?utf-8?B?NEdaamIrd1FDYXYrSjZmVVpXZ0QwdkZ5NHQvTHNVdTFhSktkNE1mMExUc3RD?=
- =?utf-8?Q?aL4M=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2025 12:51:39.4313
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f01f2fe6-2298-4fec-6a51-08de25d80d12
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000075F0.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4043
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <88e6b9d8-21b6-4b37-97fc-d35b90ed9b49@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 12/11/2025 17:06, Luca Fancellu wrote:
-> Hi Michal,
+On 17.11.2025 13:37, Jürgen Groß wrote:
+> On 17.11.25 13:24, Jan Beulich wrote:
+>> On 14.11.2025 13:54, Jürgen Groß wrote:
+>>> On 14.11.25 12:42, Andrew Cooper wrote:
+>>>> On 14/11/2025 11:32 am, Juergen Gross wrote:
+>>>>> diff --git a/Config.mk b/Config.mk
+>>>>> index e1556dfbfa..d21d67945a 100644
+>>>>> --- a/Config.mk
+>>>>> +++ b/Config.mk
+>>>>> @@ -159,6 +159,19 @@ define move-if-changed
+>>>>>    	if ! cmp -s $(1) $(2); then mv -f $(1) $(2); else rm -f $(1); fi
+>>>>>    endef
+>>>>>    
+>>>>> +PATH_FILES := Paths
+>>>>> +INC_FILES := $(foreach f, $(PATH_FILES), $(XEN_ROOT)/config/$(f).mk)
+>>>>> +
+>>>>> +include $(INC_FILES)
+>>>>> +
+>>>>> +BUILD_MAKE_VARS := $(foreach f, $(PATH_FILES), $(shell awk '$$2 == ":=" { print $$1; }' $(XEN_ROOT)/config/$(f).mk.in))
+>>>>> +
+>>>>> +# Replace @xxx@ markers in $(1).in with $(xxx) variable contents, write to $(1)
+>>>>> +define apply-build-vars
+>>>>> + $(1): $(1).in
+>>>>> +	sed $$(foreach v, $$(BUILD_MAKE_VARS), -e 's#@$$(v)@#$$($$(v))#g') <$$< >$$@
+>>>>> +endef
+>>>>
+>>>> Shouldn't this write to a tmp file, and use move-if-changed?  Most of
+>>>> the time the markers won't have changed, and we'll want to short circuit
+>>>> dependent rules.
+>>>
+>>> I can see this being an advantage when e.g. generating header files, as
+>>> those being generated again would potentially cause lots of rebuilds.
+>>>
+>>> In this case I can hardly see any case where make wouldn't do the right
+>>> thing already. Either the *.in file is newer than the generated file due
+>>> to a git update or a manual edit, so make will regenerate the target (and
+>>> this is what we want), or the *.in file hasn't changed, so make won't
+>>> regenerate the file as it is newer than the *.in file already.
+>>>
+>>> Or did I miss some aspect?
+>>
+>> Aren't some of the generated files Makefile fragments? Them being re-generated
 > 
->>>> +void __init setup_mm(void)
->>>> +{
->>>> +    const struct membanks *banks = bootinfo_get_mem();
->>>> +    paddr_t ram_start = INVALID_PADDR;
->>>> +    paddr_t ram_end = 0;
->>>> +    paddr_t ram_size = 0;
->>>> +    unsigned int i;
->>>> +
->>>> +    init_pdx();
->>>> +
->>>> +    for ( i = 0; i < banks->nr_banks; i++ )
->>>> +    {
->>>> +        const struct membank *bank = &banks->bank[i];
->>>> +        paddr_t bank_end = bank->start + bank->size;
->>>> +
->>>> +        ram_size = ram_size + bank->size;
->>>> +        ram_start = min(ram_start, bank->start);
->>>> +        ram_end = max(ram_end, bank_end);
->>>> +    }
->>>> +
->>>> +    total_pages = ram_size >> PAGE_SHIFT;
->>>> +
->>>> +    /*
->>>> +     * On MMU systems we need some memory to allocate the page-tables used for
->>>> +     * the directmap mappings.  But some regions may contain memory already
->>>> +     * allocated for other uses (e.g. modules, reserved-memory...).
->>>> +     *
->>>> +     * On MPU systems we need to pre-reserve regions that were allocated for
->>>> +     * other uses (e.g. modules, reserved-memory...).
->>> I'm not sure I understand this part of the comment with regards to
->>> populate_boot_allocator(). Could you please explain?
+> No.
 > 
-> Maybe here we should just write that on MPU system we are populating the boot allocator with the
-> static heap region, since static heap is mandatory for MPU.
+> Man-pages, shell scripts and some Ocaml files (one config file and one .ml file,
+> which is similar to an include file I believe).
 > 
-> What do you think?
-The reason for the original comment was to explain why we need to call
-populate_boot_allocator() that early (i.e. before setting up direct map and not
-before setting up frametable). It's not about explaining why we need to populate
-boot allocator because that is rather clear. In case of MPU I don't think there
-is a reason for doing that early, so we might not need any reasoning.
+>> means make re-invoking itself, which could be avoided if the contents don't
+>> really change. (This isn't just a performance concern; this re-invocation has
+>> been the source of, well, surprising behavior in certain cases.)
+> 
+> I still don't see a case where make would consider rebuilding the file from
+> its .in file without the .in file having changed, thus resulting in the built
+> file to change, too.
 
-~Michal
+As Andrew indicated, Paths.mk might have changed, so at the very least an
+explicit dependency would need adding. But as alluded to elsewhere, I'm not
+quite convinced Paths.mk should be hard-coded as the sole source of patterns
+in Config.mk. At the point further such file come into play, dealing with the
+dependencies might get interesting / clumsy.
 
+> Well, with one probably very rare exception: in case a
+> different @marker@ is used in the .in file, but without changing the resulting
+> file due to old and new marker resulting in the same output.
+> 
+> In case we really care about such cases, we should think about using
+> move-if-changed everywhere, as e.g. building a program with $HOSTCC could
+> result in an unchanged binary even with source files having changed, and the
+> resulting program could be used to generate other files ...
+
+For some of the cases this might actually be worthwhile. It all depends on
+how much of a knock-on effect the re-building of a particular file has.
+
+Jan
 
