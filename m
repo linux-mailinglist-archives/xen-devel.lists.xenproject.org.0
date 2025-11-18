@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8FDBC6817C
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 09:00:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1164514.1491458 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71959C6821B
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 09:09:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1164528.1491467 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLGdG-0004Ud-BJ; Tue, 18 Nov 2025 08:00:10 +0000
+	id 1vLGlo-0005UQ-4q; Tue, 18 Nov 2025 08:09:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1164514.1491458; Tue, 18 Nov 2025 08:00:10 +0000
+Received: by outflank-mailman (output) from mailman id 1164528.1491467; Tue, 18 Nov 2025 08:09:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLGdG-0004Sq-8V; Tue, 18 Nov 2025 08:00:10 +0000
-Received: by outflank-mailman (input) for mailman id 1164514;
- Tue, 18 Nov 2025 08:00:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=maYy=52=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vLGdF-0004Sk-4o
- for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 08:00:09 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 98dc3819-c454-11f0-980a-7dc792cee155;
- Tue, 18 Nov 2025 09:00:07 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-429c48e05aeso3098724f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 00:00:07 -0800 (PST)
-Received: from ?IPV6:2003:ca:b70c:6a80:314a:d80f:dc29:6f97?
- (p200300cab70c6a80314ad80fdc296f97.dip0.t-ipconnect.de.
- [2003:ca:b70c:6a80:314a:d80f:dc29:6f97])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42b53e97a87sm31225522f8f.20.2025.11.18.00.00.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Nov 2025 00:00:06 -0800 (PST)
+	id 1vLGlo-0005SP-1v; Tue, 18 Nov 2025 08:09:00 +0000
+Received: by outflank-mailman (input) for mailman id 1164528;
+ Tue, 18 Nov 2025 08:08:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=n9C8=52=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1vLGlm-0005SJ-GO
+ for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 08:08:58 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d50ec8ea-c455-11f0-9d18-b5c5bf9af7f9;
+ Tue, 18 Nov 2025 09:08:57 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-5957c929a5eso5903740e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 00:08:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,129 +40,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98dc3819-c454-11f0-980a-7dc792cee155
+X-Inumbo-ID: d50ec8ea-c455-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763452806; x=1764057606; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QlvKeuqGsUuCRQMAKfwIBxhvqrrHYmr/xIdDZJHlVaI=;
-        b=TIxNh0c/urQYa0yeSiw7ALvAG3CseIm/O2g0kHLXxJbKmgbgoot6T3v07Pg0v1IDdq
-         Uc0UGllVEUn60IKXjB6O+SF4yLqk6TzXADMnYERflVISDh8/Br/VW3qxpz7fMsdSy73i
-         oKpCbQC+dg2pMAZFFfvuXSBoOu10i1huLixQldbsJz+2xGn/5VLRSGx+GdrY5V9wKGB1
-         YcpqChDnGT4PMDvPNEkc54kLKGRRyApv1TLTd10sXproYkQUWjYOhEM04V/blzWt6fMm
-         52mUt8elSkdrwtecXNkMu4I8gGMMvUJ2BHuk6riHARJapleiy16KbG9Qig84E38YdGzP
-         KAAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763452806; x=1764057606;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1763453337; x=1764058137; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QlvKeuqGsUuCRQMAKfwIBxhvqrrHYmr/xIdDZJHlVaI=;
-        b=cEb+2A56z6qhnAOakstsQatuy+k/cDsqcgEcNeWhHBvoOnx57flKGb0GvD8OUDeYbP
-         Tn8Y6co2/bquBpeGbchqPTb98PVH3Q7kgQJ0F3lpWa9cTfdyekUhnJyzllMhB1Ckgrhy
-         8oxaRxDBOOuyngmN1Nzaa4/dLc6EG245S1iQXx37pZf1v7lM/4TAcvbnpQufXxdQz0vk
-         OIsrwVqy5cJEZIa92BobFQlWXi9V6jEiiP40Npj6abYcI3XSzMF1wzynpoiLJHL9qO8J
-         rCbQkH1m6AdGuJUnQAG1x7B8yWy68shTSuBpMbwCNXTzyPoiWHC651CRonJGlBRO5fAi
-         fQIw==
-X-Forwarded-Encrypted: i=1; AJvYcCV8ZhQ+dCTDVXvw36P4ur961aRFPCUMGIBf7eBFy6NdIsHGhDhCl/qI+Lq4DA8cmrvPG82JpBlVhvM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwrCUdH59BSZRzLCgSvteskZfEr8NndzdK/Xw8ByievdHQBhZ36
-	k5QQpHN+fduFxO7B9ADWW1swqAaWmb6bP0WG+fIxXOR8RFaMISEWcF66yrMIOYOQHQ==
-X-Gm-Gg: ASbGncvewJoXZD7PjTZNcYdTsY+4rEmLED4jRbj+nzpHxqqULCoOccdJ8BOuESh5dSD
-	dh56rFzdLHVT/Xk5FSDw5XS8i8L3xIucJEbvhVk8Bsf6SBD69PXn0pA5A+jdkIQwRUHk/JDc1Rp
-	EB1kBGOLgZshOcy9Lwbd7RyCXRtwNy5QCiD6GDGs3gzdSMCCpvATFxx5ywOtkARylZ0691P2cPX
-	bHsAp3XPfp0C0YA4qvDUNKODzwUoexqY7iHUIyznSEDBQHyVUVUzcnguAiXpdXx7UP5fTKf7kTl
-	llkzIfRCdN1w4bqU1cNKdyQASmtSzsvB2EnCMwYqAJe05w190mhge3K7cUyWK11meXAoGoi4CKJ
-	usGHoMV+v39fZNr/zXAazX+YaPmiwSQikH3FW6TKPYAXNeRL+V5Dt0oa/eDXTrNB5BM2ycLtzdP
-	yua8VRcH8vi+q+iRLwtDO0QBqHRqGH14qfUM0jE1gVhg4yZh+AyJybe4/Iqi5eTDw6GH8eBbH75
-	YwQg+awmZ/Wg66axWglkdVgWcGlzOF9lOlxQftQYaC+fAJSi8uAzEnFR7A=
-X-Google-Smtp-Source: AGHT+IEawQmDkq4LbCwuR5I0FgrgD2cKeI1qRqDUTeYpIJ2Xmk+OPybcs9tMHJm9b+vfAQZB+FJeaQ==
-X-Received: by 2002:a05:6000:2582:b0:425:7e33:b4a9 with SMTP id ffacd0b85a97d-42ca85a5046mr2143391f8f.0.1763452806442;
-        Tue, 18 Nov 2025 00:00:06 -0800 (PST)
-Message-ID: <6528482b-8adb-47f4-805b-d9c7746ec92f@suse.com>
-Date: Tue, 18 Nov 2025 09:00:05 +0100
+        bh=BxUlbc5kU9WEk3zCbovMK+3SrY/8SQ9jjyNJ7s8plwM=;
+        b=lWu1eOlEomDoinQDKQiXNqw4jo4ptVMe5Mw6g7Bbg/h2GqyVMYtOECffZnDmlKY7mk
+         wb1Ci8FZKmi+1CmeBjkI+QAoZbcsxZrvpN4QP3MZd0Fd6V/IQwFe9/OVT2iHAs0A5WCZ
+         JRe52QX2pvqLdLKkCclVzv8pFO9jF6TJPs3r22PJ2IdSkdlT54wqcxcqRY/aI84aFRsj
+         oGt6u9Mt3KbV/5q0BgxjRSQHrYYCZzkkh/3bfY14KY0irHpj6RMT/AAnFg1wvrXYCNBR
+         n2EtJP8+WTiKM2mnD0VowAKxJa3wNX2tLvnLER4sbRSThxxgkuVWn6YaAD19JLht0oWh
+         AZwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763453337; x=1764058137;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=BxUlbc5kU9WEk3zCbovMK+3SrY/8SQ9jjyNJ7s8plwM=;
+        b=jKAh1WaN+QdCwjI2ggctZSD9URpG6pFuH+AcsV572rVDu4xtxTJWo7BDx03aPijZvw
+         yCWiERD+cxiYdah0YRe6PVj6PUU6i67Swuir6uSGDzMdHNig6gxNjHRL6LwBJP/tZuJ6
+         8ZTH6kfPJep+Oab/Y2a5KGFx5rRSJuh+K4JpFQbAaaO+40i8LjwRDaJnnRDVWiMQWK6S
+         LG38gOKURR3vO1PEmCD0vRBhpSYspSFG/gtvWKZoTkqO/r1uwi2xHQk+QrtecdOzGogB
+         stjYakZXE99qVanaybX1NOviAqOgB1TThUUwRfRP7ZMaeO7RSui1kvWKlJqNlIQILXHf
+         QZnQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWvMgjR4Gi25LYibObW/j7N/kwwM5/lkH6CxSPHZVF5nPoRL+dod5JaB2kw71IBJ6V1seW2xuIWE9w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzO/HCbseX9NMGvEKMMBjLTWpWCq8PJqW4E2eBSHeLcMs17DeGf
+	VlJhHQtpxpTqHwZRGsQ9GfBgPo0vS1mIelS9kDcBXRl7Mm59UAQQvJWg3mvlee0vVEjXrROq9FI
+	ettsogt85JvyDd/Qc4PnYPb/Zf+viMe0=
+X-Gm-Gg: ASbGnctSnWapYJmJvG0ANE36iu6LYzYJ8BazQC7P2tMBEAUEMzpgxuBCjeAww7aeiMz
+	PgFg5+wAciSgmbQLhxJxdycctC5S0BJ70uQyxYOess7q3StyF1KIqzPB5s0bD2DJ6kMDceWVroP
+	JLRzR5OBvEadLTpC9YiR7Xz5uNoiBCqFbbQZJ+/HByEfmWQ4gFQA3m//CampF5gmJ3yOjmmBtSd
+	cqbb3M0Gd0wz3Fa+UPd3OaMcFj46YmMqowHd+IQNsZd6nzIPPKsO4Z59mA=
+X-Google-Smtp-Source: AGHT+IHYzBcjV2XVR15vw7N7fWExRR4x9L1H9IJ8uOIscCXot5dFVdD4M5zUfLAPP+TrKDKfCvS6UvvfWAINGXJ3HA0=
+X-Received: by 2002:a05:6512:108d:b0:595:81e7:3da8 with SMTP id
+ 2adb3069b0e04-595841f0872mr5122817e87.4.1763453336593; Tue, 18 Nov 2025
+ 00:08:56 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] x86/ucode: Create a real type for loading_state
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251117222120.473451-1-andrew.cooper3@citrix.com>
- <20251117222120.473451-4-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251117222120.473451-4-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20241217170637.233097-1-carlo.nonato@minervasys.tech>
+ <20241217170637.233097-2-carlo.nonato@minervasys.tech> <0b5f19ea-6e33-4658-a165-f0af1cffbd03@gmail.com>
+ <241eaaf3-069c-4dc8-8161-45a9563dbc77@xen.org>
+In-Reply-To: <241eaaf3-069c-4dc8-8161-45a9563dbc77@xen.org>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Tue, 18 Nov 2025 10:08:45 +0200
+X-Gm-Features: AWmQ_bnHPIOxLCUibI6lRD4GSSU0vx59cexZLIMCiMjiOtq2EiOC74Vg0hmcV3E
+Message-ID: <CAGeoDV_v9EHe3x81nhzJ=DTbZYwdxG-fwmAUu7BLnaHbBqCxXQ@mail.gmail.com>
+Subject: Re: [PATCH v13 01/12] xen/common: add cache coloring common code
+To: Julien Grall <julien@xen.org>
+Cc: Carlo Nonato <carlo.nonato@minervasys.tech>, xen-devel@lists.xenproject.org, 
+	andrea.bastoni@minervasys.tech, marco.solieri@minervasys.tech, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 17.11.2025 23:21, Andrew Cooper wrote:
-> Using typeof() in wait_for_state()/set_state() unnecesserily cryptic, and more
-> verbose than using a proper type.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hi Julien,
 
-I don't strictly mind the change, so
-Acked-by: Jan Beulich <jbeulich@suse.com>
-but I think the use of typeof() also has its benefits:
+Thanks for your response.
 
-> @@ -237,9 +238,9 @@ static bool cf_check wait_cpu_callout(unsigned int nr)
->      return atomic_read(&cpu_out) >= nr;
->  }
->  
-> -static bool wait_for_state(typeof(loading_state) state)
-> +static bool wait_for_state(loading_state_t state)
->  {
-> -    typeof(loading_state) cur_state;
-> +    loading_state_t cur_state;
->  
->      while ( (cur_state = ACCESS_ONCE(loading_state)) != state )
->      {
+On Tue, Nov 11, 2025 at 1:02=E2=80=AFAM Julien Grall <julien@xen.org> wrote=
+:
+>
+> Hi Mykola,
+>
+> On 07/11/2025 08:27, Mykola Kvach wrote:
+> >> +void __init llc_coloring_init(void)
+> >> +{
+> >> +    unsigned int way_size;
+> >> +
+> >> +    llc_coloring_enabled =3D (opt_llc_coloring >=3D 1);
+> >> +    if ( (opt_llc_coloring !=3D 0) && llc_size && llc_nr_ways )
+> >> +    {
+> >> +        llc_coloring_enabled =3D true;
+> >> +        way_size =3D llc_size / llc_nr_ways;
+> >> +    }
+> >> +    else if ( !llc_coloring_enabled )
+> >> +        return;
+> >> +    else
+> >> +    {
+> >> +        way_size =3D get_llc_way_size();
+> >> +        if ( !way_size )
+> >> +            panic("LLC probing failed and 'llc-size' or 'llc-nr-ways'
+> >> missing\n");
+> >
+> > As far as I can see, this error means that we did not detect a suitable
+> > LLC/unified cache.
+> > Maybe it would be better to make that explicit in the panic message.
+>
+> I am rather confused why there are reviews on the series that was merged
+> nearly a year ago. If you have comments that needs to be addressed, then
+> it would be best to either send a new series or start a new thread (if
+> there are bugs which needs discussion).
 
-Even if the type of loading_state changed, no type mismatches would result
-here. Or in other words, a type adjustment there would not entail code
-changes here and ...
+I wasn=E2=80=99t reviewing this specific series, but rather the code in
+mainline. I needed to understand whether the LLC coloring code could
+impact suspend/resume (s2ram) functionality, because one of my TODO
+items was to check and test the interaction between s2ram and LLC
+coloring.
 
-> @@ -251,7 +252,7 @@ static bool wait_for_state(typeof(loading_state) state)
->      return true;
->  }
->  
-> -static void set_state(typeof(loading_state) state)
-> +static void set_state(loading_state_t state)
->  {
->      ACCESS_ONCE(loading_state) = state;
->  }
+During this testing I noticed a few potential problems and had some
+questions. Then I found the corresponding mailing list series and saw
+that the part I was interested in has not changed since it was
+merged, so I replied directly to that thread because the context
+still matches the current mainline code.
 
-... here (which could easily be forgotten as the compiler might not flag
-such mismatches).
+At the time this felt like the quickest way to ask questions in the
+right context without duplicating it. I understand now that this is
+not the preferred workflow for this project. In the near future I
+will start a new discussion thread about my findings, or possibly
+send patches if I manage to address some of them myself.
 
-Thing of course is that the type of loading_state is pretty unlikely to
-change.
+Thank you.
 
-Jan
+>
+> Cheers,
+>
+> --
+> Julien Grall
+>
+
+Best regards,
+Mykola
 
