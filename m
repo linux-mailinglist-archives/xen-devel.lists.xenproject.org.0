@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 710BCC6A5B6
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 16:40:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1165057.1491894 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D65B1C6A5AE
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 16:40:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1165058.1491908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLNo8-0004xY-2A; Tue, 18 Nov 2025 15:39:52 +0000
+	id 1vLNo9-0005JU-9Y; Tue, 18 Nov 2025 15:39:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1165057.1491894; Tue, 18 Nov 2025 15:39:52 +0000
+Received: by outflank-mailman (output) from mailman id 1165058.1491908; Tue, 18 Nov 2025 15:39:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLNo7-0004sR-TZ; Tue, 18 Nov 2025 15:39:51 +0000
-Received: by outflank-mailman (input) for mailman id 1165057;
- Tue, 18 Nov 2025 15:39:51 +0000
+	id 1vLNo9-0005H8-4R; Tue, 18 Nov 2025 15:39:53 +0000
+Received: by outflank-mailman (input) for mailman id 1165058;
+ Tue, 18 Nov 2025 15:39:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=n9C8=52=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1vLNo7-0004pf-5y
- for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 15:39:51 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1vLNo8-0004pf-7K
+ for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 15:39:52 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d0f0c1a9-c494-11f0-980a-7dc792cee155;
- Tue, 18 Nov 2025 16:39:48 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-b737cd03d46so474861266b.0
- for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 07:39:48 -0800 (PST)
+ id d1fbea06-c494-11f0-980a-7dc792cee155;
+ Tue, 18 Nov 2025 16:39:50 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-644f90587e5so2210502a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 07:39:50 -0800 (PST)
 Received: from EPUAKYIW02F7.. (pool185-5-253-54.as6723.net. [185.5.253.54])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fd80d27sm1391385266b.40.2025.11.18.07.39.46
+ a640c23a62f3a-b734fd80d27sm1391385266b.40.2025.11.18.07.39.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Nov 2025 07:39:47 -0800 (PST)
+ Tue, 18 Nov 2025 07:39:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0f0c1a9-c494-11f0-980a-7dc792cee155
+X-Inumbo-ID: d1fbea06-c494-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763480388; x=1764085188; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1763480390; x=1764085190; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WtJsp+Y7Ad5QPg8ye5d7pLJWb0PeKCJcdGH4glFeQow=;
-        b=MrlxMqFr13zKyf25Us093sbrZ3A0US66KoR0Ga8XCFAFz2X3zivbM2wuoDV9eU6cz5
-         BhfxrZbIxny8as+RF7U+jOYK8t+vI7TsMwoTtH+MBkz94UiXfjQdImtwRfWeMC5VbFbt
-         ouTQzvbOGHaj3dK6c29fYTx/Vsb3tsxnOVo/mzw6JMOEmzAglUZsnk30jD37C/dRiLDD
-         x+itJz+/DMXLCe0LLmeIlgsN0ZAZSaDBi0HeKJObUrNNq4MiGx5idcnVmJjeIii0ePUd
-         MApIEEEYMRMNyPeEwY6y4RVSo8VmEKIC74UAj1h76ICe5guDxPJgSCKV7IkOQmUkSK8u
-         hWbQ==
+        bh=+IE/6U2/jxx06UiTUo+lX1PbDac7ac5Ki4u3TKrSREY=;
+        b=ae5z4BfSyT1L7yg6+zC2NbkvzxbnuhyPg2NEfeTy4cPv9XOF8HfUbnskMJhujoWobI
+         T7ZCi3Lz+uxW8a8A1e1gALMflkNk94TinDMkQgiBybUZf86d67oOc2EywKJ2xMf7ylE2
+         fRARnOomheo524Rj55F/jDb8cu6nBSwlNrP0JeVPte0190FX/lh28t510p7sMxLp42/d
+         /Qj9xh4fPOElwaRg08KiPEM1YkXrVZvmP+V00zn0DQB4K6lrdRMW0FLgdIVYlSm7H493
+         lxM39GO7QbWE5wBue8DkkV1V6U/4mowMGXAhH/Wrv2XT0a8R+vHKiRnqyXnwtFlomCic
+         spoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763480388; x=1764085188;
+        d=1e100.net; s=20230601; t=1763480390; x=1764085190;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=WtJsp+Y7Ad5QPg8ye5d7pLJWb0PeKCJcdGH4glFeQow=;
-        b=nNB0WKrvYokoekFsga5Y9pV4KTa9PCRCEtkPDe+k7OUpMfuwVb+wV/nbAqViSC3Rfe
-         PQIg3eoDCq6Pk7mQ7Wk9GIuhpoCykAr/Iw5CS5K/ULJ2ihBxZ8Kc5859Y1HB6zW2DVPM
-         YzRGvKzxTICZFiGlxd8gBi6lydu7SzKi/dW6bIv3O0oOj9Vsg+Qw3ZxXBRK1KUar3pTY
-         wnmfYG1ErNXo8PXziwYY7lwepVt9SiX9/y32uNVWPqmjbZQlsf7n1w3A6KpZhrSzOx/u
-         u9fj3MvmRn6rovAGaabGv0pcNL+/n3PrR+Ve2CyNcJmwDFmpObsX/6iBPTiRSKPiqmL9
-         AAJQ==
-X-Gm-Message-State: AOJu0Yzuhx9Fcj4kaAUOPc5lzrhi/zCXX9DytLChZGpJ12WEn3uzt3Hr
-	ljbICLKwRxNPGSJbjeL+b2Qe9Ed99NXSxHOW7ZXRaidclZTEsY1VsjUx69U7X+Y3kHI=
-X-Gm-Gg: ASbGncsHkNt5MCDrqcVI2TvPqxRNEO2HoBlMQNP+R+pWklD6eh0fqj2cTth6mgYPDQS
-	wmc6Dulym75KMiW7aWeQqQeC/f/LxM+3f7dVXA8AU+EUheMRWBQ+IeHrULfGeo7ganeeufmFZ/u
-	kRjFh9NZkiRGs5Htk+fXfQtsMv/vIlUJTW+xPtoGE2KVfieAxxjHZ+94KWQxoajpEObkerRwaeX
-	9VfbhgUIIUTEB+pgxJfQ03xo6dRzSkmt081yurOlrwvLXvqKzPibVDC314WGjR8OzhMo/9IddW+
-	EHWqSbqUCL7P+3IflVuuXnBn7iw1YikHjt6PBuWGhHF7nkB01Uxro8ul+/F0x3esDrNzcmerXBK
-	vk9bf/MwFrLpMUESrB+B5J3vrhbAEO6APm/y68hVIM/pVlgJha0gP3FZu6gjF+OBzcE9jXmlm0+
-	4iEd+0S6QOAORI7sFGTB0M8NGgVOKaIgTr99Yciif2o78=
-X-Google-Smtp-Source: AGHT+IHN7q6Juj4WaqvIxtRIkp31ytolu4qwoxqjU7orr59NszcHd7IzkMLpwOP27ZHwRVXKLZuiLQ==
-X-Received: by 2002:a17:907:3fa0:b0:b70:b13c:3634 with SMTP id a640c23a62f3a-b73678dd5c0mr1785833666b.25.1763480388000;
-        Tue, 18 Nov 2025 07:39:48 -0800 (PST)
+        bh=+IE/6U2/jxx06UiTUo+lX1PbDac7ac5Ki4u3TKrSREY=;
+        b=SjqHuuDraT9xm7tc0S46pmB9smjxzOFujicPkljOZkS9CReC3fzXQX4JG5iUZTeYeI
+         xh6wSfI1b71zjS+FI0QpGQSyCL4InSq3moaes7e3JK3/33vfnDUb3HK6QZQdaZHZdmzI
+         JjtZxYGjc2kGYcA+EJ/K4WTXrMFzsC9p5zpvZGW+BH+WkKtIU0zL04oLfmKhNRYhcABh
+         dTTvo0K0nP3leJSbBx6aaY/+cOPPZiOtqONLrhtj6yH82Z6cATnAc3FfNQzB8DTndfzX
+         0e1uWS5fOIdu4BJevZzs6efN4HlJp92XrKmAHSYinQC5RbbmWJ+e9ww0/jwmTucBCjNM
+         V57Q==
+X-Gm-Message-State: AOJu0Yw3uQ5Hc8IxciCSLtaXSyiU1hJQdBHGtEcSMjmuIVONotcbCvvk
+	4HNB/x/kuQ776URgwVRekMdUCIrfaJNyT7hXmyxg3IQ6XxSwo/+I5W9hQvU+OSsss5g=
+X-Gm-Gg: ASbGncvEiCzeOt3q3x7cMxsLEpIp+WquGJLtMKdc5B8gO728rs+qXCZ6K92rLXI7IvQ
+	6AwW2U7Us0iF7ZArBCAoo/ppSPWssIxEjl6NqodmiUNYW+iQ1cklYChPWjWabzSuIJ/Fu7LwvBy
+	8HgVgWjbvMu6NbZtNTHIcJaB70GIU38svM01rznb4mnVLqDD+luWpM1Iw0bdwBoxyWSoJFzQhRV
+	ONc78Ivh943UQvZOs3zaA3EeZxiKhbifnGhj7noghBBFX1UPl/9FNPY2Epl2RAcf8XTch04j6S+
+	WrH0HJDY3WRIuPKJCfuPSSudXkRCuVqmsX5ohIOOXzflChxnLZkxXhJnY/bxrMTrElp/lZzrs/G
+	WKapJprI6+5WMae0pz+b2t7pRL6V6qhAKvSUd9GkzNmV6TtmC4Ln7gfuUY7QOLra4l7kU/bTUnS
+	IYP20u0mp0nqg4gSmyH0ZQ7bHlmGupAhzK6EokACoODeA=
+X-Google-Smtp-Source: AGHT+IGspqpLQVqJEfAtmfmsTcS7G26/37S4TaDKtxuqTB51rg7iKd6MO9sAN/Y4UCS40Wfj9i9PUg==
+X-Received: by 2002:a17:907:1c01:b0:b0e:d477:4972 with SMTP id a640c23a62f3a-b736780c3b1mr1466748066b.25.1763480389685;
+        Tue, 18 Nov 2025 07:39:49 -0800 (PST)
 From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Mykola Kvach <mykola_kvach@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v14 2/4] tools/xl: Allow compilation of 'xl resume' command on Arm
-Date: Tue, 18 Nov 2025 17:37:29 +0200
-Message-ID: <78e37e1b1d2ea50568a372d8950f4fc9e86567eb.1763479083.git.xakep.amatop@gmail.com>
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH v14 3/4] SUPPORT.md: Document PSCI SYSTEM_SUSPEND support for guests
+Date: Tue, 18 Nov 2025 17:37:30 +0200
+Message-ID: <aacae215d49a6cc96f4add793c6637d2fced8ddd.1763479083.git.xakep.amatop@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1763479083.git.xakep.amatop@gmail.com>
 References: <cover.1763479083.git.xakep.amatop@gmail.com>
@@ -98,157 +104,40 @@ Content-Transfer-Encoding: 8bit
 
 From: Mykola Kvach <mykola_kvach@epam.com>
 
-The "xl resume" command was previously excluded from Arm builds because
-system suspend/resume (e.g., SYSTEM_SUSPEND via vPSCI) was not
-implemented. On x86, this command is used for resume.
+Add a new entry under the "Virtual Hardware, Hypervisor" section
+documenting support for the optional PSCI SYSTEM_SUSPEND function
+exposed to guests.
 
-This change enables compilation of `xl resume` on Arm regardless of the
-underlying implementation status, making the tool available for testing
-and future feature support. The relevant libxl infrastructure and handler
-functions are already present and usable.
+This function is available via the virtual PSCI interface and allows
+guest domains (domUs) to initiate system suspend operations.
 
-Note: This does not imply full system suspend/resume support on Arm.
-      The `xl suspend` command still does not work on Arm platforms.
+The feature is currently marked as "Tech Preview".
 
 Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-Acked-by: Anthony PERARD <anthony.perard@vates.tech>
+Acked-by: Julien Grall <jgrall@amazon.com>
 ---
-Changes in v14:
-- no chnages
+Changes in V14:
+- fixes in commit message.
 ---
- tools/include/libxl.h     |  1 -
- tools/xl/xl.h             |  4 ++--
- tools/xl/xl_cmdtable.c    |  4 ++--
- tools/xl/xl_migrate.c     |  2 +-
- tools/xl/xl_saverestore.c |  2 +-
- tools/xl/xl_vmcontrol.c   | 12 ++++++------
- 6 files changed, 12 insertions(+), 13 deletions(-)
+ SUPPORT.md | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index bc35e412da..14b9e4a859 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -1145,7 +1145,6 @@ typedef struct libxl__ctx libxl_ctx;
-  * restoring or migrating a domain. In this case the related functions
-  * should be expected to return failure. That is:
-  *  - libxl_domain_suspend
-- *  - libxl_domain_resume
-  *  - libxl_domain_remus_start
-  */
- #if defined(__arm__) || defined(__aarch64__)
-diff --git a/tools/xl/xl.h b/tools/xl/xl.h
-index 9000df00de..63db30a6eb 100644
---- a/tools/xl/xl.h
-+++ b/tools/xl/xl.h
-@@ -65,7 +65,7 @@ static const char migrate_permission_to_go[]=
-     "domain is yours, you are cleared to unpause";
- static const char migrate_report[]=
-     "my copy unpause results are as follows";
--#endif
-+#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
+diff --git a/SUPPORT.md b/SUPPORT.md
+index d441bccf37..8e7ab7cb3e 100644
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -962,8 +962,9 @@ Emulated PSCI interface exposed to guests. We support all mandatory
+ functions of PSCI 1.1. See below for the list of optional PSCI call
+ implemented and their status.
  
-   /* followed by one byte:
-    *     0: everything went well, domain is running
-@@ -130,8 +130,8 @@ int main_migrate_receive(int argc, char **argv);
- int main_save(int argc, char **argv);
- int main_migrate(int argc, char **argv);
- int main_suspend(int argc, char **argv);
-+#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
- int main_resume(int argc, char **argv);
--#endif
- int main_dump_core(int argc, char **argv);
- int main_pause(int argc, char **argv);
- int main_unpause(int argc, char **argv);
-diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-index 06a0039718..bcb2d233cc 100644
---- a/tools/xl/xl_cmdtable.c
-+++ b/tools/xl/xl_cmdtable.c
-@@ -198,12 +198,12 @@ const struct cmd_spec cmd_table[] = {
-       "Suspend a domain to RAM",
-       "<Domain>",
-     },
-+#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
-     { "resume",
-       &main_resume, 0, 1,
-       "Resume a domain from RAM",
-       "<Domain>",
-     },
--#endif
-     { "dump-core",
-       &main_dump_core, 0, 1,
-       "Core dump a domain",
-@@ -548,7 +548,7 @@ const struct cmd_spec cmd_table[] = {
-       "                        checkpoint must be disabled.\n"
-       "-p                      Use COLO userspace proxy."
-     },
--#endif
-+#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
-     { "devd",
-       &main_devd, 0, 1,
-       "Daemon that listens for devices and launches backends",
-diff --git a/tools/xl/xl_migrate.c b/tools/xl/xl_migrate.c
-index b8594f44a5..4b4a379aa1 100644
---- a/tools/xl/xl_migrate.c
-+++ b/tools/xl/xl_migrate.c
-@@ -767,7 +767,7 @@ int main_remus(int argc, char **argv)
-     close(send_fd);
-     return EXIT_FAILURE;
- }
--#endif
-+#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
+-   Status, Mandatory: Supported
+-   Status, MIGRATE_INFO_TYPE: Supported
++    Status, Mandatory: Supported
++    Status, MIGRATE_INFO_TYPE: Supported
++    Status, SYSTEM_SUSPEND: Tech Preview
  
+ ## Virtual Hardware, QEMU
  
- /*
-diff --git a/tools/xl/xl_saverestore.c b/tools/xl/xl_saverestore.c
-index 953d791d1a..747094ec7b 100644
---- a/tools/xl/xl_saverestore.c
-+++ b/tools/xl/xl_saverestore.c
-@@ -270,7 +270,7 @@ int main_save(int argc, char **argv)
-     return EXIT_SUCCESS;
- }
- 
--#endif /* LIBXL_HAVE_NO_SUSPEND_RESUME */
-+#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
- 
- 
- 
-diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-index c813732838..93766f631b 100644
---- a/tools/xl/xl_vmcontrol.c
-+++ b/tools/xl/xl_vmcontrol.c
-@@ -38,11 +38,6 @@ static void suspend_domain(uint32_t domid)
-     libxl_domain_suspend_only(ctx, domid, NULL);
- }
- 
--static void resume_domain(uint32_t domid)
--{
--    libxl_domain_resume(ctx, domid, 1, NULL);
--}
--
- int main_suspend(int argc, char **argv)
- {
-     int opt;
-@@ -55,6 +50,12 @@ int main_suspend(int argc, char **argv)
- 
-     return EXIT_SUCCESS;
- }
-+#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
-+
-+static void resume_domain(uint32_t domid)
-+{
-+    libxl_domain_resume(ctx, domid, 1, NULL);
-+}
- 
- int main_resume(int argc, char **argv)
- {
-@@ -68,7 +69,6 @@ int main_resume(int argc, char **argv)
- 
-     return EXIT_SUCCESS;
- }
--#endif
- 
- static void pause_domain(uint32_t domid)
- {
 -- 
 2.43.0
 
