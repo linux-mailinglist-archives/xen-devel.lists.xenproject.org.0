@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 064F4C67DB4
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 08:12:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1164447.1491407 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DA79C67DC9
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 08:14:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1164458.1491418 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLFsq-0003za-O4; Tue, 18 Nov 2025 07:12:12 +0000
+	id 1vLFv3-0004ac-3q; Tue, 18 Nov 2025 07:14:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1164447.1491407; Tue, 18 Nov 2025 07:12:12 +0000
+Received: by outflank-mailman (output) from mailman id 1164458.1491418; Tue, 18 Nov 2025 07:14:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLFsq-0003y5-L9; Tue, 18 Nov 2025 07:12:12 +0000
-Received: by outflank-mailman (input) for mailman id 1164447;
- Tue, 18 Nov 2025 07:12:11 +0000
+	id 1vLFv3-0004YM-12; Tue, 18 Nov 2025 07:14:29 +0000
+Received: by outflank-mailman (input) for mailman id 1164458;
+ Tue, 18 Nov 2025 07:14:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=maYy=52=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vLFsp-0003OX-AR
- for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 07:12:11 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1vLFv1-0004YG-3F
+ for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 07:14:27 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e65b875a-c44d-11f0-9d18-b5c5bf9af7f9;
- Tue, 18 Nov 2025 08:12:10 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-42b3c965cc4so2598509f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 23:12:10 -0800 (PST)
+ id 36f34fca-c44e-11f0-9d18-b5c5bf9af7f9;
+ Tue, 18 Nov 2025 08:14:26 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-47798ded6fcso9308635e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 23:14:25 -0800 (PST)
 Received: from ?IPV6:2003:ca:b70c:6a80:314a:d80f:dc29:6f97?
  (p200300cab70c6a80314ad80fdc296f97.dip0.t-ipconnect.de.
  [2003:ca:b70c:6a80:314a:d80f:dc29:6f97])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42b53e7ae16sm30408981f8f.3.2025.11.17.23.12.09
+ 5b1f17b1804b1-477991646b2sm174918695e9.7.2025.11.17.23.14.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Nov 2025 23:12:09 -0800 (PST)
+ Mon, 17 Nov 2025 23:14:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,62 +47,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e65b875a-c44d-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 36f34fca-c44e-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763449930; x=1764054730; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763450065; x=1764054865; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Hg4OCMZTFuwf/W2EQSjEUN9FmHitJpWENRIhvcvyDy4=;
-        b=aQSkbSM9CmfcYtxekybHQTqP9tovCmq5QTBpRZCPv0i82aAUHu0pFrOG0VE58IvDo3
-         REIGT23DpTD1zMpitgZN3fhQoVyTNeAwLtNHcE1rk2TJ8v1htohduf1K7E/V/2Bg2vys
-         WGvWwzkgPjLztTR1ZuIMN35r3ap3DTHhJpZf+YF87XlxMneg4ZIikbQiWtlYRTl5FuQ2
-         cZV+WqzNPsZ8cMRMhlocPMkDoTqimw0zD0aw1AIm5KpFQiH7bnCUTKNP8EzuOwPaNj2a
-         xuwDquxr2Z+qmRjZXqQFH+R9jZNm+waMjn1idtOEPtDird5O8EqqmQTTDR78aObKj5tt
-         iw1w==
+        bh=zFtCrnINDrwaYiyzXiSXq+gd5proqbnsJy69jJO9sTM=;
+        b=QF9W/clGmIBZmWrldoTZajoon+ldHugTjTpQOcv8LtHU8y6Ac74XA5/urbwz+NehRN
+         4PyYwwuScTHY3yhf4upPq5kepwVrDdxN2FwAnui9edpvhsOhxPei5TFXR4vXGXFwFsFF
+         cP118jlfEG7pLcM3oxdRRd0Dd2U3HdlfyZawK8tm/LvpPBkTioVeuMjuA3lq7DhK8qJw
+         /Ah/9bceVd22DN5xNzKBhXKQItjpWgbq5XkgJKuJV7hjDrAH/0AjosBMyWUIv6T/WkQs
+         acPLBXcLZU3EspXHbix7jDYEgZ2L4V7nRhYlWEMQ/XYhnDXniN+oOc8LcaLe6dszBBwG
+         zK0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763449930; x=1764054730;
+        d=1e100.net; s=20230601; t=1763450065; x=1764054865;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Hg4OCMZTFuwf/W2EQSjEUN9FmHitJpWENRIhvcvyDy4=;
-        b=OteQXQsx/Hk51lzTB7KAscqKP7vGWefdlMCKK1QAD0AJz1EOTvEX6PVfJJwaGt4nXb
-         qsEiFt/ci1LGY8uuxYG/J12VC0CgOS+zMKfKsXD8mzeUJvIJ4BG2JSe3P45hNScGB7p+
-         IwNftE2UFj6VUM38nVweUwmYPO0FVZW+LQtpyHvoWss75BepXlcb2RRL3ZMi2GKu6EVd
-         qAt2rBpMrkRd3ro2ahDLKw58E3eUO2aoPLZvUodan44lflbFljeKoyrZQYrB147Bq59z
-         vYlRMVBKTx4lwScYmWJFI75vDljYk/eUyeK0GsSA3gd4NrByBQy3SF+moJqzf4CDctcw
-         raOQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUJy9+bmCqxXtQnvvfvztdy2K7ac6385W8edcqPsB6dhfWQJ33HsrgX5v210FuysveOjKLfUIzQHqE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyqjfbAHQJ9yasQPTr62lffKK12JhvZbm9Q4yZ5ybCCK6HILK+L
-	PO7UeTgq9dBc+5Kxc7psg8zog64HhhmuCCTHt/bZhn/mTMVH7mDl4QbO/HuH0XJSsg==
-X-Gm-Gg: ASbGncsr66Id9ZV49daabMMV31WL/F17fXFKh/2L35QymEDoH+d8g+To3iX2CdR2uvM
-	jCua3exulV2R1pRBj1L5mSH+SgaH7nxuLAHE6C1EhoAgE/JOhHc5bokCs5ZgO24zLHGPWM6h1L6
-	apcBVs5uIrAaJv8jkbLboTSDlHxAK3IL7qVew1rKSPUF+/6gw1RLk2Is6/c/RGwS3mmNNBSj29C
-	nQM+NIDi5doQBIfM1bUDQ4y43E3AARdjuFe7YBxJOYcsHjEv9nmMHMFg5BAbzNn/qP32hZnpLqM
-	bzVdCZwrVam8hOiNppUGYbn6ObAh5cReon50/Kin0IVdfcd1TES4iC+aN4R09pXma6Z5pZUttVS
-	R88PgSZWGtak7MQzh114nyyF1JDmjGBjBcYDIFe0doZhlfjmqztiKyuRMmbliFOybMi4LOTbcqm
-	/gdIBE1reLiKd0FDb3vMGAi5CAUORC72sK5/ABGnvHfUA2SESBH+aM9KDXuGQN40GrAOK/y6StU
-	BCPI+RsROU3YkdkoaP8ewgz15u7GRrIk8AJ+BaM0kAX5TCg0fGtfeeDVBA=
-X-Google-Smtp-Source: AGHT+IGBNBmz7lbIgsO4BB/MQTtFm1FQCEzqWeHumSi3a4dxlGW7tBQnhb9cT6QwRfg/Y/9/swBXsA==
-X-Received: by 2002:a05:6000:18a8:b0:429:eb05:1c69 with SMTP id ffacd0b85a97d-42ca8678447mr1887850f8f.2.1763449929984;
-        Mon, 17 Nov 2025 23:12:09 -0800 (PST)
-Message-ID: <0ff1d79b-a7c2-4fc0-a335-17cbdb977dfc@suse.com>
-Date: Tue, 18 Nov 2025 08:12:08 +0100
+        bh=zFtCrnINDrwaYiyzXiSXq+gd5proqbnsJy69jJO9sTM=;
+        b=wWSkZCub4JNlzD0U4IdsqKS9TFyd66tupoqEu7ayk3qSlkOuPZptbE5eADwnfD2Bzd
+         xU+FL4JvpWBb33jWCU4WyaFp9lGzJ9ryoYpociBW5dgJparAYf0WGvd8pxtgP+0FdVNl
+         s1m1FiCpbKeMjBTjA8ESziFVpwJWZcHnrtZ3Gq6sw8pLLCbln6TadoZs7OC9eGNzhLUo
+         aDrjpdNJQw3RfjBdToNZSKMk0k0Z0d8l9sgH/FY6RLaFugzQ8zHXoQs8Ij43iCf//FjJ
+         HnshRpYuFgOzhHbPeSU0bcOADxnhzi7N2VUTqTEsSd67ruAuSqULzZeWm28HUT47GzpQ
+         XXuw==
+X-Forwarded-Encrypted: i=1; AJvYcCX6RGgcnobcqVPf2hJgI2l5XB88n0St63Z/f++yRWL87u3P73K7bPtqA11oTPUJgoPnTU8lvixksAs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzLcX9oNATjKOBsI/VUHRGGtcpdcQ2Pdsz25LBji7YMtZH2ieLU
+	sn71sGcPBGZCTbGFJeSsfElZ1ZqhByJ9RL0erY7OmKj2FGX36yAZ+4HJvZpS+smEjQ==
+X-Gm-Gg: ASbGnctT1W6FMzpr0kHu0LADnNv7CJmBpT2woIvhl1XzT8WaUGxK44ykkop5uiiwUrx
+	KCxVtEc7VZSJbCr+C+hTpGQjMRNCuLxAbJOkzNpRHDIoBkVRW9hZpd1Oab8GFbrQmNYqUcECqtP
+	T9M5rTqTQW0fQ3vy+FVXa9VvTET23IXkAVEY0j1TmY8yUIDSVuOTU9UZ1ddUMiOV8SoB5NzGFZ5
+	Lo9506wik2bQ0zrYUFepSPr4qtDJqKVaTSBOMUzv9UbLJIqM7u6lYm+YmFtiFY61DkolSRqkhZB
+	FGW4lt8N3ozGtiYKo4Xzr/K1+R26NBpKeujurBu1whXNQsK9vJVV0wF7fqfSsCxDJd0CDR3c17R
+	hSMj+j5sIls9zKNMfbKcOrE3dUABv63UYac7aNc+szH1LF5ymgCYqWuk6eMa6K0gpX9wbPkrXzD
+	mfwIkGQfobZT8h12mo4OeBAsr5rdXN266zZqeq5o3bprUf2iRKndC4+9lLctt8B6kHxiQ4RCAq9
+	uWKkdcR5s58ktbMw9C0o4/mEHD80sjvvjsMUyYkI4iR5czbFvjZBt81M9c=
+X-Google-Smtp-Source: AGHT+IFkfFJj8L7BvMxKgxmLIXld8JD0juWb8QEyVBlMojVq0nvr3x+VVt0IkJwKEOqXXnCAeBBK/Q==
+X-Received: by 2002:a05:600c:1f91:b0:475:dd9a:f791 with SMTP id 5b1f17b1804b1-4778feadab1mr130618645e9.28.1763450065211;
+        Mon, 17 Nov 2025 23:14:25 -0800 (PST)
+Message-ID: <ea81a0f2-d3d9-41f4-ae88-1426123129a6@suse.com>
+Date: Tue, 18 Nov 2025 08:14:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 27/28] xen/domctl: make HVM_PARAM_IDENT_PT conditional
- upon CONFIG_MGMT_HYPERCALLS
+Subject: Re: [PATCH v3 28/28] xen/domctl: wrap common/domctl.c with
+ CONFIG_MGMT_HYPERCALLS
 To: "Penny, Zheng" <penny.zheng@amd.com>
 Cc: "Huang, Ray" <Ray.Huang@amd.com>,
  "oleksii.kurochko@gmail.com" <oleksii.kurochko@gmail.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20251013101540.3502842-1-Penny.Zheng@amd.com>
- <20251013101540.3502842-28-Penny.Zheng@amd.com>
- <af8eb5b1-80fd-477c-9b50-29041ae93088@suse.com>
- <DM4PR12MB8451BC18FAF3D9B97F84B604E1D6A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <20251013101540.3502842-29-Penny.Zheng@amd.com>
+ <c18cdb1c-f2b3-4eeb-b064-670c86e19e67@suse.com>
+ <DM4PR12MB84511357C8F6FB1976244CA0E1D6A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,77 +131,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB8451BC18FAF3D9B97F84B604E1D6A@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB84511357C8F6FB1976244CA0E1D6A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 18.11.2025 07:45, Penny, Zheng wrote:
+On 18.11.2025 07:43, Penny, Zheng wrote:
 > [Public]
 > 
 >> -----Original Message-----
 >> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Thursday, October 30, 2025 9:35 PM
+>> Sent: Thursday, October 30, 2025 9:40 PM
 >> To: Penny, Zheng <penny.zheng@amd.com>
 >> Cc: Huang, Ray <Ray.Huang@amd.com>; oleksii.kurochko@gmail.com; Andrew
->> Cooper <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>;
->> xen-devel@lists.xenproject.org
->> Subject: Re: [PATCH v3 27/28] xen/domctl: make HVM_PARAM_IDENT_PT
->> conditional upon CONFIG_MGMT_HYPERCALLS
+>> Cooper <andrew.cooper3@citrix.com>; Anthony PERARD
+>> <anthony.perard@vates.tech>; Orzel, Michal <Michal.Orzel@amd.com>; Julien
+>> Grall <julien@xen.org>; Roger Pau Monné <roger.pau@citrix.com>; Stefano
+>> Stabellini <sstabellini@kernel.org>; xen-devel@lists.xenproject.org
+>> Subject: Re: [PATCH v3 28/28] xen/domctl: wrap common/domctl.c with
+>> CONFIG_MGMT_HYPERCALLS
 >>
 >> On 13.10.2025 12:15, Penny Zheng wrote:
->>> Helper domctl_lock_{acquire,release} is domctl_lock, which
->>> HVM_PARAM_IDENT_PT uses to ensure synchronization and hence being a
->> toolstack-only operation.
->>> So we shall make HVM_PARAM_IDENT_PT conditional upon
->>> CONFIG_MGMT_HYPERCALLS, returning -EOPNOTSUPP when
->> MGMT_HYPERCALLS=n.
+>>> --- a/xen/common/Kconfig
+>>> +++ b/xen/common/Kconfig
+>>> @@ -646,11 +646,13 @@ config SYSTEM_SUSPEND
+>>>       If unsure, say N.
 >>>
->>> Suggested-by: Jan Beulich <jbeulich@suse.com>
+>>>  config MGMT_HYPERCALLS
+>>> -   def_bool y
+>>> +   bool "Enable privileged hypercalls for system management"
+>>>     help
+>>>       This option shall only be disabled on some dom0less systems, or
+>>>       PV shim on x86, to reduce Xen footprint via managing unnessary
+>>> -     hypercalls, like sysctl, etc.
+>>> +     hypercalls, like sysctl, domctl, etc.
+>>> +     Be cautious to disable it, as users will face missing a few basic
+>>> +     hypercalls like listdomains, getdomaininfo, etc.
 >>
->> I fear this isn't quite what I suggested. The param get/set are XSM_TARGET, i.e.
->> can be used by DM as well. The particular one here shouldn't be used by a DM, but
->> that's a different question. Similarly in principle the PVH Dom0 building code should
->> be able to use this path; it doesn't right now in favor of some open- coding.
->>
->> What iirc I did suggest was that the serialization isn't needed when no domctl can
->> be used to otherwise alter (relevant) guest state.
+>> This is still too little, imo. For one I'm not sure "users" is quite the right term. I'd say
+>> it's more "admins". And then, as mentioned, there are a few domctl-s which are
+>> usable by DMs. Aiui device pass-through may also be impacted, which imo will
+>> want mentioning here as well. Or else, if there is an implication that DMs aren't to
+>> be used when MGMT_HYPERCALLS=n, that is what would want calling out.
 > 
-> Ah, true, serialization isn't needed when MGMT_HYPERCALLS=n, as no domctl-op could alter the guest state at the same time.
-> Then maybe adding IS_ENABLED() checking is enough:
+> How about
+> "
+>         Be cautious to disable it, as admins will face missing a few basic
+>         hypercalls like listdomains, getdomaininfo, etc, hence leading to
+>         have an impact on xl-device-passthrough and restricted DM.
+> "
 
-Yes, that or indeed introducing stubs. Which one is the lesser evil I'm having
-a hard time determining. Hence I'd suggest that you go with the below, unless
-someone else chimes in.
+Much better. However, why "xl-" and why "restricted"? Neither aspect matters
+here, unless I overlook something.
+
+> Another question on PV_SHIM_EXCLUSIVE:
+> After Stefano's " 6c80f0dd1bb  xen: fix randconfig build problems after introducing SYSCTL " reversion patch, and to avoid incurring randconfig failures till the last, maybe I shall combine all PV_SHIM_EXCLUSIVE-related changes into a new commit and put it in the last, after making MGMT_HYPERCALLS optional again?
+
+Whatever works best.
 
 Jan
-
-> ```
-> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> index 5a50721bd0..4e1b3ee5f4 100644
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -4324,7 +4324,7 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
->           * the domctl_lock.
->           */
->          rc = -ERESTART;
-> -        if ( !domctl_lock_acquire() )
-> +        if ( IS_ENABLED(CONFIG_MGMT_HYPERCALLS) && !domctl_lock_acquire() )
->              break;
-> 
->          rc = 0;
-> @@ -4334,7 +4334,8 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
->              paging_update_cr3(v, false);
->          domain_unpause(d);
-> 
-> -        domctl_lock_release();
-> +        if ( IS_ENABLED(CONFIG_MGMT_HYPERCALLS) )
-> +            domctl_lock_release();
->          break;
->      case HVM_PARAM_DM_DOMAIN:
->          /* The only value this should ever be set to is DOMID_SELF */
-> ```
-> 
->>
->> Jan
-
 
