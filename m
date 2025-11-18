@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C8A4C6A36F
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 16:07:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1164935.1491787 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1908FC6A3D4
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 16:11:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1164971.1491827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLNIl-0003N5-Sy; Tue, 18 Nov 2025 15:07:27 +0000
+	id 1vLNMm-0006WN-BU; Tue, 18 Nov 2025 15:11:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1164935.1491787; Tue, 18 Nov 2025 15:07:27 +0000
+Received: by outflank-mailman (output) from mailman id 1164971.1491827; Tue, 18 Nov 2025 15:11:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLNIl-0003L9-QI; Tue, 18 Nov 2025 15:07:27 +0000
-Received: by outflank-mailman (input) for mailman id 1164935;
- Tue, 18 Nov 2025 15:07:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vLNMm-0006Ta-88; Tue, 18 Nov 2025 15:11:36 +0000
+Received: by outflank-mailman (input) for mailman id 1164971;
+ Tue, 18 Nov 2025 15:11:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=maYy=52=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vLNIk-00033y-04
- for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 15:07:26 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4a805d05-c490-11f0-9d18-b5c5bf9af7f9;
- Tue, 18 Nov 2025 16:07:25 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-b73b24f1784so272297966b.0
- for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 07:07:25 -0800 (PST)
+ id 1vLNJ6-00026P-Pz
+ for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 15:07:48 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5736c4ec-c490-11f0-980a-7dc792cee155;
+ Tue, 18 Nov 2025 16:07:46 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-b727f452fffso1090538866b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 07:07:46 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fa81296sm1393799666b.6.2025.11.18.07.07.23
+ a640c23a62f3a-b734fa81172sm1360206366b.15.2025.11.18.07.07.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Nov 2025 07:07:24 -0800 (PST)
+ Tue, 18 Nov 2025 07:07:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a805d05-c490-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 5736c4ec-c490-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763478445; x=1764083245; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763478466; x=1764083266; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UcLxhIrNXaMN+dEZIS/JAOfVnBILwCijMp1B3XCEPJ8=;
-        b=EoyIwBqaKYIu7aNm2p71Lczqz+xj/H2j6+ZwolZH8Q1MyUf1OnV79wb5hXjhFJRAW2
-         Lk6aD+QocT9o3KPhnq1ORlp39YouNnqUQhXrVJweYkGE1bvpaeoOV5qwq29kLSbOpV3X
-         Z4xjMUiFyJWrEmDxLYxFAh7XD/S/brcEn5k/qqC+riSIU90DNMV9ASueWwNmIIuvctS4
-         oTTCbP3sBrRbalOfmhQJLOG0SkkrDdJGFxL3rakOfJcalfDNyIMscOUkki4/sx/Qhkl6
-         9agYf5f4C929YxOShyHG8HcwuigyFxp/KZSgO6DJ4l3OvrDFxYyXu+kW5LfT7AnqeA2s
-         Ysgg==
+        bh=ogwqBuXZSaN+AgPZhx6o0JgPjsKbQmKgsLL7wy4U8mQ=;
+        b=ducR8lKb+vbtuzzaVdY3f7EAoZ8MhqQX/QHxq0WfvFyBuiAFSQ28qwWaCT6EFyVRTh
+         tO2ouQUYds1VuDopCzOkADYN9DS6uhhEp9EBpQx0/L610tecBeGjm3fhCsZ/Hr27wVQJ
+         Ne1SY28axBT2Jaktrsyg3YfvxiiywpXbgA3xtwnj5Ooq+CYl7Kd6k712Rpp6I13refAy
+         mDr5i50BnPkMwILZGjSxsLvsg/CxSSPV7YFY4BHJ4zPygMZtop9EwCV7rJeAKtgt5svm
+         xyKEDmWeZiYzZUpRk+E3OsQCx5aZWL5y6WfVFKyDQDcWVdR8ljHnkeO9Grn02C5AcHK5
+         2tUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763478445; x=1764083245;
+        d=1e100.net; s=20230601; t=1763478466; x=1764083266;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UcLxhIrNXaMN+dEZIS/JAOfVnBILwCijMp1B3XCEPJ8=;
-        b=PCNxfoyvwQYHETA6XOYhr6RalWJnX1bWba0YPCHro7epv/CXkwMUrtoxnPsL7YmuOc
-         l/KuIP6TdFf7J6REOf8yyLt7u+8UWH1C89sfet89/AhA9eEicK7OcT2kpYnjPNftW+OO
-         DpKfuJFBaFHsKL9TN/FP1lZEJSAxqQ6r0ZbjJH2S+R+i/RiBN1zT9uBvRrgQbnLoHtTH
-         01w7we2t+gE4B6yum2920Un6EJhPoM7VNwyaj4cZe12y8ZfBWz1TYklIoAtaPsA9QMbS
-         RobvgH+Q+qJ23xo+ZFeBCxrRTodtNbIsc8LlYIcM/7jSIA82vFQvWh+HeXo1nOvJbJeW
-         5y1A==
-X-Gm-Message-State: AOJu0Yw8r0s+n71NY805jhK8XR65k2M+MBMJYXr1UiA3w6roNwwbxqXi
-	R3LV7b9UbrjPHhLCZKu94dp5xZ2J7yUkeRpt9V/awiywGxogPVd3siB9y6vCwL7JjJTTN3EXCQ9
-	ODaQ=
-X-Gm-Gg: ASbGncs/Sb5lfM0n7kFEmleMcG0qkqXpok4h7kjhREXpRJy366D4uxIOI/6k8dXr4dB
-	KQDO3VJ5irArGzgpcnhT0t1k8JdMkXOy/C9MfHiUfK0Vu8joq14DVpGmEJHlWIiJYnoDfZCKTI2
-	8uvV4tepwZc1XghTPaOf9oBqRkid7mRFiZMnYaEocYGURGK5YBFAHS3j49/Du69RZfPfYw0bivv
-	cW9afuDUERzyBRt7Oj4mF4i4rzDrwgNsC80PUi+gxQObOwwZs+G7MSdfsbg5GaYuGzQzIps3ujZ
-	f+QBZrz5CHnhVYDJ1OpSIu6ifYPwmP21WzIwPwN+Afvk0/yeTDyxQA60Sx260S0ZZyW+snA27O5
-	OMyHciNTpXWepRrOkCaDPVOPt8O+7My51QBvmtZDnQPY5JS5xDn83LzPMbU9IYcRfl1i7H5YbzK
-	fIu5PiHfq/vPWaYE7LX6Uq0rYayoMdyKagsiZBU026SKmxWYDaThmaCwCC4a48vSfBCqf/HmpR3
-	RIoAvxS/2lpag==
-X-Google-Smtp-Source: AGHT+IE2AMQszacX3K1IzrjUWAeT0RvSIr8T9X7hWthAm+aZ3Z96afG5mCWt0bR5QdrEXk8PAbchzA==
-X-Received: by 2002:a17:907:2d87:b0:b6d:3456:14b3 with SMTP id a640c23a62f3a-b75a0a546b7mr365066466b.20.1763478444409;
-        Tue, 18 Nov 2025 07:07:24 -0800 (PST)
-Message-ID: <505029ff-cb2e-425c-bf5c-3ac364f32140@suse.com>
-Date: Tue, 18 Nov 2025 16:07:23 +0100
+        bh=ogwqBuXZSaN+AgPZhx6o0JgPjsKbQmKgsLL7wy4U8mQ=;
+        b=S3J0OXaQMywDbZLiwcYV4W9SovPIzKIGfHAVO/SDDbqts9+Xk6n9705b5VuwQRt508
+         A89KBt+ItZaGRto+0wT53dZ+pgxt6Ya+F85eqv3cBLdFz32rORbXkGheT90AkDr8cEOr
+         rFm/nNGnm0FhhftZhZHvVXWFfsg1biMqHy2UcfwNejlWEIErLaIKz+ErX7I4lSOqvLVG
+         gzPjKg0rzkvP6e2PCjDaE4DjEP5YSQ+2ctfMK4p6Bl2V5XPYmTNBdGvgc8CaC7ZvVuHy
+         Q0DACn49LlVNSYCuzCgJ09rINv9xjRtvLExKyijW5NKehZg8tVupGJxDyuK/+ubZCHIl
+         XUCg==
+X-Gm-Message-State: AOJu0Yz4duhDhAiOh2lxa22m2Bh3ME0KIWys0gCWiN35TmCIH2i33ej9
+	xxuhsmSy8DuhjoJYaHxAogbEhlUqQinbagsBeqZtlHyOPVQcXU2QWFwGov5X0KaMvnmTogR9UYN
+	XVT8=
+X-Gm-Gg: ASbGncuVfA+H/g5nNm0xAkoJNWz8zh80ZIYICyaeW+fxn/ZtAZ4C+nChMs0Wo5QM39X
+	j0IQJ8yzWCaQKE0WGpfUjej45tMnCIRVoecEnuge5bWgtlvQq4eTayw1PD+9YQPcTCdFinEosRZ
+	bA2TQsw4Np9iG2gQ3agnMQSAiGUm/eJkQn8hoCnHWE6pg6Jr1UnlT8iUeOOloFg6QMJ6euujeX9
+	Ma5a9qyngWAJ6EGkMJX7y3OoYRbKiBfLsmdZSBSIicqB56m3j8jRcdoHpWuk/xvy5a1ESNMxK4E
+	98qThXuSFOO4m8JqDXS4YEwMQxznUlv45jXP0JUKiBcSA4f0+hPq6aPt78fVBvVFHyK9rycTDYS
+	FRHD1/RgkuyV+HK2LWEhQO5SpkxTue7rVsw0USXvh7aJHQptc4mNVDrIPVrIzXMTF3byfQ2l0cI
+	0VyXABDXCgl6QoGKJtHyutWo6YeOpKDjboyQfmRqhriuMCv2a4BJTxQ8kh0AgmHHBHtfJD4y6Xc
+	VE=
+X-Google-Smtp-Source: AGHT+IFR9Pomx8rFbS6hsHAUaKwk67R3YEGcCjD+fMbAYcxcBh7aP2reu+6Hpe15tc6hWW/ITUC/6Q==
+X-Received: by 2002:a17:907:d16:b0:b72:e158:8229 with SMTP id a640c23a62f3a-b75a09f290bmr484598866b.15.1763478466123;
+        Tue, 18 Nov 2025 07:07:46 -0800 (PST)
+Message-ID: <bd4f2601-a2fc-4c58-b1a9-3b2c40076eab@suse.com>
+Date: Tue, 18 Nov 2025 16:07:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 4/8] x86: replace APERFMPERF synthetic feature bit
+Subject: [PATCH 5/8] x86: rename ARAT feature flag
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -123,71 +123,110 @@ In-Reply-To: <53ef6c9a-1115-4bb4-bb7f-e2595ab9d0b6@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Use the respective host CPU policy bit instead.
+Add a XEN infix, to properly distinguish it from the CPUID feature flag
+(leaf 6 EAX bit 2).
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Question is whether we still need opt_arat (and the command line option),
+or whether we could go directly from the CPUID bit (overriding it to on
+for older AMD [and Hygon?] CPUs). Or whether to have opt_arat affect the
+(host) CPU policy directly.
 
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -523,10 +523,6 @@ static void generic_identify(struct cpui
- 	if ( cpu_has(c, X86_FEATURE_CLFLUSH) )
- 		c->x86_clflush_size = ((ebx >> 8) & 0xff) * 8;
+--- a/xen/arch/x86/acpi/cpu_idle.c
++++ b/xen/arch/x86/acpi/cpu_idle.c
+@@ -109,7 +109,7 @@ void (*__read_mostly lapic_timer_on)(voi
  
--	if ( (c->cpuid_level >= CPUID_PM_LEAF) &&
--	     (cpuid_ecx(CPUID_PM_LEAF) & CPUID6_ECX_APERFMPERF_CAPABILITY) )
--		__set_bit(X86_FEATURE_APERFMPERF, c->x86_capability);
--
- 	/* AMD-defined flags: level 0x80000001 */
- 	if (c->extended_cpuid_level >= 0x80000001)
- 		cpuid(0x80000001, &tmp, &tmp,
---- a/xen/arch/x86/include/asm/cpufeature.h
-+++ b/xen/arch/x86/include/asm/cpufeature.h
-@@ -11,7 +11,9 @@
- #include <xen/macros.h>
+ bool lapic_timer_init(void)
+ {
+-    if ( boot_cpu_has(X86_FEATURE_ARAT) )
++    if ( boot_cpu_has(X86_FEATURE_XEN_ARAT) )
+     {
+         lapic_timer_off = lapic_timer_nop;
+         lapic_timer_on = lapic_timer_nop;
+@@ -1463,7 +1463,7 @@ static void amd_cpuidle_init(struct acpi
  
- #ifndef __ASSEMBLY__
-+#include <asm/cpu-policy.h>
- #include <asm/cpuid.h>
-+#include <xen/lib/x86/cpu-policy.h>
- #else
- #include <asm/cpufeatureset.h>
- #endif
-@@ -121,7 +123,6 @@ static inline bool boot_cpu_has(unsigned
- #define CPUID6_EAX_HDC                               BIT(13, U)
- #define CPUID6_EAX_HWP_PECI                          BIT(16, U)
- #define CPUID6_EAX_HW_FEEDBACK                       BIT(19, U)
--#define CPUID6_ECX_APERFMPERF_CAPABILITY             BIT(0, U)
+         if ( !vendor_override )
+         {
+-            if ( !boot_cpu_has(X86_FEATURE_ARAT) )
++            if ( !boot_cpu_has(X86_FEATURE_XEN_ARAT) )
+                 hpet_broadcast_init();
  
- /* CPUID level 0x00000001.edx */
- #define cpu_has_fpu             1
-@@ -175,6 +176,9 @@ static inline bool boot_cpu_has(unsigned
- #define cpu_has_fma4            boot_cpu_has(X86_FEATURE_FMA4)
- #define cpu_has_tbm             boot_cpu_has(X86_FEATURE_TBM)
+             if ( !lapic_timer_init() )
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -1355,7 +1355,7 @@ static void cf_check init_amd(struct cpu
+ 	 * running in deep C states.
+ 	 */
+ 	if ( opt_arat && c->x86 > 0x11 )
+-		__set_bit(X86_FEATURE_ARAT, c->x86_capability);
++		__set_bit(X86_FEATURE_XEN_ARAT, c->x86_capability);
  
-+/* CPUID level 0x00000006.ecx */
-+#define cpu_has_aperfmperf      host_cpu_policy.basic.pm.aperfmperf
-+
- /* CPUID level 0x0000000D:1.eax */
- #define cpu_has_xsaveopt        boot_cpu_has(X86_FEATURE_XSAVEOPT)
- #define cpu_has_xsavec          boot_cpu_has(X86_FEATURE_XSAVEC)
-@@ -292,7 +296,6 @@ static inline bool boot_cpu_has(unsigned
- /* Synthesized. */
- #define cpu_has_arch_perfmon    boot_cpu_has(X86_FEATURE_ARCH_PERFMON)
- #define cpu_has_cpuid_faulting  boot_cpu_has(X86_FEATURE_CPUID_FAULTING)
--#define cpu_has_aperfmperf      boot_cpu_has(X86_FEATURE_APERFMPERF)
- #define cpu_has_xen_lbr         boot_cpu_has(X86_FEATURE_XEN_LBR)
- #define cpu_has_xen_shstk       (IS_ENABLED(CONFIG_XEN_SHSTK) && \
-                                  boot_cpu_has(X86_FEATURE_XEN_SHSTK))
+ 	/*
+ 	 * Prior to Family 0x14, perf counters are not reset during warm reboot.
+--- a/xen/arch/x86/cpu/hygon.c
++++ b/xen/arch/x86/cpu/hygon.c
+@@ -76,7 +76,7 @@ static void cf_check init_hygon(struct c
+ 
+ 	/* Hygon processors have APIC timer running in deep C states. */
+ 	if (opt_arat)
+-		__set_bit(X86_FEATURE_ARAT, c->x86_capability);
++		__set_bit(X86_FEATURE_XEN_ARAT, c->x86_capability);
+ 
+ 	if (cpu_has(c, X86_FEATURE_EFRO)) {
+ 		rdmsrl(MSR_K8_HWCR, value);
+--- a/xen/arch/x86/cpu/intel.c
++++ b/xen/arch/x86/cpu/intel.c
+@@ -668,7 +668,7 @@ static void cf_check init_intel(struct c
+ 	if ( opt_arat &&
+ 	     ( c->cpuid_level >= 0x00000006 ) &&
+ 	     ( cpuid_eax(0x00000006) & (1u<<2) ) )
+-		__set_bit(X86_FEATURE_ARAT, c->x86_capability);
++		__set_bit(X86_FEATURE_XEN_ARAT, c->x86_capability);
+ 
+ 	if ((opt_cpu_info && !(c->apicid & (c->x86_num_siblings - 1))) ||
+ 	    c == &boot_cpu_data )
+--- a/xen/arch/x86/cpu/mwait-idle.c
++++ b/xen/arch/x86/cpu/mwait-idle.c
+@@ -1633,7 +1633,7 @@ static int __init mwait_idle_probe(void)
+ 	icpu = id->driver_data;
+ 	cpuidle_state_table = icpu->state_table;
+ 
+-	if (boot_cpu_has(X86_FEATURE_ARAT))
++	if (boot_cpu_has(X86_FEATURE_XEN_ARAT))
+ 		lapic_timer_reliable_states = LAPIC_TIMER_ALWAYS_RELIABLE;
+ 
+ 	pr_debug(PREFIX "v" MWAIT_IDLE_VERSION " model %#x\n",
+@@ -1792,7 +1792,7 @@ int __init mwait_idle_init(struct notifi
+ 		return -ENODEV;
+ 
+ 	err = mwait_idle_probe();
+-	if (!err && !boot_cpu_has(X86_FEATURE_ARAT)) {
++	if (!err && !boot_cpu_has(X86_FEATURE_XEN_ARAT)) {
+ 		hpet_broadcast_init();
+ 		if (xen_cpuidle < 0 && !hpet_broadcast_is_available())
+ 			err = -ENODEV;
 --- a/xen/arch/x86/include/asm/cpufeatures.h
 +++ b/xen/arch/x86/include/asm/cpufeatures.h
-@@ -19,7 +19,7 @@ XEN_CPUFEATURE(TSC_RELIABLE,      X86_SY
+@@ -13,7 +13,7 @@
+ /* Synthetic features */
+ XEN_CPUFEATURE(CONSTANT_TSC,      X86_SYNTH( 0)) /* TSC ticks at a constant rate */
+ XEN_CPUFEATURE(NONSTOP_TSC,       X86_SYNTH( 1)) /* TSC does not stop in C states */
+-XEN_CPUFEATURE(ARAT,              X86_SYNTH( 2)) /* Always running APIC timer */
++XEN_CPUFEATURE(XEN_ARAT,          X86_SYNTH( 2)) /* Xen may utilize always running APIC timer */
+ XEN_CPUFEATURE(ARCH_PERFMON,      X86_SYNTH( 3)) /* Intel Architectural PerfMon */
+ XEN_CPUFEATURE(TSC_RELIABLE,      X86_SYNTH( 4)) /* TSC is known to be reliable */
  XEN_CPUFEATURE(XTOPOLOGY,         X86_SYNTH( 5)) /* cpu topology enum extensions */
- XEN_CPUFEATURE(CPUID_FAULTING,    X86_SYNTH( 6)) /* cpuid faulting */
- XEN_CPUFEATURE(XEN_FRED,          X86_SYNTH( 7)) /* Xen uses FRED */
--XEN_CPUFEATURE(APERFMPERF,        X86_SYNTH( 8)) /* APERFMPERF */
-+/* Bit 8 unused */
- XEN_CPUFEATURE(MFENCE_RDTSC,      X86_SYNTH( 9)) /* MFENCE synchronizes RDTSC */
- XEN_CPUFEATURE(XEN_SMEP,          X86_SYNTH(10)) /* SMEP gets used by Xen itself */
- XEN_CPUFEATURE(XEN_SMAP,          X86_SYNTH(11)) /* SMAP gets used by Xen itself */
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -2642,7 +2642,7 @@ static int _disable_pit_irq(bool init)
+      * XXX dom0 may rely on RTC interrupt delivery, so only enable
+      * hpet_broadcast if FSB mode available or if force_hpet_broadcast.
+      */
+-    if ( cpuidle_using_deep_cstate() && !boot_cpu_has(X86_FEATURE_ARAT) )
++    if ( cpuidle_using_deep_cstate() && !boot_cpu_has(X86_FEATURE_XEN_ARAT) )
+     {
+         init ? hpet_broadcast_init() : hpet_broadcast_resume();
+         if ( !hpet_broadcast_is_available() )
 
 
