@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 944A4C6814F
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 08:55:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1164500.1491448 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8FDBC6817C
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 09:00:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1164514.1491458 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLGYN-0002Xt-Ke; Tue, 18 Nov 2025 07:55:07 +0000
+	id 1vLGdG-0004Ud-BJ; Tue, 18 Nov 2025 08:00:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1164500.1491448; Tue, 18 Nov 2025 07:55:07 +0000
+Received: by outflank-mailman (output) from mailman id 1164514.1491458; Tue, 18 Nov 2025 08:00:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLGYN-0002Vc-Hx; Tue, 18 Nov 2025 07:55:07 +0000
-Received: by outflank-mailman (input) for mailman id 1164500;
- Tue, 18 Nov 2025 07:55:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vLGdG-0004Sq-8V; Tue, 18 Nov 2025 08:00:10 +0000
+Received: by outflank-mailman (input) for mailman id 1164514;
+ Tue, 18 Nov 2025 08:00:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=maYy=52=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vLGYM-0002VV-4m
- for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 07:55:06 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e4e05756-c453-11f0-9d18-b5c5bf9af7f9;
- Tue, 18 Nov 2025 08:55:05 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-47795f6f5c0so21678575e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 23:55:05 -0800 (PST)
+ id 1vLGdF-0004Sk-4o
+ for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 08:00:09 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 98dc3819-c454-11f0-980a-7dc792cee155;
+ Tue, 18 Nov 2025 09:00:07 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-429c48e05aeso3098724f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 00:00:07 -0800 (PST)
 Received: from ?IPV6:2003:ca:b70c:6a80:314a:d80f:dc29:6f97?
  (p200300cab70c6a80314ad80fdc296f97.dip0.t-ipconnect.de.
  [2003:ca:b70c:6a80:314a:d80f:dc29:6f97])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47787e8e6acsm361384625e9.9.2025.11.17.23.55.03
+ ffacd0b85a97d-42b53e97a87sm31225522f8f.20.2025.11.18.00.00.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Nov 2025 23:55:04 -0800 (PST)
+ Tue, 18 Nov 2025 00:00:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,56 +47,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4e05756-c453-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 98dc3819-c454-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763452504; x=1764057304; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763452806; x=1764057606; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/veRBfMZ2+Tzgh+9tTcf9q8mea1n5+ECWQwua59jLuk=;
-        b=OJENjXMQ0jG9aAqpj88trwK30RklNLiyg6CmR4XYLGSlYIpGRpzaQ3+thvh6w2ZPJW
-         VnXWefiJhzaMVd6j/gcb52HY6/+I1tUs0Gf5qMd6I3TYaZmmS9CK4YFoIuLCKTv3hJ9X
-         4ZqWe/NqGh7Vayf/Auep/IfeDu5Qumu2S6NSGjfciXZnHKpeWBOd8iK6sIVe4CzERe3D
-         TnNOABEE2ZYx90ZCrXOydX2IMoObMCqRk5/LzetPNN7bqgsiSI0iyfIPpJSnKMNsT30G
-         dv2X7FSu4W5Zfxql38NFyb8AHZ9i/isVQy38NWOHc2CdCD9OW0+zvwsBUaIFCBd3t2kb
-         s94A==
+        bh=QlvKeuqGsUuCRQMAKfwIBxhvqrrHYmr/xIdDZJHlVaI=;
+        b=TIxNh0c/urQYa0yeSiw7ALvAG3CseIm/O2g0kHLXxJbKmgbgoot6T3v07Pg0v1IDdq
+         Uc0UGllVEUn60IKXjB6O+SF4yLqk6TzXADMnYERflVISDh8/Br/VW3qxpz7fMsdSy73i
+         oKpCbQC+dg2pMAZFFfvuXSBoOu10i1huLixQldbsJz+2xGn/5VLRSGx+GdrY5V9wKGB1
+         YcpqChDnGT4PMDvPNEkc54kLKGRRyApv1TLTd10sXproYkQUWjYOhEM04V/blzWt6fMm
+         52mUt8elSkdrwtecXNkMu4I8gGMMvUJ2BHuk6riHARJapleiy16KbG9Qig84E38YdGzP
+         KAAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763452504; x=1764057304;
+        d=1e100.net; s=20230601; t=1763452806; x=1764057606;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/veRBfMZ2+Tzgh+9tTcf9q8mea1n5+ECWQwua59jLuk=;
-        b=q07DHrjiwyGVayLwjlVytckGulvijDkzPXb4NCcN7oJPgl3Dgc+Af2fd3JMBa1LS4Q
-         j1xs/A7nGsmSoZvccKg6MyBsHXSADZtIgGYCNWBKti1DB7UzjAlsaOhgDoT6FDeI8hmf
-         0ir5jijR/iyE0DvxgNwK+mEG0JFVWP22ParwTTHNXq610J2Fiu3C8CcykVZvKWcTdIut
-         g23iOXd+kBkTLCIsL5kDYAiVZeILsuQngE+BCppuaqLW3Lt8wbuR1oUCn9cphrWt5VpD
-         Hodw6R5txd1bRl0tOc3+0/qbnZaYkwEFGZZJgQEOBJdiOjWXLlA2sPZQ3g4/nfViYIq4
-         dvOg==
-X-Forwarded-Encrypted: i=1; AJvYcCX1o7KDynFmPLiBj+PBTh47QQ28bBTDbO8MQtlo2wvlC68V1uRYryAehRJ8AtAgXN+NOZl3BSesLgw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyOhWTdNeEbsyg5JklC3epXEdLEyit4ENO2AsyLedaj8nJLhGL5
-	4Kky9/EiT1+PlilwBdBvIzzeW2Z+EqUWKLCBXIzzBDNfprCDWG9KD6ASuNdzDCgQpQ==
-X-Gm-Gg: ASbGncukDxNvjHia4vKoxFe/o7rDlElL/pFUbL7KaHfc0knOmLTf2PIz7p0LBddEl90
-	VVGs6HHFwBG2qX21EIQWVOuROgeF4MYA+i8NtJsCe+eCRRKobyt9/fZBDh8sWn9JrwoiHIifKAx
-	VK4jjNqO9U3O0R+DezYYPOgBP6rVMhPSkH7WTDO01wyv6Dqi2dKAjQ0ztXPT5NGRD6Q6rTSkK6D
-	EYq1hJ+tlIIb9+u3Et6JwjPXNz1dbw5ZorPFshZOSwKEfjqFCmjwHgIlCS/GoIF9EkHEZLmnONO
-	h0WNBRkCFedGMcOjiNgMEbeRs3Dz0GYN4XobF0L+lFqbd9Kzbwz6wWHdmeROmepvaWNUr/JuPDD
-	Eiqmf+csGnkmuEYpaaoHIOw3MwACm0hvWIx/3i2Yld+e4n3xOQnYurgKjDR+QIWwMjJWIiNyaU0
-	92ka3KU3rN0DrAh7PSts0W8WQQ3HOuw1RINSmQXWQXK2WuuSd/BDPrR5IZjeJ5KzG1stle0EoKe
-	xZCBDoAQiu5MCktOJuuDmAK/ZLn2xeYCjBJLQ==
-X-Google-Smtp-Source: AGHT+IH7nLKvkBBl9FAgvxy+N/uRlhNil8mMf7AwDKFtMeSejqfKzesvECd6FErG0L72tQF/JaHvZg==
-X-Received: by 2002:a05:600c:4695:b0:477:63b4:ef7a with SMTP id 5b1f17b1804b1-4778feaa8a1mr123155525e9.20.1763452504497;
-        Mon, 17 Nov 2025 23:55:04 -0800 (PST)
-Message-ID: <bb9c4550-3503-4274-9df0-9bfc93edbc55@suse.com>
-Date: Tue, 18 Nov 2025 08:55:03 +0100
+        bh=QlvKeuqGsUuCRQMAKfwIBxhvqrrHYmr/xIdDZJHlVaI=;
+        b=cEb+2A56z6qhnAOakstsQatuy+k/cDsqcgEcNeWhHBvoOnx57flKGb0GvD8OUDeYbP
+         Tn8Y6co2/bquBpeGbchqPTb98PVH3Q7kgQJ0F3lpWa9cTfdyekUhnJyzllMhB1Ckgrhy
+         8oxaRxDBOOuyngmN1Nzaa4/dLc6EG245S1iQXx37pZf1v7lM/4TAcvbnpQufXxdQz0vk
+         OIsrwVqy5cJEZIa92BobFQlWXi9V6jEiiP40Npj6abYcI3XSzMF1wzynpoiLJHL9qO8J
+         rCbQkH1m6AdGuJUnQAG1x7B8yWy68shTSuBpMbwCNXTzyPoiWHC651CRonJGlBRO5fAi
+         fQIw==
+X-Forwarded-Encrypted: i=1; AJvYcCV8ZhQ+dCTDVXvw36P4ur961aRFPCUMGIBf7eBFy6NdIsHGhDhCl/qI+Lq4DA8cmrvPG82JpBlVhvM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwrCUdH59BSZRzLCgSvteskZfEr8NndzdK/Xw8ByievdHQBhZ36
+	k5QQpHN+fduFxO7B9ADWW1swqAaWmb6bP0WG+fIxXOR8RFaMISEWcF66yrMIOYOQHQ==
+X-Gm-Gg: ASbGncvewJoXZD7PjTZNcYdTsY+4rEmLED4jRbj+nzpHxqqULCoOccdJ8BOuESh5dSD
+	dh56rFzdLHVT/Xk5FSDw5XS8i8L3xIucJEbvhVk8Bsf6SBD69PXn0pA5A+jdkIQwRUHk/JDc1Rp
+	EB1kBGOLgZshOcy9Lwbd7RyCXRtwNy5QCiD6GDGs3gzdSMCCpvATFxx5ywOtkARylZ0691P2cPX
+	bHsAp3XPfp0C0YA4qvDUNKODzwUoexqY7iHUIyznSEDBQHyVUVUzcnguAiXpdXx7UP5fTKf7kTl
+	llkzIfRCdN1w4bqU1cNKdyQASmtSzsvB2EnCMwYqAJe05w190mhge3K7cUyWK11meXAoGoi4CKJ
+	usGHoMV+v39fZNr/zXAazX+YaPmiwSQikH3FW6TKPYAXNeRL+V5Dt0oa/eDXTrNB5BM2ycLtzdP
+	yua8VRcH8vi+q+iRLwtDO0QBqHRqGH14qfUM0jE1gVhg4yZh+AyJybe4/Iqi5eTDw6GH8eBbH75
+	YwQg+awmZ/Wg66axWglkdVgWcGlzOF9lOlxQftQYaC+fAJSi8uAzEnFR7A=
+X-Google-Smtp-Source: AGHT+IEawQmDkq4LbCwuR5I0FgrgD2cKeI1qRqDUTeYpIJ2Xmk+OPybcs9tMHJm9b+vfAQZB+FJeaQ==
+X-Received: by 2002:a05:6000:2582:b0:425:7e33:b4a9 with SMTP id ffacd0b85a97d-42ca85a5046mr2143391f8f.0.1763452806442;
+        Tue, 18 Nov 2025 00:00:06 -0800 (PST)
+Message-ID: <6528482b-8adb-47f4-805b-d9c7746ec92f@suse.com>
+Date: Tue, 18 Nov 2025 09:00:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86/ucode: Drop structurally unreachable ASSERT()s
+Subject: Re: [PATCH 3/3] x86/ucode: Create a real type for loading_state
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20251117222120.473451-1-andrew.cooper3@citrix.com>
- <20251117222120.473451-3-andrew.cooper3@citrix.com>
+ <20251117222120.473451-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,23 +122,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251117222120.473451-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20251117222120.473451-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 17.11.2025 23:21, Andrew Cooper wrote:
-> It's impossible for wait_for_state() to return false when looking for
-> LOADING_EXIT, so much so that the optimiser can drop the ASSERT()s.
+> Using typeof() in wait_for_state()/set_state() unnecesserily cryptic, and more
+> verbose than using a proper type.
 > 
 > No functional change.
 > 
-> Fixes: 5ed12565aa32 ("microcode: rendezvous CPUs in NMI handler and load ucode")
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I don't strictly mind the change, so
+Acked-by: Jan Beulich <jbeulich@suse.com>
+but I think the use of typeof() also has its benefits:
 
-Besides helping code clarity, mainly a Misra fix as it looks (unreachable
-code).
+> @@ -237,9 +238,9 @@ static bool cf_check wait_cpu_callout(unsigned int nr)
+>      return atomic_read(&cpu_out) >= nr;
+>  }
+>  
+> -static bool wait_for_state(typeof(loading_state) state)
+> +static bool wait_for_state(loading_state_t state)
+>  {
+> -    typeof(loading_state) cur_state;
+> +    loading_state_t cur_state;
+>  
+>      while ( (cur_state = ACCESS_ONCE(loading_state)) != state )
+>      {
+
+Even if the type of loading_state changed, no type mismatches would result
+here. Or in other words, a type adjustment there would not entail code
+changes here and ...
+
+> @@ -251,7 +252,7 @@ static bool wait_for_state(typeof(loading_state) state)
+>      return true;
+>  }
+>  
+> -static void set_state(typeof(loading_state) state)
+> +static void set_state(loading_state_t state)
+>  {
+>      ACCESS_ONCE(loading_state) = state;
+>  }
+
+... here (which could easily be forgotten as the compiler might not flag
+such mismatches).
+
+Thing of course is that the type of loading_state is pretty unlikely to
+change.
 
 Jan
 
