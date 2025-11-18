@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFE08C6A132
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 15:45:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1164876.1491739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22121C6A31F
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 16:04:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1164893.1491749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLMx3-0006QG-87; Tue, 18 Nov 2025 14:45:01 +0000
+	id 1vLNFn-0001Iu-Rx; Tue, 18 Nov 2025 15:04:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1164876.1491739; Tue, 18 Nov 2025 14:45:01 +0000
+Received: by outflank-mailman (output) from mailman id 1164893.1491749; Tue, 18 Nov 2025 15:04:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLMx3-0006N8-44; Tue, 18 Nov 2025 14:45:01 +0000
-Received: by outflank-mailman (input) for mailman id 1164876;
- Tue, 18 Nov 2025 14:44:59 +0000
+	id 1vLNFn-0001G1-OX; Tue, 18 Nov 2025 15:04:23 +0000
+Received: by outflank-mailman (input) for mailman id 1164893;
+ Tue, 18 Nov 2025 15:04:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=maYy=52=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vLMx1-0006N2-9e
- for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 14:44:59 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ id 1vLNFl-0001Fr-Dy
+ for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 15:04:21 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 277a0c56-c48d-11f0-9d18-b5c5bf9af7f9;
- Tue, 18 Nov 2025 15:44:58 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-640b06fa959so9925783a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 06:44:58 -0800 (PST)
+ id dc145de6-c48f-11f0-9d18-b5c5bf9af7f9;
+ Tue, 18 Nov 2025 16:04:20 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-b7355f6ef12so969695866b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 07:04:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a3f880fsm12946303a12.11.2025.11.18.06.44.56
+ a640c23a62f3a-b734fa81223sm1395868866b.4.2025.11.18.07.04.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Nov 2025 06:44:56 -0800 (PST)
+ Tue, 18 Nov 2025 07:04:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 277a0c56-c48d-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: dc145de6-c48f-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763477097; x=1764081897; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ucow77cbI8N4lr6/qwzGUs/Z9NiazRSQJfUlUtdrAAM=;
-        b=WojvoSnXqd7lj2g2Z/WE4Z76MpzEvsFnbAZSa2mdQ4g1cccJdl4g9qMCrlodKbPbMy
-         T8m3sMHm9KVDbexVHjx7QIsY2uJ8UjaiUn7WL+i65nghVYKwnbt3EtrOQ/GixYznOG5t
-         502d5S/CTPGf10UtRYMAIfmfNfBP0nUC7fsjouFJ/3AcKD3vci1fKPv7+8KjMKRl2/D2
-         fU3zyNMZm/+xyXity11Fii6Gu/0qR9IcZypg0FUD1zOjXgIgd141t+7Sd0lUEFUhOWue
-         9vHbmEoq1Fjxx/CaHVKdIbZiuMt2C/CbnKNKObitwnAXrDU6Mx+gOSy8w1ZL9MpajNzA
-         KPtw==
+        d=suse.com; s=google; t=1763478259; x=1764083059; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=v+hfsrOldDWg2dpAv3tPbQO6zhR+u9tTC5czwVhdDX4=;
+        b=QIn84z898i6f6VZGw2br30NUEpOqWVarOkS5+uV70coslpUZG5fWKTwyG5LYkRaHmO
+         1TZuax1n1+hxns4Z3uI8YZ2mHVesCP/aIiWrEQPKnJ3ogH0KT5lTQqItEpu/nZMlx0fr
+         bOI9Fe5PLNOSXGvama+bktlj456R8My+ZjJ6aR++yHqIyPzangYoOgWqyAnDChi/W4SU
+         geMn10bgKRvsflDxsapJlLuUKMGvA8c0NkrkLRxdFMGu3541BxnWlwOiD+g3U6jF8AnR
+         52aIA2YB2Swu1OWIawi1DNDfalxebujS6DYPyvN34E5XS9Ztmm6JeRXJsYWZTfh++ZpH
+         kzPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763477097; x=1764081897;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ucow77cbI8N4lr6/qwzGUs/Z9NiazRSQJfUlUtdrAAM=;
-        b=S9MmZIuh9HA7Z9A1Vr592gWo0gGzRIH3tWULb6k6H2hjvuaS2NX/6FLnfyp7jtin3O
-         1gC+Z08UtQY/6ZuT/RPjmmkIo5N/L7fZjvButEC4wvmUOKK5qX1ZzptM3BdMPPeEDecO
-         a915y6xmVNT5LLQbsqY1f182OcLISpuq+qUDFW59waw6Px/notDV24lpIxsrx5+BEXOU
-         YHpGkQ47gJ/3E5oLHHzzb3TTWkiEgNqmYCeN2X9/luWzmmWUxcMiXZa2Q7jp9Mh3JQAo
-         lnrh6pm2kQNyw60tvHrfRGX4vVPCzyogoQYEO7m2fav6P1dmGxr+7NfpuK4lYlHoJHa8
-         lKng==
-X-Forwarded-Encrypted: i=1; AJvYcCWAs6TRjcMZamh29GHEoWkU1QJ4AvwiDqCvAT7qFbdnV9Xinozu5CXN6xIu21yX9unZ6ccRn/dlKkg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw0DbNIDkMAQDT658T35x+AyFq3StY+YebExRqpqt6Q9LrySslP
-	iLcXRWZpadmUQSXS/aVA/blR6CQtacMOk539Y4ahVpz55+FaGKglPrb/2dEZVkl7wQ==
-X-Gm-Gg: ASbGncvU79QcSGL4v2fksbJz6YhLLO0FENAN8W/t6S8gTiw62b1XA5OIfq47Ap0vPUf
-	3/VH2UbSHmGeAmqQQMeaHhwzuYR2+TtHOvSbHPZWNlTRGAjFdUGxVrfTmIk6oaYNAfnb9pS1bcO
-	F73MT1SH1AZ9dbA6VvWxisq7I/+wasok1B9w6A2IlKXHzX45BCIxkBMcyCreX8ixrZBwgedFOxD
-	q9FyRwtbSKqDZeclZt/sqKjcDlcKF7Rf9vd+iLA37EcCpxnXtIBrgwVYXREbQFIdBNZ2RZtaB6I
-	aFj11+avj9oSpRefnZlOnfwEW2w74iWz1WH0Cl2JWXHiHTKVgy+UiOSSlmEXe8LYX1WU8Eiks2H
-	1xjbmDpRx8/uwaN6Yi1Pt32p5hXZK4d07BKix/z++7Inb7DbFeXH6bYuwZg/nyr3ZFiDTwfRBFF
-	BmEGsOY3NO7hMMV8qm87kKskNy1LrYTSkJsAO8JfVfgIvTUn7fmdaqPpUrwCIKUYZM0vmWbiyy2
-	HlrOGVSKHO8QQ==
-X-Google-Smtp-Source: AGHT+IGqnm97LrN6tMHIFyAVw+ZcaKuFEukctFTS3uV4dEkCIhJyDwTvwxx511U/p0/TOuttMVtyJA==
-X-Received: by 2002:a05:6402:13c8:b0:637:e94a:fb56 with SMTP id 4fb4d7f45d1cf-64350eb9461mr17734463a12.35.1763477097573;
-        Tue, 18 Nov 2025 06:44:57 -0800 (PST)
-Message-ID: <0b6a62c4-969c-4dd9-be72-064d8971910e@suse.com>
-Date: Tue, 18 Nov 2025 15:44:55 +0100
+        d=1e100.net; s=20230601; t=1763478259; x=1764083059;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=v+hfsrOldDWg2dpAv3tPbQO6zhR+u9tTC5czwVhdDX4=;
+        b=jmIoURTbD09k5LUfAD0B3MRtOsUkWX12Qp+aDdZr1aNjrZan+mK2zrXCDrTtbyJ5Ia
+         dKsynuo06h+/4DYFXbsHEfK2vamqfSGc35K40aMKNQAb5cmNlsRrMUc/UoozmhfD9Nft
+         8bIz3ZeHEgCpQqAVC/Rqc+lJpGMaE9Exab7pPtQ+Tn6PCIMI9bCvznuad0XETLifr1ge
+         fqrbBlFIf1ck+xnc7qIU1ueE+d4U+9fhRG+3N9pT96ptRb98daC8PKmK4GnSMEXmPUbm
+         ncWxyjnhYLr/fngv3U4hBOS9BrnagZ2SrfouqxLUXzqvlOPWrbpgvBJy+pzZeX20lFly
+         b3NA==
+X-Gm-Message-State: AOJu0Yx3c6r5/Sy0gkrLuhfoTUjwHsfrHTQZj+9eEXf1Y2ryQ72+xmyo
+	OwMc24eq5ZGxbgb6trtck7SYNeQP8rw8GgxdcDvrJSwb7VrXaOeHzOcBT622OSn23ccKsTONYMw
+	rU4M=
+X-Gm-Gg: ASbGncvZgTXIgqcrBwsS5eCOnY8N7fjYR/B3HW8kcQkCTdmseIrPI73usnkjAunPjpP
+	yuSiLD7KfTEX5mT6kdYSQ2A6ik9rVSyuZpCS6ojov58IM3sjlbBbgDmItixffUGPBWB9Z/Tg2ry
+	06GI1WC2t9pRmwtmT+9Isvaszy851nSZgZuLRsrBZ9/N9Ld4NfYnw1ulqE+iXXyEb3CnCoHN6Ca
+	IhN3wEZGPu+xeo5ZOnV7KKCXE9aT8SvXt8oQJq+twaPulQjAQjDHcM07i2az74CU1YWbJXYzmdv
+	JMrOrWsFzXFMvzR3mhxyQn6PvN7L8TIYBxk8KP8OU965F88Hhn8Z0jdN5wlFpIOxi/fcLX1IV0N
+	2BOW5YGwQtDIBtLmDlvGJpTWpWz1ctYPozK33pZK9aoDkyhjxjH5ZLhSUBITPPIdFcBDBmarxGO
+	ijc0nzcH7HkMHuU2daqDi2uz0aWdvQW79vyfBM/xBIiHq2w6oMlSupega6/MB6dKLxMOcCI5NFQ
+	z1g2RQWOjU7Dw==
+X-Google-Smtp-Source: AGHT+IHThhGtGUdFbvTRLBSkjB+xLkj3rQgAHmsAdSygw0O571q7gg8FQ2onF1WdrEzaFC199jeCZw==
+X-Received: by 2002:a17:907:6e90:b0:b70:ae6a:5fdb with SMTP id a640c23a62f3a-b7367bc46b0mr1610715066b.45.1763478259448;
+        Tue, 18 Nov 2025 07:04:19 -0800 (PST)
+Message-ID: <53ef6c9a-1115-4bb4-bb7f-e2595ab9d0b6@suse.com>
+Date: Tue, 18 Nov 2025 16:04:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/8] xen/pci: assign discovered devices to hwdom
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
- Luca Fancellu <luca.fancellu@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1763462211.git.mykyta_poturai@epam.com>
- <af67b9cbc1dff78440afdd15ebe1856fbebe98e1.1763462211.git.mykyta_poturai@epam.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH 0/8] x86: CPUID leaf 6 consolidation
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -126,33 +117,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <af67b9cbc1dff78440afdd15ebe1856fbebe98e1.1763462211.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.11.2025 14:36, Mykyta Poturai wrote:
-> @@ -1041,6 +1042,12 @@ enum pdev_type pdev_type(u16 seg, u8 bus, u8 devfn)
->      return pos ? DEV_TYPE_PCIe_ENDPOINT : DEV_TYPE_PCI;
->  }
->  
-> +static bool __hwdom_init pdev_is_endpoint(const struct pci_dev *pdev)
-> +{
-> +    enum pdev_type type = pdev_type(pdev->seg, pdev->bus, pdev->devfn);
-> +    return type == DEV_TYPE_PCIe_ENDPOINT || type == DEV_TYPE_PCI;
+Integrate this leaf with CPU policy handling, to leverage the host policy
+when feature bits need evaluating.
 
-Once again - blank line please before the main return of a function (or, for
-that matter, between declaration(s) and statement(s)).
-
-> @@ -1221,6 +1228,10 @@ static int __hwdom_init cf_check _setup_hwdom_pci_devices(
->              if ( !pdev )
->                  continue;
->  
-> +            /* Hide real bridges from HWdom when it's using the emulated one */
-> +            if ( has_vpci_bridge(hardware_domain) && !pdev_is_endpoint(pdev) )
-> +                pci_hide_device(pdev->seg, pdev->bus, pdev->devfn);
-
-As said elsewhere, when you hide bridges without introducing virtual counterparts,
-everything behind the bridge also needs hiding.
+1: cpu-policy: move invocation of recalculate_misc()
+2: cpu-policy: define bits of leaf 6
+3: include: de-assemblify cpuid.h
+4: replace APERRMPERF synthetic feature bit
+5: rename ARAT feature flag
+6: Intel: use host CPU policy for ARAT checking
+7: cpufreq: use host CPU policy for Turbo checking
+8: cpufreq: use host CPU policy in HWP driver
 
 Jan
 
