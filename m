@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB48DC67CD8
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 07:58:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1164422.1491388 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96C23C67DAE
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 08:12:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1164434.1491398 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLFfR-0000fd-B3; Tue, 18 Nov 2025 06:58:21 +0000
+	id 1vLFsD-0003SU-De; Tue, 18 Nov 2025 07:11:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1164422.1491388; Tue, 18 Nov 2025 06:58:21 +0000
+Received: by outflank-mailman (output) from mailman id 1164434.1491398; Tue, 18 Nov 2025 07:11:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLFfR-0000dR-7z; Tue, 18 Nov 2025 06:58:21 +0000
-Received: by outflank-mailman (input) for mailman id 1164422;
- Tue, 18 Nov 2025 06:58:20 +0000
+	id 1vLFsD-0003Pp-AQ; Tue, 18 Nov 2025 07:11:33 +0000
+Received: by outflank-mailman (input) for mailman id 1164434;
+ Tue, 18 Nov 2025 07:11:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=maYy=52=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vLFfP-0000dL-WB
- for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 06:58:20 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=g+ix=52=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
+ id 1vLFsC-0003OX-Ic
+ for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 07:11:32 +0000
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c110::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f6273e8f-c44b-11f0-9d18-b5c5bf9af7f9;
- Tue, 18 Nov 2025 07:58:18 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-42b2a0c18caso2658326f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 22:58:18 -0800 (PST)
-Received: from ?IPV6:2003:ca:b70c:6a80:314a:d80f:dc29:6f97?
- (p200300cab70c6a80314ad80fdc296f97.dip0.t-ipconnect.de.
- [2003:ca:b70c:6a80:314a:d80f:dc29:6f97])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42b53f2084dsm30917727f8f.42.2025.11.17.22.58.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Nov 2025 22:58:17 -0800 (PST)
+ id cdad7f73-c44d-11f0-9d18-b5c5bf9af7f9;
+ Tue, 18 Nov 2025 08:11:30 +0100 (CET)
+Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
+ MW4PR12MB7335.namprd12.prod.outlook.com (2603:10b6:303:22b::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.21; Tue, 18 Nov
+ 2025 07:11:25 +0000
+Received: from DM4PR12MB8451.namprd12.prod.outlook.com
+ ([fe80::6d8e:2499:8a0a:7eb2]) by DM4PR12MB8451.namprd12.prod.outlook.com
+ ([fe80::6d8e:2499:8a0a:7eb2%2]) with mapi id 15.20.9343.009; Tue, 18 Nov 2025
+ 07:11:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,243 +47,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6273e8f-c44b-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763449097; x=1764053897; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yLScSLEPsZrg35Qd7AVFqHRO+dbmG9wCDaTv26kQemI=;
-        b=QpOhqGCunAOswkVnrx++L3dqFYbVbIEMp1q2qzIZldiVP5oSd8OEr8PJu9a0Iau01K
-         WBULOmaxKSa+hAk7TNa+H0TDYD63veDG5CJTC2GqBiSSzJ8EZMEkpFz3QTKf4dQdbqR8
-         YWAFjAEPynkwSk92rFsb9XXxaQm9bNeytBjRXwpFh/s5bw+/T+Ceb8wCuw/bwz6MV+Sg
-         S/5gcZXrt2cs3Kps0KCyJ+QmawG9NZBBZK+CEJJXfMxEl49QF8Beky2UyjTgI3kVuVii
-         KWPfbEHcOUO66YSlkTLL7jfxmhiTmw8oVlDI4MP8iMckzK8sYHywUYXgxHPuDsTvwSCe
-         uGfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763449097; x=1764053897;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yLScSLEPsZrg35Qd7AVFqHRO+dbmG9wCDaTv26kQemI=;
-        b=EPSl5aEIU9jt17qxgk1hLbZlEaNyOVmkHdzMFwK08zYcbaIVMg5NyCuA7TS4ikskSR
-         PJ1Nf65B7tm2FcLDWvle0besOshFHVZWFk5Hq58Dz2KUhc/14sIwA01XBF7lLm6VMdg0
-         rLSbhyof96fw+0miWH4cJoKnk3bvAzlW+m//Jf/BlRaWDCR1HB+Zj9sAcqvnzp7BHf1W
-         U8Sc0BJrMbq1lpmbagGRX4e4e8e4DZymcg+c0I+JxspWRs3Z6j2GYI0AkxSdHhei2Ifg
-         MS9NCJvzon7/CEOKWpKEKFoGgIGTegzUsZygYMbggKviBZBBj4o1RzEHzUns3t+/xq0M
-         5W4g==
-X-Forwarded-Encrypted: i=1; AJvYcCWDYWo7qqKaV9EgoezQM8x+9nUeVBieOdKrYFbfqMkdNQwktr9/xtcX1xJ0tGzm8slLiAEQqm7zjDY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxAinpoSYKcSF/tmu1Da20u4RAFvYOMLkydTA2BV5lA4uMgHw/7
-	N8En1WAairUPAaEe7dzYp3CAeUEOS28p2zMxIRdExn1xuZhB2ZpP7F+rehdELwPyyA==
-X-Gm-Gg: ASbGncts2FhwVo1rcx0AEpAPfZWuygBbn2/u3UJNUHBNs23IBn1JVV3nkGTsSpYF4Aw
-	Tjhx7bwFCHHSGxdkXDmMAwy547S5Y0/ZmZdqGqow0nZ+0lNXfv4Jd5ZelTbXTduuXIItE0XEtAy
-	QgOAkT1As0oUZnQuvs8gT5u8XmzNd3ePMWFyo58jTE6d3BKOKopCTp+uwqkI183lgM6F6Lc8VD+
-	m1NEf17j25uCjnGWMKwIptoPm5F1vMTXvIebchHYAW5DmQPdud2r/eCqhHxVTVia4zncrF0cAMP
-	K4CIulp8E1Z6UuINAX0EmIsPXGf+KmFI8JUs/K627Jm3UBH7pF9HbSx8DkeDNva5U6NbHx+qFAW
-	oRr+V9C9Mm2sPpSRGboYnw9HMreLNmQJfqTxBcF+vWO30dxuLBpkHBoWrZkfhKo/dgjCC0cmnIW
-	M75vOz1sJXFUQa6YKERIoDYLmGRoKWmueISgTnyn5v/fc9FFf1BMhoF1puxmeugkCFucYTLSpbN
-	j7v2aUTfIr5rCowOgtO5Sz6VIlWgEoeUnTB8pVhMur2buGj
-X-Google-Smtp-Source: AGHT+IG2qFhieg+0OXcOKRUz9n6bMMJONxwuueDKHMQdb0pawwaJcwxjXgrzKMmrogMvnlVU14sMoA==
-X-Received: by 2002:a05:6000:310b:b0:3eb:9447:b97a with SMTP id ffacd0b85a97d-42b595b8004mr15365601f8f.54.1763449097417;
-        Mon, 17 Nov 2025 22:58:17 -0800 (PST)
-Message-ID: <6f431394-5c08-4974-85ae-4b38f1975289@suse.com>
-Date: Tue, 18 Nov 2025 07:58:15 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [for 4.22 v5 18/18] xen/riscv: introduce metadata table to store
- P2M type
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1760974017.git.oleksii.kurochko@gmail.com>
- <d291d2efe7dcc6ddd3d16677a81c57d755c7ada2.1760974017.git.oleksii.kurochko@gmail.com>
- <6a5a9f4e-1f0e-453f-b1d1-d0e2acf97e2a@suse.com>
- <5d4ec4d9-b4c1-4365-a343-f42b390da165@gmail.com>
+X-Inumbo-ID: cdad7f73-c44d-11f0-9d18-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GbJRQnuvT09vw9gzuvTl2djpO0sZYPLdzxiLpX0XqpcYhMU36A9aQfOO+DSg8QZY8Pqww/Ow692bupctY1FWYVaUC1Mq5DO+ci6aG4JhpEF9ZvWuzdtHJn7P6M7BNDKzlXVOhDCDxtk2GEtOl+PLSgJZ+rXcYd27J5qnI/pNAJzrbkDlrU4vrx0uttBGWyYNXI1XHXKWE1d7E47jHuWM/2Q/JGi5NSj1Iy3Fbnw3xggrzcvIUwtHVhwXlY3208vr3ORLX0+3E5aeP55cgUokBjdCBKM1plYc4QYCwt7Fok8nAdcOVAArgUGSFvCqylDDeFwz4/hdMEJ95J/Pr7nMmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=odISFh7aI4OENhrTZCmHg4xZT4MHYQ0tgnMz9bD6XQA=;
+ b=C4CrXPamnyZjcPrfaPsDx4AwURoaBcT1WCAGxugkUHo8eB8ACzUb6gvC3QMnGBtim3Z3rfB21qsiRap6XB8CY/pbrjg7MfFgCwQ0LnkCtsbCpNF47vaVAfLen6VGutLZnu9m+HgRy5M5lvIYUj6dBbMMumUV/NQCIWevh8tcUPrbeKv82Xr9728HWq53odxbKIxBNZZtX/JUOpVQp3uXTUclY9Xu+mGlQG1bwYWS/dlqmja0BAIaOpV12rtxCghrSKQQqn+WFp8t1uSAH1Amye/W9TgAqe/Gsd1ahbAeKa7QfpyZq5Zurt0ApP1X5tKHvbX++P72vhmWiRCmiMD0aQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=odISFh7aI4OENhrTZCmHg4xZT4MHYQ0tgnMz9bD6XQA=;
+ b=UHQBPXskQO9GShEs0UMuNp7H7Z+IxUvKJgfDRz46P4uBc3B5925uOchtENtoKHVQ7RV8Xy3QUeBlrtaJPjZD8xBnqIdOOmCRTvi8bsHM0Cyke7BqfcsgMxvkmWT1+dAkAUtRppF29eD8gl0PNseymMEdIpFtkSMna3ZD/7pMkW4=
+From: "Penny, Zheng" <penny.zheng@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, "Andryuk, Jason"
+	<Jason.Andryuk@amd.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: RE: [PATCH v1 1/7] xen/svm: limit the scope of "rc"
+Thread-Topic: [PATCH v1 1/7] xen/svm: limit the scope of "rc"
+Thread-Index: AQHcVEv7QeZ+fg/ABkeiD8Kl9SvRY7TwTjSAgAe47rA=
+Date: Tue, 18 Nov 2025 07:11:25 +0000
+Message-ID:
+ <DM4PR12MB845149F3F5C2262969771FCDE1D6A@DM4PR12MB8451.namprd12.prod.outlook.com>
+References: <20251113031630.1465599-1-Penny.Zheng@amd.com>
+ <20251113031630.1465599-2-Penny.Zheng@amd.com>
+ <8304ea57-0574-482b-a2ea-e1dadc58656e@suse.com>
+In-Reply-To: <8304ea57-0574-482b-a2ea-e1dadc58656e@suse.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5d4ec4d9-b4c1-4365-a343-f42b390da165@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-11-18T06:55:07.0000000Z;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|MW4PR12MB7335:EE_
+x-ms-office365-filtering-correlation-id: 13f8bd27-c8fa-4711-25e1-08de2671afb9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700021;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?TUJlcWhZTzNWdW42S3VmZzZWL25UWTNMZ29oUHkyc0o1dTlJMjhjbHhDV3NQ?=
+ =?utf-8?B?bEg5KzRxU1k2TW1sS2YyVitTZE1NeGQvZ2pma0tWWWgyTEkrQk5uWk5wMzFI?=
+ =?utf-8?B?Zlo2Z0pYbHcwRDBPVWJ4ZHdiYm1LNllpTjZKYklYUld1YjhCNTdlbFZKQU9l?=
+ =?utf-8?B?QVZWWmpmYnFYZ04wUTdUVm8vYUJIYk1nallRVHBGUVpRVG1sSDVsdHZqT2JK?=
+ =?utf-8?B?WG5YNHFKMXVLZzJ6aFlXdm50RlFWeW1sNzgxR3RlM01UMUVSWmdjL3ZGU3Vp?=
+ =?utf-8?B?OUdGUHFjQWlMa2Q1OFk5NWtpdFN5cEJ6cjI5QmdzODNsVWhVU2dQTjE5cDhN?=
+ =?utf-8?B?dUR4dFdYTEhFUk92QVl4V1g0bk1raWt5MVExbkNwdzI1cFdlMjltNjFtcXJp?=
+ =?utf-8?B?alZjMmVUREtMYkpYSld5RnNDUXBrc3QyaFZ1ek1iTHBFYXZmbmcxWDVzcUtx?=
+ =?utf-8?B?QjdMYVhQTHR4NzNDZXF2ZnZHc3JtZ2dteCtndUc5ZXVycDN1aFVzbGpOSEk3?=
+ =?utf-8?B?RU1XRHZsdnNXS3lCVmpNUCttUWZoZm5PRldMSjYyK2VQSHp4MmgvZTRCV2h2?=
+ =?utf-8?B?REJNMGlFUmpYOUVTaVk2UlhpMXA3S1FGcC91dSthWmhHdFVvSzFnWmNnSitP?=
+ =?utf-8?B?cHp3WFBMSHVLNHZUVEgxVW1Iak1QQXdxU3BFcmlkMmd3K3hvdzRBRDZyQ0Na?=
+ =?utf-8?B?U2l6VHJkd1lFdXltZ1FoZmUwNlBPMHNiOU8rRjBtZytCNTN4djZKWUVSa3pr?=
+ =?utf-8?B?YWFRYjZQMjVWMUlOVE14QWlGNUxyNVRlMTJweC9PUUJQZ2RrUVBOU1UzdVJ4?=
+ =?utf-8?B?NTN6SEZ3YnFMRjdqTVpvS2UyMzE4b01DVldsVzBSd0RuSlk3WElEcTdZRmh3?=
+ =?utf-8?B?MHN4MGV6ZXcrUmp1M2JjdzI5MlhjZ0M0cWZwUHNPSkMrTUNGYVlEdlNCcFNU?=
+ =?utf-8?B?UFNjTUNQVWhTc0xzTC9VQUdGb0pEOTdNOHd4QTlKZXcrSWExTy9FbnljWHlE?=
+ =?utf-8?B?clJsMXBwcnR4WTVHNGJZUkRzYmN1TEN2YUVUUkNlWDEvTUxqTENGZ3Z3U1h0?=
+ =?utf-8?B?cmI0aFNRQ2JRV1h3b0lNa2RGN1NOeGszSUhDM2YvajR0dnFoVGQ3cTlla016?=
+ =?utf-8?B?cjJZVWhGeEp1bXlqMmVsSUZFUjJMOVFNTnlWWC9vcERFZHZ4aDRKM1FMM3dV?=
+ =?utf-8?B?NUFlWk5TM2NaTGdQRWtGM0JwWUhyREZ2MEszSmVuaHM0bkVCMnp6aTdjdnE1?=
+ =?utf-8?B?aUloaGJJbi9xZHdTU1Q5THY1Mk5lVnFzL3pwMzBOYkRmNFNXOUFIMTlpWFNz?=
+ =?utf-8?B?TG81MS9QVkZLMUo0dWJkVENxNFdVR0NJSFlWd3NsYXB2aG9OVmJhVENTNG1R?=
+ =?utf-8?B?aHZiZTZBS1hzbktNNW5hWnhvRmplTE01V3Y0ZGVKQmtJbzVjcHZwamdBd1ls?=
+ =?utf-8?B?cWExY2FDOUQzd0RTdnNWcG8wbFhWZ3JaOGxScGtseWFJb3NqNFhncUZ3WlYv?=
+ =?utf-8?B?UFlYUzRBcVMveVBab0xzNDQvenpwdlRVVko5NHhMZUFBU0NBRTVGUnR3bERp?=
+ =?utf-8?B?Yjg0N25uSFFUcTQraFRueXhINlhWS3MvbTJ3RG1hWXhtSWlXWUhWVWk2OEhH?=
+ =?utf-8?B?WlBHZ3dZY3dkT0p3OEg4a1kxbzNEeVQrMmxGVjAwMHFBV09FVVlGc1hHanQz?=
+ =?utf-8?B?SWFrTzM1cGFKN2FmNysxQnVEV2t6emVROFc5cXYzUHUvZkxvMU5DL3FOWDJ0?=
+ =?utf-8?B?aHpDTmZ2VHVPeDJzRHJxdEZiWGpmV1JTanBvaGFpeHJFczJ1aFU1bllyR0Vw?=
+ =?utf-8?B?K0t0MWwyQ20zZTZBY1NDY0VqTnk0cUxVY1dTQVlQYXd3NWtZdFNYVlRXS1hT?=
+ =?utf-8?B?SUl4TEFaR2hjY011MU56UHZ2Mk9maDhRYTNyeWh0MXFJTjZubysxSm5IUktE?=
+ =?utf-8?B?VUEvczVoRjVIcXpNMHEvMk81bWt3WXk0eFdha25pMGVTaUJHMWVRZng1ODZ2?=
+ =?utf-8?B?Qmp6dzF0WWYwb0JuNU9yNDIrY0NKa21EYmcxUW50ZFBPSG5lYXBPeEVrR3Zr?=
+ =?utf-8?Q?XFNvmg?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?MHArQVh6RXN1b0pVMFNrQ1U2WUxiSVRDViszVGhRdllMdktYSDEwVFNmL2lW?=
+ =?utf-8?B?bnl2VFU2Q0pDT0RvcjhJME94cnZCUnZ5anhQeEt1MkV2OHdZVUFOK3hJMk9F?=
+ =?utf-8?B?N01aV2RXUjFyUzFVR0JOZGtLOGtzYWFCNjZsYUZWSlZ2Y3FOUmppTEJKNnBo?=
+ =?utf-8?B?djQwck00OVFtaGR1emZucm5iVk1VSFdiTHR4RENXcGpSMkJ5NXlPZTR4QjR1?=
+ =?utf-8?B?anJXTTlJdEh4c0hYYS9SOThTUkhJNmdNdmVrdFg4Yy9QVzZtNXlwN3ZqQTgv?=
+ =?utf-8?B?WmE5KzBEUTVHTXcyUmN3WDhueTFOcUdmZXdEakwrMnkyU1pPZzFjV3NEWlFV?=
+ =?utf-8?B?V2VhTk1UQ2thaGk2MjVRQlJzSlJrQWEzSjFXNlliNWg4dUkrSE50UUdSOUJT?=
+ =?utf-8?B?dTlkanRHdjNSYVlNRU5wT1ZVQkIwLzRTeWNOYnhzVm9rK25rcVJETzBKYWlm?=
+ =?utf-8?B?UTJXZGRrWmt3bGhVVnphWW1SQUNoZUREaTR6UUhMb2FCTmxjaG4wSjloaUFF?=
+ =?utf-8?B?c3RTMm04ZWJ4RVpEYVh5U1JJMC9XekZCQ2paM1oreWJJOGcreEQ2R1dTRnM5?=
+ =?utf-8?B?U0NHR1F5ZEg4M0hZVXcwZE9GUzMzM21WU21LNzQ5cHVuaUlkcnVTSU82NmZo?=
+ =?utf-8?B?V05PS0ZnSjNNUEt2a0xNT3JwcUVJWGdLZGNlbW1MTFgvRjlPZys4VWhhbm5K?=
+ =?utf-8?B?b2dKK3h1ckhDS1Y3OElZWHN0eFREeVBveGxHQi9LZnhjVzNIbVlNUC9uVGx0?=
+ =?utf-8?B?TnhIckc3UjZpQit2L2FLTzJzOGFlaDlOTGxGYVlibzREN3VFSW9ENzB1dVU3?=
+ =?utf-8?B?bzNCeVozZnJtbzUvUHREdWtyTEFOK2NVZjluek45SG12ZWVFYURKaEMwcVhn?=
+ =?utf-8?B?QVlwZnE1eUJucEJPTVowYnJ1WWR5alF5K0NYc1pOL0pvalJ2TUNjSEcxNGMx?=
+ =?utf-8?B?cGx3TjNZK1pFWXBKZ2M2aGpLbmFJRStHbmdJdExMY2kyQ0REZkF1K2NJYUlq?=
+ =?utf-8?B?RitpVU4xTDgrUy9lbXBkTHFZSC81VWhEaUZOckRGSzhjNm9kUzVJbW9VcGpn?=
+ =?utf-8?B?d3hpeVRPUW9nSGpkV0ZQWGpzRkJEdnVGOVROd1VpYlhOdXl5WEdmSW5xV09z?=
+ =?utf-8?B?alNFS09hanVVeWcrVUlDTTk3RnRkZ3VFUWJhaWdGeUdHaFo1UVFyVnlIUzMw?=
+ =?utf-8?B?MDRvNmU0aFZmeG9oRXlFWHROajBEck9YbWVaVnBDcUpHeVpnZlF4aWIwbU51?=
+ =?utf-8?B?T0lURWNCUHFMaTlidXRiMWxLM0hMdnc3VktDSk56Tm5MdU1OdW1TbjRqRlZT?=
+ =?utf-8?B?dzNnd3dEaFh1YjBEemhWUndkdWVaN2F1cWRTSGFCY3N2cWdCTzBPN0ZGbDBG?=
+ =?utf-8?B?NFFRWi9QYmJIVzlNN3dLVG1ZMWhDTG1ZS2V3TzBLRzhENU5LTkNMNXFIOWs2?=
+ =?utf-8?B?OThoYUVjR2krRGt0dnRwV0FXTThkVlNrUm95Tkx3MUE1elJLZEF4eWtjUFk1?=
+ =?utf-8?B?VHNZTmRzdXJOMHNiNUNkMm9qakc5VElJcEJXdzgyVENaeWpJYTFvQ3B6UUhn?=
+ =?utf-8?B?VGdOd0dXOE0vN3U1bnowYWlqeC9zNm9JTGFhT2pwVzFWUWQxTHpxVHdpTk8y?=
+ =?utf-8?B?K1pyNlI2cWc1SVFDYy94aWRMZTNISmdkOXQ2aE9zUThRTFhuOG5nOHRsSFVS?=
+ =?utf-8?B?ei84U2RWZ2lmcldsSDV3VDNpR01YeHo5MEk5akJVUkZBODhvc2ozSzRVdzBp?=
+ =?utf-8?B?Q1p2SXpFY1VPR3pIZmxDczd1MlY5M1FHZkFnaEFVY2ZzNFBqS3dOWVRXaGhS?=
+ =?utf-8?B?YUs4MVJNZFVEc0dOTGppU0lFbnFqak1lOUV3MFFqUkNDK2FHOWNJUGl0M0Ev?=
+ =?utf-8?B?MlBOdk5JMDBmbUJRbk4zUU1vSEZ5WEJPRWZkdUpXUWxBVHN4c04vbHZCcnJp?=
+ =?utf-8?B?SHVGTElIYmZISUNyYnVLUkRKNHVoNmtKcHBaRjhOaFYyOEtxNE5tWDlTR3hn?=
+ =?utf-8?B?ckdyanhDaS82MVBWVEVja0VDTFVBT0V3bm9zZHI5OVkwQksvNnFhc2ZXSU9s?=
+ =?utf-8?B?UlFOMWdkOVh2YmRyb29mMG1USVFaSWViaWVEL1BFcWoxakRRTjRlV1ZNVDFX?=
+ =?utf-8?Q?rFYg=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13f8bd27-c8fa-4711-25e1-08de2671afb9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2025 07:11:25.3728
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: z4c5E/idqGFk8PndH5jr+RYn1aHG+T/4e1tkJCHm8A5rMRueTKh9VgGOOVcRefrMO1clgPd1XiVxNLokCfVxZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7335
 
-On 17.11.2025 20:51, Oleksii Kurochko wrote:
-> On 11/12/25 12:49 PM, Jan Beulich wrote:
->> On 20.10.2025 17:58, Oleksii Kurochko wrote:
->>> +    if ( *md_pg )
->>> +        metadata = __map_domain_page(*md_pg);
->>> +
->>> +    if ( t < p2m_first_external )
->>> +    {
->>>           pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
->>>   -    return rc;
->>> +        if ( metadata )
->>> +            metadata[ctx->index].pte = p2m_invalid;
->> Shouldn't this be accompanied with a BUILD_BUG_ON(p2m_invalid), as otherwise
->> p2m_alloc_page()'s clearing of the page won't have the intended effect?
-> 
-> I think that, at least, at the moment we are always explicitly set p2m type and
-> do not rely on that by default 0==p2m_invalid.
-
-You don't, and ...
-
-> Just to be safe, I will add after "if ( metadata )" suggested
-> BUILD_BUG_ON(p2m_invalid):
->         if ( metadata )
->             metadata[ctx->index].type = p2m_invalid;
->                 /*
->          * metadata.type is expected to be p2m_invalid (0) after the page is
->          * allocated and zero-initialized in p2m_alloc_page().
->          */
->         BUILD_BUG_ON(p2m_invalid);
-> ...
-
-... this leaves me with the impression that you didn't read my reply correctly.
-p2m_alloc_page() clear the page, thus _implicitly_ setting all entries to
-p2m_invalid. That's where the BUILD_BUG_ON() would want to go (the call site,
-ftaod).
-
->>> +    }
->>> +    else
->>> +    {
->>> +        pte->pte |= MASK_INSR(p2m_ext_storage, P2M_TYPE_PTE_BITS_MASK);
->>> +
->>> +        metadata[ctx->index].pte = t;
->> If you set t to p2m_ext_storage here, the pte->pte updating could be moved ...
-> 
-> 't' shouldn't be passed as 'p2m_ext_storage'.
-
-Of course not. I said "set", not "pass". I suggested to set t to p2m_ext_storage
-right after the assignment above. I notice though that I missed ...
-
-> For example, in this case we will have that in metadata page we will have type
-> equal to p2m_ext_storage and then in pte->pte will have the type set to
-> p2m_ext_storage, and the we end that we don't have a real type stored somewhere.
-> Even more, metadata.pte shouldn't be used to store p2m_ext_storage, only
-> p2m_invalid and types mentioned in enum p2m_t after p2m_ext_storage.
-> 
->>
->>> +    }
->> ... here, covering both cases. Overally this may then be easier as
->>
->>      if ( t >= p2m_first_external )
->>          metadata[ctx->index].pte = t;
-
-... the respective line (and the figure braces which are the needed) here:
-
-        t = p2m_ext_storage;
-
->>      else if ( metadata )
->>          metadata[ctx->index].pte = p2m_invalid;
->>
->>      pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
->>
->> Then raising the question whether it couldn't still be the real type that's
->> stored in metadata[] even for t < p2m_first_external. That woiuld further
->> reduce conditionals.
-> 
-> It would be nice, but I think that at the moment we can’t do that. As I explained
-> above, 't' should not normally be passed as p2m_ext_storage.
-
-Of course not, but how's that relevant to storing the _real_ type in the
-metadata page even when it's one which can also can be stored in the PTE?
-As said, for a frequently used path it may help to reduce the number of
-conditionals here.
-
->>> +static void p2m_free_page(struct p2m_domain *p2m, struct page_info *pg);
->>> +
->>> +/*
->>> + * Free page table's page and metadata page linked to page table's page.
->>> + */
->>> +static void p2m_free_table(struct p2m_domain *p2m, struct page_info *tbl_pg)
->>> +{
->>> +    if ( tbl_pg->v.md.pg )
->>> +        p2m_free_page(p2m, tbl_pg->v.md.pg);
->> To play safe, maybe better also clear tbl_pg->v.md.pg?
-> 
-> I thought it would be enough to clear it during allocation in p2m_alloc_page(),
-> since I'm not sure it is critical if md.pg data were somehow leaked and read.
-> But to be safer, we can add this here:
->    clear_and_clean_page(tbl_pg->v.md.pg, p2m->clean_dcache);
-
-I didn't say clear what tbl_pg->v.md.pg points to, though. I suggested to clear
-the struct field itself.
-
->>> @@ -749,6 +849,10 @@ static bool p2m_split_superpage(struct p2m_domain *p2m, pte_t *entry,
->>>       unsigned int next_level = level - 1;
->>>       unsigned int level_order = P2M_LEVEL_ORDER(next_level);
->>>   +    struct p2m_pte_ctx p2m_pte_ctx;
->> I think this would better be one variable instance per scope where it's needed,
->> and then using an initzializer. Or else ...
->>
->>> +    /* Init with p2m_invalid just to make compiler happy. */
->>> +    p2m_type_t old_type = p2m_invalid;
->>> +
->>>       /*
->>>        * This should only be called with target != level and the entry is
->>>        * a superpage.
->>> @@ -770,6 +874,19 @@ static bool p2m_split_superpage(struct p2m_domain *p2m, pte_t *entry,
->>>         table = __map_domain_page(page);
->>>   +    if ( MASK_EXTR(entry->pte, P2M_TYPE_PTE_BITS_MASK) == p2m_ext_storage )
->>> +    {
->>> +        p2m_pte_ctx.pt_page = tbl_pg;
->>> +        p2m_pte_ctx.index = offsets[level];
->>> +        /*
->>> +         * It doesn't really matter what is a value for a level as
->>> +         * p2m_get_type() doesn't need it, so it is initialized just in case.
->>> +         */
->>> +        p2m_pte_ctx.level = level;
->>> +
->>> +        old_type = p2m_get_type(*entry, &p2m_pte_ctx);
->>> +    }
->>> +
->>>       for ( i = 0; i < P2M_PAGETABLE_ENTRIES(next_level); i++ )
->>>       {
->>>           pte_t *new_entry = table + i;
->>> @@ -781,6 +898,15 @@ static bool p2m_split_superpage(struct p2m_domain *p2m, pte_t *entry,
->>>           pte = *entry;
->>>           pte_set_mfn(&pte, mfn_add(mfn, i << level_order));
->>>   +        if ( MASK_EXTR(pte.pte, P2M_TYPE_PTE_BITS_MASK) == p2m_ext_storage )
->>> +        {
->>> +            p2m_pte_ctx.pt_page = page;
->>> +            p2m_pte_ctx.index = i;
->>> +            p2m_pte_ctx.level = next_level;
->> ... why are the loop-invariat fields not filled ahead of the loop here?
-> 
-> Actually, they could be filled before the loop. If I move the initialization of
-> p2m_pte_ctx.pt_page and p2m_pte_ctx.level ahead of the loop, does it still make
-> sense to have a separate variable inside
-> "if (MASK_EXTR(entry->pte, P2M_TYPE_PTE_BITS_MASK) == p2m_ext_storage)"?
-
-No, it's one of the two - scope limited variable within the loop, or wider-scope
-variable with loop-invariant fields set ahead of the loop.
-
-Jan
+W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1
+bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IFNlbnQ6IFRodXJzZGF5LCBOb3ZlbWJlciAxMywg
+MjAyNSA0OjU2IFBNDQo+IFRvOiBQZW5ueSwgWmhlbmcgPHBlbm55LnpoZW5nQGFtZC5jb20+DQo+
+IENjOiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPjsgUm9nZXIgUGF1
+IE1vbm7DqQ0KPiA8cm9nZXIucGF1QGNpdHJpeC5jb20+OyBBbmRyeXVrLCBKYXNvbiA8SmFzb24u
+QW5kcnl1a0BhbWQuY29tPjsgeGVuLQ0KPiBkZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZw0KPiBT
+dWJqZWN0OiBSZTogW1BBVENIIHYxIDEvN10geGVuL3N2bTogbGltaXQgdGhlIHNjb3BlIG9mICJy
+YyINCj4NCj4gT24gMTMuMTEuMjAyNSAwNDoxNiwgUGVubnkgWmhlbmcgd3JvdGU6DQo+ID4gVG8g
+bWFrZSBjb2RlcyBsZXNzIGZyYWdpbGUsIHdlIGxpbWl0IHRoZSBzY29wZSBvZiAicmMiIHRocm91
+Z2ggYWRkaW5nDQo+ID4gc2V2ZXJhbCBpbnN0YW5jZXMgaW4gcmVsYXRpdmVseSBuYXJyb3cgc2Nv
+cGVzLiBXZSBhbHNvIGZpeGVzIHdyb25nIGluZGVudGF0aW9uLg0KPiA+DQo+ID4gU3VnZ2VzdGVk
+LWJ5OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+ID4gU2lnbmVkLW9mZi1ieTog
+UGVubnkgWmhlbmcgPFBlbm55LlpoZW5nQGFtZC5jb20+DQo+DQo+IFJldmlld2VkLWJ5OiBKYW4g
+QmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+DQoNClRoeA0KDQo+ID4gQEAgLTI3NDgsMTYg
+KzI3NDksMTggQEAgdm9pZCBhc21saW5rYWdlIHN2bV92bWV4aXRfaGFuZGxlcih2b2lkKQ0KPiA+
+ICAgICAgICAgIH0NCj4gPiAgICAgICAgICBlbHNlDQo+ID4gICAgICAgICAgew0KPiA+IC0gICAg
+ICAgICAgIHJjID0gaHZtX21vbml0b3JfZGVidWcocmVncy0+cmlwLA0KPiA+IC0gICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgSFZNX01PTklUT1JfU09GVFdBUkVfQlJFQUtQT0lOVCwN
+Cj4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFg4Nl9FVF9TV19FWEMsDQo+
+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpbnNuX2xlbiwgMCk7DQo+ID4g
+LSAgICAgICAgICAgaWYgKCByYyA8IDAgKQ0KPiA+IC0gICAgICAgICAgICAgICBnb3RvIHVuZXhw
+ZWN0ZWRfZXhpdF90eXBlOw0KPiA+IC0gICAgICAgICAgIGlmICggIXJjICkNCj4gPiAtICAgICAg
+ICAgICAgICAgaHZtX2luamVjdF9leGNlcHRpb24oWDg2X0VYQ19CUCwNCj4gPiAtICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgWDg2X0VUX1NXX0VYQywNCj4gPiAtICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgaW5zbl9sZW4sIFg4Nl9FVkVOVF9OT19FQyk7DQo+
+ID4gKyAgICAgICAgICAgIGludCByYzsNCj4gPiArDQo+ID4gKyAgICAgICAgICAgIHJjID0gaHZt
+X21vbml0b3JfZGVidWcocmVncy0+cmlwLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIEhWTV9NT05JVE9SX1NPRlRXQVJFX0JSRUFLUE9JTlQsDQo+ID4gKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgWDg2X0VUX1NXX0VYQywNCj4gPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBpbnNuX2xlbiwgMCk7DQo+DQo+IEFzIHlvdSB0b3Vj
+aCB0aGUgY29kZSBhbnl3YXksIG1ha2UgdGhpcyB0aGUgaW5pdGlhbGl6ZXIgb2YgcmM/IEFuZCBh
+dCB0aGUgc2FtZSB0aW1lDQo+IGpvaW4gdGhlIGxhdHRlciB0d28gbGluZXM/IChJIG1heSB0YWtl
+IHRoZSBsaWJlcnR5IG9mIG1ha2luZyB0aGVzZSBhZGp1c3RtZW50cyB3aGlsZQ0KPiBjb21taXR0
+aW5nLikNCj4NCg0KVGh4LCBwbHoNCg0KPiBKYW4NCg==
 
