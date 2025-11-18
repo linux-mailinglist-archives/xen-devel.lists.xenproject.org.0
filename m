@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 136B5C6AB88
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 17:48:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1165183.1491978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44451C6ABC1
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 17:50:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1165193.1491988 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLOrl-00043w-CU; Tue, 18 Nov 2025 16:47:41 +0000
+	id 1vLOuT-0005fm-OZ; Tue, 18 Nov 2025 16:50:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1165183.1491978; Tue, 18 Nov 2025 16:47:41 +0000
+Received: by outflank-mailman (output) from mailman id 1165193.1491988; Tue, 18 Nov 2025 16:50:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLOrl-00041b-9J; Tue, 18 Nov 2025 16:47:41 +0000
-Received: by outflank-mailman (input) for mailman id 1165183;
- Tue, 18 Nov 2025 16:47:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vLOuT-0005dX-L0; Tue, 18 Nov 2025 16:50:29 +0000
+Received: by outflank-mailman (input) for mailman id 1165193;
+ Tue, 18 Nov 2025 16:50:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5/QT=52=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vLOrk-00041S-1x
- for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 16:47:40 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48002e30-c49e-11f0-9d18-b5c5bf9af7f9;
- Tue, 18 Nov 2025 17:47:34 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4779cc419b2so34902705e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 08:47:34 -0800 (PST)
+ id 1vLOuS-0005dM-9o
+ for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 16:50:28 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ae6c23fd-c49e-11f0-980a-7dc792cee155;
+ Tue, 18 Nov 2025 17:50:26 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4777771ed1aso40156045e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 08:50:26 -0800 (PST)
 Received: from localhost.localdomain (host-92-29-237-183.as13285.net.
  [92.29.237.183]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42b53f0b894sm34395528f8f.26.2025.11.18.08.47.32
+ ffacd0b85a97d-42b53f203afsm33752427f8f.39.2025.11.18.08.50.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Nov 2025 08:47:32 -0800 (PST)
+ Tue, 18 Nov 2025 08:50:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48002e30-c49e-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: ae6c23fd-c49e-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1763484453; x=1764089253; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1763484625; x=1764089425; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=opBefqOvPnk2512WwKaoeMgeEnOduJAcaoE2iVpx1uM=;
-        b=ICmAfd05EbvsOhA0pIxAapAFj3daZeacFfdmTcJbWgpz8EpSv34rneOwFmu57J53LK
-         EDh8Ia8JOAM+6BVeLosbnEXQKC2dNPGhaDvquDeIH89xRuxoG0WNOtN+6ilIIGTC3HqC
-         tn88uLMfSxs+UTwhKRxsWaFDiSw4AKWVNHE+c=
+        bh=ucoPHXHtoUxVGw2y8SYQNYXWmtCikp7TefnmB/In0Ts=;
+        b=GFhdpBrx9OhqH40VTzV57FzLJ4CBCHOpk287TWImIaahpqmn5JQJtWqQ5FIsCQb8TG
+         /lPxvKg6NLwqp4HdonDhBOkb12L5ZO3d5i3I3zKGQ51xFYZhcwjOPb9sfwAEW/zC6nyq
+         UHkhUy6luhzwiB9r3ukiLtXMjuvZAjArt9v3s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763484453; x=1764089253;
+        d=1e100.net; s=20230601; t=1763484625; x=1764089425;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=opBefqOvPnk2512WwKaoeMgeEnOduJAcaoE2iVpx1uM=;
-        b=DKYyLQcgh0kom9QjxzRvjH5KT2zLFUmPE5gRNQcZUDJvO4oJCs2xPmZ84WCXuafjnZ
-         KwZiiGEZW57XegTW/w1BUMbsj6yrouLgFQ+9bvx23d7NLtAPF4BgvkTQFWs8IkcLmbFb
-         ZQbC4dAMLNoatK4vSjcP9rQ/u6YcU1DKoMSUcbyK2YdWnJrOtn80ihe+jGqL5lyqnoYZ
-         lqom5KijhISnKkvXgKv/p7lnQtgmu6NCDXEf1yVnyjQuYW48Dy8Qn7QQPPBBxvIug+HO
-         tCrgLSpBxEAOAw0AeJxA1jh2IP9TvJ2qQqYZdIg0c0IRMmUDYN5b4CRBJDj7GQnuVrZO
-         QQJA==
-X-Gm-Message-State: AOJu0YwqCoCx7SQCFA0DPujTNzLKHQcxRy0ZafwRIa7WH2UTFfCZ9hOY
-	SulNDNEEY6sMxvgt6VwKtnNLeBf30Tl/z5mmea6WE9CzmhHWmUuVBXXR1CcahnDjVp939ogS3E9
-	7eFaoLks=
-X-Gm-Gg: ASbGncvEDSWFjxBG+/tV1XtRkNyxu7P9b5mRu5hLtGYRY0x6m7YFLXc/CPABJ/egSpt
-	LfX/yGgfNs/IhajJRl45aXEL+xVimj7yHicvgrhvpFA6vPZXoUuH2ckq/zhTfPJa/cODmKKbWIT
-	a8yW3vKqkKAGLVEUd7HC2YBQdJrm34/4PyQgXroDCyU11M4eAwivks+WcYJXqafk6Qnu6yvwGoW
-	B2/lUG9SDJ5AgvfWD5IMJZKa+ryAIxwUlAJkR+0wdRIHrpw75by0yGvKZgT5W/7omxpFFHu2iB/
-	TlEKXnUU3iRwiQENTzMiygIS9GpmY+rbp6aDa4koKIl0BIRa71viF5i1wFdiWoPkkWbQKBvPTTm
-	zKWHSU2Wh++/O180MykZQqSSKEf4dRP3o6egIaG+jSt+LU+S+/OCzrkZLP5rzgQFRbQFw8jqq6A
-	Qkazu0C1Ip+XlBlIcBxBRYZxAqsTCGHrN7OlD67MfoIhrMBOUFwmM=
-X-Google-Smtp-Source: AGHT+IEt0iMcG7ZpWrVTednYRvUWptGRHq6JSzCMojGt/bH7ekt57a95yV7swAS+/OcX+GnfCTu/9g==
-X-Received: by 2002:a05:600c:4744:b0:46e:48fd:a1a9 with SMTP id 5b1f17b1804b1-4778fea8ab2mr172918355e9.33.1763484453249;
-        Tue, 18 Nov 2025 08:47:33 -0800 (PST)
+        bh=ucoPHXHtoUxVGw2y8SYQNYXWmtCikp7TefnmB/In0Ts=;
+        b=pKJFZw3Q42/qDqELF8YJBcbOU7V49g1CTLxMWM3NWtmc4VMnWBImVnmRrklFfp4xAq
+         Z6G1z/CWFgkr3HgQ5HtLpNDqjIxG2duaZzHS8kkoWfH0SJRCfAx/fSlLC1FrSOy93KA4
+         Y8elJsOMvJC8aVhpsIYT2t5R1t/+HWhYsLDnDzASvzcFc8HyOjtWU2fc8Bgj4ip3VLXO
+         XjpPUYkKHpwuxKKFi93CTqVgcoKYtcQNLPzMLxNoIb35iQ3y07IiYqAh5gtu92Uflmth
+         pevsMTVAvnye5nap/rAiYGE4WXfo5vyKAmRD++z5x1XpoTr4O0IsDrw/i1qMSr3ER1KP
+         3Q1A==
+X-Gm-Message-State: AOJu0YyCWqZrkKQWOXhKdYzX4aM2HSMiw0iKLnI7y98ngFskhpzaqz/s
+	B+9UukJDSCX9Qy4GP57gIIN/7o7pPSM3ZtCjIaIXoPZei+eT2e+nlPQplTFMTVoUBThsIlF9lvt
+	NFv703aU=
+X-Gm-Gg: ASbGncvv23G9u842SEJKFnaJI5jjxERAioCYrmECs2jGZU5xv01GyNDReruCQPI9zs5
+	5Yf66p/CJlhxb4duqhwg2dj0kgdvA7mCIDKKnTD6dyMoBGTXo5RIaPaDlDLEjhrRXOlzES5LMdG
+	HbhFr6KfF2n/hkCMWutg5GkFWJxUG2svvNoKjAQqohRDy2MUJSwnYmJ5RONSOLdry3eflDkHBpD
+	6hmj9iM1bJ4dxJ8DT0l4blshZnuFbMfOMd/0cLw2SbrL167lVxtWZ9fUcK2jKGdCnB6GlZcXxHP
+	fO3Z+YZumDGnSL6bWEAGSKfjyMvR/ABKBw7QJNsc0NLYlybZ5DF3/uJF8aB+plVbp+7uksiA43j
+	XYIOBzjLjGg4Q43fw/4c9CnN9sqce9uGg+Fc7T7q71+chA/WvRoQyL5j5HECPArmKrfSTyBHNXI
+	jcDT/jJTeTs3sU3dQ0qjCpRvwO4q5cscEc+YkP7ojwxb3EgUJ+V2aqsyGUSLxWzkz7QC0+R2Is5
+	CS1RvYnfRU=
+X-Google-Smtp-Source: AGHT+IFPpnTlgSd5Ri1cMDvNcvPfBBLE/+MWox1M6eM5WMq7tmmyEcyQgQWpT1KXkVWPXmxWGcFF6w==
+X-Received: by 2002:a05:600c:a43:b0:46e:396b:f5ae with SMTP id 5b1f17b1804b1-4778fe6a415mr191818175e9.16.1763484624980;
+        Tue, 18 Nov 2025 08:50:24 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -89,9 +90,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH] CHANGELOG.md: Set release date for 4.21
-Date: Tue, 18 Nov 2025 16:47:30 +0000
-Message-Id: <20251118164730.475344-1-andrew.cooper3@citrix.com>
+Subject: [PATCH for-4.21] SUPPORT.md: Define support lifetime
+Date: Tue, 18 Nov 2025 16:50:22 +0000
+Message-Id: <20251118165022.476308-1-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -107,24 +108,32 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- CHANGELOG.md | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ SUPPORT.md | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index c9932a2af077..adaad5ee8923 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+diff --git a/SUPPORT.md b/SUPPORT.md
+index 491f9ecd1bbb..3099225c77f4 100644
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -9,13 +9,13 @@ for the definitions of the support status levels etc.
  
- ### Removed
+ # Release Support
  
--## [4.21.0 UNRELEASED](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=staging) - TBD
-+## [4.21.0](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.21.0) - 2025-11-19
+-    Xen-Version: 4.21-rc
+-    Initial-Release: n/a
+-    Supported-Until: TBD
+-    Security-Support-Until: Unreleased - not yet security-supported
++    Xen-Version: 4.21
++    Initial-Release: 2025-11-19
++    Supported-Until: 2027-05-19
++    Security-Support-Until: 2028-11-19
  
- ### Changed
-  - The minimum toolchain requirements have increased for some architectures:
-
-base-commit: 07e57af2b4715a9d088781b06c4f97c7d9f25b19
+ Release Notes
+-: <a href="https://wiki.xenproject.org/wiki/Xen_Project_X.YY_Release_Notes">RN</a>
++: <a href="https://wiki.xenproject.org/wiki/Xen_Project_4.21_Release_Notes">RN</a>
+ 
+ # Feature Support
+ 
 -- 
 2.39.5
 
