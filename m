@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F9AAC67A2E
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 07:01:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1164324.1491338 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 356EAC67AAC
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 07:11:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1164380.1491358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLElo-0007OP-8y; Tue, 18 Nov 2025 06:00:52 +0000
+	id 1vLEw6-0002Cn-IG; Tue, 18 Nov 2025 06:11:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1164324.1491338; Tue, 18 Nov 2025 06:00:52 +0000
+Received: by outflank-mailman (output) from mailman id 1164380.1491358; Tue, 18 Nov 2025 06:11:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLElo-0007MQ-5t; Tue, 18 Nov 2025 06:00:52 +0000
-Received: by outflank-mailman (input) for mailman id 1164324;
- Tue, 18 Nov 2025 06:00:50 +0000
+	id 1vLEw6-0002AS-Ez; Tue, 18 Nov 2025 06:11:30 +0000
+Received: by outflank-mailman (input) for mailman id 1164380;
+ Tue, 18 Nov 2025 06:11:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=n9C8=52=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1vLElm-00062J-H3
- for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 06:00:50 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
+ id 1vLEmS-00062J-2V
+ for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 06:01:32 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eedb866f-c443-11f0-9d18-b5c5bf9af7f9;
- Tue, 18 Nov 2025 07:00:49 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-37b983fbd45so41441461fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 22:00:49 -0800 (PST)
+ id 07a61cc3-c444-11f0-9d18-b5c5bf9af7f9;
+ Tue, 18 Nov 2025 07:01:31 +0100 (CET)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-59577c4c7c1so5702532e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Nov 2025 22:01:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,235 +40,287 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eedb866f-c443-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 07a61cc3-c444-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763445649; x=1764050449; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pwD/qxM4klvXk5crZeSiWKD838Fjb9t3B6KR63KDOxs=;
-        b=WhcTjdTEQIDtxP5NaiWXXBeamdpvHG5IvEkLCPQnAHsEQxEWmhIL8YQGox/mIJ8lXT
-         eQcmh438XbYCSVBozxcvKbyoqvokYQNDTl7PQFE4RAUSXP9QE5L3B9q1N6Pc2hRS097p
-         ASOKxR7tuQhvbummom7SS/e/rvj78VMlBOPMtz25BmBdlX/9mdpzpO3yxykknrnXbsCR
-         yPa7vxZMF5hzhctR8grYteso9wJla9Q5NPmxQoEDjowc4L6U71mwOoTmcinxh9nfWSLt
-         vNke/ZchSaoknl08q4iIkO7J77IKuVerDYHXlx/Ybz8tlzQxewv8Vsu1gUcWfaWP9+xQ
-         nsQg==
+        d=gmail.com; s=20230601; t=1763445691; x=1764050491; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=BgZr8IRTp2+3z7NzYoA2QTxxVVOaI5lJNKU3i0mTay4=;
+        b=Qa2CfRvu1khH1P634AtfCYY4yoE1J+qXZxIYMVc18i3Dt+suPs3ooLV2vCLoy9Oou3
+         T5oKhk/ysXWFwZyiazwFzBsh6zn6rPK1vNMIsKfsXvbP7wikYMwzUx+Mzoa9b3cZ+YPy
+         qlZGUrzzOW8Srzs/ofCa1T7xrfGDtb+aerSly739wfTIzHSv4f2K2qOyGxxVc2wr9nYd
+         JLKERM8w+0ClOxrxau39dLE8LjQlwR8bg0hrb5dfoZuGt/Dnz6czof96Kf0tGIJBKV3U
+         uleeR7Uf7LTamQomhdq0oR/aVXdU1qVOHB+OtJhyPm1xiDzpbwGV1FSBJHdhTVtw8p8T
+         XB7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763445649; x=1764050449;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=pwD/qxM4klvXk5crZeSiWKD838Fjb9t3B6KR63KDOxs=;
-        b=HH7IQ7g1qiTblRNb8MZAPw1KAPimlY9eMCYFi3WmZ7oNQrHnU4IidpppmJYt+u19wf
-         ze+AHSbx55EkTUIFl3kI3kAboiQ2eOeww0svHnDO27pj5/luVXFrl/8Gz6YaICaTCJLS
-         D49ZnH8Ka2PX6R3sete4z9QKuwPprl63BvHGWBMbB6VDP0tn3t3eta4vIN+CSeQR4JN1
-         dJ5hADJ5fo3t27Vb3TS72f3sU2WaBCuB9aDdJCTVfild4wbDuiYEcQ9Jppso9e2nVC5E
-         IQQTV2JviTG2Hp/QZgdAeePyXS7rdnneWI/NaU/FREXHuo2IWP4AExIM+NISC/PPg9Fp
-         SXeQ==
-X-Gm-Message-State: AOJu0YyTQgEUgTMI4yhMjBhDXYD0T78WWuvxbOPTgUsktpZ1e0y/2yGR
-	gBxYEcYAWvW4HA8hBuHCPqVl+F1dc8LTlIJcRhe+rN8RTVnzWaHJVXCpxKOEU71S32CzeUBxfoy
-	QTpt3CG/JzyncZywd0TcZrd1YmGH03SM=
-X-Gm-Gg: ASbGncuEt/UgW8BfHgdJeqWh8wj4fQYSDxyZWiC5bnUT/jEqrES0DnrHI16zdNcNWGm
-	c1ll4EN5MSgNVCgaLUTuWui4G0t7CUHivframcQZz/oNjXG66SJJE1BmAADGGzzntrSF3VEBw+1
-	KoMGl+DoaMqxSXJUST32FmbFf/wXyj20s9kP/bwcqc0+bniPBoDsVsX10DRqC9p/F+f6wqLzhH0
-	kwWO8ED9oGevniQPAw2CdwEywcFJa7iGo8Qw3Mv2bmCooQbENJNIS1A5cuuSlKx06eydQ==
-X-Google-Smtp-Source: AGHT+IG5LmDgdKQsDcLy9LqI+V6sMxTD1zs706xf2JYyNUERO8avigWpnhyUFxAIY0UUFWJjPjD1gCD0b07wXTfzJBk=
-X-Received: by 2002:a05:6512:15a2:b0:592:f77d:88f7 with SMTP id
- 2adb3069b0e04-595842262bfmr4946332e87.52.1763445648818; Mon, 17 Nov 2025
- 22:00:48 -0800 (PST)
+        d=1e100.net; s=20230601; t=1763445691; x=1764050491;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BgZr8IRTp2+3z7NzYoA2QTxxVVOaI5lJNKU3i0mTay4=;
+        b=CNH6IFqYQ+Bhq4Ja3h7cMpX55T9fKUUEjEJ9+nTRPuUuwSw6PdoUtnKwM9gHhNKb8n
+         fVn/oneVk+pIvhYyXOECnBXQpzWNJeg8TI34kH0aRTuAtecdXSiCSO84rPQ57l2Mo8gv
+         cPzEm0xvOrZsuXDhYPYbCYS5eeBsZobUxupf/NOUgmtByJbJ/eOHmqzKZq4cZmF0jxi4
+         V4qGjRhBL8kcGWxAgOp9dxw91C60WYI2onL7yRyh6kt4cPWg6BcoxJF1ZAyW6H7xe3fC
+         N5SAOad2CkAO7HU8UzSkEVgkgDEahzowtvMxBeaorda7ucUqw7Tv2XtYVy0Rtk7qpeUI
+         XKdg==
+X-Forwarded-Encrypted: i=1; AJvYcCUWOFfAkwZtUdieP0+TZa3OHKfqze/VAELZ+RLqypSEm/evGdRuAEjkkEbDHkoAmLYkq/wQ65J7MgE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx1gaMtYVLTPLYqqQCWb5mVcIgda1gjaseklYjuwyjSO0B6pTOH
+	viWIRNAtcsnR08Ddyf88IJY/2Uvgr8b4k1aYG9ingA9slsB1NhDBTj8WFnAtdl6mq8AxBKoiGlz
+	c5ggOKcA7/YVnB+0qXF6fCuFmDW1Y/Ow=
+X-Gm-Gg: ASbGnctCJ2BTddo0AzZir4uzJyLMZNVdYtyz0ZGR4KUVuAgYM1XtPqW+QpxxZPAnpW4
+	eziIhTtnWHFXBHF3AK3IPAB4k/VR4PxfZxKeFYHGMjskkNH2wpakNufoCjhhDb2lrjH5SaO9VYF
+	7Eq+WCaeXyn2+F6hjVfj3+jd4yUgOUjG3CLaDOZ0WLJ/EDw0cOvBpmncUH5eCV2CjkLG8iS0QjS
+	4mXhYcDjctoIHmpz5bZdvdiGLKo/2eZ36fMcm3/T3ocbCz0yKLTtstfGEg=
+X-Google-Smtp-Source: AGHT+IG+umzn6cqy64Ler0ptFKcByweA0xSdQHexD4Ox5iuQP6iTxmz/WdxVGyVUXLNFS6zi27PC1whOscv+L+U4/LQ=
+X-Received: by 2002:a05:6512:3d08:b0:594:7718:ecb7 with SMTP id
+ 2adb3069b0e04-5959874ca7dmr689007e87.9.1763445690702; Mon, 17 Nov 2025
+ 22:01:30 -0800 (PST)
 MIME-Version: 1.0
-References: <20250908211149.279143-1-dmukhin@ford.com> <20250908211149.279143-11-dmukhin@ford.com>
-In-Reply-To: <20250908211149.279143-11-dmukhin@ford.com>
+References: <20250908211149.279143-1-dmukhin@ford.com> <20250908211149.279143-10-dmukhin@ford.com>
+In-Reply-To: <20250908211149.279143-10-dmukhin@ford.com>
 From: Mykola Kvach <xakep.amatop@gmail.com>
 Date: Tue, 18 Nov 2025 08:00:00 +0200
-X-Gm-Features: AWmQ_bl0qdrp4_c627SxShM-Zkf7VGdwsG4R77fxQ6BvA2PLF4sQmFhAEV5w9vU
-Message-ID: <CAGeoDV9+6fLR0ivJ0UisWk7gtqYehpnfDa_p2Kk0Ty7Czkbj0w@mail.gmail.com>
-Subject: Re: [PATCH v7 10/16] emul/ns16x50: implement THR register
-To: dmukhin@xen.org
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
-	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
-	michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
-	dmukhin@ford.com
+X-Gm-Features: AWmQ_blDRxuIjcdNNGZYUb1J04PxSw2vQyo3hAulPCdVO09CQGivZ_HJA6bftjA
+Message-ID: <CAGeoDV_jpCxvgk-5g5sh-HY1qX4FFCSOY8nQCApr3-L4TN8npQ@mail.gmail.com>
+Subject: Re: [PATCH v7 09/16] emul/ns16x50: implement RBR register
+To: dmukhin@xen.org, xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, 
+	julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, 
+	sstabellini@kernel.org, dmukhin@ford.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
 Hi Denis,
 
 Thank you for the patch.
 
-On Tue, Sep 9, 2025 at 1:26=E2=80=AFAM <dmukhin@xen.org> wrote:
->
+On 09/09/2025 00:11, dmukhin@xen.org wrote:
 > From: Denis Mukhin <dmukhin@ford.com>
 >
-> Add THR register emulation to the I/O port handlder.
+> Add RBR register emulation to the I/O port handlder.
 >
-> Add TX FIFO management code since THR depends on TX FIFO.
+> Add RX FIFO management code since RBR depends on RX FIFO.
 >
-> TX FIFOs is not emulated as per UART specs for simplicity (not need to em=
-ulate
-> baud rate). Emulator does not emulate NS8250 (no FIFO), NS16550a (16 byte=
-s) or
+> RX FIFO is not emulated as per UART specs for simplicity (not need to emulate
+> baud rate). Emulator does not emulate NS8250 (no FIFO), NS16550a (16 bytes) or
 > NS16750 (64 bytes).
 >
-> TX FIFOs is emulated by using xencons_interface which conveniently provid=
-es
-> primitives for buffer management and later can be used for inter-domain
-> communication similarly to vpl011.
+> RX FIFO is emulated by means of using xencons_interface which conveniently
+> provides primitives for buffer management and later can be used for
+> inter-domain communication similarly to vpl011.
 >
-> Account for DLL =3D=3D 0: in this case, disable transmitter.
+> Account for DLL == 0: in this case, disable receiver.
 >
-> Add UART_IIR_THR interrupt reason handling since it depends on THR regist=
-er
-> access.
+> Add UART_LSR_DR handling since it depends on RBR register access.
+>
+> Finally, implement put_rx() vUART hook for placing a character into the
+> emulated RX FIFO from console driver. That implements physical console
+> forwarding to the guest OS over emulated NS16550.
 >
 > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 > ---
 > Changes since v6:
-> - added DLL =3D=3D 0 case handling as per Mykola's suggestion
-> - dropped UART_IIR_THR clearing in UART_IIR register emulation in ns16x50=
-_io_write8()
-> - simplified UART_IIR_THR handling
-> - updated ns16x50_iir_check_thr()
+> - added DLL == 0 case handling as per Mykola's suggestion
 > ---
->  xen/common/emul/vuart/ns16x50.c | 82 ++++++++++++++++++++++++++++++++-
->  1 file changed, 81 insertions(+), 1 deletion(-)
+>   xen/common/emul/vuart/ns16x50.c | 134 +++++++++++++++++++++++++++++++-
+>   1 file changed, 132 insertions(+), 2 deletions(-)
 >
-> diff --git a/xen/common/emul/vuart/ns16x50.c b/xen/common/emul/vuart/ns16=
-x50.c
-> index 250411e0a7d8..137ce08f4e1d 100644
+> diff --git a/xen/common/emul/vuart/ns16x50.c b/xen/common/emul/vuart/ns16x50.c
+> index fdc20124d4c9..250411e0a7d8 100644
 > --- a/xen/common/emul/vuart/ns16x50.c
 > +++ b/xen/common/emul/vuart/ns16x50.c
-> @@ -149,6 +149,66 @@ static int ns16x50_fifo_rx_putchar(struct vuart_ns16=
-x50 *vdev, char c)
->      return rc;
->  }
+> @@ -9,6 +9,8 @@
+>    *     https://www.ti.com/lit/ds/symlink/tl16c550c.pdf
+>    * - UART w/ 64 byte FIFO:
+>    *     https://www.ti.com/lit/ds/symlink/tl16c750.pdf
+> + * - DesignWare DW_apb_uart Databook, v4.02a:
+> + *     https://iccircle.com/static/upload/img20240313113905.pdf
+>    *
+>    * Limitations:
+>    * - Only x86;
+> @@ -85,6 +87,74 @@ struct vuart_ns16x50 {
+>       struct xencons_interface cons;      /* Emulated RX/TX FIFOs */
+>   };
 >
-> +static bool ns16x50_fifo_tx_full(const struct vuart_ns16x50 *vdev)
+> +static bool ns16x50_fifo_rx_empty(const struct vuart_ns16x50 *vdev)
 > +{
-> +    const struct xencons_interface *cons =3D &vdev->cons;
+> +    const struct xencons_interface *cons = &vdev->cons;
 > +
-> +    return cons->out_prod - cons->out_cons =3D=3D ARRAY_SIZE(cons->out);
+> +    return cons->in_prod == cons->in_cons;
 > +}
 > +
-> +static void ns16x50_fifo_tx_reset(struct vuart_ns16x50 *vdev)
+> +static bool ns16x50_fifo_rx_full(const struct vuart_ns16x50 *vdev)
 > +{
-> +    struct xencons_interface *cons =3D &vdev->cons;
+> +    const struct xencons_interface *cons = &vdev->cons;
 > +
-> +    cons->out_cons =3D cons->out_prod;
+> +    return cons->in_prod - cons->in_cons == ARRAY_SIZE(cons->in);
+> +}
+> +
+> +static void ns16x50_fifo_rx_reset(struct vuart_ns16x50 *vdev)
+> +{
+> +    struct xencons_interface *cons = &vdev->cons;
+> +
+> +    cons->in_cons = cons->in_prod;
 > +}
 > +
 > +/*
-> + * Flush cached output to Xen console.
+> + * Transfer character from RX FIFO and return the RX FIFO status after the
+> + * transfer.
 > + */
-> +static void ns16x50_fifo_tx_flush(struct vuart_ns16x50 *vdev)
+> +static int ns16x50_fifo_rx_getchar(struct vuart_ns16x50 *vdev, uint8_t *ptr)
 > +{
-> +    struct xencons_interface *cons =3D &vdev->cons;
-> +    struct domain *d =3D vdev->owner;
-> +    XENCONS_RING_IDX i, n, len =3D cons->out_prod - cons->out_cons;
+> +    struct xencons_interface *cons = &vdev->cons;
 > +
-> +    ASSERT(len <=3D ARRAY_SIZE(cons->out));
-> +    if ( !len )
-> +        return;
+> +    if ( ns16x50_fifo_rx_empty(vdev) )
+> +        return -ENODATA;
 > +
-> +    i =3D MASK_XENCONS_IDX(cons->out_cons, cons->out);
-> +    n =3D min_t(XENCONS_RING_IDX, len, ARRAY_SIZE(cons->out) - i);
-> +    if ( n )
-> +        guest_printk(d, guest_prefix "%.*s", n, &cons->out[i]);
+> +    *ptr = cons->in[MASK_XENCONS_IDX(cons->in_cons, cons->in)];
+> +    cons->in_cons++;
 > +
-> +    i =3D 0;
-> +    n =3D len - n;
-> +    if ( n )
-> +        guest_printk(d, guest_prefix "%.*s", n, &cons->out[i]);
+> +    return ns16x50_fifo_rx_empty(vdev) ? -ENODATA : 0;
+> +}
+> +
+> +static int ns16x50_fifo_rx_putchar(struct vuart_ns16x50 *vdev, char c)
+> +{
+> +    struct xencons_interface *cons = &vdev->cons;
+> +    int rc;
+> +
+> +    /*
+> +     * FIFO-less 8250/16450 UARTs: newly arrived word overwrites the contents
+> +     * of the THR.
+> +     */
+> +    if ( ns16x50_fifo_rx_full(vdev) )
+> +    {
+> +        ns16x50_debug(vdev, "RX FIFO full; resetting\n");
+> +        ns16x50_fifo_rx_reset(vdev);
 
-ns16x50_fifo_tx_flush() splits wrapped output into two guest_printk()
-calls, so the log gets two prefixes for a single line:
-    (d1) PART1(d1) PART2
+Do we really need to drop everything from the buffer here?
+Should we document somewhere that in case of OE the whole RX buffer is dropped?
 
-Could we linearize the wrapped buffer and emit a single guest_printk()
-(e.g. by printing both spans in one format string) to keep just one prefix?
+> +        rc = -ENOSPC;
+> +    }
+> +    else
+> +        rc = 0;
+> +
+> +    cons->in[MASK_XENCONS_IDX(cons->in_prod, cons->in)] = c;
+> +    cons->in_prod++;
+> +
+> +    return rc;
+> +}
+> +
+> +static bool ns16x50_is_running(const struct vuart_ns16x50 *vdev)
+> +{
+> +    /* DLL set to 0 disables serial communication. */
+> +    return vdev->regs[NS16X50_REGS_NUM + UART_DLL];
+> +}
+> +
+>   static uint8_t ns16x50_dlab_get(const struct vuart_ns16x50 *vdev)
+>   {
+>       return vdev->regs[UART_LCR] & UART_LCR_DLAB ? 1 : 0;
+> @@ -97,7 +167,7 @@ static bool cf_check ns16x50_iir_check_lsi(const struct vuart_ns16x50 *vdev)
+>
+>   static bool cf_check ns16x50_iir_check_rda(const struct vuart_ns16x50 *vdev)
+>   {
+> -    return false;
+> +    return !ns16x50_fifo_rx_empty(vdev);
+>   }
+>
+>   static bool cf_check ns16x50_iir_check_thr(const struct vuart_ns16x50 *vdev)
+> @@ -362,6 +432,20 @@ static int ns16x50_io_read8(
+>       {
+>           switch ( reg )
+>           {
+> +        case UART_RBR:
+> +            if ( !ns16x50_is_running(vdev) )
+> +                break;
+> +
+> +            /* NB: do not forget to clear overrun condition */
+> +            regs[UART_LSR] &= ~UART_LSR_OE;
 
+The "NS16550A Universal Asynchronous Receiver/Transmitter
+with FIFOs" states:
+
+The OE indicator is set to a logic 1 upon detection of an overrun
+condition and reset whenever the CPU reads the contents of the Line
+Status Register.
+
+So it looks like we don't need to clear this bit here.
+According to the spec it should be cleared only on LSR read.
 
 Best regards,
 Mykola
 
 
 > +
-> +    cons->out_cons +=3D len;
-> +}
-> +
-> +/*
-> + * Accumulate guest OS output before sending to Xen console.
-> + */
-> +static void ns16x50_fifo_tx_putchar(struct vuart_ns16x50 *vdev, char ch)
-> +{
-> +    struct xencons_interface *cons =3D &vdev->cons;
-> +
-> +    if ( !is_console_printable(ch) )
-> +        return;
-> +
-> +    if ( !ns16x50_fifo_tx_full(vdev) )
-> +    {
-> +        cons->out[MASK_XENCONS_IDX(cons->out_prod, cons->out)] =3D ch;
-> +        cons->out_prod++;
-> +    }
-> +
-> +    if ( ch =3D=3D '\n' || ch =3D=3D '\0' || ns16x50_fifo_tx_full(vdev) =
-)
-> +        ns16x50_fifo_tx_flush(vdev);
-> +}
-> +
->  static bool ns16x50_is_running(const struct vuart_ns16x50 *vdev)
->  {
->      /* DLL set to 0 disables serial communication. */
-> @@ -172,7 +232,7 @@ static bool cf_check ns16x50_iir_check_rda(const stru=
-ct vuart_ns16x50 *vdev)
->
->  static bool cf_check ns16x50_iir_check_thr(const struct vuart_ns16x50 *v=
-dev)
->  {
-> -    return false;
-> +    return !ns16x50_fifo_tx_full(vdev);
->  }
->
->  static bool cf_check ns16x50_iir_check_msi(const struct vuart_ns16x50 *v=
-dev)
-> @@ -294,6 +354,22 @@ static int ns16x50_io_write8(
->      {
->          switch ( reg )
->          {
-> +        case UART_THR:
-> +            if ( !ns16x50_is_running(vdev) )
-> +                break;
-> +
-> +            if ( regs[UART_MCR] & UART_MCR_LOOP )
-> +            {
-> +                if ( ns16x50_fifo_rx_putchar(vdev, val) )
-> +                    regs[UART_LSR] |=3D UART_LSR_OE;
-> +
-> +                regs[UART_LSR] |=3D UART_LSR_DR;
-> +            }
+> +            if ( ns16x50_fifo_rx_getchar(vdev, &val) )
+> +                regs[UART_LSR] &= ~UART_LSR_DR;
 > +            else
-> +                ns16x50_fifo_tx_putchar(vdev, val);
+> +                regs[UART_LSR] |= UART_LSR_DR;
 > +
 > +            break;
 > +
->          case UART_IER:
->              regs[UART_IER] =3D val & UART_IER_MASK;
->              break;
-> @@ -646,6 +722,10 @@ static void cf_check ns16x50_deinit(void *arg)
->      struct vuart_ns16x50 *vdev =3D arg;
+>           case UART_IER:
+>               val = regs[UART_IER];
+>               break;
+> @@ -611,13 +695,59 @@ static void cf_check ns16x50_free(void *arg)
+>       xvfree(arg);
+>   }
 >
->      ASSERT(vdev);
+> +static int cf_check ns16x50_put_rx(void *arg, char ch)
+> +{
+> +    struct vuart_ns16x50 *vdev = arg;
+> +    uint8_t *regs;
+> +    uint8_t dlab;
+> +    int rc = -EBUSY;
 > +
 > +    spin_lock(&vdev->lock);
-> +    ns16x50_fifo_tx_flush(vdev);
+> +
+> +    dlab = ns16x50_dlab_get(vdev);
+> +    regs = vdev->regs;
+> +
+> +    if ( !ns16x50_is_running(vdev) )
+> +        ns16x50_debug(vdev, "THR/RBR access disabled: DLL == 0\n");
+> +    else if ( dlab )
+> +        ns16x50_debug(vdev, "THR/RBR access disabled: DLAB=1\n");
+> +    else if ( regs[UART_MCR] & UART_MCR_LOOP )
+> +        ns16x50_debug(vdev, "THR/RBR access disabled: loopback mode\n");
+> +    else
+> +    {
+> +        const struct domain *d = vdev->owner;
+> +
+> +        /*
+> +         * Echo the user input on Xen console iff Xen console input is owned
+> +         * by ns16x50 domain.
+> +         * NB: use 'console_timestamps=none' to disable Xen timestamps.
+> +         */
+> +        if ( is_console_printable(ch) )
+> +            guest_printk(d, "%c", ch);
+> +
+> +        if ( ns16x50_fifo_rx_putchar(vdev, ch) )
+> +            regs[UART_LSR] |= UART_LSR_OE;
+> +
+> +        regs[UART_LSR] |= UART_LSR_DR;
+> +
+> +        /* TODO: check FCR when to fire an interrupt */
+> +        ns16x50_irq_check(vdev);
+> +
+> +        rc = 0;
+> +    }
+> +
 > +    spin_unlock(&vdev->lock);
->  }
+> +
+> +    return rc;
+> +}
+> +
+>   #define ns16x50_emulator                \
+>   {                                       \
+>       .compatible = "ns16550",            \
+>       .alloc      = ns16x50_alloc,        \
+>       .free       = ns16x50_free,         \
+>       .dump_state = NULL,                 \
+> -    .put_rx     = NULL,                 \
+> +    .put_rx     = ns16x50_put_rx,       \
+>   }
 >
->  static void * cf_check ns16x50_alloc(struct domain *d, const struct vuar=
-t_info *info)
-> --
-> 2.51.0
->
->
+>   VUART_REGISTER(ns16x50, ns16x50_emulator);
 
