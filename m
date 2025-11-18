@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6556AC6A33B
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 16:05:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1164904.1491757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86F8BC6A34A
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 16:06:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1164910.1491767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLNH7-0001qY-4q; Tue, 18 Nov 2025 15:05:45 +0000
+	id 1vLNHa-0002Hc-CU; Tue, 18 Nov 2025 15:06:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1164904.1491757; Tue, 18 Nov 2025 15:05:45 +0000
+Received: by outflank-mailman (output) from mailman id 1164910.1491767; Tue, 18 Nov 2025 15:06:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLNH7-0001oe-27; Tue, 18 Nov 2025 15:05:45 +0000
-Received: by outflank-mailman (input) for mailman id 1164904;
- Tue, 18 Nov 2025 15:05:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vLNHa-0002F1-9N; Tue, 18 Nov 2025 15:06:14 +0000
+Received: by outflank-mailman (input) for mailman id 1164910;
+ Tue, 18 Nov 2025 15:06:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=maYy=52=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vLNH6-0001oV-4F
- for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 15:05:44 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0d9fec03-c490-11f0-9d18-b5c5bf9af7f9;
- Tue, 18 Nov 2025 16:05:43 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-b736ffc531fso718723066b.1
- for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 07:05:43 -0800 (PST)
+ id 1vLNHZ-00026P-7Y
+ for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 15:06:13 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1e5faad2-c490-11f0-980a-7dc792cee155;
+ Tue, 18 Nov 2025 16:06:11 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-6419aaced59so7585778a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 07:06:11 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b734fed90c0sm1387633666b.65.2025.11.18.07.05.41
+ 4fb4d7f45d1cf-6450e8d1a23sm883561a12.15.2025.11.18.07.06.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Nov 2025 07:05:42 -0800 (PST)
+ Tue, 18 Nov 2025 07:06:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d9fec03-c490-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 1e5faad2-c490-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763478343; x=1764083143; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763478371; x=1764083171; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pgIgBRyiwOjy12i+6dPUnzqpZO6a+/apZ7nKGk1jXJ4=;
-        b=fhzV+UEwSuV90Ps+qM2iWY8y/q8SnJNeFHI6kAHJA8EywDq5x/OLbzOz5D5XRRRcd7
-         ikuu9ESA070puRnoKM94TPkrO4Ss1FOL5Pg61XFeACb4UtRzmO4AUhzECew51L0XmB/z
-         lQZ9uEJieFoYFME6/AV06cYEsKiTY6YWBC/Td0ABzOcCcVEHQQFsYcWChiXcaZGktTue
-         H9qDuIwuF+OpImnFA6FY0YdT7QT72VNKjBlSg4LaD8mruHJGPZ+JGT+V3B4m4apTf/ry
-         w6wIkyK2XpSu/OKafuveLHrVtBLIBLFWgNnvEQCTypBjNbxtzzLYHkkDRVzUTy0/7cqe
-         2lfA==
+        bh=MuGvsatbOCNTnf1+piHi4k6STW82U3evhUtfXUWwz38=;
+        b=XwPw7oGq0Dz3tDGnK9H4mVkz3NlCua/EsIGWpagevuu36gQzMXoAzM5/Zw72fYsEx4
+         4yWMpk8JaBa3VN5IQrj6fENrNIjw5dWk8K3SlIRRDfuzy082B8HIuv2hLNUrmdMpDLt3
+         OukLgqY3qYsxMK5IfIRKyyB4ncRMq0ox2eDWvo1d8cTvrtyXoeLBGuwbVWXzpypVZt3i
+         G23Kgq5U5dm6HQ0acVRaD6NAGZaOXpqAlCd2aj/UP1QlfsihuAMjz00+y4PgZd4l1KyK
+         JQtYtCIH/CShPjGhRuepbiTz4RU4K+UU80x+r6td6Iu3L9gThi9JKW5IknrvMAWKtils
+         geZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763478343; x=1764083143;
+        d=1e100.net; s=20230601; t=1763478371; x=1764083171;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pgIgBRyiwOjy12i+6dPUnzqpZO6a+/apZ7nKGk1jXJ4=;
-        b=PO0T0EyO7cxHxrSMZOwBpE43da/iyqSN/hjtY+4VV/soTTp0GdvbjvoDPek/Cmfhy7
-         rf91QHThPfGDI5lrecm8T2tMAB+TZnKQWbEwO/DWdMlzxsfXU3DulwaUv2ncsyfD0QF8
-         tVtUezJvDXMZZAhweuu/eE5KW8wQlWMiCPp9cO0xD2tjT0xn52KIAgQOUV4gfNMtZ7eb
-         fExlJQ6UCZcnUxR9kqQSDBc9Mo0ScVCH9ncAPBW+hSU6wD/jrgtPv2u3YVeHortLGME6
-         zo7KFiWXX6Z5HmC103+HQZJ+bXzuNEIVCVp+4kc7RNkUjcEWcXLwfVjfFk5uc0gzDfzY
-         Uj+g==
-X-Gm-Message-State: AOJu0YwLYBgkmlB9rO7MGHeIgjUQL57iysJJROS/WMINAPURsgiSDBzg
-	UkiIqubHHVmjgWfw2iFEbHaUgVJdmFSIbyc3LIKTPnTrVngxeJ9Ld0DdTkJ59ZAlRw+piIhRDX+
-	wbjA=
-X-Gm-Gg: ASbGnct7WWWD+9EPR7yJHtCVuPLiDj+7Xc6rzUbdi1sNm34GfMkeVXXN6uoUZrPj7Ob
-	2uVhPpuhg+pYJe27j5L3EnaZoQZaTFvCfAIuQYjomrlpvEYEFltFYYAov+6eQnZpvobc+Nhc6O8
-	2Fr4XGswKg5kcIQePED/om173bm3vOe09V/WzvGaBihb7snEuDDcF+FKZpCHyKyLOfoH+wdKyIK
-	jXxYvDeZg3vdHhP+9LJvKjpmYN9Ji/om2jSFh+nHzQEAlhWkbcWE70ayeXLIlaF9dK2QeSBrPMi
-	JwGSQb6jR58kYvBCjlzBgvpbknnOM880hikIAjd8NQmhZ6bwPMDMYIIVOR/A32KisrHUWSs/k6t
-	tbJvX3IRAVWhBaRxeN6QlszczyyWJ8kx6zhf+G9+xYB86QdfGHVHKhKbyBrv41+SFmusHjhkMUw
-	yeTUV9PeY+P0unIcHhTaGJDglptR+IbpJ0huhBEu+Hs5vxBLIFzoiiIAskVywbmYlnasprKa/GK
-	PWSKvZE50wDSg==
-X-Google-Smtp-Source: AGHT+IFpf6pTRBLI+R8S1l7vTgZNNT3iCQA3US4G+aR+ZYIXjj2+t2wNhkPnHMWteSDiMYPU3RSJ6A==
-X-Received: by 2002:a17:906:9fd0:b0:b72:b8a9:78f4 with SMTP id a640c23a62f3a-b73678f4f66mr1837416166b.39.1763478342628;
-        Tue, 18 Nov 2025 07:05:42 -0800 (PST)
-Message-ID: <ea7237e2-9026-4c79-8cd6-7b62094aab1c@suse.com>
-Date: Tue, 18 Nov 2025 16:05:41 +0100
+        bh=MuGvsatbOCNTnf1+piHi4k6STW82U3evhUtfXUWwz38=;
+        b=lrOtj2X4Z8XQAI+ymLzfUvJh6rRaN40ZQ/dacCz0CNsq+uRc83Z/E6VRk8BsxzCOiz
+         WtHTfuX/jjNFV2BHeAMsxrk/drleiroDkcGG24zipUmW7CoqFMJEEWQK7gTjc4bZya9Y
+         GiM+R5i+WAHIKTQJCQIjTh6+o808+l/cIP5TBMoSd9d30uJgDknie+1+7zF+O2KLbuu9
+         smZ49q9FFeHrBgNCQIe/hBYzm/mC7zJOq0ZQyVwysZd54G+ijk8R6MGVqkPIaFyXwEJB
+         irI6atF9JeXXRXKGx+YHRpN97FqAXk78UA8WqCB+Dtzy8jZFPe2WfNfN7yT+RlbbFKkp
+         CqsQ==
+X-Gm-Message-State: AOJu0YxfXmoS3ocsIiM9AUB9cgWpKUW/EettVrSBd25kh9AV0mANIZ+3
+	B+PLNq2Z7e4mgBJUpZKbv9bVyUZERGZQF7PqVWJHqk1FYzI2fCIn1nz5lwWtgl6FnHjjkN8sPQM
+	KKv4=
+X-Gm-Gg: ASbGncuJixqDfxSMwdoP8Qh3IBUMROXXnhWA7VUjo2q/2T0f0dR9Mfgq3MBW9ddLLuY
+	kXCTdUKeg0naS3IGroDdTNVBhxZse+W2mbMpxqNLNHIgu/iXE36oGKHI2aL0KuEmFDg+4fWuPsl
+	mRARFUqiT+p6cgCwpnmmZrMmBTG5coQ6PcJYPo5w5YMzXjqhgAeFPE4QxhbZIvXLDFbiIOUQwt4
+	C22E0QPhhc3CzXHWV0K0hNrBrEOwYFV0asC4Jebh4visvY0MSF8nN27kQk8b4Kckz9pAzaYA9rS
+	c+zUbcUfQph1clV9J4sSSuvWPHUfBl2OXR3SlOcPRfgp+1F8oVqygHGzaPh5exBOAQAsIyaMxnU
+	k0qKU5FC3O4jev4tMkqmZPSmlnoKiqm8tArkHBT4Yd8TBzw1ZT9IInxEJlZ1SOogO07o1FHejQ4
+	7EIoZpnStxYsGjYp21w1S7uLIWfSOIwIsOyEh3wQ5BhwUGSleJa57zc7mAQVKjiSo5
+X-Google-Smtp-Source: AGHT+IEEiBmygkrrcJUcQiqLuhkHHAct9qy+FLpfROJT5T1xQ3QMMYhvLBaCTwjo/TyStGFSwZN+Ww==
+X-Received: by 2002:a05:6402:20d5:20b0:641:297b:5567 with SMTP id 4fb4d7f45d1cf-64350ec18d4mr12995892a12.35.1763478370677;
+        Tue, 18 Nov 2025 07:06:10 -0800 (PST)
+Message-ID: <b59c0994-6bb2-4506-88ec-4ea0f3b6c311@suse.com>
+Date: Tue, 18 Nov 2025 16:06:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 1/8] x86/cpu-policy: move invocation of recalculate_misc()
+Subject: [PATCH 2/8] x86/cpu-policy: define bits of leaf 6
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -124,37 +123,47 @@ In-Reply-To: <53ef6c9a-1115-4bb4-bb7f-e2595ab9d0b6@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The function is about guest exposure of features / leaves. There's no need
-for it to be applied on the host policy. In fact doing so gets in the way
-of using the host policy in certain places.
+... as far as we presently use them in the codebase.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Or should we make both parts proper featureset elements? At least
+APERFMPERF could likely be made visible to guests (in principle).
 
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -383,7 +383,6 @@ static void __init calculate_host_policy
- 
-     x86_cpu_featureset_to_policy(boot_cpu_data.x86_capability, p);
-     recalculate_xstate(p);
--    recalculate_misc(p);
- 
-     /* When vPMU is disabled, drop it from the host policy. */
-     if ( vpmu_mode == XENPMU_MODE_OFF )
-@@ -634,6 +633,7 @@ static void __init calculate_pv_max_poli
-     unsigned int i;
- 
-     *p = host_cpu_policy;
-+    recalculate_misc(p);
- 
-     guest_common_max_leaves(p);
- 
-@@ -736,6 +736,7 @@ static void __init calculate_hvm_max_pol
-     const uint32_t *mask;
- 
-     *p = host_cpu_policy;
-+    recalculate_misc(p);
- 
-     guest_common_max_leaves(p);
- 
+--- a/xen/include/xen/lib/x86/cpu-policy.h
++++ b/xen/include/xen/lib/x86/cpu-policy.h
+@@ -121,7 +121,31 @@ struct cpu_policy
+             uint64_t :64, :64; /* Leaf 0x3 - PSN. */
+             uint64_t :64, :64; /* Leaf 0x4 - Structured Cache. */
+             uint64_t :64, :64; /* Leaf 0x5 - MONITOR. */
+-            uint64_t :64, :64; /* Leaf 0x6 - Therm/Perf. */
++
++            /* Leaf 0x6 - Therm/Perf. */
++            struct {
++                uint32_t /* a */:1,
++                    turbo:1,
++                    arat:1,
++                    :4,
++                    hwp:1,
++                    hwp_notification:1,
++                    hwp_activity_window:1,
++                    hwp_epp:1,
++                    hwp_plr:1,
++                    :1,
++                    hdc:1,
++                    :2,
++                    hwp_peci:1,
++                    :2,
++                    hw_feedback:1,
++                    :12;
++                uint32_t /* b */:32;
++                uint32_t /* c */ aperfmperf:1,
++                    :31;
++                uint32_t /* d */:32;
++            } pm;
++
+             uint64_t :64, :64; /* Leaf 0x7 - Structured Features. */
+             uint64_t :64, :64; /* Leaf 0x8 - rsvd */
+             uint64_t :64, :64; /* Leaf 0x9 - DCA */
 
 
