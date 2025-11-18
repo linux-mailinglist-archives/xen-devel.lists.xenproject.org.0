@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A292AC69A22
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 14:39:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1164766.1491687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95050C69A90
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Nov 2025 14:45:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1164825.1491698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLLvm-0000ku-K1; Tue, 18 Nov 2025 13:39:38 +0000
+	id 1vLM1d-000353-6u; Tue, 18 Nov 2025 13:45:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1164766.1491687; Tue, 18 Nov 2025 13:39:38 +0000
+Received: by outflank-mailman (output) from mailman id 1164825.1491698; Tue, 18 Nov 2025 13:45:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLLvm-0000in-HD; Tue, 18 Nov 2025 13:39:38 +0000
-Received: by outflank-mailman (input) for mailman id 1164766;
- Tue, 18 Nov 2025 13:39:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vLM1d-00033b-48; Tue, 18 Nov 2025 13:45:41 +0000
+Received: by outflank-mailman (input) for mailman id 1164825;
+ Tue, 18 Nov 2025 13:45:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=maYy=52=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vLLvl-0000if-16
- for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 13:39:37 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05a37da1-c484-11f0-9d18-b5c5bf9af7f9;
- Tue, 18 Nov 2025 14:39:36 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-640a503fbe8so9557162a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 05:39:36 -0800 (PST)
+ id 1vLM1b-00033T-OY
+ for xen-devel@lists.xenproject.org; Tue, 18 Nov 2025 13:45:39 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dd357b0f-c484-11f0-980a-7dc792cee155;
+ Tue, 18 Nov 2025 14:45:37 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-b735e278fa1so822617266b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Nov 2025 05:45:37 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a4b1fadsm13697576a12.31.2025.11.18.05.39.34
+ a640c23a62f3a-b734fed9d38sm1375305966b.67.2025.11.18.05.45.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Nov 2025 05:39:34 -0800 (PST)
+ Tue, 18 Nov 2025 05:45:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05a37da1-c484-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: dd357b0f-c484-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763473175; x=1764077975; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763473537; x=1764078337; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YExxYdA3mXEoxETd+tuMXcDg0yE/yxcQGKFlhqouBd4=;
-        b=Ne1Ffmmk9DDKKVWy8HUjErlx0BAssqe2Lcg/dq1JZkhQzLcabrRgi/234zYqEGA9PG
-         b0hy7pRSR8tocoyK5ORhJYxoQ20ORprYO28g1NDzeKk+srw+fZWX6T8IJtSZ8gsyoayN
-         d3O2VQ8gWEF2NQz9C0WHx4d6uuq/M5haUG1qJLp6hX6PBKOp0zJKy4d9R9HE14odjV2E
-         b5zNOTP5Cettz6IfeakHXET6sw7QDzG3oowwygVS6ZIfCSVFXAygfLhrRcZbk3KfMP9T
-         QlXABRZQ9vImDojkryI/zoZ2nCl/RAIAwxXn3qbjF0Yu1MM911KH+bR37F/8TO8LGUdL
-         V1tQ==
+        bh=zkETE9o8Sl5QoRq38JwUTwe7vTd7IIWStNkxRer9PfU=;
+        b=dy/cmpYau1vXoWRbhOnT9W0BJv2uNU8wI82BGnfJIOZGy9FeTvb0mqMwKmAzmTSBbC
+         sqU08NKhZmZ+jAl3Sc230+2rX/Rb2Fi7ALrGCdkOUhc1KcTlwT4OXR/ORZff4IE/0CqS
+         68tvp+SfSZ4ER/17/tPzX7V5b7q6/cCedBVAmH2bN9bjquYi09f2xD8sxwTdPsa1zXtG
+         0lt5AXpd4pfLmdP29hHfL92brkxxT+L/uslgKvTFScXoVophkGmGZld2jRgMUZDSgGoU
+         4uNLrT4gkMmpGDxx5W9HNp7a7y9+2vVPHTHxP/efuusP+m8I8jXfK8ysj0+VmIe+FR6G
+         SkKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763473175; x=1764077975;
+        d=1e100.net; s=20230601; t=1763473537; x=1764078337;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YExxYdA3mXEoxETd+tuMXcDg0yE/yxcQGKFlhqouBd4=;
-        b=rcyWf2z6WwfnpRXL5NcQZlgNfUvWGxmaDWGFYudqoDvafxoI9H5+YpO4rTZC0bwpXz
-         b5/OzgyVfnzwXS+bWQ8n4jyl+ZBKoDu8IhbPC9OLWrpv/0IkXsC7/o4XbC4iJgydmbBn
-         HcKbGLfKekctCGV+5KTSSa4TpnKMxmnxnyB3LdoFxgHL5R15zvas01eJUOmlVMdpswkw
-         NO8rSPXtvmO6rxxUrkh5M//YSbPcsQLwqM2u8cZyhD/+iee2cvpEcsnv6RQJ43601YgT
-         ioVjV3OkLECz0LWtbJWZ2FTzYz21fOpKaG1nL9O9KiaoTGkHESXW6GeSAOfT0pjWKr86
-         apKA==
-X-Forwarded-Encrypted: i=1; AJvYcCXLLJDh1b6/jH3K10o+uLtXJTm+yfCKyI3M1SDCdVEMfUgz6BVD9wbUfcPBN87jPy6RZtSSlt0jrBo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy4jwPC5w2tixicBecHLn6QpOSr+nn1Tj8t4p16IzwR1Gl0HuSt
-	RJuFBJv5RP8w9wAxyUJRXcpQTvaAtUJVuMQzaqBvgOjRtCoOEd1GWFPPx6/ENO2kag==
-X-Gm-Gg: ASbGnctrikZ9hmJULoWiqIHXvTV06pSKpevP7Wyu8FHsDpQTLAvbK9RzEBSKSqyrOmj
-	INyk4nRFQR616ZMSeKyr+gY9L7i4uS/qrZ38SyoWSS3L7UhjL1WtKAtVzdmTKrt33hZI4l7e1xz
-	Q6vecMN/VKwVRgWfD/gTE/Ibn8DRsaw6bcwaSmJ7bXLsIM28rb3c2kvviMgPjIweEvx0MX0fvCg
-	M2R7VPL9UkP58+SHcZzWnQ40JB14WORdrHnuGUKqfp1eQd1ZTgOrnS9ed7tf5AGB+P/J0wu0ubO
-	D5q44EQ5Tjh7nK30R1QMHGBALhWhwT+f09CvVO7Y5YGhVV78kkMuyz+pFSSq7y1yUDeFY/1c33v
-	/6h6IzEu4LT64NbYcST4IHbzQtP1+quztwNZ/VPcPmk6A/50D6UqETH9icZlmPTrhWKyzz6IhfF
-	jCDvvcaGOMqzDzjpI+E5DLZ57sxt2ZwAqGmOBNcfG6lN39dPN8bmPpC+dbWAkEtYnMHwQQ9xCh5
-	nf9mBRLfjQpBQ==
-X-Google-Smtp-Source: AGHT+IEjF87qxNSk9eoVwq/msAFMfObf++dKtJGVa8Bg7AN4oxZNi+LvmkbMSeEr3wsXN0ZKC7OEcg==
-X-Received: by 2002:a05:6402:4403:b0:640:b497:bf71 with SMTP id 4fb4d7f45d1cf-64350e006b3mr16824585a12.8.1763473175245;
-        Tue, 18 Nov 2025 05:39:35 -0800 (PST)
-Message-ID: <c5636b73-cbbe-4480-94ce-928d4f01dd74@suse.com>
-Date: Tue, 18 Nov 2025 14:39:33 +0100
+        bh=zkETE9o8Sl5QoRq38JwUTwe7vTd7IIWStNkxRer9PfU=;
+        b=mNegT/SvLU9WgNOMfMgEbMt/ubr3WOF+Uo1mV1K/UGQUkGJwAk8E5x4VksmGiXS5ch
+         wXEl+Vj7h3Cru7ebIstWoN9m3IQ1m6Z1t7UtY9eOLV+V/X5P2mo81YwnMCMMJmNCqIPX
+         ATbyDkSqmUdVh8FzwQyCUf+CT4hUyngyUmO2fWcxZ5FRSSUjQyqeGuTfMjKB4NvsoS4v
+         yPJaI8lerM+XDTPSIJQDYbp5LxeVcrrEaqatYFtoLNA4ICOB0xcc9VuCEAhA2m1618n8
+         mM6wma3HcTXmpO2o9yrrUipLybpFlTdk/3nfLXHvCDd6uMN5wFehrcu2tRjcE8FspCbh
+         CtWQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVkwdhtXx3UKLTA5EIJ4SPQIPDFji0Uagm7sITAxHvCvwSwbQo8F05Q5Vhs+VnHVF8qgEnjigWfLwE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyyC039DxP5s8Rr9Uc1frZbA5VIliQ9g74nrAITACc1u1twmace
+	Pi9kU5JHUGpGwKOQ2rbKNYTTyByMSWnqDK/DpZXn778yn/IisLw/OdWZXcx5johkdg==
+X-Gm-Gg: ASbGncvyLtU8IcrPrSz9HQhT9dEFFzio5wd9anqtWYWZKe+n+ON2/WCsiSqgvA4rwO7
+	dqkOeElByCgJC+ROjG5XuO2LaNCMklJIyQHh/lRlSivNEsT9O2hEgb9APPxHxd3lmilgPkTnsO5
+	jG7S9NK7z7fMO7Px3+U4CBDAuLZM/rK2CP1hofRP6Ux9MkjPB9m2z8q/k0GSSaZFqVgFrq6Jshg
+	+nauzkIHOeqkZsUj3SF54u3WvuOoFcWKpyu18tpBI91gvfXgvSFHsXIaJ6BvxK/LPF2VLDX04Fu
+	IMFy+eRb+/XuTPQWnqRTKPqj/+QUy4HSqmlTSvY5bBHavIrxxU1lYsROpfuTdYJ+81nKVR6NMcI
+	2SyP7v2QZ5eV1xZ+8cW6rbovW8wAIqozX3vehA+0pHqKxsafF1lwSQAkR7DWtUreEB/0lLJLS1R
+	a50glfh75HpBJWHQlrystDDA5UtAxMOUGqKbzZsS9jhZ0jxiZosocxQxPmlTZEo+61
+X-Google-Smtp-Source: AGHT+IHBu3yk1XMXDPAkFn7cqqCJdvT54+4z1YWG/Xj9t9Rjq13/xEiYKQy5Do42c3rTrK3GpDp3lw==
+X-Received: by 2002:a17:907:97c3:b0:b72:a899:169f with SMTP id a640c23a62f3a-b7367828ab8mr2065746766b.4.1763473536976;
+        Tue, 18 Nov 2025 05:45:36 -0800 (PST)
+Message-ID: <567f2759-fa03-43bd-9ae4-75e0e3811b60@suse.com>
+Date: Tue, 18 Nov 2025 14:45:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v3] xen: make VMTRACE support optional
+Subject: Re: [XEN][PATCH v4] xen/x86: guest_access: optimize raw_x_guest() for
+ PV and HVM combinations
 To: Grygorii Strashko <grygorii_strashko@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Teddy Astie <teddy.astie@vates.tech>, Penny Zheng <Penny.Zheng@amd.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251114142207.279834-1-grygorii_strashko@epam.com>
- <225378f4-0ebd-4c77-ae77-807bbb03b0bb@suse.com>
- <5ebcbafc-d391-4541-8df3-2742cef43be8@epam.com>
+References: <20251114140117.270461-1-grygorii_strashko@epam.com>
+ <11c3929a-977b-4ef8-aaaa-9aea01657b04@suse.com>
+ <fdd51da7-c8dc-4c0f-aaaf-a9fd2094bcd4@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,68 +124,64 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5ebcbafc-d391-4541-8df3-2742cef43be8@epam.com>
+In-Reply-To: <fdd51da7-c8dc-4c0f-aaaf-a9fd2094bcd4@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.11.2025 13:42, Grygorii Strashko wrote:
-> On 17.11.25 18:52, Jan Beulich wrote:
->> On 14.11.2025 15:22, Grygorii Strashko wrote:
->>> --- a/xen/arch/x86/hvm/Kconfig
->>> +++ b/xen/arch/x86/hvm/Kconfig
->>> @@ -35,6 +35,18 @@ config INTEL_VMX
->>>   	  If your system includes a processor with Intel VT-x support, say Y.
->>>   	  If in doubt, say Y.
->>>   
->>> +config VMTRACE
->>> +    bool "HW VM tracing support"
->>> +    depends on INTEL_VMX
->>> +    default y
->>> +    help
->>> +      Enables HW VM tracing support which allows to configure HW processor
->>> +      features (vmtrace_op) to enable capturing information about software
->>> +      execution using dedicated hardware facilities with minimal interference
->>> +      to the software being traced. The trace data can be retrieved using buffer
->>> +      shared between Xen and domain
->>> +      (see XENMEM_acquire_resource(XENMEM_resource_vmtrace_buf)).
+On 18.11.2025 14:08, Grygorii Strashko wrote:
+> On 17.11.25 18:43, Jan Beulich wrote:
+>> On 14.11.2025 15:01, Grygorii Strashko wrote:
+>>> --- a/xen/arch/x86/pv/Makefile
+>>> +++ b/xen/arch/x86/pv/Makefile
+>>> @@ -14,6 +14,10 @@ obj-y += ro-page-fault.o
+>>>   obj-$(CONFIG_PV_SHIM) += shim.o
+>>>   obj-$(CONFIG_TRACEBUFFER) += trace.o
+>>>   obj-y += traps.o
+>>> +obj-$(CONFIG_PV) += usercopy.o
 >>
->> Please check adjacent options above or ...
+>> Just obj-y with the movement.
 >>
->>>   config HVM_FEP
->>>   	bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
->>>   	default DEBUG
->>
->> ... below for how proper indentation would look like here.
+>> However, is the movement (and was the adding of $(CONFIG_PV) in the earlier
+>> version) actually correct? The file also produces copy_{from,to}_unsafe_ll(),
+>> which aren't PV-specific. This may be only a latent issue right now, as we
+>> have only a single use site of copy_from_unsafe(), but those functions need
+>> to remain available. (We may want to arrange for them to be removed when
+>> linking, as long as they're not referenced. But that's a separate topic.)
 > 
-> There is a mix in Kconfigs - some places <Tabs> some places <Spaces> :(
-> Will change to <Tabs>
-
-Any place where only spaces are used is malformed. "help" text with its special
-indentation is a separate thing, of course.
-
->>> --- a/xen/arch/x86/vm_event.c
->>> +++ b/xen/arch/x86/vm_event.c
->>> @@ -253,7 +253,8 @@ void vm_event_fill_regs(vm_event_request_t *req)
->>>       req->data.regs.x86.shadow_gs = ctxt.shadow_gs;
->>>       req->data.regs.x86.dr6 = ctxt.dr6;
->>>   
->>> -    if ( hvm_vmtrace_output_position(curr, &req->data.regs.x86.vmtrace_pos) != 1 )
->>> +    if ( IS_ENABLED(CONFIG_VMTRACE) &&
->>> +         hvm_vmtrace_output_position(curr, &req->data.regs.x86.vmtrace_pos) != 1 )
->>
->> Would be nice if the too-long-line issue here was also address, when the line
->> needs touching anyway.
+> It is confusing that none of build cfg combinations have failed
+> (HVM=y PV=n, HVM=n PV=n) :(
 > 
-> I left it as is for better readability as an exception.
-> Will below be ok:
+> copy_to_unsafe_ll()
+> - called from copy_to_unsafe()
+> - copy_to_unsafe() has no users (unreachable, MISRA 2.1?)
 > 
->       if ( IS_ENABLED(CONFIG_VMTRACE) &&
-> -         hvm_vmtrace_output_position(curr, &req->data.regs.x86.vmtrace_pos) != 1 )
-> +         hvm_vmtrace_output_position(curr,
-> +                                     &req->data.regs.x86.vmtrace_pos) != 1 )
->           req->data.regs.x86.vmtrace_pos = ~0;
+> copy_from_unsafe_ll()
+> - called from copy_from_unsafe()
+> - copy_from_unsafe() called from one place do_invalid_op() with
+>    copy_from_unsafe(,, n = sizeof(bug_insn)).
+>    Due to __builtin_constant_p(n) check the copy_from_unsafe() call
+>    optimized by compiler to
+>    get_unsafe_size(*(uint16_t *)to, from, 2, UA_DROP, ret, 2);
+> 
+> as result copy_from_unsafe_ll() is unreachable also (?).
 
-Almost, albeit the off-by-1 indentation may also merely be an effect of your mailer.
+Yes, these likely all want to become library-like, so they are linked in only
+when actually referenced.
+
+> If those function are not subject to be removed, the
+>   usercopy.c can't be moved in "x86/pv", Right?
+
+That's my take, yes.
+
+> Making copy_{from,to}_unsafe_ll() available for !PV means
+> rewriting usercopy.c in some way, Right?
+
+"Re-writing" is probably too much, but some adjustments would be needed if
+you want to keep the "unsafe" functions but compile out the "guest" ones.
+It may be possible to compile the file twice, once from x86/pv/ and once
+from x86/, replacing the self-#include near the bottom of the file. The
+former would then produce the "guest" functions, the latter the "unsafe"
+ones.
 
 Jan
 
