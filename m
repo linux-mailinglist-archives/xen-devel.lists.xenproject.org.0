@@ -2,47 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C035FC70BDA
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Nov 2025 20:12:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1166314.1492877 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D225C70BE9
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Nov 2025 20:12:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1166325.1492887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLnaF-0006ou-HZ; Wed, 19 Nov 2025 19:11:15 +0000
+	id 1vLnbi-0007SL-RY; Wed, 19 Nov 2025 19:12:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1166314.1492877; Wed, 19 Nov 2025 19:11:15 +0000
+Received: by outflank-mailman (output) from mailman id 1166325.1492887; Wed, 19 Nov 2025 19:12:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLnaF-0006nQ-Ev; Wed, 19 Nov 2025 19:11:15 +0000
-Received: by outflank-mailman (input) for mailman id 1166314;
- Wed, 19 Nov 2025 19:11:14 +0000
+	id 1vLnbi-0007Pl-Ol; Wed, 19 Nov 2025 19:12:46 +0000
+Received: by outflank-mailman (input) for mailman id 1166325;
+ Wed, 19 Nov 2025 19:12:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aBqX=53=redhat.com=armbru@srs-se1.protection.inumbo.net>)
- id 1vLnaE-0006nK-JS
- for xen-devel@lists.xenproject.org; Wed, 19 Nov 2025 19:11:14 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=G5Pp=53=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1vLnbh-0007Pd-7h
+ for xen-devel@lists.xenproject.org; Wed, 19 Nov 2025 19:12:45 +0000
+Received: from fout-b3-smtp.messagingengine.com
+ (fout-b3-smtp.messagingengine.com [202.12.124.146])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7e4c1206-c57b-11f0-9d18-b5c5bf9af7f9;
- Wed, 19 Nov 2025 20:11:04 +0100 (CET)
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-111-yNpZLchdNUuuTavbCUxFWQ-1; Wed,
- 19 Nov 2025 14:10:59 -0500
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 96A13195608F; Wed, 19 Nov 2025 19:10:54 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.45.242.18])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 9B530180047F; Wed, 19 Nov 2025 19:10:52 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id E69F421E6A27; Wed, 19 Nov 2025 20:10:49 +0100 (CET)
+ id b8a35941-c57b-11f0-9d18-b5c5bf9af7f9;
+ Wed, 19 Nov 2025 20:12:42 +0100 (CET)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfout.stl.internal (Postfix) with ESMTP id 3B72C1D00093;
+ Wed, 19 Nov 2025 14:12:41 -0500 (EST)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-02.internal (MEProxy); Wed, 19 Nov 2025 14:12:41 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 19 Nov 2025 14:12:39 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,71 +44,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e4c1206-c57b-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1763579463;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wt/fub6z3HxiVa5B4/hE5RzRQKQVhOj7h1C0uZV+h1o=;
-	b=fMShJisjfib4WijbCPZ7VXxKyPY5XaEQR/g2zxX9htbFCBmBLtph0cmuv49g2W6+j8vHXW
-	ht3YpMYQ6Hy/AA+4BhaSjnvvXLX8A/Phv+Oog3RAIRlEVcCOKNWRxjQhiO7ZFQcHHgR2F9
-	8eq0OpQ/XHM917cj9ODBdzLBVUMpV0Q=
-X-MC-Unique: yNpZLchdNUuuTavbCUxFWQ-1
-X-Mimecast-MFC-AGG-ID: yNpZLchdNUuuTavbCUxFWQ_1763579455
-From: Markus Armbruster <armbru@redhat.com>
-To: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-Cc: qemu-devel@nongnu.org,  kwolf@redhat.com,  hreitz@redhat.com,
-  mst@redhat.com,  imammedo@redhat.com,  anisinha@redhat.com,
-  gengdongjiu1@gmail.com,  peter.maydell@linaro.org,
-  alistair@alistair23.me,  edgar.iglesias@gmail.com,  npiggin@gmail.com,
-  harshpb@linux.ibm.com,  palmer@dabbelt.com,  liwei1518@gmail.com,
-  dbarboza@ventanamicro.com,  zhiwei_liu@linux.alibaba.com,
-  sstabellini@kernel.org,  anthony@xenproject.org,  paul@xen.org,
-  berrange@redhat.com,  peterx@redhat.com,  farosas@suse.de,
-  eblake@redhat.com,  eduardo@habkost.net,  marcel.apfelbaum@gmail.com,
-  philmd@linaro.org,  wangyanan55@huawei.com,  zhao1.liu@intel.com,
-  qemu-block@nongnu.org,  qemu-arm@nongnu.org,  qemu-ppc@nongnu.org,
-  qemu-riscv@nongnu.org,  xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/5] hw/nvram/xlnx-bbram: More idiomatic and simpler
- error reporting
-In-Reply-To: <a36f938d-b35a-4605-ab77-6ed7dd419945@yandex-team.ru> (Vladimir
-	Sementsov-Ogievskiy's message of "Wed, 19 Nov 2025 19:39:14 +0300")
-References: <20251119130855.105479-1-armbru@redhat.com>
-	<20251119130855.105479-3-armbru@redhat.com>
-	<a36f938d-b35a-4605-ab77-6ed7dd419945@yandex-team.ru>
-Date: Wed, 19 Nov 2025 20:10:49 +0100
-Message-ID: <87a50hx2h2.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+X-Inumbo-ID: b8a35941-c57b-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm3;
+	 t=1763579561; x=1763665961; bh=TPHRLLUj9N7LeFhs2fEg1LQrQouY7BKz
+	7R9+rgW0YsE=; b=lVQcL7UwZaCpONrm/KSwcSoH6r613//7zdP5vNMmriwIs4CY
+	u5K3Z/KTcrzl+9w8Z3JRYZez1gd0uoiujMZyZItm9fws/zP7hpvczvZGt2UZRcrn
+	knuwarMLKZp3q47yolrd5jFKg/Xw+7Xo50iHBeazS4BI7Cp7geLSn21QrQDPDgN7
+	HfRQL5gqPr9TPULK2pYwdibIpqbIhzJLmQ9S1XCWvUw36yVBiTh4Uy2y0Dzcy1+d
+	mbc/ZlyOdP5bn63drUP/RGKeB/Zu0eYFOXQiVi9lpHB78Wh5MjiiBgBRhGOAYZkE
+	oWAGUxd4eMrStwqQS2NHlffd28QwHI3W6jMTqQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1763579561; x=1763665961; bh=TPHRLLUj9N7LeFhs2fEg1LQrQouY
+	7BKz7R9+rgW0YsE=; b=fFensa4GCJYkFrjHSMzQKHmcIxC8rKFj5b54WFuxheUK
+	T/SD+VvRvO2ROBPhb3azw1u9OkVwNmrALp94U9lQ6mxMtR+SqbhWCEaOttgexbFT
+	0vABzkh0HOixEbhtbNQXGmfuuZ3/jwH2hYn6pnGfk/zzKKVqpcOquClfiG0O40Vn
+	q0VJVBNm4TA51EhS7SnE0RtP/5puQnXjz4jwlM6rrqYVApYYonJf5Bb4I7IP4i/s
+	3WdLZTpL1xVZcNFWrR6YinRHjaEIA5lC+sAt2fSKVw8/EPfsWrF617PidkQrgAeF
+	Zg+hgfaT+QQZMMIYJQq6PHeYUkOah71RddsYDsLtIQ==
+X-ME-Sender: <xms:qBYeabhxux9qQWMh4wPA0TU9RxowBtJA-1NJFvGDB43OCyN4JCnNMA>
+    <xme:qBYeae6hx2u7J5_iyTCFT5ua59BnihHQNdNz-KBsBdYVfJ934Zaj0AK03Rz-l3ZYs
+    cknHU9k0BHQ5gUMxw9Xoyy9DSjzL4K4U748uTEIJ6w8hoQM>
+X-ME-Received: <xmr:qBYeaTZZ9o35hUpNFGeCdyYih-tdbESlgrF5mI7dWh1izl69sKT0dNoTRpDhH77lJgGO7h3Zzjb_ZCjeydUVxQz7Q12LQesUsjsKcbAZ1f0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvvdehtdduucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeforghrvghkucfo
+    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeduteevffdv
+    keduvddulefflefhveehhefgieffudffteegvdejuefgvdejfeeftdenucffohhmrghinh
+    epkhgvrhhnvghlrdhorhhgpdhtrhhmmhdrnhgvthdplhgushdrshgsnecuvehluhhsthgv
+    rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohephedpmhho
+    uggvpehsmhhtphhouhhtpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgi
+    gvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtohepmhgrrhhmrghrvghksehinhhvihhs
+    ihgslhgvthhhihhnghhslhgrsgdrtghomhdprhgtphhtthhopehjsggvuhhlihgthhessh
+    hushgvrdgtohhmpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhi
+    gidrtghomhdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomh
+X-ME-Proxy: <xmx:qBYeaT6qc107i0__3y6Z9ONMsZZOqpNHUHME-EA52scxAItK6d7JqA>
+    <xmx:qBYeaWDtcJ9Uw1UgoEWfH8nJ0Uvq6eJH11IvZMs9MW0bSUfj-ItYeg>
+    <xmx:qBYeaZer1XDSwhJMGYUZxGOdu4yXu7FJLTJF1tN_uSXyfgxyVPssyQ>
+    <xmx:qBYeaVIBkXqwfV6zJQfFf-aDBipg5AQX0GRwzdfFL851tP_aPh-D-A>
+    <xmx:qRYeaZ_pOP4rjSVeNgIpnojzvWFHmWuQMqzf03M0g1aEIMANxI-CZD39>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] xen: Fix EFI buildid alignment
+Date: Wed, 19 Nov 2025 20:12:31 +0100
+Message-ID: <20251119191235.863187-1-marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru> writes:
+Old binutils get confused about .buildid overlapping (in VA space) with
+earlier section. That confusion results in weird errors down the road,
+like this one:
 
-> On 19.11.25 16:08, Markus Armbruster wrote:
->> bbram_bdrv_error() interpolates a "detail" string into a template with
->> error_setg_errno(), then reports the result with error_report().
->> Produces error messages with an unwanted '.':
->>
->>      BLK-NAME: BBRAM backstore DETAIL failed.: STERROR
->>
->> Replace both calls of bbram_bdrv_error() by straightforward
->> error_report(), and drop the function.  This is less code, easier to
->> read, and the error message is more greppable.
->>
->> Also delete the unwanted '.'.
->
-> Also, using "errp" name for local "Error *" (one star) variable is a bit misleading.
+    objcopy: xen.efi: Data Directory size (1c) exceeds space left in section (8)
 
-True.  I don't mention it, because I delete the variable.
+While the bug is fixed in later binutils version, force alignment of the
+buildid to avoid overlapping and make it work with older versions too.
+This can be reverted once toolchain base is raised at or above binutils
+2.36.
 
-My search for misleading uses of @errp led me here.
+Details at:
+https://lore.kernel.org/all/3TMd7J2u5gCA8ouIG_Xfcw7s5JKMG06XsDIesEB3Fi9htUJ43Lfl057wXohlpCHcszqoCmicpIlneEDO26ZqT8QfC2Y39VxBuqD3nS1j5Q4=@trmm.net/
 
->> Signed-off-by: Markus Armbruster <armbru@redhat.com>
->
-> Reviewed-by: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Fixes: eee5909e9d1e ("x86/EFI: use less crude a way of generating the build ID")
+---
+While the actual bug apparently is in binutils, the commit mentioned in
+Fixes: tag introduced part that triggers that bug.
+---
+ xen/arch/x86/xen.lds.S | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks!
+diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+index 5d02f83a409c..967f9167f757 100644
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -171,6 +171,8 @@ SECTIONS
+        __note_gnu_build_id_end = .;
+   } PHDR(note) PHDR(text)
+ #elif defined(BUILD_ID_EFI)
++  /* Workaround bug in binutils < 2.38 */
++  . = ALIGN(32);
+   DECL_SECTION(.buildid) {
+        __note_gnu_build_id_start = .;
+        *(.buildid)
+-- 
+2.51.0
 
 
