@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BECDBC6D3FB
+	by mail.lfdr.de (Postfix) with ESMTPS id CEAC6C6D3FC
 	for <lists+xen-devel@lfdr.de>; Wed, 19 Nov 2025 08:54:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1165582.1492289 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1165583.1492300 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLd16-00081a-1i; Wed, 19 Nov 2025 07:54:16 +0000
+	id 1vLd18-0008F9-Bb; Wed, 19 Nov 2025 07:54:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1165582.1492289; Wed, 19 Nov 2025 07:54:16 +0000
+Received: by outflank-mailman (output) from mailman id 1165583.1492300; Wed, 19 Nov 2025 07:54:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLd15-0007zb-VO; Wed, 19 Nov 2025 07:54:15 +0000
-Received: by outflank-mailman (input) for mailman id 1165582;
- Wed, 19 Nov 2025 07:54:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vLd18-0008Dg-8O; Wed, 19 Nov 2025 07:54:18 +0000
+Received: by outflank-mailman (input) for mailman id 1165583;
+ Wed, 19 Nov 2025 07:54:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+YCl=53=arm.com=harry.ramsey@srs-se1.protection.inumbo.net>)
- id 1vLd14-0007zV-DZ
- for xen-devel@lists.xenproject.org; Wed, 19 Nov 2025 07:54:14 +0000
+ id 1vLd16-00088E-PV
+ for xen-devel@lists.xenproject.org; Wed, 19 Nov 2025 07:54:16 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id ef86bef3-c51c-11f0-980a-7dc792cee155;
- Wed, 19 Nov 2025 08:54:11 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id f0c58cc3-c51c-11f0-9d18-b5c5bf9af7f9;
+ Wed, 19 Nov 2025 08:54:14 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B5E8012FC;
- Tue, 18 Nov 2025 23:54:03 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C619E1477;
+ Tue, 18 Nov 2025 23:54:05 -0800 (PST)
 Received: from e134099.cambridge.arm.com (e134099.arm.com [10.1.198.34])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 41FB23F740;
- Tue, 18 Nov 2025 23:54:10 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 536893F740;
+ Tue, 18 Nov 2025 23:54:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,7 +42,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef86bef3-c51c-11f0-980a-7dc792cee155
+X-Inumbo-ID: f0c58cc3-c51c-11f0-9d18-b5c5bf9af7f9
 From: Harry Ramsey <harry.ramsey@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Luca.Fancellu@arm.com,
@@ -51,235 +51,241 @@ Cc: Luca.Fancellu@arm.com,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3 1/3] arm/mpu: Implement setup_mm for MPU systems
-Date: Wed, 19 Nov 2025 07:53:49 +0000
-Message-ID: <20251119075351.3926690-2-harry.ramsey@arm.com>
+Subject: [PATCH v3 2/3] arm/mpu: Implement reference counting for inclusive regions
+Date: Wed, 19 Nov 2025 07:53:50 +0000
+Message-ID: <20251119075351.3926690-3-harry.ramsey@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251119075351.3926690-1-harry.ramsey@arm.com>
 References: <20251119075351.3926690-1-harry.ramsey@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Implement `setup_mm` for MPU systems. This variant does not require
-setting up a direct map.
+Implement reference counting to enable inclusive MPU regions. An
+inclusive region is defined as a region encapsulated inside a
+previously allocated region sharing the same permissions.
 
-To reduce code duplication the common initalisation code for both MPU
-and MMU Arm64 configurations is refactored into `setup_mm`. Platform-specific
-setup steps are now handled by a new helper function `setup_mm_helper`.
+Reference counts are incremented and decremented in
+xen_mpumap_update_entry. A region will be destroyed if the reference
+count is 0 upon calling destroy_xen_mappings and if the full region
+range is specified.
+
+Additionally XEN_MPUMAP_ENTRY_SHIFT and XEN_MPUMAP_ENTRY_SHIFT_ZERO are
+no longer hardcoded and defined inside asm-offsets.c.
 
 Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 ---
 Changes in v3:
-- Remove reference to MPU in comment
+- Return early when checking memory attribute condtions
+- Replace references with refcount
 Changes in v2:
 - Improve clarity with regards to MPU inclusive regions
 - Fix code format issues
 ---
- xen/arch/arm/arm64/mmu/mm.c   | 26 +-------------------
- xen/arch/arm/include/asm/mm.h |  2 ++
- xen/arch/arm/mm.c             | 45 +++++++++++++++++++++++++++++++++++
- xen/arch/arm/mpu/mm.c         | 30 +++++++++++++++++++++--
- 4 files changed, 76 insertions(+), 27 deletions(-)
+ xen/arch/arm/arm32/asm-offsets.c         |  2 +
+ xen/arch/arm/arm64/asm-offsets.c         |  2 +
+ xen/arch/arm/include/asm/arm32/mpu.h     |  2 +
+ xen/arch/arm/include/asm/arm64/mpu.h     |  2 +
+ xen/arch/arm/include/asm/mpu/regions.inc | 11 +++-
+ xen/arch/arm/mpu/mm.c                    | 73 +++++++++++++++++++-----
+ 6 files changed, 76 insertions(+), 16 deletions(-)
 
-diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
-index 3e64be6ae6..70b53be032 100644
---- a/xen/arch/arm/arm64/mmu/mm.c
-+++ b/xen/arch/arm/arm64/mmu/mm.c
-@@ -4,8 +4,6 @@
- #include <xen/llc-coloring.h>
- #include <xen/mm.h>
- #include <xen/pfn.h>
--#include <xen/static-memory.h>
--#include <xen/static-shmem.h>
-
- #include <asm/setup.h>
-
-@@ -240,33 +238,18 @@ static void __init setup_directmap_mappings(unsigned long base_mfn,
-         panic("Unable to setup the directmap mappings.\n");
+diff --git a/xen/arch/arm/arm32/asm-offsets.c b/xen/arch/arm/arm32/asm-offsets.c
+index c203ce269d..951f8d03f3 100644
+--- a/xen/arch/arm/arm32/asm-offsets.c
++++ b/xen/arch/arm/arm32/asm-offsets.c
+@@ -79,6 +79,8 @@ void __dummy__(void)
+ #ifdef CONFIG_MPU
+    DEFINE(XEN_MPUMAP_MASK_sizeof, sizeof(xen_mpumap_mask));
+    DEFINE(XEN_MPUMAP_sizeof, sizeof(xen_mpumap));
++   DEFINE(XEN_MPUMAP_ENTRY_SHIFT, ilog2(sizeof(pr_t)));
++   DEFINE(XEN_MPUMAP_ENTRY_ZERO_OFFSET, sizeof(prbar_t) + sizeof(prlar_t));
+    BLANK();
+ #endif
  }
-
--void __init setup_mm(void)
-+void __init setup_mm_helper(void)
- {
-     const struct membanks *banks = bootinfo_get_mem();
-     paddr_t ram_start = INVALID_PADDR;
-     paddr_t ram_end = 0;
--    paddr_t ram_size = 0;
-     unsigned int i;
-
--    init_pdx();
--
--    /*
--     * We need some memory to allocate the page-tables used for the directmap
--     * mappings. But some regions may contain memory already allocated
--     * for other uses (e.g. modules, reserved-memory...).
--     *
--     * For simplicity, add all the free regions in the boot allocator.
--     */
--    populate_boot_allocator();
--
--    total_pages = 0;
--
-     for ( i = 0; i < banks->nr_banks; i++ )
-     {
-         const struct membank *bank = &banks->bank[i];
-         paddr_t bank_end = bank->start + bank->size;
-
--        ram_size = ram_size + bank->size;
-         ram_start = min(ram_start, bank->start);
-         ram_end = max(ram_end, bank_end);
-
-@@ -274,16 +257,9 @@ void __init setup_mm(void)
-                                  PFN_DOWN(bank->size));
-     }
-
--    total_pages += ram_size >> PAGE_SHIFT;
--
-     directmap_virt_end = XENHEAP_VIRT_START + ram_end - ram_start;
-     directmap_mfn_start = maddr_to_mfn(ram_start);
-     directmap_mfn_end = maddr_to_mfn(ram_end);
--
--    setup_frametable_mappings(ram_start, ram_end);
--
--    init_staticmem_pages();
--    init_sharedmem_pages();
+diff --git a/xen/arch/arm/arm64/asm-offsets.c b/xen/arch/arm/arm64/asm-offsets.c
+index 320289b281..38a3894a3b 100644
+--- a/xen/arch/arm/arm64/asm-offsets.c
++++ b/xen/arch/arm/arm64/asm-offsets.c
+@@ -73,6 +73,8 @@ void __dummy__(void)
+ #ifdef CONFIG_MPU
+    DEFINE(XEN_MPUMAP_MASK_sizeof, sizeof(xen_mpumap_mask));
+    DEFINE(XEN_MPUMAP_sizeof, sizeof(xen_mpumap));
++   DEFINE(XEN_MPUMAP_ENTRY_SHIFT, ilog2(sizeof(pr_t)));
++   DEFINE(XEN_MPUMAP_ENTRY_ZERO_OFFSET, sizeof(prbar_t) + sizeof(prlar_t));
+    BLANK();
+ #endif
  }
-
- /*
-diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-index 7a93dad2ed..f702f4a0d6 100644
---- a/xen/arch/arm/include/asm/mm.h
-+++ b/xen/arch/arm/include/asm/mm.h
-@@ -202,6 +202,8 @@ extern void remove_early_mappings(void);
- extern int prepare_secondary_mm(int cpu);
- /* Map a frame table to cover physical addresses ps through pe */
- extern void setup_frametable_mappings(paddr_t ps, paddr_t pe);
-+/* Helper function to setup memory management */
-+void setup_mm_helper(void);
- /* map a physical range in virtual memory */
- void __iomem *ioremap_attr(paddr_t start, size_t len, unsigned int attributes);
-
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index 3b05b46ee0..6df8b616e4 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -12,8 +12,12 @@
- #include <xen/grant_table.h>
- #include <xen/guest_access.h>
- #include <xen/mm.h>
-+#include <xen/static-memory.h>
-+#include <xen/static-shmem.h>
- #include <xen/vmap.h>
-
-+#include <asm/setup.h>
-+
- #include <xsm/xsm.h>
-
- #include <public/memory.h>
-@@ -24,6 +28,47 @@
-
- unsigned long frametable_base_pdx __read_mostly;
-
-+#if defined(CONFIG_ARM_64) || defined(CONFIG_MPU)
-+void __init setup_mm(void)
-+{
-+    const struct membanks *banks = bootinfo_get_mem();
-+    paddr_t ram_start = INVALID_PADDR;
-+    paddr_t ram_end = 0;
-+    paddr_t ram_size = 0;
-+    unsigned int i;
-+
-+    init_pdx();
-+
-+    for ( i = 0; i < banks->nr_banks; i++ )
-+    {
-+        const struct membank *bank = &banks->bank[i];
-+        paddr_t bank_end = bank->start + bank->size;
-+
-+        ram_size = ram_size + bank->size;
-+        ram_start = min(ram_start, bank->start);
-+        ram_end = max(ram_end, bank_end);
-+    }
-+
-+    total_pages = ram_size >> PAGE_SHIFT;
-+
-+    /*
-+     * On MMU systems we need some memory to allocate the page-tables used for
-+     * the direct mapmappings. But some regions may contain memory already
-+     * allocated for other uses (e.g. modules, reserved-memory...).
-+     *
-+     * For simplicity, add all the free regions in the boot allocator.
-+     */
-+    populate_boot_allocator();
-+
-+    setup_mm_helper();
-+
-+    setup_frametable_mappings(ram_start, ram_end);
-+
-+    init_staticmem_pages();
-+    init_sharedmem_pages();
-+}
+diff --git a/xen/arch/arm/include/asm/arm32/mpu.h b/xen/arch/arm/include/asm/arm32/mpu.h
+index 0a6930b3a0..137022d922 100644
+--- a/xen/arch/arm/include/asm/arm32/mpu.h
++++ b/xen/arch/arm/include/asm/arm32/mpu.h
+@@ -39,6 +39,8 @@ typedef union {
+ typedef struct {
+     prbar_t prbar;
+     prlar_t prlar;
++    uint8_t refcount;
++    uint8_t pad[7];     /* Pad structure to 16 Bytes */
+ } pr_t;
+ 
+ #endif /* __ASSEMBLY__ */
+diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
+index f0ce344e78..17f62ccaf6 100644
+--- a/xen/arch/arm/include/asm/arm64/mpu.h
++++ b/xen/arch/arm/include/asm/arm64/mpu.h
+@@ -38,6 +38,8 @@ typedef union {
+ typedef struct {
+     prbar_t prbar;
+     prlar_t prlar;
++    uint8_t refcount;
++    uint8_t pad[15];    /* Pad structure to 32 Bytes */
+ } pr_t;
+ 
+ #endif /* __ASSEMBLY__ */
+diff --git a/xen/arch/arm/include/asm/mpu/regions.inc b/xen/arch/arm/include/asm/mpu/regions.inc
+index 23fead3b21..0cdbb17bc3 100644
+--- a/xen/arch/arm/include/asm/mpu/regions.inc
++++ b/xen/arch/arm/include/asm/mpu/regions.inc
+@@ -14,14 +14,12 @@
+ #define PRLAR_ELx_EN            0x1
+ 
+ #ifdef CONFIG_ARM_64
+-#define XEN_MPUMAP_ENTRY_SHIFT  0x4     /* 16 byte structure */
+ 
+ .macro store_pair reg1, reg2, dst
+     stp \reg1, \reg2, [\dst]
+ .endm
+ 
+ #else
+-#define XEN_MPUMAP_ENTRY_SHIFT  0x3     /* 8 byte structure */
+ 
+ .macro store_pair reg1, reg2, dst
+     strd  \reg1, \reg2, [\dst]
+@@ -97,6 +95,15 @@
+ 
+ 3:
+ 
++    /* Clear the rest of the xen_mpumap entry. */
++#ifdef CONFIG_ARM_64
++    stp xzr, xzr, [\base, #XEN_MPUMAP_ENTRY_ZERO_OFFSET]
++#else
++    mov \prbar, #0
++    mov \prlar, #0
++    strd \prbar, \prlar, [\base, #XEN_MPUMAP_ENTRY_ZERO_OFFSET]
 +#endif
 +
- bool flags_has_rwx(unsigned int flags)
- {
-     /*
+     add   \sel, \sel, #1
+ 
+ 1:
 diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-index 3f155b7db2..b80edcf1ca 100644
+index b80edcf1ca..29dd8c4622 100644
 --- a/xen/arch/arm/mpu/mm.c
 +++ b/xen/arch/arm/mpu/mm.c
-@@ -5,12 +5,14 @@
- #include <xen/init.h>
- #include <xen/lib.h>
- #include <xen/mm.h>
-+#include <xen/pfn.h>
- #include <xen/sizes.h>
- #include <xen/spinlock.h>
- #include <xen/types.h>
- #include <asm/mpu.h>
- #include <asm/mpu/mm.h>
- #include <asm/page.h>
-+#include <asm/setup.h>
- #include <asm/sysregs.h>
-
- struct page_info *frame_table;
-@@ -378,9 +380,33 @@ int map_pages_to_xen(unsigned long virt, mfn_t mfn, unsigned long nr_mfns,
-     return xen_mpumap_update(virt, mfn_to_maddr(mfn_add(mfn, nr_mfns)), flags);
+@@ -106,6 +106,7 @@ pr_t pr_of_addr(paddr_t base, paddr_t limit, unsigned int flags)
+     region = (pr_t) {
+         .prbar = prbar,
+         .prlar = prlar,
++        .refcount = 0,
+     };
+ 
+     /* Set base address and limit address. */
+@@ -170,6 +171,35 @@ int mpumap_contains_region(pr_t *table, uint8_t nr_regions, paddr_t base,
+     return MPUMAP_REGION_NOTFOUND;
  }
-
--void __init setup_mm(void)
-+/*
-+ * Heap must be statically configured in Device Tree through "xen,static-heap"
-+ * on MPU systems, use setup_mm_helper() for that.
-+ */
-+void __init setup_mm_helper(void)
- {
--    BUG_ON("unimplemented");
-+    const struct membanks *reserved_mem = bootinfo_get_reserved_mem();
-+    unsigned int bank = 0;
-+
-+    for ( ; bank < reserved_mem->nr_banks; bank++ )
+ 
++static bool is_mm_attr_match(pr_t *region, unsigned int attributes)
++{
++    if ( region->prbar.reg.ro != PAGE_RO_MASK(attributes) )
 +    {
-+        if ( reserved_mem->bank[bank].type == MEMBANK_STATIC_HEAP )
-+        {
-+            paddr_t bank_start = round_pgup(reserved_mem->bank[bank].start);
-+            paddr_t bank_size = round_pgdown(reserved_mem->bank[bank].size);
-+            paddr_t bank_end = bank_start + bank_size;
-+
-+            /* Map static heap with one MPU protection region */
-+            if ( xen_mpumap_update(bank_start, bank_end, PAGE_HYPERVISOR) )
-+                panic("Failed to map static heap\n");
-+
-+            break;
-+        }
++        printk(XENLOG_WARNING
++               "Mismatched Access Permission attributes (%#x instead of %#x)\n",
++               region->prbar.reg.ro, PAGE_RO_MASK(attributes));
++        return false;
 +    }
 +
-+    if ( bank == reserved_mem->nr_banks )
-+        panic("No static heap memory bank found\n");
- }
-
- int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
---
++    if ( region->prbar.reg.xn != PAGE_XN_MASK(attributes) )
++    {
++        printk(XENLOG_WARNING
++               "Mismatched Execute Never attributes (%#x instead of %#x)\n",
++               region->prbar.reg.xn, PAGE_XN_MASK(attributes));
++        return false;
++    }
++
++    if ( region->prlar.reg.ai != PAGE_AI_MASK(attributes) )
++    {
++        printk(XENLOG_WARNING
++               "Mismatched Memory Attribute Index (%#x instead of %#x)\n",
++               region->prlar.reg.ai, PAGE_AI_MASK(attributes));
++        return false;
++    }
++
++    return true;
++}
++
+ /* Map a frame table to cover physical addresses ps through pe */
+ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+ {
+@@ -284,22 +314,26 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
+ 
+     flags_has_page_present = flags & _PAGE_PRESENT;
+ 
+-    /* Currently we don't support modifying an existing entry. */
++    /*
++    * Currently, we only support removing/modifying a *WHOLE* MPU memory
++    * region. Part-region removal/modification is not supported as in the worst
++    * case it will leave two/three fragments behind.
++    */
+     if ( flags_has_page_present && (rc >= MPUMAP_REGION_FOUND) )
+     {
+-        printk("Modifying an existing entry is not supported\n");
+-        return -EINVAL;
+-    }
++        if ( !is_mm_attr_match(&xen_mpumap[idx], flags) )
++        {
++            printk("Modifying an existing entry is not supported\n");
++            return -EINVAL;
++        }
+ 
+-    /*
+-     * Currently, we only support removing/modifying a *WHOLE* MPU memory
+-     * region. Part-region removal/modification is not supported as in the worst
+-     * case it will leave two/three fragments behind.
+-     */
+-    if ( rc == MPUMAP_REGION_INCLUSIVE )
+-    {
+-        printk("Part-region removal/modification is not supported\n");
+-        return -EINVAL;
++        /* Check for overflow of refcount before incrementing.  */
++        if ( xen_mpumap[idx].refcount == 0xFF )
++        {
++            printk("Cannot allocate region as it would cause refcount overflow\n");
++            return -ENOENT;
++        }
++        xen_mpumap[idx].refcount += 1;
+     }
+ 
+     /* We are inserting a mapping => Create new region. */
+@@ -323,7 +357,18 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
+             return -EINVAL;
+         }
+ 
+-        disable_mpu_region_from_index(idx);
++        if ( xen_mpumap[idx].refcount == 0 )
++        {
++            if ( MPUMAP_REGION_FOUND == rc )
++                disable_mpu_region_from_index(idx);
++            else
++            {
++                printk("Cannot remove a partial region\n");
++                return -EINVAL;
++            }
++        }
++        else
++            xen_mpumap[idx].refcount -= 1;
+     }
+ 
+     return 0;
+-- 
 2.43.0
 
 
