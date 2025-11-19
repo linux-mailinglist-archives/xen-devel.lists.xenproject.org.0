@@ -2,47 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E72A2C70BEF
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Nov 2025 20:13:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1166327.1492898 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87BBFC70CFC
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Nov 2025 20:30:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1166355.1492914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLnc0-0007li-4i; Wed, 19 Nov 2025 19:13:04 +0000
+	id 1vLnse-0002gW-Ol; Wed, 19 Nov 2025 19:30:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1166327.1492898; Wed, 19 Nov 2025 19:13:04 +0000
+Received: by outflank-mailman (output) from mailman id 1166355.1492914; Wed, 19 Nov 2025 19:30:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLnc0-0007jO-0Y; Wed, 19 Nov 2025 19:13:04 +0000
-Received: by outflank-mailman (input) for mailman id 1166327;
- Wed, 19 Nov 2025 19:13:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aBqX=53=redhat.com=armbru@srs-se1.protection.inumbo.net>)
- id 1vLnby-0007Pd-NM
- for xen-devel@lists.xenproject.org; Wed, 19 Nov 2025 19:13:02 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c44940d8-c57b-11f0-9d18-b5c5bf9af7f9;
- Wed, 19 Nov 2025 20:13:02 +0100 (CET)
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-163-ZZ9ZNeNsM7mLeavDfCwX8g-1; Wed,
- 19 Nov 2025 14:12:56 -0500
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 0EC18180034A; Wed, 19 Nov 2025 19:12:51 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.45.242.18])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id B313C180047F; Wed, 19 Nov 2025 19:12:49 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 3478021E6A27; Wed, 19 Nov 2025 20:12:47 +0100 (CET)
+	id 1vLnse-0002cW-Kj; Wed, 19 Nov 2025 19:30:16 +0000
+Received: by outflank-mailman (input) for mailman id 1166355;
+ Wed, 19 Nov 2025 19:30:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GacY=53=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1vLnse-0002Z9-1a
+ for xen-devel@lists.xenproject.org; Wed, 19 Nov 2025 19:30:16 +0000
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20a::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2bea38ed-c57e-11f0-980a-7dc792cee155;
+ Wed, 19 Nov 2025 20:30:14 +0100 (CET)
+Received: from AM0PR03MB4594.eurprd03.prod.outlook.com (2603:10a6:208:c8::27)
+ by DB9PR03MB7690.eurprd03.prod.outlook.com (2603:10a6:10:2c6::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Wed, 19 Nov
+ 2025 19:30:08 +0000
+Received: from AM0PR03MB4594.eurprd03.prod.outlook.com
+ ([fe80::5a:31d6:fee4:ccae]) by AM0PR03MB4594.eurprd03.prod.outlook.com
+ ([fe80::5a:31d6:fee4:ccae%4]) with mapi id 15.20.9343.009; Wed, 19 Nov 2025
+ 19:30:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,79 +47,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c44940d8-c57b-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1763579581;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=40h3XLj9+PQ9YtwgX30Ek+MMJ2QDdr/Ci5vXiZEsl2A=;
-	b=PIbfsttwP8VK0U/cN/MVh0Vb1Qxv+glISjeLh+HpvbiqV/SVNV1cmyqMqd3bVv4YiDpIQj
-	7wCVR4ZCQSw14fxPlZ5an6o8thBg2DcmGbD6OkMuAhg4ErO88oftqsuvTTm7RozuhFWVFN
-	ZhRsZQ+v4pFRP3C9OMB8VRVbe4h9OsQ=
-X-MC-Unique: ZZ9ZNeNsM7mLeavDfCwX8g-1
-X-Mimecast-MFC-AGG-ID: ZZ9ZNeNsM7mLeavDfCwX8g_1763579572
-From: Markus Armbruster <armbru@redhat.com>
-To: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-Cc: qemu-devel@nongnu.org,  kwolf@redhat.com,  hreitz@redhat.com,
-  mst@redhat.com,  imammedo@redhat.com,  anisinha@redhat.com,
-  gengdongjiu1@gmail.com,  peter.maydell@linaro.org,
-  alistair@alistair23.me,  edgar.iglesias@gmail.com,  npiggin@gmail.com,
-  harshpb@linux.ibm.com,  palmer@dabbelt.com,  liwei1518@gmail.com,
-  dbarboza@ventanamicro.com,  zhiwei_liu@linux.alibaba.com,
-  sstabellini@kernel.org,  anthony@xenproject.org,  paul@xen.org,
-  berrange@redhat.com,  peterx@redhat.com,  farosas@suse.de,
-  eblake@redhat.com,  eduardo@habkost.net,  marcel.apfelbaum@gmail.com,
-  philmd@linaro.org,  wangyanan55@huawei.com,  zhao1.liu@intel.com,
-  qemu-block@nongnu.org,  qemu-arm@nongnu.org,  qemu-ppc@nongnu.org,
-  qemu-riscv@nongnu.org,  xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 1/5] hw/core/loader: Make load_elf_hdr() return bool,
- simplify caller
-In-Reply-To: <bf44d9cd-806a-4d2c-8cff-0a88222959ed@yandex-team.ru> (Vladimir
-	Sementsov-Ogievskiy's message of "Wed, 19 Nov 2025 19:34:26 +0300")
-References: <20251119130855.105479-1-armbru@redhat.com>
-	<20251119130855.105479-2-armbru@redhat.com>
-	<bf44d9cd-806a-4d2c-8cff-0a88222959ed@yandex-team.ru>
-Date: Wed, 19 Nov 2025 20:12:47 +0100
-Message-ID: <875xb5x2ds.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+X-Inumbo-ID: 2bea38ed-c57e-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=feqDyk6P4heFKV/K+PijOozUKe2/WI65zCFcuv9xf6fvCIkHbhFBTOb1a5HfGdyz7MJWFu7puGbi8WqO26+7egh/shONoY3/ETggT+Ctyy4i7U9qAMX2H0zZpxDYrMuVI4sYNKcsoGDWl5nKrgAIKvOYn24cXme7lJ9I7JLhekXnp1sEjLdi0GKtpBoA7atS96JyEUyglT+GvdHQARg4MMMZS41SSYjd3efCJr19U/tl8Kd9/usMiijs+02oQkmMwgUXBiw2vq0vWY71yGqIjxPpfQri0HIJjaOWkSOWVl042BQtpGMtzoEvgVC7iIjDPffmsKwGU2AZ5di4L7A1Ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0jR9H82uqN6Pq4sjQFVnEVcGPJ2uolsJHWh6buD+pW0=;
+ b=fBBfIvdAJeiLiyZAKTUZce4f/HyBz4nCYcteGZqq6f2D+upMtX7OgKHgykml4pSHEszhPQmbX22Tflg6hzuM4e60ekdcgntBUYO9qLxqYYzKCXbLTNnKeW+kuhU2XxiZYzXCnEcMdS3Mf4iJhuPEi9SxLajCTL4Kic7JwSUmbIQgmVx2TtBpVgxz52GvMqAIjl2c6xME4RHVntpgOBb4vfyKNkxhKOruI39C1YxiS9mgrNyFx8f8a9+iLjF/eLKaoeMd+2OQ+HENcj5e7NX1mtxQ39HdDNv9gL3IH+4Pblfus1LqY7avs6YdzrNE2Z5GERWRVhMXVdWUIfo6++v0+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0jR9H82uqN6Pq4sjQFVnEVcGPJ2uolsJHWh6buD+pW0=;
+ b=UDDgVCtwIfMNgkVBwQnTY+65oJ+VttF5jgbfj2hHq2ko2wFJB6RRUVXJbSbZ6mseFKOuI0Hmty92rKe7LTSr1yF28/o0ozUIFa86gPh/R8KnwgJ37RzP060uTLM4Ibd1ivpbBgrnlihQv4HTilyIkwU+0+mIUePF1CZkmy52L5xGBwSzP0+F35O/7fFbzLt9P1GC+5nsdi500M6GUUZA3XKG5fJ2gelMKc3zJXMe5zxMSHK2IVWwLNfgCGliLrxV+8lP8hB7CJqDB49LqHuYrOZqbz5bLSbEpWSCk/eXqC3X7aNk/OyOdRcwotCZJVVmm/46CBnz+whInj348RNcJQ==
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Grygorii Strashko <grygorii_strashko@epam.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
+ Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN][PATCH v2 0/4] x86: pvh: allow to disable 32-bit (COMPAT)
+ interface support
+Thread-Topic: [XEN][PATCH v2 0/4] x86: pvh: allow to disable 32-bit (COMPAT)
+ interface support
+Thread-Index: AQHcWYrqEdLIdxgHq06iG/KRChB4+A==
+Date: Wed, 19 Nov 2025 19:30:08 +0000
+Message-ID: <20251119192916.1009549-1-grygorii_strashko@epam.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM0PR03MB4594:EE_|DB9PR03MB7690:EE_
+x-ms-office365-filtering-correlation-id: 7fcc194e-186d-4a31-3b06-08de27a20ccf
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700021;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?irI3hVksnb9E2WANveVnzmJ+7hT/F6SDNVpVGIvJVuwK2WNAOXs7CQTZ8+?=
+ =?iso-8859-1?Q?qUVzcZCB0GGQdh5wx6siyIT3xC6mqfCGjA19dHUerNeKzT16r/qSwu0E4b?=
+ =?iso-8859-1?Q?t7yIlLHzkO7iD8nvrE93wZE9SIk4XJJQvuySnAZs/tYcJ8UslxBMZfkyH/?=
+ =?iso-8859-1?Q?bo5SCZRO5h/ixnb2KQf9ToL/Afv+9SXlNdDiJllHn8k6Qj/VzhoA5sZlcv?=
+ =?iso-8859-1?Q?vHYj8MeIX9ZjTn49maHYEGUKj9Z6//PQO4WDeaJNUZCVzGjsY3iUowgOHz?=
+ =?iso-8859-1?Q?vP3gkwcHwc70OfJsJNcDRJ8dQR56OqhlnjNccl7bm5wQtdF/za/rrDJFMo?=
+ =?iso-8859-1?Q?nsC48DD0wu0ea9tU3FpHbRK6rw658ncU8WzZixB62bM5nPugvYnNHYtmRV?=
+ =?iso-8859-1?Q?32Su1pKnqIMrFoPGo66hO6rKXPYRn3IXsEDnvlu4k08SWuLqfLIZU8Id1y?=
+ =?iso-8859-1?Q?lJGKiY4L/zK0t6dl4vALTIOLX/c0AfOx7UlXVZY44Rx0ebut2Mv5L/Wz5H?=
+ =?iso-8859-1?Q?zq3rMSFPPzo7m5G7n/um+HJaZRJ+8SUUA7qVRrIgOTyxeRHD1JhypDHKLe?=
+ =?iso-8859-1?Q?V/ZGzm+y76/220GdPopaGsAHcejtalzYPQOvorULD4aWO4uJqq85IQcCjp?=
+ =?iso-8859-1?Q?8fPWkVJ+VF3TWBQwc8WXSUOiP9pcbBCQhOzP9b4zzLEx5aBF8zhggfySU9?=
+ =?iso-8859-1?Q?0N17PXWdGss3e1U5DVo2veUxUjfsd9KHLpJjMiFSNbtKp7S76DuAdK29o6?=
+ =?iso-8859-1?Q?cZWcMl/MSU/DC4zAX88ex+Hdwj/dXOsZbJrWsL5WcRN2HOoTS2hQdJMBUA?=
+ =?iso-8859-1?Q?79ikd5ndPshrfDD4wUsJr/Gg5Gf4pZzrM4+Y1qbnK2Prj7E6yqfTqFfKSd?=
+ =?iso-8859-1?Q?5Zzj8AktHPpIdEc/BqD4JojFkcNGgK67dUTYri9XfTMsmdcSRtmGj39OxX?=
+ =?iso-8859-1?Q?1bBk4GyjLwXpkYIpJjo8fjWd2I7pjC/pgpjS4KUoCQ0cDF23tzrPcIrITC?=
+ =?iso-8859-1?Q?KTke6UGXYyFvblAf4EnjakdruSXFPjNik+NH2kohIPYeF9ETKhrWdy+RbV?=
+ =?iso-8859-1?Q?cjJ7SkqoClXUz7gReKnnLsx5DHPrOWbkwowA73oBbc91I8F9IZiX3S2hqA?=
+ =?iso-8859-1?Q?I+V71fgy16TDAJjEgUmrCoS0QWfNkqy0kdJ+As58XR0Zeo+lZhZJWh/dfY?=
+ =?iso-8859-1?Q?+bBeQFGLoltAtXPFrr9cTNp2kO1Aswol5odkqTVD/g88e9UmXIIjisZ2ba?=
+ =?iso-8859-1?Q?PeelYntVdxTmTtu0P7gQGD0SSyqTAuWwt10871BCrVIQMXSVfSAU7kcNcM?=
+ =?iso-8859-1?Q?htr3l9EZ9nUzUbDwbPdbjNH3Wx8u4SCohOv1Jyi09idHODzWwKrDfLmyG6?=
+ =?iso-8859-1?Q?FyMtG0JYkag2XcF8tuPH+xEnVt4RGEHaXWtUpYrAZsJJZmNMLN/qc+lGC8?=
+ =?iso-8859-1?Q?ffMu2Bh3oT5uL6WO8rbmRtJim4SETq3fPjHFUyt/PZYq71oReXweyu4Xld?=
+ =?iso-8859-1?Q?bjEbForc52k8QYmMWcwsZABCTn3ZYbUfdiFQdoa/Fs9s9nzOyq+GLHMa4+?=
+ =?iso-8859-1?Q?QwjIyHrIyLkFfrYnF5mN89JE+vJR?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB4594.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?wLcwTYA4UsP74oNmEw37b8GkrqWp4V4f5TSoNmzB6H3hQkvxvTeQpX1qoL?=
+ =?iso-8859-1?Q?E8jWRLcHhWk0OwdGmnbyRT9L6JOpf4VjFnh6rXZR33nsWwtS5xVvuJkWPC?=
+ =?iso-8859-1?Q?So/PxKMT02Y8oin8DSVfV26zIs21H5DSN9GKDwKz0NSybeS5peSLwvoFYh?=
+ =?iso-8859-1?Q?N1iush+YaQw0zoEFq9W2epWUTOv//PoXpiiD0s3OtATdNm6yh5VWROWlQ+?=
+ =?iso-8859-1?Q?p7iaObMZrPwWhOTsb8sMXcm+XPygJdHjW4sAWnec9AUnAsC2GQULXuRzuN?=
+ =?iso-8859-1?Q?LNXXZoqYPgXHLk11S32wte5K2iR1X7ep6WqFTH0fdhdVk82WHXauIdADVB?=
+ =?iso-8859-1?Q?TA6eEHRt50wnmnI7xeb5Vldqtolwf+tiMVzIv7FUj7Iz4EDQNHbUgEe3W+?=
+ =?iso-8859-1?Q?Zy7qn/Q9lHdk7ywjlBAhe9pkfAVdwCFk52GGPajGBy00v3FMolIQDnQdFk?=
+ =?iso-8859-1?Q?DQsODdecrT1xdCj+Gf7QoZSs/F+YjiD3I3N23wPOX3IORKT+1jUQWxuGzr?=
+ =?iso-8859-1?Q?gS85HU0NKzOcBfKgkFacmD6Xjps2fU7wmPrbioHORG0YH5NTUBCGvgHK5U?=
+ =?iso-8859-1?Q?xfZQQAeK5gI55mtmrNVtoEuGq/T92LXPIv6MeyuzjwMJn6RZzFAQG3Z2Ld?=
+ =?iso-8859-1?Q?DYABciiAEFDa3kOiGWI65doilQfKkNjYQIL34fSLv0ZVEMBMOsh+iujyEk?=
+ =?iso-8859-1?Q?4Bte2X8w8FpK+ZWbb+DjbbYZTSU27QyygASboA2uJ7/82HiEm8gILKNN9Q?=
+ =?iso-8859-1?Q?yDjb7VkqrHaMkVCtZbMWDvBTNriGkyasn7Py8BuTYGNF5UKanLgGN/1my5?=
+ =?iso-8859-1?Q?meonDePfm0C/pSqFSIFrGZnoikgMzp3vvtokhJr7fjm2e6FAu3/9wOyGJV?=
+ =?iso-8859-1?Q?GsNCdZlK0+p8evg+2MVUbqLKXqmizuuPJoDqxtovmuB/oLMKR76Zm7TBjy?=
+ =?iso-8859-1?Q?ssGLlwLURIGNZG3vQzoszB62CD6LCKckRcB8rWohAgNeIfdCqVP4Io1jk+?=
+ =?iso-8859-1?Q?Fdw8r4v0vxhAbOd14ID/973oB6zBsCADxhWIcBI/C0aO3ZjOuTSW7y7cwk?=
+ =?iso-8859-1?Q?Bkf7uJ+vaRw79DRI6XQUCrnkTx/GVzVKlQhmB9XvbA1O48SDUlGSdpx3eX?=
+ =?iso-8859-1?Q?IEEN298r8YagPh1tV8V79UN2HJIid1BCPYDzo7lLwJm0iEv0lQaHf4kHtc?=
+ =?iso-8859-1?Q?KhhkBsCiP/5KAV1DsSU/Wdquhw0VAKat6KjjUcuSLsV8zjrqnbA/qAvkBq?=
+ =?iso-8859-1?Q?ZZ0Ct8GEZlEbbSbl/DydJvc6alZiakh/NOoCuWDlmKYO7JsJ71fiqU6A2i?=
+ =?iso-8859-1?Q?b2j5q9DKWr8ax9xFGUWhTyax16hKZcn5N3ZnuZrOu9cRmJDZn2gLGSolOX?=
+ =?iso-8859-1?Q?PBk7TpUzgUX6xZqQ++Mlo6vCUOWGjyXQh5ieAO39Dvyd1LXzeUkdIFDbEs?=
+ =?iso-8859-1?Q?XLLoFaCkj2BsdS8jbKOA13lG0AUTWaSmUFmh7vzqZ8iVjsyFpcgRC97ZQn?=
+ =?iso-8859-1?Q?1hm9Rs5oedh2E7TJqSKZmjntPbs2fVqLHm/1I6axUGWxB4+gS6mmh4mlW9?=
+ =?iso-8859-1?Q?QXwu3dwvDv/7MDC22EtowiyLqC4eEEwexKWBKr4e9/WooTrz9GFAWRoqSS?=
+ =?iso-8859-1?Q?fclueyGXZXazLSC6LLT2bwvmrG//LHRWTRtW/Knk1fqICSnlK8s2htHg?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB4594.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7fcc194e-186d-4a31-3b06-08de27a20ccf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Nov 2025 19:30:08.5844
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: zFXxTYSuGzbwPBg6WbhPQkImVLYguyrD3Fmh5cbHedni8Y3BmsCC5hAqY7frarvaESN2/uxkckAyXnftN48ysy6wIQVwQQQ5WJUZA//X73w=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7690
 
-Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru> writes:
+From: Grygorii Strashko <grygorii_strashko@epam.com>
 
-> On 19.11.25 16:08, Markus Armbruster wrote:
->> Signed-off-by: Markus Armbruster <armbru@redhat.com>
->
-> Reviewed-by: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
->
->> ---
->>   include/hw/loader.h |  4 +++-
->>   hw/arm/boot.c       |  6 +-----
->>   hw/core/loader.c    |  8 ++++++--
->>   hw/riscv/spike.c    | 10 +---------
->>   4 files changed, 11 insertions(+), 17 deletions(-)
->> diff --git a/include/hw/loader.h b/include/hw/loader.h
->> index d035e72748..6f91703503 100644
->> --- a/include/hw/loader.h
->> +++ b/include/hw/loader.h
->> @@ -188,8 +188,10 @@ ssize_t load_elf(const char *filename,
->>    *
->>    * Inspect an ELF file's header. Read its full header contents into a
->>    * buffer and/or determine if the ELF is 64bit.
->> + *
->> + * Returns true on success, false on failure.
->
-> I don't really care, but IMO, it's obvious contract for bool+errp functions, not worth a comment.
+Hi
 
-Nearby function comments all have a "Returns" sentence.  I try to blend
-in :)
+This series introduces possibility to disable 32-bit (COMPAT) interface sup=
+port
+in the following case:
+      - Only PVH domains are used
+      - Guests (OS) are started by using direct Direct Kernel Boot
+      - Guests (OS) are 64-bit and Guest early boot code, which is running =
+not
+        in 64-bit mode, does not access Xen interfaces
+        (hypercalls, shared_info, ..)
 
->>    */
->> -void load_elf_hdr(const char *filename, void *hdr, bool *is64, Error **errp);
->> +bool load_elf_hdr(const char *filename, void *hdr, bool *is64, Error **errp);
->>     ssize_t load_aout(const char *filename, hwaddr addr, int max_sz,
->>                     bool big_endian, hwaddr target_page_size);
+If above criterias are met the COMPAT HVM interface become unreachable and =
+can be disabled.
+Coverage reports analyze and adding guard (debug) exceptions in hvm_hyperca=
+ll/hvm_do_multicall_call
+and hvm_latch_shinfo_size() confirm that COMPAT HVM interface is unused for=
+ safety use-case.
 
+Changes in v2 described in each patch:
+- patch "x86: constify has_32bit_shinfo() if !CONFIG_COMPAT" squashed in pa=
+tch 2.
+
+v1:
+ https://patchwork.kernel.org/project/xen-devel/cover/20251111175413.354069=
+0-1-grygorii_strashko@epam.com/
+
+Grygorii Strashko (4):
+  x86: hvm: dm: factor out compat code under ifdefs
+  x86: hvm: compat: introduce is_hcall_compat() helper
+  x86: hvm: factor out COMPAT code under ifdefs
+  x86: pvh: allow to disable 32-bit interface support
+
+ xen/arch/x86/hvm/Kconfig          | 19 ++++++++++++++++++-
+ xen/arch/x86/hvm/dm.c             |  2 ++
+ xen/arch/x86/hvm/hvm.c            | 24 ++++++++++++++++++++----
+ xen/arch/x86/hvm/hypercall.c      | 22 +++++++++++++++++-----
+ xen/arch/x86/hypercall.c          |  6 +-----
+ xen/arch/x86/include/asm/domain.h |  9 +++++++--
+ xen/common/kernel.c               |  2 +-
+ xen/include/hypercall-defs.c      |  9 +++++++--
+ xen/include/xen/sched.h           |  9 +++++++++
+ 9 files changed, 82 insertions(+), 20 deletions(-)
+
+--=20
+2.34.1
 
