@@ -2,38 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73C91C70723
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Nov 2025 18:25:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1166209.1492806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BBF9C70911
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Nov 2025 19:05:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1166248.1492827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLlvJ-0005RG-Tc; Wed, 19 Nov 2025 17:24:53 +0000
+	id 1vLmYP-0003P9-3f; Wed, 19 Nov 2025 18:05:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1166209.1492806; Wed, 19 Nov 2025 17:24:53 +0000
+Received: by outflank-mailman (output) from mailman id 1166248.1492827; Wed, 19 Nov 2025 18:05:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLlvJ-0005P6-QJ; Wed, 19 Nov 2025 17:24:53 +0000
-Received: by outflank-mailman (input) for mailman id 1166209;
- Wed, 19 Nov 2025 17:24:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qdfF=53=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vLlvI-0005Ov-IM
- for xen-devel@lists.xenproject.org; Wed, 19 Nov 2025 17:24:52 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a1b7a5c2-c56c-11f0-980a-7dc792cee155;
- Wed, 19 Nov 2025 18:24:41 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-6417313bddaso11205469a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Nov 2025 09:24:41 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-645363b5fe9sm62398a12.11.2025.11.19.09.24.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Nov 2025 09:24:39 -0800 (PST)
+	id 1vLmYP-0003N4-0u; Wed, 19 Nov 2025 18:05:17 +0000
+Received: by outflank-mailman (input) for mailman id 1166248;
+ Wed, 19 Nov 2025 18:05:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=t1IC=53=redhat.com=peterx@srs-se1.protection.inumbo.net>)
+ id 1vLmYN-0003My-LD
+ for xen-devel@lists.xenproject.org; Wed, 19 Nov 2025 18:05:15 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 489ca1a0-c572-11f0-9d18-b5c5bf9af7f9;
+ Wed, 19 Nov 2025 19:05:09 +0100 (CET)
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-311-vH0WEA8aOsCUOknBTVlAdA-1; Wed, 19 Nov 2025 13:05:06 -0500
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-8805c2acd64so309086d6.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Nov 2025 10:05:06 -0800 (PST)
+Received: from x1.local ([142.188.210.156]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-88286595ea2sm138610226d6.51.2025.11.19.10.04.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Nov 2025 10:04:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +48,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1b7a5c2-c56c-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763573080; x=1764177880; darn=lists.xenproject.org;
-        h=content-transfer-encoding:subject:from:to:content-language
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=55SGmtXQ9o5EY141c7ab3dNmMOpFvCMTG3q4suOEbf8=;
-        b=SFJ+16+jswr5lTANd0DMycHdFUDewk2uaZZKC4vneu0Q2ASjBxahj8/cB3WDlwXr0X
-         J4Tu+w1EDUr2PwF3rEyT5OsT34LMJLal5TgARnwQF8o6UR3EodyQiJhWVyYrYL1lxH4W
-         AK8iP/PnbOrNwCMEzlryWHeSBOHyptmc7NHR4DIwUJ28JcDxcAVOVPqzb23Tr5GIp/GL
-         STaoLjXNVpW6EhYdYpjfwXbeSty+Tg0nbTs6z61ZL8D52JGiIXh5Cj9HThqDAItABwxy
-         YCXyxp6+FOeGbR+aNayQV/PhnBugyF1kRa1GTh+NIyr4v4IJ6U2Jgsvx4Gwk25huEVTQ
-         hX4w==
+X-Inumbo-ID: 489ca1a0-c572-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1763575508;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sLup+W7pa6WZ/k6QZNaZVOA124clRvPAt6nyoZoANYk=;
+	b=L0N67id8V25htQxH0WGWIxf0RUU4x+gtpNZPXNdGyqkySZEfhYK8gLsg7ai1qQsMF9D1Or
+	0nKBNxMVMApCvBeq3pt58KhCOOMp6KqmFuXjbYgdwc1GJOi1ebFvMyiG/Ydq9ftRuIly+x
+	JwqhPmlgqdpsRwENFb3QUR8r+pyZhW8=
+X-MC-Unique: vH0WEA8aOsCUOknBTVlAdA-1
+X-Mimecast-MFC-AGG-ID: vH0WEA8aOsCUOknBTVlAdA_1763575505
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763573080; x=1764177880;
-        h=content-transfer-encoding:subject:from:to:content-language
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=55SGmtXQ9o5EY141c7ab3dNmMOpFvCMTG3q4suOEbf8=;
-        b=YR07+DnyRwreevoEbBoNVxHFnKjPisz4ju01iSCOATqZXIgjPH3Nzd1e599lucWWRC
-         YE+eW7A4+sQd4Lg/UphiyskF1cqzQv3o4IyuWi69VCliE4gpMletwVvENzhlMOKy0cyT
-         p4ilVaCkoliUIaig6ocIEIjUxicejc6rJnjnrZWaIqLNfz3YtfS+pSYO/p2JAu2gK+LJ
-         fgybcxP6v7twoYmQ9tx1SCQIOrMl+jB7cVdFqUbzCDQJhZML3k5QIQq/YXVeiTqFYhxR
-         kFZzJR5LHKJX2odRS7Q0fRP2sKotsPir4YWM3D5CDUPy0u79iPrTriZ4p3fRQcRxgKbL
-         1GeQ==
-X-Gm-Message-State: AOJu0YwP/w2Do16dlwmJ2rjdM+mu9An58VwMCnIM73qRcuntZtEUD/kr
-	IPnBLA4oq9OzN+qNvgr9tI/ey7AnxvkTsfmDePfGZifCsn1OSiQOO0N2QsrXxN+V
-X-Gm-Gg: ASbGncvqD7p/c/7thKXIxL2lMxZewgC4uXstKc5ONSe77y5lK815TZ5a7ftjNkfywBs
-	Hwfa+h8NM1+Kq9d441RO6w1iGbxe8MHL/e7CSKVkRSSu48F/i9+m8MV8aFU3C1lq0PvbDK90Q1b
-	vsO8coaVkBixU9SIOSJda9Ui2qlRcH7nonoYa6cWsZkn46MXUQwWA+tiNwmWlPQGtmBl/RxRgS6
-	FqzSp79VJ0lgIsjUjgHaWJsZo5dz0o3mMgmTUEHPiShAXvxbhKR65lGS16hEwGO6MGA1sMxqxVQ
-	qjdArbXJFf6/E5tT1qjTe/+Qj/yzuTlNPUZ8sARYTpSWWP7NYvB5SXTQc/oXd8W6sVwhFZz4OdI
-	FOIiDTFRLo8r0lxM/0JM1e+76NpSEsIxnACWCm45YQZYXlheJdKkq/7paelRyNpq5rp/PO38fHE
-	4NCyIjs4Yle6NLH4dvQiYunrBzIdgDl/Klxr09gKjsymT/mdEcCGlFSBTFgzeo1z+nriA2zx8=
-X-Google-Smtp-Source: AGHT+IH5KIeZCB6DZnSNPNYa4dQBpSCWpG0vNamTZW4xzcXQ/FJRcmxv5dgwxTU5Ifc4pVC8M+mOyw==
-X-Received: by 2002:a05:6402:26d2:b0:638:74dc:cf78 with SMTP id 4fb4d7f45d1cf-64536486defmr92788a12.34.1763573079963;
-        Wed, 19 Nov 2025 09:24:39 -0800 (PST)
-Message-ID: <7b03be85-e41e-4912-bc14-9316658ddbd1@gmail.com>
-Date: Wed, 19 Nov 2025 18:24:38 +0100
+        d=1e100.net; s=20230601; t=1763575505; x=1764180305;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=sLup+W7pa6WZ/k6QZNaZVOA124clRvPAt6nyoZoANYk=;
+        b=H7wgLFc8bRdiabETAdiek3CZbeofCIC70hT8lMqdKRrqBTz5J3w/K3O1je23YUp5zo
+         CA7D3RHrptBL9eVenO6TM1C2RuWVPpMBIAUetEJSuUk7edV9qnzJV8qAfMj8AosPaAqR
+         a95pcyscbA2a3fegXpMj5j4JV4yI5H2UzchxLBU4dQrv4pBhVUeVwxxskfdzHbnjMAW5
+         Y4yMH7fiVm7khorZfqI1tajKtEweyJCsElnyRfuCRoCZyhsMIeGSnfpDXeMRc4EJe6tG
+         M1LA1YaTSezMJtT6Pgmt79bErehmBmI97v3CqVu3zRhbn1xk4t8Q9QwfvpkHHRPABhSm
+         qSmQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWmElgFj0DV1qbLm4uVX3aTA2cnDeVTl6mFcO4SVh32yDN+cUOTfeI97jhPmIJPq/wfC650amooj/4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxp0zFX488h1ps+Xmr+mkYyxsvAX8zV0fVKdkl4HvHvUJCGS4eT
+	yEVIkSVzerzbv8j1CWkbFcI6uWeG/D1Tnbi4hXWZz3R4xuSiy7M26IcpzRPGnqjk+ikPsqDCZ+K
+	8A7fvrNRfG9SQqAqwvYSSNQPpWOjVTw6PGNWsJnUlYkRk4HOPEAnNgWKiMyGZAfdHUwkY
+X-Gm-Gg: ASbGncvhPbQqflt+vT88bYDef+e29V5HnAq828X9MzxF32Ze5SpVN1ZwW56NOulwh5b
+	SlfH+LlsOv/d44Jep1Va2Zq/lDQ/j0wLz2rns1FAilDQJXUOw3go3WqB/Mho8eyjIdEtH5HlhKP
+	SR0pjbLsLUZp6plu78xBUio+Vxp14LUTxNotMsDYvhX4GAFO7FL78KkwTWUcB49tofRIP0s7Zim
+	DWnK4Rg71vLOVS3DzjMurLJAc6jIxOlheRMVDliis1ZYFBUxE4STYfmSfWMxOQ97Q5VfixqLPkz
+	whC5XyBeqw5X3mp1dcuAx/Qi0QSUb7PpkKmBYh7Ts5ycNMPj3sQKOIz30p68wG28C//YnvW6I7v
+	MTWI=
+X-Received: by 2002:a05:622a:1915:b0:4ed:8fa:6fc4 with SMTP id d75a77b69052e-4ee4971d531mr1625091cf.78.1763575505162;
+        Wed, 19 Nov 2025 10:05:05 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGyg2JyzSrFhB2LMApC4ECHgD7juQRduC9UIz0/PCIU7u2oBKhMX1CSoSw3khRb1Qff2CShKQ==
+X-Received: by 2002:a05:622a:1915:b0:4ed:8fa:6fc4 with SMTP id d75a77b69052e-4ee4971d531mr1616981cf.78.1763575499123;
+        Wed, 19 Nov 2025 10:04:59 -0800 (PST)
+Date: Wed, 19 Nov 2025 13:04:56 -0500
+From: Peter Xu <peterx@redhat.com>
+To: Markus Armbruster <armbru@redhat.com>
+Cc: qemu-devel@nongnu.org, kwolf@redhat.com, hreitz@redhat.com,
+	mst@redhat.com, imammedo@redhat.com, anisinha@redhat.com,
+	gengdongjiu1@gmail.com, peter.maydell@linaro.org,
+	alistair@alistair23.me, edgar.iglesias@gmail.com, npiggin@gmail.com,
+	harshpb@linux.ibm.com, palmer@dabbelt.com, liwei1518@gmail.com,
+	dbarboza@ventanamicro.com, zhiwei_liu@linux.alibaba.com,
+	sstabellini@kernel.org, anthony@xenproject.org, paul@xen.org,
+	berrange@redhat.com, farosas@suse.de, eblake@redhat.com,
+	vsementsov@yandex-team.ru, eduardo@habkost.net,
+	marcel.apfelbaum@gmail.com, philmd@linaro.org,
+	wangyanan55@huawei.com, zhao1.liu@intel.com, qemu-block@nongnu.org,
+	qemu-arm@nongnu.org, qemu-ppc@nongnu.org, qemu-riscv@nongnu.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 4/5] error: error_free(NULL) is safe, drop unnecessary
+ conditionals
+Message-ID: <aR4GyA3nfvelqr7i@x1.local>
+References: <20251119130855.105479-1-armbru@redhat.com>
+ <20251119130855.105479-5-armbru@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Xen-devel <xen-devel@lists.xenproject.org>,
- xen-announce@lists.xenproject.org, advisory-board@lists.xenproject.org,
- Community Manager <community.manager@xenproject.org>
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Xen Project Releases Version 4.21
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20251119130855.105479-5-armbru@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: DQLnCQFG-dR6bzry34mA41i5Bnie-aBcj6dJWi3xYL4_1763575505
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-Hello everyone,
+On Wed, Nov 19, 2025 at 02:08:54PM +0100, Markus Armbruster wrote:
+> Signed-off-by: Markus Armbruster <armbru@redhat.com>
 
-It's with great pleasure that I announce our 4.21 PR release.
+Acked-by: Peter Xu <peterx@redhat.com>
 
-I want to thank the whole community for their efforts in getting this
-release published!
-
-*Please find the PR article attached here
-<https://www.linuxfoundation.org/press/xen-project-delivers-xen-4.21-a-modernized-hypervisor-with-broader-architecture-support-and-improved-performance
-  >*
-
-Please find the tarball and its signature at:
-     https://downloads.xenproject.org/release/xen/4.21.0/
-
-You can also check out the tag in xen.git:
-     git://xenbits.xen.org/xen.git RELEASE-4.21.0
-
-Git checkout and build instructions can be found at:
-https://wiki.xenproject.org/wiki/Xen_Project_4.21_Release_Notes#Build_Requirements
-
-Release notes can be found at:
-     https://wiki.xenproject.org/wiki/Xen_Project_4.21_Release_Notes
-
-A summary for 4.21 release documents can be found at:
-     https://wiki.xenproject.org/wiki/Category:Xen_4.21
-
-Please find the released features below:
-https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=CHANGELOG.md;h=adaad5ee8923d3a1811fbcd1a99429958fec2fb8;hb=HEAD#l15
-
-Best regards,
-   Oleksii
-
-Come join the conversation on Matrix:
-
-XenProject:https://matrix.to/#/#XenProject:matrix.org
-
-XenDevel:https://matrix.to/#/#XenDevel:matrix.org
-
-
-
+-- 
+Peter Xu
 
 
