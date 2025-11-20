@@ -2,56 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB225C7451D
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 14:45:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1167396.1493716 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 568A7C7464E
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 14:59:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1167413.1493729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM4yG-0006Qn-TT; Thu, 20 Nov 2025 13:45:12 +0000
+	id 1vM5CH-00006c-7a; Thu, 20 Nov 2025 13:59:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1167396.1493716; Thu, 20 Nov 2025 13:45:12 +0000
+Received: by outflank-mailman (output) from mailman id 1167413.1493729; Thu, 20 Nov 2025 13:59:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM4yG-0006PJ-PR; Thu, 20 Nov 2025 13:45:12 +0000
-Received: by outflank-mailman (input) for mailman id 1167396;
- Thu, 20 Nov 2025 13:45:10 +0000
+	id 1vM5CH-0008VX-4Z; Thu, 20 Nov 2025 13:59:41 +0000
+Received: by outflank-mailman (input) for mailman id 1167413;
+ Thu, 20 Nov 2025 13:59:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WvbT=54=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1vM4yE-0006PD-SS
- for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 13:45:10 +0000
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c110::1])
+ <SRS0=Eeu9=54=gmail.com=freddy77@srs-se1.protection.inumbo.net>)
+ id 1vM5CG-0008VL-5Y
+ for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 13:59:40 +0000
+Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
+ [2607:f8b0:4864:20::1129])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1e307e73-c617-11f0-980a-7dc792cee155;
- Thu, 20 Nov 2025 14:45:05 +0100 (CET)
-Received: from SA1P222CA0191.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c4::24)
- by PH7PR12MB7988.namprd12.prod.outlook.com (2603:10b6:510:26a::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Thu, 20 Nov
- 2025 13:45:00 +0000
-Received: from SN1PEPF0002636E.namprd02.prod.outlook.com
- (2603:10b6:806:3c4:cafe::3) by SA1P222CA0191.outlook.office365.com
- (2603:10b6:806:3c4::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.11 via Frontend Transport; Thu,
- 20 Nov 2025 13:44:58 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SN1PEPF0002636E.mail.protection.outlook.com (10.167.241.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9320.13 via Frontend Transport; Thu, 20 Nov 2025 13:44:58 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 20 Nov
- 2025 05:44:57 -0800
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 20 Nov
- 2025 05:44:57 -0800
-Received: from [172.27.232.218] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 20 Nov 2025 05:44:56 -0800
+ id 26739614-c619-11f0-980a-7dc792cee155;
+ Thu, 20 Nov 2025 14:59:37 +0100 (CET)
+Received: by mail-yw1-x1129.google.com with SMTP id
+ 00721157ae682-78802ac22abso9878537b3.3
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 05:59:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,144 +40,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e307e73-c617-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rSJdiiAiulmM8fTpNYOWyC/NrH7apQwgTACBNQ0KvAPZcyntC/j2YkEaC8zZjYgLnscW+Hyt1zCM/jigl0ZY6c21rFgYDmZZ3KYHiEH56V4NFFoJxBrwiagCSJ4+lV1QnKNzselNcuWoqSZKmOvRnK1bv0GCvlmE2IZs7Ymdm6yTIGnAb5d6iy9TYSzgh1Mni1XvHV/z1F6nBLsBgwAyYAxl2Zr6C7HDeQgqSEZh0PHB/TQ6fEQMxgDSJUmGGKTnAHBKG88cPw0RS5Y7t37T0IqiUH5dvP9Us0iD+1oIoAH0kEWjpTiN+W8CqVQWZjZTbq09hpfH2Ufbt3EShMdYYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kg2qsvqjIZG+K9TLdEaJarAOhIt3DN9fCLRMm3QZOWs=;
- b=iiQAqC0Ocy/718IW74i/UUD5hpvCUgm2Y1m8rrRpT2IzLhhMAgXAfLqnO+56jMG4VrkmRX1Jt9QlCWL9v3aRxhes2tEY6Z9Lm5MSxNZOfd+f1LBmL1UNc6KCAtXlj4KYQ37317+SBZbt9nkLMdzDG95YaJX/LOAAuxuWex6HjIRPwQ+0qVkJM0bk9OMHeIIAwsT6YSh8C7HNB2hMRbWmgRACpkInttlTbn5rFmCjTdv2dibnJxf6SLqh1VpHDmJlQxIwEx91T8b8M+KcOmu2c+rxoJM2SmjW2pBvAQYJX/DtJ02Ij7vZ509+u8ACnbxUFOwFTTxygeRcGVOuhGH8Hw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kg2qsvqjIZG+K9TLdEaJarAOhIt3DN9fCLRMm3QZOWs=;
- b=XSwNuFAOlsHs5QIX2cfQOkaQaNZCBok3RlSKjPJcUiHfUJU7ABfbVwHPTBbyUuQ6ROz/PoC9EpfCsIHHN1J6g9lscJxWlW6FLzjq60mLwfc2P5JFo45lENVtQhq/tFsAkLbZdFh+ocUY/882ClsLfAYHVvbOvgnqhj+KtozFyI4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <c9358f1c-14bb-47df-95d4-01dfdad01c34@amd.com>
-Date: Thu, 20 Nov 2025 08:44:57 -0500
+X-Inumbo-ID: 26739614-c619-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1763647176; x=1764251976; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Cu8tDr/sTqgaI4RP7K7LOTF8umLiwVvgTb4uqyemA5E=;
+        b=kvHzGYhNb+Y+BK/NEIjLvVnzcUANpY8fS7QEWsEXnmcYV9BIBv34/XBpvOKPLMbArl
+         zkldIQVOs57+paz6rMRh5XVGptKSIe8m7rfhR9NZjCju98XMqaBTh+9m2AgTXLHxpof7
+         ub8pLdrH0i1e9cpG43jE84KoCJpnzTn3QZQfdUf0eD7OxB3sZnW21AnSpgGu1JrUmXaC
+         qZYwRzBbxA5ryHvWqmYv/0OMBNzUikwmpr7r84qvR/5qGuc66vD0Y1GZTbHpNDxZGF+Z
+         sa7KWI+x8BmY0FEAvPbNo6a3Yf3ZOhdlSi2vw/OcQ8fqJ9jaUQMopz3ByZxHZV4XZ49k
+         9Lww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763647176; x=1764251976;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Cu8tDr/sTqgaI4RP7K7LOTF8umLiwVvgTb4uqyemA5E=;
+        b=EQmBK/9rajhGAdBZTnR4V+KlY0W05O1Pv6R78XQ4d85G8xQ5DSpnMZZJ3qrPmvSrfO
+         Rh5iCm/sit20xWIKC/w/im0ldrv1PMTLUXW42jwQ6cRi/RyRMvUj4DGmu3VxLWvYt3bT
+         PGZ5LHTidaPHEtgaOQJZzAJWHkn9WI8ZlUjmtBTmvRPRMH7xlHeGb+WOj4sEacmpWRie
+         e3XMGAVBblAfFC7ZfiS84D/IwVcN0INwDnysKyIHhNDS7mJpiQa3ZG0P/HbxidNhxCbr
+         HWRJsfdWB/zzusJm5fnTupjPhnf8wl8ASBKMXKHvmoUMqmia5Db02fpUxr3Q0c42+uEN
+         TqDA==
+X-Forwarded-Encrypted: i=1; AJvYcCX0Hn7c7xbqfsP9llAjXC572GJQL5H+03ulr+eR/bIpDsIT3zEFYVtHy/B8i9Unk5eXHIMcnL8KYvg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywc47TI5kXSxDPqJ4rrMPkJXmhWf6mt34yKybo947bvp7xIc3s+
+	8FV7FL8wwzqgMYrgI9+vv+jBikNmKudQmMfuZwstvqurAqgSNUsoIAs0sla3F4XmXiOUAZT1NhH
+	+CeJA2CCvIaVxqVTpAmIFP9VszUrIxL8=
+X-Gm-Gg: ASbGncucSuS4dtVlXjIsmdp/BhEnjMuhn7JRzyIDOThO1L3dKPnnLKBVWX7zd2xM41g
+	AwESIGOHxwS2VbmvxLlh+4RW0unMkJcmPt59BmAtflUboNlZkNlhOibIAmmIJk2hhhJ/AeYDMvx
+	QHY5rKdl0egvroZQD42NgeRf6PDCzhjV9ITwNQi6Wxfie5NnOSJA24Z7xXhD0tgQB00UQcWUsnQ
+	6V2q9Gy+zpqm9lARx6Ui++trEF3pbWkAS8sXSvZKJDMQ89DT/IWxmCMfx5BBbQRi4cbygU=
+X-Google-Smtp-Source: AGHT+IH5rIrK9D71CjDzw1fIDaPwmrFjbnxMtqDQ1sylELXBZvakdyfDitIwK7JcotqXpFFREaeq3dvrcxKMgbsJ3j8=
+X-Received: by 2002:a05:690c:6e88:b0:786:72ec:6f6c with SMTP id
+ 00721157ae682-78a795a2f71mr22297157b3.31.1763647176323; Thu, 20 Nov 2025
+ 05:59:36 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v8] x86: make Viridian support optional
-To: Grygorii Strashko <grygorii_strashko@epam.com>, Jan Beulich
-	<jbeulich@suse.com>
-CC: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Paul Durrant <paul@xen.org>, Alejandro Vallejo
-	<alejandro.garciavallejo@amd.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-References: <20251119193215.1012108-1-grygorii_strashko@epam.com>
- <dc779808-a46d-4b71-8cde-6239b4a68819@suse.com>
- <e79baedf-c619-461a-81e2-eb7eeafa648d@epam.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <e79baedf-c619-461a-81e2-eb7eeafa648d@epam.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002636E:EE_|PH7PR12MB7988:EE_
-X-MS-Office365-Filtering-Correlation-Id: c08b41d3-c519-499d-51d0-08de283afec5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RXFENHUrUlU0Q0NEcWk1U0djekh2Z1pkMXVlU0czbWVpdm8vOFRJaEJCY1hp?=
- =?utf-8?B?TzNhSi9WQVc5ZzB5TG5UY2dFeWJKUmhtbVNGRWw5b3VuRmFEdWR0ZGpiZHll?=
- =?utf-8?B?Ulc2TVJHVndKK0lNWGhFYkIrMTJZQ0wxbmJsbXROeGpjV3dwaDlVWDJGK2Zs?=
- =?utf-8?B?bDFYT1gwcnNuMExjem96NkU1RGFJYW54WGd3cHhML0pIV0RWUTNGcnZEaFNq?=
- =?utf-8?B?dXdYYURkVGpOVGtzK1Z2YkQ1UTNDUXFDQVR0aWFKTU9EbG9vVzE5Smh4Ni9y?=
- =?utf-8?B?dkRCSFZFdk5nVUZoN1ltV1lxa2U3YUVza1FDeVlQSnYxTkhob0ZQNWo3dnRr?=
- =?utf-8?B?UDhSSk85cGpSak9JT0pkZDBVNDBnTWlxSHRzL1VEWEhwWHRwbXJEOEVLaHhD?=
- =?utf-8?B?a3pDOERLaUExbFY4KzM3VExaQmIrbXBrQmRPM0RkMjgwdVVHbFQvaXFwMTVC?=
- =?utf-8?B?aDN1bWJxeDQ3SlExK1hPb1RMYlZocnBDVm1qWXN3YWVpZWZMWFl1WXdIMmZm?=
- =?utf-8?B?MzhLdHYyMmlUZFVCekdZK20xM3FpTytTeXZaQjVIVXpwMXltQjk4dW5zcGZW?=
- =?utf-8?B?UTNUV3dOUGxkZkNIWEE0UUZRYjJkcVk3ay9tV2FJMXYySEtxVzlhVVkxWDc2?=
- =?utf-8?B?NnBvV2lGTDQyMSt5K2s1VWJSMWdqZ0gzT09IbGZmL0xUWWR5cW1RaVlSYVZI?=
- =?utf-8?B?VEFaNC80OEdRUkVtWTZua1pmUHYyQW1ESmNCSWxpVGhwTVAyVXJIakoxaXRq?=
- =?utf-8?B?N2kzRWVsL1VJZ2xOS3BCRm05UlJTamV3dkpLVDdVMWRCQWk1cGZmMHIvMHQ2?=
- =?utf-8?B?bGRBNUdEZURnSEEwVENzRmJrVkVUdFlGQTd1WnZES1ZlajE0amc2TkR0Z2N3?=
- =?utf-8?B?N3lzTXRpN212MGVMV3FXWTRnMHBoay9zL0xaQStpeG5ZWkpSWlhZZTlnTXBL?=
- =?utf-8?B?alJUcDVEK3JYY002L203OU55dFUwWE5MZmVnRzN6VVdYRi9HVnlJWDVXUjRl?=
- =?utf-8?B?WW1WNU13YmNlYXA3bEUvT012SnBMZzJFRDFwY05BZkVjcEhPSlhKWWx4RHY3?=
- =?utf-8?B?WjVBVlB5OVFDNUc1ZkUwYWNHOE1yV1ZESE5zWXRjeDd4QmJwV0NwTkhhVVp2?=
- =?utf-8?B?T0NNMmQybkpTV0N6NC81Q21YbVAyVTRQd0RhaXdNZ3FGUWIreWVkV09WY0h1?=
- =?utf-8?B?SGxkWnV1UXZvVmtETnRXdGlrTmc3eEhNbFBLMDloT2FUMUlRbzlxd0xWNUdN?=
- =?utf-8?B?dHZsZDNOM25GODIrdUFwQllhSi9QYWVTU3ZRMDJ4emYvV1VPbjhWQ1RFY1Bu?=
- =?utf-8?B?UjdCY1A3MWx4YU9pcGs0TGo2ZXZVWnN0bEFvNDVwQUZRR1EwSTJ4MklKU1J4?=
- =?utf-8?B?M3NxU3h3YjVKdEY5L0wzMVJnbHV0bDZoYUpOd2RsSktaa09ISkJsSWJoZDV3?=
- =?utf-8?B?cnAvUnBPRmZHL0dQK0xLVksvSFphYnJDb2NSM0F4VFBxTVpLVTlYNzdBMGd4?=
- =?utf-8?B?UThtTG5xWEhrTzEwUjl4cFJ6SndXZHh5VkgzSXREMnFqeHB2UTFqZ2FCSVp2?=
- =?utf-8?B?aGprWVZUSWdkMHhvTHl4L21lSFlQZDJtNTRBejdyYkhLYktmak9FbTY3K0Nk?=
- =?utf-8?B?cHpIZ0M1ZzhEOFNyVkxsVE5VcnJmblVIb2FqU1Q1NjB0c2Z6WnAzaGM3VnJF?=
- =?utf-8?B?ZFdqV0p3ZXF0RlNPMk4zL3BYc0RqMTdUanpyaEEvdWladzJCckV4T1BaUXND?=
- =?utf-8?B?NFRydjFHOXNVTGl3SFEwenlsY09QUFN3a2hWa3UvQWRmbW5oU2V0b2xLZ28w?=
- =?utf-8?B?U3VLOGduSEJMYjRIWnF1YzdXSzVIOTJvNXo3T040eWFsOERzVUVOSldVZDl1?=
- =?utf-8?B?akVQOFUveHFid2dQcE9ES250MytLOExicy8zSjVORlJWQ0NXRDlMNUZzdCtG?=
- =?utf-8?B?OE9zQ2xXR1JMTFdOUDBqYWFhZ0x3S2xMZDgvNDlYeDFza3hEV3l1NnZZZm5M?=
- =?utf-8?B?WTdBZFdJOXBCTC9CQ1JIa0NweU5UdTRkZkd0NVpqczJnTGdrbWwvZXVKUjZV?=
- =?utf-8?B?dVZqUEp6dTdnZlRjUzVIK0IvK3lrTGJ3NlNXNG9tYUwvNkVaQWZ5Y3hQN1hs?=
- =?utf-8?Q?bIwY=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 13:44:58.0130
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c08b41d3-c519-499d-51d0-08de283afec5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF0002636E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7988
+References: <20251113154358.28704-1-frediano.ziglio@citrix.com>
+ <6729f3d9-618c-4dcd-93f8-d02ca7cea017@gmail.com> <8f8a769d-95ea-4554-8ee0-d6247f583e37@citrix.com>
+ <CAHt6W4eDDm-fNUB7W1Zgj+x-bkK2fxTB50C38T4Uy0_Ofy_cww@mail.gmail.com>
+In-Reply-To: <CAHt6W4eDDm-fNUB7W1Zgj+x-bkK2fxTB50C38T4Uy0_Ofy_cww@mail.gmail.com>
+From: Frediano Ziglio <freddy77@gmail.com>
+Date: Thu, 20 Nov 2025 13:59:24 +0000
+X-Gm-Features: AWmQ_bnsirLIoamjNwu5s83Gj_BQo4119w_B6kWjzKg5yxGESsbsiWkCeSTGdW4
+Message-ID: <CAHt6W4einkyNX9sV3Ns87fLRaAN+N1b9CM=KVo5kvb1Qk7y=qg@mail.gmail.com>
+Subject: Re: [PATCH v8] xen: Strip xen.efi by default
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+	Frediano Ziglio <frediano.ziglio@citrix.com>, xen-devel@lists.xenproject.org, 
+	Frediano Ziglio <frediano.ziglio@cloud.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Demi Marie Obenour <demiobenour@gmail.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Stewart Hildebrand <stewart.hildebrand@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 2025-11-20 05:42, Grygorii Strashko wrote:
-> Hi Jan,
-> 
-> On 20.11.25 10:50, Jan Beulich wrote:
->> (adding v8 tag to subject)
->>
->> On 19.11.2025 20:32, Grygorii Strashko wrote:
->>> From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
->>>
->>> Add config option VIRIDIAN that covers viridian code within HVM.
->>> Calls to viridian functions guarded by is_viridian_domain() and 
->>> related macros.
->>> Having this option may be beneficial by reducing code footprint for 
->>> systems
->>> that are not using Hyper-V.
->>>
->>> [grygorii_strashko@epam.com: fixed NULL pointer deref in
->>> viridian_save_domain_ctxt(); stub viridian_vcpu/domain_init/deinit()]
->>> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
->>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->>> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
->>
->> As before - this R-b likely would need dropping, ...
->>
->>> ---
->>> changes in v8:
->>> - drop checks from viridian_load_vcpu/domain_ctxt()
->>> - drop check "value != 0" in HVM_PARAM_VIRIDIAN handler, laways return
->>>    -ENODEV for VIRIDIAN=n
->>
->> ... when more than just cosmetic changes are made. Jason, please can you
->> indicate whether it's fine to retain?
+On Sat, 15 Nov 2025 at 06:23, Frediano Ziglio <freddy77@gmail.com> wrote:
+>
+> On Fri, 14 Nov 2025 at 19:18, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+> >
+> > On 14/11/2025 3:40 pm, Oleksii Kurochko wrote:
+> > >
+> > >
+> > > On 11/13/25 4:43 PM, Frediano Ziglio wrote:
+> > >> From: Frediano Ziglio <frediano.ziglio@cloud.com>
+> > >>
+> > >> For xen.gz file we strip all symbols and have an additional
+> > >> xen-syms.efi file version with all symbols.
+> > >> Make xen.efi more coherent stripping all symbols too.
+> > >> xen-syms.efi can be used for debugging.
+> > >>
+> > >> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> > > Release-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > >
+> > > Thanks.
+> >
+> > Thanks.  Unfortunately CI says no.
+> >
+> > Ubuntu's 20.04, 18.04 and 16.04 all fail:
+> > https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2159622869
+> >
+> > From 16.04:
+> >
+> > 2025-11-14T18:01:51.192964Z 01O strip xen-syms.efi -o xen.efi
+> > 2025-11-14T18:01:51.198151Z 01O strip:xen-syms.efi[.init]: relocation count is negative: File truncated
+> > 2025-11-14T18:01:51.198166Z 01O strip: xen.efi: Failed to read debug data section
+> > 2025-11-14T18:01:51.198169Z 01O strip:xen.efi: error copying private BFD data: File truncated
+> > 2025-11-14T18:01:51.198932Z 01O arch/x86/Makefile:207: recipe for target 'xen.efi' failed
+> > 2025-11-14T18:01:51.198937Z 01O make[3]: *** [xen.efi] Error 1
+> > 2025-11-14T18:01:51.199616Z 01O build.mk:90: recipe for target 'xen' failed
+> > 2025-11-14T18:01:51.199619Z 01O make[2]: *** [xen] Error 2
+> > 2025-11-14T18:01:51.200402Z 01O Makefile:600: recipe for target 'xen' failed
+> > 2025-11-14T18:01:51.200409Z 01O make[1]: *** [xen] Error 2
+> >
+> >
+> > I find it hard to believe that the relocation count is really negative,
+> > and given that newer binuitls works, I expect this is a binutils bug.
+> >
+>
+> Unless the message is just misleading I find it hard to have a
+> negative number of items in a container.
+>
+> > Nevertheless, we need some workaround.  Given that the previous
+> > behaviour was not to strip, I think we can reuse that for broken toolchains?
+> >
+>
+> Something like that ?
+>
+> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+> index a154ffe6b2..c465eb12e2 100644
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -236,7 +236,9 @@ ifeq ($(CONFIG_DEBUG_INFO),y)
+>         $(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) \
+>                 -O elf64-x86-64 $(TARGET)-syms.efi $@.elf
+>  endif
+> -       $(STRIP) $(TARGET)-syms.efi -o $@
+> +       $(STRIP) $(TARGET)-syms.efi -o $@ || { \
+> +               LANG=C strip $(TARGET)-syms.efi -o $@ 2>&1 | grep -q \
+> +               "relocation count is negative" && mv -f $(TARGET)-syms.efi $@; }
+>  ifneq ($(CONFIG_DEBUG_INFO),y)
+>         rm -f $(TARGET)-syms.efi
+>  endif
+>
+> It will fall back to not stripping in case that bug is detected. I
+> don't know how to test it.
+> (the LANG=C is to always force the English message).
+>
 
-Yes.
+It looks like this change works better and CI is happy.
+It duplicates the linking with -s option if the strip fails.
+Yes, it's a hack and almost duplicates the one command above.
+What about it?
 
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index a154ffe6b2..5f5162841e 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -236,7 +236,10 @@ ifeq ($(CONFIG_DEBUG_INFO),y)
+        $(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) \
+                -O elf64-x86-64 $(TARGET)-syms.efi $@.elf
+ endif
+-       $(STRIP) $(TARGET)-syms.efi -o $@
++       $(STRIP) $(TARGET)-syms.efi -o $@ || \
++       $(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T $(obj)/efi.lds $< \
++             $(dot-target).1r.o $(dot-target).1s.o $(orphan-handling-y) \
++             $(note_file_option) -s -o $@
+ ifneq ($(CONFIG_DEBUG_INFO),y)
+        rm -f $(TARGET)-syms.efi
+ endif
 
-Thanks,
-Jason
+Frediano
 
