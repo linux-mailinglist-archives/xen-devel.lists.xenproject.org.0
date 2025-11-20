@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFDC9C7468E
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 15:02:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1167424.1493738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73ABAC746D3
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 15:05:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1167436.1493748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM5ER-0001kj-I2; Thu, 20 Nov 2025 14:01:55 +0000
+	id 1vM5HK-0002Z8-Un; Thu, 20 Nov 2025 14:04:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1167424.1493738; Thu, 20 Nov 2025 14:01:55 +0000
+Received: by outflank-mailman (output) from mailman id 1167436.1493748; Thu, 20 Nov 2025 14:04:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM5ER-0001iT-FH; Thu, 20 Nov 2025 14:01:55 +0000
-Received: by outflank-mailman (input) for mailman id 1167424;
- Thu, 20 Nov 2025 14:01:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vM5HK-0002X9-S2; Thu, 20 Nov 2025 14:04:54 +0000
+Received: by outflank-mailman (input) for mailman id 1167436;
+ Thu, 20 Nov 2025 14:04:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nz19=54=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vM5EQ-0001iN-6Q
- for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 14:01:54 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 76c81eb9-c619-11f0-980a-7dc792cee155;
- Thu, 20 Nov 2025 15:01:51 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-6408f9cb1dcso1331350a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 06:01:51 -0800 (PST)
+ id 1vM5HJ-0002X1-4X
+ for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 14:04:53 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e1e04e78-c619-11f0-9d18-b5c5bf9af7f9;
+ Thu, 20 Nov 2025 15:04:51 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-b737cd03d46so136937766b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 06:04:51 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6453642d32csm2154777a12.21.2025.11.20.06.01.50
+ a640c23a62f3a-b7654cdabd0sm212662566b.12.2025.11.20.06.04.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Nov 2025 06:01:50 -0800 (PST)
+ Thu, 20 Nov 2025 06:04:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76c81eb9-c619-11f0-980a-7dc792cee155
+X-Inumbo-ID: e1e04e78-c619-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763647311; x=1764252111; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6SIE3casSsd8G+MCJP1r/drOKy4UR4iNlw4KDS2OyH0=;
-        b=G5hScSUWexLpsKPVcuqu7Czi/+b3gzxbnMBFDkDvIozVte23oHp0fFKurlyrZPIdlu
-         nZhgxR3Y3zk2/r3dI4bNhERsAfacE4m2NVsyj9iK3EQH/0UT0CkhrhbhA7Z18JIhGadc
-         07F/pFMfEWFOtBnxWoS9vdF4zumQkq7fb6XhcY+2Pe1HvHcfF5kloJSTqcdZS45UDcAh
-         XIcqGae+DTjnkuZxzQAPWHHEZJiECJrC+rLdC+0WZTBDACgc3TBGlvezbXK+bwGJBYWO
-         vtnDTwpr1WYRax3wUM9MmhP3QAfB97h4WW61tcE0cBxCuzoYiXzXrgN7cjGXm6odz/TM
-         iB9Q==
+        d=suse.com; s=google; t=1763647491; x=1764252291; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=LaVScHmpCpLH4nKHmuYOng/4hzi4cORaPRTP66z1juo=;
+        b=P4Tx42vP6UCk5/e+72uASxKxR5vNn1EDZm23iqUOs0gz3/85CQWJdpGa9aynWQN8pR
+         UCN/0Du7kE3Mo0jgWlTdEeCOlQnPXzZm59TkCGwrolA8wL9ArQ0Z66ZlQJQfzpkINmbv
+         CAMENFSKlCaZCAZPYkC284JdP9/Hd2GxkFP7LT/i22NkrvrfGzwIw2aFA8Cfa2dT5gXK
+         zx5o0sQZYwJcqWrElakcXJIL3XSx07BTf/PudcxHzNEdttbZmdEWlXKquhqqaQoS8/dp
+         bYpdj2/rBdvlNS1P5Uadph+gmgZar+tSfgJZhja4AtmqXvEsi0Qmb//oDc2N8FU/490L
+         oEMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763647311; x=1764252111;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1763647491; x=1764252291;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6SIE3casSsd8G+MCJP1r/drOKy4UR4iNlw4KDS2OyH0=;
-        b=n5Ry4B1pZZviRJs/V+RXlMx41s7Sp4igFftDm+/OBh7L62Yns+ciIchpmaOCo7/gPT
-         B8m8ctaxR6pUOer9Ux6ASejq4GQLGi6NA9vTenLx+vdD7t3PqFhPRohrCIluszpXehOh
-         UoBRFv2ELxReSHwjp+JiuRcX7svSTqfolxDs3UcVY2eeuf+Z6tCnUjf2FEr/5hHd7pe3
-         A61s4xkFCWqlDuwfXetMLLtAlYVVU2Nko+ci98mzu090k0Zjrf9vkeCPyVoszk64805j
-         gAjVWTrRmQMFOcQdgKKRfIHCmG7puQYwvWjv2P3VqHEL6whcjOjqtrIQnHodA+/AYnGU
-         0ywQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVgaplEZCCAP3bTTOiv1+Ls7XRTFK4/wAiGZryrQoNSuB3x2J+Gh02zGXkYMV94NqR9oir2O0qxv7g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwwSSrmCq9ncSZ3jrrrlv1sn//hmEvACLKjc8OMak22th0BDDX6
-	TtA/RXKnz54zx/W1Om+3McyYK0Gnmt5tPqfP/A7wn0ucCbvqFqNU6n4V6e9FATE7Aw==
-X-Gm-Gg: ASbGnctNW6nTLKgrJAgjwxZd3utpzquvXUOznPwKk0WiUYM5eQz8eps9xxdv2XFCsMJ
-	vwOGg40c4RbPpcltHcS4Z7L2eaD54q09s/0E8DSDFi5IBc5NRNIM5OYaFJz0EccxS5JX4CZI8RF
-	wUNiS8/ZtU6D1233YTbxKsdjtKGVoBIJPtxuJYqlmv7x73aDRp3VTxpu3s6yH1LYg+Px0Sa1bET
-	+PNIoExE0pyKI7wvEukCucUFREGUj+OEAL45B90o8md69f7rJGFqQlkYKVhLv2tA6MCyFMNw+xW
-	+mCtPTqpATgvntRRiSq10uWHGOtjiNh4qrUk2gYa2j5sy9R2JJFeheP2Gc5z7B4JXkU7qVmmdZe
-	pq119V3AgYaslx+xE3rFN5/z4RfXgV5w8BM5DNbsITpSZHtqdWdj3912KCV4xtaPJX3OHj1P6Ti
-	Ndtm3Tt/D5TpS9EGNKLnkJkS+xOZEt0O1rPSZ8a9b1YPiPm7d2175VYclZzM/SXR3kFd1GlfiZv
-	uY=
-X-Google-Smtp-Source: AGHT+IHcURqUqyBMyGD93c4RQuzbKIE0rX3VV4EmiXbH5qgSsH/NgQ8e/g2H6ONuqXPb+QMZyE8SVA==
-X-Received: by 2002:a05:6402:3812:b0:641:1f22:fc68 with SMTP id 4fb4d7f45d1cf-6453647b923mr2520217a12.24.1763647311110;
-        Thu, 20 Nov 2025 06:01:51 -0800 (PST)
-Message-ID: <3dd37b00-2179-43a2-a551-ad95d52780e3@suse.com>
-Date: Thu, 20 Nov 2025 15:01:49 +0100
+        bh=LaVScHmpCpLH4nKHmuYOng/4hzi4cORaPRTP66z1juo=;
+        b=xKw1uYX0+7F9ZfQFMhuJK3Hr4I5xaRWiE9cM4uQUG8QaD6jh6aoKzEfO3ajSDjvgNu
+         6+450z/2VNRM+mjAs3Z0nM0P6rqmGP9EdZPHNXgg2FPTfLJGfvrlLVQMwNnKoKmchf9N
+         FqjjkglSm5sKA7hL12EiqmCnbhsgJ2ZKnKr0TaC5A3DA6eyB+Nzl2mWcvbwVOV1bgJmV
+         HGGnhu02wkUNwMWzqcvbjATk+/V938tGWSWcUl1FMaB7yAdVzda76GctaZxaF9e0AM6L
+         Soyy8+PdWL8MidegrNpMFAczrFAttjm86CwthaSUMyXm5YS0Zb4z0gJVSo0+hVp1DFyM
+         fJJA==
+X-Forwarded-Encrypted: i=1; AJvYcCWTaV3iOG8UPXU2bxpYuLrYr8Ocfk9L9uex0HPoaboYhTlyd7LDa5tK2XXd6T3k9PVTnPHBM+mpsTI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxTRptqBzf37fEcQnzJ3evupBKlT7uheXigCnxwfNeA4564htUe
+	FoRy4lzHkwrOT2cOAoBQY9PNW3dhtU9kjDq4O8bK+rkoLUIqREx6boOvMzcbYoiJww==
+X-Gm-Gg: ASbGncvuuXc6G1LcKajhXb3N6a9yIMcNGmD7DrFLquraLNT6ycvFz/YU8cSa/g+5H+n
+	+F16U/p+v3QwREwUIG1wB6wWZzhnw9CrDDhu0KKbNT4r+qoVzdIqBLEZwxQ9xcyZKnFVzVeE6Ni
+	bQkKFQLBk6tiyrtaCw2alricGp2BntXe1AJNW/uWtOsbNGo9tLKAjCtczy5204Rx+qPbc7qOTNn
+	T56kh9Lj344sxkKWdVe/3TmQljmgXJK6+40ehTr7KOQw3GEI/Qm1rEyPxez5em13uAAX0Iq8REl
+	YNgpYLPhw/lBaAWwvxJYudp3dNhPeuc1rJEW773jdlZ3IFS/j6NGnvhDWCAFLD+5i5dO2A3xKSH
+	HC3dHMZDZeNEnSXLrAzgvpF/e0tmfEgN9hmUlbTIHg906aiN/XK0FJysfVSmvqQwK+XAxf4MvRc
+	s9zqfr3p3gwntZeJ9otSU0T73qCnlP/99/5oD51h6auBg7EO9peBnsPvsYXZcWJ14aXnvorZUVX
+	JArk4EL/gNzMQ==
+X-Google-Smtp-Source: AGHT+IG9QgDPD6HADt40cHT1k2UZNhB0wW72ukiBekDgPSTgP9suSiOC7zr7WaUjcLmH+CA/ymtfNg==
+X-Received: by 2002:a17:907:7f8a:b0:b70:af3d:e97b with SMTP id a640c23a62f3a-b7654d5ca86mr367781566b.17.1763647491016;
+        Thu, 20 Nov 2025 06:04:51 -0800 (PST)
+Message-ID: <1ac3c7ca-89dc-4782-ac97-b6bdcc729a37@suse.com>
+Date: Thu, 20 Nov 2025 15:04:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] x86/vPMU: don't statically reserve the interrupt
- vector
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <fbc9a2f8-170a-4645-8836-c90c42ad726f@suse.com>
- <06f2081b-64e0-47f5-b66a-26363979cfdb@suse.com>
- <f491eb9c-7822-4637-95a3-bcd994b20dea@citrix.com>
- <bde84a94-77af-4fec-9075-a709323abdc4@suse.com>
+Subject: Re: [PATCH v8] xen: Strip xen.efi by default
+To: Frediano Ziglio <freddy77@gmail.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Frediano Ziglio <frediano.ziglio@citrix.com>,
+ xen-devel@lists.xenproject.org, Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Demi Marie Obenour <demiobenour@gmail.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20251113154358.28704-1-frediano.ziglio@citrix.com>
+ <6729f3d9-618c-4dcd-93f8-d02ca7cea017@gmail.com>
+ <8f8a769d-95ea-4554-8ee0-d6247f583e37@citrix.com>
+ <CAHt6W4eDDm-fNUB7W1Zgj+x-bkK2fxTB50C38T4Uy0_Ofy_cww@mail.gmail.com>
+ <CAHt6W4einkyNX9sV3Ns87fLRaAN+N1b9CM=KVo5kvb1Qk7y=qg@mail.gmail.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -123,54 +133,111 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bde84a94-77af-4fec-9075-a709323abdc4@suse.com>
+In-Reply-To: <CAHt6W4einkyNX9sV3Ns87fLRaAN+N1b9CM=KVo5kvb1Qk7y=qg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 20.11.2025 13:31, Jan Beulich wrote:
-> On 20.11.2025 13:24, Andrew Cooper wrote:
->> On 19/11/2025 10:51 am, Jan Beulich wrote:
->>> --- a/xen/arch/x86/apic.c
->>> +++ b/xen/arch/x86/apic.c
->>> @@ -1313,16 +1313,6 @@ static void cf_check error_interrupt(voi
->>>             entries[3], entries[2], entries[1], entries[0]);
->>>  }
->>>  
->>> -/*
->>> - * This interrupt handles performance counters interrupt
->>> - */
->>> -
->>> -static void cf_check pmu_interrupt(void)
->>> -{
->>> -    ack_APIC_irq();
->>> -    vpmu_do_interrupt();
->>> -}
->>> -
+On 20.11.2025 14:59, Frediano Ziglio wrote:
+> On Sat, 15 Nov 2025 at 06:23, Frediano Ziglio <freddy77@gmail.com> wrote:
 >>
->> I know you're only moving this, but it's likely-buggy before and after. 
->> ack_APIC_irq() needs to be last, and Xen's habit for acking early is why
->> we have reentrancy problems.
-> 
-> I was wondering, but was vaguely (but apparently wrongly) remembering that
-> the PMU interrupt is self-disabling (i.e. requires re-enabling before it
-> can fire again). Should have checked vpmu_do_interrupt() a little more
-> closely, where from the various plain "return" it's pretty clear that isn't
-> the case.
-> 
->> I think there wants to be a patch ahead of this one swapping the order
->> so the ack is at the end, so that this patch can retain that property
->> when merging the functions.
+>> On Fri, 14 Nov 2025 at 19:18, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>>>
+>>> On 14/11/2025 3:40 pm, Oleksii Kurochko wrote:
+>>>>
+>>>>
+>>>> On 11/13/25 4:43 PM, Frediano Ziglio wrote:
+>>>>> From: Frediano Ziglio <frediano.ziglio@cloud.com>
+>>>>>
+>>>>> For xen.gz file we strip all symbols and have an additional
+>>>>> xen-syms.efi file version with all symbols.
+>>>>> Make xen.efi more coherent stripping all symbols too.
+>>>>> xen-syms.efi can be used for debugging.
+>>>>>
+>>>>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+>>>> Release-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>>>
+>>>> Thanks.
+>>>
+>>> Thanks.  Unfortunately CI says no.
+>>>
+>>> Ubuntu's 20.04, 18.04 and 16.04 all fail:
+>>> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2159622869
+>>>
+>>> From 16.04:
+>>>
+>>> 2025-11-14T18:01:51.192964Z 01O strip xen-syms.efi -o xen.efi
+>>> 2025-11-14T18:01:51.198151Z 01O strip:xen-syms.efi[.init]: relocation count is negative: File truncated
+>>> 2025-11-14T18:01:51.198166Z 01O strip: xen.efi: Failed to read debug data section
+>>> 2025-11-14T18:01:51.198169Z 01O strip:xen.efi: error copying private BFD data: File truncated
+>>> 2025-11-14T18:01:51.198932Z 01O arch/x86/Makefile:207: recipe for target 'xen.efi' failed
+>>> 2025-11-14T18:01:51.198937Z 01O make[3]: *** [xen.efi] Error 1
+>>> 2025-11-14T18:01:51.199616Z 01O build.mk:90: recipe for target 'xen' failed
+>>> 2025-11-14T18:01:51.199619Z 01O make[2]: *** [xen] Error 2
+>>> 2025-11-14T18:01:51.200402Z 01O Makefile:600: recipe for target 'xen' failed
+>>> 2025-11-14T18:01:51.200409Z 01O make[1]: *** [xen] Error 2
+>>>
+>>>
+>>> I find it hard to believe that the relocation count is really negative,
+>>> and given that newer binuitls works, I expect this is a binutils bug.
+>>>
 >>
->> Or, if you're absolutely certain it doesn't need backporting as a
->> bugfix, then merging into this patch is probably ok as long as it's
->> called out clearly in the commit message.
+>> Unless the message is just misleading I find it hard to have a
+>> negative number of items in a container.
+>>
+>>> Nevertheless, we need some workaround.  Given that the previous
+>>> behaviour was not to strip, I think we can reuse that for broken toolchains?
+>>>
+>>
+>> Something like that ?
+>>
+>> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+>> index a154ffe6b2..c465eb12e2 100644
+>> --- a/xen/arch/x86/Makefile
+>> +++ b/xen/arch/x86/Makefile
+>> @@ -236,7 +236,9 @@ ifeq ($(CONFIG_DEBUG_INFO),y)
+>>         $(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) \
+>>                 -O elf64-x86-64 $(TARGET)-syms.efi $@.elf
+>>  endif
+>> -       $(STRIP) $(TARGET)-syms.efi -o $@
+>> +       $(STRIP) $(TARGET)-syms.efi -o $@ || { \
+>> +               LANG=C strip $(TARGET)-syms.efi -o $@ 2>&1 | grep -q \
+>> +               "relocation count is negative" && mv -f $(TARGET)-syms.efi $@; }
+>>  ifneq ($(CONFIG_DEBUG_INFO),y)
+>>         rm -f $(TARGET)-syms.efi
+>>  endif
+>>
+>> It will fall back to not stripping in case that bug is detected. I
+>> don't know how to test it.
+>> (the LANG=C is to always force the English message).
+>>
 > 
-> No, I'll make this a separate, prereq patch.
+> It looks like this change works better and CI is happy.
+> It duplicates the linking with -s option if the strip fails.
+> Yes, it's a hack and almost duplicates the one command above.
+> What about it?
 
-It won't really need backporting, though: Direct-APIC-vector handlers are
-called with IRQs off, and hence when to ack is benign as long as IRQs aren't
-transiently turned on while handling. Nevertheless it probably makes sense
-to switch things around, so I'll add that extra patch anyway.
+As alluded to elsewhere - can't we detect the situation and avoid linking
+with debug info included in that case, like we already do for other reasons?
+Linking xen.efi is quite a bit slower than linking xen-syms, so the extra
+linking pass would better be avoided imo.
 
 Jan
+
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -236,7 +236,10 @@ ifeq ($(CONFIG_DEBUG_INFO),y)
+>         $(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) \
+>                 -O elf64-x86-64 $(TARGET)-syms.efi $@.elf
+>  endif
+> -       $(STRIP) $(TARGET)-syms.efi -o $@
+> +       $(STRIP) $(TARGET)-syms.efi -o $@ || \
+> +       $(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T $(obj)/efi.lds $< \
+> +             $(dot-target).1r.o $(dot-target).1s.o $(orphan-handling-y) \
+> +             $(note_file_option) -s -o $@
+>  ifneq ($(CONFIG_DEBUG_INFO),y)
+>         rm -f $(TARGET)-syms.efi
+>  endif
+> 
+> Frediano
+
 
