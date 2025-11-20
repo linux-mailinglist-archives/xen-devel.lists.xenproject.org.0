@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33F89C75357
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 17:03:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1167632.1493899 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E4E0C757A2
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 17:53:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1167653.1493909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM77R-0004pz-8L; Thu, 20 Nov 2025 16:02:49 +0000
+	id 1vM7tm-00048n-RZ; Thu, 20 Nov 2025 16:52:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1167632.1493899; Thu, 20 Nov 2025 16:02:49 +0000
+Received: by outflank-mailman (output) from mailman id 1167653.1493909; Thu, 20 Nov 2025 16:52:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM77R-0004o2-5b; Thu, 20 Nov 2025 16:02:49 +0000
-Received: by outflank-mailman (input) for mailman id 1167632;
- Thu, 20 Nov 2025 16:02:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nz19=54=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vM77Q-0004nw-20
- for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 16:02:48 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5ab9ee3f-c62a-11f0-9d18-b5c5bf9af7f9;
- Thu, 20 Nov 2025 17:02:46 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-64088c6b309so1857605a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 08:02:46 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-645363c56a4sm2379884a12.15.2025.11.20.08.02.45
+	id 1vM7tm-00046X-OK; Thu, 20 Nov 2025 16:52:46 +0000
+Received: by outflank-mailman (input) for mailman id 1167653;
+ Thu, 20 Nov 2025 16:52:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0fq0=54=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vM7tl-00046R-Gj
+ for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 16:52:45 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 54eb8fb0-c631-11f0-980a-7dc792cee155;
+ Thu, 20 Nov 2025 17:52:43 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-b737502f77bso171992666b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 08:52:43 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b7654cdd5bfsm252580166b.9.2025.11.20.08.52.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Nov 2025 08:02:45 -0800 (PST)
+ Thu, 20 Nov 2025 08:52:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,133 +45,245 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ab9ee3f-c62a-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 54eb8fb0-c631-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763654566; x=1764259366; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=g9L21KdchEvtWYcrwk1vAhkbpl6vGAU/rGymye3VgZc=;
-        b=enxjicWXWmexKs1rqO54G8fp6dn6EyRbm2cPW51O8aj87ZbWiHSPgYjddk9wVPKifr
-         klysG/STHteX+w5iMk3rnPJv/jr2E0nzHV7Din/ulgWTsNwliHq0x0O0ETgdbWvKfLgE
-         uk+YshJs26vRzL+j5gMQGXmCB3+d1MJUrZX5LWnEIwvokYofMvBC5FYhsdHgh82s5p+A
-         UJOlxM4yMOBsxs2mkHcg0DN8+q9ZKSGfdSFJFbtssW6oUwjMpG6kGpF/4TcPFRcK9w9H
-         oMkv1TW0j/0uzTG+nhiqstswo2XYowIQ30yY24IRKRkdsQZ9oeqzbeUdK/ewXypsR9Cb
-         kU6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763654566; x=1764259366;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1763657562; x=1764262362; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=g9L21KdchEvtWYcrwk1vAhkbpl6vGAU/rGymye3VgZc=;
-        b=m0WgsrXPnL2uEkUTdJI85eeUPv3sW28rmCE9AOkKeMSBtLhEBNJJCgM8AA4ZSrE8YX
-         xCiIUn7se8YPa8zR4nRpzo3ozAqdyS92VY2e5cdCH0hRQ8qvP4Jw1Qvk1zX9jOzi+BTN
-         ZRw411cnVtOdJX9A7vMNCR8H96BAaUhLN790uJfSTgb6+tkaHdmI69QBLO64yx/O4gEM
-         vNM5JqWACqfT0lhrOdyI0nTmMNsHc4CVEQOvLh27xbQMFFlOeFKqyeMysqHlvoQVKFNv
-         juOAJddTck5LBw+6oh6Y+AWu7LsbnB/VF21yfVqPlEKmukL024g4oF2EoYNHjE9rFlMw
-         bS1g==
-X-Forwarded-Encrypted: i=1; AJvYcCWbTdwgFmCU5hV3og4D14MR4LncIIA2IMiv/5fM0x6kbOAkQneJHuhZxkTLSZmG5SzHDHkvPUZaino=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YypcrQrlFROpsJ55Ry6yw4ioxOrb4AEvHE1SHSvcH/ZLHwoByEm
-	MzIf4cr/lGZcJ8QxMSaXTp0tdMCcC1n5zJPNGJ8ZjQPTSfBTenUaiayYfr45IexIgQ==
-X-Gm-Gg: ASbGnctJRU1hnCY1/0HRFPaprel0u0kP7D/2/pTsPdEtBdfDVjxa48JXUxGhTI9856+
-	hJbgnz3azqWxirEoX9A8vuh2tZaKa8AzSne8akzdfcG7a6jN2OL2HRePzlF4d4ScxhNQ3GUV5iT
-	9wRdG40gF/uh7/uIeRPO0HZ5u4d1XCAkf119UrSQ8KiUAAIt/wy6lWOAxTTMpvMZvbdbXRzMaWM
-	m1BAdQ1yOCtBRB6JZjsl9kJizsdu+iw/JCvqXJw1S/iZJlhmZmyb6beeO2A2jjXj8L6SBZb0Gxh
-	IrzI5H9Uyf1g3DGF92j0S33GcxFYdmGp8TytiU/IlIMJzOrd2LVBJHf5EUXteuTaT1TGqpMfXBs
-	jVa72Yb7jgIym/hFg0m4eG5uwoAEk9VUBg5UqdHShYOydUsGcca4fXRbDPAaNoD6H/wPrKahlub
-	X93Zhibd/z6Z64dBHRIBM2Yus/hoF4/DF5Ci/Ca7IS2DrcnoOhVkLesAaTC/OU1x0d9/XmlIk6B
-	GezMzvT4lLCsA==
-X-Google-Smtp-Source: AGHT+IHgDsCdkeMs1PzwlsB2Jzpb0k83VV0IVKbsx6z6zx/eeU3U4xTaD2fx3ZwkPkEO3tGMcf/qVQ==
-X-Received: by 2002:a05:6402:4302:b0:641:8644:f87f with SMTP id 4fb4d7f45d1cf-6453643ceebmr3582291a12.17.1763654565658;
-        Thu, 20 Nov 2025 08:02:45 -0800 (PST)
-Message-ID: <d439b007-ecc1-4c62-95f0-6fc73d85ce36@suse.com>
-Date: Thu, 20 Nov 2025 17:02:43 +0100
+        bh=8ak40zxKaq3+23GW7CW6VFOeumz59z7LChuu1B8krt4=;
+        b=AnXqgNPErGGhmmoNzgpKENKx1T+/GvGtNIqCGbMXKM/HN7PTt4vdZ8qmjxAO9j6nor
+         osHnus0YyXl6fIxbJV2H87Wi/FB5IE6Fb3lylGpMLRrOQ5pYXkwllST7LTggo0E8plkl
+         qTY/MSEw/bzcTcjY0BSaPzmPzz0J1vXvIpRKhjQE78bStrw4lAJJejuV1HNhzxuJnkRK
+         ZW3Xb2ltRUJdW/IAcbKNX1umk8cJBZCXfcBCq2JF3h8P2mU5Tm1iXbfTuw8MCX4aYy3q
+         6YU9PtHtg1Q+If3y73H0Z0lRhHYRy2HlqUOiyTb1yTJMwQ25rS+fEaa1XoGmB8mj69i0
+         HSRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763657562; x=1764262362;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8ak40zxKaq3+23GW7CW6VFOeumz59z7LChuu1B8krt4=;
+        b=pK6RdGRzFAwowRxvgUqD+luxLWyjtsVJBvYdiPYTIMAcILx2Axc5N3MZ1Ec811drKl
+         huiak7pWUrx2hO0/0PeeadzWYPLugeLtnFjHdiU1p405pfm7FGGOiwY+hMrvSGYL467c
+         hlxtMUd3dkcC3L9D2AnZ+XiBsXCc9H2Mgw4EY/SNolCf091UyE36h+p8Q453p6P+Pqls
+         Q2bjqtB14p0t3ob1Hm8F5w4AfruP4kY1R77TvIqqTRW93hApU9Tf53oNowC9GCRuH3RR
+         cfD/j/pJiz6A1C1H9vbDUv9zorJ7IhAg1H1wtS/UnDCKZWcQ2jQxe6T/cynXYWQkpqgm
+         bjGw==
+X-Forwarded-Encrypted: i=1; AJvYcCUM8TNmFnKVYqKqJPSWgA3CCkQ85QdHNPGgYn/89a+Pcrxgaojc9m47XZs/+vZa5OPzl1bUCk0rTjs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxbAytLCIz50tVNUa/WzTQqo28vKHlhCQnZdv8huXErs4NoV5C0
+	0eqUbjMpBcgca0OL8l3nmC4Jz5CTXE5ZCt+iituLB8h9OyT8qNZX1tpn
+X-Gm-Gg: ASbGnctE2OQ6m4DClaqLaNXRQi6ip/wkNsgmvUTlHh9msv0XWNk0n5VqHOiRs5IkOyu
+	mEMsKZda1T4V3K9eQEv8I9Rh6MSo86GRmFSsLcCTcJJdEH8YPeN2vmao8bfAJR8qoJ/XTZpI8IY
+	gkyaS2O04duJjXCfNbFu/5dxYUMeXKdSWa5gvUEeah8dlpugaWpwGZUnsVkU9bdszYTq1/Ks6Rb
+	OJhLvGNwix4jyoBaTaT/vvigG2/ULfy9J80IbuY1YsTWbESiWsnDSjvqXbxHQsVMU2wefkiFt6J
+	ERSwf2J08ZOkD70r4Ms16+rGLJUw9vHexHY/bQyM1X3xWEr+z7vTusRCom/xJomM049RQDY2rTB
+	o8kgCCu7FhpiqSG0HPnGIFvw/o75T9+UOH8lbvOORyy1bFJz0dGMygUqsBdMt9JcgoGwyrog5QA
+	i9mqjaLlSr6B1PrEuEC//rQS2GSonAYPVgVeoMIGA2Cnk4ROQXlc4fY8yLlACP
+X-Google-Smtp-Source: AGHT+IHDM7X3OKJ/QPfpblGqFIYbjPgzpwL/8qLuqd6z6N2E5ipRHlB7MNYtZDwNChyJH/mIAHX6xw==
+X-Received: by 2002:a17:906:fe47:b0:b73:6b24:14a0 with SMTP id a640c23a62f3a-b7654dd66ecmr421368166b.18.1763657562002;
+        Thu, 20 Nov 2025 08:52:42 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------PMK9GPWPHuNX3OjgopwO5bTu"
+Message-ID: <3f772780-75af-4d77-96c9-7eb7dc697ff8@gmail.com>
+Date: Thu, 20 Nov 2025 17:52:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/12] x86/io-apic: fix usage of setup_ioapic_dest()
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20251120090637.25087-1-roger.pau@citrix.com>
- <20251120095826.25782-1-roger.pau@citrix.com>
- <20251120095826.25782-2-roger.pau@citrix.com>
+Subject: Re: [for 4.22 v5 18/18] xen/riscv: introduce metadata table to store
+ P2M type
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1760974017.git.oleksii.kurochko@gmail.com>
+ <d291d2efe7dcc6ddd3d16677a81c57d755c7ada2.1760974017.git.oleksii.kurochko@gmail.com>
+ <6a5a9f4e-1f0e-453f-b1d1-d0e2acf97e2a@suse.com>
+ <5d4ec4d9-b4c1-4365-a343-f42b390da165@gmail.com>
+ <6f431394-5c08-4974-85ae-4b38f1975289@suse.com>
+ <e2cbb6b9-ab07-4aad-8eb8-f4dd859ac6f6@gmail.com>
+ <b859d5c1-b602-4e61-b667-2701e0f31434@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251120095826.25782-2-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <b859d5c1-b602-4e61-b667-2701e0f31434@suse.com>
+
+This is a multi-part message in MIME format.
+--------------PMK9GPWPHuNX3OjgopwO5bTu
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 20.11.2025 10:58, Roger Pau Monne wrote:
-> Attempt to clarify the purpose of setup_ioapic_dest(), as the comment ahead
-> of it is outdated, and looks to be a verbatim copy from Linux from one of
-> the code imports.
-> 
-> The function serves two purposes: shuffling the interrupts across CPUs
-> after SMP bringup or re-assigning all interrupts to CPU#0 if no IRQ
-> balancing is set at run time.  However the function won't perform any of
-> those functions correctly, as it was unconditionally using
-> desc->arch.cpu_mask as the target CPU mask for interrupts (which is the
-> current target anyway).
-> 
-> Fix by adding a new `shuffle` parameter that's used to signal whether the
-> function is intended to balance interrupts across CPUs, or to re-assign all
-> interrupts to the BSP.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On 11/20/25 4:47 PM, Jan Beulich wrote:
+> On 20.11.2025 16:38, Oleksii Kurochko wrote:
+>> On 11/18/25 7:58 AM, Jan Beulich wrote:
+>>> On 17.11.2025 20:51, Oleksii Kurochko wrote:
+>>>> On 11/12/25 12:49 PM, Jan Beulich wrote:
+>>>>> On 20.10.2025 17:58, Oleksii Kurochko wrote:
+>>>>>> +    if ( *md_pg )
+>>>>>> +        metadata = __map_domain_page(*md_pg);
+>>>>>> +
+>>>>>> +    if ( t < p2m_first_external )
+>>>>>> +    {
+>>>>>>             pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
+>>>>>>     -    return rc;
+>>>>>> +        if ( metadata )
+>>>>>> +            metadata[ctx->index].pte = p2m_invalid;
+>>>>> Shouldn't this be accompanied with a BUILD_BUG_ON(p2m_invalid), as otherwise
+>>>>> p2m_alloc_page()'s clearing of the page won't have the intended effect?
+>>>> I think that, at least, at the moment we are always explicitly set p2m type and
+>>>> do not rely on that by default 0==p2m_invalid.
+>>> You don't, and ...
+>>>
+>>>> Just to be safe, I will add after "if ( metadata )" suggested
+>>>> BUILD_BUG_ON(p2m_invalid):
+>>>>           if ( metadata )
+>>>>               metadata[ctx->index].type = p2m_invalid;
+>>>>                   /*
+>>>>            * metadata.type is expected to be p2m_invalid (0) after the page is
+>>>>            * allocated and zero-initialized in p2m_alloc_page().
+>>>>            */
+>>>>           BUILD_BUG_ON(p2m_invalid);
+>>>> ...
+>>> ... this leaves me with the impression that you didn't read my reply correctly.
+>>> p2m_alloc_page() clear the page, thus_implicitly_ setting all entries to
+>>> p2m_invalid. That's where the BUILD_BUG_ON() would want to go (the call site,
+>>> ftaod).
+>> I think I still don’t fully understand what the issue would be if|p2m_invalid| were
+>> ever equal to 1 instead of 0 in the context of a metadata page.
+>>
+>> Yes, if|p2m_invalid| were 1, there would be a problem if someone tried to read this
+>> metadata pagebefore it was assigned any type. They would find a value of 0, which
+>> corresponds to a valid type rather than to|p2m_invalid|, as one might expect.
+>> However, I’m not sure I currently see a scenario in which the metadata page would
+>> be read before being initialized.
+> Are you sure walks can only happen for GFNs that were set up? What you need to
+> do walks on is under guest control, after all.
 
-> ---
-> I couldn't find a specific Fixes tag to use here, I think this has been
-> broken all along.
+If a GFN lies within the range[p2m->lowest_mapped_gfn, p2m->max_mapped_gfn], then
+|p2m_set_entry()| must already have been called for this GFN. This means that either
+- a metadata page has been created and its entry filled with the appropriate type, or
+- no metadata page was needed and the type was stored directly in|pte->pte|
 
-Perhaps dddd88c891af ("Auto-disable IRQ balancing/affinity on buggy chipsets"),
-which is where the 2nd use of the function was introduced?
+For a GFN outside the range(p2m->lowest_mapped_gfn, p2m->max_mapped_gfn),
+|p2m_get_entry()| will not even attempt a walk because of the boundary checks:
+     static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+                                p2m_type_t *t,
+                                unsigned int *page_order)
+     ...
+         if ( check_outside_boundary(p2m, gfn, p2m->lowest_mapped_gfn, true,
+                                     &level) )
+             goto out;
+     
+         if ( check_outside_boundary(p2m, gfn, p2m->max_mapped_gfn, false, &level) )
+             goto out;
 
-> --- a/xen/arch/x86/io_apic.c
-> +++ b/xen/arch/x86/io_apic.c
-> @@ -717,12 +717,14 @@ static int __init find_isa_irq_apic(int irq, int type)
->  static int pin_2_irq(int idx, int apic, int pin);
->  
->  /*
-> - * This function currently is only a helper for the i386 smp boot process where 
-> - * we need to reprogram the ioredtbls to cater for the cpus which have come online
-> - * so mask in all cases should simply be TARGET_CPUS
-> + * This function serves two different purposes: shuffling the IO-APIC
-> + * interrupts across CPUs after SMP bringup, or re-assigning all interrupts to
-> + * the BSP if IRQ balancing is disabled at runtime.  Such functional
-> + * distinction is signaled by the `shuffle` parameter.
->   */
-> -void /*__init*/ setup_ioapic_dest(void)
-> +void setup_ioapic_dest(bool shuffle)
->  {
-> +    const cpumask_t *mask = shuffle ? TARGET_CPUS : cpumask_of(0);
+If I am misunderstanding something and there are other cases where a walk can occur for
+GFNs that were never set up, then such GFNs would have neither an allocated metadata
+page nor a type stored in|pte->pte|, which looks like we are in trouble.
 
-Don't we want to aim at getting rid of TARGET_CPUS, which is now only hiding
-something invariant? IOW should we perhaps avoid introducing new uses?
+~ Oleksii
 
-Jan
+--------------PMK9GPWPHuNX3OjgopwO5bTu
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 11/20/25 4:47 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:b859d5c1-b602-4e61-b667-2701e0f31434@suse.com">
+      <pre class="moz-quote-pre" wrap=""><pre wrap=""
+      class="moz-quote-pre">On 20.11.2025 16:38, Oleksii Kurochko wrote:
+</pre><blockquote type="cite" style="color: #007cff;"><pre wrap=""
+      class="moz-quote-pre">On 11/18/25 7:58 AM, Jan Beulich wrote:
+</pre><blockquote type="cite" style="color: #007cff;"><pre wrap=""
+      class="moz-quote-pre">On 17.11.2025 20:51, Oleksii Kurochko wrote:
+</pre><blockquote type="cite" style="color: #007cff;"><pre wrap=""
+      class="moz-quote-pre">On 11/12/25 12:49 PM, Jan Beulich wrote:
+</pre><blockquote type="cite" style="color: #007cff;"><pre wrap=""
+      class="moz-quote-pre">On 20.10.2025 17:58, Oleksii Kurochko wrote:
+</pre><blockquote type="cite" style="color: #007cff;"><pre wrap=""
+      class="moz-quote-pre">+    if ( *md_pg )
++        metadata = __map_domain_page(*md_pg);
++
++    if ( t &lt; p2m_first_external )
++    {
+           pte-&gt;pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
+   -    return rc;
++        if ( metadata )
++            metadata[ctx-&gt;index].pte = p2m_invalid;
+</pre></blockquote><pre wrap="" class="moz-quote-pre">Shouldn't this be accompanied with a BUILD_BUG_ON(p2m_invalid), as otherwise
+p2m_alloc_page()'s clearing of the page won't have the intended effect?
+</pre></blockquote><pre wrap="" class="moz-quote-pre">I think that, at least, at the moment we are always explicitly set p2m type and
+do not rely on that by default 0==p2m_invalid.
+</pre></blockquote><pre wrap="" class="moz-quote-pre">You don't, and ...
+
+</pre><blockquote type="cite" style="color: #007cff;"><pre wrap=""
+      class="moz-quote-pre">Just to be safe, I will add after "if ( metadata )" suggested
+BUILD_BUG_ON(p2m_invalid):
+         if ( metadata )
+             metadata[ctx-&gt;index].type = p2m_invalid;
+                 /*
+          * metadata.type is expected to be p2m_invalid (0) after the page is
+          * allocated and zero-initialized in p2m_alloc_page().
+          */
+         BUILD_BUG_ON(p2m_invalid);
+...
+</pre></blockquote><pre wrap="" class="moz-quote-pre">... this leaves me with the impression that you didn't read my reply correctly.
+p2m_alloc_page() clear the page, thus <span class="moz-txt-underscore"><span
+      class="moz-txt-tag">_</span>implicitly<span class="moz-txt-tag">_</span></span> setting all entries to
+p2m_invalid. That's where the BUILD_BUG_ON() would want to go (the call site,
+ftaod).
+</pre></blockquote><pre wrap="" class="moz-quote-pre">I think I still don’t fully understand what the issue would be if|p2m_invalid| were
+ever equal to 1 instead of 0 in the context of a metadata page.
+
+Yes, if|p2m_invalid| were 1, there would be a problem if someone tried to read this
+metadata pagebefore it was assigned any type. They would find a value of 0, which
+corresponds to a valid type rather than to|p2m_invalid|, as one might expect.
+However, I’m not sure I currently see a scenario in which the metadata page would
+be read before being initialized.
+</pre></blockquote><pre wrap="" class="moz-quote-pre">Are you sure walks can only happen for GFNs that were set up? What you need to
+do walks on is under guest control, after all.</pre></pre>
+    </blockquote>
+    <pre data-start="139" data-end="310">If a GFN lies within the range <span
+    data-start="170" data-end="219">[p2m-&gt;lowest_mapped_gfn, p2m-&gt;max_mapped_gfn]</span>, then
+<code data-start="226" data-end="243">p2m_set_entry()</code> must already have been called for this GFN. This means that either
+- a metadata page has been created and its entry filled with the appropriate type, or
+- no metadata page was needed and the type was stored directly in <code
+    data-start="468" data-end="478">pte-&gt;pte</code></pre>
+    <pre data-start="481" data-end="640">For a GFN outside the range <span
+    data-start="509" data-end="558">(p2m-&gt;lowest_mapped_gfn, p2m-&gt;max_mapped_gfn)</span>,
+<code data-start="562" data-end="579">p2m_get_entry()</code> will not even attempt a walk because of the boundary checks:
+    static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+                               p2m_type_t *t,
+                               unsigned int *page_order)
+    ...
+        if ( check_outside_boundary(p2m, gfn, p2m-&gt;lowest_mapped_gfn, true,
+                                    &amp;level) )
+            goto out;
+    
+        if ( check_outside_boundary(p2m, gfn, p2m-&gt;max_mapped_gfn, false, &amp;level) )
+            goto out;
+
+If I am misunderstanding something and there are other cases where a walk can occur for
+GFNs that were never set up, then such GFNs would have neither an allocated metadata
+page nor a type stored in <code data-start="1210" data-end="1220">pte-&gt;pte</code>, which looks like we are in trouble.
+
+~ Oleksii
+
+</pre>
+  </body>
+</html>
+
+--------------PMK9GPWPHuNX3OjgopwO5bTu--
 
