@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95354C7357C
+	by mail.lfdr.de (Postfix) with ESMTPS id 92F03C7357B
 	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 10:59:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1166701.1493168 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1166703.1493177 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM1RB-0002h6-7O; Thu, 20 Nov 2025 09:58:49 +0000
+	id 1vM1RM-000317-Et; Thu, 20 Nov 2025 09:59:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1166701.1493168; Thu, 20 Nov 2025 09:58:49 +0000
+Received: by outflank-mailman (output) from mailman id 1166703.1493177; Thu, 20 Nov 2025 09:59:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM1RB-0002en-3z; Thu, 20 Nov 2025 09:58:49 +0000
-Received: by outflank-mailman (input) for mailman id 1166701;
- Thu, 20 Nov 2025 09:58:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vM1RM-0002yZ-BY; Thu, 20 Nov 2025 09:59:00 +0000
+Received: by outflank-mailman (input) for mailman id 1166703;
+ Thu, 20 Nov 2025 09:58:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vEGo=54=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vM1R9-0002R9-LU
- for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 09:58:47 +0000
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azlp170120001.outbound.protection.outlook.com
- [2a01:111:f403:c107::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 80f85a0f-c5f7-11f0-9d18-b5c5bf9af7f9;
- Thu, 20 Nov 2025 10:58:47 +0100 (CET)
+ id 1vM1RK-0002vx-H6
+ for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 09:58:58 +0000
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azlp170120002.outbound.protection.outlook.com
+ [2a01:111:f403:c007::2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 84a27077-c5f7-11f0-980a-7dc792cee155;
+ Thu, 20 Nov 2025 10:58:53 +0100 (CET)
 Received: from BY1PR03MB7875.namprd03.prod.outlook.com (2603:10b6:a03:5b1::10)
  by BY5PR03MB5125.namprd03.prod.outlook.com (2603:10b6:a03:1ea::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Thu, 20 Nov
- 2025 09:58:44 +0000
+ 2025 09:58:49 +0000
 Received: from BY1PR03MB7875.namprd03.prod.outlook.com
  ([fe80::2e3c:781a:5f98:7f19]) by BY1PR03MB7875.namprd03.prod.outlook.com
  ([fe80::2e3c:781a:5f98:7f19%7]) with mapi id 15.20.9343.009; Thu, 20 Nov 2025
- 09:58:44 +0000
+ 09:58:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,22 +47,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80f85a0f-c5f7-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 84a27077-c5f7-11f0-980a-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HqMhh844RdtmUu5fOweq58Qb3kdj+fWULaQ3h0RMDJa5D0JAVWveOsLP7trJXysIVxln/GNyzLrO8UpwxkghG5vkXfIhIj4BCg+91y5HyhLGN4ZdQiJKya6kxGmjKG0aaRcbk7hw/JIV5dNdl/HXJq6VOMrGNWmM2k34wdaDYQMMHZ03Ym6OpzUullpEv04YRjHTKqQCvfT2iPZ0yvxLJ1rv8PQRzLJPabBGQNdq24p3xlP24KN6SI/PAbsH02jctMh7U088wPrSQLbk8SqFkbFcb/8VKP6wFdmJwlIK9GInLCDpnag6J3Tf8Hg3CuZLhfyTSGRELLutMeybkSdnhQ==
+ b=zRr+B4yTgNvcy0gCJUFMcqQ9qmTL/iHxAx6Od2OS4gMFoJ6gjFPGtC1z7kBKNbRrqLRYd/uBMOYjHlHAM2vh1D9Tj9rOefp/Shc8uGJ4uur7cMdtjH4LPYbhm7DIwoFUhvochst2FKSbahm5XMQ+qd2hVOtOk6isvNNgsN6j/x/LfQQfU9CxL5UV4TMwaB/o6CUrl6neCkvuxAtr9Br5wZZ7w5+08HBJLpnd/bKEpfykvurcG6GlnjVgnjHbKTNrQMAutleotRhOIEgI5i39VZMei8JHEymcotixvPfLrUAkydyo3Z3FO9SPf6kpaeYjr62CpPECvdxQcOzfmxQIlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xklGVyUP9Zbd32cAuMG1njcB45nfMfGCMSsOi+HLzMI=;
- b=a+MSR4QgI2Jyhm7IjQGnX6DEM5KIO7u0KFC1Qb/RDiboehjD6ZzYB02Y+H0w53OcM/lIOwA6Hk5DeewWXLkmrifgCZdEK6C9cASrpu87ZmUmjYZTMy43Fnf+umUyScOcRHOoPFlKr+YCsH4cqdRZ4tNtQy2I7B9oG41Sz/QmE/50YWXOl6K8DiaN8HL+y+6NqYk1yux3kHV8B5N0ChsyxwZIC31gJcn9y8VYpxslQakCcNVUd2NL+IJW3cuxVio6CjDEZ2FjhZVpcMN+B3Sn7TDxNh29uEvB4T3SX9syFRIf9eox4WQOIOL3xx5zVYahbK2/2xIE7ZiZRz2Qo4NJzQ==
+ bh=CNaJa5GtJOvNp5LIJxWkZEHm+c3C8n4cxyZ0oxNQnlc=;
+ b=eGfrSFjYNQbU9JZAwPXynmnNbvD/Upon7UiqYEzU8gWb0COtB883iDORBZftKGEo4IGuWur3HG0n4D60ushvtZVp72jFWZmD1bFFvwYvzaQPHMXhPWVL5GoDAsvzMGv9ts+uPg6oy0taCmpV2+YM3qd1pNYgail6CTmnoVyA5r0Iz5Ah6IYPItd5MU6Zu6r3CD6Oc1yItIlW055rpsSxmNx4gWjHyNU0rsx1RT6jEmeQSpAKfrLiVxzfr4JEsdY3ENa0dGSQrDffcoH0LjWHBL8KZhmT/7uP0dPwXyROFI2cejHfzjulD6v9mz4+BlA6Bjc8eOnJStUoXRi0NPR4tQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xklGVyUP9Zbd32cAuMG1njcB45nfMfGCMSsOi+HLzMI=;
- b=sAdkNYqdGDdz8HDNFm6MIXmim/phShMHtc8O92MFugxjuh6yP779he6Patnow9nwOxjioXJHirITniydTqLodnaGjIBzWvtqFSigFs+nq+f14fQQpQueOBylPlzx1o/QetXqFeBfJ3B9FCaSeaCOZ37bj2KnNU6wJTBVTrV0wa4=
+ bh=CNaJa5GtJOvNp5LIJxWkZEHm+c3C8n4cxyZ0oxNQnlc=;
+ b=VTNplej0dCbWGCxqeU6Anwpg9k/Hi+Qcpy75RDlWlZ+Jo5Gt/MtFQs+LaOQWt9vbQlSLzL3oinNMBNDR1Ia8BQCkpdOVShas75xSdCyPdHY9thGVthJxj70jI0NTfuvISDlQ064of5rKybqwL45DQmdjT5YZLqNK6/CgssVvYIw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
 From: Roger Pau Monne <roger.pau@citrix.com>
@@ -70,210 +70,218 @@ To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH 07/12] x86/io-apic: fix usage of setup_ioapic_dest()
-Date: Thu, 20 Nov 2025 10:58:21 +0100
-Message-ID: <20251120095826.25782-2-roger.pau@citrix.com>
+Subject: [PATCH 08/12] x86/irq: adjust bind_irq_vector() to take a single CPU as parameter
+Date: Thu, 20 Nov 2025 10:58:22 +0100
+Message-ID: <20251120095826.25782-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251120095826.25782-1-roger.pau@citrix.com>
 References: <20251120090637.25087-1-roger.pau@citrix.com>
  <20251120095826.25782-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA3P292CA0022.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:47::17) To BY1PR03MB7875.namprd03.prod.outlook.com
+X-ClientProxiedBy: MA3P292CA0001.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:2c::7) To BY1PR03MB7875.namprd03.prod.outlook.com
  (2603:10b6:a03:5b1::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BY1PR03MB7875:EE_|BY5PR03MB5125:EE_
-X-MS-Office365-Filtering-Correlation-Id: 40b34615-fd56-4112-adcc-08de281b6461
+X-MS-Office365-Filtering-Correlation-Id: 82673d05-f1ca-4f00-0986-08de281b66df
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?YWwyWWRRU1kzaWIvNjB4TWNzVDA1azRJQkovSExKM0ZSYStJcHl1TllLYTNt?=
- =?utf-8?B?U29zOVdWR3huRnhrWWp4S3lLOHo0MFRVOUVVZUVvN0FhNDJIK3VRNzR5TExD?=
- =?utf-8?B?dHhMUEdGVkFjclhPOEFPTkFwTmV5MENxNXUvdGhVblA5c2lRZXNNWlg1M0pO?=
- =?utf-8?B?Sk82a0JtSmpFc0EwSTR5d3hNWTdmKzcrU293YWZSblBCS1NUWXF2S1ZlNk16?=
- =?utf-8?B?K0h2K2xhelFSOEE2N2tqcDhHK2hHbGVCb2VqU2dSc2ZDRzBXWk1PN3RZcVph?=
- =?utf-8?B?VlpINUs2V2g0NmVzdnQrMmhkeEtPZGVNbmwvTUtPK2lBYTQybTRnQm9sTHNl?=
- =?utf-8?B?a0V3Y1Iyc1UyWFBTMkExb0w2UjFDYWVqcEU5U0p6S1BNOG9TVHZpOUJqbWZ5?=
- =?utf-8?B?RmNjREVRNnRGME5KM21hY3Jac2ZoQ1NPVzhiOWxhRi81ZUQyOEZtb0tXOEZk?=
- =?utf-8?B?YnhGcFI3Ly8vKzlZNFo3MTVaM1RtVFpnYVdKS1ZsckNIZUV1ODFBR3VtYjBr?=
- =?utf-8?B?VmRvU3JTTDNvZzFReHU3dzRnUGxIeFJVZzZCNFNmWUtXZ2lCcUlXcGpRQUNa?=
- =?utf-8?B?OHNiU0FFV2JvU0tWOS9kL25kY3VKVE43d3NrZVZwODluV05vUHdIZmNTR3Jl?=
- =?utf-8?B?bHA0akI5Zk1qaG9UU2JoTzZaRXFveW1wOXptZnBOVkdPOHNEZ0NvR1kwVmtC?=
- =?utf-8?B?Z21BeVpBdFpZQzlIM0szMm96aTFZZldjM1RYdHVxQWpLZ1A2YmtIeEVmMU85?=
- =?utf-8?B?ZjJnbTBVR0V0Ukcrc3lVYldyUUR3clI1QzlsRThIYk85YnZvdndVUFgrenJT?=
- =?utf-8?B?SHdaRzBVcS83VWFIMDN3dWRnYVk1b24weHJvdVhvcW16eTdxYnBCekhnUDZB?=
- =?utf-8?B?VkV6VCt0VzBKcDNuVlM0b0M4YjlUWnV6cmRyV0hlR1NlLytDWi9wZEYxL2Fa?=
- =?utf-8?B?NzhRNE9lQ1pZbG56ZVU0STBIa21tQTJWbWE3MzV2VVlJS1B0d3c1NUFyNmtF?=
- =?utf-8?B?ZW4rSm51eWFLSjJadDdTVXY5d2lVMFdPVjlqMC9wUmh1a0swY1RzQjIyMGF0?=
- =?utf-8?B?d0hXMlY3Wko1QTI5eEh5NXl1RDJkWitRbFhuWHlwQThvVW1UaTNKUmhQbjJo?=
- =?utf-8?B?TGtETmZzVUJhNkRZcEhXdkpodEtIN09vMldCVXdGc05JbkdvMDdqMzNKb2RR?=
- =?utf-8?B?ZHJGVmFRcERUWW5DTXlDbEJiYnZFRm5SdlYvWVhtTnNXVDhyWVhIRDFuaFRy?=
- =?utf-8?B?NXlCY1NmeXptemMzYWxyM20xdzZQd2NBcWVxbUp3TXJyK0kzTW5UMVZlZm1k?=
- =?utf-8?B?NG5YOHlkOFMrclZEM2FQYzBYZ05oTmpjMEQxOFIzaG84a1krVmFDajZYVlJE?=
- =?utf-8?B?QkxQcFp0SXR4Yy9UZ0xjZDJUMFUvRVV1MEdFK0hLQklEcGFka1BUYWo5RTly?=
- =?utf-8?B?VFJrWGZCVFkwdHJneGQrbDBCTElpNy93aU1aUDNoOUNrMDZHU2p1K2h3WUZs?=
- =?utf-8?B?c2VpYU8va05ESGYyMzVtYjZscnE4WWsyMjdod0oxS1ZCU3g3Y2lkSTA1ODJl?=
- =?utf-8?B?TXlnSTN1bnI4a2JZcENJb2syaWJtUE54SE52dTNac2toNXRxMzV2c0VaajV3?=
- =?utf-8?B?Z1hCa2hRQjdFbDJaa2wyTDlKYkxPOURQQVBDTHRvOU1UTHlmSnNQenNUckxQ?=
- =?utf-8?B?RDdNTFBGZkNaS0pNMTBJZFRMdVBSWlFpZzVidHR0ekxZWG02Z0RDNEk1SFc0?=
- =?utf-8?B?MDRhVmdnNTZ0ZnduRjdKZW9wYmZ4Q0g2ZkpwR3ZWaGwwRG94eXRkenUyM3hS?=
- =?utf-8?B?OHdOUHpEQTZSNFFMTDNCWC8rT2Y0SzVvU3lvWXlmNUpUcE9OYmxMVWdFVzNK?=
- =?utf-8?B?MExBSHpjeS9uREpZMVFDRzhHajdOd0lLTU54b2xhbkp1V3dQWXp2ajl2MTdZ?=
- =?utf-8?Q?1XPbIHxPzwWxJnVnY1LQXSIKZJ2a3+5C?=
+	=?utf-8?B?Wk5ZUVl3UFNDdjNrSE5ETGFZbEhDNnZ6SGMyeDJOMjZUWGxzUWVsNWR2MEFE?=
+ =?utf-8?B?MXZVSi83SThWdk1RQVNjVlgwMVRsK3ZDeHNvUlpqL3V2cUQ2NTh6Y3FpRDJB?=
+ =?utf-8?B?R2RqNGIzWEpNQThzY1AxTy9HUGFMOXg4MFF0Vi9wWE0yRjdzWlU1OTFuaGt5?=
+ =?utf-8?B?ckpmcnN6UDQzZlM5cWVIbURGQ2EzaUZmeWdkc2tlckczZXVJMndFQzN4SkVa?=
+ =?utf-8?B?RWNNUTdLdm5IZFZldEYrdWVGRVdMQllRM1NDTUxlT3VQbUZrODFlN1hpc0d6?=
+ =?utf-8?B?L2RUcVpmUWtoVEwxVXR2dmZvbUJuK0FQbVRYVUNPRytLcjF2aWVxQ2U2cEZM?=
+ =?utf-8?B?dUpKaW0zYnJOVzRYUVBadmNkalZVYkR0WWFQU3lzc1QyQ2ZmZlJLZ3dzZWF1?=
+ =?utf-8?B?NHlZRk9WUXJFeUgxWG1zZGprUHFlVFp1K2lFcnhVTWpsOHB2ak1kVlEwenQy?=
+ =?utf-8?B?N3BqYVI3SmlyYUgrL0I4T0NuR25qaDNFS2VwamtseU9CT3E3bTYrQWtnTi9R?=
+ =?utf-8?B?dnFUbER5eHlTWU5JZXRoVDNFRnZnRGN4eUFjb1RhamVmOW9Ub2RBTEhPbGF0?=
+ =?utf-8?B?b2ZhbGhPZFN4OTYrd0RoYlhzOWJndWxSWWRMRU51cFJuSDArdjlkN0g5dkVS?=
+ =?utf-8?B?SCthWkRXSGoxNy9FK3VrY2V4bTBNb3NoajVoanpsUHNnUVpsWGNNQnV4Qk4v?=
+ =?utf-8?B?NGF6dnlocWZyWHQ3a2ZraXV2c1pnUXFyd2pOVjZNcTdNaExFTDlURTFVeEps?=
+ =?utf-8?B?R3ZxUHJ6YThsZzdPQzFNVUI5eCtVWnNHN3JaR0tDOTl1REE1Z2szVjJtdVUr?=
+ =?utf-8?B?d3ZpRHZDSytIcndlT3pacGRibk55QzdoRWtkUDVaN0Z6MzluYXk1Z3RSaFVn?=
+ =?utf-8?B?TDQ1bnhkOFpaUzM5bEw5TlhHS0JHMU8yK0plN3RlR05sNlNuaDFUZzdmbWZO?=
+ =?utf-8?B?TlhzMXR1V0hKM1Z3dUtMcG9FS0gvLzRxSk1rWkJ5aWNEL3JJeWcyVkZhdHU1?=
+ =?utf-8?B?bk82dmNFV1psdDM0Ynl2M3JuZk9vM1ZLTUNzYVlibzFKYmRUK1l5WllhRjRD?=
+ =?utf-8?B?UXdSTXJoMmkvMFB3dktXaVRBb1ZGdTlod01CbUJJRzlGV3Vxd0J4Wk5iQnRQ?=
+ =?utf-8?B?Z3p2QXJ0aE9ibUJVMXUweVRiYmhGUnMzZG0zVm5wMXlKQk1LaXNGSWk5Q3VR?=
+ =?utf-8?B?WW9jOTBIVGRrR0RGQ1RHRDRta1p2VFZMU0VXOVhEaHdPQWVZQTZXMnJrSUZm?=
+ =?utf-8?B?alZLZkVZaDQwRmJRVDdwUWY2bXBZLzhhODl0TkJjcCtqMTFGdVdRdnI0WHJ2?=
+ =?utf-8?B?S1lRanNMb3hNeEhjMzMvOXVpTDN5bE0zeHJackI0MGE2Q05yc3UzRTFoeEdM?=
+ =?utf-8?B?a1NucDlvZmlzN3ZCb1lPWHc5c1YxdnZmdTZjSmZvU0xJUlRDT3FSdmhuMzlK?=
+ =?utf-8?B?bU5GKzJmYU42c3BqQm9obUxYcVBNdGZLVFV6aHRCUUNNc25ldVNMUnlCN2ZY?=
+ =?utf-8?B?d3ZqdVh0YlE3bXV3M0l2SGc5WFBYT1dBZS9PRnNOaThoZytBcTJJa3F6SUtn?=
+ =?utf-8?B?bWZHSHpZcXQ0T2UrV25UNVU2cERoNjlnNUtLcE5uNDRXSVNyRTdUTlFkeGto?=
+ =?utf-8?B?aVArZzB4ZkhYZzREUmI2SlFDY2JZNFNBQlBmRS93d1pSZ29idEFxK1NacGlt?=
+ =?utf-8?B?b0NKSU0vNStMRlVMV0lkTDRUREhIOFFFWTg3endBblM4NFo4cEhoQVRvRlRS?=
+ =?utf-8?B?b2ZzazA4MGtZanJkMk5Gbk1lSDYwMWhkL1NIank5OGJLSklFeFJwTUFYSWl4?=
+ =?utf-8?B?QXdkREpkbGw2OEhhaDVuNHIyRFRnQU5SRUN4UHRwZ3plSURLcFZteEhQdVNv?=
+ =?utf-8?B?blRlbnYvTlN4VjBVanNDT2gwR1ZMeWVyUXBCTjNxbzZqdzVTZVMwSEVmT1VT?=
+ =?utf-8?Q?uFokc/9KITKZaixSJvCJcw6xxD5tVp5A?=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7875.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TWhnZ0w2TGt0UmEwam5TV3R3SExSTFZ1YUVFalgrbFh0SGxheG9IMlk2enRR?=
- =?utf-8?B?OGJFNVk2Zmk2MlNrVUIzM1FMNDc0eDBJQmJ2b244ekNMQXIrakNEcVhoTzBF?=
- =?utf-8?B?dEs2bXNNSXQ2enBoaGFVQ3NVRWdqa0dTOWJTNFZnR1ZrN1JGQlFMaHBVa0Zp?=
- =?utf-8?B?RXRkNlJzb0h2VHdZTEhBaUs4ckRxalJRbTdxVkNxcjN6MWRqNEt2L2dsUGgw?=
- =?utf-8?B?dGY3MG96OXJsN2QwYnNaM0JSYkdSMFU5Q0ZqWEtoSUVMMDYrYXRPMDJPNWJx?=
- =?utf-8?B?SExTc1JIUmtaUS9oWEg1ZDZyNUNyWnhvaXo5T3JMQkxPdTc2c0JqNnBWRVZU?=
- =?utf-8?B?N1NuOHJva3pBc0pJY0M0SWhXUldTRHppbWVjVWxZL3lLRy9QUS9nbmRhVDZ0?=
- =?utf-8?B?SjBSV1RSVzBVV3hmSDNaNUxBemhPTFN2RzFqM20vTGx6ZjRlSlN6M2dQdHcr?=
- =?utf-8?B?K0F1Ykd3dEkrU3grTVg0TlZ6VUFPdDZZSHF0eThEak9jWWs3ZTlBYXJLUFc2?=
- =?utf-8?B?SngrZ0hyZytpdjJhbUN3YXZTUTdMOS82Q2hDQkxoczlmdS94M2pBWktYbEVJ?=
- =?utf-8?B?QkhqdlBGcElNbC9YVldGNXRid2MxdEtmOFl6TXZXTWlnVTB0WjgrWFdZUU4r?=
- =?utf-8?B?UndHVkJkVkYwNnYyREhBYU9sVFY4aS9NRmlqTkpWeE9UMTU1V2tDK0xKV245?=
- =?utf-8?B?Y01WNVJoMG84YnVuUGZGaVZxc0FJVU9nN0ZqNndEb0lEeFNvUHpxTG9aUzE4?=
- =?utf-8?B?VUhLVWNVNGZYYzdQVmxoNFVPWDNTUU9FYkR1ZUdtZERBdU1wVmlLbUo5bklH?=
- =?utf-8?B?OWhzNU5pL2dMOVVYYkJOaEh6U1B2TTVhM2s0MmkyaGczM3MvVk5mKzRUcHVE?=
- =?utf-8?B?cDB3YjgyS0g3U0Q4ckkrd09JdTQyakVHajJ3RGIrMjFncGNJd2VMc2RzSUo4?=
- =?utf-8?B?QUFlUWF5YVZzRDEySkRhK1dmaUZGakJybGpUd1ExbEZnN2ttbWRnZTQ0ZER5?=
- =?utf-8?B?S2szTGRPU2tINm1ycVdDcVRFdTVLVXU3Rkt2ZHVxQ01kTDBRU2tsZEFDemNM?=
- =?utf-8?B?TWJZWnp4UjJZK0xCSnB5SXRuQTJVQmgvZFdSUGp5clVreHFVcWRSdUkydWtJ?=
- =?utf-8?B?NU1QdlZ1U2huSjFpM3ZGdmxXMnp4TEhrSVE1Nisxci9uMXU2S3plZ3hmYW5t?=
- =?utf-8?B?MW9NVVFJZHNUdzVVbEJBdDB4NXhFYzhIeU1SeVF3bVNkZFFwQXRTeS94cm5U?=
- =?utf-8?B?M3IrUzZVU2xUMy9KbUoveVVweW9DbGNKN1NldnVESENoSHNiQzNNTUJIVFZi?=
- =?utf-8?B?aGMvM0x6TWJYUVBTc2ZERitFTURNWGV4SEYyYUE2VnlMWmNVdXFDTEdWaS9p?=
- =?utf-8?B?d0pQUkJuNk5pb0pMYWRNMzFWWkNBMDdxcTVMekpaVEJRUk00Vk10clV3bHhr?=
- =?utf-8?B?NncyWW40bU1UMzM5bE5qTnNGVlVLYmlnZmtwMmV5Y2RnZDk4VW5GamtsZW8y?=
- =?utf-8?B?dU0wb3Jnc3RpUEczdFhiVUJwdlQ0bW9aRytRSy9yVzBETm5ETnpVK05LQTdJ?=
- =?utf-8?B?NmQxcWpNdnhyVWJRek51YjlET0pUYkpWSFlmMEhuSEFQcEJXL0dBSW9JY0Ez?=
- =?utf-8?B?QmdnVkVKcjlmV1hiVXRjOUU1OE1sRW5GaVN1VndvQjIzZW9senZYVXFVcnlX?=
- =?utf-8?B?U1kySWNkNlI4RmhOUnJuejZscjRrcGFmSGUwekVUbUtuZkI0T0dVMFU5eG5r?=
- =?utf-8?B?OWh0U3c3bkoxK1NyUHZwcTJPb29DZ2p0M2Y3Y2xLYnV3Kzk3MEE3NDdRS3pX?=
- =?utf-8?B?bjBTNVFSVGd2TGxRNUNMdUdHTVZDWXByMTdyN2ZCSG9KMHhSQm5DdGJ0R2o0?=
- =?utf-8?B?ZU1Wb05RTlg5TnNMTDF5RDBpZEU1QjBnTndyZ3VHUDc1VXI5QStkam9uVitu?=
- =?utf-8?B?anNPUDE5ZXM3aGozN011NW1RUUVyeW1WQkRybXZ4OHJhZzQ3eGxFcUhEMHdI?=
- =?utf-8?B?dC9jdGE2aitoaUJsNzJqSSt4VlNSTkRtUGFYc3R2MWtibVVleU1ZNGIxODNt?=
- =?utf-8?B?VWI3NytQTHhZa3NsS2kzdzZkMlNyT1FCRDdVUDlmVkUwY0hqRFVtc0wreWVG?=
- =?utf-8?Q?7p/HHwMkkh8F5Ve/QV5NieQ+j?=
+	=?utf-8?B?SnpnWFE3cFlyTGJtOGdUY095SzVCZUppZVIwSkxUenNPbGZFR043NVlNbE1P?=
+ =?utf-8?B?ZEZzK0lVd0pabS9UeVJZM2pSaTkzZmF6Qis0alo1Vk8rcU5aaitJVU9Hbmw3?=
+ =?utf-8?B?T0N6KzVGNmFaZk8ybjh2UzhCM2hySS80SFdZK0pQSXR6bUM3RGZTenVBNDFN?=
+ =?utf-8?B?ZTJVemxRK2dQOGQ3THpiTDE3WDRrV1lIV2RPbkdKZkNoN0xURWlRZStCQi81?=
+ =?utf-8?B?aUgxR2F6VkhGcFBocHlCRXFoc1M3all4VEc0M3pBa2NFNzFDZjg2WlZFRHRN?=
+ =?utf-8?B?cmtHUHRtQXNEbEVUZDJWQjg2ZzBYTVlDUlMwNktVNGZPbktIV0g3OFF4WWs0?=
+ =?utf-8?B?emRoUElzTFllMVBBeFdCa1Z0QkFuMkVHSkVLMHdLeUR1N25ML3JyUEZGTysy?=
+ =?utf-8?B?ZkZQVXY5bm4vWS9HOW1NTHdzTGk4bU92S2FOU2RtVzVoak5SY05ORDA1RThh?=
+ =?utf-8?B?dkFLd25MaWJGbzMxVVlpK1c3K0hxcjU0cDg1Zk5nR0NETGJ3eUFua1pReUlM?=
+ =?utf-8?B?T2gzOHhpUW9rU1VjeEVBR0xPVE5uSiswYkV3TDZPWG9OdElkU2MvdmdwVWlU?=
+ =?utf-8?B?SFVQUU9rcTBLQkdoY0s1bjZoOWJoWXE0N3UyM2svSzlHcDZuRnA4U2VJK08z?=
+ =?utf-8?B?VHRDdFBXZWtTdjV1V3E3RWdSaC9zTVNaYkxJbzljb0p1Tnl1NWR6ZUFHWUpq?=
+ =?utf-8?B?VCtmYzVwWTJhKzgvb1lzMTVaOVZ4bXFTNnpScnNLandNa2QvQ2ZjS2VCZVZR?=
+ =?utf-8?B?MEVlY2M4TWc3VnNJTlBSSC8xYTJ1UGdPdjlsYVhRYkRGQXB4b1Z2TVdMSEd4?=
+ =?utf-8?B?WVFZc1JwSGcvUWgwNHZEblg2VmFQVHQ5clVFY3dQS2ZYbUxXQ0djdCsxeDJJ?=
+ =?utf-8?B?OFpvVnZxdjd2bHljRTZheWZOdzFQSkNTU2E2UFZTTERTMkU1TllwOVQwZ2g0?=
+ =?utf-8?B?WTdSK2NENy8zdUlNRkNTalBPWXk0OWJPUEttRk9sWktZY1U5bis4UEx4bDlG?=
+ =?utf-8?B?aFVmRW9vY3F0V1pWS1ExY0J4R0lmMUZid1BFQitXN240eDFlN29UdkZpTFQ4?=
+ =?utf-8?B?T0VjNnU2RFFMQ0gwNWpmeDJKaHRJK2Uydk5PaDhYcSttemt6V2x1QlRuTWpa?=
+ =?utf-8?B?eUQyeEJkR1ZaN004cmRpTFNralJaSzg2dnI2TjEvV29iZHdmd2JZdzNMd3Iv?=
+ =?utf-8?B?QldPQnk5cDNkRjB3NDlub0liOFU0SFNQK01nUkdJV20zeXRaT01SVUJsOXYr?=
+ =?utf-8?B?aFlKNGJNVmRRdFc1T2I0ZlJtY3FpcE1iZkxtV3BoeXQxTlRHdjQ4ek9kc2J5?=
+ =?utf-8?B?YzZSd2thOXB2RHdWZzBJeCtWYWI1Z2RQdUMrVHBvTDF6K0FUYmxOWWY1YS83?=
+ =?utf-8?B?cTcwclRXYVI3OXQ1RzR2bGtQQkpqU25CT3dHSHVaeHZHOXlVMWNqdTdOTWFF?=
+ =?utf-8?B?bWtvRWpuK1ErdXRqOXdmbFVpOEsrVnRQNGNmbDlzblNDS0FLK1N5MDBhKzNy?=
+ =?utf-8?B?UmFCZWFuUmcxWUVIOFg3ell1bXRJSFlvUVp4NDA0V0FDcnJMVDJHNFdnZXFa?=
+ =?utf-8?B?NE0zWWVEbDNxbkdndlFpeEplQ0NQbjdXT2xyQ0ZlZlNxMDBoOFRtUmdUOXhs?=
+ =?utf-8?B?QjNobjQ1RjZhb21ueFVxV2thWmx5UTJGamF5RCs2VlBJU2JxVS9COFg5WEh0?=
+ =?utf-8?B?NzVvWm1JanpUaDZSRkVZbzdFRVVlVEl3bXcwQzIrZFV0SUZFMW9VUkxkNGhH?=
+ =?utf-8?B?UmpPQlVjcnBlKytLeG1UbFpYMTdFcm15L21BWlVlbGhpR2hzdFRlWnJybExL?=
+ =?utf-8?B?R0k2ZWd3MVdDcEJ3bS82R0JoM1E2aUE5djJrL0JDNUZueCtxcUdqSm8rQUtq?=
+ =?utf-8?B?by9SVjREalFsYWJRbXlaWit6bjIxcy84OU4xQjVNbWFMUVhCZDFVOWgwaE1h?=
+ =?utf-8?B?bGk5eHozYTNrak5uQTBIRnY5KzFPRWZEMlJPcEJIeThqeklxcFUram5haFFL?=
+ =?utf-8?B?RVlqVndDK29DTkdUaFZPU3pXQlhDdnp5eDVBRllKY1AxR3Q3SThhOHk1S3ZT?=
+ =?utf-8?B?NTVpcjlNOUlzSEI4NzgySlI4VFFFNWdnSU5DWGg0RXNuQUsvMGJIdGtWb3hI?=
+ =?utf-8?Q?tOZqX0qryNBtSZtEbmsROtrRh?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 40b34615-fd56-4112-adcc-08de281b6461
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82673d05-f1ca-4f00-0986-08de281b66df
 X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7875.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 09:58:44.8700
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 09:58:48.9801
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G6R1i3bhCXDKTIGQUTZ4/ISUctpxO/LE4owl1kpgzcMCZ2RJcLiv4mzYPEDeMfRsl9pWUrq4/B9zWxmiBc2ofw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: rmZ45QmXhVw6ISnre0K1BBc6EOteiV54YSY9esemtS0VaSACDJ0pPBHOEk2M3LJZdZqqRaPhHlqO88jHI5QrPQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5125
 
-Attempt to clarify the purpose of setup_ioapic_dest(), as the comment ahead
-of it is outdated, and looks to be a verbatim copy from Linux from one of
-the code imports.
-
-The function serves two purposes: shuffling the interrupts across CPUs
-after SMP bringup or re-assigning all interrupts to CPU#0 if no IRQ
-balancing is set at run time.  However the function won't perform any of
-those functions correctly, as it was unconditionally using
-desc->arch.cpu_mask as the target CPU mask for interrupts (which is the
-current target anyway).
-
-Fix by adding a new `shuffle` parameter that's used to signal whether the
-function is intended to balance interrupts across CPUs, or to re-assign all
-interrupts to the BSP.
+The vector will be targeting a single CPU at a time, so passing a mask is
+not needed.  Simplify the interface and adjust callers to make use of it.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-I couldn't find a specific Fixes tag to use here, I think this has been
-broken all along.
----
- xen/arch/x86/include/asm/irq.h    |  2 +-
- xen/arch/x86/io_apic.c            | 13 +++++++------
- xen/arch/x86/platform_hypercall.c |  2 +-
- xen/arch/x86/smpboot.c            |  3 ++-
- 4 files changed, 11 insertions(+), 9 deletions(-)
+ xen/arch/x86/hpet.c            |  2 +-
+ xen/arch/x86/include/asm/irq.h |  2 +-
+ xen/arch/x86/io_apic.c         |  2 +-
+ xen/arch/x86/irq.c             | 23 ++++++++++-------------
+ 4 files changed, 13 insertions(+), 16 deletions(-)
 
+diff --git a/xen/arch/x86/hpet.c b/xen/arch/x86/hpet.c
+index a69abe2650a8..abf4eaf86db1 100644
+--- a/xen/arch/x86/hpet.c
++++ b/xen/arch/x86/hpet.c
+@@ -352,7 +352,7 @@ static int __init hpet_setup_msi_irq(struct hpet_event_channel *ch)
+      * Technically we don't want to bind the IRQ to any CPU yet, but we need to
+      * specify at least one online one here.  Use the BSP.
+      */
+-    ret = bind_irq_vector(ch->msi.irq, HPET_BROADCAST_VECTOR, cpumask_of(0));
++    ret = bind_irq_vector(ch->msi.irq, HPET_BROADCAST_VECTOR, 0);
+     if ( ret )
+         return ret;
+     cpumask_setall(desc->affinity);
 diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.h
-index 7315150b66b4..df7b48c8653e 100644
+index df7b48c8653e..355332188932 100644
 --- a/xen/arch/x86/include/asm/irq.h
 +++ b/xen/arch/x86/include/asm/irq.h
-@@ -137,7 +137,7 @@ int i8259A_resume(void);
- void enable_IO_APIC(void);
- void setup_IO_APIC(void);
- void disable_IO_APIC(void);
--void setup_ioapic_dest(void);
-+void setup_ioapic_dest(bool shuffle);
- vmask_t *io_apic_get_used_vector_map(unsigned int irq);
+@@ -199,7 +199,7 @@ void setup_vector_irq(unsigned int cpu);
+ void move_native_irq(struct irq_desc *desc);
+ void move_masked_irq(struct irq_desc *desc);
  
- extern unsigned int io_apic_irqs;
+-int bind_irq_vector(int irq, int vector, const cpumask_t *mask);
++int bind_irq_vector(int irq, int vector, unsigned int cpu);
+ 
+ void cf_check end_nonmaskable_irq(struct irq_desc *desc, uint8_t vector);
+ void irq_set_affinity(struct irq_desc *desc, const cpumask_t *mask);
 diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index 3c59bf0e15da..19960d291c47 100644
+index 19960d291c47..dfbe27b12d54 100644
 --- a/xen/arch/x86/io_apic.c
 +++ b/xen/arch/x86/io_apic.c
-@@ -717,12 +717,14 @@ static int __init find_isa_irq_apic(int irq, int type)
- static int pin_2_irq(int idx, int apic, int pin);
+@@ -1859,7 +1859,7 @@ static void __init check_timer(void)
+     vector = IRQ0_VECTOR;
+     clear_irq_vector(0);
  
- /*
-- * This function currently is only a helper for the i386 smp boot process where 
-- * we need to reprogram the ioredtbls to cater for the cpus which have come online
-- * so mask in all cases should simply be TARGET_CPUS
-+ * This function serves two different purposes: shuffling the IO-APIC
-+ * interrupts across CPUs after SMP bringup, or re-assigning all interrupts to
-+ * the BSP if IRQ balancing is disabled at runtime.  Such functional
-+ * distinction is signaled by the `shuffle` parameter.
-  */
--void /*__init*/ setup_ioapic_dest(void)
-+void setup_ioapic_dest(bool shuffle)
+-    if ((ret = bind_irq_vector(0, vector, &cpumask_all)))
++    if ((ret = bind_irq_vector(0, vector, smp_processor_id())))
+         printk(KERN_ERR"..IRQ0 is not set correctly with ioapic!!!, err:%d\n", ret);
+     
+     irq_desc[0].status &= ~IRQ_DISABLED;
+diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+index 5cd934ea2a32..e09559fce856 100644
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -150,26 +150,23 @@ static void trace_irq_mask(uint32_t event, int irq, int vector,
+ }
+ 
+ static int __init _bind_irq_vector(struct irq_desc *desc, int vector,
+-                                   const cpumask_t *cpu_mask)
++                                   unsigned int cpu)
  {
-+    const cpumask_t *mask = shuffle ? TARGET_CPUS : cpumask_of(0);
-     int pin, ioapic, irq, irq_entry;
+-    cpumask_t online_mask;
+-    int cpu;
+-
+     BUG_ON((unsigned)vector >= X86_IDT_VECTORS);
  
-     if (skip_ioapic_setup)
-@@ -740,8 +742,7 @@ void /*__init*/ setup_ioapic_dest(void)
-             desc = irq_to_desc(irq);
+-    cpumask_and(&online_mask, cpu_mask, &cpu_online_map);
+-    if (cpumask_empty(&online_mask))
++    if ( !cpu_online(cpu) )
+         return -EINVAL;
+     if ( (desc->arch.vector == vector) &&
+-         cpumask_equal(desc->arch.cpu_mask, &online_mask) )
++         cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
+         return 0;
+     if ( desc->arch.vector != IRQ_VECTOR_UNASSIGNED )
+         return -EBUSY;
+-    trace_irq_mask(TRC_HW_IRQ_BIND_VECTOR, desc->irq, vector, &online_mask);
+-    for_each_cpu(cpu, &online_mask)
+-        per_cpu(vector_irq, cpu)[vector] = desc->irq;
++
++    trace_irq_mask(TRC_HW_IRQ_BIND_VECTOR, desc->irq, vector, cpumask_of(cpu));
++    per_cpu(vector_irq, cpu)[vector] = desc->irq;
+     desc->arch.vector = vector;
+-    cpumask_copy(desc->arch.cpu_mask, &online_mask);
++    cpumask_clear(desc->arch.cpu_mask);
++    cpumask_set_cpu(cpu, desc->arch.cpu_mask);
+     if ( desc->arch.used_vectors )
+     {
+         ASSERT(!test_bit(vector, desc->arch.used_vectors));
+@@ -179,7 +176,7 @@ static int __init _bind_irq_vector(struct irq_desc *desc, int vector,
+     return 0;
+ }
  
-             spin_lock_irqsave(&desc->lock, flags);
--            BUG_ON(!cpumask_intersects(desc->arch.cpu_mask, &cpu_online_map));
--            set_ioapic_affinity_irq(desc, desc->arch.cpu_mask);
-+            set_ioapic_affinity_irq(desc, mask);
-             spin_unlock_irqrestore(&desc->lock, flags);
-         }
-     }
-diff --git a/xen/arch/x86/platform_hypercall.c b/xen/arch/x86/platform_hypercall.c
-index 79bb99e0b602..22fd65a6aa7e 100644
---- a/xen/arch/x86/platform_hypercall.c
-+++ b/xen/arch/x86/platform_hypercall.c
-@@ -337,7 +337,7 @@ ret_t do_platform_op(
-         case QUIRK_NOIRQBALANCING:
-             printk("Platform quirk -- Disabling IRQ balancing/affinity.\n");
-             opt_noirqbalance = 1;
--            setup_ioapic_dest();
-+            setup_ioapic_dest(false);
-             break;
-         case QUIRK_IOAPIC_BAD_REGSEL:
-             dprintk(XENLOG_WARNING,
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index 69cc9bbc6e2c..55ea62d7d67f 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -1433,7 +1433,8 @@ void __init smp_cpus_done(void)
-         check_nmi_watchdog();
-     }
+-int __init bind_irq_vector(int irq, int vector, const cpumask_t *mask)
++int __init bind_irq_vector(int irq, int vector, unsigned int cpu)
+ {
+     struct irq_desc *desc = irq_to_desc(irq);
+     unsigned long flags;
+@@ -189,7 +186,7 @@ int __init bind_irq_vector(int irq, int vector, const cpumask_t *mask)
  
--    setup_ioapic_dest();
-+    if ( !opt_noirqbalance )
-+        setup_ioapic_dest(true);
+     spin_lock_irqsave(&desc->lock, flags);
+     spin_lock(&vector_lock);
+-    ret = _bind_irq_vector(desc, vector, mask);
++    ret = _bind_irq_vector(desc, vector, cpu);
+     spin_unlock(&vector_lock);
+     spin_unlock_irqrestore(&desc->lock, flags);
  
-     mtrr_save_state();
-     mtrr_aps_sync_end();
 -- 
 2.51.0
 
