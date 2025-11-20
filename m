@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C404AC73070
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 10:09:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1166618.1493108 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18E16C73072
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 10:09:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1166619.1493117 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM0fQ-0000n6-FF; Thu, 20 Nov 2025 09:09:28 +0000
+	id 1vM0fS-00011x-L0; Thu, 20 Nov 2025 09:09:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1166618.1493108; Thu, 20 Nov 2025 09:09:28 +0000
+Received: by outflank-mailman (output) from mailman id 1166619.1493117; Thu, 20 Nov 2025 09:09:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM0fQ-0000lB-Bb; Thu, 20 Nov 2025 09:09:28 +0000
-Received: by outflank-mailman (input) for mailman id 1166618;
- Thu, 20 Nov 2025 09:09:27 +0000
+	id 1vM0fS-00010D-Hg; Thu, 20 Nov 2025 09:09:30 +0000
+Received: by outflank-mailman (input) for mailman id 1166619;
+ Thu, 20 Nov 2025 09:09:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vEGo=54=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vM0fP-0000ko-7E
- for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 09:09:27 +0000
+ id 1vM0fQ-0000ko-Rg
+ for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 09:09:28 +0000
 Received: from PH0PR06CU001.outbound.protection.outlook.com
  (mail-westus3azlp170110003.outbound.protection.outlook.com
  [2a01:111:f403:c107::3])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9b660b1a-c5f0-11f0-980a-7dc792cee155;
- Thu, 20 Nov 2025 10:09:25 +0100 (CET)
+ id 9d3b0cae-c5f0-11f0-980a-7dc792cee155;
+ Thu, 20 Nov 2025 10:09:27 +0100 (CET)
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
  by MN2PR03MB5072.namprd03.prod.outlook.com (2603:10b6:208:1a7::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Thu, 20 Nov
- 2025 09:09:22 +0000
+ 2025 09:09:25 +0000
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343%5]) with mapi id 15.20.9343.009; Thu, 20 Nov 2025
- 09:09:21 +0000
+ 09:09:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,22 +47,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b660b1a-c5f0-11f0-980a-7dc792cee155
+X-Inumbo-ID: 9d3b0cae-c5f0-11f0-980a-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CY3pp3KGq2x5i530EyvJPlUOEY9Ql9q8yyecWEhUvSLDXRMshLa+zG8myR9gADzCn6JQcqk2H3PLagLmtU1wFjs67GSBGZt7SMYRNdEv0RikyprjNeTK8KQDPPdRPZBMvxhyBiUNTangL+2GeH8UYtA4nyIdak029jbzVag9o91TG5TpgmKaRSMINM/2JJfTTG50fLXpKzJM/bdbmqGdBTETc1l2yMpdUxHA+d69s/or6jkSnpcA8adDoCwE0UVgW9Ztcu4vUdDVliGBmi7tLnevq9v2qD8nzHchNrnaTL2db2sD5EQacEs1nHFgDhkHSY663gvpHLHY0XuXUvyDRA==
+ b=opDwc27w//lq7tx6MGfu0Ts43rrRmNuj0rz+CTuNK5D/H7qfTqKsukpex9Xz4B+UyMP0KpDx4MBClcc7NAFQKfCB+sab0kBDjusHAm6DQ5MkvuVS2YpymfhMhAnENmaIMp60p7+UUbzrzssxn+/R31Pkr/lKaYzLQqPbj9bMLms3lnOLQWILx5s3XtnYQM++q7Skmr1OP/AHMD6B7Lg6GIRlWWWINLaJiCGA4JZXE1aUgn+8bMYhLf+bYtoNnVxgqLBASV9d9Oxv03RDkp9nnxf65XpxEU9Hj3EpDfjUrgE+Hq6AfidrCt0tvYu0EkieEx3JIdecFpdJMKDN1/2o/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A+3Za9LyGvxYALLsg1XgahqG2nvkE8DL7H3BT/GA2ww=;
- b=CDV3lOVpfTnH76E7KGr72V/LsoUuhy/+1EocokOLOTfA/a1AEttgbtNyEr18xEPaf6PVe/i3UQ8BqiVLOL2FmxBoXI8CBsxqO7GueJLuSr1fFPgVEw3AiiDRoliSP2HZgYsQ4pBWtghy0hpZkI28iiiydU0vowWYj1Utr4onUSmji+G/zBezvRqZsXyxsX/WTMkZG8f4fp0eD/QW+MKnZMrEGRAVRq5ygKnaFvQ2OS6nRd0qW0eivoYnkhlg8bGgMnmP0xhYrpzaSSl8RVKuYuiKklgFoNGRGP5S/Fbbq+qGNUMZylR8LTYAjtaqPyy0vBlgI6oe3NjHeS7GIl0nIQ==
+ bh=3Ps4qpb/HeavGjoMpeWQVB1HeWzQZcZOSFbllOt3RlQ=;
+ b=SF0wmm+LYf/dIyWeUEIUEAbmAu4lr1jKDvXmgOVKcP1cdKaaxStX8vegDd0q+9cxiyA7NdgbO2YzqBN4AIJ3tNSW/bqQOMHu50NK0ZcLdE8eQYkykSxSjwt6zus7/wOwil6QmUUyrlSj80BSpH9NW0c7jbydj05uQgudg88xb+Epnpmxl7uBlOXjqKhx+SBi/mUGPtahp60vBYlxW6xn8UL+3EwNDpKHdvRZsWBIsK1geYpG5uNazVElD6oXGShU3lmk60JMgM0k7RG0JirjEAQpnnG4YStD/DUdV/8g+pR+E+8jlOTy+53Ke7zn9R7Q8moAxSKlV0lHpNdVhOYidg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A+3Za9LyGvxYALLsg1XgahqG2nvkE8DL7H3BT/GA2ww=;
- b=uso4raBSc6TlWKTQ5oR7y1gPj5r4W5pX+HEctwfQU6Ue6twSAchbfVAp+ieJ1Y6chKouLtqCDECEAMbMnWIHa2/S4LAe6dAidGgAKOOcafjC4V9gPDhkO8Dc0W6ukWueYPpabLWK9qmLWakEef5Rb+z8jDt6emoWSluY4DaG0QU=
+ bh=3Ps4qpb/HeavGjoMpeWQVB1HeWzQZcZOSFbllOt3RlQ=;
+ b=Q6z81Ei/ubxNiCrPCe6QgTkw5v7LwweA2ppkBMuonZoYDIKtdpv16b9N6CAi6gv7/GlPmv0OUvntr8lZwfnnN/i/5ahdk6nijwsKDWxbWpX+ZtMWRA9cGBxHHuOzLjYkbacKzZeYSY0lTxcu4nSsFFy++RLkd73Fqf/YOXoqR8I=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
 From: Roger Pau Monne <roger.pau@citrix.com>
@@ -70,215 +70,276 @@ To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH 01/12] x86/apic: remove cpu_mask_to_apicid hook
-Date: Thu, 20 Nov 2025 10:06:26 +0100
-Message-ID: <20251120090637.25087-2-roger.pau@citrix.com>
+Subject: [PATCH 02/12] x86/apic: remove vector_allocation_cpumask hook
+Date: Thu, 20 Nov 2025 10:06:27 +0100
+Message-ID: <20251120090637.25087-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251120090637.25087-1-roger.pau@citrix.com>
 References: <20251120090637.25087-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA2P292CA0018.ESPP292.PROD.OUTLOOK.COM (2603:10a6:250::8)
- To CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+X-ClientProxiedBy: MA3P292CA0024.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:47::12) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|MN2PR03MB5072:EE_
-X-MS-Office365-Filtering-Correlation-Id: 033ef387-be79-4a73-43a6-08de28147e3d
+X-MS-Office365-Filtering-Correlation-Id: 1ae1d432-83c0-461c-e7e1-08de28148072
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Ym1XeVE1cG5UYWxWTWdjYkZ5eEZNMWhMMzhXVXVEeDJjVFVSVWVzdm9aRmVt?=
- =?utf-8?B?b2YrZEZkOGFiYWpjWjV6elZ5Z0lwRy82bUNtcHFsK3VnNFpsUGVQVklkdHN0?=
- =?utf-8?B?Um5Wekt4aG9OQ0VsTDNJenV3Y3ZvQWQ5VmJWa1NXQUtadVQ1VU1wOUp3UXhx?=
- =?utf-8?B?UnZuYWZxOG81WUtxbnZtdUYvVzFoY3dOSlZHVTJsbVlPUlJFcWFTM1BnODht?=
- =?utf-8?B?VTFkamdRS1Z0VVc4bGZOZHUxVmFaT2JLQWU5L0JURGwyZTVOODkyZXNVd0xx?=
- =?utf-8?B?Z0dERWxmbnByR1A2UG5sL3AyaXBEV2l1WTNpSGhxcE9NRENPWkRiV2FPRytI?=
- =?utf-8?B?b0dUa2pLeWtVUXJtNlIrb2RoWmpwZWJDd3dWU1EwSzBHejgwSnRPUXNEaUdV?=
- =?utf-8?B?S1JFeUhoT3VDc0hiV0tnQk9zdHNxMzd4NGVRbmhGQWNuZ1cvWWZEZzh1ZkhK?=
- =?utf-8?B?cWhXS01GNkVRVFhEQndkOHRTeWgyN1c3QWtTR05LalBOdlQ3d2ZDU3JVSHZK?=
- =?utf-8?B?blFqcXhES3pnb0pvTzllTE0xTENkTDNkYm96UzZRUlYveEdvQVJ3ZEVZcyt6?=
- =?utf-8?B?RURySEdWOTVHY05Oblh1YnRTVG9hWkRDVFd6MVZOR3ZYY0NDQjdNVzMxTGF6?=
- =?utf-8?B?emVvQ3J2M0tnVWY1dVlXVmxsaCtsaFFWQ2U4VEJ4TWxTOXVpUHhhcXZJSGdz?=
- =?utf-8?B?a01wakc5aC9jRFQzSDZhNmhCWVdxeWtZbDlPQkEzRDczVmp5M0tjWG1GSnly?=
- =?utf-8?B?K2xIRzc5N0lmT3drcTRJM2hlQ0NxZVBYUi9FN3NaNlZVeUxtTklndHJkYVBG?=
- =?utf-8?B?ckYzVUhSVXpjZ2YrMUk4VXdzUUg1SVd1ak9PSjc1eExQd3J6MWdPRG8zQS9S?=
- =?utf-8?B?dVJBcDZlbGlxS0J2ZlFnc0lpbHc0ajhKd3B5MjdvdzBpYnE5WUVlMWFKTzNF?=
- =?utf-8?B?Uitpb1hpVjZhMVFPSzZyUG5Cd3RvNmswbERyOWI5cXZlRmw3N3p4SVdVeGRV?=
- =?utf-8?B?Vk9XY0ZKSHE3UUxEdGJuY0dKSjlQMSt4TkF5U0RyWnN4TlRsaGpnL1dkWDZ1?=
- =?utf-8?B?NFRxS0xRdHh5RW5Ia0I5OER0WXMyekR6MnJTdFdCNXRxWTAzcjFpMTYxaDBY?=
- =?utf-8?B?em9HVUZoNWQ2M1pkdmFNejY5YlM4Y09RcE1HOWlHa0ZCcDdCUnkwYktjVjV5?=
- =?utf-8?B?Yno0YWIwSi95aDRyRXpKdzAvOHpkVXVUdFVCcmROb09ITUZybEdUK29KQ1hn?=
- =?utf-8?B?UExRNGdBQ3lVQXBFV0tWTEtrc3l6MDhtWWVVMUhUME1VTjhqWEFHaUVJM0Vh?=
- =?utf-8?B?dWpuVnBYdFNjSnZrTXJWbHhIR2p0dS9INWJFN3FvQU9TbnlJZUY4eW9Nek8w?=
- =?utf-8?B?UFZHZTc4RHB0d1UrTU4vaTA0c3h3K1dWeGdhalVxK0J0S2R4WGlRQVBrMEQz?=
- =?utf-8?B?MUlNTm1NYTROVEMvaVZHUnVHRGFveFptaU96eUVmbklQaGMzVlo5bnRRRWwy?=
- =?utf-8?B?UW5lRFcrRStyQ1FnWWllUVJ0OE5QRk9KMjVQZEJYcTBGdU05OGZudk5oWEVq?=
- =?utf-8?B?YTBsRU5ORmM3dmpJbnRlc3Y4RDlmME9ITlgyUXMvNkZaSWVUVnFMaTgyVFpY?=
- =?utf-8?B?L01Bdk1PcTQxeDRqUFFtb0Vvd2c3VUp3Sm8wRE95dExqSGlyYXBGZW9SUUdH?=
- =?utf-8?B?UjZNdkNIdkFLc0xYNmdLdzN2NG1IZjMzQXdsTjhha1hqc1ltZ2NPR0Yydmp3?=
- =?utf-8?B?MGdVcUx2YUFreS9WcTAxYlR2UnBSNlZqT3c3czd2c2NaTzFrQ1VaTUF5anlP?=
- =?utf-8?B?dTdjdGYvODdOcjRBY1BnWnl4MHdjeHo3TVZDRnBOR1VGQnJaUzB5T29wTnRW?=
- =?utf-8?B?THpERkM2SnlOWUhoYmUwSituSE1Wa3pIdmpKRmEvc1c1UVJhT1RRbHBuSEhB?=
- =?utf-8?Q?WEbzQ/moflrPrMafMbkPJypKRXIkThmU?=
+	=?utf-8?B?TFlsT0lsTTZIdC9rL0VNL0J1eUNnL2cwZUpaanFobnhTamlsMUJadkZySGlj?=
+ =?utf-8?B?SUl5c2Q5cGNtbE1zTVVrdjEzWWdITysxdURlM1JlUjR2NWNuYitCTUMvdHpD?=
+ =?utf-8?B?TGlFd3BtVU5sZ1lZeVFYTlM1WVAwRDNLNm9UblhreTY2UFpaekh0Rmk4ZGxT?=
+ =?utf-8?B?emRVTS96L2NxUlNCSitzWVB6anJlVGdHRUNnb1R5ZHpLeDkvYWg1N0o0aDdl?=
+ =?utf-8?B?WkFtNmt3VE52bDRsQ2ZmMzVHZUx1M3pCTUVCdGNTRHcvVGhJTnVyMmwvTGor?=
+ =?utf-8?B?dVphL28zanozZ3dzeVcrb2FVeG9ZenQ3N1NCVkl3WXhkYWF5RFZxZ00vYW9y?=
+ =?utf-8?B?aXYyOVpwNVRjemlDTXdGWTcwM29OUHR0V1Z5bUU5MmFHcU9XK1VsSVVyL0dr?=
+ =?utf-8?B?NGpsR05xZUxaR1pjZkQwS3czbmxOMXR4S2xGd3JJZVVQUjNid3dtdnd1Q2V4?=
+ =?utf-8?B?UG5sbUQ5NnZNRTF3ZDVhcFk5MVlhTHp2TWltSW9MUmkxNWphWnVXYW5aQW9E?=
+ =?utf-8?B?YWx5azhrSmZNUGtJak4rNTV6N2tqbE9ZWEZCcitNSHljZng4WDlxQ0lNYlVQ?=
+ =?utf-8?B?WkQ1Tzg5QkJnbmMyMURyYlBLYk5raWp6b3Y3cC9MWURlVjJRRVhjRlJiOVRM?=
+ =?utf-8?B?OEpwODNXUHlVQ3VoTTZSU29JMVNES1gwV1d1c0loRVVtaU5TWWE3RElINldj?=
+ =?utf-8?B?UHRxdFMrY3Avb09Zb2dCZWdmRSt3WEg4VW1HdVRib0dONmVBUUduSHNMWk1R?=
+ =?utf-8?B?MEhBaWl1eHNpRzMvcGNtKzErQkJvVWtwZHR5WU1lRFJsTENIRkFMVUEybmFC?=
+ =?utf-8?B?ZDZXUlp0SzdON0lReWYvdTE4VHorRVV1ODR6MkZtTnJpK1dGRUpsMHc0ak5t?=
+ =?utf-8?B?dEQvOXc2OXJ5Z2VBZkZLRXdzNENaZXRNWnNsc0s3eFZqRGdiYUhZWHFaRTBj?=
+ =?utf-8?B?M1NzM0RadGVKTEJGY3lSd1c2cXBQcEs4QjdQSy9KbVhsWnNJU1pUdWNsRXh5?=
+ =?utf-8?B?cmRja0ovbUJVcVBuZmRpbnRGV2NYK1BCMmdSZFYrcXlrekdGQjRaSDFrYVBO?=
+ =?utf-8?B?djlLVzV4NEpCYWtaUXFSMlZuaWMrVE95WXgzcVg4QUFRckM2ZzNEK2VnTUVU?=
+ =?utf-8?B?VExxKzM3VjJxQlNZc1F2K3M2WGJhNnV6TFpRWlp2czA1WU1SaFB2bXJWdTlS?=
+ =?utf-8?B?RERnN1NocDNyUHdvampjMVVYeDBXSW90THNNd1NHTDd5Yi9aellsNE5FZHhM?=
+ =?utf-8?B?MVdtNmIwajMzVVd0UnlCaWZSR3g2OWwxaDdiMkhMWXRockJNSTZHajFldVFs?=
+ =?utf-8?B?NW9ReHVQN2xTamFqNTQxNzBWWFZ0WlFleHlXYjRCL0QzbVJWUzZmaXJ4NUdq?=
+ =?utf-8?B?SGpMMXlobU1rYlFMSVQ4U1k3a0R5blowVHMvRE80OFR1YzFja29xVlpOVFJ5?=
+ =?utf-8?B?WGdMS2RIakExa0J2bHgxOXhXOEgwd3IyTy9jZFZYaVVNWU5ibmtERjk3WUJG?=
+ =?utf-8?B?aTNkMTl6TnVaSkgxSEIyQ1FDMldBMHpnUGdPVlRFcFVJTVFhMFlOTHk5bEEw?=
+ =?utf-8?B?QmVLNjF0QVYvTit2UGdMWisxUlZ3dHpIZlM0SDh0bTdma2dpZWFaMk4zSmRk?=
+ =?utf-8?B?Tm1QZWl2Ny9kdkhhaTlMN0V0NGJqdmV5N0E1YmRtUWhyT0J2RzBFVVN0SWZX?=
+ =?utf-8?B?SUdVZXlxNERmdVVGRGNyU2taNy9CdTRKNHBQTDNCdjBzeUt4R0F3Q2g5WWlp?=
+ =?utf-8?B?UDlRelRTMzd0NXJSV0h0bjB1QkN5azh5Z1R5a2hrM0N6OVBqRzlOWEtNc1V4?=
+ =?utf-8?B?eE51RkgrZXVhQk5lQk5SUm1EWHZWMTZaU3dhZzdRSklrU1ErcXJwWS8yWnlG?=
+ =?utf-8?B?TXovMDJuYW1DcEdnbHA4eXQvb1MwZnVKQzZtK3RZMnRWS0p5ZmpIMDFpN0NK?=
+ =?utf-8?Q?F1CTMFZShQN0N+BKDveoAM7m9I5jVnGL?=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L2lYZVRHMjdLWXVibzBKVnZLdmtJd2VkUFJlTEhEOWY5UURiZkJGRmZmRFlQ?=
- =?utf-8?B?Z0JCMEFVSThGV1dFZWZvRmRBMFFUOXhvS1pYb3VUU0llR3NYL1pqZUhWSTBY?=
- =?utf-8?B?d050aHBPV0k0aEtoaGFXNGtBcDYwd2VITkxzSVZtOWN5dDZCd3d3OHY3SVJV?=
- =?utf-8?B?ZS9QczNKYTlyVmdub3J2eklqd0ZBTmhoZ1lBbDMrWXNVMXZvT2tDSjN5UzNm?=
- =?utf-8?B?TjNZTDhOYjV0S3JseFA3QXNLQ2UxWDBKcEJCM0JmUUVuZHdDQUVCb3N1NnJr?=
- =?utf-8?B?MmJIN0hSQ0ttTFJCUWRsUDVqQ0FBUko1Um5aenFTQk5SV3UrUmlDdUIvMmJm?=
- =?utf-8?B?YkFZN2IwK2JOL3l2VFJrbHBncTRaVjY2b1BqYTh5bmR5anVPVXRzQ2h2VWgx?=
- =?utf-8?B?UTdxRnEwTDI3WGdZRDRaKzUvQS96d2x5NFVwOTJrMGwybUgzd1hrZ0V3NjRn?=
- =?utf-8?B?ckcvbXUrbDFwQm5VYUlxN083RWM2UDR2OHJHekEvcXlxZ21YVzFzejhheFUy?=
- =?utf-8?B?MGlrckdhTTExdUFtRWtya1ZCa0NvMlVXQ3luSDN5QmtTVjY0Y3I3RUlUWEh5?=
- =?utf-8?B?UjFUNHhIM1E3eW1JZ0wyRUpmbjlDWjNrajRHUFNxNWovUkJLMlNCM3lMRVpR?=
- =?utf-8?B?aDhtaUtFSkozVUxlRDFHK0NPaEJNN292QVdNV3I4cENZUHQ5REkvOXVaNklu?=
- =?utf-8?B?YmVjcDNIdGhQMDBqTlNzQ3k2M3FrYmRBbG1IK00vM1gwdTV5NFd5eFYyTmJr?=
- =?utf-8?B?UUNUMUVYb2lHbFBqUnNyTXJMZkt4NkQxK1AyUUZBWlIxNjRLYXZ2b1k1UlZH?=
- =?utf-8?B?YVNhdUlWL0c4TnNycXpwcmd2SHdSdGdxTmFIZFdkSjY1VCtQREo5L2REQTZm?=
- =?utf-8?B?aGQrRDBFeldjNnB5Sk1ZYW10NDlNNTMwWEtqcWd1dmJVczVUTEtaZTBPUXl4?=
- =?utf-8?B?MDRVSXgwdXFGTHM2SjFncnV3ZmZuRmYvaGFTU1RmUjZ1VlQ2cDFpYW4vcWVx?=
- =?utf-8?B?NVJnWlRpV2ZQRnRWZG5WNnRLSmJKM0p2b080T3E3Y0I0UktsbEE3VW05UFNM?=
- =?utf-8?B?MXlsTy9lSEtMbGNvTndHbnpKRzVpYmpIdllaYXJhbXlBdjduUCszaXE3N3dX?=
- =?utf-8?B?OVMzRnZUNDdqYUxEOGg4NUh3T0I3ekN1cVlxOFJXVHNTZWZTeE1aQ21XM2JR?=
- =?utf-8?B?R21aYWF4MmtwcS9Xbk1hSTN3aWdHQnliTVE5ZGc4Q0FldlRMUGhXZVEzQmRz?=
- =?utf-8?B?ZGpKMmJMNzYvWlpvdWgyQTQzUVRQeW52TEhwL0xZZ213bWdWQnlQRnRIWHNO?=
- =?utf-8?B?UzZJdEg4WmlpMU1VcjRlR0VSMmZ3MnZ1ZnZ5aVRldjVualJESTJHTitWUllK?=
- =?utf-8?B?Yi9qc2NRY3JLSDZTLzhkdjZaUVVmTEhKK1B2ZnMyYk5vVjFndFoxeWRUMjBh?=
- =?utf-8?B?MjA2cGtaUUY3ZXE3N3Q2Z1FhOVhleVFMTDI0bzZVR1ZtTlNiZDI2anBRdjBh?=
- =?utf-8?B?TUIwTXZ2QURVYXd5UCtKTEkvVUFuN3NmMU12cmw0YktuR21WTndoSDBWSDBT?=
- =?utf-8?B?SFd0bjk0VjhGRmI2YTUxc3RtT0w3L0NjZ3NjRndXL0ZHcGZldmZVaWpQZlZw?=
- =?utf-8?B?WHlZNU9pK3prZnVzVDR6WktRa3N5Z2VFWGxuNkVTbS9YdTZhR0xGczBtQWM4?=
- =?utf-8?B?M0J6YzZqRytMOUM4bWtMQlJUUHczOEwydmhGUjlsakM1ZlZqc3FDNDVvcytk?=
- =?utf-8?B?dUd1ZzlrMGl2ZDJqdVlFb3k4UXpYN0xUMmkyOUlnOWJkQlI1Rjg1VG9FbHAw?=
- =?utf-8?B?ZWlZRWNvc09ZWjlBekE4eGNmRjZkMlhUV2VqTDd0R2ZYSCswL2NjS0VGdjVy?=
- =?utf-8?B?ZjNYelM2WS9HZDVBYllVQ0pZSjBaWkw4b0NsTU90R3k2M2JVVEpZYzVYa3dG?=
- =?utf-8?B?eEVtVGhnaTN4WGxhS2F2N2J5YVdrQTB4SDN6bGhsWGw1SGI0cFZtWHRXWmJy?=
- =?utf-8?B?Nlp6VGJmYUk0ZmtxRGNiZTRxelJibDNuaDlMY1FjS0wwZURYcDEwNWVORUMy?=
- =?utf-8?B?b2I3V2pYOWI3WDJZcnhwVE1TdFlOYkhSdGxTRXA3TVZQcjJKTm90UHhxY1J6?=
- =?utf-8?Q?c6gUWrQ5sujwUcAJ2qzEWtJkG?=
+	=?utf-8?B?WHVlQ1Yzb2JMR0VyL3p4YktBelkzcFZvVXFwUHc4dGlpTUFwL0hyaTQ2SFNv?=
+ =?utf-8?B?RFJIWHdoaC9sdDdEaWdaUUk2blBGRVpENWxvMUxvcmU0d2tHazM5akxLTmFu?=
+ =?utf-8?B?WXdiYjZSdjNGYVZvcmI5VTNOUlRscHhJdkZWeEt4eFR3SlhRMktORldaU0Nt?=
+ =?utf-8?B?S212L1BWUmdUUWNMamxYdng0ampvYmFWU0JwL1B1TUF6VmwySWJjdmExNDQw?=
+ =?utf-8?B?Q3pVTVp5ZkxSYnV4UFAxN0xLVlpQbHhjcEpBazNtNDF4bUsyekJ4ZHBYS2F5?=
+ =?utf-8?B?MWpzeTdzOEV5TEd2SDJsSzVRSkcrNVp3cndSUlBwc3BzdzlTaUx1ZGxsbjZy?=
+ =?utf-8?B?V1ZWak9UZDUyWjA3RElPOFYyWmpCLzEvVncwM3cvVGpKaG5rRWFMVWVrNEda?=
+ =?utf-8?B?Z0Jyb0U2dGJiejF5L3JVTHo1b2cyNXQ3bXd0U3h5Z2RQMDNoS0VTYlIreHBL?=
+ =?utf-8?B?T0JiM2xaV25JaEZyem5VWmc0Umphd0FzckRlRXk3dlMvRUtEeUdTdTVmUkVm?=
+ =?utf-8?B?SkxydU1QMUk5bVhTM0kva0Y0SWxXcXhnUHBEWkV4RStFeElqQndqTURidnB0?=
+ =?utf-8?B?OUVaeDlVeTh2aUJCL1FyVHdySEJxbHcrLzE4QkpZRmg4MjFzRnUvMnJVSTNs?=
+ =?utf-8?B?L3BQdWl1Z0ZIeS81VURUbnpNTzFrQ0gyK0oySzRMK09iQ0ZnV3AwREtVRlVl?=
+ =?utf-8?B?R0NZZkhkK0dad1ZVMzFFMWZ5TDhCODFLMXJEQ0M3eWhiZ1o0U3FBcGduUUlT?=
+ =?utf-8?B?UWhHUDZjZVNydGw3U3MxM1l6ZFNOdS9ydFNseVYwazVueThicytVaXB2dExw?=
+ =?utf-8?B?ZnlvWDNwMjRxWnFhL3dYMkYveUFwckZHMXZnUFpybDB1T3daWlMzU2prUG5K?=
+ =?utf-8?B?bFQ2SGJwWVcvMUlRcnJDRmxOdjdDR0luekpSNjc4ZzlSTEtOY3BIOXIwZjFN?=
+ =?utf-8?B?SVBwV01kSnJqZGhPRWx2bDFHbG56SDdLT2tKbjA0dmNnRWVMVVM4R0VMMUps?=
+ =?utf-8?B?a2NpUDlGbHJTTVVKeWF1a1Awb0Z4RDZQbHhDYUN4RlhMc0JqNHpic3NwVmQz?=
+ =?utf-8?B?RC8wdkk5a21JV0FwR255cG9ZWlhpcXdXaGx1Nmp1blNhSzh0U2U5eUgyZjZq?=
+ =?utf-8?B?YXBla2JQK2hoa2IvWjBYN2JRQ2VSelNtbkZrYlYrdDlnbHB3clo4aFd1eVpF?=
+ =?utf-8?B?TXNsK1FiUWVqVWttS2xLSjhaUTYyK0VjVmFUL3cwbWxZdlBtZDdSMmpUc1la?=
+ =?utf-8?B?MmdjRWZWZ2IyenR1UGcxT3cxeE1EM21XSjlua3ljTWlQWmlvUnFVVGhsUzFt?=
+ =?utf-8?B?NHFmMDIyMTRaU1Z1QlZiTGkrc3ZPb1F4dldEeWpZTElUZll4ekl4L2RCK1B1?=
+ =?utf-8?B?M0xVYVlNSmRxc3FDYm0rNmRGQ3dvS2JNTkVvdVI3WkV1Q1NSS0J3K2ZHQVJZ?=
+ =?utf-8?B?S1M4c1J1R0pGTXF3MWgwYnB1OW8wS2VmOG9wZzNyNmRkcWsrNnNUSjllRmxR?=
+ =?utf-8?B?VVFnUE5WbzN5MTBTNFdtT3Q4cGhzZXI5c0pnSExDQUFIdG9sSkNQYTdWbkJR?=
+ =?utf-8?B?MWpkOFZ0eXVJNmtIMjdYWHBqY1dLS21rNjltT1BVM2ZLKzhCaEVYd1IyVGxm?=
+ =?utf-8?B?UkNXTDNxOG1SN0cySW0yUTZSUXJ1UGVsdGRiVXV5djB0alhVd3VmclowNHFE?=
+ =?utf-8?B?V01hUmpsVWdweGlzcjFoU2xubVhPYTVoVGdyV0dPRnBnaXUxT1N0M2FHR1g3?=
+ =?utf-8?B?Mk5ReUlTY000Z1I1b1NvRkNuem1zMktUcTNhQXk1U3hkMXRFeUlpVHk2S1Nj?=
+ =?utf-8?B?dlZhNGlxV1NQV0EwbHZMdU9hRmpqNGc2K21rZ1JaYlJnaGI5R1pyNWpJNUFu?=
+ =?utf-8?B?aVFjcUxDZUZqRUhyZDRZNktrU3ZpY1J3K2YvNllCM3RrUUFOUW9lMDZEaDZ0?=
+ =?utf-8?B?dit3MENOY1gvZmhadk5JNDlyS3VmRXJucTdCZDhNL3UreDZkNXdkRk1oWGFC?=
+ =?utf-8?B?QjQ4MURsb1UycFJsRkN2RnFyemVQdjFseExoQTlVUGV5OTYzekwwT1V4UERs?=
+ =?utf-8?B?QkhrM2lUSEh3eEdPOUM2dVlaYm5OelhkdmN3TUdwQWNKUVZ2VGtNclM2WXBw?=
+ =?utf-8?Q?Vtuot/yk9P35VAOt8ld9z+tBB?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 033ef387-be79-4a73-43a6-08de28147e3d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ae1d432-83c0-461c-e7e1-08de28148072
 X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 09:09:21.7137
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 09:09:25.4300
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7DgPSVGKeoA/xB7v9KZ0pnMcftCfgFHETVgfkQaJN7L0n/qZjHxq+pBDGQE2wHda//0xN2p7fi+DlM1Uv0mByQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: jog2sB7IPoau5TKzDSMbWxaPlapU9soAdkN2mnGw5jExdq5+c7rJybLK5HZLi6qwVG+QL+xjbTvGAwam+smo+Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB5072
 
-All implementations use the same hook.  No functional change intended.
+All implementations use the same hook which is a wrapper around
+cpumask_of(cpu).  Adjust callers to no longer use such dummy mask with a
+single CPU set, as the CPU is already known to the caller.  This removes a
+pair of usages of for_each_cpu().
+
+No functional change intended.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
  xen/arch/x86/genapic/bigsmp.c      |  1 -
  xen/arch/x86/genapic/default.c     |  1 -
- xen/arch/x86/genapic/delivery.c    |  2 +-
- xen/arch/x86/genapic/x2apic.c      |  2 --
- xen/arch/x86/include/asm/genapic.h | 13 +------------
- 5 files changed, 2 insertions(+), 17 deletions(-)
+ xen/arch/x86/genapic/delivery.c    |  5 -----
+ xen/arch/x86/genapic/x2apic.c      |  7 -------
+ xen/arch/x86/include/asm/genapic.h |  4 ----
+ xen/arch/x86/irq.c                 | 19 +++++++------------
+ 6 files changed, 7 insertions(+), 30 deletions(-)
 
 diff --git a/xen/arch/x86/genapic/bigsmp.c b/xen/arch/x86/genapic/bigsmp.c
-index ddb3a0b5d727..066feb4a1755 100644
+index 066feb4a1755..c0bcee659f1b 100644
 --- a/xen/arch/x86/genapic/bigsmp.c
 +++ b/xen/arch/x86/genapic/bigsmp.c
-@@ -48,7 +48,6 @@ const struct genapic __initconst_cf_clobber apic_bigsmp = {
+@@ -47,7 +47,6 @@ static int __init cf_check probe_bigsmp(void)
+ const struct genapic __initconst_cf_clobber apic_bigsmp = {
  	APIC_INIT("bigsmp", probe_bigsmp),
  	.init_apic_ldr = init_apic_ldr_phys,
- 	.vector_allocation_cpumask = vector_allocation_cpumask_phys,
--	.cpu_mask_to_apicid = cpu_mask_to_apicid_phys,
+-	.vector_allocation_cpumask = vector_allocation_cpumask_phys,
  	.send_IPI_mask = send_IPI_mask_phys,
  	.send_IPI_self = send_IPI_self_legacy
  };
 diff --git a/xen/arch/x86/genapic/default.c b/xen/arch/x86/genapic/default.c
-index 16e1875f6378..ab9a292464d6 100644
+index ab9a292464d6..58b5884aac0d 100644
 --- a/xen/arch/x86/genapic/default.c
 +++ b/xen/arch/x86/genapic/default.c
-@@ -18,7 +18,6 @@ const struct genapic __initconst_cf_clobber apic_default = {
+@@ -17,7 +17,6 @@
+ const struct genapic __initconst_cf_clobber apic_default = {
  	APIC_INIT("default", NULL),
  	.init_apic_ldr = init_apic_ldr_flat,
- 	.vector_allocation_cpumask = vector_allocation_cpumask_phys,
--	.cpu_mask_to_apicid = cpu_mask_to_apicid_phys,
+-	.vector_allocation_cpumask = vector_allocation_cpumask_phys,
  	.send_IPI_mask = send_IPI_mask_flat,
  	.send_IPI_self = send_IPI_self_legacy
  };
 diff --git a/xen/arch/x86/genapic/delivery.c b/xen/arch/x86/genapic/delivery.c
-index 15100439be05..5d105e848502 100644
+index 5d105e848502..777570f3b633 100644
 --- a/xen/arch/x86/genapic/delivery.c
 +++ b/xen/arch/x86/genapic/delivery.c
-@@ -35,7 +35,7 @@ const cpumask_t *cf_check vector_allocation_cpumask_phys(int cpu)
- 	return cpumask_of(cpu);
+@@ -30,11 +30,6 @@ void cf_check init_apic_ldr_phys(void)
+ 	/* We only deliver in phys mode - no setup needed. */
  }
  
--unsigned int cf_check cpu_mask_to_apicid_phys(const cpumask_t *cpumask)
-+unsigned int cpu_mask_to_apicid(const cpumask_t *cpumask)
+-const cpumask_t *cf_check vector_allocation_cpumask_phys(int cpu)
+-{
+-	return cpumask_of(cpu);
+-}
+-
+ unsigned int cpu_mask_to_apicid(const cpumask_t *cpumask)
  {
  	/* As we are using single CPU as destination, pick only one CPU here */
- 	return cpu_physical_id(cpumask_any(cpumask));
 diff --git a/xen/arch/x86/genapic/x2apic.c b/xen/arch/x86/genapic/x2apic.c
-index 58157c217ee8..f4709ab92950 100644
+index f4709ab92950..89d66bc627d7 100644
 --- a/xen/arch/x86/genapic/x2apic.c
 +++ b/xen/arch/x86/genapic/x2apic.c
-@@ -142,7 +142,6 @@ static const struct genapic __initconst_cf_clobber apic_x2apic_phys = {
+@@ -141,7 +141,6 @@ static void cf_check send_IPI_mask_x2apic_cluster(
+ static const struct genapic __initconst_cf_clobber apic_x2apic_phys = {
      APIC_INIT("x2apic_phys", NULL),
      .init_apic_ldr = init_apic_ldr_phys,
-     .vector_allocation_cpumask = vector_allocation_cpumask_phys,
--    .cpu_mask_to_apicid = cpu_mask_to_apicid_phys,
+-    .vector_allocation_cpumask = vector_allocation_cpumask_phys,
      .send_IPI_mask = send_IPI_mask_x2apic_phys,
      .send_IPI_self = send_IPI_self_x2apic
  };
-@@ -162,7 +161,6 @@ static const struct genapic __initconst_cf_clobber apic_x2apic_mixed = {
-      * hence are set to use Physical destination mode handlers.
-      */
-     .vector_allocation_cpumask = vector_allocation_cpumask_phys,
--    .cpu_mask_to_apicid = cpu_mask_to_apicid_phys,
+@@ -156,12 +155,6 @@ static const struct genapic __initconst_cf_clobber apic_x2apic_phys = {
+ static const struct genapic __initconst_cf_clobber apic_x2apic_mixed = {
+     APIC_INIT("x2apic_mixed", NULL),
  
+-    /*
+-     * The following fields are exclusively used by external interrupts and
+-     * hence are set to use Physical destination mode handlers.
+-     */
+-    .vector_allocation_cpumask = vector_allocation_cpumask_phys,
+-
      /*
       * The following fields are exclusively used by IPIs and hence are set to
+      * use Cluster Logical destination mode handlers.  Note that init_apic_ldr
 diff --git a/xen/arch/x86/include/asm/genapic.h b/xen/arch/x86/include/asm/genapic.h
-index 04d3f1de7a1f..6d979279bd2b 100644
+index 6d979279bd2b..33ec492a6ff5 100644
 --- a/xen/arch/x86/include/asm/genapic.h
 +++ b/xen/arch/x86/include/asm/genapic.h
-@@ -25,7 +25,6 @@ struct genapic {
+@@ -24,7 +24,6 @@ struct genapic {
+ 	int (*probe)(void);
  
  	void (*init_apic_ldr)(void);
- 	const cpumask_t *(*vector_allocation_cpumask)(int cpu);
--	unsigned int (*cpu_mask_to_apicid)(const cpumask_t *cpumask);
+-	const cpumask_t *(*vector_allocation_cpumask)(int cpu);
  	void (*send_IPI_mask)(const cpumask_t *mask, int vector);
      void (*send_IPI_self)(uint8_t vector);
  };
-@@ -36,16 +35,6 @@ struct genapic {
+@@ -35,8 +34,6 @@ struct genapic {
  
  #define TARGET_CPUS ((const typeof(cpu_online_map) *)&cpu_online_map)
  #define init_apic_ldr() alternative_vcall(genapic.init_apic_ldr)
--#define cpu_mask_to_apicid(mask) ({ \
--	/* \
--	 * There are a number of places where the address of a local variable \
--	 * gets passed here. The use of ?: in alternative_call<N>() triggers an \
--	 * "address of ... is always true" warning in such a case with at least \
--	 * gcc 7 and 8. Hence the seemingly pointless local variable here. \
--	 */ \
--	const cpumask_t *m_ = (mask); \
--	alternative_call(genapic.cpu_mask_to_apicid, m_); \
--})
- #define vector_allocation_cpumask(cpu) \
- 	alternative_call(genapic.vector_allocation_cpumask, cpu)
+-#define vector_allocation_cpumask(cpu) \
+-	alternative_call(genapic.vector_allocation_cpumask, cpu)
  
-@@ -59,7 +48,7 @@ void cf_check init_apic_ldr_flat(void);
- void cf_check send_IPI_mask_flat(const cpumask_t *cpumask, int vector);
- 
+ extern struct genapic genapic;
+ extern const struct genapic apic_default;
+@@ -50,7 +47,6 @@ void cf_check send_IPI_mask_flat(const cpumask_t *cpumask, int vector);
  void cf_check init_apic_ldr_phys(void);
--unsigned int cf_check cpu_mask_to_apicid_phys(const cpumask_t *cpumask);
-+unsigned int cpu_mask_to_apicid(const cpumask_t *cpumask);
+ unsigned int cpu_mask_to_apicid(const cpumask_t *cpumask);
  void cf_check send_IPI_mask_phys(const cpumask_t *mask, int vector);
- const cpumask_t *cf_check vector_allocation_cpumask_phys(int cpu);
+-const cpumask_t *cf_check vector_allocation_cpumask_phys(int cpu);
  
+ void generic_apic_probe(void);
+ void generic_bigsmp_probe(void);
+diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+index 80f7417d2103..7009a3c6d0dd 100644
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -621,16 +621,12 @@ static int _assign_irq_vector(struct irq_desc *desc, const cpumask_t *mask)
+ 
+     for_each_cpu(cpu, mask)
+     {
+-        const cpumask_t *vec_mask;
+-        int new_cpu;
+         int vector, offset;
+ 
+         /* Only try and allocate irqs on cpus that are present. */
+         if (!cpu_online(cpu))
+             continue;
+ 
+-        vec_mask = vector_allocation_cpumask(cpu);
+-
+         vector = current_vector;
+         offset = current_offset;
+ next:
+@@ -650,13 +646,12 @@ next:
+             && test_bit(vector, irq_used_vectors) )
+             goto next;
+ 
+-        if ( cpumask_test_cpu(0, vec_mask) &&
++        if ( !cpu &&
+              vector >= FIRST_LEGACY_VECTOR && vector <= LAST_LEGACY_VECTOR )
+             goto next;
+ 
+-        for_each_cpu(new_cpu, vec_mask)
+-            if (per_cpu(vector_irq, new_cpu)[vector] >= 0)
+-                goto next;
++        if ( per_cpu(vector_irq, cpu)[vector] >= 0 )
++            goto next;
+         /* Found one! */
+         current_vector = vector;
+         current_offset = offset;
+@@ -688,12 +683,12 @@ next:
+                 release_old_vec(desc);
+         }
+ 
+-        trace_irq_mask(TRC_HW_IRQ_ASSIGN_VECTOR, irq, vector, vec_mask);
++        trace_irq_mask(TRC_HW_IRQ_ASSIGN_VECTOR, irq, vector, cpumask_of(cpu));
+ 
+-        for_each_cpu(new_cpu, vec_mask)
+-            per_cpu(vector_irq, new_cpu)[vector] = irq;
++        per_cpu(vector_irq, cpu)[vector] = irq;
+         desc->arch.vector = vector;
+-        cpumask_copy(desc->arch.cpu_mask, vec_mask);
++        cpumask_clear(desc->arch.cpu_mask);
++        cpumask_set_cpu(cpu, desc->arch.cpu_mask);
+ 
+         desc->arch.used = IRQ_USED;
+         ASSERT((desc->arch.used_vectors == NULL)
 -- 
 2.51.0
 
