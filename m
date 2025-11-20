@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3EE1C71964
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 01:45:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1166499.1493018 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80CC8C71B03
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 02:34:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1166513.1493028 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLsmQ-0005Ey-6O; Thu, 20 Nov 2025 00:44:10 +0000
+	id 1vLtYh-0002UW-Pk; Thu, 20 Nov 2025 01:34:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1166499.1493018; Thu, 20 Nov 2025 00:44:10 +0000
+Received: by outflank-mailman (output) from mailman id 1166513.1493028; Thu, 20 Nov 2025 01:34:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLsmQ-0005DW-3V; Thu, 20 Nov 2025 00:44:10 +0000
-Received: by outflank-mailman (input) for mailman id 1166499;
- Thu, 20 Nov 2025 00:44:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vLtYh-0002SN-N0; Thu, 20 Nov 2025 01:34:03 +0000
+Received: by outflank-mailman (input) for mailman id 1166513;
+ Thu, 20 Nov 2025 01:34:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ChS/=54=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vLsmO-0005DQ-BT
- for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 00:44:08 +0000
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazlp170130001.outbound.protection.outlook.com
- [2a01:111:f403:c10c::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 037df58b-c5aa-11f0-980a-7dc792cee155;
- Thu, 20 Nov 2025 01:44:04 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by DM6PR03MB5084.namprd03.prod.outlook.com (2603:10b6:5:1ed::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.21; Thu, 20 Nov
- 2025 00:44:00 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9343.009; Thu, 20 Nov 2025
- 00:44:00 +0000
+ <SRS0=RcKq=54=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1vLtYg-0002SH-HI
+ for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 01:34:02 +0000
+Received: from fhigh-b7-smtp.messagingengine.com
+ (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fc70d2c9-c5b0-11f0-9d18-b5c5bf9af7f9;
+ Thu, 20 Nov 2025 02:33:59 +0100 (CET)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 613107A01CA;
+ Wed, 19 Nov 2025 20:33:58 -0500 (EST)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-02.internal (MEProxy); Wed, 19 Nov 2025 20:33:58 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 19 Nov 2025 20:33:57 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,182 +44,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 037df58b-c5aa-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yhe6HUwHyx1UoPCCmiVvIwOtfxKz/+6zrut1EiWU+Z6v1pGQ5pBQ+B74gpAB7BLll7iZm1iEUaVn/JK70N0NV824+jQ1nUmg9HiMiXj2j0h2gy5zGjIDSR49vn9Th/nLkI80bRuTlg657hbqPX3m0wCygHGlmEq/xeJ7QmIBPr4eRRZ/w5ZFUarFKf2AJh5eD2mvjm07WOnOBbVgJU+Svq/WWITYl3Zua8q7ADP6C5Q9tl8Iys6ez9wVIAHGlgs0JmDbKgMdT0AW474lJ7lwS/baFota3ibzO7G/eMl0XIp/LDqo5pIatd9CziC7R4dIDTQr3pNEc9oE0tpQLOUfOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vBPIfW6iK6zy4J8PunQCqJZKDVGEefEGQ/IaJIui6e0=;
- b=ra5lc/kdPVV8NKgXykxzFwH2G/7R3flUax59rRqX4qtdwLviOH93n9BdswGFPH4Pwmelcwt/Fq6PRNcV+ASiS+eIk1JGgt/TBCGubIbAVE1NHwLWnFGJQP4Aa68eN4YJlK5S8Vo+ijw2BVxya+zKwGkYK5/HEuDByNZsJc3rX0f3Al7maWMAoDesSkeEJPVOp3nYTRU/9g18RvvdFS2pdumpOn0dmcGZKcbcveHMiTvRN0YN77/ZdRkdzQjMUWLwiI8sJpklDR+cOolPBBCxnT82bjOx7GVlzG2RaqfOk97/2Sh8Utpn3Wv+D+FLYSPoL92Rp9fY5ffYuWFtQu/GcA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vBPIfW6iK6zy4J8PunQCqJZKDVGEefEGQ/IaJIui6e0=;
- b=jfDHwomxgiLFe7TnXZhPHZJsV2LPoQh1I3vXZvau/yHe8AD8mYg5+AatbR3VpVPIljQWcqyquf5sOeicGDBySfB2UYoZNS0Xse8W9iH81Sp5Zb5n8VoGjlwjQ1CAXj67sG03DSCKV4H+OprDc6gysauSHBhLj0dkZ4cZvZIMiH4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <ded843d3-465b-419a-9342-cb3a35a2d880@citrix.com>
-Date: Thu, 20 Nov 2025 00:43:57 +0000
-User-Agent: Mozilla Thunderbird
+X-Inumbo-ID: fc70d2c9-c5b0-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1763602438;
+	 x=1763688838; bh=wuJD3DSi8OYU3lUxQFLU0p35HJ4OYc6gCIDGnNAlOPM=; b=
+	QDFrUVPP+LNUgAZmD50+3ugOYMpuL5Qgt8BZGi1Ue5B9EScrpVuWepB60btVWvyT
+	jMq7h7v4W56nTq9s+Fw6nwPwNfo7k+scurhlpMgoAI5eE6YKw6QB8LOl3MyyVCKL
+	5KydYlIqH0TkA/mTSUgtljQZi8ivcS3kN1O/SnIqOrQdslDIyOOZrrFFRS4tUzTx
+	7b/ewHHeq2mBbV/JQPX4g+Y+xcBGmjGo921kC+RFrj2VF2ne7dXQS3RBRQaz1345
+	RkuqbUMga1+mKuKrkBBu9s2bDmSI0aorErfZhldw4BSBU6FitamUZjZDjTLbn0LT
+	HSnm5KdYLPo9KeDt+mbpDg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1763602438; x=1763688838; bh=wuJD3DSi8OYU3lUxQFLU0p35HJ4OYc6gCID
+	GnNAlOPM=; b=Mq/pv3uHH7BNGu4214QS1wxbjcQpJ5GxD9hIbP675ubuq/XoKf9
+	jTsODOYmyD/qS8aNjIYAOMkfHwzaiikJ762u4hsxu/MOWpygqpSjO1d4I4x3rxlB
+	+8B+hOBpXzKixRgOW1G3uT6LQ0nLNI4N1iqv9Ic18iUJw7LlfZ6G13C1+VS494/4
+	+88LsYUJNeXU706JMOyDmpBzTyD1ucGR6HR0pL1KyHAIQ06m5FByFsx6PT74xZx2
+	ZKorrV4l43LX7ehDIF1NhRQtQilLKsB3qWmIIg3i4+nMP4RGmKMvGUOUI/m6t8mD
+	KAGbnFT+tUgpLH0DzAF2gv8V6DPcHcRwfEA==
+X-ME-Sender: <xms:BXAeaRXhuk30CgPimr9cYnVJO3YAm4cm61zL9m1Vghlbgu5yZe4c4w>
+    <xme:BXAeaYl0VRfcrAVk_fsGFGIKH6jKOwIYTe85mkLnQKcbQsJYGF3QEbsrhwmJ2OtqS
+    ZqxObh0eNiTMQzJ1TtRJLRPWZR5vi5kORufZkh7-CFSRQtUtX8>
+X-ME-Received: <xmr:BXAeaSbCS2AYLozmRcRNvmTW90tpK9AKzi8_ldOxPzNq7h1_jWA1qUObLGQZt545514sOwGwxkJuZA6YPkEA-xcOgakiFrUCy6w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvvdehjeejucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepfffhgfeu
+    ueffvdegudejgefhjeehvdekgfetgefgkeeguefgheejvefhfefhledunecuffhomhgrih
+    hnpehkvghrnhgvlhdrohhrghdpthhrmhhmrdhnvghtpdhlughsrdhssgenucevlhhushht
+    vghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesih
+    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeegpdhm
+    ohguvgepshhmthhpohhuthdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestg
+    hithhrihigrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigv
+    nhhprhhojhgvtghtrdhorhhgpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtg
+    homhdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomh
+X-ME-Proxy: <xmx:BXAeaTPc19jXjcyR8GZoSAHWYVc3ffz5iRmlbpjYKvIRHVQ9OWFfeQ>
+    <xmx:BXAeaXbJAyp_dcCMzljKHTsXqUC2EDUKawKq7hQPF8ikp-Ai1oa5Mw>
+    <xmx:BXAeaR0Z-6XcA6s_kDZ63GnOiNn_qzrfD0Tsh_OtFC9s7tqDKxZXgA>
+    <xmx:BXAeadfSIBk6HNveGQ7N3GHfHhre1Qm8TYLmsU1yzsU4G_mdpVnoxg>
+    <xmx:BnAeaQmfYjnfS6X7WT1HhEx2nM1lR0RiOAvN3bYF6t6eRmjpmyLrw2pH>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 20 Nov 2025 02:33:55 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 Subject: Re: [PATCH] xen: Fix EFI buildid alignment
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+Message-ID: <aR5wA-9cdEO6gG3x@mail-itl>
 References: <20251119191235.863187-1-marmarek@invisiblethingslab.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <20251119191235.863187-1-marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0183.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a4::8) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+ <ded843d3-465b-419a-9342-cb3a35a2d880@citrix.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|DM6PR03MB5084:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2eca5da9-4b6c-40b0-c15b-08de27cde578
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZmJmYzIzNFM2T0FiM1o3YU5iTTUzbGpmSXExdUZUaHY2R1FPWTBTb1BVdUow?=
- =?utf-8?B?QTZMdXBpNEJpWmVuZFllMmpBZlM1RCtVb1B6dzRmZnJHOEJCeXNPRHM5Vk8z?=
- =?utf-8?B?MEdtQUZWNnBGRU13UFVySmNOTVZRdXI4OStwYUQvYjNnZEtKS25pQ0FpWkQ1?=
- =?utf-8?B?ZVc4MUNIS0F4azFFbmRHb0wzSitLT1FEc2RSMmk4RDZVdTZURW1PY1JHQ2ZM?=
- =?utf-8?B?aktacjVlZ3pOWWRTOHByOUxzZTNBT2lNNkZUN1lYR0duVStCRUpmWWFTV1g3?=
- =?utf-8?B?Z0ZKTkNzcW1idmd4SUdvb1I4MnpielhiRHpDYmZkbkRZRkh6VEoxakM4QUZ3?=
- =?utf-8?B?Qmd3T3ZiUWMya2puRXdVak9MaHc4N0x1WTBnR3lnWm01cjA4d3ppekpzNDV4?=
- =?utf-8?B?UlFBZVhxNkRuekQ3RC81T0piWmcydkJPdVdleCtFK0dZUytuSVIwSk1mS2Ft?=
- =?utf-8?B?d0dqNDV3aTlUeVhVUzZFQnRCc3YyRHlmS2x2VXpCSDl5VGtIcmlkMjdqOHdm?=
- =?utf-8?B?blFmcDJvQ2RrTFhzU28wM2J6Z015YmZkVTZnZmJqRTNLQ3VJb0VEKytvcm5r?=
- =?utf-8?B?ZW1ydHZsQVhYNDhCZEpiMXZsWWR1VUx1MkdRY2FFdXUyTnFKV0tTaGJuTklQ?=
- =?utf-8?B?TzBrL1dqNnJMeUN0SzlpVkpud1ZiclhZTDNwcUl4Q2lvMUVEb0l5Q29RZzB6?=
- =?utf-8?B?dEtIcmwvTFYwRWVpais5ZzFOTGJpMlkrcXNXUDdYZUdDRHhpSmI2TmpkaTJq?=
- =?utf-8?B?NDF6L1VoOURKQ3kxUmRieW92enI4R0RBY1RpNFMxdkJpRkloS3RqcUg5M3hw?=
- =?utf-8?B?SW9rbVc5enBKS1VzVThQc0ZnWG9ZTlMyTkg4VTR6Z0xYNGIyblVzRkJyM3Ft?=
- =?utf-8?B?YXRmRStZNUw0L2pDWWVvMW9zVW1ha3BnMG1Wa2hsMlIyNTBaSnY5K0RCMDBn?=
- =?utf-8?B?VFNRcmZXN1RKcW53YkNnODFLVGhqTHM5Z1FhaUlXRng2RWpUdlIyYzBEV2JD?=
- =?utf-8?B?V3dSVVlmbzBSSHcrZnl2ZjBuUnp0dE1GalhnZnFtVVFKbG5XSS80enJudVk3?=
- =?utf-8?B?Rjg0SmprRnQ5Z3N4NHFKUStDeUdCbmlsV1BITFAwOXBsdzZwcmlNTW54eHR4?=
- =?utf-8?B?WllaNE90cGlPZmRPdHhMMjNyZGROU3hsSDlzcUlzQStuanhhN3k5TlNWR2M1?=
- =?utf-8?B?YitlYXNjajdTT1B3VnQ5djc5aEFuZEJibUVibEZRRDR4ekk3TUd0ekdLTHRJ?=
- =?utf-8?B?WXhhY2dKYkt5ZlFLeVU1N0drY1JSMUhsdFpGcWQ0b0VEeU51d3E0aWhXM0Fk?=
- =?utf-8?B?RXF3SjJNcmJCS0t5SG5nakExbHBOdXhDYUhodTROc3JVaHpQQ0hVTXZKdHFC?=
- =?utf-8?B?S2dsbFY5TzFabWF2aUtWZEhzSlQ1Q0l3SyszU24vU3hoRzdMT0NCS2lZRS9S?=
- =?utf-8?B?elFjMVRmVlVZWGRWRFUvdVZtRkRuY2kxQzZLWktZbmlRMm4rU2NTNTNhMDkz?=
- =?utf-8?B?UHdnOTF2TDlYZmkycWhwWjltWUo0N2RVZk5nRDRZbDQ3Rkpac01ybmhCUzJa?=
- =?utf-8?B?UkQrMThaWjl6QUVuMWhTVUNlOEVMa0N4b2JTMW9vbkptcEtPNWJybHpKNXZX?=
- =?utf-8?B?Q1RjK2F0ZnlnbEk3RnUxRkl5N09hNFhRQi9RcHZQSHlpRGdqWXBJZURUWG5p?=
- =?utf-8?B?Zzd5dEtWekJkV3dHOTU2aVB1VkwwK2pWSzN3UGk0OWNBbVdDbGg0VzJhalNX?=
- =?utf-8?B?MUV4Ykd4RFJIb3ptTkkwaFVicjRYYmlFZ0FabXNvRE5OWGl3OXNQZjFPSWcy?=
- =?utf-8?B?VGRtanp1RUNkWEVDN29xaStWaUJZVkYvTmhkWTlENzcvSE5YdVNsenN5RXk4?=
- =?utf-8?B?S3Q1Qm54QjVBSWNxWUp6RXA5dnJnK0FUMlNwWHBMM1lKVFUrMGRqUENoZDh2?=
- =?utf-8?B?Q1pVWmdJcGpoMkZzTWdtSWlsR0xaL3FWcGVCeVM3SGxMUk8xSys3ek5NK3dS?=
- =?utf-8?B?dGJOK0JETm9RPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RGt6MS9oZ3dzQjBTbEpKUnhSeGlvVGs5QzlrYndxcjUvMldiNC9ObjdxWDRP?=
- =?utf-8?B?Rk5vdXpBNk5aMjV6SmdzNUp3eXAvQzgyVFpud3RldVhwUFg3enB6cERwYmJB?=
- =?utf-8?B?ZU53U0F0eER0R2Q1S0xIT29RanRxWTlkL3M4THJPZFI5a21RemRJTno5Q0xX?=
- =?utf-8?B?K2RJTG5kQ0NOM0FONjFKN05vSzBoWWJjS0xudjRBcjNmOGc4bnZWVzM1QTVk?=
- =?utf-8?B?L1o1eExTazB4UjlGL0FVY01pUDREeVY3U0FSaUhjenZCd1ZLN05UVzB1d2xL?=
- =?utf-8?B?RDFiMVNxV051K3N4eDQ0R0NqRzg2TXh3KzhpekFLcjc3VU0vMzl3OXo2V3No?=
- =?utf-8?B?Uy84emdlTm5vMTlJR1l5UnB3K0ZpWnF3bHhRaVVHV0YwaWJ4YWxkckFrWTl3?=
- =?utf-8?B?T3J5V2FsbEQyNk1nQmszdWZGdFVmNERXZHUzeEJSSWFFZFhIbjhuc2RnbDhl?=
- =?utf-8?B?NlVvUkxZNUJhWjRmNzEzUGFJNnl4VkxETVh4andMVFZFQXBkZndYWXBBdHov?=
- =?utf-8?B?RFhVOUV4ZXBGUloxbk5VTUZ5ZVNoQUtYM0EzMkNBV2JaUEg4SWVTTHJXenF6?=
- =?utf-8?B?ck96RG0zczdBSVpNN1VmZDJhemlKNGl5WFVWbGlVT0Y3VE96bEpUa2JzVncz?=
- =?utf-8?B?VnNnbHNmeWVTbHUrNng3N0NYaDRKcms0WU5mK2dhQ2VGWjJ6NmlKYTNXQkNQ?=
- =?utf-8?B?S0RVQkVPOTBTNDV4d0cwZ1V6WE1paEUvRk5qenJ4VWduVmZQYlJWWFhUT29t?=
- =?utf-8?B?czBNUzVkNW1MVTI3VFRsQzhXMS8zRUxQMUpKOEUydi9lclBWVVByQmdpd0g0?=
- =?utf-8?B?NDdlWmtUUjJxaklzU09BU0pQMFdmQU1jNnJIMU1DTlJ2WUtsakFyOCt6K1pI?=
- =?utf-8?B?Zm1UZm1pOW9pUFRuZVQ3N3ZML2FQMUxXcW9tUHcxcnNYam1JaU1wOE56anJz?=
- =?utf-8?B?RkxidXJQOGp1NzcxVXhjZjZvc1Z3cjk3NWx2VDJtVFhKV1Zna3ltN3lGcGhT?=
- =?utf-8?B?Y1RUV3VlN05LMWoxTWF2K1o4NFlaZHh2RVd6aC9zRy8zQW81WWNQU3pWWXgx?=
- =?utf-8?B?eml1MUlwZUNKYlFuVTJlaG5ycjdJZzFQQXNpUnd0MTFIbHJrNEc5VG8ydnQ0?=
- =?utf-8?B?UmQ3Q0dNa1MrcmRMZWxmYTBwQSs5Mnk0SXFzK1pJa25pMEdJYm52UE9HZkt4?=
- =?utf-8?B?eXhFOHhscmRwYW1uWGtQSGdKakZ5U0cyUXBxVC9ndXFncXRic2E5WURKMEts?=
- =?utf-8?B?MkM2anpRSGcyYjBpNEs2QllEcGpyT3FKTVpMR21XTDZVczc5dnNZL0d4YzVK?=
- =?utf-8?B?TjR5bWNOZG52MUpiRmpDMUJmUE9SazlDQk1zNko4VzZ6eXRrZGxMNlVkVTFl?=
- =?utf-8?B?bUZPY0R2R3UzVWhSOU5ianZSVmVXSytvRkpTQkU2dktJcHlseVFqUGc1N2xm?=
- =?utf-8?B?YmtkSyt6dE9ka1Jyb25JQ3pHOGplbkEzWlFNTEhFS1d6QWdkVTdnNWt2cGVO?=
- =?utf-8?B?M1R2VkZYNWJ4TFN5QlZ6L2lQOEpNOWxBdjVUbFUyaFczZlBLNG9aQ0xUdmlD?=
- =?utf-8?B?RnAyWktNbTY2UXYvVGJQRGt6c2VTRGlLaTdsMEs4WWF6dkRIR1dMaWtyaDRS?=
- =?utf-8?B?b0pQUm5BWUZjRTkxbFY4bVRyazNSZ1JoeGRiTDhLWnA4TUhleEV2b1BtbmhX?=
- =?utf-8?B?UnlkdEtjdmhkQUpQd1k2NjArU0xxWllsY053cXp2M0pwWmtZak1aTm82K01s?=
- =?utf-8?B?c0ViQ3hSM3pWNTI3ekN3OGNFU215aTFNTHo5dVdTN04ySDl6L0JGYXhKUEVC?=
- =?utf-8?B?L3hRL3FUUjF3dk15S2JLZGNPOE5mQzAva2wrTzlocXQ5VWJ3dTQ1ajlyNWdz?=
- =?utf-8?B?NVRGMS9ET29jenlxY0I4dzd1RlJDUGlhc2Nkcnh1TXNyTnN3Y0oyWkxiek1G?=
- =?utf-8?B?NmxrdDRJYTY2N1NhU1pHcEI5ZEdCOHozeVg5ZDlpdmZmZ0thOVJaWWhmRFpj?=
- =?utf-8?B?bEN5WWx2VXYyM09rMWJWL1JVVTZFZ2pFVnZzRXQrMlZNVFN5YTdrVWdJQ2h3?=
- =?utf-8?B?OCtjMEczTFdvVzVjY3FUK0liTGowdVdZZlN6TDdpMGpUb254UVFyemU4b0VX?=
- =?utf-8?B?eVlrbisyK2RHMWx0YnVObk1pKzJuNU50aThPRzhrdmE0cHlvODNpU296Nlk0?=
- =?utf-8?B?QXc9PQ==?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2eca5da9-4b6c-40b0-c15b-08de27cde578
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 00:44:00.6550
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9VT+0ujPD8MtrtFHcXw8oTUd3VbUbpmCGh8eiA8klovoc7QEF5v6bZcrTJWim4ak2wjjmNm3IotV+rwVBzg+JoS9zsR6y5Ntklabvbh8yDM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5084
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="DAa+bDPYJnjL4Miu"
+Content-Disposition: inline
+In-Reply-To: <ded843d3-465b-419a-9342-cb3a35a2d880@citrix.com>
 
-On 19/11/2025 7:12 pm, Marek Marczykowski-Górecki wrote:
-> Old binutils get confused about .buildid overlapping (in VA space) with
-> earlier section. That confusion results in weird errors down the road,
-> like this one:
->
->     objcopy: xen.efi: Data Directory size (1c) exceeds space left in section (8)
->
-> While the bug is fixed in later binutils version, force alignment of the
-> buildid to avoid overlapping and make it work with older versions too.
-> This can be reverted once toolchain base is raised at or above binutils
-> 2.36.
->
-> Details at:
-> https://lore.kernel.org/all/3TMd7J2u5gCA8ouIG_Xfcw7s5JKMG06XsDIesEB3Fi9htUJ43Lfl057wXohlpCHcszqoCmicpIlneEDO26ZqT8QfC2Y39VxBuqD3nS1j5Q4=@trmm.net/
->
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> Fixes: eee5909e9d1e ("x86/EFI: use less crude a way of generating the build ID")
 
-We typically put these tags in the other order.  I can fix on commit.
+--DAa+bDPYJnjL4Miu
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 20 Nov 2025 02:33:55 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [PATCH] xen: Fix EFI buildid alignment
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>, although...
+On Thu, Nov 20, 2025 at 12:43:57AM +0000, Andrew Cooper wrote:
+> On 19/11/2025 7:12 pm, Marek Marczykowski-G=C3=B3recki wrote:
+> > Old binutils get confused about .buildid overlapping (in VA space) with
+> > earlier section. That confusion results in weird errors down the road,
+> > like this one:
+> >
+> >     objcopy: xen.efi: Data Directory size (1c) exceeds space left in se=
+ction (8)
+> >
+> > While the bug is fixed in later binutils version, force alignment of the
+> > buildid to avoid overlapping and make it work with older versions too.
+> > This can be reverted once toolchain base is raised at or above binutils
+> > 2.36.
+> >
+> > Details at:
+> > https://lore.kernel.org/all/3TMd7J2u5gCA8ouIG_Xfcw7s5JKMG06XsDIesEB3Fi9=
+htUJ43Lfl057wXohlpCHcszqoCmicpIlneEDO26ZqT8QfC2Y39VxBuqD3nS1j5Q4=3D@trmm.ne=
+t/
+> >
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
+> > Fixes: eee5909e9d1e ("x86/EFI: use less crude a way of generating the b=
+uild ID")
+>=20
+> We typically put these tags in the other order.=C2=A0 I can fix on commit.
+>=20
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>, although...
+>=20
+> > ---
+> > While the actual bug apparently is in binutils, the commit mentioned in
+> > Fixes: tag introduced part that triggers that bug.
+> > ---
+> >  xen/arch/x86/xen.lds.S | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+> > index 5d02f83a409c..967f9167f757 100644
+> > --- a/xen/arch/x86/xen.lds.S
+> > +++ b/xen/arch/x86/xen.lds.S
+> > @@ -171,6 +171,8 @@ SECTIONS
+> >         __note_gnu_build_id_end =3D .;
+> >    } PHDR(note) PHDR(text)
+> >  #elif defined(BUILD_ID_EFI)
+> > +  /* Workaround bug in binutils < 2.38 */
+>=20
+> ... this says 2.38, but the commit message says 2.36.=C2=A0 Which one is =
+it?
 
-> ---
-> While the actual bug apparently is in binutils, the commit mentioned in
-> Fixes: tag introduced part that triggers that bug.
-> ---
->  xen/arch/x86/xen.lds.S | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-> index 5d02f83a409c..967f9167f757 100644
-> --- a/xen/arch/x86/xen.lds.S
-> +++ b/xen/arch/x86/xen.lds.S
-> @@ -171,6 +171,8 @@ SECTIONS
->         __note_gnu_build_id_end = .;
->    } PHDR(note) PHDR(text)
->  #elif defined(BUILD_ID_EFI)
-> +  /* Workaround bug in binutils < 2.38 */
+2.36
 
-... this says 2.38, but the commit message says 2.36.  Which one is it?
+> ~Andrew
+>=20
+> > +  . =3D ALIGN(32);
+> >    DECL_SECTION(.buildid) {
+> >         __note_gnu_build_id_start =3D .;
+> >         *(.buildid)
+>=20
 
-~Andrew
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-> +  . = ALIGN(32);
->    DECL_SECTION(.buildid) {
->         __note_gnu_build_id_start = .;
->         *(.buildid)
+--DAa+bDPYJnjL4Miu
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmkecAMACgkQ24/THMrX
+1yw1DAf9HI/2dqAmbNUhlxCqHuwEmycePCPH1vhGDek6zhK9IKj1yJkyEPJt3OdX
+04U0iu8zYxj0HEmKRL3F6deIoD5cwfVyTmeAmW7qwYHLIK6h7bw/zY98L7x/lMzT
+6x4PTjFj/Z2CH0ExY7kHzXRnHOaVJ4gIC7MwrOOx7rV1Rg8uFvGVNaKY5yQH/EV/
+jZ1/67K9cN9K+Wbf0jL/oc5yJMsDX4diH2NC/Hkg40FR33nhFnifPYoTuCl5Ok3/
+0iQTNODCKX8gze2vuZrb+hBYBAcyJnc0zFTPQ/sX03kuckw0rjQQpqH1ORz4Nz0L
+MH1uWSGsneRVOa/LnhBAxD7Kp+ywwg==
+=hECE
+-----END PGP SIGNATURE-----
+
+--DAa+bDPYJnjL4Miu--
 
