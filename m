@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72132C72D54
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 09:27:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1166575.1493068 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57A9AC72F55
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 09:50:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1166590.1493078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM00b-0002Ce-Kn; Thu, 20 Nov 2025 08:27:17 +0000
+	id 1vM0My-0006Gg-FH; Thu, 20 Nov 2025 08:50:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1166575.1493068; Thu, 20 Nov 2025 08:27:17 +0000
+Received: by outflank-mailman (output) from mailman id 1166590.1493078; Thu, 20 Nov 2025 08:50:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM00b-0002A3-Gq; Thu, 20 Nov 2025 08:27:17 +0000
-Received: by outflank-mailman (input) for mailman id 1166575;
- Thu, 20 Nov 2025 08:27:16 +0000
+	id 1vM0My-0006Dc-CR; Thu, 20 Nov 2025 08:50:24 +0000
+Received: by outflank-mailman (input) for mailman id 1166590;
+ Thu, 20 Nov 2025 08:50:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nz19=54=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vM00a-00029x-Kp
- for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 08:27:16 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1vM0Mw-0006DV-L4
+ for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 08:50:22 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b8096fac-c5ea-11f0-9d18-b5c5bf9af7f9;
- Thu, 20 Nov 2025 09:27:15 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-b735e278fa1so127691966b.0
- for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 00:27:15 -0800 (PST)
+ id f1db59ed-c5ed-11f0-9d18-b5c5bf9af7f9;
+ Thu, 20 Nov 2025 09:50:20 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-b472842981fso79516866b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 00:50:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-645363b5fe9sm1524362a12.11.2025.11.20.00.27.13
+ a640c23a62f3a-b7654cdac18sm154380066b.11.2025.11.20.00.50.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Nov 2025 00:27:14 -0800 (PST)
+ Thu, 20 Nov 2025 00:50:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,70 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8096fac-c5ea-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: f1db59ed-c5ed-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763627234; x=1764232034; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763628620; x=1764233420; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GWCOFW6WLFvsPH+O+kr/D+58GC9J3bak8EY8+7MHnAU=;
-        b=Z5ia/7/CuaW8qcZFcPbFMf9kyTQwiBdMwAc8P82QIF73yzUsOLBPi9Iwf6GRg9IC3T
-         GbrOVpNYXzY5iqSViY5AE94z6gPm3dY+rDUeFor5Iw+PA1WWgJpQ/o5ehXnx/4Om+NVX
-         c5OW7gUoVqR5Ee2AJ75opzQrZ+K+A8qfG82pLhGD6ANwh1+3diZifiW6u8er8rRVVgpP
-         sYsmnR1ct5HcBj+D7EYRwVrkIFCUNDfpaVJWPKRZ9sGRDzHhfbzTGbCHmvQcHrDFynOs
-         cYlwznr+gOpKRmYep18nmJYMz44GXEpyD7/d9/QeJgx+kr5tAS7XeA4LlLjKjeB6VAQz
-         yMrw==
+        bh=1k4wVoeEQx/R0py45cUqXCaTXbqkMdqxj52pacX72q4=;
+        b=LLbdI4sKFBMEUSptTB8J4vVbOeR8kVtUqKBGMWUfHywJKDAk4crpfH9cV64gDMCtKw
+         ar12br4PuUTV2SSdBrG58FMi9i50gZiK213URKOizf7nxBfLxD4PwLVBPQq+wybvKR5y
+         JkiwAMZU7Fp4hauCXG5ClOqAnhWQUUVgahcl0/70Ec2o+MiixwmJb/aot0RcicCr+/Je
+         J6zv3KBVoq73eu0RZkPBwrIjBazS5VJhA88J0EC9HHARnzGW+kaQero1DkC2JCIebNTh
+         xrEvzRENYuNV471rh6q5VK5yZoDrJVLs7F8HGX1eakKO0NRtoGUHw//xT4XpK28ocuzx
+         +P6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763627234; x=1764232034;
+        d=1e100.net; s=20230601; t=1763628620; x=1764233420;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GWCOFW6WLFvsPH+O+kr/D+58GC9J3bak8EY8+7MHnAU=;
-        b=bdR5+yZXKTaKlLXB/+lEaEERwOCEjokJ6S4aGap0SGAST8J8d/nsxmRoSYtgyBQhFx
-         8FKu4Rt+q08I7WZ1hdhmVPoBuRQPSRRRT+rVKljEPUp53HcCZeHCdvnTrIMMxSWTDaz0
-         Oc3Dvch/fC70wP1og4bOgRNocIwat4VW6z8miEUYhNYN6RThH5hqThrHIb6qlTZSm0r0
-         KDBKk/7LSK/fR+2jlvNkjehSmGDENYYbcCe5RO5QHScCyLRLd+XVcfBlLSHnwbixj288
-         g02XvRonJC6Xyhgu1h0ARo6ObrYzjaTl6eKTPIuPsbAEAoe1Mfy8nkghXSGJK6eT+bgK
-         hZPg==
-X-Forwarded-Encrypted: i=1; AJvYcCVa8bGSpWD4MbEIsj44nGKGGcAl8ghhRtagMhqj8pmupg+QHhanp0jbP0N/t4mx1J3//n3kF5EgOCc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzWTL8sUkPzipD6IUmAOnA74j2jfvmqvyUdl+puIiBidREj168L
-	eAjuT9siP85RCqThdsGJRq1/wEG+k1r8N8lvvoUHRpqGY8YLgsqbl/F0zzF1hnaasA==
-X-Gm-Gg: ASbGncvIFJ5dRdudL9ilr7PXagt00Y0qSKK+oHUQFAPmnxNzG8BntwzVc8C/j6Vp8lh
-	mWs6UuHMSWVlF8lNSwTHeURHyLhscwg+xwhH39FBmatVkSD003sd3dNYQgTxAcy1o/wmNfM5BiV
-	wt3xd+fe+PbYQo+0ZG3IwgIjuz4UyKdt47droR/d3dHr335GlgNjrgYsaNCYiGQIImvaH0mPql3
-	KwRM4loHaT3MX87hPKeLL/UDAcGffp1IsgrovrZbkTDxjytcgTGRGBi0EGrIvP3tnrZfUuM0lR7
-	U0o2Yacn+D1h+cUGpWw2PG49Ym+RE1xZlKidaAPp91C2EYryywrJalliaHvEzG5dJrBNIdb7M4z
-	c43F+xuy9RvooMY7QYaI6lvr7YbFnuPMRBKyjz2ZlrCHtX8CGHBITupCftvCNvN01wGwe2X7uw/
-	Wmz3FHW7wA/jDQ9owYI0bdskxH9Vvc/b7XhzUz2o5LgxQJd33LuxR5BOK1k0p0oAf5cYmJspzmj
-	bw=
-X-Google-Smtp-Source: AGHT+IEEDEMmxnwvuTYTndLVeFHCdtFiUx40H8RFz/xZO5SzI0W2jXln4VZnGdNSAV6WfyKzk4LcjQ==
-X-Received: by 2002:a17:906:f59b:b0:b73:9a71:13bb with SMTP id a640c23a62f3a-b7654fa2c37mr258575966b.32.1763627234560;
-        Thu, 20 Nov 2025 00:27:14 -0800 (PST)
-Message-ID: <6d38653f-8450-4bec-9650-db6af0cdbe73@suse.com>
-Date: Thu, 20 Nov 2025 09:27:12 +0100
+        bh=1k4wVoeEQx/R0py45cUqXCaTXbqkMdqxj52pacX72q4=;
+        b=nsVI7u3/U4jk1VvS+vSNqFSG0qNc/IL01QIyrIXp/uY9ytzsBLEllyF9Rw7bOnenXL
+         ERLqMKaip7ji4N3BZWlRgKX1XuR1weuqCuTMiWueD+Xf3Rbqfhz0DA+PJ2FWQyBY4NdF
+         UPsil0xNrbiR69KHvwv17TFWdeaoslZ1VVhsA2quNUx8BwnuWQNAXQ+Qv5+7KfBb+Uvd
+         wn1+GijfTSoWd/9QQq73gScWG3tVEAb41HwKdOEPZSQdPMEKlqzay6sqctYvqw4/71VO
+         DC5HcLBjSf6r67EveGpEjCwju/LsbUbeEcRyz7hEQQ/dMK8LJvS/hd3d/HGeFVJfQEM7
+         V4ow==
+X-Forwarded-Encrypted: i=1; AJvYcCUNq7yeRfnm3XP75SAT7f3A5YjHkYF3veKNjJDLAK8O82JgFH6HoK1ygCde8qoAmfCinx7Q7LmalHw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwdfGT6suBMLWTqe4gaYHSwpan8OeCKTKGfAL4Y//3oXVSaB07v
+	e0w63um69C5WWlpx8t+qSN9mAUJKkuyaiAUFkNrdVBSIHRIyQvPkqF8rKZx4GvUULJQiinZ91ec
+	Dios=
+X-Gm-Gg: ASbGnctSx13XPihUtRdZVvR+eHgSJDDvgGqLk5S7eoDu1IikWU0iA2I7MvZ3E7gIG1D
+	vOB8gvbB26DeiOAGbiD4tIduDIT2vytP4fkA1Cwo99Blqhvn4TL0bLkSrm6x/29lSMcJneO5aoU
+	b655cbn6EZK1mrvE9evLA/mbPNbFoHviHWnMmwGpXRa0FT1d8Kg6ccYvhSZ+dVbWXvrPWn3TINV
+	rEwstdzelZXM4YJJKlPDc+SAUd/DsGyyM9S1TDNeVsd1irOPw2DPjvv1AzoU7v2I+fTUcvl2jcG
+	MlyRQc4Jj+LbNuqkrY0ZCW3t4CxvZLvGNgfxeGP4dpPC7rtnFMiz/tuMxCb3dDrhjZTYXLfu+ki
+	h8kc1FH/5qeFazEvP4wtr1ydICqW9ugbL83K66oMW6uC+7J1nj4VWMi8xMHms1VtZumMZL8CVEF
+	FntUFWeN0PV0FvAgAZZiPc1Y/XM2VUNcZBBGjRlGKxnhwwvJCNJJhGjpN/hwy3mioHbPFiQYDtp
+	QA=
+X-Google-Smtp-Source: AGHT+IEIA+z1PhPd96CVhddUlzLKUtRykbwgYG+/6wZlKYIeW2UNhagerMSh7Xx8qnWS1AivJOimag==
+X-Received: by 2002:a17:907:3f17:b0:b71:1164:6a7e with SMTP id a640c23a62f3a-b7654af8628mr217740866b.0.1763628620205;
+        Thu, 20 Nov 2025 00:50:20 -0800 (PST)
+Message-ID: <dc779808-a46d-4b71-8cde-6239b4a68819@suse.com>
+Date: Thu, 20 Nov 2025 09:50:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8] xen: Strip xen.efi by default
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Frediano Ziglio <freddy77@gmail.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Frediano Ziglio <frediano.ziglio@citrix.com>,
- xen-devel@lists.xenproject.org, Frediano Ziglio <frediano.ziglio@cloud.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [XEN][PATCH v8] x86: make Viridian support optional
+To: Grygorii Strashko <grygorii_strashko@epam.com>,
+ Jason Andryuk <jason.andryuk@amd.com>
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Demi Marie Obenour <demiobenour@gmail.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20251113154358.28704-1-frediano.ziglio@citrix.com>
- <6729f3d9-618c-4dcd-93f8-d02ca7cea017@gmail.com>
- <8f8a769d-95ea-4554-8ee0-d6247f583e37@citrix.com>
- <CAHt6W4eDDm-fNUB7W1Zgj+x-bkK2fxTB50C38T4Uy0_Ofy_cww@mail.gmail.com>
- <aR3dFPTeH4Wegodd@mail-itl> <38ba402c-6920-47f6-91d3-7b499c407c36@citrix.com>
- <aR35jsEXBcV2uEFY@mail-itl>
+ Paul Durrant <paul@xen.org>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251119193215.1012108-1-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -134,31 +125,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aR35jsEXBcV2uEFY@mail-itl>
+In-Reply-To: <20251119193215.1012108-1-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 19.11.2025 18:08, Marek Marczykowski-Górecki wrote:
-> On Wed, Nov 19, 2025 at 04:02:30PM +0000, Andrew Cooper wrote:
->> Given it's now only 16.04 broken, how about simply excluding xen.efi
->> with these broken toolchains?
-> 
-> That would mean adjusting README to say a newer binutils is required for
-> xen.efi, right? Then ofc we would need to figure out which version
-> specifically. FWIW Ubuntu 16.04 has 2.26 and Ubuntu 18.04 has 2.30.
-> Would raising required toolchain version (for some configuration here)
-> even accepted, especially if considered for backporting?
-> 
-> Alternatively, simply disable building xen.efi in CI on 16.04, and maybe
-> document as "known issue" pointing at toolchain bug? Result is very
-> similar, but might be more acceptable on the process side...
+(adding v8 tag to subject)
 
-Along the lines of what Andrew said, the probing done would then want
-updating. Which in turn raises the need to properly know what to probe.
-That said, from what I've read so far it's not the building of xen.efi
-which would need disabling, but (as we already do for certain cases)
-its building with debug info included (which in turn is now going to
-require its stripping during the build process).
+On 19.11.2025 20:32, Grygorii Strashko wrote:
+> From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> 
+> Add config option VIRIDIAN that covers viridian code within HVM.
+> Calls to viridian functions guarded by is_viridian_domain() and related macros.
+> Having this option may be beneficial by reducing code footprint for systems
+> that are not using Hyper-V.
+> 
+> [grygorii_strashko@epam.com: fixed NULL pointer deref in
+> viridian_save_domain_ctxt(); stub viridian_vcpu/domain_init/deinit()]
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com> 
+
+As before - this R-b likely would need dropping, ...
+
+> ---
+> changes in v8:
+> - drop checks from viridian_load_vcpu/domain_ctxt()
+> - drop check "value != 0" in HVM_PARAM_VIRIDIAN handler, laways return
+>   -ENODEV for VIRIDIAN=n
+
+... when more than just cosmetic changes are made. Jason, please can you
+indicate whether it's fine to retain?
+
+> --- a/xen/arch/x86/hvm/Makefile
+> +++ b/xen/arch/x86/hvm/Makefile
+> @@ -1,6 +1,6 @@
+>  obj-$(CONFIG_AMD_SVM) += svm/
+>  obj-$(CONFIG_INTEL_VMX) += vmx/
+> -obj-y += viridian/
+> +obj-$(CONFIG_VIRIDIAN) += viridian/
+
+When committing, I'll likely take the liberty to also move the altered line
+up, to restore proper alphabetical sorting here.
+
+> --- a/xen/arch/x86/include/asm/hvm/viridian.h
+> +++ b/xen/arch/x86/include/asm/hvm/viridian.h
+> @@ -86,11 +86,26 @@ viridian_hypercall(struct cpu_user_regs *regs);
+>  void viridian_time_domain_freeze(const struct domain *d);
+>  void viridian_time_domain_thaw(const struct domain *d);
+>  
+> +#if defined(CONFIG_VIRIDIAN)
+
+Similarly I'm likely going to take the liberty and change this to #ifdef,
+just like you have it elsewhere.
+
+Preferably with the adjustments:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
