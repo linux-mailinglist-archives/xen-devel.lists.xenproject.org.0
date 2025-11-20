@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65408C73E2A
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 13:09:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1167141.1493504 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 099D2C73E78
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 13:11:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1167156.1493514 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM3T6-00060j-18; Thu, 20 Nov 2025 12:08:56 +0000
+	id 1vM3VD-0007a9-Gb; Thu, 20 Nov 2025 12:11:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1167141.1493504; Thu, 20 Nov 2025 12:08:56 +0000
+Received: by outflank-mailman (output) from mailman id 1167156.1493514; Thu, 20 Nov 2025 12:11:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM3T5-0005xm-UI; Thu, 20 Nov 2025 12:08:55 +0000
-Received: by outflank-mailman (input) for mailman id 1167141;
- Thu, 20 Nov 2025 12:08:54 +0000
+	id 1vM3VD-0007XY-Dh; Thu, 20 Nov 2025 12:11:07 +0000
+Received: by outflank-mailman (input) for mailman id 1167156;
+ Thu, 20 Nov 2025 12:11:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nz19=54=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vM3T4-0005kL-O6
- for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 12:08:54 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1vM3VB-0007XS-JN
+ for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 12:11:05 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ae2f2f13-c609-11f0-980a-7dc792cee155;
- Thu, 20 Nov 2025 13:08:52 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-64074f01a6eso1332143a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 04:08:52 -0800 (PST)
+ id fc1d91a0-c609-11f0-980a-7dc792cee155;
+ Thu, 20 Nov 2025 13:11:03 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-b737c6c13e1so150552466b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 04:11:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-64536460ea9sm2134127a12.35.2025.11.20.04.08.49
+ a640c23a62f3a-b7655051625sm194625566b.65.2025.11.20.04.11.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Nov 2025 04:08:49 -0800 (PST)
+ Thu, 20 Nov 2025 04:11:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae2f2f13-c609-11f0-980a-7dc792cee155
+X-Inumbo-ID: fc1d91a0-c609-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763640532; x=1764245332; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763640663; x=1764245463; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6HFZ4cWrExzYCC8gjGfgz7UHmSxWpqHByThC9z7gNlA=;
-        b=QXRCAsXP8gPM/iXOt+bP0HSi2OJt0k7VUsGexJ+7ZAEyXoWp7ATDAPs+Tqu2Jo/P7a
-         Ms5Pr2nySoAy0glcfDyC4hPakreh47KvioOkcdRJNJphMld7PExCWIoDgrjwiT4L2zDO
-         s0OuXY+N2XbuCAjGAkgnJMQ+2jeE6kNBf5KrBbYISzbrY8K13Fw5jtTk/c7l9b8SDhOZ
-         pA5DYa/zmcRR1QglPH3wtaoA9BaL3VbmFKCdInvEfHcQEJXQtfslEwpgn3arcKKOos6a
-         XNkdnN3b/7Wkn/ujbuXXpPoiU0BjKA9kxCkTSIGLFUWkPHXPaku+Z/JhabpqdUUgqYJ1
-         v5Gg==
+        bh=zmIVRrPfbg41gA+a6ffxp9TdPPfgOWMvBkwtwAqD0sE=;
+        b=LYuVelq2KVBczLC40DPSrvhq6BqzoRa3DtSGpCwz+wn2wNRVeNKKx4PJFJ6kxfvdkc
+         86YFUk4zLsxvmhIfMs07sORHo7H1kdnGXaquwGGQQKDVOAxaiT1I9ExWvuWDlueEnI6n
+         4ORhxS7Z7e4q2NKf5sRdnXpfv7+CZBepW7KWQ87eapvb9gE8Gzr1IzLRRe3T1WiH59p+
+         h4L1+/ooAt89YJWs+KYdPheMlUMTGnvgoIuj3gTdQM/fPDQ6omRM/uLtn8DDToDmDtau
+         3d5aKAce1/Nsd07PsLJA8RepfQg8kS+axZC69FQrLTu5/5HLydVhTv5aAzj5/dCjFwzP
+         Z6SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763640532; x=1764245332;
+        d=1e100.net; s=20230601; t=1763640663; x=1764245463;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6HFZ4cWrExzYCC8gjGfgz7UHmSxWpqHByThC9z7gNlA=;
-        b=VzXlKqtd3t2QwctBjA05ENTW99WBU5weFm3J4vsv5Wh1v9sMEiHnMeAsr9nPvhfhZq
-         2BMNS52/LuqGPa2ZGyaG6z62GAaa6z4D5upEpoTqx3ZxEUcD4pDmUNeCmNqqbzdoD7Vf
-         iFcIZMrv38qe15YWgek/xoX9WyMML8yY198/5W95L9B7bPc9qu7pQelPHAjwrTt5aaUv
-         rWLdB5Lc3s0XHpB2tHFQPIFbrIOIJFepk1ablPFhoTWpzbfNb1vKbAlgpNA6uRzdT2n5
-         rnfg6VJ57CUN9RzS2Lh7pBi2QSXfR+68EyKpMqkyD1+LCP8X2PbmpaOtuWySA1XaCGs1
-         5LaA==
-X-Forwarded-Encrypted: i=1; AJvYcCXjmjmCt/kt1TAjJIHzcGdsPMP4e6RcwC/g4NB+LCjrR3zzA1aCSLm8jDcBALmam8s3Po3ps2lyYNQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyYULTAEC/a9Ajl64DF2wkSSE8l1N8o+tS6mYSQJCNuVu8CG3kT
-	XGAt4Jo2nWFKckNElqGoqvZ2Lhpore4KUmDfq/mnOz5X1Kp2xLirnxWNgtpNuPSGKQ==
-X-Gm-Gg: ASbGncufmgRNNiZcwz5Yp7QgupXsI5JPZHfeM5JWYEsuV2fA+Us3iC3IjgmcjAxNjgZ
-	/7lcvLpvbMvhF+0EZg7BgXJIwo4V4NajotsuJ24MN01K9FZFZPweTO8LSMIeBmkkllkXr2E8eup
-	qzO9n6BnTJB3AVLJNwFc5VLcfJZ6o08EPVfPAR4q4WSRev5tE1tZe0TBvs5CJVDbMaeRWKXlon/
-	baZvC3jJMGXq0n16lRc9fKeAYPueqwo1jdl1r0ux/TDH8sBgP85wMG4s3kR74rbvjLHjdqv7kR8
-	3CEWBBVS7yDAJ2P0/bbZrwOw6uRgSPDWR4BmjLPmgsj+it0C5H05Lv1xqPt9Z48jx+/yk49/19A
-	TAr+IUZFbuUjLEXiZ8xjPg1ZcvWeQ2ipjgu9er9ThrJfg0Avc7bTGbb1zvTZzWDGdhe3sCPEmxq
-	RbPQs+nUO581Jj30t1y0Fn29M+RiJJhhTRaKLkzK8n90Go8Z7Mq2k1Z60/5vF+X6lG4WuN4sBYm
-	ieFzNbg9OhnDw==
-X-Google-Smtp-Source: AGHT+IG5IpfwEJrL/fj6jnrhVfqCF+5PoTm+3QAWTlBDLt99Rkdrk3H5b5+8pHuRh3tYY8Zod/ZzgA==
-X-Received: by 2002:a05:6402:1d4c:b0:643:18db:1d82 with SMTP id 4fb4d7f45d1cf-645363e48e5mr2824333a12.11.1763640529791;
-        Thu, 20 Nov 2025 04:08:49 -0800 (PST)
-Message-ID: <a61f67ce-8568-416b-9e89-aa22d794e886@suse.com>
-Date: Thu, 20 Nov 2025 13:08:47 +0100
+        bh=zmIVRrPfbg41gA+a6ffxp9TdPPfgOWMvBkwtwAqD0sE=;
+        b=VhtZw27BGmf7DUopwi0qouEJSooOqfzkgonIfr+72XIOW1w2DMVZEBynq6sEdJJ3fG
+         7gYPK3zIcTq9qC23eJEwC13lr6uvUTKlHvl5YDEDDoV1PydealKI6JwwRSPledqmMnFU
+         qTaRvv/HSs9hlV4qMAVNN2Q5tIN/goYP1yOylwMThcOVXFyMC8Z15K00Rb29qEgS6a8Z
+         P5kJdjcVfbwW7FGUdM/sNaTfwgyYlg5goafz8qoVQ8SZRJLjP0nRFqt4D3+FYhqk07Q9
+         CynI1+jp5rYr5JO32l4K2xm/3zEHgUC3h20+E9ZkTu3BOCxPLJehLUkn1WePNzo9QwIR
+         zYOw==
+X-Forwarded-Encrypted: i=1; AJvYcCX+tUCYwMhSqMLFdE2mDYfg1NnSr24PPK2m6jhupN+Y/vhmGgnatEPZ70NybRczW6y1oJs007M1swI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxtnbdaMgOBb92G3bwLcmKiQuD/BxocR93NpKMGx7Lgtwg/pE6D
+	iv6Wn9sa1hogdbj7bqIdewdrbon/0YW+DUK586gw6WherS2TAoBWAGll0vtp2KNvTg==
+X-Gm-Gg: ASbGncszmeiI/1y9k226xcWf0ku1HZKeO6DEvxPg9cUMoBhCbXfSEm2wNny1RuSARGk
+	xEGcanwf9nxNBdVOjy7ZHTcXIF+22+FwNYm+faViaR43djUESThq4I1jD/MeYxDWfEPz7kONmAX
+	NHT7CbyYSEaVhZa4lv2u6IrWhTY6miI0Kh2V06WRxoa4KuBgqA38gWJL9hRRpHZYRQBohnvdrnX
+	VGdKyteTAplRpXr0z6y/+QYrtpOWwblYms1CpW2k2HIkB6NCDW3Wy09fcYWJobgyoVSQBhORreS
+	FL0Pldx1P10K7oKAkaQHf7ktdKG9f1kkezGmUezp/kX6rLH6y4czmZCRUS5rFfg20OkaZ+WeUqa
+	wCxncx/Pz+gMMUl8r4XY94ZXOc/lyWDckbeP+LiL/MoCiEXENsQ2++0NbK4q/96l+JKOXDYqEOH
+	EP+zm0awgAL6ZsQGAbC5ph2NYzlR7zAjsMU3M9ECP43wGcH+2FYBhRfz1TwzxuhJCbfcnLqaxx1
+	ykyIgp+O0+XaQ==
+X-Google-Smtp-Source: AGHT+IGfyA6JyNOPguw3sQbMfZXScw8QvzJiY9ARppOrjQeeXKY+1EdH/RZluC/4pgggG8bq2slLTg==
+X-Received: by 2002:a17:907:94d1:b0:b73:4aa5:35e5 with SMTP id a640c23a62f3a-b7654d8c128mr370197766b.7.1763640662970;
+        Thu, 20 Nov 2025 04:11:02 -0800 (PST)
+Message-ID: <5a476cc5-0095-4783-bde9-c84f24740372@suse.com>
+Date: Thu, 20 Nov 2025 13:11:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] x86/guest: move allocation of Xen upcall vector to
- init code
+Subject: Re: [PATCH 2/4] x86/MCE: restrict allocation of thermal and CMCI
+ vector to BSP
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <fbc9a2f8-170a-4645-8836-c90c42ad726f@suse.com>
- <5ccf9000-9847-40de-838e-cb181633b098@suse.com>
- <943e462f-d948-4f72-8d4c-626febca5b32@citrix.com>
- <4a266547-b058-49c0-8c45-7a80f8ada3b7@citrix.com>
+ <638d0954-e889-41ee-b277-282f83170c69@suse.com>
+ <ed2f44ce-b28d-482f-b6bb-5ef40149f2b2@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,72 +122,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4a266547-b058-49c0-8c45-7a80f8ada3b7@citrix.com>
+In-Reply-To: <ed2f44ce-b28d-482f-b6bb-5ef40149f2b2@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20.11.2025 12:07, Andrew Cooper wrote:
-> On 20/11/2025 11:01 am, Andrew Cooper wrote:
->> On 19/11/2025 10:50 am, Jan Beulich wrote:
->>> There's no need to do this every time init_evtchn() is called. Just do it
->>> once when setting up CPU0. Drop the assertion as well, as
->>> alloc_hipriority_vector() (called by alloc_direct_apic_vector()) uses more
->>> restrictive BUG_ON() anyway. Then evtchn_upcall_vector can also validly
->>> become ro-after-init, just that it needs to move out of init_evtchn().
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> --- a/xen/arch/x86/guest/xen/xen.c
->>> +++ b/xen/arch/x86/guest/xen/xen.c
->>> @@ -233,16 +233,12 @@ static void cf_check xen_evtchn_upcall(v
->>>      ack_APIC_irq();
->>>  }
->>>  
->>> +static uint8_t __ro_after_init evtchn_upcall_vector;
->>> +
->>>  static int init_evtchn(void)
->>>  {
->>> -    static uint8_t evtchn_upcall_vector;
->>>      int rc;
->>>  
->>> -    if ( !evtchn_upcall_vector )
->>> -        alloc_direct_apic_vector(&evtchn_upcall_vector, xen_evtchn_upcall);
->>> -
->>> -    ASSERT(evtchn_upcall_vector);
->>> -
->>>      rc = xen_hypercall_set_evtchn_upcall_vector(this_cpu(vcpu_id),
->>>                                                  evtchn_upcall_vector);
->>>      if ( rc )
->>> @@ -293,6 +289,8 @@ static void __init cf_check setup(void)
->>>                 XEN_LEGACY_MAX_VCPUS);
->>>      }
->>>  
->>> +    alloc_direct_apic_vector(&evtchn_upcall_vector, xen_evtchn_upcall);
->>> +
->>>      BUG_ON(init_evtchn());
->>>  }
->>>  
->>>
->> This patch is fine, but it would be nicer to split init_evtchn() into
->> bsp_init_evtchn() and percpu_init_evtchn().
->>
->> Just out of context in init_evtchn(), there's a check for CPU0 that also
->> ought to move into bsp_init_evtchn() (and therefore into __init), at
->> which point the percpu simplifies to a single hypercall, and we keep
->> subsystem specifics out of setup().
+On 20.11.2025 12:51, Andrew Cooper wrote:
+> On 19/11/2025 10:50 am, Jan Beulich wrote:
+>> --- a/xen/arch/x86/cpu/mcheck/mce.c
+>> +++ b/xen/arch/x86/cpu/mcheck/mce.c
+>> @@ -110,13 +110,13 @@ static void __init mcheck_intel_therm_in
+>>  }
+>>  
+>>  /* P4/Xeon Thermal regulation detect and init */
+>> -static void intel_init_thermal(struct cpuinfo_x86 *c)
+>> +static void intel_init_thermal(const struct cpuinfo_x86 *c, bool bsp)
+>>  {
+>>      uint64_t msr_content;
+>>      uint32_t val;
+>>      int tm2 = 0;
+>>      unsigned int cpu = smp_processor_id();
+>> -    static uint8_t thermal_apic_vector;
+>> +    static uint8_t __ro_after_init thermal_apic_vector;
+>>  
+>>      if ( !intel_thermal_supported(c) )
+>>          return; /* -ENODEV */
+>> @@ -160,7 +160,8 @@ static void intel_init_thermal(struct cp
+>>          return; /* -EBUSY */
+>>      }
+>>  
+>> -    alloc_direct_apic_vector(&thermal_apic_vector, intel_thermal_interrupt);
+>> +    if ( bsp )
+>> +        alloc_direct_apic_vector(&thermal_apic_vector, intel_thermal_interrupt);
 > 
-> No, scratch that.  HVM_PARAM_CALLBACK_IRQ is not in the list of HVM
-> Params that migration moves on migrate (see write_hvm_params() in
-> xg_sr_save_x86_hvm.c).
+> We really don't want both c and bsp passed in.  That can only go wrong.
 > 
-> Everything is awful.
+> Furthermore, this function has 2 other examples generating bsp locally.
 > 
-> Could you include a comment such as /* HVM_PARAM_CALLBACK_IRQ is not
-> moved on migrate, so has to be set up again on resume. */ to make it
-> clear why that piece of logic needs to stay in a non-init function?
+> The function is in desperate need of cleanup (MSRs, variable and
+> constant names), but right now this makes it worse.
+> 
+> Please either use c == &boot_cpu_data, and I'll do some cleanup later,
+> or generate bsp = c == &boot_cpu_data and fix up all users in the function.
 
-It's pretty much unrelated to the change here, but yes, sure, I can add
-such a comment while touching the function.
+No, throughout mce/ this won't work as long as acpi/power.c:enter_state() has
+
+    mcheck_init(&boot_cpu_data, false);
 
 Jan
 
