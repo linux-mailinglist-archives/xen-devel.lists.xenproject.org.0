@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9427C73A3F
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 12:10:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1166879.1493398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97119C73C95
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 12:43:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1167070.1493428 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM2YH-0005no-01; Thu, 20 Nov 2025 11:10:13 +0000
+	id 1vM33z-0000AN-Qg; Thu, 20 Nov 2025 11:42:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1166879.1493398; Thu, 20 Nov 2025 11:10:12 +0000
+Received: by outflank-mailman (output) from mailman id 1167070.1493428; Thu, 20 Nov 2025 11:42:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM2YG-0005gs-NZ; Thu, 20 Nov 2025 11:10:12 +0000
-Received: by outflank-mailman (input) for mailman id 1166879;
- Thu, 20 Nov 2025 11:10:10 +0000
+	id 1vM33z-00008E-Nn; Thu, 20 Nov 2025 11:42:59 +0000
+Received: by outflank-mailman (input) for mailman id 1167070;
+ Thu, 20 Nov 2025 11:42:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mqCo=54=bounce.vates.tech=bounce-md_30504962.691ef70f.v1-e256d5f039384ed8a42fd4c1aa3b0daf@srs-se1.protection.inumbo.net>)
- id 1vM2YE-0001P8-70
- for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 11:10:10 +0000
-Received: from mail180-15.suw31.mandrillapp.com
- (mail180-15.suw31.mandrillapp.com [198.2.180.15])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nz19=54=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vM33x-00007d-Ln
+ for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 11:42:57 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 78f00f05-c601-11f0-980a-7dc792cee155;
- Thu, 20 Nov 2025 12:10:08 +0100 (CET)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-15.suw31.mandrillapp.com (Mailchimp) with ESMTP id
- 4dBwcH1sDpzPm0bxt
- for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 11:10:07 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- e256d5f039384ed8a42fd4c1aa3b0daf; Thu, 20 Nov 2025 11:10:07 +0000
+ id 0dc2ca89-c606-11f0-980a-7dc792cee155;
+ Thu, 20 Nov 2025 12:42:55 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-b73161849e1so204325966b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 03:42:55 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b7654d7cb3bsm194223966b.27.2025.11.20.03.42.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Nov 2025 03:42:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,222 +45,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78f00f05-c601-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1763637007; x=1763907007;
-	bh=1JvgRf0rexS39lvXSQ6h0vAJOtgrDkxsYnUvnyHod10=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=1wD2iR8HuZyStwZtwpeBjEqMxgilcuNR1GImEOBdsTUU9g7ZdkGB3MGBaHG8UIJ9t
-	 bq1QSpMdo+bb0/lBDRUliTCyv/BRQrQy6qRMKn3D3MKjFMpUKQU2udDJ9xhXtPTeR0
-	 C/8GYqybRlrkBWT9cMT694PBoD2dhxhJMzoZVqIfkFJaFjPGJW41Emqy8SlI4+Tlvz
-	 PFVus8lk/J75MrBPY7IQ8MPi1JfPX+H4vi02RpmdRCC3UDLKbLvMDRI45hj8X1xw+K
-	 MSnSCGQemhbymieRs2tQQfx1nDtl+5xltJi513N1kUqz43lRKSNI8C/Q7cB8tfPH0l
-	 BgqzyZZEw3ypQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1763637007; x=1763897507; i=teddy.astie@vates.tech;
-	bh=1JvgRf0rexS39lvXSQ6h0vAJOtgrDkxsYnUvnyHod10=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=SPNktnjj9asuiNq2pvXHP4WmqwJWKdU1aTRYBphxZuIjRTVH/HZfDuVK/R2YdmnBM
-	 2rwV5EU7Rwag2xAzuVFJktnqGG6+wOuCcDJONQqJkclQEA/vJ5x7qbZKrz00Opktc8
-	 Q9Oh+wmTwCkcYHC1Bso3Eg3SpiczXXh84Bzb9c2gtth3zbhV/5C31deym9YxOy+2vq
-	 PycWM6u+9RhUy0RbNm/wyPt4v/RRVSr+tfherFU6pEVxoYhI1hieReDBCCpUw2/pye
-	 6gDCoepM0SxhasP/f86WiddSe9tZbeNY3pDw3MXSSV9qAmn10uRwefyagTD6wMHQhM
-	 qC8rzshe9QiTg==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC=20PATCH=20v7=2014/14]=20iommu:=20Introduce=20no-dma=20feature?=
-X-Mailer: git-send-email 2.51.2
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1763637006009
-To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>
-Message-Id: <6e1cb09c1543e9f2ca913f1cb6eecaaca7b7a13b.1763569135.git.teddy.astie@vates.tech>
-In-Reply-To: <cover.1763569135.git.teddy.astie@vates.tech>
-References: <cover.1763569135.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.e256d5f039384ed8a42fd4c1aa3b0daf?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251120:md
-Date: Thu, 20 Nov 2025 11:10:07 +0000
+X-Inumbo-ID: 0dc2ca89-c606-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1763638975; x=1764243775; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1A57igL4O38RF4Gnv2kW+vRh9kLGjingSZovSliCfK8=;
+        b=VjZ5fPANsnuR719sCxCqdP+ogcaydj7dY9MOIID6WbZRrnj+43O5iNdV7SUUT2pYuB
+         1TaPkWbh/RoLL4hK8FrtY0AGGobhNSVMMhtwMISXEle6Y2bWLh9rlYbxo71SKvq53EcN
+         B4ngAoEw6CgOu/s9pRFNZ5mvjGrXEqlO1NWnQbAkqq+HZb8fSnT6upo3RBQpkz/Y9n3F
+         TSXMqqwZIm53l+On8BSchuJtc5U9hDHpmHcDApZSs8I16OKG9ZaJS3DLLCHqynCea9eF
+         OCN7FUZ7lJd0YEM4XRl1Q2R3X25/VozH3yukViYmkPkg0cJfvs42T/YIan/QsqcCWW+S
+         XFxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763638975; x=1764243775;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1A57igL4O38RF4Gnv2kW+vRh9kLGjingSZovSliCfK8=;
+        b=oGJcLMreArPUOkCtZ+xUTcchfHoqLJ/S5Wji3vkcvjsK6EAFxA6H27WvmUVgfWz9J7
+         BrAmtZhi4JDGmXeAZVUOYPyI++d/yOZ+WKa/WlnaTKUnEcHrEoNMbjCzuurR7MlXZcQ7
+         EGP2U48sYYPysGgnRBM3lf+j4lD2kTzz2xLwi/w9ehAMo+q2jntGTMwd0zbNOrhohXqv
+         p5kxHG+ydL7sgx9+ab4RJFJL1KanKPMfbR/dfFws/ZCub/8pNxm1m6sYq9Mg/uN2w1aq
+         YI/k4vknoqWw/VuDHcKXysD0ZmDBs/D/0t1Ed49+AFAGrLUt+xeXzHP0hTuivcaEKqCX
+         yZlg==
+X-Forwarded-Encrypted: i=1; AJvYcCV18skwJwp1A6lz/toPAr7hduU1FJ7x6ia+R0K3CGxXrO3FzUDclPwjGtUvndbWhk1rMH2FKj8tVqw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy8sxl9JMpyEvrl3vXPzVgGN026CNz02Vm6X9LAx84vYtwOVxg1
+	LNk63Qk4+0uDFoNXdxtYvfNSEQSwCKXif8fewlpS5TccfRPPRrNjAEstHZCbosC5tQ==
+X-Gm-Gg: ASbGncvBDgaQy3NjOPvC6M5NzLVr4aLEWlXUq9yu2fo5prVVi8KOCLoy4p/DM0vvJ6w
+	XKHwIzN9fMbFyehDU8YU6zg2tX+f/6nSuXvwJlkXbScEKa9Pk4wfoFFj8wzzkgZ4V8pKl2Nk6He
+	7xwf7fyD7czyOR8bL8jMwEIV8gV/Ou/OQsbGVQTZx63+VpeoM6/PuD1CaND6LHvOYO5QQuNCDxS
+	PeZ1PznTMytmLg2zC8WiZzKWB5V+17rGgrfMbRpc9ri1GK7S14TX+y7EA3Op61cIBL+enPvgJ9n
+	S6mxO0Xk9XcSsYYV90xQpWg5SNJOqCPapryYstp0ZL/up48naH48nDD1ND6kGZC9I7UYu7NXeyI
+	BTL9LcjFGbVSWDsBlUt4+LZn1Ty6INhap9EMJLkrfibbI5rHxkvP74MUd8bTgTfg3Aff6epWbKe
+	EPP2cC+a2gSsqBkp9cMssL6Bz4u4Bm5mI+3kisR0lEv/abqZgMt7WzDJx4R6rQEEjpZotv6eS13
+	Kw=
+X-Google-Smtp-Source: AGHT+IEOSiVzShk7bcr24H0EOKL7OtQxsVZ5X0aQnfTFEBZzY69CtHeJC9KeMGdEhEDQJtMkhVBYuw==
+X-Received: by 2002:a17:907:2d8a:b0:b73:57eb:688 with SMTP id a640c23a62f3a-b7658917b4fmr191201566b.53.1763638974598;
+        Thu, 20 Nov 2025 03:42:54 -0800 (PST)
+Message-ID: <2de4377e-8746-4fda-b7ed-ca588170c4a1@suse.com>
+Date: Thu, 20 Nov 2025 12:42:52 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN][PATCH v4] xen: make VMTRACE support optional
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Teddy Astie <teddy.astie@vates.tech>, Penny Zheng <Penny.Zheng@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251119193120.1011448-1-grygorii_strashko@epam.com>
+ <f354c1cd-c46e-4bd2-98d6-a614029991f7@suse.com>
+ <054aaca3-919f-4b9e-bdfe-9bdb40f08388@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <054aaca3-919f-4b9e-bdfe-9bdb40f08388@epam.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-This feature exposed through `dom0-iommu=no-dma` prevents the devices
-of default context to have access to domain's memory.
-This basically enforces DMA protection by default. The domain will
-need to prepare a specific IOMMU context to do DMA.
+On 20.11.2025 11:47, Grygorii Strashko wrote:
+> Hi Jan,
+> 
+> On 20.11.25 10:56, Jan Beulich wrote:
+>> On 19.11.2025 20:31, Grygorii Strashko wrote:
+>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>
+>>> The VMTRACE feature is depends on Platform/Arch HW and code support and now
+>>> can be used only on x86 HVM with Intel VT-x (INTEL_VMX) enabled.
+>>> This makes VMTRACE support optional by introducing HVM Kconfig option:
+>>> - CONFIG_VMTRACE to enable/disable the feature.
+>>>
+>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>>> ---
+>>> changes in v4:
+>>> - format changes
+>>
+>> Just partly, ...
+>>
+>>> @@ -772,13 +775,24 @@ static inline int hvm_vmtrace_get_option(
+>>>   
+>>>       return -EOPNOTSUPP;
+>>>   }
+>>> +#else
+>>> +/*
+>>> + * Function declaration(s) here are used without definition(s) to make compiler
+>>> + * happy when VMTRACE=n, compiler DCE will eliminate unused code.
+>>> + */
+>>> +int hvm_vmtrace_output_position(struct vcpu *v, uint64_t *pos);
+>>> +#endif
+>>>   
+>>>   static inline int hvm_vmtrace_reset(struct vcpu *v)
+>>>   {
+>>> +#ifdef CONFIG_VMTRACE
+>>>       if ( hvm_funcs.vmtrace_reset )
+>>>           return alternative_call(hvm_funcs.vmtrace_reset, v);
+>>>   
+>>>       return -EOPNOTSUPP;
+>>> +#else
+>>> +    return -EOPNOTSUPP;
+>>> +#endif
+>>>   }
+>>
+>> ... the #else wasn't dropped from here. If no need for a v5 arises, I guess
+>> I can make the adjustment while committing. But it would be really nice if
+>> all earlier comments were taken care of (one way or another) when submitting
+>> a new version.
+> 
+> This is absolutely my miss. Sorry.
+> I can resend with fix. Just tell me how will be better for you.
 
-This feature needs the guest to provide a PV-IOMMU driver.
+Well, as said above - no need to resend unless another reason for a v5 surfaces.
 
-Signed-off-by Teddy Astie <teddy.astie@vates.tech>
----
- docs/misc/xen-command-line.pandoc   | 16 +++++++++++++++-
- xen/arch/x86/x86_64/mm.c            |  3 ++-
- xen/common/pv-iommu.c               |  3 +++
- xen/drivers/passthrough/iommu.c     | 13 +++++++++++++
- xen/drivers/passthrough/x86/iommu.c |  4 ++++
- xen/include/xen/iommu.h             |  3 +++
- 6 files changed, 40 insertions(+), 2 deletions(-)
-
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 34004ce282..b528f626a7 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -941,7 +941,7 @@ is necessary to fix an issue, please report a bug.
- 
- ### dom0-iommu
-     = List of [ passthrough=<bool>, strict=<bool>, map-inclusive=<bool>,
--                map-reserved=<bool>, none ]
-+                map-reserved=<bool>, dma=<bool>, none ]
- 
- Controls for the dom0 IOMMU setup.
- 
-@@ -992,6 +992,20 @@ Controls for the dom0 IOMMU setup.
-     subset of the correction by only mapping reserved memory regions rather
-     than all non-RAM regions.
- 
-+*   The `dma` option determines if the IOMMU is configured to identity map
-+    the "default IOMMU context". If set to false, all devices of the Dom0 get
-+    their DMA blocked until the IOMMU is properly configured by the guest (aside
-+    special reserved regions).
-+
-+    Disabling this can slightly improve performance by removing the need to synchronize
-+    p2m modifications with the IOMMU subsystem, moreover, disabling it provides DMA
-+    protection that some operating systems can expect in order to securely handle some
-+    devices (e.g Thunderbolt).
-+
-+    Disabling this requires guest support for PV-IOMMU for devices to behave properly.
-+
-+    This option is enabled by default.
-+
- *   The `none` option is intended for development purposes only, and skips
-     certain safety checks pertaining to the correct IOMMU configuration for
-     dom0 to boot.
-diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
-index d4e6a9c0a2..00ff5d0b71 100644
---- a/xen/arch/x86/x86_64/mm.c
-+++ b/xen/arch/x86/x86_64/mm.c
-@@ -1315,7 +1315,8 @@ int memory_add(unsigned long spfn, unsigned long epfn, unsigned int pxm)
-      */
-     if ( is_iommu_enabled(hardware_domain) &&
-          !iommu_use_hap_pt(hardware_domain) &&
--         !need_iommu_pt_sync(hardware_domain) )
-+         !need_iommu_pt_sync(hardware_domain) &&
-+         !iommu_hwdom_no_dma )
-     {
-         for ( i = spfn; i < epfn; i++ )
-             if ( iommu_legacy_map(hardware_domain, _dfn(i), _mfn(i),
-diff --git a/xen/common/pv-iommu.c b/xen/common/pv-iommu.c
-index 4cdb30a031..a1d0552a66 100644
---- a/xen/common/pv-iommu.c
-+++ b/xen/common/pv-iommu.c
-@@ -107,6 +107,9 @@ static long capabilities_op(struct pv_iommu_capabilities *cap, struct domain *d)
-     cap->max_pasid = 0; /* TODO */
-     cap->cap_flags = 0;
- 
-+    if ( !dom_iommu(d)->no_dma )
-+        cap->cap_flags |= IOMMUCAP_default_identity;
-+
-     cap->pgsize_mask = PAGE_SIZE_4K;
- 
-     return 0;
-diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
-index 5c6b272697..81d4cb87cf 100644
---- a/xen/drivers/passthrough/iommu.c
-+++ b/xen/drivers/passthrough/iommu.c
-@@ -55,6 +55,7 @@ static bool __hwdom_initdata iommu_hwdom_none;
- bool __hwdom_initdata iommu_hwdom_strict;
- bool __read_mostly iommu_hwdom_passthrough;
- bool __hwdom_initdata iommu_hwdom_inclusive;
-+bool __read_mostly iommu_hwdom_no_dma = false;
- int8_t __hwdom_initdata iommu_hwdom_reserved = -1;
- 
- #ifndef iommu_hap_pt_share
-@@ -172,6 +173,8 @@ static int __init cf_check parse_dom0_iommu_param(const char *s)
-             iommu_hwdom_reserved = val;
-         else if ( !cmdline_strcmp(s, "none") )
-             iommu_hwdom_none = true;
-+        else if ( (val = parse_boolean("dma", s, ss)) >= 0 )
-+            iommu_hwdom_no_dma = !val;
-         else
-             rc = -EINVAL;
- 
-@@ -292,7 +295,10 @@ int iommu_domain_init(struct domain *d, unsigned int opts)
-     int ret = 0;
- 
-     if ( is_hardware_domain(d) )
-+    {
-         check_hwdom_reqs(d); /* may modify iommu_hwdom_strict */
-+        hd->no_dma = iommu_hwdom_no_dma;
-+    }
- 
-     if ( !is_iommu_enabled(d) )
-         return 0;
-@@ -329,6 +335,13 @@ int iommu_domain_init(struct domain *d, unsigned int opts)
-     if ( !is_hardware_domain(d) || iommu_hwdom_strict )
-         hd->need_sync = !iommu_use_hap_pt(d);
- 
-+    if ( hd->no_dma )
-+    {
-+        /* No-DMA mode is exclusive with HAP and sync_pt. */
-+        hd->hap_pt_share = false;
-+        hd->need_sync = false;
-+    }
-+
-     ASSERT(!(hd->need_sync && hd->hap_pt_share));
- 
-     hd->allow_pv_iommu = true;
-diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
-index ac339a2ed3..b100c55e69 100644
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -542,6 +542,10 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
-     if ( iommu_hwdom_reserved == -1 )
-         iommu_hwdom_reserved = 1;
- 
-+    if ( iommu_hwdom_no_dma )
-+        /* Skip special mappings with no-dma mode */
-+        return;
-+
-     if ( iommu_hwdom_inclusive )
-     {
-         printk(XENLOG_WARNING
-diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-index 3c77dfaf41..55bd9c9704 100644
---- a/xen/include/xen/iommu.h
-+++ b/xen/include/xen/iommu.h
-@@ -108,6 +108,7 @@ extern bool iommu_debug;
- extern bool amd_iommu_perdev_intremap;
- 
- extern bool iommu_hwdom_strict, iommu_hwdom_passthrough, iommu_hwdom_inclusive;
-+extern bool iommu_hwdom_no_dma;
- extern int8_t iommu_hwdom_reserved;
- 
- extern unsigned int iommu_dev_iotlb_timeout;
-@@ -487,6 +488,8 @@ struct domain_iommu {
-     /* SAF-2-safe enum constant in arithmetic operation */
-     DECLARE_BITMAP(features, IOMMU_FEAT_count);
- 
-+    /* Do the IOMMU block all DMA on default context (implies !has_pt_share) ? */
-+    bool no_dma;
- 
-     /* Is the domain allowed to use PV-IOMMU ? */
-     bool allow_pv_iommu;
--- 
-2.51.2
-
-
-
---
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Jan
 
