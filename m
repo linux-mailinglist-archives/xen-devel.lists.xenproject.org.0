@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B66E1C739F3
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 12:07:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1166846.1493267 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D77DEC73A1A
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 12:10:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1166856.1493279 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM2Va-0000vU-Cb; Thu, 20 Nov 2025 11:07:26 +0000
+	id 1vM2Xw-0001SP-QG; Thu, 20 Nov 2025 11:09:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1166846.1493267; Thu, 20 Nov 2025 11:07:26 +0000
+Received: by outflank-mailman (output) from mailman id 1166856.1493279; Thu, 20 Nov 2025 11:09:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vM2Va-0000su-9a; Thu, 20 Nov 2025 11:07:26 +0000
-Received: by outflank-mailman (input) for mailman id 1166846;
- Thu, 20 Nov 2025 11:07:24 +0000
+	id 1vM2Xw-0001PJ-MJ; Thu, 20 Nov 2025 11:09:52 +0000
+Received: by outflank-mailman (input) for mailman id 1166856;
+ Thu, 20 Nov 2025 11:09:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DpbD=54=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vM2VY-0000so-F0
- for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 11:07:24 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ <SRS0=O4pg=54=bounce.vates.tech=bounce-md_30504962.691ef6f7.v1-3a7b79b5db2c42199b36281b832d96ce@srs-se1.protection.inumbo.net>)
+ id 1vM2Xu-0001P8-Gh
+ for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 11:09:50 +0000
+Received: from mail128-17.atl41.mandrillapp.com
+ (mail128-17.atl41.mandrillapp.com [198.2.128.17])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1495b693-c601-11f0-980a-7dc792cee155;
- Thu, 20 Nov 2025 12:07:19 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4779aa4f928so7634775e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 03:07:19 -0800 (PST)
-Received: from [192.168.1.37] (host-92-29-237-183.as13285.net. [92.29.237.183])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477b831421fsm41120655e9.10.2025.11.20.03.07.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Nov 2025 03:07:18 -0800 (PST)
+ id 6b1c68ef-c601-11f0-980a-7dc792cee155;
+ Thu, 20 Nov 2025 12:09:45 +0100 (CET)
+Received: from pmta08.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail128-17.atl41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4dBwbq1Nx6zCf9P17
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 11:09:43 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 3a7b79b5db2c42199b36281b832d96ce; Thu, 20 Nov 2025 11:09:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,161 +43,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1495b693-c601-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1763636839; x=1764241639; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lrxvUVj9niTrIJioOd4eIi6MRCKVkUy5Zw3irL6v5CU=;
-        b=UzB1WY8XRjzQYv1Aee+N//BNOvVIRbQDkVwJRCJDr8aSHFn3UbKwC98xx0795PW2GV
-         IMgHv3qmKveoIfJ842ho+KPlDQVNWxLgSBv+0GZLvkAQXVaOcBffmrcUmwNrOcd8HN78
-         lgzKR8PjCL+8raiyvEsGkvzru/Lsi96/9mABk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763636839; x=1764241639;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lrxvUVj9niTrIJioOd4eIi6MRCKVkUy5Zw3irL6v5CU=;
-        b=Scdlb94YE3/+q6yj6SlO4nQYAFBajqi1T7h3JKpfPJR/dBL1FVTNtInkJeH31sFAnK
-         EkgCw1FyPqjMrUYQgqK8KeIO/VvkfWiBctanv3h0XD81ZdrgeJjqnn+Zer2MfuNY9d3c
-         uYhjj71GRkgDHFVYbd8920dEz9SbgXs8PvzuItkZT1IOFPHCCSJbNEXIb6jLdhm37fAk
-         LtVuRPHZE2+Y7bmnKrHXZdFQGXmK5XArSrlqmqu64ln2MiXQ7Vd2wneoUDotcj8fIpO9
-         wXdzK7gQUfNoSXIyK0RK6q/6bbcX6wsELO+tNERG0exmkm/Ym+zrEBLICy85/9sKgf8N
-         X2OA==
-X-Forwarded-Encrypted: i=1; AJvYcCV+pYF7HLSkbLUKuFxLOv9bcwPPOAc6sJ6cRiEeqjk3aPWX/VAUNsRDgKIX6SCLDHOw+IGd7GcETzU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwnNigP+XDpBKApenKalTovoCHibinnnzYc5GC5kBYZBkZ+GR+W
-	/Z1YHGMHG0hxjnSp6gZPQ8zzTztsGohmIyeW56PM4zvN2HVJA3XxGUnFRm6hYi3ikY0=
-X-Gm-Gg: ASbGncs+zDOnLDYWfqB0dKMj9eR61ZtCvanT96Y/TZppkcEmdLoG+geb75hX38Og/97
-	HI+cn412aSiqHvh29piHKFuJz2o/Gy5xY8ttIkE97a88KgD1vgzTOwGWVOC/wmj15Ln0+ox04oB
-	KpjUPci7vAxWiRtgDjrWLFMhckQsGVsg1jMc4OBAmRkr8TZ8O15ZsGEQUp8E2RBfKdjNcVNGB40
-	4W5iCbJyjslQxDbJcKgHtvYw3t6Ip6HQuSAHsMpvWYxOE6PjlkDze60N0prsO+trTMlnuI6oV4O
-	w2uq/VtLll982mYbbzEhT3/Fsp34zN0sYBoUbguTQWArTeqEC1Q+jbbZXE6FmUg+qRcGNvwGScI
-	5wtFMXB4cmbZsG7B+DOvUa1xGzXgRi7zFzNylhnm9oZv/Ts6TEk060T4/bCTUd/+3KHSfiM4Lhp
-	3RkZ/MM4HZLiiJi1f1Awz8D6RbAuE2+pkjQznCn2z0f3AbQGyardRXl8PhGVkDVAA=
-X-Google-Smtp-Source: AGHT+IG0hTQNsl2MA39Acg+tZyVXMu6rU+mNuvxCRPbKZ7xt/xOJRS353f03F8YnQdKMWAQsuWr7ng==
-X-Received: by 2002:a05:600c:1994:b0:477:7b16:5f80 with SMTP id 5b1f17b1804b1-477b8a50f4fmr28452155e9.10.1763636838568;
-        Thu, 20 Nov 2025 03:07:18 -0800 (PST)
-Message-ID: <4a266547-b058-49c0-8c45-7a80f8ada3b7@citrix.com>
-Date: Thu, 20 Nov 2025 11:07:17 +0000
+X-Inumbo-ID: 6b1c68ef-c601-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1763636983; x=1763906983;
+	bh=HcGtXUeNdCp+wbDiufqVXTOGkEfP6WR8yDN0dbvMJLY=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=h4dcy7Y/rNCT16HgaNyADBMbaEjIco6RmPunr+wwOSJGlnjvCBNITuEMxafAzSuRi
+	 fmHr3wqGFy+sKSwcnTuLTNYRsVPE1uCKFrwO2eLwzUgciUBPICEH52DNDebgBIu48N
+	 yMjFrybCfDZWOJfdAfr0ltMWy9GsXrD5TExQ3zy4q5nvKyYPlxBHRlaWZoH8TK8c2o
+	 uZJC9INX4iAdWrINrY8hPBK/scVnSYjcetPwJf9kzxCnhAPsJSDOIp9xTN9bnFaXKw
+	 v6ZpcfA/T6T2XwSdDLsuXYVAFCLr0O8B2RZOYPEvGT5VMiBIqYro1oGUNhe8N2ld07
+	 qu9qhCA/P3zyQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1763636983; x=1763897483; i=teddy.astie@vates.tech;
+	bh=HcGtXUeNdCp+wbDiufqVXTOGkEfP6WR8yDN0dbvMJLY=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=horE0Y9oNUhGBIc6/Hpcfc2TVcqCoS8czwNyFd0aVBsm5Ccx6eiVhcHrPgn+w1O8x
+	 iNaB2Rk0FFQ+B5wnnZG6Kf9NU40hl+8ahygWwcRVuNHjPuN+Mi1Q5GISQRv8KSfXBs
+	 ZXBe39CS4xsRYvzTkAJ0/iy8MqUoUVuZZVZR23AsFPXoFluwSu5QsQRMvd8pwZW0ij
+	 OfXiJuy/MSaKt4CXBCOr2iqknuy6MSPpElf/bCmq4XOCNOPOZ4rv2mcN0jSw3BCDpV
+	 4t1G/jOiXIShdDp+syf4XCoJg5p7zMKIr+wH8SEloMqxSlEX3PQ4JgT9Rqf5Fjd5fV
+	 Es0YRUNs3f4hQ==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?[RFC=20PATCH=20v7=2000/14]=20IOMMU=20subsystem=20redesign=20and=20PV-IOMMU=20interface?=
+X-Mailer: git-send-email 2.51.2
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1763636982365
+To: xen-devel@lists.xenproject.org
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Bertrand Marquis" <bertrand.marquis@arm.com>, "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>, "Timothy Pearson" <tpearson@raptorengineering.com>, "Lukasz Hawrylko" <lukasz@hawrylko.pl>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, "=?utf-8?Q?Mateusz=20M=C3=B3wka?=" <mateusz.mowka@intel.com>, "Jason Andryuk" <jason.andryuk@amd.com>, "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>
+Message-Id: <cover.1763569135.git.teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.3a7b79b5db2c42199b36281b832d96ce?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20251120:md
+Date: Thu, 20 Nov 2025 11:09:43 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] x86/guest: move allocation of Xen upcall vector to
- init code
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <fbc9a2f8-170a-4645-8836-c90c42ad726f@suse.com>
- <5ccf9000-9847-40de-838e-cb181633b098@suse.com>
- <943e462f-d948-4f72-8d4c-626febca5b32@citrix.com>
-Content-Language: en-GB
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <943e462f-d948-4f72-8d4c-626febca5b32@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 20/11/2025 11:01 am, Andrew Cooper wrote:
-> On 19/11/2025 10:50 am, Jan Beulich wrote:
->> There's no need to do this every time init_evtchn() is called. Just do it
->> once when setting up CPU0. Drop the assertion as well, as
->> alloc_hipriority_vector() (called by alloc_direct_apic_vector()) uses more
->> restrictive BUG_ON() anyway. Then evtchn_upcall_vector can also validly
->> become ro-after-init, just that it needs to move out of init_evtchn().
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>
->> --- a/xen/arch/x86/guest/xen/xen.c
->> +++ b/xen/arch/x86/guest/xen/xen.c
->> @@ -233,16 +233,12 @@ static void cf_check xen_evtchn_upcall(v
->>      ack_APIC_irq();
->>  }
->>  
->> +static uint8_t __ro_after_init evtchn_upcall_vector;
->> +
->>  static int init_evtchn(void)
->>  {
->> -    static uint8_t evtchn_upcall_vector;
->>      int rc;
->>  
->> -    if ( !evtchn_upcall_vector )
->> -        alloc_direct_apic_vector(&evtchn_upcall_vector, xen_evtchn_upcall);
->> -
->> -    ASSERT(evtchn_upcall_vector);
->> -
->>      rc = xen_hypercall_set_evtchn_upcall_vector(this_cpu(vcpu_id),
->>                                                  evtchn_upcall_vector);
->>      if ( rc )
->> @@ -293,6 +289,8 @@ static void __init cf_check setup(void)
->>                 XEN_LEGACY_MAX_VCPUS);
->>      }
->>  
->> +    alloc_direct_apic_vector(&evtchn_upcall_vector, xen_evtchn_upcall);
->> +
->>      BUG_ON(init_evtchn());
->>  }
->>  
->>
-> This patch is fine, but it would be nicer to split init_evtchn() into
-> bsp_init_evtchn() and percpu_init_evtchn().
->
-> Just out of context in init_evtchn(), there's a check for CPU0 that also
-> ought to move into bsp_init_evtchn() (and therefore into __init), at
-> which point the percpu simplifies to a single hypercall, and we keep
-> subsystem specifics out of setup().
+This work has been presented at Xen Summit 2024 during the
+  IOMMU paravirtualization and Xen IOMMU subsystem rework
+design session.
 
-No, scratch that.  HVM_PARAM_CALLBACK_IRQ is not in the list of HVM
-Params that migration moves on migrate (see write_hvm_params() in
-xg_sr_save_x86_hvm.c).
+Operating systems may want to have access to a IOMMU in order to do DMA
+protection or implement certain features (e.g VFIO on Linux).
 
-Everything is awful.
+VFIO support is mandatory for framework such as SPDK, which can be useful t=
+o
+implement an alternative storage backend for virtual machines [1].
 
-Could you include a comment such as /* HVM_PARAM_CALLBACK_IRQ is not
-moved on migrate, so has to be set up again on resume. */ to make it
-clear why that piece of logic needs to stay in a non-init function?
+In this patch series, we introduce in Xen the ability to manage several
+"IOMMU contexts" per domain and provide a new hypercall interface to allow
+guests to manage IOMMU contexts.
 
-~Andrew
+The VT-d and AMD-Vi drivers are updated to support these new features.
+Work still remain to do for ARM/PPC/RISC-V.
+
+Assuming appropriate Dom0 drivers, aside the capability to use VFIO in Dom0=
+,
+it also changes the way Linux performs DMA with devices to rely on the "IOM=
+MU"
+(thus "PV-IOMMU") instead of assuming all of it is device-visible and event=
+ually
+relying on the swiotlb. (this behavior can be disabled with Linux's iommu=
+=3Dpt).
+
+In this case, address space of device is no longer tied to the p2m, causing=
+ all
+modifications of p2m (e.g grant, foreign) to no longer require a IOTLB flus=
+h (usually
+on unmap, when using Dom0 PVH or dom0-iommu=3Dstrict).
+That makes virtualized I/O vastly better with PVH Dom0, at least on Intel p=
+latform.
+
+On a Intel i5-4670 platform
+
+PVH Dom0 with current Xen behavior or with iommu=3Dpt:
+iperf VM -> Dom0: ~600 Mbps
+
+PVH Dom0 with Dom0 IOMMU driver and iommu=3Dnopt (usually default):
+iperf VM -> Dom0: ~7 Gbps (~11x performance increase)
+
+Dom0 driver branch (until a make a new patch):
+https://gitlab.com/xen-project/people/tsnake41/linux/-/tree/xen-pviommu-6.1=
+8
+
+[1] Using SPDK with the Xen hypervisor - FOSDEM 2023
+---
+This is a RFC, things are still experimental at this state.
+
+Cc: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+
+Changed in v2 :
+* fixed Xen crash when dumping IOMMU contexts (using X debug key)
+with DomUs without IOMMU
+* s/dettach/detach/
+* removed some unused includes
+* fix dangling devices in contexts with detach
+
+Changed in v3 :
+* lock entirely map/unmap in hypercall
+* prevent IOMMU operations on dying contexts (fix race condition)
+* iommu_check_context+iommu_get_context -> iommu_get_context and check for =
+NULL
+
+Changed in v4 :
+* Part of initialization logic is moved to domain or toolstack (IOMMU_init)
+  + domain/toolstack now decides on "context count" and "pagetable pool siz=
+e"
+  + for now, all domains are able to initialize PV-IOMMU
+* introduce "dom0-iommu=3Dno-dma" to make default context block all DMA
+  (disables HAP and sync-pt), enforcing usage of PV-IOMMU for DMA
+  Can be used to expose properly "Pre-boot DMA protection"
+* redesigned locking logic for contexts
+  + contexts are accessed using iommu_get_context and released with iommu_p=
+ut_context
+
+Changed in v5 :
+* various PCI Passthrough related fixes
+  + rewrote parts of PCI Passthrough logic
+  + various other related bug fixes
+* simplified VT-d DID (for hardware) management by only having one map inst=
+ead of two
+  (pseudo_domid map was previously used for old quarantine code then recycl=
+ed for PV-IOMMU
+   in addition to another map also tracing Domain<->VT-d DID, now there is =
+only one
+   map tracking both making things simpler)
+* reworked parts of Xen quarantine logic (needed for PCI Passthrough)
+* added cf_check annotations
+* some changes to PV-IOMMU headers (Alejandro)
+
+Changed in v6 :
+* reorganized the patch series to allow bissecting
+   * it is splitted in various smaller patches
+* initial AMD-Vi port (it doesn't completely work with PV-IOMMU though, but=
+ builds at
+  least)
+   * AMD-Vi lacks support for iommu_lookup_page (needed for several PV-IOMM=
+U ops)
+
+Changed in v7 :
+* Proper AMD-Vi support for PV-IOMMU, mostly works with some quirks (e.g 'A=
+MD IOMMU' devices
+  that are visible for Dom0, but doesn't exist from PV-IOMMU point of view)
+* splitted some parts of patches to smaller ones
+* fixed numerous issues
+ * a notable one being a ASSERT in PV-IOMMU map operation due to problemati=
+c foreign page
+   reference counting
+* fixed typo in design document
+* introduce a transient "invalid context" ID for devices that aren't handle=
+d yet
+* add proper "no-dma" documentation
+
+TODO:
+* Proper cleanup of AMD-Vi mappings (for ctx_no !=3D 0)
+* consider per-iommu domid limit (allocate did on first attach/reattach ?)
+* ARM implementation
+* properly define nested mode and PASID support
+* define how PV-IOMMU should behave in DomUs (e.g they don't see machine bd=
+f) 
+ * especially regarding how to expose "no-dma" mode
+
+* better quarantine code (e.g isolate devices with different reserved regio=
+ns
+  regions using separate 'contexts')
+* there are corner cases with PV-IOMMU and to-domain Xen PCI Passthrough
+  (e.g pci-assignable-remove will reassign to context 0, while the driver
+   expects the device to to be in context X)
+
+Teddy Astie (14):
+  docs/designs: Add a design document for IOMMU subsystem redesign
+  docs/designs: Add a design document for PV-IOMMU
+  x86/domain: Defer domain iommu initialization.
+  iommu: Move IOMMU domain related structures to (arch_)iommu_context
+  iommu: Simplify quarantine logic
+  vtd: Remove MAP_ERROR_RECOVERY code path in domain_context_mapping_one
+  iommu: Simplify hardware did management
+  iommu: Introduce redesigned IOMMU subsystem
+  iommu: Provide 'X' debug key to dump IOMMU context infos
+  amd/iommu: Introduce lookup implementation
+  iommu: Introduce iommu_get_max_iova
+  x86/iommu: Introduce IOMMU arena
+  iommu: Introduce PV-IOMMU
+  iommu: Introduce no-dma feature
+
+ docs/designs/iommu-contexts.md              |  403 +++++
+ docs/designs/pv-iommu.md                    |  118 ++
+ docs/misc/xen-command-line.pandoc           |   16 +-
+ xen/arch/arm/include/asm/iommu.h            |    4 +
+ xen/arch/ppc/include/asm/iommu.h            |    3 +
+ xen/arch/x86/domain.c                       |   10 +-
+ xen/arch/x86/include/asm/arena.h            |   54 +
+ xen/arch/x86/include/asm/iommu.h            |   59 +-
+ xen/arch/x86/include/asm/pci.h              |   17 -
+ xen/arch/x86/mm/p2m-ept.c                   |    2 +-
+ xen/arch/x86/pv/dom0_build.c                |    6 +-
+ xen/arch/x86/tboot.c                        |    3 +-
+ xen/arch/x86/x86_64/mm.c                    |    3 +-
+ xen/common/Makefile                         |    1 +
+ xen/common/memory.c                         |    4 +-
+ xen/common/pv-iommu.c                       |  554 +++++++
+ xen/drivers/passthrough/amd/iommu.h         |   23 +-
+ xen/drivers/passthrough/amd/iommu_cmd.c     |   20 +-
+ xen/drivers/passthrough/amd/iommu_init.c    |   57 +-
+ xen/drivers/passthrough/amd/iommu_map.c     |  307 ++--
+ xen/drivers/passthrough/amd/pci_amd_iommu.c |  411 +++--
+ xen/drivers/passthrough/iommu.c             |  751 ++++++++-
+ xen/drivers/passthrough/pci.c               |  394 ++---
+ xen/drivers/passthrough/vtd/extern.h        |   19 +-
+ xen/drivers/passthrough/vtd/iommu.c         | 1623 ++++++-------------
+ xen/drivers/passthrough/vtd/iommu.h         |    2 -
+ xen/drivers/passthrough/vtd/qinval.c        |    2 +-
+ xen/drivers/passthrough/vtd/quirks.c        |   21 +-
+ xen/drivers/passthrough/vtd/vtd.h           |    3 +-
+ xen/drivers/passthrough/x86/Makefile        |    1 +
+ xen/drivers/passthrough/x86/arena.c         |  157 ++
+ xen/drivers/passthrough/x86/iommu.c         |  294 +++-
+ xen/include/hypercall-defs.c                |    6 +
+ xen/include/public/pv-iommu.h               |  343 ++++
+ xen/include/public/xen.h                    |    1 +
+ xen/include/xen/iommu.h                     |  122 +-
+ xen/include/xen/pci.h                       |    3 +
+ 37 files changed, 3777 insertions(+), 2040 deletions(-)
+ create mode 100644 docs/designs/iommu-contexts.md
+ create mode 100644 docs/designs/pv-iommu.md
+ create mode 100644 xen/arch/x86/include/asm/arena.h
+ create mode 100644 xen/common/pv-iommu.c
+ create mode 100644 xen/drivers/passthrough/x86/arena.c
+ create mode 100644 xen/include/public/pv-iommu.h
+
+-- 
+2.51.2
+
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
