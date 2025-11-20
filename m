@@ -2,57 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CD08C72BCF
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 09:14:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1166549.1493057 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2046C72BC0
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 09:13:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1166551.1493048 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLznt-0000OT-GM; Thu, 20 Nov 2025 08:14:09 +0000
+	id 1vLzls-0008LL-6s; Thu, 20 Nov 2025 08:12:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1166549.1493057; Thu, 20 Nov 2025 08:14:09 +0000
+Received: by outflank-mailman (output) from mailman id 1166551.1493048; Thu, 20 Nov 2025 08:12:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vLznt-0000N2-Dh; Thu, 20 Nov 2025 08:14:09 +0000
-Received: by outflank-mailman (input) for mailman id 1166549;
- Thu, 20 Nov 2025 08:11:13 +0000
+	id 1vLzls-0008If-3Y; Thu, 20 Nov 2025 08:12:04 +0000
+Received: by outflank-mailman (input) for mailman id 1166551;
+ Thu, 20 Nov 2025 08:12:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=K14s=54=amd.com=Luc.Michel@srs-se1.protection.inumbo.net>)
- id 1vLzl3-0008Ed-CO
- for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 08:11:13 +0000
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazlp170120002.outbound.protection.outlook.com
- [2a01:111:f403:c001::2])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nz19=54=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vLzlr-0008IZ-Go
+ for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 08:12:03 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 78a2cdde-c5e8-11f0-9d18-b5c5bf9af7f9;
- Thu, 20 Nov 2025 09:11:10 +0100 (CET)
-Received: from BLAPR03CA0077.namprd03.prod.outlook.com (2603:10b6:208:329::22)
- by DS7PR12MB5742.namprd12.prod.outlook.com (2603:10b6:8:71::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Thu, 20 Nov
- 2025 08:11:03 +0000
-Received: from MN1PEPF0000ECD6.namprd02.prod.outlook.com
- (2603:10b6:208:329:cafe::1) by BLAPR03CA0077.outlook.office365.com
- (2603:10b6:208:329::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.10 via Frontend Transport; Thu,
- 20 Nov 2025 08:11:02 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000ECD6.mail.protection.outlook.com (10.167.242.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9343.9 via Frontend Transport; Thu, 20 Nov 2025 08:11:03 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 20 Nov
- 2025 00:11:03 -0800
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 20 Nov
- 2025 00:11:03 -0800
-Received: from XFR-LUMICHEL-L2.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17 via Frontend
- Transport; Thu, 20 Nov 2025 00:10:58 -0800
+ id 97e04169-c5e8-11f0-9d18-b5c5bf9af7f9;
+ Thu, 20 Nov 2025 09:12:02 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-640b06fa959so931237a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Nov 2025 00:12:02 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6453642d3e1sm1463316a12.18.2025.11.20.00.12.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Nov 2025 00:12:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,174 +45,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78a2cdde-c5e8-11f0-9d18-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k0ernmHbpR0++IS1oDj3A8sXKmbhoFT687NP/vujCdre/DT233TceIZare4UTrNq6W4do+OZB6ILMjf3PZ17vhXSJMS4RBBN3cmsotZapSxMWG0lheV+UhkzRMESJ9XT68lJMTc9nfTTMgsryYXbygvPeRZknU3kiq2UPdCbNi1D5MIWpzTz7nrV3k7iRCLudfpnk6hNUhVMT/Xhmpm+AeK78Iw5BwyMdWQvHJ/m6EWk3X1vgqspz8jGI+KtbKWWWJkMdyYx1m4JSbkAaKp/mh4M6/wil5QgwQIZtE07ONgy44ujABe4OGnNdAj+vLaFSbvuBW/rN3bhziBJ3XDsEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ARoXeX8gsb6s7/rH9G4XD4nZ+xh3tI27WjqRUo6FL0Q=;
- b=qyh8h454a2sY3sbTiD4B/Wh2TOiXO9LVMVNq7LGegQ9qitCmut8M4twkHcr7vXrbF2vYYpGwi6bWwGPolnI7UZrxz9rqLY758dz4CExk4cligJElPU4t02j1Yogm+rQBBj6Gux0wuKNXE6bK2iaqWB4TL/H38DAWePVtJtGFG9VvEqf2ikwzbRMCsLILMtxfeSgb7Sqfqb9s2IW3+MdxjhOLNDB/UIZfnqsJQig0f/iag223sa261cIFHmJROtMYDrOYhUe6PAAarKpCo2qDtcSoKeaQkYvebJMYHybzOfPbQ26CPrwMPr2LSq+7XH4hPKPncKZZWJDORDlzvG53VA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ARoXeX8gsb6s7/rH9G4XD4nZ+xh3tI27WjqRUo6FL0Q=;
- b=cDeoe6b7MZeJ2vlIEw469sl5erO6LS8D5RtfdEPjh/ZtqK3q3382EhECuxNKbmRGMpDpy+kSIG3/pW6vg3AMX6475oqynixuZgx7xXxWZ4pq8PF51PApih/nUe9TMTVQZ0tPdZjy9Ywd8x2qxMo2iYANSko3om83oGgWyemLYk8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Date: Thu, 20 Nov 2025 09:10:56 +0100
-From: Luc Michel <luc.michel@amd.com>
-To: Markus Armbruster <armbru@redhat.com>
-CC: <qemu-devel@nongnu.org>, <kwolf@redhat.com>, <hreitz@redhat.com>,
-	<mst@redhat.com>, <imammedo@redhat.com>, <anisinha@redhat.com>,
-	<gengdongjiu1@gmail.com>, <peter.maydell@linaro.org>,
-	<alistair@alistair23.me>, <edgar.iglesias@gmail.com>, <npiggin@gmail.com>,
-	<harshpb@linux.ibm.com>, <palmer@dabbelt.com>, <liwei1518@gmail.com>,
-	<dbarboza@ventanamicro.com>, <zhiwei_liu@linux.alibaba.com>,
-	<sstabellini@kernel.org>, <anthony@xenproject.org>, <paul@xen.org>,
-	<berrange@redhat.com>, <peterx@redhat.com>, <farosas@suse.de>,
-	<eblake@redhat.com>, <vsementsov@yandex-team.ru>, <eduardo@habkost.net>,
-	<marcel.apfelbaum@gmail.com>, <philmd@linaro.org>, <wangyanan55@huawei.com>,
-	<zhao1.liu@intel.com>, <qemu-block@nongnu.org>, <qemu-arm@nongnu.org>,
-	<qemu-ppc@nongnu.org>, <qemu-riscv@nongnu.org>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 2/5] hw/nvram/xlnx-bbram: More idiomatic and simpler
- error reporting
-Message-ID: <aR7NEB_hRiBRZ6vN@XFR-LUMICHEL-L2.amd.com>
-References: <20251119130855.105479-1-armbru@redhat.com>
- <20251119130855.105479-3-armbru@redhat.com>
+X-Inumbo-ID: 97e04169-c5e8-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1763626321; x=1764231121; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=oYWHLSY/TdqdQZqfXl+ILZChA9ImMal7+XUHdcyMhiA=;
+        b=CTMRzUAFbJp7fTeHlzXm7VG3ZYgI2x4eqbxjDv/5FYp9JqlNvqta+B8EmPTLAq5jC1
+         aO0TIOEZSH0jkyeBwA2ZA4FihabQ9v/3xpo1RkO51J/kxBIak4tToZP+j1DYDE8tEXMQ
+         DtfXikTGZT3Pmwwn3iT1Yqej9Mr1lwy5fARqcn280b1V0GjmkSscO/K7jSVN89zr32TN
+         hxFxYKZC5gvTzlHM+ciCTDW0l2DcMZFpmceQmAUvrHlUOgyZegDZNqwpKrQoRHlReZWh
+         mh/aebvjrT34N2WpBtQM+xfyVJg3ENJ2dRmM5QNIyQqtn4atzr6Gsp6c7o/J2LfEViRt
+         0C5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763626321; x=1764231121;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oYWHLSY/TdqdQZqfXl+ILZChA9ImMal7+XUHdcyMhiA=;
+        b=qEpaoYqKB3DtHVrU1ZccPfHSaQJ8+r//QY56nGH8NMMgz3WoKJFDUdriNOBUfyJY+/
+         dEEKH6V5YL0lyY83qti1idQvs1oUjAREa3PwcQW/cPAj0afZhJ4ctntvC49T8yUqmOA0
+         7t3PEP9Z9sIJYKmSSv2CpNpuU7PSC6+sDT9v1Xfv1wBKGeTbT3mAfAjCUmculFZH5l13
+         +b+JrePiJkKqP/dGE3f63SQ35oCep1u8tQ5aGaJtowi3O6toyHcparUVHocV52kaWhQQ
+         BOHW3gHOPFQrMg1UfmzcGhABYr4XpT/XJU4m6B2zO6XXfSeobpkgcCsoyHWA8bf7sz6a
+         GZMQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV8uMyQtoy6fgV399oOQa+KceifpUva1bRDcXLtzY95PX8JfZMHZc1ZJVuQkRTaxrVubdu0lRgaCa0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwyZoaDBgQqUZYXGXzCogFjo80ou3SpMKTEitYUyA87MZpntiGC
+	TxKHnsV6bxmX253dWY6TcpKq5nfPBjp4lOtzCuzpSI7A7fL7IgfMoq3A3yUWHLNMfA==
+X-Gm-Gg: ASbGncscskx1/z0OipCfTedKgnm2PtK4QhDsoTe96uaeXo0KAbAqhXgp+kH37SiqCvP
+	b6x3I38ekZl9KLfr41KJ3KMOSXHwlx0E1ph3sHcCkD2y7S5Ctenu19BNR9nePSIwfU0+f4mmAnL
+	L5iJbZHDGtoDnTvHDaZZhwpxa4caIlYr2SAeFw626BC9uQ+XCuhv/xYPxVw6pB7gJKgfbJy7iTL
+	5bwuX/0EBb4YXOYZfh/dfIJIdfojY1tzB4zaFl/VQCg8HTqzmUIcOWU5XzBEpDQhqEwo2e+PUS0
+	DdEU9BRAUIOxBurPAKh+CRWOAw4BhejXRLq7rg1yWPxpeb/QnZRXvH/IM+mK2vVFWRudTLJqixd
+	zWA8Z6S9iHKfMjHdxhTwlqPaMUSVG71VCvHDvJ2dduj6xBtXkSw0fCFsd1xKJjbzFlhdHY1M5Zk
+	aIIJdDjl39o+OQPojTebgaP0kJUoAFs99XTdtKWwRbxmi4qc+tIlCuFL0KN34fh8hWPg502yOKL
+	6o=
+X-Google-Smtp-Source: AGHT+IGqLdMbxc8BwcCiRb8F8E9pI87CQeSDcmrYvzx+ikegxRE1tRfACb+LqnWXancU65h7AZwLdA==
+X-Received: by 2002:a05:6402:4307:b0:640:7529:b8c7 with SMTP id 4fb4d7f45d1cf-6453d084720mr729559a12.1.1763626321541;
+        Thu, 20 Nov 2025 00:12:01 -0800 (PST)
+Message-ID: <081b0989-79fc-4cf2-9527-0dcd2d91d518@suse.com>
+Date: Thu, 20 Nov 2025 09:11:59 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20251119130855.105479-3-armbru@redhat.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD6:EE_|DS7PR12MB5742:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c54ceaa-b355-4920-6d02-08de280c596e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|36860700013|82310400026|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?3QT2PaI+IpKNrBbRATmK3YqKY9wivNn/d2S4hqUF99ymRxJnK7+IUSxHlBzW?=
- =?us-ascii?Q?sbJgw/huJd8xMOu7a0XaMKFG0s9022cqNOOekI31YOBByVLdTEPUKhLjXC3M?=
- =?us-ascii?Q?as1q7oQIKVewohpOL1uHAgz/tB/W34D6a0ZOSjIM96NPlLWaSNeIfiAW833N?=
- =?us-ascii?Q?PUhKNsbwTWJNleppvC8tJuFC/mFnaxuKJvd/q2TS7HItmhqy3gqg2YSyxuNh?=
- =?us-ascii?Q?3zkrPdMKikeo3iJezB5a2Tz5RL85OIHVOMNYYg7ougQOq8WbJsq2s7lgaPeB?=
- =?us-ascii?Q?zcfLy9U/Nlg4ylwcqaxVYjJrAnZ/mbrswFg2iC1J5ad6ig1BkU7vthtAh/aj?=
- =?us-ascii?Q?OZoVRXwQ2XBPd3l43LweUz6LFH/p+cvkfGKjZYGvYvJIL/Ees0ZDrGa6VkW3?=
- =?us-ascii?Q?0DYjXe9Pm3foeV7lXylC70HdQuskl/AhYMPPfRWxdi94ViBbEZ4XLkHunPVt?=
- =?us-ascii?Q?BlLzdjAvbsxoZFyZ4hRrniCYVvJS4EI9Al8dnxtUDBihF0VsOMkSsS9hTF2e?=
- =?us-ascii?Q?BcVjXfRerO4IrA2xwwPTs7JfVKoKRa1OVFRCTR/Kkqv0wrKchX4VNSkoyGhU?=
- =?us-ascii?Q?DekIataSv7mweZSeLQ7AefEu/8FYEHJ7cevsF/WRZ/oPLF+cSG2fkVngirpi?=
- =?us-ascii?Q?MR30aoVVPEnv/6HYlVaYUPcgMZMZ1oI9HkpjM3cN+Qo21O/oTD4+1ApVO3rA?=
- =?us-ascii?Q?O4xyk4ZDOlZ/a/3OvbvFq1xGH2HB0bic4hIHaJ/KnjF0hYTudJmP/Zn7co0L?=
- =?us-ascii?Q?M0TNg3yZhuPcmoSx+5Pi3UqTKsVME2EAWzAOjDaWSH/IXRnqa8kB7Ei+mjHn?=
- =?us-ascii?Q?3hK4fvhm6moxvGGAqZvtKK6HGQ6MukrnqX4vK/XXVYnrCbBJSXRehK1zWCZp?=
- =?us-ascii?Q?D1A4/IaGEbG16l0aow3k4pCnk+hyuCIdrdjmWcpJihLpjGXaY606anehC6cv?=
- =?us-ascii?Q?Dq8Zhzqwq3CA9b8ooZoC29shIJpJJkEvCL5o6y50CS29E0T89SjcaRqaLXue?=
- =?us-ascii?Q?I4LVNMEFMBpnkcDmTM4c37KselgIjtfZhvKNQpuVd9RO5+3+G6777JePGsjW?=
- =?us-ascii?Q?L6fRa0XZGfOV2OwCz0ry5nZu2aTv8xMPQZEHVK/LZXLJgJSqdiHNcHEi9u3y?=
- =?us-ascii?Q?jh2E6ag8IGkIsVtIcMmwTfxCcEce7lFphgMdUHDiR119z71/QBax2x2xLgss?=
- =?us-ascii?Q?SV+KjX2gdtFlYChfPxFNVy2QxjDli4z54xC9MWwBMBYmKQclquVr+xpZ2RBk?=
- =?us-ascii?Q?JCvQJ4uRdAVs7ctwZr6384Hze/ZLZpEUAeAicpJD13yVP4l8RY1+7k+SIw3O?=
- =?us-ascii?Q?0skRv4W2nY8JrRbdIy5pbm12nfArOpTw9LQXawz3fEJd3l5+dedy9ckYW5S1?=
- =?us-ascii?Q?QurSDiGQYI+vedyO+Rku9g+pGzId/C9yflAN28AQZL7s9qz6UA3yAlGxXU+W?=
- =?us-ascii?Q?SjBxIEP0Tt5Ei4Nx5NDO2D0y0xCiOv9s5tJsrL9ikwPeLv9PlBR2MRRamUj5?=
- =?us-ascii?Q?5LsB2HyR9hLJb4XKoet9+asEysAust3i7CJG1TwWWHAZA/xX2sZHug2HuWoL?=
- =?us-ascii?Q?lBSjY06FsUBx6dsdVyo=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(36860700013)(82310400026)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 08:11:03.7875
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c54ceaa-b355-4920-6d02-08de280c596e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5742
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN][PATCH v4] xen/x86: guest_access: optimize raw_x_guest() for
+ PV and HVM combinations
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251114140117.270461-1-grygorii_strashko@epam.com>
+ <11c3929a-977b-4ef8-aaaa-9aea01657b04@suse.com>
+ <fdd51da7-c8dc-4c0f-aaaf-a9fd2094bcd4@epam.com>
+ <567f2759-fa03-43bd-9ae4-75e0e3811b60@suse.com>
+ <276968a6-4688-48bb-b0a1-5270ad3f0002@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <276968a6-4688-48bb-b0a1-5270ad3f0002@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 14:08 Wed 19 Nov     , Markus Armbruster wrote:
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+On 19.11.2025 20:36, Grygorii Strashko wrote:
+> Hi Jan
 > 
+> On 18.11.25 15:45, Jan Beulich wrote:
+>> On 18.11.2025 14:08, Grygorii Strashko wrote:
+>>> On 17.11.25 18:43, Jan Beulich wrote:
+>>>> On 14.11.2025 15:01, Grygorii Strashko wrote:
+>>>>> --- a/xen/arch/x86/pv/Makefile
+>>>>> +++ b/xen/arch/x86/pv/Makefile
+>>>>> @@ -14,6 +14,10 @@ obj-y += ro-page-fault.o
+>>>>>    obj-$(CONFIG_PV_SHIM) += shim.o
+>>>>>    obj-$(CONFIG_TRACEBUFFER) += trace.o
+>>>>>    obj-y += traps.o
+>>>>> +obj-$(CONFIG_PV) += usercopy.o
+>>>>
+>>>> Just obj-y with the movement.
+>>>>
+>>>> However, is the movement (and was the adding of $(CONFIG_PV) in the earlier
+>>>> version) actually correct? The file also produces copy_{from,to}_unsafe_ll(),
+>>>> which aren't PV-specific. This may be only a latent issue right now, as we
+>>>> have only a single use site of copy_from_unsafe(), but those functions need
+>>>> to remain available. (We may want to arrange for them to be removed when
+>>>> linking, as long as they're not referenced. But that's a separate topic.)
+>>>
+>>> It is confusing that none of build cfg combinations have failed
+>>> (HVM=y PV=n, HVM=n PV=n) :(
+>>>
+>>> copy_to_unsafe_ll()
+>>> - called from copy_to_unsafe()
+>>> - copy_to_unsafe() has no users (unreachable, MISRA 2.1?)
+>>>
+>>> copy_from_unsafe_ll()
+>>> - called from copy_from_unsafe()
+>>> - copy_from_unsafe() called from one place do_invalid_op() with
+>>>     copy_from_unsafe(,, n = sizeof(bug_insn)).
+>>>     Due to __builtin_constant_p(n) check the copy_from_unsafe() call
+>>>     optimized by compiler to
+>>>     get_unsafe_size(*(uint16_t *)to, from, 2, UA_DROP, ret, 2);
+>>>
+>>> as result copy_from_unsafe_ll() is unreachable also (?).
+>>
+>> Yes, these likely all want to become library-like, so they are linked in only
+>> when actually referenced.
+>>
+>>> If those function are not subject to be removed, the
+>>>    usercopy.c can't be moved in "x86/pv", Right?
+>>
+>> That's my take, yes.
+>>
+>>> Making copy_{from,to}_unsafe_ll() available for !PV means
+>>> rewriting usercopy.c in some way, Right?
+>>
+>> "Re-writing" is probably too much, but some adjustments would be needed if
+>> you want to keep the "unsafe" functions but compile out the "guest" ones.
+>> It may be possible to compile the file twice, once from x86/pv/ and once
+>> from x86/, replacing the self-#include near the bottom of the file. The
+>> former would then produce the "guest" functions, the latter the "unsafe"
+>> ones.
 > 
-> bbram_bdrv_error() interpolates a "detail" string into a template with
-> error_setg_errno(), then reports the result with error_report().
-> Produces error messages with an unwanted '.':
-> 
->     BLK-NAME: BBRAM backstore DETAIL failed.: STERROR
-> 
-> Replace both calls of bbram_bdrv_error() by straightforward
-> error_report(), and drop the function.  This is less code, easier to
-> read, and the error message is more greppable.
-> 
-> Also delete the unwanted '.'.
-> 
-> Signed-off-by: Markus Armbruster <armbru@redhat.com>
+> Below is the difference I came up with, will it work?
 
-Reviewed-by: Luc Michel <luc.michel@amd.com>
+That'll be on you to make sure, but ...
 
-> ---
->  hw/nvram/xlnx-bbram.c | 18 ++++--------------
->  1 file changed, 4 insertions(+), 14 deletions(-)
-> 
-> diff --git a/hw/nvram/xlnx-bbram.c b/hw/nvram/xlnx-bbram.c
-> index 22aefbc240..fe289bad9d 100644
-> --- a/hw/nvram/xlnx-bbram.c
-> +++ b/hw/nvram/xlnx-bbram.c
-> @@ -88,18 +88,6 @@ static bool bbram_pgm_enabled(XlnxBBRam *s)
->      return ARRAY_FIELD_EX32(s->regs, BBRAM_STATUS, PGM_MODE) != 0;
->  }
-> 
-> -static void bbram_bdrv_error(XlnxBBRam *s, int rc, gchar *detail)
-> -{
-> -    Error *errp = NULL;
-> -
-> -    error_setg_errno(&errp, -rc, "%s: BBRAM backstore %s failed.",
-> -                     blk_name(s->blk), detail);
-> -    error_report("%s", error_get_pretty(errp));
-> -    error_free(errp);
-> -
-> -    g_free(detail);
-> -}
-> -
->  static void bbram_bdrv_read(XlnxBBRam *s, Error **errp)
->  {
->      uint32_t *ram = &s->regs[R_BBRAM_0];
-> @@ -162,7 +150,8 @@ static void bbram_bdrv_sync(XlnxBBRam *s, uint64_t hwaddr)
->      offset = hwaddr - A_BBRAM_0;
->      rc = blk_pwrite(s->blk, offset, 4, &le32, 0);
->      if (rc < 0) {
-> -        bbram_bdrv_error(s, rc, g_strdup_printf("write to offset %u", offset));
-> +        error_report("%s: BBRAM backstore write to offset %u failed: %s",
-> +                     blk_name(s->blk), offset, strerror(-rc));
->      }
->  }
-> 
-> @@ -178,7 +167,8 @@ static void bbram_bdrv_zero(XlnxBBRam *s)
-> 
->      rc = blk_make_zero(s->blk, 0);
->      if (rc < 0) {
-> -        bbram_bdrv_error(s, rc, g_strdup("zeroizing"));
-> +        error_report("%s: BBRAM backstore zeroizing failed: %s",
-> +                     blk_name(s->blk), strerror(-rc));
->      }
-> 
->      /* Restore bbram8 if it is non-zero */
-> --
-> 2.49.0
-> 
-> 
+> --- /dev/null
+> +++ b/xen/arch/x86/usercopy.c
+> @@ -0,0 +1,77 @@
+> +/*
+> + * User address space access functions.
+> + *
+> + * Copyright 1997 Andi Kleen <ak@muc.de>
+> + * Copyright 1997 Linus Torvalds
+> + * Copyright 2002 Andi Kleen <ak@suse.de>
+> + */
+> +
+> +#include <xen/lib.h>
+> +#include <xen/sched.h>
+> +#include <asm/uaccess.h>
+> +
+> +# define GUARD UA_DROP
+> +# define copy_to_guest_ll copy_to_unsafe_ll
+> +# define copy_from_guest_ll copy_from_unsafe_ll
+> +# undef __user
+> +# define __user
+> +
+> +unsigned int copy_to_guest_ll(void __user *to, const void *from, unsigned int n)
+> +{
+> +    GUARD(unsigned dummy);
+> +
+> +    stac();
+> +    asm_inline volatile (
+> +        GUARD(
+> +        "    guest_access_mask_ptr %[to], %q[scratch1], %q[scratch2]\n"
+> +        )
+> +        "1:  rep movsb\n"
+> +        "2:\n"
+> +        _ASM_EXTABLE(1b, 2b)
+> +        : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from)
+> +          GUARD(, [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy))
+> +        :: "memory" );
+> +    clac();
+> +
+> +    return n;
+> +}
+> +
+> +unsigned int copy_from_guest_ll(void *to, const void __user *from, unsigned int n)
+> +{
+> +    unsigned dummy;
+> +
+> +    stac();
+> +    asm_inline volatile (
+> +        GUARD(
+> +        "    guest_access_mask_ptr %[from], %q[scratch1], %q[scratch2]\n"
+> +        )
+> +        "1:  rep movsb\n"
+> +        "2:\n"
+> +        ".section .fixup,\"ax\"\n"
+> +        "6:  mov  %[cnt], %k[from]\n"
+> +        "    xchg %%eax, %[aux]\n"
+> +        "    xor  %%eax, %%eax\n"
+> +        "    rep stosb\n"
+> +        "    xchg %[aux], %%eax\n"
+> +        "    mov  %k[from], %[cnt]\n"
+> +        "    jmp 2b\n"
+> +        ".previous\n"
+> +        _ASM_EXTABLE(1b, 6b)
+> +        : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from),
+> +          [aux] "=&r" (dummy)
+> +          GUARD(, [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy))
+> +        :: "memory" );
+> +    clac();
+> +
+> +    return n;
+> +}
 
--- 
+... we don't want to have two instances of that code in the code base. One file
+should #include the other, after putting in place suitable #define-s. Which
+direction the #include should work I'm not entirely certain:
+- pv/usercopy.c including usercopy.c means usercopy.c then ends up misnamed,
+- usercopy.c including pv/usercopy.c means a "common" file includes a more
+  specialized (PV-only) one.
+
+Jan
 
