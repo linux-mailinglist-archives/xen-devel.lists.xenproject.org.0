@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E552C7615C
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 20:33:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1167942.1494116 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 523ACC7616B
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Nov 2025 20:33:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1167943.1494130 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vMAPE-0001oe-5C; Thu, 20 Nov 2025 19:33:24 +0000
+	id 1vMAPG-0002CS-Az; Thu, 20 Nov 2025 19:33:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1167942.1494116; Thu, 20 Nov 2025 19:33:24 +0000
+Received: by outflank-mailman (output) from mailman id 1167943.1494130; Thu, 20 Nov 2025 19:33:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vMAPD-0001kh-W6; Thu, 20 Nov 2025 19:33:23 +0000
-Received: by outflank-mailman (input) for mailman id 1167942;
- Thu, 20 Nov 2025 19:33:22 +0000
+	id 1vMAPG-0002Ad-72; Thu, 20 Nov 2025 19:33:26 +0000
+Received: by outflank-mailman (input) for mailman id 1167943;
+ Thu, 20 Nov 2025 19:33:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zJ8u=54=gmail.com=nicola.vetrini@bugseng.com>)
- id 1vMAPC-0001hr-QQ
- for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 19:33:22 +0000
+ id 1vMAPE-0001hr-4p
+ for xen-devel@lists.xenproject.org; Thu, 20 Nov 2025 19:33:24 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c65e2080-c647-11f0-9d18-b5c5bf9af7f9;
- Thu, 20 Nov 2025 20:33:22 +0100 (CET)
+ id c726cf6b-c647-11f0-9d18-b5c5bf9af7f9;
+ Thu, 20 Nov 2025 20:33:23 +0100 (CET)
 Received: from nico-ideapad (93-44-185-120.ip98.fastwebnet.it [93.44.185.120])
  (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPSA id 18C6D4EEBF05;
- Thu, 20 Nov 2025 20:33:20 +0100 (CET)
+ by support.bugseng.com (Postfix) with ESMTPSA id 50B454EEBF06;
+ Thu, 20 Nov 2025 20:33:22 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,34 +40,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c65e2080-c647-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: c726cf6b-c647-11f0-9d18-b5c5bf9af7f9
 Authentication-Results: bugseng.com; arc=none smtp.remote-ip=93.44.185.120
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1763667202;
-	b=QBOJn5COohY6EVdf9TchCvbCtKP6qVM60HetoIS12UZ2YiHx+Jg13HaiuQe46Q/L2KVS
-	 AZXcG7YFyYhKzWyLqV3FQk1DKF74EsbSPaOAOCSLQ10GN0MbFfrb6IqayMAWZb1Z1lIFD
-	 XNpvb2A2+jr908oA6x1nQVaZ0Fc/FwfIUSPxed67PdPs5ESyHobds7QST8MmAJwRVgErg
-	 /Tp2ApV7JLIPRL7i+/WkNuuBOxlLhp2nsabLQdHSvB1KIFUpLjsKi1gbVMU4dCKaJYuEo
-	 JxmEz06rCFO8c/x06Cb0/KCF+Y3pDfMO2bcnzZy21dVrPboXWa1heClJD7me482G5A47p
-	 2uClJ9SRvCL+kSpM/gSQutfkoRJhPC6Y6yqKZTyvEPfabwEBEpcP31av5PqggULM/ug0Y
-	 HYLp34H8gF6oJbxli9d35cq/jYXQNvF2D11mBcjHdK2rNSeVfxo9YLiEjZYHPHrxB7ewT
-	 JGrYb1MgMz45n9+/yERN2PvNsXXIpufsFixBQ/+rOKe0V7bXRsamwdsGlZ+PxtEjTEMKc
-	 FFN9pVRppAEbFpx8tM2RhP188InEuuAoKATgQ/Fv1tkWxPQyqzmA8hUu2Rrosrm8Ls10D
-	 ZgdhtRteKAT/m8KcPUaHrF/gLJBOuFibYm4lvSnNQ+0idrE2J3j68uhjm9a21pg=
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1763667203;
+	b=GrDXwHjA3XSgMz0xYcqYjAuYcdFmjFi+pkddUjx+bblxNBA5qPsyeUq5fkRStd6/a0oL
+	 lgpXoNA2HCyWMlTacHLDNMDmSDU4pGrpPkNk78DFYspd7sqrNjS/jydy5Zkpyf/TErwW3
+	 sOSXU24rpTK3s7jykz1+U9QJ8PiFJysElb/h/Lz6YkNQjzXLBEBGAjwxI+7/ioBQM0qly
+	 RzmxNI9Ecgywl4Tm431GnM8l3PzRfs2OLm/RUB2HzGP4lr+1UKLGouGIIth8wYFp9/QC3
+	 b+iCbIxsUmJIF3uMCfOTl0l9E4YjFwxSTNJ/4Q3RXZIBdyTI8Sybg1NMJ28yiPSstFcIq
+	 InbOhk1kdC0f1I/eAAe0G4sssikXU/CVQvHTSWbUd/g0RzB50FkTZKM42iR+ir7cZ4jLh
+	 nIMkoiBeZ8DTRUAA1cGuqqpQyZ9z+o03igm/Iaq1kbX4/PbTaGeQ44/JdEjv4bR/+6Qka
+	 iiFpQpw93QTdCZXaVOW9Dc+djqdULba2/ob7LLsEsdNU1hyGKQD0cRv3U/tbJluOnzqIi
+	 TU9XITGu0sKI7cL5pQ5EUN8LoQdU9OtYaNue3mqgycRVTBGZmPnCbo99rNMZxRSkvN8Ih
+	 oiqP9VeOtXNIibPC2EEjEn2kczNmroXwdS1OnCC9yg5sex0jF+RjeorcrTSlWX0=
 ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1763667202;
+	c=relaxed/relaxed; t=1763667203;
 	h=From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=xleBcpqxr79kzkE5NhaulXEzW9GO9ArZ3q/6z7TZImA=;
-	b=BiXb7B7hIrXv+fEis3uOor5bjbh/78aJwbAfgGw8CQYi++IDePbbYU2U9fMD3VfxcFyv
-	 8I2G2QNexryiCccfylQY1Oh0RaWps8EFfytMC0NRWOAmOUepWI7jbPl2tA//fWRMwCDyJ
-	 iqZTwogZGLZE9y7PiRkhPSd03QlLsoV/EfDSwoquYjM6yvBaCN2vlPVEWPjl3rWJtMV6y
-	 yQ5DZXStmvwtsaDSyP98Hazy9teZDdcTysosGhrEMCfZXo0jEiA4uyQMUmjcCE2+9gVgu
-	 yjwVidD5S5PnrLHhv4+GpnVY4Ovzlns04pxekeohq0+888bUFznz930BycK5rPobPitlh
-	 Z+ZQ5+Ou4yckW3Dpn/TMuGn9PcyBI4tROJiKNoxYR7QiuW527EQaJwobGdC9cbK6dWqJr
-	 qEykfm+bHCaOQZqgQbdMO6/2hrRf5VTdm6Hhl1jYi5nBzcYv1eFPeAY0vtomxcQTNC+ky
-	 6vlmZcuLAqb9YwUXzkHXDdEdF/KxD3buEBTdB6aBEiwFe2RwDChqWZqcK2q5L5nGnpJNs
-	 3bBqBSb/HLEm3c0JAlbRTj8QhAuJKPIbtAMejvSLBjGe8LML/6LWzEwxPPwLe/5n1sezT
-	 PQw9Fq4OBgVrABgVZLGhxtmRxk8UKan63ix9cPbpYXFicnECCcz3MUXzMytYhus=
+	bh=p+U0aUwybu1dMebZr+nA1KTxVn7l5e18ZGuPyuhBnFA=;
+	b=pPECHZBWjbPJigRcydEutV7RYj4MEDnh2ERiWqzWS0w0R4l9TreD8y2/2iVddA6Mphs9
+	 DsV5cLk+JL7r7Eny5jT2IgmMGZuxnOx7cAplIjyolFYf7xCvKda5JBWc68hRhcjqJ4xwe
+	 vL4EDdzTRuphnDSBYfoMOjooaumNQ/jaKx/sC/rG6b85qmTzWaDciKLONGd8wmMpc8X95
+	 JT3XFxcGzGDYT7/0FMp+l1Cy+uDCrMdNWLpOHwwpwNRpwy0tVN7H/OttCx2gpVrsCbw9w
+	 9ANAKRrBF+YIe/bIdeWbmm07XL3913iGOiQVzUrg9KYShBVh0iX/B3W90VQGML29nBvhy
+	 xLBnGpw05wVBcz89WdheVPUvgiNJxPSQ8N/1rXY1EgCF3n6dftPpGImwZ/vXYx2/Q/CRq
+	 tiap80D93zrVinPOr8TfUuV4gIExh2Y7T7WavwA36v7g5QUDfIY/qHaRD1K08ShhuBzyQ
+	 UhpJX4H4USCA6C74Qs1Eez7nhwPNQ7dj8rIk7pkxZMmN4qBOFhCsqovcHKSBQ8wpdGzej
+	 dyt/I+EaHW5qSDS1sS2CqAhlzRxSvcQDt1v7vN5Ing5d4/Jb5U4WmgrTaxwk5yOKcMCyn
+	 /PyYGFNuBTHZN0Fljh+UV0kdv6R2gnh68LsKrnvvKATCcirY+Jx4G8Ag7/mu1/Y=
 ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=93.44.185.120
 From: Nicola Vetrini <nicola.vetrini@gmail.com>
 To: xen-devel@lists.xenproject.org
@@ -75,44 +75,47 @@ Cc: andrew.cooper3@citrix.com,
 	jbeulich@suse.com,
 	sstabellini@kernel.org,
 	Nicola Vetrini <nicola.vetrini@gmail.com>,
-	Dario Faggioli <dfaggioli@suse.com>,
-	Juergen Gross <jgross@suse.com>,
-	George Dunlap <gwd@xenproject.org>
-Subject: [PATCH 2/4] xen/sched: address violation of MISRA C Rule 16.3
-Date: Thu, 20 Nov 2025 20:32:54 +0100
-Message-ID: <60e3bd1ba6ab3bc47d3a95ddf1e3e7ef71db5f3d.1763642993.git.nicola.vetrini@gmail.com>
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH 3/4] xen/param: address violation of MISRA C Rule 20.7
+Date: Thu, 20 Nov 2025 20:32:55 +0100
+Message-ID: <bbbe135e699e8589c36555f02e208edff64ef76c.1763642993.git.nicola.vetrini@gmail.com>
 X-Mailer: git-send-email 2.51.2
 In-Reply-To: <cover.1763642993.git.nicola.vetrini@gmail.com>
 References: <cover.1763642993.git.nicola.vetrini@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The rule states: An unconditional `break' statement shall terminate
-every switch-clause.
+The rule states: Expressions resulting from the expansion of
+macro parameters shall be enclosed in parentheses.
 
-Use the `fallthrough' pseudo-keyword for which an ECLAIR deviation
-is already in place.
+Add parentheses in the defition of `custom_runtime_var_sz' to
+address the violations.
 
 No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@gmail.com>
 ---
- xen/common/sched/credit.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ xen/include/xen/param.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/xen/common/sched/credit.c b/xen/common/sched/credit.c
-index 6dcf6b2c8b..e9a91d11c3 100644
---- a/xen/common/sched/credit.c
-+++ b/xen/common/sched/credit.c
-@@ -1288,7 +1288,7 @@ csched_sys_cntl(const struct scheduler *ops,
-         prv->unit_migr_delay = MICROSECS(params->vcpu_migr_delay_us);
-         spin_unlock_irqrestore(&prv->lock, flags);
+diff --git a/xen/include/xen/param.h b/xen/include/xen/param.h
+index 1bdbab34ab..f5a2189400 100644
+--- a/xen/include/xen/param.h
++++ b/xen/include/xen/param.h
+@@ -102,8 +102,8 @@ extern struct param_hypfs __paramhypfs_start[], __paramhypfs_end[];
  
--        /* FALLTHRU */
-+        fallthrough;
-     case XEN_SYSCTL_SCHEDOP_getinfo:
-         params->tslice_ms = prv->tslice / MILLISECS(1);
-         params->ratelimit_us = prv->ratelimit / MICROSECS(1);
+ #define custom_runtime_set_var_sz(parfs, var, sz) \
+     { \
+-        (parfs)->hypfs.u.content = var; \
+-        (parfs)->hypfs.e.max_size = sz; \
++        (parfs)->hypfs.u.content = (var); \
++        (parfs)->hypfs.e.max_size = (sz); \
+         (parfs)->hypfs.e.size = strlen(var) + 1; \
+     }
+ #define custom_runtime_set_var(parfs, var) \
 -- 
 2.51.2
 
