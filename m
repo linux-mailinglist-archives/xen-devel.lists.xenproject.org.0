@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09F9CC789BF
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Nov 2025 12:01:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1168671.1494719 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00B97C789BC
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Nov 2025 12:01:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1168658.1494681 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vMOtT-0007WO-Pz; Fri, 21 Nov 2025 11:01:35 +0000
+	id 1vMOtP-0006Dv-5r; Fri, 21 Nov 2025 11:01:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1168671.1494719; Fri, 21 Nov 2025 11:01:35 +0000
+Received: by outflank-mailman (output) from mailman id 1168658.1494681; Fri, 21 Nov 2025 11:01:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vMOtT-0007Rx-Ji; Fri, 21 Nov 2025 11:01:35 +0000
-Received: by outflank-mailman (input) for mailman id 1168671;
- Fri, 21 Nov 2025 11:01:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vMOtO-00068c-Sg; Fri, 21 Nov 2025 11:01:30 +0000
+Received: by outflank-mailman (input) for mailman id 1168658;
+ Fri, 21 Nov 2025 11:01:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1uM0=55=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1vMOrN-0008Dv-Pp
- for xen-devel@lists.xenproject.org; Fri, 21 Nov 2025 10:59:25 +0000
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c005::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22466583-c6c9-11f0-980a-7dc792cee155;
- Fri, 21 Nov 2025 11:59:23 +0100 (CET)
-Received: from CH0PR13CA0008.namprd13.prod.outlook.com (2603:10b6:610:b1::13)
- by CY5PR12MB6645.namprd12.prod.outlook.com (2603:10b6:930:42::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Fri, 21 Nov
- 2025 10:59:17 +0000
-Received: from CH3PEPF00000015.namprd21.prod.outlook.com
- (2603:10b6:610:b1:cafe::1b) by CH0PR13CA0008.outlook.office365.com
- (2603:10b6:610:b1::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.4 via Frontend Transport; Fri,
- 21 Nov 2025 10:59:17 +0000
+ id 1vMOrS-0007TB-Ji
+ for xen-devel@lists.xenproject.org; Fri, 21 Nov 2025 10:59:30 +0000
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazlp170110009.outbound.protection.outlook.com
+ [2a01:111:f403:c111::9])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 23875a94-c6c9-11f0-9d18-b5c5bf9af7f9;
+ Fri, 21 Nov 2025 11:59:24 +0100 (CET)
+Received: from CH0PR03CA0001.namprd03.prod.outlook.com (2603:10b6:610:b0::6)
+ by DM4PR12MB8497.namprd12.prod.outlook.com (2603:10b6:8:180::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.11; Fri, 21 Nov
+ 2025 10:59:19 +0000
+Received: from CH3PEPF00000012.namprd21.prod.outlook.com
+ (2603:10b6:610:b0:cafe::70) by CH0PR03CA0001.outlook.office365.com
+ (2603:10b6:610:b0::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.11 via Frontend Transport; Fri,
+ 21 Nov 2025 10:59:01 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000015.mail.protection.outlook.com (10.167.244.120) with Microsoft
+ CH3PEPF00000012.mail.protection.outlook.com (10.167.244.117) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9366.1 via Frontend Transport; Fri, 21 Nov 2025 10:59:17 +0000
+ 15.20.9366.1 via Frontend Transport; Fri, 21 Nov 2025 10:59:19 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Fri, 21 Nov 2025 02:59:15 -0800
+ 15.2.2562.17; Fri, 21 Nov 2025 02:59:17 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22466583-c6c9-11f0-980a-7dc792cee155
+X-Inumbo-ID: 23875a94-c6c9-11f0-9d18-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nkCbCIX2JSHTC0qFgslGT1yCz9+FZvGDqVkH4celR4Le7V3MtKVuC7Yw40NLzJ3BR7bg4hZegtBZM2l9RgyS0aqUBBAmD3f11v/m81X/wl+V+czQA51E7C8WyctZ/uOuY7JCChKEuIc1rbcp1bHyWmKhDXoDsnWB1wAFH16Wy/tiYnjcfsBRUhaoHRxzb4jn9LwXVZZX9duqGz4YmMjbjSpWPkqnFChSXBytXb6VZxHMJUurDe5ReXQB3vAOlSjPnKW2AAIEt5MGJhnC6SO8ADq2yuQ3rdGN9s7kFdosJcV5jIeEgqY4anBPVlcSXff+dHKXMZX+It/4d8Z2kkDbcA==
+ b=DE/GvEVAomOLSoMfTYKC27hUuGCaQBkEJHlj+fdlgsVtP7vJKldSKYqsffwbBjL/or61XOi8KRq0pFbwih6xfIC/z3p3/HmNyGHDRjD6AHG2D8l+tQkNTfDe55RavQu0ICScTBP8AsYHA8K3myWAQDGtzkgDAJC2flPw165ETm4mwH4qmw/8pOEiARMqYM94Q2JKx3Oqc/mGkAbtb6y5Ib6Z84QLkdlwnlfMjN0NhK0dp6tfi7fptd7g2SN1kzkCPpEb/Pvzq6JjgLBSuVx3eWyzZ9S543kSIiYk+QUr0k/EASLxl17bLwBIaPzAZb9GsT3bFlSxllU3dOQ27ykaVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bok7u4Xk+jAmguRQIjJccc8H+q65eQAsNIZzfh2MqlE=;
- b=hjIrAUnmKTfgGZGb4fLX513VZWTHa2RYbMiWWwGsdRrLHqlb2oDBRpYu5xbwNBd14fndoZVfkm0tlyFz1gtkSnISnZAy5sB/csEamQzAdUvsmxSOKvzG70Gsj9jnagJ3wzFYr/6zy2xUvT115vlvJqt/SFRgUpIjvWbqmrAhl6rNz19XSI/sSk1y4GscXH52dCor/RDBQFzerhi2VAkrLqMB/O1dDeAj2QNRyRLeGigsjzjD6HCTk+FaFfjS/3XJMJ9F9USSQUFyhQibSIOra8XQKsdCHufLTfguXBkYHeSS8JVJGAjuo7qI3oA61tjqqHnGXf/hFTqUDiErw42TDQ==
+ bh=9AVFT4eS0mHEUY/gIiu2cmU6pnbgN+Dcl6qdu2LcxPk=;
+ b=FLM3K2ZSEOJ2jXtUEp9UdQTNGpnba8xVsBWeY4vbFP2sFAmNqHgJLGHYO5XORBu2dwLfhUth4jxNM399NwkzRNsHdbWTMGiOpPHoRnJE2yWLDivCRUyTHjfOhTiObQBo5BqkhsjbIv2i4jZlbe8cdS4VQCouzPZPvWNebDk8WTUVx378YWIUCIulVzWnyufmOsHRZyiwE/aPUHA6aB/n1ZeGp+qi3H/u1Vq2tSW5hGUNaQ45BH0/Cw0CSxrK9SZq6wXFpCjY41gblJXAY4DnfJqiIM3QYb0Rc/twj8likbBoAGJ4Wlr0sHvLO6WQE4yDYlliba3GNO5lcCjSs6I0Rw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bok7u4Xk+jAmguRQIjJccc8H+q65eQAsNIZzfh2MqlE=;
- b=N6KaD++mA6MdxZFClLVvvy6Go+cPRAcWhplY6Ih0SnsW9UofK+AGJPx6h9LfvxDXJHDKKHGOGX9Fkdr5INXJ7+6gEpYpbHfpRNkrCqfatuzqJg9tAesqnj6H770o7CM3/oQeBBg1GxP0aBx8F9rK0s0huu61ybqpeZQnBEkxXHk=
+ bh=9AVFT4eS0mHEUY/gIiu2cmU6pnbgN+Dcl6qdu2LcxPk=;
+ b=2TbU2ES0qHSSSIZXCF0zE6D9/mJoq8ppVlnmC+KEax+h2SNwkNMvqGYjAXqQT7K+WbN06nXNf7+yrvCC16RS2UMdAFnz/+Gop4Bvgm6XHjFZ7WpYf+JdOD8fLhe8GxUPPPgMoakSqkJZ/zWjXe4bVuKt6BBrfdrawW7i4flMFjQ=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -83,10 +83,10 @@ To: <xen-devel@lists.xenproject.org>
 CC: <ray.huang@amd.com>, <grygorii_strashko@epam.com>, Penny Zheng
 	<Penny.Zheng@amd.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
 	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 18/24] xen/domctl: make CONFIG_X86_PSR depend on CONFIG_MGMT_HYPERCALLS
-Date: Fri, 21 Nov 2025 18:57:55 +0800
-Message-ID: <20251121105801.1251262-19-Penny.Zheng@amd.com>
+	<roger.pau@citrix.com>
+Subject: [PATCH v4 19/24] xen/domctl: wrap hvm_save{,load} with CONFIG_MGMT_HYPERCALLS
+Date: Fri, 21 Nov 2025 18:57:56 +0800
+Message-ID: <20251121105801.1251262-20-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251121105801.1251262-1-Penny.Zheng@amd.com>
 References: <20251121105801.1251262-1-Penny.Zheng@amd.com>
@@ -98,196 +98,262 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000015:EE_|CY5PR12MB6645:EE_
-X-MS-Office365-Filtering-Correlation-Id: f530720f-1606-4d31-0141-08de28ed0437
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000012:EE_|DM4PR12MB8497:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20ddb52b-35a3-44ef-3366-08de28ed0582
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013;
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?90bMlelL283CidhHjedQ5xMwk11EtBNdvE5uTplqvuYWkW2PhYVNVcfdE+oo?=
- =?us-ascii?Q?IespSUyKVSJRxpe87ajzIx4hisJZmtSRReu1LhmOZfnW4YdA5oVhL5TezymT?=
- =?us-ascii?Q?28joA4TftmAOxJeQkO0YRaOYBxkjHLHs9iv8ubjaHlv9Quv8Ks2OzXx4WGe9?=
- =?us-ascii?Q?+Dd6W0eT5IydQS573S07PLpRNGR36pEWD35hN7+/8QFEAexb5lUcGgSN+t5Z?=
- =?us-ascii?Q?QVKZwbuNwvSnl/fdifLq/DZVGApeX2/L6kly5/5u9EDXqIlzY1x3utRaVxIN?=
- =?us-ascii?Q?9m/9fwJTsFOXBNHSn8YPMmavmt/ldu/BNbTNSiMzF9HcASgdcAqeAStJU8xT?=
- =?us-ascii?Q?ibdSIMrNEP5Ep7manFYIbPQmZDp3uGG/dNktzpZKd+sNt5fHVapo7Z28Dezj?=
- =?us-ascii?Q?OvH9mdp99k+c32zj8dQJYcIhAcZCtmGeBtNoo28OEn5AgFhp/1AyA1YBUCuq?=
- =?us-ascii?Q?ULy7QWq/3B6slCV6oQmetqP4KpMesMNrTlaHyNj9zaVohHXTKpJ7a2KeUIUM?=
- =?us-ascii?Q?cCuZMCu0wKAjsX9Z0hUfxGaduVZKBUPw4PGsDcwB//A6AbzshFKtp+7Eq7TL?=
- =?us-ascii?Q?CSPJEnqkqMIA1oes43Om5wOelUtfzNWiafY5Fmh89pF9uZByh4XDjuDv+tb/?=
- =?us-ascii?Q?e6dN4IP7TyTwCNGqDuYa3LZlF8ZsclQNI+zyo8UF5Mvb491M+MTRnl2kXtid?=
- =?us-ascii?Q?5+/wDvA0iDoVu6wvslIY+4qpIsVSmYZCQTiyYyxKaQC1C2pxmAVfA4/iNocr?=
- =?us-ascii?Q?KtFrz1JxWnBXn2mJRl6Htc1JJ2RVTgiYqKey1GdKTMTZrtorWIiyCGlH55dD?=
- =?us-ascii?Q?aLpr3AXuXSCo5xjMqDUM+Fobh44XzDHgV0Kdqai30sl3IgY/qxC/QzjwTTq0?=
- =?us-ascii?Q?viEk2le0oiiLjGDFnj29XklR2gyrHKjSimEiBm1Fp0Me/dQd4PW5Ia+j2Hox?=
- =?us-ascii?Q?Ae+stMbTSwmpU89o2mz/C9KalnIo90pJzn6cW14JtvIDsdSG2wmvLr4vKxT/?=
- =?us-ascii?Q?loR58yL3ZerYcjqJg48qm/TpSzL0xPtRv5EOz3dD87n9TxTQR/lTnbwvR17u?=
- =?us-ascii?Q?9HPHT7Pig1PJIMsBfQwREAMAQb04GOo6bN5VjRoo9N3LblSBW3q85R+EWRJ3?=
- =?us-ascii?Q?HlMdAFiy0VN75ZStnYJE4H+NaWubkKBi5PNrPI7s71oYkDwN2CLWY6A646vW?=
- =?us-ascii?Q?p3fa331UEpJWILCXyUOjCWDg/woRPthI29YbfkvSstFtbRDUeKUPt3ynG2co?=
- =?us-ascii?Q?GXKYRppacNINSL3sU95HaSBZ7dT/lOw2LXUXdYopg69/UZJvOn6BeJYgE4wL?=
- =?us-ascii?Q?9UoLwwvtNG+dDT4xM2a0klmuXoihnrRuDylgLAFyaj5XI7LyIQ1SAy/+umTp?=
- =?us-ascii?Q?9hP82/0HJaHC/CzDlIcGoTQjksYZU8cLSyYQhKAFmM7IoGCkLV/VLbN853Xy?=
- =?us-ascii?Q?HoRWUdCxvhE0p5qyNRYomRnONpcrepy3wzdoQVOvLcbz7J222uWgytcOwSU7?=
- =?us-ascii?Q?Yf6hWMF+k1UvjQGUWunwKVOo3DrYS/9gpPPCwao9fbUjTado9a8RGR83jXyQ?=
- =?us-ascii?Q?O6d7Ec/eg39sZUR+aeE=3D?=
+	=?us-ascii?Q?oOn7F0RaV8lxggaGT977v/4D/2IsZtf9Jl8xkvelFZYxlvRHAxHj6wqvYara?=
+ =?us-ascii?Q?kTWNRGTUxDi3EtZZkGf8gnugU+svHk2duB2MAmg9DzJM+1oQcIY7zqQWosgw?=
+ =?us-ascii?Q?dFjzjdDhdGW6TxHWMLko42Dmd+kvtu1M1v/F3pO+NFjbZNBIAX2tdXf9ywDJ?=
+ =?us-ascii?Q?/zFBjg1FKwou/9jX35kZUD/FNE6q/5BgFg8natRX1HWQD6cwficyStEI+Q4Z?=
+ =?us-ascii?Q?2yTQyV4eaj+IkNpZfYngWYHhb3hPnahFY59iq4d0qmVAmcTl1USdNfQAQkAv?=
+ =?us-ascii?Q?eeNXL/yFBAxyj1lYWlBQ4u56YY35a7Weg+kSw5Ed9O0Cf1LLS0oLHITCg1E+?=
+ =?us-ascii?Q?7EJT9+0OiknKR67OgxNKqROmae5WuyIBoGwTg0ARte8ts1AdvYFkh0SDe3aY?=
+ =?us-ascii?Q?Tbv88v+h62OQ8CAZ+G1pFzZ+MQAameSukRAeXNpAFgnXTIo7EPYLhjoUYnJh?=
+ =?us-ascii?Q?Wa20Ll6mz8pgmKzOwUnRMb6U1q/EUKZE6iTNd228F/x9e42IoVhIAin+k+oW?=
+ =?us-ascii?Q?SPetCuYBlVl+/cW+ET3JBSfMn5w4/ETLDv6ukxW8dwiOX6e2hC4B6jcN+3/K?=
+ =?us-ascii?Q?SHSWyx2AJCyZkjw5zbyaiuXrCxRuBUOH415GJ6AnK3EoiQBf5VzhaO5TQQRf?=
+ =?us-ascii?Q?frmheGbM3xPRRoTipigpnvoBAwenZs1GLfySU6cNjisu6A4NAMEx3ISaLgxF?=
+ =?us-ascii?Q?tHJVwCG7HOBel/t/YSuYFXytRYa2tyvdVO4IJYOreF4L/jX+CcDMPRSnp7tR?=
+ =?us-ascii?Q?T3gQCBKYhyAdp/M5nkHFMrJNGHieMm/d2yVrYlcElWd+aGQOl7OpDQbW9VdE?=
+ =?us-ascii?Q?kVmMTeuAzeJBVQFNCfzMgfL49vDJfolxc61dapU424G9474nY+2ADv+zZujR?=
+ =?us-ascii?Q?XNeb/fxpSM6BbQsLl+nlzMtNw0sCBvLs6bhu/0RL8O0TZtCvZ+dlFba1B8oR?=
+ =?us-ascii?Q?dNZtmbLoYlB6fBfCagTVEbw+EMtCrot91iDibPYi8d9VK/jIfSk/Wdsw13+g?=
+ =?us-ascii?Q?Je9WLZkDFTD6WJyMsgpICkx2A1OL12m4Z66bNJ2Va29s2iKY3ipI7T293UQD?=
+ =?us-ascii?Q?UHDcC+1PrmrDT7z2lshTPWFtqlHDCByTROeVaP5tk0og71dTX0P5al9EwKX3?=
+ =?us-ascii?Q?O/rXvQEwsQEjrO+sma0rAVCVX5T7PqMKACtFsL0WbDANXiux6PESlfg2DsZQ?=
+ =?us-ascii?Q?QYpdvISKvGlPBzw7jI2Fu6RhN8SjVHeqLGWMOorHdCKpqpt+1dCniuzMPlqq?=
+ =?us-ascii?Q?JBlSHreSp7r6GOQ7yedUN56abtxGSDzLZT8ekgeRxDug2ovX1FNj0/DTHrEy?=
+ =?us-ascii?Q?Vg5t+gj8450xUr1JKFxuPhpJaiIr6GVOo7UgLVC4absrtt+T0xHkzgS8wEmw?=
+ =?us-ascii?Q?ZhEs4oPkFsG5eT4OLq8tZg3FL2FjxPyHTpDwfcpFbgQXnZ4oQ3OhH7+J7ufY?=
+ =?us-ascii?Q?hyb9R7yXZljFQlkwYB4mpD6Upd9BvFyN0KRJUT8hMAUXSKPZUfKeUZlQw4h4?=
+ =?us-ascii?Q?DI6PZ2gX5kcyu/cnBU1Ov31s4Rl9f5W8B8agwWIZPWLwZoh8BfSWXSwm6uJI?=
+ =?us-ascii?Q?J6y6DKjb2BwuorUlmhM=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2025 10:59:17.5682
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2025 10:59:19.7413
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f530720f-1606-4d31-0141-08de28ed0437
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20ddb52b-35a3-44ef-3366-08de28ed0582
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF00000015.namprd21.prod.outlook.com
+	CH3PEPF00000012.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6645
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8497
 
-Users control/monitor Intel Platform Shared Resource (PSR) through
-related domctl-op or sysctl-op, so CONFIG_X86_PSR can be put under
-MGMT_HYPERCALLS. With this change, we could remove MGMT_HYPERCALLS-wrapping
-in psr.c.
+The following functions have been referenced in places which is either guarded
+with CONFIG_MGMT_HYPERCALLS or CONFIG_MEM_SHARING:
+- arch_hvm_save
+- arch_hvm_check
+- arch_hvm_load
+- hvm_save_size
+- hvm_save
+- hvm_load
+While CONFIG_MEM_SHARING is also dependent on CONFIG_MGMT_HYPERCALLS.
+So they shall be wrapped under MGMT_HYPERCALLS, otherwise they will become
+unreachable codes when MGMT_HYPERCALLS=n, and hence violating Misra rule 2.1.
+We move arch_hvm_save(), arch_hvm_check(), arch_hvm_load() and hvm_save_size()
+nearer to the left functions, to avoid scattered #ifdef-wrapping.
 
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
-v1 -> v2:
-- adapt to changes of "unify DOMCTL to MGMT_HYPERCALLS"
+v3 -> v4
+- new commit
 ---
- xen/arch/x86/Kconfig |  1 +
- xen/arch/x86/psr.c   | 18 ------------------
- 2 files changed, 1 insertion(+), 18 deletions(-)
+ xen/arch/x86/hvm/save.c | 154 ++++++++++++++++++++--------------------
+ 1 file changed, 78 insertions(+), 76 deletions(-)
 
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index c808c989fc..8368c6ecf0 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -191,6 +191,7 @@ config TBOOT
- config X86_PSR
- 	bool "Platform Shared Resource support" if EXPERT
- 	default INTEL
-+	depends on MGMT_HYPERCALLS
- 	help
- 	  Support of Platform Shared Resource technology, which is basis for
- 	  monitoring and control of resources like cache and memory bandwidth.
-diff --git a/xen/arch/x86/psr.c b/xen/arch/x86/psr.c
-index 80ce5804b4..4f2c2d0042 100644
---- a/xen/arch/x86/psr.c
-+++ b/xen/arch/x86/psr.c
-@@ -135,11 +135,9 @@ static const struct feat_props {
-      */
-     enum psr_type alt_type;
+diff --git a/xen/arch/x86/hvm/save.c b/xen/arch/x86/hvm/save.c
+index 8ab6405706..5e99dd5998 100644
+--- a/xen/arch/x86/hvm/save.c
++++ b/xen/arch/x86/hvm/save.c
+@@ -15,62 +15,6 @@
  
--#ifdef CONFIG_MGMT_HYPERCALLS
-     /* get_feat_info is used to return feature HW info through sysctl. */
-     bool (*get_feat_info)(const struct feat_node *feat,
-                           uint32_t data[], unsigned int array_len);
--#endif
+ #include <public/hvm/save.h>
  
-     /* write_msr is used to write out feature MSR register. */
-     void (*write_msr)(unsigned int cos, uint32_t val, enum psr_type type);
-@@ -422,7 +420,6 @@ static bool mba_init_feature(const struct cpuid_leaf *regs,
-     return true;
+-static void arch_hvm_save(struct domain *d, struct hvm_save_header *hdr)
+-{
+-    uint32_t eax, ebx, ecx, edx;
+-
+-    /* Save some CPUID bits */
+-    cpuid(1, &eax, &ebx, &ecx, &edx);
+-    hdr->cpuid = eax;
+-
+-    /* Save guest's preferred TSC. */
+-    hdr->gtsc_khz = d->arch.tsc_khz;
+-
+-    /* Time when saving started */
+-    d->arch.hvm.sync_tsc = rdtsc();
+-}
+-
+-static int arch_hvm_check(const struct domain *d,
+-                          const struct hvm_save_header *hdr)
+-{
+-    uint32_t eax, ebx, ecx, edx;
+-
+-    if ( hdr->magic != HVM_FILE_MAGIC )
+-    {
+-        printk(XENLOG_G_ERR "HVM%d restore: bad magic number %#"PRIx32"\n",
+-               d->domain_id, hdr->magic);
+-        return -EINVAL;
+-    }
+-
+-    if ( hdr->version != HVM_FILE_VERSION )
+-    {
+-        printk(XENLOG_G_ERR "HVM%d restore: unsupported version %u\n",
+-               d->domain_id, hdr->version);
+-        return -EINVAL;
+-    }
+-
+-    cpuid(1, &eax, &ebx, &ecx, &edx);
+-    /* CPUs ought to match but with feature-masking they might not */
+-    if ( (hdr->cpuid & ~0x0fUL) != (eax & ~0x0fUL) )
+-        printk(XENLOG_G_INFO "HVM%d restore: VM saved on one CPU "
+-               "(%#"PRIx32") and restored on another (%#"PRIx32").\n",
+-               d->domain_id, hdr->cpuid, eax);
+-
+-    return 0;
+-}
+-
+-static void arch_hvm_load(struct domain *d, const struct hvm_save_header *hdr)
+-{
+-    /* Restore guest's preferred TSC frequency. */
+-    if ( hdr->gtsc_khz )
+-        d->arch.tsc_khz = hdr->gtsc_khz;
+-    if ( d->arch.vtsc )
+-        hvm_set_rdtsc_exiting(d, 1);
+-
+-    /* Time when restore started  */
+-    d->arch.hvm.sync_tsc = rdtsc();
+-}
+-
+ /* List of handlers for various HVM save and restore types */
+ static struct {
+     hvm_save_handler save;
+@@ -101,26 +45,6 @@ void __init hvm_register_savevm(uint16_t typecode,
+     hvm_sr_handlers[typecode].kind = kind;
  }
  
--#ifdef CONFIG_MGMT_HYPERCALLS
- static bool cf_check cat_get_feat_info(
-     const struct feat_node *feat, uint32_t data[], unsigned int array_len)
+-size_t hvm_save_size(struct domain *d)
+-{
+-    struct vcpu *v;
+-    size_t sz;
+-    int i;
+-
+-    /* Basic overhead for header and footer */
+-    sz = (2 * sizeof (struct hvm_save_descriptor)) + HVM_SAVE_LENGTH(HEADER);
+-
+-    /* Plus space for each thing we will be saving */
+-    for ( i = 0; i <= HVM_SAVE_CODE_MAX; i++ )
+-        if ( hvm_sr_handlers[i].kind == HVMSR_PER_VCPU )
+-            for_each_vcpu(d, v)
+-                sz += hvm_sr_handlers[i].size;
+-        else
+-            sz += hvm_sr_handlers[i].size;
+-
+-    return sz;
+-}
+-
+ /*
+  * Extract a single instance of a save record, by marshalling all records of
+  * that type and copying out the one we need.
+@@ -196,6 +120,83 @@ int hvm_save_one(struct domain *d, unsigned int typecode, unsigned int instance,
+     return rv;
+ }
+ 
++#ifdef CONFIG_MGMT_HYPERCALLS
++static void arch_hvm_save(struct domain *d, struct hvm_save_header *hdr)
++{
++    uint32_t eax, ebx, ecx, edx;
++
++    /* Save some CPUID bits */
++    cpuid(1, &eax, &ebx, &ecx, &edx);
++    hdr->cpuid = eax;
++
++    /* Save guest's preferred TSC. */
++    hdr->gtsc_khz = d->arch.tsc_khz;
++
++    /* Time when saving started */
++    d->arch.hvm.sync_tsc = rdtsc();
++}
++
++static int arch_hvm_check(const struct domain *d,
++                          const struct hvm_save_header *hdr)
++{
++    uint32_t eax, ebx, ecx, edx;
++
++    if ( hdr->magic != HVM_FILE_MAGIC )
++    {
++        printk(XENLOG_G_ERR "HVM%d restore: bad magic number %#"PRIx32"\n",
++               d->domain_id, hdr->magic);
++        return -EINVAL;
++    }
++
++    if ( hdr->version != HVM_FILE_VERSION )
++    {
++        printk(XENLOG_G_ERR "HVM%d restore: unsupported version %u\n",
++               d->domain_id, hdr->version);
++        return -EINVAL;
++    }
++
++    cpuid(1, &eax, &ebx, &ecx, &edx);
++    /* CPUs ought to match but with feature-masking they might not */
++    if ( (hdr->cpuid & ~0x0fUL) != (eax & ~0x0fUL) )
++        printk(XENLOG_G_INFO "HVM%d restore: VM saved on one CPU "
++               "(%#"PRIx32") and restored on another (%#"PRIx32").\n",
++               d->domain_id, hdr->cpuid, eax);
++
++    return 0;
++}
++
++static void arch_hvm_load(struct domain *d, const struct hvm_save_header *hdr)
++{
++    /* Restore guest's preferred TSC frequency. */
++    if ( hdr->gtsc_khz )
++        d->arch.tsc_khz = hdr->gtsc_khz;
++    if ( d->arch.vtsc )
++        hvm_set_rdtsc_exiting(d, 1);
++
++    /* Time when restore started  */
++    d->arch.hvm.sync_tsc = rdtsc();
++}
++
++size_t hvm_save_size(struct domain *d)
++{
++    struct vcpu *v;
++    size_t sz;
++    unsigned int i;
++
++    /* Basic overhead for header and footer */
++    sz = (2 * sizeof (struct hvm_save_descriptor)) + HVM_SAVE_LENGTH(HEADER);
++
++    /* Plus space for each thing we will be saving */
++    for ( i = 0; i <= HVM_SAVE_CODE_MAX; i++ )
++        if ( hvm_sr_handlers[i].kind == HVMSR_PER_VCPU )
++            for_each_vcpu(d, v)
++                sz += hvm_sr_handlers[i].size;
++        else
++            sz += hvm_sr_handlers[i].size;
++
++    return sz;
++}
++
+ int hvm_save(struct domain *d, hvm_domain_context_t *h)
  {
-@@ -435,7 +432,6 @@ static bool cf_check cat_get_feat_info(
+     char *c;
+@@ -390,6 +391,7 @@ int hvm_load(struct domain *d, bool real, hvm_domain_context_t *h)
  
-     return true;
+     /* Not reached */
  }
--#endif /* CONFIG_MGMT_HYPERCALLS */
++#endif /* CONFIG_MGMT_HYPERCALLS */
  
- /* L3 CAT props */
- static void cf_check l3_cat_write_msr(
-@@ -448,14 +444,11 @@ static const struct feat_props l3_cat_props = {
-     .cos_num = 1,
-     .type[0] = PSR_TYPE_L3_CBM,
-     .alt_type = PSR_TYPE_UNKNOWN,
--#ifdef CONFIG_MGMT_HYPERCALLS
-     .get_feat_info = cat_get_feat_info,
--#endif
-     .write_msr = l3_cat_write_msr,
-     .sanitize = cat_check_cbm,
- };
- 
--#ifdef CONFIG_MGMT_HYPERCALLS
- /* L3 CDP props */
- static bool cf_check l3_cdp_get_feat_info(
-     const struct feat_node *feat, uint32_t data[], uint32_t array_len)
-@@ -467,7 +460,6 @@ static bool cf_check l3_cdp_get_feat_info(
- 
-     return true;
- }
--#endif /* CONFIG_MGMT_HYPERCALLS */
- 
- static void cf_check l3_cdp_write_msr(
-     unsigned int cos, uint32_t val, enum psr_type type)
-@@ -483,9 +475,7 @@ static const struct feat_props l3_cdp_props = {
-     .type[0] = PSR_TYPE_L3_DATA,
-     .type[1] = PSR_TYPE_L3_CODE,
-     .alt_type = PSR_TYPE_L3_CBM,
--#ifdef CONFIG_MGMT_HYPERCALLS
-     .get_feat_info = l3_cdp_get_feat_info,
--#endif
-     .write_msr = l3_cdp_write_msr,
-     .sanitize = cat_check_cbm,
- };
-@@ -501,14 +491,11 @@ static const struct feat_props l2_cat_props = {
-     .cos_num = 1,
-     .type[0] = PSR_TYPE_L2_CBM,
-     .alt_type = PSR_TYPE_UNKNOWN,
--#ifdef CONFIG_MGMT_HYPERCALLS
-     .get_feat_info = cat_get_feat_info,
--#endif
-     .write_msr = l2_cat_write_msr,
-     .sanitize = cat_check_cbm,
- };
- 
--#ifdef CONFIG_MGMT_HYPERCALLS
- /* MBA props */
- static bool cf_check mba_get_feat_info(
-     const struct feat_node *feat, uint32_t data[], unsigned int array_len)
-@@ -523,7 +510,6 @@ static bool cf_check mba_get_feat_info(
- 
-     return true;
- }
--#endif /* CONFIG_MGMT_HYPERCALLS */
- 
- static void cf_check mba_write_msr(
-     unsigned int cos, uint32_t val, enum psr_type type)
-@@ -561,9 +547,7 @@ static const struct feat_props mba_props = {
-     .cos_num = 1,
-     .type[0] = PSR_TYPE_MBA_THRTL,
-     .alt_type = PSR_TYPE_UNKNOWN,
--#ifdef CONFIG_MGMT_HYPERCALLS
-     .get_feat_info = mba_get_feat_info,
--#endif
-     .write_msr = mba_write_msr,
-     .sanitize = mba_sanitize_thrtl,
- };
-@@ -826,7 +810,6 @@ static struct psr_socket_info *get_socket_info(unsigned int socket)
-     return socket_info + socket;
- }
- 
--#ifdef CONFIG_MGMT_HYPERCALLS
- int psr_get_info(unsigned int socket, enum psr_type type,
-                  uint32_t data[], unsigned int array_len)
- {
-@@ -858,7 +841,6 @@ int psr_get_info(unsigned int socket, enum psr_type type,
- 
-     return -EINVAL;
- }
--#endif /* CONFIG_MGMT_HYPERCALLS */
- 
- int psr_get_val(struct domain *d, unsigned int socket,
-                 uint32_t *val, enum psr_type type)
+ int _hvm_init_entry(struct hvm_domain_context *h, uint16_t tc, uint16_t inst,
+                     uint32_t len)
 -- 
 2.34.1
 
