@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E12CC77CD9
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Nov 2025 09:11:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1168402.1494419 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F9EEC77E76
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Nov 2025 09:29:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1168415.1494429 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vMMES-00054d-AY; Fri, 21 Nov 2025 08:11:04 +0000
+	id 1vMMW1-0007fC-LS; Fri, 21 Nov 2025 08:29:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1168402.1494419; Fri, 21 Nov 2025 08:11:04 +0000
+Received: by outflank-mailman (output) from mailman id 1168415.1494429; Fri, 21 Nov 2025 08:29:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vMMES-00052Q-7u; Fri, 21 Nov 2025 08:11:04 +0000
-Received: by outflank-mailman (input) for mailman id 1168402;
- Fri, 21 Nov 2025 08:11:02 +0000
+	id 1vMMW1-0007ce-Ip; Fri, 21 Nov 2025 08:29:13 +0000
+Received: by outflank-mailman (input) for mailman id 1168415;
+ Fri, 21 Nov 2025 08:29:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rfdr=55=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1vMMEQ-00052K-98
- for xen-devel@lists.xenproject.org; Fri, 21 Nov 2025 08:11:02 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
+ <SRS0=QF7N=55=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1vMMW0-0007cY-25
+ for xen-devel@lists.xenproject.org; Fri, 21 Nov 2025 08:29:12 +0000
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c105::5])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d798709-c6b1-11f0-9d18-b5c5bf9af7f9;
- Fri, 21 Nov 2025 09:11:00 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-5957753e0efso1762161e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 21 Nov 2025 00:11:00 -0800 (PST)
+ id 2729e5d3-c6b4-11f0-9d18-b5c5bf9af7f9;
+ Fri, 21 Nov 2025 09:29:11 +0100 (CET)
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by CH0PR03MB6068.namprd03.prod.outlook.com (2603:10b6:610:bf::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.17; Fri, 21 Nov
+ 2025 08:29:08 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%5]) with mapi id 15.20.9343.011; Fri, 21 Nov 2025
+ 08:29:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,263 +47,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d798709-c6b1-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763712660; x=1764317460; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bDI502NeGSM3bNc6E0vlRG07doDTXfl1100MZKBUhW8=;
-        b=AVFBgn5tPQI7P3aao9wu75pPLu7eNqWv+JxiC/PZCGSgEdlCcSDyxllT4WYqLbnu6w
-         IuIRm4xX+OrqdBT9UktFZaCweZ+3Rkowyh//M5fl2YUWvjEyWkVCHZlqTV7ubIv9Kw9m
-         5sZ1CziTnWhkHZn0+qNXt8NizTOYFSmvy0Wc9soIcFW5TXuTs2+B8DtNszokpUsz46wB
-         8l3H5pxdhITw4tWaW2+kWdmR/FDh362/UDNxfGYaU46U3m8JWbLHXPXUECF/cR5+rsN7
-         juNw3/ZCjBsBtsAgYHN/FOepgN1C9tvAk2+gVkS80F5jUq+fmLcJzdFxd9papePN17g5
-         e+lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763712660; x=1764317460;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=bDI502NeGSM3bNc6E0vlRG07doDTXfl1100MZKBUhW8=;
-        b=ASdFyy4TCKqAUwQHPPSWH+TjnuhFKojlmWviXq40e5rbJp/kmx3Emo7wuOweexPFk+
-         z7NfKlTpoVwlLQS4StE11SDthnn2ShOKIR4ndmh2MAgN9eSUiEJRyobmoiYnhSodzrCz
-         f9kYW+0Ek0kX02M8upyc3hxeVVuxyYTCPVe31pdqUzKtL1wmQzaTJPAYTIn9vjZKNKat
-         B6/s0JjqF4V5zDvCJuxtqhCrqkVjMnNf5dXWNKOjI+X32UULCHx1OmLD4VyA0ueTg/j9
-         OplVB9yz9JbSTmptXMMkN625oHAUgU0Q2C8+Y0706qfB2Nug/J6pfBfH7+NIorIM+G0o
-         uONQ==
-X-Gm-Message-State: AOJu0YwwoQWEhE53WyawoErP2fynqWikGIScjQfcngT4mEFPb+Elgyrs
-	Rq/D0KN9qL7/w2JOmvv5566NNd43NAwCR6OwUkD9IwMzfWy0zFcYdI7vzLEBlt+9MbOUoteciv8
-	mmWf6wsYNnM/nXBjE2etvcasFF+C0lQBxhyf1vIk=
-X-Gm-Gg: ASbGncsIoKludSoPogV0/PXGp4cUAqCQNRqercySabpMPA09R42FvXmK5UkCV5GmF8D
-	T4YW9QZeaqZ6VRVQJf6RW35pHXs7SCXF/vE4MSfva8kbAmWnnKST445MXGO49XtRAvaY3es1ONZ
-	JBUhU5ONieVhDqRTgqwy0SiUae3kmKVnrOhsliH9+BZP2WhcHI9FgFYAWj8o4rqnDl+dXrOeSQu
-	0+rfVhOrAlZ5AYLw5FL7DHhViF7sYuAvDacrKYt3ivBBe3B1niSUqixCo5tTYfcRQwGkxw=
-X-Google-Smtp-Source: AGHT+IELUkdA+82lDS7w1J1rEZBqOXf2ibAQLzbicJclvPK3vWm0ltpzABiqyegRA4nCUMXEGhPOc25FnFnUq+apxdc=
-X-Received: by 2002:a05:6512:3ba2:b0:594:28f6:b065 with SMTP id
- 2adb3069b0e04-596a3ebe090mr560741e87.17.1763712659345; Fri, 21 Nov 2025
- 00:10:59 -0800 (PST)
+X-Inumbo-ID: 2729e5d3-c6b4-11f0-9d18-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w3aoGCuUw2QBkgZib9EGPV6JhwoUWpn+Xu9qkoaH90pu3+4CRVq2pahK++Rgebe11BgCd/u0Tpd+pOueJH4BQWMrzsleDqGwg0/EYeTtpu1Z970t6UfUERR54ZUhWVyEKu3OZC/PrtN7IAd5ByHKukFF66t+x08XGizH1TVmRz7cv6/1gOvWWSLtdVzU1ZmkGRYYpFXT5ITF7wtIiiaTXk9U1GB0mE2OUFvUjBjQZ7mOi0T4xCKvsCwsxpzMAcV7AY/fQnnWK37OHiEMywaq2Ym8QHNbJ/4cNKbEIM3x3qaFUPRxTo+2O7zuezrxbw9BLR2wf246lxk/RLGt6LqI5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=m3+FLy3ZaFZ+1WFf3VTb4XnajdGp2/5/++y2cxypV9Q=;
+ b=N52VDWI9lLgaGB5kBvtpSz14nJBBZ28owM9Pyf8K5RYAI5inK0x3zbbI6LJfVeHL6NlkCl+LYZ8oGsxN1VSOQifUx+avLUB0B6uhHMuf7TlqNy9HecXSyc7LW3m8rSr7KYP6Ro9mRGexLu3PzkZVwQLSm8wurBWMPdBVpz7mL7dl3h5izZICjbzc+Vi+y6O6l5rIzp5MnFQcn1vvWGnqTPNKyA9AW1XkIsOQrkrEdIhcMuA4XHfy6T4aygUqypZD2UuNb1jdsLRcMbfqN9cVi2zXm8bURqCkaKsow6fK+gNZNdnTue1HZoPZnOuF3e/dyXxcrI9odD66t6glxVKkpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=m3+FLy3ZaFZ+1WFf3VTb4XnajdGp2/5/++y2cxypV9Q=;
+ b=THgLxGhMzMTIDkIYN6qeOhWU/1Ekih7NxwEFliOragjDRJY3Lyd6rLtHRdCOVsgjdp4wMbO/aQJtWKvk93K5IzbwZl1LuMrpogeSQBYm9z0IdPgf8OR9av11ZCM4XF6OUuzshEqkZxNKKArO36FEMwzoY9fGHX8fLiSz3pLVN1w=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Fri, 21 Nov 2025 09:29:04 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 04/12] x86/irq: set accurate cpu_mask for high priority
+ vectors used by external interrupts
+Message-ID: <aSAi0IyDBKhqND3W@Mac.lan>
+References: <20251120090637.25087-1-roger.pau@citrix.com>
+ <20251120090637.25087-5-roger.pau@citrix.com>
+ <3491d3ee-08b8-4678-9f18-5a4daa972e02@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3491d3ee-08b8-4678-9f18-5a4daa972e02@suse.com>
+X-ClientProxiedBy: PAZP264CA0011.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:21::16) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
 MIME-Version: 1.0
-References: <cover.1756763487.git.mykola_kvach@epam.com> <781c8e1b3a4d9b269bfde125072a84baae3f9bb3.1756763487.git.mykola_kvach@epam.com>
- <0ac3217d-f3d6-4bac-ac27-0afa6775f03c@xen.org>
-In-Reply-To: <0ac3217d-f3d6-4bac-ac27-0afa6775f03c@xen.org>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Fri, 21 Nov 2025 10:10:47 +0200
-X-Gm-Features: AWmQ_bmQ3WWy1p0oFaseFppTULGrykdIclkP_r4_oYM0IXe8jFpNBZSlpXcMUmc
-Message-ID: <CAGeoDV_ATk0kEpSZ6xhvncn8+19QqsQx4TMu_WQg2j5j7=Hhyg@mail.gmail.com>
-Subject: Re: [PATCH v6 01/13] xen/arm: Add suspend and resume timer helpers
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, 
-	Mirela Simonovic <mirela.simonovic@aggios.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Saeed Nowshadi <saeed.nowshadi@xilinx.com>, 
-	Mykola Kvach <mykola_kvach@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CH0PR03MB6068:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb387e35-1dcc-4d15-5de4-08de28d80a25
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?UmVDUnVJekJGL2N6eWdTd2ZiWExjS0FLUzc1bGFkeEJYMFozWHJZT1cwUzNN?=
+ =?utf-8?B?RU94bW02YjFOVG91L1p0SzBVL3pxSlNKMXRVZk1XZHkzcURqL0JXSUE3YjE2?=
+ =?utf-8?B?Rk9JbUpBTGNjdllWU2JMTGsrbWZzSnJVRTlRc29RMEJ2SU1SWXo4MmF0WTNX?=
+ =?utf-8?B?alJjNkg1Y3lINE9NN25CQ3I2T2lSNFFlUWh3a254V1Boc0tVZWF4bkthV1VV?=
+ =?utf-8?B?OGpQWDBCeDRuY1Q4dFRVWTJoWWoxR2dhSnAySUxKblVEdk5xbXpCdGMxM0dG?=
+ =?utf-8?B?ZmhheGZxY1N6cjNETksrbUwrV2o3OG5xUjdxSTEwTWNBYmFNN0RTSnYvekdG?=
+ =?utf-8?B?dnU2OGxvTkJpc2d0dTU2ZDNFSkg2b2ZkV2ZzUjNnY1JiWEVtMm1HYXl0NnJH?=
+ =?utf-8?B?NFV4YjVqKzhmbGs3YXdqTU50aE85V0ZpbXppNHhhYUFvYitaSy81aFN1TUpG?=
+ =?utf-8?B?NktTNXRFWVE5MlBWNSt5UGFHQkdxTnlpTDFOeWswTUgxcitjWmRqWUkwTk1n?=
+ =?utf-8?B?ZTU3eERpOUl1VURDUXZwTWVXMmNpbDVROUdocldZVXlZTFlWbEh6cUVjUWNy?=
+ =?utf-8?B?Y0tyMHFSSm9XNFRtem1pRTRkN1VtYXR4dDltWTZyMUdqSThLM2pVZTQwSzFP?=
+ =?utf-8?B?SFhVM0Y5NmcvRTNTakFnL0s0ZitDVDN5YW01UkFrdU1MS1JkL2RhcC9FN08w?=
+ =?utf-8?B?cUNNQnUrQWl3VU1NWjdFSTdPYmluWGpTRWNlS3ZieGhneVZuMzJJTmk0QXIv?=
+ =?utf-8?B?NFZhUGk0U0RROUVsSUY4ZGpyYmFueXV0eDV2TjI5VDZaN1dqelFTb0M0YXJ0?=
+ =?utf-8?B?QUZKdmZsZjRKaVRjWG9rd2lScjVUZ29vZVFVcG1XT1RrdnVoeDBKejRacjlw?=
+ =?utf-8?B?VUlTKzRWdjRsSlliYjlIek9kT0FVYmhNN1Jaa0ljSjdVdTlrdnhmU2JOTmFq?=
+ =?utf-8?B?OWhoZTA5VysrOXU3VkJVSHhtcENCWmUyNjA5SDFTTmU0WkpzaldUZXcxeTZC?=
+ =?utf-8?B?Y1ZjSXpEQ1MzQzFCVkJPU2RVdmVqVGk2RCs3VHhhdXIzaFBvVDBETkpLT0NN?=
+ =?utf-8?B?UzYzYzhiQmQzSjA1SnpkT3hka1lIL1dldkJ2RUo5Z1A2Um56YUN4QlFheHNH?=
+ =?utf-8?B?SEp3TEhnWmZiMy9RajFUUkE3Wnl4RFdDZ0ltY2w2SFVMZzROUnVySlk3bis5?=
+ =?utf-8?B?RC9OdlZSNGs3Z2JnNjZLVmpQT0hKTjJHSW0wSjRZMTVRVzlISUphdVJheWVu?=
+ =?utf-8?B?N3BVN0VHdjlMT3JNRkJhUitpeUU2Si9ySm9rUlRiSm1ZNm9vVHMyS0ZmQ1FX?=
+ =?utf-8?B?bVI0MUFnQWp5dVdDQjhTTEpkb3VDTVZlbDJhM0RpWktZZXpSSkEzNzFxcjBW?=
+ =?utf-8?B?M3Jsa1hHT2dObWtEeHJGL3ZMcFNxK1htaDNSS09oRTE0QVUwWDFOczkzUFVL?=
+ =?utf-8?B?c1BSZUVhNUZKRnZMQXRXanpCRXl1V2hNM00yUHNwUlgrSFEveVlYT0tYMXhU?=
+ =?utf-8?B?d1Fmd1FMS1hoWENDL0ZQTlFiMlhlNDFjSVRkYjJpNXNuK3d0ZXJPQytmMHhs?=
+ =?utf-8?B?cVFYUVZlTjRXMmNBU25aelJkRW1HRGU4SVdXMHVIdG9uZlNTTy9UdlJ6cllj?=
+ =?utf-8?B?SWlucXBQZ0kreHR4YkJTZ01ZK0xNN3JVWlQrRjRDbnhGTVM4NjRxK0xrdDF2?=
+ =?utf-8?B?MXZzaXkwbERCMnVhOUlYdkd3cjhUWW9ZOWc4eWhpN3g1RGZQNHJjYVBkYWFG?=
+ =?utf-8?B?T25sQlBrckpqa1R2RXp4bW5DcXhmS09NUHI4dGlhcWFNZENCUkRHTmZibDJH?=
+ =?utf-8?B?bXFqQlEyRCtvZENqK0VFYWZ4WlVSQ2cvZXg0bGwrSTdvOG1qTVI1T3RDTGw0?=
+ =?utf-8?B?RmJRWU5SVzVqWHN2Zkl6c0ZoM09pL1d4K2ZUblBreGRNQlhnbVUrMHVuaXQx?=
+ =?utf-8?Q?IewRBDu7fePR+nMWVfJfkIA5+zVxSMv2?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VXhncDdXVzFQSzFSZmZqdGxxMDhFbk8rcHo2Zko1QW42eCtvMWJLNENsOVBR?=
+ =?utf-8?B?cWtLbEQyZ3BQM3BBdExMTktZZUFBRVIyTVR2Rytkcll5aG1QNngyZjZsQkYw?=
+ =?utf-8?B?OXc4enRlaTZOUDhhOU5OY0o3eVlqUzd1NEYzMVdPeEZ4WHliSGFDMHpKNlZT?=
+ =?utf-8?B?OU9LVkt4dlNHREtpZVVwL1Nwcjh4U0xLZE12anliUmM5VUZ4aDdGMlFIMjE2?=
+ =?utf-8?B?TEFRdHArSThhQmtodVVxQlhyYkFYdnBKOGVYZXpMZ0xWd3plMndSazB5cG1I?=
+ =?utf-8?B?M0VBRU9iUFUvWHJkcXVVdnVSMWxLaTNwaXlIYjc0TmtNZk9rRDVaU25hU2xM?=
+ =?utf-8?B?dGRQWVU1Ukd6Z2EvL2ZNbXVNSGtGOG1IVjVoOEhnSEtVc1REMzVscHM3aThR?=
+ =?utf-8?B?Z01XOTdwWW1vTjRlYkZyb3MxSUphRVRzdkZBdkQ2TE96Uk11YU9hTktRaTFL?=
+ =?utf-8?B?UU9xRHIrTG9hWFg5TDYyclFTTHY4S1p4VzV1cExaYllPaXpWWHlHMzVWbzJi?=
+ =?utf-8?B?aVNtbTl0SGx3MFVwYTFLVm1QbTFvcFJtUFRacGlOU3BUNlRmc2xxams1TXhs?=
+ =?utf-8?B?V2NVQnBRdlFsSmdNK1ZlWWNrQ1craW4rWXlDc1d5NUw0OWFSNDNFY1hyUlpX?=
+ =?utf-8?B?TVZicTZIaVJHWnlrUDM4bmxpcXc1aDVFMzZWbC81TURWNXgrSlpSNEJqbE03?=
+ =?utf-8?B?Qmk4T0lVQ1AyRFkySk00MGhiZDRqL2xIUHhGZ05ucUtpZ0JZbXBEUEJlNCt0?=
+ =?utf-8?B?cmZ3RHJDa1QwUU1BbVM4ZFRBUlQ5OFNuZzY5a0hkMFNTVldBaHhGWjM1Qk5y?=
+ =?utf-8?B?OXdZTHN3bGdPUU9kWHpxSFZwSDRoeTFZQWZ4enhxRnpPTmgwdTVONjlFVkRJ?=
+ =?utf-8?B?dkVMQk5kWTJvamg3Ty92eUE5OU44NE1oL0ExTjZvK3JBRWhQZUdLY00yK3pw?=
+ =?utf-8?B?VXJ2VkFRL1kvWHVFbXNmZzFZYVNJSmFkMzdiTERsMVozckptME42cXhPRlhq?=
+ =?utf-8?B?SUptNlhCd3d3Q2NMM3dvUGFYaFV3R1J0M1BPbGxSRENxYlJYZHdCU01wK3Zu?=
+ =?utf-8?B?STltd3l6TDlFOXZyQlpka1QxN29xdHVqdlc5akVWVzIxbllBRkJHTnUvb0pz?=
+ =?utf-8?B?SGIwY2dhUHBNanNZdlQwWk5CVk5IZzBvQmJwWjB5WU1xRmFQOWhLUm1oVk5a?=
+ =?utf-8?B?RjRiUmc0VVBWcEZBcnY0NEdUYXlqVHlkaTU4RW8xU2trZXd0aFdwSWtRREc0?=
+ =?utf-8?B?bVZ1eGt2QUFscDJXTHN0ZC96VEtJN2tkZDljVDBWRmVLR0F6eEREMTJ2K240?=
+ =?utf-8?B?aENPWmZ1R3pOZ1hpalRlWDhROTZlVE9wZWxvREphL3VGQlRlaGJiQUI0amxt?=
+ =?utf-8?B?QUdpQ3ZRVG9zZHMxSnAyYXVGY0s5NGdBRVBPMTFCZ1lQejlpSFFzU2xEditX?=
+ =?utf-8?B?M1FPQnB1Nk1WZFU3bzhpZlFpTE1jNHcyb3p6U1o3eEdTTkFmOWwxeTM0QVQ1?=
+ =?utf-8?B?Yjg5TSs1dU1ScU14THJKOU5qSnNJVHdpbWdkcVFHRFdvU2NnT1p5N1BsQkp1?=
+ =?utf-8?B?Q0gzOVh6WXRseVp5c2l1Y0R0TlVYa3VBdGhyaTd2QU8xSHcza2xsVE1uUTVw?=
+ =?utf-8?B?YXBKMEpKL3pDWjlpaXQ1UlJnNllhbkdJaHRLejRpODlmbGFjVWVoZUZYZEV5?=
+ =?utf-8?B?dVh3MDdhSzI4V2RxWkp5Zk5vdThHOTdMUlQzYmdINlNDeHFXaFV3RXJhdHJL?=
+ =?utf-8?B?NGErWnVsTkRjdTRIald3YVFzeGFlQ1pWSi9mTWNIM2htZkZGdE5IdFcxUEx2?=
+ =?utf-8?B?c3QrSDRhVnhqQlRpcDQwek5TaVY1a1pyTGhJMzdwNWMrMjNGbjNmb1BLbVNM?=
+ =?utf-8?B?dGZqSUxIbk84WlpiWXBUODh0UnBMVWFYUDB2a1d0NHlpa2JJMGs2Ui90ajVK?=
+ =?utf-8?B?M21TODZXU2lSSVFVMkhGLzdRVzFwekJieGV5ZStITGtVc2Y2Mjc3ZlBaRE83?=
+ =?utf-8?B?cFl0Y3E4Zkc1ZmRSblNkQTMwR2VSTlhXc2hZK2N0Qk9EMWxXL1ZKK243R0FK?=
+ =?utf-8?B?TWgwWDdXTmdzeE1Bc0tJbksyRjlZd3BHMVM2VWhWbHNSNWx2WXpMQ3JyRFA2?=
+ =?utf-8?Q?fHQNkDtK9BlvLeQkwSPf6Sv4V?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb387e35-1dcc-4d15-5de4-08de28d80a25
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2025 08:29:08.3609
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qTX6Va5w+cxipvK4CA8n6W2KosRVanGdmSeaz4LsrQ8+qAPoW8LPIREpbyD3SIm0v/MH/zkvf2AKvZnCoJwcbQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR03MB6068
 
-Hi Julien,
+On Thu, Nov 20, 2025 at 02:06:39PM +0100, Jan Beulich wrote:
+> On 20.11.2025 10:06, Roger Pau Monne wrote:
+> > Setting the irq descriptor target CPU mask of high priority interrupts to
+> > contain all online CPUs is not accurate.  External interrupts are
+> > exclusively delivered using physical destination mode, and hence can only
+> > target a single CPU.  Setting the descriptor CPU mask to contain all online
+> > CPUs makes it impossible for Xen to figure out which CPU the interrupt is
+> > really targeting.
+> > 
+> > Instead handle high priority vectors used by external interrupts similarly
+> > to normal vectors, keeping the target CPU mask accurate.  Introduce
+> > specific code in _assign_irq_vector() to deal with moving high priority
+> > vectors across CPUs, this is needed at least for fixup_irqs() to be able to
+> > evacuate those if the target CPU goes offline.
+> > 
+> > Fixes: fc0c3fa2ad5c ("x86/IO-APIC: fix setup of Xen internally used IRQs (take 2)")
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> with one further request:
+> 
+> > @@ -756,12 +770,10 @@ void setup_vector_irq(unsigned int cpu)
+> >          if ( !irq_desc_initialized(desc) )
+> >              continue;
+> >          vector = irq_to_vector(irq);
+> > -        if ( vector >= FIRST_HIPRIORITY_VECTOR &&
+> > -             vector <= LAST_HIPRIORITY_VECTOR )
+> > -            cpumask_set_cpu(cpu, desc->arch.cpu_mask);
+> > -        else if ( !cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
+> > -            continue;
+> > -        per_cpu(vector_irq, cpu)[vector] = irq;
+> > +        if ( (vector >= FIRST_HIPRIORITY_VECTOR &&
+> > +              vector <= LAST_HIPRIORITY_VECTOR) ||
+> > +             cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
+> > +            per_cpu(vector_irq, cpu)[vector] = irq;
+> 
+> Going beyond desc->arch.cpu_mask for hiprio vectors may deserve a comment here. When
+> the vector is global, this is necessary. But for e.g. the serial IRQ (which still
+> moves, but isn't bound to multiple CPUs, the more normal way of respecting
+> desc->arch.cpu_mask would be sufficient.
 
-Thanks for your review and for the time spent on this series.
+Note that hiprio vectors are handled specially in _assign_irq_vector()
+and the logic to set per_cpu(vector_irq, cpu)[vector] is
+short-circuited assuming that hiprio vectors are already setup on all
+CPUs.
 
-On Sat, Sep 13, 2025 at 2:04=E2=80=AFAM Julien Grall <julien@xen.org> wrote=
-:
->
-> Hi Mykola,
->
-> On 01/09/2025 23:10, Mykola Kvach wrote:
-> > From: Mirela Simonovic <mirela.simonovic@aggios.com>
-> >
-> > Timer interrupts must be disabled while the system is suspended to prev=
-ent
-> > spurious wake-ups.
->
-> Yet, you don't seem to disable the virtual interrupt. Can you explain why=
-?
+> It is merely (largely) benign if we set
+> vector_irq[] also for other CPUs. "Largely" because strictly speaking if that vector
+> triggered on the wrong CPU for whatever reason, we rather shouldn't treat it as a
+> legitimate interrupt.
 
-Thanks for the question =E2=80=94 looks like I missed calling this out.
+I see, yes, we could handle hiprio vectors more like normal ones and
+do a bit more work in _assign_irq_vector() to also set the
+vector_irq[] array at bind time, but then we would need the cleanup
+logic as the interrupt migrates, which is a bit of overhead when we
+know the vector won't be re-used for anything else.
 
-The virtual timer is already disabled on vCPU context switch. During the
-suspend flow, ctxt_switch_from() calls virt_timer_save(), which clears
-CNTV_CTL_EL0.ENABLE and preserves the timer state in
-vcpu->arch.virt_timer. Therefore there is no live virtual timer interrupt
-source by the time time_suspend() executes.
+What about I add the following comment:
 
-Also, the context switch happens before the suspend tasklet is invoked,
-and time_suspend() is called from that tasklet.
+        if ( cpumask_test_cpu(cpu, desc->arch.cpu_mask) ||
+             /*
+              * High-priority vectors are reserved on all CPUs.  Set
+              * the vector to IRQ assignment on all CPUs, even if the
+              * interrupt is not targeting this CPU.  That makes
+              * shuffling those interrupts around CPUs easier.
+              */
+             (vector >= FIRST_HIPRIORITY_VECTOR &&
+              vector <= LAST_HIPRIORITY_VECTOR) )
+            per_cpu(vector_irq, cpu)[vector] = irq;
 
->
-> > Suspending the timers involves disabling both the EL1
-> > physical timer and the EL2 hypervisor timer.
-> I know this is what Arm is naming the timers. But I would rather s/EL1//
-> and s/EL2// because the physical timer is also accessible from EL0.
-
-Thanks, makes sense. I'll drop the EL1/EL2 wording and refer to them as
-physical timer and hypervisor timer.
-
->
-> Note that Xen doesn't use or expose the physical timer. So it should
-> always be disabled at the point "time_suspend()" is called. I am still
-> ok to disable it just in case though.
-
-Right, Xen doesn't rely on CNTP, so it should already be disabled by
-the time we reach time_suspend().
-
->
-> > Resuming consists of raising
-> > the TIMER_SOFTIRQ, which prompts the generic timer code to reprogram th=
-e
-> > EL2 timer as needed. Re-enabling of the EL1 timer is left to the entity
-> > that uses it.
-> >
-> > Introduce a new helper, disable_physical_timers, to encapsulate disabli=
-ng
-> > of the physical timers.
-> >
-> > Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
-> > Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
-> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> > ---
-> > Changes in V4:
-> >    - Rephrased comment and commit message for better clarity
-> >    - Created separate function for disabling physical timers
-> >
-> > Changes in V3:
-> >    - time_suspend and time_resume are now conditionally compiled
-> >      under CONFIG_SYSTEM_SUSPEND
-> > ---
-> >   xen/arch/arm/include/asm/time.h |  5 +++++
-> >   xen/arch/arm/time.c             | 38 +++++++++++++++++++++++++++-----=
--
-> >   2 files changed, 37 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/xen/arch/arm/include/asm/time.h b/xen/arch/arm/include/asm=
-/time.h
-> > index 49ad8c1a6d..f4fd0c6af5 100644
-> > --- a/xen/arch/arm/include/asm/time.h
-> > +++ b/xen/arch/arm/include/asm/time.h
-> > @@ -108,6 +108,11 @@ void preinit_xen_time(void);
-> >
-> >   void force_update_vcpu_system_time(struct vcpu *v);
-> >
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +void time_suspend(void);
-> > +void time_resume(void);
-> > +#endif /* CONFIG_SYSTEM_SUSPEND */
-> > +
-> >   #endif /* __ARM_TIME_H__ */
-> >   /*
-> >    * Local variables:
-> > diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-> > index e74d30d258..ad984fdfdd 100644
-> > --- a/xen/arch/arm/time.c
-> > +++ b/xen/arch/arm/time.c
-> > @@ -303,6 +303,14 @@ static void check_timer_irq_cfg(unsigned int irq, =
-const char *which)
-> >              "WARNING: %s-timer IRQ%u is not level triggered.\n", which=
-, irq);
-> >   }
-> >
-> > +/* Disable physical timers for EL1 and EL2 on the current CPU */
->
-> The name of the times are "physical timer" and "hypervisor timer".
-
-Ack
-
->
-> > +static inline void disable_physical_timers(void)
->
-> "Physical is a bit misleading" in this context. All the 3 timers
-> (virtual, physical, hypervisor) are physical timers. My preference would
-> be to name this function disable_timers() (assuming you also need to
-> disable the virtual timer).
-
-As explained above, CNTV is already disabled before suspend, so the helper
-only targets CNTP/CNTHP. Renamed it to disable_phys_hyp_timers() accordingl=
-y.
-
->
-> > +{
-> > +    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Physical timer disabled */
-> > +    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled *=
-/
-> > +    isb();
-> > +}
-> > +
-> >   /* Set up the timer interrupt on this CPU */
-> >   void init_timer_interrupt(void)
-> >   {
-> > @@ -310,9 +318,7 @@ void init_timer_interrupt(void)
-> >       WRITE_SYSREG64(0, CNTVOFF_EL2);     /* No VM-specific offset */
-> >       /* Do not let the VMs program the physical timer, only read the p=
-hysical counter */
-> >       WRITE_SYSREG(CNTHCTL_EL2_EL1PCTEN, CNTHCTL_EL2);
-> > -    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Physical timer disabled */
-> > -    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled *=
-/
-> > -    isb();
-> > +    disable_physical_timers();
-> >
-> >       request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
-> >                   "hyptimer", NULL);
-> > @@ -330,9 +336,7 @@ void init_timer_interrupt(void)
-> >    */
-> >   static void deinit_timer_interrupt(void)
-> >   {
-> > -    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Disable physical timer */
-> > -    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Disable hypervisor's timer */
-> > -    isb();
-> > +    disable_physical_timers();
-> >
-> >       release_irq(timer_irq[TIMER_HYP_PPI], NULL);
-> >       release_irq(timer_irq[TIMER_VIRT_PPI], NULL);
-> > @@ -372,6 +376,28 @@ void domain_set_time_offset(struct domain *d, int6=
-4_t time_offset_seconds)
-> >       /* XXX update guest visible wallclock time */
-> >   }
-> >
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +
-> > +void time_suspend(void)
-> > +{
-> > +    disable_physical_timers();
-> > +}
-> > +
-> > +void time_resume(void)
-> > +{
-> > +    /*
-> > +     * Raising the timer softirq triggers generic code to call reprogr=
-am_timer
-> > +     * with the correct timeout (not known here).
-> > +     *
-> > +     * No further action is needed to restore timekeeping after power =
-down,
-> > +     * since the system counter is unaffected. See ARM DDI 0487 L.a, D=
-12.1.2
-> > +     * "The system counter must be implemented in an always-on power d=
-omain."
-> > +     */
-> > +    raise_softirq(TIMER_SOFTIRQ);
->
-> I think we should add a comment about the physical timer.
-
-I'll add a comment in time_resume() clarifying that the physical timer rema=
-ins
-disabled in Xen, while the virtual timer is restored per-vCPU on
-context restore.
-
->
-> > +}
-> > +
-> > +#endif /* CONFIG_SYSTEM_SUSPEND */
-> > +
-> >   static int cpu_time_callback(struct notifier_block *nfb,
-> >                                unsigned long action,
-> >                                void *hcpu)Cheers,
->
-> --
-> Julien Grall
->
-
-Best regards,
-Mykola
+Thanks, Roger.
 
