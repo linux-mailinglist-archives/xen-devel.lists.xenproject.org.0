@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E12A4C78CAE
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Nov 2025 12:28:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1168941.1494810 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA428C78E04
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Nov 2025 12:43:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1168953.1494819 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vMPJY-0003xJ-Ns; Fri, 21 Nov 2025 11:28:32 +0000
+	id 1vMPXR-0000XQ-Rk; Fri, 21 Nov 2025 11:42:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1168941.1494810; Fri, 21 Nov 2025 11:28:32 +0000
+Received: by outflank-mailman (output) from mailman id 1168953.1494819; Fri, 21 Nov 2025 11:42:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vMPJY-0003up-KH; Fri, 21 Nov 2025 11:28:32 +0000
-Received: by outflank-mailman (input) for mailman id 1168941;
- Fri, 21 Nov 2025 11:28:32 +0000
+	id 1vMPXR-0000Vb-P9; Fri, 21 Nov 2025 11:42:53 +0000
+Received: by outflank-mailman (input) for mailman id 1168953;
+ Fri, 21 Nov 2025 11:42:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8OZ7=55=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vMPJY-0003uj-0r
- for xen-devel@lists.xenproject.org; Fri, 21 Nov 2025 11:28:32 +0000
+ id 1vMPXQ-0000UA-K7
+ for xen-devel@lists.xenproject.org; Fri, 21 Nov 2025 11:42:52 +0000
 Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
  [2a00:1450:4864:20::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 32436bac-c6cd-11f0-980a-7dc792cee155;
- Fri, 21 Nov 2025 12:28:26 +0100 (CET)
+ id 354eebb8-c6cf-11f0-980a-7dc792cee155;
+ Fri, 21 Nov 2025 12:42:50 +0100 (CET)
 Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b7277324204so323720666b.0
- for <xen-devel@lists.xenproject.org>; Fri, 21 Nov 2025 03:28:26 -0800 (PST)
+ a640c23a62f3a-b7291af7190so281401366b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Nov 2025 03:42:50 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b7654cdd5bfsm446433566b.9.2025.11.21.03.28.24
+ a640c23a62f3a-b76550191c8sm426985766b.54.2025.11.21.03.42.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Nov 2025 03:28:25 -0800 (PST)
+ Fri, 21 Nov 2025 03:42:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32436bac-c6cd-11f0-980a-7dc792cee155
+X-Inumbo-ID: 354eebb8-c6cf-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763724506; x=1764329306; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763725370; x=1764330170; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Yv0Zi5VDAkxyY9bqOBHFYBj7GdsVi+U+4pjwljfGEWU=;
-        b=WtWkjCA6XcRyxfeuF+WR/xw/t5sOG6Cqipx6i/E2VZzm6jJcza4dIkWTuOkBFGWNCL
-         SyjI80c2dsxRnWEOAxdiIpCnf14h3j4bbaToYCsWnBfg7+GCu3MR/CTCNYM4tgKWQxiR
-         ru+L2NIF+XBwuCrtcpbemP/JECTxPyfl9qyW7tw/I9iRqaKV5kKAO8ULXORKbbjd9tPY
-         FOeAzjwuXonk6R68DZHuxsmkABabalaFFErcq9OSR6rbDfyGGd7y6eHRsNM39kH/aaFb
-         eORAtgBRmLlFOAwZamUKV7r4r66Sqj4na0+ry8DJQa3LeJR9D8L+pLlDBtwx9rnS8V10
-         WB/A==
+        bh=KdXXoWseEDig4ZDDHv3JHnlRXdfmc7Rr3lXYqSG+944=;
+        b=Kotfp8BQDdoJPieNd7jz/oTqx4UKcLrbi4nbdzMRXQ/G5pb3nkB5VEKtxi7LI8uFyQ
+         gAZZiEyjr1NmtSVwBdit/HzWUxkZk4AC0Fa8epIR//ZCCP00f3Eo1OTCAotYFjVCPaP7
+         ejdudY8wAQ7jVQU/erm5krD83Bahby1jxZRCfZ7a3nYao0GrG00B3LknJjgo5bAwer9l
+         o7YRCZ1QOZo1UK1DwPefcOE7FjnZ9K5+mtIxog+sCrcq7o3JRSQU75wTfI4s4Dj2R3Ui
+         8Si5t/s6Vx9zMpFN+fEZFalbu6LQGmlxKo2I94UOorGdX1OKMVith1dl1ptpxXc78F3Z
+         zCFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763724506; x=1764329306;
+        d=1e100.net; s=20230601; t=1763725370; x=1764330170;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Yv0Zi5VDAkxyY9bqOBHFYBj7GdsVi+U+4pjwljfGEWU=;
-        b=v9PFNUnWMpeeOE+EnvjJlVmRoomXyArrjlmcx29wl+TxHOPBjr/45n48wYKypZidi7
-         J3hrH2xhVtbw23dF5eRy/uVBS8STo/ESTUsXTMQ12Fc2Yc9c5d0r+Pg06XDnibQ+ntRH
-         84GeKBEoqEexrSgLkH7+8rqfS4C4XffRLHVVRChH6yGgL0MqXDzQBHcDCFNY8ogzkZ7Z
-         z+3teSZKX1pg5kooMoncOtJgLoEN3J8t0mSDUmQgMDyfMKkAQYhAvepgg7ZmVZwrP2gS
-         QI1DOuHIAVDxJrcfa4gpZx+NRRnrfTt5P4dulcsmUVJWycpgcJOLp3R00LB4hZe6tfDp
-         6Qtg==
-X-Forwarded-Encrypted: i=1; AJvYcCXSzwkVYTB9Blf15NCEFMh0Pb/V/lXluIpx/p+2oBf8szDiSg5OiJE5VfHkqrp0ktE7JhonBqGbWGc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzrUiU7dd1FMqVsSVVfhFpf8D3bcU1CBmnPaEklfTgIvCE2Rwb0
-	3ifMNOE06iJOxPdfi4v+PyG7BzXJQu82zsVG+GAjNLpqaa6G9J7Ln+aLQXDJ6iIHjQ==
-X-Gm-Gg: ASbGncsEYytRD+nKRaHk37EbPkkd8oDRppu5g6AMNYV1NfiHsJmhcccyPywpoNZGZ+5
-	H0OkEzEXcp1U0aBAq8psyUGPBJ7yluiheer/0hEOm9AWFC66gy1D+2H7s3AAuvp0ZBl4G+eXBGv
-	FKD74ywuFRekH3MFFxE8lq26R3v5s4BAwzeB0cDDXodCF+CccWoHOGWqxbIQkGC2RPHN8uvffDt
-	eSKw1jKcehvRxOPl1nuMCrTSd8/m+cOl9pvT8PgZMb49ARh2mnBG8GaLxyBk/aO/KITmyZHzacw
-	3ItJdoY90dmUgkVo6I90NThK9F7k8RjNbOuKsEnuzeXr8qN/pykfqZoUBLSmY78vxPMcMGnv1V5
-	PQwMaAwlnLr+ro3du8CjHDgIOToeMy8aRvKApynzoktlsPSwmIHgWhdvoIEckXfX8T5ubFx2MuH
-	JlNGyTbrzzqqNglJZbuPJXblhsrANNY4iYf5uztNmO1XqwiuNv2cnlp906lLq3SOquSean/WM5b
-	x8=
-X-Google-Smtp-Source: AGHT+IHQpQ8fvv02sw8njUq/w+Gu1igspsL9LtkVxefgDnhUfgttTtgPvw0qBtXKuHPfsjapeURYAA==
-X-Received: by 2002:a17:907:d28:b0:b73:5131:c45b with SMTP id a640c23a62f3a-b767156938dmr216381166b.22.1763724505708;
-        Fri, 21 Nov 2025 03:28:25 -0800 (PST)
-Message-ID: <05c8001a-d581-46e9-b261-a1ffbb03fd4e@suse.com>
-Date: Fri, 21 Nov 2025 12:28:24 +0100
+        bh=KdXXoWseEDig4ZDDHv3JHnlRXdfmc7Rr3lXYqSG+944=;
+        b=ojAP30gg/cbM90cG9Hm7MY33wFp1TKxK19B1OS+nv8lkA+09i84b1RP3eh0FMwqwQD
+         mgLrloG93q5NJEu4urqXPdV1q+1gkDPYiJGEabgLC5sOOgnHgdSGnhlQOVKRkUlLc6wp
+         I1qmmsQ1DvAQuYr+GM8uv125Trd5Xichw+tqvg6pIqF48J1c3QgowAvH5Lx6ucgLjX/p
+         SJZO0Fj9EBZoQoHiTBlgXOKzpDbloSurf0dbnUh5TRXytYYaKvvuTRnfNejBOIpfd5Eg
+         R96u+zciaX4LmkbO21bvXyJ1fffq919v+aus8LD3HxhapBfjGGHTE9r8BORqVIje9ztr
+         HKXg==
+X-Forwarded-Encrypted: i=1; AJvYcCUL6244uVLTMLTWZKmFPdoRo5N02Zzu4+GfJhC1hDJPp7SRVtFyLPsNz8oZsxiM1WaDeN4Jqwbj0kE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz5cQ/2AfgAf6j7ieVu4+1CXtJGNcxADTm8CqVhT8x56+MF/Awe
+	CTiZHZCGsDidKlJenIf3kFP9Z7q6HM/ABak8ZMp+SGD6j/CwLLNgIiy9NOiC6csfgw==
+X-Gm-Gg: ASbGncuKodhhO0B5qRAoGukrhqMTiRg00EwgU8O6VrOg1gTNHZMhJjeFQDxEaF+JGTm
+	7P37Wj635EWygNPN1NE61JzJsyIhx1LwODT66kBL7s/4pNkCD0567ckg94FqimZg3zCcnvnCGbV
+	L/mPFYszmQSRTSje6Q4cCWkHUB1VgSb6ILu2ref6w8HNcSpZ42hmIGbcoCn49cEV2qRW+S+hRcJ
+	aggKApIrxA5TzKrcrEFcsIqsDb66t72JenXH6UK17knQIxZiNOk052ouPo2+d74g5mfcr6Q5H0A
+	16G3gfEY2gcggSN+ieFTs7oV0SkoxDriRAz0kelXTqzyC+o7/JBW1CSPEh2O07po0WuSuafuolO
+	BrzzytflYe/wqf5NUmTu2zIzcdkEccZb/Dle5wlRnohtaaExraURKoWQndpJPKQ6x/9cIIa2bYD
+	lUbqaFFyoDl5FAVgI4noudNmzi90Kno+7zhgRvFgWbGoyen5ZBw0w4lr/uXlkiN6F5jeB2BZHKk
+	xQ=
+X-Google-Smtp-Source: AGHT+IGpgSjussI3Iz/RwAKhE/DE602cMNVX4TttGF16NR+YSGqZLbeAQHuW06gWLnlLeAu/lFI/AQ==
+X-Received: by 2002:a17:906:fd85:b0:b73:80de:e6b2 with SMTP id a640c23a62f3a-b76716955bfmr217385766b.31.1763725360268;
+        Fri, 21 Nov 2025 03:42:40 -0800 (PST)
+Message-ID: <173c8387-9f4d-4c6a-a930-d11c25b42f91@suse.com>
+Date: Fri, 21 Nov 2025 12:42:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] common/libfdt: optimize usage
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Subject: Re: [PATCH v4 01/24] xen/xsm: remove redundant xsm_iomem_mapping()
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, grygorii_strashko@epam.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Jason Andryuk <jason.andryuk@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251114180130.346755-1-grygorii_strashko@epam.com>
- <0557029f-5946-4ee1-a622-842e2698a6c8@suse.com>
- <991e0324-98af-4264-a527-703c72439780@suse.com>
- <aec6b5a2-4e53-411c-be2d-9bdb27d883aa@epam.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20251121105801.1251262-1-Penny.Zheng@amd.com>
+ <20251121105801.1251262-2-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,50 +127,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aec6b5a2-4e53-411c-be2d-9bdb27d883aa@epam.com>
+In-Reply-To: <20251121105801.1251262-2-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21.11.2025 11:59, Grygorii Strashko wrote:
+On 21.11.2025 11:57, Penny Zheng wrote:
+> Function xsm_iomem_mapping() seems redundant, and in flask policy, it just
+> directly calls xsm_iomem_permission().
+> Remove it and use xsm_iomem_permission() instead, with the benefit of a
+> cf_check disappearing too.
 > 
-> 
-> On 17.11.25 11:34, Jan Beulich wrote:
->> On 17.11.2025 10:31, Jan Beulich wrote:
->>> On 14.11.2025 19:01, Grygorii Strashko wrote:
->>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>>>
->>>> Now all libfdt features are built-it unconditionally, but...
->>>>
->>>> X86: The libfdt is used on x86 only to parse Hyperlaunch/dom0less Xen
->>>> nodes, so full libfdt is not needed in this case and minimal, RO
->>>> configuration can be used.
->>>>
->>>> ARM - situation is more complicated:
->>>> 1) ARM reads Host DT (fdt.c RO)
->>>> 2) ARM reads passthrough DT (RO)
->>>> 3) ARM generates dom0/hwdom DT from Host DT (there is a mix of WIP and SW APIs)
->>>> 4) ARM generates domU DT (there is a mix of WIP and SW APIs)
->>>> 4) With EFI enabled - ARM needs RW API and fdt_empty_tree
->>>> 5) With CONFIG_OVERLAY_DTB - ARM needs RW and fdt_overlay API
->>>
->>> This goes too far, imo.
->>
->> The more that, unless OVERLAY_DTB=y, all code and data moves to .init.*. Is
->> coverage in in .init.* really of as much concern as runtime code/data?
-> 
-> It is less priority, but still is. Any way it is unnecessary build units (build time) and
-> increased binary size.
-> 
-> 
-> Actually, I see interesting behavior - when build with CONFIG_CC_SPLIT_SECTIONS=y (CONFIG_LIVEPATCH=y)
-> the libfdt code is not moved in ".init"
-> 
-> 0xa000027aa10 T fdt_ro_probe_
-> 
-> 0xa00002c0000 T __init_begin
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>
 
-Hmm, that's a bug, resulting from libfdt/ not using the usual machinery to do the
-conversion.
+Any reason for this Cc?
+
+> ---
+> v2 -> v3:
+> - new commit
+
+So in v4 you dropped the Suggested-by: but kept the code as is. I would have
+expected it the other way around, in the absence of Daniel having voiced any
+opinion.
 
 Jan
 
