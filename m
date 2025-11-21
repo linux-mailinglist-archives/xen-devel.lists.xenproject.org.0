@@ -2,47 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DE8CC7904B
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Nov 2025 13:22:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1169122.1494990 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E452BC7948A
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Nov 2025 14:24:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1169201.1494999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vMQ9r-0001i7-6c; Fri, 21 Nov 2025 12:22:35 +0000
+	id 1vMR6y-0006IG-FU; Fri, 21 Nov 2025 13:23:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1169122.1494990; Fri, 21 Nov 2025 12:22:35 +0000
+Received: by outflank-mailman (output) from mailman id 1169201.1494999; Fri, 21 Nov 2025 13:23:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vMQ9r-0001g7-3Z; Fri, 21 Nov 2025 12:22:35 +0000
-Received: by outflank-mailman (input) for mailman id 1169122;
- Fri, 21 Nov 2025 12:22:34 +0000
+	id 1vMR6y-0006GJ-Ct; Fri, 21 Nov 2025 13:23:40 +0000
+Received: by outflank-mailman (input) for mailman id 1169201;
+ Fri, 21 Nov 2025 13:23:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VODq=55=redhat.com=armbru@srs-se1.protection.inumbo.net>)
- id 1vMQ2a-000110-Ti
- for xen-devel@lists.xenproject.org; Fri, 21 Nov 2025 12:15:04 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (envelope-from <SRS0=wmUi=55=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1vMR6x-0006GA-2O
+ for xen-devel@lists.xenproject.org; Fri, 21 Nov 2025 13:23:39 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b185bbdc-c6d3-11f0-980a-7dc792cee155;
- Fri, 21 Nov 2025 13:14:57 +0100 (CET)
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-544-9KVhRz1PNjG4B1qvQhE2_Q-1; Fri,
- 21 Nov 2025 07:14:53 -0500
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ id 48ed43b5-c6dd-11f0-980a-7dc792cee155;
+ Fri, 21 Nov 2025 14:23:36 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id F29621956061; Fri, 21 Nov 2025 12:14:48 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.45.242.3])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id A221C1800451; Fri, 21 Nov 2025 12:14:48 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id D6F9B21EC348; Fri, 21 Nov 2025 13:14:38 +0100 (CET)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 235F920FEE;
+ Fri, 21 Nov 2025 13:23:35 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BF7633EA61;
+ Fri, 21 Nov 2025 13:23:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iqI8LdZnIGkQVQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Fri, 21 Nov 2025 13:23:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,103 +52,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b185bbdc-c6d3-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1763727296;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oeDPJTEK/mbRoQ9G1reQyHyjo6pRRwMOwFAV76+b8w0=;
-	b=Spl+zlBQgLZqwMCrUqPceqwgxxnt/Z267qV7KDpVeXPbhgezAsabgg33ydhrPrm/0sXwT2
-	P9hND5u2TVUJPwoe2eXywkxeJibM29x5d0/0T6DA+T+hOa4JYfp1Bq7hvcuUjZcCVp7i71
-	HqD1qdYNMMzCo4QCIFZUrRC+igcueoM=
-X-MC-Unique: 9KVhRz1PNjG4B1qvQhE2_Q-1
-X-Mimecast-MFC-AGG-ID: 9KVhRz1PNjG4B1qvQhE2_Q_1763727289
-From: Markus Armbruster <armbru@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: arei.gonglei@huawei.com,
-	zhenwei.pi@linux.dev,
-	alistair.francis@wdc.com,
-	stefanb@linux.vnet.ibm.com,
-	kwolf@redhat.com,
-	hreitz@redhat.com,
-	sw@weilnetz.de,
-	qemu_oss@crudebyte.com,
-	groug@kaod.org,
-	mst@redhat.com,
-	imammedo@redhat.com,
-	anisinha@redhat.com,
-	kraxel@redhat.com,
-	shentey@gmail.com,
-	npiggin@gmail.com,
-	harshpb@linux.ibm.com,
-	sstabellini@kernel.org,
-	anthony@xenproject.org,
-	paul@xen.org,
-	edgar.iglesias@gmail.com,
-	elena.ufimtseva@oracle.com,
-	jag.raman@oracle.com,
-	sgarzare@redhat.com,
-	pbonzini@redhat.com,
-	fam@euphon.net,
-	philmd@linaro.org,
-	alex@shazbot.org,
-	clg@redhat.com,
-	peterx@redhat.com,
-	farosas@suse.de,
-	lizhijian@fujitsu.com,
-	dave@treblig.org,
-	jasowang@redhat.com,
-	samuel.thibault@ens-lyon.org,
-	michael.roth@amd.com,
-	kkostiuk@redhat.com,
-	zhao1.liu@intel.com,
-	mtosatti@redhat.com,
-	rathc@linux.ibm.com,
-	palmer@dabbelt.com,
-	liwei1518@gmail.com,
-	dbarboza@ventanamicro.com,
-	zhiwei_liu@linux.alibaba.com,
-	marcandre.lureau@redhat.com,
-	qemu-block@nongnu.org,
-	qemu-ppc@nongnu.org,
-	xen-devel@lists.xenproject.org,
-	kvm@vger.kernel.org,
-	qemu-riscv@nongnu.org
-Subject: [PATCH v2 15/15] block/file-win32: Improve an error message
-Date: Fri, 21 Nov 2025 13:14:38 +0100
-Message-ID: <20251121121438.1249498-16-armbru@redhat.com>
-In-Reply-To: <20251121121438.1249498-1-armbru@redhat.com>
-References: <20251121121438.1249498-1-armbru@redhat.com>
+X-Inumbo-ID: 48ed43b5-c6dd-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1763731415; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=wHB0LPd3iol0b1RLK1wvGDRVvXXBhGff1PoGk2nUrqU=;
+	b=AiFCygmQ7k9CSH11wOA1oxNwacn7LCEH0Db3iqJpcCJ1v2OS3bmGYaT3dsN8mzxaCuBd0U
+	zSR0VNRbz5eAzvmGAG83UndHSpZb3UMABjiI+IqXb5j9DKC/mQ36WZXCjFlkZzia1uKHJj
+	KkUU7FUBEzpXVsDlVwlef3TFAWk8uQs=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=AiFCygmQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1763731415; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=wHB0LPd3iol0b1RLK1wvGDRVvXXBhGff1PoGk2nUrqU=;
+	b=AiFCygmQ7k9CSH11wOA1oxNwacn7LCEH0Db3iqJpcCJ1v2OS3bmGYaT3dsN8mzxaCuBd0U
+	zSR0VNRbz5eAzvmGAG83UndHSpZb3UMABjiI+IqXb5j9DKC/mQ36WZXCjFlkZzia1uKHJj
+	KkUU7FUBEzpXVsDlVwlef3TFAWk8uQs=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Christian Lindig <christian.lindig@citrix.com>,
+	David Scott <dave@recoil.org>
+Subject: [PATCH v3 0/4] configure: reduce number of files created
+Date: Fri, 21 Nov 2025 14:23:28 +0100
+Message-ID: <20251121132332.23514-1-jgross@suse.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Rspamd-Queue-Id: 235F920FEE
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -3.01
+X-Spam-Level: 
 
-Two out of three calls of CreateFile() use error_setg_win32() to
-report errors.  The third uses error_setg_errno(), mapping
-ERROR_ACCESS_DENIED to EACCES, and everything else to EINVAL, throwing
-away detail.  Switch it to error_setg_win32().
+Instead of creating lots of files during configure, create those
+files (where possible) rather at build time. This reduces the need
+to run configure when e.g. changing a man page containing a path
+defined by the configure run.
 
-Signed-off-by: Markus Armbruster <armbru@redhat.com>
----
- block/file-win32.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in V2:
+- dropped patch 1 as already applied
+- no longer rename files to *.src
+- don't use pattern rule
 
-diff --git a/block/file-win32.c b/block/file-win32.c
-index 0efb609e1d..78961837c8 100644
---- a/block/file-win32.c
-+++ b/block/file-win32.c
-@@ -904,7 +904,7 @@ static int hdev_open(BlockDriverState *bs, QDict *options, int flags,
-         } else {
-             ret = -EINVAL;
-         }
--        error_setg_errno(errp, -ret, "Could not open device");
-+        error_setg_win32(errp, err, "Could not open device");
-         goto done;
-     }
- 
+Changes in V3:
+- addressed comments by Jan and Andrew
+
+Juergen Gross (4):
+  build: add make macro for making file from file.in
+  docs: replace @xxx@ markers at build time
+  config: remove unused paths from config/Paths.mk.in
+  tools: replace @xxx@ markers at build time
+
+ .gitignore                     |  1 +
+ Config.mk                      | 13 +++++++++++++
+ config/Paths.mk.in             |  6 ------
+ config/Tools-paths.mk.in       | 10 ++++++++++
+ docs/Makefile                  | 11 ++++++++++-
+ docs/configure                 |  7 +------
+ docs/configure.ac              |  9 +--------
+ tools/Rules.mk                 |  4 ++++
+ tools/configure                | 21 ++-------------------
+ tools/configure.ac             | 19 +------------------
+ tools/hotplug/FreeBSD/Makefile | 13 +++++++++++--
+ tools/hotplug/Linux/Makefile   | 21 +++++++++++++++++++--
+ tools/hotplug/NetBSD/Makefile  | 13 +++++++++++--
+ tools/hotplug/common/Makefile  | 10 +++++++++-
+ tools/ocaml/libs/xs/Makefile   |  9 +++++++++
+ tools/ocaml/xenstored/Makefile | 10 +++++++++-
+ 16 files changed, 111 insertions(+), 66 deletions(-)
+ create mode 100644 config/Tools-paths.mk.in
+
 -- 
-2.49.0
+2.51.0
 
 
