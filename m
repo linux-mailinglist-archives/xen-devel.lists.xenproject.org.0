@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23B00C7F673
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 09:38:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170130.1495212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D4D6C7F9D0
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 10:27:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170141.1495222 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNS4R-0008NR-FJ; Mon, 24 Nov 2025 08:37:15 +0000
+	id 1vNSqG-0006AX-2R; Mon, 24 Nov 2025 09:26:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170130.1495212; Mon, 24 Nov 2025 08:37:15 +0000
+Received: by outflank-mailman (output) from mailman id 1170141.1495222; Mon, 24 Nov 2025 09:26:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNS4R-0008KV-C5; Mon, 24 Nov 2025 08:37:15 +0000
-Received: by outflank-mailman (input) for mailman id 1170130;
- Mon, 24 Nov 2025 08:37:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vNSqF-00067X-Vs; Mon, 24 Nov 2025 09:26:39 +0000
+Received: by outflank-mailman (input) for mailman id 1170141;
+ Mon, 24 Nov 2025 09:26:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNS4P-0008KP-Sz
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 08:37:13 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c4876ee4-c910-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 09:37:10 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4779cb0a33fso38628385e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 00:37:10 -0800 (PST)
+ id 1vNSqE-00067R-SL
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 09:26:38 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aa876ac9-c917-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 10:26:33 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-477a219dbcaso36887875e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 01:26:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42cb7f49a7bsm26614826f8f.19.2025.11.24.00.37.08
- for <xen-devel@lists.xenproject.org>
+ 5b1f17b1804b1-477bf1e868bsm180497855e9.4.2025.11.24.01.26.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 00:37:09 -0800 (PST)
+ Mon, 24 Nov 2025 01:26:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,52 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4876ee4-c910-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: aa876ac9-c917-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763973429; x=1764578229; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:to:autocrypt:from
-         :content-language:references:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yPaPlRztGjiIqx0UO0gKDSinunt8qm514nsD/zgL7hY=;
-        b=BolbDPnhHzH/zJm/GHIurvKKguYjjqWXzV1QZyZ7kBAfqc+QEKsd9onvIBv5AbXNkF
-         t2uhUSFIh7wzXqotfbo65CvPBrVOupad4TbasPeXWNbnucF2GsTtbGgUOHep2+PgcMUt
-         1kf/yz/rMwYUp+yalWabXdkYivTlWiErW1fGSVYqDdvSYZMpFXe3PRJTWcIG+tNCbJSf
-         l2IYXyZ7gbkr2AcStbEpyeEaiOGemEp1hqnULRS2ydYC1CPAC3geNOlUmtifw6zKSAIL
-         fHG98Pks+t2PSh8lRJSBRTKZtFKsbpmEZfFRuf+YZM929DQNKpf3dVtOiG5+VNdlZpqZ
-         16/Q==
+        d=suse.com; s=google; t=1763976393; x=1764581193; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=mDjyJRdZ8pZYRtWlWjlBbN7rJy8cfnFU74s+/WsGHo8=;
+        b=X2DIUsPCz9SZnVBnAM+9SZGTIRHZIZeFyFYNWL1K5WWqsniB32hrvpdPY1JPC1nYrN
+         dW3SHuotqsb9wUTqF8eNE8uFxZjIrCd7oItn4mqPjVPycrBmJqNKOqAyqdXUQob5aBC1
+         DIXHa2VudlikyLyhktCtNAJyLEA7UtiHvoRAHwuyqX8ImRWfy2v3F7eRYypoM00EzpCI
+         B3bZsyoYxhmf9u477lqq0q5d7PDvdveSL3CasZqV7Fisso0IczAYNJZUo2ZstZPtZBA5
+         1N9WYaOtQ+6AQSnvlVmfq7+1HXac29ycvr6dKmCNj/uFClTGSt6Wa3rPOm6zToWvsmdC
+         w/qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763973430; x=1764578230;
-        h=content-transfer-encoding:in-reply-to:to:autocrypt:from
-         :content-language:references:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1763976393; x=1764581193;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yPaPlRztGjiIqx0UO0gKDSinunt8qm514nsD/zgL7hY=;
-        b=c5/AT/sBbyKeMGTw1BQL8cioCDHIpuNjLnaN+1HNpcqV+2RWRypHgyN/TG6hPn2769
-         ukAxZTQRK7e7LP/QhFlF8m8zCLMXD02W08m9JRNMiqIoDZcYvl4iPcLb28FseWIoaxyK
-         aWg2PsOFEkcu6AO8XtKhg7m09O1VinV7vXDoFp3MusCrE9QEN9/JSJ4bKR5QZa0CjoVO
-         tyUoYf6CdZPfua796SNNpqWYuhC7vQAEA4rrE66RmyPvjC3Bd5i7T8m2bNQrIfH9RAIn
-         kQEEsztzeI/Yspp0SrvCtTqx7HXU2D1dkFFUObxU+t5Hd4ydZLfTzXNQdV/pBmhZFT41
-         IGVw==
-X-Gm-Message-State: AOJu0YwTEr+KhjGDAcoVKyhaTptzHdtkvn+WbTGu/lHAVm2X0emmK5fE
-	2PeUweSFIqEyJ/OKuDLKYArn+LIanyp28ZATgb7hFSs022OkrBr6FAhsknglBOXdOp7AA9QTJH9
-	Vnm0=
-X-Gm-Gg: ASbGnctypGBF+RrH1Xdh4ZM2SXfCsGZ3DN6IOtIYou+KrZRJdH7YdxbkT/loNmVb2dt
-	8SIko3I0HMWqpIPRusBDeyljqiAuUFXFiWke40pZqqCJbDwnCo6qB1MK6FVYHGBlXlBOIs4tyY2
-	vk57CVp+ESgr07DywEyQyPVWGXrSaAJHyhPw0RttxU3dAA/fYpLDd2iuUY5zszO0OMDk1E3p5E2
-	CZGVIoR2tZN9nT1HVH6FYyEU6p0wFstpDBuHPbLu5++H0MAQcAjP3NNOlym4gVPSBHkx+WvgjGZ
-	PhydMH9YQqTHaMZM/8jYjesYTqXbJAvsjRhFlWYorJqEPB1e8PYt6N1gI3G8S8toJG1yqQ8Vwf6
-	idlBTRpI8FJVQXXx+36LttgMP6F7Msn0UIEjnE9OJC57ucTIetGk5+fHuvevtygXA8ZvTogIOP4
-	cgEcnmHLJjx88Oy+eVgtFj0jslemhdXjIjC73zXOdsbrbKMAZ7GPof61DgIBz66WLlTdeMt3CzD
-	A0=
-X-Google-Smtp-Source: AGHT+IE3NdWJAztK7S4pe+F5znknsUmfC5Q+euuxXv2N24mM//wq1PrKh51zYZXDlEapc7X6/aYQ3Q==
-X-Received: by 2002:a05:600c:4f4d:b0:477:9ce2:a0d8 with SMTP id 5b1f17b1804b1-477c00ef4f9mr125854395e9.0.1763973429550;
-        Mon, 24 Nov 2025 00:37:09 -0800 (PST)
-Message-ID: <a4c06854-6548-43b3-b17f-fd89c71281a9@suse.com>
-Date: Mon, 24 Nov 2025 09:37:11 +0100
+        bh=mDjyJRdZ8pZYRtWlWjlBbN7rJy8cfnFU74s+/WsGHo8=;
+        b=J+XCLsMc9FUjfzFR2p6IGxrPWoVbdulvyvCNYp8M6W6l+767c1zoi9M4mljXcemaBX
+         dMVmuiyop+OylcpaQXwoxoUNyp2wZ8RObMwFxifJgfPwgb9FkAzldNqjRrVsnNvfwuIO
+         mmMUgmKD6RCg/Cj+KbJeTo2U/os7VrqIKqE7kGcaPLNYT9FFQppolM1T26DxiYaBmktR
+         HVk1E1Tkb7qciBw+gANyofyOcMUBoLPw0PCwq5ohKa00A/7y/tcsiDzK39uXv1GLj2iB
+         hnZxIn6jlI1D3kO9eIET7drCl6qDG3mJc8C/XN1kYOpAu4R9UB2eIRD6vV7sCxNHd4ob
+         4p8Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVWoWlIB8YFoFkDryDHBj9cCOHgs3S3uCktbRmey35Pt4tG3Id4iehp5xJCjg4Wy7wHlE+96/+r4xg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxvWZZj3csEQmqZn4QgfuWBLAAGrrfof9jb+rKG7lPjpVfhrw+8
+	FxwkiFthfx2peZRoAo1k4B29o2YRtsDco1A8rJXwqhdYbxWl34ED7vZs70v/vdayaksdh7mRMK8
+	i11M=
+X-Gm-Gg: ASbGncsf2xw2N+ZUtHuPTkhr0iVaQa0+IVnRj5IlXHQUZJfvkHfCQzGcym3ridtigFH
+	UCV8+DtHgzt9Ut+ob4fFsFqYcyV5nOCED6jjl14/K7jdxWH8SSAgOR6TlJuiL4SxdDV6krQa6gg
+	iR7aXn1BvAeLwwcrHhabegE7Qs15y6Q8dzWhuIZWkUwHxs+CMmXJ8WzCJI8xJnTjnI7JzcNWeN1
+	wZBzT6qxAyZeupMMZcXDu9KMEPu5Zx9O80FVwrH1KtNa+ZLr457YmKFYA1fjR9LdOMVqCWjz36o
+	wE4VeoxCvS/D+vtKaBdUwYCLWz+AsauNVKsab70T3C5MORIoUPMcDb0nPHZXYuT8TjtoC49su1N
+	TkzUxBYVofk/Wfe6WxdtwluwyD7DrJPy859R94qk1BgiFXUXUo2LvliHh2kR4nqcZTEFrT6JYuz
+	NUD3i7vASveMAdsZhoHHLFVI1ogGGemvdHeg/inN8UWuQQ9RUrWLAdaSeK/4VaK04XlMJYkG/Lu
+	+k=
+X-Google-Smtp-Source: AGHT+IFN6q/p2wm/avPQPP+e0G4MFcTx0TCi+HF9pSGKJyKFXPrfklbg5y+WADZlMnkrUBNvLXlNYA==
+X-Received: by 2002:a05:600c:1993:b0:477:abea:901c with SMTP id 5b1f17b1804b1-477c0184be0mr104377475e9.11.1763976392506;
+        Mon, 24 Nov 2025 01:26:32 -0800 (PST)
+Message-ID: <8c8b11c7-ba2c-440c-be2b-86a1ff250e0d@suse.com>
+Date: Mon, 24 Nov 2025 10:26:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: New Defects reported by Coverity Scan for XenProject
-References: <6922db67d5bee_ec6942e9307a67994398e5@prd-scan-dashboard-0.mail>
+Subject: Re: [XEN PATCH] libxl_nocpuid.c: fix build with json-c
+To: Michael Young <m.a.young@durham.ac.uk>,
+ Anthony PERARD <anthony.perard@vates.tech>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <94ffdeb1-6826-4c3a-a9c1-3ccc8b129a61@durham.ac.uk>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,59 +120,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-In-Reply-To: <6922db67d5bee_ec6942e9307a67994398e5@prd-scan-dashboard-0.mail>
+In-Reply-To: <94ffdeb1-6826-4c3a-a9c1-3ccc8b129a61@durham.ac.uk>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23.11.2025 11:01, scan-admin@coverity.com wrote:
-> Please find the latest report on new defect(s) introduced to XenProject found with Coverity Scan.
+On 21.11.2025 22:09, Michael Young wrote:
+> The build of xen-4.21.0 with json-c present and yajl not present
+> is failing with the error
 > 
-> 1 new defect(s) introduced to XenProject found with Coverity Scan.
-> 3 defect(s), reported by Coverity Scan earlier, were marked fixed in the recent build analyzed by Coverity Scan.
+> libxl_nocpuid.c:43:1: error: unknown type name ‘yajl_gen_status’
+>     43 | yajl_gen_status libxl_cpuid_policy_list_gen_json(yajl_gen hand,
+>        | ^~~~~~~~~~~~~~~
+> libxl_nocpuid.c:43:50: error: unknown type name ‘yajl_gen’
+>     43 | yajl_gen_status libxl_cpuid_policy_list_gen_json(yajl_gen hand,
+>        |                                                  ^~~~~~~~
+> make[6]: *** 
+> [/builddir/build/BUILD/xen-4.21.0-build/xen-4.21.0/tools/libs/light/../../../tools/Rules.mk:178: libxl_nocpuid.o] Error 1
 > 
-> New defect(s) Reported-by: Coverity Scan
-> Showing 1 of 1 defect(s)
+> I tested it with the patch below based on libxl_nocpuid.c which did build.
 > 
+> Signed-off-by: Michael Young <m.a.young@durham.ac.uk>
+> ---
+>   tools/libs/light/libxl_nocpuid.c | 13 +++++++++++++
+>   1 file changed, 13 insertions(+)
 > 
-> ** CID 1675028:       Data race undermines locking  (LOCK_EVASION)
-> /xen/arch/x86/hvm/vmx/vmx.c: 1502           in shadow_handle_cd()
+> diff --git a/tools/libs/light/libxl_nocpuid.c 
+> b/tools/libs/light/libxl_nocpuid.c
+> index 0630959e76..71ab49ed61 100644
+> --- a/tools/libs/light/libxl_nocpuid.c
+> +++ b/tools/libs/light/libxl_nocpuid.c
+> @@ -40,11 +40,24 @@ int libxl__cpuid_legacy(libxl_ctx *ctx, uint32_t 
+> domid, bool restore,
+>       return 0;
+>   }
 > 
-> 
-> _____________________________________________________________________________________________
-> *** CID 1675028:         Data race undermines locking  (LOCK_EVASION)
-> /xen/arch/x86/hvm/vmx/vmx.c: 1502             in shadow_handle_cd()
-> 1496         }
-> 1497         else if ( !(value & X86_CR0_CD) &&
-> 1498                   (v->arch.hvm.vmx.cache_mode == CACHE_MODE_NO_FILL) )
-> 1499         {
-> 1500             /* Exit from no fill cache mode. */
-> 1501             spin_lock(&d->arch.hvm.vmx.uc_lock);
->>>>     CID 1675028:         Data race undermines locking  (LOCK_EVASION)
->>>>     The thread 1 sets "cache_mode" to a new value. Now the two threads have an inconsistent view of "cache_mode" and updates to fields correlated with "cache_mode" may be lost.
-> 1502             v->arch.hvm.vmx.cache_mode = CACHE_MODE_NORMAL;
-> 1503     
-> 1504             if ( domain_exit_uc_mode(v) )
-> 1505                 set_uc_mode(d, false);
-> 1506     
-> 1507             spin_unlock(&d->arch.hvm.vmx.uc_lock);
+> +#ifdef HAVE_LIBJSONC
+> +#ifndef _hidden
+> +#define _hidden
+> +#endif
 
-This clearly isn't a new one, but merely flagged as such because the code moved.
-There look to be at least two aspects. For one, the tool may be irritated by
-shadow and HAP modes being handled differently: In the former updates (and
-corresponding checks) happen under lock, while in the latter case they don't.
-This looks to leverage that no domain-wide checking is necessary, and hence
-updates only ever occurring on the running vCPU means updating is race-free
-despite being lock-less. (Sadly parameter / variable naming doesn't properly
-reflect this "on current" aspect, despite it being pretty important here.)
+Why would this be needed? libxl_internal provides a definition afaics.
 
-Further there are vmx_{get,set}_guest_pat(), which inspect the field without
-holding the lock. These functions are intended to act on either current or on
-paused vCPU-s / domains only, though. Hence no race either due to all updating
-being done on current.
+> +_hidden int libxl_cpuid_policy_list_gen_jso(json_object **jso_r,
 
-Am I overlooking anything, or does this simply need silencing (again) in the
-tool?
+Nor should the attribute be needed here, as the function declaration ought
+to be in scope.
+
+> +                                libxl_cpuid_policy_list *pcpuid)
+> +{
+> +    return 0;
+> +}
+> +#endif
+> +
+> +#if defined(HAVE_LIBYAJL)
+>   yajl_gen_status libxl_cpuid_policy_list_gen_json(yajl_gen hand,
+>                                   libxl_cpuid_policy_list *pcpuid)
+>   {
+>       return 0;
+>   }
+> +#endif
+
+Maybe unrelated to this build fix, I find it hard to believe that returning
+0 (presumably meaning "success") here is appropriate without actually doing
+anything. In particular for the new function you add, I think upon success
+the caller can expect *jso_r to have got assigned a value. However, without
+any commentary it's hard to tell whether there's some "agreement" that the
+caller has to pre-set its variable (to, say, NULL).
+
+Also why are the libxl_..._jso() all hidden, while their libxl_..._json()
+counterparts aren't? And why would non-exported functions have their
+declarations live in a non-private header?
 
 Jan
 
