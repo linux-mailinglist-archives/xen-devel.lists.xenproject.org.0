@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C9FCC7FD32
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 11:16:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170194.1495271 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D63D7C7FD7B
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 11:21:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170206.1495282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNTc1-0006Wr-J0; Mon, 24 Nov 2025 10:16:01 +0000
+	id 1vNTgb-00084Z-4w; Mon, 24 Nov 2025 10:20:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170194.1495271; Mon, 24 Nov 2025 10:16:01 +0000
+Received: by outflank-mailman (output) from mailman id 1170206.1495282; Mon, 24 Nov 2025 10:20:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNTc1-0006Ud-GH; Mon, 24 Nov 2025 10:16:01 +0000
-Received: by outflank-mailman (input) for mailman id 1170194;
- Mon, 24 Nov 2025 10:16:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vNTgb-000824-1M; Mon, 24 Nov 2025 10:20:45 +0000
+Received: by outflank-mailman (input) for mailman id 1170206;
+ Mon, 24 Nov 2025 10:20:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNTc0-0006Q3-46
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 10:16:00 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 92518884-c91e-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 11:15:59 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-42b38693c4dso1816038f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 02:15:59 -0800 (PST)
+ id 1vNTgZ-00081y-WA
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 10:20:43 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3abf0d8a-c91f-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 11:20:41 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-477b198f4bcso26455495e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 02:20:41 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42cb7fb9190sm27464268f8f.33.2025.11.24.02.15.57
+ 5b1f17b1804b1-477a9dfb639sm144545635e9.13.2025.11.24.02.20.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 02:15:58 -0800 (PST)
+ Mon, 24 Nov 2025 02:20:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92518884-c91e-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 3abf0d8a-c91f-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763979358; x=1764584158; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763979641; x=1764584441; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xyIEixGRa5QlUw7Hx1Leq8XYPZgq6Hg+Kj594xJkG/M=;
-        b=DCua2i6AYKuzA+yDlrHDLDgpIsu1+fFk1GkH1JMsPDQXrJJsd+NWXEqVcf1/2GXb7h
-         7EbKtIa3vCKIbvzpWiwqhQRHqbmWPnyLUBRlbaR0CxnLTqiKEBNnFxXzwEQYXO5QTGro
-         MDIyq7i/iFzxiUbRQDhJJ5vMw9OQGPJIBUde4pP9e+vLSNP5TmrAlKlzJlarsLZwwomx
-         KoftYqKa8+JWvUpV73Mja77ro133Nc+1w9cTeBfIL1Fdt58Vs+udireG6TtMDNukKxLV
-         RelOxePcjj9K/o//aPExWY/na/quGo/zdA+HrLoVtr2C13k5CooPlxGzN0u8wdiJfNP7
-         3uow==
+        bh=LxZKk0eLSo+Jk1Soul+zbyWBC/LI5vI8YFM++DGU2w0=;
+        b=CHt2KurcfkUwf8IKmJzHSfJcdJrnhBj7xBD6La85Wb8SRgc5d5Ui32qFCRGF1dK9XA
+         e5xKDNLsnFrrzDnY4SvXH3Rnecg4GWH0rI6yWv/L69Iv8KQrqXzSAeWX/WX6ENRxAnHb
+         KoE3snY7USvHRemRhYbvTOmT93Y4P0rWy5/9b6FSgQ/Eq7cwY2kzGzQERNcMcSfh14Wp
+         F6OXsbDLBCDwBgGv8FXj2IOz7NsD02cnrsvDoKXUFdlNdCxWvMeC257iLf1ZGIrXVtSn
+         IOZZwVnw8DNnFJAhMykURzn2rMcAhJ9HN7VL0+I2L/fCchKg86ctfi1IxjrE6EGklcs0
+         WBig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763979358; x=1764584158;
+        d=1e100.net; s=20230601; t=1763979641; x=1764584441;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xyIEixGRa5QlUw7Hx1Leq8XYPZgq6Hg+Kj594xJkG/M=;
-        b=Kil8aeEjIjG2FWM4TsgzF1FGyyI1oJxrf2qg+FcdBloBdfZXHxEyKyDzDeeyVcjtDf
-         B40RRpZ7GmYvwquRsduaA/xPHbvwLJRvLMMJuEYG4LnqD6MrtwMxNxE8uFbfaZ7Tfjcn
-         /5cKrHAuv3V8IX+HKLcU+ouWxtwZHKT2saG5UxlyTsehbSa5hbKwvMReqgofU9ES4TRv
-         ZU8XklZ3xIS+JynHplCN84x1zr2m6ccpdyGcXvtPU2+Uyvt4oIzIHy7TSzPdih7+tk6t
-         mJ08Qxr/VwmA2W+wz8VQRc+apZUK5KRWPViZFSdu8p1llwzEWUyKMiesYoCf1AX/zQBV
-         iw3g==
-X-Forwarded-Encrypted: i=1; AJvYcCX7e1KGX0MO84C5bnO2SYnJ7z93Gm5ndT3KhBbr7JWZjzK+9KH0mngxWWsmQP7UxzLIrqBrQXKUNG8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw1+kTctRwEB8KGFoCyoMzorf56EJgi6iOkFExXF/T2hrHOgo87
-	Xk3uv5ZJxYdBwnZKSTN5PKPDf1XpJU9TsZQD9zdmqmvWLgpcP43Zru7hF/qYWp03Qw==
-X-Gm-Gg: ASbGncul872cyotglQMx2EF9Ot1sAbK7sgB8A5lKPTbnckphi8YR8eHayLDqTL0K5R6
-	H1dLl1W/DwzN3qW6QEIACrt9bMz6Ksq2oFjJoiX2fXWw/epnLo0itMEPjWAJn6Vpw0jveXVFkZr
-	unxsT2Hp/vJloSrk0/ELajpDQGyUC5xY2hZYzfm9ss+xxU8v1RoGJ1KPZ0vXtI3liyZI4KHH6Kq
-	48uMDaUtb1PQMczZaC7pcX+Cp5l/aZb6O4LfW7i24wejfSQiqD3vRcx4Rn8ZClE6AZ5+VH602Ew
-	LeWYvhukYDHZqWfxO06XWXQeDBzMdiR9vU3lte49FIPuAjfxTutRXKPxfns1wkoDcDj6tVmhCBd
-	Uy/0Bsf1aTt7AIAz50/MqnksrQKvTqRlU0xEqn5HqI/QihgLxXDPawQSQZqmEQkpD9lyyu9THbe
-	x0YkiQ6gLFFXd1l6LjlNErVVrWUvnKaGcK1beFQb4PfPeyhU0tVkU4QMdGyhDLONitEfeKJEyEN
-	/4zRe6DLvei7Q==
-X-Google-Smtp-Source: AGHT+IG+wJAjbO9MGvrzg/tqyL8ttJBzw3uJ8hXGEM9PVj5ePgAAmoTavut6MeYd4uQDEsHKppL6kA==
-X-Received: by 2002:a05:6000:401f:b0:429:f050:adbb with SMTP id ffacd0b85a97d-42cc1cc22f5mr11688438f8f.26.1763979358498;
-        Mon, 24 Nov 2025 02:15:58 -0800 (PST)
-Message-ID: <0bdbd520-7568-4ed2-9dc3-f2b7de74044a@suse.com>
-Date: Mon, 24 Nov 2025 11:16:00 +0100
+        bh=LxZKk0eLSo+Jk1Soul+zbyWBC/LI5vI8YFM++DGU2w0=;
+        b=QfM9Uar4LW48izfvpAXTuxP2qxkVgjE099DU4Y3NYfeFWmLtEYtIaHkkgpVyA6m4U0
+         E7N20RgRXYHEMW6T/holTnJRxTiabsSUaIP4XobN06f6bdw9aokljN1XybRdaKgpT3ow
+         KR+FY3MLeuPo0lh8/+r4MniL2dvU8piBmPIyCCEPWtd7Lv2JRI9IK5zbwGqu5mdGcmwg
+         rSlV3bi0FnERsxt8N/o/xvMc+f5LCgPOc3uvo3/teyIzrCM/s1huDpPC6UVcfh3tJP0H
+         RxKei4rxy9M2wJ0f3YlebPdx9A5vHfuqnHlhII9wQX3YNx6/06fiINNcef0gAT4RijnM
+         7nVA==
+X-Forwarded-Encrypted: i=1; AJvYcCUZ1DvJFZ0dXc9Qav09Qmx/qjBe9GLSB1WO2t5krLlN4+KoydQzL8twz0eWYa01A0FFpYQdOrN7G8Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzJTLpOGzo22QtW0jjqcsIcrnbwGifyJG9tDWLXJ4fVQ6BurKGT
+	Ah5aZUblFvXIE1+q77+5yBdPgukYP3PkyMD0j1Ed74iw+eD1H6alqw7EWwgPnN+9XA==
+X-Gm-Gg: ASbGnctnknZqNeihn6IYjbMaws3lVL87HU3K4wN15og+KHadtcmG60XLpAVIycYUHzC
+	Bo8aFcz/F8tsF6XbTevYxnkPFE3pJkqolB5Xow1T8MAWxsTnA3xPFTUEw0jYqbt9raldFhH8h9U
+	xx8w4MoDClN55Wlq7qSefcZ3Bo7sCllcfv6T5naHQl2baQq4uXcWLSSexm5E3Hy1VDI4TfPJ2DC
+	hZz1rfEvnfvQnHvdecpAd6H/PPOh7lia9fTmeLENlm97X8iHvxLD40ggFg3y2m8kWNIcNBy6wpX
+	dxGqirTJ2ZKViCvjIALZ+KCUv5kclmUlXGfOMyCezfpV9obHHz7PiX0uvyxx4Ik7DNGTDcYJE1v
+	GIE5jBgYUONyxGEZmReeU23PYbRJRoTRR9OPt3yLeSwxZEqF6KG8Asye6bT1rtWkpBCnyWNCmJO
+	45U2Vam/Q1UT+oFr6gncUnMG5Z3YR7yiACBcM+QwupUFVMoUZE3yQLPF8aSd1F0uMnNG+8dtvsE
+	L0=
+X-Google-Smtp-Source: AGHT+IEVPuWaF7OEv8c0HFDAJjqdnM+uL3yItaXS4SjQ6kW9op9Tci5EQwXzta9GhC9zGCdkFjl4Cw==
+X-Received: by 2002:a05:600c:3110:b0:477:632c:5b91 with SMTP id 5b1f17b1804b1-477c01b4b2amr132461825e9.16.1763979641076;
+        Mon, 24 Nov 2025 02:20:41 -0800 (PST)
+Message-ID: <c2aef632-b890-47ef-9b89-00659755343a@suse.com>
+Date: Mon, 24 Nov 2025 11:20:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/12] x86/irq: set accurate cpu_mask for high priority
- vectors used by external interrupts
+Subject: Re: [PATCH 06/12] x86/i8259: redo workaround for AMD spurious PIC
+ interrupts
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20251120090637.25087-1-roger.pau@citrix.com>
- <20251120090637.25087-5-roger.pau@citrix.com>
- <3491d3ee-08b8-4678-9f18-5a4daa972e02@suse.com> <aSAi0IyDBKhqND3W@Mac.lan>
+ <20251120095826.25782-1-roger.pau@citrix.com>
+ <126dc8bb-4f89-4a40-b39a-1b09d78b3eac@suse.com> <aSAkROL4OqcZ8AAX@Mac.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,82 +121,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aSAi0IyDBKhqND3W@Mac.lan>
+In-Reply-To: <aSAkROL4OqcZ8AAX@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21.11.2025 09:29, Roger Pau Monné wrote:
-> On Thu, Nov 20, 2025 at 02:06:39PM +0100, Jan Beulich wrote:
->> On 20.11.2025 10:06, Roger Pau Monne wrote:
->>> Setting the irq descriptor target CPU mask of high priority interrupts to
->>> contain all online CPUs is not accurate.  External interrupts are
->>> exclusively delivered using physical destination mode, and hence can only
->>> target a single CPU.  Setting the descriptor CPU mask to contain all online
->>> CPUs makes it impossible for Xen to figure out which CPU the interrupt is
->>> really targeting.
->>>
->>> Instead handle high priority vectors used by external interrupts similarly
->>> to normal vectors, keeping the target CPU mask accurate.  Introduce
->>> specific code in _assign_irq_vector() to deal with moving high priority
->>> vectors across CPUs, this is needed at least for fixup_irqs() to be able to
->>> evacuate those if the target CPU goes offline.
->>>
->>> Fixes: fc0c3fa2ad5c ("x86/IO-APIC: fix setup of Xen internally used IRQs (take 2)")
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 21.11.2025 09:35, Roger Pau Monné wrote:
+> On Thu, Nov 20, 2025 at 04:05:38PM +0100, Jan Beulich wrote:
+>> On 20.11.2025 10:58, Roger Pau Monne wrote:
+>>> --- a/xen/arch/x86/i8259.c
+>>> +++ b/xen/arch/x86/i8259.c
+>>> @@ -407,21 +407,14 @@ void __init init_IRQ(void)
+>>>          per_cpu(vector_irq, cpu)[LEGACY_VECTOR(irq)] = irq;
+>>>  
+>>>          /*
+>>> -         * The interrupt affinity logic never targets interrupts to offline
+>>> -         * CPUs, hence it's safe to use cpumask_all here.
+>>> -         *
+>>>           * Legacy PIC interrupts are only targeted to CPU0, but depending on
+>>>           * the platform they can be distributed to any online CPU in hardware.
+>>> -         * Note this behavior has only been observed on AMD hardware. In order
+>>> -         * to cope install all active legacy vectors on all CPUs.
+>>> -         *
+>>> -         * IO-APIC will change the destination mask if/when taking ownership of
+>>> -         * the interrupt.
+>>> +         * Note this behavior has only been observed on AMD hardware. Set the
+>>> +         * target CPU as expected here, and cope with the possibly spurious
+>>> +         * interrupts in do_IRQ().  This behavior has only been observed
+>>> +         * during AP bringup.
+>>>           */
+>>> -        cpumask_copy(desc->arch.cpu_mask,
+>>> -                     (boot_cpu_data.x86_vendor &
+>>> -                      (X86_VENDOR_AMD | X86_VENDOR_HYGON) ? &cpumask_all
+>>> -                                                          : cpumask_of(cpu)));
+>>> +        cpumask_copy(desc->arch.cpu_mask, cpumask_of(cpu));
+>>>          desc->arch.vector = LEGACY_VECTOR(irq);
+>>>      }
 >>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->> with one further request:
->>
->>> @@ -756,12 +770,10 @@ void setup_vector_irq(unsigned int cpu)
->>>          if ( !irq_desc_initialized(desc) )
->>>              continue;
->>>          vector = irq_to_vector(irq);
->>> -        if ( vector >= FIRST_HIPRIORITY_VECTOR &&
->>> -             vector <= LAST_HIPRIORITY_VECTOR )
->>> -            cpumask_set_cpu(cpu, desc->arch.cpu_mask);
->>> -        else if ( !cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
->>> -            continue;
->>> -        per_cpu(vector_irq, cpu)[vector] = irq;
->>> +        if ( (vector >= FIRST_HIPRIORITY_VECTOR &&
->>> +              vector <= LAST_HIPRIORITY_VECTOR) ||
->>> +             cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
->>> +            per_cpu(vector_irq, cpu)[vector] = irq;
->>
->> Going beyond desc->arch.cpu_mask for hiprio vectors may deserve a comment here. When
->> the vector is global, this is necessary. But for e.g. the serial IRQ (which still
->> moves, but isn't bound to multiple CPUs, the more normal way of respecting
->> desc->arch.cpu_mask would be sufficient.
+>> Doesn't this collide with what setup_vector_irq() does (see also patch 04)? If
+>> you don't set all bits here, not all CPUs will have the vector_irq[] slot set
+>> correctly for do_IRQ() to actually be able to associate the vector with the
+>> right IRQ.
 > 
-> Note that hiprio vectors are handled specially in _assign_irq_vector()
-> and the logic to set per_cpu(vector_irq, cpu)[vector] is
-> short-circuited assuming that hiprio vectors are already setup on all
-> CPUs.
-> 
->> It is merely (largely) benign if we set
->> vector_irq[] also for other CPUs. "Largely" because strictly speaking if that vector
->> triggered on the wrong CPU for whatever reason, we rather shouldn't treat it as a
->> legitimate interrupt.
-> 
-> I see, yes, we could handle hiprio vectors more like normal ones and
-> do a bit more work in _assign_irq_vector() to also set the
-> vector_irq[] array at bind time, but then we would need the cleanup
-> logic as the interrupt migrates, which is a bit of overhead when we
-> know the vector won't be re-used for anything else.
-> 
-> What about I add the following comment:
-> 
->         if ( cpumask_test_cpu(cpu, desc->arch.cpu_mask) ||
->              /*
->               * High-priority vectors are reserved on all CPUs.  Set
->               * the vector to IRQ assignment on all CPUs, even if the
->               * interrupt is not targeting this CPU.  That makes
->               * shuffling those interrupts around CPUs easier.
->               */
->              (vector >= FIRST_HIPRIORITY_VECTOR &&
->               vector <= LAST_HIPRIORITY_VECTOR) )
->             per_cpu(vector_irq, cpu)[vector] = irq;
+> For the AMD workaround I've only ever saw the spurious vector
+> triggering on CPUs different than the BSP at bringup,
 
-Thanks, that's fine with me.
+Besides this possibly being an artifact (the issue occurring once during boot
+may hide it otherwise potentially also occurring later), I think we want to be
+conservative and (continue to) cover all possible cases unless we have an
+explanation for why the issue would be AP-bringup-time-only.
 
 Jan
+
+> I don't think we
+> strictly need to bind all legacy vectors on all possible CPUs.  Well
+> behaved PIC interrupts will only target the BSP, and that's properly
+> setup.
+> 
+> Thanks, Roger.
+
 
