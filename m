@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77DAAC8105F
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 15:31:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171186.1496209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB474C810E6
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 15:36:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171207.1496228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNXak-0005xp-Et; Mon, 24 Nov 2025 14:30:58 +0000
+	id 1vNXfY-0007kd-6m; Mon, 24 Nov 2025 14:35:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171186.1496209; Mon, 24 Nov 2025 14:30:58 +0000
+Received: by outflank-mailman (output) from mailman id 1171207.1496228; Mon, 24 Nov 2025 14:35:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNXak-0005uh-C4; Mon, 24 Nov 2025 14:30:58 +0000
-Received: by outflank-mailman (input) for mailman id 1171186;
- Mon, 24 Nov 2025 14:30:57 +0000
+	id 1vNXfY-0007iF-3j; Mon, 24 Nov 2025 14:35:56 +0000
+Received: by outflank-mailman (input) for mailman id 1171207;
+ Mon, 24 Nov 2025 14:35:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNXaj-0005ub-43
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 14:30:57 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=SvF/=6A=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1vNXfV-0007i9-UQ
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 14:35:54 +0000
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazlp170130001.outbound.protection.outlook.com
+ [2a01:111:f403:c10c::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2fd067be-c942-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 15:30:55 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-42b3d7c1321so2703027f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 06:30:55 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42cb7fa41d2sm28755336f8f.22.2025.11.24.06.30.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 06:30:54 -0800 (PST)
+ id df2ab895-c942-11f0-9d18-b5c5bf9af7f9;
+ Mon, 24 Nov 2025 15:35:52 +0100 (CET)
+Received: from BN0PR04CA0140.namprd04.prod.outlook.com (2603:10b6:408:ed::25)
+ by DM4PR12MB5889.namprd12.prod.outlook.com (2603:10b6:8:65::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.17; Mon, 24 Nov
+ 2025 14:35:46 +0000
+Received: from MN1PEPF0000ECD7.namprd02.prod.outlook.com
+ (2603:10b6:408:ed:cafe::b8) by BN0PR04CA0140.outlook.office365.com
+ (2603:10b6:408:ed::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.17 via Frontend Transport; Mon,
+ 24 Nov 2025 14:35:36 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MN1PEPF0000ECD7.mail.protection.outlook.com (10.167.242.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9366.7 via Frontend Transport; Mon, 24 Nov 2025 14:35:46 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 24 Nov
+ 2025 08:35:45 -0600
+Received: from [172.31.118.135] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 24 Nov 2025 06:35:45 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,174 +59,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fd067be-c942-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763994655; x=1764599455; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qCA3L95yX/2jmy0Bk1Q7WNixVlERopOtXm9Egrruomo=;
-        b=UcpwGxYoPkgiy4CGoB0k7WPABY7FIZXw88AQgTDJo8q4Z4YLfQsbjGXNlFsS/qXY+G
-         Z0ZCUSmCw9OM4bqJ4ATJ+mcp6tefOCHOjtBeE5jarGa7finuqfTeewrgGkHx6b6V18h1
-         IxViOBYP7Hpwer/aXdrHF/1uYca+gz9a2kBmBb+C1qe44QmOsl4XcIeeO14tQuUBszhb
-         HIel+tUm15ttKqCIRoL6fHfS6N8CiHnkMw1s10B1lw6Sg8BbVk7RUNslWgo9FoRGBh6V
-         qVtJeYEsxLeRBuR4TKTFGW+/Abez0dMgavn7kXF+C/MHe9AVhBWFocPue9GMgYlZe6uQ
-         D9pA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763994655; x=1764599455;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qCA3L95yX/2jmy0Bk1Q7WNixVlERopOtXm9Egrruomo=;
-        b=YOXjSfninaFz0zboX85i6fNvA/tPH3La0qvStmpsrm2C4+lJ3Ku4hk4HIAj7aVUWuL
-         Yn2bMzd1ksdjrqnful4LqyUHyv/j5w8Cl7PIgSjnMWWAqQ27DsuhFy0ggeJDqn/fYwKR
-         h/CoUaxjDSoLpABsz66o6pPU90cZ6vsHmJjB8t9R+S67U5bGKHgRW/IDzgW17Qua2WBw
-         yaH8VEld16s395WaIfW17cmGv4W3zwYqYLCoAbEQp4PbwKX6ajAIxWKi1nVHvcrY3Kff
-         GIwcfoYrbka42KN2BCVHLb4U06PYP0Uae8sFB5DVj/FAOpE9WDyfj6QO/YXYsp73nyt8
-         IL5w==
-X-Forwarded-Encrypted: i=1; AJvYcCUh4u7iDMjEhWlvQ0ojOyd7X8tpzCIPx5xxe3l9mH82bax3QIZxVoT22EM5x3mYDpiFg88WESN0BHo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyIamZavfGdHiJN3pGy4CL4HIVqigqT5MPAhQIH2kX/Q5js2ENB
-	rbcE6pukYtjl3ff/CTr4jVT5SNP/WY5w/qUWNxZiTzv+5o/qQ5UJ7KhGy1zrLZwKKA==
-X-Gm-Gg: ASbGncvzvVSnw531G9LfJCayx7+ADpVZ8B8kUosrNLVSibZY3r/4Y56dWBOJJRpGMmo
-	7/zWOkt79aTPMWXmP2mWFFDI4zRZ/JddP7SStdapU4PZFDH1ffFhanmPrgQJdRmkMA+SpsUQBsk
-	mUvj7GbQFRKCAr4NIsbfF1pQ3mQewN1lDnyZ3U3KzSNVPN2QnV70nwI7kzNhXFxeHRngE7OvGjS
-	jpdHyovmxTl2XM+KfTHyuw7fSejinou/d6jQvDx93gz/PF1NGUxiGUkdKU8x1zmZ2cMsK2QHDsU
-	AY0b+8QbxkHnYmqZDx6NkqST3a5ZZfqoG3Azy49WvWOuyYquIKrS/7dYwnxDqo1+0WUABVtbZRq
-	iF12iPA+D3P5j6LGVZErhE2dr0VzilzT4K/1bPU5v/w7Sjw8vEBiXbtvHGQufpDM6H64rI/06BK
-	1avy5yRc4Hc7uWvXBG22i5qGtG7k/txi4m8rkMxW6E2FJVvedsIEbwcO3oRA+EvUVJPtlVejzwT
-	io=
-X-Google-Smtp-Source: AGHT+IHGuQ1Lk4gMV6IoZt99xBOgPOLJVjm9F9SsZ68lGMkPuUb6+Cx81ALTl/niHKajrccQMIBgbA==
-X-Received: by 2002:a05:6000:2f81:b0:429:c711:229a with SMTP id ffacd0b85a97d-42cc1d23087mr14159791f8f.56.1763994654901;
-        Mon, 24 Nov 2025 06:30:54 -0800 (PST)
-Message-ID: <39df58e5-6b04-45fb-bd25-8ebc8972a7ed@suse.com>
-Date: Mon, 24 Nov 2025 15:30:56 +0100
+X-Inumbo-ID: df2ab895-c942-11f0-9d18-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A9KhbzyP6XwenB6qJ+x0NtBLAX4NCOaW/ESVE17CBgiX1Yq3RddNquSsjUt7P3WEcsNxqBjarPX6G+zhgz0fTuxdPiKIUDcS2bqGLyZLz4FPbIFsb1z0R54kYImNm2AQWdhmM/XM/bH6v+jVO3wCxBd1BiYIeO7qXYGpFZwiojk3hBPdKhPdfgQcTwoV+oIBz/jgpo2rw/DSsFdID9SYnCh9sspOEG0hyKAQneNLBW8FmbwcdemM/0g9BGIYQhxXjrGcYR865g46B171JOzkAc+hE+uAc1lEPVVHkmw4Zuh2TfQ4T5R5fNjh8nphWcFXrJ4JN5qQSgCa+77jyoQiGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JTPwPA51pdpKbZ9WeYPyvala1S8NXW2Pnvok26N6YHg=;
+ b=Q5arzE5mr1bOySIk1+0lXCkJno0TNykqatGsYOp98Dt5S4GinZdDZj9RnlfQUzWOkhypBdx2viTKAW1fRs4wflO5/fehn3hDg+CnJ8f/s2xlNckArMsGokDxYtT+tlFHAmuRGSxF1jo0KZ9pHF5PM9p/n0xYtkHVYEaWddSslmSm6EbSfNHInfMIRtb+HyqlXcXWtCpxsO34KgjYBgEFyJOeGV+E6nv8fVKSqWO0durwIp7oP0sebMs0vB6Fd08sKAf7dmZ8aEzQgBLGUtXdN18D2sjjlMw6IKEYwGXF7B9rSmeUzibMjH84NJZ8yzt35jN2nVFVcxXN5Z5eIv5QTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JTPwPA51pdpKbZ9WeYPyvala1S8NXW2Pnvok26N6YHg=;
+ b=qZzxrIQ1tl1WBNr+x6jdLY+ZqvlOepgqJtzcRA8CahsUyixI9JJnZHEI/SYpzs1i+lMD0AgOrHzVSjNYh40CYNgwv4lHSUq4tIK5OjDTP6yH/yA8PMS8QeeU0RFSEbV4bsgPsPqVJ/5/EDB5+Gc7zfnE4VKvTaEoDXrOkNhfauE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <bf1f22ae-11d0-4ac4-9b64-72c3c83c2ef1@amd.com>
+Date: Mon, 24 Nov 2025 09:35:44 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] build: add make macro for making file from file.in
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20251121132332.23514-1-jgross@suse.com>
- <20251121132332.23514-2-jgross@suse.com>
- <d34e3e86-c51a-49b3-8b46-140526755f0f@suse.com>
- <826037a5-dacf-434f-90d9-8f12e61bdd6e@suse.com>
- <0ece9df6-8a04-4ffa-bcf4-d7a3fd4bbef4@suse.com>
- <bf7e1a66-1696-477a-bdef-79b08df0b57c@suse.com>
- <bbcaf4f2-c52e-4b3e-ab6a-ca5020a8b786@suse.com>
- <a593e8cb-fa56-4301-a7da-ca4b51dfab9a@suse.com>
+Subject: Re: [PATCH v2 6/6] x86/cpufreq: use host CPU policy in HWP driver
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <f0ac75c8-5d65-43ef-aeeb-78d34f1da470@suse.com>
+ <bacee005-8ba3-468e-8de4-681af1cc4856@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a593e8cb-fa56-4301-a7da-ca4b51dfab9a@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <bacee005-8ba3-468e-8de4-681af1cc4856@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD7:EE_|DM4PR12MB5889:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46f05159-827e-4162-e131-08de2b66c12b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dmt1RFVIWkxjMnR4WXdOeTMwUXBVa3RQQnBBdVN2dDluZTdxc1JPTmZIVFZ3?=
+ =?utf-8?B?KzFIVi9SRnY1Rm5WQWdLNmw3VjFIa0hzMGRrZEgzL09saHRBSTNUWk5QbG1S?=
+ =?utf-8?B?bnR3enQzbm80eFRtQm41eXU2dndLcDI0SlFVQ3JhcFRrRmcrT2s3SDJUeVVu?=
+ =?utf-8?B?RUFXZnBXbjlYakpqZWR2WnBCdU40RzJtN1A5dlpGVHZkcUwzcjA4akdTTDdU?=
+ =?utf-8?B?TnJ0akNuTDNzdWFFZWQyZ2o4U0FwOW1WV0l4cVV3NXZBY01YZ1Y5Qk1FZmZS?=
+ =?utf-8?B?dlJsZkFGVXFheENERjc2NXFWNVVYbDNpaGRNQ0hrVGRDMWJqSGRZWXhRUTli?=
+ =?utf-8?B?Zm5ZWklaRzdkN3hxUkpqc3F5U25tWFRTWlcxYTdUWjVrMHpSeVlNSXZTVFE5?=
+ =?utf-8?B?N2hWZm9kdzBxSFdnRThlSlp1TWtUTm5MZU9kUnhYNjhjdDg1cGtxQlZ4RzBn?=
+ =?utf-8?B?T0FRVytNNzhDVmhuVlA3Z3F6NzBwc1JhWU5sN2prYnlnUU84T2t5ODIvNTZQ?=
+ =?utf-8?B?L216UHlIR3pDN1ErbGoxYW9pU1dPNlJEckF4anlFNnZnWmNKNDNuRHMwbnhM?=
+ =?utf-8?B?MmFKdGRCQWpnSU9ZcDl6YUs1dzE2dkpTYmRrUllRbE5kVW05UzN1U2tBUWVV?=
+ =?utf-8?B?VHNxbEd4bHE3K3NmNVdOdUh3akt5d0c4Q1VxYXJjMXFNUjJtbVY1ZkFEdzN5?=
+ =?utf-8?B?WG5aVXZTbndPZFRvOWVhd29Zd0RmOUxZM0w4Wk11S0tqZDZyUDdEQzYrOFlk?=
+ =?utf-8?B?OEpwZDN1dmsrU2pjQ1BEVlFzZHhyRWJ2a2loemU0bklVcnhoM09sU1pjZnQ1?=
+ =?utf-8?B?YVZxeWlzcjBqa0N3dVFsVW5ENlkwbCsxT3dWdmxqWTREemNLbHJmdW9QNUxm?=
+ =?utf-8?B?L0NmR0lEUStaK0liZlRNbjcxOEc3blNtNjliQ3J4TnlHdHp5OHkyR3BOdWJY?=
+ =?utf-8?B?VHIwSURieWVIVVo1QUFhakFxRHBPUUFOZzdHMkZLbW45MWNmd2RvMHZpck03?=
+ =?utf-8?B?MXZVSlRVZUEwYkZLQjE0TlVVNmtlUUtGUkJITTJKRGlhWTBFMUhhbEVVbGFw?=
+ =?utf-8?B?YzJYU1I0a2R0R2R6Q0lobWhZemtOQ2FZZ2pCMHlkWlgveW16RVdQeko4UjlV?=
+ =?utf-8?B?MmZFYUJlMG1PaFlyNmZpY3JyUjBqdS9UbmIwWXVNRG5LQ2hCZWc1OHpjYkNJ?=
+ =?utf-8?B?UkMwQXZINkdDaVpNdkhidkZkN1B5ekRoQXc4MUpyNnBOZS9UYSsxQlhIdXZD?=
+ =?utf-8?B?V1oySmZYeTdLd1BpSFQ2djhNY3lMQXdMNnRNU0NhYWswSTRwSTdtRTh0Uksx?=
+ =?utf-8?B?WTd1UEFoQWtMMkVvSXBteWVzY0FzMVZJcUpOZzRQSHBUZXFBVFVpS0hMVVJv?=
+ =?utf-8?B?NTJRRU9qa203MTRsVEY0a3NLeUlqK2pFT2w3WVlFRVVGNlFVT3cyV1hlVnVV?=
+ =?utf-8?B?SjFBTHE1b0wxWGczUFNvcFIwSmI5c29EMmxHYS81OTI1VUJZQ3JENmkwcE9H?=
+ =?utf-8?B?ejlKcTd6NTVCcGltVTRBcGduUS8wVTFNdW5OVFNiQ3lEQXRIRXUzMkVtWE5Y?=
+ =?utf-8?B?ZUxIMVVoY1VNdzFwNm04N2ZXZ0l1VDNDZmlWV2xwQkNjalFlbXhzYnl0ZTJz?=
+ =?utf-8?B?dVdsTVJ6MjZ6YWtmN2gvcFhhaGxpY3U2aFBreGsvVCtTQmFNMnBVbExBOXN5?=
+ =?utf-8?B?L3RUVjZhenlPME1pNGZqbkdEV1liQTJhZkEzeElFWHdDL29GUHpaTzR0Nm1V?=
+ =?utf-8?B?VzNzNFc3dGxBLzBLcXdiMjk5S0pYbW9rem5vWHR6YnNNRU1qaE16Wm9JeXls?=
+ =?utf-8?B?NCtXelc3NERJZllGWHlnemJ4bzVHaTh4WmtXRXZTYk5YMDRSdERwNWFPQXFW?=
+ =?utf-8?B?Q1ZaWWNzaDRrOXZORk1pWisvTE44Umc3UWhMVDNjU01PYUlHVlozNzZxNEFl?=
+ =?utf-8?B?eUZlYlJCWVY4dGJibWJPT0FqZENTbTZleEthbDUvMW45cktqV3BjT2drb0N5?=
+ =?utf-8?B?Q1FwVXU5T3BZQkhvTmE1UlNUK0hzVGUvWkRiUVFKRkdHaXAyMnNnWElQSmsy?=
+ =?utf-8?B?LzVJR1h5T3lwMm5TYk5SOFhqQ1BjZ2I3VTlQYkRlQ05MVkVnMkMyLzBjL25r?=
+ =?utf-8?Q?SVcY=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2025 14:35:46.0287
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46f05159-827e-4162-e131-08de2b66c12b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000ECD7.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5889
 
-On 24.11.2025 13:45, Jürgen Groß wrote:
-> On 24.11.25 13:18, Jan Beulich wrote:
->> On 24.11.2025 12:27, Juergen Gross wrote:
->>> On 24.11.25 12:15, Jan Beulich wrote:
->>>> On 24.11.2025 12:05, Jürgen Groß wrote:
->>>>> On 24.11.25 11:41, Jan Beulich wrote:
->>>>>> On 21.11.2025 14:23, Juergen Gross wrote:
->>>>>>> --- a/Config.mk
->>>>>>> +++ b/Config.mk
->>>>>>> @@ -159,6 +159,19 @@ define move-if-changed
->>>>>>>     	if ! cmp -s $(1) $(2); then mv -f $(1) $(2); else rm -f $(1); fi
->>>>>>>     endef
->>>>>>>     
->>>>>>> +PATH_FILES := Paths
->>>>>>> +INC_FILES = $(foreach f, $(PATH_FILES), $(XEN_ROOT)/config/$(f).mk)
->>>>>>> +
->>>>>>> +include $(INC_FILES)
->>>>>>> +
->>>>>>> +BUILD_MAKE_VARS = $(foreach f, $(PATH_FILES), $(shell awk '$$2 == ":=" { print $$1; }' $(XEN_ROOT)/config/$(f).mk.in))
->>>>>>
->>>>>> Feels like my prior comments weren't really addressed. I continue to think that
->>>>>> none of the above is part of what the subject says.
->>>>>
->>>>> I really don't understand your concern here.
->>>>>
->>>>> For replacing the @markers@ make needs to know what should be replaced.
->>>>> So it needs to scan the files containing the markers and gather them.
->>>>> This is what is done above.
->>>>>
->>>>> In the final macro below the replacements are done then. How would you
->>>>> handle that?
->>>>
->>>> By passing (another) argument to the macro, for example. As indicated
->>>> earlier, different sub-trees may have different places where these
->>>> definitions live, and they would want to be able to pass that in
->>>> (ideally without needing to put this in a common part of the tree).
->>>
->>> I don't get what you want to pass in additionally.
->>>
->>> I've already changed the macro and the Makefiles to be able to add another
->>> marker file to the PATH_FILES variable. What else do you need?
->>
->> Well, that's simply an odd way of passing a parameter. Plus, the extra file
+On 2025-11-24 07:25, Jan Beulich wrote:
+> There's no need to invoke CPUID yet another time. This way two of the
+> static booleans can also go away.
 > 
-> We do that all the times, e.g. by "OBJ-y += ..."
-
-That's sufficiently different though: Accumulating the set of objects to
-produce is kind of naturally done that way.
-
->> won't affect INC_FILES, or more precisely its use in the include directive
->> in patch 1: At least aiui, $(INC_FILES) is expanded at the point when the
->> directive is processed. Hence why you need to open-code another include
->> there.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v2: Introduce cpu_has_*.
 > 
-> The INC_FILES variable is mostly needed for specifying the dependence of
-> the generated files on the files mentioned in PATH_FILES.
-> 
-> It might be better to just have "-include $(XEN_ROOT/config/Paths.mk" in
-> Config.mk, matching the setting of PATH_FILES there.
+> --- a/xen/arch/x86/acpi/cpufreq/hwp.c
+> +++ b/xen/arch/x86/acpi/cpufreq/hwp.c
 
-Looking at this the 3rd or 4th time now, I still don't quite get why the
-include is needed in the first place. You don't mean to use (right here)
-any of the settings the file produces, do you? Really, as also mentioned
-by Andrew, you really can't, because in a pure hypervisor build the file
-wouldn't have been made, as no configure would have run.
+> @@ -226,7 +214,8 @@ static int cf_check hwp_cpufreq_verify(s
+>   {
+>       struct hwp_drv_data *data = per_cpu(hwp_drv_data, policy->cpu);
+>   
+> -    if ( !feature_hwp_activity_window && data->activity_window )
+> +    if ( !cpu_has_hwp_activity_window &&
+> +         data->activity_window )
 
-If I'm not mistaken, you really need those values only at the time you
-execute the rule. And I'm worried of these definitions to collide with
-something else. Hence one desire would be to limit the scope of these
-variables to just the new rule. Maybe something like
+This ...
+>       {
+>           hwp_verbose("HWP activity window not supported\n");
+>   
 
-# Replace @xxx@ markers in $(1).in with $(xxx) variable contents, write to $(1)
-define apply-build-vars
-$(1): $$(shell grep -h := $$(wildcard $$(INC_FILES)) /dev/null)
-$(1): $(1).in $$(INC_FILES)
-	sed $$(foreach v, $$(BUILD_MAKE_VARS), -e 's#@$$(v)@#$$($$(v))#g') <$$< >$$@
-endef
+> @@ -537,7 +526,8 @@ int get_hwp_para(unsigned int cpu,
+>           return -ENODATA;
+>   
+>       cppc_para->features         =
+> -        (feature_hwp_activity_window ? XEN_SYSCTL_CPPC_FEAT_ACT_WINDOW : 0);
+> +        (cpu_has_hwp_activity_window
+> +         ? XEN_SYSCTL_CPPC_FEAT_ACT_WINDOW : 0);
 
-could work? (This likely depends on INC_FILES to only list files which
-are configure generated, i.e. wouldn't be updated by a make rule.)
+...and this can still be on one line.
 
-Jan
+Preferably with that fixed:
+
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+
+Thanks,
+Jason
+
+>       cppc_para->lowest           = data->hw.lowest;
+>       cppc_para->lowest_nonlinear = data->hw.most_efficient;
+>       cppc_para->nominal          = data->hw.guaranteed;
 
