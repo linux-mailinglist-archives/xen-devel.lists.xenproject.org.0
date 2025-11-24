@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D4D6C7F9D0
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 10:27:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170141.1495222 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD571C7FAC1
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 10:41:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170154.1495231 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNSqG-0006AX-2R; Mon, 24 Nov 2025 09:26:40 +0000
+	id 1vNT3v-0000UQ-9F; Mon, 24 Nov 2025 09:40:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170141.1495222; Mon, 24 Nov 2025 09:26:40 +0000
+Received: by outflank-mailman (output) from mailman id 1170154.1495231; Mon, 24 Nov 2025 09:40:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNSqF-00067X-Vs; Mon, 24 Nov 2025 09:26:39 +0000
-Received: by outflank-mailman (input) for mailman id 1170141;
- Mon, 24 Nov 2025 09:26:38 +0000
+	id 1vNT3v-0000SE-6c; Mon, 24 Nov 2025 09:40:47 +0000
+Received: by outflank-mailman (input) for mailman id 1170154;
+ Mon, 24 Nov 2025 09:40:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNSqE-00067R-SL
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 09:26:38 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1vNT3u-0000S8-14
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 09:40:46 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aa876ac9-c917-11f0-980a-7dc792cee155;
- Mon, 24 Nov 2025 10:26:33 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-477a219dbcaso36887875e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 01:26:33 -0800 (PST)
+ id a4fd85e8-c919-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 10:40:43 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4775ae77516so41275735e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 01:40:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477bf1e868bsm180497855e9.4.2025.11.24.01.26.31
+ 5b1f17b1804b1-477bf198a67sm194971805e9.0.2025.11.24.01.40.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 01:26:32 -0800 (PST)
+ Mon, 24 Nov 2025 01:40:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa876ac9-c917-11f0-980a-7dc792cee155
+X-Inumbo-ID: a4fd85e8-c919-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763976393; x=1764581193; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763977242; x=1764582042; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mDjyJRdZ8pZYRtWlWjlBbN7rJy8cfnFU74s+/WsGHo8=;
-        b=X2DIUsPCz9SZnVBnAM+9SZGTIRHZIZeFyFYNWL1K5WWqsniB32hrvpdPY1JPC1nYrN
-         dW3SHuotqsb9wUTqF8eNE8uFxZjIrCd7oItn4mqPjVPycrBmJqNKOqAyqdXUQob5aBC1
-         DIXHa2VudlikyLyhktCtNAJyLEA7UtiHvoRAHwuyqX8ImRWfy2v3F7eRYypoM00EzpCI
-         B3bZsyoYxhmf9u477lqq0q5d7PDvdveSL3CasZqV7Fisso0IczAYNJZUo2ZstZPtZBA5
-         1N9WYaOtQ+6AQSnvlVmfq7+1HXac29ycvr6dKmCNj/uFClTGSt6Wa3rPOm6zToWvsmdC
-         w/qA==
+        bh=YEIyGuupettzazkKcMo45e+hiEQdetGWlZWEx9ACaOU=;
+        b=MOACEUL4lYfz7X0ywJy2ad05fYH1GpfjHSv6lR5/KlOpPRP1y56EDybAh5k9rR67ex
+         tke29/HOPv6vjrtjnBAsxJn1pPjzpvfwaKepS/P3vYcqXm5X8exPx6S+Ts1pxKGh3492
+         HQbpvN7Dvme+UV/5mAt/P3ijRJyeIx02iQ6eeby9Q0VArsh58tg69V2/rLU49vq/tfNj
+         Q29/8DSnX9vgBkBDhiRNUUioCRdaRPn7wwO4utBo7L9xUP15wDv52G6ubPIDeBUBgsEv
+         UBO/zfGQC661FwGve9/sTRDfL0GMDV68k4n6YyvygvDtRaM+SfmmggO++nvMF8UEqee6
+         Udrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763976393; x=1764581193;
+        d=1e100.net; s=20230601; t=1763977242; x=1764582042;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mDjyJRdZ8pZYRtWlWjlBbN7rJy8cfnFU74s+/WsGHo8=;
-        b=J+XCLsMc9FUjfzFR2p6IGxrPWoVbdulvyvCNYp8M6W6l+767c1zoi9M4mljXcemaBX
-         dMVmuiyop+OylcpaQXwoxoUNyp2wZ8RObMwFxifJgfPwgb9FkAzldNqjRrVsnNvfwuIO
-         mmMUgmKD6RCg/Cj+KbJeTo2U/os7VrqIKqE7kGcaPLNYT9FFQppolM1T26DxiYaBmktR
-         HVk1E1Tkb7qciBw+gANyofyOcMUBoLPw0PCwq5ohKa00A/7y/tcsiDzK39uXv1GLj2iB
-         hnZxIn6jlI1D3kO9eIET7drCl6qDG3mJc8C/XN1kYOpAu4R9UB2eIRD6vV7sCxNHd4ob
-         4p8Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVWoWlIB8YFoFkDryDHBj9cCOHgs3S3uCktbRmey35Pt4tG3Id4iehp5xJCjg4Wy7wHlE+96/+r4xg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxvWZZj3csEQmqZn4QgfuWBLAAGrrfof9jb+rKG7lPjpVfhrw+8
-	FxwkiFthfx2peZRoAo1k4B29o2YRtsDco1A8rJXwqhdYbxWl34ED7vZs70v/vdayaksdh7mRMK8
-	i11M=
-X-Gm-Gg: ASbGncsf2xw2N+ZUtHuPTkhr0iVaQa0+IVnRj5IlXHQUZJfvkHfCQzGcym3ridtigFH
-	UCV8+DtHgzt9Ut+ob4fFsFqYcyV5nOCED6jjl14/K7jdxWH8SSAgOR6TlJuiL4SxdDV6krQa6gg
-	iR7aXn1BvAeLwwcrHhabegE7Qs15y6Q8dzWhuIZWkUwHxs+CMmXJ8WzCJI8xJnTjnI7JzcNWeN1
-	wZBzT6qxAyZeupMMZcXDu9KMEPu5Zx9O80FVwrH1KtNa+ZLr457YmKFYA1fjR9LdOMVqCWjz36o
-	wE4VeoxCvS/D+vtKaBdUwYCLWz+AsauNVKsab70T3C5MORIoUPMcDb0nPHZXYuT8TjtoC49su1N
-	TkzUxBYVofk/Wfe6WxdtwluwyD7DrJPy859R94qk1BgiFXUXUo2LvliHh2kR4nqcZTEFrT6JYuz
-	NUD3i7vASveMAdsZhoHHLFVI1ogGGemvdHeg/inN8UWuQQ9RUrWLAdaSeK/4VaK04XlMJYkG/Lu
-	+k=
-X-Google-Smtp-Source: AGHT+IFN6q/p2wm/avPQPP+e0G4MFcTx0TCi+HF9pSGKJyKFXPrfklbg5y+WADZlMnkrUBNvLXlNYA==
-X-Received: by 2002:a05:600c:1993:b0:477:abea:901c with SMTP id 5b1f17b1804b1-477c0184be0mr104377475e9.11.1763976392506;
-        Mon, 24 Nov 2025 01:26:32 -0800 (PST)
-Message-ID: <8c8b11c7-ba2c-440c-be2b-86a1ff250e0d@suse.com>
-Date: Mon, 24 Nov 2025 10:26:34 +0100
+        bh=YEIyGuupettzazkKcMo45e+hiEQdetGWlZWEx9ACaOU=;
+        b=Mmh/0Kevi38VCYHY790tOvydwzpBD0nUXsOy+MFB50K6zOGTsWzAlzERmauIpXFjv0
+         HaXd9FuQoRtI1woFuOjn88oyYdc/Llli8FpFSP4i/J10UKztpmKtiK0wEc/41uJeKVUZ
+         wbk7x8LCiepMRXec/jmjjVDfJEGkT1Vo5bbePapd2Uln4C5gQ4qTTD89WYiiOKq+YQYd
+         bxWNkxaY33mPcCwYEjm4p/XfuvvRU//DgLMMlOm39o888KhHId2UPLyEeGCzLZQ7Nvxl
+         6Y1mBz0QBquL4era4kZ3A13WuD2VHoRriRshx6jAS8z7xpoT8tWOEvjicQI+oZMlgZXA
+         chUQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWm9E+GNX7fcFM2uCCV5RC7NbbN7RoTXQ5zpHd/EBa00dzAG5nXawiZy4/lnG/yEWPQoZIFuEjzy+k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxxlqsNnZHgMQE62BAmm2i9zq/1Y07vFFdnoDYiz9bjd4aqxO5E
+	jhJTBSZrcl+QJEaz6jjSy1zjdG+XrNcHCF3swsPvxSAalvgmxIBgR6YIui9qhjY3RQ==
+X-Gm-Gg: ASbGncsl1godYl/n53Y92rP46veDMUevCCF8p8bnaTZO4UjI5VhUIKTdf1dt3eJCNbi
+	q7ONB4uNUerNmvr40Lv+rDxE2go7f8LruUcqbb0is9NGeXfKt4DrD0gYVDy7lo5ES5aGefStEtQ
+	sLp12iDgddBgNls5UUz3ZJR+180dkZg9f+ymjB/rvPdYD5mwNvvXfeyObDM5j++bU55DUA96JAl
+	mM9+UkSsgbTCzBlUlLjzCaUSudOELNZhRlBxfP7Hpn5sv5zHv5Lii0zJTRD6bPL7ByzAaNwqJ3c
+	Zwub+2SayrkvF4sM2RzgVk1miUtbr+Gl4Tb8dOL4iYgZKAo6kq2W8ZNnp7AAPTrYkYF+FJI7gHk
+	Ui1FHDh/4BjRFEgaAiwVcw0xcGXmeAUwBkFS+sYd2BkKkiz4Sr4iS4+LfMab3zO5DXMqHwT/5kO
+	A5AfsEuTFJYP05MXPivszkjdfbgGNaY13Ot4kJ1kNvqJwTgtP5pNGCEdbOi9ciiWXNhD2Rz2mP4
+	Co=
+X-Google-Smtp-Source: AGHT+IENTdh99KUSlL9O+6IRnyl08rp+9TcyCmFRJJW4DWuX5ic8Frg8SWddyuZ8B1Hq/+6pJ56REA==
+X-Received: by 2002:a05:600c:3b01:b0:477:7c45:87b2 with SMTP id 5b1f17b1804b1-477c111607fmr119243405e9.16.1763977242171;
+        Mon, 24 Nov 2025 01:40:42 -0800 (PST)
+Message-ID: <f75bd206-47a5-450e-a4ab-920dbc4574b0@suse.com>
+Date: Mon, 24 Nov 2025 10:40:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] libxl_nocpuid.c: fix build with json-c
-To: Michael Young <m.a.young@durham.ac.uk>,
- Anthony PERARD <anthony.perard@vates.tech>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-References: <94ffdeb1-6826-4c3a-a9c1-3ccc8b129a61@durham.ac.uk>
+Subject: Re: [PATCH] XEN: enable MC/DC coverage for Clang
+To: Saman Dehghan <samaan.dehghan@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <3bb418ae6a36a9ac89c697a417fa0745fa9ac702.1763949990.git.samaan.dehghan@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,76 +122,68 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <94ffdeb1-6826-4c3a-a9c1-3ccc8b129a61@durham.ac.uk>
+In-Reply-To: <3bb418ae6a36a9ac89c697a417fa0745fa9ac702.1763949990.git.samaan.dehghan@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 21.11.2025 22:09, Michael Young wrote:
-> The build of xen-4.21.0 with json-c present and yajl not present
-> is failing with the error
+On 24.11.2025 03:18, Saman Dehghan wrote:
+> Clang >= 18 supports Modified Condition/Decision Coverage (MC/DC).
+> This patch enables the detection and usage of this feature when
+> compiling Xen with Clang.
 > 
-> libxl_nocpuid.c:43:1: error: unknown type name ‘yajl_gen_status’
->     43 | yajl_gen_status libxl_cpuid_policy_list_gen_json(yajl_gen hand,
->        | ^~~~~~~~~~~~~~~
-> libxl_nocpuid.c:43:50: error: unknown type name ‘yajl_gen’
->     43 | yajl_gen_status libxl_cpuid_policy_list_gen_json(yajl_gen hand,
->        |                                                  ^~~~~~~~
-> make[6]: *** 
-> [/builddir/build/BUILD/xen-4.21.0-build/xen-4.21.0/tools/libs/light/../../../tools/Rules.mk:178: libxl_nocpuid.o] Error 1
+> - Update detection logic to check for '-fcoverage-mcdc' when using Clang.
+
+You check for ...
+
+> - Update llvm.c to handle the profile format changes (bitmap section)
+>   required for MC/DC.
+> - Guard -Wno-error=coverage-too-many-conditions with CONFIG_CC_IS_GCC
+>   to avoid passing a GCC-only warning option to Clang
 > 
-> I tested it with the patch below based on libxl_nocpuid.c which did build.
-> 
-> Signed-off-by: Michael Young <m.a.young@durham.ac.uk>
+> Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
 > ---
->   tools/libs/light/libxl_nocpuid.c | 13 +++++++++++++
->   1 file changed, 13 insertions(+)
+>  xen/Kconfig                |  2 +-
+>  xen/Rules.mk               |  1 +
+>  xen/arch/x86/Makefile      |  4 +++-
+>  xen/common/coverage/llvm.c | 24 +++++++++++++++++++++++-
+>  4 files changed, 28 insertions(+), 3 deletions(-)
 > 
-> diff --git a/tools/libs/light/libxl_nocpuid.c 
-> b/tools/libs/light/libxl_nocpuid.c
-> index 0630959e76..71ab49ed61 100644
-> --- a/tools/libs/light/libxl_nocpuid.c
-> +++ b/tools/libs/light/libxl_nocpuid.c
-> @@ -40,11 +40,24 @@ int libxl__cpuid_legacy(libxl_ctx *ctx, uint32_t 
-> domid, bool restore,
->       return 0;
->   }
-> 
-> +#ifdef HAVE_LIBJSONC
-> +#ifndef _hidden
-> +#define _hidden
-> +#endif
+> diff --git a/xen/Kconfig b/xen/Kconfig
+> index a5e5af3b76..5508993f02 100644
+> --- a/xen/Kconfig
+> +++ b/xen/Kconfig
+> @@ -53,7 +53,7 @@ config CC_HAS_ASM_GOTO_OUTPUT
+>  
+>  # Compiler supports -fcondition-coverage aka MC/DC
+>  config CC_HAS_MCDC
+> -	def_bool $(cc-option,-fcondition-coverage)
+> +	def_bool $(cc-option,-fcondition-coverage) || $(cc-option,-fprofile-instr-generate -fcoverage-mapping -fcoverage-mcdc)
 
-Why would this be needed? libxl_internal provides a definition afaics.
+... more than that one option here. Presumably because the option alone
+wouldn't be liked by the compiler? (May want mentioning in that part of the
+description.)
 
-> +_hidden int libxl_cpuid_policy_list_gen_jso(json_object **jso_r,
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -99,7 +99,9 @@ ifneq ($(CONFIG_HVM),y)
+>  $(obj)/x86_emulate.o: CFLAGS-y += -Wno-unused-label
+>  endif
+>  ifeq ($(CONFIG_CONDITION_COVERAGE),y)
+> -$(obj)/x86_emulate.o: CFLAGS-y += -Wno-error=coverage-too-many-conditions
+> +    ifeq ($(CONFIG_CC_IS_GCC),y)
+> +        $(obj)/x86_emulate.o: CFLAGS-y += -Wno-error=coverage-too-many-conditions
+> +    endif
+>  endif
 
-Nor should the attribute be needed here, as the function declaration ought
-to be in scope.
+Please can the two conditionals be combined, like I think we do elsewhere:
 
-> +                                libxl_cpuid_policy_list *pcpuid)
-> +{
-> +    return 0;
-> +}
-> +#endif
-> +
-> +#if defined(HAVE_LIBYAJL)
->   yajl_gen_status libxl_cpuid_policy_list_gen_json(yajl_gen hand,
->                                   libxl_cpuid_policy_list *pcpuid)
->   {
->       return 0;
->   }
-> +#endif
+ifeq ($(CONFIG_CONDITION_COVERAGE)$(CONFIG_CC_IS_GCC),yy)
 
-Maybe unrelated to this build fix, I find it hard to believe that returning
-0 (presumably meaning "success") here is appropriate without actually doing
-anything. In particular for the new function you add, I think upon success
-the caller can expect *jso_r to have got assigned a value. However, without
-any commentary it's hard to tell whether there's some "agreement" that the
-caller has to pre-set its variable (to, say, NULL).
+or
 
-Also why are the libxl_..._jso() all hidden, while their libxl_..._json()
-counterparts aren't? And why would non-exported functions have their
-declarations live in a non-private header?
+ifeq ($(CONFIG_CONDITION_COVERAGE)_$(CONFIG_CC_IS_GCC),y_y)
+
+?
 
 Jan
 
