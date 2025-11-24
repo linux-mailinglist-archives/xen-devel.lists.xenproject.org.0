@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5A1EC80009
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 11:53:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170264.1495342 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27992C80123
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 12:05:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170287.1495352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNUBm-0006vD-RU; Mon, 24 Nov 2025 10:52:58 +0000
+	id 1vNUNa-0000qq-1T; Mon, 24 Nov 2025 11:05:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170264.1495342; Mon, 24 Nov 2025 10:52:58 +0000
+Received: by outflank-mailman (output) from mailman id 1170287.1495352; Mon, 24 Nov 2025 11:05:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNUBm-0006ti-O1; Mon, 24 Nov 2025 10:52:58 +0000
-Received: by outflank-mailman (input) for mailman id 1170264;
- Mon, 24 Nov 2025 10:52:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNUBl-0006t7-6y
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 10:52:57 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bb12c3ba-c923-11f0-980a-7dc792cee155;
- Mon, 24 Nov 2025 11:52:55 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-477ba2c1ca2so42882305e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 02:52:54 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477bf1f365fsm191292965e9.8.2025.11.24.02.52.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 02:52:54 -0800 (PST)
+	id 1vNUNZ-0000od-UI; Mon, 24 Nov 2025 11:05:09 +0000
+Received: by outflank-mailman (input) for mailman id 1170287;
+ Mon, 24 Nov 2025 11:05:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Qo8f=6A=gmail.com=samaan.dehghan@srs-se1.protection.inumbo.net>)
+ id 1vNUNZ-0000oX-Bn
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 11:05:09 +0000
+Received: from mail-qv1-xf29.google.com (mail-qv1-xf29.google.com
+ [2607:f8b0:4864:20::f29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6fcc9e2f-c925-11f0-9d18-b5c5bf9af7f9;
+ Mon, 24 Nov 2025 12:05:08 +0100 (CET)
+Received: by mail-qv1-xf29.google.com with SMTP id
+ 6a1803df08f44-88267973e5cso25609586d6.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 03:05:08 -0800 (PST)
+Received: from localhost.localdomain
+ (host-154-4.mdu.ilcmifre.champaign.il.us.clients.pavlovmedia.net.
+ [66.253.154.4]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8846e59ec1dsm98274406d6.50.2025.11.24.03.05.05
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Mon, 24 Nov 2025 03:05:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +46,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb12c3ba-c923-11f0-980a-7dc792cee155
+X-Inumbo-ID: 6fcc9e2f-c925-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763981574; x=1764586374; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EnMyMpsa3EDwflxEWCohYtKKYgNJwAtKayhparUd0k4=;
-        b=DZ47t66k1J2Loaju01twzRzZ2AzbfLeTiz72XZL44qFLt3YHIbgseffdA8TTqPszII
-         3uQZYWqgzq+BqIoQo4uePbhDpv2WcBwViJHX3zYf7LIvXtPpwklg8qO3KBbTbGVhb4qO
-         En1yUvhAd5RxueeCZewm8AHSKyfi7rB7LQGFQJh/luM6ISfZk1AH/xAOj90gnA6xtMk5
-         N6/L+AplIrw3KpY/tG7Hy/Oo85GG2BYWnGFE6gL7XRYi9vqzxXHXXTfWUa/QkD+Ruu8V
-         g80L8+NA8M24kGCDwyWf45BDDROLEA6phvNrnNtaj5zrQJsrO6mifEdiBM5MIURB6rY4
-         D1TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763981574; x=1764586374;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1763982307; x=1764587107; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EnMyMpsa3EDwflxEWCohYtKKYgNJwAtKayhparUd0k4=;
-        b=AYARk3F/tHwyMkIQzmZftS5gxUOIviByyQuCWsJbegNXuKwPRy+YPloOy3QJnvO+Me
-         zy/62VaDKTLeICB1nMTT+ul0V0xqStU/cdSgf7LAmjMm5/3ErjUWlD6G83DFTt+WpE18
-         69JruUkTA9UL3QxE40dXTfe48C3qHfPk/zmyEIX9E9PI6w9c5+vl/ClEQlxdhSli/qHk
-         EID0p9xk3NBs2yw/kETuEmhaEo3w0OdjIdH5RaCe1EyeFQt7VpFZHGgmuuT88SMnHHz8
-         qOem+wIEZxOkAJ1B3HBsh1CtFhKO0R7C9B7x8JclEIAaOsClsi+yut+IJDzh/pjLFMuu
-         BnOA==
-X-Forwarded-Encrypted: i=1; AJvYcCUxXSLGzW6VUj4FqmZcJc1w5zyPUQTKEd2JkDVI/rCTzO2ACb5Y9yo+XdpgVRLuY3sSRNpH55U3+QY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwY/QiWO53DLntfeYQm4SCl1MzebQnkR+b4FZ9VgMG1DJIw0wOG
-	ao7QYEHz1PuuJButBQhkeB++5xBB3mNvtSMNOZkNAAHlzncnlpoemTHMyI70hJDPPQ==
-X-Gm-Gg: ASbGncvaY824gCWYHHsOVIaof/qY/5heVnHmrGjPrk2T8k6TND4EyzHvNR7Fob02S45
-	AaOR2YG68lVYZgqAIEJDgW5csKSLCTWxHnXSD4lM/gbYnWy6vJiTZXjjo9iewK64VUamuGSnvjN
-	7SHvY+ePiGKu4NKfuoEVXDxUxY4MSC+6Yo9VSRlBnVbKHJXWYymxyiAj9TyemoF+El7GnCZo0TU
-	rjCo3XrYO8v0IYsw9OfzyORZdds8d6KJyFL7zx4SBJFCMWF8jXA4T2zu0DAKu3HK/8vrH4OnOmR
-	pZuZRAZg/Y0U10artO2ZGcMIlcEGsRHMlIGGPHJw/Li/B29ce0gTJ3oUb0s8rJKHNImGbYqBa1t
-	iGHtIZTh5QSK5DMPoST5TuQhEZO+eXMFbZTPDFKVdzo+3MmHlJkdGtATmgnZUiUgcRS6hAjvKKK
-	IQ6vmMqpgHQ4EZSh5/AICwt4VIJ4fbJmONVp+uWKapD6f5bvK9bTzpx4LhxrW+VGqq4hZYMV9fU
-	74=
-X-Google-Smtp-Source: AGHT+IEBmw3ujqAFoWxvlaNNZ/FIVaUjUIFTXOho7DZbWlawoxLpT5rTKOoH+V8/df6dJ+/LazN58Q==
-X-Received: by 2002:a7b:cb81:0:b0:477:9574:d641 with SMTP id 5b1f17b1804b1-477c01be3e7mr75186815e9.22.1763981574353;
-        Mon, 24 Nov 2025 02:52:54 -0800 (PST)
-Message-ID: <52664b6f-1114-455f-a7f8-14e95372acdc@suse.com>
-Date: Mon, 24 Nov 2025 11:52:56 +0100
+        bh=8iUhRz6kyEhDHWy8rKX7at4d36jRoTEsdUQgnZ9zc8s=;
+        b=TinVxy3OYyFoJhEnGsyqj6rPc9p0h1oIn9z1JFGq3hFh1Cm0G169Z7Vgdl2wC5DEZy
+         L083Idx6LPMmlTtf7/6G7VjlmAx3G6l+vbx/N1keZAvZQ2tDWxpjKF4TdQf0tsMIVWfE
+         QVFQpL8Mp7LvICrnz7Gv/2YsVwv2He0RY/oVXxiI5ivQbzejXtQheZMMM2bcpw3oDp5o
+         swJN18grl/ktY1OAfIzhScoYeWr0e11iX/z5FY4FuiR7YRBJQbtKt3hEAcpOct/wRDFF
+         jVXB2fDU5UrEUdn/6UWi7SXj1W7mmQ6baD4DuFhUSmA5Y7bpKC8ISA8jAmDsZFO2VHrS
+         ieAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763982307; x=1764587107;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=8iUhRz6kyEhDHWy8rKX7at4d36jRoTEsdUQgnZ9zc8s=;
+        b=Eo5sv3n3hgbf3aDAEwDsI2FU9L2EKH6DNw5csEQ27XEna1qCYjh58MwXZeYUPJCjI0
+         m99v3fup33TrUi+5kAeEyt95nWgEF0od3Cpz8zEc4frZGVBtcCYc3bWkJFah8/Yn5RZK
+         dVEmb4dVD8ywz93kpu4EKAOG2gzYjVhzUYiRcMlb8u4u8bNX15mUe0OmokYhuQgSGNSH
+         3JgDQyzJS8ywOTgMZ3ze6TcAUpwLcfU+mwn5D0aoEMh+NsVzXHFEpm7RvOaHKb8p/3m7
+         Z70ZTAisFAFBDTVKF8nT8j+SQEKCLB8JiHEOhW/jX0e+hmmy3CSANumZLB0y4zNrJ1ha
+         PPPw==
+X-Gm-Message-State: AOJu0YzlqJBJSjb4EFex83HceBRVh5Ij6xdFjIzl/80CkPg0wKqznzVT
+	Fxug5kDlGTjXvlpdy/gVWMDRq6/bE1N6tHqHIKAF+hgulmvRPiTDyPtClz+5bLs=
+X-Gm-Gg: ASbGncv2JqDtdvVXjmbdfVdkcWlE5+cOGmlD94DixpxL2oAfDg6b5fcMJpGcesrvht7
+	v558FPHKbvlDYPqi5CIJ9CyYnDUdgLftlETDA/fYf7N0H6cuxRhWN1e/s+VEJGqpb1Zcj3lV4Uu
+	sWYafmDQ7iRSUm5du97iUtZFES8vuADKhkH8Hh8FHgCpvxMlZJb1Ml7bvl7kFpbhbwkfGtbVap0
+	IgdT4vHS/o9OgoDcmB13zDd3NbIQHstzE+Aee/bK62fnVXQ55LMhLjqmd8UwrYKUVb+G2uT3MtO
+	4sdDsgR0mKSaQya8aHLkel8y43vlRqng2SldvWVgtfEO9RmhKZ8p7pj5vtoGGgCRCJMC7T3v2UA
+	KC61cjruE0tJvq2JUKkaAMnsWf41ivjSKs6hRTRWusTc3bbz2MRhABklp9e/96f5nupouYKiBwI
+	UvCyJiRcDod1oAG0cf3a75hvf3EmIQXm81VZSDhEAIBxdB7lRrWeD0zZ/frG9runJ/HSUWcqP2l
+	GBWT7ZnEjd4VwRUJQMWR3e3p9voFTM8MI7zgLSpLxd8OrEhT0+gAI0T/X4kVJP7g1RHW0MXJQ==
+X-Google-Smtp-Source: AGHT+IE7MrZHK8YEhAEADYExyNGl8yaoS9nYcML9avP0sv0QXWPR7h72lv2KyDlL84ZwOiQaghUaFw==
+X-Received: by 2002:a05:6214:40a:b0:880:53da:fcbc with SMTP id 6a1803df08f44-8847c4d2a76mr151890156d6.7.1763982306504;
+        Mon, 24 Nov 2025 03:05:06 -0800 (PST)
+From: Saman Dehghan <samaan.dehghan@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2] XEN: enable MC/DC coverage for Clang
+Date: Mon, 24 Nov 2025 05:04:34 -0600
+Message-ID: <52b0762ac4b5535a842a530365a75bdc81a5fe61.1763981619.git.samaan.dehghan@gmail.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <3bb418ae6a36a9ac89c697a417fa0745fa9ac702.1763949990.git.samaan.dehghan@gmail.com>
+References: <3bb418ae6a36a9ac89c697a417fa0745fa9ac702.1763949990.git.samaan.dehghan@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/12] x86/irq: adjust bind_irq_vector() to take a single
- CPU as parameter
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20251120090637.25087-1-roger.pau@citrix.com>
- <20251120095826.25782-1-roger.pau@citrix.com>
- <20251120095826.25782-3-roger.pau@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251120095826.25782-3-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 20.11.2025 10:58, Roger Pau Monne wrote:
-> The vector will be targeting a single CPU at a time, so passing a mask is
-> not needed.  Simplify the interface and adjust callers to make use of it.
+Clang >= 18 supports Modified Condition/Decision Coverage (MC/DC).
+This patch enables the detection and usage of this feature when
+compiling Xen with Clang.
 
-Considering the two callers we have, and considering the function is __init,
-do we need the function parameter at all? Can't we uniformly use the BSP?
+- Update detection logic in Kconfig to check for the required set of
+  Clang flags for MC/DC:
+  '-fprofile-instr-generate -fcoverage-mapping -fcoverage-mcdc'.
+  This bundle is necessary because '-fcoverage-mcdc' requires
+  '-fcoverage-mapping', which in turn requires '-fprofile-instr-generate'.
+- Update llvm.c to handle the profile format changes (bitmap section)
+  required for MC/DC.
+- Guard -Wno-error=coverage-too-many-conditions with CONFIG_CC_IS_GCC
+  to avoid passing a GCC-only warning option to Clang
 
-> --- a/xen/arch/x86/hpet.c
-> +++ b/xen/arch/x86/hpet.c
-> @@ -352,7 +352,7 @@ static int __init hpet_setup_msi_irq(struct hpet_event_channel *ch)
->       * Technically we don't want to bind the IRQ to any CPU yet, but we need to
->       * specify at least one online one here.  Use the BSP.
->       */
-> -    ret = bind_irq_vector(ch->msi.irq, HPET_BROADCAST_VECTOR, cpumask_of(0));
-> +    ret = bind_irq_vector(ch->msi.irq, HPET_BROADCAST_VECTOR, 0);
+Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
+---
+ xen/Kconfig                |  2 +-
+ xen/Rules.mk               |  1 +
+ xen/arch/x86/Makefile      |  2 +-
+ xen/common/coverage/llvm.c | 24 +++++++++++++++++++++++-
+ 4 files changed, 26 insertions(+), 3 deletions(-)
 
-Irrespective of the remark above, the comment then will want re-wording some,
-too.
+diff --git a/xen/Kconfig b/xen/Kconfig
+index a5e5af3b76..5508993f02 100644
+--- a/xen/Kconfig
++++ b/xen/Kconfig
+@@ -53,7 +53,7 @@ config CC_HAS_ASM_GOTO_OUTPUT
+ 
+ # Compiler supports -fcondition-coverage aka MC/DC
+ config CC_HAS_MCDC
+-	def_bool $(cc-option,-fcondition-coverage)
++	def_bool $(cc-option,-fcondition-coverage) || $(cc-option,-fprofile-instr-generate -fcoverage-mapping -fcoverage-mcdc)
+ 
+ # Set code alignment.
+ #
+diff --git a/xen/Rules.mk b/xen/Rules.mk
+index 24f447b957..57ea664f02 100644
+--- a/xen/Rules.mk
++++ b/xen/Rules.mk
+@@ -136,6 +136,7 @@ non-init-objects = $(filter-out %.init.o, $(obj-y) $(obj-bin-y) $(extra-y))
+ 
+ ifeq ($(CONFIG_CC_IS_CLANG),y)
+     cov-cflags-$(CONFIG_COVERAGE) := -fprofile-instr-generate -fcoverage-mapping
++    cov-cflags-$(CONFIG_CONDITION_COVERAGE) +=  -fcoverage-mcdc
+ else
+     cov-cflags-$(CONFIG_COVERAGE) := -fprofile-arcs -ftest-coverage
+     cov-cflags-$(CONFIG_CONDITION_COVERAGE) += -fcondition-coverage
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 407571c510..6c0ff67fa8 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -98,7 +98,7 @@ $(obj)/usercopy.o: CFLAGS-y += -iquote .
+ ifneq ($(CONFIG_HVM),y)
+ $(obj)/x86_emulate.o: CFLAGS-y += -Wno-unused-label
+ endif
+-ifeq ($(CONFIG_CONDITION_COVERAGE),y)
++ifeq ($(CONFIG_CONDITION_COVERAGE)$(CONFIG_CC_IS_GCC),yy)
+ $(obj)/x86_emulate.o: CFLAGS-y += -Wno-error=coverage-too-many-conditions
+ endif
+ 
+diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
+index 532889c857..a8c7e7e8d2 100644
+--- a/xen/common/coverage/llvm.c
++++ b/xen/common/coverage/llvm.c
+@@ -120,6 +120,10 @@ extern const char __start___llvm_prf_names[];
+ extern const char __stop___llvm_prf_names[];
+ extern uint64_t __start___llvm_prf_cnts[];
+ extern uint64_t __stop___llvm_prf_cnts[];
++#ifdef CONFIG_CONDITION_COVERAGE
++extern const char __start___llvm_prf_bits[];
++extern const char __stop___llvm_prf_bits[];
++#endif
+ 
+ #define START_DATA      ((const void *)__start___llvm_prf_data)
+ #define END_DATA        ((const void *)__stop___llvm_prf_data)
+@@ -127,16 +131,25 @@ extern uint64_t __stop___llvm_prf_cnts[];
+ #define END_NAMES       ((const void *)__stop___llvm_prf_names)
+ #define START_COUNTERS  ((void *)__start___llvm_prf_cnts)
+ #define END_COUNTERS    ((void *)__stop___llvm_prf_cnts)
++#define START_BITMAP    ((void *)__start___llvm_prf_bits)
++#define END_BITMAP      ((void *)__stop___llvm_prf_bits)
+ 
+ static void cf_check reset_counters(void)
+ {
+     memset(START_COUNTERS, 0, END_COUNTERS - START_COUNTERS);
++#ifdef CONFIG_CONDITION_COVERAGE
++    memset(START_BITMAP, 0, END_BITMAP - START_BITMAP);
++#endif
+ }
+ 
+ static uint32_t cf_check get_size(void)
+ {
+-    return ROUNDUP(sizeof(struct llvm_profile_header) + END_DATA - START_DATA +
++    uint32_t size = ROUNDUP(sizeof(struct llvm_profile_header) + END_DATA - START_DATA +
+                    END_COUNTERS - START_COUNTERS + END_NAMES - START_NAMES, 8);
++#ifdef CONFIG_CONDITION_COVERAGE
++    size += ROUNDUP(END_BITMAP - START_BITMAP, 8);
++#endif
++    return size;
+ }
+ 
+ static int cf_check dump(
+@@ -147,11 +160,17 @@ static int cf_check dump(
+         .version = LLVM_PROFILE_VERSION,
+         .num_data = DIV_ROUND_UP(END_DATA - START_DATA, sizeof(struct llvm_profile_data)),
+         .num_counters = DIV_ROUND_UP(END_COUNTERS - START_COUNTERS, sizeof(uint64_t)),
++#if defined(CONFIG_CONDITION_COVERAGE) && LLVM_PROFILE_VERSION >= 9
++        .num_bitmap_bytes = END_BITMAP - START_BITMAP,
++#endif
+         .names_size = END_NAMES - START_NAMES,
+ #if LLVM_PROFILE_VERSION >= 8
+         .counters_delta = START_COUNTERS - START_DATA,
+ #else
+         .counters_delta = (uintptr_t)START_COUNTERS,
++#endif
++#if defined(CONFIG_CONDITION_COVERAGE) && LLVM_PROFILE_VERSION >= 9
++        .bitmap_delta = START_BITMAP - START_DATA,
+ #endif
+         .names_delta = (uintptr_t)START_NAMES,
+         .value_kind_last = LLVM_PROFILE_NUM_KINDS - 1,
+@@ -168,6 +187,9 @@ static int cf_check dump(
+     APPEND_TO_BUFFER(&header, sizeof(header));
+     APPEND_TO_BUFFER(START_DATA, END_DATA - START_DATA);
+     APPEND_TO_BUFFER(START_COUNTERS, END_COUNTERS - START_COUNTERS);
++#if defined(CONFIG_CONDITION_COVERAGE)
++    APPEND_TO_BUFFER(START_BITMAP, END_BITMAP - START_BITMAP);
++#endif
+     APPEND_TO_BUFFER(START_NAMES, END_NAMES - START_NAMES);
+ #undef APPEND_TO_BUFFER
+ 
+-- 
+2.49.0
 
-Jan
 
