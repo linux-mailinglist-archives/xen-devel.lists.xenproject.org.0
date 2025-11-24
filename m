@@ -2,41 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12AD5C80D02
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 14:39:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171067.1496083 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEEEEC80D3E
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 14:44:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171082.1496095 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNWn2-00074k-Ik; Mon, 24 Nov 2025 13:39:36 +0000
+	id 1vNWrG-0000oZ-0z; Mon, 24 Nov 2025 13:43:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171067.1496083; Mon, 24 Nov 2025 13:39:36 +0000
+Received: by outflank-mailman (output) from mailman id 1171082.1496095; Mon, 24 Nov 2025 13:43:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNWn2-00072p-Fu; Mon, 24 Nov 2025 13:39:36 +0000
-Received: by outflank-mailman (input) for mailman id 1171067;
- Mon, 24 Nov 2025 13:39:35 +0000
+	id 1vNWrF-0000ke-Ts; Mon, 24 Nov 2025 13:43:57 +0000
+Received: by outflank-mailman (input) for mailman id 1171082;
+ Mon, 24 Nov 2025 13:43:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=w9RL=6A=alien8.de=bp@srs-se1.protection.inumbo.net>)
- id 1vNWn1-00072j-9q
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 13:39:35 +0000
-Received: from mail.alien8.de (mail.alien8.de [2a01:4f9:3051:3f93::2])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=q+WF=6A=bounce.vates.tech=bounce-md_30504962.69246114.v1-996e3febf77541058d7a8895e834a16e@srs-se1.protection.inumbo.net>)
+ id 1vNWrE-0000kX-IX
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 13:43:56 +0000
+Received: from mail136-9.atl41.mandrillapp.com
+ (mail136-9.atl41.mandrillapp.com [198.2.136.9])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 005638de-c93b-11f0-980a-7dc792cee155;
- Mon, 24 Nov 2025 14:39:29 +0100 (CET)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 33F8C40E016C; 
- Mon, 24 Nov 2025 13:39:27 +0000 (UTC)
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id dUX_2TyVOwvg; Mon, 24 Nov 2025 13:39:23 +0000 (UTC)
-Received: from zn.tnic (p57969402.dip0.t-ipconnect.de [87.150.148.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with UTF8SMTPSA id
- 4C08F40E015B; Mon, 24 Nov 2025 13:38:59 +0000 (UTC)
+ id 9b875cb6-c93b-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 14:43:50 +0100 (CET)
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail136-9.atl41.mandrillapp.com (Mailchimp) with ESMTP id 4dFRqm6YJxzHXYgd9
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 13:43:48 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 996e3febf77541058d7a8895e834a16e; Mon, 24 Nov 2025 13:43:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,79 +42,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 005638de-c93b-11f0-980a-7dc792cee155
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
-	reason="fail (body has been altered)" header.d=alien8.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1763991561; bh=xMHHbvFeagw1OXMRREZidPFJD/S6z/TheDKCK1dG36Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ifXA1bY3AIdKdV1RAnJe9hR1HoTJK2HQxoKq4XpkqyoEZF0P+j1J+7ZcN7rBWUDcm
-	 oYIJpyHEwvEgbBhN4SUbwy9M3rPtz8mZ9KIHA+4XWKlZM9sJg4Netd7by8HO/WfwU+
-	 izUQ49pOfE2WCVKQEme59LDaN1qKCPhLWMfPc9dqBXeYjNNbtk4PEeDe4UKe8r3jcX
-	 cGgQWdXyE14McksoYKJh8aEd3dTE+0KDYzV2heqjB5matuLT2+0zE2pfxQlwvNiTjo
-	 /IEVNfKmQgtVmArwa//GOT0te7zCWkVDbmmzyyFyrHqtrPyJNxOw485KFnaoXcBoHR
-	 VXZDdCWu7U72JPGhB3GL4+0WjVSu5w57ooBqcfE6Y0VkGE1VlprxFjxUH5acKEERbH
-	 VfQSlXVSFmv6+ISkviWPAt+y481hRdqsTVQxNnzVyAQthZpHMmlvDjFGUeDrY5OeUh
-	 xgGDNbXeLdQBp+FbNXuYLrpUp9WEv6YKuJec/ShIgGMUZrIFh/N/cV3lLIrV3Kq7TW
-	 2LeL5VLaje2ETKAQfBeqVSK6ALMPmXJr4dKdD/ORNUCXoOtytmAO8sJb2/JPTs9BuI
-	 kYDPV8yWq0yD6+ZWREKiz8EOBe8+QAIHM8A+OVhvh+bLylBPTIo1lBQIKyu0MJXEcM
-	 vakOICMeaSVGLRtHz7pTfGAY=
-Date: Mon, 24 Nov 2025 14:38:58 +0100
-From: Borislav Petkov <bp@alien8.de>
-To: Juergen Gross <jgross@suse.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
-	linux-hyperv@vger.kernel.org, Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun.feng@gmail.com>,
-	Waiman Long <longman@redhat.com>, Jiri Kosina <jikos@kernel.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 01/21] x86/paravirt: Remove not needed includes of
- paravirt.h
-Message-ID: <20251124133858.GFaSRf8rU6w3Tf3wU_@fat_crate.local>
-References: <20251006074606.1266-1-jgross@suse.com>
- <20251006074606.1266-2-jgross@suse.com>
+X-Inumbo-ID: 9b875cb6-c93b-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1763991828; x=1764261828;
+	bh=tgHAZmk0TqxSfJ22MEtgYW7nyHYSd/spYYd3Txp8mGc=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=V1Yv7mgmp+iLihaK79ev2IqvpaIVvoFMcIMint+Ok2IJraj3taBLtiWWBgKGxkZAd
+	 YUz59xu32zb9cuxxGaDeoqXIAmsrpnmz8sso9mCXCutbbynOUOh8O88PQS2eMtmbRE
+	 NEFvvPEfT0pTK/4hkmgdEcyF/YdZ4ILGGNxG0J5ZAGHlzQBrBUhij5rEwoVrGfnz1c
+	 rHishlfvFMowfMYM+ahxIF0FhJLZls9tXIG0C7GcaLdIeWoo1oFDCDRgM+b3281eHV
+	 nA3dGIeBNajFQcj8soq1+aEg9GIFFdZHAKw6qhI014mqnG1zLEfYDdWBWTnlPac21U
+	 d7ZgJufDTnZjg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1763991828; x=1764252328; i=ngoc-tu.dinh@vates.tech;
+	bh=tgHAZmk0TqxSfJ22MEtgYW7nyHYSd/spYYd3Txp8mGc=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=XhZ7/VJkYyfkY1B5pGhPSYHZjPbR837VPetl1QdeplnIpWiG/JPDjn0Tz4DTjEe3/
+	 0pGbaTndZo9L4Hwhnh/wWVK/ilEhOBgKBQ76tRIthhLH/pR1AHr4Usb4axH/GKcYRa
+	 EzcrAEbMTaYB5SHaWSpiX3UNslQcMrzqhq0/E7P7kQ+vYkVXP0nmKT4OmHKTl9b6xL
+	 zoDh8DDE2Wgx8K8yoIzgorRm5iGcYCcgEWh1T6LiZ8Y/1qg2qZtZMILE0mxm4t+Uib
+	 QUKkCfFs0M4huiw3eT04tuJZyQjT5H0kdPrrHneY91fvYvmclomWrXStRdAcHa61Z5
+	 QgcC451MA6Dcw==
+From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
+Subject: =?utf-8?Q?[PATCH]=20x86/vhpet:=20Fix=20sanitization=20of=20legacy=20IRQ=20route?=
+X-Mailer: git-send-email 2.51.2.windows.1
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1763991827489
+To: xen-devel@lists.xenproject.org
+Cc: "Tu Dinh" <ngoc-tu.dinh@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
+Message-Id: <20251124134344.456-1-ngoc-tu.dinh@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.996e3febf77541058d7a8895e834a16e?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20251124:md
+Date: Mon, 24 Nov 2025 13:43:48 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20251006074606.1266-2-jgross@suse.com>
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 06, 2025 at 09:45:46AM +0200, Juergen Gross wrote:
-> In some places asm/paravirt.h is included without really being needed.
+When setting a timer's config register, timer_sanitize_int_route will
+always reset the IRQ route value to what's valid corresponding to the
+!HPET_CFG_LEGACY case. This is applied even if the HPET is set to
+HPET_CFG_LEGACY.
 
-Except they are:
+When some operating systems (e.g. Windows) try to write to a timer
+config, they will verify and rewrite the register if the values don't
+match what they expect. This causes an unnecessary write to HPET_Tn_CFG.
 
-$ make allnoconfig
-$ rebuild-kernel.sh
-...
+Note, the HPET specification states that for the Tn_INT_ROUTE_CNF field:
 
-arch/x86/kernel/x86_init.c:90:43: error: =E2=80=98default_banner=E2=80=99=
- undeclared here (not in a function)
-   90 |                 .banner                 =3D default_banner,
-      |                                           ^~~~~~~~~~~~~~
-make[4]: *** [scripts/Makefile.build:287: arch/x86/kernel/x86_init.o] Err=
-or 1
-make[4]: *** Waiting for unfinished jobs....
-make[3]: *** [scripts/Makefile.build:556: arch/x86/kernel] Error 2
-make[2]: *** [scripts/Makefile.build:556: arch/x86] Error 2
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/mnt/kernel/kernel/linux/Makefile:2010: .] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
+"If the value is not supported by this prarticular timer, then the value
+read back will not match what is written. [...] If the LegacyReplacement
+Route bit is set, then Timers 0 and 1 will have a different routing, and
+this bit field has no effect for those two timers."
 
---=20
-Regards/Gruss,
-    Boris.
+Therefore, Xen should not reset timer_int_route if legacy mode is
+enabled, regardless of what's in there.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+Signed-off-by: Tu Dinh <ngoc-tu.dinh@vates.tech>
+---
+ xen/arch/x86/hvm/hpet.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
+index f0e5f877f4..fb2f4f94aa 100644
+--- a/xen/arch/x86/hvm/hpet.c
++++ b/xen/arch/x86/hvm/hpet.c
+@@ -48,6 +48,8 @@
+ #define timer_is_32bit(h, n)     (timer_config(h, n) & HPET_TN_32BIT)
+ #define hpet_enabled(h)          ((h)->hpet.config & HPET_CFG_ENABLE)
+ #define timer_level(h, n)        (timer_config(h, n) & HPET_TN_LEVEL)
++#define timer_is_legacy(h, n) \
++    (((n) <= 1) && ((h)->hpet.config & HPET_CFG_LEGACY))
+ 
+ #define timer_int_route(h, n)    MASK_EXTR(timer_config(h, n), HPET_TN_ROUTE)
+ 
+@@ -244,7 +246,7 @@ static void hpet_set_timer(HPETState *h, unsigned int tn,
+          (timer_level(h, tn) && test_bit(tn, &h->hpet.isr)) )
+         return;
+ 
+-    if ( !timer_int_route_valid(h, tn) )
++    if ( !timer_is_legacy(h, tn) && !timer_int_route_valid(h, tn) )
+     {
+         ASSERT_UNREACHABLE();
+         return;
+@@ -275,7 +277,7 @@ static void hpet_set_timer(HPETState *h, unsigned int tn,
+             ? (uint32_t)diff : 0;
+ 
+     destroy_periodic_time(&h->pt[tn]);
+-    if ( (tn <= 1) && (h->hpet.config & HPET_CFG_LEGACY) )
++    if ( timer_is_legacy(h, tn) )
+     {
+         /* if LegacyReplacementRoute bit is set, HPET specification requires
+            timer0 be routed to IRQ0 in NON-APIC or IRQ2 in the I/O APIC,
+@@ -323,7 +325,7 @@ static inline uint64_t hpet_fixup_reg(
+ 
+ static void timer_sanitize_int_route(HPETState *h, unsigned int tn)
+ {
+-    if ( timer_int_route_valid(h, tn) )
++    if ( timer_is_legacy(h, tn) || timer_int_route_valid(h, tn) )
+         return;
+ 
+     timer_config(h, tn) &= ~HPET_TN_ROUTE;
+@@ -379,6 +381,9 @@ static int cf_check hpet_write(
+         h->hpet.config = hpet_fixup_reg(new_val, old_val,
+                                         HPET_CFG_ENABLE | HPET_CFG_LEGACY);
+ 
++        for ( i = 0; i < HPET_TIMER_NUM; i++ )
++            timer_sanitize_int_route(h, i);
++
+         if ( !(old_val & HPET_CFG_ENABLE) && (new_val & HPET_CFG_ENABLE) )
+         {
+             /* Enable main counter and interrupt generation. */
+-- 
+2.43.0
+
+
+
+--
+Ngoc Tu Dinh | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
