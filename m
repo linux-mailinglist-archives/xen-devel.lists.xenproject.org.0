@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53AF7C8054A
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:02:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170393.1495458 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3A2AC806F0
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:19:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170403.1495469 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNVGQ-0005j7-6h; Mon, 24 Nov 2025 12:01:50 +0000
+	id 1vNVWY-0007kP-Ea; Mon, 24 Nov 2025 12:18:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170393.1495458; Mon, 24 Nov 2025 12:01:50 +0000
+Received: by outflank-mailman (output) from mailman id 1170403.1495469; Mon, 24 Nov 2025 12:18:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNVGQ-0005hg-3y; Mon, 24 Nov 2025 12:01:50 +0000
-Received: by outflank-mailman (input) for mailman id 1170393;
- Mon, 24 Nov 2025 12:01:48 +0000
+	id 1vNVWY-0007hw-BD; Mon, 24 Nov 2025 12:18:30 +0000
+Received: by outflank-mailman (input) for mailman id 1170403;
+ Mon, 24 Nov 2025 12:18:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNVGO-0005gH-JA
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:01:48 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1vNVWX-0007ho-GH
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:18:29 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 58097bcf-c92d-11f0-980a-7dc792cee155;
- Mon, 24 Nov 2025 13:01:43 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4775e891b5eso17678415e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:01:43 -0800 (PST)
+ id addf20bb-c92f-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 13:18:26 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-429c4c65485so3448581f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:18:26 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477bf3af0ecsm193617465e9.9.2025.11.24.04.01.41
+ ffacd0b85a97d-42cb7f49a7bsm27688435f8f.19.2025.11.24.04.18.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 04:01:42 -0800 (PST)
+ Mon, 24 Nov 2025 04:18:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58097bcf-c92d-11f0-980a-7dc792cee155
+X-Inumbo-ID: addf20bb-c92f-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763985703; x=1764590503; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763986706; x=1764591506; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AbrKimLx9ctqJiYlm0m6klda1+roeMbXzMTUqTSdaRY=;
-        b=MxZ/C6Glp7NMs7MxEeH/3PyEG4dJTp9pegub8aplDMq77spsgptmKTFgik1gGuf5hh
-         wj5r6DKZOk/vsyFtcVsjaRkStTDkVLIg7o+HCkBTzUnZvX/qGR0EvXUfH6GpoC4HxepM
-         wHNOIoiMbehd9faX+YzvSfwBLph++ez58NA7FAy5XdbEWdYTJlAZ4caPFBc+AOnjhReg
-         cZ5/lZZoTWCa6vSpd+YKXoqjYISHArtzed1q6J69yrn2KeApR7pkICAgu2+A5nn0SJor
-         pp+IEuymvCe1zIRPxdLIj1wa37U+hkjKWO5Vnu5yVtESTo+p+NCeR4BNqreuvB5OMdSa
-         PdcQ==
+        bh=+aKzSlO0FYcL1JvCqmyhHBMOH9OmZmRRSYMBODN08HU=;
+        b=QldeVht6ZqX3wLWL+icmXWBjQ9HGxN/7587sbnqXC3gCjGQO/RXYyL9pC5Tbv205J9
+         6NB+lCvof7rFxwr5ctIpv/BOZUtxS0othyCkjwLfDGX0Xldch0Uc58fTIWpo/pml36m7
+         TxE88oJtgg6/D2pkBvPDNS2MuZtSB39py1oMllWN6Ch+nO5lal0gmNZtDqPWNuInthno
+         nK+9zByNImo2CJljRrTLLgBrSjjC5u8MAZ/He4NkZqGg9sYp+JZcE2ENwh73llA9P5Mc
+         J1UjPRruOrzpAJNMOW2Wtbxb+ViLFJPtcExU2A1QV8efC8j1MKc0DugJKoLbI/AzSC6O
+         M/oA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763985703; x=1764590503;
+        d=1e100.net; s=20230601; t=1763986706; x=1764591506;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AbrKimLx9ctqJiYlm0m6klda1+roeMbXzMTUqTSdaRY=;
-        b=skFy+YXLliKn7Qp5ozpCq6LMSNBs/SIX0cazeClEmJer4Gx+zxOfJpPhtVF0YlLSPF
-         I6CGfy68xwDPCvVvyz/Jqngqici2ijwUkeuG4kIfm4uYUvqDBluoXFJdl8BvkiKE+he5
-         GMkKqJ8OkIUo/hyyo1q2EQjF/K70Xlzop8Trevgt/TZSGLxf6qPquhc3QYYLHGEAtLg2
-         A+99HzIPUtFf9CXLdUy4q0MQnxSY8kNm1j/q4hX4jkbJC6yvfxcR0/paByXJ+uQXY8/6
-         GgYQQPcXFvl9Lv4P63/cCW+RDx024/deZHd9M43/J5AgKbEXyv/1ui4vEP1HkAcEQbVr
-         U8WA==
-X-Forwarded-Encrypted: i=1; AJvYcCUK9tGFPfWt46UesSdhKP2FF19sGqGUfREVxr/YIRC2kJ2wsWTpnESTftOgbNlvl0hdiHrPRmAVBsg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyPvm/6LCxjBg0Nm9icEaZ3aRXllpBNQjb/cCXywrmcru1YVEqr
-	o7rlMGecKeBeoXPLng8scale674PHbZNwQA357eO4POfdnsS6TNzcDY3pFaNrfUw/wHXmwkCP8X
-	YGAY=
-X-Gm-Gg: ASbGncvVTV0NDeGG1XN/8yK4ent6/4/kiSWEeHzxDrcGH6ElXVtaV+Hq6JGIe+B3zbs
-	rCgzu9nv+PxTmGl8Is1kqmAH3Uk80JFdxJ9EIBaZmScJRS5MrWpGaxHcWO6dRlZq1Udr/vVH0od
-	V7aalDRVKUWCWAUZ5YBI1r2GzjMdOQKQEN5jKKt7fGZRRv4n0vORGmg77Be7x4El9F7yD5LbTTL
-	8brweg7hxfvZiTl4NS6R5QS6ER3+x47zQWbgP4W0U17UA8kdE/Zh4f6xSyi35yOchifN1rOLgb1
-	H4psIHug4W3Kjo7IMYzPXx8dvZhnJ9+iAhrkrxEiTD6IHPYcbhq4KIXVq+FUS8lLr0nZGSMzYy4
-	ByTuf8mllCP/o2cl2ekTsprxTmRwmOCsVm5f1wHFhgtzWqjhapt5mIFGcvjt8tGYohs9Nk6ATgt
-	G0SH4v/q3frf5rAk/uJ53KYXSSBn7Dqs49P4cCwuzQMKaWgrhfW2M9Ku+LtvClokDMm/dH+FkFG
-	Fg=
-X-Google-Smtp-Source: AGHT+IEPX0fcsEJ1+lMmf1nsI28vHBBTWfeCOJUNOLJoEbWlkRA60zTzJWYVQxY0Ze8xLdqic43Hww==
-X-Received: by 2002:a05:600c:4e87:b0:46d:a04:50c6 with SMTP id 5b1f17b1804b1-477c01ebc76mr112131745e9.30.1763985702768;
-        Mon, 24 Nov 2025 04:01:42 -0800 (PST)
-Message-ID: <da4a0b83-a6a4-4e63-9f7a-1c9713cb5a1c@suse.com>
-Date: Mon, 24 Nov 2025 13:01:44 +0100
+        bh=+aKzSlO0FYcL1JvCqmyhHBMOH9OmZmRRSYMBODN08HU=;
+        b=TegwYT/XSgWBpGtORUDNHspt67HO/oPZL8ibOGwf2HqVnafJtLX9SJcCWOQcHWNy6j
+         mAB+7MUERqq91dbz5n7xjMJQHGip5FaOW8ekD9ZHwLP9Mrwssq8Z+Q46aeRyQXjWdp3M
+         0SkXlZB+f1TLxe1W2BqQ2au/3Dn2PMEzCOlFU04xoeCoDE0zfduOy+SgFzu1ryGYKMkq
+         w8Nk0vAAj/vUyG/9EtqZU1o7g12CTWip7/IUAZESv+oxoEPkqJeq2ZcyRCJv2rx/r/2M
+         X2MUB9L1n99Ag9xy2Cv8lJdCeskzXu6gzlqa4XAGD9L3ZojrT5a+DtJAdvGc8RFfh+Ac
+         Pm6g==
+X-Forwarded-Encrypted: i=1; AJvYcCUZgQbApGDUuOLt2/dgKnqkWmnKY+ga0k5SPXkfuovPcUI90nryC1XzFla9zuZTWwX0Jl+E6a46Vl0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz/znNhaaIOdM1fSv056Cvcgj6Ajt+uiaja0pbUtNvu2vjDRlV4
+	oOITXbIeTsnXctmnVJsvUebAYScH3eK22WYcUQJt81i8HnT687U4yXHp8w0t4lSYZQ==
+X-Gm-Gg: ASbGncvhrsA7wndApfmWZn3yW3/NuOTEfY6iwuj3f56sAYozynXyWRMmrxJGUosywbE
+	cztnTU0mFhc0/EtSD2pe8qZi4yITP1k4uX9bcpAZuLWBU1aKYJ72R943AI4lD6Es83nsOaAnURN
+	HJqkLVdoOsgOW5YVz9pkHzjGM6z286/f29m1WsD/DP3p1MzFEhzmhyKfjC6tb94voH9EQYuevv+
+	0UXKBei2PDkpt+2i3lYrNNZSeovuE52pcufR/q9aIUqYoH4IePUCfcgvctRrXs1mHyP5qy6kxsR
+	yEVaHvV3rXKBYNrjwVKWg9MXVmgwQWVdlvZ4cW1h4Kh4V67Xf87aZI1QViaRQiZkak/mx3saC11
+	rcmxWG59EHQ6tQSWk/lIzxeHdhaPHz+jSPANxFqm8frBxDv+aC8Xq61N2eLfmV4lsKA+8MLQUb2
+	B0hKcJxIGo/XtbRNBU28T5J/pzavnvdZlfx6sLhXaeqya4tM/o7HtV2N1SHNs7PsRfIvhk+deor
+	1U=
+X-Google-Smtp-Source: AGHT+IH2yxkX4mRm4l9/NRj8vbP1PKjBQ6+BFYJe4rrLlWYvWbDFlJAh827w6jaOUgf/88yFyTK8hQ==
+X-Received: by 2002:a05:6000:22c7:b0:42b:55a1:214f with SMTP id ffacd0b85a97d-42cc1cedae7mr11593459f8f.21.1763986706138;
+        Mon, 24 Nov 2025 04:18:26 -0800 (PST)
+Message-ID: <bbcaf4f2-c52e-4b3e-ab6a-ca5020a8b786@suse.com>
+Date: Mon, 24 Nov 2025 13:18:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/12] x86/irq: convert irq_desc cpu_mask field to integer
-To: Roger Pau Monne <roger.pau@citrix.com>
+Subject: Re: [PATCH v3 1/4] build: add make macro for making file from file.in
+To: Juergen Gross <jgross@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-References: <20251120090637.25087-1-roger.pau@citrix.com>
- <20251120095826.25782-1-roger.pau@citrix.com>
- <20251120095826.25782-5-roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20251121132332.23514-1-jgross@suse.com>
+ <20251121132332.23514-2-jgross@suse.com>
+ <d34e3e86-c51a-49b3-8b46-140526755f0f@suse.com>
+ <826037a5-dacf-434f-90d9-8f12e61bdd6e@suse.com>
+ <0ece9df6-8a04-4ffa-bcf4-d7a3fd4bbef4@suse.com>
+ <bf7e1a66-1696-477a-bdef-79b08df0b57c@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,140 +127,64 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251120095826.25782-5-roger.pau@citrix.com>
+In-Reply-To: <bf7e1a66-1696-477a-bdef-79b08df0b57c@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 20.11.2025 10:58, Roger Pau Monne wrote:
-> --- a/xen/arch/x86/hpet.c
-> +++ b/xen/arch/x86/hpet.c
-> @@ -310,9 +310,9 @@ static void cf_check hpet_msi_set_affinity(
->      struct msi_msg msg = ch->msi.msg;
->  
->      /* This really is only for dump_irqs(). */
-> -    cpumask_copy(desc->arch.cpu_mask, mask);
-> +    desc->arch.cpu = cpumask_any(mask);
+On 24.11.2025 12:27, Juergen Gross wrote:
+> On 24.11.25 12:15, Jan Beulich wrote:
+>> On 24.11.2025 12:05, Jürgen Groß wrote:
+>>> On 24.11.25 11:41, Jan Beulich wrote:
+>>>> On 21.11.2025 14:23, Juergen Gross wrote:
+>>>>> --- a/Config.mk
+>>>>> +++ b/Config.mk
+>>>>> @@ -159,6 +159,19 @@ define move-if-changed
+>>>>>    	if ! cmp -s $(1) $(2); then mv -f $(1) $(2); else rm -f $(1); fi
+>>>>>    endef
+>>>>>    
+>>>>> +PATH_FILES := Paths
+>>>>> +INC_FILES = $(foreach f, $(PATH_FILES), $(XEN_ROOT)/config/$(f).mk)
+>>>>> +
+>>>>> +include $(INC_FILES)
+>>>>> +
+>>>>> +BUILD_MAKE_VARS = $(foreach f, $(PATH_FILES), $(shell awk '$$2 == ":=" { print $$1; }' $(XEN_ROOT)/config/$(f).mk.in))
+>>>>
+>>>> Feels like my prior comments weren't really addressed. I continue to think that
+>>>> none of the above is part of what the subject says.
+>>>
+>>> I really don't understand your concern here.
+>>>
+>>> For replacing the @markers@ make needs to know what should be replaced.
+>>> So it needs to scan the files containing the markers and gather them.
+>>> This is what is done above.
+>>>
+>>> In the final macro below the replacements are done then. How would you
+>>> handle that?
+>>
+>> By passing (another) argument to the macro, for example. As indicated
+>> earlier, different sub-trees may have different places where these
+>> definitions live, and they would want to be able to pass that in
+>> (ideally without needing to put this in a common part of the tree).
+> 
+> I don't get what you want to pass in additionally.
+> 
+> I've already changed the macro and the Makefiles to be able to add another
+> marker file to the PATH_FILES variable. What else do you need?
 
-Going from the comment, couldn't you use CPU_INVALID here? Then again, see
-"x86/HPET: drop .set_affinity hook", where the function goes away anyway.
-
-> @@ -337,7 +337,8 @@ static int __hpet_setup_msi_irq(struct irq_desc *desc)
->  {
->      struct msi_msg msg;
->  
-> -    msi_compose_msg(desc->arch.vector, desc->arch.cpu_mask, &msg);
-> +    msg.dest32 = cpu_physical_id(desc->arch.cpu);
-> +    msi_compose_msg(desc->arch.vector, &msg);
->      return hpet_msi_write(desc->action->dev_id, &msg);
->  }
-
-Setting msg.dest32 ahead of calling msi_compose_msg() feels odd. It makes things
-look as if this was an input to the function, when by its name it rather would
-want to be an output. Furthermore this is dead code right now, as the function
-clears the entire structure first thing. Imo it being the function to fill the
-field should be retained; instead of the CPU mask you'd once again make it a
-scalar parameter. For the case where NULL was passed before, ...
-
-> --- a/xen/arch/x86/include/asm/irq.h
-> +++ b/xen/arch/x86/include/asm/irq.h
-> @@ -69,13 +69,9 @@ struct irq_desc;
->  struct arch_irq_desc {
->          int16_t vector;                  /* vector itself is only 8 bits, */
->          int16_t old_vector;              /* but we use -1 for unassigned  */
-> -        /*
-> -         * Except for high priority interrupts @cpu_mask may have bits set for
-> -         * offline CPUs.  Consumers need to be careful to mask this down to
-> -         * online ones as necessary.  There is supposed to always be a non-
-> -         * empty intersection with cpu_online_map.
-> -         */
-> -        cpumask_var_t cpu_mask;
-> +/* Special target CPU values. */
-> +#define CPU_INVALID  ~0U
-
-... you already make a suitable constant available. (Nit: The expansion wants
-parenthesizing.)
-
-> --- a/xen/arch/x86/io_apic.c
-> +++ b/xen/arch/x86/io_apic.c
-> @@ -1112,8 +1112,7 @@ static void __init setup_IO_APIC_irqs(void)
->              if (platform_legacy_irq(irq))
->                  disable_8259A_irq(irq_to_desc(irq));
->  
-> -            set_entry_dest(&entry,
-> -                           cpu_mask_to_apicid(irq_to_desc(irq)->arch.cpu_mask));
-> +            set_entry_dest(&entry, cpu_physical_id(irq_to_desc(irq)->arch.cpu));
-
-I may as well mention this here: Looks like this patch removes all call sites
-of cpu_mask_to_apicid(). That would leave the function unreachable, i.e. violating
-a Misra rule, so I think the function needs dropping right here.
-
-> @@ -2137,14 +2136,11 @@ int io_apic_set_pci_routing (int ioapic, int pin, int irq, int edge_level, int a
->          return vector;
->      entry.vector = vector;
->  
-> -    if (cpumask_intersects(desc->arch.cpu_mask, TARGET_CPUS)) {
-> -        cpumask_t *mask = this_cpu(scratch_cpumask);
-> -
-> -        cpumask_and(mask, desc->arch.cpu_mask, TARGET_CPUS);
-> -        set_entry_dest(&entry, cpu_mask_to_apicid(mask));
-> +    if (cpu_online(desc->arch.cpu)) {
-
-Can CPU_INVALID make it here? If so, it needs guarding against. If not, an
-assertion may be nice. (Same possibly elsewhere.)
-
-> --- a/xen/arch/x86/irq.c
-> +++ b/xen/arch/x86/irq.c
-> @@ -156,8 +156,7 @@ static int __init _bind_irq_vector(struct irq_desc *desc, int vector,
->  
->      if ( !cpu_online(cpu) )
->          return -EINVAL;
-> -    if ( (desc->arch.vector == vector) &&
-> -         cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
-> +    if ( (desc->arch.vector == vector) && cpu == desc->arch.cpu )
-
-Please can you be consistent with parentheses on both sides of the &&?
-(I'd prefer the excess ones to be dropped, but the alternative is also
-okay.)
-
-> @@ -684,8 +673,9 @@ next:
->          }
->          else if ( valid_irq_vector(old_vector) )
->          {
-> -            cpumask_and(desc->arch.old_cpu_mask, desc->arch.cpu_mask,
-> -                        &cpu_online_map);
-> +            cpumask_clear(desc->arch.old_cpu_mask);
-> +            if ( cpu_online(desc->arch.cpu) )
-> +                cpumask_set_cpu(desc->arch.cpu, desc->arch.old_cpu_mask);
-
-As mentioned for an earlier patch, to avoid the LOCK-ed update
-cpumask_copy() may be better to use. Yet iirc like there, likely this
-goes away again later in the series (by the title right in the next patch),
-so perhaps not a big deal.
-
-> --- a/xen/common/cpu.c
-> +++ b/xen/common/cpu.c
-> @@ -16,6 +16,7 @@ unsigned int __read_mostly nr_cpumask_bits
->  const cpumask_t cpumask_all = {
->      .bits[0 ... (BITS_TO_LONGS(NR_CPUS) - 1)] = ~0UL
->  };
-> +const cpumask_t cpumask_none;
-
-This feels wasteful at least for larger NR_CPUS. And it's likely going to
-violate some Misra rule on non-x86, for having no user. On x86, as long as
-NR_CPUS <= 8 * PAGE_SIZE, you could (re-)use zero_page[] instead.
-
-> --- a/xen/drivers/passthrough/amd/iommu_init.c
-> +++ b/xen/drivers/passthrough/amd/iommu_init.c
-> @@ -507,7 +507,7 @@ static void cf_check set_x2apic_affinity(
->      if ( dest == BAD_APICID )
->          return;
->  
-> -    msi_compose_msg(desc->arch.vector, NULL, &iommu->msi.msg);
-> +    msi_compose_msg(desc->arch.vector, &iommu->msi.msg);
->      iommu->msi.msg.dest32 = dest;
-
-With the outlined adjustment above, it looks like the explicit setting
-of .dest32 would then not be needed here (and perhaps elsewhere) anymore.
+Well, that's simply an odd way of passing a parameter. Plus, the extra file
+won't affect INC_FILES, or more precisely its use in the include directive
+in patch 1: At least aiui, $(INC_FILES) is expanded at the point when the
+directive is processed. Hence why you need to open-code another include
+there.
 
 Jan
+
+> See patch 4 in tools/Rules.mk adding the additional reference to
+> Tools-paths.mk by doing:
+> 
+> PATH_FILES += Tools-paths.mk
+> 
+> 
+> Juergen
+
 
