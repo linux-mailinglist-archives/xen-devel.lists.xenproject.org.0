@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B4D3C809A6
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:55:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170843.1495868 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E64BC809BB
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:57:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170855.1495877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNW5g-0002bV-98; Mon, 24 Nov 2025 12:54:48 +0000
+	id 1vNW8F-0003kc-Kr; Mon, 24 Nov 2025 12:57:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170843.1495868; Mon, 24 Nov 2025 12:54:48 +0000
+Received: by outflank-mailman (output) from mailman id 1170855.1495877; Mon, 24 Nov 2025 12:57:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNW5g-0002Z7-60; Mon, 24 Nov 2025 12:54:48 +0000
-Received: by outflank-mailman (input) for mailman id 1170843;
- Mon, 24 Nov 2025 12:54:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vNW8F-0003iK-IK; Mon, 24 Nov 2025 12:57:27 +0000
+Received: by outflank-mailman (input) for mailman id 1170855;
+ Mon, 24 Nov 2025 12:57:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNW5e-0002Z1-Py
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:54:46 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c07e6252-c934-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 13:54:45 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-47755de027eso22416835e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:54:45 -0800 (PST)
+ id 1vNW8F-0003iE-2W
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:57:27 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1f80522c-c935-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 13:57:24 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-42b387483bbso3165119f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:57:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42cb7f3635bsm28669765f8f.17.2025.11.24.04.54.44
+ ffacd0b85a97d-42cb7fa3592sm26967062f8f.21.2025.11.24.04.57.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 04:54:44 -0800 (PST)
+ Mon, 24 Nov 2025 04:57:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c07e6252-c934-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 1f80522c-c935-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763988885; x=1764593685; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763989044; x=1764593844; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=U6n+P4Ju046QP9wktWA/2tj+Yp3pglOFZjgJrArj4Lk=;
-        b=LvF+uDwhiVPM4JiHqmnQvlaspJyisya1Tceho4cVb2yf1pPTqAfWSz57SrZCRXTvKP
-         lyyf4SqFHfDPa+0fhM2aYabBSP/gvwy57669C6Lq7cR8XrUcVlBeoNVFTKslJWvcvOFb
-         EeOlwm9krkSGZM04X9T8WiSR+2D2wPvfZNQndoqonWZVN0/zMp7WqbWZYKyuiSq0dZV9
-         dTRxMZdGMwZ9mhCm2MUPkyn4aloGTsgbm2jKhvjhnCGjStYQijjyHvP/gDVPgyAH5vDD
-         ErH2YfkX8cwfpk51KwTNfbrVzKBeAFJ4FbwzuD8OZt4EEyHwoi/hHnntYZ40joVDCK/A
-         /edA==
+        bh=coIS1yurgMPk61iUM6HiDX3be+bFx+z8d5FqBQaYy8Q=;
+        b=UBAOrdJhR/H9zF5x+R2Og4cIP5MA9YiK9UDZ1y/BmeDGkUAvckbn2vZRApmgwLwztA
+         QsH8mPqOfKd/zYWW4d2NysubeZXVdoxp3V/kmc0dg/wCe+PzDtoOHpI38L4ANhSu69I3
+         jLO01TToAqjSTJwPTu4Uv3w+9wM0yp3RjGRn4iotKTcmcROYccp0Jhu1Mcg114a/CUTa
+         CI+sCxLt5qT+VMPyO2JdeTLJRKHqUWKRBfRmMqMXa39i0bhnvu2rGpHz4/4Y9MN1x6RF
+         FQBF7ZXgFW61eXh2wL8L4KYVvh4gzPkdoiIPXCs4HJb/08oGwPvUMWk5eNBuXTtIYGGh
+         D2MQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763988885; x=1764593685;
+        d=1e100.net; s=20230601; t=1763989044; x=1764593844;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=U6n+P4Ju046QP9wktWA/2tj+Yp3pglOFZjgJrArj4Lk=;
-        b=IRbwBGOiuO2+YzX050K8uvg7zC0/FG5r0D13f+vwzollfjS/3XD8l3k7iUX6buDcCr
-         Y3YO0tAo9MQlOGHZgTRxkyc5lnlJrJ2gEKY400EHURddD5cyHNGo3dBIAzN7BRDldi7h
-         voy+HalSoj0U37yUBGcbO3tj2zT/NpgbhlmXTrwLInQjVlaoZLIZfeawY2k16b2vWpoy
-         4czR56NS+cVqoGgOc6y22aD1pIxBm7gnGLa+fN4IznfsdDlkwyTddYqj0MqAQJiSePAq
-         C6bSfJkTgmOMyErypd22FeyrvofjFLkCSFNpk1/cnJpFGhpWFPMh6aW8hPrcRB6j61fG
-         VfNA==
-X-Forwarded-Encrypted: i=1; AJvYcCV2UVnfiSYsNnSz5Vjwxkrmoi/qIk7iJxyq5DEmcV1Z39bFkea5v5chzyLw1vVZDoyZiitNae4dI0s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxKrfyCfPUKnlTGF4Cd8vZg1x6l+9AMTBx1LENsfd++8+BTMs2L
-	Xn7dKKs7ZPyxOHZ/Yc/l0Jpisj6PblPQaWv9t5Mk1VS0zq189MBH+xbvCtfCKOiwcg==
-X-Gm-Gg: ASbGncuOH+Xe5AnL2KBEQyYT+t131vxMeQFB31nESICuCrGstk9mPH56UuAqibonsTE
-	OWmNX3oa0IP6TWcsqD1VN/wdAGccp3cvZHZjpk9wvCQ4PCl/3NahpZA+TZ8uxLK9/1Lwwn5VjeV
-	21qs/HmU3zWneLCJm6qJ2M/TFeaA0MslevAWfnGL5k240cqj8GFE9P38taOO6+RMUJUF9eiX7uf
-	eJhL7IEdsP4CA7uYthpwHIVnvC1eHV/vCMhHu35fqIQnt6qpVMWKovNOJT7+0aNS5pYdtwdLWt3
-	veMPeNrtmG9qVyuHmVGG2L/GTq2i9bNxunQEKcqHYoAn5fVmVj+fLCSChSkoEeZM64KMJZCEbuY
-	LoumBJOatGMrxtWEaLf9l9vAWcIK0y/tz3TE1ldoj8L7Z7RmuY5S4Qefi7xSHvp9vDZ2pzo0Y0c
-	FWrOaDvWigFxEIieIIhKX7EBdrLutf6mdvnuEMQQaquIqgEDXaVCG5QzS2MyKj010JJcjIBsBEX
-	bk=
-X-Google-Smtp-Source: AGHT+IH98oz9ihGv5MTZmoNh3ue+YYeuK4xkI3WoQNVGTRlR0+KgM/BWkJdSbLgHJoyjlbrC0AuZkQ==
-X-Received: by 2002:a05:6000:40cc:b0:42b:4267:83e9 with SMTP id ffacd0b85a97d-42cc1ac91e1mr12152024f8f.2.1763988884747;
-        Mon, 24 Nov 2025 04:54:44 -0800 (PST)
-Message-ID: <692056b6-889e-4b75-a3ea-be748269cc5c@suse.com>
-Date: Mon, 24 Nov 2025 13:54:46 +0100
+        bh=coIS1yurgMPk61iUM6HiDX3be+bFx+z8d5FqBQaYy8Q=;
+        b=Eh2EFnEF/MiaJwaxnf58nL8qipEFrUubV3aCqtMO1tg/NuTVl3d5sHeSAL+H0/y5fa
+         Svp3SQzssMqSSKcEbGdhvCBir6gKwGkJSg3fjt2H7/byky+jmc/nBz7Q5AnW1tb7r3Pa
+         dDgYCfa/9RoDQ8OdURtkrBvDeq/NPQdYv2QsuOUW31AskLB+JEVgyLrotMzjHmEPmRBr
+         d9eczzi0hloVFE3+0x2OctyTBFyu3jl1N5Y/Sod0/ZgKqBFG35wZqXnmzUoplsU//o1+
+         R4iZP0aJZEbSzc5q6JsxcpbbeUWwifbvw/lOR9LIuwW4agIo7P6B6oCUGPDDDaovj80a
+         7J2A==
+X-Forwarded-Encrypted: i=1; AJvYcCWN8Ev5oa/R/bK+KyPld+PeZGRRjkaP6zWprPf0Pn9OZWOs1NDzhcl0Ti6+xmrRNUAc3DmhruNeV9M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwF6hM+iy+/KmmomyVQQH3u72KtcLSnVkNfALoZWs003JDU9rGY
+	AxRw2EDJbuCDxc9VMtiODsPeOij9lZGy3P0Xp4W8RUeB5zxin6e+RCidu1jzuR4jEw==
+X-Gm-Gg: ASbGncvPj5hHclxLWl2zX3JLuIn7CfqRfontkRDYlrQNVXi0qRjwNvV5L1uAOWrhCXV
+	ai5SlauuoLXqeROVydqoABSDdxI9pB8U/9INN5cO9QLnHs19mqBZxNPFvxTJaD4nLqp8DjF6pNa
+	DH61PG4CM3q4kA1hgHAarkABGThlcQXUxNJrpYjktlJc5Ij1jUtdbWkhr+bo+3uL9w1luWHXBm/
+	uxgJz5W33SJwmwIAXsyyFnT+9Wro5xvv7t1arwrTnRygBmSqDMg4BrDC8+nu/urzxrtqUYdvgaL
+	zR4GNWaIQPUsPc8Wbefi5JJ65Q2AbqnH3BmNiiZdo7ot8hSQnp4ui/ZwsM9NIX2WqJJReEPLiG9
+	IujB+khZGy+lRzYPtzrWe9MZeJlHOF3HCzT23HzPBc3k9tXudSXaW/XzvfDQMEPtmMoB80Lbgn9
+	sj7D+hJKn5xFEuAC5/Q4qte+Cj56a6c8JUIXB+9yxORz8YAnM8zIH+4gN9tYP+kRQkRHt3rvmxS
+	n4=
+X-Google-Smtp-Source: AGHT+IGLBIt+UcG6FsHTcKuAmeOKq2MtfE6ttCqPw3JxVlbp1GSvK0xwCTPwPcmrpPLPmrh/RZeNTg==
+X-Received: by 2002:a05:6000:2387:b0:429:dc9a:ed35 with SMTP id ffacd0b85a97d-42cc1d3479cmr12245740f8f.43.1763989044248;
+        Mon, 24 Nov 2025 04:57:24 -0800 (PST)
+Message-ID: <b0c69f60-94da-4279-ad34-261c036fde7e@suse.com>
+Date: Mon, 24 Nov 2025 13:57:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/12] x86/irq: convert irq_desc old_cpu_mask field to
+Subject: Re: [PATCH 12/12] x86/irq: convert irq_desc pending_mask field to
  integer
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20251120090637.25087-1-roger.pau@citrix.com>
  <20251120095826.25782-1-roger.pau@citrix.com>
- <20251120095826.25782-6-roger.pau@citrix.com>
+ <20251120095826.25782-7-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,80 +121,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251120095826.25782-6-roger.pau@citrix.com>
+In-Reply-To: <20251120095826.25782-7-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 20.11.2025 10:58, Roger Pau Monne wrote:
-> --- a/xen/arch/x86/irq.c
-> +++ b/xen/arch/x86/irq.c
-> @@ -115,7 +115,7 @@ static void release_old_vec(struct irq_desc *desc)
->      unsigned int vector = desc->arch.old_vector;
+> @@ -779,10 +775,10 @@ void move_masked_irq(struct irq_desc *desc)
+>       *
+>       * For correct operation this depends on the caller masking the irqs.
+>       */
+> -    if ( likely(cpumask_intersects(pending_mask, &cpu_online_map)) )
+> -        desc->handler->set_affinity(desc, pending_mask);
+> +    if ( likely(cpu_online(desc->arch.pending_cpu)) )
+
+Same remark again regarding the guarding against hitting ...
+
+> +        desc->handler->set_affinity(desc, cpumask_of(desc->arch.pending_cpu));
 >  
->      desc->arch.old_vector = IRQ_VECTOR_UNASSIGNED;
-> -    cpumask_clear(desc->arch.old_cpu_mask);
-> +    desc->arch.old_cpu = CPU_INVALID;
+> -    cpumask_clear(pending_mask);
+> +    desc->arch.pending_cpu = CPU_INVALID;
 
-With this, ...
-
-> @@ -221,10 +220,10 @@ static void _clear_irq_vector(struct irq_desc *desc)
->      {
->          /* If we were in motion, also clear desc->arch.old_vector */
->          old_vector = desc->arch.old_vector;
-> -        cpumask_and(tmp_mask, desc->arch.old_cpu_mask, &cpu_online_map);
->  
-> -        for_each_cpu(cpu, tmp_mask)
-> +        if ( cpu_online(desc->arch.old_cpu) )
-
-... you pretty certainly want to guard against the value making it here (even
-if just accidentally), and thus triggering the assertion in cpumask_check().
-(Again possibly elsewhere as well.)
-
-> @@ -581,16 +575,16 @@ static int _assign_irq_vector(struct irq_desc *desc, const cpumask_t *mask)
->               * in the 'mask' parameter.
->               */
->              desc->arch.vector = desc->arch.old_vector;
-> -            desc->arch.cpu = cpumask_any(desc->arch.old_cpu_mask);
-> +            desc->arch.cpu = desc->arch.old_cpu;
->  
->              /* Undo any possibly done cleanup. */
->              per_cpu(vector_irq, desc->arch.cpu)[desc->arch.vector] = irq;
->  
->              /* Cancel the pending move and release the current vector. */
->              desc->arch.old_vector = IRQ_VECTOR_UNASSIGNED;
-> -            cpumask_clear(desc->arch.old_cpu_mask);
-> +            desc->arch.old_cpu = CPU_INVALID;
->              desc->arch.move_in_progress = 0;
-> -            desc->arch.move_cleanup_count = 0;
-> +            desc->arch.move_cleanup =  false;
-
-Nit: Excess blank.
-
-> @@ -2003,7 +1994,7 @@ void do_IRQ(struct cpu_user_regs *regs)
->                             ~irq, CPUMASK_PR(desc->affinity),
->                             /* TODO: handle hipri vectors nicely. */
->                             CPUMASK_PR(get_cpumask(desc->arch.cpu)),
-> -                           CPUMASK_PR(desc->arch.old_cpu_mask),
-> +                           CPUMASK_PR(get_cpumask(desc->arch.old_cpu)),
-
-I should have asked on the previous patch already: Does it actually make sense
-to still print these in mask form? Without that you wouldn't need get_cpumask(),
-and as a result you also wouldn't need cpumask_none.
-
-> @@ -2685,12 +2664,9 @@ void fixup_irqs(void)
->               * per-cpu vector table will no longer have ->arch.old_vector
->               * setup, and hence ->arch.old_cpu_mask would be stale.
->               */
-> -            cpumask_clear_cpu(cpu, desc->arch.old_cpu_mask);
-> -            if ( cpumask_empty(desc->arch.old_cpu_mask) )
-> -            {
-> -                desc->arch.move_in_progress = 0;
-> -                release_old_vec(desc);
-> -            }
-> +            desc->arch.old_cpu = CPU_INVALID;
-> +            desc->arch.move_in_progress = 0;
-
-As you touch the line anyway, switch to using "false"?
+... the value stored here.
 
 Jan
 
