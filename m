@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13193C809E2
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:59:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170870.1495897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA59CC80B27
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 14:15:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170888.1495908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNW9z-00051r-7k; Mon, 24 Nov 2025 12:59:15 +0000
+	id 1vNWP1-000217-Gq; Mon, 24 Nov 2025 13:14:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170870.1495897; Mon, 24 Nov 2025 12:59:15 +0000
+Received: by outflank-mailman (output) from mailman id 1170888.1495908; Mon, 24 Nov 2025 13:14:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNW9z-0004zB-43; Mon, 24 Nov 2025 12:59:15 +0000
-Received: by outflank-mailman (input) for mailman id 1170870;
- Mon, 24 Nov 2025 12:59:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNW9x-0004T2-PM
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:59:13 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 60017aaa-c935-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 13:59:13 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-42b379cd896so2328669f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:59:13 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477bf1df392sm197221895e9.1.2025.11.24.04.59.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 04:59:12 -0800 (PST)
+	id 1vNWP1-0001zR-Dn; Mon, 24 Nov 2025 13:14:47 +0000
+Received: by outflank-mailman (input) for mailman id 1170888;
+ Mon, 24 Nov 2025 13:14:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Qo8f=6A=gmail.com=samaan.dehghan@srs-se1.protection.inumbo.net>)
+ id 1vNWOz-0001zL-FI
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 13:14:45 +0000
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [2607:f8b0:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 89f77f96-c937-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 14:14:43 +0100 (CET)
+Received: by mail-pl1-x62c.google.com with SMTP id
+ d9443c01a7336-297ef378069so38482735ad.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 05:14:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +40,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60017aaa-c935-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 89f77f96-c937-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763989152; x=1764593952; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rthwdmuYVi+1feGAAdq1Pe/M0Dje0fenfS69Nzb+RrQ=;
-        b=Pg7T2HnppGCHjesUwbPTPbcZptf/D4Hy//YhLt4oY9IQm1oqKoCk6R2E4eTAVx7kbB
-         v5WtTjLcBxQzrPOHqq5UoyDXIMyoW5oKeDkHRWrcuwpFlUU7Rdv5hFDrwmbHHxJ07jAZ
-         vZqQ949BrWE93tFKu35DBh92Ydk1HwosgQCQvubwEHiqtLUtEr8S+DmiYV/RebgwyseW
-         3AGxws8SVS/EicsMRVXzrhB6XlLku6TjxdjCKwdT4TwTOQrvgV5P5SyVzzw+u1it4r+r
-         o4j0SZ2DXdncsbx5Q2cdZHq9F5D53Soq83FucoKHzdjGUiRg4bGdAM3qNUE6owV/Cx95
-         Wl/w==
+        d=gmail.com; s=20230601; t=1763990082; x=1764594882; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=mx0eAVVCawFxxfGf6aZiYlusp7e1swgiJgZ3sDSy6qk=;
+        b=kB2JJRujuQTwST9ft9bjpMyL28s367B15UOp/70LzE4kXjMB++H9X3WqFFbg9EH/cC
+         ngD1EGNmXXYrROK1wYYHinpQlChDOGMViUEO5ttzgYpdW488V4ZarO/QhVBT2ATq9iA/
+         DnRHzqLLU3hisWXSMYkWwwDEQrmgOVIcj/8H7nv9S23JdHZU5FobV4QqC8ieKAnX9f/K
+         cnCKfaFpmydzYOMa1MJe3m7C/ldWUtlamW2d73mpnGzJ6Izs7+2fxWSvn9IH80r/MFAU
+         i2YMB9VbmeosrEU5cJSbJr663l5BRhRAln1lPZZXiKuVlmrpvu9YDGKbJUOardmd8AKm
+         hhmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763989152; x=1764593952;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1763990082; x=1764594882;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rthwdmuYVi+1feGAAdq1Pe/M0Dje0fenfS69Nzb+RrQ=;
-        b=srJKS0TazBf9M1dD8UFHYrm3o1dwMrBm7MdZPyS9EwIbyHLyngVRSXnJJcGp/GVjmS
-         Lr8BiR+aPcQtGoOyk+aF1/PFWF8wmV9XADaZXtC4s2/tyKOkDkRv8bETMk1A9WIyupef
-         vQYzeFuJ+ue5TTVI/RM+DgXVs6Z9IXf4lv0vFm7rh/P4XGCecc2shPlssaOxaGOdMWgh
-         8fIg+dXUzQe0korcwfJIIbAIjsIgRl4mqw1HSn3q5UZAN0oDXGdfwsUU0Tq4lHUqTQTy
-         O4Tdk8uowZpomZincz1Ky+8NieTfZ3SxOuVgbUg5gVYaYoxOcVj04Z/Sup8u+dn3IVdu
-         shQA==
-X-Forwarded-Encrypted: i=1; AJvYcCVlE9TLVywM5I0g2kMIi9kJdU3Oe21dHCl4WhJVMD+UoYHher6ot79zpRox211+0OJOJ4/YggFXyR8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YziP+Sx5PxDstsJR3S+KO7OpmikPyDQMPADohDX6vVMhreGHZ/E
-	Nol91dZ+o2tjC0r4WzVAPGVpWXC6vbyyVKvK9ZA2Gz/iFtwCyEA1zYF3/L5q1Vvlxw==
-X-Gm-Gg: ASbGncvfNlGeKOHBXzLus0V8sMA7JUh/lDzWKSIYZJ5dXOL9PSbwkrPMT98hpRaxx4v
-	kzgbokwEYxCABhcLi4x/GWZrigTJHFX6BnZFX2yad/OUOPe88PiOsTS9LWPaaSKweKi8xJRiyIE
-	D9OQOZcMVPDhFxVeIOwpbIIozrP6c0qhLU+MTvlO03OW95+Hib0al3UnkZvpmge45YbIfW84gzU
-	LkFnvOatmNmXDjIK0AaCj2YnsWo/j+wgwcdojbBYpUnWNzZXoLN33DmNDmHkjj5LVhvSqb3GIn0
-	Rp7AVK94uSvc6tokIHnPNmMf8P4TgpwWKapIUcMtlK2N+Gk4tLJnavKi1qP4MgBy9jipVYGNO/H
-	R27IXFiLO8fJ0LuhJ27OLldweH/+cPDye1R2hZht2JH/5FveilDXXtaFP7AJfb/G6GpqtBwHb6d
-	Jx7Tsyjigg/eEIiPRrGnLkdRKy0jCh6mAB7bfNe7G+UsMKTepDrRUTfUrAB6Zit5oVcUDPk5mDo
-	98=
-X-Google-Smtp-Source: AGHT+IGdoJhREtwuJONG9uLs3aCMaYECSDKh/GFxx4lW+5oDva3FYpVpq9aVDUebLIBuo7HkzHfAeg==
-X-Received: by 2002:a05:600c:1c25:b0:46e:4586:57e4 with SMTP id 5b1f17b1804b1-477c114ed70mr175269635e9.24.1763989152463;
-        Mon, 24 Nov 2025 04:59:12 -0800 (PST)
-Message-ID: <b8b0e3ee-9b0e-4403-baed-a6297479f4cb@suse.com>
-Date: Mon, 24 Nov 2025 13:59:14 +0100
+        bh=mx0eAVVCawFxxfGf6aZiYlusp7e1swgiJgZ3sDSy6qk=;
+        b=OsiEG4I0entayUJr9DFHdPuaG5G0vnPLlt3WZj7RaYYbuBJKuEgHlabsQ4IHrbtf2C
+         sBW0jEzqzD5bHRyapVXR1WmBNVdXCXytrcP4f9+sTmUb6t1CbKHyVf6wVr3y2Ailats2
+         w7o9lng0O5j8lFavv+Yr9XjIZu8bvjLeBE3/df2HvDh/6RlpiMR/edDeAl4zg/g8McUD
+         ja5OSG5VhlUGFkOrpaFHTfFzU/AaKwxG5dZTzsjhriQ54nKWf7JmTG4WbwFdPuAEKQVJ
+         dxb4eOxclCDHIndyQ606j9wn+eERojgu6+fShNXWZ7GJJ3heTKICrXNkxWYDwYVPtKt4
+         y20A==
+X-Gm-Message-State: AOJu0YxBDVpfAawjfsN41FDbfX58xCK3xFkQnUDt3aTEhv5voGLh8eTC
+	Qc3pn6bLJ25JJ8WClolhtfjCfAmohJOxQxyAEjaxEn9XXMZIemDE9q8wSaI4bOSge16+SJs8T6m
+	IOLUjpcyeZ7X/7bNvSc9lbzB0cpjnoA==
+X-Gm-Gg: ASbGnctCfr8UqT9OsW/8dW59HAmhPprhtP6pwm/X8cdmcXK0hclxS3vvRw9CAbxxFkQ
+	GNi7I16WCMOq76bHdmABN0ZqfIj02H7OslaUJnBvqdu+uITxuWspmjS67StHZ1NcQKVS4h0nW6Y
+	7mgFVWmwbMSyBRldgp3+jY962REy+tS0uphTkVWH63YjzPYuVES83GmSQHT44YwgYINaqSNj9AG
+	fTf52/WAlUVvkPuvwnISQj2QkDhdwm/jZS7s4IMhDoFHnOP2fAHiHrQ2g1XIYexJRFyCn0yVTKI
+	7fcHcsH6n2yiNmvMAnuMQlBK
+X-Google-Smtp-Source: AGHT+IG5RyIDZuZeTNoL79WDy1rvhcaHWuJbNrwhEtdNMJg42zM55ZNHIdbS/ZFUer6rXwCGEvSj+71H81ZOtc+SN+k=
+X-Received: by 2002:a17:90a:ec8f:b0:340:66f9:381 with SMTP id
+ 98e67ed59e1d1-34733e59272mr11667808a91.10.1763990081667; Mon, 24 Nov 2025
+ 05:14:41 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] xen/param: address violation of MISRA C Rule 8.2
-To: Nicola Vetrini <nicola.vetrini@gmail.com>
-Cc: andrew.cooper3@citrix.com, sstabellini@kernel.org,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1763642993.git.nicola.vetrini@gmail.com>
- <b51830acf5274dfac6a3b2b6864be775180ee673.1763642993.git.nicola.vetrini@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b51830acf5274dfac6a3b2b6864be775180ee673.1763642993.git.nicola.vetrini@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <3bb418ae6a36a9ac89c697a417fa0745fa9ac702.1763949990.git.samaan.dehghan@gmail.com>
+ <9c76a959-51c0-4eb7-9d05-ba4441318faa@citrix.com> <CAHFNDNikjXNHCj2RXMoZPckqaQAy2u-xw-QyCO7nXT3pttp6Hg@mail.gmail.com>
+ <fbec7d87-126d-4a0f-bce3-dde76d20433b@suse.com>
+In-Reply-To: <fbec7d87-126d-4a0f-bce3-dde76d20433b@suse.com>
+From: Saman Dehghan <samaan.dehghan@gmail.com>
+Date: Mon, 24 Nov 2025 07:14:30 -0600
+X-Gm-Features: AWmQ_bk27olYdM7LJtxgGBgSFT-0W85jHxaa10rLRyZVdEL9EwEhGUwItWulYyQ
+Message-ID: <CAHFNDNjxCjcv-pDtgCWH2jm_aWBWvuZY7Z3EWJMk679_ofTdFw@mail.gmail.com>
+Subject: Re: [PATCH] XEN: enable MC/DC coverage for Clang
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@vates.tech>, 
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: multipart/alternative; boundary="00000000000034859f064456f221"
 
-On 20.11.2025 20:32, Nicola Vetrini wrote:
-> add missing parameter name in function pointer member declaration.
-> 
-> No functional change.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@gmail.com>
+--00000000000034859f064456f221
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+On Mon, Nov 24, 2025 at 6:41=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 24.11.2025 13:31, Saman Dehghan wrote:
+> > On Mon, Nov 24, 2025 at 5:15=E2=80=AFAM Andrew Cooper <andrew.cooper3@c=
+itrix.com>
+wrote:
+> >> On 24/11/2025 2:18 am, Saman Dehghan wrote:
+> >>> @@ -127,16 +131,25 @@ extern uint64_t __stop___llvm_prf_cnts[];
+> >>>  #define END_NAMES       ((const void *)__stop___llvm_prf_names)
+> >>>  #define START_COUNTERS  ((void *)__start___llvm_prf_cnts)
+> >>>  #define END_COUNTERS    ((void *)__stop___llvm_prf_cnts)
+> >>> +#define START_BITMAP    ((void *)__start___llvm_prf_bits)
+> >>> +#define END_BITMAP      ((void *)__stop___llvm_prf_bits)
+> >>>
+> >>>  static void cf_check reset_counters(void)
+> >>>  {
+> >>>      memset(START_COUNTERS, 0, END_COUNTERS - START_COUNTERS);
+> >>> +#ifdef CONFIG_CONDITION_COVERAGE
+> >>> +    memset(START_BITMAP, 0, END_BITMAP - START_BITMAP);
+> >>> +#endif
+> >>
+> >> ... this:
+> >>
+> >>     if ( IS_ENABLED(CONFIG_CONDITION_COVERAGE) )
+> >>         memset(START_BITMAP, 0, END_BITMAP - START_BITMAP);
+> >>
+> >>>  }
+> >
+> > Thanks Andrew.
+> >
+> > IS_ENABLED(CONFIG_CONDITION_COVERAGE) is not the same as #ifdef
+> > CONFIG_CONDITION_COVERAGE.
+> > When the option is completely undefined, IS_ENABLED() returns 1
+(enabled).
+>
+> See our many other uses of IS_ENABLED(). If what you say was true, we'd
+have
+> breakage for every one of those uses.
+>
 
+Sorry, my bad. It works.
+
+
+> Jan
+
+--00000000000034859f064456f221
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">On Mon, Nov 24, 2025 at 6:41=E2=80=AFAM Jan Beulich &lt;<a=
+ href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br>&gt;=
+<br>&gt; On 24.11.2025 13:31, Saman Dehghan wrote:<br>&gt; &gt; On Mon, Nov=
+ 24, 2025 at 5:15=E2=80=AFAM Andrew Cooper &lt;<a href=3D"mailto:andrew.coo=
+per3@citrix.com">andrew.cooper3@citrix.com</a>&gt; wrote:<br>&gt; &gt;&gt; =
+On 24/11/2025 2:18 am, Saman Dehghan wrote:<br>&gt; &gt;&gt;&gt; @@ -127,16=
+ +131,25 @@ extern uint64_t __stop___llvm_prf_cnts[];<br>&gt; &gt;&gt;&gt; =
+=C2=A0#define END_NAMES =C2=A0 =C2=A0 =C2=A0 ((const void *)__stop___llvm_p=
+rf_names)<br>&gt; &gt;&gt;&gt; =C2=A0#define START_COUNTERS =C2=A0((void *)=
+__start___llvm_prf_cnts)<br>&gt; &gt;&gt;&gt; =C2=A0#define END_COUNTERS =
+=C2=A0 =C2=A0((void *)__stop___llvm_prf_cnts)<br>&gt; &gt;&gt;&gt; +#define=
+ START_BITMAP =C2=A0 =C2=A0((void *)__start___llvm_prf_bits)<br>&gt; &gt;&g=
+t;&gt; +#define END_BITMAP =C2=A0 =C2=A0 =C2=A0((void *)__stop___llvm_prf_b=
+its)<br>&gt; &gt;&gt;&gt;<br>&gt; &gt;&gt;&gt; =C2=A0static void cf_check r=
+eset_counters(void)<br>&gt; &gt;&gt;&gt; =C2=A0{<br>&gt; &gt;&gt;&gt; =C2=
+=A0 =C2=A0 =C2=A0memset(START_COUNTERS, 0, END_COUNTERS - START_COUNTERS);<=
+br>&gt; &gt;&gt;&gt; +#ifdef CONFIG_CONDITION_COVERAGE<br>&gt; &gt;&gt;&gt;=
+ + =C2=A0 =C2=A0memset(START_BITMAP, 0, END_BITMAP - START_BITMAP);<br>&gt;=
+ &gt;&gt;&gt; +#endif<br>&gt; &gt;&gt;<br>&gt; &gt;&gt; ... this:<br>&gt; &=
+gt;&gt;<br>&gt; &gt;&gt; =C2=A0 =C2=A0 if ( IS_ENABLED(CONFIG_CONDITION_COV=
+ERAGE) )<br>&gt; &gt;&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 memset(START_BITMAP, =
+0, END_BITMAP - START_BITMAP);<br>&gt; &gt;&gt;<br>&gt; &gt;&gt;&gt; =C2=A0=
+}<br>&gt; &gt;<br>&gt; &gt; Thanks Andrew.<br>&gt; &gt;<br>&gt; &gt; IS_ENA=
+BLED(CONFIG_CONDITION_COVERAGE) is not the same as #ifdef<br>&gt; &gt; CONF=
+IG_CONDITION_COVERAGE.<br>&gt; &gt; When the option is completely undefined=
+, IS_ENABLED() returns 1 (enabled).<br>&gt;<br>&gt; See our many other uses=
+ of IS_ENABLED(). If what you say was true, we&#39;d have<br>&gt; breakage =
+for every one of those uses.<br>&gt;<div><br></div><div><div class=3D"gmail=
+_default" style=3D"font-family:georgia,serif">Sorry, my bad. It works.</div=
+><br></div><div><br>&gt; Jan</div></div>
+
+--00000000000034859f064456f221--
 
