@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD781C8032B
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 12:27:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170374.1495431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53AF7C8054A
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:02:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170393.1495458 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNUiv-00088d-Dk; Mon, 24 Nov 2025 11:27:13 +0000
+	id 1vNVGQ-0005j7-6h; Mon, 24 Nov 2025 12:01:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170374.1495431; Mon, 24 Nov 2025 11:27:13 +0000
+Received: by outflank-mailman (output) from mailman id 1170393.1495458; Mon, 24 Nov 2025 12:01:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNUiv-00085y-Av; Mon, 24 Nov 2025 11:27:13 +0000
-Received: by outflank-mailman (input) for mailman id 1170374;
- Mon, 24 Nov 2025 11:27:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vNVGQ-0005hg-3y; Mon, 24 Nov 2025 12:01:50 +0000
+Received: by outflank-mailman (input) for mailman id 1170393;
+ Mon, 24 Nov 2025 12:01:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fNsn=6A=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1vNUit-00085q-RS
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 11:27:11 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 84204c2e-c928-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 12:27:10 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 682212125F;
- Mon, 24 Nov 2025 11:27:09 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1CC123EA61;
- Mon, 24 Nov 2025 11:27:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id iyPeBA1BJGk+XgAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 24 Nov 2025 11:27:09 +0000
+ (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vNVGO-0005gH-JA
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:01:48 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 58097bcf-c92d-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 13:01:43 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4775e891b5eso17678415e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:01:43 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-477bf3af0ecsm193617465e9.9.2025.11.24.04.01.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Nov 2025 04:01:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,117 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84204c2e-c928-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1763983629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=BxJrhF0qZZGaXD5JOd96CV6+FokP/qPOdSZVX/1/zeU=;
-	b=JlkDbRV1GrTZqBK9zyoB6YMozaWa8Gzluy2TJ9ybHXPY1+tLSBrrPhAuMJJwkIIIwD0crs
-	h77+bW6j+SfGtwtORLhwy87yudS/MGoy3V3W4Towghi6iHG0UXjnD8/qqJSpYKpJPWCqau
-	I4Lka7UG3GwIuNAWFRQuBqQnN6rDdTg=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1763983629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=BxJrhF0qZZGaXD5JOd96CV6+FokP/qPOdSZVX/1/zeU=;
-	b=JlkDbRV1GrTZqBK9zyoB6YMozaWa8Gzluy2TJ9ybHXPY1+tLSBrrPhAuMJJwkIIIwD0crs
-	h77+bW6j+SfGtwtORLhwy87yudS/MGoy3V3W4Towghi6iHG0UXjnD8/qqJSpYKpJPWCqau
-	I4Lka7UG3GwIuNAWFRQuBqQnN6rDdTg=
-Message-ID: <bf7e1a66-1696-477a-bdef-79b08df0b57c@suse.com>
-Date: Mon, 24 Nov 2025 12:27:08 +0100
+X-Inumbo-ID: 58097bcf-c92d-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1763985703; x=1764590503; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=AbrKimLx9ctqJiYlm0m6klda1+roeMbXzMTUqTSdaRY=;
+        b=MxZ/C6Glp7NMs7MxEeH/3PyEG4dJTp9pegub8aplDMq77spsgptmKTFgik1gGuf5hh
+         wj5r6DKZOk/vsyFtcVsjaRkStTDkVLIg7o+HCkBTzUnZvX/qGR0EvXUfH6GpoC4HxepM
+         wHNOIoiMbehd9faX+YzvSfwBLph++ez58NA7FAy5XdbEWdYTJlAZ4caPFBc+AOnjhReg
+         cZ5/lZZoTWCa6vSpd+YKXoqjYISHArtzed1q6J69yrn2KeApR7pkICAgu2+A5nn0SJor
+         pp+IEuymvCe1zIRPxdLIj1wa37U+hkjKWO5Vnu5yVtESTo+p+NCeR4BNqreuvB5OMdSa
+         PdcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763985703; x=1764590503;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AbrKimLx9ctqJiYlm0m6klda1+roeMbXzMTUqTSdaRY=;
+        b=skFy+YXLliKn7Qp5ozpCq6LMSNBs/SIX0cazeClEmJer4Gx+zxOfJpPhtVF0YlLSPF
+         I6CGfy68xwDPCvVvyz/Jqngqici2ijwUkeuG4kIfm4uYUvqDBluoXFJdl8BvkiKE+he5
+         GMkKqJ8OkIUo/hyyo1q2EQjF/K70Xlzop8Trevgt/TZSGLxf6qPquhc3QYYLHGEAtLg2
+         A+99HzIPUtFf9CXLdUy4q0MQnxSY8kNm1j/q4hX4jkbJC6yvfxcR0/paByXJ+uQXY8/6
+         GgYQQPcXFvl9Lv4P63/cCW+RDx024/deZHd9M43/J5AgKbEXyv/1ui4vEP1HkAcEQbVr
+         U8WA==
+X-Forwarded-Encrypted: i=1; AJvYcCUK9tGFPfWt46UesSdhKP2FF19sGqGUfREVxr/YIRC2kJ2wsWTpnESTftOgbNlvl0hdiHrPRmAVBsg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyPvm/6LCxjBg0Nm9icEaZ3aRXllpBNQjb/cCXywrmcru1YVEqr
+	o7rlMGecKeBeoXPLng8scale674PHbZNwQA357eO4POfdnsS6TNzcDY3pFaNrfUw/wHXmwkCP8X
+	YGAY=
+X-Gm-Gg: ASbGncvVTV0NDeGG1XN/8yK4ent6/4/kiSWEeHzxDrcGH6ElXVtaV+Hq6JGIe+B3zbs
+	rCgzu9nv+PxTmGl8Is1kqmAH3Uk80JFdxJ9EIBaZmScJRS5MrWpGaxHcWO6dRlZq1Udr/vVH0od
+	V7aalDRVKUWCWAUZ5YBI1r2GzjMdOQKQEN5jKKt7fGZRRv4n0vORGmg77Be7x4El9F7yD5LbTTL
+	8brweg7hxfvZiTl4NS6R5QS6ER3+x47zQWbgP4W0U17UA8kdE/Zh4f6xSyi35yOchifN1rOLgb1
+	H4psIHug4W3Kjo7IMYzPXx8dvZhnJ9+iAhrkrxEiTD6IHPYcbhq4KIXVq+FUS8lLr0nZGSMzYy4
+	ByTuf8mllCP/o2cl2ekTsprxTmRwmOCsVm5f1wHFhgtzWqjhapt5mIFGcvjt8tGYohs9Nk6ATgt
+	G0SH4v/q3frf5rAk/uJ53KYXSSBn7Dqs49P4cCwuzQMKaWgrhfW2M9Ku+LtvClokDMm/dH+FkFG
+	Fg=
+X-Google-Smtp-Source: AGHT+IEPX0fcsEJ1+lMmf1nsI28vHBBTWfeCOJUNOLJoEbWlkRA60zTzJWYVQxY0Ze8xLdqic43Hww==
+X-Received: by 2002:a05:600c:4e87:b0:46d:a04:50c6 with SMTP id 5b1f17b1804b1-477c01ebc76mr112131745e9.30.1763985702768;
+        Mon, 24 Nov 2025 04:01:42 -0800 (PST)
+Message-ID: <da4a0b83-a6a4-4e63-9f7a-1c9713cb5a1c@suse.com>
+Date: Mon, 24 Nov 2025 13:01:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] build: add make macro for making file from file.in
-To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 10/12] x86/irq: convert irq_desc cpu_mask field to integer
+To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20251121132332.23514-1-jgross@suse.com>
- <20251121132332.23514-2-jgross@suse.com>
- <d34e3e86-c51a-49b3-8b46-140526755f0f@suse.com>
- <826037a5-dacf-434f-90d9-8f12e61bdd6e@suse.com>
- <0ece9df6-8a04-4ffa-bcf4-d7a3fd4bbef4@suse.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+References: <20251120090637.25087-1-roger.pau@citrix.com>
+ <20251120095826.25782-1-roger.pau@citrix.com>
+ <20251120095826.25782-5-roger.pau@citrix.com>
 Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <0ece9df6-8a04-4ffa-bcf4-d7a3fd4bbef4@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------sTysG7EEywjnoecedBYkpKjr"
-X-Spam-Level: 
-X-Spamd-Result: default: False [-6.20 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SIGNED_PGP(-2.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MIME_BASE64_TEXT(0.10)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid];
-	HAS_ATTACHMENT(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Score: -6.20
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------sTysG7EEywjnoecedBYkpKjr
-Content-Type: multipart/mixed; boundary="------------sT0dDdY8TeXlYCGHJ0YQhR97";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Message-ID: <bf7e1a66-1696-477a-bdef-79b08df0b57c@suse.com>
-Subject: Re: [PATCH v3 1/4] build: add make macro for making file from file.in
-References: <20251121132332.23514-1-jgross@suse.com>
- <20251121132332.23514-2-jgross@suse.com>
- <d34e3e86-c51a-49b3-8b46-140526755f0f@suse.com>
- <826037a5-dacf-434f-90d9-8f12e61bdd6e@suse.com>
- <0ece9df6-8a04-4ffa-bcf4-d7a3fd4bbef4@suse.com>
-In-Reply-To: <0ece9df6-8a04-4ffa-bcf4-d7a3fd4bbef4@suse.com>
-Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
  7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
@@ -170,147 +111,154 @@ Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
  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
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
- ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
- Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
- pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
- tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
- OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
- v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
- 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
- jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
- DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
- Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
- dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
- AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
+ 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
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251120095826.25782-5-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---------------sT0dDdY8TeXlYCGHJ0YQhR97
-Content-Type: multipart/mixed; boundary="------------50a3LfQMdvEmf5ZefgcCHYOK"
+On 20.11.2025 10:58, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/hpet.c
+> +++ b/xen/arch/x86/hpet.c
+> @@ -310,9 +310,9 @@ static void cf_check hpet_msi_set_affinity(
+>      struct msi_msg msg = ch->msi.msg;
+>  
+>      /* This really is only for dump_irqs(). */
+> -    cpumask_copy(desc->arch.cpu_mask, mask);
+> +    desc->arch.cpu = cpumask_any(mask);
 
---------------50a3LfQMdvEmf5ZefgcCHYOK
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Going from the comment, couldn't you use CPU_INVALID here? Then again, see
+"x86/HPET: drop .set_affinity hook", where the function goes away anyway.
 
-T24gMjQuMTEuMjUgMTI6MTUsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNC4xMS4yMDI1
-IDEyOjA1LCBKw7xyZ2VuIEdyb8OfIHdyb3RlOg0KPj4gT24gMjQuMTEuMjUgMTE6NDEsIEph
-biBCZXVsaWNoIHdyb3RlOg0KPj4+IE9uIDIxLjExLjIwMjUgMTQ6MjMsIEp1ZXJnZW4gR3Jv
-c3Mgd3JvdGU6DQo+Pj4+IC0tLSBhL0NvbmZpZy5taw0KPj4+PiArKysgYi9Db25maWcubWsN
-Cj4+Pj4gQEAgLTE1OSw2ICsxNTksMTkgQEAgZGVmaW5lIG1vdmUtaWYtY2hhbmdlZA0KPj4+
-PiAgICAJaWYgISBjbXAgLXMgJCgxKSAkKDIpOyB0aGVuIG12IC1mICQoMSkgJCgyKTsgZWxz
-ZSBybSAtZiAkKDEpOyBmaQ0KPj4+PiAgICBlbmRlZg0KPj4+PiAgICANCj4+Pj4gK1BBVEhf
-RklMRVMgOj0gUGF0aHMNCj4+Pj4gK0lOQ19GSUxFUyA9ICQoZm9yZWFjaCBmLCAkKFBBVEhf
-RklMRVMpLCAkKFhFTl9ST09UKS9jb25maWcvJChmKS5taykNCj4+Pj4gKw0KPj4+PiAraW5j
-bHVkZSAkKElOQ19GSUxFUykNCj4+Pj4gKw0KPj4+PiArQlVJTERfTUFLRV9WQVJTID0gJChm
-b3JlYWNoIGYsICQoUEFUSF9GSUxFUyksICQoc2hlbGwgYXdrICckJDIgPT0gIjo9IiB7IHBy
-aW50ICQkMTsgfScgJChYRU5fUk9PVCkvY29uZmlnLyQoZikubWsuaW4pKQ0KPj4+DQo+Pj4g
-RmVlbHMgbGlrZSBteSBwcmlvciBjb21tZW50cyB3ZXJlbid0IHJlYWxseSBhZGRyZXNzZWQu
-IEkgY29udGludWUgdG8gdGhpbmsgdGhhdA0KPj4+IG5vbmUgb2YgdGhlIGFib3ZlIGlzIHBh
-cnQgb2Ygd2hhdCB0aGUgc3ViamVjdCBzYXlzLg0KPj4NCj4+IEkgcmVhbGx5IGRvbid0IHVu
-ZGVyc3RhbmQgeW91ciBjb25jZXJuIGhlcmUuDQo+Pg0KPj4gRm9yIHJlcGxhY2luZyB0aGUg
-QG1hcmtlcnNAIG1ha2UgbmVlZHMgdG8ga25vdyB3aGF0IHNob3VsZCBiZSByZXBsYWNlZC4N
-Cj4+IFNvIGl0IG5lZWRzIHRvIHNjYW4gdGhlIGZpbGVzIGNvbnRhaW5pbmcgdGhlIG1hcmtl
-cnMgYW5kIGdhdGhlciB0aGVtLg0KPj4gVGhpcyBpcyB3aGF0IGlzIGRvbmUgYWJvdmUuDQo+
-Pg0KPj4gSW4gdGhlIGZpbmFsIG1hY3JvIGJlbG93IHRoZSByZXBsYWNlbWVudHMgYXJlIGRv
-bmUgdGhlbi4gSG93IHdvdWxkIHlvdQ0KPj4gaGFuZGxlIHRoYXQ/DQo+IA0KPiBCeSBwYXNz
-aW5nIChhbm90aGVyKSBhcmd1bWVudCB0byB0aGUgbWFjcm8sIGZvciBleGFtcGxlLiBBcyBp
-bmRpY2F0ZWQNCj4gZWFybGllciwgZGlmZmVyZW50IHN1Yi10cmVlcyBtYXkgaGF2ZSBkaWZm
-ZXJlbnQgcGxhY2VzIHdoZXJlIHRoZXNlDQo+IGRlZmluaXRpb25zIGxpdmUsIGFuZCB0aGV5
-IHdvdWxkIHdhbnQgdG8gYmUgYWJsZSB0byBwYXNzIHRoYXQgaW4NCj4gKGlkZWFsbHkgd2l0
-aG91dCBuZWVkaW5nIHRvIHB1dCB0aGlzIGluIGEgY29tbW9uIHBhcnQgb2YgdGhlIHRyZWUp
-Lg0KDQpJIGRvbid0IGdldCB3aGF0IHlvdSB3YW50IHRvIHBhc3MgaW4gYWRkaXRpb25hbGx5
-Lg0KDQpJJ3ZlIGFscmVhZHkgY2hhbmdlZCB0aGUgbWFjcm8gYW5kIHRoZSBNYWtlZmlsZXMg
-dG8gYmUgYWJsZSB0byBhZGQgYW5vdGhlcg0KbWFya2VyIGZpbGUgdG8gdGhlIFBBVEhfRklM
-RVMgdmFyaWFibGUuIFdoYXQgZWxzZSBkbyB5b3UgbmVlZD8NCg0KU2VlIHBhdGNoIDQgaW4g
-dG9vbHMvUnVsZXMubWsgYWRkaW5nIHRoZSBhZGRpdGlvbmFsIHJlZmVyZW5jZSB0bw0KVG9v
-bHMtcGF0aHMubWsgYnkgZG9pbmc6DQoNClBBVEhfRklMRVMgKz0gVG9vbHMtcGF0aHMubWsN
-Cg0KDQpKdWVyZ2VuDQo=
---------------50a3LfQMdvEmf5ZefgcCHYOK
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+> @@ -337,7 +337,8 @@ static int __hpet_setup_msi_irq(struct irq_desc *desc)
+>  {
+>      struct msi_msg msg;
+>  
+> -    msi_compose_msg(desc->arch.vector, desc->arch.cpu_mask, &msg);
+> +    msg.dest32 = cpu_physical_id(desc->arch.cpu);
+> +    msi_compose_msg(desc->arch.vector, &msg);
+>      return hpet_msi_write(desc->action->dev_id, &msg);
+>  }
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Setting msg.dest32 ahead of calling msi_compose_msg() feels odd. It makes things
+look as if this was an input to the function, when by its name it rather would
+want to be an output. Furthermore this is dead code right now, as the function
+clears the entire structure first thing. Imo it being the function to fill the
+field should be retained; instead of the CPU mask you'd once again make it a
+scalar parameter. For the case where NULL was passed before, ...
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+> --- a/xen/arch/x86/include/asm/irq.h
+> +++ b/xen/arch/x86/include/asm/irq.h
+> @@ -69,13 +69,9 @@ struct irq_desc;
+>  struct arch_irq_desc {
+>          int16_t vector;                  /* vector itself is only 8 bits, */
+>          int16_t old_vector;              /* but we use -1 for unassigned  */
+> -        /*
+> -         * Except for high priority interrupts @cpu_mask may have bits set for
+> -         * offline CPUs.  Consumers need to be careful to mask this down to
+> -         * online ones as necessary.  There is supposed to always be a non-
+> -         * empty intersection with cpu_online_map.
+> -         */
+> -        cpumask_var_t cpu_mask;
+> +/* Special target CPU values. */
+> +#define CPU_INVALID  ~0U
 
---------------50a3LfQMdvEmf5ZefgcCHYOK--
+... you already make a suitable constant available. (Nit: The expansion wants
+parenthesizing.)
 
---------------sT0dDdY8TeXlYCGHJ0YQhR97--
+> --- a/xen/arch/x86/io_apic.c
+> +++ b/xen/arch/x86/io_apic.c
+> @@ -1112,8 +1112,7 @@ static void __init setup_IO_APIC_irqs(void)
+>              if (platform_legacy_irq(irq))
+>                  disable_8259A_irq(irq_to_desc(irq));
+>  
+> -            set_entry_dest(&entry,
+> -                           cpu_mask_to_apicid(irq_to_desc(irq)->arch.cpu_mask));
+> +            set_entry_dest(&entry, cpu_physical_id(irq_to_desc(irq)->arch.cpu));
 
---------------sTysG7EEywjnoecedBYkpKjr
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+I may as well mention this here: Looks like this patch removes all call sites
+of cpu_mask_to_apicid(). That would leave the function unreachable, i.e. violating
+a Misra rule, so I think the function needs dropping right here.
 
------BEGIN PGP SIGNATURE-----
+> @@ -2137,14 +2136,11 @@ int io_apic_set_pci_routing (int ioapic, int pin, int irq, int edge_level, int a
+>          return vector;
+>      entry.vector = vector;
+>  
+> -    if (cpumask_intersects(desc->arch.cpu_mask, TARGET_CPUS)) {
+> -        cpumask_t *mask = this_cpu(scratch_cpumask);
+> -
+> -        cpumask_and(mask, desc->arch.cpu_mask, TARGET_CPUS);
+> -        set_entry_dest(&entry, cpu_mask_to_apicid(mask));
+> +    if (cpu_online(desc->arch.cpu)) {
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmkkQQwFAwAAAAAACgkQsN6d1ii/Ey/T
-vAf9FGBX6t2YtTYr/z7p+j67uVvoI4M+xK7wI2OOnGEbAufmJLEYtKIzMpJbFv1YtU3IQE3+8Dxu
-h8s8fMGhYd1PnOSG3AyrF64BZBNOSTevPVqDPklcyGT9X6sSDU23D9j0/yJGGaG4vSzqLI7l3Mqh
-uQlH6+Z0f6+yn1i4jmZ3X5NfT6F7zpeHKdzvlAuyXlrIY3gAtt/k/SMuR667RsR3rPba0mGobd5b
-OH1O3dobhRqjMEuA2FGYRovjEH5WQBOkzArdnRIgvL6Bvq5CVlR8BW1CO2cYE5hK/yAJoNQcLWv0
-kRY/ROIus8fFRjTSeg/N+3yMrUfC6DGscddN+LXcVg==
-=znFe
------END PGP SIGNATURE-----
+Can CPU_INVALID make it here? If so, it needs guarding against. If not, an
+assertion may be nice. (Same possibly elsewhere.)
 
---------------sTysG7EEywjnoecedBYkpKjr--
+> --- a/xen/arch/x86/irq.c
+> +++ b/xen/arch/x86/irq.c
+> @@ -156,8 +156,7 @@ static int __init _bind_irq_vector(struct irq_desc *desc, int vector,
+>  
+>      if ( !cpu_online(cpu) )
+>          return -EINVAL;
+> -    if ( (desc->arch.vector == vector) &&
+> -         cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
+> +    if ( (desc->arch.vector == vector) && cpu == desc->arch.cpu )
+
+Please can you be consistent with parentheses on both sides of the &&?
+(I'd prefer the excess ones to be dropped, but the alternative is also
+okay.)
+
+> @@ -684,8 +673,9 @@ next:
+>          }
+>          else if ( valid_irq_vector(old_vector) )
+>          {
+> -            cpumask_and(desc->arch.old_cpu_mask, desc->arch.cpu_mask,
+> -                        &cpu_online_map);
+> +            cpumask_clear(desc->arch.old_cpu_mask);
+> +            if ( cpu_online(desc->arch.cpu) )
+> +                cpumask_set_cpu(desc->arch.cpu, desc->arch.old_cpu_mask);
+
+As mentioned for an earlier patch, to avoid the LOCK-ed update
+cpumask_copy() may be better to use. Yet iirc like there, likely this
+goes away again later in the series (by the title right in the next patch),
+so perhaps not a big deal.
+
+> --- a/xen/common/cpu.c
+> +++ b/xen/common/cpu.c
+> @@ -16,6 +16,7 @@ unsigned int __read_mostly nr_cpumask_bits
+>  const cpumask_t cpumask_all = {
+>      .bits[0 ... (BITS_TO_LONGS(NR_CPUS) - 1)] = ~0UL
+>  };
+> +const cpumask_t cpumask_none;
+
+This feels wasteful at least for larger NR_CPUS. And it's likely going to
+violate some Misra rule on non-x86, for having no user. On x86, as long as
+NR_CPUS <= 8 * PAGE_SIZE, you could (re-)use zero_page[] instead.
+
+> --- a/xen/drivers/passthrough/amd/iommu_init.c
+> +++ b/xen/drivers/passthrough/amd/iommu_init.c
+> @@ -507,7 +507,7 @@ static void cf_check set_x2apic_affinity(
+>      if ( dest == BAD_APICID )
+>          return;
+>  
+> -    msi_compose_msg(desc->arch.vector, NULL, &iommu->msi.msg);
+> +    msi_compose_msg(desc->arch.vector, &iommu->msi.msg);
+>      iommu->msi.msg.dest32 = dest;
+
+With the outlined adjustment above, it looks like the explicit setting
+of .dest32 would then not be needed here (and perhaps elsewhere) anymore.
+
+Jan
 
