@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D665C8076F
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:30:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170494.1495567 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0690C80781
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:30:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170504.1495578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNVi1-0006Ym-Iw; Mon, 24 Nov 2025 12:30:21 +0000
+	id 1vNViK-00071W-UY; Mon, 24 Nov 2025 12:30:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170494.1495567; Mon, 24 Nov 2025 12:30:21 +0000
+Received: by outflank-mailman (output) from mailman id 1170504.1495578; Mon, 24 Nov 2025 12:30:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNVi1-0006Vv-Fa; Mon, 24 Nov 2025 12:30:21 +0000
-Received: by outflank-mailman (input) for mailman id 1170494;
- Mon, 24 Nov 2025 12:30:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vNViK-000705-Qk; Mon, 24 Nov 2025 12:30:40 +0000
+Received: by outflank-mailman (input) for mailman id 1170504;
+ Mon, 24 Nov 2025 12:30:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNVi0-00053p-A9
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:30:20 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 56099bda-c931-11f0-980a-7dc792cee155;
- Mon, 24 Nov 2025 13:30:18 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-477619f8ae5so23805535e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:30:18 -0800 (PST)
+ id 1vNViI-0004cg-Qc
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:30:38 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 61c011c0-c931-11f0-9d18-b5c5bf9af7f9;
+ Mon, 24 Nov 2025 13:30:38 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-42b3669ca3dso1711245f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:30:38 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477bf1e86b3sm227956435e9.6.2025.11.24.04.30.17
+ ffacd0b85a97d-42cb7f34fddsm29199079f8f.14.2025.11.24.04.30.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 04:30:17 -0800 (PST)
+ Mon, 24 Nov 2025 04:30:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56099bda-c931-11f0-980a-7dc792cee155
+X-Inumbo-ID: 61c011c0-c931-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763987418; x=1764592218; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763987437; x=1764592237; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tp+i/cfVucDDUMwChy0ACXhvtjRm+kadP0KVDlNVdFY=;
-        b=ELyyH2BNaQGCzhcUPfOe/KTNq/w+qI/itRZgfkzjOmmGsU4rAbTDA+q66LC54q/o8e
-         fMpdGzR2giR1gnQJijKScO7KGgMWY8CYqr5BQ8VJRpms+hmf6UGErr6Q7hhIRy4s3oTv
-         lpaI30X3E1K6CJcnmnm3fhqvaETlM/tEnCbxNQivy3AgfO0FtcwJNWoikvcke+GgfUeB
-         ly0rmN0LaAOZKy/gC0Vkl6JCS69hVNe0FrkSu6aVFxxqJDizLTdNSIZVpQNPEBqUQM/0
-         CF746EH+2K1SxzYbt7zILeSWeQts7+131S4MILbcpygfFIgpvt3OthWTcYapLPIxRsMT
-         FIwA==
+        bh=cLRL3+uYW8mTZJpIYDPRqMA57ukZVFvfr5R4kBjg4KY=;
+        b=OYJjjF6X6fj9HVft6v+V4KgTTFbU7OMPFlP6L/LYVkCa0KTvBv+5Syu/iMQFiv5y89
+         OyY0jd46zBv3r5xaN4FUEKGLmgZ20Xte8lCtH+ZBJU4rxROLW14oKTkkXpcKNmzOwFHI
+         krRplfvqYpnGu8AoyavAdsJycst+dNyd/ZrPVp77JgZ2+muM3Igr7VLDOg3uWhqGuH2S
+         dHc05/iHR6lOCI4qVhIz9rHjWI6tsyAuHzTF0jyjVKljL9nLMslsdY/JOQQoPlz3hwKm
+         w7Vkr0aiSQtyPqGQ+lJAPArYkTMgO95Bnxt1A09lf2C7ltVxA7G+dNFY0vznTFbcYYZe
+         aa+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763987418; x=1764592218;
+        d=1e100.net; s=20230601; t=1763987437; x=1764592237;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tp+i/cfVucDDUMwChy0ACXhvtjRm+kadP0KVDlNVdFY=;
-        b=he14Oj0G73gdusK12vNx7ReSZiKYFZfw24eNApoAeQpriRgvKTdFj9RX0kP9BlS4PL
-         52ye/4TpBvjNdszcHPGxozRPHDpa9trOxPnFueQh/3QPgm+B7gs4vyCou16jM6G/b2lQ
-         +0sjn3+N7Aar61ew6SzipaGWCw5f3OIjYeaja3fUStZ5yiTGbSk/D1Hb0tjyah+woYQp
-         JQVnZJPfBvQRpDubGm9TqSWJ6cXR9EHYBOnJQ0tFmQBROdabAof8PyvzuMU2hKZ7ucoc
-         NUpyq6brGGuchOrazP3EZqDAAVTeDDIFA6VIiA2UIwa9LPfhhJ+dkFSMM6NeeNzgW3qm
-         fjvQ==
-X-Gm-Message-State: AOJu0YzEqiK8n6F2FWKvAhU/f1pKlIm+9PUFa2haXUTbCoCAFB79/TYK
-	UwTXBXGaE5jyJhEVT6rferU7O5LYu6ZTi957tAGV5zGS3jqRVe3J+5IBIg7AONS4JG8XRXWmbiH
-	GhfY=
-X-Gm-Gg: ASbGncsCGc06BPtlPfKkN6uOiWl6ylmkuviwNfJx30FDbagUJmBV2pMfM/qnYWOtk4P
-	QeBMuZOXnpNAqF7DIQIn5qBi4NQ4+mcRsK+IYVQzYi741Y/fUB5ByJXWED7u8jtJUnnHyX13vTc
-	L2G5XoWpiGgqKnQMIFBpnCMLyzQk6HB+L+iZYLEruDwTXdAENtkpvCMT7sU3XScAUwVY9lL4ZYa
-	nfthLDVXKrEeG5iVf9sl/8s0S02BycG6v33RKpWIxJvJ563K5QR2D9XWZ5Bi6I/u90r5rmSb8I1
-	iDF9skna2P2rtph6Ay2bfcWaXDtliBvLmWkVMhEVmSv1dwWrwJiPvBOEIbFf44yCOOS/v+gumVX
-	52+PFs0ePm31WtrBliHpcw8L122RXPVRK67h2/OTr6t1zhOqkN/DP0NsoQy/LiXtP3tpvWZqgY4
-	gc3t3D1ZIDoqJG4DPzdtcH9yptirKUCS5C4P/7TnPl3FceRQ+MqaWtSvEpJ+yMMIKn80w5vyxXT
-	98=
-X-Google-Smtp-Source: AGHT+IEFQcTpHEJ1+VAIief0RR0eJLlhlKIioP/kCJtvv1FC07NrLWROgp7R6dYhwWkowpZBrEWJ8A==
-X-Received: by 2002:a05:600c:3146:b0:477:df7:b020 with SMTP id 5b1f17b1804b1-477c01b2211mr111541015e9.18.1763987417740;
-        Mon, 24 Nov 2025 04:30:17 -0800 (PST)
-Message-ID: <cf407534-b44e-446d-9249-694787e5963a@suse.com>
-Date: Mon, 24 Nov 2025 13:30:19 +0100
+        bh=cLRL3+uYW8mTZJpIYDPRqMA57ukZVFvfr5R4kBjg4KY=;
+        b=SLAet+nflclUnl/56C6YrwTFsyknbz1L7LB2ZbgzkEHZ8pwpLDDK0TGMT2xjPPDcPo
+         kWSJ/SVomgZh+ZFsY8HGrhznAMqfxJGT7/8eLJayCNynjuDnqsUcCDIgMzMVCjSr9jA/
+         nmKq1fuR9C3Md3xulzyjk7s6Mq7OEXSs+BLXsR+HFuoPh+lCpscKdamJQjG7joqNM9sx
+         ox+6/gGDOMEsCixlv6A04T61+wGW6ErNRH5DDx9jww+O90Pi2pqDXotUaIvNBP+e4uVK
+         t1WFuX9uaQUk3P2/PYYwn9lvCFhnXk/OLMVMoIf9OYBrVYvkggRoJOMr8Cp3K3UObBzd
+         PPzg==
+X-Gm-Message-State: AOJu0YwCNTkH2u6DzkqwwJjf9zuZ9qQ00ds6JZFhRxVcF0Ls4TCxJRtX
+	lgYhPKhbBWnAjlb0EBJZ7UGPvoAIeiCAXiR2WRmFOWZCdR1N4QZIafwmieKOSkfW+hjbfnlcTZi
+	hKz0=
+X-Gm-Gg: ASbGncuA0ifw7KWBg79RJaM8Bi8lT1qseEwvhhxUtb9tq80wHU8LL+8wlHjPEs3EXVg
+	H3k4X/vA0My0DMZ/wL2gw1xMVSusEnbVW7tAnH4hA4hzyZJI0alQg/CUc0nBoex89Mhoe5ZXRSU
+	K7KBiwVLEwOuNq07txeHhfBQvjuEF+sFpCoK68p3xCan0lDdrDia7jg8ULgMIJ26ML38RSUVf1p
+	+GT9BhAOBUIjf64bsYzqiwJpXHHThgvoc1OE5KXxtY+WCpjsi5oU938AnfVelsjK2sTyocSdxWM
+	YChagPs65Zf41E3F960sdJc7GeNw/th489eUuG70z9zUaIJ726TBjUvEayyw2BbWYMTLMNTEjkk
+	JKJMpP7zfVvcd8ray68NVBijOSSWntkVLFIQwvCaU5iJ8HIMW75QZJ79SIlC3pIqBF3ypbspGs1
+	YVc5abGpfu0uboYdAJUzut0K7IUIrk/3GJsUzNGdc463PwUYkj0dSpa/FcbHytx1O001bo+V/ie
+	rA=
+X-Google-Smtp-Source: AGHT+IEM4p5ClNaoIlR+EwMjxV3393KV4qYIpcRb3vKdTSU9Iy1DUsTuApQp/kvXk7ivGLSOHjuGHQ==
+X-Received: by 2002:adf:b30a:0:b0:42b:3366:634b with SMTP id ffacd0b85a97d-42cc1d0cecfmr8055683f8f.31.1763987437328;
+        Mon, 24 Nov 2025 04:30:37 -0800 (PST)
+Message-ID: <d751bafc-5146-4b31-bce8-ce534500e978@suse.com>
+Date: Mon, 24 Nov 2025 13:30:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 3/4] x86/IRQ: direct-APIC-vector setting is now init-only
+Subject: [PATCH v2 4/4] x86/vPMU: don't statically reserve the interrupt
+ vector
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -123,119 +124,145 @@ In-Reply-To: <5ac2e9b1-81f2-41d9-8f05-d546a49c43a7@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-With all callers of alloc_direct_apic_vector() now being limited to BSP
-setup, it and its helpers (whose other callers have already been init-
-only) can become __init. As a result data items can be adjusted, too.
+Move the setup to vPMU code, doing the allocation of a vector only when
+one is actually going to be needed. With that the handler functions also
+don't need to be scattered across two places anymore.
 
-With alloc_direct_apic_vector() now being __init, it's meaningless to use
-a lock, and the indirection is also pretty pointless. Drop both while at
-it.
+Add the freed up vector to the dynamically allocatable range.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-v2: Re-work alloc_direct_apic_vector().
+In case down the road we also want to have a build mode with vPMU code
+excluded, this may also simplify things a little there.
+---
+v2: Re-base over patch moving the APIC ack and over change to
+    alloc_direct_apic_vector().
 
---- a/xen/arch/x86/cpu/mcheck/mce_intel.c
-+++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
-@@ -161,7 +161,7 @@ static void intel_init_thermal(const str
-     }
- 
-     if ( bsp )
--        alloc_direct_apic_vector(&thermal_apic_vector, intel_thermal_interrupt);
-+        thermal_apic_vector = alloc_direct_apic_vector(intel_thermal_interrupt);
- 
-     /* The temperature transition interrupt handler setup */
-     val = thermal_apic_vector;    /* our delivery vector */
-@@ -689,7 +689,7 @@ static void intel_init_cmci(struct cpuin
-     }
- 
-     if ( bsp )
--        alloc_direct_apic_vector(&cmci_apic_vector, cmci_interrupt);
-+        cmci_apic_vector = alloc_direct_apic_vector(cmci_interrupt);
- 
-     apic = cmci_apic_vector;
-     apic |= (APIC_DM_FIXED | APIC_LVT_MASKED);
---- a/xen/arch/x86/guest/xen/xen.c
-+++ b/xen/arch/x86/guest/xen/xen.c
-@@ -293,7 +293,7 @@ static void __init cf_check setup(void)
-                XEN_LEGACY_MAX_VCPUS);
-     }
- 
--    alloc_direct_apic_vector(&evtchn_upcall_vector, xen_evtchn_upcall);
-+    evtchn_upcall_vector = alloc_direct_apic_vector(xen_evtchn_upcall);
- 
-     BUG_ON(init_evtchn());
- }
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -3181,10 +3181,10 @@ const struct hvm_function_table * __init
- 
-     if ( cpu_has_vmx_posted_intr_processing )
-     {
--        alloc_direct_apic_vector(&posted_intr_vector, pi_notification_interrupt);
-+        posted_intr_vector = alloc_direct_apic_vector(pi_notification_interrupt);
-         if ( iommu_intpost )
-         {
--            alloc_direct_apic_vector(&pi_wakeup_vector, pi_wakeup_interrupt);
-+            pi_wakeup_vector = alloc_direct_apic_vector(pi_wakeup_interrupt);
- 
-             vmx_function_table.pi_update_irte = vmx_pi_update_irte;
-         }
---- a/xen/arch/x86/include/asm/irq.h
-+++ b/xen/arch/x86/include/asm/irq.h
-@@ -119,7 +119,7 @@ uint8_t alloc_hipriority_vector(void);
- void free_lopriority_vector(uint8_t vector);
- 
- void set_direct_apic_vector(uint8_t vector, void (*handler)(void));
--void alloc_direct_apic_vector(uint8_t *vector, void (*handler)(void));
-+uint8_t alloc_direct_apic_vector(void (*handler)(void));
- 
- void do_IRQ(struct cpu_user_regs *regs);
- 
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -970,31 +970,28 @@ void pirq_set_affinity(struct domain *d,
- DEFINE_PER_CPU(unsigned int, irq_count);
- static DEFINE_PER_CPU(bool, check_eoi_deferral);
- 
--uint8_t alloc_hipriority_vector(void)
-+uint8_t __init alloc_hipriority_vector(void)
- {
--    static uint8_t next = FIRST_HIPRIORITY_VECTOR;
-+    static uint8_t __initdata next = FIRST_HIPRIORITY_VECTOR;
-     BUG_ON(next < FIRST_HIPRIORITY_VECTOR);
-     BUG_ON(next > LAST_HIPRIORITY_VECTOR);
-     return next++;
+--- a/xen/arch/x86/apic.c
++++ b/xen/arch/x86/apic.c
+@@ -1313,16 +1313,6 @@ static void cf_check error_interrupt(voi
+            entries[3], entries[2], entries[1], entries[0]);
  }
  
--static void (*direct_apic_vector[X86_IDT_VECTORS])(void);
--void set_direct_apic_vector(uint8_t vector, void (*handler)(void))
-+static void (*__ro_after_init direct_apic_vector[X86_IDT_VECTORS])(void);
-+void __init set_direct_apic_vector(uint8_t vector, void (*handler)(void))
+-/*
+- * This interrupt handles performance counters interrupt
+- */
+-
+-static void cf_check pmu_interrupt(void)
+-{
+-    vpmu_do_interrupt();
+-    ack_APIC_irq();
+-}
+-
+ void __init apic_intr_init(void)
  {
-     BUG_ON(direct_apic_vector[vector] != NULL);
-     direct_apic_vector[vector] = handler;
+     smp_intr_init();
+@@ -1333,9 +1323,6 @@ void __init apic_intr_init(void)
+     /* IPI vectors for APIC spurious and error interrupts */
+     set_direct_apic_vector(SPURIOUS_APIC_VECTOR, spurious_interrupt);
+     set_direct_apic_vector(ERROR_APIC_VECTOR, error_interrupt);
+-
+-    /* Performance Counters Interrupt */
+-    set_direct_apic_vector(PMU_APIC_VECTOR, pmu_interrupt);
  }
  
--void alloc_direct_apic_vector(uint8_t *vector, void (*handler)(void))
-+uint8_t __init alloc_direct_apic_vector(void (*handler)(void))
- {
--    static DEFINE_SPINLOCK(lock);
-+    uint8_t vec = alloc_hipriority_vector();
+ /*
+--- a/xen/arch/x86/cpu/vpmu.c
++++ b/xen/arch/x86/cpu/vpmu.c
+@@ -40,6 +40,8 @@ static struct arch_vpmu_ops __initdata v
+ static DEFINE_SPINLOCK(vpmu_lock);
+ static unsigned vpmu_count;
  
--    spin_lock(&lock);
--    if (*vector == 0) {
--        *vector = alloc_hipriority_vector();
--        set_direct_apic_vector(*vector, handler);
--    }
--    spin_unlock(&lock);
-+    set_direct_apic_vector(vec, handler);
++static uint8_t __ro_after_init pmu_apic_vector;
 +
-+    return vec;
+ static DEFINE_PER_CPU(struct vcpu *, last_vcpu);
+ 
+ static int __init cf_check parse_vpmu_params(const char *s)
+@@ -94,7 +96,7 @@ void vpmu_lvtpc_update(uint32_t val)
+ 
+     vpmu = vcpu_vpmu(curr);
+ 
+-    vpmu->hw_lapic_lvtpc = PMU_APIC_VECTOR | (val & APIC_LVT_MASKED);
++    vpmu->hw_lapic_lvtpc = pmu_apic_vector | (val & APIC_LVT_MASKED);
+ 
+     /* Postpone APIC updates for PV(H) guests if PMU interrupt is pending */
+     if ( has_vlapic(curr->domain) || !vpmu->xenpmu_data ||
+@@ -160,7 +162,7 @@ static inline struct vcpu *choose_hwdom_
+     return hardware_domain->vcpu[idx];
  }
  
- /* This could free any vectors, but is needed only for low-prio ones. */
+-void vpmu_do_interrupt(void)
++static void vpmu_do_interrupt(void)
+ {
+     struct vcpu *sampled = current, *sampling;
+     struct vpmu_struct *vpmu;
+@@ -322,6 +324,12 @@ void vpmu_do_interrupt(void)
+ #endif
+ }
+ 
++static void cf_check vpmu_interrupt(void)
++{
++    vpmu_do_interrupt();
++    ack_APIC_irq();
++}
++
+ #ifdef CONFIG_MEM_SHARING
+ int vpmu_allocate_context(struct vcpu *v)
+ {
+@@ -369,7 +377,7 @@ void vpmu_save(struct vcpu *v)
+ 
+     vpmu_reset(vpmu, VPMU_CONTEXT_SAVE);
+ 
+-    apic_write(APIC_LVTPC, PMU_APIC_VECTOR | APIC_LVT_MASKED);
++    apic_write(APIC_LVTPC, pmu_apic_vector | APIC_LVT_MASKED);
+ }
+ 
+ int vpmu_load(struct vcpu *v, bool from_guest)
+@@ -432,7 +440,7 @@ static int vpmu_arch_initialise(struct v
+         return ret;
+     }
+ 
+-    vpmu->hw_lapic_lvtpc = PMU_APIC_VECTOR | APIC_LVT_MASKED;
++    vpmu->hw_lapic_lvtpc = pmu_apic_vector | APIC_LVT_MASKED;
+     vpmu_set(vpmu, VPMU_INITIALIZED);
+ 
+     return 0;
+@@ -860,6 +868,8 @@ static int __init cf_check vpmu_init(voi
+         register_cpu_notifier(&cpu_nfb);
+         printk(XENLOG_INFO "VPMU: version " __stringify(XENPMU_VER_MAJ) "."
+                __stringify(XENPMU_VER_MIN) "\n");
++
++        pmu_apic_vector = alloc_direct_apic_vector(vpmu_interrupt);
+     }
+     else
+     {
+--- a/xen/arch/x86/include/asm/irq-vectors.h
++++ b/xen/arch/x86/include/asm/irq-vectors.h
+@@ -8,13 +8,12 @@
+ #define EVENT_CHECK_VECTOR	0xfc
+ #define CALL_FUNCTION_VECTOR	0xfb
+ #define LOCAL_TIMER_VECTOR	0xfa
+-#define PMU_APIC_VECTOR 	0xf9
+ /*
+  * High-priority dynamically-allocated vectors. For interrupts that
+  * must be higher priority than any guest-bound interrupt.
+  */
+ #define FIRST_HIPRIORITY_VECTOR	0xf1
+-#define LAST_HIPRIORITY_VECTOR  0xf8
++#define LAST_HIPRIORITY_VECTOR  0xf9
+ /* IRQ0 (timer) is statically allocated but must be high priority. */
+ #define IRQ0_VECTOR             0xf0
+ 
+--- a/xen/arch/x86/include/asm/vpmu.h
++++ b/xen/arch/x86/include/asm/vpmu.h
+@@ -99,7 +99,6 @@ static inline bool vpmu_are_all_set(cons
+ 
+ void vpmu_lvtpc_update(uint32_t val);
+ int vpmu_do_msr(unsigned int msr, uint64_t *msr_content, bool is_write);
+-void vpmu_do_interrupt(void);
+ void vpmu_initialise(struct vcpu *v);
+ void vpmu_destroy(struct vcpu *v);
+ void vpmu_save(struct vcpu *v);
 
 
