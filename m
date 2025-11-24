@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E578C80F05
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 15:12:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171139.1496167 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F180C80F6C
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 15:19:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171154.1496178 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNXIO-0000Wk-8I; Mon, 24 Nov 2025 14:12:00 +0000
+	id 1vNXOW-0001ej-Sh; Mon, 24 Nov 2025 14:18:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171139.1496167; Mon, 24 Nov 2025 14:12:00 +0000
+Received: by outflank-mailman (output) from mailman id 1171154.1496178; Mon, 24 Nov 2025 14:18:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNXIO-0000VM-5c; Mon, 24 Nov 2025 14:12:00 +0000
-Received: by outflank-mailman (input) for mailman id 1171139;
- Mon, 24 Nov 2025 14:11:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vNXOW-0001cf-P7; Mon, 24 Nov 2025 14:18:20 +0000
+Received: by outflank-mailman (input) for mailman id 1171154;
+ Mon, 24 Nov 2025 14:18:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AmBg=6A=kernel.org=david@srs-se1.protection.inumbo.net>)
- id 1vNXIM-0007fZ-Ln
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 14:11:58 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 88c0e084-c93f-11f0-980a-7dc792cee155;
- Mon, 24 Nov 2025 15:11:56 +0100 (CET)
+ id 1vNXOU-0001cZ-Q8
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 14:18:18 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6afd54a0-c940-11f0-9d18-b5c5bf9af7f9;
+ Mon, 24 Nov 2025 15:18:16 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 123B2601A7;
- Mon, 24 Nov 2025 14:11:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE78BC116C6;
- Mon, 24 Nov 2025 14:11:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1230D44070;
+ Mon, 24 Nov 2025 14:18:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C2BC4CEF1;
+ Mon, 24 Nov 2025 14:18:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,23 +41,23 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88c0e084-c93f-11f0-980a-7dc792cee155
+X-Inumbo-ID: 6afd54a0-c940-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1763993515;
-	bh=pKRds4IT+BzPKh2fxA3wO0tgnvzHdhCWGBCp+0CwG9A=;
+	s=k20201202; t=1763993894;
+	bh=a/6C0mF2h1YMNLw+DoImoO4DgoQDEX8r5mtUDpbvJqc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=TjUGt8Li6YfogSyMUKImhk9t7zCEyR/5lyaBjeNw6RcKDKrbRq6HnmNGUOxqptBCd
-	 dLRr5vxSkWtTK/HdcfyyhBGI6jbvcRygLDwJPNmugo/e/qBVwdADZJpApwewQnH0Lz
-	 Zvd3xoS+6vTxsekxWrHLixtrCO8PmynL3TGa54AYYvreiAeQp5nXHtEPY83/MIXq9v
-	 IDvhAooUaPXLRXgkrwnbgHUW6P169b7ay8AKZtPjbmGcLHflIqg6kF1HvRTZ7a8+u+
-	 51pYm9HXbc2JA+xZLuh0Y9NS3lb+de9hbRLWFhjCNgsTJpUFrYKe7BdliclaVXA64P
-	 5nWYBjsK1rt0g==
-Message-ID: <9800804f-6e8a-4d08-8eb1-f114df6d6b7a@kernel.org>
-Date: Mon, 24 Nov 2025 15:11:44 +0100
+	b=jwY/4CzdWYY3yql3el0w+panwPS8eTjG7NM5YCf3L3YhAsy5JwYjh7Es6LPXbY89K
+	 UzT72wJIiWxPTXvC40ejjtyyoevI1urf2RHf3q2IQUAdx3ePP+T4aUCoLSuGBW+5t9
+	 AyiGGmZu06pHbDaUwcXprsC2/AOzkRIQV4P+9nx22kKeJxYI/6ZX91Ahx+H6MJ6otw
+	 r5N1JbHHbfGXrrxqIl8Vle4agRInm92WILAzWl7GR78JqldJ+4Ahy0TaoQXDl+8qyU
+	 P/r56C1XkT4MDr3u/nrxsHIOTWIbg9bUxLNNU6+mmG6IXjp3Uu9lJEaRSB+6XeQQRZ
+	 piKMF1RKiWZwg==
+Message-ID: <53a032d0-a394-4040-ba9b-79610ec4b791@kernel.org>
+Date: Mon, 24 Nov 2025 15:18:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 07/12] mm: bail out of lazy_mmu_mode_* in interrupt
- context
+Subject: Re: [PATCH v5 12/12] x86/xen: use lazy_mmu_state when
+ context-switching
 To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  Andreas Larsson <andreas@gaisler.com>,
@@ -84,40 +84,27 @@ Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
  xen-devel@lists.xenproject.org, x86@kernel.org
 References: <20251124132228.622678-1-kevin.brodsky@arm.com>
- <20251124132228.622678-8-kevin.brodsky@arm.com>
+ <20251124132228.622678-13-kevin.brodsky@arm.com>
 From: "David Hildenbrand (Red Hat)" <david@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20251124132228.622678-8-kevin.brodsky@arm.com>
+In-Reply-To: <20251124132228.622678-13-kevin.brodsky@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 11/24/25 14:22, Kevin Brodsky wrote:
-> The lazy MMU mode cannot be used in interrupt context. This is
-> documented in <linux/pgtable.h>, but isn't consistently handled
-> across architectures.
+> We currently set a TIF flag when scheduling out a task that is in
+> lazy MMU mode, in order to restore it when the task is scheduled
+> again.
 > 
-> arm64 ensures that calls to lazy_mmu_mode_* have no effect in
-> interrupt context, because such calls do occur in certain
-> configurations - see commit b81c688426a9 ("arm64/mm: Disable barrier
-> batching in interrupt contexts"). Other architectures do not check
-> this situation, most likely because it hasn't occurred so far.
-> 
-> Let's handle this in the new generic lazy_mmu layer, in the same
-> fashion as arm64: bail out of lazy_mmu_mode_* if in_interrupt().
-> Also remove the arm64 handling that is now redundant.
-> 
-> Both arm64 and x86/Xen also ensure that any lazy MMU optimisation is
-> disabled while in interrupt (see queue_pte_barriers() and
-> xen_get_lazy_mode() respectively). This will be handled in the
-> generic layer in a subsequent patch.
+> The generic lazy_mmu layer now tracks whether a task is in lazy MMU
+> mode in task_struct::lazy_mmu_state. We can therefore check that
+> state when switching to the new task, instead of using a separate
+> TIF flag.
 > 
 > Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
 > ---
 
-(resending as I pushed the wrong button there ...)
-
-Moving this patch earlier LGTM, hoping we don't get any unexpected
-surprises ...
+Nothing jumped at me, hoping for another pair of eyes from the XEN folks
 
 Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
 
