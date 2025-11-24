@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 287C6C80B31
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 14:17:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170896.1495917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A42DC80B6A
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 14:23:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170911.1495945 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNWRk-0002ZZ-S8; Mon, 24 Nov 2025 13:17:36 +0000
+	id 1vNWWp-0005DB-Io; Mon, 24 Nov 2025 13:22:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170896.1495917; Mon, 24 Nov 2025 13:17:36 +0000
+Received: by outflank-mailman (output) from mailman id 1170911.1495945; Mon, 24 Nov 2025 13:22:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNWRk-0002XP-PI; Mon, 24 Nov 2025 13:17:36 +0000
-Received: by outflank-mailman (input) for mailman id 1170896;
- Mon, 24 Nov 2025 13:17:35 +0000
+	id 1vNWWp-0005A4-Ej; Mon, 24 Nov 2025 13:22:51 +0000
+Received: by outflank-mailman (input) for mailman id 1170911;
+ Mon, 24 Nov 2025 13:22:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qo8f=6A=gmail.com=samaan.dehghan@srs-se1.protection.inumbo.net>)
- id 1vNWRj-0002XH-60
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 13:17:35 +0000
-Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
- [2607:f8b0:4864:20::f32])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ef507f16-c937-11f0-980a-7dc792cee155;
- Mon, 24 Nov 2025 14:17:33 +0100 (CET)
-Received: by mail-qv1-xf32.google.com with SMTP id
- 6a1803df08f44-88043139c35so42759376d6.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 05:17:32 -0800 (PST)
-Received: from localhost.localdomain
- (host-154-4.mdu.ilcmifre.champaign.il.us.clients.pavlovmedia.net.
- [66.253.154.4]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8846e54e9e2sm99403716d6.31.2025.11.24.05.17.30
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 24 Nov 2025 05:17:31 -0800 (PST)
+ <SRS0=H9wV=6A=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
+ id 1vNWWo-00059s-Df
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 13:22:50 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id a8a4681e-c938-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 14:22:44 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 433AD497;
+ Mon, 24 Nov 2025 05:22:35 -0800 (PST)
+Received: from e123572-lin.arm.com (e123572-lin.cambridge.arm.com
+ [10.1.194.54])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8F32D3F73B;
+ Mon, 24 Nov 2025 05:22:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,192 +43,293 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef507f16-c937-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763990251; x=1764595051; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=J1cmzrTJ50vwCC7yI8wn//dLiVisgkYIouMfBXVIbVA=;
-        b=avrHtCjjRuODN+NfYJIh8/JBW4eli56nN/2+auQA1Iw4m2VPJLOdG3k815cwRhsb9q
-         62blaAs2vbgdNHwg06AdfxE3Huv3Niv2azbL4Uh0n9296ez9sXudoE5Qt078Wg0HfTMg
-         i+EiSuqPs0cn50ZTgOWQLl/dHItPSyRMCZpfCuHZAOWelyPNGHdyv7BKlqtVDse8YUn9
-         WaNPR5R5Y8Sboj2/2G2/xDm0k2qXn2Q5D+7hljj1o+nEI9gB+Oy8iQYt+CgP4iJFh8Qk
-         GfdX3PBLiakd5MMr2nbdmNoMJ9lkCF8Kd/rSzIblp/IdYE/UjpM33wAFQFPwpreXCjtB
-         2FdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763990251; x=1764595051;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=J1cmzrTJ50vwCC7yI8wn//dLiVisgkYIouMfBXVIbVA=;
-        b=J00GTUaDhZkOI7dBi/6VaXyUcs5j1R/7vCPyCf8FgLJbnBqdF2+QWQxB0SW8HjE8OU
-         h113npAn6ybLa+94JXxDBJTHQvDB69Ft+POI/G/5GadCNZGjW1TssdkeawunlV+EjHQ2
-         XnbNgAVtgUOlsDMrnRjHmX7owdgpW8Xg0YdZP1ETb2OuavmqLt3KdMopuJJt3VG2owiR
-         iFySmEJV3ee442xCPebj2c1j9PcKOch2b1lrZnfDIZ+bPb20qEojYcy/yHjiPLQjYHuL
-         CZeM+ikgpIv+U6kBP2/h4ItFHIC2iPdp3AD/amVMgzCL0TlnygH4EFd506Hc9oUlmPhv
-         W4gg==
-X-Gm-Message-State: AOJu0YytZp6BzhHpwuLAmzER1pgJd4/o7TYNg0uvJCB0O5G3yKEt6nDL
-	Inrk1BzZ4wIVwws2kbNC2bRq9TklH9ZBQRrBPIESCaDMNd5Uo26DfGLhJivLItQ=
-X-Gm-Gg: ASbGncv4beKQ7cYzW/60uAuRJ3ILH9up9VqfGKKbwkM9KRFHlg5pvK1t7Jody7Tx0N5
-	lQtBLLvawi1RSvKsW63WAkAQNUksyWgWyUi3sJUo+ZYfh99MbvEIl0iqdgB5fAGj0KiHqzGcm8c
-	kllKAWVvojPf3qP9Eaz2CTuNEO0PyMGbvqRFI/QK6KMkNDZC0SPvXYbNXZ8MSWMqz4wm0Zlt7KL
-	5j26dvGxE+Ggg5HpkTA1G7Fl4IEazquK+l3+uHT6anWgb5d29b9EZJFtaPZHX+5PGITnjNNVLS8
-	eg95VguknObUpM69w9NugBcQuF0iuK7ql1+kM3QjJ93T3Uh8Iv/R9Saoy/5Aod12elxO2eQ1TIY
-	Sn2XoYSWuSTlK/gJp7zQFMQ+K5YtftoRgAjL2EpBTHGh8uLDH3onC00e20IaTRJnOoxaFaWHLUk
-	xgYBqgsdEDEJv0ONo1S4CyhCKI5zQ5W6Womy87M2hAeTLeHsSlNgbJhcBHB1W2LTOZRJkh15wiv
-	iCrlAOWwitur72Nb8/jWFposqQiQOwjP0ptrKivSwXi/LGMRQelTDde1h9sPoVuGP+kaUPQxys8
-	HtM=
-X-Google-Smtp-Source: AGHT+IFHNRObG6KPLTocz7VgtGSA2GbUMp3Tc8MCg/Az3NT8x2atRCr0Vuu1WHQUjTOS6NRup6GKlA==
-X-Received: by 2002:a05:622a:44:b0:4ee:1bc7:9d7b with SMTP id d75a77b69052e-4ee588cb852mr168410651cf.39.1763990251475;
-        Mon, 24 Nov 2025 05:17:31 -0800 (PST)
-From: Saman Dehghan <samaan.dehghan@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3] XEN: enable MC/DC coverage for Clang
-Date: Mon, 24 Nov 2025 07:17:24 -0600
-Message-ID: <aa144043d4e0592fbbeaf0a3d5e9cad6e9226d8a.1763989809.git.samaan.dehghan@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <52b0762ac4b5535a842a530365a75bdc81a5fe61.1763981619.git.samaan.dehghan@gmail.com>
-References: <52b0762ac4b5535a842a530365a75bdc81a5fe61.1763981619.git.samaan.dehghan@gmail.com>
+X-Inumbo-ID: a8a4681e-c938-11f0-980a-7dc792cee155
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	Kevin Brodsky <kevin.brodsky@arm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andreas Larsson <andreas@gaisler.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	David Hildenbrand <david@redhat.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	David Woodhouse <dwmw2@infradead.org>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Jann Horn <jannh@google.com>,
+	Juergen Gross <jgross@suse.com>,
+	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Will Deacon <will@kernel.org>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linuxppc-dev@lists.ozlabs.org,
+	sparclinux@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	x86@kernel.org
+Subject: [PATCH v5 00/12] Nesting support for lazy MMU mode
+Date: Mon, 24 Nov 2025 13:22:16 +0000
+Message-ID: <20251124132228.622678-1-kevin.brodsky@arm.com>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Clang >= 18 supports Modified Condition/Decision Coverage (MC/DC).
-This patch enables the detection and usage of this feature when
-compiling Xen with Clang.
+When the lazy MMU mode was introduced eons ago, it wasn't made clear
+whether such a sequence was legal:
 
-- Update detection logic in Kconfig to check for the required set of
-  Clang flags for MC/DC:
-  '-fprofile-instr-generate -fcoverage-mapping -fcoverage-mcdc'.
-  This bundle is necessary because '-fcoverage-mcdc' requires
-  '-fcoverage-mapping', which in turn requires '-fprofile-instr-generate'.
-- Update llvm.c to handle the profile format changes (bitmap section)
-  required for MC/DC.
-- Guard -Wno-error=coverage-too-many-conditions with CONFIG_CC_IS_GCC
-  to avoid passing a GCC-only warning option to Clang
+	arch_enter_lazy_mmu_mode()
+	...
+		arch_enter_lazy_mmu_mode()
+		...
+		arch_leave_lazy_mmu_mode()
+	...
+	arch_leave_lazy_mmu_mode()
 
-Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
+It seems fair to say that nested calls to
+arch_{enter,leave}_lazy_mmu_mode() were not expected, and most
+architectures never explicitly supported it.
+
+Nesting does in fact occur in certain configurations, and avoiding it
+has proved difficult. This series therefore enables lazy_mmu sections to
+nest, on all architectures.
+
+Nesting is handled using a counter in task_struct (patch 8), like other
+stateless APIs such as pagefault_{disable,enable}(). This is fully
+handled in a new generic layer in <linux/pgtable.h>; the arch_* API
+remains unchanged. A new pair of calls, lazy_mmu_mode_{pause,resume}(),
+is also introduced to allow functions that are called with the lazy MMU
+mode enabled to temporarily pause it, regardless of nesting.
+
+An arch now opts in to using the lazy MMU mode by selecting
+CONFIG_ARCH_LAZY_MMU; this is more appropriate now that we have a
+generic API, especially with state conditionally added to task_struct.
+
 ---
- xen/Kconfig                |  9 +++++++--
- xen/Rules.mk               |  1 +
- xen/arch/x86/Makefile      |  2 +-
- xen/common/coverage/llvm.c | 18 +++++++++++++++++-
- 4 files changed, 26 insertions(+), 4 deletions(-)
 
-diff --git a/xen/Kconfig b/xen/Kconfig
-index a5e5af3b76..8f2cc111cd 100644
---- a/xen/Kconfig
-+++ b/xen/Kconfig
-@@ -51,9 +51,14 @@ config CC_HAS_ASM_GOTO_OUTPUT
- 	depends on !GCC_ASM_GOTO_OUTPUT_BROKEN
- 	depends on $(success,echo 'int foo(int x) { asm goto ("": "=r"(x) ::: bar); return x; bar: return 0; }' | $(CC) -x c - -c -o /dev/null)
- 
--# Compiler supports -fcondition-coverage aka MC/DC
-+# Compiler supports Modified Condition/Decision Coverage (MC/DC).
-+# MC/DC is a rigorous code coverage metric that requires every condition
-+# within a decision (boolean expression) to be shown to independently
-+# influence the decision's final outcome.
-+#
-+# Minimum toolchain baseline: GCC >= 14, or Clang >= 18.
- config CC_HAS_MCDC
--	def_bool $(cc-option,-fcondition-coverage)
-+	def_bool $(cc-option,-fcondition-coverage) || $(cc-option,-fprofile-instr-generate -fcoverage-mapping -fcoverage-mcdc)
- 
- # Set code alignment.
- #
-diff --git a/xen/Rules.mk b/xen/Rules.mk
-index 24f447b957..2b28d1ac3c 100644
---- a/xen/Rules.mk
-+++ b/xen/Rules.mk
-@@ -136,6 +136,7 @@ non-init-objects = $(filter-out %.init.o, $(obj-y) $(obj-bin-y) $(extra-y))
- 
- ifeq ($(CONFIG_CC_IS_CLANG),y)
-     cov-cflags-$(CONFIG_COVERAGE) := -fprofile-instr-generate -fcoverage-mapping
-+    cov-cflags-$(CONFIG_CONDITION_COVERAGE) += -fcoverage-mcdc
- else
-     cov-cflags-$(CONFIG_COVERAGE) := -fprofile-arcs -ftest-coverage
-     cov-cflags-$(CONFIG_CONDITION_COVERAGE) += -fcondition-coverage
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index 407571c510..6c0ff67fa8 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -98,7 +98,7 @@ $(obj)/usercopy.o: CFLAGS-y += -iquote .
- ifneq ($(CONFIG_HVM),y)
- $(obj)/x86_emulate.o: CFLAGS-y += -Wno-unused-label
- endif
--ifeq ($(CONFIG_CONDITION_COVERAGE),y)
-+ifeq ($(CONFIG_CONDITION_COVERAGE)$(CONFIG_CC_IS_GCC),yy)
- $(obj)/x86_emulate.o: CFLAGS-y += -Wno-error=coverage-too-many-conditions
- endif
- 
-diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
-index 532889c857..5663fb10dd 100644
---- a/xen/common/coverage/llvm.c
-+++ b/xen/common/coverage/llvm.c
-@@ -120,6 +120,8 @@ extern const char __start___llvm_prf_names[];
- extern const char __stop___llvm_prf_names[];
- extern uint64_t __start___llvm_prf_cnts[];
- extern uint64_t __stop___llvm_prf_cnts[];
-+extern const char __start___llvm_prf_bits[];
-+extern const char __stop___llvm_prf_bits[];
- 
- #define START_DATA      ((const void *)__start___llvm_prf_data)
- #define END_DATA        ((const void *)__stop___llvm_prf_data)
-@@ -127,16 +129,23 @@ extern uint64_t __stop___llvm_prf_cnts[];
- #define END_NAMES       ((const void *)__stop___llvm_prf_names)
- #define START_COUNTERS  ((void *)__start___llvm_prf_cnts)
- #define END_COUNTERS    ((void *)__stop___llvm_prf_cnts)
-+#define START_BITMAP    ((void *)__start___llvm_prf_bits)
-+#define END_BITMAP      ((void *)__stop___llvm_prf_bits)
- 
- static void cf_check reset_counters(void)
- {
-     memset(START_COUNTERS, 0, END_COUNTERS - START_COUNTERS);
-+    if ( IS_ENABLED(CONFIG_CONDITION_COVERAGE) )
-+        memset(START_BITMAP, 0, END_BITMAP - START_BITMAP);
- }
- 
- static uint32_t cf_check get_size(void)
- {
--    return ROUNDUP(sizeof(struct llvm_profile_header) + END_DATA - START_DATA +
-+    uint32_t size = ROUNDUP(sizeof(struct llvm_profile_header) + END_DATA - START_DATA +
-                    END_COUNTERS - START_COUNTERS + END_NAMES - START_NAMES, 8);
-+    if ( IS_ENABLED(CONFIG_CONDITION_COVERAGE) )
-+        size += ROUNDUP(END_BITMAP - START_BITMAP, 8);
-+    return size;
- }
- 
- static int cf_check dump(
-@@ -155,6 +164,10 @@ static int cf_check dump(
- #endif
-         .names_delta = (uintptr_t)START_NAMES,
-         .value_kind_last = LLVM_PROFILE_NUM_KINDS - 1,
-+#if defined(CONFIG_CONDITION_COVERAGE) && LLVM_PROFILE_VERSION >= 9
-+        .num_bitmap_bytes = END_BITMAP - START_BITMAP,
-+        .bitmap_delta = START_BITMAP - START_DATA,
-+#endif
-     };
-     unsigned int off = 0;
- 
-@@ -168,6 +181,9 @@ static int cf_check dump(
-     APPEND_TO_BUFFER(&header, sizeof(header));
-     APPEND_TO_BUFFER(START_DATA, END_DATA - START_DATA);
-     APPEND_TO_BUFFER(START_COUNTERS, END_COUNTERS - START_COUNTERS);
-+#if defined(CONFIG_CONDITION_COVERAGE)
-+    APPEND_TO_BUFFER(START_BITMAP, END_BITMAP - START_BITMAP);
-+#endif
-     APPEND_TO_BUFFER(START_NAMES, END_NAMES - START_NAMES);
- #undef APPEND_TO_BUFFER
- 
+Background: Ryan Roberts' series from March [1] attempted to prevent
+nesting from ever occurring, and mostly succeeded. Unfortunately, a
+corner case (DEBUG_PAGEALLOC) may still cause nesting to occur on arm64.
+Ryan proposed [2] to address that corner case at the generic level but
+this approach received pushback; [3] then attempted to solve the issue
+on arm64 only, but it was deemed too fragile.
+
+It feels generally difficult to guarantee that lazy_mmu sections don't
+nest, because callers of various standard mm functions do not know if
+the function uses lazy_mmu itself.
+
+The overall approach in v3/v4 is very close to what David Hildenbrand
+proposed on v2 [4].
+
+Unlike in v1/v2, no special provision is made for architectures to
+save/restore extra state when entering/leaving the mode. Based on the
+discussions so far, this does not seem to be required - an arch can
+store any relevant state in thread_struct during arch_enter() and
+restore it in arch_leave(). Nesting is not a concern as these functions
+are only called at the top level, not in nested sections.
+
+The introduction of a generic layer, and tracking of the lazy MMU state
+in task_struct, also allows to streamline the arch callbacks - this
+series removes 67 lines from arch/.
+
+Patch overview:
+
+* Patch 1: cleanup - avoids having to deal with the powerpc
+  context-switching code
+
+* Patch 2-4: prepare arch_flush_lazy_mmu_mode() to be called from the
+  generic layer (patch 8)
+
+* Patch 5-6: new API + CONFIG_ARCH_LAZY_MMU
+
+* Patch 7: ensure correctness in interrupt context
+
+* Patch 8: nesting support
+
+* Patch 9-12: replace arch-specific tracking of lazy MMU mode with
+  generic API
+
+This series has been tested by running the mm kselftests on arm64 with
+DEBUG_VM, DEBUG_PAGEALLOC, KFENCE and KASAN. It was also build-tested on
+other architectures (with and without XEN_PV on x86).
+
+- Kevin
+
+[1] https://lore.kernel.org/all/20250303141542.3371656-1-ryan.roberts@arm.com/
+[2] https://lore.kernel.org/all/20250530140446.2387131-1-ryan.roberts@arm.com/
+[3] https://lore.kernel.org/all/20250606135654.178300-1-ryan.roberts@arm.com/
+[4] https://lore.kernel.org/all/ef343405-c394-4763-a79f-21381f217b6c@redhat.com/
+---
+Changelog
+
+v4..v5:
+
+- Rebased on mm-unstable
+- Patch 3: added missing radix_enabled() check in arch_flush()
+  [Ritesh Harjani]
+- Patch 6: declare arch_flush_lazy_mmu_mode() as static inline on x86
+  [Ryan Roberts]
+- Patch 7 (formerly 12): moved before patch 8 to ensure correctness in
+  interrupt context [Ryan]. The diffs in in_lazy_mmu_mode() and
+  queue_pte_barriers() are moved to patch 8 and 9 resp.
+- Patch 8:
+  * Removed all restrictions regarding lazy_mmu_mode_{pause,resume}().
+    They may now be called even when lazy MMU isn't enabled, and
+    any call to lazy_mmu_mode_* may be made while paused (such calls
+    will be ignored). [David, Ryan]
+  * lazy_mmu_state.{nesting_level,active} are replaced with
+    {enable_count,pause_count} to track arbitrary nesting of both
+    enable/disable and pause/resume [Ryan]
+  * Added __task_lazy_mmu_mode_active() for use in patch 12 [David]
+  * Added documentation for all the functions [Ryan]
+- Patch 9: keep existing test + set TIF_LAZY_MMU_PENDING instead of
+  atomic RMW [David, Ryan]
+- Patch 12: use __task_lazy_mmu_mode_active() instead of accessing
+  lazy_mmu_state directly [David]
+- Collected R-b/A-b tags
+
+v4: https://lore.kernel.org/all/20251029100909.3381140-1-kevin.brodsky@arm.com/
+
+v3..v4:
+
+- Patch 2: restored ordering of preempt_{disable,enable}() [Dave Hansen]
+- Patch 5 onwards: s/ARCH_LAZY_MMU/ARCH_HAS_LAZY_MMU_MODE/ [Mike Rapoport]
+- Patch 7: renamed lazy_mmu_state members, removed VM_BUG_ON(),
+  reordered writes to lazy_mmu_state members [David Hildenbrand]
+- Dropped patch 13 as it doesn't seem justified [David H]
+- Various improvements to commit messages [David H]
+
+v3: https://lore.kernel.org/all/20251015082727.2395128-1-kevin.brodsky@arm.com/
+
+v2..v3:
+
+- Full rewrite; dropped all Acked-by/Reviewed-by.
+- Rebased on v6.18-rc1.
+
+v2: https://lore.kernel.org/all/20250908073931.4159362-1-kevin.brodsky@arm.com/
+
+v1..v2:
+- Rebased on mm-unstable.
+- Patch 2: handled new calls to enter()/leave(), clarified how the "flush"
+  pattern (leave() followed by enter()) is handled.
+- Patch 5,6: removed unnecessary local variable [Alexander Gordeev's
+  suggestion].
+- Added Mike Rapoport's Acked-by.
+
+v1: https://lore.kernel.org/all/20250904125736.3918646-1-kevin.brodsky@arm.com/
+---
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Andreas Larsson <andreas@gaisler.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: David Woodhouse <dwmw2@infradead.org>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Will Deacon <will@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linuxppc-dev@lists.ozlabs.org
+Cc: sparclinux@vger.kernel.org
+Cc: xen-devel@lists.xenproject.org
+Cc: x86@kernel.org
+---
+Alexander Gordeev (1):
+  powerpc/64s: Do not re-activate batched TLB flush
+
+Kevin Brodsky (11):
+  x86/xen: simplify flush_lazy_mmu()
+  powerpc/mm: implement arch_flush_lazy_mmu_mode()
+  sparc/mm: implement arch_flush_lazy_mmu_mode()
+  mm: introduce CONFIG_ARCH_HAS_LAZY_MMU_MODE
+  mm: introduce generic lazy_mmu helpers
+  mm: bail out of lazy_mmu_mode_* in interrupt context
+  mm: enable lazy_mmu sections to nest
+  arm64: mm: replace TIF_LAZY_MMU with in_lazy_mmu_mode()
+  powerpc/mm: replace batch->active with in_lazy_mmu_mode()
+  sparc/mm: replace batch->active with in_lazy_mmu_mode()
+  x86/xen: use lazy_mmu_state when context-switching
+
+ arch/arm64/Kconfig                            |   1 +
+ arch/arm64/include/asm/pgtable.h              |  41 +----
+ arch/arm64/include/asm/thread_info.h          |   3 +-
+ arch/arm64/mm/mmu.c                           |   4 +-
+ arch/arm64/mm/pageattr.c                      |   4 +-
+ .../include/asm/book3s/64/tlbflush-hash.h     |  20 ++-
+ arch/powerpc/include/asm/thread_info.h        |   2 -
+ arch/powerpc/kernel/process.c                 |  25 ---
+ arch/powerpc/mm/book3s64/hash_tlb.c           |  10 +-
+ arch/powerpc/mm/book3s64/subpage_prot.c       |   4 +-
+ arch/powerpc/platforms/Kconfig.cputype        |   1 +
+ arch/sparc/Kconfig                            |   1 +
+ arch/sparc/include/asm/tlbflush_64.h          |   5 +-
+ arch/sparc/mm/tlb.c                           |  14 +-
+ arch/x86/Kconfig                              |   1 +
+ arch/x86/boot/compressed/misc.h               |   1 +
+ arch/x86/boot/startup/sme.c                   |   1 +
+ arch/x86/include/asm/paravirt.h               |   1 -
+ arch/x86/include/asm/pgtable.h                |   1 +
+ arch/x86/include/asm/thread_info.h            |   4 +-
+ arch/x86/xen/enlighten_pv.c                   |   3 +-
+ arch/x86/xen/mmu_pv.c                         |   6 +-
+ fs/proc/task_mmu.c                            |   4 +-
+ include/linux/mm_types_task.h                 |   5 +
+ include/linux/pgtable.h                       | 147 +++++++++++++++++-
+ include/linux/sched.h                         |  45 ++++++
+ mm/Kconfig                                    |   3 +
+ mm/kasan/shadow.c                             |   8 +-
+ mm/madvise.c                                  |  18 +--
+ mm/memory.c                                   |  16 +-
+ mm/migrate_device.c                           |   8 +-
+ mm/mprotect.c                                 |   4 +-
+ mm/mremap.c                                   |   4 +-
+ mm/userfaultfd.c                              |   4 +-
+ mm/vmalloc.c                                  |  12 +-
+ mm/vmscan.c                                   |  12 +-
+ 36 files changed, 282 insertions(+), 161 deletions(-)
+
+
+base-commit: 1f1edd95f9231ba58a1e535b10200cb1eeaf1f67
 -- 
-2.49.0
+2.51.2
 
 
