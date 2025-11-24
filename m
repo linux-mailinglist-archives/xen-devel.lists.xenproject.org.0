@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8565C8078A
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:31:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170525.1495588 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C6B6C80874
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:44:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170744.1495807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNVjF-0007pf-6i; Mon, 24 Nov 2025 12:31:37 +0000
+	id 1vNVvG-0004zz-Ue; Mon, 24 Nov 2025 12:44:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170525.1495588; Mon, 24 Nov 2025 12:31:37 +0000
+Received: by outflank-mailman (output) from mailman id 1170744.1495807; Mon, 24 Nov 2025 12:44:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNVjF-0007nz-2u; Mon, 24 Nov 2025 12:31:37 +0000
-Received: by outflank-mailman (input) for mailman id 1170525;
- Mon, 24 Nov 2025 12:31:35 +0000
+	id 1vNVvG-0004xU-RC; Mon, 24 Nov 2025 12:44:02 +0000
+Received: by outflank-mailman (input) for mailman id 1170744;
+ Mon, 24 Nov 2025 12:44:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qo8f=6A=gmail.com=samaan.dehghan@srs-se1.protection.inumbo.net>)
- id 1vNVj3-0004cg-Jp
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:31:25 +0000
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [2607:f8b0:4864:20::633])
+ <SRS0=h9jE=6A=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vNVj8-0004cg-Lp
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:31:30 +0000
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazlp170120002.outbound.protection.outlook.com
+ [2a01:111:f403:c001::2])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7d159e6a-c931-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 13:31:24 +0100 (CET)
-Received: by mail-pl1-x633.google.com with SMTP id
- d9443c01a7336-297ef378069so37867615ad.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:31:24 -0800 (PST)
+ id 7feec8a6-c931-11f0-9d18-b5c5bf9af7f9;
+ Mon, 24 Nov 2025 13:31:30 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by SJ0PR03MB5423.namprd03.prod.outlook.com (2603:10b6:a03:28c::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.17; Mon, 24 Nov
+ 2025 12:31:26 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9343.016; Mon, 24 Nov 2025
+ 12:31:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,201 +47,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d159e6a-c931-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763987483; x=1764592283; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=f8d5FCDqF8Eyi33xLvv1HZy4mmEZ4/sGV8dAZOJVn5g=;
-        b=I2WiaEtk/UyBbJ5EjMl0CwYJ7M2dWBoYd7Ret9YHvoyIcOq6vwMRUWjMjEMrQeGN1r
-         OEb2p8olWwUpFnCOJr3epspCxW9eEwPt+uuODXMSHB4mQRqEy3t+xIzySWQKRBOul2Ki
-         T/1PtvDW4CjZvsgWC3u/MVmQoU6Vi+2NSvGUcWElco2tljgUMnqDjZykJZg64mflXlVd
-         V9YDZrVCu2qKlkjE0kdJy7EPjQVaQ9QH6FWfXAl58BDWNBpP+3bJhRSiGdbdzFUS50IT
-         NqYJRMk3f8rnPldnlV81yOOAVKZw50Ba1mPRzKmNsEN9pQvRZkZ0bz5EKM7k8iVVvRqe
-         uczQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763987483; x=1764592283;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=f8d5FCDqF8Eyi33xLvv1HZy4mmEZ4/sGV8dAZOJVn5g=;
-        b=QEG4Kzd3c1uOowb6ZWx2L5SVmSqAvyWo4xKz1grdew7C3YO59UB++giPlRT+S/9Vjj
-         RxYww59Xvje5Bg34shYfSvKIfq7w4hOSvABtLzXQ5kW3VITzYLyMsz0KFNqY8172wuhQ
-         xa22Z5WkmRFGOR3uP/XLgvszVWyYsqPQtx92KwQpa3lVpC1QjO0dJFaiP/s28Ge9/Qld
-         USbG0RqCNyBpZaIctCNgYZbJwhcCNAKcVjSEgAs4sIXZoSIYPage7mX5vzv2PVG90hZL
-         vQGYOzBJwuaPZgFbfDtCISpWe59w2jQ5bnmUEsmdB9W75Gtcqw1FoHdBeXMVWE9gP3qz
-         IdNg==
-X-Gm-Message-State: AOJu0YwkUI9s7GzRwjRyzVr3Cq7UWy6bpB6BIM0HUxJGtPyvfV9y6Vu1
-	XQ8rdXJp9WFSMMR+uGQIJVF5es5eqg8dhaXiBqP3UUEXnI804a8bq/DfNl6mRmFJsek6B65wxdP
-	x3EwV4U8rFO6XRa0oxu9QL7Gimwxnxw==
-X-Gm-Gg: ASbGncu0ufr+iXTdJmVyx2nCfGCB8qEsiJgoTYJpAcWzdzLSIhgnR8drb4Qr72V5Ow+
-	ThooYtusnTNmSx3dyjvGXZn22wEgSIEm/AHm3eXciy+P+WaTrFRFuAoCRGyVV4b6Xw9vinQimYs
-	Mtb7hd/nZ+xkITcD5djKg2P98Hy/s7Y/e3Kx8DnI8BO4j7603ZhMi/3Q9tOeR9sXY6drJSo4R4D
-	bLty/3Wz737eKJukCRn+afxoyLx/QC9Me96gTY3CA8HmmJHwa2pNQbUB+qFa3hAcZIoP7ZsJlD3
-	HswygOmQH7BRic+itA5ARY75
-X-Google-Smtp-Source: AGHT+IHQGPCuzF4kn0l3NguKNQ98NpEXDZz6EzTvD/PxRFxEpjSHQRpgj9QdIglFCYkKIVghDWgbQ1ss9MPOIPORjtc=
-X-Received: by 2002:a17:90b:5183:b0:340:7b2e:64cc with SMTP id
- 98e67ed59e1d1-34733e5c408mr11531925a91.15.1763987482923; Mon, 24 Nov 2025
- 04:31:22 -0800 (PST)
+X-Inumbo-ID: 7feec8a6-c931-11f0-9d18-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ct1c35hKZhynlSWaK2e+7wRcwho3W3a2JLGN7Kd2W5AC2waIEgJewKuQM1BS4Qv//iH0ycLX0zXSz0FeS225StUdmjzk7RCAWTnjBNk2wlTLWhNJH41d4s3AlOl8m5XgFy32nTlwjWQprnlPJxC9RgFcBoQYJ4GY8xbfWr8+/wWm1/3gZh4FR6vxV3sI2jjSn9RUjTItWGjn8G5oSSGSS8DD0Clip758d/Hz+WYX5Chm4+e3vi7dC9d9ZHnopoNPInVhqeShLgBLYHLOOaoY5ivVtrHNVc8nGefEgTkG99vjBkLcdYMzU6bkHMELqjS3AhLE8umPo/evDADCQVSHww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sqC64A7fk6ujRRKnLMrKM4vYk+jM2ISqPkVTxP1X/6s=;
+ b=TyY0nxXdKeRMnfCzxXIssoz48kFzPgaBpMMftDCtaqXiWdFzeSckG6qU0q5FQqwabSW5MSbzN23vtDN8tEy4Ginf5eQ0wCleYOldvU4izSILe5XtJYf9trHvBwK3B23pEXTUnO9bWD7W52ED3gkZNZZEHwE/vWTfAeMl4WKhP0lq4KtNXvfdg4uiZoXTv1rMWqyBAjjWb7Kzjo9+TA94YgVA/aOE5WUPa2LEtQk/VuIbxbKcFyHcqpVz2EMhqHcu5c0hxTsQgMclXolJkpSOE17Mm2uXhDaC46fTEEapPrKZ2H9PDu1y0tx4a2SmZNjRPhmD3TkhaIm08WKO04QSHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sqC64A7fk6ujRRKnLMrKM4vYk+jM2ISqPkVTxP1X/6s=;
+ b=ZBdhKHjYJvNo87eNWBLKUz780/c0cYi7b2k+ckn9JPoSpC3gvqc6fOs1VJIzxsxb7ZzH/IP5MVe/LRWAK+Zztcgz8DzCivhU1pDrPUsxQF/n+mbyPnxxNTkp0/XGjyVuZ5ny5YhdtlAWrbmCCc6xd9huWjH+XadAVApK3SDVrj0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <298ed761-f7e1-4239-a110-c49bfb24a479@citrix.com>
+Date: Mon, 24 Nov 2025 12:31:22 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] x86/vPMU: move APIC ack past the handling of the
+ interrupt
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <5ac2e9b1-81f2-41d9-8f05-d546a49c43a7@suse.com>
+ <96e8cf62-987e-45fb-9463-8a3069d346f4@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <96e8cf62-987e-45fb-9463-8a3069d346f4@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P265CA0013.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ad::9) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
 MIME-Version: 1.0
-References: <3bb418ae6a36a9ac89c697a417fa0745fa9ac702.1763949990.git.samaan.dehghan@gmail.com>
- <9c76a959-51c0-4eb7-9d05-ba4441318faa@citrix.com>
-In-Reply-To: <9c76a959-51c0-4eb7-9d05-ba4441318faa@citrix.com>
-From: Saman Dehghan <samaan.dehghan@gmail.com>
-Date: Mon, 24 Nov 2025 06:31:11 -0600
-X-Gm-Features: AWmQ_blNd91GU5pYLJJWWFKElZl5a0ofnfee-szdA3_6mqWx21xOCS1jSxl-Bk8
-Message-ID: <CAHFNDNikjXNHCj2RXMoZPckqaQAy2u-xw-QyCO7nXT3pttp6Hg@mail.gmail.com>
-Subject: Re: [PATCH] XEN: enable MC/DC coverage for Clang
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@vates.tech>, 
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SJ0PR03MB5423:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30c4bd67-c4ac-4cd4-2737-08de2b55622d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?NDBYSXJMaldhSytobEJRWlJydHZoa3VlNnM3elR1QXhWbUJHdXZTdmdOUlRI?=
+ =?utf-8?B?V0FNV0lrYTRXMmduSGlQN0M0SVdraXRIa2cwcXdwSDd2eVdGQlNINSsvL1lO?=
+ =?utf-8?B?WG1jR09HNEdqOEJON2F6SU53aXVUME0wTEF4TC9jSzdTeDhLd3pCQU12d05R?=
+ =?utf-8?B?UXQ5Q1VGVkN0eURkZW53c011UmVUNFZVczdXbVppMk1KZzIyRStVTVZyV1ZX?=
+ =?utf-8?B?amZsSDNzL1NJdU56dnk1VlN4VEtpQmIxbytYWlZIZW5ESkFuWXlwS1pTWkth?=
+ =?utf-8?B?dGZNbEo1Q0ZNN3JqeFZuVERLeC9wbWtnbEwzcGh2b3FSWnhNWlpRajVRZ1ZC?=
+ =?utf-8?B?MHVFZEpSUzd3SzhzYkJ3Z0FTZG5adHdOdDUrbnhkQlV0aFI2dDN5dExGK0Fq?=
+ =?utf-8?B?b2ZFOXorNWtvN0pSOUJyWVlLcXFuUm8wVUxUamprQ3VDRWdnSHN5bE5YT2Fn?=
+ =?utf-8?B?TGQ5aU9kVVg4WmQzQUZ0NDRUQ3dYQWNrWDdwVEN3SUQ2dDdMeFliZ25TTUtH?=
+ =?utf-8?B?d0JjZkliNFV4YnVzOTFmN1NrZlVpYnpXMTFabVZleHlNRTZOZzdKWHNBdFg5?=
+ =?utf-8?B?N3UzL1lITk9sQ2ZRbFdUQWRFOWpEdEtPbU9oZS9yVktkZ29qemVlczVsMlEy?=
+ =?utf-8?B?QUxpb1VtUTFxclorSmtQNVd2QWxHdHdYR3ZlWE1UaDNkRjNnVkNCUmtqY0cw?=
+ =?utf-8?B?dTh0U2tXKzhXMlVqUURoU1RMdnh5WTNTaVJOazE3Q083VytHVGlGSVdEUFly?=
+ =?utf-8?B?R082Ujd3dFcwRzZhU2M0N21hVWtCU0dIZ3AvK0ZQZWVTUHoyd3lONlpJQk5N?=
+ =?utf-8?B?bW45bTlIcU90d29sbE1wK0xJMDNheXA3aHVoditLSlArR3RFUEJCUUdmNmdK?=
+ =?utf-8?B?Zks5c3h5clB5OHUyRlhENi9uSjd1QlFRd2NPSVptUlZTaTVWT1lXRFhFSHhO?=
+ =?utf-8?B?ZkxlOUtyTnk1NC9mK0JncUR5U2sraEdJakpNSXB4bmwrOUU3aG9lNWJzSi9E?=
+ =?utf-8?B?T3BGQm82aTRBSUF1d29TWnVjVytwTVptY2xnMnFJdnZFTUtLV1ViWjQyMEZ2?=
+ =?utf-8?B?ZWZqOUUxY29lWFpOeDZiM3J0cC9VenVHTGdCL2hlaDhRc1JJbWNVZDhsZXo1?=
+ =?utf-8?B?VVg4NmJ3alVrMGdyL2hMYlJySnRvdTh4RC8vM1JwZ1RRTFdjODVmSmxsL04r?=
+ =?utf-8?B?VEpZQ2FWVTd3dE95SC9pWHdoTG9oUW5VNmtoZm56UWtNdDgzRUJBSHlzcVQ2?=
+ =?utf-8?B?cmNKZndxWDd6WmhqajdybGZOKzhIcDdpR000Vyt5aTdUSGRLc1NtSldoYTdO?=
+ =?utf-8?B?TnRabWZ5UUE0c0RvV2g3T2Q3aHdIRllzMm9hMU5hR0RzRGkzdGJleGsxQmpR?=
+ =?utf-8?B?VGlEcGxSZWxFbDJpVW1vb0xuK3lZZ1ZMbGQyR0xyaDhWYWd2SlZNd1c4Q1RE?=
+ =?utf-8?B?Rmk1V25yOGpWb3pURWV5anp2QUMwOXBtT3Y2R2ZsV29lLzRQaWM1RDJVdUNP?=
+ =?utf-8?B?ZTBuNHFIOGZwMlN5dnJaTFRLdXlyWll5YnFqblZFVjFoOHFUamZuQlNBd3V6?=
+ =?utf-8?B?Rk5PaWg4b2MzSkFCSlpPcnBUaC9FQndmR04xOElJQ3pjNVpFZWVLSGxWMGZo?=
+ =?utf-8?B?a3BXQ3JNT1pLZEZlWkVDb3FxTmdPZ3JrUEpZdjcvaThzNXlVb3R1b1FpS1Er?=
+ =?utf-8?B?Um0yZGZqTTY0WFBWWTYyd1U2Q2Q4Sng5OGlQQk9WcUJmaXoxMzlkUEN6R0Vk?=
+ =?utf-8?B?RGJGSmhuSVBPYkpXVmgzeVROMzZZYUZCODc2L2lYOU5qaGxQVExtNWV6cnRI?=
+ =?utf-8?B?S3d3TWlyVFNtN3N6Z3R0VjNKOUM3OU95ZzFKVEVJMFBaZ2ViTUtiNFQ0QXZ4?=
+ =?utf-8?B?M1daWStNZTFXUHQ4dVhMNE00emNwOS95cDYwZ3BNajNGdWlsMjJMR3h4U2NF?=
+ =?utf-8?Q?IjPDf9veybYebXdMNIymogol9Cdzsu7T?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aVNSOW90UnlaTmVRT3BuRnNic3R2OVlPYmFrSW1MZFgxeGlqMFhDUnhVSHlH?=
+ =?utf-8?B?aVZUNyt4YUVkOWt2S2JySnYrN0s3dGhucC9lVW1HVlpaR1ZuaGdWOVhLSnNu?=
+ =?utf-8?B?WXAxaW5ra0xCRjdWSGRzWldESjlhTk5nTFJmalB0YWc3c0JPTGJ6SzNIUjhW?=
+ =?utf-8?B?TVN5S3NJNGVTTllycWxlTW9mMGtrSndkUkJMWnRNZDVJaVM2a3VzQWdEdTVW?=
+ =?utf-8?B?UlZaWHlmQnF5SlVCWlp5Z0pFMEg4d3MwSSt4Yng0QUZZWGQ1dDdzZGFPZm9E?=
+ =?utf-8?B?VHBnOXJBUlRkTmdVdlZKdW5TbllOOWlJRldSRHdTeG45Q0xFRDZEM1ZhUFZp?=
+ =?utf-8?B?R1ZJcVh5Tmk2SkhsRzdVN3JoNGdnVzlKS0JGQ0UxQ2d5S0FNVXFrdExKVmxF?=
+ =?utf-8?B?N1o1clk4MXhOVnRMRHlqOGd4ZnZjVWxmeHlPSElIWHE0Z1lQbEluYVVQZ0lu?=
+ =?utf-8?B?MUMrRlRkQXJGVnN4d1ZJZThDbDM0ekxuVHA5Z0xwYnh1QW4rSzFqUHBpSzdl?=
+ =?utf-8?B?UzNVc1hlTGtXbXNNQWpiTXRMQmxVT0cvMC9mSDRHVjVzRzFubEczVlNTeDM4?=
+ =?utf-8?B?T29Ya2JCMGo1YWVydkszOHNNUGhzbTRGc3F4ZHdyNU5Na05taGN6bUxFazkr?=
+ =?utf-8?B?UHduYnl0RUNVNUQzUllNZUk1cTBYcjFCaVh3bmczRHB2c0drdXVWTk52N2F1?=
+ =?utf-8?B?TUhBdXQ2ekFjR1lEQzhEQm5DYk1vNUNnaTdLMU8vYVZwWmgzZGp5d0l1Zysr?=
+ =?utf-8?B?YVllZTUzbkhZRytTdmdpbXhPRGlyRTdZR1VlMW5yd2dNajJOSDgwUm9YWkxr?=
+ =?utf-8?B?dVdjSDh6SzNadTJzN0I2ZnRwNUtTcUxXUXR3TmNkbWREODRUeFVJQkZUNjlv?=
+ =?utf-8?B?RkZ6NjBKbWlXN2lldkl0RkplQTdvdmgwYW45Nlp2SUkyNzhycUtXNmF3RFZz?=
+ =?utf-8?B?RlNqWWhvUVErSFhXV0wwU0pzSGNQVXRBQmFjMEMwaUxHeVg0T0JjVnZ4Rjh3?=
+ =?utf-8?B?cUIzc0M3SlpydUdKSHk5eGpWb0Z4MnpDYkQ4bFlEQmM3VjZZcWttZVNaRDJD?=
+ =?utf-8?B?Rldybm15a0F3dGNLaTc1S1J6SVpFZzV3ZWxYbUQxTnFjYWdWUWh6Z29JT2VG?=
+ =?utf-8?B?aVhkdVZka1ZqU2duK24vT01ZOC9TcWZTYXRub3p6azVNdEVqNk9HOU9lRVAz?=
+ =?utf-8?B?Nmd5eVljMjNNZ1VEWUhyL0ZlaUZkVHdsYWs4OWtIUUJWUmE1eXA2NDNJWGFK?=
+ =?utf-8?B?MXVGZWFyRTNld05EdFRkQWpqS21jTWU2amxOVHNKSTh2czlPM01tYmVJdVJj?=
+ =?utf-8?B?Uml1NHZ1aDJWenZJT2F1Um1hQlk1UVV1SitoRktZVFB6bDZOWFg3N3JxVGZv?=
+ =?utf-8?B?djRrWFB5MEUxSjJyakZQL2RDbGYzVGdJT2NEdEZQVHovSkVUWFl3RUNKVnVW?=
+ =?utf-8?B?RytrdzlVejcvMlQwcGpzekdza1BlRG1VOHN2VTVxejZQQmxGYTNoRi9ldEJ4?=
+ =?utf-8?B?K3VrRS9jVDVROXZGenFmZUU5MnlYQlhvTXRtVjM1OHFqaFhjZy9HYnk4MFV0?=
+ =?utf-8?B?NEVVNDRSTkNHM0hNT3dSWkl6UkRCajgya2ZXS2VCV3A2T1RwciszeEpoTlZo?=
+ =?utf-8?B?N1IzRFlvdjAxTnNpRDdLUHZWdHBuM2JrczlKckdiZ1M5NHduSUQxTXVWZ0E4?=
+ =?utf-8?B?aUtTZ3dVQXhXVms2ZUIzMVNyRDFrL3BrMkVWbUZBbDVVNDZzRW5tN0dLcnR0?=
+ =?utf-8?B?YnJZaUp6V2tsUWpaWnllOWs2ZStIM2Y2UTFVQnRrNHU5OEhKWFFQK1BhS2hp?=
+ =?utf-8?B?QWNYZWMrLzFoUlFDcmV2S3BrR09jc09OZ01YaEFhZ1NVdFRYc2ZMd2sxNHU0?=
+ =?utf-8?B?MXpSWU11SVZnT2duMHpGaTdpdCtNVFJMNGxDd1ZkUkNxVDVidkRmLzJTc25m?=
+ =?utf-8?B?a0x1UEkzN0gvK0NlR1d1VG95V3B3V1J4dVVqV0RQZGdpN0k5RitzbysvT295?=
+ =?utf-8?B?VW9jS21WbGZFK2hiREVacFN3ZHRIeUJ2NzloY2JTQkZ4L2FNOXo4ZWVNY0Rq?=
+ =?utf-8?B?dkVpczZGRGtsMlp3SEh3SU1yMzhTYkJGc0lFZFpma25BZTQrQjdtMmpFZ2Jr?=
+ =?utf-8?B?djVRaFFjQlFBQUtJS0plWS90QTVKSnh0NXBxRWJhT21HSnVHWk15RzBhWlBI?=
+ =?utf-8?B?ZHc9PQ==?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30c4bd67-c4ac-4cd4-2737-08de2b55622d
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2025 12:31:25.4429
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qj5T1rnlLl7OYhFNPJeuYCCxZhDwBQZsOSLsNwUu+yS7Aly9ze+YY1MXWb1dgN1db8tgtNXos3aiW0Qb/4Y/DdNI86k28HiJhth9ql9443o=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5423
 
-On Mon, Nov 24, 2025 at 5:15=E2=80=AFAM Andrew Cooper <andrew.cooper3@citri=
-x.com> wrote:
+On 24/11/2025 12:29 pm, Jan Beulich wrote:
+> While benign as long as it's using a direct-APIC-vector (handlers for
+> which are called with IRQs off), follow the more usual pattern of ack-ing
+> the IRQ only after handling it.
 >
-> On 24/11/2025 2:18 am, Saman Dehghan wrote:
-> > Clang >=3D 18 supports Modified Condition/Decision Coverage (MC/DC).
-> > This patch enables the detection and usage of this feature when
-> > compiling Xen with Clang.
-> >
-> > - Update detection logic to check for '-fcoverage-mcdc' when using Clan=
-g.
-> > - Update llvm.c to handle the profile format changes (bitmap section)
-> >   required for MC/DC.
-> > - Guard -Wno-error=3Dcoverage-too-many-conditions with CONFIG_CC_IS_GCC
-> >   to avoid passing a GCC-only warning option to Clang
-> >
-> > Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
-> > ---
-> >  xen/Kconfig                |  2 +-
-> >  xen/Rules.mk               |  1 +
-> >  xen/arch/x86/Makefile      |  4 +++-
-> >  xen/common/coverage/llvm.c | 24 +++++++++++++++++++++++-
-> >  4 files changed, 28 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/xen/Kconfig b/xen/Kconfig
-> > index a5e5af3b76..5508993f02 100644
-> > --- a/xen/Kconfig
-> > +++ b/xen/Kconfig
-> > @@ -53,7 +53,7 @@ config CC_HAS_ASM_GOTO_OUTPUT
-> >
-> >  # Compiler supports -fcondition-coverage aka MC/DC
->
-> While you're improving these comments, please drop -fcondition-coverage
-> (as it's no longer accurate), and expand MC/DC for the benefit of people
-> who don't know what it is.
->
-> >  config CC_HAS_MCDC
->
-> Also, # GCC >=3D 14, or Clang >=3D 18
->
-> It's important for toolchain versions to be given in comments, so we can
-> figure out what to clean up when upgrading the toolchain baselines.
->
-> > diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
-> > index 532889c857..a8c7e7e8d2 100644
-> > --- a/xen/common/coverage/llvm.c
-> > +++ b/xen/common/coverage/llvm.c
-> > @@ -120,6 +120,10 @@ extern const char __start___llvm_prf_names[];
-> >  extern const char __stop___llvm_prf_names[];
-> >  extern uint64_t __start___llvm_prf_cnts[];
-> >  extern uint64_t __stop___llvm_prf_cnts[];
-> > +#ifdef CONFIG_CONDITION_COVERAGE
-> > +extern const char __start___llvm_prf_bits[];
-> > +extern const char __stop___llvm_prf_bits[];
-> > +#endif
->
-> No need for these to be #ifdef'd.  In turn, it lets you do ...
->
-> >
-> >  #define START_DATA      ((const void *)__start___llvm_prf_data)
-> >  #define END_DATA        ((const void *)__stop___llvm_prf_data)
-> > @@ -127,16 +131,25 @@ extern uint64_t __stop___llvm_prf_cnts[];
-> >  #define END_NAMES       ((const void *)__stop___llvm_prf_names)
-> >  #define START_COUNTERS  ((void *)__start___llvm_prf_cnts)
-> >  #define END_COUNTERS    ((void *)__stop___llvm_prf_cnts)
-> > +#define START_BITMAP    ((void *)__start___llvm_prf_bits)
-> > +#define END_BITMAP      ((void *)__stop___llvm_prf_bits)
-> >
-> >  static void cf_check reset_counters(void)
-> >  {
-> >      memset(START_COUNTERS, 0, END_COUNTERS - START_COUNTERS);
-> > +#ifdef CONFIG_CONDITION_COVERAGE
-> > +    memset(START_BITMAP, 0, END_BITMAP - START_BITMAP);
-> > +#endif
->
-> ... this:
->
->     if ( IS_ENABLED(CONFIG_CONDITION_COVERAGE) )
->         memset(START_BITMAP, 0, END_BITMAP - START_BITMAP);
->
-> >  }
+> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Thanks Andrew.
-
-IS_ENABLED(CONFIG_CONDITION_COVERAGE) is not the same as #ifdef
-CONFIG_CONDITION_COVERAGE.
-When the option is completely undefined, IS_ENABLED() returns 1 (enabled).
-So even with no CONFIG_CONDITION_COVERAGE defined, the code takes the
-"enabled" path, which is not what we want here.
-
-> >
-> >  static uint32_t cf_check get_size(void)
-> >  {
-> > -    return ROUNDUP(sizeof(struct llvm_profile_header) + END_DATA - STA=
-RT_DATA +
-> > +    uint32_t size =3D ROUNDUP(sizeof(struct llvm_profile_header) + END=
-_DATA - START_DATA +
-> >                     END_COUNTERS - START_COUNTERS + END_NAMES - START_N=
-AMES, 8);
-> > +#ifdef CONFIG_CONDITION_COVERAGE
-> > +    size +=3D ROUNDUP(END_BITMAP - START_BITMAP, 8);
-> > +#endif
->
-> and similar here.
->
-> > +    return size;
-> >  }
-> >
-> >  static int cf_check dump(
-> > @@ -147,11 +160,17 @@ static int cf_check dump(
-> >          .version =3D LLVM_PROFILE_VERSION,
-> >          .num_data =3D DIV_ROUND_UP(END_DATA - START_DATA, sizeof(struc=
-t llvm_profile_data)),
-> >          .num_counters =3D DIV_ROUND_UP(END_COUNTERS - START_COUNTERS, =
-sizeof(uint64_t)),
-> > +#if defined(CONFIG_CONDITION_COVERAGE) && LLVM_PROFILE_VERSION >=3D 9
-> > +        .num_bitmap_bytes =3D END_BITMAP - START_BITMAP,
-> > +#endif
-> >          .names_size =3D END_NAMES - START_NAMES,
-> >  #if LLVM_PROFILE_VERSION >=3D 8
-> >          .counters_delta =3D START_COUNTERS - START_DATA,
-> >  #else
-> >          .counters_delta =3D (uintptr_t)START_COUNTERS,
-> > +#endif
-> > +#if defined(CONFIG_CONDITION_COVERAGE) && LLVM_PROFILE_VERSION >=3D 9
-> > +        .bitmap_delta =3D START_BITMAP - START_DATA,
-> >  #endif
-> >          .names_delta =3D (uintptr_t)START_NAMES,
-> >          .value_kind_last =3D LLVM_PROFILE_NUM_KINDS - 1,
->
-> With structure initialisation, you do not need to have the fields in
-> declaration order.  Therefore, you want to do something like this:
->
->          .value_kind_last =3D LLVM_PROFILE_NUM_KINDS - 1,
-> +#if defined(CONFIG_CONDITION_COVERAGE) && LLVM_PROFILE_VERSION >=3D 9
-> +        .num_bitmap_bytes =3D END_BITMAP - START_BITMAP,
-> +        .bitmap_delta =3D START_BITMAP - START_DATA,
-> +#endif
->  };
->
->
-> to keep the ifdefary more simple.
->
-> ~Andrew
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
