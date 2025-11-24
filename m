@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 881F3C81327
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 15:58:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171269.1496287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF71BC81324
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 15:58:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171270.1496298 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNY1P-0005oz-6l; Mon, 24 Nov 2025 14:58:31 +0000
+	id 1vNY1R-00063G-Gi; Mon, 24 Nov 2025 14:58:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171269.1496287; Mon, 24 Nov 2025 14:58:31 +0000
+Received: by outflank-mailman (output) from mailman id 1171270.1496298; Mon, 24 Nov 2025 14:58:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNY1P-0005mV-43; Mon, 24 Nov 2025 14:58:31 +0000
-Received: by outflank-mailman (input) for mailman id 1171269;
- Mon, 24 Nov 2025 14:58:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vNY1R-00061D-CK; Mon, 24 Nov 2025 14:58:33 +0000
+Received: by outflank-mailman (input) for mailman id 1171270;
+ Mon, 24 Nov 2025 14:58:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fNsn=6A=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1vNY1N-0005X4-UJ
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 14:58:30 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 08a88b30-c946-11f0-980a-7dc792cee155;
- Mon, 24 Nov 2025 15:58:28 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-b7380f66a8bso654461366b.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 06:58:28 -0800 (PST)
-Received: from ?IPV6:2003:e5:871a:de00:dd24:7204:f00a:bf44?
- (p200300e5871ade00dd247204f00abf44.dip0.t-ipconnect.de.
- [2003:e5:871a:de00:dd24:7204:f00a:bf44])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b7654ff3962sm1323502766b.50.2025.11.24.06.58.26
+ (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vNY1Q-0005Ft-EB
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 14:58:32 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0ace8398-c946-11f0-9d18-b5c5bf9af7f9;
+ Mon, 24 Nov 2025 15:58:31 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-477aa218f20so27481505e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 06:58:31 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-477bf1f3e63sm204729775e9.7.2025.11.24.06.58.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 06:58:26 -0800 (PST)
+ Mon, 24 Nov 2025 06:58:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,120 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 08a88b30-c946-11f0-980a-7dc792cee155
+X-Inumbo-ID: 0ace8398-c946-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763996307; x=1764601107; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=U9rb1EscELxNAsWw5LAgHmqeO7FGxuvs8IaqTiD5V+0=;
-        b=cPDYhsOXiNJnOWkgQTnTd/NnEBsTK/cQm2M+3BYlz8gIiP9JbPvE6NVZHM4fuiGE0s
-         eL9s9ZAeALC2EOkEhMl/WnJxb+Pa3L01ZIrjDMaHKBk0SWYKRlCITg6HtBuXqFi9bVNy
-         2h6IqB59Sb4K+9P5vTuNQmIggPyzRpwSvscUJbE8UhG+HPmMCsgmnaKICkRTRpr7aTST
-         7fWLsblmPLFSqJF95RV2owTrLMPWBasVcSMfpqhQRvYhlfTl4jJsKVmgzu3pQaPkpiq4
-         Hky5/rVPrsAqnUri1Oew4wTnfOzuGCIBrTi7R1Fh7aLEH1LWc0VJeqS3SGA2hdCl1F8K
-         Jqew==
+        d=suse.com; s=google; t=1763996311; x=1764601111; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=NVWCWuKBHOuxdQwDq5z2qVh5REhr67mpr+/W94rzC2U=;
+        b=OQGpl0iupmUCqObtayK2fLki6vXTpA332dQbRfWeydu3dAhqVzkE2McfP0xkeL0tZR
+         EIn+AI0pMGDyc/GW7xmNKw3PP9aR5uQJ4tuwnt8fwidEp+dTtgQ0muClRvBtrvmrxx6/
+         RWVwSuhX87xQpgzbOVwVZWz1f4UvSoXCA4Xu7TATYEjrQLoTon5gLQwEuZvbSjLJMhix
+         W880iPV33Q0pwbU6jEFJfq2gCAPTcBagEikTHtjPVyGJuW9CUN4VQqzQR3+dkxsG1HPa
+         +fQ23WhEatuimuU1a4FYkLyVe60m+mNtAA3R+0p1LV10dTzGoAXA8NxdpV8aEMRc4qvN
+         KaAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763996307; x=1764601107;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=U9rb1EscELxNAsWw5LAgHmqeO7FGxuvs8IaqTiD5V+0=;
-        b=btoJ5WUhtxiAMXDLnwmhMu6Ka7QHmFatDXP5W7nz5eRwqFN1ELT/nfT1/jKvVrdxWS
-         kSM22lKbjVI1tqoX0Y/67VNf3iha/FToN1dSrb2oFzgA76zYjJklXuUiEDrguCCPKGel
-         37tDM673kI8CeG74WftPcuMqYxxfxNqNdenzbnjtjPj7lJt7h3zCAWEBiE54fiCNOIlV
-         TzaJA16xH9iR4uxlNNbyltL4WMp9zHH3IakMdmutFt1S2x6HHmJ30kUOb+gkzAvX0dkC
-         ZBJmtOkWTLXGSkHg3JNIoAzZhFrg8c4uhBMsyckDe4fhJ3BwcuLquDrXp3z3KxtxFyvU
-         x4uw==
-X-Forwarded-Encrypted: i=1; AJvYcCXV9Cv/jvAZpZxBYMbqAIrK8jtfE29oIWTv87qWOOUJ9sYyUCZtfSQw2XcuowAjJ18w+gXgOmjfBeY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwYTyqlvhX4rIDEu5WhC3NcErS3X73qEnUjfb+3BBvz+HQRaXG0
-	H70JN3KSzLAZ/q+hGm/GOB0GvyP4ma15LEASatVT5TBb6GPeVuHJkojnnSIlI7dgkRCSLoSbbDk
-	upDqQjvs=
-X-Gm-Gg: ASbGncvkSkpxy/3feguODhcqp6ixtfwGTQ1tTYhpBC3ijca7cbFqZJunPaR3OR8e3lk
-	P3+0EaLYE6Hiaxy8dgvwqiCn2EyCQG9IccN+t2lPALA20YZwGT45BSjT65yil/8u1RUYgqZ6U7H
-	jwYnste/rJq8coQGNWj/N/rY4r6wZicNd4FJNDeT01WLPdZWP4K+Nx7HsepW+n4SR+NXmzf32Hz
-	RLy397TgllGitoXreo4Qwz0eWMzEifUI7aNicdcF3Qjw9N2+KdGik9h76UlMwJ/ynC9qKolg5QR
-	jUCHwuqLP3LKv9TvaGnItxiJmmad8KNsdzEqqhMQNEBZz7xHgHC8jCrCYSqCWf5VuWh4m+Har8T
-	Fk+OpTSVQkkDoKlG9KWk0uAKpx2L7RW+h7kYkRyxuoNqOCvCXouAcbj51miMZ6D/1WnhkD/8ZI+
-	xkz4uc5yWb/Lcvbn+BnWBCxvrycKqxRVG1nkb7cTlM74FHCjwm7x0ZcGy7aW8WfhnjzKFDsZYt0
-	cmzWqCLPYY+5LSWsA6LTmzNuClDT6ig2o6RhRBBwzCo4Wm4rg==
-X-Google-Smtp-Source: AGHT+IFk8jNGFyyTeWcu/H0tSooc89TK/+Apk8XFpZHsy0ys/N4hCQ4amFtiehdZf7WVDYmhaOarfA==
-X-Received: by 2002:a17:907:6095:b0:b73:a0b9:181a with SMTP id a640c23a62f3a-b7671a241eemr1324497466b.54.1763996307314;
-        Mon, 24 Nov 2025 06:58:27 -0800 (PST)
-Message-ID: <158df666-9359-4fe8-976b-f194a1fb317b@suse.com>
-Date: Mon, 24 Nov 2025 15:58:26 +0100
+        d=1e100.net; s=20230601; t=1763996311; x=1764601111;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NVWCWuKBHOuxdQwDq5z2qVh5REhr67mpr+/W94rzC2U=;
+        b=FSlh0f4CcmFYoQtEfUY7Xt208Aez7aa+hOhgpvCCDl6zpWQmhjtbPA3OQX7o33NIWC
+         gKCnCQNUFszTJDL8ptLCPXuXtIecldFy7lO9H+xisNZOzLzbFXpxBQ7E5sKKdCEfAXwR
+         hRMpQjqxM2SNAIqmL5KRWiUd8jvXx+7ZmZX/1G2hQyFvuVmoDAAXAdikBEg+WiPNwY5O
+         P8lRWvvYRms65BPIRrEcGzrQ+Z6yzXb2PQoUcNR7EvsHRwqzFf7Sp95+e3XaHaZf8eLp
+         bNZyZzUsDvaBslw9TKNRlYUV8kw28V3EhtfJwN1jfH00R3sFb4sI5+ILTzxA1YT5hN+q
+         HR+Q==
+X-Gm-Message-State: AOJu0YwyBZaDPR/L0ZCb8ds/KUubuXtNMJNML4KF9dwe8kRtVdv+SWU8
+	Xq1oWAPlQ0fwrhc2PoKuLpg/wt+PlwZYqtmh8NBgsh8aABdeTou6+qobxibrd/iMO1DJEwLxieV
+	xrQc=
+X-Gm-Gg: ASbGncuQT2WEGJIie1yC/4chdbUeFa0SWot2vT5T9UecK4d9OcIbl2b+TzU7zcJTGxV
+	5z+Fz2o3/Ooh/5kpOG2GmPa85ESQC7EN6YQD/W4A0lD9W4Q63IcyUyya2Dc3mjFpijObYYywOF9
+	2KXj7IK0RT1tMwt4BecB5mgJM8engIBlB8i16+OVB4hFGh0tkX1c0ROQScaInf08ETkmQM1sq99
+	SQLYgKJIOOuD9wn2xndZ1AXu9YtDCTX/vruG5ARdNSuV3ZzgI+2cAHFTHsFkFJh9X/Ohjzg5IoH
+	KKn87IcjehFdHi4Qhde13Bf37pnm7bNglpov/xnVF6kSVYNyd8SywEJy4xLDNuVhVYEaRvQH/rn
+	e1vVgpAdCMKQAUqwOCDAsuAdSXEu7ZkF5hlwqEPX9pm84tGDaQKzGuVDvAx33z3U5Z/fK4JjQFG
+	ofbYD/nMFZ8t0lBv7KCs9oSxN2EvxXu8kTc703iZyddgxd9gBItjYQM4QE+SojULZcbpEeG+tsJ
+	7U=
+X-Google-Smtp-Source: AGHT+IHDL9SwCpdGs0R9pWmHUuTmh5iL/nwRwbvSWTTZ1aymWI0Wms1bFAmJkqvUBxdyTKcLOup+eA==
+X-Received: by 2002:a05:600c:1d1d:b0:477:7c7d:d9b7 with SMTP id 5b1f17b1804b1-477c01ec3f5mr109554725e9.33.1763996310781;
+        Mon, 24 Nov 2025 06:58:30 -0800 (PST)
+Message-ID: <f1a47000-437c-4727-a9b7-4dc9bcaf342b@suse.com>
+Date: Mon, 24 Nov 2025 15:58:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] build: add make macro for making file from file.in
-To: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v9 02/10] x86emul+VMX: support {RD,WR}MSRLIST
+From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20251121132332.23514-1-jgross@suse.com>
- <20251121132332.23514-2-jgross@suse.com>
- <d34e3e86-c51a-49b3-8b46-140526755f0f@suse.com>
- <826037a5-dacf-434f-90d9-8f12e61bdd6e@suse.com>
- <0ece9df6-8a04-4ffa-bcf4-d7a3fd4bbef4@suse.com>
- <bf7e1a66-1696-477a-bdef-79b08df0b57c@suse.com>
- <bbcaf4f2-c52e-4b3e-ab6a-ca5020a8b786@suse.com>
- <a593e8cb-fa56-4301-a7da-ca4b51dfab9a@suse.com>
- <39df58e5-6b04-45fb-bd25-8ebc8972a7ed@suse.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <926a2315-a2b7-4aad-87e6-d686c9da9e3a@suse.com>
 Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <39df58e5-6b04-45fb-bd25-8ebc8972a7ed@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------KfZZ9JXhHAtruW06WPwZqx4A"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------KfZZ9JXhHAtruW06WPwZqx4A
-Content-Type: multipart/mixed; boundary="------------h6FyQEcYkNdaApCR32iRpqQB";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Message-ID: <158df666-9359-4fe8-976b-f194a1fb317b@suse.com>
-Subject: Re: [PATCH v3 1/4] build: add make macro for making file from file.in
-References: <20251121132332.23514-1-jgross@suse.com>
- <20251121132332.23514-2-jgross@suse.com>
- <d34e3e86-c51a-49b3-8b46-140526755f0f@suse.com>
- <826037a5-dacf-434f-90d9-8f12e61bdd6e@suse.com>
- <0ece9df6-8a04-4ffa-bcf4-d7a3fd4bbef4@suse.com>
- <bf7e1a66-1696-477a-bdef-79b08df0b57c@suse.com>
- <bbcaf4f2-c52e-4b3e-ab6a-ca5020a8b786@suse.com>
- <a593e8cb-fa56-4301-a7da-ca4b51dfab9a@suse.com>
- <39df58e5-6b04-45fb-bd25-8ebc8972a7ed@suse.com>
-In-Reply-To: <39df58e5-6b04-45fb-bd25-8ebc8972a7ed@suse.com>
-Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
+Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
  7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
@@ -169,189 +105,455 @@ Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
  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
- 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
+ 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
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <926a2315-a2b7-4aad-87e6-d686c9da9e3a@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---------------h6FyQEcYkNdaApCR32iRpqQB
-Content-Type: multipart/mixed; boundary="------------nAAYj5ZWyrUZO1qvVgNZt8XL"
+These are "compound" instructions to issue a series of RDMSR / WRMSR
+respectively. In the emulator we can therefore implement them by using
+the existing msr_{read,write}() hooks. The memory accesses utilize that
+the HVM ->read() / ->write() hooks are already linear-address
+(x86_seg_none) aware (by way of hvmemul_virtual_to_linear() handling
+this case).
 
---------------nAAYj5ZWyrUZO1qvVgNZt8XL
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Preemption is being checked for in WRMSRLIST handling only, as only MSR
+writes are expected to possibly take long.
 
-T24gMjQuMTEuMjUgMTU6MzAsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNC4xMS4yMDI1
-IDEzOjQ1LCBKw7xyZ2VuIEdyb8OfIHdyb3RlOg0KPj4gT24gMjQuMTEuMjUgMTM6MTgsIEph
-biBCZXVsaWNoIHdyb3RlOg0KPj4+IE9uIDI0LjExLjIwMjUgMTI6MjcsIEp1ZXJnZW4gR3Jv
-c3Mgd3JvdGU6DQo+Pj4+IE9uIDI0LjExLjI1IDEyOjE1LCBKYW4gQmV1bGljaCB3cm90ZToN
-Cj4+Pj4+IE9uIDI0LjExLjIwMjUgMTI6MDUsIErDvHJnZW4gR3Jvw58gd3JvdGU6DQo+Pj4+
-Pj4gT24gMjQuMTEuMjUgMTE6NDEsIEphbiBCZXVsaWNoIHdyb3RlOg0KPj4+Pj4+PiBPbiAy
-MS4xMS4yMDI1IDE0OjIzLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4+Pj4+Pj4gLS0tIGEv
-Q29uZmlnLm1rDQo+Pj4+Pj4+PiArKysgYi9Db25maWcubWsNCj4+Pj4+Pj4+IEBAIC0xNTks
-NiArMTU5LDE5IEBAIGRlZmluZSBtb3ZlLWlmLWNoYW5nZWQNCj4+Pj4+Pj4+ICAgICAgCWlm
-ICEgY21wIC1zICQoMSkgJCgyKTsgdGhlbiBtdiAtZiAkKDEpICQoMik7IGVsc2Ugcm0gLWYg
-JCgxKTsgZmkNCj4+Pj4+Pj4+ICAgICAgZW5kZWYNCj4+Pj4+Pj4+ICAgICAgDQo+Pj4+Pj4+
-PiArUEFUSF9GSUxFUyA6PSBQYXRocw0KPj4+Pj4+Pj4gK0lOQ19GSUxFUyA9ICQoZm9yZWFj
-aCBmLCAkKFBBVEhfRklMRVMpLCAkKFhFTl9ST09UKS9jb25maWcvJChmKS5taykNCj4+Pj4+
-Pj4+ICsNCj4+Pj4+Pj4+ICtpbmNsdWRlICQoSU5DX0ZJTEVTKQ0KPj4+Pj4+Pj4gKw0KPj4+
-Pj4+Pj4gK0JVSUxEX01BS0VfVkFSUyA9ICQoZm9yZWFjaCBmLCAkKFBBVEhfRklMRVMpLCAk
-KHNoZWxsIGF3ayAnJCQyID09ICI6PSIgeyBwcmludCAkJDE7IH0nICQoWEVOX1JPT1QpL2Nv
-bmZpZy8kKGYpLm1rLmluKSkNCj4+Pj4+Pj4NCj4+Pj4+Pj4gRmVlbHMgbGlrZSBteSBwcmlv
-ciBjb21tZW50cyB3ZXJlbid0IHJlYWxseSBhZGRyZXNzZWQuIEkgY29udGludWUgdG8gdGhp
-bmsgdGhhdA0KPj4+Pj4+PiBub25lIG9mIHRoZSBhYm92ZSBpcyBwYXJ0IG9mIHdoYXQgdGhl
-IHN1YmplY3Qgc2F5cy4NCj4+Pj4+Pg0KPj4+Pj4+IEkgcmVhbGx5IGRvbid0IHVuZGVyc3Rh
-bmQgeW91ciBjb25jZXJuIGhlcmUuDQo+Pj4+Pj4NCj4+Pj4+PiBGb3IgcmVwbGFjaW5nIHRo
-ZSBAbWFya2Vyc0AgbWFrZSBuZWVkcyB0byBrbm93IHdoYXQgc2hvdWxkIGJlIHJlcGxhY2Vk
-Lg0KPj4+Pj4+IFNvIGl0IG5lZWRzIHRvIHNjYW4gdGhlIGZpbGVzIGNvbnRhaW5pbmcgdGhl
-IG1hcmtlcnMgYW5kIGdhdGhlciB0aGVtLg0KPj4+Pj4+IFRoaXMgaXMgd2hhdCBpcyBkb25l
-IGFib3ZlLg0KPj4+Pj4+DQo+Pj4+Pj4gSW4gdGhlIGZpbmFsIG1hY3JvIGJlbG93IHRoZSBy
-ZXBsYWNlbWVudHMgYXJlIGRvbmUgdGhlbi4gSG93IHdvdWxkIHlvdQ0KPj4+Pj4+IGhhbmRs
-ZSB0aGF0Pw0KPj4+Pj4NCj4+Pj4+IEJ5IHBhc3NpbmcgKGFub3RoZXIpIGFyZ3VtZW50IHRv
-IHRoZSBtYWNybywgZm9yIGV4YW1wbGUuIEFzIGluZGljYXRlZA0KPj4+Pj4gZWFybGllciwg
-ZGlmZmVyZW50IHN1Yi10cmVlcyBtYXkgaGF2ZSBkaWZmZXJlbnQgcGxhY2VzIHdoZXJlIHRo
-ZXNlDQo+Pj4+PiBkZWZpbml0aW9ucyBsaXZlLCBhbmQgdGhleSB3b3VsZCB3YW50IHRvIGJl
-IGFibGUgdG8gcGFzcyB0aGF0IGluDQo+Pj4+PiAoaWRlYWxseSB3aXRob3V0IG5lZWRpbmcg
-dG8gcHV0IHRoaXMgaW4gYSBjb21tb24gcGFydCBvZiB0aGUgdHJlZSkuDQo+Pj4+DQo+Pj4+
-IEkgZG9uJ3QgZ2V0IHdoYXQgeW91IHdhbnQgdG8gcGFzcyBpbiBhZGRpdGlvbmFsbHkuDQo+
-Pj4+DQo+Pj4+IEkndmUgYWxyZWFkeSBjaGFuZ2VkIHRoZSBtYWNybyBhbmQgdGhlIE1ha2Vm
-aWxlcyB0byBiZSBhYmxlIHRvIGFkZCBhbm90aGVyDQo+Pj4+IG1hcmtlciBmaWxlIHRvIHRo
-ZSBQQVRIX0ZJTEVTIHZhcmlhYmxlLiBXaGF0IGVsc2UgZG8geW91IG5lZWQ/DQo+Pj4NCj4+
-PiBXZWxsLCB0aGF0J3Mgc2ltcGx5IGFuIG9kZCB3YXkgb2YgcGFzc2luZyBhIHBhcmFtZXRl
-ci4gUGx1cywgdGhlIGV4dHJhIGZpbGUNCj4+DQo+PiBXZSBkbyB0aGF0IGFsbCB0aGUgdGlt
-ZXMsIGUuZy4gYnkgIk9CSi15ICs9IC4uLiINCj4gDQo+IFRoYXQncyBzdWZmaWNpZW50bHkg
-ZGlmZmVyZW50IHRob3VnaDogQWNjdW11bGF0aW5nIHRoZSBzZXQgb2Ygb2JqZWN0cyB0bw0K
-PiBwcm9kdWNlIGlzIGtpbmQgb2YgbmF0dXJhbGx5IGRvbmUgdGhhdCB3YXkuDQo+IA0KPj4+
-IHdvbid0IGFmZmVjdCBJTkNfRklMRVMsIG9yIG1vcmUgcHJlY2lzZWx5IGl0cyB1c2UgaW4g
-dGhlIGluY2x1ZGUgZGlyZWN0aXZlDQo+Pj4gaW4gcGF0Y2ggMTogQXQgbGVhc3QgYWl1aSwg
-JChJTkNfRklMRVMpIGlzIGV4cGFuZGVkIGF0IHRoZSBwb2ludCB3aGVuIHRoZQ0KPj4+IGRp
-cmVjdGl2ZSBpcyBwcm9jZXNzZWQuIEhlbmNlIHdoeSB5b3UgbmVlZCB0byBvcGVuLWNvZGUg
-YW5vdGhlciBpbmNsdWRlDQo+Pj4gdGhlcmUuDQo+Pg0KPj4gVGhlIElOQ19GSUxFUyB2YXJp
-YWJsZSBpcyBtb3N0bHkgbmVlZGVkIGZvciBzcGVjaWZ5aW5nIHRoZSBkZXBlbmRlbmNlIG9m
-DQo+PiB0aGUgZ2VuZXJhdGVkIGZpbGVzIG9uIHRoZSBmaWxlcyBtZW50aW9uZWQgaW4gUEFU
-SF9GSUxFUy4NCj4+DQo+PiBJdCBtaWdodCBiZSBiZXR0ZXIgdG8ganVzdCBoYXZlICItaW5j
-bHVkZSAkKFhFTl9ST09UL2NvbmZpZy9QYXRocy5tayIgaW4NCj4+IENvbmZpZy5taywgbWF0
-Y2hpbmcgdGhlIHNldHRpbmcgb2YgUEFUSF9GSUxFUyB0aGVyZS4NCj4gDQo+IExvb2tpbmcg
-YXQgdGhpcyB0aGUgM3JkIG9yIDR0aCB0aW1lIG5vdywgSSBzdGlsbCBkb24ndCBxdWl0ZSBn
-ZXQgd2h5IHRoZQ0KPiBpbmNsdWRlIGlzIG5lZWRlZCBpbiB0aGUgZmlyc3QgcGxhY2UuIFlv
-dSBkb24ndCBtZWFuIHRvIHVzZSAocmlnaHQgaGVyZSkNCj4gYW55IG9mIHRoZSBzZXR0aW5n
-cyB0aGUgZmlsZSBwcm9kdWNlcywgZG8geW91PyBSZWFsbHksIGFzIGFsc28gbWVudGlvbmVk
-DQo+IGJ5IEFuZHJldywgeW91IHJlYWxseSBjYW4ndCwgYmVjYXVzZSBpbiBhIHB1cmUgaHlw
-ZXJ2aXNvciBidWlsZCB0aGUgZmlsZQ0KPiB3b3VsZG4ndCBoYXZlIGJlZW4gbWFkZSwgYXMg
-bm8gY29uZmlndXJlIHdvdWxkIGhhdmUgcnVuLg0KPiANCj4gSWYgSSdtIG5vdCBtaXN0YWtl
-biwgeW91IHJlYWxseSBuZWVkIHRob3NlIHZhbHVlcyBvbmx5IGF0IHRoZSB0aW1lIHlvdQ0K
-PiBleGVjdXRlIHRoZSBydWxlLiBBbmQgSSdtIHdvcnJpZWQgb2YgdGhlc2UgZGVmaW5pdGlv
-bnMgdG8gY29sbGlkZSB3aXRoDQo+IHNvbWV0aGluZyBlbHNlLiBIZW5jZSBvbmUgZGVzaXJl
-IHdvdWxkIGJlIHRvIGxpbWl0IHRoZSBzY29wZSBvZiB0aGVzZQ0KPiB2YXJpYWJsZXMgdG8g
-anVzdCB0aGUgbmV3IHJ1bGUuIE1heWJlIHNvbWV0aGluZyBsaWtlDQo+IA0KPiAjIFJlcGxh
-Y2UgQHh4eEAgbWFya2VycyBpbiAkKDEpLmluIHdpdGggJCh4eHgpIHZhcmlhYmxlIGNvbnRl
-bnRzLCB3cml0ZSB0byAkKDEpDQo+IGRlZmluZSBhcHBseS1idWlsZC12YXJzDQo+ICQoMSk6
-ICQkKHNoZWxsIGdyZXAgLWggOj0gJCQod2lsZGNhcmQgJCQoSU5DX0ZJTEVTKSkgL2Rldi9u
-dWxsKQ0KPiAkKDEpOiAkKDEpLmluICQkKElOQ19GSUxFUykNCj4gCXNlZCAkJChmb3JlYWNo
-IHYsICQkKEJVSUxEX01BS0VfVkFSUyksIC1lICdzI0AkJCh2KUAjJCQoJCQodikpI2cnKSA8
-JCQ8ID4kJEANCj4gZW5kZWYNCj4gDQo+IGNvdWxkIHdvcms/IChUaGlzIGxpa2VseSBkZXBl
-bmRzIG9uIElOQ19GSUxFUyB0byBvbmx5IGxpc3QgZmlsZXMgd2hpY2gNCj4gYXJlIGNvbmZp
-Z3VyZSBnZW5lcmF0ZWQsIGkuZS4gd291bGRuJ3QgYmUgdXBkYXRlZCBieSBhIG1ha2UgcnVs
-ZS4pDQoNCkFuZCB3aG8gaXMgc2V0dGluZyBCVUlMRF9NQUtFX1ZBUlM/IFlvdSBkaWRuJ3Qg
-dGhpbmsgdGhlIHNuaXBwZXQgZG9pbmcgdGhhdA0Kc2hvdWxkIGJlIHRoZXJlLg0KDQpBbmQg
-VEJIOiBhbnkgc2V0dGluZyBmcm9tIFBhdGhzLm1rIGNvbGxpZGluZyB3aXRoIHNvbWV0aGlu
-ZyBlbHNlIHdvdWxkDQpfcmVhbGx5XyBiZSB3b3JyeWluZy4NCg0KDQpKdWVyZ2VuDQo=
---------------nAAYj5ZWyrUZO1qvVgNZt8XL
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+RFC: In vmx_vmexit_handler() handling is forwarded to the emulator
+     blindly. Alternatively we could consult the exit qualification and
+     process just a single MSR at a time (without involving the
+     emulator), exiting back to the guest after every iteration. (I
+     don't think a mix of both models makes a lot of sense.)
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+The precise behavior of MSR_BARRIER is still not spelled out in ISE 050,
+so the (minimal) implementation continues to be a guess for now.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+Wouldn't calculate_hvm_max_policy() for MPX better behave the same way
+as done here, at least from an abstract perspective (assuming that AMD
+won't add such functionality now that Intel have deprecated it)?
+---
+v8: Re-base.
+v6: Use MSR constants in test harness. Re-base.
+v5: Add missing vmx_init_vmcs_config() and construct_vmcs() adjustments.
+    Avoid unnecessary uses of r(). Re-base.
+v3: Add dependency on LM. Limit exposure to HVM. Utilize new info from
+    ISE 050. Re-base.
+v2: Use X86_EXC_*. Add preemption checking to WRMSRLIST handling. Remove
+    the feature from "max" when the VMX counterpart isn't available.
 
---------------nAAYj5ZWyrUZO1qvVgNZt8XL--
+--- a/tools/tests/x86_emulator/predicates.c
++++ b/tools/tests/x86_emulator/predicates.c
+@@ -342,6 +342,8 @@ static const struct {
+     { { 0x01, 0xc4 }, { 2, 2 }, F, N }, /* vmxoff */
+     { { 0x01, 0xc5 }, { 2, 2 }, F, N }, /* pconfig */
+     { { 0x01, 0xc6 }, { 2, 2 }, F, N }, /* wrmsrns */
++    { { 0x01, 0xc6 }, { 0, 2 }, F, W, pfx_f2 }, /* rdmsrlist */
++    { { 0x01, 0xc6 }, { 0, 2 }, F, R, pfx_f3 }, /* wrmsrlist */
+     { { 0x01, 0xc8 }, { 2, 2 }, F, N }, /* monitor */
+     { { 0x01, 0xc9 }, { 2, 2 }, F, N }, /* mwait */
+     { { 0x01, 0xca }, { 2, 2 }, F, N }, /* clac */
+--- a/tools/tests/x86_emulator/test_x86_emulator.c
++++ b/tools/tests/x86_emulator/test_x86_emulator.c
+@@ -625,7 +625,7 @@ static int write(
+     if ( verbose )
+         printf("** %s(%u, %p,, %u,)\n", __func__, seg, (void *)offset, bytes);
+ 
+-    if ( !is_x86_user_segment(seg) )
++    if ( !is_x86_user_segment(seg) && seg != x86_seg_none )
+         return X86EMUL_UNHANDLEABLE;
+     memcpy((void *)offset, p_data, bytes);
+     return X86EMUL_OKAY;
+@@ -717,6 +717,10 @@ static int read_msr(
+ {
+     switch ( reg )
+     {
++    case MSR_BARRIER:
++        *val = 0;
++        return X86EMUL_OKAY;
++
+     case MSR_EFER:
+         *val = ctxt->addr_size > 32 ? EFER_LME | EFER_LMA : 0;
+         return X86EMUL_OKAY;
+@@ -1434,9 +1438,53 @@ int main(int argc, char **argv)
+          (gs_base != 0x0000111122224444UL) ||
+          gs_base_shadow )
+         goto fail;
++    printf("okay\n");
+ 
+     cpu_policy.extd.nscb = i;
+     emulops.write_segment = NULL;
++
++    printf("%-40s", "Testing rdmsrlist...");
++    instr[0] = 0xf2; instr[1] = 0x0f; instr[2] = 0x01; instr[3] = 0xc6;
++    regs.rip = (unsigned long)&instr[0];
++    regs.rsi = (unsigned long)(res + 0x80);
++    regs.rdi = (unsigned long)(res + 0x80 + 0x40 * 2);
++    regs.rcx = 0x0002000100008000UL;
++    gs_base_shadow = 0x0000222244446666UL;
++    memset(res + 0x80, ~0, 0x40 * 8 * 2);
++    res[0x80 + 0x0f * 2] = MSR_GS_BASE;
++    res[0x80 + 0x0f * 2 + 1] = 0;
++    res[0x80 + 0x20 * 2] = MSR_SHADOW_GS_BASE;
++    res[0x80 + 0x20 * 2 + 1] = 0;
++    res[0x80 + 0x31 * 2] = MSR_BARRIER;
++    res[0x80 + 0x31 * 2 + 1] = 0;
++    rc = x86_emulate(&ctxt, &emulops);
++    if ( (rc != X86EMUL_OKAY) ||
++         (regs.rip != (unsigned long)&instr[4]) ||
++         regs.rcx ||
++         (res[0x80 + (0x40 + 0x0f) * 2] != (unsigned int)gs_base) ||
++         (res[0x80 + (0x40 + 0x0f) * 2 + 1] != (gs_base >> (8 * sizeof(int)))) ||
++         (res[0x80 + (0x40 + 0x20) * 2] != (unsigned int)gs_base_shadow) ||
++         (res[0x80 + (0x40 + 0x20) * 2 + 1] != (gs_base_shadow >> (8 * sizeof(int)))) ||
++         res[0x80 + (0x40 + 0x31) * 2] || res[0x80 + (0x40 + 0x31) * 2 + 1] )
++        goto fail;
++    printf("okay\n");
++
++    printf("%-40s", "Testing wrmsrlist...");
++    instr[0] = 0xf3; instr[1] = 0x0f; instr[2] = 0x01; instr[3] = 0xc6;
++    regs.eip = (unsigned long)&instr[0];
++    regs.rsi -= 0x11 * 8;
++    regs.rdi -= 0x11 * 8;
++    regs.rcx = 0x0002000100000000UL;
++    res[0x80 + 0x0f * 2] = MSR_SHADOW_GS_BASE;
++    res[0x80 + 0x20 * 2] = MSR_GS_BASE;
++    rc = x86_emulate(&ctxt, &emulops);
++    if ( (rc != X86EMUL_OKAY) ||
++         (regs.rip != (unsigned long)&instr[4]) ||
++         regs.rcx ||
++         (gs_base != 0x0000222244446666UL) ||
++         (gs_base_shadow != 0x0000111122224444UL) )
++        goto fail;
++
+     emulops.write_msr     = NULL;
+ #endif
+     printf("okay\n");
+--- a/tools/tests/x86_emulator/x86-emulate.c
++++ b/tools/tests/x86_emulator/x86-emulate.c
+@@ -87,6 +87,7 @@ bool emul_test_init(void)
+     cpu_policy.feat.rdpid = true;
+     cpu_policy.feat.lkgs = true;
+     cpu_policy.feat.wrmsrns = true;
++    cpu_policy.feat.msrlist = true;
+     cpu_policy.extd.clzero = true;
+ 
+     if ( cpu_has_xsave )
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -813,6 +813,9 @@ static void __init calculate_hvm_max_pol
+             __clear_bit(X86_FEATURE_XSAVES, fs);
+     }
+ 
++    if ( !cpu_has_vmx_msrlist )
++        __clear_bit(X86_FEATURE_MSRLIST, fs);
++
+     /*
+      * Xen doesn't use PKS, so the guest support for it has opted to not use
+      * the VMCS load/save controls for efficiency reasons.  This depends on
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -361,8 +361,9 @@ static int vmx_init_vmcs_config(bool bsp
+ 
+     if ( caps.cpu_based_exec_control & CPU_BASED_ACTIVATE_TERTIARY_CONTROLS )
+     {
+-        uint64_t opt = (TERTIARY_EXEC_VIRT_SPEC_CTRL |
+-                        TERTIARY_EXEC_EPT_PAGING_WRITE);
++        uint64_t opt = TERTIARY_EXEC_EPT_PAGING_WRITE |
++                       TERTIARY_EXEC_ENABLE_MSRLIST |
++                       TERTIARY_EXEC_VIRT_SPEC_CTRL;
+ 
+         caps.tertiary_exec_control = adjust_vmx_controls2(
+             "Tertiary Exec Control", 0, opt,
+@@ -1119,7 +1120,8 @@ static int construct_vmcs(struct vcpu *v
+         v->arch.hvm.vmx.exec_control |= CPU_BASED_RDTSC_EXITING;
+ 
+     v->arch.hvm.vmx.secondary_exec_control = vmx_caps.secondary_exec_control;
+-    v->arch.hvm.vmx.tertiary_exec_control  = vmx_caps.tertiary_exec_control;
++    v->arch.hvm.vmx.tertiary_exec_control  = vmx_caps.tertiary_exec_control &
++                                             ~TERTIARY_EXEC_ENABLE_MSRLIST;
+ 
+     /*
+      * Disable features which we don't want active by default:
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -891,6 +891,20 @@ static void cf_check vmx_cpuid_policy_ch
+     else
+         vmx_set_msr_intercept(v, MSR_PKRS, VMX_MSR_RW);
+ 
++    if ( cp->feat.msrlist )
++    {
++        vmx_clear_msr_intercept(v, MSR_BARRIER, VMX_MSR_RW);
++        v->arch.hvm.vmx.tertiary_exec_control |= TERTIARY_EXEC_ENABLE_MSRLIST;
++        vmx_update_tertiary_exec_control(v);
++    }
++    else if ( v->arch.hvm.vmx.tertiary_exec_control &
++              TERTIARY_EXEC_ENABLE_MSRLIST )
++    {
++        vmx_set_msr_intercept(v, MSR_BARRIER, VMX_MSR_RW);
++        v->arch.hvm.vmx.tertiary_exec_control &= ~TERTIARY_EXEC_ENABLE_MSRLIST;
++        vmx_update_tertiary_exec_control(v);
++    }
++
+  out:
+     vmx_vmcs_exit(v);
+ 
+@@ -3897,6 +3911,22 @@ gp_fault:
+     return X86EMUL_EXCEPTION;
+ }
+ 
++static bool cf_check is_msrlist(
++    const struct x86_emulate_state *state, const struct x86_emulate_ctxt *ctxt)
++{
++
++    if ( ctxt->opcode == X86EMUL_OPC(0x0f, 0x01) )
++    {
++        unsigned int rm, reg;
++        int mode = x86_insn_modrm(state, &rm, &reg);
++
++        /* This also includes WRMSRNS; should be okay. */
++        return mode == 3 && rm == 6 && !reg;
++    }
++
++    return false;
++}
++
+ static void vmx_do_extint(struct cpu_user_regs *regs)
+ {
+     unsigned long vector;
+@@ -4704,6 +4734,17 @@ void asmlinkage vmx_vmexit_handler(struc
+         }
+         break;
+ 
++    case EXIT_REASON_RDMSRLIST:
++    case EXIT_REASON_WRMSRLIST:
++        if ( vmx_guest_x86_mode(v) != 8 || !currd->arch.cpuid->feat.msrlist )
++        {
++            ASSERT_UNREACHABLE();
++            hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
++        }
++        else if ( !hvm_emulate_one_insn(is_msrlist, "MSR list") )
++            hvm_inject_hw_exception(X86_EXC_GP, 0);
++        break;
++
+     case EXIT_REASON_VMXOFF:
+     case EXIT_REASON_VMXON:
+     case EXIT_REASON_VMCLEAR:
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+@@ -275,8 +275,13 @@ void vmx_vmcs_reload(struct vcpu *v);
+ #define TERTIARY_EXEC_EPT_PAGING_WRITE          BIT(2, UL)
+ #define TERTIARY_EXEC_GUEST_PAGING_VERIFY       BIT(3, UL)
+ #define TERTIARY_EXEC_IPI_VIRT                  BIT(4, UL)
++#define TERTIARY_EXEC_ENABLE_MSRLIST            BIT(6, UL)
+ #define TERTIARY_EXEC_VIRT_SPEC_CTRL            BIT(7, UL)
+ 
++#define cpu_has_vmx_msrlist \
++    (IS_ENABLED(CONFIG_INTEL_VMX) && \
++     (vmx_caps.tertiary_exec_control & TERTIARY_EXEC_ENABLE_MSRLIST))
++
+ #define cpu_has_vmx_virt_spec_ctrl \
+      (vmx_caps.tertiary_exec_control & TERTIARY_EXEC_VIRT_SPEC_CTRL)
+ 
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+@@ -201,6 +201,8 @@ static inline void pi_clear_sn(struct pi
+ #define EXIT_REASON_XRSTORS             64
+ #define EXIT_REASON_BUS_LOCK            74
+ #define EXIT_REASON_NOTIFY              75
++#define EXIT_REASON_RDMSRLIST           78
++#define EXIT_REASON_WRMSRLIST           79
+ /* Remember to also update VMX_PERF_EXIT_REASON_SIZE! */
+ 
+ /*
+--- a/xen/arch/x86/include/asm/msr-index.h
++++ b/xen/arch/x86/include/asm/msr-index.h
+@@ -24,6 +24,8 @@
+ #define  APIC_BASE_ENABLE                   (_AC(1, ULL) << 11)
+ #define  APIC_BASE_ADDR_MASK                _AC(0x000ffffffffff000, ULL)
+ 
++#define MSR_BARRIER                         0x0000002f
++
+ #define MSR_TEST_CTRL                       0x00000033
+ #define  TEST_CTRL_SPLITLOCK_DETECT         (_AC(1, ULL) << 29)
+ #define  TEST_CTRL_SPLITLOCK_DISABLE        (_AC(1, ULL) << 31)
+--- a/xen/arch/x86/include/asm/perfc_defn.h
++++ b/xen/arch/x86/include/asm/perfc_defn.h
+@@ -6,7 +6,7 @@ PERFCOUNTER_ARRAY(exceptions,
+ 
+ #ifdef CONFIG_HVM
+ 
+-#define VMX_PERF_EXIT_REASON_SIZE 76
++#define VMX_PERF_EXIT_REASON_SIZE 80
+ #define VMEXIT_NPF_PERFC 143
+ #define SVM_PERF_EXIT_REASON_SIZE (VMEXIT_NPF_PERFC + 1)
+ PERFCOUNTER_ARRAY(vmexits,              "vmexits",
+--- a/xen/arch/x86/msr.c
++++ b/xen/arch/x86/msr.c
+@@ -148,6 +148,12 @@ int guest_rdmsr(struct vcpu *v, uint32_t
+     case MSR_AMD_PPIN:
+         goto gp_fault;
+ 
++    case MSR_BARRIER:
++        if ( !cp->feat.msrlist )
++            goto gp_fault;
++        *val = 0;
++        break;
++
+     case MSR_IA32_FEATURE_CONTROL:
+         /*
+          * Architecturally, availability of this MSR is enumerated by the
+@@ -429,6 +435,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t
+         uint64_t rsvd;
+ 
+         /* Read-only */
++    case MSR_BARRIER:
+     case MSR_IA32_PLATFORM_ID:
+     case MSR_CORE_CAPABILITIES:
+     case MSR_INTEL_CORE_THREAD_COUNT:
+--- a/xen/arch/x86/x86_emulate/0f01.c
++++ b/xen/arch/x86/x86_emulate/0f01.c
+@@ -11,6 +11,7 @@
+ #include "private.h"
+ 
+ #ifdef __XEN__
++#include <xen/event.h>
+ #include <asm/prot-key.h>
+ #endif
+ 
+@@ -28,6 +29,7 @@ int x86emul_0f01(struct x86_emulate_stat
+     switch ( s->modrm )
+     {
+         unsigned long base, limit, cr0, cr0w, cr4;
++        unsigned int n;
+         struct segment_register sreg;
+         uint64_t msr_val;
+ 
+@@ -42,6 +44,64 @@ int x86emul_0f01(struct x86_emulate_stat
+                                 ((uint64_t)regs->r(dx) << 32) | regs->eax,
+                                 ctxt);
+             goto done;
++
++        case vex_f3: /* wrmsrlist */
++            vcpu_must_have(msrlist);
++            generate_exception_if(!mode_64bit(), X86_EXC_UD);
++            generate_exception_if(!mode_ring0() || (regs->esi & 7) ||
++                                  (regs->edi & 7),
++                                  X86_EXC_GP, 0);
++            fail_if(!ops->write_msr);
++            while ( regs->r(cx) )
++            {
++                n = __builtin_ffsl(regs->r(cx)) - 1;
++                if ( (rc = ops->read(x86_seg_none, regs->r(si) + n * 8,
++                                     &msr_val, 8, ctxt)) != X86EMUL_OKAY )
++                    break;
++                generate_exception_if(msr_val != (uint32_t)msr_val,
++                                      X86_EXC_GP, 0);
++                base = msr_val;
++                if ( (rc = ops->read(x86_seg_none, regs->r(di) + n * 8,
++                                     &msr_val, 8, ctxt)) != X86EMUL_OKAY ||
++                     (rc = ops->write_msr(base, msr_val, ctxt)) != X86EMUL_OKAY )
++                    break;
++                regs->r(cx) &= ~(1UL << n);
++
++#ifdef __XEN__
++                if ( regs->r(cx) && local_events_need_delivery() )
++                {
++                    rc = X86EMUL_RETRY;
++                    break;
++                }
++#endif
++            }
++            goto done;
++
++        case vex_f2: /* rdmsrlist */
++            vcpu_must_have(msrlist);
++            generate_exception_if(!mode_64bit(), X86_EXC_UD);
++            generate_exception_if(!mode_ring0() || (regs->esi & 7) ||
++                                  (regs->edi & 7),
++                                  X86_EXC_GP, 0);
++            fail_if(!ops->read_msr || !ops->write);
++            while ( regs->r(cx) )
++            {
++                n = __builtin_ffsl(regs->r(cx)) - 1;
++                if ( (rc = ops->read(x86_seg_none, regs->r(si) + n * 8,
++                                     &msr_val, 8, ctxt)) != X86EMUL_OKAY )
++                    break;
++                generate_exception_if(msr_val != (uint32_t)msr_val,
++                                      X86_EXC_GP, 0);
++                if ( (rc = ops->read_msr(msr_val, &msr_val,
++                                         ctxt)) != X86EMUL_OKAY ||
++                     (rc = ops->write(x86_seg_none, regs->r(di) + n * 8,
++                                      &msr_val, 8, ctxt)) != X86EMUL_OKAY )
++                    break;
++                regs->r(cx) &= ~(1UL << n);
++            }
++            if ( rc != X86EMUL_OKAY )
++                ctxt->regs->r(cx) = regs->r(cx);
++            goto done;
+         }
+         generate_exception(X86_EXC_UD);
+ 
+--- a/xen/arch/x86/x86_emulate/private.h
++++ b/xen/arch/x86/x86_emulate/private.h
+@@ -611,6 +611,7 @@ amd_like(const struct x86_emulate_ctxt *
+ #define vcpu_has_lkgs()        (ctxt->cpuid->feat.lkgs)
+ #define vcpu_has_wrmsrns()     (ctxt->cpuid->feat.wrmsrns)
+ #define vcpu_has_avx_ifma()    (ctxt->cpuid->feat.avx_ifma)
++#define vcpu_has_msrlist()     (ctxt->cpuid->feat.msrlist)
+ #define vcpu_has_avx_vnni_int8() (ctxt->cpuid->feat.avx_vnni_int8)
+ #define vcpu_has_avx_ne_convert() (ctxt->cpuid->feat.avx_ne_convert)
+ #define vcpu_has_avx_vnni_int16() (ctxt->cpuid->feat.avx_vnni_int16)
+--- a/xen/arch/x86/x86_emulate/util.c
++++ b/xen/arch/x86/x86_emulate/util.c
+@@ -100,6 +100,9 @@ bool cf_check x86_insn_is_mem_access(con
+         break;
+ 
+     case X86EMUL_OPC(0x0f, 0x01):
++        /* {RD,WR}MSRLIST */
++        if ( mode_64bit() && s->modrm == 0xc6 )
++            return s->vex.pfx >= vex_f3;
+         /* Cover CLZERO. */
+         return (s->modrm_rm & 7) == 4 && (s->modrm_reg & 7) == 7;
+     }
+@@ -160,7 +163,11 @@ bool cf_check x86_insn_is_mem_write(cons
+         case 0xff: /* Grp5 */
+             break;
+ 
+-        case X86EMUL_OPC(0x0f, 0x01): /* CLZERO is the odd one. */
++        case X86EMUL_OPC(0x0f, 0x01):
++            /* RDMSRLIST */
++            if ( mode_64bit() && s->modrm == 0xc6 )
++                return s->vex.pfx == vex_f2;
++            /* CLZERO is another odd one. */
+             return (s->modrm_rm & 7) == 4 && (s->modrm_reg & 7) == 7;
+ 
+         default:
+--- a/xen/tools/gen-cpuid.py
++++ b/xen/tools/gen-cpuid.py
+@@ -283,7 +283,7 @@ def crunch_numbers(state):
+         # NO_LMSL indicates the absense of Long Mode Segment Limits, which
+         # have been dropped in hardware.
+         LM: [CX16, PCID, LAHF_LM, PAGE1GB, PKU, NO_LMSL, AMX_TILE, CMPCCXADD,
+-             LKGS],
++             LKGS, MSRLIST],
+ 
+         # AMD K6-2+ and K6-III processors shipped with 3DNow+, beyond the
+         # standard 3DNow in the earlier K6 processors.
 
---------------h6FyQEcYkNdaApCR32iRpqQB--
-
---------------KfZZ9JXhHAtruW06WPwZqx4A
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmkkcpIFAwAAAAAACgkQsN6d1ii/Ey/P
-IQgAmYwCahGNGk700O6IbJK+jXQzsY2iSGHqiRdF7hOlpqeZLZDbZWQlhZHWR3apCJdLH0AK8NOP
-RvtI7eHvkUlQTCZxEIgDunWYPb8U+6opjpOAYFEZzKk+LSpM8lo6fTBOuJhl8cksbOu++sTah7bO
-VSrhU8s0/Wtbuh3ZBDcnZ1ga1Vpr7e2KLESfHpajmhOsZydgRhGs1wnNgsPT42H5q/PP4lx/kPuk
-yfLgnDsEddBpcHO940FnGkZnUSw1eZYlcX0Ugp8rY08mPRL4pboerjwsifEi9soEdkSXgfy6qLJL
-KyOzPa0yIorxK7VemSKtKmVgrNqg0s2HNZkviaUXog==
-=bqS3
------END PGP SIGNATURE-----
-
---------------KfZZ9JXhHAtruW06WPwZqx4A--
 
