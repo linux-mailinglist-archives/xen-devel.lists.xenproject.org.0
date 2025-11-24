@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27992C80123
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 12:05:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170287.1495352 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66CF2C80126
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 12:05:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170289.1495362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNUNa-0000qq-1T; Mon, 24 Nov 2025 11:05:10 +0000
+	id 1vNUNq-0001Ad-9o; Mon, 24 Nov 2025 11:05:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170287.1495352; Mon, 24 Nov 2025 11:05:10 +0000
+Received: by outflank-mailman (output) from mailman id 1170289.1495362; Mon, 24 Nov 2025 11:05:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNUNZ-0000od-UI; Mon, 24 Nov 2025 11:05:09 +0000
-Received: by outflank-mailman (input) for mailman id 1170287;
- Mon, 24 Nov 2025 11:05:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qo8f=6A=gmail.com=samaan.dehghan@srs-se1.protection.inumbo.net>)
- id 1vNUNZ-0000oX-Bn
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 11:05:09 +0000
-Received: from mail-qv1-xf29.google.com (mail-qv1-xf29.google.com
- [2607:f8b0:4864:20::f29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6fcc9e2f-c925-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 12:05:08 +0100 (CET)
-Received: by mail-qv1-xf29.google.com with SMTP id
- 6a1803df08f44-88267973e5cso25609586d6.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 03:05:08 -0800 (PST)
-Received: from localhost.localdomain
- (host-154-4.mdu.ilcmifre.champaign.il.us.clients.pavlovmedia.net.
- [66.253.154.4]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8846e59ec1dsm98274406d6.50.2025.11.24.03.05.05
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 24 Nov 2025 03:05:05 -0800 (PST)
+	id 1vNUNq-00018w-5r; Mon, 24 Nov 2025 11:05:26 +0000
+Received: by outflank-mailman (input) for mailman id 1170289;
+ Mon, 24 Nov 2025 11:05:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fNsn=6A=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1vNUNo-000142-OW
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 11:05:24 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 78bb90f9-c925-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 12:05:22 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-64198771a9bso7344982a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 03:05:22 -0800 (PST)
+Received: from ?IPV6:2003:e5:871a:de00:dd24:7204:f00a:bf44?
+ (p200300e5871ade00dd247204f00abf44.dip0.t-ipconnect.de.
+ [2003:e5:871a:de00:dd24:7204:f00a:bf44])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-64536442993sm12335989a12.27.2025.11.24.03.05.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Nov 2025 03:05:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,193 +47,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6fcc9e2f-c925-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 78bb90f9-c925-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763982307; x=1764587107; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8iUhRz6kyEhDHWy8rKX7at4d36jRoTEsdUQgnZ9zc8s=;
-        b=TinVxy3OYyFoJhEnGsyqj6rPc9p0h1oIn9z1JFGq3hFh1Cm0G169Z7Vgdl2wC5DEZy
-         L083Idx6LPMmlTtf7/6G7VjlmAx3G6l+vbx/N1keZAvZQ2tDWxpjKF4TdQf0tsMIVWfE
-         QVFQpL8Mp7LvICrnz7Gv/2YsVwv2He0RY/oVXxiI5ivQbzejXtQheZMMM2bcpw3oDp5o
-         swJN18grl/ktY1OAfIzhScoYeWr0e11iX/z5FY4FuiR7YRBJQbtKt3hEAcpOct/wRDFF
-         jVXB2fDU5UrEUdn/6UWi7SXj1W7mmQ6baD4DuFhUSmA5Y7bpKC8ISA8jAmDsZFO2VHrS
-         ieAQ==
+        d=suse.com; s=google; t=1763982322; x=1764587122; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=pxQ5a4aTYbkKnAIZwzUDrthL/kvbIywDORrGo/Jbw4s=;
+        b=e0AggBJlEgO/2xkYgz5z6ndJqlRxXI1xq1ArZ7yJCj1F0Tsd5wD65r3VfrLAoV6s84
+         NKqGGmELwhIM58i1v+QaT4y5xJGTaxs2vpYWe8naFImG6FsjbLUdOY+Px94Gu/t572dq
+         1K89Xgq//k7JdHzedV+EEcgARx34oqdHGidXXCfuWYXuk9jCUgbaKQTBArN1QlZXglak
+         DdTYsmfsIdrE72IHgvfqZRM15sz8xuUoXxZ+sB3mdTNPyRwdP2dRwjuAvgkTMcxC/PjY
+         Zhki/8O+RDekQnWyfgf5qRLH8LYMjat6VytT8r1fZlJqFz+l3HSayImSP6ixS+53+9ck
+         IVDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763982307; x=1764587107;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=8iUhRz6kyEhDHWy8rKX7at4d36jRoTEsdUQgnZ9zc8s=;
-        b=Eo5sv3n3hgbf3aDAEwDsI2FU9L2EKH6DNw5csEQ27XEna1qCYjh58MwXZeYUPJCjI0
-         m99v3fup33TrUi+5kAeEyt95nWgEF0od3Cpz8zEc4frZGVBtcCYc3bWkJFah8/Yn5RZK
-         dVEmb4dVD8ywz93kpu4EKAOG2gzYjVhzUYiRcMlb8u4u8bNX15mUe0OmokYhuQgSGNSH
-         3JgDQyzJS8ywOTgMZ3ze6TcAUpwLcfU+mwn5D0aoEMh+NsVzXHFEpm7RvOaHKb8p/3m7
-         Z70ZTAisFAFBDTVKF8nT8j+SQEKCLB8JiHEOhW/jX0e+hmmy3CSANumZLB0y4zNrJ1ha
-         PPPw==
-X-Gm-Message-State: AOJu0YzlqJBJSjb4EFex83HceBRVh5Ij6xdFjIzl/80CkPg0wKqznzVT
-	Fxug5kDlGTjXvlpdy/gVWMDRq6/bE1N6tHqHIKAF+hgulmvRPiTDyPtClz+5bLs=
-X-Gm-Gg: ASbGncv2JqDtdvVXjmbdfVdkcWlE5+cOGmlD94DixpxL2oAfDg6b5fcMJpGcesrvht7
-	v558FPHKbvlDYPqi5CIJ9CyYnDUdgLftlETDA/fYf7N0H6cuxRhWN1e/s+VEJGqpb1Zcj3lV4Uu
-	sWYafmDQ7iRSUm5du97iUtZFES8vuADKhkH8Hh8FHgCpvxMlZJb1Ml7bvl7kFpbhbwkfGtbVap0
-	IgdT4vHS/o9OgoDcmB13zDd3NbIQHstzE+Aee/bK62fnVXQ55LMhLjqmd8UwrYKUVb+G2uT3MtO
-	4sdDsgR0mKSaQya8aHLkel8y43vlRqng2SldvWVgtfEO9RmhKZ8p7pj5vtoGGgCRCJMC7T3v2UA
-	KC61cjruE0tJvq2JUKkaAMnsWf41ivjSKs6hRTRWusTc3bbz2MRhABklp9e/96f5nupouYKiBwI
-	UvCyJiRcDod1oAG0cf3a75hvf3EmIQXm81VZSDhEAIBxdB7lRrWeD0zZ/frG9runJ/HSUWcqP2l
-	GBWT7ZnEjd4VwRUJQMWR3e3p9voFTM8MI7zgLSpLxd8OrEhT0+gAI0T/X4kVJP7g1RHW0MXJQ==
-X-Google-Smtp-Source: AGHT+IE7MrZHK8YEhAEADYExyNGl8yaoS9nYcML9avP0sv0QXWPR7h72lv2KyDlL84ZwOiQaghUaFw==
-X-Received: by 2002:a05:6214:40a:b0:880:53da:fcbc with SMTP id 6a1803df08f44-8847c4d2a76mr151890156d6.7.1763982306504;
-        Mon, 24 Nov 2025 03:05:06 -0800 (PST)
-From: Saman Dehghan <samaan.dehghan@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2] XEN: enable MC/DC coverage for Clang
-Date: Mon, 24 Nov 2025 05:04:34 -0600
-Message-ID: <52b0762ac4b5535a842a530365a75bdc81a5fe61.1763981619.git.samaan.dehghan@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <3bb418ae6a36a9ac89c697a417fa0745fa9ac702.1763949990.git.samaan.dehghan@gmail.com>
-References: <3bb418ae6a36a9ac89c697a417fa0745fa9ac702.1763949990.git.samaan.dehghan@gmail.com>
+        d=1e100.net; s=20230601; t=1763982322; x=1764587122;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=pxQ5a4aTYbkKnAIZwzUDrthL/kvbIywDORrGo/Jbw4s=;
+        b=U9ZV79nqc3dHTlVOBoSuus2oaCjN/Fojo02LyRHrA936pDVC5isCw5nkHycgyLUPlE
+         dHoBtP8aitC1DX+kBn3o4f4KjubB2DhgcbWWHm8MCGAHaeHidRYeUduL4y2a2LD645bJ
+         NnaowMC5TRG/xi0hL4zpNLXrOCeYBH9RXFz+2LbeZOFd+ZLcGo27b0y5wkvIHgiNKfjB
+         8HMgVdbO5tgPhhJPPA9xC+nnRlh3pghQsNe4ajTUGOYlsr6/Urwg3IuvPY/3GCH/Iwfv
+         XP0QCgHP36N4DEG6jCehjVpmX+1tmjVxf2tiG1eRdrfB4JCqglMwYNPM01xhr9HUxkQ6
+         uvHw==
+X-Forwarded-Encrypted: i=1; AJvYcCVix5ljYF2v2X6uz8Jh5OSHk0a7HN4pWYAgeo0cjv76qeT3q8aOfZGp2rXESBqwkbuBnGeUY+jS0lg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwUeu3U7qQKmqDajJFycWcgdNHG7wNpCvOwydEK1kjvx8GajPNj
+	iUmN0Vi4Ia4cvRaiYNmdJQQ+o5KHrGvL43hlMJmcp75o8oy0sNyvBsXmWmxewy03BA+wnWZIt8k
+	1Pnqtxig=
+X-Gm-Gg: ASbGncsl5KjU4ofYcfHmIxRAJCoSdb/K8IguZv9gb6mFAROHM+ISu91cAfHh6jsN13o
+	jF9IUjaSE+pwRygHqfP/x8nlYFpUkWMVdSKJRnx1sEkU8qS0J2sO+5MTTy2p4VvbCuOe1T0H1is
+	+fHrGimnjIyh3AZ2lhY5GUXuL2ZA3CUiFp5v4SNRCDPlQB/YDIs6O9kNha8ouQCGkALB+ipDn5I
+	Kjvdhl78F+7mf3BMAf2hVAHKbBrepKajGTSIK9JPAfC6XvRjbopGyO5km+hdmktx/jiGbDqGAXe
+	VU/nw0WkC6USFxy3AWMAPdtkm7YqtZztA8cQrw+3Gtj4m3ik9E80bYITL08aN3TXW/FWMW/v+Dx
+	5IFSnouTVlZQyfo2JmdpB7/N84HhdICvx5P484xGg04KQssBVoKTEqlUTdpligbr4VpjJya4vki
+	cg5KWIfVwLSdMQjj1Sy+oqSTXj28GDKpczI5lWqLdMAr6XX7k8OS3U8d+KBRZgQwuV1O5eSV2vE
+	jOx5RtI38tF9DB2XSUoe5FhURfVjSRVJEGpaUs=
+X-Google-Smtp-Source: AGHT+IEct/5lurO8jyhrCUtHAdby6h1EaMIZcmpU0nrjAYLT/m+oN3L3JOILjtTTbDAknB8X5atvaA==
+X-Received: by 2002:a05:6402:210d:b0:640:ebca:e682 with SMTP id 4fb4d7f45d1cf-64554674c2bmr8880510a12.21.1763982321861;
+        Mon, 24 Nov 2025 03:05:21 -0800 (PST)
+Message-ID: <826037a5-dacf-434f-90d9-8f12e61bdd6e@suse.com>
+Date: Mon, 24 Nov 2025 12:05:20 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] build: add make macro for making file from file.in
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20251121132332.23514-1-jgross@suse.com>
+ <20251121132332.23514-2-jgross@suse.com>
+ <d34e3e86-c51a-49b3-8b46-140526755f0f@suse.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <d34e3e86-c51a-49b3-8b46-140526755f0f@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------nOmVo6TWtXlwubB0TlRpZT2N"
 
-Clang >= 18 supports Modified Condition/Decision Coverage (MC/DC).
-This patch enables the detection and usage of this feature when
-compiling Xen with Clang.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------nOmVo6TWtXlwubB0TlRpZT2N
+Content-Type: multipart/mixed; boundary="------------nwJd9KJEVi6CYgfZNLrJquar";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Message-ID: <826037a5-dacf-434f-90d9-8f12e61bdd6e@suse.com>
+Subject: Re: [PATCH v3 1/4] build: add make macro for making file from file.in
+References: <20251121132332.23514-1-jgross@suse.com>
+ <20251121132332.23514-2-jgross@suse.com>
+ <d34e3e86-c51a-49b3-8b46-140526755f0f@suse.com>
+In-Reply-To: <d34e3e86-c51a-49b3-8b46-140526755f0f@suse.com>
+Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
+ ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
+ Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
+ pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
+ tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
+ OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
+ v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
+ 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
+ jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
+ DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
+ Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
+ dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
+ AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
 
-- Update detection logic in Kconfig to check for the required set of
-  Clang flags for MC/DC:
-  '-fprofile-instr-generate -fcoverage-mapping -fcoverage-mcdc'.
-  This bundle is necessary because '-fcoverage-mcdc' requires
-  '-fcoverage-mapping', which in turn requires '-fprofile-instr-generate'.
-- Update llvm.c to handle the profile format changes (bitmap section)
-  required for MC/DC.
-- Guard -Wno-error=coverage-too-many-conditions with CONFIG_CC_IS_GCC
-  to avoid passing a GCC-only warning option to Clang
+--------------nwJd9KJEVi6CYgfZNLrJquar
+Content-Type: multipart/mixed; boundary="------------gxZo00q2qAhI0I3jPIOnAxSr"
 
-Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
----
- xen/Kconfig                |  2 +-
- xen/Rules.mk               |  1 +
- xen/arch/x86/Makefile      |  2 +-
- xen/common/coverage/llvm.c | 24 +++++++++++++++++++++++-
- 4 files changed, 26 insertions(+), 3 deletions(-)
+--------------gxZo00q2qAhI0I3jPIOnAxSr
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-diff --git a/xen/Kconfig b/xen/Kconfig
-index a5e5af3b76..5508993f02 100644
---- a/xen/Kconfig
-+++ b/xen/Kconfig
-@@ -53,7 +53,7 @@ config CC_HAS_ASM_GOTO_OUTPUT
- 
- # Compiler supports -fcondition-coverage aka MC/DC
- config CC_HAS_MCDC
--	def_bool $(cc-option,-fcondition-coverage)
-+	def_bool $(cc-option,-fcondition-coverage) || $(cc-option,-fprofile-instr-generate -fcoverage-mapping -fcoverage-mcdc)
- 
- # Set code alignment.
- #
-diff --git a/xen/Rules.mk b/xen/Rules.mk
-index 24f447b957..57ea664f02 100644
---- a/xen/Rules.mk
-+++ b/xen/Rules.mk
-@@ -136,6 +136,7 @@ non-init-objects = $(filter-out %.init.o, $(obj-y) $(obj-bin-y) $(extra-y))
- 
- ifeq ($(CONFIG_CC_IS_CLANG),y)
-     cov-cflags-$(CONFIG_COVERAGE) := -fprofile-instr-generate -fcoverage-mapping
-+    cov-cflags-$(CONFIG_CONDITION_COVERAGE) +=  -fcoverage-mcdc
- else
-     cov-cflags-$(CONFIG_COVERAGE) := -fprofile-arcs -ftest-coverage
-     cov-cflags-$(CONFIG_CONDITION_COVERAGE) += -fcondition-coverage
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index 407571c510..6c0ff67fa8 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -98,7 +98,7 @@ $(obj)/usercopy.o: CFLAGS-y += -iquote .
- ifneq ($(CONFIG_HVM),y)
- $(obj)/x86_emulate.o: CFLAGS-y += -Wno-unused-label
- endif
--ifeq ($(CONFIG_CONDITION_COVERAGE),y)
-+ifeq ($(CONFIG_CONDITION_COVERAGE)$(CONFIG_CC_IS_GCC),yy)
- $(obj)/x86_emulate.o: CFLAGS-y += -Wno-error=coverage-too-many-conditions
- endif
- 
-diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
-index 532889c857..a8c7e7e8d2 100644
---- a/xen/common/coverage/llvm.c
-+++ b/xen/common/coverage/llvm.c
-@@ -120,6 +120,10 @@ extern const char __start___llvm_prf_names[];
- extern const char __stop___llvm_prf_names[];
- extern uint64_t __start___llvm_prf_cnts[];
- extern uint64_t __stop___llvm_prf_cnts[];
-+#ifdef CONFIG_CONDITION_COVERAGE
-+extern const char __start___llvm_prf_bits[];
-+extern const char __stop___llvm_prf_bits[];
-+#endif
- 
- #define START_DATA      ((const void *)__start___llvm_prf_data)
- #define END_DATA        ((const void *)__stop___llvm_prf_data)
-@@ -127,16 +131,25 @@ extern uint64_t __stop___llvm_prf_cnts[];
- #define END_NAMES       ((const void *)__stop___llvm_prf_names)
- #define START_COUNTERS  ((void *)__start___llvm_prf_cnts)
- #define END_COUNTERS    ((void *)__stop___llvm_prf_cnts)
-+#define START_BITMAP    ((void *)__start___llvm_prf_bits)
-+#define END_BITMAP      ((void *)__stop___llvm_prf_bits)
- 
- static void cf_check reset_counters(void)
- {
-     memset(START_COUNTERS, 0, END_COUNTERS - START_COUNTERS);
-+#ifdef CONFIG_CONDITION_COVERAGE
-+    memset(START_BITMAP, 0, END_BITMAP - START_BITMAP);
-+#endif
- }
- 
- static uint32_t cf_check get_size(void)
- {
--    return ROUNDUP(sizeof(struct llvm_profile_header) + END_DATA - START_DATA +
-+    uint32_t size = ROUNDUP(sizeof(struct llvm_profile_header) + END_DATA - START_DATA +
-                    END_COUNTERS - START_COUNTERS + END_NAMES - START_NAMES, 8);
-+#ifdef CONFIG_CONDITION_COVERAGE
-+    size += ROUNDUP(END_BITMAP - START_BITMAP, 8);
-+#endif
-+    return size;
- }
- 
- static int cf_check dump(
-@@ -147,11 +160,17 @@ static int cf_check dump(
-         .version = LLVM_PROFILE_VERSION,
-         .num_data = DIV_ROUND_UP(END_DATA - START_DATA, sizeof(struct llvm_profile_data)),
-         .num_counters = DIV_ROUND_UP(END_COUNTERS - START_COUNTERS, sizeof(uint64_t)),
-+#if defined(CONFIG_CONDITION_COVERAGE) && LLVM_PROFILE_VERSION >= 9
-+        .num_bitmap_bytes = END_BITMAP - START_BITMAP,
-+#endif
-         .names_size = END_NAMES - START_NAMES,
- #if LLVM_PROFILE_VERSION >= 8
-         .counters_delta = START_COUNTERS - START_DATA,
- #else
-         .counters_delta = (uintptr_t)START_COUNTERS,
-+#endif
-+#if defined(CONFIG_CONDITION_COVERAGE) && LLVM_PROFILE_VERSION >= 9
-+        .bitmap_delta = START_BITMAP - START_DATA,
- #endif
-         .names_delta = (uintptr_t)START_NAMES,
-         .value_kind_last = LLVM_PROFILE_NUM_KINDS - 1,
-@@ -168,6 +187,9 @@ static int cf_check dump(
-     APPEND_TO_BUFFER(&header, sizeof(header));
-     APPEND_TO_BUFFER(START_DATA, END_DATA - START_DATA);
-     APPEND_TO_BUFFER(START_COUNTERS, END_COUNTERS - START_COUNTERS);
-+#if defined(CONFIG_CONDITION_COVERAGE)
-+    APPEND_TO_BUFFER(START_BITMAP, END_BITMAP - START_BITMAP);
-+#endif
-     APPEND_TO_BUFFER(START_NAMES, END_NAMES - START_NAMES);
- #undef APPEND_TO_BUFFER
- 
--- 
-2.49.0
+T24gMjQuMTEuMjUgMTE6NDEsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyMS4xMS4yMDI1
+IDE0OjIzLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gLS0tIGEvQ29uZmlnLm1rDQo+PiAr
+KysgYi9Db25maWcubWsNCj4+IEBAIC0xNTksNiArMTU5LDE5IEBAIGRlZmluZSBtb3ZlLWlm
+LWNoYW5nZWQNCj4+ICAgCWlmICEgY21wIC1zICQoMSkgJCgyKTsgdGhlbiBtdiAtZiAkKDEp
+ICQoMik7IGVsc2Ugcm0gLWYgJCgxKTsgZmkNCj4+ICAgZW5kZWYNCj4+ICAgDQo+PiArUEFU
+SF9GSUxFUyA6PSBQYXRocw0KPj4gK0lOQ19GSUxFUyA9ICQoZm9yZWFjaCBmLCAkKFBBVEhf
+RklMRVMpLCAkKFhFTl9ST09UKS9jb25maWcvJChmKS5taykNCj4+ICsNCj4+ICtpbmNsdWRl
+ICQoSU5DX0ZJTEVTKQ0KPj4gKw0KPj4gK0JVSUxEX01BS0VfVkFSUyA9ICQoZm9yZWFjaCBm
+LCAkKFBBVEhfRklMRVMpLCAkKHNoZWxsIGF3ayAnJCQyID09ICI6PSIgeyBwcmludCAkJDE7
+IH0nICQoWEVOX1JPT1QpL2NvbmZpZy8kKGYpLm1rLmluKSkNCj4gDQo+IEZlZWxzIGxpa2Ug
+bXkgcHJpb3IgY29tbWVudHMgd2VyZW4ndCByZWFsbHkgYWRkcmVzc2VkLiBJIGNvbnRpbnVl
+IHRvIHRoaW5rIHRoYXQNCj4gbm9uZSBvZiB0aGUgYWJvdmUgaXMgcGFydCBvZiB3aGF0IHRo
+ZSBzdWJqZWN0IHNheXMuDQoNCkkgcmVhbGx5IGRvbid0IHVuZGVyc3RhbmQgeW91ciBjb25j
+ZXJuIGhlcmUuDQoNCkZvciByZXBsYWNpbmcgdGhlIEBtYXJrZXJzQCBtYWtlIG5lZWRzIHRv
+IGtub3cgd2hhdCBzaG91bGQgYmUgcmVwbGFjZWQuDQpTbyBpdCBuZWVkcyB0byBzY2FuIHRo
+ZSBmaWxlcyBjb250YWluaW5nIHRoZSBtYXJrZXJzIGFuZCBnYXRoZXIgdGhlbS4NClRoaXMg
+aXMgd2hhdCBpcyBkb25lIGFib3ZlLg0KDQpJbiB0aGUgZmluYWwgbWFjcm8gYmVsb3cgdGhl
+IHJlcGxhY2VtZW50cyBhcmUgZG9uZSB0aGVuLiBIb3cgd291bGQgeW91DQpoYW5kbGUgdGhh
+dD8NCg0KPiANCj4+ICsjIFJlcGxhY2UgQHh4eEAgbWFya2VycyBpbiAkKDEpLmluIHdpdGgg
+JCh4eHgpIHZhcmlhYmxlIGNvbnRlbnRzLCB3cml0ZSB0byAkKDEpDQo+PiArZGVmaW5lIGFw
+cGx5LWJ1aWxkLXZhcnMNCj4+ICsgJCgxKTogJCgxKS5pbiAkJChJTkNfRklMRVMpDQo+IA0K
+PiBJIGZ1cnRoZXIgdW5kZXJzdG9vZCB5b3VyIHJlcGx5IHRvIG15IHYyIGNvbW1lbnQgdGhl
+IHdheSB0aGF0IHlvdSB3b3VsZCBkcm9wIHRoZQ0KPiBzbGlnaHRseSBvZGQgbGVhZGluZyBi
+bGFuayBmcm9tIGhlcmUuDQoNCk9oLCB3aXRoIG5vIGZ1cnRoZXIgcmVzcG9uc2UgSSBkaWRu
+J3Qgc2VlIGEgcmVhc29uIHRvIGFjdCBpbW1lZGlhdGVseS4NCg0KDQpKdWVyZ2VuDQo=
+--------------gxZo00q2qAhI0I3jPIOnAxSr
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------gxZo00q2qAhI0I3jPIOnAxSr--
+
+--------------nwJd9KJEVi6CYgfZNLrJquar--
+
+--------------nOmVo6TWtXlwubB0TlRpZT2N
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmkkO/EFAwAAAAAACgkQsN6d1ii/Ey/n
+Rgf/ahsPJpp1rubPXjpoTWlreBmZj4TcsbnwgfhRvQSF6K0YLdfRdg2/3rUz+T5dpA7Fpccgc8GN
+KyVj4/3/bpbHNWWQnpZzwSP3hJX8ggvn7RUYvGv4jHsX1LfaGmLZ/Xx2kLEpRv1s4TBF6C4ImMWc
+tzCZOCSZyXajlcQVVIkdJ6DYHkutvpvh0XkeQCE2Dx+mMCj9EoF4900682OlW91RQh77htJmIQKH
+qyYQhvwgEFr/DIkod1nrAhHlWynY+XzcC/g1QSyKDDrPAas9D9mGCr7h96NgoRpyKQoGkakcq7uL
+N+NSlSbYX7kxqltfxApcMaPskvqRF0KzuhPZssn55A==
+=JTdP
+-----END PGP SIGNATURE-----
+
+--------------nOmVo6TWtXlwubB0TlRpZT2N--
 
