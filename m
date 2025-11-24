@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE88DC81376
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 16:01:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171331.1496369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93BE4C81379
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 16:02:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171342.1496380 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNY4T-00021a-Gp; Mon, 24 Nov 2025 15:01:41 +0000
+	id 1vNY4s-0002fT-P8; Mon, 24 Nov 2025 15:02:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171331.1496369; Mon, 24 Nov 2025 15:01:41 +0000
+Received: by outflank-mailman (output) from mailman id 1171342.1496380; Mon, 24 Nov 2025 15:02:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNY4T-0001yJ-Dv; Mon, 24 Nov 2025 15:01:41 +0000
-Received: by outflank-mailman (input) for mailman id 1171331;
- Mon, 24 Nov 2025 15:01:39 +0000
+	id 1vNY4s-0002dC-M0; Mon, 24 Nov 2025 15:02:06 +0000
+Received: by outflank-mailman (input) for mailman id 1171342;
+ Mon, 24 Nov 2025 15:02:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNY4R-0001E9-BY
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 15:01:39 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1vNY4r-0001E9-Au
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 15:02:05 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7a46f5ca-c946-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 16:01:38 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-47774d3536dso34206685e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 07:01:38 -0800 (PST)
+ id 899a1ef8-c946-11f0-9d18-b5c5bf9af7f9;
+ Mon, 24 Nov 2025 16:02:04 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4779a637712so26775295e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 07:02:04 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477bf22dfcesm203037055e9.13.2025.11.24.07.01.35
+ ffacd0b85a97d-42cb7fb8ff3sm30350208f8f.29.2025.11.24.07.02.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 07:01:36 -0800 (PST)
+ Mon, 24 Nov 2025 07:02:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a46f5ca-c946-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 899a1ef8-c946-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763996498; x=1764601298; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763996524; x=1764601324; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RP9LNtOsLGFUFpLZ6YuwHIzAHL2ieAcKHDRT49uhRHg=;
-        b=RM+k/PUcIvsMbVUz/34Bi0wy96FEFu7qpTY3lKjjD/IAbeyLsA2EqGZJD/7Pgur8Ai
-         oE81+s2zqNcY/q+WIl5FtexhyZDxfYTWmqzIh9noTWJk0zU9yCYdUcIYDG8yHhHtSYWG
-         s/tAkpn051l77dBjEcJVtT/wMK3kZ/W6IMoReujp0wcCsNBl2uQuxtfSTo1C2xsDXKir
-         ed5hHORvMPMSB5jUh7OV4NBWeym6Ixyh3Zt0aRdi4nBab1eY++vFJMAhBgMZIFEc/Aep
-         sYxs+zp4p0+PH4Vm8+s94Ihs50YFCSRMEx4620/F34a6uIrvRcuakegu9iUrrMnRUkYM
-         Nabg==
+        bh=k/HDQ0bvh4xxkw8/g5CuyzpawDHHHpg2xe4YeTXRq0g=;
+        b=eBd5OrwvGvSL1sIuwl7mJSS+Uj4VHVfy5WyryiL8Be3bCvoCUztsXJWvkykjy0edc+
+         7y3kWC7xno7xbqOf9xYCRI9QFpBmhag/FubeyS6Bj3IloNcetTvmtB5/lsd35TbcB4G3
+         Q1xd9XoCCglNDxV4YLTcIR5BQSixDkIjefAVLcABy8lvS0pubi1rWw7K82UFubAouMUr
+         pu8g79BoLUuOpxABsAniq7M3gc3g8RB7Jw4v+LP09b375Gyj+Sv19iai44BhcVVm7cI6
+         VTPqKMytrNxLNFZKMDj+kjT+5j30j70Y/5gMTmh2qdl2f/mchXvN2E5Tj4vO0rUrdrkG
+         yydw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763996498; x=1764601298;
+        d=1e100.net; s=20230601; t=1763996524; x=1764601324;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RP9LNtOsLGFUFpLZ6YuwHIzAHL2ieAcKHDRT49uhRHg=;
-        b=DRhB9d9n/TsJLLp8M+6g2M52yiD/40y6iQ781jwUmVSXqrWNtBGY18QkeIl/bA/LW/
-         RP8P35xeCANEDYVy2yPhJNyMukfu0tKBrwcZmR2LpIVCzU/NdaAeRBYTDzDiBLi70YB3
-         4ePrymgTw64szA6srhhPTwjOQ7XCStlXQNbxBGe4K7J+m5PS+equlaSNouHoVDl9jU1N
-         HNy0TiWV1zwHwzvKQu7gK/C8CWcBGpykR0g+PldXEyGndsuolm/bzpOGE338Me0owDEw
-         nlG29SkkZMr1WLHKRMAbxYv+11Y/lF3C42wohDQirO+qQPrWEseGjGAhboqIXBFwvvhU
-         R6QQ==
-X-Gm-Message-State: AOJu0Yxfk8gQltGyfCg/gENPGwDznmkK9Jfw/TaZAiBy2I1D7m+FawnJ
-	1d5Mmx2XLoZDdzVxxUlJyXwRNWn24rM2ekHAXyMrjSz48c0I/aVxeqk7zGHD+lEK5Wug8IQ1a99
-	lQOE=
-X-Gm-Gg: ASbGnct/hG0enzd/aiK4xs8lFdrBfwLiKQxXMOYPlsnD2+Ov25O9epVivcLR72Zl7o5
-	EwNxb6LKADnmEuJETI5z2PbsPU2+szZJ90fltN4SVyrXqsxvD6RzrSsTFdDNCI7vi6YCkXACoDo
-	0nAslIttdic4ImdWn+RJTq8cbDy7I/QZuX5Her/wDiy6I7fwrw9eAPgg1odO9gOR6IbKIWGFAnT
-	3+rsSB3K+AQ4VF5rM21wJyLUsWw1U1/u15+zE5tE2M5D7iagcueuEuNx7/Lto/fUotHBLcXksKn
-	vLcqZ4FnflkmFvtFWirYP+8sJQzCYOEduE59dP2EnebSUIn5bEBGTz4QZKDw0eq7+ahA1DrlRlL
-	fQeg0DiITryQw3/SoEWTenLiATgFiFsnrZAmcPdM9sjthmzjjBXIVbccwQHXvWQlwZPosSVNoQE
-	+7YUYGPr9ElIjyuiwu4rPuBBkeBGa4bDCy9quzmN46fc8oSbKr3ziRTsRKNwcuh4WyjjMT+OYE2
-	fk=
-X-Google-Smtp-Source: AGHT+IGrsj0xJ4e0gDl9Sz4s4z6/wx2xCk9zLB/ZHUfLznZbREKYpOWbIwogkDaNTmf8Zx9qvM1jXA==
-X-Received: by 2002:a05:600c:1f85:b0:471:793:e795 with SMTP id 5b1f17b1804b1-477b9e61f7cmr140878925e9.0.1763996496386;
-        Mon, 24 Nov 2025 07:01:36 -0800 (PST)
-Message-ID: <78b7c8a0-16ae-49c3-8c7b-5b10f5b0d688@suse.com>
-Date: Mon, 24 Nov 2025 16:01:38 +0100
+        bh=k/HDQ0bvh4xxkw8/g5CuyzpawDHHHpg2xe4YeTXRq0g=;
+        b=wVy4ck8VM1pih6wuxwvGFvUbLMe6XsvjdAofcJttPseL4kWt5wmwQrTSTW0Qbriavx
+         JOnjsnRj3jaMtevzzTUL0XkdAJyM+w9oryY6DM/3O7ybyDq2vJb9JjLxLfeSN/bAI9wZ
+         VsA5U4QE9268dFy1E4iLzkYg0xdCpP6SE2IW4lpekS3gdlFT4HJMXM2suuDHPSpqlZbr
+         Gj2MHzIF0qUh+jwn90VcpUhRebupSS3AdsXz0HXrpT5dHo4CcjgMzp0X3zosLzoyURIy
+         EQHGY32ZPCUiEPCsU6t7XBcXyNVUcRS3xuY4kq6/ziOJzk14i4N6cAAonE4scOZaEV82
+         jn5Q==
+X-Gm-Message-State: AOJu0Yx8j1v+iLh73o4cmZORdl8UcxiZoe677TRbzWhmh32HcdGmXZhW
+	b8SW7eR0PrMmZvMaAYuMPwngUQnXw7RogRf95kyhfQfhVobJNQP14i7zzbWnK6b8fuK+F4RgHZE
+	QgY0=
+X-Gm-Gg: ASbGncufCr3NH3Kd71YLATU66xyA8tkFGsKcPHH0/ZDivDfMiaONQ5m2Kv4hz3AS5jR
+	opLPU8QQZxOhrtv4ZF8wZqBiYhHxyX8oIyxEO/1I329VU6OabjzgQ5B3H7kUc8b78De1Q+QhETm
+	GQuDqGn+FmYLOSZA1slpSBvDECGCppGW8pNM/LpVnyYxV4En8lANbyX74Z6UXuksdiIUYu68lho
+	Ca4otroAGm8B6ERdgaFIE1Xwj0TL8ENdq4XrtebJokyLdrIc3POJmE4De/dqpVeXtvvO5BBObnZ
+	upbqWIC1MuTMxssXxe9m47TKOYlEYjQnAqPxE3aTOFfPmkr0F4cQBKgV0ITiFN5kd4fmtYUnHh3
+	vAmnfwoeYw5sx5yfo06v5cRTobSO7pGF9/wJHya1XYbEquwCQgpijSqIPXpUEIdyfeTFwginb4U
+	FWpZZUMztHtKjHEf6pmfcBoOGAl3sb7LiHUthsusOrD+hgqOug1pi5c8cI3J6jK/D9dAmjYC4Da
+	EY=
+X-Google-Smtp-Source: AGHT+IFDJ1wD90QRR28daYvDiHSlTJQ6N0uBIlnqZIl2e0KRaa+7YPShx3Zx+aNuwIiVlWWjK6ALtA==
+X-Received: by 2002:a05:600c:1ca0:b0:477:75eb:a643 with SMTP id 5b1f17b1804b1-477c0165b4emr142895485e9.4.1763996523347;
+        Mon, 24 Nov 2025 07:02:03 -0800 (PST)
+Message-ID: <732d56d9-d200-410e-8b52-48c5e25bcf5c@suse.com>
+Date: Mon, 24 Nov 2025 16:02:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v9 09/10] x86: use / "support" UDB
+Subject: [PATCH v9 10/10] x86emul: support AVX512-BMM
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -123,113 +123,147 @@ In-Reply-To: <926a2315-a2b7-4aad-87e6-d686c9da9e3a@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-With opcode D6h now firmly reserved as another #UD-raising one in 64-bit
-mode, use that instead of the two-byte UD2 for bug frame marking.
+EVEX.W meaning is unusual for VBMAC{,X}OR16x16x16, but that needs taking
+care of only in the test harness.
 
-While there also make the respective adjustment to the emulator.
+Like already proposed in "x86emul: support AVX10.1", use just
+vcpu_must_have(), not host_and_vcpu_must_have().
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-Should we also switch {svm,vmx}_init_hypercall_page()?
+The Disp8Shift settings are guesswork; the binutils submission bogusly(?)
+suggests no scaling at all.
 
-Furthermore x86_64/kexec_reloc.S also has two uses. Question is whether
-"tailcall" is being open-coded there, or whether that's deliberately not
-using the macro we have.
-
-One of the table entries in stub_selftest() uses UD1, yet not in quite
-an appropriate way: The 0x90 following it (presumably meant to be a NOP)
-really is a ModR/M byte, requiring a displacement to follow. Wouldn't we
-better adjust that (e.g. using 0xcc instead)?
+No idea how to test this without having access to capable hardware. AMD,
+to my knowledge, offers no equivalent to Intel's SDE.
 ---
 v9: New.
 
---- a/xen/arch/x86/include/asm/bug.h
-+++ b/xen/arch/x86/include/asm/bug.h
-@@ -21,7 +21,7 @@
+--- a/tools/tests/x86_emulator/evex-disp8.c
++++ b/tools/tests/x86_emulator/evex-disp8.c
+@@ -689,6 +689,15 @@ static const struct test avx512_fp16_128
+     INSN(movw, 66, map5, 7e, el, fp16, el),
+ };
  
- #ifndef __ASSEMBLY__
++static const struct test avx512_bmm_all[] = {
++    INSN(bitrev,   , map6, 81, vl, b, vl),
++};
++
++static const struct test avx512_bmm_no128[] = {
++    INSN(bmacor16x16x16,    , map6, 81, vl, w, vl),
++    INSN(bmacxor16x16x16,   , map6, 81, vl, w, vl),
++};
++
+ static const struct test gfni_all[] = {
+     INSN(gf2p8affineinvqb, 66, 0f3a, cf, vl, q, vl),
+     INSN(gf2p8affineqb,    66, 0f3a, ce, vl, q, vl),
+@@ -817,6 +826,12 @@ static void test_one(const struct test *
  
--#define BUG_INSTR       "ud2"
-+#define BUG_INSTR       ".byte 0xd6" /* UDB */
- #define BUG_ASM_CONST   "c"
+     case ESZ_w:
+         evex.w = 1;
++        /*
++         * VBMAC{,X}OR16x16x16 don't follow the general pattern: EVEX.W controls
++         * reduction kind there, not element size.
++         */
++        if ( test->spc == SPC_map6 && !test->pfx && test->opc == 0x80 )
++            evex.w = test->mnemonic[4] == 'x';
+         /* fall through */
+     case ESZ_fp16:
+         esz = 2;
+@@ -1087,6 +1102,8 @@ void evex_disp8_test(void *instr, struct
+     RUN(avx512_vpopcntdq, all);
+     RUN(avx512_fp16, all);
+     RUN(avx512_fp16, 128);
++    RUN(avx512_bmm, all);
++    RUN(avx512_bmm, no128);
  
- #else  /* !__ASSEMBLY__ */
-@@ -37,7 +37,7 @@
-         .error "Invalid BUGFRAME index"
-     .endif
+     if ( cpu_has_avx512f )
+     {
+--- a/tools/tests/x86_emulator/predicates.c
++++ b/tools/tests/x86_emulator/predicates.c
+@@ -2157,6 +2157,9 @@ static const struct evex {
+     { { 0x56 }, 2, T, R, pfx_f2, W0, Ln }, /* vfcmaddcph */
+     { { 0x57 }, 2, T, R, pfx_f3, W0, LIG }, /* vfmaddcsh */
+     { { 0x57 }, 2, T, R, pfx_f2, W0, LIG }, /* vfcmaddcsh */
++    { { 0x80 }, 2, T, R, pfx_no, W0, L1 | L2 }, /* vbmacor16x16x16 */
++    { { 0x80 }, 2, T, R, pfx_no, W1, L1 | L2 }, /* vbmacxor16x16x16 */
++    { { 0x81 }, 2, T, R, pfx_no, W0, Ln }, /* vbitrev */
+     { { 0x96 }, 2, T, R, pfx_66, W0, Ln }, /* vfmaddsub132ph */
+     { { 0x97 }, 2, T, R, pfx_66, W0, Ln }, /* vfmsubadd132ph */
+     { { 0x98 }, 2, T, R, pfx_66, W0, Ln }, /* vfmadd132ph */
+--- a/tools/tests/x86_emulator/x86-emulate.h
++++ b/tools/tests/x86_emulator/x86-emulate.h
+@@ -223,6 +223,8 @@ void wrpkru(unsigned int val);
+ #define cpu_has_xop                 (cpu_policy.extd.xop  && xcr0_mask(6))
+ #define cpu_has_fma4                (cpu_policy.extd.fma4 && xcr0_mask(6))
+ #define cpu_has_tbm                  cpu_policy.extd.tbm
++#define cpu_has_avx512_bmm          (cpu_policy.extd.avx512_bmm && \
++                                     xcr0_mask(0xe6))
  
--    .L\@ud: ud2a
-+    .L\@ud: .byte 0xd6 /* UDB */
+ int emul_test_cpuid(
+     uint32_t leaf,
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -334,6 +334,7 @@ XEN_CPUFEATURE(CPUID_USER_DIS,     11*32
+ XEN_CPUFEATURE(EPSF,               11*32+18) /*A  Enhanced Predictive Store Forwarding */
+ XEN_CPUFEATURE(FSRSC,              11*32+19) /*A  Fast Short REP SCASB */
+ XEN_CPUFEATURE(AMD_PREFETCHI,      11*32+20) /*A  PREFETCHIT{0,1} Instructions */
++XEN_CPUFEATURE(AVX512_BMM,         11*32+23) /*a  AVX512 Bitmap Manipulation Instructions */
+ XEN_CPUFEATURE(SBPB,               11*32+27) /*A  Selective Branch Predictor Barrier */
+ XEN_CPUFEATURE(IBPB_BRTYPE,        11*32+28) /*A  IBPB flushes Branch Type predictions too */
+ XEN_CPUFEATURE(SRSO_NO,            11*32+29) /*A  Hardware not vulnerable to Speculative Return Stack Overflow */
+--- a/xen/tools/gen-cpuid.py
++++ b/xen/tools/gen-cpuid.py
+@@ -308,7 +308,7 @@ def crunch_numbers(state):
+         # dependents of AVX512BW (as to requiring wider than 16-bit mask
+         # registers), despite the SDM not formally making this connection.
+         AVX512BW: [AVX512_VBMI, AVX512_VBMI2, AVX512_BITALG, AVX512_BF16,
+-                   AVX512_FP16],
++                   AVX512_FP16, AVX512_BMM],
  
-     .pushsection .rodata.str1, "aMS", @progbits, 1
-          .L\@s1: .asciz "\file_str"
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -1256,7 +1256,7 @@ void asmlinkage do_trap(struct cpu_user_
- 
- void asmlinkage do_invalid_op(struct cpu_user_regs *regs)
- {
--    u8 bug_insn[2];
-+    uint8_t bug_insn;
-     const void *eip = (const void *)regs->rip;
-     int id;
- 
-@@ -1268,8 +1268,8 @@ void asmlinkage do_invalid_op(struct cpu
-     }
- 
-     if ( !is_active_kernel_text(regs->rip) ||
--         copy_from_unsafe(bug_insn, eip, sizeof(bug_insn)) ||
--         memcmp(bug_insn, "\xf\xb", sizeof(bug_insn)) )
-+         copy_from_unsafe(&bug_insn, eip, sizeof(bug_insn)) ||
-+         bug_insn != 0xd6 /* UDB */ )
-         goto die;
- 
-     id = do_bug_frame(regs, regs->rip);
+         # Extensions with VEX/EVEX encodings keyed to a separate feature
+         # flag are made dependents of their respective legacy feature.
 --- a/xen/arch/x86/x86_emulate/decode.c
 +++ b/xen/arch/x86/x86_emulate/decode.c
-@@ -651,7 +651,7 @@ decode_onebyte(struct x86_emulate_state
-     case 0xce: /* into */
-     case 0xd4: /* aam */
-     case 0xd5: /* aad */
--    case 0xd6: /* salc */
-+        /* 0xd6 (salc) omitted here, for #UD to be raised in 64-bit mode. */
-         s->not_64bit = true;
-         break;
+@@ -387,6 +387,7 @@ static const struct ext0f38_table {
+     [0x7a ... 0x7c] = { .simd_size = simd_none, .two_op = 1 },
+     [0x7d ... 0x7e] = { .simd_size = simd_packed_int, .d8s = d8s_vl },
+     [0x7f] = { .simd_size = simd_packed_fp, .d8s = d8s_vl },
++    [0x80 ... 0x81] = { .simd_size = simd_packed_int, .d8s = d8s_vl },
+     [0x82] = { .simd_size = simd_other },
+     [0x83] = { .simd_size = simd_packed_int, .d8s = d8s_vl },
+     [0x88] = { .simd_size = simd_packed_fp, .two_op = 1, .d8s = d8s_dq },
+--- a/xen/arch/x86/x86_emulate/private.h
++++ b/xen/arch/x86/x86_emulate/private.h
+@@ -568,6 +568,7 @@ amd_like(const struct x86_emulate_ctxt *
+ #define vcpu_has_clzero()      (ctxt->cpuid->extd.clzero)
+ #define vcpu_has_wbnoinvd()    (ctxt->cpuid->extd.wbnoinvd)
+ #define vcpu_has_nscb()        (ctxt->cpuid->extd.nscb)
++#define vcpu_has_avx512_bmm()  (ctxt->cpuid->extd.avx512_bmm)
  
+ #define vcpu_has_bmi1()        (ctxt->cpuid->feat.bmi1)
+ #define vcpu_has_hle()         (ctxt->cpuid->feat.hle)
 --- a/xen/arch/x86/x86_emulate/x86_emulate.c
 +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -2470,9 +2470,17 @@ x86_emulate(
-         _regs.eflags |= even_parity(_regs.al) ? X86_EFLAGS_PF : 0;
-         break;
+@@ -7990,6 +7990,19 @@ x86_emulate(
+         goto simd_zmm;
+     }
  
--    case 0xd6: /* salc */
--        _regs.al = (_regs.eflags & X86_EFLAGS_CF) ? 0xff : 0x00;
--        break;
-+    case 0xd6: /* salc / udb */
-+        if ( !mode_64bit() )
-+        {
-+            _regs.al = (_regs.eflags & X86_EFLAGS_CF) ? 0xff : 0x00;
-+            break;
-+        }
-+        fallthrough;
-+    case X86EMUL_OPC(0x0f, 0x0b): /* ud2 */
-+    case X86EMUL_OPC(0x0f, 0xb9): /* ud1 */
-+    case X86EMUL_OPC(0x0f, 0xff): /* ud0 */
-+        generate_exception(X86_EXC_UD);
- 
-     case 0xd7: /* xlat */ {
-         unsigned long al;
-@@ -3204,11 +3212,6 @@ x86_emulate(
-             goto done;
-         break;
- 
--    case X86EMUL_OPC(0x0f, 0x0b): /* ud2 */
--    case X86EMUL_OPC(0x0f, 0xb9): /* ud1 */
--    case X86EMUL_OPC(0x0f, 0xff): /* ud0 */
--        generate_exception(X86_EXC_UD);
--
-     case X86EMUL_OPC(0x0f, 0x0d): /* GrpP (prefetch) */
-     case X86EMUL_OPC(0x0f, 0x18): /* Grp16 (prefetch/nop) */
-     case X86EMUL_OPC(0x0f, 0x19) ... X86EMUL_OPC(0x0f, 0x1f): /* nop */
++    case X86EMUL_OPC_EVEX(6, 0x80): /* vbmac{,x}or16x16x16 [xyz]mm/mem,[xyz]mm,[xyz]mm */
++        vcpu_must_have(avx512_bmm);
++        generate_exception_if(!evex.lr || evex.brs || evex.opmsk, X86_EXC_UD);
++        avx512_vlen_check(false);
++        goto simd_zmm;
++
++    case X86EMUL_OPC_EVEX(6, 0x81): /* vbitrev [xyz]mm/mem,[xyz]mm */
++        vcpu_must_have(avx512_bmm);
++        generate_exception_if(evex.w || evex.brs || evex.reg != 0xf || !evex.RX,
++                              X86_EXC_UD);
++        avx512_vlen_check(false);
++        goto simd_zmm;
++
+     case X86EMUL_OPC_XOP(08, 0x85): /* vpmacssww xmm,xmm/m128,xmm,xmm */
+     case X86EMUL_OPC_XOP(08, 0x86): /* vpmacsswd xmm,xmm/m128,xmm,xmm */
+     case X86EMUL_OPC_XOP(08, 0x87): /* vpmacssdql xmm,xmm/m128,xmm,xmm */
 
 
