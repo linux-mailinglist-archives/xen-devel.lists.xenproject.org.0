@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEEEEC80D3E
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 14:44:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171082.1496095 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27BABC80E58
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 15:01:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171102.1496128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNWrG-0000oZ-0z; Mon, 24 Nov 2025 13:43:58 +0000
+	id 1vNX82-0005AL-K6; Mon, 24 Nov 2025 14:01:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171082.1496095; Mon, 24 Nov 2025 13:43:57 +0000
+Received: by outflank-mailman (output) from mailman id 1171102.1496128; Mon, 24 Nov 2025 14:01:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNWrF-0000ke-Ts; Mon, 24 Nov 2025 13:43:57 +0000
-Received: by outflank-mailman (input) for mailman id 1171082;
- Mon, 24 Nov 2025 13:43:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q+WF=6A=bounce.vates.tech=bounce-md_30504962.69246114.v1-996e3febf77541058d7a8895e834a16e@srs-se1.protection.inumbo.net>)
- id 1vNWrE-0000kX-IX
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 13:43:56 +0000
-Received: from mail136-9.atl41.mandrillapp.com
- (mail136-9.atl41.mandrillapp.com [198.2.136.9])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9b875cb6-c93b-11f0-980a-7dc792cee155;
- Mon, 24 Nov 2025 14:43:50 +0100 (CET)
-Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail136-9.atl41.mandrillapp.com (Mailchimp) with ESMTP id 4dFRqm6YJxzHXYgd9
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 13:43:48 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 996e3febf77541058d7a8895e834a16e; Mon, 24 Nov 2025 13:43:48 +0000
+	id 1vNX82-00057a-HS; Mon, 24 Nov 2025 14:01:18 +0000
+Received: by outflank-mailman (input) for mailman id 1171102;
+ Mon, 24 Nov 2025 14:01:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vNX80-00057U-Uj
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 14:01:16 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 064d8412-c93e-11f0-9d18-b5c5bf9af7f9;
+ Mon, 24 Nov 2025 15:01:08 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4775ae5684fso20545995e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 06:01:08 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-477a9741cbfsm148951455e9.6.2025.11.24.06.01.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Nov 2025 06:01:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,131 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b875cb6-c93b-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1763991828; x=1764261828;
-	bh=tgHAZmk0TqxSfJ22MEtgYW7nyHYSd/spYYd3Txp8mGc=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=V1Yv7mgmp+iLihaK79ev2IqvpaIVvoFMcIMint+Ok2IJraj3taBLtiWWBgKGxkZAd
-	 YUz59xu32zb9cuxxGaDeoqXIAmsrpnmz8sso9mCXCutbbynOUOh8O88PQS2eMtmbRE
-	 NEFvvPEfT0pTK/4hkmgdEcyF/YdZ4ILGGNxG0J5ZAGHlzQBrBUhij5rEwoVrGfnz1c
-	 rHishlfvFMowfMYM+ahxIF0FhJLZls9tXIG0C7GcaLdIeWoo1oFDCDRgM+b3281eHV
-	 nA3dGIeBNajFQcj8soq1+aEg9GIFFdZHAKw6qhI014mqnG1zLEfYDdWBWTnlPac21U
-	 d7ZgJufDTnZjg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1763991828; x=1764252328; i=ngoc-tu.dinh@vates.tech;
-	bh=tgHAZmk0TqxSfJ22MEtgYW7nyHYSd/spYYd3Txp8mGc=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=XhZ7/VJkYyfkY1B5pGhPSYHZjPbR837VPetl1QdeplnIpWiG/JPDjn0Tz4DTjEe3/
-	 0pGbaTndZo9L4Hwhnh/wWVK/ilEhOBgKBQ76tRIthhLH/pR1AHr4Usb4axH/GKcYRa
-	 EzcrAEbMTaYB5SHaWSpiX3UNslQcMrzqhq0/E7P7kQ+vYkVXP0nmKT4OmHKTl9b6xL
-	 zoDh8DDE2Wgx8K8yoIzgorRm5iGcYCcgEWh1T6LiZ8Y/1qg2qZtZMILE0mxm4t+Uib
-	 QUKkCfFs0M4huiw3eT04tuJZyQjT5H0kdPrrHneY91fvYvmclomWrXStRdAcHa61Z5
-	 QgcC451MA6Dcw==
-From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
-Subject: =?utf-8?Q?[PATCH]=20x86/vhpet:=20Fix=20sanitization=20of=20legacy=20IRQ=20route?=
-X-Mailer: git-send-email 2.51.2.windows.1
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1763991827489
-To: xen-devel@lists.xenproject.org
-Cc: "Tu Dinh" <ngoc-tu.dinh@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-Message-Id: <20251124134344.456-1-ngoc-tu.dinh@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.996e3febf77541058d7a8895e834a16e?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251124:md
-Date: Mon, 24 Nov 2025 13:43:48 +0000
+X-Inumbo-ID: 064d8412-c93e-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1763992867; x=1764597667; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ML58FBPSxysCWpD1yxLQZEGp5iIqJHiw0QRyZEcff1Q=;
+        b=fL3PO3cUrWDRtwr+bm8581q79Gt4tsS93k9geIwKlh3z78ygEGa7ZzYGQ2CyY5gduj
+         FDHILpR3Glr5vCHx7deBsi/fk54b3viu2CwDU92QQDO1nw06wMZLCtFBtKyB+wfg9pPf
+         PLarGPvA/pLXX6DjS2lHI4XgF1BOmTt8GqlgNErailnX/YSZ/p9Q7Ee6OVP5IsepgqD/
+         F/G2CpsqG+JHnCE2ymbzX2lfrcF5vGvvAec5FothJu+bddPgTIhL5yyzuU3lVHMPOl60
+         GlhQz90EWPigClZvgh0SFx+n3OD2QpVqsPvxOgzaC7Ti2ZwIfIkgeeccBqg81g8ahROv
+         m23Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763992867; x=1764597667;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ML58FBPSxysCWpD1yxLQZEGp5iIqJHiw0QRyZEcff1Q=;
+        b=XuIoMJzcLmEBnyw+EUaDeuwP5Dr4hJFmWl9Ihq4CsOpS4A6PEdeOoeX+EHrkK7ekji
+         m13a70Beaouv+KJdvRDzfEOflcl25JYfLcopMlRxo/qIBSAWQUXsjJttoHIE7Lt4A0Vb
+         O+9Ytn6WhKFuSPIpzyjV9D2O77lUU0xpFhxDvrDM60lD0F0lChWFlwMxBnUG0RnnTvTN
+         8z1Yvv9VWLXeTxUz8s5Tn6Oj3vz6Lr6WbnvfBN8sXOCp9GkbdiyZLhq3qpLsFNfXC4F4
+         R1kqfZfn++F56CEdbAm8FcL9ODPJ0QnQVgUTCdQFz4vtZ84pK+xoYWaV+YAx7hM1qCVt
+         sIOQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVCWTbnVAVT55I8KdgaWv+I1bjpXQDpOMGv8OfXYzk6z4ESvGYZy7rCZFTSh9ZR2y7L7O/WvM2uWDA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwKEXlr6aLSqnl/csu5jy+ZrOJ2UkjrY4ooC5652zdEtq/UtCdA
+	0pBd7uC1arKlM8hyOTlcnnItwpd2uo65raaisjC03p5/fkM6hmb7V1H3YdmdGTmyqg==
+X-Gm-Gg: ASbGncub7lFSjtf40uDpbXyNL3dKaufrizix+80sSvLG4buxTI3Mgc8IXGMADbH3Gm5
+	MohxTCEN335QzTZlG7OFoathWbBbVgr0j6GyxW+kgOD1cRLuBEtYXV+t3vaVK6/PQcoFgkK21oo
+	8ok/ldzVbfS5o5a6C5xOa+/BYQN72np6/PR/hwlDzehsds8OP7d/rZNpfCwAfwSwQsjuJjG8h6X
+	kukx3IrWnL5LCNWzspIe+wK9hkkCuq2KSZuRTZ6NNXT3kW954hVYyjOsAAumP5P78enf0CB/WHe
+	OnQEPniyZPDRanM0ob31yAwBFgePTfJDzDqPy5bNrACYd45Qi1meotjcDWL6lJKhKpUj3/yT0jn
+	dQtHbsUDkT0NZ9O3q6qjZEWKLmT+Lmi52dkAuyqs3cm9EnbNl3LhwN1FAoLGpWM7NJM/Ysw2bwQ
+	Iw3owNmugOMkI2WtOzubjmxuUVA7Llg7xH8882TtkEhsmoqgArD8+lNITeNqlSVmgKBT4Of+BqA
+	Go=
+X-Google-Smtp-Source: AGHT+IFT1whUjKYtTgpEDECPBcXmS320OB8fUYbyoj3mdZOOD5r0xDswf0JegDZjF4l6TsozKANY5w==
+X-Received: by 2002:a05:600c:1c82:b0:477:9650:3175 with SMTP id 5b1f17b1804b1-477c1057310mr142509235e9.0.1763992867286;
+        Mon, 24 Nov 2025 06:01:07 -0800 (PST)
+Message-ID: <0372e719-a79e-445b-a354-2e11562bfdc2@suse.com>
+Date: Mon, 24 Nov 2025 15:01:08 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/7] xen/p2m: move xenmem_access_to_p2m_access() to
+ common p2m.c
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, grygorii_strashko@epam.com,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20251121091554.1003315-1-Penny.Zheng@amd.com>
+ <20251121091554.1003315-6-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251121091554.1003315-6-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-When setting a timer's config register, timer_sanitize_int_route will
-always reset the IRQ route value to what's valid corresponding to the
-!HPET_CFG_LEGACY case. This is applied even if the HPET is set to
-HPET_CFG_LEGACY.
+On 21.11.2025 10:15, Penny Zheng wrote:
+> Memory access and ALTP2M are two seperate features, while both depending on
+> helper xenmem_access_to_p2m_access(). So it betters lives in common p2m.c,
+> other than mem_access.c which will be compiled out when VM_EVENT=n && ALTP2M=y.
+> Guard xenmem_access_to_p2m_access() with VM_EVENT || ALTP2M, otherwise it
+> will become unreachable when both VM_EVENT=n and ALTP2M=n, and hence
+> violating Misra rule 2.1
+> We also need to move declaration from mem_access.h to p2m-common.h
+> An extra blank line is inserted after each case-block to correct coding
+> style at the same time.
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
-When some operating systems (e.g. Windows) try to write to a timer
-config, they will verify and rewrite the register if the values don't
-match what they expect. This causes an unnecessary write to HPET_Tn_CFG.
-
-Note, the HPET specification states that for the Tn_INT_ROUTE_CNF field:
-
-"If the value is not supported by this prarticular timer, then the value
-read back will not match what is written. [...] If the LegacyReplacement
-Route bit is set, then Timers 0 and 1 will have a different routing, and
-this bit field has no effect for those two timers."
-
-Therefore, Xen should not reset timer_int_route if legacy mode is
-enabled, regardless of what's in there.
-
-Signed-off-by: Tu Dinh <ngoc-tu.dinh@vates.tech>
----
- xen/arch/x86/hvm/hpet.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
-index f0e5f877f4..fb2f4f94aa 100644
---- a/xen/arch/x86/hvm/hpet.c
-+++ b/xen/arch/x86/hvm/hpet.c
-@@ -48,6 +48,8 @@
- #define timer_is_32bit(h, n)     (timer_config(h, n) & HPET_TN_32BIT)
- #define hpet_enabled(h)          ((h)->hpet.config & HPET_CFG_ENABLE)
- #define timer_level(h, n)        (timer_config(h, n) & HPET_TN_LEVEL)
-+#define timer_is_legacy(h, n) \
-+    (((n) <= 1) && ((h)->hpet.config & HPET_CFG_LEGACY))
- 
- #define timer_int_route(h, n)    MASK_EXTR(timer_config(h, n), HPET_TN_ROUTE)
- 
-@@ -244,7 +246,7 @@ static void hpet_set_timer(HPETState *h, unsigned int tn,
-          (timer_level(h, tn) && test_bit(tn, &h->hpet.isr)) )
-         return;
- 
--    if ( !timer_int_route_valid(h, tn) )
-+    if ( !timer_is_legacy(h, tn) && !timer_int_route_valid(h, tn) )
-     {
-         ASSERT_UNREACHABLE();
-         return;
-@@ -275,7 +277,7 @@ static void hpet_set_timer(HPETState *h, unsigned int tn,
-             ? (uint32_t)diff : 0;
- 
-     destroy_periodic_time(&h->pt[tn]);
--    if ( (tn <= 1) && (h->hpet.config & HPET_CFG_LEGACY) )
-+    if ( timer_is_legacy(h, tn) )
-     {
-         /* if LegacyReplacementRoute bit is set, HPET specification requires
-            timer0 be routed to IRQ0 in NON-APIC or IRQ2 in the I/O APIC,
-@@ -323,7 +325,7 @@ static inline uint64_t hpet_fixup_reg(
- 
- static void timer_sanitize_int_route(HPETState *h, unsigned int tn)
- {
--    if ( timer_int_route_valid(h, tn) )
-+    if ( timer_is_legacy(h, tn) || timer_int_route_valid(h, tn) )
-         return;
- 
-     timer_config(h, tn) &= ~HPET_TN_ROUTE;
-@@ -379,6 +381,9 @@ static int cf_check hpet_write(
-         h->hpet.config = hpet_fixup_reg(new_val, old_val,
-                                         HPET_CFG_ENABLE | HPET_CFG_LEGACY);
- 
-+        for ( i = 0; i < HPET_TIMER_NUM; i++ )
-+            timer_sanitize_int_route(h, i);
-+
-         if ( !(old_val & HPET_CFG_ENABLE) && (new_val & HPET_CFG_ENABLE) )
-         {
-             /* Enable main counter and interrupt generation. */
--- 
-2.43.0
-
-
-
---
-Ngoc Tu Dinh | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 
