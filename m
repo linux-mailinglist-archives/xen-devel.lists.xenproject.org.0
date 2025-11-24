@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53645C8071B
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:24:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170423.1495498 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB905C8072A
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:24:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170436.1495508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNVbp-0001pq-Hq; Mon, 24 Nov 2025 12:23:57 +0000
+	id 1vNVc8-0002Ni-Pn; Mon, 24 Nov 2025 12:24:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170423.1495498; Mon, 24 Nov 2025 12:23:57 +0000
+Received: by outflank-mailman (output) from mailman id 1170436.1495508; Mon, 24 Nov 2025 12:24:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNVbp-0001ne-EY; Mon, 24 Nov 2025 12:23:57 +0000
-Received: by outflank-mailman (input) for mailman id 1170423;
- Mon, 24 Nov 2025 12:23:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vNVc8-0002Ld-M6; Mon, 24 Nov 2025 12:24:16 +0000
+Received: by outflank-mailman (input) for mailman id 1170436;
+ Mon, 24 Nov 2025 12:24:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNVbn-0000wa-SZ
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:23:55 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7183907e-c930-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 13:23:55 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4775ae77516so42538895e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:23:54 -0800 (PST)
+ id 1vNVc7-0001k4-Iw
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:24:15 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7c7dd318-c930-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 13:24:13 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-477ba2c1ca2so44004825e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:24:13 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477bf1df3d5sm193468095e9.2.2025.11.24.04.23.53
+ 5b1f17b1804b1-477bf216ddasm190515955e9.0.2025.11.24.04.24.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 04:23:54 -0800 (PST)
+ Mon, 24 Nov 2025 04:24:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7183907e-c930-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 7c7dd318-c930-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763987034; x=1764591834; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763987053; x=1764591853; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6vmubra/7p/KMumCP8wGDTSWTzldfYnULy/EwhAsbaU=;
-        b=Vu90DpdwawXdrJ+7LliekHDMU6Eka6vuFP67k17cbwdYLApj79e0LMEMiGc+Ya2Had
-         wzof6EwjhtYpSgjp2nDuoKSlcmCcRGnTUIFqBOB8EAyfQy08X0eXlYoE4yb4nTo9dz4K
-         rHIHtlRlh4SEegMeaEsq2wwhj/0bJwUGt7P/P56X+WyXAdB6uDIdZBxICMyGsh3IqMCD
-         8YuX+V3GmdU2mIppMaDOG+e/d2OMi50MYFcDSPlKadXTwFQKMYCZFUorx7Sq3ESojU7v
-         H4W9sIYs1vnT5y9uqmsRDLun4eUEhdxueWllCPfXjLhFFMfBsaQ3seGawnV5iIrcXc4v
-         2ZvQ==
+        bh=l952tUPPdDWlCF9wpnrcqEjrz6Dm8KdXWLLA7A5cT8I=;
+        b=CjBrV74+Ufep+6LCZRYIkiwXbdO6l9dqSb0s9X4g9s5Np25AYKSPGsixfNE3p5+fvF
+         6GPXYVpBZ2XS92FNy+8UkBcOF99XaI5rOAWaTSll8tiepRKY89onRhbhmiCJ2IgfkmGm
+         JTQcTzdhQfQh4HeWE+OcIPKrZ/kET7kSPxNJkj1nLvYgel3f5woHkX9p9/InGthasOVB
+         +PkdxnN3ASlluJoQ1z6ajWICr6oWUwQ1eZOCWCPJeA2R5bp6+WzICtrMd99Y39okCMaG
+         VCwYU2qo9eAsFXrma+kLZnUOq5ygUBDMkpC1M6ubgfrm7G83dv0tt1yVa7mPmIIU4wqj
+         KkJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763987034; x=1764591834;
+        d=1e100.net; s=20230601; t=1763987053; x=1764591853;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6vmubra/7p/KMumCP8wGDTSWTzldfYnULy/EwhAsbaU=;
-        b=AADAUykTbGMjR77f/QwUyR9JqSZyeweqyGxFTrO+bW0bCAQ1tBDD2SxxtxqmLhQRlM
-         NLwOQmGASexxcNNXnelNhTR5jhzs8t7T7cXUZcCYurcUKEnecUdLpEzyb1hBzoeaYi0h
-         d5AzI0uIckTvPZkXQbxq41cF7i034JzaK+M9OqEiH8aPNZ0UJfxe4kt9CHZHHZfogL8a
-         0gnzEcChKst1Hl+Us4FswDxPV02ZSzCXhX++eNMSvNoV6zBOCVWMHr3eCXVYR+8SDII0
-         52iN811AfGp7uw+RnRRYpGGvMwNKwSZ5c9GmXRbO5h9QlWbZBZQ/mrbmL5NfEGyHvwM6
-         9Acw==
-X-Gm-Message-State: AOJu0Yz/1lBo6iVtRF1juhYz8neKuqthkT7zTpZc0pMRw29FKMNhXSbs
-	GXPWsCgtThbZe6M81SGdoMb/rINda0ztR9TX3ioX5iVq7bVJZPM79K0R220KoYocXlpfEx4p/2O
-	iLho=
-X-Gm-Gg: ASbGncu1ynAuMuCLs4RJbh2nTppCafDODxTULGMoEQuJwmYDvdGC56XTQNF0a6mSPEI
-	8joWubE9LA3dBffnlJAcGolrOTRY6/6XfXCOcWlkTRyj1kl3Bghnn4sske36Ad5uiu8vOzaSeyI
-	f1pGLaJg+NeRrbINKZZTxTh+o1L4np99z6niWgTWR8V+H6PBammu8901rV2b6DwDysxT7O9lHM3
-	S/IgxY+iJiYQEly+TJwGp1MLze+UZgsEt5/qch1s8k6Y8PhFhwF2Cgdf+MH8FqbaJM865YcpXBF
-	B5qptbAUSuj4xQn1ny7huriGmxU1wXsy/Yn9t3WkxS0EbsuTZH1f/O4qO6zLtqxvswZWgWugLC/
-	oL5gFweiQzHyfb84Pj2MDFaV4q0xOdm49T6gwqL48QU10gvGtoVySV99y6CtSxzLVGhpSz2Xcnm
-	6/ywAOYeSDecVYocDG6sGgi7T2AtBdcanbiSZE4I2gwWs9Ak6rH0kSQdRvx4PEyYxXr4BRfDxMR
-	Gc=
-X-Google-Smtp-Source: AGHT+IEgRGqKvdZisWoeFS6OT5uX7pWX9yiYiD498Wwkm5FffvTMhbxKVTgW6YvSF+b9MuLbRiYZEQ==
-X-Received: by 2002:a05:600c:1c29:b0:477:639d:bca2 with SMTP id 5b1f17b1804b1-477c10c85e2mr128308815e9.4.1763987034312;
-        Mon, 24 Nov 2025 04:23:54 -0800 (PST)
-Message-ID: <80a6e497-bde6-4c5b-ade8-850abf0046ad@suse.com>
-Date: Mon, 24 Nov 2025 13:23:56 +0100
+        bh=l952tUPPdDWlCF9wpnrcqEjrz6Dm8KdXWLLA7A5cT8I=;
+        b=nJrFNNRjOb7jPmHp+Rp/VLcTphSTT1L2/ojBt0IX2Qr+XDU+qDuxgzDuJvi0Nfrnak
+         VMVip714ipBA5lmJmKt7V07z/35oYks+c96JUOrkvbIZzeHPFSfU83Zo7xY+HBVHE+gb
+         WrwzFZ72fCA6/XTMLY6QG6AZKbSB7X452J+mkYSoBTb3/YCrIw1GEjbhHeKHAUxAJqnF
+         rMIDD8gt2ZfrkcfZ7pQC1RE0AEM5x6MWw5TTiiiP81aTrDK+EkpOuVfNQ0OG8JCadxH7
+         N1KtZapoW6QgmJAcyvhbDcy8ST4HPeaA92/ccbWsOcyiQGHYyNINXHGnIPP+zqrRgKuJ
+         SbMQ==
+X-Gm-Message-State: AOJu0Yy2VhPLrpHNw0hUEAV4frzORQAdeeRyvRiC16XODk3qNid1gjRL
+	YVW3bwPkkgTjXqdfPZpNJZI8mF1ZUhSxod7wjaojjVBmtde78SdiCBnzBfazYCUAIX8/yOIKJiX
+	u1rM=
+X-Gm-Gg: ASbGncshOOiUZLOqb1foqO0zqygvOM2cnGWT9/fucr87hNE4mhpWjgnPFtfiTRJXPoH
+	u6jgszQK8Wak9v1F1+HGtCnbsjGZgfdRuq8LylF1Kp00hLAp9vx1iiGkuOPTxE7iOu0zVHLMQY2
+	XBXD+MFXAf9ngeOCnKVBLzO0o2v5NDXoqNH+xkgZ3M6Lq/zzLejVDfxkw9+C3UlfPJUTMJBPioW
+	C+1/TuL0RH/lbMlUFu3GuvI2J1zalcY2y9U00C/usWpFv5GsEYOqWqePYTaCvscSzhfjFB4+bso
+	leMzkGUzKjFGSh1o1jDJ0Hj4TmdKcH5Nzywwylez225Zy546nCTWj1ouSjJlimQrhMy7Zupt3HW
+	Zpid6DH7ghduF9h90i3UinkKz5F/ekSyef0konCHeXAK+neWBjs/NVmhQPYcYiMTeyeh+qnkL72
+	1r0bnP9T+lTv68siKhWJGJgDL1dDjy0DUw8dNl2Y8Y+ikxazzYqeNyD8sWotBClrNMUGpfqE8Vg
+	mJY8te+0kRGRg==
+X-Google-Smtp-Source: AGHT+IGVMfVJEik/q/1IhgYgIYQ7vTGl1DoVH8z7W7NvWvnBgPChKbJsX7iHs6/D6IODTe34syWCEA==
+X-Received: by 2002:a05:600c:4f48:b0:46e:761b:e7ff with SMTP id 5b1f17b1804b1-477c01e02e5mr107226105e9.28.1763987052673;
+        Mon, 24 Nov 2025 04:24:12 -0800 (PST)
+Message-ID: <480b4638-31bf-472a-8c99-70d912bccd0f@suse.com>
+Date: Mon, 24 Nov 2025 13:24:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 2/6] x86: replace APERFMPERF synthetic feature bit
+Subject: [PATCH v2 3/6] x86: rename ARAT feature flag
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -123,82 +123,110 @@ In-Reply-To: <f0ac75c8-5d65-43ef-aeeb-78d34f1da470@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Use the respective host CPU policy bit instead. This has the (tolerable,
-as we generally assume symmetry anyway) effect of using the BSP's
-(unleveled) setting, rather than the result of leveling (as is done by
-identify_cpu() on boot_cpu_data, rendering the variable name somewhat
-misleading).
+Add a XEN infix, to properly distinguish it from the CPUID feature flag
+(leaf 6 EAX bit 2).
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-The leveling of boot_cpu_data is problematic anyway, as that way features
-can in principle disappear post-boot (as CPUs are being brought online;
-just that we don't think anymore that we really support physical CPU
-hotplug).
----
-v2: Extend description.
+Question is whether we still need opt_arat (and the command line option),
+or whether we could go directly from the CPUID bit (overriding it to 1
+for older AMD [and Hygon?] CPUs). Or whether to have opt_arat affect the
+(host) CPU policy directly.
 
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -523,10 +523,6 @@ static void generic_identify(struct cpui
- 	if ( cpu_has(c, X86_FEATURE_CLFLUSH) )
- 		c->x86_clflush_size = ((ebx >> 8) & 0xff) * 8;
+--- a/xen/arch/x86/acpi/cpu_idle.c
++++ b/xen/arch/x86/acpi/cpu_idle.c
+@@ -109,7 +109,7 @@ void (*__read_mostly lapic_timer_on)(voi
  
--	if ( (c->cpuid_level >= CPUID_PM_LEAF) &&
--	     (cpuid_ecx(CPUID_PM_LEAF) & CPUID6_ECX_APERFMPERF_CAPABILITY) )
--		__set_bit(X86_FEATURE_APERFMPERF, c->x86_capability);
--
- 	/* AMD-defined flags: level 0x80000001 */
- 	if (c->extended_cpuid_level >= 0x80000001)
- 		cpuid(0x80000001, &tmp, &tmp,
---- a/xen/arch/x86/include/asm/cpufeature.h
-+++ b/xen/arch/x86/include/asm/cpufeature.h
-@@ -11,7 +11,9 @@
- #include <xen/macros.h>
+ bool lapic_timer_init(void)
+ {
+-    if ( boot_cpu_has(X86_FEATURE_ARAT) )
++    if ( boot_cpu_has(X86_FEATURE_XEN_ARAT) )
+     {
+         lapic_timer_off = lapic_timer_nop;
+         lapic_timer_on = lapic_timer_nop;
+@@ -1463,7 +1463,7 @@ static void amd_cpuidle_init(struct acpi
  
- #ifndef __ASSEMBLY__
-+#include <asm/cpu-policy.h>
- #include <asm/cpuid.h>
-+#include <xen/lib/x86/cpu-policy.h>
- #else
- #include <asm/cpufeatureset.h>
- #endif
-@@ -121,7 +123,6 @@ static inline bool boot_cpu_has(unsigned
- #define CPUID6_EAX_HDC                               BIT(13, U)
- #define CPUID6_EAX_HWP_PECI                          BIT(16, U)
- #define CPUID6_EAX_HW_FEEDBACK                       BIT(19, U)
--#define CPUID6_ECX_APERFMPERF_CAPABILITY             BIT(0, U)
+         if ( !vendor_override )
+         {
+-            if ( !boot_cpu_has(X86_FEATURE_ARAT) )
++            if ( !boot_cpu_has(X86_FEATURE_XEN_ARAT) )
+                 hpet_broadcast_init();
  
- /* CPUID level 0x00000001.edx */
- #define cpu_has_fpu             1
-@@ -175,6 +176,9 @@ static inline bool boot_cpu_has(unsigned
- #define cpu_has_fma4            boot_cpu_has(X86_FEATURE_FMA4)
- #define cpu_has_tbm             boot_cpu_has(X86_FEATURE_TBM)
+             if ( !lapic_timer_init() )
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -1355,7 +1355,7 @@ static void cf_check init_amd(struct cpu
+ 	 * running in deep C states.
+ 	 */
+ 	if ( opt_arat && c->x86 > 0x11 )
+-		__set_bit(X86_FEATURE_ARAT, c->x86_capability);
++		__set_bit(X86_FEATURE_XEN_ARAT, c->x86_capability);
  
-+/* CPUID level 0x00000006.ecx */
-+#define cpu_has_aperfmperf      host_cpu_policy.basic.aperfmperf
-+
- /* CPUID level 0x0000000D:1.eax */
- #define cpu_has_xsaveopt        boot_cpu_has(X86_FEATURE_XSAVEOPT)
- #define cpu_has_xsavec          boot_cpu_has(X86_FEATURE_XSAVEC)
-@@ -292,7 +296,6 @@ static inline bool boot_cpu_has(unsigned
- /* Synthesized. */
- #define cpu_has_arch_perfmon    boot_cpu_has(X86_FEATURE_ARCH_PERFMON)
- #define cpu_has_cpuid_faulting  boot_cpu_has(X86_FEATURE_CPUID_FAULTING)
--#define cpu_has_aperfmperf      boot_cpu_has(X86_FEATURE_APERFMPERF)
- #define cpu_has_xen_lbr         boot_cpu_has(X86_FEATURE_XEN_LBR)
- #define cpu_has_xen_shstk       (IS_ENABLED(CONFIG_XEN_SHSTK) && \
-                                  boot_cpu_has(X86_FEATURE_XEN_SHSTK))
+ 	/*
+ 	 * Prior to Family 0x14, perf counters are not reset during warm reboot.
+--- a/xen/arch/x86/cpu/hygon.c
++++ b/xen/arch/x86/cpu/hygon.c
+@@ -76,7 +76,7 @@ static void cf_check init_hygon(struct c
+ 
+ 	/* Hygon processors have APIC timer running in deep C states. */
+ 	if (opt_arat)
+-		__set_bit(X86_FEATURE_ARAT, c->x86_capability);
++		__set_bit(X86_FEATURE_XEN_ARAT, c->x86_capability);
+ 
+ 	if (cpu_has(c, X86_FEATURE_EFRO)) {
+ 		rdmsrl(MSR_K8_HWCR, value);
+--- a/xen/arch/x86/cpu/intel.c
++++ b/xen/arch/x86/cpu/intel.c
+@@ -668,7 +668,7 @@ static void cf_check init_intel(struct c
+ 	if ( opt_arat &&
+ 	     ( c->cpuid_level >= 0x00000006 ) &&
+ 	     ( cpuid_eax(0x00000006) & (1u<<2) ) )
+-		__set_bit(X86_FEATURE_ARAT, c->x86_capability);
++		__set_bit(X86_FEATURE_XEN_ARAT, c->x86_capability);
+ 
+ 	if ((opt_cpu_info && !(c->apicid & (c->x86_num_siblings - 1))) ||
+ 	    c == &boot_cpu_data )
+--- a/xen/arch/x86/cpu/mwait-idle.c
++++ b/xen/arch/x86/cpu/mwait-idle.c
+@@ -1633,7 +1633,7 @@ static int __init mwait_idle_probe(void)
+ 	icpu = id->driver_data;
+ 	cpuidle_state_table = icpu->state_table;
+ 
+-	if (boot_cpu_has(X86_FEATURE_ARAT))
++	if (boot_cpu_has(X86_FEATURE_XEN_ARAT))
+ 		lapic_timer_reliable_states = LAPIC_TIMER_ALWAYS_RELIABLE;
+ 
+ 	pr_debug(PREFIX "v" MWAIT_IDLE_VERSION " model %#x\n",
+@@ -1792,7 +1792,7 @@ int __init mwait_idle_init(struct notifi
+ 		return -ENODEV;
+ 
+ 	err = mwait_idle_probe();
+-	if (!err && !boot_cpu_has(X86_FEATURE_ARAT)) {
++	if (!err && !boot_cpu_has(X86_FEATURE_XEN_ARAT)) {
+ 		hpet_broadcast_init();
+ 		if (xen_cpuidle < 0 && !hpet_broadcast_is_available())
+ 			err = -ENODEV;
 --- a/xen/arch/x86/include/asm/cpufeatures.h
 +++ b/xen/arch/x86/include/asm/cpufeatures.h
-@@ -19,7 +19,7 @@ XEN_CPUFEATURE(TSC_RELIABLE,      X86_SY
+@@ -13,7 +13,7 @@
+ /* Synthetic features */
+ XEN_CPUFEATURE(CONSTANT_TSC,      X86_SYNTH( 0)) /* TSC ticks at a constant rate */
+ XEN_CPUFEATURE(NONSTOP_TSC,       X86_SYNTH( 1)) /* TSC does not stop in C states */
+-XEN_CPUFEATURE(ARAT,              X86_SYNTH( 2)) /* Always running APIC timer */
++XEN_CPUFEATURE(XEN_ARAT,          X86_SYNTH( 2)) /* Xen may utilize always running APIC timer */
+ XEN_CPUFEATURE(ARCH_PERFMON,      X86_SYNTH( 3)) /* Intel Architectural PerfMon */
+ XEN_CPUFEATURE(TSC_RELIABLE,      X86_SYNTH( 4)) /* TSC is known to be reliable */
  XEN_CPUFEATURE(XTOPOLOGY,         X86_SYNTH( 5)) /* cpu topology enum extensions */
- XEN_CPUFEATURE(CPUID_FAULTING,    X86_SYNTH( 6)) /* cpuid faulting */
- XEN_CPUFEATURE(XEN_FRED,          X86_SYNTH( 7)) /* Xen uses FRED */
--XEN_CPUFEATURE(APERFMPERF,        X86_SYNTH( 8)) /* APERFMPERF */
-+/* Bit 8 unused */
- XEN_CPUFEATURE(MFENCE_RDTSC,      X86_SYNTH( 9)) /* MFENCE synchronizes RDTSC */
- XEN_CPUFEATURE(XEN_SMEP,          X86_SYNTH(10)) /* SMEP gets used by Xen itself */
- XEN_CPUFEATURE(XEN_SMAP,          X86_SYNTH(11)) /* SMAP gets used by Xen itself */
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -2642,7 +2642,7 @@ static int _disable_pit_irq(bool init)
+      * XXX dom0 may rely on RTC interrupt delivery, so only enable
+      * hpet_broadcast if FSB mode available or if force_hpet_broadcast.
+      */
+-    if ( cpuidle_using_deep_cstate() && !boot_cpu_has(X86_FEATURE_ARAT) )
++    if ( cpuidle_using_deep_cstate() && !boot_cpu_has(X86_FEATURE_XEN_ARAT) )
+     {
+         init ? hpet_broadcast_init() : hpet_broadcast_resume();
+         if ( !hpet_broadcast_is_available() )
 
 
