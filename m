@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E865C81231
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 15:49:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171230.1496247 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00FC1C8126A
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 15:51:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171238.1496258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNXsa-000260-Kn; Mon, 24 Nov 2025 14:49:24 +0000
+	id 1vNXuS-0003Y0-0j; Mon, 24 Nov 2025 14:51:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171230.1496247; Mon, 24 Nov 2025 14:49:24 +0000
+Received: by outflank-mailman (output) from mailman id 1171238.1496258; Mon, 24 Nov 2025 14:51:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNXsa-00023e-I7; Mon, 24 Nov 2025 14:49:24 +0000
-Received: by outflank-mailman (input) for mailman id 1171230;
- Mon, 24 Nov 2025 14:49:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vNXuR-0003W6-TA; Mon, 24 Nov 2025 14:51:19 +0000
+Received: by outflank-mailman (input) for mailman id 1171238;
+ Mon, 24 Nov 2025 14:51:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNXsZ-00023Y-2H
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 14:49:23 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c2fe4d6e-c944-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 15:49:21 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-47755de027eso23251935e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 06:49:21 -0800 (PST)
+ id 1vNXuQ-0003Vx-Ac
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 14:51:18 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 070ef037-c945-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 15:51:15 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-42b2dc17965so4262044f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 06:51:15 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477bf36f535sm204499595e9.8.2025.11.24.06.49.20
+ ffacd0b85a97d-42cb7f2e574sm28675924f8f.3.2025.11.24.06.51.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 06:49:20 -0800 (PST)
+ Mon, 24 Nov 2025 06:51:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2fe4d6e-c944-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 070ef037-c945-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763995761; x=1764600561; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763995875; x=1764600675; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gWfNSzqAC8AW/7s6q88tAPramR0SZ5gZ2E2soGsmlcI=;
-        b=MWmK4vbeVbIcZ1W5zmPpd/AsTGLePgeMbrx8nV6k/xw8ZTnm5vPubRjtpSpo6JYf9s
-         lnohgkTsyQUYFHOSWxo1BBk44wvuiGPP/JYz0lgfDM9cMMbntLkryyc2vZI7isX4TN/O
-         OYdked+xsZOzuFXyxR+pBJYJGsWNwVhNs47IiOtJhW0X3xrZmf5Fo+7FSnB/JRExB3FC
-         eBAQYHHJrvJLY1YlHUoCR6fMNNHpIBP+Mf5sm4eIrKv6lyq+ltG9QhlZpVrukxc7GThN
-         IcH8S4I8eOyzLc4qhJyuI5DSTsdz8tiU5ZpF/b51r1hlY2pjqZdMZUssbeDRWxfLnoQB
-         7ISA==
+        bh=gmdMZ2QwvigGevV8XqtCpMnJo2mvl0QRlQuG40ABk/4=;
+        b=Z7RyPa+WtXpBCJq189dvIcFjQ5SlSW9AsCMbQe+7QfMcrdEQT/D952p38hhgUtYLe+
+         6iRtWMUVf9H0P/WmPcUhUYbCEEWGixm/2vKO9RIZna1GzIj2MwDRh+gfHZ7CNI6XXFQH
+         KteWykc/kkVShaYcpJk0EuhMrYqznukB8RWXwePvUyz2MpDZSDbn4naDCaEQKbLFdsxf
+         /H/rsQheVlGuY46umxwJldLdM478HAofzAbtJx3lZEJNRtMBX/Jm0xtlJtGqNwB+4oOA
+         2dNL/CaRdoh7Z+OP7ZGk2B40veK8vdyc85SDz4rm2EGGnj3cDqz/kkupFFPQRU7kVveK
+         UbSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763995761; x=1764600561;
+        d=1e100.net; s=20230601; t=1763995875; x=1764600675;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gWfNSzqAC8AW/7s6q88tAPramR0SZ5gZ2E2soGsmlcI=;
-        b=becbQEAzA5cO8QPVMdKDpKgE9dsDZGB160hCG5iK4sRrmfoljE8t8ZEn0jrav8QK4r
-         8qlfb3u7nZHWASpYpCw1+21gzMbAx9PncStr6tTQ545avdMUMvE/xotyoixU12qwcdGc
-         fH6FLWc/35WhYhtYyHhGPs4C/y8ahozo+Qu1esM0IkXQDZ+YG0yF4/5kTExyLd9ext4O
-         gf7ft7/YT8lpMgivhIozeT5wlrX2Ga+9z3Tiesbrd0Z3LsKtUB4N7g51Sp5gJNzskZIQ
-         WWS4XXLtgyrDayhMkGpjwEW59nLly7UTh+w7Typ1NRGTuimPuHoTU5miBtYPJcdpbArz
-         9IHw==
-X-Forwarded-Encrypted: i=1; AJvYcCXCcmKPqnAagwCmLhBhitLusI83DjycirFNBlxxDKEluepb/a/uszeBQF6ZrJsRuKna1fNT/I8wgxg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx5r5c4Edh/Mc7DVet7dQzzPkEDD684Apaathy6cR9Xf40G93CN
-	9bAnCBZedgovZ9ad70/OzOLIw09o3QmV298dD4fV82g7AqokFTfV2tT0XQO8Ce6N9g==
-X-Gm-Gg: ASbGncv3elcmUHjLdxaztivSZzgaeoJCOJIdATsN3ndmP1G9IpewkjY2xevx6ioDJzc
-	nOyy914tlnHY689lHiwgpFB4QIEZoQfrREJE+8j4o/cae199iHQx99wFeEc7WSLq17MG/73jEzt
-	F/GY2VgrHGbHk79XEfmR4oz9KQYTSdWf7dp8kJ+hNx3MrR/wfefCtWP4h2FjWh5ePcDCCPg7vxt
-	sBMlGQrHH74YvbPBf7EljyXZgFm/uXGa01VNdpzPG4I9DelvJiUv2xxNEN8N8Myjn2UutiSwjr2
-	nkpy7r5MQftPFnJNa8++cZjiHg8nHsWga9TuofwvwQ2PeKwNIIzhYAOkHcJap7+LMQz3vfAxgK/
-	9bc4BHSZXlHTRevnozoWtZ6viGS8n/q0uo5XvK1EWpSmYvyEWTBrhIq2oR5uHTbmMvsK8I4cHmL
-	x3F7SfeY4ABW5NEqOA7I+7qf66K3o9+WY1RDQBZ6T/ZS1tVWGERb+j6V+PSxpb+U4SFIvkLvIgK
-	mw=
-X-Google-Smtp-Source: AGHT+IGUEHJyV0JJ1ycLi+AVBRsLG1B+9VliEZlZuw9CsWjgHBP6cRCMJ1KXfkgo+Vw9MXUobnrH/A==
-X-Received: by 2002:a05:600c:1c24:b0:477:76bf:e1fb with SMTP id 5b1f17b1804b1-477c01be2b2mr162215925e9.16.1763995760876;
-        Mon, 24 Nov 2025 06:49:20 -0800 (PST)
-Message-ID: <8581c3ce-e0f7-41e5-aee7-cf607f8f338d@suse.com>
-Date: Mon, 24 Nov 2025 15:49:22 +0100
+        bh=gmdMZ2QwvigGevV8XqtCpMnJo2mvl0QRlQuG40ABk/4=;
+        b=EeaEeCkAjjBhokqy9gGuOBD9U6Hw/TJnaSwvp6Zxm9sDNRA7Kas8MOtYw6wGJ14SeV
+         /D0nm+ZkyxCW8LvzUJDJI0BDtrl1uFaJps0gFJeAn7DXi1hgm8lcoh+pfKg2W8MgZB5x
+         hMfITnxd35E4r3Wlk3t8iydX8g1cMAdda6fk2uKhHxGoSllxkvBXHGIYVygek9uhF3Jk
+         RxrQ0pSsyEm42a8wO11Ut6+YF0JCjiwrCN7oudpU7BczSVZVostI82fZuV7XZV1mcHu/
+         HEhmJgLSzJfSGR1xounyZl50ee3M+x4FJde7jfzCbxFkJ+YV12kFesD++wRKbJYOnQaK
+         yFfA==
+X-Forwarded-Encrypted: i=1; AJvYcCWZmD0Br4CBWigrwAPw2uCIezSvBXnbaX+Z2ZmscJi3hLkf4fd+wG10NmRlSElXd3zMeN2wgYwh04s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywj933+pBHM1wg8q+RB0wfywgDFDIZX09dJ5rngimkiPbWiQJip
+	Bb0uYPlQUCYf8CwbkJPhS4vbRve/eayHgcW5qzRfE4fjTPYgKI67Tnpz31HwW0+Vuw==
+X-Gm-Gg: ASbGnctmFKIReDITeQ6anc5MymLDv5RGhwm3DW9PNH7QpuBveBAoN8eqU3Y7sbttY+3
+	rApYSOocPc88I2SAFR16A9oSAOvdUguP5w2w9yDSkFPEJVweBGe+s2WnHlW6IbC5Y+7X+VzNC+d
+	+VH5iC6T+piC7qGAvZu/A1LptTMQ4cWceP2viWYZwqsEliLT8XogpIHDQkTvQa56ZogCOG7YhBO
+	uYQt+vm7z0P4/VPcqIqRZPnT/7SYmqncClkXEwId+b+5LpKOrM8alZWPmy45SiwVYdKB0Pe4Jvf
+	y3hJopPSl1G6Pt9q2g8pcBCQioExy/FOhNA7Va3h/ZEDxjBNElejUT0CN0nlMe7fNAYYAiIZQua
+	B3Em0oEwV5vGt3zq/r6dhxJfzZxMa+kD3TZjtTgpxGZmkFv1NvGIuUvEmx7gfC1C2ikb7JXCzzU
+	RZIxPpTNnf8TgRfj5Ydah4VA/KFfDPKxKar3qdXAMCUT5dToamNthVlD4KMk2j8xxaEknkCGIN3
+	lFr1nZ6DpCVlA==
+X-Google-Smtp-Source: AGHT+IEBpSX4x0zdt82RKWsCNsduOKwZ/sG8Y9a7a06fpa5aSDjRRFkP+8ygt96709L7iaIi/TdA/A==
+X-Received: by 2002:a05:6000:2906:b0:42b:41d3:daf1 with SMTP id ffacd0b85a97d-42cc1d1965amr14087237f8f.38.1763995875213;
+        Mon, 24 Nov 2025 06:51:15 -0800 (PST)
+Message-ID: <85a819ff-a8f3-44c3-b3ce-b32f7dd856d8@suse.com>
+Date: Mon, 24 Nov 2025 15:51:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/vhpet: Fix sanitization of legacy IRQ route
-To: Tu Dinh <ngoc-tu.dinh@vates.tech>
+Subject: Re: [PATCH v2 6/6] x86/cpufreq: use host CPU policy in HWP driver
+To: Jason Andryuk <jason.andryuk@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20251124134344.456-1-ngoc-tu.dinh@vates.tech>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <f0ac75c8-5d65-43ef-aeeb-78d34f1da470@suse.com>
+ <bacee005-8ba3-468e-8de4-681af1cc4856@suse.com>
+ <bf1f22ae-11d0-4ac4-9b64-72c3c83c2ef1@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,72 +122,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251124134344.456-1-ngoc-tu.dinh@vates.tech>
+In-Reply-To: <bf1f22ae-11d0-4ac4-9b64-72c3c83c2ef1@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.11.2025 14:43, Tu Dinh wrote:
-> When setting a timer's config register, timer_sanitize_int_route will
-> always reset the IRQ route value to what's valid corresponding to the
-> !HPET_CFG_LEGACY case. This is applied even if the HPET is set to
-> HPET_CFG_LEGACY.
+On 24.11.2025 15:35, Jason Andryuk wrote:
+> On 2025-11-24 07:25, Jan Beulich wrote:
+>> --- a/xen/arch/x86/acpi/cpufreq/hwp.c
+>> +++ b/xen/arch/x86/acpi/cpufreq/hwp.c
 > 
-> When some operating systems (e.g. Windows) try to write to a timer
-> config, they will verify and rewrite the register if the values don't
-> match what they expect. This causes an unnecessary write to HPET_Tn_CFG.
+>> @@ -226,7 +214,8 @@ static int cf_check hwp_cpufreq_verify(s
+>>   {
+>>       struct hwp_drv_data *data = per_cpu(hwp_drv_data, policy->cpu);
+>>   
+>> -    if ( !feature_hwp_activity_window && data->activity_window )
+>> +    if ( !cpu_has_hwp_activity_window &&
+>> +         data->activity_window )
 > 
-> Note, the HPET specification states that for the Tn_INT_ROUTE_CNF field:
+> This ...
+>>       {
+>>           hwp_verbose("HWP activity window not supported\n");
+>>   
 > 
-> "If the value is not supported by this prarticular timer, then the value
-> read back will not match what is written. [...] If the LegacyReplacement
-> Route bit is set, then Timers 0 and 1 will have a different routing, and
-> this bit field has no effect for those two timers."
+>> @@ -537,7 +526,8 @@ int get_hwp_para(unsigned int cpu,
+>>           return -ENODATA;
+>>   
+>>       cppc_para->features         =
+>> -        (feature_hwp_activity_window ? XEN_SYSCTL_CPPC_FEAT_ACT_WINDOW : 0);
+>> +        (cpu_has_hwp_activity_window
+>> +         ? XEN_SYSCTL_CPPC_FEAT_ACT_WINDOW : 0);
 > 
-> Therefore, Xen should not reset timer_int_route if legacy mode is
-> enabled, regardless of what's in there.
+> ...and this can still be on one line.
 
-Fixes: ec40d3fe2147 ("x86/vhpet: check that the set interrupt route is valid")
-(I think)
+Oh, yes, the lines now became shorter again.
 
-> Signed-off-by: Tu Dinh <ngoc-tu.dinh@vates.tech>
-> ---
->  xen/arch/x86/hvm/hpet.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
+> Preferably with that fixed:
 > 
-> --- a/xen/arch/x86/hvm/hpet.c
-> +++ b/xen/arch/x86/hvm/hpet.c
-> @@ -48,6 +48,8 @@
->  #define timer_is_32bit(h, n)     (timer_config(h, n) & HPET_TN_32BIT)
->  #define hpet_enabled(h)          ((h)->hpet.config & HPET_CFG_ENABLE)
->  #define timer_level(h, n)        (timer_config(h, n) & HPET_TN_LEVEL)
-> +#define timer_is_legacy(h, n) \
-> +    (((n) <= 1) && ((h)->hpet.config & HPET_CFG_LEGACY))
->  
->  #define timer_int_route(h, n)    MASK_EXTR(timer_config(h, n), HPET_TN_ROUTE)
->  
-> @@ -244,7 +246,7 @@ static void hpet_set_timer(HPETState *h, unsigned int tn,
->           (timer_level(h, tn) && test_bit(tn, &h->hpet.isr)) )
->          return;
->  
-> -    if ( !timer_int_route_valid(h, tn) )
-> +    if ( !timer_is_legacy(h, tn) && !timer_int_route_valid(h, tn) )
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-Seeing this and the other use together with timer_int_route_valid(),
-wouldn't timer_int_route_valid() better itself invoke the new macro?
-
-> @@ -379,6 +381,9 @@ static int cf_check hpet_write(
->          h->hpet.config = hpet_fixup_reg(new_val, old_val,
->                                          HPET_CFG_ENABLE | HPET_CFG_LEGACY);
->  
-> +        for ( i = 0; i < HPET_TIMER_NUM; i++ )
-> +            timer_sanitize_int_route(h, i);
-
-Strictly speaking this is needed only when HPET_CFG_LEGACY went from
-1 to 0. Plus it's needed only on the first 2 channels, as it's only
-there where timer_sanitize_int_route() changes behavior. I'm not going
-to insist to limit it like this, but if you don't, then I'd like to ask
-for a comment here clarifying that excess work is done for simplicity's
-sake.
+Thanks.
 
 Jan
 
