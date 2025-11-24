@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 580A9C807A8
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:34:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170562.1495618 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 586ADC8079F
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:34:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170563.1495629 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNVlk-0001ab-4n; Mon, 24 Nov 2025 12:34:12 +0000
+	id 1vNVll-0001nI-CY; Mon, 24 Nov 2025 12:34:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170562.1495618; Mon, 24 Nov 2025 12:34:12 +0000
+Received: by outflank-mailman (output) from mailman id 1170563.1495629; Mon, 24 Nov 2025 12:34:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNVlk-0001Y3-1U; Mon, 24 Nov 2025 12:34:12 +0000
-Received: by outflank-mailman (input) for mailman id 1170562;
- Mon, 24 Nov 2025 12:34:10 +0000
+	id 1vNVll-0001lU-8Z; Mon, 24 Nov 2025 12:34:13 +0000
+Received: by outflank-mailman (input) for mailman id 1170563;
+ Mon, 24 Nov 2025 12:34:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Sr25=6A=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vNVli-0001Xp-SJ
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:34:10 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1vNVlj-0001Xp-KP
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:34:11 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id df2204a0-c931-11f0-980a-7dc792cee155;
- Mon, 24 Nov 2025 13:34:08 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-b73545723ebso791712266b.1
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:34:08 -0800 (PST)
+ id e00fcc8a-c931-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 13:34:10 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-b739b3fc2a0so576111466b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:34:09 -0800 (PST)
 Received: from fedora (user-109-243-71-38.play-internet.pl. [109.243.71.38])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b7654cf0435sm1285238866b.4.2025.11.24.04.34.05
+ a640c23a62f3a-b7654cf0435sm1285238866b.4.2025.11.24.04.34.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Nov 2025 04:34:07 -0800 (PST)
+ Mon, 24 Nov 2025 04:34:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df2204a0-c931-11f0-980a-7dc792cee155
+X-Inumbo-ID: e00fcc8a-c931-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763987648; x=1764592448; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+sSuYdsdwkxhTsu6a2x7f7aj3mdyYmC59jrVxhin0Uo=;
-        b=ilr5LO2Jsh3gObk2tOqXR+5Vu26Ze3EJFaRAWdIsttF1CczFz19VTytmh/V4Z5GbL3
-         2Tey5Z7cftmMscKigNfqcq7beN19fiyuMmS9q2TcicHBtDjCo5c4jPKWYmPxmFAnR650
-         HiMgeuZdfYey79J/gzNbcsuLLw88fsVLpKzBbbVIRkr54Pop4OjmHFEpGpR96JIO63ez
-         Zjvzs4I6Hh6oh+lMcKx/9JDpTGQGkE61riA83BrWcIjy5JsD5yZ6t4CMttYR78gfWatx
-         N//Ds67T9NORYNr3yg6XhznzGyRvKyCYwy9V2EkZYnRhIvOc/PExVKvMghLcvFdprU2B
-         26Cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763987648; x=1764592448;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1763987649; x=1764592449; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+sSuYdsdwkxhTsu6a2x7f7aj3mdyYmC59jrVxhin0Uo=;
-        b=aE2e5GQOzJAS3YOCs7ys7tlbLSxFgRYxtCfsKcFQRKr9du9XS2voUdo7UZkWICYNbo
-         TUMpeVAGiinZKv4SAGMDJmiZXk4v8s0c7oJOSyKN9J/MN/0swWZJQnOlx4WyygOdJXCM
-         37FKgCyMSI0JgjBVU7/0YKV5h/iFcJ75Kn2Re3TOdyuGfMOl0Y9GF4EdbaLTGJ0oHJRt
-         Wj4m9a0nuIWtp4Ut10Q+Ne8Zy4T7roR8z2tDT/5OMrRSs0b00IBSXXekqSwjBvgSFqv8
-         zdbWqlKuh6Lh3DVNoG276UtZowQxLUhkdt9oB+76O7RNqpvWvSSJ/+o0hqtZW9My2E9m
-         oDZQ==
-X-Gm-Message-State: AOJu0YwbQ+gTkrxmTaK8hKIejjTsK1tGhvNNrBgRg3IR3fpauLtQYYV5
-	d5i3amLU94nBs1quz8+rlwRWp7HkbAS6EDW9zzNJvpanw9e3uGeGM/pPXp+JwT0a
-X-Gm-Gg: ASbGnctGvD9KUN9MXMTTSJm02Novpikeu4v1sQPwgrqGkHhTVvqm61NfKvDXzxoOMSy
-	o2/FqwxYNeYv2oI4Us/E6+QTAWApuREgnb45/Vw192VJ4zyBhqHqk0JT5vzs3N4elKubI1APVkb
-	M/qznfjCi+l89zNdRi/6w5b7nNRviFrxSdBCi1T1bC1+XA5xU/Xm6zBkWu4TSV1b4vfuUPzca7K
-	10P4zPe8p3sbuv8jMdJXfmTVWaxtQR3UWD3T553IOWKbtyw+Oi4FeFF3YeKDdkNah1eRoznDVK7
-	HzbrFmsyBEAQ0SgUpA7jEFjY6m6ETYptVkoz6klMNlg2rUlfFlcWQSSp961vLjAi6Y5dTwxUCWg
-	KgordK2eSXY7LWaJLdVYtf/DYG2Bh8Zixm7UrR0ml/24qN3N+/wxtpuqEFx5xarnqo32n1M5N+C
-	1zJmk5szsJCyIA0VshTZ6K6cD3B9Ott0TX70bA4/Eedl2Hk74adhUeWg0=
-X-Google-Smtp-Source: AGHT+IFeVvtdieypPfUUuFa98jmCPo/+NVn9t8wvxA4TkdblLsWeBbTIB7f6Iw/e9IzssQAGdXUBMg==
-X-Received: by 2002:a17:907:d05:b0:b73:6b24:14b5 with SMTP id a640c23a62f3a-b7671a47bafmr1395645166b.31.1763987647315;
-        Mon, 24 Nov 2025 04:34:07 -0800 (PST)
+        bh=J8ifjKP0EguzdGYi8KL9vzcWewOoqZ+j/iRWQquu0b4=;
+        b=OmUZ4KR3Ab5Ys9R+yOlQIjRgRUsJw9aClbJrrw1kKXv9qnPCEipz5UQlWye99M+9Co
+         N0V88fTasYdHPTmZf9J/rBEZ/GCb4nWk83Tpw6hDShkykYOYoWfhRyWyZbmZbJJEjMS0
+         N2kB5R5uG/TztA8ok3HaxlpmbUQPF19NMM8aEcdCUhrEMVg5lUtKq5FmMS2pOuMIH1IK
+         2eydHaE6eKJPkDNCCvi/nRCP/RheLMITid7wcpq4b8IEwlwPmhlXk9UpwkwFaP4mTLg7
+         zorQrFOj405+pVeoa347T8r+F/BoFIdcdyT827AiW6jJp90tlCVwybEVBQlLLNV3mQcC
+         AXxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763987649; x=1764592449;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=J8ifjKP0EguzdGYi8KL9vzcWewOoqZ+j/iRWQquu0b4=;
+        b=Ab5QeLZRFQOgPXVh2F4lyB5Oi2FAmM/UMGcpNKYPzegsAacHHPYF2NZObkP6h8/Qzf
+         vK7tOB3d8iVr85nqcDbPpz0h4VZ9Xvn3oxcfSuv8nwCicVCqTwRg488oSeAjluKx/SPE
+         A6v7Il9RA7zr7tH6ePG/Zh3HWliDAGFjwPrYlQFSBcelLIt/qFfGqMgT+eOw3jNkT7f4
+         isFIWN2J3baal10lCsEKVJa8FauNNulFA+LHPT06aIz3F0Ak52xU4N3Yp1UFnG+PdVuM
+         VhSlvuOLVj6sUKhKMktXPE6h3Hc6VlDKfJB8eOA9XWi+jObfxHKQAW+ZMMiycqHjA88L
+         mt9A==
+X-Gm-Message-State: AOJu0YxaF64ZE8DiRGc/oWi53LUowQ91egfyloyQHVp1SB06IdLUWxJx
+	t1cIyBprlfHgRMdlxNd66VGIa6HySNFW/PtBWIK0r0FEnYAUlSEpVjzvRziEK0ab
+X-Gm-Gg: ASbGncuqXoUjNsaUTepShCYC86SsmSt6JvrKOm6afkGTIweaqQF282s8cRjyVklkdNW
+	w6wp65KSKXDZ4Rj3O9v1CWXbWRygYgbeR77sUmbKdMbZB4T6M2GgVNhZvCLlHim+WGINW40xHQE
+	izJun422UDPSlGJhL0Qxi0gdHltPG968O0FdLvCRF8Mkk22eqfCd6WRkfW9q1a+hmBpINhQPoCF
+	9IP1xxUTVgDwykc/xrd9QIDUL8yTWsiw4pdqeYNWB01CTg/2uMwpJzkMg87HsG0pIgvBBpQ4Ux7
+	2IGyYS4y6+gWFIXDjGuAnGc0gAAHXc1Ngqw72ks2kiAza8V47eSny45E43JIdapegeVFhQi2KfE
+	ZgG6hxYSfrQO6azA+d+tiYIxS5ikj3NX+brZLPr3hxp0wr036Q1EmOuWq4R970odjktLwhtFT25
+	3Yul8JzSCUOLrioTFXF8KBlB7c1jU0lFnr6GjL40dU9yugLK3o/a0ZITc=
+X-Google-Smtp-Source: AGHT+IG4wDzSKO0Vd1GcklLf6mk4Ak2TaRXHmfJt/3UODicn526SnOfRaen4zX2ZTnqSem0V63HOrg==
+X-Received: by 2002:a17:907:9495:b0:b0e:d477:4972 with SMTP id a640c23a62f3a-b76715dcdcamr1133510866b.25.1763987648793;
+        Mon, 24 Nov 2025 04:34:08 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -93,127 +94,78 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v6 00/19] xen/riscv: introduce p2m functionality
-Date: Mon, 24 Nov 2025 13:33:33 +0100
-Message-ID: <cover.1763986955.git.oleksii.kurochko@gmail.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v6 01/19] xen/riscv: avoid redundant HGATP*_MODE_SHIFT and HGATP*_VMID_SHIFT
+Date: Mon, 24 Nov 2025 13:33:34 +0100
+Message-ID: <f2f2e4ad98ca11763a4b754b80ea79121468ee36.1763986955.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.51.1
+In-Reply-To: <cover.1763986955.git.oleksii.kurochko@gmail.com>
+References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In this patch series are introduced necessary functions to build and manage
-RISC-V guest page tables and MMIO/RAM mappings.
+It is sufficient to use HGATP*_MODE_MASK and HGATP*_VMID_MASK without
+the corresponding *_SHIFT definitions.
 
+Rename HGATP{32,64}_PPN to HGATP{32,64}_PPN_MASK to more accurately
+describe their purpose. The top-level HGATP_PPN and related aliases are
+updated accordingly.
+
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-Changes in V5:
- - Addressed comments for v4.
- - The following patches were Acked-by:
-   - [v5 16/18] xen/riscv: implement mfn_valid() and page
-   - [v5 15/18] xen/riscv: implement put_page()
-   - [v5 14/18] xen/riscv: Implement superpage splitting for p2m mappings
-   - [v5 09/18] xen/riscv: implement function to map memory in guest p2m
-   - [v5 07/18] xen/riscv: add new p2m types and helper macros for type classification
-   - [v5 03/18] xen/riscv: introduce things necessary for p2m initialization
----
-Changes in V4:
- - Merged to staging:
-   - xen/riscv: introduce sbi_remote_hfence_gvma()
-   - xen/riscv: introduce sbi_remote_hfence_gvma_vmid()
- - Drop "xen/riscv: introduce page_{get,set}_xenheap_gfn()" as grant tables aren't going to be introduced for the moment. Also, drops other parts connected to grant tables support.
- - All other changes are patch specific.
----
-Changes in V3:
- - Introduce metadata table to store P2M types.
- - Use x86's way to allocate VMID.
- - Abstract Arm-specific p2m type name for device MMIO mappings.
- - All other updates please look at specific patch.
----
-Changes in V2:
- - Merged to staging:
-   - [PATCH v1 1/6] xen/riscv: add inclusion of xen/bitops.h to asm/cmpxchg.h
- - New patches:
-   - xen/riscv: implement sbi_remote_hfence_gvma{_vmid}().
- - Split patch "xen/riscv: implement p2m mapping functionality" into smaller
-   one patches:
-   - xen/riscv: introduce page_set_xenheap_gfn()
-   - xen/riscv: implement guest_physmap_add_entry() for mapping GFNs to MFNs
-   - xen/riscv: implement p2m_set_entry() and __p2m_set_entry()
-   - xen/riscv: Implement p2m_free_entry() and related helpers
-   - xen/riscv: Implement superpage splitting for p2m mappings
-   - xen/riscv: implement p2m_next_level()
-   - xen/riscv: Implement p2m_entry_from_mfn() and support PBMT configuration
- - Move root p2m table allocation to separate patch:
-   xen/riscv: add root page table allocation
- - Drop dependency of this patch series from the patch witn an introduction of
-   SvPBMT as it was merged.
- - Patch "[PATCH v1 4/6] xen/riscv: define pt_t and pt_walk_t structures" was
-   renamed to xen/riscv: introduce pte_{set,get}_mfn() as after dropping of
-   bitfields for PTE structure, this patch introduce only pte_{set,get}_mfn().
- - Rename "xen/riscv: define pt_t and pt_walk_t structures" to
-   "xen/riscv: introduce pte_{set,get}_mfn()" as pt_t and pt_walk_t were
-   dropped.
- - Introduce guest domain's VMID allocation and manegement.
- - Add patches necessary to implement p2m lookup:
-   - xen/riscv: implement mfn_valid() and page reference, ownership handling helpers
-   - xen/riscv: add support of page lookup by GFN
- - Re-sort patch series.
- - All other changes are patch-specific. Please check them.
+Changes in v6:
+ - New patch.
 ---
 
-Oleksii Kurochko (19):
-  xen/riscv: avoid redundant HGATP*_MODE_SHIFT and HGATP*_VMID_SHIFT
-  xen/riscv: detect and initialize G-stage mode
-  xen/riscv: introduce VMID allocation and manegement
-  xen/riscv: introduce things necessary for p2m initialization
-  xen/riscv: construct the P2M pages pool for guests
-  xen/riscv: add root page table allocation
-  xen/riscv: introduce pte_{set,get}_mfn()
-  xen/riscv: add new p2m types and helper macros for type classification
-  xen/dom0less: abstract Arm-specific p2m type name for device MMIO
-    mappings
-  xen/riscv: implement function to map memory in guest p2m
-  xen/riscv: implement p2m_set_range()
-  xen/riscv: Implement p2m_free_subtree() and related helpers
-  xen/riscv: Implement p2m_pte_from_mfn() and support PBMT configuration
-  xen/riscv: implement p2m_next_level()
-  xen/riscv: Implement superpage splitting for p2m mappings
-  xen/riscv: implement put_page()
-  xen/riscv: implement mfn_valid() and page reference, ownership
-    handling helpers
-  xen/riscv: add support of page lookup by GFN
-  xen/riscv: introduce metadata table to store P2M type
+ xen/arch/riscv/include/asm/riscv_encoding.h | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
 
- docs/misc/xen-command-line.pandoc           |    9 +
- xen/arch/arm/include/asm/p2m.h              |    5 +
- xen/arch/riscv/Makefile                     |    3 +
- xen/arch/riscv/cpufeature.c                 |    1 +
- xen/arch/riscv/include/asm/Makefile         |    1 -
- xen/arch/riscv/include/asm/cpufeature.h     |    1 +
- xen/arch/riscv/include/asm/domain.h         |   23 +
- xen/arch/riscv/include/asm/flushtlb.h       |   13 +-
- xen/arch/riscv/include/asm/mm.h             |   29 +-
- xen/arch/riscv/include/asm/p2m.h            |  185 ++-
- xen/arch/riscv/include/asm/page.h           |   37 +
- xen/arch/riscv/include/asm/paging.h         |   20 +
- xen/arch/riscv/include/asm/riscv_encoding.h |   23 +-
- xen/arch/riscv/include/asm/vmid.h           |   14 +
- xen/arch/riscv/mm.c                         |   69 +-
- xen/arch/riscv/p2m.c                        | 1443 +++++++++++++++++++
- xen/arch/riscv/paging.c                     |  139 ++
- xen/arch/riscv/setup.c                      |    3 +
- xen/arch/riscv/stubs.c                      |    5 -
- xen/arch/riscv/vmid.c                       |  170 +++
- xen/common/device-tree/dom0less-build.c     |    2 +-
- 21 files changed, 2158 insertions(+), 37 deletions(-)
- create mode 100644 xen/arch/riscv/include/asm/paging.h
- create mode 100644 xen/arch/riscv/include/asm/vmid.h
- create mode 100644 xen/arch/riscv/p2m.c
- create mode 100644 xen/arch/riscv/paging.c
- create mode 100644 xen/arch/riscv/vmid.c
-
+diff --git a/xen/arch/riscv/include/asm/riscv_encoding.h b/xen/arch/riscv/include/asm/riscv_encoding.h
+index 6cc8f4eb45..fd27f74cb7 100644
+--- a/xen/arch/riscv/include/asm/riscv_encoding.h
++++ b/xen/arch/riscv/include/asm/riscv_encoding.h
+@@ -132,15 +132,11 @@
+ #define HGATP_MODE_SV39X4		_UL(8)
+ #define HGATP_MODE_SV48X4		_UL(9)
+ 
+-#define HGATP32_MODE_SHIFT		31
+-#define HGATP32_VMID_SHIFT		22
+ #define HGATP32_VMID_MASK		_UL(0x1FC00000)
+-#define HGATP32_PPN			_UL(0x003FFFFF)
++#define HGATP32_PPN_MASK		_UL(0x003FFFFF)
+ 
+-#define HGATP64_MODE_SHIFT		60
+-#define HGATP64_VMID_SHIFT		44
+ #define HGATP64_VMID_MASK		_ULL(0x03FFF00000000000)
+-#define HGATP64_PPN			_ULL(0x00000FFFFFFFFFFF)
++#define HGATP64_PPN_MASK		_ULL(0x00000FFFFFFFFFFF)
+ 
+ #define PMP_R				_UL(0x01)
+ #define PMP_W				_UL(0x02)
+@@ -166,10 +162,8 @@
+ #define SATP_MODE_SHIFT			SATP64_MODE_SHIFT
+ #define SATP_PPN_MASK			SATP64_PPN
+ 
+-#define HGATP_PPN			HGATP64_PPN
+-#define HGATP_VMID_SHIFT		HGATP64_VMID_SHIFT
++#define HGATP_PPN_MASK			HGATP64_PPN_MASK
+ #define HGATP_VMID_MASK			HGATP64_VMID_MASK
+-#define HGATP_MODE_SHIFT		HGATP64_MODE_SHIFT
+ #else
+ #define MSTATUS_SD			MSTATUS32_SD
+ #define SSTATUS_SD			SSTATUS32_SD
+@@ -177,10 +171,8 @@
+ #define SATP_MODE_SHIFT			SATP32_MODE_SHIFT
+ #define SATP_PPN_MASK			SATP32_PPN
+ 
+-#define HGATP_PPN			HGATP32_PPN
+-#define HGATP_VMID_SHIFT		HGATP32_VMID_SHIFT
++#define HGATP_PPN_MASK			HGATP32_PPN_MASK
+ #define HGATP_VMID_MASK			HGATP32_VMID_MASK
+-#define HGATP_MODE_SHIFT		HGATP32_MODE_SHIFT
+ #endif
+ 
+ #define TOPI_IID_SHIFT			16
 -- 
 2.51.1
 
