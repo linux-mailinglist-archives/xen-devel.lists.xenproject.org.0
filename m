@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72566C7FD20
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 11:15:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170187.1495262 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C9FCC7FD32
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 11:16:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170194.1495271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNTb0-00060a-Ax; Mon, 24 Nov 2025 10:14:58 +0000
+	id 1vNTc1-0006Wr-J0; Mon, 24 Nov 2025 10:16:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170187.1495262; Mon, 24 Nov 2025 10:14:58 +0000
+Received: by outflank-mailman (output) from mailman id 1170194.1495271; Mon, 24 Nov 2025 10:16:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNTb0-0005yY-7g; Mon, 24 Nov 2025 10:14:58 +0000
-Received: by outflank-mailman (input) for mailman id 1170187;
- Mon, 24 Nov 2025 10:14:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R6Av=6A=redhat.com=berrange@srs-se1.protection.inumbo.net>)
- id 1vNTay-0005yQ-Ov
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 10:14:56 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6b48c7e5-c91e-11f0-980a-7dc792cee155;
- Mon, 24 Nov 2025 11:14:54 +0100 (CET)
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-663-l1KoQPHgMP6tymnzrikDGQ-1; Mon,
- 24 Nov 2025 05:14:46 -0500
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 486AD1956080; Mon, 24 Nov 2025 10:14:44 +0000 (UTC)
-Received: from redhat.com (unknown [10.42.28.58])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 92E2430044DC; Mon, 24 Nov 2025 10:14:39 +0000 (UTC)
+	id 1vNTc1-0006Ud-GH; Mon, 24 Nov 2025 10:16:01 +0000
+Received: by outflank-mailman (input) for mailman id 1170194;
+ Mon, 24 Nov 2025 10:16:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vNTc0-0006Q3-46
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 10:16:00 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 92518884-c91e-11f0-9d18-b5c5bf9af7f9;
+ Mon, 24 Nov 2025 11:15:59 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-42b38693c4dso1816038f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 02:15:59 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42cb7fb9190sm27464268f8f.33.2025.11.24.02.15.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Nov 2025 02:15:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,62 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b48c7e5-c91e-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1763979293;
-	h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0tC79samwWePB3tLxmPqGImp7yLEUid7HuRpqd42T2o=;
-	b=RUaJGaIhHaYnT9AMVG1iXdyikIl1gl67NmLRxFK/V/2w3BnnbQeJUs4LNzhlNeis3xIgEF
-	Z1uzSsmjYd/tC2AcdGBKd5Hyq6mIKLa9ydkC0O40/8Xfd6yNtrqwUgHTPBXcaG9qBs0Kat
-	0wM/S0P7FcmXGhKpmDOPKaxEmWEu+ks=
-X-MC-Unique: l1KoQPHgMP6tymnzrikDGQ-1
-X-Mimecast-MFC-AGG-ID: l1KoQPHgMP6tymnzrikDGQ_1763979285
-Date: Mon, 24 Nov 2025 10:14:36 +0000
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
-	David Woodhouse <dwmw2@infradead.org>, Paul Durrant <paul@xen.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony@xenproject.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Mark Cave-Ayland <mark.caveayland@nutanix.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
-Subject: Re: [PATCH] hw/i386/isapc: Remove dead Xen code
-Message-ID: <aSQwDCCkIALZdh6w@redhat.com>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-References: <20251123185832.53802-1-philmd@linaro.org>
+X-Inumbo-ID: 92518884-c91e-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1763979358; x=1764584158; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=xyIEixGRa5QlUw7Hx1Leq8XYPZgq6Hg+Kj594xJkG/M=;
+        b=DCua2i6AYKuzA+yDlrHDLDgpIsu1+fFk1GkH1JMsPDQXrJJsd+NWXEqVcf1/2GXb7h
+         7EbKtIa3vCKIbvzpWiwqhQRHqbmWPnyLUBRlbaR0CxnLTqiKEBNnFxXzwEQYXO5QTGro
+         MDIyq7i/iFzxiUbRQDhJJ5vMw9OQGPJIBUde4pP9e+vLSNP5TmrAlKlzJlarsLZwwomx
+         KoftYqKa8+JWvUpV73Mja77ro133Nc+1w9cTeBfIL1Fdt58Vs+udireG6TtMDNukKxLV
+         RelOxePcjj9K/o//aPExWY/na/quGo/zdA+HrLoVtr2C13k5CooPlxGzN0u8wdiJfNP7
+         3uow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763979358; x=1764584158;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xyIEixGRa5QlUw7Hx1Leq8XYPZgq6Hg+Kj594xJkG/M=;
+        b=Kil8aeEjIjG2FWM4TsgzF1FGyyI1oJxrf2qg+FcdBloBdfZXHxEyKyDzDeeyVcjtDf
+         B40RRpZ7GmYvwquRsduaA/xPHbvwLJRvLMMJuEYG4LnqD6MrtwMxNxE8uFbfaZ7Tfjcn
+         /5cKrHAuv3V8IX+HKLcU+ouWxtwZHKT2saG5UxlyTsehbSa5hbKwvMReqgofU9ES4TRv
+         ZU8XklZ3xIS+JynHplCN84x1zr2m6ccpdyGcXvtPU2+Uyvt4oIzIHy7TSzPdih7+tk6t
+         mJ08Qxr/VwmA2W+wz8VQRc+apZUK5KRWPViZFSdu8p1llwzEWUyKMiesYoCf1AX/zQBV
+         iw3g==
+X-Forwarded-Encrypted: i=1; AJvYcCX7e1KGX0MO84C5bnO2SYnJ7z93Gm5ndT3KhBbr7JWZjzK+9KH0mngxWWsmQP7UxzLIrqBrQXKUNG8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw1+kTctRwEB8KGFoCyoMzorf56EJgi6iOkFExXF/T2hrHOgo87
+	Xk3uv5ZJxYdBwnZKSTN5PKPDf1XpJU9TsZQD9zdmqmvWLgpcP43Zru7hF/qYWp03Qw==
+X-Gm-Gg: ASbGncul872cyotglQMx2EF9Ot1sAbK7sgB8A5lKPTbnckphi8YR8eHayLDqTL0K5R6
+	H1dLl1W/DwzN3qW6QEIACrt9bMz6Ksq2oFjJoiX2fXWw/epnLo0itMEPjWAJn6Vpw0jveXVFkZr
+	unxsT2Hp/vJloSrk0/ELajpDQGyUC5xY2hZYzfm9ss+xxU8v1RoGJ1KPZ0vXtI3liyZI4KHH6Kq
+	48uMDaUtb1PQMczZaC7pcX+Cp5l/aZb6O4LfW7i24wejfSQiqD3vRcx4Rn8ZClE6AZ5+VH602Ew
+	LeWYvhukYDHZqWfxO06XWXQeDBzMdiR9vU3lte49FIPuAjfxTutRXKPxfns1wkoDcDj6tVmhCBd
+	Uy/0Bsf1aTt7AIAz50/MqnksrQKvTqRlU0xEqn5HqI/QihgLxXDPawQSQZqmEQkpD9lyyu9THbe
+	x0YkiQ6gLFFXd1l6LjlNErVVrWUvnKaGcK1beFQb4PfPeyhU0tVkU4QMdGyhDLONitEfeKJEyEN
+	/4zRe6DLvei7Q==
+X-Google-Smtp-Source: AGHT+IG+wJAjbO9MGvrzg/tqyL8ttJBzw3uJ8hXGEM9PVj5ePgAAmoTavut6MeYd4uQDEsHKppL6kA==
+X-Received: by 2002:a05:6000:401f:b0:429:f050:adbb with SMTP id ffacd0b85a97d-42cc1cc22f5mr11688438f8f.26.1763979358498;
+        Mon, 24 Nov 2025 02:15:58 -0800 (PST)
+Message-ID: <0bdbd520-7568-4ed2-9dc3-f2b7de74044a@suse.com>
+Date: Mon, 24 Nov 2025 11:16:00 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/12] x86/irq: set accurate cpu_mask for high priority
+ vectors used by external interrupts
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20251120090637.25087-1-roger.pau@citrix.com>
+ <20251120090637.25087-5-roger.pau@citrix.com>
+ <3491d3ee-08b8-4678-9f18-5a4daa972e02@suse.com> <aSAi0IyDBKhqND3W@Mac.lan>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aSAi0IyDBKhqND3W@Mac.lan>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20251123185832.53802-1-philmd@linaro.org>
-User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Sun, Nov 23, 2025 at 07:58:32PM +0100, Philippe Mathieu-Daudé wrote:
-> We don't use Xen on the isapc machine: let's remove
-> pointless code.
+On 21.11.2025 09:29, Roger Pau Monné wrote:
+> On Thu, Nov 20, 2025 at 02:06:39PM +0100, Jan Beulich wrote:
+>> On 20.11.2025 10:06, Roger Pau Monne wrote:
+>>> Setting the irq descriptor target CPU mask of high priority interrupts to
+>>> contain all online CPUs is not accurate.  External interrupts are
+>>> exclusively delivered using physical destination mode, and hence can only
+>>> target a single CPU.  Setting the descriptor CPU mask to contain all online
+>>> CPUs makes it impossible for Xen to figure out which CPU the interrupt is
+>>> really targeting.
+>>>
+>>> Instead handle high priority vectors used by external interrupts similarly
+>>> to normal vectors, keeping the target CPU mask accurate.  Introduce
+>>> specific code in _assign_irq_vector() to deal with moving high priority
+>>> vectors across CPUs, this is needed at least for fixup_irqs() to be able to
+>>> evacuate those if the target CPU goes offline.
+>>>
+>>> Fixes: fc0c3fa2ad5c ("x86/IO-APIC: fix setup of Xen internally used IRQs (take 2)")
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> with one further request:
+>>
+>>> @@ -756,12 +770,10 @@ void setup_vector_irq(unsigned int cpu)
+>>>          if ( !irq_desc_initialized(desc) )
+>>>              continue;
+>>>          vector = irq_to_vector(irq);
+>>> -        if ( vector >= FIRST_HIPRIORITY_VECTOR &&
+>>> -             vector <= LAST_HIPRIORITY_VECTOR )
+>>> -            cpumask_set_cpu(cpu, desc->arch.cpu_mask);
+>>> -        else if ( !cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
+>>> -            continue;
+>>> -        per_cpu(vector_irq, cpu)[vector] = irq;
+>>> +        if ( (vector >= FIRST_HIPRIORITY_VECTOR &&
+>>> +              vector <= LAST_HIPRIORITY_VECTOR) ||
+>>> +             cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
+>>> +            per_cpu(vector_irq, cpu)[vector] = irq;
+>>
+>> Going beyond desc->arch.cpu_mask for hiprio vectors may deserve a comment here. When
+>> the vector is global, this is necessary. But for e.g. the serial IRQ (which still
+>> moves, but isn't bound to multiple CPUs, the more normal way of respecting
+>> desc->arch.cpu_mask would be sufficient.
 > 
-> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-> ---
->  hw/i386/isapc.c | 27 ++++-----------------------
->  1 file changed, 4 insertions(+), 23 deletions(-)
+> Note that hiprio vectors are handled specially in _assign_irq_vector()
+> and the logic to set per_cpu(vector_irq, cpu)[vector] is
+> short-circuited assuming that hiprio vectors are already setup on all
+> CPUs.
+> 
+>> It is merely (largely) benign if we set
+>> vector_irq[] also for other CPUs. "Largely" because strictly speaking if that vector
+>> triggered on the wrong CPU for whatever reason, we rather shouldn't treat it as a
+>> legitimate interrupt.
+> 
+> I see, yes, we could handle hiprio vectors more like normal ones and
+> do a bit more work in _assign_irq_vector() to also set the
+> vector_irq[] array at bind time, but then we would need the cleanup
+> logic as the interrupt migrates, which is a bit of overhead when we
+> know the vector won't be re-used for anything else.
+> 
+> What about I add the following comment:
+> 
+>         if ( cpumask_test_cpu(cpu, desc->arch.cpu_mask) ||
+>              /*
+>               * High-priority vectors are reserved on all CPUs.  Set
+>               * the vector to IRQ assignment on all CPUs, even if the
+>               * interrupt is not targeting this CPU.  That makes
+>               * shuffling those interrupts around CPUs easier.
+>               */
+>              (vector >= FIRST_HIPRIORITY_VECTOR &&
+>               vector <= LAST_HIPRIORITY_VECTOR) )
+>             per_cpu(vector_irq, cpu)[vector] = irq;
 
-Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+Thanks, that's fine with me.
 
-
-With regards,
-Daniel
--- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
-
+Jan
 
