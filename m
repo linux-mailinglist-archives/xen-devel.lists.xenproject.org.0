@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1FF5C81546
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 16:28:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171461.1496476 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CCA6C81694
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 16:45:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171471.1496486 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNYTc-0003DE-Ky; Mon, 24 Nov 2025 15:27:40 +0000
+	id 1vNYjw-0006tq-0W; Mon, 24 Nov 2025 15:44:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171461.1496476; Mon, 24 Nov 2025 15:27:40 +0000
+Received: by outflank-mailman (output) from mailman id 1171471.1496486; Mon, 24 Nov 2025 15:44:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNYTc-0003AJ-Hk; Mon, 24 Nov 2025 15:27:40 +0000
-Received: by outflank-mailman (input) for mailman id 1171461;
- Mon, 24 Nov 2025 15:27:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNYTa-0003AD-6u
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 15:27:38 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 192930e6-c94a-11f0-980a-7dc792cee155;
- Mon, 24 Nov 2025 16:27:33 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-477aa218f20so27742815e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 07:27:33 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477bf22dfcesm204183895e9.13.2025.11.24.07.27.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 07:27:32 -0800 (PST)
+	id 1vNYjv-0006r3-T0; Mon, 24 Nov 2025 15:44:31 +0000
+Received: by outflank-mailman (input) for mailman id 1171471;
+ Mon, 24 Nov 2025 15:44:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=h9jE=6A=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vNYjv-0006qx-0b
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 15:44:31 +0000
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c107::3])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7633efca-c94c-11f0-9d18-b5c5bf9af7f9;
+ Mon, 24 Nov 2025 16:44:30 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by MN2PR03MB4926.namprd03.prod.outlook.com (2603:10b6:208:1b1::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.17; Mon, 24 Nov
+ 2025 15:44:26 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9343.016; Mon, 24 Nov 2025
+ 15:44:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,192 +47,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 192930e6-c94a-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763998053; x=1764602853; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yC/bZLu+EIxdCkEcr1l6dhxqmfTALUd18Ae0pypNCPw=;
-        b=O2Ot9saf8IaDdqt8aui+45wIjA8dB4yriWhYZZBNDgwIo5eTlim1lytKRHCLSFxb20
-         zhB2FSawivV5vBoYulxZhArQg0tRco7JmpAouSICIA5pYDYN+8gVJQM7HbEALjjQiKWF
-         bEpN8IAByvg+ttHJ6kmyTaE7b/a96ZWGs2G/aGZS10/dfuinNS3LE4MO0H0Svz9nFbD4
-         IK4Nx/jnudVgeycOc6VlmcWAJw7jvb1pSw81RGqoyAjyYmcBScKT7cAddQch1SAQUt59
-         jwpTvbUDSQ5+2hAVGm3z8OQ9ZWHYAY3wcHd5u2tCb7JQvN4CD7HWSaLkUnWNJ5R5yQhD
-         xCwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763998053; x=1764602853;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yC/bZLu+EIxdCkEcr1l6dhxqmfTALUd18Ae0pypNCPw=;
-        b=F/2TwQ63F+GzKTum4A7ewwX+evg9ILm+Q4iEB6UQONxp3EJEskJV5vMeMGzA4cRBhM
-         Jb0i/encqVX/bGlmttdJLBoFT2PDKEEv6cw+1a/9ueoBujZLQ8OUKKppoljKr21t2lzY
-         KBu/xGVAeg5FvHokUbPrgCofvCAeL2tJVzaQkJ9FC6ZAfuVt8jV4UsAiTgNAcR27z9oM
-         4pPcVcnwsLsMyfgWcjNfw4xinqytX0GfNgRBI5jcwAgYNGrRWMWEX7xLY8Wb77NSr/hq
-         hIvg1ED0qunEK28DwGfglXVGl9ikRRCiltwmGpfYUDIM2rXR2xZ8XY8IwPyBgKe3M+ld
-         vWdg==
-X-Forwarded-Encrypted: i=1; AJvYcCVFAkAZyKvBU/ySu94H3ttoCwhWZNpwUx/bEqc+W4VqsPjwlEnV/Fu0zNIH19x58tP7+7AYtRMdAfE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzseC5uJpBdB5XQQSGRiis5C4Lkf5QpOdRme/Piayby1WHKuaK6
-	sqk54HT/OEYG/r3H0RJdOzHcdUj4ZE2Fmh96DZ1qiqb1EIFuClNkm/1GY9pEjTl3Pg==
-X-Gm-Gg: ASbGncsiWHO0i4rWuqqQ/+pqOeqAcu3Q9zaA1Of9LfcOvCoFxh28+PSkdvX4vZJaGdW
-	I3w40n+o7fa+Yjmbx1byrw+nD+VldvAKkd7GiEskRPD0sSw6Q6QoJigu9pGuRZt37/hbWF1UL10
-	2A2jLswJEbzFxn1G79P/gT71W6Ws6zn6MVKZdHHf3epyc+fo84diy05U4F/39XCx9wbCnRcppaB
-	/6SoOE4ZSCJJQZn6VfgJnfxxJHwFiEd9s3faGpu5t7Q/c5SQkOZFV4w+s6m24o9H2iYW/jfevuZ
-	c4JTS/c1AvBpSqYR6uonxAyIq4TpPlfvBrdHYCJpKOlLUGrRZNSDx9hPR8cLrE46qcaIUnqemTv
-	7uN9OO2G446WV2B4sNhwoPQlqm3ySUB29aGHfVIs1ZgVsXcWjpLucm7/4CnZ5g8HhFLzS8JheRb
-	XAfq8s+Lty8/GSFL52b/oUyP4uE1wv6J5S8qBwass+4DVyFQcDGXeVbykse3QbTRxmFtQcOSPB+
-	4g=
-X-Google-Smtp-Source: AGHT+IHBM//D9k1OavE524VofWHnJt08S27ZWc4T7ADWjVurht+kS7pHtF1pVJ4BSBbsXCJBdfBKSQ==
-X-Received: by 2002:a05:600c:190a:b0:477:76cb:4812 with SMTP id 5b1f17b1804b1-477c00ef528mr153973365e9.0.1763998052959;
-        Mon, 24 Nov 2025 07:27:32 -0800 (PST)
-Message-ID: <610bc497-4a83-49c5-bd1d-8e63794c62f3@suse.com>
-Date: Mon, 24 Nov 2025 16:27:34 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: 7633efca-c94c-11f0-9d18-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lgzi1ARaXN97f61rtrFpOzQon/9hCrfyc4q+9wk4COSt0M80w5InyK0/xq+uIZtcphSMvPZxXZbS3gKixRXMfLmzZ4CekgEdzvY5V4CEGtDAET0YCwf5oN/NrK/2CRnKsDMqBl+/jm89YEHdC/wUT9QVVt2feCVoU6HNlakzyRNKtd/IretWW5bmDhObDJyw2hhdUysoXxQIqBAP+XeitFrL1JaktKwCeCssAgM2bUodb4nbtC5IZ+iZw7kq1xuqodrJIcUPOH/CQnBYQ8ITc6FZhqmCJIcBaQcOep2g9d6TUeptJfuq81FW0R/229d9dhYfUZ+dPD4dy0ZTlp8Wmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9s9ydKkgVoCIdlRXbpEUY7dHNLoTCOWwZ3cXCoDh7b8=;
+ b=Y3YqDJt6ClTxbY6PnC4fgae/4jqDM7KnVszH9Wi1eROmNDCvMaIeeCtqpyM3svKC2WixuGVYsjRW69oEFJd4PuLx90CtmGpGIENeuv4mT/YwmqG8EqW0zm1d/Y/SMHA0U9MXuC3/B6xT5lZ1wA8qX9CdRdjfspdUhReEPJml+tiE//rDE9t9mU2XrVVG6BJg3omlj6pO+XiRNtoM/5rDWRmrpl0ZMxYgDAaYwSlIYvGmZoAfDf/Az+0FHPPBJo6SRN0Riwh10WRAAddiPuSk6bOwoVoA8ZLQ4mNUwgFN0ZrcFdcV5FEeaLu1iGDs37Kb1SeuYfngCCjkselwNWl/eg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9s9ydKkgVoCIdlRXbpEUY7dHNLoTCOWwZ3cXCoDh7b8=;
+ b=hxwqmrNz1c0yl1DVrl3MR6kW5+1THdIWh0xYtHCp0R3wKlNTaQVG3CavSOfUdmYnT5HYmt24h60yPWL2DSU+WRhM4egQkOJrmhVP4+SBaQ1kYQnaAunwYjXYYm+kvUtjc3i4NfLRMVznWdmkcmN+bgJxhp72ccf5pUbc0AohwyE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <87970fbb-6a1a-44f7-aef1-1e9aa7bffd09@citrix.com>
+Date: Mon, 24 Nov 2025 15:44:22 +0000
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] build: add make macro for making file from file.in
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20251121132332.23514-1-jgross@suse.com>
- <20251121132332.23514-2-jgross@suse.com>
- <d34e3e86-c51a-49b3-8b46-140526755f0f@suse.com>
- <826037a5-dacf-434f-90d9-8f12e61bdd6e@suse.com>
- <0ece9df6-8a04-4ffa-bcf4-d7a3fd4bbef4@suse.com>
- <bf7e1a66-1696-477a-bdef-79b08df0b57c@suse.com>
- <bbcaf4f2-c52e-4b3e-ab6a-ca5020a8b786@suse.com>
- <a593e8cb-fa56-4301-a7da-ca4b51dfab9a@suse.com>
- <39df58e5-6b04-45fb-bd25-8ebc8972a7ed@suse.com>
- <158df666-9359-4fe8-976b-f194a1fb317b@suse.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <158df666-9359-4fe8-976b-f194a1fb317b@suse.com>
+Subject: Re: [PATCH] x86/intel: Resync intel-family.h
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Kevin Lampis <kevin.lampis@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251124150837.654354-1-andrew.cooper3@citrix.com>
+ <7a206e59-9ab1-49b9-a2af-dbd380566962@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <7a206e59-9ab1-49b9-a2af-dbd380566962@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0624.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:294::8) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|MN2PR03MB4926:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ff4062e-e51a-4fb1-7ea5-08de2b7058a7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?QUNPeTg4NTUzeE1rTm5USkE3N0NvakZJTTlIbXZoaU9CdjRUejB5Lys1RmU1?=
+ =?utf-8?B?NklHMU1HQ3ljT0luTHYyYVpxellqTytvVHdKVUVqSll5MVdqYUtQakJtVHM4?=
+ =?utf-8?B?ZU0rQzJudFpYRk9DczdVWVJsdGdxVWtpMFQ3YnpDQjZFMFFDT2UvbnI5QUR1?=
+ =?utf-8?B?MmNxZk5UdGdsMUFPcEkwTXp6eWNicjc4TC8wOW4wWEFqUUIxZFc4MDVFdm5S?=
+ =?utf-8?B?eGpJRi9heDhNK3psQ3l0dExwc2hhaXJ1amppM1phWG5obHYzYTNqM2tiWWs4?=
+ =?utf-8?B?ZjhuRGRTVmh1dkFDaXN6RlYxRHFHdTVGVUFBVHpGUTdaWG9EV2l6ZU9FQWVy?=
+ =?utf-8?B?SkRxcnlRdlljNWUvK1c5a0d6bC9qNTNEZ0VRdjVsc2NzR0xDY1BvNUg3MkRz?=
+ =?utf-8?B?N0FSazArSFlPTjFDeUVIRWVmVWVxc3BJQW5ZLy9NejF0bDBiRWRjNXFkYVNN?=
+ =?utf-8?B?Tm5GQS9aZFZLNU5nMjhFcjZ2Sm1VOGJIdjdpQnRwZUtqd0VnUW91TEFhcmc3?=
+ =?utf-8?B?d2wyaVJaL01ZcEVYYkZadVpuMkhma0trbEN6a05JMGVRNUV2SGQrRWdyTnVL?=
+ =?utf-8?B?czFoVWlIM3BCL3B6bHYwQVpSTWxnc0RVUHQ3Q1ErTnZGU1hLN2VFc0RaQkRB?=
+ =?utf-8?B?L1F1Zmw1WlFKRmlaR2tUUjVFMm5iM254MUdNVUdKTDQxb08wclpEaUc5ZGhM?=
+ =?utf-8?B?MkN0TnhRQ3hlMkdSQjlpUkxXN0R1OWpTc3BoU0pKSlc3ZlFSMm5jSmRpTUNj?=
+ =?utf-8?B?YzczWlV3NHNKTnFyVUpwUVlwWVF6L1A1MHNHdURUUld6ZG1UWXJTSmNhYThh?=
+ =?utf-8?B?U05GclpDVldjSTJiQzcyRExwa3owV1QyNk01Z0twK0ZRbUl2YkxmekNRV0JG?=
+ =?utf-8?B?RjRSYVZvbCtsK29jOVRmbG1ETk1DMnVsSHpiTFh6Zjk2aExueDZ5NDM3d3hx?=
+ =?utf-8?B?QWtJOUw3YVhtb0dKd1JpRjE0R09vYTNZMTFuZDN2TitFdlBESGpSZ0s5VkN2?=
+ =?utf-8?B?YjRIc1hSd2VrVDNUUkYwaW14OEtENURoRGgvZmU0S0l3YUs3RTRmalZOV29n?=
+ =?utf-8?B?eWw0WXh6MmdoeFlNQ0IxUEhMOVdwdTA5SmxtbE54NFZtR1NLbHNWN2NSV2w5?=
+ =?utf-8?B?Mk5NR2NKU3VmTkFlVk5nNExZZERZRUxwNWQwM05VVXhPSDJLTjJUMDlKK09J?=
+ =?utf-8?B?TDlaMngxdmpNbnIyeGI0ajNUUURVOWUwNzZkdDV6OTgydDJIME1JWVdvVStT?=
+ =?utf-8?B?cWdVamVNUlJTdWFrKzlNM3VROXVjWXZiVjI4ajhIN015Rjhva0NFTi85dEpY?=
+ =?utf-8?B?QS9RQzJWT0Z4WHQxN1B0ejNKWFd3bmJ1ekFCTXFncXZjZkVQdFhoeTNlOS9x?=
+ =?utf-8?B?RGIzRWg3UGREZEx3SXVLZXhzMmhFQVp4SHRhWnFGSklHTkt2WGp6a01LazEv?=
+ =?utf-8?B?MitRRkZJYU5hUE1qRmZSZDR6VnA4akpPc0ZWblpiMjF4Z3BVZWoySm5xT2hm?=
+ =?utf-8?B?VWkrbUFzWGpEQVBuNWZJckpZUUJ1V0lZeCtEUCsyc25Bby9jUi9QKzRMWE1s?=
+ =?utf-8?B?eXBERG5WK0VJRkhuQUdFS1lxWmNPWStGKzRSVit1TWdYdGJyemxzNS9hSjBI?=
+ =?utf-8?B?aE9YOENMYnNEbTJibUg2cDVaZC9IenpRbm43WGVlYnUzR0FiajJmL0liTWhY?=
+ =?utf-8?B?VWxZTTVXM2NNVnpMMkhBSHVzR2VvZ29FdVF2N29uM3BIdVNFdnV1M0ZteDA4?=
+ =?utf-8?B?ZCtsTW90ZERycEZxbm9qQWVqUGdzRWR2TnJHcDgzZ2Fib0s2dmxOY05uRjEv?=
+ =?utf-8?B?c2xYVS94Nisrd29URkVzZlg2bVNRL0NXMDF6UFBxc1R3aVpoNi9PK2tsRGFG?=
+ =?utf-8?B?NERuSGxwYllJZ0N1b2lqMFh0UVJLU0ZNUFF4L1dISGREcWk4MEhBZmM0Smsv?=
+ =?utf-8?Q?yG/kWzwIvawhaCFoWKksT1UZz1WHt1RZ?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Sk9UMWVzVDFCelRkS2JPZmF5QzFIVzFSZENudUNqdVZRNENLYTRFMFJHajh5?=
+ =?utf-8?B?QkdVVTJoc0JGdEdwT0FKaG1kbTdzREJhaVRuTnY5WFJ6dGhuOEtnUnVQVC9M?=
+ =?utf-8?B?ZkJlY2pTYlZIT1lNS3ZTTzQ4MTgyekhiNnh3TlVCdUxWTm1RNHFMKzIyNjRr?=
+ =?utf-8?B?THRMOGNMRENrd0pzSnIweW12a0s0bzV0R1lsQkpMRFprU21KUG1ENXNkdnE2?=
+ =?utf-8?B?dXlxUVZRMWJIMUJaNFM0eHFRRUVGSWFLYWdKNm5rRDU5aEkwcHRYN2ZoWWU5?=
+ =?utf-8?B?c1FhZnF1Y3MwdTZhd3JZcjUxd0FPUTBLTS9sMHdrSDRBZ0VzNXRyQ0pqNkxR?=
+ =?utf-8?B?Q2hCdStrK211SlBWNHI3TmtDKytWaTlCVWl5QnUzcE9FeUw5OW9TWHhMMm4r?=
+ =?utf-8?B?WFpFOE5ZZkZSR1Q3WTQreTVPUzJEYVErMk1TWGhJN3RiQWRwczFtYXBjZGtj?=
+ =?utf-8?B?VEVNR29mbWwxWHNVZEo2YitUN3krS3ZXc2hyRm1YNldDczdidXBQd0tQVmdQ?=
+ =?utf-8?B?Vyt1NTUrMDlFMG0yR1ByalhlMm80YUNrbElXK3VEQmJOajE1TDBvK3FrQXR6?=
+ =?utf-8?B?TEh5TVJmKzhLdVZGN3FnZ043bDJNMFZNb1hJVXR4UXZsV1pZZlpTbTBtU09w?=
+ =?utf-8?B?T2p5NGJWNE16QnZsVEdiWHAzdVhHandnYlAvK2szN3c1YTNZR29CNXNjaXl3?=
+ =?utf-8?B?WkxaY0xlLzlrUVpabUxRTzQ5ZlhRNnpGODc2NEFlY2grdWVXTlZuNElkWUxX?=
+ =?utf-8?B?WEErbDQ3Tmw0dHpLcDcrcmhQTG8yZGY4a3ZuTEhkUjFheUZEdUIzdEorN1gy?=
+ =?utf-8?B?cmRrQU9PZ1NyNTdkb0ZsTmhZM29URTl0YkhMREI5Rmx5TlBsRkc4bHplWW5R?=
+ =?utf-8?B?akFteVNVc2IrMGdZanp4MWdGemJjdW05OFpQWk4vREwrdkM1MGVvaDFBRUN6?=
+ =?utf-8?B?NTVTOXVacTlDNGhjVEN6enh1L25jdG1LSURQUUVQYXluR2Q5Q1AyU3FMVnlu?=
+ =?utf-8?B?WkRIWk5iY1crRll4MklMazBmNlRScFV4SEMxK1p5di9OaVN3WlY1dVZJZS9C?=
+ =?utf-8?B?Qmh5Tm5pYWkxeW5ZQUJBMVQvckExZGJ5dzR4elJsWUM4YnBHR2RtRTZvL3Rk?=
+ =?utf-8?B?RFVJMUhBK05YLzdrVUVEU3Q2OTJyVkpHbzI1MGdWNG8wWVRVM280NVNoV0JD?=
+ =?utf-8?B?RXkzQWYzRjNnaFgrL0Zic1VpSWFHN2lFaHBzdHdHZmQvbHNJZGRONzE0ZDBN?=
+ =?utf-8?B?UjkzQ0ZjYVFDeHpNc1k3QjVrYUZZUlNwVDR0N2Rsb3J0eXVRanJoaWRad3Jn?=
+ =?utf-8?B?R0p3TGprazlPdHAzSXZZbG9lMGhabEdFTVA5Z0FSRzNCSHBCWEh0NXg0a0M2?=
+ =?utf-8?B?anJ5MGF0S3RKekZqNDBDMmZaek5EMkduREIrM3BjcU1kVVczTmoyUTVNTmpO?=
+ =?utf-8?B?NUh4NzhTdHpqM0pML0dzQzRiU2hVZmdLRjB5UlcvN1N4K2lzSGpNalFxR3py?=
+ =?utf-8?B?dmFDRThJUlU1Um5MYVJCTklpb3hPRXdCRDBNZmNvcXJKY2F4UUt5T3dvekFG?=
+ =?utf-8?B?L3hPVFMrSkJ4bWtEUTA0U2RlUUVZT201Wm5jd2l6MHFwOXBNM3V2US9kTVhO?=
+ =?utf-8?B?MDlxRlhBYXYvdFlsNmVsN08yZHJ2MXptOHI0OC9sOGJkaU5DZFVDeFVzdU5S?=
+ =?utf-8?B?bVoyeEFCeUEyU2toQnVMU0J5eFkybm9tVnNhcjk4MVdFbDg0ZmlnWDFldkM3?=
+ =?utf-8?B?UTNsVlNTekd3dExFZ05XSWhYV3ptSzdBV2Q2bGNvaFQrYm15ZTlCZTM2dVBo?=
+ =?utf-8?B?S3luc1hzbGhCbE5KV2tSTVlzcHVuVlNuS3hDRTIyL3ZJV2VIRDExRlJOYTAz?=
+ =?utf-8?B?cXNhcWZHSDZGd2xuSHNnYTJSeDRTd3VtNGExTW8yNEdnT09JOVpiTHhqSDFj?=
+ =?utf-8?B?MnByVGdHQkdPdDVLQ0lmc21OT3J6dFFEbVRtTUREUk9XcU5iVnV6L0xSL0hE?=
+ =?utf-8?B?T0RjN3JkVy95TXlENzYvczNrMEdiSXE2VkZwRDNhN2lBQ3FQd0NvN21abURJ?=
+ =?utf-8?B?eHRIU2ZJWE56b2VJR1RPSzRrVHNxQU00MURoUVgvV2lQK2Y5TmdEQ25rM3ky?=
+ =?utf-8?B?N2RHMUtlY2xFa211MVBnSUdzdXM0UFBIU2ZnNWZObEpQeEdBWXFxQzQ0UEZh?=
+ =?utf-8?B?RWc9PQ==?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ff4062e-e51a-4fb1-7ea5-08de2b7058a7
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2025 15:44:25.7691
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NeYZFPTRuVlxjRlpdX8l8qUaXVvDBsy2skHrtkpZTdPzGZlASQFa5Imw/iJG/fWQPu2o5XQurg7aRHtWzNuOwMLtJ1JHbL6Gzz26lTJSpDg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB4926
 
-On 24.11.2025 15:58, Jürgen Groß wrote:
-> On 24.11.25 15:30, Jan Beulich wrote:
->> On 24.11.2025 13:45, Jürgen Groß wrote:
->>> On 24.11.25 13:18, Jan Beulich wrote:
->>>> On 24.11.2025 12:27, Juergen Gross wrote:
->>>>> On 24.11.25 12:15, Jan Beulich wrote:
->>>>>> On 24.11.2025 12:05, Jürgen Groß wrote:
->>>>>>> On 24.11.25 11:41, Jan Beulich wrote:
->>>>>>>> On 21.11.2025 14:23, Juergen Gross wrote:
->>>>>>>>> --- a/Config.mk
->>>>>>>>> +++ b/Config.mk
->>>>>>>>> @@ -159,6 +159,19 @@ define move-if-changed
->>>>>>>>>      	if ! cmp -s $(1) $(2); then mv -f $(1) $(2); else rm -f $(1); fi
->>>>>>>>>      endef
->>>>>>>>>      
->>>>>>>>> +PATH_FILES := Paths
->>>>>>>>> +INC_FILES = $(foreach f, $(PATH_FILES), $(XEN_ROOT)/config/$(f).mk)
->>>>>>>>> +
->>>>>>>>> +include $(INC_FILES)
->>>>>>>>> +
->>>>>>>>> +BUILD_MAKE_VARS = $(foreach f, $(PATH_FILES), $(shell awk '$$2 == ":=" { print $$1; }' $(XEN_ROOT)/config/$(f).mk.in))
->>>>>>>>
->>>>>>>> Feels like my prior comments weren't really addressed. I continue to think that
->>>>>>>> none of the above is part of what the subject says.
->>>>>>>
->>>>>>> I really don't understand your concern here.
->>>>>>>
->>>>>>> For replacing the @markers@ make needs to know what should be replaced.
->>>>>>> So it needs to scan the files containing the markers and gather them.
->>>>>>> This is what is done above.
->>>>>>>
->>>>>>> In the final macro below the replacements are done then. How would you
->>>>>>> handle that?
->>>>>>
->>>>>> By passing (another) argument to the macro, for example. As indicated
->>>>>> earlier, different sub-trees may have different places where these
->>>>>> definitions live, and they would want to be able to pass that in
->>>>>> (ideally without needing to put this in a common part of the tree).
->>>>>
->>>>> I don't get what you want to pass in additionally.
->>>>>
->>>>> I've already changed the macro and the Makefiles to be able to add another
->>>>> marker file to the PATH_FILES variable. What else do you need?
->>>>
->>>> Well, that's simply an odd way of passing a parameter. Plus, the extra file
->>>
->>> We do that all the times, e.g. by "OBJ-y += ..."
->>
->> That's sufficiently different though: Accumulating the set of objects to
->> produce is kind of naturally done that way.
->>
->>>> won't affect INC_FILES, or more precisely its use in the include directive
->>>> in patch 1: At least aiui, $(INC_FILES) is expanded at the point when the
->>>> directive is processed. Hence why you need to open-code another include
->>>> there.
->>>
->>> The INC_FILES variable is mostly needed for specifying the dependence of
->>> the generated files on the files mentioned in PATH_FILES.
->>>
->>> It might be better to just have "-include $(XEN_ROOT/config/Paths.mk" in
->>> Config.mk, matching the setting of PATH_FILES there.
->>
->> Looking at this the 3rd or 4th time now, I still don't quite get why the
->> include is needed in the first place. You don't mean to use (right here)
->> any of the settings the file produces, do you? Really, as also mentioned
->> by Andrew, you really can't, because in a pure hypervisor build the file
->> wouldn't have been made, as no configure would have run.
->>
->> If I'm not mistaken, you really need those values only at the time you
->> execute the rule. And I'm worried of these definitions to collide with
->> something else. Hence one desire would be to limit the scope of these
->> variables to just the new rule. Maybe something like
->>
->> # Replace @xxx@ markers in $(1).in with $(xxx) variable contents, write to $(1)
->> define apply-build-vars
->> $(1): $$(shell grep -h := $$(wildcard $$(INC_FILES)) /dev/null)
->> $(1): $(1).in $$(INC_FILES)
->> 	sed $$(foreach v, $$(BUILD_MAKE_VARS), -e 's#@$$(v)@#$$($$(v))#g') <$$< >$$@
->> endef
->>
->> could work? (This likely depends on INC_FILES to only list files which
->> are configure generated, i.e. wouldn't be updated by a make rule.)
-> 
-> And who is setting BUILD_MAKE_VARS? You didn't think the snippet doing that
-> should be there.
+On 24/11/2025 3:17 pm, Jan Beulich wrote:
+> On 24.11.2025 16:08, Andrew Cooper wrote:
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-I didn't mean to replace how that's done (albeit, as indicated earlier, I
-think it wants doing differently). Hence I've only shown the sketch of the
-updated macro wrt the specific aspect above. (Or am I misunderstanding
-your reply?)
+Thanks.
 
-> And TBH: any setting from Paths.mk colliding with something else would
-> _really_ be worrying.
+>
+>> I'm unsure about the Intel CPU Core types, but it's probably better to keep
+>> them than strip them from our copy.
+> Did you mean "pre-Core" here? In any event, as we're meaning to stay in sync,
+> we can as well do so properly.
 
-No, why? Those settings should all be fine to use in e.g. the hypervisor
-build system, for whatever purpose.
+No, I mean the enum's at the bottom.
 
-Jan
+>
+>> @@ -152,9 +174,9 @@
+>>  #define INTEL_ATOM_SILVERMONT		IFM(6, 0x37) /* Bay Trail, Valleyview */
+>>  #define INTEL_ATOM_SILVERMONT_D		IFM(6, 0x4D) /* Avaton, Rangely */
+>>  #define INTEL_ATOM_SILVERMONT_MID	IFM(6, 0x4A) /* Merriefield */
+>> +#define INTEL_ATOM_SILVERMONT_MID2	IFM(6, 0x5A) /* Anniedale */
+>>  
+>>  #define INTEL_ATOM_AIRMONT		IFM(6, 0x4C) /* Cherry Trail, Braswell */
+>> -#define INTEL_ATOM_AIRMONT_MID		IFM(6, 0x5A) /* Moorefield */
+> Interesting, there's one entry changing the group it belongs to. We don't
+> use the constant anywhere, so right now this is purely a cosmetic change.
+
+Christian did some archaeology, and concluded that it was misclassified
+originally.
+
+~Andrew
 
