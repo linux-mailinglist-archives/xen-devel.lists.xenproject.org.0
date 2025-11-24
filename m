@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0690C80781
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:30:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170504.1495578 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8565C8078A
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 13:31:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1170525.1495588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNViK-00071W-UY; Mon, 24 Nov 2025 12:30:40 +0000
+	id 1vNVjF-0007pf-6i; Mon, 24 Nov 2025 12:31:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170504.1495578; Mon, 24 Nov 2025 12:30:40 +0000
+Received: by outflank-mailman (output) from mailman id 1170525.1495588; Mon, 24 Nov 2025 12:31:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNViK-000705-Qk; Mon, 24 Nov 2025 12:30:40 +0000
-Received: by outflank-mailman (input) for mailman id 1170504;
- Mon, 24 Nov 2025 12:30:38 +0000
+	id 1vNVjF-0007nz-2u; Mon, 24 Nov 2025 12:31:37 +0000
+Received: by outflank-mailman (input) for mailman id 1170525;
+ Mon, 24 Nov 2025 12:31:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNViI-0004cg-Qc
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:30:38 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Qo8f=6A=gmail.com=samaan.dehghan@srs-se1.protection.inumbo.net>)
+ id 1vNVj3-0004cg-Jp
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 12:31:25 +0000
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [2607:f8b0:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 61c011c0-c931-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 13:30:38 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-42b3669ca3dso1711245f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:30:38 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42cb7f34fddsm29199079f8f.14.2025.11.24.04.30.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 04:30:37 -0800 (PST)
+ id 7d159e6a-c931-11f0-9d18-b5c5bf9af7f9;
+ Mon, 24 Nov 2025 13:31:24 +0100 (CET)
+Received: by mail-pl1-x633.google.com with SMTP id
+ d9443c01a7336-297ef378069so37867615ad.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 04:31:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,224 +40,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61c011c0-c931-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 7d159e6a-c931-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763987437; x=1764592237; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cLRL3+uYW8mTZJpIYDPRqMA57ukZVFvfr5R4kBjg4KY=;
-        b=OYJjjF6X6fj9HVft6v+V4KgTTFbU7OMPFlP6L/LYVkCa0KTvBv+5Syu/iMQFiv5y89
-         OyY0jd46zBv3r5xaN4FUEKGLmgZ20Xte8lCtH+ZBJU4rxROLW14oKTkkXpcKNmzOwFHI
-         krRplfvqYpnGu8AoyavAdsJycst+dNyd/ZrPVp77JgZ2+muM3Igr7VLDOg3uWhqGuH2S
-         dHc05/iHR6lOCI4qVhIz9rHjWI6tsyAuHzTF0jyjVKljL9nLMslsdY/JOQQoPlz3hwKm
-         w7Vkr0aiSQtyPqGQ+lJAPArYkTMgO95Bnxt1A09lf2C7ltVxA7G+dNFY0vznTFbcYYZe
-         aa+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763987437; x=1764592237;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1763987483; x=1764592283; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cLRL3+uYW8mTZJpIYDPRqMA57ukZVFvfr5R4kBjg4KY=;
-        b=SLAet+nflclUnl/56C6YrwTFsyknbz1L7LB2ZbgzkEHZ8pwpLDDK0TGMT2xjPPDcPo
-         kWSJ/SVomgZh+ZFsY8HGrhznAMqfxJGT7/8eLJayCNynjuDnqsUcCDIgMzMVCjSr9jA/
-         nmKq1fuR9C3Md3xulzyjk7s6Mq7OEXSs+BLXsR+HFuoPh+lCpscKdamJQjG7joqNM9sx
-         ox+6/gGDOMEsCixlv6A04T61+wGW6ErNRH5DDx9jww+O90Pi2pqDXotUaIvNBP+e4uVK
-         t1WFuX9uaQUk3P2/PYYwn9lvCFhnXk/OLMVMoIf9OYBrVYvkggRoJOMr8Cp3K3UObBzd
-         PPzg==
-X-Gm-Message-State: AOJu0YwCNTkH2u6DzkqwwJjf9zuZ9qQ00ds6JZFhRxVcF0Ls4TCxJRtX
-	lgYhPKhbBWnAjlb0EBJZ7UGPvoAIeiCAXiR2WRmFOWZCdR1N4QZIafwmieKOSkfW+hjbfnlcTZi
-	hKz0=
-X-Gm-Gg: ASbGncuA0ifw7KWBg79RJaM8Bi8lT1qseEwvhhxUtb9tq80wHU8LL+8wlHjPEs3EXVg
-	H3k4X/vA0My0DMZ/wL2gw1xMVSusEnbVW7tAnH4hA4hzyZJI0alQg/CUc0nBoex89Mhoe5ZXRSU
-	K7KBiwVLEwOuNq07txeHhfBQvjuEF+sFpCoK68p3xCan0lDdrDia7jg8ULgMIJ26ML38RSUVf1p
-	+GT9BhAOBUIjf64bsYzqiwJpXHHThgvoc1OE5KXxtY+WCpjsi5oU938AnfVelsjK2sTyocSdxWM
-	YChagPs65Zf41E3F960sdJc7GeNw/th489eUuG70z9zUaIJ726TBjUvEayyw2BbWYMTLMNTEjkk
-	JKJMpP7zfVvcd8ray68NVBijOSSWntkVLFIQwvCaU5iJ8HIMW75QZJ79SIlC3pIqBF3ypbspGs1
-	YVc5abGpfu0uboYdAJUzut0K7IUIrk/3GJsUzNGdc463PwUYkj0dSpa/FcbHytx1O001bo+V/ie
-	rA=
-X-Google-Smtp-Source: AGHT+IEM4p5ClNaoIlR+EwMjxV3393KV4qYIpcRb3vKdTSU9Iy1DUsTuApQp/kvXk7ivGLSOHjuGHQ==
-X-Received: by 2002:adf:b30a:0:b0:42b:3366:634b with SMTP id ffacd0b85a97d-42cc1d0cecfmr8055683f8f.31.1763987437328;
-        Mon, 24 Nov 2025 04:30:37 -0800 (PST)
-Message-ID: <d751bafc-5146-4b31-bce8-ce534500e978@suse.com>
-Date: Mon, 24 Nov 2025 13:30:39 +0100
+        bh=f8d5FCDqF8Eyi33xLvv1HZy4mmEZ4/sGV8dAZOJVn5g=;
+        b=I2WiaEtk/UyBbJ5EjMl0CwYJ7M2dWBoYd7Ret9YHvoyIcOq6vwMRUWjMjEMrQeGN1r
+         OEb2p8olWwUpFnCOJr3epspCxW9eEwPt+uuODXMSHB4mQRqEy3t+xIzySWQKRBOul2Ki
+         T/1PtvDW4CjZvsgWC3u/MVmQoU6Vi+2NSvGUcWElco2tljgUMnqDjZykJZg64mflXlVd
+         V9YDZrVCu2qKlkjE0kdJy7EPjQVaQ9QH6FWfXAl58BDWNBpP+3bJhRSiGdbdzFUS50IT
+         NqYJRMk3f8rnPldnlV81yOOAVKZw50Ba1mPRzKmNsEN9pQvRZkZ0bz5EKM7k8iVVvRqe
+         uczQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763987483; x=1764592283;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=f8d5FCDqF8Eyi33xLvv1HZy4mmEZ4/sGV8dAZOJVn5g=;
+        b=QEG4Kzd3c1uOowb6ZWx2L5SVmSqAvyWo4xKz1grdew7C3YO59UB++giPlRT+S/9Vjj
+         RxYww59Xvje5Bg34shYfSvKIfq7w4hOSvABtLzXQ5kW3VITzYLyMsz0KFNqY8172wuhQ
+         xa22Z5WkmRFGOR3uP/XLgvszVWyYsqPQtx92KwQpa3lVpC1QjO0dJFaiP/s28Ge9/Qld
+         USbG0RqCNyBpZaIctCNgYZbJwhcCNAKcVjSEgAs4sIXZoSIYPage7mX5vzv2PVG90hZL
+         vQGYOzBJwuaPZgFbfDtCISpWe59w2jQ5bnmUEsmdB9W75Gtcqw1FoHdBeXMVWE9gP3qz
+         IdNg==
+X-Gm-Message-State: AOJu0YwkUI9s7GzRwjRyzVr3Cq7UWy6bpB6BIM0HUxJGtPyvfV9y6Vu1
+	XQ8rdXJp9WFSMMR+uGQIJVF5es5eqg8dhaXiBqP3UUEXnI804a8bq/DfNl6mRmFJsek6B65wxdP
+	x3EwV4U8rFO6XRa0oxu9QL7Gimwxnxw==
+X-Gm-Gg: ASbGncu0ufr+iXTdJmVyx2nCfGCB8qEsiJgoTYJpAcWzdzLSIhgnR8drb4Qr72V5Ow+
+	ThooYtusnTNmSx3dyjvGXZn22wEgSIEm/AHm3eXciy+P+WaTrFRFuAoCRGyVV4b6Xw9vinQimYs
+	Mtb7hd/nZ+xkITcD5djKg2P98Hy/s7Y/e3Kx8DnI8BO4j7603ZhMi/3Q9tOeR9sXY6drJSo4R4D
+	bLty/3Wz737eKJukCRn+afxoyLx/QC9Me96gTY3CA8HmmJHwa2pNQbUB+qFa3hAcZIoP7ZsJlD3
+	HswygOmQH7BRic+itA5ARY75
+X-Google-Smtp-Source: AGHT+IHQGPCuzF4kn0l3NguKNQ98NpEXDZz6EzTvD/PxRFxEpjSHQRpgj9QdIglFCYkKIVghDWgbQ1ss9MPOIPORjtc=
+X-Received: by 2002:a17:90b:5183:b0:340:7b2e:64cc with SMTP id
+ 98e67ed59e1d1-34733e5c408mr11531925a91.15.1763987482923; Mon, 24 Nov 2025
+ 04:31:22 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 4/4] x86/vPMU: don't statically reserve the interrupt
- vector
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <5ac2e9b1-81f2-41d9-8f05-d546a49c43a7@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5ac2e9b1-81f2-41d9-8f05-d546a49c43a7@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <3bb418ae6a36a9ac89c697a417fa0745fa9ac702.1763949990.git.samaan.dehghan@gmail.com>
+ <9c76a959-51c0-4eb7-9d05-ba4441318faa@citrix.com>
+In-Reply-To: <9c76a959-51c0-4eb7-9d05-ba4441318faa@citrix.com>
+From: Saman Dehghan <samaan.dehghan@gmail.com>
+Date: Mon, 24 Nov 2025 06:31:11 -0600
+X-Gm-Features: AWmQ_blNd91GU5pYLJJWWFKElZl5a0ofnfee-szdA3_6mqWx21xOCS1jSxl-Bk8
+Message-ID: <CAHFNDNikjXNHCj2RXMoZPckqaQAy2u-xw-QyCO7nXT3pttp6Hg@mail.gmail.com>
+Subject: Re: [PATCH] XEN: enable MC/DC coverage for Clang
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@vates.tech>, 
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Move the setup to vPMU code, doing the allocation of a vector only when
-one is actually going to be needed. With that the handler functions also
-don't need to be scattered across two places anymore.
+On Mon, Nov 24, 2025 at 5:15=E2=80=AFAM Andrew Cooper <andrew.cooper3@citri=
+x.com> wrote:
+>
+> On 24/11/2025 2:18 am, Saman Dehghan wrote:
+> > Clang >=3D 18 supports Modified Condition/Decision Coverage (MC/DC).
+> > This patch enables the detection and usage of this feature when
+> > compiling Xen with Clang.
+> >
+> > - Update detection logic to check for '-fcoverage-mcdc' when using Clan=
+g.
+> > - Update llvm.c to handle the profile format changes (bitmap section)
+> >   required for MC/DC.
+> > - Guard -Wno-error=3Dcoverage-too-many-conditions with CONFIG_CC_IS_GCC
+> >   to avoid passing a GCC-only warning option to Clang
+> >
+> > Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
+> > ---
+> >  xen/Kconfig                |  2 +-
+> >  xen/Rules.mk               |  1 +
+> >  xen/arch/x86/Makefile      |  4 +++-
+> >  xen/common/coverage/llvm.c | 24 +++++++++++++++++++++++-
+> >  4 files changed, 28 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/xen/Kconfig b/xen/Kconfig
+> > index a5e5af3b76..5508993f02 100644
+> > --- a/xen/Kconfig
+> > +++ b/xen/Kconfig
+> > @@ -53,7 +53,7 @@ config CC_HAS_ASM_GOTO_OUTPUT
+> >
+> >  # Compiler supports -fcondition-coverage aka MC/DC
+>
+> While you're improving these comments, please drop -fcondition-coverage
+> (as it's no longer accurate), and expand MC/DC for the benefit of people
+> who don't know what it is.
+>
+> >  config CC_HAS_MCDC
+>
+> Also, # GCC >=3D 14, or Clang >=3D 18
+>
+> It's important for toolchain versions to be given in comments, so we can
+> figure out what to clean up when upgrading the toolchain baselines.
+>
+> > diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
+> > index 532889c857..a8c7e7e8d2 100644
+> > --- a/xen/common/coverage/llvm.c
+> > +++ b/xen/common/coverage/llvm.c
+> > @@ -120,6 +120,10 @@ extern const char __start___llvm_prf_names[];
+> >  extern const char __stop___llvm_prf_names[];
+> >  extern uint64_t __start___llvm_prf_cnts[];
+> >  extern uint64_t __stop___llvm_prf_cnts[];
+> > +#ifdef CONFIG_CONDITION_COVERAGE
+> > +extern const char __start___llvm_prf_bits[];
+> > +extern const char __stop___llvm_prf_bits[];
+> > +#endif
+>
+> No need for these to be #ifdef'd.  In turn, it lets you do ...
+>
+> >
+> >  #define START_DATA      ((const void *)__start___llvm_prf_data)
+> >  #define END_DATA        ((const void *)__stop___llvm_prf_data)
+> > @@ -127,16 +131,25 @@ extern uint64_t __stop___llvm_prf_cnts[];
+> >  #define END_NAMES       ((const void *)__stop___llvm_prf_names)
+> >  #define START_COUNTERS  ((void *)__start___llvm_prf_cnts)
+> >  #define END_COUNTERS    ((void *)__stop___llvm_prf_cnts)
+> > +#define START_BITMAP    ((void *)__start___llvm_prf_bits)
+> > +#define END_BITMAP      ((void *)__stop___llvm_prf_bits)
+> >
+> >  static void cf_check reset_counters(void)
+> >  {
+> >      memset(START_COUNTERS, 0, END_COUNTERS - START_COUNTERS);
+> > +#ifdef CONFIG_CONDITION_COVERAGE
+> > +    memset(START_BITMAP, 0, END_BITMAP - START_BITMAP);
+> > +#endif
+>
+> ... this:
+>
+>     if ( IS_ENABLED(CONFIG_CONDITION_COVERAGE) )
+>         memset(START_BITMAP, 0, END_BITMAP - START_BITMAP);
+>
+> >  }
 
-Add the freed up vector to the dynamically allocatable range.
+Thanks Andrew.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-In case down the road we also want to have a build mode with vPMU code
-excluded, this may also simplify things a little there.
----
-v2: Re-base over patch moving the APIC ack and over change to
-    alloc_direct_apic_vector().
+IS_ENABLED(CONFIG_CONDITION_COVERAGE) is not the same as #ifdef
+CONFIG_CONDITION_COVERAGE.
+When the option is completely undefined, IS_ENABLED() returns 1 (enabled).
+So even with no CONFIG_CONDITION_COVERAGE defined, the code takes the
+"enabled" path, which is not what we want here.
 
---- a/xen/arch/x86/apic.c
-+++ b/xen/arch/x86/apic.c
-@@ -1313,16 +1313,6 @@ static void cf_check error_interrupt(voi
-            entries[3], entries[2], entries[1], entries[0]);
- }
- 
--/*
-- * This interrupt handles performance counters interrupt
-- */
--
--static void cf_check pmu_interrupt(void)
--{
--    vpmu_do_interrupt();
--    ack_APIC_irq();
--}
--
- void __init apic_intr_init(void)
- {
-     smp_intr_init();
-@@ -1333,9 +1323,6 @@ void __init apic_intr_init(void)
-     /* IPI vectors for APIC spurious and error interrupts */
-     set_direct_apic_vector(SPURIOUS_APIC_VECTOR, spurious_interrupt);
-     set_direct_apic_vector(ERROR_APIC_VECTOR, error_interrupt);
--
--    /* Performance Counters Interrupt */
--    set_direct_apic_vector(PMU_APIC_VECTOR, pmu_interrupt);
- }
- 
- /*
---- a/xen/arch/x86/cpu/vpmu.c
-+++ b/xen/arch/x86/cpu/vpmu.c
-@@ -40,6 +40,8 @@ static struct arch_vpmu_ops __initdata v
- static DEFINE_SPINLOCK(vpmu_lock);
- static unsigned vpmu_count;
- 
-+static uint8_t __ro_after_init pmu_apic_vector;
-+
- static DEFINE_PER_CPU(struct vcpu *, last_vcpu);
- 
- static int __init cf_check parse_vpmu_params(const char *s)
-@@ -94,7 +96,7 @@ void vpmu_lvtpc_update(uint32_t val)
- 
-     vpmu = vcpu_vpmu(curr);
- 
--    vpmu->hw_lapic_lvtpc = PMU_APIC_VECTOR | (val & APIC_LVT_MASKED);
-+    vpmu->hw_lapic_lvtpc = pmu_apic_vector | (val & APIC_LVT_MASKED);
- 
-     /* Postpone APIC updates for PV(H) guests if PMU interrupt is pending */
-     if ( has_vlapic(curr->domain) || !vpmu->xenpmu_data ||
-@@ -160,7 +162,7 @@ static inline struct vcpu *choose_hwdom_
-     return hardware_domain->vcpu[idx];
- }
- 
--void vpmu_do_interrupt(void)
-+static void vpmu_do_interrupt(void)
- {
-     struct vcpu *sampled = current, *sampling;
-     struct vpmu_struct *vpmu;
-@@ -322,6 +324,12 @@ void vpmu_do_interrupt(void)
- #endif
- }
- 
-+static void cf_check vpmu_interrupt(void)
-+{
-+    vpmu_do_interrupt();
-+    ack_APIC_irq();
-+}
-+
- #ifdef CONFIG_MEM_SHARING
- int vpmu_allocate_context(struct vcpu *v)
- {
-@@ -369,7 +377,7 @@ void vpmu_save(struct vcpu *v)
- 
-     vpmu_reset(vpmu, VPMU_CONTEXT_SAVE);
- 
--    apic_write(APIC_LVTPC, PMU_APIC_VECTOR | APIC_LVT_MASKED);
-+    apic_write(APIC_LVTPC, pmu_apic_vector | APIC_LVT_MASKED);
- }
- 
- int vpmu_load(struct vcpu *v, bool from_guest)
-@@ -432,7 +440,7 @@ static int vpmu_arch_initialise(struct v
-         return ret;
-     }
- 
--    vpmu->hw_lapic_lvtpc = PMU_APIC_VECTOR | APIC_LVT_MASKED;
-+    vpmu->hw_lapic_lvtpc = pmu_apic_vector | APIC_LVT_MASKED;
-     vpmu_set(vpmu, VPMU_INITIALIZED);
- 
-     return 0;
-@@ -860,6 +868,8 @@ static int __init cf_check vpmu_init(voi
-         register_cpu_notifier(&cpu_nfb);
-         printk(XENLOG_INFO "VPMU: version " __stringify(XENPMU_VER_MAJ) "."
-                __stringify(XENPMU_VER_MIN) "\n");
-+
-+        pmu_apic_vector = alloc_direct_apic_vector(vpmu_interrupt);
-     }
-     else
-     {
---- a/xen/arch/x86/include/asm/irq-vectors.h
-+++ b/xen/arch/x86/include/asm/irq-vectors.h
-@@ -8,13 +8,12 @@
- #define EVENT_CHECK_VECTOR	0xfc
- #define CALL_FUNCTION_VECTOR	0xfb
- #define LOCAL_TIMER_VECTOR	0xfa
--#define PMU_APIC_VECTOR 	0xf9
- /*
-  * High-priority dynamically-allocated vectors. For interrupts that
-  * must be higher priority than any guest-bound interrupt.
-  */
- #define FIRST_HIPRIORITY_VECTOR	0xf1
--#define LAST_HIPRIORITY_VECTOR  0xf8
-+#define LAST_HIPRIORITY_VECTOR  0xf9
- /* IRQ0 (timer) is statically allocated but must be high priority. */
- #define IRQ0_VECTOR             0xf0
- 
---- a/xen/arch/x86/include/asm/vpmu.h
-+++ b/xen/arch/x86/include/asm/vpmu.h
-@@ -99,7 +99,6 @@ static inline bool vpmu_are_all_set(cons
- 
- void vpmu_lvtpc_update(uint32_t val);
- int vpmu_do_msr(unsigned int msr, uint64_t *msr_content, bool is_write);
--void vpmu_do_interrupt(void);
- void vpmu_initialise(struct vcpu *v);
- void vpmu_destroy(struct vcpu *v);
- void vpmu_save(struct vcpu *v);
-
+> >
+> >  static uint32_t cf_check get_size(void)
+> >  {
+> > -    return ROUNDUP(sizeof(struct llvm_profile_header) + END_DATA - STA=
+RT_DATA +
+> > +    uint32_t size =3D ROUNDUP(sizeof(struct llvm_profile_header) + END=
+_DATA - START_DATA +
+> >                     END_COUNTERS - START_COUNTERS + END_NAMES - START_N=
+AMES, 8);
+> > +#ifdef CONFIG_CONDITION_COVERAGE
+> > +    size +=3D ROUNDUP(END_BITMAP - START_BITMAP, 8);
+> > +#endif
+>
+> and similar here.
+>
+> > +    return size;
+> >  }
+> >
+> >  static int cf_check dump(
+> > @@ -147,11 +160,17 @@ static int cf_check dump(
+> >          .version =3D LLVM_PROFILE_VERSION,
+> >          .num_data =3D DIV_ROUND_UP(END_DATA - START_DATA, sizeof(struc=
+t llvm_profile_data)),
+> >          .num_counters =3D DIV_ROUND_UP(END_COUNTERS - START_COUNTERS, =
+sizeof(uint64_t)),
+> > +#if defined(CONFIG_CONDITION_COVERAGE) && LLVM_PROFILE_VERSION >=3D 9
+> > +        .num_bitmap_bytes =3D END_BITMAP - START_BITMAP,
+> > +#endif
+> >          .names_size =3D END_NAMES - START_NAMES,
+> >  #if LLVM_PROFILE_VERSION >=3D 8
+> >          .counters_delta =3D START_COUNTERS - START_DATA,
+> >  #else
+> >          .counters_delta =3D (uintptr_t)START_COUNTERS,
+> > +#endif
+> > +#if defined(CONFIG_CONDITION_COVERAGE) && LLVM_PROFILE_VERSION >=3D 9
+> > +        .bitmap_delta =3D START_BITMAP - START_DATA,
+> >  #endif
+> >          .names_delta =3D (uintptr_t)START_NAMES,
+> >          .value_kind_last =3D LLVM_PROFILE_NUM_KINDS - 1,
+>
+> With structure initialisation, you do not need to have the fields in
+> declaration order.  Therefore, you want to do something like this:
+>
+>          .value_kind_last =3D LLVM_PROFILE_NUM_KINDS - 1,
+> +#if defined(CONFIG_CONDITION_COVERAGE) && LLVM_PROFILE_VERSION >=3D 9
+> +        .num_bitmap_bytes =3D END_BITMAP - START_BITMAP,
+> +        .bitmap_delta =3D START_BITMAP - START_DATA,
+> +#endif
+>  };
+>
+>
+> to keep the ifdefary more simple.
+>
+> ~Andrew
 
