@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 950D9C8136D
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 16:01:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171313.1496359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE88DC81376
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 16:01:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171331.1496369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNY44-0001Lr-4S; Mon, 24 Nov 2025 15:01:16 +0000
+	id 1vNY4T-00021a-Gp; Mon, 24 Nov 2025 15:01:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171313.1496359; Mon, 24 Nov 2025 15:01:16 +0000
+Received: by outflank-mailman (output) from mailman id 1171331.1496369; Mon, 24 Nov 2025 15:01:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNY44-0001KA-13; Mon, 24 Nov 2025 15:01:16 +0000
-Received: by outflank-mailman (input) for mailman id 1171313;
- Mon, 24 Nov 2025 15:01:14 +0000
+	id 1vNY4T-0001yJ-Dv; Mon, 24 Nov 2025 15:01:41 +0000
+Received: by outflank-mailman (input) for mailman id 1171331;
+ Mon, 24 Nov 2025 15:01:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNY42-0001E9-7z
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 15:01:14 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1vNY4R-0001E9-BY
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 15:01:39 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6b07625b-c946-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 16:01:13 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-42b3ac40ae4so2454692f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 07:01:13 -0800 (PST)
+ id 7a46f5ca-c946-11f0-9d18-b5c5bf9af7f9;
+ Mon, 24 Nov 2025 16:01:38 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-47774d3536dso34206685e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 07:01:38 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42cb7ec454csm27770395f8f.0.2025.11.24.07.01.11
+ 5b1f17b1804b1-477bf22dfcesm203037055e9.13.2025.11.24.07.01.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 07:01:11 -0800 (PST)
+ Mon, 24 Nov 2025 07:01:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b07625b-c946-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 7a46f5ca-c946-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1763996472; x=1764601272; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1763996498; x=1764601298; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IFq0fOa0AliJrjdv6KE61u8m34ir06BtyRkuyvlXQzo=;
-        b=cW4rPjmMGcxNZDHVQ+Ctl7iJQeJbU2RuVqqfrXyK4cj3JbA0eG9I0bj9dOIEqHWEux
-         iDPXqu6clwkMAqRSV2G83leHZPIUJEwkmRoeGCYW6VbhS8DUg2IX757efUqZO9h3tcC/
-         xcQi5RIZ9hrPH/biv0Oxwc+Y/lR4dal4MJBxitL1FwRLa7zXOEAT/80WFAzg8Fk04DXf
-         9jg2xiFEIer7RzAAuMuC16PYXTH1RcvCBRUXuziAp/OT/8bJwO+ILBEilQ1lAAFXDxcG
-         FuXv1MB1fiSg0HGnkSc8yXGMXE0UzUiMiH6qkEg8ttOdrE1/pJlH71ClKjLN/bYFRaRt
-         r+qQ==
+        bh=RP9LNtOsLGFUFpLZ6YuwHIzAHL2ieAcKHDRT49uhRHg=;
+        b=RM+k/PUcIvsMbVUz/34Bi0wy96FEFu7qpTY3lKjjD/IAbeyLsA2EqGZJD/7Pgur8Ai
+         oE81+s2zqNcY/q+WIl5FtexhyZDxfYTWmqzIh9noTWJk0zU9yCYdUcIYDG8yHhHtSYWG
+         s/tAkpn051l77dBjEcJVtT/wMK3kZ/W6IMoReujp0wcCsNBl2uQuxtfSTo1C2xsDXKir
+         ed5hHORvMPMSB5jUh7OV4NBWeym6Ixyh3Zt0aRdi4nBab1eY++vFJMAhBgMZIFEc/Aep
+         sYxs+zp4p0+PH4Vm8+s94Ihs50YFCSRMEx4620/F34a6uIrvRcuakegu9iUrrMnRUkYM
+         Nabg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763996472; x=1764601272;
+        d=1e100.net; s=20230601; t=1763996498; x=1764601298;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IFq0fOa0AliJrjdv6KE61u8m34ir06BtyRkuyvlXQzo=;
-        b=mrM8dp06Nqwpn3T1+rkzpGtRPLDUM1T2BCd8xRpapIVPPLVy5h9DmxYjVEN5l2ltFL
-         +OSJZlKtND/PUk/hdLQgQXbVg1ZQDcP/ZsCGfdzsM6O4WCgBLquWKl5t81FEwai/ePj2
-         gG4VHhW2dNdF5X7F0MEtY+LmsQ9cqWfhadBHqSJYm9dD8WP24oJaIKHh9ajT2Naod/di
-         U5LxeyneD8bDEXfXMpbIFzC0+8GRvv/aDEFAmV1tCufkkM7fwLlph4+Refd7jr5wd5DB
-         XZ0+v75zLED1scnJnjOOCHYfPI3dakfge/QGs274uAc+KyKyJd8JKceMmUdZb86gKZkm
-         geBw==
-X-Gm-Message-State: AOJu0Yz31fYVTG36Z6rFln3bPl4WfbC0iyutQf2n5yS4BCotHHKh01Cj
-	Ms8zngP083KsV/iO7BQwfoouhbeM0aZ+zy8z7s44LZ7Z7LZA7/SmRl//OZbMVlPjDRmQ13eNHiZ
-	HZNo=
-X-Gm-Gg: ASbGncuOsruVGseV1dgGf6zHUmX2XfZBp4jSmWcv0wJ0nYowexmpLkQMZOZeFTlIP0W
-	vVXP6J+XClix/4764DPcg3ecrbqbPDSbYMtuDXV0VR4xLWLSo3rtGBjDI8GjuIAezDa8QGCu/Wo
-	Y3q1+biNEdsd/I6iviclqrFcvVjddEbPgCs2w3qZh4zJnWiuU4KUg+WiLwup0gNp7XTGk8Muocy
-	ZLf5gLHOd2tDFAk7ZtWf1UTKfr3uzzkY3jsoyY7L2W4xAdjgbSwQKr2fcEwUH6rABO2JNfqZE2y
-	yJPvA8qqBIROQeVE8YW/xag+u5aHL14QQM89YiR+WlpWwCJChsa40hWRJcIS1kyNk6QVy9UaVlh
-	YsmR/fVr3KhGbpd7ZbfUxS4KkyALdobUGxQGQF1/cX7xafCq5Xndfd2WUcQ6DReOUp6cWEqxvsn
-	otyr+ryaadG6X1GKmSaXU0tmDCH1qpAPeT15nweaCCnyuMnzUxDgVDYmFcSazxydVnBYS9NySKd
-	aE=
-X-Google-Smtp-Source: AGHT+IFF4Llsf0YoGZs9VvaqHhCWVliIFzTIwSSjY68NMj7KGCXioqOlbLOr5TCgcfCwUyuvlaSuIQ==
-X-Received: by 2002:a05:6000:1787:b0:42b:3e60:18c7 with SMTP id ffacd0b85a97d-42cc1cf45f5mr13049568f8f.36.1763996472103;
-        Mon, 24 Nov 2025 07:01:12 -0800 (PST)
-Message-ID: <9fdf318d-b838-40bb-8778-86f791902a4a@suse.com>
-Date: Mon, 24 Nov 2025 16:01:13 +0100
+        bh=RP9LNtOsLGFUFpLZ6YuwHIzAHL2ieAcKHDRT49uhRHg=;
+        b=DRhB9d9n/TsJLLp8M+6g2M52yiD/40y6iQ781jwUmVSXqrWNtBGY18QkeIl/bA/LW/
+         RP8P35xeCANEDYVy2yPhJNyMukfu0tKBrwcZmR2LpIVCzU/NdaAeRBYTDzDiBLi70YB3
+         4ePrymgTw64szA6srhhPTwjOQ7XCStlXQNbxBGe4K7J+m5PS+equlaSNouHoVDl9jU1N
+         HNy0TiWV1zwHwzvKQu7gK/C8CWcBGpykR0g+PldXEyGndsuolm/bzpOGE338Me0owDEw
+         nlG29SkkZMr1WLHKRMAbxYv+11Y/lF3C42wohDQirO+qQPrWEseGjGAhboqIXBFwvvhU
+         R6QQ==
+X-Gm-Message-State: AOJu0Yxfk8gQltGyfCg/gENPGwDznmkK9Jfw/TaZAiBy2I1D7m+FawnJ
+	1d5Mmx2XLoZDdzVxxUlJyXwRNWn24rM2ekHAXyMrjSz48c0I/aVxeqk7zGHD+lEK5Wug8IQ1a99
+	lQOE=
+X-Gm-Gg: ASbGnct/hG0enzd/aiK4xs8lFdrBfwLiKQxXMOYPlsnD2+Ov25O9epVivcLR72Zl7o5
+	EwNxb6LKADnmEuJETI5z2PbsPU2+szZJ90fltN4SVyrXqsxvD6RzrSsTFdDNCI7vi6YCkXACoDo
+	0nAslIttdic4ImdWn+RJTq8cbDy7I/QZuX5Her/wDiy6I7fwrw9eAPgg1odO9gOR6IbKIWGFAnT
+	3+rsSB3K+AQ4VF5rM21wJyLUsWw1U1/u15+zE5tE2M5D7iagcueuEuNx7/Lto/fUotHBLcXksKn
+	vLcqZ4FnflkmFvtFWirYP+8sJQzCYOEduE59dP2EnebSUIn5bEBGTz4QZKDw0eq7+ahA1DrlRlL
+	fQeg0DiITryQw3/SoEWTenLiATgFiFsnrZAmcPdM9sjthmzjjBXIVbccwQHXvWQlwZPosSVNoQE
+	+7YUYGPr9ElIjyuiwu4rPuBBkeBGa4bDCy9quzmN46fc8oSbKr3ziRTsRKNwcuh4WyjjMT+OYE2
+	fk=
+X-Google-Smtp-Source: AGHT+IGrsj0xJ4e0gDl9Sz4s4z6/wx2xCk9zLB/ZHUfLznZbREKYpOWbIwogkDaNTmf8Zx9qvM1jXA==
+X-Received: by 2002:a05:600c:1f85:b0:471:793:e795 with SMTP id 5b1f17b1804b1-477b9e61f7cmr140878925e9.0.1763996496386;
+        Mon, 24 Nov 2025 07:01:36 -0800 (PST)
+Message-ID: <78b7c8a0-16ae-49c3-8c7b-5b10f5b0d688@suse.com>
+Date: Mon, 24 Nov 2025 16:01:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v9 08/10] x86emul: support non-SIMD MOVRS
+Subject: [PATCH v9 09/10] x86: use / "support" UDB
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -123,134 +123,113 @@ In-Reply-To: <926a2315-a2b7-4aad-87e6-d686c9da9e3a@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-As we ignore cachability aspects of insns, they're treated like simple
-MOVs.
+With opcode D6h now firmly reserved as another #UD-raising one in 64-bit
+mode, use that instead of the two-byte UD2 for bug frame marking.
+
+While there also make the respective adjustment to the emulator.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-SDE: -dmr
----
-v7: New.
+Should we also switch {svm,vmx}_init_hypercall_page()?
 
---- a/tools/tests/x86_emulator/predicates.c
-+++ b/tools/tests/x86_emulator/predicates.c
-@@ -843,6 +843,9 @@ static const struct {
-     { { 0x80 }, { 2, 2 }, T, R, pfx_66 }, /* invept */
-     { { 0x81 }, { 2, 2 }, T, R, pfx_66 }, /* invvpid */
-     { { 0x82 }, { 2, 2 }, T, R, pfx_66 }, /* invpcid */
-+    { { 0x8a }, { 2, 2 }, T, R, pfx_no }, /* movrsb */
-+    { { 0x8b }, { 2, 2 }, T, R, pfx_no }, /* movrs{d,q} */
-+    { { 0x8b }, { 2, 2 }, T, R, pfx_66 }, /* movrsw */
-     { { 0xc8 }, { 2, 2 }, T, R, pfx_no }, /* sha1nexte */
-     { { 0xc9 }, { 2, 2 }, T, R, pfx_no }, /* sha1msg1 */
-     { { 0xca }, { 2, 2 }, T, R, pfx_no }, /* sha1msg2 */
---- a/tools/tests/x86_emulator/test_x86_emulator.c
-+++ b/tools/tests/x86_emulator/test_x86_emulator.c
-@@ -1869,6 +1869,29 @@ int main(int argc, char **argv)
-     }
-     else
-         printf("skipped\n");
-+
-+    {
-+        /* For the non-SIMD forms the emulator doesn't itself use MOVRS. */
-+        bool movrs = cpu_policy.feat.movrs;
-+
-+        cpu_policy.feat.movrs = true;
-+
-+        printf("%-40s", "Testing movrs 6(%rdi),%si...");
-+        instr[0] = 0x66; instr[1] = 0x0f; instr[2] = 0x38;
-+        instr[3] = 0x8b; instr[4] = 0x77; instr[5] = 0x06;
-+        regs.rip = (unsigned long)&instr[0];
-+        regs.rsi = 0x8888777766665555UL;
-+        regs.rdi = (unsigned long)res;
-+        res[1]   = 0x88777788U;
-+        rc = x86_emulate(&ctxt, &emulops);
-+        if ( (rc != X86EMUL_OKAY) ||
-+             (regs.rip != (unsigned long)&instr[6]) ||
-+             (regs.rsi != 0x8888777766668877UL) )
-+            goto fail;
-+        printf("okay\n");
-+
-+        cpu_policy.feat.movrs = movrs;
-+    }
- #endif /* x86-64 */
+Furthermore x86_64/kexec_reloc.S also has two uses. Question is whether
+"tailcall" is being open-coded there, or whether that's deliberately not
+using the macro we have.
+
+One of the table entries in stub_selftest() uses UD1, yet not in quite
+an appropriate way: The 0x90 following it (presumably meant to be a NOP)
+really is a ModR/M byte, requiring a displacement to follow. Wouldn't we
+better adjust that (e.g. using 0xcc instead)?
+---
+v9: New.
+
+--- a/xen/arch/x86/include/asm/bug.h
++++ b/xen/arch/x86/include/asm/bug.h
+@@ -21,7 +21,7 @@
  
-     printf("%-40s", "Testing shld $1,%ecx,(%edx)...");
+ #ifndef __ASSEMBLY__
+ 
+-#define BUG_INSTR       "ud2"
++#define BUG_INSTR       ".byte 0xd6" /* UDB */
+ #define BUG_ASM_CONST   "c"
+ 
+ #else  /* !__ASSEMBLY__ */
+@@ -37,7 +37,7 @@
+         .error "Invalid BUGFRAME index"
+     .endif
+ 
+-    .L\@ud: ud2a
++    .L\@ud: .byte 0xd6 /* UDB */
+ 
+     .pushsection .rodata.str1, "aMS", @progbits, 1
+          .L\@s1: .asciz "\file_str"
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -1256,7 +1256,7 @@ void asmlinkage do_trap(struct cpu_user_
+ 
+ void asmlinkage do_invalid_op(struct cpu_user_regs *regs)
+ {
+-    u8 bug_insn[2];
++    uint8_t bug_insn;
+     const void *eip = (const void *)regs->rip;
+     int id;
+ 
+@@ -1268,8 +1268,8 @@ void asmlinkage do_invalid_op(struct cpu
+     }
+ 
+     if ( !is_active_kernel_text(regs->rip) ||
+-         copy_from_unsafe(bug_insn, eip, sizeof(bug_insn)) ||
+-         memcmp(bug_insn, "\xf\xb", sizeof(bug_insn)) )
++         copy_from_unsafe(&bug_insn, eip, sizeof(bug_insn)) ||
++         bug_insn != 0xd6 /* UDB */ )
+         goto die;
+ 
+     id = do_bug_frame(regs, regs->rip);
 --- a/xen/arch/x86/x86_emulate/decode.c
 +++ b/xen/arch/x86/x86_emulate/decode.c
-@@ -901,7 +901,8 @@ decode_0f38(struct x86_emulate_state *s,
- {
-     switch ( ctxt->opcode & X86EMUL_OPC_MASK )
-     {
--    case 0x00 ... 0xef:
-+    case 0x00 ... 0x89:
-+    case 0x8c ... 0xef:
-     case 0xf2 ... 0xf5:
-     case 0xf7:
-     case 0xfa ... 0xff:
-@@ -912,6 +913,13 @@ decode_0f38(struct x86_emulate_state *s,
-         ctxt->opcode |= MASK_INSR(s->vex.pfx, X86EMUL_OPC_PFX_MASK);
+@@ -651,7 +651,7 @@ decode_onebyte(struct x86_emulate_state
+     case 0xce: /* into */
+     case 0xd4: /* aam */
+     case 0xd5: /* aad */
+-    case 0xd6: /* salc */
++        /* 0xd6 (salc) omitted here, for #UD to be raised in 64-bit mode. */
+         s->not_64bit = true;
          break;
  
-+    case 0x8a ... 0x8b: /* movrs */
-+        s->desc = DstReg | SrcMem | Mov;
-+        if ( !(ctxt->opcode & 1) )
-+            s->desc |= ByteOp;
-+        s->simd_size = simd_none;
-+        break;
-+
-     case X86EMUL_OPC_VEX_66(0, 0x2d): /* vmaskmovpd */
-         s->simd_size = simd_packed_fp;
-         break;
---- a/xen/arch/x86/x86_emulate/private.h
-+++ b/xen/arch/x86/x86_emulate/private.h
-@@ -614,6 +614,7 @@ amd_like(const struct x86_emulate_ctxt *
- #define vcpu_has_wrmsrns()     (ctxt->cpuid->feat.wrmsrns)
- #define vcpu_has_avx_ifma()    (ctxt->cpuid->feat.avx_ifma)
- #define vcpu_has_msrlist()     (ctxt->cpuid->feat.msrlist)
-+#define vcpu_has_movrs()       (ctxt->cpuid->feat.movrs)
- #define vcpu_has_msr_imm()     (ctxt->cpuid->feat.msr_imm)
- #define vcpu_has_avx_vnni_int8() (ctxt->cpuid->feat.avx_vnni_int8)
- #define vcpu_has_avx_ne_convert() (ctxt->cpuid->feat.avx_ne_convert)
 --- a/xen/arch/x86/x86_emulate/x86_emulate.c
 +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -6323,6 +6323,16 @@ x86_emulate(
-         fault_suppression = false;
-         goto avx512f_no_sae;
+@@ -2470,9 +2470,17 @@ x86_emulate(
+         _regs.eflags |= even_parity(_regs.al) ? X86_EFLAGS_PF : 0;
+         break;
  
-+#endif /* !X86EMUL_NO_SIMD */
-+
-+    case X86EMUL_OPC(0x0f38, 0x8a)
-+     ... X86EMUL_OPC(0x0f38, 0x8b): /* movrs */
-+        vcpu_must_have(movrs);
-+        dst.val = src.val;
-+        break;
-+
-+#ifndef X86EMUL_NO_SIMD
-+
-     case X86EMUL_OPC_VEX_66(0x0f38, 0x8c): /* vpmaskmov{d,q} mem,{x,y}mm,{x,y}mm */
-     case X86EMUL_OPC_VEX_66(0x0f38, 0x8e): /* vpmaskmov{d,q} {x,y}mm,{x,y}mm,mem */
-         generate_exception_if(ea.type != OP_MEM, X86_EXC_UD);
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -319,6 +319,7 @@ XEN_CPUFEATURE(AVX_IFMA,     10*32+23) /
- XEN_CPUFEATURE(LAM,          10*32+26) /*   Linear Address Masking */
- XEN_CPUFEATURE(MSRLIST,      10*32+27) /*   {RD,WR}MSRLIST instructions */
- XEN_CPUFEATURE(NO_INVD,      10*32+30) /*   INVD instruction unusable */
-+XEN_CPUFEATURE(MOVRS,        10*32+31) /*a  MOV-read-shared instructions */
+-    case 0xd6: /* salc */
+-        _regs.al = (_regs.eflags & X86_EFLAGS_CF) ? 0xff : 0x00;
+-        break;
++    case 0xd6: /* salc / udb */
++        if ( !mode_64bit() )
++        {
++            _regs.al = (_regs.eflags & X86_EFLAGS_CF) ? 0xff : 0x00;
++            break;
++        }
++        fallthrough;
++    case X86EMUL_OPC(0x0f, 0x0b): /* ud2 */
++    case X86EMUL_OPC(0x0f, 0xb9): /* ud1 */
++    case X86EMUL_OPC(0x0f, 0xff): /* ud0 */
++        generate_exception(X86_EXC_UD);
  
- /* AMD-defined CPU features, CPUID level 0x80000021.eax, word 11 */
- XEN_CPUFEATURE(NO_NEST_BP,         11*32+ 0) /*A  No Nested Data Breakpoints */
---- a/xen/tools/gen-cpuid.py
-+++ b/xen/tools/gen-cpuid.py
-@@ -283,7 +283,7 @@ def crunch_numbers(state):
-         # NO_LMSL indicates the absense of Long Mode Segment Limits, which
-         # have been dropped in hardware.
-         LM: [CX16, PCID, LAHF_LM, PAGE1GB, PKU, NO_LMSL, AMX_TILE, CMPCCXADD,
--             LKGS, MSRLIST, USER_MSR, MSR_IMM],
-+             LKGS, MSRLIST, USER_MSR, MSR_IMM, MOVRS],
+     case 0xd7: /* xlat */ {
+         unsigned long al;
+@@ -3204,11 +3212,6 @@ x86_emulate(
+             goto done;
+         break;
  
-         # AMD K6-2+ and K6-III processors shipped with 3DNow+, beyond the
-         # standard 3DNow in the earlier K6 processors.
+-    case X86EMUL_OPC(0x0f, 0x0b): /* ud2 */
+-    case X86EMUL_OPC(0x0f, 0xb9): /* ud1 */
+-    case X86EMUL_OPC(0x0f, 0xff): /* ud0 */
+-        generate_exception(X86_EXC_UD);
+-
+     case X86EMUL_OPC(0x0f, 0x0d): /* GrpP (prefetch) */
+     case X86EMUL_OPC(0x0f, 0x18): /* Grp16 (prefetch/nop) */
+     case X86EMUL_OPC(0x0f, 0x19) ... X86EMUL_OPC(0x0f, 0x1f): /* nop */
 
 
