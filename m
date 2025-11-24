@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D95B8C8000A
+	by mail.lfdr.de (Postfix) with ESMTPS id C5A1EC80009
 	for <lists+xen-devel@lfdr.de>; Mon, 24 Nov 2025 11:53:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1170263.1495331 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1170264.1495342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNUBi-0006i2-Jn; Mon, 24 Nov 2025 10:52:54 +0000
+	id 1vNUBm-0006vD-RU; Mon, 24 Nov 2025 10:52:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1170263.1495331; Mon, 24 Nov 2025 10:52:54 +0000
+Received: by outflank-mailman (output) from mailman id 1170264.1495342; Mon, 24 Nov 2025 10:52:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNUBi-0006fZ-Gq; Mon, 24 Nov 2025 10:52:54 +0000
-Received: by outflank-mailman (input) for mailman id 1170263;
- Mon, 24 Nov 2025 10:52:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Io9E=6A=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
- id 1vNUBg-0006fT-SV
- for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 10:52:52 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b8d2ddcd-c923-11f0-9d18-b5c5bf9af7f9;
- Mon, 24 Nov 2025 11:52:51 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-42b387483bbso3051167f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 02:52:51 -0800 (PST)
-Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42cb7ec454csm26687694f8f.0.2025.11.24.02.52.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Nov 2025 02:52:49 -0800 (PST)
-Received: from draig (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id DC43A5F83A;
- Mon, 24 Nov 2025 10:52:48 +0000 (GMT)
+	id 1vNUBm-0006ti-O1; Mon, 24 Nov 2025 10:52:58 +0000
+Received: by outflank-mailman (input) for mailman id 1170264;
+ Mon, 24 Nov 2025 10:52:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vNUBl-0006t7-6y
+ for xen-devel@lists.xenproject.org; Mon, 24 Nov 2025 10:52:57 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bb12c3ba-c923-11f0-980a-7dc792cee155;
+ Mon, 24 Nov 2025 11:52:55 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-477ba2c1ca2so42882305e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 02:52:54 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-477bf1f365fsm191292965e9.8.2025.11.24.02.52.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Nov 2025 02:52:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,148 +45,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8d2ddcd-c923-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: bb12c3ba-c923-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1763981570; x=1764586370; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iK/lamIa2GP8d2MmAgVK21zQ9jh5z0bwbWrJlAfHUxI=;
-        b=qP3wzciNGuCMqxl8ch7C2Si76OPQx7EzVFcNjFUz/1wIixPs2upQO4TZUqLO4kFgtg
-         PeJwkACXjfj7Ov2yJSkIsSzGrya8SB7U2ll27x7HZSdVgRJdISNkPCu5d50FqmlIjoR3
-         /gViJGWaJs1P/I7lqjaT/6nBztQot45I+VkFU5QpnC/MBA/vfCsI7o/0B6ZYKzH59U2j
-         /Mpxh2D5VyVX8xzLMLANc2r9Y/6EbCGoJbdOtmSqOmwbXEsUvSBsHmKK6A76XM9JP6oZ
-         C3mvqWHvaFWK5ngrb4QjC9Oqib1Avez58olZXmBCGf30MtUYz6dl6MZ559SRSmE6+e/Z
-         OzPA==
+        d=suse.com; s=google; t=1763981574; x=1764586374; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=EnMyMpsa3EDwflxEWCohYtKKYgNJwAtKayhparUd0k4=;
+        b=DZ47t66k1J2Loaju01twzRzZ2AzbfLeTiz72XZL44qFLt3YHIbgseffdA8TTqPszII
+         3uQZYWqgzq+BqIoQo4uePbhDpv2WcBwViJHX3zYf7LIvXtPpwklg8qO3KBbTbGVhb4qO
+         En1yUvhAd5RxueeCZewm8AHSKyfi7rB7LQGFQJh/luM6ISfZk1AH/xAOj90gnA6xtMk5
+         N6/L+AplIrw3KpY/tG7Hy/Oo85GG2BYWnGFE6gL7XRYi9vqzxXHXXTfWUa/QkD+Ruu8V
+         g80L8+NA8M24kGCDwyWf45BDDROLEA6phvNrnNtaj5zrQJsrO6mifEdiBM5MIURB6rY4
+         D1TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763981570; x=1764586370;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=iK/lamIa2GP8d2MmAgVK21zQ9jh5z0bwbWrJlAfHUxI=;
-        b=RKvqZggMJAt05K1IL7iEEnAH1hUxOY+xPZzSs9GuelAhFt/5+mMF3N501kB54yM4zC
-         v1nNBQEDxkYKhuhiZx6anyFIJJb2BcdHkTuitHipbqtK4nqkckOLILKCtYlY0j3kEI1Q
-         nyYBm+jkt97NyL41BwuriBV607dvTAbJ4CHEzWmIuTaOzr5se7eWSaUtR8ddBuz2Sc9J
-         kEBulIpxlrjNzoCq64V+wYJOKSN6rKCSG5Z18Qyhw/s42PS2iVO1dvOs/UIdMP6rRkoS
-         2pK1xelK4VjZkQV2CYX0ve/hz9JDQgAdhC3PIy5tkrQQNu8R8cMUBNKgyrh02yI4EH6R
-         HrSg==
-X-Forwarded-Encrypted: i=1; AJvYcCX3gaCUiL+NsHWi80IPyuPM7GgqiPixTJQSN0mx+Ek67jE7/tKgvAdLuXR8p7YwacC2bfCJdNQbw6M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxzJu5hoKAAviWnlqSomf0crPEhQkS0P/fDxZDWwM8+4qOqTEL4
-	jNHOnJpziR/qX4fTbgmuW/DxsAxLwU2arSAUAj7zkYeFLJO7JG1uNHXKBEC8Vm3wbXk=
-X-Gm-Gg: ASbGnct/jDQXC34sQqPnSnfwiHBwKPdFvjKiOv/J5PExTlo3D7AP3gzsYqhQbrRG5Yc
-	i5lYFhXdsqN9oqmVBGSzHMDhHjMAynhkA7shn6Svwn0kgV0E0Ln6983DhuJKEt7sIAOA7o/9cQm
-	VZ7HN1KkwG25knvfmTEu/LLSMKJffx9NNSnhuP2S00OvXcUqXiueHCP6+OKIUxRSCER46eTP45u
-	kEaM5qazZVy3jzeLHj40tMYIftpzKSrdyEvokByHDMpvcLh8QHxaBD1kUG/3B4v4DT1jZzSK6OZ
-	yIif/e2FAG9f1GucWRt5GLHGd4xsfMADtY1z1xxUfAWtve+f+OOqIMedMpbn+PoTnMlaWKCE/ez
-	zXutVmgJWMp1WaYXXDrc0hQBGRfbm7pqIgN8cQDVJLh5Z1NF7AQCSCg4XBCIKSpAqTTEVkKOu2X
-	utfSjGOFvXanI=
-X-Google-Smtp-Source: AGHT+IFbgBMF20woWNeceW2OLZW9UzKbeZOc7MdUEAQ6zkpQk/eNWuZtBmInvriEfIgjQNxZzNGZ7w==
-X-Received: by 2002:a05:6000:2893:b0:42b:31a5:f032 with SMTP id ffacd0b85a97d-42cc1d2d586mr13073922f8f.28.1763981570422;
-        Mon, 24 Nov 2025 02:52:50 -0800 (PST)
-From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Cc: qemu-devel@nongnu.org,  Paolo Bonzini <pbonzini@redhat.com>,  David
- Woodhouse <dwmw2@infradead.org>,  Paul Durrant <paul@xen.org>,  Eduardo
- Habkost <eduardo@habkost.net>,  xen-devel@lists.xenproject.org,  Anthony
- PERARD <anthony@xenproject.org>,  Stefano Stabellini
- <sstabellini@kernel.org>,  Richard Henderson
- <richard.henderson@linaro.org>,  "Michael S. Tsirkin" <mst@redhat.com>,
-  Mark Cave-Ayland <mark.caveayland@nutanix.com>,  Marcel Apfelbaum
- <marcel.apfelbaum@gmail.com>
-Subject: Re: [PATCH] hw/i386/isapc: Remove dead Xen code
-In-Reply-To: <20251123185832.53802-1-philmd@linaro.org> ("Philippe
-	=?utf-8?Q?Mathieu-Daud=C3=A9=22's?= message of "Sun, 23 Nov 2025 19:58:32
- +0100")
-References: <20251123185832.53802-1-philmd@linaro.org>
-User-Agent: mu4e 1.12.14-pre3; emacs 30.1
-Date: Mon, 24 Nov 2025 10:52:48 +0000
-Message-ID: <87bjkraein.fsf@draig.linaro.org>
+        d=1e100.net; s=20230601; t=1763981574; x=1764586374;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EnMyMpsa3EDwflxEWCohYtKKYgNJwAtKayhparUd0k4=;
+        b=AYARk3F/tHwyMkIQzmZftS5gxUOIviByyQuCWsJbegNXuKwPRy+YPloOy3QJnvO+Me
+         zy/62VaDKTLeICB1nMTT+ul0V0xqStU/cdSgf7LAmjMm5/3ErjUWlD6G83DFTt+WpE18
+         69JruUkTA9UL3QxE40dXTfe48C3qHfPk/zmyEIX9E9PI6w9c5+vl/ClEQlxdhSli/qHk
+         EID0p9xk3NBs2yw/kETuEmhaEo3w0OdjIdH5RaCe1EyeFQt7VpFZHGgmuuT88SMnHHz8
+         qOem+wIEZxOkAJ1B3HBsh1CtFhKO0R7C9B7x8JclEIAaOsClsi+yut+IJDzh/pjLFMuu
+         BnOA==
+X-Forwarded-Encrypted: i=1; AJvYcCUxXSLGzW6VUj4FqmZcJc1w5zyPUQTKEd2JkDVI/rCTzO2ACb5Y9yo+XdpgVRLuY3sSRNpH55U3+QY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwY/QiWO53DLntfeYQm4SCl1MzebQnkR+b4FZ9VgMG1DJIw0wOG
+	ao7QYEHz1PuuJButBQhkeB++5xBB3mNvtSMNOZkNAAHlzncnlpoemTHMyI70hJDPPQ==
+X-Gm-Gg: ASbGncvaY824gCWYHHsOVIaof/qY/5heVnHmrGjPrk2T8k6TND4EyzHvNR7Fob02S45
+	AaOR2YG68lVYZgqAIEJDgW5csKSLCTWxHnXSD4lM/gbYnWy6vJiTZXjjo9iewK64VUamuGSnvjN
+	7SHvY+ePiGKu4NKfuoEVXDxUxY4MSC+6Yo9VSRlBnVbKHJXWYymxyiAj9TyemoF+El7GnCZo0TU
+	rjCo3XrYO8v0IYsw9OfzyORZdds8d6KJyFL7zx4SBJFCMWF8jXA4T2zu0DAKu3HK/8vrH4OnOmR
+	pZuZRAZg/Y0U10artO2ZGcMIlcEGsRHMlIGGPHJw/Li/B29ce0gTJ3oUb0s8rJKHNImGbYqBa1t
+	iGHtIZTh5QSK5DMPoST5TuQhEZO+eXMFbZTPDFKVdzo+3MmHlJkdGtATmgnZUiUgcRS6hAjvKKK
+	IQ6vmMqpgHQ4EZSh5/AICwt4VIJ4fbJmONVp+uWKapD6f5bvK9bTzpx4LhxrW+VGqq4hZYMV9fU
+	74=
+X-Google-Smtp-Source: AGHT+IEBmw3ujqAFoWxvlaNNZ/FIVaUjUIFTXOho7DZbWlawoxLpT5rTKOoH+V8/df6dJ+/LazN58Q==
+X-Received: by 2002:a7b:cb81:0:b0:477:9574:d641 with SMTP id 5b1f17b1804b1-477c01be3e7mr75186815e9.22.1763981574353;
+        Mon, 24 Nov 2025 02:52:54 -0800 (PST)
+Message-ID: <52664b6f-1114-455f-a7f8-14e95372acdc@suse.com>
+Date: Mon, 24 Nov 2025 11:52:56 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/12] x86/irq: adjust bind_irq_vector() to take a single
+ CPU as parameter
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20251120090637.25087-1-roger.pau@citrix.com>
+ <20251120095826.25782-1-roger.pau@citrix.com>
+ <20251120095826.25782-3-roger.pau@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251120095826.25782-3-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org> writes:
+On 20.11.2025 10:58, Roger Pau Monne wrote:
+> The vector will be targeting a single CPU at a time, so passing a mask is
+> not needed.  Simplify the interface and adjust callers to make use of it.
 
-> We don't use Xen on the isapc machine: let's remove
-> pointless code.
+Considering the two callers we have, and considering the function is __init,
+do we need the function parameter at all? Can't we uniformly use the BSP?
 
-Are you sure about this? The older Xen config did support:
-
-  isa
-      Simulate an ISA only system
-
-  isa (Default=3D0; Value=3D'no|yes')=20
-
-I don't know why anyone would want a ISA capable HVM machine these days
-but I would at least want to know when Xen dropped this as an option in
-the commit message.
-
->
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
-> ---
->  hw/i386/isapc.c | 27 ++++-----------------------
->  1 file changed, 4 insertions(+), 23 deletions(-)
->
-> diff --git a/hw/i386/isapc.c b/hw/i386/isapc.c
-> index 1ba9ae22cc3..1e13a30c505 100644
-> --- a/hw/i386/isapc.c
-> +++ b/hw/i386/isapc.c
-> @@ -17,8 +17,6 @@
->  #include "hw/ide/ide-bus.h"
->  #include "system/kvm.h"
->  #include "hw/i386/kvm/clock.h"
-> -#include "hw/xen/xen-x86.h"
-> -#include "system/xen.h"
->  #include "hw/rtc/mc146818rtc.h"
->  #include "target/i386/cpu.h"
->=20=20
-> @@ -37,7 +35,6 @@ static void pc_init_isa(MachineState *machine)
->      ISABus *isa_bus;
->      uint32_t irq;
->      GSIState *gsi_state;
-> -    MemoryRegion *ram_memory;
->      DriveInfo *hd[MAX_IDE_BUS * MAX_IDE_DEVS];
->      int i;
->=20=20
-> @@ -77,15 +74,9 @@ static void pc_init_isa(MachineState *machine)
->      /*
->       * There is no RAM split for the isapc machine
+> --- a/xen/arch/x86/hpet.c
+> +++ b/xen/arch/x86/hpet.c
+> @@ -352,7 +352,7 @@ static int __init hpet_setup_msi_irq(struct hpet_event_channel *ch)
+>       * Technically we don't want to bind the IRQ to any CPU yet, but we need to
+>       * specify at least one online one here.  Use the BSP.
 >       */
-> -    if (xen_enabled()) {
-> -        xen_hvm_init_pc(pcms, &ram_memory);
-> -    } else {
-> -        ram_memory =3D machine->ram;
-> -
-> -        pcms->max_ram_below_4g =3D 3.5 * GiB;
-> -        x86ms->above_4g_mem_size =3D 0;
-> -        x86ms->below_4g_mem_size =3D machine->ram_size;
-> -    }
-> +    pcms->max_ram_below_4g =3D 3.5 * GiB;
-> +    x86ms->above_4g_mem_size =3D 0;
-> +    x86ms->below_4g_mem_size =3D machine->ram_size;
->=20=20
->      x86_cpus_init(x86ms, pcmc->default_cpu_version);
->=20=20
-> @@ -94,17 +85,7 @@ static void pc_init_isa(MachineState *machine)
->      }
->=20=20
->      /* allocate ram and load rom/bios */
-> -    if (!xen_enabled()) {
-> -        pc_memory_init(pcms, system_memory, system_memory, 0);
-> -    } else {
-> -        assert(machine->ram_size =3D=3D x86ms->below_4g_mem_size +
-> -                                    x86ms->above_4g_mem_size);
-> -
-> -        if (machine->kernel_filename !=3D NULL) {
-> -            /* For xen HVM direct kernel boot, load linux here */
-> -            xen_load_linux(pcms);
-> -        }
-> -    }
-> +    pc_memory_init(pcms, system_memory, system_memory, 0);
->=20=20
->      gsi_state =3D pc_gsi_create(&x86ms->gsi, false);
+> -    ret = bind_irq_vector(ch->msi.irq, HPET_BROADCAST_VECTOR, cpumask_of(0));
+> +    ret = bind_irq_vector(ch->msi.irq, HPET_BROADCAST_VECTOR, 0);
 
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+Irrespective of the remark above, the comment then will want re-wording some,
+too.
+
+Jan
 
