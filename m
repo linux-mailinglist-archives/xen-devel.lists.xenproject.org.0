@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D986EC8381E
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 07:38:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171685.1496692 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53986C83851
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 07:45:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171699.1496702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNmhG-0000wq-TJ; Tue, 25 Nov 2025 06:38:42 +0000
+	id 1vNmnE-0003AI-K8; Tue, 25 Nov 2025 06:44:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171685.1496692; Tue, 25 Nov 2025 06:38:42 +0000
+Received: by outflank-mailman (output) from mailman id 1171699.1496702; Tue, 25 Nov 2025 06:44:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNmhG-0000uF-PQ; Tue, 25 Nov 2025 06:38:42 +0000
-Received: by outflank-mailman (input) for mailman id 1171685;
- Tue, 25 Nov 2025 06:38:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vNmnE-00037t-Gi; Tue, 25 Nov 2025 06:44:52 +0000
+Received: by outflank-mailman (input) for mailman id 1171699;
+ Tue, 25 Nov 2025 06:44:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x8HM=6B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNmhG-0000u9-BW
- for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 06:38:42 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 617a082e-c9c9-11f0-9d18-b5c5bf9af7f9;
- Tue, 25 Nov 2025 07:38:41 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4779a637712so30896195e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 22:38:41 -0800 (PST)
+ id 1vNmnD-00037n-L9
+ for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 06:44:51 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3cceb270-c9ca-11f0-980a-7dc792cee155;
+ Tue, 25 Nov 2025 07:44:49 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-4779a637712so30927405e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 22:44:49 -0800 (PST)
 Received: from ?IPV6:2003:ca:b70c:6a8e:d5b9:723c:3555:44bc?
  (p200300cab70c6a8ed5b9723c355544bc.dip0.t-ipconnect.de.
  [2003:ca:b70c:6a8e:d5b9:723c:3555:44bc])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477bf3b4eb2sm230927675e9.12.2025.11.24.22.38.39
+ 5b1f17b1804b1-477bf36f535sm238027715e9.8.2025.11.24.22.44.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 22:38:40 -0800 (PST)
+ Mon, 24 Nov 2025 22:44:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,59 +47,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 617a082e-c9c9-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 3cceb270-c9ca-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764052720; x=1764657520; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764053088; x=1764657888; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vHHXTgoZ8mnRsxhFycHqAEurI+rzK7ScuK05ATo6Cxg=;
-        b=GsDuLyEG0wHK5+tWMMGkCIERmGgImvmtUnaHPZwIUmA7J5fUn08YNWcEabNfFXGBLg
-         NgAZQjtKrn9MXg6cqRL0pmtMsF4cE1hYk/IkaxMWR8qpolf4h8nK/liN3dmr4UKhIlpU
-         GTZNuy6uDh1Js0O/Z7y1b1GqTAgg/qfAwu7z4tSaenv20mW9tFmHdimhbJNI/KWgEKlK
-         sxMo78tq+vV1mfTtUeEO6Dd3AkkCLksTdzTPXo0xBKMp4JInKvgiTExnABKjYmlReFG4
-         TdFgMQJFD9C6iqPRDKKd2mrcmlRsaD0VxeupTR77aj9xOyo0f9Qq76kbhvXciw3+2X1j
-         H2UA==
+        bh=V4PsvJUFPqval9XT2fjByGBFC2K0wNjKtflpyzIW4RQ=;
+        b=DHfhxuNlTZgDRz1OQt0gVVcXqQcAhhVuZ1AVIwEMV6rfuncKYOD9eMOP/3YM38/hEv
+         gH/kkSPDDMH19WwPAl6XCkPBz0T3wzs81i7QxWOSVG04pf+poACgWdv6N9DkB4Wu9rg7
+         3LvfX87gk2V5wUgjVa4sHPKArGhJUToGT2X4M2yfg5o55HMop+Of5VFQYMLR/7BQOIaQ
+         pUT/NDR+Ds5Q8rafoyepbXrbAbCos6dJFLe3OowDWxg8ZFHzyH8lMopXdL9vA/pDTvNb
+         nOgoKwsZMqBKxPIKSNPYU515JWZjIPfAXJ/93jSlavk+RTKparpDW8nVVfilPkZUoV8h
+         Q4Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764052720; x=1764657520;
+        d=1e100.net; s=20230601; t=1764053088; x=1764657888;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vHHXTgoZ8mnRsxhFycHqAEurI+rzK7ScuK05ATo6Cxg=;
-        b=d8i2qmZRR2i4U7y7M6XEV+JnC+kNy6E0FpiKB2I+LdVeMGPK3I4Zc1LBXVFsktJaCG
-         LL1w4aBLLlsyz8UZ6KimXIg0crsuFAXPQGJGNRTnDqb3CvYw9C6MGlDAsTMho7hiqZ6v
-         pvCwK0aHYZ1XrYuLppikT/BLw1gDLRGDveicyTnvdhPv3nynpXNeowIxMVqfD1P5/PMZ
-         i3kHzYfEN5pTuk1CZk+wMd14Kme56HAYDkHTK0JL6REyXYTWXC2MIUtnSbyMmv0UN+Vy
-         cMAZwEvIA9tflpiUjmNwAjS9PpOI77iz+bNryrC3o90yhPFFTwuocrh5KXgYJEQZ9nVD
-         u0jA==
-X-Forwarded-Encrypted: i=1; AJvYcCWsTieoLXYW7KQ9WYt3lFwBjqhrXDtbl/V04OBZKBdoVU3qUeYwR5qHBpzhH5F96NvgX6AXMwGGhHM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxMLHvr6P/wx5ju0JV9xAoQNx2fjT2BWsCwN8yDEweQhfaVroO9
-	+mnNv49h74h9wh/dI6vvfCFmc4Sq0VyI7SP54xBSLUMl95trhueW+5Y/IhrUGoBttg==
-X-Gm-Gg: ASbGnctDJU82mvZXA4cFMlNACHzuESKe8BJ393nuY3AKtiLuahxNy9uIPW4VBfmwy9L
-	vSKlT711JtQ+bf4t+C6giiP6oaAWZyhUlkPQ3gsarmqiYkEDywXCuxyTpKWm8pQj3hp5dGt04Tv
-	7IoWsx3fKUHcHX2nve1oWFAf7HF3M8ug4fxAM8Yi8vaLiAAaNVcEhORwaqS2ewC2Yi/JTlqh7Pi
-	lu6cD+8TxOLIhHL+yiFMioR4o/IfVRGNadtv8Nb/Pqb4Pu+dtrOKhHnm4Oka1sZce8e1P8DT/P4
-	NVN+WzGD4j5fcquo3Pk1KTtMN8lQt1Ho12HDNFMjFERwALmN0l4h3SdeXyi1NudW2IPZhZijebX
-	L2c5DK7a5OlNHPETDYWLS8ivhzY6EeHsNE0EhEaa5EYPeebQ/PQj37JX2vU8lXIQTIaGvWUxXWw
-	G3y5Rw8nHEASSR1n+FUGYdXmAmWpEsPZ1Ax3XInLDe1aIOhmlNHzzjUGWCJ4T9IyAd9e4sGTbzi
-	t20eIYKUtGdd182DaPT2Om+VSnh0RxQLelYUHddYxYu9NUb
-X-Google-Smtp-Source: AGHT+IFDEUe3QkpJjg9wCas9AYA9q/aflW6wryax3Enh7iJkS7bWIYJwHpxzZKRfOA0B3dwb347gRA==
-X-Received: by 2002:a05:600c:450f:b0:46d:ba6d:65bb with SMTP id 5b1f17b1804b1-477c01eb9bdmr158715315e9.31.1764052720484;
-        Mon, 24 Nov 2025 22:38:40 -0800 (PST)
-Message-ID: <6781dbd7-ddce-49c1-a359-0910e91bda43@suse.com>
-Date: Tue, 25 Nov 2025 07:38:39 +0100
+        bh=V4PsvJUFPqval9XT2fjByGBFC2K0wNjKtflpyzIW4RQ=;
+        b=kQVbjRrT9nMS0SJKO6bcwQUv9vvf7yHCmwp7EUGk7Sh2uKbVTPOrwoLr474Jjo9E4o
+         CrqgmY6SzEYVsUPiT6Od/T3fqrbgJNMaDzspmHM5Uy3h2ocpOxwq4EZUFbWAzTx6hL80
+         F/+3M0+51o0QDsxf2QjV9LZyvV5odePZwtbOA3soRosmSVkfK92I7P5tUn4UAJX92Y/e
+         +8cSZIXJAqUra4rGBJTYbCffGQDP/cnkmPeOfiWJC3Vp4OWJT7ydu9BAqTT7HLea2jPl
+         +tN3oppQQW95lyHGy97/d1kxP1oGjvLtvThuG3XduScIgf30KNwNpmulOJTvyCf52gRK
+         7XKA==
+X-Forwarded-Encrypted: i=1; AJvYcCW0tqMnQSIXSdPKs+VMO1AU+FXwUcDZAtmxztmRvOpzPZchv2D6sdkTsBPGENqXsi0xuHtK9HlgNlI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywf6xQjY7ciZDtcWJBLVTSDzWjKg0poi/X6LIgY84yEJAwrATvY
+	QS4yb9MS0hFiPvKEbgOI+ofkmQj6sv307EKwvMHJ41qOI0gh8kbBD+sPlW25Nv3lHw==
+X-Gm-Gg: ASbGnctly8H8UfAlKrqqKa9/LEXUUXdcUrlOAg0uZALDj8waqkfLBhADj+vJgwqwYlr
+	8eR9ddgFtYov6g7jVk7YnuhbD6PTacL/pIVab3ApEY2UA9mdHbE8EIhstkQ2p3iZdvPmtcQn9oD
+	ZY2aRfw/Ulk10NoiniAaDtkWMSTkbfNfqyyD0uSs9JSEx6axKPK2Sx8muTRrmgpPospDZ6rnvxu
+	izFaGblTxHWCzFXAQLbBSQ6EcQfV8aLchWUrdMZNxX+5wOXptrF5BXnJuQ3B1L16lWdrGVxejWe
+	PTU1k8EdqOV/cr2LMMIGnyuieqttUMnUG884dzVMBY+cpU+8TyPUGZY5d7QzTv91vi000pHXMUj
+	VyTrE6dnLdxIVtJ6IDQzzy3IAOIkoWwjUhlncS7GNxB/6Bt6l4PU5lUojrWzvtIWr4JiROBSNEV
+	r/0Gao8vcbkcl+IoaRhnFU7el6wnYbQkS1XwawU89fT6dUbQBLxfeXjkyzfITSoB+hNrw2J5e/M
+	7MHBtDh7sn5sZ6Dg9Ogulm/Xko38oKcK8hglLUSCmFsKa5h
+X-Google-Smtp-Source: AGHT+IF0lw6UPMxOI54GCBo7JKJG1+LZ2rspYqDbLEvP1hNh59C8ceGCTKvMsqz7bx9lnRT8BvUC1w==
+X-Received: by 2002:a05:600c:840f:b0:477:952d:fc00 with SMTP id 5b1f17b1804b1-477c0176752mr164597045e9.12.1764053088489;
+        Mon, 24 Nov 2025 22:44:48 -0800 (PST)
+Message-ID: <65690c5d-4adc-47d5-ba33-dca5c79327dd@suse.com>
+Date: Tue, 25 Nov 2025 07:44:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/24] xen: consolidate cpuid library
-To: Penny Zheng <Penny.Zheng@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v4 06/24] xen/domctl: consolidate domain.c with
+ MGMT_HYPERCALLS
+To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: ray.huang@amd.com, grygorii_strashko@epam.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20251121105801.1251262-1-Penny.Zheng@amd.com>
- <20251121105801.1251262-3-Penny.Zheng@amd.com>
+ <20251121105801.1251262-7-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,46 +127,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251121105801.1251262-3-Penny.Zheng@amd.com>
+In-Reply-To: <20251121105801.1251262-7-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 21.11.2025 11:57, Penny Zheng wrote:
-> There are some cpuid library functions only referenced in
-> XEN_DOMCTL_get{,set}_cpu_policy-case, and shall be wrapped with
-> CONFIG_MGMT_HYPERCALLS later, otherwise they will become unreachable when
-> MGMT_HYPERCALLS=n, and hence violate Misra 2.1
-> - x86_cpu_policy_clear_out_of_range_leaves
->   - zero_leaves
-> - x86_cpuid_copy_to_buffer
->   - copy_leaf_to_buffer
-> - x86_cpuid_copy_from_buffer
-> We seperate these functions by moving other functions to a new file named
-> cpuid-generic.c, and modify related Makefile-s to retain same behavior.
+> The following functions, scattered in common/domain.c, and are only referenced
+> and responsible for domctl-op:
+> - domain_pause_by_systemcontroller
+> - domain_resume
+> - domain_set_node_affinity
+> So they shall be wrapped with CONFIG_MGMT_HYPERCALLS. Otherwise it will
+> become unreachable codes when MGMT_HYPERCALLS=n, and hence violating Misra
+> rule 2.1.
+> Move them together to avoid scattering #ifdef.
 > 
 > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> ---
-> v3 -> v4:
-> - new commit
-> ---
->  tools/fuzz/cpu-policy/Makefile               |   2 +-
->  tools/fuzz/x86_instruction_emulator/Makefile |  10 +-
->  tools/libs/guest/Makefile.common             |   2 +-
->  tools/tests/cpu-policy/Makefile              |   2 +-
->  tools/tests/x86_emulator/Makefile            |   2 +-
->  xen/lib/x86/Makefile                         |   1 +
->  xen/lib/x86/cpuid-generic.c                  | 273 +++++++++++++++++++
->  xen/lib/x86/cpuid.c                          | 260 ------------------
->  8 files changed, 283 insertions(+), 269 deletions(-)
->  create mode 100644 xen/lib/x86/cpuid-generic.c
 
-Andrew - what's your take on such a split? Personally I'm not overly
-happy to see related functions be scattered across two files. The
-separation also feels pretty random, posing the risk that later some
-of the code may need to move back.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Penny, I also don't think "consolidate" is what is happening here.
-Perhaps "split" would be getting closer?
+I again think though that the title doesn't quite get it. While "consolidate"
+may be fine here, I'd like to suggest s/with/towards/ or some such.
 
 Jan
 
