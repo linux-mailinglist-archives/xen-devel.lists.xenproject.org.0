@@ -2,37 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 633B8C848DC
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 11:48:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171848.1496865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87079C84DD5
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 13:04:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171878.1496939 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNqaJ-0005IL-Db; Tue, 25 Nov 2025 10:47:47 +0000
+	id 1vNrlS-0000P9-Fe; Tue, 25 Nov 2025 12:03:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171848.1496865; Tue, 25 Nov 2025 10:47:47 +0000
+Received: by outflank-mailman (output) from mailman id 1171878.1496939; Tue, 25 Nov 2025 12:03:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNqaJ-0005GC-Ab; Tue, 25 Nov 2025 10:47:47 +0000
-Received: by outflank-mailman (input) for mailman id 1171848;
- Tue, 25 Nov 2025 10:47:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vNrlS-0000N7-D6; Tue, 25 Nov 2025 12:03:22 +0000
+Received: by outflank-mailman (input) for mailman id 1171878;
+ Tue, 25 Nov 2025 12:03:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lEWo=6B=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vNqaH-0005G6-Jb
- for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 10:47:45 +0000
-Received: from fout-a6-smtp.messagingengine.com
- (fout-a6-smtp.messagingengine.com [103.168.172.149])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2aaa2922-c9ec-11f0-980a-7dc792cee155;
- Tue, 25 Nov 2025 11:47:42 +0100 (CET)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfout.phl.internal (Postfix) with ESMTP id BBB32EC0213;
- Tue, 25 Nov 2025 05:47:40 -0500 (EST)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-02.internal (MEProxy); Tue, 25 Nov 2025 05:47:40 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 25 Nov 2025 05:47:39 -0500 (EST)
+ <SRS0=SQaz=6B=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1vNrlR-0000N1-HZ
+ for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 12:03:21 +0000
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c107::3])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bbb36ea1-c9f6-11f0-9d18-b5c5bf9af7f9;
+ Tue, 25 Nov 2025 13:03:19 +0100 (CET)
+Received: from BN9PR03CA0142.namprd03.prod.outlook.com (2603:10b6:408:fe::27)
+ by SN7PR12MB7180.namprd12.prod.outlook.com (2603:10b6:806:2a8::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.13; Tue, 25 Nov
+ 2025 12:03:14 +0000
+Received: from BN3PEPF0000B077.namprd04.prod.outlook.com
+ (2603:10b6:408:fe:cafe::7a) by BN9PR03CA0142.outlook.office365.com
+ (2603:10b6:408:fe::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.17 via Frontend Transport; Tue,
+ 25 Nov 2025 12:03:14 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B077.mail.protection.outlook.com (10.167.243.122) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9366.7 via Frontend Transport; Tue, 25 Nov 2025 12:03:13 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 25 Nov
+ 2025 06:03:12 -0600
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17
+ via Frontend Transport; Tue, 25 Nov 2025 04:03:11 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,175 +59,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2aaa2922-c9ec-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1764067660;
-	 x=1764154060; bh=vKvzwv2WuQx8tfsEJ9gD04sEa7ga8SrxGx+O8by6l90=; b=
-	IJfPmT6liRs/R6ItRZciU/VGCWg3QMHEI8FRy9dFM6RrkpUb7QBuPguMfvEWJUST
-	cKkgN+uAWT5cYFK6M0qCsLxfUxu9VKvOP1a64JweIU1kKHlub4UzSqxVC01j/8mq
-	fJ4PO+SmoPZHO3CoglI34Fu2ykQMMf7c+OPYqcxLOxbyNGqk0f/FlE/UPaOgfN1O
-	YtDlccRslDIDMjE8Y+RpBqGJuEp3+fNDbDRqY6AKxXZLtxjggPbzDIWiv/ac81Jz
-	aXw1IpRInwaEWXXy8jT/fAbynbktcVw7q9ncUWnbR0Um3mTIt6TTT6aANCG51pYg
-	e3dSH5nd2CVX1J4Sl2OW0A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1764067660; x=1764154060; bh=vKvzwv2WuQx8tfsEJ9gD04sEa7ga8SrxGx+
-	O8by6l90=; b=2rXsaqUl+8MWJP5Edq8YpVA/Jek40Eg5zVUmFrbX2XTyVMqgAQC
-	Yz0t9N0JIWNFcoGhaKn+EOglxEBB2abEtSLHegO2xtTqf1dBMDv8SOwTW7nkY9s8
-	sVAqcJj/GII7SY1UHugbX59KK8P+gp2eiEUL4S7tGWv9zQCJBciFhRHghVlw7tj0
-	9UXTZ0Gjnjo7Yd62mciOW4LYe1/KbVortW8nloHHKPYgw2u8eRkIaai8O+m0ENKy
-	AvQWHdWxIEdIsxbGgoN6xoA/dVLwewycAmYn5QF94iN+262KQX27q92MLaoDwg7n
-	ZQxKS9qAYMYDsvk6voa/mDVXJHCfzcr4Zjg==
-X-ME-Sender: <xms:TIklaY0o_gIR-ZrMb_4Z6f3EJ93S4s42hEBcOuKC7I_dmW3p6HjECg>
-    <xme:TIklaTxgUdWz3eCVIGsT3UwWL7mGxfa6YspIbYq1Z728NVjGwUWN3eh68fERQFAPn
-    Qv7dpZB4niGQ0SjkKC528_lzs4KqmmCA5uzxTdQrr6v_XSo7w>
-X-ME-Received: <xmr:TIklafG1IPflOUXfgghrO3aV5I5bcS3lz38_7qjeeKUq4HuP9KNIMa6Bqk7u0IGmlxJt2Z1paSdmfhOofSuMzWTs5SU2D4P66TE>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvgeduvdejucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleet
-    feevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
-    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepjedpmh
-    houggvpehsmhhtphhouhhtpdhrtghpthhtohepjhhgrhhoshhssehsuhhsvgdrtghomhdp
-    rhgtphhtthhopehjrghsohhnrdgrnhgurhihuhhksegrmhgurdgtohhmpdhrtghpthhtoh
-    epshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepohhlvghk
-    shgrnhgurhgpthihshhhtghhvghnkhhosegvphgrmhdrtghomhdprhgtphhtthhopeihrg
-    hnnhdrshhiohhnnhgvrghusehvrghtvghsrdhtvggthhdprhgtphhtthhopeigvghnqdgu
-    vghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopehlih
-    hnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
-X-ME-Proxy: <xmx:TIklaWZd3aaslcowgYsy2f2JnUHeexvy8jgdMEngtzeu8Ob9HkG8cg>
-    <xmx:TIklaRDEDPBbXW0jGUphUXvlnJQz6KLQ8d6rujH7u6xZF0KXvmxN5A>
-    <xmx:TIklaenVvtqNSWiXiQpIhCj5vlcxMomk2bJh2-1uXjdKZHMeSWl00g>
-    <xmx:TIklaSwoyWv4d11bt5CKsfYuVrABdFrND4UuoKOvxBVnK17XjKbLqg>
-    <xmx:TIklaVE3MO2R59rTd75kH6C-4ZCUcKDHCpTUssiQqOjntrIwTOPSqPcB>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 25 Nov 2025 11:47:37 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Yann Sionneau <yann.sionneau@vates.tech>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] xenbus: Use .freeze/.thaw to handle xenbus devices
-Message-ID: <aSWJSb4OK645r3tk@mail-itl>
-References: <20251119224731.61497-1-jason.andryuk@amd.com>
- <20251119224731.61497-2-jason.andryuk@amd.com>
- <1c991699-51b7-4284-8179-6bc78f8f4eac@suse.com>
+X-Inumbo-ID: bbb36ea1-c9f6-11f0-9d18-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hzm3gMh7eVfCfFgU2tStHQ6+hr2cOpDgn3IQjhT1q6VV+Rl2zOUsC4TinwxvOt+simmuGGVLdA0Zni3D7mAWHZvwbZYkWMQH0xUPRJzAI/5n+/rpiWWF3zI6mPNALuDgaFsLHCI81qtoBDI53QLB3cIHlLSC7ApmU2O5phTVRa9IN79AxiwUBkFAN0V5gUN6xDX0J1Fj9c34XmbwSyNW1IsrLmKn2ZdRQrltBnV/BO6N3vl5+Cz6Nqu8qMqTO7MEeK6797tGaA6B3oH6DBN2KqlXHzroPJpsRCVACjHH5MWjd8vsIVmjq0OCkfO3/3zDzxHCiOUgNSTPz2Kd5XGBPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7a76AHGZYSuUIqHiQo4GORXQ1f0RXxPTeh9W9edRD9M=;
+ b=L1+cmdIkhjoIN5E34v3Xk2jN/dAYIvj77gJw8JSTf2109E5pKMeYWUn5SBfkAgGexvTrM0Dwe4IKlGqFZsWe4yY6ppeaJjtU67XFt1vUsPQaQuWDBqBeL7rHGyhVsOhYgrTzr7rX8NyxFIf4wBGc9Cm5YMzNFNbh5muPhjFtoQgPE8bdGvREWC1Z+LmcAIyji/SbQi/QCEfLkC/+iLO+6/ls3w9r1fxEXq8XPxHtxeWQ9N5jPY/u1es0z0xe6WgAzg4eBxO1F5SXtDFZiBMJmnkcNgMwjjYwX5d9QYBI6t6e9wsqW9o6GIMATReEq65Iup0FjLl/i7U+dfVr+pVhCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7a76AHGZYSuUIqHiQo4GORXQ1f0RXxPTeh9W9edRD9M=;
+ b=VCNhw21S8pOwjnocWtX+fPZPwhEfKqSas9MWxSZQU3Inf/rcM1yTmWiBUHvbchrB0a/kLOrAzsKaRhjDPvaOAE3iiKOnLBZ2/W3d9zk1ckgW3lOZJ6Br3b+8ZH4vcHcfD7DxtB5q0dB+O1xYF8clpY33mgcTKdbNej/Zs7BC/Zw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] vgic-v3: Ignore writes to GICD_ISACTIVER{nE}..GICD_ISACTIVER{nE}N
+Date: Tue, 25 Nov 2025 13:03:07 +0100
+Message-ID: <20251125120308.65981-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="MtahxU80cAG7ZM06"
-Content-Disposition: inline
-In-Reply-To: <1c991699-51b7-4284-8179-6bc78f8f4eac@suse.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B077:EE_|SN7PR12MB7180:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57fb716b-2f43-4661-4469-08de2c1a9c14
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?apQOIfWHCyTzJtwVRGYJHCBw9irlaFq12G75NazqTc50Jp6tqVj7KIsTyMLg?=
+ =?us-ascii?Q?giSx2Humae7zpj2JG3wAQxKgGFYYzpllhyp/tTz7B8pWZV50be3FOhRsUihs?=
+ =?us-ascii?Q?htkpc42GAc3noKpXsN060bgG+A87A9l65xRPbNfAiBRINzFISiJNc7kS2SDt?=
+ =?us-ascii?Q?/YZzSw9TbYZ1AP4BKr1VVtoEFbVeQZ8uLO4Df4+09hp80Lu0ecUKR/k5fDVj?=
+ =?us-ascii?Q?FZqF/Lu4eRh+dxkvZZaSuLPkIorSrZNufvsjjZ7tPNR7YYZJLQnYbNgPBktg?=
+ =?us-ascii?Q?ijjHMXjuTP4Hbg6wCCRlLTADnAWiMsbBZTaIxljOFRz3BmCN/nM7S7BW3i0A?=
+ =?us-ascii?Q?whqReXHtHpj1S4EoM3hpQ1U4rCL8W5KMSNhV2APWIcNEctCXJBrTsYvGco+m?=
+ =?us-ascii?Q?vYaKx/b3pdj+uvEXvG4xx18QLZoJ6wl9DsgVeqCfB2b+7Cuc2NVBto1DweWP?=
+ =?us-ascii?Q?QvfQTpVtyAqpMcvkCPlPcJ65SQZ9e6vR8ensTWIwcrQjV/S8bOcI4S7DGwAE?=
+ =?us-ascii?Q?XFmHphoQyQyE3/MHgCwe5dVJQ9lfvp/e5jDaRZjHjahgobcDelDMWYL9dlNu?=
+ =?us-ascii?Q?7tXKWh9+hl97unUIgA4a8NtdEkELZoUAYIjmoO3BG1Qh3EnXqndbjLwm+qmP?=
+ =?us-ascii?Q?zV4TX4W3LoslKL0VvfQ4owcqbZIgjRVVBcIINc0m3MCCBYKOXTGqqGtkqVgN?=
+ =?us-ascii?Q?OzJx4JDuCbdmp+rnheFpY8GNCWZ378/8ELxWzOaWfjC0bfL4w75+fDoa+OIE?=
+ =?us-ascii?Q?9SoJGHydRxeqdL7fbPyz0W3vjTpAlsSH9By9hkEPhIVQ2rxKhqS3MW2D46h9?=
+ =?us-ascii?Q?Rmye44kKpU7tdbaABQUqbMvhtwJ1iv9vM1gBx+/+qy5phwI9+j9ztqehIqAA?=
+ =?us-ascii?Q?ggz9+DagRfXw7y1UtFvwvavs1BqrLmJMUcW4qkAzklt08oqb+nAlPgwrUNDU?=
+ =?us-ascii?Q?YHLE5TAj9xHnEWuF9wT7HtHqsTUukX4sB0LYZHbhod8sPFRNB0+SgIYyM56v?=
+ =?us-ascii?Q?b8SpUGus6J2+kNCUh/8L7dgUGsHpf0FcWHkeNpMglgnXlg0Y8aIIAeAexTz+?=
+ =?us-ascii?Q?Cjn0gveGyGo4gZB8NbbKl59KMxSex6GTxIpU53W7kBkxXRLEp3bR5ZS9zS0z?=
+ =?us-ascii?Q?FKv/jvvE6F8qPn1jwALLdXoHQ/MV4bBt3unz0qQZ3bA2bzRqFY5oAxVm+tAe?=
+ =?us-ascii?Q?XbAVYDqSkhxH7fX2a+lCFE+0kWpOBjBDDiCCcEuFFOMiu62pYfYbRysp2bdp?=
+ =?us-ascii?Q?s/pzu49R80u+EmUaHu0uCl49vcpFajrkboM/df/cZ1xV8QREdM5tqtfxo8mT?=
+ =?us-ascii?Q?NUXG09CD9/UBBQiRVYl2b6ALQT5MeyK8S/Sl/3Td81FVuSrlROmEUmExgSFV?=
+ =?us-ascii?Q?O7lKf3ulmCcpIbHuqTHvrEBpVhJzyyCUM78Fmi6upnX5ZQVVNeap52pKjPqP?=
+ =?us-ascii?Q?bWXQrZyy3WERTnRAqcnsCmM/nPm9jBPEhx/f6nJ6u8SX5Zb0O7ip9T/zNZUL?=
+ =?us-ascii?Q?M6YwKj7b+nF3Q48Elh5sCc4jalUpvMebKh+x01mpy9QUHP1h5nT+ZGzQRA?=
+ =?us-ascii?Q?=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2025 12:03:13.2113
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57fb716b-2f43-4661-4469-08de2c1a9c14
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B077.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7180
 
+Similar to other registers like ICPENDR and ICACTIVER, ignore the writes
+instead of injecting fault into the guest and thus crashing it. This was
+already the case for extended registers prior to introducing GICV3_ESPI.
 
---MtahxU80cAG7ZM06
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Nov 2025 11:47:37 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Yann Sionneau <yann.sionneau@vates.tech>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] xenbus: Use .freeze/.thaw to handle xenbus devices
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+ xen/arch/arm/vgic-v3.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-On Tue, Nov 25, 2025 at 09:20:55AM +0100, J=C3=BCrgen Gro=C3=9F wrote:
-> On 19.11.25 23:47, Jason Andryuk wrote:
-> > The goal is to fix s2idle and S3 for Xen PV devices.  A domain resuming
-> > from s3 or s2idle disconnects its PV devices during resume.  The
-> > backends are not expecting this and do not reconnect.
-> >=20
-> > b3e96c0c7562 ("xen: use freeze/restore/thaw PM events for suspend/
-> > resume/chkpt") changed xen_suspend()/do_suspend() from
-> > PMSG_SUSPEND/PMSG_RESUME to PMSG_FREEZE/PMSG_THAW/PMSG_RESTORE, but the
-> > suspend/resume callbacks remained.
-> >=20
-> > .freeze/restore are used with hiberation where Linux restarts in a new
-> > place in the future.  .suspend/resume are useful for runtime power
-> > management for the duration of a boot.
-> >=20
-> > The current behavior of the callbacks works for an xl save/restore or
-> > live migration where the domain is restored/migrated to a new location
-> > and connecting to a not-already-connected backend.
-> >=20
-> > Change xenbus_pm_ops to use .freeze/thaw/restore and drop the
-> > .suspend/resume hook.  This matches the use in drivers/xen/manage.c for
-> > save/restore and live migration.  With .suspend/resume empty, PV devices
-> > are left connected during s2idle and s3, so PV devices are not changed
-> > and work after resume.
-> >=20
-> > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->=20
-> Acked-by: Juergen Gross <jgross@suse.com>
->=20
-> Marek, could you please give this patch a try with QubesOS? I think this
-> patch should be verified not to break your use cases regarding suspend /
-> resume.
+diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+index 8b1c8eef8024..33dfd13dccf1 100644
+--- a/xen/arch/arm/vgic-v3.c
++++ b/xen/arch/arm/vgic-v3.c
+@@ -887,7 +887,8 @@ static int __vgic_v3_distr_common_mmio_write(const char *name, struct vcpu *v,
+             printk(XENLOG_G_ERR
+                    "%pv: %s: unhandled word write %#"PRIregister" to ISACTIVER%dE\n",
+                    v, name, r, reg - GICD_ISACTIVERnE);
+-        return 0;
++
++        goto write_ignore;
+ 
+     case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
+     case VRANGE32(GICD_ICACTIVERnE, GICD_ICACTIVERnEN):
+-- 
+2.43.0
 
-Sure, but I can't promise it will be this week, I have some deadlines to
-meet...
-
-> Juergen
->=20
-> > ---
-> >   drivers/xen/xenbus/xenbus_probe_frontend.c | 4 +---
-> >   1 file changed, 1 insertion(+), 3 deletions(-)
-> >=20
-> > diff --git a/drivers/xen/xenbus/xenbus_probe_frontend.c b/drivers/xen/x=
-enbus/xenbus_probe_frontend.c
-> > index 6d1819269cbe..199917b6f77c 100644
-> > --- a/drivers/xen/xenbus/xenbus_probe_frontend.c
-> > +++ b/drivers/xen/xenbus/xenbus_probe_frontend.c
-> > @@ -148,11 +148,9 @@ static void xenbus_frontend_dev_shutdown(struct de=
-vice *_dev)
-> >   }
-> >   static const struct dev_pm_ops xenbus_pm_ops =3D {
-> > -	.suspend	=3D xenbus_dev_suspend,
-> > -	.resume		=3D xenbus_frontend_dev_resume,
-> >   	.freeze		=3D xenbus_dev_suspend,
-> >   	.thaw		=3D xenbus_dev_cancel,
-> > -	.restore	=3D xenbus_dev_resume,
-> > +	.restore	=3D xenbus_frontend_dev_resume,
-> >   };
-> >   static struct xen_bus_type xenbus_frontend =3D {
->=20
-
-
-
-
-
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---MtahxU80cAG7ZM06
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmkliUkACgkQ24/THMrX
-1yxzGQf9GdYrtkeG1m/vQPue+cfveXJFKVm7XfGujsqM4nGtAx8hSG/XwFNDEvgN
-ILoh86xZh/eJZpMiN7kZqc8irWoYEgG97GSyAnItDBOUyC4XSJfilsksf9COlWWp
-il6kV0BUHIZLb3kGrU7Uj4rFv1WIWc5mpbmbPrhYsoXtXi+e9ujHyqc07upOSk9O
-oScpLREBGgsHdXZjzyY6qyVjvkjpYooodoB0tE3SVC8gppuAkkVNxO9PyJiGkI+u
-rltOL8xc3y51ldLUoxoyd0+KfttAEy7UsZR72dLvUyirfDn61Y9HvAuDUs4tJXxZ
-vzj9C1Y58zQrwZVkkzPpF9ZVURwyJg==
-=cKIe
------END PGP SIGNATURE-----
-
---MtahxU80cAG7ZM06--
 
