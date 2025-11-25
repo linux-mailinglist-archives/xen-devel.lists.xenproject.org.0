@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3B32C85B8D
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 16:15:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1172020.1497091 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D88A8C85BC1
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 16:19:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1172030.1497103 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNul2-0004gA-S3; Tue, 25 Nov 2025 15:15:08 +0000
+	id 1vNuon-0005R4-Bq; Tue, 25 Nov 2025 15:19:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1172020.1497091; Tue, 25 Nov 2025 15:15:08 +0000
+Received: by outflank-mailman (output) from mailman id 1172030.1497103; Tue, 25 Nov 2025 15:19:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNul2-0004eD-PW; Tue, 25 Nov 2025 15:15:08 +0000
-Received: by outflank-mailman (input) for mailman id 1172020;
- Tue, 25 Nov 2025 15:15:08 +0000
+	id 1vNuon-0005OI-7u; Tue, 25 Nov 2025 15:19:01 +0000
+Received: by outflank-mailman (input) for mailman id 1172030;
+ Tue, 25 Nov 2025 15:18:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BAQ+=6B=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1vNul2-0004e5-19
- for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 15:15:08 +0000
-Received: from sender3-of-o50.zoho.com (sender3-of-o50.zoho.com
- [136.143.184.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85635abd-ca11-11f0-9d18-b5c5bf9af7f9;
- Tue, 25 Nov 2025 16:15:06 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1764083700855102.12441115903425;
- Tue, 25 Nov 2025 07:15:00 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=x8HM=6B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vNuol-0005OB-LU
+ for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 15:18:59 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 10796704-ca12-11f0-9d18-b5c5bf9af7f9;
+ Tue, 25 Nov 2025 16:18:58 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-477632d9326so34165185e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Nov 2025 07:18:58 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-479052cfae0sm17654475e9.8.2025.11.25.07.18.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 25 Nov 2025 07:18:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,121 +45,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85635abd-ca11-11f0-9d18-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; t=1764083703; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=dyB1xRiuBOuGIfEAxVcCsgM4nSXxmqJLWF2QMiz2/iD0QR8y353nlO+ATHRaZtI6mCWxh0f+L4wKy4LARiDIWKVEBYor9Deh1tzpH5wHgYWG1qr23Buvz7BRB934AQpOe8K9f3al1f+S9Wm/Jx8YigK2aWo+dHN+uuIfX+m51dU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1764083703; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=mpY+NLSrCR6NCga9NoJmYIaV14kT2racyE6PQxP+bTI=; 
-	b=iSEaXb89/OOF66beXNStj+rRXm8honFCIatR9PcNp2YHCRHJ76AjSOpxcwg0xcv24yV7xLK9Twcmij+vuGoUS5GuMfm8qOoHVqRnCL/S8YpPlVETpRG0VNfrkbIsuh5r2MfmU0SXsiPrro5N95Z3xz6rS+hgISA8+v5bx8/quGI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1764083703;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=mpY+NLSrCR6NCga9NoJmYIaV14kT2racyE6PQxP+bTI=;
-	b=PZIMuZjA/JwDk9CiZKkpsi0vmDmV81A7YwDgT4yIg/sbK7jHbPCUNu00xg+zdatr
-	9n3VA1w0tgxdNLAEdcpYLmGIwkN1sXQVJhSfL9rImjMLjNu9imVVSBuSA3dcPVvzPOE
-	55CN11kt4yOoA2Ec9yQl3AUZGVxuvlygP2ZfT+8U=
-Message-ID: <b13572b6-d343-4616-aea4-674739c6589f@apertussolutions.com>
-Date: Tue, 25 Nov 2025 10:14:59 -0500
+X-Inumbo-ID: 10796704-ca12-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1764083938; x=1764688738; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=j8DnPuPRWuF47udyl8iF/eaeM0cBaAUVmHXO+9wc5jI=;
+        b=VTyY7x3krd3cttXtdR4f6cpoqG5B5iQPOiGQYZ1S2E8ojrAml5AbgfT6MmiboF86pY
+         iVyLiQB18M0fQIdJxDxBBAuCOOjk5BGzJ8wH1UsaXXI5sOqRAgLI8ANJUD3VN0kvQ8D/
+         tQllrf6RxYFgt8pDznqZ39CXH++tLg0vTByo4bVdYj0qQSKi883tw1a0czJlP3Lg7Dqq
+         tPlDf+a5PlxQKxywpoDA16XvS365GDSVLKizOfowehnadQdBqb6oUjpeaYcBkF0w3A0F
+         FUZUelPzY4mzMdmfGo9k9Uy+EuG/YMM3+k3NKphf9varOFZNukx9cqBCgcZUsUR0vmaH
+         wX4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764083938; x=1764688738;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=j8DnPuPRWuF47udyl8iF/eaeM0cBaAUVmHXO+9wc5jI=;
+        b=XlxzvZQNgfSjbOT/LJ3xC5x/TxTjwRJjKS/zSMBYHb5UR32y4X4ZkZyzdtzwNJReCn
+         49SVs4RUaNgXxmYYtZCFBcUHE7B++yz16oGESRaaM34Us9XCW+ucyXh+qyvjHc2PDOU/
+         2uI6W0FHTLgNhD6ngRnXFu+Scw+7wa5/G4jwuduHGoJvJwTsh4Xp1bbn8nHd9DQQuymO
+         PFJb4Ako58Yqx+7faH6b8ZoxnbDK8iW7Rd5jEKH9xBR17RWoNatPIutNdfftzPzTn/XC
+         OUJXiACT7fyGAR0jwJYN2U5FTC89GiCWHECB5Yrtz+XsVSd8+Hp8s4I4Mge6rD9kJZzD
+         b7zg==
+X-Forwarded-Encrypted: i=1; AJvYcCWpKVGGoRQIEhWWsdTJxnG0QrTu/CWIFELPDNtTIYiTq43ksakArfyNXgL88GcXM2F4wp4nMUUxXRY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJp9jj9VLTvTVn5LOrTbCXpp/dJkpQjX9P5U6ZzbOeyrU3lajd
+	0acoD+ZX+07aeywBFrK7v9lReRSEDO+qGeStro7bY5fFCssIkd3o3bCSxZnQiVP/Dw==
+X-Gm-Gg: ASbGncvUQhdnrZe/5mvxeURzw5+VzqTvAiRKSF+Ut4bpA7fMZLvCJuBeMC1bsXlbq8M
+	k30pjU6Wrg1R3fM/0E454vDn46DJakyEsYvkPPfO4j/nhosWwCB/PWOGYDJybRpn6a9kcDcDHRY
+	Gx8AURPP7sIU3mQrm9fTuO6c2cK5KjRXRsXQS3m2qg6rwKJr+Iwk5IWVZky60ziK1WYCgEZX8V4
+	WiLzxwopOxD6oShkIu5qhIgfzV55UruneLJFNZ1p/YvmpO75CnTSZQvgLVBIuF4AnJD0lE4Iy3P
+	Tq4ePL1n7qkRP+75l9TZo4fo1mkWPCAdvOCtbpROPMhjoLuOgQ03dHmViaMk7cb20SF1nyHkB9g
+	MWVswVdPc6Aiq6VZKMMq7JaDIfNJTj8D8sXWkmOIiYHbX1Fv7pK2AL3WM36CdA+i8i6eKDPVXiO
+	6LkK6Gc8p5o18dSzafkBc/nG3y0SGlullA5EAfwTmtFwhwpBVBNKjc+MokARTk
+X-Google-Smtp-Source: AGHT+IFtV5dImqwXyIHt/ABFZkCNQR/+CSFvyklzHF+eRSMemkqTRoREec6ardNeipvYy6xNmcY1Fw==
+X-Received: by 2002:a05:600c:1d1d:b0:477:7a87:48d1 with SMTP id 5b1f17b1804b1-477c01ff5bbmr189193295e9.30.1764083937857;
+        Tue, 25 Nov 2025 07:18:57 -0800 (PST)
+Message-ID: <f3952047-44bc-4b5f-a1cc-ba127cd84de8@suse.com>
+Date: Tue, 25 Nov 2025 16:18:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] EFI/runtime: switch to xv[mz]alloc_array()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <41b7e14c-59ef-40f5-8c43-69bdc5fb4531@suse.com>
- <761b584a-51fb-403d-948e-3366501cea50@apertussolutions.com>
- <755dd957-514b-4316-82f5-3619c19cbb15@suse.com>
- <9f9f24f0-c16a-4f55-b3c2-a3f4b485c403@apertussolutions.com>
- <2d93e9a7-abef-4ef6-bcbc-9081661edb58@suse.com>
- <052e7926-f114-4b16-b197-8a4303f6b5d1@suse.com>
+Subject: Re: [PATCH v4 08/24] xen/domctl: wrap domain_kill() with
+ CONFIG_MGMT_HYPERCALLS
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, grygorii_strashko@epam.com,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Timothy Pearson <tpearson@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
+References: <20251121105801.1251262-1-Penny.Zheng@amd.com>
+ <20251121105801.1251262-9-Penny.Zheng@amd.com>
 Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <052e7926-f114-4b16-b197-8a4303f6b5d1@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251121105801.1251262-9-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 8/25/25 7:06 AM, Jan Beulich wrote:
-> On 14.08.2025 08:46, Jan Beulich wrote:
->> On 14.08.2025 02:29, Daniel P. Smith wrote:
->>> On 8/12/25 02:12, Jan Beulich wrote:
->>>> On 12.08.2025 02:19, Daniel P. Smith wrote:
->>>>> On 7/23/25 09:39, Jan Beulich wrote:
->>>>>> Use the more "modern" form, thus doing away with effectively open-coding
->>>>>> xmalloc_array() at the same time. While there is a difference in
->>>>>> generated code, as xmalloc_bytes() forces SMP_CACHE_BYTES alignment, if
->>>>>> code really cared about such higher than default alignment, it should
->>>>>> request so explicitly.
->>>>>
->>>>> While I don't object to the change itself, I think this description is a
->>>>> bit over simplification of the change. If the allocation is under
->>>>> PAGE_SIZE, then they are equivalent, but if it is over the page size
->>>>> there are a few more differences than just cache alignment. It
->>>>> completely changes the underlying allocator. I personally also find it a
->>>>> bit of a stretch to call xmalloc_bytes(size) an open coded version of
->>>>> xmalloc_array(char, size).
->>>>
->>>> My take is that xmalloc_bytes() should never have existed. Hence why I
->>>> didn't add xzmalloc_bytes() when introducing that family of interfaces.
->>>
->>> Right, which would be a valid argument for replacing it with
->>> xmalloc_array(). Though, I would note that there is an xzalloc_bytes().
->>> My concern was that you stated there was an open coding, which had me
->>> expecting there was a line of the form, xmanlloc_bytes(count *
->>> size_of_something bigger), being replaced by
->>> xvmalloc_arryay(something_bigger, count).
->>
->> Both fir this and ...
->>
->>> IMHO, while the C spec does specify char as 1 byte and thus
->>> interchangeable, I would agree that from a contextual perspective,
->>> xmalloc_array() is the more appropriate call. The use of the allocation
->>> is a character array and not a chunk of bytes for an arbitrary buffer.
->>
->> ... for this: Hence my wording using "effectively".
->>
->>>>> With a stronger description of the change,
->>>>
->>>> So what exactly do you mean by "stronger"? I can add that in the unlikely
->>>> event that one of the allocations is (near) PAGE_SIZE or larger, we now
->>>> wouldn't require contiguous memory anymore. Yet based on your comment at
->>>> the top I'm not quite sure if that's what you're after and/or enough to
->>>> satisfy your request.
->>>
->>> The phrasing stronger was meant to be more clear on the change/effect,
->>> specifically that the underlying allocator is being changed when the
->>> allocation is greater than a PAGE_SIZE. Not necessarily a long
->>> explanation, just the fact that the allocation will be coming from the
->>> dom heap allocator as opposed to the xen heap allocator. There are
->>> implications to changing the allocater, e.g.,  at a minimum the
->>> allocation order and nonphysical vs. physically contiguous effects.
->>> Having it noted in the commit makes it more obvious what this change is
->>> actually doing. Which may not be obvious when seeing the simple line
->>> changes occurring in the diff. Later, if there is an unexpected
->>> consequence caused by this change, a stronger commit will be helpful
->>> with the bisection investigations.
->>
->> First: I don't think each and every such change (there are going to be many)
->> should re-explain the switch to the xvmalloc() family of functions. This is
->> already stated clearly at the top of xvmalloc.h: Over time, the entire code
->> base is meant to be switched.
->>
->> Beyond that, to achieve the stronger wording you're after, would it perhaps
->> suffice to have the first sentence say "..., thus also doing away ..."?
->> Otherwise, may I ask that you please make a more concrete suggestion?
+On 21.11.2025 11:57, Penny Zheng wrote:
+> Function domain_kill() is responsible for killing domain and relinquish
+> domain-held resources. and it is only invoked under
+> XEN_DOMCTL_destroydomain-case. So it shall be wrapped with
+> CONFIG_MGMT_HYPERCALLS.
+> Tracking its calling chain, the following functions could also be wrapped with
+> CONFIG_MGMT_HYPERCALLS:
+> - domain_relinquish_resource
+>   - pci_release_device
+>   - paging_teardown
+>     - p2m_pod_empty_cache
+>   - relinquish_memory
+>   - pit_deinit
+>   - iommu_release_dt_devices
+>   - tee_relinquish_resources
+>     - ffa_relinquish_resources/optee_relinquish_resources
+>   - relinquish_p2m_mapping
+>   - p2m_clear_root_pages
+> Otherwise all these functions will become unreachable codes when
+> MGMT_HYPERCALLS=n, and hence violating Misra rule 2.1.
+> The reason why {arch_}domain_teardown() is not wrapped is that it is also used
+> on the failure path of domain_create(). And the exclusion of
+> paging_final_teardown() is blocked by domain_destroy(), which will be
+> triggered when d->refcnt equals zero.
 > 
-> Ping. I'd like to get this in, yet I still don't know how exactly to satisfy
-> your request for a stronger description.
-> 
-> Jan
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-This fell off my plate and not fair to Jan, I will just rescind my concern.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
