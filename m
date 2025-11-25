@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9255FC847B0
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 11:28:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171812.1496836 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDE70C847BC
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 11:28:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171815.1496846 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNqHW-0000cT-DS; Tue, 25 Nov 2025 10:28:22 +0000
+	id 1vNqHo-0000zB-Nf; Tue, 25 Nov 2025 10:28:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171812.1496836; Tue, 25 Nov 2025 10:28:22 +0000
+Received: by outflank-mailman (output) from mailman id 1171815.1496846; Tue, 25 Nov 2025 10:28:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNqHW-0000Zl-AX; Tue, 25 Nov 2025 10:28:22 +0000
-Received: by outflank-mailman (input) for mailman id 1171812;
- Tue, 25 Nov 2025 10:28:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vNqHo-0000wm-KJ; Tue, 25 Nov 2025 10:28:40 +0000
+Received: by outflank-mailman (input) for mailman id 1171815;
+ Tue, 25 Nov 2025 10:28:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RmC5=6B=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1vNqHV-000842-2t
- for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 10:28:21 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75edde39-c9e9-11f0-980a-7dc792cee155;
- Tue, 25 Nov 2025 11:28:19 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-64088c6b309so8721916a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 25 Nov 2025 02:28:19 -0800 (PST)
+ id 1vNqHm-0000uX-Vq
+ for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 10:28:38 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8149bbf1-c9e9-11f0-9d18-b5c5bf9af7f9;
+ Tue, 25 Nov 2025 11:28:38 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-640ca678745so8958386a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Nov 2025 02:28:38 -0800 (PST)
 Received: from [192.168.69.210] (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b7654fd43b1sm1532571066b.38.2025.11.25.02.28.15
+ a640c23a62f3a-b7654d3bfcesm1536852566b.15.2025.11.25.02.28.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Nov 2025 02:28:17 -0800 (PST)
+ Tue, 25 Nov 2025 02:28:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75edde39-c9e9-11f0-980a-7dc792cee155
+X-Inumbo-ID: 8149bbf1-c9e9-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1764066499; x=1764671299; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1764066518; x=1764671318; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Wp5/syD0+o/LyjTyIR4uS8V1NpnQlWuYtR2o807A2NY=;
-        b=zpD9Kn+JsnvKcz4OuSc0z81UnN9gGAwIUcfkxNq8XK97f530ga7c9hsRMLxenCZNVS
-         yX6P0fj4xfKxoE23HlrQLKn6aPRcQJD5CSlKQe2oVDV5MfRilN/VSv8+JJZ5gCRZwPuJ
-         /Zg4RNGY57dNgRg0nWvFTvxVBdy+78jgTaTl7cbkutF6LDwEVN1hiFgxQfaGDoPJ5vsm
-         4YqcWVogJk9QlN8uvbXLERvLhzmLCKhM9enUZfHOxbZBy0vrOzUWqjEgqZuAl/FweMRO
-         MluVK9gKELgfI1zYQm7oOIIfFhUPe1N1LvxEMPH4ozGJ79hjxfVp9c4mF4NfnAoUkImz
-         QKqw==
+        bh=s1upGUE7YIUICVmJUED5d5whRme8CL9poQ2KbESMmuo=;
+        b=ixg+ubF0L/7rd7Mbk8VZQTFtm+rDCqHsKU+XXQ7Vce4GpSYzWKw33KrXAoHq0vMW6W
+         RUE7+cbeI0mN44AI27pk3TImDaCckOrGCquiQFnc8kM3WDZGrog/h962WcbSoVW1M+WI
+         GcWNuKRnxWlOwsnNn6bCiV/2wZKNO1IMJwsGm4oU58s4MTw8TeB7EaJ+jDDcimLfdv/m
+         vdng9ZbPaCWRPD3paZvZ+9l4Vlq8k+eq7FOBKUYJ7Nw8+/oPan9FkrJ8RkDPIKUGknbZ
+         nXSXk7jPVEjfkPPJ3q9Pz7GFbyrTo0cNHzw7xohrT1XNu9u6T1YoxOsFJtdFT6SKsyl6
+         +ApA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764066499; x=1764671299;
+        d=1e100.net; s=20230601; t=1764066518; x=1764671318;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Wp5/syD0+o/LyjTyIR4uS8V1NpnQlWuYtR2o807A2NY=;
-        b=c2G3+w4Dmbit0N51MkMgII0WUFZwApBvn2ASQMq+d4VoAyNfWhOceDCak0LtEmJHFX
-         e739Mv6vpWUpL9ayl/VXP1ncp0dMSmYDJ9ak5Y3smIKKomlGpsEBd1mFV+vp1vXlT6uI
-         FrvqpZZlpSAno6kiJo4jQta9lXj8vFe2/u2SwftIR2wJ97VIyN6HvAvwOa5uLBj+4obQ
-         akt/YgowSq5oFDRNCwTvBEP5AT47nvVKJG/QnJyogyxc5KhiPrjtARBWT6josiOO4HjT
-         IGR9mH7xFbZdAzuAdGThBGoLzFJaqSvWdBCFPvAscYT8Je6AiRxzt/cIPbmVdCG+zAs5
-         gVeA==
-X-Forwarded-Encrypted: i=1; AJvYcCX8v9hsPeImf1jR7DXBtIH8sVLi+uApV9PPyJqT4fqMm/OYJdHIyThzpKey6saog1Ctu60WQlfvF6Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy9iUxMUwMB9oRDCMIOF9baeYNIOV0jjTL+1g0lmpPcZZh5FMJB
-	o/psPCD2uvD1bNZD/+QND+fpI1urBHD/GWq69utwgwm1E4JwS2ZXIfUpEYFZcB7pCcw=
-X-Gm-Gg: ASbGncseEm6azwcvmkgpGZPGOu/sapJk3Ni0W652G/0Trgzw4T1kgKvhqkb6tSefU/1
-	KaVeuth1pt8yu79f2YROAEI0r/JqmTvj3QW+pubk3R02AKEcoFgss8DekEqB9W7S4NlcILuOaIr
-	y6BN8kwCD8KGhZd2jSSV3tbiDVesl5dKBOyH1SWiRpymUJB4gG2QOMWGSBDbTuGRbKNHXzZQ56s
-	XJVU1YfKV6yxvo0/qGmr6oB2Z8dIqsu7pTaXZernBM2Ka4OZScMN6bIT5tiiFfurOWT3btZgNpK
-	IwxQ2YUEupmDDVHFiK569pc8p+d0CdR6w9mx/+zyXNLh7n0EwoxzH8qXQgssRwzpNFlQ1Wqdcwk
-	6ouvR4vSfcZD2QaznOiQU6jylxPG/M6awOuqFR1uur3KQRk2ITFZG0pvXsb8zQ1zywBvLufo8tM
-	yPpc3yPe57Y9tUfL76MmxuKLjCgxsdMmfygmOOsUN6CQwB1LKAVVO2tQ==
-X-Google-Smtp-Source: AGHT+IE3PKjG7rNMmUMO0u0YPkOHg97YVfk6tokccVI/wtgGNpt9SgcH/ClnqkI9yxamQKVM5NvRXg==
-X-Received: by 2002:a17:907:868f:b0:b72:5fac:d05a with SMTP id a640c23a62f3a-b7671a47ae8mr1360006666b.37.1764066498581;
-        Tue, 25 Nov 2025 02:28:18 -0800 (PST)
-Message-ID: <a5388c93-124f-42ac-8881-3cae4bb620c6@linaro.org>
-Date: Tue, 25 Nov 2025 11:28:14 +0100
+        bh=s1upGUE7YIUICVmJUED5d5whRme8CL9poQ2KbESMmuo=;
+        b=rXImzzr/Xa3gkOPYGTyijj0dRyG9+3QCM6+nO8PQiju1fqcU2fwHYtyaapTcIX2Uj+
+         ripJmMc39h6q8aC1ENUqH58gKgWtva/QiURD17BnAD46KVaU4sHVlXaUrHwQLyj2AXbj
+         RtWU45vRENc6NLU9ymdLnkDPHolkK1IruAm8uN/T8B9LsADcM3EpPrH4TY3mHOKS27VU
+         +qZCnA++xYsc+5pjzu1X71xy0SWpPK0GepqpQkl9OSwJKvz/NtNxcJ0xuAGnfqmbIBJ5
+         vEEPMXSMJ8e8xR3pHN4byhI8GVvc2Wsqnf5JxWoOpuJdJ7micnh0K53odPcSMa392mTR
+         39AQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX1CSvi6rAw1fI0luRryAAZURsJ6QLqM6SgfnxYniXDArP0KUNxzhZkoAOtVDWyr8dEXCcZWJ5b5y0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzOwkERfXLcrdo+kH2wsaiUvFuAvClanyb6jTjbWrD9JDREEhbJ
+	F4ytz/uCCI3Ek5ffYBQ37YkzoORdpJR6PYw3LEWKbeFukf5XtVAnghia6PxbCsw/+dA=
+X-Gm-Gg: ASbGncumwkaTDI+AlwqkuW0pHLW7bm+UYixfAPaqQC0IlLJgis0GA4KIVqK/rTvWklP
+	72TEA/szcyy9f/QV3AXdNk9adoVpshAJTMkhBrBS6hBK+eGmBXfSkH/KP7WgSu1yyNmjo74jrDZ
+	y+sHZBHxYJxe35qyTfmepBsNoaVjjiei5ohxG59s9OU1oUrrIY8BlIUSm6K8T8g+7UPII0bdl4+
+	suWNEl0fl/OiGo+5n6qGHjwlHC7lbVKg6fTi1DrGFJ4qwT5LiOgnMVJi5lzeYjoEmLhU8Rn+9jd
+	8OZHE2uhbACm7zaVeMu2F3Ts5OOJjkYdTvQR2A3q/SVMUyOF02oHWJOdrmS7zg+L1906QcNsEtn
+	3Trhwzbudg4TvYCWGHnTHFgLDgetJylEU03wB4qcNcam1+4xXlIP1QdSR5KzVocXXsx0kFZoc7Y
+	sN3qc17HGCLNvZOv8FJVhTlTqzmvMjj1iLz1TrHLRxDqQyBMMuACyM/g==
+X-Google-Smtp-Source: AGHT+IF59L37GgnGAgNCiHvqRTLRI2aTvHyr6yOsdF3ewgBPJ+5ZCFL6F0XLm22Mv4gcL1oVkiKNmQ==
+X-Received: by 2002:a17:906:fe0a:b0:b73:8bd4:8fb with SMTP id a640c23a62f3a-b76717322d4mr1729884566b.42.1764066517609;
+        Tue, 25 Nov 2025 02:28:37 -0800 (PST)
+Message-ID: <b9cd0110-4a91-4ef5-a139-2dcd45b2a0cc@linaro.org>
+Date: Tue, 25 Nov 2025 11:28:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/15] error: Use error_setg_file_open() for simplicity
- and consistency
+Subject: Re: [PATCH v2 09/15] blkdebug: Use error_setg_file_open() for a
+ better error message
 Content-Language: en-US
 To: Markus Armbruster <armbru@redhat.com>, qemu-devel@nongnu.org
 Cc: arei.gonglei@huawei.com, zhenwei.pi@linux.dev, alistair.francis@wdc.com,
@@ -109,42 +109,28 @@ Cc: arei.gonglei@huawei.com, zhenwei.pi@linux.dev, alistair.francis@wdc.com,
  qemu-block@nongnu.org, qemu-ppc@nongnu.org, xen-devel@lists.xenproject.org,
  kvm@vger.kernel.org, qemu-riscv@nongnu.org
 References: <20251121121438.1249498-1-armbru@redhat.com>
- <20251121121438.1249498-11-armbru@redhat.com>
+ <20251121121438.1249498-10-armbru@redhat.com>
 From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20251121121438.1249498-11-armbru@redhat.com>
+In-Reply-To: <20251121121438.1249498-10-armbru@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 On 21/11/25 13:14, Markus Armbruster wrote:
-> Replace
+> The error message changes from
 > 
->      error_setg_errno(errp, errno, MSG, FNAME);
+>      Could not read blkdebug config file: REASON
 > 
-> by
+> to
 > 
->      error_setg_file_open(errp, errno, FNAME);
+>      Could not open 'FNAME': REASON
 > 
-> where MSG is "Could not open '%s'" or similar.
-> 
-> Also replace equivalent uses of error_setg().
-> 
-> A few messages lose prefixes ("net dump: ", "SEV: ", __func__ ": ").
-> We could put them back with error_prepend().  Not worth the bother.
+> I think the exact file name is more useful to know than the file's
+> purpose.
 > 
 > Signed-off-by: Markus Armbruster <armbru@redhat.com>
-> Reviewed-by: Dr. David Alan Gilbert <dave@treblig.org>
 > ---
->   hw/9pfs/9p-local.c        | 2 +-
->   hw/acpi/core.c            | 2 +-
->   hw/core/loader.c          | 2 +-
->   hw/pci-host/xen_igd_pt.c  | 2 +-
->   monitor/hmp-cmds-target.c | 2 +-
->   net/dump.c                | 2 +-
->   net/tap-bsd.c             | 6 +++---
->   net/tap-linux.c           | 2 +-
->   target/i386/sev.c         | 6 ++----
->   util/vfio-helpers.c       | 5 ++---
->   10 files changed, 14 insertions(+), 17 deletions(-)
+>   block/blkdebug.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 
 Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
