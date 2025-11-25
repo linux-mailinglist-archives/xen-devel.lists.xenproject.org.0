@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EC59C840B7
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 09:46:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171758.1496785 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C63CC8428A
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 10:11:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171771.1496795 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNogT-000226-AA; Tue, 25 Nov 2025 08:46:01 +0000
+	id 1vNp55-0006K5-7s; Tue, 25 Nov 2025 09:11:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171758.1496785; Tue, 25 Nov 2025 08:46:01 +0000
+Received: by outflank-mailman (output) from mailman id 1171771.1496795; Tue, 25 Nov 2025 09:11:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNogT-000213-7H; Tue, 25 Nov 2025 08:46:01 +0000
-Received: by outflank-mailman (input) for mailman id 1171758;
- Tue, 25 Nov 2025 08:45:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vNp55-0006II-5E; Tue, 25 Nov 2025 09:11:27 +0000
+Received: by outflank-mailman (input) for mailman id 1171771;
+ Tue, 25 Nov 2025 09:11:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x8HM=6B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNogR-00020v-TB
- for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 08:45:59 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 29058627-c9db-11f0-980a-7dc792cee155;
- Tue, 25 Nov 2025 09:45:57 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4779a4fc95aso39307545e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 25 Nov 2025 00:45:57 -0800 (PST)
+ id 1vNp53-0006IC-6J
+ for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 09:11:25 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b6afa873-c9de-11f0-9d18-b5c5bf9af7f9;
+ Tue, 25 Nov 2025 10:11:23 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4775ae77516so50545965e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Nov 2025 01:11:23 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-479052c9621sm10814895e9.5.2025.11.25.00.45.55
+ 5b1f17b1804b1-477bf216ddasm235949485e9.0.2025.11.25.01.11.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Nov 2025 00:45:56 -0800 (PST)
+ Tue, 25 Nov 2025 01:11:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 29058627-c9db-11f0-980a-7dc792cee155
+X-Inumbo-ID: b6afa873-c9de-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764060357; x=1764665157; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=7Kvaw0Dt53j32KMU/0Jg0rzqtggM78NH9Bnke/iPFCA=;
-        b=grNsHonag+Jfqnu8HwUWvdRg0yxf281YBJIaOeuvMgxq/t8MzhM36JEYj8Kn/leuC7
-         IIHCcmh6ZcybkFF5FBlUVtW87WVLw9kg9mWm3iA1J51KRArnwaRPzVQ/m6Z0ApYx9Ski
-         X5/lC6A4e4dfW7/4FD8f0NPt+4tXR+1YG0MV4m05hWenRzpwzln6CFOV6x0itYtnYPEB
-         j3cW5J7uGq3lPcHXRxAdmwRknai6Pf/ShAtDwb4fzSpFS5DcAzszpehHBIWVtmSr90jJ
-         HFwGPPrpvHp5uWIO0CTBXDnsyQJiwRimIi6MAE/gmMSsJcdu2+byITjjKiMKsEXfptU4
-         dqzg==
+        d=suse.com; s=google; t=1764061883; x=1764666683; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=AT8fC7Cn+UJ2y035oZe6hoj5SA55pGQU8kV45OHDjnk=;
+        b=Ln4jKowzmKjs8Eu6tSAdKFWVd6MvQZY4a3+6q5xPL0/EijLAzKmk8+6nPvDDnFaVWV
+         5re+z+CexY5haApKYrWmCVQLJ87eGz5z+jjFZqIVDIjFcDjHDaBb6C2+wQjct3ZHhY38
+         +CDsRyoYxXHVvd8aWD4huqUf+IJseZ/QcluhSV2xWwDB7iZe+MlMvXZyxz5aRSjlLP8C
+         ZbqhImXnwDXXsa7Sb30fnu0/9kz4SBCMwJOF4Z9iiyfAAOPN+dRn08VEc3nnZSRgz9f4
+         b1K09JqsenNas3RclXBrTVoHAucxpjklK5h6o7JxXIgd47nWls3XYDLBj94DvyBXs/Aw
+         HqSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764060357; x=1764665157;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-gg
+        d=1e100.net; s=20230601; t=1764061883; x=1764666683;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7Kvaw0Dt53j32KMU/0Jg0rzqtggM78NH9Bnke/iPFCA=;
-        b=RRIwfEtKIwyZCIKqKxiI8mryO0SLAsvP9y085iJejHmX1h65k7dedxq6X1+Y//DDdU
-         FWotQDYJcoNf8+52ZWDmTKEcgON2Hs/B8dXSKG3gPQDqgiYtt0ZfXyNHjzEDCI0C1ucI
-         /Z3FJZiqj9fVwq8wjrZKeVUKxpffYFqSBC7Pba4oQnG8m8BzSkpdqSL+smTuX+8hWVn6
-         /p0qRbeRr5UgpeRXd1BAt/HxYHcI1kel9N/GzjBkKpAq2c+F8wNUQM/SDvXHnxdy2Qhy
-         EaMKuhRaG1csGSWCY0/X1rwrA1eevIe6u2VfWmmO6UC5xeoxvWUSyg7Q2TcNx+wk/eyk
-         rFOQ==
-X-Gm-Message-State: AOJu0YxoklHOmSB1EXnrMNvrOvw195q8s4RgqxL3Zuv9NvvL0XYRWMoc
-	lhc5J804pM36hgzo8+P7fjLHAwvrntSMQQXUqXQL1pY60uA3RteRqxm7LIMw/Drwio5Udj8kCke
-	ZC6c=
-X-Gm-Gg: ASbGncuOH0duXWhsC0U58IO2D964wa1+gxHB7rPp/pdgntUseEzLEnqFw14Au01TEwD
-	jMnRHGKp4QtkBdSr8OqV0ly+XVEYMVELyutYURv9m/c8Pj/3hllpYjnoeXc0dBqH2BZak/SNnzE
-	aW6n+eDSCvPS38iy/a4NT7RS1saL7x6Jc4473xF+p5ds8JichxxQEtno87ZXy0FvCHADRf2c7S3
-	3PcQsDjWwZ6zcaU0OuDCS2i95qKgGApxT1NJ5TZzVTl1xiUcB7U2D5TOY/DOJ54qz6J1JI5L4sR
-	8OaExEoy/iEhG5lcNc/tu7HRFj3jo9DrLlbxZ4LggTlmytA37WHe/9Zs0bMYvQ0IA9Nqhyb+mv5
-	vR3XHiUyibR/OQf8JyApKUdMyUBSjXmLTAXCq4xrKWB4ym5w7MJraDD78dXEWqB8zWcg4h904c0
-	g2kTD8ANxTJucoS8rldk6733Rc80wmK93Hcf4tM8HKMwdwpHvf+Xc49BALFdXes9y5ePg5WB9Fn
-	SrDar+VvegdMg==
-X-Google-Smtp-Source: AGHT+IHXDXp8/UCZ4/eekVwoad1aNbM8F5iZ3LdKYm5f/hE+plC61R0T4MxDVBixLwFHh/pep8kMPA==
-X-Received: by 2002:a05:600c:45ce:b0:46e:3b58:1b40 with SMTP id 5b1f17b1804b1-477c04c36a7mr143932355e9.4.1764060356682;
-        Tue, 25 Nov 2025 00:45:56 -0800 (PST)
-Message-ID: <37edf1f1-19a7-49df-8479-b01f29d4b46c@suse.com>
-Date: Tue, 25 Nov 2025 09:45:54 +0100
+        bh=AT8fC7Cn+UJ2y035oZe6hoj5SA55pGQU8kV45OHDjnk=;
+        b=vK85IBSzbeAkrM3qtzM/ijEd97ti8pNwYhIqvg3b96pbyHKjOBsvQB+WqOfUoZfWjN
+         ERwyJ+5EN/IsUW3Rnd9Tq2F66dyF3rOo36nf52t91hpWyXn1iBZKNXMf4ZKtiyFj+BtO
+         9uveiPVgWNrUY/0MyJmGrX4BVqIvMj2qXc8szy4Ml2V7WqS1owX8m35Fae/ePHTcxXh5
+         FZbtZT4yss73F4rs1KMbuUKQPq4aIi/MBVYrFRAXgkXSrxGoA3UhUkNf2Syce5ayOMjs
+         dp4jGyZpUGN06ES/rmIlwvW2DYMcNRkJsnweoFE0uPcN0Zqtu1OStvhljBVDDsEb/bDY
+         1kgQ==
+X-Gm-Message-State: AOJu0YywvATqUQrY2Jw+K6fmylsbAnp+3uHjzy4hRWt72xndswgrg+i6
+	BMLSV0a1W5AtZ5Hpd1sOvLXu8HvX4AwfO5ddaVkQVm140WVuIrDB60TwX/ZFH9x1cNw0S5pHBtL
+	+RlU=
+X-Gm-Gg: ASbGncuYtZ9SCPj92HbDFeq/zs/jfaVwSEiNq8Ext1ckY99X9wrdpTJo6DW/tF/LSmf
+	7K65f4g/a7C3zhcpDEflKv9329oi/cS5PpQnfQWteZKalxgQNKjOhaBQ2dVH/MNiAOCHFMGbhTt
+	oIuYwgowfFq8SZ80o48vbbFc03HENHJ57sv2Jn2aSvM4OOB+vflX+MWDU/JUnf89eRLVCxYzoIL
+	VCBf3PAOhGHCQGjINNEFRT+yH0ZsdN+cYmi3rvgNSRvF/bxjQiE38+Jw6kD9weGDAbykwHb2aHl
+	jx82fscbAciuu4qWF1PCm6vrdvD6OYzPoJmHAu4sKwIDJXFc5sjFnMhGRVhYbj7wb1MssFudIzT
+	Zp2YWIW9rXRdg34vWwN2mFoEBbd/XESm+Y9TIOcpYy4GHFbDxzs4mWuJaTBJq+smT52owJ6OaDU
+	cG+y3sWRuoZ2AioQP/3KFZI5/FXJhg2DYQ8Y51kcbOhedtApgEuhjRHXBinC3GHpglSoQBlEFzO
+	R4=
+X-Google-Smtp-Source: AGHT+IG7UoxmO7bjt3s2tVmNWeDqtsRhLgGaamb4ezhfUNhs/cGFNAH0xqdKa+k0LhnSx/SfUyOI/Q==
+X-Received: by 2002:a05:600c:c490:b0:46e:4b79:551 with SMTP id 5b1f17b1804b1-477c11325c2mr159253185e9.31.1764061882737;
+        Tue, 25 Nov 2025 01:11:22 -0800 (PST)
+Message-ID: <1533aaa3-5065-4214-a920-191a8b174314@suse.com>
+Date: Tue, 25 Nov 2025 10:11:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: preparations for 4.19.4
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>,
- "community.manager@xenproject.org" <community.manager@xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] libxl/json: don't expose internal functions
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -123,10 +120,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-All,
+Ideally internal function declarations wouldn't live in a non-private
+header. If already they need to, they should be hidden as much as
+possible. That is (a) their declarations shouldn't be exposed and (b) the
+symbols shouldn't appear in the shared library's dynamic symbol table.
+Gate the declarations upon _hidden actually being defined (rather than
+providing an empty fallback), and apply _hidden also to the libyail
+variants.
 
-the release is due in a little over a week. Please point out backports you find
-missing from the respective staging branch, but which you consider relevant.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Some lines end up being too long, but I don't know what libxl's approach
+would be to avoid this. Plus the libjson-c counterparts have similar line
+length issues.
 
-Jan
+--- a/tools/include/libxl_json.h
++++ b/tools/include/libxl_json.h
+@@ -28,10 +28,9 @@
+ #endif
+ #endif
+ 
++#ifdef _hidden /* Don't expose internal function decls. */
++
+ #ifdef HAVE_LIBJSONC
+-#ifndef _hidden
+-#define _hidden
+-#endif
+ _hidden int libxl__uint64_gen_jso(json_object **jso_r, uint64_t val);
+ _hidden int libxl_defbool_gen_jso(json_object **jso_r, libxl_defbool *p);
+ _hidden int libxl_uuid_gen_jso(json_object **jso_r, libxl_uuid *p);
+@@ -44,20 +43,24 @@ _hidden int libxl_hwcap_gen_jso(json_obj
+ _hidden int libxl_ms_vm_genid_gen_jso(json_object **jso_r, libxl_ms_vm_genid *p);
+ #endif
+ #if defined(HAVE_LIBYAJL)
+-yajl_gen_status libxl__uint64_gen_json(yajl_gen hand, uint64_t val);
+-yajl_gen_status libxl_defbool_gen_json(yajl_gen hand, libxl_defbool *p);
+-yajl_gen_status libxl_uuid_gen_json(yajl_gen hand, libxl_uuid *p);
+-yajl_gen_status libxl_mac_gen_json(yajl_gen hand, libxl_mac *p);
+-yajl_gen_status libxl_bitmap_gen_json(yajl_gen hand, libxl_bitmap *p);
+-yajl_gen_status libxl_cpuid_policy_list_gen_json(yajl_gen hand,
+-                                                 libxl_cpuid_policy_list *p);
+-yajl_gen_status libxl_string_list_gen_json(yajl_gen hand, libxl_string_list *p);
+-yajl_gen_status libxl_key_value_list_gen_json(yajl_gen hand,
+-                                              libxl_key_value_list *p);
+-yajl_gen_status libxl_hwcap_gen_json(yajl_gen hand, libxl_hwcap *p);
+-yajl_gen_status libxl_ms_vm_genid_gen_json(yajl_gen hand, libxl_ms_vm_genid *p);
++_hidden yajl_gen_status libxl__uint64_gen_json(yajl_gen hand, uint64_t val);
++_hidden yajl_gen_status libxl_defbool_gen_json(yajl_gen hand, libxl_defbool *p);
++_hidden yajl_gen_status libxl_uuid_gen_json(yajl_gen hand, libxl_uuid *p);
++_hidden yajl_gen_status libxl_mac_gen_json(yajl_gen hand, libxl_mac *p);
++_hidden yajl_gen_status libxl_bitmap_gen_json(yajl_gen hand, libxl_bitmap *p);
++_hidden yajl_gen_status libxl_cpuid_policy_list_gen_json(yajl_gen hand,
++                                                         libxl_cpuid_policy_list *p);
++_hidden yajl_gen_status libxl_string_list_gen_json(yajl_gen hand,
++                                                   libxl_string_list *p);
++_hidden yajl_gen_status libxl_key_value_list_gen_json(yajl_gen hand,
++                                                      libxl_key_value_list *p);
++_hidden yajl_gen_status libxl_hwcap_gen_json(yajl_gen hand, libxl_hwcap *p);
++_hidden yajl_gen_status libxl_ms_vm_genid_gen_json(yajl_gen hand,
++                                                   libxl_ms_vm_genid *p);
+ #endif
+ 
++#endif /* _hidden */
++
+ #include <_libxl_types_json.h>
+ 
+ /* YAJL version check */
 
