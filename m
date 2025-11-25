@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACF50C83797
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 07:30:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1171674.1496682 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D986EC8381E
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 07:38:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1171685.1496692 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNmYq-0006r5-3G; Tue, 25 Nov 2025 06:30:00 +0000
+	id 1vNmhG-0000wq-TJ; Tue, 25 Nov 2025 06:38:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1171674.1496682; Tue, 25 Nov 2025 06:30:00 +0000
+Received: by outflank-mailman (output) from mailman id 1171685.1496692; Tue, 25 Nov 2025 06:38:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNmYq-0006oc-07; Tue, 25 Nov 2025 06:30:00 +0000
-Received: by outflank-mailman (input) for mailman id 1171674;
- Tue, 25 Nov 2025 06:29:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vNmhG-0000uF-PQ; Tue, 25 Nov 2025 06:38:42 +0000
+Received: by outflank-mailman (input) for mailman id 1171685;
+ Tue, 25 Nov 2025 06:38:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x8HM=6B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vNmYo-0006oT-HR
- for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 06:29:58 +0000
+ id 1vNmhG-0000u9-BW
+ for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 06:38:42 +0000
 Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
  [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 28b1b862-c9c8-11f0-980a-7dc792cee155;
- Tue, 25 Nov 2025 07:29:56 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 617a082e-c9c9-11f0-9d18-b5c5bf9af7f9;
+ Tue, 25 Nov 2025 07:38:41 +0100 (CET)
 Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-47790b080e4so26641885e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 22:29:56 -0800 (PST)
+ 5b1f17b1804b1-4779a637712so30896195e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Nov 2025 22:38:41 -0800 (PST)
 Received: from ?IPV6:2003:ca:b70c:6a8e:d5b9:723c:3555:44bc?
  (p200300cab70c6a8ed5b9723c355544bc.dip0.t-ipconnect.de.
  [2003:ca:b70c:6a8e:d5b9:723c:3555:44bc])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-479040cfe17sm11191395e9.5.2025.11.24.22.29.55
+ 5b1f17b1804b1-477bf3b4eb2sm230927675e9.12.2025.11.24.22.38.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Nov 2025 22:29:55 -0800 (PST)
+ Mon, 24 Nov 2025 22:38:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,56 +47,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28b1b862-c9c8-11f0-980a-7dc792cee155
+X-Inumbo-ID: 617a082e-c9c9-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764052196; x=1764656996; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764052720; x=1764657520; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pAsTto8XbWmgZCXr4SW0X1UuxlXBlsvyoTLz2hRYixo=;
-        b=ROSBFi811jV537UeWSxR+wk11Y3qKMxK3o53FWG3G1PN58mx45xupqJodwFB3JW2Ez
-         MeQYN8D0W779d1aPphZ4Xgswa6Z8ZAK50JnqYzFdicAw5ajZ9fF3rWzNNangpRPS1vQc
-         jdDdOr644V4crSanngxbX4BLT1iOqkWyEUX1dOtXOk2UjAnwpdoKGgOfKbU9lkHaCLqh
-         oQjVDkIuTDTjup2YzpkeVyemBL5cOSaKtx88RbGr/4MfbXgX9ukR9K6F/6B4/NfMkpx4
-         AhqcRbKhJyShSkOHtocC7yxUI0WqWVq+GtLwPm5UvvGAeChwmmVPi2A1heEZUhcWiSLT
-         YTpg==
+        bh=vHHXTgoZ8mnRsxhFycHqAEurI+rzK7ScuK05ATo6Cxg=;
+        b=GsDuLyEG0wHK5+tWMMGkCIERmGgImvmtUnaHPZwIUmA7J5fUn08YNWcEabNfFXGBLg
+         NgAZQjtKrn9MXg6cqRL0pmtMsF4cE1hYk/IkaxMWR8qpolf4h8nK/liN3dmr4UKhIlpU
+         GTZNuy6uDh1Js0O/Z7y1b1GqTAgg/qfAwu7z4tSaenv20mW9tFmHdimhbJNI/KWgEKlK
+         sxMo78tq+vV1mfTtUeEO6Dd3AkkCLksTdzTPXo0xBKMp4JInKvgiTExnABKjYmlReFG4
+         TdFgMQJFD9C6iqPRDKKd2mrcmlRsaD0VxeupTR77aj9xOyo0f9Qq76kbhvXciw3+2X1j
+         H2UA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764052196; x=1764656996;
+        d=1e100.net; s=20230601; t=1764052720; x=1764657520;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pAsTto8XbWmgZCXr4SW0X1UuxlXBlsvyoTLz2hRYixo=;
-        b=gmIy9G+Cs9hPBhjlYDfFrlxrVvSrNtDwB9cmbvsKC11rUSXLiwU4SPmdCSGh3FJcUc
-         mVyHKz2+ceDaPeWU4jiBcCtBfur8H1HPNEKHpzslSrP2tHGe4zSHDdZjieMdgpJ1BtZT
-         3AKDUvMgSKkP5+JAwllb1RVhF8aqIN2r3zlABVf7q8zQAkjPwjLQun0lwGxfSmzxk1F8
-         y6/PRA2qAZBy5UlLmtXbxGJIM9MGUaAIC3cQPRQGZuuW3zq3u0fUzFg2rh4aSIPbL2cI
-         OOsl8Y9QIsIvphpXE/gNtOXT4et7W67XOS0k962h5jML0rdJkc3YzRaYD/S3X/HNYbHg
-         TkBw==
-X-Forwarded-Encrypted: i=1; AJvYcCVkAXDbf/9tqj1PyGd3BZUh+Fv72zFmrFkcmXVhm5GKkCMUF9tVQNzWRzWvLK0Btlid7XAJZo8nvZw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxkdjE0/FP36H86WSOUbutbiI5j1ipH9jGOFiW5t7pxOU419SDP
-	T46AR9OI8XE5AIovb/daQZzEUc7qaR6chkasvVBA58xeF97SQp729UPUEUBHSn5CHg==
-X-Gm-Gg: ASbGncuuXaPmXgQLrEBEu5TW/o8wUn3wVibrJ0bYMo/gugsMe/zINTSiUFMKE2pfjBA
-	o+VU4/GNg5YkJDHvgVPxBXblL9f2lGddbG74+8VTDbYhevkcnxr2jWDjnCuDH6+/kNHnuJgwCR8
-	2qeJ2gtY6V0i3QA2a6eT/4Nrqr9msva0JC2nnBgvNxz8qs9rJuZR/N8v1lIQDPPqAjl0jv6rMmk
-	dqiJYxdREYAGlpYaF8SdlmnOcN/USkwLxa9V0a0i7/7UzJqg2P24WHjHEzPM1JVaqNcOS7HC0r8
-	Xq6Y/4lDIt1W3RHeVKsXLpSoEYPeFetx0NYIXQX+pGBnVfaoTnQQ/0Lt0mGAS/5MnKt+fa/EIfJ
-	6l7DLO2t+HRq85lJADu/VhmMmimbTjshRHPjlJaN+LDGW3JsdInYi4WKJqyZqrBJq6LFbLkORiI
-	O7gGOJ55PmLC/+anSTvhHYyAHpvro9tGxu8j+4JNAP/j1GRl99CIIITLrvxoJuzHQC9cQnAs/Hs
-	J6RbMHALC3AEOVLaTaf77S8HZMFocL38ykYp4qhPUvCP7PW
-X-Google-Smtp-Source: AGHT+IHjWYu5VKDzbhDaGyIusFyT1VKaU7H8hDZHhzRCJQ7PP8pUuJZNrUVmkkPVEpiek+m8FgFeVQ==
-X-Received: by 2002:a05:600c:1909:b0:477:7b16:5f9f with SMTP id 5b1f17b1804b1-477c11337e0mr147783805e9.31.1764052195663;
-        Mon, 24 Nov 2025 22:29:55 -0800 (PST)
-Message-ID: <9fc71bad-f836-4dbf-b076-fbcc446ef298@suse.com>
-Date: Tue, 25 Nov 2025 07:29:54 +0100
+        bh=vHHXTgoZ8mnRsxhFycHqAEurI+rzK7ScuK05ATo6Cxg=;
+        b=d8i2qmZRR2i4U7y7M6XEV+JnC+kNy6E0FpiKB2I+LdVeMGPK3I4Zc1LBXVFsktJaCG
+         LL1w4aBLLlsyz8UZ6KimXIg0crsuFAXPQGJGNRTnDqb3CvYw9C6MGlDAsTMho7hiqZ6v
+         pvCwK0aHYZ1XrYuLppikT/BLw1gDLRGDveicyTnvdhPv3nynpXNeowIxMVqfD1P5/PMZ
+         i3kHzYfEN5pTuk1CZk+wMd14Kme56HAYDkHTK0JL6REyXYTWXC2MIUtnSbyMmv0UN+Vy
+         cMAZwEvIA9tflpiUjmNwAjS9PpOI77iz+bNryrC3o90yhPFFTwuocrh5KXgYJEQZ9nVD
+         u0jA==
+X-Forwarded-Encrypted: i=1; AJvYcCWsTieoLXYW7KQ9WYt3lFwBjqhrXDtbl/V04OBZKBdoVU3qUeYwR5qHBpzhH5F96NvgX6AXMwGGhHM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxMLHvr6P/wx5ju0JV9xAoQNx2fjT2BWsCwN8yDEweQhfaVroO9
+	+mnNv49h74h9wh/dI6vvfCFmc4Sq0VyI7SP54xBSLUMl95trhueW+5Y/IhrUGoBttg==
+X-Gm-Gg: ASbGnctDJU82mvZXA4cFMlNACHzuESKe8BJ393nuY3AKtiLuahxNy9uIPW4VBfmwy9L
+	vSKlT711JtQ+bf4t+C6giiP6oaAWZyhUlkPQ3gsarmqiYkEDywXCuxyTpKWm8pQj3hp5dGt04Tv
+	7IoWsx3fKUHcHX2nve1oWFAf7HF3M8ug4fxAM8Yi8vaLiAAaNVcEhORwaqS2ewC2Yi/JTlqh7Pi
+	lu6cD+8TxOLIhHL+yiFMioR4o/IfVRGNadtv8Nb/Pqb4Pu+dtrOKhHnm4Oka1sZce8e1P8DT/P4
+	NVN+WzGD4j5fcquo3Pk1KTtMN8lQt1Ho12HDNFMjFERwALmN0l4h3SdeXyi1NudW2IPZhZijebX
+	L2c5DK7a5OlNHPETDYWLS8ivhzY6EeHsNE0EhEaa5EYPeebQ/PQj37JX2vU8lXIQTIaGvWUxXWw
+	G3y5Rw8nHEASSR1n+FUGYdXmAmWpEsPZ1Ax3XInLDe1aIOhmlNHzzjUGWCJ4T9IyAd9e4sGTbzi
+	t20eIYKUtGdd182DaPT2Om+VSnh0RxQLelYUHddYxYu9NUb
+X-Google-Smtp-Source: AGHT+IFDEUe3QkpJjg9wCas9AYA9q/aflW6wryax3Enh7iJkS7bWIYJwHpxzZKRfOA0B3dwb347gRA==
+X-Received: by 2002:a05:600c:450f:b0:46d:ba6d:65bb with SMTP id 5b1f17b1804b1-477c01eb9bdmr158715315e9.31.1764052720484;
+        Mon, 24 Nov 2025 22:38:40 -0800 (PST)
+Message-ID: <6781dbd7-ddce-49c1-a359-0910e91bda43@suse.com>
+Date: Tue, 25 Nov 2025 07:38:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH 1/2] xenstored: Default priv_domid to store_domid
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <20251124223533.31613-1-jason.andryuk@amd.com>
- <20251124223533.31613-2-jason.andryuk@amd.com>
+Subject: Re: [PATCH v4 02/24] xen: consolidate cpuid library
+To: Penny Zheng <Penny.Zheng@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: ray.huang@amd.com, grygorii_strashko@epam.com,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
+ xen-devel@lists.xenproject.org
+References: <20251121105801.1251262-1-Penny.Zheng@amd.com>
+ <20251121105801.1251262-3-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,28 +125,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251124223533.31613-2-jason.andryuk@amd.com>
+In-Reply-To: <20251121105801.1251262-3-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.11.2025 23:35, Jason Andryuk wrote:
-> On a system without a control domain, a hardware|xenstore domain
-> starting xenstored shows:
-> common/grant_table.c:1041:d2v0 Could not find domain 32756
-> gnttab: error: mmap failed: Invalid argument
-> Could not initialize dom32756
+On 21.11.2025 11:57, Penny Zheng wrote:
+> There are some cpuid library functions only referenced in
+> XEN_DOMCTL_get{,set}_cpu_policy-case, and shall be wrapped with
+> CONFIG_MGMT_HYPERCALLS later, otherwise they will become unreachable when
+> MGMT_HYPERCALLS=n, and hence violate Misra 2.1
+> - x86_cpu_policy_clear_out_of_range_leaves
+>   - zero_leaves
+> - x86_cpuid_copy_to_buffer
+>   - copy_leaf_to_buffer
+> - x86_cpuid_copy_from_buffer
+> We seperate these functions by moving other functions to a new file named
+> cpuid-generic.c, and modify related Makefile-s to retain same behavior.
 > 
-> setup_structure() does not get called without priv_domid.  Subsequent
-> introduce_domain() calls will fault when calling fire_special_watches().
-> 
-> Default priv_domid to store_domid when there is no control domain.
-> 
-> Fixes: e5b0a9405571 ("tools/xenstored: Auto-introduce domains")
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> ---
+> v3 -> v4:
+> - new commit
+> ---
+>  tools/fuzz/cpu-policy/Makefile               |   2 +-
+>  tools/fuzz/x86_instruction_emulator/Makefile |  10 +-
+>  tools/libs/guest/Makefile.common             |   2 +-
+>  tools/tests/cpu-policy/Makefile              |   2 +-
+>  tools/tests/x86_emulator/Makefile            |   2 +-
+>  xen/lib/x86/Makefile                         |   1 +
+>  xen/lib/x86/cpuid-generic.c                  | 273 +++++++++++++++++++
+>  xen/lib/x86/cpuid.c                          | 260 ------------------
+>  8 files changed, 283 insertions(+), 269 deletions(-)
+>  create mode 100644 xen/lib/x86/cpuid-generic.c
 
-Just to mention - unless told otherwise, the Fixes: tag here won't make
-me take this change for backport, as I don't think a "system without
-control domain" was deemed as thing back at the time.
+Andrew - what's your take on such a split? Personally I'm not overly
+happy to see related functions be scattered across two files. The
+separation also feels pretty random, posing the risk that later some
+of the code may need to move back.
+
+Penny, I also don't think "consolidate" is what is happening here.
+Perhaps "split" would be getting closer?
 
 Jan
 
