@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC87AC863C9
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 18:37:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1172169.1497267 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D1F7C86E9A
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Nov 2025 21:06:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1172179.1497277 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNwyA-00054v-GD; Tue, 25 Nov 2025 17:36:50 +0000
+	id 1vNzHh-0005wH-M6; Tue, 25 Nov 2025 20:05:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1172169.1497267; Tue, 25 Nov 2025 17:36:50 +0000
+Received: by outflank-mailman (output) from mailman id 1172179.1497277; Tue, 25 Nov 2025 20:05:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vNwyA-00052z-DV; Tue, 25 Nov 2025 17:36:50 +0000
-Received: by outflank-mailman (input) for mailman id 1172169;
- Tue, 25 Nov 2025 17:36:49 +0000
+	id 1vNzHh-0005ta-Id; Tue, 25 Nov 2025 20:05:09 +0000
+Received: by outflank-mailman (input) for mailman id 1172179;
+ Tue, 25 Nov 2025 20:05:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u48u=6B=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vNwy9-00052t-3O
- for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 17:36:49 +0000
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazlp170130001.outbound.protection.outlook.com
- [2a01:111:f403:c10c::1])
+ <SRS0=Cr80=6B=citrix.com=kevin.lampis@srs-se1.protection.inumbo.net>)
+ id 1vNzHg-0005tU-9K
+ for xen-devel@lists.xenproject.org; Tue, 25 Nov 2025 20:05:08 +0000
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c110::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 501a2922-ca25-11f0-980a-7dc792cee155;
- Tue, 25 Nov 2025 18:36:46 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by BY5PR03MB5284.namprd03.prod.outlook.com (2603:10b6:a03:223::10)
+ id 08278e59-ca3a-11f0-980a-7dc792cee155;
+ Tue, 25 Nov 2025 21:05:05 +0100 (CET)
+Received: from BY1PR03MB7996.namprd03.prod.outlook.com (2603:10b6:a03:5b2::8)
+ by IA3PR03MB8454.namprd03.prod.outlook.com (2603:10b6:208:53c::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.11; Tue, 25 Nov
- 2025 17:36:43 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%5]) with mapi id 15.20.9343.016; Tue, 25 Nov 2025
- 17:36:43 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.17; Tue, 25 Nov
+ 2025 20:05:01 +0000
+Received: from BY1PR03MB7996.namprd03.prod.outlook.com
+ ([fe80::c0cd:bcd1:5235:66f0]) by BY1PR03MB7996.namprd03.prod.outlook.com
+ ([fe80::c0cd:bcd1:5235:66f0%7]) with mapi id 15.20.9366.009; Tue, 25 Nov 2025
+ 20:05:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,210 +47,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 501a2922-ca25-11f0-980a-7dc792cee155
+X-Inumbo-ID: 08278e59-ca3a-11f0-980a-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aHpHCuGesAGsgBEp2Hd3ezRi1wSJPeIFTV812djGHP39flNtBpOuRRVhqz8RlDlK4Bech1v3zSn26OnfLDWnaQOoAumTy3cKdAbguI8DCpK7H9MoqsygCbEjZ8IMVsts82mKTfjV7yAng/dG021W4PNHNZZroU1XIXwr9CgbBi+pOuO3p9GvM1XuWI1PIDOMpEtnavAB7shfC60zIDd0CiIZDuTbBv0F4ZZa1vcut+2i1AXWTKkdgM6SBcedz57FNHahFz6d6tZcl+1twqCeU/Q1sSp5Qz93CgAektz8BjaFl5bJgXqovfyG7qHaOa9cY4vQ4BDXfKOeN9/z7TaRog==
+ b=M+2XoFkvwlcFJKO8WSNGM9e4l9oMwsszIjcjKFy2Ql0KtcuPb772dtS/eLuybBHXIbFj0rivdriXWNt0ykkuJdwQaGPyUCG1LImwvoyzbq5anQ9wJ5FcgZi8VxNpotxfb+RToK7EyOMY+Jd86NdhuLi/thXPqDxA6riyJ5VDn6Yf2aiR3gLRuzKl6hLDc2WUOd/czx2tmwZm7Ku6P40nTcTVFH57SVSu79i7Lm2gYRwxX92D7SfS+KH/KDe1WrvpIJR3TRiDHZvf/QFMU1ezKZYCRZ8j4EQcNg4TPAw/cwSuiwZcslY/hym1Cny1LSafaC3MRhURACONUc3oYu/Y1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DMvcnfOcb3XPxgNPmv0cQwNPmIQWCCW2y59Uf+UEUf0=;
- b=qoaDUs79AGgxoen2V5B9REHasAtWeCX8wO4oqtIyG7kNd3uSbQG5lJzMOY90zGVUZu9nokvdzzj9Xf0bkXvhXIBLh0uRpP+BWAOZqS7bc3SJH9vFnSTcimaojux4WdtZZvHPFbhDem8WSEYYBNFiz/kZEw943xXNatTyKP1b0XTBFhH6SUu8tqtbo7yKO31qsQA/eG+6O35yUvzEg0vXUgEJunNyO9rv1jW+f2vuXRqM4hQCG4sNQo/UH6h35mx7rfnZuEVchWdXOM4AEXC0rh3KkxsExnPxYTMz0uw3jhzbHqxggQZz87LGyFh+CCMPmE5u7OoSfkMZdipK+L7KhQ==
+ bh=ceOcAwmy4+3wlEaLWq+sxz5OCpsNV7rRkkM2/YOiHbo=;
+ b=w9NcEItirWe8tqLBSIms38ee6k0HUP4+/fMX0epYscBZgAowwgSD+61bxTWzMYzkOzWFdCv61V1nye9Er0oSHyethG57Td1GHBEEe2oo+57dhOUOfJOp3bf27CvMuoRfuXEXcb9isMbpDVpLv17G91JBqbiiyGFyUebVMcQ60OefR80K8yEFiVFhhzNEGlE4ARRNLSqbHRWzCcb7rs4xDTeGLzaewp+uJ6JUGQtnRcj/RmxXD2Jc8/DViSJ6Oa9Odn7GI+o5K8F49drrh13UkbBXJYPXBC8/oIow8zMWnwfe+rzkaz77XiqolGTIWO8NoSG9BV4iW3W+cO3DfUv5tQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DMvcnfOcb3XPxgNPmv0cQwNPmIQWCCW2y59Uf+UEUf0=;
- b=vKqysUDBvmAmHmmi9AsIET8BKrYCqwCam5jyV2tmn7OUg0KngeeE9qMXDeVI8TkyQSl6SI3BwMyREFqAyXYdiNwL1KGInAw/qZe+P5erKKPE5cMB8N8tEu5DCH9z1rSURZnF3zoTb6TQb2BeDFh6NsUuSZQWlUbU4OxQ6J0QAZc=
-Authentication-Results: dkim=none (message not signed)
+ bh=ceOcAwmy4+3wlEaLWq+sxz5OCpsNV7rRkkM2/YOiHbo=;
+ b=rPG0lxG0fjTYBJ6BwwZpW6dO9WUyeFlMAoLCTOYwri6Z1Lw/sNXDwpgaZPVtPyEs/5sLwK5pvUrMZtvSmaxkhRY/RJ6/A4BllmW4W8imDpKRBfz3uZj4qZGeYjUw3vyuCn7EplOb/UIwiRjSeedf/tteDV0+Xskz3LOpwqTXink=
+From: Kevin Lampis <kevin.lampis@citrix.com>
+To: Andrew Cooper <andrew.cooper@citrix.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: "jbeulich@suse.com" <jbeulich@suse.com>, Roger Pau Monne
+	<roger.pau@citrix.com>
+Subject: Re: [PATCH] x86: Remove x86 prefixed names from cpuinfo for intel.c
+Thread-Topic: [PATCH] x86: Remove x86 prefixed names from cpuinfo for intel.c
+Thread-Index: AQHcXTQ73Jy0r9eIAkCAIFbbEnPqPbUCS7kAgAGHQ78=
+Date: Tue, 25 Nov 2025 20:05:01 +0000
+Message-ID:
+ <BY1PR03MB79969A02DCCBAB2F9EBD0D24F3D1A@BY1PR03MB7996.namprd03.prod.outlook.com>
+References: <20251124111942.1325635-1-kevin.lampis@citrix.com>
+ <2a881cec-879b-478f-b067-06e1868b2770@citrix.com>
+In-Reply-To: <2a881cec-879b-478f-b067-06e1868b2770@citrix.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 25 Nov 2025 18:36:39 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH 2/2] symbols/x86: don't use symbols-dummy
-Message-ID: <aSXpJ3yqSWfNgElC@Mac.lan>
-References: <2d7602ce-3665-4853-85f0-c0201642193f@suse.com>
- <3618c458-d9ec-4cc6-a800-0741ade461a1@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3618c458-d9ec-4cc6-a800-0741ade461a1@suse.com>
-X-ClientProxiedBy: PAZP264CA0194.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:237::27) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY1PR03MB7996:EE_|IA3PR03MB8454:EE_
+x-ms-office365-filtering-correlation-id: aa74a9ab-03d6-423d-8110-08de2c5dea80
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|366016|8096899003|38070700021|7053199007;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?rPBtEVlcv/Q1Zlsu9Jrgck7CLZ7yEnPwxPrybpMCFkssmkApmmAiWZhoHRNn?=
+ =?us-ascii?Q?Bf+ltp37uFObMm6UPv/UEyVZE378JagW7dvvg7R5nXf3ASK+NVDXUdGRB7Gq?=
+ =?us-ascii?Q?rBtEjP+ONGpkke2khSG3RDMZIrNSSKAxYxg31VN3PD/bR7TVPLKqPnz7eSAG?=
+ =?us-ascii?Q?WQ64j49tJCvzxR+nTP0SQpFxuBHbbK2O1+0U5Bapa1EMwh6PFK2jQOVDkNDM?=
+ =?us-ascii?Q?8I3y/hHKDOq9kfvwV0swb/Vj92+BuDhs3L46ZsSqid7557xedV2e8UfLIPJE?=
+ =?us-ascii?Q?za/XkIjx2chI9aj4iwENItlGbjighIA3quOeMhT+ZRxve02BkaabK5dGM+a9?=
+ =?us-ascii?Q?xXnC6tAAAlFLwO7XbcgFXXVxmcxKaR/os2ff5uYkFUKYh/9pqcHOX4gGIQ7X?=
+ =?us-ascii?Q?KWqKFCZeR6qPvGLQyC30U8Czc/mFHUP2drrVqdsF4gj5Gb1kviI8/lYiTBI8?=
+ =?us-ascii?Q?zxHPBvTip/iso2EWZGaF6lQN6SGwnkEeLZ4J6uzsGE5YtH7KeF4MTTcAusAv?=
+ =?us-ascii?Q?svrl/h44BD8LIZee2o/+w/y4HZ17le2Ql2DFjGouRRZ3o3JwotrRsbXoyL4A?=
+ =?us-ascii?Q?/8w3Eh1f0Hl0NyQpOw7ZUKApUrxISelyl5ee9EvOtWCc4ncLtUR+qOpTjeTl?=
+ =?us-ascii?Q?7ztzYCgfLSHnmoyxACsuTKw191YtVNa+nm8PhaDkrdlbcBerpY2gci9pMPJ6?=
+ =?us-ascii?Q?cGoA2MxIDYdXe5WOVQmbhcmrgMCwEl5QWbJthg3TcJu7s4G7lHR/1SMeArkj?=
+ =?us-ascii?Q?E2nXVqL7QwH1STRMnf1TCZGDzRxpUaRNKAWOyq/BL7cE0jXa9ZWK6dj86qT7?=
+ =?us-ascii?Q?fbf7IZaEWlqjszTtr8dgeb6PIyRD4q0nOrZzcgDPSd6ITac1hhXIQfLAHuMN?=
+ =?us-ascii?Q?bwUuHkGRrhTe4c5zT50cQLjeb4KNnDVbpW3khpbEa6RweGJMI5y8SLrKlu9g?=
+ =?us-ascii?Q?HTi8Bw0p+gfw/dPK9aJjotaL1izuJoqPLaXjBqIjlLXeQoXM9uMNFEJRVTDl?=
+ =?us-ascii?Q?5Irc/3VgM9DorKSYJKztPf0yV7crSOe2yJGtbpzFlcJ329Kwk46Qfv0K928A?=
+ =?us-ascii?Q?WpQIZ5R07EaGHCnsWabzFPHpF7g6+znd8dpm4mnM75uns7/k7w+v0oKZfmIs?=
+ =?us-ascii?Q?Bwnz0Ik0CRYjSvyLIjRfU6F0TUsx+gcEt6r6cf8DADKemJzQ7vKOHmAKWLGn?=
+ =?us-ascii?Q?Vy0vxZKYl1fkYeS6Oxg/ljNONr/r3JGO2YLvMclpZYiMdvHql5XKJK/yBjBH?=
+ =?us-ascii?Q?wbK69W9PB0wGz2t7hlzPAC81hdtI/Lt+HTzw8kkxSLwpqbN61yHuRnIWfbmm?=
+ =?us-ascii?Q?LUtGAFF3QC60ZOdYuszJqzc9xjPweB3Nw8xz81YpSy9MA84rQ9XKail7i7Du?=
+ =?us-ascii?Q?wWlSNWNqA9P8s3AJsvesEyin9iRaweEfb0sFB8BHoAd6Tb+7kRCziCvhtoEg?=
+ =?us-ascii?Q?jMv7xw5alPmSCrh6V7Va6mDCbWB+33WbNGeOUU4xvomIWRIL3GXPhEhDtKNy?=
+ =?us-ascii?Q?KxdVVIFF8V6RsQTKuaFgLzNBglzCjtwjdSt2?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7996.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(8096899003)(38070700021)(7053199007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?pHoJOt6qzqrW+CCPas3eQB8hFgJCUmq7lap/zB4zytqvx3QKnbqC4p48Y/d7?=
+ =?us-ascii?Q?PT/fjvtqXm0GbT8Uzy2TQuRnhqatFieeNegpbdGPjPdpU5Cd0kyzgKsWzko4?=
+ =?us-ascii?Q?TUeBOCwsmkfwrT5Yk3EIEvMLlAuSqRB/Jbs5dNOMiGBmY02BsbQ+ZaOqtu6G?=
+ =?us-ascii?Q?maxLlJyfDuikpW3SWQ6zstTjsIkxdPfkV0H5UJ7KCM4ocvrKcptEZ2ovvVAD?=
+ =?us-ascii?Q?X8pJ72oqCTz1ytllVPf6YoRGyWXgm3rU97kOgeeX5iCqOgP8yMxW6OCOxSAj?=
+ =?us-ascii?Q?+bvV4qAGa5dswwpLCFf9Jzauyo5FnwMBmk+4MEPfN3jMvMyTGqim02Jm8hHL?=
+ =?us-ascii?Q?3LHeGJA66nwUyziAxq+KD7nCWn76tOP4ghqZjf7Zb7sMW1nTfnVVN8BAoYCw?=
+ =?us-ascii?Q?O3JUU0fFXM48+zbfbghjh8u/C9qbuiZO9eKALv9HOi20POwU3LZJxzKoPu39?=
+ =?us-ascii?Q?3egSvuBnmH+HnuVw1mcD1qlMWMh8/in/O80X019Y618M9n4hV0bBgIS3uebE?=
+ =?us-ascii?Q?661rtvnhTRQjl8fJ59/PwYmv3mYog//SF322g4hEYUjPZzzijJZ6NydmyQ1Y?=
+ =?us-ascii?Q?qCITQZ+SUiuhNrwBJKVjZzQ0HuOiUT8iyLBOvNhLKlyZJAwYyY/YVbYlLL/Y?=
+ =?us-ascii?Q?xKYY8XCQctNTJaM70s9EKhzl0xHtCkNCx8uzutsUofojJJvtfKQPHYHPw9hK?=
+ =?us-ascii?Q?QRs1wePDM5clEAj79DMKn95AyRxiKHdYsq9gJ75qgwRiABpF3uHV3ef+JRKc?=
+ =?us-ascii?Q?kKn3vuWqvNfzXVReb5st17T5NvV4sW7BNecfDw0muEz4tBQF6GvSSfyWcSwx?=
+ =?us-ascii?Q?SVNNtHjD3iDxZaM4Q1Ea9fLc1wA9pWsXWwqw8YmairVd06xl4fqqCC+P9otl?=
+ =?us-ascii?Q?V0gvs3ZBhZvBEsvauy01ygM4ky/RRQHCuTzwBb6KE9qOxe/bWBRtYGgtQMnV?=
+ =?us-ascii?Q?9aFSxP7GtQDgwxg39426P+sK4S87TgUt4zupkZtd1j99UbW4uBCwBf33XVR4?=
+ =?us-ascii?Q?8WmzEwEPncV95brSFrzTKkZUGHDB4ZlvME45j9xlVC4c5cW+XUNXNFoYYm0T?=
+ =?us-ascii?Q?QzX4zxKdOjWD0M78QyXeznJXbgTSeVy7uDMPSKvYwLCEQGGApH9pXinVaGlU?=
+ =?us-ascii?Q?rr5iMeCswu7Z1X+nNyZwIF+Y0k4/6vY8h/5XLDZzYrmjkPW83QgL8Ob5oXYt?=
+ =?us-ascii?Q?sWWQ+4hUMVCVglsjuaUjc/b8SFK5VHRv5/yx07ulgF+zTAZZ6U28F/bWhhzc?=
+ =?us-ascii?Q?+kHCCTpPkDtW7Qyw46cMb14OtK8WmXUwk8SSj4b7SrklkdLQrgHWbBzx8tA8?=
+ =?us-ascii?Q?1gGgXWLGwFml7Y1/p9aK9b1QEyv+93Avh/M8PyvuEo8QwTqkmMe3PsNZZcdU?=
+ =?us-ascii?Q?ulF+Xhx8cNZM5Iwg9Mn//18hqk0HplMQ6IQ57ZOrjYYL2YdZbmp/CcDiLAYD?=
+ =?us-ascii?Q?b08T768phan7BNLubC31b7h1rBm+zN3qzFNlI0QXIi3MFAER5JhevO53NTlg?=
+ =?us-ascii?Q?rvxWRA5jXak3NVby9gY8Og6Q/4OPQWfhY80LWYQgrmGRfOq+uIbP3sOWBPZw?=
+ =?us-ascii?Q?Yg9cIHWx+VD4XTz5VMoa11igd9LgPv6BLHDqnVp8?=
+Content-Type: multipart/alternative;
+	boundary="_000_BY1PR03MB79969A02DCCBAB2F9EBD0D24F3D1ABY1PR03MB7996namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BY5PR03MB5284:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3b6001cb-4ff2-4a25-10f1-08de2c4932d4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Uk9td09SR21NdXhPMC9LYmxRakw2V0kzSnVLTHJsVzVFdEc5KzhMai9GNnMr?=
- =?utf-8?B?dSt5SExaZDJtRVZXYUdoOXZPakhVcXpDZlhBenBvamxXZzFoMS9IbWdIcXVL?=
- =?utf-8?B?SXRYUTZIcFdwbDdVUEZCZGtkUVNGTUhMMGVTcStRdXFFZ1NTdWJQVWRoZ1dW?=
- =?utf-8?B?Q1ZjbnpCM1hzQzhyci9wNjhpc1puY1hqM1JOSzVwZ3RtNnEwUWp4cmZWVDlq?=
- =?utf-8?B?R0liNXZ5REd5Q1IxY1ZySG8rTW5Rck9EVHphemM4emllNHU4VVZicmlmTmxV?=
- =?utf-8?B?OFdnMmVIYk1ZaHhpN1VPNVFFTDBCZ3VWSWlNRlFtMFAzS3NaYW1JS3pzSENo?=
- =?utf-8?B?NGZSMEI3VEgrNXhuTzZia3UwVUFMSWlmaXpFUzhVOFdaaDRJV014MERuSkUz?=
- =?utf-8?B?d29tK2VpWUZGQVVuMVIzMkptRWFvVGQ2eWQ4cDZLOTJTTi9WS1pITG9Xa29s?=
- =?utf-8?B?cUxmYktabS84N21LYTBTNXJoYUJBQlpySlhMTTBEaXhDb2JkTXNHV1dlTWo3?=
- =?utf-8?B?NHlHN3pJU3lScElLYUI4RnJ3SGJUMmM5ZG1nSFhLZHVMNTdqSm5tQ2Z1b053?=
- =?utf-8?B?eVN5SXVhcWtNV1p2ZzE4MmRDaXdIK3FNTGh2Z0xHakk1RmRZb0NlZ0lSamlu?=
- =?utf-8?B?K2dJQVN5dnoxSldhazR2V1VwUHI2MDRKZUtjcEVtQ2wvS0x2VnA3RDZ4ejZG?=
- =?utf-8?B?c296cE14OWxXaHp5enZENlhoMHFRaFdrYkJVMmlRVmpWRmUvRjVka2RoNXZX?=
- =?utf-8?B?MHdWK3RzYzJKY0Nrd2RLSnJqVjVUZ1FDMk1uQ0VPcjlRcks4T2hOdkhvZlgy?=
- =?utf-8?B?aVhRbjNYcE1uYnVYZlkyQTdJREw4Z2NXaWdsK0VDUUtIU1hBNDhYc0Z3N0Zh?=
- =?utf-8?B?MUNFODJtaDFCOHdSRVRrbHNoNCtrWDFKV3FHU1Z1emlyM3Fobzc0VHI0VTU5?=
- =?utf-8?B?WUNZSTFOQ0N4NHNOR3U3SCswK3V3NTE1VmhCenhRelVMOTBsRXl2V0Ftajk2?=
- =?utf-8?B?ejJzOUpQUG5mZXZCTS93bjREdmdTdzZNN0t3OUQ0V0hJSzlpNjRKaGtDV05v?=
- =?utf-8?B?WHZpcTEyVWVFK0pNTU9zZ0s3bnBwYmFlYm52c3RxeVhQQ1RCeUJqRFNtazFD?=
- =?utf-8?B?czVKZXczWUp1TzJ0YzRySVdtd2k5TkxsK0ZRS08wclVPVUdVaHk5bDFma05s?=
- =?utf-8?B?QmprMVk3VEpJWklCT2tQU1FKUXBJaDRLaU1qUTFJaExjbXpaSE9VNVh1Yi9l?=
- =?utf-8?B?Rk95dkp4dnpSMTdRZkFQZytKNWhNWWhQbi9va3h3SDlGNThNSGY5UmpsR3NS?=
- =?utf-8?B?dDhLeUJkUW1jOUtoaVZ4VGJNakhmSm1ybmdLMUx3OUplbFlaaG4xNTlBNE5j?=
- =?utf-8?B?VkxMTlRvMVRaa3NWVHNVa1hLQjV5TDVkSllBVGNGeDVEM0ttVUJHZ01RZWpM?=
- =?utf-8?B?Smw1SXNUU3grZWE1UzBFVE41eWxLTU5Rd0FqUXZFS0p0dDM2eUZXSDBXZEFT?=
- =?utf-8?B?b3U3eGdrek9oQkJoai9xS2k2N1ZWd2JpU041RjNaZHdveHQ4ZmFLREpXaEFy?=
- =?utf-8?B?bTNKNVc1S2lWakRGZHFNanNyWExRc2IyWnlMcW5tOExVUk9UbkIwYlM3cElE?=
- =?utf-8?B?WHBPRWNZcGZkWGlka3JSWWdnUDQ1Y1BEMGx4VldsWGo4T1IvL0xmQWx1R0hu?=
- =?utf-8?B?Tm9hQ0RNL3BPS3Mva3pxUmRPUko0MnkxMy9pdWREbmFQU3FpeUsvVDlnQVgy?=
- =?utf-8?B?ajZ0YUo5YWdxUkhYb1ZGL3FjaXVWSjFGcVVXdmlqWk1lN011SFRZZFZzMGw1?=
- =?utf-8?B?QjM5dFhIYWNVRXRPTnViS0pHSlFlSUtwU0xaVURDVytXWHRTbUNPQVhXWk41?=
- =?utf-8?B?TWNmbUF0bmNFdjZ4OHZFL1lqVXdNQVBUcXVVVFdzN0h3VG01emNFNkNsaExP?=
- =?utf-8?Q?m6uMtIN6hwKtlgoZLMVwHwX3s8C7O24o?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ajR3NitLTEFFMXA3UEVxNUhRQm80NDhTaDdab3NkZThhRGlxQkRNVUVlTURW?=
- =?utf-8?B?QlpqQkI4eUxXVnFpR2pNRGZ3bHZmVmd2OTl3MzBBOW12ZlJ0cFp6c29CbDIv?=
- =?utf-8?B?WkM1ckdTTUdZVXlaY3ZUc2xpaHcvMWZ5TFdYNS9zSlBXZFRuZUtBQVZuV2cx?=
- =?utf-8?B?WXo1ZVJ6UFpQZ1QrSURIVG1pNmVXdmhyWHN6K2FOWFZYQTFwaFZjVVpibW91?=
- =?utf-8?B?ZzlIMFNuaEtXT1NRNXVZQ0pUSFZ2aTZEYjBTVkMwa2N1V0xya213YVlnRTYy?=
- =?utf-8?B?eVUzUnhKVlhtZy92dDY2MC9CWkQyT2xWTjByMGhxVXhtUEVxRXR4bVMvVnA4?=
- =?utf-8?B?MFdaMDJIRkFkKy9pckI2eElqSlNxbkhZTEo0bkN1VU9wMXZpa0g1bVRweUNZ?=
- =?utf-8?B?c05FUVdPR2RQcytCNDlKRnJpQWt5ZlFQMWc0RS9jQW8yRW53SzBlYWpDelZC?=
- =?utf-8?B?YTBLdTRNUnYyMGppc1VVUjBMcUhWekNBS0VocGorcE9LM0dsTFJRTlo4K3Fj?=
- =?utf-8?B?Z09nWnYyLzdhRFVzbXpCdk91SFpUVHhadU5DTW5ZSVltTGM0emhpQXJvUFE5?=
- =?utf-8?B?QlZuaFRZM3ZkRnNkMFc5REx5cHY1ODQwWlRCaXFENzZFOXNkckxOYjc2MytS?=
- =?utf-8?B?dEh5Y09OTzJaUWVKeWt1V0piMkRKd1FrbUc4dHpZb0wvbVZNL0Nlam5oZHRM?=
- =?utf-8?B?aWoyczNUVTFicXBUeWN0d2tUeC9SNDhhZ1BQZXB1RmxUVndkZTlMQzlydDJr?=
- =?utf-8?B?OGFMUnNTeU9XcGhzOXFIYmNyS0Z0cmk4S2FrY0tJWTc0SzRET0xKZGoxTU9U?=
- =?utf-8?B?TUJBL21zNlk5RUpIbm5taVZSU0NsNXA4b0phL1lQTDlLNWlHUGZxb3RWeWNu?=
- =?utf-8?B?SGN6V2VrWFN2OHlackhhZmlXUUtreVZRRG9naVNRQS9zNmFXV0NuQ3ZWN3pz?=
- =?utf-8?B?akliUFp1Sk42NVQ4MGw4WThRcjAxTS9rQUtKWXVIZ0xQSy90Vk1DOFZlL2dZ?=
- =?utf-8?B?QzRMUXJXc2lBQi9hdkM3NGdGdmZYcFNRTGJKcmxYUHo5MjZmSlBOaUZnbEIx?=
- =?utf-8?B?cnB2NTlUbHRNZEMrbXY3Y1FHY1VyZVZjTlFGMW16Sm9GUGdFRnZEKy9oZkZX?=
- =?utf-8?B?QytjZHg4ZXMzakwwU2NsenZHUkx0SlVhWGtkcU0xNlNPU0s2T00xOXRtNmJV?=
- =?utf-8?B?MVFJcVpYNWhZRGZXUmd3TVBkcy96SEpEV1VWNEhxTVFSTlgxaWtsZzZGWTA0?=
- =?utf-8?B?YytCV3RhOTBSV29BZHBaN0R4bzhiMTJ1SGwwT2k2d2RlYlRzbitDbXV2NEVi?=
- =?utf-8?B?eCtxMloxRkF1OXlhbUh2NnBkWDlVc2d4YUhJY1RVV1hHRTZSNjBBTUhSRHNC?=
- =?utf-8?B?RUJzSkVnY2FQbnp6U0p0a2pXa0JUL0ZiT3ZmdFhJR2tYNTFSTTJGejRlRU8y?=
- =?utf-8?B?cEhWK3BDWHlEZDhSYldKM3RnS0tmNDl5ZHB2dzloQkhFZ0NOSnNLUEZZMWdW?=
- =?utf-8?B?MFd2bThPbG9MVjN6eEJlZzB3R1FHazlaSDlQWnBqdktoT1NFd29ra0t1cnFC?=
- =?utf-8?B?WjBjVHhaRk9vYjdkVUZtSFNmeFlFTmVKWHFTRy9jMjBhZ1E0ZUJLUFNwUjY4?=
- =?utf-8?B?cmFjOENOTkZmNmhXOXo2MCtCMEZYT3Z6SzZwL0tNK0k5UzBISlRpL3lWQzBo?=
- =?utf-8?B?R2ZWY1pwV2VPWnlqUUxOL1RrT0hJSGZnS1Z0N2ZOZXNvWGkzV0xrbml1SGIv?=
- =?utf-8?B?ZnUyOEFBa0xjUzdxd0VHU0hmU283djhOWkhKTEFseUJsM0ZneDlQN1hnUngw?=
- =?utf-8?B?RHh2TllWN3BXaVlsbklTcmNzUzNMcEFNak1Oait5WVN4N3c4QW9KOGNSRVlI?=
- =?utf-8?B?U21JOTBENnAzR1BxaGVMSTBLNXgyRUhRTlJtT1J6MmVsSGFPZmxiNy9qakxz?=
- =?utf-8?B?U0lPU3hBZHVOWHltTG9jNkNEV0V1UTJ0TXVZZkREbXlpY1hjdmt5MEdTVDhR?=
- =?utf-8?B?eU1UenhqUDE4NS9VWHcyZXVVSkZ2NldjdXhUdTQxYUlBaEF4Si95VFZmS3l2?=
- =?utf-8?B?dzlteVJhS3dZRWxaN3F6UWg4MG8rSjFidS9XNnI3TCtNNVJLcTJBZTQ4NUJD?=
- =?utf-8?Q?5gjJZIovDKdepyjuZDNAHiZ0i?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b6001cb-4ff2-4a25-10f1-08de2c4932d4
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2025 17:36:43.2048
+X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7996.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa74a9ab-03d6-423d-8110-08de2c5dea80
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Nov 2025 20:05:01.0412
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NABxuA7D0lM2ri9OFCwey3q0jsNtND61gZQH8mWttLPKNU4LyaHfDFX43FIkZKepHx2lMTA2tcvL70IV9vW2HQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5284
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8va448tkUaJJc1kWz1m9oSmWTK1gftzWg0JFnnshyPkV6K2o2T4PUssMjoo4bUWe3jKxkInA11Uz6rI5TGcN6w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR03MB8454
 
-On Tue, Nov 25, 2025 at 03:14:27PM +0100, Jan Beulich wrote:
-> In particular when linking with lld, which converts hidden symbols to
-> local ones, the ELF symbol table can change in unhelpful ways between the
-> first two linking passes, resulting in the .rodata contributions to change
-> between the 2nd and 3rd pass. That, however, renders our embedded symbol
-> table pretty much unusable; the recently introduced self-test may then
-> also fail. (Another difference between compiling a C file and assembling
-> the generated ones is that - with -fdata-sections in use - the .rodata
-> contributions move between passes 1 and 2, when we'd prefer them not to.)
-> 
-> Make tools/symbols capable of producing an "empty" assembly file, such
-> that unwanted differences between passes 1 and 2 go away when then using
-> the corresponding objects in place of common/symbols-dummy.o.
-> 
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+--_000_BY1PR03MB79969A02DCCBAB2F9EBD0D24F3D1ABY1PR03MB7996namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-LGTM, not sure whether you want to extend to other arches in this
-same patch, or simply guard the build of symbols-dummy.o for non-x86
-arches.
+Sorry I will pay more attention to the surrounding code in future.
+________________________________
+From: Andrew Cooper <andrew.cooper@citrix.com>
+Sent: 24 November 2025 8:44 PM
+To: Kevin Lampis <kevin.lampis@citrix.com>; xen-devel@lists.xenproject.org =
+<xen-devel@lists.xenproject.org>
+Cc: jbeulich@suse.com <jbeulich@suse.com>; Roger Pau Monne <roger.pau@citri=
+x.com>
+Subject: Re: [PATCH] x86: Remove x86 prefixed names from cpuinfo for intel.=
+c
 
-> ---
-> May want mirroring to other arch-es.
-> 
-> --- a/xen/arch/x86/Makefile
-> +++ b/xen/arch/x86/Makefile
-> @@ -134,8 +134,10 @@ $(TARGET): $(TARGET)-syms $(efi-y) $(obj
->  CFLAGS-$(XEN_BUILD_EFI) += -DXEN_BUILD_EFI
->  
->  $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
-> +	$(objtree)/tools/symbols $(all_symbols) --empty > $(dot-target).0.S
-> +	$(MAKE) $(build)=$(@D) $(dot-target).0.o
->  	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
-> -	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
+On 24/11/2025 11:19 am, Kevin Lampis wrote:
+> diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
+> index 6f71365b7e..5f780fe1aa 100644
+> --- a/xen/arch/x86/cpu/intel.c
+> +++ b/xen/arch/x86/cpu/intel.c
+> @@ -86,7 +86,7 @@ static void __init check_memory_type_self_snoop_errata(=
+void)
+>        if (!boot_cpu_has(X86_FEATURE_SS))
+>                return;
+>
+> -     switch (boot_cpu_data.x86_model) {
+> +     switch (boot_cpu_data.model) {
+>        case 0x0f: /* Merom */
+>        case 0x16: /* Merom L */
+>        case 0x17: /* Penryn */
 
-It would be good if we could now stop building symbols-dummy.o as part
-of extra-y.  Maybe you could guard it with ifneq ($(CONFIG_X86),y) in
-the Makefile?
+One of the reasons of making these changes is identify the places
+needing converting to VFM.  This is one, and...
+> @@ -137,10 +137,10 @@ static void __init probe_masking_msrs(void)
+>        unsigned int exp_msr_basic, exp_msr_ext, exp_msr_xsave;
+>
+>        /* Only family 6 supports this feature. */
+> -     if (c->x86 !=3D 6)
+> +     if (c->family !=3D 6)
+>                return;
+>
+> -     switch (c->x86_model) {
+> +     switch (c->model) {
 
-Or otherwise remove this from all arches thus removing
-common/symbols-dummy.c.
+... so is this.
 
-> +	      $(dot-target).0.o -o $(dot-target).0
->  	$(NM) -pa --format=sysv $(dot-target).0 \
->  		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
->  		> $(dot-target).1.S
-> @@ -207,9 +209,11 @@ $(TARGET).efi: $(objtree)/prelink.o $(no
->  ifeq ($(CONFIG_DEBUG_INFO),y)
->  	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),echo,:) "Will strip debug info from $(@F)"
->  endif
-> +	$(objtree)/tools/symbols $(all_symbols) --empty > $(dot-target).0s.S
-> +	$(MAKE) $(build)=$(@D) .$(@F).0s.o
->  	$(foreach base, $(VIRT_BASE) $(ALT_BASE), \
->  	          $(LD) $(call EFI_LDFLAGS,$(base)) -T $(obj)/efi.lds $< $(relocs-dummy) \
-> -	                $(objtree)/common/symbols-dummy.o $(note_file_option) \
-> +	                $(dot-target).0s.o $(note_file_option) \
->  	                -o $(dot-target).$(base).0 &&) :
->  	$(MKRELOC) $(foreach base,$(VIRT_BASE) $(ALT_BASE),$(dot-target).$(base).0) \
->  		> $(dot-target).1r.S
-> --- a/xen/tools/symbols.c
-> +++ b/xen/tools/symbols.c
-> @@ -672,7 +672,10 @@ int main(int argc, char **argv)
->  				warn_dup = true;
->  			else if (strcmp(argv[i], "--error-dup") == 0)
->  				warn_dup = error_dup = true;
-> -			else if (strcmp(argv[i], "--xensyms") == 0)
-> +			else if (strcmp(argv[i], "--empty") == 0) {
-> +				write_src();
-> +				return 0;
+~Andrew
 
-Oh, that was easier than I was expecting for symbols to generate a
-working empty assembly file.
+--_000_BY1PR03MB79969A02DCCBAB2F9EBD0D24F3D1ABY1PR03MB7996namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks, Roger.
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Sorry I will pay more attention to the surrounding code in future.</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Andrew Cooper &lt;and=
+rew.cooper@citrix.com&gt;<br>
+<b>Sent:</b> 24 November 2025 8:44 PM<br>
+<b>To:</b> Kevin Lampis &lt;kevin.lampis@citrix.com&gt;; xen-devel@lists.xe=
+nproject.org &lt;xen-devel@lists.xenproject.org&gt;<br>
+<b>Cc:</b> jbeulich@suse.com &lt;jbeulich@suse.com&gt;; Roger Pau Monne &lt=
+;roger.pau@citrix.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] x86: Remove x86 prefixed names from cpuinfo for=
+ intel.c</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On 24/11/2025 11:19 am, Kevin Lampis wrote:<br>
+&gt; diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c<br>
+&gt; index 6f71365b7e..5f780fe1aa 100644<br>
+&gt; --- a/xen/arch/x86/cpu/intel.c<br>
+&gt; +++ b/xen/arch/x86/cpu/intel.c<br>
+&gt; @@ -86,7 +86,7 @@ static void __init check_memory_type_self_snoop_erra=
+ta(void)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!boot_cpu_has(X86_FEATUR=
+E_SS))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; switch (boot_cpu_data.x86_model) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; switch (boot_cpu_data.model) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 0x0f: /* Merom */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 0x16: /* Merom L */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 0x17: /* Penryn */<br>
+<br>
+One of the reasons of making these changes is identify the places<br>
+needing converting to VFM.&nbsp; This is one, and...<br>
+&gt; @@ -137,10 +137,10 @@ static void __init probe_masking_msrs(void)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int exp_msr_basic, =
+exp_msr_ext, exp_msr_xsave;<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Only family 6 supports th=
+is feature. */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (c-&gt;x86 !=3D 6)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (c-&gt;family !=3D 6)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; switch (c-&gt;x86_model) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; switch (c-&gt;model) {<br>
+<br>
+... so is this.<br>
+<br>
+~Andrew<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BY1PR03MB79969A02DCCBAB2F9EBD0D24F3D1ABY1PR03MB7996namp_--
 
