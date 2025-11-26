@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FF26C8848E
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 07:35:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1172280.1497367 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AA4BC884F7
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 07:44:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1172294.1497378 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vO97N-00066R-Fu; Wed, 26 Nov 2025 06:35:09 +0000
+	id 1vO9GS-0007ws-EL; Wed, 26 Nov 2025 06:44:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1172280.1497367; Wed, 26 Nov 2025 06:35:09 +0000
+Received: by outflank-mailman (output) from mailman id 1172294.1497378; Wed, 26 Nov 2025 06:44:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vO97N-000641-D9; Wed, 26 Nov 2025 06:35:09 +0000
-Received: by outflank-mailman (input) for mailman id 1172280;
- Wed, 26 Nov 2025 06:35:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vO9GS-0007um-BC; Wed, 26 Nov 2025 06:44:32 +0000
+Received: by outflank-mailman (input) for mailman id 1172294;
+ Wed, 26 Nov 2025 06:44:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=JzEl=6C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vO97L-00063v-Ps
- for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 06:35:07 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 09979d26-ca92-11f0-980a-7dc792cee155;
- Wed, 26 Nov 2025 07:35:02 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-477a2ab455fso67373645e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 25 Nov 2025 22:35:02 -0800 (PST)
+ id 1vO9GR-0007ug-ON
+ for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 06:44:31 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5c00b882-ca93-11f0-9d18-b5c5bf9af7f9;
+ Wed, 26 Nov 2025 07:44:30 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-477b5e0323bso2600065e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Nov 2025 22:44:30 -0800 (PST)
 Received: from ?IPV6:2003:ca:b70c:6a15:dd93:9ad4:10e5:cb52?
  (p200300cab70c6a15dd939ad410e5cb52.dip0.t-ipconnect.de.
  [2003:ca:b70c:6a15:dd93:9ad4:10e5:cb52])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42cbd764dbesm35093610f8f.27.2025.11.25.22.35.00
+ ffacd0b85a97d-42cb7fa3a76sm38597411f8f.24.2025.11.25.22.44.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Nov 2025 22:35:01 -0800 (PST)
+ Tue, 25 Nov 2025 22:44:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,71 +47,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09979d26-ca92-11f0-980a-7dc792cee155
+X-Inumbo-ID: 5c00b882-ca93-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764138902; x=1764743702; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764139470; x=1764744270; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=q33buSFPonoTaEDyFqYnlfJXw66rOnir9JneMBVT1/k=;
-        b=L/Xgk0kzLxaFfUM9JGTnARMajDdchZq9IHg2cV3EUy1vzlzOSo4IR8yWrwO4BcfbNc
-         Dw7YEtpvOUvRi8a52gljbhAMAJOjoEzVd36QkebqW+fTY5g0yIM8mSfiiFe67EJME+ki
-         PFWxhDTZ8gdzmscXJ4KqAS8kf0TEPQT+QPTeXd3+LUwg1gdk9ObZWZy13TXYC7uNXOxW
-         /d65fLuOG10JUt/dsW0YtK7+8pJK0DmNiBIHlT9QYWDAK4tQGvVYh2+q/41nNLrLNwwC
-         bdWQwu87ih4GYpyEbBDvypH5eDzPhuID3pAoBnJ0nqi1OMFct8QRV1GXJNM1tWOurwfN
-         ULdw==
+        bh=rH47JUdpBE8fS8Lyjlxp40JiqhAKxUvP8IpxkZ9ea3c=;
+        b=IFdeDCZebGIybTTl/0+fSPvgomq7yBg5Z17nW+tC8+P385LX7pc2M+o7wNuUH0FJWh
+         6jeVNCh/wW9uNkouie/ejp/mYpAc9oxzqHhYzr7l27vEQH7+gjMyGMs+9dXDE7KE8TuB
+         +dmmaLmK4bKNonDBIjr1fi81QbdKh7cbauhL/fj3S8En3w0nQDHKaLrZ7wkG3bcma6Us
+         C7YyVETzbi62zzjO+rG05iyVRIwFC3o0wuPcVFFopuN9qKIczAalKxsagLbcA8t0nHkG
+         rqwxfpqM79v3BbLJhpdbZjMLKEylm2Zzz0zuPAQKGHZ/sN+39Pz1Iyn3tALP7+iwOulh
+         r1gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764138902; x=1764743702;
+        d=1e100.net; s=20230601; t=1764139470; x=1764744270;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=q33buSFPonoTaEDyFqYnlfJXw66rOnir9JneMBVT1/k=;
-        b=sPRCvbT1djQTnJNGkV9V5drCzaIShGs7Q4mtmSEn5y2A/EpX4HFCaJeL6bzlNqX8yn
-         IqlUd7riJ9gJVsemonFBEAueeeP+Vdf/xgIQYkJr77ULl0+miMlyeXcVUlrwu8UzE/fp
-         t5+sBnhAbGD9WmoEWe4E617sGwRpZVIb37BoLx0a93m/ZxPRETjEEdpV6PYKXFvc3VwZ
-         +M+vwHQSeb9t91OOmuKgJ21C7VbeMVK/u+7UoMVIQWXYYEQ5qU8owiVu8codlkzrDmaI
-         stHb4uV2TX/PO0RBXHwT/2FWT3Y0wyTCjHt0KeuCx7gJu7mvM1pjorl0DfW2INmfipyx
-         tswQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV+YHKnSixgX+4T/PbXrzcfPs5IhN65NNCkXQkd7oWEbSktAZdQXdI1gB6aF3Kevq2uRtVmZBnX1CU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxT81xhxVXgzMRcI0YJy6W6+DwlsIAQkrSD/klvqcY4V7x9+zt0
-	qCw6cJQrZXE7Z+9kSCXIPZ7NIaSztCVoGYiVO+rrcs0wmWAz6c4WBkL4XD6Hkgt8Aw==
-X-Gm-Gg: ASbGnctigXxZOcv+SHOJjTi+JqzwL3+85ri6PbUph8iQvl73GTltghKhvATOH57QPJR
-	TvMB47SepyNE/Px8wXgzpQEMxlgHGI1QKUYTtSwITAkEAqqC7GfcSqhRfdeEOP2R+ICPZUeNjxu
-	sCOc3/3X4aTmsYL8+V5dxqteoG08npoVATsuHfBEfdNzw+fX6bssShnalxdrky7egz9bwLyvtl8
-	g1SsuCJ7g8WJcgoaERolIWKo4TbMrZW6IwDoly3YMTMy4hgBiikHDRFrufkoJfaf8Fs15noY50R
-	WaHzZ/+sgaCbfLYYDPq/l4QRy8jEKHxiGIuEg8YcaAbDQBQtbTcC9VnQD6RQfZYvWwqZ2YOn/uM
-	gQ67i8NPhg79oVFcb+dYCMZheE0Nr58PDB7tuSbX8m23XGN9Hv/NeBtBNAJNPLxh8l03inapWS1
-	4aFe21nMj2F94IlDA3Ao+Vclcinzr7cfQdjjdpagSmv7DoxI0zwTGjDlBdE+pZ25AI/PanGWfTZ
-	eUTqP8YuPiUjeBLWb4MivYYR9EuJBsu4nG0z5QRiuh2951w
-X-Google-Smtp-Source: AGHT+IF376hT22W8+XbwgRIBEQ6Z8CgP0aZSb+tJbHrBvz2JQ9sP7ojbxKb8EaqPF1JsJiSOzhf/2Q==
-X-Received: by 2002:a05:6000:18a8:b0:42b:5521:31ad with SMTP id ffacd0b85a97d-42cc1d51b1fmr17540028f8f.49.1764138901754;
-        Tue, 25 Nov 2025 22:35:01 -0800 (PST)
-Message-ID: <dd78860b-7829-4eb5-a26b-71e133df5d81@suse.com>
-Date: Wed, 26 Nov 2025 07:35:00 +0100
+        bh=rH47JUdpBE8fS8Lyjlxp40JiqhAKxUvP8IpxkZ9ea3c=;
+        b=Go2Yw7LWjMur0wuB48sY+S64ZncsIGmruDtXh5430vsPVaqwXigWgAdTmiAHbJsmWc
+         jJQvQlnG98bgkXf8jCRbnWsOW/zX27NFmXj8P8cRAIYVtlk5kBPUzKbHhj1i0AklPa7E
+         tMtPQjm4RFip6rSytFfZBZiPhen6g032g7EDrBaekl/bsmouTTBIRS4yRudLR7uZE7gS
+         n4xTSup20uFhjSOV5SqX3an2uyW3SgqiWb9IpkhjADJGOfkmDXDRSRyUk36UH1OTYTxG
+         MTtMZkdRvZ5LhchhPyCair94oiVr7m1TL1UNEyng6ubLS+4HM2ouGryEtDOMqOfPz6rm
+         Ty2A==
+X-Forwarded-Encrypted: i=1; AJvYcCXg1Lvsk4tCpfPW5C8P+AWx/hRpag6DbhVdTO1aFY1un4Nd0pS+tD5MLGbZVdhDb9u0KDuQE4wMxdY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz+aqb/D+O6jB5/1ZbsqAPA/MAWZ543K9p90Oah7TtYk4Zb489k
+	uEV45Q0MuH0lZ0GVa+wejxf80wReBlDydgiiZRHhN3GeKtdH9WPN3Sn9tADCgSHW6w==
+X-Gm-Gg: ASbGncuNote6Ayq/6PZ5QgvKg6lQxbX7JmR1tFue254E/yPUxFMCKFU6BAtNmF9oXEv
+	LsHOv7AiJr6HOMMIxlrbYqfU/k+HIdcFzp6Z3BESrSQxEk8qBSWqEP72X4aGcIM1a0ZVaq7xtuF
+	ioWQRACcrNZwNwIB7DTvFm+HGw4jTvvlP+v2i2tMeTDII2A0VF6WyN8O3sRJs9OzyVpvaTwXv7j
+	/w2tmGUMZw4RJhCRmgVzI1XUWQFKyW/TJmcaheedvcSfvNIQ3oeLtArF7Z4ZZ+1ZVidYlZAP/mp
+	umHqMD/GXRieUo5w3ezFIgJSnrqx58EIgrJtdmlCQ0XhF8r02DBtKh/8LpxLO2Cs5GjVAx7iXjK
+	1wq0akx9Mr29XOrlVD8pd+a3TfOMCjqh90SbmS7t2KPO/ZaUo0xsWEelPfHJMZ+dDWBE7I/k3hb
+	Fzw7G+5uau8lpI3YFc/K6BUpgt8KpNnj0aTLriDN6X+7V4CLbi6GIwuzfzEu4rEjXws6d3nljWG
+	5ypxGyG7gGWGOl8ttrUa9YBht7hVy95D92kRqornB8wH2Di6MhbqjV8rYg=
+X-Google-Smtp-Source: AGHT+IH5TpP8H0OVqJ4p4+ulCBNNTSGnhdbiyPANNw8G5up6E98V8eUHlAb5cqaSJANtRX+MKycrqg==
+X-Received: by 2002:a05:6000:4026:b0:425:7e33:b4a9 with SMTP id ffacd0b85a97d-42cc125247bmr23311511f8f.0.1764139469645;
+        Tue, 25 Nov 2025 22:44:29 -0800 (PST)
+Message-ID: <356a69b1-f072-48b7-a66a-5aa827c8bab7@suse.com>
+Date: Wed, 26 Nov 2025 07:44:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/24] xen/sysctl: replace CONFIG_SYSCTL with
- CONFIG_MGMT_HYPERCALLS
-To: Grygorii Strashko <grygorii_strashko@epam.com>,
- Penny Zheng <Penny.Zheng@amd.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Nathan Studer <nathan.studer@dornerworks.com>,
- Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
- Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
- Alistair Francis <alistair.francis@wdc.com>, xen-devel@lists.xenproject.org
-References: <20251121105801.1251262-1-Penny.Zheng@amd.com>
- <20251121105801.1251262-4-Penny.Zheng@amd.com>
- <5050db49-8581-499b-93bb-98c0f084d071@epam.com>
+Subject: Re: [PATCH v2] x86: Remove x86 prefixed names from cpuinfo for
+ intel.c
+To: Kevin Lampis <kevin.lampis@citrix.com>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ xen-devel@lists.xenproject.org
+References: <20251125202724.1384622-1-kevin.lampis@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -137,74 +122,148 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5050db49-8581-499b-93bb-98c0f084d071@epam.com>
+In-Reply-To: <20251125202724.1384622-1-kevin.lampis@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.11.2025 00:02, Grygorii Strashko wrote:
-> Hi
+On 25.11.2025 21:27, Kevin Lampis wrote:
+> struct cpuinfo_x86
+>   .x86        => .family
+>   .x86_vendor => .vendor
+>   .x86_model  => .model
+>   .x86_mask   => .stepping
 > 
-> On 21.11.25 12:57, Penny Zheng wrote:
->> Rename all the CONFIG_SYSCTL into CONFIG_MGMT_HYPERCALLS to help provide a
->> single option to manage all unnecessary hypercalls, including
->> sysctl, domctl, etc, in dom0less system and PV shim mode, which could also
->> make it easier to support randconfigs.
->> While doing the replacement, we fix some bugs on xsm system:
->> - wrap the whole xsm function to avoid bringing unreachable codes when
->> MGMT_DOMCTL=n
->> - add missing wrapping in include/xsm/dummy.h
->>
->> Suggested-by: Stefano Stabellini <sstabellini@kernel.org>
->> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
->> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->> Reviewed-by: Juergen Gross <jgross@suse.com>
->> Acked-by: Stewart Hildebrand <stewart@stew.dk> #ARINC 653
->> Acked-by: Jan Beulich <jbeulich@suse.com>
->> Cc: Alistair Francis <alistair.francis@wdc.com>
->> ---
->> v2 -> v3:
->> - wrap the whole xsm function
->> - add missing wrapping in include/xsm/dummy.h
->> - refine kconfig description
->> ---
+> No functional change.
 > 
-> With below diff..
-> 
-> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-> index 6709c3c95c53..f478adffff9c 100644
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -652,9 +652,8 @@ menu "Supported hypercall interfaces"
->         visible if EXPERT
->  
->  config MGMT_HYPERCALLS
-> -       bool "Enable privileged hypercalls for system management"
->         depends on !PV_SHIM_EXCLUSIVE
-> -       default y
-> +       def_bool y
->         help
->           This option shall only be disabled on some dom0less systems, or
->           PV shim on x86, to reduce Xen footprint via managing unnessary
-> 
-> It could be very helpful to consider this patch to be applied first.
+> Signed-off-by: Kevin Lampis <kevin.lampis@citrix.com>
+> ---
+> Changes in v2:
+> - Convert the two switch statements in probe_masking_msrs()
+>   and check_memory_type_self_snoop_errata()
+> - Requested style changes
 
-It doesn't need the change above, does it? It (aiui) deliberately sits
-ahead of the patch (supposedly) doing the above. While (once again) it
-is not being said anywhere that it's independent of patches 01 and 02,
-I expect it really is. In which case all that looks to prevent it from
-having gone in already is the lack of an ack for the XSM changes.
+As to the latter - not quite, see below.
 
-> - number of tags indicates that it's the way to move forward
-> - with above diff patch 4 can be dropped
+> --- a/xen/arch/x86/cpu/intel.c
+> +++ b/xen/arch/x86/cpu/intel.c
+> @@ -86,18 +86,19 @@ static void __init check_memory_type_self_snoop_errata(void)
+>  	if (!boot_cpu_has(X86_FEATURE_SS))
+>  		return;
+>  
+> -	switch (boot_cpu_data.x86_model) {
+> -	case 0x0f: /* Merom */
+> -	case 0x16: /* Merom L */
+> -	case 0x17: /* Penryn */
+> -	case 0x1d: /* Dunnington */
+> -	case 0x1e: /* Nehalem */
+> -	case 0x1f: /* Auburndale / Havendale */
+> -	case 0x1a: /* Nehalem EP */
+> -	case 0x2e: /* Nehalem EX */
+> -	case 0x25: /* Westmere */
+> -	case 0x2c: /* Westmere EP */
+> -	case 0x2a: /* SandyBridge */
+> +	switch ( boot_cpu_data.vfm )
+> +	{
+> +	case INTEL_CORE2_MEROM:
+> +	case INTEL_CORE2_MEROM_L:
+> +	case INTEL_CORE2_PENRYN:
+> +	case INTEL_CORE2_DUNNINGTON:
+> +	case INTEL_NEHALEM:
+> +	case INTEL_NEHALEM_G:
+> +	case INTEL_NEHALEM_EP:
+> +	case INTEL_NEHALEM_EX:
+> +	case INTEL_WESTMERE:
+> +	case INTEL_WESTMERE_EP:
+> +	case INTEL_SANDYBRIDGE:
 
-Except that imo really wants to be separate. And that could have gone
-in already as well, if only it had been done correctly.
+The ordering here would imo ...
+
+> @@ -137,28 +138,29 @@ static void __init probe_masking_msrs(void)
+>  	unsigned int exp_msr_basic, exp_msr_ext, exp_msr_xsave;
+>  
+>  	/* Only family 6 supports this feature. */
+> -	if (c->x86 != 6)
+> +	if (c->family != 6)
+>  		return;
+>  
+> -	switch (c->x86_model) {
+> -	case 0x17: /* Yorkfield, Wolfdale, Penryn, Harpertown(DP) */
+> -	case 0x1d: /* Dunnington(MP) */
+> +	switch ( c->vfm )
+> +	{
+> +	case INTEL_CORE2_PENRYN:
+> +	case INTEL_CORE2_DUNNINGTON:
+>  		msr_basic = MSR_INTEL_MASK_V1_CPUID1;
+>  		break;
+>  
+> -	case 0x1a: /* Bloomfield, Nehalem-EP(Gainestown) */
+> -	case 0x1e: /* Clarksfield, Lynnfield, Jasper Forest */
+> -	case 0x1f: /* Something Nehalem-based - perhaps Auburndale/Havendale? */
+> -	case 0x25: /* Arrandale, Clarksdale */
+> -	case 0x2c: /* Gulftown, Westmere-EP */
+> -	case 0x2e: /* Nehalem-EX(Beckton) */
+> -	case 0x2f: /* Westmere-EX */
+> +	case INTEL_NEHALEM_EP:
+> +	case INTEL_NEHALEM:
+> +	case INTEL_NEHALEM_G:
+> +	case INTEL_WESTMERE:
+> +	case INTEL_WESTMERE_EP:
+> +	case INTEL_NEHALEM_EX:
+> +	case INTEL_WESTMERE_EX:
+
+... best also be followed here, even if that means some re-ordering
+compared to what original code had.
+
+> @@ -572,8 +580,13 @@ static void intel_log_freq(const struct cpuinfo_x86 *c)
+>              factor = core_factors[msrval];
+>              break;
+>  
+> -        case 0x1a: case 0x1e: case 0x1f: case 0x2e: /* Nehalem */
+> -        case 0x25: case 0x2c: case 0x2f: /* Westmere */
+> +        case INTEL_NEHALEM_EP:
+> +        case INTEL_NEHALEM:
+> +        case INTEL_NEHALEM_G:
+> +        case INTEL_NEHALEM_EX:
+> +        case INTEL_WESTMERE:
+> +        case INTEL_WESTMERE_EP:
+> +        case INTEL_WESTMERE_EX:
+>              factor = 13333;
+>              break;
+
+Same here. (This iirc also wasn't there in v1, but isn't mentioned in
+the changelog.)
+
+> @@ -657,14 +670,17 @@ static void cf_check init_intel(struct cpuinfo_x86 *c)
+>  	/* Work around errata */
+>  	Intel_errata_workarounds(c);
+>  
+> -	if ((c->x86 == 0xf && c->x86_model >= 0x03) ||
+> -		(c->x86 == 0x6 && c->x86_model >= 0x0e))
+> -		__set_bit(X86_FEATURE_CONSTANT_TSC, c->x86_capability);
+> -	if (cpu_has(c, X86_FEATURE_ITSC)) {
+> -		__set_bit(X86_FEATURE_CONSTANT_TSC, c->x86_capability);
+> -		__set_bit(X86_FEATURE_NONSTOP_TSC, c->x86_capability);
+> -		__set_bit(X86_FEATURE_TSC_RELIABLE, c->x86_capability);
+> -	}
+> +    if ( ( c->family == 15 && c->model >= 0x03 ) ||
+> +         ( c->family == 6 && c->model >= 0x0e ) )
+> +        __set_bit(X86_FEATURE_CONSTANT_TSC, c->x86_capability);
+> +
+> +    if ( cpu_has(c, X86_FEATURE_ITSC) )
+> +    {
+> +        __set_bit(X86_FEATURE_CONSTANT_TSC, c->x86_capability);
+> +        __set_bit(X86_FEATURE_NONSTOP_TSC, c->x86_capability);
+> +        __set_bit(X86_FEATURE_TSC_RELIABLE, c->x86_capability);
+> +    }
+> +
+>  	if ( opt_arat &&
+>  	     ( c->cpuid_level >= 0x00000006 ) &&
+>  	     ( cpuid_eax(0x00000006) & (1u<<2) ) )
+
+From your v1 reply I concluded that you understood that this isn't the way
+to go. Within a function, indentation shouldn't vary like this. I suggest
+anyway that you really wait with submitting a new version until discussion
+has settled.
 
 Jan
-
-> - it is mechanical change, but it's big and constant source of rebase/merge/cherry-pick conflicts
-> - once applied it will allow, actually, parallel development of this feature as MGMT_HYPERCALLS will
->   be defined while build not broken.
-> 
-
 
