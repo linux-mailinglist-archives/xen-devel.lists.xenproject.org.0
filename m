@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CE2FC8A15B
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 14:45:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1172746.1497854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7A1BC8A16A
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 14:47:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1172761.1497863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOFpY-0006vL-Hv; Wed, 26 Nov 2025 13:45:12 +0000
+	id 1vOFrw-0007cZ-Te; Wed, 26 Nov 2025 13:47:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1172746.1497854; Wed, 26 Nov 2025 13:45:12 +0000
+Received: by outflank-mailman (output) from mailman id 1172761.1497863; Wed, 26 Nov 2025 13:47:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOFpY-0006sn-EJ; Wed, 26 Nov 2025 13:45:12 +0000
-Received: by outflank-mailman (input) for mailman id 1172746;
- Wed, 26 Nov 2025 13:45:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vOFrw-0007ZU-Qk; Wed, 26 Nov 2025 13:47:40 +0000
+Received: by outflank-mailman (input) for mailman id 1172761;
+ Wed, 26 Nov 2025 13:47:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=JzEl=6C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOFpW-0006nR-Ty
- for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 13:45:10 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 204d1277-cace-11f0-9d18-b5c5bf9af7f9;
- Wed, 26 Nov 2025 14:45:10 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-429c8632fcbso4276050f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 05:45:10 -0800 (PST)
+ id 1vOFrv-0007ZM-Ig
+ for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 13:47:39 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 74198923-cace-11f0-980a-7dc792cee155;
+ Wed, 26 Nov 2025 14:47:31 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-42b3ac40ae4so3831777f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 05:47:31 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42cb7f34ff3sm41647454f8f.16.2025.11.26.05.45.08
+ 5b1f17b1804b1-479052cfae0sm40760525e9.8.2025.11.26.05.47.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Nov 2025 05:45:09 -0800 (PST)
+ Wed, 26 Nov 2025 05:47:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 204d1277-cace-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 74198923-cace-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764164710; x=1764769510; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764164850; x=1764769650; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
+         :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=43Nsypl1oM4oh8KH04Gpj1BPETT37MdF9gF2yxSQyNw=;
-        b=DyTJBRUWX47xJsjbf/0Nayba+EqIAVNvRmW+EBEDgtSx8PW1FlLAUEK6W6kUME3hiE
-         l8kvsdsxbSJ5oD1IXWlNfh8rl3Ixi502dZKQni16GXGMkoT8pAk10JmsoERr74EQ6Fqg
-         tCktpQMg8fUof1YxcbhMs3tDRCX0KmoGkQgK5aoRLw/OlNt+WXCBj/HlViuwptow3d2+
-         qgZt8ZbrzCBHpGlOlpcBtPU9y1S5/Y+vTgkkR4RB55vnR8780X+VxEnaFbCyFRJEsl8c
-         fdjzyUQPtvF3LwbXKYYi8lkf8T3yVSWUpL3v44MldfTx0B4tQZayGHbF6cNXephjJTxf
-         bk/w==
+        bh=RbUNHWV6a/cCWWdmNgliwzpyWaes9TUdP1Z5dG5rKLg=;
+        b=MmNA/qZZLP094AQ0nqIEJxZRbk9XYeA+JXCMJxZezMv7ESzXCdsAT5rsGF++82uTxb
+         7Z384DIKNWU+1Ux6aoaNespyN+OWMOeMciQS2pWGy62yazfCttXoPp+lhnINv0HoN1/l
+         sxicT/zyGJZ1qjjl3r90RKOfpPZcJic/D1CYyMPobFK19ztdV4b/lb4q/LUlpK0mS035
+         5r0DhUVdVW4dVNCGyRoGP3W71Bu9sYfeMUbrOy+V/7ybGHbGunsV9HTxUqr4b9skwN7/
+         NupM0cBt97ERyorSNUJ9OVlJbkBWtNMq8ocVg3RHEhYydJmN1k+UflHq3wkNKGfELgXc
+         ZbRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764164710; x=1764769510;
+        d=1e100.net; s=20230601; t=1764164850; x=1764769650;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
+         :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=43Nsypl1oM4oh8KH04Gpj1BPETT37MdF9gF2yxSQyNw=;
-        b=U1DzIEFm+a5fcHIe9kFVNDsqfZ+1oAACvzj9Ig/sbo3PRnizPbIinjnAJvooykGb9Y
-         63QXRVqtyoiKjx9Oy+cjhUUy6QMjARbJCTTPBX1pb6uAaW291fUZb+ZkeZqWs3kSPMIP
-         /anPfLrVTYrdnvT+U1kLJD8DDiYymDMyktJeHjfMYQPDmIEEjdfmzRsLi21xYA3VImGv
-         4WeO83Kxv7A7wXH3TqVfBoJK98Nw1WPSXkaMR0QERpm1o3Y00keFuCrcTVG4zyasSOtO
-         Bt+tkg5r3usgPnH/PhdUn5fezwVadj2Bd+22awSRPsCDgd9Kt4fEEBGI/Re3w0XrxNDX
-         TotA==
-X-Gm-Message-State: AOJu0YzoKNES4op34LDQHXnCjsS/x8Ox78TJrzTVTEV+jt+ulu4chVv8
-	ZgY+O7jChtDY9myhAq6OrXQ4KJqc9jmccdlalw1kPpG2yYYuQigZpe29jNjb/xSDsDfoMTZbJ8+
-	F/rM=
-X-Gm-Gg: ASbGnctALP6MCOTUyZNGmVgfyrtcTWlcOSycTC+T+mduzgD4FBROl3gZiVv15M3jwIe
-	a6XVvxuxv5sfzi816kArjRTsIxn9JeJ5nZLOtdyd3QMrl9I6DiJm1tPMUFhU1Kr5kXtyLXtFdgX
-	uUIKkLeoi4yNZc4ZNdy3aRutqDcixqrOGfn55iupBvLLa/4kOHAFud2SQkW2uC49oveKDY24VbM
-	cn4aqGfn28bjIJUFXBLG7idnGleaGk+SVWFFH3b2VldDDvgPEFSb1ZC0KQu4sSbuxn6IQ6TeD4t
-	BjcL38yM3LkxBpeeYVSa5wawlB2Z854QEf4jp8OY9K5aW5a+sxaiLxeNW0LWoyCtAKzvWVfV/Zf
-	zOGguZjxo5InSyGjgjOCY7McsKBB9tyZxKGhDw6Ln+kwg6NJ3BXyR5CEILkiLWO0hqLe5XGFsbb
-	TVfdAQkzbEiPKj4AZCPIhWm3ptVLSP0AQQv9Ibck+RfRYsJ3XKUFJOMSHhVBCdwd8fwgQhB/3mS
-	dM=
-X-Google-Smtp-Source: AGHT+IEKIEkuCDXpikzUkhqwVCKZCuAAELq99cJb9h3DjL6oVfLAawKJsDPzDU7izYDO9RCvu3kktQ==
-X-Received: by 2002:a5d:5848:0:b0:427:8c85:a4ac with SMTP id ffacd0b85a97d-42cc1d0c9d6mr21421980f8f.47.1764164709797;
-        Wed, 26 Nov 2025 05:45:09 -0800 (PST)
-Message-ID: <5e5ee09f-88b7-41eb-99da-a9b5cf4bf348@suse.com>
-Date: Wed, 26 Nov 2025 14:45:07 +0100
+        bh=RbUNHWV6a/cCWWdmNgliwzpyWaes9TUdP1Z5dG5rKLg=;
+        b=h6PccJmChsEEm4SuU/uFJ2SO7p0JMdWQJQgVmr5VB0bz5UXz9OfCxfruS6JUyUlPti
+         Xrhyt/vNRxoJ62exhFwyTEDO0tyyBSdw/Fu6vKP9a1zf+OVjvvqPTWIjwKN/kpHxKzi3
+         6ni9e2oFOeGvlqHaJuT1zYYA9M2mxIjpJ0Nd2hlxomN1YzOt+0EaMUL/RxbJMfXjOYdH
+         USwJfonamFyThMxKKu3Yc+jsUOjnHmE356aBuv+1plug49ZBgPFJiMqma79VyuTh5wgf
+         qn1kJpUTF2ifKte2zQxelM5CKRy9Di4YHBm1oJ1mF8Gm0rqQX1rwsfHbNtHZsWKeKd+J
+         Kuow==
+X-Gm-Message-State: AOJu0YzurO4R17a/RBCy2l0lPSHfXN3ToR6f50wEwwBWOzpiK8ZLGV5D
+	mk8eO17RD34p3TwOaflj5vaHDmtnfeJsrcC5eyvlYD2J6tryV5/SP1DM3tuYNCakwlXsEPYUsoU
+	djH0=
+X-Gm-Gg: ASbGncupdib6/i2FEKf4C2rh07QxoBboJ8fhD5y6H8ji1NSGaBVPOQ4+P9PiB34DQM0
+	hSfAK08gyAApmStTvQdK1JlLMLJNkV6Irxd3l2MHzvuad9LC//e+P1pi+BduMeKVd9YAsbeT5YL
+	ZrsOBIx3ZkdEpyGL1ZqlUJ/jaMO3s8pHlU05rhoJz/eu+bccOlSVlPsimqcpq6Iqg/nJeX4Uuh2
+	c7SDBL4uQa5ftIhr9LhAydTV9216jOh556zTTdq7v8z6mMBmGv20pmyHvlMYWys0QQ0aWVakahJ
+	Z1a0hdPDO/AeOdvMGSdugicv+tOkV4LvfeW3NinvhgesmhD1F6BJrWs+HU6YNwXcaiMcJP7fcmY
+	mijKR2OUG5IPCrA7aaTPB6GDR+wxZHFF9EzBqp8LLsAHtxSO1q1797KOE8ZT4XqlobXQURQQfyp
+	WWTF/VeHBPRZwXvKJeVcDH7IRpLaxBL3ztADtb7VBkfS5kOgOD60/jr8omy09wy5Y69+k9Aw2Yn
+	j4=
+X-Google-Smtp-Source: AGHT+IEt+8mEiP50lkP30xm1DvjExe35wYgfvqpXvxvqzVmQ2pZMRV2o5ZJoCCgPm6Ems9C+f+WAHQ==
+X-Received: by 2002:a5d:5c89:0:b0:42b:3ee9:4775 with SMTP id ffacd0b85a97d-42cc1abe271mr21852865f8f.11.1764164850419;
+        Wed, 26 Nov 2025 05:47:30 -0800 (PST)
+Message-ID: <639fb816-c2f6-45d6-9081-238a6b3c5c08@suse.com>
+Date: Wed, 26 Nov 2025 14:47:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: [PATCH 7/8] symbols: drop symbols-dummy.c
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 6/8] symbols/riscv: don't use symbols-dummy
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>
+ <roger.pau@citrix.com>
 References: <bd689f02-3e6b-4d15-aa1d-d757a9ee54a8@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,29 +126,50 @@ In-Reply-To: <bd689f02-3e6b-4d15-aa1d-d757a9ee54a8@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-In particular when linking with lld, which converts hidden symbols to
-local ones, the ELF symbol table can change in unhelpful ways between the
-first two linking passes, resulting in the .rodata contributions to change
-between the 2nd and 3rd pass. That, however, renders our embedded symbol
-table pretty much unusable; the recently introduced self-test may then
-also fail. (Another difference between compiling a C file and assembling
-the generated ones is that - with -fdata-sections in use - the .rodata
-contributions move between passes 1 and 2, when we'd prefer them not to.)
+No architecture using it anymore, we can as well get rid of it.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Should we also drop common/symbols.h again then, by moving its contents
+back into common/symbols.c?
 
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -22,8 +22,10 @@ $(TARGET): $(TARGET)-syms
- 	$(OBJCOPY) -O binary -S $< $@
+--- a/xen/common/Makefile
++++ b/xen/common/Makefile
+@@ -74,8 +74,6 @@ ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
+ obj-y += domctl.o
+ endif
  
- $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
-+	$(objtree)/tools/symbols $(all_symbols) --empty > $(dot-target).0.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).0.o
- 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
--	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
-+	      $(dot-target).0.o -o $(dot-target).0
- 	$(NM) -pa --format=sysv $(dot-target).0 \
- 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
- 		> $(dot-target).1.S
+-extra-y := symbols-dummy.o
+-
+ obj-$(CONFIG_COVERAGE) += coverage/
+ obj-y += sched/
+ obj-$(CONFIG_UBSAN) += ubsan/
+--- a/xen/common/symbols-dummy.c
++++ /dev/null
+@@ -1,24 +0,0 @@
+-/*
+- * symbols-dummy.c: dummy symbol-table definitions for the inital partial
+- *                  link of the hypervisor image.
+- */
+-
+-#include "symbols.h"
+-
+-#ifdef SYMBOLS_ORIGIN
+-const unsigned int symbols_offsets[1];
+-#else
+-const unsigned long symbols_addresses[1];
+-#endif
+-const unsigned int symbols_num_addrs;
+-const unsigned char symbols_names[1];
+-
+-#ifdef CONFIG_FAST_SYMBOL_LOOKUP
+-const unsigned int symbols_num_names;
+-const struct symbol_offset symbols_sorted_offsets[1];
+-#endif
+-
+-const uint8_t symbols_token_table[1];
+-const uint16_t symbols_token_index[1];
+-
+-const unsigned int symbols_markers[1];
+
 
