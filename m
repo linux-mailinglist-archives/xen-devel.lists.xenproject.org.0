@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD2C0C89859
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 12:30:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1172576.1497652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4D5BC89D8D
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 13:45:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1172596.1497686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vODie-00079a-4Y; Wed, 26 Nov 2025 11:29:56 +0000
+	id 1vOEss-0000md-N1; Wed, 26 Nov 2025 12:44:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1172576.1497652; Wed, 26 Nov 2025 11:29:56 +0000
+Received: by outflank-mailman (output) from mailman id 1172596.1497686; Wed, 26 Nov 2025 12:44:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vODie-00076T-1P; Wed, 26 Nov 2025 11:29:56 +0000
-Received: by outflank-mailman (input) for mailman id 1172576;
- Wed, 26 Nov 2025 11:29:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wUbM=6C=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vODic-00076N-Gy
- for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 11:29:54 +0000
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c112::5])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 39540401-cabb-11f0-9d18-b5c5bf9af7f9;
- Wed, 26 Nov 2025 12:29:53 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by BLAPR03MB5489.namprd03.prod.outlook.com (2603:10b6:208:299::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.13; Wed, 26 Nov
- 2025 11:29:49 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%5]) with mapi id 15.20.9366.009; Wed, 26 Nov 2025
- 11:29:49 +0000
+	id 1vOEss-0000jW-K8; Wed, 26 Nov 2025 12:44:34 +0000
+Received: by outflank-mailman (input) for mailman id 1172596;
+ Wed, 26 Nov 2025 12:44:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=JzEl=6C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vOEsq-0000jA-Hb
+ for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 12:44:32 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a58b0136-cac5-11f0-980a-7dc792cee155;
+ Wed, 26 Nov 2025 13:44:28 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-42b32a3e78bso5497734f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 04:44:28 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4790adc6f7bsm45277215e9.2.2025.11.26.04.44.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Nov 2025 04:44:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,193 +45,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39540401-cabb-11f0-9d18-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y9ouSEMjRhLMSiQkECHXnYtcf/3ZKgLshERMYHjJ5IOGpcWxOPusU1pZPUL6SaGrZmv9givF+r8nHXp7f6F+jdIpP2dMOkDxeaNry55ArZ3yXTLWPtWOMY5N1ZwQYpHZ3iQuAEzjZ4X/gTtY5CY30kGzIyj8qHLrP5LgCzdeGrCT0dyEJPnkKGygvDCmxP26M7pp5/pTx0aPgRC9eQ9LhA0aQRNM5bRKHYsIySUEaA/KZEAw+rBLJ4SGGkKIT1h/+1SDJAqltbz+qHI1DkBT8jAw6Z2tU6s52OMl35SGYIXFNkiEGFNoZB9Il5cgb6GqYO6i0eGtbARX1Yy5ft0H8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z+ZmMJMLo4gnVQALzODxbOeXoU5clQ278LQY4anXF9s=;
- b=IJu7Q8n7CBW0h+XaUvITdac1DtkHloOqFXAWoWopB2NJx+vEHCGgTg8vMD8Qcv6g1kY7lU6qJoj538NWgyVQtcHAcW1NaW2G7XX2vRcdkTkq6WJTpUU8ec3ViW/lVcWWVOfgBZGN7+Gtfh1l6KSzw5qQg8SJp7HkXhtoTVicU2KDY9qDZt9M0EhPFGag/veVuGg1PqrmSDcqthvb2TGDXXDPvuFK0iFvkqOOX277Qttqi660sihkQippkVsNAozbvRP0Jtu7IF2i0A6/3yPG4OefwSB+0vbRRnUWm7nZkOGVIKluAEqLFJ5Op6Z94PSN+jrgfoJDj5Z4l7+GC8aKZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z+ZmMJMLo4gnVQALzODxbOeXoU5clQ278LQY4anXF9s=;
- b=KuTdzHsNnQ4VMlChBQzfMCORD0w90WdNqHku10ZrwFKH9A9N6kvUbBhdz4zFkc62LSwRvQOCYA29wCafdoebzlfq1yYunbVWy9QJJAsN21CAjNewRdJ95pTx21EcCJoYKp9TgRyj4Hkr/gH58YeiDpMcmiW6DnH+L+rviXozV8o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] x86/viridian: fix calling of viridian_time_domain_{freeze,thaw}()
-Date: Wed, 26 Nov 2025 12:29:42 +0100
-Message-ID: <20251126112942.49031-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.51.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PR3P189CA0043.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:102:53::18) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: a58b0136-cac5-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1764161068; x=1764765868; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=gR2Vc5UJrZRQM5ZjO/yIvlEsB7HkIIm0h3aI+0d9D/Y=;
+        b=CXiyAuALffRnkjJSZWkKwaYUhYAZyoTayzbzvQA/6lwIVTT1hkIaB0tJt2jXWv3z1H
+         hS3DWUJQwsA4DzQ6pQN4yKcYWAOjmltF5I+YrkT5iqgywbqmCpJJaHSzM2miSPf+Uifa
+         HMODb2TUA6Hfy3a+P7/N/4xbOAllA8TJe+w98Emz2fKl/Db31LTNhuKloavTbBH5DhMU
+         3BnuMb9vQ5kOsK6DV01SbalqUulE0oLOE9mrGWRCENr1+x4jfpmhMV0ivkV7PsJ+C6bG
+         PKhpe7N2tpltWBkk6Ropq2Wd14YKvros3eACISe28ZMhzgZ14+8RarroiqlRTXORqo/Z
+         a5Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764161068; x=1764765868;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gR2Vc5UJrZRQM5ZjO/yIvlEsB7HkIIm0h3aI+0d9D/Y=;
+        b=CBFhXFRCIrgcboTjnpEZXeZcmpvMpFQRZVeol7td6sbAlQuUEj3qd5gPWIkWyy3NRN
+         v2yd6O+eWq6mT2InpgqcmBTLXHRiD1hZfBBZqHGh2jTd0w63VkERO1MqfotaQZNqnPg2
+         zYLtUG4C5gxrElB9MgYeduXQv1fyZFNJH3nrCQcGNx/XcCijB/ZoMJyIyuh9tSU8+Agk
+         TUHt3lcQZlyFGy2qYkHcFYT1H0TDORB1Vw1ICb6RW3yDDpiSMWWC3MWmGRXGuoPqIm3x
+         nnJCTCpaeACNBSAKNREHdVVIH0VYJySzQRVPx+Coc34tw92XQFk1hquc8Xqi3u4ePskR
+         r27w==
+X-Forwarded-Encrypted: i=1; AJvYcCVmjx1dyuaWLBSMUCDe44TgNZWv2nF4mTD6mx7k4ELMdyQ5qx3rrEC511gT4bXmjypYrOj5D7h0a+E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzZPlOuQX+5d8dLYME3rXPt12RtW9iGI0+AvD4n+AfHO0t0UCjB
+	mn1SNpl4gnziJjCK9pteaX517K+Ku/cNLE7rlHrNk652AkOrzYWf4WL83eYX35MPnQ==
+X-Gm-Gg: ASbGncuGDFyFBhW3DLNALSCEXQSKomRl4lthGqMM4cmy3RiHtJ51HUWS+cDoj6dSDws
+	Vt7ueeRrP8kJpYBozeyNuy9eglgMPxBU37PY1zvLOKFRhYue1lftaZHrHK7dzd7BZ3Eo7sFGl8I
+	koNxyutBYVlhkkrmQ1Hc/Pzv4aZwfWoQYikjy58/gYdTLeA/m1lb00r8aNP4delngj+OXJ4GkjA
+	YGLRU2P8F0B3/S/vIF7qxAsZl1ZsloYfz5uWx+3b6LArcmpcu6Jma1+031uw6P473lfPU1R4Kas
+	X7OMq2b/BaT9jVyY45CNmr8OWpRCKOq+y/FnVLhPC53a4JRcLy5eDG0EfGUOzkFt5CQnkTfXKmj
+	Hy9dTEO+7fiDsoBkfGbfk4MaFXIFfF8KPqn8OFPDA1/Zu5mzDStFegGg8p/Vg8/6hrDeHYH92yR
+	TewtTSlJfFbpX03EqA6Nir7fnDGE/+6ZTzQs9QVmBtbDOns3jLdMxRirJkkShbvEIJz9fbgmmVc
+	vA=
+X-Google-Smtp-Source: AGHT+IFb1ll+z4xOk+3hDZLJZj0IyYfHVCOX/X+KrsJBeC9HC5L5zIm6kOB5GVkjzN4KFYzRRUetYg==
+X-Received: by 2002:a05:600c:5494:b0:477:93f7:bbc5 with SMTP id 5b1f17b1804b1-477c0184c3amr191272205e9.10.1764161067836;
+        Wed, 26 Nov 2025 04:44:27 -0800 (PST)
+Message-ID: <4f3c5cf3-cdba-4162-a9b1-4afe683c864f@suse.com>
+Date: Wed, 26 Nov 2025 13:44:25 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BLAPR03MB5489:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49f83efd-8813-4121-6028-08de2cdf1bda
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Q0tZYVdYcWxtTVZSaW53aFEraW9YZGIwQU9KZk9weFhsdmg2RmxZNlhLWEZC?=
- =?utf-8?B?d0hNWTZWV3U0S2pvVkxONGVKZkVMRjNkNEpXVno1NlUvOWhUOE14YVF2QUZv?=
- =?utf-8?B?REgwMjl4Nlk2bmJ2U0NYaGRlVlJHeW1URTRlZDZKWXZ3bUY3d2VOU1JIWDdM?=
- =?utf-8?B?YTJQVUVVQmkzR0ZiV1FtOWVKU3hEMU9KTEF4bmtFbHoyNjRZTkRzeURaK1Vs?=
- =?utf-8?B?ZU5yanpTUXBjZlBoNmtzQlNENldNK2dreGJGaTZERHBHMDJPUEExSHBGUFVq?=
- =?utf-8?B?Q2xlUGo1WkwwRVJjNXBFR2EzZm9sSnRLUVZnTWhGTW42N3JIaFlhU1JOMlQr?=
- =?utf-8?B?SGYxbEpxT3dLMnhad21iVzlpU01uMmthdUk3S3BBd3I4SVhjTGs0dkdMazgr?=
- =?utf-8?B?dllIRzRDaTB5eHhpTHRhczd2Yys2R2Zzak5YYkMxNEJ2Rml6U2xIV0VOQThP?=
- =?utf-8?B?bjlhOFB6SVNIVHpqVlFhRmcybm44QnE1Q00rak5xNUVQQWk5ZGFKdXA0a3I5?=
- =?utf-8?B?RlVKWVA3VHdhWnpaUnI2NzM4SFZHcGNIUHg4ZkV6djVrenl1QVZXTWJtclRH?=
- =?utf-8?B?dE1HL0xuRGIxS1ZyZ3ZsQ3JBZU8wM21Jb0RrQ1Nsdk53ZTNPWXVLSmRHdXMy?=
- =?utf-8?B?U2o5alVpc2RjNXhyeDBtUW9vVjlwUlYwVnAwMjU1and4Uk5jTW5GZmFVYUdh?=
- =?utf-8?B?ZDRaOXM2Q2plQ08yUnNiTFdUUDNWVndiY1BLZjNUd1hHV3Jsd0xxdno4QmFB?=
- =?utf-8?B?YXZzTUJneUo0SStyR2UxT1pHaGt6RWNyTlJJRnBuRkllNGUwa3ZmR0ZrbVdj?=
- =?utf-8?B?Q2FBQkc5RFUzejcrL0ZaVkIzYklYeGhjQnFxRVJTUnNZWDFSR0dDWDRsMG1O?=
- =?utf-8?B?YTRNZTRIWktFR1l6QTlPOGZRcnBwUkU1MTVsb2RHdi9MV2lEWllYZkR6Mlc3?=
- =?utf-8?B?a3VlSVlMQSs2U3lIYlkrQmFxSDhwbWlCblp2NzdLZlVqM3llaGsxaENTc092?=
- =?utf-8?B?OGl6M0V2YVFHQTIxb1B4L0lYdTdoTlBUMjhyTXhWbGdlQzBQelloM1hqOWlB?=
- =?utf-8?B?ZHo1RThjbU1SeDY2aDduU1B6VlRRVURCTWhEODd3YzJSK0diZzVGQUlJVS9k?=
- =?utf-8?B?WjQrQ2lLTklHbU00Q1FKL1pxVlNZUzg2ZGZHR1Ztcm83M00zUTVldGowZ1Mz?=
- =?utf-8?B?RjR0OEIvVEF6MTlsQjRPcFp5WHVNdHVETDk5cGFmak1Jam9QRC9IS1I5ZU9D?=
- =?utf-8?B?S2ZlenVXMjRGYWVOSUU1NUVZNGZUYXFnbytwWDFNY3JZNmg0Q09nOXA4dC9K?=
- =?utf-8?B?blBYWmN2YW5meTFOUHhBQWtsSWVUdE53UGZxVm93MUxjKzhseERNNHpWRnZi?=
- =?utf-8?B?T2JiZTBCT2lzRHg1MTBaUmpsL1lBWThLK0Z3bXQxS1NwWU51eTg3L20rWVcr?=
- =?utf-8?B?RE14c1hWQitjUk16d0FML3lWTnE5WFBWMTVIMUxCK2VJNmRqYjQzNVpjWGZh?=
- =?utf-8?B?SUFTa2Rhc0FqN1pLN0Fhb0F2ZlJhSEExNzhYN0VLSldEbTdHV1BCTzlic3JM?=
- =?utf-8?B?ekdPY0w3NUpJeVlzcFE2R2ozamcvc3F0bEttdWRNV0dQREJXS1cwT1Q2UWlB?=
- =?utf-8?B?djlPZ0ptQm80dk5URUs0N0JBRUVvcy84eHFNMnJhYTNHeGNFYXh6QTB5Wml5?=
- =?utf-8?B?eHFlUytlaDI2eTNwZEVMWDEvbEJFakNDOVBiTWd5QXBuNUxqa0Q4MklqSlVW?=
- =?utf-8?B?Q2RHK1RiVFR0Qk1FMjFHZGNvaTQ1U0xQVUUvNm4vWnV0RTM2REZZcXEwdUZ1?=
- =?utf-8?B?UHkrbUxCRWs1WnI5ZHlqREdSWEhsMS9EcDExWGZoWjFBdHRBTUhJVjI4OEFF?=
- =?utf-8?B?eTEzcDJnTmtUOElPeTlLdmMzak05bm9iMlgxWVVJbVRNTEZCMjhvQU1INUFC?=
- =?utf-8?Q?quzhc0n3UWMi3d90nvaleB0bhdym+n3p?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MUQySXZGZWJFZDNMcDJ6MUpjS1pXTjJhZE1VVExzNEpaUlcwbTdCYXZ0MTYz?=
- =?utf-8?B?RmV2b0hOWGZDdVgzUHQ2eUYxWXVXOGdNaGNLM2I1THljd2ZoTUdKcWFUcTBW?=
- =?utf-8?B?bXdxUzBTMWl0eFY2emNOVzlXdGNjSnZqTG8xODNleHlCbWI3eGZvU1R1cktB?=
- =?utf-8?B?TjJuem82K3VmSFZsdXgxZXpDQ2dRaWtjVmFBejlHMDBFOU85Q0JzeTBtdW9V?=
- =?utf-8?B?ODNzQmpOMTZXUkEwZXRpSmpWUHhQcmlKbUIrTkcvMFNPVXozUWFVRHdYRG5C?=
- =?utf-8?B?Vm5RSmZJRytGT1pJNEo5d2RjZzYreXhMT3F5MDhPTmpGamQzU3JLbi9TdWNK?=
- =?utf-8?B?c08xWE9hM0VSRWprdTk5Sm1yMTA2T3k5dkhsYUUrblF1WEF4enhlTzVueis1?=
- =?utf-8?B?NGVlbXR4a3haeTZaeElNK1c1SVRvNEZUVGtNY01UOFA1cFM4R1NZUnRaNm55?=
- =?utf-8?B?U2Z4TXhwL2VnOWFyenlHYkIrYzB0MlVtaWhWUFZLYjNMZG1BVk8rWHZucDVp?=
- =?utf-8?B?S1M1WmRVLzQzT3ZqejhaOWhWN3crTmU1NllBdUxjZjUwWWtYclpJc0w4YnJY?=
- =?utf-8?B?bDZiaFAvb2dzK1RwZUhIcHUwT3Zvb3Q1RzVyMmRYZWdrTnZDK0UrNytCM3Nm?=
- =?utf-8?B?eVJaZzdxU3lvOUtYaFBlVDA0RytSZ0oxNXYyZldXUGtxRkhUc3JCWkhGcWt0?=
- =?utf-8?B?S2h3ZnE0TGhaUUtBcEdDRU80KytscWEwMG5DVzBlVENOVGZqdzd2Y2NrRmE2?=
- =?utf-8?B?MUdMWXA1bHdqNnVuZmtWWWZBM2YwTHM1MkxHUnBnVGF2cHpsMnl0WHBVZGxN?=
- =?utf-8?B?OVo0V2NicmozQmlWQVBCYWZTd2dZVktCVmY3WVpJRnhybEdUNmNMaG5lWnZK?=
- =?utf-8?B?cno3c2pzeTJoS3dvZVdUWlNYb0pBRHBmdjMyTTE1bHpDS0NlMlBiamYraUU5?=
- =?utf-8?B?enB5enFrNWkwWk1OQysyZ1VvZUkzNCtjZkxxYXhNVk92bXhQRUdrYXhvbktj?=
- =?utf-8?B?TmJqLzBod2RXdnJXcElRZU5UN3BmTVFtWVJ6YzE1NWFqa3RGNXc0TTMwcjA4?=
- =?utf-8?B?bEVncEhQL29JWWp5WXlVL0pRSG55U3RMK3V4d0dOSVpzZWlyUjVjdUFvNUZ0?=
- =?utf-8?B?U0lLT21GR3d2U2hZejVnTmFJU1VQWVlENThKbjdLSDFod1hBY1l0U1N5WWZM?=
- =?utf-8?B?TFA5bUtGM2RPa3ZONGNvNUZMdHd5bnF6dEx1MERiUjk2ZFRQVWZuMTFydWFL?=
- =?utf-8?B?RUVXRk9tbGc3L3YvZXpjc2NleFRhQitMaU5GamQzbEFjUzhhUnlUcXk0ZzAw?=
- =?utf-8?B?R3orMzNKUUNZZmdHaml0WWtxY01sUS9kS3d0WStjb2xndmRqSkVkTVdGeEta?=
- =?utf-8?B?cUlBbDdyWE5VRWZuSng5YVNZMVNDV2U5RmZTa01FMXlPSEJkZUoveHhiZkRC?=
- =?utf-8?B?aysyeFdqRVRSeHNOMjhZTkZkVHJRODlka0ZHUjFSN3MvbXJuVGtKU1ZBTmxh?=
- =?utf-8?B?NWJqQk9WQktWOERrYTQ4YU1Vb1dtZ29XNDdsYm5pWEhDci9ub1g4bkNCOVZW?=
- =?utf-8?B?V0IxR0wvamxFS2oxREUwNThtVUk1M0VCRFJsSzRhaFNQTFp1aVRMSWtkMi9v?=
- =?utf-8?B?ajV0eWJrN3RVUERUekNNQ2FQT2lrb3p2UnRSeGJLVkhySXpiSkVVQ0xuNmk4?=
- =?utf-8?B?S2JSZ2hqanBuWHFzbVZyRmRsanVzelppalRsMDZCcGFHeFFEaURpSjF5Qko3?=
- =?utf-8?B?SUIwR2F5VEJEZEVQNWEwdHBtYUlpU3BhY3pKNndFR2lzVzFveGErU2w5dmhE?=
- =?utf-8?B?SmpwMmRYVWo2L2tUN3UzcHlQVUVka3VHVTZmQ3kwRVRCMlNuUDFOcklLdXJV?=
- =?utf-8?B?WmFqMm9TQ2VXakJjMnJFTDNPUHR3S2hvU1Q0OU9Vby93eVRra3JJRCs3TnlT?=
- =?utf-8?B?dHRieUQxM2hWOVU3KzZ2emgwMnkyczNGaWd0ZnlVWXRtZFJDWjZUSjFKdEp2?=
- =?utf-8?B?ZmpzWEF1bkdKN2RKZ2UvTUw2TVlCY01EMFZCN3haWFV2aTg5WjA0L2RUZUwz?=
- =?utf-8?B?N1JydVdBRFRmaENJemxwdVgvcFJTZXRQeXZCL0lGZkhhenR6U1M2SVd0QklW?=
- =?utf-8?Q?ph1decsOQmcWCNI67zR1W7NmS?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49f83efd-8813-4121-6028-08de2cdf1bda
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2025 11:29:49.1857
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: a/XiL9tB1wdJpn0OUtXEeFRdQWho6iFLiniLn6KEh3iGtaHmdZInwWtqatz1ZHrNRqnoUsOegFEPO1wgXNHmdg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR03MB5489
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/viridian: fix calling of
+ viridian_time_domain_{freeze,thaw}()
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20251126112942.49031-1-roger.pau@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251126112942.49031-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The current hook placement in domain_{,un}pause() calls arch_domain_pause()
-unconditionally, regardless of whether the domain is already paused or not
-unpaused (so no state change).  However the underlying Viridian unpause
-function (time_ref_count_thaw()) expects the call to only be done once
-there's a transition from paused to active.
+On 26.11.2025 12:29, Roger Pau Monne wrote:
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -1547,8 +1547,7 @@ int vcpu_unpause_by_systemcontroller(struct vcpu *v)
+>  static void _domain_pause(struct domain *d, bool sync)
+>  {
+>      struct vcpu *v;
+> -
+> -    atomic_inc(&d->pause_count);
+> +    bool was_paused = atomic_inc_return(&d->pause_count) - 1;
+>  
+>      if ( sync )
+>          for_each_vcpu ( d, v )
 
-Adjust the calling of arch_domain_{,un}pause() so it's only done for state
-changes, to accommodate for the behavior expected by the Viridian hooks.
-Note there are no other implementations of arch_domain_{,un}pause() apart
-from the Viridian use cases, and hence the change is non-functional for all
-other architectures (or for x86 if Viridian is disabled).
+Isn't this racy? Another CPU doing the INC above just afterwards (yielding
+was_paused as false there) might still ...
 
-Fixes: f6a07643e1cc ('x86/viridian: freeze time reference counter when domain is paused')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/common/domain.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+> @@ -1557,7 +1556,8 @@ static void _domain_pause(struct domain *d, bool sync)
+>          for_each_vcpu ( d, v )
+>              vcpu_sleep_nosync(v);
+>  
+> -    arch_domain_pause(d);
+> +    if ( !was_paused )
+> +        arch_domain_pause(d);
 
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 3b6e9471c413..e0ca71a53bc1 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -1547,8 +1547,7 @@ int vcpu_unpause_by_systemcontroller(struct vcpu *v)
- static void _domain_pause(struct domain *d, bool sync)
- {
-     struct vcpu *v;
--
--    atomic_inc(&d->pause_count);
-+    bool was_paused = atomic_inc_return(&d->pause_count) - 1;
- 
-     if ( sync )
-         for_each_vcpu ( d, v )
-@@ -1557,7 +1556,8 @@ static void _domain_pause(struct domain *d, bool sync)
-         for_each_vcpu ( d, v )
-             vcpu_sleep_nosync(v);
- 
--    arch_domain_pause(d);
-+    if ( !was_paused )
-+        arch_domain_pause(d);
- }
- 
- void domain_pause(struct domain *d)
-@@ -1575,11 +1575,12 @@ void domain_unpause(struct domain *d)
- {
-     struct vcpu *v;
- 
--    arch_domain_unpause(d);
--
-     if ( atomic_dec_and_test(&d->pause_count) )
-+    {
-+        arch_domain_unpause(d);
-         for_each_vcpu( d, v )
-             vcpu_wake(v);
-+    }
- }
- 
- static int _domain_pause_by_systemcontroller(struct domain *d, bool sync)
--- 
-2.51.0
+... make it here faster, and then the call would occur to late. Whether that's
+acceptable is a matter of what exactly the arch hook does.
 
+Furthermore, is what the arch hook does for x86 actually correct when "sync"
+is false? The vCPU-s might then still be running while the Viridian time is
+already frozen.
+
+Jan
 
