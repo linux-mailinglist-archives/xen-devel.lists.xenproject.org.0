@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AA4BC884F7
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 07:44:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1172294.1497378 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B8BFC88536
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 07:54:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1172304.1497387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vO9GS-0007ws-EL; Wed, 26 Nov 2025 06:44:32 +0000
+	id 1vO9PV-0001GE-6q; Wed, 26 Nov 2025 06:53:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1172294.1497378; Wed, 26 Nov 2025 06:44:32 +0000
+Received: by outflank-mailman (output) from mailman id 1172304.1497387; Wed, 26 Nov 2025 06:53:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vO9GS-0007um-BC; Wed, 26 Nov 2025 06:44:32 +0000
-Received: by outflank-mailman (input) for mailman id 1172294;
- Wed, 26 Nov 2025 06:44:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vO9PV-0001Dv-4D; Wed, 26 Nov 2025 06:53:53 +0000
+Received: by outflank-mailman (input) for mailman id 1172304;
+ Wed, 26 Nov 2025 06:53:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=JzEl=6C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vO9GR-0007ug-ON
- for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 06:44:31 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5c00b882-ca93-11f0-9d18-b5c5bf9af7f9;
- Wed, 26 Nov 2025 07:44:30 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-477b5e0323bso2600065e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 25 Nov 2025 22:44:30 -0800 (PST)
+ id 1vO9PT-0001Dp-JW
+ for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 06:53:51 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a8f1dab3-ca94-11f0-980a-7dc792cee155;
+ Wed, 26 Nov 2025 07:53:48 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4775ae77516so59709405e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Nov 2025 22:53:48 -0800 (PST)
 Received: from ?IPV6:2003:ca:b70c:6a15:dd93:9ad4:10e5:cb52?
  (p200300cab70c6a15dd939ad410e5cb52.dip0.t-ipconnect.de.
  [2003:ca:b70c:6a15:dd93:9ad4:10e5:cb52])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42cb7fa3a76sm38597411f8f.24.2025.11.25.22.44.29
+ 5b1f17b1804b1-4790ae05feesm26146885e9.15.2025.11.25.22.53.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Nov 2025 22:44:29 -0800 (PST)
+ Tue, 25 Nov 2025 22:53:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,56 +47,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c00b882-ca93-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: a8f1dab3-ca94-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764139470; x=1764744270; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764140028; x=1764744828; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rH47JUdpBE8fS8Lyjlxp40JiqhAKxUvP8IpxkZ9ea3c=;
-        b=IFdeDCZebGIybTTl/0+fSPvgomq7yBg5Z17nW+tC8+P385LX7pc2M+o7wNuUH0FJWh
-         6jeVNCh/wW9uNkouie/ejp/mYpAc9oxzqHhYzr7l27vEQH7+gjMyGMs+9dXDE7KE8TuB
-         +dmmaLmK4bKNonDBIjr1fi81QbdKh7cbauhL/fj3S8En3w0nQDHKaLrZ7wkG3bcma6Us
-         C7YyVETzbi62zzjO+rG05iyVRIwFC3o0wuPcVFFopuN9qKIczAalKxsagLbcA8t0nHkG
-         rqwxfpqM79v3BbLJhpdbZjMLKEylm2Zzz0zuPAQKGHZ/sN+39Pz1Iyn3tALP7+iwOulh
-         r1gQ==
+        bh=rlZPsYlhMpcnplZMBTt5WYxemDnRN/Jxv37GOLG8RpU=;
+        b=J1xmThIwgZkQIkB515ws3IbWpbKlOEyrFWRf3UiaPrelbiWls0cv9LlYcO8xMDUNm8
+         140iHF8V0BvX0P1NW/XEFxSzv3j39xZi4HbBywzxsFd2hO73fMwrp0i9Ea2NHTmDn9yc
+         VO4wmO6p4aLlm25ZwO5cSKveHNm/UiBq7rxgB4ut0h1gqUTMt3ZipAFFm2Vf33a5oONG
+         aREok7qWWamZMVsyqOsx20jweTNW/aTHSvvnYpnaK0NQS1bCb/eLIFJDh1X56KSonygT
+         tubUiAqgZpk6larAZ6wdqUNpW4CfF9Ealvnt4UOU29YMH2iGdBd/ffPB0cv3g+RBLyx4
+         ldew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764139470; x=1764744270;
+        d=1e100.net; s=20230601; t=1764140028; x=1764744828;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rH47JUdpBE8fS8Lyjlxp40JiqhAKxUvP8IpxkZ9ea3c=;
-        b=Go2Yw7LWjMur0wuB48sY+S64ZncsIGmruDtXh5430vsPVaqwXigWgAdTmiAHbJsmWc
-         jJQvQlnG98bgkXf8jCRbnWsOW/zX27NFmXj8P8cRAIYVtlk5kBPUzKbHhj1i0AklPa7E
-         tMtPQjm4RFip6rSytFfZBZiPhen6g032g7EDrBaekl/bsmouTTBIRS4yRudLR7uZE7gS
-         n4xTSup20uFhjSOV5SqX3an2uyW3SgqiWb9IpkhjADJGOfkmDXDRSRyUk36UH1OTYTxG
-         MTtMZkdRvZ5LhchhPyCair94oiVr7m1TL1UNEyng6ubLS+4HM2ouGryEtDOMqOfPz6rm
-         Ty2A==
-X-Forwarded-Encrypted: i=1; AJvYcCXg1Lvsk4tCpfPW5C8P+AWx/hRpag6DbhVdTO1aFY1un4Nd0pS+tD5MLGbZVdhDb9u0KDuQE4wMxdY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz+aqb/D+O6jB5/1ZbsqAPA/MAWZ543K9p90Oah7TtYk4Zb489k
-	uEV45Q0MuH0lZ0GVa+wejxf80wReBlDydgiiZRHhN3GeKtdH9WPN3Sn9tADCgSHW6w==
-X-Gm-Gg: ASbGncuNote6Ayq/6PZ5QgvKg6lQxbX7JmR1tFue254E/yPUxFMCKFU6BAtNmF9oXEv
-	LsHOv7AiJr6HOMMIxlrbYqfU/k+HIdcFzp6Z3BESrSQxEk8qBSWqEP72X4aGcIM1a0ZVaq7xtuF
-	ioWQRACcrNZwNwIB7DTvFm+HGw4jTvvlP+v2i2tMeTDII2A0VF6WyN8O3sRJs9OzyVpvaTwXv7j
-	/w2tmGUMZw4RJhCRmgVzI1XUWQFKyW/TJmcaheedvcSfvNIQ3oeLtArF7Z4ZZ+1ZVidYlZAP/mp
-	umHqMD/GXRieUo5w3ezFIgJSnrqx58EIgrJtdmlCQ0XhF8r02DBtKh/8LpxLO2Cs5GjVAx7iXjK
-	1wq0akx9Mr29XOrlVD8pd+a3TfOMCjqh90SbmS7t2KPO/ZaUo0xsWEelPfHJMZ+dDWBE7I/k3hb
-	Fzw7G+5uau8lpI3YFc/K6BUpgt8KpNnj0aTLriDN6X+7V4CLbi6GIwuzfzEu4rEjXws6d3nljWG
-	5ypxGyG7gGWGOl8ttrUa9YBht7hVy95D92kRqornB8wH2Di6MhbqjV8rYg=
-X-Google-Smtp-Source: AGHT+IH5TpP8H0OVqJ4p4+ulCBNNTSGnhdbiyPANNw8G5up6E98V8eUHlAb5cqaSJANtRX+MKycrqg==
-X-Received: by 2002:a05:6000:4026:b0:425:7e33:b4a9 with SMTP id ffacd0b85a97d-42cc125247bmr23311511f8f.0.1764139469645;
-        Tue, 25 Nov 2025 22:44:29 -0800 (PST)
-Message-ID: <356a69b1-f072-48b7-a66a-5aa827c8bab7@suse.com>
-Date: Wed, 26 Nov 2025 07:44:28 +0100
+        bh=rlZPsYlhMpcnplZMBTt5WYxemDnRN/Jxv37GOLG8RpU=;
+        b=UmOCb+V/Ek7d3f7dEMqpwm0BRuw5ayNYA/wXdoZpuWWMY0iXRfhVDPfnMWP7DeqvHs
+         HEzd2l9MFKgJsi/pNA/v1mVRXYpwnTz0tYSle1xirUlNubC0v2MYOIQOPKTixJHv5jMh
+         Xdpr03pFD89ol7BLO52Ww1H43bWZjUY+8MGN0MDCUgTTugWMmJJ0ayHnqFQ5qHv95kNW
+         U1LBu+b1f+BiVLRofvc9pJ8aAPZEWzyxi3Bvo6HBAHVug0h3yzzvj9fGeSPf0qbIJ1f9
+         MvRSBI/85B6fRqNbPYZVFQgS10Q+ArmGwf/wvXAxui5q/3bgPz1q/+2oPJo9C2JE1AMb
+         HFFQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUYVg/W0gw4KSe36uJt/EfE3m6eryec+rQgWWtl0Paciy9HMzPpekSUlA1JliEzflXtz/cgqDIASx4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxG37MizGVZMoXjG4hfjewAHhaDRBjq43PqxyHu9DlA/wkt2coz
+	4q1pjAPd15RM8PciulkFxQSpCRmWgOP8impkdBNml+OALBGrzM2OM7t+iMQS/0VLiw==
+X-Gm-Gg: ASbGncsltl/uukKmlXWiRimNnj5zb6oEWpYcVH2xHTV+rRbGNHOO8cEMpqaSzvNq8rZ
+	Hqnr3rjkfcA/cU514NDi5dMeJl+bT94STM4yS8ygoOCouh5z+UUztkY07Vq/BlFaT7/GZlOmBdh
+	jm6XPBviECt3n8hJFDkTJd+8mAspFmA0n7o1qrJKwtDkTlE374Rwxzs9DcDlDAJhALsAICrSCHt
+	J0O2pmzT4Bb0m7ODTYgxDk3CBrFcyBeEzEIyjIjRSp2IRzqliqWfKlxsHZP415WXEQzW2iG3FCj
+	hd27Lpi9Rvsax9eotjzvnszkAyJMzLIOOUtZbBUC9SEVfOVhCmxUtNojEaHloxxpC4Z1prWaPxf
+	Jn9ayqdQyr1yDIQPlGYMIKtlTsKjJrFq+c2/nxPdlO07pw/mrvbLCBouO7vGbWqBSVwDj0wY0n2
+	Q1JAY7RQClxSpWPXY6ZlsC41PqbIka54owNpdBCmHNBZKiSiHw0NtGrwBQyh91cPJwylfye7D6E
+	woK46FfB5qG1Q9UQ3JxGzhBwIFGvbyj8SpfzezppkTlEKb6
+X-Google-Smtp-Source: AGHT+IE+GPanNrHDUolXz/DU4XoI3IvPZW0CGrl1VSHK+VDAgzQaJw3ybx4PsZoxyX3kcDVhYg+mfg==
+X-Received: by 2002:a05:600c:5489:b0:45d:5c71:769a with SMTP id 5b1f17b1804b1-477c112400amr157009535e9.26.1764140028260;
+        Tue, 25 Nov 2025 22:53:48 -0800 (PST)
+Message-ID: <c7a44091-caf0-4346-9f03-d7741eeee592@suse.com>
+Date: Wed, 26 Nov 2025 07:53:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86: Remove x86 prefixed names from cpuinfo for
- intel.c
-To: Kevin Lampis <kevin.lampis@citrix.com>
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
+Subject: Re: [PATCH v2] x86/vhpet: Fix sanitization of legacy IRQ route
+To: Tu Dinh <ngoc-tu.dinh@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <20251125202724.1384622-1-kevin.lampis@citrix.com>
+References: <20251125165252.1491-1-ngoc-tu.dinh@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,148 +122,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251125202724.1384622-1-kevin.lampis@citrix.com>
+In-Reply-To: <20251125165252.1491-1-ngoc-tu.dinh@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.11.2025 21:27, Kevin Lampis wrote:
-> struct cpuinfo_x86
->   .x86        => .family
->   .x86_vendor => .vendor
->   .x86_model  => .model
->   .x86_mask   => .stepping
+On 25.11.2025 17:52, Tu Dinh wrote:
+> When setting a timer's config register, timer_sanitize_int_route will
+> always reset the IRQ route value to what's valid corresponding to the
+> !HPET_CFG_LEGACY case. This is applied even if the HPET is set to
+> HPET_CFG_LEGACY.
 > 
-> No functional change.
+> When some operating systems (e.g. Windows) try to write to a timer
+> config, they will verify and rewrite the register if the values don't
+> match what they expect. This causes an unnecessary write to HPET_Tn_CFG.
 > 
-> Signed-off-by: Kevin Lampis <kevin.lampis@citrix.com>
-> ---
-> Changes in v2:
-> - Convert the two switch statements in probe_masking_msrs()
->   and check_memory_type_self_snoop_errata()
-> - Requested style changes
+> Note, the HPET specification states that for the Tn_INT_ROUTE_CNF field:
+> 
+> "If the value is not supported by this prarticular timer, then the value
+> read back will not match what is written. [...] If the LegacyReplacement
+> Route bit is set, then Timers 0 and 1 will have a different routing, and
+> this bit field has no effect for those two timers."
+> 
+> Therefore, Xen should not reset timer_int_route if legacy mode is
+> enabled, regardless of what's in there.
+> 
+> Fixes: ec40d3fe2147 ("x86/vhpet: check that the set interrupt route is valid")
+> Signed-off-by: Tu Dinh <ngoc-tu.dinh@vates.tech>
 
-As to the latter - not quite, see below.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/arch/x86/cpu/intel.c
-> +++ b/xen/arch/x86/cpu/intel.c
-> @@ -86,18 +86,19 @@ static void __init check_memory_type_self_snoop_errata(void)
->  	if (!boot_cpu_has(X86_FEATURE_SS))
->  		return;
->  
-> -	switch (boot_cpu_data.x86_model) {
-> -	case 0x0f: /* Merom */
-> -	case 0x16: /* Merom L */
-> -	case 0x17: /* Penryn */
-> -	case 0x1d: /* Dunnington */
-> -	case 0x1e: /* Nehalem */
-> -	case 0x1f: /* Auburndale / Havendale */
-> -	case 0x1a: /* Nehalem EP */
-> -	case 0x2e: /* Nehalem EX */
-> -	case 0x25: /* Westmere */
-> -	case 0x2c: /* Westmere EP */
-> -	case 0x2a: /* SandyBridge */
-> +	switch ( boot_cpu_data.vfm )
-> +	{
-> +	case INTEL_CORE2_MEROM:
-> +	case INTEL_CORE2_MEROM_L:
-> +	case INTEL_CORE2_PENRYN:
-> +	case INTEL_CORE2_DUNNINGTON:
-> +	case INTEL_NEHALEM:
-> +	case INTEL_NEHALEM_G:
-> +	case INTEL_NEHALEM_EP:
-> +	case INTEL_NEHALEM_EX:
-> +	case INTEL_WESTMERE:
-> +	case INTEL_WESTMERE_EP:
-> +	case INTEL_SANDYBRIDGE:
-
-The ordering here would imo ...
-
-> @@ -137,28 +138,29 @@ static void __init probe_masking_msrs(void)
->  	unsigned int exp_msr_basic, exp_msr_ext, exp_msr_xsave;
->  
->  	/* Only family 6 supports this feature. */
-> -	if (c->x86 != 6)
-> +	if (c->family != 6)
->  		return;
->  
-> -	switch (c->x86_model) {
-> -	case 0x17: /* Yorkfield, Wolfdale, Penryn, Harpertown(DP) */
-> -	case 0x1d: /* Dunnington(MP) */
-> +	switch ( c->vfm )
-> +	{
-> +	case INTEL_CORE2_PENRYN:
-> +	case INTEL_CORE2_DUNNINGTON:
->  		msr_basic = MSR_INTEL_MASK_V1_CPUID1;
->  		break;
->  
-> -	case 0x1a: /* Bloomfield, Nehalem-EP(Gainestown) */
-> -	case 0x1e: /* Clarksfield, Lynnfield, Jasper Forest */
-> -	case 0x1f: /* Something Nehalem-based - perhaps Auburndale/Havendale? */
-> -	case 0x25: /* Arrandale, Clarksdale */
-> -	case 0x2c: /* Gulftown, Westmere-EP */
-> -	case 0x2e: /* Nehalem-EX(Beckton) */
-> -	case 0x2f: /* Westmere-EX */
-> +	case INTEL_NEHALEM_EP:
-> +	case INTEL_NEHALEM:
-> +	case INTEL_NEHALEM_G:
-> +	case INTEL_WESTMERE:
-> +	case INTEL_WESTMERE_EP:
-> +	case INTEL_NEHALEM_EX:
-> +	case INTEL_WESTMERE_EX:
-
-... best also be followed here, even if that means some re-ordering
-compared to what original code had.
-
-> @@ -572,8 +580,13 @@ static void intel_log_freq(const struct cpuinfo_x86 *c)
->              factor = core_factors[msrval];
->              break;
->  
-> -        case 0x1a: case 0x1e: case 0x1f: case 0x2e: /* Nehalem */
-> -        case 0x25: case 0x2c: case 0x2f: /* Westmere */
-> +        case INTEL_NEHALEM_EP:
-> +        case INTEL_NEHALEM:
-> +        case INTEL_NEHALEM_G:
-> +        case INTEL_NEHALEM_EX:
-> +        case INTEL_WESTMERE:
-> +        case INTEL_WESTMERE_EP:
-> +        case INTEL_WESTMERE_EX:
->              factor = 13333;
->              break;
-
-Same here. (This iirc also wasn't there in v1, but isn't mentioned in
-the changelog.)
-
-> @@ -657,14 +670,17 @@ static void cf_check init_intel(struct cpuinfo_x86 *c)
->  	/* Work around errata */
->  	Intel_errata_workarounds(c);
->  
-> -	if ((c->x86 == 0xf && c->x86_model >= 0x03) ||
-> -		(c->x86 == 0x6 && c->x86_model >= 0x0e))
-> -		__set_bit(X86_FEATURE_CONSTANT_TSC, c->x86_capability);
-> -	if (cpu_has(c, X86_FEATURE_ITSC)) {
-> -		__set_bit(X86_FEATURE_CONSTANT_TSC, c->x86_capability);
-> -		__set_bit(X86_FEATURE_NONSTOP_TSC, c->x86_capability);
-> -		__set_bit(X86_FEATURE_TSC_RELIABLE, c->x86_capability);
-> -	}
-> +    if ( ( c->family == 15 && c->model >= 0x03 ) ||
-> +         ( c->family == 6 && c->model >= 0x0e ) )
-> +        __set_bit(X86_FEATURE_CONSTANT_TSC, c->x86_capability);
-> +
-> +    if ( cpu_has(c, X86_FEATURE_ITSC) )
-> +    {
-> +        __set_bit(X86_FEATURE_CONSTANT_TSC, c->x86_capability);
-> +        __set_bit(X86_FEATURE_NONSTOP_TSC, c->x86_capability);
-> +        __set_bit(X86_FEATURE_TSC_RELIABLE, c->x86_capability);
-> +    }
-> +
->  	if ( opt_arat &&
->  	     ( c->cpuid_level >= 0x00000006 ) &&
->  	     ( cpuid_eax(0x00000006) & (1u<<2) ) )
-
-From your v1 reply I concluded that you understood that this isn't the way
-to go. Within a function, indentation shouldn't vary like this. I suggest
-anyway that you really wait with submitting a new version until discussion
-has settled.
-
-Jan
 
