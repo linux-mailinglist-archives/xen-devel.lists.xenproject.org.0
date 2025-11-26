@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB8E2C8A471
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 15:19:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1172935.1498041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A587C8A49E
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 15:21:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1172945.1498051 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOGN2-0004VC-Vb; Wed, 26 Nov 2025 14:19:48 +0000
+	id 1vOGOn-00061h-A6; Wed, 26 Nov 2025 14:21:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1172935.1498041; Wed, 26 Nov 2025 14:19:48 +0000
+Received: by outflank-mailman (output) from mailman id 1172945.1498051; Wed, 26 Nov 2025 14:21:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOGN2-0004TE-T1; Wed, 26 Nov 2025 14:19:48 +0000
-Received: by outflank-mailman (input) for mailman id 1172935;
- Wed, 26 Nov 2025 14:19:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vOGOn-0005z9-7Q; Wed, 26 Nov 2025 14:21:37 +0000
+Received: by outflank-mailman (input) for mailman id 1172945;
+ Wed, 26 Nov 2025 14:21:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=JzEl=6C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOGN1-0004T8-Os
- for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 14:19:47 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f52eddb1-cad2-11f0-980a-7dc792cee155;
- Wed, 26 Nov 2025 15:19:45 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-477b1cc8fb4so39076955e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 06:19:45 -0800 (PST)
+ id 1vOGOm-0005xk-4j
+ for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 14:21:36 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 364232c9-cad3-11f0-9d18-b5c5bf9af7f9;
+ Wed, 26 Nov 2025 15:21:34 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-47796a837c7so45120225e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 06:21:34 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42cb7fd8baesm41114953f8f.39.2025.11.26.06.19.44
+ 5b1f17b1804b1-479040bd209sm45580175e9.3.2025.11.26.06.21.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Nov 2025 06:19:44 -0800 (PST)
+ Wed, 26 Nov 2025 06:21:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f52eddb1-cad2-11f0-980a-7dc792cee155
+X-Inumbo-ID: 364232c9-cad3-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764166785; x=1764771585; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764166894; x=1764771694; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SnfpycUEx0DFVsEnYUywi/PGrnaPVM8e1nx+eui0S24=;
-        b=O4uR+UwWlt7qf4R+IBlCZH3omWlg6j7gIhoxn6GEvYkz4PVmkuKMvz0fJYOzEE96Nn
-         zNU3DWTxM0luFj0bVMxlX/UIw1yEhw0vn5AJlOT3ZL92VbUPdRsOBExNudc8uQMjPfLb
-         s5wyAYRfTOhn7OqE+OqZ8pV3SFwzzfKkiNkGC+ZaF4SSjtknKsn+XovBlsPb0afhdlKn
-         U9A9bq000yYXSNrvp3K8RJZ4HgnfIptFks7oBlw/WKvyADXeenkvmUjkyTRGawfeDuWX
-         7rpVy0+q5WqPl7b2tXgH68b0KvDPbEUrk+OOrbpXv3d2z5aPjoHOAkzFmYB6hMyXkAWP
-         qZfQ==
+        bh=YO4eTL+C31yjawiXcmtfWsOCMoReZA0ETxcYHO1pxWY=;
+        b=X2KCbFjNi55BjzNY2LLl2cncX7XTVwFXSsUtuHzMLcYzYDA8VVRy0X2gEPekZjuL69
+         7OATKstSkCyYpgRL3AyOmN2NjLQsnCihM9ktsnWfaGelJyE/Rv35mDNSLpruCmF29mmj
+         WHboZhi3FDtRc4povwl0zLB20el1cQR/GV1Jykap4OsAtBSGdJktkePBUh/uk/bODuq/
+         dgGp/6nATwZYeNOxXYANb9Bha43NT44rt35FVGI6xnh7ibCODuGVXKgvTAGzIgOZGDcg
+         h4ZMptyUA7jdMli8xqihGRTr3cvfX3xg1jY0Q2POVCQCxcGXf7s6lH22mt/TYr8aWBSQ
+         o0GQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764166785; x=1764771585;
+        d=1e100.net; s=20230601; t=1764166894; x=1764771694;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SnfpycUEx0DFVsEnYUywi/PGrnaPVM8e1nx+eui0S24=;
-        b=qGGmH8dn4y91AyBdoPKb1q/q1fSbbDNi0tWWQxTyxdhGS2sftwQAgEYr2UoJstkqcs
-         1ADcN5749AcUYHO5iAvdPak6C8voKvvo5emy4q+LQ+fC+VP9CTVJjYvNjFQkMkMFhfMB
-         3b7ZWktngYVEpNSxMwMJyzAudHbK81TZMJOJTPGQstVluKDXk4Lh+rt3ORXAl4z6Wp2W
-         /Dp0EjWxplwkYa0nfa4ZJJd9UJjOcedldHHf95NRHR74Yt3ha+Ji6wQv89rswnwm9tgl
-         s/zqUcQpBBXvDNmxUuiJ8cyml6dsE1A8cD+mqOsjOiCcfXO7WAiw4hLmKTM56NGzn/eL
-         /k0w==
-X-Forwarded-Encrypted: i=1; AJvYcCVgvB9o3w3HnSXZNCbjEISjD96CLRMiwBly2tNvlXgTSY6OKz31TaZIYZqaAgHgw9cXAgiLm0XpRDY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzSwd4Rb64SYq0wpfiy31xDSgLloV7QC+DAKD+5kEG4JWZke68P
-	gZuPv875BjtmUg7L4/kECWv9JnYVm7k1BNyswBVAz/0HA1hBvsHIiT0nMZW+HAZ0ow==
-X-Gm-Gg: ASbGncvgJxBAvbFLzmoKDtsj4MjwUYHEus07h0B5/jdIxyvwMEIKmcX4lWaceFjjn6c
-	TNz32S9038hTBqtksYTtJFOuMlwsvEVlr/qlVuHSt+YYZ0newmmymVd4NZh3uKWBSQfEzXLKj1i
-	0xvORtpr8MBaZP+CmlMB+4JTizSrOzqPVW3UoUbzsgywD4uQuC9t5/Gs3Ftv2ytAbG35opSsU04
-	0AZ0O59W0dWExxRSsBGJOy2WxYn76a+WH/Ky3+17CmeMo+oZvjIeeTH2zEa4/WY37pMd3d7cUw8
-	BsjKO6eORYLwHCy6nJkHMnZhaU5vMa4U80GkkzFRwvMVDH0pwFm09Ny1uoEWglPCNKHYXBGuQn7
-	X5PQZ4QKHGM8qkJ/9gwPIKo30GKqzG+X7cULifZ1nFz/Wk4pdZlEIoRI4nAfzoWn7DCGNR9wwUJ
-	Hd6B5ZI9DibOYyCVn2y1BNKsVqvuKeg8+BqxP35Yrnatqfr7M5PCB6RdExZRxdfjggeFLXvDm60
-	2f6sbYbtME/FA==
-X-Google-Smtp-Source: AGHT+IGLJXZhgry7rv1x6LZJppuNP6BfrDg2XnDUlmJejBKRlzD/R/GkznPBYx9Q4hVANyxiMQSmFQ==
-X-Received: by 2002:a05:600c:5252:b0:45d:e28c:875a with SMTP id 5b1f17b1804b1-47904b248demr77773925e9.31.1764166784829;
-        Wed, 26 Nov 2025 06:19:44 -0800 (PST)
-Message-ID: <ab8dc060-7707-4ff3-a413-730555aefeee@suse.com>
-Date: Wed, 26 Nov 2025 15:19:43 +0100
+        bh=YO4eTL+C31yjawiXcmtfWsOCMoReZA0ETxcYHO1pxWY=;
+        b=nIihOAS/h2Crbhu9Pu/rztDKd5qQ37zVLmk7RRApHHdoAt5QrGPJERj2VbWYuTVme/
+         8I4JhDGI2EIiKqmdZUPgLMuYofTBJpxWihjrN3l5VNr0o5ThOx+mF5tztA9+BmAkqJq6
+         QNzwHe+0E8n7azlWL6I43WKiIk5ZlBPJwX4hgv/uNrj0nErhDFW7C+DcnVxAuftOyll9
+         ONqtU2vSOtvJ0vSq1g1U1svpdraRnSgmsSWEoujS09BPs1FWDLIiJY+bHSF8uB3AM2L4
+         Nybm/rp+31CWJltBxM4joZHh8xPe0Ix4m3pmQaHBMP/H8hVHex+6b38UfS39ELVNlGUj
+         RxxQ==
+X-Gm-Message-State: AOJu0Yxwa+oK8fZ8QpBVoH+xIz2vpQzvce8OqqvzqPwOzzIo6nhlafvc
+	DZq8QzlthMWAVayQZ+YHvSHBQ64TiSK3gli5FZlbV8YFB41v85NbrI2Oku3b3X5TIg==
+X-Gm-Gg: ASbGncsmVuc69EQ1b6E23KoHp3kLqUX58yMef261Z67+JVtOINXYLIxc/mUJ323xplD
+	vsOHnrnwSp8o0nhhZ7mBpWIzTHaYk+R5rLz2rZY+gTC6o07u+MkfFsuBR6AEH6vwEdJBGSvQjDT
+	gSE1SvWsA10JWAxx0iuD0zj0ugLT0hhU2AebtCaDANmqZPmRjZ/Mb24D6T9B2cUSgApbA+Vpydt
+	eZLEdzp3HGZ17BVUFWP9DRxU8BHcbOMOT9MSUVq6IlFpjPJH4rq4wLXS4CZLrPh6V1sK3dIiLw1
+	AsYI/j1XNcBkYMclbugO+DI1A7XaiH3E00F82BYlTIyz30eryu5WwhFChX2oIMmZTVgw5cfrKZ2
+	OmyIK+CKY1s79pqgx3baB2quG8FC5+tdS7iJqznNMI4S6J6+einaQDBwIhEV/+OX5HEI7ks5Bga
+	H3cNj8gXld/AA5S06lqupB7eBQfxP4g2CIZpIMfGn4393SYa6lHcYADTYi+K4DiAQ0PxhSDfgbO
+	kmImitYFutYAQ==
+X-Google-Smtp-Source: AGHT+IGKFSUmiWnmOqoOmdrLamdowuhWgq45/k9GWez0S3tRzROSagkv+jsHjABkT5Pn72Mn+gFRJw==
+X-Received: by 2002:a05:600c:4746:b0:477:1bb6:17de with SMTP id 5b1f17b1804b1-477c01e2521mr214170625e9.30.1764166894093;
+        Wed, 26 Nov 2025 06:21:34 -0800 (PST)
+Message-ID: <6de82773-c084-49e6-b4b4-466a35583ed8@suse.com>
+Date: Wed, 26 Nov 2025 15:21:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86/amd: Use setup_force_cpu_cap() for BTC_NO
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251126132220.881028-1-andrew.cooper3@citrix.com>
- <20251126132220.881028-2-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 3/8] symbols/ppc: re-number intermediate files
+To: Timothy Pearson <tpearson@raptorengineering.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <bd689f02-3e6b-4d15-aa1d-d757a9ee54a8@suse.com>
+ <b915451d-62c9-4128-807a-42b908dbaef4@suse.com>
+ <1755986020.127148.1764166039180.JavaMail.zimbra@raptorengineeringinc.com>
+ <fdfe411d-0710-4439-85f3-a77ba71b8afb@suse.com>
+ <1213078822.127214.1764166453810.JavaMail.zimbra@raptorengineeringinc.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,22 +126,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251126132220.881028-2-andrew.cooper3@citrix.com>
+In-Reply-To: <1213078822.127214.1764166453810.JavaMail.zimbra@raptorengineeringinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.11.2025 14:22, Andrew Cooper wrote:
-> When re-scanning features,
+On 26.11.2025 15:14, Timothy Pearson wrote:
+> ----- Original Message -----
+>> From: "Jan Beulich" <jbeulich@suse.com>
+>> To: "Timothy Pearson" <tpearson@raptorengineering.com>
+> 
+>> On 26.11.2025 15:07, Timothy Pearson wrote:
+>>> ----- Original Message -----
+>>>> From: "Jan Beulich" <jbeulich@suse.com>
+>>>> To: "xen-devel" <xen-devel@lists.xenproject.org>
+>>>
+>>>> In preparation to do away with symbols-dummy, re-number the assembly and
+>>>> object files used, for the numbers to match the next passes real output.
+>>>> This is to make 0 available to use for what now is handled by
+>>>> symbols-dummy.
+>>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>
+>>> Looks good to me.
+>>>
+>>> Acked-by: Timothy Pearson <tpearson@raptorengineering.com>
+>>
+>> Thanks, but for clarification: This doesn't mean very much unless provided
+>> by a maintainer (M: in ./MAINTAINERS). As a reviewer, you'd use Reviewed-by:
+>> to fulfill the purpose set forth in the textual part of that file. Provided
+>> of course you actually did a review.
+> 
+> Understood, and yes, the patches were in fact reviewed.  I will use the
+> alternate string in the future.
 
-What exactly do you mean with this, outside of XenServer (i.e. upstream)? The
-only thing I can think of is recheck_cpu_features(), which calls identify_cpu()
-and hence init_amd(). Thus ...
-
-> forced caps are taken into account but unforced
-> such as this are not.  This causes BTC_NO to go missing, and for the system to
-> appear to have lost features.
-
-... I don't really follow where features might be lost.
+Then still for the ones here: May I flip them to R-b, meaning the patches can
+in fact go in without anyone else's (i.e. a REST maintainer's) ack?
 
 Jan
 
