@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EF75C88FBC
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 10:36:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1172439.1497508 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E515C88FEC
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 10:39:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1172450.1497518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOBx8-0003Iu-O7; Wed, 26 Nov 2025 09:36:46 +0000
+	id 1vOBzm-0003sN-49; Wed, 26 Nov 2025 09:39:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1172439.1497508; Wed, 26 Nov 2025 09:36:46 +0000
+Received: by outflank-mailman (output) from mailman id 1172450.1497518; Wed, 26 Nov 2025 09:39:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOBx8-0003HT-LO; Wed, 26 Nov 2025 09:36:46 +0000
-Received: by outflank-mailman (input) for mailman id 1172439;
- Wed, 26 Nov 2025 09:36:44 +0000
+	id 1vOBzm-0003qo-1L; Wed, 26 Nov 2025 09:39:30 +0000
+Received: by outflank-mailman (input) for mailman id 1172450;
+ Wed, 26 Nov 2025 09:39:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=JzEl=6C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOBx6-0003HN-PL
- for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 09:36:44 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1vOBzj-0003qJ-Pe
+ for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 09:39:27 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a9dffeb-caab-11f0-980a-7dc792cee155;
- Wed, 26 Nov 2025 10:36:42 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-42b3c965ca9so3612304f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 01:36:42 -0800 (PST)
+ id c9e6ee75-caab-11f0-980a-7dc792cee155;
+ Wed, 26 Nov 2025 10:39:22 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-47774d3536dso5317075e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 01:39:22 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42cb7f34ff3sm40322670f8f.16.2025.11.26.01.36.41
+ 5b1f17b1804b1-4790adfd181sm33762625e9.14.2025.11.26.01.39.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Nov 2025 01:36:41 -0800 (PST)
+ Wed, 26 Nov 2025 01:39:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a9dffeb-caab-11f0-980a-7dc792cee155
+X-Inumbo-ID: c9e6ee75-caab-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764149802; x=1764754602; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lSvNV59xQ/tUIl797hLPajV84NYL1X9lcVEsAN5AThQ=;
-        b=ODEFp4Rd8/3tWeiCWHinLvpTUWY5REQzYIvRNZfJZuUqfHenTLyuV6r+LRezr/h6Tz
-         EbMDDJ/0rCixcnzo2E+3EUQ5tA3lepVNRlau4GIsHRWKPu6uIA77px/hGiDHdGNwzVod
-         Xq2dGpFy+5DW1m0NsKgGBZjWQUYxST/depcwYJOCfLS/RTTDIk2t2fhltBD4pFlYn9uJ
-         GBYlEomOyyR3xXuCtorLdX9sRZIATw7vxzdwTLYAdqw6UW/yO6y6H/Ohb46dL/R3exe1
-         ViAFb7IivgVXe2O3vloCXDwFZ36Qkl2KDYtcdxMuEM1GMlWEHcIF0a2shUgNBlNWjKdf
-         TqUA==
+        d=suse.com; s=google; t=1764149962; x=1764754762; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=mZg2WKFZMeQJ68a8Xwt8SeNBnveQS5XpWXNYLo8xRjA=;
+        b=CLTQVOzNcujGBt2/ZZG5ab/t7ocCtuU5UqeHy8SynEMkvsM8VfFVI49rRBi0a5Px1W
+         a/Wdx7mxy3dUUoLn02n4Tn/YGJExNxF5ICpJTX411R+ho8FVjtyPbxyfGRhhBTG8Bm3a
+         v28YlkCWtzqW5fQz6Q42KS6/wFkzjoTW7FyquMDbNdrgNYXZzUj0FhcTBo1rlXtPyLCB
+         0/NOzmD7DI52cGi3lD0cFA4e/Ksb/yn4852pEb42IUeV4tZqrIqXWZ0Hm+d836TeWY+S
+         JqCx8q4mLzuVVTDyDDn+YeLowK6vvQFij/0a85lqKveZna8OVGLs9mkXNU+zCmFqQ2/k
+         z7cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764149802; x=1764754602;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1764149962; x=1764754762;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lSvNV59xQ/tUIl797hLPajV84NYL1X9lcVEsAN5AThQ=;
-        b=JRGTaHbu9yHOL0OtK7pbgGEaMErKXi2nteUy8XbUxToIicU8gIIbbyBAunOaVGo5RS
-         wCMDpvPgTQBLKTLpfw+/8Zkdnqxta/CS/5+xYEWcKv1BiFjB83xx9Vx+7+nAvTpO9ma8
-         8VFO+mxF0kmiqIFJx2Nr6WWJa1JHxu2iJMuAFSvddJDK2q9/qlKAgEy76iM4w6lUzEzC
-         NYU1L7spZCEhKPEI0sz+fTbCXYXu42ScJE15numPlswlRtG613mebN7JF6XXL3URIlRF
-         AaDjmU9a8kJXhQwB2DvjaBNgivsALt4G8u4uy9brOGTcp5BetIgCFlhjlBhdPtr4HC32
-         tCDw==
-X-Forwarded-Encrypted: i=1; AJvYcCUXHDurmw4wFXLXio/tGeKxLv4Ed/7dHLOo54fd+ptPfCkkHIt2VcKgBXI6Ib8xJNqQruKH7dP+nKU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzvCTvyTATxhkVWeUB6UEMP3HyIFyqJLrqBMl5BoMmSFnqSA8bX
-	/UX334JaqjPvhX0fA6nXsGWgQCsuLEIxK32gHulnIK1TfTxGquo+T+ioh7ND3VuIQw==
-X-Gm-Gg: ASbGncuu0N3uHFlDx1eN3IBAoSe3k/GdMhbeaqzkISCDnuyjCbJqXuSFeRM7kAnCFx5
-	1reIRrs149Kg0BHZ6rB+tw2dt5gk6BHB+uspmkSNtefKSRXPENB733KyeMO5iZFQu/fRkYreR7+
-	1RhqsMsUP4vhISFmdeRpGLt9X1mLlfIASpl7stihLFwVyMl2ZmptJs/H7MW8nVIc7J9mR/oiIEi
-	Eaq6gZRrq3oSUIDp+aN24heCeAIUZ58vMNPfqy4vPtsOBQZUL6fqjm0UGgXdRmzTx2Xq652//xe
-	ViiZYFrgw+4Ewv4GbgldcjJhxeRYyT4rwebqKuY+7SzsgBsHI3qNgnnP0x34vbuO7jSXakeu8IB
-	2YSGHTWOSur8LvrMpaajNUrq61ByVO9hPkAREQfOaVv2m7KNZtnmN0hmLpXUee9Mdz6eDCEebXa
-	IIAmjeisaA4e8NAHYKai4Qh51nlIcgE0xRorXKNJrh8UxKqWS2y5pfIwclhi0TDr8WMLh8NqPA0
-	no=
-X-Google-Smtp-Source: AGHT+IH7joh8d8pVnfmR7+YnUQRKLSAaZIpF56M9eTx4jtakNESPFijwBIED95a2MmVDjlC1c6Jcmw==
-X-Received: by 2002:a5d:5850:0:b0:42b:3746:3b86 with SMTP id ffacd0b85a97d-42cc1d61bd1mr21007187f8f.54.1764149802117;
-        Wed, 26 Nov 2025 01:36:42 -0800 (PST)
-Message-ID: <f74aeee7-7ec2-4e00-9729-273584946563@suse.com>
-Date: Wed, 26 Nov 2025 10:36:40 +0100
+        bh=mZg2WKFZMeQJ68a8Xwt8SeNBnveQS5XpWXNYLo8xRjA=;
+        b=HxhtghrbgVaqpQ37Uiw+ZqfPXToXxD4RJbrU4ptxjPEecF2LNountDVz7zTpxpJr2z
+         a2IsNRGmF/LDZrWzoVkuBxYE3PVJTlhAAyyEXohJsO9ecGo5J4yk5kpYV9Fp9YM63iYR
+         0AMsCX9SF6yNtX8IOt0N7uUl3piCe4ZpuXB11qhd4jI74o/JfHKe7lvO17S5CIkaWQwV
+         dI3rUhj61ZRMYo3OWjXTD0QcRtGiexfaYb+6AY2vH7TAwb7U/Fe55u3A92xqfttfPPfS
+         wjh0GflsZxEvUbQKCnt6L3E8B/wfk+lGOeXTYybShXbWd2aRckihJgin9wAaEWql1saI
+         o/QQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUqD7g8A+7U32w+Q98280I727ZQfnhDJniHJRBdRnKBif910tTDVA4D4YORrGEXsk5hPeXA9Zjp+Yw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwxsNswNO1STfbtgQW2kk6D+k/jArPZ+DlSI1rrDmwZ1r28cTzG
+	craNWxD2I9s6xrwuThcZ6CDGS3i9rli47o3b/DMEAFByO8WcEpsLmP5cT953i41wAQ==
+X-Gm-Gg: ASbGncu0YzsAUQD2cJDpv6jvTVbx2ZuX5wtWr1qom/Kkla4JMLBq1bIUFMRYBVV+yX8
+	1LkeuCXbnzyoO8Hffg7lrIjqDkHU2gbQ53lcAO1PmEfkK+T6U130bk7ZR3ZHtlJrur9Qx05MrY5
+	A1/1yEwnCX3GxHK7MM3lWTlNGzmsfD4Jpk81jppvTOvfniDGN7/qXercmdDc24SouMHcRs4InZf
+	d+isajvjtXOQmxw6f+W/Hm7G4GKpK0F4tA10CQ0IeO7E2Cqi1N1nnoqgDsDF61wu2DvD6eT9HHS
+	nM+Mx6Xzx6Aa6/tEaHhSCITumDUlx4scsAo6ashuUU3t3Na9sFo7ZvJ5IOwb2mOeQtNIHb8cwiz
+	cOvR28LMg/2a3WaAkd+Xwk/pQAhmAGWsY79NQybfbZwOD7jltGn9OhPdlth8Vu45UPCcOY3zcJ+
+	tfiIHX/BeSJIeeIhmxa9VBX7pYVtOJosAvZIG1xwX1BcN2hSYfAlq4w8wb3LZYkw6ufmvVINsm8
+	UI=
+X-Google-Smtp-Source: AGHT+IEdp6yqMZWMdi+cpCl30yCtPYrgsL6OiTePhSWlKn3QGrEpVRnpeYhNxuEqCpe5TyxTZa+TdA==
+X-Received: by 2002:a05:600c:1d14:b0:477:9d88:2da6 with SMTP id 5b1f17b1804b1-477c026ed62mr181868245e9.0.1764149961927;
+        Wed, 26 Nov 2025 01:39:21 -0800 (PST)
+Message-ID: <e90d4db1-919a-42bd-872c-b6a23b16412e@suse.com>
+Date: Wed, 26 Nov 2025 10:39:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 22/24] xen/domctl: domctl_lock synchronization only
- when MGMT_HYPERCALLS=y
-From: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v4 06/24] xen/domctl: consolidate domain.c with
+ MGMT_HYPERCALLS
 To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: ray.huang@amd.com, grygorii_strashko@epam.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20251121105801.1251262-1-Penny.Zheng@amd.com>
- <20251121105801.1251262-23-Penny.Zheng@amd.com>
- <6f9d00c7-8304-4d80-92c8-f134cceb01c1@suse.com>
+ <20251121105801.1251262-7-Penny.Zheng@amd.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -124,36 +125,85 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6f9d00c7-8304-4d80-92c8-f134cceb01c1@suse.com>
+In-Reply-To: <20251121105801.1251262-7-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.11.2025 10:20, Jan Beulich wrote:
-> On 21.11.2025 11:57, Penny Zheng wrote:
->> Helper domctl_lock_{acquire,release} is domctl_lock, which HVM_PARAM_IDENT_PT
->> uses to ensure synchronization on potential domctl-op altering guest state.
->> So it is only needed when MGMT_HYPERCALLS=y.
->>
->> Suggested-by: Jan Beulich <jbeulich@suse.com>
->> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+On 21.11.2025 11:57, Penny Zheng wrote:
+> The following functions, scattered in common/domain.c, and are only referenced
+> and responsible for domctl-op:
+> - domain_pause_by_systemcontroller
+> - domain_resume
+> - domain_set_node_affinity
+> So they shall be wrapped with CONFIG_MGMT_HYPERCALLS. Otherwise it will
+> become unreachable codes when MGMT_HYPERCALLS=n, and hence violating Misra
+> rule 2.1.
+> Move them together to avoid scattering #ifdef.
 > 
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> 
-> I'd like to note though that ...
-> 
->> ---
->> v3 -> v4:
->> - new commit
->> ---
->>  xen/arch/x86/hvm/hvm.c | 5 +++--
->>  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> ... with this diffstat the subject prefix is pretty misleading once again. I may
-> take the liberty and convert it to x86/hvm: (and then also add parentheses to
-> domctl_lock()).
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
-Actually, the series looks to be in need of a full re-submission anyway. I.e. I
-can't sensibly cherry-pick parts to put in early.
+One further small request here:
+
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -1115,35 +1115,6 @@ void __init setup_system_domains(void)
+>  #endif
+>  }
+>  
+> -int domain_set_node_affinity(struct domain *d, const nodemask_t *affinity)
+> -{
+> -    /* Being disjoint with the system is just wrong. */
+> -    if ( !nodes_intersects(*affinity, node_online_map) )
+> -        return -EINVAL;
+> -
+> -    spin_lock(&d->node_affinity_lock);
+> -
+> -    /*
+> -     * Being/becoming explicitly affine to all nodes is not particularly
+> -     * useful. Let's take it as the `reset node affinity` command.
+> -     */
+> -    if ( nodes_full(*affinity) )
+> -    {
+> -        d->auto_node_affinity = 1;
+> -        goto out;
+> -    }
+> -
+> -    d->auto_node_affinity = 0;
+> -    d->node_affinity = *affinity;
+> -
+> -out:
+
+I realize you only move this, but ...
+
+> @@ -1616,10 +1560,68 @@ static int _domain_pause_by_systemcontroller(struct domain *d, bool sync)
+>      return 0;
+>  }
+>  
+> +#ifdef CONFIG_MGMT_HYPERCALLS
+> +int domain_set_node_affinity(struct domain *d, const nodemask_t *affinity)
+> +{
+> +    /* Being disjoint with the system is just wrong. */
+> +    if ( !nodes_intersects(*affinity, node_online_map) )
+> +        return -EINVAL;
+> +
+> +    spin_lock(&d->node_affinity_lock);
+> +
+> +    /*
+> +     * Being/becoming explicitly affine to all nodes is not particularly
+> +     * useful. Let's take it as the `reset node affinity` command.
+> +     */
+> +    if ( nodes_full(*affinity) )
+> +    {
+> +        d->auto_node_affinity = 1;
+> +        goto out;
+> +    }
+> +
+> +    d->auto_node_affinity = 0;
+> +    d->node_affinity = *affinity;
+> +
+> +out:
+
+... can you please add a leading blank here, to conform to ./CODING_STYLE?
 
 Jan
 
