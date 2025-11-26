@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6944FC8A143
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 14:43:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1172719.1497823 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C5A3C8A14C
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 14:43:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1172726.1497834 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOFnn-0005Rt-KH; Wed, 26 Nov 2025 13:43:23 +0000
+	id 1vOFoF-0005uD-Tt; Wed, 26 Nov 2025 13:43:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1172719.1497823; Wed, 26 Nov 2025 13:43:23 +0000
+Received: by outflank-mailman (output) from mailman id 1172726.1497834; Wed, 26 Nov 2025 13:43:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOFnn-0005Px-HM; Wed, 26 Nov 2025 13:43:23 +0000
-Received: by outflank-mailman (input) for mailman id 1172719;
- Wed, 26 Nov 2025 13:43:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vOFoF-0005sg-PL; Wed, 26 Nov 2025 13:43:51 +0000
+Received: by outflank-mailman (input) for mailman id 1172726;
+ Wed, 26 Nov 2025 13:43:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=JzEl=6C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOFnm-0005Pn-De
- for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 13:43:22 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dea84592-cacd-11f0-980a-7dc792cee155;
- Wed, 26 Nov 2025 14:43:20 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-47118259fd8so59035435e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 05:43:20 -0800 (PST)
+ id 1vOFoE-0005ll-GL
+ for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 13:43:50 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f03d11df-cacd-11f0-9d18-b5c5bf9af7f9;
+ Wed, 26 Nov 2025 14:43:49 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-42b31c610fcso5790816f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 05:43:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42cb7f34fe8sm40612726f8f.15.2025.11.26.05.43.18
+ ffacd0b85a97d-42cb7f49a7bsm40379270f8f.19.2025.11.26.05.43.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Nov 2025 05:43:19 -0800 (PST)
+ Wed, 26 Nov 2025 05:43:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dea84592-cacd-11f0-980a-7dc792cee155
+X-Inumbo-ID: f03d11df-cacd-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764164600; x=1764769400; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764164629; x=1764769429; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
+         :references:cc:to:subject:from:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kW4u+DhlyiKzZcaPDyVYTZpsE+za95Xh2fLD/1x9t1g=;
-        b=OJVsiUmMsvC4wP7YGVc7pa+Or2dmmaUT4avOO6Knjac0pEZ+JSNMbEIOpmwyEaezyx
-         QVZ0DrO6QKfI+b6imINaNFtiwXoVrNpw/ekq7HzKpzFAYkPpdAXaCHC/zYvDIJ14qHrO
-         5YnmUzk1jxWIow8I02Rtzle8tvD+xrNez90FOjH1NxWyOEDAFQpCbKAx9eir0mtfZGy2
-         K0ST8IaLdUFVo0Rnb6NeRpVNDkW4DpIjGq1dI8Bd5Uos+/Wc0BAZuZd6yuySufQNLt8G
-         8WhjEboV8m+Mf0ab/87sEuLbqxTzqsXzSARjTg8WRXj65U5LcHxk8fONhzSCCosp6GgR
-         UolQ==
+        bh=MzQy66iAeTDGv+bNGxhdi0RJQlPxW7NcdZe6GibETbQ=;
+        b=O76O6So2Twlc6kil/OI1L4tCmh13GdsMrIWyJ0WVwOM33NwZneXRY45nvccsX7b0q6
+         mXHPjCpPnNE3cvc6QLp/VWPWP4kQ+NFhATtJ9r+0F9W8Qdmj+Ig4FpAvbUH9oaintEQ9
+         vP9Lx+Hdvmqw7GzWybvQVtZ3OPGZS3SoCUFhbizEHqWL0rWoziYUzeupLlSdf49VfItD
+         6vIPDmp+Zl4QRPiJetxkGiWmtKBI5QlM6D/+vPB7UycON0ZsX1DVaJ1N4pxvg+bn7GwF
+         WPYywQPHRx4G5NtffcNihXVzaGcrQVzm2PgpedokpR1zAtaQn/afN5tHl4lKNajcJ1DI
+         zLpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764164600; x=1764769400;
+        d=1e100.net; s=20230601; t=1764164629; x=1764769429;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
+         :references:cc:to:subject:from:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kW4u+DhlyiKzZcaPDyVYTZpsE+za95Xh2fLD/1x9t1g=;
-        b=wjuNJRCOe1fe9E6YS6/LA4CAUyJPJ+vruJAPIL15O0xnMwvInP/aTtbMsQhKGQ1CqS
-         6/in+BBTwp8t3Y6WvasTAFc06Fmp1pDxVmjALPHOtKrQdUaFy3ikpwrxz9UtsAwu2pyt
-         +y0KaK5ahLfFcG3P1aXUqfDU06D6IR+jRndZLGL3DqD2Dm+BBH8IAC/scbUHIi68Ub71
-         05EHAzwSomMn4DYGD7u36M6tn6k0S+dXAsHWjIEhL+b//Ggi+h6eO+hh49c1895McZjQ
-         kTSMDEvrdkWPYybC6eM9YIyJmOwh9BROb9BQeHxo3/6Fu0+GxrUXV/mSF90HYlISx+Gw
-         d08g==
-X-Gm-Message-State: AOJu0YyKIZbefiedm0TwiR3RQgtfZ3BeUZjUIa391i5QN7y6aPwcspVC
-	aQzQESsRnKGd+67YvyJ0h9CeQcM2pPsIxFSPVVT+Dms5y7M/IsIl41e2hfNM1xb/i1as6RNONMf
-	OfXQ=
-X-Gm-Gg: ASbGnctm9TI3E2UhKGrOdCuKWs3j4QT9i7BHsmld48xi1Cj3O124AL3X+G1CUkmidql
-	ahaG5Ihlpk16cYdQhG/gsNJ3bVOknN5t6nWIwht5FpjJbtwLlvKMtsYxniRGAsmyOIKIfMx0P3D
-	ZXk48Wkm874M+B8UtT3UUNR2YDox/+ry0vexsqOkdeYaDoCIfYWaagBLGAm05C8ks6uPw3YkbQG
-	i2Xl97vh8VqAmlhJ6Qz2xLAn2tU8TeBm6brcWrsEMWhCD6QE3z8IJprn+lyuhVqwPVYF0QQom4w
-	mGNiPeyFPBb37w6zDOpveWHhsHJcJLCr2JWUlPUF95W2rWEYDDQYlKkssyERl0hG9zOXqi7WtgX
-	OVN913tQ/8mGl14JOtU6YiKr7xuxzivaGUS3awG4LnGANvXEfXTxgt6sFZ/+BcMBpDyK4vMG/li
-	wH6nMIT3mZMwPDvmafPxE3YXADZ1/KYGyh9POIAeuWJ4gOn3EuBqNJ9xeF8jsu5fYqoONn4Zxdz
-	7TRBMH/sn37KQ==
-X-Google-Smtp-Source: AGHT+IH1T4F8xR4Q94C5mcqfF6rHEGQeFKPfIr5xZ4OdfYZrhS/YaJ66f6169A2XbNqLfoKHvXJyBg==
-X-Received: by 2002:a05:6000:40dd:b0:42b:39fb:e87f with SMTP id ffacd0b85a97d-42e0f350357mr7285685f8f.49.1764164599611;
-        Wed, 26 Nov 2025 05:43:19 -0800 (PST)
-Message-ID: <b915451d-62c9-4128-807a-42b908dbaef4@suse.com>
-Date: Wed, 26 Nov 2025 14:43:17 +0100
+        bh=MzQy66iAeTDGv+bNGxhdi0RJQlPxW7NcdZe6GibETbQ=;
+        b=P2cIOGrO25IDzQzUbjeKAzSii/gqY4aFgxKcFx0kj8M0s0J6O1SXcdxBSE7rr5Qkmm
+         ytObu2SSWc8S3cWvZ4ru4yUeyn+dqKrN808ndBl9HRknZX/z8PPkDmY87K151n64Fs7g
+         /kPEwjys54KlXwDaj6iJR9CFc589onxw3zt6SwgOTAvkhEZBDBzj8p2iJYrv2SRiO7K0
+         d5Klmv7Fm5CjFw8YoJ4wEgSfoIw5MYwQ/XNx92hJ8qaVUCZ8s+XDrkr/NVMESq45MNlm
+         aPkf/9RTood6xAxYM2aaT2yBXYeqzAYoAn1mAU+1YGfyZtFhA039N29HNiBpS8NyAAvL
+         9hsQ==
+X-Gm-Message-State: AOJu0Yy+9n7iSeMHfKLiSBhMhfZbnQw1VpBVgNVzvzfmSatRoi3NOHSK
+	jQVUBjqvMdSYP6aC+MKgvk4h2QUXv3VIUkdQuhfsIoRUo+RI6CaSbZ7k2upt8d1maNmThgPn6KG
+	bZLA=
+X-Gm-Gg: ASbGncu22e7W6r4nv04dqGyfbDODWOKDAr36Nm1jRaRSHYPUXL5w7t4Mokwj5PcOU3E
+	QFjFAJIoezAMxB1HFi8OusEK7dJ5RAm0DbvNR7yZmPdr1ZbWhXV9qdAj/lOjOn8e1jwXU1dp3hf
+	NYXZ2VDhqpqGV2XHUm8Sr313eygofWM2e5CjXqdcY5wJXA1CB55wJD0VzlVeWfsZhzDkCfhfmXy
+	vQSoeK+Q/wjLwBWTLqf/WMQhr/MnxjwUVLdxnBlR767+8QAUJFjeLl+oEu19wFGc1eSog7w4iwK
+	MaKf02a9tLhMrStOcBt+VPldJ6ZZZqq3naw69jC5maoD0MpoKs45obb6VLgtkgJUZoPQm1KCHwX
+	upCL2w8MO7UYp8Ah6lqOdLYQ1fWHCD9QIx5CVl3o1qyhMhfMruUXv7LHhSQwOjHo9C7NXE97SsQ
+	wQR46hJfH9+WR6kxveoXs2Ix959IdDorU0mKCknd11ZiR3IMw5gM2Ie4D7dp1JNSwt3xtV5EALz
+	EQ=
+X-Google-Smtp-Source: AGHT+IEdYsO0jt/rJPFE/sF/i918ilX7nsBEWoX+TFHpeJcxtroLantROPspT2SGOWEDwMkl75E7YA==
+X-Received: by 2002:a5d:588c:0:b0:42b:2f59:6044 with SMTP id ffacd0b85a97d-42e0f21e9e4mr6941088f8f.17.1764164629016;
+        Wed, 26 Nov 2025 05:43:49 -0800 (PST)
+Message-ID: <8717ed0f-e837-4054-a67b-b41c08449c1a@suse.com>
+Date: Wed, 26 Nov 2025 14:43:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 3/8] symbols/ppc: re-number intermediate files
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH 4/8] symbols/ppc: don't use symbols-dummy
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
@@ -126,37 +126,29 @@ In-Reply-To: <bd689f02-3e6b-4d15-aa1d-d757a9ee54a8@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-In preparation to do away with symbols-dummy, re-number the assembly and
-object files used, for the numbers to match the next passes real output.
-This is to make 0 available to use for what now is handled by
-symbols-dummy.
+In particular when linking with lld, which converts hidden symbols to
+local ones, the ELF symbol table can change in unhelpful ways between the
+first two linking passes, resulting in the .rodata contributions to change
+between the 2nd and 3rd pass. That, however, renders our embedded symbol
+table pretty much unusable; the recently introduced self-test may then
+also fail. (Another difference between compiling a C file and assembling
+the generated ones is that - with -fdata-sections in use - the .rodata
+contributions move between passes 1 and 2, when we'd prefer them not to.)
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/ppc/Makefile
 +++ b/xen/arch/ppc/Makefile
-@@ -16,16 +16,16 @@ $(TARGET)-syms: $(objtree)/prelink.o $(o
- 	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
+@@ -12,8 +12,10 @@ $(TARGET): $(TARGET)-syms
+ 	cp -f $< $@
+ 
+ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
++	$(objtree)/tools/symbols $(all_symbols) --empty > $(dot-target).0.S
++	$(MAKE) $(build)=$(@D) $(dot-target).0.o
+ 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
+-	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
++	      $(dot-target).0.o -o $(dot-target).0
  	$(NM) -pa --format=sysv $(dot-target).0 \
  		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
--		> $(dot-target).0.S
--	$(MAKE) $(build)=$(@D) $(dot-target).0.o
-+		> $(dot-target).1.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).1.o
- 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
--	    $(dot-target).0.o -o $(dot-target).1
-+	    $(dot-target).1.o -o $(dot-target).1
- 	$(NM) -pa --format=sysv $(dot-target).1 \
- 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
--		> $(dot-target).1.S
--	$(MAKE) $(build)=$(@D) $(dot-target).1.o
-+		> $(dot-target).2.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).2.o
- 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
--	    $(dot-target).1.o -o $@
-+	    $(dot-target).2.o -o $@
- 	$(NM) -pa --format=sysv $@ \
- 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
- 		> $@.map
-
+ 		> $(dot-target).1.S
 
