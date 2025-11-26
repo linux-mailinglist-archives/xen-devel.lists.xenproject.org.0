@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A42B0C8B221
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 18:08:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173263.1498324 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD12DC8B29F
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 18:15:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173272.1498335 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOJ0C-0001uZ-1P; Wed, 26 Nov 2025 17:08:24 +0000
+	id 1vOJ7J-0003xl-OP; Wed, 26 Nov 2025 17:15:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173263.1498324; Wed, 26 Nov 2025 17:08:24 +0000
+Received: by outflank-mailman (output) from mailman id 1173272.1498335; Wed, 26 Nov 2025 17:15:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOJ0B-0001sQ-Uy; Wed, 26 Nov 2025 17:08:23 +0000
-Received: by outflank-mailman (input) for mailman id 1173263;
- Wed, 26 Nov 2025 17:08:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YY09=6C=gmail.com=groeck7@srs-se1.protection.inumbo.net>)
- id 1vOJ0A-0001sK-Bv
- for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 17:08:22 +0000
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [2607:f8b0:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8123c798-caea-11f0-980a-7dc792cee155;
- Wed, 26 Nov 2025 18:08:19 +0100 (CET)
-Received: by mail-pl1-x629.google.com with SMTP id
- d9443c01a7336-297d4a56f97so103137845ad.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 09:08:19 -0800 (PST)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5?
- ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-29b5b2a155fsm201208015ad.88.2025.11.26.09.08.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Nov 2025 09:08:17 -0800 (PST)
+	id 1vOJ7J-0003vw-Kw; Wed, 26 Nov 2025 17:15:45 +0000
+Received: by outflank-mailman (input) for mailman id 1173272;
+ Wed, 26 Nov 2025 17:15:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+ZBX=6C=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1vOJ7I-0003vq-Au
+ for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 17:15:44 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8a2e41f5-caeb-11f0-9d18-b5c5bf9af7f9;
+ Wed, 26 Nov 2025 18:15:43 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-429c8632fcbso39975f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 09:15:43 -0800 (PST)
+Received: from localhost.localdomain (host-92-29-237-183.as13285.net.
+ [92.29.237.183]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42cb7fa3592sm40370605f8f.21.2025.11.26.09.15.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Nov 2025 09:15:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,135 +44,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 8123c798-caea-11f0-980a-7dc792cee155
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: 8a2e41f5-caeb-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1764176898; x=1764781698; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=H70tQVp0jdRu6yLi1ZHSywEXJI9fMFla6cCqq4jxfcs=;
-        b=kK00+BrEomWPQ99reWcOHDnX3jg4HK7Y5b7/x2AQY9vvspgKOHiDkwERaG/Is99YvC
-         4WE4cv4vkG6G5+vF8wO09DNILNA5V/iRjN1vXe4yDB++WmDPqmlerNLcxgF1tMITe9IX
-         6Yqo1DNeUUgfKgJKhZxGMQa6YCitzd+v/p7xzIEcIMw/3qqzWIvBOqFkshGrs1V6qHTl
-         a7j8/lJWRiMLJoMzq2xq0wKdokMDmMuoezeb65wV/hSS1zdOnCo+sQbenJynqraPyL3U
-         99ASYb4X+TaUbiikaqtTVi2r70Dbji6NS631cGF9KGQu3m3Ln7/fK5ZhbHKybL35RoFJ
-         lBSQ==
+        d=citrix.com; s=google; t=1764177342; x=1764782142; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=TN411ehaGiCJ946gDbcyauDPO/gV4MrQ/y3F4+B48Hc=;
+        b=fGqsMoYb89HHe9cjvmtk/BTPjrDmR8+APzjwuTkVt0dlRF6KnrU+aFafouofbEiAU3
+         gNjKzoykLQ/Qr5bCaZdTWZsN4O3EmR1z0u7VXJQS4RNumm3M09w7aYkQmyqO98dg38sb
+         3fPJ1+6TKzA3934ZMDl842YoxmVOOE78tKtGk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764176898; x=1764781698;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=H70tQVp0jdRu6yLi1ZHSywEXJI9fMFla6cCqq4jxfcs=;
-        b=Zys33ysoEF3xRC9RyMX8VDzD3kXgfmJSSR6Y/ruyLx6W179ZHPsIpJ27mkb/B/Lag9
-         bA8v4vX35H94bxbHl5LAscOZ0+HrL0WANMtMNwTEnPbXcmBAzvT2CSq0zbFz970KGn34
-         AksusrLxSQdZ3zNwTyWD7zgq7Cg5ppSZED+pK4KhzH67bLkHsI81AAN/m3c3kzlBHhDB
-         dwx39K+BZARsljHMVW/5yxe+uKO08KdQ5BhyDqNy7H/SLkbQWIMOrUzLBHIMvRJh/fZe
-         p/LiwL89Fk2LpF/SgDX+L9qnGKpRjDy15rc9urEsgHWGfsJVgg8KCBl8cT1SkLzpODHO
-         j4QA==
-X-Forwarded-Encrypted: i=1; AJvYcCVUA8gHBD6Bw/dLjSmWUdLQ99ads34mV7gR5FCBJFhOKEGCK6TQZh8MzsmttVF/loYkxl1/bRcSdl8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyYJtpNZfwXpQWes7Qrhft1xn9/tL6JB7AeOSetIdOUa9xdguHJ
-	NZqjuYwu48+zBELH8fiojw54bacrsr60gneXB5IM2VWCsO61Pczou4/Q
-X-Gm-Gg: ASbGncv5YRbX+kvlqzp6iKILih1TZ/E3jfzndKCEGYmMr1qzobvdl1sb54lTpoikC2d
-	3ef4VRydsGxIkUjyPAuDLsoNBFb+TfiQp1Lt06jCHCXn23C2NyK8uIe3yV2+y1DVnBF7vgl/vTV
-	NLRQAnf+VCFKRi+3D0woUZNfuXInqvK9PSTwE091ymUlqiKXkUPsBMmKnJIXgR/32TjBk2sxKDc
-	JZJ3tIVLlBuObaujGn4jvc2fFX6C1SSPtUTkM5AQe5vdPgtL0pAlMM3jq86MTfRUxuuOX6sGhMV
-	iia9ehUkzYuhuPlJfKyTtzBYfT14u2coImbK0176Sk7PUs4oa8x2ifVhGnn6RTrlLqfdFf+w4oF
-	SvRJmibAWU8jGYwK7BdXmhLOfqxooqyKEpDDTPxqA3OjfO10ZKIzIhl5hG3/P8Tn1HIiq0GgROQ
-	NHw2uv66JE9b6pg3+Asi8ligmlfeRerzD0ckot0b+wR59Whwlyp2KRdSA09lQ=
-X-Google-Smtp-Source: AGHT+IEm/eX5yuwpOzoClbM8zcPawe2/xqTQQviecb25Bk40JcOnKIa/X4pWfDT/0x83wWLQHNhjCg==
-X-Received: by 2002:a17:903:234a:b0:298:55c8:eb8d with SMTP id d9443c01a7336-29b6c575114mr249233285ad.35.1764176897825;
-        Wed, 26 Nov 2025 09:08:17 -0800 (PST)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <55bedecf-a4ab-445d-b6b2-c6dcbcd5bd95@roeck-us.net>
-Date: Wed, 26 Nov 2025 09:08:15 -0800
+        d=1e100.net; s=20230601; t=1764177342; x=1764782142;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TN411ehaGiCJ946gDbcyauDPO/gV4MrQ/y3F4+B48Hc=;
+        b=r30TiToFTwR6+TBeWWoOgolRSWwCWexLQM8we9SXFqhENeNuly/eq2jZOI5Y+hAInx
+         Mbi5LLcFqKWElava1s8X63oyPIaHko6lPoff8lmSvllgwA3vThzz6Z8M4Gyp1Tz02W2G
+         EDzkDUHTk3EUA5tCypLzdn3U/dbrK4xhnDVp57WfIKG/wXxNV7HNKAn00wDmDYCYyfzg
+         qoQyOFfKzRU5bqPiTrbWnHZWSRO5c8vYh9Ijh8HZqvGnXY8J4OWijzJNm8qhb+o1e9wf
+         tkUyzzzBVnFbruGKJ+QSYtmUhY0vmrGgMieaXLdoR0mGw9hj57d8xnXUPzvccxtfn9AE
+         hFCQ==
+X-Gm-Message-State: AOJu0YwELJpbSfyBVOulZgErK5fH6/5W5zbg3j1eKrB5B4kv7InU9231
+	Nxg1R2Oc4S+lv5MbKe5sR6RngzKbjgH9MKR7wX5wwa/iM2lqhrTm/bH/xmiq3XEyhdcPVQ2EWLC
+	uxKVS
+X-Gm-Gg: ASbGncv/queRc4oCdBIW7leNN761KNa8f2qPQn97eHgzQNBSQI7Q1o2gQkTMa9VSlpi
+	aPEAA+EH8410TN8I5OkztINar69QoEPfgoPbZHCxiXibhACEK/eZ07z+IJoraBncbZzk8S1rplY
+	7L1+RjPMHde7P+TbsBHY//Q2T9yxcWXv8V8LVmkAhPFfTDSn8owMobBpWEqi7DQMhfwKiR1X4Fh
+	X3p2WJ9kK79rvB+RiW3RDqJ0gyUVTWRgy0Q/Pt2kOppe698Nq38AHjngqnSNzZIr1cpS6Tf+GWv
+	NmMjdadhY2gTzn5p3ZBRZYweCmWX3TS8L/a5Gtokujy+ixx5lshfaIo8BhHjbYdLFA/QUsgk4kn
+	Sir0IFOxPc4S/9VxRAofgu04MmshgPF/hi4jllMRDEK+O2F9jMjZ9Ao01r1ijpYU8P13oNOtfga
+	9RBnzHrBcsTdaP2fQHJeIE+wllpWJeAsSmfE7/OgVuZ1CF9qK1DW+c+NSCKMzQFw==
+X-Google-Smtp-Source: AGHT+IFoDJQBemm3FSSjyoUg2LQeMmJ0mSDDWYU5X6PA8YoH9Z8BvUIb556TNUJKXgrAgS30ZhMNrA==
+X-Received: by 2002:a05:6000:2411:b0:42b:3131:542f with SMTP id ffacd0b85a97d-42cc1cbcfd6mr22954837f8f.24.1764177342494;
+        Wed, 26 Nov 2025 09:15:42 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH 0/3] x86/amd: Drop legacy logic
+Date: Wed, 26 Nov 2025 17:15:36 +0000
+Message-Id: <20251126171539.890253-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] x86: Cleanups around slow_down_io()
-To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
- x86@kernel.org, virtualization@lists.linux.dev, kvm@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-block@vger.kernel.org
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Jean Delvare <jdelvare@suse.com>,
- Denis Efremov <efremov@linux.com>, Jens Axboe <axboe@kernel.dk>
-References: <20251126162018.5676-1-jgross@suse.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20251126162018.5676-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 11/26/25 08:20, Juergen Gross wrote:
-> While looking at paravirt cleanups I stumbled over slow_down_io() and
-> the related REALLY_SLOW_IO define.
-> 
-> Especially REALLY_SLOW_IO is a mess, which is proven by 2 completely
-> wrong use cases.
-> 
-> Do several cleanups, resulting in a deletion of REALLY_SLOW_IO and the
-> io_delay() paravirt function hook.
-> 
-> Patches 2 and 3 are not changing any functionality, but maybe they
-> should? As the potential bug has been present for more than a decade
-> now, I went with just deleting the useless "#define REALLY_SLOW_IO".
-> The alternative would be to do something similar as in patch 5.
+Some of this has been unused for more than a decade.  Some for a quarter of a
+centry.
 
-Maybe, but as you point out there has not been a report of a problem
-for a long time (who knows if any of the affected systems still exist).
-We can apply always apply a fix if it turns out that someone does run
-into a problem.
+Andrew Cooper (3):
+  x86/cpu: Sort headers
+  x86/amd: Drop vestigial PBE logic in init_amd()
+  x86/amd: Drop the cpuid_mask_* command line options
 
-Thanks,
-Guenter
+ CHANGELOG.md                      |   4 +
+ docs/misc/xen-command-line.pandoc |  40 ----------
+ xen/arch/x86/cpu/amd.c            | 126 ++----------------------------
+ xen/arch/x86/cpu/centaur.c        |  10 ++-
+ xen/arch/x86/cpu/hygon.c          |   1 +
+ xen/arch/x86/include/asm/amd.h    |  90 ---------------------
+ 6 files changed, 19 insertions(+), 252 deletions(-)
+
+
+base-commit: 08c787f66cced18f0d0afafd86a040341adbd031
+-- 
+2.39.5
 
 
