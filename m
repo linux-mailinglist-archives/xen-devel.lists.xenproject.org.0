@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56936C8A113
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 14:41:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1172700.1497804 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA651C8A131
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Nov 2025 14:42:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1172710.1497814 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOFm2-0004Ce-4L; Wed, 26 Nov 2025 13:41:34 +0000
+	id 1vOFmr-0004vq-Ce; Wed, 26 Nov 2025 13:42:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1172700.1497804; Wed, 26 Nov 2025 13:41:34 +0000
+Received: by outflank-mailman (output) from mailman id 1172710.1497814; Wed, 26 Nov 2025 13:42:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOFm2-0004AI-0z; Wed, 26 Nov 2025 13:41:34 +0000
-Received: by outflank-mailman (input) for mailman id 1172700;
- Wed, 26 Nov 2025 13:41:33 +0000
+	id 1vOFmr-0004tb-9M; Wed, 26 Nov 2025 13:42:25 +0000
+Received: by outflank-mailman (input) for mailman id 1172710;
+ Wed, 26 Nov 2025 13:42:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=JzEl=6C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOFm0-00048o-V6
- for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 13:41:32 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1vOFmq-0004o2-Ie
+ for xen-devel@lists.xenproject.org; Wed, 26 Nov 2025 13:42:24 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9d4afa28-cacd-11f0-980a-7dc792cee155;
- Wed, 26 Nov 2025 14:41:30 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-4779adb38d3so47585725e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 05:41:30 -0800 (PST)
+ id bc6ac5df-cacd-11f0-980a-7dc792cee155;
+ Wed, 26 Nov 2025 14:42:22 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4779cc419b2so64569075e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 05:42:22 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-479052cfe70sm40605665e9.10.2025.11.26.05.41.29
+ 5b1f17b1804b1-4790ab8b21fsm46433495e9.0.2025.11.26.05.42.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Nov 2025 05:41:29 -0800 (PST)
+ Wed, 26 Nov 2025 05:42:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d4afa28-cacd-11f0-980a-7dc792cee155
+X-Inumbo-ID: bc6ac5df-cacd-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764164490; x=1764769290; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764164542; x=1764769342; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
+         :references:cc:to:subject:from:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=e4UCK8LKYgpYLU3PH9fD9/Im8kkxHi5oJUYbXSHjKS0=;
-        b=A3xfaQDE5w2a8GmtCdQnnXJpNnZzRhASW1w1dggq7DuLRldRH5N5z/K0iqoDV+zdGU
-         D0NV1P7Yph+VOvqGQyCsebdwNOmyCCz5asl93HsQUKYTYbzKnMrcPqH6lvYI6qRBHQlf
-         SQCc+T8ZTNEuxJwPBjCcMAjdiBjo4Z5sozyrPeU/ZxgEgvLliH2lfv+bDb6ozp3tbISS
-         RZK1BaHRAaZL+8ocNAg7H2n6ZNPWPDODgGnwkKRmeegA+aDfXVB8W1lTRn2qewY3ypny
-         5Myl2H15GXnreJKPuG+ZGDTLibjuKC73xTnOOSPxamGZtTjm4FYuG2jEhNpeV7I8Yq9r
-         hsYQ==
+        bh=Z+DqCoHUYeNt24tWGtJI/2Rtx4Bxg/1vsrBu+S8aJnU=;
+        b=G/gtE2iX4xPf3sg+JLMZrg3qtUdtF3t/pmCFTSlU+0Jji74ALVWcg7OQTfUYNMj32P
+         5Pvb/+5j/RhOkafP40GhbbTg0q1K7Zw7iITcGUhWVvwnqiXzqeZ49xlTU+cJE45TvLTb
+         vUuO/d7PKe2kOlEbTy5Si7IG35HrpTL3Ii8cxTmYdJC469fb/TRsKos+LEkKFYhmVIWM
+         WxjKnjLb0lcPNK2t2/pWdcTvLOVdZLhaWORgUZvR+eOKb5H4z+M9W2g1O7TDhuxDs7fx
+         hBPxwu4Fh7mCab0wOIGbG0bhXJq7SdkGg9GQc47WtJzg9hFYEPpK437RdVxvoYKgh62p
+         cHRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764164490; x=1764769290;
+        d=1e100.net; s=20230601; t=1764164542; x=1764769342;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
+         :references:cc:to:subject:from:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=e4UCK8LKYgpYLU3PH9fD9/Im8kkxHi5oJUYbXSHjKS0=;
-        b=DvgujrxN8HfMysBi2d0dD7Nwm2hppo3j9q3XEihzsH1ZuI+qi3hr0pk7tIypeVDTyK
-         +NnfgNIbCv6h+5TgOR0lHPYD++/XqFX0LWaTLDsXeYjfuiGPu5gmwJ+xzkwfWCouEb1v
-         h/zhkf9iAl6AlCNvy5+f4H/OJ1jdafAZtd9ypLYRiIw2HfiQIEo6gleO/4T6tUOFqOCK
-         2FKAvyJQ3lZNVthnh7RrcMmSWaYCFPeSUOc3pIpQWq7bP9u6ddb2M3SVwG5tKb4uLlfq
-         L4vy1w+W4P8bv3dXe/3AE8iWmskKXYtt7+rTz6EhyETyebOMegybsUVNwsgd2aB8ut/Y
-         4f6Q==
-X-Gm-Message-State: AOJu0Yy9R/mworGMAJfFqzcWtQffG3XpdMkElQJg0kRQdZ4girFgS68D
-	LRIkFkbS0JlRnGJ6Qcjoa7WYmxO2xr/xzVXN1JnwyEgZNx6XHhPzkN0KKhmomt4ayr4XtWrk0JN
-	m1Ic=
-X-Gm-Gg: ASbGnctBGaETlDeXoa+pF9uvzlc3R82s26Gbd0eApe9ARX4quH69eTGp1GIi/JKwJDp
-	kZw64hdjWW7UobUIZUf2z6Q59oTFqq+RybhhKFGSyxdb957RS/30rG52j4u0OIpnD8MEapIuSuW
-	CvALkhQROswinpdwi1rr+Jfo/DdEmRMuXWLuJvXL12DGSvif9hw6aaoMCx2nTLKaGhB0mpR6jbQ
-	t21wsaNKu++tLPplZxJRaeyldORsIemi7StXPgbpI4AWOgl4aMNNq2BbqgdzgNyvw2T0nN98u/H
-	H0n5jfAKDNWdkiNv+FN27s753488ec//6EPpQstSoeGQ2AXd0r30PuTE71jrSbls735/t84FHPi
-	w1xVWldFuQJ8KmQKFBRlyX3xkdGdSDcQrb/wY4i3wCZPsH7Ankgr02sHhXp6Fb5mKw0/ygJImGn
-	BmVM6QVIodNquKBpk+vFl+bqoEdoYlPU+7dv/RMwLuDkJf11IbHD86o+DIVN0UtdKDGxXGIAER5
-	dE=
-X-Google-Smtp-Source: AGHT+IHs+Huwi03vHObOVsk9b5wyQ0y68NHJho0IS0DBrSB2328RNWF6VLslrsWqpBbQ2pR1MsdWPw==
-X-Received: by 2002:a05:600c:1382:b0:475:de68:3c30 with SMTP id 5b1f17b1804b1-47904b103edmr71689765e9.16.1764164489952;
-        Wed, 26 Nov 2025 05:41:29 -0800 (PST)
-Message-ID: <a7fd7847-a34f-4436-95a3-627d01a64e43@suse.com>
-Date: Wed, 26 Nov 2025 14:41:27 +0100
+        bh=Z+DqCoHUYeNt24tWGtJI/2Rtx4Bxg/1vsrBu+S8aJnU=;
+        b=maTPmdlNpjG+DranWONbVo33G1g8uzLjhvQ6MaGXJPqT16FQn2ZO218TEt3l5CD2bu
+         zDtes3Kg0Qz2Ji+kjvM6B6nGMI/PTSs2T52VU56Jr7c37WjFf0mXtExy34Z3Pn4mJsh+
+         vDL5q15b2PmK+3wOKbb7Whwy2MO12/vLbiSkwoPq/t8E9KXekOVGFog/l6QqF94scqQt
+         cqKoq3ggKACebdVuwNupvkKInVcLn8nJLxpMaKLaDkX8FzW0yhCpxRGAYwdfCkBiXi4z
+         yioTso4nzq7fExIiazB8Jb+dfqpxgfZV34yj5N6RO7oXSGubWcNEWVOnOCjsqp5vm5oK
+         6TFQ==
+X-Gm-Message-State: AOJu0Ywom6dEhCE4tyNMzwpqdDZFgkCejB7Z+biqmEmdaP7ntZjepw5W
+	HUik6Af7dj8UW+y0wxkNCfzDXVZK2XgoAAeqvDqIoKaYY0QF6I2hWqKyECu6Qjmse9rl48ceL80
+	6ZrY=
+X-Gm-Gg: ASbGncteWTF/Vr6xgQimy57rEKJcxN8paWHYcRQ3E2bwE23IuLpSADSkSCzgM+Bhgj9
+	3daz0czkS9MOHRVc+PPocp9jXWgNda3XCgQikOuMjLJVyIbgVWKUja+z2yO+ag2gu1E8QI0n3bf
+	D3TdEzMWclaMff8Jh7hA7wYm5V68brgAzRauDM8eWfvGkhc+e+ADacjWMc6Hi5oFkE9yJEhRIAT
+	KiBuC7GvPSX2SGN9EIJHr7C5LhGdR6IXD7wHr8OHIaUjHdACzJkp8xh6xR4YPZiCkNWl3Nwi/Iq
+	Xu8BiqaMNQaVUFOvZT/9GEMt4E5wZyS5fTtM1+Be7kvyVvztrhROFmHiYU4Mm6ivqgF9yVl4eFW
+	mnCEzapwKWYYYSQG/rsbU41hD8QzEX2sT2w494MNoaVbM9OPdgIe1z82mEoRcGqD1LPUsyfQ/RR
+	kdmZmb9CRd44wIvR7LEwdhsFBlGfSlXQAtamRWmYWiiYK10S3T8naHcRy9W8arj9PM7Sa2kod5B
+	Qo=
+X-Google-Smtp-Source: AGHT+IHg870vzVl33piKH/RERs92enmUQr/a19qIAdvBDQ3lwceCQf/DtjiYEpTC8CG+17uHNFiaNg==
+X-Received: by 2002:a05:600c:4691:b0:477:8a2a:1244 with SMTP id 5b1f17b1804b1-477c110e521mr198468245e9.11.1764164539301;
+        Wed, 26 Nov 2025 05:42:19 -0800 (PST)
+Message-ID: <f89a3d20-8194-4dc2-a38b-8788c070cd90@suse.com>
+Date: Wed, 26 Nov 2025 14:42:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 1/8] symbols/arm: re-number intermediate files
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH 2/8] symbols/arm: don't use symbols-dummy
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
  <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
@@ -125,37 +125,29 @@ In-Reply-To: <bd689f02-3e6b-4d15-aa1d-d757a9ee54a8@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-In preparation to do away with symbols-dummy, re-number the assembly and
-object files used, for the numbers to match the next passes real output.
-This is to make 0 available to use for what now is handled by
-symbols-dummy.
+In particular when linking with lld, which converts hidden symbols to
+local ones, the ELF symbol table can change in unhelpful ways between the
+first two linking passes, resulting in the .rodata contributions to change
+between the 2nd and 3rd pass. That, however, renders our embedded symbol
+table pretty much unusable; the recently introduced self-test may then
+also fail. (Another difference between compiling a C file and assembling
+the generated ones is that - with -fdata-sections in use - the .rodata
+contributions move between passes 1 and 2, when we'd prefer them not to.)
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/arm/Makefile
 +++ b/xen/arch/arm/Makefile
-@@ -89,16 +89,16 @@ $(TARGET)-syms: $(objtree)/prelink.o $(o
- 	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
+@@ -85,8 +85,10 @@ ifeq ($(CONFIG_ARM_64),y)
+ endif
+ 
+ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
++	$(objtree)/tools/symbols $(all_symbols) --empty > $(dot-target).0.S
++	$(MAKE) $(build)=$(@D) $(dot-target).0.o
+ 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
+-	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
++	      $(dot-target).0.o -o $(dot-target).0
  	$(NM) -pa --format=sysv $(dot-target).0 \
  		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
--		> $(dot-target).0.S
--	$(MAKE) $(build)=$(@D) $(dot-target).0.o
-+		> $(dot-target).1.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).1.o
- 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
--	    $(dot-target).0.o -o $(dot-target).1
-+	    $(dot-target).1.o -o $(dot-target).1
- 	$(NM) -pa --format=sysv $(dot-target).1 \
- 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
--		> $(dot-target).1.S
--	$(MAKE) $(build)=$(@D) $(dot-target).1.o
-+		> $(dot-target).2.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).2.o
- 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
--	    $(dot-target).1.o -o $@
-+	    $(dot-target).2.o -o $@
- 	$(NM) -pa --format=sysv $@ \
- 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
- 		> $@.map
-
+ 		> $(dot-target).1.S
 
