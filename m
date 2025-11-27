@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7969C8DA90
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 10:58:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173689.1498705 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E359C8DA96
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 10:59:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173698.1498714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOYlS-0006Gf-Pg; Thu, 27 Nov 2025 09:58:14 +0000
+	id 1vOYmT-0006nD-1V; Thu, 27 Nov 2025 09:59:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173689.1498705; Thu, 27 Nov 2025 09:58:14 +0000
+Received: by outflank-mailman (output) from mailman id 1173698.1498714; Thu, 27 Nov 2025 09:59:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOYlS-0006EH-MQ; Thu, 27 Nov 2025 09:58:14 +0000
-Received: by outflank-mailman (input) for mailman id 1173689;
- Thu, 27 Nov 2025 09:58:13 +0000
+	id 1vOYmS-0006l4-V4; Thu, 27 Nov 2025 09:59:16 +0000
+Received: by outflank-mailman (input) for mailman id 1173698;
+ Thu, 27 Nov 2025 09:59:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BG9e=6D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vOYlR-0006E7-MA
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 09:58:13 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Mf1n=6D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vOYmR-0006kw-E8
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 09:59:15 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 954678d7-cb77-11f0-980a-7dc792cee155;
- Thu, 27 Nov 2025 10:58:11 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-b734fcbf1e3so113848866b.3
- for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 01:58:11 -0800 (PST)
-Received: from [192.168.1.17] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-647510615c0sm1103777a12.30.2025.11.27.01.58.09
+ id ba0d70ed-cb77-11f0-980a-7dc792cee155;
+ Thu, 27 Nov 2025 10:59:13 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-42b3c965ca9so391048f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 01:59:13 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42e1ca1a6fesm2941210f8f.20.2025.11.27.01.59.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Nov 2025 01:58:10 -0800 (PST)
+ Thu, 27 Nov 2025 01:59:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,150 +45,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 954678d7-cb77-11f0-980a-7dc792cee155
+X-Inumbo-ID: ba0d70ed-cb77-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1764237491; x=1764842291; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ntBQ+Naci59x6i5X4tbyhD0t5idIrZ/7onoLilwsfj0=;
-        b=ckhGyfMYKUac40Zi4wLa85RjM+9TsIvMN1umryD4WZ7sUL5o5RcJNJI1dLysxsz+Px
-         a3LHrG/92fKFrCBwMLTTtiH838lrGRjg0bfmhhSWOraUguOs0/9Z0IOb2kHWVZFbvsyu
-         Bnt3IscF0QIh0il8EV6xiq/0svUlfMWL4wrB1V+gjEN6+fSoyVrFKgn8eKK8zXM6Gir/
-         ZG5F1tzw2SZIFd0LiexiTC2ishm7XpXzGpZe1GA5XZngCKvB1d/u6JHqFnXcTHMTYJv7
-         F0F4D/vByxOnXpsWicQlku7KPwFD5LrUNkDz/7AGF6H8raGKlDkxvggjTuBtLqbIM6sE
-         REMA==
+        d=suse.com; s=google; t=1764237553; x=1764842353; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=YWWYoCn4AJLi5BeXC1DvuZZmF8MDTqcVqzLkIlvOaCU=;
+        b=CU2poOAWHdxv1opASDPEkeabxeAw5UcJ/ycKl1BM19s1URnh6GQAxn/BAK7TGIr/bg
+         EqWoa5WrFh1SnaSKs2SCKYwD8eVxOW/uqJDOn8YZ4wNw+kLs9dIFaMoYRcKG8OB/Og5o
+         Sqtb3FTdKvJ5CUDVwZsgwGst6u3z2h/xqv6OOf9btFIdbnPdz0ZhMk53fdpkif2PvpIE
+         FD8g376y7WI1E5H+3YQ7dpmoiHSuU73YWfHrmn9FL6dXMAtVggQGKwQDOVqIeBR8R8Tu
+         IRxHdsifi4rQMH1GVzoODFdIdYaraJbhqYgs1CF1tKYvWCNu5BWYWb/CgnEa9BA/XjxA
+         a5hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764237491; x=1764842291;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ntBQ+Naci59x6i5X4tbyhD0t5idIrZ/7onoLilwsfj0=;
-        b=pZUE8AzegRLj3jMhRMmKPJNVucMY507+9O/oOB3zSPI/c7FDONypfFkXXAP3IuT0me
-         VzOri4saxRLcbEDR/Il7kEs7v/o9F9F5UBt1U86lmQlnePIkp18feJbnckSMhM4mE5E5
-         dRYpEioV+yTMERFUoxSDpsQlvIaFj6wE6LuSoMlj9BVZ1Q2zdgbS6PeFB+OYnKlcQ3Tq
-         akff5ifOq/F1OFB5tTop0KL05wAWSvOCXYYOYqj/4YgLNgnkC+J2dd9sPg0Bi+qSfxjp
-         X5FclBlUgU5E1tSkp3333xpsjrF+TsdfxUVycnEEUKmQhwcUzSRANOMomgI566GMei/6
-         t3Zw==
-X-Forwarded-Encrypted: i=1; AJvYcCURfNYcgVdPSIQQpWhJMHF9SeQ+2tYAIU7DQMEmKzbE0JqQntkzRHHzZXiPp2DnPc0SfEk2N0nOFHY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz+pXkNip+hoa5L19IQf22IaFnHrh61SOTM0kd81i55cIu+eDOx
-	7yP2i0pjf/aYHFoO7OlH1jYyLZhpPVexyodsYrlGx7M9HvMnvaU9s32X
-X-Gm-Gg: ASbGnctv+CNwRie5+EypZK9Ufw6ZJkIzGfXgTusMs/dbXnS7lBOv9Jw0YeqelBpkrAl
-	jSoS8QvT7+a8PCubC+4LV61AhwBU16FvVHx3V27KZTMBpHzjAJAd0H5b6MkkySr4gYmpA7419c8
-	5Gmst34zAIksQ/eXXUJS1/FO25zZhexVK3rC7u3Hivf7GE7IxfAG7Aw4u/1s4fgt+50Dr/JK0t9
-	hCZ6d6BW/IYgUnSMByMojyTPfH4As2j9QsMktHPc6lIlHoJX4Xbdev1cH3gQoOKmcSGP0g07PDA
-	sKQAZO8tBt4ZMYQe164HD8JGg60BM81SyXVyR3FrzehlmkAweAvX4xRQqL7HL07oJLv9lYIHyy7
-	vwM7k7OnSdypH0Vws5MIDkMw7T8bBJaPV2uTVOHtpqv9vbnuzBSNn9GrUoEfzgWNJUpJ6xM9vGh
-	S7+VCY3eCMy+bHAHWfF+nmUuCjvRpapqrw9hBJWYrIwSs8Y48kJfhYqj2sznKux/dWZQ==
-X-Google-Smtp-Source: AGHT+IETDsw+ppgeVf4bNoZUokwjhA2gxhrdllE2+pm88QJZ9ttN1i4gGoi08eMf4wNyRbhDKc35+g==
-X-Received: by 2002:a17:907:6d06:b0:b73:7652:efc2 with SMTP id a640c23a62f3a-b76718c3862mr2551474866b.60.1764237490659;
-        Thu, 27 Nov 2025 01:58:10 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------nsJzs8XOIrXGfzragPKwdzml"
-Message-ID: <9e45af97-52f3-4c21-865f-db64c9f78416@gmail.com>
-Date: Thu, 27 Nov 2025 10:58:08 +0100
+        d=1e100.net; s=20230601; t=1764237553; x=1764842353;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YWWYoCn4AJLi5BeXC1DvuZZmF8MDTqcVqzLkIlvOaCU=;
+        b=na0sBgmT0XOcU9NNRdoJAnAPRPyOUQCxhAxpXZmi2uhSkMsrOpPlttgH7d0TL//7Cj
+         vhe8bg0Zs1+Lb7utY/8qYB3DC2n2EVJaPjquYR78ux08Erc6UuedZx6K/CzMD4YfvM3M
+         bkPSlR9BlNF4w+J9D5bWG+LPbwsYx4biH5nl6WdryvyoH6E3KWQ0xoLJeu+uruBQQIYJ
+         ela5a/hGi7oSW8jtgXJ4Ogl4Dci7CKW6hVb3WG1ajrbnkJ19Y7uA425uyDJXL4opqNpH
+         NmAfcc9pPWcBa7EutdjuINDzu6dzs8mKxi5BOXpkSzo0i7AqytYQMWnXfQJg/ynTRb8Y
+         dPfQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV9eq0KPZy7gTrp/p4GL7Xw91smSNRnTJ4LYaeIFvZbB4pKigjrRpy6xXOl5GTlkl/AvjWpjmbfjPw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwiDDdOOts0F6Y1u38Ls8Dk4ZW3wUroBHGRT+3Cez4KUotzrw9Z
+	aF0oMW0wW8rj6tc4b55EPcgwCMKS6OZcUWMl91ud2nuHoSyNsuydll4KmUHsYjQtvw==
+X-Gm-Gg: ASbGncuEVvWUOipMOKlC/7LQ3ctXdyGRgK7h9GbMaDclUGHVwVQQ3kanQKQ8agwh0Uf
+	u4E0Zubmw/VmIzHLamHXRUCKpc70Crrkpv/wy0u391Q8EJtzDuJmvUP6JSvNnbJAN8JPcCy1PUr
+	WgoIAVtH8cuzBkz9M3Pi+wDGYgNTBs1Yhssp6EgrBnWSVNBevKsFmn+CGOCBWT21BRL3shr/xkh
+	UuMbaNtmcq+RKEebDF2Z2weIbMTIXC2eskMFR1kncArHn1KFZ4Ub8eGHXgWC79UhMTFATN9pbQD
+	0NEIm9Uyjvq95Qg2auQ/u2oMx6ERG1KcQ4lOJX5zUVRXwKdl8gQoKnXQJKqbJuY4cXP4+j5qoSz
+	rXd7124eu2tBmOA4Ft3KyoH5PSsNlHfYrJ8rngdg4eydteUbCSvCfAPu8COgxCSGy9mBG9XeJkB
+	3nzqnUeHgDj4gXcaCy6cUDgyS27H6jkFuzKihIVhO7FnF5WRGpU0nTcUYq6arl7waKoUMC3YLnV
+	xg=
+X-Google-Smtp-Source: AGHT+IFmd8S2YBtgFN4IWrCYdYF+MW1qsdZZUT2YRDneacVDKSjLVtp38t4GJEM5/IopDihgf0xqJw==
+X-Received: by 2002:a05:6000:1887:b0:42b:2f90:bd05 with SMTP id ffacd0b85a97d-42cc1d3571amr23224912f8f.45.1764237552664;
+        Thu, 27 Nov 2025 01:59:12 -0800 (PST)
+Message-ID: <178630e8-7986-4a35-863c-4559779d7390@suse.com>
+Date: Thu, 27 Nov 2025 10:59:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/8] symbols/riscv: don't use symbols-dummy
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>
-References: <bd689f02-3e6b-4d15-aa1d-d757a9ee54a8@suse.com>
- <5e5ee09f-88b7-41eb-99da-a9b5cf4bf348@suse.com>
+Subject: Re: [RFC PATCH 01/11] x86: Add more granularity to the vendors in
+ Kconfig
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20251126164419.174487-1-alejandro.garciavallejo@amd.com>
+ <20251126164419.174487-2-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <5e5ee09f-88b7-41eb-99da-a9b5cf4bf348@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251126164419.174487-2-alejandro.garciavallejo@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------nsJzs8XOIrXGfzragPKwdzml
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On 26.11.2025 17:44, Alejandro Vallejo wrote:
+> This enables very aggressive DCE passes on single-vendor builds in later
+> patches, as it will allow most vendor checks to become statically chosen
+> branches. A lot of statics go away and a lot more inlining is allowed.
+> 
+> In order to allow x86_vendor_is() to fold into constants, expand Kconfig
+> to have the full set of vendors. Adds Hygon, Centaur, Shanghai and the
+> default path.
 
+Oh, one more thing: There's x86_vendor_is() yet, so what it is going to be
+needs at least roughly explaining here.
 
-On 11/26/25 2:45 PM, Jan Beulich wrote:
-> In particular when linking with lld, which converts hidden symbols to
-> local ones, the ELF symbol table can change in unhelpful ways between the
-> first two linking passes, resulting in the .rodata contributions to change
-> between the 2nd and 3rd pass. That, however, renders our embedded symbol
-> table pretty much unusable; the recently introduced self-test may then
-> also fail. (Another difference between compiling a C file and assembling
-> the generated ones is that - with -fdata-sections in use - the .rodata
-> contributions move between passes 1 and 2, when we'd prefer them not to.)
->
-> Signed-off-by: Jan Beulich<jbeulich@suse.com>
->
-> --- a/xen/arch/riscv/Makefile
-> +++ b/xen/arch/riscv/Makefile
-> @@ -22,8 +22,10 @@ $(TARGET): $(TARGET)-syms
->   	$(OBJCOPY) -O binary -S $< $@ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds + 
-> $(objtree)/tools/symbols $(all_symbols) --empty > $(dot-target).0.S
-> +	$(MAKE) $(build)=$(@D) $(dot-target).0.o
->   	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
-> -	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
-> +	      $(dot-target).0.o -o $(dot-target).0
->   	$(NM) -pa --format=sysv $(dot-target).0 \
->   		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
->   		> $(dot-target).1.S
-
-LGTM: Reviewed-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-
-~ Oleksii
-
---------------nsJzs8XOIrXGfzragPKwdzml
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 11/26/25 2:45 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:5e5ee09f-88b7-41eb-99da-a9b5cf4bf348@suse.com">
-      <pre wrap="" class="moz-quote-pre">In particular when linking with lld, which converts hidden symbols to
-local ones, the ELF symbol table can change in unhelpful ways between the
-first two linking passes, resulting in the .rodata contributions to change
-between the 2nd and 3rd pass. That, however, renders our embedded symbol
-table pretty much unusable; the recently introduced self-test may then
-also fail. (Another difference between compiling a C file and assembling
-the generated ones is that - with -fdata-sections in use - the .rodata
-contributions move between passes 1 and 2, when we'd prefer them not to.)
-
-Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
-
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -22,8 +22,10 @@ $(TARGET): $(TARGET)-syms
- 	$(OBJCOPY) -O binary -S $<a class="moz-txt-link-rfc2396E" href="mailto:$@$(TARGET)-syms:$(objtree)/prelink.o$(obj)/xen.lds+$(objtree)/tools/symbols$(all_symbols)--empty">&lt; $@
- 
- $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
-+	$(objtree)/tools/symbols $(all_symbols) --empty &gt;</a> $(dot-target).0.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).0.o
- 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $&lt; \
--	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
-+	      $(dot-target).0.o -o $(dot-target).0
- 	$(NM) -pa --format=sysv $(dot-target).0 \
- 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
- 		&gt; $(dot-target).1.S
-</pre>
-    </blockquote>
-    <pre>LGTM: Reviewed-By: Oleksii Kurochko <a
-    class="moz-txt-link-rfc2396E"
-    href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------nsJzs8XOIrXGfzragPKwdzml--
+Jan
 
