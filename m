@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC129C8DAD5
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 11:04:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173714.1498726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABA57C8DBBD
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 11:22:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173728.1498735 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOYrZ-0000ML-OR; Thu, 27 Nov 2025 10:04:33 +0000
+	id 1vOZ92-0003UQ-9G; Thu, 27 Nov 2025 10:22:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173714.1498726; Thu, 27 Nov 2025 10:04:33 +0000
+Received: by outflank-mailman (output) from mailman id 1173728.1498735; Thu, 27 Nov 2025 10:22:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOYrZ-0000JA-LH; Thu, 27 Nov 2025 10:04:33 +0000
-Received: by outflank-mailman (input) for mailman id 1173714;
- Thu, 27 Nov 2025 10:04:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BG9e=6D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vOYrY-0000J3-2p
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 10:04:32 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7716addd-cb78-11f0-9d18-b5c5bf9af7f9;
- Thu, 27 Nov 2025 11:04:30 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-b762de65c07so96747466b.2
- for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 02:04:30 -0800 (PST)
-Received: from [192.168.1.17] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b76f5162c5csm126368966b.6.2025.11.27.02.04.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Nov 2025 02:04:29 -0800 (PST)
+	id 1vOZ92-0003Ry-6k; Thu, 27 Nov 2025 10:22:36 +0000
+Received: by outflank-mailman (input) for mailman id 1173728;
+ Thu, 27 Nov 2025 10:22:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1vOZ91-0003Rs-H6
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 10:22:35 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1vOZ8x-00B7Vh-2i;
+ Thu, 27 Nov 2025 10:22:31 +0000
+Received: from [15.248.2.232] (helo=[10.24.66.108])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1vOZ8x-00Gay6-1T;
+ Thu, 27 Nov 2025 10:22:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,211 +39,422 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7716addd-cb78-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1764237870; x=1764842670; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4raARQItkJX3V6w1QGL5CRr+ynlo0pbCjQ56QUUkYac=;
-        b=MLNkfiEUSAZGAnU79JFN+bIx1IYC3xEG76FV3TpKLrIpGVnvgHTXZPWjTZWuALNQqP
-         hGrkqEtOvDgn316DVJwtkhtdcUZzSd64Bm55vk75eJBX9uYuSiu3b2KPWhyw6StZXE8u
-         XPXogEj70qsqKKbll2iVetVfkvmZf2xWXoXnXFjUtwS9Jedyb0Ijkv3/Ny3s7rEkItWF
-         54qojr+IcIU9gQXQtQKaBBwnzcrgs3xydK+GmWwubhtKLo7H4W9LSCMQTtjsP7mL0P5l
-         9qfd8SBnN0p0r2FtAIkVhrJADBusqSeW2Nci1ojX0qBruWbWHioTpplp5G3n+YbN3j3T
-         HdiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764237870; x=1764842670;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4raARQItkJX3V6w1QGL5CRr+ynlo0pbCjQ56QUUkYac=;
-        b=tVs8wmEbT5GjPSDSX8/SkKNCuAxCtlRgJEeP9w1qutX8jzni5iRldrd8Sfd3lD//96
-         tgLL2fG7VWw25ueMrvE5Z9Tm+sgfrgUSfvj10pfCrOhDFRTZONdT+23+obR2OpPNWPYc
-         CLPcz01H97jA0TWgwV4Yrkv+hqWwtRI7k16CJ5CAR9C5RJwrwnB8mlqqwpAGBTMZ9Any
-         7I83mWpu0jOlnckF9+1cgG4nMBYiZKmQCzzVqjNPeGquUjFc9NaCGMytVHP4oZLkzihA
-         jFAl38GmE7St17lqIdR0oZ7TjpaSaUhUjRZmjrcu1+MXBWO5I2X4oHvUe6FkyluhjhS9
-         Jqsw==
-X-Forwarded-Encrypted: i=1; AJvYcCVT0VkPJWcrXXnoKAt8CSQlJyyGhEFS6W/3/qtx/w2sTZNVJvb8ajp4QwznuoaK++PrafJCQnVtpZs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywh8Q3Yo3w5CQeysHNup7I6uwo975Hw4nzHW+PwAplXEHRAlCUk
-	CH9ER01KkRZ3uvWQ8/JFImaGTfbHfv3gCQoqwx67WAbCl0L4vI4hyTaF
-X-Gm-Gg: ASbGncscdo3g4mPkdd/jBzEJl13VB3ZdMPGZfEnTqACaq6uKPbLeCZK3wxTDYWvXtzc
-	toxQiBP/ut2Gg7JZfnk8S3YbD/OZ4PReRihFeqgRtgQdlAIROGBEstlCHJO+7SdwALd+rdfJXRA
-	cHmTq/ehy+BF0T1f9GBtZGGqNQPKIjX/i7DkkVnfgYzqw0fqwio3DshAQpTN0I0bo5W/5qO8KTq
-	pPsxlYIO6RM1KvApNP8ykjdE1gFySh31oggsCThp2auUzJ5iXg9MI6trKfeG0AC0Xlp3QzlPNul
-	NFqOdIOn3wKvLpvHzOfTlCTpxTqH7IGRTlIX5xm85246jBZMooBjDPnJRtkKUjbc3z/tCXNGHHb
-	KtoIowfzWFju5BmyPZ5bDPCalzSRE9Vv8VGNEp6HSyWcNvM7kL/nu0PlrfvKV7e6ucMzNCBZjM6
-	33UF8R/c4D7Y4B4dA9hBN0/NYhHfxuGcLyPi0HqR9h9UYIkZeP5qTliRvM7bzdEH03Gg==
-X-Google-Smtp-Source: AGHT+IHPso+P3vV9V6n0v/TYDYxBW5i4WX+1Q1rjL+EE143pJLsgdIGVLnvLF9UeMAWBwNkeFFk95A==
-X-Received: by 2002:a17:907:3d89:b0:b73:9a71:13bb with SMTP id a640c23a62f3a-b76c55f3e48mr1108823766b.32.1764237869610;
-        Thu, 27 Nov 2025 02:04:29 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------6rxlXtWiSDHfng9MB26VfzsC"
-Message-ID: <82d7533d-aeb7-4d9b-a868-00bd419b72b6@gmail.com>
-Date: Thu, 27 Nov 2025 11:04:26 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=efbYn/p8219u1PtxitkxwIkRMxr8OE5y+OApTyckzwo=; b=SrxoQjyIP2KnrBbAGcEOnJlh3w
+	1vTVW+dLs4BC64VshcXGBZVhSp5NJrmOsoqku4evyo9vV62KatVM6hLsLbnIrZuSxXOTGsiC0efPB
+	Z2F1lZ3gbNMt4W97uriKW3ipvHqidBHtTnrIudCgCqLnVHRBmFFSwHNw73PVh23PYFkw=;
+Message-ID: <485a8166-5079-4c0e-a6bf-f6aee8af991d@xen.org>
+Date: Thu, 27 Nov 2025 10:22:28 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] symbols/riscv: re-number intermediate files
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH 00/20] Add SMMUv3 Stage 1 Support for XEN guests
+To: Milan Djokic <milan_djokic@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Julien Grall <julien.grall.oss@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Rahul Singh <rahul.singh@arm.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <bd689f02-3e6b-4d15-aa1d-d757a9ee54a8@suse.com>
- <37ed4a18-f1a0-4c1f-b915-1708c235068b@suse.com>
- <db4bccef-a746-4912-89ad-b015a8d43f78@gmail.com>
- <3fd32ba0-0670-4c9b-b216-60c55a5de7ba@suse.com>
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Nick Rosbrook
+ <enr0n@ubuntu.com>, George Dunlap <gwd@xenproject.org>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <cover.1754580687.git.milan_djokic@epam.com>
+ <CAJ=z9a1eM6M+Gagond9TiFtF7c7EEQKOKHANcvDWDhW_3JzqOA@mail.gmail.com>
+ <12ba4388-ee23-4e17-910f-9702271865ad@epam.com>
+ <b1f79b84-d0c4-4807-87a7-1cf94e58ecee@xen.org>
+ <a5943713-85fa-48ad-86fe-5698604ed8c9@epam.com> <87v7m93bo0.fsf@epam.com>
+ <6c80a929-8139-4461-b11c-e6ac67c3d2e4@epam.com> <875xe6ytyk.fsf@epam.com>
+ <65727710-0a88-4fff-bb5b-9cf34106833c@epam.com>
+ <5df30dbf-17a2-446f-83f9-0e4468622917@epam.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <3fd32ba0-0670-4c9b-b216-60c55a5de7ba@suse.com>
-
-This is a multi-part message in MIME format.
---------------6rxlXtWiSDHfng9MB26VfzsC
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <5df30dbf-17a2-446f-83f9-0e4468622917@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
-On 11/27/25 10:57 AM, Jan Beulich wrote:
-> On 27.11.2025 10:49, Oleksii Kurochko wrote:
->> On 11/26/25 2:44 PM, Jan Beulich wrote:
->>> In preparation to do away with symbols-dummy, re-number the assembly and
->>> object files used, for the numbers to match the next passes real output.
->>> This is to make 0 available to use for what now is handled by
->>> symbols-dummy.
->>>
->>> Signed-off-by: Jan Beulich<jbeulich@suse.com>
->>>
->>> --- a/xen/arch/riscv/Makefile
->>> +++ b/xen/arch/riscv/Makefile
->>> @@ -26,16 +26,16 @@ $(TARGET)-syms: $(objtree)/prelink.o $(o
->>>    	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
->>>    	$(NM) -pa --format=sysv $(dot-target).0 \
->>>    		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
->>> -		> $(dot-target).0.S
->>> -	$(MAKE) $(build)=$(@D) $(dot-target).0.o
->>> +		> $(dot-target).1.S
->>> +	$(MAKE) $(build)=$(@D) $(dot-target).1.o
->>>    	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
->>> -	    $(dot-target).0.o -o $(dot-target).1
->>> +	    $(dot-target).1.o -o $(dot-target).1
->>>    	$(NM) -pa --format=sysv $(dot-target).1 \
->>>    		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
->>> -		> $(dot-target).1.S
->>> -	$(MAKE) $(build)=$(@D) $(dot-target).1.o
->>> +		> $(dot-target).2.S
->>> +	$(MAKE) $(build)=$(@D) $(dot-target).2.o
->>>    	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \ - $(dot-target).1.o -o $@ + $(dot-target).2.o
->>> -o $@ $(NM) -pa --format=sysv $@ \ | $(objtree)/tools/symbols
->>> --all-symbols --xensyms --sysv --sort \ > $@.map
->>>
->> LGTM: Reviewed-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-> Thanks. May I remind you again that there wants to be a blank before the
-> opening angle bracket? That is an issue which was also pointed out for
-> some of your recent release-acks.
 
-Hmm, something wrong with a setting in my e-mail app because I am looking at
-my reply in my e-mail app and there is a space before the opening angle bracket...
+On 03/11/2025 13:16, Milan Djokic wrote:
+> Hello Volodymyr, Julien
+
+Hi Milan,
+
+Thanks for the new update. For the future, can you trim your reply?
+
+> Sorry for the delayed follow-up on this topic.
+> We have changed vIOMMU design from 1-N to N-N mapping between vIOMMU and 
+> pIOMMU. Considering single vIOMMU model limitation pointed out by 
+> Volodymyr (SID overlaps), vIOMMU-per-pIOMMU model turned out to be the 
+> only proper solution.
+
+I am not sure to fully understand. My assumption with the single vIOMMU 
+is you have a virtual SID that would be mapped to a (pIOMMU, physical 
+SID). Does this means in your solution you will end up with multiple 
+vPCI as well and then map pBDF == vBDF? (this because the SID have to be 
+fixed at boot)
+
+> Following is the updated design document.
+> I have added additional details to the design and performance impact 
+> sections, and also indicated future improvements. Security 
+> considerations section is unchanged apart from some minor details 
+> according to review comments.
+> Let me know what do you think about updated design. Once approved, I 
+> will send the updated vIOMMU patch series.
+> 
+> 
+> ==========================================================
+> Design Proposal: Add SMMUv3 Stage-1 Support for XEN Guests
+> ==========================================================
+> 
+> :Author:     Milan Djokic <milan_djokic@epam.com>
+> :Date:       2025-11-03
+> :Status:     Draft
+> 
+> Introduction
+> ============
+> 
+> The SMMUv3 supports two stages of translation. Each stage of translation 
+> can be
+> independently enabled. An incoming address is logically translated from 
+> VA to
+> IPA in stage 1, then the IPA is input to stage 2 which translates the 
+> IPA to
+> the output PA. Stage 1 translation support is required to provide 
+> isolation between different
+> devices within OS. XEN already supports Stage 2 translation but there is no
+> support for Stage 1 translation.
+> This design proposal outlines the introduction of Stage-1 SMMUv3 support 
+> in Xen for ARM guests.
+> 
+> Motivation
+> ==========
+> 
+> ARM systems utilizing SMMUv3 require stage-1 address translation to 
+> ensure secure DMA and
+> guest managed I/O memory mappings.
+> With stage-1 enabed, guest manages IOVA to IPA mappings through its own 
+> IOMMU driver.
+> 
+> This feature enables:
+> 
+> - Stage-1 translation in guest domain
+> - Safe device passthrough with per-device address translation table
+
+I find this misleading. Even without this feature, device passthrough is 
+still safe in the sense a device will be isolated (assuming all the DMA 
+goes through the IOMMU) and will not be able to DMA outside of the guest 
+memory. What the stage-1 is doing is providing an extra layer to control 
+what each device can see. This is useful if you don't trust your devices 
+or you want to assign a device to userspace (e.g. for DPDK).
+
+> 
+> Design Overview
+> ===============
+> 
+> These changes provide emulated SMMUv3 support:
+
+If my understanding is correct, there are all some implications in how 
+we create the PCI topology. It would be good to spell them out.
+
+> 
+> - **SMMUv3 Stage-1 Translation**: stage-1 and nested translation support 
+> in SMMUv3 driver.
+> - **vIOMMU Abstraction**: Virtual IOMMU framework for guest stage-1 
+> handling.
+> - **Register/Command Emulation**: SMMUv3 register emulation and command 
+> queue handling.
+> - **Device Tree Extensions**: Adds `iommus` and virtual SMMUv3 nodes to 
+> device trees for dom0 and dom0less scenarios.
+
+What about ACPI?
+
+> - **Runtime Configuration**: Introduces a `viommu` boot parameter for 
+> dynamic enablement.
+> 
+> Separate vIOMMU device is exposed to guest for every physical IOMMU in 
+> the system.
+> vIOMMU feature is designed in a way to provide a generic vIOMMU 
+> framework and a backend implementation
+> for target IOMMU as separate components.
+> Backend implementation contains specific IOMMU structure and commands 
+> handling (only SMMUv3 currently supported).
+> This structure allows potential reuse of stage-1 feature for other IOMMU 
+> types.
+> 
+> Security Considerations
+> =======================
+> 
+> **viommu security benefits:**
+> 
+> - Stage-1 translation ensures guest devices cannot perform unauthorized 
+> DMA (device I/O address mapping managed by guest).
+> - Emulated IOMMU removes guest direct dependency on IOMMU hardware, 
+> while maintaining domains isolation.
+
+Sorry, I don't follow this argument. Are you saying that it would be 
+possible to emulate a SMMUv3 vIOMMU on top of the IPMMU?
+
+> 1. Observation:
+> ---------------
+> Support for Stage-1 translation in SMMUv3 introduces new data structures 
+> (`s1_cfg` alongside `s2_cfg`)
+> and logic to write both Stage-1 and Stage-2 entries in the Stream Table 
+> Entry (STE), including an `abort`
+> field to handle partial configuration states.
+> 
+> **Risk:**
+> Without proper handling, a partially applied Stage-1 configuration might 
+> leave guest DMA mappings in an
+> inconsistent state, potentially enabling unauthorized access or causing 
+> cross-domain interference.
+
+How so? Even if you misconfigure the S1, the S2 would still be properly 
+configured (you just mention partially applied stage-1).
+
+> 
+> **Mitigation:** *(Handled by design)*
+> This feature introduces logic that writes both `s1_cfg` and `s2_cfg` to 
+> STE and manages the `abort` field-only
+> considering Stage-1 configuration if fully attached. This ensures 
+> incomplete or invalid guest configurations
+> are safely ignored by the hypervisor.
+
+Can you clarify what you mean by invalid guest configurations?
+
+> 
+> 2. Observation:
+> ---------------
+> Guests can now invalidate Stage-1 caches; invalidation needs forwarding 
+> to SMMUv3 hardware to maintain coherence.
+> 
+> **Risk:**
+> Failing to propagate cache invalidation could allow stale mappings, 
+> enabling access to old mappings and possibly
+> data leakage or misrouting.
+
+You are referring to data leakage/misrouting between two devices own by 
+the same guest, right? Xen would still be in charge of flush when the 
+stage-2 is updated.
+
+> 
+> **Mitigation:** *(Handled by design)*
+> This feature ensures that guest-initiated invalidations are correctly 
+> forwarded to the hardware,
+> preserving IOMMU coherency.
+
+How is this a mitigation? You have to properly handle commands. If you 
+don't properly handle them, then yes it will break.
+
+> 
+> 4. Observation:
+> ---------------
+> The code includes transformations to handle nested translation versus 
+> standard modes and uses guest-configured
+> command queues (e.g., `CMD_CFGI_STE`) and event notifications.
+> 
+> **Risk:**
+> Malicious or malformed queue commands from guests could bypass 
+> validation, manipulate SMMUv3 state,
+> or cause system instability.
+> 
+> **Mitigation:** *(Handled by design)*
+> Built-in validation of command queue entries and sanitization mechanisms 
+> ensure only permitted configurations
+> are applied.
+
+This is true as long as we didn't make an mistake in the configurations ;).
 
 
->   (Canonically, the "-by" also wants to
-> be all lower case, I think.)
+> This is supported via additions in `vsmmuv3` and `cmdqueue` 
+> handling code.
+> 
+> 5. Observation:
+> ---------------
+> Device Tree modifications enable device assignment and configuration 
+> through guest DT fragments (e.g., `iommus`)
+> are added via `libxl`.
+> 
+> **Risk:**
+> Erroneous or malicious Device Tree injection could result in device 
+> misbinding or guest access to unauthorized
+> hardware.
 
-I was sure that I had seen “-by” written with an uppercase letter, but I will
-use lowercase in the future. I tried using|git log --grep|, and it seems I was
-mistaken — “-by” is always lowercase.
+The DT fragment are not security support and will never be at least 
+until you have can a libfdt that is able to detect malformed Device-Tree 
+(I haven't checked if this has changed recently).
 
-I didn’t see your answer, so I made the same mistake with “-by” in the next
-patch as well.
+> 
+> **Mitigation:**
+> 
+> - `libxl` perform checks of guest configuration and parse only 
+> predefined dt fragments and nodes, reducing risk.
+> - The system integrator must ensure correct resource mapping in the 
+> guest Device Tree (DT) fragments.
+ > > 6. Observation:
+> ---------------
+> Introducing optional per-guest enabled features (`viommu` argument in xl 
+> guest config) means some guests
+> may opt-out.
+> 
+> **Risk:**
+> Differences between guests with and without `viommu` may cause 
+> unexpected behavior or privilege drift.
 
-~ Oleksii
+I don't understand this risk. Can you clarify?
 
---------------6rxlXtWiSDHfng9MB26VfzsC
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+> 
+> **Mitigation:**
+> Verify that downgrade paths are safe and well-isolated; ensure missing 
+> support doesn't cause security issues.
+> Additional audits on emulation paths and domains interference need to be 
+> performed in a multi-guest environment.
+> 
+> 7. Observation:
+> ---------------
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 11/27/25 10:57 AM, Jan Beulich
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:3fd32ba0-0670-4c9b-b216-60c55a5de7ba@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 27.11.2025 10:49, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-On 11/26/25 2:44 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">In preparation to do away with symbols-dummy, re-number the assembly and
-object files used, for the numbers to match the next passes real output.
-This is to make 0 available to use for what now is handled by
-symbols-dummy.
+This observation with 7, 8 and 9 are the most important observations but 
+it seems to be missing some details on how this will be implemented. I 
+will try to provide some questions that should help filling the gaps.
 
-Signed-off-by: Jan Beulich<a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+> Guests have the ability to issue Stage-1 IOMMU commands like cache 
+> invalidation, stream table entries
+> configuration, etc. An adversarial guest may issue a high volume of 
+> commands in rapid succession.
+> 
+> **Risk:**
+> Excessive commands requests can cause high hypervisor CPU consumption 
+> and disrupt scheduling,
+> leading to degraded system responsiveness and potential denial-of- 
+> service scenarios.
+> 
+> **Mitigation:**
+> 
+> - Xen scheduler limits guest vCPU execution time, securing basic guest 
+> rate-limiting.
 
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -26,16 +26,16 @@ $(TARGET)-syms: $(objtree)/prelink.o $(o
-  	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
-  	$(NM) -pa --format=sysv $(dot-target).0 \
-  		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
--		&gt; $(dot-target).0.S
--	$(MAKE) $(build)=$(@D) $(dot-target).0.o
-+		&gt; $(dot-target).1.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).1.o
-  	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $&lt; \
--	    $(dot-target).0.o -o $(dot-target).1
-+	    $(dot-target).1.o -o $(dot-target).1
-  	$(NM) -pa --format=sysv $(dot-target).1 \
-  		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
--		&gt; $(dot-target).1.S
--	$(MAKE) $(build)=$(@D) $(dot-target).1.o
-+		&gt; $(dot-target).2.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).2.o
-  	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $&lt; $(build_id_linker) \ - $(dot-target).1.o -o $@ + $(dot-target).2.o 
--o $@ $(NM) -pa --format=sysv $@ \ | $(objtree)/tools/symbols 
---all-symbols --xensyms --sysv --sort \ &gt; $@.map
+This really depends on your scheduler. Some scheduler (e.g. NULL) will 
+not do any scheduling at all. Furthermore, the scheduler only preempt 
+EL1/EL0. It doesn't preempt EL2, so any long running operation need 
+manual preemption. Therefore, I wouldn't consider this as a mitigation.
 
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">LGTM: Reviewed-By: Oleksii Kurochko<a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Thanks. May I remind you again that there wants to be a blank before the
-opening angle bracket? That is an issue which was also pointed out for
-some of your recent release-acks.</pre>
-    </blockquote>
-    <pre>Hmm, something wrong with a setting in my e-mail app because I am looking at
-my reply in my e-mail app and there is a space before the opening angle bracket...</pre>
-    <p><br>
-    </p>
-    <blockquote type="cite"
-      cite="mid:3fd32ba0-0670-4c9b-b216-60c55a5de7ba@suse.com">
-      <pre wrap="" class="moz-quote-pre"> (Canonically, the "-by" also wants to
-be all lower case, I think.)</pre>
-    </blockquote>
-    <pre data-start="65" data-end="260">I was sure that I had seen “-by” written with an uppercase letter, but I will
-use lowercase in the future. I tried using <code data-start="186"
-    data-end="202">git log --grep</code>, and it seems I was
-mistaken — “-by” is always lowercase.</pre>
-    <pre data-start="262" data-end="352">I didn’t see your answer, so I made the same mistake with “-by” in the next
-patch as well.</pre>
-    <pre>
-~ Oleksii</pre>
-  </body>
-</html>
+> - Batch multiple commands of same type to reduce overhead on the virtual 
+> SMMUv3 hardware emulation.
 
---------------6rxlXtWiSDHfng9MB26VfzsC--
+The guest can send commands in any order. So can you expand how this 
+would work? Maybe with some example.
+
+> - Implement vIOMMU commands execution restart and continuation support
+
+This needs a bit more details. How will you decide whether to restart 
+and what would be the action? (I guess it will be re-executing the 
+instruction to write to the CWRITER).
+
+> 
+> 8. Observation:
+> ---------------
+> Some guest commands issued towards vIOMMU are propagated to pIOMMU 
+> command queue (e.g. TLB invalidate).
+> 
+> **Risk:**
+> Excessive commands requests from abusive guest can cause flooding of 
+> physical IOMMU command queue,
+> leading to degraded pIOMMU responsivness on commands issued from other 
+> guests.
+> 
+> **Mitigation:**
+> 
+> - Xen credit scheduler limits guest vCPU execution time, securing basic 
+> guest rate-limiting.
+
+Same as above. This mitigation cannot be used.
+
+
+> - Batch commands which should be propagated towards pIOMMU cmd queue and 
+> enable support for batch
+>    execution pause/continuation
+
+Can this be expanded?
+
+> - If possible, implement domain penalization by adding a per-domain cost 
+> counter for vIOMMU/pIOMMU usage.
+
+Can this be expanded?
+
+> 
+> 9. Observation:
+> ---------------
+> vIOMMU feature includes event queue used for forwarding IOMMU events to 
+> guest
+> (e.g. translation faults, invalid stream IDs, permission errors).
+> A malicious guest can misconfigure its SMMU state or intentionally 
+> trigger faults with high frequency.
+> 
+> **Risk:**
+> Occurance of IOMMU events with high frequency can cause Xen to flood the 
+
+s/occurance/occurrence/
+
+> event queue and disrupt scheduling with
+> high hypervisor CPU load for events handling.
+> 
+> **Mitigation:**
+> 
+> - Implement fail-safe state by disabling events forwarding when faults 
+> are occured with high frequency and
+>    not processed by guest.
+
+I am not sure to understand how this would work. Can you expand?
+
+> - Batch multiple events of same type to reduce overhead on the virtual 
+> SMMUv3 hardware emulation.
+
+Ditto.
+
+> - Consider disabling event queue for untrusted guests
+
+My understanding is there is only a single physical event queue. Xen 
+would be responsible to handle the events in the queue and forward to 
+the respective guests. If so, it is not clear what you mean by "disable 
+event queue".
+
+> 
+> Performance Impact
+> ==================
+> 
+> With iommu stage-1 and nested translation inclusion, performance 
+> overhead is introduced comparing to existing,
+> stage-2 only usage in Xen. Once mappings are established, translations 
+> should not introduce significant overhead.
+> Emulated paths may introduce moderate overhead, primarily affecting 
+> device initialization and event handling.
+> Performance impact highly depends on target CPU capabilities.
+> Testing is performed on QEMU virt and Renesas R-Car (QEMU emulated) 
+> platforms.
+
+I am afraid QEMU is not a reliable platform to do performance testing. 
+Don't you have a real HW with vIOMMU support?
+
+[...]
+
+> References
+> ==========
+> 
+> - Original feature implemented by Rahul Singh:
+> 
+> https://patchwork.kernel.org/project/xen-devel/cover/ 
+> cover.1669888522.git.rahul.singh@arm.com/
+> - SMMUv3 architecture documentation
+> - Existing vIOMMU code patterns
+
+I am not sure what this is referring to?
+
+Cheers,
+
+-- 
+Julien Grall
+
 
