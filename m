@@ -2,45 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FCE2C8D051
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 08:10:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173451.1498505 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8565DC8D07E
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 08:11:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173470.1498540 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOW94-0007v6-Cb; Thu, 27 Nov 2025 07:10:26 +0000
+	id 1vOWAG-00015h-OD; Thu, 27 Nov 2025 07:11:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173451.1498505; Thu, 27 Nov 2025 07:10:26 +0000
+Received: by outflank-mailman (output) from mailman id 1173470.1498540; Thu, 27 Nov 2025 07:11:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOW94-0007sn-9Y; Thu, 27 Nov 2025 07:10:26 +0000
-Received: by outflank-mailman (input) for mailman id 1173451;
- Thu, 27 Nov 2025 07:10:25 +0000
+	id 1vOWAG-0000zr-IZ; Thu, 27 Nov 2025 07:11:40 +0000
+Received: by outflank-mailman (input) for mailman id 1173470;
+ Thu, 27 Nov 2025 07:11:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rEk/=6D=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1vOW93-0004TZ-9Q
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 07:10:25 +0000
+ id 1vOW99-0004TZ-1G
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 07:10:31 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24330961-cb60-11f0-980a-7dc792cee155;
- Thu, 27 Nov 2025 08:10:23 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ id 27bd8031-cb60-11f0-980a-7dc792cee155;
+ Thu, 27 Nov 2025 08:10:29 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3AF035BCC5;
- Thu, 27 Nov 2025 07:10:23 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 103615BCCF;
+ Thu, 27 Nov 2025 07:10:29 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D29E13EA63;
- Thu, 27 Nov 2025 07:10:22 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A62DA3EA63;
+ Thu, 27 Nov 2025 07:10:28 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id EzUDMl75J2nvXQAAD6G6ig
- (envelope-from <jgross@suse.com>); Thu, 27 Nov 2025 07:10:22 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id kGOtJmT5J2n4XQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 27 Nov 2025 07:10:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,9 +51,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24330961-cb60-11f0-980a-7dc792cee155
+X-Inumbo-ID: 27bd8031-cb60-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1764227429; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tYoBmEPQTBonESeVu5a/+dg+QgALehadLv/nGYQmxpI=;
+	b=oepAybbKYKdhB0gOLKQV94mSJvQF384HqbJpuj53m9i8axqbrVpBfqR8aqxIDUrJd5inhP
+	9KKvwfHhbzZccPwYB53btnVQoC1ppdeYT32KW0P9DZwLpv9QNf5wRxuw53CzAHoOnBAkbs
+	802Q90mT6NBXdVFNbgH0qOWO7BpZd8A=
 Authentication-Results: smtp-out2.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1764227429; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tYoBmEPQTBonESeVu5a/+dg+QgALehadLv/nGYQmxpI=;
+	b=oepAybbKYKdhB0gOLKQV94mSJvQF384HqbJpuj53m9i8axqbrVpBfqR8aqxIDUrJd5inhP
+	9KKvwfHhbzZccPwYB53btnVQoC1ppdeYT32KW0P9DZwLpv9QNf5wRxuw53CzAHoOnBAkbs
+	802Q90mT6NBXdVFNbgH0qOWO7BpZd8A=
 From: Juergen Gross <jgross@suse.com>
 To: linux-kernel@vger.kernel.org,
 	x86@kernel.org
@@ -68,31 +85,41 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Josh Poimboeuf <jpoimboe@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH v4 16/21] x86/xen: Drop xen_cpu_ops
-Date: Thu, 27 Nov 2025 08:08:39 +0100
-Message-ID: <20251127070844.21919-17-jgross@suse.com>
+Subject: [PATCH v4 17/21] x86/xen: Drop xen_mmu_ops
+Date: Thu, 27 Nov 2025 08:08:40 +0100
+Message-ID: <20251127070844.21919-18-jgross@suse.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251127070844.21919-1-jgross@suse.com>
 References: <20251127070844.21919-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
+X-Spamd-Result: default: False [-6.80 / 50.00];
 	REPLY(-4.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLkdkdrsxe9hqhhs5ask8616i6)]
-X-Rspamd-Queue-Id: 3AF035BCC5
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Spam-Flag: NO
-X-Spam-Score: -4.00
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	R_RATELIMIT(0.00)[to_ip_from(RLfdszjqhz8kzzb9uwpzdm8png)];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCVD_TLS_ALL(0.00)[]
 X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spam-Score: -6.80
+X-Spam-Flag: NO
 
-Instead of having a pre-filled array xen_cpu_ops for Xen PV paravirt
+Instead of having a pre-filled array xen_mmu_ops for Xen PV paravirt
 functions, drop the array and assign each element individually.
 
 This is in preparation of reducing the paravirt include hell by
@@ -106,122 +133,138 @@ Signed-off-by: Juergen Gross <jgross@suse.com>
 V2:
 - new patch
 ---
- arch/x86/xen/enlighten_pv.c | 82 +++++++++++++++----------------------
- tools/objtool/check.c       |  1 -
- 2 files changed, 33 insertions(+), 50 deletions(-)
+ arch/x86/xen/mmu_pv.c | 100 ++++++++++++++++--------------------------
+ tools/objtool/check.c |   1 -
+ 2 files changed, 38 insertions(+), 63 deletions(-)
 
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 4806cc28d7ca..65df3a0d9cf3 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -1212,54 +1212,6 @@ static const struct pv_info xen_info __initconst = {
- 	.name = "Xen",
- };
+diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
+index 2a4a8deaf612..9fa00c4a8858 100644
+--- a/arch/x86/xen/mmu_pv.c
++++ b/arch/x86/xen/mmu_pv.c
+@@ -2175,73 +2175,49 @@ static void xen_leave_lazy_mmu(void)
+ 	preempt_enable();
+ }
  
--static const typeof(pv_ops) xen_cpu_ops __initconst = {
--	.cpu = {
--		.cpuid = xen_cpuid,
+-static const typeof(pv_ops) xen_mmu_ops __initconst = {
+-	.mmu = {
+-		.read_cr2 = __PV_IS_CALLEE_SAVE(xen_read_cr2),
+-		.write_cr2 = xen_write_cr2,
 -
--		.set_debugreg = xen_set_debugreg,
--		.get_debugreg = xen_get_debugreg,
+-		.read_cr3 = xen_read_cr3,
+-		.write_cr3 = xen_write_cr3_init,
 -
--		.read_cr0 = xen_read_cr0,
--		.write_cr0 = xen_write_cr0,
+-		.flush_tlb_user = xen_flush_tlb,
+-		.flush_tlb_kernel = xen_flush_tlb,
+-		.flush_tlb_one_user = xen_flush_tlb_one_user,
+-		.flush_tlb_multi = xen_flush_tlb_multi,
 -
--		.write_cr4 = xen_write_cr4,
+-		.pgd_alloc = xen_pgd_alloc,
+-		.pgd_free = xen_pgd_free,
 -
--		.read_msr = xen_read_msr,
--		.write_msr = xen_write_msr,
+-		.alloc_pte = xen_alloc_pte_init,
+-		.release_pte = xen_release_pte_init,
+-		.alloc_pmd = xen_alloc_pmd_init,
+-		.release_pmd = xen_release_pmd_init,
 -
--		.read_msr_safe = xen_read_msr_safe,
--		.write_msr_safe = xen_write_msr_safe,
+-		.set_pte = xen_set_pte_init,
+-		.set_pmd = xen_set_pmd_hyper,
 -
--		.read_pmc = xen_read_pmc,
+-		.ptep_modify_prot_start = xen_ptep_modify_prot_start,
+-		.ptep_modify_prot_commit = xen_ptep_modify_prot_commit,
 -
--		.load_tr_desc = paravirt_nop,
--		.set_ldt = xen_set_ldt,
--		.load_gdt = xen_load_gdt,
--		.load_idt = xen_load_idt,
--		.load_tls = xen_load_tls,
--		.load_gs_index = xen_load_gs_index,
+-		.pte_val = PV_CALLEE_SAVE(xen_pte_val),
+-		.pgd_val = PV_CALLEE_SAVE(xen_pgd_val),
 -
--		.alloc_ldt = xen_alloc_ldt,
--		.free_ldt = xen_free_ldt,
+-		.make_pte = PV_CALLEE_SAVE(xen_make_pte_init),
+-		.make_pgd = PV_CALLEE_SAVE(xen_make_pgd),
 -
--		.store_tr = xen_store_tr,
+-		.set_pud = xen_set_pud_hyper,
 -
--		.write_ldt_entry = xen_write_ldt_entry,
--		.write_gdt_entry = xen_write_gdt_entry,
--		.write_idt_entry = xen_write_idt_entry,
--		.load_sp0 = xen_load_sp0,
+-		.make_pmd = PV_CALLEE_SAVE(xen_make_pmd),
+-		.pmd_val = PV_CALLEE_SAVE(xen_pmd_val),
 -
--#ifdef CONFIG_X86_IOPL_IOPERM
--		.invalidate_io_bitmap = xen_invalidate_io_bitmap,
--		.update_io_bitmap = xen_update_io_bitmap,
--#endif
--		.io_delay = xen_io_delay,
+-		.pud_val = PV_CALLEE_SAVE(xen_pud_val),
+-		.make_pud = PV_CALLEE_SAVE(xen_make_pud),
+-		.set_p4d = xen_set_p4d_hyper,
 -
--		.start_context_switch = xen_start_context_switch,
--		.end_context_switch = xen_end_context_switch,
+-		.alloc_pud = xen_alloc_pmd_init,
+-		.release_pud = xen_release_pmd_init,
+-
+-		.p4d_val = PV_CALLEE_SAVE(xen_p4d_val),
+-		.make_p4d = PV_CALLEE_SAVE(xen_make_p4d),
+-
+-		.enter_mmap = xen_enter_mmap,
+-		.exit_mmap = xen_exit_mmap,
+-
+-		.lazy_mode = {
+-			.enter = xen_enter_lazy_mmu,
+-			.leave = xen_leave_lazy_mmu,
+-			.flush = xen_flush_lazy_mmu,
+-		},
+-
+-		.set_fixmap = xen_set_fixmap,
 -	},
 -};
 -
- static void xen_restart(char *msg)
+ void __init xen_init_mmu_ops(void)
  {
- 	xen_reboot(SHUTDOWN_reboot);
-@@ -1411,7 +1363,39 @@ asmlinkage __visible void __init xen_start_kernel(struct start_info *si)
+ 	x86_init.paging.pagetable_init = xen_pagetable_init;
+ 	x86_init.hyper.init_after_bootmem = xen_after_bootmem;
  
- 	/* Install Xen paravirt ops */
- 	pv_info = xen_info;
--	pv_ops.cpu = xen_cpu_ops.cpu;
-+
-+	pv_ops.cpu.cpuid = xen_cpuid;
-+	pv_ops.cpu.set_debugreg = xen_set_debugreg;
-+	pv_ops.cpu.get_debugreg = xen_get_debugreg;
-+	pv_ops.cpu.read_cr0 = xen_read_cr0;
-+	pv_ops.cpu.write_cr0 = xen_write_cr0;
-+	pv_ops.cpu.write_cr4 = xen_write_cr4;
-+	pv_ops.cpu.read_msr = xen_read_msr;
-+	pv_ops.cpu.write_msr = xen_write_msr;
-+	pv_ops.cpu.read_msr_safe = xen_read_msr_safe;
-+	pv_ops.cpu.write_msr_safe = xen_write_msr_safe;
-+	pv_ops.cpu.read_pmc = xen_read_pmc;
-+	pv_ops.cpu.load_tr_desc = paravirt_nop;
-+	pv_ops.cpu.set_ldt = xen_set_ldt;
-+	pv_ops.cpu.load_gdt = xen_load_gdt;
-+	pv_ops.cpu.load_idt = xen_load_idt;
-+	pv_ops.cpu.load_tls = xen_load_tls;
-+	pv_ops.cpu.load_gs_index = xen_load_gs_index;
-+	pv_ops.cpu.alloc_ldt = xen_alloc_ldt;
-+	pv_ops.cpu.free_ldt = xen_free_ldt;
-+	pv_ops.cpu.store_tr = xen_store_tr;
-+	pv_ops.cpu.write_ldt_entry = xen_write_ldt_entry;
-+	pv_ops.cpu.write_gdt_entry = xen_write_gdt_entry;
-+	pv_ops.cpu.write_idt_entry = xen_write_idt_entry;
-+	pv_ops.cpu.load_sp0 = xen_load_sp0;
-+#ifdef CONFIG_X86_IOPL_IOPERM
-+	pv_ops.cpu.invalidate_io_bitmap = xen_invalidate_io_bitmap;
-+	pv_ops.cpu.update_io_bitmap = xen_update_io_bitmap;
-+#endif
-+	pv_ops.cpu.io_delay = xen_io_delay;
-+	pv_ops.cpu.start_context_switch = xen_start_context_switch;
-+	pv_ops.cpu.end_context_switch = xen_end_context_switch;
-+
- 	xen_init_irq_ops();
+-	pv_ops.mmu = xen_mmu_ops.mmu;
++	pv_ops.mmu.read_cr2 = __PV_IS_CALLEE_SAVE(xen_read_cr2);
++	pv_ops.mmu.write_cr2 = xen_write_cr2;
++	pv_ops.mmu.read_cr3 = xen_read_cr3;
++	pv_ops.mmu.write_cr3 = xen_write_cr3_init;
++	pv_ops.mmu.flush_tlb_user = xen_flush_tlb;
++	pv_ops.mmu.flush_tlb_kernel = xen_flush_tlb;
++	pv_ops.mmu.flush_tlb_one_user = xen_flush_tlb_one_user;
++	pv_ops.mmu.flush_tlb_multi = xen_flush_tlb_multi;
++	pv_ops.mmu.pgd_alloc = xen_pgd_alloc;
++	pv_ops.mmu.pgd_free = xen_pgd_free;
++	pv_ops.mmu.alloc_pte = xen_alloc_pte_init;
++	pv_ops.mmu.release_pte = xen_release_pte_init;
++	pv_ops.mmu.alloc_pmd = xen_alloc_pmd_init;
++	pv_ops.mmu.release_pmd = xen_release_pmd_init;
++	pv_ops.mmu.set_pte = xen_set_pte_init;
++	pv_ops.mmu.set_pmd = xen_set_pmd_hyper;
++	pv_ops.mmu.ptep_modify_prot_start = xen_ptep_modify_prot_start;
++	pv_ops.mmu.ptep_modify_prot_commit = xen_ptep_modify_prot_commit;
++	pv_ops.mmu.pte_val = PV_CALLEE_SAVE(xen_pte_val);
++	pv_ops.mmu.pgd_val = PV_CALLEE_SAVE(xen_pgd_val);
++	pv_ops.mmu.make_pte = PV_CALLEE_SAVE(xen_make_pte_init);
++	pv_ops.mmu.make_pgd = PV_CALLEE_SAVE(xen_make_pgd);
++	pv_ops.mmu.set_pud = xen_set_pud_hyper;
++	pv_ops.mmu.make_pmd = PV_CALLEE_SAVE(xen_make_pmd);
++	pv_ops.mmu.pmd_val = PV_CALLEE_SAVE(xen_pmd_val);
++	pv_ops.mmu.pud_val = PV_CALLEE_SAVE(xen_pud_val);
++	pv_ops.mmu.make_pud = PV_CALLEE_SAVE(xen_make_pud);
++	pv_ops.mmu.set_p4d = xen_set_p4d_hyper;
++	pv_ops.mmu.alloc_pud = xen_alloc_pmd_init;
++	pv_ops.mmu.release_pud = xen_release_pmd_init;
++	pv_ops.mmu.p4d_val = PV_CALLEE_SAVE(xen_p4d_val);
++	pv_ops.mmu.make_p4d = PV_CALLEE_SAVE(xen_make_p4d);
++	pv_ops.mmu.enter_mmap = xen_enter_mmap;
++	pv_ops.mmu.exit_mmap = xen_exit_mmap;
++	pv_ops.mmu.lazy_mode.enter = xen_enter_lazy_mmu;
++	pv_ops.mmu.lazy_mode.leave = xen_leave_lazy_mmu;
++	pv_ops.mmu.lazy_mode.flush = xen_flush_lazy_mmu;
++	pv_ops.mmu.set_fixmap = xen_set_fixmap;
  
- 	/*
+ 	memset(dummy_mapping, 0xff, PAGE_SIZE);
+ }
 diff --git a/tools/objtool/check.c b/tools/objtool/check.c
-index 3fd551c080ee..5c00bca8dc11 100644
+index 5c00bca8dc11..1c73426bea9f 100644
 --- a/tools/objtool/check.c
 +++ b/tools/objtool/check.c
 @@ -593,7 +593,6 @@ static int init_pv_ops(struct objtool_file *file)
  {
  	static const char *pv_ops_tables[] = {
  		"pv_ops",
--		"xen_cpu_ops",
- 		"xen_mmu_ops",
+-		"xen_mmu_ops",
  		NULL,
  	};
+ 	const char *pv_ops;
 -- 
 2.51.0
 
