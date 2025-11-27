@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BD53C8D4E8
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 09:19:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173550.1498575 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79DE0C8D5F9
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 09:39:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173559.1498585 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOXCe-0003lB-0N; Thu, 27 Nov 2025 08:18:12 +0000
+	id 1vOXWz-0006ly-Kc; Thu, 27 Nov 2025 08:39:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173550.1498575; Thu, 27 Nov 2025 08:18:11 +0000
+Received: by outflank-mailman (output) from mailman id 1173559.1498585; Thu, 27 Nov 2025 08:39:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOXCd-0003jk-Tq; Thu, 27 Nov 2025 08:18:11 +0000
-Received: by outflank-mailman (input) for mailman id 1173550;
- Thu, 27 Nov 2025 08:18:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vOXWz-0006ji-HB; Thu, 27 Nov 2025 08:39:13 +0000
+Received: by outflank-mailman (input) for mailman id 1173559;
+ Thu, 27 Nov 2025 08:39:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mf1n=6D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOXCc-0003je-Jj
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 08:18:10 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a8d72c1-cb69-11f0-980a-7dc792cee155;
- Thu, 27 Nov 2025 09:18:07 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4779cb0a33fso4800615e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 00:18:07 -0800 (PST)
+ id 1vOXWx-0006jc-IM
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 08:39:11 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8b2fc004-cb6c-11f0-9d18-b5c5bf9af7f9;
+ Thu, 27 Nov 2025 09:39:10 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-42b3108f41fso370150f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 00:39:10 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4790b0cc186sm79706295e9.13.2025.11.27.00.18.06
+ ffacd0b85a97d-42e1ca1a310sm2177778f8f.26.2025.11.27.00.39.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Nov 2025 00:18:06 -0800 (PST)
+ Thu, 27 Nov 2025 00:39:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a8d72c1-cb69-11f0-980a-7dc792cee155
+X-Inumbo-ID: 8b2fc004-cb6c-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764231487; x=1764836287; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764232749; x=1764837549; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SljjkoHSvNo7AYpNYa6OcIrQBWEj1HPkBjDJM1OQzEQ=;
-        b=cWzyvwnf+kNm26YgkBmu/jrYXNTdHv0LeX19zOnn93jVxNKdohmmEEhT8INx8kLvGz
-         qHMIzdizx7nDTRrfcW61ToMDYIWd1qdjhCW2Hj1DcQ6uZcNdP8ggBBJmjdVDSmkAnL9L
-         H9jFd9cZN9++ntRInO1OZ0e8VRPC4j5AQZ8uHSLY6MgnPO1XK2qt2250ZxzU38vqPbmF
-         /vmkvLLJ1njH4SXKq/3V2/QiCoyFLpEKJ90hx4Ce2iTpICA1uCAzJoDssJRlKT7iOPM7
-         pRdKCk75Z6DFsqPc7qz/rgfy7m+GFfHTS/ATaxItEch/Mt7ioXtKIGjefcFAB7teffwf
-         gjUA==
+        bh=nIJhPejUmJl6FeSMThRXZdaUkkvqGD9IYal3rEHAko8=;
+        b=Qj/xEyu82J20AbnJHrozPsF0D0gsmjjXzkRP6G/amjMFAbfPqnFOd7WJ2KPLZflpH2
+         UQ5G1G+q3MbhupOvwvXKxxrDqlhwRY/0SWn6UvTsmGLtm8hRQsBZVl6ZbD4tmbLQ1PWJ
+         +xTq9r3fDNT/TkzqsODYfXsT/qZiJE+5WTuIpOD0qJ7PP6KkUdd9cOZOrRzdk07HCI4X
+         nS7e62Jx6WGZiOwFAK/zefNnVbCh+qCuYX5ZDgThKObMJhIf5KmDK3qHo4wzDRvA1jee
+         pVQeMGJHqQaRuKUahhacJSHPXnKsRMPDmevnnP9TOcrAJ7+1XQkvxdFmebuweJUH/ntC
+         mhIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764231487; x=1764836287;
+        d=1e100.net; s=20230601; t=1764232749; x=1764837549;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SljjkoHSvNo7AYpNYa6OcIrQBWEj1HPkBjDJM1OQzEQ=;
-        b=KVyU5Nj+Cm05OhARq9kyPN2ib2gtzPJcNx6M+4jYbezf0j9tBsebplzyHAKhORKVH5
-         v86r9/8ZjaijL9YkElShNSBgYUgr9f7ygGwdjdlLiec88k+rWDoGxLZBsiii3v4OQ1lM
-         v6m48FkO7Glu0D3waJMwFjaAHs1HQNdue7t2SrQAZZMKIkTPUnBBFV4Nc6znwntXYFA4
-         y5/Dgb8T2/919o7D1Gnbju/iIL1K3sW4SHm8taa3GsM+4wZc8Vzt2PP5A+GP5MUZ3t+H
-         r0aEc97Mt/dfVfXiC2m9103UVolEQb7D13qfzkJsOaUZSg/Gj2rnm5+g+60UQev6oKWP
-         ro7w==
-X-Forwarded-Encrypted: i=1; AJvYcCWNpnWgmm7moZbOxNPs5dh3fVc0mEf7aK/Vt2BtZaFMZhEIFoJR1TE986gZGQ6ejl+6NSekqhnHrN0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzrTAvevPi0RXBTGGySLAxk5TeFFAXXpxwaa1Fd+Moeh87UwOP7
-	5sug7WeYLMDPpfEZkcWNrJEyyJ5RSCY+x8J67L8gGHoyT4dxKdDEmVsCChJYXOQabA==
-X-Gm-Gg: ASbGncvLZMwHJRVGbufAk64MyeaVkA2g7i7d8JsNgM5Z7eHsU9YP89ar/azO8IXdJ5e
-	lAD4KVqorj8BcSOXzLqOBmmSZ0KKWNkXRXkyF8FcXjsAKuexhfI7bNfbId/RVNR7lH9kovyQNdi
-	dxHcNj2GjjkXCR0nhdnzOArU9HuQKDlNfbprWgB4i/f5sgvhId/wLMH4xPrFY6QlfscCL9xCnuW
-	akyh+AS0Os7B3yS85QK5u0h+HnuhlcrSjOBfyc1BqiKYj9iFDF+JFPLR6IWPqjwcUWgmk5+Wo/m
-	u0ooeN4VNB3ljb7Ij5/2FoZG5izhc8oCEBhw3nEUYxcHAGmVcu+7Oa4TXP70zcVEhIJbKs77rJ5
-	ZZLolaY4BMVM4HvHCGcQ+nvvBtXt6BsiJxDHTvERKaISAS8l5qgYJ0vQekFtGdtF9ioYG/fupuH
-	HTvtR3+j8/sWm647au5+eBtExdfKwtrvTbff9To4HlJXblBJdtJ0xgK4Q6fGdYI6O/TyrKCNCoa
-	/4=
-X-Google-Smtp-Source: AGHT+IEdi+4gmdkOUwPlxsnaYXAuoEbfy91E00NkhJN/s3UmJox+wKwxcOF64HQNz/oRhmYqBGIcjw==
-X-Received: by 2002:a05:600c:4fcb:b0:477:557b:691d with SMTP id 5b1f17b1804b1-477c01eea7fmr194181775e9.25.1764231486897;
-        Thu, 27 Nov 2025 00:18:06 -0800 (PST)
-Message-ID: <726f1d23-343b-4151-8c8f-a7b9ee3e08a1@suse.com>
-Date: Thu, 27 Nov 2025 09:18:04 +0100
+        bh=nIJhPejUmJl6FeSMThRXZdaUkkvqGD9IYal3rEHAko8=;
+        b=NxUJ20jrkZNtjtI217U1QRIY9ajPoDtgL/mlzFZMRTtMzNK6ICu3C7x5QXFIn2IPKv
+         71cLc3uT+Cv8YoeRuTJMdYip2d0kO/qcjM1r3WKLJzOb+5mTqUk+OaluVlNvG55weXGG
+         zC/v5zbzStzffGmkC2XjbLtdFM6peTQ6/qCmW2hBDEDQCJaQ4KkrIlqTK0UIUmcunb5Q
+         FptNmuV8Oy9TOVOsq/uTBX3Ssw7IOm1LrVVFWahoAfV9cou9YXp++YEJQEppDbvI91ox
+         +KKhcOS2+DkOukd0aHKAHpofahBz0oBUXKi7QVDS7k/kPuOwzSAJDtSI9+4r6zVw2Con
+         Rn8w==
+X-Forwarded-Encrypted: i=1; AJvYcCXylQ9q7G+ylUA71NMlz/rA+KRKgTu6jmjZL73YHVbakMh1Ggu4Nl29UXB7JrWNymXFhs0wr6H2qc8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwMLOigWCTzksaWv2X4GALwKRif5sDMPgMEJSC1s68FaD6T9aqX
+	8ofaKLFtRteIooJJHO3jzUYFimDGvpGsSnRAPbvrBYBDABnecZnHd83/p+1e3XUrcQ==
+X-Gm-Gg: ASbGncsJ1t3vqiKzeBvQDNEa0T6UStMyd8NoCkc5LUXsmTqHhhlfiTlg455w8b53v5K
+	mVSPpqGMmD3RHiLaIbeCsZtfmr+O3WPukTvQ04L0xDk1wDlBE63X/J2Kkbia0aTOx/uJ2BtXuAP
+	Ub1hOEDKc1s+BWIejjyHV9nihNwlT6zh1XAsq3OPw0w1C2v+ZtsC/9rbI4fFjf73UAURmiZskla
+	8d48/x9xLsP6Fpmu0ToUcEcUjt87j89BCKB1iAFS+7w1gRQoKyDvw2O8HY35Pi6YOBMiATjBXjf
+	t0e7j52KPLObhqYUy96M6aITKjU/Sm/H5LqQ1fNuimaXM9V2cWGsFjtSZQVLE6zH51ylQGyPAKd
+	in838XjQA+65yI81m7OXXNHFMaVJYetoDJiZiQDbzOou8pHhLlY1Muz/iOlNYyxnPzWjJywyVBe
+	/IZFOKhoK8DmCSsPcYs1WqyZ4tjNL4hi8sur8jXggLNexjEMdDoyzXz6bhdwIQko/pU+UTtOu61
+	Ok=
+X-Google-Smtp-Source: AGHT+IEWqUyy9bm0t7n2lSbzD5Gv5AKVt8HN6QjYekH8Q+N2e0WZ4CxN9JENCoSZZ/s6pSVDDeAovg==
+X-Received: by 2002:a05:6000:2084:b0:42b:3cc6:a4d7 with SMTP id ffacd0b85a97d-42cc1cf825bmr24473222f8f.37.1764232749529;
+        Thu, 27 Nov 2025 00:39:09 -0800 (PST)
+Message-ID: <0a20ed58-d257-454e-b3e2-207be616102f@suse.com>
+Date: Thu, 27 Nov 2025 09:39:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 07/10] VMX: support MSR-IMM
+Subject: Re: [PATCH 1/3] x86/cpu: Sort headers
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <926a2315-a2b7-4aad-87e6-d686c9da9e3a@suse.com>
- <1404b901-0821-4e8d-82c7-1eebd8ed4daa@suse.com>
- <0b20af96-bfef-43b1-a22a-db85a18b849d@citrix.com>
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251126171539.890253-1-andrew.cooper3@citrix.com>
+ <20251126171539.890253-2-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,87 +120,15 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0b20af96-bfef-43b1-a22a-db85a18b849d@citrix.com>
+In-Reply-To: <20251126171539.890253-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.11.2025 19:50, Andrew Cooper wrote:
-> On 24/11/2025 3:00 pm, Jan Beulich wrote:
->> Hook up the new VM exit codes and handle guest uses of the insns.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> v9: New.
->> ---
->> The lack of an enable bit is concerning; at least for the nested case
->> that's a security issue afaict (when L0 isn't aware of the insns, or more
->> specifically the exit codes).
+On 26.11.2025 18:15, Andrew Cooper wrote:
+> No functional change.
 > 
-> This is why we need support statements of new CPUs.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I hope you don't mean the lack thereof to be a blocking factor for this
-change?
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> Intel say that unknown VMExits turning into #UD is the expected course
-> of action.  That covers all of these cases which don't have an explicit
-> enable.
-
-Do you have a pointer?
-
-> This is better than our current behaviour, which is non-architectural
-> for supervisor code and practically the most unhelpful course of action
-> going.
-> 
-> Obviously, logic turning on a new feature is expected to handle all the
-> VMExit cases it can produce.
-
-What you say here ...
-
-> The corollary for nested virt is that L0 must never make a Virtual
-> VMExit with case that isn't enabled.  Combined with #UD in the unknown
-> case, that covers things reasonably well.
-> 
->> --- a/xen/arch/x86/domain.c
->> +++ b/xen/arch/x86/domain.c
->> @@ -453,7 +453,7 @@ void domain_cpu_policy_changed(struct do
->>      }
->>  
->>      /* Nested doesn't have the necessary processing, yet. */
->> -    if ( nestedhvm_enabled(d) && p->feat.user_msr )
->> +    if ( nestedhvm_enabled(d) && (p->feat.user_msr || p->feat.msr_imm) )
->>          return /* -EINVAL */;
-> 
-> What processing is missing?  (Aside from correcting the unknown case.)
-
-... is what would need doing for this check to disappear. Going the #UD
-route looks to make sense, but it still wouldn't feel quite right then
-to drop this check. If we expose the feature, we shouldn't convert
-respective exits to #UD. They aren't "unknown" (anymore) after all.
-
-And then again the question is: Are you expecting me to deal with
-switching to the #UD model as a prereq (if, as per above, that's
-relevant at all here)? If so, I have to admit that it's not quite clear
-to me what exactly this would be meant to look like: Alter the default
-cases of the big switch()es in both the normal and nested exit handlers?
-Or merely the latter?
-
->> --- a/xen/arch/x86/hvm/vmx/vmx.c
->> +++ b/xen/arch/x86/hvm/vmx/vmx.c
->> @@ -4762,6 +4762,7 @@ void asmlinkage vmx_vmexit_handler(struc
->>          break;
->>  
->>      case EXIT_REASON_URDMSR:
->> +    case EXIT_REASON_RDMSR_IMM:
-> 
-> Instructions which aren't enumerated in CPUID have reserved behaviour.
-> 
-> The exit handler needs to check cp->feat.msr_imm and inject #UD.
-> 
-> It's not perfect; un-intercepted MSRs will happen to execute correctly
-> on capable hardware, but most MSRs are not intercepted and it's far
-> closer to adequate behaviour than omitting the #UD check.
-
-Hmm, okay, I can certainly do it this way.
-
-Jan
 
