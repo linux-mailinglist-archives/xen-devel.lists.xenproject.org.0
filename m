@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81F3AC8D235
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 08:39:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173523.1498554 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 558FFC8D43C
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 08:58:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173533.1498565 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOWb8-0005VZ-RU; Thu, 27 Nov 2025 07:39:26 +0000
+	id 1vOWtI-0000B5-A0; Thu, 27 Nov 2025 07:58:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173523.1498554; Thu, 27 Nov 2025 07:39:26 +0000
+Received: by outflank-mailman (output) from mailman id 1173533.1498565; Thu, 27 Nov 2025 07:58:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOWb8-0005TH-Om; Thu, 27 Nov 2025 07:39:26 +0000
-Received: by outflank-mailman (input) for mailman id 1173523;
- Thu, 27 Nov 2025 07:39:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vOWtI-000093-6L; Thu, 27 Nov 2025 07:58:12 +0000
+Received: by outflank-mailman (input) for mailman id 1173533;
+ Thu, 27 Nov 2025 07:58:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mf1n=6D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOWb7-0005TB-NH
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 07:39:25 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 30fe7e33-cb64-11f0-980a-7dc792cee155;
- Thu, 27 Nov 2025 08:39:23 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-429c8632fcbso353672f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 23:39:23 -0800 (PST)
+ id 1vOWtG-00008x-NF
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 07:58:10 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d052f249-cb66-11f0-9d18-b5c5bf9af7f9;
+ Thu, 27 Nov 2025 08:58:09 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4779adb38d3so3002535e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Nov 2025 23:58:09 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1c5168acsm1894341f8f.0.2025.11.26.23.39.21
+ 5b1f17b1804b1-4791164d365sm17193555e9.12.2025.11.26.23.58.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Nov 2025 23:39:21 -0800 (PST)
+ Wed, 26 Nov 2025 23:58:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30fe7e33-cb64-11f0-980a-7dc792cee155
+X-Inumbo-ID: d052f249-cb66-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764229162; x=1764833962; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764230288; x=1764835088; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8ACafBzmCu9nbCRl977gzD0nFRgFVoQMZhMwMbD1Kvs=;
-        b=BOMNdIxTVNtGrKgHuHTSAB1tmzLriBF4tUdOANHy7pYGVZyLM1Sf77XE1JZ/nF5Wd6
-         pJO2gE5WMjClO17SQ2A3uQWpxUZA9CVf1rRN/h6Qq2HZku427gLD1q0FNNlcRasRVRpp
-         rbHSske3YnhbguoxlMV9v1KEEEHOZgqjIrOpzC8wsm7v6PbNqbTwMZ2nmjzEi5ssJlJq
-         JZmUn+KXMnLPZSwsG8u5Nc+hS7vRDwOME/Dr9e20aXfd8yhE91y/NMR+Zlz17LPtomEd
-         t3DQ+RfKxiAdLTcqju3Jl/nFbS/CO5eayf0wLJCv8U2e7jQtN4KRYhVCmLWt2pwzF/z+
-         zDAw==
+        bh=h0KIwiuIH3nUKAr+RUieLKs8a8/4ggIbaVDhtsBfKRs=;
+        b=ZHWSwQNhvM4eZ1oNaYHdKIvbFrBU9KszBlaWR4jE5SzlyAku0Bo+gj9S7ome0kkJ4x
+         OJDYaxQDpoq7JPxzzXplZKK8t+J3xNZCXJ7efkKjdHN/HscMqBLqCKLvrDfoHITSro8v
+         fkOKIvoCQpWxc9hgsTl16GvXYyWWeQyoiUVBX8fm0wsjYikrMWpHcqji2hc7LlRPI9Et
+         l3moZFGSAYWmKOal6qBzXJ1lJMX+QTh6w4d7BbcjgneUTo1lxwvuVzOXzLzB4YSh+c4S
+         vio54Bud5Ck/qAWDhPGs2xD1NUSFZr/uShgoXHJZmCW2ksY0iXAZ6Zh7o8gEzSR3L+bd
+         mbFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764229162; x=1764833962;
+        d=1e100.net; s=20230601; t=1764230288; x=1764835088;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8ACafBzmCu9nbCRl977gzD0nFRgFVoQMZhMwMbD1Kvs=;
-        b=SmfBxxb9qjwkhJnaRQPR1jGBVmcmgyvbUGHg2lxd+N1wTykbg1lxrED+gJh5/ODQ9k
-         2cnCPScWm4nDpFci15ncX5s1GNRL5gNbCtpuSC2vMasPe9ahWPDRuQk1I1bzmaEcMtKf
-         jUW8mhSYQLswDgumrATVsvh3vHLl9VJ5R00PIRtXyC40pdN7Mzu1NN+1MrpqiymojRQk
-         LCh2HSi0k+3xvHacfuXdfr/dbAmyAL1csU7V6BIRLKhTAGoL3xrwyKVCY1uzumlPYgnr
-         ZdCOjN7q2ck0LdqGShT3a/OptF7SCEPDEgTLBDjlmGqbYoue8CQUyuIguSqlrwwxzLGy
-         8Ljw==
-X-Forwarded-Encrypted: i=1; AJvYcCUfIzOq36AM/TR3mbtI0qSo5QHINnZgUJ3KgbsATBCOKZ+3LZcdn/CoMIvk2ZFaU41cspeGHufojGs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxUIE/VY2miGKgoORnJeNXIQCcrQdfK633/g/YbEIS0vaJBXE6H
-	oZ8bcMRIHumVqNWmXsJlU507j5i9JrcJTiGWyJJphDbdsJroHxW8j/8fqNdyHJS3sA==
-X-Gm-Gg: ASbGncuIuZyGrPBRvjCJLgwNUcUgpNAvY/XQygYqy666VDJ3knQ+RVYbc38RgzgXnu4
-	XLA7PxOoTgFRwfSRkD6K4GJsHlsfQxAtf8y9a8XSbPlIWrAVhGWNIFR1rJrWJoBDVHg9m6H6sy9
-	04JsYVSAtyNRcYZYisriRtKTjs15rlyjOu+r1QiPAdkYm3FUREhDPJvYfh2BqhrZAAs0MNodlF3
-	JxVSCjAjUEhS3o2wqUCSl5/pK8DB76Cu1BHzdBq17zW/+n0olUxgACSwZW9ri0qf6Sw08bgn7G/
-	9KB8+K5dUONjtPZM7Y5liqx8b8PyCkkZFD8FH8ax2zqBqCf1tZGxyyf9EM5k9B088mn8QuXGWxD
-	lUW3d+eVa8CMhuTUZ9q7OROSxGU8jx7+tWTxjq6v5jwSZ4Lfcw/JBbHUo4c6zNPI8caBd9D6Jad
-	k0PUw4M2tqTAz4T0ebh0vfhj9weN0qgDNnFbaars8R/W6MCocSmegAdh7xg3EqBlyVJC/v3BYi2
-	b8=
-X-Google-Smtp-Source: AGHT+IGMv9zN7mIBo+LJR8i7YWb7BSvjFAzkBHWcfKZQmiNxhCK5LpmYYGRyKOmS+aYGgGgZ7LLJhQ==
-X-Received: by 2002:a05:6000:2303:b0:429:c14f:5f7d with SMTP id ffacd0b85a97d-42cc1cf3b24mr23519729f8f.29.1764229162127;
-        Wed, 26 Nov 2025 23:39:22 -0800 (PST)
-Message-ID: <dc20f31b-5f2c-47ae-b188-f72b34fdac47@suse.com>
-Date: Thu, 27 Nov 2025 08:39:20 +0100
+        bh=h0KIwiuIH3nUKAr+RUieLKs8a8/4ggIbaVDhtsBfKRs=;
+        b=kqj4VbGFi0nDSFmNopHX5BfnfTWPSxyW9Jp0+SVOBxhYp2vyZ8lP5CUgZgOrBUEuLZ
+         03AJuZ+wOosxjQBJz4Jp0Uz9VVX7V0nEJwFCl0n4zeSKAiHiEgccQ75r+5EK/SmQhrGy
+         h51UxNieBwhsrM13vBT0eYHbk+6rpZQTMpYLP0Exa6WsXGbUdKrRIasa++QoQkSspW/V
+         MtLagpLrAoHz8hVSngUgndOoq470sByLEf68YhYaFmHK0wmw2yqcx34Gv22lRctCPz0C
+         /eSjk6BSxAtYOeWsG0Ud7wFwndym7phwd7DfWOF3NeBVcUBQOU23c0kbSMOW0sTdCzYu
+         y6Tw==
+X-Forwarded-Encrypted: i=1; AJvYcCWSF3gCoKOw1eEXzWi2AC6uLi0gvykyJOBYIaGWXEusAvvYe8cfJt5xxw9VOpnB1TSTGBaoajt+Iuw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwofEvoqa3LvH301JcFW21z7Ue+Ee6TAPGZuTeyfXVfJPMGaFr8
+	8jBpq94Ng7c3l4YnDQ7lLMX6BUMhGXXniia+fv2x9asWsihg5LEphQiv7g00qWvQAA==
+X-Gm-Gg: ASbGncsgbk+Wdu6SSqK+vAPGPNP9BDVNkmD5NBczxWucRYH03ySalKnXJraNiVAwgRs
+	NKlvM1ReMrBhbdks4Gn9gBCXHF1rgepEKD+eBq7lescmz4o69hArTZHsXU+7fSpmhFz8dTewULR
+	8lAJ5Dqh53tb8zzAsfWRIc1+Miz5zcbE+fmW9KEItKdJaQOslFq6uoVAyBZQL0zNX+j71fq+f5f
+	Y6xmV/zNtXeoENx2HniT4v39rKB2tqsKMpQOSDdY2BY4yU8FpIsUe4EObMryx2lmeR7MDlCldBc
+	glr/GA9KNRw4jiWqjLeUp8U1TVHFgEgBtGW+aNINjvMk0PK8whAjp1MtXVdzF/DiAW+yrjX5b+a
+	E9YbJTEirOHrJSGBEex9JMz/V1EBu+68/jbup/BOdlDzU7Alwa5Tk0BL/HM2vrbL80AR86jo46X
+	K4q3Kz5ji4wBRATL9VDC/NunI83kji7p6wCkYUY/XgYusD1FcW7Vspe5u6bSKLh88T8kZK5K1Ur
+	Xg=
+X-Google-Smtp-Source: AGHT+IHwXbzHRq7LQ4X4yTDayxN0WjJ5rycMzSBVDHdUYZIhjjnHgosZbbGbC+gC9huSG/dm2boRfA==
+X-Received: by 2002:a05:600c:1c19:b0:477:7bca:8b3c with SMTP id 5b1f17b1804b1-47904b10379mr119206445e9.19.1764230288501;
+        Wed, 26 Nov 2025 23:58:08 -0800 (PST)
+Message-ID: <63ee65cc-1e8b-4f00-a882-7e96fe1e1eac@suse.com>
+Date: Thu, 27 Nov 2025 08:58:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86/amd: Use setup_force_cpu_cap() for BTC_NO
+Subject: Re: [PATCH 3/3] x86/amd: Fix race editing DE_CFG
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20251126132220.881028-1-andrew.cooper3@citrix.com>
- <20251126132220.881028-2-andrew.cooper3@citrix.com>
- <ab8dc060-7707-4ff3-a413-730555aefeee@suse.com>
- <fc9adc57-bb95-484a-9461-0751dc91cb1b@citrix.com>
- <9c72cfb3-ed12-4955-817b-84d7c33587af@suse.com>
- <b86968a2-0e61-4d35-a54f-71dc0ce3877c@citrix.com>
+ <20251126132220.881028-4-andrew.cooper3@citrix.com>
+ <52fd793f-5bb1-4e14-a64c-b431b0ae83a6@suse.com>
+ <f2101ed6-470c-4d6a-88dc-d2776010c346@citrix.com>
+ <d13547b3-15f4-4814-8bd5-1f5dfb96fc39@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,68 +123,136 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b86968a2-0e61-4d35-a54f-71dc0ce3877c@citrix.com>
+In-Reply-To: <d13547b3-15f4-4814-8bd5-1f5dfb96fc39@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 26.11.2025 17:33, Andrew Cooper wrote:
-> On 26/11/2025 3:25 pm, Jan Beulich wrote:
->> On 26.11.2025 16:12, Andrew Cooper wrote:
->>> On 26/11/2025 2:19 pm, Jan Beulich wrote:
->>>> On 26.11.2025 14:22, Andrew Cooper wrote:
->>>>> When re-scanning features,
->>>> What exactly do you mean with this, outside of XenServer (i.e. upstream)? The
->>>> only thing I can think of is recheck_cpu_features(), which calls identify_cpu()
->>>> and hence init_amd(). Thus ...
->>>>
->>>>> forced caps are taken into account but unforced
->>>>> such as this are not.  This causes BTC_NO to go missing, and for the system to
->>>>> appear to have lost features.
->>>> ... I don't really follow where features might be lost.
->>> Well - it's a feature that we started upstreaming and I still hope to
->>> finish in some copious free time.
+On 26.11.2025 18:56, Andrew Cooper wrote:
+> On 26/11/2025 4:55 pm, Andrew Cooper wrote:
+>> On 26/11/2025 3:07 pm, Jan Beulich wrote:
+>>> On 26.11.2025 14:22, Andrew Cooper wrote:
+>>>> @@ -1075,6 +966,112 @@ static void cf_check fam17_disable_c6(void *arg)
+>>>>  	wrmsrl(MSR_AMD_CSTATE_CFG, val & mask);
+>>>>  }
+>>>>  
+>>>> +static bool zenbleed_use_chickenbit(void)
+>>>> +{
+>>>> +    unsigned int curr_rev;
+>>>> +    uint8_t fixed_rev;
+>>>> +
+>>>> +    /*
+>>>> +     * If we're virtualised, we can't do family/model checks safely, and
+>>>> +     * we likely wouldn't have access to DE_CFG even if we could see a
+>>>> +     * microcode revision.
+>>>> +     *
+>>>> +     * A hypervisor may hide AVX as a stopgap mitigation.  We're not in a
+>>>> +     * position to care either way.  An admin doesn't want to be disabling
+>>>> +     * AVX as a mitigation on any build of Xen with this logic present.
+>>>> +     */
+>>>> +    if ( cpu_has_hypervisor || boot_cpu_data.family != 0x17 )
+>>>> +        return false;
+>>>> +
+>>>> +    curr_rev = this_cpu(cpu_sig).rev;
+>>>> +    switch ( curr_rev >> 8 )
+>>>> +    {
+>>>> +    case 0x083010: fixed_rev = 0x7a; break;
+>>>> +    case 0x086001: fixed_rev = 0x0b; break;
+>>>> +    case 0x086081: fixed_rev = 0x05; break;
+>>>> +    case 0x087010: fixed_rev = 0x32; break;
+>>>> +    case 0x08a000: fixed_rev = 0x08; break;
+>>>> +    default:
+>>>> +        /*
+>>>> +         * With the Fam17h check above, most parts getting here are Zen1.
+>>>> +         * They're not affected.  Assume Zen2 ones making it here are affected
+>>>> +         * regardless of microcode version.
+>>>> +         */
+>>>> +        return is_zen2_uarch();
+>>>> +    }
+>>>> +
+>>>> +    return (uint8_t)curr_rev >= fixed_rev;
+>>>> +}
+>>>> +
+>>>> +void amd_init_de_cfg(const struct cpuinfo_x86 *c)
+>>>> +{
+>>>> +    uint64_t val, new = 0;
+>>>> +
+>>>> +    /* The MSR doesn't exist on Fam 0xf/0x11. */
+>>>> +    if ( c->family != 0xf && c->family != 0x11 )
+>>>> +        return;
+>>> Comment and code don't match. Did you mean
 >>>
->>> Already upstream, we rescan the Raw CPU policy after microcode load. 
->>> That has had fixes such as dis-engaging CPUID Masking/Overriding so the
->>> Raw policy comes out accurate.
->> Yet that doesn't take forced features into account afaics. So at the very
->> least this needs to come with a description which more accurately describes
->> what (if anything) is actually being fixed / altered upstream.
+>>>     if ( c->family == 0xf || c->family == 0x11 )
+>>>         return;
+>>>
+>>> (along the lines of what you have in amd_init_lfence_dispatch())?
+>> Oh - that was a last minute refactor which I didn't do quite correctly. 
+>> Yes, it should match amd_init_lfence_dispatch().
+>>
+>>>> +    /*
+>>>> +     * On Zen3 (Fam 0x19) and later CPUs, LFENCE is unconditionally dispatch
+>>>> +     * serialising, and is enumerated in CPUID.  Hypervisors may also
+>>>> +     * enumerate it when the setting is in place and MSR_AMD64_DE_CFG isn't
+>>>> +     * available.
+>>>> +     */
+>>>> +    if ( !test_bit(X86_FEATURE_LFENCE_DISPATCH, c->x86_capability) )
+>>>> +        new |= AMD64_DE_CFG_LFENCE_SERIALISE;
+>>>> +
+>>>> +    /*
+>>>> +     * If vulnerable to Zenbleed and not mitigated in microcode, use the
+>>>> +     * bigger hammer.
+>>>> +     */
+>>>> +    if ( zenbleed_use_chickenbit() )
+>>>> +        new |= (1 << 9);
+>>>> +
+>>>> +    if ( !new )
+>>>> +        return;
+>>>> +
+>>>> +    if ( rdmsr_safe(MSR_AMD64_DE_CFG, &val) ||
+>>>> +         (val & new) == new )
+>>>> +        return;
+>>>> +
+>>>> +    /*
+>>>> +     * DE_CFG is a Core-scoped MSR, and this write is racy.  However, both
+>>>> +     * threads calculate the new value from state which expected to be
+>>>> +     * consistent across CPUs and unrelated to the old value, so the result
+>>>> +     * should be consistent.
+>>>> +     */
+>>>> +    wrmsr_safe(MSR_AMD64_DE_CFG, val | new);
+>>> Either of the bits may be the cause of #GP. In that case we wouldn't set the
+>>> other bit, even if it may be possible to set it.
+>> This MSR does not #GP on real hardware.
+
+I consider this unexpected / inconsistent, at least as long as some of the
+bits would be documented as reserved. "Would be" because the particular
+Fam17 and Fam19 PPRs I'm looking at don't even mention DE_CFG (or BP_CFG,
+for that matter).
+
+>> Also, both of these bits come from instructions AMD have provided,
+>> saying "set $X in case $Y", which we have honoured as part of the
+>> conditions for setting up new, which I consider to be a reasonable
+>> guarantee that no #GP will ensue.
+
+The AMD instructions are for particular models, aren't they? While that
+may mean the bits are fine to blindly (try to) set on other models, pretty
+likely this can't be extended to other families. (While
+zenbleed_use_chickenbit() is family-specific, the LFENCE bit is tried
+without regard to family.)
+
+>> This wrmsr_safe() is covering the virt case, because older Xen and
+>> Byhive used to disallow writes to it, and OpenBSD would explode as a
+>> consequence.  Xen's fix was 4175fd3ccd17.
+>>
+>> I toyed with the idea of having a tristate de_cfg_writeable, but that
+>> got very ugly very quickly
+>>
+>> The other option would be to ignore DE_CFG entirely under virt.  That's
+>> what we do for BP_CFG already, and no hypervisor is going to really let
+>> us have access to it, and it would downgrade to non-safe variants.
 > 
-> I don't know what more you want me to say.  It's not a problem per say
-> in upstream, but it does come about because BTC_NO is handled
-> inconsistently to the other FOO_NO bits.
+> In fact, ignoring the virt case for DE_CFG makes this generally nicer.
 
-First, it still is unclear to me how "When re-scanning features, forced caps
-are taken into account" applies to upstream. As a a result, "This causes
-BTC_NO to go missing" is unclear as well. Both aspects need to be clear from
-the description alone.
-
-Further, while indeed BTC_NO is the only *_NO one set by means of __set_bit(),
-an (apparently) similar issue exists for SRSO_US_NO, in it being cleared by
-__clear_bit(). How that goes together with the feature elsewhere being forced
-on I can't immediately tell.
-
-> recheck_cpu_features() papers over the issue by re-invoking
-> identify_cpu().
-
-This isn't papering over anything. We do the normal identification, to then
-compare its results with the ones obtained during boot.
-
->  It's necessary for S3 resume because all of
-> init_$VENDOR() really is needed, but it looks bogus in
-> smp_store_cpu_info() because it's repeating work done immediately prior
-> in start_secondary().
-
-What is it that is done there "immediately prior"? I see smp_callin()
-calling smp_store_cpu_info() alone, which in turn calls either
-identify_cpu() or recheck_cpu_features(). Nothing being repeated afaics.
-There is an earlier call to cpu_init(), but that doesn't collect any
-feature info. (Perhaps we have a latent ordering problem there, as in
-principle feature dependent setup would better come after determining what
-features are available. The only feature dependent operations there look to
-be PKRU clearing and skinit_enable_intr(), so hopefully not an active issue;
-certainly not as long as the system is symmetric.)
+And being consistent with what we do with BP_CFG looks desirable to me as
+well.
 
 Jan
 
