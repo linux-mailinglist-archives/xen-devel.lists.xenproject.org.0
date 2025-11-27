@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 940E6C8DD52
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 11:47:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173737.1498745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5338C8DD70
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 11:51:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173751.1498755 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOZWX-0006ZT-7h; Thu, 27 Nov 2025 10:46:53 +0000
+	id 1vOZbA-0008G3-Rz; Thu, 27 Nov 2025 10:51:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173737.1498745; Thu, 27 Nov 2025 10:46:53 +0000
+Received: by outflank-mailman (output) from mailman id 1173751.1498755; Thu, 27 Nov 2025 10:51:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOZWX-0006WY-4O; Thu, 27 Nov 2025 10:46:53 +0000
-Received: by outflank-mailman (input) for mailman id 1173737;
- Thu, 27 Nov 2025 10:46:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vOZbA-0008D5-OZ; Thu, 27 Nov 2025 10:51:40 +0000
+Received: by outflank-mailman (input) for mailman id 1173751;
+ Thu, 27 Nov 2025 10:51:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mf1n=6D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOZWV-0006WS-JQ
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 10:46:51 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 60d81d5b-cb7e-11f0-9d18-b5c5bf9af7f9;
- Thu, 27 Nov 2025 11:46:50 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-429c82bf86bso456762f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 02:46:50 -0800 (PST)
+ id 1vOZb9-0008Cz-FD
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 10:51:39 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0bcc123b-cb7f-11f0-980a-7dc792cee155;
+ Thu, 27 Nov 2025 11:51:37 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-42b38de7940so344615f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 02:51:37 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1ca7880asm2866822f8f.31.2025.11.27.02.46.48
+ ffacd0b85a97d-42e1c5168acsm2769976f8f.0.2025.11.27.02.51.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Nov 2025 02:46:49 -0800 (PST)
+ Thu, 27 Nov 2025 02:51:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60d81d5b-cb7e-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: 0bcc123b-cb7f-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764240409; x=1764845209; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764240696; x=1764845496; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3vGNY6XUo4iXFGrN57ODdsWqDYAbDdpJ1oS0+lfGWNs=;
-        b=DTZw3fepZtUeWvjtDFM9AY18zZPPOPg4FBvb3/7JPV4XOIPgToQWEin9dlBjv4zvZy
-         W6qMghrlv/xkOitS9E1xR90Qmg5kvJnHCcd5jINFBYLVC6Jh3Quf4UNTQIvt/wljz/vX
-         lxC2sB7g3z627is9Ekt07QIeu1KZdiKx3AG80LXrM6x1qx/MrU5ZypIt7HszN9fQVuuX
-         WAGgFJ+VLtdpDO2tgOWd0lya6rsEAChxLQ4NNDVPSbyrwyQyVHo6UtleQZxFnk0wP4CG
-         NiPxXmsg0twJMcG8p1OJpxgWFgQTZv6KskQWWOiUebQoDbYuFDJcY/a9XP57mNVy9ji7
-         RWtg==
+        bh=fuNkvfFW2Iv0MNCHZq+eylUOGEvVMnchrkzhL3kueuI=;
+        b=gGFb6QxH3dmANs+x5LrqqZtV2FpcXxw4GYve+RqB6pM425XALwFPcyAqc92RxdQi/J
+         fzeTfVlBWoOr3xv4rAxuu2LeTYdg9NNPxRPtpFAXTr3JQgGwzNQjxRYNavCYJ4MUuoGe
+         5+pnTBipbO0ti9bnMamLyT3QM912NgXCFLcTa3Zah5hZfgYSThRx5IC3EpAOpc5mBbjd
+         GhWp7rkwitEK3q4Zd0Ygu5xDIU0pMc0F+veeFJoXp9KBsZJKN1AVFyREtFfMqMhqILZQ
+         dG/8d3IgWoQb9cwWArYmSaVQjnaLFtwDVDhGengA1yWOJa/wUurX02cqqRlKqxMxaxNA
+         UrSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764240409; x=1764845209;
+        d=1e100.net; s=20230601; t=1764240696; x=1764845496;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3vGNY6XUo4iXFGrN57ODdsWqDYAbDdpJ1oS0+lfGWNs=;
-        b=LMGAcQNLbILKUx0EJixgAiBrfN+3fvZxwuZIlcHEMi7R5iWCurvUMh6vX6nsn8BpRk
-         8Bk5fL/U5Oxb7uP/wMaJ4M7QE81z9DhwcYj1dKutueAWFwADAJEfTvFt4TTvoYoKTBoy
-         Dm1qIF5/PxMuNcmDkWm3Ndyw9zm3n03RtqB+ZIkv1N4x2zZQPqVTFt7oJxBy6LR1DMFy
-         SMR75GpMAyYjzPqFcguDhCjbpsNnc+HeiWyzfLbY4P79wPAm8drlYCk6+tZuS9V62I8n
-         eMonVZIhzskmeKO+6eAGeV6eIiBNL0+Gjff7y2g/bPcTJPLWa5PlZXYcsCSaZnc/Np7e
-         PL4A==
-X-Forwarded-Encrypted: i=1; AJvYcCVjT1QwbFRGoGQc42hiXn9rRVGSr6q+nkWcz+PDjZJ5o6P8aWLUtbasTLW8mTTTjG2E7gI7mMGig/k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YziGLLEmD4C3hMzi0YfSJM7YC/o6dcpEVeeOTsZ3AW0bRyMUHGV
-	3ebwVTJq7fg7ckJY+X57ikrXvYX/o0fpNHk3lzixGmNI2YrF5CeSo9i5GtpHxWPugQ==
-X-Gm-Gg: ASbGncvIu/pwjJU7UiBM9EN8vBxRDVea9Ao/xZARRdR1mNB5BVhT4vqsBvPkSxkhU5v
-	LYhQbOQaJhM7b789n9v0c57MbcFysRR2Fd8exFYWvoWbQXEiH09fzOMV40Lr/ThLL6+GHwyGK72
-	fwvCCDGBLzzj+jUc/VUUZNQeFSzP9nY9X5OXyD+8TCUEebB4Cz7H7rSzyJ3rVXqjCY+xXj5mUZA
-	HS2VJV/XZXYNzE8GJOLymJ8o7P3gl3PJWZ4bXMnT0bdOGI8p9pzpaoNVbNVeA7TTkvwsYB4JX0K
-	c/cij87VDqa+2EPDahvNqpvXdW5nZRQGNDYetG8iCDW+wmzy+UOvGpcMuw3M2wDgN/5H3pvODtg
-	/zTRF0QujFPiQ188XVs7U6s4G3P3UpIZuBiKiOYgYwqSd+VB+jag+4hr+OtNr+lVkIatP7CYw58
-	LfMuK8cNfumBdWB457+utZ9L132E7bIPCZ7nffL2cjZvzpWGE+hsNPKZ2MlZmcO2DBgDAbk60Yv
-	dM=
-X-Google-Smtp-Source: AGHT+IGgCouW4U7WQDQ6t3usISuKPZLqqWspb7K0uSNWLaOTSN8hVn4J9pwOZZa0BwpUH9IJWfqBWg==
-X-Received: by 2002:a05:6000:186b:b0:42b:3ab7:b8a3 with SMTP id ffacd0b85a97d-42cc1cf459fmr27046593f8f.27.1764240409384;
-        Thu, 27 Nov 2025 02:46:49 -0800 (PST)
-Message-ID: <d71b6b55-6745-4ba4-9a4f-d5e7b08f0aec@suse.com>
-Date: Thu, 27 Nov 2025 11:46:46 +0100
+        bh=fuNkvfFW2Iv0MNCHZq+eylUOGEvVMnchrkzhL3kueuI=;
+        b=rbVmrf0djiy3l4xOwP9I7BjAgOqgHYs2knEIxsJuzWN7tEdOdD2YZUizSVh2IfIVix
+         pmU7JJIMB1sZzW9W88qHPAIVIpUcGhOeGY8Ze9g7d2iUdcCicbEmTuBKyZuAfYoi6qYy
+         4HD62jRF6Ne89DVLOMdsZWlJITo9a+mufBEMsVxLgOhvjOyB3x5REAdSgyi33TNJb0Dj
+         JUd4I4zhCSIJzewtUsMlFpjXxAoarVv7j2W8n4otKWBUdSgdUr7PAR17QPsEllyLtd4G
+         BvobhYX7BgznEwpD48gP5GnI+nW38agtbO+6mhg9wmp2KSIEnHV7yaw3Xu0jfYi2qaB6
+         dHMQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWf9XS/5TGkhzNKwz8sR3VlBz7qeJwJbGvsMDR3/OINjCJoQ+c/3FOqFjC281CJbKNzE/hGgjfUnIk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzF9Ixv4HDXkKej/NyjjGWILfXnmzcCdHFkUYFa45H3v/L+LJg6
+	H4SG2Mk25Sqsvbfu9Vm9TxVs4GP/d1LyLR5cb0HjvuVum++Tpw26mzfRd0PrdpKzIQ==
+X-Gm-Gg: ASbGnctVRFTf6DHYDTpe6PjaG10fr0tIX1nKsZXteHs6xW1NjPViiwMK4AhtdEEIJbR
+	bV8ceyp5ohnWSPL1aXb2aPAn+3sadIiQvu3KqKKyL2qlohIiZgAxVA0ywGRinikw6xvZs2SAvgh
+	s59hXApZsaKCIWjk3feTXmPdPHcfogMUSiCPohqIzf1cAl6WQO07XAlUJIB5HjdswxdEaShNZCE
+	5brQw6UXPO+Yo3NVOnRCQEdylX5fK9d2dIjxARfoTNMfvj4oj+fPPgjRElVhYOFmGgHfPy5e0ZU
+	Kqv1xY8jVEX0KMQqw3j6/MpBv59LmyBiPTVd4Xu7BonN4vcGBlKSYJaW5Ncms5f71ZMfYjym5J9
+	jEfil0+6ziCzRWotINiDmdvD5Iz3mcYI8ymgKpobRMThSpFrgpwFMJARqMx9+S6EQnsA1ZuBEEF
+	D2wsPiSIJP4Qp7q0K7Z+Ld8K2IOkNCezk7B59BvkdDd2dkzbrnFPm2115DcP0c08Ich0YWC+0Mz
+	mjzYfVV7J/DpQ==
+X-Google-Smtp-Source: AGHT+IFldfk4lMKK8bYTZMbXRPEjEoufVsap0JIPFEOSCa7d5JG5ga95XCu4QaryqgZR8phCxa3GZA==
+X-Received: by 2002:a05:6000:4201:b0:42b:3eb2:1b97 with SMTP id ffacd0b85a97d-42cc1ab7181mr27263439f8f.9.1764240696255;
+        Thu, 27 Nov 2025 02:51:36 -0800 (PST)
+Message-ID: <ad217ce2-0b3c-4746-b32e-3b3bc7c9cc51@suse.com>
+Date: Thu, 27 Nov 2025 11:51:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 03/11] x86: Add x86_vendor_is() by itself before using
- it
+Subject: Re: [RFC PATCH 04/11] x86: Refactor early vendor lookup code to use
+ x86_vendor_is()
 To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -98,7 +98,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20251126164419.174487-1-alejandro.garciavallejo@amd.com>
- <20251126164419.174487-4-alejandro.garciavallejo@amd.com>
+ <20251126164419.174487-5-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,143 +124,82 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251126164419.174487-4-alejandro.garciavallejo@amd.com>
+In-Reply-To: <20251126164419.174487-5-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 26.11.2025 17:44, Alejandro Vallejo wrote:
-> This function is meant to replace all instances of the following
-> patterns in CPU policies and boot_cpu_data:
+> Move the "unknown" vendor ahead of all others and have it NOT rely
+> on x86_vendor_is(), as that would yield incorrect values for the
+> single-vendor+no-fallback case when running in incorrect hardware
+> (because x86_vendor_is() becomes a folded constant of the single
+> compiled-in vendor).
 > 
->   - x->x86_vendor == X86_VENDOR_FOO
->   - x->x86_vendor != X86_VENDOR_FOO
->   - x->x86_vendor & (X86_VENDOR_FOO | X86_VENDOR_BAR)
+> This is one of the two places where x86_vendor_is() cannot be used,
+> along with the compatibility check on loaded guest CPU policies.
 > 
-> The secret sauce is that all branches inside the helper resolve at
-> compile time, so for the all-vendors-compiled-in case the function
-> resolves to equivalent code as that without the helper and you get
-> progressively more aggressive DCE as you disable vendors. The function
-> folds into a constant once you remove the fallback CPU vendor setting.
-
-Here and below in the comment, "fallback CPU vendor" wants clarifying. I
-don't view it as obvious that what's presently named UNKNOWN_CPU is that
-"fallback" (as imo that really isn't any kind of fallback, but merely a
-placeholder).
-
-> While at this, move an include out of place so they sort alphabetically.
-
-I'd rather suggest to simply ...
-
-> --- a/xen/arch/x86/include/asm/cpuid.h
-> +++ b/xen/arch/x86/include/asm/cpuid.h
-> @@ -2,10 +2,12 @@
->  #define __X86_CPUID_H__
+> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+> ---
+>  xen/arch/x86/cpu/common.c | 31 +++++++++++++++++++++++--------
+>  1 file changed, 23 insertions(+), 8 deletions(-)
+> 
+> diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+> index 393c30227f..c0c3606dd2 100644
+> --- a/xen/arch/x86/cpu/common.c
+> +++ b/xen/arch/x86/cpu/common.c
+> @@ -342,23 +342,38 @@ void __init early_cpu_init(bool verbose)
 >  
->  #include <asm/cpufeatureset.h>
-> +#include <asm/x86-vendors.h>
+>  	c->x86_vendor = x86_cpuid_lookup_vendor(ebx, ecx, edx) &
+>  	                X86_ENABLED_VENDORS;
+> -	switch (c->x86_vendor) {
+> -	case X86_VENDOR_INTEL:    intel_unlock_cpuid_leaves(c);
+> -				  actual_cpu = intel_cpu_dev;    break;
+> -	case X86_VENDOR_AMD:      actual_cpu = amd_cpu_dev;      break;
+> -	case X86_VENDOR_CENTAUR:  actual_cpu = centaur_cpu_dev;  break;
+> -	case X86_VENDOR_SHANGHAI: actual_cpu = shanghai_cpu_dev; break;
+> -	case X86_VENDOR_HYGON:    actual_cpu = hygon_cpu_dev;    break;
+> -	default:
+> +
+> +	/*
+> +	 * We can't rely on x86_vendor_is() here due to the single-vendor
+> +	 * optimisation. It makes x86_vendor_is(x, y) rely on the constant `y`
+> +	 * matching the single vendor Xen was compiled for and ignore the
+> +	 * runtime variable `x`. In order to preserve sanity we must assert here
+> +	 * that we never boot such a build in a CPU from another vendor, or
+> +	 * major chaos would ensue.
+> +	 */
+> +	if (c->x86_vendor == X86_VENDOR_UNKNOWN)
+> +	{
+
+Nit: No mix of styles please. Here it wants to be Linux style.
+
+>  		if (verbose || !IS_ENABLED(CONFIG_UNKNOWN_CPU))
+>  			printk(XENLOG_ERR
+>  			       "Unrecognised or unsupported CPU vendor '%.12s'\n",
+>  			       c->x86_vendor_id);
+> +
+>  		if (!IS_ENABLED(CONFIG_UNKNOWN_CPU))
+>  			panic("Cannot run in unknown/compiled-out CPU vendor.\n");
 >  
-> -#include <xen/types.h>
-> +#include <xen/compiler.h>
->  #include <xen/kernel.h>
->  #include <xen/percpu.h>
-> +#include <xen/types.h>
+>  		actual_cpu = default_cpu;
+>  	}
+> +	else if (x86_vendor_is(c->x86_vendor, X86_VENDOR_INTEL)) {
+> +		intel_unlock_cpuid_leaves(c);
+> +		actual_cpu = intel_cpu_dev;
+> +	} else if (x86_vendor_is(c->x86_vendor, X86_VENDOR_AMD))
+> +		actual_cpu = amd_cpu_dev;
+> +	else if (x86_vendor_is(c->x86_vendor, X86_VENDOR_CENTAUR))
+> +		actual_cpu = centaur_cpu_dev;
+> +	else if (x86_vendor_is(c->x86_vendor, X86_VENDOR_SHANGHAI))
+> +		actual_cpu = shanghai_cpu_dev;
+> +	else if (x86_vendor_is(c->x86_vendor, X86_VENDOR_HYGON))
+> +		actual_cpu = hygon_cpu_dev;
 
-... drop it. xen/kernel.h, for example, already gets it for you anyway.
-
-> @@ -56,6 +58,51 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
->       (IS_ENABLED(CONFIG_SHANGHAI) ? X86_VENDOR_SHANGHAI : 0) | \
->       (IS_ENABLED(CONFIG_HYGON)    ? X86_VENDOR_HYGON    : 0))
->  
-> +/*
-> + * When compiling Xen for a single vendor with no fallback vendor there's no
-> + * need no check the candidate. `vendor` is always a compile-time constant,
-> + * which means this all can fold into a constant boolean.
-
-DYM "`vendor` is always supposed to be a compile-time constant, ..." ?
-
-> + * A runtime check at the time of CPUID probing guarantees we never run on
-> + * wrong hardware and another check when loading CPU policies guarantees we
-> + * never run policies for a vendor in another vendor's silicon.
-> + *
-> + * By the same token, the same folding can happen when no vendor is compiled
-> + * in and the fallback path is present.
-> + */
-> +static always_inline bool x86_vendor_is(uint8_t candidate, uint8_t vendor)
-
-I fear the comment, no matter that it's pretty large already, doesn't make
-clear how this function is to be used, i.e. how for this being an "is"
-predicate the two arguments should be chosen. My typical expectation would be
-for "is" predicates to apply to a single property, with other parameters (if
-any) only being auxiliary ones. Maybe it would already help if the first
-parameter wasn't named "candidate" but e.g. "actual" (from looking at just
-the next patch). Or maybe (depending on the number of possible different
-inputs for the first parameter) there want to be a few wrappers, so the
-"single property" aspect would be achieved at use sites.
-
-Then I see no reason for the parameters to be other than unsigned int. (Same
-for the local variable then, obviously.)
-
-I'm further uncertain this is a good place for the function. In the old days
-it may have been, but cpuid.[ch] now are only about guest exposure of CPUID,
-when this predicate is intended to be used for both host and guest. (As I
-realize only now, this also applies to the addition patch 1 does.) One
-might think processor.h might be a good home, but we're actually trying to
-slim that one down. So one of cpufeature.h and cpufeatures.h, I guess. (Maybe
-other x86 maintainers also have thoughts here.)
-
-> +{
-> +    uint8_t filtered_vendor = vendor & X86_ENABLED_VENDORS;
-> +
-> +    if ( vendor == X86_VENDOR_UNKNOWN )
-> +    {
-> +        if ( IS_ENABLED(CONFIG_UNKNOWN_CPU) )
-> +            /* no-vendor optimisation */
-
-Nit: Comment style (also again below).
-
-> +            return X86_ENABLED_VENDORS ? vendor == candidate : true;
-
-With the surrounding if() this effectively (and more explicitly) is
-
-            return X86_ENABLED_VENDORS ? candidate == X86_VENDOR_UNKNOWN : true;
-
-First: Would one ever pass X86_VENDOR_UNKNOWN for "vendor"? The next patch,
-for example, specifically doesn't. And then why not shorter as
-
-            return !X86_ENABLED_VENDORS || candidate == X86_VENDOR_UNKNOWN;
-
-Which raises the next question: Should we even allow a hypervisor to be built
-with X86_ENABLED_VENDORS == 0? Plus, question more on patch 1, what's the
-(useful) difference between a build with all vendors set to N and
-(a) UNKNOWN_CPU=n vs (b) UNKNOWN_CPU=y? With all vendor support explicitly
-turned off, all CPUs are going to be "unknown".
-
-> +
-> +        /* unknown-vendor-elimination optimisation */
-> +        return false;
-> +    }
-> +
-> +    /* single-vendor optimisation */
-> +    if ( !IS_ENABLED(CONFIG_UNKNOWN_CPU) &&
-> +         (ISOLATE_LSB(X86_ENABLED_VENDORS) == X86_ENABLED_VENDORS) )
-> +        return filtered_vendor == X86_ENABLED_VENDORS;
-> +
-> +    /* compiled-out-vendor-elimination optimisation */
-> +    if ( !filtered_vendor )
-> +        return false;
-> +
-> +    /*
-> +     * When checking against a single vendor, perform an equality check, as
-> +     * it yields (marginally) better codegen
-> +     */
-> +    if ( ISOLATE_LSB(filtered_vendor) == filtered_vendor )
-
-So one may pass a combination of multiple vendors for "vendor"? Is so, why
-is the parameter name singular?
-
-> +        return filtered_vendor == candidate ;
-
-Nit: Stray blank.
+If it needs to be like this, then so be it, but I view it as a downside to
+not be able to use switch() anymore. It's not quite clear to me though what
+extra gains the transformation brings. The masking by X86_ENABLED_VENDORS
+already does most of what you want, and X86_VENDOR_UNKNOWN continues to be
+handled separately anyway.
 
 Jan
 
