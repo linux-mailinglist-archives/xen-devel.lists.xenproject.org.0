@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F63FC8F888
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 17:37:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1174265.1499225 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E86E1C8FA50
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 18:20:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1174277.1499235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOezu-00039D-Ni; Thu, 27 Nov 2025 16:37:34 +0000
+	id 1vOfdu-00019V-PE; Thu, 27 Nov 2025 17:18:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1174265.1499225; Thu, 27 Nov 2025 16:37:34 +0000
+Received: by outflank-mailman (output) from mailman id 1174277.1499235; Thu, 27 Nov 2025 17:18:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOezu-00036c-L3; Thu, 27 Nov 2025 16:37:34 +0000
-Received: by outflank-mailman (input) for mailman id 1174265;
- Thu, 27 Nov 2025 16:37:32 +0000
+	id 1vOfdu-00017v-LQ; Thu, 27 Nov 2025 17:18:54 +0000
+Received: by outflank-mailman (input) for mailman id 1174277;
+ Thu, 27 Nov 2025 17:18:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tYBX=6D=bounce.vates.tech=bounce-md_30504962.69287e44.v1-5045fc97e5ec47b6950cfee2cae4346e@srs-se1.protection.inumbo.net>)
- id 1vOezs-00036Q-L3
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 16:37:32 +0000
-Received: from mail132-20.atl131.mandrillapp.com
- (mail132-20.atl131.mandrillapp.com [198.2.132.20])
+ <SRS0=FgkX=6D=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1vOfdt-00017p-4l
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 17:18:53 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5b1dea5f-cbaf-11f0-980a-7dc792cee155;
- Thu, 27 Nov 2025 17:37:26 +0100 (CET)
-Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail132-20.atl131.mandrillapp.com (Mailchimp) with ESMTP id
- 4dHMXh4mjLzFCWjMM
- for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 16:37:24 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 5045fc97e5ec47b6950cfee2cae4346e; Thu, 27 Nov 2025 16:37:24 +0000
+ id 225222a8-cbb5-11f0-980a-7dc792cee155;
+ Thu, 27 Nov 2025 18:18:47 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-47778b23f64so6472335e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 09:18:47 -0800 (PST)
+Received: from localhost.localdomain (host-92-29-237-183.as13285.net.
+ [92.29.237.183]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47911143a16sm41312785e9.1.2025.11.27.09.18.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Nov 2025 09:18:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,91 +45,394 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b1dea5f-cbaf-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1764261444; x=1764531444;
-	bh=C+nP0THGNsJheVlXHUIGUiE4UMAsBt73chUwC0Zwdho=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=tDVXjVEfsnI37Tv7fTKmcDoWAc4gVWARjQFc9UdXJK83bB+6f4NEoR0FsvRBDjJgp
-	 H0NdpvguKlGtsytMZZgG6XratNjXFGNMCKfFV3lJGxQEp5HCXYMR9OsFGYylosK+OC
-	 6eUxgOT2x2ymNRvtcDTJlR6OZWHVr1vg8k5KIVA9O3IfAt+blLQjEONaGDQoHbNuVu
-	 ko9o7aHfNZZ5AdmGYNB1/mrRBNlq1zuvpw1QSy20IjP7fEPKMY6YHfp7AN5m8jyw9R
-	 9eMGmRRHFfO9oT/dCumhtNjx20ltj8rfPj5qIA5hxqie4O9xsIlqS4zJG1lqL+L7n+
-	 t0YK9XAukkZeg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1764261444; x=1764521944; i=teddy.astie@vates.tech;
-	bh=C+nP0THGNsJheVlXHUIGUiE4UMAsBt73chUwC0Zwdho=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=C55CVzfmIoHPkT1YP1gYtdQnHlP75DWq80TCz39c2vt9aW9xJ3NdIv2jobKzCQEuw
-	 du8WrZGczP5eRGdPK77R6gvKMqp1QzB9mwUmXgLKjFxbKt9pF8vY+VGOMrZWNxOqjk
-	 LO4CElY0cgX5DyZV9R5pXQzmkuI5XNp0si68YZGTD8GX6pbX77tRQJqqesTDCKHj6Q
-	 qmUucB+jjgvs1zVu4rBacMSagiWjH655cIPIalB/WGpk+uONojgY7Tm4AuE57jvL1J
-	 7NVzeQ7mJ7bKSKkjT7s2FIOTtkkDtm1OUYmFh/ne8mtcnNYwwmHWJ57YnftBVvVOX0
-	 RlvHMrFnvAVxw==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RFC=20PATCH=203/4]=20x86/p2m-pt:=20Set=20p2m->need=5Fflush=20if=20page=20was=20present=20before?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1764261443699
-Message-Id: <40752e0c-7f4d-461e-9ab7-a8d6b8f10ecd@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1764248710.git.teddy.astie@vates.tech> <8f5a0cecba14cd38d739a9f29a5c8344c2f6bd11.1764248710.git.teddy.astie@vates.tech> <42fd724a-ec74-47bf-9310-74969f1d3aa5@suse.com>
-In-Reply-To: <42fd724a-ec74-47bf-9310-74969f1d3aa5@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.5045fc97e5ec47b6950cfee2cae4346e?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251127:md
-Date: Thu, 27 Nov 2025 16:37:24 +0000
+X-Inumbo-ID: 225222a8-cbb5-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1764263926; x=1764868726; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YWGfQhShGn6IpvHTKVJ/44A+hfGwAK7KXIZ2EyAAd0k=;
+        b=Cyx9zDJ42bIHSUsju4tydWcoW8hO4CUiAMj4gUSb4E39hUL+6Rf6mOjAAbIQO/a/Fy
+         iKFHFGwsScEUXrK0H0hQnoa6asa4kZKhuQE1zeTh7G/lrMXb1aCwnra3I8DIxQbw9t40
+         qEWUZv6O37ipMDmSctWKhNNQjM9MHbkdvFVVA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764263926; x=1764868726;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=YWGfQhShGn6IpvHTKVJ/44A+hfGwAK7KXIZ2EyAAd0k=;
+        b=fcYDxd/tKbupCT7QmTSygxVe43Ihsk8c+j6By7DpDXhJ/NglO000aZzRlIfGpg9x7X
+         IGovuNR+QjhZFjB0ZEfLptF29GuQAzqdQ1+bRKQM7tFFXLXN4eFIbdI3Xyu+/QpLIcOs
+         IyyJWT+1km9UH+7i3BpZmbRgqlSx9E+T6mq2JGXy7hOM5WRb2fg9NZ4pmPDh1BnP0Obo
+         ABKKxD9e5MrrQeaKF+hUJwP8qytD8SxK2K+wRoUQxZlnNiLgi8dEqtGaAB3aixXQSptG
+         UrQA5jaq0p/e/6RcaWon+I5lR0HUTShK7aHtokEYR5zglQmj3FTwg9RP7N9oscBttStk
+         98rw==
+X-Gm-Message-State: AOJu0YyJUkhIfLwtVli0z3gpOfPmTNe26tOUZpL6/7nQMmF1FWpil5NB
+	YkCX/kAAhvmydCagExImBEcKdDeWpLvA+oddSAmM9YSYWzaV+qKLzh5kAci+5hRZy0gnTBwSTHh
+	S9FmQ
+X-Gm-Gg: ASbGncv/lrVlnjSTTozMuye4EJrLIl0BxCrUzveAkAcebEcb1eMP1s0ZLXm9UJyyl8j
+	5dlCXCal7bS6yhetwC8tXCqV4kdK/HO5lFoFCje1uDZ+1aDySS+5NAbE1nYvGPTVLvRQvnbM7Ea
+	V/V3EXfRmNNktIHuvyTE3ZKRVnvbamwcuu/WQRSkBYut2/TcIiV5TSCk9TokyL7mmrHTkrleUy4
+	Himw9kCikr8NT1pJNLywdWzBvY1NfH90mt7ubrZmWFbcSffDkzeszFZThYZuODLn88SgTi+ndQA
+	OgSxD6hgzedJLHi8Fr9cvaBd+BqWh4WC7jaqd1607IqkjmRLrGI2IriZiRRovHuwluGSGztfZAM
+	GB7H17zMNnLW2ZmfKfgxvimm7NXiFbuoJbN9vYb/1ZkhoBN0ZZRiC+x546PfAszbuunjeIMsMDV
+	w0EKixoCDqVGVAEJwjkYNksNfvbspBx4RL+EldNX/4DRLACqt9pgmfToYBH5YwqA==
+X-Google-Smtp-Source: AGHT+IEWF8rRFSiU5gjyBZik+NHX0iC3l9wwupm1iEB/TX+/wd8q1Ypp77Sezb4QMbkw+i8p2XN/Ng==
+X-Received: by 2002:a05:600c:1382:b0:477:9b35:3e49 with SMTP id 5b1f17b1804b1-477c1103274mr236250715e9.3.1764263926262;
+        Thu, 27 Nov 2025 09:18:46 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v1.9 3/3] x86/amd: Fix race editing DE_CFG
+Date: Thu, 27 Nov 2025 17:18:43 +0000
+Message-Id: <20251127171843.943378-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20251126132220.881028-4-andrew.cooper3@citrix.com>
+References: <20251126132220.881028-4-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Le 27/11/2025 =C3=A0 15:08, Jan Beulich a =C3=A9crit=C2=A0:
-> On 27.11.2025 14:39, Teddy Astie wrote:
->> Update p2m->need_flush if page was present before (requiring a tlb flush=
-).
->> This causes p2m->flush_tlb() to be now be reachable, make sure we call i=
-t
->> only when set.
-> 
-> I don't follow. Why would p2m->flush_tlb() not have been reachable? There=
- are
-> other places where ->need_flush is set to true.
-> 
->> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
->> ---
->> This change is important for the next patch.
->> Would it be better to merge it with the next patch ?
-> 
-> I'm inclined to say yes, but without understanding the description here I
-> cannot be sure.
-> 
-> Hmm, wait. The sole place in x86 where the flag is set is in EPT code. So
-> do you perhaps mean that for NPT or shadow those call sites can now be
-> reached, and hence - with the hook being NULL there - checks need adding?
-> Then, by its title, the next patch actually may be making use of the hook=
-,
-> so the checks then can be dropped again?
-> 
+We have two different functions explaining that DE_CFG is Core-scoped and that
+writes are racy but happen to be safe.  This is only true when there's one of
+them.
 
-Even with the next patch, in the shadow case, p2m->flush_tlb is still 
-NULL as only HAP-NPT uses hap_p2m_tlb_flush().
+Introduce amd_init_de_cfg() to be the singular function which writes to
+DE_CFG, modelled after the logic we already have for BP_CFG.
 
-> Jan
+While reworking amd_check_zenbleed() into a simple predicate used by
+amd_init_de_cfg(), fix the microcode table.  The 'good_rev' was specific to an
+individual stepping and not valid to be matched by model, let alone a range.
+The only CPUs incorrectly matched that I can locate appear to be
+pre-production, and probably didn't get Zenbleed microcode.
 
+Rework amd_init_lfence() to be amd_init_lfence_dispatch() with only the
+purpose of configuring X86_FEATURE_LFENCE_DISPATCH in the case that it needs
+synthesising.  Run it on the BSP only and use setup_force_cpu_cap() to prevent
+the bit disappearing on a subseuqent CPUID rescan.
 
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 
---
-Teddy Astie | Vates XCP-ng Developer
+v2:
+ * Fix FamF/11h check in amd_init_de_cfg(), and exclude the virt case.
+ * Fix tabs/spaces in init_{amd,hygon}()
+ * Drop comment in amd_init_lfence_dispatch()
+---
+ xen/arch/x86/cpu/amd.c   | 223 +++++++++++++++++++--------------------
+ xen/arch/x86/cpu/cpu.h   |   3 +-
+ xen/arch/x86/cpu/hygon.c |   6 +-
+ 3 files changed, 114 insertions(+), 118 deletions(-)
 
-XCP-ng & Xen Orchestra - Vates solutions
+diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
+index 7953261895ac..82b02df9a9d5 100644
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -747,45 +747,6 @@ void amd_log_freq(const struct cpuinfo_x86 *c)
+ 		printk("CPU%u: %u MHz\n", smp_processor_id(), low_mhz);
+ }
+ 
+-void amd_init_lfence(struct cpuinfo_x86 *c)
+-{
+-	uint64_t value;
+-
+-	/*
+-	 * Some hardware has LFENCE dispatch serialising always enabled,
+-	 * nothing to do on that case.
+-	 */
+-	if (test_bit(X86_FEATURE_LFENCE_DISPATCH, c->x86_capability))
+-		return;
+-
+-	/*
+-	 * Attempt to set lfence to be Dispatch Serialising.  This MSR almost
+-	 * certainly isn't virtualised (and Xen at least will leak the real
+-	 * value in but silently discard writes), as well as being per-core
+-	 * rather than per-thread, so do a full safe read/write/readback cycle
+-	 * in the worst case.
+-	 */
+-	if (rdmsr_safe(MSR_AMD64_DE_CFG, &value))
+-		/* Unable to read.  Assume the safer default. */
+-		__clear_bit(X86_FEATURE_LFENCE_DISPATCH,
+-			    c->x86_capability);
+-	else if (value & AMD64_DE_CFG_LFENCE_SERIALISE)
+-		/* Already dispatch serialising. */
+-		__set_bit(X86_FEATURE_LFENCE_DISPATCH,
+-			  c->x86_capability);
+-	else if (wrmsr_safe(MSR_AMD64_DE_CFG,
+-			    value | AMD64_DE_CFG_LFENCE_SERIALISE) ||
+-		 rdmsr_safe(MSR_AMD64_DE_CFG, &value) ||
+-		 !(value & AMD64_DE_CFG_LFENCE_SERIALISE))
+-		/* Attempt to set failed.  Assume the safer default. */
+-		__clear_bit(X86_FEATURE_LFENCE_DISPATCH,
+-			    c->x86_capability);
+-	else
+-		/* Successfully enabled! */
+-		__set_bit(X86_FEATURE_LFENCE_DISPATCH,
+-			  c->x86_capability);
+-}
+-
+ /*
+  * Refer to the AMD Speculative Store Bypass whitepaper:
+  * https://developer.amd.com/wp-content/resources/124441_AMD64_SpeculativeStoreBypassDisable_Whitepaper_final.pdf
+@@ -979,76 +940,6 @@ void __init detect_zen2_null_seg_behaviour(void)
+ 
+ }
+ 
+-static void amd_check_zenbleed(void)
+-{
+-	const struct cpu_signature *sig = &this_cpu(cpu_sig);
+-	unsigned int good_rev;
+-	uint64_t val, old_val, chickenbit = (1 << 9);
+-
+-	/*
+-	 * If we're virtualised, we can't do family/model checks safely, and
+-	 * we likely wouldn't have access to DE_CFG even if we could see a
+-	 * microcode revision.
+-	 *
+-	 * A hypervisor may hide AVX as a stopgap mitigation.  We're not in a
+-	 * position to care either way.  An admin doesn't want to be disabling
+-	 * AVX as a mitigation on any build of Xen with this logic present.
+-	 */
+-	if (cpu_has_hypervisor || boot_cpu_data.x86 != 0x17)
+-		return;
+-
+-	switch (boot_cpu_data.x86_model) {
+-	case 0x30 ... 0x3f: good_rev = 0x0830107a; break;
+-	case 0x60 ... 0x67: good_rev = 0x0860010b; break;
+-	case 0x68 ... 0x6f: good_rev = 0x08608105; break;
+-	case 0x70 ... 0x7f: good_rev = 0x08701032; break;
+-	case 0xa0 ... 0xaf: good_rev = 0x08a00008; break;
+-	default:
+-		/*
+-		 * With the Fam17h check above, most parts getting here are
+-		 * Zen1.  They're not affected.  Assume Zen2 ones making it
+-		 * here are affected regardless of microcode version.
+-		 */
+-		if (is_zen1_uarch())
+-			return;
+-		good_rev = ~0U;
+-		break;
+-	}
+-
+-	rdmsrl(MSR_AMD64_DE_CFG, val);
+-	old_val = val;
+-
+-	/*
+-	 * Microcode is the preferred mitigation, in terms of performance.
+-	 * However, without microcode, this chickenbit (specific to the Zen2
+-	 * uarch) disables Floating Point Mov-Elimination to mitigate the
+-	 * issue.
+-	 */
+-	val &= ~chickenbit;
+-	if (sig->rev < good_rev)
+-		val |= chickenbit;
+-
+-	if (val == old_val)
+-		/* Nothing to change. */
+-		return;
+-
+-	/*
+-	 * DE_CFG is a Core-scoped MSR, and this write is racy during late
+-	 * microcode load.  However, both threads calculate the new value from
+-	 * state which is shared, and unrelated to the old value, so the
+-	 * result should be consistent.
+-	 */
+-	wrmsrl(MSR_AMD64_DE_CFG, val);
+-
+-	/*
+-	 * Inform the admin that we changed something, but don't spam,
+-	 * especially during a late microcode load.
+-	 */
+-	if (smp_processor_id() == 0)
+-		printk(XENLOG_INFO "Zenbleed mitigation - using %s\n",
+-		       val & chickenbit ? "chickenbit" : "microcode");
+-}
+-
+ static void cf_check fam17_disable_c6(void *arg)
+ {
+ 	/* Disable C6 by clearing the CCR{0,1,2}_CC6EN bits. */
+@@ -1075,6 +966,108 @@ static void cf_check fam17_disable_c6(void *arg)
+ 	wrmsrl(MSR_AMD_CSTATE_CFG, val & mask);
+ }
+ 
++static bool zenbleed_use_chickenbit(void)
++{
++    unsigned int curr_rev;
++    uint8_t fixed_rev;
++
++    /* Zenbleed only affects Zen2.  Nothing to do on non-Fam17h systems. */
++    if ( boot_cpu_data.family != 0x17 )
++        return false;
++
++    curr_rev = this_cpu(cpu_sig).rev;
++    switch ( curr_rev >> 8 )
++    {
++    case 0x083010: fixed_rev = 0x7a; break;
++    case 0x086001: fixed_rev = 0x0b; break;
++    case 0x086081: fixed_rev = 0x05; break;
++    case 0x087010: fixed_rev = 0x32; break;
++    case 0x08a000: fixed_rev = 0x08; break;
++    default:
++        /*
++         * With the Fam17h check above, most parts getting here are Zen1.
++         * They're not affected.  Assume Zen2 ones making it here are affected
++         * regardless of microcode version.
++         */
++        return is_zen2_uarch();
++    }
++
++    return (uint8_t)curr_rev >= fixed_rev;
++}
++
++void amd_init_de_cfg(const struct cpuinfo_x86 *c)
++{
++    uint64_t val, new = 0;
++
++    /*
++     * The MSR doesn't exist on Fam 0xf/0x11.  If virtualised, we won't have
++     * mutable access even if we can read it.
++     */
++    if ( c->family == 0xf || c->family == 0x11 || cpu_has_hypervisor )
++        return;
++
++    /*
++     * On Zen3 (Fam 0x19) and later CPUs, LFENCE is unconditionally dispatch
++     * serialising, and is enumerated in CPUID.
++     *
++     * On older systems, LFENCE is unconditionally dispatch serialising (when
++     * the MSR doesn't exist), or can be made so by setting this bit.
++     */
++    if ( !test_bit(X86_FEATURE_LFENCE_DISPATCH, c->x86_capability) )
++        new |= AMD64_DE_CFG_LFENCE_SERIALISE;
++
++    /*
++     * If vulnerable to Zenbleed and not mitigated in microcode, use the
++     * bigger hammer.
++     */
++    if ( zenbleed_use_chickenbit() )
++        new |= (1 << 9);
++
++    if ( !new )
++        return;
++
++    val = rdmsr(MSR_AMD64_DE_CFG);
++
++    if ( (val & new) == new )
++        return;
++
++    /*
++     * DE_CFG is a Core-scoped MSR, and this write is racy.  However, both
++     * threads calculate the new value from state which expected to be
++     * consistent across CPUs and unrelated to the old value, so the result
++     * should be consistent.
++     */
++    wrmsr(MSR_AMD64_DE_CFG, val | new);
++}
++
++void __init amd_init_lfence_dispatch(void)
++{
++    struct cpuinfo_x86 *c = &boot_cpu_data;
++    uint64_t val;
++
++    if ( test_bit(X86_FEATURE_LFENCE_DISPATCH, c->x86_capability) )
++        /* LFENCE is forced dispatch serialising and we can't control it. */
++        return;
++
++    if ( c->family == 0xf || c->family == 0x11 )
++        /* MSR doesn't exist.  LFENCE is dispatch serialising on this hardare. */
++        goto set;
++
++    if ( rdmsr_safe(MSR_AMD64_DE_CFG, &val) )
++        /* Unable to read.  Assume the safer default. */
++        goto clear;
++
++    if ( val & AMD64_DE_CFG_LFENCE_SERIALISE )
++        goto set;
++
++ clear:
++    setup_clear_cpu_cap(X86_FEATURE_LFENCE_DISPATCH);
++    return;
++
++ set:
++    setup_force_cpu_cap(X86_FEATURE_LFENCE_DISPATCH);
++}
++
+ static void amd_check_bp_cfg(void)
+ {
+ 	uint64_t val, new = 0;
+@@ -1118,6 +1111,11 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
+ 	u32 l, h;
+ 	uint64_t value;
+ 
++	amd_init_de_cfg(c);
++
++	if (c == &boot_cpu_data)
++		amd_init_lfence_dispatch(); /* Needs amd_init_de_cfg() */
++
+ 	/* Disable TLB flush filter by setting HWCR.FFDIS on K8
+ 	 * bit 6 of msr C001_0015
+ 	 *
+@@ -1156,12 +1154,6 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
+ 	if (c == &boot_cpu_data && !cpu_has(c, X86_FEATURE_RSTR_FP_ERR_PTRS))
+ 		setup_force_cpu_cap(X86_BUG_FPU_PTRS);
+ 
+-	if (c->x86 == 0x0f || c->x86 == 0x11)
+-		/* Always dispatch serialising on this hardare. */
+-		__set_bit(X86_FEATURE_LFENCE_DISPATCH, c->x86_capability);
+-	else /* Implicily "== 0x10 || >= 0x12" by being 64bit. */
+-		amd_init_lfence(c);
+-
+ 	amd_init_ssbd(c);
+ 
+ 	if (c->x86 == 0x17)
+@@ -1379,7 +1371,6 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
+ 	if ((smp_processor_id() == 1) && !cpu_has(c, X86_FEATURE_ITSC))
+ 		disable_c1_ramping();
+ 
+-	amd_check_zenbleed();
+ 	amd_check_bp_cfg();
+ 
+ 	if (fam17_c6_disabled)
+diff --git a/xen/arch/x86/cpu/cpu.h b/xen/arch/x86/cpu/cpu.h
+index cbb434f3a23d..8bed3f52490f 100644
+--- a/xen/arch/x86/cpu/cpu.h
++++ b/xen/arch/x86/cpu/cpu.h
+@@ -24,7 +24,8 @@ extern bool detect_extended_topology(struct cpuinfo_x86 *c);
+ 
+ void cf_check early_init_amd(struct cpuinfo_x86 *c);
+ void amd_log_freq(const struct cpuinfo_x86 *c);
+-void amd_init_lfence(struct cpuinfo_x86 *c);
++void amd_init_de_cfg(const struct cpuinfo_x86 *c);
++void amd_init_lfence_dispatch(void);
+ void amd_init_ssbd(const struct cpuinfo_x86 *c);
+ void amd_init_spectral_chicken(void);
+ void detect_zen2_null_seg_behaviour(void);
+diff --git a/xen/arch/x86/cpu/hygon.c b/xen/arch/x86/cpu/hygon.c
+index f7508cc8fcb9..c3faabbdb764 100644
+--- a/xen/arch/x86/cpu/hygon.c
++++ b/xen/arch/x86/cpu/hygon.c
+@@ -31,7 +31,11 @@ static void cf_check init_hygon(struct cpuinfo_x86 *c)
+ {
+ 	unsigned long long value;
+ 
+-	amd_init_lfence(c);
++	amd_init_de_cfg(c);
++
++	if (c == &boot_cpu_data)
++		amd_init_lfence_dispatch(); /* Needs amd_init_de_cfg() */
++
+ 	amd_init_ssbd(c);
+ 
+ 	/* Probe for NSCB on Zen2 CPUs when not virtualised */
 
-web: https://vates.tech
-
+base-commit: fb0e37df71a31318c61e0715ffed3e149ca8a4aa
+prerequisite-patch-id: 3598b7168c11c3dd68f825c75b77edc552fc231f
+prerequisite-patch-id: e57b8bc06e86a4470b5bcf8e412d248e1f8f3331
+-- 
+2.39.5
 
 
