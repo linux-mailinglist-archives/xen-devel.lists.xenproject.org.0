@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 019DEC8F80D
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 17:26:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1174212.1499175 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27A3EC8F810
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 17:26:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1174221.1499185 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOeoK-00076l-KX; Thu, 27 Nov 2025 16:25:36 +0000
+	id 1vOeoy-0007bq-Rp; Thu, 27 Nov 2025 16:26:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1174212.1499175; Thu, 27 Nov 2025 16:25:36 +0000
+Received: by outflank-mailman (output) from mailman id 1174221.1499185; Thu, 27 Nov 2025 16:26:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOeoK-00074Q-Gg; Thu, 27 Nov 2025 16:25:36 +0000
-Received: by outflank-mailman (input) for mailman id 1174212;
- Thu, 27 Nov 2025 16:25:35 +0000
+	id 1vOeoy-0007ZB-P1; Thu, 27 Nov 2025 16:26:16 +0000
+Received: by outflank-mailman (input) for mailman id 1174221;
+ Thu, 27 Nov 2025 16:26:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BG9e=6D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vOeoJ-00074H-FW
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 16:25:35 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ id 1vOeox-0007Yx-O0
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 16:26:15 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b2afd8fd-cbad-11f0-9d18-b5c5bf9af7f9;
- Thu, 27 Nov 2025 17:25:33 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-b735b89501fso132483766b.0
- for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 08:25:33 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-64751062261sm2326689a12.33.2025.11.27.08.25.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Nov 2025 08:25:32 -0800 (PST)
+ id caf355f5-cbad-11f0-9d18-b5c5bf9af7f9;
+ Thu, 27 Nov 2025 17:26:14 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-64074f01a6eso1935826a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 08:26:14 -0800 (PST)
+Received: from fedora (user-109-243-71-38.play-internet.pl. [109.243.71.38])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b76f59aed2esm200287966b.42.2025.11.27.08.26.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Nov 2025 08:26:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,421 +45,278 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2afd8fd-cbad-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: caf355f5-cbad-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1764260733; x=1764865533; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=YL4YJzeUbKSp/fM7Qb8cgUUaRB2L9EqJ0O+LEsNjJk0=;
-        b=DYeghTcDTtoX+pWJVWCvdSLzi2I2Iq9yE92+oabkKACB9l793l72ofgaP5nDxnic+L
-         Zio8NAGp3AUbtVRUUE1fgPyhai4oylNiiUTA6MV2uzdWiKDxTYSRu5Clx/9e0fmClCGZ
-         St3jnlTVLhXIvRFIb7f7rwfQei8IojOOVk+t/+CMwwbdMa4QojycrbmprW86/mEpT3rU
-         2PxRTVnI2a0zZ5o4VsvXEyqMO1Aho/r1AKEyePRrzRde2rVj2v5NEFXxujU7q3IrzPw5
-         kqwMbkptmtoKGFxWVnpOueYvCd+y6H1+HjgrEmCyam9nEvDgxdZMnLMzI/j9PLiYkKYZ
-         n/OQ==
+        d=gmail.com; s=20230601; t=1764260774; x=1764865574; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=/UIbt55aKHwY/AfOsK7AJoYny1T+sEH4KAoXf2wbYSo=;
+        b=IsuVgxoBoBQrPSzx7yblE/TCTexw3yhFORvpZZ0axXPgI4S6b86whV+/0+5KFuY8Xc
+         iAbjwagKlqdSon/zy2AWgnlDFqZWQjq6EbBSYNN4Flcdk3eesSnq+XAFwKn4WxxqHiXB
+         g+Uw9aHBY0I27KqudhEl7MsEqDUWOAqUiSNe3B/lQMHp0Aa/62tJJZqhgLzGlkH8f8OX
+         Mv26V02xt4PHddsgQiO8sWRs3I0EkycwtNZ5y5qr03/ii2jJdvIXoShQhvpxA2EGaRep
+         h+XzCljj3rIlac1TRMcWJNams29Ia9hZrWef0EnhBejIn5dgX3wusA9QUWDMlxHsl6U5
+         Bf4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764260733; x=1764865533;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=YL4YJzeUbKSp/fM7Qb8cgUUaRB2L9EqJ0O+LEsNjJk0=;
-        b=n4xtHF8WYxYAKMccQb4z3VF0t8VW9gQcPk7c1I4i/FU70lnHX27+BzJn7FMslI//Gq
-         e/2h2grc+Lr9BKPqXWofS+jcMkiatKj0jb76EqZ6oz37a/qC39b47W2V50jpJvvNC1FU
-         e3UuaoefVX8u/RI8hpD9IOXv3g97ey9Qj6nw4jFSL9SzQoLiHeD2dXsVraadaAsFeFTA
-         6O3Z7E3Mza0nmHbx8QbfMnO9kQT2/znF+CcMzvFJ+fyHtIHKjiadYNd39s0kiPl//Rs+
-         UhqPULnHnDpEe4V44eD7dzwCtsiEP50wojjLumWyXa6JcgnSv2k7GUnt0IGUVu1EXeIx
-         58Dw==
-X-Forwarded-Encrypted: i=1; AJvYcCXxPWdbwSvdyYxWSqDBY1JYwXMzn6SyV0/Y5PlcPS/yKsOwfnmmK6ddwTyHKeajSvt9tnP7jluBa2I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxmnzYsRFbo+Or9YBVpX4fc7EIIcQPrSuwLNl81E/W9IR/nGVlo
-	wTV9szMrHaYahOmUYf3IUA4QF6ttoa3lihhuZycVkMgD4y4uSIzqDikp
-X-Gm-Gg: ASbGncu+7nDdN237asHCq8L0MAqLg1Hfz+FkTXmwKpJNvnqsc4VhRyTWncLyyXrVdd7
-	83Nq1VQFX2rT95Eo3/+HHkEGAva1Evk0vO+Xb9wofYy1py3evbIZ4yQ0NWAXRYHkuw3WGUtlGLH
-	CaO1s5dlO5nAZMQBWH3UoVHrbgqjmu1an+fnxkVd/SwOgGBAKQ06kBRX4xSMc/s8xMY59PUQOEo
-	/L9GX8Iocxx14/k5Lv9hgEieqaaMJ6nhhgzjdx3d74tiFTQ/E1KbrMi1pAv/UP2+/l3VnxcJ4u9
-	h22frC4coIOZluTKcTLaqR4DARqyAN9JnvQ0vYb4htGtLMcIIFZ6yebvbPopqy3vAhXnKbIOtOp
-	t+NO4pft9bvB5HwDcTQ057kPwn/sOJWYXuqSV82k/ZX+m6QHzk72MmfSUw7kF86s+0z621zWXiq
-	YbufmjIYh71H+p9BtLQ6qNXIgZdVD+Qhl2t5j3Fyx2+sBvvO+qjXftzNw1YWDpTOKsQcWA4IYMf
-	Hg=
-X-Google-Smtp-Source: AGHT+IG+j7q6EQ1TcULlnISzMxTGQYINabb8NmlkaNAiZXc2jmtsD9XlGdqCnwTtYAAFyv+nFgbNLw==
-X-Received: by 2002:a17:907:94c1:b0:b72:de4f:cea6 with SMTP id a640c23a62f3a-b76c555e67cmr1314143966b.48.1764260732656;
-        Thu, 27 Nov 2025 08:25:32 -0800 (PST)
-Message-ID: <2671e43a-a9f0-42cd-8764-4274c14a86ec@gmail.com>
-Date: Thu, 27 Nov 2025 17:25:31 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] x86/amd: Drop the cpuid_mask_* command line options
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20251126171539.890253-1-andrew.cooper3@citrix.com>
- <20251126171539.890253-4-andrew.cooper3@citrix.com>
-Content-Language: en-US
+        d=1e100.net; s=20230601; t=1764260774; x=1764865574;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/UIbt55aKHwY/AfOsK7AJoYny1T+sEH4KAoXf2wbYSo=;
+        b=COjqA+HTPCEc10RaD9iMEKI4uz7mjEXocj4UdNp5mtC1GQhW1DOCXZh59WAiJ8PFp/
+         9Jeh5E/rQ0nXZarRIp3sBmWLfrmAf9iCT2aehpnacvpDCunX4yPXeI5szl++Lbd7bhFr
+         ZShkg8VeoN8Wjsy3Mhy8i5DS+cbCApBejI46Agv+7Zy9mQ0PMZtbx/nhDUZeed4xMDhn
+         SDJJ76M7PtZPHqKOK47Y2UeWnfyeHvX5Bn9XZfhJj2buYX69/RZMyi4fRWxsS751NAYz
+         2+J7nNylQw8D11ADVWR9rasccHvmDqg0i+ywOmIXmL2+wEw9Fl4PT9+ai84P5krU0ynl
+         hjlg==
+X-Gm-Message-State: AOJu0YxssqKMgIWy8dHiWC1TdAxSMvJNVn36Bk7guZ9VAthiC8dSJYVO
+	/B7bDyBbDN3jyDZWDHY/SEckR9LQXTqYDIle+DX0ZkxvLrHEIRkT5J4TJSrhfJkD
+X-Gm-Gg: ASbGncs5rPwxHIx58df1Z1GrJ8sCuyFDLOcSVs63YQvfka3qYzPoFy6eSm7zsVYWQHn
+	sQa8IoZzYMebktSe67xmtIway1pVxhv9glrGkHzPetWbpi3emOC+jNg48TRp8m2GryAMg91W0DG
+	C7b+zuG1Fxxxl2Q1RPK3gwngmi604G4SXWrQ1UuZPSV0vDpLNGuDlCpeGcdQVhebxSjrzh93Yz7
+	W0jIuJbpNXgRA2X00pxN0LCQVQWwJBWKW1SUabf8rK7aX+6kfEOOGoPvqQpt7eQ3EVD7w3+vOMh
+	loFIZShSzWDB18O19bZaGuorrzq015YUzO72CEGJEdCHd+81BdZVcpWvcVVI0PlMmV6dyvjkyC1
+	G2DPdoTR1mNZKA+DfHBatM3Ne/Ir/w/JLjxU09t0YHn1dOP3V2URWyKqfDpg2iala15cMvAQaWr
+	39WD2wy7vgzN2ajJfmAU+KlI58YGHPJK8ZZ+2rj5cHX98AQ6/UwLbLFMdm3Kw2SKM6OA==
+X-Google-Smtp-Source: AGHT+IHc/ChIK1CfPvdw6qr+IGe1QslpiwcagJaMPHmv3ukTJvGZ2AhSKSLqMSY80jUi5wktrPJIGA==
+X-Received: by 2002:a17:907:7212:b0:b73:8bd4:8fa with SMTP id a640c23a62f3a-b7671688896mr2470673066b.3.1764260773341;
+        Thu, 27 Nov 2025 08:26:13 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <20251126171539.890253-4-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	Timothy Pearson <tpearson@raptorengineering.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH v3] xen/domain: introduce generic functions for domain struct allocation and freeing
+Date: Thu, 27 Nov 2025 17:26:05 +0100
+Message-ID: <0a66c71356e8d6ea788022438d7a73dbff8aa5b9.1764243466.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.52.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Roger Pau Monne <roger.pau@citrix.com>
 
-On 11/26/25 6:15 PM, Andrew Cooper wrote:
-> As noted in the command line documentation, these are both deprecated since
-> Xen 4.7 (2016), and are not fully effective on AMD CPUs starting from 2011.
->
-> Not realised at the time of writing the docs was that their use is also
-> incompatible with certain errata workarounds which edit the CPUID MSRs after
-> the levelling defaults are calculated.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
->   CHANGELOG.md                      |   4 ++
+Move x86's free_domain_struct() to common code since it is shared between
+architectures.
 
-for CHANGELOG.md:
+Move the x86 version of alloc_domain_struct() to common code as most of the
+logic is architecture-independent. To handle the remaining architectural
+differences, introduce arch_domain_struct_memflags() for x86-specific
+allocation requirements.
 
-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+No functional change.
 
-Thanks.
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+[Introduce an arch-specific function instead of using a weak function]
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+Changes in v3:
+ - s/arch_alloc_domain_struct_bits/arch_domain_struct_memflags.
+ - Make x86's arch_domain_struct_memflags() to return MEMF_bits(bits) instead
+   of bits.
+ - Move "#define arch_domain_struct_memflags arch_domain_struct_memflags"
+   and declaration of arch_domain_struct_memflags() from x86/asm/pv/domain.h
+   to x86/domain.h.
+ - Update alloc_domain_struct() to work with arch_domain_struct_memflags().
+ - s/Suggested-By/Suggested-by.
+ - CI tests: https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2182821111
+---
+Changes in v2:
+- Introduce an arch-specific function to handle differences between arch-es
+  in domain structure allocation requirements, instead of relying on a weak
+  function.
+- Move free_domain_struct() to common code.
+- Add Suggested-by: Jan Beulich <jbeulich@suse.com>.
+- Update the commit message.
+- Link to original patch:
+  https://lore.kernel.org/xen-devel/c08595dd7940b44a1392e16d4a2035b95b5c580b.1749829230.git.oleksii.kurochko@gmail.com/
+---
+ xen/arch/arm/domain.c             | 17 -----------------
+ xen/arch/ppc/stubs.c              | 10 ----------
+ xen/arch/riscv/stubs.c            | 10 ----------
+ xen/arch/x86/domain.c             | 15 ++-------------
+ xen/arch/x86/include/asm/domain.h |  3 +++
+ xen/common/domain.c               | 22 ++++++++++++++++++++++
+ 6 files changed, 27 insertions(+), 50 deletions(-)
 
-~ Oleksii
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index ab78444335..3e3a1fb9f5 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -480,23 +480,6 @@ void startup_cpu_idle_loop(void)
+     reset_stack_and_jump(idle_loop);
+ }
+ 
+-struct domain *alloc_domain_struct(void)
+-{
+-    struct domain *d;
+-    BUILD_BUG_ON(sizeof(*d) > PAGE_SIZE);
+-    d = alloc_xenheap_pages(0, 0);
+-    if ( d == NULL )
+-        return NULL;
+-
+-    clear_page(d);
+-    return d;
+-}
+-
+-void free_domain_struct(struct domain *d)
+-{
+-    free_xenheap_page(d);
+-}
+-
+ void dump_pageframe_info(struct domain *d)
+ {
+ 
+diff --git a/xen/arch/ppc/stubs.c b/xen/arch/ppc/stubs.c
+index 75ebcae5e2..9953ea1c6c 100644
+--- a/xen/arch/ppc/stubs.c
++++ b/xen/arch/ppc/stubs.c
+@@ -147,11 +147,6 @@ void startup_cpu_idle_loop(void)
+     BUG_ON("unimplemented");
+ }
+ 
+-void free_domain_struct(struct domain *d)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+ void dump_pageframe_info(struct domain *d)
+ {
+     BUG_ON("unimplemented");
+@@ -269,11 +264,6 @@ void vcpu_kick(struct vcpu *v)
+     BUG_ON("unimplemented");
+ }
+ 
+-struct domain *alloc_domain_struct(void)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+ struct vcpu *alloc_vcpu_struct(const struct domain *d)
+ {
+     BUG_ON("unimplemented");
+diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+index 340ed3cd6c..fe7d85ee1d 100644
+--- a/xen/arch/riscv/stubs.c
++++ b/xen/arch/riscv/stubs.c
+@@ -121,11 +121,6 @@ void startup_cpu_idle_loop(void)
+     BUG_ON("unimplemented");
+ }
+ 
+-void free_domain_struct(struct domain *d)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+ void dump_pageframe_info(struct domain *d)
+ {
+     BUG_ON("unimplemented");
+@@ -243,11 +238,6 @@ void vcpu_kick(struct vcpu *v)
+     BUG_ON("unimplemented");
+ }
+ 
+-struct domain *alloc_domain_struct(void)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+ struct vcpu *alloc_vcpu_struct(const struct domain *d)
+ {
+     BUG_ON("unimplemented");
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index 3a21e035f4..42643c8813 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -463,10 +463,8 @@ void domain_cpu_policy_changed(struct domain *d)
+     }
+ }
+ 
+-struct domain *alloc_domain_struct(void)
++unsigned int arch_domain_struct_memflags(void)
+ {
+-    struct domain *d;
+-
+     /*
+      * Without CONFIG_BIGMEM, we pack the PDX of the domain structure into
+      * a 32-bit field within the page_info structure. Hence the MEMF_bits()
+@@ -492,16 +490,7 @@ struct domain *alloc_domain_struct(void)
+                 - 1;
+ #endif
+ 
+-    BUILD_BUG_ON(sizeof(*d) > PAGE_SIZE);
+-    d = alloc_xenheap_pages(0, MEMF_bits(bits));
+-    if ( d != NULL )
+-        clear_page(d);
+-    return d;
+-}
+-
+-void free_domain_struct(struct domain *d)
+-{
+-    free_xenheap_page(d);
++    return MEMF_bits(bits);
+ }
+ 
+ struct vcpu *alloc_vcpu_struct(const struct domain *d)
+diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+index 5df8c78253..386ec61745 100644
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -12,6 +12,9 @@
+ #include <public/vcpu.h>
+ #include <public/hvm/hvm_info_table.h>
+ 
++unsigned int arch_domain_struct_memflags(void);
++#define arch_domain_struct_memflags arch_domain_struct_memflags
++
+ #define has_32bit_shinfo(d)    ((d)->arch.has_32bit_shinfo)
+ 
+ /*
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 3b6e9471c4..2e8d74cbd9 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -799,6 +799,28 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
+     return arch_sanitise_domain_config(config);
+ }
+ 
++struct domain *alloc_domain_struct(void)
++{
++#ifndef arch_domain_struct_memflags
++# define arch_domain_struct_memflags() 0
++#endif
++
++    struct domain *d;
++
++    BUILD_BUG_ON(sizeof(*d) > PAGE_SIZE);
++
++    d = alloc_xenheap_pages(0, arch_domain_struct_memflags());
++    if ( d != NULL )
++        clear_page(d);
++
++    return d;
++}
++
++void free_domain_struct(struct domain *d)
++{
++    free_xenheap_page(d);
++}
++
+ struct domain *domain_create(domid_t domid,
+                              struct xen_domctl_createdomain *config,
+                              unsigned int flags)
+-- 
+2.52.0
 
-
-
->   docs/misc/xen-command-line.pandoc |  40 ------------
->   xen/arch/x86/cpu/amd.c            | 104 ------------------------------
->   xen/arch/x86/include/asm/amd.h    |  90 --------------------------
->   4 files changed, 4 insertions(+), 234 deletions(-)
->
-> diff --git a/CHANGELOG.md b/CHANGELOG.md
-> index adaad5ee8923..3aaf5986231c 100644
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->   ### Added
->   
->   ### Removed
-> + - On x86:
-> +   - The cpuid_mask_* command line options for legacy AMD CPUs.  These were
-> +     deprecated in Xen 4.7 and noted not to work correctly with AMD CPUs from
-> +     2011 onwards.
->   
->   ## [4.21.0](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.21.0) - 2025-11-19
->   
-> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-> index 34004ce282be..e92b6d55b556 100644
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -587,46 +587,6 @@ applicable.  They can all be ignored.
->       in its positive form to override Xen's default behaviour on these systems,
->       and make the feature fully usable.
->   
-> -### cpuid_mask_cpu
-> -> `= fam_0f_rev_[cdefg] | fam_10_rev_[bc] | fam_11_rev_b`
-> -
-> -> Applicability: AMD
-> -
-> -If none of the other **cpuid_mask_\*** options are given, Xen has a set of
-> -pre-configured masks to make the current processor appear to be
-> -family/revision specified.
-> -
-> -See below for general information on masking.
-> -
-> -**Warning: This option is not fully effective on Family 15h processors or
-> -later.**
-> -
-> -### cpuid_mask_ecx
-> -### cpuid_mask_edx
-> -### cpuid_mask_ext_ecx
-> -### cpuid_mask_ext_edx
-> -### cpuid_mask_l7s0_eax
-> -### cpuid_mask_l7s0_ebx
-> -### cpuid_mask_thermal_ecx
-> -### cpuid_mask_xsave_eax
-> -> `= <integer>`
-> -
-> -> Applicability: x86.  Default: `~0` (all bits set)
-> -
-> -The availability of these options are model specific.  Some processors don't
-> -support any of them, and no processor supports all of them.  Xen will ignore
-> -options on processors which are lacking support.
-> -
-> -These options can be used to alter the features visible via the `CPUID`
-> -instruction.  Settings applied here take effect globally, including for Xen
-> -and all guests.
-> -
-> -Note: Since Xen 4.7, it is no longer necessary to mask a host to create
-> -migration safety in heterogeneous scenarios.  All necessary CPUID settings
-> -should be provided in the VM configuration file.  Furthermore, it is
-> -recommended not to use this option, as doing so causes an unnecessary
-> -reduction of features at Xen's disposal to manage guests.
-> -
->   ### cpuidle (x86)
->   > `= <boolean>`
->   
-> diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-> index a32e5fa208d5..2b5aa07a4a13 100644
-> --- a/xen/arch/x86/cpu/amd.c
-> +++ b/xen/arch/x86/cpu/amd.c
-> @@ -20,32 +20,6 @@
->   
->   #include "cpu.h"
->   
-> -/*
-> - * Pre-canned values for overriding the CPUID features
-> - * and extended features masks.
-> - *
-> - * Currently supported processors:
-> - *
-> - * "fam_0f_rev_c"
-> - * "fam_0f_rev_d"
-> - * "fam_0f_rev_e"
-> - * "fam_0f_rev_f"
-> - * "fam_0f_rev_g"
-> - * "fam_10_rev_b"
-> - * "fam_10_rev_c"
-> - * "fam_11_rev_b"
-> - */
-> -static char __initdata opt_famrev[14];
-> -string_param("cpuid_mask_cpu", opt_famrev);
-> -
-> -static unsigned int __initdata opt_cpuid_mask_l7s0_eax = ~0u;
-> -integer_param("cpuid_mask_l7s0_eax", opt_cpuid_mask_l7s0_eax);
-> -static unsigned int __initdata opt_cpuid_mask_l7s0_ebx = ~0u;
-> -integer_param("cpuid_mask_l7s0_ebx", opt_cpuid_mask_l7s0_ebx);
-> -
-> -static unsigned int __initdata opt_cpuid_mask_thermal_ecx = ~0u;
-> -integer_param("cpuid_mask_thermal_ecx", opt_cpuid_mask_thermal_ecx);
-> -
->   /* 1 = allow, 0 = don't allow guest creation, -1 = don't allow boot */
->   int8_t __read_mostly opt_allow_unsafe;
->   boolean_param("allow_unsafe", opt_allow_unsafe);
-> @@ -114,51 +88,6 @@ static void wrmsr_amd(unsigned int msr, uint64_t val)
->   		     "d" (val >> 32), "D" (0x9c5a203a));
->   }
->   
-> -static const struct cpuidmask {
-> -	uint16_t fam;
-> -	char rev[2];
-> -	unsigned int ecx, edx, ext_ecx, ext_edx;
-> -} pre_canned[] __initconst = {
-> -#define CAN(fam, id, rev) { \
-> -		fam, #rev, \
-> -		AMD_FEATURES_##id##_REV_##rev##_ECX, \
-> -		AMD_FEATURES_##id##_REV_##rev##_EDX, \
-> -		AMD_EXTFEATURES_##id##_REV_##rev##_ECX, \
-> -		AMD_EXTFEATURES_##id##_REV_##rev##_EDX \
-> -	}
-> -#define CAN_FAM(fam, rev) CAN(0x##fam, FAM##fam##h, rev)
-> -#define CAN_K8(rev)       CAN(0x0f,    K8,          rev)
-> -	CAN_FAM(11, B),
-> -	CAN_FAM(10, C),
-> -	CAN_FAM(10, B),
-> -	CAN_K8(G),
-> -	CAN_K8(F),
-> -	CAN_K8(E),
-> -	CAN_K8(D),
-> -	CAN_K8(C)
-> -#undef CAN
-> -};
-> -
-> -static const struct cpuidmask *__init noinline get_cpuidmask(const char *opt)
-> -{
-> -	unsigned long fam;
-> -	char rev;
-> -	unsigned int i;
-> -
-> -	if (strncmp(opt, "fam_", 4))
-> -		return NULL;
-> -	fam = simple_strtoul(opt + 4, &opt, 16);
-> -	if (strncmp(opt, "_rev_", 5) || !opt[5] || opt[6])
-> -		return NULL;
-> -	rev = toupper(opt[5]);
-> -
-> -	for (i = 0; i < ARRAY_SIZE(pre_canned); ++i)
-> -		if (fam == pre_canned[i].fam && rev == *pre_canned[i].rev)
-> -			return &pre_canned[i];
-> -
-> -	return NULL;
-> -}
-> -
->   /*
->    * Sets caps in expected_levelling_cap, probes for the specified mask MSR, and
->    * set caps in levelling_caps if it is found.  Processors prior to Fam 10h
-> @@ -295,8 +224,6 @@ static const typeof(ctxt_switch_masking) __initconst_cf_clobber __used csm =
->    */
->   static void __init noinline amd_init_levelling(void)
->   {
-> -	const struct cpuidmask *m = NULL;
-> -
->   	/*
->   	 * If there's support for CpuidUserDis or CPUID faulting then
->   	 * we can skip levelling because CPUID accesses are trapped anyway.
-> @@ -318,26 +245,11 @@ static void __init noinline amd_init_levelling(void)
->   
->   	probe_masking_msrs();
->   
-> -	if (*opt_famrev != '\0') {
-> -		m = get_cpuidmask(opt_famrev);
-> -
-> -		if (!m)
-> -			printk("Invalid processor string: %s\n", opt_famrev);
-> -	}
-> -
->   	if ((levelling_caps & LCAP_1cd) == LCAP_1cd) {
->   		uint32_t ecx, edx, tmp;
->   
->   		cpuid(0x00000001, &tmp, &tmp, &ecx, &edx);
->   
-> -		if (~(opt_cpuid_mask_ecx & opt_cpuid_mask_edx)) {
-> -			ecx &= opt_cpuid_mask_ecx;
-> -			edx &= opt_cpuid_mask_edx;
-> -		} else if (m) {
-> -			ecx &= m->ecx;
-> -			edx &= m->edx;
-> -		}
-> -
->   		/* Fast-forward bits - Must be set. */
->   		if (ecx & cpufeat_mask(X86_FEATURE_XSAVE))
->   			ecx |= cpufeat_mask(X86_FEATURE_OSXSAVE);
-> @@ -351,14 +263,6 @@ static void __init noinline amd_init_levelling(void)
->   
->   		cpuid(0x80000001, &tmp, &tmp, &ecx, &edx);
->   
-> -		if (~(opt_cpuid_mask_ext_ecx & opt_cpuid_mask_ext_edx)) {
-> -			ecx &= opt_cpuid_mask_ext_ecx;
-> -			edx &= opt_cpuid_mask_ext_edx;
-> -		} else if (m) {
-> -			ecx &= m->ext_ecx;
-> -			edx &= m->ext_edx;
-> -		}
-> -
->   		/* Fast-forward bits - Must be set. */
->   		edx |= cpufeat_mask(X86_FEATURE_APIC);
->   
-> @@ -370,20 +274,12 @@ static void __init noinline amd_init_levelling(void)
->   
->   		cpuid(0x00000007, &eax, &ebx, &tmp, &tmp);
->   
-> -		if (~(opt_cpuid_mask_l7s0_eax & opt_cpuid_mask_l7s0_ebx)) {
-> -			eax &= opt_cpuid_mask_l7s0_eax;
-> -			ebx &= opt_cpuid_mask_l7s0_ebx;
-> -		}
-> -
->   		cpuidmask_defaults._7ab0 &= ((uint64_t)eax << 32) | ebx;
->   	}
->   
->   	if ((levelling_caps & LCAP_6c) == LCAP_6c) {
->   		uint32_t ecx = cpuid_ecx(6);
->   
-> -		if (~opt_cpuid_mask_thermal_ecx)
-> -			ecx &= opt_cpuid_mask_thermal_ecx;
-> -
->   		cpuidmask_defaults._6c &= (~0ULL << 32) | ecx;
->   	}
->   
-> diff --git a/xen/arch/x86/include/asm/amd.h b/xen/arch/x86/include/asm/amd.h
-> index 72df42a6f6c9..4036dd549835 100644
-> --- a/xen/arch/x86/include/asm/amd.h
-> +++ b/xen/arch/x86/include/asm/amd.h
-> @@ -7,96 +7,6 @@
->   
->   #include <asm/cpufeature.h>
->   
-> -/* CPUID masked for use by AMD-V Extended Migration */
-> -
-> -/* Family 0Fh, Revision C */
-> -#define AMD_FEATURES_K8_REV_C_ECX  0
-> -#define AMD_FEATURES_K8_REV_C_EDX (					     \
-> -	cpufeat_mask(X86_FEATURE_FPU)   | cpufeat_mask(X86_FEATURE_VME)    | \
-> -	cpufeat_mask(X86_FEATURE_DE)    | cpufeat_mask(X86_FEATURE_PSE)    | \
-> -	cpufeat_mask(X86_FEATURE_TSC)   | cpufeat_mask(X86_FEATURE_MSR)    | \
-> -	cpufeat_mask(X86_FEATURE_PAE)   | cpufeat_mask(X86_FEATURE_MCE)    | \
-> -	cpufeat_mask(X86_FEATURE_CX8)   | cpufeat_mask(X86_FEATURE_APIC)   | \
-> -	cpufeat_mask(X86_FEATURE_SEP)   | cpufeat_mask(X86_FEATURE_MTRR)   | \
-> -	cpufeat_mask(X86_FEATURE_PGE)   | cpufeat_mask(X86_FEATURE_MCA)    | \
-> -	cpufeat_mask(X86_FEATURE_CMOV)  | cpufeat_mask(X86_FEATURE_PAT)    | \
-> -	cpufeat_mask(X86_FEATURE_PSE36) | cpufeat_mask(X86_FEATURE_CLFLUSH)| \
-> -	cpufeat_mask(X86_FEATURE_MMX)   | cpufeat_mask(X86_FEATURE_FXSR)   | \
-> -	cpufeat_mask(X86_FEATURE_SSE)   | cpufeat_mask(X86_FEATURE_SSE2))
-> -#define AMD_EXTFEATURES_K8_REV_C_ECX  0
-> -#define AMD_EXTFEATURES_K8_REV_C_EDX  (					       \
-> -	cpufeat_mask(X86_FEATURE_FPU)	   | cpufeat_mask(X86_FEATURE_VME)   | \
-> -	cpufeat_mask(X86_FEATURE_DE)	   | cpufeat_mask(X86_FEATURE_PSE)   | \
-> -	cpufeat_mask(X86_FEATURE_TSC)	   | cpufeat_mask(X86_FEATURE_MSR)   | \
-> -	cpufeat_mask(X86_FEATURE_PAE)	   | cpufeat_mask(X86_FEATURE_MCE)   | \
-> -	cpufeat_mask(X86_FEATURE_CX8)	   | cpufeat_mask(X86_FEATURE_APIC)  | \
-> -	cpufeat_mask(X86_FEATURE_SYSCALL)  | cpufeat_mask(X86_FEATURE_MTRR)  | \
-> -	cpufeat_mask(X86_FEATURE_PGE)	   | cpufeat_mask(X86_FEATURE_MCA)   | \
-> -	cpufeat_mask(X86_FEATURE_CMOV)	   | cpufeat_mask(X86_FEATURE_PAT)   | \
-> -	cpufeat_mask(X86_FEATURE_PSE36)	   | cpufeat_mask(X86_FEATURE_NX)    | \
-> -	cpufeat_mask(X86_FEATURE_MMXEXT)   | cpufeat_mask(X86_FEATURE_MMX)   | \
-> -	cpufeat_mask(X86_FEATURE_FXSR)	   | cpufeat_mask(X86_FEATURE_LM)    | \
-> -	cpufeat_mask(X86_FEATURE_3DNOWEXT) | cpufeat_mask(X86_FEATURE_3DNOW))
-> -
-> -/* Family 0Fh, Revision D */
-> -#define AMD_FEATURES_K8_REV_D_ECX         AMD_FEATURES_K8_REV_C_ECX
-> -#define AMD_FEATURES_K8_REV_D_EDX         AMD_FEATURES_K8_REV_C_EDX
-> -#define AMD_EXTFEATURES_K8_REV_D_ECX     (AMD_EXTFEATURES_K8_REV_C_ECX |\
-> -	cpufeat_mask(X86_FEATURE_LAHF_LM))
-> -#define AMD_EXTFEATURES_K8_REV_D_EDX     (AMD_EXTFEATURES_K8_REV_C_EDX |\
-> -	cpufeat_mask(X86_FEATURE_FFXSR))
-> -
-> -/* Family 0Fh, Revision E */
-> -#define AMD_FEATURES_K8_REV_E_ECX        (AMD_FEATURES_K8_REV_D_ECX |	\
-> -	cpufeat_mask(X86_FEATURE_SSE3))
-> -#define AMD_FEATURES_K8_REV_E_EDX        (AMD_FEATURES_K8_REV_D_EDX | 	\
-> -	cpufeat_mask(X86_FEATURE_HTT))
-> -#define AMD_EXTFEATURES_K8_REV_E_ECX     (AMD_EXTFEATURES_K8_REV_D_ECX |\
-> -	cpufeat_mask(X86_FEATURE_CMP_LEGACY))
-> -#define AMD_EXTFEATURES_K8_REV_E_EDX      AMD_EXTFEATURES_K8_REV_D_EDX
-> -
-> -/* Family 0Fh, Revision F */
-> -#define AMD_FEATURES_K8_REV_F_ECX        (AMD_FEATURES_K8_REV_E_ECX | 	\
-> -	cpufeat_mask(X86_FEATURE_CX16))
-> -#define AMD_FEATURES_K8_REV_F_EDX         AMD_FEATURES_K8_REV_E_EDX
-> -#define AMD_EXTFEATURES_K8_REV_F_ECX     (AMD_EXTFEATURES_K8_REV_E_ECX |\
-> -	cpufeat_mask(X86_FEATURE_SVM) | cpufeat_mask(X86_FEATURE_EXTAPIC) | \
-> -	cpufeat_mask(X86_FEATURE_CR8_LEGACY))
-> -#define AMD_EXTFEATURES_K8_REV_F_EDX     (AMD_EXTFEATURES_K8_REV_E_EDX |\
-> -	cpufeat_mask(X86_FEATURE_RDTSCP))
-> -
-> -/* Family 0Fh, Revision G */
-> -#define AMD_FEATURES_K8_REV_G_ECX         AMD_FEATURES_K8_REV_F_ECX
-> -#define AMD_FEATURES_K8_REV_G_EDX         AMD_FEATURES_K8_REV_F_EDX
-> -#define AMD_EXTFEATURES_K8_REV_G_ECX     (AMD_EXTFEATURES_K8_REV_F_ECX |\
-> -	cpufeat_mask(X86_FEATURE_3DNOWPREFETCH))
-> -#define AMD_EXTFEATURES_K8_REV_G_EDX      AMD_EXTFEATURES_K8_REV_F_EDX
-> -
-> -/* Family 10h, Revision B */
-> -#define AMD_FEATURES_FAM10h_REV_B_ECX    (AMD_FEATURES_K8_REV_F_ECX | 	\
-> -	cpufeat_mask(X86_FEATURE_POPCNT) | cpufeat_mask(X86_FEATURE_MONITOR))
-> -#define AMD_FEATURES_FAM10h_REV_B_EDX     AMD_FEATURES_K8_REV_F_EDX
-> -#define AMD_EXTFEATURES_FAM10h_REV_B_ECX (AMD_EXTFEATURES_K8_REV_F_ECX |\
-> -	cpufeat_mask(X86_FEATURE_ABM) | cpufeat_mask(X86_FEATURE_SSE4A) | \
-> -	cpufeat_mask(X86_FEATURE_MISALIGNSSE) | cpufeat_mask(X86_FEATURE_OSVW) |\
-> -	cpufeat_mask(X86_FEATURE_IBS))
-> -#define AMD_EXTFEATURES_FAM10h_REV_B_EDX (AMD_EXTFEATURES_K8_REV_F_EDX |\
-> -	cpufeat_mask(X86_FEATURE_PAGE1GB))
-> -
-> -/* Family 10h, Revision C */
-> -#define AMD_FEATURES_FAM10h_REV_C_ECX     AMD_FEATURES_FAM10h_REV_B_ECX
-> -#define AMD_FEATURES_FAM10h_REV_C_EDX     AMD_FEATURES_FAM10h_REV_B_EDX
-> -#define AMD_EXTFEATURES_FAM10h_REV_C_ECX (AMD_EXTFEATURES_FAM10h_REV_B_ECX |\
-> -	cpufeat_mask(X86_FEATURE_SKINIT) | cpufeat_mask(X86_FEATURE_WDT))
-> -#define AMD_EXTFEATURES_FAM10h_REV_C_EDX  AMD_EXTFEATURES_FAM10h_REV_B_EDX
-> -
-> -/* Family 11h, Revision B */
-> -#define AMD_FEATURES_FAM11h_REV_B_ECX     AMD_FEATURES_K8_REV_G_ECX
-> -#define AMD_FEATURES_FAM11h_REV_B_EDX     AMD_FEATURES_K8_REV_G_EDX
-> -#define AMD_EXTFEATURES_FAM11h_REV_B_ECX (AMD_EXTFEATURES_K8_REV_G_ECX |\
-> -	cpufeat_mask(X86_FEATURE_SKINIT))
-> -#define AMD_EXTFEATURES_FAM11h_REV_B_EDX  AMD_EXTFEATURES_K8_REV_G_EDX
-> -
->   /* AMD errata checking
->    *
->    * Errata are defined using the AMD_LEGACY_ERRATUM() or AMD_OSVW_ERRATUM()
 
