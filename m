@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB750C8D733
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 10:11:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173603.1498624 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51B10C8D857
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 10:25:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173616.1498645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOY2G-00055c-PQ; Thu, 27 Nov 2025 09:11:32 +0000
+	id 1vOYFf-0007OC-69; Thu, 27 Nov 2025 09:25:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173603.1498624; Thu, 27 Nov 2025 09:11:32 +0000
+Received: by outflank-mailman (output) from mailman id 1173616.1498645; Thu, 27 Nov 2025 09:25:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOY2G-00052E-Mc; Thu, 27 Nov 2025 09:11:32 +0000
-Received: by outflank-mailman (input) for mailman id 1173603;
- Thu, 27 Nov 2025 09:11:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vOYFf-0007N9-29; Thu, 27 Nov 2025 09:25:23 +0000
+Received: by outflank-mailman (input) for mailman id 1173616;
+ Thu, 27 Nov 2025 09:25:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mf1n=6D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOY2E-000525-Ng
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 09:11:30 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0e72fd5f-cb71-11f0-980a-7dc792cee155;
- Thu, 27 Nov 2025 10:11:28 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-47778b23f64so3297215e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 01:11:28 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4791165b1fesm20266235e9.15.2025.11.27.01.11.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Nov 2025 01:11:25 -0800 (PST)
+ (envelope-from <SRS0=76a4=6D=intel.com=lkp@srs-se1.protection.inumbo.net>)
+ id 1vOYFe-0006zL-6I
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 09:25:22 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fc9254f1-cb72-11f0-9d18-b5c5bf9af7f9;
+ Thu, 27 Nov 2025 10:25:19 +0100 (CET)
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2025 01:25:16 -0800
+Received: from lkp-server01.sh.intel.com (HELO 4664bbef4914) ([10.239.97.150])
+ by orviesa009.jf.intel.com with ESMTP; 27 Nov 2025 01:25:10 -0800
+Received: from kbuild by 4664bbef4914 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vOYFP-000000004CN-2qrR;
+ Thu, 27 Nov 2025 09:25:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +44,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e72fd5f-cb71-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764234688; x=1764839488; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RxkrbZOrTNl+hjOp2sbXJ0ecd4hzqExMAY28zRo/5Oc=;
-        b=MrwjebDp8iFK00MOM3xqwD3Yhix7QjwO3Nl8FFUBN6uL1KQZfKcAFmcquPLJDwiojl
-         nkJqSnQ7J/5n5mwctzgC6BONbYgUJTjn9o/cO8FYkShEbo5XlMLMhK4VHurFmMYb3fag
-         8upGEMe5ndV8nesfhPy2O5jtd7GRadkUBJ/jvE4lVo08Z6Vl7tCdb8nCajgU9DT5aOh/
-         pco1fVmEfg712o/X/z+14yCNuhNVJ7K3OKG3bV3t7Nswi3HbiEc8FNpO2Dkd1A4WxBNY
-         xwh+GrhNxT0DuBcvZCfT5rxRTjiQOXEiV+52HyTnPp2ulVAoCcMgGgoy2o0ijn2lgGmK
-         ejQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764234688; x=1764839488;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RxkrbZOrTNl+hjOp2sbXJ0ecd4hzqExMAY28zRo/5Oc=;
-        b=mkYRUSija7K9wKM1jOE3Dk6UyyHmWPEzvigu5wandyx4rrmn0SkZpASyW3tVYjxlqd
-         ytocErEhvS7RYL6xfXa+DcMcRKtqUEj46nFqvklFddMebCxKw5MCGoyHjvaRaIpvJl69
-         I2n2ck5N9tZanFtQUG/DYk9YqKqfD+n4zKtyaLO7sKbbE4Wk/jjfHjUgjGHNqlereBij
-         kKL4yA7JAPba4GKyT5C6A9Znu2LkA36HVb5NbA0i39uXqrMu4o+hBKhzNRJarxz20SGa
-         Km5LJNXWSw0eMECCO0/4ONt+DumCV1FepZowsrP6oW+bJWfNkGAhMeUdbQDBhEAwBTiM
-         fFUA==
-X-Forwarded-Encrypted: i=1; AJvYcCV5WHyezRtTRXZedaPuoJeQHDFKKtMQbAYJhNmxdLaULCClTU3VzBZNZUrwK3zg7jOEpILmMgHSUIU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywj36s6gz12gNpUFFG6hXoIcGYUOmd0IIRN7Rm+nqR9BI1qqdZz
-	7aQebWN0PHH3Dtg9wQxGNRVi2rUNH9w/+5zMjqTmWhe0T2l3iZZCeYEJ2oGS60QuAg==
-X-Gm-Gg: ASbGncuoE27yZds1BNZ/P2OeqyxQBXe8OkrDPHYV2S5MGXJIdtzvvbW08jPkyei8tXD
-	C0x9SdXhNIcRW8pLkHLHHJcY5fQYM9UnyiDbmGD1ZlGKchYZ3aMjzOuaYc9mEp/+jm/YGnPUiWW
-	agm/MasEjATGJkJi9OEYYWVsk0Nv6qLdjnp8NUHbQCIBaTGdYjxlTutiDlRtb/xYzMitA740KbH
-	iwOe2tvASduXxcqu3YtptQCOnjPWXIEZTXIabybToMLYU2aNguTCSPXg4u5md+qpJsygcrACG+m
-	SS0+IorNers6kZ3/BUEbY174MP2q9Z9kU7oo7Sxi0AyVhlETNGh9lsLj5wu3wCXvvhz7G5M8vg1
-	LDw3+oDZ60RK+oyT7Wf4zZvWYy6ixNn11zaV3Fm9BOtLOPqvxv8PpqhXadyxGYGcUoQZPZsHd9f
-	UOJGZyGdIw57Xbbeg/yXo4I1qGdnZmN6aYMUNHZJdHz1/EQiim084q8ygEK2bobYBoqpGVh/u+m
-	jEFpAZ4h25Y4g==
-X-Google-Smtp-Source: AGHT+IFcQm4dqtZe5NYAJatlIxIz9NGXqtk7Br/er8kzPhO/+QoAKJNqSnZN589kaYr1Dh6WB2WZJw==
-X-Received: by 2002:a05:600c:19ca:b0:477:a978:3a7b with SMTP id 5b1f17b1804b1-477c1143073mr214542645e9.22.1764234687802;
-        Thu, 27 Nov 2025 01:11:27 -0800 (PST)
-Message-ID: <abaa055e-9ac4-4272-b348-a58f181fe719@suse.com>
-Date: Thu, 27 Nov 2025 10:11:22 +0100
+X-Inumbo-ID: fc9254f1-cb72-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1764235519; x=1795771519;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KK9nzEbpI9PD/rQsiJtia1oCOmSytQ0R3vQ+5NXjJmA=;
+  b=BFdHlXMj5e0Xc+McTefoLHNh+pSMC9L4TJ2+/jdYv6cvUfzehO32kNLo
+   Z7+OXYDVxowxikZ7sRa8XJ7dFNBHDmvqCu/Ptg4DZVKt8YwaYXvDr5hP1
+   8YxRTIM8TnX5+QyY2NFdZNDcGceHkanBqEGoRwgtw0n+6ioDz7LAh8gzr
+   TQwvMLg5HQd2HUxtv3yBqMJRA5KaKvyKQpbMKRSP45NzkaOdBbIKaCEXB
+   ycO1J5gjJo+PfEY0xDIoalhjzzIAd6ZnoqyEJoFyyEHGRfc9ZmN3UVBh+
+   IqJmXh72K2NDGkylz4xfOkXtouJvJLnupBUuCaHetOqvkGklOeEZKpRuL
+   Q==;
+X-CSE-ConnectionGUID: D2H02AAJQFKeu2dPebxDEA==
+X-CSE-MsgGUID: 9im8nL7nRoCHS1asJv8JKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11625"; a="66226410"
+X-IronPort-AV: E=Sophos;i="6.20,230,1758610800"; 
+   d="scan'208";a="66226410"
+X-CSE-ConnectionGUID: URawlKB/TjiX1FSy99cnMQ==
+X-CSE-MsgGUID: STAbKrqQRdezH2EW5Q2Vqw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,230,1758610800"; 
+   d="scan'208";a="193000716"
+Date: Thu, 27 Nov 2025 17:24:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
+	x86@kernel.org, linux-hyperv@vger.kernel.org,
+	virtualization@lists.linux.dev, kvm@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Juergen Gross <jgross@suse.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 21/21] x86/pvlocks: Move paravirt spinlock functions
+ into own header
+Message-ID: <202511271747.smpLdjsz-lkp@intel.com>
+References: <20251127070844.21919-22-jgross@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] xen/x86: move d->arch.physaddr_bitsize field
- handling to pv32
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Timothy Pearson <tpearson@raptorengineering.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251126204331.3395888-1-grygorii_strashko@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251126204331.3395888-1-grygorii_strashko@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251127070844.21919-22-jgross@suse.com>
 
-On 26.11.2025 21:43, Grygorii Strashko wrote:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
-> 
-> The d->arch.physaddr_bitsize field is used only by PV32 code, so:
-> 
-> - move domain_set_alloc_bitsize() function into PV32 code and clean up
-> unused domain_set_alloc_bitsize() defines from other arches
-> 
-> - move domain_clamp_alloc_bitsize() function into PV32 code,
-> rename to _domain_clamp_alloc_bitsize() and use generic
-> domain_clamp_alloc_bitsize() define instead, clean up
-> domain_clamp_alloc_bitsize() defines from !X86 arches
-> 
-> - move d->arch.physaddr_bitsize field under PV32 ifdef
-> 
-> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-> ---
->  xen/arch/arm/include/asm/mm.h     |  3 ---
->  xen/arch/ppc/include/asm/mm.h     |  3 ---
+Hi Juergen,
 
-As I noticed only by getting a mail delivery failure back - please also be sure
-your submissions are up-to-date wrt ./MAINTAINERS: You meant to Cc Timothy for
-PPC, not Shawn.
+kernel test robot noticed the following build errors:
 
-Jan
+[auto build test ERROR on tip/x86/core]
+[also build test ERROR on tip/sched/core kvm/queue kvm/next linus/master v6.18-rc7]
+[cannot apply to kvm/linux-next next-20251127]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
->  xen/arch/riscv/include/asm/mm.h   |  3 ---
->  xen/arch/x86/include/asm/domain.h |  2 +-
->  xen/arch/x86/include/asm/mm.h     | 10 +++++++---
->  xen/arch/x86/pv/dom0_build.c      |  2 ++
->  xen/arch/x86/pv/domain.c          | 21 +++++++++++++++++++++
->  xen/arch/x86/x86_64/mm.c          | 20 --------------------
->  xen/include/xen/mm.h              |  4 ++++
->  9 files changed, 35 insertions(+), 33 deletions(-)
+url:    https://github.com/intel-lab-lkp/linux/commits/Juergen-Gross/x86-paravirt-Remove-not-needed-includes-of-paravirt-h/20251127-152054
+base:   tip/x86/core
+patch link:    https://lore.kernel.org/r/20251127070844.21919-22-jgross%40suse.com
+patch subject: [PATCH v4 21/21] x86/pvlocks: Move paravirt spinlock functions into own header
+config: x86_64-allnoconfig (https://download.01.org/0day-ci/archive/20251127/202511271747.smpLdjsz-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251127/202511271747.smpLdjsz-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202511271747.smpLdjsz-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> arch/x86/kernel/alternative.c:2373:2: error: call to undeclared function 'paravirt_set_cap'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    2373 |         paravirt_set_cap();
+         |         ^
+   arch/x86/kernel/alternative.c:2373:2: note: did you mean 'paravirt_ret0'?
+   arch/x86/include/asm/paravirt-base.h:23:15: note: 'paravirt_ret0' declared here
+      23 | unsigned long paravirt_ret0(void);
+         |               ^
+   1 error generated.
+
+
+vim +/paravirt_set_cap +2373 arch/x86/kernel/alternative.c
+
+270a69c4485d7d arch/x86/kernel/alternative.c  Peter Zijlstra            2023-02-08  2344  
+9a0b5817ad97bb arch/i386/kernel/alternative.c Gerd Hoffmann             2006-03-23  2345  void __init alternative_instructions(void)
+9a0b5817ad97bb arch/i386/kernel/alternative.c Gerd Hoffmann             2006-03-23  2346  {
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2347  	u64 ibt;
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2348  
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2349  	int3_selftest();
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2350  
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2351  	/*
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2352  	 * The patching is not fully atomic, so try to avoid local
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2353  	 * interruptions that might execute the to be patched code.
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2354  	 * Other CPUs are not running.
+7457c0da024b18 arch/x86/kernel/alternative.c  Peter Zijlstra            2019-05-03  2355  	 */
+8f4e956b313dcc arch/i386/kernel/alternative.c Andi Kleen                2007-07-22  2356  	stop_nmi();
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2357  
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2358  	/*
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2359  	 * Don't stop machine check exceptions while patching.
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2360  	 * MCEs only happen when something got corrupted and in this
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2361  	 * case we must do something about the corruption.
+32b1cbe380417f arch/x86/kernel/alternative.c  Marco Ammon               2019-09-02  2362  	 * Ignoring it is worse than an unlikely patching race.
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2363  	 * Also machine checks tend to be broadcast and if one CPU
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2364  	 * goes into machine check the others follow quickly, so we don't
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2365  	 * expect a machine check to cause undue problems during to code
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2366  	 * patching.
+123aa76ec0cab5 arch/x86/kernel/alternative.c  Andi Kleen                2009-02-12  2367  	 */
+8f4e956b313dcc arch/i386/kernel/alternative.c Andi Kleen                2007-07-22  2368  
+4e6292114c7412 arch/x86/kernel/alternative.c  Juergen Gross             2021-03-11  2369  	/*
+f7af6977621a41 arch/x86/kernel/alternative.c  Juergen Gross             2023-12-10  2370  	 * Make sure to set (artificial) features depending on used paravirt
+f7af6977621a41 arch/x86/kernel/alternative.c  Juergen Gross             2023-12-10  2371  	 * functions which can later influence alternative patching.
+4e6292114c7412 arch/x86/kernel/alternative.c  Juergen Gross             2021-03-11  2372  	 */
+4e6292114c7412 arch/x86/kernel/alternative.c  Juergen Gross             2021-03-11 @2373  	paravirt_set_cap();
+4e6292114c7412 arch/x86/kernel/alternative.c  Juergen Gross             2021-03-11  2374  
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2375  	/* Keep CET-IBT disabled until caller/callee are patched */
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2376  	ibt = ibt_save(/*disable*/ true);
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2377  
+931ab63664f02b arch/x86/kernel/alternative.c  Peter Zijlstra            2022-10-27  2378  	__apply_fineibt(__retpoline_sites, __retpoline_sites_end,
+1d7e707af44613 arch/x86/kernel/alternative.c  Mike Rapoport (Microsoft  2025-01-26  2379) 			__cfi_sites, __cfi_sites_end, true);
+026211c40b0554 arch/x86/kernel/alternative.c  Kees Cook                 2025-09-03  2380  	cfi_debug = false;
+931ab63664f02b arch/x86/kernel/alternative.c  Peter Zijlstra            2022-10-27  2381  
+7508500900814d arch/x86/kernel/alternative.c  Peter Zijlstra            2021-10-26  2382  	/*
+7508500900814d arch/x86/kernel/alternative.c  Peter Zijlstra            2021-10-26  2383  	 * Rewrite the retpolines, must be done before alternatives since
+7508500900814d arch/x86/kernel/alternative.c  Peter Zijlstra            2021-10-26  2384  	 * those can rewrite the retpoline thunks.
+7508500900814d arch/x86/kernel/alternative.c  Peter Zijlstra            2021-10-26  2385  	 */
+1d7e707af44613 arch/x86/kernel/alternative.c  Mike Rapoport (Microsoft  2025-01-26  2386) 	apply_retpolines(__retpoline_sites, __retpoline_sites_end);
+1d7e707af44613 arch/x86/kernel/alternative.c  Mike Rapoport (Microsoft  2025-01-26  2387) 	apply_returns(__return_sites, __return_sites_end);
+7508500900814d arch/x86/kernel/alternative.c  Peter Zijlstra            2021-10-26  2388  
+a82b26451de126 arch/x86/kernel/alternative.c  Peter Zijlstra (Intel     2025-06-03  2389) 	its_fini_core();
+a82b26451de126 arch/x86/kernel/alternative.c  Peter Zijlstra (Intel     2025-06-03  2390) 
+e81dc127ef6988 arch/x86/kernel/alternative.c  Thomas Gleixner           2022-09-15  2391  	/*
+ab9fea59487d8b arch/x86/kernel/alternative.c  Peter Zijlstra            2025-02-07  2392  	 * Adjust all CALL instructions to point to func()-10, including
+ab9fea59487d8b arch/x86/kernel/alternative.c  Peter Zijlstra            2025-02-07  2393  	 * those in .altinstr_replacement.
+e81dc127ef6988 arch/x86/kernel/alternative.c  Thomas Gleixner           2022-09-15  2394  	 */
+e81dc127ef6988 arch/x86/kernel/alternative.c  Thomas Gleixner           2022-09-15  2395  	callthunks_patch_builtin_calls();
+e81dc127ef6988 arch/x86/kernel/alternative.c  Thomas Gleixner           2022-09-15  2396  
+ab9fea59487d8b arch/x86/kernel/alternative.c  Peter Zijlstra            2025-02-07  2397  	apply_alternatives(__alt_instructions, __alt_instructions_end);
+ab9fea59487d8b arch/x86/kernel/alternative.c  Peter Zijlstra            2025-02-07  2398  
+be0fffa5ca894a arch/x86/kernel/alternative.c  Peter Zijlstra            2023-06-22  2399  	/*
+be0fffa5ca894a arch/x86/kernel/alternative.c  Peter Zijlstra            2023-06-22  2400  	 * Seal all functions that do not have their address taken.
+be0fffa5ca894a arch/x86/kernel/alternative.c  Peter Zijlstra            2023-06-22  2401  	 */
+1d7e707af44613 arch/x86/kernel/alternative.c  Mike Rapoport (Microsoft  2025-01-26  2402) 	apply_seal_endbr(__ibt_endbr_seal, __ibt_endbr_seal_end);
+ed53a0d971926e arch/x86/kernel/alternative.c  Peter Zijlstra            2022-03-08  2403  
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2404  	ibt_restore(ibt);
+ebebe30794d38c arch/x86/kernel/alternative.c  Pawan Gupta               2025-05-03  2405  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
