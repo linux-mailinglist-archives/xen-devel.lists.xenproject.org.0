@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04D41C8D659
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 09:45:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173568.1498595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C395C8D674
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 09:49:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173578.1498604 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOXcN-0008PL-82; Thu, 27 Nov 2025 08:44:47 +0000
+	id 1vOXgH-0000Xo-LJ; Thu, 27 Nov 2025 08:48:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173568.1498595; Thu, 27 Nov 2025 08:44:47 +0000
+Received: by outflank-mailman (output) from mailman id 1173578.1498604; Thu, 27 Nov 2025 08:48:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOXcN-0008Nu-4a; Thu, 27 Nov 2025 08:44:47 +0000
-Received: by outflank-mailman (input) for mailman id 1173568;
- Thu, 27 Nov 2025 08:44:46 +0000
+	id 1vOXgH-0000WN-Ik; Thu, 27 Nov 2025 08:48:49 +0000
+Received: by outflank-mailman (input) for mailman id 1173578;
+ Thu, 27 Nov 2025 08:48:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mf1n=6D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOXcM-0008No-1D
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 08:44:46 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1vOXgG-0000WH-6O
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 08:48:48 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 520cc846-cb6d-11f0-9d18-b5c5bf9af7f9;
- Thu, 27 Nov 2025 09:44:43 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-477b91680f8so4449665e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 00:44:43 -0800 (PST)
+ id e2f191ca-cb6d-11f0-9d18-b5c5bf9af7f9;
+ Thu, 27 Nov 2025 09:48:47 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-42b379cd896so325602f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 00:48:46 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1ca40945sm2155109f8f.30.2025.11.27.00.44.42
+ ffacd0b85a97d-42e1cab9af3sm2130897f8f.41.2025.11.27.00.48.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Nov 2025 00:44:42 -0800 (PST)
+ Thu, 27 Nov 2025 00:48:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 520cc846-cb6d-11f0-9d18-b5c5bf9af7f9
+X-Inumbo-ID: e2f191ca-cb6d-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764233083; x=1764837883; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764233326; x=1764838126; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zlDszzPGpdiv7N5SBUS3H3WvlmYzKtVtIoxDNaTVOSo=;
-        b=QEaI2j7YUPPkegEyK15PexT8Ir5kOsyYsP5siDs1Aw0VBKgzBrU99l1QGoj7clp0zv
-         QqKaK9sSLr5ruLPGPZeTp/lZcog3zA/pIzidHOi1Yf7222D9LXx9n55eh4cQbIlvh8AD
-         Yx8g9Wmad7O0v5WZinKwll+VhGJ6JtBvO/1jAfz8EQKtavXesMdrYjzl8bzjTD4HkPqn
-         qVC8vej74ml/zuCZ0hpk3dDmZVkCCzQWT984u8lW8BTgU47wYCKv0nyCHX2HcsQruIh2
-         JCFUxgIkX/U9FavddnyHdlsRDiy01cDcZ5uZb0iVRqB+DBbnIkd8vVArL+GDUXKSJTkw
-         S+AA==
+        bh=nOpHIrw7AUpXoOu83jNtrQDKXrcvpvr0CaBZ8gas1Fc=;
+        b=Zb6HuxT6mBcerG26Aj0/Bz0JYtjnVNpSale8yGOlY+0zrl+aZHRdIhmSCWu2vtn4FX
+         d+UXzmkJAoBqvfpzriUD7G1OxnQqUj2fasa1E5oi14973qjMzvt7v2SM5YHXKbzeAuLx
+         eKG/xgjTUHHYrvHDONeJeFJE3QegVy64RixtbOz6nvVASKD0/6ZJiCTXrfNvAotZ7/Kg
+         yNrg+EgS/n9ivsuQeHhHZYgdDCJO8C5Q0gGFRp0xp2CYHfKGXCvFcVXtu6lRIgqLmHpy
+         6dXzmfclMgejYs663jVqfxaozFFk8W1CbeP/eF/Utfgr/gG+jTq1oh4G+vBrIUZX9EO2
+         Ec8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764233083; x=1764837883;
+        d=1e100.net; s=20230601; t=1764233326; x=1764838126;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zlDszzPGpdiv7N5SBUS3H3WvlmYzKtVtIoxDNaTVOSo=;
-        b=Tr26nRDRygpJfcidV1I8fHpYhoxNuv+w80KyiJC3FuxnzVh15tEbk50XwuIPsK5ARU
-         ykGmwEfXrxB7mdHOuJWYMO1hA5OMB/VzyGEGBHrNqW0kFe+I55iNmjSzxLJqTsFWTQhm
-         1+vrpR0y9Plq5e0nGxnufCKvEvJz5rokeM1nZchvPLMidz3MPaOIX4OT3MdUMOr+QgtQ
-         jah7XPmBvtckKlDBZOBEhkIjwsuRinuRwfBGXWMvz6RUPNnw88sZth9IMEicUWibk8Hr
-         RU8EMyKPsEw1FyfQ4381Xl5h/bhQFgFY8IEtDYadJYxQhCWmJ1c99HW4z883pNfs9xM4
-         2oNA==
-X-Forwarded-Encrypted: i=1; AJvYcCUsCKJJhNoUTh95D3/OJY8QXV2PTmN4bg1/qkcBKfcmfLx1iHKUjxSV8CV0OhDItqavcIA2WQwo57g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YySy4Gz1xknHH+PyhC/z+eIIpovmrwjUp0O4/MhV29oV5W/OUWu
-	7786D7Kjm3XAL4K6vNcbSnjK2ulyju3E9XF6GbVt+N1wNRTyEHkZJUhq2Ea34B5Vfg==
-X-Gm-Gg: ASbGncu1ThjmAQ7xp/uDTPnM2ouqD7hH4CTwNKWu7o0QSBT23Yo4KI+3/zwDQTZVC0W
-	UP+gf7TxbZLjPH3J/fotcH7oJBxkkAYt3eZSop+WGseJYRyvxzQdJdjSanvJRmgJS+wUfZ0uTpe
-	MuJjUyZ67/+TpofHdjL6NRhgAi11dJ2dZqQ11RvD0eEDjlLM2VLhT75Skimq8k5ifXNB96rtd0+
-	qlayssegerIE9atOlQQtKBRH+Ke80OktRSe//0OOAsORwJjf1ayWwhd+Dm8QuBT5BzW+2Hg/iE+
-	IuRsfW/54pRXMjCvmU6fgCowOCeqN+IIHY2y5kMqBa7L05XmYoeIq9/i5PXoofkziveAmPNeNFV
-	EvQtXkCvLGep3rztaoDOlSDES83URkHaN1gj5phsreE/qzTcymIU7JCeeb6XgOoqN/PKRUJ5Dmr
-	DHs1PX+oSORI/pzvoK6E+cBDjXbXF/IAH1yq3NVmXITTZEcgvcwyX/TdSoTUotEfCvCLvqCEh3J
-	yia3S9pDE4Hkg==
-X-Google-Smtp-Source: AGHT+IFbnqCyj0hm4Ok8LZ8mcQJC5rKlp/dxaxtp8Un4qxlo5JynodV754bm2nDLs3ZdnCSdYyCIBw==
-X-Received: by 2002:a05:600c:350e:b0:477:ae31:1311 with SMTP id 5b1f17b1804b1-477c10e2a64mr199092945e9.13.1764233083134;
-        Thu, 27 Nov 2025 00:44:43 -0800 (PST)
-Message-ID: <9e8ecbc0-2dd1-4744-878d-9b09d019041e@suse.com>
-Date: Thu, 27 Nov 2025 09:44:41 +0100
+        bh=nOpHIrw7AUpXoOu83jNtrQDKXrcvpvr0CaBZ8gas1Fc=;
+        b=fg16lwizG8tHdSBv/YmCBGkLZsN+17ZlVKPsR1qeffVEw97r0UTm39isUTsABnTfdI
+         my1F+uIk519wbhFRlXmE8sA8yVsCtwqqmc8heNLy2wyM2qn8v0GR0tslGr+traufic01
+         nFxy9tZxugtNAIDA851acKsG7Tqu7chFHsH5biDc6MWKzhtDMA5KOfCPGvfvzdFbu34b
+         w4V6zGGJgyLjLmL4RxiD9Ly39QSTFmGjGl3PN12lJl4obfrQ1ca5lhX5T1wGQQ+SF0Ci
+         7/ny4J7pt2G+QDbb5s4KXdGchyR13mfcrfZjNcnzOH4F2QZGjqJIY5fIWfBCSLHLrH+B
+         ADLw==
+X-Forwarded-Encrypted: i=1; AJvYcCUP3OXhs+Dde4XfFsc4nHzWhx+bS5TVUFjRklMRWJlUaZ/udr6QbHb6m7AZGTsrLmO5VnH+4u88Twk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwKJifJXY/NhJTiHejR8eLRQI/SHOgGFW1IzyZvkKiuELY9yyeQ
+	U1Rv2Nd30LhSeWxvLrSsfWGbYEmgQ3QsgKBxwLG9wl3ppkaEl1zRkv5ntZkVQ41EeQ==
+X-Gm-Gg: ASbGncv8FRuaJ+GaekwTAoHOpjMqRK0Qux7egsnKoAAOIu8wSxDOOfutpH66in3kYRo
+	9P8Dxw5b5uBStUGExwwqlIKpbC345DH/jYxIHLlnOPYxcK5HhQbVG3UCzdVitTrZL9Zb7Jg0mZg
+	Tnfl1mjxtPJC1nPg+phYWLV58Xq7O9bsXjqBSHskV97pe0ePancqedL0mNuR8PBzB4KInHHco1Y
+	WVrzI+Q9kxDpTHTR9sDtMz5pXw5315t58yxSCQcpOycU0LWe98eNZtzx3yAWkubTgB2VxYR/hPK
+	qe8PGjwo9VseWTiOl2FNXx95EftLH4XAHGtg19HkaEWiatqZsrKfCkrGIKXrPBh2iI/ZidUSx5A
+	x99w263HJXKnATNGMLZrxpWVrjNZSmzxtOXoeeXpIa+50+dOEOxjFDpPzasbwuIzCqysfUGGJfq
+	3SC0C/4kVNExPatbmVip7zpROjPs4StVw0Ql3e1HTdel7Ifnh3qnRnhPFx1aCLPMMoqKYQDCf+2
+	lrXmdYhE7xeZA==
+X-Google-Smtp-Source: AGHT+IHhmqbuwbM/S3AUDE744Hl9IIJopYl/0Wpt8W/btsCTjY2R/3i79GqUdBUVejcmJG0gj0VCqw==
+X-Received: by 2002:a05:6000:4012:b0:428:5673:11e0 with SMTP id ffacd0b85a97d-42cc1d1999dmr26024523f8f.40.1764233326294;
+        Thu, 27 Nov 2025 00:48:46 -0800 (PST)
+Message-ID: <2ad110d7-0184-458b-a1a4-d112ad193067@suse.com>
+Date: Thu, 27 Nov 2025 09:48:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86/amd: Drop vestigial PBE logic in init_amd()
+Subject: Re: [PATCH 3/3] x86/amd: Drop the cpuid_mask_* command line options
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20251126171539.890253-1-andrew.cooper3@citrix.com>
- <20251126171539.890253-3-andrew.cooper3@citrix.com>
+ <20251126171539.890253-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,56 +121,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251126171539.890253-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20251126171539.890253-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 26.11.2025 18:15, Andrew Cooper wrote:
-> The comment was adjusted by myself in commit 51bd4bbdfdba ("x86: drop
-> X86_FEATURE_3DNOW_ALT"), on the presumption that the underlying logic existed
-> for a good reason.
-> 
-> Having done further archaeology, it turns out to be vestigial technical debt
-> from the leadup to Linux 2.4 in November 2000.
-> 
-> Prior to "Massive cleanup of CPU detection and bug handling",
-> c->x86_capability was a single uint32_t containing cpuid(1).edx,
-> cpuid(0x80000001).edx, or a synthesis thereof.  X86_FEATURE_AMD3D was defined
-> as the top bit this single uint32_t.
-> 
-> After "Massive cleanup of CPU detection and bug handling",
-> c->x86_capability became an array with AMD's extended feature leaf split
-> away from Intel's basic feature leaf.
-> 
-> AMD doc #20734-G states that 3DNow is only enumerated in the extended
-> feature leaf, and that other vendors where using this bit too.  i.e. AMD
-> never produced a CPU which set bit 31 in the basic leaf, meaning that
-> there's nothing to clear out in the first place.
-> 
-> This logic looks like it was relevant in the pre-"Massive cleanup" world
-> but ought to have been dropped when c->x86_capability was properly split.
+> As noted in the command line documentation, these are both deprecated since
+> Xen 4.7 (2016), and are not fully effective on AMD CPUs starting from 2011.
+
+The latter was said only for one of them, though.
+
+> Not realised at the time of writing the docs was that their use is also
+> incompatible with certain errata workarounds which edit the CPUID MSRs after
+> the levelling defaults are calculated.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
-albeit I think that, along the lines of a comment I made on Matrix, that ...
 
-> --- a/xen/arch/x86/cpu/amd.c
-> +++ b/xen/arch/x86/cpu/amd.c
-> @@ -1131,13 +1131,6 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
->  		wrmsrl(MSR_K8_HWCR, value);
->  	}
->  
-> -	/*
-> -	 * Some AMD CPUs duplicate the 3DNow bit in base and extended CPUID
-> -	 * leaves.  Unfortunately, this aliases PBE on Intel CPUs. Clobber the
-> -	 * alias, leaving 3DNow in the extended leaf.
-> -	 */
-> -	__clear_bit(X86_FEATURE_PBE, c->x86_capability);
-
-... while the justification applies to what the CPUs surface on their own,
-the basic leaf masking MSR could (likely) still have undue bits set, and
-hence may want pruning in exchange / addition.
-
-Jan
 
