@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A380C8D96A
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 10:39:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173647.1498665 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01AE1C8D9CA
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 10:44:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173657.1498675 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOYTH-0001eG-K3; Thu, 27 Nov 2025 09:39:27 +0000
+	id 1vOYXi-0003Li-4r; Thu, 27 Nov 2025 09:44:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173647.1498665; Thu, 27 Nov 2025 09:39:27 +0000
+Received: by outflank-mailman (output) from mailman id 1173657.1498675; Thu, 27 Nov 2025 09:44:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOYTH-0001bt-HI; Thu, 27 Nov 2025 09:39:27 +0000
-Received: by outflank-mailman (input) for mailman id 1173647;
- Thu, 27 Nov 2025 09:39:25 +0000
+	id 1vOYXi-0003Ip-1B; Thu, 27 Nov 2025 09:44:02 +0000
+Received: by outflank-mailman (input) for mailman id 1173657;
+ Thu, 27 Nov 2025 09:44:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BG9e=6D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vOYTF-0001bn-Ot
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 09:39:25 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Mf1n=6D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vOYXg-0003Ij-Ax
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 09:44:00 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4893f83-cb74-11f0-980a-7dc792cee155;
- Thu, 27 Nov 2025 10:39:23 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-b7291af7190so104644866b.3
- for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 01:39:22 -0800 (PST)
-Received: from [192.168.1.17] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b76f51721b6sm117039266b.5.2025.11.27.01.39.20
+ id 9871ddb3-cb75-11f0-980a-7dc792cee155;
+ Thu, 27 Nov 2025 10:43:57 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-42b3377aaf2so384065f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 01:43:57 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42e1ca78f77sm2470582f8f.32.2025.11.27.01.43.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Nov 2025 01:39:21 -0800 (PST)
+ Thu, 27 Nov 2025 01:43:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,370 +45,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4893f83-cb74-11f0-980a-7dc792cee155
+X-Inumbo-ID: 9871ddb3-cb75-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1764236362; x=1764841162; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6yVMVRAiVG/hWWcMT5pD3VgwNRv8cRoyXGSfp8S9PR0=;
-        b=mxk6eKvc1DxgpPgqki2z1cid8g/tjZImPJ9GZP18aZ/2PSaCKYu1qBJVCYYO9aHCCr
-         hOWXU4WswDaHBiVo+lefia+Mzgeb641TLRPxMsPld44EyaDEwNgZUKHxsiwQqD7UBrPu
-         fI6S4o9nfOlWKJPmxbqp0yAmHtsntMP78hD/GPxA1QeTAqWqJ1w/6zPZOmed+8IrrsWU
-         Nr+uE9MOpND7oZ14z8soXg847gkdJu3fkkyLbFxE4e1qRVPfjkcPh3/36gYBa++hpVZs
-         Wa8yhyduRdkKbUY4BNSQFdhSqAXNsbG9jHkjBvT9hSE3AvPJjlVxJ4sAfPXv+QetLNfx
-         DYWg==
+        d=suse.com; s=google; t=1764236637; x=1764841437; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=N6GX77rmB5naK+JKPmw6jU0H2AQeVc+HB91PKD3WOh8=;
+        b=gcXwW8r1ggKU4q7Q6B35px41ysMUEtgkaM15Y1LMXwArPC4u0a7BDm1Mpsht0RiCcY
+         pQfC/qaljRTJ0FCEhMu+XHMBaa3XV+zHIVqkYhJ0zkLu6oQyhwqmeZe7lD/nrHQf8Czr
+         wRKXVfKfKwM8RSPN/WFi4yraPb0XWyudN+8ccwCn66H4TIzpkoBG2WZgrZFQIYNd6fPn
+         j220aaOVbSpqs7fm5jFDomFswRkXA6heNqpmBKYHe/ISou9ZtElms7B/pKaDKOsyjVZN
+         ua0RhpsW78KV0WXlldbI+3AyuBXhVfdjz1mtHsqnFFsdGV9ld/yp/waCGjO79SmgF1I1
+         pgsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764236362; x=1764841162;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=6yVMVRAiVG/hWWcMT5pD3VgwNRv8cRoyXGSfp8S9PR0=;
-        b=SVomzOW/f8x0vaV1q+90WNYHKuUyQ0dw7dZaX3dONSpzGx+NIkiAHTCdHIZdHB8R8v
-         7rnMwTX6+R/MFS9W9OTdR/sRO2BN8wEucaTcS2Du0zcrjX6G1Sf6Ck1rKMPHtE62P2ao
-         fJKHmN9uftCsJl2r0MK+9Pk5pZNp5pVX8nmYv3HhLKfj9hLSh838JNjB4Wdjft7pxAVd
-         s+QWoPV5RPT2BSoFlJDtvOGt1OIGZ7CecKmnol3Dcxib5x8+PS0j7eQQWTHWP26Cw1fr
-         p1PL4kFCOnJ8yXSAvSSd916/h+bbYcta6WLbu1cqBcJlbeCTEjbgRC1EWV8UljtmkJwd
-         6cjA==
-X-Forwarded-Encrypted: i=1; AJvYcCWrYP087rJQxujv5KYK7GpjXTYYrQ1NsoWBOP/kiBMDAAP3wJZMe4Q3aPr7ayUk9R2azAAWlqEBozY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzYbEcH7UWz9NCYWCoMZLL1PMLvfjaoGkfKHDrmrzYw54Fd+2k9
-	C7oxREqbzKMWjox57rSKhTie2LL/tjs+7RqMaR1TF7LhO72wPbDbBfcw
-X-Gm-Gg: ASbGncvkWlsnZU54pqIjanny65mQmncXUrF2dA+ePywr+04aBKl7kXpIvjEbqrDs6O2
-	WlPYSFdYxIAaYOJp0Jkpig5rZg56MZ7F+r32msipa/T1iBomXN5lehWRo/gQA1oyQf5EUSaa8l6
-	XfG/SsyucOt/lHCo5OuZNgoPQySJrVe30UBh39KpEFzynz1JbilpTbWv+JcbxzeJj7MQlIY1HTN
-	dKSBtF82FQQIhky5W7YfHG2RprudnJubNn0VIEdyXF10BdBXD+Ni4Xk5Y1QuZxq1qKtnUC+7h+b
-	XPWr95axTovKMHpPYdZgyqjUgFPGodq3QsoNRa9bvpyZ8Tt+PKwUlprLlN/+dLLUlRCUzcCWdoM
-	X0quBpNYDKpRjAKtiuTnZW33fuOe93wCI6aYsr8VMyNFnm+XfhVewDm2LKnwHWdzbD7jN/Lxe7v
-	cSbDqrBogILp1O7QMm02KnTj/3O3404NtQdFFqOGSAZr/dDUgOBf9jTnaGyMyDf9Un7g==
-X-Google-Smtp-Source: AGHT+IHcLaOeRlgOd/bEpK6z8xCCxplKxTL3kSSfTBX4N6xBujKWA06cSnskpvdSJoFxSpbQmqznLg==
-X-Received: by 2002:a17:906:eec1:b0:b72:70e7:5b62 with SMTP id a640c23a62f3a-b7671549c62mr2323576666b.23.1764236361921;
-        Thu, 27 Nov 2025 01:39:21 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------FcZCR6CkEaay57TfyIzLQ394"
-Message-ID: <cea72f67-df63-4aa1-a116-efd731732c5b@gmail.com>
-Date: Thu, 27 Nov 2025 10:39:19 +0100
+        d=1e100.net; s=20230601; t=1764236637; x=1764841437;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=N6GX77rmB5naK+JKPmw6jU0H2AQeVc+HB91PKD3WOh8=;
+        b=YAwdQTmZBAbhJBc2af7zfQ0Gf344GmuH1j2tCo2KLIJXGYWm9qxs8/hLky0yGnmk2y
+         FB7AuYXIWgKlFUrX5WTuTsL4CoF/SrxR38O16z2lZ9P+JaSTzpSOUUOLskdIP+fl1F9t
+         8JtQxHfrPaL3/nPODGOwGB6h5j4DmusBh/sP9Zl7LyF8DLffX4pUYJtq7VLbXi+tpj9j
+         vTF1/EYFLapzx5aGQHUpZPscDp3NB0G34ZlU/C9vgXX49Dn8Q8IYG+XTiTrPcLGtAyqN
+         tCrKAbK+opAVWByF+TVI8UuzxH2aG/QBXsjYb+/3kOG+BU/Dd5St8bzZpm4MVI+2YiAN
+         NZig==
+X-Forwarded-Encrypted: i=1; AJvYcCWo6kjEPbSLCC7kZd/JCeGUMMGIG9c0tbZRIbmlJK94VH5EhzMxMswUS2cJfL/E/hCN73Iev/wZPVw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy8ihnrlOUXlyENHHu1XJeKRe/YylSp3/FUQ8YuAiBM0Df/E4Wz
+	ffsz0Dzr4mI/rRE5Oh3MnxY/zfwKCnUCaqqO/u6/Jbm/8Efh6a3Fni+t/Glyv47rHw==
+X-Gm-Gg: ASbGncvO6XASeeH88HiMmDvISY+eCSq183uLaMLKivFi5Rc9UVBXJI7gUKm0oRHksc8
+	dUBk3/W3kydSgqPSKWUAlPmP9vPUND6apVUOnpim8nBztm38u4y1WhWUSag1BcB0r2+DQKQ1V6+
+	6lI5pi/361khDtE4QKwZxt3/1zHozEaAxhb69Ga29Btcb7QzFaa40RiCqLmhyztMxYofkSOFjqn
+	IeM3EAcRZ6zdKjqFyRHXahoLxYAcyGdBTEebRBGBz1I9m9Sv+hFTDcg5OfWz3NeYMTowZ6EJnIg
+	F0AoQGqS9gdsNRpY9fk61b07qfE5czTCRnnQ1TBTZrtvJ2w66eH0BT9iwuZd8vbkqW3zZ2l9uIJ
+	dmbNB6D+PnX9HiokIz4vgneiPuttOv73YlIEBamMBpauaVJXDuK0qGJCBCInj3sSHNqzxdYu33H
+	gaQLZ3Dt0s2BTgaFAgiXwyN6ZQcmiIJHeqCDJxFzImRV7E77rM+UhACwhe6yZTGfx2mL6EcXPtM
+	0Q=
+X-Google-Smtp-Source: AGHT+IH6Nt/uB+Bs565wh6m6P2t8d0ZDDLm/oA66fcsbe6gOG+PD22vSchTDXNZ07qX6CY5N3xCNQQ==
+X-Received: by 2002:a05:6000:184d:b0:429:d66b:508f with SMTP id ffacd0b85a97d-42cc1d0cf29mr24071952f8f.30.1764236637301;
+        Thu, 27 Nov 2025 01:43:57 -0800 (PST)
+Message-ID: <868f28fe-f2dd-469d-a0cf-111885184dfe@suse.com>
+Date: Thu, 27 Nov 2025 10:43:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/domain: introduce generic functions for domain
- struct allocation and freeing
-To: Grygorii Strashko <grygorii_strashko@epam.com>,
- xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- Timothy Pearson <tpearson@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>
-References: <b5c703a64c616d6321f8a98cd28f0659838d41df.1764167337.git.oleksii.kurochko@gmail.com>
- <dabea7a8-121a-4b10-ba86-2b33cbc3e3c8@epam.com>
+Subject: Re: [RFC PATCH 01/11] x86: Add more granularity to the vendors in
+ Kconfig
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20251126164419.174487-1-alejandro.garciavallejo@amd.com>
+ <20251126164419.174487-2-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <dabea7a8-121a-4b10-ba86-2b33cbc3e3c8@epam.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251126164419.174487-2-alejandro.garciavallejo@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------FcZCR6CkEaay57TfyIzLQ394
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On 26.11.2025 17:44, Alejandro Vallejo wrote:
+> This enables very aggressive DCE passes on single-vendor builds in later
+> patches, as it will allow most vendor checks to become statically chosen
+> branches. A lot of statics go away and a lot more inlining is allowed.
+> 
+> In order to allow x86_vendor_is() to fold into constants, expand Kconfig
+> to have the full set of vendors. Adds Hygon, Centaur, Shanghai and the
+> default path.
+> 
+> Have Hygon depend on AMD, and Centaur+Shanghai depend on Intel.
+> 
+> Not a functional change.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+> ---
+>  xen/arch/x86/Kconfig.cpu         | 45 ++++++++++++++++++++++++++++++++
+>  xen/arch/x86/cpu/common.c        | 17 +++++++-----
+>  xen/arch/x86/include/asm/cpuid.h |  7 +++++
+>  3 files changed, 62 insertions(+), 7 deletions(-)
 
+Shouldn't patch 5 be folded into here? Or, if there were some dependencies
+on patches 2-4 (albeit I can't spot anything, as the files are all self-
+contained), at least the parts which can be done right away?
 
-On 11/26/25 9:35 PM, Grygorii Strashko wrote:
->
->
-> On 26.11.25 16:32, Oleksii Kurochko wrote:
->> From: Roger Pau Monne <roger.pau@citrix.com>
->>
->> Move x86's free_domain_struct() to common code since it is shared 
->> between
->> architectures.
->>
->> Move the x86 version of alloc_domain_struct() to common code as most 
->> of the
->> logic is architecture-independent. To handle the remaining architectural
->> differences, introduce arch_alloc_domain_struct_bits() for x86-specific
->> allocation requirements.
->>
->> No functional change.
->>
->> Suggested-By: Jan Beulich <jbeulich@suse.com>
->> [Introduce an arch-specific function instead of using a weak function]
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> ---
->> Changes in v2:
->> - CI test results: 
->> https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2180836457
->> - Introduce an arch-specific function to handle differences between 
->> arch-es
->>    in domain structure allocation requirements, instead of relying on 
->> a weak
->>    function.
->> - Add Suggested-by: Jan Beulich <jbeulich@suse.com>.
->> - Move free_domain_struct() to common code.
->> - Update the commit message.
->> ---
->>   xen/arch/arm/domain.c                | 17 -----------------
->>   xen/arch/ppc/stubs.c                 | 10 ----------
->>   xen/arch/riscv/stubs.c               | 10 ----------
->>   xen/arch/x86/domain.c                | 15 ++-------------
->>   xen/arch/x86/include/asm/pv/domain.h |  3 +++
->>   xen/common/domain.c                  | 23 +++++++++++++++++++++++
->>   6 files changed, 28 insertions(+), 50 deletions(-)
->>
->
-> [...]
->
->> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
->> index 3a21e035f4..34a02f089e 100644
->> --- a/xen/arch/x86/domain.c
->> +++ b/xen/arch/x86/domain.c
->> @@ -463,10 +463,8 @@ void domain_cpu_policy_changed(struct domain *d)
->>       }
->>   }
->>   -struct domain *alloc_domain_struct(void)
->> +unsigned int arch_alloc_domain_struct_bits(void)
->>   {
->> -    struct domain *d;
->> -
->>       /*
->>        * Without CONFIG_BIGMEM, we pack the PDX of the domain 
->> structure into
->>        * a 32-bit field within the page_info structure. Hence the 
->> MEMF_bits()
->> @@ -492,16 +490,7 @@ struct domain *alloc_domain_struct(void)
->>                   - 1;
->>   #endif
->>   -    BUILD_BUG_ON(sizeof(*d) > PAGE_SIZE);
->> -    d = alloc_xenheap_pages(0, MEMF_bits(bits));
->> -    if ( d != NULL )
->> -        clear_page(d);
->> -    return d;
->> -}
->> -
->> -void free_domain_struct(struct domain *d)
->> -{
->> -    free_xenheap_page(d);
->> +    return bits;
->>   }
->>     struct vcpu *alloc_vcpu_struct(const struct domain *d)
->> diff --git a/xen/arch/x86/include/asm/pv/domain.h 
->> b/xen/arch/x86/include/asm/pv/domain.h
->> index 582d004051..6e65bc22fc 100644
->> --- a/xen/arch/x86/include/asm/pv/domain.h
->> +++ b/xen/arch/x86/include/asm/pv/domain.h
->> @@ -18,6 +18,9 @@ extern int8_t opt_pv32;
->>   # define opt_pv32 false
->>   #endif
->>   +unsigned int arch_alloc_domain_struct_bits(void);
->> +#define arch_alloc_domin_struct_bits arch_alloc_domain_struct_bits
->
-> Is it intentionally placed in PV header x86/include/asm/pv/domain.h?
+> --- a/xen/arch/x86/Kconfig.cpu
+> +++ b/xen/arch/x86/Kconfig.cpu
+> @@ -19,4 +19,49 @@ config INTEL
+>  	  May be turned off in builds targetting other vendors.  Otherwise,
+>  	  must be enabled for Xen to work suitably on Intel platforms.
+>  
+> +config HYGON
+> +	bool "Support Hygon CPUs"
+> +	depends on AMD
+> +	default y
+> +	help
+> +	  Detection, tunings and quirks for Hygon platforms.
+> +
+> +	  May be turned off in builds targetting other vendors.  Otherwise,
+> +	  must be enabled for Xen to work suitably on Hygon platforms.
+> +
+> +
+> +config CENTAUR
+> +	bool "Support Centaur CPUs"
+> +	depends on INTEL
+> +	default y
+> +	help
+> +	  Detection, tunings and quirks for Centaur platforms.
+> +
+> +	  May be turned off in builds targetting other vendors.  Otherwise,
+> +	  must be enabled for Xen to work suitably on Centaur platforms.
+> +
+> +config SHANGHAI
+> +	bool "Support Shanghai CPUs"
+> +	depends on INTEL
+> +	default y
+> +	help
+> +	  Detection, tunings and quirks for Shanghai platforms.
+> +
+> +	  May be turned off in builds targetting other vendors.  Otherwise,
+> +	  must be enabled for Xen to work suitably on Shanghai platforms.
+> +
+> +config UNKNOWN_CPU
+> +	bool "Support unknown CPUs"
 
-Oh, I missed that it is inside PV header. It should be in asm/domain.h, thanks for noticing that!
+"Unknown CPUs" can be of two kinds: Such of vendors we don't explicitly support,
+and such of vendors we do explicitly support, but where we aren't aware of the
+particular model. This needs to be unambiguous here, perhaps by it becoming
+UNKNOWN_CPU_VENDOR (and the prompt changing accordingly).
 
-~ Oleksii
+> --- a/xen/arch/x86/cpu/common.c
+> +++ b/xen/arch/x86/cpu/common.c
+> @@ -118,7 +118,7 @@ static void cf_check default_init(struct cpuinfo_x86 * c)
+>  	__clear_bit(X86_FEATURE_SEP, c->x86_capability);
+>  }
+>  
+> -static const struct cpu_dev __initconst_cf_clobber __used default_cpu = {
+> +static const struct cpu_dev __initconst_cf_clobber default_cpu = {
 
---------------FcZCR6CkEaay57TfyIzLQ394
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+This change isn't explained in the description. __used here was introduced not
+all this long ago together with __initconst_cf_clobber. Maybe this really was
+a mistake, but if so it's correction should be explained.
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 11/26/25 9:35 PM, Grygorii Strashko
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:dabea7a8-121a-4b10-ba86-2b33cbc3e3c8@epam.com">
-      <br>
-      <br>
-      On 26.11.25 16:32, Oleksii Kurochko wrote:
-      <br>
-      <blockquote type="cite">From: Roger Pau Monne
-        <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
-        <br>
-        <br>
-        Move x86's free_domain_struct() to common code since it is
-        shared between
-        <br>
-        architectures.
-        <br>
-        <br>
-        Move the x86 version of alloc_domain_struct() to common code as
-        most of the
-        <br>
-        logic is architecture-independent. To handle the remaining
-        architectural
-        <br>
-        differences, introduce arch_alloc_domain_struct_bits() for
-        x86-specific
-        <br>
-        allocation requirements.
-        <br>
-        <br>
-        No functional change.
-        <br>
-        <br>
-        Suggested-By: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
-        <br>
-        [Introduce an arch-specific function instead of using a weak
-        function]
-        <br>
-        Signed-off-by: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
-        <br>
-        Signed-off-by: Oleksii Kurochko
-        <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-        <br>
-        ---
-        <br>
-        Changes in v2:
-        <br>
-        - CI test results:
-        <a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2180836457">https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2180836457</a>
-        <br>
-        - Introduce an arch-specific function to handle differences
-        between arch-es
-        <br>
-           in domain structure allocation requirements, instead of
-        relying on a weak
-        <br>
-           function.
-        <br>
-        - Add Suggested-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>.
-        <br>
-        - Move free_domain_struct() to common code.
-        <br>
-        - Update the commit message.
-        <br>
-        ---
-        <br>
-          xen/arch/arm/domain.c                | 17 -----------------
-        <br>
-          xen/arch/ppc/stubs.c                 | 10 ----------
-        <br>
-          xen/arch/riscv/stubs.c               | 10 ----------
-        <br>
-          xen/arch/x86/domain.c                | 15 ++-------------
-        <br>
-          xen/arch/x86/include/asm/pv/domain.h |  3 +++
-        <br>
-          xen/common/domain.c                  | 23
-        +++++++++++++++++++++++
-        <br>
-          6 files changed, 28 insertions(+), 50 deletions(-)
-        <br>
-        <br>
-      </blockquote>
-      <br>
-      [...]
-      <br>
-      <br>
-      <blockquote type="cite">diff --git a/xen/arch/x86/domain.c
-        b/xen/arch/x86/domain.c
-        <br>
-        index 3a21e035f4..34a02f089e 100644
-        <br>
-        --- a/xen/arch/x86/domain.c
-        <br>
-        +++ b/xen/arch/x86/domain.c
-        <br>
-        @@ -463,10 +463,8 @@ void domain_cpu_policy_changed(struct
-        domain *d)
-        <br>
-              }
-        <br>
-          }
-        <br>
-          -struct domain *alloc_domain_struct(void)
-        <br>
-        +unsigned int arch_alloc_domain_struct_bits(void)
-        <br>
-          {
-        <br>
-        -    struct domain *d;
-        <br>
-        -
-        <br>
-              /*
-        <br>
-               * Without CONFIG_BIGMEM, we pack the PDX of the domain
-        structure into
-        <br>
-               * a 32-bit field within the page_info structure. Hence
-        the MEMF_bits()
-        <br>
-        @@ -492,16 +490,7 @@ struct domain *alloc_domain_struct(void)
-        <br>
-                          - 1;
-        <br>
-          #endif
-        <br>
-          -    BUILD_BUG_ON(sizeof(*d) &gt; PAGE_SIZE);
-        <br>
-        -    d = alloc_xenheap_pages(0, MEMF_bits(bits));
-        <br>
-        -    if ( d != NULL )
-        <br>
-        -        clear_page(d);
-        <br>
-        -    return d;
-        <br>
-        -}
-        <br>
-        -
-        <br>
-        -void free_domain_struct(struct domain *d)
-        <br>
-        -{
-        <br>
-        -    free_xenheap_page(d);
-        <br>
-        +    return bits;
-        <br>
-          }
-        <br>
-            struct vcpu *alloc_vcpu_struct(const struct domain *d)
-        <br>
-        diff --git a/xen/arch/x86/include/asm/pv/domain.h
-        b/xen/arch/x86/include/asm/pv/domain.h
-        <br>
-        index 582d004051..6e65bc22fc 100644
-        <br>
-        --- a/xen/arch/x86/include/asm/pv/domain.h
-        <br>
-        +++ b/xen/arch/x86/include/asm/pv/domain.h
-        <br>
-        @@ -18,6 +18,9 @@ extern int8_t opt_pv32;
-        <br>
-          # define opt_pv32 false
-        <br>
-          #endif
-        <br>
-          +unsigned int arch_alloc_domain_struct_bits(void);
-        <br>
-        +#define arch_alloc_domin_struct_bits
-        arch_alloc_domain_struct_bits
-        <br>
-      </blockquote>
-      <br>
-      Is it intentionally placed in PV header
-      x86/include/asm/pv/domain.h? <br>
-    </blockquote>
-    <pre>Oh, I missed that it is inside PV header. It should be in asm/domain.h, thanks for noticing that!
+> @@ -340,7 +340,8 @@ void __init early_cpu_init(bool verbose)
+>  	*(u32 *)&c->x86_vendor_id[8] = ecx;
+>  	*(u32 *)&c->x86_vendor_id[4] = edx;
+>  
+> -	c->x86_vendor = x86_cpuid_lookup_vendor(ebx, ecx, edx);
+> +	c->x86_vendor = x86_cpuid_lookup_vendor(ebx, ecx, edx) &
+> +	                X86_ENABLED_VENDORS;
 
-~ Oleksii</pre>
-    <pre>
-</pre>
-  </body>
-</html>
+May I suggest the & to move ...
 
---------------FcZCR6CkEaay57TfyIzLQ394--
+>  	switch (c->x86_vendor) {
+
+... here? Yes, you panic() below, but I see no reason to store inaccurate
+data when that's easy to avoid.
+
+>  	case X86_VENDOR_INTEL:    intel_unlock_cpuid_leaves(c);
+>  				  actual_cpu = intel_cpu_dev;    break;
+> @@ -349,12 +350,14 @@ void __init early_cpu_init(bool verbose)
+>  	case X86_VENDOR_SHANGHAI: actual_cpu = shanghai_cpu_dev; break;
+>  	case X86_VENDOR_HYGON:    actual_cpu = hygon_cpu_dev;    break;
+>  	default:
+> +		if (verbose || !IS_ENABLED(CONFIG_UNKNOWN_CPU))
+> +			printk(XENLOG_ERR
+> +			       "Unrecognised or unsupported CPU vendor '%.12s'\n",
+> +			       c->x86_vendor_id);
+> +		if (!IS_ENABLED(CONFIG_UNKNOWN_CPU))
+> +			panic("Cannot run in unknown/compiled-out CPU vendor.\n");
+
+The text reads somewhat odd to me, "run in" in particular. Also nit: No full stop
+please at the end of log messages, except maybe in extraordinary situations.
+
+Jan
 
