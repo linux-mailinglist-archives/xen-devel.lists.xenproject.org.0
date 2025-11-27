@@ -2,54 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B2D6C8F6FE
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 17:06:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1174198.1499164 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 019DEC8F80D
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 17:26:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1174212.1499175 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOeVZ-0003QZ-VZ; Thu, 27 Nov 2025 16:06:13 +0000
+	id 1vOeoK-00076l-KX; Thu, 27 Nov 2025 16:25:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1174198.1499164; Thu, 27 Nov 2025 16:06:13 +0000
+Received: by outflank-mailman (output) from mailman id 1174212.1499175; Thu, 27 Nov 2025 16:25:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOeVZ-0003Or-SO; Thu, 27 Nov 2025 16:06:13 +0000
-Received: by outflank-mailman (input) for mailman id 1174198;
- Thu, 27 Nov 2025 16:06:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vOeoK-00074Q-Gg; Thu, 27 Nov 2025 16:25:36 +0000
+Received: by outflank-mailman (input) for mailman id 1174212;
+ Thu, 27 Nov 2025 16:25:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+gQU=6D=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1vOeVX-0003OQ-53
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 16:06:11 +0000
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c202::7])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id faddbdcd-cbaa-11f0-980a-7dc792cee155;
- Thu, 27 Nov 2025 17:06:07 +0100 (CET)
-Received: from DU6P191CA0023.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:540::17)
- by AS8PR08MB8109.eurprd08.prod.outlook.com (2603:10a6:20b:54b::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.14; Thu, 27 Nov
- 2025 16:06:00 +0000
-Received: from DB1PEPF000509E4.eurprd03.prod.outlook.com
- (2603:10a6:10:540:cafe::d) by DU6P191CA0023.outlook.office365.com
- (2603:10a6:10:540::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.14 via Frontend Transport; Thu,
- 27 Nov 2025 16:05:57 +0000
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- DB1PEPF000509E4.mail.protection.outlook.com (10.167.242.54) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.7
- via Frontend Transport; Thu, 27 Nov 2025 16:05:59 +0000
-Received: from DBAPR08MB5590.eurprd08.prod.outlook.com (2603:10a6:10:1aa::17)
- by VI1PR08MB5325.eurprd08.prod.outlook.com (2603:10a6:803:13e::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.12; Thu, 27 Nov
- 2025 16:05:24 +0000
-Received: from DBAPR08MB5590.eurprd08.prod.outlook.com
- ([fe80::288a:2f8:39b8:a2f4]) by DBAPR08MB5590.eurprd08.prod.outlook.com
- ([fe80::288a:2f8:39b8:a2f4%3]) with mapi id 15.20.9366.012; Thu, 27 Nov 2025
- 16:05:24 +0000
+ <SRS0=BG9e=6D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vOeoJ-00074H-FW
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 16:25:35 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b2afd8fd-cbad-11f0-9d18-b5c5bf9af7f9;
+ Thu, 27 Nov 2025 17:25:33 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-b735b89501fso132483766b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 08:25:33 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-64751062261sm2326689a12.33.2025.11.27.08.25.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Nov 2025 08:25:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,223 +45,421 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: faddbdcd-cbaa-11f0-980a-7dc792cee155
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=LWMFgpmicNvU08ORktcK9W21/pkWYPSvvU71p4mRiZAE0KnAC6N3C7tUYhSq2kW7T/9+KTQJy+Dt1NLT3x2vLiqr7v5eVvc9U0v2MDTqVmsARG6YK8uY6AXLNt3QPZ8FkTwUg7D6EfWierjVW8UutfQ54vppffxSmYlNO4zXXCxVjcI9Vv+iN+PEJuxVxIrkX2OAOyIs7uhXdINZUomOmN6m/fu2XpZjbW4FU6K3uLE8yy4Oj5SZGsLXjrlJFCn0xnsiHAn/l/sx0ZEEG+om4nDJfUYNHOSpeTGfZ3QwKkInmGgF/pCJxHmwOB414H96f3CoOAfATRVY/v0zNneHBA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w2ZuVNG0mRES/L4SKb92v1pwTUxvfEudGX8ifhsFe7A=;
- b=dKPnKpzhISbAI2f+jiA4TBrT4Qt8KHb3q6+wVD3bW554i5/9KiEEk9h1wp9gU2O5yagnbuo8EzF2dWiW0RbjTOdaqmIJ5nJ5J1Gz7lcls0Qwcpn8N+zMEmExZx7v+7iraUmmXnBualM6JB51QollerzOLIu6FVhO1m2VIzZrrTNIE5J9ZDeZwBXKiAqyp8yqMnvKtESMRvRJ/9uvKm4RjaGKbeDpOBHpJaVegSC8syB3NYs7pPu7rLC0vurj/3q8Z/nmPD5A7/Dk98hUERoMGPGfgzvjqjGLweiv6h3zGGpnO70W/OL4da+CUg70/tJO6Fg1M2UXbU0j+lrk7R8wpA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w2ZuVNG0mRES/L4SKb92v1pwTUxvfEudGX8ifhsFe7A=;
- b=RZ05ChlZlsBa04DmmWS7xojiDT0tnBkBdEYeAtBnhRxk/jRFbKchd+K0Nv+fuGqZeNKhN/WdZDZ/pzMj4zjkPzJfDjA7Dt5dKdkZRrUxxK+ZyA9DFQbWIQDV2ZvEufZJlCV25Zmw5OUVK7RCROs0V698pUInEQWIgxZvQ4bwnXQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dQnbtJw0C10RUUGg4uT13cpdDgJ4xPDZ8BLEU41LLb4xV77LSvYcpSirHwu3UZMqOPFWTr+AzVXcGSLGS1OohH5Sdakv6BpdfBt9T+zwcxuEzwa44sWNUI06nsx1pkGdxW7qL2E6wW7x1ml3ealdnw39MmmfMekHau9SkvgKOTnAYrWLpbS+Ow5NhzfrVpQGxIH7iNeupiov/Cu60sl1zpHKMbISbx5jtIFEVjTH0iIjkATremabPUq+EvEIFUuFIk52Pg7HPm5upHPoOQKT7Gw34d24CYvvAX7+nxAPjZC/yvSWzPbw9oUeH3ExjJERahzaAEiyA6JafilT2pVrkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w2ZuVNG0mRES/L4SKb92v1pwTUxvfEudGX8ifhsFe7A=;
- b=dm3b2dlpPgApyXlCfTRQRnRqvAs5ePGFJgkzQ3/U+IywAUznu73kJ/FmIrBeSvVWvAgW1C6MCHPk0kMBYac4LoYAdKZS9/VH1fA3VNESeF7nSXWQcwyHUxIZg7hpZL3MZu184iSl0PTHxI6DKCC16LvPPLsbD4rRynAsqf9Wf5VSN1kkFjViNHzywcnOlD/Xk9o0Y/aYEJqW0nIEHVDyj9cP2Vg+XX/x+Mi/FehpxWrNX6X+v8wGRSE5W40lKCkcdM6D9pF5vqGkGXqb0nqXPxlXpoxRqhyIHTeYiH8EmcdBhFRyyHLOXOmFiuso/50y4FjAYrgwWtRSFQCO9Mt1LA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w2ZuVNG0mRES/L4SKb92v1pwTUxvfEudGX8ifhsFe7A=;
- b=RZ05ChlZlsBa04DmmWS7xojiDT0tnBkBdEYeAtBnhRxk/jRFbKchd+K0Nv+fuGqZeNKhN/WdZDZ/pzMj4zjkPzJfDjA7Dt5dKdkZRrUxxK+ZyA9DFQbWIQDV2ZvEufZJlCV25Zmw5OUVK7RCROs0V698pUInEQWIgxZvQ4bwnXQ=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: "jens.wiklander@linaro.org" <jens.wiklander@linaro.org>
-Subject: Re: [PATCH 00/10] xen/arm: ffa: FF-A v1.2 support
-Thread-Topic: [PATCH 00/10] xen/arm: ffa: FF-A v1.2 support
-Thread-Index: AQHcX7XaOBZxRtacxUWP+aUgGBDI37UGrAcAgAADxIA=
-Date: Thu, 27 Nov 2025 16:05:23 +0000
-Message-ID: <2DA14F49-DC82-44E8-B265-265BD0439879@arm.com>
-References: <cover.1764254975.git.bertrand.marquis@arm.com>
- <cover.1764241336.git.bertrand.marquis@arm.com>
-In-Reply-To: <cover.1764241336.git.bertrand.marquis@arm.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3864.200.81.1.6)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	DBAPR08MB5590:EE_|VI1PR08MB5325:EE_|DB1PEPF000509E4:EE_|AS8PR08MB8109:EE_
-X-MS-Office365-Filtering-Correlation-Id: 780e5fb1-785b-413d-b4c3-08de2dcedb2d
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|366016|376014|38070700021;
-X-Microsoft-Antispam-Message-Info-Original:
- =?utf-8?B?TzVSZE8xWGx6RTd3dnNPK0lPSWRRanFXaWxLVHNiOFhMUUs3MlVRTlplMDBj?=
- =?utf-8?B?U3FJZnVQNDQ1Qlo1eUdMMS96RDVZVzAwd1cxMnV6NnBVWVpVY005dXgyRjB5?=
- =?utf-8?B?cHVURjZyblR1MUl0eDN2aXV2NHlIZ295YTR4RjhWNWRSOU41aXlnekRFSVVW?=
- =?utf-8?B?ZkNvbG9DWHNMNnVWaHg5R0Vvc0tmcFc1V3lqbmp5dGRaTDJzTGRSU3psRWpL?=
- =?utf-8?B?ZFhIRGxmcnFMbGdvWFNDWTI2dVVIbzNOWnI3UktoVUJhb2E4WTdBWnZSaUN0?=
- =?utf-8?B?OW9zcTY2WE9ScWVXR0gwTTgxN3J6OGc4ejJ4eEg2cEVGcU1BOFRMRktCeVBU?=
- =?utf-8?B?Y0IyZ0N6VnZDVjlrenlYSUJvdVZzZHdSTSt5SlBkZXFHYkZ6ZzIySUtJNFNl?=
- =?utf-8?B?SENVRlM2cmpqU01wUkkwK2VUNGNKT0hiTkxqOFkvRFJRZXFTdzBHQXhMM1VV?=
- =?utf-8?B?T09wbHVEUlBwN2xrWUUxTWhsd2ZrZ0VTT1N2YnFQQTY5a1ZsYUo2RXVHNVB0?=
- =?utf-8?B?NlNhZ3lWU2orcXdFYTVIeHFkdTh4MlBZeC96RHNGTEhsTUFrTnFFbWFqSEtO?=
- =?utf-8?B?SDhDOUhYR1lWVTByNDNQRVlVQ3hlODd5RFlKbXZ5aXRzTUpMeTV4TUZaLzV5?=
- =?utf-8?B?Z1JIWHVsRW5BSWxVOHNVYmZsdE9MNmp4aTBSRERrdkZKd3F3MFJQV2lKbWdL?=
- =?utf-8?B?bE5rVndwNE9iZjRJelBYc2VzVGNMN3NFQmYzdy9VNENrZjFQRnpLanB6RjYw?=
- =?utf-8?B?N2lGT2hkektuam9EZWVlUjI3L1ZwL1IyVkZnVkgvVklGU3FodXhzN0dGbEVl?=
- =?utf-8?B?M3FKVTdzSGVSMURyVHI1NG1HOWRqQm5GV3hLSnplVlM5MTJFVVY0TzdHSlhx?=
- =?utf-8?B?ZHdrak51VUpGcXJ1aXFmbVVKL29UVVZnN216UklrQjdzUWtMSEdOaTkrK1Rk?=
- =?utf-8?B?NWxERnl0YTBSaU42amY2c29wdE9meENhazdxVE5IVDJiNEl6VFUxKzJuUTEr?=
- =?utf-8?B?VngyWWQvVDRFMDZFdG1PajdBNS84SWMwa3FLSEpmaTNWeTVRcC9ySGdmN1oy?=
- =?utf-8?B?bjFkWjg0c0FxOE1SVDM4VFF4QTFGZDEyZkpUeHp4UTFtMmZjTlZxY3pRL2ZH?=
- =?utf-8?B?SWc1WDBEeDVFSHBuZ1d0QVFSV3cvdUVTQVZsMmRHaERXM3BZeVZhWmV3cW1m?=
- =?utf-8?B?Z0FTdS8wYXhGTVVOWklJcWVrSUVUMkZLUkx5blY0NGJrNjRPaE1yS1BxTkZS?=
- =?utf-8?B?N2F5VTc3Z1NhcnU5ZU9BQlRZNDlJU3pTS2xMZjYrclhsdVJpVC9PWFRDNlJ0?=
- =?utf-8?B?VEVjaHprMHh6ZVN3aEpURk5ZaWdVRTkrL05MWEZmUytkUnB4eEtZakdPRmsz?=
- =?utf-8?B?NWFOR0Z2OVBjRkY4MWdGL0hqTExyeUpsa2t1cEtJTU4rb2dYYnVGb0V4cVJM?=
- =?utf-8?B?T29SdWdXK3ZWUGZJelJSZkczbEI0TzFhOHFnS2pQR1U2MDJydW0vb2ZtS1Bz?=
- =?utf-8?B?TytISnRLbVB2VVljUzlJN0swemtaVFIrZHY4MjRUTnlpSkU3TVQzS0tiSU5P?=
- =?utf-8?B?dTlObC9UZHR0d3NwZCtsRHhRWWl5aTA2cXk2ZUZRQ1piSVR5V3F1Tm1DR1px?=
- =?utf-8?B?T2JxMUZlZ29IL0ZZZWdUd2x2YkJkQ0lqdjRheVdsQ1FGY2c2ZGNJY291Y0hV?=
- =?utf-8?B?TlR1Vnh0WGFjTURTNjhVV1B0U1dxbGpyVjIrUVppdGJVd2s3cjl1YkN4QUdq?=
- =?utf-8?B?U3hvUWJjT3QvU0xhb1RyMnFORW1GTTFKT2w3d0gyenlER1VZSnRTbmRndmor?=
- =?utf-8?B?OHV6V2xOMFZFVkM3d2JleVVsVkEwMzhHUldvcGhWOEVONGNBMUZldEhsZzhE?=
- =?utf-8?B?QXgyZHBDeDdFaTRjVW9jS0gwN0NFQnd1b2ZoL0RLa1JlcGZBbHozSllFMFVH?=
- =?utf-8?B?ZTZheWYzWURJeDU2cERuRGdSaWdiVWYycytyV3BJQ1VuanR3aWtJQXZWYk9m?=
- =?utf-8?B?RW9HV1hsYUZzV0NmNk1TYlZyb2JvMkhCa250WkpVTEs0dWdxYTY5SXF3YXFi?=
- =?utf-8?Q?hsZwsv?=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBAPR08MB5590.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700021);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <5EBED686A150FE4385634B593C3D897A@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: b2afd8fd-cbad-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1764260733; x=1764865533; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=YL4YJzeUbKSp/fM7Qb8cgUUaRB2L9EqJ0O+LEsNjJk0=;
+        b=DYeghTcDTtoX+pWJVWCvdSLzi2I2Iq9yE92+oabkKACB9l793l72ofgaP5nDxnic+L
+         Zio8NAGp3AUbtVRUUE1fgPyhai4oylNiiUTA6MV2uzdWiKDxTYSRu5Clx/9e0fmClCGZ
+         St3jnlTVLhXIvRFIb7f7rwfQei8IojOOVk+t/+CMwwbdMa4QojycrbmprW86/mEpT3rU
+         2PxRTVnI2a0zZ5o4VsvXEyqMO1Aho/r1AKEyePRrzRde2rVj2v5NEFXxujU7q3IrzPw5
+         kqwMbkptmtoKGFxWVnpOueYvCd+y6H1+HjgrEmCyam9nEvDgxdZMnLMzI/j9PLiYkKYZ
+         n/OQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764260733; x=1764865533;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YL4YJzeUbKSp/fM7Qb8cgUUaRB2L9EqJ0O+LEsNjJk0=;
+        b=n4xtHF8WYxYAKMccQb4z3VF0t8VW9gQcPk7c1I4i/FU70lnHX27+BzJn7FMslI//Gq
+         e/2h2grc+Lr9BKPqXWofS+jcMkiatKj0jb76EqZ6oz37a/qC39b47W2V50jpJvvNC1FU
+         e3UuaoefVX8u/RI8hpD9IOXv3g97ey9Qj6nw4jFSL9SzQoLiHeD2dXsVraadaAsFeFTA
+         6O3Z7E3Mza0nmHbx8QbfMnO9kQT2/znF+CcMzvFJ+fyHtIHKjiadYNd39s0kiPl//Rs+
+         UhqPULnHnDpEe4V44eD7dzwCtsiEP50wojjLumWyXa6JcgnSv2k7GUnt0IGUVu1EXeIx
+         58Dw==
+X-Forwarded-Encrypted: i=1; AJvYcCXxPWdbwSvdyYxWSqDBY1JYwXMzn6SyV0/Y5PlcPS/yKsOwfnmmK6ddwTyHKeajSvt9tnP7jluBa2I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxmnzYsRFbo+Or9YBVpX4fc7EIIcQPrSuwLNl81E/W9IR/nGVlo
+	wTV9szMrHaYahOmUYf3IUA4QF6ttoa3lihhuZycVkMgD4y4uSIzqDikp
+X-Gm-Gg: ASbGncu+7nDdN237asHCq8L0MAqLg1Hfz+FkTXmwKpJNvnqsc4VhRyTWncLyyXrVdd7
+	83Nq1VQFX2rT95Eo3/+HHkEGAva1Evk0vO+Xb9wofYy1py3evbIZ4yQ0NWAXRYHkuw3WGUtlGLH
+	CaO1s5dlO5nAZMQBWH3UoVHrbgqjmu1an+fnxkVd/SwOgGBAKQ06kBRX4xSMc/s8xMY59PUQOEo
+	/L9GX8Iocxx14/k5Lv9hgEieqaaMJ6nhhgzjdx3d74tiFTQ/E1KbrMi1pAv/UP2+/l3VnxcJ4u9
+	h22frC4coIOZluTKcTLaqR4DARqyAN9JnvQ0vYb4htGtLMcIIFZ6yebvbPopqy3vAhXnKbIOtOp
+	t+NO4pft9bvB5HwDcTQ057kPwn/sOJWYXuqSV82k/ZX+m6QHzk72MmfSUw7kF86s+0z621zWXiq
+	YbufmjIYh71H+p9BtLQ6qNXIgZdVD+Qhl2t5j3Fyx2+sBvvO+qjXftzNw1YWDpTOKsQcWA4IYMf
+	Hg=
+X-Google-Smtp-Source: AGHT+IG+j7q6EQ1TcULlnISzMxTGQYINabb8NmlkaNAiZXc2jmtsD9XlGdqCnwTtYAAFyv+nFgbNLw==
+X-Received: by 2002:a17:907:94c1:b0:b72:de4f:cea6 with SMTP id a640c23a62f3a-b76c555e67cmr1314143966b.48.1764260732656;
+        Thu, 27 Nov 2025 08:25:32 -0800 (PST)
+Message-ID: <2671e43a-a9f0-42cd-8764-4274c14a86ec@gmail.com>
+Date: Thu, 27 Nov 2025 17:25:31 +0100
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB5325
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB1PEPF000509E4.eurprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	87cbc026-3e67-40d9-52b0-08de2dcec5e5
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|14060799003|376014|36860700013|82310400026|35042699022|1800799024|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Z3BXZldXMERHSS9nVEVCempXdnRtd2ZMOFNkWlBoeTcyaitMbVh1bEQ2WDBj?=
- =?utf-8?B?eEtjd1lQeXFKQjExb2hOK2xxQ3g1S0t3K3dtMlZpSmppVU9ieE1pNlVTWTVE?=
- =?utf-8?B?Z3dMaXFuUTgvT0Npc0tqdlZSd29MdGlsK1A2ZzdpNS9uUkd6bGlTQTJBa3Zm?=
- =?utf-8?B?Qzh4cmdWTnNETmJSL0FBKy8vZ3VVN205N1lJYTVDR1QyY2xpaGJPVThnMGZn?=
- =?utf-8?B?VkM1YzdNTFViUG82bzY5N1Q0aFV4YUR1Z2hnMkgwZHh3ZHpoWnJHRnd4Mk0v?=
- =?utf-8?B?UG55dXpjVG12YlFuNVA1SjlacEYrazdYZGlwREhaZjhPV3pyWVp5ZzJETTQv?=
- =?utf-8?B?Z3dEaGJqTUZOVG5yZFZiRDlBNC9qdlVmdEh0cXlkbW9mc2ZPcXpJSVBDU2V4?=
- =?utf-8?B?Ri9FR3RnN0ovSzVZK2M2c0hmZ01KaTFqWW9tcTU2TmtWM3g4c1BCTnc1ckRB?=
- =?utf-8?B?OW80ckp1clZjVmt5UzdrSVFiVXlJZ241c0ZyeVJVYTdZY2JwaEpReHU3WVg1?=
- =?utf-8?B?d3VjTmVJWlBnUWRZUXp2eVdKTHVIbHpmdTJwQ2toeUpSdCtkZzFoR2VDQ3hP?=
- =?utf-8?B?N1gwdFdmc2tEQnJVUWdNYW9vV0dUeU1heGh4QSt3SmhNSWF2TFNUbGMyc0Rt?=
- =?utf-8?B?alprK2FORTVqQ2c4L3lKQmtsZWd4NUZNRVZyRUNMM2g2OEVkK0FhcE5HbDZP?=
- =?utf-8?B?Q3cySG1zMEZXVUd6akROdVo1VlhNK3RDSGZvMUJiS29HMndvcDczdk42MEpF?=
- =?utf-8?B?OXVIN2tJYjV4QXJ3MUFOSFNEZHJoTHBxWldmZ0UxaFp0QTkzL3oyU1lrbER2?=
- =?utf-8?B?dldsTU1adEppK2F5Z3ZrWjQyeVJtNitlTzVyaTQwZjNjdWhoY2VuUlRtSldG?=
- =?utf-8?B?bW9DWkZXZHZwYnZCNzZkTStNTlVOdlcrMHdKRHRJMFd3QjljWEpXcVE5WlFT?=
- =?utf-8?B?ajVpWk44YW84bUZNUUdyZWgzaklRMmdzWXI2NmVFd3hCTUJBQXAzck9BMzJQ?=
- =?utf-8?B?MU1TajZuN1RwZHRnUDA1cFNaejlVRW10amxHQ0hGMm1SNmlyc2V0ZytLYWdv?=
- =?utf-8?B?cUdRbWhwT0c3dUxEK2RMcUg2cnZHKzIyVHFOUjRZMGZTalJVY2NSUmJweW5P?=
- =?utf-8?B?RnNvdENaTkxQU3U4Mlg2Q3dhRDR0dUw1bTNpeGhXaFRLTUtTVzJPcDluWDFF?=
- =?utf-8?B?ZFZ0MHpjM0ttem55V2VFdUxIdldBK2NnSG9xWW8rTzkrWXpsYnFNWlhiSHhu?=
- =?utf-8?B?cys3QmZmcVoyRjlGWXZUZC9QOFhPSUlxMHRjYkxuUkNCQ0ZlbGJnRUhham9G?=
- =?utf-8?B?SjNNeDdJOStINnNQbTkwT0kyQVpzd0NzYzJxMnREUGFZb3RZOEpMTXNkYW0r?=
- =?utf-8?B?eFJNUzQ5bmFWN2ljWFFSVEg3ejVRR2tLTXp1bXhxYXkvcm1JZWk2dWM3d1Ju?=
- =?utf-8?B?MkhMSnFMRGZNNG9TbHNreWlLd2REMDBhK004VlY4MmVyVkRsbjQ5WGU0enow?=
- =?utf-8?B?aFJRUVVnMTdVVjFhTjVVSHVTakYwK0ZROStzMGRXMnlSdkk3dWRoWXJnQjJ4?=
- =?utf-8?B?SnVJUG1iK3R1dW5tTHVGQWcxZUttNE9hK3F3M09pcHd2MXBvWUF2TXVjRm1X?=
- =?utf-8?B?cXE3L05Nb3ptSTNJUEVCWFdaTEUyK2hjcDVRdTFmMjR2bVM4NklXV0VxZk84?=
- =?utf-8?B?ZFRIT0xqeUJTU2ZGVmhVUitNN3diWk1wYlFNTU01SkZaRzJyVUNYc3ViNVo1?=
- =?utf-8?B?TlZpZm91NUN3R3RJMEdOcnpEM01lWEd0eDZ4M2hZekUxamE1TEhkOGFRWXps?=
- =?utf-8?B?K0VYRUxNTC9ocGF6ZDVtVENOUzhjMEpjWjdhaUNUQ1NibzhubEg2bG9LRkxq?=
- =?utf-8?B?Vzh0c0NRZlBLckJxSE4xSC9uZWNQaHRHMVpqQndMcDZkNjFiaWFOVDRPRjhN?=
- =?utf-8?B?YmlqclZvWnR6TmI1MEJDa2dUQnp5QWtCVHQ1amtVdHl0T1RwbGlGZjkxNXhm?=
- =?utf-8?B?UmlTWFkwbWoyOVEyQmNzSUgwMHBEYWt2WFlHNmJ3alZibkJKc3phL05yNldk?=
- =?utf-8?B?UDBCdFZkS2pSZWVpSk5MTjNwMHJQMkYrd3lkdk8yZEhaVnJjWDF2ZmM0WkNF?=
- =?utf-8?Q?khvs=3D?=
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(14060799003)(376014)(36860700013)(82310400026)(35042699022)(1800799024)(13003099007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2025 16:05:59.6330
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 780e5fb1-785b-413d-b4c3-08de2dcedb2d
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509E4.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB8109
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] x86/amd: Drop the cpuid_mask_* command line options
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20251126171539.890253-1-andrew.cooper3@citrix.com>
+ <20251126171539.890253-4-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20251126171539.890253-4-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-SGksDQoNClBsZWFzZSBpZ25vcmUgdGhpcyBtYWlsLCBjb3ZlciBsZXR0ZXIgd2FzIHNlbnQgaW4g
-ZHVwbGljYXRlIHdpdGgNCm15IHNlcmllIGFuZCB0aGlzIG9uZSBpcyBhbiBvbGQgdmVyc2lvbiBt
-aXNzaW5nIHRoZSBwaXBlbGluZSBsaW5rLg0KDQpSZXN0IG9mIHRoZSBzZXJpZSBpcyBvay4NCg0K
-U29ycnkgZm9yIHRoYXQuDQoNCkJlcnRyYW5kDQoNCj4gT24gMjcgTm92IDIwMjUsIGF0IDE2OjUx
-LCBCZXJ0cmFuZCBNYXJxdWlzIDxiZXJ0cmFuZC5tYXJxdWlzQGFybS5jb20+IHdyb3RlOg0KPiAN
-Cj4gVGhpcyBzZXJpZXMgdXBkYXRlcyBYZW7igJlzIEZGLUEgbWVkaWF0b3Igb24gQXJtIHRvIGlt
-cGxlbWVudCB0aGUgRkYtQQ0KPiB2MS4yIGludGVyZmFjZSB3aGlsZSBrZWVwaW5nIGV4aXN0aW5n
-IHYxLjAvdjEuMSBndWVzdHMgd29ya2luZy4NCj4gDQo+IFBhdGNoZXMgMeKAkzUgcmV3b3JrIHRo
-ZSBsb3ctbGV2ZWwgcGx1bWJpbmc6DQo+IA0KPiAgMSkgYWRkIHRoZSBGRi1BIHYxLjIgZnVuY3Rp
-b24gSURzIGFuZCBwcm9iZSB0aGUgbmV3IEFCSXMNCj4gIDIpIHRyYWNrIHBlci1WTSBGRkFfVkVS
-U0lPTiBzdGF0ZSBhbmQgZW5mb3JjZSBuZWdvdGlhdGlvbg0KPiAgMykgaGFyZGVuIFJYL1RYIG1h
-cHBpbmcgYW5kIHZhbGlkYXRpb24NCj4gIDQpIHJld29yayBTUE1DIFJYL1RYIGJ1ZmZlciBtYW5h
-Z2VtZW50IHNvIGFjY2VzcyBpcyBzZXJpYWxpemVkIGFuZA0KPiAgICAgUlggYnVmZmVycyBhcmUg
-YWx3YXlzIHJlbGVhc2VkIGJhY2sgdG8gdGhlIFNQTUMNCj4gIDUpIHN3aXRjaCB0aGUgbWVkaWF0
-b3IgdG8gc3BlYy1jb21wbGlhbnQgc2lnbmVkIDMyLWJpdCBzdGF0dXMgY29kZXMNCj4gDQo+IFBh
-dGNoZXMgNuKAkzkgdXBkYXRlIHRoZSBkYXRhIHN0cnVjdHVyZXMgYW5kIGRpcmVjdC1jYWxsIHBh
-dGhzOg0KPiANCj4gIDYpIGFkZCBmZmFfdXVpZCBoZWxwZXJzIGFuZCByZXdvcmsgcGFydGl0aW9u
-LWluZm8gaGFuZGxpbmcNCj4gIDcpIHJlZmFjdG9yIGRpcmVjdCByZXF1ZXN0cyB2aWEgYSBjb21t
-b24gUlVOL2RpcmVjdCBjb21wbGV0aW9uIGhlbHBlcg0KPiAgOCkgYWRkIHRoZSB2MS4xL3YxLjIg
-U0VORDIgaGVhZGVyIGxheW91dA0KPiAgOSkgYWRkIE1TR19TRU5EX0RJUkVDVF9SRVEyL1JFU1Ay
-IHN1cHBvcnQgYW5kIG1hcnNoYWwgdGhlIGV4dGVuZGVkDQo+ICAgICByZWdpc3RlciBzZXQgZm9y
-IHYxLjIgZ3Vlc3RzDQo+IA0KPiBQYXRjaCAxMCB0aWdodGVucyB0aGUgZGlzcGF0Y2hlciBhbmQg
-YWR2ZXJ0aXNlcyBGRi1BIHYxLjIgb25seSB0byBndWVzdHMNCj4gdGhhdCBuZWdvdGlhdGVkIHYx
-LjI6DQo+IA0KPiAgLSByZWplY3QgU01DQ0M2NCBjYWxscyBmcm9tIEFBcmNoMzIgZ3Vlc3RzDQo+
-ICAtIGV4cG9zZSB0aGUgbmV3IEZJRHMgYW5kIFJYL1RYIGNhcGFjaXR5IGZpZWxkcw0KPiAgLSBi
-dW1wIFhlbidzIEZGLUEgdmVyc2lvbiB0byAxLjIgb25jZSB0aGUgaW1wbGVtZW50YXRpb24gaXMg
-Y29tcGxldGUNCj4gDQo+IHYxLjAvdjEuMSBndWVzdHMgY29udGludWUgdG8gdXNlIHRoZSB2MS4x
-IEFCSSB3aXRob3V0IGJlaGF2aW91ciBjaGFuZ2VzLA0KPiB3aGlsZSB2MS4yIGd1ZXN0cyBjYW4g
-bmVnb3RpYXRlIHRoZSB3aWRlciBBQkkgYW5kIHVzZSBSVU4sIFNFTkQyLCBhbmQNCj4gRElSRUNU
-X1JFUTIvUkVTUDIgd2l0aCB0aGUgZXh0ZW5kZWQgcmVnaXN0ZXIgc2V0Lg0KPiANCj4gVGhpcyBz
-ZXJpZSB3YXMgdmFsaWRhdGVkIHRocm91Z2ggZ2l0bGFiLWNpIGhlcmU6DQo+IGh0dHBzOi8vZ2l0
-bGFiLmNvbS94ZW4tcHJvamVjdC9wZW9wbGUvYm1hcnF1aXMveGVuLWZmYS1yZXNlYXJjaC8tL3Ry
-ZWUvZmZhLXYxLjIvdjA/cmVmX3R5cGU9aGVhZHMNCj4gDQo+IEJlcnRyYW5kIE1hcnF1aXMgKDEw
-KToNCj4gIHhlbi9hcm06IGZmYTogYWRkIEZGLUEgdjEuMiBmdW5jdGlvbiBJRHMNCj4gIHhlbi9h
-cm06IGZmYTogcGVyLVZNIEZGQV9WRVJTSU9OIG5lZ290aWF0aW9uIHN0YXRlDQo+ICB4ZW4vYXJt
-OiBmZmE6IGhhcmRlbiBSWC9UWCBtYXBwaW5nDQo+ICB4ZW4vYXJtOiBmZmE6IHJld29yayBTUE1D
-IFJYL1RYIGJ1ZmZlciBtYW5hZ2VtZW50DQo+ICB4ZW4vYXJtOiBmZmE6IHVzZSBzaWduZWQgMzIt
-Yml0IHN0YXR1cyBjb2Rlcw0KPiAgeGVuL2FybTogZmZhOiBhZGQgVVVJRCBoZWxwZXJzIGZvciBw
-YXJ0aXRpb24gaW5mbw0KPiAgeGVuL2FybTogZmZhOiByZWZhY3RvciBkaXJlY3QgcmVxdWVzdHMg
-dmlhIFJVTiBoZWxwZXINCj4gIHhlbi9hcm06IGZmYTogYWRkIHYxLjIgU0VORDIgaGVhZGVyIGxh
-eW91dA0KPiAgeGVuL2FybTogZmZhOiBhZGQgTVNHX1NFTkRfRElSRUNUX1JFUTIgc3VwcG9ydA0K
-PiAgeGVuL2FybTogZmZhOiBhZHZlcnRpc2UgRkYtQSB2MS4yDQo+IA0KPiB4ZW4vYXJjaC9hcm0v
-aW5jbHVkZS9hc20vdGVlL2ZmYS5oIHwgICAyICstDQo+IHhlbi9hcmNoL2FybS90ZWUvZmZhLmMg
-ICAgICAgICAgICAgfCAyMDUgKysrKysrKysrKysrKysrKystLS0tLS0tDQo+IHhlbi9hcmNoL2Fy
-bS90ZWUvZmZhX21zZy5jICAgICAgICAgfCAyMDMgKysrKysrKysrKysrKysrKysrLS0tLS0NCj4g
-eGVuL2FyY2gvYXJtL3RlZS9mZmFfbm90aWYuYyAgICAgICB8ICAgNiArLQ0KPiB4ZW4vYXJjaC9h
-cm0vdGVlL2ZmYV9wYXJ0aW5mby5jICAgIHwgMjQ4ICsrKysrKysrKysrKysrKysrKy0tLS0tLS0t
-LS0tDQo+IHhlbi9hcmNoL2FybS90ZWUvZmZhX3ByaXZhdGUuaCAgICAgfCAxMjkgKysrKysrKysr
-Ky0tLS0tDQo+IHhlbi9hcmNoL2FybS90ZWUvZmZhX3J4dHguYyAgICAgICAgfCAxNjAgKysrKysr
-KysrKysrKysrLS0tLQ0KPiB4ZW4vYXJjaC9hcm0vdGVlL2ZmYV9zaG0uYyAgICAgICAgIHwgIDMw
-ICsrLS0NCj4gOCBmaWxlcyBjaGFuZ2VkLCA2OTcgaW5zZXJ0aW9ucygrKSwgMjg2IGRlbGV0aW9u
-cygtKQ0KPiANCj4gLS0gDQo+IDIuNTEuMg0KPiANCj4gDQoNCg==
+
+On 11/26/25 6:15 PM, Andrew Cooper wrote:
+> As noted in the command line documentation, these are both deprecated since
+> Xen 4.7 (2016), and are not fully effective on AMD CPUs starting from 2011.
+>
+> Not realised at the time of writing the docs was that their use is also
+> incompatible with certain errata workarounds which edit the CPUID MSRs after
+> the levelling defaults are calculated.
+>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+>   CHANGELOG.md                      |   4 ++
+
+for CHANGELOG.md:
+
+Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+
+Thanks.
+
+~ Oleksii
+
+
+
+>   docs/misc/xen-command-line.pandoc |  40 ------------
+>   xen/arch/x86/cpu/amd.c            | 104 ------------------------------
+>   xen/arch/x86/include/asm/amd.h    |  90 --------------------------
+>   4 files changed, 4 insertions(+), 234 deletions(-)
+>
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index adaad5ee8923..3aaf5986231c 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>   ### Added
+>   
+>   ### Removed
+> + - On x86:
+> +   - The cpuid_mask_* command line options for legacy AMD CPUs.  These were
+> +     deprecated in Xen 4.7 and noted not to work correctly with AMD CPUs from
+> +     2011 onwards.
+>   
+>   ## [4.21.0](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.21.0) - 2025-11-19
+>   
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index 34004ce282be..e92b6d55b556 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -587,46 +587,6 @@ applicable.  They can all be ignored.
+>       in its positive form to override Xen's default behaviour on these systems,
+>       and make the feature fully usable.
+>   
+> -### cpuid_mask_cpu
+> -> `= fam_0f_rev_[cdefg] | fam_10_rev_[bc] | fam_11_rev_b`
+> -
+> -> Applicability: AMD
+> -
+> -If none of the other **cpuid_mask_\*** options are given, Xen has a set of
+> -pre-configured masks to make the current processor appear to be
+> -family/revision specified.
+> -
+> -See below for general information on masking.
+> -
+> -**Warning: This option is not fully effective on Family 15h processors or
+> -later.**
+> -
+> -### cpuid_mask_ecx
+> -### cpuid_mask_edx
+> -### cpuid_mask_ext_ecx
+> -### cpuid_mask_ext_edx
+> -### cpuid_mask_l7s0_eax
+> -### cpuid_mask_l7s0_ebx
+> -### cpuid_mask_thermal_ecx
+> -### cpuid_mask_xsave_eax
+> -> `= <integer>`
+> -
+> -> Applicability: x86.  Default: `~0` (all bits set)
+> -
+> -The availability of these options are model specific.  Some processors don't
+> -support any of them, and no processor supports all of them.  Xen will ignore
+> -options on processors which are lacking support.
+> -
+> -These options can be used to alter the features visible via the `CPUID`
+> -instruction.  Settings applied here take effect globally, including for Xen
+> -and all guests.
+> -
+> -Note: Since Xen 4.7, it is no longer necessary to mask a host to create
+> -migration safety in heterogeneous scenarios.  All necessary CPUID settings
+> -should be provided in the VM configuration file.  Furthermore, it is
+> -recommended not to use this option, as doing so causes an unnecessary
+> -reduction of features at Xen's disposal to manage guests.
+> -
+>   ### cpuidle (x86)
+>   > `= <boolean>`
+>   
+> diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
+> index a32e5fa208d5..2b5aa07a4a13 100644
+> --- a/xen/arch/x86/cpu/amd.c
+> +++ b/xen/arch/x86/cpu/amd.c
+> @@ -20,32 +20,6 @@
+>   
+>   #include "cpu.h"
+>   
+> -/*
+> - * Pre-canned values for overriding the CPUID features
+> - * and extended features masks.
+> - *
+> - * Currently supported processors:
+> - *
+> - * "fam_0f_rev_c"
+> - * "fam_0f_rev_d"
+> - * "fam_0f_rev_e"
+> - * "fam_0f_rev_f"
+> - * "fam_0f_rev_g"
+> - * "fam_10_rev_b"
+> - * "fam_10_rev_c"
+> - * "fam_11_rev_b"
+> - */
+> -static char __initdata opt_famrev[14];
+> -string_param("cpuid_mask_cpu", opt_famrev);
+> -
+> -static unsigned int __initdata opt_cpuid_mask_l7s0_eax = ~0u;
+> -integer_param("cpuid_mask_l7s0_eax", opt_cpuid_mask_l7s0_eax);
+> -static unsigned int __initdata opt_cpuid_mask_l7s0_ebx = ~0u;
+> -integer_param("cpuid_mask_l7s0_ebx", opt_cpuid_mask_l7s0_ebx);
+> -
+> -static unsigned int __initdata opt_cpuid_mask_thermal_ecx = ~0u;
+> -integer_param("cpuid_mask_thermal_ecx", opt_cpuid_mask_thermal_ecx);
+> -
+>   /* 1 = allow, 0 = don't allow guest creation, -1 = don't allow boot */
+>   int8_t __read_mostly opt_allow_unsafe;
+>   boolean_param("allow_unsafe", opt_allow_unsafe);
+> @@ -114,51 +88,6 @@ static void wrmsr_amd(unsigned int msr, uint64_t val)
+>   		     "d" (val >> 32), "D" (0x9c5a203a));
+>   }
+>   
+> -static const struct cpuidmask {
+> -	uint16_t fam;
+> -	char rev[2];
+> -	unsigned int ecx, edx, ext_ecx, ext_edx;
+> -} pre_canned[] __initconst = {
+> -#define CAN(fam, id, rev) { \
+> -		fam, #rev, \
+> -		AMD_FEATURES_##id##_REV_##rev##_ECX, \
+> -		AMD_FEATURES_##id##_REV_##rev##_EDX, \
+> -		AMD_EXTFEATURES_##id##_REV_##rev##_ECX, \
+> -		AMD_EXTFEATURES_##id##_REV_##rev##_EDX \
+> -	}
+> -#define CAN_FAM(fam, rev) CAN(0x##fam, FAM##fam##h, rev)
+> -#define CAN_K8(rev)       CAN(0x0f,    K8,          rev)
+> -	CAN_FAM(11, B),
+> -	CAN_FAM(10, C),
+> -	CAN_FAM(10, B),
+> -	CAN_K8(G),
+> -	CAN_K8(F),
+> -	CAN_K8(E),
+> -	CAN_K8(D),
+> -	CAN_K8(C)
+> -#undef CAN
+> -};
+> -
+> -static const struct cpuidmask *__init noinline get_cpuidmask(const char *opt)
+> -{
+> -	unsigned long fam;
+> -	char rev;
+> -	unsigned int i;
+> -
+> -	if (strncmp(opt, "fam_", 4))
+> -		return NULL;
+> -	fam = simple_strtoul(opt + 4, &opt, 16);
+> -	if (strncmp(opt, "_rev_", 5) || !opt[5] || opt[6])
+> -		return NULL;
+> -	rev = toupper(opt[5]);
+> -
+> -	for (i = 0; i < ARRAY_SIZE(pre_canned); ++i)
+> -		if (fam == pre_canned[i].fam && rev == *pre_canned[i].rev)
+> -			return &pre_canned[i];
+> -
+> -	return NULL;
+> -}
+> -
+>   /*
+>    * Sets caps in expected_levelling_cap, probes for the specified mask MSR, and
+>    * set caps in levelling_caps if it is found.  Processors prior to Fam 10h
+> @@ -295,8 +224,6 @@ static const typeof(ctxt_switch_masking) __initconst_cf_clobber __used csm =
+>    */
+>   static void __init noinline amd_init_levelling(void)
+>   {
+> -	const struct cpuidmask *m = NULL;
+> -
+>   	/*
+>   	 * If there's support for CpuidUserDis or CPUID faulting then
+>   	 * we can skip levelling because CPUID accesses are trapped anyway.
+> @@ -318,26 +245,11 @@ static void __init noinline amd_init_levelling(void)
+>   
+>   	probe_masking_msrs();
+>   
+> -	if (*opt_famrev != '\0') {
+> -		m = get_cpuidmask(opt_famrev);
+> -
+> -		if (!m)
+> -			printk("Invalid processor string: %s\n", opt_famrev);
+> -	}
+> -
+>   	if ((levelling_caps & LCAP_1cd) == LCAP_1cd) {
+>   		uint32_t ecx, edx, tmp;
+>   
+>   		cpuid(0x00000001, &tmp, &tmp, &ecx, &edx);
+>   
+> -		if (~(opt_cpuid_mask_ecx & opt_cpuid_mask_edx)) {
+> -			ecx &= opt_cpuid_mask_ecx;
+> -			edx &= opt_cpuid_mask_edx;
+> -		} else if (m) {
+> -			ecx &= m->ecx;
+> -			edx &= m->edx;
+> -		}
+> -
+>   		/* Fast-forward bits - Must be set. */
+>   		if (ecx & cpufeat_mask(X86_FEATURE_XSAVE))
+>   			ecx |= cpufeat_mask(X86_FEATURE_OSXSAVE);
+> @@ -351,14 +263,6 @@ static void __init noinline amd_init_levelling(void)
+>   
+>   		cpuid(0x80000001, &tmp, &tmp, &ecx, &edx);
+>   
+> -		if (~(opt_cpuid_mask_ext_ecx & opt_cpuid_mask_ext_edx)) {
+> -			ecx &= opt_cpuid_mask_ext_ecx;
+> -			edx &= opt_cpuid_mask_ext_edx;
+> -		} else if (m) {
+> -			ecx &= m->ext_ecx;
+> -			edx &= m->ext_edx;
+> -		}
+> -
+>   		/* Fast-forward bits - Must be set. */
+>   		edx |= cpufeat_mask(X86_FEATURE_APIC);
+>   
+> @@ -370,20 +274,12 @@ static void __init noinline amd_init_levelling(void)
+>   
+>   		cpuid(0x00000007, &eax, &ebx, &tmp, &tmp);
+>   
+> -		if (~(opt_cpuid_mask_l7s0_eax & opt_cpuid_mask_l7s0_ebx)) {
+> -			eax &= opt_cpuid_mask_l7s0_eax;
+> -			ebx &= opt_cpuid_mask_l7s0_ebx;
+> -		}
+> -
+>   		cpuidmask_defaults._7ab0 &= ((uint64_t)eax << 32) | ebx;
+>   	}
+>   
+>   	if ((levelling_caps & LCAP_6c) == LCAP_6c) {
+>   		uint32_t ecx = cpuid_ecx(6);
+>   
+> -		if (~opt_cpuid_mask_thermal_ecx)
+> -			ecx &= opt_cpuid_mask_thermal_ecx;
+> -
+>   		cpuidmask_defaults._6c &= (~0ULL << 32) | ecx;
+>   	}
+>   
+> diff --git a/xen/arch/x86/include/asm/amd.h b/xen/arch/x86/include/asm/amd.h
+> index 72df42a6f6c9..4036dd549835 100644
+> --- a/xen/arch/x86/include/asm/amd.h
+> +++ b/xen/arch/x86/include/asm/amd.h
+> @@ -7,96 +7,6 @@
+>   
+>   #include <asm/cpufeature.h>
+>   
+> -/* CPUID masked for use by AMD-V Extended Migration */
+> -
+> -/* Family 0Fh, Revision C */
+> -#define AMD_FEATURES_K8_REV_C_ECX  0
+> -#define AMD_FEATURES_K8_REV_C_EDX (					     \
+> -	cpufeat_mask(X86_FEATURE_FPU)   | cpufeat_mask(X86_FEATURE_VME)    | \
+> -	cpufeat_mask(X86_FEATURE_DE)    | cpufeat_mask(X86_FEATURE_PSE)    | \
+> -	cpufeat_mask(X86_FEATURE_TSC)   | cpufeat_mask(X86_FEATURE_MSR)    | \
+> -	cpufeat_mask(X86_FEATURE_PAE)   | cpufeat_mask(X86_FEATURE_MCE)    | \
+> -	cpufeat_mask(X86_FEATURE_CX8)   | cpufeat_mask(X86_FEATURE_APIC)   | \
+> -	cpufeat_mask(X86_FEATURE_SEP)   | cpufeat_mask(X86_FEATURE_MTRR)   | \
+> -	cpufeat_mask(X86_FEATURE_PGE)   | cpufeat_mask(X86_FEATURE_MCA)    | \
+> -	cpufeat_mask(X86_FEATURE_CMOV)  | cpufeat_mask(X86_FEATURE_PAT)    | \
+> -	cpufeat_mask(X86_FEATURE_PSE36) | cpufeat_mask(X86_FEATURE_CLFLUSH)| \
+> -	cpufeat_mask(X86_FEATURE_MMX)   | cpufeat_mask(X86_FEATURE_FXSR)   | \
+> -	cpufeat_mask(X86_FEATURE_SSE)   | cpufeat_mask(X86_FEATURE_SSE2))
+> -#define AMD_EXTFEATURES_K8_REV_C_ECX  0
+> -#define AMD_EXTFEATURES_K8_REV_C_EDX  (					       \
+> -	cpufeat_mask(X86_FEATURE_FPU)	   | cpufeat_mask(X86_FEATURE_VME)   | \
+> -	cpufeat_mask(X86_FEATURE_DE)	   | cpufeat_mask(X86_FEATURE_PSE)   | \
+> -	cpufeat_mask(X86_FEATURE_TSC)	   | cpufeat_mask(X86_FEATURE_MSR)   | \
+> -	cpufeat_mask(X86_FEATURE_PAE)	   | cpufeat_mask(X86_FEATURE_MCE)   | \
+> -	cpufeat_mask(X86_FEATURE_CX8)	   | cpufeat_mask(X86_FEATURE_APIC)  | \
+> -	cpufeat_mask(X86_FEATURE_SYSCALL)  | cpufeat_mask(X86_FEATURE_MTRR)  | \
+> -	cpufeat_mask(X86_FEATURE_PGE)	   | cpufeat_mask(X86_FEATURE_MCA)   | \
+> -	cpufeat_mask(X86_FEATURE_CMOV)	   | cpufeat_mask(X86_FEATURE_PAT)   | \
+> -	cpufeat_mask(X86_FEATURE_PSE36)	   | cpufeat_mask(X86_FEATURE_NX)    | \
+> -	cpufeat_mask(X86_FEATURE_MMXEXT)   | cpufeat_mask(X86_FEATURE_MMX)   | \
+> -	cpufeat_mask(X86_FEATURE_FXSR)	   | cpufeat_mask(X86_FEATURE_LM)    | \
+> -	cpufeat_mask(X86_FEATURE_3DNOWEXT) | cpufeat_mask(X86_FEATURE_3DNOW))
+> -
+> -/* Family 0Fh, Revision D */
+> -#define AMD_FEATURES_K8_REV_D_ECX         AMD_FEATURES_K8_REV_C_ECX
+> -#define AMD_FEATURES_K8_REV_D_EDX         AMD_FEATURES_K8_REV_C_EDX
+> -#define AMD_EXTFEATURES_K8_REV_D_ECX     (AMD_EXTFEATURES_K8_REV_C_ECX |\
+> -	cpufeat_mask(X86_FEATURE_LAHF_LM))
+> -#define AMD_EXTFEATURES_K8_REV_D_EDX     (AMD_EXTFEATURES_K8_REV_C_EDX |\
+> -	cpufeat_mask(X86_FEATURE_FFXSR))
+> -
+> -/* Family 0Fh, Revision E */
+> -#define AMD_FEATURES_K8_REV_E_ECX        (AMD_FEATURES_K8_REV_D_ECX |	\
+> -	cpufeat_mask(X86_FEATURE_SSE3))
+> -#define AMD_FEATURES_K8_REV_E_EDX        (AMD_FEATURES_K8_REV_D_EDX | 	\
+> -	cpufeat_mask(X86_FEATURE_HTT))
+> -#define AMD_EXTFEATURES_K8_REV_E_ECX     (AMD_EXTFEATURES_K8_REV_D_ECX |\
+> -	cpufeat_mask(X86_FEATURE_CMP_LEGACY))
+> -#define AMD_EXTFEATURES_K8_REV_E_EDX      AMD_EXTFEATURES_K8_REV_D_EDX
+> -
+> -/* Family 0Fh, Revision F */
+> -#define AMD_FEATURES_K8_REV_F_ECX        (AMD_FEATURES_K8_REV_E_ECX | 	\
+> -	cpufeat_mask(X86_FEATURE_CX16))
+> -#define AMD_FEATURES_K8_REV_F_EDX         AMD_FEATURES_K8_REV_E_EDX
+> -#define AMD_EXTFEATURES_K8_REV_F_ECX     (AMD_EXTFEATURES_K8_REV_E_ECX |\
+> -	cpufeat_mask(X86_FEATURE_SVM) | cpufeat_mask(X86_FEATURE_EXTAPIC) | \
+> -	cpufeat_mask(X86_FEATURE_CR8_LEGACY))
+> -#define AMD_EXTFEATURES_K8_REV_F_EDX     (AMD_EXTFEATURES_K8_REV_E_EDX |\
+> -	cpufeat_mask(X86_FEATURE_RDTSCP))
+> -
+> -/* Family 0Fh, Revision G */
+> -#define AMD_FEATURES_K8_REV_G_ECX         AMD_FEATURES_K8_REV_F_ECX
+> -#define AMD_FEATURES_K8_REV_G_EDX         AMD_FEATURES_K8_REV_F_EDX
+> -#define AMD_EXTFEATURES_K8_REV_G_ECX     (AMD_EXTFEATURES_K8_REV_F_ECX |\
+> -	cpufeat_mask(X86_FEATURE_3DNOWPREFETCH))
+> -#define AMD_EXTFEATURES_K8_REV_G_EDX      AMD_EXTFEATURES_K8_REV_F_EDX
+> -
+> -/* Family 10h, Revision B */
+> -#define AMD_FEATURES_FAM10h_REV_B_ECX    (AMD_FEATURES_K8_REV_F_ECX | 	\
+> -	cpufeat_mask(X86_FEATURE_POPCNT) | cpufeat_mask(X86_FEATURE_MONITOR))
+> -#define AMD_FEATURES_FAM10h_REV_B_EDX     AMD_FEATURES_K8_REV_F_EDX
+> -#define AMD_EXTFEATURES_FAM10h_REV_B_ECX (AMD_EXTFEATURES_K8_REV_F_ECX |\
+> -	cpufeat_mask(X86_FEATURE_ABM) | cpufeat_mask(X86_FEATURE_SSE4A) | \
+> -	cpufeat_mask(X86_FEATURE_MISALIGNSSE) | cpufeat_mask(X86_FEATURE_OSVW) |\
+> -	cpufeat_mask(X86_FEATURE_IBS))
+> -#define AMD_EXTFEATURES_FAM10h_REV_B_EDX (AMD_EXTFEATURES_K8_REV_F_EDX |\
+> -	cpufeat_mask(X86_FEATURE_PAGE1GB))
+> -
+> -/* Family 10h, Revision C */
+> -#define AMD_FEATURES_FAM10h_REV_C_ECX     AMD_FEATURES_FAM10h_REV_B_ECX
+> -#define AMD_FEATURES_FAM10h_REV_C_EDX     AMD_FEATURES_FAM10h_REV_B_EDX
+> -#define AMD_EXTFEATURES_FAM10h_REV_C_ECX (AMD_EXTFEATURES_FAM10h_REV_B_ECX |\
+> -	cpufeat_mask(X86_FEATURE_SKINIT) | cpufeat_mask(X86_FEATURE_WDT))
+> -#define AMD_EXTFEATURES_FAM10h_REV_C_EDX  AMD_EXTFEATURES_FAM10h_REV_B_EDX
+> -
+> -/* Family 11h, Revision B */
+> -#define AMD_FEATURES_FAM11h_REV_B_ECX     AMD_FEATURES_K8_REV_G_ECX
+> -#define AMD_FEATURES_FAM11h_REV_B_EDX     AMD_FEATURES_K8_REV_G_EDX
+> -#define AMD_EXTFEATURES_FAM11h_REV_B_ECX (AMD_EXTFEATURES_K8_REV_G_ECX |\
+> -	cpufeat_mask(X86_FEATURE_SKINIT))
+> -#define AMD_EXTFEATURES_FAM11h_REV_B_EDX  AMD_EXTFEATURES_K8_REV_G_EDX
+> -
+>   /* AMD errata checking
+>    *
+>    * Errata are defined using the AMD_LEGACY_ERRATUM() or AMD_OSVW_ERRATUM()
 
