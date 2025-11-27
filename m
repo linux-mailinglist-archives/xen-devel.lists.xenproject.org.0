@@ -2,36 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D10F6C8E837
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 14:40:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173862.1498895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14194C8E8B1
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 14:44:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173915.1498904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOcDv-00005G-F8; Thu, 27 Nov 2025 13:39:51 +0000
+	id 1vOcIC-0003EZ-0Y; Thu, 27 Nov 2025 13:44:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173862.1498895; Thu, 27 Nov 2025 13:39:51 +0000
+Received: by outflank-mailman (output) from mailman id 1173915.1498904; Thu, 27 Nov 2025 13:44:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOcDv-0008Uw-9s; Thu, 27 Nov 2025 13:39:51 +0000
-Received: by outflank-mailman (input) for mailman id 1173862;
- Thu, 27 Nov 2025 13:39:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vOcIB-0003Cd-U4; Thu, 27 Nov 2025 13:44:15 +0000
+Received: by outflank-mailman (input) for mailman id 1173915;
+ Thu, 27 Nov 2025 13:44:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/Jd/=6D=bounce.vates.tech=bounce-md_30504962.6928549c.v1-897f1b0f3cc9476bbc66273a31b5f427@srs-se1.protection.inumbo.net>)
- id 1vOcDu-0007Up-5u
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 13:39:50 +0000
-Received: from mail132-20.atl131.mandrillapp.com
- (mail132-20.atl131.mandrillapp.com [198.2.132.20])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 867eee1a-cb96-11f0-9d18-b5c5bf9af7f9;
- Thu, 27 Nov 2025 14:39:41 +0100 (CET)
-Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail132-20.atl131.mandrillapp.com (Mailchimp) with ESMTP id
- 4dHHbc4WVMzFCWZCF
- for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 13:39:40 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 897f1b0f3cc9476bbc66273a31b5f427; Thu, 27 Nov 2025 13:39:40 +0000
+ <SRS0=kuYy=6D=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1vOcIA-0003CX-Ld
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 13:44:14 +0000
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c000::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 272bcd1d-cb97-11f0-980a-7dc792cee155;
+ Thu, 27 Nov 2025 14:44:11 +0100 (CET)
+Received: from BL1PR13CA0352.namprd13.prod.outlook.com (2603:10b6:208:2c6::27)
+ by CY8PR12MB7708.namprd12.prod.outlook.com (2603:10b6:930:87::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.13; Thu, 27 Nov
+ 2025 13:44:06 +0000
+Received: from BL02EPF0001A104.namprd05.prod.outlook.com
+ (2603:10b6:208:2c6:cafe::94) by BL1PR13CA0352.outlook.office365.com
+ (2603:10b6:208:2c6::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.8 via Frontend Transport; Thu,
+ 27 Nov 2025 13:44:06 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0001A104.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9366.7 via Frontend Transport; Thu, 27 Nov 2025 13:44:06 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 27 Nov
+ 2025 07:44:04 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,284 +56,246 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 867eee1a-cb96-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1764250780; x=1764520780;
-	bh=yswA3ZDBM5q5MzkWxrEy6kOfycOHTyLWCOT8Yu26TcI=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=GP/iVu34HSmQVMC52SZ5f3Q2i5gyxAog82cFeaO4yIEm/FaBM5/NEHut1sBGjhxs7
-	 g0XQnVF1KWEzmHRNNo0101fEUMzUSSCoQchdyi38cfiDBJsauSW3HBTT6jZMV3xz3u
-	 9kW184sV2wpYnbwlAk4tp8y8IxJT+LR3+j4GWMBaj+iezQxA/YBpMeJxhl/8PFOQYD
-	 kMa0OY//kMZnZdUv3xy2kFLqIi4Jewu99QtfUGKAC1sRjb8tbZxjbszM9Te2oKsqk2
-	 5e57WR5AWHDmKK3TU3kBRfJCFtYFuHumSWSEuCsMmQ+nWI6jBUEgxm2weZN1vULacE
-	 ayfJoyux3wi+w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1764250780; x=1764511280; i=teddy.astie@vates.tech;
-	bh=yswA3ZDBM5q5MzkWxrEy6kOfycOHTyLWCOT8Yu26TcI=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=Ted7GNUN+JueXRxfGHT257KAhJ8SjeQ++Xo/J4zqNJ0VbM3QEC8KN1PNdACVeQael
-	 sjp46DAzr1B84glSqTOkZ8yJr78i2UnNWkGCOZvFwEhH9/M1CsbzkXxbXZZW9/fbjI
-	 zEYb3cqpF6dxas6NDhB3V8Xd/uPEo18CiuKbgFJSsNDKjYa8sKPoA6z95f/b+5xG4w
-	 wObeiWmpdq76XPL3JGdvKURDfpMI6uwgyuYfw7MyWtXm0yCMt+ceg9N/yD6TgcpnRe
-	 P5FYJtq5Rwc85BK/mY7IvmhIVsVINqQNQmndD6gJ+Kog9gZvJi15Gt9lPe7CWSuGv5
-	 ClqLiFKpjW4dQ==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC=20PATCH=202/4]=20x86/shadow:=20Replace=20guest=5Ftlb=5Fflush=5Fmask=20with=20sh=5Fflush=5Ftlb=5Fmask?=
-X-Mailer: git-send-email 2.51.2
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1764250779739
-To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Tim Deegan" <tim@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-Message-Id: <0e8e2607de4f484e7eb37d64799bfc53a56d3fa9.1764248710.git.teddy.astie@vates.tech>
-In-Reply-To: <cover.1764248710.git.teddy.astie@vates.tech>
-References: <cover.1764248710.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.897f1b0f3cc9476bbc66273a31b5f427?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251127:md
-Date: Thu, 27 Nov 2025 13:39:40 +0000
+X-Inumbo-ID: 272bcd1d-cb97-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YaR9pBrEK9FRfh9c6+J63+hw6+lauXxt+7xbcPynZ6kYEk/PmNmSQc3Sv05UD7J6dx/HkJ3Gx7Meo/MdGkvNWG0viIe7ep+Ft1ubMXAfqdXmE78+CYP3uX8dFUFLDHvGwq6J2E45TSXZOstoftHfYHayHfWbtSizZ4iZIi+x0AEoEoj9W2eiPR70tmhdwp3yXa+bs3LtfVYv8W7NWrVwEGKT08aiYbfk+76m38+hdGgOAl9pp3Up/e6tiagGZwZAK/rnKGLhgcdvLh8t4WXofVSHcyqeBoJbotCnN5ct8FU4jJlMX9Eepz3LNUK3HYHmAtgN9jbGI5s9wunJNxWTqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y5Od9bg8JtiOFmHtfyA5PxGlZBy+yYNjw+KVVj3Rhao=;
+ b=eDS/KBYVMryzpSTwLcIkmRAzuCUs4l8MVo8jg9D6xL8oGCmo4wQEHHJpcg/mt2U4rNJsa4n5kn/zddPW5dciP7j3j1sdEaC0M0I/WLSnOzcxlY5zLVXH+Eh41tMRqe6f34SWfK6JFpa3Q8SmOoAxu6ntdRPfr6YHq6bgLpshMvwwyKTtu+3qCF04LoKaruunlpYCd1xMddbAoA/W3qRzOGuhkazqG2ZFETUDLnAF2MhHaBJ+QYVjBDkRmQE7R3xXlY2dv5vDZVewLGZHsJ2l1lilDg5NbLNdDMiMqNupIO/qCL4oV9seXZQ2TFZCRD/BTEf20CuP0SrvWj7QVSIbJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y5Od9bg8JtiOFmHtfyA5PxGlZBy+yYNjw+KVVj3Rhao=;
+ b=kyYpVHr+AgwkU+DKIdqRneDiYdZiYS3AU8545gB6nn6B4Wd6BY//zEttkUkODKI+r+BNQFvMNXarOGQXOXrpQFj8L/i8IklyCjrVCSneNRc/2qA94rwa84J86Fdj8IOtNCVlGKWc3djpED3G6mjdYhKbCRLKySQGDA0AzDWwOGU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 27 Nov 2025 14:44:02 +0100
+Message-ID: <DEJISRV113CH.PGYQKBCR6OMZ@amd.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Jason Andryuk
+	<jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+	"Stefano Stabellini" <sstabellini@kernel.org>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [RFC PATCH 01/11] x86: Add more granularity to the vendors in
+ Kconfig
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+X-Mailer: aerc 0.20.1
+References: <20251126164419.174487-1-alejandro.garciavallejo@amd.com>
+ <20251126164419.174487-2-alejandro.garciavallejo@amd.com>
+ <868f28fe-f2dd-469d-a0cf-111885184dfe@suse.com>
+ <DEJHD0L6BMLD.1IWHHEXGAHH4I@amd.com>
+ <7cbca09d-919f-490a-9b68-26a466c84831@suse.com>
+In-Reply-To: <7cbca09d-919f-490a-9b68-26a466c84831@suse.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A104:EE_|CY8PR12MB7708:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d1cf2c4-1b8b-435c-bfcf-08de2dbb08bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?YmV4cTNReXNYbkx0RllJa09RTjlkR2toRkp6dTF3ekpMNlZ4R05TYmM3Q0VB?=
+ =?utf-8?B?UktXUWoxeFpkQjJyNWtjc0RGWTRSVVpNbUtGRTUvcXJ5R3V3K09xOENnOEtX?=
+ =?utf-8?B?RHp3ZVRaaVBqUTRIR0JZcVFFc1AzNXMweTJNTDlleUdhb2d2K2p5c1ZLdjlu?=
+ =?utf-8?B?LzE1SDNways2MVBhVFh6ZEJKeTBPTy9KVDNoMStGd2FteEtEcC8wZjQ4VlVL?=
+ =?utf-8?B?bXI5U2VNRGRqSWIvMktwb1RQZjRzeWlPZ0Y5WlNrT1VkUENxRWowYkZJdm1D?=
+ =?utf-8?B?U2IzM1lCbG5TY1lNYUxPd2VZVTgxdEM3RHp2Z2NQejNWeWpLeXJ3amR6NGJ1?=
+ =?utf-8?B?bHEzdWNnajZZc3pzL2lsLzVpZ1RCdW55aEdZZFZZTTNPRGk4ZjBZS1Zza0o3?=
+ =?utf-8?B?dVdZMEJFNkk3S2NOMm5YMlU4bWFHT0JLcjJ1MTJpUndpQXFmRlA4dzdUaWMw?=
+ =?utf-8?B?bkhZdTlObU5qYXhPWXNpVzdXMGh0YVg0eFhYYU5zMFpwbXNPclZVd214QU9m?=
+ =?utf-8?B?aEZJZWlNblovdjFrb0hIc2lWakVtcStpM2xFTVUzQnN3aDRFQzF3UFlJS1A4?=
+ =?utf-8?B?UjdQeVV1aDQ0bGRWRXBCUW9jSDFlcXNxTXlSaHVZZ2lFNlZNRys0blExQ000?=
+ =?utf-8?B?d2lPY2V0QXN2bk1BTmVYMU5Od2JnR21FRDNWYTU2NU5QU2YrWi9NNktXYi9G?=
+ =?utf-8?B?M3NOQXY3ZURkK0l4eHJIT21QS2hwclRic1MzTlRzWi81aFBhTXpmeW9RUEtS?=
+ =?utf-8?B?bC9zUXV2YUFiU29wN3pJVEZUakc1dXV4WVlFbSsvTVZEOWpmSTE4WFZPZ29y?=
+ =?utf-8?B?YzhOMGduQkpidlNaS3RLU1ltTzhrT1pxTDZxb2ViWkxXS3piejFCUGxkZ1No?=
+ =?utf-8?B?SUJ6VlhpSkRqdGUrTENycWhXNnlMNXZiU0luM3J2ZkVNVUlWalEySDArVE0z?=
+ =?utf-8?B?VGE1M3NJVlllMXNNeFVtVlZJbTJseTZnTlA3M05MOXRJc0pTVnZHV002aDdL?=
+ =?utf-8?B?R0ZHeG51RW9uZjlSTHlnYWJSNys3dmhtNGM2a1ByNDBySURScS9NWFpha2xS?=
+ =?utf-8?B?MEF3L0hOUkZtUHlheUdEQm5Ob0dOanAzNDRBZHdYWCs5cEU4YWlaeENpbi9Q?=
+ =?utf-8?B?YnBlK2xvK2xoNFBGL0I1dW03MTZKYkF5OVBubWlOZnNwV0tlWmR0SWVjbEFz?=
+ =?utf-8?B?ZDFMMjA4SnJ2aVpPWFh0QW53OElrczM0WjdTRkRJMVM2Tm5TZFJQbEprSVJL?=
+ =?utf-8?B?ckpHSUoreExlRDBoQzdRWXVoQTNuYWFZaXNuWFhOTnVIMzQ3THJhbkE5cjEy?=
+ =?utf-8?B?M0FmV1YySmxyVlgzUXAzc3JTMXgvenFoazhjYUFxTzRhNHhIUGI2L1RjZnN2?=
+ =?utf-8?B?RURlRGY5bnlnUHBLQVNlNFpuZWN3OXZ5ai9HMzEwZ1Rta0pGbVFEU3VMVzBC?=
+ =?utf-8?B?bUhDNFo2Q0N4MURSdzVCMUthdmREa1dHNlphcVJiNFlIMlI5QSs1L3lHMnFi?=
+ =?utf-8?B?TFBrK3U0TW5KNjBBeUo1eU05eUt0TVR2WXA1RTVhdGNQYTBNa0xNWFRhQk5w?=
+ =?utf-8?B?cC9UZDNzcXZuZUhYc1JheklMSGFCZGdBemJXNWpIOWhWZ2FBVmpyNDkxRGJ6?=
+ =?utf-8?B?bCtKY2ZxYjRtSnMrbHhQcFJxUVFNRTh3NnhGMGlGb1pRTGtiV3BJTzRSb045?=
+ =?utf-8?B?S0ZpdHZzbzJpMW5kMVNlVHhjUG5uVUhodmpBa0lzRlNRMnNtSmVaMG9wTElP?=
+ =?utf-8?B?RWpmWnplMHpZNHhpTjhFWXdyL0RIbkMzZUdFZzUrMUlkSTFaVmFwcXRhUTQ5?=
+ =?utf-8?B?Z1Zrd3RtUHplSzRJZG0xTkZDSDE0cTlObU4xRUwvMWJuWjJYQ2c4MmdYd3Vk?=
+ =?utf-8?B?Q1R6VWF6NVFGUjBTb0ZrbzBxNWI0T1ZtRUcwRElRN1dmcFpLbVlxZGN2M2RU?=
+ =?utf-8?B?OE0xOFJ1RTQzd1ExN0ZVZnRyeGJHN0syWnZtYUovcWwwMTB2cG1zYmkwRks5?=
+ =?utf-8?B?Y3Z1azdqQ0dQTU01S2UwSXRxc1pDNlo3dXdzYXFVVWF6QlJ5Y0o0ZE5rWlJ1?=
+ =?utf-8?B?Uk9KSzZvWHZwejdwTWNaMS9Ybml6aUZtNTZMWHU3WnRVU05ud3l5TEpIQXhM?=
+ =?utf-8?Q?K1wM=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2025 13:44:06.1659
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d1cf2c4-1b8b-435c-bfcf-08de2dbb08bf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A104.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7708
 
-Introduce sh_flush_tlb_{mask,local} variants used to flush the
-tlb from within the shadow paging code. This is meant to decouple
-shadow code from the more general guest_tlb_flush_mask.
+On Thu Nov 27, 2025 at 2:19 PM CET, Jan Beulich wrote:
+> On 27.11.2025 13:36, Alejandro Vallejo wrote:
+>> On Thu Nov 27, 2025 at 10:43 AM CET, Jan Beulich wrote:
+>>> On 26.11.2025 17:44, Alejandro Vallejo wrote:
+>>>> --- a/xen/arch/x86/Kconfig.cpu
+>>>> +++ b/xen/arch/x86/Kconfig.cpu
+>>>> @@ -19,4 +19,49 @@ config INTEL
+>>>>  	  May be turned off in builds targetting other vendors.  Otherwise,
+>>>>  	  must be enabled for Xen to work suitably on Intel platforms.
+>>>> =20
+>>>> +config HYGON
+>>>> +	bool "Support Hygon CPUs"
+>>>> +	depends on AMD
+>>>> +	default y
+>>>> +	help
+>>>> +	  Detection, tunings and quirks for Hygon platforms.
+>>>> +
+>>>> +	  May be turned off in builds targetting other vendors.  Otherwise,
+>>>> +	  must be enabled for Xen to work suitably on Hygon platforms.
+>>>> +
+>>>> +
+>>>> +config CENTAUR
+>>>> +	bool "Support Centaur CPUs"
+>>>> +	depends on INTEL
+>>>> +	default y
+>>>> +	help
+>>>> +	  Detection, tunings and quirks for Centaur platforms.
+>>>> +
+>>>> +	  May be turned off in builds targetting other vendors.  Otherwise,
+>>>> +	  must be enabled for Xen to work suitably on Centaur platforms.
+>>>> +
+>>>> +config SHANGHAI
+>>>> +	bool "Support Shanghai CPUs"
+>>>> +	depends on INTEL
+>>>> +	default y
+>>>> +	help
+>>>> +	  Detection, tunings and quirks for Shanghai platforms.
+>>>> +
+>>>> +	  May be turned off in builds targetting other vendors.  Otherwise,
+>>>> +	  must be enabled for Xen to work suitably on Shanghai platforms.
+>>>> +
+>>>> +config UNKNOWN_CPU
+>>>> +	bool "Support unknown CPUs"
+>>>
+>>> "Unknown CPUs" can be of two kinds: Such of vendors we don't explicitly=
+ support,
+>>> and such of vendors we do explicitly support, but where we aren't aware=
+ of the
+>>> particular model. This needs to be unambiguous here, perhaps by it beco=
+ming
+>>> UNKNOWN_CPU_VENDOR (and the prompt changing accordingly).
+>>=20
+>> Right, what I do in this RFC is have compiled-out vendors fall back onto=
+ the
+>> unknown vendor path. Because it really is unknown to the binary.
+>>=20
+>> I could call it GENERIC_CPU_VENDOR, or anything else, but the main quest=
+ion
+>> is whether a toggle for this seems acceptable upstream. I don't see obvi=
+ous
+>> drawbacks.
+>
+> I'd recommend against "generic" or anything alike, as it'll rather sugges=
+t any
+> vendor's CPU will work reasonably. I'm fine with "unknown", just that the=
+ nature
+> of the unknown-ness needs making unambiguous.
 
-Not a functional change.
+Got it, if UNKNOWN_CPU_VENDOR sounds better I'm fine with that.
 
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
----
- xen/arch/x86/mm/shadow/common.c  | 12 ++++++------
- xen/arch/x86/mm/shadow/hvm.c     |  8 ++++----
- xen/arch/x86/mm/shadow/multi.c   | 18 ++++++------------
- xen/arch/x86/mm/shadow/private.h | 22 ++++++++++++++++++++++
- 4 files changed, 38 insertions(+), 22 deletions(-)
+What are your thoughts on the panic-on-compiled-out-vendor vs use-unknown?
 
-diff --git a/xen/arch/x86/mm/shadow/common.c b/xen/arch/x86/mm/shadow/common.c
-index 0176e33bc9..8511da5c7f 100644
---- a/xen/arch/x86/mm/shadow/common.c
-+++ b/xen/arch/x86/mm/shadow/common.c
-@@ -421,7 +421,7 @@ static int oos_remove_write_access(struct vcpu *v, mfn_t gmfn,
-     }
- 
-     if ( ftlb )
--        guest_flush_tlb_mask(d, d->dirty_cpumask);
-+        sh_flush_tlb_mask(d, d->dirty_cpumask);
- 
-     return 0;
- }
-@@ -969,7 +969,7 @@ static bool __must_check _shadow_prealloc(struct domain *d, unsigned int pages)
-                 /* See if that freed up enough space */
-                 if ( d->arch.paging.free_pages >= pages )
-                 {
--                    guest_flush_tlb_mask(d, d->dirty_cpumask);
-+                    sh_flush_tlb_mask(d, d->dirty_cpumask);
-                     return true;
-                 }
-             }
-@@ -984,7 +984,7 @@ static bool __must_check _shadow_prealloc(struct domain *d, unsigned int pages)
- 
-     ASSERT_UNREACHABLE();
- 
--    guest_flush_tlb_mask(d, d->dirty_cpumask);
-+    sh_flush_tlb_mask(d, d->dirty_cpumask);
- 
-     return false;
- }
-@@ -1052,7 +1052,7 @@ void shadow_blow_tables(struct domain *d)
-                     0);
- 
-     /* Make sure everyone sees the unshadowings */
--    guest_flush_tlb_mask(d, d->dirty_cpumask);
-+    sh_flush_tlb_mask(d, d->dirty_cpumask);
- }
- 
- void shadow_blow_tables_per_domain(struct domain *d)
-@@ -1157,7 +1157,7 @@ mfn_t shadow_alloc(struct domain *d,
-         if ( unlikely(!cpumask_empty(&mask)) )
-         {
-             perfc_incr(shadow_alloc_tlbflush);
--            guest_flush_tlb_mask(d, &mask);
-+            sh_flush_tlb_mask(d, &mask);
-         }
-         /* Now safe to clear the page for reuse */
-         clear_domain_page(page_to_mfn(sp));
-@@ -2276,7 +2276,7 @@ void sh_remove_shadows(struct domain *d, mfn_t gmfn, int fast, int all)
- 
-     /* Need to flush TLBs now, so that linear maps are safe next time we
-      * take a fault. */
--    guest_flush_tlb_mask(d, d->dirty_cpumask);
-+    sh_flush_tlb_mask(d, d->dirty_cpumask);
- 
-     paging_unlock(d);
- }
-diff --git a/xen/arch/x86/mm/shadow/hvm.c b/xen/arch/x86/mm/shadow/hvm.c
-index 114957a3e1..b558ed82e8 100644
---- a/xen/arch/x86/mm/shadow/hvm.c
-+++ b/xen/arch/x86/mm/shadow/hvm.c
-@@ -594,7 +594,7 @@ static void validate_guest_pt_write(struct vcpu *v, mfn_t gmfn,
- 
-     if ( rc & SHADOW_SET_FLUSH )
-         /* Need to flush TLBs to pick up shadow PT changes */
--        guest_flush_tlb_mask(d, d->dirty_cpumask);
-+        sh_flush_tlb_mask(d, d->dirty_cpumask);
- 
-     if ( rc & SHADOW_SET_ERROR )
-     {
-@@ -744,7 +744,7 @@ bool cf_check shadow_flush_tlb(const unsigned long *vcpu_bitmap)
-     }
- 
-     /* Flush TLBs on all CPUs with dirty vcpu state. */
--    guest_flush_tlb_mask(d, mask);
-+    sh_flush_tlb_mask(d, mask);
- 
-     /* Done. */
-     for_each_vcpu ( d, v )
-@@ -978,7 +978,7 @@ static void cf_check sh_unshadow_for_p2m_change(
-     }
- 
-     if ( flush )
--        guest_flush_tlb_mask(d, d->dirty_cpumask);
-+        sh_flush_tlb_mask(d, d->dirty_cpumask);
- }
- 
- #if (SHADOW_OPTIMIZATIONS & SHOPT_FAST_FAULT_PATH)
-@@ -1196,7 +1196,7 @@ int shadow_track_dirty_vram(struct domain *d,
-         }
-     }
-     if ( flush_tlb )
--        guest_flush_tlb_mask(d, d->dirty_cpumask);
-+        sh_flush_tlb_mask(d, d->dirty_cpumask);
-     goto out;
- 
-  out_sl1ma:
-diff --git a/xen/arch/x86/mm/shadow/multi.c b/xen/arch/x86/mm/shadow/multi.c
-index 03be61e225..3924ff4da6 100644
---- a/xen/arch/x86/mm/shadow/multi.c
-+++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -79,12 +79,6 @@ const char *const fetch_type_names[] = {
- # define for_each_shadow_table(v, i) for ( (i) = 0; (i) < 1; ++(i) )
- #endif
- 
--/* Helper to perform a local TLB flush. */
--static void sh_flush_local(const struct domain *d)
--{
--    flush_local(guest_flush_tlb_flags(d));
--}
--
- #if GUEST_PAGING_LEVELS >= 4 && defined(CONFIG_PV32)
- #define ASSERT_VALID_L2(t) \
-     ASSERT((t) == SH_type_l2_shadow || (t) == SH_type_l2h_shadow)
-@@ -2429,7 +2423,7 @@ static int cf_check sh_page_fault(
-         perfc_incr(shadow_rm_write_flush_tlb);
-         smp_wmb();
-         atomic_inc(&d->arch.paging.shadow.gtable_dirty_version);
--        guest_flush_tlb_mask(d, d->dirty_cpumask);
-+        sh_flush_tlb_mask(d, d->dirty_cpumask);
-     }
- 
- #if (SHADOW_OPTIMIZATIONS & SHOPT_OUT_OF_SYNC)
-@@ -3243,7 +3237,7 @@ static pagetable_t cf_check sh_update_cr3(struct vcpu *v, bool noflush)
-      * (old) shadow linear maps in the writeable mapping heuristics. */
- #if GUEST_PAGING_LEVELS == 4
-     if ( sh_remove_write_access(d, gmfn, 4, 0) != 0 )
--        guest_flush_tlb_mask(d, d->dirty_cpumask);
-+        sh_flush_tlb_mask(d, d->dirty_cpumask);
-     old_entry = sh_set_toplevel_shadow(v, 0, gmfn, SH_type_l4_shadow,
-                                        sh_make_shadow);
-     if ( unlikely(pagetable_is_null(v->arch.paging.shadow.shadow_table[0])) )
-@@ -3284,7 +3278,7 @@ static pagetable_t cf_check sh_update_cr3(struct vcpu *v, bool noflush)
-             }
-         }
-         if ( flush )
--            guest_flush_tlb_mask(d, d->dirty_cpumask);
-+            sh_flush_tlb_mask(d, d->dirty_cpumask);
-         /* Now install the new shadows. */
-         for ( i = 0; i < 4; i++ )
-         {
-@@ -3309,7 +3303,7 @@ static pagetable_t cf_check sh_update_cr3(struct vcpu *v, bool noflush)
-     }
- #elif GUEST_PAGING_LEVELS == 2
-     if ( sh_remove_write_access(d, gmfn, 2, 0) != 0 )
--        guest_flush_tlb_mask(d, d->dirty_cpumask);
-+        sh_flush_tlb_mask(d, d->dirty_cpumask);
-     old_entry = sh_set_toplevel_shadow(v, 0, gmfn, SH_type_l2_shadow,
-                                        sh_make_shadow);
-     ASSERT(pagetable_is_null(old_entry));
-@@ -3747,7 +3741,7 @@ static void cf_check sh_pagetable_dying(paddr_t gpa)
-         }
-     }
-     if ( flush )
--        guest_flush_tlb_mask(d, d->dirty_cpumask);
-+        sh_flush_tlb_mask(d, d->dirty_cpumask);
- 
-     /* Remember that we've seen the guest use this interface, so we
-      * can rely on it using it in future, instead of guessing at
-@@ -3786,7 +3780,7 @@ static void cf_check sh_pagetable_dying(paddr_t gpa)
-         mfn_to_page(gmfn)->pagetable_dying = true;
-         shadow_unhook_mappings(d, smfn, 1/* user pages only */);
-         /* Now flush the TLB: we removed toplevel mappings. */
--        guest_flush_tlb_mask(d, d->dirty_cpumask);
-+        sh_flush_tlb_mask(d, d->dirty_cpumask);
-     }
- 
-     /* Remember that we've seen the guest use this interface, so we
-diff --git a/xen/arch/x86/mm/shadow/private.h b/xen/arch/x86/mm/shadow/private.h
-index cef9dbef2e..565a334bc0 100644
---- a/xen/arch/x86/mm/shadow/private.h
-+++ b/xen/arch/x86/mm/shadow/private.h
-@@ -15,6 +15,7 @@
- // been included...
- #include <asm/page.h>
- #include <xen/domain_page.h>
-+#include <asm/flushtlb.h>
- #include <asm/x86_emulate.h>
- #include <asm/hvm/support.h>
- #include <asm/atomic.h>
-@@ -910,6 +911,27 @@ static inline int sh_check_page_has_no_refs(struct page_info *page)
-              ((count & PGC_allocated) ? 1 : 0) );
- }
- 
-+/* Helper to perform a local TLB flush. */
-+static inline void sh_flush_local(const struct domain *d)
-+{
-+    unsigned int flags = FLUSH_TLB;
-+
-+    if ( is_hvm_domain(d) )
-+        flags |= FLUSH_HVM_ASID_CORE;
-+
-+    flush_local(flags);
-+}
-+
-+static inline void sh_flush_tlb_mask(const struct domain *d, const cpumask_t *mask)
-+{
-+    unsigned int flags = FLUSH_TLB;
-+
-+    if ( is_hvm_domain(d) )
-+        flags |= FLUSH_HVM_ASID_CORE;
-+
-+    flush_mask(mask, flags);
-+}
-+
- /* Flush the TLB of the selected vCPUs. */
- bool cf_check shadow_flush_tlb(const unsigned long *vcpu_bitmap);
- 
--- 
-2.51.2
+>
+>>>> --- a/xen/arch/x86/cpu/common.c
+>>>> +++ b/xen/arch/x86/cpu/common.c
+>>>> @@ -118,7 +118,7 @@ static void cf_check default_init(struct cpuinfo_x=
+86 * c)
+>>>>  	__clear_bit(X86_FEATURE_SEP, c->x86_capability);
+>>>>  }
+>>>> =20
+>>>> -static const struct cpu_dev __initconst_cf_clobber __used default_cpu=
+ =3D {
+>>>> +static const struct cpu_dev __initconst_cf_clobber default_cpu =3D {
+>>>
+>>> This change isn't explained in the description. __used here was introdu=
+ced not
+>>> all this long ago together with __initconst_cf_clobber. Maybe this real=
+ly was
+>>> a mistake, but if so it's correction should be explained.
+>>=20
+>> It wasn't clear to me why __used was there (I assume it shouldn't have b=
+een),
+>> but it definitely clashes with the intent of having it gone when UNKNOWN=
+_CPU=3Dn.
+>>=20
+>> If __used was misplaced to begin with I'm happy to get rid of it in a se=
+parate
+>> patch. I don't think it warrants a Fixes tag, though.
+>
+> I can only vaguely reconstruct that it may have been put there so the
+> .init.rodata.cf_clobber entry wouldn't go away. But as long as the compil=
+er
+> also eliminates the function pointed at, that would be of no concern.
 
+ack.
 
+>
+>>>> @@ -340,7 +340,8 @@ void __init early_cpu_init(bool verbose)
+>>>>  	*(u32 *)&c->x86_vendor_id[8] =3D ecx;
+>>>>  	*(u32 *)&c->x86_vendor_id[4] =3D edx;
+>>>> =20
+>>>> -	c->x86_vendor =3D x86_cpuid_lookup_vendor(ebx, ecx, edx);
+>>>> +	c->x86_vendor =3D x86_cpuid_lookup_vendor(ebx, ecx, edx) &
+>>>> +	                X86_ENABLED_VENDORS;
+>>>
+>>> May I suggest the & to move ...
+>>>
+>>>>  	switch (c->x86_vendor) {
+>>>
+>>> ... here? Yes, you panic() below, but I see no reason to store inaccura=
+te
+>>> data when that's easy to avoid.
+>>=20
+>> That's intentional. Otherwise further checks of c->x86_vendor in other p=
+arts of
+>> the code may not go through the same branch as the one here.
+>
+> Hmm. I would kind of expect x86_vendor_is() to be capable of dealing with
+> that.
 
---
-Teddy Astie | Vates XCP-ng Developer
+Sure, but that's not done until the end of the series. and otherwise I'd be
+introducing the fallback behaviour in some places and not others. I could
+remove this AND at the end. Or remove it altogether if we go for a panic on
+compiled-out vendor strategy.
 
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Cheers,
+Aljandro
 
