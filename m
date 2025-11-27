@@ -2,35 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9A39C8E4DB
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 13:46:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173807.1498805 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8286C8E63D
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 14:16:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173816.1498815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vObNb-00076y-Hx; Thu, 27 Nov 2025 12:45:47 +0000
+	id 1vObqW-0002uc-Q3; Thu, 27 Nov 2025 13:15:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173807.1498805; Thu, 27 Nov 2025 12:45:47 +0000
+Received: by outflank-mailman (output) from mailman id 1173816.1498815; Thu, 27 Nov 2025 13:15:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vObNb-00074g-F9; Thu, 27 Nov 2025 12:45:47 +0000
-Received: by outflank-mailman (input) for mailman id 1173807;
- Thu, 27 Nov 2025 12:45:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vObqW-0002rp-Ms; Thu, 27 Nov 2025 13:15:40 +0000
+Received: by outflank-mailman (input) for mailman id 1173816;
+ Thu, 27 Nov 2025 13:15:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HNz/=6D=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1vObNa-00074a-K8
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 12:45:46 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id fd1af27c-cb8e-11f0-9d18-b5c5bf9af7f9;
- Thu, 27 Nov 2025 13:45:44 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 11C781477;
- Thu, 27 Nov 2025 04:45:36 -0800 (PST)
-Received: from [10.57.43.59] (unknown [10.57.43.59])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EC00D3F73B;
- Thu, 27 Nov 2025 04:45:35 -0800 (PST)
+ <SRS0=kuYy=6D=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1vObqV-0002rj-Ht
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 13:15:39 +0000
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazlp170120002.outbound.protection.outlook.com
+ [2a01:111:f403:c001::2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 26e6c34c-cb93-11f0-980a-7dc792cee155;
+ Thu, 27 Nov 2025 14:15:33 +0100 (CET)
+Received: from DS7PR06CA0042.namprd06.prod.outlook.com (2603:10b6:8:54::23) by
+ DS7PR12MB5909.namprd12.prod.outlook.com (2603:10b6:8:7a::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9366.14; Thu, 27 Nov 2025 13:15:27 +0000
+Received: from DS1PEPF0001709C.namprd05.prod.outlook.com
+ (2603:10b6:8:54:cafe::8b) by DS7PR06CA0042.outlook.office365.com
+ (2603:10b6:8:54::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.12 via Frontend Transport; Thu,
+ 27 Nov 2025 13:15:13 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS1PEPF0001709C.mail.protection.outlook.com (10.167.18.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9366.7 via Frontend Transport; Thu, 27 Nov 2025 13:15:27 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 27 Nov
+ 2025 07:15:24 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,129 +56,397 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd1af27c-cb8e-11f0-9d18-b5c5bf9af7f9
-Message-ID: <0cb512ba-de15-4ba6-a85a-8287ab67fb53@arm.com>
-Date: Thu, 27 Nov 2025 13:45:33 +0100
+X-Inumbo-ID: 26e6c34c-cb93-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bFwkflESS4JadDM6ABQFXJ4rr1I9kDY9/v5PkAJkMtYkRgBmmPiylm9DKFLCuQTHHtVL479Q1MASKPiSaHmcCJeTupNNKX/3O1Ey8zd2OuEti5hviduCGwJ8DUfgeTc68IEUOX8DeQUl6RglBeUBC0Aw1VAgifotVbBNWB3Seo48M+cO7Gx9HO/pdGqmSz0lgF2JXr+ZG/fDnn7Gh4eVP2KaYQRUMW4JQRtwVXMdZpvbduqAhtiWQxARjtGy7YnTNMWJsHtBzWpXPAcq4gXojH7447VUgZ/L6xE4wIEU2AhtatL1UcOPHMkufRjLo7fvi3daKtMNZINuSHwj3SkTfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wEapHTWYhu3Uj1n2dDG4GB1BobNXQAIYymW86qvANkE=;
+ b=AW9BsZnJj7WGnvz0adEH5IZSf8/Fsf/qcjHTSGwa0L7yeFpTyWp5AiCAw9T0gyFRfmY6zE54maVYib6vs5sBCpCTA7/l5CQlo1mTct6W51KgJlvq6uCWsTD/KqPql6vcyl044MhLYLcQfcoGeI1lIHqsgl8iAQxST9eCDVqiLrI8/fh2yN53IkNCZ5u+Ygor3/j0FlfKE+CANJPUQbc8Hi+Q2PPWbXYDKBOn1XQeXX4jyDGN9AoB1HS1t9XoJO7X7u3CmyJPx6i80V+KQqQDVLP51bdXrfX+6B30xpst1se1f4OdqmyjCdpH7d7wmkd08sOzrpQOLcVBYN35hRwmJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wEapHTWYhu3Uj1n2dDG4GB1BobNXQAIYymW86qvANkE=;
+ b=OBFdfZseUR5k/wGcaTud2IxskbG/dgkyG6Jw0ZVjX0CJl927d/ssgcsETV0TtwOmA1xtwZemWLxK6ZyKrqTzx97BBsDtqd1owC9nqgtT0Zc1jHBDlIClXf5BZqYtkwggGV4kSjV/2clA6h5Dzko/osL/AkgcP2A63KlCR5afbWM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 08/12] mm: enable lazy_mmu sections to nest
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Andreas Larsson <andreas@gaisler.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- David Hildenbrand <david@redhat.com>, "David S. Miller"
- <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
- Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Suren Baghdasaryan <surenb@google.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
- Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>,
- Yeoreum Yun <yeoreum.yun@arm.com>, linux-arm-kernel@lists.infradead.org,
- linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
- xen-devel@lists.xenproject.org, x86@kernel.org
-References: <20251124132228.622678-1-kevin.brodsky@arm.com>
- <20251124132228.622678-9-kevin.brodsky@arm.com>
- <4d0eab1a-e1dc-49cf-8640-727c9734233d-agordeev@linux.ibm.com>
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Content-Language: en-GB
-In-Reply-To: <4d0eab1a-e1dc-49cf-8640-727c9734233d-agordeev@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 27 Nov 2025 14:15:22 +0100
+Message-ID: <DEJI6U37EMDI.1F7QHW1I7WV76@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Jason Andryuk
+	<jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+	"Stefano Stabellini" <sstabellini@kernel.org>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [RFC PATCH 03/11] x86: Add x86_vendor_is() by itself before
+ using it
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+X-Mailer: aerc 0.20.1
+References: <20251126164419.174487-1-alejandro.garciavallejo@amd.com>
+ <20251126164419.174487-4-alejandro.garciavallejo@amd.com>
+ <d71b6b55-6745-4ba4-9a4f-d5e7b08f0aec@suse.com>
+In-Reply-To: <d71b6b55-6745-4ba4-9a4f-d5e7b08f0aec@suse.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709C:EE_|DS7PR12MB5909:EE_
+X-MS-Office365-Filtering-Correlation-Id: a88b88fe-ffa6-4382-25e0-08de2db70846
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?TjJ6NkpZdUFWUjB4SjNRdkxCMjFuVnNXQ3d3bUFvek52bGwvNTJ0TGhJTnMx?=
+ =?utf-8?B?eUN1NUs3V2s4V2ZlRnJJcjIyaG9ZbkV3K2ZmejIvZG1vS2diRjdlWDJYTlFx?=
+ =?utf-8?B?UEh6UTJ3K3JhdEpTYzRDa2FrTHQ1dHluWHl3d29KdnRCM3ZIb05EdGJJOTl6?=
+ =?utf-8?B?WWhrM3JQSzRmdGpNZmZPV3FMYlBWVXRtUHowcGNLL0FmL2dxeGhKQjBOZzRj?=
+ =?utf-8?B?NnF3VnVPeHVYVFJDTVp1clZjaHRScHVCOHJIVS9Wa3dsdmhreXdSNC9aQy95?=
+ =?utf-8?B?c0ptSlhVMndNWXNhU1Z4VW1qb0xYRmc4OEdCRkhTdElTMU1BbndTRnEvNC93?=
+ =?utf-8?B?S3J0VitOYU05SmN0Yytnd29nZ0xyMEFyRFRoZVFoWm1YTXpPQnhmK3RhU0ty?=
+ =?utf-8?B?ODF4MEhqZ2d6cGVEUFg4a1N2NTJyMm5obFZZZGdzZWFNMUVndk9zL2hIamM1?=
+ =?utf-8?B?bVJDa05rYXdFNkQrSm8vVm03VkRyWFJRNmljVGVXZDVZekpsamRnemlEQllR?=
+ =?utf-8?B?SkhTT1JvU1JGRWxGTExtQVZ6VkVqaE1JWUxJWHh1RUw0SERFaWcvdHhFTUF3?=
+ =?utf-8?B?akxKTUxLVXRWcWV3OWJIQVlIU0Z6UVJzcHZDNk9JQWxNV3RzR0RqajhQSTVG?=
+ =?utf-8?B?ZW43ZGJVRGNHY0xDSmMwTUVPSEVyYTU3OVIvMmV3a2djYWFCa2cxcW5DTGEz?=
+ =?utf-8?B?ODk5a1ZuUndlT3RGYUxQUmNrT2E2dXA0bjBZSVY5ZGhHMEFVbEN0eUo0WG1U?=
+ =?utf-8?B?QWY1aWJXQ2hQaE0wL0doblppOTN0NHplNC93TkV4Q2FSZEdac3B4RmxuNU1j?=
+ =?utf-8?B?N2xoL0ZkMnRrMCtYR2dMMlVySi9yOVBhRmE5akhSRitkbm0zMVo4WnpER3Ja?=
+ =?utf-8?B?OVkxeVZwbmgwWHhjWmU0WHNXUXZhYUpkR3A5MUhLQ3diQjJxVERta3laZlhN?=
+ =?utf-8?B?ZlQxTitlNjcxNmdEVWpMMmZQT1ErNmNldU9mOFMzNHFqOHh4WUZyYTdNcDMx?=
+ =?utf-8?B?NjNQMjNUTEVJYUNlVnJ5QXRiNit1ZkxCbHBFRUplK1MzbTVNSXhkYy9xdysv?=
+ =?utf-8?B?SmZDckhNYysvVy9WNXRuV2tyZlgwRDNyZGNleHBtSUJvaTJhU2hkZlVBWGZ5?=
+ =?utf-8?B?MVlicTNjUUpCaWljTEZTNnArRVIvcC9Oc2ZvLzdwNk5vdXR0UzI0UmRoUEJ6?=
+ =?utf-8?B?aUJhRHNmWmMrcmtjTi9UVEdsKzVIT2RyS2w1Y1ErUTNXWk9jZ0hRdUROdUd6?=
+ =?utf-8?B?TjlEajFEc1B4N0NGRHRpamRlK3ljM2ttVEdVaHhmeit3VWR3dlNFbUJwcndL?=
+ =?utf-8?B?cHBHTEw5VlRkYWZYSFVGZENkVzFtNDBKb0p3WHJXK1pGZEFLVnZ5eXJxUWFV?=
+ =?utf-8?B?cEZJalduV1UwamlBUnp4bUdaaSt1QkVkQnExOHhWQnpwOUlYSHhCcUZYdDUr?=
+ =?utf-8?B?RFpYVUlpZWZTV1FyVlh6bXZxQzdhMWlDSm02YVB4QjRvakxQODMwMElMOWli?=
+ =?utf-8?B?aENNbklBVFdGZUIxMnFNaGFPdHBSQ3FqN0p2ckV4YUJscXJrM2VQSHJ5Z3Js?=
+ =?utf-8?B?b0J0UWJkdkZDcXRnbjQyMFhSUGFuaDRKT2V6LytaU0tIdGcrcnZGVTFmd2Rz?=
+ =?utf-8?B?SExyb0xpTmx1eGtDQi9Bdm05WSsyRExycWRneW1HT21UNWQzR3MyWEI2U29a?=
+ =?utf-8?B?OTh0M2lWeiswaDB3YkRoam5sTFZaOXhUZzdxQ3hRUENGVGdvRGhEZXlORlhN?=
+ =?utf-8?B?ZXJMaDhyNnQvN1NyTC9XS0kwZ2hpZUJBRWQzWWRuL0IzT3JnRkhkZnVPUStQ?=
+ =?utf-8?B?bUJFWGxjenNlZjVKR1BGc1JOTEJuM2U4NFZmOTVMQzNwOHNjU3JwSmZwZTVH?=
+ =?utf-8?B?VlVXNWJGUmVwQlkvSTBtK2I4TUJNckExdWZsRWNZbndRa0dPZW1RUE1JZnAw?=
+ =?utf-8?B?ZlJqZU1lSWphSVV4QU9lVjh4dVd1MFBkd3ZWY3JpOStUMGF5WUNrYjJ1NUJv?=
+ =?utf-8?B?bXJLVWxYTnFSN2p4TUY1clZKSnlwTkpUaTFiZjVYV1lSRStzMFk4ZzVKU1Zi?=
+ =?utf-8?B?RC9nazlhMjRZRzk4bnkxajlvV2J0ZERRQWZNb3RRTlVyY1lLN1d5RGdFU2pD?=
+ =?utf-8?Q?9bHU=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2025 13:15:27.3459
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a88b88fe-ffa6-4382-25e0-08de2db70846
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0001709C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5909
 
-On 27/11/2025 13:33, Alexander Gordeev wrote:
-> On Mon, Nov 24, 2025 at 01:22:24PM +0000, Kevin Brodsky wrote:
+Hi,
+
+On Thu Nov 27, 2025 at 11:46 AM CET, Jan Beulich wrote:
+> On 26.11.2025 17:44, Alejandro Vallejo wrote:
+>> This function is meant to replace all instances of the following
+>> patterns in CPU policies and boot_cpu_data:
+>>=20
+>>   - x->x86_vendor =3D=3D X86_VENDOR_FOO
+>>   - x->x86_vendor !=3D X86_VENDOR_FOO
+>>   - x->x86_vendor & (X86_VENDOR_FOO | X86_VENDOR_BAR)
+>>=20
+>> The secret sauce is that all branches inside the helper resolve at
+>> compile time, so for the all-vendors-compiled-in case the function
+>> resolves to equivalent code as that without the helper and you get
+>> progressively more aggressive DCE as you disable vendors. The function
+>> folds into a constant once you remove the fallback CPU vendor setting.
 >
-> Hi Kevin,
+> Here and below in the comment, "fallback CPU vendor" wants clarifying. I
+> don't view it as obvious that what's presently named UNKNOWN_CPU is that
+> "fallback" (as imo that really isn't any kind of fallback, but merely a
+> placeholder).
+
+I'll rename all fallback references in commits/comments to "generic vendor"=
+.
+Though do note there's a fallback behaviour. It's introduced in patch 1 due
+to the ANDing of the x86_vendor with the mask of compiled-in vendors.
+
+We can trivially get rid of this behaviour, but I assumed booting in untune=
+d
+mode is preferable to panicking. And if you _do_ care about panicking when =
+you
+don't know about a CPU you're better off setting UNKNOWN_CPU=3Dn and gettin=
+g that
+exact behaviour.
+
 >
-> ...
->> +/**
->> + * lazy_mmu_mode_pause() - Pause the lazy MMU mode.
->> + *
->> + * Pauses the lazy MMU mode; if it is currently active, disables it and calls
->> + * arch_leave_lazy_mmu_mode().
->> + *
->> + * Must be paired with a call to lazy_mmu_mode_resume(). Calls to the
->> + * lazy_mmu_mode_* API have no effect until the matching resume() call.
-> Sorry if it was discussed already - if yes, I somehow missed it. If I read
-> the whole thing correctly enter()/pause() interleaving is not forbidden?
-
-Correct, any call inside pause()/resume() is now allowed (but
-effectively ignored). See discussion with Ryan in v4 [1].
-
-[1]
-https://lore.kernel.org/all/824bf705-e9d6-4eeb-9532-9059fa56427f@arm.com/
-
-> lazy_mmu_mode_enable()
-> 	lazy_mmu_mode_pause()
-> 		lazy_mmu_mode_enable()
-> 		...
-> 		lazy_mmu_mode_disable()
-> 	lazy_mmu_mode_resume()
-> lazy_mmu_mode_disable()
+>> While at this, move an include out of place so they sort alphabetically.
 >
+> I'd rather suggest to simply ...
+>
+>> --- a/xen/arch/x86/include/asm/cpuid.h
+>> +++ b/xen/arch/x86/include/asm/cpuid.h
+>> @@ -2,10 +2,12 @@
+>>  #define __X86_CPUID_H__
+>> =20
+>>  #include <asm/cpufeatureset.h>
+>> +#include <asm/x86-vendors.h>
+>> =20
+>> -#include <xen/types.h>
+>> +#include <xen/compiler.h>
+>>  #include <xen/kernel.h>
+>>  #include <xen/percpu.h>
+>> +#include <xen/types.h>
+>
+> ... drop it. xen/kernel.h, for example, already gets it for you anyway.
+
+Good call.
+
+>
+>> @@ -56,6 +58,51 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+>>       (IS_ENABLED(CONFIG_SHANGHAI) ? X86_VENDOR_SHANGHAI : 0) | \
+>>       (IS_ENABLED(CONFIG_HYGON)    ? X86_VENDOR_HYGON    : 0))
+>> =20
+>> +/*
+>> + * When compiling Xen for a single vendor with no fallback vendor there=
+'s no
+>> + * need no check the candidate. `vendor` is always a compile-time const=
+ant,
+>> + * which means this all can fold into a constant boolean.
+>
+> DYM "`vendor` is always supposed to be a compile-time constant, ..." ?
+
+Yes. We could guard against it not being so by having an initial branch whe=
+re:
+
+if ( !__builtin_constant_p(vendor) )
+    return candidate & filtered_vendor;
+>
+>> + * A runtime check at the time of CPUID probing guarantees we never run=
+ on
+>> + * wrong hardware and another check when loading CPU policies guarantee=
+s we
+>> + * never run policies for a vendor in another vendor's silicon.
 >> + *
->> + * Has no effect if called:
->> + * - While paused (inside another pause()/resume() pair)
->> + * - In interrupt context
+>> + * By the same token, the same folding can happen when no vendor is com=
+piled
+>> + * in and the fallback path is present.
 >> + */
->>  static inline void lazy_mmu_mode_pause(void)
->>  {
->> +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
->> +
->>  	if (in_interrupt())
->>  		return;
->>  
->> -	arch_leave_lazy_mmu_mode();
->> +	VM_WARN_ON_ONCE(state->pause_count == U8_MAX);
->> +
->> +	if (state->pause_count++ == 0 && state->enable_count > 0)
->> +		arch_leave_lazy_mmu_mode();
->>  }
->>  
->> +/**
->> + * lazy_mmu_mode_pause() - Resume the lazy MMU mode.
->                     resume() ?
+>> +static always_inline bool x86_vendor_is(uint8_t candidate, uint8_t vend=
+or)
+>
+> I fear the comment, no matter that it's pretty large already, doesn't mak=
+e
+> clear how this function is to be used, i.e. how for this being an "is"
+> predicate the two arguments should be chosen. My typical expectation woul=
+d be
+> for "is" predicates to apply to a single property, with other parameters =
+(if
+> any) only being auxiliary ones. Maybe it would already help if the first
+> parameter wasn't named "candidate" but e.g. "actual" (from looking at jus=
+t
+> the next patch). Or maybe (depending on the number of possible different
+> inputs for the first parameter) there want to be a few wrappers, so the
+> "single property" aspect would be achieved at use sites.
+>
+> Then I see no reason for the parameters to be other than unsigned int. (S=
+ame
+> for the local variable then, obviously.)
 
-Good catch! One copy-paste too many...
+I could also call it x86_vendor_in(), to mean it's a set membership check,
+leaving its prototype as:
 
-- Kevin
+bool x86_vendor_in(unsigned int actual, unsigned int bitmap);
 
->> + *
->> + * Resumes the lazy MMU mode; if it was active at the point where the matching
->> + * call to lazy_mmu_mode_pause() was made, re-enables it and calls
->> + * arch_enter_lazy_mmu_mode().
->> + *
->> + * Must match a call to lazy_mmu_mode_pause().
->> + *
->> + * Has no effect if called:
->> + * - While paused (inside another pause()/resume() pair)
->> + * - In interrupt context
->> + */
->>  static inline void lazy_mmu_mode_resume(void)
->>  {
->> +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
+bitmap is a special kind because literal 0 has a special meaning (unknown).=
+ So
+
+I'd expect x86_vendor_in(X86_VENDOR_UNKNOWN, X86_VENDOR_UNKNOWN) to return =
+true
+when UNKNOWN_CPU=3Dy. One way to alleviate complexity would be to promote t=
+he
+unknown case to a first-class bit. It's not like it's zero for any good rea=
+son.
+
+As for the what goes in the first parameter, it's invariably the x86_vendor
+field of cpuinfo_x86 (for boot_cpu_data), or of any cpu_policy.
+
+This is meant to replace checks on vendors, so a natural (and universally u=
+sed)
+pattern across the codebase is to have a runtime variable checked against a
+constant. Here's a longer list of patterns and expected transformations.
+
+  from: cp->x86_vendor =3D=3D X86_VENDOR_AMD
+    to: x86_vendor_is(c->x86_vendor, X86_VENDOR_AMD)
+
+  from: cp->x86_vendor !=3D X86_VENDOR_AMD
+    to: !x86_vendor_is(c->x86_vendor, X86_VENDOR_AMD)
+
+  from: cp->x86_vendor & X86_VENDOR_AMD
+    to: x86_vendor_is(c->x86_vendor, X86_VENDOR_AMD)
+
+  from: cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)
+    to: x86_vendor_is(c->x86_vendor, X86_VENDOR_AMD | X86_VENDOR_HYGON)
+
+  from: !(cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON))
+    to: !x86_vendor_is(cp->x86_vendor, X86_VENDOR_AMD | X86_VENDOR_HYGON)
+
+  from: cp->x86_vendor =3D=3D X86_VENDOR_UNKNOWN
+    to: x86_vendor_is(cp->x86_vendor, X86_VENDOR_UNKNOWN)
+
+And switch statements converted to if-elseif chains.
+
+With the second argument alaways being a constant there's j
+
+
+> I'm further uncertain this is a good place for the function. In the old d=
+ays
+> it may have been, but cpuid.[ch] now are only about guest exposure of CPU=
+ID,
+
+This function would be used for both cpuinfo_x86 and cpu policies. Either h=
+ere
+or cpufeature.h works. I used to have it in x86-vendors.h, but that's expos=
+ed
+to the toolstack and nothing would come out of doing that.
+
+> when this predicate is intended to be used for both host and guest. (As I
+> realize only now, this also applies to the addition patch 1 does.) One
+> might think processor.h might be a good home, but we're actually trying t=
+o
+> slim that one down. So one of cpufeature.h and cpufeatures.h, I guess. (M=
+aybe
+> other x86 maintainers also have thoughts here.)
+>
+>> +{
+>> +    uint8_t filtered_vendor =3D vendor & X86_ENABLED_VENDORS;
 >> +
->>  	if (in_interrupt())
->>  		return;
->>  
->> -	arch_enter_lazy_mmu_mode();
->> +	VM_WARN_ON_ONCE(state->pause_count == 0);
+>> +    if ( vendor =3D=3D X86_VENDOR_UNKNOWN )
+>> +    {
+>> +        if ( IS_ENABLED(CONFIG_UNKNOWN_CPU) )
+>> +            /* no-vendor optimisation */
+>
+> Nit: Comment style (also again below).
+>
+>> +            return X86_ENABLED_VENDORS ? vendor =3D=3D candidate : true=
+;
+>
+> With the surrounding if() this effectively (and more explicitly) is
+>
+>             return X86_ENABLED_VENDORS ? candidate =3D=3D X86_VENDOR_UNKN=
+OWN : true;
+
+Sure.
+
+>
+> First: Would one ever pass X86_VENDOR_UNKNOWN for "vendor"? The next patc=
+h,
+> for example, specifically doesn't.
+
+I don't think so. There's definitely not any existing case atm. Still, I th=
+ink
+it's better to preserve the invariant that the follwing transformation:
+
+  from: cp->x86_vendor =3D=3D X86_VENDOR_X
+    to: x86_vendor_is(cp->x86_vendor, X86_VENDOR_X)
+
+holds for every vendor variant in the "everything compiled-in" case.
+
+> And then why not shorter as
+>             return !X86_ENABLED_VENDORS || candidate =3D=3D X86_VENDOR_UN=
+KNOWN;
+
+Because I didn't think of it. I like your version better.
+
+>
+> Which raises the next question: Should we even allow a hypervisor to be b=
+uilt
+> with X86_ENABLED_VENDORS =3D=3D 0?
+
+That's the most extreme case of "should we boot on a CPU known CPU vendor t=
+hat=20
+has been compiled out?", the current code in the RFC uses the unknown vendo=
+r
+as fallback. We could also panic. We could be trying to exercise the
+"no assumptions about the vendor" paths.
+
+It's a policy decision for you (x86 mantainers) to take. I personally think=
+ the
+default path is silly in this day and age and we could get rid of it entire=
+ly.
+Without it X86_ENABLED_VENDORS=3D0 would be indeed illegal. On that topic..=
+.
+
+> Plus, question more on patch 1, what's the (useful) difference between a =
+build with all vendors set to N and
+> (a) UNKNOWN_CPU=3Dn vs (b) UNKNOWN_CPU=3Dy? With all vendor support expli=
+citly
+> turned off, all CPUs are going to be "unknown".
+
+... (a) causes a panic because all vendor go on the unknown path that leads=
+ to
+such panic, (b) has them run as if they belonged to a new unknown vendor FO=
+OBAR.
+
+You could do (b) to exercise the paths on unknown vendors. Or we could get =
+rid
+of it altogether and panic on compiled-out vendors. Kconfig is a middle-gro=
+und
+where the default CPU path serves a not-so-theoretical purpose.
+
+>
 >> +
->> +	if (--state->pause_count == 0 && state->enable_count > 0)
->> +		arch_enter_lazy_mmu_mode();
->>  }
-> ...
-> Thanks!
+>> +        /* unknown-vendor-elimination optimisation */
+>> +        return false;
+>> +    }
+>> +
+>> +    /* single-vendor optimisation */
+>> +    if ( !IS_ENABLED(CONFIG_UNKNOWN_CPU) &&
+>> +         (ISOLATE_LSB(X86_ENABLED_VENDORS) =3D=3D X86_ENABLED_VENDORS) =
+)
+>> +        return filtered_vendor =3D=3D X86_ENABLED_VENDORS;
+>> +
+>> +    /* compiled-out-vendor-elimination optimisation */
+>> +    if ( !filtered_vendor )
+>> +        return false;
+>> +
+>> +    /*
+>> +     * When checking against a single vendor, perform an equality check=
+, as
+>> +     * it yields (marginally) better codegen
+>> +     */
+>> +    if ( ISOLATE_LSB(filtered_vendor) =3D=3D filtered_vendor )
+>
+> So one may pass a combination of multiple vendors for "vendor"? Is so, wh=
+y
+> is the parameter name singular?
+
+Yes, it's a bitmap. Parameter could be in fact "bitmap", except the 0 case =
+is
+a special.
+
+>
+>> +        return filtered_vendor =3D=3D candidate ;
+>
+> Nit: Stray blank.
+
+Oops.
+
+Cheers,
+Alejandro
 
