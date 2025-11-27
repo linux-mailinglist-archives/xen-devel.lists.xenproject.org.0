@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E359C8DA96
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 10:59:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173698.1498714 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC129C8DAD5
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 11:04:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173714.1498726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOYmT-0006nD-1V; Thu, 27 Nov 2025 09:59:17 +0000
+	id 1vOYrZ-0000ML-OR; Thu, 27 Nov 2025 10:04:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173698.1498714; Thu, 27 Nov 2025 09:59:17 +0000
+Received: by outflank-mailman (output) from mailman id 1173714.1498726; Thu, 27 Nov 2025 10:04:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOYmS-0006l4-V4; Thu, 27 Nov 2025 09:59:16 +0000
-Received: by outflank-mailman (input) for mailman id 1173698;
- Thu, 27 Nov 2025 09:59:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mf1n=6D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOYmR-0006kw-E8
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 09:59:15 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ba0d70ed-cb77-11f0-980a-7dc792cee155;
- Thu, 27 Nov 2025 10:59:13 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-42b3c965ca9so391048f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 01:59:13 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1ca1a6fesm2941210f8f.20.2025.11.27.01.59.11
+	id 1vOYrZ-0000JA-LH; Thu, 27 Nov 2025 10:04:33 +0000
+Received: by outflank-mailman (input) for mailman id 1173714;
+ Thu, 27 Nov 2025 10:04:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BG9e=6D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vOYrY-0000J3-2p
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 10:04:32 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7716addd-cb78-11f0-9d18-b5c5bf9af7f9;
+ Thu, 27 Nov 2025 11:04:30 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-b762de65c07so96747466b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 02:04:30 -0800 (PST)
+Received: from [192.168.1.17] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b76f5162c5csm126368966b.6.2025.11.27.02.04.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Nov 2025 01:59:12 -0800 (PST)
+ Thu, 27 Nov 2025 02:04:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,100 +45,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba0d70ed-cb77-11f0-980a-7dc792cee155
+X-Inumbo-ID: 7716addd-cb78-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764237553; x=1764842353; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YWWYoCn4AJLi5BeXC1DvuZZmF8MDTqcVqzLkIlvOaCU=;
-        b=CU2poOAWHdxv1opASDPEkeabxeAw5UcJ/ycKl1BM19s1URnh6GQAxn/BAK7TGIr/bg
-         EqWoa5WrFh1SnaSKs2SCKYwD8eVxOW/uqJDOn8YZ4wNw+kLs9dIFaMoYRcKG8OB/Og5o
-         Sqtb3FTdKvJ5CUDVwZsgwGst6u3z2h/xqv6OOf9btFIdbnPdz0ZhMk53fdpkif2PvpIE
-         FD8g376y7WI1E5H+3YQ7dpmoiHSuU73YWfHrmn9FL6dXMAtVggQGKwQDOVqIeBR8R8Tu
-         IRxHdsifi4rQMH1GVzoODFdIdYaraJbhqYgs1CF1tKYvWCNu5BWYWb/CgnEa9BA/XjxA
-         a5hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764237553; x=1764842353;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1764237870; x=1764842670; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YWWYoCn4AJLi5BeXC1DvuZZmF8MDTqcVqzLkIlvOaCU=;
-        b=na0sBgmT0XOcU9NNRdoJAnAPRPyOUQCxhAxpXZmi2uhSkMsrOpPlttgH7d0TL//7Cj
-         vhe8bg0Zs1+Lb7utY/8qYB3DC2n2EVJaPjquYR78ux08Erc6UuedZx6K/CzMD4YfvM3M
-         bkPSlR9BlNF4w+J9D5bWG+LPbwsYx4biH5nl6WdryvyoH6E3KWQ0xoLJeu+uruBQQIYJ
-         ela5a/hGi7oSW8jtgXJ4Ogl4Dci7CKW6hVb3WG1ajrbnkJ19Y7uA425uyDJXL4opqNpH
-         NmAfcc9pPWcBa7EutdjuINDzu6dzs8mKxi5BOXpkSzo0i7AqytYQMWnXfQJg/ynTRb8Y
-         dPfQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV9eq0KPZy7gTrp/p4GL7Xw91smSNRnTJ4LYaeIFvZbB4pKigjrRpy6xXOl5GTlkl/AvjWpjmbfjPw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwiDDdOOts0F6Y1u38Ls8Dk4ZW3wUroBHGRT+3Cez4KUotzrw9Z
-	aF0oMW0wW8rj6tc4b55EPcgwCMKS6OZcUWMl91ud2nuHoSyNsuydll4KmUHsYjQtvw==
-X-Gm-Gg: ASbGncuEVvWUOipMOKlC/7LQ3ctXdyGRgK7h9GbMaDclUGHVwVQQ3kanQKQ8agwh0Uf
-	u4E0Zubmw/VmIzHLamHXRUCKpc70Crrkpv/wy0u391Q8EJtzDuJmvUP6JSvNnbJAN8JPcCy1PUr
-	WgoIAVtH8cuzBkz9M3Pi+wDGYgNTBs1Yhssp6EgrBnWSVNBevKsFmn+CGOCBWT21BRL3shr/xkh
-	UuMbaNtmcq+RKEebDF2Z2weIbMTIXC2eskMFR1kncArHn1KFZ4Ub8eGHXgWC79UhMTFATN9pbQD
-	0NEIm9Uyjvq95Qg2auQ/u2oMx6ERG1KcQ4lOJX5zUVRXwKdl8gQoKnXQJKqbJuY4cXP4+j5qoSz
-	rXd7124eu2tBmOA4Ft3KyoH5PSsNlHfYrJ8rngdg4eydteUbCSvCfAPu8COgxCSGy9mBG9XeJkB
-	3nzqnUeHgDj4gXcaCy6cUDgyS27H6jkFuzKihIVhO7FnF5WRGpU0nTcUYq6arl7waKoUMC3YLnV
-	xg=
-X-Google-Smtp-Source: AGHT+IFmd8S2YBtgFN4IWrCYdYF+MW1qsdZZUT2YRDneacVDKSjLVtp38t4GJEM5/IopDihgf0xqJw==
-X-Received: by 2002:a05:6000:1887:b0:42b:2f90:bd05 with SMTP id ffacd0b85a97d-42cc1d3571amr23224912f8f.45.1764237552664;
-        Thu, 27 Nov 2025 01:59:12 -0800 (PST)
-Message-ID: <178630e8-7986-4a35-863c-4559779d7390@suse.com>
-Date: Thu, 27 Nov 2025 10:59:10 +0100
+        bh=4raARQItkJX3V6w1QGL5CRr+ynlo0pbCjQ56QUUkYac=;
+        b=MLNkfiEUSAZGAnU79JFN+bIx1IYC3xEG76FV3TpKLrIpGVnvgHTXZPWjTZWuALNQqP
+         hGrkqEtOvDgn316DVJwtkhtdcUZzSd64Bm55vk75eJBX9uYuSiu3b2KPWhyw6StZXE8u
+         XPXogEj70qsqKKbll2iVetVfkvmZf2xWXoXnXFjUtwS9Jedyb0Ijkv3/Ny3s7rEkItWF
+         54qojr+IcIU9gQXQtQKaBBwnzcrgs3xydK+GmWwubhtKLo7H4W9LSCMQTtjsP7mL0P5l
+         9qfd8SBnN0p0r2FtAIkVhrJADBusqSeW2Nci1ojX0qBruWbWHioTpplp5G3n+YbN3j3T
+         HdiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764237870; x=1764842670;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4raARQItkJX3V6w1QGL5CRr+ynlo0pbCjQ56QUUkYac=;
+        b=tVs8wmEbT5GjPSDSX8/SkKNCuAxCtlRgJEeP9w1qutX8jzni5iRldrd8Sfd3lD//96
+         tgLL2fG7VWw25ueMrvE5Z9Tm+sgfrgUSfvj10pfCrOhDFRTZONdT+23+obR2OpPNWPYc
+         CLPcz01H97jA0TWgwV4Yrkv+hqWwtRI7k16CJ5CAR9C5RJwrwnB8mlqqwpAGBTMZ9Any
+         7I83mWpu0jOlnckF9+1cgG4nMBYiZKmQCzzVqjNPeGquUjFc9NaCGMytVHP4oZLkzihA
+         jFAl38GmE7St17lqIdR0oZ7TjpaSaUhUjRZmjrcu1+MXBWO5I2X4oHvUe6FkyluhjhS9
+         Jqsw==
+X-Forwarded-Encrypted: i=1; AJvYcCVT0VkPJWcrXXnoKAt8CSQlJyyGhEFS6W/3/qtx/w2sTZNVJvb8ajp4QwznuoaK++PrafJCQnVtpZs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywh8Q3Yo3w5CQeysHNup7I6uwo975Hw4nzHW+PwAplXEHRAlCUk
+	CH9ER01KkRZ3uvWQ8/JFImaGTfbHfv3gCQoqwx67WAbCl0L4vI4hyTaF
+X-Gm-Gg: ASbGncscdo3g4mPkdd/jBzEJl13VB3ZdMPGZfEnTqACaq6uKPbLeCZK3wxTDYWvXtzc
+	toxQiBP/ut2Gg7JZfnk8S3YbD/OZ4PReRihFeqgRtgQdlAIROGBEstlCHJO+7SdwALd+rdfJXRA
+	cHmTq/ehy+BF0T1f9GBtZGGqNQPKIjX/i7DkkVnfgYzqw0fqwio3DshAQpTN0I0bo5W/5qO8KTq
+	pPsxlYIO6RM1KvApNP8ykjdE1gFySh31oggsCThp2auUzJ5iXg9MI6trKfeG0AC0Xlp3QzlPNul
+	NFqOdIOn3wKvLpvHzOfTlCTpxTqH7IGRTlIX5xm85246jBZMooBjDPnJRtkKUjbc3z/tCXNGHHb
+	KtoIowfzWFju5BmyPZ5bDPCalzSRE9Vv8VGNEp6HSyWcNvM7kL/nu0PlrfvKV7e6ucMzNCBZjM6
+	33UF8R/c4D7Y4B4dA9hBN0/NYhHfxuGcLyPi0HqR9h9UYIkZeP5qTliRvM7bzdEH03Gg==
+X-Google-Smtp-Source: AGHT+IHPso+P3vV9V6n0v/TYDYxBW5i4WX+1Q1rjL+EE143pJLsgdIGVLnvLF9UeMAWBwNkeFFk95A==
+X-Received: by 2002:a17:907:3d89:b0:b73:9a71:13bb with SMTP id a640c23a62f3a-b76c55f3e48mr1108823766b.32.1764237869610;
+        Thu, 27 Nov 2025 02:04:29 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------6rxlXtWiSDHfng9MB26VfzsC"
+Message-ID: <82d7533d-aeb7-4d9b-a868-00bd419b72b6@gmail.com>
+Date: Thu, 27 Nov 2025 11:04:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 01/11] x86: Add more granularity to the vendors in
- Kconfig
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20251126164419.174487-1-alejandro.garciavallejo@amd.com>
- <20251126164419.174487-2-alejandro.garciavallejo@amd.com>
+Subject: Re: [PATCH 5/8] symbols/riscv: re-number intermediate files
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <bd689f02-3e6b-4d15-aa1d-d757a9ee54a8@suse.com>
+ <37ed4a18-f1a0-4c1f-b915-1708c235068b@suse.com>
+ <db4bccef-a746-4912-89ad-b015a8d43f78@gmail.com>
+ <3fd32ba0-0670-4c9b-b216-60c55a5de7ba@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251126164419.174487-2-alejandro.garciavallejo@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <3fd32ba0-0670-4c9b-b216-60c55a5de7ba@suse.com>
 
-On 26.11.2025 17:44, Alejandro Vallejo wrote:
-> This enables very aggressive DCE passes on single-vendor builds in later
-> patches, as it will allow most vendor checks to become statically chosen
-> branches. A lot of statics go away and a lot more inlining is allowed.
-> 
-> In order to allow x86_vendor_is() to fold into constants, expand Kconfig
-> to have the full set of vendors. Adds Hygon, Centaur, Shanghai and the
-> default path.
+This is a multi-part message in MIME format.
+--------------6rxlXtWiSDHfng9MB26VfzsC
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Oh, one more thing: There's x86_vendor_is() yet, so what it is going to be
-needs at least roughly explaining here.
 
-Jan
+On 11/27/25 10:57 AM, Jan Beulich wrote:
+> On 27.11.2025 10:49, Oleksii Kurochko wrote:
+>> On 11/26/25 2:44 PM, Jan Beulich wrote:
+>>> In preparation to do away with symbols-dummy, re-number the assembly and
+>>> object files used, for the numbers to match the next passes real output.
+>>> This is to make 0 available to use for what now is handled by
+>>> symbols-dummy.
+>>>
+>>> Signed-off-by: Jan Beulich<jbeulich@suse.com>
+>>>
+>>> --- a/xen/arch/riscv/Makefile
+>>> +++ b/xen/arch/riscv/Makefile
+>>> @@ -26,16 +26,16 @@ $(TARGET)-syms: $(objtree)/prelink.o $(o
+>>>    	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
+>>>    	$(NM) -pa --format=sysv $(dot-target).0 \
+>>>    		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+>>> -		> $(dot-target).0.S
+>>> -	$(MAKE) $(build)=$(@D) $(dot-target).0.o
+>>> +		> $(dot-target).1.S
+>>> +	$(MAKE) $(build)=$(@D) $(dot-target).1.o
+>>>    	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
+>>> -	    $(dot-target).0.o -o $(dot-target).1
+>>> +	    $(dot-target).1.o -o $(dot-target).1
+>>>    	$(NM) -pa --format=sysv $(dot-target).1 \
+>>>    		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+>>> -		> $(dot-target).1.S
+>>> -	$(MAKE) $(build)=$(@D) $(dot-target).1.o
+>>> +		> $(dot-target).2.S
+>>> +	$(MAKE) $(build)=$(@D) $(dot-target).2.o
+>>>    	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \ - $(dot-target).1.o -o $@ + $(dot-target).2.o
+>>> -o $@ $(NM) -pa --format=sysv $@ \ | $(objtree)/tools/symbols
+>>> --all-symbols --xensyms --sysv --sort \ > $@.map
+>>>
+>> LGTM: Reviewed-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+> Thanks. May I remind you again that there wants to be a blank before the
+> opening angle bracket? That is an issue which was also pointed out for
+> some of your recent release-acks.
+
+Hmm, something wrong with a setting in my e-mail app because I am looking at
+my reply in my e-mail app and there is a space before the opening angle bracket...
+
+
+>   (Canonically, the "-by" also wants to
+> be all lower case, I think.)
+
+I was sure that I had seen “-by” written with an uppercase letter, but I will
+use lowercase in the future. I tried using|git log --grep|, and it seems I was
+mistaken — “-by” is always lowercase.
+
+I didn’t see your answer, so I made the same mistake with “-by” in the next
+patch as well.
+
+~ Oleksii
+
+--------------6rxlXtWiSDHfng9MB26VfzsC
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 11/27/25 10:57 AM, Jan Beulich
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:3fd32ba0-0670-4c9b-b216-60c55a5de7ba@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 27.11.2025 10:49, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 11/26/25 2:44 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">In preparation to do away with symbols-dummy, re-number the assembly and
+object files used, for the numbers to match the next passes real output.
+This is to make 0 available to use for what now is handled by
+symbols-dummy.
+
+Signed-off-by: Jan Beulich<a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -26,16 +26,16 @@ $(TARGET)-syms: $(objtree)/prelink.o $(o
+  	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
+  	$(NM) -pa --format=sysv $(dot-target).0 \
+  		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+-		&gt; $(dot-target).0.S
+-	$(MAKE) $(build)=$(@D) $(dot-target).0.o
++		&gt; $(dot-target).1.S
++	$(MAKE) $(build)=$(@D) $(dot-target).1.o
+  	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $&lt; \
+-	    $(dot-target).0.o -o $(dot-target).1
++	    $(dot-target).1.o -o $(dot-target).1
+  	$(NM) -pa --format=sysv $(dot-target).1 \
+  		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+-		&gt; $(dot-target).1.S
+-	$(MAKE) $(build)=$(@D) $(dot-target).1.o
++		&gt; $(dot-target).2.S
++	$(MAKE) $(build)=$(@D) $(dot-target).2.o
+  	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $&lt; $(build_id_linker) \ - $(dot-target).1.o -o $@ + $(dot-target).2.o 
+-o $@ $(NM) -pa --format=sysv $@ \ | $(objtree)/tools/symbols 
+--all-symbols --xensyms --sysv --sort \ &gt; $@.map
+
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">LGTM: Reviewed-By: Oleksii Kurochko<a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Thanks. May I remind you again that there wants to be a blank before the
+opening angle bracket? That is an issue which was also pointed out for
+some of your recent release-acks.</pre>
+    </blockquote>
+    <pre>Hmm, something wrong with a setting in my e-mail app because I am looking at
+my reply in my e-mail app and there is a space before the opening angle bracket...</pre>
+    <p><br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:3fd32ba0-0670-4c9b-b216-60c55a5de7ba@suse.com">
+      <pre wrap="" class="moz-quote-pre"> (Canonically, the "-by" also wants to
+be all lower case, I think.)</pre>
+    </blockquote>
+    <pre data-start="65" data-end="260">I was sure that I had seen “-by” written with an uppercase letter, but I will
+use lowercase in the future. I tried using <code data-start="186"
+    data-end="202">git log --grep</code>, and it seems I was
+mistaken — “-by” is always lowercase.</pre>
+    <pre data-start="262" data-end="352">I didn’t see your answer, so I made the same mistake with “-by” in the next
+patch as well.</pre>
+    <pre>
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------6rxlXtWiSDHfng9MB26VfzsC--
 
