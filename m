@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01AE1C8D9CA
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 10:44:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173657.1498675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 121D2C8DA27
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 10:49:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173670.1498684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOYXi-0003Li-4r; Thu, 27 Nov 2025 09:44:02 +0000
+	id 1vOYcv-0003y5-Pn; Thu, 27 Nov 2025 09:49:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173657.1498675; Thu, 27 Nov 2025 09:44:02 +0000
+Received: by outflank-mailman (output) from mailman id 1173670.1498684; Thu, 27 Nov 2025 09:49:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOYXi-0003Ip-1B; Thu, 27 Nov 2025 09:44:02 +0000
-Received: by outflank-mailman (input) for mailman id 1173657;
- Thu, 27 Nov 2025 09:44:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mf1n=6D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOYXg-0003Ij-Ax
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 09:44:00 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9871ddb3-cb75-11f0-980a-7dc792cee155;
- Thu, 27 Nov 2025 10:43:57 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-42b3377aaf2so384065f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 01:43:57 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1ca78f77sm2470582f8f.32.2025.11.27.01.43.56
+	id 1vOYcv-0003vo-N6; Thu, 27 Nov 2025 09:49:25 +0000
+Received: by outflank-mailman (input) for mailman id 1173670;
+ Thu, 27 Nov 2025 09:49:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BG9e=6D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vOYcu-0003vi-P7
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 09:49:24 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 59f7f17c-cb76-11f0-9d18-b5c5bf9af7f9;
+ Thu, 27 Nov 2025 10:49:22 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-b728a43e410so127544266b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 01:49:22 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b76f5a4b757sm113583866b.66.2025.11.27.01.49.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Nov 2025 01:43:57 -0800 (PST)
+ Thu, 27 Nov 2025 01:49:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,201 +45,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9871ddb3-cb75-11f0-980a-7dc792cee155
+X-Inumbo-ID: 59f7f17c-cb76-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764236637; x=1764841437; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=N6GX77rmB5naK+JKPmw6jU0H2AQeVc+HB91PKD3WOh8=;
-        b=gcXwW8r1ggKU4q7Q6B35px41ysMUEtgkaM15Y1LMXwArPC4u0a7BDm1Mpsht0RiCcY
-         pQfC/qaljRTJ0FCEhMu+XHMBaa3XV+zHIVqkYhJ0zkLu6oQyhwqmeZe7lD/nrHQf8Czr
-         wRKXVfKfKwM8RSPN/WFi4yraPb0XWyudN+8ccwCn66H4TIzpkoBG2WZgrZFQIYNd6fPn
-         j220aaOVbSpqs7fm5jFDomFswRkXA6heNqpmBKYHe/ISou9ZtElms7B/pKaDKOsyjVZN
-         ua0RhpsW78KV0WXlldbI+3AyuBXhVfdjz1mtHsqnFFsdGV9ld/yp/waCGjO79SmgF1I1
-         pgsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764236637; x=1764841437;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1764236962; x=1764841762; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=N6GX77rmB5naK+JKPmw6jU0H2AQeVc+HB91PKD3WOh8=;
-        b=YAwdQTmZBAbhJBc2af7zfQ0Gf344GmuH1j2tCo2KLIJXGYWm9qxs8/hLky0yGnmk2y
-         FB7AuYXIWgKlFUrX5WTuTsL4CoF/SrxR38O16z2lZ9P+JaSTzpSOUUOLskdIP+fl1F9t
-         8JtQxHfrPaL3/nPODGOwGB6h5j4DmusBh/sP9Zl7LyF8DLffX4pUYJtq7VLbXi+tpj9j
-         vTF1/EYFLapzx5aGQHUpZPscDp3NB0G34ZlU/C9vgXX49Dn8Q8IYG+XTiTrPcLGtAyqN
-         tCrKAbK+opAVWByF+TVI8UuzxH2aG/QBXsjYb+/3kOG+BU/Dd5St8bzZpm4MVI+2YiAN
-         NZig==
-X-Forwarded-Encrypted: i=1; AJvYcCWo6kjEPbSLCC7kZd/JCeGUMMGIG9c0tbZRIbmlJK94VH5EhzMxMswUS2cJfL/E/hCN73Iev/wZPVw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy8ihnrlOUXlyENHHu1XJeKRe/YylSp3/FUQ8YuAiBM0Df/E4Wz
-	ffsz0Dzr4mI/rRE5Oh3MnxY/zfwKCnUCaqqO/u6/Jbm/8Efh6a3Fni+t/Glyv47rHw==
-X-Gm-Gg: ASbGncvO6XASeeH88HiMmDvISY+eCSq183uLaMLKivFi5Rc9UVBXJI7gUKm0oRHksc8
-	dUBk3/W3kydSgqPSKWUAlPmP9vPUND6apVUOnpim8nBztm38u4y1WhWUSag1BcB0r2+DQKQ1V6+
-	6lI5pi/361khDtE4QKwZxt3/1zHozEaAxhb69Ga29Btcb7QzFaa40RiCqLmhyztMxYofkSOFjqn
-	IeM3EAcRZ6zdKjqFyRHXahoLxYAcyGdBTEebRBGBz1I9m9Sv+hFTDcg5OfWz3NeYMTowZ6EJnIg
-	F0AoQGqS9gdsNRpY9fk61b07qfE5czTCRnnQ1TBTZrtvJ2w66eH0BT9iwuZd8vbkqW3zZ2l9uIJ
-	dmbNB6D+PnX9HiokIz4vgneiPuttOv73YlIEBamMBpauaVJXDuK0qGJCBCInj3sSHNqzxdYu33H
-	gaQLZ3Dt0s2BTgaFAgiXwyN6ZQcmiIJHeqCDJxFzImRV7E77rM+UhACwhe6yZTGfx2mL6EcXPtM
-	0Q=
-X-Google-Smtp-Source: AGHT+IH6Nt/uB+Bs565wh6m6P2t8d0ZDDLm/oA66fcsbe6gOG+PD22vSchTDXNZ07qX6CY5N3xCNQQ==
-X-Received: by 2002:a05:6000:184d:b0:429:d66b:508f with SMTP id ffacd0b85a97d-42cc1d0cf29mr24071952f8f.30.1764236637301;
-        Thu, 27 Nov 2025 01:43:57 -0800 (PST)
-Message-ID: <868f28fe-f2dd-469d-a0cf-111885184dfe@suse.com>
-Date: Thu, 27 Nov 2025 10:43:55 +0100
+        bh=pxn2+MfLQviHdGIYui/UKb5z8iSNk0jiYKQiK7O5VnU=;
+        b=MB7vxqzXUfjxPxnvxEVjcvQn3J+hQtVF2wCI2OG4nu1Idlva0m3/GYEih3H/hBetTw
+         TRvfT9SxYCjjA/7bGMnpxoCJ3VrZk3s5aiW1UgLr8dpLc18EHsUFH940fWbmwNGjDUZ/
+         Ds0W377xc8HNzLv48525JrQK76GGF7ple/OkkFPukYf4PSeV0A98HniuLWgjuUwRmknC
+         r2aOMoWQaWbWTTeUrterhWER/9aa6ykjTf8JIoXbK6nMXkiIsO6+hNvMln7OCMriJCHj
+         m6JauTKJRTJXN5C6NLcUTXnVMwLnxOQQrbY/jFdWpKcpSt6ks1wUOWohywEWQ9PSGE1t
+         oEcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764236962; x=1764841762;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=pxn2+MfLQviHdGIYui/UKb5z8iSNk0jiYKQiK7O5VnU=;
+        b=W4LuRikJJkNDxM9HUtF/wBbUEU0Hamjw1+pOtjSRCt++TPgq/F9KtyB/Xi5sju+VdK
+         fhiJc3Gs5cFaj9s1YzYi3eShHTKjQz1jSW+eAc1RoQOazA3BJ/xB5mZk62wF7asO68/Z
+         QN8RFU+cq/GrtBGg6jTXJ/A2DhdM51SNR/mV0zts3yCr+AxTH/o/d9bb/EaUawravHhu
+         EldPM1ziK+UisdLQ3LBeFmi6txt2I3DJ7F35+dJtYPKVgwkGB2AyWSlAP5LGubDZH1sN
+         OTt8ExIKpXY7jNRv2URYOxba9ACM2aAaamk+qiJ5j3Uub7vuHzVM8PK/e1GXZVlDHtvD
+         RE+A==
+X-Forwarded-Encrypted: i=1; AJvYcCWh6ouwEiP5qCRU1sZHJi89tn5vqDXIuB6lkAloRcZGmCxX03hErQT/FshJKZlQy3UNLSu4vhRjbkc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy9u0z1p0O1uBhq2BvNIKEUN25t/1UzQGlQ+e8mnthHsLOPMy5X
+	DG1t5UdEBNGyVMIqqmOHbyRKWHV3n1dTnSEBn2KR2yhbm/0f10SyRJR1
+X-Gm-Gg: ASbGncu/bNe3UcdUfNpiO8tr/kT86rb+KXA/6AkVnpedE6gW4D9/fvOpbXk3oHdnF19
+	OLGNmF9vpTxoyHGnCzZsPTxxkj70QW/E0MCdWrRf3U/vyVknqD+ZD2xcOXph7MkrrWP4ZupB6WK
+	qdvyKXQ7v+qXeP8FCvC56Jk+VqS4rASvDB5fdY8tg0be+x0hGpjnLSr75rAtgM8yUYwUXfD8Zhr
+	rlTsaQ7sbgEuf5ti1qRLdxZ7Cqf+2iLqQZeqOT6DiKExfDNAz9usMgh+5LKgfhpp2O1nCM+79LM
+	zrNAZvP8ALOPIPCK0jVm0tImI5LIPvF8naOAptc5QFi2L8ibrUjXDDevB2jDEvB+G35qP54ayBI
+	2jl07P7BoqIHZgFHH+FvUzXxwZ2MfkIT6vuIfuAL78FNGlBQOHJ3uJFc5GOdQVlqmrmD3A1vsV5
+	vO3FVPKQTAmUlzTERq2NAHRfoXI/vzcfPc9JW46cs0UfWCH4FUsTHTBASwX7OFTbvh
+X-Google-Smtp-Source: AGHT+IHDy9xh0h4/hF+DYtZttmuvVNrQlkOItACv4tFQF7j7w6E20D36Epebtn1OjmzQnpH54XOlXg==
+X-Received: by 2002:a17:907:2da8:b0:b73:74d6:d360 with SMTP id a640c23a62f3a-b7671731884mr2465397966b.40.1764236961635;
+        Thu, 27 Nov 2025 01:49:21 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------DGQkPQ7F2hn52tuLoEeFscSY"
+Message-ID: <db4bccef-a746-4912-89ad-b015a8d43f78@gmail.com>
+Date: Thu, 27 Nov 2025 10:49:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 01/11] x86: Add more granularity to the vendors in
- Kconfig
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20251126164419.174487-1-alejandro.garciavallejo@amd.com>
- <20251126164419.174487-2-alejandro.garciavallejo@amd.com>
+Subject: Re: [PATCH 5/8] symbols/riscv: re-number intermediate files
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>
+References: <bd689f02-3e6b-4d15-aa1d-d757a9ee54a8@suse.com>
+ <37ed4a18-f1a0-4c1f-b915-1708c235068b@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251126164419.174487-2-alejandro.garciavallejo@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <37ed4a18-f1a0-4c1f-b915-1708c235068b@suse.com>
 
-On 26.11.2025 17:44, Alejandro Vallejo wrote:
-> This enables very aggressive DCE passes on single-vendor builds in later
-> patches, as it will allow most vendor checks to become statically chosen
-> branches. A lot of statics go away and a lot more inlining is allowed.
-> 
-> In order to allow x86_vendor_is() to fold into constants, expand Kconfig
-> to have the full set of vendors. Adds Hygon, Centaur, Shanghai and the
-> default path.
-> 
-> Have Hygon depend on AMD, and Centaur+Shanghai depend on Intel.
-> 
-> Not a functional change.
-> 
-> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-> ---
->  xen/arch/x86/Kconfig.cpu         | 45 ++++++++++++++++++++++++++++++++
->  xen/arch/x86/cpu/common.c        | 17 +++++++-----
->  xen/arch/x86/include/asm/cpuid.h |  7 +++++
->  3 files changed, 62 insertions(+), 7 deletions(-)
+This is a multi-part message in MIME format.
+--------------DGQkPQ7F2hn52tuLoEeFscSY
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Shouldn't patch 5 be folded into here? Or, if there were some dependencies
-on patches 2-4 (albeit I can't spot anything, as the files are all self-
-contained), at least the parts which can be done right away?
 
-> --- a/xen/arch/x86/Kconfig.cpu
-> +++ b/xen/arch/x86/Kconfig.cpu
-> @@ -19,4 +19,49 @@ config INTEL
->  	  May be turned off in builds targetting other vendors.  Otherwise,
->  	  must be enabled for Xen to work suitably on Intel platforms.
->  
-> +config HYGON
-> +	bool "Support Hygon CPUs"
-> +	depends on AMD
-> +	default y
-> +	help
-> +	  Detection, tunings and quirks for Hygon platforms.
-> +
-> +	  May be turned off in builds targetting other vendors.  Otherwise,
-> +	  must be enabled for Xen to work suitably on Hygon platforms.
-> +
-> +
-> +config CENTAUR
-> +	bool "Support Centaur CPUs"
-> +	depends on INTEL
-> +	default y
-> +	help
-> +	  Detection, tunings and quirks for Centaur platforms.
-> +
-> +	  May be turned off in builds targetting other vendors.  Otherwise,
-> +	  must be enabled for Xen to work suitably on Centaur platforms.
-> +
-> +config SHANGHAI
-> +	bool "Support Shanghai CPUs"
-> +	depends on INTEL
-> +	default y
-> +	help
-> +	  Detection, tunings and quirks for Shanghai platforms.
-> +
-> +	  May be turned off in builds targetting other vendors.  Otherwise,
-> +	  must be enabled for Xen to work suitably on Shanghai platforms.
-> +
-> +config UNKNOWN_CPU
-> +	bool "Support unknown CPUs"
+On 11/26/25 2:44 PM, Jan Beulich wrote:
+> In preparation to do away with symbols-dummy, re-number the assembly and
+> object files used, for the numbers to match the next passes real output.
+> This is to make 0 available to use for what now is handled by
+> symbols-dummy.
+>
+> Signed-off-by: Jan Beulich<jbeulich@suse.com>
+>
+> --- a/xen/arch/riscv/Makefile
+> +++ b/xen/arch/riscv/Makefile
+> @@ -26,16 +26,16 @@ $(TARGET)-syms: $(objtree)/prelink.o $(o
+>   	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
+>   	$(NM) -pa --format=sysv $(dot-target).0 \
+>   		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+> -		> $(dot-target).0.S
+> -	$(MAKE) $(build)=$(@D) $(dot-target).0.o
+> +		> $(dot-target).1.S
+> +	$(MAKE) $(build)=$(@D) $(dot-target).1.o
+>   	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
+> -	    $(dot-target).0.o -o $(dot-target).1
+> +	    $(dot-target).1.o -o $(dot-target).1
+>   	$(NM) -pa --format=sysv $(dot-target).1 \
+>   		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+> -		> $(dot-target).1.S
+> -	$(MAKE) $(build)=$(@D) $(dot-target).1.o
+> +		> $(dot-target).2.S
+> +	$(MAKE) $(build)=$(@D) $(dot-target).2.o
+>   	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \ - $(dot-target).1.o -o $@ + $(dot-target).2.o 
+> -o $@ $(NM) -pa --format=sysv $@ \ | $(objtree)/tools/symbols 
+> --all-symbols --xensyms --sysv --sort \ > $@.map
+>
+LGTM: Reviewed-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-"Unknown CPUs" can be of two kinds: Such of vendors we don't explicitly support,
-and such of vendors we do explicitly support, but where we aren't aware of the
-particular model. This needs to be unambiguous here, perhaps by it becoming
-UNKNOWN_CPU_VENDOR (and the prompt changing accordingly).
+~ Oleksii
 
-> --- a/xen/arch/x86/cpu/common.c
-> +++ b/xen/arch/x86/cpu/common.c
-> @@ -118,7 +118,7 @@ static void cf_check default_init(struct cpuinfo_x86 * c)
->  	__clear_bit(X86_FEATURE_SEP, c->x86_capability);
->  }
->  
-> -static const struct cpu_dev __initconst_cf_clobber __used default_cpu = {
-> +static const struct cpu_dev __initconst_cf_clobber default_cpu = {
+--------------DGQkPQ7F2hn52tuLoEeFscSY
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This change isn't explained in the description. __used here was introduced not
-all this long ago together with __initconst_cf_clobber. Maybe this really was
-a mistake, but if so it's correction should be explained.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 11/26/25 2:44 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:37ed4a18-f1a0-4c1f-b915-1708c235068b@suse.com">
+      <pre wrap="" class="moz-quote-pre">In preparation to do away with symbols-dummy, re-number the assembly and
+object files used, for the numbers to match the next passes real output.
+This is to make 0 available to use for what now is handled by
+symbols-dummy.
 
-> @@ -340,7 +340,8 @@ void __init early_cpu_init(bool verbose)
->  	*(u32 *)&c->x86_vendor_id[8] = ecx;
->  	*(u32 *)&c->x86_vendor_id[4] = edx;
->  
-> -	c->x86_vendor = x86_cpuid_lookup_vendor(ebx, ecx, edx);
-> +	c->x86_vendor = x86_cpuid_lookup_vendor(ebx, ecx, edx) &
-> +	                X86_ENABLED_VENDORS;
+Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
 
-May I suggest the & to move ...
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -26,16 +26,16 @@ $(TARGET)-syms: $(objtree)/prelink.o $(o
+ 	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
+ 	$(NM) -pa --format=sysv $(dot-target).0 \
+ 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+-		&gt; $(dot-target).0.S
+-	$(MAKE) $(build)=$(@D) $(dot-target).0.o
++		&gt; $(dot-target).1.S
++	$(MAKE) $(build)=$(@D) $(dot-target).1.o
+ 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $&lt; \
+-	    $(dot-target).0.o -o $(dot-target).1
++	    $(dot-target).1.o -o $(dot-target).1
+ 	$(NM) -pa --format=sysv $(dot-target).1 \
+ 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+-		&gt; $(dot-target).1.S
+-	$(MAKE) $(build)=$(@D) $(dot-target).1.o
++		&gt; $(dot-target).2.S
++	$(MAKE) $(build)=$(@D) $(dot-target).2.o
+ 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $<a class="moz-txt-link-rfc2396E" href="mailto:$(build_id_linker)\-$(dot-target).1.o-o$@+$(dot-target).2.o-o$@$(NM)-pa--format=sysv$@\|$(objtree)/tools/symbols--all-symbols--xensyms--sysv--sort\">&lt; $(build_id_linker) \
+-	    $(dot-target).1.o -o $@
++	    $(dot-target).2.o -o $@
+ 	$(NM) -pa --format=sysv $@ \
+ 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+ 		&gt;</a> $@.map
 
->  	switch (c->x86_vendor) {
+</pre>
+    </blockquote>
+    <pre>LGTM: Reviewed-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
 
-... here? Yes, you panic() below, but I see no reason to store inaccurate
-data when that's easy to avoid.
+~ Oleksii</pre>
+  </body>
+</html>
 
->  	case X86_VENDOR_INTEL:    intel_unlock_cpuid_leaves(c);
->  				  actual_cpu = intel_cpu_dev;    break;
-> @@ -349,12 +350,14 @@ void __init early_cpu_init(bool verbose)
->  	case X86_VENDOR_SHANGHAI: actual_cpu = shanghai_cpu_dev; break;
->  	case X86_VENDOR_HYGON:    actual_cpu = hygon_cpu_dev;    break;
->  	default:
-> +		if (verbose || !IS_ENABLED(CONFIG_UNKNOWN_CPU))
-> +			printk(XENLOG_ERR
-> +			       "Unrecognised or unsupported CPU vendor '%.12s'\n",
-> +			       c->x86_vendor_id);
-> +		if (!IS_ENABLED(CONFIG_UNKNOWN_CPU))
-> +			panic("Cannot run in unknown/compiled-out CPU vendor.\n");
-
-The text reads somewhat odd to me, "run in" in particular. Also nit: No full stop
-please at the end of log messages, except maybe in extraordinary situations.
-
-Jan
+--------------DGQkPQ7F2hn52tuLoEeFscSY--
 
