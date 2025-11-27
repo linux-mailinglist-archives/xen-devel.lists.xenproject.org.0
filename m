@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABA57C8DBBD
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 11:22:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173728.1498735 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 940E6C8DD52
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 11:47:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173737.1498745 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOZ92-0003UQ-9G; Thu, 27 Nov 2025 10:22:36 +0000
+	id 1vOZWX-0006ZT-7h; Thu, 27 Nov 2025 10:46:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173728.1498735; Thu, 27 Nov 2025 10:22:36 +0000
+Received: by outflank-mailman (output) from mailman id 1173737.1498745; Thu, 27 Nov 2025 10:46:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOZ92-0003Ry-6k; Thu, 27 Nov 2025 10:22:36 +0000
-Received: by outflank-mailman (input) for mailman id 1173728;
- Thu, 27 Nov 2025 10:22:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1vOZWX-0006WY-4O; Thu, 27 Nov 2025 10:46:53 +0000
+Received: by outflank-mailman (input) for mailman id 1173737;
+ Thu, 27 Nov 2025 10:46:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1vOZ91-0003Rs-H6
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 10:22:35 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vOZ8x-00B7Vh-2i;
- Thu, 27 Nov 2025 10:22:31 +0000
-Received: from [15.248.2.232] (helo=[10.24.66.108])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vOZ8x-00Gay6-1T;
- Thu, 27 Nov 2025 10:22:31 +0000
+ (envelope-from <SRS0=Mf1n=6D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vOZWV-0006WS-JQ
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 10:46:51 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 60d81d5b-cb7e-11f0-9d18-b5c5bf9af7f9;
+ Thu, 27 Nov 2025 11:46:50 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-429c82bf86bso456762f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Nov 2025 02:46:50 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42e1ca7880asm2866822f8f.31.2025.11.27.02.46.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Nov 2025 02:46:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,422 +45,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=efbYn/p8219u1PtxitkxwIkRMxr8OE5y+OApTyckzwo=; b=SrxoQjyIP2KnrBbAGcEOnJlh3w
-	1vTVW+dLs4BC64VshcXGBZVhSp5NJrmOsoqku4evyo9vV62KatVM6hLsLbnIrZuSxXOTGsiC0efPB
-	Z2F1lZ3gbNMt4W97uriKW3ipvHqidBHtTnrIudCgCqLnVHRBmFFSwHNw73PVh23PYFkw=;
-Message-ID: <485a8166-5079-4c0e-a6bf-f6aee8af991d@xen.org>
-Date: Thu, 27 Nov 2025 10:22:28 +0000
+X-Inumbo-ID: 60d81d5b-cb7e-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1764240409; x=1764845209; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=3vGNY6XUo4iXFGrN57ODdsWqDYAbDdpJ1oS0+lfGWNs=;
+        b=DTZw3fepZtUeWvjtDFM9AY18zZPPOPg4FBvb3/7JPV4XOIPgToQWEin9dlBjv4zvZy
+         W6qMghrlv/xkOitS9E1xR90Qmg5kvJnHCcd5jINFBYLVC6Jh3Quf4UNTQIvt/wljz/vX
+         lxC2sB7g3z627is9Ekt07QIeu1KZdiKx3AG80LXrM6x1qx/MrU5ZypIt7HszN9fQVuuX
+         WAGgFJ+VLtdpDO2tgOWd0lya6rsEAChxLQ4NNDVPSbyrwyQyVHo6UtleQZxFnk0wP4CG
+         NiPxXmsg0twJMcG8p1OJpxgWFgQTZv6KskQWWOiUebQoDbYuFDJcY/a9XP57mNVy9ji7
+         RWtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764240409; x=1764845209;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3vGNY6XUo4iXFGrN57ODdsWqDYAbDdpJ1oS0+lfGWNs=;
+        b=LMGAcQNLbILKUx0EJixgAiBrfN+3fvZxwuZIlcHEMi7R5iWCurvUMh6vX6nsn8BpRk
+         8Bk5fL/U5Oxb7uP/wMaJ4M7QE81z9DhwcYj1dKutueAWFwADAJEfTvFt4TTvoYoKTBoy
+         Dm1qIF5/PxMuNcmDkWm3Ndyw9zm3n03RtqB+ZIkv1N4x2zZQPqVTFt7oJxBy6LR1DMFy
+         SMR75GpMAyYjzPqFcguDhCjbpsNnc+HeiWyzfLbY4P79wPAm8drlYCk6+tZuS9V62I8n
+         eMonVZIhzskmeKO+6eAGeV6eIiBNL0+Gjff7y2g/bPcTJPLWa5PlZXYcsCSaZnc/Np7e
+         PL4A==
+X-Forwarded-Encrypted: i=1; AJvYcCVjT1QwbFRGoGQc42hiXn9rRVGSr6q+nkWcz+PDjZJ5o6P8aWLUtbasTLW8mTTTjG2E7gI7mMGig/k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YziGLLEmD4C3hMzi0YfSJM7YC/o6dcpEVeeOTsZ3AW0bRyMUHGV
+	3ebwVTJq7fg7ckJY+X57ikrXvYX/o0fpNHk3lzixGmNI2YrF5CeSo9i5GtpHxWPugQ==
+X-Gm-Gg: ASbGncvIu/pwjJU7UiBM9EN8vBxRDVea9Ao/xZARRdR1mNB5BVhT4vqsBvPkSxkhU5v
+	LYhQbOQaJhM7b789n9v0c57MbcFysRR2Fd8exFYWvoWbQXEiH09fzOMV40Lr/ThLL6+GHwyGK72
+	fwvCCDGBLzzj+jUc/VUUZNQeFSzP9nY9X5OXyD+8TCUEebB4Cz7H7rSzyJ3rVXqjCY+xXj5mUZA
+	HS2VJV/XZXYNzE8GJOLymJ8o7P3gl3PJWZ4bXMnT0bdOGI8p9pzpaoNVbNVeA7TTkvwsYB4JX0K
+	c/cij87VDqa+2EPDahvNqpvXdW5nZRQGNDYetG8iCDW+wmzy+UOvGpcMuw3M2wDgN/5H3pvODtg
+	/zTRF0QujFPiQ188XVs7U6s4G3P3UpIZuBiKiOYgYwqSd+VB+jag+4hr+OtNr+lVkIatP7CYw58
+	LfMuK8cNfumBdWB457+utZ9L132E7bIPCZ7nffL2cjZvzpWGE+hsNPKZ2MlZmcO2DBgDAbk60Yv
+	dM=
+X-Google-Smtp-Source: AGHT+IGgCouW4U7WQDQ6t3usISuKPZLqqWspb7K0uSNWLaOTSN8hVn4J9pwOZZa0BwpUH9IJWfqBWg==
+X-Received: by 2002:a05:6000:186b:b0:42b:3ab7:b8a3 with SMTP id ffacd0b85a97d-42cc1cf459fmr27046593f8f.27.1764240409384;
+        Thu, 27 Nov 2025 02:46:49 -0800 (PST)
+Message-ID: <d71b6b55-6745-4ba4-9a4f-d5e7b08f0aec@suse.com>
+Date: Thu, 27 Nov 2025 11:46:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/20] Add SMMUv3 Stage 1 Support for XEN guests
-To: Milan Djokic <milan_djokic@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: Julien Grall <julien.grall.oss@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Rahul Singh <rahul.singh@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+Subject: Re: [RFC PATCH 03/11] x86: Add x86_vendor_is() by itself before using
+ it
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Nick Rosbrook
- <enr0n@ubuntu.com>, George Dunlap <gwd@xenproject.org>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1754580687.git.milan_djokic@epam.com>
- <CAJ=z9a1eM6M+Gagond9TiFtF7c7EEQKOKHANcvDWDhW_3JzqOA@mail.gmail.com>
- <12ba4388-ee23-4e17-910f-9702271865ad@epam.com>
- <b1f79b84-d0c4-4807-87a7-1cf94e58ecee@xen.org>
- <a5943713-85fa-48ad-86fe-5698604ed8c9@epam.com> <87v7m93bo0.fsf@epam.com>
- <6c80a929-8139-4461-b11c-e6ac67c3d2e4@epam.com> <875xe6ytyk.fsf@epam.com>
- <65727710-0a88-4fff-bb5b-9cf34106833c@epam.com>
- <5df30dbf-17a2-446f-83f9-0e4468622917@epam.com>
+ Jason Andryuk <jason.andryuk@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20251126164419.174487-1-alejandro.garciavallejo@amd.com>
+ <20251126164419.174487-4-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <5df30dbf-17a2-446f-83f9-0e4468622917@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251126164419.174487-4-alejandro.garciavallejo@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-
-On 03/11/2025 13:16, Milan Djokic wrote:
-> Hello Volodymyr, Julien
-
-Hi Milan,
-
-Thanks for the new update. For the future, can you trim your reply?
-
-> Sorry for the delayed follow-up on this topic.
-> We have changed vIOMMU design from 1-N to N-N mapping between vIOMMU and 
-> pIOMMU. Considering single vIOMMU model limitation pointed out by 
-> Volodymyr (SID overlaps), vIOMMU-per-pIOMMU model turned out to be the 
-> only proper solution.
-
-I am not sure to fully understand. My assumption with the single vIOMMU 
-is you have a virtual SID that would be mapped to a (pIOMMU, physical 
-SID). Does this means in your solution you will end up with multiple 
-vPCI as well and then map pBDF == vBDF? (this because the SID have to be 
-fixed at boot)
-
-> Following is the updated design document.
-> I have added additional details to the design and performance impact 
-> sections, and also indicated future improvements. Security 
-> considerations section is unchanged apart from some minor details 
-> according to review comments.
-> Let me know what do you think about updated design. Once approved, I 
-> will send the updated vIOMMU patch series.
+On 26.11.2025 17:44, Alejandro Vallejo wrote:
+> This function is meant to replace all instances of the following
+> patterns in CPU policies and boot_cpu_data:
 > 
+>   - x->x86_vendor == X86_VENDOR_FOO
+>   - x->x86_vendor != X86_VENDOR_FOO
+>   - x->x86_vendor & (X86_VENDOR_FOO | X86_VENDOR_BAR)
 > 
-> ==========================================================
-> Design Proposal: Add SMMUv3 Stage-1 Support for XEN Guests
-> ==========================================================
-> 
-> :Author:     Milan Djokic <milan_djokic@epam.com>
-> :Date:       2025-11-03
-> :Status:     Draft
-> 
-> Introduction
-> ============
-> 
-> The SMMUv3 supports two stages of translation. Each stage of translation 
-> can be
-> independently enabled. An incoming address is logically translated from 
-> VA to
-> IPA in stage 1, then the IPA is input to stage 2 which translates the 
-> IPA to
-> the output PA. Stage 1 translation support is required to provide 
-> isolation between different
-> devices within OS. XEN already supports Stage 2 translation but there is no
-> support for Stage 1 translation.
-> This design proposal outlines the introduction of Stage-1 SMMUv3 support 
-> in Xen for ARM guests.
-> 
-> Motivation
-> ==========
-> 
-> ARM systems utilizing SMMUv3 require stage-1 address translation to 
-> ensure secure DMA and
-> guest managed I/O memory mappings.
-> With stage-1 enabed, guest manages IOVA to IPA mappings through its own 
-> IOMMU driver.
-> 
-> This feature enables:
-> 
-> - Stage-1 translation in guest domain
-> - Safe device passthrough with per-device address translation table
+> The secret sauce is that all branches inside the helper resolve at
+> compile time, so for the all-vendors-compiled-in case the function
+> resolves to equivalent code as that without the helper and you get
+> progressively more aggressive DCE as you disable vendors. The function
+> folds into a constant once you remove the fallback CPU vendor setting.
 
-I find this misleading. Even without this feature, device passthrough is 
-still safe in the sense a device will be isolated (assuming all the DMA 
-goes through the IOMMU) and will not be able to DMA outside of the guest 
-memory. What the stage-1 is doing is providing an extra layer to control 
-what each device can see. This is useful if you don't trust your devices 
-or you want to assign a device to userspace (e.g. for DPDK).
+Here and below in the comment, "fallback CPU vendor" wants clarifying. I
+don't view it as obvious that what's presently named UNKNOWN_CPU is that
+"fallback" (as imo that really isn't any kind of fallback, but merely a
+placeholder).
 
-> 
-> Design Overview
-> ===============
-> 
-> These changes provide emulated SMMUv3 support:
+> While at this, move an include out of place so they sort alphabetically.
 
-If my understanding is correct, there are all some implications in how 
-we create the PCI topology. It would be good to spell them out.
+I'd rather suggest to simply ...
 
-> 
-> - **SMMUv3 Stage-1 Translation**: stage-1 and nested translation support 
-> in SMMUv3 driver.
-> - **vIOMMU Abstraction**: Virtual IOMMU framework for guest stage-1 
-> handling.
-> - **Register/Command Emulation**: SMMUv3 register emulation and command 
-> queue handling.
-> - **Device Tree Extensions**: Adds `iommus` and virtual SMMUv3 nodes to 
-> device trees for dom0 and dom0less scenarios.
+> --- a/xen/arch/x86/include/asm/cpuid.h
+> +++ b/xen/arch/x86/include/asm/cpuid.h
+> @@ -2,10 +2,12 @@
+>  #define __X86_CPUID_H__
+>  
+>  #include <asm/cpufeatureset.h>
+> +#include <asm/x86-vendors.h>
+>  
+> -#include <xen/types.h>
+> +#include <xen/compiler.h>
+>  #include <xen/kernel.h>
+>  #include <xen/percpu.h>
+> +#include <xen/types.h>
 
-What about ACPI?
+... drop it. xen/kernel.h, for example, already gets it for you anyway.
 
-> - **Runtime Configuration**: Introduces a `viommu` boot parameter for 
-> dynamic enablement.
-> 
-> Separate vIOMMU device is exposed to guest for every physical IOMMU in 
-> the system.
-> vIOMMU feature is designed in a way to provide a generic vIOMMU 
-> framework and a backend implementation
-> for target IOMMU as separate components.
-> Backend implementation contains specific IOMMU structure and commands 
-> handling (only SMMUv3 currently supported).
-> This structure allows potential reuse of stage-1 feature for other IOMMU 
-> types.
-> 
-> Security Considerations
-> =======================
-> 
-> **viommu security benefits:**
-> 
-> - Stage-1 translation ensures guest devices cannot perform unauthorized 
-> DMA (device I/O address mapping managed by guest).
-> - Emulated IOMMU removes guest direct dependency on IOMMU hardware, 
-> while maintaining domains isolation.
+> @@ -56,6 +58,51 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+>       (IS_ENABLED(CONFIG_SHANGHAI) ? X86_VENDOR_SHANGHAI : 0) | \
+>       (IS_ENABLED(CONFIG_HYGON)    ? X86_VENDOR_HYGON    : 0))
+>  
+> +/*
+> + * When compiling Xen for a single vendor with no fallback vendor there's no
+> + * need no check the candidate. `vendor` is always a compile-time constant,
+> + * which means this all can fold into a constant boolean.
 
-Sorry, I don't follow this argument. Are you saying that it would be 
-possible to emulate a SMMUv3 vIOMMU on top of the IPMMU?
+DYM "`vendor` is always supposed to be a compile-time constant, ..." ?
 
-> 1. Observation:
-> ---------------
-> Support for Stage-1 translation in SMMUv3 introduces new data structures 
-> (`s1_cfg` alongside `s2_cfg`)
-> and logic to write both Stage-1 and Stage-2 entries in the Stream Table 
-> Entry (STE), including an `abort`
-> field to handle partial configuration states.
-> 
-> **Risk:**
-> Without proper handling, a partially applied Stage-1 configuration might 
-> leave guest DMA mappings in an
-> inconsistent state, potentially enabling unauthorized access or causing 
-> cross-domain interference.
+> + * A runtime check at the time of CPUID probing guarantees we never run on
+> + * wrong hardware and another check when loading CPU policies guarantees we
+> + * never run policies for a vendor in another vendor's silicon.
+> + *
+> + * By the same token, the same folding can happen when no vendor is compiled
+> + * in and the fallback path is present.
+> + */
+> +static always_inline bool x86_vendor_is(uint8_t candidate, uint8_t vendor)
 
-How so? Even if you misconfigure the S1, the S2 would still be properly 
-configured (you just mention partially applied stage-1).
+I fear the comment, no matter that it's pretty large already, doesn't make
+clear how this function is to be used, i.e. how for this being an "is"
+predicate the two arguments should be chosen. My typical expectation would be
+for "is" predicates to apply to a single property, with other parameters (if
+any) only being auxiliary ones. Maybe it would already help if the first
+parameter wasn't named "candidate" but e.g. "actual" (from looking at just
+the next patch). Or maybe (depending on the number of possible different
+inputs for the first parameter) there want to be a few wrappers, so the
+"single property" aspect would be achieved at use sites.
 
-> 
-> **Mitigation:** *(Handled by design)*
-> This feature introduces logic that writes both `s1_cfg` and `s2_cfg` to 
-> STE and manages the `abort` field-only
-> considering Stage-1 configuration if fully attached. This ensures 
-> incomplete or invalid guest configurations
-> are safely ignored by the hypervisor.
+Then I see no reason for the parameters to be other than unsigned int. (Same
+for the local variable then, obviously.)
 
-Can you clarify what you mean by invalid guest configurations?
+I'm further uncertain this is a good place for the function. In the old days
+it may have been, but cpuid.[ch] now are only about guest exposure of CPUID,
+when this predicate is intended to be used for both host and guest. (As I
+realize only now, this also applies to the addition patch 1 does.) One
+might think processor.h might be a good home, but we're actually trying to
+slim that one down. So one of cpufeature.h and cpufeatures.h, I guess. (Maybe
+other x86 maintainers also have thoughts here.)
 
-> 
-> 2. Observation:
-> ---------------
-> Guests can now invalidate Stage-1 caches; invalidation needs forwarding 
-> to SMMUv3 hardware to maintain coherence.
-> 
-> **Risk:**
-> Failing to propagate cache invalidation could allow stale mappings, 
-> enabling access to old mappings and possibly
-> data leakage or misrouting.
+> +{
+> +    uint8_t filtered_vendor = vendor & X86_ENABLED_VENDORS;
+> +
+> +    if ( vendor == X86_VENDOR_UNKNOWN )
+> +    {
+> +        if ( IS_ENABLED(CONFIG_UNKNOWN_CPU) )
+> +            /* no-vendor optimisation */
 
-You are referring to data leakage/misrouting between two devices own by 
-the same guest, right? Xen would still be in charge of flush when the 
-stage-2 is updated.
+Nit: Comment style (also again below).
 
-> 
-> **Mitigation:** *(Handled by design)*
-> This feature ensures that guest-initiated invalidations are correctly 
-> forwarded to the hardware,
-> preserving IOMMU coherency.
+> +            return X86_ENABLED_VENDORS ? vendor == candidate : true;
 
-How is this a mitigation? You have to properly handle commands. If you 
-don't properly handle them, then yes it will break.
+With the surrounding if() this effectively (and more explicitly) is
 
-> 
-> 4. Observation:
-> ---------------
-> The code includes transformations to handle nested translation versus 
-> standard modes and uses guest-configured
-> command queues (e.g., `CMD_CFGI_STE`) and event notifications.
-> 
-> **Risk:**
-> Malicious or malformed queue commands from guests could bypass 
-> validation, manipulate SMMUv3 state,
-> or cause system instability.
-> 
-> **Mitigation:** *(Handled by design)*
-> Built-in validation of command queue entries and sanitization mechanisms 
-> ensure only permitted configurations
-> are applied.
+            return X86_ENABLED_VENDORS ? candidate == X86_VENDOR_UNKNOWN : true;
 
-This is true as long as we didn't make an mistake in the configurations ;).
+First: Would one ever pass X86_VENDOR_UNKNOWN for "vendor"? The next patch,
+for example, specifically doesn't. And then why not shorter as
 
+            return !X86_ENABLED_VENDORS || candidate == X86_VENDOR_UNKNOWN;
 
-> This is supported via additions in `vsmmuv3` and `cmdqueue` 
-> handling code.
-> 
-> 5. Observation:
-> ---------------
-> Device Tree modifications enable device assignment and configuration 
-> through guest DT fragments (e.g., `iommus`)
-> are added via `libxl`.
-> 
-> **Risk:**
-> Erroneous or malicious Device Tree injection could result in device 
-> misbinding or guest access to unauthorized
-> hardware.
+Which raises the next question: Should we even allow a hypervisor to be built
+with X86_ENABLED_VENDORS == 0? Plus, question more on patch 1, what's the
+(useful) difference between a build with all vendors set to N and
+(a) UNKNOWN_CPU=n vs (b) UNKNOWN_CPU=y? With all vendor support explicitly
+turned off, all CPUs are going to be "unknown".
 
-The DT fragment are not security support and will never be at least 
-until you have can a libfdt that is able to detect malformed Device-Tree 
-(I haven't checked if this has changed recently).
+> +
+> +        /* unknown-vendor-elimination optimisation */
+> +        return false;
+> +    }
+> +
+> +    /* single-vendor optimisation */
+> +    if ( !IS_ENABLED(CONFIG_UNKNOWN_CPU) &&
+> +         (ISOLATE_LSB(X86_ENABLED_VENDORS) == X86_ENABLED_VENDORS) )
+> +        return filtered_vendor == X86_ENABLED_VENDORS;
+> +
+> +    /* compiled-out-vendor-elimination optimisation */
+> +    if ( !filtered_vendor )
+> +        return false;
+> +
+> +    /*
+> +     * When checking against a single vendor, perform an equality check, as
+> +     * it yields (marginally) better codegen
+> +     */
+> +    if ( ISOLATE_LSB(filtered_vendor) == filtered_vendor )
 
-> 
-> **Mitigation:**
-> 
-> - `libxl` perform checks of guest configuration and parse only 
-> predefined dt fragments and nodes, reducing risk.
-> - The system integrator must ensure correct resource mapping in the 
-> guest Device Tree (DT) fragments.
- > > 6. Observation:
-> ---------------
-> Introducing optional per-guest enabled features (`viommu` argument in xl 
-> guest config) means some guests
-> may opt-out.
-> 
-> **Risk:**
-> Differences between guests with and without `viommu` may cause 
-> unexpected behavior or privilege drift.
+So one may pass a combination of multiple vendors for "vendor"? Is so, why
+is the parameter name singular?
 
-I don't understand this risk. Can you clarify?
+> +        return filtered_vendor == candidate ;
 
-> 
-> **Mitigation:**
-> Verify that downgrade paths are safe and well-isolated; ensure missing 
-> support doesn't cause security issues.
-> Additional audits on emulation paths and domains interference need to be 
-> performed in a multi-guest environment.
-> 
-> 7. Observation:
-> ---------------
+Nit: Stray blank.
 
-This observation with 7, 8 and 9 are the most important observations but 
-it seems to be missing some details on how this will be implemented. I 
-will try to provide some questions that should help filling the gaps.
-
-> Guests have the ability to issue Stage-1 IOMMU commands like cache 
-> invalidation, stream table entries
-> configuration, etc. An adversarial guest may issue a high volume of 
-> commands in rapid succession.
-> 
-> **Risk:**
-> Excessive commands requests can cause high hypervisor CPU consumption 
-> and disrupt scheduling,
-> leading to degraded system responsiveness and potential denial-of- 
-> service scenarios.
-> 
-> **Mitigation:**
-> 
-> - Xen scheduler limits guest vCPU execution time, securing basic guest 
-> rate-limiting.
-
-This really depends on your scheduler. Some scheduler (e.g. NULL) will 
-not do any scheduling at all. Furthermore, the scheduler only preempt 
-EL1/EL0. It doesn't preempt EL2, so any long running operation need 
-manual preemption. Therefore, I wouldn't consider this as a mitigation.
-
-> - Batch multiple commands of same type to reduce overhead on the virtual 
-> SMMUv3 hardware emulation.
-
-The guest can send commands in any order. So can you expand how this 
-would work? Maybe with some example.
-
-> - Implement vIOMMU commands execution restart and continuation support
-
-This needs a bit more details. How will you decide whether to restart 
-and what would be the action? (I guess it will be re-executing the 
-instruction to write to the CWRITER).
-
-> 
-> 8. Observation:
-> ---------------
-> Some guest commands issued towards vIOMMU are propagated to pIOMMU 
-> command queue (e.g. TLB invalidate).
-> 
-> **Risk:**
-> Excessive commands requests from abusive guest can cause flooding of 
-> physical IOMMU command queue,
-> leading to degraded pIOMMU responsivness on commands issued from other 
-> guests.
-> 
-> **Mitigation:**
-> 
-> - Xen credit scheduler limits guest vCPU execution time, securing basic 
-> guest rate-limiting.
-
-Same as above. This mitigation cannot be used.
-
-
-> - Batch commands which should be propagated towards pIOMMU cmd queue and 
-> enable support for batch
->    execution pause/continuation
-
-Can this be expanded?
-
-> - If possible, implement domain penalization by adding a per-domain cost 
-> counter for vIOMMU/pIOMMU usage.
-
-Can this be expanded?
-
-> 
-> 9. Observation:
-> ---------------
-> vIOMMU feature includes event queue used for forwarding IOMMU events to 
-> guest
-> (e.g. translation faults, invalid stream IDs, permission errors).
-> A malicious guest can misconfigure its SMMU state or intentionally 
-> trigger faults with high frequency.
-> 
-> **Risk:**
-> Occurance of IOMMU events with high frequency can cause Xen to flood the 
-
-s/occurance/occurrence/
-
-> event queue and disrupt scheduling with
-> high hypervisor CPU load for events handling.
-> 
-> **Mitigation:**
-> 
-> - Implement fail-safe state by disabling events forwarding when faults 
-> are occured with high frequency and
->    not processed by guest.
-
-I am not sure to understand how this would work. Can you expand?
-
-> - Batch multiple events of same type to reduce overhead on the virtual 
-> SMMUv3 hardware emulation.
-
-Ditto.
-
-> - Consider disabling event queue for untrusted guests
-
-My understanding is there is only a single physical event queue. Xen 
-would be responsible to handle the events in the queue and forward to 
-the respective guests. If so, it is not clear what you mean by "disable 
-event queue".
-
-> 
-> Performance Impact
-> ==================
-> 
-> With iommu stage-1 and nested translation inclusion, performance 
-> overhead is introduced comparing to existing,
-> stage-2 only usage in Xen. Once mappings are established, translations 
-> should not introduce significant overhead.
-> Emulated paths may introduce moderate overhead, primarily affecting 
-> device initialization and event handling.
-> Performance impact highly depends on target CPU capabilities.
-> Testing is performed on QEMU virt and Renesas R-Car (QEMU emulated) 
-> platforms.
-
-I am afraid QEMU is not a reliable platform to do performance testing. 
-Don't you have a real HW with vIOMMU support?
-
-[...]
-
-> References
-> ==========
-> 
-> - Original feature implemented by Rahul Singh:
-> 
-> https://patchwork.kernel.org/project/xen-devel/cover/ 
-> cover.1669888522.git.rahul.singh@arm.com/
-> - SMMUv3 architecture documentation
-> - Existing vIOMMU code patterns
-
-I am not sure what this is referring to?
-
-Cheers,
-
--- 
-Julien Grall
-
+Jan
 
