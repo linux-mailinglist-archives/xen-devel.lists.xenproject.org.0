@@ -2,49 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAF3BC8E484
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 13:37:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1173790.1498794 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9A39C8E4DB
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Nov 2025 13:46:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1173807.1498805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vObFo-0005G0-N1; Thu, 27 Nov 2025 12:37:44 +0000
+	id 1vObNb-00076y-Hx; Thu, 27 Nov 2025 12:45:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1173790.1498794; Thu, 27 Nov 2025 12:37:44 +0000
+Received: by outflank-mailman (output) from mailman id 1173807.1498805; Thu, 27 Nov 2025 12:45:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vObFo-0005E7-Je; Thu, 27 Nov 2025 12:37:44 +0000
-Received: by outflank-mailman (input) for mailman id 1173790;
- Thu, 27 Nov 2025 12:37:43 +0000
+	id 1vObNb-00074g-F9; Thu, 27 Nov 2025 12:45:47 +0000
+Received: by outflank-mailman (input) for mailman id 1173807;
+ Thu, 27 Nov 2025 12:45:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kuYy=6D=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vObFn-0005Dx-5r
- for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 12:37:43 +0000
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c105::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dd604d71-cb8d-11f0-9d18-b5c5bf9af7f9;
- Thu, 27 Nov 2025 13:37:41 +0100 (CET)
-Received: from DS7PR03CA0348.namprd03.prod.outlook.com (2603:10b6:8:55::8) by
- SA1PR12MB7173.namprd12.prod.outlook.com (2603:10b6:806:2b4::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9275.15; Thu, 27 Nov 2025 12:37:34 +0000
-Received: from DS3PEPF0000C37A.namprd04.prod.outlook.com
- (2603:10b6:8:55:cafe::35) by DS7PR03CA0348.outlook.office365.com
- (2603:10b6:8:55::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.17 via Frontend Transport; Thu,
- 27 Nov 2025 12:37:34 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS3PEPF0000C37A.mail.protection.outlook.com (10.167.23.4) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9366.7 via Frontend Transport; Thu, 27 Nov 2025 12:37:33 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 27 Nov
- 2025 06:37:32 -0600
+ <SRS0=HNz/=6D=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
+ id 1vObNa-00074a-K8
+ for xen-devel@lists.xenproject.org; Thu, 27 Nov 2025 12:45:46 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id fd1af27c-cb8e-11f0-9d18-b5c5bf9af7f9;
+ Thu, 27 Nov 2025 13:45:44 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 11C781477;
+ Thu, 27 Nov 2025 04:45:36 -0800 (PST)
+Received: from [10.57.43.59] (unknown [10.57.43.59])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EC00D3F73B;
+ Thu, 27 Nov 2025 04:45:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,127 +42,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd604d71-cb8d-11f0-9d18-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mEtORtXcBq7XV/tlhFsDNTiPss7emu65AizFi53j3mlX9H6RkjVDvzv1AguneEbMRuwqZ7Iw/NLg1ozPq+75Cu4atWPjl2B832axp7ROaJCicEZp3K0GMZx/crrEbilRMTSvgUpXEYqs6dpfyr2VhiXGMFDpxncHs7KqFbMvCkKHpEC4ytTNfrvPl/q6klcVxihjCEiWBhCk5DrkoO6KFtHACjFKQJ15B2drlBvmxJVHnqDwT/4NRBxFQpxYy+eYtUDtDgseHNTn0sSpRLW6n+8GNb5nJYwGnIJLNcACZuLeMuLiEQPKEk+s0vLOpuIL+7goBcP2zBOvn1GfiUgRww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/VedOeTe5GILVTMPxkq2PryMSPPz6nGhvBcH1jCXBCk=;
- b=TsEwVpdnjCXo53iifPyoO0En+QZ8CpphriPIqsMmagm2gdgqfLzc5noon9C67K3RGkSW3IDRHnlwiqUtXz654JA0RLzeazO9xdB1eoSA0f24vihmfAp/5fCQBHhO5b00tUAtBq2ewQX/JNGtZC2Vow06jWOAf4NHLzRb9LPVF2PXRtd0E5IVSmr5clUzsJU6lUCPaDm1Yi7GzdJ45VcuNaNo11HO2VMoQqN3y/K3n2I4dMojeOg7S4JVOObMZGtl3GtbVCRf42NfjoR+Ber6Tkwtpy1clF8vBDNdjID1LR1dgPAJdX6WvPqs9KLiGMReluFZz/8zfsMgVZ38xkwbuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/VedOeTe5GILVTMPxkq2PryMSPPz6nGhvBcH1jCXBCk=;
- b=eJ0TqWZqkrrF5wMEUWwOvOu51BASMYvfi6wPc3FYuY3BV34dsVJhmabTxuGyTQXPYWG7XnCqVhAizqodlt/wGjp6gzJWORUb4L9rsiCvNVSk9GbsR64AsKNOD0/EXyCeHTIBtjEcc+1QBf9HQG/9Jx3pMeplhM5O+bdBwMkd6xc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+X-Inumbo-ID: fd1af27c-cb8e-11f0-9d18-b5c5bf9af7f9
+Message-ID: <0cb512ba-de15-4ba6-a85a-8287ab67fb53@arm.com>
+Date: Thu, 27 Nov 2025 13:45:33 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 27 Nov 2025 13:37:30 +0100
-Message-ID: <DEJHDU8GFRN2.DQ8R4SWFRI1V@amd.com>
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Jason Andryuk
-	<jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	"Stefano Stabellini" <sstabellini@kernel.org>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [RFC PATCH 01/11] x86: Add more granularity to the vendors in
- Kconfig
-X-Mailer: aerc 0.20.1
-References: <20251126164419.174487-1-alejandro.garciavallejo@amd.com>
- <20251126164419.174487-2-alejandro.garciavallejo@amd.com>
- <178630e8-7986-4a35-863c-4559779d7390@suse.com>
-In-Reply-To: <178630e8-7986-4a35-863c-4559779d7390@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37A:EE_|SA1PR12MB7173:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea8811d8-c825-42d4-b0be-08de2db1bd2d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RjNPZ3MwbExFVS9FbnpFZzl2dUhha2FWTHAzRVQ0MzhJcThMdzBYRkNoK2lO?=
- =?utf-8?B?YmVkdmRCWlduemJXN2dmVE9mZmVZOTBGeHdSWW1iYVZpc0dXejdNc2hSdnVu?=
- =?utf-8?B?eGFhT3NjSEhnNlZLNkhRM0Y5Q1BXWVBkTVNBeFFMNHFtRWlaaXQyZjlNbUNO?=
- =?utf-8?B?eVFBUC9MaHE0eEl3aWtsbzVxcDl6Q0FkWWJmZkQxNk9iV3UydFZnYzJDRDVw?=
- =?utf-8?B?OTIvanNxUEt1eGdTSmZRRk1uV2FnbUhHaU1LbHVkdFB5d3RXQS80K1dFeE9a?=
- =?utf-8?B?ajNkSHpHRnZCOEg4dThVUjM1ZHFsa1ZUZng4QjdJUVdqYTFqdDJ0c29qMW1W?=
- =?utf-8?B?cXZHZmxBdjdtRUtjbWMwN2dGWnd1ZVF5UXhoZFl3Mm92Q3RNK1phTjR2bFdG?=
- =?utf-8?B?dWlwdFlaY1lXUFZraVdJWjgxMHlUbjR6ZUFNVllOVk9GUWNOczZpS081MWh2?=
- =?utf-8?B?d1JNcXpiQmlkUVJ1OEYzWTBsMVViSXBsOGgxNWxhbHBiZlV0bktmOE5NM3Ra?=
- =?utf-8?B?dXhPR3Urd1lRd0cxdWVzayt0V1ExY2JrdW9BaVg3dlhISUFabGtGSHQ3Mnkx?=
- =?utf-8?B?UXdia042ZHJyOW5pOXpHNjNWKzBhQVVDWDRHbkIrNnUwUEMxY2RHZlU2cEgy?=
- =?utf-8?B?RjZ3aHhZOVUrSThrb09ZK1QvSm5uSFFNNXZjdEw1Y0R3eTdOdFRocXdEYWpv?=
- =?utf-8?B?WjUzUTN0enFObXNwTU1xOXRieTRuWjdQWTR5Z0d2U1Jiemt6alB5SThVK0Ru?=
- =?utf-8?B?VFFtUDdtWVhIQ3A0eWlLNk5NN1BOM0wvQkw4UzF6UG1LNWoxVDJGbkIxQ2Yz?=
- =?utf-8?B?Z21IWml4bjloT1owdHdqZkZ5bVRTM3pHYnZSeEhFL0tXRzRDaTFzT1pzL3Bq?=
- =?utf-8?B?ZHlmYXNmSlRxTTllYkdBUEVRQ1cvYys5b2RLeHk1S29WRkd4U1A0NXAxb1pD?=
- =?utf-8?B?ZjB3aG9WL1VyTGViRXdRM1dNaDc3ZnhwYU0zdHVWMG9TeUtya3Z1akN1cE10?=
- =?utf-8?B?NWNpbmsvaExuTzNtWW5zSGZNUDh3NFk2NHN4RG12MUhVV1U0a1dJQmF5cnJk?=
- =?utf-8?B?MThMVytNTUw1N25icnl1RVdxVFRFRElNSE9QdmNyZkJGWGswSW5qSWJmQzN3?=
- =?utf-8?B?YmxCWDduS2xoOU5iRUlpNWtRY2lzU0l1ME5HNGNEaXUxMWNNNXhjU3daZE5O?=
- =?utf-8?B?WW1qeTlmODVOQVJidi9YQzBhek04aTVkWUZvNHlTVkhDZlQycTIyQUpxL2dh?=
- =?utf-8?B?dlg4ZFZWUTVlcnc2aG1UczNnSW93dHFrejBPZWY0cUJhU0o3RG42ZkFyVzRS?=
- =?utf-8?B?V3FKSWRiMGs5Qjd6YTZnNURmSGprNGYzZy83bWk4MXVsaDN0b29UanVTS3gz?=
- =?utf-8?B?NXAzU252S3lPVFBsL1JzemthRFY5bzJlcHltbm1JSXlMaXdxVUtqRE9hTE56?=
- =?utf-8?B?M2JWZ0k1UkErcFllOXBodENDbFFacitYNG9Rd3NaV3JyVytvWC81Ym9uTytG?=
- =?utf-8?B?WVJlOVl2Y0FuSnZYOU9XR09VUndXVUg2ZHdKMmNBbGNhMEl0RmFrdWRCK00v?=
- =?utf-8?B?OU41RHNVbm5pRmlsbWduWXlVNldieTF0YkQ3YWNFUDVwTUc5WnUwOVhTNVRK?=
- =?utf-8?B?MjhsaUxvNWlhMDFmWmlNNjNRN1dPYmZLTlQ0MWNPUEZtK2swMUpTT3NQMWFS?=
- =?utf-8?B?aWZzTTdFemhOTmd1clBkczNQVEhKbW1TVmx0cmJISXNPOXlpbEx6WjAvUmln?=
- =?utf-8?B?MG9IVTY0eW9DVC9Tc2hxNTY5UTZwSUtsaEZVLzFFTGVRTXgvak1FU2VVSHY3?=
- =?utf-8?B?ODg2MzlaZ2kvRHUraDMrUzY4aHZFK0plUVUwL25oWld0VC9Tb3JuVXFId0Vz?=
- =?utf-8?B?NzJ4VWJ0T25SZlRPblNmQXNUS3p5NU9Fc2pKNXlUeHZtcXE4QVRHTDI2SU8r?=
- =?utf-8?B?VUVEc1FWbE9UVzZHdXFyamEvSVJzazFRMEVhY3NkbldnNHBSczJBVmVOS3Ft?=
- =?utf-8?B?ZVlsTmgzNHdJSnZ0czc3RzREWGNDK0QwdGNjdFJlNlZmU3owQkdjUmZPNHMz?=
- =?utf-8?B?RlNvclhUNzJyTGF5ZTU0enpGNi9hS2RqRmZSeENRRUp4QVFNcEh3MUlYVTJR?=
- =?utf-8?Q?PvC8=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2025 12:37:33.8742
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea8811d8-c825-42d4-b0be-08de2db1bd2d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF0000C37A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7173
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 08/12] mm: enable lazy_mmu sections to nest
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ David Hildenbrand <david@redhat.com>, "David S. Miller"
+ <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+ Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Suren Baghdasaryan <surenb@google.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, linux-arm-kernel@lists.infradead.org,
+ linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
+ xen-devel@lists.xenproject.org, x86@kernel.org
+References: <20251124132228.622678-1-kevin.brodsky@arm.com>
+ <20251124132228.622678-9-kevin.brodsky@arm.com>
+ <4d0eab1a-e1dc-49cf-8640-727c9734233d-agordeev@linux.ibm.com>
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+Content-Language: en-GB
+In-Reply-To: <4d0eab1a-e1dc-49cf-8640-727c9734233d-agordeev@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu Nov 27, 2025 at 10:59 AM CET, Jan Beulich wrote:
-> On 26.11.2025 17:44, Alejandro Vallejo wrote:
->> This enables very aggressive DCE passes on single-vendor builds in later
->> patches, as it will allow most vendor checks to become statically chosen
->> branches. A lot of statics go away and a lot more inlining is allowed.
->>=20
->> In order to allow x86_vendor_is() to fold into constants, expand Kconfig
->> to have the full set of vendors. Adds Hygon, Centaur, Shanghai and the
->> default path.
+On 27/11/2025 13:33, Alexander Gordeev wrote:
+> On Mon, Nov 24, 2025 at 01:22:24PM +0000, Kevin Brodsky wrote:
 >
-> Oh, one more thing: There's x86_vendor_is() yet, so what it is going to b=
-e
-> needs at least roughly explaining here.
+> Hi Kevin,
 >
-> Jan
+> ...
+>> +/**
+>> + * lazy_mmu_mode_pause() - Pause the lazy MMU mode.
+>> + *
+>> + * Pauses the lazy MMU mode; if it is currently active, disables it and calls
+>> + * arch_leave_lazy_mmu_mode().
+>> + *
+>> + * Must be paired with a call to lazy_mmu_mode_resume(). Calls to the
+>> + * lazy_mmu_mode_* API have no effect until the matching resume() call.
+> Sorry if it was discussed already - if yes, I somehow missed it. If I read
+> the whole thing correctly enter()/pause() interleaving is not forbidden?
 
-Fair enough.
+Correct, any call inside pause()/resume() is now allowed (but
+effectively ignored). See discussion with Ryan in v4 [1].
 
-Cheers,
-Alejandro
+[1]
+https://lore.kernel.org/all/824bf705-e9d6-4eeb-9532-9059fa56427f@arm.com/
+
+> lazy_mmu_mode_enable()
+> 	lazy_mmu_mode_pause()
+> 		lazy_mmu_mode_enable()
+> 		...
+> 		lazy_mmu_mode_disable()
+> 	lazy_mmu_mode_resume()
+> lazy_mmu_mode_disable()
+>
+>> + *
+>> + * Has no effect if called:
+>> + * - While paused (inside another pause()/resume() pair)
+>> + * - In interrupt context
+>> + */
+>>  static inline void lazy_mmu_mode_pause(void)
+>>  {
+>> +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
+>> +
+>>  	if (in_interrupt())
+>>  		return;
+>>  
+>> -	arch_leave_lazy_mmu_mode();
+>> +	VM_WARN_ON_ONCE(state->pause_count == U8_MAX);
+>> +
+>> +	if (state->pause_count++ == 0 && state->enable_count > 0)
+>> +		arch_leave_lazy_mmu_mode();
+>>  }
+>>  
+>> +/**
+>> + * lazy_mmu_mode_pause() - Resume the lazy MMU mode.
+>                     resume() ?
+
+Good catch! One copy-paste too many...
+
+- Kevin
+
+>> + *
+>> + * Resumes the lazy MMU mode; if it was active at the point where the matching
+>> + * call to lazy_mmu_mode_pause() was made, re-enables it and calls
+>> + * arch_enter_lazy_mmu_mode().
+>> + *
+>> + * Must match a call to lazy_mmu_mode_pause().
+>> + *
+>> + * Has no effect if called:
+>> + * - While paused (inside another pause()/resume() pair)
+>> + * - In interrupt context
+>> + */
+>>  static inline void lazy_mmu_mode_resume(void)
+>>  {
+>> +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
+>> +
+>>  	if (in_interrupt())
+>>  		return;
+>>  
+>> -	arch_enter_lazy_mmu_mode();
+>> +	VM_WARN_ON_ONCE(state->pause_count == 0);
+>> +
+>> +	if (--state->pause_count == 0 && state->enable_count > 0)
+>> +		arch_enter_lazy_mmu_mode();
+>>  }
+> ...
+> Thanks!
 
