@@ -2,36 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A460C9220C
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 14:28:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1174832.1499774 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F195C9226C
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 14:38:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1174843.1499787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOyVp-0001uc-Ry; Fri, 28 Nov 2025 13:27:49 +0000
+	id 1vOyfw-0003oB-QN; Fri, 28 Nov 2025 13:38:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1174832.1499774; Fri, 28 Nov 2025 13:27:49 +0000
+Received: by outflank-mailman (output) from mailman id 1174843.1499787; Fri, 28 Nov 2025 13:38:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOyVp-0001rV-OS; Fri, 28 Nov 2025 13:27:49 +0000
-Received: by outflank-mailman (input) for mailman id 1174832;
- Fri, 28 Nov 2025 13:27:48 +0000
+	id 1vOyfw-0003lv-Ln; Fri, 28 Nov 2025 13:38:16 +0000
+Received: by outflank-mailman (input) for mailman id 1174843;
+ Fri, 28 Nov 2025 13:38:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sso2=6E=bounce.vates.tech=bounce-md_30504962.6929a350.v1-38aa5d452551445e92bae929b494660c@srs-se1.protection.inumbo.net>)
- id 1vOyVo-0001rP-I7
- for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 13:27:48 +0000
-Received: from mail132-20.atl131.mandrillapp.com
- (mail132-20.atl131.mandrillapp.com [198.2.132.20])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FSNm=6E=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1vOyfv-0003lT-H8
+ for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 13:38:15 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 063f7508-cc5e-11f0-980a-7dc792cee155;
- Fri, 28 Nov 2025 14:27:46 +0100 (CET)
-Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail132-20.atl131.mandrillapp.com (Mailchimp) with ESMTP id
- 4dHvHN4HjTzFCWZNS
- for <xen-devel@lists.xenproject.org>; Fri, 28 Nov 2025 13:27:44 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 38aa5d452551445e92bae929b494660c; Fri, 28 Nov 2025 13:27:44 +0000
+ id 7b8d07c0-cc5f-11f0-980a-7dc792cee155;
+ Fri, 28 Nov 2025 14:38:11 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 954205BD6E;
+ Fri, 28 Nov 2025 13:38:10 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 682D83EA63;
+ Fri, 28 Nov 2025 13:38:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 4rzcF8KlKWkCLgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Fri, 28 Nov 2025 13:38:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,129 +52,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 063f7508-cc5e-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1764336464; x=1764606464;
-	bh=bSU7yfFnAdDXZn1HJHtHgLtnFy4V2A1/5jF5UEOrF7A=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=KH5fREFEsS61qhP31OTV+3rz5ARV46UWRmt7JyheubZirVShfk2ZOED4o7SwjSoF2
-	 wMqI1zOqfteccz/18q3F/G04Fd+ODtcQ/jlLMQWrbeiTJr8nJLOSwrcvuB5fIfaDof
-	 YsJVD2dzRyMF2gwS5fXgbr4djXHX/diRCetd+D4UyOnZFNh5xQD2v+V6U5kiEMXQ+Q
-	 Ib4Qt2vQRwDRVljceeV4bfBWycFLixjK1OTICjxgy3/li7Y5zgyhfICokQ0RMHRVOQ
-	 WNREbDiKVV4JLCKPAZLEq8QcUyDjwmnr3yI8PQIYC1bYhKgcwmjTeBcSEoeojj9eE8
-	 pQxpS06riiwtA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1764336464; x=1764596964; i=julian.vetter@vates.tech;
-	bh=bSU7yfFnAdDXZn1HJHtHgLtnFy4V2A1/5jF5UEOrF7A=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=tAnnHbp4L9e8gnWRjGozEM53EBiR885QhB78hCxy7WZ2nIZ5cJfk4e1aJ7eB7VQWx
-	 FqKhLnCcZDl8gQNWAOQyCrr4FmEvP9jbNdDpE5b7e/EBIVMqQ8x/GAktudP/fBdoAx
-	 /fBTtCftmAEJLiScorCwBZVwzin15mAdhjKMgH1O/N7m60sEpWk+KmoPsc9k8+3J3b
-	 xJsnUhCPeZsJsqhR2nri4maw03gz66SuB/ZmP63a6vq2aYtJpYLlZnuxh2CB0IxnRn
-	 faA7GyUbrD8teq+jG7tlF3+OAOd0ma3VxPNuJKZoHMgGsyFKdoL2LDKujWhiHM9bwZ
-	 18CUazwOXvzXg==
-From: "Julian Vetter" <julian.vetter@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH]=20x86/efi:=20Remove=20NX=20check=20from=20efi-boot.h?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1764336463250
-Message-Id: <38ef77ec-e215-48cc-9139-764190a1c6de@vates.tech>
-To: "Teddy Astie" <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>, "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>
-References: <20251127143136.1598354-1-julian.vetter@vates.tech> <c0a9a466-e78c-4022-a631-4840e085ae77@vates.tech>
-In-Reply-To: <c0a9a466-e78c-4022-a631-4840e085ae77@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.38aa5d452551445e92bae929b494660c?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251128:md
-Date: Fri, 28 Nov 2025 13:27:44 +0000
+X-Inumbo-ID: 7b8d07c0-cc5f-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1764337090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=VmOWmOaXjUYefxxHhYfjGdU9/uWVMkzSMEAj+6XFJlo=;
+	b=R4a4Dxzz8+/qNkCD2WRzLaFXjSHQ+CqaCW55QmnXFJ+OD5xsgYGhvfZy9HZbJ7ovkMxkGk
+	WGfAXV3AbQKyABmoink77IVS3RGcHgemcz+L96DjNqgvaegb1JnoTGTI9LJporh8aV/+Tl
+	aEGbOtteJhWkv+LZ/apuAaoxdDObsjI=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=R4a4Dxzz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1764337090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=VmOWmOaXjUYefxxHhYfjGdU9/uWVMkzSMEAj+6XFJlo=;
+	b=R4a4Dxzz8+/qNkCD2WRzLaFXjSHQ+CqaCW55QmnXFJ+OD5xsgYGhvfZy9HZbJ7ovkMxkGk
+	WGfAXV3AbQKyABmoink77IVS3RGcHgemcz+L96DjNqgvaegb1JnoTGTI9LJporh8aV/+Tl
+	aEGbOtteJhWkv+LZ/apuAaoxdDObsjI=
+From: Juergen Gross <jgross@suse.com>
+To: minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org,
+	Juergen Gross <jgross@suse.com>
+Subject: [MINI-OS PATCH] x86: have .note.Xen segment contents before other .note.* ones
+Date: Fri, 28 Nov 2025 14:38:07 +0100
+Message-ID: <20251128133807.9206-1-jgross@suse.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,suse.com:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DWL_DNSWL_BLOCKED(0.00)[suse.com:dkim];
+	RCPT_COUNT_THREE(0.00)[4];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -3.01
+X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 954205BD6E
 
+Today the linker script of Mini-OS specifies to merge all .note*
+sections into a single section .note:
 
+ .note : {
+          *(.note)
+          *(.note.*)
+  }
 
-On 11/27/25 16:33, Teddy Astie wrote:
-> Le 27/11/2025 =C3=A0 15:33, Julian Vetter a =C3=A9crit=C2=A0:
->> Currently Intel CPUs in EFI mode with the "Execute Disable Bit" disabled
->> and the 'CONFIG_REQUIRE_NX=3Dy' fail to boot, because this check is
->> performed before trampoline_setup is called, which determines if NX is
->> supported or if it's hidden by 'MSR_IA32_MISC_ENABLE[34] =3D 1' (if so,
->> re-enables NX).
->>
->> Signed-off-by: Julian Vetter <julian.vetter@vates.tech>
->> ---
->>    xen/arch/x86/efi/efi-boot.h | 12 ------------
->>    1 file changed, 12 deletions(-)
->>
->> diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
->> index 0194720003..8dfd549f12 100644
->> --- a/xen/arch/x86/efi/efi-boot.h
->> +++ b/xen/arch/x86/efi/efi-boot.h
->> @@ -748,18 +748,6 @@ static void __init efi_arch_cpu(void)
->>        if ( (eax >> 16) =3D=3D 0x8000 && eax > 0x80000000U )
->>        {
->>            caps[FEATURESET_e1d] =3D cpuid_edx(0x80000001U);
->> -
->> -        /*
->> -         * This check purposefully doesn't use cpu_has_nx because
->> -         * cpu_has_nx bypasses the boot_cpu_data read if Xen was compil=
-ed
->> -         * with CONFIG_REQUIRE_NX
->> -         */
->> -        if ( IS_ENABLED(CONFIG_REQUIRE_NX) &&
->> -             !boot_cpu_has(X86_FEATURE_NX) )
->> -            blexit(L"This build of Xen requires NX support");
->> -
->> -        if ( cpu_has_nx )
->> -            trampoline_efer |=3D EFER_NXE;
-> 
-> I don't think we want to skip setting EFER_NXE. As it would mean not
-> using NX at all (unless I missed something).
-> 
+It seems as if ld will use the attributes of the first .note* segment
+found during the linking process for the final .note segment.
 
-Yes, I though the code in trampoline_setup is taken in any case. Because 
-at the label .Lgot_nx the EFER_NXE is set. But Andrew said that this is 
-not always the case, then you're right this should be kept.
+Somewhere between binutils 2.43 and 2.45 something changed resulting in
+.note.GNU-stack being the first .note* segment found. Unfortunately
+this segment has unusual attributes: it has PROGBITS instead of NOTE as
+type, resulting in the Xen ELF parsing to no longer look into it for
+finding the Xen ELF-notes. This in turn will result in failure while
+trying to parse the binary, which will let domain creation fail.
 
-> If cpu_policy doesn't have nx, it is likely going to cause issues e.g in
-> VMs which will not see NX and potentially refuse to boot. I don't really
-> know in which order things are initialized, but it probably wants to be
-> considered.
-> 
-> Perhaps, we want to do something like detecting the
-> MSR_IA32_MISC_ENABLE[34] then adjusting the cpu_policy appropriately
-> after patching it ?
-> 
+In order to avoid this issue, enhance the linker script to merge
+.note.Xen before other .note.* segments, resulting in the final .note
+segment to still have the NOTE type.
 
-yes, I was wondering if we couldn't do the check for 
-MSR_IA32_MISC_ENABLE[34] =3D=3D 1 directly in the efi_arch_cpu().
+Fixes: 6d1cc81d049f ("x86: switch to use elfnote")
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ arch/x86/minios-x86.lds.S | 1 +
+ 1 file changed, 1 insertion(+)
 
->>        }
->>    }
->>    
-> 
-> 
-> 
-> --
-> Teddy Astie | Vates XCP-ng Developer
-> 
-> XCP-ng & Xen Orchestra - Vates solutions
-> 
-> web: https://vates.tech
-
-
-
---
-Julian Vetter | Vates Hypervisor & Kernel Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+diff --git a/arch/x86/minios-x86.lds.S b/arch/x86/minios-x86.lds.S
+index 8c6e0a60..6367b4b2 100644
+--- a/arch/x86/minios-x86.lds.S
++++ b/arch/x86/minios-x86.lds.S
+@@ -33,6 +33,7 @@ SECTIONS
+ 
+         .note : {
+                 *(.note)
++                *(.note.Xen)
+                 *(.note.*)
+         }
+ 
+-- 
+2.51.0
 
 
