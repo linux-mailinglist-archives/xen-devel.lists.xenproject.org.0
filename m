@@ -2,40 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63BE9C9229E
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 14:41:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1174859.1499796 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF4F4C922EA
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 14:52:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1174873.1499806 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOyj8-0005R3-6N; Fri, 28 Nov 2025 13:41:34 +0000
+	id 1vOytR-0007fE-6Z; Fri, 28 Nov 2025 13:52:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1174859.1499796; Fri, 28 Nov 2025 13:41:34 +0000
+Received: by outflank-mailman (output) from mailman id 1174873.1499806; Fri, 28 Nov 2025 13:52:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOyj8-0005Ob-3b; Fri, 28 Nov 2025 13:41:34 +0000
-Received: by outflank-mailman (input) for mailman id 1174859;
- Fri, 28 Nov 2025 13:41:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vOytR-0007dC-3s; Fri, 28 Nov 2025 13:52:13 +0000
+Received: by outflank-mailman (input) for mailman id 1174873;
+ Fri, 28 Nov 2025 13:52:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YqkP=6E=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vOyj5-0005OT-WD
- for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 13:41:32 +0000
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20f::7])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f24cec9c-cc5f-11f0-9d18-b5c5bf9af7f9;
- Fri, 28 Nov 2025 14:41:30 +0100 (CET)
-Received: from AM6PR03MB4600.eurprd03.prod.outlook.com (2603:10a6:20b:6::31)
- by AS2PR03MB9929.eurprd03.prod.outlook.com (2603:10a6:20b:646::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.16; Fri, 28 Nov
- 2025 13:41:27 +0000
-Received: from AM6PR03MB4600.eurprd03.prod.outlook.com
- ([fe80::ec82:849c:dc0b:f6d4]) by AM6PR03MB4600.eurprd03.prod.outlook.com
- ([fe80::ec82:849c:dc0b:f6d4%4]) with mapi id 15.20.9366.009; Fri, 28 Nov 2025
- 13:41:27 +0000
+ <SRS0=qL3d=6E=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
+ id 1vOytP-0007d6-Mj
+ for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 13:52:11 +0000
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6d9fbc02-cc61-11f0-980a-7dc792cee155;
+ Fri, 28 Nov 2025 14:52:08 +0100 (CET)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5AS7BFTe019581;
+ Fri, 28 Nov 2025 13:50:52 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ak4uvpnby-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 28 Nov 2025 13:50:52 +0000 (GMT)
+Received: from m0353729.ppops.net (m0353729.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5ASDop3o022924;
+ Fri, 28 Nov 2025 13:50:51 GMT
+Received: from ppma13.dal12v.mail.ibm.com
+ (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ak4uvpnbw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 28 Nov 2025 13:50:51 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5ASBYANQ027466;
+ Fri, 28 Nov 2025 13:50:50 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+ by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4anq4he397-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 28 Nov 2025 13:50:50 +0000
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com
+ [10.20.54.102])
+ by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 5ASDokoI38601150
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 28 Nov 2025 13:50:46 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 99BE320043;
+ Fri, 28 Nov 2025 13:50:46 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A6BFF20040;
+ Fri, 28 Nov 2025 13:50:45 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.155.204.135])
+ by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Fri, 28 Nov 2025 13:50:45 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,175 +74,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f24cec9c-cc5f-11f0-9d18-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mQqGlSOeYDNuLoNmVjqPdlZz4W1ud/lC+GW6S9Xj1cXBEYoTNZFL6htHZPJDlnngRY8HOOi8zisM162dL4bsZ6eZB13/J75klNoAE2HyZpQ9nF84PMyouc1zUdHs+gqEoaGniReOmTb7wZnAPAJiULyQKD+rriHuyRaTzx4UWo6ZTqAj7kxeAmBMIez5eoVV0MEdWkGl2LlBpmdm8W68WTDDbDv8i4SxqTOCA0ra3ONhmZT3eS/ccJxb1mkZS4ImcD/kdrgMmiDWXc6ap2Z1RKTS/4+vDVEtxgqNytAQ//Wr5jKkAUzS5x/cziLbKPiei38r+2AuImlYNmybsQfzAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tzoxoM9J6gp4BN/3M8GU7oAmfY6x/NtL+3wFAeqvHDE=;
- b=qYlMhE4Kl8AXD4PNQJRLGoaSmq73P5X28JWPgyd6DgjmMu2VdIe6bW8PmA3NmnCWu2oZLEQVlk05AcG5SXNfNqHdoIYvkyfn3cU+Ve83JrmX8AUVOXT4lHEMBaEL3wx7n54+TXwbPGALpsE0Qghx0L61enmFIrsJDE+1E3+shxHhO5xKggevyRHHhE+rQwXa6doYfaBqxpVD1PadzxeJ73I1kzT8dAlQlf7HIlhTCC642VD/4nSA1fHC1jA7Gz75oAVsClh7ls01/lnCJlAIjJf/BmO1X4xNQO+CRqGGQjl1rrnRZTVxGcx2jJwQ6dCAm3VmzGR3KWfRsxxG/Ivjig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tzoxoM9J6gp4BN/3M8GU7oAmfY6x/NtL+3wFAeqvHDE=;
- b=OH/dZlkLWyQP3ZhH/YKoD+r/xaVSw34fCNj8gFik2ZbHLH6riLuiqfMvCPakFQbF9Rs40z4cBnDsok6bCx/LU35r2PJUcIOH6DHJD+O1664P/NkTH7IOX7cftWwQpAwinMiqUoydC3DYVsP9jtHR8Gtw3Bwkuf2nerPtFm3Ewoq+i5D1zdrjoww6wOhG0BuUabF6S3LxoSvX0kMivoZgUHS/e+puY6o+PP79SvtpWUfNEh3Od9W1woUNO+UHope5kMEGyRw3DJWBRUoU7LH3ABMCyVPKHjCy9Sn2GsG/3FCzRCtBqxmaQ2ZSKAGyE5FwXPQjQWUsb1shLPCIf4RS6A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <0e355293-a4f9-4474-aea3-e9575cfd209f@epam.com>
-Date: Fri, 28 Nov 2025 15:41:25 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/domain: introduce generic functions for domain
- struct allocation and freeing
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Timothy Pearson <tpearson@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- xen-devel@lists.xenproject.org
-References: <0a66c71356e8d6ea788022438d7a73dbff8aa5b9.1764243466.git.oleksii.kurochko@gmail.com>
- <fbb420d8-499a-48f9-91d0-06469f265ff7@epam.com>
- <467b9a77-6e90-4877-be8f-59deb72d1827@suse.com>
-Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <467b9a77-6e90-4877-be8f-59deb72d1827@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0231.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e9::11) To AM6PR03MB4600.eurprd03.prod.outlook.com
- (2603:10a6:20b:6::31)
+X-Inumbo-ID: 6d9fbc02-cc61-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=r/OOpcVTp61iopdoqOEy4BlI0dubVk
+	eEnLCmlQuTfcE=; b=K2Z8tqMvKnbK3NPoVnvwS9bUNU+eHd2oMYLOcbbh8yfK0y
+	7w+kywfkKjNbOtVYyLHncZfrLhsUFlMKc8mckWWFo/7yDF7q2EC3680JCjr0BDdu
+	8hdzQIFNvTY74oSwkge1FPDmDtQuS3N4eKeep50nCH91r64Ni41OGcShCtvxag/d
+	oQJuOfiI8kQiaTqyu86HXCvB1Ut662QlIMQYNdLjG9yHF3w4NFq53bu3DX5W0wUK
+	KJtTHVgf+JS2KOO3k4hBKyku54ovMUn0BQWEN4c+awe+REbEmOxOF0bVDID0fYMS
+	c9lxbFvTLYJpmhyU8CyCMh3b6QO1RShuMgREVYig==
+Date: Fri, 28 Nov 2025 14:50:44 +0100
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        Andreas Larsson <andreas@gaisler.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        David Hildenbrand <david@redhat.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        David Woodhouse <dwmw2@infradead.org>,
+        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Ryan Roberts <ryan.roberts@arm.com>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+        Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>,
+        Yeoreum Yun <yeoreum.yun@arm.com>,
+        linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
+        x86@kernel.org
+Subject: Re: [PATCH v5 06/12] mm: introduce generic lazy_mmu helpers
+Message-ID: <07ffb66d-1e74-4634-bccb-75575b3862af-agordeev@linux.ibm.com>
+References: <20251124132228.622678-1-kevin.brodsky@arm.com>
+ <20251124132228.622678-7-kevin.brodsky@arm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM6PR03MB4600:EE_|AS2PR03MB9929:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4acde34d-cb41-4bd2-22cd-08de2e83d43b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RUR5NitjSEx1YUNqUkFWWEJzUkRtdlprR1YvSjl1dm94VXRWT1VsTmYvY3k4?=
- =?utf-8?B?WXFtTlpwNXZKOHozeUcyRFZVNnJqNlpoT1YzVzVJK3QzQTFqM0ZUcFMxZUd6?=
- =?utf-8?B?N0ZUMW9uUXBLcm9jZTFvZW9OYmxabVlOMGw4eFJvTmxieHVOMnJJQWh2NCt1?=
- =?utf-8?B?S0F2cTByZU9VQWk5Uko0VVM4dkFhZ1JlMDlteHplQzZoeXU5WXgyQ0pYcUww?=
- =?utf-8?B?QVhsWm8rRlN2TG9tL3BkZVBZRWJsbFJvdGYwNWZ6blc1U0MzQmcrOXNWZXJP?=
- =?utf-8?B?amR3MFRENmZlRm5lelhZTytZKzBpNVJLbW1MMldMa1VmaUM3VFJkRzBhci9w?=
- =?utf-8?B?NTN5RkNwNVhjanN3NFRpdWRYTllYalRyRTRCcjJCb3Z3TUtWWGQxYVBZaVVi?=
- =?utf-8?B?VDIwZ3FCVW5UbC8raXd6NkhtQ0ZxSlQ3aHJFQnJicWhDRVMwdmRlbkdBQk5m?=
- =?utf-8?B?SXpNSkJRY1ZxRU9vYzhYSnBhalBacXA1c2JhMGsxd3h5K05ZKzZzUjVZSlVJ?=
- =?utf-8?B?dDc4SWwyOFVRMzM2M0xhR21LSlNZbm9yNlRYK0dtVnI2NTZXZiszTTdBdnQv?=
- =?utf-8?B?eVJxVkUyUC9VdjIwbWlZcFJpZ1hPbThJWlFsL0ZWREs1VE9FTXllUk1RSGJx?=
- =?utf-8?B?V3pnSEhacXhzRWYvc1F3TTJsZFkrTnMzQWZRN29wVHlJQndlSmdiL2dlR3U3?=
- =?utf-8?B?YXFid1cvUzg3aVpkZGsrZFkzeGhjSkFVZ0dGWStDdnRZd28yd3hSVjFENzNk?=
- =?utf-8?B?eFg0bko2RC85T25hdWVSOGVVZVZxdHZiaUxDaWhxSWV5ZTdrQ3ZCalBlTkdQ?=
- =?utf-8?B?VU1BYytnZ3lZTis1TXBNcHlHZWN4cU0xMEN6LytKMzdJbFlpbWhVOUoxVzE3?=
- =?utf-8?B?MFNQVVgxbVByNU9ZK3gydTJwemlTS3RaYlRWTHduN1FhMUVCcEZtNURSWmpk?=
- =?utf-8?B?d0xJT1k4alNmb1ZLcjNOTFFBM3RlRFRVanR6dmlsbFBkR213aDVIeGlENnlG?=
- =?utf-8?B?Y0dNSlgwaDgrS3BGUXVrMGdZZGlFdytDekRJKzVXTm4rL3pIR1hoQTZFOS80?=
- =?utf-8?B?RzhJcEY5L3BmZWRpK0x4cFVzMFZRZlQ3V1lZOGkzaml2Kzg0eHRaeG9idmxK?=
- =?utf-8?B?M0hKL3hIYk53eUYwWXpkQ09sR3hCOHlFTkNNbnpTZ0VROS8xaDFwNERodkEy?=
- =?utf-8?B?ZFVRQVJUOUVMWkJsU0RSeEY5Q0VDTjVoeFV5YzlSWTFIS2U5WVk1UWl1UzFU?=
- =?utf-8?B?cnhqME85bXlDZzUzbmxsdUN2RGNYZnRudmtDUjg5SXhUZUNic09jZEo4TXNZ?=
- =?utf-8?B?RW5MRmdjUDdkQTNzV3E5ZFZod0JXVEIvUi9TSlpMUlJZZjVSdW8rRndkOXhh?=
- =?utf-8?B?KzN2d1dMVFpScUJQOHdNVFJFdFNBT0lnN0dzMUUzRWsranlweEl4QnByQXp6?=
- =?utf-8?B?WngvYlBqT293eGl6WVVSTEQxWVViWlVZRUZjcExPTU8xWlVFMDhtT2NRRjln?=
- =?utf-8?B?WGt2L25wMW1vL2pvYmpaZGJFSTFKb3NVQW5lQkFRSkFMbXVDL3Q2V0pBbmVG?=
- =?utf-8?B?M2JOMjhqeVdMUVNkbGZmTDZvUThJUitZbkhCNE5sUllYSFdPbi9RZU1FUUU4?=
- =?utf-8?B?Uk9RaE4xRjhuYXFBRTJpeHdtWTI1QWhiUnBCdm8vTW1iS0JBQ2MxU3U3Zjk1?=
- =?utf-8?B?cm5WRytjSllJUjVYd250RFI2dWlIbVFicks5RkVtY284aDZVNU5DcERyNzBl?=
- =?utf-8?B?QysxcHVob28zWWp6Y2lvTklTQXBweXRodC9TSjdFdEVmVW5RcGhoR2ozTEx6?=
- =?utf-8?B?bnhlOGFOMUJZZmFWVUdmdTFENFZyczJtUlAyVGxNZ2ZlbDlJYzVPY3czQ1J0?=
- =?utf-8?B?a1pEd0QzTTFDcGFuZEhVLyttbk91aW1rcm9PUWFGUUYza1l2QjRheXgvNnZK?=
- =?utf-8?Q?1fleZgHXC6gkIgGGRMaQhAjY3eevy4kI?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR03MB4600.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dFlNUmFYU0dCSk9kSURtMWFqWUdkQlFCVjNrWHAraERVRzVGcFRNS2xXZWNn?=
- =?utf-8?B?UzVvU2M0SnU0SXRTUm8zVURvOU85WFpGQW9KaVkvSHNZTGFBdlgvWTRwVFE0?=
- =?utf-8?B?Yzl6V2s5Y0pyN00xMENJSkxEQVFOdWpDMzJIOE5MakExRDlXSVZSVjA5eGc2?=
- =?utf-8?B?d2xzK0lWRlRHblZkbkFCenRvcnUrb3A0Z25YcFJIRDdMc1lFWjBqUWhUQkZF?=
- =?utf-8?B?a3I2ejZYaGhvU0RxUHBaVEZaWnRyMXlveGZtVVJxcEwyY01MMXNaNFJtY3NY?=
- =?utf-8?B?QVo3V2VXdjlXYVhWMHNKR1pYUUw5VEg2bThKcGlXSWMrT3pzeWluM0JJckV2?=
- =?utf-8?B?SmllN1lNOU1KbUdPcW81eHI0dXRFT3pkZnpZTE1hMWtuZ3BuYVF5SXNhRzlE?=
- =?utf-8?B?U3dnTS9yM240eDBPeFlaOEp4UGhpeEFRWkFwK3VnNk5RVnU3WWQ4MlJqV3Rh?=
- =?utf-8?B?ZHB0eUQ4RU92blBPc0pVNk5tL3IzM1RhV2haK0lZMkhNZXU2WGVONGtncTJO?=
- =?utf-8?B?Qm9OeW1mYjNtcmxqRVIyYUkzWUNMT3hYV2N2MFNEQ0ozUW9ISUw4dXE2dHJw?=
- =?utf-8?B?Q0QxZHJhdXNlVVAyVnBONzZocW9PM2xGOXQ3MTMxZTNMeUpiQkd2OFdiRUQw?=
- =?utf-8?B?S2p1b3FjMW9DUTNUcHRZTys5OXNEaHRkaHU4cExnL0lKZTNSMjg5c05NZUJK?=
- =?utf-8?B?b1RBL1pMZjBzeTd6aUVublFaL3IwTE11S2srZU1sOC9vd2YzMUg3SGFKRUFV?=
- =?utf-8?B?S0lOT3JNNEJkMkxJNHZBKzlBcEZCSzhsNk5WaG5JWjBmMG16NjdUSGZoSHZW?=
- =?utf-8?B?bjFUT2twY0s4cWRXLzU3a3BsSG9OVzdIRlhQUEhuQ3R1QnFzZThoRUhXeGIz?=
- =?utf-8?B?dGRFMzJTS1ZhWlJWZVJQTk1MSVRQUHlXZjlhZG43eUNaWjdVU0JEYW8xb0ti?=
- =?utf-8?B?alZCVFE2ZDl4dDBjdTZWMTdZQVNVUEpmMktOajBkRkNXaEZaa0RPOW1EaXNX?=
- =?utf-8?B?TTg3R3pSNHZZM2NrOEdPa2lrOVZJTkk4MEpIMGMwNThKdkFuVWkwa3laOC9Z?=
- =?utf-8?B?YkI1Q3o4cFdLOUFRckgwYUg2RlQrNlkxcTJ4S2R2QkIxMFVTMTJZMjJ5SWxl?=
- =?utf-8?B?KzVtMlRLSFlOd2xTRzNTZWNIdjNISXBza2JRVW1ySENSUmlBSEJGa1lzRGM4?=
- =?utf-8?B?Zkd2UW94SkdEWmJnQVRVZzdqUDN3bWJSVk1TN1czUXFmdE1IWGlDdUErWXpE?=
- =?utf-8?B?cURsaWRBeUlkQWN0WW5DWUVpVjFFZFl6b2pZSTF3a1pUSzZrdjF5ZXo1MWE4?=
- =?utf-8?B?QW5hWWRtV1pNMHlDZjEvMHIwbXNBZitZVTJHalQxR1hYbkVBMmc5SkFDeXVS?=
- =?utf-8?B?NWtaY2lRcXRML3VnRkl5eDlJSkVIZ0t1VlQ4bFRNV2xJWHdkWHdZeVpNdTBr?=
- =?utf-8?B?SWVyUmcrTHFZU3lsMFNuVVIwRjFWR3Z3VERLVVNVWTNQNHZmT1Exb3lmazkx?=
- =?utf-8?B?VS9MUVEyMEswYWRlTllWWm0rL3hCV3kvRVl2YlB3ZkFjVldXOHVFZ3NDRWor?=
- =?utf-8?B?YjBqQjBSRFM3NktSTkpSVDFoNUwvZHoyQWFoNFBvMVo1a1dwOW45aGlUdUVK?=
- =?utf-8?B?Wmpwb2FpeDUrSEJ5ckhJbUgxbU1OQXo5cnZhQTNjRzdGaVJGZWx3V3F2RXht?=
- =?utf-8?B?ZXlQRlYwd3VqWG5DY1UwazdydlRHeDFGemtDTFNoV2kzaHNFSUcvWDA4N1Vv?=
- =?utf-8?B?REU5VlloWUt2ZHNlcWVNWG0xRnFKb2h6R1VIODdJU29PVmt1RFBjWC9xNU5B?=
- =?utf-8?B?YlB0UTdnL2ZqbEUvS2g0aVJYSnYwMXBLcWZXUTNVRHc5Q2tXOXBwWWlrNGxK?=
- =?utf-8?B?QnNtV1puZjhVSFA0b3ROYzVSMWtCNDJpVjQzbW5jeSs3eW1weDZ3eWo3Tnkx?=
- =?utf-8?B?dW1zQnFzbFJDajFscVJpU3IvdExBWmQ4N3BPTEN2c0NUVzF2UFV1M3Z2OVpI?=
- =?utf-8?B?dEIwQW9vbFJLSStUbUo4MklZK2ZqSVFWcC9XRTkraG1KaGFRNkd3b0V5NTFz?=
- =?utf-8?B?aG0zMHM3cEt4dWVObmJwcGorRmkvZThiSzVMMFFyT1k4eGtOWDZ1MTA4d0pa?=
- =?utf-8?B?bzlxZTN6b25ZSjFLUEpzNGNSZFRNVjJvSlJZWWRVcVF2VmtaNkZRU2hlaU13?=
- =?utf-8?B?Z0E9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4acde34d-cb41-4bd2-22cd-08de2e83d43b
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR03MB4600.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2025 13:41:27.0741
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PH/D0T0wmxSUgn36ev25tW6MaLpzU+ivjlTFvzvOmPfhUMLl3hPC96G4thWqXZz15zSjRi739tBrAIkoAqtv8EWPsg6N69mLH3j1on6mRqA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB9929
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251124132228.622678-7-kevin.brodsky@arm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTIyMDAyMSBTYWx0ZWRfX2ersG0vbStz0
+ FLn4GUMOcSxnVbRNPX+VoL6pG7B6q9UsQ2OZG5zNPsZ5dk6+yNddVfyFO4U0uqrKeTdCEHcr2b5
+ l15HvPDcY0Lc38rVTn2il/GNHJ96Q2/VeOAUyp2DHD09YEDF7m+IZDZ8XPJoTE+UPvafWv7l/y8
+ 1iSrwrbuSmWXb5LS0zGud5cDdbkRbuFZ18eO9q7EkgPbpUJ9usgLbYsqxLyzPAxNnG34ofEs4sE
+ ksZQxJ67fToJqX3beRWd6D9kF6kg/SXsAPhgRoMeI7l1sNXEZ6vrAx+o44xH+gY8A5Z2yuzyB8b
+ roVSjE+o2OX6QR76JlqKTFjCl+HbnJOryGRQxe1hT3H5YzWY9YCpvkpeU7+0rpiOAm4Gk+k6POO
+ kmT2iY3iue+TABUU+o6PMhW9NmP0hA==
+X-Authority-Analysis: v=2.4 cv=PLoCOPqC c=1 sm=1 tr=0 ts=6929a8bc cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=6UeiqGixMTsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=20KFwNOVAAAA:8 a=gOb4qOPT8CXnsm_EvbgA:9
+ a=CjuIK1q_8ugA:10 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: QQCPW5TC082nb_eAVjuWkyWCtrkGV2VS
+X-Proofpoint-GUID: qGdYAHc_0Xw3xrcj-QOfvU9MLghUc-FQ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-28_03,2025-11-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 impostorscore=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2511220021
 
-
-
-On 28.11.25 15:19, Jan Beulich wrote:
-> On 28.11.2025 13:11, Grygorii Strashko wrote:
->> On 27.11.25 18:26, Oleksii Kurochko wrote:
->>> --- a/xen/common/domain.c
->>> +++ b/xen/common/domain.c
->>> @@ -799,6 +799,28 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
->>>        return arch_sanitise_domain_config(config);
->>>    }
->>>    
->>> +struct domain *alloc_domain_struct(void)
->>> +{
->>> +#ifndef arch_domain_struct_memflags
->>> +# define arch_domain_struct_memflags() 0
->>> +#endif
->>
->> Is it really the right way to
->> hide part of common interface in common code instead of header?
+On Mon, Nov 24, 2025 at 01:22:22PM +0000, Kevin Brodsky wrote:
+> The implementation of the lazy MMU mode is currently entirely
+> arch-specific; core code directly calls arch helpers:
+> arch_{enter,leave}_lazy_mmu_mode().
 > 
-> If it had multiple uses in different files, surely it should be put in a header.
-> In this case though, with (even long term) there being only a single use site, I
-> don't see why we should even bother figuring out which header would be an
-> appropriate place for it to live in.
+> We are about to introduce support for nested lazy MMU sections.
+> As things stand we'd have to duplicate that logic in every arch
+> implementing lazy_mmu - adding to a fair amount of logic
+> already duplicated across lazy_mmu implementations.
+> 
+> This patch therefore introduces a new generic layer that calls the
+> existing arch_* helpers. Two pair of calls are introduced:
+> 
+> * lazy_mmu_mode_enable() ... lazy_mmu_mode_disable()
+>     This is the standard case where the mode is enabled for a given
+>     block of code by surrounding it with enable() and disable()
+>     calls.
+> 
+> * lazy_mmu_mode_pause() ... lazy_mmu_mode_resume()
+>     This is for situations where the mode is temporarily disabled
+>     by first calling pause() and then resume() (e.g. to prevent any
+>     batching from occurring in a critical section).
+> 
+> The documentation in <linux/pgtable.h> will be updated in a
+> subsequent patch.
+> 
+> No functional change should be introduced at this stage.
+> The implementation of enable()/resume() and disable()/pause() is
+> currently identical, but nesting support will change that.
+> 
+> Most of the call sites have been updated using the following
+> Coccinelle script:
+> 
+> @@
+> @@
+> {
+> ...
+> - arch_enter_lazy_mmu_mode();
+> + lazy_mmu_mode_enable();
+> ...
+> - arch_leave_lazy_mmu_mode();
+> + lazy_mmu_mode_disable();
+> ...
+> }
+> 
+> @@
+> @@
+> {
+> ...
+> - arch_leave_lazy_mmu_mode();
+> + lazy_mmu_mode_pause();
+> ...
+> - arch_enter_lazy_mmu_mode();
+> + lazy_mmu_mode_resume();
+> ...
+> }
+> 
+> A couple of notes regarding x86:
+> 
+> * Xen is currently the only case where explicit handling is required
+>   for lazy MMU when context-switching. This is purely an
+>   implementation detail and using the generic lazy_mmu_mode_*
+>   functions would cause trouble when nesting support is introduced,
+>   because the generic functions must be called from the current task.
+>   For that reason we still use arch_leave() and arch_enter() there.
+> 
+> * x86 calls arch_flush_lazy_mmu_mode() unconditionally in a few
+>   places, but only defines it if PARAVIRT_XXL is selected, and we
+>   are removing the fallback in <linux/pgtable.h>. Add a new fallback
+>   definition to <asm/pgtable.h> to keep things building.
 
-Thank you for clarification.
+Would it make sense to explicitly describe the policy wrt sleeping while
+in lazy MMU mode? If I understand the conclusion of conversation right:
 
--- 
-Best regards,
--grygorii
+* An arch implementation may disable preemption, but then it is arch
+  responsibility not to call any arch-specific code that might sleep;
+* As result, while in lazy MMU mode the generic code should never
+  call a code that might sleep;
 
+1. https://lore.kernel.org/linux-mm/b52726c7-ea9c-4743-a68d-3eafce4e5c61@arm.com/
+
+> Acked-by: David Hildenbrand <david@redhat.com>
+> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
+...
 
