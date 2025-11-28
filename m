@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 420A4C91155
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 09:02:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1174536.1499495 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B522C9115F
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 09:05:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1174550.1499504 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOtQR-0004XG-Ud; Fri, 28 Nov 2025 08:01:55 +0000
+	id 1vOtTH-00058H-Cq; Fri, 28 Nov 2025 08:04:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1174536.1499495; Fri, 28 Nov 2025 08:01:55 +0000
+Received: by outflank-mailman (output) from mailman id 1174550.1499504; Fri, 28 Nov 2025 08:04:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOtQR-0004VF-Qb; Fri, 28 Nov 2025 08:01:55 +0000
-Received: by outflank-mailman (input) for mailman id 1174536;
- Fri, 28 Nov 2025 08:01:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vOtTH-00056I-A3; Fri, 28 Nov 2025 08:04:51 +0000
+Received: by outflank-mailman (input) for mailman id 1174550;
+ Fri, 28 Nov 2025 08:04:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z/8R=6E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOtQQ-0004V9-4F
- for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 08:01:54 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7f8d8018-cc30-11f0-980a-7dc792cee155;
- Fri, 28 Nov 2025 09:01:52 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-477b198f4bcso10124875e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 28 Nov 2025 00:01:52 -0800 (PST)
+ id 1vOtTG-00056C-6l
+ for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 08:04:50 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e9105f85-cc30-11f0-9d18-b5c5bf9af7f9;
+ Fri, 28 Nov 2025 09:04:49 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-429c4c65485so1447373f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Nov 2025 00:04:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1c5c302esm8084811f8f.5.2025.11.28.00.01.50
+ ffacd0b85a97d-42e1caae37esm8058836f8f.40.2025.11.28.00.04.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 28 Nov 2025 00:01:51 -0800 (PST)
+ Fri, 28 Nov 2025 00:04:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f8d8018-cc30-11f0-980a-7dc792cee155
+X-Inumbo-ID: e9105f85-cc30-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764316911; x=1764921711; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764317088; x=1764921888; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GofCvdHTYm1fig0RwHSOy/pUnuheBVDTaE+KLpXbpKI=;
-        b=MWi5JvrMiNbTDYm0oHTLrbbVovnICIZPCMGBWn7T0SxvK10Lel8TxRXiqjjXhkPtpn
-         w0h+mGViNsvgB/wzy9t8u5Bo76dlplu6d1vaTVL2cbHI3jnxe9MBzBhtliwmE+z0Pvt0
-         nozfXutVFY7tLVhfy/3fOxwaMqAcmdWjX2REM4vBY5LftKGJq2C0nkoulFujELD4V46B
-         W1VLH040y81IaEKXdvkvjhXYKFgQU63TTmR6Al+pU7MQY6pwOouQ+Cv2cqJezbymyLqm
-         DhwoyKUOP+Ci3yCWCsOijSxgjaEUPQQIkJeC+NfgCj34mrRkC+Qu8Bmvo8ax5nXEEnPj
-         V7BQ==
+        bh=uoaCCBxAunUz+Ff0x9WkyuJGzpo8rV+VKsYcW0KmRNU=;
+        b=cxCNgbd1/CT79dXSQAtdiM8bEvicJGVGEY1W6+fnniDK71wga1sB2JH0Hmi37we+CK
+         GAz2Blyuwk4rjTMufg+fU0r05gDzFXT9Sp3OXI4UDXPsZJNUph+qPuApw5kkARuHFwmB
+         waQoYAUvyY10yg/ut8FO/FYeHGGkANrBxRKn+0v+MqvzcMF9WmrSttXBGS1oL0CuFM+H
+         ZClzv6F6YWbnV6hHUOj4Fi3J4RhKESIvlndsYfnCTCqr+3ekpJQatOq4R8ed/VyAtYyK
+         TlILru4kjF8Pwpjku691KW05GPC6ZnVPnQt3bBYx4Hi9WNApt+thS4aNrt9OpgUk8QHP
+         ldGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764316911; x=1764921711;
+        d=1e100.net; s=20230601; t=1764317088; x=1764921888;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GofCvdHTYm1fig0RwHSOy/pUnuheBVDTaE+KLpXbpKI=;
-        b=a7TLmyeqgRNfnFstI+8sjLECak06EDGu8hXGt0DKFCll3CL7UVGzz/JMTVw/3LDPaD
-         cuiIwILXTcigE2Sx2hRHxa3thi1oVv3feRHg0yQK1h+mSTrh6XOFHQa8PCtPHIQT5ZYt
-         6I2kO8JRLJ2FuWPJCM0L4vFOwZlGemJrph6nwIINOnZK4k/X09Ba6IT7sImxjCivefG8
-         5EbJiGN0Nd/RmpMrjaa9YrEPrAejQ+mphG1EOH4SCxfFa2PSWzzvqPS+xd7Mn4rO4Rb7
-         kzDTO4bHM7ElGgJ+uSfTybEjxUvSjuvcjnVSuDU3SoILHLXmGVn0h9hAqud9INNsWalg
-         GcZg==
-X-Forwarded-Encrypted: i=1; AJvYcCXOn8h/O1oJJrgK0rrRHRn0QMNq6vXxNP7qO5SKRwfQIwuoFlDzRzj3bELwPaJtrA432rEgXV7pGXw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxZxQFzvO4Lt1yczk+KQiLiPMObB4NH7ovSiJmg+PFug0zMRir+
-	Zk+VCRWX+OQhqTY6fMPCgfYvet6eSaaw99U/TNHmX8Hwf9GMYw/3pJfCDIK61p+yBdzMiik7G1d
-	xnG0=
-X-Gm-Gg: ASbGnct474Zzo73zNHU44og0fEygpviYgZRWZ1inUuV6lUpZ2MfPLvzBRLt9m7nRESJ
-	YwFi7DnKLq3GugDQA8qgovNGk/zsvTRytsbt7/8K8i78CKBp0j+T+UJJEa4t6IIHyWHH1A/BAAa
-	b/uiewr/4GGHoKb7OYj0i4CIN0HXNZHpmPWmPXnB6Nc6jqdPjRiPpMs5A1mb/ThYwnK570Xp9LS
-	7ZVL4uU2oJ/hVHSMGadoH4vmfrFa4rkbBLH8YU8XFpxMqczgBnpkF/+fyWRCoMpPOq3S0OK94Ud
-	QhoIbLDU0bFhy0tOnsLUuHkuVgma0yQZ8CE5gwDSUQzuJGSDRHbyl8F3e0yMOrFBR5NYc5tFSOv
-	CNBGDPnGjjkNKyb4tfWaLx7uhdcOjN+PPJc/+Nmj0YcwvyVZc8Ldg4bC1eorMYU2rUGSvJIYWFC
-	PDK9Lp+Yz54UU6k/B4EPmBI96k57/ItMLhhe1BOXGoA0S3kKOfPkkHEjYoWhoDUgJveYeKpOPNR
-	IM=
-X-Google-Smtp-Source: AGHT+IFpV3HijyjScgIb2xp1kC85EBuaUKvsi8lfucpi9f5mK6vwpLo/ybjSpUuWVlcCcwxXG2HFEg==
-X-Received: by 2002:a05:600c:1ca0:b0:477:75eb:a643 with SMTP id 5b1f17b1804b1-477c0165b4emr313760915e9.4.1764316911404;
-        Fri, 28 Nov 2025 00:01:51 -0800 (PST)
-Message-ID: <ab1c6b15-40c4-4c50-b539-ce1e9f36d968@suse.com>
-Date: Fri, 28 Nov 2025 09:01:50 +0100
+        bh=uoaCCBxAunUz+Ff0x9WkyuJGzpo8rV+VKsYcW0KmRNU=;
+        b=mNYSKSw8yp9bSt0JVLjYLs3UFITThkVkVhGzXEHk0LDl97XRYxK7GtGHRXzxguvalP
+         CpjuXTRIf7/9aP8R0pzvekYHQVvbm8Wxlp8S2UQPhOj8EoK/tTbB6Q+AWc0WnsCrI3JI
+         mp5b3Cmg30n+WmwD7lL4d8w5WwiBzx0vZYwSeenG1El93AC/xp1dRtul0w8pMZ/72LL7
+         S1brlzMcLSrL33EgezOY9XbNW1oxO58/4u6ZbzU7Yehn2g0rPIhwcdFrbbRzAB6HtEYz
+         nB+xSakZbpIkMRgysfVMKT3KuIb5vRMjrYXQkjKgNMForM/i8SGKG1YlOpY7nyjZN2ZI
+         Hv9w==
+X-Gm-Message-State: AOJu0YyuUFIvhh0TPyeyxDd05SneKBA0clesDxU7nefd5+KVLycpNYa9
+	UmLueMsvNsJfcWywGllAYRjIzkYf+B+C0vHbOtIXOjePveUxzGFY04xertVVFOpnWg==
+X-Gm-Gg: ASbGncvYbNvHS80sjHns++S/BXzeeNWSiEoCeLLQBWwRPZXI+tENs5/vgp2JIn/JsJ/
+	hnCLxJ4inMG07RZalKDJdCBV5imVdyc1LFFZz9nkc0dYoFw1akAkbKRHUIlhDyktzQh8ydXFDAe
+	L3rGJsx7Ko4jeyyQbJ+fnRJth34x8w8z4c48EGbB2kHKAUo5lnw4/1lVGSFe0v/89hI2QA6zaQx
+	O1kAPtGYmGhyij3mxhNRJDNNn3PJ3lyK0GoVSwuqtgfI1WMliiq0n1pwmy+ihRgHrm5kLQW0KPM
+	3p3x487rAtyMDrjQC3JswQm6h025EtPutNo5BDjyOgXBI+FEnA9Z0rYcgoaaSM01P4x0pP/GQ61
+	NWrsiHPEk6Hq/hWZpBoK8Hqq7EHeURuc+f0qRVAPPbPmkLeuVrIj6k+06qb7FhCdrze0C0Bo3IV
+	xVwvTXaQ04P7ekyDVt5pIlAY6nYIyqlKBo+l5ql8uFW8di8IotDFbUG56CtLoYpH17O+PfXfO/P
+	rQ=
+X-Google-Smtp-Source: AGHT+IFGtF4/5lulyT0AcluOEjftvXQRRTfKrZ32tRYHzY8NuQH2ZHz5Ob/EIWEud3EIlfppLR8cIg==
+X-Received: by 2002:a05:6000:2203:b0:42b:32c3:392a with SMTP id ffacd0b85a97d-42cc1cedad0mr29521123f8f.20.1764317088491;
+        Fri, 28 Nov 2025 00:04:48 -0800 (PST)
+Message-ID: <4fb39b1a-797b-4910-aa63-03a5f08031bf@suse.com>
+Date: Fri, 28 Nov 2025 09:04:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 0/3] xen/x86: move d->arch.physaddr_bitsize field
  handling to pv32
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Grygorii Strashko <grygorii_strashko@epam.com>
 References: <20251127221244.3747918-1-grygorii_strashko@epam.com>
- <802d2971-4cc0-46c1-bc24-4ec15c712118@citrix.com>
 Content-Language: en-US
-Cc: Grygorii Strashko <grygorii_strashko@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -122,30 +119,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <802d2971-4cc0-46c1-bc24-4ec15c712118@citrix.com>
+In-Reply-To: <20251127221244.3747918-1-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27.11.2025 23:24, Andrew Cooper wrote:
-> On 27/11/2025 10:12 pm, Grygorii Strashko wrote:
->> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>
->> 1) arm/ppc/riscv: drop unused domain_set_alloc_bitsize() macro
->> 2) add generic domain_clamp_alloc_bitsize() macro and clean up !x86 arches
->> 3) move d->arch.physaddr_bitsize field handling to pv32 code
->>
->> changes in v2:
->> - split on 3 patches
->> - move physaddr_bitsize in struct pv_domain
->> - make minimal style adjustments as requested
->>
->> Grygorii Strashko (3):
->>   arm/ppc/riscv: drop unused domain_set_alloc_bitsize() macro
->>   xen/mm: add generic domain_clamp_alloc_bitsize() macro
+On 27.11.2025 23:12, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
 > 
-> These two should be merged.
+> 1) arm/ppc/riscv: drop unused domain_set_alloc_bitsize() macro
+> 2) add generic domain_clamp_alloc_bitsize() macro and clean up !x86 arches
+> 3) move d->arch.physaddr_bitsize field handling to pv32 code
+> 
+> changes in v2:
+> - split on 3 patches
+> - move physaddr_bitsize in struct pv_domain
+> - make minimal style adjustments as requested
+> 
+> Grygorii Strashko (3):
+>   arm/ppc/riscv: drop unused domain_set_alloc_bitsize() macro
+>   xen/mm: add generic domain_clamp_alloc_bitsize() macro
 
-Why? They're dealing with two separate macros / functions ("set" vs "clamp").
+As I'm happy with these two being separate:
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+But of course Andrew's objection needs dealing with before they can go in. And
+as he said, at least Arm maintainers need Cc-ing for them to actually be aware
+that their ack is going to be needed.
 
 Jan
+
+>   xen/x86: move d->arch.physaddr_bitsize field handling to pv32
+> 
+>  xen/arch/arm/include/asm/mm.h     |  3 ---
+>  xen/arch/ppc/include/asm/mm.h     |  3 ---
+>  xen/arch/riscv/include/asm/mm.h   |  3 ---
+>  xen/arch/x86/include/asm/domain.h |  8 +++++---
+>  xen/arch/x86/include/asm/mm.h     |  7 +++++--
+>  xen/arch/x86/pv/dom0_build.c      |  6 ++++--
+>  xen/arch/x86/pv/domain.c          | 23 +++++++++++++++++++++++
+>  xen/arch/x86/x86_64/mm.c          | 20 --------------------
+>  xen/include/xen/mm.h              |  4 ++++
+>  9 files changed, 41 insertions(+), 36 deletions(-)
+> 
+
 
