@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B861C91D01
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 12:39:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1174755.1499703 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEF12C91DE5
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 12:49:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1174765.1499714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOwod-0000xi-Nj; Fri, 28 Nov 2025 11:39:07 +0000
+	id 1vOwyf-0002qq-LD; Fri, 28 Nov 2025 11:49:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1174755.1499703; Fri, 28 Nov 2025 11:39:07 +0000
+Received: by outflank-mailman (output) from mailman id 1174765.1499714; Fri, 28 Nov 2025 11:49:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOwod-0000vS-Kf; Fri, 28 Nov 2025 11:39:07 +0000
-Received: by outflank-mailman (input) for mailman id 1174755;
- Fri, 28 Nov 2025 11:39:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vOwyf-0002nI-Ht; Fri, 28 Nov 2025 11:49:29 +0000
+Received: by outflank-mailman (input) for mailman id 1174765;
+ Fri, 28 Nov 2025 11:49:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hHoX=6E=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vOwob-0000vM-JM
- for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 11:39:05 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d72ba709-cc4e-11f0-9d18-b5c5bf9af7f9;
- Fri, 28 Nov 2025 12:39:03 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-64088c6b309so3075839a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 28 Nov 2025 03:39:04 -0800 (PST)
-Received: from fedora (user-109-243-71-38.play-internet.pl. [109.243.71.38])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-64751035c2fsm4129969a12.17.2025.11.28.03.39.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Nov 2025 03:39:02 -0800 (PST)
+ <SRS0=V56+=6E=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1vOwye-0002nC-5L
+ for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 11:49:28 +0000
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazlp17011000f.outbound.protection.outlook.com
+ [2a01:111:f403:c100::f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 491285d6-cc50-11f0-980a-7dc792cee155;
+ Fri, 28 Nov 2025 12:49:25 +0100 (CET)
+Received: from MN2PR14CA0005.namprd14.prod.outlook.com (2603:10b6:208:23e::10)
+ by DS0PR12MB6535.namprd12.prod.outlook.com (2603:10b6:8:c0::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.14; Fri, 28 Nov
+ 2025 11:49:21 +0000
+Received: from BL02EPF0001A107.namprd05.prod.outlook.com
+ (2603:10b6:208:23e:cafe::49) by MN2PR14CA0005.outlook.office365.com
+ (2603:10b6:208:23e::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.16 via Frontend Transport; Fri,
+ 28 Nov 2025 11:49:08 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0001A107.mail.protection.outlook.com (10.167.241.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9366.7 via Frontend Transport; Fri, 28 Nov 2025 11:49:21 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 28 Nov
+ 2025 05:49:21 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 28 Nov
+ 2025 03:49:20 -0800
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17
+ via Frontend Transport; Fri, 28 Nov 2025 03:49:19 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,247 +63,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d72ba709-cc4e-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1764329943; x=1764934743; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TXfbT/FpY5CQ8C35c+ic/Wf898+NeaAHknX8FFRVVfE=;
-        b=Vcpko5Q+ZqPpwNSTzXBp7XcFXhHcfPE4bkEj+0udzyaWTcV2Zibkby0li+FZN8q/Vf
-         MvCpQV/7O7CdxIeEO/9TioaiXNzO1mV9FhyA+KLMYbsPpvN4zWNr0E7CkaywzfIEUkcy
-         VsfeT9XlPfsrl1lmcwvb24UN2VaSLQ+vhlRkU8mDPZ025/6gGMqr9kZVk6KbqN7PkBcX
-         e6RZpIIFaJm2k6U7Z8UzXshqF1a472EmQQj8bdcRHAQbBrC66B0bluLl3k6Ld0OJ56CH
-         bhbeaiZAV6KcfmMEuHXUHQSL8suRJlHa3qSTE9cc/L918peztS3xAXa7QR3VD6eOjswo
-         k2pQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764329943; x=1764934743;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TXfbT/FpY5CQ8C35c+ic/Wf898+NeaAHknX8FFRVVfE=;
-        b=a7h3Tg0VTmhQX40ciR4K8tFdAyEKRjo7Z7/foNuxvXEWSTz7s84GkKrsRHuCC6AU7G
-         Qk4OCjxMbpHNtyCiGjNKD7FpYIFT7NhgiQGI7NRfgNM4gUIZw3JxLDYOiCTAY+7ns5MG
-         FMQYyEw090PG4COzGWZ6vu3HfDqnYokOlynpOQHWfJ3n7WNZFkwTR4pqvd4hr71HHRGO
-         76uI1sivsmjPahz9LFm7HPja94NRXzKd1wJwmb50QVqctuH/v7SpmveO9cmwiSarv/nj
-         chquCqG4DBkPh1abBMrLAWVAYT7u46afmkc3aOuBRsdMfh8LBg03KAW4H4tpw4IiYv40
-         xSjw==
-X-Gm-Message-State: AOJu0Yx6rHBUJw0a0W6TEgSDlGHd7tVLkUqwlXAPkR2WWV3bARR4qJRg
-	OD6o11kaDJFJPsPq2vAhFj9cQ7Jh8CD+VdYwc+huNMVF6riTVfT53se2eEgNgOtW
-X-Gm-Gg: ASbGncuaLziWvj6ICInZbuSzcLgn+gnGOYp7PYYBqeLV73R0iexkLMtbGpZ/JNrDZCO
-	MYtRLFEH6IrjW/9axFc26JbDw8vNfBC+KWXwFEnts5/6tqPkil5NoIxawt0Sa3X3jxmIEhwy6uh
-	S0axdvzrVeDyIpS/cDuszkl1NVDNknTyugXuW4pXpRvWxvPZZ26qtVtRFUkACT698x0HmjUAiCF
-	Fx9anp+oTJXH4CvdTO7DVE7o7CcqizIKicCH0BLvxFLxDIyGKAWHzGGvtNBoATYS50OfPJ6bGvd
-	1dofZgaG8/CVE7YaSajYu/8ReCOZ/QeTV9JDzbHgsJYKynf0A6SULWlEgBxJRyp5gQsUJZwab/l
-	tGpW60BMmU/7euH+gjdrdbu0sKaSbJ3yZyzu/cSqP/YwCTxuaf/lvLj+Oz0qLtvFPMexC5eTHjr
-	MAXyc1oWMFwuqrbvLmHQjqTZwKtN7lJFyflwMnjc9rRDnSugQT7SEL+RQ=
-X-Google-Smtp-Source: AGHT+IHizFmzbyV9v2C7uOQf7awlyiYFbv9AVG4WILYAlux01RHvKZYFPrqB5VQ3OhJOFUqiZSlksg==
-X-Received: by 2002:a05:6402:234c:b0:640:7690:997e with SMTP id 4fb4d7f45d1cf-64555b86de4mr29113776a12.3.1764329943181;
-        Fri, 28 Nov 2025 03:39:03 -0800 (PST)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Timothy Pearson <tpearson@raptorengineering.com>,
-	Paul Durrant <paul@xen.org>
-Subject: [PATCH v1] xen: move vcpu_kick() declaration to common header
-Date: Fri, 28 Nov 2025 12:38:54 +0100
-Message-ID: <f291e02042a24de86cab5f62cb2301ad8c72fecf.1764328801.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.52.0
+X-Inumbo-ID: 491285d6-cc50-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hf+7d+TvEN0eSvg6UpIS5sYE3a07VtZzRF7Cg+C8eVoh1/nlc2LblnqJAINxfGdXicB6Fw0NP7TT3iUTIqD61Zlbar6fvG3C/CoDvrFLdDsbrHynY1dBs1iqAVqvJGfFYSSRDnNYpKizBRVPUPr/Od5F3v+93Ea0cWMi+rWNw6/+9fqeB9Yjk9GgNRV94Y0PQq2HEmKM/LG1cMjS7e78HKCdbVIx3GfvsudUa7YIfN53yMTlNMLMIP9TuOd7XEhar61AAmmpMKFMN5Jl2F0YT+1WJdXk7Yf1VbxbDokw3q+6g6w4RcaTVzS70tPbrCtg7lAcvmE5lIN6y7yuHuzOlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7T5H5Uw0hjRawz8UVBaPi04epuA6iAg/M0PYTneaK7c=;
+ b=Ra6DtEKFJRPes6wS+GL5fXXrTCuUgH2+BN8LsL9MtYK+ZNwO6D1movwsh8kn4jGSn5h3UB18dDiij68Jq8bDgUylVZ7bGPFE7L8wnkAdLreYKl3hR5Q4zUNOWWP6j21/AvVHPk/lg0mx3i8+B5H88173XlCbZ+f5ZQlqJ7Dfk5Uv9mzjPfXy0kWVgtLnQpwL/Dk/Ik+rbQCTdCSa3grQ3sVVH3hOWEEUvF5TT3AmPRbKnf9XG3iwpTvbu7AOkj+eIxqHA7MDYqb2gJ4mrkNHgDEFpJL6FnkiHUj6aUGBU0dX4Ut0ady/GCN3MAZiNKqfJchNhgtH3hqJoTvafmCfyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7T5H5Uw0hjRawz8UVBaPi04epuA6iAg/M0PYTneaK7c=;
+ b=U3texBAun8mJyceGowQdA8i99+KNI7Dvj6hQzsTUSQ472OW1Gcib7U0VxeRics5R0qQhqVMUP4AMi12WBDYEmqPPWZPFklj5szzcetxgh1G4TpYWsZ7Un9+QUJ8jO0LgozGBReVSMyWXYYBqeQCC3lX/YYg4PIU6DGvvAjmtzA0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2] vgic-v3: Ignore writes to ISACTIVER{nE}N when eSPI is not used
+Date: Fri, 28 Nov 2025 12:49:13 +0100
+Message-ID: <20251128114913.36244-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A107:EE_|DS0PR12MB6535:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ed3700e-27f2-4374-7b63-08de2e742b84
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?G0wuOYE+uJqazraKMr/xlvVw0RMxqTDJPzCkExC9BRiG9pS9qfU7ca8sqz0g?=
+ =?us-ascii?Q?BDNoS4O7jjyV88sYG6od9L+p8Yvm3aIdCsGrqQ3eelY1W8gsckH/3KskfiPD?=
+ =?us-ascii?Q?Uuf+GHn2GgRZU8VwPdtZ8eP9Uzk9aIvmliR3ybUYrp6r++LO5WN2msRE2tAi?=
+ =?us-ascii?Q?eiM9qN0MO8D1CfH2GVOu3oBPmTtwlThJ5CcAVjPwW/Stp319Hb6JG/YmFJO7?=
+ =?us-ascii?Q?291MleFEov5VFJ35Uv8fIV+RWXNYblNIUIu5TaRYwjie6JmyQxV6o3tlnnoj?=
+ =?us-ascii?Q?2FMl92v+mEbv3QVzzPrtYSBSXiNMUuKIFALCOsu6/821kbU69jKmKPU3GC2n?=
+ =?us-ascii?Q?MEPsjP0WEyd5k7MxrrIiyGsJUpWbRePuJ868iC9obKPiAw9y1VA1Yyqx7/EW?=
+ =?us-ascii?Q?uUtlZZrDxYNSM/44Rci0sH1bfr643sEGQICGGHgG28PnrP355XvXnQmu0Pnq?=
+ =?us-ascii?Q?AxjbM0GouG2ptH4YHH+GO3Hewucw8Ubc8gfpB6Xt7gg0MDBEK1YnIyWRPUkm?=
+ =?us-ascii?Q?BTm5fPgJVNkAdzMIzNypHlPsqxxSHJKf4Dxtcq2SsjkW26jIAc/oejyojdTF?=
+ =?us-ascii?Q?vF/h+eFdUYtaUbKFigGG72rTCzaKLdBHCWefbkZDMdISs/a3JB/55Ocxibtz?=
+ =?us-ascii?Q?s50J6yY92KpTF7nT9pfdUNsUJ2wonJFek6dhvKtzMz2TOOlor0xdbeCgh8NF?=
+ =?us-ascii?Q?AOPvgySWhObi+x2bqO31+92H090bBnGK9VlzQ4UNvAoH+wTDYYJH9YvJ+2rh?=
+ =?us-ascii?Q?30Q9juwZyOCNF4cs+yOXCXH5xNr8LpVNqsYI4EU4kuYpvUYHhxC1kaA6yvsE?=
+ =?us-ascii?Q?5vKYoonB6E6XH8uMlppfSRFE14argqXtvP/amD7sD6PeZNzkbiLkgHHJ6k+b?=
+ =?us-ascii?Q?NxtmP5ZDEIJ/5ymojWDT1SWxIeJbvW8IOlEmov4AyDjo4kkp+LAa9CmdOkD0?=
+ =?us-ascii?Q?ndcCbbQiTahPQEGAOOT0rq8A56hFRA5ua4c6KBzwkNq+wrFt/prsLsozAlaM?=
+ =?us-ascii?Q?kIHcw/Oz83XQtntggFw86bKKrvGO+t8ckIRW08zzUOoa0CwtiR8Akmu8zn41?=
+ =?us-ascii?Q?7huvykNO16Wguj+z1e5y0T0VSo1rCPAe9Ake7W1+/zgNTRfzRwKRF9NnEiZc?=
+ =?us-ascii?Q?vbsEfRAh+D78/4d4+l3J8DfhgkQ7yay4DO7zGeZFNM/kmbf24rgU3NR96EaA?=
+ =?us-ascii?Q?15zVrwk5m3C7VSailKgkj510zO0fSli5uq0KVxzQq0snUADzb/coNrA5eVaq?=
+ =?us-ascii?Q?3ssWkDxxlQ3ccUb1Mye5MpoUW4ebSz23uOh0kvYvWv21Be2qmgyFQaN9FDGW?=
+ =?us-ascii?Q?i8dsM2ADDayG7MTJcKcMJJ4iuFJwiEdlPYegYVrqNQn53HmUynb2SllLtapC?=
+ =?us-ascii?Q?YIcM3rLAgOOh3DChm5QAQQud/mgb9rzUFjRMqCfPT1UMiFf3hqMEPwwErpjc?=
+ =?us-ascii?Q?ndXRq7bixr1Jm9w0356Qqgmb9qePg67pVsX82wIGfHo2nmse/2u2zx3Jq20s?=
+ =?us-ascii?Q?1anBdLpvavyoE0zOdRioHnnwIYY7dOlNl2ltH1FxafCH5dKELeUAOBSCcw?=
+ =?us-ascii?Q?=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2025 11:49:21.3929
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ed3700e-27f2-4374-7b63-08de2e742b84
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A107.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6535
 
-The vcpu_kick() declaration is duplicated across multiple
-architecture-specific event.h headers (ARM, x86, PPC).
+Prior to introducing GICv3 eSPI support, writes to these registers were
+ignored. Now the behavior is changed and we inject fault to the guests.
+According to documentation, eSPI registers are treated as RES0, when
+GICD_TYPER.ESPI is 0 (this would be the case when CONFIG_GICV3_ESPI=n or
+nr_espis is 0). Restore the previous behavior by checking whether eSPI
+is in use or not.
 
-Remove the redundant declarations and move vcpu_kick() into
-the common xen/include/xen/event.h header.
-
-Drop the definition of vcpu_kick() from ppc/include/asm/event.h,
-as it is already provided in ppc/stubs.c.
-
-Include <xen/event.h> instead of <asm/event.h> in places where
-vcpu_kick() is used, since its declaration now resides in
-<xen/event.h>.
-
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Fixes: 93eecb2c4b88 ("xen/arm: vgic-v3: add emulation of GICv3.1 eSPI registers")
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 ---
- xen/arch/arm/include/asm/event.h | 1 -
- xen/arch/arm/vgic.c              | 2 +-
- xen/arch/arm/vgic/vgic.c         | 2 +-
- xen/arch/ppc/include/asm/event.h | 1 -
- xen/arch/x86/hvm/vioapic.c       | 2 +-
- xen/arch/x86/hvm/viridian/time.c | 2 +-
- xen/arch/x86/hvm/vmx/vmx.c       | 2 +-
- xen/arch/x86/hvm/vpt.c           | 2 +-
- xen/arch/x86/include/asm/event.h | 1 -
- xen/include/xen/event.h          | 2 ++
- 10 files changed, 8 insertions(+), 9 deletions(-)
+Changes in v2:
+ - only ignore when eSPI is not in use
+---
+ xen/arch/arm/vgic-v3.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/xen/arch/arm/include/asm/event.h b/xen/arch/arm/include/asm/event.h
-index 509157b2b3..e036ab7fb8 100644
---- a/xen/arch/arm/include/asm/event.h
-+++ b/xen/arch/arm/include/asm/event.h
-@@ -3,7 +3,6 @@
- 
- #include <asm/domain.h>
- 
--void vcpu_kick(struct vcpu *v);
- void vcpu_mark_events_pending(struct vcpu *v);
- void vcpu_update_evtchn_irq(struct vcpu *v);
- void vcpu_block_unless_event_pending(struct vcpu *v);
-diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
-index 3ebdf9953f..6f4047bb77 100644
---- a/xen/arch/arm/vgic.c
-+++ b/xen/arch/arm/vgic.c
-@@ -9,6 +9,7 @@
-  */
- 
- #include <xen/bitops.h>
-+#include <xen/event.h>
- #include <xen/lib.h>
- #include <xen/init.h>
- #include <xen/domain_page.h>
-@@ -17,7 +18,6 @@
- #include <xen/sched.h>
- #include <xen/perfc.h>
- 
--#include <asm/event.h>
- #include <asm/current.h>
- 
- #include <asm/mmio.h>
-diff --git a/xen/arch/arm/vgic/vgic.c b/xen/arch/arm/vgic/vgic.c
-index b2c0e1873a..7361e38709 100644
---- a/xen/arch/arm/vgic/vgic.c
-+++ b/xen/arch/arm/vgic/vgic.c
-@@ -16,9 +16,9 @@
-  */
- 
- #include <xen/bug.h>
-+#include <xen/event.h>
- #include <xen/list_sort.h>
- #include <xen/sched.h>
--#include <asm/event.h>
- #include <asm/new_vgic.h>
- 
- #include "vgic.h"
-diff --git a/xen/arch/ppc/include/asm/event.h b/xen/arch/ppc/include/asm/event.h
-index 0f475c4b89..565eee1439 100644
---- a/xen/arch/ppc/include/asm/event.h
-+++ b/xen/arch/ppc/include/asm/event.h
-@@ -5,7 +5,6 @@
- #include <xen/lib.h>
- 
- /* TODO: implement */
--static inline void vcpu_kick(struct vcpu *v) { BUG_ON("unimplemented"); }
- static inline void vcpu_mark_events_pending(struct vcpu *v) { BUG_ON("unimplemented"); }
- static inline void vcpu_update_evtchn_irq(struct vcpu *v) { BUG_ON("unimplemented"); }
- static inline void vcpu_block_unless_event_pending(struct vcpu *v) { BUG_ON("unimplemented"); }
-diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
-index 7c725f9e47..5e8938a799 100644
---- a/xen/arch/x86/hvm/vioapic.c
-+++ b/xen/arch/x86/hvm/vioapic.c
-@@ -29,6 +29,7 @@
- #include <xen/xmalloc.h>
- #include <xen/lib.h>
- #include <xen/errno.h>
-+#include <xen/event.h>
- #include <xen/sched.h>
- #include <xen/nospec.h>
- #include <public/hvm/ioreq.h>
-@@ -36,7 +37,6 @@
- #include <asm/hvm/vlapic.h>
- #include <asm/hvm/support.h>
- #include <asm/current.h>
--#include <asm/event.h>
- #include <asm/io_apic.h>
- 
- /* HACK: Route IRQ0 only to VCPU0 to prevent time jumps. */
-diff --git a/xen/arch/x86/hvm/viridian/time.c b/xen/arch/x86/hvm/viridian/time.c
-index 9311858d63..710a58879b 100644
---- a/xen/arch/x86/hvm/viridian/time.c
-+++ b/xen/arch/x86/hvm/viridian/time.c
-@@ -7,12 +7,12 @@
-  */
- 
- #include <xen/domain_page.h>
-+#include <xen/event.h>
- #include <xen/hypercall.h>
- #include <xen/sched.h>
- #include <xen/version.h>
- 
- #include <asm/apic.h>
--#include <asm/event.h>
- #include <asm/guest/hyperv.h>
- #include <asm/guest/hyperv-tlfs.h>
- 
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 6b407226c4..7009b9d0b0 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include <xen/domain_page.h>
-+#include <xen/event.h>
- #include <xen/guest_access.h>
- #include <xen/hypercall.h>
- #include <xen/init.h>
-@@ -21,7 +22,6 @@
- #include <asm/cpufeature.h>
- #include <asm/current.h>
- #include <asm/debugreg.h>
--#include <asm/event.h>
- #include <asm/fsgsbase.h>
- #include <asm/gdbsx.h>
- #include <asm/guest-msr.h>
-diff --git a/xen/arch/x86/hvm/vpt.c b/xen/arch/x86/hvm/vpt.c
-index 50ed738998..e7737ac808 100644
---- a/xen/arch/x86/hvm/vpt.c
-+++ b/xen/arch/x86/hvm/vpt.c
-@@ -5,10 +5,10 @@
-  * Copyright (c) 2006, Xiaowei Yang, Intel Corporation.
-  */
- 
-+#include <xen/event.h>
- #include <xen/sched.h>
- #include <xen/time.h>
- #include <asm/hvm/vpt.h>
--#include <asm/event.h>
- #include <asm/apic.h>
- #include <asm/mc146818rtc.h>
- #include <public/hvm/params.h>
-diff --git a/xen/arch/x86/include/asm/event.h b/xen/arch/x86/include/asm/event.h
-index 434f65007e..d13ce28167 100644
---- a/xen/arch/x86/include/asm/event.h
-+++ b/xen/arch/x86/include/asm/event.h
-@@ -11,7 +11,6 @@
- 
- #include <xen/shared.h>
- 
--void vcpu_kick(struct vcpu *v);
- void vcpu_mark_events_pending(struct vcpu *v);
- 
- static inline int vcpu_event_delivery_is_enabled(struct vcpu *v)
-diff --git a/xen/include/xen/event.h b/xen/include/xen/event.h
-index 930190054c..211a3ae8d0 100644
---- a/xen/include/xen/event.h
-+++ b/xen/include/xen/event.h
-@@ -306,4 +306,6 @@ static inline int evtchn_port_poll(struct domain *d, evtchn_port_t port)
-     return rc;
- }
- 
-+void vcpu_kick(struct vcpu *v);
+diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+index 8b1c8eef8024..77aab5c3c293 100644
+--- a/xen/arch/arm/vgic-v3.c
++++ b/xen/arch/arm/vgic-v3.c
+@@ -884,9 +884,18 @@ static int __vgic_v3_distr_common_mmio_write(const char *name, struct vcpu *v,
+                    "%pv: %s: unhandled word write %#"PRIregister" to ISACTIVER%d\n",
+                    v, name, r, reg - GICD_ISACTIVER);
+         else
++        {
++#ifdef CONFIG_GICV3_ESPI
++            if ( !v->domain->arch.vgic.nr_espis )
++                goto write_ignore;
 +
- #endif /* __XEN_EVENT_H__ */
+             printk(XENLOG_G_ERR
+                    "%pv: %s: unhandled word write %#"PRIregister" to ISACTIVER%dE\n",
+                    v, name, r, reg - GICD_ISACTIVERnE);
++#else
++            goto write_ignore;
++#endif
++        }
+         return 0;
+ 
+     case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
 -- 
-2.52.0
+2.43.0
 
 
