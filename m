@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61AAFC92D42
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 18:48:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1175058.1499973 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11B9FC92E8A
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 19:29:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1175073.1499982 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vP2ZJ-0006Or-Ua; Fri, 28 Nov 2025 17:47:41 +0000
+	id 1vP3DM-0003ee-WC; Fri, 28 Nov 2025 18:29:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1175058.1499973; Fri, 28 Nov 2025 17:47:41 +0000
+Received: by outflank-mailman (output) from mailman id 1175073.1499982; Fri, 28 Nov 2025 18:29:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vP2ZJ-0006MG-Ru; Fri, 28 Nov 2025 17:47:41 +0000
-Received: by outflank-mailman (input) for mailman id 1175058;
- Fri, 28 Nov 2025 17:47:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vP3DM-0003cA-Sr; Fri, 28 Nov 2025 18:29:04 +0000
+Received: by outflank-mailman (input) for mailman id 1175073;
+ Fri, 28 Nov 2025 18:29:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=61/n=6E=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vP2ZI-0006MA-4o
- for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 17:47:40 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 54578bc9-cc82-11f0-9d18-b5c5bf9af7f9;
- Fri, 28 Nov 2025 18:47:38 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4779cc419b2so21108635e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 28 Nov 2025 09:47:38 -0800 (PST)
-Received: from localhost.localdomain (host-92-29-237-183.as13285.net.
- [92.29.237.183]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47905303963sm96254665e9.7.2025.11.28.09.47.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Nov 2025 09:47:36 -0800 (PST)
+ <SRS0=K8i5=6E=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vP3DL-0003c4-3S
+ for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 18:29:03 +0000
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c107::3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1b11f926-cc88-11f0-980a-7dc792cee155;
+ Fri, 28 Nov 2025 19:29:00 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by DM6PR03MB5289.namprd03.prod.outlook.com (2603:10b6:5:24c::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Fri, 28 Nov
+ 2025 18:22:18 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9366.012; Fri, 28 Nov 2025
+ 18:22:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,247 +47,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54578bc9-cc82-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1764352057; x=1764956857; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=T9qkCujzjSOURjliy/HsoacPhW5hlsUW2K2Kz9vNsjo=;
-        b=nqNL1oDsYBTcfmjJx2aeU1au1w6ScqKlt9gvGrg04100GTH0/KnNKSosHxiAA6BfHi
-         EXmVjTc6t3NBxhKyjGLiFFpQaL3yeesla45caGDCP65csSDQOMm5O3g+/ZGo3JsjAu6j
-         jNSM3A3xvNVz1UEw3bu66hM7/cVWiV01e6kVg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764352057; x=1764956857;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=T9qkCujzjSOURjliy/HsoacPhW5hlsUW2K2Kz9vNsjo=;
-        b=vOsGCZXPucdMoV8LgHKOlOmUcF5yQl6TaccZQkXiiLi/bOZo5IweXUUT6NtnThWRsK
-         2d9t6+wu2Iwa6MgkRf278KJNjuTkNiqGa0yAbbUWuM13M4nH3+FzoWFeMq3o31i1x4vc
-         naQv1vKVtEPRrsPokRqh+nHmKJkgQGbsdezfYRJEkQon2pQwKXtcpG61EbQGlxW2RDiG
-         jDFat0umgc4U7YlsIhHNUNvb/gTA+gDHMluazKubi3gZYwVYkV2W6DZHBqMwY+AGapi5
-         0aCdR+6yc1bfRNac1dyM0O7xCh08Mx76qL+qixscNPKap1TIBvbpVFERob1uQBJ1CSVq
-         ldqw==
-X-Gm-Message-State: AOJu0YxvZspWB4SA0Cpzui5UjY9MeE9slkHlqiFX78JeIo9RxpbbQRet
-	Oymo7l2PSqmGCU+dndfK5KSGOjFhoHH1YMGDkRPpnk4pYOVAedEC/VOpBA9mC3kiHvHPYaZCJyi
-	xxgeV
-X-Gm-Gg: ASbGncsvGzp0JGMsmQHpeLJ5xnemh1CasBJSiS1eN+sdDSIac3cUrLsoc23SW5FYcGQ
-	NHNbZKmgxasb7wIjqprVSYFx2Gb5XzAVDNJCOygoEeJtEmhysHBX1JYVVFHQg1gqJ1+ly76tYWz
-	EfFSGEFy1RVWmWK5undjiA8DX2t4ISj4KH5C5r6U4mfX0VGLfV689ddkjcpNMKCKy0uNt5DBWBA
-	SiM9YJ9KsdGAN7PkfzlcwKLIii7l0+LgtiPi7jSikUtSkCRvOIa5VlFai47iOnwBJ71lP4Z7Dnu
-	NEZOLpXf6WftmPedDrhH5R3UlaoQOcdWaucgdxMw59rLvC3UerDQe1nHdnMU+GMUORTrIBuEjpx
-	BXn9eChW/biupw9gFgEE7LwrULQ6pHxaLpLOjZpIm4EAopH3keptW6sm12zf39v7XCZhUFKLhRL
-	SXAlibrdnDZudUiea4IT8kxaltR0KeUJrUsMsyUTiVoKbBgSjFuuLUVo3YYwBL/w==
-X-Google-Smtp-Source: AGHT+IECVoSdMR5CRk+uQKpZcF6cZ93jXy8aVcSWSLecJkYc5dkBfwtFsixRHtIMKDiHcOn/JgLs0w==
-X-Received: by 2002:a05:600c:4ece:b0:477:7af8:c8ad with SMTP id 5b1f17b1804b1-477c115db0cmr312848735e9.31.1764352057316;
-        Fri, 28 Nov 2025 09:47:37 -0800 (PST)
+X-Inumbo-ID: 1b11f926-cc88-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ELBDc1vkraVrF1LdakwX4BfneT13B3fyODlqQ7AW5U3JQ2qh3NmsTY+/i7BChNLKeXBoH+XH1GVNyhG2nKefisaCUo2RErqvygKf4Y+Vkn9/f7x4pfbSzdKKnQ66hT0Jy8vxNVlrQMyFfIv0AdPvi1x+pkdAupmYQJrhSifhQO6CdjZLC4UfwlMSYfE3wAxUjV4THTW1V75Kz1b+tDrrGFVjJJFVoloXhgmVlBA9Vis6O5VZR5VBTmqGJhBOmNOf2KoiAV546mJdqIHfrLP+qYMQl4X5tzY7SVgnJi8+NdQlqg7ybIY8AWXCwqJFqahCbTsWQNPqPIJur/iuSipQRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aCwmK6/kJwXrl662bA8QzX2oJgJ/nrJw66NPqrjLiro=;
+ b=KS6cPTYslaMx82V8CVclr5usUelgVDybX3tw1mZOYf1/Dz4ZdEhvuJjTWvNOk6Sm1lqngarBRtu2BelEneudBlXOgbbSfgpoZKM/CUQMqV6CaDXIHcXnmcWNWH73JDo9NBwLb89y7F3+K9af3XxPCSDv15yx/vPKwz7eF+G5qD2cq+ZgzBLnjwY++mfneIN6rgvN5yq3C8rC+tQod57lTx91sq+hoa4Cbl1qCNs/5BFTREV1Cn4+5UCneKIW+9nA7Z5pB6b7APc7lK0vgA9JQW9X3u4TMBBh8BIwNVyArYobj/SyjUCQHI2HdX8J9+Rpq229uUJ+0966/lbCfik41g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aCwmK6/kJwXrl662bA8QzX2oJgJ/nrJw66NPqrjLiro=;
+ b=ZTI/J7nFKwXPFmkp9SZ+yvWVxhf7x9EVfnczHQBTZDDcz65OZjFNsYlSPZityFdDM3wNT7FAYZnyV8MLnMGx1na5OUJV35lmyvWLQjYqOYCA5CP1XfvfxKg4TRiiGHdnYPV+939hx1xzIev3SFViJ4sakiKbjAtarXG2RASkAbc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <ac7c40e6-70d9-4141-bcb3-407e531d17ee@citrix.com>
+Date: Fri, 28 Nov 2025 18:22:15 +0000
+User-Agent: Mozilla Thunderbird
+Cc: andrew.cooper3@citrix.com, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Teddy Astie <teddy.astie@vates.tech>
+Subject: Re: [PATCH] x86/efi: Remove NX check from efi-boot.h
+To: Julian Vetter <julian.vetter@vates.tech>, xen-devel@lists.xenproject.org
+References: <20251127143136.1598354-1-julian.vetter@vates.tech>
+ <3653404b-0428-4dae-912f-18c4f8e74853@citrix.com>
+ <83850159-6b76-4127-a689-e83a84c71e4f@vates.tech>
+Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/hvm: Unilaterally inject #UD for unknown VMExits
-Date: Fri, 28 Nov 2025 17:47:35 +0000
-Message-Id: <20251128174735.1238055-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-MIME-Version: 1.0
+In-Reply-To: <83850159-6b76-4127-a689-e83a84c71e4f@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0016.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ad::10) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|DM6PR03MB5289:EE_
+X-MS-Office365-Filtering-Correlation-Id: a65105fd-c5d6-4fbc-ad4a-08de2eab10ae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?TDg3UDUwQlZGZkErVGttVEdvb2FIbm5jQytCOENvQXlXUXhZbTN4YUJhenJh?=
+ =?utf-8?B?SGpkK1h2TGx5cEF0UmJrRkFjN3dTcm9hUWF0VUxSdWQ1TFdueXo0TjZxbmUv?=
+ =?utf-8?B?N050TVRGZG5xK0EyOWtmd1E5QTh5dm0wMTR1cUg5YTFzOHRkZHJVeHE5OWRF?=
+ =?utf-8?B?OGVERXJXY0Y1RFUrOW10ZDRNeUgycWIvWVRSVkY2NXkyVDJzOGVROGZxVUlY?=
+ =?utf-8?B?eW9seGE4U1pwSEpkRU44UW1WUm1wd3NsWFhaMDlFdy9NLzQzWXIvK0QvVzZ5?=
+ =?utf-8?B?b3FvblEzMWR2L25EZEJERTFwcXVOaHBXUWo0eVA4eGlRTHgzSzFMYXc3OE84?=
+ =?utf-8?B?NWx2K1YyOUdidVFON2xZYzluanhhRmFobjNSOHlKSEhhc05pM0ZqakIzRy84?=
+ =?utf-8?B?NHZFM3FOUTZuZUZnakttU2JLV3l0dWpjN0txY284Yk9nRXdBUndndDF5Zzll?=
+ =?utf-8?B?dkJSRGQrSzdMbG9IMFFSdzdkdndCYXNmRUtKaFRWcXJkN3g5K1Q0SC8wWmd2?=
+ =?utf-8?B?WFo1MVorbmlmQWx5VkVSeEdvL24rckFMa0hoTVZKdHppMjBncTlhbXVTQjdk?=
+ =?utf-8?B?UlZhOEl0Wlg1dnVNTnNISW1KRFk4RzZ6c2R6NGxyKzFTekRxZ1c0SFl4a2l4?=
+ =?utf-8?B?bnRWT1VjQlErMWR0L0JKOGNGWklFNndocVBpT2NySmhpSXpWdGp4L1VjTHhw?=
+ =?utf-8?B?VjJSS2liYXFYRVZvVUF1dHlOa21uN1FVVlRwWnNMS3JtSHBEU21Bc1NMRzlL?=
+ =?utf-8?B?OHVXN2ZIM1lLcS94TFZDN2lFWkNGeFZvb3R4c1RTam1kNW9SanV3YWVVY1FX?=
+ =?utf-8?B?K3M3cG03Q2dxSHh4TDVhUHc0cmJlczFsV0lsN3d2dXYzb0hoQ0xid0lJeTQw?=
+ =?utf-8?B?ZUxnbzRPSUpZM3VHRVVxdlQzeWhycFd1dThkZkFFUDRQSHVySEpCWGFPUnVX?=
+ =?utf-8?B?MldtcnFpRkdnTG9HbmpseHNpTnFhcHU0TmJEUzl2Sm5wbm1xZktXZGd3bGtn?=
+ =?utf-8?B?aGprTnRpaCt2YjcxOS9nbS9tcGdFRFh2UXk3WHphVXRFa1JuQzdYRTB6REc3?=
+ =?utf-8?B?endQUmJ1WU5DMFhJT3NQRUVOYmtXUm1QcXIwUHZJVVJEbUdVazBmWmxQTEF6?=
+ =?utf-8?B?V3FkN0lyamRGK0Q1YzRBcU9Wazd2cDYwVXh0YXhDejFDSjl1V2krcGkyUXJt?=
+ =?utf-8?B?czdhWkN3L0gxMDRBbGN0MmlFRmlGY0FQbnRZaGhvUUpsWmdqR2FTL1NqTGpn?=
+ =?utf-8?B?Q2lVanF3RGZYVnBKSVV0SkhvS2d0QTB0WU1VRUdaZW1iZWVmZEFVcS9KemxC?=
+ =?utf-8?B?dkFyWU8wS3BLMTVWQWtvb3B6L1ZUV1hLQjNaWm4zZi9veWY3TDc2TEFEUy8z?=
+ =?utf-8?B?TXlBYnZwd0pxeHY4bXMwZUJ0UEVPdjRrNFVsMjdkYk5XQWc5RFJ1QUFTMVJn?=
+ =?utf-8?B?N3ZnY0duRzNSUGNWWlZMemQ2aGs1bHVXU0ZLcmhHT0VHNDBtdlkzdmZ1aUYw?=
+ =?utf-8?B?UnhqWDRLbHVuczhJOUVRc21ZZVdTbjljQzhZUStnd3JCNjI5VmJabUpHZE1E?=
+ =?utf-8?B?cFk3ZmpSQXVxeWFCNFJOaElvZEEySUc1a3JERnFoN3IvVEdYSVFDZUlXN0Z5?=
+ =?utf-8?B?OHpRaXFWMitBTE1FeWZrWlViRC96RWZnamp1Z0Q4ZEVjN3RwM3prM0pGQWo4?=
+ =?utf-8?B?NmozSXh4OFMvRjNCOWhFbEtRYUhHb3JJR2llU0tDcDFPMGJPZk5NWlQ5QWpI?=
+ =?utf-8?B?UGl6MkM4ZFlJMEpCa0NTWWFjOFJqM25CMVFaWStVVHB2NDJaN0NsN0twOEFz?=
+ =?utf-8?B?RkwwRjBwMzZrM3Q2aHNpaTEyS2JRbUtwV0ZOeWtUdGxuNVV5ZkFDVkxMZ2Zr?=
+ =?utf-8?B?U00rVmVuQVYzQzBtR0RicEtua3NXeDhwdVNvby9YQWdJNkhGSlNCaUI0WHlt?=
+ =?utf-8?B?TGorWWpIUk5QOU40QW9XMVY5SjFhL3F4dEFZL3FQdXQ1bEt0bWErSUV0M2pQ?=
+ =?utf-8?B?OXNNL0hBSVVBPT0=?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UTl4SGJsMU9jTUhnaC85cjZJdzNwQ1prMGgvQ1Y0ZHlGVEsxS3NwQVhYWmxl?=
+ =?utf-8?B?NmxNdlJvL1FwV0VrVHZtN3Ezc0UvTDFQZUYzbTh3OUNIU1hhQW55Rzh4eWZj?=
+ =?utf-8?B?UHUvRXJ3bEx3NXU1MktOd3NBQjZQSm9WVHB2RDZzVldzWmV4amhDbUQ3bFRL?=
+ =?utf-8?B?TEtoeHlZdEsrVHJCRytycHZuZkZiSXBhckZ0Si9JSlQyOXNyeFc1c293MnhP?=
+ =?utf-8?B?RUpQY3R6cUVzRVVFZUxvdFBoellWR1dKS05DWjR4TjdWQlJCMzBmQlZUbmJR?=
+ =?utf-8?B?aEFHeWJ0NWFvQmQ4RFhITm96VExyNWRBa3l0NEhDazZjWDVFSTVaaldSRk1x?=
+ =?utf-8?B?WHZoMXlzZlE2dTVpaFBkVURRekhtUHVOcDczYVIxNTZMdUpFOGZtb1JJZHVW?=
+ =?utf-8?B?WFlJMHY0UGpIdjhpQ29EdXB0NTNSQjR1dGsyRXVuUGhseWZIa2JyQUVMUTZ0?=
+ =?utf-8?B?NS9ObFNOeVBLMEhXU2F4VnIydUpSV2ZWMGNWYjNidlZ6SExWYVFzVUNzbDFI?=
+ =?utf-8?B?ZUw4cXFQT2tKRHJKUUZrODNoM2k5eDJoYks2SWRhSTVNM2R6c2J6b3lUZysr?=
+ =?utf-8?B?aGZtMTU5YjV6c0lOWlRWV2YvaFJlSk1IWEpQcDNjNE9DeGlFYkd4WTI0YUZZ?=
+ =?utf-8?B?djVOSjlkcEFHdWxpMW10TkVzM0JzenJaQjdhSENZNEJuSjNHbk1kQXk4NUt1?=
+ =?utf-8?B?ZGZtazA4ZHpZRXVIOENLUkFLcGxvTzlrb0hwLzZETnZVZ2RnaE9wWFZycFcx?=
+ =?utf-8?B?eFhJMmhsOXpYSUNBYS9EbmpMN2l6VGZPTDk1R2dUekR5VXBKek5NY1h5ZWdo?=
+ =?utf-8?B?Q290VHdCK1l1YThZTlNzWUI5eUpiem0zL3h6TUFqVTB5ZFFiWE9kYS90d2w4?=
+ =?utf-8?B?dGZjT1RtNThmdnArdGM1QWNZaGppY0VCNjNLVHlYQVFHYVRrV25IOUpVWlhj?=
+ =?utf-8?B?b21VNzFlMytPaVc4dFJSbWk0RTg2Vjg0ZVZKQ005MStWT1NuVEJyeVpQL2Nu?=
+ =?utf-8?B?aHRtR1J0TU1VNm5Ic3dsc0xEMDQ0a1FOV0sraVhuejE0QnlYNnRqSVNCTzYr?=
+ =?utf-8?B?UExINVM5VEVvLzNObU5CNWwvdG91QnQvNGRPMXVnUlhxdVluNi9MVVE2VjNO?=
+ =?utf-8?B?M29VV3hJZVNNQWRtMGZjek1uaWVPN1E2cXl3Wk1yZThhZkd6bFhEdHFzMGZ5?=
+ =?utf-8?B?UDFrYW9UR0ZycFdIaVI3dnp6YTduVjhxNEJUVCs1eGtMSmVjS1hIL2hsNmZM?=
+ =?utf-8?B?RE1GSVp6TFpOTFh6WUc1V0VkUXdOVEovVVMycjVtRmw3eWlyMDVldmdua1hR?=
+ =?utf-8?B?YnRpNDVRb0NTSXJyQUZjT01XakVUdk9mb21CZGt1WHRnamJJVWFja21jSTl0?=
+ =?utf-8?B?TUplcDVMcTdNOXQ3NUZWcGVWQmR3TlZxOGdQL1I3d28zZnUwaGZxY2pLK24x?=
+ =?utf-8?B?Zm0ySjN6NnEvMUhqQktVS0ZacGF3OG1iMmM0aXpXUG5Qd0RPRVplZ04xN2pZ?=
+ =?utf-8?B?YWFjYmVTVjYwZ3BOeXVuM05xR2pzcWg2YjZETUN0UVAzYU5jK040dkZkMjFD?=
+ =?utf-8?B?VmpkZi90SHExMW5mRVlhWDN1UlBKUFV5V2xDbHNMVXUyT3JEWGhFYnM5VFFs?=
+ =?utf-8?B?VWhST1ZjaGFlcGNsSU1Cajk1Vm5lVjlMdFVrNVZmekE3N2ovS3V3OUZ6cHZm?=
+ =?utf-8?B?czIxbSt3VTZXKzI2R01SY3g4dmh2VkswQXJ6UFhNQlBPUEVWTVpsY2phc2Yz?=
+ =?utf-8?B?VnNlK3ZFOG05aUhmU1Z6OU1MZ0ZJQ1ZmQzk4Y1BSbW9ESXUyaGRmNEY0OENh?=
+ =?utf-8?B?RzhDZHZzQ0RQcnhnNkdBY2dqQXVYVmFHVHBXdlY4bmlyZHI4QzhCdzV6aWpZ?=
+ =?utf-8?B?UDR2djZmZkxaOWZNeEJZT1NQSitUbVZBbXdTVDFmQjV2SWdObXRCRkZuZHRH?=
+ =?utf-8?B?WHNMOGZjMkVhUEpoeXAzOTJmdk5BZ05waDFsbVIvdGtPUFB1OTA5VFRSRkFK?=
+ =?utf-8?B?Z0RQTFFsOVdwSzZhTnhoRm9uaEZ0WHNnL2pJYy8za2EwcjF0N0Y2aGdQVDJ3?=
+ =?utf-8?B?dUZNczZSSWg1K1ltUW52OEZnYmtEa2JCQVlvY1FiTktRZXFmajZ3WFVaTjBU?=
+ =?utf-8?B?QlhFNG1tSXh0eU4vMVByV0hqaEhKUXcyMk55a0szNU5YS1NGOGptRTNyQmJR?=
+ =?utf-8?B?Q0E9PQ==?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a65105fd-c5d6-4fbc-ad4a-08de2eab10ae
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2025 18:22:18.8075
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: U0UKBenWdjdB0qp4EUA6CYSR8DLZ/cbKp56BQCL0PVAJx5H0Z9x+iSZqaBkWuRw3Q2O8zV0GG3Ja289hGx2tCKLDxsW1GO27vrsZtiW5OYA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5289
 
-While we do this for unknown user mode exits, crashing for supervisor mode
-exits is unhelpful.  Intel in particular expect the unknown case to be #UD
-because they do introduce new instructions with new VMEXIT_* codes without
-other enablement controls.  e.g. MSRLIST, USER_MSR, MSR_IMM, but AMD have
-RDPRU and SKINIT as examples too.
+On 28/11/2025 1:19 pm, Julian Vetter wrote:
+> On 11/27/25 16:20, Andrew Cooper wrote:
+>> On 27/11/2025 2:31 pm, Julian Vetter wrote:
+>>> Currently Intel CPUs in EFI mode with the "Execute Disable Bit" disabled
+>>> and the 'CONFIG_REQUIRE_NX=y' fail to boot, because this check is
+>>> performed before trampoline_setup is called, which determines if NX is
+>>> supported or if it's hidden by 'MSR_IA32_MISC_ENABLE[34] = 1' (if so,
+>>> re-enables NX).
+>>>
+>>> Signed-off-by: Julian Vetter <julian.vetter@vates.tech>
+>> Lovely...  This isn't the only bug; there's another one from the Vates
+>> forums about AMD CPUs which I haven't gotten around to fixing yet.
+>>
+> Thank you. I will have a look. I haven't seen this thread.
 
-A guest which gets its CPUID checks wrong can trigger the VMExit, and the
-VMexit handler would need to emulate the CPUID check and #UD anyway.  This
-would be a guest bug, and giving it an exception is the right course of
-action.
+https://xcp-ng.org/forum/post/80714
 
-Drop the "#UD or crash" semantics and make it exclusively #UD.  Rename the
-lables to match the changed semantics.  Fold the cases which were plain #UD's
-too.
+But the tl;dr is that AMD have introduced a firmware option to disable
+NX.  Unlike Intel, there's no positive way to know you've reactivated it.
 
-One case that was wrong beforehand was EPT_MISCONFIG.  Failing to resolve is
-always a Xen bug, and not even necesserily due to the instruction under %rip.
-Convert it to be an unconditional domain_crash() with applicable diagnostic
-information.
+A conversation with AMD has revealed that there's no capability to
+prevent setting EFER.NXE, and that NX is always available in practice. 
+I'm pretty sure the firmware is just clearing NX in the CPUID Override MSR.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/hvm/svm/svm.c | 29 +++++++++--------------------
- xen/arch/x86/hvm/vmx/vmx.c | 26 +++++++++++---------------
- 2 files changed, 20 insertions(+), 35 deletions(-)
+However, to reactivate this safely, we need to do a wrmsr_safe(), which
+means we need to delay setting NXE until exception handling is available
+which is rather later on boot.  There's also a tangle with the
+order-of-initialisation of the CPUID Override MSRs which I found
+recently while doing something else.
 
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 2d7c598ffe99..637b47084c25 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -66,15 +66,6 @@ static bool amd_erratum383_found __read_mostly;
- static uint64_t osvw_length, osvw_status;
- static DEFINE_SPINLOCK(osvw_lock);
- 
--/* Only crash the guest if the problem originates in kernel mode. */
--static void svm_crash_or_fault(struct vcpu *v)
--{
--    if ( vmcb_get_cpl(v->arch.hvm.svm.vmcb) )
--        hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
--    else
--        domain_crash(v->domain);
--}
--
- void __update_guest_eip(struct cpu_user_regs *regs, unsigned int inst_len)
- {
-     struct vcpu *curr = current;
-@@ -85,7 +76,7 @@ void __update_guest_eip(struct cpu_user_regs *regs, unsigned int inst_len)
-     if ( unlikely(inst_len > MAX_INST_LEN) )
-     {
-         gdprintk(XENLOG_ERR, "Bad instruction length %u\n", inst_len);
--        svm_crash_or_fault(curr);
-+        hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
-         return;
-     }
- 
-@@ -2872,7 +2863,7 @@ void asmlinkage svm_vmexit_handler(void)
-          * task switch.  Decode under %rip to find its length.
-          */
-         if ( insn_len < 0 && (insn_len = svm_get_task_switch_insn_len()) == 0 )
--            goto crash_or_fault;
-+            goto inject_ud;
- 
-         hvm_task_switch(vmcb->ei.task_switch.sel,
-                         vmcb->ei.task_switch.iret ? TSW_iret :
-@@ -2984,13 +2975,6 @@ void asmlinkage svm_vmexit_handler(void)
-         svm_vmexit_do_rdtsc(regs, exit_reason == VMEXIT_RDTSCP);
-         break;
- 
--    case VMEXIT_MONITOR:
--    case VMEXIT_MWAIT:
--    case VMEXIT_SKINIT:
--    case VMEXIT_RDPRU:
--        hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
--        break;
--
-     case VMEXIT_VMRUN:
-         svm_vmexit_do_vmrun(regs, v, regs->rax);
-         break;
-@@ -3083,8 +3067,13 @@ void asmlinkage svm_vmexit_handler(void)
-         gprintk(XENLOG_ERR, "Unexpected vmexit: reason %#"PRIx64", "
-                 "exitinfo1 %#"PRIx64", exitinfo2 %#"PRIx64"\n",
-                 exit_reason, vmcb->exitinfo1, vmcb->exitinfo2);
--    crash_or_fault:
--        svm_crash_or_fault(v);
-+        fallthrough;
-+    case VMEXIT_MONITOR:
-+    case VMEXIT_MWAIT:
-+    case VMEXIT_SKINIT:
-+    case VMEXIT_RDPRU:
-+    inject_ud:
-+        hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
-         break;
-     }
- 
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 6b407226c44c..1af5861ef921 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -4337,7 +4337,7 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
-         __vmread(EXIT_QUALIFICATION, &exit_qualification);
-         rc = hvm_monitor_vmexit(exit_reason, exit_qualification);
-         if ( rc < 0 )
--            goto exit_and_crash;
-+            goto unexpected_vmexit;
-         if ( rc )
-             return;
-     }
-@@ -4490,7 +4490,7 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
-                                        trap_type, insn_len, 0);
- 
-                 if ( rc < 0 )
--                    goto exit_and_crash;
-+                    goto unexpected_vmexit;
-                 if ( !rc )
-                     vmx_propagate_intr(intr_info);
-             }
-@@ -4511,7 +4511,7 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
-                                        insn_len, 0);
- 
-                 if ( rc < 0 )
--                    goto exit_and_crash;
-+                    goto unexpected_vmexit;
-                 if ( !rc )
-                     vmx_propagate_intr(intr_info);
-             }
-@@ -4557,7 +4557,7 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
-         case X86_EXC_NMI:
-             if ( MASK_EXTR(intr_info, INTR_INFO_INTR_TYPE_MASK) !=
-                  X86_ET_NMI )
--                goto exit_and_crash;
-+                goto unexpected_vmexit;
-             TRACE(TRC_HVM_NMI);
-             /* Already handled above. */
-             break;
-@@ -4571,7 +4571,7 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
-             break;
-         default:
-             TRACE(TRC_HVM_TRAP, vector);
--            goto exit_and_crash;
-+            goto unexpected_vmexit;
-         }
-         break;
-     }
-@@ -4627,7 +4627,7 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
-          * rc > 0 paused waiting for response, work here is done
-          */
-         if ( rc < 0 )
--            goto exit_and_crash;
-+            goto unexpected_vmexit;
-         if ( !rc )
-             update_guest_eip(); /* Safe: CPUID */
-         break;
-@@ -4773,7 +4773,7 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
- 
-         rc = hvm_monitor_io(io_qual.port, bytes, io_qual.in, io_qual.str);
-         if ( rc < 0 )
--            goto exit_and_crash;
-+            goto unexpected_vmexit;
-         if ( rc )
-             break;
- 
-@@ -4820,7 +4820,8 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
- 
-         __vmread(GUEST_PHYSICAL_ADDRESS, &gpa);
-         if ( !ept_handle_misconfig(gpa) )
--            goto exit_and_crash;
-+            domain_crash(v->domain,
-+                         "Unhandled EPT_MISCONFIG, gpa %#"PRIpaddr"\n", gpa);
-         break;
-     }
- 
-@@ -4902,14 +4903,9 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
-     case EXIT_REASON_INVPCID:
-     /* fall through */
-     default:
--    exit_and_crash:
-+    unexpected_vmexit:
-         gprintk(XENLOG_ERR, "Unexpected vmexit: reason %lu\n", exit_reason);
--
--        if ( vmx_get_cpl() )
--            hvm_inject_hw_exception(X86_EXC_UD,
--                                    X86_EVENT_NO_EC);
--        else
--            domain_crash(v->domain);
-+        hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
-         break;
-     }
- 
+The other observation is that, even on a STRICT_NX build of Xen, we can
+boot into __start_xen() because we can't insert NX into the pagetables
+that early.  In fact it's quite late that we lock down permissions; see
+the calls to modify_xen_mappings() in __start_xen().
 
-base-commit: 117a46287427db2a6f5fe219eb2031d7ca39b603
--- 
-2.39.5
+Given that we need to be this late for AMD, we can also move the Intel
+logic later (effectively reverts part of the original work; sorry
+Alejandro) which means we can also use safe accessors, and we don't need
+to worry about the divergent early paths.
 
+>
+>> Do you have any more information about which system looks like this?
+>>
+> I'm not sure if I understand your question correctly, but I was just 
+> booting an Intel based machine newer than ~2012. I have tested this on 4 
+> different machines, on which 3 hit this code path. One was a HPE 
+> ProLiant m510 Server with a XEON CPU
+
+Broadwell.
+
+> , second was a Mini PC with Celeron CPU,
+
+Sorry, not enough information here to figure out the microarchitecture.
+
+> and third was an old Intel NUC DCCP847DYE also with a Celeron CPU. 
+
+Sandy Bridge.
+
+> The only system where I couldn't reproduce the issue was an old 
+> workstation with a Gigabyte mainboard. It has the flag in the Bios to 
+> set MSR_IA32_MISC_ENABLE, but I'm not sure if it was actually booting 
+> via UEFI.
+
+Same, not enough information here.
+
+But, it's clear that Intel's XD-disable is still honoured in EFI mode on
+a wide range of systems, and that we need a fix for UEFI.
+
+>  I will verify this on monday. I booted all the 3 other systems 
+> via UEFI -> Grub -> multiboot2. My grub entry looks like this:
+>
+> multiboot2 /boot/xen.gz dom0_mem=2656M,max:2656M watchdog ucode=scan 
+> dom0_max_vcpus=1-8 crashkernel=256M,below=4G console=vga vga=mode-0x0311
+> module2 boot/vmlinuz console=hvc0 console=tty0 init=/bin/sh
+> module2 boot/initrd-dom0
+>
+>> trampoline_setup isn't executed on all EFI boots.  I had a different fix
+>> in mind, but it's a little more complicated.
+> Aha. yes, I didn't thought about other code paths.
+
+https://xenbits.xen.org/docs/latest/hypervisor-guide/x86/how-xen-boots.html
+
+Here's something I put together to cover some of these details.  But,
+most of the detail is in the source only.
+
+~Andrew
 
