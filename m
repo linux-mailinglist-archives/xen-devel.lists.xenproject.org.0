@@ -2,67 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1F85C92314
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 14:57:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1174885.1499824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2DB5C924F8
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 15:24:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1174895.1499835 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOyxt-0008Jr-PG; Fri, 28 Nov 2025 13:56:49 +0000
+	id 1vOzNw-0004ui-Pw; Fri, 28 Nov 2025 14:23:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1174885.1499824; Fri, 28 Nov 2025 13:56:49 +0000
+Received: by outflank-mailman (output) from mailman id 1174895.1499835; Fri, 28 Nov 2025 14:23:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOyxt-0008HX-Mc; Fri, 28 Nov 2025 13:56:49 +0000
-Received: by outflank-mailman (input) for mailman id 1174885;
- Fri, 28 Nov 2025 13:56:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vOzNw-0004rx-NC; Fri, 28 Nov 2025 14:23:44 +0000
+Received: by outflank-mailman (input) for mailman id 1174895;
+ Fri, 28 Nov 2025 14:23:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qL3d=6E=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
- id 1vOyxs-0008HR-O0
- for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 13:56:48 +0000
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 13b31df8-cc62-11f0-9d18-b5c5bf9af7f9;
- Fri, 28 Nov 2025 14:56:47 +0100 (CET)
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5ARNulWW017020;
- Fri, 28 Nov 2025 13:56:04 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ak4uvpnu3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Nov 2025 13:56:04 +0000 (GMT)
-Received: from m0353729.ppops.net (m0353729.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5ASDu3As032077;
- Fri, 28 Nov 2025 13:56:03 GMT
-Received: from ppma22.wdc07v.mail.ibm.com
- (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ak4uvpntw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Nov 2025 13:56:03 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma22.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5ASBu8XO000831;
- Fri, 28 Nov 2025 13:56:01 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
- by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4akqvydb5g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Nov 2025 13:56:01 +0000
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
- [10.20.54.103])
- by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 5ASDtvda33423852
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 28 Nov 2025 13:55:57 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2F99720043;
- Fri, 28 Nov 2025 13:55:57 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E38D220040;
- Fri, 28 Nov 2025 13:55:55 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.155.204.135])
- by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Fri, 28 Nov 2025 13:55:55 +0000 (GMT)
+ <SRS0=hHoX=6E=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vOzNv-0004ro-5V
+ for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 14:23:43 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d41c7504-cc65-11f0-980a-7dc792cee155;
+ Fri, 28 Nov 2025 15:23:37 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-6419b7b4b80so2945083a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Nov 2025 06:23:37 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-64750ac0276sm4217392a12.15.2025.11.28.06.23.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 28 Nov 2025 06:23:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,152 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13b31df8-cc62-11f0-9d18-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=wuc3Pms4+K3aWFusIGvCSQgbvYf1no
-	IU83gft25Y0Jk=; b=nfuSb531tk/ek8JrdBpnHmvTEUDTGbCOp0mphA7ZrbDjev
-	BoWgzhxao1BJFJ59KJWq6mU5zymb5DM0QmNtdKaLoycmcEjymQLzMJV/TgfJJzco
-	x72Yvin16SARaWpet5dCakug5hQt6Tv3ziLwE724GmNpAat1fUldsTgBmAGjUWvw
-	qa8kw+7V9U9fBKvVz1m5BZgU8xpkzn4262BQtEgONlaRwL64IR0LfDkCSyvx8nkI
-	sDg9UvJ4tHfUID1Q+oblXNoCYf6305+ge0nzqdrEOkRZ4n4+jKR7y6mgw/6K6xW8
-	6lOcMGox4kBO0S6c5bfbGrgZ8yMnmXl9ytTmhifw==
-Date: Fri, 28 Nov 2025 14:55:54 +0100
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        Andreas Larsson <andreas@gaisler.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        David Hildenbrand <david@redhat.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        David Woodhouse <dwmw2@infradead.org>,
-        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
-        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
-        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
-        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Ryan Roberts <ryan.roberts@arm.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Thomas Gleixner <tglx@linutronix.de>,
-        Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-        Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>,
-        Yeoreum Yun <yeoreum.yun@arm.com>,
-        linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
-        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
-        x86@kernel.org
-Subject: Re: [PATCH v5 08/12] mm: enable lazy_mmu sections to nest
-Message-ID: <23dcf752-0b75-45a7-84f8-25bddf97af08-agordeev@linux.ibm.com>
-References: <20251124132228.622678-1-kevin.brodsky@arm.com>
- <20251124132228.622678-9-kevin.brodsky@arm.com>
+X-Inumbo-ID: d41c7504-cc65-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1764339817; x=1764944617; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=mPGnm30p0nozbPNeN4QDMgquWE3hA2aJ+BeYLlm8EDQ=;
+        b=edneWRfMYXku0hh6icb3BZeurzNfYzCvou0YqdeECVtKqvZWEXRIuxGkekSyxhK/zP
+         mIGcGTNq4JXXTGc39Kpqa4MBs1s06ws2YqJNWvoF/FE8nSasWDw+M0Ngb8bkyolhI77p
+         kKO73Je3DZpiicm0m/IrQQGhr0iM4sxmI4D/iVcbSU7aR18MuopE4sPRxN89/E/sldjB
+         t0yWNkWgVJd6mUrKxBFV+XkjzoZkTylxqw5kVqLvuInWXVaSTD8uK0wO73g/CAz8KAQw
+         iO8U7V1+CZBtpM+315K1hvpSJdL1XFQsWu6mGY388yjrxzPTXWl174tof/1JWiHHw2uO
+         gEuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764339817; x=1764944617;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mPGnm30p0nozbPNeN4QDMgquWE3hA2aJ+BeYLlm8EDQ=;
+        b=e7nWAZMZPyYPKmIjn5+w9/9lPyqRnwpJjkcE5IOh8z4F1KljTh7Opu4+8+mEP75H96
+         6vVP2rtHXJLJi+dUo/QCYAOlnm8M2UI6S1UINT/1fPF+Wjq7LFTJKdB/GE5CqhuVlRz8
+         diHE1+vj2tPQlHihBug3e08U9z8PIUtFvWJAJUUbaUaug9Do/HoIdFDjooFpHlNR2iFY
+         fPzJJfMp0cmtN6iphgaLttfY0LNTM4ZzgWdbiowvU4LQ2TO4B5/L7jfR/NoecLgTRuh0
+         k5bMjz8kPZIY0K2OMECnTw5A09guzZ9x7Govp2e9JNlUJY2XjEXp2+mTm3R4Eh7ejSXR
+         E14A==
+X-Forwarded-Encrypted: i=1; AJvYcCUMF3+NRQO9lv9kWNSnhj6giKUHsc4mkqnWnM3hYsKdnkXW6OG+pzSAYKYOK5RZebKqFx1E/+2/wro=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwnCjhyhkdDNy0RPpPQAjwINf78/8JG5sJ5uHknT6LMhDO1GPhh
+	3CVHA0Nfca3dbEcIU0rV+GONPusKlRRbdYbIYNcM6oGkKyNF6n3jN31w
+X-Gm-Gg: ASbGnctxO6vr9oQEz3vimwRoVC3Qua3f3uDOYmms11xP4aMtzgSf1xG2VqTupsN3w98
+	BoqzY64qv3DJnco/KtUnbnjP3n+fIMmQDCuiKqdeMMGWAlcA/AGnY8JBRjH57UISwVR//q1xkQg
+	3xtJungZw1fQi3bsw9etZWAwpbFSNC2z8NONnWBz46Cfg63MR8zdSKSu5yxste43IalnLKd+E1Z
+	KJ2xHY9VLZXMKMJp+X+TO0CFVerGc59uCKB2UMc02Vn5OyoQZ7juuy/1ou3llX4uU1IM6uvdJcD
+	UQbZzTKPd1P0ZM70G7Qj+TsLSavq285O5FKV0/Fef0IN3QxAg3be5JPKPIV2CJKkzwBwrMsW1rS
+	XV+/2E+HxOzXbZY7PAQRmMxRGQbrusDAoPT0pv0iacLflIjVEIxLldpsHft79AUw71U7LvLC4l3
+	UkZ/m933LCYcHHGQZIPOoGxzqPlUYcYjrq211SbUJ6irTTZTNAy3H3UR+JuMHetifI
+X-Google-Smtp-Source: AGHT+IFV26JmrFFnwqbmwhiAli2NYC4giY+geZ03VLH7do2KUL2795ZeuPLfns0CmnnYHVDN+YAp2g==
+X-Received: by 2002:a05:6402:350f:b0:647:53a0:18e4 with SMTP id 4fb4d7f45d1cf-64753a01d5emr4764575a12.27.1764339816301;
+        Fri, 28 Nov 2025 06:23:36 -0800 (PST)
+Message-ID: <32c8f061-1307-43e0-ac80-c2412655ea18@gmail.com>
+Date: Fri, 28 Nov 2025 15:23:35 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251124132228.622678-9-kevin.brodsky@arm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTIyMDAyMSBTYWx0ZWRfX384OntFmUues
- dIOJyCctOD7nT813bCm/GhJf1ZL6CQOs24jDcqmIzdmwQ5T0RXoegg27XMRfiI/9rumngr6NMHx
- tl4nQN+mvmC+VcOHvBu4um686d8ss4oR9DYJ5Ixwx22asl3RT+5FAdIGmztRh+XF2zs4cr6A6QQ
- 2iJfQR9W19UY77K6hY2ve4BgoptnP483ec00f8cJVrDJ8H4kjr1jbZu+2pYFaT3+wJs+yp2bpxN
- Z2mA9gIRx8y/C6JYy4/N+CX6k84tbzt6buSUWK1JGk7/Kg3P14z/anrGpqdlT7BTI/og3OVkJqE
- hlGzPPlMS7WwIcss+Fa5oKUZR6EVsKg4LDkTSZbq+j+4sF4jCL4HPpqSwmzRhTJdfHsyh20fqJg
- JHubqHqdjGvQbJ9GegZsZoMEJOKyzg==
-X-Authority-Analysis: v=2.4 cv=PLoCOPqC c=1 sm=1 tr=0 ts=6929a9f4 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=6UeiqGixMTsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=h1tPiQvNrzWZOeg10D8A:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: 9jG27-IvFUYEwqeWcDa4RUx8C7I3n3xe
-X-Proofpoint-GUID: 3YWVV-kCMzKLLzypHTUX-OcmdogqNxWJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-28_03,2025-11-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 impostorscore=0
- priorityscore=1501 bulkscore=0 malwarescore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2511220021
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] xen: move vcpu_kick() declaration to common header
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Timothy Pearson <tpearson@raptorengineering.com>, Paul Durrant
+ <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <f291e02042a24de86cab5f62cb2301ad8c72fecf.1764328801.git.oleksii.kurochko@gmail.com>
+ <18a52859-1b73-44b9-a54d-2f37c7ec9933@suse.com>
+ <883304e4-0a1a-464d-b9e0-93d9d8a4ae82@citrix.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <883304e4-0a1a-464d-b9e0-93d9d8a4ae82@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 24, 2025 at 01:22:24PM +0000, Kevin Brodsky wrote:
-...
-> + * Nesting is permitted: <code> may itself use an enable()/disable() pair.
-> + * A nested call to enable() has no functional effect; however disable() causes
-> + * any batched architectural state to be flushed regardless of nesting. After a
-> + * call to disable(), the caller can therefore rely on all previous page table
-> + * modifications to have taken effect, but the lazy MMU mode may still be
-> + * enabled.
-> + *
-> + * In certain cases, it may be desirable to temporarily pause the lazy MMU mode.
-> + * This can be done using:
-> + *
-> + *   lazy_mmu_mode_pause();
-> + *   <code>
-> + *   lazy_mmu_mode_resume();
-> + *
-> + * pause() ensures that the mode is exited regardless of the nesting level;
-> + * resume() re-enters the mode at the same nesting level. Any call to the
-> + * lazy_mmu_mode_* API between those two calls has no effect. In particular,
-> + * this means that pause()/resume() pairs may nest.
-> + *
-> + * in_lazy_mmu_mode() can be used to check whether the lazy MMU mode is
-> + * currently enabled.
 
-The in_lazy_mmu_mode() name looks ambiguous to me. When the lazy MMU mode
-is paused are we still in lazy MMU mode? The __task_lazy_mmu_mode_active()
-implementation suggests we are not, while one could still assume we are,
-just paused.
+On 11/28/25 2:21 PM, Andrew Cooper wrote:
+> On 28/11/2025 11:58 am, Jan Beulich wrote:
+>> On 28.11.2025 12:38, Oleksii Kurochko wrote:
+>>> The vcpu_kick() declaration is duplicated across multiple
+>>> architecture-specific event.h headers (ARM, x86, PPC).
+>>>
+>>> Remove the redundant declarations and move vcpu_kick() into
+>>> the common xen/include/xen/event.h header.
+>>>
+>>> Drop the definition of vcpu_kick() from ppc/include/asm/event.h,
+>>> as it is already provided in ppc/stubs.c.
+>>>
+>>> Include <xen/event.h> instead of <asm/event.h> in places where
+>>> vcpu_kick() is used, since its declaration now resides in
+>>> <xen/event.h>.
+>> Centralizing is of course good. Question is whether xen/event.h is a good
+>> home for the decl. Generally related decls live in xen/sched.h. There was,
+>> however, a vague plan to try to split that up some. Others, REST
+>> maintainers in particular: Thoughts?
+> +1 to centralising.  I'd suggest xen/sched.h too.
 
-Should in_lazy_mmu_mode() be named e.g. as in_active_lazy_mmu_mode() such
-a confusion would not occur in the first place.
+I will move to xen/sched.h. It will be even better as the patch will be cleaner
+as <xen/sched.h> is mostly already included in the changed files in this patch.
 
->   */
-...
-> +#ifdef CONFIG_ARCH_HAS_LAZY_MMU_MODE
-> +/**
-> + * __task_lazy_mmu_mode_active() - Test the lazy MMU mode state for a task.
-> + * @tsk: The task to check.
-> + *
-> + * Test whether @tsk has its lazy MMU mode state set to active (i.e. enabled
-> + * and not paused).
-> + *
-> + * This function only considers the state saved in task_struct; to test whether
-> + * current actually is in lazy MMU mode, in_lazy_mmu_mode() should be used
-> + * instead.
-> + *
-> + * This function is intended for architectures that implement the lazy MMU
-> + * mode; it must not be called from generic code.
-> + */
-> +static inline bool __task_lazy_mmu_mode_active(struct task_struct *tsk)
-> +{
-> +	struct lazy_mmu_state *state = &tsk->lazy_mmu_state;
-> +
-> +	return state->enable_count > 0 && state->pause_count == 0;
-> +}
-> +
-> +/**
-> + * in_lazy_mmu_mode() - Test whether we are currently in lazy MMU mode.
-> + *
-> + * Test whether the current context is in lazy MMU mode. This is true if both:
-> + * 1. We are not in interrupt context
-> + * 2. Lazy MMU mode is active for the current task
-> + *
-> + * This function is intended for architectures that implement the lazy MMU
-> + * mode; it must not be called from generic code.
-> + */
-> +static inline bool in_lazy_mmu_mode(void)
-> +{
-> +	if (in_interrupt())
-> +		return false;
-> +
-> +	return __task_lazy_mmu_mode_active(current);
-> +}
-> +#endif
-...
+Thanks.
+
+~ Oleksii
+
 
